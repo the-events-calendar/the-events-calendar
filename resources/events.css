@@ -1,0 +1,261 @@
+/* @override 
+	http://wp.local/content/plugins/the-events-calendar/resources/events.css?ver=2.9.2
+*/
+
+.category-events #tec-content {
+	background:#fff;
+	width:670px;
+	padding:1px 35px;
+	margin-left:10px;
+}
+#tec-events-calendar-header {
+	position:relative;
+	margin-bottom:18px;
+}
+.tec-calendar-buttons {
+	position:absolute;
+	right:0;
+	top:6px;
+}
+h2.tec-cal-title {
+	float:left;
+	padding-right:15px;
+	margin-bottom: 33px;
+}
+.tec-calendar-buttons a {
+	background:#999;
+	border-radius:3px;
+	color:#fff;
+	display:block;
+	float:left;
+	font-size:11px;
+	font-weight:bold;
+	height:27px;
+	line-height:27px;
+	margin:21px 0 24px 10px;
+	padding: 0 4px;
+	text-align:center;
+	text-shadow:1px 1px 0 rgba(0,0,0,.5);
+	text-transform:uppercase;
+	width:auto;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+}
+.tec-month-nav {
+	position: absolute;
+	left: 20px;
+}
+.tec-prev-month {
+	margin-right: 5px;
+}
+.tec-next-month {
+	margin-left: 5px;
+}
+.upcoming a.tec-button-on, .grid a.tec-button-on {background:#0F81BB;}
+.upcoming a.tec-button-off, .grid a.tec-button-off {background:#999999;}
+#tec-nav-above {margin:5px 0 0;}
+.category-events #tec-nav-below {margin:21px 0;}
+select.tec-events-dropdown {
+	width:auto;
+	font-size:11px;
+	margin:33px 9px 0 0;
+}
+.category-events .post {
+	padding:0 0 12px 10px;
+	overflow:hidden;
+	margin-bottom:0;
+}
+.category-events .upcoming .entry-title {
+	font-size:15px;
+	margin:15px 0 6px;
+}
+.category-events .entry-title a, .tec-event-meta-desc, .tec-event-day {color:#555;}
+.category-events .post .alt {
+	background:#f9f9f9;
+	border-width:0;
+}
+table.tec-calendar {
+	margin:18px 0 12px;
+	clear:both;
+	font-size:12px;
+	border-collapse:collapse;
+	border:1px solid #aaa;
+}
+.tec-calendar .daynum {
+	background-color: #eee;
+	color:#333;
+	font-size:10px;
+	padding:3px 9px;
+}
+.tec-calendar td.tec-present .daynum {
+	background-color: #2d81bb;
+	color: #fff;
+}
+.tec-calendar td.tec-past .daynum {color: #aaa;}
+.tec-calendar th {
+	width: 250px;
+	height: 10px;
+	background: #999 url(images/grid-th-bg.png) repeat-x;
+	color: #fff;
+	padding:4px 0;
+	text-shadow:1px 1px 0 rgba(0,0,0,.5);
+	text-align:center;
+}
+.tec-calendar td {
+	height: 100px;
+	width:14.28%;
+	color: #114B7D;
+	vertical-align: top;
+	border:1px solid #aaa;
+	padding:0;
+}
+
+.tec-calendar td .tec-event {
+	padding:6px 9px;
+	line-height:1.2;
+}
+.tec-calendar td a {font-size:91.7%;}
+.tec-calendar hr {
+	border:0 none !important;
+	display:block;
+	height:1px;
+	background-color:#D4DBCC;
+	margin:0 9px;
+}
+.tec-calendar .tec-event {position:relative;}
+.tec-calendar .tec-tooltip {
+	border:1px solid #666;
+	position:absolute;
+	z-index:1001;
+	bottom:30px;
+	left:3px;
+	width:320px;
+	background-color:#f9f9f9;
+	color:#333;
+	line-height:1.4;
+}
+.tec-tooltip .tec-arrow {
+	width:19px;
+	height:11px;
+	display:block;
+	background:url(images/tooltip-arrow.png) no-repeat 0 bottom;
+	position:absolute;
+	bottom:-11px;
+	left:20px;
+}
+.tec-calendar .tec-right .tec-tooltip {
+	left:auto;
+	right:3px;
+}
+.tec-right .tec-tooltip .tec-arrow {
+	left:auto;
+	right:30px;
+}
+.tec-tooltip .tec-event-title {
+	margin:0;
+	color:#fff;
+	background:#418ccf url(images/tooltip-title.png) repeat-x;
+	font-size:12px;
+	padding:0 6px;
+	height:24px;
+	line-height:24px;
+}
+.tec-tooltip .tec-event-body {
+	font-size:11px;
+	padding:3px 6px 6px;
+}
+.tec-tooltip .tec-event-date {
+	font-style:italic;
+	margin:3px 0;
+}
+#tec-content {font-size: 1.2em;}
+.tec-event .post {position:relative;}
+#tec-event-meta {
+	border-width:1px 0;
+	border-style:solid;
+	border-color:#aaa;
+	margin: 18px 0 12px;
+	padding: 12px 0 2px;
+	overflow:hidden;
+	clear:both;
+	font-size: 12px;
+}
+#tec-event-meta .column {
+	float:left;
+	width:45%;
+	padding:0 4% 0 0;
+	text-align:left;
+	margin:0;
+}
+#tec-event-meta dt {
+	float:left;
+	clear:left;
+	font-weight:bold;
+	width:70px;
+}
+#tec-event-meta dd {
+	padding:0;
+	margin-left:70px;
+	margin-bottom: 10px;
+}
+#tec-event-meta .gmap, .tec-event-meta-desc .gmap {
+	color:#fff;
+	font-size:9px;
+	background:#3D6294;
+	padding:1px 3px;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+}
+span.back {margin:12px 0 0;}
+#tec-events-loop {
+	font-size:13px;
+	clear:both;
+}
+.tec-events .tec-event-entry {
+	width:60%;
+	float:left;
+	padding:0 5% 0 0;
+}
+.tec-events .tec-event-list-meta {
+	float:right;
+	border-left:1px solid #ccc;
+	padding:0 0 0 4%;
+	width:30%;
+	font-size:12px;
+	margin-bottom:20px;
+}
+.tec-event-list-meta table {border-collapse:collapse;}
+.tec-event-list-meta td {
+	vertical-align:top;
+	padding-bottom:4px;
+	text-align:left;
+}
+.tec-event-meta-desc {
+	font-weight:bold;
+	padding-right:12px;
+	width:64px;
+}
+h4.tec-event-day {
+	font-weight:bold;
+	font-size:18px;
+	margin:12px 0 -3px;
+	clear:both;
+}
+h4.tec-event-day + .post .entry-title {margin-top:6px;}
+#eventbrite-embed {
+	width:100%;
+	min-height:225px;
+	margin:24px 0;
+}
+.clearfix:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+.clearfix {zoom:1; /* For IE */}
+.tec-events-error {display:none;}
+.tec_hide {display:none;}
+.tec-multi-event-day {color: #0F81BB;}

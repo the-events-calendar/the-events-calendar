@@ -1,0 +1,1618 @@
+# Translation of the WordPress plugin The Events Calendar 1.5.4 by Shane & Peter, Inc..
+# Copyright (C) 2010 Shane & Peter, Inc.
+# This file is distributed under the same license as the The Events Calendar package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: The Events Calendar 1.5.4\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/the-events-calendar\n"
+"POT-Creation-Date: 2010-02-16 02:03+0000\n"
+"PO-Revision-Date: 2010-02-21 15:53-0800\n"
+"Last-Translator: Aaron Rhodes <aaron@aaronrhodes.org>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: the-events-calendar.php:54
+msgid "United States"
+msgstr "trans_unitedstates"
+
+#: the-events-calendar.php:55
+msgid "Afghanistan"
+msgstr "trans_afghanistan"
+
+#: the-events-calendar.php:56
+msgid "Albania"
+msgstr "Albania"
+
+#: the-events-calendar.php:57
+msgid "Algeria"
+msgstr "Algeria"
+
+#: the-events-calendar.php:58
+msgid "American Samoa"
+msgstr "American Samoa"
+
+#: the-events-calendar.php:59
+msgid "Andorra"
+msgstr "Andorra"
+
+#: the-events-calendar.php:60
+msgid "Angola"
+msgstr "Angola"
+
+#: the-events-calendar.php:61
+msgid "Anguilla"
+msgstr "Anguilla"
+
+#: the-events-calendar.php:62
+msgid "Antarctica"
+msgstr "Antarctica"
+
+#: the-events-calendar.php:63
+msgid "Antigua And Barbuda"
+msgstr "Antigua And Barbuda"
+
+#: the-events-calendar.php:64
+msgid "Argentina"
+msgstr "Argentina"
+
+#: the-events-calendar.php:65
+msgid "Armenia"
+msgstr "Armenia"
+
+#: the-events-calendar.php:66
+msgid "Aruba"
+msgstr "Aruba"
+
+#: the-events-calendar.php:67
+msgid "Australia"
+msgstr "Australia"
+
+#: the-events-calendar.php:68
+msgid "Austria"
+msgstr "Austria"
+
+#: the-events-calendar.php:69
+msgid "Azerbaijan"
+msgstr "Azerbaijan"
+
+#: the-events-calendar.php:70
+msgid "Bahamas"
+msgstr "Bahamas"
+
+#: the-events-calendar.php:71
+msgid "Bahrain"
+msgstr "Bahrain"
+
+#: the-events-calendar.php:72
+msgid "Bangladesh"
+msgstr "Bangladesh"
+
+#: the-events-calendar.php:73
+msgid "Barbados"
+msgstr "Barbados"
+
+#: the-events-calendar.php:74
+msgid "Belarus"
+msgstr "Belarus"
+
+#: the-events-calendar.php:75
+msgid "Belgium"
+msgstr "Belgium"
+
+#: the-events-calendar.php:76
+msgid "Belize"
+msgstr "Belize"
+
+#: the-events-calendar.php:77
+msgid "Benin"
+msgstr "Benin"
+
+#: the-events-calendar.php:78
+msgid "Bermuda"
+msgstr "Bermuda"
+
+#: the-events-calendar.php:79
+msgid "Bhutan"
+msgstr "Bhutan"
+
+#: the-events-calendar.php:80
+msgid "Bolivia"
+msgstr "Bolivia"
+
+#: the-events-calendar.php:81
+msgid "Bosnia And Herzegowina"
+msgstr "Bosnia And Herzegowina"
+
+#: the-events-calendar.php:82
+msgid "Botswana"
+msgstr "Botswana"
+
+#: the-events-calendar.php:83
+msgid "Bouvet Island"
+msgstr "Bouvet Island"
+
+#: the-events-calendar.php:84
+msgid "Brazil"
+msgstr "Brazil"
+
+#: the-events-calendar.php:85
+msgid "British Indian Ocean Territory"
+msgstr "British Indian Ocean Territory"
+
+#: the-events-calendar.php:86
+msgid "Brunei Darussalam"
+msgstr "Brunei Darussalam"
+
+#: the-events-calendar.php:87
+msgid "Bulgaria"
+msgstr "Bulgaria"
+
+#: the-events-calendar.php:88
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+#: the-events-calendar.php:89
+msgid "Burundi"
+msgstr "Burundi"
+
+#: the-events-calendar.php:90
+msgid "Cambodia"
+msgstr "Cambodia"
+
+#: the-events-calendar.php:91
+msgid "Cameroon"
+msgstr "Cameroon"
+
+#: the-events-calendar.php:92
+msgid "Canada"
+msgstr "Canada"
+
+#: the-events-calendar.php:93
+msgid "Cape Verde"
+msgstr "Cape Verde"
+
+#: the-events-calendar.php:94
+msgid "Cayman Islands"
+msgstr "Cayman Islands"
+
+#: the-events-calendar.php:95
+msgid "Central African Republic"
+msgstr "Central African Republic"
+
+#: the-events-calendar.php:96
+msgid "Chad"
+msgstr "Chad"
+
+#: the-events-calendar.php:97
+msgid "Chile"
+msgstr "Chile"
+
+#: the-events-calendar.php:98
+msgid "China"
+msgstr "China"
+
+#: the-events-calendar.php:99
+msgid "Christmas Island"
+msgstr "Christmas Island"
+
+#: the-events-calendar.php:100
+msgid "Cocos (Keeling) Islands"
+msgstr "Cocos (Keeling) Islands"
+
+#: the-events-calendar.php:101
+msgid "Colombia"
+msgstr "Colombia"
+
+#: the-events-calendar.php:102
+msgid "Comoros"
+msgstr "Comoros"
+
+#: the-events-calendar.php:103
+msgid "Congo"
+msgstr "Congo"
+
+#: the-events-calendar.php:104
+msgid "Congo, The Democratic Republic Of The"
+msgstr "Congo, The Democratic Republic Of The"
+
+#: the-events-calendar.php:105
+msgid "Cook Islands"
+msgstr "Cook Islands"
+
+#: the-events-calendar.php:106
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+#: the-events-calendar.php:107
+msgid "Cote D'Ivoire"
+msgstr "Cote D'Ivoire"
+
+#: the-events-calendar.php:108
+msgid "Croatia (Local Name: Hrvatska)"
+msgstr "Croatia (Local Name: Hrvatska)"
+
+#: the-events-calendar.php:109
+msgid "Cuba"
+msgstr "Cuba"
+
+#: the-events-calendar.php:110
+msgid "Cyprus"
+msgstr "Cyprus"
+
+#: the-events-calendar.php:111
+msgid "Czech Republic"
+msgstr "Czech Republic"
+
+#: the-events-calendar.php:112
+msgid "Denmark"
+msgstr "Denmark"
+
+#: the-events-calendar.php:113
+msgid "Djibouti"
+msgstr "Djibouti"
+
+#: the-events-calendar.php:114
+msgid "Dominica"
+msgstr "Dominica"
+
+#: the-events-calendar.php:115
+msgid "Dominican Republic"
+msgstr "Dominican Republic"
+
+#: the-events-calendar.php:116
+msgid "East Timor"
+msgstr "East Timor"
+
+#: the-events-calendar.php:117
+msgid "Ecuador"
+msgstr "Ecuador"
+
+#: the-events-calendar.php:118
+msgid "Egypt"
+msgstr "Egypt"
+
+#: the-events-calendar.php:119
+msgid "El Salvador"
+msgstr "El Salvador"
+
+#: the-events-calendar.php:120
+msgid "Equatorial Guinea"
+msgstr "Equatorial Guinea"
+
+#: the-events-calendar.php:121
+msgid "Eritrea"
+msgstr "Eritrea"
+
+#: the-events-calendar.php:122
+msgid "Estonia"
+msgstr "Estonia"
+
+#: the-events-calendar.php:123
+msgid "Ethiopia"
+msgstr "Ethiopia"
+
+#: the-events-calendar.php:124
+msgid "Falkland Islands (Malvinas)"
+msgstr "Falkland Islands (Malvinas)"
+
+#: the-events-calendar.php:125
+msgid "Faroe Islands"
+msgstr "Faroe Islands"
+
+#: the-events-calendar.php:126
+msgid "Fiji"
+msgstr "Fiji"
+
+#: the-events-calendar.php:127
+msgid "Finland"
+msgstr "Finland"
+
+#: the-events-calendar.php:128
+msgid "France"
+msgstr "France"
+
+#: the-events-calendar.php:129
+msgid "France, Metropolitan"
+msgstr "France, Metropolitan"
+
+#: the-events-calendar.php:130
+msgid "French Guiana"
+msgstr "French Guiana"
+
+#: the-events-calendar.php:131
+msgid "French Polynesia"
+msgstr "French Polynesia"
+
+#: the-events-calendar.php:132
+msgid "French Southern Territories"
+msgstr "French Southern Territories"
+
+#: the-events-calendar.php:133
+msgid "Gabon"
+msgstr "Gabon"
+
+#: the-events-calendar.php:134
+msgid "Gambia"
+msgstr "Gambia"
+
+#: the-events-calendar.php:135
+#: views/events-meta-box.php:282
+msgid "Georgia"
+msgstr "Georgia"
+
+#: the-events-calendar.php:136
+msgid "Germany"
+msgstr "Germany"
+
+#: the-events-calendar.php:137
+msgid "Ghana"
+msgstr "Ghana"
+
+#: the-events-calendar.php:138
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+#: the-events-calendar.php:139
+msgid "Greece"
+msgstr "Greece"
+
+#: the-events-calendar.php:140
+msgid "Greenland"
+msgstr "Greenland"
+
+#: the-events-calendar.php:141
+msgid "Grenada"
+msgstr "Grenada"
+
+#: the-events-calendar.php:142
+msgid "Guadeloupe"
+msgstr "Guadeloupe"
+
+#: the-events-calendar.php:143
+msgid "Guam"
+msgstr "Guam"
+
+#: the-events-calendar.php:144
+msgid "Guatemala"
+msgstr "Guatemala"
+
+#: the-events-calendar.php:145
+msgid "Guinea"
+msgstr "Guinea"
+
+#: the-events-calendar.php:146
+msgid "Guinea-Bissau"
+msgstr "Guinea-Bissau"
+
+#: the-events-calendar.php:147
+msgid "Guyana"
+msgstr "Guyana"
+
+#: the-events-calendar.php:148
+msgid "Haiti"
+msgstr "Haiti"
+
+#: the-events-calendar.php:149
+msgid "Heard And Mc Donald Islands"
+msgstr "Heard And Mc Donald Islands"
+
+#: the-events-calendar.php:150
+msgid "Holy See (Vatican City State)"
+msgstr "Holy See (Vatican City State)"
+
+#: the-events-calendar.php:151
+msgid "Honduras"
+msgstr "Honduras"
+
+#: the-events-calendar.php:152
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+#: the-events-calendar.php:153
+msgid "Hungary"
+msgstr "Hungary"
+
+#: the-events-calendar.php:154
+msgid "Iceland"
+msgstr "Iceland"
+
+#: the-events-calendar.php:155
+msgid "India"
+msgstr "India"
+
+#: the-events-calendar.php:156
+msgid "Indonesia"
+msgstr "Indonesia"
+
+#: the-events-calendar.php:157
+msgid "Iran (Islamic Republic Of)"
+msgstr "Iran (Islamic Republic Of)"
+
+#: the-events-calendar.php:158
+msgid "Iraq"
+msgstr "Iraq"
+
+#: the-events-calendar.php:159
+msgid "Ireland"
+msgstr "Ireland"
+
+#: the-events-calendar.php:160
+msgid "Israel"
+msgstr "Israel"
+
+#: the-events-calendar.php:161
+msgid "Italy"
+msgstr "Italy"
+
+#: the-events-calendar.php:162
+msgid "Jamaica"
+msgstr "Jamaica"
+
+#: the-events-calendar.php:163
+msgid "Japan"
+msgstr "Japan"
+
+#: the-events-calendar.php:164
+msgid "Jordan"
+msgstr "Jordan"
+
+#: the-events-calendar.php:165
+msgid "Kazakhstan"
+msgstr "Kazakhstan"
+
+#: the-events-calendar.php:166
+msgid "Kenya"
+msgstr "Kenya"
+
+#: the-events-calendar.php:167
+msgid "Kiribati"
+msgstr "Kiribati"
+
+#: the-events-calendar.php:168
+msgid "Korea, Democratic People's Republic Of"
+msgstr "Korea, Democratic People's Republic Of"
+
+#: the-events-calendar.php:169
+msgid "Korea, Republic Of"
+msgstr "Korea, Republic Of"
+
+#: the-events-calendar.php:170
+msgid "Kuwait"
+msgstr "Kuwait"
+
+#: the-events-calendar.php:171
+msgid "Kyrgyzstan"
+msgstr "Kyrgyzstan"
+
+#: the-events-calendar.php:172
+msgid "Lao People's Democratic Republic"
+msgstr "Lao People's Democratic Republic"
+
+#: the-events-calendar.php:173
+msgid "Latvia"
+msgstr "Latvia"
+
+#: the-events-calendar.php:174
+msgid "Lebanon"
+msgstr "Lebanon"
+
+#: the-events-calendar.php:175
+msgid "Lesotho"
+msgstr "Lesotho"
+
+#: the-events-calendar.php:176
+msgid "Liberia"
+msgstr "Liberia"
+
+#: the-events-calendar.php:177
+msgid "Libyan Arab Jamahiriya"
+msgstr "Libyan Arab Jamahiriya"
+
+#: the-events-calendar.php:178
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+#: the-events-calendar.php:179
+msgid "Lithuania"
+msgstr "Lithuania"
+
+#: the-events-calendar.php:180
+msgid "Luxembourg"
+msgstr "Luxembourg"
+
+#: the-events-calendar.php:181
+msgid "Macau"
+msgstr "Macau"
+
+#: the-events-calendar.php:182
+msgid "Macedonia, Former Yugoslav Republic Of"
+msgstr "Macedonia, Former Yugoslav Republic Of"
+
+#: the-events-calendar.php:183
+msgid "Madagascar"
+msgstr "Madagascar"
+
+#: the-events-calendar.php:184
+msgid "Malawi"
+msgstr "Malawi"
+
+#: the-events-calendar.php:185
+msgid "Malaysia"
+msgstr "Malaysia"
+
+#: the-events-calendar.php:186
+msgid "Maldives"
+msgstr "Maldives"
+
+#: the-events-calendar.php:187
+msgid "Mali"
+msgstr "Mali"
+
+#: the-events-calendar.php:188
+msgid "Malta"
+msgstr "Malta"
+
+#: the-events-calendar.php:189
+msgid "Marshall Islands"
+msgstr "Marshall Islands"
+
+#: the-events-calendar.php:190
+msgid "Martinique"
+msgstr "Martinique"
+
+#: the-events-calendar.php:191
+msgid "Mauritania"
+msgstr "Mauritania"
+
+#: the-events-calendar.php:192
+msgid "Mauritius"
+msgstr "Mauritius"
+
+#: the-events-calendar.php:193
+msgid "Mayotte"
+msgstr "Mayotte"
+
+#: the-events-calendar.php:194
+msgid "Mexico"
+msgstr "Mexico"
+
+#: the-events-calendar.php:195
+msgid "Micronesia, Federated States Of"
+msgstr "Micronesia, Federated States Of"
+
+#: the-events-calendar.php:196
+msgid "Moldova, Republic Of"
+msgstr "Moldova, Republic Of"
+
+#: the-events-calendar.php:197
+msgid "Monaco"
+msgstr "Monaco"
+
+#: the-events-calendar.php:198
+msgid "Mongolia"
+msgstr "Mongolia"
+
+#: the-events-calendar.php:199
+msgid "Montserrat"
+msgstr "Montserrat"
+
+#: the-events-calendar.php:200
+msgid "Morocco"
+msgstr "Morocco"
+
+#: the-events-calendar.php:201
+msgid "Mozambique"
+msgstr "Mozambique"
+
+#: the-events-calendar.php:202
+msgid "Myanmar"
+msgstr "Myanmar"
+
+#: the-events-calendar.php:203
+msgid "Namibia"
+msgstr "Namibia"
+
+#: the-events-calendar.php:204
+msgid "Nauru"
+msgstr "Nauru"
+
+#: the-events-calendar.php:205
+msgid "Nepal"
+msgstr "Nepal"
+
+#: the-events-calendar.php:206
+msgid "Netherlands"
+msgstr "Netherlands"
+
+#: the-events-calendar.php:207
+msgid "Netherlands Antilles"
+msgstr "Netherlands Antilles"
+
+#: the-events-calendar.php:208
+msgid "New Caledonia"
+msgstr "New Caledonia"
+
+#: the-events-calendar.php:209
+msgid "New Zealand"
+msgstr "New Zealand"
+
+#: the-events-calendar.php:210
+msgid "Nicaragua"
+msgstr "Nicaragua"
+
+#: the-events-calendar.php:211
+msgid "Niger"
+msgstr "Niger"
+
+#: the-events-calendar.php:212
+msgid "Nigeria"
+msgstr "Nigeria"
+
+#: the-events-calendar.php:213
+msgid "Niue"
+msgstr "Niue"
+
+#: the-events-calendar.php:214
+msgid "Norfolk Island"
+msgstr "Norfolk Island"
+
+#: the-events-calendar.php:215
+msgid "Northern Mariana Islands"
+msgstr "Northern Mariana Islands"
+
+#: the-events-calendar.php:216
+msgid "Norway"
+msgstr "Norway"
+
+#: the-events-calendar.php:217
+msgid "Oman"
+msgstr "Oman"
+
+#: the-events-calendar.php:218
+msgid "Pakistan"
+msgstr "Pakistan"
+
+#: the-events-calendar.php:219
+msgid "Palau"
+msgstr "Palau"
+
+#: the-events-calendar.php:220
+msgid "Panama"
+msgstr "Panama"
+
+#: the-events-calendar.php:221
+msgid "Papua New Guinea"
+msgstr "Papua New Guinea"
+
+#: the-events-calendar.php:222
+msgid "Paraguay"
+msgstr "Paraguay"
+
+#: the-events-calendar.php:223
+msgid "Peru"
+msgstr "Peru"
+
+#: the-events-calendar.php:224
+msgid "Philippines"
+msgstr "Philippines"
+
+#: the-events-calendar.php:225
+msgid "Pitcairn"
+msgstr "Pitcairn"
+
+#: the-events-calendar.php:226
+msgid "Poland"
+msgstr "Poland"
+
+#: the-events-calendar.php:227
+msgid "Portugal"
+msgstr "Portugal"
+
+#: the-events-calendar.php:228
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+#: the-events-calendar.php:229
+msgid "Qatar"
+msgstr "Qatar"
+
+#: the-events-calendar.php:230
+msgid "Reunion"
+msgstr "Reunion"
+
+#: the-events-calendar.php:231
+msgid "Romania"
+msgstr "Romania"
+
+#: the-events-calendar.php:232
+msgid "Russian Federation"
+msgstr "Russian Federation"
+
+#: the-events-calendar.php:233
+msgid "Rwanda"
+msgstr "Rwanda"
+
+#: the-events-calendar.php:234
+msgid "Saint Kitts And Nevis"
+msgstr "Saint Kitts And Nevis"
+
+#: the-events-calendar.php:235
+msgid "Saint Lucia"
+msgstr "Saint Lucia"
+
+#: the-events-calendar.php:236
+msgid "Saint Vincent And The Grenadines"
+msgstr "Saint Vincent And The Grenadines"
+
+#: the-events-calendar.php:237
+msgid "Samoa"
+msgstr "Samoa"
+
+#: the-events-calendar.php:238
+msgid "San Marino"
+msgstr "San Marino"
+
+#: the-events-calendar.php:239
+msgid "Sao Tome And Principe"
+msgstr "Sao Tome And Principe"
+
+#: the-events-calendar.php:240
+msgid "Saudi Arabia"
+msgstr "Saudi Arabia"
+
+#: the-events-calendar.php:241
+msgid "Senegal"
+msgstr "Senegal"
+
+#: the-events-calendar.php:242
+msgid "Seychelles"
+msgstr "Seychelles"
+
+#: the-events-calendar.php:243
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+#: the-events-calendar.php:244
+msgid "Singapore"
+msgstr "Singapore"
+
+#: the-events-calendar.php:245
+msgid "Slovakia (Slovak Republic)"
+msgstr "Slovakia (Slovak Republic)"
+
+#: the-events-calendar.php:246
+msgid "Slovenia"
+msgstr "Slovenia"
+
+#: the-events-calendar.php:247
+msgid "Solomon Islands"
+msgstr "Solomon Islands"
+
+#: the-events-calendar.php:248
+msgid "Somalia"
+msgstr "Somalia"
+
+#: the-events-calendar.php:249
+msgid "South Africa"
+msgstr "South Africa"
+
+#: the-events-calendar.php:250
+msgid "South Georgia, South Sandwich Islands"
+msgstr "South Georgia, South Sandwich Islands"
+
+#: the-events-calendar.php:251
+msgid "Spain"
+msgstr "Spain"
+
+#: the-events-calendar.php:252
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+#: the-events-calendar.php:253
+msgid "St. Helena"
+msgstr "St. Helena"
+
+#: the-events-calendar.php:254
+msgid "St. Pierre And Miquelon"
+msgstr "St. Pierre And Miquelon"
+
+#: the-events-calendar.php:255
+msgid "Sudan"
+msgstr "Sudan"
+
+#: the-events-calendar.php:256
+msgid "Suriname"
+msgstr "Suriname"
+
+#: the-events-calendar.php:257
+msgid "Svalbard And Jan Mayen Islands"
+msgstr "Svalbard And Jan Mayen Islands"
+
+#: the-events-calendar.php:258
+msgid "Swaziland"
+msgstr "Swaziland"
+
+#: the-events-calendar.php:259
+msgid "Sweden"
+msgstr "Sweden"
+
+#: the-events-calendar.php:260
+msgid "Switzerland"
+msgstr "Switzerland"
+
+#: the-events-calendar.php:261
+msgid "Syrian Arab Republic"
+msgstr "Syrian Arab Republic"
+
+#: the-events-calendar.php:262
+msgid "Taiwan"
+msgstr "Taiwan"
+
+#: the-events-calendar.php:263
+msgid "Tajikistan"
+msgstr "Tajikistan"
+
+#: the-events-calendar.php:264
+msgid "Tanzania, United Republic Of"
+msgstr "Tanzania, United Republic Of"
+
+#: the-events-calendar.php:265
+msgid "Thailand"
+msgstr "Thailand"
+
+#: the-events-calendar.php:266
+msgid "Togo"
+msgstr "Togo"
+
+#: the-events-calendar.php:267
+msgid "Tokelau"
+msgstr "Tokelau"
+
+#: the-events-calendar.php:268
+msgid "Tonga"
+msgstr "Tonga"
+
+#: the-events-calendar.php:269
+msgid "Trinidad And Tobago"
+msgstr "Trinidad And Tobago"
+
+#: the-events-calendar.php:270
+msgid "Tunisia"
+msgstr "Tunisia"
+
+#: the-events-calendar.php:271
+msgid "Turkey"
+msgstr "Turkey"
+
+#: the-events-calendar.php:272
+msgid "Turkmenistan"
+msgstr "Turkmenistan"
+
+#: the-events-calendar.php:273
+msgid "Turks And Caicos Islands"
+msgstr "Turks And Caicos Islands"
+
+#: the-events-calendar.php:274
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+#: the-events-calendar.php:275
+msgid "Uganda"
+msgstr "Uganda"
+
+#: the-events-calendar.php:276
+msgid "Ukraine"
+msgstr "Ukraine"
+
+#: the-events-calendar.php:277
+msgid "United Arab Emirates"
+msgstr "United Arab Emirates"
+
+#: the-events-calendar.php:278
+msgid "United Kingdom"
+msgstr "United Kingdom"
+
+#: the-events-calendar.php:279
+msgid "United States Minor Outlying Islands"
+msgstr "United States Minor Outlying Islands"
+
+#: the-events-calendar.php:280
+msgid "Uruguay"
+msgstr "Uruguay"
+
+#: the-events-calendar.php:281
+msgid "Uzbekistan"
+msgstr "Uzbekistan"
+
+#: the-events-calendar.php:282
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+#: the-events-calendar.php:283
+msgid "Venezuela"
+msgstr "Venezuela"
+
+#: the-events-calendar.php:284
+msgid "Viet Nam"
+msgstr "Viet Nam"
+
+#: the-events-calendar.php:285
+msgid "Virgin Islands (British)"
+msgstr "Virgin Islands (British)"
+
+#: the-events-calendar.php:286
+msgid "Virgin Islands (U.S.)"
+msgstr "Virgin Islands (U.S.)"
+
+#: the-events-calendar.php:287
+msgid "Wallis And Futuna Islands"
+msgstr "Wallis And Futuna Islands"
+
+#: the-events-calendar.php:288
+msgid "Western Sahara"
+msgstr "Western Sahara"
+
+#: the-events-calendar.php:289
+msgid "Yemen"
+msgstr "Yemen"
+
+#: the-events-calendar.php:290
+msgid "Yugoslavia"
+msgstr "Yugoslavia"
+
+#: the-events-calendar.php:291
+msgid "Zambia"
+msgstr "Zambia"
+
+#: the-events-calendar.php:292
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+#: the-events-calendar.php:496
+msgid "January"
+msgstr "trans_january"
+
+#: the-events-calendar.php:497
+msgid "February"
+msgstr "trans_february"
+
+#: the-events-calendar.php:498
+msgid "March"
+msgstr "trans_march"
+
+#: the-events-calendar.php:499
+msgid "April"
+msgstr "trans_april"
+
+#: the-events-calendar.php:500
+msgid "May"
+msgstr "trans_may"
+
+#: the-events-calendar.php:501
+msgid "June"
+msgstr "trans_june"
+
+#: the-events-calendar.php:502
+msgid "July"
+msgstr "trans_july"
+
+#: the-events-calendar.php:503
+msgid "August"
+msgstr "trans_august"
+
+#: the-events-calendar.php:504
+msgid "September"
+msgstr "trans_september"
+
+#: the-events-calendar.php:505
+msgid "October"
+msgstr "trans_october"
+
+#: the-events-calendar.php:506
+msgid "November"
+msgstr "trans_november"
+
+#: the-events-calendar.php:507
+msgid "December"
+msgstr "trans_december"
+
+#. #-#-#-#-#  plugin.pot (The Events Calendar 1.5.4)  #-#-#-#-#
+#. Plugin Name of an extension
+#: the-events-calendar.php:939
+msgid "The Events Calendar"
+msgstr "trans_theeventscalendar"
+
+#: the-events-calendar.php:1214
+msgid "Sun"
+msgstr "trans_sun"
+
+#: the-events-calendar.php:1214
+msgid "Mon"
+msgstr "trans_mon"
+
+#: the-events-calendar.php:1214
+msgid "Tue"
+msgstr "trans_tue"
+
+#: the-events-calendar.php:1214
+msgid "Wed"
+msgstr "trans_wed"
+
+#: the-events-calendar.php:1214
+msgid "Thu"
+msgstr "trans_thu"
+
+#: the-events-calendar.php:1214
+msgid "Fri"
+msgstr "trans_fri"
+
+#: the-events-calendar.php:1214
+msgid "Sat"
+msgstr "trans_sat"
+
+#: the-events-calendar.php:1215
+msgid "Sunday"
+msgstr "trans_sun"
+
+#: the-events-calendar.php:1215
+msgid "Monday"
+msgstr "trans_mon"
+
+#: the-events-calendar.php:1215
+msgid "Tuesday"
+msgstr "trans_tuesday"
+
+#: the-events-calendar.php:1215
+msgid "Wednesday"
+msgstr "trans_wednesday"
+
+#: the-events-calendar.php:1215
+msgid "Thursday"
+msgstr "trans_thursday"
+
+#: the-events-calendar.php:1215
+msgid "Friday"
+msgstr "trans_friday"
+
+#: the-events-calendar.php:1215
+msgid "Saturday"
+msgstr "trans_saturday"
+
+#: the-events-calendar.php:1926
+msgid "A widget that displays the next upcoming x events."
+msgstr "trans_eventlistwidgetdescription"
+
+#: the-events-calendar.php:1968
+msgid "View All Events"
+msgstr "trans_viewallevents"
+
+#: the-events-calendar.php:2049
+msgid "A calendar of your events"
+msgstr "trans_acalendarofyourevents"
+
+#: the-events-calendar.php:2050
+msgid "Events Calendar"
+msgstr "trans_eventscalendar"
+
+#: the-events-calendar.php:2076
+#: views/events-list-load-widget-admin.php:2
+msgid "Title:"
+msgstr "trans_title:"
+
+#: views/events-list-load-widget-admin.php:7
+msgid "Show:"
+msgstr "trans_show:"
+
+#: views/events-list-load-widget-admin.php:16
+msgid "Display:"
+msgstr "trans_display:"
+
+#: views/events-list-load-widget-admin.php:19
+msgid "Start Date & Time"
+msgstr "trans_startdateandtime"
+
+#: views/events-list-load-widget-admin.php:20
+msgid "End Date & Time"
+msgstr "trans_enddateandtime"
+
+#: views/events-list-load-widget-admin.php:21
+msgid "Venue"
+msgstr "trans_venue"
+
+#: views/events-list-load-widget-admin.php:22
+msgid "Address"
+msgstr "trans_address"
+
+#: views/events-list-load-widget-admin.php:23
+msgid "City"
+msgstr "trans_city"
+
+#: views/events-list-load-widget-admin.php:24
+msgid "State (US)"
+msgstr "trans_state"
+
+#: views/events-list-load-widget-admin.php:25
+msgid "Province (Int)"
+msgstr "trans_provinceint"
+
+#: views/events-list-load-widget-admin.php:26
+msgid "Postal Code"
+msgstr "trans_postalcode"
+
+#: views/events-list-load-widget-admin.php:27
+msgid "Country"
+msgstr "trans_country"
+
+#: views/events-list-load-widget-admin.php:28
+msgid "Phone"
+msgstr "trans_phone"
+
+#: views/events-list-load-widget-admin.php:29
+msgid "Price"
+msgstr "trans_price"
+
+#: views/events-list-load-widget-display.php:48
+msgid "More Info"
+msgstr "trans_moreinfo"
+
+#: views/events-meta-box.php:153
+msgid "Is this post an event?"
+msgstr "trans_isthisanevent?"
+
+#: views/events-meta-box.php:154
+#: views/events-options.php:157
+msgid "Yes"
+msgstr "trans_yes"
+
+#: views/events-meta-box.php:155
+#: views/events-options.php:161
+msgid "No"
+msgstr "trans_no"
+
+#: views/events-meta-box.php:162
+msgid "Event Time &amp; Date"
+msgstr "trans_eventtimeanddate"
+
+#: views/events-meta-box.php:165
+msgid "All day event?"
+msgstr "trans_alldayevent"
+
+#: views/events-meta-box.php:169
+msgid "Start Date / Time:"
+msgstr "trans_startdatetime"
+
+#: views/events-meta-box.php:183
+#: views/events-meta-box.php:213
+msgid "@"
+msgstr "trans_@"
+
+#: views/events-meta-box.php:199
+msgid "End Date / Time:"
+msgstr "trans_enddatetime"
+
+#: views/events-meta-box.php:229
+msgid "Event Location Details"
+msgstr "trans_eventlocationdetails"
+
+#: views/events-meta-box.php:232
+#: views/list.php:45
+#: views/single.php:26
+msgid "Venue:"
+msgstr "trans_venue"
+
+#: views/events-meta-box.php:238
+msgid "Country:"
+msgstr "trans_country"
+
+#: views/events-meta-box.php:255
+#: views/list.php:63
+#: views/single.php:30
+msgid "Address:"
+msgstr "trans_address"
+
+#: views/events-meta-box.php:259
+msgid "City:"
+msgstr "trans_city"
+
+#: views/events-meta-box.php:263
+msgid "Province:"
+msgstr "trans_province"
+
+#: views/events-meta-box.php:267
+msgid "State:"
+msgstr "trans_state"
+
+#: views/events-meta-box.php:270
+msgid "Select a State:"
+msgstr "trans_selectastate"
+
+#: views/events-meta-box.php:272
+msgid "Alabama"
+msgstr "trans_alabama"
+
+#: views/events-meta-box.php:273
+msgid "Alaska"
+msgstr "Alaska"
+
+#: views/events-meta-box.php:274
+msgid "Arizona"
+msgstr "Arizona"
+
+#: views/events-meta-box.php:275
+msgid "Arkansas"
+msgstr "Arkansas"
+
+#: views/events-meta-box.php:276
+msgid "California"
+msgstr "California"
+
+#: views/events-meta-box.php:277
+msgid "Colorado"
+msgstr "Colorado"
+
+#: views/events-meta-box.php:278
+msgid "Connecticut"
+msgstr "Connecticut"
+
+#: views/events-meta-box.php:279
+msgid "Delaware"
+msgstr "Delaware"
+
+#: views/events-meta-box.php:280
+msgid "District of Columbia"
+msgstr "District of Columbia"
+
+#: views/events-meta-box.php:281
+msgid "Florida"
+msgstr "Florida"
+
+#: views/events-meta-box.php:283
+msgid "Hawaii"
+msgstr "Hawaii"
+
+#: views/events-meta-box.php:284
+msgid "Idaho"
+msgstr "Idaho"
+
+#: views/events-meta-box.php:285
+msgid "Illinois"
+msgstr "Illinois"
+
+#: views/events-meta-box.php:286
+msgid "Indiana"
+msgstr "Indiana"
+
+#: views/events-meta-box.php:287
+msgid "Iowa"
+msgstr "Iowa"
+
+#: views/events-meta-box.php:288
+msgid "Kansas"
+msgstr "Kansas"
+
+#: views/events-meta-box.php:289
+msgid "Kentucky"
+msgstr "Kentucky"
+
+#: views/events-meta-box.php:290
+msgid "Louisiana"
+msgstr "Louisiana"
+
+#: views/events-meta-box.php:291
+msgid "Maine"
+msgstr "Maine"
+
+#: views/events-meta-box.php:292
+msgid "Maryland"
+msgstr "Maryland"
+
+#: views/events-meta-box.php:293
+msgid "Massachusetts"
+msgstr "Massachusetts"
+
+#: views/events-meta-box.php:294
+msgid "Michigan"
+msgstr "Michigan"
+
+#: views/events-meta-box.php:295
+msgid "Minnesota"
+msgstr "Minnesota"
+
+#: views/events-meta-box.php:296
+msgid "Mississippi"
+msgstr "Mississippi"
+
+#: views/events-meta-box.php:297
+msgid "Missouri"
+msgstr "Missouri"
+
+#: views/events-meta-box.php:298
+msgid "Montana"
+msgstr "Montana"
+
+#: views/events-meta-box.php:299
+msgid "Nebraska"
+msgstr "Nebraska"
+
+#: views/events-meta-box.php:300
+msgid "Nevada"
+msgstr "Nevada"
+
+#: views/events-meta-box.php:301
+msgid "New Hampshire"
+msgstr "New Hampshire"
+
+#: views/events-meta-box.php:302
+msgid "New Jersey"
+msgstr "New Jersey"
+
+#: views/events-meta-box.php:303
+msgid "New Mexico"
+msgstr "New Mexico"
+
+#: views/events-meta-box.php:304
+msgid "New York"
+msgstr "New York"
+
+#: views/events-meta-box.php:305
+msgid "North Carolina"
+msgstr "North Carolina"
+
+#: views/events-meta-box.php:306
+msgid "North Dakota"
+msgstr "North Dakota"
+
+#: views/events-meta-box.php:307
+msgid "Ohio"
+msgstr "Ohio"
+
+#: views/events-meta-box.php:308
+msgid "Oklahoma"
+msgstr "Oklahoma"
+
+#: views/events-meta-box.php:309
+msgid "Oregon"
+msgstr "Oregon"
+
+#: views/events-meta-box.php:310
+msgid "Pennsylvania"
+msgstr "Pennsylvania"
+
+#: views/events-meta-box.php:311
+msgid "Rhode Island"
+msgstr "Rhode Island"
+
+#: views/events-meta-box.php:312
+msgid "South Carolina"
+msgstr "South Carolina"
+
+#: views/events-meta-box.php:313
+msgid "South Dakota"
+msgstr "South Dakota"
+
+#: views/events-meta-box.php:314
+msgid "Tennessee"
+msgstr "Tennessee"
+
+#: views/events-meta-box.php:315
+msgid "Texas"
+msgstr "Texas"
+
+#: views/events-meta-box.php:316
+msgid "Utah"
+msgstr "Utah"
+
+#: views/events-meta-box.php:317
+msgid "Vermont"
+msgstr "Vermont"
+
+#: views/events-meta-box.php:318
+msgid "Virginia"
+msgstr "Virginia"
+
+#: views/events-meta-box.php:319
+msgid "Washington"
+msgstr "Washington"
+
+#: views/events-meta-box.php:320
+msgid "West Virginia"
+msgstr "West Virginia"
+
+#: views/events-meta-box.php:321
+msgid "Wisconsin"
+msgstr "Wisconsin"
+
+#: views/events-meta-box.php:322
+msgid "Wyoming"
+msgstr "Wyoming"
+
+#: views/events-meta-box.php:336
+msgid "Postal Code:"
+msgstr "trans_postalcode:"
+
+#: views/events-meta-box.php:340
+#: views/list.php:54
+msgid "Phone:"
+msgstr "trans_phone:"
+
+#: views/events-meta-box.php:344
+msgid "Event Cost"
+msgstr "trans_eventcost:"
+
+#: views/events-meta-box.php:347
+#: views/list.php:72
+#: views/single.php:20
+msgid "Cost:"
+msgstr "trans_cost:"
+
+#: views/events-meta-box.php:352
+msgid "Leave blank to hide the field. Enter a 0 for events that are free."
+msgstr "trans_leaveblank"
+
+#: views/events-meta-box.php:356
+msgid "Sell Tickets &amp; Track Registration"
+msgstr "trans_sellticketstrackregistration"
+
+#: views/events-meta-box.php:361
+msgid "Interested in selling tickets and tracking registrations? Now you can do it for free using our <a href=\"http://wordpress.org/extend/plugins/eventbrite-for-the-events-calendar/\">Eventbrite Integration Plugin</a>. Eventbrite is a feature rich easy-to-use event management tool. \"Wow, you're selling Eventbrite pretty hard. You must get a kickback.\"  Well, now that you mention it... we do. We get a little something for everyone that registers an event using our referral link. It's how we're able to keep supporting and building plugins for the open source community. "
+msgstr "trans_interestedinsellingtickets?"
+
+#: views/events-meta-box.php:361
+msgid "Check it out here."
+msgstr "trans_checkitout"
+
+#: views/events-meta-box.php:372
+msgid "<h4>If You Like This Plugin - Help Support It</h4><p>We spend a lot of time and effort building robust plugins and we love to share them with the community. If you use this plugin consider making a donation to help support its' continued development. You may remove this message on the <a href=\"/wp-admin/options-general.php?page=the-events-calendar.php\">settings page</a>.</p>"
+msgstr "trans_ifyoulikethisplugin"
+
+#: views/events-meta-box.php:374
+msgid "Thanks"
+msgstr "trans_thanks"
+
+#: views/events-options.php:69
+msgid "The Events Calendar Settings"
+msgstr "trans_theeventscalendarsettings"
+
+#: views/events-options.php:71
+msgid "Need a hand?"
+msgstr "trans_needahand?"
+
+#: views/events-options.php:72
+msgid "If you're stuck on these options, please <a href=\"http://wordpress.org/extend/plugins/the-events-calendar/\">check out the documentation</a>. If you're still wondering what's going on, be sure to stop by the support <a href=\"http://wordpress.org/tags/the-events-calendar?forum_id=10\">forum</a> and ask for help. The open source community is full of kind folks who are happy to help."
+msgstr "trans_supportlinks"
+
+#: views/events-options.php:75
+msgid "Donate"
+msgstr "trans_donate"
+
+#: views/events-options.php:84
+msgid "If you find this plugin useful, please consider donating to the producer of it, Shane &#38; Peter, Inc. Thank you!"
+msgstr "trans_considerdonating"
+
+#: views/events-options.php:88
+msgid "I have already donated, so please hide this button!"
+msgstr "trans_alreadydonated"
+
+#: views/events-options.php:98
+msgid "Donate for this wonderful plugin"
+msgstr "trans_donatewonderful"
+
+#: views/events-options.php:112
+msgid "Settings"
+msgstr "trans_settings"
+
+#: views/events-options.php:115
+#: views/events-options.php:119
+msgid "Default View for the Events"
+msgstr "trans_defaultviewfortheevents"
+
+#: views/events-options.php:131
+#: views/gridview.php:15
+#: views/list.php:12
+msgid "Calendar"
+msgstr "trans_calendar"
+
+#: views/events-options.php:135
+#: views/gridview.php:14
+#: views/list.php:11
+msgid "Event List"
+msgstr "trans_eventlist"
+
+#: views/events-options.php:141
+#: views/events-options.php:145
+msgid "Show Comments"
+msgstr "trans_showcomments"
+
+#: views/events-options.php:167
+msgid "Default Country for Events"
+msgstr "trans_defaultcountryforevents"
+
+#: views/events-options.php:192
+#: views/events-options.php:196
+msgid "Embed Google Maps"
+msgstr "trans_embedgooglemaps"
+
+#: views/events-options.php:210
+msgid "Off"
+msgstr "trans_off"
+
+#: views/events-options.php:214
+msgid "On"
+msgstr "trans_on"
+
+#: views/events-options.php:217
+msgid "Height"
+msgstr "trans_height"
+
+#: views/events-options.php:218
+msgid "Width"
+msgstr "trans_width"
+
+#: views/events-options.php:218
+msgid "(number or %)"
+msgstr "trans_numberor%"
+
+#: views/events-options.php:229
+msgid "Save Changes"
+msgstr "trans_savechanges"
+
+#: views/gridview.php:9
+#: views/list.php:9
+msgid "Calendar of Events"
+msgstr "trans_calendarofevents"
+
+#: views/list.php:33
+#: views/single.php:13
+msgid "Start:"
+msgstr "trans_start:"
+
+#: views/list.php:37
+#: views/single.php:16
+msgid "End:"
+msgstr "trans_end:"
+
+#: views/list.php:63
+#: views/single.php:30
+msgid "Google Map"
+msgstr "trans_googlemap"
+
+#: views/list.php:94
+msgid "&laquo; Previous Events"
+msgstr "trans_previousevents"
+
+#: views/list.php:107
+msgid "Next Events &raquo;"
+msgstr "trans_nextevents"
+
+#: views/single.php:8
+msgid "&laquo; Back to Events"
+msgstr "trans_backtoevents"
+
+#: views/single.php:10
+msgid "This event has passed."
+msgstr "trans_eventpassed"
+
+#: views/single.php:30
+msgid "Click to view a Google Map"
+msgstr "trans_googlemaplink"
+
+#. Plugin URI of an extension
+msgid "http://wordpress.org/extend/plugins/the-events-calendar/"
+msgstr "trans_plugindownload"
+
+#. Description of an extension
+msgid "The Events Calendar plugin enables you to rapidly create and manage events using the post editor.  Features include optional Eventbrite integration, Google Maps integration as well as default calendar grid and list templates for streamlined one click installation."
+msgstr "trans_eventcalendardescription"
+
+#. Author of an extension
+msgid "Shane & Peter, Inc."
+msgstr "trans_S&P"
+
+#. Author URI of an extension
+msgid "http://www.shaneandpeter.com/"
+msgstr "trans_url"
+
