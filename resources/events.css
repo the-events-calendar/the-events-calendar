@@ -44,6 +44,7 @@ h2.tec-cal-title {
 .tec-month-nav {
 	position: absolute;
 	left: 20px;
+	bottom:0px;
 }
 .tec-prev-month {
 	margin-right: 5px;
