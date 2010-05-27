@@ -142,54 +142,6 @@
 	});
 </script>
 <style type="text/css">
-	.eventForm td {
-		padding:6px 6px 0 0;
-		font-size:11px;
-		vertical-align:middle;
-	}
-	.eventForm select, .eventForm input {
-		font-size:11px;
-	}
-	.eventForm h4 {
-		font-size:1.2em;
-		margin:2em 0 1em;
-	}
-	.eventForm h4.event-time {
-		margin-top: 0;
-	}
-	.notice {
-		background-color: rgb(255, 255, 224);
-		border: 1px solid rgb(230, 219, 85);
-		margin: 5px 0 15px;
-	}
-	#EventInfo {
-		border-color:#dfdfdf;
-		background-color:#F9F9F9;
-		border-width:1px;
-		border-style:solid;
-		-moz-border-radius:3px;
-		-khtml-border-radius:3px;
-		-webkit-border-radius:3px;
-		border-radius:3px;
-		margin: 0;
-		width:100%;
-		border-style:solid;
-		border-spacing:0;
-		padding: 10px;
-	}
-	#eventIntro {
-	  margin: 10px 0 25px 0;
-	}
-	
-	.form-table form input {border:none;}
-	<?php if( eventsGetOptionValue('donateHidden', false) ) : ?>
-		#mainDonateRow {display: none;}
-	<?php endif; ?>
-	#submitLabel {display: block;}
-	#submitLabel input {
-		display: block;
-		padding: 0;
-	}
 	<?php if( class_exists( 'Eventbrite_for_The_Events_Calendar' ) ) : ?>
 		.eventBritePluginPlug {display:none;}
 	<?php endif; ?>
@@ -493,74 +445,6 @@ try {
 				</div>
 		<div style="clear:both;"></div>
 	</div><!-- end mainDonateRow -->
-	<style>
-	#eventDetails h4,
-		#EventBriteDetailDiv h4 {
-		text-transform: uppercase;
-		border-bottom: 1px solid #e5e5e5;
-		padding-bottom: 6px;
-	}
-	.eventForm td {
-		padding-bottom: 10px !important;
-		padding-top: 0 !important;
-	}
-	.eventForm .snp_sectionheader {
-		padding-bottom: 5px !important;
-	}
-	#snp_thanks {
-		float: left;
-		width: 200px;
-		margin: 5px 0 0 0;
-	}
-	.snp_brand {
-		font-weight: normal;
-		margin: 8px 0;
-		font-family: Georgia !important;
-		font-size: 17px !important;
-	}
-	.eventForm p {
-		margin: 0 0 10px 0!important;
-	}
-	#eventDetails small,
-		#EventBriteDetailDiv small {
-		color: #a3a3a3;
-		font-size: 10px;
-	}
-	#eventBriteTicketing,
-		#mainDonateRow {
-		background: url(<?php echo WP_PLUGIN_URL . '/the-events-calendar/resources/images/bg_fade.png';
-		?>) repeat-x top left;
-		background-color: #fff;
-		padding: 10px 15px;
-		border: 1px solid #e2e2e2;
-		-moz-border-radius: 3px;
-		-khtml-border-radius: 3px;
-		-webkit-border-radius: 3px;
-		-moz-border-radius-topleft: 0;
-		-moz-border-radius-topright: 0;
-		-webkit-border-top-left-radius: 0;
-		-webkit-border-top-right-radius: 0;
-		border-radius: 3px;
-		margin: -11px 6px 0;
-	}
-	#eventBriteTicketing h2 {
-		background: url(<?php echo WP_PLUGIN_URL . '/the-events-calendar/resources/images/eb_press_little.gif';
-		?>) no-repeat top right;
-		height: 80px;
-		margin: 0;
-	}
-	.eventForm {
-		margin-top: -20px;
-	}
-	#EventInfo,
-		table.eventForm {
-		width: 100%;
-	}
-	td.snp_message {
-		padding-bottom: 10px !important;
-	}
-	</style>
-
 <?php
 try {
 	do_action( 'sp_events_details_bottom', $postId );

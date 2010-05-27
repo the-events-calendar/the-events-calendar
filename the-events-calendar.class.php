@@ -7,11 +7,17 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		const EVENTSERROROPT		= '_tec_events_errors';
 		const CATEGORYNAME	 		= 'Events';
 		const OPTIONNAME 			= 'sp_events_calendar_options';
+		const POSTTYPE				= 'sp_events';
 		// default formats, they are overridden by WP options or by arguments to date methods
 		const DATEONLYFORMAT 		= 'F j, Y';
 		const TIMEFORMAT			= 'g:i A';
 		const DBDATEFORMAT	 		= 'Y-m-d';
 		const DBDATETIMEFORMAT 		= 'Y-m-d G:i:s';
+		
+		public $postTypeArgs = array(
+			'public' => true,
+			'rewrite' => array('slug' => 'event')
+		);
 
 		private $defaultOptions = '';
 		public $latestOptions;
@@ -24,23 +30,23 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		private $tabIndexStart = 2000;
 
 		public $metaTags = array(
-					'_isEvent',
-					'_EventAllDay',
-					'_EventStartDate',
-					'_EventEndDate',
-					'_EventVenue',
-					'_EventCountry',
-					'_EventAddress',
-					'_EventCity',
-					'_EventState',
-					'_EventProvince',
-					'_EventZip',
-					'_EventShowMapLink',
-					'_EventShowMap',
-					'_EventCost',
-					'_EventPhone',
-					self::EVENTSERROROPT
-				);
+			'_isEvent',
+			'_EventAllDay',
+			'_EventStartDate',
+			'_EventEndDate',
+			'_EventVenue',
+			'_EventCountry',
+			'_EventAddress',
+			'_EventCity',
+			'_EventState',
+			'_EventProvince',
+			'_EventZip',
+			'_EventShowMapLink',
+			'_EventShowMap',
+			'_EventCost',
+			'_EventPhone',
+			self::EVENTSERROROPT
+		);
 				
 		public $currentPostTimestamp;
 		public $daysOfWeekShort;
@@ -321,6 +327,24 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			$this->pluginUrl 		= WP_CONTENT_URL.'/plugins/'.plugin_basename(dirname(__FILE__));
 			$this->errors			= '';
 			register_deactivation_hook( __FILE__, 	array( &$this, 'on_deactivate' ) );
+			
+			$this->generatePostTypeLabels();
+			
+			$this->addFilters();
+			$this->addActions();
+		}
+		
+		private function addFilters() {
+			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
+			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );			
+			add_filter( 'posts_join',		array( $this, 'events_search_join' ) );
+			add_filter( 'posts_where',		array( $this, 'events_search_where' ) );
+			add_filter( 'posts_orderby',	array( $this, 'events_search_orderby' ) );
+			add_filter( 'posts_fields',		array( $this, 'events_search_fields' ) );
+			add_filter( 'post_limits',		array( $this, 'events_search_limits' ) );
+		}
+		
+		private function addActions() {
 			add_action( 'reschedule_event_post', array( $this, 'reschedule') );
 			add_action( 'init',				array( $this, 'loadDomainStylesScripts' ) );
 			add_action( 'sp-events-save-more-options', array( $this, 'flushRewriteRules' ) );
@@ -331,17 +355,35 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			add_action( 'admin_menu', 		array( $this, 'addEventBox' ) );
 			add_action( 'save_post',		array( $this, 'addEventMeta' ), 15 );
 			add_action( 'publish_post',		array( $this, 'addEventMeta' ), 15 );
-			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
-			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );			
-			add_filter( 'posts_join',		array( $this, 'events_search_join' ) );
-			add_filter( 'posts_where',		array( $this, 'events_search_where' ) );
-			add_filter( 'posts_orderby',	array( $this, 'events_search_orderby' ) );
-			add_filter( 'posts_fields',		array( $this, 'events_search_fields' ) );
-			add_filter( 'post_limits',		array( $this, 'events_search_limits' ) );
+			
 			add_action( 'template_redirect',array($this, 'templateChooser' ), 1 );
-			add_action( 'pre_get_posts',		array( $this, 'events_home_cat_excluder' ) );
 			add_action( 'sp_events_post_errors', array( 'TEC_Post_Exception', 'displayMessage' ) );
 			add_action( 'sp_events_options_top', array( 'TEC_WP_Options_Exception', 'displayMessage') );
+			add_action( 'init', array( $this, 'registerPostType' ) );
+			add_action('admin_init', array( $this, 'addAdminStyles' ) );
+		}
+		
+		public function registerPostType() {
+			register_post_type(self::POSTTYPE, $this->postTypeArgs);
+		}
+		
+		private function generatePostTypeLabels() {
+			$this->postTypeArgs['labels'] = array(
+				'name' => __('Events', $this->pluginDomain),
+				'singular_name' => __('Event', $this->pluginDomain),
+				'add_new' => __('Add New', $this->pluginDomain),
+				'add_new_item' => __('Add New Event', $this->pluginDomain),
+				'edit_item' => __('Edit Event', $this->pluginDomain),
+				'new_item' => __('New Event', $this->pluginDomain),
+				'view_item' => __('View Event', $this->pluginDomain),
+				'search_items' => __('Search Events', $this->pluginDomain),
+				'not_found' => __('No events found', $this->pluginDomain),
+				'not_found_in_trash' => __('No events found in Trash', $this->pluginDomain)
+			);
+		}
+		
+		public function addAdminStyles() {
+			wp_enqueue_style( self::POSTTYPE.'-admin', $this->pluginUrl . '/resources/events-admin.css' );
 		}
 		
 		public function addOptionsPage() {
@@ -639,18 +681,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			}
 			return $where;
 		}
-		/**
-		 * Removes event posts from the homepage loop.  This uses a standard wordpress pre_get_posts
-		 */
-		public function events_home_cat_excluder( $query ) {
-			if( is_home() && eventsGetOptionValue( 'displayEventsOnHomepage' ) == 'off' ) {		
-		        $excluded_home_cats = $this->event_category_ids();
-		        $cni = $query->get('category__not_in');
-		        $cni = array_merge( $cni, $excluded_home_cats );
-		        $query->set('category__not_in', $cni );
-			}
-			return $query;
-		}
+		
 		/**
 		 * @return bool true if is_category() is on a child of the events category
 		 */
@@ -1004,8 +1035,8 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 * @return void
 		 */
 		public function addEventBox( ) {
-			add_meta_box( 'Event Details', __( 'The Events Calendar', 'Events_textdomain' ), 
-		                array( $this, 'EventsChooserBox' ), 'post', 'normal', 'high' );
+			add_meta_box( 'Event Details', __( 'The Events Calendar', $this->pluginDomain ), 
+		                array( $this, 'EventsChooserBox' ), self::POSTTYPE, 'normal', 'high' );
 		}
 		/** 
 		 * Builds a set of options for diplaying a meridian chooser
