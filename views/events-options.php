@@ -1,71 +1,14 @@
 <script type="text/javascript">
-jQuery(document).ready(function() {
-
-	function theEventsCalendarHideDonateButton() {
-		jQuery('#mainDonateRow').hide();
-		jQuery('#secondDonateRow').show();
-	} 
-	jQuery('#hideDonateButton').click(function() {
-		jQuery.post( '<?php bloginfo('wpurl'); ?>/wp-admin/admin-ajax.php', { donateHidden: true, action: 'hideDonate' }, theEventsCalendarHideDonateButton, 'json' );
-	});
+jQuery(document).ready(function($) {
 
 	function displayOptionsError() {
-		$.post('<?php bloginfo('wpurl'); ?>/wp-admin/admin-ajax.php', { action: 'getOptionsError' }, function(error) {
+		$.post('<?php bloginfo("wpurl"); ?>/wp-admin/admin-ajax.php', { action: 'getOptionsError' }, function(error) {
 		  $('#tec-options-error').append('<h3>Error</h3><p>' + error + '</p>')
 		});
 	}
 });
 </script>
 <style type="text/css">
-.form-table form input {border:none;}
-<?php if( eventsGetOptionValue('donateHidden', false) ) : ?>
-	#mainDonateRow {display: none;}
-<?php else : ?>
-	#mainDonateRow {background-color: #FCECA9;}
-	#secondDonateRow {display: none;}
-<?php endif; ?>
-#mainDonateRow label {}
-#submitLabel {display: block;}
-#submitLabel input {
-	display: block;
-	padding: 0;
-}
-#hideDonateButton {}
-#checkBoxLabel {}
-.form-table form #secondSubmit {
-	background:#f2f2f2 url(<?php bloginfo('wpurl'); ?>/images/white-grad-active.png) repeat-x scroll left top;
-	text-decoration: none;
-	font-size: 11px;
-	line-height: 16px;
-	padding: 5px 11px;
-	margin-bottom:10px;
-	cursor: pointer;
-	border: 1px solid #bbb;
-	-moz-border-radius: 5px;
-	-khtml-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
-	-moz-box-sizing: content-box;
-	-webkit-box-sizing: content-box;
-	-khtml-box-sizing: content-box;
-	box-sizing: content-box;
-	text-shadow: rgba(255,255,255,1) 0 1px 0;
-	color: #6b6b6b;
-	font-weight: bold;
-	text-transform: uppercase;
-}
-.form-table form #secondSubmit {
-	background: #f2f2f2 url(<?php bloginfo('wpurl'); ?>/wp-admin/images/white-grad.png) repeat-x scroll left top;
-}
-
-.form-table form #secondSubmit:active {
-	background: #eee url(<?php bloginfo('wpurl'); ?>/wp-admin/images/white-grad-active.png) repeat-x scroll left top;
-}
-
-.form-table form #secondSubmit:hover {
-	color: #000;
-	border-color: #666;
-}
 div.snp_settings{
 	width:90%;
 }
@@ -94,37 +37,6 @@ try {
 	<h3><?php _e('Need a hand?',$this->pluginDomain); ?></h3>
 	<p><?php _e('If you\'re stuck on these options, please <a href="http://wordpress.org/extend/plugins/the-events-calendar/">check out the documentation</a>. If you\'re still wondering what\'s going on, be sure to stop by the support <a href="http://wordpress.org/tags/the-events-calendar?forum_id=10">forum</a> and ask for help. The open source community is full of kind folks who are happy to help.',$this->pluginDomain); ?></p>
 	<p><?php _e('Here is the iCal feed URL for your events: ' ,$this->pluginDomain); ?><code><?php bloginfo('home'); ?>/?ical</code></p>
-	<table class="form-table">
-	    <tr id="mainDonateRow">
-	    	<th scope="row"><?php _e('Donate',$this->pluginDomain); ?></th>
-	        <td>
-	            <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-	                <input type="hidden" name="cmd" value="_s-xclick">
-	                <input type="hidden" name="hosted_button_id" value="10750983">
-	                <input type="hidden" name="item_name" value="Events Options Panel Main">
-	                <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-	                <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
-	                <label id="submitLabel" for="submit">
-	                	<?php _e('If you find this plugin useful, please consider donating to the producer of it, Shane &#38; Peter, Inc. Thank you!',$this->pluginDomain); ?>
-	                </label>
-
-	                <input id="hideDonateButton" type="checkbox" name="hideDonateButton" value="" />
-	                <label id="checkBoxLabel" class="button" for="hideDonateButton"><?php _e('I have already donated, so please hide this button!',$this->pluginDomain); ?></label>
-	            </form>
-	        </td>
-	    </tr>
-	    <tr id="secondDonateRow">
-	        <td>
-	            <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-	                <input type="hidden" name="cmd" value="_s-xclick">
-	                <input type="hidden" name="hosted_button_id" value="10751527">
-	                <input type="hidden" name="item_name" value="Events Options Panel Secondary">
-	                <input id="secondSubmit" type="submit" value="<?php _e('Donate for this wonderful plugin', $this->pluginDomain); ?>" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-	                <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
-	            </form>
-	        </td>
-	    </tr>
-	</table>
 
 	<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 

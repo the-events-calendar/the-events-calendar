@@ -10,6 +10,7 @@ $rawOffset = date("w", $date) - $startOfWeek;
 $offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
 $rows = 1;
 $monthView = events_by_month( $eventPosts, $spEvents->date );
+
 ?>
 <table class="tec-calendar" id="big">
 	<thead>

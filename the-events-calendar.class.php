@@ -5,7 +5,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 	 */
 	class The_Events_Calendar {
 		const EVENTSERROROPT		= '_tec_events_errors';
-		const CATEGORYNAME	 		= 'Events';
+		const CATEGORYNAME	 		= 'Events'; // legacy category
 		const OPTIONNAME 			= 'sp_events_calendar_options';
 		const POSTTYPE				= 'sp_events';
 		// default formats, they are overridden by WP options or by arguments to date methods
@@ -14,17 +14,20 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		const DBDATEFORMAT	 		= 'Y-m-d';
 		const DBDATETIMEFORMAT 		= 'Y-m-d G:i:s';
 		
-		public $postTypeArgs = array(
+		private $postTypeArgs = array(
 			'public' => true,
-			'rewrite' => array('slug' => 'event')
+			'rewrite' => array('slug' => 'event'),
+			'menu_position' => 6
 		);
-
+		
+		private $rewriteSlug;
 		private $defaultOptions = '';
 		public $latestOptions;
 		private $postExceptionThrown = false;
 		private $optionsExceptionThrown = false;
 		public $displaying;
 		public $pluginDir;
+		public $pluginPath;
 		public $pluginUrl;
 		public $pluginDomain = 'the-events-calendar';
 		private $tabIndexStart = 2000;
@@ -322,19 +325,20 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 * @return void
 		 */
 		function __construct( ) {
+			$this->rewriteSlug		= __( 'events',$this->pluginDomain );
 			$this->currentDay		= '';
 			$this->pluginDir		= basename(dirname(__FILE__));
+			$this->pluginPath		= WP_PLUGIN_DIR . '/' . $this->pluginDir;
 			$this->pluginUrl 		= WP_CONTENT_URL.'/plugins/'.plugin_basename(dirname(__FILE__));
 			$this->errors			= '';
 			register_deactivation_hook( __FILE__, 	array( &$this, 'on_deactivate' ) );
-			
-			$this->generatePostTypeLabels();
 			
 			$this->addFilters();
 			$this->addActions();
 		}
 		
 		private function addFilters() {
+			add_filter( 'template_include', array( $this, 'templateChooser') );
 			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
 			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );			
 			add_filter( 'posts_join',		array( $this, 'events_search_join' ) );
@@ -351,12 +355,10 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			add_action( 'pre_get_posts',	array( $this, 'setOptions' ) );
 			add_action( 'admin_menu', 		array( $this, 'addOptionsPage' ) );
 			add_action( 'admin_init', 		array( $this, 'checkForOptionsChanges' ) );
-			add_action( 'wp_ajax_hideDonate', array( $this, 'storeHideDonate'));
 			add_action( 'admin_menu', 		array( $this, 'addEventBox' ) );
 			add_action( 'save_post',		array( $this, 'addEventMeta' ), 15 );
 			add_action( 'publish_post',		array( $this, 'addEventMeta' ), 15 );
-			
-			add_action( 'template_redirect',array($this, 'templateChooser' ), 1 );
+
 			add_action( 'sp_events_post_errors', array( 'TEC_Post_Exception', 'displayMessage' ) );
 			add_action( 'sp_events_options_top', array( 'TEC_WP_Options_Exception', 'displayMessage') );
 			add_action( 'init', array( $this, 'registerPostType' ) );
@@ -364,6 +366,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		}
 		
 		public function registerPostType() {
+			$this->generatePostTypeLabels();
 			register_post_type(self::POSTTYPE, $this->postTypeArgs);
 		}
 		
@@ -426,15 +429,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			} // end if
 		}
 		
-		public function storeHideDonate() {
-			if ( $_POST['donateHidden'] ) {
-                $options = $this->getOptions();
-				$options['donateHidden'] = true;
-				
-				$this->saveOptions($options);
-			} // end if
-		}
-		
 		/// OPTIONS DATA
         public function getOptions() {
             if ('' === $this->defaultOptions) {
@@ -458,32 +452,32 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
             delete_option(The_Events_Calendar::OPTIONNAME);
         }
 
-		public function templateChooser() {
-			if( is_feed() ) {
-				return;
+		public function templateChooser($template) {
+
+			if( is_feed() || get_query_var( 'post_type' ) != self::POSTTYPE ) {
+				return $template;
 			}
+			
 			$this->constructDaysOfWeek();
+
 			// list view
-			if ( $this->in_event_category() && ( events_displaying_upcoming() || events_displaying_past() ) ) {
-				if( '' == locate_template( array( 'events/list.php' ), true ) ) {
-					load_template( dirname( __FILE__ ) . '/views/list.php' );
-				}
-				exit;
-	        }    
-	        // grid view
-			if ( $this->in_event_category() ) {
-				if( '' == locate_template( array( 'events/gridview.php' ), true ) ) {
-					load_template( dirname( __FILE__ ) . '/views/gridview.php' );
-				}
-				exit;
-	        }    
-			// single event
-			if (is_single() && in_category( $this->eventCategory() ) ) {
-				if( '' == locate_template( array( 'events/single.php' ), true ) ) {
-					load_template( dirname( __FILE__ ) . '/views/single.php' );
-				}
-				exit;
+			if ( events_displaying_upcoming() || events_displaying_past() ) {
+				if ( $list = locate_template( array( 'events/list.php' ) ) )
+					return $list;
+				return $this->pluginPath . '/views/list.php';
 			}
+			// single event
+			elseif ( is_single() ) {
+				if ( $single = locate_template( array( 'events/single.php' ) ) )
+					return $single;
+				return $this->pluginPath . '/views/single.php';
+			}
+			// grid view
+			else {
+				if ( $grid = locate_template( array( 'events/gridview.php' ) ) )
+					return $grid;
+				return $this->pluginPath . '/views/gridview.php';
+	        }
 		}
 		
 		public function truncate($text, $excerpt_length = 44) {
@@ -595,7 +589,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			$now = time();
 			$firstTime = $now - ($now % 66400);
 			wp_schedule_event( $firstTime, 'daily', 'reschedule_event_post'); // schedule this for midnight, daily
-			$this->create_category_if_not_exists( );	
 			$this->flushRewriteRules();
 		}
 		/**
@@ -633,7 +626,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 * @param string modified fields for events queries
 		 */
 		public function events_search_fields( $fields ) {
-			if( !$this->in_event_category() ) { 
+			if ( get_query_var('post_type') != self::POSTTYPE ) { 
 				return $fields;
 			}
 			global $wpdb;
@@ -649,7 +642,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 */
 		public function events_search_join( $join ) {
 			global $wpdb;
-			if( !$this->in_event_category() ) { 
+			if ( get_query_var('post_type') != self::POSTTYPE ) { 
 				return $join;
 			}
 			$join .= "LEFT JOIN {$wpdb->postmeta} as eventStart ON( {$wpdb->posts}.ID = eventStart.post_id ) ";
@@ -664,7 +657,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 * @return string modified where clause
 		 */
 		public function events_search_where( $where ) {
-			if( !$this->in_event_category() ) { 
+			if ( get_query_var('post_type') != self::POSTTYPE ) { 
 				return $where;
 			}
 			$where .= ' AND ( eventStart.meta_key = "_EventStartDate" AND eventEnd.meta_key = "_EventEndDate" ) ';
@@ -722,7 +715,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 * @return string modified orderby clause
 		 */
 		public function events_search_orderby( $orderby ) {
-			if( !$this->in_event_category() ) { 
+			if ( get_query_var('post_type') != self::POSTTYPE ) { 
 				return $orderby;
 			}
 			global $wpdb;
@@ -737,7 +730,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 * @return string modified limits clause
 		 */
 		public function events_search_limits( $limits ) { 
-			if( !$this->in_event_category() ) { 
+			if ( get_query_var('post_type') != self::POSTTYPE ) { 
 				return $limits;
 			}
 			global $wpdb, $wp_query, $paged;
@@ -790,9 +783,20 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 * @return void
 		 */
 		public function filterRewriteRules( $wp_rewrite ) {
-			if( $useRewriteRules = eventsGetOptionValue('useRewriteRules','on') == 'off' ) {
+			if ( '' == get_option('permalink_structure') || 'off' == eventsGetOptionValue('useRewriteRules','on') ) {
 				return;
 			}
+			
+			$base = trailingslashit( $this->rewriteSlug );
+			
+			$newRules[$base . 'month'] 					= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month';
+			$newRules[$base . 'upcoming/page/(\d+)']	= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(1);
+			$newRules[$base . 'upcoming']				= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
+			$newRules[$base . 'past/page/(\d+)']		= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(1);
+			$newRules[$base . 'past']					= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past';
+			$newRules[$base . '(\d{4}-\d{2})$']			= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(1);
+			$newRules[$base . '?$']						= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=' . eventsGetOptionValue('viewOption','month');
+			/*
 			$categoryId = get_cat_id( The_Events_Calendar::CATEGORYNAME );
 			$eventCategory = get_category( $categoryId );
 			$eventCats = array( $eventCategory );
@@ -802,28 +806,89 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			foreach( $eventCats as $cat ) {
 				$url = get_category_link( $cat->cat_ID );
 				$base = str_replace( trailingslashit( get_option( 'siteurl' ) ), '', $url );
-				$newRules[$base . 'month'] 					= 'index.php?cat=' . $cat->cat_ID . '&eventDisplay=month';
-				$newRules[$base . 'upcoming/page/(\d+)']	= 'index.php?cat=' . $cat->cat_ID . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(1);
-				$newRules[$base . 'upcoming']				= 'index.php?cat=' . $cat->cat_ID . '&eventDisplay=upcoming';
-				$newRules[$base . 'past/page/(\d+)']		= 'index.php?cat=' . $cat->cat_ID . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(1);
-				$newRules[$base . 'past']					= 'index.php?cat=' . $cat->cat_ID . '&eventDisplay=past';
-				$newRules[$base . '(\d{4}-\d{2})$']			= 'index.php?cat=' . $cat->cat_ID . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(1);
-				$newRules[$base . '?$']						= 'index.php?cat=' . $cat->cat_ID . '&eventDisplay=' . eventsGetOptionValue('viewOption','month');
+				$newRules[$base . 'month'] 					= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month';
+				$newRules[$base . 'upcoming/page/(\d+)']	= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(1);
+				$newRules[$base . 'upcoming']				= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
+				$newRules[$base . 'past/page/(\d+)']		= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(1);
+				$newRules[$base . 'past']					= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past';
+				$newRules[$base . '(\d{4}-\d{2})$']			= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(1);
+				$newRules[$base . '?$']						= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=' . eventsGetOptionValue('viewOption','month');
 			}
-		  $wp_rewrite->rules = $newRules + $wp_rewrite->rules;
+			//*/
+		  $wp_rewrite->rules = array_merge($newRules, $wp_rewrite->rules);
 		}
+		
+		public function getLink( $type = 'home', $secondary = false ) {
+			
+			// if permalinks are off or user doesn't want them: ugly.
+			if( '' == get_option('permalink_structure') || 'off' == eventsGetOptionValue('useRewriteRules','on') ) {
+				return $this->uglyLink($type, $secondary);
+			}
+			$eventUrl = home_url() . '/' . $this->rewriteSlug . '/' ;
+			
+			switch ($type) {
+				
+				case 'home':
+					return $eventUrl;
+				case 'month':
+					if ( $secondary ) {
+						return $eventUrl . $secondary;
+					}
+					return $eventUrl . 'month';
+				case 'upcoming':
+					return $eventUrl . 'upcoming';
+				case 'past':
+					return $eventUrl . 'past';
+				case 'dropdown':
+					return $eventUrl;
+					
+				default:
+					return $eventUrl;
+					
+				
+			}
+			
+		}
+		
+		private function uglyLink( $type = 'home', $secondary = false ) {
+			
+			$eventUrl = add_query_arg('post_type', self::POSTTYPE, home_url() );
+			
+			switch ( $type ) {
+				
+				case 'home':
+					return $eventUrl;
+				case 'dropdown':
+					return add_query_arg( array( 'eventDisplay' => 'month', 'eventDate' => '', $eventUrl) );
+				
+			}
+		}
+		
 		/**
-		 * Creates the events category and updates the  core options (if not already done)
-		 * @return int cat_ID
+		 * Returns a link to google maps for the given event
+		 *
+		 * @param string $postId 
+		 * @return string a fully qualified link to http://maps.google.com/ for this event
 		 */
-		public function create_category_if_not_exists( ) {
-			if ( !category_exists( The_Events_Calendar::CATEGORYNAME ) ) {
-				$category_id = wp_create_category( The_Events_Calendar::CATEGORYNAME );
-				return $category_id;
-			} else {
-				return $this->eventCategory();
+		public function googleMapLink( $postId = null ) {
+			if ( $postId === null || !is_numeric( $postId ) ) {
+				global $post;
+				$postId = $post->ID;
 			}
+			
+			$locationMetaSuffixes = array( 'Address', 'City', 'State', 'Province', 'Zip', 'Country' );
+			$toUrlEncode = "";
+			foreach( $locationMetaSuffixes as $val ) {
+				$metaVal = get_post_meta( $postId, '_Event' . $val, true );
+				if ( $metaVal ) 
+					$toUrlEncode .= $metaVal . " ";
+			}
+			if ( $toUrlEncode ) 
+				return "http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=" . urlencode( trim( $toUrlEncode ) );
+			return "";
+			
 		}
+		
 		/**
 		 * This plugin does not have any deactivation functionality. Any events, categories, options and metadata are
 		 * left behind.
@@ -831,7 +896,8 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 * @return void
 		 */
 		public function on_deactivate( ) { 
-		  	wp_clear_scheduled_hook('reschedule_event_post');
+			wp_clear_scheduled_hook('reschedule_event_post');
+			$this->flushRewriteRules();
 		}
 		/**
 		 * Converts a set of inputs to YYYY-MM-DD HH:MM:SS format for MySQL
@@ -851,90 +917,66 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 * @return void
 		 */
 		public function addEventMeta( $postId ) {
-			if ($_POST['isEvent'] == 'yes') {
-				$category_id = $this->create_category_if_not_exists();
-				// add a function below to remove all existing categories - wp_set_post_categories(int ,  array )
-				if( $_POST['EventAllDay'] == 'yes' ) {
-					$_POST['EventStartDate'] = $this->dateToTimeStamp( $_POST['EventStartYear'], $_POST['EventStartMonth'], $_POST['EventStartDay'], "12", "00", "AM" );
-					$_POST['EventEndDate'] = $this->dateToTimeStamp( $_POST['EventEndYear'], $_POST['EventEndMonth'], $_POST['EventEndDay'], "11", "59", "PM" );
-				} else {
-					delete_post_meta( $postId, '_EventAllDay' );
-					$_POST['EventStartDate'] = $this->dateToTimeStamp( $_POST['EventStartYear'], $_POST['EventStartMonth'], $_POST['EventStartDay'], $_POST['EventStartHour'], $_POST['EventStartMinute'], $_POST['EventStartMeridian'] );
-					$_POST['EventEndDate'] = $this->dateToTimeStamp( $_POST['EventEndYear'], $_POST['EventEndMonth'], $_POST['EventEndDay'], $_POST['EventEndHour'], $_POST['EventEndMinute'], $_POST['EventEndMeridian'] );
-				}
-				// sanity check that start date < end date
-				$startTimestamp = strtotime( $_POST['EventStartDate'] );
-				$endTimestamp 	= strtotime( $_POST['EventEndDate'] );
-				if ( $startTimestamp > $endTimestamp ) {
-					$_POST['EventEndDate'] = $_POST['EventStartDate'];
-				}
-				// make state and province mutually exclusive
-				if( $_POST['EventStateExists'] ) $_POST['EventProvince'] = '';
-				else $_POST['EventState'] = '';
-				//ignore Select a Country: as a country
-				if( $_POST['EventCountryLabel'] == "" ) $_POST['EventCountry'] = "";
-				//google map checkboxes
-				if( !isset( $_POST['EventShowMapLink'] ) ) update_post_meta( $postId, '_EventShowMapLink', 'false' );
-				if( !isset( $_POST['EventShowMap'] ) ) update_post_meta( $postId, '_EventShowMap', 'false' );
-				// give add-on plugins a chance to cancel this meta update
-				try {
-					do_action( 'sp_events_event_save', $postId );
-					if( !$this->postExceptionThrown ) delete_post_meta( $postId, self::EVENTSERROROPT );
-				} catch ( TEC_Post_Exception $e ) {
-					$this->postExceptionThrown = true;
-					update_post_meta( $postId, self::EVENTSERROROPT, trim( $e->getMessage() ) );
-				}	
-				//update meta fields		
-				foreach ( $this->metaTags as $tag ) {
-					$htmlElement = ltrim( $tag, '_' );
-					if ( $tag != self::EVENTSERROROPT ) {
-						if ( isset( $_POST[$htmlElement] ) ) {
-							update_post_meta( $postId, $tag, $_POST[$htmlElement] );
-						}
+			global $post;
+			// only continue if it's an event post
+			if ( $post->post_type != self::POSTTYPE ) {
+				return;
+			}
+			// don't do anything on autosave or revision either
+			if ( wp_is_post_autosave( $post ) ) {
+				return;
+			}
+			
+			// add a function below to remove all existing categories - wp_set_post_categories(int ,  array )
+			if( $_POST['EventAllDay'] == 'yes' ) {
+				$_POST['EventStartDate'] = $this->dateToTimeStamp( $_POST['EventStartYear'], $_POST['EventStartMonth'], $_POST['EventStartDay'], "12", "00", "AM" );
+				$_POST['EventEndDate'] = $this->dateToTimeStamp( $_POST['EventEndYear'], $_POST['EventEndMonth'], $_POST['EventEndDay'], "11", "59", "PM" );
+			} else {
+				delete_post_meta( $postId, '_EventAllDay' );
+				$_POST['EventStartDate'] = $this->dateToTimeStamp( $_POST['EventStartYear'], $_POST['EventStartMonth'], $_POST['EventStartDay'], $_POST['EventStartHour'], $_POST['EventStartMinute'], $_POST['EventStartMeridian'] );
+				$_POST['EventEndDate'] = $this->dateToTimeStamp( $_POST['EventEndYear'], $_POST['EventEndMonth'], $_POST['EventEndDay'], $_POST['EventEndHour'], $_POST['EventEndMinute'], $_POST['EventEndMeridian'] );
+			}
+			// sanity check that start date < end date
+			$startTimestamp = strtotime( $_POST['EventStartDate'] );
+			$endTimestamp 	= strtotime( $_POST['EventEndDate'] );
+			if ( $startTimestamp > $endTimestamp ) {
+				$_POST['EventEndDate'] = $_POST['EventStartDate'];
+			}
+			// make state and province mutually exclusive
+			if( $_POST['EventStateExists'] ) $_POST['EventProvince'] = '';
+			else $_POST['EventState'] = '';
+			//ignore Select a Country: as a country
+			if( $_POST['EventCountryLabel'] == "" ) $_POST['EventCountry'] = "";
+			//google map checkboxes
+			if( !isset( $_POST['EventShowMapLink'] ) ) update_post_meta( $postId, '_EventShowMapLink', 'false' );
+			if( !isset( $_POST['EventShowMap'] ) ) update_post_meta( $postId, '_EventShowMap', 'false' );
+			// give add-on plugins a chance to cancel this meta update
+			try {
+				do_action( 'sp_events_event_save', $postId );
+				if( !$this->postExceptionThrown ) delete_post_meta( $postId, self::EVENTSERROROPT );
+			} catch ( TEC_Post_Exception $e ) {
+				$this->postExceptionThrown = true;
+				update_post_meta( $postId, self::EVENTSERROROPT, trim( $e->getMessage() ) );
+			}	
+			//update meta fields		
+			foreach ( $this->metaTags as $tag ) {
+				$htmlElement = ltrim( $tag, '_' );
+				if ( $tag != self::EVENTSERROROPT ) {
+					if ( isset( $_POST[$htmlElement] ) ) {
+						update_post_meta( $postId, $tag, $_POST[$htmlElement] );
 					}
 				}
-				try {
-					do_action( 'sp_events_update_meta', $postId );
-					if( !$this->postExceptionThrown ) delete_post_meta( $postId, self::EVENTSERROROPT );
-				} catch( TEC_Post_Exception $e ) {
-					$this->postExceptionThrown = true;
-					update_post_meta( $postId, self::EVENTSERROROPT, trim( $e->getMessage() ) );
-				}
+			}
+			try {
+				do_action( 'sp_events_update_meta', $postId );
+				if( !$this->postExceptionThrown ) delete_post_meta( $postId, self::EVENTSERROROPT );
+			} catch( TEC_Post_Exception $e ) {
+				$this->postExceptionThrown = true;
+				update_post_meta( $postId, self::EVENTSERROROPT, trim( $e->getMessage() ) );
+			}
 
-				update_post_meta( $postId, '_EventCost', the_event_cost( $postId ) ); // XXX eventbrite cost field
-				// merge event category into this post
-				$cats = wp_get_object_terms($postId, 'category', array('fields' => 'ids'));
-				$new_cats = array_merge( array( get_category( $category_id )->cat_ID ), $cats );
-				wp_set_post_categories( $postId, $new_cats );
-			}
-			if ($_POST['isEvent'] == 'no' && is_event( $postId ) ) {
-				// remove event meta tags if they exist...this post is no longer an event
-				foreach ( $this->metaTags as $tag ) {
-					delete_post_meta( $postId, $tag );
-				}
-				$event_cats[] = $this->eventCategory();
-				$cats = get_categories('child_of=' . $this->eventCategory());
-				foreach( $cats as $cat ) {
-					$event_cats[] = $cat->term_id;
-				}
-				// remove the event categories from this post but keep any non-event categories
-				$terms =  wp_get_object_terms($postId, 'category'); 
-				$non_event_cats = array();
-				foreach ( $terms as $term ) {
-					if( !in_array( $term->term_id, $event_cats ) ) {
-						$non_event_cats[] = $term->term_id;
-					}
-				}
-				wp_set_post_categories( $postId, $non_event_cats );
-				
-				try {
-					do_action( 'sp_events_event_clear', $postId );
-					if( !$this->postExceptionThrown ) delete_post_meta( $postId, self::EVENTSERROROPT );
-				} catch( TEC_Post_Exception $e ) {
-					$this->postExceptionThrown = true;
-					update_post_meta( $postId, self::EVENTSERROROPT, trim( $e->getMessage() ) );
-				}
-			}
+			update_post_meta( $postId, '_EventCost', the_event_cost( $postId ) ); // XXX eventbrite cost field
+
 		}
 		
 		/**
@@ -1278,6 +1320,66 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			echo $this->tabIndexStart;
 			$this->tabIndexStart++;
 		}
+		
+		/**
+		 * This function is called by @function get_events() to query the events and start the loop. Do not
+		 * subsequently call the_post() in your template, as this will start the loop twice and then
+		 * you're in trouble.
+		 * 
+		 * http://codex.wordpress.org/Displaying_Posts_Using_a_Custom_Select_Query#Query_based_on_Custom_Field_and_Category
+		 *
+		 * @param int number of results to display for upcoming or past modes (default 10)
+		 * @param string category name to pull events from, defaults to the currently displayed category
+		 * @uses $wpdb
+		 * @uses $wp_query
+		 * @return array results
+		 */
+		
+		public function getEvents( $numResults = null, $catName = null ) {
+			if( !$numResults ) $numResults = get_option( 'posts_per_page', 10 );
+			global $wpdb;
+			$this->setOptions();
+			
+			echo $this->date;
+
+			$extraSelectClause ='';
+			$extraJoinEndDate ='';
+			if ( events_displaying_month() ) {
+				$extraSelectClause	= ", d2.meta_value as EventEndDate ";
+				$extraJoinEndDate	 = " LEFT JOIN $wpdb->postmeta  as d2 ON($wpdb->posts.ID = d2.post_id) ";
+				$whereClause = " AND d1.meta_key = '_EventStartDate' AND d2.meta_key = '_EventEndDate' ";
+				// does this event start in this month?
+				$whereClause .= " AND ((d1.meta_value >= '".$this->date."'  AND  d1.meta_value < '".$this->nextMonth( $this->date )."')  ";
+				// Or does it end in this month?
+				$whereClause .= " OR (d2.meta_value  >= '".$this->date."' AND d2.meta_value < '".$this->nextMonth( $this->date )."' ) ";
+				// Or does the event start sometime in the past and end sometime in the distant future?
+				$whereClause .= " OR (d1.meta_value  <= '".$this->date."' AND d2.meta_value > '".$this->nextMonth( $this->date )."' ) ) ";
+				$numResults = 999999999;
+			}
+			if ( events_displaying_upcoming() ) {
+				$extraSelectClause	= ", d2.meta_value as EventEndDate ";
+				$extraJoinEndDate	 = " LEFT JOIN $wpdb->postmeta  as d2 ON($wpdb->posts.ID = d2.post_id) ";
+				$whereClause = " AND d1.meta_key = '_EventStartDate' AND d2.meta_key = '_EventEndDate' ";
+				// Is the start date in the future?
+				$whereClause .= ' AND ( d1.meta_value > "'.$this->date.'" ';
+				// Or is the start date in the past but the end date in the future? (meaning the event is currently ongoing)
+				$whereClause .= ' OR ( d1.meta_value < "'.$this->date.'" AND d2.meta_value > "'.$this->date.'" ) ) ';
+			}
+			$eventsQuery = "
+				SELECT $wpdb->posts.*, d1.meta_value as EventStartDate
+					$extraSelectClause
+				 	FROM $wpdb->posts 
+				LEFT JOIN $wpdb->postmeta as d1 ON($wpdb->posts.ID = d1.post_id)
+				$extraJoinEndDate
+				WHERE $wpdb->posts.post_type = '" . self::POSTTYPE . "'
+				AND $wpdb->posts.post_status = 'publish'
+				$whereClause
+				ORDER BY d1.meta_value ".$this->order."
+				LIMIT $numResults";
+			$results = $wpdb->get_results($eventsQuery, OBJECT);
+			return $results;
+		}
+		
 		/**
 		 * build an ical feed from events posts
 		 */

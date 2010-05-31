@@ -92,19 +92,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 * @return string a fully qualified link to http://maps.google.com/ for this event
 	 */
 	function get_event_google_map_link( $postId = null ) {
-		if ( $postId === null || !is_numeric( $postId ) ) {
-			global $post;
-			$postId = $post->ID;
-		}
-		if ( !is_event( $postId ) ) return false;
-		$locationMetaSuffixes = array( 'Address', 'City', 'State', 'Province', 'Zip', 'Country' );
-		$toUrlEncode = "";
-		foreach( $locationMetaSuffixes as $val ) {
-			$metaVal = get_post_meta( $postId, '_Event' . $val, true );
-			if( $metaVal ) $toUrlEncode .= $metaVal . " ";
-		}
-		if( $toUrlEncode ) return "http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=" . urlencode( trim( $toUrlEncode ) );
-		return "";
+		global $spEvents;
+		return $spEvents->googleMapLink( $postId );
 	}
 	/**
 	 * Displays a link to google maps for the given event
@@ -480,58 +469,11 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 *
 	 * @param int number of results to display for upcoming or past modes (default 10)
 	 * @param string category name to pull events from, defaults to the currently displayed category
-	 * @uses $wpdb
-	 * @uses $wp_query
 	 * @return array results
 	 */
 	function get_events( $numResults = null, $catName = null ) {
-		if( !$numResults ) $numResults = get_option( 'posts_per_page', 10 );
-		global $wpdb, $spEvents;
-		$spEvents->setOptions();
-		if( $catName ) {
-			$categoryId = get_cat_id( $catName );		
-		} else {
-			$categoryId = get_query_var( 'cat' );
-		}		
-		$extraSelectClause ='';
-		$extraJoinEndDate ='';
-		if ( events_displaying_month() ) {
-			$extraSelectClause	= ", d2.meta_value as EventEndDate ";
-			$extraJoinEndDate	 = " LEFT JOIN $wpdb->postmeta  as d2 ON($wpdb->posts.ID = d2.post_id) ";
-			$whereClause = " AND d1.meta_key = '_EventStartDate' AND d2.meta_key = '_EventEndDate' ";
-			// does this event start in this month?
-			$whereClause .= " AND ((d1.meta_value >= '".$spEvents->date."'  AND  d1.meta_value < '".$spEvents->nextMonth( $spEvents->date )."')  ";
-			// Or does it end in this month?
-			$whereClause .= " OR (d2.meta_value  >= '".$spEvents->date."' AND d2.meta_value < '".$spEvents->nextMonth( $spEvents->date )."' ) ";
-			// Or does the event start sometime in the past and end sometime in the distant future?
-			$whereClause .= " OR (d1.meta_value  <= '".$spEvents->date."' AND d2.meta_value > '".$spEvents->nextMonth( $spEvents->date )."' ) ) ";
-			$numResults = 999999999;
-		}
-		if ( events_displaying_upcoming() ) {
-			$extraSelectClause	= ", d2.meta_value as EventEndDate ";
-			$extraJoinEndDate	 = " LEFT JOIN $wpdb->postmeta  as d2 ON($wpdb->posts.ID = d2.post_id) ";
-			$whereClause = " AND d1.meta_key = '_EventStartDate' AND d2.meta_key = '_EventEndDate' ";
-			// Is the start date in the future?
-			$whereClause .= ' AND ( d1.meta_value > "'.$spEvents->date.'" ';
-			// Or is the start date in the past but the end date in the future? (meaning the event is currently ongoing)
-			$whereClause .= ' OR ( d1.meta_value < "'.$spEvents->date.'" AND d2.meta_value > "'.$spEvents->date.'" ) ) ';
-		}
-		$eventsQuery = "
-			SELECT $wpdb->posts.*, d1.meta_value as EventStartDate
-				$extraSelectClause
-			 	FROM $wpdb->posts 
-			LEFT JOIN $wpdb->postmeta as d1 ON($wpdb->posts.ID = d1.post_id)
-			$extraJoinEndDate
-			LEFT JOIN $wpdb->term_relationships ON($wpdb->posts.ID = $wpdb->term_relationships.object_id)
-			LEFT JOIN $wpdb->term_taxonomy ON($wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id)
-			WHERE $wpdb->term_taxonomy.term_id = $categoryId
-			AND $wpdb->term_taxonomy.taxonomy = 'category'
-			AND $wpdb->posts.post_status = 'publish'
-			$whereClause
-			ORDER BY d1.meta_value ".$spEvents->order."
-			LIMIT $numResults";
-		$return = $wpdb->get_results($eventsQuery, OBJECT);
-		return $return;
+		global $spEvents;
+		return $spEvents->getEvents( $numResults, $catName );
 	}
 	/**
 	 * Returns true if the query is set for past events, false otherwise
@@ -567,16 +509,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 */
 	function events_get_past_link() {
 		global $spEvents;
-		$cat_id = get_query_var( 'cat' );
-		if( !$cat_id ) {
-			$cat_id = $spEvents->eventCategory();
-		}
-		$link = get_category_link( $cat_id );
-		if( '' == get_option('permalink_structure') || 'off' == eventsGetOptionValue('useRewriteRules','on') ) {
-			return add_query_arg( array('eventDisplay'=>'past'), $link );
-		} else {
-			return trailingslashit( $link ) . 'past';
-		}
+		return $spEvents->getLink('past');
 	}
 	/**
 	 * Returns a link to the upcoming events in list view
@@ -585,16 +518,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 */
 	function events_get_upcoming_link() {
 		global $spEvents;
-		$cat_id = get_query_var( 'cat' );
-		if( !$cat_id ) {
-			$cat_id = $spEvents->eventCategory();
-		}
-		$link = get_category_link( $cat_id );
-		if( '' == get_option('permalink_structure') || 'off' == eventsGetOptionValue('useRewriteRules','on') ) {
-			return add_query_arg( array('eventDisplay'=>'upcoming'), $link );
-		} else {
-			return trailingslashit( $link ) . 'upcoming';
-		}
+		return $spEvents->getLink('upcoming');
 	}
 	/**
 	 * Returns a link to the next month's events page
@@ -603,16 +527,16 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 */
 	function events_get_next_month_link() {
 		global $spEvents;
-		$cat_id = get_query_var( 'cat' );
-		if( !$cat_id ) {
-			$cat_id = $spEvents->eventCategory();
-		}
+		return $spEvents->getLink( 'month', $spEvents->nextMonth( $spEvents->date ) );
+		
+		/*
 		$link = get_category_link( $cat_id );
 		if( '' == get_option('permalink_structure') || 'off' == eventsGetOptionValue('useRewriteRules','on') ) {
 			return add_query_arg( array('eventDate'=>$spEvents->nextMonth( $spEvents->date )), $link );
 		} else {
 			return trailingslashit( $link ) . $spEvents->nextMonth( $spEvents->date );
 		}
+		*/
 	}
 	/**
 	 * Returns a link to the previous month's events page
@@ -621,6 +545,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 */
 	function events_get_previous_month_link() {
 		global $spEvents;
+		return $spEvents->getLink( 'month', $spEvents->previousMonth( $spEvents->date ) );
+		/*
 		$cat_id = get_query_var( 'cat' );
 		if( !$cat_id ) {
 			$cat_id = $spEvents->eventCategory();
@@ -631,61 +557,36 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 		} else {
 			return trailingslashit( $link ) . $spEvents->previousMonth( $spEvents->date );
 		}
+		*/
 	}
 	/**
-	 * Returns a link to the events category
+	 * Returns a link to the events URL
 	 *
 	 * @return string
 	 */
 	function events_get_events_link() {
 		global $spEvents;
-		$cat_id = get_query_var( 'cat' );
-		if( !$cat_id ) {
-			$cat_id = $spEvents->eventCategory();
-		}
-		return get_category_link( $cat_id );
+		return $spEvents->getLink('home');
 	}
 	
 	function events_get_gridview_link( ) {
 		global $spEvents;
-		$cat_id = get_query_var( 'cat' );
-		if( !$cat_id ) {
-			$cat_id = $spEvents->eventCategory();
-		}
-		$link = get_category_link( $cat_id );
-		if( '' == get_option('permalink_structure') || 'off' == eventsGetOptionValue('useRewriteRules','on') ) {
-			return add_query_arg( array('eventDisplay'=>'month'), $link );
-		} else {
-			return trailingslashit( $link ) . 'month';
-		}
+		return $spEvents->getLink('month');
 	}
 		
 	function events_get_listview_link( ) {
 		global $spEvents;
-		$cat_id = get_query_var( 'cat' );
-		if( !$cat_id ) {
-			$cat_id = $spEvents->eventCategory();
-		}
-		$link = get_category_link( $cat_id );
-		if( '' == get_option('permalink_structure') || 'off' == eventsGetOptionValue('useRewriteRules','on') ) {
-			return add_query_arg( array('eventDisplay'=>'upcoming'), $link );
-		} else {
-			return trailingslashit( $link ) . 'upcoming';
-		}
+		return $spEvents->getLink('upcoming');
 	}
 	
 	function events_get_listview_past_link( ) {
 		global $spEvents;
-		$cat_id = get_query_var( 'cat' );
-		if( !$cat_id ) {
-			$cat_id = $spEvents->eventCategory();
-		}
-		$link = get_category_link( $cat_id );
-		if( '' == get_option('permalink_structure') || 'off' == eventsGetOptionValue('useRewriteRules','on') ) {
-			return add_query_arg( array('eventDisplay'=>'past'), $link );
-		} else {
-			return trailingslashit( $link ) . 'past';
-		}
+		return $spEvents->getLink('past');
+	}
+	
+	function events_get_dropdown_link_prefix() {
+		global $spEvents;
+		return $spEvents->getLink('dropdown');
 	}
 
 	/**

@@ -1,66 +1,49 @@
 <script type="text/javascript" charset="utf-8">
-	jQuery(document).ready(function(){
-		// Register event handler for the event toggle
-		jQuery("input[name='isEvent']").click(function(){ 
-			if ( jQuery(this).val() == 'yes' ) {
-				jQuery("#eventDetails").slideDown(200);
-				jQuery("#eventBriteTicketing").slideDown(200);
-			} else {
-				jQuery("#eventDetails").slideUp(200);
-				jQuery("#eventBriteTicketing").slideUp(200);
-			}
-		});
+	jQuery(document).ready(function($){
+
 		// toggle time input
-		jQuery('#allDayCheckbox').click(function(){
-			jQuery(".timeofdayoptions").toggle();
-			jQuery("#EventTimeFormatDiv").toggle();
+		$('#allDayCheckbox').click(function(){
+			$(".timeofdayoptions").toggle();
+			$("#EventTimeFormatDiv").toggle();
 		});
-		if( jQuery('#allDayCheckbox').attr('checked') == true ) {
-			jQuery(".timeofdayoptions").addClass("tec_hide")
-			jQuery("#EventTimeFormatDiv").addClass("tec_hide");
+		if( $('#allDayCheckbox').attr('checked') == true ) {
+			$(".timeofdayoptions").addClass("tec_hide");
+			$("#EventTimeFormatDiv").addClass("tec_hide");
 		}
-		// Set the initial state of the event detail and EB ticketing div
-		jQuery("input[name='isEvent']").each(function(){
-			if( jQuery(this).val() == 'no' && jQuery(this).attr('checked') == true ) {
-				jQuery('#eventDetails, #eventBriteTicketing').hide();
-			} else if( jQuery(this).val() == 'yes' && jQuery(this).attr('checked') == true ) {
-				jQuery('#eventDetails, #eventBriteTicketing').show();
-			}
-		});
-		
+
 		//show state/province input based on first option in countries list, or based on user input of country
 		function spShowHideCorrectStateProvinceInput(country) {
 			if (country == 'US') {
-				jQuery("#USA").removeClass("tec_hide");
-				jQuery("#International").addClass("tec_hide");
-				jQuery('input[name="EventStateExists"]').val(1);
+				$("#USA").removeClass("tec_hide");
+				$("#International").addClass("tec_hide");
+				$('input[name="EventStateExists"]').val(1);
 			} else if ( country != '' ) {
-				jQuery("#International").removeClass("tec_hide");
-				jQuery("#USA").addClass("tec_hide");
-				jQuery('input[name="EventStateExists"]').val(0);			
+				$("#International").removeClass("tec_hide");
+				$("#USA").addClass("tec_hide");
+				$('input[name="EventStateExists"]').val(0);			
 			} else {
-				jQuery("#International").addClass("tec_hide");
-				jQuery("#USA").addClass("tec_hide");
-				jQuery('input[name="EventStateExists"]').val(0);
+				$("#International").addClass("tec_hide");
+				$("#USA").addClass("tec_hide");
+				$('input[name="EventStateExists"]').val(0);
 			}
 		}
 		
-		spShowHideCorrectStateProvinceInput( jQuery("#EventCountry > option:first").attr('label') );
+		spShowHideCorrectStateProvinceInput( $("#EventCountry > option:first").attr('label') );
 		
-		jQuery("#EventCountry").change(function() {
-			var countryLabel = jQuery(this).find('option:selected').attr('label');
-			jQuery('input[name="EventCountryLabel"]').val(countryLabel);
+		$("#EventCountry").change(function() {
+			var countryLabel = $(this).find('option:selected').attr('label');
+			$('input[name="EventCountryLabel"]').val(countryLabel);
 			spShowHideCorrectStateProvinceInput( countryLabel );
 		});
 		
 		var spDaysPerMonth = [29,31,28,31,30,31,30,31,31,30,31,30,31];
 		
 		// start and end date select sections
-		var spStartDays = [ jQuery('#28StartDays'), jQuery('#29StartDays'), jQuery('#30StartDays'), jQuery('#31StartDays') ];
-		var spEndDays = [ jQuery('#28EndDays'), jQuery('#29EndDays'), jQuery('#30EndDays'), jQuery('#31EndDays') ];
+		var spStartDays = [ $('#28StartDays'), $('#29StartDays'), $('#30StartDays'), $('#31StartDays') ];
+		var spEndDays = [ $('#28EndDays'), $('#29EndDays'), $('#30EndDays'), $('#31EndDays') ];
 				
-		jQuery("select[name='EventStartMonth'], select[name='EventEndMonth']").change(function() {
-			var t = jQuery(this);
+		$("select[name='EventStartMonth'], select[name='EventEndMonth']").change(function() {
+			var t = $(this);
 			var startEnd = t.attr("name");
 			// get changed select field
 			if( startEnd == 'EventStartMonth' ) startEnd = 'Start';
@@ -69,31 +52,31 @@
 			var chosenMonth = t.attr("value");
 			if( chosenMonth.charAt(0) == '0' ) chosenMonth = chosenMonth.replace('0', '');
 			// leap year
-			var remainder = jQuery("select[name='Event" + startEnd + "Year']").attr("value") % 4;
+			var remainder = $("select[name='Event" + startEnd + "Year']").attr("value") % 4;
 			if( chosenMonth == 2 && remainder == 0 ) chosenMonth = 0;
 			// preserve selected option
-			var currentDateField = jQuery("select[name='Event" + startEnd + "Day']");
+			var currentDateField = $("select[name='Event" + startEnd + "Day']");
 
-			jQuery('.event' + startEnd + 'DateField').remove();
+			$('.event' + startEnd + 'DateField').remove();
 			if( startEnd == "Start") {
 				var selectObject = spStartDays[ spDaysPerMonth[ chosenMonth ] - 28 ];
 				selectObject.val( currentDateField.val() );
-				jQuery("select[name='EventStartMonth']").after( selectObject );
+				$("select[name='EventStartMonth']").after( selectObject );
 			} else {
 				var selectObject = spEndDays[ spDaysPerMonth[ chosenMonth ] - 28 ];
 				selectObject.val( currentDateField.val() );
-				jQuery('select[name="EventEndMonth"]').after( selectObject );
+				$('select[name="EventEndMonth"]').after( selectObject );
 			}
 		});
 		
-		jQuery("select[name='EventStartMonth'], select[name='EventEndMonth']").change();
+		$("select[name='EventStartMonth'], select[name='EventEndMonth']").change();
 		
-		jQuery("select[name='EventStartYear']").change(function() {
-			jQuery("select[name='EventStartMonth']").change();
+		$("select[name='EventStartYear']").change(function() {
+			$("select[name='EventStartMonth']").change();
 		});
 		
-		jQuery("select[name='EventEndYear']").change(function() {
-			jQuery("select[name='EventEndMonth']").change();
+		$("select[name='EventEndYear']").change(function() {
+			$("select[name='EventEndMonth']").change();
 		});
 		// hide / show google map toggles
 		var tecAddressExists = false;
@@ -101,35 +84,35 @@
 		function tecShowHideGoogleMapToggles() {
 			var selectValExists = false;
 			var inputValExists = false;
-				if(jQuery('input[name="EventCountryLabel"]').val()) selectValExists = true;
-				jQuery.each( tecAddressInputs, function(key, val) {
-					if( jQuery('input[name="' + val + '"]').val() ) {
+				if($('input[name="EventCountryLabel"]').val()) selectValExists = true;
+				$.each( tecAddressInputs, function(key, val) {
+					if( $('input[name="' + val + '"]').val() ) {
 						inputValExists = true;
 						return false;
 					}
 				});
-			if( selectValExists || inputValExists ) jQuery('tr#google_map_link_toggle,tr#google_map_toggle').removeClass('tec_hide');
-			else jQuery('tr#google_map_link_toggle,tr#google_map_toggle').addClass('tec_hide');
+			if( selectValExists || inputValExists ) $('tr#google_map_link_toggle,tr#google_map_toggle').removeClass('tec_hide');
+			else $('tr#google_map_link_toggle,tr#google_map_toggle').addClass('tec_hide');
 		}
-		jQuery.each( tecAddressInputs, function(key, val) {
-			jQuery('input[name="' + val + '"]').bind('keyup', function(event) {
+		$.each( tecAddressInputs, function(key, val) {
+			$('input[name="' + val + '"]').bind('keyup', function(event) {
 				var textLength = event.currentTarget.textLength;
 				if(textLength == 0) tecShowHideGoogleMapToggles();
 				else if(textLength == 1) tecShowHideGoogleMapToggles();
 			});
 		});
-		jQuery('select[name="EventCountry"]').bind('change', function(event) {
+		$('select[name="EventCountry"]').bind('change', function(event) {
 			if(event.currentTarget.selectedIndex) tecShowHideGoogleMapToggles();
 			else tecShowHideGoogleMapToggles();
 		});
 		tecShowHideGoogleMapToggles();
 		// Form validation
-		jQuery("form[name='post']").submit(function() {
-			if( jQuery("#isEventNo").attr('checked') == true ) {
+		$("form[name='post']").submit(function() {
+			if( $("#isEventNo").attr('checked') == true ) {
 				// do not validate since this is not an event
 				return true;
 			}
-			var event_phone = jQuery('#EventPhone');
+			var event_phone = $('#EventPhone');
 			
 			if( event_phone.length > 0 && event_phone.val().length && !event_phone.val().match(/^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/) ) {
 				event_phone.focus();
@@ -158,11 +141,7 @@ try {
 	$e->displayMessage( $postId );
 }
 ?>
-	<p>
-		<?php _e('Is this post an event?',$this->pluginDomain); ?>&nbsp;
-		<label><input tabindex="<?php $this->tabIndex(); ?>" type='radio' name='isEvent' value='yes' <?php echo $isEventChecked; ?> />&nbsp;<b><?php _e('Yes', $this->pluginDomain); ?></b></label>
-		<label><input tabindex="<?php $this->tabIndex(); ?>" type='radio' name='isEvent' value='no' <?php echo $isNotEventChecked; ?> />&nbsp;<b><?php _e('No', $this->pluginDomain); ?></b></label>
-	</p>
+
 </div>
 <div id='eventDetails' class="inside eventForm">
 	<?php
@@ -421,7 +400,9 @@ try {
 		
 	</table>
 	</div>
-	<?php
+	<?php /*
+		TODO remove entirely? - matt
+	*/
 	try {
 		do_action( 'sp_events_above_donate', $postId );
 		if( !$this->postExceptionThrown ) delete_post_meta( $postId, self::EVENTSERROROPT );
@@ -431,20 +412,7 @@ try {
 		$e->displayMessage( $postId );
 	}	
 	?>
-	<div id="mainDonateRow" class="eventForm">
-			<?php _e('<h4>If You Like This Plugin - Help Support It</h4><p>We spend a lot of time and effort building robust plugins and we love to share them with the community. If you use this plugin consider making a donation to help support its\' continued development. You may remove this message on the <a href="/wp-admin/options-general.php?page=the-events-calendar.php">settings page</a>.</p>', $this->pluginDomain); ?>
-				<div id="snp_thanks">
-					<?php _e('Thanks', $this->pluginDomain); ?><br/>
-					<h5 class="snp_brand">Shane &amp; Peter</h5>
-					<a href="http://www.shaneandpeter.com?source=events-plugin" target="_blank">www.shaneandpeter.com</a>		
-				</div>
-				<div id="snp_donate">
-					<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=10750983&item_name=Events%20Post%20Editor" target="_blank">
-						<image src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" alt="" />
-					</a>
-				</div>
-		<div style="clear:both;"></div>
-	</div><!-- end mainDonateRow -->
+
 <?php
 try {
 	do_action( 'sp_events_details_bottom', $postId );

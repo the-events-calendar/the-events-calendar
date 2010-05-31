@@ -7,11 +7,13 @@ $link = get_category_link( $cat_id );
 if( '' == get_option('permalink_structure') || 'off' == eventsGetOptionValue('useRewriteRules','on') ) {
 	$link .= '&eventDisplay=month&eventDate=';
 }
+
+$link = events_get_dropdown_link_prefix();
 ?>
 <script type="text/javascript" charset="utf-8">
-	jQuery(document).ready(function() {
-		jQuery('.<?php echo $prefix; ?>events-dropdown').change(function() {
-			location.href = '<?php echo $link; ?>' + jQuery('#<?php echo $prefix; ?>events-year').val() + '-' + jQuery('#<?php echo $prefix; ?>events-month').val();
+	jQuery(document).ready(function($) {
+		$('.<?php echo $prefix; ?>events-dropdown').change(function() {
+			location.href = '<?php echo $link; ?>' + $('#<?php echo $prefix; ?>events-year').val() + '-' + $('#<?php echo $prefix; ?>events-month').val();
 		});
 	});
 </script>
