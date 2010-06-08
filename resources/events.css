@@ -22,6 +22,15 @@ h2.tec-cal-title {
 	padding-right:15px;
 	margin-bottom: 33px;
 }
+#tec-content .ical {
+	color:#fff;
+	font-size:11px;
+	background:#3D6294;
+	padding:1px 3px;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+}
 .tec-calendar-buttons a {
 	background:#999;
 	border-radius:3px;
@@ -212,6 +221,7 @@ span.back {margin:12px 0 0;}
 #tec-events-loop {
 	font-size:13px;
 	clear:both;
+	margin: 10px 0 0;
 }
 .tec-events .tec-event-entry {
 	width:60%;

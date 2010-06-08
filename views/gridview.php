@@ -29,8 +29,8 @@
 			</span>
 
 		</div><!-- tec-events-calendar-header -->
-
-		<?php event_grid_view( ); // See the plugins/the-events-calendar/views/table.php template for customization ?>	
+		<a class="ical" href="<?php bloginfo('home'); ?>/?ical"><?php _e('iCal Import', $spEvents->pluginDomain) ?></a>
+		<?php event_grid_view(); // See the plugins/the-events-calendar/views/table.php template for customization ?>	
 	</div>
 
 <?php

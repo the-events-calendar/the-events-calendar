@@ -13,7 +13,7 @@
 		</span>
 
 		</div><!--#tec-events-calendar-header-->
-
+		<a class="ical" href="<?php bloginfo('home'); ?>/?ical"><?php _e('iCal Import', $spEvents->pluginDomain) ?></a>
 		<div id="tec-events-loop" class="tec-events post-list clearfix">
 		<?php while ( have_posts() ) : the_post(); ?>
 

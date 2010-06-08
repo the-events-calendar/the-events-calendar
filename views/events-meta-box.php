@@ -28,7 +28,7 @@
 			}
 		}
 		
-		spShowHideCorrectStateProvinceInput( $("#EventCountry > option:first").attr('label') );
+		spShowHideCorrectStateProvinceInput( $("#EventCountry > option:selected").attr('label') );
 		
 		$("#EventCountry").change(function() {
 			var countryLabel = $(this).find('option:selected').attr('label');
@@ -116,7 +116,7 @@
 			
 			if( event_phone.length > 0 && event_phone.val().length && !event_phone.val().match(/^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/) ) {
 				event_phone.focus();
-				alert('<?php _e('Phone',$this->pluginDomain); ?> <?php _e('is not valid.', $this->pluginDomain); ?>  <?php _e('Valid values are local format (eg. 02 1234 5678 or 123 123 4567) or international format (eg. +61 (0) 2 1234 5678 or +1 123 123 4567).  You may also use an optional extension of up to five digits prefixed by x or ext (eg. 123 123 4567 x89)'); ?> ');
+				alert("<?php _e('Phone',$this->pluginDomain); ?> <?php _e('is not valid.', $this->pluginDomain); ?>  <?php _e('Valid values are local format (eg. 02 1234 5678 or 123 123 4567) or international format (eg. +61 (0) 2 1234 5678 or +1 123 123 4567).  You may also use an optional extension of up to five digits prefixed by x or ext (eg. 123 123 4567 x89)'); ?> ");
 				return false;
 			}
 			return true;

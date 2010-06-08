@@ -20,8 +20,9 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 * @return void
 	 */
 	function event_grid_view() {
+		global $spEvents;
 		set_query_var( 'eventDisplay', 'bydate' );
-		load_template( dirname( __FILE__ ) . '/views/table.php' );
+		load_template( $spEvents->getTemplateHierarchy('table') );
 	}
 	/**
 	 * Maps events to days
@@ -76,14 +77,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 * @return boolean
 	 */
 	function is_event( $postId = null ) {
-		if ( $postId === null || !is_numeric( $postId ) ) {
-			global $post;
-			$postId = $post->ID;
-		}
-		if (get_post_meta( $postId, '_isEvent', true )) {
-			return true;
-		}
-		return false;
+		global $spEvents;
+		return $spEvents->isEvent($postId);
 	}
 	/**
 	 * Returns a link to google maps for the given event
@@ -182,7 +177,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 		if (!$width) $width = eventsGetOptionValue('embedGoogleMapsWidth','100%');
 		if( $toUrlEncode ) $googleaddress = urlencode( trim( $toUrlEncode ) );
 		if ($googleaddress) {
-			$google_iframe = '<div id="googlemaps"><iframe width="'.$width.'" height="'.$height.'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://www.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q='.$googleaddress.'?>&amp;output=embed"></iframe><br /><small><a href="http://www.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q='.$googleaddress.'" style="color:#0000FF;text-align:left">View Larger Map</a></small></div>';
+			$google_iframe = '<div id="googlemaps"><iframe width="'.$width.'" height="'.$height.'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://www.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q='.$googleaddress.'?>&amp;output=embed"></iframe><br /><a href="http://www.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q='.$googleaddress.'">View Larger Map</a></div>';
 			return $google_iframe;
 		}
 		else return '';
@@ -196,7 +191,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 * @return void
 	 */
 	function event_google_map_embed( $postId = null, $width = null, $height = null ) {
-		if (eventsGetOptionValue('embedGoogleMaps') == 'on') echo get_event_google_map_embed( $postId, $width, $height );
+		if (eventsGetOptionValue('embedGoogleMaps') == 'on')
+			echo get_event_google_map_embed( $postId, $width, $height );
 	}
 	/**
 	 * Prints out the javascript required to control the datepicker (onChange of the id='datepicker')
@@ -254,7 +250,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 		if ( $postId === null || !is_numeric( $postId ) ) {
 			$postId = $post->ID;
 		}
-		if( $dateFormat ) $format = $dateFormat;
+		if ( $dateFormat ) $format = $dateFormat;
 		else $format = get_option( 'date_format', The_Events_Calendar::DATEONLYFORMAT );
 		if( the_event_all_day( $postId ) ) {
 		    $showtime = false;

@@ -60,7 +60,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		}
 		
 		private $countries;
-		private function constructCountries( $postId = "", $useDefault = true ) {
+		private function constructCountries( $postId = '', $useDefault = true ) {
 				$countries = array(
 					"" => __("Select a Country:", $this->pluginDomain),
 					"US" => __("United States", $this->pluginDomain),
@@ -325,11 +325,12 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 * @return void
 		 */
 		function __construct( ) {
-			$this->rewriteSlug		= __( 'events',$this->pluginDomain );
+			$this->rewriteSlug		= __( 'events', $this->pluginDomain );
+			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlug;
 			$this->currentDay		= '';
 			$this->pluginDir		= basename(dirname(__FILE__));
 			$this->pluginPath		= WP_PLUGIN_DIR . '/' . $this->pluginDir;
-			$this->pluginUrl 		= WP_CONTENT_URL.'/plugins/'.plugin_basename(dirname(__FILE__));
+			$this->pluginUrl 		= WP_PLUGIN_URL.'/'.$this->pluginDir;
 			$this->errors			= '';
 			register_deactivation_hook( __FILE__, 	array( &$this, 'on_deactivate' ) );
 			
@@ -356,7 +357,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			add_action( 'admin_menu', 		array( $this, 'addOptionsPage' ) );
 			add_action( 'admin_init', 		array( $this, 'checkForOptionsChanges' ) );
 			add_action( 'admin_menu', 		array( $this, 'addEventBox' ) );
-			add_action( 'save_post',		array( $this, 'addEventMeta' ), 15 );
+			add_action( 'save_post',		array( $this, 'addEventMeta' ), 15, 2 );
 			add_action( 'publish_post',		array( $this, 'addEventMeta' ), 15 );
 
 			add_action( 'sp_events_post_errors', array( 'TEC_Post_Exception', 'displayMessage' ) );
@@ -462,22 +463,36 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 
 			// list view
 			if ( events_displaying_upcoming() || events_displaying_past() ) {
-				if ( $list = locate_template( array( 'events/list.php' ) ) )
-					return $list;
-				return $this->pluginPath . '/views/list.php';
+				return $this->getTemplateHierarchy('list');
 			}
 			// single event
 			elseif ( is_single() ) {
-				if ( $single = locate_template( array( 'events/single.php' ) ) )
-					return $single;
-				return $this->pluginPath . '/views/single.php';
+				return $this->getTemplateHierarchy('single');
 			}
 			// grid view
 			else {
-				if ( $grid = locate_template( array( 'events/gridview.php' ) ) )
-					return $grid;
-				return $this->pluginPath . '/views/gridview.php';
+				return $this->getTemplateHierarchy('gridview');
 	        }
+		}
+		
+		/**
+		 * Loads theme files in appropriate hierarchy: 1) child theme, 
+		 * 2) parent template, 3) plugin resources. will look in the events/
+		 * directory in a theme and the views/ directory in the plugin
+		 *
+		 * @param string $template template file to search for
+		 * @return template path
+		 * @author Matt Wiebe
+		 **/
+		
+		public function getTemplateHierarchy($template) {
+			// whether or not .php was added
+			$template = rtrim($template, '.php') . '.php';
+			
+			if ( $theme_file = locate_template(array('events/'.$template)) ) {
+				return $theme_file;
+			}
+			return $this->pluginPath . '/views/' . $template;
 		}
 		
 		public function truncate($text, $excerpt_length = 44) {
@@ -500,10 +515,17 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		}
 		
 		public function loadDomainStylesScripts() {
-			load_plugin_textdomain( $this->pluginDomain, false, basename(dirname(__FILE__)) . '/lang/');
-			$eventsURL = trailingslashit( WP_PLUGIN_URL ) . trailingslashit( plugin_basename( dirname( __FILE__ ) ) ) . 'resources/';
+			load_plugin_textdomain( $this->pluginDomain, false, $this->pluginDir . '/lang/');
+			$eventsURL = trailingslashit( $this->pluginUrl ) . 'resources/';
 			wp_enqueue_script('sp-events-calendar-script', $eventsURL.'events.js', array('jquery') );
-			wp_enqueue_style('sp-events-calendar-style', $eventsURL.'events.css');
+			// is there an events.css file in the theme?
+			if ( $user_style = locate_template(array('events/events.css')) ) {
+				$styleUrl = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $user_style );
+			}
+			else {
+				$styleUrl = $eventsURL.'events.css';
+			}
+			wp_enqueue_style('sp-events-calendar-style', $styleUrl);
 		}
 	
 		/**
@@ -523,33 +545,35 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 */
 		public function monthNames( $short = false ) {
 			if($short) {
-				$months = array( 'Jan'	=> __('Jan', $this->pluginDomain), 
-							  	 'Feb' 	=> __('Feb', $this->pluginDomain), 
-							     'Mar' 	=> __('Mar', $this->pluginDomain), 
-							     'Apr' 	=> __('Apr', $this->pluginDomain), 
-							     'May'  => __('May', $this->pluginDomain), 
-							     'Jun' 	=> __('Jun', $this->pluginDomain), 
-							     'Jul'	=> __('Jul', $this->pluginDomain), 
-							     'Aug' 	=> __('Aug', $this->pluginDomain), 
-							     'Sep' 	=> __('Sep', $this->pluginDomain), 
-							     'Oct' 	=> __('Oct', $this->pluginDomain), 
-							     'Nov' 	=> __('Nov', $this->pluginDomain), 
-							     'Dec' 	=> __('Dec', $this->pluginDomain) 
-						     );
+				$months = array( 
+					'Jan' => __('Jan', $this->pluginDomain), 
+					'Feb' => __('Feb', $this->pluginDomain), 
+					'Mar' => __('Mar', $this->pluginDomain), 
+					'Apr' => __('Apr', $this->pluginDomain), 
+					'May' => __('May', $this->pluginDomain), 
+					'Jun' => __('Jun', $this->pluginDomain), 
+					'Jul' => __('Jul', $this->pluginDomain), 
+					'Aug' => __('Aug', $this->pluginDomain), 
+					'Sep' => __('Sep', $this->pluginDomain), 
+					'Oct' => __('Oct', $this->pluginDomain), 
+					'Nov' => __('Nov', $this->pluginDomain), 
+					'Dec' => __('Dec', $this->pluginDomain) 
+				);
 			} else {
-				$months = array( 'January' 	    => __('January', $this->pluginDomain), 
-							  	 'February' 	=> __('February', $this->pluginDomain), 
-							     'March' 		=> __('March', $this->pluginDomain), 
-							     'April' 		=> __('April', $this->pluginDomain), 
-							     'May' 		    => __('May', $this->pluginDomain), 
-							     'June' 		=> __('June', $this->pluginDomain), 
-							     'July'	        => __('July', $this->pluginDomain), 
-							     'August' 		=> __('August', $this->pluginDomain), 
-							     'September' 	=> __('September', $this->pluginDomain), 
-							     'October' 	    => __('October', $this->pluginDomain), 
-							     'November' 	=> __('November', $this->pluginDomain), 
-							     'December' 	=> __('December', $this->pluginDomain) 
-						     );
+				$months = array( 
+					'January' => __('January', $this->pluginDomain),
+					'February' => __('February', $this->pluginDomain),
+					'March' => __('March', $this->pluginDomain),
+					'April' => __('April', $this->pluginDomain),
+					'May' => __('May', $this->pluginDomain),
+					'June' => __('June', $this->pluginDomain), 
+					'July' => __('July', $this->pluginDomain),
+					'August' => __('August', $this->pluginDomain),
+					'September' => __('September', $this->pluginDomain),
+					'October' => __('October', $this->pluginDomain),
+					'November' => __('November', $this->pluginDomain),
+					'December' => __('December', $this->pluginDomain)
+				);
 			}
 			return $months;
 		}
@@ -774,11 +798,11 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		/**
 		 * Adds Event specific rewrite rules.
 		 *
-		 *	events/				=>	/?cat=27
-		 *  events/month		=>  /?cat=27&eventDisplay=month
-		 *	events/upcoming		=>	/?cat=27&eventDisplay=upcoming
-		 *	events/past			=>	/?cat=27&eventDisplay=past
-		 *	events/2008-01/#15	=>	/?cat=27&eventDisplay=bydate&eventDate=2008-01-01
+		 *	events/				=>	/?post_type=sp_events
+		 *  events/month		=>  /?post_type=sp_events&eventDisplay=month
+		 *	events/upcoming		=>	/?post_type=sp_events&eventDisplay=upcoming
+		 *	events/past			=>	/?post_type=sp_events&eventDisplay=past
+		 *	events/2008-01/#15	=>	/?post_type=sp_events&eventDisplay=bydate&eventDate=2008-01-01
 		 *
 		 * @return void
 		 */
@@ -789,32 +813,14 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			
 			$base = trailingslashit( $this->rewriteSlug );
 			
-			$newRules[$base . 'month'] 					= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month';
-			$newRules[$base . 'upcoming/page/(\d+)']	= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(1);
-			$newRules[$base . 'upcoming']				= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
-			$newRules[$base . 'past/page/(\d+)']		= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(1);
-			$newRules[$base . 'past']					= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past';
-			$newRules[$base . '(\d{4}-\d{2})$']			= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(1);
+			$newRules[$base . 'month'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month';
+			$newRules[$base . 'upcoming/page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(1);
+			$newRules[$base . 'upcoming'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
+			$newRules[$base . 'past/page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(1);
+			$newRules[$base . 'past'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past';
+			$newRules[$base . '(\d{4}-\d{2})$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . '?$']						= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=' . eventsGetOptionValue('viewOption','month');
-			/*
-			$categoryId = get_cat_id( The_Events_Calendar::CATEGORYNAME );
-			$eventCategory = get_category( $categoryId );
-			$eventCats = array( $eventCategory );
-			$childCats = get_categories("hide_empty=0&child_of=$categoryId");
-			$eventCats = array_merge( $eventCats, $childCats );
-			$newRules = array();
-			foreach( $eventCats as $cat ) {
-				$url = get_category_link( $cat->cat_ID );
-				$base = str_replace( trailingslashit( get_option( 'siteurl' ) ), '', $url );
-				$newRules[$base . 'month'] 					= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month';
-				$newRules[$base . 'upcoming/page/(\d+)']	= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(1);
-				$newRules[$base . 'upcoming']				= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
-				$newRules[$base . 'past/page/(\d+)']		= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(1);
-				$newRules[$base . 'past']					= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past';
-				$newRules[$base . '(\d{4}-\d{2})$']			= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(1);
-				$newRules[$base . '?$']						= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=' . eventsGetOptionValue('viewOption','month');
-			}
-			//*/
+
 		  $wp_rewrite->rules = array_merge($newRules, $wp_rewrite->rules);
 		}
 		
@@ -826,7 +832,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			}
 			$eventUrl = home_url() . '/' . $this->rewriteSlug . '/' ;
 			
-			switch ($type) {
+			switch( $type ) {
 				
 				case 'home':
 					return $eventUrl;
@@ -854,13 +860,22 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			
 			$eventUrl = add_query_arg('post_type', self::POSTTYPE, home_url() );
 			
-			switch ( $type ) {
+			switch( $type ) {
 				
 				case 'home':
 					return $eventUrl;
-				case 'dropdown':
-					return add_query_arg( array( 'eventDisplay' => 'month', 'eventDate' => '', $eventUrl) );
-				
+				case 'month':
+					$month = add_query_arg( array( 'eventDisplay' => 'month'), $eventUrl );
+					if ( $secondary )
+						$month = add_query_arg( array( 'eventDate' => $secondary ), $month );
+					return $month;
+				case 'upcoming':
+					return add_query_arg( array( 'eventDisplay' => 'upcoming'), $eventUrl );
+				case 'past':
+					return add_query_arg( array( 'eventDisplay' => 'past'), $eventUrl );
+					case 'dropdown':
+						$dropdown = add_query_arg( array( 'eventDisplay' => 'month', 'eventDate' => ' '), $eventUrl );
+						return rtrim($dropdown); // tricksy
 			}
 		}
 		
@@ -916,14 +931,14 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 * @param string $postId 
 		 * @return void
 		 */
-		public function addEventMeta( $postId ) {
-			global $post;
+		public function addEventMeta( $postId, $post ) {
+
 			// only continue if it's an event post
 			if ( $post->post_type != self::POSTTYPE ) {
 				return;
 			}
 			// don't do anything on autosave or revision either
-			if ( wp_is_post_autosave( $post ) ) {
+			if ( wp_is_post_autosave( $postId ) ) {
 				return;
 			}
 			
@@ -1308,9 +1323,10 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			}
 		}
 		public function getDateString( $date ) {
+			$monthNames = $this->monthNames();
 			$dateParts = split( '-', $date );
-		    $timestamp = mktime( 0, 0, 0, $dateParts[1], 1, $dateParts[0] );
-		    return date( "F Y", $timestamp );
+			$timestamp = mktime( 0, 0, 0, $dateParts[1], 1, $dateParts[0] );
+			return $monthNames[date( "F", $timestamp )] . " " . $dateParts[0];
 		}
 		/**
 	     * echo the next tab index
@@ -1339,8 +1355,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			if( !$numResults ) $numResults = get_option( 'posts_per_page', 10 );
 			global $wpdb;
 			$this->setOptions();
-			
-			echo $this->date;
 
 			$extraSelectClause ='';
 			$extraJoinEndDate ='';
@@ -1378,6 +1392,17 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				LIMIT $numResults";
 			$results = $wpdb->get_results($eventsQuery, OBJECT);
 			return $results;
+		}
+		
+		public function isEvent( $postId = null ) {
+			if ( $postId === null || ! is_numeric( $postId ) ) {
+				global $post;
+				$postId = $post->ID;
+			}
+			if ( get_post_field('post_type', $postId) == self::POSTTYPE ) {
+				return true;
+			}
+			return false;
 		}
 		
 		/**
