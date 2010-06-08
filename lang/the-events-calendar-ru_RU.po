@@ -1,105 +1,101 @@
-# Translation of the WordPress plugin The Events Calendar 1.6 by Shane & Peter, Inc..
-# Copyright (C) 2010 Shane & Peter, Inc.
-# This file is distributed under the same license as the The Events Calendar package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
-#
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar 1.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/the-events-calendar\n"
-"POT-Creation-Date: 2010-06-01 16:40+0000\n"
-"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2010-05-26 14:02+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Justin Endler <justin@justinendler.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
 
 #: events-calendar-widget.class.php:12
 msgid "A calendar of your events"
-msgstr ""
+msgstr "Ваш календарь"
 
 #: events-calendar-widget.class.php:13
 msgid "Events Calendar"
-msgstr ""
+msgstr "Календарь событий"
 
 #: events-calendar-widget.class.php:39
 #: views/events-list-load-widget-admin.php:2
 msgid "Title:"
-msgstr ""
+msgstr "Заголовок:"
 
 #: events-list-widget.class.php:15
 msgid "A widget that displays the next upcoming x events."
-msgstr ""
+msgstr "Виджет показывает следующие x событий."
 
 #: events-list-widget.class.php:81
 msgid "View All Events"
-msgstr ""
+msgstr "Посмотреть все события"
 
 #: events-list-widget.class.php:82
 msgid "There are no upcoming events at this time."
-msgstr ""
+msgstr "В настоящее время грядущих событий нет."
 
 #: the-events-calendar.class.php:49
 msgid "Sun"
-msgstr ""
+msgstr "Вс"
 
 #: the-events-calendar.class.php:49
 msgid "Mon"
-msgstr ""
+msgstr "Пн"
 
 #: the-events-calendar.class.php:49
 msgid "Tue"
-msgstr ""
+msgstr "Вт"
 
 #: the-events-calendar.class.php:49
 msgid "Wed"
-msgstr ""
+msgstr "Ср"
 
 #: the-events-calendar.class.php:49
 msgid "Thu"
-msgstr ""
+msgstr "Чт"
 
 #: the-events-calendar.class.php:49
 msgid "Fri"
-msgstr ""
+msgstr "Пт"
 
 #: the-events-calendar.class.php:49
 msgid "Sat"
-msgstr ""
+msgstr "Сб"
 
 #: the-events-calendar.class.php:50
 msgid "Sunday"
-msgstr ""
+msgstr "Воскресенье"
 
 #: the-events-calendar.class.php:50
 msgid "Monday"
-msgstr ""
+msgstr "Понедельник"
 
 #: the-events-calendar.class.php:50
 msgid "Tuesday"
-msgstr ""
+msgstr "Вторник"
 
 #: the-events-calendar.class.php:50
 msgid "Wednesday"
-msgstr ""
+msgstr "Среда"
 
 #: the-events-calendar.class.php:50
 msgid "Thursday"
-msgstr ""
+msgstr "Четверг"
 
 #: the-events-calendar.class.php:50
 msgid "Friday"
-msgstr ""
+msgstr "Пятница"
 
 #: the-events-calendar.class.php:50
 msgid "Saturday"
-msgstr ""
+msgstr "Суббота"
 
 #: the-events-calendar.class.php:56
 msgid "Select a Country:"
-msgstr ""
+msgstr "Выберите страну:"
 
 #: the-events-calendar.class.php:57
 msgid "United States"
@@ -425,7 +421,8 @@ msgstr ""
 msgid "Gambia"
 msgstr ""
 
-#: the-events-calendar.class.php:138 views/events-meta-box.php:369
+#: the-events-calendar.class.php:138
+#: views/events-meta-box.php:369
 msgid "Georgia"
 msgstr ""
 
@@ -1057,239 +1054,244 @@ msgstr ""
 msgid "Zimbabwe"
 msgstr ""
 
-#: the-events-calendar.class.php:492
+#: the-events-calendar.class.php:490
 msgid "Jan"
-msgstr ""
+msgstr "Янв"
+
+#: the-events-calendar.class.php:491
+msgid "Feb"
+msgstr "Фев"
+
+#: the-events-calendar.class.php:492
+msgid "Mar"
+msgstr "Мар"
 
 #: the-events-calendar.class.php:493
-msgid "Feb"
-msgstr ""
+msgid "Apr"
+msgstr "Апр"
 
 #: the-events-calendar.class.php:494
-msgid "Mar"
-msgstr ""
+#: the-events-calendar.class.php:508
+msgid "May"
+msgstr "Май"
 
 #: the-events-calendar.class.php:495
-msgid "Apr"
-msgstr ""
+msgid "Jun"
+msgstr "Июн"
 
-#: the-events-calendar.class.php:496 the-events-calendar.class.php:510
-msgid "May"
-msgstr ""
+#: the-events-calendar.class.php:496
+msgid "Jul"
+msgstr "Июл"
 
 #: the-events-calendar.class.php:497
-msgid "Jun"
-msgstr ""
+msgid "Aug"
+msgstr "Авг"
 
 #: the-events-calendar.class.php:498
-msgid "Jul"
-msgstr ""
+msgid "Sep"
+msgstr "Сен"
 
 #: the-events-calendar.class.php:499
-msgid "Aug"
-msgstr ""
+msgid "Oct"
+msgstr "Окт"
 
 #: the-events-calendar.class.php:500
-msgid "Sep"
-msgstr ""
+msgid "Nov"
+msgstr "Ноя"
 
 #: the-events-calendar.class.php:501
-msgid "Oct"
-msgstr ""
-
-#: the-events-calendar.class.php:502
-msgid "Nov"
-msgstr ""
-
-#: the-events-calendar.class.php:503
 msgid "Dec"
-msgstr ""
+msgstr "Дек"
+
+#: the-events-calendar.class.php:504
+msgid "January"
+msgstr "Январь"
+
+#: the-events-calendar.class.php:505
+msgid "February"
+msgstr "Февраль"
 
 #: the-events-calendar.class.php:506
-msgid "January"
-msgstr ""
+msgid "March"
+msgstr "Март"
 
 #: the-events-calendar.class.php:507
-msgid "February"
-msgstr ""
-
-#: the-events-calendar.class.php:508
-msgid "March"
-msgstr ""
+msgid "April"
+msgstr "Апрель"
 
 #: the-events-calendar.class.php:509
-msgid "April"
-msgstr ""
+msgid "June"
+msgstr "Июнь"
+
+#: the-events-calendar.class.php:510
+msgid "July"
+msgstr "Июль"
 
 #: the-events-calendar.class.php:511
-msgid "June"
-msgstr ""
+msgid "August"
+msgstr "Август"
 
 #: the-events-calendar.class.php:512
-msgid "July"
-msgstr ""
+msgid "September"
+msgstr "Сентябрь"
 
 #: the-events-calendar.class.php:513
-msgid "August"
-msgstr ""
+msgid "October"
+msgstr "Октябрь"
 
 #: the-events-calendar.class.php:514
-msgid "September"
-msgstr ""
+msgid "November"
+msgstr "Ноябрь"
 
 #: the-events-calendar.class.php:515
-msgid "October"
-msgstr ""
-
-#: the-events-calendar.class.php:516
-msgid "November"
-msgstr ""
-
-#: the-events-calendar.class.php:517
 msgid "December"
-msgstr ""
+msgstr "Декабрь"
 
 #. #-#-#-#-#  plugin.pot (The Events Calendar 1.6)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#: the-events-calendar.class.php:1009
+#: the-events-calendar.class.php:1007
 msgid "The Events Calendar"
-msgstr ""
+msgstr "Календарь событий"
 
 #: views/events-list-load-widget-admin.php:7
 msgid "Show:"
-msgstr ""
+msgstr "Показать:"
 
 #: views/events-list-load-widget-admin.php:15
 msgid "Don't show the widget if there are no upcoming events:"
-msgstr ""
+msgstr "Не показывать виджет при отсутствии событий:"
 
 #: views/events-list-load-widget-admin.php:21
 msgid "Display:"
-msgstr ""
+msgstr "Показать:"
 
 #: views/events-list-load-widget-admin.php:24
 msgid "Start Date & Time"
-msgstr ""
+msgstr "Дата и время начала"
 
 #: views/events-list-load-widget-admin.php:25
 msgid "End Date & Time"
-msgstr ""
+msgstr "Дата и время окончания"
 
 #: views/events-list-load-widget-admin.php:26
 msgid "Venue"
-msgstr ""
+msgstr "Место"
 
 #: views/events-list-load-widget-admin.php:27
 msgid "Address"
-msgstr ""
+msgstr "Адрес"
 
 #: views/events-list-load-widget-admin.php:28
 msgid "City"
-msgstr ""
+msgstr "Город"
 
 #: views/events-list-load-widget-admin.php:29
 msgid "State (US)"
-msgstr ""
+msgstr "Штат (US)"
 
 #: views/events-list-load-widget-admin.php:30
 msgid "Province (Int)"
-msgstr ""
+msgstr "Область"
 
 #: views/events-list-load-widget-admin.php:31
 msgid "Postal Code"
-msgstr ""
+msgstr "Индекс"
 
 #: views/events-list-load-widget-admin.php:32
 msgid "Country"
-msgstr ""
+msgstr "Страна"
 
-#: views/events-list-load-widget-admin.php:33 views/events-meta-box.php:136
+#: views/events-list-load-widget-admin.php:33
+#: views/events-meta-box.php:136
 msgid "Phone"
-msgstr ""
+msgstr "Телефон"
 
 #: views/events-list-load-widget-admin.php:34
 msgid "Price"
-msgstr ""
+msgstr "Стоимость"
 
 #: views/events-list-load-widget-display.php:47
 msgid "More Info"
-msgstr ""
+msgstr "далее..."
 
 #: views/events-meta-box.php:136
 msgid "is not valid."
-msgstr ""
+msgstr "неверно."
 
 #: views/events-meta-box.php:136
-msgid ""
-"Valid values are local format (eg. 02 1234 5678 or 123 123 4567) or "
-"international format (eg. +61 (0) 2 1234 5678 or +1 123 123 4567).  You may "
-"also use an optional extension of up to five digits prefixed by x or ext "
-"(eg. 123 123 4567 x89)"
-msgstr ""
+msgid "Valid values are local format (eg. 02 1234 5678 or 123 123 4567) or international format (eg. +61 (0) 2 1234 5678 or +1 123 123 4567).  You may also use an optional extension of up to five digits prefixed by x or ext (eg. 123 123 4567 x89)"
+msgstr "Правильные значения в локальном формате (напр. 02 1234 5678 или 123 123 4567) или международном формате (напр. +61 (0) 2 1234 5678 или +1 123 123 4567).  Вы также можете использовать номер донабора длиной до 5 символов. начав его с x или ext (напр. 123 123 4567 x89)"
 
 #: views/events-meta-box.php:210
 msgid "Is this post an event?"
-msgstr ""
+msgstr "Эта запись является событием ?"
 
-#: views/events-meta-box.php:211 views/events-options.php:181
+#: views/events-meta-box.php:211
+#: views/events-options.php:181
 msgid "Yes"
-msgstr ""
+msgstr "Да"
 
-#: views/events-meta-box.php:212 views/events-options.php:185
+#: views/events-meta-box.php:212
+#: views/events-options.php:185
 msgid "No"
-msgstr ""
+msgstr "Нет"
 
 #: views/events-meta-box.php:229
 msgid "Event Time &amp; Date"
-msgstr ""
+msgstr "Время и дата события"
 
 #: views/events-meta-box.php:232
 msgid "All day event?"
-msgstr ""
+msgstr "На весь день?"
 
 #: views/events-meta-box.php:236
 msgid "Start Date / Time:"
-msgstr ""
+msgstr "Дата и время начала:"
 
-#: views/events-meta-box.php:250 views/events-meta-box.php:280
+#: views/events-meta-box.php:250
+#: views/events-meta-box.php:280
 msgid "@"
-msgstr ""
+msgstr "@"
 
 #: views/events-meta-box.php:266
 msgid "End Date / Time:"
-msgstr ""
+msgstr "Дата и время окончания:"
 
 #: views/events-meta-box.php:296
 msgid "Event Location Details"
-msgstr ""
+msgstr "Место проведения"
 
-#: views/events-meta-box.php:299 views/list.php:45 views/single.php:27
+#: views/events-meta-box.php:299
+#: views/list.php:45
+#: views/single.php:27
 msgid "Venue:"
-msgstr ""
+msgstr "Место:"
 
 #: views/events-meta-box.php:305
 msgid "Country:"
-msgstr ""
+msgstr "Страна:"
 
-#: views/events-meta-box.php:341 views/list.php:60 views/single.php:36
+#: views/events-meta-box.php:341
+#: views/list.php:60
+#: views/single.php:36
 msgid "Address:"
-msgstr ""
+msgstr "Адрес:"
 
 #: views/events-meta-box.php:345
 msgid "City:"
-msgstr ""
+msgstr "Город:"
 
 #: views/events-meta-box.php:350
 msgid "Province:"
-msgstr ""
+msgstr "Область:"
 
 #: views/events-meta-box.php:354
 msgid "State:"
-msgstr ""
+msgstr "Штат:"
 
 #: views/events-meta-box.php:357
 msgid "Select a State:"
-msgstr ""
+msgstr "Выберите штат:"
 
 #: views/events-meta-box.php:359
 msgid "Alabama"
@@ -1493,242 +1495,229 @@ msgstr ""
 
 #: views/events-meta-box.php:423
 msgid "Postal Code:"
-msgstr ""
+msgstr "Индекс:"
 
 #: views/events-meta-box.php:427
 msgid "Show Google Map Link:"
-msgstr ""
+msgstr "Показать ссылку на карту:"
 
 #: views/events-meta-box.php:439
 msgid "Show Google Map:"
-msgstr ""
+msgstr "Показать карту:"
 
-#: views/events-meta-box.php:444 views/list.php:54 views/single.php:31
+#: views/events-meta-box.php:444
+#: views/list.php:54
+#: views/single.php:31
 msgid "Phone:"
-msgstr ""
+msgstr "Телефон:"
 
 #: views/events-meta-box.php:448
 msgid "Event Cost"
-msgstr ""
+msgstr "Стоимость"
 
-#: views/events-meta-box.php:451 views/list.php:72 views/single.php:21
+#: views/events-meta-box.php:451
+#: views/list.php:72
+#: views/single.php:21
 msgid "Cost:"
-msgstr ""
+msgstr "Стоимость:"
 
 #: views/events-meta-box.php:456
 msgid "Leave blank to hide the field. Enter a 0 for events that are free."
-msgstr ""
+msgstr "Не заполняйте, чтобы скрыть это поле. Введите 0 для бесплатных событий."
 
 #: views/events-meta-box.php:460
 msgid "Sell Tickets &amp; Track Registration"
-msgstr ""
+msgstr "Продавать билеты и отслеживать регистрацию"
 
 #: views/events-meta-box.php:465
-msgid ""
-"Interested in selling tickets and tracking registrations? Now you can do it "
-"for free using our <a href=\"http://wordpress.org/extend/plugins/eventbrite-"
-"for-the-events-calendar/\">Eventbrite Integration Plugin</a>. Eventbrite is "
-"a feature rich easy-to-use event management tool. \"Wow, you're selling "
-"Eventbrite pretty hard. You must get a kickback.\"  Well, now that you "
-"mention it... we do. We get a little something for everyone that registers "
-"an event using our referral link. It's how we're able to keep supporting and "
-"building plugins for the open source community. "
-msgstr ""
+msgid "Interested in selling tickets and tracking registrations? Now you can do it for free using our <a href=\"http://wordpress.org/extend/plugins/eventbrite-for-the-events-calendar/\">Eventbrite Integration Plugin</a>. Eventbrite is a feature rich easy-to-use event management tool. \"Wow, you're selling Eventbrite pretty hard. You must get a kickback.\"  Well, now that you mention it... we do. We get a little something for everyone that registers an event using our referral link. It's how we're able to keep supporting and building plugins for the open source community. "
+msgstr "Хотите продавать билеты и отслеживать регистрацию ? Теперь вы можете делать это бесплатно, используя наш <a href=\"http://wordpress.org/extend/plugins/eventbrite-for-the-events-calendar/\">Eventbrite Integration Plugin</a>. Eventbrite это многофункциональный простой инструмент управления событиями. \"Чорт, вы тут нам пытаетесь впарить Eventbrit. Это плохо.\"  Ну, если вы заговорили про это... да. Мы получаем немного за каждого, кто зарегистрирует событие с нашей ссылкой. Это позволяет нам продолжать развивать и поддерживать плагины для сообщества open source."
 
 #: views/events-meta-box.php:465
 msgid "Check it out here."
-msgstr ""
+msgstr "Посмотрите на него здесь."
 
 #: views/events-meta-box.php:483
-msgid ""
-"<h4>If You Like This Plugin - Help Support It</h4><p>We spend a lot of time "
-"and effort building robust plugins and we love to share them with the "
-"community. If you use this plugin consider making a donation to help support "
-"its' continued development. You may remove this message on the <a href=\"/wp-"
-"admin/options-general.php?page=the-events-calendar.php\">settings page</a>.</"
-"p>"
-msgstr ""
+msgid "<h4>If You Like This Plugin - Help Support It</h4><p>We spend a lot of time and effort building robust plugins and we love to share them with the community. If you use this plugin consider making a donation to help support its' continued development. You may remove this message on the <a href=\"/wp-admin/options-general.php?page=the-events-calendar.php\">settings page</a>.</p>"
+msgstr "<h4>Если вам понравился этот плагин -- помогите его поддерживать</h4><p>Мы тратим много времени и сил для создания качественных плагинов и нам нравится делиться ими с сообществом. Если вы используете этот плагин, сделайте пожертвование для того, чтобы помочь продолжать его развитие. Вы можете убрать это сообщение на  <a href=\"/wp-admin/options-general.php?page=the-events-calendar.php\">странице настроек</a>.</p>"
 
 #: views/events-meta-box.php:485
 msgid "Thanks"
-msgstr ""
+msgstr "Спасибо"
 
 #: views/events-options.php:74
 msgid "The Events Calendar Settings"
-msgstr ""
+msgstr "Настройки календаря"
 
 #: views/events-options.php:94
 msgid "Need a hand?"
-msgstr ""
+msgstr "Хотите настроить ?"
 
 #: views/events-options.php:95
-msgid ""
-"If you're stuck on these options, please <a href=\"http://wordpress.org/"
-"extend/plugins/the-events-calendar/\">check out the documentation</a>. If "
-"you're still wondering what's going on, be sure to stop by the support <a "
-"href=\"http://wordpress.org/tags/the-events-calendar?forum_id=10\">forum</a> "
-"and ask for help. The open source community is full of kind folks who are "
-"happy to help."
-msgstr ""
+msgid "If you're stuck on these options, please <a href=\"http://wordpress.org/extend/plugins/the-events-calendar/\">check out the documentation</a>. If you're still wondering what's going on, be sure to stop by the support <a href=\"http://wordpress.org/tags/the-events-calendar?forum_id=10\">forum</a> and ask for help. The open source community is full of kind folks who are happy to help."
+msgstr "Если вы не понимаете, как это все настраивать, пожалуйста <a href=\"http://wordpress.org/extend/plugins/the-events-calendar/\">прочтите документацию</a>. Если после этого у вас останутся вопросы обратитесь в <a href=\"http://wordpress.org/tags/the-events-calendar?forum_id=10\">форум поддержки</a>. В сообществе open source много приятных людей, которые вам с удовольствием помогут."
 
 #: views/events-options.php:96
 msgid "Here is the iCal feed URL for your events: "
-msgstr ""
+msgstr "Ссылка iCal на ваш календарь:"
 
 #: views/events-options.php:99
 msgid "Donate"
-msgstr ""
+msgstr "Пожертвовать"
 
 #: views/events-options.php:108
-msgid ""
-"If you find this plugin useful, please consider donating to the producer of "
-"it, Shane &#38; Peter, Inc. Thank you!"
-msgstr ""
+msgid "If you find this plugin useful, please consider donating to the producer of it, Shane &#38; Peter, Inc. Thank you!"
+msgstr "Если вы считаете этот плагин полезным, пожалуйста пожертвуйте его создателям Shane &#38; Peter, Inc. Спасибо !"
 
 #: views/events-options.php:112
 msgid "I have already donated, so please hide this button!"
-msgstr ""
+msgstr "Я уже сделал пожертвование, уберите эту кнопку !"
 
 #: views/events-options.php:122
 msgid "Donate for this wonderful plugin"
-msgstr ""
+msgstr "Пожертвовать на этот замечательный плагин"
 
 #: views/events-options.php:136
 msgid "Settings"
-msgstr ""
+msgstr "Настройки"
 
-#: views/events-options.php:139 views/events-options.php:143
+#: views/events-options.php:139
+#: views/events-options.php:143
 msgid "Default View for the Events"
-msgstr ""
+msgstr "Стандартный вид для событий"
 
-#: views/events-options.php:155 views/gridview.php:28 views/list.php:12
+#: views/events-options.php:155
+#: views/gridview.php:28
+#: views/list.php:12
 msgid "Calendar"
-msgstr ""
+msgstr "Календарь"
 
-#: views/events-options.php:159 views/gridview.php:27 views/list.php:11
+#: views/events-options.php:159
+#: views/gridview.php:27
+#: views/list.php:11
 msgid "Event List"
-msgstr ""
+msgstr "Список событий"
 
-#: views/events-options.php:165 views/events-options.php:169
+#: views/events-options.php:165
+#: views/events-options.php:169
 msgid "Show Comments"
-msgstr ""
+msgstr "Показывать комментарии"
 
 #: views/events-options.php:191
 msgid "Default Country for Events"
-msgstr ""
+msgstr "Стандартная страна для событий"
 
-#: views/events-options.php:214 views/events-options.php:218
+#: views/events-options.php:214
+#: views/events-options.php:218
 msgid "Display Events on Homepage"
-msgstr ""
+msgstr "Показывать события на домашней"
 
-#: views/events-options.php:225 views/events-options.php:254
-#: views/events-options.php:281 views/events-options.php:307
+#: views/events-options.php:225
+#: views/events-options.php:254
+#: views/events-options.php:281
+#: views/events-options.php:307
 msgid "Off"
-msgstr ""
+msgstr "Выкл"
 
-#: views/events-options.php:229 views/events-options.php:258
-#: views/events-options.php:285 views/events-options.php:311
+#: views/events-options.php:229
+#: views/events-options.php:258
+#: views/events-options.php:285
+#: views/events-options.php:311
 msgid "On"
-msgstr ""
+msgstr "Вкл"
 
-#: views/events-options.php:236 views/events-options.php:240
+#: views/events-options.php:236
+#: views/events-options.php:240
 msgid "Embed Google Maps"
-msgstr ""
+msgstr "Вставить карты Гугла"
 
 #: views/events-options.php:261
 msgid "Height"
-msgstr ""
+msgstr "Высота"
 
 #: views/events-options.php:262
 msgid "Width"
-msgstr ""
+msgstr "Ширина"
 
 #: views/events-options.php:262
 msgid "(number or %)"
-msgstr ""
+msgstr "(значение или %)"
 
-#: views/events-options.php:270 views/events-options.php:274
+#: views/events-options.php:270
+#: views/events-options.php:274
 msgid "Feature on Event Date"
-msgstr ""
+msgstr "Сообщение о дате события"
 
 #: views/events-options.php:288
-msgid ""
-"This option will bump an event to the top of the homepage loop on the day of "
-"the event."
-msgstr ""
+msgid "This option will bump an event to the top of the homepage loop on the day of the event."
+msgstr "Данная опция \"вытолкнет\" событие в начало домашней страницы в день события."
 
-#: views/events-options.php:296 views/events-options.php:300
+#: views/events-options.php:296
+#: views/events-options.php:300
 msgid "Use Pretty URLs"
-msgstr ""
+msgstr "Использовать Pretty URLs"
 
 #: views/events-options.php:314
-msgid ""
-"Pretty URLs (ie, http://site/category/events/upcoming) may interfere with "
-"custom themes or plugins."
-msgstr ""
+msgid "Pretty URLs (ie, http://site/category/events/upcoming) may interfere with custom themes or plugins."
+msgstr "Pretty URLs (ie, http://site/category/events/upcoming) могут конфликтовать с другими темами и плагинами"
 
 #: views/events-options.php:340
 msgid "Save Changes"
-msgstr ""
+msgstr "Сохранить изменения"
 
-#: views/gridview.php:9 views/list.php:9
+#: views/gridview.php:9
+#: views/list.php:9
 msgid "Calendar of Events"
-msgstr ""
+msgstr "Календарь событий"
 
-#: views/gridview.php:31 views/list.php:16
-msgid "iCal Import"
-msgstr ""
-
-#: views/list.php:33 views/single.php:14
+#: views/list.php:33
+#: views/single.php:14
 msgid "Start:"
-msgstr ""
+msgstr "Начало:"
 
-#: views/list.php:37 views/single.php:17
+#: views/list.php:37
+#: views/single.php:17
 msgid "End:"
-msgstr ""
+msgstr "Окончание:"
 
-#: views/list.php:62 views/single.php:38
+#: views/list.php:62
+#: views/single.php:38
 msgid "Google Map"
-msgstr ""
+msgstr "Карта Гугла"
 
 #: views/list.php:94
 msgid "&laquo; Previous Events"
-msgstr ""
+msgstr "&laquo; Пред. события"
 
 #: views/list.php:107
 msgid "Next Events &raquo;"
-msgstr ""
+msgstr "След. события &raquo;"
 
 #: views/single.php:9
 msgid "&laquo; Back to Events"
-msgstr ""
+msgstr "&laquo; Обратно к событиям"
 
 #: views/single.php:11
 msgid "This event has passed."
-msgstr ""
+msgstr "Событие уже прошло"
 
 #: views/single.php:38
 msgid "Click to view a Google Map"
-msgstr ""
+msgstr "Нажмите для того, чтобы увидеть карту Гугла"
 
 #. Plugin URI of the plugin/theme
 msgid "http://wordpress.org/extend/plugins/the-events-calendar/"
-msgstr ""
+msgstr "http://wordpress.org/extend/plugins/the-events-calendar/"
 
 #. Description of the plugin/theme
-msgid ""
-"The Events Calendar plugin enables you to rapidly create and manage events "
-"using the post editor. Features include optional Eventbrite integration, "
-"Google Maps integration as well as default calendar grid and list templates "
-"for streamlined one click installation. When updating The Events Calendar, "
-"if EventBrite for The Events Calendar is being used, the two plugins must be "
-"updated together. Requires PHP 5.1 or above."
-msgstr ""
+msgid "The Events Calendar plugin enables you to rapidly create and manage events using the post editor. Features include optional Eventbrite integration, Google Maps integration as well as default calendar grid and list templates for streamlined one click installation. When updating The Events Calendar, if EventBrite for The Events Calendar is being used, the two plugins must be updated together. Requires PHP 5.1 or above."
+msgstr "Плагин The Events Calendar позволяет вам быстро создавать и управлять событиями, используя редактор для записей. Дополнительно имеется интеграция с Eventbrite, картами Гугла, стандартные шаблоны для календаря и списка событий. Если вы используете EventBrite, то при обновлении плагина The Events Calendar надо обновлять и плагин для EventBrite. Требуется PHP 5.1 или выше."
 
 #. Author of the plugin/theme
 msgid "Shane & Peter, Inc."
-msgstr ""
+msgstr "Shane & Peter, Inc."
 
 #. Author URI of the plugin/theme
 msgid "http://www.shaneandpeter.com/"
-msgstr ""
+msgstr "http://www.shaneandpeter.com/"
+
