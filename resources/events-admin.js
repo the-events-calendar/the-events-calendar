@@ -6,13 +6,13 @@ jQuery(document).ready(function($) {
 		changeMonth: true,
 		changeYear: true,
 		numberOfMonths: 3,
-		showButtonPanel: true/*,
+		showButtonPanel: true,
 		onSelect: function(selectedDate) {
 			var option = this.id == "EventStartDate" ? "minDate" : "maxDate";
 			var instance = $(this).data("datepicker");
 			var date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
 			dates.not(this).datepicker("option", option, date);
-		}*/
+		}
 	};
 	$.extend(datepickerOpts, TEC);
 	var dates = $("#EventStartDate, #EventEndDate").datepicker(datepickerOpts);
