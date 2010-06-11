@@ -24,6 +24,8 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		private $taxonomyLabels;
 
 		private $rewriteSlug;
+		private $rewriteSlugSingular;
+		private $taxRewriteSlug;
 		private $defaultOptions = '';
 		public $latestOptions;
 		private $postExceptionThrown = false;
@@ -330,7 +332,8 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 */
 		function __construct( ) {
 			$this->rewriteSlug		= __( 'events', $this->pluginDomain );
-			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlug;
+			$this->rewriteSlugSingular = __( 'event', $this->pluginDomain );
+			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlugSingular;
 			$this->currentDay		= '';
 			$this->pluginDir		= basename(dirname(__FILE__));
 			$this->pluginPath		= WP_PLUGIN_DIR . '/' . $this->pluginDir;
@@ -732,7 +735,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		public function on_activate( ) {
 			$now = time();
 			$firstTime = $now - ($now % 66400);
-			wp_schedule_event( $firstTime, 'daily', 'reschedule_event_post'); // schedule this for midnight, daily
+			//wp_schedule_event( $firstTime, 'daily', 'reschedule_event_post'); // schedule this for midnight, daily
 			$this->flushRewriteRules();
 		}
 		/**
@@ -820,38 +823,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		}
 		
 		/**
-		 * @return bool true if is_category() is on a child of the events category
-		 */
-		public function in_event_category( ) {
-			if( is_category( The_Events_Calendar::CATEGORYNAME ) ) {
-				return true;
-			}
-			$cat_id = get_query_var( 'cat' );
-			if( $cat_id == $this->eventCategory() ) {
-				return true;
-			}
-			$cats = get_categories('child_of=' . $this->eventCategory());
-			$is_child = false;
-			foreach( $cats as $cat ) {
-				if( is_category( $cat->name ) ) {
-					$is_child = true;
-				}
-			}
-			return $is_child;
-		}
-		/**
-		 * @return array of event category ids, including children
-		 */
-		public function event_category_ids( ) {
-			$cats = array();
-			$cats[] = $this->eventCategory();
-			$children = get_categories('hide_empty=0&child_of=' . $cats[0]);
-			foreach( $children as $cat ) {
-				$cats[] = $cat->cat_ID;
-			}
-			return $cats;
-		}
-		/**
 		 * orderby filter for standard wordpress templates.  Adds event ordering for queries that are
 		 * in the events category and filtered according to the search parameters
 		 *
@@ -899,8 +870,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 *
 		 * @link http://codex.wordpress.org/Custom_Queries#Permalinks_for_Custom_Archives
 		 */
-		public function flushRewriteRules() 
-		{
+		public function flushRewriteRules() {
 		   global $wp_rewrite;
 		   $wp_rewrite->flush_rules();
 		}		
@@ -923,6 +893,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 *	events/upcoming		=>	/?post_type=sp_events&eventDisplay=upcoming
 		 *	events/past			=>	/?post_type=sp_events&eventDisplay=past
 		 *	events/2008-01/#15	=>	/?post_type=sp_events&eventDisplay=bydate&eventDate=2008-01-01
+		 * events/category/events-cat => 
 		 *
 		 * @return void
 		 */
@@ -940,8 +911,17 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			$newRules[$base . 'past'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past';
 			$newRules[$base . '(\d{4}-\d{2})$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . '?$']						= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=' . eventsGetOptionValue('viewOption','month');
+			
+			// taxonomy rules.
+			$newRules[self::TAXREWRITE . '/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=$wp_rewrite->' . $wp_rewrite->preg_index(1) . '&feed=$wp_rewrite->' . $wp_rewrite->preg_index(2);
+			$newRules[self::TAXREWRITE . '/([^/]+)/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=$wp_rewrite->' . $wp_rewrite->preg_index(1) . '&feed=$wp_rewrite->' . $wp_rewrite->preg_index(2);
+			$newRules[self::TAXREWRITE . '/([^/]+)/page/?([0-9]{1,})/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=$wp_rewrite->' . $wp_rewrite->preg_index(1) . '&paged=$wp_rewrite->' . $wp_rewrite->preg_index(2);
+			$newRules[self::TAXREWRITE . '/([^/]+)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'eventDisplay=upcoming&sp_events_cat=$wp_rewrite->' . $wp_rewrite->preg_index(1);
+			
 
 		  $wp_rewrite->rules = array_merge($newRules, $wp_rewrite->rules);
+		
+		
 		}
 		
 		/**
@@ -1037,7 +1017,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 * @return void
 		 */
 		public function on_deactivate( ) { 
-			wp_clear_scheduled_hook('reschedule_event_post');
+		//	wp_clear_scheduled_hook('reschedule_event_post');
 			$this->flushRewriteRules();
 		}
 		/**

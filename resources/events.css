@@ -10,7 +10,7 @@
 #tec-content {
 	position:relative;
 	margin-bottom:48px;
-	padding-top:1px;
+	padding:1px 20px;
 }
 .single #tec-content {
 	font-size:16px;

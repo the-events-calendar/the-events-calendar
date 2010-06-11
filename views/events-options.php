@@ -122,6 +122,7 @@ try {
 			<?php 
 			$embedGoogleMapsValue = eventsGetOptionValue('embedGoogleMaps','off');                 
 	        ?>
+<?php /* 
 		<tr>
 			<th scope="row"><?php _e('Display Events on Homepage',$this->pluginDomain); ?></th>
 	        <td>
@@ -143,7 +144,7 @@ try {
 	            </fieldset>
 	        </td>
 		</tr>
-
+*/ ?>
 		<tr>
 			<th scope="row"><?php _e('Embed Google Maps',$this->pluginDomain); ?></th>
 	        <td>
@@ -177,7 +178,7 @@ try {
 	            </fieldset>
 	        </td>
 		</tr>
-
+<?php /*
 			<tr>
 				<th scope="row"><?php _e('Feature on Event Date',$this->pluginDomain); ?></th>
 		        <td>
@@ -203,6 +204,7 @@ try {
 		            </fieldset>
 		        </td>
 			</tr>
+*/ ?>
 			<?php if( '' != get_option('permalink_structure') ) : ?>
 			<tr>
 				<th scope="row"><?php _e('Use Pretty URLs',$this->pluginDomain); ?></th>

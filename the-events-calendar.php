@@ -13,26 +13,32 @@
 register_activation_hook(__FILE__, 'the_events_calendar_activate');
 add_action( 'admin_head', 'the_events_calendar_version_check' );
 
-function the_events_calendar_version_check() {
-  if ( version_compare( PHP_VERSION, '5.1', '<') ) { 
-    echo "<div class='error'>The Events Calendar requires PHP 5.1 or greater.  Please de-activate The Events Calendar.</div>";
-    }   
+if ( ! function_exists('the_events_calendar_version_check') ) {
+	function the_events_calendar_version_check() {
+	  if ( version_compare( PHP_VERSION, '5.1', '<') ) { 
+	    echo "<div class='error'>The Events Calendar requires PHP 5.1 or greater.  Please de-activate The Events Calendar.</div>";
+	    }   
+	}
 }
 
-function the_events_calendar_activate() {
-	global $wp_version;
-    if ( version_compare( phpversion(), '5.1', '<' ) || version_compare( $wp_version, '3.0', '<' ) ) { 
-        trigger_error('', E_USER_ERROR);
-    } else {
-		require_once(dirname(__FILE__) . "/the-events-calendar.class.php");
-		require_once(dirname(__FILE__) . "/the-events-calendar-exception.class.php");
-		require_once(dirname(__FILE__) . "/events-calendar-widget.class.php");
-		require_once(dirname(__FILE__) . "/events-list-widget.class.php");
-		require_once(dirname(__FILE__) . "/template-tags.php");
-		global $spEvents;
-		$spEvents->on_activate();
-    }   
+
+if ( ! function_exists('the_events_calendar_activate') ) {
+	function the_events_calendar_activate() {
+		global $wp_version;
+	    if ( version_compare( phpversion(), '5.1', '<' ) || version_compare( $wp_version, '3', '<' ) ) { 
+	        trigger_error('', E_USER_ERROR);
+	    } else {
+			require_once(dirname(__FILE__) . "/the-events-calendar.class.php");
+			require_once(dirname(__FILE__) . "/the-events-calendar-exception.class.php");
+			require_once(dirname(__FILE__) . "/events-calendar-widget.class.php");
+			require_once(dirname(__FILE__) . "/events-list-widget.class.php");
+			require_once(dirname(__FILE__) . "/template-tags.php");
+			global $spEvents;
+			$spEvents->on_activate();
+	    }   
+	}
 }
+
 global $wp_version;
 if (version_compare( phpversion(), '5.1', '>=') || version_compare( $wp_version, '3.0', '>=' ) ) {
 	require_once(dirname(__FILE__) . "/the-events-calendar.class.php");
