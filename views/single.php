@@ -51,7 +51,6 @@
 					<?php the_content() ?>	
 					<?php if (function_exists('the_event_ticket_form')) { the_event_ticket_form(); } ?>		
 				</div>
-				<?php the_terms(get_the_ID(), 'sp_events_cat') ?>
 				<?php edit_post_link('Edit', '<span class="edit-link">', '</span>'); ?>
 			</div><!-- post -->
 
