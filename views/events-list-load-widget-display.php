@@ -2,6 +2,10 @@
  * This is the template for the output of the events list widget. 
  * All the items are turned on and off through the widget admin.
  * There is currently no default styling, which is highly needed.
+ *
+ * You can customize this view by putting a replacement file of the same name (events-list-load-widget-display.php) in the events/ directory of your theme.
+ *
+ * When the template is loaded, the following vars are set: $start, $end, $venue, $address, $city, $state, $province'], $zip, $country, $phone, $cost
  * @return string
  */
 $EventCity		= get_post_meta( $post->ID, '_EventCity', true );
@@ -20,11 +24,11 @@ $EventProvince	= get_post_meta( $post->ID, '_EventProvince', true );
 	<div class="loc"><?php
 		$space = false;
 		$output = '';
-		if ($city == true && $EventCity != '') {
+		if ( $city && $EventCity != '' ) {
 			$space = true;
 			$output = $EventCity . ', ';
 		}
-		if ($state == true || $province == true){
+		if ( $state || $province ) {
 			if ( $EventCountry == "United States" &&  $EventState != '') {
 				$space = true;
 				$output .= $EventState;
@@ -35,10 +39,8 @@ $EventProvince	= get_post_meta( $post->ID, '_EventProvince', true );
 		} else {
 			$output = rtrim( $output, ', ' );
 		}
-		if ( $space ) {
-			$output .=  '<br />';
-		}
-		if ($country == true && $EventCountry != '') {
+		$output .= ( $space ) ? '<br />' : '';
+		if ( $country && $EventCountry != '') {
 			$output .= $EventCountry; 
 		}
 		echo $output;

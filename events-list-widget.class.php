@@ -22,24 +22,13 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 			}
 		
 			function widget( $args, $instance ) {
-				global $wp_query;
-				extract( $args );
+				global $wp_query, $spEvents;
+				extract( $args, EXTR_SKIP );
+				extract( $instance, EXTR_SKIP );
+				// extracting $instance provides $title, $limit, $no_upcoming_events, $start, $end, $venue, $address, $city, $state, $province'], $zip, $country, $phone , $cost
+				$title = apply_filters('widget_title', $title );
 
-				/* User-selected settings. */
-				$title = apply_filters('widget_title', $instance['title'] );
-				$limit = $instance['limit'];
-				$noUpcomingEvents = $instance['no_upcoming_events'];
-				$start = $instance['start'];
-				$end = $instance['end'];
-				$venue = $instance['venue'];
-				$address = $instance['address'];
-				$city = $instance['city'];
-				$state = $instance['state'];
-				$province = $instance['province'];
-				$zip = $instance['zip'];
-				$country = $instance['country'];
-				$phone = $instance['phone'];
-				$cost = $instance['cost'];
+				$spEvents->log($title);
 				
 				if ( eventsGetOptionValue('viewOption') == 'upcoming') {
 					$event_url = events_get_listview_link();
@@ -47,20 +36,25 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 					$event_url = events_get_gridview_link();
 				}
 
-				/* Before widget (defined by themes). */
-				echo $before_widget;
-				
 				if( function_exists( 'get_events' ) ) {
 					$old_display = $wp_query->get('eventDisplay');
 					$wp_query->set('eventDisplay', 'upcoming');
-					$posts = get_events($limit, The_Events_Calendar::CATEGORYNAME);
-					$template = The_Events_Calendar::getTemplateHierarchy('events-list-load-widget-display');
+					$posts = get_events($limit);
+					$template = $spEvents->getTemplateHierarchy('events-list-load-widget-display');
 				}
 				
+				// if no posts, and the don't show if no posts checked, let's bail
+				if ( ! $posts && $no_upcoming_events ) {
+					return;
+				}
+				
+				/* Before widget (defined by themes). */
+				echo $before_widget;
+				
 				/* Title of widget (before and after defined by themes). */
-				if ( $title && !$noUpcomingEvents ) echo $before_title . $title . $after_title;
-					
-				if( $posts ) {
+				echo ( $title ) ? $before_title . $title . $after_title : '';
+									
+				if ( $posts ) {
 					/* Display list of events. */
 					echo "<ul class='upcoming'>";
 					foreach( $posts as $post ) : 
@@ -74,7 +68,7 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 					/* Display link to all events */
 					echo '<div class="dig-in"><a href="' . $event_url . '">' . __('View All Events', $this->pluginDomain ) . '</a></div>';
 				} 
-				else if( !$noUpcomingEvents ) {
+				else {
 					_e('There are no upcoming events at this time.', $this->pluginDomain);
 				}
 
@@ -87,19 +81,19 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 
 					/* Strip tags (if needed) and update the widget settings. */
 					$instance['title'] = strip_tags( $new_instance['title'] );
-					$instance['limit'] = strip_tags( $new_instance['limit'] );
-					$instance['no_upcoming_events'] = strip_tags( $new_instance['no_upcoming_events'] );
-					$instance['start'] = strip_tags( $new_instance['start'] );
-					$instance['end'] = strip_tags( $new_instance['end'] );
-					$instance['venue'] = strip_tags( $new_instance['venue'] );
-					$instance['country'] = strip_tags( $new_instance['country'] );
-					$instance['address'] = strip_tags( $new_instance['address'] );
-					$instance['city'] = strip_tags( $new_instance['city'] );
-					$instance['state'] = strip_tags( $new_instance['state'] );
-					$instance['province'] = strip_tags( $new_instance['province'] );
-					$instance['zip'] = strip_tags( $new_instance['zip'] );
-					$instance['phone'] = strip_tags( $new_instance['phone'] );
-					$instance['cost'] = strip_tags( $new_instance['cost'] );
+					$instance['limit'] = $new_instance['limit'];
+					$instance['no_upcoming_events'] = $new_instance['no_upcoming_events'];
+					$instance['start'] = $new_instance['start'];
+					$instance['end'] = $new_instance['end'];
+					$instance['venue'] = $new_instance['venue'];
+					$instance['country'] = $new_instance['country'];
+					$instance['address'] = $new_instance['address'];
+					$instance['city'] = $new_instance['city'];
+					$instance['state'] = $new_instance['state'];
+					$instance['province'] = $new_instance['province'];
+					$instance['zip'] = $new_instance['zip'];
+					$instance['phone'] = $new_instance['phone'];
+					$instance['cost'] = $new_instance['cost'];
 
 					return $instance;
 			}

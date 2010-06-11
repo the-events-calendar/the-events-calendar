@@ -3,7 +3,7 @@
 */
 
 /* Use Helvetica */
-#tec-events-calendar-header, .tec-calendar, #tec-content .ical, a.gmap, .tec-event-list-meta td, .tec-nav, #tec-event-meta, span.back {
+#tec-events-calendar-header, .tec-calendar, #tec-content .ical, a.gmap, .tec-event-list-meta td, .tec-nav, #tec-event-meta, span.back, .eventsListWidget .dig-in {
 	font-family:"Helvetica Neue",Arial,Helvetica,"Nimbus Sans L",sans-serif;
 }
 
@@ -43,9 +43,12 @@ h2.tec-cal-title {
 	font-weight:bold;
 	color:#000;
 }
-.tec-month-nav a, .tec-nav a, .back a {
+.tec-month-nav a, .tec-nav a, .back a, .eventsListWidget .dig-in a {
 	color:#888;
 	text-decoration:none;
+}
+.tec-month-nav a:hover, .tec-nav a:hover, .back a:hover, .eventsListWidget .dig-in a:hover {
+	text-decoration:underline;
 }
 #tec-content .ical {
 	color:#fff;
@@ -164,7 +167,7 @@ table.tec-calendar, .tec-calendar td {
 	letter-spacing:1px;
 }
 .tec-calendar td {
-	height: 100px;
+	height: 110px;
 	width:14.28%;
 	color: #114B7D;
 	vertical-align: top;
@@ -345,4 +348,8 @@ h4.tec-event-day + .post .entry-title {margin-top:6px;}
 
 #tec-events-picker {
 	display:inline;
+}
+
+.eventsListWidget li {
+	margin:6px 0;
 }

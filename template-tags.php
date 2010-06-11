@@ -464,7 +464,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 * http://codex.wordpress.org/Displaying_Posts_Using_a_Custom_Select_Query#Query_based_on_Custom_Field_and_Category
 	 *
 	 * @param int number of results to display for upcoming or past modes (default 10)
-	 * @param string category name to pull events from, defaults to the currently displayed category
+	 * @param string deprecated: used when events were determined by category. category name to pull events from, defaults to the currently displayed category
 	 * @return array results
 	 */
 	function get_events( $numResults = null, $catName = null ) {

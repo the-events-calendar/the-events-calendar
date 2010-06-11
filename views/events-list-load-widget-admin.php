@@ -18,7 +18,7 @@
 
 </p>
 
-<p><?php _e( 'Display:', $this->pluginDomain ); ?><br/>
+<p><?php _e( 'Display:', $this->pluginDomain ); ?><br />
 
 <?php $displayoptions = array (
 	"start" => __('Start Date & Time', $this->pluginDomain),
@@ -38,4 +38,5 @@
 		<label for="<?php echo $this->get_field_id( $option ); ?>"><?php echo $label ?></label>
 		<br/>
 <?php } ?>
-	</p>
+</p>
+<p><small><em>Only City, State/Province and Country are supported in the widget view by default. If you wish to customize the widget display yourself, see the file views/events-list-load-widget-display.php inside the Events Premium plugin.</em></small></p>

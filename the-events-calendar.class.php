@@ -380,7 +380,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			}
 		}
 		
-		private function log( $data = array() ) {
+		public function log( $data = array() ) {
 			error_log(print_r($data,1));
 		}
 		
@@ -450,10 +450,11 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		}
 		
 		public function addAdminScriptsAndStyles() {
-			global $current_screen;
+			// always load style. need for icon in nav.
+			wp_enqueue_style( self::POSTTYPE.'-admin', $this->pluginUrl . '/resources/events-admin.css' );
 			
+			global $current_screen;			
 			if ( $current_screen->post_type == self::POSTTYPE || $current_screen->id == 'settings_page_the-events-calendar.class' ) {
-				wp_enqueue_style( self::POSTTYPE.'-admin', $this->pluginUrl . '/resources/events-admin.css' );
 				wp_enqueue_script( 'jquery-ui-datepicker', $this->pluginUrl . '/resources/ui.datepicker.min.js', array('jquery-ui-core'), '1.7.3', true );
 				wp_enqueue_script( self::POSTTYPE.'-admin', $this->pluginUrl . '/resources/events-admin.js', array('jquery-ui-datepicker'), '', true );
 				// calling our own localization because wp_localize_scripts doesn't support arrays or objects for values, which we need.
@@ -1090,8 +1091,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				$_POST['EventStartDate'] = $this->dateToTimeStamp( $_POST['EventStartDate'], $_POST['EventStartHour'], $_POST['EventStartMinute'], $_POST['EventStartMeridian'] );
 				$_POST['EventEndDate'] = $this->dateToTimeStamp( $_POST['EventEndDate'], $_POST['EventEndHour'], $_POST['EventEndMinute'], $_POST['EventEndMeridian'] );
 			}
-			$this->log($_POST['EventStartDate']);
-			$this->log($_POST['EventEndDate']);
 			
 			// sanity check that start date < end date
 			$startTimestamp = strtotime( $_POST['EventStartDate'] );
