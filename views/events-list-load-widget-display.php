@@ -46,6 +46,5 @@ $EventProvince	= get_post_meta( $post->ID, '_EventProvince', true );
 		echo $output;
 	?>
 	</div>
-	<a class="more-link" href="<?php echo get_permalink($post->ID) ?>"><?php _e('More Info', $this->pluginDomain); ?></a>
 </li>
 <?php $alt_text = ( empty( $alt_text ) ) ? 'alt' : '';
