@@ -82,7 +82,6 @@ function display_day_title( $day, $monthView ) {
 	if( !count( $monthView[$day] ) || count( $monthView[$day] ) < get_option( 'posts_per_page' ) ) {
 		$return .= $day;
 	} else {
-		global $post;
 		$return .= "<a class='tec-multi-event-day'>$day</a>";
 		$return .= "<div id='tooltip_day_$day' class='tec-tooltip' style='display:none;'>";
 		for( $i = 0; $i < count( $monthView[$day] ); $i++ ) {
@@ -117,13 +116,7 @@ function display_day( $day, $monthView ) {
 		$province	= the_event_province( $post->ID );
 		$country	= the_event_country( $post->ID );
 		?>
-		<div id='event_<?php echo $eventId; ?>' class="tec-event 
-		<?php
-		foreach((get_the_category()) as $category) { 
-		    echo 'cat_' . $category->cat_name . ' '; 
-		} 
-		?>
-		">
+		<div id='event_<?php echo $eventId; ?>' <?php post_class('tec-event') ?>>
 			<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 			<div id='tooltip_<?php echo $eventId; ?>' class="tec-tooltip" style="display:none;">
 				<h5 class="tec-event-title"><?php the_title();?></h5>

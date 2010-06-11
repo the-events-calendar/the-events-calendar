@@ -13,12 +13,10 @@
 		</span>
 
 		</div><!--#tec-events-calendar-header-->
-		<a class="ical" href="<?php bloginfo('home'); ?>/?ical"><?php _e('iCal Import', $spEvents->pluginDomain) ?></a>
 		<div id="tec-events-loop" class="tec-events post-list clearfix">
 		<?php while ( have_posts() ) : the_post(); ?>
 
-				<div id="post-<?php the_ID() ?>" class="tec-event post clearfix<?php echo $alt ?>">
-							    <div style="clear:both;"></div>
+				<div id="post-<?php the_ID() ?>" <?php post_class('tec-event clearfix') ?>>
 							        <?php if ( is_new_event_day() ) : ?>
 					<h4 class="event-day"><?php echo the_event_start_date( null, false ); ?></h4>
 							        <?php endif; ?>
@@ -75,10 +73,7 @@
 		                  <?php endif; ?>
 		              </table>
 					</div>
-					<div style="clear:both;"></div>
 				</div> <!-- End post -->
-				<div class="tec-events-list content_footer"></div>
-	<?php $alt = ( empty( $alt ) ) ? ' alt' : '';?> 
 		<?php endwhile; // posts ?>
 
 
@@ -109,7 +104,7 @@
 			</div>
 
 		</div>
-
+		<a title="<?php esc_attr_e('iCal Import', $spEvents->pluginDomain) ?>" class="ical" href="<?php bloginfo('home'); ?>/?ical"><?php _e('iCal Import', $spEvents->pluginDomain) ?></a>
 	</div>
 
 

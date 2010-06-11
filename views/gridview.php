@@ -1,7 +1,5 @@
 <?php
 	global $spEvents;
-	$spEvents->loadDomainStylesScripts();
-	
 	get_header();
 ?>	
 	<div id="tec-content" class="grid">
@@ -29,8 +27,8 @@
 			</span>
 
 		</div><!-- tec-events-calendar-header -->
-		<a class="ical" href="<?php bloginfo('home'); ?>/?ical"><?php _e('iCal Import', $spEvents->pluginDomain) ?></a>
-		<?php event_grid_view(); // See the plugins/the-events-calendar/views/table.php template for customization ?>	
+		<?php event_grid_view(); // See the plugins/the-events-calendar/views/table.php template for customization ?>
+		<a title="<?php esc_attr_e('iCal Import', $spEvents->pluginDomain) ?>" class="ical" href="<?php bloginfo('home'); ?>/?ical"><?php _e('iCal Import', $spEvents->pluginDomain) ?></a>
 	</div>
 
 <?php

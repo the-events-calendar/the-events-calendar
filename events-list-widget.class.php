@@ -54,6 +54,7 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 					$old_display = $wp_query->get('eventDisplay');
 					$wp_query->set('eventDisplay', 'upcoming');
 					$posts = get_events($limit, The_Events_Calendar::CATEGORYNAME);
+					$template = The_Events_Calendar::getTemplateHierarchy('events-list-load-widget-display');
 				}
 				
 				/* Title of widget (before and after defined by themes). */
@@ -61,25 +62,21 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 					
 				if( $posts ) {
 					/* Display list of events. */
-						if( function_exists( 'get_events' ) ) {
-						
-							echo "<ul class='upcoming'>";
-							foreach( $posts as $post ) : 
-								setup_postdata($post);
-								if (file_exists(TEMPLATEPATH.'/events/events-list-load-widget-display.php') ) {
-									include (TEMPLATEPATH.'/events/events-list-load-widget-display.php');
-								} else {
-									include( dirname( __FILE__ ) . '/views/events-list-load-widget-display.php' );						
-								}
-							endforeach;
-							echo "</ul>";
+					echo "<ul class='upcoming'>";
+					foreach( $posts as $post ) : 
+						setup_postdata($post);
+						include $template;
+					endforeach;
+					echo "</ul>";
 
-							$wp_query->set('eventDisplay', $old_display);
-						}
+					$wp_query->set('eventDisplay', $old_display);
 					
-						/* Display link to all events */
-						echo '<div class="dig-in"><a href="' . $event_url . '">' . __('View All Events', $this->pluginDomain ) . '</a></div>';
-				} else if( !$noUpcomingEvents ) _e('There are no upcoming events at this time.', $this->pluginDomain);
+					/* Display link to all events */
+					echo '<div class="dig-in"><a href="' . $event_url . '">' . __('View All Events', $this->pluginDomain ) . '</a></div>';
+				} 
+				else if( !$noUpcomingEvents ) {
+					_e('There are no upcoming events at this time.', $this->pluginDomain);
+				}
 
 				/* After widget (defined by themes). */
 				echo $after_widget;

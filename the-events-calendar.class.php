@@ -8,18 +8,21 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		const CATEGORYNAME	 		= 'Events'; // legacy category
 		const OPTIONNAME 			= 'sp_events_calendar_options';
 		const POSTTYPE				= 'sp_events';
+		const TAXONOMY				= 'sp_events_cat';
+		const TAXREWRITE			= 'events/category';
 		// default formats, they are overridden by WP options or by arguments to date methods
 		const DATEONLYFORMAT 		= 'F j, Y';
 		const TIMEFORMAT			= 'g:i A';
 		const DBDATEFORMAT	 		= 'Y-m-d';
 		const DBDATETIMEFORMAT 		= 'Y-m-d G:i:s';
-		
+
 		private $postTypeArgs = array(
 			'public' => true,
 			'rewrite' => array('slug' => 'event'),
 			'menu_position' => 6
 		);
-		
+		private $taxonomyLabels;
+
 		private $rewriteSlug;
 		private $defaultOptions = '';
 		public $latestOptions;
@@ -33,7 +36,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		private $tabIndexStart = 2000;
 
 		public $metaTags = array(
-			'_isEvent',
 			'_EventAllDay',
 			'_EventStartDate',
 			'_EventEndDate',
@@ -50,13 +52,15 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			'_EventPhone',
 			self::EVENTSERROROPT
 		);
-				
+
 		public $currentPostTimestamp;
 		public $daysOfWeekShort;
 		public $daysOfWeek;
+		public $daysOfWeekMin;
 		private function constructDaysOfWeek() {
 			$this->daysOfWeekShort = array( __( 'Sun', $this->pluginDomain ), __( 'Mon', $this->pluginDomain ), __( 'Tue', $this->pluginDomain ), __( 'Wed', $this->pluginDomain ), __( 'Thu', $this->pluginDomain ), __( 'Fri', $this->pluginDomain ), __( 'Sat', $this->pluginDomain ) );
 			$this->daysOfWeek = array( __( 'Sunday', $this->pluginDomain ), __( 'Monday', $this->pluginDomain ), __( 'Tuesday', $this->pluginDomain ), __( 'Wednesday', $this->pluginDomain ), __( 'Thursday', $this->pluginDomain ), __( 'Friday', $this->pluginDomain ), __( 'Saturday', $this->pluginDomain ) );
+			$this->daysOfWeekMin = array( __( 'Su', $this->pluginDomain ), __( 'Mo', $this->pluginDomain ), __( 'Tu', $this->pluginDomain ), __( 'We', $this->pluginDomain ), __( 'Th', $this->pluginDomain ), __( 'Fr', $this->pluginDomain ), __( 'Sa', $this->pluginDomain ) );
 		}
 		
 		private $countries;
@@ -347,28 +351,73 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			add_filter( 'posts_orderby',	array( $this, 'events_search_orderby' ) );
 			add_filter( 'posts_fields',		array( $this, 'events_search_fields' ) );
 			add_filter( 'post_limits',		array( $this, 'events_search_limits' ) );
+			add_filter( 'post_class', array( $this, 'post_class') );
+			add_filter( 'body_class', array( $this, 'body_class' ) );
 		}
 		
 		private function addActions() {
 			add_action( 'reschedule_event_post', array( $this, 'reschedule') );
-			add_action( 'init',				array( $this, 'loadDomainStylesScripts' ) );
+			add_action( 'template_redirect',				array( $this, 'loadDomainStylesScripts' ) );
 			add_action( 'sp-events-save-more-options', array( $this, 'flushRewriteRules' ) );
 			add_action( 'pre_get_posts',	array( $this, 'setOptions' ) );
 			add_action( 'admin_menu', 		array( $this, 'addOptionsPage' ) );
 			add_action( 'admin_init', 		array( $this, 'checkForOptionsChanges' ) );
 			add_action( 'admin_menu', 		array( $this, 'addEventBox' ) );
 			add_action( 'save_post',		array( $this, 'addEventMeta' ), 15, 2 );
-			add_action( 'publish_post',		array( $this, 'addEventMeta' ), 15 );
+			add_action( 'publish_post',		array( $this, 'addEventMeta' ), 15, 2 );
 
 			add_action( 'sp_events_post_errors', array( 'TEC_Post_Exception', 'displayMessage' ) );
 			add_action( 'sp_events_options_top', array( 'TEC_WP_Options_Exception', 'displayMessage') );
 			add_action( 'init', array( $this, 'registerPostType' ) );
-			add_action('admin_init', array( $this, 'addAdminStyles' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
+			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
+		}
+
+		public function accessibleMonthForm() {
+			if ( $_GET['EventJumpToMonth'] && $_GET['EventJumpToYear'] ) {
+				$_GET['eventDisplay'] = 'month';
+				$_GET['eventDate'] = $_GET['EventJumpToYear'] . '-' . $_GET['EventJumpToMonth'];
+			}
+		}
+		
+		private function log( $data = array() ) {
+			error_log(print_r($data,1));
+		}
+		
+		public function body_class( $c ) {
+			if ( get_query_var('post_type') == self::POSTTYPE ) {
+				if ( ! is_single() ) {
+					$c[] = 'events-archive';
+				}
+				else {
+					$c[] = 'events-single';
+				}
+			}
+			return $c;
+		}
+		
+		public function post_class( $c ) {
+			global $post;
+			if ( $post->post_type == self::POSTTYPE && $terms = get_the_terms( $post->ID , self::TAXONOMY ) ) {
+				foreach ($terms as $term) {
+					$c[] = 'cat_' . sanitize_html_class($term->slug, $term->cat_ID);
+				}
+			}
+			return $c;
 		}
 		
 		public function registerPostType() {
 			$this->generatePostTypeLabels();
 			register_post_type(self::POSTTYPE, $this->postTypeArgs);
+			
+			register_taxonomy( self::TAXONOMY, self::POSTTYPE, array(
+				'hierarchical' => true,
+				'update_count_callback' => '',
+				'rewrite' => array('slug'=>self::TAXREWRITE),
+				'public' => true,
+				'show_ui' => true,
+				'labels' => $this->taxonomyLabels
+			));
 		}
 		
 		private function generatePostTypeLabels() {
@@ -384,10 +433,80 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				'not_found' => __('No events found', $this->pluginDomain),
 				'not_found_in_trash' => __('No events found in Trash', $this->pluginDomain)
 			);
+			
+			$this->taxonomyLabels = array(
+				'name' =>  __( 'Event Categories', $this->pluginDomain ),
+				'singular_name' =>  __( 'Event Category', $this->pluginDomain ),
+				'search_items' =>  __( 'Search Event Categories', $this->pluginDomain ),
+				'all_items' => __( 'All Event Categories', $this->pluginDomain ),
+				'parent_item' =>  __( 'Parent Event Category', $this->pluginDomain ),
+				'parent_item_colon' =>  __( 'Parent Event Category:', $this->pluginDomain ),
+				'edit_item' =>   __( 'Edit Event Category', $this->pluginDomain ),
+				'update_item' =>  __( 'Update Event Category', $this->pluginDomain ),
+				'add_new_item' =>  __( 'Add New Event Category', $this->pluginDomain ),
+				'new_item_name' =>  __( 'New Event Category Name', $this->pluginDomain )
+			);
+			
 		}
 		
-		public function addAdminStyles() {
-			wp_enqueue_style( self::POSTTYPE.'-admin', $this->pluginUrl . '/resources/events-admin.css' );
+		public function addAdminScriptsAndStyles() {
+			global $current_screen;
+			
+			if ( $current_screen->post_type == self::POSTTYPE || $current_screen->id == 'settings_page_the-events-calendar.class' ) {
+				wp_enqueue_style( self::POSTTYPE.'-admin', $this->pluginUrl . '/resources/events-admin.css' );
+				wp_enqueue_script( 'jquery-ui-datepicker', $this->pluginUrl . '/resources/ui.datepicker.min.js', array('jquery-ui-core'), '1.7.3', true );
+				wp_enqueue_script( self::POSTTYPE.'-admin', $this->pluginUrl . '/resources/events-admin.js', array('jquery-ui-datepicker'), '', true );
+				// calling our own localization because wp_localize_scripts doesn't support arrays or objects for values, which we need.
+				add_action('admin_footer', array($this, 'printLocalizedAdmin') );
+			}
+			
+
+		}
+		
+		public function localizeAdmin() {
+			$dom = $this->pluginDomain;
+			$this->constructDaysOfWeek();
+			
+			return array(
+				'dayNames' => $this->daysOfWeek,
+				'dayNamesShort' => $this->daysOfWeekShort,
+				'dayNamesMin' => $this->daysOfWeekMin,
+				'monthNames' => array_values( $this->monthNames() ),
+				'monthNamesShort' => array_values( $this->monthNames( true ) ),
+				'nextText' => __( 'Next', $dom ),
+				'prevText' => __( 'Prev', $dom ),
+				'currentText' => __( 'Today', $dom ),
+				'closeText' => __( 'Done', $dom ),
+				'phoneError' => __( 'Phone', $dom ) . ' ' . __( 'is not valid.', $dom ) . ' ' . __('Valid values are local format (eg. 02 1234 5678 or 123 123 4567) or international format (eg. +61 (0) 2 1234 5678 or +1 123 123 4567).  You may also use an optional extension of up to five digits prefixed by x or ext (eg. 123 123 4567 x89)', $dom)
+			);
+		}
+		
+		public function printLocalizedAdmin() {
+			$object_name = 'TEC';
+			$vars = $this->localizeAdmin();
+			
+			$data = "var $object_name = {\n";
+			$eol = '';
+			foreach ( $vars as $var => $val ) {
+				
+				if ( gettype($val) == 'array' || gettype($val) == 'object' ) {
+					$val = json_encode($val);
+				}
+				else {
+					$val = '"' . esc_js( $val ) . '"';
+				} 
+				
+				$data .= "$eol\t$var: $val";
+				$eol = ",\n";
+			}
+			$data .= "\n};\n";
+			
+			echo "<script type='text/javascript'>\n";
+			echo "/* <![CDATA[ */\n";
+			echo $data;
+			echo "/* ]]> */\n";
+			echo "</script>\n";
+			
 		}
 		
 		public function addOptionsPage() {
@@ -824,12 +943,19 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		  $wp_rewrite->rules = array_merge($newRules, $wp_rewrite->rules);
 		}
 		
+		/**
+		 * returns various internal events-related URLs
+		 * @param string $type type of link. See switch statement for types.
+		 * @param string $secondary for $type = month, pass a YYYY-MM string for a specific month's URL
+		 */
+		
 		public function getLink( $type = 'home', $secondary = false ) {
-			
+
 			// if permalinks are off or user doesn't want them: ugly.
 			if( '' == get_option('permalink_structure') || 'off' == eventsGetOptionValue('useRewriteRules','on') ) {
 				return $this->uglyLink($type, $secondary);
 			}
+
 			$eventUrl = home_url() . '/' . $this->rewriteSlug . '/' ;
 			
 			switch( $type ) {
@@ -847,11 +973,8 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 					return $eventUrl . 'past';
 				case 'dropdown':
 					return $eventUrl;
-					
 				default:
 					return $eventUrl;
-					
-				
 			}
 			
 		}
@@ -873,9 +996,11 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 					return add_query_arg( array( 'eventDisplay' => 'upcoming'), $eventUrl );
 				case 'past':
 					return add_query_arg( array( 'eventDisplay' => 'past'), $eventUrl );
-					case 'dropdown':
-						$dropdown = add_query_arg( array( 'eventDisplay' => 'month', 'eventDate' => ' '), $eventUrl );
-						return rtrim($dropdown); // tricksy
+				case 'dropdown':
+					$dropdown = add_query_arg( array( 'eventDisplay' => 'month', 'eventDate' => ' '), $eventUrl );
+					return rtrim($dropdown); // tricksy
+				default:
+					return $eventUrl;
 			}
 		}
 		
@@ -917,14 +1042,28 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		/**
 		 * Converts a set of inputs to YYYY-MM-DD HH:MM:SS format for MySQL
 		 */
-		public function dateToTimeStamp( $year, $month, $day, $hour, $minute, $meridian ) {
+		public function dateToTimeStamp( $date, $hour, $minute, $meridian ) {
 			if ( preg_match( '/(PM|pm)/', $meridian ) && $hour < 12 ) $hour += "12";
 			if ( preg_match( '/(AM|am)/', $meridian ) && $hour == 12 ) $hour = "00";
-			return "$year-$month-$day $hour:$minute:00";
+			$date = $this->dateHelper($date);
+			return "$date $hour:$minute:00";
 		}
 		public function getTimeFormat( $dateFormat = self::DATEONLYFORMAT ) {
 			return $dateFormat . ' ' . get_option( 'time_format', self::TIMEFORMAT );
 		}
+		/*
+		 * converts /, - and space chars to - for YYYY-MM-DD date
+		**/
+		private function dateHelper( $date ) {
+			return str_replace( array('-','/',' ',':','–','—','-'), '-', $date ); 
+		}
+		
+		public function dateOnly( $date ) {
+			$date = explode(' ', $date);
+			return $date[0];
+		}
+		
+		
 		/**
 		 * Adds / removes the event details as meta tags to the post.
 		 *
@@ -944,13 +1083,16 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			
 			// add a function below to remove all existing categories - wp_set_post_categories(int ,  array )
 			if( $_POST['EventAllDay'] == 'yes' ) {
-				$_POST['EventStartDate'] = $this->dateToTimeStamp( $_POST['EventStartYear'], $_POST['EventStartMonth'], $_POST['EventStartDay'], "12", "00", "AM" );
-				$_POST['EventEndDate'] = $this->dateToTimeStamp( $_POST['EventEndYear'], $_POST['EventEndMonth'], $_POST['EventEndDay'], "11", "59", "PM" );
+				$_POST['EventStartDate'] = $this->dateToTimeStamp( $_POST['EventStartDate'], "12", "00", "AM" );
+				$_POST['EventEndDate'] = $this->dateToTimeStamp( $_POST['EventEndDate'], "11", "59", "PM" );
 			} else {
 				delete_post_meta( $postId, '_EventAllDay' );
-				$_POST['EventStartDate'] = $this->dateToTimeStamp( $_POST['EventStartYear'], $_POST['EventStartMonth'], $_POST['EventStartDay'], $_POST['EventStartHour'], $_POST['EventStartMinute'], $_POST['EventStartMeridian'] );
-				$_POST['EventEndDate'] = $this->dateToTimeStamp( $_POST['EventEndYear'], $_POST['EventEndMonth'], $_POST['EventEndDay'], $_POST['EventEndHour'], $_POST['EventEndMinute'], $_POST['EventEndMeridian'] );
+				$_POST['EventStartDate'] = $this->dateToTimeStamp( $_POST['EventStartDate'], $_POST['EventStartHour'], $_POST['EventStartMinute'], $_POST['EventStartMeridian'] );
+				$_POST['EventEndDate'] = $this->dateToTimeStamp( $_POST['EventEndDate'], $_POST['EventEndHour'], $_POST['EventEndMinute'], $_POST['EventEndMeridian'] );
 			}
+			$this->log($_POST['EventStartDate']);
+			$this->log($_POST['EventEndDate']);
+			
 			// sanity check that start date < end date
 			$startTimestamp = strtotime( $_POST['EventStartDate'] );
 			$endTimestamp 	= strtotime( $_POST['EventEndDate'] );
@@ -1012,8 +1154,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 					$$tag = '';
 				}
 			}
-			$isEventChecked			= ( $_isEvent == 'yes' ) ? 'checked' : '';
-			$isNotEventChecked		= ( $_isEvent == 'no' || $_isEvent == '' ) ? 'checked' : '';
 			$isEventAllDay = ( $_EventAllDay == 'yes' || $_isEvent == '' || $_isEvent == 'no' ) ? 'checked' : ''; // default is all day for new posts
 			
 			$startDayOptions       	= array(

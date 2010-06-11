@@ -1,3 +1,13 @@
+@import url(smoothness/jquery-ui-1.7.3.custom.css);
+
+.ui-datepicker, .ui-datepicker select, .ui-datepicker input, .ui-datepicker td {
+	font-size:11px;
+	line-height:15px;
+}
+.ui-datepicker select, .ui-datepicker option {
+	padding:0;
+}
+
 .eventForm td {
 	padding:6px 6px 0 0;
 	font-size:11px;
@@ -104,4 +114,15 @@
 }
 td.snp_message {
 	padding-bottom: 10px !important;
+}
+.clearfix {zoom:1; /* For IE */}
+.tec-events-error {display:none;}
+.tec_hide {display:none;}
+.tec-multi-event-day {color: #0F81BB;}
+
+#adminmenu #menu-posts-spevents div.wp-menu-image {
+	background:url(images/menu.png) no-repeat 0 -32px;
+}
+#adminmenu #menu-posts-spevents:hover div.wp-menu-image, #adminmenu #menu-posts-spevents.wp-has-current-submenu div.wp-menu-image {
+	background-position:0 0;
 }

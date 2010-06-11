@@ -20,4 +20,12 @@ jQuery(document).ready(function($) {
 	}, function() {
 		$(this).next(".tec-tooltip").fadeOut(100);
 	});
+	
+	// datepicker
+	$(".tec-events-dropdown").change(function() {
+		baseUrl = $(this).parent().attr("action");
+		
+		location.href = baseUrl + $('#tec-events-year').val() + '-' + $('#tec-events-month').val();
+	});
+	
 });
