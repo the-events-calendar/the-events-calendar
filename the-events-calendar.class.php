@@ -407,7 +407,8 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 
 		public function custom_columns( $column_id, $post_id ) {
 			if ( $column_id == 'events-cats' ) {
-				echo strip_tags( get_the_term_list( $post_id, self::TAXONOMY, '', ', ', '' ) );
+				$event_cats = get_the_term_list( $post_id, self::TAXONOMY, '', ', ', '' );
+				echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
 			}
 		}
 
