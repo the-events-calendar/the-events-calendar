@@ -19,10 +19,17 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		private $postTypeArgs = array(
 			'public' => true,
 			'rewrite' => array('slug' => 'event'),
-			'menu_position' => 6
+			'menu_position' => 6,
+			'supports' => array('title','editor')
 		);
 		private $taxonomyLabels;
 
+		public $supportUrl = 'http://SUPPORT_URL_GOES_HERE';/*
+			TODO real support URL
+		*/
+		public $envatoUrl = 'http://ENVATO_URL_GOES_HERE';/*
+			TODO Envato URL
+		*/
 		private $rewriteSlug;
 		private $rewriteSlugSingular;
 		private $taxRewriteSlug;
@@ -34,6 +41,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		public $pluginDir;
 		public $pluginPath;
 		public $pluginUrl;
+		public $pluginName;
 		public $pluginDomain = 'the-events-calendar';
 		private $tabIndexStart = 2000;
 
@@ -331,6 +339,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 * @return void
 		 */
 		function __construct( ) {
+			$this->pluginName		= __( 'Events Calendar Premium', $this->pluginDomain );
 			$this->rewriteSlug		= __( 'events', $this->pluginDomain );
 			$this->rewriteSlugSingular = __( 'event', $this->pluginDomain );
 			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlugSingular;
@@ -346,16 +355,18 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		}
 		
 		private function addFilters() {
+			add_filter( 'post_class', array( $this, 'post_class') );
+			add_filter( 'body_class', array( $this, 'body_class' ) );
 			add_filter( 'template_include', array( $this, 'templateChooser') );
 			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
-			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );			
+			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );
+//*
 			add_filter( 'posts_join',		array( $this, 'events_search_join' ) );
 			add_filter( 'posts_where',		array( $this, 'events_search_where' ) );
 			add_filter( 'posts_orderby',	array( $this, 'events_search_orderby' ) );
 			add_filter( 'posts_fields',		array( $this, 'events_search_fields' ) );
 			add_filter( 'post_limits',		array( $this, 'events_search_limits' ) );
-			add_filter( 'post_class', array( $this, 'post_class') );
-			add_filter( 'body_class', array( $this, 'body_class' ) );
+//*/
 		}
 		
 		private function addActions() {
@@ -421,6 +432,11 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				'show_ui' => true,
 				'labels' => $this->taxonomyLabels
 			));
+			
+			if( eventsGetOptionValue('showComments','no') == 'yes' ) {
+				add_post_type_support( self::POSTTYPE, 'comments');
+			}
+			
 		}
 		
 		private function generatePostTypeLabels() {
@@ -514,7 +530,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		}
 		
 		public function addOptionsPage() {
-    		add_options_page('The Events Calendar', 'The Events Calendar', 'administrator', basename(__FILE__), array($this,'optionsPageView'));		
+    		add_options_page($this->pluginName, $this->pluginName, 'administrator', $this->pluginDomain, array($this,'optionsPageView'));		
 		}
 		
 		public function optionsPageView() {
@@ -522,17 +538,22 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		}
 		
 		public function checkForOptionsChanges() {
-			if (isset($_POST['saveEventsCalendarOptions']) && check_admin_referer('saveEventsCalendarOptions')) {
+			
+			if ( isset($_POST['upgradeEventsCalendar']) && check_admin_referer('upgradeEventsCalendar') ) {
+				$this->upgradeData();
+			}
+			
+			if ( isset($_POST['saveEventsCalendarOptions']) && check_admin_referer('saveEventsCalendarOptions') ) {
                 $options = $this->getOptions();
 				$options['viewOption'] = $_POST['viewOption'];
 				if($_POST['defaultCountry']) {
 					$this->constructCountries();
-					$defaultCountryKey = array_search($_POST['defaultCountry'],$this->countries);
-					$options['defaultCountry'] = array($defaultCountryKey,$_POST['defaultCountry']);					
+					$defaultCountryKey = array_search( $_POST['defaultCountry'], $this->countries );
+					$options['defaultCountry'] = array( $defaultCountryKey, $_POST['defaultCountry'] );
 				}
 				
 				$options['embedGoogleMaps'] = $_POST['embedGoogleMaps'];
-				if($_POST['embedGoogleMapsHeight']) {
+				if( $_POST['embedGoogleMapsHeight'] ) {
 					$options['embedGoogleMapsHeight'] = $_POST['embedGoogleMapsHeight'];
 					$options['embedGoogleMapsWidth'] = $_POST['embedGoogleMapsWidth'];
 				}
@@ -541,6 +562,11 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				$options['displayEventsOnHomepage'] = $_POST['displayEventsOnHomepage'];
 				$options['resetEventPostDate'] = $_POST['resetEventPostDate'];
 				$options['useRewriteRules'] = $_POST['useRewriteRules'];
+				
+				if ( $options['useRewriteRules'] == 'on' ) {
+					$this->flushRewriteRules();
+				}
+				
 				try {
 					do_action( 'sp-events-save-more-options' );
 					if ( !$this->optionsExceptionThrown ) $options['error'] = "";
@@ -551,6 +577,78 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				$this->saveOptions($options);
 				$this->latestOptions = $options; //XXX ? duplicated in saveOptions() ?
 			} // end if
+		}
+		/**
+		 * Will upgrade data from old free plugin to new plugin
+		 *
+		 */
+		
+		private function upgradeData() {
+			
+			$query = new WP_Query('posts_per_page=-1&category_name=' . self::CATEGORYNAME );
+			$posts = $query->posts;
+			
+			// we don't want the old event category
+			$eventCat = get_term_by('name', self::CATEGORYNAME, 'category' );
+			// existing event cats
+			$existingEventCats = (array) get_terms(self::TAXONOMY, array('fields' => 'names'));
+			// store potential new event cats;
+			$newEventCats = array();
+			
+			// first create log needed new event categories
+			foreach ($posts as $key => $post) {
+				// we don't want the old Events category
+				$cats = $this->removeEventCat( get_the_category($post->ID), $eventCat );
+				// see what new ones we need
+				$newEventCats = $this->mergeCatList( $cats, $newEventCats );
+				// store on the $post to keep from re-querying
+				$posts[$key]->cats = $this->getCatNames( $cats );
+			}
+			// dedupe
+			$newEventCats = array_unique($newEventCats);
+
+			// let's create new events cats
+			foreach ( $newEventCats as $cat ) {
+				// leave alone existing ones
+				if ( in_array( $cat, $existingEventCats ) )
+					continue;
+					
+				// make 'em!
+				wp_insert_term( $cat, self::TAXONOMY );
+			}
+			// now we know what we're in for
+			$masterCats = get_terms( self::TAXONOMY, array('hide_empty'=>false) );
+
+			// let's convert those posts
+			foreach ( $posts as $post ) {
+				// new post_type sir
+				set_post_type( $post->ID, self::POSTTYPE );
+				// set new events cats. we stored the array above, remember?
+				if ( ! empty($post->cats) )
+					wp_set_object_terms( $post->ID, $post->cats, self::TAXONOMY );
+			}
+		}
+		
+		private function getCatNames( $cats ) {
+			foreach ( $cats as $cat ) {
+				$r[] = $cat->name;
+			}
+			return $r;
+		}
+		
+		private function mergeCatList ( $new, $old ) {
+			$r = (array) $this->getCatNames( $new );
+			return array_merge( $r, $old );
+		}
+		
+		private function removeEventCat( $cats, $removeCat ) {
+			
+			foreach ( $cats as $k => $cat ) {
+				if ( $cat->term_id == $removeCat->term_id ) {
+					unset($cats[$k]);
+				}
+			}
+			return $cats;
 		}
 		
 		/// OPTIONS DATA
@@ -577,7 +675,13 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
         }
 
 		public function templateChooser($template) {
-
+			
+			// hijack to iCal template
+			if ( get_query_var('ical') || isset($_GET['ical']) ) {
+				$this->iCalFeed();
+				die;
+			}
+			
 			if( is_feed() || get_query_var( 'post_type' ) != self::POSTTYPE ) {
 				return $template;
 			}
@@ -860,6 +964,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		}
 		/**
 	     * Gets the Category id to use for an Event
+		 * Deprecated, but keeping in for legacy users for now.
 	     * @return int|false Category id to use or false is none is set
 	     */
 	    static function eventCategory() {
@@ -883,6 +988,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		public function eventQueryVars( $qvars ) {
 			$qvars[] = 'eventDisplay';
 			$qvars[] = 'eventDate';
+			$qvars[] = 'ical';
 			return $qvars;		  
 		}
 		/**
@@ -893,7 +999,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 *	events/upcoming		=>	/?post_type=sp_events&eventDisplay=upcoming
 		 *	events/past			=>	/?post_type=sp_events&eventDisplay=past
 		 *	events/2008-01/#15	=>	/?post_type=sp_events&eventDisplay=bydate&eventDate=2008-01-01
-		 * events/category/events-cat => 
+		 * events/category/some-events-category => /?post_type=sp_events&sp_event_cat=some-events-category
 		 *
 		 * @return void
 		 */
@@ -904,6 +1010,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			
 			$base = trailingslashit( $this->rewriteSlug );
 			
+			$newRules[$base . 'ical'] = 'index.php?post_type=' . self::POSTTYPE . '&ical=1';
 			$newRules[$base . 'month'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month';
 			$newRules[$base . 'upcoming/page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . 'upcoming'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
@@ -954,6 +1061,8 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 					return $eventUrl . 'past';
 				case 'dropdown':
 					return $eventUrl;
+				case 'ical':
+					return $eventUrl . 'ical';
 				default:
 					return $eventUrl;
 			}
@@ -980,6 +1089,8 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				case 'dropdown':
 					$dropdown = add_query_arg( array( 'eventDisplay' => 'month', 'eventDate' => ' '), $eventUrl );
 					return rtrim($dropdown); // tricksy
+				case 'ical':
+					return home_url() . '/?ical';
 				default:
 					return $eventUrl;
 			}
@@ -1211,8 +1322,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 * @return void
 		 */
 		public function addEventBox( ) {
-			add_meta_box( 'Event Details', __( 'The Events Calendar', $this->pluginDomain ), 
-		                array( $this, 'EventsChooserBox' ), self::POSTTYPE, 'normal', 'high' );
+			add_meta_box( 'Event Details', $this->pluginName, array( $this, 'EventsChooserBox' ), self::POSTTYPE, 'normal', 'high' );
 		}
 		/** 
 		 * Builds a set of options for diplaying a meridian chooser
@@ -1457,14 +1567,11 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		}
 		
 		/**
-		 * This function is called by @function get_events() to query the events and start the loop. Do not
-		 * subsequently call the_post() in your template, as this will start the loop twice and then
-		 * you're in trouble.
-		 * 
-		 * http://codex.wordpress.org/Displaying_Posts_Using_a_Custom_Select_Query#Query_based_on_Custom_Field_and_Category
+		 * Call this function in a template to query the events
 		 *
 		 * @param int number of results to display for upcoming or past modes (default 10)
-		 * @param string category name to pull events from, defaults to the currently displayed category
+		 * @param string deprecated: used when events were determined by category. category name to pull events from, defaults to the currently displayed category
+		 * @return array results
 		 * @uses $wpdb
 		 * @uses $wp_query
 		 * @return array results
@@ -1530,14 +1637,14 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		public function iCalFeed( $postId = null ) {
 		    $getstring = $_GET['ical'];
 			$wpTimezoneString = get_option("timezone_string");
-			$categoryId = get_cat_id( The_Events_Calendar::CATEGORYNAME );
+			$postType = self::POSTTYPE;
 			$events = "";
 			$lastBuildDate = "";
 			$eventsTestArray = array();
 			$blogHome = get_bloginfo('home');
 			$blogName = get_bloginfo('name');
 			$includePosts = ( $postId ) ? '&include=' . $postId : '';
-			$eventPosts = get_posts( 'numberposts=-1&category=' . $categoryId . $includePosts );
+			$eventPosts = get_posts( 'numberposts=-1&post_type=' . $postType . $includePosts );
 			foreach( $eventPosts as $eventPost ) {
 				// convert 2010-04-08 00:00:00 to 20100408T000000 or YYYYMMDDTHHMMSS
 				$startDate = str_replace( array("-", " ", ":") , array("", "T", "") , get_post_meta( $eventPost->ID, "_EventStartDate", true) );

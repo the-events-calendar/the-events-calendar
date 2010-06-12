@@ -249,16 +249,14 @@ try {
 		</tr>
 		<tr class="eventBritePluginPlug">
 			<td colspan="2">
-				<p><?php _e('Interested in selling tickets and tracking registrations? Now you can do it for free using our <a href="http://wordpress.org/extend/plugins/eventbrite-for-the-events-calendar/">Eventbrite Integration Plugin</a>. Eventbrite is a feature rich easy-to-use event management tool. "Wow, you\'re selling Eventbrite pretty hard. You must get a kickback."  Well, now that you mention it... we do. We get a little something for everyone that registers an event using our referral link. It\'s how we\'re able to keep supporting and building plugins for the open source community. ', $this->pluginDomain); ?> <a href="http://www.eventbrite.com/r/simpleevents"><?php _e('Check it out here.', $this->pluginDomain); ?></a></p>
+				<p><?php printf( __('Interested in selling tickets and tracking registrations? We have an add-on in the works that will integrate your events and sell tickets on <a href="%s">EventBrite</a>. <a href="%s">Stay Tuned!</a>', $this->pluginDomain ), 'http://www.eventbrite.com/r/simpleevents', $this->envatoUrl ); ?></a></p>
 			</td>
 		</tr>
 		
 		
 	</table>
 	</div>
-	<?php /*
-		TODO remove entirely? - matt
-	*/
+	<?php 
 	try {
 		do_action( 'sp_events_above_donate', $postId );
 		if( !$this->postExceptionThrown ) delete_post_meta( $postId, self::EVENTSERROROPT );

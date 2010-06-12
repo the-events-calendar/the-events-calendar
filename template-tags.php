@@ -1,8 +1,6 @@
 <?php
 
 if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionValue' ) ) {
-	// fetch the iCal file
-	if ( isset($_GET['ical']) ) add_action('init', array( $spEvents, 'iCalFeed') );
 	/**
 	 * retrieve specific key from options array, optionally provide a default return value
 	 */
@@ -103,10 +101,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 * @return string formatted event address
 	 */
 	function tec_get_event_address( $postId = null, $includeVenue = false ) {
-		if ( $postId === null || !is_numeric( $postId ) ) {
-			global $post;
-			$postId = $post->ID;
-		}
+		$postId = tec_post_id_helper( $postId );
 		$address = '';
 		if( $includeVenue ) $address .= the_event_venue( $postId );
 		if( the_event_address( $postId ) ) {
@@ -145,10 +140,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 * @return boolean true if any part of an address exists
 	 */
 	function tec_address_exists( $postId = null ) {
-		if ( $postId === null || !is_numeric( $postId ) ) {
-			global $post;
-			$postId = $post->ID;
-		}
+		$postId = tec_post_id_helper( $postId );
 		return ( the_event_address( $postId ) || the_event_city( $postId ) || the_event_region( $postId ) || the_event_country( $postId ) || the_event_zip( $postId ) ) ? true : false;
 	}
 	/**
@@ -160,10 +152,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 * @return string - an iframe pulling http://maps.google.com/ for this event
 	 */
 	function get_event_google_map_embed( $postId = null, $width = '', $height = '' ) {
-		if ( $postId === null || !is_numeric( $postId ) ) {
-			global $post;
-			$postId = $post->ID;
-		}
+		$postId = tec_post_id_helper( $postId );
 		if ( !is_event( $postId ) ) {
 			return false;
 		}
@@ -221,10 +210,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 */
 	function the_event_start_date( $postId = null, $showtime = 'true', $dateFormat = '' ) {
 		global $spEvents, $post;
-		if ( $postId === null || !is_numeric( $postId ) ) {
-			global $post;
-			$postId = $post->ID;
-		}
+		$postId = tec_post_id_helper( $postId );
 		if( $dateFormat ) $format = $dateFormat;
 		else $format = get_option( 'date_format', The_Events_Calendar::DATEONLYFORMAT );
 		if( the_event_all_day( $postId ) ) {
@@ -246,10 +232,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 * @return string date
 	 */
 	function the_event_end_date( $postId = null, $showtime = 'true', $dateFormat = '' ) {
-		global $spEvents, $post;
-		if ( $postId === null || !is_numeric( $postId ) ) {
-			$postId = $post->ID;
-		}
+		global $spEvents;
+		$postId = tec_post_id_helper( $postId );
 		if ( $dateFormat ) $format = $dateFormat;
 		else $format = get_option( 'date_format', The_Events_Calendar::DATEONLYFORMAT );
 		if( the_event_all_day( $postId ) ) {
@@ -273,10 +257,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	*/
 	function the_event_cost( $postId = null) {
 		global $spEvents;
-		if ( $postId === null || !is_numeric( $postId ) ) {
-			global $post;
-			$postId = $post->ID;
-		}
+		$postId = tec_post_id_helper( $postId );
 		if( class_exists( 'Eventbrite_for_The_Events_Calendar' ) ) {
 			global $spEventBrite;
 			$returned = $spEventBrite->the_event_cost($postId);
@@ -296,10 +277,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 * @return string venue
 	 */
 	function the_event_venue( $postId = null) {
-		if ( $postId === null || !is_numeric( $postId ) ) {
-			global $post;
-			$postId = $post->ID;
-		}
+		$postId = tec_post_id_helper( $postId );
 		return esc_html(get_post_meta( $postId, '_EventVenue', true ));
 	}
 	/**
@@ -308,10 +286,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 * @return string country
 	 */
 	function the_event_country( $postId = null) {
-		if ( $postId === null || !is_numeric( $postId ) ) {
-			global $post;
-			$postId = $post->ID;
-		}
+		$postId = tec_post_id_helper( $postId );
 		return esc_html(get_post_meta( $postId, '_EventCountry', true ));
 	}
 	/**
@@ -320,10 +295,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 * @return string address
 	 */
 	function the_event_address( $postId = null) {
-		if ( $postId === null || !is_numeric( $postId ) ) {
-			global $post;
-			$postId = $post->ID;
-		}
+		$postId = tec_post_id_helper( $postId );
 		return esc_html(get_post_meta( $postId, '_EventAddress', true ));
 	}
 	/**
@@ -332,10 +304,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 * @return string city
 	 */
 	function the_event_city( $postId = null) {
-		if ( $postId === null || !is_numeric( $postId ) ) {
-			global $post;
-			$postId = $post->ID;
-		}
+		$postId = tec_post_id_helper( $postId );
 		return esc_html(get_post_meta( $postId, '_EventCity', true ));
 	}
 	/**
@@ -344,10 +313,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 * @return string state
 	 */
 	function the_event_state( $postId = null) {
-		if ( $postId === null || !is_numeric( $postId ) ) {
-			global $post;
-			$postId = $post->ID;
-		}
+		$postId = tec_post_id_helper( $postId );
 		return esc_html(get_post_meta( $postId, '_EventState', true ));
 	}
 	/**
@@ -356,10 +322,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 * @return string province
 	 */
 	function the_event_province( $postId = null) {
-		if ( $postId === null || !is_numeric( $postId ) ) {
-			global $post;
-			$postId = $post->ID;
-		}
+		$postId = tec_post_id_helper( $postId );
 		return esc_html(get_post_meta( $postId, '_EventProvince', true ));
 	}
 	/**
@@ -368,10 +331,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 * @return string zip code 
 	 */
 	function the_event_zip( $postId = null) {
-		if ( $postId === null || !is_numeric( $postId ) ) {
-			global $post;
-			$postId = $post->ID;
-		}
+		$postId = tec_post_id_helper( $postId );
 		return esc_html(get_post_meta( $postId, '_EventZip', true ));
 	}
 	/**
@@ -380,43 +340,21 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 * @return string phone number
 	 */
 	function the_event_phone( $postId = null) {
-		if ( $postId === null || !is_numeric( $postId ) ) {
-			global $post;
-			$postId = $post->ID;
-		}
+		$postId = tec_post_id_helper( $postId );
 		return esc_html(get_post_meta( $postId, '_EventPhone', true ));
 	}
 	/**
-	 * Returns a list of lectures that are associated with this event
-	 *
-	 * @param int optional post id
-	 * @return mixed array of posts or false
+	 * Helper function to determine postId. Pulls from global $post object if null or non-numeric.
+	 * 
+	 * @return int postId;
 	 */
-	function the_event_lectures( $postId = null ) {
-		if ( $postId === null || !is_numeric( $postId ) ) {
+	
+	function tec_post_id_helper( $postId ) {
+		if ( $postId === null || ! is_numeric( $postId ) ) {
 			global $post;
-			$postId = $post->ID;
+			return $post->ID;
 		}
-		if( !is_event( $postId ) ) { 
-			return false;
-		}
-		global $wpdb;
-		$query = "SELECT * FROM {$wpdb->postmeta} WHERE meta_key = '_lectureEvent' AND meta_value = '{$postId}'";
-		$results = $wpdb->get_results( $query );
-		if( empty( $results ) ) { 
-			return $results;
-		}
-		$lectures = array();
-		foreach ( $results as $lecture ) {
-			$lectures[] = $lecture->post_id;
-		}
-		$lectures = array_unique( $lectures );
-		$results = array();
-		foreach ( $lectures as $lectureId ) {
-			$results[] = get_post( $lectureId ); 
-		}
-		return $results;
-		
+		return (int) $postId;
 	}
 
 	/**
@@ -457,11 +395,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 		return $retval;
 	}
 	/**
-	 * Call this function in a template to query the events and start the loop. Do not
-	 * subsequently call the_post() in your template, as this will start the loop twice and then
-	 * you're in trouble.
-	 * 
-	 * http://codex.wordpress.org/Displaying_Posts_Using_a_Custom_Select_Query#Query_based_on_Custom_Field_and_Category
+	 * Call this function in a template to query the events
 	 *
 	 * @param int number of results to display for upcoming or past modes (default 10)
 	 * @param string deprecated: used when events were determined by category. category name to pull events from, defaults to the currently displayed category
@@ -478,7 +412,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 */
 	function events_displaying_past() {
 		global $spEvents;
-		return ($spEvents->displaying == "past") ? true : false;
+		return ($spEvents->displaying == 'past') ? true : false;
 	}
 	/**
 	 * Returns true if the query is set for upcoming events, false otherwise
@@ -487,7 +421,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 */
 	function events_displaying_upcoming() {
 		global $spEvents;
-		return ($spEvents->displaying == "upcoming") ? true : false;
+		return ($spEvents->displaying == 'upcoming') ? true : false;
 	}
 	/**
 	 * Returns true if the query is set for month display (as opposed to Upcoming / Past)
@@ -496,7 +430,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 */
 	function events_displaying_month() {
 		global $spEvents;
-		return ( $spEvents->displaying == "month" ) ? true : false;
+		return ( $spEvents->displaying == 'month' ) ? true : false;
 	}
 	/**
 	 * Returns a link to the previous events in list view
@@ -524,15 +458,6 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	function events_get_next_month_link() {
 		global $spEvents;
 		return $spEvents->getLink( 'month', $spEvents->nextMonth( $spEvents->date ) );
-		
-		/*
-		$link = get_category_link( $cat_id );
-		if( '' == get_option('permalink_structure') || 'off' == eventsGetOptionValue('useRewriteRules','on') ) {
-			return add_query_arg( array('eventDate'=>$spEvents->nextMonth( $spEvents->date )), $link );
-		} else {
-			return trailingslashit( $link ) . $spEvents->nextMonth( $spEvents->date );
-		}
-		*/
 	}
 	/**
 	 * Returns a link to the previous month's events page
@@ -542,19 +467,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	function events_get_previous_month_link() {
 		global $spEvents;
 		return $spEvents->getLink( 'month', $spEvents->previousMonth( $spEvents->date ) );
-		/*
-		$cat_id = get_query_var( 'cat' );
-		if( !$cat_id ) {
-			$cat_id = $spEvents->eventCategory();
-		}
-		$link = get_category_link( $cat_id );
-		if( '' == get_option('permalink_structure') || 'off' == eventsGetOptionValue('useRewriteRules','on') ) {
-			return add_query_arg( array('eventDate'=>$spEvents->previousMonth( $spEvents->date )), $link );
-		} else {
-			return trailingslashit( $link ) . $spEvents->previousMonth( $spEvents->date );
-		}
-		*/
 	}
+
 	/**
 	 * Returns a link to the events URL
 	 *
@@ -583,6 +497,10 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	function events_get_dropdown_link_prefix() {
 		global $spEvents;
 		return $spEvents->getLink('dropdown');
+	}
+	function events_get_ical_link() {
+		global $spEvents;
+		return $spEvents->getLink('ical');
 	}
 
 	/**
@@ -619,7 +537,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 */
 	function events_get_displayed_month() {
 		global $spEvents;
-		if ( $spEvents->displaying == "month" ) {
+		if ( $spEvents->displaying == 'month' ) {
 			return $spEvents->getDateString( $spEvents->date );
 		}
 		return " ";
@@ -631,13 +549,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 */
 	function events_get_this_month_link() {
 		global $spEvents;
-		$cat_id = get_query_var( 'cat' );
-		if( !$cat_id ) {
-			$cat_id = $spEvents->eventCategory();
-		}
-		$link = get_category_link( $cat_id );
-		if ( $spEvents->displaying == "month" ) {
-			return trailingslashit( $link ) . $spEvents->date;
+		if ( $spEvents->displaying == 'month' ) {
+			return $spEvents->getLink( 'month', $spEvents->date );
 		}
 		return false;
 	}
@@ -659,10 +572,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'eventsGetOptionV
 	 * @return bool
 	 */
 	function the_event_all_day( $postId = null ) {
-		if ( $postId === null || !is_numeric( $postId ) ) {
-			global $post;
-			$postId = $post->ID;
-		}
+		$postId = tec_post_id_helper( $postId );
 		return get_post_meta( $postId, '_EventAllDay', true );
 	}
 } // end if class_exists('The-Events-Calendar')

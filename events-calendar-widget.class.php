@@ -20,7 +20,6 @@ if( !class_exists( 'Events_Calendar_Widget') ) {
 				if ( $title )
 					echo $before_title . $title . $after_title;
 				echo '<div id="calendar_wrap">';
-				//echo get_calendar_custom(); /* 5 is the category id I have for event */
 				echo '</div>';
 				echo $after_widget;
 			}

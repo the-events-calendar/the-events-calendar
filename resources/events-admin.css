@@ -129,3 +129,24 @@ td.snp_message {
 #adminmenu #menu-posts-spevents:hover div.wp-menu-image, #adminmenu #menu-posts-spevents.wp-has-current-submenu div.wp-menu-image {
 	background-position:0 0;
 }
+
+#sp-upgrade {
+	margin:72px 0 30px;
+	border:1px solid #ccc;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	padding:0 20px 20px;
+	background:#f6f6f6;
+}
+#sp-upgrade .message {
+	border-style:solid;
+	border-width:1px;
+	padding:6px 12px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	background-color:#FFFFE0;
+	border-color:#E6DB55;
+}
+

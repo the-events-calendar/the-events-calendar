@@ -14,7 +14,7 @@ div.snp_settings{
 }
 </style>
 <div class="snp_settings wrap">
-<h2><?php _e('The Events Calendar Settings',$this->pluginDomain); ?></h2>
+<?php screen_icon(); ?><h2><?php printf( '%s Settings', $this->pluginName ); ?></h2>
 <div id="tec-options-error" class="tec-events-error error"></div>
 <?php
 try {
@@ -35,16 +35,12 @@ try {
 ?>
 <div class="form">
 	<h3><?php _e('Need a hand?',$this->pluginDomain); ?></h3>
-	<p><?php _e('If you\'re stuck on these options, please <a href="http://wordpress.org/extend/plugins/the-events-calendar/">check out the documentation</a>. If you\'re still wondering what\'s going on, be sure to stop by the support <a href="http://wordpress.org/tags/the-events-calendar?forum_id=10">forum</a> and ask for help. The open source community is full of kind folks who are happy to help.',$this->pluginDomain); ?></p>
-	<p><?php _e('Here is the iCal feed URL for your events: ' ,$this->pluginDomain); ?><code><?php bloginfo('home'); ?>/?ical</code></p>
+	<p><?php printf( __( 'If you’re stuck on these options, please <a href="%s">check out the documentation</a>. Or, go to the <a href="%s">support forum</a>.', $this->pluginDomain ), $this->pluginUrl . '/readme.txt', $this->supportUrl ); ?></p>
+	<p><?php _e('Here is the iCal feed URL for your events: ' ,$this->pluginDomain); ?><code><?php echo events_get_ical_link(); ?></code></p>
 
 	<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+	<?php wp_nonce_field('saveEventsCalendarOptions'); ?>
 
-	<?php
-	if ( function_exists('wp_nonce_field') ) {
-		wp_nonce_field('saveEventsCalendarOptions');
-	}
-	?>
 	<h3><?php _e('Settings', $this->pluginDomain); ?></h3>
 	<table class="form-table">
 		<tr>
@@ -225,7 +221,7 @@ try {
 		                    <?php _e('On',$this->pluginDomain); ?>
 		                </label>
 						<div>
-							<?php _e('Pretty URLs (ie, http://site/category/events/upcoming) may interfere with custom themes or plugins.',$this->pluginDomain); ?> 
+							<?php _e('Although unlikely, pretty URLs (ie, http://site/events/upcoming) may interfere with custom themes or plugins.',$this->pluginDomain); ?> 
 						</div>
 		<br />
 		            </fieldset>
@@ -257,6 +253,31 @@ try {
 </table>
 
 </form>
+
+<?php
+$old_events_query = new WP_Query('posts_per_page=-1&category_name=' . self::CATEGORYNAME );
+$posts = $old_events_query->posts;
+$old_events = count($posts);
+
+if ( $old_events ) {
+	$old_events_copy = '<p class="message">' . sprintf( __('It looks like you have %s events in the category “%s”. Click below to import!', $this->pluginDomain ), $old_events, self::CATEGORYNAME ) . '</p>'; ?>
+		
+<form id="sp-upgrade" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+	<?php wp_nonce_field('upgradeEventsCalendar') ?>
+	<h4><?php _e('Upgrade from The Events Calendar', $this->pluginDomain ); ?></h4>
+	<p><?php _e('We built a vibrant community around our free <a href="http://wordpress.org/extend/plugins/the-events-calendar/" target="_blank">The Events Calendar</a> plugin. If you used the free version and are now using our premium version, thanks, we’re glad to have you here!', $this->pluginDomain ) ?></p>
+	<?php echo $old_events_copy; ?>
+	<input type="submit" value="Migrate Data!" class="button-secondary" name="upgradeEventsCalendar" />
+</form>		
+		
+<?php
+}
+
+?>
+
+
+
+
 
 <script>
 function showstuff(boxid){

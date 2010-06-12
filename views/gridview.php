@@ -28,7 +28,7 @@
 
 		</div><!-- tec-events-calendar-header -->
 		<?php event_grid_view(); // See the plugins/the-events-calendar/views/table.php template for customization ?>
-		<a title="<?php esc_attr_e('iCal Import', $spEvents->pluginDomain) ?>" class="ical" href="<?php bloginfo('home'); ?>/?ical"><?php _e('iCal Import', $spEvents->pluginDomain) ?></a>
+		<a title="<?php esc_attr_e('iCal Import', $spEvents->pluginDomain) ?>" class="ical" href="<?php echo events_get_ical_link(); ?>"><?php _e('iCal Import', $spEvents->pluginDomain) ?></a>
 	</div>
 
 <?php
