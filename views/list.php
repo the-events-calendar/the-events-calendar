@@ -79,7 +79,7 @@
 
 
 		</div><!-- #tec-events-loop -->
-		<div class="tec-nav" id="tec-nav-below">
+		<div id="tec-nav-below" class="tec-nav clearfix">
 
 			<div class="tec-nav-previous"><?php 
 			// Display Previous Page Navigation

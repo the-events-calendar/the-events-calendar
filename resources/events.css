@@ -324,6 +324,12 @@ h4.tec-event-day + .post .entry-title {margin-top:6px;}
 	min-height:225px;
 	margin:24px 0;
 }
+#tec-nav-below .tec-nav-previous {
+	float:left;
+}
+#tec-nav-below .tec-nav-next {
+	float:right;
+}
 .view-larger-map {
 	font-size:13px;
 	text-align:right;
