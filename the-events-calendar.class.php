@@ -366,6 +366,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			add_filter( 'posts_orderby',	array( $this, 'events_search_orderby' ) );
 			add_filter( 'posts_fields',		array( $this, 'events_search_fields' ) );
 			add_filter( 'post_limits',		array( $this, 'events_search_limits' ) );
+			add_filter( 'manage_posts_columns', array($this, 'column_headers'));
 //*/
 		}
 		
@@ -385,6 +386,29 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			add_action( 'init', array( $this, 'registerPostType' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
+			add_action( 'manage_posts_custom_column', array($this, 'custom_columns'), 10, 2);
+		}
+		
+		public function column_headers( $columns ) {
+			global $post;
+
+			if ( $post->post_type == self::POSTTYPE ) {
+				$mycolumns = array();
+				
+				foreach ( $columns as $key => $value ) {
+					$mycolumns[$key] = $value;
+					if ( $key =='author' )
+						$mycolumns['events-cats'] = __( 'Event Categories', $this->pluginDomain );
+				}
+				$columns = $mycolumns;
+			}
+			return $columns;
+		}
+
+		public function custom_columns( $column_id, $post_id ) {
+			if ( $column_id == 'events-cats' ) {
+				echo strip_tags( get_the_term_list( $post_id, self::TAXONOMY, '', ', ', '' ) );
+			}
 		}
 
 		public function accessibleMonthForm() {
