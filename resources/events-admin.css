@@ -11,6 +11,9 @@
 	font-size:10px;
 }
 
+#icon-edit {
+	background:url(images/events-screen-icon.png) no-repeat 6px 3px;
+}
 .tablenav select[name=m], #post-query-submit {
 	display:none;
 }
