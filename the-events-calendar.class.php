@@ -368,6 +368,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			add_filter( 'post_limits',		array( $this, 'events_search_limits' ) );
 			add_filter( 'manage_posts_columns', array($this, 'column_headers'));
 //*/
+			add_filter( 'admin_body_class', array($this, 'admin_body_class'));
 		}
 		
 		private function addActions() {
@@ -504,6 +505,14 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				'new_item_name' =>  __( 'New Event Category Name', $this->pluginDomain )
 			);
 			
+		}
+		
+		public function admin_body_class( $classes ) {
+			global $current_screen;			
+			if ( $current_screen->post_type == self::POSTTYPE || $current_screen->id == 'settings_page_the-events-calendar.class' ) {
+				$classes .= ' events-cal ';
+			}
+			return $classes;
 		}
 		
 		public function addAdminScriptsAndStyles() {
