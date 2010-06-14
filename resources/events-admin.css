@@ -1,3 +1,4 @@
+/* Don't forget: this is being loaded on every page. */
 @import url(smoothness/jquery-ui-1.7.3.custom.css);
 
 .ui-datepicker, .ui-datepicker select, .ui-datepicker input, .ui-datepicker td {
