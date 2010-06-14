@@ -255,9 +255,8 @@ try {
 </form>
 
 <?php
-$old_events_query = new WP_Query('posts_per_page=-1&category_name=' . self::CATEGORYNAME );
-$posts = $old_events_query->posts;
-$old_events = count($posts);
+$old_events_posts = $this->getLegacyEvents();
+$old_events = count($old_events_posts);
 
 if ( $old_events ) {
 	$old_events_copy = '<p class="message">' . sprintf( __('It looks like you have %s events in the category “%s”. Click below to import!', $this->pluginDomain ), $old_events, self::CATEGORYNAME ) . '</p>'; ?>

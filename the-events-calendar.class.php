@@ -360,7 +360,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			add_filter( 'template_include', array( $this, 'templateChooser') );
 			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
 			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );
-//*
+/*
 			add_filter( 'posts_join',		array( $this, 'events_search_join' ) );
 			add_filter( 'posts_where',		array( $this, 'events_search_where' ) );
 			add_filter( 'posts_orderby',	array( $this, 'events_search_orderby' ) );
@@ -609,9 +609,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 */
 		
 		private function upgradeData() {
-			
-			$query = new WP_Query('posts_per_page=-1&category_name=' . self::CATEGORYNAME );
-			$posts = $query->posts;
+			$posts = $this->getLegacyEvents();
 			
 			// we don't want the old event category
 			$eventCat = get_term_by('name', self::CATEGORYNAME, 'category' );
@@ -652,6 +650,16 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				if ( ! empty($post->cats) )
 					wp_set_object_terms( $post->ID, $post->cats, self::TAXONOMY );
 			}
+		}
+		
+		private function getLegacyEvents( $number = -1 ) {
+			$query = new WP_Query( array(
+				'post_status' => 'publish',
+				'posts_per_page' => $number,
+				'meta_key' => '_EventStartDate',
+				'category_name' => self::CATEGORYNAME
+			));
+			return $query->posts;
 		}
 		
 		private function getCatNames( $cats ) {
