@@ -393,7 +393,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			global $post;
 
 			if ( $post->post_type == self::POSTTYPE ) {
-				$mycolumns = array();
 				
 				foreach ( $columns as $key => $value ) {
 					$mycolumns[$key] = $value;
@@ -401,7 +400,14 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 						$mycolumns['events-cats'] = __( 'Event Categories', $this->pluginDomain );
 				}
 				$columns = $mycolumns;
+				
+				unset($columns['date']);
+				$columns['start-date'] = __( 'Start Date', $this->pluginDomain );
+				$columns['end-date'] = __( 'End Date', $this->pluginDomain );
 			}
+			
+			
+			
 			return $columns;
 		}
 
@@ -410,6 +416,13 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				$event_cats = get_the_term_list( $post_id, self::TAXONOMY, '', ', ', '' );
 				echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
 			}
+			if ( $column_id == 'start-date' ) {
+				echo the_event_start_date($post_id, false);
+			}
+			if ( $column_id == 'end-date' ) {
+				echo the_event_end_date($post_id, false);
+			}
+			
 		}
 
 		public function accessibleMonthForm() {
@@ -1570,10 +1583,21 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 					$this->date				= date_i18n( The_Events_Calendar::DBDATETIMEFORMAT );
 					break;					
 				case "month":
-				case "default":
 					$this->displaying		= "month";
 					$this->startOperator	= ">=";
 					$this->order			= "ASC";
+					// TODO date set to YYYY-MM
+					// TODO store DD as an anchor to the URL
+					if ( isset ( $wp_query->query_vars['eventDate'] ) ) {
+						$this->date = $wp_query->query_vars['eventDate'] . "-01";
+					} else {
+						$date = date_i18n( The_Events_Calendar::DBDATEFORMAT );
+						$this->date = substr_replace( $date, '01', -2 );
+					}
+				default:
+					$this->displaying		= "month";
+					$this->startOperator	= ">=";
+					$this->order			= "DESC";
 					// TODO date set to YYYY-MM
 					// TODO store DD as an anchor to the URL
 					if ( isset ( $wp_query->query_vars['eventDate'] ) ) {

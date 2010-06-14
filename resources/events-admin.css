@@ -11,8 +11,11 @@
 	font-size:10px;
 }
 
-.fixed .column-events-cats {
-	width:20%;
+.tablenav select[name=m], #post-query-submit {
+	display:none;
+}
+.fixed .column-start-date, .fixed .column-end-date, .fixed .column-events-cats {
+	width:14%;
 }
 .eventForm td {
 	padding:6px 6px 0 0;
