@@ -40,7 +40,7 @@ try {
 		<tr>
 			<td style="width:125px;"><?php _e('Start Date / Time:',$this->pluginDomain); ?></td>
 			<td>
-				<input tabindex="<?php $this->tabIndex(); ?>" type="text" class="datepicker" name="EventStartDate" id="EventStartDate"  value="<?php echo $this->dateOnly($_EventStartDate); ?>" />
+				<input autocomplete="off" tabindex="<?php $this->tabIndex(); ?>" type="text" class="datepicker" name="EventStartDate" id="EventStartDate"  value="<?php echo $EventStartDate ?>" />
 				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', $this->pluginDomain) ?></span>
 				<span class='timeofdayoptions'>
 					<?php _e('@',$this->pluginDomain); ?>
@@ -61,7 +61,7 @@ try {
 		<tr>
 			<td><?php _e('End Date / Time:',$this->pluginDomain); ?></td>
 			<td>
-				<input type="text" class="datepicker" name="EventEndDate" id="EventEndDate"  value="<?php echo $this->dateOnly($_EventEndDate); ?>" />
+				<input autocomplete="off" type="text" class="datepicker" name="EventEndDate" id="EventEndDate"  value="<?php echo $EventEndDate; ?>" />
 				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', $this->pluginDomain) ?></span>
 				<span class='timeofdayoptions'>
 					<?php _e('@',$this->pluginDomain); ?>

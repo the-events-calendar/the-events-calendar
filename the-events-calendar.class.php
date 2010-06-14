@@ -512,6 +512,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			
 			global $current_screen;			
 			if ( $current_screen->post_type == self::POSTTYPE || $current_screen->id == 'settings_page_the-events-calendar.class' ) {
+				wp_deregister_script( 'autosave' );
 				wp_enqueue_script( 'jquery-ui-datepicker', $this->pluginUrl . '/resources/ui.datepicker.min.js', array('jquery-ui-core'), '1.7.3', true );
 				wp_enqueue_script( self::POSTTYPE.'-admin', $this->pluginUrl . '/resources/events-admin.js', array('jquery-ui-datepicker'), '', true );
 				// calling our own localization because wp_localize_scripts doesn't support arrays or objects for values, which we need.
@@ -1290,7 +1291,8 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 					$$tag = '';
 				}
 			}
-			$isEventAllDay = ( $_EventAllDay == 'yes' || $_isEvent == 'no' ) ? 'checked="checked"' : ''; // default is all day for new posts
+			
+			$isEventAllDay = ( $_EventAllDay == 'yes' || ! $this->dateOnly( $_EventStartDate ) ) ? 'checked="checked"' : ''; // default is all day for new posts
 			
 			$startDayOptions       	= array(
 										31 => $this->getDayOptions( $_EventStartDate, 31 ),
@@ -1313,7 +1315,16 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			$startHourOptions	 	= $this->getHourOptions( $_EventStartDate, true );
 			$endHourOptions		 	= $this->getHourOptions( $_EventEndDate );
 			$startMeridianOptions	= $this->getMeridianOptions( $_EventStartDate, true );
-			$endMeridianOptions		= $this->getMeridianOptions( $_EventEndDate );		
+			$endMeridianOptions		= $this->getMeridianOptions( $_EventEndDate );
+			
+			$start = $this->dateOnly($_EventStartDate);
+			$EventStartDate = ( $start ) ? $start : date('Y-m-d');
+			
+			$end = $this->dateOnly($_EventEndDate);
+			$EventEndDate = ( $end ) ? $end : date('Y-m-d', strtotime('tomorrow') );
+			
+			
+			
 			include( dirname( __FILE__ ) . '/views/events-meta-box.php' );
 		}
 		/**
