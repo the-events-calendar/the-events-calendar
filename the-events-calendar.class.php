@@ -360,7 +360,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			add_filter( 'template_include', array( $this, 'templateChooser') );
 			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
 			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );
-/*
+//*
 			add_filter( 'posts_join',		array( $this, 'events_search_join' ) );
 			add_filter( 'posts_where',		array( $this, 'events_search_where' ) );
 			add_filter( 'posts_orderby',	array( $this, 'events_search_orderby' ) );
