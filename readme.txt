@@ -143,7 +143,7 @@ Echos or returns, respectively, an http:// link to google maps for the event's a
 
 **sp_month_year_dropdowns( )**
 
-Returns a string containing a javascript date calendar.
+Prints the year & month dropdowns. JavaScript in the resources/events-admin.js file will autosubmit on the change event.
 
 **event_style( $id )**
 **get_event_style( $id )**
@@ -169,19 +169,6 @@ Returns an embedded google map. Width and height are set through the admin panel
 **sp_get_tickets( $id, $width, $height)**
 
 Returns an EventBrite.com embedded ticket sales inline (not WordPress) widget 
-
-
-== Screenshots ==
-
-1. Grid View Template
-1. List View Template
-1. Single Post Template
-1. Settings Panel
-1. Post (Event) Editor
-1. Widget Admin
-1. Unstyled Widget
-
-== FAQ ==
 
 
 == Changelog ==

@@ -175,7 +175,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 			echo sp_get_embedded_map( $postId, $width, $height );
 	}
 	/**
-	 * Prints out the year & month dropdowns. JavaScript in the resources/events-admin.js file will autosubmit on the change event. 
+	 * Prints the year & month dropdowns. JavaScript in the resources/events-admin.js file will autosubmit on the change event. 
 	 *
 	 * @param string a prefix to add to the ID of the calendar elements.  This allows you to reuse the calendar on the same page.
 	 * @return void
