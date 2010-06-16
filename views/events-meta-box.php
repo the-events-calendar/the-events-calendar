@@ -94,7 +94,7 @@ try {
 				<select tabindex="<?php $this->tabIndex(); ?>" name="EventCountry" id="EventCountry">
 					<?php
 					$this->constructCountries( $postId );
-					$defaultCountry = eventsGetOptionValue('defaultCountry');
+					$defaultCountry = sp_get_option('defaultCountry');
 					if( $_EventCountry ) {
 						foreach ($this->countries as $abbr => $fullname) {
 							echo '<option label="' . $abbr . '" value="' . $fullname . '" ';
@@ -210,7 +210,7 @@ try {
 			<td><?php _e('Postal Code:',$this->pluginDomain); ?></td>
 			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventZip' name='EventZip' size='6' value='<?php echo $_EventZip; ?>' /></td>
 		</tr>
-		<tr id="google_map_link_toggle"<?php if( !tec_address_exists( $postId ) ) echo ' class="tec_hide"'; ?>>
+		<tr id="google_map_link_toggle"<?php if( !sp_address_exists( $postId ) ) echo ' class="tec_hide"'; ?>>
 			<td><?php _e('Show Google Map Link:',$this->pluginDomain); ?></td>
 			<td>
 				<?php // is the post new?
@@ -221,8 +221,8 @@ try {
 				<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="EventShowMapLink" size="6" value="true" <?php if( $tecNewPost || get_post_meta( $postId, '_EventShowMapLink', true ) == 'true' ) echo 'checked="checked"'?> />
 			</td>
 		</tr>
-		<?php if( eventsGetOptionValue('embedGoogleMaps') == 'on' ) : ?>
-			<tr id="google_map_toggle"<?php if( !tec_address_exists( $postId ) ) echo ' class="tec_hide"'; ?>>
+		<?php if( sp_get_option('embedGoogleMaps') == 'on' ) : ?>
+			<tr id="google_map_toggle"<?php if( !sp_address_exists( $postId ) ) echo ' class="tec_hide"'; ?>>
 				<td><?php _e('Show Google Map:',$this->pluginDomain); ?></td>
 				<td><input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="EventShowMap" size="6" value="true" <?php if( $tecNewPost || get_post_meta( $postId, '_EventShowMap', true ) == 'true' ) echo 'checked="checked"'; ?> /></td>
 			</tr>

@@ -87,7 +87,7 @@ Edit the new files to your hearts content. Please do not edit the one's in the p
 
 = Supported Variables and URLs =
 
-This plugin registers the following rewrite rules, which controls which posts are available in the loop.  The number of posts returned defaults to 10, but is configurable by the $count parameter to get_events().
+This plugin registers the following rewrite rules, which controls which posts are available in the loop.  The number of posts returned defaults to 10, but is configurable by the $count parameter to sp_get_events().
 
 events/upcoming 
 ?post_type=sp_events&eventDisplay=upcoming
@@ -112,8 +112,8 @@ Provides an iCal file of all Events
 
 = Template Tags =
 
-**the_event_start_date( $id, $showtime, $dateFormat)**
-**the_event_end_date( $id, $showtime, $dateFormat)**
+**sp_get_start_date( $id, $showtime, $dateFormat)**
+**sp_get_end_date( $id, $showtime, $dateFormat)**
 
 Date format in order of precedence:
 - An format string arg given to event_start_date() or event_end_date()
@@ -124,24 +124,24 @@ Time format comes from:
 - WP options
 - Constant in the plugin class
 
-**the_event_cost( $id )**
-**the_event_venue( $id )**
-**the_event_address( $id )**
-**the_event_city( $id )**
-**the_event_state( $id )**
-**the_event_province( $id )**
-**the_event_zip( $id )**
-**the_event_country( $id )**
-**the_event_phone( $id )**
+**sp_get_cost( $id )**
+**sp_get_venue( $id )**
+**sp_get_address( $id )**
+**sp_get_city( $id )**
+**sp_get_state( $id )**
+**sp_get_province( $id )**
+**sp_get_zip( $id )**
+**sp_get_country( $id )**
+**sp_get_phone( $id )**
 
 These functions will return the metadata associated with the event. The ID is optional.
 
-**event_google_map_link( $id )**
-**get_event_google_map_link( $id )**
+**sp_the_map_link( $id )**
+**sp_get_map_link( $id )**
 
 Echos or returns, respectively, an http:// link to google maps for the event's address.  The ID is optional.
 
-**get_jump_to_date_calendar( )**
+**sp_month_year_dropdowns( )**
 
 Returns a string containing a javascript date calendar.
 
@@ -150,23 +150,23 @@ Returns a string containing a javascript date calendar.
 
 Echos or returns, respectively, the event class specified in the admin panel.  ID is optional.
 
-**is_new_event_day()**
+**sp_is_new_event_day()**
 
 Called inside of the loop, returns true if the current post's meta_value (EventStartDate) is different than the previous post.   Will always return true for the first event in the loop.
 
-**get_events( $count )**
+**sp_get_events( $count )**
 
 Call this function in a template to query the events. $count is optional.
 
-**events_displaying_past()**
+**sp_is_past()**
 
 Returns true if the query is set for past events
 
-**event_google_map_embed( $id, $width, $height)**
+**sp_the_embedded_map( $id, $width, $height)**
 
 Returns an embedded google map. Width and height are set through the admin panel unless overridden directly through the function call.
 
-**the_event_tickets( $id, $width, $height)**
+**sp_get_tickets( $id, $width, $height)**
 
 Returns an EventBrite.com embedded ticket sales inline (not WordPress) widget 
 

@@ -1,4 +1,4 @@
-<form action="<?php echo events_get_dropdown_link_prefix(); ?>" method="get" id="<?php echo $prefix; ?>events-picker">
+<form action="<?php echo sp_get_dropdown_link_prefix(); ?>" method="get" id="<?php echo $prefix; ?>events-picker">
 	<select id='<?php echo $prefix; ?>events-month' name='EventJumpToMonth' class='<?php echo $prefix; ?>events-dropdown'>
 		<?php echo $monthOptions; ?>
 	</select>

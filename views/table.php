@@ -1,6 +1,11 @@
-<?php 
+<?php
+
+/**
+ * Copy and paste this to events/table.php in your template to customize
+ */
+
 global $spEvents; 
-$eventPosts = get_events();
+$eventPosts = sp_get_events();
 $daysInMonth = date("t", $date);
 $startOfWeek = get_option( 'start_of_week', 0 );
 list( $year, $month ) = split( '-', $spEvents->date );
@@ -8,7 +13,7 @@ $date = mktime(12, 0, 0, $month, 1, $year); // 1st day of month as unix stamp
 $rawOffset = date("w", $date) - $startOfWeek;
 $offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
 $rows = 1;
-$monthView = events_by_month( $eventPosts, $spEvents->date );
+$monthView = sp_sort_by_month( $eventPosts, $spEvents->date );
 
 ?>
 <table class="tec-calendar" id="big">
@@ -107,21 +112,21 @@ function display_day( $day, $monthView ) {
 		$post = $monthView[$day][$i];
 		setup_postdata( $post );
 		$eventId	= $post->ID.'-'.$day;
-		$start		= the_event_start_date( $post->ID );
-		$end		= the_event_end_date( $post->ID );
-		$cost		= the_event_cost( $post->ID );
-		$address	= the_event_address( $post->ID );
-		$city		= the_event_city( $post->ID );
-		$state		= the_event_state( $post->ID );
-		$province	= the_event_province( $post->ID );
-		$country	= the_event_country( $post->ID );
+		$start		= sp_get_start_date( $post->ID );
+		$end		= sp_get_end_date( $post->ID );
+		$cost		= sp_get_cost( $post->ID );
+		$address	= sp_get_address( $post->ID );
+		$city		= sp_get_city( $post->ID );
+		$state		= sp_get_state( $post->ID );
+		$province	= sp_get_province( $post->ID );
+		$country	= sp_get_country( $post->ID );
 		?>
 		<div id='event_<?php echo $eventId; ?>' <?php post_class('tec-event') ?>>
 			<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 			<div id='tooltip_<?php echo $eventId; ?>' class="tec-tooltip" style="display:none;">
 				<h5 class="tec-event-title"><?php the_title();?></h5>
 				<div class="tec-event-body">
-					<?php if ( !the_event_all_day($post->ID) ) : ?>
+					<?php if ( !sp_get_all_day($post->ID) ) : ?>
 					<div class="tec-event-date">
 						<?php if ( !empty( $start ) )	echo $start; ?>
 						<?php if ( !empty( $end )  && $start !== $end )		echo " – " . $end . '<br />'; ?>

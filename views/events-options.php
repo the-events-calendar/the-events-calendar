@@ -36,7 +36,7 @@ try {
 <div class="form">
 	<h3><?php _e('Need a hand?',$this->pluginDomain); ?></h3>
 	<p><?php printf( __( 'If you’re stuck on these options, please <a href="%s">check out the documentation</a>. Or, go to the <a href="%s">support forum</a>.', $this->pluginDomain ), $this->pluginUrl . '/readme.txt', $this->supportUrl ); ?></p>
-	<p><?php _e('Here is the iCal feed URL for your events: ' ,$this->pluginDomain); ?><code><?php echo events_get_ical_link(); ?></code></p>
+	<p><?php _e('Here is the iCal feed URL for your events: ' ,$this->pluginDomain); ?><code><?php echo sp_get_ical_link(); ?></code></p>
 
 	<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 	<?php wp_nonce_field('saveEventsCalendarOptions'); ?>
@@ -52,7 +52,7 @@ try {
 	                </legend>
 	                <label title='Calendar'>
 	                    <?php 
-	                    $viewOptionValue = eventsGetOptionValue('viewOption','month'); 
+	                    $viewOptionValue = sp_get_option('viewOption','month'); 
 	                    if( $viewOptionValue == 'upcoming' ) {
 	                        $listViewStatus = 'checked="checked"';
 	                    } else {
@@ -78,7 +78,7 @@ try {
 	                </legend>
 	                <label title='Yes'>
 	                    <?php 
-	                    $showCommentValue = eventsGetOptionValue('showComments','no'); 
+	                    $showCommentValue = sp_get_option('showComments','no'); 
 	                    if( $showCommentValue == 'no' ) {
 	                        $noCommentStatus = 'checked="checked"';
 	                    } else {
@@ -101,7 +101,7 @@ try {
 	            <select name="defaultCountry" id="defaultCountry">
 					<?php 
 					$this->constructCountries();
-					$defaultCountry = eventsGetOptionValue('defaultCountry');
+					$defaultCountry = sp_get_option('defaultCountry');
 	                foreach ($this->countries as $abbr => $fullname) {
 	                	print ("<option value=\"$fullname\" ");
 	                	if ($defaultCountry[1] == $fullname) { 
@@ -116,7 +116,7 @@ try {
 
 
 			<?php 
-			$embedGoogleMapsValue = eventsGetOptionValue('embedGoogleMaps','off');                 
+			$embedGoogleMapsValue = sp_get_option('embedGoogleMaps','off');                 
 	        ?>
 <?php /* 
 		<tr>
@@ -128,7 +128,7 @@ try {
 	                </legend>
 	                <label title='Yes'>
 	                    <?php 
-	                    $displayEventsOnHomepage = eventsGetOptionValue('displayEventsOnHomepage','on'); 
+	                    $displayEventsOnHomepage = sp_get_option('displayEventsOnHomepage','on'); 
 	                    ?>
 	                    <input type="radio" name="displayEventsOnHomepage" value="off" <?php checked($displayEventsOnHomepage, 'off'); ?>  /> 
 	                    <?php _e('Off',$this->pluginDomain); ?>
@@ -150,9 +150,9 @@ try {
 	                </legend>
 	                <label title='Yes'>
 	                    <?php 
-	                    $embedGoogleMapsValue = eventsGetOptionValue('embedGoogleMaps','off'); 
-	 					$embedGoogleMapsHeightValue = eventsGetOptionValue('embedGoogleMapsHeight','350'); 
-	 					$embedGoogleMapsWidthValue = eventsGetOptionValue('embedGoogleMapsWidth','100%'); 
+	                    $embedGoogleMapsValue = sp_get_option('embedGoogleMaps','off'); 
+	 					$embedGoogleMapsHeightValue = sp_get_option('embedGoogleMapsHeight','350'); 
+	 					$embedGoogleMapsWidthValue = sp_get_option('embedGoogleMapsWidth','100%'); 
 	                    if( $embedGoogleMapsValue == 'on' ) {
 	                        $embedGoogleMapsOnStatus = 'checked="checked"';
 	                    } else {
@@ -184,7 +184,7 @@ try {
 		                </legend>
 		                <label title='Yes'>
 		                    <?php 
-		                    $resetEventPostDate = eventsGetOptionValue('resetEventPostDate','off'); 
+		                    $resetEventPostDate = sp_get_option('resetEventPostDate','off'); 
 		                    ?>
 		                    <input type="radio" name="resetEventPostDate" value="off" <?php checked($resetEventPostDate, 'off'); ?>  /> 
 		                    <?php _e('Off',$this->pluginDomain); ?>
@@ -211,7 +211,7 @@ try {
 		                </legend>
 		                <label title='Yes'>
 		                    <?php 
-		                    $useRewriteRules = eventsGetOptionValue('useRewriteRules','on'); 
+		                    $useRewriteRules = sp_get_option('useRewriteRules','on'); 
 		                    ?>
 		                    <input type="radio" name="useRewriteRules" value="off" <?php checked($useRewriteRules, 'off'); ?>  /> 
 		                    <?php _e('Off',$this->pluginDomain); ?>

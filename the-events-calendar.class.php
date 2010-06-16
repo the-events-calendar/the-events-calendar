@@ -320,7 +320,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 					if ( $postId || $useDefault ) {
 						$countryValue = get_post_meta( $postId, '_EventCountry', true );
 						if( $countryValue ) $defaultCountry = array( array_search( $countryValue, $countries ), $countryValue );
-						else $defaultCountry = eventsGetOptionValue('defaultCountry');
+						else $defaultCountry = sp_get_option('defaultCountry');
 						if( $defaultCountry && $defaultCountry[0] != "" ) {
 							$selectCountry = array_shift( $countries );
 							asort($countries);
@@ -418,10 +418,10 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
 			}
 			if ( $column_id == 'start-date' ) {
-				echo the_event_start_date($post_id, false);
+				echo sp_get_start_date($post_id, false);
 			}
 			if ( $column_id == 'end-date' ) {
-				echo the_event_end_date($post_id, false);
+				echo sp_get_end_date($post_id, false);
 			}
 			
 		}
@@ -472,7 +472,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				'labels' => $this->taxonomyLabels
 			));
 			
-			if( eventsGetOptionValue('showComments','no') == 'yes' ) {
+			if( sp_get_option('showComments','no') == 'yes' ) {
 				add_post_type_support( self::POSTTYPE, 'comments');
 			}
 			
@@ -745,7 +745,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			$this->constructDaysOfWeek();
 
 			// list view
-			if ( events_displaying_upcoming() || events_displaying_past() ) {
+			if ( sp_is_upcoming() || sp_is_past() ) {
 				return $this->getTemplateHierarchy('list');
 			}
 			// single event
@@ -906,7 +906,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		* @return void
 		*/	
 		public function reschedule( ) {
-			$resetEventPostDate = eventsGetOptionValue('resetEventPostDate', 'off');
+			$resetEventPostDate = sp_get_option('resetEventPostDate', 'off');
 			if( $resetEventPostDate == 'off' ){
 				return;
 			}
@@ -968,14 +968,14 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				return $where;
 			}
 			$where .= ' AND ( eventStart.meta_key = "_EventStartDate" AND eventEnd.meta_key = "_EventEndDate" ) ';
-			if( events_displaying_month( ) ) {}
-			if( events_displaying_upcoming( ) ) {	
+			if( sp_is_month( ) ) {}
+			if( sp_is_upcoming( ) ) {	
 				// Is the start date in the future?
 				$where .= ' AND ( eventStart.meta_value > "'.$this->date.'" ';
 				// Or is the start date in the past but the end date in the future? (meaning the event is currently ongoing)
 				$where .= ' OR ( eventStart.meta_value < "'.$this->date.'" AND eventEnd.meta_value > "'.$this->date.'" ) ) ';
 			}
-			if( events_displaying_past( ) ) {
+			if( sp_is_past( ) ) {
 				// Is the start date in the past?
 				$where .= ' AND  eventStart.meta_value < "'.$this->date.'" ';
 			}
@@ -1060,7 +1060,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 * @return void
 		 */
 		public function filterRewriteRules( $wp_rewrite ) {
-			if ( '' == get_option('permalink_structure') || 'off' == eventsGetOptionValue('useRewriteRules','on') ) {
+			if ( '' == get_option('permalink_structure') || 'off' == sp_get_option('useRewriteRules','on') ) {
 				return;
 			}
 			
@@ -1073,7 +1073,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			$newRules[$base . 'past/page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . 'past'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past';
 			$newRules[$base . '(\d{4}-\d{2})$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(1);
-			$newRules[$base . '?$']						= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=' . eventsGetOptionValue('viewOption','month');
+			$newRules[$base . '?$']						= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=' . sp_get_option('viewOption','month');
 			
 			// taxonomy rules.
 			$newRules[self::TAXREWRITE . '/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=$wp_rewrite->' . $wp_rewrite->preg_index(1) . '&feed=$wp_rewrite->' . $wp_rewrite->preg_index(2);
@@ -1096,7 +1096,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		public function getLink( $type = 'home', $secondary = false ) {
 
 			// if permalinks are off or user doesn't want them: ugly.
-			if( '' == get_option('permalink_structure') || 'off' == eventsGetOptionValue('useRewriteRules','on') ) {
+			if( '' == get_option('permalink_structure') || 'off' == sp_get_option('useRewriteRules','on') ) {
 				return $this->uglyLink($type, $secondary);
 			}
 
@@ -1278,7 +1278,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				update_post_meta( $postId, self::EVENTSERROROPT, trim( $e->getMessage() ) );
 			}
 
-			update_post_meta( $postId, '_EventCost', the_event_cost( $postId ) ); // XXX eventbrite cost field
+			update_post_meta( $postId, '_EventCost', sp_get_cost( $postId ) ); // XXX eventbrite cost field
 
 		}
 		
@@ -1588,7 +1588,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 */
 		public function setOptions( ) {
 			global $wp_query;
-			$display = ( isset( $wp_query->query_vars['eventDisplay'] ) ) ? $wp_query->query_vars['eventDisplay'] : eventsGetOptionValue('viewOption','month');
+			$display = ( isset( $wp_query->query_vars['eventDisplay'] ) ) ? $wp_query->query_vars['eventDisplay'] : sp_get_option('viewOption','month');
 			switch ( $display ) {
 				case "past":
 					$this->displaying		= "past";
@@ -1661,7 +1661,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 
 			$extraSelectClause ='';
 			$extraJoinEndDate ='';
-			if ( events_displaying_month() ) {
+			if ( sp_is_month() ) {
 				$extraSelectClause	= ", d2.meta_value as EventEndDate ";
 				$extraJoinEndDate	 = " LEFT JOIN $wpdb->postmeta  as d2 ON($wpdb->posts.ID = d2.post_id) ";
 				$whereClause = " AND d1.meta_key = '_EventStartDate' AND d2.meta_key = '_EventEndDate' ";
@@ -1673,7 +1673,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				$whereClause .= " OR (d1.meta_value  <= '".$this->date."' AND d2.meta_value > '".$this->nextMonth( $this->date )."' ) ) ";
 				$numResults = 999999999;
 			}
-			if ( events_displaying_upcoming() ) {
+			if ( sp_is_upcoming() ) {
 				$extraSelectClause	= ", d2.meta_value as EventEndDate ";
 				$extraJoinEndDate	 = " LEFT JOIN $wpdb->postmeta  as d2 ON($wpdb->posts.ID = d2.post_id) ";
 				$whereClause = " AND d1.meta_key = '_EventStartDate' AND d2.meta_key = '_EventEndDate' ";
@@ -1746,7 +1746,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		        $events .= "UID:" . $eventPost->ID . "@" . $blogHome . "\n";
 		        $events .= "SUMMARY:" . $eventPost->post_title . "\n";				
 		        $events .= "DESCRIPTION:" . $description . "\n";
-				$events .= "LOCATION:" . tec_get_event_address( $eventPost->ID ) . "\n";
+				$events .= "LOCATION:" . sp_get_address( $eventPost->ID ) . "\n";
 				$events .= "URL:" . get_permalink( $eventPost->ID ) . "\n";
 		        $events .= "END:VEVENT\n";
 			}

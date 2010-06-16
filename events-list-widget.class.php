@@ -30,16 +30,16 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 
 				$spEvents->log($title);
 				
-				if ( eventsGetOptionValue('viewOption') == 'upcoming') {
-					$event_url = events_get_listview_link();
+				if ( sp_get_option('viewOption') == 'upcoming') {
+					$event_url = sp_get_listview_link();
 				} else {
-					$event_url = events_get_gridview_link();
+					$event_url = sp_get_gridview_link();
 				}
 
-				if( function_exists( 'get_events' ) ) {
+				if( function_exists( 'sp_get_events' ) ) {
 					$old_display = $wp_query->get('eventDisplay');
 					$wp_query->set('eventDisplay', 'upcoming');
-					$posts = get_events($limit);
+					$posts = sp_get_events($limit);
 					$template = $spEvents->getTemplateHierarchy('events-list-load-widget-display');
 				}
 				

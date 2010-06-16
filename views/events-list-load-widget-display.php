@@ -16,7 +16,7 @@ $EventProvince	= get_post_meta( $post->ID, '_EventProvince', true );
 
 <li class="<?php echo $alt_text ?>">
 	<div class="when">
-		<?php echo the_event_start_date( $post->ID, false ); ?>
+		<?php echo sp_get_start_date( $post->ID, false ); ?>
 	</div>
 	<div class="event">
 		<a href="<?php echo get_permalink($post->ID) ?>"><?php echo $post->post_title ?></a>
