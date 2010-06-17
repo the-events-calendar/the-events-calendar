@@ -24,10 +24,10 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		);
 		private $taxonomyLabels;
 
-		public $supportUrl = 'http://SUPPORT_URL_GOES_HERE';/*
+		public $supportUrl = 'http://plugins.shaneandpeter.com/events-pro';/*
 			TODO real support URL
 		*/
-		public $envatoUrl = 'http://ENVATO_URL_GOES_HERE';/*
+		public $envatoUrl = 'http://plugins.shaneandpeter.com/';/*
 			TODO Envato URL
 		*/
 		private $rewriteSlug;
