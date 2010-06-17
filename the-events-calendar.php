@@ -29,11 +29,12 @@ if ( ! function_exists('the_events_calendar_activate') ) {
 if ( ! function_exists('the_events_calendar_load') ) {
 	function the_events_calendar_load() {
 		if ( SP_EVENTS_SUPPORTED_WP_VERSION && SP_EVENTS_SUPPORTED_PHP_VERSION ) {
-			require_once(dirname(__FILE__) . "/the-events-calendar.class.php");
-			require_once(dirname(__FILE__) . "/the-events-calendar-exception.class.php");
-			require_once(dirname(__FILE__) . "/events-calendar-widget.class.php");
-			require_once(dirname(__FILE__) . "/events-list-widget.class.php");
-			require_once(dirname(__FILE__) . "/template-tags.php");
+			$events_dir = dirname(__FILE__);
+			require_once($events_dir . "/the-events-calendar.class.php");
+			require_once($events_dir . "/the-events-calendar-exception.class.php");
+			require_once($events_dir . "/events-calendar-widget.class.php");
+			require_once($events_dir . "/events-list-widget.class.php");
+			require_once($events_dir . "/template-tags.php");
 		}
 	}
 }
@@ -45,7 +46,6 @@ function sp_events_notices() {
 	if ( ! SP_EVENTS_SUPPORTED_WP_VERSION ) {
 		echo "<div class='error'><p>Events Calendar Premium requires WordPress 3.0 or higher. Please upgrade WordPress or deactivate Events Calendar Premium.</p></div>";
 	}
-	
 	if ( ! SP_EVENTS_SUPPORTED_PHP_VERSION ) {
 		echo "<div class='error'><p>Events Calendar Premium requires PHP 5.1 or higher. Talk to your Web host about not living in the past.</p></div>";
 	}
