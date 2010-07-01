@@ -128,13 +128,6 @@ jQuery(document).ready(function($) {
 			// do not validate since this is not an event
 			return true;
 		}
-		var event_phone = $('#EventPhone');
-		
-		if( event_phone.length > 0 && event_phone.val().length && !event_phone.val().match(/^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/) ) {
-			event_phone.focus();
-			alert(TEC.phoneError);
-			return false;
-		}
 		return true;
 	});
 	

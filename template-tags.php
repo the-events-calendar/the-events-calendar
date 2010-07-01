@@ -6,11 +6,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_option($optionName, $default = '') {
 		global $spEvents;
-		if($optionName) {
-			if( $spEvents->latestOptions ) return $spEvents->latestOptions[$optionName];
-			$options = $spEvents->getOptions();
-			return ( $options[$optionName] ) ? $options[$optionName] : $default;
-		}
+		return $spEvents->getOption($optionName, $default);
 	}
 	/**
 	 * Output function: Prints the gridded calendar table

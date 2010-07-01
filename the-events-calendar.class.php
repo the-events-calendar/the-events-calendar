@@ -360,15 +360,19 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			add_filter( 'template_include', array( $this, 'templateChooser') );
 			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
 			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );
-//*
+			add_filter( 'admin_body_class', array($this, 'admin_body_class'));
+			if ( ! $this->getOption('spEventsDebug') ) {
+				$this->addQueryFilters();
+			}
+		}
+		
+		private function addQueryFilters() {
 			add_filter( 'posts_join',		array( $this, 'events_search_join' ) );
 			add_filter( 'posts_where',		array( $this, 'events_search_where' ) );
 			add_filter( 'posts_orderby',	array( $this, 'events_search_orderby' ) );
 			add_filter( 'posts_fields',		array( $this, 'events_search_fields' ) );
 			add_filter( 'post_limits',		array( $this, 'events_search_limits' ) );
 			add_filter( 'manage_posts_columns', array($this, 'column_headers'));
-//*/
-			add_filter( 'admin_body_class', array($this, 'admin_body_class'));
 		}
 		
 		private function addActions() {
@@ -544,8 +548,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				'nextText' => __( 'Next', $dom ),
 				'prevText' => __( 'Prev', $dom ),
 				'currentText' => __( 'Today', $dom ),
-				'closeText' => __( 'Done', $dom ),
-				'phoneError' => __( 'Phone', $dom ) . ' ' . __( 'is not valid.', $dom ) . ' ' . __('Valid values are local format (eg. 02 1234 5678 or 123 123 4567) or international format (eg. +61 (0) 2 1234 5678 or +1 123 123 4567).  You may also use an optional extension of up to five digits prefixed by x or ext (eg. 123 123 4567 x89)', $dom)
+				'closeText' => __( 'Done', $dom )
 			);
 		}
 		
@@ -610,6 +613,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				$options['displayEventsOnHomepage'] = $_POST['displayEventsOnHomepage'];
 				$options['resetEventPostDate'] = $_POST['resetEventPostDate'];
 				$options['useRewriteRules'] = $_POST['useRewriteRules'];
+				$options['spEventsDebug'] = $_POST['spEventsDebug'];
 				
 				if ( $options['useRewriteRules'] == 'on' ) {
 					$this->flushRewriteRules();
@@ -714,7 +718,19 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
             }
             return $this->defaultOptions;
         }
-		        
+		
+		public function getOption($optionName, $default = '') {
+			if( ! $optionName )
+			 	return null;
+			
+			if( $this->latestOptions ) 
+				return $this->latestOptions[$optionName];
+
+			$options = $this->getOptions();
+			return ( $options[$optionName] ) ? $options[$optionName] : $default;
+			
+		}
+		
         private function saveOptions($options) {
             if (!is_array($options)) {
                 return;
@@ -1264,10 +1280,11 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			//update meta fields		
 			foreach ( $this->metaTags as $tag ) {
 				$htmlElement = ltrim( $tag, '_' );
-				if ( $tag != self::EVENTSERROROPT ) {
-					if ( isset( $_POST[$htmlElement] ) ) {
-						update_post_meta( $postId, $tag, $_POST[$htmlElement] );
-					}
+				if ( isset( $_POST[$htmlElement] ) && $tag != self::EVENTSERROROPT ) {
+					if ( is_string($_POST[$htmlElement]) )
+						$_POST[$htmlElement] = filter_var($_POST[$htmlElement], FILTER_SANITIZE_STRING);
+					update_post_meta( $postId, $tag, $_POST[$htmlElement] );
+					
 				}
 			}
 			try {
