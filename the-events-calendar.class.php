@@ -759,7 +759,11 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			}
 			
 			$this->constructDaysOfWeek();
-
+			
+			//home fixer
+			global $wp_query;
+			$wp_query->is_home = false;
+			
 			// list view
 			if ( sp_is_upcoming() || sp_is_past() ) {
 				return $this->getTemplateHierarchy('list');
