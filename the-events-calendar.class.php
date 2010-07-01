@@ -1089,13 +1089,13 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			$newRules[$base . 'past/page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . 'past'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past';
 			$newRules[$base . '(\d{4}-\d{2})$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(1);
+			$newRules[$base . 'feed/?$'] = 'index.php?eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
 			$newRules[$base . '?$']						= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=' . sp_get_option('viewOption','month');
 			
 			// taxonomy rules.
-			$newRules[self::TAXREWRITE . '/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=$wp_rewrite->' . $wp_rewrite->preg_index(1) . '&feed=$wp_rewrite->' . $wp_rewrite->preg_index(2);
-			$newRules[self::TAXREWRITE . '/([^/]+)/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=$wp_rewrite->' . $wp_rewrite->preg_index(1) . '&feed=$wp_rewrite->' . $wp_rewrite->preg_index(2);
-			$newRules[self::TAXREWRITE . '/([^/]+)/page/?([0-9]{1,})/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=$wp_rewrite->' . $wp_rewrite->preg_index(1) . '&paged=$wp_rewrite->' . $wp_rewrite->preg_index(2);
-			$newRules[self::TAXREWRITE . '/([^/]+)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'eventDisplay=upcoming&sp_events_cat=$wp_rewrite->' . $wp_rewrite->preg_index(1);
+			$newRules[self::TAXREWRITE . '/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=' . $wp_rewrite->preg_index(1) . '&feed=' . $wp_rewrite->preg_index(2);
+			$newRules[self::TAXREWRITE . '/([^/]+)/page/?([0-9]{1,})/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=' . $wp_rewrite->preg_index(1) . '&paged=' . $wp_rewrite->preg_index(2);
+			$newRules[self::TAXREWRITE . '/([^/]+)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'eventDisplay=upcoming&sp_events_cat=' . $wp_rewrite->preg_index(1);
 			
 
 		  $wp_rewrite->rules = array_merge($newRules, $wp_rewrite->rules);
