@@ -1183,6 +1183,9 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 					$dropdown = add_query_arg( array( 'eventDisplay' => 'month', 'eventDate' => ' '), $eventUrl );
 					return rtrim($dropdown); // tricksy
 				case 'ical':
+					if ( $secondary == 'single' ) {
+						return add_query_arg('ical', '1', get_permalink() );
+					}
 					return home_url() . '/?ical';
 				default:
 					return $eventUrl;
