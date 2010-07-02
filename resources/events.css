@@ -1,5 +1,5 @@
 /* Use Helvetica */
-#tec-events-calendar-header, .tec-calendar, #tec-content .ical, a.gmap, .tec-event-list-meta td, .tec-nav, #tec-event-meta, span.back, .eventsListWidget .dig-in {
+#tec-events-calendar-header, .tec-calendar, #tec-content .ical, .events-single #content .ical, a.gmap, .tec-event-list-meta td, .tec-nav, #tec-event-meta, span.back, .eventsListWidget .dig-in {
 	font-family:"Helvetica Neue",Arial,Helvetica,"Nimbus Sans L",sans-serif;
 }
 
@@ -46,7 +46,7 @@ h2.tec-cal-title {
 .tec-month-nav a:hover, .tec-nav a:hover, .back a:hover, .eventsListWidget .dig-in a:hover {
 	text-decoration:underline;
 }
-#tec-content .ical {
+#tec-content .ical, .events-single #content .ical {
 	color:#fff;
 	font-size:10px;
 	background:#777;
@@ -57,6 +57,11 @@ h2.tec-cal-title {
 	float:right;
 	text-transform:uppercase;
 	letter-spacing:1px;
+}
+.events-single #content .ical {
+	text-decoration:none;
+	line-height:18px;
+	margin-bottom:21px;
 }
 .tec-calendar-buttons a {
 	background:#999;

@@ -392,6 +392,12 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
 			add_action( 'manage_posts_custom_column', array($this, 'custom_columns'), 10, 2);
+		//	add_action('wp_head', array($this, 'check_perm'));
+		}
+		
+		public function check_perm() {
+			global $wp_rewrite;
+			$this->log($wp_rewrite);
 		}
 		
 		public function column_headers( $columns ) {
@@ -750,7 +756,10 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			
 			// hijack to iCal template
 			if ( get_query_var('ical') || isset($_GET['ical']) ) {
-				$this->iCalFeed();
+				global $wp_query;
+				$post_id = ( is_single() ) ? $wp_query->post->ID : null;
+				$eventCat = ( true ) ? '' :'';
+				$this->iCalFeed($post_id);
 				die;
 			}
 			
@@ -1085,6 +1094,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			}
 			
 			$base = trailingslashit( $this->rewriteSlug );
+			$baseSingle = trailingslashit( $this->rewriteSlugSingular );
 			
 			$newRules[$base . 'ical'] = 'index.php?post_type=' . self::POSTTYPE . '&ical=1';
 			$newRules[$base . 'month'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month';
@@ -1095,8 +1105,12 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			$newRules[$base . '(\d{4}-\d{2})$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . 'feed/?$'] = 'index.php?eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
 			$newRules[$base . '?$']						= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=' . sp_get_option('viewOption','month');
+
+			// single ical
+			$newRules[$baseSingle . '([^/]+)/ical/?$' ] = 'index.php?post_type=' . self::POSTTYPE . '&name=' . $wp_rewrite->preg_index(1) . '&ical=1';
 			
 			// taxonomy rules.
+			$newRules[self::TAXREWRITE . '/([^/]+)/ical/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'eventDisplay=upcoming&sp_events_cat=' . $wp_rewrite->preg_index(1) . '&ical=1';
 			$newRules[self::TAXREWRITE . '/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=' . $wp_rewrite->preg_index(1) . '&feed=' . $wp_rewrite->preg_index(2);
 			$newRules[self::TAXREWRITE . '/([^/]+)/page/?([0-9]{1,})/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=' . $wp_rewrite->preg_index(1) . '&paged=' . $wp_rewrite->preg_index(2);
 			$newRules[self::TAXREWRITE . '/([^/]+)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'eventDisplay=upcoming&sp_events_cat=' . $wp_rewrite->preg_index(1);
@@ -1138,6 +1152,9 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				case 'dropdown':
 					return $eventUrl;
 				case 'ical':
+					if ( $secondary == 'single' ) {
+						$eventUrl = trailingslashit(get_permalink());
+					}
 					return $eventUrl . 'ical';
 				default:
 					return $eventUrl;
@@ -1732,7 +1749,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		/**
 		 * build an ical feed from events posts
 		 */
-		public function iCalFeed( $postId = null ) {
+		public function iCalFeed( $postId = null, $eventCatSlug = null ) {
 		    $getstring = $_GET['ical'];
 			$wpTimezoneString = get_option("timezone_string");
 			$postType = self::POSTTYPE;
@@ -1742,7 +1759,9 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			$blogHome = get_bloginfo('home');
 			$blogName = get_bloginfo('name');
 			$includePosts = ( $postId ) ? '&include=' . $postId : '';
-			$eventPosts = get_posts( 'numberposts=-1&post_type=' . $postType . $includePosts );
+			$eventsCats = ( $eventCatSlug ) ? '&'.self::TAXONOMY.'='.$eventCatSlug : '';
+			
+			$eventPosts = get_posts( 'numberposts=-1&post_type=' . $postType . $includePosts . $eventsCats );
 			foreach( $eventPosts as $eventPost ) {
 				// convert 2010-04-08 00:00:00 to 20100408T000000 or YYYYMMDDTHHMMSS
 				$startDate = str_replace( array("-", " ", ":") , array("", "T", "") , get_post_meta( $eventPost->ID, "_EventStartDate", true) );

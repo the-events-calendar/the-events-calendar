@@ -456,6 +456,16 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 		global $spEvents;
 		return $spEvents->getLink( 'month', $spEvents->previousMonth( $spEvents->date ) );
 	}
+	
+	/**
+	 * Returns an ical feed for a single event. Must be used in the loop.
+	 * 
+	 * @return string
+	 */
+	function sp_get_single_ical_link() {
+		global $spEvents;
+		return $spEvents->getLink( 'ical', 'single' );
+	}
 
 	/**
 	 * Returns a link to the events URL
