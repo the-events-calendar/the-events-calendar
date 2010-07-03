@@ -19,7 +19,7 @@ $monthView = sp_sort_by_month( $eventPosts, $spEvents->date );
 ?>
 <h4 class="cal-header"><?php echo date('M Y'); ?> <a class="sp-view-all-events" href="<?php echo sp_get_events_link(); ?>"><?php _e('View all &raquo;', $spEvents->pluginDomain); ?></a></h4>
 <table class="tec-calendar tec-calendar-widget" id="small">
-	<thead><?php $spEvents->log($spEvents->daysOfWeek); ?>
+	<thead>
 			<tr>
 				<?php
 				for( $n = $startOfWeek; $n < count($spEvents->daysOfWeekMin) + $startOfWeek; $n++ ) {

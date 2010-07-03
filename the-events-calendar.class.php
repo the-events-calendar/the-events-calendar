@@ -392,12 +392,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
 			add_action( 'manage_posts_custom_column', array($this, 'custom_columns'), 10, 2);
-		//	add_action('wp_head', array($this, 'check_perm'));
-		}
-		
-		public function check_perm() {
-			global $wp_rewrite;
-			$this->log($wp_rewrite);
 		}
 		
 		public function column_headers( $columns ) {
