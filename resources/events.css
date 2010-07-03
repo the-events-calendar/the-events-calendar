@@ -356,7 +356,57 @@ h4.tec-event-day + .post .entry-title {margin-top:6px;}
 #tec-events-picker {
 	display:inline;
 }
-
 .eventsListWidget li {
 	margin:6px 0;
+}
+
+/*===== Sidebar Calendar Widget =====*/
+table.tec-calendar-widget {
+	width:auto;
+	table-layout:fixed;
+	margin-top:0;
+}
+.events_calendar_widget h4.cal-header {
+	margin:12px 0 0;
+}
+h4 .sp-view-all-events {
+	float:right;
+}
+.tec-calendar-widget th {
+	font-size:10px;
+	background-color:#e8e8e8;
+	color:#555;
+}
+.tec-calendar-widget td {
+	height:auto;
+	text-align:center;
+}
+.tec-calendar-widget td .tec-event {
+	padding:6px 0;
+	background-color:#f9f9f9;
+}
+.tec-calendar-widget .daynum, .tec-calendar-widget td a {
+	font-size:10px;
+}
+.tec-calendar-widget td a.tec-mini-has-event {
+	color:#06c;
+}
+.tec-calendar-widget .tec-tooltip {
+	width:100px;
+	left:0;
+	text-align:left;
+	padding:5px 10px;
+}
+.tec-calendar-widget .tec-right .tec-tooltip {
+	right:0;
+}
+.tec-calendar-widget .tec-tooltip .tec-arrow {
+	left:4px;
+}
+.tec-calendar-widget .tec-right .tec-tooltip .tec-arrow {
+	left:auto;
+	right:3px;
+}
+.tec-calendar-widget h5 a {
+	font-size:11px;
 }

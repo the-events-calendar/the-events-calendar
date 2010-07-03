@@ -20,6 +20,7 @@ if( !class_exists( 'Events_Calendar_Widget') ) {
 				if ( $title )
 					echo $before_title . $title . $after_title;
 				echo '<div id="calendar_wrap">';
+					sp_calendar_mini_grid();
 				echo '</div>';
 				echo $after_widget;
 			}
@@ -44,7 +45,7 @@ if( !class_exists( 'Events_Calendar_Widget') ) {
 	
 		/* Add function to the widgets_ hook. */
 		// hook is commented out until development is finished, allows WP's default calendar widget to work
-		//add_action( 'widgets_init', 'events_calendar_load_widgets' );
+		add_action( 'widgets_init', 'events_calendar_load_widgets' );
 		//add_action( 'widgets_init', 'get_calendar_custom' );
 	
 		//function get_calendar_custom(){echo "hi";}

@@ -349,7 +349,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			$this->pluginUrl 		= WP_PLUGIN_URL.'/'.$this->pluginDir;
 			$this->errors			= '';
 			register_deactivation_hook( __FILE__, 	array( &$this, 'on_deactivate' ) );
-			
+			$this->constructDaysOfWeek();
 			$this->addFilters();
 			$this->addActions();
 		}
@@ -543,7 +543,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		
 		public function localizeAdmin() {
 			$dom = $this->pluginDomain;
-			$this->constructDaysOfWeek();
 			
 			return array(
 				'dayNames' => $this->daysOfWeek,
@@ -766,8 +765,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			if( is_feed() || get_query_var( 'post_type' ) != self::POSTTYPE ) {
 				return $template;
 			}
-			
-			$this->constructDaysOfWeek();
 			
 			//home fixer
 			global $wp_query;

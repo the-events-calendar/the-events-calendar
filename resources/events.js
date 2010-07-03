@@ -5,11 +5,11 @@ jQuery(document).ready(function($) {
 		$(this).find("td:gt(3)").addClass("tec-right");
 	});
 
-	// popups
-	$("table.tec-calendar .tec-event a").hover(function() {
+	// big popups
+	$("table.tec-calendar:not(.tec-calendar-widget) .tec-event a").hover(function() {
 		
 		// one for IE6, one for everybody else
-		if ($.browser.msie && $.browser.version == 6.0) {
+		if ($.browser.msie && $.browser.version == 6) {
 			var bottomPad = $(this).parents("td").outerHeight() + 5;
 		}
 		else {
@@ -19,6 +19,22 @@ jQuery(document).ready(function($) {
 		$(this).next(".tec-tooltip").css('bottom', bottomPad).fadeIn(300);
 	}, function() {
 		$(this).next(".tec-tooltip").fadeOut(100);
+	});
+	
+	// little popups
+	$("table.tec-calendar-widget .tec-event:has(a)").hover(function() {
+		
+		// one for IE6, one for everybody else
+		if ($.browser.msie && $.browser.version == 6) {
+			var bottomPad = $(this).outerHeight();
+		}
+		else {
+			var bottomPad = $(this).outerHeight() + 3;
+		}
+		
+		$(this).find(".tec-tooltip").css('bottom', bottomPad).fadeIn(300);
+	}, function() {
+		$(this).find(".tec-tooltip").fadeOut(100);
 	});
 	
 	// datepicker

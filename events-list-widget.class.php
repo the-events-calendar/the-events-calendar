@@ -27,8 +27,6 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 				extract( $instance, EXTR_SKIP );
 				// extracting $instance provides $title, $limit, $no_upcoming_events, $start, $end, $venue, $address, $city, $state, $province'], $zip, $country, $phone , $cost
 				$title = apply_filters('widget_title', $title );
-
-				$spEvents->log($title);
 				
 				if ( sp_get_option('viewOption') == 'upcoming') {
 					$event_url = sp_get_listview_link();

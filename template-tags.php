@@ -19,6 +19,17 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 		load_template( $spEvents->getTemplateHierarchy('table') );
 	}
 	/**
+	 * Output: Prints the mini gridded calendar table
+	 *
+	 * @return void
+	 */
+	function sp_calendar_mini_grid() {
+		global $spEvents;
+		set_query_var( 'eventDisplay', 'bydate' );
+		load_template( $spEvents->getTemplateHierarchy('table-mini') );
+	}
+	
+	/**
 	 * Maps events to days
 	 *
 	 * @param array of events from sp_get_events()
