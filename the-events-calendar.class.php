@@ -1256,7 +1256,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				return;
 			}
 			// don't do anything on autosave or revision either
-			if ( wp_is_post_autosave( $postId ) ) {
+			if ( wp_is_post_autosave( $postId ) || $post->post_status == 'auto-draft' ) {
 				return;
 			}
 			
