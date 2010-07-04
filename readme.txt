@@ -182,3 +182,15 @@ Features
 * Slick jQuery UI datepicker - no more fiddling with 3 dropdowns!
 * Lots of code refactoring for a better experience
 * Ability to set Events-specific categories
+
+= 1.1 =
+
+Features
+
+* Events Calendar widget
+* Single event ical import. Uses **sp_get_single_ical_link()** (must be used in the loop)
+
+Bugfixes
+
+* **is_home()** no longer returns true on an Events view
+* Debug mode introduced for users seeing wrong counts in the Events admin view. Turn on and ensure that start and end dates are set correctly before turning off. While debug mode is on, Events will not be sorted by start date properly.
