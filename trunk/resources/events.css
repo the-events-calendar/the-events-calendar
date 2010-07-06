@@ -1,0 +1,412 @@
+/* Use Helvetica */
+#tec-events-calendar-header, .tec-calendar, #tec-content .ical, .events-single #content .ical, a.gmap, .tec-event-list-meta td, .tec-nav, #tec-event-meta, span.back, .eventsListWidget .dig-in {
+	font-family:"Helvetica Neue",Arial,Helvetica,"Nimbus Sans L",sans-serif;
+}
+
+#tec-content {
+	position:relative;
+	margin-bottom:48px;
+	padding:1px 20px;
+}
+.single #tec-content {
+	font-size:16px;
+	
+}
+#tec-content.upcoming {
+	margin-bottom:60px;
+}
+
+#tec-content a, #tec-event-meta a {
+	text-decoration:none;
+}
+#tec-events-calendar-header {
+	position:relative;
+	margin-bottom:18px;
+}
+.tec-calendar-buttons {
+	position:absolute;
+	right:0;
+	top:6px;
+}
+.upcoming .tec-calendar-buttons {
+	top:-24px;
+}
+h2.tec-cal-title {
+	float:left;
+	padding-right:15px;
+	margin-bottom: 33px;
+	font-size:21px;
+	font-weight:bold;
+	color:#000;
+}
+.tec-month-nav a, .tec-nav a, .back a, .eventsListWidget .dig-in a {
+	color:#888;
+	text-decoration:none;
+}
+.tec-month-nav a:hover, .tec-nav a:hover, .back a:hover, .eventsListWidget .dig-in a:hover {
+	text-decoration:underline;
+}
+#tec-content .ical, .events-single #content .ical {
+	color:#fff;
+	font-size:10px;
+	background:#777;
+	padding:0 6px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	float:right;
+	text-transform:uppercase;
+	letter-spacing:1px;
+}
+.events-single #content .ical {
+	text-decoration:none;
+	line-height:18px;
+	margin-bottom:21px;
+}
+.tec-calendar-buttons a {
+	background:#999;
+	border-radius:3px;
+	color:#fff;
+	display:block;
+	float:left;
+	font-size:11px;
+	font-weight:bold;
+	height:24px;
+	line-height:24px;
+	margin:21px 0 24px 10px;
+	padding: 0 9px;
+	text-align:center;
+	text-transform:uppercase;
+	letter-spacing:1px;
+	width:auto;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+}
+.tec-calendar-buttons a.tec-button-on {
+	background:#666;
+}
+.tec-calendar-buttons a.tec-button-off {
+	background:#ddd;
+	color:#444;
+}
+
+.tec-month-nav {
+	position: absolute;
+	left:0;
+	bottom:0;
+}
+.tec-prev-month {
+	margin-right:14px;
+}
+.tec-next-month {
+	margin-left:5px;
+}
+
+#tec-nav-above {
+	margin:5px 0 0;
+}
+.events-archive #tec-nav-below {
+	margin:21px 0;
+}
+select.tec-events-dropdown {
+	width:auto;
+	font-size:11px;
+	margin:33px 9px 0 0;
+}
+.events-archive .post {
+	overflow:hidden;
+	margin-bottom:0;
+}
+.events-archive .upcoming .entry-title {
+	margin:15px 0 6px;
+	font-size:18px;
+	font-weight:bold;
+}
+.events-archive .event-day {
+	font-size:18px;
+	margin-top:36px;
+	font-style:italic;
+}
+.events-archive .entry-title a, .tec-event-meta-desc, .tec-event-day {
+	color:#333;
+}
+.events-archive .hentry {
+	margin:0;
+}
+table.tec-calendar {
+	margin:18px 0 12px;
+	clear:both;
+	font-size:12px;
+	border-collapse:collapse;
+}
+table.tec-calendar, .tec-calendar td {
+	border:1px solid #bbb;
+}
+.tec-calendar .daynum {
+	background-color:#F5F5F5;
+	color:#333;
+	font-size:11px;
+	padding:3px 9px;
+	font-weight:bold;
+}
+.tec-calendar td.tec-present .daynum {
+	background-color: #666;
+	color: #fff;
+}
+.tec-calendar td.tec-past .daynum {
+	color: #999;
+}
+.tec-calendar th {
+	width: 250px;
+	height: 10px;
+	background-color:#ddd;
+	color: #333;
+	padding:4px 0;
+	text-align:center;
+	text-transform:uppercase;
+	letter-spacing:1px;
+}
+.tec-calendar td {
+	height: 110px;
+	width:14.28%;
+	color: #114B7D;
+	vertical-align: top;
+	padding:0;
+	font-size:12px;
+}
+.tec-calendar td .tec-event {
+	padding:6px 9px;
+	line-height:1.2;
+}
+.tec-calendar td a {font-size:91.7%;}
+.tec-calendar hr {
+	border:0 none !important;
+	display:block;
+	height:1px;
+	background-color:#E7E7E7;
+	margin:0 9px;
+}
+.tec-calendar .tec-event {
+	position:relative;
+	margin:0;
+}
+.tec-calendar .tec-tooltip {
+	border:1px solid #666;
+	position:absolute;
+	z-index:1001;
+	bottom:30px;
+	left:3px;
+	width:320px;
+	background-color:#f9f9f9;
+	color:#333;
+	line-height:1.4;
+}
+.tec-tooltip .tec-arrow {
+	width:19px;
+	height:11px;
+	display:block;
+	background:url(images/tooltip-arrow.png) no-repeat 0 bottom;
+	position:absolute;
+	bottom:-11px;
+	left:20px;
+}
+.tec-calendar .tec-right .tec-tooltip {
+	left:auto;
+	right:3px;
+}
+.tec-right .tec-tooltip .tec-arrow {
+	left:auto;
+	right:30px;
+}
+.tec-tooltip .tec-event-title {
+	margin:0;
+	color:#fff;
+	background-color:#666;
+	font-size:12px;
+	padding:0 6px;
+	height:24px;
+	line-height:24px;
+	letter-spacing:1px;
+}
+.tec-tooltip .tec-event-body {
+	font-size:11px;
+	padding:3px 6px 6px;
+}
+.tec-tooltip .tec-event-date {
+	font-style:italic;
+	margin:3px 0;
+}
+.tec-event .post {
+	position:relative;
+}
+#tec-event-meta {
+	border-width:1px 0;
+	border-style:solid;
+	border-color:#bbb;
+	margin: 18px 0;
+	padding: 12px 0 2px;
+	overflow:hidden;
+	clear:both;
+	font-size: 12px;
+}
+#tec-event-meta .column {
+	float:left;
+	width:45%;
+	padding:0 4% 0 0;
+	text-align:left;
+	margin:0;
+}
+#tec-event-meta dt {
+	float:left;
+	clear:left;
+	font-weight:bold;
+	width:70px;
+}
+#tec-event-meta dd {
+	padding:0;
+	margin-left:70px;
+	margin-bottom: 10px;
+}
+#tec-event-meta .gmap, .tec-event-meta-desc .gmap {
+	color:#fff;
+	font-size:9px;
+	background:#004080;
+	padding:1px 4px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	white-space:nowrap;
+}
+span.back {
+	position:relative;
+	top:-12px;
+	font-size:12px;
+}
+#tec-events-loop {
+	font-size:13px;
+	clear:both;
+	margin-top:-36px;
+}
+.tec-events .tec-event-entry {
+	width:60%;
+	float:left;
+	padding:0 5% 0 0;
+}
+.events-archive .tec-event-entry p {
+	margin:0;
+	font-size:16px;
+	line-height:24px;
+}
+.tec-events .tec-event-list-meta {
+	float:right;
+	border-left:1px solid #ccc;
+	padding:0 0 0 4%;
+	width:30%;
+	font-size:12px;
+	margin-bottom:20px;
+}
+.tec-event-list-meta table {border-collapse:collapse;}
+.tec-event-list-meta td {
+	vertical-align:top;
+	padding-bottom:4px;
+	text-align:left;
+}
+.tec-event-meta-desc {
+	font-weight:bold;
+	padding-right:12px;
+	width:64px;
+}
+h4.tec-event-day {
+	font-weight:bold;
+	font-size:18px;
+	margin:12px 0 -3px;
+	clear:both;
+}
+h4.tec-event-day + .post .entry-title {margin-top:6px;}
+#eventbrite-embed {
+	width:100%;
+	min-height:225px;
+	margin:24px 0;
+}
+#tec-nav-below .tec-nav-previous {
+	float:left;
+}
+#tec-nav-below .tec-nav-next {
+	float:right;
+}
+.view-larger-map {
+	font-size:13px;
+	text-align:right;
+	margin-bottom:1em;
+	line-height:16px;
+}
+.clearfix:after {
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+.clearfix {zoom:1; /* For IE */}
+.tec-events-error {display:none;}
+.tec_hide {display:none;}
+.tec-multi-event-day {color: #0F81BB;}
+
+#tec-events-picker {
+	display:inline;
+}
+.eventsListWidget li {
+	margin:6px 0;
+}
+
+/*===== Sidebar Calendar Widget =====*/
+table.tec-calendar-widget {
+	width:auto;
+	table-layout:fixed;
+	margin-top:0;
+}
+.events_calendar_widget h4.cal-header {
+	margin:12px 0 0;
+}
+h4 .sp-view-all-events {
+	float:right;
+}
+.tec-calendar-widget th {
+	font-size:10px;
+	background-color:#e8e8e8;
+	color:#555;
+}
+.tec-calendar-widget td {
+	height:auto;
+	text-align:center;
+}
+.tec-calendar-widget td .tec-event {
+	padding:6px 0;
+	background-color:#f9f9f9;
+}
+.tec-calendar-widget .daynum, .tec-calendar-widget td a {
+	font-size:10px;
+}
+.tec-calendar-widget td a.tec-mini-has-event {
+	color:#06c;
+}
+.tec-calendar-widget .tec-tooltip {
+	width:100px;
+	left:0;
+	text-align:left;
+	padding:5px 10px;
+}
+.tec-calendar-widget .tec-right .tec-tooltip {
+	right:0;
+}
+.tec-calendar-widget .tec-tooltip .tec-arrow {
+	left:4px;
+}
+.tec-calendar-widget .tec-right .tec-tooltip .tec-arrow {
+	left:auto;
+	right:3px;
+}
+.tec-calendar-widget h5 a {
+	font-size:11px;
+}
