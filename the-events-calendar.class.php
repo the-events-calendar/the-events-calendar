@@ -760,17 +760,17 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				return $template;
 			}
 			
-			//home fixer
+			//is_home fixer
 			global $wp_query;
 			$wp_query->is_home = false;
 			
-			// list view
-			if ( sp_is_upcoming() || sp_is_past() ) {
-				return $this->getTemplateHierarchy('list');
-			}
 			// single event
-			elseif ( is_single() ) {
+			if ( is_single() ) {
 				return $this->getTemplateHierarchy('single');
+			}
+			// list view
+			elseif ( sp_is_upcoming() || sp_is_past() ) {
+				return $this->getTemplateHierarchy('list');
 			}
 			// grid view
 			else {
@@ -787,15 +787,19 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 * @return template path
 		 * @author Matt Wiebe
 		 **/
-		
+
 		public function getTemplateHierarchy($template) {
 			// whether or not .php was added
-			$template = rtrim($template, '.php') . '.php';
+			$template_slug = rtrim($template, '.php');
+			$template = $template_slug . '.php';
 			
 			if ( $theme_file = locate_template(array('events/'.$template)) ) {
-				return $theme_file;
+				$file = $theme_file;
 			}
-			return $this->pluginPath . '/views/' . $template;
+			else {
+				$file = $this->pluginPath . '/views/' . $template;
+			}
+			return apply_filters( 'sp_events_template_'.$template, $file);
 		}
 		
 		public function truncate($text, $excerpt_length = 44) {
@@ -828,7 +832,10 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			else {
 				$styleUrl = $eventsURL.'events.css';
 			}
-			wp_enqueue_style('sp-events-calendar-style', $styleUrl);
+			$styleUrl = apply_filters( 'sp_events_stylesheet_url', $styleUrl );
+			
+			if ( $styleUrl )
+				wp_enqueue_style('sp-events-calendar-style', $styleUrl);
 		}
 	
 		/**

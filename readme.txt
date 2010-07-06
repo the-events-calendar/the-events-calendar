@@ -81,9 +81,17 @@ The Events Calendar plugin comes with default templates for the list view, grid 
 * events-list-load-widget-display.php
 * events.css ( original in the plugin's resources/ directory )
 
-
-
 Edit the new files to your hearts content. Please do not edit the one's in the plugin folder as that will cause conflicts when you update the plugin to the latest release.
+
+New in 1.1: You may now also use the `sp_events_template_*` filter to override the default template behavior for .php template files. Eg: if you wanted gridview.php to reside in a folder called events-custom/ and wanted it to be called grid.php:
+
+
+	add_filter('sd_events_template_gridview', 'my_gridview');
+	function my_gridview($template) {
+		return get_template_directory() . '/events-custom/grid.php';
+	}
+
+For events.css, the filter `sp_events_stylesheet_url` can be used to provide an alternate stylesheet. If your filter returns false, no events stylesheet will be loaded.
 
 = Supported Variables and URLs =
 
@@ -194,3 +202,4 @@ Bugfixes
 
 * **is_home()** no longer returns true on an Events view
 * Debug mode introduced for users seeing wrong counts in the Events admin view. Turn on and ensure that start and end dates are set correctly before turning off. While debug mode is on, Events will not be sorted by start date properly.
+* Some instances where the single.php template in your theme's events/ directory would not load properly should now be fixed.
