@@ -107,7 +107,7 @@ function events_get_gridview_link() {
 	return sp_get_gridview_link();
 }	
 function events_get_listview_link() {
-	return sp_get_gridview_link();
+	return sp_get_listview_link();
 }
 function events_get_listview_past_link() {
 	return sp_get_listview_past_link();
