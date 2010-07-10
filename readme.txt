@@ -1,4 +1,4 @@
-=== Events Calendar Premium ===
+=== Events Calendar Pro ===
 
 Contributors: Kelsey Damas, Matt Wiebe, Justin Endler, Reid Peifer, Dan Cameron, Aaron Rhodes produced by Shane & Peter, Inc.
 Tags: widget, events, simple, tooltips, grid, month, list, calendar, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
@@ -8,9 +8,9 @@ Stable tag: 1.1
 
 == Description ==
 
-The Events Calendar Premium plugin enables you to rapidly create and manage events using the post editor.  Features include Google Maps integration as well as default templates such as a calendar grid and event list for streamlined one click installation.
+The Events Calendar Pro plugin enables you to rapidly create and manage events using the post editor.  Features include Google Maps integration as well as default templates such as a calendar grid and event list for streamlined one click installation.
 
-= Events Calendar Premium =
+= Events Calendar Pro =
 
 * Manage event details in the Events post type
 * Upcoming Events Widget
@@ -185,7 +185,7 @@ Returns an EventBrite.com embedded ticket sales inline (not WordPress) widget
 
 Features
 
-* Full port of The Events Calendar 1.6 to Events Calendar Premium 1.0
+* Full port of The Events Calendar 1.6 to Events Calendar Pro 1.0
 * Now using custom post types rather than an events category!
 * Slick jQuery UI datepicker - no more fiddling with 3 dropdowns!
 * Lots of code refactoring for a better experience

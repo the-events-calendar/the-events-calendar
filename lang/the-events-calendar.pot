@@ -1,11 +1,11 @@
-# Translation of the WordPress plugin Events Calendar Premium 1.0 by Shane & Peter, Inc..
+# Translation of the WordPress plugin Events Calendar Pro 1.0 by Shane & Peter, Inc..
 # Copyright (C) 2010 Shane & Peter, Inc.
-# This file is distributed under the same license as the Events Calendar Premium package.
+# This file is distributed under the same license as the Events Calendar Pro package.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Events Calendar Premium 1.0\n"
+"Project-Id-Version: Events Calendar Pro 1.0\n"
 "POT-Creation-Date: 2010-06-16 23:51-0500\n"
 "PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
@@ -1083,10 +1083,10 @@ msgstr ""
 msgid "Zimbabwe"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (Events Calendar Premium 1.0)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (Events Calendar Pro 1.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: the-events-calendar.class.php:342
-msgid "Events Calendar Premium"
+msgid "Events Calendar Pro"
 msgstr ""
 
 #: the-events-calendar.class.php:343
@@ -1799,10 +1799,6 @@ msgstr ""
 
 #: views/single.php:38
 msgid "Click to view a Google Map"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "http://wordpress.org/extend/plugins/the-events-calendar/"
 msgstr ""
 
 #. Description of the plugin/theme

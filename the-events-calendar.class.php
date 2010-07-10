@@ -339,7 +339,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 * @return void
 		 */
 		function __construct( ) {
-			$this->pluginName		= __( 'Events Calendar Premium', $this->pluginDomain );
+			$this->pluginName		= __( 'Events Calendar Pro', $this->pluginDomain );
 			$this->rewriteSlug		= __( 'events', $this->pluginDomain );
 			$this->rewriteSlugSingular = __( 'event', $this->pluginDomain );
 			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlugSingular;
