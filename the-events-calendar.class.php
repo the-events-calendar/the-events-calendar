@@ -995,7 +995,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				return $where;
 			}
 			$where .= ' AND ( eventStart.meta_key = "_EventStartDate" AND eventEnd.meta_key = "_EventEndDate" ) ';
-			if( sp_is_month( ) ) {}
+
 			if( sp_is_upcoming( ) ) {	
 				// Is the start date in the future?
 				$where .= ' AND ( eventStart.meta_value > "'.$this->date.'" ';
@@ -1020,7 +1020,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			if ( get_query_var('post_type') != self::POSTTYPE ) { 
 				return $orderby;
 			}
-			global $wpdb;
 			$orderby = ' eventStart.meta_value '.$this->order;
 			return $orderby;
 		}
@@ -1035,14 +1034,22 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			if ( get_query_var('post_type') != self::POSTTYPE ) { 
 				return $limits;
 			}
-			global $wpdb, $wp_query, $paged;
+			global $current_screen;
+			$paged = (int) get_query_var('paged');
 			if (empty($paged)) {
 					$paged = 1;
 			}
-			$posts_per_page = intval( get_option('posts_per_page') );
-			$paged = get_query_var('paged') ? intval( get_query_var('paged') ) : 1;
-			$pgstrt = ( ( $paged - 1 ) * $posts_per_page ) . ', ';
-			$limits = 'LIMIT ' . $pgstrt . $posts_per_page;
+			if ( is_admin() ) {
+				$option = str_replace( '-', '_', "{$current_screen->id}_per_page" );
+				$per_page = get_user_option( $option );
+				$per_page = ( $per_page ) ? (int) $per_page : 20; // 20 is default in backend
+			}
+			else {
+				$per_page = intval( get_option('per_page') );
+			}
+
+			$page_start = ( $paged - 1 ) * $per_page;
+			$limits = 'LIMIT ' . $page_start . ', ' . $per_page;
 			return $limits;
 		}
 		/**
