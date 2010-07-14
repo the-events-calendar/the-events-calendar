@@ -349,7 +349,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			$this->pluginUrl 		= WP_PLUGIN_URL.'/'.$this->pluginDir;
 			$this->errors			= '';
 			register_deactivation_hook( __FILE__, 	array( &$this, 'on_deactivate' ) );
-			$this->constructDaysOfWeek();
 			$this->addFilters();
 			$this->addActions();
 		}
@@ -377,7 +376,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		
 		private function addActions() {
 			add_action( 'reschedule_event_post', array( $this, 'reschedule') );
-			add_action( 'template_redirect',				array( $this, 'loadDomainStylesScripts' ) );
+			add_action( 'template_redirect',				array( $this, 'loadStyle' ) );
 			add_action( 'sp-events-save-more-options', array( $this, 'flushRewriteRules' ) );
 			add_action( 'pre_get_posts',	array( $this, 'setOptions' ) );
 			add_action( 'admin_menu', 		array( $this, 'addOptionsPage' ) );
@@ -392,6 +391,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
 			add_action( 'manage_posts_custom_column', array($this, 'custom_columns'), 10, 2);
+			add_action( 'init', array($this, 'loadTextDomain') );
 		}
 		
 		public function column_headers( $columns ) {
@@ -756,7 +756,8 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				die;
 			}
 			
-			if( is_feed() || get_query_var( 'post_type' ) != self::POSTTYPE ) {
+			// no feed or non-events need apply
+			if ( is_feed() || get_query_var( 'post_type' ) != self::POSTTYPE ) {
 				return $template;
 			}
 			
@@ -821,8 +822,13 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			return $text;
 		}
 		
-		public function loadDomainStylesScripts() {
+		public function loadTextDomain() {
 			load_plugin_textdomain( $this->pluginDomain, false, $this->pluginDir . '/lang/');
+			$this->constructDaysOfWeek();
+		}
+		
+		public function loadStyle() {
+			
 			$eventsURL = trailingslashit( $this->pluginUrl ) . 'resources/';
 			wp_enqueue_script('sp-events-calendar-script', $eventsURL.'events.js', array('jquery') );
 			// is there an events.css file in the theme?
