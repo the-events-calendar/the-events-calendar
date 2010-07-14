@@ -4,7 +4,7 @@ Contributors: Kelsey Damas, Matt Wiebe, Justin Endler, Reid Peifer, Dan Cameron,
 Tags: widget, events, simple, tooltips, grid, month, list, calendar, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
 Requires at least: 3.0
 Tested up to: 3.0
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 
 == Description ==
 
@@ -203,3 +203,17 @@ Bugfixes
 * **is_home()** no longer returns true on an Events view
 * Debug mode introduced for users seeing wrong counts in the Events admin view. Turn on and ensure that start and end dates are set correctly before turning off. While debug mode is on, Events will not be sorted by start date properly.
 * Some instances where the single.php template in your theme's events/ directory would not load properly should now be fixed.
+
+= 1.1.1 =
+
+Bugfixes
+
+* proper version #
+* consistent labels for plugin: Events Calendar Pro
+
+= 1.1.2 =
+
+Bugfixes
+
+* translations load correctly
+* viewing events in admin now paginates properly
