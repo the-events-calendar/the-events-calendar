@@ -4,7 +4,7 @@ Contributors: Kelsey Damas, Matt Wiebe, Justin Endler, Reid Peifer, Dan Cameron,
 Tags: widget, events, simple, tooltips, grid, month, list, calendar, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
 Requires at least: 3.0
 Tested up to: 3.0
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 
 == Description ==
 
@@ -181,15 +181,25 @@ Returns an EventBrite.com embedded ticket sales inline (not WordPress) widget
 
 == Changelog ==
 
-= 1.0 =
+= 1.1.3 =
 
-Features
+Bugfixes
 
-* Full port of The Events Calendar 1.6 to Events Calendar Pro 1.0
-* Now using custom post types rather than an events category!
-* Slick jQuery UI datepicker - no more fiddling with 3 dropdowns!
-* Lots of code refactoring for a better experience
-* Ability to set Events-specific categories
+# fixed the single post / list view bug.
+
+= 1.1.2 =
+
+Bugfixes
+
+* translations load correctly
+* viewing events in admin now paginates properly
+
+= 1.1.1 =
+
+Bugfixes
+
+* proper version #
+* consistent labels for plugin: Events Calendar Pro
 
 = 1.1 =
 
@@ -204,16 +214,12 @@ Bugfixes
 * Debug mode introduced for users seeing wrong counts in the Events admin view. Turn on and ensure that start and end dates are set correctly before turning off. While debug mode is on, Events will not be sorted by start date properly.
 * Some instances where the single.php template in your theme's events/ directory would not load properly should now be fixed.
 
-= 1.1.1 =
+= 1.0 =
 
-Bugfixes
+Features
 
-* proper version #
-* consistent labels for plugin: Events Calendar Pro
-
-= 1.1.2 =
-
-Bugfixes
-
-* translations load correctly
-* viewing events in admin now paginates properly
+* Full port of The Events Calendar 1.6 to Events Calendar Pro 1.0
+* Now using custom post types rather than an events category!
+* Slick jQuery UI datepicker - no more fiddling with 3 dropdowns!
+* Lots of code refactoring for a better experience
+* Ability to set Events-specific categories

@@ -1051,7 +1051,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				$per_page = ( $per_page ) ? (int) $per_page : 20; // 20 is default in backend
 			}
 			else {
-				$per_page = intval( get_option('per_page') );
+				$per_page = intval( get_option('posts_per_page') );
 			}
 
 			$page_start = ( $paged - 1 ) * $per_page;
