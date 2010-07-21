@@ -227,14 +227,6 @@ try {
 		            </fieldset>
 		        </td>
 			</tr>
-			<tr>
-				<th scope="row"><?php _e('Debug', $this->pluginDomain ); ?></th>
-				<td><fieldset>
-					<legend class="screen-reader-text"><?php _e('Debug', $this->pluginDomain ); ?></legend>
-					<label><input type="checkbox" name="spEventsDebug" <?php checked(sp_get_option('spEventsDebug'), 'on' ) ?> /> <?php _e('Debug Events display issues.') ?></label>
-					<div><?php _e('If you’re experiencing issues with posts not showing up in the admin, enable this option and then ensure that all of your posts have the correct start and end dates.', $this->pluginDomain) ?></div>
-				</fieldset></td>
-			</tr>
 			<?php endif; // permalink structure ?>
 	    <?php
 		try {
