@@ -360,18 +360,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
 			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );
 			add_filter( 'admin_body_class', array($this, 'admin_body_class'));
-			if ( ! $this->getOption('spEventsDebug') ) {
-				$this->addQueryFilters();
-			}
-		}
-		
-		private function addQueryFilters() {
-			add_filter( 'posts_join',		array( $this, 'events_search_join' ) );
-			add_filter( 'posts_where',		array( $this, 'events_search_where' ) );
-			add_filter( 'posts_orderby',	array( $this, 'events_search_orderby' ) );
-			add_filter( 'posts_fields',		array( $this, 'events_search_fields' ) );
-			add_filter( 'post_limits',		array( $this, 'events_search_limits' ) );
-			add_filter( 'manage_posts_columns', array($this, 'column_headers'));
 		}
 		
 		private function addActions() {
@@ -392,28 +380,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
 			add_action( 'manage_posts_custom_column', array($this, 'custom_columns'), 10, 2);
 			add_action( 'init', array($this, 'loadTextDomain') );
-		}
-		
-		public function column_headers( $columns ) {
-			global $post;
-
-			if ( $post->post_type == self::POSTTYPE ) {
-				
-				foreach ( $columns as $key => $value ) {
-					$mycolumns[$key] = $value;
-					if ( $key =='author' )
-						$mycolumns['events-cats'] = __( 'Event Categories', $this->pluginDomain );
-				}
-				$columns = $mycolumns;
-				
-				unset($columns['date']);
-				$columns['start-date'] = __( 'Start Date', $this->pluginDomain );
-				$columns['end-date'] = __( 'End Date', $this->pluginDomain );
-			}
-			
-			
-			
-			return $columns;
 		}
 
 		public function custom_columns( $column_id, $post_id ) {
@@ -612,7 +578,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				$options['displayEventsOnHomepage'] = $_POST['displayEventsOnHomepage'];
 				$options['resetEventPostDate'] = $_POST['resetEventPostDate'];
 				$options['useRewriteRules'] = $_POST['useRewriteRules'];
-				$options['spEventsDebug'] = $_POST['spEventsDebug'];
 				
 				if ( $options['useRewriteRules'] == 'on' ) {
 					$this->flushRewriteRules();
@@ -957,106 +922,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 					$wpdb->query( $updateQuery );
 				}
 			}
-		}
-		/**
-		 * fields filter for standard wordpress templates.  Adds the start and end date to queries in the
-		 * events category
-		 *
-		 * @param string fields
-		 * @param string modified fields for events queries
-		 */
-		public function events_search_fields( $fields ) {
-			if ( get_query_var('post_type') != self::POSTTYPE ) { 
-				return $fields;
-			}
-			global $wpdb;
-			$fields .= ', eventStart.meta_value as EventStartDate, eventEnd.meta_value as EventEndDate ';
-			return $fields;
-
-		}
-		/**
-		 * join filter for standard wordpress templates.  Adds the postmeta tables for start and end queries
-		 *
-		 * @param string join clause
-		 * @return string modified join clause 
-		 */
-		public function events_search_join( $join ) {
-			global $wpdb;
-			if ( get_query_var('post_type') != self::POSTTYPE ) { 
-				return $join;
-			}
-			$join .= "LEFT JOIN {$wpdb->postmeta} as eventStart ON( {$wpdb->posts}.ID = eventStart.post_id ) ";
-			$join .= "LEFT JOIN {$wpdb->postmeta} as eventEnd ON( {$wpdb->posts}.ID = eventEnd.post_id ) ";
-			return $join;
-		}
-		/**
-		 * where filter for standard wordpress templates. Inspects the event options and filters
-		 * event posts for upcoming or past event loops
-		 *
-		 * @param string where clause
-		 * @return string modified where clause
-		 */
-		public function events_search_where( $where ) {
-			if ( get_query_var('post_type') != self::POSTTYPE ) { 
-				return $where;
-			}
-			$where .= ' AND ( eventStart.meta_key = "_EventStartDate" AND eventEnd.meta_key = "_EventEndDate" ) ';
-
-			if( sp_is_upcoming( ) ) {	
-				// Is the start date in the future?
-				$where .= ' AND ( eventStart.meta_value > "'.$this->date.'" ';
-				// Or is the start date in the past but the end date in the future? (meaning the event is currently ongoing)
-				$where .= ' OR ( eventStart.meta_value < "'.$this->date.'" AND eventEnd.meta_value > "'.$this->date.'" ) ) ';
-			}
-			if( sp_is_past( ) ) {
-				// Is the start date in the past?
-				$where .= ' AND  eventStart.meta_value < "'.$this->date.'" ';
-			}
-			return $where;
-		}
-		
-		/**
-		 * orderby filter for standard wordpress templates.  Adds event ordering for queries that are
-		 * in the events category and filtered according to the search parameters
-		 *
-		 * @param string orderby
-		 * @return string modified orderby clause
-		 */
-		public function events_search_orderby( $orderby ) {
-			if ( get_query_var('post_type') != self::POSTTYPE ) { 
-				return $orderby;
-			}
-			$orderby = ' eventStart.meta_value '.$this->order;
-			return $orderby;
-		}
-		/**
-		 * limit filter for standard wordpress templates.  Adds limit clauses for pagination 
-		 * for queries in the events category
-		 *
-		 * @param string limits clause
-		 * @return string modified limits clause
-		 */
-		public function events_search_limits( $limits ) { 
-			if ( get_query_var('post_type') != self::POSTTYPE ) { 
-				return $limits;
-			}
-			global $current_screen;
-			$paged = (int) get_query_var('paged');
-			if (empty($paged)) {
-					$paged = 1;
-			}
-			if ( is_admin() ) {
-				$option = str_replace( '-', '_', "{$current_screen->id}_per_page" );
-				$per_page = get_user_option( $option );
-				$per_page = ( $per_page ) ? (int) $per_page : 20; // 20 is default in backend
-			}
-			else {
-				$per_page = intval( get_option('posts_per_page') );
-			}
-
-			$page_start = ( $paged - 1 ) * $per_page;
-			$limits = 'LIMIT ' . $page_start . ', ' . $per_page;
-			return $limits;
 		}
 		/**
 	     * Gets the Category id to use for an Event

@@ -186,6 +186,7 @@ Returns an EventBrite.com embedded ticket sales inline (not WordPress) widget
 Bugfixes
 
 # fixed the single post / list view bug.
+# Removed debug mode because of bugs.
 
 = 1.1.2 =
 
