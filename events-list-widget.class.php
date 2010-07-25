@@ -100,7 +100,7 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 				/* Set up default widget settings. */
 				$defaults = array( 'title' => 'Upcoming Events', 'limit' => '5', 'start' => true, 'end' => false, 'venue' => false, 'country' => true, 'address' => false, 'city' => true, 'state' => true, 'province' => true, 'zip' => false, 'phone' => false, 'cost' => false);
 				$instance = wp_parse_args( (array) $instance, $defaults );			
-				include( dirname( __FILE__ ) . '/views/events-list-load-widget-admin.php' );
+				include( $spEvents->pluginPath . 'views/events-list-load-widget-admin.php' );
 			}
 	}
 

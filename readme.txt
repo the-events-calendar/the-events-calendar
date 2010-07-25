@@ -4,7 +4,7 @@ Contributors: Kelsey Damas, Matt Wiebe, Justin Endler, Reid Peifer, Dan Cameron,
 Tags: widget, events, simple, tooltips, grid, month, list, calendar, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
 Requires at least: 3.0
 Tested up to: 3.0
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 
 == Description ==
 
@@ -180,6 +180,12 @@ Returns an EventBrite.com embedded ticket sales inline (not WordPress) widget
 
 
 == Changelog ==
+
+= 1.1.4 =
+
+Features
+
+# abstract plugin directory var so that plugin can be installed directly in the theme.
 
 = 1.1.3 =
 

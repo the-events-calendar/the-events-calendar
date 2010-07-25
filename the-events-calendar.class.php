@@ -344,8 +344,8 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			$this->rewriteSlugSingular = __( 'event', $this->pluginDomain );
 			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlugSingular;
 			$this->currentDay		= '';
-			$this->pluginDir		= basename(dirname(__FILE__));
-			$this->pluginPath		= WP_PLUGIN_DIR . '/' . $this->pluginDir;
+			$this->pluginDir		= trailingslashit( basename( dirname(__FILE__) ) );
+			$this->pluginPath		= trailingslashit( dirname(__FILE__) );
 			$this->pluginUrl 		= WP_PLUGIN_URL.'/'.$this->pluginDir;
 			$this->errors			= '';
 			register_deactivation_hook( __FILE__, 	array( &$this, 'on_deactivate' ) );
@@ -487,13 +487,13 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		
 		public function addAdminScriptsAndStyles() {
 			// always load style. need for icon in nav.
-			wp_enqueue_style( self::POSTTYPE.'-admin', $this->pluginUrl . '/resources/events-admin.css' );
+			wp_enqueue_style( self::POSTTYPE.'-admin', $this->pluginUrl . 'resources/events-admin.css' );
 			
 			global $current_screen;			
 			if ( $current_screen->post_type == self::POSTTYPE || $current_screen->id == 'settings_page_the-events-calendar.class' ) {
 				wp_deregister_script( 'autosave' );
-				wp_enqueue_script( 'jquery-ui-datepicker', $this->pluginUrl . '/resources/ui.datepicker.min.js', array('jquery-ui-core'), '1.7.3', true );
-				wp_enqueue_script( self::POSTTYPE.'-admin', $this->pluginUrl . '/resources/events-admin.js', array('jquery-ui-datepicker'), '', true );
+				wp_enqueue_script( 'jquery-ui-datepicker', $this->pluginUrl . 'resources/ui.datepicker.min.js', array('jquery-ui-core'), '1.7.3', true );
+				wp_enqueue_script( self::POSTTYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js', array('jquery-ui-datepicker'), '', true );
 				// calling our own localization because wp_localize_scripts doesn't support arrays or objects for values, which we need.
 				add_action('admin_footer', array($this, 'printLocalizedAdmin') );
 			}
@@ -550,7 +550,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		}
 		
 		public function optionsPageView() {
-			include( dirname( __FILE__ ) . '/views/events-options.php' );
+			include( $this->pluginPath . 'views/events-options.php' );
 		}
 		
 		public function checkForOptionsChanges() {
@@ -763,7 +763,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				$file = $theme_file;
 			}
 			else {
-				$file = $this->pluginPath . '/views/' . $template;
+				$file = $this->pluginPath . 'views/' . $template;
 			}
 			return apply_filters( 'sp_events_template_'.$template, $file);
 		}
@@ -788,7 +788,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		}
 		
 		public function loadTextDomain() {
-			load_plugin_textdomain( $this->pluginDomain, false, $this->pluginDir . '/lang/');
+			load_plugin_textdomain( $this->pluginDomain, false, $this->pluginDir . 'lang/');
 			$this->constructDaysOfWeek();
 		}
 		
@@ -1251,7 +1251,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			
 			
 			
-			include( dirname( __FILE__ ) . '/views/events-meta-box.php' );
+			include( $this->pluginPath . 'views/events-meta-box.php' );
 		}
 		/**
 		 * Given a date (YYYY-MM-DD), returns the first of the next month
