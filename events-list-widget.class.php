@@ -37,7 +37,7 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 				if( function_exists( 'sp_get_events' ) ) {
 					$old_display = $wp_query->get('eventDisplay');
 					$wp_query->set('eventDisplay', 'upcoming');
-					$posts = sp_get_events($limit);
+					$posts = sp_get_events( 'numResults=' . $limit );
 					$template = $spEvents->getTemplateHierarchy('events-list-load-widget-display');
 				}
 				

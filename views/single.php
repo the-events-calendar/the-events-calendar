@@ -21,6 +21,7 @@
 							<dt><?php _e('Cost:', $spEvents->pluginDomain) ?></dt>
 							<dd><?php echo sp_get_cost(); ?></dd>
 						<?php endif; ?>
+						<?php sp_meta_event_cats(); ?>
 					</dl>
 					<dl class="column">
 						<?php if(sp_get_venue()) : ?>

@@ -396,13 +396,15 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	/**
 	 * Call this function in a template to query the events
 	 *
-	 * @param int number of results to display for upcoming or past modes (default 10)
-	 * @param string deprecated: used when events were determined by category. category name to pull events from.
+	 * @param int numResults number of results to display for upcoming or past modes (default 10)
+	 * @param string|int eventCat Event Category: use int for term ID, string for name.
+	 * @param string metaKey A meta key to query. Useful for sorting by country, venue, etc. metaValue must also be set to use.
+	 * @param string metaValue The value of the queried metaKey, which also must be set.
 	 * @return array results
 	 */
-	function sp_get_events( $numResults = null, $catName = null ) {
+	function sp_get_events( $args = '' ) {
 		global $spEvents;
-		return $spEvents->getEvents( $numResults, $catName );
+		return $spEvents->getEvents( $args );
 	}
 	/**
 	 * Returns true if the query is set for past events, false otherwise
@@ -584,6 +586,26 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 		$postId = sp_post_id_helper( $postId );
 		return get_post_meta( $postId, '_EventAllDay', true );
 	}
+	
+	/**
+	 * echos an events title, with pseudo-breadcrumb if on a category
+	*/ 
+	function sp_events_title() {
+		global $spEvents;
+		$title = __('Calendar of Events', $spEvents->pluginDomain);
+		if ( is_tax( $spEvents->get_event_taxonomy() ) ) {
+			$cat = get_term_by( 'slug', get_query_var('term'), $spEvents->get_event_taxonomy() );
+			$title = '<a href="'.sp_get_events_link().'">'.$title.'</a>';
+			$title .= ' &#8250; ' . $cat->name;
+		}
+		echo $title;
+	}
+	
+	function sp_meta_event_cats() {
+		global $spEvents;
+		the_terms( get_the_ID(), $spEvents->get_event_taxonomy(), '<dt>'.__('Category:').'</dt><dd>', ', ', '</dd>' );
+	}
+	
 	
 	include_once 'deprecated-template-tags.php';
 	

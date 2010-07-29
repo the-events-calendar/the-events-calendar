@@ -38,6 +38,15 @@ h2.tec-cal-title {
 	font-size:21px;
 	font-weight:bold;
 	color:#000;
+	position:relative;
+	z-index:5;
+}
+h2.tec-cal-title a {
+	color:#000;
+}
+h2.tec-cal-title a:hover, h2.tec-cal-title a:focus {
+	color:#333;
+	text-decoration:underline !important;
 }
 .tec-month-nav a, .tec-nav a, .back a, .eventsListWidget .dig-in a {
 	color:#888;
@@ -95,6 +104,7 @@ h2.tec-cal-title {
 	position: absolute;
 	left:0;
 	bottom:0;
+	z-index:2;
 }
 .tec-prev-month {
 	margin-right:14px;
@@ -390,6 +400,7 @@ h4 .sp-view-all-events {
 }
 .tec-calendar-widget td a.tec-mini-has-event {
 	color:#06c;
+	cursor:default;
 }
 .tec-calendar-widget .tec-tooltip {
 	width:100px;

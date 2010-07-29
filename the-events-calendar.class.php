@@ -9,7 +9,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		const OPTIONNAME 			= 'sp_events_calendar_options';
 		const POSTTYPE				= 'sp_events';
 		const TAXONOMY				= 'sp_events_cat';
-		const TAXREWRITE			= 'events/category';
 		// default formats, they are overridden by WP options or by arguments to date methods
 		const DATEONLYFORMAT 		= 'F j, Y';
 		const TIMEFORMAT			= 'g:i A';
@@ -24,7 +23,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		);
 		private $taxonomyLabels;
 
-		public $supportUrl = 'http://plugins.shaneandpeter.com/events-pro';/*
+		public $supportUrl = 'http://support.makedesignnotwar.com/';/*
 			TODO real support URL
 		*/
 		public $envatoUrl = 'http://plugins.shaneandpeter.com/';/*
@@ -339,9 +338,11 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 * @return void
 		 */
 		function __construct( ) {
+			$this->loadTextDomain();
 			$this->pluginName		= __( 'Events Calendar Pro', $this->pluginDomain );
 			$this->rewriteSlug		= __( 'events', $this->pluginDomain );
 			$this->rewriteSlugSingular = __( 'event', $this->pluginDomain );
+			$this->taxRewriteSlug = $this->rewriteSlug . '/' . __( 'category' );
 			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlugSingular;
 			$this->currentDay		= '';
 			$this->pluginDir		= trailingslashit( basename( dirname(__FILE__) ) );
@@ -359,7 +360,19 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			add_filter( 'template_include', array( $this, 'templateChooser') );
 			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
 			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );
-			add_filter( 'admin_body_class', array($this, 'admin_body_class'));
+			add_filter( 'admin_body_class', array($this, 'admin_body_class') );
+			if ( ! $this->getOption('spEventsDebug', false) ) {
+				$this->addQueryFilters();
+			}
+		}
+		
+		private function addQueryFilters() {
+			add_filter( 'posts_join',		array( $this, 'events_search_join' ) );
+			add_filter( 'posts_where',		array( $this, 'events_search_where' ) );
+			add_filter( 'posts_orderby',	array( $this, 'events_search_orderby' ) );
+			add_filter( 'posts_fields',		array( $this, 'events_search_fields' ) );
+			add_filter( 'post_limits',		array( $this, 'events_search_limits' ) );
+			add_filter( 'manage_posts_columns', array($this, 'column_headers'));
 		}
 		
 		private function addActions() {
@@ -379,9 +392,38 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
 			add_action( 'manage_posts_custom_column', array($this, 'custom_columns'), 10, 2);
-			add_action( 'init', array($this, 'loadTextDomain') );
+			add_action( 'template_redirect', array($this,'wtf'));
 		}
+		
+		public function wtf() {
+			global $wp_rewrite;
+			$this->log( $wp_rewrite->rules );
+		}
+		
+		public function get_event_taxonomy() {
+			return self::TAXONOMY;
+		}
+		
+		public function column_headers( $columns ) {
+			global $post;
 
+			if ( $post->post_type == self::POSTTYPE ) {
+
+				foreach ( $columns as $key => $value ) {
+					$mycolumns[$key] = $value;
+					if ( $key =='author' )
+						$mycolumns['events-cats'] = __( 'Event Categories', $this->pluginDomain );
+				}
+				$columns = $mycolumns;
+
+				unset($columns['date']);
+				$columns['start-date'] = __( 'Start Date', $this->pluginDomain );
+				$columns['end-date'] = __( 'End Date', $this->pluginDomain );
+			}
+			
+			return $columns;
+		}
+		
 		public function custom_columns( $column_id, $post_id ) {
 			if ( $column_id == 'events-cats' ) {
 				$event_cats = get_the_term_list( $post_id, self::TAXONOMY, '', ', ', '' );
@@ -436,7 +478,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			register_taxonomy( self::TAXONOMY, self::POSTTYPE, array(
 				'hierarchical' => true,
 				'update_count_callback' => '',
-				'rewrite' => array('slug'=>self::TAXREWRITE),
+				'rewrite' => array('slug'=> $this->taxRewriteSlug),
 				'public' => true,
 				'show_ui' => true,
 				'labels' => $this->taxonomyLabels
@@ -578,6 +620,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				$options['displayEventsOnHomepage'] = $_POST['displayEventsOnHomepage'];
 				$options['resetEventPostDate'] = $_POST['resetEventPostDate'];
 				$options['useRewriteRules'] = $_POST['useRewriteRules'];
+				$options['spEventsDebug'] = $_POST['spEventsDebug'];
 				
 				if ( $options['useRewriteRules'] == 'on' ) {
 					$this->flushRewriteRules();
@@ -675,6 +718,107 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			return $cats;
 		}
 		
+				/**
+		 * fields filter for standard wordpress templates.  Adds the start and end date to queries in the
+		 * events category
+		 *
+		 * @param string fields
+		 * @param string modified fields for events queries
+		 */
+		public function events_search_fields( $fields ) {
+			if ( get_query_var('post_type') != self::POSTTYPE ) { 
+				return $fields;
+			}
+			global $wpdb;
+			$fields .= ', eventStart.meta_value as EventStartDate, eventEnd.meta_value as EventEndDate ';
+			return $fields;
+
+		}
+		/**
+		 * join filter for standard wordpress templates.  Adds the postmeta tables for start and end queries
+		 *
+		 * @param string join clause
+		 * @return string modified join clause 
+		 */
+		public function events_search_join( $join ) {
+			global $wpdb;
+			if ( get_query_var('post_type') != self::POSTTYPE ) { 
+				return $join;
+			}
+			$join .= "LEFT JOIN {$wpdb->postmeta} as eventStart ON( {$wpdb->posts}.ID = eventStart.post_id ) ";
+			$join .= "LEFT JOIN {$wpdb->postmeta} as eventEnd ON( {$wpdb->posts}.ID = eventEnd.post_id ) ";
+			return $join;
+		}
+		/**
+		 * where filter for standard wordpress templates. Inspects the event options and filters
+		 * event posts for upcoming or past event loops
+		 *
+		 * @param string where clause
+		 * @return string modified where clause
+		 */
+		public function events_search_where( $where ) {
+			if ( get_query_var('post_type') != self::POSTTYPE ) { 
+				return $where;
+			}
+			$where .= ' AND ( eventStart.meta_key = "_EventStartDate" AND eventEnd.meta_key = "_EventEndDate" ) ';
+
+			if( sp_is_upcoming( ) ) {	
+				// Is the start date in the future?
+				$where .= ' AND ( eventStart.meta_value > "'.$this->date.'" ';
+				// Or is the start date in the past but the end date in the future? (meaning the event is currently ongoing)
+				$where .= ' OR ( eventStart.meta_value < "'.$this->date.'" AND eventEnd.meta_value > "'.$this->date.'" ) ) ';
+			}
+			if( sp_is_past( ) ) {
+				// Is the start date in the past?
+				$where .= ' AND  eventStart.meta_value < "'.$this->date.'" ';
+			}
+			return $where;
+		}
+
+		/**
+		 * orderby filter for standard wordpress templates.  Adds event ordering for queries that are
+		 * in the events category and filtered according to the search parameters
+		 *
+		 * @param string orderby
+		 * @return string modified orderby clause
+		 */
+		public function events_search_orderby( $orderby ) {
+			if ( get_query_var('post_type') != self::POSTTYPE ) { 
+				return $orderby;
+			}
+			$orderby = ' eventStart.meta_value '.$this->order;
+			return $orderby;
+		}
+		/**
+		 * limit filter for standard wordpress templates.  Adds limit clauses for pagination 
+		 * for queries in the events category
+		 *
+		 * @param string limits clause
+		 * @return string modified limits clause
+		 */
+		public function events_search_limits( $limits ) { 
+			if ( get_query_var('post_type') != self::POSTTYPE ) { 
+				return $limits;
+			}
+			global $current_screen;
+			$paged = (int) get_query_var('paged');
+			if (empty($paged)) {
+					$paged = 1;
+			}
+			if ( is_admin() ) {
+				$option = str_replace( '-', '_', "{$current_screen->id}_per_page" );
+				$per_page = get_user_option( $option );
+				$per_page = ( $per_page ) ? (int) $per_page : 20; // 20 is default in backend
+			}
+			else {
+				$per_page = intval( get_option('posts_per_page') );
+			}
+
+			$page_start = ( $paged - 1 ) * $per_page;
+			$limits = 'LIMIT ' . $page_start . ', ' . $per_page;
+			return $limits;
+		}
+		
 		/// OPTIONS DATA
         public function getOptions() {
             if ('' === $this->defaultOptions) {
@@ -720,16 +864,22 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				$this->iCalFeed($post_id);
 				die;
 			}
-			
-			// no feed or non-events need apply
-			if ( is_feed() || get_query_var( 'post_type' ) != self::POSTTYPE ) {
+
+			// no non-events need apply
+			if ( get_query_var( 'post_type' ) != self::POSTTYPE && ! is_tax( self::TAXONOMY ) ) {
 				return $template;
 			}
-			
+
 			//is_home fixer
 			global $wp_query;
 			$wp_query->is_home = false;
 			
+			if ( is_tax( self::TAXONOMY) ) {
+				if ( sp_is_upcoming() || sp_is_past() )
+					return $this->getTemplateHierarchy('list');
+				else
+					return $this->getTemplateHierarchy('gridview');
+			}
 			// single event
 			if ( is_single() ) {
 				return $this->getTemplateHierarchy('single');
@@ -971,6 +1121,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			
 			$base = trailingslashit( $this->rewriteSlug );
 			$baseSingle = trailingslashit( $this->rewriteSlugSingular );
+			$baseTax = trailingslashit( $this->taxRewriteSlug );
 			
 			$newRules[$base . 'ical'] = 'index.php?post_type=' . self::POSTTYPE . '&ical=1';
 			$newRules[$base . 'month'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month';
@@ -986,10 +1137,18 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			$newRules[$baseSingle . '([^/]+)/ical/?$' ] = 'index.php?post_type=' . self::POSTTYPE . '&name=' . $wp_rewrite->preg_index(1) . '&ical=1';
 			
 			// taxonomy rules.
-			$newRules[self::TAXREWRITE . '/([^/]+)/ical/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'eventDisplay=upcoming&sp_events_cat=' . $wp_rewrite->preg_index(1) . '&ical=1';
-			$newRules[self::TAXREWRITE . '/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=' . $wp_rewrite->preg_index(1) . '&feed=' . $wp_rewrite->preg_index(2);
-			$newRules[self::TAXREWRITE . '/([^/]+)/page/?([0-9]{1,})/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=' . $wp_rewrite->preg_index(1) . '&paged=' . $wp_rewrite->preg_index(2);
-			$newRules[self::TAXREWRITE . '/([^/]+)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'eventDisplay=upcoming&sp_events_cat=' . $wp_rewrite->preg_index(1);
+			$newRules[$baseTax . '([^/]+)/month'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month';
+			$newRules[$baseTax . '([^/]+)/upcoming/page/(\d+)'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(2);
+			$newRules[$baseTax . '([^/]+)/upcoming'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
+			$newRules[$baseTax . '([^/]+)/past/page/(\d+)'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(2);
+			$newRules[$baseTax . '([^/]+)/past'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past';
+			$newRules[$baseTax . '([^/]+)/(\d{4}-\d{2})$'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(2);
+			$newRules[$baseTax . '([^/]+)/feed/?$'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
+			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=' . sp_get_option('viewOption','month');
+			$newRules[$baseTax . '([^/]+)/ical/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'eventDisplay=upcoming&sp_events_cat=' . $wp_rewrite->preg_index(1) . '&ical=1';
+			$newRules[$baseTax . '([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=' . $wp_rewrite->preg_index(1) . '&feed=' . $wp_rewrite->preg_index(2);
+			$newRules[$baseTax . '([^/]+)/page/?([0-9]{1,})/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=' . $wp_rewrite->preg_index(1) . '&paged=' . $wp_rewrite->preg_index(2);
+			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'eventDisplay=upcoming&sp_events_cat=' . $wp_rewrite->preg_index(1);
 			
 
 		  $wp_rewrite->rules = array_merge($newRules, $wp_rewrite->rules);
@@ -1010,7 +1169,12 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				return $this->uglyLink($type, $secondary);
 			}
 
-			$eventUrl = home_url() . '/' . $this->rewriteSlug . '/' ;
+			$eventUrl = home_url() . '/' . $this->rewriteSlug . '/';
+			
+			// if we're on an Event Cat, show the cat link, except for home.
+			if ( $type !== 'home' && is_tax( self::TAXONOMY ) ) {
+				$eventUrl = get_term_link( get_query_var('term'), self::TAXONOMY );
+			}
 			
 			switch( $type ) {
 				
@@ -1563,24 +1727,33 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		/**
 		 * Call this function in a template to query the events
 		 *
-		 * @param int number of results to display for upcoming or past modes (default 10)
-		 * @param string deprecated: used when events were determined by category. category name to pull events from, defaults to the currently displayed category
+		 * @param int numResults number of results to display for upcoming or past modes (default 10)
+		 * @param string|int eventCat Event Category: use int for term ID, string for name.
+		 * @param string metaKey A meta key to query. Useful for sorting by country, venue, etc. metaValue must also be set to use.
+		 * @param string metaValue The value of the queried metaKey, which also must be set.
 		 * @return array results
 		 * @uses $wpdb
 		 * @uses $wp_query
 		 * @return array results
 		 */
 		
-		public function getEvents( $numResults = null, $catName = null ) {
-			if( !$numResults ) $numResults = get_option( 'posts_per_page', 10 );
+		public function getEvents( $args = '' ) {
+			$defaults = array(
+				'numResults' => get_option( 'posts_per_page', 10 ),
+				'eventCat' => null,
+				'metaKey' => null,
+				'metaValue' => null
+			);
+			$args = wp_parse_args( $args, $defaults);
+			extract( $args );
 			global $wpdb;
 			$this->setOptions();
 
 			$extraSelectClause ='';
-			$extraJoinEndDate ='';
+			$extraJoin ='';
 			if ( sp_is_month() ) {
 				$extraSelectClause	= ", d2.meta_value as EventEndDate ";
-				$extraJoinEndDate	 = " LEFT JOIN $wpdb->postmeta  as d2 ON($wpdb->posts.ID = d2.post_id) ";
+				$extraJoin	 = " LEFT JOIN $wpdb->postmeta  as d2 ON($wpdb->posts.ID = d2.post_id) ";
 				$whereClause = " AND d1.meta_key = '_EventStartDate' AND d2.meta_key = '_EventEndDate' ";
 				// does this event start in this month?
 				$whereClause .= " AND ((d1.meta_value >= '".$this->date."'  AND  d1.meta_value < '".$this->nextMonth( $this->date )."')  ";
@@ -1592,19 +1765,39 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			}
 			if ( sp_is_upcoming() ) {
 				$extraSelectClause	= ", d2.meta_value as EventEndDate ";
-				$extraJoinEndDate	 = " LEFT JOIN $wpdb->postmeta  as d2 ON($wpdb->posts.ID = d2.post_id) ";
+				$extraJoin	 = " LEFT JOIN $wpdb->postmeta  as d2 ON($wpdb->posts.ID = d2.post_id) ";
 				$whereClause = " AND d1.meta_key = '_EventStartDate' AND d2.meta_key = '_EventEndDate' ";
 				// Is the start date in the future?
 				$whereClause .= ' AND ( d1.meta_value > "'.$this->date.'" ';
 				// Or is the start date in the past but the end date in the future? (meaning the event is currently ongoing)
 				$whereClause .= ' OR ( d1.meta_value < "'.$this->date.'" AND d2.meta_value > "'.$this->date.'" ) ) ';
 			}
+
+			// we have an event cat. what is it?
+			if ( $eventCat ) {
+				if ( is_int($eventCat) )
+					$cat = get_term_by('id', $eventCat, self::TAXONOMY );
+				else if ( is_string($eventCat) )
+					$cat = get_term_by('name', $eventCat, self::TAXONOMY );
+			}
+
+			// we really have an event cat. query it.
+			if ( $cat && ! is_wp_error($cat) ) {
+				$extraJoin .= " LEFT JOIN {$wpdb->term_relationships} as r2 ON ($wpdb->posts.ID = r2.object_ID) ";
+				$extraJoin .= " LEFT JOIN {$wpdb->term_taxonomy} as t2 ON (r2.term_taxonomy_id = t2.term_taxonomy_id) ";
+				$extraJoin .= " LEFT JOIN {$wpdb->terms} as tax ON (t2.term_id = tax.term_id) ";
+				// don't need to bother WHERE'ing the taxonomy type, since we wouldn't be this far if it didn't fit anyway
+				$whereClause .= $wpdb->prepare(" AND t2.term_id = %s ", $cat->term_id );
+			}
+			
+			//
+			
 			$eventsQuery = "
 				SELECT $wpdb->posts.*, d1.meta_value as EventStartDate
 					$extraSelectClause
 				 	FROM $wpdb->posts 
 				LEFT JOIN $wpdb->postmeta as d1 ON($wpdb->posts.ID = d1.post_id)
-				$extraJoinEndDate
+				$extraJoin
 				WHERE $wpdb->posts.post_type = '" . self::POSTTYPE . "'
 				AND $wpdb->posts.post_status = 'publish'
 				$whereClause

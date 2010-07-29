@@ -4,8 +4,19 @@
  * Copy and paste this to events/table.php in your template to customize
  */
 
-global $spEvents; 
-$eventPosts = sp_get_events();
+global $spEvents;
+
+// in an events cat
+if ( is_tax( $spEvents->get_event_taxonomy() ) ) {
+	$cat = get_term_by( 'slug', get_query_var('term'), $spEvents->get_event_taxonomy() );
+	$eventCat = (int) $cat->term_id;
+	$eventPosts = sp_get_events( array( 'eventCat' => $eventCat ) );
+} // not in a cat
+else {
+	$eventPosts = sp_get_events();
+}
+
+
 $daysInMonth = date("t", $date);
 $startOfWeek = get_option( 'start_of_week', 0 );
 list( $year, $month ) = split( '-', $spEvents->date );
