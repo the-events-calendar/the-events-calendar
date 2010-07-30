@@ -8,7 +8,7 @@ Stable tag: 1.1.4
 
 == Description ==
 
-The Events Calendar Pro plugin enables you to rapidly create and manage events using the post editor.  Features include Google Maps integration as well as default templates such as a calendar grid and event list for streamlined one click installation.
+The Events Calendar Pro plugin enables you to rapidly create and manage events using the post editor.  Features include Google Maps integration as well as default templates such as a calendar grid and event list for streamlined one click installation. Requires WordPress 3.0 and PHP 5.2.
 
 = Events Calendar Pro =
 
@@ -161,9 +161,18 @@ Echos or returns, respectively, the event class specified in the admin panel.  I
 
 Called inside of the loop, returns true if the current post's meta_value (EventStartDate) is different than the previous post.   Will always return true for the first event in the loop.
 
-**sp_get_events( $count )**
+**sp_get_events()**
 
-Call this function in a template to query the events. $count is optional.
+Call this function in a template to query the events.
+
+Starting in 1.2, this function supports a number of function that may be passed in as an array.
+$events_options = array(
+	'numResults' => 10, // default is WP's posts_per_page setting.
+	'eventCat' => null, // an events category to get events from
+	'metaKey' => null, // you can query an additional piece of meta. Useful if, for example, you want all events in a certain country
+	'metaValue' => null // the value to query. both metaKey and metaValue are needed.
+);
+sp_get_events($events_options);
 
 **sp_is_past()**
 

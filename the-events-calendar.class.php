@@ -1784,7 +1784,12 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				$whereClause .= $wpdb->prepare(" AND t2.term_id = %s ", $cat->term_id );
 			}
 			
-			//
+			// query some meta values
+			if ( $metaKey && $metaValue ) {
+				$extraJoin .= " LEFT JOIN $wpdb->postmeta as p2 ON ($wpdb->posts.ID = p2.post_id) \n";
+				$whereClause .= $wpdb->prepare(" AND p2.meta_key = %s \n", $metaKey );
+				$whereClause .= $wpdb->prepare(" AND p2.meta_value = %s \n", $metaValue );
+			}
 			
 			$eventsQuery = "
 				SELECT $wpdb->posts.*, d1.meta_value as EventStartDate
@@ -1798,6 +1803,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				ORDER BY d1.meta_value ".$this->order."
 				LIMIT $numResults";
 			$results = $wpdb->get_results($eventsQuery, OBJECT);
+			//$this->log($wpdb);
 			return $results;
 		}
 		
