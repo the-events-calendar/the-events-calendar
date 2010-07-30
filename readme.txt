@@ -34,7 +34,6 @@ The Events Calendar Pro plugin enables you to rapidly create and manage events u
 
 = Upcoming Features =
 
-* Calendar view widget
 * Recurring events
 * Sync with facebook events
 * Saved venues
@@ -180,6 +179,16 @@ Returns an EventBrite.com embedded ticket sales inline (not WordPress) widget
 
 
 == Changelog ==
+
+= 1.2 =
+
+Features
+
+# Full events category support! You can now browse by category in both list and calendar views. (If you have a custom template, inspect the differences in ours, because yours won't work with categories out of the box)
+
+Bugfixes
+
+# Restored proper date ordering in admin area
 
 = 1.1.4 =
 
