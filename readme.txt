@@ -198,6 +198,8 @@ Features
 Bugfixes
 
 # Restored proper date ordering in admin area
+# Translations (where available) should be displaying consistently
+# US states now display properly
 
 = 1.1.4 =
 

@@ -19,7 +19,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			'public' => true,
 			'rewrite' => array('slug' => 'event'),
 			'menu_position' => 6,
-			'supports' => array('title','editor')
+			'supports' => array('title','editor','excerpt')
 		);
 		private $taxonomyLabels;
 
