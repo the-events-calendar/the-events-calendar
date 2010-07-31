@@ -194,6 +194,7 @@ Returns an EventBrite.com embedded ticket sales inline (not WordPress) widget
 Features
 
 # Full events category support! You can now browse by category in both list and calendar views. (If you have a custom template, inspect the differences in ours, because yours won't work with categories out of the box)
+# Customizable /events/ URL slug. In case you want something like http://yoursite.com/concerts
 
 Bugfixes
 
