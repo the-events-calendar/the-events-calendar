@@ -571,7 +571,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function sp_get_region() {
-		if (get_post_meta($postId, '_EventCountry', true ) == 'United States') {
+		global $spEvents;
+		if ( sp_get_country() == __('United States', $spEvents->pluginDomain ) ) {
 			return sp_get_state();
 		} else {
 			return sp_get_province(); 
