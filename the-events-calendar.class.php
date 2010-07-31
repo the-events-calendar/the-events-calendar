@@ -343,7 +343,8 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			$this->pluginUrl 		= WP_PLUGIN_URL.'/'.$this->pluginDir;
 			$this->loadTextDomain();
 			$this->pluginName		= __( 'Events Calendar Pro', $this->pluginDomain );
-			$this->rewriteSlug		= __( 'events', $this->pluginDomain );
+			$this->rewriteSlug		= $this->getOption('eventsSlug', 'events');
+			$this->log($this->rewriteSlug);
 			$this->rewriteSlugSingular = __( 'event', $this->pluginDomain );
 			$this->taxRewriteSlug = $this->rewriteSlug . '/' . __( 'category' );
 			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlugSingular;
@@ -603,20 +604,26 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 					$defaultCountryKey = array_search( $_POST['defaultCountry'], $this->countries );
 					$options['defaultCountry'] = array( $defaultCountryKey, $_POST['defaultCountry'] );
 				}
-				
-				$options['embedGoogleMaps'] = $_POST['embedGoogleMaps'];
+
 				if( $_POST['embedGoogleMapsHeight'] ) {
 					$options['embedGoogleMapsHeight'] = $_POST['embedGoogleMapsHeight'];
 					$options['embedGoogleMapsWidth'] = $_POST['embedGoogleMapsWidth'];
 				}
 				
-				$options['showComments'] = $_POST['showComments'];
-				$options['displayEventsOnHomepage'] = $_POST['displayEventsOnHomepage'];
-				$options['resetEventPostDate'] = $_POST['resetEventPostDate'];
-				$options['useRewriteRules'] = $_POST['useRewriteRules'];
-				$options['spEventsDebug'] = $_POST['spEventsDebug'];
+				$opts = array('embedGoogleMaps', 'showComments', 'displayEventsOnHomepage', 'resetEventPostDate', 'useRewriteRules', 'spEventsDebug', 'eventsSlug' );
+				foreach ($opts as $opt) {
+					$options[$opt] = $_POST[$opt];
+				}
 				
-				if ( $options['useRewriteRules'] == 'on' ) {
+				// events slug happiness
+				$slug = $options['eventsSlug'];
+				$slug = sanitize_title_with_dashes($slug);
+				$slug = str_replace('/',' ',$slug);
+				$options['eventsSlug'] = $slug;
+				$this->rewriteSlug = $slug;
+				
+				
+				if ( $options['useRewriteRules'] == 'on' || isset( $options['eventsSlug']) ) {
 					$this->flushRewriteRules();
 				}
 				

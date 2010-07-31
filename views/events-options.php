@@ -118,29 +118,7 @@ try {
 			<?php 
 			$embedGoogleMapsValue = sp_get_option('embedGoogleMaps','off');                 
 	        ?>
-<?php /* 
-		<tr>
-			<th scope="row"><?php _e('Display Events on Homepage',$this->pluginDomain); ?></th>
-	        <td>
-	            <fieldset>
-	                <legend class="screen-reader-text">
-	                    <span><?php _e('Display Events on Homepage',$this->pluginDomain); ?></span>
-	                </legend>
-	                <label title='Yes'>
-	                    <?php 
-	                    $displayEventsOnHomepage = sp_get_option('displayEventsOnHomepage','on'); 
-	                    ?>
-	                    <input type="radio" name="displayEventsOnHomepage" value="off" <?php checked($displayEventsOnHomepage, 'off'); ?>  /> 
-	                    <?php _e('Off',$this->pluginDomain); ?>
-	                </label> 
-	                <label title='List View'>
-                    <input type="radio" name="displayEventsOnHomepage" value="on" <?php checked($displayEventsOnHomepage, 'on'); ?>  /> 
-	                    <?php _e('On',$this->pluginDomain); ?>
-	                </label>
-	            </fieldset>
-	        </td>
-		</tr>
-*/ ?>
+
 		<tr>
 			<th scope="row"><?php _e('Embed Google Maps',$this->pluginDomain); ?></th>
 	        <td>
@@ -174,33 +152,7 @@ try {
 	            </fieldset>
 	        </td>
 		</tr>
-<?php /*
-			<tr>
-				<th scope="row"><?php _e('Feature on Event Date',$this->pluginDomain); ?></th>
-		        <td>
-		            <fieldset>
-		                <legend class="screen-reader-text">
-		                    <span><?php _e('Feature on Event Date',$this->pluginDomain); ?></span>
-		                </legend>
-		                <label title='Yes'>
-		                    <?php 
-		                    $resetEventPostDate = sp_get_option('resetEventPostDate','off'); 
-		                    ?>
-		                    <input type="radio" name="resetEventPostDate" value="off" <?php checked($resetEventPostDate, 'off'); ?>  /> 
-		                    <?php _e('Off',$this->pluginDomain); ?>
-		                </label> 
-		                <label title='List View'>
-	                    <input type="radio" name="resetEventPostDate" value="on" <?php checked($resetEventPostDate, 'on'); ?>  /> 
-		                    <?php _e('On',$this->pluginDomain); ?>
-		                </label>
-						<div>
-							<?php _e('This option will bump an event to the top of the homepage loop on the day of the event.',$this->pluginDomain); ?> 
-						</div>
-		<br />
-		            </fieldset>
-		        </td>
-			</tr>
-*/ ?>
+
 			<?php if( '' != get_option('permalink_structure') ) : ?>
 			<tr>
 				<th scope="row"><?php _e('Use Pretty URLs',$this->pluginDomain); ?></th>
@@ -228,10 +180,17 @@ try {
 			</tr>
 			<?php endif; // permalink structure ?>
 			<tr>
+				<th scope="row"><?php _e('Events URL slug', $this->pluginDomain); ?></th>
+				<td><fieldset>
+					<legend class="screen-reader-text"><?php _e('Events URL slug', $this->pluginDomain ); ?></legend>
+					<label><input type="text" name="eventsSlug" value="<?php echo sp_get_option('eventsSlug', 'events') ?>" /> <?php printf( __('The slug used for building the events URL.<br /> Your current URL is <strong>%s</strong>', $this->pluginDomain ), sp_get_events_link() )  ?></label>
+				</fieldset></td>
+			</tr>
+			<tr>
 				<th scope="row"><?php _e('Debug', $this->pluginDomain ); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Debug', $this->pluginDomain ); ?></legend>
-					<label><input type="checkbox" name="spEventsDebug" <?php checked(sp_get_option('spEventsDebug'), 'on' ) ?> /> <?php _e('Debug Events display issues.') ?></label>
+					<label><input type="checkbox" name="spEventsDebug" <?php checked(sp_get_option('spEventsDebug'), 'on' ) ?> /> <?php _e('Debug Events display issues.', $this->pluginDomain ) ?></label>
 					<div><?php _e('If you’re experiencing issues with posts not showing up in the admin, enable this option and then ensure that all of your posts have the correct start and end dates.', $this->pluginDomain) ?></div>
 				</fieldset></td>
 			</tr>
