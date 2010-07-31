@@ -55,6 +55,6 @@ if( !class_exists( 'Events_Calendar_Widget') ) {
 			global $pluginDomain;
 			register_widget( 'Events_Calendar_Widget' );
 			// load text domain after class registration
-			load_plugin_textdomain( $pluginDomain, false, basename(dirname(__FILE__)) . '/lang/');
+			load_plugin_textdomain( 'the-events-calendar', false, basename(dirname(__FILE__)) . '/lang/');
 		}
 }

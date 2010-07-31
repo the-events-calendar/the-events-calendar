@@ -338,6 +338,9 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		 * @return void
 		 */
 		function __construct( ) {
+			$this->pluginDir		= trailingslashit( basename( dirname(__FILE__) ) );
+			$this->pluginPath		= trailingslashit( dirname(__FILE__) );
+			$this->pluginUrl 		= WP_PLUGIN_URL.'/'.$this->pluginDir;
 			$this->loadTextDomain();
 			$this->pluginName		= __( 'Events Calendar Pro', $this->pluginDomain );
 			$this->rewriteSlug		= __( 'events', $this->pluginDomain );
@@ -345,9 +348,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			$this->taxRewriteSlug = $this->rewriteSlug . '/' . __( 'category' );
 			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlugSingular;
 			$this->currentDay		= '';
-			$this->pluginDir		= trailingslashit( basename( dirname(__FILE__) ) );
-			$this->pluginPath		= trailingslashit( dirname(__FILE__) );
-			$this->pluginUrl 		= WP_PLUGIN_URL.'/'.$this->pluginDir;
 			$this->errors			= '';
 			register_deactivation_hook( __FILE__, 	array( &$this, 'on_deactivate' ) );
 			$this->addFilters();
@@ -1803,7 +1803,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				ORDER BY d1.meta_value ".$this->order."
 				LIMIT $numResults";
 			$results = $wpdb->get_results($eventsQuery, OBJECT);
-			//$this->log($wpdb);
 			return $results;
 		}
 		
