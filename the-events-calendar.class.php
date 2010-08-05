@@ -1182,11 +1182,11 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 				return $this->uglyLink($type, $secondary);
 			}
 
-			$eventUrl = home_url() . '/' . $this->rewriteSlug . '/';
+			$eventUrl = trailingslashit( home_url() . '/' . $this->rewriteSlug );
 			
 			// if we're on an Event Cat, show the cat link, except for home.
 			if ( $type !== 'home' && is_tax( self::TAXONOMY ) ) {
-				$eventUrl = get_term_link( get_query_var('term'), self::TAXONOMY );
+				$eventUrl = trailingslashit( get_term_link( get_query_var('term'), self::TAXONOMY ) );
 			}
 			
 			switch( $type ) {
@@ -1197,18 +1197,17 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 					if ( $secondary ) {
 						return $eventUrl . $secondary;
 					}
-					return $eventUrl . 'month';
+					return $eventUrl . 'month/';
 				case 'upcoming':
-					return $eventUrl . 'upcoming';
+					return $eventUrl . 'upcoming/';
 				case 'past':
-					return $eventUrl . 'past';
+					return $eventUrl . 'past/';
 				case 'dropdown':
 					return $eventUrl;
 				case 'ical':
-					if ( $secondary == 'single' ) {
+					if ( $secondary == 'single/' )
 						$eventUrl = trailingslashit(get_permalink());
-					}
-					return $eventUrl . 'ical';
+					return $eventUrl . 'ical/';
 				default:
 					return $eventUrl;
 			}
@@ -1218,6 +1217,11 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		private function uglyLink( $type = 'home', $secondary = false ) {
 			
 			$eventUrl = add_query_arg('post_type', self::POSTTYPE, home_url() );
+			
+			// if we're on an Event Cat, show the cat link, except for home.
+			if ( $type !== 'home' && is_tax( self::TAXONOMY ) ) {
+				$eventUrl = add_query_arg( self::TAXONOMY, get_query_var('term'), $eventUrl );
+			}
 			
 			switch( $type ) {
 				
