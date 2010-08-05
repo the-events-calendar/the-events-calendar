@@ -35,7 +35,7 @@ try {
 ?>
 <div class="form">
 	<h3><?php _e('Need a hand?',$this->pluginDomain); ?></h3>
-	<p><?php printf( __( 'If you’re stuck on these options, please <a href="%s">check out the documentation</a>. Or, go to the <a href="%s">support forum</a>.', $this->pluginDomain ), $this->pluginUrl . '/readme.txt', $this->supportUrl ); ?></p>
+	<p><?php printf( __( 'If you’re stuck on these options, please <a href="%s">check out the documentation</a>. Or, go to the <a href="%s">support forum</a>.', $this->pluginDomain ), trailingslashit($this->pluginUrl) . 'readme.txt', $this->supportUrl ); ?></p>
 	<p><?php _e('Here is the iCal feed URL for your events: ' ,$this->pluginDomain); ?><code><?php echo sp_get_ical_link(); ?></code></p>
 
 	<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
@@ -178,14 +178,23 @@ try {
 		            </fieldset>
 		        </td>
 			</tr>
-			<?php endif; // permalink structure ?>
 			<tr>
 				<th scope="row"><?php _e('Events URL slug', $this->pluginDomain); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Events URL slug', $this->pluginDomain ); ?></legend>
-					<label><input type="text" name="eventsSlug" value="<?php echo sp_get_option('eventsSlug', 'events') ?>" /> <?php printf( __('The slug used for building the events URL.<br /> Your current URL is <strong>%s</strong>', $this->pluginDomain ), sp_get_events_link() )  ?></label>
+					<label><input type="text" name="eventsSlug" value="<?php echo sp_get_option('eventsSlug', 'events') ?>" /> <?php _e('The slug used for building the Events URL.', $this->pluginDomain ) ?></label><br /><?php printf( __('Your current Events URL is <strong>%s</strong>', $this->pluginDomain ), sp_get_events_link() )  ?>
 				</fieldset></td>
 			</tr>
+			<tr>
+				<th scope="row"><?php _e('Single Event URL slug', $this->pluginDomain); ?></th>
+				<td><fieldset>
+					<legend class="screen-reader-text"><?php _e('Single Event URL slugslug', $this->pluginDomain ); ?></legend>
+					<label><input type="text" name="singleEventSlug" value="<?php echo sp_get_option('singleEventSlug', 'event') ?>" /> <?php _e('The slug used for building a single Event URL.', $this->pluginDomain );  ?></label><br />
+					<?php printf( __('<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The above should ideally be plural, and this singular.
+<br /> Your single Event URL is like: <strong>%s</strong>', $this->pluginDomain ), trailingslashit( home_url() ) . sp_get_option('singleEventSlug', 'event') . '/single-post-name/' ); ?>
+				</fieldset></td>
+			</tr>
+			<?php endif; // permalink structure ?>
 			<tr>
 				<th scope="row"><?php _e('Debug', $this->pluginDomain ); ?></th>
 				<td><fieldset>

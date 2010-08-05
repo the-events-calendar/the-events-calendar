@@ -345,7 +345,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			$this->pluginName		= __( 'Events Calendar Pro', $this->pluginDomain );
 			$this->rewriteSlug		= $this->getOption('eventsSlug', 'events');
 			$this->log($this->rewriteSlug);
-			$this->rewriteSlugSingular = __( 'event', $this->pluginDomain );
+			$this->rewriteSlugSingular = $this->getOption('singleEventSlug', 'event');
 			$this->taxRewriteSlug = $this->rewriteSlug . '/' . __( 'category' );
 			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlugSingular;
 			$this->currentDay		= '';
@@ -583,11 +583,13 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		}
 		
 		public function addOptionsPage() {
-    		add_options_page($this->pluginName, $this->pluginName, 'administrator', $this->pluginDomain, array($this,'optionsPageView'));		
+    		add_options_page($this->pluginName, $this->pluginName, 'administrator', $this->pluginDomain, array($this,'optionsPageView'));
 		}
 		
 		public function optionsPageView() {
 			include( $this->pluginPath . 'views/events-options.php' );
+			// every visit to ECP Settings = flush rules.
+			$this->flushRewriteRules();
 		}
 		
 		public function checkForOptionsChanges() {
@@ -610,7 +612,17 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 					$options['embedGoogleMapsWidth'] = $_POST['embedGoogleMapsWidth'];
 				}
 				
-				$opts = array('embedGoogleMaps', 'showComments', 'displayEventsOnHomepage', 'resetEventPostDate', 'useRewriteRules', 'spEventsDebug', 'eventsSlug' );
+				// single event cannot be same as plural. Or empty.
+				if ( $_POST['singleEventSlug'] === $_POST['eventsSlug'] || empty($_POST['singleEventSlug']) ) {
+					$_POST['singleEventSlug'] = 'event';
+				}
+				
+				// Events slug can't be empty
+				if ( empty( $_POST['eventsSlug'] ) ) {
+					$_POST['eventsSlug'] = 'events';
+				}
+				
+				$opts = array('embedGoogleMaps', 'showComments', 'displayEventsOnHomepage', 'resetEventPostDate', 'useRewriteRules', 'spEventsDebug', 'eventsSlug', 'singleEventSlug' );
 				foreach ($opts as $opt) {
 					$options[$opt] = $_POST[$opt];
 				}
