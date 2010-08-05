@@ -80,19 +80,17 @@ $monthView = sp_sort_by_month( $eventPosts, $spEvents->date );
 
 function sp_mini_display_day( $day, $monthView ) {
 	$return = "<div class='daynum tec-event' id='daynum_$day'>";
-	/*if( !count( $monthView[$day] ) || count( $monthView[$day] ) < get_option( 'posts_per_page' ) ) {
-		$return .= $day;
-	} else {*/
-		$return .= ( count($monthView[$day]) ) ? "<a class='tec-mini-has-event'>$day</a>" : $day;
-		$return .= "<div id='tooltip_day_$day' class='tec-tooltip' style='display:none;'>";
-		for( $i = 0; $i < count( $monthView[$day] ); $i++ ) {
-			$post = $monthView[$day][$i];
-			setup_postdata( $post );
-			$return .= '<h5 class="tec-event-title-mini"><a href="'. get_permalink($post->ID) .'">' . $post->post_title . '</a></h5>';
-		}
-		$return .= '<span class="tec-arrow"></span>';
-		$return .= '</div>';
-	//}
+
+	$return .= ( count($monthView[$day]) ) ? "<a class='tec-mini-has-event'>$day</a>" : $day;
+	$return .= "<div id='tooltip_day_$day' class='tec-tooltip' style='display:none;'>";
+	for( $i = 0; $i < count( $monthView[$day] ); $i++ ) {
+		$post = $monthView[$day][$i];
+		setup_postdata( $post );
+		$return .= '<h5 class="tec-event-title-mini"><a href="'. get_permalink($post->ID) .'">' . $post->post_title . '</a></h5>';
+	}
+	$return .= '<span class="tec-arrow"></span>';
+	$return .= '</div>';
+
 	$return .= "</div>";
 	return $return;
 }
