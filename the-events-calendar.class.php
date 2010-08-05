@@ -365,6 +365,9 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			if ( ! $this->getOption('spEventsDebug', false) ) {
 				$this->addQueryFilters();
 			}
+			else {
+				$this->addDebugColumns();
+			}
 		}
 		
 		private function addQueryFilters() {
@@ -374,6 +377,11 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			add_filter( 'posts_fields',		array( $this, 'events_search_fields' ) );
 			add_filter( 'post_limits',		array( $this, 'events_search_limits' ) );
 			add_filter( 'manage_posts_columns', array($this, 'column_headers'));
+		}
+		
+		private function addDebugColumns() {
+			add_filter( 'manage_posts_columns', array($this, 'debug_column_headers'));
+			add_action( 'manage_posts_custom_column', array($this, 'debug_custom_columns'), 10, 2);
 		}
 		
 		private function addActions() {
@@ -429,6 +437,25 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			}
 			if ( $column_id == 'end-date' ) {
 				echo sp_get_end_date($post_id, false);
+			}
+			
+		}
+		
+		public function debug_column_headers( $columns ) {
+			global $post;
+
+			if ( $post->post_type == self::POSTTYPE ) {
+				$columns['sp-debug'] = __( 'Debug', $this->pluginDomain );
+			}
+			
+			return $columns;
+		}
+		
+		public function debug_custom_columns( $column_id, $post_id ) {
+			if ( $column_id == 'sp-debug' ) {
+				echo 'EventStartDate: ' . get_post_meta($post_id, '_EventStartDate', true );
+				echo '<br />';
+				echo 'EventEndDate: ' . get_post_meta($post_id, '_EventEndDate', true );
 			}
 			
 		}
