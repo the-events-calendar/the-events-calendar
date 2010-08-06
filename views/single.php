@@ -53,6 +53,7 @@
 					<?php if (function_exists('sp_get_ticket_form')) { sp_get_ticket_form(); } ?>		
 				</div>
 				<a class="ical single" href="<?php echo sp_get_single_ical_link(); ?>"><?php _e('iCal Import', $spEvents->pluginDomain); ?></a>
+				<a href="<?php echo sp_get_add_to_gcal_link() ?>" class="gcal-add" title="<?php _e('Add to Google Calendar', $spEvents->pluginDomain); ?>"><?php _e('+ Google Calendar', $spEvents->pluginDomain); ?></a>
 				<?php edit_post_link('Edit', '<span class="edit-link">', '</span>'); ?>
 			</div><!-- post -->
 

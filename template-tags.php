@@ -585,7 +585,7 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_all_day( $postId = null ) {
 		$postId = sp_post_id_helper( $postId );
-		return get_post_meta( $postId, '_EventAllDay', true );
+		return !! get_post_meta( $postId, '_EventAllDay', true );
 	}
 	
 	/**
@@ -601,12 +601,38 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 		}
 		echo $title;
 	}
-	
+
 	function sp_meta_event_cats() {
 		global $spEvents;
 		the_terms( get_the_ID(), $spEvents->get_event_taxonomy(), '<dt>'.__('Category:').'</dt><dd>', ', ', '</dd>' );
 	}
 	
+	/**
+	 * Returns an add to Google Calendar link. Must be used in the loop
+	 * @author Julien Cornic [www.juxy.fr]
+	 * @author Matt Wiebe
+	*/
+	function sp_get_add_to_gcal_link() {
+		$post_id = get_the_ID();
+		$start_date = strtotime(get_post_meta( $post_id, '_EventStartDate', true ));
+		$end_date = strtotime(get_post_meta( $post_id, '_EventEndDate', true ));
+		$dates = ( sp_get_all_day() ) ? date('Ymd', $start_date) . '/' . date('Ymd', $end_date) : date('Ymd', $start_date) . 'T' . date('Hi00', $start_date) . '/' . date('Ymd', $end_date) . 'T' . date('Hi00', $end_date);
+		$location = trim( sp_get_venue() . ' ' . sp_get_phone() );
+		
+		$base_url = 'http://www.google.com/calendar/event';
+		$params = array(
+			'action' => 'TEMPLATE',
+			'text' => get_the_title(),
+			'dates' => $dates,
+			'details' => strip_tags( get_the_content() ),
+			'location' => $location,
+			'sprop' => get_option('blogname'),
+			'trp' => 'false',
+			'sprop' => 'website:' . home_url()
+		);
+		$url = add_query_arg( $params, $base_url );
+		return $url;
+	}
 	
 	include_once 'deprecated-template-tags.php';
 	
