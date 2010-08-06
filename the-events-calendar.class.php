@@ -899,9 +899,16 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			// hijack to iCal template
 			if ( get_query_var('ical') || isset($_GET['ical']) ) {
 				global $wp_query;
-				$post_id = ( is_single() ) ? $wp_query->post->ID : null;
-				$eventCat = ( true ) ? '' :'';
-				$this->iCalFeed($post_id);
+				if ( is_single() ) {
+					$post_id = $wp_query->post->ID;
+					$this->iCalFeed($post_id);
+				}
+				else if ( is_tax( self::TAXONOMY) ) {
+					$this->iCalFeed( null, get_query_var( self::TAXONOMY ) );
+				}
+				else {
+					$this->iCalFeed();
+				}
 				die;
 			}
 

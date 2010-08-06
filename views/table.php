@@ -92,7 +92,7 @@ $monthView = sp_sort_by_month( $eventPosts, $spEvents->date );
 function display_day_title( $day, $monthView ) {
 	$return = "<div class='daynum tec-event' id='daynum_$day'>";
 
-	$return .= "<a class='tec-multi-event-day'>$day</a>";
+	$return .= $day;
 	$return .= "<div id='tooltip_day_$day' class='tec-tooltip' style='display:none;'>";
 	for( $i = 0; $i < count( $monthView[$day] ); $i++ ) {
 		$post = $monthView[$day][$i];
