@@ -190,8 +190,7 @@ try {
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Single Event URL slugslug', $this->pluginDomain ); ?></legend>
 					<label><input type="text" name="singleEventSlug" value="<?php echo sp_get_option('singleEventSlug', 'event') ?>" /> <?php _e('The slug used for building a single Event URL.', $this->pluginDomain );  ?></label><br />
-					<?php printf( __('<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The above should ideally be plural, and this singular.
-<br /> Your single Event URL is like: <strong>%s</strong>', $this->pluginDomain ), trailingslashit( home_url() ) . sp_get_option('singleEventSlug', 'event') . '/single-post-name/' ); ?>
+					<?php printf( __('<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: <strong>%s</strong>', $this->pluginDomain ), trailingslashit( home_url() ) . sp_get_option('singleEventSlug', 'event') . '/single-post-name/' ); ?>
 				</fieldset></td>
 			</tr>
 			<?php endif; // permalink structure ?>

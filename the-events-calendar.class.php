@@ -32,6 +32,9 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		private $rewriteSlug;
 		private $rewriteSlugSingular;
 		private $taxRewriteSlug;
+		private $monthSlug;
+		private $upcomingSlug;
+		private $pastSlug;
 		private $defaultOptions = '';
 		public $latestOptions;
 		private $postExceptionThrown = false;
@@ -341,15 +344,20 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			$this->pluginDir		= trailingslashit( basename( dirname(__FILE__) ) );
 			$this->pluginPath		= trailingslashit( dirname(__FILE__) );
 			$this->pluginUrl 		= WP_PLUGIN_URL.'/'.$this->pluginDir;
+
 			$this->loadTextDomain();
-			$this->pluginName		= __( 'Events Calendar Pro', $this->pluginDomain );
-			$this->rewriteSlug		= $this->getOption('eventsSlug', 'events');
-			$this->log($this->rewriteSlug);
+
+			$this->pluginName = __( 'Events Calendar Pro', $this->pluginDomain );
+			$this->rewriteSlug = $this->getOption('eventsSlug', 'events');
 			$this->rewriteSlugSingular = $this->getOption('singleEventSlug', 'event');
-			$this->taxRewriteSlug = $this->rewriteSlug . '/' . __( 'category' );
+			$this->taxRewriteSlug = $this->rewriteSlug . '/' . __( 'category', $this->pluginDomain );
+			$this->monthSlug = __('month', $this->pluginDomain);
+			$this->upcomingSlug = __('upcoming', $this->pluginDomain);
+			$this->pastSlug = __('past', $this->pluginDomain);
+	
 			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlugSingular;
-			$this->currentDay		= '';
-			$this->errors			= '';
+			$this->currentDay = '';
+			$this->errors = '';
 			register_deactivation_hook( __FILE__, 	array( &$this, 'on_deactivate' ) );
 			$this->addFilters();
 			$this->addActions();
@@ -1169,12 +1177,16 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			$baseSingle = trailingslashit( $this->rewriteSlugSingular );
 			$baseTax = trailingslashit( $this->taxRewriteSlug );
 			
+			$month = $this->monthSlug;
+			$upcoming = $this->upcomingSlug;
+			$past = $this->pastSlug;
+			
 			$newRules[$base . 'ical'] = 'index.php?post_type=' . self::POSTTYPE . '&ical=1';
-			$newRules[$base . 'month'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month';
-			$newRules[$base . 'upcoming/page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(1);
-			$newRules[$base . 'upcoming'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
-			$newRules[$base . 'past/page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(1);
-			$newRules[$base . 'past'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past';
+			$newRules[$base . $month] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month';
+			$newRules[$base . $upcoming . '/page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(1);
+			$newRules[$base . $upcoming] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
+			$newRules[$base . $past . '/page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(1);
+			$newRules[$base . $past] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past';
 			$newRules[$base . '(\d{4}-\d{2})$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . 'feed/?$'] = 'index.php?eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
 			$newRules[$base . '?$']						= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=' . sp_get_option('viewOption','month');
@@ -1183,11 +1195,11 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			$newRules[$baseSingle . '([^/]+)/ical/?$' ] = 'index.php?post_type=' . self::POSTTYPE . '&name=' . $wp_rewrite->preg_index(1) . '&ical=1';
 			
 			// taxonomy rules.
-			$newRules[$baseTax . '([^/]+)/month'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month';
-			$newRules[$baseTax . '([^/]+)/upcoming/page/(\d+)'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(2);
-			$newRules[$baseTax . '([^/]+)/upcoming'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
-			$newRules[$baseTax . '([^/]+)/past/page/(\d+)'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(2);
-			$newRules[$baseTax . '([^/]+)/past'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past';
+			$newRules[$baseTax . '([^/]+)/' . $month] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month';
+			$newRules[$baseTax . '([^/]+)/' . $upcoming . '/page/(\d+)'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(2);
+			$newRules[$baseTax . '([^/]+)/' . $upcoming] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
+			$newRules[$baseTax . '([^/]+)/' . $past . '/page/(\d+)'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(2);
+			$newRules[$baseTax . '([^/]+)/' . $past] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past';
 			$newRules[$baseTax . '([^/]+)/(\d{4}-\d{2})$'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(2);
 			$newRules[$baseTax . '([^/]+)/feed/?$'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
 			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=' . sp_get_option('viewOption','month');
