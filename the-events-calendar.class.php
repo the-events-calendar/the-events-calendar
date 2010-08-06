@@ -555,7 +555,6 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			
 			global $current_screen;			
 			if ( $current_screen->post_type == self::POSTTYPE || $current_screen->id == 'settings_page_the-events-calendar.class' ) {
-				wp_deregister_script( 'autosave' );
 				wp_enqueue_script( 'jquery-ui-datepicker', $this->pluginUrl . 'resources/ui.datepicker.min.js', array('jquery-ui-core'), '1.7.3', true );
 				wp_enqueue_script( self::POSTTYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js', array('jquery-ui-datepicker'), '', true );
 				// calling our own localization because wp_localize_scripts doesn't support arrays or objects for values, which we need.
@@ -1355,12 +1354,11 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			if ( $post->post_type != self::POSTTYPE ) {
 				return;
 			}
-			// don't do anything on autosave or revision either
+			// don't do anything on autosave or auto-draft either
 			if ( wp_is_post_autosave( $postId ) || $post->post_status == 'auto-draft' ) {
 				return;
 			}
 			
-			// add a function below to remove all existing categories - wp_set_post_categories(int ,  array )
 			if( $_POST['EventAllDay'] == 'yes' ) {
 				$_POST['EventStartDate'] = $this->dateToTimeStamp( $_POST['EventStartDate'], "12", "00", "AM" );
 				$_POST['EventEndDate'] = $this->dateToTimeStamp( $_POST['EventEndDate'], "11", "59", "PM" );
