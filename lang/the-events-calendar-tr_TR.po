@@ -1,0 +1,1749 @@
+# Translation of the WordPress plugin The Events Calendar 1.6.3 by Shane & Peter, Inc..
+# Copyright (C) 2010 Shane & Peter, Inc.
+# This file is distributed under the same license as the The Events Calendar package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: The Events Calendar 1.6.3\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/the-events-calendar\n"
+"POT-Creation-Date: 2010-06-18 15:34+0000\n"
+"PO-Revision-Date: 2010-07-25 04:35+0200\n"
+"Last-Translator: Hasan M. BULUT <hmb@heartcoder.net>\n"
+"Language-Team: heArt coder <hmb@heartcoder.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Turkish\n"
+"X-Poedit-Country: TURKEY\n"
+
+#: events-calendar-widget.class.php:12
+msgid "A calendar of your events"
+msgstr "Etkinlikleriniz için bir takvim"
+
+#: events-calendar-widget.class.php:13
+msgid "Events Calendar"
+msgstr "Etkinlik Takvimi"
+
+#: events-calendar-widget.class.php:39
+#: views/events-list-load-widget-admin.php:27
+msgid "Title:"
+msgstr "Başlık:"
+
+#: events-list-widget.class.php:15
+msgid "A widget that displays the next upcoming x events."
+msgstr "Gelecek etkinlikleri gösteren bir bileşen"
+
+#: events-list-widget.class.php:80
+msgid "View All Events"
+msgstr "Tüm Etkinlikleri Göster"
+
+#: events-list-widget.class.php:81
+msgid "There are no upcoming events at this time."
+msgstr "Şuanda hiç gelecek etkinlik bulunmamakta."
+
+#: the-events-calendar.class.php:49
+msgid "Sun"
+msgstr "Pa"
+
+#: the-events-calendar.class.php:49
+msgid "Mon"
+msgstr "Pt"
+
+#: the-events-calendar.class.php:49
+msgid "Tue"
+msgstr "Sa"
+
+#: the-events-calendar.class.php:49
+msgid "Wed"
+msgstr "Ça"
+
+#: the-events-calendar.class.php:49
+msgid "Thu"
+msgstr "Pe"
+
+#: the-events-calendar.class.php:49
+msgid "Fri"
+msgstr "Cu"
+
+#: the-events-calendar.class.php:49
+msgid "Sat"
+msgstr "Ct"
+
+#: the-events-calendar.class.php:50
+msgid "Sunday"
+msgstr "Pazar"
+
+#: the-events-calendar.class.php:50
+msgid "Monday"
+msgstr "Pazartesi"
+
+#: the-events-calendar.class.php:50
+msgid "Tuesday"
+msgstr "Salı"
+
+#: the-events-calendar.class.php:50
+msgid "Wednesday"
+msgstr "Çarşamba"
+
+#: the-events-calendar.class.php:50
+msgid "Thursday"
+msgstr "Perşembe"
+
+#: the-events-calendar.class.php:50
+msgid "Friday"
+msgstr "Cuma"
+
+#: the-events-calendar.class.php:50
+msgid "Saturday"
+msgstr "Cumartesi"
+
+#: the-events-calendar.class.php:56
+msgid "Select a Country:"
+msgstr "Ülke Seçiniz:"
+
+#: the-events-calendar.class.php:57
+msgid "United States"
+msgstr "Amerika"
+
+#: the-events-calendar.class.php:58
+msgid "Afghanistan"
+msgstr "Afganistan"
+
+#: the-events-calendar.class.php:59
+msgid "Albania"
+msgstr "Arnavutluk"
+
+#: the-events-calendar.class.php:60
+msgid "Algeria"
+msgstr "Cezayir"
+
+#: the-events-calendar.class.php:61
+msgid "American Samoa"
+msgstr "Amerikan Samoası"
+
+#: the-events-calendar.class.php:62
+msgid "Andorra"
+msgstr ""
+
+#: the-events-calendar.class.php:63
+msgid "Angola"
+msgstr ""
+
+#: the-events-calendar.class.php:64
+msgid "Anguilla"
+msgstr ""
+
+#: the-events-calendar.class.php:65
+msgid "Antarctica"
+msgstr "Antarktika"
+
+#: the-events-calendar.class.php:66
+msgid "Antigua And Barbuda"
+msgstr ""
+
+#: the-events-calendar.class.php:67
+msgid "Argentina"
+msgstr "Arjantin"
+
+#: the-events-calendar.class.php:68
+msgid "Armenia"
+msgstr "Ermenistan"
+
+#: the-events-calendar.class.php:69
+msgid "Aruba"
+msgstr ""
+
+#: the-events-calendar.class.php:70
+msgid "Australia"
+msgstr "Avustralya"
+
+#: the-events-calendar.class.php:71
+msgid "Austria"
+msgstr "Avusturya"
+
+#: the-events-calendar.class.php:72
+msgid "Azerbaijan"
+msgstr "Azerbeycan"
+
+#: the-events-calendar.class.php:73
+msgid "Bahamas"
+msgstr "Bahama Adaları"
+
+#: the-events-calendar.class.php:74
+msgid "Bahrain"
+msgstr "Bahreyn"
+
+#: the-events-calendar.class.php:75
+msgid "Bangladesh"
+msgstr "Bangladeş"
+
+#: the-events-calendar.class.php:76
+msgid "Barbados"
+msgstr ""
+
+#: the-events-calendar.class.php:77
+msgid "Belarus"
+msgstr "Beyaz Rusya"
+
+#: the-events-calendar.class.php:78
+msgid "Belgium"
+msgstr "Belçika"
+
+#: the-events-calendar.class.php:79
+msgid "Belize"
+msgstr ""
+
+#: the-events-calendar.class.php:80
+msgid "Benin"
+msgstr ""
+
+#: the-events-calendar.class.php:81
+msgid "Bermuda"
+msgstr ""
+
+#: the-events-calendar.class.php:82
+msgid "Bhutan"
+msgstr ""
+
+#: the-events-calendar.class.php:83
+msgid "Bolivia"
+msgstr "Bolivya"
+
+#: the-events-calendar.class.php:84
+msgid "Bosnia And Herzegowina"
+msgstr "Bosna-Hersek"
+
+#: the-events-calendar.class.php:85
+msgid "Botswana"
+msgstr "Botsvana"
+
+#: the-events-calendar.class.php:86
+msgid "Bouvet Island"
+msgstr "Bouvet Adası"
+
+#: the-events-calendar.class.php:87
+msgid "Brazil"
+msgstr "Brezilya"
+
+#: the-events-calendar.class.php:88
+msgid "British Indian Ocean Territory"
+msgstr ""
+
+#: the-events-calendar.class.php:89
+msgid "Brunei Darussalam"
+msgstr "Brunei Sultanlığı"
+
+#: the-events-calendar.class.php:90
+msgid "Bulgaria"
+msgstr "Bulgaristan"
+
+#: the-events-calendar.class.php:91
+msgid "Burkina Faso"
+msgstr ""
+
+#: the-events-calendar.class.php:92
+msgid "Burundi"
+msgstr ""
+
+#: the-events-calendar.class.php:93
+msgid "Cambodia"
+msgstr "Kamboçya"
+
+#: the-events-calendar.class.php:94
+msgid "Cameroon"
+msgstr "Kamerun"
+
+#: the-events-calendar.class.php:95
+msgid "Canada"
+msgstr "Kanada"
+
+#: the-events-calendar.class.php:96
+msgid "Cape Verde"
+msgstr "Yeşilburun"
+
+#: the-events-calendar.class.php:97
+msgid "Cayman Islands"
+msgstr "Cayman Adaları"
+
+#: the-events-calendar.class.php:98
+msgid "Central African Republic"
+msgstr "Orta Afrika Cumhuriyeti"
+
+#: the-events-calendar.class.php:99
+msgid "Chad"
+msgstr "Çad"
+
+#: the-events-calendar.class.php:100
+msgid "Chile"
+msgstr "Şili"
+
+#: the-events-calendar.class.php:101
+msgid "China"
+msgstr "Çin"
+
+#: the-events-calendar.class.php:102
+msgid "Christmas Island"
+msgstr "Christmas Adası"
+
+#: the-events-calendar.class.php:103
+msgid "Cocos (Keeling) Islands"
+msgstr "Cocos Adaları"
+
+#: the-events-calendar.class.php:104
+msgid "Colombia"
+msgstr "Kolombiya"
+
+#: the-events-calendar.class.php:105
+msgid "Comoros"
+msgstr "Komor"
+
+#: the-events-calendar.class.php:106
+msgid "Congo"
+msgstr "Kongo"
+
+#: the-events-calendar.class.php:107
+msgid "Congo, The Democratic Republic Of The"
+msgstr "Demokratik Kongo Cumhuriyeti"
+
+#: the-events-calendar.class.php:108
+msgid "Cook Islands"
+msgstr "Cook Adaları"
+
+#: the-events-calendar.class.php:109
+msgid "Costa Rica"
+msgstr "Kostarika"
+
+#: the-events-calendar.class.php:110
+msgid "Cote D'Ivoire"
+msgstr "Fildişi Sahili"
+
+#: the-events-calendar.class.php:111
+msgid "Croatia (Local Name: Hrvatska)"
+msgstr "Hırvatistan"
+
+#: the-events-calendar.class.php:112
+msgid "Cuba"
+msgstr "Küba"
+
+#: the-events-calendar.class.php:113
+msgid "Cyprus"
+msgstr "KKTC"
+
+#: the-events-calendar.class.php:114
+msgid "Czech Republic"
+msgstr "Çek Cumhuriyeti"
+
+#: the-events-calendar.class.php:115
+msgid "Denmark"
+msgstr "Danimarka"
+
+#: the-events-calendar.class.php:116
+msgid "Djibouti"
+msgstr "Cibuti"
+
+#: the-events-calendar.class.php:117
+msgid "Dominica"
+msgstr ""
+
+#: the-events-calendar.class.php:118
+msgid "Dominican Republic"
+msgstr "Dominik Cumhuriyeti"
+
+#: the-events-calendar.class.php:119
+msgid "East Timor"
+msgstr "Doğu Timor"
+
+#: the-events-calendar.class.php:120
+msgid "Ecuador"
+msgstr "Ekvador"
+
+#: the-events-calendar.class.php:121
+msgid "Egypt"
+msgstr "Mısır"
+
+#: the-events-calendar.class.php:122
+msgid "El Salvador"
+msgstr ""
+
+#: the-events-calendar.class.php:123
+msgid "Equatorial Guinea"
+msgstr "Ekvator Ginesi"
+
+#: the-events-calendar.class.php:124
+msgid "Eritrea"
+msgstr "Eritre"
+
+#: the-events-calendar.class.php:125
+msgid "Estonia"
+msgstr "Estonya"
+
+#: the-events-calendar.class.php:126
+msgid "Ethiopia"
+msgstr "Etiyopya"
+
+#: the-events-calendar.class.php:127
+msgid "Falkland Islands (Malvinas)"
+msgstr "Falkland Adaları"
+
+#: the-events-calendar.class.php:128
+msgid "Faroe Islands"
+msgstr "Faroe Adaları"
+
+#: the-events-calendar.class.php:129
+msgid "Fiji"
+msgstr ""
+
+#: the-events-calendar.class.php:130
+msgid "Finland"
+msgstr "Finlandiya"
+
+#: the-events-calendar.class.php:131
+msgid "France"
+msgstr "Fransa"
+
+#: the-events-calendar.class.php:132
+msgid "France, Metropolitan"
+msgstr ""
+
+#: the-events-calendar.class.php:133
+msgid "French Guiana"
+msgstr "Fransız Guyanası"
+
+#: the-events-calendar.class.php:134
+msgid "French Polynesia"
+msgstr "Fransız Polinezyası"
+
+#: the-events-calendar.class.php:135
+msgid "French Southern Territories"
+msgstr ""
+
+#: the-events-calendar.class.php:136
+msgid "Gabon"
+msgstr ""
+
+#: the-events-calendar.class.php:137
+msgid "Gambia"
+msgstr "Gambiya"
+
+#: the-events-calendar.class.php:138
+#: views/events-meta-box.php:369
+msgid "Georgia"
+msgstr "Gürcistan"
+
+#: the-events-calendar.class.php:139
+msgid "Germany"
+msgstr "Almanya"
+
+#: the-events-calendar.class.php:140
+msgid "Ghana"
+msgstr "Gana"
+
+#: the-events-calendar.class.php:141
+msgid "Gibraltar"
+msgstr "Cebelitarık"
+
+#: the-events-calendar.class.php:142
+msgid "Greece"
+msgstr "Yunanistan"
+
+#: the-events-calendar.class.php:143
+msgid "Greenland"
+msgstr "Grönland"
+
+#: the-events-calendar.class.php:144
+msgid "Grenada"
+msgstr ""
+
+#: the-events-calendar.class.php:145
+msgid "Guadeloupe"
+msgstr ""
+
+#: the-events-calendar.class.php:146
+msgid "Guam"
+msgstr ""
+
+#: the-events-calendar.class.php:147
+msgid "Guatemala"
+msgstr ""
+
+#: the-events-calendar.class.php:148
+msgid "Guinea"
+msgstr "Gine"
+
+#: the-events-calendar.class.php:149
+msgid "Guinea-Bissau"
+msgstr "Gine Bissau"
+
+#: the-events-calendar.class.php:150
+msgid "Guyana"
+msgstr ""
+
+#: the-events-calendar.class.php:151
+msgid "Haiti"
+msgstr ""
+
+#: the-events-calendar.class.php:152
+msgid "Heard And Mc Donald Islands"
+msgstr ""
+
+#: the-events-calendar.class.php:153
+msgid "Holy See (Vatican City State)"
+msgstr "Vatikan"
+
+#: the-events-calendar.class.php:154
+msgid "Honduras"
+msgstr ""
+
+#: the-events-calendar.class.php:155
+msgid "Hong Kong"
+msgstr ""
+
+#: the-events-calendar.class.php:156
+msgid "Hungary"
+msgstr "Macaristan"
+
+#: the-events-calendar.class.php:157
+msgid "Iceland"
+msgstr "İzlanda"
+
+#: the-events-calendar.class.php:158
+msgid "India"
+msgstr "Hindistan"
+
+#: the-events-calendar.class.php:159
+msgid "Indonesia"
+msgstr "Endonezya"
+
+#: the-events-calendar.class.php:160
+msgid "Iran (Islamic Republic Of)"
+msgstr "İran"
+
+#: the-events-calendar.class.php:161
+msgid "Iraq"
+msgstr "Irak"
+
+#: the-events-calendar.class.php:162
+msgid "Ireland"
+msgstr "İrlanda"
+
+#: the-events-calendar.class.php:163
+msgid "Israel"
+msgstr "İsrail"
+
+#: the-events-calendar.class.php:164
+msgid "Italy"
+msgstr "İtalya"
+
+#: the-events-calendar.class.php:165
+msgid "Jamaica"
+msgstr "Jamaika"
+
+#: the-events-calendar.class.php:166
+msgid "Japan"
+msgstr "Japonya"
+
+#: the-events-calendar.class.php:167
+msgid "Jordan"
+msgstr "Ürdün"
+
+#: the-events-calendar.class.php:168
+msgid "Kazakhstan"
+msgstr "Kazakistan"
+
+#: the-events-calendar.class.php:169
+msgid "Kenya"
+msgstr ""
+
+#: the-events-calendar.class.php:170
+msgid "Kiribati"
+msgstr ""
+
+#: the-events-calendar.class.php:171
+msgid "Korea, Democratic People's Republic Of"
+msgstr "Kuzey Kore"
+
+#: the-events-calendar.class.php:172
+msgid "Korea, Republic Of"
+msgstr "Güney Kore"
+
+#: the-events-calendar.class.php:173
+msgid "Kuwait"
+msgstr "Kuveyt"
+
+#: the-events-calendar.class.php:174
+msgid "Kyrgyzstan"
+msgstr "Kırgızistan"
+
+#: the-events-calendar.class.php:175
+msgid "Lao People's Democratic Republic"
+msgstr "Laos"
+
+#: the-events-calendar.class.php:176
+msgid "Latvia"
+msgstr "Letonya"
+
+#: the-events-calendar.class.php:177
+msgid "Lebanon"
+msgstr "Lübnan"
+
+#: the-events-calendar.class.php:178
+msgid "Lesotho"
+msgstr "Lesoto Krallığı"
+
+#: the-events-calendar.class.php:179
+msgid "Liberia"
+msgstr "Liberya"
+
+#: the-events-calendar.class.php:180
+msgid "Libyan Arab Jamahiriya"
+msgstr "Libya"
+
+#: the-events-calendar.class.php:181
+msgid "Liechtenstein"
+msgstr "Lihtenştayn"
+
+#: the-events-calendar.class.php:182
+msgid "Lithuania"
+msgstr "Litvanya"
+
+#: the-events-calendar.class.php:183
+msgid "Luxembourg"
+msgstr "Lüksemburg"
+
+#: the-events-calendar.class.php:184
+msgid "Macau"
+msgstr "Makao"
+
+#: the-events-calendar.class.php:185
+msgid "Macedonia, Former Yugoslav Republic Of"
+msgstr "Makedonya Cumhuriyeti"
+
+#: the-events-calendar.class.php:186
+msgid "Madagascar"
+msgstr "Madagaskar"
+
+#: the-events-calendar.class.php:187
+msgid "Malawi"
+msgstr ""
+
+#: the-events-calendar.class.php:188
+msgid "Malaysia"
+msgstr "Malezya"
+
+#: the-events-calendar.class.php:189
+msgid "Maldives"
+msgstr "Maldiv Adaları"
+
+#: the-events-calendar.class.php:190
+msgid "Mali"
+msgstr ""
+
+#: the-events-calendar.class.php:191
+msgid "Malta"
+msgstr ""
+
+#: the-events-calendar.class.php:192
+msgid "Marshall Islands"
+msgstr "Marşal Adaları"
+
+#: the-events-calendar.class.php:193
+msgid "Martinique"
+msgstr ""
+
+#: the-events-calendar.class.php:194
+msgid "Mauritania"
+msgstr "Moritanya"
+
+#: the-events-calendar.class.php:195
+msgid "Mauritius"
+msgstr ""
+
+#: the-events-calendar.class.php:196
+msgid "Mayotte"
+msgstr ""
+
+#: the-events-calendar.class.php:197
+msgid "Mexico"
+msgstr "Meksika"
+
+#: the-events-calendar.class.php:198
+msgid "Micronesia, Federated States Of"
+msgstr "Mikronezya"
+
+#: the-events-calendar.class.php:199
+msgid "Moldova, Republic Of"
+msgstr "Moldova Cumhuriyeti"
+
+#: the-events-calendar.class.php:200
+msgid "Monaco"
+msgstr ""
+
+#: the-events-calendar.class.php:201
+msgid "Mongolia"
+msgstr "Moğolistan"
+
+#: the-events-calendar.class.php:202
+msgid "Montserrat"
+msgstr ""
+
+#: the-events-calendar.class.php:203
+msgid "Morocco"
+msgstr "Fas"
+
+#: the-events-calendar.class.php:204
+msgid "Mozambique"
+msgstr "Mozambik"
+
+#: the-events-calendar.class.php:205
+msgid "Myanmar"
+msgstr ""
+
+#: the-events-calendar.class.php:206
+msgid "Namibia"
+msgstr "Namibya"
+
+#: the-events-calendar.class.php:207
+msgid "Nauru"
+msgstr ""
+
+#: the-events-calendar.class.php:208
+msgid "Nepal"
+msgstr ""
+
+#: the-events-calendar.class.php:209
+msgid "Netherlands"
+msgstr "Hollanda"
+
+#: the-events-calendar.class.php:210
+msgid "Netherlands Antilles"
+msgstr "Hollanda Antilleri"
+
+#: the-events-calendar.class.php:211
+msgid "New Caledonia"
+msgstr "Yeni Kaledonya"
+
+#: the-events-calendar.class.php:212
+msgid "New Zealand"
+msgstr "Yeni Zelanda"
+
+#: the-events-calendar.class.php:213
+msgid "Nicaragua"
+msgstr "Nikaragua"
+
+#: the-events-calendar.class.php:214
+msgid "Niger"
+msgstr "Nijer"
+
+#: the-events-calendar.class.php:215
+msgid "Nigeria"
+msgstr "Nijerya"
+
+#: the-events-calendar.class.php:216
+msgid "Niue"
+msgstr ""
+
+#: the-events-calendar.class.php:217
+msgid "Norfolk Island"
+msgstr "Norfolk Adası"
+
+#: the-events-calendar.class.php:218
+msgid "Northern Mariana Islands"
+msgstr "Kuzey Mariana Adaları"
+
+#: the-events-calendar.class.php:219
+msgid "Norway"
+msgstr "Norveç"
+
+#: the-events-calendar.class.php:220
+msgid "Oman"
+msgstr "Umman"
+
+#: the-events-calendar.class.php:221
+msgid "Pakistan"
+msgstr ""
+
+#: the-events-calendar.class.php:222
+msgid "Palau"
+msgstr ""
+
+#: the-events-calendar.class.php:223
+msgid "Panama"
+msgstr ""
+
+#: the-events-calendar.class.php:224
+msgid "Papua New Guinea"
+msgstr "Papua Yeni Gine"
+
+#: the-events-calendar.class.php:225
+msgid "Paraguay"
+msgstr ""
+
+#: the-events-calendar.class.php:226
+msgid "Peru"
+msgstr ""
+
+#: the-events-calendar.class.php:227
+msgid "Philippines"
+msgstr "Filipinler"
+
+#: the-events-calendar.class.php:228
+msgid "Pitcairn"
+msgstr ""
+
+#: the-events-calendar.class.php:229
+msgid "Poland"
+msgstr "Polonya"
+
+#: the-events-calendar.class.php:230
+msgid "Portugal"
+msgstr "Portekiz"
+
+#: the-events-calendar.class.php:231
+msgid "Puerto Rico"
+msgstr ""
+
+#: the-events-calendar.class.php:232
+msgid "Qatar"
+msgstr "Katar"
+
+#: the-events-calendar.class.php:233
+msgid "Reunion"
+msgstr ""
+
+#: the-events-calendar.class.php:234
+msgid "Romania"
+msgstr "Romanya"
+
+#: the-events-calendar.class.php:235
+msgid "Russian Federation"
+msgstr "Rusya Federasyonu"
+
+#: the-events-calendar.class.php:236
+msgid "Rwanda"
+msgstr "Ruanda"
+
+#: the-events-calendar.class.php:237
+msgid "Saint Kitts And Nevis"
+msgstr ""
+
+#: the-events-calendar.class.php:238
+msgid "Saint Lucia"
+msgstr ""
+
+#: the-events-calendar.class.php:239
+msgid "Saint Vincent And The Grenadines"
+msgstr ""
+
+#: the-events-calendar.class.php:240
+msgid "Samoa"
+msgstr ""
+
+#: the-events-calendar.class.php:241
+msgid "San Marino"
+msgstr ""
+
+#: the-events-calendar.class.php:242
+msgid "Sao Tome And Principe"
+msgstr ""
+
+#: the-events-calendar.class.php:243
+msgid "Saudi Arabia"
+msgstr "Suudi Arabistan"
+
+#: the-events-calendar.class.php:244
+msgid "Senegal"
+msgstr ""
+
+#: the-events-calendar.class.php:245
+msgid "Seychelles"
+msgstr "Seyşel Adaları"
+
+#: the-events-calendar.class.php:246
+msgid "Sierra Leone"
+msgstr ""
+
+#: the-events-calendar.class.php:247
+msgid "Singapore"
+msgstr "Singapur"
+
+#: the-events-calendar.class.php:248
+msgid "Slovakia (Slovak Republic)"
+msgstr "Slovakya"
+
+#: the-events-calendar.class.php:249
+msgid "Slovenia"
+msgstr "Slovenya"
+
+#: the-events-calendar.class.php:250
+msgid "Solomon Islands"
+msgstr "Solomon Adaları"
+
+#: the-events-calendar.class.php:251
+msgid "Somalia"
+msgstr "Somali"
+
+#: the-events-calendar.class.php:252
+msgid "South Africa"
+msgstr "Güney Afrika"
+
+#: the-events-calendar.class.php:253
+msgid "South Georgia, South Sandwich Islands"
+msgstr "Güney Georgia ve Güney Sandwich Adaları"
+
+#: the-events-calendar.class.php:254
+msgid "Spain"
+msgstr "İspanya"
+
+#: the-events-calendar.class.php:255
+msgid "Sri Lanka"
+msgstr ""
+
+#: the-events-calendar.class.php:256
+msgid "St. Helena"
+msgstr ""
+
+#: the-events-calendar.class.php:257
+msgid "St. Pierre And Miquelon"
+msgstr ""
+
+#: the-events-calendar.class.php:258
+msgid "Sudan"
+msgstr ""
+
+#: the-events-calendar.class.php:259
+msgid "Suriname"
+msgstr "Surinam"
+
+#: the-events-calendar.class.php:260
+msgid "Svalbard And Jan Mayen Islands"
+msgstr ""
+
+#: the-events-calendar.class.php:261
+msgid "Swaziland"
+msgstr ""
+
+#: the-events-calendar.class.php:262
+msgid "Sweden"
+msgstr "İsveç"
+
+#: the-events-calendar.class.php:263
+msgid "Switzerland"
+msgstr "İsviçre"
+
+#: the-events-calendar.class.php:264
+msgid "Syrian Arab Republic"
+msgstr "Suriye"
+
+#: the-events-calendar.class.php:265
+msgid "Taiwan"
+msgstr "Tayvan"
+
+#: the-events-calendar.class.php:266
+msgid "Tajikistan"
+msgstr "Tacikistan"
+
+#: the-events-calendar.class.php:267
+msgid "Tanzania, United Republic Of"
+msgstr "Tanzanya"
+
+#: the-events-calendar.class.php:268
+msgid "Thailand"
+msgstr "Tayland"
+
+#: the-events-calendar.class.php:269
+msgid "Togo"
+msgstr ""
+
+#: the-events-calendar.class.php:270
+msgid "Tokelau"
+msgstr ""
+
+#: the-events-calendar.class.php:271
+msgid "Tonga"
+msgstr ""
+
+#: the-events-calendar.class.php:272
+msgid "Trinidad And Tobago"
+msgstr "Trinidad ve Tobago"
+
+#: the-events-calendar.class.php:273
+msgid "Tunisia"
+msgstr ""
+
+#: the-events-calendar.class.php:274
+msgid "Turkey"
+msgstr "Türkiye"
+
+#: the-events-calendar.class.php:275
+msgid "Turkmenistan"
+msgstr "Türkmenistan"
+
+#: the-events-calendar.class.php:276
+msgid "Turks And Caicos Islands"
+msgstr "Türk ve Caicos Adaları"
+
+#: the-events-calendar.class.php:277
+msgid "Tuvalu"
+msgstr ""
+
+#: the-events-calendar.class.php:278
+msgid "Uganda"
+msgstr ""
+
+#: the-events-calendar.class.php:279
+msgid "Ukraine"
+msgstr "Ukrayna"
+
+#: the-events-calendar.class.php:280
+msgid "United Arab Emirates"
+msgstr "Birleşik Arap Emirliği"
+
+#: the-events-calendar.class.php:281
+msgid "United Kingdom"
+msgstr "İngiltere"
+
+#: the-events-calendar.class.php:282
+msgid "United States Minor Outlying Islands"
+msgstr ""
+
+#: the-events-calendar.class.php:283
+msgid "Uruguay"
+msgstr ""
+
+#: the-events-calendar.class.php:284
+msgid "Uzbekistan"
+msgstr "Özbekistan"
+
+#: the-events-calendar.class.php:285
+msgid "Vanuatu"
+msgstr ""
+
+#: the-events-calendar.class.php:286
+msgid "Venezuela"
+msgstr ""
+
+#: the-events-calendar.class.php:287
+msgid "Viet Nam"
+msgstr "Vietnam"
+
+#: the-events-calendar.class.php:288
+msgid "Virgin Islands (British)"
+msgstr "Virgin Adaları (İngiliz)"
+
+#: the-events-calendar.class.php:289
+msgid "Virgin Islands (U.S.)"
+msgstr "Virgin Adaları (ABD)"
+
+#: the-events-calendar.class.php:290
+msgid "Wallis And Futuna Islands"
+msgstr "Wallis ve Futuna Adaları"
+
+#: the-events-calendar.class.php:291
+msgid "Western Sahara"
+msgstr "Batı Sahra"
+
+#: the-events-calendar.class.php:292
+msgid "Yemen"
+msgstr ""
+
+#: the-events-calendar.class.php:293
+msgid "Yugoslavia"
+msgstr "Yugoslavya"
+
+#: the-events-calendar.class.php:294
+msgid "Zambia"
+msgstr ""
+
+#: the-events-calendar.class.php:295
+msgid "Zimbabwe"
+msgstr ""
+
+#: the-events-calendar.class.php:516
+msgid "Jan"
+msgstr "Ock"
+
+#: the-events-calendar.class.php:517
+msgid "Feb"
+msgstr "Şub"
+
+#: the-events-calendar.class.php:518
+msgid "Mar"
+msgstr "Mar"
+
+#: the-events-calendar.class.php:519
+msgid "Apr"
+msgstr "Nis"
+
+#: the-events-calendar.class.php:520
+msgid "Ma"
+msgstr "May"
+
+#: the-events-calendar.class.php:521
+msgid "Jun"
+msgstr "Haz"
+
+#: the-events-calendar.class.php:522
+msgid "Jul"
+msgstr "Tem"
+
+#: the-events-calendar.class.php:523
+msgid "Aug"
+msgstr "Ağt"
+
+#: the-events-calendar.class.php:524
+msgid "Sep"
+msgstr "Eyl"
+
+#: the-events-calendar.class.php:525
+msgid "Oct"
+msgstr "Ekm"
+
+#: the-events-calendar.class.php:526
+msgid "Nov"
+msgstr "Ksm"
+
+#: the-events-calendar.class.php:527
+msgid "Dec"
+msgstr "Arl"
+
+#: the-events-calendar.class.php:530
+msgid "January"
+msgstr "Ocak"
+
+#: the-events-calendar.class.php:531
+msgid "February"
+msgstr "Şubat"
+
+#: the-events-calendar.class.php:532
+msgid "March"
+msgstr "Mart"
+
+#: the-events-calendar.class.php:533
+msgid "April"
+msgstr "Nisan"
+
+#: the-events-calendar.class.php:534
+msgid "May"
+msgstr "Mayıs"
+
+#: the-events-calendar.class.php:535
+msgid "June"
+msgstr "Haziran"
+
+#: the-events-calendar.class.php:536
+msgid "July"
+msgstr "Temmuz"
+
+#: the-events-calendar.class.php:537
+msgid "August"
+msgstr "Ağustos"
+
+#: the-events-calendar.class.php:538
+msgid "September"
+msgstr "Eylül"
+
+#: the-events-calendar.class.php:539
+msgid "October"
+msgstr "Ekim"
+
+#: the-events-calendar.class.php:540
+msgid "November"
+msgstr "Kasım"
+
+#: the-events-calendar.class.php:541
+msgid "December"
+msgstr "Aralık"
+
+#. #-#-#-#-#  plugin.pot (The Events Calendar 1.6.3)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: the-events-calendar.class.php:1047
+msgid "The Events Calendar"
+msgstr "The Events Calendar"
+
+#: views/events-list-load-widget-admin.php:32
+msgid "Show:"
+msgstr "Göster:"
+
+#: views/events-list-load-widget-admin.php:40
+msgid "Don't show the widget if there are no upcoming events:"
+msgstr "Gelecek bir etkinlik yoksa bileşeni gösterme:"
+
+#: views/events-list-load-widget-admin.php:46
+msgid "Display:"
+msgstr "Sergile:"
+
+#: views/events-list-load-widget-admin.php:49
+msgid "Start Date"
+msgstr "Başlama Tarih"
+
+#: views/events-list-load-widget-admin.php:50
+msgid "Start Time"
+msgstr "Başlama Zamanı"
+
+#: views/events-list-load-widget-admin.php:51
+msgid "End Date"
+msgstr "Bitiş Tarihi"
+
+#: views/events-list-load-widget-admin.php:52
+msgid "End Time"
+msgstr "Bitiş Zamanı"
+
+#: views/events-list-load-widget-admin.php:53
+msgid "Venue"
+msgstr "Mekan"
+
+#: views/events-list-load-widget-admin.php:54
+msgid "Address"
+msgstr "Adres"
+
+#: views/events-list-load-widget-admin.php:55
+msgid "City"
+msgstr "Şehir"
+
+#: views/events-list-load-widget-admin.php:56
+msgid "State (US)"
+msgstr "Eyalet (US)"
+
+#: views/events-list-load-widget-admin.php:57
+msgid "Province (Int)"
+msgstr "Vilayet"
+
+#: views/events-list-load-widget-admin.php:58
+msgid "Postal Code"
+msgstr "Posta Kodu"
+
+#: views/events-list-load-widget-admin.php:59
+msgid "Country"
+msgstr "Ülke"
+
+#: views/events-list-load-widget-admin.php:60
+#: views/events-meta-box.php:136
+msgid "Phone"
+msgstr "Telefon"
+
+#: views/events-list-load-widget-admin.php:61
+msgid "Price"
+msgstr "Fiyat"
+
+#: views/events-list-load-widget-display.php:72
+msgid "More Info"
+msgstr "Ayrıntı"
+
+#: views/events-meta-box.php:136
+msgid "is not valid."
+msgstr "geçersiz."
+
+#: views/events-meta-box.php:136
+msgid "Valid values are local format (eg. 02 1234 5678 or 123 123 4567) or international format (eg. +61 (0) 2 1234 5678 or +1 123 123 4567).  You may also use an optional extension of up to five digits prefixed by x or ext (eg. 123 123 4567 x89)"
+msgstr "Yerel formatta geçerli değerler (ör. 312 123 4567) veya uluslar arası formatta (ör. +90 123 123 4567).  Ayrıca başına x veya ext koyarak 5 sayısal karaktere kadar dahili numarada ekleyebilirsiniz. (ör. 312 123 4567 x89)"
+
+#: views/events-meta-box.php:210
+msgid "Is this post an event?"
+msgstr "Bu ileti bir etkinlikmi?"
+
+#: views/events-meta-box.php:211
+#: views/events-options.php:182
+msgid "Yes"
+msgstr "Evet"
+
+#: views/events-meta-box.php:212
+#: views/events-options.php:186
+msgid "No"
+msgstr "Hayır"
+
+#: views/events-meta-box.php:229
+msgid "Event Time &amp; Date"
+msgstr "Etkinlik zamanı &amp; Tarihi"
+
+#: views/events-meta-box.php:232
+msgid "All day event?"
+msgstr "Tam gün etkinliğimi?"
+
+#: views/events-meta-box.php:236
+msgid "Start Date / Time:"
+msgstr "Başlangıç Tarihi/Zamanı:"
+
+#: views/events-meta-box.php:250
+#: views/events-meta-box.php:280
+msgid "@"
+msgstr "Saat:"
+
+#: views/events-meta-box.php:266
+msgid "End Date / Time:"
+msgstr "Bitiş Tarihi/Zamanı:"
+
+#: views/events-meta-box.php:296
+msgid "Event Location Details"
+msgstr "Etkinlik Yeri Detayları"
+
+#: views/events-meta-box.php:299
+#: views/list.php:49
+#: views/single.php:28
+msgid "Venue:"
+msgstr "Mekan:"
+
+#: views/events-meta-box.php:305
+msgid "Country:"
+msgstr "Ülke:"
+
+#: views/events-meta-box.php:341
+#: views/list.php:64
+#: views/single.php:37
+msgid "Address:"
+msgstr "Adres:"
+
+#: views/events-meta-box.php:345
+msgid "City:"
+msgstr "Şehir:"
+
+#: views/events-meta-box.php:350
+msgid "Province:"
+msgstr "Vilayet:"
+
+#: views/events-meta-box.php:354
+msgid "State:"
+msgstr "Eyalet:"
+
+#: views/events-meta-box.php:357
+msgid "Select a State:"
+msgstr "Bir eyalet seçin:"
+
+#: views/events-meta-box.php:359
+msgid "Alabama"
+msgstr ""
+
+#: views/events-meta-box.php:360
+msgid "Alaska"
+msgstr ""
+
+#: views/events-meta-box.php:361
+msgid "Arizona"
+msgstr ""
+
+#: views/events-meta-box.php:362
+msgid "Arkansas"
+msgstr ""
+
+#: views/events-meta-box.php:363
+msgid "California"
+msgstr ""
+
+#: views/events-meta-box.php:364
+msgid "Colorado"
+msgstr ""
+
+#: views/events-meta-box.php:365
+msgid "Connecticut"
+msgstr ""
+
+#: views/events-meta-box.php:366
+msgid "Delaware"
+msgstr ""
+
+#: views/events-meta-box.php:367
+msgid "District of Columbia"
+msgstr ""
+
+#: views/events-meta-box.php:368
+msgid "Florida"
+msgstr ""
+
+#: views/events-meta-box.php:370
+msgid "Hawaii"
+msgstr ""
+
+#: views/events-meta-box.php:371
+msgid "Idaho"
+msgstr ""
+
+#: views/events-meta-box.php:372
+msgid "Illinois"
+msgstr ""
+
+#: views/events-meta-box.php:373
+msgid "Indiana"
+msgstr ""
+
+#: views/events-meta-box.php:374
+msgid "Iowa"
+msgstr ""
+
+#: views/events-meta-box.php:375
+msgid "Kansas"
+msgstr ""
+
+#: views/events-meta-box.php:376
+msgid "Kentucky"
+msgstr ""
+
+#: views/events-meta-box.php:377
+msgid "Louisiana"
+msgstr ""
+
+#: views/events-meta-box.php:378
+msgid "Maine"
+msgstr ""
+
+#: views/events-meta-box.php:379
+msgid "Maryland"
+msgstr ""
+
+#: views/events-meta-box.php:380
+msgid "Massachusetts"
+msgstr ""
+
+#: views/events-meta-box.php:381
+msgid "Michigan"
+msgstr ""
+
+#: views/events-meta-box.php:382
+msgid "Minnesota"
+msgstr ""
+
+#: views/events-meta-box.php:383
+msgid "Mississippi"
+msgstr ""
+
+#: views/events-meta-box.php:384
+msgid "Missouri"
+msgstr ""
+
+#: views/events-meta-box.php:385
+msgid "Montana"
+msgstr ""
+
+#: views/events-meta-box.php:386
+msgid "Nebraska"
+msgstr ""
+
+#: views/events-meta-box.php:387
+msgid "Nevada"
+msgstr ""
+
+#: views/events-meta-box.php:388
+msgid "New Hampshire"
+msgstr ""
+
+#: views/events-meta-box.php:389
+msgid "New Jersey"
+msgstr ""
+
+#: views/events-meta-box.php:390
+msgid "New Mexico"
+msgstr ""
+
+#: views/events-meta-box.php:391
+msgid "New York"
+msgstr ""
+
+#: views/events-meta-box.php:392
+msgid "North Carolina"
+msgstr ""
+
+#: views/events-meta-box.php:393
+msgid "North Dakota"
+msgstr ""
+
+#: views/events-meta-box.php:394
+msgid "Ohio"
+msgstr ""
+
+#: views/events-meta-box.php:395
+msgid "Oklahoma"
+msgstr ""
+
+#: views/events-meta-box.php:396
+msgid "Oregon"
+msgstr ""
+
+#: views/events-meta-box.php:397
+msgid "Pennsylvania"
+msgstr ""
+
+#: views/events-meta-box.php:398
+msgid "Rhode Island"
+msgstr ""
+
+#: views/events-meta-box.php:399
+msgid "South Carolina"
+msgstr ""
+
+#: views/events-meta-box.php:400
+msgid "South Dakota"
+msgstr ""
+
+#: views/events-meta-box.php:401
+msgid "Tennessee"
+msgstr ""
+
+#: views/events-meta-box.php:402
+msgid "Texas"
+msgstr ""
+
+#: views/events-meta-box.php:403
+msgid "Utah"
+msgstr ""
+
+#: views/events-meta-box.php:404
+msgid "Vermont"
+msgstr ""
+
+#: views/events-meta-box.php:405
+msgid "Virginia"
+msgstr ""
+
+#: views/events-meta-box.php:406
+msgid "Washington"
+msgstr ""
+
+#: views/events-meta-box.php:407
+msgid "West Virginia"
+msgstr ""
+
+#: views/events-meta-box.php:408
+msgid "Wisconsin"
+msgstr ""
+
+#: views/events-meta-box.php:409
+msgid "Wyoming"
+msgstr ""
+
+#: views/events-meta-box.php:423
+msgid "Postal Code:"
+msgstr "Posta Kodu:"
+
+#: views/events-meta-box.php:427
+msgid "Show Google Map Link:"
+msgstr "Google Harita linkini göster:"
+
+#: views/events-meta-box.php:434
+msgid "Show Google Map:"
+msgstr "Google Haritayı Göster:"
+
+#: views/events-meta-box.php:439
+#: views/list.php:58
+#: views/single.php:32
+msgid "Phone:"
+msgstr "Telefon:"
+
+#: views/events-meta-box.php:443
+msgid "Event Cost"
+msgstr "Etkinlik Maliyeti"
+
+#: views/events-meta-box.php:446
+#: views/list.php:77
+#: views/single.php:22
+msgid "Cost:"
+msgstr "Ücret:"
+
+#: views/events-meta-box.php:451
+msgid "Leave blank to hide the field. Enter a 0 for events that are free."
+msgstr "Alanı boş bırakarak saklayabilirsiniz. Bedava olduğunu belirtmek için 0 girmelisiniz."
+
+#: views/events-meta-box.php:455
+msgid "Sell Tickets &amp; Track Registration"
+msgstr "Bilet Sat &amp; Kayıtları Takip Et"
+
+#: views/events-meta-box.php:460
+msgid "Interested in selling tickets and tracking registrations? Now you can do it for free using our <a href=\"http://wordpress.org/extend/plugins/eventbrite-for-the-events-calendar/\">Eventbrite Integration Plugin</a>. Eventbrite is a feature rich easy-to-use event management tool. \"Wow, you're selling Eventbrite pretty hard. You must get a kickback.\"  Well, now that you mention it... we do. We get a little something for everyone that registers an event using our referral link. It's how we're able to keep supporting and building plugins for the open source community. "
+msgstr "Bilet satmak ve katılımları takip etmek istiyormusunuz? Artık bunu bizim ücretsiz <a href=\"http://wordpress.org/extend/plugins/eventbrite-for-the-events-calendar/\">Eventbrite Birleştirme Eklentisi</a>ni kullanarak yapabilirsiniz. Eventbrite özellik zengini, kullanımı kolay bir etkinlik yönetim aracıdır.  \"Wow, bu Eventbrite'ı gerçekden sıkı satıyorsunuz. Bundan bi çıkarınız olmasın?\"  Aslında, dediğiniz gibi... var. Yönlendirdiğimiz her kullanıcı karşılığında ufacık bişey alıyoruz. Bu bizim açık kaynak kodlu eklenti üretme ve hizmet verme yolumuz."
+
+#: views/events-meta-box.php:460
+msgid "Check it out here."
+msgstr "Buradan buyrun."
+
+#: views/events-meta-box.php:476
+msgid "<h4>If You Like This Plugin - Help Support It</h4><p>We spend a lot of time and effort building robust plugins and we love to share them with the community. If you use this plugin consider making a donation to help support its' continued development. You may remove this message on the <a href=\"/wp-admin/options-general.php?page=the-events-calendar.php\">settings page</a>.</p>"
+msgstr "<h4>Bu Eklentiyi Beğendiyseniz - Destekleyin</h4><p>Kaliteli eklentiler üretmek için oldukça fazla zaman harcıyoruz ve meyvelerini toplumla paylaşmaya bayılıyoruz. Bu kullanışlı eklentiyi kullanırken bunlarıda göz önünde bulundurarak, devam eden gelişimine yardım edebilirsiniz. Bu mesajı <a href=\"/wp-admin/options-general.php?page=the-events-calendar.php\">seçenekler sayfası</a>ndan kaldırabilirsiniz.</p>"
+
+#: views/events-meta-box.php:478
+msgid "Thanks"
+msgstr "Teşekkürler"
+
+#: views/events-options.php:74
+msgid "The Events Calendar Settings"
+msgstr "Etkinlik Takvimi Ayarları"
+
+#: views/events-options.php:94
+msgid "Need a hand?"
+msgstr "Yardımamı ihtiyacınız var?"
+
+#: views/events-options.php:95
+msgid "If you're stuck on these options, please <a href=\"http://wordpress.org/extend/plugins/the-events-calendar/\">check out the documentation</a>. If you're still wondering what's going on, be sure to stop by the support <a href=\"http://wordpress.org/tags/the-events-calendar?forum_id=10\">forum</a> and ask for help. The open source community is full of kind folks who are happy to help."
+msgstr "Seçeneklerde takılı kaldıysanız, lütfen <a href=\"http://wordpress.org/extend/plugins/the-events-calendar/\">dökümanları inceleyin</a>. Eğer hala neler döndüğünü anlamadıysanız, <a href=\"http://wordpress.org/tags/the-events-calendar?forum_id=10\">forum</a>a uğrayıp yardım isteyebilirsiniz. Açık kaynak kod topluluğu yardım etmeye bayılan insanlarla doludur. Tabi ingilizce bilmiyorsanız çevirmen arkadaşımıza danışmanızı öneririz: <a href=\"http://www.heartcoder.net\" title=\"codes art with heart\">heArt coder</a>"
+
+#: views/events-options.php:96
+msgid "Here is the iCal feed URL for your events: "
+msgstr "Etkinlikleriniz için iCal besleme URL si burada:"
+
+#: views/events-options.php:97
+msgid "The iCal feed can be sorted by sub-category. Add the category slug to the above URL: "
+msgstr "iCal beslemesi alt categoriye göre düzenlenebilir. Aşağıdaki URL ye categori slug'ını ekleyebilirsin:"
+
+#: views/events-options.php:100
+msgid "Donate"
+msgstr "Bağış yapalım"
+
+#: views/events-options.php:109
+msgid "If you find this plugin useful, please consider donating to the producer of it, Shane &#38; Peter, Inc. Thank you!"
+msgstr "Bu eklentiyi kullanışlı bulduysanız, Shane ve Peter'a bağış yaparak bu adamların emeklerini taktir edebilirsiniz. Teşekkür ettik!"
+
+#: views/events-options.php:113
+msgid "I have already donated, so please hide this button!"
+msgstr "Ben zaten bağış yaptın, ve şimdi lütfen sakla bu butonu!"
+
+#: views/events-options.php:123
+msgid "Donate for this wonderful plugin"
+msgstr "Bu harika eklentiye bağış yapalım"
+
+#: views/events-options.php:137
+msgid "Settings"
+msgstr "Seçenekler"
+
+#: views/events-options.php:140
+#: views/events-options.php:144
+msgid "Default View for the Events"
+msgstr "Etkinlik için varsayılan görünüm"
+
+#: views/events-options.php:156
+#: views/gridview.php:28
+#: views/list.php:12
+msgid "Calendar"
+msgstr "Takvim"
+
+#: views/events-options.php:160
+#: views/gridview.php:27
+#: views/list.php:11
+msgid "Event List"
+msgstr "Etkinlik Listesi"
+
+#: views/events-options.php:166
+#: views/events-options.php:170
+msgid "Show Comments"
+msgstr "Yorumları Göster"
+
+#: views/events-options.php:192
+msgid "Default Country for Events"
+msgstr "Etkinlikler İçin Varsayılan Ülke"
+
+#: views/events-options.php:215
+#: views/events-options.php:219
+msgid "Display Events on Homepage"
+msgstr "Anasayfada Etkinlikleri Göster"
+
+#: views/events-options.php:226
+#: views/events-options.php:255
+#: views/events-options.php:282
+#: views/events-options.php:308
+msgid "Off"
+msgstr "Kapalı"
+
+#: views/events-options.php:230
+#: views/events-options.php:259
+#: views/events-options.php:286
+#: views/events-options.php:312
+msgid "On"
+msgstr "Açık"
+
+#: views/events-options.php:237
+#: views/events-options.php:241
+msgid "Embed Google Maps"
+msgstr "Gömülü Google Haritaları"
+
+#: views/events-options.php:262
+msgid "Height"
+msgstr "Yükseklik"
+
+#: views/events-options.php:263
+msgid "Width"
+msgstr "Genişlik"
+
+#: views/events-options.php:263
+msgid "(number or %)"
+msgstr "(sayı veya %)"
+
+#: views/events-options.php:271
+#: views/events-options.php:275
+msgid "Feature on Event Date"
+msgstr "Etkinlik Tarihinde Öne Çıkar"
+
+#: views/events-options.php:289
+msgid "This option will bump an event to the top of the homepage loop on the day of the event."
+msgstr "Bu seçenek günün etkinliğini anasayfa döngüsünün başına zıplatacak."
+
+#: views/events-options.php:297
+#: views/events-options.php:301
+msgid "Use Pretty URLs"
+msgstr "Sevimli URL'leri Kullan"
+
+#: views/events-options.php:315
+msgid "Pretty URLs (ie, http://site/category/events/upcoming) may interfere with custom themes or plugins."
+msgstr "Sevimli URL'ler (ör, http://site.com/category/events/upcoming) özel temalar veya eklentilerle çakışabilir."
+
+#: views/events-options.php:341
+msgid "Save Changes"
+msgstr "Değişiklikleri Kaydet"
+
+#: views/gridview.php:9
+#: views/list.php:9
+msgid "Calendar of Events"
+msgstr "Etkinlik Takvimi"
+
+#: views/gridview.php:35
+#: views/list.php:20
+#: views/single.php:11
+msgid "iCal Import"
+msgstr "iCal'a Aktar"
+
+#: views/list.php:37
+#: views/single.php:15
+msgid "Start:"
+msgstr "Başlangıç:"
+
+#: views/list.php:41
+#: views/single.php:18
+msgid "End:"
+msgstr "Bitiş:"
+
+#: views/list.php:67
+#: views/single.php:40
+msgid "Google Map"
+msgstr ""
+
+#: views/list.php:99
+msgid "&laquo; Previous Events"
+msgstr "&laquo; Önceki Etkinlikler"
+
+#: views/list.php:112
+msgid "Next Events &raquo;"
+msgstr "Sonraki Etkinlikler &raquo;"
+
+#: views/single.php:9
+msgid "&laquo; Back to Events"
+msgstr "&laquo; Etkinliklere Dön"
+
+#: views/single.php:12
+msgid "This event has passed."
+msgstr "Bu etkinlik geçti."
+
+#: views/single.php:40
+msgid "Click to view a Google Map"
+msgstr "Google Map'i Görmek için Tıkla"
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/extend/plugins/the-events-calendar/"
+msgstr "http://wordpress.org/extend/plugins/the-events-calendar/"
+
+#. Description of the plugin/theme
+msgid "The Events Calendar plugin enables you to rapidly create and manage events using the post editor. Features include optional Eventbrite integration, Google Maps integration as well as default calendar grid and list templates for streamlined one click installation. When updating The Events Calendar, if EventBrite for The Events Calendar is being used, the two plugins must be updated together. Requires PHP 5.1 or above."
+msgstr "The Events Calendar eklentisi, etkinlikleri kolaylıkla oluşturmanıza, yönetmenize ve yazı editörüyle düzenlemenize olanak verir. Marifetlerine Eventbrite ile Google Harita entegrasyonu tabi ayrıca aerodinamik liste şablonu ve doğal takvim düzenide dahildir. The Events Calendar'ı EventBrite for The Events Calendar ile birlikte kullanıyorsanız, güncelleme yaparken iki eklentiyide aynı anda güncellemelisiniz. PHP 5.1 den aşağısında çalışmayacaktır."
+
+#. Author of the plugin/theme
+msgid "Shane & Peter, Inc."
+msgstr "Shane & Peter, Inc."
+
+#. Author URI of the plugin/theme
+msgid "http://www.shaneandpeter.com/"
+msgstr "http://www.shaneandpeter.com/"
+
