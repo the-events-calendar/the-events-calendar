@@ -370,6 +370,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
 			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );
 			add_filter( 'admin_body_class', array($this, 'admin_body_class') );
+			add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
 			if ( ! $this->getOption('spEventsDebug', false) ) {
 				$this->addQueryFilters();
 			}
@@ -413,6 +414,14 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		
 		public function get_event_taxonomy() {
 			return self::TAXONOMY;
+		}
+		
+		public function emptyEventContent( $content ) {
+			global $post;
+			if ( '' == $content && $post->post_type == self::POSTTYPE ) {
+				$content = __('No description has been entered for this event.', $this->pluginDomain);
+			}
+			return $content;
 		}
 		
 		public function column_headers( $columns ) {

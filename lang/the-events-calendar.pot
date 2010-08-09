@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Events Calendar Pro 1.2\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/the-events-calendar\n"
-"POT-Creation-Date: 2010-08-06 15:38-0500\n"
+"POT-Creation-Date: 2010-08-09 14:53-0500\n"
 "PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1115,204 +1115,208 @@ msgstr ""
 msgid "past"
 msgstr ""
 
-#: the-events-calendar.class.php:426 the-events-calendar.class.php:538
+#: the-events-calendar.class.php:422
+msgid "No description has been entered for this event."
+msgstr ""
+
+#: the-events-calendar.class.php:435 the-events-calendar.class.php:547
 msgid "Event Categories"
 msgstr ""
 
-#: the-events-calendar.class.php:431
+#: the-events-calendar.class.php:440
 msgid "Start Date"
 msgstr ""
 
-#: the-events-calendar.class.php:432
+#: the-events-calendar.class.php:441
 msgid "End Date"
 msgstr ""
 
-#: the-events-calendar.class.php:456 views/events-options.php:198
+#: the-events-calendar.class.php:465 views/events-options.php:198
 #: views/events-options.php:200
 msgid "Debug"
 msgstr ""
 
-#: the-events-calendar.class.php:525
+#: the-events-calendar.class.php:534
 msgid "Events"
 msgstr ""
 
-#: the-events-calendar.class.php:526
+#: the-events-calendar.class.php:535
 msgid "Event"
 msgstr ""
 
-#: the-events-calendar.class.php:527
+#: the-events-calendar.class.php:536
 msgid "Add New"
 msgstr ""
 
-#: the-events-calendar.class.php:528
+#: the-events-calendar.class.php:537
 msgid "Add New Event"
 msgstr ""
 
-#: the-events-calendar.class.php:529
+#: the-events-calendar.class.php:538
 msgid "Edit Event"
 msgstr ""
 
-#: the-events-calendar.class.php:530
+#: the-events-calendar.class.php:539
 msgid "New Event"
 msgstr ""
 
-#: the-events-calendar.class.php:531
+#: the-events-calendar.class.php:540
 msgid "View Event"
 msgstr ""
 
-#: the-events-calendar.class.php:532
+#: the-events-calendar.class.php:541
 msgid "Search Events"
 msgstr ""
 
-#: the-events-calendar.class.php:533
+#: the-events-calendar.class.php:542
 msgid "No events found"
 msgstr ""
 
-#: the-events-calendar.class.php:534
+#: the-events-calendar.class.php:543
 msgid "No events found in Trash"
 msgstr ""
 
-#: the-events-calendar.class.php:539
+#: the-events-calendar.class.php:548
 msgid "Event Category"
 msgstr ""
 
-#: the-events-calendar.class.php:540
+#: the-events-calendar.class.php:549
 msgid "Search Event Categories"
 msgstr ""
 
-#: the-events-calendar.class.php:541
+#: the-events-calendar.class.php:550
 msgid "All Event Categories"
 msgstr ""
 
-#: the-events-calendar.class.php:542
+#: the-events-calendar.class.php:551
 msgid "Parent Event Category"
 msgstr ""
 
-#: the-events-calendar.class.php:543
+#: the-events-calendar.class.php:552
 msgid "Parent Event Category:"
 msgstr ""
 
-#: the-events-calendar.class.php:544
+#: the-events-calendar.class.php:553
 msgid "Edit Event Category"
 msgstr ""
 
-#: the-events-calendar.class.php:545
+#: the-events-calendar.class.php:554
 msgid "Update Event Category"
 msgstr ""
 
-#: the-events-calendar.class.php:546
+#: the-events-calendar.class.php:555
 msgid "Add New Event Category"
 msgstr ""
 
-#: the-events-calendar.class.php:547
+#: the-events-calendar.class.php:556
 msgid "New Event Category Name"
 msgstr ""
 
-#: the-events-calendar.class.php:584
+#: the-events-calendar.class.php:593
 msgid "Next"
 msgstr ""
 
-#: the-events-calendar.class.php:585
+#: the-events-calendar.class.php:594
 msgid "Prev"
 msgstr ""
 
-#: the-events-calendar.class.php:586
+#: the-events-calendar.class.php:595
 msgid "Today"
 msgstr ""
 
-#: the-events-calendar.class.php:587
+#: the-events-calendar.class.php:596
 msgid "Done"
 msgstr ""
 
-#: the-events-calendar.class.php:1034
+#: the-events-calendar.class.php:1043
 msgid "Jan"
 msgstr ""
 
-#: the-events-calendar.class.php:1035
+#: the-events-calendar.class.php:1044
 msgid "Feb"
 msgstr ""
 
-#: the-events-calendar.class.php:1036
+#: the-events-calendar.class.php:1045
 msgid "Mar"
 msgstr ""
 
-#: the-events-calendar.class.php:1037
+#: the-events-calendar.class.php:1046
 msgid "Apr"
 msgstr ""
 
-#: the-events-calendar.class.php:1038 the-events-calendar.class.php:1053
+#: the-events-calendar.class.php:1047 the-events-calendar.class.php:1062
 msgid "May"
 msgstr ""
 
-#: the-events-calendar.class.php:1039
+#: the-events-calendar.class.php:1048
 msgid "Jun"
 msgstr ""
 
-#: the-events-calendar.class.php:1040
+#: the-events-calendar.class.php:1049
 msgid "Jul"
 msgstr ""
 
-#: the-events-calendar.class.php:1041
+#: the-events-calendar.class.php:1050
 msgid "Aug"
 msgstr ""
 
-#: the-events-calendar.class.php:1042
+#: the-events-calendar.class.php:1051
 msgid "Sep"
 msgstr ""
 
-#: the-events-calendar.class.php:1043
+#: the-events-calendar.class.php:1052
 msgid "Oct"
 msgstr ""
 
-#: the-events-calendar.class.php:1044
+#: the-events-calendar.class.php:1053
 msgid "Nov"
 msgstr ""
 
-#: the-events-calendar.class.php:1045
+#: the-events-calendar.class.php:1054
 msgid "Dec"
 msgstr ""
 
-#: the-events-calendar.class.php:1049
+#: the-events-calendar.class.php:1058
 msgid "January"
 msgstr ""
 
-#: the-events-calendar.class.php:1050
+#: the-events-calendar.class.php:1059
 msgid "February"
 msgstr ""
 
-#: the-events-calendar.class.php:1051
+#: the-events-calendar.class.php:1060
 msgid "March"
 msgstr ""
 
-#: the-events-calendar.class.php:1052
+#: the-events-calendar.class.php:1061
 msgid "April"
 msgstr ""
 
-#: the-events-calendar.class.php:1054
+#: the-events-calendar.class.php:1063
 msgid "June"
 msgstr ""
 
-#: the-events-calendar.class.php:1055
+#: the-events-calendar.class.php:1064
 msgid "July"
 msgstr ""
 
-#: the-events-calendar.class.php:1056
+#: the-events-calendar.class.php:1065
 msgid "August"
 msgstr ""
 
-#: the-events-calendar.class.php:1057
+#: the-events-calendar.class.php:1066
 msgid "September"
 msgstr ""
 
-#: the-events-calendar.class.php:1058
+#: the-events-calendar.class.php:1067
 msgid "October"
 msgstr ""
 
-#: the-events-calendar.class.php:1059
+#: the-events-calendar.class.php:1068
 msgid "November"
 msgstr ""
 
-#: the-events-calendar.class.php:1060
+#: the-events-calendar.class.php:1069
 msgid "December"
 msgstr ""
 
