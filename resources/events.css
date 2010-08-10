@@ -429,3 +429,10 @@ h4 .sp-view-all-events {
 	font-size:11px;
 }
 
+/* IE7, I love to hate you */
+*+html .events-archive h2.tec-cal-title {
+	padding-bottom:30px;
+}
+*+html #tec-events-calendar-header {
+	margin-bottom:30px;
+}
