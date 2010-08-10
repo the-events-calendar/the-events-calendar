@@ -374,8 +374,11 @@ h4.tec-event-day + .post .entry-title {margin-top:6px;}
 }
 
 /*===== Sidebar Calendar Widget =====*/
+.widget #calendar_wrap {
+	width:100%;
+}
 table.tec-calendar-widget {
-	width:auto;
+	width:100%;
 	table-layout:fixed;
 	margin-top:0;
 }
@@ -389,6 +392,7 @@ h4 .sp-view-all-events {
 	font-size:10px;
 	background-color:#e8e8e8;
 	color:#555;
+	width:14.28%;
 }
 .tec-calendar-widget td {
 	height:auto;
@@ -424,3 +428,4 @@ h4 .sp-view-all-events {
 .tec-calendar-widget h5 a {
 	font-size:11px;
 }
+
