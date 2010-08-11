@@ -5,7 +5,7 @@
  Version: 1.2
  Author: Shane & Peter, Inc.
  Author URI: http://www.shaneandpeter.com/
- Text Domain: the-events-calendar
+ Text Domain: events-calendar-pro
  */
 
 
