@@ -1,9 +1,9 @@
 <?php
-if ( !class_exists( 'The_Events_Calendar' ) ) {
+if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 	/**
 	 * Main plugin
 	 */
-	class The_Events_Calendar {
+	class Events_Calendar_Pro {
 		const EVENTSERROROPT		= '_tec_events_errors';
 		const CATEGORYNAME	 		= 'Events'; // legacy category
 		const OPTIONNAME 			= 'sp_events_calendar_options';
@@ -23,12 +23,9 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		);
 		private $taxonomyLabels;
 
-		public $supportUrl = 'http://support.makedesignnotwar.com/';/*
-			TODO real support URL
-		*/
-		public $envatoUrl = 'http://plugins.shaneandpeter.com/';/*
-			TODO Envato URL
-		*/
+		public $supportUrl = 'http://support.makedesignnotwar.com/';
+		public $envatoUrl = 'http://plugins.shaneandpeter.com/';
+
 		private $rewriteSlug;
 		private $rewriteSlugSingular;
 		private $taxRewriteSlug;
@@ -878,7 +875,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		/// OPTIONS DATA
         public function getOptions() {
             if ('' === $this->defaultOptions) {
-                $this->defaultOptions = get_option(The_Events_Calendar::OPTIONNAME, array());
+                $this->defaultOptions = get_option(Events_Calendar_Pro::OPTIONNAME, array());
             }
             return $this->defaultOptions;
         }
@@ -899,7 +896,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
             if (!is_array($options)) {
                 return;
             }
-            if ( update_option(The_Events_Calendar::OPTIONNAME, $options) ) {
+            if ( update_option(Events_Calendar_Pro::OPTIONNAME, $options) ) {
 				$this->latestOptions = $options;
 			} else {
 				$this->latestOptions = $this->getOptions();
@@ -907,7 +904,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
         }
         
         public function deleteOptions() {
-            delete_option(The_Events_Calendar::OPTIONNAME);
+            delete_option(Events_Calendar_Pro::OPTIONNAME);
         }
 
 		public function templateChooser($template) {
@@ -1142,7 +1139,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 	     * @return int|false Category id to use or false is none is set
 	     */
 	    static function eventCategory() {
-			return get_cat_id( The_Events_Calendar::CATEGORYNAME );
+			return get_cat_id( Events_Calendar_Pro::CATEGORYNAME );
 	    }
 		/**
 		 * Flush rewrite rules to support custom links
@@ -1745,13 +1742,13 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 					$this->displaying		= "past";
 					$this->startOperator	= "<=";
 					$this->order			= "DESC";
-					$this->date				= date_i18n( The_Events_Calendar::DBDATETIMEFORMAT );
+					$this->date				= date_i18n( Events_Calendar_Pro::DBDATETIMEFORMAT );
 					break;
 				case "upcoming":
 					$this->displaying		= "upcoming";					
 					$this->startOperator	= ">=";
 					$this->order			= "ASC";
-					$this->date				= date_i18n( The_Events_Calendar::DBDATETIMEFORMAT );
+					$this->date				= date_i18n( Events_Calendar_Pro::DBDATETIMEFORMAT );
 					break;					
 				case "month":
 					$this->displaying		= "month";
@@ -1762,7 +1759,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 					if ( isset ( $wp_query->query_vars['eventDate'] ) ) {
 						$this->date = $wp_query->query_vars['eventDate'] . "-01";
 					} else {
-						$date = date_i18n( The_Events_Calendar::DBDATEFORMAT );
+						$date = date_i18n( Events_Calendar_Pro::DBDATEFORMAT );
 						$this->date = substr_replace( $date, '01', -2 );
 					}
 				default:
@@ -1774,7 +1771,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 					if ( isset ( $wp_query->query_vars['eventDate'] ) ) {
 						$this->date = $wp_query->query_vars['eventDate'] . "-01";
 					} else {
-						$date = date_i18n( The_Events_Calendar::DBDATEFORMAT );
+						$date = date_i18n( Events_Calendar_Pro::DBDATEFORMAT );
 						$this->date = substr_replace( $date, '01', -2 );
 					}
 			}
@@ -1938,7 +1935,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		        $events .= "END:VEVENT\n";
 			}
 	        header('Content-type: text/calendar');
-	        header('Content-Disposition: attachment; filename="iCal-The_Events_Calendar.ics"');
+	        header('Content-Disposition: attachment; filename="iCal-Events_Calendar_Pro.ics"');
 			$content = "BEGIN:VCALENDAR\n";
 			$content .= "PRODID:-//" . $blogName . "//NONSGML v1.0//EN\n";
 			$content .= "VERSION:2.0\n";
@@ -1959,7 +1956,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		public function getPostExceptionThrown() {
 			return $this->postExceptionThrown;
 		}
-	} // end The_Events_Calendar class
-	global $spEvents;
-	$spEvents = new The_Events_Calendar();
-} // end if !class_exists The_Events_Calendar
+	} // end Events_Calendar_Pro class
+	global $sp_ecp;
+	$sp_ecp = new Events_Calendar_Pro();
+} // end if !class_exists Events_Calendar_Pro

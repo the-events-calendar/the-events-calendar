@@ -4,11 +4,11 @@
  * Copy and paste this to events/table.php in your template to customize
  */
 
-global $spEvents;
+global $sp_ecp;
 
 // in an events cat
-if ( is_tax( $spEvents->get_event_taxonomy() ) ) {
-	$cat = get_term_by( 'slug', get_query_var('term'), $spEvents->get_event_taxonomy() );
+if ( is_tax( $sp_ecp->get_event_taxonomy() ) ) {
+	$cat = get_term_by( 'slug', get_query_var('term'), $sp_ecp->get_event_taxonomy() );
 	$eventCat = (int) $cat->term_id;
 	$eventPosts = sp_get_events( array( 'eventCat' => $eventCat ) );
 } // not in a cat
@@ -19,21 +19,21 @@ else {
 
 $daysInMonth = date("t", $date);
 $startOfWeek = get_option( 'start_of_week', 0 );
-list( $year, $month ) = split( '-', $spEvents->date );
+list( $year, $month ) = split( '-', $sp_ecp->date );
 $date = mktime(12, 0, 0, $month, 1, $year); // 1st day of month as unix stamp
 $rawOffset = date("w", $date) - $startOfWeek;
 $offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
 $rows = 1;
-$monthView = sp_sort_by_month( $eventPosts, $spEvents->date );
+$monthView = sp_sort_by_month( $eventPosts, $sp_ecp->date );
 
 ?>
 <table class="tec-calendar" id="big">
 	<thead>
 			<tr>
 				<?php
-				for( $n = $startOfWeek; $n < count($spEvents->daysOfWeek) + $startOfWeek; $n++ ) {
+				for( $n = $startOfWeek; $n < count($sp_ecp->daysOfWeek) + $startOfWeek; $n++ ) {
 					$dayOfWeek = ( $n >= 7 ) ? $n - 7 : $n;
-					echo '<th id="tec-' . strtolower($spEvents->daysOfWeek[$dayOfWeek]) . '" abbr="' . $spEvents->daysOfWeek[$dayOfWeek] . '">' . $spEvents->daysOfWeekShort[$dayOfWeek] . '</th>';
+					echo '<th id="tec-' . strtolower($sp_ecp->daysOfWeek[$dayOfWeek]) . '" abbr="' . $sp_ecp->daysOfWeek[$dayOfWeek] . '">' . $sp_ecp->daysOfWeekShort[$dayOfWeek] . '</th>';
 				}
 				?>
 			</tr>
@@ -134,7 +134,7 @@ function display_day( $day, $monthView ) {
 						<?php if ( !empty( $end )  && $start !== $end )		echo " – " . $end . '<br />'; ?>
 					</div>
 					<?php endif; ?>
-					<?php echo The_Events_Calendar::truncate(get_the_content(), 30); ?>
+					<?php echo Events_Calendar_Pro::truncate(get_the_content(), 30); ?>
 
 				</div>
 				<span class="tec-arrow"></span>

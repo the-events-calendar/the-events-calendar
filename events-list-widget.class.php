@@ -22,7 +22,7 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 			}
 		
 			function widget( $args, $instance ) {
-				global $wp_query, $spEvents;
+				global $wp_query, $sp_ecp;
 				extract( $args, EXTR_SKIP );
 				extract( $instance, EXTR_SKIP );
 				// extracting $instance provides $title, $limit, $no_upcoming_events, $start, $end, $venue, $address, $city, $state, $province'], $zip, $country, $phone , $cost
@@ -38,7 +38,7 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 					$old_display = $wp_query->get('eventDisplay');
 					$wp_query->set('eventDisplay', 'upcoming');
 					$posts = sp_get_events( 'numResults=' . $limit );
-					$template = $spEvents->getTemplateHierarchy('events-list-load-widget-display');
+					$template = $sp_ecp->getTemplateHierarchy('events-list-load-widget-display');
 				}
 				
 				// if no posts, and the don't show if no posts checked, let's bail
@@ -100,7 +100,7 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 				/* Set up default widget settings. */
 				$defaults = array( 'title' => 'Upcoming Events', 'limit' => '5', 'start' => true, 'end' => false, 'venue' => false, 'country' => true, 'address' => false, 'city' => true, 'state' => true, 'province' => true, 'zip' => false, 'phone' => false, 'cost' => false);
 				$instance = wp_parse_args( (array) $instance, $defaults );			
-				include( $spEvents->pluginPath . 'views/events-list-load-widget-admin.php' );
+				include( $sp_ecp->pluginPath . 'views/events-list-load-widget-admin.php' );
 			}
 	}
 

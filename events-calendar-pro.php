@@ -9,27 +9,27 @@
  */
 
 
-register_activation_hook(__FILE__, 'the_events_calendar_activate');
+register_activation_hook(__FILE__, 'events_calendar_pro_activate');
 
 define( 'SP_EVENTS_SUPPORTED_WP_VERSION', version_compare(get_bloginfo("version"), '3.0', '>=') );
 define( 'SP_EVENTS_SUPPORTED_PHP_VERSION', version_compare( phpversion(), '5.2', '>=') );
 
 
-if ( ! function_exists('the_events_calendar_activate') ) {
-	function the_events_calendar_activate() {
+if ( ! function_exists('events_calendar_pro_activate') ) {
+	function events_calendar_pro_activate() {
 		if ( SP_EVENTS_SUPPORTED_WP_VERSION && SP_EVENTS_SUPPORTED_PHP_VERSION ) {
-			the_events_calendar_load();
-			global $spEvents;
-			$spEvents->on_activate();
+			events_calendar_pro_load();
+			global $sp_ecp;
+			$sp_ecp->on_activate();
 		}
 	}
 }
 
-if ( ! function_exists('the_events_calendar_load') ) {
-	function the_events_calendar_load() {
+if ( ! function_exists('events_calendar_pro_load') ) {
+	function events_calendar_pro_load() {
 		if ( SP_EVENTS_SUPPORTED_WP_VERSION && SP_EVENTS_SUPPORTED_PHP_VERSION ) {
 			$events_dir = dirname(__FILE__);
-			require_once($events_dir . "/the-events-calendar.class.php");
+			require_once($events_dir . "/events-calendar-pro.class.php");
 			require_once($events_dir . "/the-events-calendar-exception.class.php");
 			require_once($events_dir . "/events-calendar-widget.class.php");
 			require_once($events_dir . "/events-list-widget.class.php");
@@ -38,7 +38,7 @@ if ( ! function_exists('the_events_calendar_load') ) {
 	}
 }
 
-the_events_calendar_load();
+events_calendar_pro_load();
 
 add_action('admin_head', 'sp_events_notices');
 function sp_events_notices() {

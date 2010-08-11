@@ -1,12 +1,12 @@
 <?php
 
-if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' ) ) {
+if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' ) ) {
 	/**
 	 * retrieve specific key from options array, optionally provide a default return value
 	 */
 	function sp_get_option($optionName, $default = '') {
-		global $spEvents;
-		return $spEvents->getOption($optionName, $default);
+		global $sp_ecp;
+		return $sp_ecp->getOption($optionName, $default);
 	}
 	/**
 	 * Output function: Prints the gridded calendar table
@@ -14,9 +14,9 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return void
 	 */
 	function sp_calendar_grid() {
-		global $spEvents;
+		global $sp_ecp;
 		set_query_var( 'eventDisplay', 'bydate' );
-		load_template( $spEvents->getTemplateHierarchy('table') );
+		load_template( $sp_ecp->getTemplateHierarchy('table') );
 	}
 	/**
 	 * Output: Prints the mini gridded calendar table
@@ -24,9 +24,9 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return void
 	 */
 	function sp_calendar_mini_grid() {
-		global $spEvents;
+		global $sp_ecp;
 		set_query_var( 'eventDisplay', 'bydate' );
-		load_template( $spEvents->getTemplateHierarchy('table-mini') );
+		load_template( $sp_ecp->getTemplateHierarchy('table-mini') );
 	}
 	
 	/**
@@ -73,8 +73,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return boolean
 	 */
 	function sp_is_event( $postId = null ) {
-		global $spEvents;
-		return $spEvents->isEvent($postId);
+		global $sp_ecp;
+		return $sp_ecp->isEvent($postId);
 	}
 	/**
 	 * Returns a link to google maps for the given event
@@ -83,8 +83,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return string a fully qualified link to http://maps.google.com/ for this event
 	 */
 	function sp_get_map_link( $postId = null ) {
-		global $spEvents;
-		return $spEvents->googleMapLink( $postId );
+		global $sp_ecp;
+		return $sp_ecp->googleMapLink( $postId );
 	}
 	/**
 	 * Displays a link to google maps for the given event
@@ -188,14 +188,14 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return void
 	 */
 	function sp_month_year_dropdowns( $prefix = '' ) {
-		global $spEvents, $wp_query;
+		global $sp_ecp, $wp_query;
 		if ( isset ( $wp_query->query_vars['eventDate'] ) ) { 
 			$date = $wp_query->query_vars['eventDate'] . "-01";
 		} else {
-			$date = date_i18n( The_Events_Calendar::DBDATEFORMAT );
+			$date = date_i18n( Events_Calendar_Pro::DBDATEFORMAT );
 		}
-		$monthOptions = $spEvents->getMonthOptions( $date );
-		$yearOptions = $spEvents->getYearOptions( $date );
+		$monthOptions = $sp_ecp->getMonthOptions( $date );
+		$yearOptions = $sp_ecp->getYearOptions( $date );
 		include('views/datepicker.php');
 	}
 	/**
@@ -207,19 +207,19 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return string date
 	 */
 	function sp_get_start_date( $postId = null, $showtime = 'true', $dateFormat = '' ) {
-		global $spEvents, $post;
+		global $sp_ecp, $post;
 		$postId = sp_post_id_helper( $postId );
 		if( $dateFormat ) $format = $dateFormat;
-		else $format = get_option( 'date_format', The_Events_Calendar::DATEONLYFORMAT );
+		else $format = get_option( 'date_format', Events_Calendar_Pro::DATEONLYFORMAT );
 		if( sp_get_all_day( $postId ) ) {
 		    $showtime = false;
 		}
 		if ( $showtime ) {
-			$format = $spEvents->getTimeFormat( $format );
+			$format = $sp_ecp->getTimeFormat( $format );
 		}
 		$shortMonthNames = ( strstr( $format, 'M' ) ) ? true : false;
 		$date = date ( $format, strtotime( get_post_meta( $postId, '_EventStartDate', true ) ) );
-		return str_replace( array_keys($spEvents->monthNames( $shortMonthNames )), $spEvents->monthNames( $shortMonthNames ), $date);
+		return str_replace( array_keys($sp_ecp->monthNames( $shortMonthNames )), $sp_ecp->monthNames( $shortMonthNames ), $date);
 	}
 	/**
 	 * Returns the event end date
@@ -230,18 +230,18 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return string date
 	 */
 	function sp_get_end_date( $postId = null, $showtime = 'true', $dateFormat = '' ) {
-		global $spEvents;
+		global $sp_ecp;
 		$postId = sp_post_id_helper( $postId );
 		if ( $dateFormat ) $format = $dateFormat;
-		else $format = get_option( 'date_format', The_Events_Calendar::DATEONLYFORMAT );
+		else $format = get_option( 'date_format', Events_Calendar_Pro::DATEONLYFORMAT );
 		if( sp_get_all_day( $postId ) ) {
 		    $showtime = false;
 		}
 		if ( $showtime ) {
-			$format = $spEvents->getTimeFormat( $format );
+			$format = $sp_ecp->getTimeFormat( $format );
 		}
 		$date = date ( $format, strtotime( get_post_meta( $postId, '_EventEndDate', true ) ) );
-		return str_replace( array_keys($spEvents->monthNames()), $spEvents->monthNames(), $date);
+		return str_replace( array_keys($sp_ecp->monthNames()), $sp_ecp->monthNames(), $date);
 	}
 	/**
 	* If EventBrite plugin is active
@@ -254,9 +254,9 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	* @return string
 	*/
 	function sp_get_cost( $postId = null) {
-		global $spEvents;
+		global $sp_ecp;
 		$postId = sp_post_id_helper( $postId );
-		if( class_exists( 'Eventbrite_for_The_Events_Calendar' ) ) {
+		if( class_exists( 'Eventbrite_for_Events_Calendar_Pro' ) ) {
 			global $spEventBrite;
 			$returned = $spEventBrite->sp_get_cost($postId);
 			if($returned) {
@@ -382,15 +382,15 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return bool
 	 */
 	function sp_is_new_event_day() {
-		global $spEvents, $post;
+		global $sp_ecp, $post;
 		$retval = false;
 		$now = time();
 		$postTimestamp = strtotime( $post->EventStartDate, $now );
-		$postTimestamp = strtotime( date( The_Events_Calendar::DBDATEFORMAT, $postTimestamp ), $now); // strip the time
-		if ( $postTimestamp != $spEvents->currentPostTimestamp ) { 
+		$postTimestamp = strtotime( date( Events_Calendar_Pro::DBDATEFORMAT, $postTimestamp ), $now); // strip the time
+		if ( $postTimestamp != $sp_ecp->currentPostTimestamp ) { 
 			$retval = true;
 		}
-		$spEvents->currentPostTimestamp = $postTimestamp; 
+		$sp_ecp->currentPostTimestamp = $postTimestamp; 
 		return $retval;
 	}
 	/**
@@ -403,8 +403,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return array results
 	 */
 	function sp_get_events( $args = '' ) {
-		global $spEvents;
-		return $spEvents->getEvents( $args );
+		global $sp_ecp;
+		return $sp_ecp->getEvents( $args );
 	}
 	/**
 	 * Returns true if the query is set for past events, false otherwise
@@ -412,8 +412,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return bool
 	 */
 	function sp_is_past() {
-		global $spEvents;
-		return ($spEvents->displaying == 'past') ? true : false;
+		global $sp_ecp;
+		return ($sp_ecp->displaying == 'past') ? true : false;
 	}
 	/**
 	 * Returns true if the query is set for upcoming events, false otherwise
@@ -421,8 +421,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return bool
 	 */
 	function sp_is_upcoming() {
-		global $spEvents;
-		return ($spEvents->displaying == 'upcoming') ? true : false;
+		global $sp_ecp;
+		return ($sp_ecp->displaying == 'upcoming') ? true : false;
 	}
 	/**
 	 * Returns true if the query is set for month display (as opposed to Upcoming / Past)
@@ -430,8 +430,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return bool
 	 */
 	function sp_is_month() {
-		global $spEvents;
-		return ( $spEvents->displaying == 'month' ) ? true : false;
+		global $sp_ecp;
+		return ( $sp_ecp->displaying == 'month' ) ? true : false;
 	}
 	/**
 	 * Returns a link to the previous events in list view
@@ -439,8 +439,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return string 
 	 */
 	function sp_get_past_link() {
-		global $spEvents;
-		return $spEvents->getLink('past');
+		global $sp_ecp;
+		return $sp_ecp->getLink('past');
 	}
 	/**
 	 * Returns a link to the upcoming events in list view
@@ -448,8 +448,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return string 
 	 */
 	function sp_get_upcoming_link() {
-		global $spEvents;
-		return $spEvents->getLink('upcoming');
+		global $sp_ecp;
+		return $sp_ecp->getLink('upcoming');
 	}
 	/**
 	 * Returns a link to the next month's events page
@@ -457,8 +457,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return string 
 	 */
 	function sp_get_next_month_link() {
-		global $spEvents;
-		return $spEvents->getLink( 'month', $spEvents->nextMonth( $spEvents->date ) );
+		global $sp_ecp;
+		return $sp_ecp->getLink( 'month', $sp_ecp->nextMonth( $sp_ecp->date ) );
 	}
 	/**
 	 * Returns a link to the previous month's events page
@@ -466,8 +466,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function sp_get_previous_month_link() {
-		global $spEvents;
-		return $spEvents->getLink( 'month', $spEvents->previousMonth( $spEvents->date ) );
+		global $sp_ecp;
+		return $sp_ecp->getLink( 'month', $sp_ecp->previousMonth( $sp_ecp->date ) );
 	}
 	
 	/**
@@ -476,8 +476,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function sp_get_single_ical_link() {
-		global $spEvents;
-		return $spEvents->getLink( 'ical', 'single' );
+		global $sp_ecp;
+		return $sp_ecp->getLink( 'ical', 'single' );
 	}
 
 	/**
@@ -486,32 +486,32 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function sp_get_events_link() {
-		global $spEvents;
-		return $spEvents->getLink('home');
+		global $sp_ecp;
+		return $sp_ecp->getLink('home');
 	}
 	
 	function sp_get_gridview_link() {
-		global $spEvents;
-		return $spEvents->getLink('month');
+		global $sp_ecp;
+		return $sp_ecp->getLink('month');
 	}
 		
 	function sp_get_listview_link() {
-		global $spEvents;
-		return $spEvents->getLink('upcoming');
+		global $sp_ecp;
+		return $sp_ecp->getLink('upcoming');
 	}
 	
 	function sp_get_listview_past_link() {
-		global $spEvents;
-		return $spEvents->getLink('past');
+		global $sp_ecp;
+		return $sp_ecp->getLink('past');
 	}
 	
 	function sp_get_dropdown_link_prefix() {
-		global $spEvents;
-		return $spEvents->getLink('dropdown');
+		global $sp_ecp;
+		return $sp_ecp->getLink('dropdown');
 	}
 	function sp_get_ical_link() {
-		global $spEvents;
-		return $spEvents->getLink('ical');
+		global $sp_ecp;
+		return $sp_ecp->getLink('ical');
 	}
 
 	/**
@@ -520,8 +520,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function sp_get_previous_month_text() {
-		global $spEvents;
-		return $spEvents->getDateString( $spEvents->previousMonth( $spEvents->date ) );
+		global $sp_ecp;
+		return $sp_ecp->getDateString( $sp_ecp->previousMonth( $sp_ecp->date ) );
 	}
 	/**
 	 * Returns a textual description of the current month
@@ -529,8 +529,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function sp_get_current_month_text( ){
-		global $spEvents; 
-		return date( 'F', strtotime( $spEvents->date ) );
+		global $sp_ecp; 
+		return date( 'F', strtotime( $sp_ecp->date ) );
 	}
 	/**
 	 * Returns a textual description of the next month
@@ -538,8 +538,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function sp_get_next_month_text() {
-		global $spEvents;
-		return $spEvents->getDateString( $spEvents->nextMonth( $spEvents->date ) );
+		global $sp_ecp;
+		return $sp_ecp->getDateString( $sp_ecp->nextMonth( $sp_ecp->date ) );
 	}
 	/**
 	 * Returns a formatted date string of the currently displayed month (in "jump to month" mode)
@@ -547,9 +547,9 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function sp_get_displayed_month() {
-		global $spEvents;
-		if ( $spEvents->displaying == 'month' ) {
-			return $spEvents->getDateString( $spEvents->date );
+		global $sp_ecp;
+		if ( $sp_ecp->displaying == 'month' ) {
+			return $sp_ecp->getDateString( $sp_ecp->date );
 		}
 		return " ";
 	}
@@ -559,9 +559,9 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function sp_get_this_month_link() {
-		global $spEvents;
-		if ( $spEvents->displaying == 'month' ) {
-			return $spEvents->getLink( 'month', $spEvents->date );
+		global $sp_ecp;
+		if ( $sp_ecp->displaying == 'month' ) {
+			return $sp_ecp->getLink( 'month', $sp_ecp->date );
 		}
 		return false;
 	}
@@ -571,8 +571,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function sp_get_region() {
-		global $spEvents;
-		if ( sp_get_country() == __('United States', $spEvents->pluginDomain ) ) {
+		global $sp_ecp;
+		if ( sp_get_country() == __('United States', $sp_ecp->pluginDomain ) ) {
 			return sp_get_state();
 		} else {
 			return sp_get_province(); 
@@ -592,10 +592,10 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	 * echos an events title, with pseudo-breadcrumb if on a category
 	*/ 
 	function sp_events_title() {
-		global $spEvents;
-		$title = __('Calendar of Events', $spEvents->pluginDomain);
-		if ( is_tax( $spEvents->get_event_taxonomy() ) ) {
-			$cat = get_term_by( 'slug', get_query_var('term'), $spEvents->get_event_taxonomy() );
+		global $sp_ecp;
+		$title = __('Calendar of Events', $sp_ecp->pluginDomain);
+		if ( is_tax( $sp_ecp->get_event_taxonomy() ) ) {
+			$cat = get_term_by( 'slug', get_query_var('term'), $sp_ecp->get_event_taxonomy() );
 			$title = '<a href="'.sp_get_events_link().'">'.$title.'</a>';
 			$title .= ' &#8250; ' . $cat->name;
 		}
@@ -603,8 +603,8 @@ if( class_exists( 'The_Events_Calendar' ) && !function_exists( 'sp_get_option' )
 	}
 
 	function sp_meta_event_cats() {
-		global $spEvents;
-		the_terms( get_the_ID(), $spEvents->get_event_taxonomy(), '<dt>'.__('Category:').'</dt><dd>', ', ', '</dd>' );
+		global $sp_ecp;
+		the_terms( get_the_ID(), $sp_ecp->get_event_taxonomy(), '<dt>'.__('Category:').'</dt><dd>', ', ', '</dd>' );
 	}
 	
 	/**

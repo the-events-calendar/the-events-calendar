@@ -1,5 +1,5 @@
 <?php
-	global $spEvents;
+	global $sp_ecp;
 	get_header();
 ?>	
 	<div id="tec-content" class="grid">
@@ -22,13 +22,13 @@
 			</span>
 
 			<span class='tec-calendar-buttons'> 
-				<a class='tec-button-off' href='<?php echo sp_get_listview_link(); ?>'><?php _e('Event List', $spEvents->pluginDomain)?></a>
-				<a class='tec-button-on' href='<?php echo sp_get_gridview_link(); ?>'><?php _e('Calendar', $spEvents->pluginDomain)?></a>
+				<a class='tec-button-off' href='<?php echo sp_get_listview_link(); ?>'><?php _e('Event List', $sp_ecp->pluginDomain)?></a>
+				<a class='tec-button-on' href='<?php echo sp_get_gridview_link(); ?>'><?php _e('Calendar', $sp_ecp->pluginDomain)?></a>
 			</span>
 
 		</div><!-- tec-events-calendar-header -->
 		<?php sp_calendar_grid(); // See the views/table.php template for customization ?>
-		<a title="<?php esc_attr_e('iCal Import', $spEvents->pluginDomain) ?>" class="ical" href="<?php echo sp_get_ical_link(); ?>"><?php _e('iCal Import', $spEvents->pluginDomain) ?></a>
+		<a title="<?php esc_attr_e('iCal Import', $sp_ecp->pluginDomain) ?>" class="ical" href="<?php echo sp_get_ical_link(); ?>"><?php _e('iCal Import', $sp_ecp->pluginDomain) ?></a>
 	</div>
 
 <?php

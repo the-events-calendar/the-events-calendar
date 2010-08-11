@@ -4,27 +4,27 @@
  * Copy and paste this to events/table-mini.php in your template to customize
  */
 
-global $spEvents; 
+global $sp_ecp; 
 $eventPosts = sp_get_events();
 $daysInMonth = date("t", $date);
 $startOfWeek = get_option( 'start_of_week', 0 );
-list( $year, $month ) = split( '-', $spEvents->date );
+list( $year, $month ) = split( '-', $sp_ecp->date );
 $date = mktime(12, 0, 0, $month, 1, $year); // 1st day of month as unix stamp
 $rawOffset = date("w", $date) - $startOfWeek;
 $offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
 $rows = 1;
-$monthView = sp_sort_by_month( $eventPosts, $spEvents->date );
+$monthView = sp_sort_by_month( $eventPosts, $sp_ecp->date );
 
 
 ?>
-<h4 class="cal-header"><?php echo date('M Y'); ?> <a class="sp-view-all-events" href="<?php echo sp_get_events_link(); ?>"><?php _e('View all &raquo;', $spEvents->pluginDomain); ?></a></h4>
+<h4 class="cal-header"><?php echo date('M Y'); ?> <a class="sp-view-all-events" href="<?php echo sp_get_events_link(); ?>"><?php _e('View all &raquo;', $sp_ecp->pluginDomain); ?></a></h4>
 <table class="tec-calendar tec-calendar-widget" id="small">
 	<thead>
 			<tr>
 				<?php
-				for( $n = $startOfWeek; $n < count($spEvents->daysOfWeekMin) + $startOfWeek; $n++ ) {
+				for( $n = $startOfWeek; $n < count($sp_ecp->daysOfWeekMin) + $startOfWeek; $n++ ) {
 					$dayOfWeek = ( $n >= 7 ) ? $n - 7 : $n;
-					echo '<th id="tec-' . strtolower($spEvents->daysOfWeekMin[$dayOfWeek]) . '" abbr="' . $spEvents->daysOfWeek[$dayOfWeek] . '">' . $spEvents->daysOfWeekMin[$dayOfWeek] . '</th>';
+					echo '<th id="tec-' . strtolower($sp_ecp->daysOfWeekMin[$dayOfWeek]) . '" abbr="' . $sp_ecp->daysOfWeek[$dayOfWeek] . '">' . $sp_ecp->daysOfWeekMin[$dayOfWeek] . '</th>';
 				}
 				?>
 			</tr>

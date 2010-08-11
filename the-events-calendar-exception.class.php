@@ -9,7 +9,7 @@ if( !class_exists( 'TEC_Post_Exception' ) ) {
 		* @param int $post->ID
 		*/
 		public function displayMessage( $postId ) {
-			if( $error = get_post_meta( $postId, The_Events_Calendar::EVENTSERROROPT, true ) ) : ?>
+			if( $error = get_post_meta( $postId, Events_Calendar_Pro::EVENTSERROROPT, true ) ) : ?>
 				<script type="text/javascript">jQuery('#tec-post-error').append('<h3>Error</h3><p>' + '<?php echo $error; ?>' + '</p>').show();</script>
 			<?php endif;
 		}
@@ -25,7 +25,7 @@ if( !class_exists( 'TEC_WP_Options_Exception' ) ) {
 		* Display the exception message in the div #tec-options-error
 		*/
 		public function displayMessage() {
-			$eventsOptions = get_option(The_Events_Calendar::OPTIONNAME, array() );
+			$eventsOptions = get_option(Events_Calendar_Pro::OPTIONNAME, array() );
 			if( $eventsOptions['error'] ) : ?>
 				<script type="text/javascript">jQuery('#tec-options-error').append('<h3>Error</h3><p>' + '<?php echo $eventsOptions['error']; ?>' + '</p>').show();</script>
 			<?php endif;

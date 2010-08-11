@@ -1,5 +1,5 @@
 <?php
-	global $spEvents;
+	global $sp_ecp;
 	
 	get_header();
 ?>
@@ -7,8 +7,8 @@
 		<div id='tec-events-calendar-header' class="clearfix">
 			<h2 class="tec-cal-title"><?php sp_events_title(); ?></h2>
 		<span class='tec-calendar-buttons'> 
-			<a class='tec-button-on' href='<?php echo sp_get_listview_link(); ?>'><?php _e('Event List', $spEvents->pluginDomain)?></a>
-			<a class='tec-button-off' href='<?php echo sp_get_gridview_link(); ?>'><?php _e('Calendar', $spEvents->pluginDomain)?></a>
+			<a class='tec-button-on' href='<?php echo sp_get_listview_link(); ?>'><?php _e('Event List', $sp_ecp->pluginDomain)?></a>
+			<a class='tec-button-off' href='<?php echo sp_get_gridview_link(); ?>'><?php _e('Calendar', $sp_ecp->pluginDomain)?></a>
 		</span>
 
 		</div><!--#tec-events-calendar-header-->
@@ -27,11 +27,11 @@
 					<div class="tec-event-list-meta">
 		              <table cellspacing="0">
 		                  <tr>
-		                    <td class="tec-event-meta-desc"><?php _e('Start:', $spEvents->pluginDomain) ?></td>
+		                    <td class="tec-event-meta-desc"><?php _e('Start:', $sp_ecp->pluginDomain) ?></td>
 		                    <td class="tec-event-meta-value"><?php echo sp_get_start_date(); ?></td>
 		                  </tr>
 		                  <tr>
-		                    <td class="tec-event-meta-desc"><?php _e('End:', $spEvents->pluginDomain) ?></td>
+		                    <td class="tec-event-meta-desc"><?php _e('End:', $sp_ecp->pluginDomain) ?></td>
 		                    <td class="tec-event-meta-value"><?php echo sp_get_end_date(); ?></td>
 		                  </tr>
 		                  <?php
@@ -39,7 +39,7 @@
 		                    if ( !empty( $venue ) ) :
 		                  ?>
 		                  <tr>
-		                    <td class="tec-event-meta-desc"><?php _e('Venue:', $spEvents->pluginDomain) ?></td>
+		                    <td class="tec-event-meta-desc"><?php _e('Venue:', $sp_ecp->pluginDomain) ?></td>
 		                    <td class="tec-event-meta-value"><?php echo $venue; ?></td>
 		                  </tr>
 		                  <?php endif; ?>
@@ -48,15 +48,15 @@
 		                    if ( !empty( $phone ) ) :
 		                  ?>
 		                  <tr>
-		                    <td class="tec-event-meta-desc"><?php _e('Phone:', $spEvents->pluginDomain) ?></td>
+		                    <td class="tec-event-meta-desc"><?php _e('Phone:', $sp_ecp->pluginDomain) ?></td>
 		                    <td class="tec-event-meta-value"><?php echo $phone; ?></td>
 		                  </tr>
 		                  <?php endif; ?>
 		                  <?php if (sp_address_exists( $post->ID ) ) : ?>
 		                  <tr>
-							<td class="tec-event-meta-desc"><?php _e('Address:', $spEvents->pluginDomain); ?><br />
+							<td class="tec-event-meta-desc"><?php _e('Address:', $sp_ecp->pluginDomain); ?><br />
 							<?php if( get_post_meta( $post->ID, '_EventShowMapLink', true ) == 'true' ) : ?>
-								<a class="gmap" href="<?php sp_the_map_link(); ?>" title="Click to view a Google Map" target="_blank"><?php _e('Google Map', $spEvents->pluginDomain ); ?></a>
+								<a class="gmap" href="<?php sp_the_map_link(); ?>" title="Click to view a Google Map" target="_blank"><?php _e('Google Map', $sp_ecp->pluginDomain ); ?></a>
 							<?php endif; ?></td>
 							<td class="tec-event-meta-value"><?php sp_the_full_address( $post->ID ); ?></td>
 		                  </tr>
@@ -66,7 +66,7 @@
 		                    if ( !empty( $cost ) ) :
 		                  ?>
 	 		              <tr>
-							<td class="tec-event-meta-desc"><?php _e('Cost:', $spEvents->pluginDomain) ?></td>
+							<td class="tec-event-meta-desc"><?php _e('Cost:', $sp_ecp->pluginDomain) ?></td>
 							<td class="tec-event-meta-value"><?php echo $cost; ?></td>
 						 </tr>
 		                  <?php endif; ?>
@@ -85,7 +85,7 @@
 			if( sp_is_upcoming() && get_previous_posts_link( ) ) : ?>
 				<?php previous_posts_link( '<span>&laquo; Previous Events</span>' ); ?>
 			<?php elseif( sp_is_upcoming() && !get_previous_posts_link( ) ) : ?>
-				<a href='<?php echo sp_get_past_link(); ?>'><span><?php _e('&laquo; Previous Events', $spEvents->pluginDomain ); ?></span></a>
+				<a href='<?php echo sp_get_past_link(); ?>'><span><?php _e('&laquo; Previous Events', $sp_ecp->pluginDomain ); ?></span></a>
 			<?php elseif( sp_is_past() && get_next_posts_link( ) ) : ?>
 				<?php next_posts_link( '<span>&laquo; Previous Events</span>' ); ?>
 			<?php endif; ?>
@@ -98,12 +98,12 @@
 			<?php elseif( sp_is_past() && get_previous_posts_link( ) ) : ?>
 				<?php previous_posts_link( '<span>Next Events &raquo;</span>' ); // a little confusing but in 'past view' to see newer events you want the previous page ?>
 			<?php elseif( sp_is_past() && !get_previous_posts_link( ) ) : ?>
-				<a href='<?php echo sp_get_upcoming_link(); ?>'><span><?php _e('Next Events &raquo;', $spEvents->pluginDomain); ?></span></a>
+				<a href='<?php echo sp_get_upcoming_link(); ?>'><span><?php _e('Next Events &raquo;', $sp_ecp->pluginDomain); ?></span></a>
 			<?php endif; ?>
 			</div>
 
 		</div>
-		<a title="<?php esc_attr_e('iCal Import', $spEvents->pluginDomain) ?>" class="ical" href="<?php echo sp_get_ical_link(); ?>"><?php _e('iCal Import', $spEvents->pluginDomain) ?></a>
+		<a title="<?php esc_attr_e('iCal Import', $sp_ecp->pluginDomain) ?>" class="ical" href="<?php echo sp_get_ical_link(); ?>"><?php _e('iCal Import', $sp_ecp->pluginDomain) ?></a>
 	</div>
 
 
