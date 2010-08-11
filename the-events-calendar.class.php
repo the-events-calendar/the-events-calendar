@@ -44,7 +44,7 @@ if ( !class_exists( 'The_Events_Calendar' ) ) {
 		public $pluginPath;
 		public $pluginUrl;
 		public $pluginName;
-		public $pluginDomain = 'the-events-calendar';
+		public $pluginDomain = 'events-calendar-pro';
 		private $tabIndexStart = 2000;
 
 		public $metaTags = array(
