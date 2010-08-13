@@ -1,0 +1,459 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Events Calendar Pro - Getting Started</title>
+<link rel="shortcut icon" href="http://shapeshifter.makedesignnotwar.com/themes/wp/mu/wpmu/wp-content/themes/shapeshifter/library/img/favicon.gif" type="image/gif" />
+
+<style type="text/css">
+html, body{margin: 0; padding: 0;}
+#wrapper { margin: 112px auto; font-family: Lucida Grande, Arial, Helvetica, sans-serif; font-size: 12px; color: #202020; line-height: 20px; width: 570px; clear: both;}
+h1 { margin-top: 10px; }
+fieldset { margin: 30px 0; padding: 30px; }
+legend { font-size: 18px; padding: 0 10px; color: #202020; }
+pre, xmp {
+	border: solid 1px #ccc;
+	padding:15px; 
+	background: #efefef;
+	}
+a {color: #1386d7;}
+hr{
+	background: #FFF;
+	height: 1px;
+	border: 0px;
+	border-bottom: 1px dotted #c2c2c2;
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+
+hr.navi{
+	background: #FFF;
+	height: 1px;
+	border: 0px;
+	border-bottom: 1px dotted #c2c2c2;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+a img {padding: 3px; background: #eee; border: 1px solid #ccc; width: 95%; height: 95%; margin: 10px auto;}
+a img:hover {background: #afdeff;}
+p{margin-bottom: 30px;}
+ul.nobullets {
+	list-style: none;
+	}
+
+ul.nav{clear: both; background: #efefef; border: solid 1px #ddd; padding: 0 0 0 15px; height: 30px; }
+ul.nav li{color: #1c8cbd; font-size: 10px; float: left; margin-right: 20px; list-style: none; padding: 5px;}
+ul.nav li:hover{cursor: pointer; background: white;}
+
+</style>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
+<script type="text/javascript">
+$("document").ready(function() {			
+				
+				$('.section1-link').click(function(){
+										   
+					$('html, body').animate({
+						scrollTop: $(".section1").offset().top
+					}, 700);				   
+					 
+										   
+				 });				
+				
+				
+				$('.section2-link').click(function(){
+										   
+					$('html, body').animate({
+						scrollTop: $(".section2").offset().top
+					}, 700);				   
+					 
+										   
+				 });
+				
+				
+				$('.section3-link').click(function(){
+										   
+					$('html, body').animate({
+						scrollTop: $(".section3").offset().top
+					}, 700);				   
+					 
+										   
+				 });
+				 
+				 $('.section4-link').click(function(){
+										   
+					$('html, body').animate({
+						scrollTop: $(".section4").offset().top
+					}, 700);				   
+					 
+										   
+				 });
+				 
+				 $('.section5-link').click(function(){
+										   
+					$('html, body').animate({
+						scrollTop: $(".section5").offset().top
+					}, 700);				   
+					 
+										   
+				 });
+
+});
+</script>
+</head>
+
+<body>
+<div style="clear: both; width: 100%; background: black; margin: 0; padding: 0; position: absolute; top: 0px; height: 135px;"><h1 style="height: 135px; width: 100%; background: black; margin: 0; padding: 0px; position: absolute; top: 0px;"><center><img src="images/logo.png" style="margin-top: 36px;"/></center></h1></div>
+<div id="wrapper">
+<br /><br />
+
+
+
+
+<p>Welcome and thanks for picking up the premium license for the plugin! The Events Calendar Premium plugin enables you to rapidly create and manage events using the post editor.  Features include Google Maps integration as well as default templates such as a calendar grid and event list for streamlined one click installation.</p>
+
+<p>Please take the time to read through the instructions listed here, as many support related questions can be answered simply by re-reading these instructions.</p>
+
+This plugin requires at least Wordpress 3.0 and PHP 5.2 to run properly.
+
+
+<hr />
+
+
+<p><img src="images/clock.png" style="float: left; margin: 5px 10px 10px 0;" /><b>Time Note:</b> In the case of most standard Wordpress themes, this plugin should be "plug and play" capable. However, some themes will require you to make customizations, and there's a good chance that you'll want to adjust the styling and structure of some things anyways; So please reserve a little extra time in accordance with your goals for this plugin!</p>
+
+<p><img src="images/file-edit.png" style="float: left; margin: 5px 10px 10px 0;" /><b>Code Note:</b> This is a premium WP plugin, so the code involved is naturally going to be pretty involved and you should only make edits if you are confident with the material. </p>
+
+<p><img src="images/star.png" style="float: left; margin: 5px 10px 10px 0;" /><b>Updates Note:</b> We fully intend to continue working on this theme for at least a few more versions until I'm satisfied that I've provided as many cool features as necessary. Keep an eye out on the product page for updates as we'll announce it there when they become available.
+</p>
+
+<p><img src="images/info.png" style="float: left; margin: 5px 10px 10px 0;" /><b>Support:</b> Spot a bug? Can't find something? If you've gone through this document and still can't find what you are looking for, please check out the included Support Guide. Keep in mind that I get LOTS of emails regarding my work at ThemeForest, so it might take me a bit to get back to you, but I'll do my best to respond in a timely manner for the first several months of this theme's lifespan (read: I can't promise that I'll be supporting this theme in a decade).
+	<span class="section1"></span>
+</p>
+
+
+
+<hr class="navi" />
+<ul class="nav">
+	<li class="section1-link">1. Pre-Installation</li>
+	<li class="section2-link">2. Installation</li>
+	<li class="section3-link">3. Using the Plugin</li>
+	<li class="section4-link">4. Documentation</li>
+	<li class="section5-link">5. Change Log</li>
+</ul>
+<hr class="navi" />
+
+
+
+
+<fieldset>
+<legend>1. Pre Installation and Setup Steps</legend>
+<p>Put on your Wordpress hats... we're about to start the installation. First things first. You need a working verion of Wordpress 3.0 and your server will need to be running PHP 5.1 or greater.</p>
+
+<p>Wordpress is free, so that part should be easy enough. If you aren't sure about what version of PHP you are running, contact your webhost and they should be happy to provide you with the information and tools to upgrade to 5.1+ if you need to. This plugin won't even install if you are running anything lower than PHP 5.1, so be sure to check into this before moving any further.</p>
+
+<p>We'll be making lots of references to the Worpdress admin panel in this documentation. If you're totally new to Wordpress, take a few minutes to familiarize yourself with how the admin panel is laid out so you won't be lost when I instruct you to open up "Appearance > Widgets" or something like that. :)</p>
+</fieldset>
+
+<span class="section2"></span>
+
+<hr class="navi" />
+<ul class="nav">
+	<li class="section1-link">1. Pre-Installation</li>
+	<li class="section2-link">2. Installation</li>
+	<li class="section3-link">3. Using the Plugin</li>
+	<li class="section4-link">4. Documentation</li>
+	<li class="section5-link">5. Change Log</li>
+</ul>
+<hr class="navi" />
+
+
+
+
+
+<fieldset>
+<legend>2. Installing the Plugin</legend>
+
+<p>You can use the ZIP upload method, which is detailed in the screencast below:</p>
+
+<object classid='clsid:d27cdb6e-ae6d-11cf-96b8-444553540000' codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,115,0' width='500' height='345'><param name='movie' value='http://screenr.com/Content/assets/screenr_1116090935.swf' /><param name='flashvars' value='i=80024' /><param name='allowFullScreen' value='true' /><embed src='http://screenr.com/Content/assets/screenr_1116090935.swf' flashvars='i=80024' allowFullScreen='true' width='500' height='345' pluginspage='http://www.macromedia.com/go/getflashplayer'></embed></object>
+<br /><br />
+
+<p>You'll also need to update your Permalink settings to ensure that the event specific rewrite rules take effects. Here's a screencast that explains how to update your permalinks and add the "Events" link to the main menu:</p>
+
+
+<object classid='clsid:d27cdb6e-ae6d-11cf-96b8-444553540000' codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,115,0' width='500' height='345'><param name='movie' value='http://screenr.com/Content/assets/screenr_1116090935.swf' /><param name='flashvars' value='i=80064' /><param name='allowFullScreen' value='true' /><embed src='http://screenr.com/Content/assets/screenr_1116090935.swf' flashvars='i=80064' allowFullScreen='true' width='500' height='345' pluginspage='http://www.macromedia.com/go/getflashplayer'></embed></object>
+
+
+<p>You can also use the manual upload method, detailed below:</p>
+<p>1. Unzip the `events-calendar-premium.zip` file. <br />
+2. Upload the the `events-calendar-premium` folder (not just the files in it!) to your `wp-content/plugins` folder. If you're using FTP, use 'binary' mode.<br />
+3. Update your permalinks to ensure that the event specific rewrite rules take effect.<br />
+4. If you have trouble installing, see the [Codex](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) for more helpful info.</p>
+
+
+</fieldset>
+
+<span class="section3"></span>
+
+<hr class="navi" />
+<ul class="nav">
+	<li class="section1-link">1. Pre-Installation</li>
+	<li class="section2-link">2. Installation</li>
+	<li class="section3-link">3. Using the Plugin</li>
+	<li class="section4-link">4. Documentation</li>
+	<li class="section5-link">5. Change Log</li>
+</ul>
+<hr class="navi" />
+
+
+<fieldset>
+<legend>3. Using the Plugin</legend>
+
+<object classid='clsid:d27cdb6e-ae6d-11cf-96b8-444553540000' codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,115,0' width='500' height='345'><param name='movie' value='http://screenr.com/Content/assets/screenr_1116090935.swf' /><param name='flashvars' value='i=80067' /><param name='allowFullScreen' value='true' /><embed src='http://screenr.com/Content/assets/screenr_1116090935.swf' flashvars='i=80067' allowFullScreen='true' width='500' height='345' pluginspage='http://www.macromedia.com/go/getflashplayer'></embed></object>
+
+<p>When installed, this plugin will add a handful of new tools to your theme's admin panel. Let's take a look at a few of them:</p>
+
+<hr />
+
+<h3>The Events List</h3>
+The Events List is located on the left side of the admin panel (see the new "Events" link?) and consists of a custom list of "events" posts. Use it just like you would a normal post list. Edit/Add/Delete your events from here.
+<a href="images/5_Admin_events_list.jpg"><img src="images/5_Admin_events_list.jpg"></a>
+
+<hr />
+
+<h3>The Events Post Editor</h3>
+This is accessed by clicking "Add New" from the Event List or the "Events > Add New" button in the left side of the admin panel. Use this like you would any post editor, but note the new fields down below the main text field:
+<a href="images/4_Admin_single_event.jpg"><img src="images/4_Admin_single_event.jpg"></a>
+
+<hr />
+
+<h3>The Event Calendar Premium Settings Page</h3>
+Located as a new link under "Settings", this page allows you to make some changes to the top level plugin settings:
+<a href="images/6_Admin_options.jpg"><img src="images/6_Admin_options.jpg"></a>
+
+<hr />
+
+<h3>Adding an "Events" link to Your Menu</h3>
+To add a new link to your navigation menu called "Events", open up the "Appearance > Menus" page in the admin panel. Then just enter in a new "Custom URL" to the menu - the URL should be something like this if you've updated your Permalinks properly:
+
+<xmp>http://yourwebsite.com/events</xmp>
+
+You can also get a little fancier by filtering for specific dates, categories, etc. with something like this:
+
+<xmp>http://yourwebsite.com/events/upcoming</xmp>
+
+
+We'll discuss all of the custom URL options in the next section.
+</fieldset>
+
+
+<span class="section4"></span>
+<hr class="navi" />
+<ul class="nav">
+	<li class="section1-link">1. Pre-Installation</li>
+	<li class="section2-link">2. Installation</li>
+	<li class="section3-link">3. Using the Plugin</li>
+	<li class="section4-link">4. Documentation</li>
+	<li class="section5-link">5. Change Log</li>
+</ul>
+<hr class="navi" />
+
+
+
+
+<fieldset>
+<legend>4. Documentation</legend>
+
+<h3>Default vs. Custom Templates</h3>
+
+The Events Calendar plugin comes with default templates for the list view, grid view and single post view, tailored to the 2010 default theme. If you would like to alter them, create a new folder called "events" in your template directory and copy over the following files from within the plugin folder (from the plugin's views/ directory):
+
+<ul>
+<li>gridview.php</li>
+<li>list.php</li>
+<li>single.php</li>
+<li>events-list-load-widget-display.php</li>
+<li>events.css ( original in the plugin's resources/ directory )</li>
+</ul>
+
+Edit the new files to your hearts content. Please do not edit the one's in the plugin folder as that will cause conflicts when you update the plugin to the latest release.
+<br /><br />
+<h3>Making it work with your theme</h3>
+We've built this plugin to the highest standards possible, but there's always the chance that it won't look quite right when installed with a particular theme. You'll notice that all of the demos use the "Twenty Ten" theme - we've done this because it's the standard that all Wordpress 3.0 themes <i>should</i> follow. For themes that don't follow this format or include layout features that might conflict with the plugin, you may have to do a little customizing of the main template files to make it play well with your theme.</p><p> We can't walk you through how to install this theme with every theme out there (there are tens of thousands), but we'll remind you that the basic HTML for the plugin just needs to fit within the same format that the standard "page.php" file of your theme follows. Some themes utilize a "Full Width" template, which is an even better template to work from since the Calendar Grid view usually doesn't have a sidebar. Just remember the main template files and keep a backup of the originals before you do any work:	<ul>
+	<li>gridview.php</li>
+<li>list.php</li>
+<li>single.php</li>
+<li>events-list-load-widget-display.php</li></ul>
+<br />
+
+
+<h3>Skinning</h3>
+Editting the resources/events.css file will allow you to effectively re-skin the default theme. Most skin changes can be made with basic CSS knowledge, the Firebug plugin for your browser, and a little perserverence. Make a copy of the original CSS file before making your own changes, just to be safe.
+<br /><br />
+<h3>Supported Variables and URLs</h3>
+
+This plugin registers the following rewrite rules, which controls which posts are available in the loop.  The number of posts returned defaults to 10, but is configurable by the $count parameter to sp_get_events(). <br /> <br />
+
+events/upcoming  <br />
+?post_type=sp_events&eventDisplay=upcoming <br /> <br />
+  
+Displays events starting today in ascending date order. <br /> <br />
+  
+events/past <br />
+?post_type=sp_events&eventDisplay=past <br /> <br />
+
+Displays events that started before today in descending date order. <br /> <br />
+  
+events/2010-01-02 <br />
+?post_type=sp_events&eventDisplay=bydate&eventDate=2010-01-02 <br /> <br />
+
+Displays only events that start on Jan 2, 2010. <br /> <br />
+
+events/ical <br />
+?ical <br /> <br />
+
+Provides an iCal file of all Events <br /> <br />
+
+
+<h3>Template Tags</h3>
+
+**sp_get_start_date( $id, $showtime, $dateFormat)** <br />
+**sp_get_end_date( $id, $showtime, $dateFormat)** <br /> <br />
+
+Date format in order of precedence: <br />
+- An format string arg given to event_start_date() or event_end_date() <br />
+- WP options <br />
+- The constant set in the plugin class <br /> <br />
+
+Time format comes from: <br />
+- WP options <br />
+- Constant in the plugin class <br /> <br />
+
+**sp_get_cost( $id )** <br />
+**sp_get_venue( $id )** <br />
+**sp_get_address( $id )** <br />
+**sp_get_city( $id )** <br />
+**sp_get_state( $id )** <br />
+**sp_get_province( $id )** <br />
+**sp_get_zip( $id )** <br />
+**sp_get_country( $id )** <br />
+**sp_get_phone( $id )** <br /> <br />
+
+These functions will return the metadata associated with the event. The ID is optional. <br /> <br />
+
+**sp_the_map_link( $id )** <br />
+**sp_get_map_link( $id )** <br /> <br />
+
+Echos or returns, respectively, an http:// link to google maps for the event's address.  The ID is optional. <br /> <br />
+
+**sp_month_year_dropdowns( )** <br /> <br />
+
+Prints the year & month dropdowns. JavaScript in the resources/events-admin.js file will autosubmit on the change event. <br /> <br />
+
+**event_style( $id )** <br />
+**get_event_style( $id )** <br /> <br />
+
+Echos or returns, respectively, the event class specified in the admin panel.  ID is optional. <br /> <br />
+
+**sp_is_new_event_day()** <br />
+
+Called inside of the loop, returns true if the current post's meta_value (EventStartDate) is different than the previous post.   Will always return true for the first event in the loop. <br /> <br />
+
+**sp_get_events( $count )** <br /> <br />
+
+Call this function in a template to query the events. $count is optional. <br /> <br />
+
+**sp_is_past()** <br /> <br />
+
+Returns true if the query is set for past events <br /> <br />
+
+**sp_the_embedded_map( $id, $width, $height)** <br /> <br />
+
+Returns an embedded google map. Width and height are set through the admin panel unless overridden directly through the function call. <br /> <br />
+
+**sp_get_tickets( $id, $width, $height)** <br /> <br />
+
+Returns an EventBrite.com embedded ticket sales inline (not WordPress) widget  <br />
+</fieldset>
+
+
+<span class="section5"></span>
+<hr class="navi" />
+<ul class="nav">
+	<li class="section1-link">1. Pre-Installation</li>
+	<li class="section2-link">2. Installation</li>
+	<li class="section3-link">3. Using the Plugin</li>
+	<li class="section4-link">4. Documentation</li>
+	<li class="section5-link">5. Change Log</li>
+</ul>
+<hr class="navi" />
+
+
+
+<fieldset>
+<legend>5. Change Log</legend>
+
+<h3>Version 1.1.3</h3>
+
+Bugfixes
+
+# fixed the single post / list view bug.
+# Removed debug mode because of bugs.
+
+<h3>Version 1.1.2</h3>
+
+Bugfixes
+
+* translations load correctly
+* viewing events in admin now paginates properly
+
+<h3>Version 1.1.1</h3>
+
+Bugfixes
+
+* proper version #
+* consistent labels for plugin: Events Calendar Pro
+
+<h3>Version 1.1</h3>
+
+* Events Calendar widget
+* Single event ical import. Uses **sp_get_single_ical_link()** (must be used in the loop)
+
+Bugfixes
+
+* **is_home()** no longer returns true on an Events view
+* Debug mode introduced for users seeing wrong counts in the Events admin view. Turn on and ensure that start and end dates are set correctly before turning off. While debug mode is on, Events will not be sorted by start date properly.
+* Some instances where the single.php template in your theme's events/ directory would not load properly should now be fixed.
+
+<h3>Version 1.0</h3>
+
+* Full port of The Events Calendar 1.6 to Events Calendar Premium 1.0<br />
+* Now using custom post types rather than an events category!<br />
+* Slick jQuery UI datepicker - no more fiddling with 3 dropdowns!<br />
+* Lots of code refactoring for a better experience<br />
+* Ability to set Events-specific categories<br />
+
+</fieldset>
+
+
+<hr class="navi" />
+<ul class="nav">
+	<li class="section1-link">1. Pre-Installation</li>
+	<li class="section2-link">2. Installation</li>
+	<li class="section3-link">3. Using the Plugin</li>
+	<li class="section4-link">4. Documentation</li>
+	<li class="section5-link">5. Change Log</li>
+</ul>
+<hr class="navi" />
+
+
+
+
+</fieldset>
+</div>
+</body>
+</html>
