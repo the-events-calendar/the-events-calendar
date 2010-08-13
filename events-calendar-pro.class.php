@@ -788,7 +788,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 		}
 		/**
-		 * join filter for standard wordpress templates.  Adds the postmeta tables for start and end queries
+		 * join filter for admin quries
 		 *
 		 * @param string join clause
 		 * @return string modified join clause 
@@ -798,13 +798,12 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			if ( get_query_var('post_type') != self::POSTTYPE ) { 
 				return $join;
 			}
-			$join .= "LEFT JOIN {$wpdb->postmeta} as eventStart ON( {$wpdb->posts}.ID = eventStart.post_id ) ";
-			$join .= "LEFT JOIN {$wpdb->postmeta} as eventEnd ON( {$wpdb->posts}.ID = eventEnd.post_id ) ";
+			$join .= " LEFT JOIN {$wpdb->postmeta} as eventStart ON( {$wpdb->posts}.ID = eventStart.post_id ) ";
+			$join .= " LEFT JOIN {$wpdb->postmeta} as eventEnd ON( {$wpdb->posts}.ID = eventEnd.post_id ) ";
 			return $join;
 		}
 		/**
-		 * where filter for standard wordpress templates. Inspects the event options and filters
-		 * event posts for upcoming or past event loops
+		 * where filter for admin queries
 		 *
 		 * @param string where clause
 		 * @return string modified where clause
@@ -829,8 +828,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 
 		/**
-		 * orderby filter for standard wordpress templates.  Adds event ordering for queries that are
-		 * in the events category and filtered according to the search parameters
+		 * orderby filter for standard admin queries
 		 *
 		 * @param string orderby
 		 * @return string modified orderby clause
@@ -843,8 +841,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			return $orderby;
 		}
 		/**
-		 * limit filter for standard wordpress templates.  Adds limit clauses for pagination 
-		 * for queries in the events category
+		 * limit filter for admin queries
 		 *
 		 * @param string limits clause
 		 * @return string modified limits clause
