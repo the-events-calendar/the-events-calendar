@@ -195,6 +195,7 @@ Features
 
 # Full events category support! You can now browse by category in both list and calendar views. (If you have a custom template, inspect the differences in ours, because yours won't work with categories out of the box.)
 # Customizable /events/ URL slug. In case you want something like http://yoursite.com/concerts
+# Translation of URLs enabled through POT file
 # Add to Google Calendar button on a single event
 
 
@@ -203,7 +204,7 @@ Bugfixes
 # Restored proper date ordering in admin area
 # Translations (where available) should be displaying consistently
 # US states now display properly
-# Autosave re-enabled
+# Autosave and Preview re-enabled
 # No limits to how many events display on a given day
 
 = 1.1.4 =

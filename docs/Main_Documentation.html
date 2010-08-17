@@ -151,7 +151,7 @@ This plugin requires at least Wordpress 3.0 and PHP 5.2 to run properly.
 
 <fieldset>
 <legend>1. Pre Installation and Setup Steps</legend>
-<p>Put on your Wordpress hats... we're about to start the installation. First things first. You need a working verion of Wordpress 3.0 and your server will need to be running PHP 5.1 or greater.</p>
+<p>Put on your Wordpress hats... we're about to start the installation. First things first. You need a working verion of Wordpress 3.0 and your server will need to be running PHP 5.2 or greater.</p>
 
 <p>Wordpress is free, so that part should be easy enough. If you aren't sure about what version of PHP you are running, contact your webhost and they should be happy to provide you with the information and tools to upgrade to 5.1+ if you need to. This plugin won't even install if you are running anything lower than PHP 5.1, so be sure to check into this before moving any further.</p>
 
@@ -396,6 +396,23 @@ Returns an EventBrite.com embedded ticket sales inline (not WordPress) widget  <
 
 <fieldset>
 <legend>5. Change Log</legend>
+
+<h3>Version 1.2</h3>
+
+Features
+
+* Full events category support! You can now browse by category in both list and calendar views. (If you have a custom template, inspect the differences in ours, because yours won't work with categories out of the box.)
+* Customizable /events/ URL slug. In case you want something like http://yoursite.com/concerts
+* Translation of URLs enabled through POT file
+* Add to Google Calendar button on a single event
+
+Bugfixes
+
+* Restored proper date ordering in admin area
+* Translations (where available) should be displaying consistently
+* US states now display properly
+* Autosave and Preview re-enabled
+* No limits to how many events display on a given day
 
 <h3>Version 1.1.3</h3>
 
