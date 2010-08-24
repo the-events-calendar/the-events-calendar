@@ -22,9 +22,10 @@ $monthView = sp_sort_by_month( $eventPosts, $sp_ecp->date );
 	<thead>
 			<tr>
 				<?php
+
 				for( $n = $startOfWeek; $n < count($sp_ecp->daysOfWeekMin) + $startOfWeek; $n++ ) {
 					$dayOfWeek = ( $n >= 7 ) ? $n - 7 : $n;
-					echo '<th id="tec-' . strtolower($sp_ecp->daysOfWeekMin[$dayOfWeek]) . '" abbr="' . $sp_ecp->daysOfWeek[$dayOfWeek] . '">' . $sp_ecp->daysOfWeekMin[$dayOfWeek] . '</th>';
+					echo '<th id="tec-' . strtolower($sp_ecp->daysOfWeekMin[$dayOfWeek]) . '" title="' . $sp_ecp->daysOfWeek[$dayOfWeek] . '">' . $sp_ecp->daysOfWeekMin[$dayOfWeek] . '</th>';
 				}
 				?>
 			</tr>
@@ -43,7 +44,7 @@ $monthView = sp_sort_by_month( $eventPosts, $sp_ecp->date );
 			        echo "</tr>\n\t<tr>";
 			        $rows++;
 			    }
-			
+
 				// Var'ng up days, months and years
 				$current_day = date_i18n( 'd' );
 				$current_month = date_i18n( 'm' );

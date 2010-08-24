@@ -30,9 +30,10 @@ $monthView = sp_sort_by_month( $eventPosts, $sp_ecp->date );
 <table class="tec-calendar" id="big">
 	<thead>
 			<tr>
-				<?php
+				<?php //$sp_ecp->log($sp_ecp->daysOfWeekShort);
 				for( $n = $startOfWeek; $n < count($sp_ecp->daysOfWeek) + $startOfWeek; $n++ ) {
 					$dayOfWeek = ( $n >= 7 ) ? $n - 7 : $n;
+					
 					echo '<th id="tec-' . strtolower($sp_ecp->daysOfWeek[$dayOfWeek]) . '" abbr="' . $sp_ecp->daysOfWeek[$dayOfWeek] . '">' . $sp_ecp->daysOfWeekShort[$dayOfWeek] . '</th>';
 				}
 				?>

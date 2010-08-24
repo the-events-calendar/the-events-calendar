@@ -66,10 +66,16 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public $daysOfWeekShort;
 		public $daysOfWeek;
 		public $daysOfWeekMin;
+		public $monthsFull;
+		public $monthsShort;
 		private function constructDaysOfWeek() {
-			$this->daysOfWeekShort = array( __( 'Sun', $this->pluginDomain ), __( 'Mon', $this->pluginDomain ), __( 'Tue', $this->pluginDomain ), __( 'Wed', $this->pluginDomain ), __( 'Thu', $this->pluginDomain ), __( 'Fri', $this->pluginDomain ), __( 'Sat', $this->pluginDomain ) );
-			$this->daysOfWeek = array( __( 'Sunday', $this->pluginDomain ), __( 'Monday', $this->pluginDomain ), __( 'Tuesday', $this->pluginDomain ), __( 'Wednesday', $this->pluginDomain ), __( 'Thursday', $this->pluginDomain ), __( 'Friday', $this->pluginDomain ), __( 'Saturday', $this->pluginDomain ) );
-			$this->daysOfWeekMin = array( __( 'Su', $this->pluginDomain ), __( 'Mo', $this->pluginDomain ), __( 'Tu', $this->pluginDomain ), __( 'We', $this->pluginDomain ), __( 'Th', $this->pluginDomain ), __( 'Fr', $this->pluginDomain ), __( 'Sa', $this->pluginDomain ) );
+			global $wp_locale;
+			for ($i = 0; $i <= 6; $i++) {
+				$day = $wp_locale->get_weekday($i);
+				$this->daysOfWeek[$i] = $day;
+				$this->daysOfWeekShort[$i] = $wp_locale->get_weekday_abbrev($day);
+				$this->daysOfWeekMin[$i] = $wp_locale->get_weekday_initial($day);
+			}
 		}
 		
 		private $countries;
@@ -341,9 +347,14 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$this->pluginDir		= trailingslashit( basename( dirname(__FILE__) ) );
 			$this->pluginPath		= trailingslashit( dirname(__FILE__) );
 			$this->pluginUrl 		= WP_PLUGIN_URL.'/'.$this->pluginDir;
-
+			
+			register_deactivation_hook( __FILE__, 	array( &$this, 'on_deactivate' ) );
+			$this->addFilters();
+			$this->addActions();
+		}
+		
+		public function init() {
 			$this->loadTextDomain();
-
 			$this->pluginName = __( 'Events Calendar Pro', $this->pluginDomain );
 			$this->rewriteSlug = $this->getOption('eventsSlug', 'events');
 			$this->rewriteSlugSingular = $this->getOption('singleEventSlug', 'event');
@@ -355,9 +366,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlugSingular;
 			$this->currentDay = '';
 			$this->errors = '';
-			register_deactivation_hook( __FILE__, 	array( &$this, 'on_deactivate' ) );
-			$this->addFilters();
-			$this->addActions();
 		}
 		
 		private function addFilters() {
@@ -391,7 +399,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 		
 		private function addActions() {
-			add_action( 'reschedule_event_post', array( $this, 'reschedule') );
+			add_action( 'init', array( $this, 'init'), 0 );
+			//add_action( 'reschedule_event_post', array( $this, 'reschedule') );
 			add_action( 'template_redirect',				array( $this, 'loadStyle' ) );
 			add_action( 'sp-events-save-more-options', array( $this, 'flushRewriteRules' ) );
 			add_action( 'pre_get_posts',	array( $this, 'setOptions' ) );
@@ -997,6 +1006,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function loadTextDomain() {
 			load_plugin_textdomain( $this->pluginDomain, false, $this->pluginDir . 'lang/');
 			$this->constructDaysOfWeek();
+			$this->initMonthNames();
 		}
 		
 		public function loadStyle() {
@@ -1027,43 +1037,46 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			return $months;
 		}
 
+		private function initMonthNames() {
+			global $wp_locale;
+			$this->monthsFull = array( 
+				'January' => $wp_locale->get_month('01'), 
+				'February' => $wp_locale->get_month('02'), 
+				'March' => $wp_locale->get_month('03'), 
+				'April' => $wp_locale->get_month('04'), 
+				'May' => $wp_locale->get_month('05'), 
+				'June' => $wp_locale->get_month('06'), 
+				'July' => $wp_locale->get_month('07'), 
+				'August' => $wp_locale->get_month('08'), 
+				'September' => $wp_locale->get_month('09'), 
+				'October' => $wp_locale->get_month('10'), 
+				'November' => $wp_locale->get_month('11'), 
+				'December' => $wp_locale->get_month('12') 
+			);
+			$this->monthsShort = $months = array( 
+				'Jan' => $wp_locale->get_month_abbrev('01'), 
+				'Feb' => $wp_locale->get_month_abbrev('02'), 
+				'Mar' => $wp_locale->get_month_abbrev('03'), 
+				'Apr' => $wp_locale->get_month_abbrev('04'), 
+				'May' => $wp_locale->get_month_abbrev('05'), 
+				'Jun' => $wp_locale->get_month_abbrev('06'), 
+				'Jul' => $wp_locale->get_month_abbrev('07'), 
+				'Aug' => $wp_locale->get_month_abbrev('08'), 
+				'Sep' => $wp_locale->get_month_abbrev('09'), 
+				'Oct' => $wp_locale->get_month_abbrev('10'), 
+				'Nov' => $wp_locale->get_month_abbrev('11'), 
+				'Dec' => $wp_locale->get_month_abbrev('12') 
+			);
+		}
+
 		/**
 		 * Helper method to return an array of translated month names or short month names
 		 * @return Array translated month names
 		 */
 		public function monthNames( $short = false ) {
-			if($short) {
-				$months = array( 
-					'Jan' => __('Jan', $this->pluginDomain), 
-					'Feb' => __('Feb', $this->pluginDomain), 
-					'Mar' => __('Mar', $this->pluginDomain), 
-					'Apr' => __('Apr', $this->pluginDomain), 
-					'May' => __('May', $this->pluginDomain), 
-					'Jun' => __('Jun', $this->pluginDomain), 
-					'Jul' => __('Jul', $this->pluginDomain), 
-					'Aug' => __('Aug', $this->pluginDomain), 
-					'Sep' => __('Sep', $this->pluginDomain), 
-					'Oct' => __('Oct', $this->pluginDomain), 
-					'Nov' => __('Nov', $this->pluginDomain), 
-					'Dec' => __('Dec', $this->pluginDomain) 
-				);
-			} else {
-				$months = array( 
-					'January' => __('January', $this->pluginDomain),
-					'February' => __('February', $this->pluginDomain),
-					'March' => __('March', $this->pluginDomain),
-					'April' => __('April', $this->pluginDomain),
-					'May' => __('May', $this->pluginDomain),
-					'June' => __('June', $this->pluginDomain), 
-					'July' => __('July', $this->pluginDomain),
-					'August' => __('August', $this->pluginDomain),
-					'September' => __('September', $this->pluginDomain),
-					'October' => __('October', $this->pluginDomain),
-					'November' => __('November', $this->pluginDomain),
-					'December' => __('December', $this->pluginDomain)
-				);
-			}
-			return $months;
+			if ($short)
+				return $this->monthsShort;
+			return $this->monthsFull;
 		}
 
 		/**
@@ -1144,8 +1157,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 * @link http://codex.wordpress.org/Custom_Queries#Permalinks_for_Custom_Archives
 		 */
 		public function flushRewriteRules() {
-		   global $wp_rewrite;
-		   $wp_rewrite->flush_rules();
+			global $wp_rewrite;
+			$wp_rewrite->flush_rules();
+			// in case this was called too early, let's get it in the end.
+			add_action('shutdown', array($this, 'flushRewriteRules'));
 		}		
 		/**
 		 * Adds the event specific query vars to Wordpress
@@ -1253,7 +1268,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				case 'dropdown':
 					return $eventUrl;
 				case 'ical':
-					if ( $secondary == 'single/' )
+					if ( $secondary == 'single' )
 						$eventUrl = trailingslashit(get_permalink());
 					return $eventUrl . 'ical/';
 				default:
