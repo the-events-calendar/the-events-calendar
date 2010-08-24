@@ -77,7 +77,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$this->daysOfWeekMin[$i] = $wp_locale->get_weekday_initial($day);
 			}
 		}
-		
+
 		private $countries;
 		private function constructCountries( $postId = '', $useDefault = true ) {
 				$countries = array(
@@ -376,10 +376,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );
 			add_filter( 'admin_body_class', array($this, 'admin_body_class') );
 			add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
-			if ( ! $this->getOption('spEventsDebug', false) ) {
+			if ( is_admin() && ! $this->getOption('spEventsDebug', false) ) {
 				$this->addQueryFilters();
 			}
-			else {
+			else if ( $this->getOption('spEventsDebug', false) ) {
 				$this->addDebugColumns();
 			}
 		}
