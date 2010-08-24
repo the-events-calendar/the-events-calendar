@@ -325,7 +325,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					if ( $postId || $useDefault ) {
 						$countryValue = get_post_meta( $postId, '_EventCountry', true );
 						if( $countryValue ) $defaultCountry = array( array_search( $countryValue, $countries ), $countryValue );
-						else $defaultCountry = sp_get_option('defaultCountry');
+						else $defaultCountry = $this->getOption('defaultCountry');
 						if( $defaultCountry && $defaultCountry[0] != "" ) {
 							$selectCountry = array_shift( $countries );
 							asort($countries);
@@ -529,7 +529,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				'labels' => $this->taxonomyLabels
 			));
 			
-			if( sp_get_option('showComments','no') == 'yes' ) {
+			if( $this->getOption('showComments','no') == 'yes' ) {
 				add_post_type_support( self::POSTTYPE, 'comments');
 			}
 			
@@ -1124,7 +1124,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		* @return void
 		*/	
 		public function reschedule( ) {
-			$resetEventPostDate = sp_get_option('resetEventPostDate', 'off');
+			$resetEventPostDate = $this->getOption('resetEventPostDate', 'off');
 			if( $resetEventPostDate == 'off' ){
 				return;
 			}
@@ -1187,7 +1187,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 * @return void
 		 */
 		public function filterRewriteRules( $wp_rewrite ) {
-			if ( '' == get_option('permalink_structure') || 'off' == sp_get_option('useRewriteRules','on') ) {
+			if ( '' == get_option('permalink_structure') || 'off' == $this->getOption('useRewriteRules','on') ) {
 				return;
 			}
 			
@@ -1207,7 +1207,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$newRules[$base . $past] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past';
 			$newRules[$base . '(\d{4}-\d{2})$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . 'feed/?$'] = 'index.php?eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
-			$newRules[$base . '?$']						= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=' . sp_get_option('viewOption','month');
+			$newRules[$base . '?$']						= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=' . $this->getOption('viewOption','month');
 
 			// single ical
 			$newRules[$baseSingle . '([^/]+)/ical/?$' ] = 'index.php?post_type=' . self::POSTTYPE . '&name=' . $wp_rewrite->preg_index(1) . '&ical=1';
@@ -1220,7 +1220,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$newRules[$baseTax . '([^/]+)/' . $past] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past';
 			$newRules[$baseTax . '([^/]+)/(\d{4}-\d{2})$'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(2);
 			$newRules[$baseTax . '([^/]+)/feed/?$'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
-			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=' . sp_get_option('viewOption','month');
+			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=' . $this->getOption('viewOption','month');
 			$newRules[$baseTax . '([^/]+)/ical/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'eventDisplay=upcoming&sp_events_cat=' . $wp_rewrite->preg_index(1) . '&ical=1';
 			$newRules[$baseTax . '([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=' . $wp_rewrite->preg_index(1) . '&feed=' . $wp_rewrite->preg_index(2);
 			$newRules[$baseTax . '([^/]+)/page/?([0-9]{1,})/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=' . $wp_rewrite->preg_index(1) . '&paged=' . $wp_rewrite->preg_index(2);
@@ -1241,7 +1241,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function getLink( $type = 'home', $secondary = false ) {
 
 			// if permalinks are off or user doesn't want them: ugly.
-			if( '' == get_option('permalink_structure') || 'off' == sp_get_option('useRewriteRules','on') ) {
+			if( '' == get_option('permalink_structure') || 'off' == $this->getOption('useRewriteRules','on') ) {
 				return $this->uglyLink($type, $secondary);
 			}
 
@@ -1748,7 +1748,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 */
 		public function setOptions( ) {
 			global $wp_query;
-			$display = ( isset( $wp_query->query_vars['eventDisplay'] ) ) ? $wp_query->query_vars['eventDisplay'] : sp_get_option('viewOption','month');
+			$display = ( isset( $wp_query->query_vars['eventDisplay'] ) ) ? $wp_query->query_vars['eventDisplay'] : $this->getOption('viewOption','month');
 			switch ( $display ) {
 				case "past":
 					$this->displaying		= "past";
