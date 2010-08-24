@@ -82,21 +82,21 @@
 
 			<div class="tec-nav-previous"><?php 
 			// Display Previous Page Navigation
-			if( sp_is_upcoming() && get_previous_posts_link( ) ) : ?>
-				<?php previous_posts_link( '<span>&laquo; Previous Events</span>' ); ?>
+			if( sp_is_upcoming() && get_previous_posts_link() ) : ?>
+				<?php previous_posts_link( '<span>'.__('&laquo; Previous Events', $sp_ecp->pluginDomain).'</span>' ); ?>
 			<?php elseif( sp_is_upcoming() && !get_previous_posts_link( ) ) : ?>
 				<a href='<?php echo sp_get_past_link(); ?>'><span><?php _e('&laquo; Previous Events', $sp_ecp->pluginDomain ); ?></span></a>
 			<?php elseif( sp_is_past() && get_next_posts_link( ) ) : ?>
-				<?php next_posts_link( '<span>&laquo; Previous Events</span>' ); ?>
+				<?php next_posts_link( '<span>'.__('&laquo; Previous Events', $sp_ecp->pluginDomain).'</span>' ); ?>
 			<?php endif; ?>
 			</div>
 
 			<div class="tec-nav-next"><?php
 			// Display Next Page Navigation
 			if( sp_is_upcoming() && get_next_posts_link( ) ) : ?>
-				<?php next_posts_link( '<span>Next Events &raquo;</span>' ); ?>
+				<?php next_posts_link( '<span>'.__('Next Events &raquo;', $sp_ecp->pluginDomain).'</span>' ); ?>
 			<?php elseif( sp_is_past() && get_previous_posts_link( ) ) : ?>
-				<?php previous_posts_link( '<span>Next Events &raquo;</span>' ); // a little confusing but in 'past view' to see newer events you want the previous page ?>
+				<?php previous_posts_link( '<span>'.__('Next Events &raquo;', $sp_ecp->pluginDomain).'</span>' ); // a little confusing but in 'past view' to see newer events you want the previous page ?>
 			<?php elseif( sp_is_past() && !get_previous_posts_link( ) ) : ?>
 				<a href='<?php echo sp_get_upcoming_link(); ?>'><span><?php _e('Next Events &raquo;', $sp_ecp->pluginDomain); ?></span></a>
 			<?php endif; ?>
