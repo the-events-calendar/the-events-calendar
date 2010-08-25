@@ -1383,6 +1383,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 * converts /, - and space chars to -
 		**/
 		private function dateHelper( $date ) {
+
+			if($date == '')
+				return date(self::DBDATEFORMAT);
+
 			$date = str_replace( array('-','/',' ',':','–','—','-'), '-', $date );
 			// ensure no extra bits are added
 			list($year, $month, $day) = explode('-', $date);
@@ -1920,7 +1924,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				WHERE $wpdb->posts.post_type = '" . self::POSTTYPE . "'
 				AND $wpdb->posts.post_status = 'publish'
 				$whereClause
-				ORDER BY d1.meta_value ".$this->order."
+				ORDER BY DATE(d1.meta_value) ".$this->order."
 				LIMIT $numResults";
 			$results = $wpdb->get_results($eventsQuery, OBJECT);
 			return $results;
