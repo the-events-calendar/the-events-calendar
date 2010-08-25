@@ -14,6 +14,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		const TIMEFORMAT			= 'g:i A';
 		const DBDATEFORMAT	 		= 'Y-m-d';
 		const DBDATETIMEFORMAT 		= 'Y-m-d G:i:s';
+		const DBYEARMONTHTIMEFORMAT = 'Y-m';
 
 		private $postTypeArgs = array(
 			'public' => true,
@@ -381,6 +382,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			}
 			else if ( $this->getOption('spEventsDebug', false) ) {
 				$this->addDebugColumns();
+				add_action('admin_footer', array($this, 'debugInfo'));
 			}
 		}
 		
@@ -408,7 +410,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_action( 'admin_init', 		array( $this, 'checkForOptionsChanges' ) );
 			add_action( 'admin_menu', 		array( $this, 'addEventBox' ) );
 			add_action( 'save_post',		array( $this, 'addEventMeta' ), 15, 2 );
-			add_action( 'publish_post',		array( $this, 'addEventMeta' ), 15, 2 );
+			//add_action( 'publish_post',		array( $this, 'addEventMeta' ), 15, 2 );
 
 			add_action( 'sp_events_post_errors', array( 'TEC_Post_Exception', 'displayMessage' ) );
 			add_action( 'sp_events_options_top', array( 'TEC_WP_Options_Exception', 'displayMessage') );
@@ -416,6 +418,20 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
 			add_action( 'manage_posts_custom_column', array($this, 'custom_columns'), 10, 2);
+		}
+		
+		public function debugInfo() {
+			echo '<h4>Events Calendar Pro Debug Info:</h4>';
+			$this->printDebug($this->date, '$this->date');
+			$this->printDebug($this->displaying, '$this->displaying');
+		}
+		
+		public function printDebug($data, $title = '') {
+			$title = ($title) ? '<strong>' . $title . '</strong> : ' : '';
+			echo '<pre style="white-space:pre-wrap;font-size:11px;margin:1em;">';
+			echo $title;
+			print_r($data);
+			echo '</pre>';
 		}
 		
 		public function get_event_taxonomy() {
@@ -590,7 +606,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function localizeAdmin() {
 			$dom = $this->pluginDomain;
 			
-			return array(
+			$bits = array(
 				'dayNames' => $this->daysOfWeek,
 				'dayNamesShort' => $this->daysOfWeekShort,
 				'dayNamesMin' => $this->daysOfWeekMin,
@@ -601,6 +617,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				'currentText' => __( 'Today', $dom ),
 				'closeText' => __( 'Done', $dom )
 			);
+			return $bits;
 		}
 		
 		public function printLocalizedAdmin() {
@@ -1053,20 +1070,21 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				'November' => $wp_locale->get_month('11'), 
 				'December' => $wp_locale->get_month('12') 
 			);
+			// yes, it's awkward. easier this way than changing logic elsewhere.
 			$this->monthsShort = $months = array( 
-				'Jan' => $wp_locale->get_month_abbrev('01'), 
-				'Feb' => $wp_locale->get_month_abbrev('02'), 
-				'Mar' => $wp_locale->get_month_abbrev('03'), 
-				'Apr' => $wp_locale->get_month_abbrev('04'), 
-				'May' => $wp_locale->get_month_abbrev('05'), 
-				'Jun' => $wp_locale->get_month_abbrev('06'), 
-				'Jul' => $wp_locale->get_month_abbrev('07'), 
-				'Aug' => $wp_locale->get_month_abbrev('08'), 
-				'Sep' => $wp_locale->get_month_abbrev('09'), 
-				'Oct' => $wp_locale->get_month_abbrev('10'), 
-				'Nov' => $wp_locale->get_month_abbrev('11'), 
-				'Dec' => $wp_locale->get_month_abbrev('12') 
-			);
+				'Jan' => $wp_locale->get_month_abbrev( $wp_locale->get_month('01') ), 
+				'Feb' => $wp_locale->get_month_abbrev( $wp_locale->get_month('02') ), 
+				'Mar' => $wp_locale->get_month_abbrev( $wp_locale->get_month('03') ), 
+				'Apr' => $wp_locale->get_month_abbrev( $wp_locale->get_month('04') ), 
+				'May' => $wp_locale->get_month_abbrev( $wp_locale->get_month('05') ), 
+				'Jun' => $wp_locale->get_month_abbrev( $wp_locale->get_month('06') ), 
+				'Jul' => $wp_locale->get_month_abbrev( $wp_locale->get_month('07') ), 
+				'Aug' => $wp_locale->get_month_abbrev( $wp_locale->get_month('08') ), 
+				'Sep' => $wp_locale->get_month_abbrev( $wp_locale->get_month('09') ), 
+				'Oct' => $wp_locale->get_month_abbrev( $wp_locale->get_month('10') ), 
+				'Nov' => $wp_locale->get_month_abbrev( $wp_locale->get_month('11') ), 
+				'Dec' => $wp_locale->get_month_abbrev( $wp_locale->get_month('12') )
+			); 
 		}
 
 		/**
@@ -1360,17 +1378,26 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			return $dateFormat . ' ' . get_option( 'time_format', self::TIMEFORMAT );
 		}
 		/*
-		 * converts /, - and space chars to - for YYYY-MM-DD date
+		 * ensures date follows proper YYYY-MM-DD format
+		 * converts /, - and space chars to -
 		**/
 		private function dateHelper( $date ) {
-			return str_replace( array('-','/',' ',':','–','—','-'), '-', $date ); 
+			$date = str_replace( array('-','/',' ',':','–','—','-'), '-', $date );
+			// ensure no extra bits are added
+			list($year, $month, $day) = explode('-', $date);
+			
+			if ( ! checkdate($month, $day, $year) )
+				$date = date(self::DBDATEFORMAT); // today's date if error
+			else
+				$date = $year . '-' . $month . '-' . $day;
+	
+			return $date;
 		}
 		
 		public function dateOnly( $date ) {
 			$date = explode(' ', $date);
 			return $date[0];
 		}
-		
 		
 		/**
 		 * Adds / removes the event details as meta tags to the post.
@@ -1748,19 +1775,25 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 */
 		public function setOptions( ) {
 			global $wp_query;
-			$display = ( isset( $wp_query->query_vars['eventDisplay'] ) ) ? $wp_query->query_vars['eventDisplay'] : $this->getOption('viewOption','month');
+			if ( is_admin() ) {
+				$display = 'admin';
+			}
+			else {
+				$display = ( isset( $wp_query->query_vars['eventDisplay'] ) ) ? $wp_query->query_vars['eventDisplay'] : $this->getOption('viewOption','month');
+			}
+			
 			switch ( $display ) {
 				case "past":
 					$this->displaying		= "past";
 					$this->startOperator	= "<=";
 					$this->order			= "DESC";
-					$this->date				= date_i18n( Events_Calendar_Pro::DBDATETIMEFORMAT );
+					$this->date				= date_i18n( self::DBDATETIMEFORMAT );
 					break;
 				case "upcoming":
 					$this->displaying		= "upcoming";					
 					$this->startOperator	= ">=";
 					$this->order			= "ASC";
-					$this->date				= date_i18n( Events_Calendar_Pro::DBDATETIMEFORMAT );
+					$this->date				= date_i18n( self::DBDATETIMEFORMAT );
 					break;					
 				case "month":
 					$this->displaying		= "month";
@@ -1771,9 +1804,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					if ( isset ( $wp_query->query_vars['eventDate'] ) ) {
 						$this->date = $wp_query->query_vars['eventDate'] . "-01";
 					} else {
-						$date = date_i18n( Events_Calendar_Pro::DBDATEFORMAT );
+						$date = date_i18n( self::DBDATEFORMAT );
 						$this->date = substr_replace( $date, '01', -2 );
 					}
+					break;
 				default:
 					$this->displaying		= "month";
 					$this->startOperator	= ">=";
@@ -1783,7 +1817,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					if ( isset ( $wp_query->query_vars['eventDate'] ) ) {
 						$this->date = $wp_query->query_vars['eventDate'] . "-01";
 					} else {
-						$date = date_i18n( Events_Calendar_Pro::DBDATEFORMAT );
+						$date = date_i18n( self::DBDATEFORMAT );
 						$this->date = substr_replace( $date, '01', -2 );
 					}
 			}
