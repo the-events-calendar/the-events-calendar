@@ -379,6 +379,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
 			if ( is_admin() && ! $this->getOption('spEventsDebug', false) ) {
 				$this->addQueryFilters();
+			}elseif ( !is_admin() && $_GET['post_type'] == self::POSTTYPE) {
+				$this->addOrderQueryFilters();
 			}
 			else if ( $this->getOption('spEventsDebug', false) ) {
 				$this->addDebugColumns();
@@ -386,6 +388,12 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			}
 		}
 		
+		private function addOrderQueryFilters(){
+			add_filter('posts_where', array($this, 'events_ordering_where'));
+			add_filter('posts_join', array($this, 'events_ordering_join'));
+			add_filter( 'posts_orderby',	array( $this, 'events_ordering_orderby' ) );
+		}
+
 		private function addQueryFilters() {
 			add_filter( 'posts_join',		array( $this, 'events_search_join' ) );
 			add_filter( 'posts_where',		array( $this, 'events_search_where' ) );
@@ -795,6 +803,31 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				}
 			}
 			return $cats;
+		}
+
+		public function events_ordering_join($extraJoin){
+			global $wpdb;
+
+			$extraJoin .= " LEFT JOIN $wpdb->postmeta as p2 ON ($wpdb->posts.ID = p2.post_id) \n";
+
+			return $extraJoin;
+		}
+
+
+		public function events_ordering_orderby($orderby){
+			global $wpdb;
+			$orderby = 'DATE(p2.meta_value) '.$this->order;
+
+		return $orderby;
+		}
+
+
+		public function events_ordering_where($whereClause){
+			global $wpdb; 
+				$whereClause .= $wpdb->prepare(" AND p2.meta_key = %s \n", '_EventStartDate' );
+				$whereClause .= $wpdb->prepare(" AND p2.meta_value ".$this->startOperator." %s \n", $this->date	 );
+		
+			return $whereClause;
 		}
 		
 				/**
@@ -1924,7 +1957,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				WHERE $wpdb->posts.post_type = '" . self::POSTTYPE . "'
 				AND $wpdb->posts.post_status = 'publish'
 				$whereClause
-				ORDER BY DATE(d1.meta_value) ".$this->order."
+				ORDER BY d1.meta_value ".$this->order."
 				LIMIT $numResults";
 			$results = $wpdb->get_results($eventsQuery, OBJECT);
 			return $results;
