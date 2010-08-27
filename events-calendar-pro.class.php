@@ -379,7 +379,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
 			if ( is_admin() && ! $this->getOption('spEventsDebug', false) ) {
 				$this->addQueryFilters();
-			}elseif ( !is_admin() && $_GET['post_type'] == self::POSTTYPE) {
+			}elseif ( !is_admin() && ($_GET['post_type'] == self::POSTTYPE || $_GET['sp_events_cat'] != '')) {
 				$this->addOrderQueryFilters();
 			}
 			else if ( $this->getOption('spEventsDebug', false) ) {
