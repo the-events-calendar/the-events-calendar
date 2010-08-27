@@ -12,9 +12,13 @@ $EventCity		= get_post_meta( $post->ID, '_EventCity', true );
 $EventCountry	= get_post_meta( $post->ID, '_EventCountry', true );
 $EventState		= get_post_meta( $post->ID, '_EventState', true );
 $EventProvince	= get_post_meta( $post->ID, '_EventProvince', true );
-?>
 
-<li class="<?php echo $alt_text ?>">
+	ob_start();
+		post_class($alt_text,$post->ID);
+	$class = ob_get_contents();
+	ob_end_clean();
+?>
+<li <?php echo $class ?>>
 	<div class="when">
 		<?php echo sp_get_start_date( $post->ID, false ); ?>
 	</div>

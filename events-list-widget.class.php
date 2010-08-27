@@ -22,7 +22,8 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 			}
 		
 			function widget( $args, $instance ) {
-				global $wp_query, $sp_ecp;
+				global $wp_query, $sp_ecp, $post;
+				$old_post = $post;
 				extract( $args, EXTR_SKIP );
 				extract( $instance, EXTR_SKIP );
 				// extracting $instance provides $title, $limit, $no_upcoming_events, $start, $end, $venue, $address, $city, $state, $province'], $zip, $country, $phone , $cost
@@ -72,6 +73,7 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 
 				/* After widget (defined by themes). */
 				echo $after_widget;
+				$post = $old_post;
 			}	
 		
 			function update( $new_instance, $old_instance ) {
