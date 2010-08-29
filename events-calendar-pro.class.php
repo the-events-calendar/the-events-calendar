@@ -369,6 +369,13 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$this->errors = '';
 		}
 		
+
+		public function query() {
+		global $wp_query;
+			if ( !is_admin() && (($_GET['post_type'] == self::POSTTYPE || $_GET['sp_events_cat'] != '') || ($wp_query->query_vars['post_type'] == self::POSTTYPE || $wp_query->query_vars['sp_events_cat'] != ''))) 
+				$this->addOrderQueryFilters();
+		}
+
 		private function addFilters() {
 			add_filter( 'post_class', array( $this, 'post_class') );
 			add_filter( 'body_class', array( $this, 'body_class' ) );
@@ -379,8 +386,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
 			if ( is_admin() && ! $this->getOption('spEventsDebug', false) ) {
 				$this->addQueryFilters();
-			}elseif ( !is_admin() && ($_GET['post_type'] == self::POSTTYPE || $_GET['sp_events_cat'] != '')) {
-				$this->addOrderQueryFilters();
 			}
 			else if ( $this->getOption('spEventsDebug', false) ) {
 				$this->addDebugColumns();
@@ -410,6 +415,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		
 		private function addActions() {
 			add_action( 'init', array( $this, 'init'), 0 );
+			add_action( 'parse_query', array( $this, 'query'), 0 );
 			//add_action( 'reschedule_event_post', array( $this, 'reschedule') );
 			add_action( 'template_redirect',				array( $this, 'loadStyle' ) );
 			add_action( 'sp-events-save-more-options', array( $this, 'flushRewriteRules' ) );
