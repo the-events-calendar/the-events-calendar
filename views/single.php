@@ -1,6 +1,7 @@
 <?php
 	global $sp_ecp;
 	get_header();
+	echo stripslashes(sp_get_option('spEventsBeforeHTML'));
 ?>	
 	<div id="container">
 	<div id="content" class="tec-event widecolumn">
@@ -67,4 +68,5 @@
 	</div><!--#container-->
 <?php get_sidebar(); ?>	
 <?php
+	echo stripslashes(sp_get_option('spEventsAfterHTML'));
 	get_footer();

@@ -202,6 +202,22 @@ try {
 					<div><?php _e('If you’re experiencing issues with posts not showing up in the admin, enable this option and then ensure that all of your posts have the correct start and end dates.', $this->pluginDomain) ?></div>
 				</fieldset></td>
 			</tr>
+			<tr>
+				<th scope="row"><?php _e('Add HTML before calendar', $this->pluginDomain ); ?></th>
+				<td><fieldset>
+					<legend class="screen-reader-text"><?php _e('Add HTML before calendar', $this->pluginDomain ); ?></legend>
+					<textarea style="width:100%; height:100px;" name="spEventsBeforeHTML"><?php echo  stripslashes(sp_get_option('spEventsBeforeHTML'));?></textarea>
+					<div><?php _e('Some themes may require that you add extra divs before the calendar list to help with styling.', $this->pluginDomain);?> <?php _e('This is displayed directly after the header.', $this->pluginDomain);?> <?php  _e('You may use (x)HTML.', $this->pluginDomain) ?></div>
+				</fieldset></td>
+			</tr>
+			<tr>
+				<th scope="row"><?php _e('Add HTML after calendar', $this->pluginDomain ); ?></th>
+				<td><fieldset>
+					<legend class="screen-reader-text"><?php _e('Add HTML before calendar', $this->pluginDomain ); ?></legend>
+					<textarea style="width:100%; height:100px;" name="spEventsAfterHTML"><?php echo stripslashes(sp_get_option('spEventsAfterHTML'));?></textarea>
+					<div><?php _e('Some themes may require that you add extra divs after the calendar list to help with styling.', $this->pluginDomain);?> <?php _e('This is displayed directly above the footer.', $this->pluginDomain);?> <?php _e('You may use (x)HTML.', $this->pluginDomain) ?></div>
+				</fieldset></td>
+			</tr>
 	    <?php
 		try {
 			do_action( 'sp_events_options_bottom' );

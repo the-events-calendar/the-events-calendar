@@ -1,6 +1,7 @@
 <?php
 	global $sp_ecp;
 	get_header();
+	echo stripslashes(sp_get_option('spEventsBeforeHTML'));
 ?>	
 	<div id="tec-content" class="grid">
 		<div id='tec-events-calendar-header' class="clearfix">
@@ -32,4 +33,5 @@
 	</div>
 
 <?php
+	echo stripslashes(sp_get_option('spEventsAfterHTML'));
 	get_footer();
