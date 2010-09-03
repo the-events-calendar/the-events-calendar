@@ -1457,8 +1457,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			if ( $post->post_type != self::POSTTYPE ) {
 				return;
 			}
-			// don't do anything on autosave or auto-draft either
-			if ( wp_is_post_autosave( $postId ) || $post->post_status == 'auto-draft' ) {
+			// don't do anything on autosave or auto-draft either or massupdates
+			if ( wp_is_post_autosave( $postId ) || $post->post_status == 'auto-draft' || isset($_GET['bulk_edit']) || $_REQUEST['action'] == 'inline-save' ) {
 				return;
 			}
 			
