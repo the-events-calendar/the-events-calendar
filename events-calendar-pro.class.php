@@ -394,9 +394,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 		
 		private function addOrderQueryFilters(){
-			add_filter('posts_where', array($this, 'events_ordering_where'));
-			add_filter('posts_join', array($this, 'events_ordering_join'));
-			add_filter( 'posts_orderby',	array( $this, 'events_ordering_orderby' ) );
+			if(get_query_var('eventDisplay') == 'upcoming' || get_query_var('eventDisplay') == 'past'){
+				add_filter('posts_where', array($this, 'events_ordering_where'));
+				add_filter('posts_join', array($this, 'events_ordering_join'));
+				add_filter( 'posts_orderby',	array( $this, 'events_ordering_orderby' ) );
+			}
 		}
 
 		private function addQueryFilters() {
