@@ -394,7 +394,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 		
 		private function addOrderQueryFilters(){
-			if(get_query_var('eventDisplay') == 'upcoming' || get_query_var('eventDisplay') == 'past'){
+			if(get_query_var('eventDisplay') == 'upcoming' || get_query_var('eventDisplay') == 'past' || get_query_var('sp_events_cat') != ''){
 				add_filter('posts_where', array($this, 'events_ordering_where'));
 				add_filter('posts_join', array($this, 'events_ordering_join'));
 				add_filter( 'posts_orderby',	array( $this, 'events_ordering_orderby' ) );
@@ -835,7 +835,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$date = explode(' ', $this->date);
 
 				$whereClause .= $wpdb->prepare(" AND p2.meta_key = %s \n", '_EventStartDate' );
-				$whereClause .= $wpdb->prepare(" AND (p2.meta_value ".$this->startOperator." %s || ( DATE(p2.meta_value) = %s && TIME(p2.meta_value) ".$this->startOperator." %s))  \n", $this->date	, $date[0]	, $date[1]	 );
+
+				if(get_query_var('eventDisplay')) //if the user has selected to display either old or new events/
+					$whereClause .= $wpdb->prepare(" AND (p2.meta_value ".$this->startOperator." %s || ( DATE(p2.meta_value) = %s && TIME(p2.meta_value) ".$this->startOperator." %s))  \n", $this->date	, $date[0]	, $date[1]	 );
 		
 			return $whereClause;
 		}
