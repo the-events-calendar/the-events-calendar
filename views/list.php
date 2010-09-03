@@ -13,7 +13,7 @@
 
 		</div><!--#tec-events-calendar-header-->
 		<div id="tec-events-loop" class="tec-events post-list clearfix">
-		<?php while ( have_posts() ) : the_post(); ?>
+		<?php if(have_posts()){ while ( have_posts() ) : the_post(); ?>
 
 				<div id="post-<?php the_ID() ?>" <?php post_class('tec-event clearfix') ?>>
 							        <?php if ( sp_is_new_event_day() ) : ?>
@@ -73,8 +73,16 @@
 		              </table>
 					</div>
 				</div> <!-- End post -->
-		<?php endwhile; // posts ?>
+		<?php endwhile; }else{// posts ?>
 
+			<?php if(sp_is_upcoming()){ ?>
+				<?php _e('No upcoming events.', $sp_ecp->pluginDomain) ?>
+				
+			<?php }elseif(sp_is_past()){ ?>
+				<?php _e('No previous events.', $sp_ecp->pluginDomain) ?>
+			<?php } ?>
+			
+		<?php } ?>
 
 
 		</div><!-- #tec-events-loop -->
