@@ -250,6 +250,10 @@ table.tec-calendar, .tec-calendar td {
 	font-style:italic;
 	margin:3px 0;
 }
+.tec-tooltip .tec-event-thumb {
+	float:left;
+	padding:5px;
+}
 .tec-event .post {
 	position:relative;
 }

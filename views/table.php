@@ -135,6 +135,9 @@ function display_day( $day, $monthView ) {
 						<?php if ( !empty( $end )  && $start !== $end )		echo " – " . $end . '<br />'; ?>
 					</div>
 					<?php endif; ?>
+					<?php if ( function_exists('has_post_thumbnail') && has_post_thumbnail() ) { ?>
+						<div class="tec-event-thumb"><?php the_post_thumbnail( array(75,75));?></div>
+					<?php } ?>
 					<?php echo Events_Calendar_Pro::truncate(get_the_content(), 30); ?>
 
 				</div>

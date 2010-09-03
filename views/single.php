@@ -49,6 +49,10 @@
 					<?php if( sp_address_exists( $post->ID ) ) sp_the_embedded_map(); ?>
 				<?php endif; ?>
 				<div class="entry">
+					<?php
+					if ( function_exists('has_post_thumbnail') && has_post_thumbnail() ) {?>
+						<?php the_post_thumbnail(); ?>
+					<?php } ?>
 					<?php the_content() ?>	
 					<?php if (function_exists('sp_get_ticket_form')) { sp_get_ticket_form(); } ?>		
 				</div>

@@ -20,7 +20,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			'public' => true,
 			'rewrite' => array('slug' => 'event'),
 			'menu_position' => 6,
-			'supports' => array('title','editor','excerpt','author')
+			'supports' => array('title','editor','excerpt','author','thumbnail')
 		);
 		private $taxonomyLabels;
 
