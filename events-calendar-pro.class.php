@@ -822,7 +822,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 		public function events_ordering_orderby($orderby){
 			global $wpdb;
-			$orderby = 'DATE(p2.meta_value) '.$this->order;
+			$orderby = 'DATE(p2.meta_value), TIME(p2.meta_value) '.$this->order;
 
 		return $orderby;
 		}
@@ -830,8 +830,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 		public function events_ordering_where($whereClause){
 			global $wpdb; 
+				$date = explode(' ', $this->date);
+
 				$whereClause .= $wpdb->prepare(" AND p2.meta_key = %s \n", '_EventStartDate' );
-				$whereClause .= $wpdb->prepare(" AND p2.meta_value ".$this->startOperator." %s \n", $this->date	 );
+				$whereClause .= $wpdb->prepare(" AND (p2.meta_value ".$this->startOperator." %s || ( DATE(p2.meta_value) = %s && TIME(p2.meta_value) ".$this->startOperator." %s))  \n", $this->date	, $date[0]	, $date[1]	 );
 		
 			return $whereClause;
 		}
