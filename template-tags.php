@@ -607,6 +607,9 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		the_terms( get_the_ID(), $sp_ecp->get_event_taxonomy(), '<dt>'.__('Category:').'</dt><dd>', ', ', '</dd>' );
 	}
 	
+	/**
+	 * r the current event category name
+	*/ 
 	function sp_meta_event_category_name(){
 		global $sp_ecp;
 		$current_cat = get_query_var('sp_events_cat');
