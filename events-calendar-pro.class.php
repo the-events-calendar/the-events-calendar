@@ -836,8 +836,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 				$whereClause .= $wpdb->prepare(" AND p2.meta_key = %s \n", '_EventStartDate' );
 
-				if(get_query_var('eventDisplay')) //if the user has selected to display either old or new events/
-					$whereClause .= $wpdb->prepare(" AND (p2.meta_value ".$this->startOperator." %s || ( DATE(p2.meta_value) = %s && TIME(p2.meta_value) ".$this->startOperator." %s))  \n", $this->date	, $date[0]	, $date[1]	 );
+				$whereClause .= $wpdb->prepare(" AND (p2.meta_value ".$this->startOperator." %s || ( DATE(p2.meta_value) = %s && TIME(p2.meta_value) ".$this->startOperator." %s))  \n", $this->date	, $date[0]	, $date[1]	 );
 		
 			return $whereClause;
 		}
