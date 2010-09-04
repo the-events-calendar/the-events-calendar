@@ -607,6 +607,15 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		the_terms( get_the_ID(), $sp_ecp->get_event_taxonomy(), '<dt>'.__('Category:').'</dt><dd>', ', ', '</dd>' );
 	}
 	
+	function sp_meta_event_category_name(){
+		global $sp_ecp;
+		$current_cat = get_query_var('sp_events_cat');
+		if($current_cat){
+			$term_info = get_term_by('slug',$current_cat,$sp_ecp->get_event_taxonomy());
+			return $term_info->name;
+		}
+	}
+
 	/**
 	 * Returns an add to Google Calendar link. Must be used in the loop
 	 * @author Julien Cornic [www.juxy.fr]
