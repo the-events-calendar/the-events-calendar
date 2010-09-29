@@ -824,7 +824,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 		public function events_ordering_orderby($orderby){
 			global $wpdb;
-			$orderby = 'DATE(p2.meta_value), TIME(p2.meta_value) '.$this->order;
+			$orderby = 'DATE(p2.meta_value) '.$this->order.', TIME(p2.meta_value) '.$this->order;
 
 		return $orderby;
 		}
