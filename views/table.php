@@ -10,10 +10,10 @@ global $sp_ecp;
 if ( is_tax( $sp_ecp->get_event_taxonomy() ) ) {
 	$cat = get_term_by( 'slug', get_query_var('term'), $sp_ecp->get_event_taxonomy() );
 	$eventCat = (int) $cat->term_id;
-	$eventPosts = sp_get_events( array( 'eventCat' => $eventCat ) );
+	$eventPosts = sp_get_events( array( 'eventCat' => $eventCat, 'time_order' => 'ASC' ) );
 } // not in a cat
 else {
-	$eventPosts = sp_get_events();
+	$eventPosts = sp_get_events(array( 'time_order' => 'ASC' ));
 }
 
 

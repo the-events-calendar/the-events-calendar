@@ -1904,7 +1904,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				'numResults' => get_option( 'posts_per_page', 10 ),
 				'eventCat' => null,
 				'metaKey' => null,
-				'metaValue' => null
+				'metaValue' => null,
+				'time_order' => $this->order
 			);
 			$args = wp_parse_args( $args, $defaults);
 			extract( $args );
@@ -1968,7 +1969,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				WHERE $wpdb->posts.post_type = '" . self::POSTTYPE . "'
 				AND $wpdb->posts.post_status = 'publish'
 				$whereClause
-				ORDER BY d1.meta_value ".$this->order."
+				ORDER BY DATE(d1.meta_value) ".$this->order.", TIME(d1.meta_value) $time_order
 				LIMIT $numResults";
 			$results = $wpdb->get_results($eventsQuery, OBJECT);
 			return $results;
