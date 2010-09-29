@@ -263,10 +263,14 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 				return esc_html($returned);
 			}
 		}
-		if ( $cost = get_post_meta( $postId, '_EventCost', true ) ) {
+
+		$cost = get_post_meta( $postId, '_EventCost', true );
+		if ( $cost > 0 ) {
 			return esc_html($cost);
-		} else {
-			return "";
+		}elseif($cost === ''){
+			return '';
+		}else{
+			return "Free";
 		}
 	}
 	/**
