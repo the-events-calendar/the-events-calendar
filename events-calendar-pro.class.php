@@ -384,6 +384,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );
 			add_filter( 'admin_body_class', array($this, 'admin_body_class') );
 			add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
+			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
 			if ( is_admin() && ! $this->getOption('spEventsDebug', false) ) {
 				$this->addQueryFilters();
 			}
@@ -452,6 +453,20 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		
 		public function get_event_taxonomy() {
 			return self::TAXONOMY;
+		}
+
+		public function maybeAddEventTitle($title, $sep){
+			if(get_query_var('eventDisplay') == 'upcoming'){
+				$new_title = __("Upcoming Events", $this->pluginDomain). ' '.$sep . ' ' . $title;
+			}elseif(get_query_var('eventDisplay') == 'past'){
+ 				$new_title = __("Past Events", $this->pluginDomain) . ' '. $sep . ' ' . $title;
+
+			}else{
+				return $title;
+			}
+
+			return $new_title;
+
 		}
 		
 		public function emptyEventContent( $content ) {
