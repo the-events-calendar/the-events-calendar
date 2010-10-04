@@ -107,7 +107,7 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 	}
 
 	/* Add function to the widgets_ hook. */
-	add_action( 'widgets_init', 'events_list_load_widgets', 500 );
+	add_action( 'widgets_init', 'events_list_load_widgets',100 );
 
 	/* Function that registers widget. */
 	function events_list_load_widgets() {

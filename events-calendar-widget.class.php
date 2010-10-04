@@ -45,7 +45,7 @@ if( !class_exists( 'Events_Calendar_Widget') ) {
 	
 		/* Add function to the widgets_ hook. */
 		// hook is commented out until development is finished, allows WP's default calendar widget to work
-		add_action( 'widgets_init', 'events_calendar_load_widgets', 500 );
+		add_action( 'widgets_init', 'events_calendar_load_widgets',100);
 		//add_action( 'widgets_init', 'get_calendar_custom' );
 	
 		//function get_calendar_custom(){echo "hi";}
