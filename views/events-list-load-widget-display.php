@@ -42,7 +42,12 @@
 ?>
 <li <?php echo $class ?>>
 	<div class="when">
-		<?php echo sp_get_start_date( $post->ID, $start ); ?>
+		<?php 
+			echo sp_get_start_date( $post->ID, $start ); 
+
+			if($event->AllDay && $start)
+				echo ' <small>('.__('All Day',$this->pluginDomain).')</small>';
+		?> 
 	</div>
 	<div class="event">
 		<a href="<?php echo get_permalink($post->ID) ?>"><?php echo $post->post_title ?></a>
