@@ -154,6 +154,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		if ( !sp_is_event( $postId ) ) {
 			return false;
 		}
+		$languageCode = substr( get_bloginfo( 'language' ), 0, 2 );
 		$locationMetaSuffixes = array( 'Address', 'City', 'State', 'Province', 'Zip', 'Country' );
 		$toUrlEncode = "";
 		foreach( $locationMetaSuffixes as $val ) {
@@ -164,7 +165,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		if (!$width) $width = sp_get_option('embedGoogleMapsWidth','100%');
 		if( $toUrlEncode ) $googleaddress = urlencode( trim( $toUrlEncode ) );
 		if ($googleaddress) {
-			$google_iframe = '<div id="googlemaps"><iframe width="'.$width.'" height="'.$height.'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://www.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q='.$googleaddress.'?>&amp;output=embed"></iframe><div class="view-larger-map"><a href="http://www.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q='.$googleaddress.'">View Larger Map</a></div></div>';
+			$google_iframe = '<div id="googlemaps"><iframe width="'.$width.'" height="'.$height.'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://www.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q='.$googleaddress.'?>&amp;output=embed"></iframe><div class="view-larger-map"><a href="http://www.google.com/maps?f=q&amp;source=embed&amp;hl=' . $languageCode . '&amp;geocode=&amp;q='.$googleaddress.'">View Larger Map</a></div></div>';
 			return $google_iframe;
 		}
 		else return '';
