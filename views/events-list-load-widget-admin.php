@@ -21,7 +21,7 @@
 <p><?php _e( 'Display:', $this->pluginDomain ); ?><br />
 
 <?php $displayoptions = array (
-	"start" => __('Start Date & Time', $this->pluginDomain),
+	"start" => __('Start Date & Time', $this->pluginDomain) .'<small><br/>'.__('(Widget will always show start date)', $this->pluginDomain).'</small>',
 	"end" => __("End Date & Time", $this->pluginDomain),
 	"venue" => __("Venue", $this->pluginDomain),
 	"address" => __("Address", $this->pluginDomain),
@@ -39,4 +39,4 @@
 		<br/>
 <?php } ?>
 </p>
-<p><small><em>Only City, State/Province and Country are supported in the widget view by default. If you wish to customize the widget display yourself, see the file views/events-list-load-widget-display.php inside the Events Premium plugin.</em></small></p>
+<p><small><em><?php _e('If you wish to customize the widget display yourself, see the file views/events-list-load-widget-display.php inside the Events Premium plugin.', $this->pluginDomain);?></em></small></p>

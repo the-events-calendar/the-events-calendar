@@ -8,10 +8,32 @@
  * When the template is loaded, the following vars are set: $start, $end, $venue, $address, $city, $state, $province'], $zip, $country, $phone, $cost
  * @return string
  */
-$EventCity		= get_post_meta( $post->ID, '_EventCity', true );
-$EventCountry	= get_post_meta( $post->ID, '_EventCountry', true );
-$EventState		= get_post_meta( $post->ID, '_EventState', true );
-$EventProvince	= get_post_meta( $post->ID, '_EventProvince', true );
+
+//Vars set:
+// 			'$event->AllDay',
+// 			'$event->StartDate',
+// 			'$event->EndDate',
+// 			'$event->Venue',
+// 			'$event->Country',
+// 			'$event->Address',
+// 			'$event->City',
+// 			'$event->State',
+// 			'$event->Province',
+// 			'$event->Zip',
+// 			'$event->ShowMapLink',
+// 			'$event->ShowMap',
+// 			'$event->Cost',
+// 			'$event->Phone',
+
+	$event = array();
+	global $sp_ecp;
+	reset($sp_ecp->metaTags); // Move pointer to beginning of array.
+	foreach($sp_ecp->metaTags as $tag){
+		$var_name = str_replace('_Event','',$tag);
+		$event[$var_name] = get_post_meta( $post->ID, $tag, true );
+	}
+
+	$event = (object) $event; //Easier to work with.
 
 	ob_start();
 		post_class($alt_text,$post->ID);
@@ -20,7 +42,7 @@ $EventProvince	= get_post_meta( $post->ID, '_EventProvince', true );
 ?>
 <li <?php echo $class ?>>
 	<div class="when">
-		<?php echo sp_get_start_date( $post->ID, false ); ?>
+		<?php echo sp_get_start_date( $post->ID, $start ); ?>
 	</div>
 	<div class="event">
 		<a href="<?php echo get_permalink($post->ID) ?>"><?php echo $post->post_title ?></a>
@@ -28,25 +50,76 @@ $EventProvince	= get_post_meta( $post->ID, '_EventProvince', true );
 	<div class="loc"><?php
 		$space = false;
 		$output = '';
-		if ( $city && $EventCity != '' ) {
+
+		if ( $venue && $event->Venue != '') {
+			$output .= ( $space ) ? '<br />' : '';
+			$output .= $event->Venue; 
+		}
+
+		if ( $address && $event->Address != '') {
+			$output .= ( $space ) ? '<br />' : '';
+			$output .= $event->Address; 
+		}
+
+		if ( $city && $event->City != '' ) {
 			$space = true;
-			$output = $EventCity . ', ';
+			$output = $event->City . ', ';
 		}
 		if ( $state || $province ) {
-			if ( $EventCountry == "United States" &&  $EventState != '') {
+			if ( $event->Country == "United States" &&  $event->State != '') {
 				$space = true;
-				$output .= $EventState;
-			} elseif  ( $EventProvince != '' ) {
+				$output .= $event->State;
+			} elseif  ( $event->Province != '' ) {
 				$space = true;
-				$output .= $EventProvince;
+				$output .= $event->Province;
 			}
 		} else {
 			$output = rtrim( $output, ', ' );
 		}
-		$output .= ( $space ) ? '<br />' : '';
-		if ( $country && $EventCountry != '') {
-			$output .= $EventCountry; 
+
+		if ( $zip && $event->Zip != '') {
+			$output .= ( $space ) ? '<br />' : '';
+			$output .= $event->Zip;
+			$space = true;
 		}
+
+		if ( $country && $event->Country != '') {
+			$output .= ( $space ) ? '<br />' : '';
+			$output .= $event->Country; 
+		}
+
+
+// 		if ( $start && $event->StartDate != '') {
+// 			$output .= '<br/>';
+// 			if($end)
+// 				$output .= __('From ', $this->pluginDomain);
+// 			$output .= sp_get_start_date($post->ID); 
+// 
+// 			if($end)
+// 				$output .= __(' until ', $this->pluginDomain);
+// 		}
+
+		if ( $end && $event->EndDate != '') {
+			if($output) //It is entirely possible that this is the first data.
+				$output .= '<br/>';
+
+			$output .= __('Ends ', $this->pluginDomain);
+
+			$output .= sp_get_end_date($post->ID); 
+		}
+
+		if ( $phone && $event->Phone != '') {
+			if($output) 
+				$output .= '<br/>';
+
+			$output .= $event->Phone; 
+		}
+		if ( $cost && $event->Cost != '') {		
+			if($output) 
+				$output .= '<br/>';
+			$output .= $event->Cost; 
+		}
+
 		echo $output;
 	?>
 	</div>
