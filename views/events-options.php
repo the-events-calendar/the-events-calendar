@@ -223,7 +223,7 @@ try {
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Use the following list:', $this->pluginDomain ); ?></legend>
 					<textarea style="width:100%; height:100px;" name="spEventsCountries"><?php echo stripslashes(sp_get_option('spEventsCountries'));?></textarea>
-					<div><?php _e('One contry per line in the following format: <br/>US, United States <br/> UK, United Kingdom.', $this->pluginDomain);?> <?php _e('(Replaces the default list.)', $this->pluginDomain) ?></div>
+					<div><?php _e('One country per line in the following format: <br/>US, United States <br/> UK, United Kingdom.', $this->pluginDomain);?> <?php _e('(Replaces the default list.)', $this->pluginDomain) ?></div>
 				</fieldset></td>
 			</tr>
 	    <?php
