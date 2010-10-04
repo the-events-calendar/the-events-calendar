@@ -3,1708 +3,1743 @@
 # This file is distributed under the same license as the Events Calendar Pro package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Events Calendar Pro 1.2.1b\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/events-calendar-pro\n"
-"POT-Creation-Date: 2010-08-24 16:10-0500\n"
-"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-10-04 13:05-0500\n"
+"PO-Revision-Date: 2010-10-04 13:09-0500\n"
+"Last-Translator: Aaron Harun <Aaron@aahacreative.com>\n"
+"Language-Team: LANGUAGE <aaron@aahacreative.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: events-calendar-pro.class.php:84
-msgid "Select a Country:"
-msgstr ""
-
-#: events-calendar-pro.class.php:85 template-tags.php:575
-msgid "United States"
-msgstr ""
-
-#: events-calendar-pro.class.php:86
-msgid "Afghanistan"
-msgstr ""
-
-#: events-calendar-pro.class.php:87
-msgid "Albania"
-msgstr ""
-
-#: events-calendar-pro.class.php:88
-msgid "Algeria"
-msgstr ""
-
-#: events-calendar-pro.class.php:89
-msgid "American Samoa"
-msgstr ""
-
-#: events-calendar-pro.class.php:90
-msgid "Andorra"
-msgstr ""
-
-#: events-calendar-pro.class.php:91
-msgid "Angola"
-msgstr ""
-
-#: events-calendar-pro.class.php:92
-msgid "Anguilla"
-msgstr ""
-
-#: events-calendar-pro.class.php:93
-msgid "Antarctica"
-msgstr ""
-
-#: events-calendar-pro.class.php:94
-msgid "Antigua And Barbuda"
-msgstr ""
-
-#: events-calendar-pro.class.php:95
-msgid "Argentina"
-msgstr ""
-
-#: events-calendar-pro.class.php:96
-msgid "Armenia"
-msgstr ""
-
-#: events-calendar-pro.class.php:97
-msgid "Aruba"
-msgstr ""
-
-#: events-calendar-pro.class.php:98
-msgid "Australia"
-msgstr ""
-
-#: events-calendar-pro.class.php:99
-msgid "Austria"
-msgstr ""
-
-#: events-calendar-pro.class.php:100
-msgid "Azerbaijan"
-msgstr ""
-
-#: events-calendar-pro.class.php:101
-msgid "Bahamas"
-msgstr ""
-
-#: events-calendar-pro.class.php:102
-msgid "Bahrain"
-msgstr ""
-
-#: events-calendar-pro.class.php:103
-msgid "Bangladesh"
-msgstr ""
-
-#: events-calendar-pro.class.php:104
-msgid "Barbados"
-msgstr ""
-
-#: events-calendar-pro.class.php:105
-msgid "Belarus"
-msgstr ""
-
-#: events-calendar-pro.class.php:106
-msgid "Belgium"
-msgstr ""
-
-#: events-calendar-pro.class.php:107
-msgid "Belize"
-msgstr ""
-
-#: events-calendar-pro.class.php:108
-msgid "Benin"
-msgstr ""
-
-#: events-calendar-pro.class.php:109
-msgid "Bermuda"
-msgstr ""
-
-#: events-calendar-pro.class.php:110
-msgid "Bhutan"
-msgstr ""
-
-#: events-calendar-pro.class.php:111
-msgid "Bolivia"
-msgstr ""
-
-#: events-calendar-pro.class.php:112
-msgid "Bosnia And Herzegowina"
-msgstr ""
-
-#: events-calendar-pro.class.php:113
-msgid "Botswana"
-msgstr ""
-
-#: events-calendar-pro.class.php:114
-msgid "Bouvet Island"
-msgstr ""
-
-#: events-calendar-pro.class.php:115
-msgid "Brazil"
-msgstr ""
-
-#: events-calendar-pro.class.php:116
-msgid "British Indian Ocean Territory"
-msgstr ""
-
-#: events-calendar-pro.class.php:117
-msgid "Brunei Darussalam"
-msgstr ""
-
-#: events-calendar-pro.class.php:118
-msgid "Bulgaria"
-msgstr ""
-
-#: events-calendar-pro.class.php:119
-msgid "Burkina Faso"
-msgstr ""
-
-#: events-calendar-pro.class.php:120
-msgid "Burundi"
-msgstr ""
-
-#: events-calendar-pro.class.php:121
-msgid "Cambodia"
-msgstr ""
-
-#: events-calendar-pro.class.php:122
-msgid "Cameroon"
-msgstr ""
-
-#: events-calendar-pro.class.php:123
-msgid "Canada"
-msgstr ""
-
-#: events-calendar-pro.class.php:124
-msgid "Cape Verde"
-msgstr ""
-
-#: events-calendar-pro.class.php:125
-msgid "Cayman Islands"
-msgstr ""
-
-#: events-calendar-pro.class.php:126
-msgid "Central African Republic"
-msgstr ""
-
-#: events-calendar-pro.class.php:127
-msgid "Chad"
-msgstr ""
-
-#: events-calendar-pro.class.php:128
-msgid "Chile"
-msgstr ""
-
-#: events-calendar-pro.class.php:129
-msgid "China"
-msgstr ""
-
-#: events-calendar-pro.class.php:130
-msgid "Christmas Island"
-msgstr ""
-
-#: events-calendar-pro.class.php:131
-msgid "Cocos (Keeling) Islands"
-msgstr ""
-
-#: events-calendar-pro.class.php:132
-msgid "Colombia"
-msgstr ""
-
-#: events-calendar-pro.class.php:133
-msgid "Comoros"
-msgstr ""
-
-#: events-calendar-pro.class.php:134
-msgid "Congo"
-msgstr ""
-
-#: events-calendar-pro.class.php:135
-msgid "Congo, The Democratic Republic Of The"
-msgstr ""
-
-#: events-calendar-pro.class.php:136
-msgid "Cook Islands"
-msgstr ""
-
-#: events-calendar-pro.class.php:137
-msgid "Costa Rica"
-msgstr ""
-
-#: events-calendar-pro.class.php:138
-msgid "Cote D'Ivoire"
-msgstr ""
-
-#: events-calendar-pro.class.php:139
-msgid "Croatia (Local Name: Hrvatska)"
-msgstr ""
-
-#: events-calendar-pro.class.php:140
-msgid "Cuba"
-msgstr ""
-
-#: events-calendar-pro.class.php:141
-msgid "Cyprus"
-msgstr ""
-
-#: events-calendar-pro.class.php:142
-msgid "Czech Republic"
-msgstr ""
-
-#: events-calendar-pro.class.php:143
-msgid "Denmark"
-msgstr ""
-
-#: events-calendar-pro.class.php:144
-msgid "Djibouti"
-msgstr ""
-
-#: events-calendar-pro.class.php:145
-msgid "Dominica"
-msgstr ""
-
-#: events-calendar-pro.class.php:146
-msgid "Dominican Republic"
-msgstr ""
-
-#: events-calendar-pro.class.php:147
-msgid "East Timor"
-msgstr ""
-
-#: events-calendar-pro.class.php:148
-msgid "Ecuador"
-msgstr ""
-
-#: events-calendar-pro.class.php:149
-msgid "Egypt"
-msgstr ""
-
-#: events-calendar-pro.class.php:150
-msgid "El Salvador"
-msgstr ""
-
-#: events-calendar-pro.class.php:151
-msgid "Equatorial Guinea"
-msgstr ""
-
-#: events-calendar-pro.class.php:152
-msgid "Eritrea"
-msgstr ""
-
-#: events-calendar-pro.class.php:153
-msgid "Estonia"
-msgstr ""
-
-#: events-calendar-pro.class.php:154
-msgid "Ethiopia"
-msgstr ""
-
-#: events-calendar-pro.class.php:155
-msgid "Falkland Islands (Malvinas)"
-msgstr ""
-
-#: events-calendar-pro.class.php:156
-msgid "Faroe Islands"
-msgstr ""
-
-#: events-calendar-pro.class.php:157
-msgid "Fiji"
-msgstr ""
-
-#: events-calendar-pro.class.php:158
-msgid "Finland"
-msgstr ""
-
-#: events-calendar-pro.class.php:159
-msgid "France"
-msgstr ""
-
-#: events-calendar-pro.class.php:160
-msgid "France, Metropolitan"
-msgstr ""
-
-#: events-calendar-pro.class.php:161
-msgid "French Guiana"
-msgstr ""
-
-#: events-calendar-pro.class.php:162
-msgid "French Polynesia"
-msgstr ""
-
-#: events-calendar-pro.class.php:163
-msgid "French Southern Territories"
-msgstr ""
-
-#: events-calendar-pro.class.php:164
-msgid "Gabon"
-msgstr ""
-
-#: events-calendar-pro.class.php:165
-msgid "Gambia"
-msgstr ""
-
-#: events-calendar-pro.class.php:166 views/events-meta-box.php:156
-msgid "Georgia"
-msgstr ""
-
-#: events-calendar-pro.class.php:167
-msgid "Germany"
-msgstr ""
-
-#: events-calendar-pro.class.php:168
-msgid "Ghana"
-msgstr ""
-
-#: events-calendar-pro.class.php:169
-msgid "Gibraltar"
-msgstr ""
-
-#: events-calendar-pro.class.php:170
-msgid "Greece"
-msgstr ""
-
-#: events-calendar-pro.class.php:171
-msgid "Greenland"
-msgstr ""
-
-#: events-calendar-pro.class.php:172
-msgid "Grenada"
-msgstr ""
-
-#: events-calendar-pro.class.php:173
-msgid "Guadeloupe"
-msgstr ""
-
-#: events-calendar-pro.class.php:174
-msgid "Guam"
-msgstr ""
-
-#: events-calendar-pro.class.php:175
-msgid "Guatemala"
-msgstr ""
-
-#: events-calendar-pro.class.php:176
-msgid "Guinea"
-msgstr ""
-
-#: events-calendar-pro.class.php:177
-msgid "Guinea-Bissau"
-msgstr ""
-
-#: events-calendar-pro.class.php:178
-msgid "Guyana"
-msgstr ""
-
-#: events-calendar-pro.class.php:179
-msgid "Haiti"
-msgstr ""
-
-#: events-calendar-pro.class.php:180
-msgid "Heard And Mc Donald Islands"
-msgstr ""
-
-#: events-calendar-pro.class.php:181
-msgid "Holy See (Vatican City State)"
-msgstr ""
-
-#: events-calendar-pro.class.php:182
-msgid "Honduras"
-msgstr ""
-
-#: events-calendar-pro.class.php:183
-msgid "Hong Kong"
-msgstr ""
-
-#: events-calendar-pro.class.php:184
-msgid "Hungary"
-msgstr ""
-
-#: events-calendar-pro.class.php:185
-msgid "Iceland"
-msgstr ""
-
-#: events-calendar-pro.class.php:186
-msgid "India"
-msgstr ""
-
-#: events-calendar-pro.class.php:187
-msgid "Indonesia"
-msgstr ""
-
-#: events-calendar-pro.class.php:188
-msgid "Iran (Islamic Republic Of)"
-msgstr ""
-
-#: events-calendar-pro.class.php:189
-msgid "Iraq"
-msgstr ""
-
-#: events-calendar-pro.class.php:190
-msgid "Ireland"
-msgstr ""
-
-#: events-calendar-pro.class.php:191
-msgid "Israel"
-msgstr ""
-
-#: events-calendar-pro.class.php:192
-msgid "Italy"
-msgstr ""
-
-#: events-calendar-pro.class.php:193
-msgid "Jamaica"
-msgstr ""
-
-#: events-calendar-pro.class.php:194
-msgid "Japan"
-msgstr ""
-
-#: events-calendar-pro.class.php:195
-msgid "Jordan"
-msgstr ""
-
-#: events-calendar-pro.class.php:196
-msgid "Kazakhstan"
-msgstr ""
-
-#: events-calendar-pro.class.php:197
-msgid "Kenya"
-msgstr ""
-
-#: events-calendar-pro.class.php:198
-msgid "Kiribati"
-msgstr ""
-
-#: events-calendar-pro.class.php:199
-msgid "Korea, Democratic People's Republic Of"
-msgstr ""
-
-#: events-calendar-pro.class.php:200
-msgid "Korea, Republic Of"
-msgstr ""
-
-#: events-calendar-pro.class.php:201
-msgid "Kuwait"
-msgstr ""
-
-#: events-calendar-pro.class.php:202
-msgid "Kyrgyzstan"
-msgstr ""
-
-#: events-calendar-pro.class.php:203
-msgid "Lao People's Democratic Republic"
-msgstr ""
-
-#: events-calendar-pro.class.php:204
-msgid "Latvia"
-msgstr ""
-
-#: events-calendar-pro.class.php:205
-msgid "Lebanon"
-msgstr ""
-
-#: events-calendar-pro.class.php:206
-msgid "Lesotho"
-msgstr ""
-
-#: events-calendar-pro.class.php:207
-msgid "Liberia"
-msgstr ""
-
-#: events-calendar-pro.class.php:208
-msgid "Libyan Arab Jamahiriya"
-msgstr ""
-
-#: events-calendar-pro.class.php:209
-msgid "Liechtenstein"
-msgstr ""
-
-#: events-calendar-pro.class.php:210
-msgid "Lithuania"
-msgstr ""
-
-#: events-calendar-pro.class.php:211
-msgid "Luxembourg"
-msgstr ""
-
-#: events-calendar-pro.class.php:212
-msgid "Macau"
-msgstr ""
-
-#: events-calendar-pro.class.php:213
-msgid "Macedonia, Former Yugoslav Republic Of"
-msgstr ""
-
-#: events-calendar-pro.class.php:214
-msgid "Madagascar"
-msgstr ""
-
-#: events-calendar-pro.class.php:215
-msgid "Malawi"
-msgstr ""
-
-#: events-calendar-pro.class.php:216
-msgid "Malaysia"
-msgstr ""
-
-#: events-calendar-pro.class.php:217
-msgid "Maldives"
-msgstr ""
-
-#: events-calendar-pro.class.php:218
-msgid "Mali"
-msgstr ""
-
-#: events-calendar-pro.class.php:219
-msgid "Malta"
-msgstr ""
-
-#: events-calendar-pro.class.php:220
-msgid "Marshall Islands"
-msgstr ""
-
-#: events-calendar-pro.class.php:221
-msgid "Martinique"
-msgstr ""
-
-#: events-calendar-pro.class.php:222
-msgid "Mauritania"
-msgstr ""
-
-#: events-calendar-pro.class.php:223
-msgid "Mauritius"
-msgstr ""
-
-#: events-calendar-pro.class.php:224
-msgid "Mayotte"
-msgstr ""
-
-#: events-calendar-pro.class.php:225
-msgid "Mexico"
-msgstr ""
-
-#: events-calendar-pro.class.php:226
-msgid "Micronesia, Federated States Of"
-msgstr ""
-
-#: events-calendar-pro.class.php:227
-msgid "Moldova, Republic Of"
-msgstr ""
-
-#: events-calendar-pro.class.php:228
-msgid "Monaco"
-msgstr ""
-
-#: events-calendar-pro.class.php:229
-msgid "Mongolia"
-msgstr ""
-
-#: events-calendar-pro.class.php:230
-msgid "Montserrat"
-msgstr ""
-
-#: events-calendar-pro.class.php:231
-msgid "Morocco"
-msgstr ""
-
-#: events-calendar-pro.class.php:232
-msgid "Mozambique"
-msgstr ""
-
-#: events-calendar-pro.class.php:233
-msgid "Myanmar"
-msgstr ""
-
-#: events-calendar-pro.class.php:234
-msgid "Namibia"
-msgstr ""
-
-#: events-calendar-pro.class.php:235
-msgid "Nauru"
-msgstr ""
-
-#: events-calendar-pro.class.php:236
-msgid "Nepal"
-msgstr ""
-
-#: events-calendar-pro.class.php:237
-msgid "Netherlands"
-msgstr ""
-
-#: events-calendar-pro.class.php:238
-msgid "Netherlands Antilles"
-msgstr ""
-
-#: events-calendar-pro.class.php:239
-msgid "New Caledonia"
-msgstr ""
-
-#: events-calendar-pro.class.php:240
-msgid "New Zealand"
-msgstr ""
-
-#: events-calendar-pro.class.php:241
-msgid "Nicaragua"
-msgstr ""
-
-#: events-calendar-pro.class.php:242
-msgid "Niger"
-msgstr ""
-
-#: events-calendar-pro.class.php:243
-msgid "Nigeria"
-msgstr ""
-
-#: events-calendar-pro.class.php:244
-msgid "Niue"
-msgstr ""
-
-#: events-calendar-pro.class.php:245
-msgid "Norfolk Island"
-msgstr ""
-
-#: events-calendar-pro.class.php:246
-msgid "Northern Mariana Islands"
-msgstr ""
-
-#: events-calendar-pro.class.php:247
-msgid "Norway"
-msgstr ""
-
-#: events-calendar-pro.class.php:248
-msgid "Oman"
-msgstr ""
-
-#: events-calendar-pro.class.php:249
-msgid "Pakistan"
-msgstr ""
-
-#: events-calendar-pro.class.php:250
-msgid "Palau"
-msgstr ""
-
-#: events-calendar-pro.class.php:251
-msgid "Panama"
-msgstr ""
-
-#: events-calendar-pro.class.php:252
-msgid "Papua New Guinea"
-msgstr ""
-
-#: events-calendar-pro.class.php:253
-msgid "Paraguay"
-msgstr ""
-
-#: events-calendar-pro.class.php:254
-msgid "Peru"
-msgstr ""
-
-#: events-calendar-pro.class.php:255
-msgid "Philippines"
-msgstr ""
-
-#: events-calendar-pro.class.php:256
-msgid "Pitcairn"
-msgstr ""
-
-#: events-calendar-pro.class.php:257
-msgid "Poland"
-msgstr ""
-
-#: events-calendar-pro.class.php:258
-msgid "Portugal"
-msgstr ""
-
-#: events-calendar-pro.class.php:259
-msgid "Puerto Rico"
-msgstr ""
-
-#: events-calendar-pro.class.php:260
-msgid "Qatar"
-msgstr ""
-
-#: events-calendar-pro.class.php:261
-msgid "Reunion"
-msgstr ""
-
-#: events-calendar-pro.class.php:262
-msgid "Romania"
-msgstr ""
-
-#: events-calendar-pro.class.php:263
-msgid "Russian Federation"
-msgstr ""
-
-#: events-calendar-pro.class.php:264
-msgid "Rwanda"
-msgstr ""
-
-#: events-calendar-pro.class.php:265
-msgid "Saint Kitts And Nevis"
-msgstr ""
-
-#: events-calendar-pro.class.php:266
-msgid "Saint Lucia"
-msgstr ""
-
-#: events-calendar-pro.class.php:267
-msgid "Saint Vincent And The Grenadines"
-msgstr ""
-
-#: events-calendar-pro.class.php:268
-msgid "Samoa"
-msgstr ""
-
-#: events-calendar-pro.class.php:269
-msgid "San Marino"
-msgstr ""
-
-#: events-calendar-pro.class.php:270
-msgid "Sao Tome And Principe"
-msgstr ""
-
-#: events-calendar-pro.class.php:271
-msgid "Saudi Arabia"
-msgstr ""
-
-#: events-calendar-pro.class.php:272
-msgid "Senegal"
-msgstr ""
-
-#: events-calendar-pro.class.php:273
-msgid "Seychelles"
-msgstr ""
-
-#: events-calendar-pro.class.php:274
-msgid "Sierra Leone"
-msgstr ""
-
-#: events-calendar-pro.class.php:275
-msgid "Singapore"
-msgstr ""
-
-#: events-calendar-pro.class.php:276
-msgid "Slovakia (Slovak Republic)"
-msgstr ""
-
-#: events-calendar-pro.class.php:277
-msgid "Slovenia"
-msgstr ""
-
-#: events-calendar-pro.class.php:278
-msgid "Solomon Islands"
-msgstr ""
-
-#: events-calendar-pro.class.php:279
-msgid "Somalia"
-msgstr ""
-
-#: events-calendar-pro.class.php:280
-msgid "South Africa"
-msgstr ""
-
-#: events-calendar-pro.class.php:281
-msgid "South Georgia, South Sandwich Islands"
-msgstr ""
-
-#: events-calendar-pro.class.php:282
-msgid "Spain"
-msgstr ""
-
-#: events-calendar-pro.class.php:283
-msgid "Sri Lanka"
-msgstr ""
-
-#: events-calendar-pro.class.php:284
-msgid "St. Helena"
-msgstr ""
-
-#: events-calendar-pro.class.php:285
-msgid "St. Pierre And Miquelon"
-msgstr ""
-
-#: events-calendar-pro.class.php:286
-msgid "Sudan"
-msgstr ""
-
-#: events-calendar-pro.class.php:287
-msgid "Suriname"
-msgstr ""
-
-#: events-calendar-pro.class.php:288
-msgid "Svalbard And Jan Mayen Islands"
-msgstr ""
-
-#: events-calendar-pro.class.php:289
-msgid "Swaziland"
-msgstr ""
-
-#: events-calendar-pro.class.php:290
-msgid "Sweden"
-msgstr ""
-
-#: events-calendar-pro.class.php:291
-msgid "Switzerland"
-msgstr ""
-
-#: events-calendar-pro.class.php:292
-msgid "Syrian Arab Republic"
-msgstr ""
-
-#: events-calendar-pro.class.php:293
-msgid "Taiwan"
-msgstr ""
-
-#: events-calendar-pro.class.php:294
-msgid "Tajikistan"
-msgstr ""
-
-#: events-calendar-pro.class.php:295
-msgid "Tanzania, United Republic Of"
-msgstr ""
-
-#: events-calendar-pro.class.php:296
-msgid "Thailand"
-msgstr ""
-
-#: events-calendar-pro.class.php:297
-msgid "Togo"
-msgstr ""
-
-#: events-calendar-pro.class.php:298
-msgid "Tokelau"
-msgstr ""
-
-#: events-calendar-pro.class.php:299
-msgid "Tonga"
-msgstr ""
-
-#: events-calendar-pro.class.php:300
-msgid "Trinidad And Tobago"
-msgstr ""
-
-#: events-calendar-pro.class.php:301
-msgid "Tunisia"
-msgstr ""
-
-#: events-calendar-pro.class.php:302
-msgid "Turkey"
-msgstr ""
-
-#: events-calendar-pro.class.php:303
-msgid "Turkmenistan"
-msgstr ""
-
-#: events-calendar-pro.class.php:304
-msgid "Turks And Caicos Islands"
-msgstr ""
-
-#: events-calendar-pro.class.php:305
-msgid "Tuvalu"
-msgstr ""
-
-#: events-calendar-pro.class.php:306
-msgid "Uganda"
-msgstr ""
-
-#: events-calendar-pro.class.php:307
-msgid "Ukraine"
-msgstr ""
-
-#: events-calendar-pro.class.php:308
-msgid "United Arab Emirates"
-msgstr ""
-
-#: events-calendar-pro.class.php:309
-msgid "United Kingdom"
-msgstr ""
-
-#: events-calendar-pro.class.php:310
-msgid "United States Minor Outlying Islands"
-msgstr ""
-
-#: events-calendar-pro.class.php:311
-msgid "Uruguay"
-msgstr ""
-
-#: events-calendar-pro.class.php:312
-msgid "Uzbekistan"
-msgstr ""
-
-#: events-calendar-pro.class.php:313
-msgid "Vanuatu"
-msgstr ""
-
-#: events-calendar-pro.class.php:314
-msgid "Venezuela"
-msgstr ""
-
-#: events-calendar-pro.class.php:315
-msgid "Viet Nam"
-msgstr ""
-
-#: events-calendar-pro.class.php:316
-msgid "Virgin Islands (British)"
-msgstr ""
-
-#: events-calendar-pro.class.php:317
-msgid "Virgin Islands (U.S.)"
-msgstr ""
-
-#: events-calendar-pro.class.php:318
-msgid "Wallis And Futuna Islands"
-msgstr ""
-
-#: events-calendar-pro.class.php:319
-msgid "Western Sahara"
-msgstr ""
-
-#: events-calendar-pro.class.php:320
-msgid "Yemen"
-msgstr ""
-
-#: events-calendar-pro.class.php:321
-msgid "Yugoslavia"
-msgstr ""
-
-#: events-calendar-pro.class.php:322
-msgid "Zambia"
-msgstr ""
-
-#: events-calendar-pro.class.php:323
-msgid "Zimbabwe"
-msgstr ""
-
-#. #-#-#-#-#  events-calendar-pro.pot (Events Calendar Pro 1.2.1b)  #-#-#-#-#
-#. Plugin Name of the plugin/theme
-#: events-calendar-pro.class.php:358
-msgid "Events Calendar Pro"
-msgstr ""
-
-#: events-calendar-pro.class.php:361
-msgid "category"
-msgstr ""
-
-#: events-calendar-pro.class.php:362
-msgid "month"
-msgstr ""
-
-#: events-calendar-pro.class.php:363
-msgid "upcoming"
-msgstr ""
-
-#: events-calendar-pro.class.php:364
-msgid "past"
-msgstr ""
-
-#: events-calendar-pro.class.php:428
-msgid "No description has been entered for this event."
-msgstr ""
-
-#: events-calendar-pro.class.php:441 events-calendar-pro.class.php:553
-msgid "Event Categories"
-msgstr ""
-
-#: events-calendar-pro.class.php:446
-msgid "Start Date"
-msgstr ""
-
-#: events-calendar-pro.class.php:447
-msgid "End Date"
-msgstr ""
-
-#: events-calendar-pro.class.php:471 views/events-options.php:198
-#: views/events-options.php:200
-msgid "Debug"
-msgstr ""
-
-#: events-calendar-pro.class.php:540
-msgid "Events"
-msgstr ""
-
-#: events-calendar-pro.class.php:541
-msgid "Event"
-msgstr ""
-
-#: events-calendar-pro.class.php:542
-msgid "Add New"
-msgstr ""
-
-#: events-calendar-pro.class.php:543
-msgid "Add New Event"
-msgstr ""
-
-#: events-calendar-pro.class.php:544
-msgid "Edit Event"
-msgstr ""
-
-#: events-calendar-pro.class.php:545
-msgid "New Event"
-msgstr ""
-
-#: events-calendar-pro.class.php:546
-msgid "View Event"
-msgstr ""
-
-#: events-calendar-pro.class.php:547
-msgid "Search Events"
-msgstr ""
-
-#: events-calendar-pro.class.php:548
-msgid "No events found"
-msgstr ""
-
-#: events-calendar-pro.class.php:549
-msgid "No events found in Trash"
-msgstr ""
-
-#: events-calendar-pro.class.php:554
-msgid "Event Category"
-msgstr ""
-
-#: events-calendar-pro.class.php:555
-msgid "Search Event Categories"
-msgstr ""
-
-#: events-calendar-pro.class.php:556
-msgid "All Event Categories"
-msgstr ""
-
-#: events-calendar-pro.class.php:557
-msgid "Parent Event Category"
-msgstr ""
-
-#: events-calendar-pro.class.php:558
-msgid "Parent Event Category:"
-msgstr ""
-
-#: events-calendar-pro.class.php:559
-msgid "Edit Event Category"
-msgstr ""
-
-#: events-calendar-pro.class.php:560
-msgid "Update Event Category"
-msgstr ""
-
-#: events-calendar-pro.class.php:561
-msgid "Add New Event Category"
-msgstr ""
-
-#: events-calendar-pro.class.php:562
-msgid "New Event Category Name"
-msgstr ""
-
-#: events-calendar-pro.class.php:599
-msgid "Next"
-msgstr ""
-
-#: events-calendar-pro.class.php:600
-msgid "Prev"
-msgstr ""
-
-#: events-calendar-pro.class.php:601
-msgid "Today"
-msgstr ""
-
-#: events-calendar-pro.class.php:602
-msgid "Done"
-msgstr ""
-
-#: events-calendar-widget.class.php:12
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: ./\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../events-calendar-widget.class.php:12
 msgid "A calendar of your events"
-msgstr ""
+msgstr "\r"
 
-#: events-calendar-widget.class.php:13
+#: ../events-calendar-widget.class.php:13
 msgid "Events Calendar"
 msgstr ""
 
-#: events-calendar-widget.class.php:39
-#: views/events-list-load-widget-admin.php:2
+#: ../events-calendar-widget.class.php:39
 msgid "Title:"
 msgstr ""
 
-#: events-list-widget.class.php:15
+#: ../events-list-widget.class.php:15
 msgid "A widget that displays the next upcoming x events."
 msgstr ""
 
-#: events-list-widget.class.php:67
+#: ../events-list-widget.class.php:68
 msgid "View All Events"
 msgstr ""
 
-#: events-list-widget.class.php:70
+#: ../events-list-widget.class.php:71
 msgid "There are no upcoming events at this time."
 msgstr ""
 
-#: template-tags.php:596
+#: ../template-tags.php:579
+#: ../events-calendar-pro.class.php:86
+msgid "United States"
+msgstr ""
+
+#: ../template-tags.php:600
 msgid "Calendar of Events"
 msgstr ""
 
-#: template-tags.php:607
+#: ../template-tags.php:611
 msgid "Category:"
 msgstr ""
 
-#: views/events-list-load-widget-admin.php:7
-msgid "Show:"
+#: ../events-calendar-pro.class.php:85
+msgid "Select a Country:"
 msgstr ""
 
-#: views/events-list-load-widget-admin.php:15
-msgid "Don't show the widget if there are no upcoming events:"
+#: ../events-calendar-pro.class.php:87
+msgid "Afghanistan"
 msgstr ""
 
-#: views/events-list-load-widget-admin.php:21
-msgid "Display:"
+#: ../events-calendar-pro.class.php:88
+msgid "Albania"
 msgstr ""
 
-#: views/events-list-load-widget-admin.php:24
-msgid "Start Date & Time"
+#: ../events-calendar-pro.class.php:89
+msgid "Algeria"
 msgstr ""
 
-#: views/events-list-load-widget-admin.php:25
-msgid "End Date & Time"
+#: ../events-calendar-pro.class.php:90
+msgid "American Samoa"
 msgstr ""
 
-#: views/events-list-load-widget-admin.php:26
-msgid "Venue"
+#: ../events-calendar-pro.class.php:91
+msgid "Andorra"
 msgstr ""
 
-#: views/events-list-load-widget-admin.php:27
-msgid "Address"
+#: ../events-calendar-pro.class.php:92
+msgid "Angola"
 msgstr ""
 
-#: views/events-list-load-widget-admin.php:28
-msgid "City"
+#: ../events-calendar-pro.class.php:93
+msgid "Anguilla"
 msgstr ""
 
-#: views/events-list-load-widget-admin.php:29
-msgid "State (US)"
+#: ../events-calendar-pro.class.php:94
+msgid "Antarctica"
 msgstr ""
 
-#: views/events-list-load-widget-admin.php:30
-msgid "Province (Int)"
+#: ../events-calendar-pro.class.php:95
+msgid "Antigua And Barbuda"
 msgstr ""
 
-#: views/events-list-load-widget-admin.php:31
-msgid "Postal Code"
+#: ../events-calendar-pro.class.php:96
+msgid "Argentina"
 msgstr ""
 
-#: views/events-list-load-widget-admin.php:32
-msgid "Country"
+#: ../events-calendar-pro.class.php:97
+msgid "Armenia"
 msgstr ""
 
-#: views/events-list-load-widget-admin.php:33
-msgid "Phone"
+#: ../events-calendar-pro.class.php:98
+msgid "Aruba"
 msgstr ""
 
-#: views/events-list-load-widget-admin.php:34
-msgid "Price"
+#: ../events-calendar-pro.class.php:99
+msgid "Australia"
 msgstr ""
 
-#: views/events-meta-box.php:34
+#: ../events-calendar-pro.class.php:100
+msgid "Austria"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:101
+msgid "Azerbaijan"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:102
+msgid "Bahamas"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:103
+msgid "Bahrain"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:104
+msgid "Bangladesh"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:105
+msgid "Barbados"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:106
+msgid "Belarus"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:107
+msgid "Belgium"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:108
+msgid "Belize"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:109
+msgid "Benin"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:110
+msgid "Bermuda"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:111
+msgid "Bhutan"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:112
+msgid "Bolivia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:113
+msgid "Bosnia And Herzegowina"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:114
+msgid "Botswana"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:115
+msgid "Bouvet Island"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:116
+msgid "Brazil"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:117
+msgid "British Indian Ocean Territory"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:118
+msgid "Brunei Darussalam"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:119
+msgid "Bulgaria"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:120
+msgid "Burkina Faso"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:121
+msgid "Burundi"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:122
+msgid "Cambodia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:123
+msgid "Cameroon"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:124
+msgid "Canada"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:125
+msgid "Cape Verde"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:126
+msgid "Cayman Islands"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:127
+msgid "Central African Republic"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:128
+msgid "Chad"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:129
+msgid "Chile"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:130
+msgid "China"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:131
+msgid "Christmas Island"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:132
+msgid "Cocos (Keeling) Islands"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:133
+msgid "Colombia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:134
+msgid "Comoros"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:135
+msgid "Congo"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:136
+msgid "Congo, The Democratic Republic Of The"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:137
+msgid "Cook Islands"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:138
+msgid "Costa Rica"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:139
+msgid "Cote D'Ivoire"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:140
+msgid "Croatia (Local Name: Hrvatska)"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:141
+msgid "Cuba"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:142
+msgid "Cyprus"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:143
+msgid "Czech Republic"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:144
+msgid "Denmark"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:145
+msgid "Djibouti"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:146
+msgid "Dominica"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:147
+msgid "Dominican Republic"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:148
+msgid "East Timor"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:149
+msgid "Ecuador"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:150
+msgid "Egypt"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:151
+msgid "El Salvador"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:152
+msgid "Equatorial Guinea"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:153
+msgid "Eritrea"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:154
+msgid "Estonia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:155
+msgid "Ethiopia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:156
+msgid "Falkland Islands (Malvinas)"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:157
+msgid "Faroe Islands"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:158
+msgid "Fiji"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:159
+msgid "Finland"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:160
+msgid "France"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:161
+msgid "France, Metropolitan"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:162
+msgid "French Guiana"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:163
+msgid "French Polynesia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:164
+msgid "French Southern Territories"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:165
+msgid "Gabon"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:166
+msgid "Gambia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:167
+#: ../views/events-meta-box.php:156
+msgid "Georgia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:168
+msgid "Germany"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:169
+msgid "Ghana"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:170
+msgid "Gibraltar"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:171
+msgid "Greece"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:172
+msgid "Greenland"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:173
+msgid "Grenada"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:174
+msgid "Guadeloupe"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:175
+msgid "Guam"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:176
+msgid "Guatemala"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:177
+msgid "Guinea"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:178
+msgid "Guinea-Bissau"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:179
+msgid "Guyana"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:180
+msgid "Haiti"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:181
+msgid "Heard And Mc Donald Islands"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:182
+msgid "Holy See (Vatican City State)"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:183
+msgid "Honduras"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:184
+msgid "Hong Kong"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:185
+msgid "Hungary"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:186
+msgid "Iceland"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:187
+msgid "India"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:188
+msgid "Indonesia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:189
+msgid "Iran (Islamic Republic Of)"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:190
+msgid "Iraq"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:191
+msgid "Ireland"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:192
+msgid "Israel"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:193
+msgid "Italy"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:194
+msgid "Jamaica"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:195
+msgid "Japan"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:196
+msgid "Jordan"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:197
+msgid "Kazakhstan"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:198
+msgid "Kenya"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:199
+msgid "Kiribati"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:200
+msgid "Korea, Democratic People's Republic Of"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:201
+msgid "Korea, Republic Of"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:202
+msgid "Kuwait"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:203
+msgid "Kyrgyzstan"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:204
+msgid "Lao People's Democratic Republic"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:205
+msgid "Latvia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:206
+msgid "Lebanon"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:207
+msgid "Lesotho"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:208
+msgid "Liberia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:209
+msgid "Libyan Arab Jamahiriya"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:210
+msgid "Liechtenstein"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:211
+msgid "Lithuania"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:212
+msgid "Luxembourg"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:213
+msgid "Macau"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:214
+msgid "Macedonia, Former Yugoslav Republic Of"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:215
+msgid "Madagascar"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:216
+msgid "Malawi"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:217
+msgid "Malaysia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:218
+msgid "Maldives"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:219
+msgid "Mali"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:220
+msgid "Malta"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:221
+msgid "Marshall Islands"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:222
+msgid "Martinique"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:223
+msgid "Mauritania"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:224
+msgid "Mauritius"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:225
+msgid "Mayotte"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:226
+msgid "Mexico"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:227
+msgid "Micronesia, Federated States Of"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:228
+msgid "Moldova, Republic Of"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:229
+msgid "Monaco"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:230
+msgid "Mongolia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:231
+msgid "Montserrat"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:232
+msgid "Morocco"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:233
+msgid "Mozambique"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:234
+msgid "Myanmar"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:235
+msgid "Namibia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:236
+msgid "Nauru"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:237
+msgid "Nepal"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:238
+msgid "Netherlands"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:239
+msgid "Netherlands Antilles"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:240
+msgid "New Caledonia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:241
+msgid "New Zealand"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:242
+msgid "Nicaragua"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:243
+msgid "Niger"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:244
+msgid "Nigeria"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:245
+msgid "Niue"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:246
+msgid "Norfolk Island"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:247
+msgid "Northern Mariana Islands"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:248
+msgid "Norway"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:249
+msgid "Oman"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:250
+msgid "Pakistan"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:251
+msgid "Palau"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:252
+msgid "Panama"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:253
+msgid "Papua New Guinea"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:254
+msgid "Paraguay"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:255
+msgid "Peru"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:256
+msgid "Philippines"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:257
+msgid "Pitcairn"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:258
+msgid "Poland"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:259
+msgid "Portugal"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:260
+msgid "Puerto Rico"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:261
+msgid "Qatar"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:262
+msgid "Reunion"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:263
+msgid "Romania"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:264
+msgid "Russian Federation"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:265
+msgid "Rwanda"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:266
+msgid "Saint Kitts And Nevis"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:267
+msgid "Saint Lucia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:268
+msgid "Saint Vincent And The Grenadines"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:269
+msgid "Samoa"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:270
+msgid "San Marino"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:271
+msgid "Sao Tome And Principe"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:272
+msgid "Saudi Arabia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:273
+msgid "Senegal"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:274
+msgid "Seychelles"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:275
+msgid "Sierra Leone"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:276
+msgid "Singapore"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:277
+msgid "Slovakia (Slovak Republic)"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:278
+msgid "Slovenia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:279
+msgid "Solomon Islands"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:280
+msgid "Somalia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:281
+msgid "South Africa"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:282
+msgid "South Georgia, South Sandwich Islands"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:283
+msgid "Spain"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:284
+msgid "Sri Lanka"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:285
+msgid "St. Helena"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:286
+msgid "St. Pierre And Miquelon"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:287
+msgid "Sudan"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:288
+msgid "Suriname"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:289
+msgid "Svalbard And Jan Mayen Islands"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:290
+msgid "Swaziland"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:291
+msgid "Sweden"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:292
+msgid "Switzerland"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:293
+msgid "Syrian Arab Republic"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:294
+msgid "Taiwan"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:295
+msgid "Tajikistan"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:296
+msgid "Tanzania, United Republic Of"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:297
+msgid "Thailand"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:298
+msgid "Togo"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:299
+msgid "Tokelau"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:300
+msgid "Tonga"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:301
+msgid "Trinidad And Tobago"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:302
+msgid "Tunisia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:303
+msgid "Turkey"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:304
+msgid "Turkmenistan"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:305
+msgid "Turks And Caicos Islands"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:306
+msgid "Tuvalu"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:307
+msgid "Uganda"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:308
+msgid "Ukraine"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:309
+msgid "United Arab Emirates"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:310
+msgid "United Kingdom"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:311
+msgid "United States Minor Outlying Islands"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:312
+msgid "Uruguay"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:313
+msgid "Uzbekistan"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:314
+msgid "Vanuatu"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:315
+msgid "Venezuela"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:316
+msgid "Viet Nam"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:317
+msgid "Virgin Islands (British)"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:318
+msgid "Virgin Islands (U.S.)"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:319
+msgid "Wallis And Futuna Islands"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:320
+msgid "Western Sahara"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:321
+msgid "Yemen"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:322
+msgid "Yugoslavia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:323
+msgid "Zambia"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:324
+msgid "Zimbabwe"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:359
+msgid "Events Calendar Pro"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:362
+msgid "category"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:363
+msgid "month"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:364
+msgid "upcoming"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:365
+msgid "past"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:460
+msgid "No description has been entered for this event."
+msgstr ""
+
+#: ../events-calendar-pro.class.php:473
+#: ../events-calendar-pro.class.php:585
+msgid "Event Categories"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:478
+msgid "Start Date"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:479
+msgid "End Date"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:503
+#: ../views/events-options.php:198
+#: ../views/events-options.php:200
+msgid "Debug"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:572
+msgid "Events"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:573
+msgid "Event"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:574
+msgid "Add New"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:575
+msgid "Add New Event"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:576
+msgid "Edit Event"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:577
+msgid "New Event"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:578
+msgid "View Event"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:579
+msgid "Search Events"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:580
+msgid "No events found"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:581
+msgid "No events found in Trash"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:586
+msgid "Event Category"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:587
+msgid "Search Event Categories"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:588
+msgid "All Event Categories"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:589
+msgid "Parent Event Category"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:590
+msgid "Parent Event Category:"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:591
+msgid "Edit Event Category"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:592
+msgid "Update Event Category"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:593
+msgid "Add New Event Category"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:594
+msgid "New Event Category Name"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:631
+msgid "Next"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:632
+msgid "Prev"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:633
+msgid "Today"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:634
+msgid "Done"
+msgstr ""
+
+#: ../views/events-meta-box.php:34
 msgid "Event Time &amp; Date"
 msgstr ""
 
-#: views/events-meta-box.php:37
+#: ../views/events-meta-box.php:37
 msgid "All day event?"
 msgstr ""
 
-#: views/events-meta-box.php:41
+#: ../views/events-meta-box.php:41
 msgid "Start Date / Time:"
 msgstr ""
 
-#: views/events-meta-box.php:44 views/events-meta-box.php:65
+#: ../views/events-meta-box.php:44
+#: ../views/events-meta-box.php:65
 msgid "YYYY-MM-DD"
 msgstr ""
 
-#: views/events-meta-box.php:46 views/events-meta-box.php:67
+#: ../views/events-meta-box.php:46
+#: ../views/events-meta-box.php:67
 msgid "@"
 msgstr ""
 
-#: views/events-meta-box.php:62
+#: ../views/events-meta-box.php:62
 msgid "End Date / Time:"
 msgstr ""
 
-#: views/events-meta-box.php:83
+#: ../views/events-meta-box.php:83
 msgid "Event Location Details"
 msgstr ""
 
-#: views/events-meta-box.php:86 views/list.php:42 views/single.php:28
+#: ../views/events-meta-box.php:86
+#: ../views/list.php:46
 msgid "Venue:"
 msgstr ""
 
-#: views/events-meta-box.php:92
+#: ../views/events-meta-box.php:92
 msgid "Country:"
 msgstr ""
 
-#: views/events-meta-box.php:128 views/list.php:57 views/single.php:37
+#: ../views/events-meta-box.php:128
+#: ../views/list.php:61
 msgid "Address:"
 msgstr ""
 
-#: views/events-meta-box.php:132
+#: ../views/events-meta-box.php:132
 msgid "City:"
 msgstr ""
 
-#: views/events-meta-box.php:137
+#: ../views/events-meta-box.php:137
 msgid "Province:"
 msgstr ""
 
-#: views/events-meta-box.php:141
+#: ../views/events-meta-box.php:141
 msgid "State:"
 msgstr ""
 
-#: views/events-meta-box.php:144
+#: ../views/events-meta-box.php:144
 msgid "Select a State:"
 msgstr ""
 
-#: views/events-meta-box.php:146
+#: ../views/events-meta-box.php:146
 msgid "Alabama"
 msgstr ""
 
-#: views/events-meta-box.php:147
+#: ../views/events-meta-box.php:147
 msgid "Alaska"
 msgstr ""
 
-#: views/events-meta-box.php:148
+#: ../views/events-meta-box.php:148
 msgid "Arizona"
 msgstr ""
 
-#: views/events-meta-box.php:149
+#: ../views/events-meta-box.php:149
 msgid "Arkansas"
 msgstr ""
 
-#: views/events-meta-box.php:150
+#: ../views/events-meta-box.php:150
 msgid "California"
 msgstr ""
 
-#: views/events-meta-box.php:151
+#: ../views/events-meta-box.php:151
 msgid "Colorado"
 msgstr ""
 
-#: views/events-meta-box.php:152
+#: ../views/events-meta-box.php:152
 msgid "Connecticut"
 msgstr ""
 
-#: views/events-meta-box.php:153
+#: ../views/events-meta-box.php:153
 msgid "Delaware"
 msgstr ""
 
-#: views/events-meta-box.php:154
+#: ../views/events-meta-box.php:154
 msgid "District of Columbia"
 msgstr ""
 
-#: views/events-meta-box.php:155
+#: ../views/events-meta-box.php:155
 msgid "Florida"
 msgstr ""
 
-#: views/events-meta-box.php:157
+#: ../views/events-meta-box.php:157
 msgid "Hawaii"
 msgstr ""
 
-#: views/events-meta-box.php:158
+#: ../views/events-meta-box.php:158
 msgid "Idaho"
 msgstr ""
 
-#: views/events-meta-box.php:159
+#: ../views/events-meta-box.php:159
 msgid "Illinois"
 msgstr ""
 
-#: views/events-meta-box.php:160
+#: ../views/events-meta-box.php:160
 msgid "Indiana"
 msgstr ""
 
-#: views/events-meta-box.php:161
+#: ../views/events-meta-box.php:161
 msgid "Iowa"
 msgstr ""
 
-#: views/events-meta-box.php:162
+#: ../views/events-meta-box.php:162
 msgid "Kansas"
 msgstr ""
 
-#: views/events-meta-box.php:163
+#: ../views/events-meta-box.php:163
 msgid "Kentucky"
 msgstr ""
 
-#: views/events-meta-box.php:164
+#: ../views/events-meta-box.php:164
 msgid "Louisiana"
 msgstr ""
 
-#: views/events-meta-box.php:165
+#: ../views/events-meta-box.php:165
 msgid "Maine"
 msgstr ""
 
-#: views/events-meta-box.php:166
+#: ../views/events-meta-box.php:166
 msgid "Maryland"
 msgstr ""
 
-#: views/events-meta-box.php:167
+#: ../views/events-meta-box.php:167
 msgid "Massachusetts"
 msgstr ""
 
-#: views/events-meta-box.php:168
+#: ../views/events-meta-box.php:168
 msgid "Michigan"
 msgstr ""
 
-#: views/events-meta-box.php:169
+#: ../views/events-meta-box.php:169
 msgid "Minnesota"
 msgstr ""
 
-#: views/events-meta-box.php:170
+#: ../views/events-meta-box.php:170
 msgid "Mississippi"
 msgstr ""
 
-#: views/events-meta-box.php:171
+#: ../views/events-meta-box.php:171
 msgid "Missouri"
 msgstr ""
 
-#: views/events-meta-box.php:172
+#: ../views/events-meta-box.php:172
 msgid "Montana"
 msgstr ""
 
-#: views/events-meta-box.php:173
+#: ../views/events-meta-box.php:173
 msgid "Nebraska"
 msgstr ""
 
-#: views/events-meta-box.php:174
+#: ../views/events-meta-box.php:174
 msgid "Nevada"
 msgstr ""
 
-#: views/events-meta-box.php:175
+#: ../views/events-meta-box.php:175
 msgid "New Hampshire"
 msgstr ""
 
-#: views/events-meta-box.php:176
+#: ../views/events-meta-box.php:176
 msgid "New Jersey"
 msgstr ""
 
-#: views/events-meta-box.php:177
+#: ../views/events-meta-box.php:177
 msgid "New Mexico"
 msgstr ""
 
-#: views/events-meta-box.php:178
+#: ../views/events-meta-box.php:178
 msgid "New York"
 msgstr ""
 
-#: views/events-meta-box.php:179
+#: ../views/events-meta-box.php:179
 msgid "North Carolina"
 msgstr ""
 
-#: views/events-meta-box.php:180
+#: ../views/events-meta-box.php:180
 msgid "North Dakota"
 msgstr ""
 
-#: views/events-meta-box.php:181
+#: ../views/events-meta-box.php:181
 msgid "Ohio"
 msgstr ""
 
-#: views/events-meta-box.php:182
+#: ../views/events-meta-box.php:182
 msgid "Oklahoma"
 msgstr ""
 
-#: views/events-meta-box.php:183
+#: ../views/events-meta-box.php:183
 msgid "Oregon"
 msgstr ""
 
-#: views/events-meta-box.php:184
+#: ../views/events-meta-box.php:184
 msgid "Pennsylvania"
 msgstr ""
 
-#: views/events-meta-box.php:185
+#: ../views/events-meta-box.php:185
 msgid "Rhode Island"
 msgstr ""
 
-#: views/events-meta-box.php:186
+#: ../views/events-meta-box.php:186
 msgid "South Carolina"
 msgstr ""
 
-#: views/events-meta-box.php:187
+#: ../views/events-meta-box.php:187
 msgid "South Dakota"
 msgstr ""
 
-#: views/events-meta-box.php:188
+#: ../views/events-meta-box.php:188
 msgid "Tennessee"
 msgstr ""
 
-#: views/events-meta-box.php:189
+#: ../views/events-meta-box.php:189
 msgid "Texas"
 msgstr ""
 
-#: views/events-meta-box.php:190
+#: ../views/events-meta-box.php:190
 msgid "Utah"
 msgstr ""
 
-#: views/events-meta-box.php:191
+#: ../views/events-meta-box.php:191
 msgid "Vermont"
 msgstr ""
 
-#: views/events-meta-box.php:192
+#: ../views/events-meta-box.php:192
 msgid "Virginia"
 msgstr ""
 
-#: views/events-meta-box.php:193
+#: ../views/events-meta-box.php:193
 msgid "Washington"
 msgstr ""
 
-#: views/events-meta-box.php:194
+#: ../views/events-meta-box.php:194
 msgid "West Virginia"
 msgstr ""
 
-#: views/events-meta-box.php:195
+#: ../views/events-meta-box.php:195
 msgid "Wisconsin"
 msgstr ""
 
-#: views/events-meta-box.php:196
+#: ../views/events-meta-box.php:196
 msgid "Wyoming"
 msgstr ""
 
-#: views/events-meta-box.php:210
+#: ../views/events-meta-box.php:210
 msgid "Postal Code:"
 msgstr ""
 
-#: views/events-meta-box.php:214
+#: ../views/events-meta-box.php:214
 msgid "Show Google Map Link:"
 msgstr ""
 
-#: views/events-meta-box.php:226
+#: ../views/events-meta-box.php:226
 msgid "Show Google Map:"
 msgstr ""
 
-#: views/events-meta-box.php:231 views/list.php:51 views/single.php:32
+#: ../views/events-meta-box.php:231
+#: ../views/list.php:55
 msgid "Phone:"
 msgstr ""
 
-#: views/events-meta-box.php:235
+#: ../views/events-meta-box.php:235
 msgid "Event Cost"
 msgstr ""
 
-#: views/events-meta-box.php:238 views/list.php:69 views/single.php:21
+#: ../views/events-meta-box.php:238
+#: ../views/list.php:73
 msgid "Cost:"
 msgstr ""
 
-#: views/events-meta-box.php:243
+#: ../views/events-meta-box.php:243
 msgid "Leave blank to hide the field. Enter a 0 for events that are free."
 msgstr ""
 
-#: views/events-meta-box.php:247
+#: ../views/events-meta-box.php:247
 msgid "Sell Tickets &amp; Track Registration"
 msgstr ""
 
-#: views/events-meta-box.php:252
+#: ../views/events-meta-box.php:252
 #, php-format
-msgid ""
-"Interested in selling tickets and tracking registrations? We have an add-on "
-"in the works that will integrate your events and sell tickets on <a href=\"%s"
-"\">EventBrite</a>. <a href=\"%s\">Stay Tuned!</a>"
+msgid "Interested in selling tickets and tracking registrations? We have an add-on in the works that will integrate your events and sell tickets on <a href=\"%s\">EventBrite</a>. <a href=\"%s\">Stay Tuned!</a>"
 msgstr ""
 
-#: views/events-options.php:37
-msgid "Need a hand?"
-msgstr ""
-
-#: views/events-options.php:38
-#, php-format
-msgid ""
-"If you’re stuck on these options, please <a href=\"%s\">check out the "
-"documentation</a>. Or, go to the <a href=\"%s\">support forum</a>."
-msgstr ""
-
-#: views/events-options.php:39
-msgid "Here is the iCal feed URL for your events: "
-msgstr ""
-
-#: views/events-options.php:44
-msgid "Settings"
-msgstr ""
-
-#: views/events-options.php:47 views/events-options.php:51
-msgid "Default View for the Events"
-msgstr ""
-
-#: views/events-options.php:63 views/gridview.php:26 views/list.php:11
-msgid "Calendar"
-msgstr ""
-
-#: views/events-options.php:67 views/gridview.php:25 views/list.php:10
+#: ../views/list.php:12
+#: ../views/events-options.php:67
+#: ../views/gridview.php:26
 msgid "Event List"
 msgstr ""
 
-#: views/events-options.php:73 views/events-options.php:77
+#: ../views/list.php:13
+#: ../views/events-options.php:63
+#: ../views/gridview.php:27
+msgid "Calendar"
+msgstr ""
+
+#: ../views/list.php:34
+msgid "Start:"
+msgstr ""
+
+#: ../views/list.php:38
+msgid "End:"
+msgstr ""
+
+#: ../views/list.php:63
+msgid "Google Map"
+msgstr ""
+
+#: ../views/list.php:85
+#, php-format
+msgid " listed under %s; check out past events for this category or the full calendar"
+msgstr ""
+
+#: ../views/list.php:89
+msgid "No upcoming events"
+msgstr ""
+
+#: ../views/list.php:92
+msgid "No previous events"
+msgstr ""
+
+#: ../views/list.php:104
+#: ../views/list.php:106
+#: ../views/list.php:108
+msgid "&laquo; Previous Events"
+msgstr ""
+
+#: ../views/list.php:115
+#: ../views/list.php:117
+#: ../views/list.php:119
+msgid "Next Events &raquo;"
+msgstr ""
+
+#: ../views/list.php:124
+#: ../views/gridview.php:32
+msgid "iCal Import"
+msgstr ""
+
+#: ../views/table-mini.php:20
+msgid "View all &raquo;"
+msgstr ""
+
+#: ../views/events-options.php:37
+msgid "Need a hand?"
+msgstr ""
+
+#: ../views/events-options.php:38
+#, php-format
+msgid "If you’re stuck on these options, please <a href=\"%s\">check out the documentation</a>. Or, go to the <a href=\"%s\">support forum</a>."
+msgstr ""
+
+#: ../views/events-options.php:39
+msgid "Here is the iCal feed URL for your events: "
+msgstr ""
+
+#: ../views/events-options.php:44
+msgid "Settings"
+msgstr ""
+
+#: ../views/events-options.php:47
+#: ../views/events-options.php:51
+msgid "Default View for the Events"
+msgstr ""
+
+#: ../views/events-options.php:73
+#: ../views/events-options.php:77
 msgid "Show Comments"
 msgstr ""
 
-#: views/events-options.php:89
+#: ../views/events-options.php:89
 msgid "Yes"
 msgstr ""
 
-#: views/events-options.php:93
+#: ../views/events-options.php:93
 msgid "No"
 msgstr ""
 
-#: views/events-options.php:99
+#: ../views/events-options.php:99
 msgid "Default Country for Events"
 msgstr ""
 
-#: views/events-options.php:123 views/events-options.php:127
+#: ../views/events-options.php:123
+#: ../views/events-options.php:127
 msgid "Embed Google Maps"
 msgstr ""
 
-#: views/events-options.php:141 views/events-options.php:169
+#: ../views/events-options.php:141
+#: ../views/events-options.php:169
 msgid "Off"
 msgstr ""
 
-#: views/events-options.php:145 views/events-options.php:173
+#: ../views/events-options.php:145
+#: ../views/events-options.php:173
 msgid "On"
 msgstr ""
 
-#: views/events-options.php:148
+#: ../views/events-options.php:148
 msgid "Height"
 msgstr ""
 
-#: views/events-options.php:149
+#: ../views/events-options.php:149
 msgid "Width"
 msgstr ""
 
-#: views/events-options.php:149
+#: ../views/events-options.php:149
 msgid "(number or %)"
 msgstr ""
 
-#: views/events-options.php:158 views/events-options.php:162
+#: ../views/events-options.php:158
+#: ../views/events-options.php:162
 msgid "Use Pretty URLs"
 msgstr ""
 
-#: views/events-options.php:176
-msgid ""
-"Although unlikely, pretty URLs (ie, http://site/events/upcoming) may "
-"interfere with custom themes or plugins."
+#: ../views/events-options.php:176
+msgid "Although unlikely, pretty URLs (ie, http://site/events/upcoming) may interfere with custom themes or plugins."
 msgstr ""
 
-#: views/events-options.php:182 views/events-options.php:184
+#: ../views/events-options.php:182
+#: ../views/events-options.php:184
 msgid "Events URL slug"
 msgstr ""
 
-#: views/events-options.php:185
+#: ../views/events-options.php:185
 msgid "The slug used for building the Events URL."
 msgstr ""
 
-#: views/events-options.php:185
+#: ../views/events-options.php:185
 #, php-format
 msgid "Your current Events URL is <strong>%s</strong>"
 msgstr ""
 
-#: views/events-options.php:189
+#: ../views/events-options.php:189
 msgid "Single Event URL slug"
 msgstr ""
 
-#: views/events-options.php:191
+#: ../views/events-options.php:191
 msgid "Single Event URL slugslug"
 msgstr ""
 
-#: views/events-options.php:192
+#: ../views/events-options.php:192
 msgid "The slug used for building a single Event URL."
 msgstr ""
 
-#: views/events-options.php:193
+#: ../views/events-options.php:193
 #, php-format
-msgid ""
-"<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The "
-"above should ideally be plural, and this singular.<br />Your single Event "
-"URL is like: <strong>%s</strong>"
+msgid "<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: <strong>%s</strong>"
 msgstr ""
 
-#: views/events-options.php:201
+#: ../views/events-options.php:201
 msgid "Debug Events display issues."
 msgstr ""
 
-#: views/events-options.php:202
-msgid ""
-"If you’re experiencing issues with posts not showing up in the admin, enable "
-"this option and then ensure that all of your posts have the correct start "
-"and end dates."
+#: ../views/events-options.php:202
+msgid "If you’re experiencing issues with posts not showing up in the admin, enable this option and then ensure that all of your posts have the correct start and end dates."
 msgstr ""
 
-#: views/events-options.php:224
+#: ../views/events-options.php:206
+#: ../views/events-options.php:208
+#: ../views/events-options.php:216
+msgid "Add HTML before calendar"
+msgstr ""
+
+#: ../views/events-options.php:210
+msgid "Some themes may require that you add extra divs before the calendar list to help with styling."
+msgstr ""
+
+#: ../views/events-options.php:210
+msgid "This is displayed directly after the header."
+msgstr ""
+
+#: ../views/events-options.php:210
+#: ../views/events-options.php:218
+msgid "You may use (x)HTML."
+msgstr ""
+
+#: ../views/events-options.php:214
+msgid "Add HTML after calendar"
+msgstr ""
+
+#: ../views/events-options.php:218
+msgid "Some themes may require that you add extra divs after the calendar list to help with styling."
+msgstr ""
+
+#: ../views/events-options.php:218
+msgid "This is displayed directly above the footer."
+msgstr ""
+
+#: ../views/events-options.php:240
 msgid "Save Changes"
 msgstr ""
 
-#: views/events-options.php:236
+#: ../views/events-options.php:252
 #, php-format
-msgid ""
-"It looks like you have %s events in the category “%s”. Click below to import!"
+msgid "It looks like you have %s events in the category “%s”. Click below to import!"
 msgstr ""
 
-#: views/events-options.php:240
+#: ../views/events-options.php:256
 msgid "Upgrade from The Events Calendar"
 msgstr ""
 
-#: views/events-options.php:241
-msgid ""
-"We built a vibrant community around our free <a href=\"http://wordpress.org/"
-"extend/plugins/the-events-calendar/\" target=\"_blank\">The Events Calendar</"
-"a> plugin. If you used the free version and are now using our premium "
-"version, thanks, we’re glad to have you here!"
+#: ../views/events-options.php:257
+msgid "We built a vibrant community around our free <a href=\"http://wordpress.org/extend/plugins/the-events-calendar/\" target=\"_blank\">The Events Calendar</a> plugin. If you used the free version and are now using our premium version, thanks, we’re glad to have you here!"
 msgstr ""
 
-#: views/gridview.php:31 views/list.php:106 views/single.php:55
-msgid "iCal Import"
+#: ../views/events-list-load-widget-admin.php:7
+msgid "Show:"
 msgstr ""
 
-#: views/list.php:30 views/single.php:14
-msgid "Start:"
+#: ../views/events-list-load-widget-admin.php:15
+msgid "Don't show the widget if there are no upcoming events:"
 msgstr ""
 
-#: views/list.php:34 views/single.php:17
-msgid "End:"
+#: ../views/events-list-load-widget-admin.php:21
+msgid "Display:"
 msgstr ""
 
-#: views/list.php:59 views/single.php:39
-msgid "Google Map"
+#: ../views/events-list-load-widget-admin.php:24
+msgid "Start Date & Time"
 msgstr ""
 
-#: views/list.php:88
-msgid "&laquo; Previous Events"
+#: ../views/events-list-load-widget-admin.php:25
+msgid "End Date & Time"
 msgstr ""
 
-#: views/list.php:101
-msgid "Next Events &raquo;"
+#: ../views/events-list-load-widget-admin.php:26
+msgid "Venue"
 msgstr ""
 
-#: views/single.php:9
+#: ../views/events-list-load-widget-admin.php:27
+msgid "Address"
+msgstr ""
+
+#: ../views/events-list-load-widget-admin.php:28
+msgid "City"
+msgstr ""
+
+#: ../views/events-list-load-widget-admin.php:29
+msgid "State (US)"
+msgstr ""
+
+#: ../views/events-list-load-widget-admin.php:30
+msgid "Province (Int)"
+msgstr ""
+
+#: ../views/events-list-load-widget-admin.php:31
+msgid "Postal Code"
+msgstr ""
+
+#: ../views/events-list-load-widget-admin.php:32
+msgid "Country"
+msgstr ""
+
+#: ../views/events-list-load-widget-admin.php:33
+msgid "Phone"
+msgstr ""
+
+#: ../views/events-list-load-widget-admin.php:34
+msgid "Price"
+msgstr ""
+
+#: ../views/single.php:10
 msgid "&laquo; Back to Events"
 msgstr ""
 
-#: views/single.php:11
+#: ../views/single.php:12
 msgid "This event has passed."
 msgstr ""
 
-#: views/single.php:39
+#: ../views/single.php:40
 msgid "Click to view a Google Map"
 msgstr ""
 
-#: views/single.php:56
+#: ../views/single.php:61
 msgid "Add to Google Calendar"
 msgstr ""
 
-#: views/single.php:56
+#: ../views/single.php:61
 msgid "+ Google Calendar"
 msgstr ""
 
-#: views/table-mini.php:20
-msgid "View all &raquo;"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid ""
-"The Events Calendar plugin enables you to rapidly create and manage events "
-"using the post editor. Features include optional Eventbrite integration, "
-"Google Maps integration as well as default calendar grid and list templates "
-"for streamlined one click installation. When updating The Events Calendar, "
-"if EventBrite for The Events Calendar is being used, the two plugins must be "
-"updated together. Requires WordPress 3.0 (or higher) and PHP 5.2 (or above)."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "Shane & Peter, Inc."
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "http://www.shaneandpeter.com/"
-msgstr ""
