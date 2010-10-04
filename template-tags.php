@@ -219,7 +219,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 			$format = $sp_ecp->getTimeFormat( $format );
 		}
 		$shortMonthNames = ( strstr( $format, 'M' ) ) ? true : false;
-		$date = date ( $format, strtotime( get_post_meta( $postId, '_EventStartDate', true ) ) );
+		$date = date ( $format, strtotime( getEventMeta( $postId, '_EventStartDate', true ) ) );
 		return str_replace( array_keys($sp_ecp->monthNames( $shortMonthNames )), $sp_ecp->monthNames( $shortMonthNames ), $date);
 	}
 	/**
@@ -241,7 +241,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		if ( $showtime ) {
 			$format = $sp_ecp->getTimeFormat( $format );
 		}
-		$date = date ( $format, strtotime( get_post_meta( $postId, '_EventEndDate', true ) ) );
+		$date = date ( $format, strtotime( getEventMeta( $postId, '_EventEndDate', true ) ) );
 		return str_replace( array_keys($sp_ecp->monthNames()), $sp_ecp->monthNames(), $date);
 	}
 	/**
@@ -265,7 +265,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 			}
 		}
 
-		$cost = get_post_meta( $postId, '_EventCost', true );
+		$cost = getEventMeta( $postId, '_EventCost', true );
 		if ( $cost > 0 ) {
 			return esc_html($cost);
 		}elseif($cost === ''){
@@ -281,7 +281,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_venue( $postId = null) {
 		$postId = sp_post_id_helper( $postId );
-		return esc_html(get_post_meta( $postId, '_EventVenue', true ));
+		return esc_html(getEventMeta( $postId, '_EventVenue', true ));
 	}
 	/**
 	 * Returns the event country
@@ -290,7 +290,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_country( $postId = null) {
 		$postId = sp_post_id_helper( $postId );
-		return esc_html(get_post_meta( $postId, '_EventCountry', true ));
+		return esc_html(getEventMeta( $postId, '_EventCountry', true ));
 	}
 	/**
 	 * Returns the event address
@@ -299,7 +299,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_address( $postId = null) {
 		$postId = sp_post_id_helper( $postId );
-		return esc_html(get_post_meta( $postId, '_EventAddress', true ));
+		return esc_html(getEventMeta( $postId, '_EventAddress', true ));
 	}
 	/**
 	 * Returns the event city
@@ -308,7 +308,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_city( $postId = null) {
 		$postId = sp_post_id_helper( $postId );
-		return esc_html(get_post_meta( $postId, '_EventCity', true ));
+		return esc_html(getEventMeta( $postId, '_EventCity', true ));
 	}
 	/**
 	 * Returns the event state
@@ -317,7 +317,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_state( $postId = null) {
 		$postId = sp_post_id_helper( $postId );
-		return esc_html(get_post_meta( $postId, '_EventState', true ));
+		return esc_html(getEventMeta( $postId, '_EventState', true ));
 	}
 	/**
 	 * Returns the event province
@@ -326,7 +326,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_province( $postId = null) {
 		$postId = sp_post_id_helper( $postId );
-		return esc_html(get_post_meta( $postId, '_EventProvince', true ));
+		return esc_html(getEventMeta( $postId, '_EventProvince', true ));
 	}
 	/**
 	 * Returns the event zip code
@@ -335,7 +335,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_zip( $postId = null) {
 		$postId = sp_post_id_helper( $postId );
-		return esc_html(get_post_meta( $postId, '_EventZip', true ));
+		return esc_html(getEventMeta( $postId, '_EventZip', true ));
 	}
 	/**
 	 * Returns the event phone number
@@ -344,7 +344,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_phone( $postId = null) {
 		$postId = sp_post_id_helper( $postId );
-		return esc_html(get_post_meta( $postId, '_EventPhone', true ));
+		return esc_html(getEventMeta( $postId, '_EventPhone', true ));
 	}
 	/**
 	 * Helper function to determine postId. Pulls from global $post object if null or non-numeric.
@@ -590,7 +590,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_all_day( $postId = null ) {
 		$postId = sp_post_id_helper( $postId );
-		return !! get_post_meta( $postId, '_EventAllDay', true );
+		return !! getEventMeta( $postId, '_EventAllDay', true );
 	}
 	
 	/**
@@ -610,6 +610,12 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	function sp_meta_event_cats() {
 		global $sp_ecp;
 		the_terms( get_the_ID(), $sp_ecp->get_event_taxonomy(), '<dt>'.__('Category:').'</dt><dd>', ', ', '</dd>' );
+	}
+
+	/** Just a global function alias of the class function by the same name. **/
+	function getEventMeta( $id, $meta, $single = true ){
+			global $sp_ecp;
+			return $sp_ecp->getEventMeta( $id, $meta, $single );
 	}
 	
 	/**

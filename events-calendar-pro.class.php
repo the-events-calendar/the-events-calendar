@@ -741,7 +741,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					$_POST['eventsSlug'] = 'events';
 				}
 				
-				$opts = array('embedGoogleMaps', 'showComments', 'displayEventsOnHomepage', 'resetEventPostDate', 'useRewriteRules', 'spEventsDebug', 'eventsSlug', 'singleEventSlug','spEventsAfterHTML','spEventsBeforeHTML','spEventsCountries' );
+				$opts = array('embedGoogleMaps', 'showComments', 'displayEventsOnHomepage', 'resetEventPostDate', 'useRewriteRules', 'spEventsDebug', 'eventsSlug', 'singleEventSlug','spEventsAfterHTML','spEventsBeforeHTML','spEventsCountries','defaultValueReplace','eventsDefaultVenue','eventsDefaultState','eventsDefaultAddress','eventsDefaultCity','eventsDefaultZip','eventsDefaultPhone','eventsDefaultCost' );
 				foreach ($opts as $opt) {
 					$options[$opt] = $_POST[$opt];
 				}
@@ -984,17 +984,17 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
             return $this->defaultOptions;
         }
 		
-		public function getOption($optionName, $default = '') {
-			if( ! $optionName )
-			 	return null;
-			
-			if( $this->latestOptions ) 
-				return $this->latestOptions[$optionName];
+	public function getOption($optionName, $default = '') {
+		if( ! $optionName )
+			return null;
+		
+		if( $this->latestOptions ) 
+			return $this->latestOptions[$optionName];
 
-			$options = $this->getOptions();
-			return ( $options[$optionName] ) ? $options[$optionName] : $default;
-			
-		}
+		$options = $this->getOptions();
+		return ( $options[$optionName] ) ? $options[$optionName] : $default;
+		
+	}
 		
         private function saveOptions($options) {
             if (!is_array($options)) {
@@ -1499,6 +1499,25 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 		
 		/**
+		 * 
+			Adds an alias for get_post_meta so we can do extra stuff to the plugin values.
+			If you need the raw unfiltered data, use get_post_meta directly. 
+			This is mainly for templates.
+
+		***/
+		public function getEventMeta( $id, $meta, $single = true ){
+			$use_def_if_empty = sp_get_option('defaultValueReplace');
+			if($use_def_if_empty){
+				$cleaned_tag = str_replace('_Event','',$meta);
+				$default = sp_get_option('eventsDefault'.$cleaned_tag);
+				$default = apply_filters('filter_eventsDefault'.$cleaned_tag,$default);
+				return (get_post_meta( $id, $meta, $single )) ? get_post_meta( $id, $meta, $single ) : $default;
+			}else{
+				return get_post_meta( $id, $meta, $single );
+			}
+
+		}
+		/**
 		 * Adds / removes the event details as meta tags to the post.
 		 *
 		 * @param string $postId 
@@ -1580,10 +1599,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$postId = $post->ID;
 
 			foreach ( $this->metaTags as $tag ) {
-				if ( $postId ) {
+				if ( $postId && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
 					$$tag = get_post_meta( $postId, $tag, true );
 				} else {
-					$$tag = '';
+					$cleaned_tag = str_replace('_Event','',$tag);
+					$$tag = sp_get_option('eventsDefault'.$cleaned_tag);
 				}
 			}
 			

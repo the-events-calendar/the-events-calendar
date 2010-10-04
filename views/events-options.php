@@ -95,26 +95,6 @@ try {
 	            </fieldset>
 	        </td>
 		</tr>
-	    <tr>
-	    <th scope="row"><?php _e('Default Country for Events',$this->pluginDomain); ?></th>
-	    	<td>
-	            <select name="defaultCountry" id="defaultCountry">
-					<?php 
-					$this->constructCountries();
-					$defaultCountry = sp_get_option('defaultCountry');
-	                foreach ($this->countries as $abbr => $fullname) {
-	                	print ("<option value=\"$fullname\" ");
-	                	if ($defaultCountry[1] == $fullname) { 
-	                		print ('selected="selected" ');
-	                	}
-	                	print (">$fullname</option>\n");
-	                }
-	                ?>
-	            </select>
-	        </td>
-	    </tr>
-
-
 			<?php 
 			$embedGoogleMapsValue = sp_get_option('embedGoogleMaps','off');                 
 	        ?>
@@ -202,6 +182,10 @@ try {
 					<div><?php _e('If you’re experiencing issues with posts not showing up in the admin, enable this option and then ensure that all of your posts have the correct start and end dates.', $this->pluginDomain) ?></div>
 				</fieldset></td>
 			</tr>
+</table>
+
+	<h3><?php _e('Theme Settings', $this->pluginDomain); ?></h3>
+	<table class="form-table">
 			<tr>
 				<th scope="row"><?php _e('Add HTML before calendar', $this->pluginDomain ); ?></th>
 				<td><fieldset>
@@ -218,6 +202,109 @@ try {
 					<div><?php _e('Some themes may require that you add extra divs after the calendar list to help with styling.', $this->pluginDomain);?> <?php _e('This is displayed directly above the footer.', $this->pluginDomain);?> <?php _e('You may use (x)HTML.', $this->pluginDomain) ?></div>
 				</fieldset></td>
 			</tr>
+</table>
+
+	<h3><?php _e('Customize Defaults', $this->pluginDomain); ?></h3>
+	<p>These settings change the default event form. For example, if you set a default venue, this field will be automatically filled in on a new event.</p>
+	<table class="form-table">
+<tr>
+			<th scope="row"><?php _e('Automatically replace empty fields with default values',$this->pluginDomain); ?></th>
+	        <td>
+	            <fieldset>
+	                <legend class="screen-reader-text">
+	                    <span><?php _e('Automatically replace empty fields with default values',$this->pluginDomain); ?></span>
+	                </legend>
+	                <label title='Enable'>
+	                    <?php 
+	                    $defaultValueReplace = sp_get_option('defaultValueReplace','0'); 
+	                    if( $defaultValueReplace == 1 ) {
+	                        $defaultValueReplaceEnabled = 'checked="checked"';
+	                    } else {
+	                        $defaultValueReplaceDisabled = 'checked="checked"';
+	                    }
+	                    ?>
+	                    <input type="radio" name="defaultValueReplace" value="1" <?php echo $defaultValueReplaceEnabled; ?> /> 
+	                    <?php _e('Enabled',$this->pluginDomain); ?>
+	                </label><br />
+	                <label title='Disable'>
+	                    <input type="radio" name="defaultValueReplace" value="0" <?php echo $defaultValueReplaceDisabled; ?> /> 
+	                    <?php _e('Disabled',$this->pluginDomain); ?>
+	                </label><br />
+	            </fieldset>
+	        </td>
+		</tr>
+			<tr>
+				<th scope="row"><?php _e('Default Venue', $this->pluginDomain); ?></th>
+				<td><fieldset>
+					<legend class="screen-reader-text"><?php _e('Default Venue', $this->pluginDomain ); ?></legend>
+					<label><input type="text" name="eventsDefaultVenue" value="<?php echo sp_get_option('eventsDefaultVenue') ?>" /> <?php _e('The default venue value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), sp_get_option('eventsDefaultVenue') )  ?>
+				</fieldset></td>
+			</tr>
+			<tr>
+				<th scope="row"><?php _e('Default Address', $this->pluginDomain); ?></th>
+				<td><fieldset>
+					<legend class="screen-reader-text"><?php _e('Default Address', $this->pluginDomain ); ?></legend>
+					<label><input type="text" name="eventsDefaultAddress" value="<?php echo sp_get_option('eventsDefaultAddress') ?>" /> <?php _e('The default address value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), sp_get_option('eventsDefaultAddress') )  ?>
+				</fieldset></td>
+			</tr>
+			<tr>
+				<th scope="row"><?php _e('Default City', $this->pluginDomain); ?></th>
+				<td><fieldset>
+					<legend class="screen-reader-text"><?php _e('Default City', $this->pluginDomain ); ?></legend>
+					<label><input type="text" name="eventsDefaultCity" value="<?php echo sp_get_option('eventsDefaultCity') ?>" /> <?php _e('The default city value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), sp_get_option('eventsDefaultCity') )  ?>
+				</fieldset></td>
+			</tr>
+			<tr>
+				<th scope="row"><?php _e('Default Province or State', $this->pluginDomain); ?></th>
+				<td><fieldset>
+					<legend class="screen-reader-text"><?php _e('Default Province or State', $this->pluginDomain ); ?></legend>
+					<label><input type="text" name="eventsDefaultState" value="<?php echo sp_get_option('eventsDefaultState') ?>" /> <?php _e('The default  value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), sp_get_option('eventsDefaultState') )  ?>
+				</fieldset></td>
+			</tr>
+
+
+			<tr>
+				<th scope="row"><?php _e('Default Postal Code', $this->pluginDomain); ?></th>
+				<td><fieldset>
+					<legend class="screen-reader-text"><?php _e('Default Postal Code', $this->pluginDomain ); ?></legend>
+					<label><input type="text" name="eventsDefaultZip" value="<?php echo sp_get_option('eventsDefaultZip') ?>" /> <?php _e('The default Postal Code value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), sp_get_option('eventsDefaultZip') )  ?>
+				</fieldset></td>
+			</tr>
+
+			<tr>
+			<th scope="row"><?php _e('Default Country for Events',$this->pluginDomain); ?></th>
+				<td>
+					<select name="defaultCountry" id="defaultCountry">
+							<?php 
+							$this->constructCountries();
+							$defaultCountry = sp_get_option('defaultCountry');
+					foreach ($this->countries as $abbr => $fullname) {
+						print ("<option value=\"$fullname\" ");
+						if ($defaultCountry[1] == $fullname) { 
+							print ('selected="selected" ');
+						}
+						print (">$fullname</option>\n");
+					}
+					?>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row"><?php _e('Default Phone', $this->pluginDomain); ?></th>
+				<td><fieldset>
+					<legend class="screen-reader-text"><?php _e('Default Phone', $this->pluginDomain ); ?></legend>
+					<label><input type="text" name="eventsDefaultPhone" value="<?php echo sp_get_option('eventsDefaultPhone') ?>" /> <?php _e('The default phone value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), sp_get_option('eventsDefaultPhone') )  ?>
+				</fieldset></td>
+			</tr>
+
+			<tr>
+				<th scope="row"><?php _e('Default Cost', $this->pluginDomain); ?></th>
+				<td><fieldset>
+					<legend class="screen-reader-text"><?php _e('Default Cost', $this->pluginDomain ); ?></legend>
+					<label><input type="text" name="eventsDefaultCost" value="<?php echo sp_get_option('eventsDefaultCost') ?>" /> <?php _e('The default cost value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), sp_get_option('eventsDefaultCost') )  ?>
+				</fieldset></td>
+			</tr>
+
 			<tr>
 				<th scope="row"><?php _e('Use a custom list of contries', $this->pluginDomain ); ?></th>
 				<td><fieldset>

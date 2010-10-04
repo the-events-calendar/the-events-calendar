@@ -30,7 +30,7 @@
 	reset($sp_ecp->metaTags); // Move pointer to beginning of array.
 	foreach($sp_ecp->metaTags as $tag){
 		$var_name = str_replace('_Event','',$tag);
-		$event[$var_name] = get_post_meta( $post->ID, $tag, true );
+		$event[$var_name] = getEventMeta( $post->ID, $tag, true );
 	}
 
 	$event = (object) $event; //Easier to work with.
