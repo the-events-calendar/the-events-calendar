@@ -188,7 +188,7 @@ try {
 			<tr>
 				<th scope="row"><?php _e('Single Event URL slug', $this->pluginDomain); ?></th>
 				<td><fieldset>
-					<legend class="screen-reader-text"><?php _e('Single Event URL slugslug', $this->pluginDomain ); ?></legend>
+					<legend class="screen-reader-text"><?php _e('Single Event URL slug', $this->pluginDomain ); ?></legend>
 					<label><input type="text" name="singleEventSlug" value="<?php echo sp_get_option('singleEventSlug', 'event') ?>" /> <?php _e('The slug used for building a single Event URL.', $this->pluginDomain );  ?></label><br />
 					<?php printf( __('<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: <strong>%s</strong>', $this->pluginDomain ), trailingslashit( home_url() ) . sp_get_option('singleEventSlug', 'event') . '/single-post-name/' ); ?>
 				</fieldset></td>
@@ -216,6 +216,14 @@ try {
 					<legend class="screen-reader-text"><?php _e('Add HTML before calendar', $this->pluginDomain ); ?></legend>
 					<textarea style="width:100%; height:100px;" name="spEventsAfterHTML"><?php echo stripslashes(sp_get_option('spEventsAfterHTML'));?></textarea>
 					<div><?php _e('Some themes may require that you add extra divs after the calendar list to help with styling.', $this->pluginDomain);?> <?php _e('This is displayed directly above the footer.', $this->pluginDomain);?> <?php _e('You may use (x)HTML.', $this->pluginDomain) ?></div>
+				</fieldset></td>
+			</tr>
+			<tr>
+				<th scope="row"><?php _e('Use a custom list of contries', $this->pluginDomain ); ?></th>
+				<td><fieldset>
+					<legend class="screen-reader-text"><?php _e('Use the following list:', $this->pluginDomain ); ?></legend>
+					<textarea style="width:100%; height:100px;" name="spEventsCountries"><?php echo stripslashes(sp_get_option('spEventsCountries'));?></textarea>
+					<div><?php _e('One contry per line in the following format: <br/>US, United States <br/> UK, United Kingdom.', $this->pluginDomain);?> <?php _e('(Replaces the default list.)', $this->pluginDomain) ?></div>
 				</fieldset></td>
 			</tr>
 	    <?php
