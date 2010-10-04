@@ -1252,7 +1252,19 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			if ( '' == get_option('permalink_structure') || 'off' == $this->getOption('useRewriteRules','on') ) {
 				return;
 			}
-			
+
+			/** 
+				On initial activate the plugin doesn't have these set because init hasn't been run yet.
+			**/
+			if($this->rewriteSlug == ''){
+				$this->rewriteSlug = 'events';
+				$this->rewriteSlugSingular = 'event';
+				$this->taxRewriteSlug = 'event/category';
+				$this->monthSlug = 'month';
+				$this->pastSlug = 'past';
+				$this->upcomingSlug = 'upcoming';
+			}
+
 			$base = trailingslashit( $this->rewriteSlug );
 			$baseSingle = trailingslashit( $this->rewriteSlugSingular );
 			$baseTax = trailingslashit( $this->taxRewriteSlug );
