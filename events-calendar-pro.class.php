@@ -876,6 +876,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 				$whereClause .= $wpdb->prepare(" AND (eventStart.meta_value ".$this->startOperator." %s || ( DATE(eventStart.meta_value) = %s && TIME(eventStart.meta_value) ".$this->startOperator." %s) || eventEnd.meta_value ".$this->startOperator." %s)  \n", $this->date	, $date[0]	, $date[1], $this->date	 );
 
+				if( sp_is_past( ) ) { //Don't show ongoing events. Only show ended events.
+					$whereClause .= ' AND  eventEnd.meta_value <= "'.$this->date.'" ';
+				}
+
 			return $whereClause;
 		}
 		
