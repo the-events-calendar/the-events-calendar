@@ -853,7 +853,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function events_ordering_join($extraJoin){
 			global $wpdb;
 
-			$extraJoin .= " LEFT JOIN $wpdb->postmeta as p2 ON ($wpdb->posts.ID = p2.post_id) \n";
+			$extraJoin .= " LEFT JOIN {$wpdb->postmeta} as eventStart ON( {$wpdb->posts}.ID = eventStart.post_id ) ";
+			$extraJoin .= " LEFT JOIN {$wpdb->postmeta} as eventEnd ON( {$wpdb->posts}.ID = eventEnd.post_id ) ";
 
 			return $extraJoin;
 		}
@@ -861,7 +862,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 		public function events_ordering_orderby($orderby){
 			global $wpdb;
-			$orderby = 'DATE(p2.meta_value) '.$this->order.', TIME(p2.meta_value) '.$this->order;
+			$orderby = 'DATE(eventStart.meta_value) '.$this->order.', TIME(eventStart.meta_value) '.$this->order;
 
 		return $orderby;
 		}
@@ -871,10 +872,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			global $wpdb; 
 				$date = explode(' ', $this->date);
 
-				$whereClause .= $wpdb->prepare(" AND p2.meta_key = %s \n", '_EventEndDate' );
+				$whereClause .= ' AND ( eventStart.meta_key = "_EventStartDate" AND eventEnd.meta_key = "_EventEndDate" ) ';
 
-				$whereClause .= $wpdb->prepare(" AND (p2.meta_value ".$this->startOperator." %s || ( DATE(p2.meta_value) = %s && TIME(p2.meta_value) ".$this->startOperator." %s))  \n", $this->date	, $date[0]	, $date[1]	 );
-		
+				$whereClause .= $wpdb->prepare(" AND (eventStart.meta_value ".$this->startOperator." %s || ( DATE(eventStart.meta_value) = %s && TIME(eventStart.meta_value) ".$this->startOperator." %s) || eventEnd.meta_value ".$this->startOperator." %s)  \n", $this->date	, $date[0]	, $date[1], $this->date	 );
+
 			return $whereClause;
 		}
 		
