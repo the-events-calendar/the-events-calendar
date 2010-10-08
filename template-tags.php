@@ -645,9 +645,9 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		$base_url = 'http://www.google.com/calendar/event';
 		$params = array(
 			'action' => 'TEMPLATE',
-			'text' => get_the_title(),
+			'text' => strip_tags(get_the_title()),
 			'dates' => $dates,
-			'details' => strip_tags( get_the_content() ),
+			'details' => strip_tags( get_the_excerpt() ),
 			'location' => $location,
 			'sprop' => get_option('blogname'),
 			'trp' => 'false',
