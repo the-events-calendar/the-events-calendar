@@ -50,6 +50,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			'_EventStartDate',
 			'_EventEndDate',
 			'_EventVenue',
+			'_EventVenueID',
 			'_EventCountry',
 			'_EventAddress',
 			'_EventCity',
@@ -59,6 +60,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			'_EventShowMapLink',
 			'_EventShowMap',
 			'_EventCost',
+			'_EventOrganizer',
+			'_EventOrganizerID',
 			'_EventPhone',
 			self::EVENTSERROROPT
 		);

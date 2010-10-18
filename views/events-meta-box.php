@@ -31,6 +31,13 @@ try {
 	?>
 	<table cellspacing="0" cellpadding="0" id="EventInfo">
 		<tr>
+			<td colspan="2" class="snp_sectionheader"><h4 class="event-time"><?php _e('Basic Information', $this->pluginDomain); ?></h4></td>
+		</tr>
+		<tr>
+			<td><?php _e('Event Organizer:',$this->pluginDomain); ?></td>
+			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' name='EventOrganizer' size='25' value='<?php echo $_EventOrganizer; ?>' /><input type='hidden' name='EventOrganizerID' value='<?php echo $_EventOrganizerID; ?>' /></td>
+		</tr>
+		<tr>
 			<td colspan="2" class="snp_sectionheader"><h4 class="event-time"><?php _e('Event Time &amp; Date', $this->pluginDomain); ?></h4></td>
 		</tr>
 		<tr>
@@ -86,6 +93,7 @@ try {
 			<td><?php _e('Venue:',$this->pluginDomain); ?></td>
 			<td>
 				<input tabindex="<?php $this->tabIndex(); ?>" type='text' name='EventVenue' size='25'  value='<?php echo $_EventVenue; ?>' />
+				<input type='hidden' name='EventVenueID' value='<?php echo $_EventVenueID; ?>' />
 			</td>
 		</tr>
 		<tr>
