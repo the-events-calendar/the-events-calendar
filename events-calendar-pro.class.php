@@ -82,8 +82,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			}
 		}
 
-		private $countries;
-		private function constructCountries( $postId = '', $useDefault = true ) {
+		public $countries;
+		public function constructCountries( $postId = '', $useDefault = true ) {
 
 				if(sp_get_option('spEventsCountries') != ''){
 					$countries = array(
