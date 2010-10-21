@@ -346,6 +346,58 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		$postId = sp_post_id_helper( $postId );
 		return esc_html(getEventMeta( $postId, '_EventPhone', true ));
 	}
+	
+	/**
+	 * Displays a link to the previous post by start date for the given event
+	 *
+	 * @param string $postId 
+	 * @return void
+	 */
+	function sp_previous_event_link( $anchor = "Previous Event" ) {
+		global $sp_ecp, $post,$wpdb;
+		$date = get_post_meta($post->ID,'_EventStartDate',true);
+		$eventsQuery = "
+			SELECT $wpdb->posts.ID, post_title, d1.meta_value as EventStartDate
+				$extraSelectClause
+				FROM $wpdb->posts 
+			LEFT JOIN $wpdb->postmeta as d1 ON($wpdb->posts.ID = d1.post_id)
+			WHERE $wpdb->posts.post_type = 'sp_events'
+			AND d1.meta_key = '_EventStartDate'
+			AND ((d1.meta_value = '" .$date . "' AND ID < ".$post->ID.") OR
+				d1.meta_value < '" .$date . "')
+			AND $wpdb->posts.post_status = 'publish'
+			ORDER BY TIMESTAMP(d1.meta_value) DESC, ID DESC
+			LIMIT 5";
+			$results = $wpdb->get_results($eventsQuery, OBJECT);
+
+		echo '<a href='.get_permalink($results[0]->ID).'>'.$anchor.'</a>';
+		
+	}
+	/**
+	 * Displays a link to the next post by start date for the given event
+	 *
+	 * @param string $postId 
+	 * @return void
+	 */
+	function sp_next_event_link( $anchor = "Next Event" ) {
+		global $sp_ecp, $post,$wpdb;
+		$date = get_post_meta($post->ID,'_EventStartDate',true);
+		$eventsQuery = "
+			SELECT $wpdb->posts.ID, post_title, d1.meta_value as EventStartDate
+				$extraSelectClause
+				FROM $wpdb->posts 
+			LEFT JOIN $wpdb->postmeta as d1 ON($wpdb->posts.ID = d1.post_id)
+			WHERE $wpdb->posts.post_type = 'sp_events'
+			AND d1.meta_key = '_EventStartDate'
+			AND ((d1.meta_value = '" .$date . "' AND ID > ".$post->ID.") OR
+				d1.meta_value > '" .$date . "')
+			AND $wpdb->posts.post_status = 'publish'
+			ORDER BY TIMESTAMP(d1.meta_value) ASC, ID ASC
+			LIMIT 5";
+			$results = $wpdb->get_results($eventsQuery, OBJECT);
+
+		echo '<a href='.get_permalink($results[0]->ID).'>'.$anchor.'</a>';
+	}
 	/**
 	 * Helper function to determine postId. Pulls from global $post object if null or non-numeric.
 	 * 
