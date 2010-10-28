@@ -413,7 +413,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
 			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
 			if ( is_admin() && ! $this->getOption('spEventsDebug', false) ) {
-				$this->addQueryFilters();
+				add_action('init', array($this, 'addOrderQueryFilters') );
 			}
 			else if ( $this->getOption('spEventsDebug', false) ) {
 				$this->addDebugColumns();
@@ -421,7 +421,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			}
 		}
 		
-		private function addOrderQueryFilters(){
+		public function addOrderQueryFilters(){
 			if(get_query_var('eventDisplay') == 'upcoming' || get_query_var('eventDisplay') == 'past' || get_query_var('sp_events_cat') != ''){
 				add_filter('posts_where', array($this, 'events_ordering_where'));
 				add_filter('posts_join', array($this, 'events_ordering_join'));
