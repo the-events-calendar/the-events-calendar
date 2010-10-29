@@ -306,7 +306,7 @@ try {
 			</tr>
 
 			<tr>
-				<th scope="row"><?php _e('Use a custom list of contries', $this->pluginDomain ); ?></th>
+				<th scope="row"><?php _e('Use a custom list of countries', $this->pluginDomain ); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Use the following list:', $this->pluginDomain ); ?></legend>
 					<textarea style="width:100%; height:100px;" name="spEventsCountries"><?php echo stripslashes(sp_get_option('spEventsCountries'));?></textarea>

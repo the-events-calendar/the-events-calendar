@@ -15,12 +15,20 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		const DBDATEFORMAT	 		= 'Y-m-d';
 		const DBDATETIMEFORMAT 		= 'Y-m-d G:i:s';
 		const DBYEARMONTHTIMEFORMAT = 'Y-m';
+		const VENUE_POST_TYPE = 'sp_venue';
+		const VENUE_TITLE = 'Venue';
 
 		private $postTypeArgs = array(
 			'public' => true,
 			'rewrite' => array('slug' => 'event'),
 			'menu_position' => 6,
 			'supports' => array('title','editor','excerpt','author','thumbnail')
+		);
+		private $postVenueTypeArgs = array(
+			'public' => true,
+			'rewrite' => array('slug' => ''),
+			'menu_position' => 6,
+			'supports' => array('thumbnail')
 		);
 		private $taxonomyLabels;
 
@@ -49,14 +57,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			'_EventAllDay',
 			'_EventStartDate',
 			'_EventEndDate',
-			'_EventVenue',
 			'_EventVenueID',
-			'_EventCountry',
-			'_EventAddress',
-			'_EventCity',
-			'_EventState',
-			'_EventProvince',
-			'_EventZip',
 			'_EventShowMapLink',
 			'_EventShowMap',
 			'_EventCost',
@@ -66,6 +67,28 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			self::EVENTSERROROPT
 		);
 
+		public $legacyVenueTags = array(
+			'_EventVenue',
+			'_EventCountry',
+			'_EventAddress',
+			'_EventCity',
+			'_EventState',
+			'_EventProvince',
+			'_EventZip'
+		);
+
+		public $venueTags = array(
+			'_VenueVenue',
+			'_VenueCountry',
+			'_VenueAddress',
+			'_VenueCity',
+			'_VenueState',
+			'_VenueProvince',
+			'_VenueZip',
+			'_VenuePhone'
+		);
+
+		public $states = array();
 		public $currentPostTimestamp;
 		public $daysOfWeekShort;
 		public $daysOfWeek;
@@ -394,6 +417,61 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlugSingular;
 			$this->currentDay = '';
 			$this->errors = '';
+
+
+			$this->states = array(
+				"AL" => __("Alabama", $this->pluginDomain),
+				"AK" => __("Alaska", $this->pluginDomain),
+				"AZ" => __("Arizona", $this->pluginDomain),
+				"AR" => __("Arkansas", $this->pluginDomain),
+				"CA" => __("California", $this->pluginDomain),
+				"CO" => __("Colorado", $this->pluginDomain),
+				"CT" => __("Connecticut", $this->pluginDomain),
+				"DE" => __("Delaware", $this->pluginDomain),
+				"DC" => __("District of Columbia", $this->pluginDomain),
+				"FL" => __("Florida", $this->pluginDomain),
+				"GA" => __("Georgia", $this->pluginDomain),
+				"HI" => __("Hawaii", $this->pluginDomain),
+				"ID" => __("Idaho", $this->pluginDomain),
+				"IL" => __("Illinois", $this->pluginDomain),
+				"IN" => __("Indiana", $this->pluginDomain),
+				"IA" => __("Iowa", $this->pluginDomain),
+				"KS" => __("Kansas", $this->pluginDomain),
+				"KY" => __("Kentucky", $this->pluginDomain),
+				"LA" => __("Louisiana", $this->pluginDomain),
+				"ME" => __("Maine", $this->pluginDomain),
+				"MD" => __("Maryland", $this->pluginDomain),
+				"MA" => __("Massachusetts", $this->pluginDomain),
+				"MI" => __("Michigan", $this->pluginDomain),
+				"MN" => __("Minnesota", $this->pluginDomain),
+				"MS" => __("Mississippi", $this->pluginDomain),
+				"MO" => __("Missouri", $this->pluginDomain),
+				"MT" => __("Montana", $this->pluginDomain),
+				"NE" => __("Nebraska", $this->pluginDomain),
+				"NV" => __("Nevada", $this->pluginDomain),
+				"NH" => __("New Hampshire", $this->pluginDomain),
+				"NJ" => __("New Jersey", $this->pluginDomain),
+				"NM" => __("New Mexico", $this->pluginDomain),
+				"NY" => __("New York", $this->pluginDomain),
+				"NC" => __("North Carolina", $this->pluginDomain),
+				"ND" => __("North Dakota", $this->pluginDomain),
+				"OH" => __("Ohio", $this->pluginDomain),
+				"OK" => __("Oklahoma", $this->pluginDomain),
+				"OR" => __("Oregon", $this->pluginDomain),
+				"PA" => __("Pennsylvania", $this->pluginDomain),
+				"RI" => __("Rhode Island", $this->pluginDomain),
+				"SC" => __("South Carolina", $this->pluginDomain),
+				"SD" => __("South Dakota", $this->pluginDomain),
+				"TN" => __("Tennessee", $this->pluginDomain),
+				"TX" => __("Texas", $this->pluginDomain),
+				"UT" => __("Utah", $this->pluginDomain),
+				"VT" => __("Vermont", $this->pluginDomain),
+				"VA" => __("Virginia", $this->pluginDomain),
+				"WA" => __("Washington", $this->pluginDomain),
+				"WV" => __("West Virginia", $this->pluginDomain),
+				"WI" => __("Wisconsin", $this->pluginDomain),
+				"WY" => __("Wyoming", $this->pluginDomain),
+			);
 		}
 		
 
@@ -412,6 +490,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'admin_body_class', array($this, 'admin_body_class') );
 			add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
 			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
+			add_action( 'sp_events_event_save', array($this, 'save_venue_data' ), 10, 2 );
 			if ( is_admin() && ! $this->getOption('spEventsDebug', false) ) {
 				add_action('init', array($this, 'addOrderQueryFilters') );
 			}
@@ -454,6 +533,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_action( 'admin_init', 		array( $this, 'checkForOptionsChanges' ) );
 			add_action( 'admin_menu', 		array( $this, 'addEventBox' ) );
 			add_action( 'save_post',		array( $this, 'addEventMeta' ), 15, 2 );
+			add_action( 'save_post',		array( $this, 'save_venue_data' ), 16, 2 );
 			//add_action( 'publish_post',		array( $this, 'addEventMeta' ), 15, 2 );
 
 			add_action( 'sp_events_post_errors', array( 'TEC_Post_Exception', 'displayMessage' ) );
@@ -593,6 +673,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function registerPostType() {
 			$this->generatePostTypeLabels();
 			register_post_type(self::POSTTYPE, $this->postTypeArgs);
+			register_post_type(self::VENUE_POST_TYPE, $this->postVenueTypeArgs);
 			
 			register_taxonomy( self::TAXONOMY, self::POSTTYPE, array(
 				'hierarchical' => true,
@@ -621,6 +702,19 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				'search_items' => __('Search Events', $this->pluginDomain),
 				'not_found' => __('No events found', $this->pluginDomain),
 				'not_found_in_trash' => __('No events found in Trash', $this->pluginDomain)
+			);
+			
+			$this->postVenueTypeArgs['labels'] = array(
+				'name' => __('Venues', $this->pluginDomain),
+				'singular_name' => __('Venue', $this->pluginDomain),
+				'add_new' => __('Add New', $this->pluginDomain),
+				'add_new_item' => __('Add New Venue', $this->pluginDomain),
+				'edit_item' => __('Edit Venue', $this->pluginDomain),
+				'new_item' => __('New Venue', $this->pluginDomain),
+				'view_item' => __('View Venue', $this->pluginDomain),
+				'search_items' => __('Search Venues', $this->pluginDomain),
+				'not_found' => __('No venue found', $this->pluginDomain),
+				'not_found_in_trash' => __('No venues found in Trash', $this->pluginDomain)
 			);
 			
 			$this->taxonomyLabels = array(
@@ -1535,6 +1629,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 */
 		public function addEventMeta( $postId, $post ) {
 
+
 			// only continue if it's an event post
 			if ( $post->post_type != self::POSTTYPE ) {
 				return;
@@ -1544,6 +1639,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				return;
 			}
 			
+			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
+
 			if( $_POST['EventAllDay'] == 'yes' ) {
 				$_POST['EventStartDate'] = $this->dateToTimeStamp( $_POST['EventStartDate'], "12", "00", "AM" );
 				$_POST['EventEndDate'] = $this->dateToTimeStamp( $_POST['EventEndDate'], "11", "59", "PM" );
@@ -1574,7 +1671,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			} catch ( TEC_Post_Exception $e ) {
 				$this->postExceptionThrown = true;
 				update_post_meta( $postId, self::EVENTSERROROPT, trim( $e->getMessage() ) );
-			}	
+			}
+
+			$_POST['EventVenueID'] = $this->save_venue_data();
+
 			//update meta fields		
 			foreach ( $this->metaTags as $tag ) {
 				$htmlElement = ltrim( $tag, '_' );
@@ -1597,6 +1697,67 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 		}
 		
+		
+		//** If you are saving a new venue along with the event, we will do this:
+		public function save_venue_data( $postID = null, $post=null ) {
+			global $_POST;
+		
+			// don't do anything on autosave or auto-draft either or massupdates
+			if ( wp_is_post_autosave( $postID ) || $post->post_status == 'auto-draft' || isset($_GET['bulk_edit']) || $_REQUEST['action'] == 'inline-save' || !$_POST['venue'] ||  ($post->post_type != self::VENUE_POST_TYPE && $postID)) {
+				return;
+			}
+
+			//There is a possibility to get stuck in an infinite loop. 
+			//That would be bad.
+			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
+
+			$data = stripslashes_deep($_POST['venue']);
+
+			if($data['VenueID'])
+				return $data['VenueID'];
+
+			if ( $post->post_type == self::VENUE_POST_TYPE && $postID) {
+				$data['VenueID'] = $postID;
+			}
+
+			$postdata = array(
+				'post_title' => $data['Venue'],
+				'post_type' => self::VENUE_POST_TYPE,
+				'post_status' => 'publish',
+				'ID' => $data['VenueID']
+			);
+
+			$venue_id = wp_insert_post($postdata, true);
+
+			foreach ($data as $key => $var) {
+				update_post_meta($venue_id, '_Venue'.$key, $var);
+			}
+
+			return $venue_id;
+		}
+
+		function get_venue_info($p = null){
+			$r = new WP_Query(array('post_type' => self::VENUE_POST_TYPE, 'nopaging' => 1, 'post_status' => 'publish', 'caller_get_posts' => 1,'orderby'=>'post_title','p' => $p));
+			if ($r->have_posts()) :
+				return $r->posts;
+			endif;
+			return false;
+		}
+
+		function saved_venues_dropdown($current = null){
+			$venues = $this->get_venue_info();
+			if($venues){
+				echo '<select name="venue[VenueID]" id="saved_venue">';
+					echo '<option value="0">Use New Venue</option>';
+				foreach($venues as $venue){
+					$selected = ($current == $venue->ID) ? 'selected="selected"' : '';
+					echo "<option value='{$venue->ID}' $selected>{$venue->post_title}</option>";
+				}
+				echo '</select>';
+			}else{
+				echo '<p class="nosaved">'.__('No saved venues yet.',$this->lion).'</p>';
+			}
+		}
 		/**
 		 * Adds a style chooser to the write post page
 		 *
@@ -1616,7 +1777,23 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					$$tag = sp_get_option('eventsDefault'.$cleaned_tag);
 				}
 			}
-			
+	
+			if($_EventVenueID){
+				foreach($this->venueTags as $tag)
+					$$tag = get_post_meta($_EventVenueID, $tag, true );
+
+			}else{
+				foreach ( $this->legacyVenueTags as $tag ) {
+					if ( $postId && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
+						$cleaned_tag = str_replace('_Event','_Venue',$tag);
+						$$cleaned_tag = get_post_meta( $postId, $tag, true );
+					} else {
+						$cleaned_tag = str_replace('_Event','',$tag);
+						${'_Venue'.$cleaned_tag} = sp_get_option('eventsDefault'.$cleaned_tag);
+					}
+				}
+			}
+	
 			$isEventAllDay = ( $_EventAllDay == 'yes' || ! $this->dateOnly( $_EventStartDate ) ) ? 'checked="checked"' : ''; // default is all day for new posts
 			
 			$startDayOptions       	= array(
@@ -1647,11 +1824,45 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			
 			$end = $this->dateOnly($_EventEndDate);
 			$EventEndDate = ( $end ) ? $end : date('Y-m-d', strtotime('tomorrow') );
-			
-			
-			
+
 			include( $this->pluginPath . 'views/events-meta-box.php' );
 		}
+		/**
+		 * Adds a style chooser to the write post page
+		 *
+		 * @return void
+		 */
+		public function VenueMetaBox() {
+			global $post;
+			$options = '';
+			$style = '';
+			$postId = $post->ID;
+
+			if($post->post_type == self::VENUE_POST_TYPE){
+					
+				foreach ( $this->venueTags as $tag ) {
+					if ( $postId && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
+						$$tag = get_post_meta( $postId, $tag, true );
+					} else {
+						$cleaned_tag = str_replace('_Venue','',$tag);
+						$$tag = sp_get_option('eventsDefault'.$cleaned_tag);
+					}
+				}
+			}
+			?>
+				<style type="text/css">
+						#EventInfo {border:none;}
+				</style>
+				<div id='eventDetails' class="inside eventForm">	
+					<table cellspacing="0" cellpadding="0" id="EventInfo" class="VenueInfo">
+					<?php
+					include( $this->pluginPath . 'views/venue-meta-box.php' );
+					?>
+					</table>
+				</div>
+			<?php
+		}
+		
 		/**
 		 * Given a date (YYYY-MM-DD), returns the first of the next month
 		 *
@@ -1705,6 +1916,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 */
 		public function addEventBox( ) {
 			add_meta_box( 'Event Details', $this->pluginName, array( $this, 'EventsChooserBox' ), self::POSTTYPE, 'normal', 'high' );
+			add_meta_box( 'Venue Details', 'Venue Information', array( $this, 'VenueMetaBox' ), self::VENUE_POST_TYPE, 'normal', 'high' );
 		}
 		/** 
 		 * Builds a set of options for diplaying a meridian chooser

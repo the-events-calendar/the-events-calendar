@@ -31,13 +31,6 @@ try {
 	?>
 	<table cellspacing="0" cellpadding="0" id="EventInfo">
 		<tr>
-			<td colspan="2" class="snp_sectionheader"><h4 class="event-time"><?php _e('Basic Information', $this->pluginDomain); ?></h4></td>
-		</tr>
-		<tr>
-			<td><?php _e('Event Organizer:',$this->pluginDomain); ?></td>
-			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' name='EventOrganizer' size='25' value='<?php echo $_EventOrganizer; ?>' /><input type='hidden' name='EventOrganizerID' value='<?php echo $_EventOrganizerID; ?>' /></td>
-		</tr>
-		<tr>
 			<td colspan="2" class="snp_sectionheader"><h4 class="event-time"><?php _e('Event Time &amp; Date', $this->pluginDomain); ?></h4></td>
 		</tr>
 		<tr>
@@ -72,7 +65,7 @@ try {
 				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', $this->pluginDomain) ?></span>
 				<span class='timeofdayoptions'>
 					<?php _e('@',$this->pluginDomain); ?>
-					<select class="spEventsInput"tabindex="<?php $this->tabIndex(); ?>" name='EventEndHour'>
+					<select class="spEventsInput" tabindex="<?php $this->tabIndex(); ?>" name='EventEndHour'>
 						<?php echo $endHourOptions; ?>
 					</select>
 					<select tabindex="<?php $this->tabIndex(); ?>" name='EventEndMinute'>
@@ -86,138 +79,22 @@ try {
 				</span>
 			</td>
 		</tr>
+</table>
+	<table id="event_venue">
 		<tr>
 			<td colspan="2" class="snp_sectionheader"><h4><?php _e('Event Location Details', $this->pluginDomain); ?></h4></td>
 		</tr>
-		<tr>
-			<td><?php _e('Venue:',$this->pluginDomain); ?></td>
+		<tr class="">
+			<td><?php _e('Use Saved Venue:',$this->pluginDomain); ?></td>
 			<td>
-				<input tabindex="<?php $this->tabIndex(); ?>" type='text' name='EventVenue' size='25'  value='<?php echo $_EventVenue; ?>' />
-				<input type='hidden' name='EventVenueID' value='<?php echo $_EventVenueID; ?>' />
+				<?php $this->saved_venues_dropdown($_EventVenueID);?>
 			</td>
 		</tr>
-		<tr>
-			<td><?php _e('Country:',$this->pluginDomain); ?></td>
-			<td>
-				<select tabindex="<?php $this->tabIndex(); ?>" name="EventCountry" id="EventCountry">
-					<?php
-					$this->constructCountries( $postId );
-					$defaultCountry = sp_get_option('defaultCountry');
-					if( $_EventCountry ) {
-						foreach ($this->countries as $abbr => $fullname) {
-							echo '<option label="' . $abbr . '" value="' . $fullname . '" ';
-				       		if ($_EventCountry == $fullname) {
-								echo 'selected="selected" ';
-								$eventCountryLabel = $abbr;
-							}
-							echo '>' . $fullname . '</option>';
-				     	}
-					} elseif( $defaultCountry && !get_post_custom_keys( $postId ) ) {
-						foreach ($this->countries as $abbr => $fullname) {
-							echo '<option label="' . $abbr . '" value="' . $fullname . '" ';
-				       		if ($defaultCountry[1] == $fullname) {
-								echo 'selected="selected" ';
-								$eventCountryLabel = $abbr;
-							}
-							echo '>' . $fullname . '</option>';
-				     	}
-					} else {
-						$eventCountryLabel = "";
-						foreach ($this->countries as $abbr => $fullname) {
-							echo '<option label="' . $abbr . '" value="' . $fullname . '" >' . $fullname . '</option>';
-				     	}
-					}
-				     ?>
-			     </select>
-				 <input name="EventCountryLabel" type="hidden" value="<?php echo $eventCountryLabel; ?>" />
-			</td>
-		</tr>
-		<tr>
-			<td><?php _e('Address:',$this->pluginDomain); ?></td>
-			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' name='EventAddress' size='25' value='<?php echo $_EventAddress; ?>' /></td>
-		</tr>
-		<tr>
-			<td><?php _e('City:',$this->pluginDomain); ?></td>
-			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' name='EventCity' size='25' value='<?php echo $_EventCity; ?>' /></td>
-		</tr>
-		<input name="EventStateExists" type="hidden" value="<?php echo ($_EventCountry !== 'United States') ? 0 : 1; ?>">
-		<tr id="International" <?php if($_EventCountry == 'United States' || $_EventCountry == '' ) echo('class="tec_hide"'); ?>>
-			<td><?php _e('Province:',$this->pluginDomain); ?></td>
-			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' name='EventProvince' size='10' value='<?php echo $_EventProvince; ?>' /></td>
-		</tr>
-		<tr id="USA" <?php if($_EventCountry !== 'United States') echo('class="tec_hide"'); ?>>
-			<td><?php _e('State:',$this->pluginDomain); ?></td>
-			<td>
-				<select tabindex="<?php $this->tabIndex(); ?>" name="EventState">
-				    <option value=""><?php _e('Select a State:',$this->pluginDomain); ?></option> 
-					<?php $states = array (
-						"AL" => __("Alabama", $this->pluginDomain),
-						"AK" => __("Alaska", $this->pluginDomain),
-						"AZ" => __("Arizona", $this->pluginDomain),
-						"AR" => __("Arkansas", $this->pluginDomain),
-						"CA" => __("California", $this->pluginDomain),
-						"CO" => __("Colorado", $this->pluginDomain),
-						"CT" => __("Connecticut", $this->pluginDomain),
-						"DE" => __("Delaware", $this->pluginDomain),
-						"DC" => __("District of Columbia", $this->pluginDomain),
-						"FL" => __("Florida", $this->pluginDomain),
-						"GA" => __("Georgia", $this->pluginDomain),
-						"HI" => __("Hawaii", $this->pluginDomain),
-						"ID" => __("Idaho", $this->pluginDomain),
-						"IL" => __("Illinois", $this->pluginDomain),
-						"IN" => __("Indiana", $this->pluginDomain),
-						"IA" => __("Iowa", $this->pluginDomain),
-						"KS" => __("Kansas", $this->pluginDomain),
-						"KY" => __("Kentucky", $this->pluginDomain),
-						"LA" => __("Louisiana", $this->pluginDomain),
-						"ME" => __("Maine", $this->pluginDomain),
-						"MD" => __("Maryland", $this->pluginDomain),
-						"MA" => __("Massachusetts", $this->pluginDomain),
-						"MI" => __("Michigan", $this->pluginDomain),
-						"MN" => __("Minnesota", $this->pluginDomain),
-						"MS" => __("Mississippi", $this->pluginDomain),
-						"MO" => __("Missouri", $this->pluginDomain),
-						"MT" => __("Montana", $this->pluginDomain),
-						"NE" => __("Nebraska", $this->pluginDomain),
-						"NV" => __("Nevada", $this->pluginDomain),
-						"NH" => __("New Hampshire", $this->pluginDomain),
-						"NJ" => __("New Jersey", $this->pluginDomain),
-						"NM" => __("New Mexico", $this->pluginDomain),
-						"NY" => __("New York", $this->pluginDomain),
-						"NC" => __("North Carolina", $this->pluginDomain),
-						"ND" => __("North Dakota", $this->pluginDomain),
-						"OH" => __("Ohio", $this->pluginDomain),
-						"OK" => __("Oklahoma", $this->pluginDomain),
-						"OR" => __("Oregon", $this->pluginDomain),
-						"PA" => __("Pennsylvania", $this->pluginDomain),
-						"RI" => __("Rhode Island", $this->pluginDomain),
-						"SC" => __("South Carolina", $this->pluginDomain),
-						"SD" => __("South Dakota", $this->pluginDomain),
-						"TN" => __("Tennessee", $this->pluginDomain),
-						"TX" => __("Texas", $this->pluginDomain),
-						"UT" => __("Utah", $this->pluginDomain),
-						"VT" => __("Vermont", $this->pluginDomain),
-						"VA" => __("Virginia", $this->pluginDomain),
-						"WA" => __("Washington", $this->pluginDomain),
-						"WV" => __("West Virginia", $this->pluginDomain),
-						"WI" => __("Wisconsin", $this->pluginDomain),
-						"WY" => __("Wyoming", $this->pluginDomain),
-					);
-				      foreach ($states as $abbr => $fullname) {
-				        print ("<option value=\"$abbr\" ");
-				        if ($_EventState == $abbr) { 
-				          print ('selected="selected" '); 
-				        }
-				        print (">$fullname</option>\n");
-				      }
-				      ?>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td><?php _e('Postal Code:',$this->pluginDomain); ?></td>
-			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventZip' name='EventZip' size='6' value='<?php echo $_EventZip; ?>' /></td>
-		</tr>
+			
+		<?php
+			include( $this->pluginPath . 'views/venue-meta-box.php' );
+
+		?>
 		<tr id="google_map_link_toggle"<?php if( !sp_address_exists( $postId ) ) echo ' class="tec_hide"'; ?>>
 			<td><?php _e('Show Google Map Link:',$this->pluginDomain); ?></td>
 			<td>
@@ -235,10 +112,6 @@ try {
 				<td><input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="EventShowMap" size="6" value="true" <?php if( $tecNewPost || get_post_meta( $postId, '_EventShowMap', true ) == 'true' ) echo 'checked="checked"'; ?> /></td>
 			</tr>
 		<?php endif; ?>
-		<tr>
-			<td><?php _e('Phone:',$this->pluginDomain); ?></td>
-			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventPhone' name='EventPhone' size='14' value='<?php echo $_EventPhone; ?>' /></td>
-		</tr>
         <tr>
 			<td colspan="2" class="snp_sectionheader"><h4><?php _e('Event Cost', $this->pluginDomain); ?></h4></td>
 		</tr>
@@ -285,3 +158,26 @@ try {
 	$e->displayMessage( $postId );
 }
 ?>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		// hide unnecessary fields
+		var venueFields = $(".venue");
+
+		var savedVenue = $("#saved_venue");
+		
+		if ( savedVenue.val() != '0' && !$('.nosaved').get(0) ) {
+			venueFields.hide();
+			$('input',venueFields).val('');
+		}
+		
+		savedVenue.change(function() {
+			if ( $(this).val() == '0' ) {
+				venueFields.fadeIn()
+					.find("input, select").val('').removeAttr('checked');
+			}
+			else {
+				venueFields.fadeOut();
+			}
+		});
+	})(jQuery);
+</script>
