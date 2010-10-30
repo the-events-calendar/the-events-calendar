@@ -82,8 +82,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			'_VenueCountry',
 			'_VenueAddress',
 			'_VenueCity',
-			'_VenueState',
-			'_VenueProvince',
+			'_VenueStateProvince',
 			'_VenueZip',
 			'_VenuePhone'
 		);
@@ -492,7 +491,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
 			add_action( 'sp_events_event_save', array($this, 'save_venue_data' ), 10, 2 );
 			if ( is_admin() && ! $this->getOption('spEventsDebug', false) ) {
-				add_action('init', array($this, 'addOrderQueryFilters') );
+				$this->addQueryFilters();
 			}
 			else if ( $this->getOption('spEventsDebug', false) ) {
 				$this->addDebugColumns();
@@ -500,7 +499,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			}
 		}
 		
-		public function addOrderQueryFilters(){
+		private function addOrderQueryFilters(){
 			if(get_query_var('eventDisplay') == 'upcoming' || get_query_var('eventDisplay') == 'past' || get_query_var('sp_events_cat') != ''){
 				add_filter('posts_where', array($this, 'events_ordering_where'));
 				add_filter('posts_join', array($this, 'events_ordering_join'));
@@ -750,6 +749,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				wp_enqueue_script( self::POSTTYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js', array('jquery-ui-datepicker'), '', true );
 				// calling our own localization because wp_localize_scripts doesn't support arrays or objects for values, which we need.
 				add_action('admin_footer', array($this, 'printLocalizedAdmin') );
+			}elseif( $current_screen->post_type == self::VENUE_POST_TYPE){
+
+				wp_enqueue_script( self::VENUE_POST_TYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js');
 			}
 			
 
@@ -1656,15 +1658,13 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			if ( $startTimestamp > $endTimestamp ) {
 				$_POST['EventEndDate'] = $_POST['EventStartDate'];
 			}
-			// make state and province mutually exclusive
-			if( $_POST['EventStateExists'] ) $_POST['EventProvince'] = '';
-			else $_POST['EventState'] = '';
-			//ignore Select a Country: as a country
-			if( $_POST['EventCountryLabel'] == "" ) $_POST['EventCountry'] = "";
-			//google map checkboxes
 			if( !isset( $_POST['EventShowMapLink'] ) ) update_post_meta( $postId, '_EventShowMapLink', 'false' );
 			if( !isset( $_POST['EventShowMap'] ) ) update_post_meta( $postId, '_EventShowMap', 'false' );
 			// give add-on plugins a chance to cancel this meta update
+
+
+			$_POST['EventVenueID'] = $this->save_venue_data();
+
 			try {
 				do_action( 'sp_events_event_save', $postId );
 				if( !$this->postExceptionThrown ) delete_post_meta( $postId, self::EVENTSERROROPT );
@@ -1672,8 +1672,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$this->postExceptionThrown = true;
 				update_post_meta( $postId, self::EVENTSERROROPT, trim( $e->getMessage() ) );
 			}
-
-			$_POST['EventVenueID'] = $this->save_venue_data();
 
 			//update meta fields		
 			foreach ( $this->metaTags as $tag ) {
@@ -1703,6 +1701,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			global $_POST;
 		
 			// don't do anything on autosave or auto-draft either or massupdates
+			// Or inline saves, or data being posted without a venue Or
+			// finally, called from the save_post action, but on save_posts that
+			// are not venue posts
 			if ( wp_is_post_autosave( $postID ) || $post->post_status == 'auto-draft' || isset($_GET['bulk_edit']) || $_REQUEST['action'] == 'inline-save' || !$_POST['venue'] ||  ($post->post_type != self::VENUE_POST_TYPE && $postID)) {
 				return;
 			}
@@ -1720,6 +1721,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$data['VenueID'] = $postID;
 			}
 
+			// make state and province mutually exclusive
+			$data['StateProvince'] = ( $data['Country'] != 'United States' )? $data['Province'] : $data['State'];
+
+			//google map checkboxes
 			$postdata = array(
 				'post_title' => $data['Venue'],
 				'post_type' => self::VENUE_POST_TYPE,
@@ -1732,6 +1737,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			foreach ($data as $key => $var) {
 				update_post_meta($venue_id, '_Venue'.$key, $var);
 			}
+
+			do_action( 'sp_events_venue_save', $venue_id );
 
 			return $venue_id;
 		}

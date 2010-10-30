@@ -322,6 +322,15 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		return esc_html((sp_has_venue()) ?  getEventMeta( sp_has_venue(), '_VenueCity', true ) : getEventMeta( $postId, '_EventCity', true ));
 	}
 	/**
+	 * Returns the event state or Province
+	 *
+	 * @return string state
+	 */
+	function sp_get_stateprovince( $postId = null) {
+		$postId = sp_post_id_helper( $postId );
+		return esc_html(getEventMeta( sp_has_venue(), '_VenueStateProvince', true ));
+	}
+	/**
 	 * Returns the event state
 	 *
 	 * @return string state
@@ -640,6 +649,9 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_region() {
 		global $sp_ecp;
+		if(getEventMeta(sp_has_venue(), '_VenueStateProvince', true )){
+			return getEventMeta(sp_has_venue(), '_VenueStateProvince', true );
+		}else
 		if ( sp_get_country() == __('United States', $sp_ecp->pluginDomain ) ) {
 			return sp_get_state();
 		} else {

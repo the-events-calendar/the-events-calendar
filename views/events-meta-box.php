@@ -158,26 +158,3 @@ try {
 	$e->displayMessage( $postId );
 }
 ?>
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		// hide unnecessary fields
-		var venueFields = $(".venue");
-
-		var savedVenue = $("#saved_venue");
-		
-		if ( savedVenue.val() != '0' && !$('.nosaved').get(0) ) {
-			venueFields.hide();
-			$('input',venueFields).val('');
-		}
-		
-		savedVenue.change(function() {
-			if ( $(this).val() == '0' ) {
-				venueFields.fadeIn()
-					.find("input, select").val('').removeAttr('checked');
-			}
-			else {
-				venueFields.fadeOut();
-			}
-		});
-	})(jQuery);
-</script>
