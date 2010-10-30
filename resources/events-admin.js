@@ -119,10 +119,29 @@ jQuery(document).ready(function($) {
 		savedVenue.change(function() {
 			if ( $(this).val() == '0' ) {
 				venueFields.fadeIn()
-					.find("input, select").val('').removeAttr('checked');
+					//.find("input, select").val('').removeAttr('checked');
 			}
 			else {
 				venueFields.fadeOut();
+			}
+		});
+		// hide unnecessary fields
+		var organizerFields = $(".organizer");
+
+		var savedorganizer = $("#saved_organizer");
+		
+		if ( savedorganizer.val() != '0' && !$('.nosaved_organizer').get(0) ) {
+			organizerFields.hide();
+			$('input',organizerFields).val('');
+		}
+		
+		savedorganizer.change(function() {
+			if ( $(this).val() == '0' ) {
+				organizerFields.fadeIn()
+					//.find("input, select").val('').removeAttr('checked');
+			}
+			else {
+				organizerFields.fadeOut();
 			}
 		});
 	}

@@ -1862,7 +1862,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				}
 				echo '</select>';
 			}else{
-				echo '<p class="nosaved">'.__('No saved organizers yet.',$this->lion).'</p>';
+				echo '<p class="nosaved_organizer">'.__('No saved organizers yet.',$this->lion).'</p>';
 			}
 		}
 
