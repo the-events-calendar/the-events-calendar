@@ -36,29 +36,14 @@
 			<?php
 			$this->constructCountries( $postId );
 			$defaultCountry = sp_get_option('defaultCountry');
-			if( $_VenueCountry ) {
-				foreach ($this->countries as $abbr => $fullname) {
-					echo '<option label="' . $abbr . '" value="' . $fullname . '" ';
-					if ($_VenueCountry == $fullname) {
-						echo 'selected="selected" ';
-						$eventCountryLabel = $abbr;
-					}
-					echo '>' . $fullname . '</option>';
-			}
-			} elseif( $defaultCountry && !get_post_custom_keys( $postId ) ) {
-				foreach ($this->countries as $abbr => $fullname) {
-					echo '<option label="' . $abbr . '" value="' . $fullname . '" ';
-					if ($defaultCountry[1] == $fullname) {
-						echo 'selected="selected" ';
-						$eventCountryLabel = $abbr;
-					}
-					echo '>' . $fullname . '</option>';
-			}
-			} else {
-				$eventCountryLabel = "";
-				foreach ($this->countries as $abbr => $fullname) {
-					echo '<option label="' . $abbr . '" value="' . $fullname . '" >' . $fullname . '</option>';
-			}
+			$current = ($_VenueCountry) ? $_VenueCountry : $defaultCountry;
+
+			foreach ($this->countries as $abbr => $fullname) {
+				echo '<option label="' . $abbr . '" value="' . $fullname . '" ';
+				if ($current == $fullname) {
+					echo 'selected="selected" ';
+				}
+				echo '>' . $fullname . '</option>';
 			}
 			?>
 		</select>

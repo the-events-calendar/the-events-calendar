@@ -17,6 +17,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		const DBYEARMONTHTIMEFORMAT = 'Y-m';
 		const VENUE_POST_TYPE = 'sp_venue';
 		const VENUE_TITLE = 'Venue';
+		const ORGANIZER_POST_TYPE = 'sp_organizer';
+		const ORGANIZER_TITLE = 'Organizer';
 
 		private $postTypeArgs = array(
 			'public' => true,
@@ -25,6 +27,12 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			'supports' => array('title','editor','excerpt','author','thumbnail')
 		);
 		private $postVenueTypeArgs = array(
+			'public' => true,
+			'rewrite' => array('slug' => ''),
+			'menu_position' => 6,
+			'supports' => array('thumbnail')
+		);
+		private $postOrganizerTypeArgs = array(
 			'public' => true,
 			'rewrite' => array('slug' => ''),
 			'menu_position' => 6,
@@ -61,7 +69,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			'_EventShowMapLink',
 			'_EventShowMap',
 			'_EventCost',
-			'_EventOrganizer',
 			'_EventOrganizerID',
 			'_EventPhone',
 			self::EVENTSERROROPT
@@ -85,6 +92,13 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			'_VenueStateProvince',
 			'_VenueZip',
 			'_VenuePhone'
+		);
+
+		public $organizerTags = array(
+			'_OrganizerOrganizer',
+			'_OrganizerEmail',
+			'_OrganizerWebsite',
+			'_OrganizerPhone'
 		);
 
 		public $states = array();
@@ -372,21 +386,21 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 						"ZM" => __("Zambia", $this->pluginDomain),
 						"ZW" => __("Zimbabwe", $this->pluginDomain)
 						);
-					if ( $postId || $useDefault ) {
-						$countryValue = get_post_meta( $postId, '_EventCountry', true );
-						if( $countryValue ) $defaultCountry = array( array_search( $countryValue, $countries ), $countryValue );
-						else $defaultCountry = $this->getOption('defaultCountry');
-						if( $defaultCountry && $defaultCountry[0] != "" ) {
-							$selectCountry = array_shift( $countries );
-							asort($countries);
-							$countries = array($defaultCountry[0] => __($defaultCountry[1], $this->pluginDomain)) + $countries;
-							$countries = array("" => __($selectCountry, $this->pluginDomain)) + $countries;
-							array_unique($countries);
-						}
+// 					if ( $postId || $useDefault ) {
+// 						$countryValue = get_post_meta( $postId, '_EventCountry', true );
+// 						if( $countryValue ) $defaultCountry = array( array_search( $countryValue, $countries ), $countryValue );
+// 						else $defaultCountry = $this->getOption('defaultCountry');
+// 						if( $defaultCountry && $defaultCountry[0] != "" ) {
+// 							$selectCountry = array_shift( $countries );
+// 							asort($countries);
+// 							$countries = array($defaultCountry[0] => __($defaultCountry[1], $this->pluginDomain)) + $countries;
+// 							$countries = array("" => __($selectCountry, $this->pluginDomain)) + $countries;
+// 							array_unique($countries);
+// 						}
+// 						$this->countries = $countries;
+// 					} else {
 						$this->countries = $countries;
-					} else {
-						$this->countries = $countries;
-					}
+					//}
 		}
 		/**
 		 * Initializes plugin variables and sets up wordpress hooks/actions.
@@ -490,6 +504,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
 			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
 			add_action( 'sp_events_event_save', array($this, 'save_venue_data' ), 10, 2 );
+			add_action( 'sp_events_event_save', array($this, 'save_organizer_data' ), 10, 2 );
 			if ( is_admin() && ! $this->getOption('spEventsDebug', false) ) {
 				$this->addQueryFilters();
 			}
@@ -533,6 +548,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_action( 'admin_menu', 		array( $this, 'addEventBox' ) );
 			add_action( 'save_post',		array( $this, 'addEventMeta' ), 15, 2 );
 			add_action( 'save_post',		array( $this, 'save_venue_data' ), 16, 2 );
+			add_action( 'save_post',		array( $this, 'save_organizer_data' ), 16, 2 );
 			//add_action( 'publish_post',		array( $this, 'addEventMeta' ), 15, 2 );
 
 			add_action( 'sp_events_post_errors', array( 'TEC_Post_Exception', 'displayMessage' ) );
@@ -673,6 +689,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$this->generatePostTypeLabels();
 			register_post_type(self::POSTTYPE, $this->postTypeArgs);
 			register_post_type(self::VENUE_POST_TYPE, $this->postVenueTypeArgs);
+			register_post_type(self::ORGANIZER_POST_TYPE, $this->postOrganizerTypeArgs);
 			
 			register_taxonomy( self::TAXONOMY, self::POSTTYPE, array(
 				'hierarchical' => true,
@@ -716,6 +733,19 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				'not_found_in_trash' => __('No venues found in Trash', $this->pluginDomain)
 			);
 			
+			$this->postOrganizerTypeArgs['labels'] = array(
+				'name' => __('Organizers', $this->pluginDomain),
+				'singular_name' => __('Organizer', $this->pluginDomain),
+				'add_new' => __('Add New', $this->pluginDomain),
+				'add_new_item' => __('Add New Organizer', $this->pluginDomain),
+				'edit_item' => __('Edit Organizer', $this->pluginDomain),
+				'new_item' => __('New Organizer', $this->pluginDomain),
+				'view_item' => __('View Venue', $this->pluginDomain),
+				'search_items' => __('Search Organizers', $this->pluginDomain),
+				'not_found' => __('No organizer found', $this->pluginDomain),
+				'not_found_in_trash' => __('No organizers found in Trash', $this->pluginDomain)
+			);
+			
 			$this->taxonomyLabels = array(
 				'name' =>  __( 'Event Categories', $this->pluginDomain ),
 				'singular_name' =>  __( 'Event Category', $this->pluginDomain ),
@@ -752,6 +782,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			}elseif( $current_screen->post_type == self::VENUE_POST_TYPE){
 
 				wp_enqueue_script( self::VENUE_POST_TYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js');
+			}elseif( $current_screen->post_type == self::ORGANIZER_POST_TYPE){
+
+				wp_enqueue_script( self::ORGANIZER_POST_TYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js');
 			}
 			
 
@@ -1642,6 +1675,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			}
 			
 			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
+			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 
 			if( $_POST['EventAllDay'] == 'yes' ) {
 				$_POST['EventStartDate'] = $this->dateToTimeStamp( $_POST['EventStartDate'], "12", "00", "AM" );
@@ -1664,6 +1698,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 
 			$_POST['EventVenueID'] = $this->save_venue_data();
+			$_POST['EventOrganizerID'] = $this->save_organizer_data();
 
 			try {
 				do_action( 'sp_events_event_save', $postId );
@@ -1680,7 +1715,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					if ( is_string($_POST[$htmlElement]) )
 						$_POST[$htmlElement] = filter_var($_POST[$htmlElement], FILTER_SANITIZE_STRING);
 					update_post_meta( $postId, $tag, $_POST[$htmlElement] );
-					
 				}
 			}
 			try {
@@ -1690,7 +1724,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$this->postExceptionThrown = true;
 				update_post_meta( $postId, self::EVENTSERROROPT, trim( $e->getMessage() ) );
 			}
-
 			update_post_meta( $postId, '_EventCost', sp_get_cost( $postId ) ); // XXX eventbrite cost field
 
 		}
@@ -1765,6 +1798,74 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				echo '<p class="nosaved">'.__('No saved venues yet.',$this->lion).'</p>';
 			}
 		}
+
+
+		//** If you are saving a new organizer along with the event, we will do this:
+		public function save_organizer_data( $postID = null, $post=null ) {
+			global $_POST;
+		
+			// don't do anything on autosave or auto-draft either or massupdates
+			// Or inline saves, or data being posted without a organizer Or
+			// finally, called from the save_post action, but on save_posts that
+			// are not organizer posts
+			if ( wp_is_post_autosave( $postID ) || $post->post_status == 'auto-draft' || isset($_GET['bulk_edit']) || $_REQUEST['action'] == 'inline-save' || !$_POST['organizer'] ||  ($post->post_type != self::ORGANIZER_POST_TYPE && $postID)) {
+				return;
+			}
+			//There is a possibility to get stuck in an infinite loop. 
+			//That would be bad.
+			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
+
+			$data = stripslashes_deep($_POST['organizer']);
+
+			if($data['OrganizerID'])
+				return $data['OrganizerID'];
+
+			if ( $post->post_type == self::ORGANIZER_POST_TYPE && $postID) {
+				$data['OrganizerID'] = $postID;
+			}
+
+			//google map checkboxes
+			$postdata = array(
+				'post_title' => $data['Organizer'],
+				'post_type' => self::ORGANIZER_POST_TYPE,
+				'post_status' => 'publish',
+				'ID' => $data['OrganizerID']
+			);
+
+			$organizer_id = wp_insert_post($postdata, true);
+
+			foreach ($data as $key => $var) {
+				update_post_meta($organizer_id, '_Organizer'.$key, $var);
+			}
+
+			do_action( 'sp_events_organizer_save', $organizer_id );
+
+			return $organizer_id;
+		}
+
+		function get_organizer_info($p = null){
+			$r = new WP_Query(array('post_type' => self::ORGANIZER_POST_TYPE, 'nopaging' => 1, 'post_status' => 'publish', 'caller_get_posts' => 1,'orderby'=>'post_title','p' => $p));
+			if ($r->have_posts()) :
+				return $r->posts;
+			endif;
+			return false;
+		}
+
+		function saved_organizers_dropdown($current = null){
+			$organizers = $this->get_organizer_info();
+			if($organizers){
+				echo '<select name="organizer[OrganizerID]" id="saved_organizer">';
+					echo '<option value="0">Use New Organizer</option>';
+				foreach($organizers as $organizer){
+					$selected = ($current == $organizer->ID) ? 'selected="selected"' : '';
+					echo "<option value='{$organizer->ID}' $selected>{$organizer->post_title}</option>";
+				}
+				echo '</select>';
+			}else{
+				echo '<p class="nosaved">'.__('No saved organizers yet.',$this->lion).'</p>';
+			}
+		}
+
 		/**
 		 * Adds a style chooser to the write post page
 		 *
@@ -1784,7 +1885,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					$$tag = sp_get_option('eventsDefault'.$cleaned_tag);
 				}
 			}
-	
 			if($_EventVenueID){
 				foreach($this->venueTags as $tag)
 					$$tag = get_post_meta($_EventVenueID, $tag, true );
@@ -1800,7 +1900,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					}
 				}
 			}
-	
+	/*
+			foreach($this->organizerTags as $tag)
+				$$tag = get_post_meta($_EventOrganizerID, $tag, true );*/
+
 			$isEventAllDay = ( $_EventAllDay == 'yes' || ! $this->dateOnly( $_EventStartDate ) ) ? 'checked="checked"' : ''; // default is all day for new posts
 			
 			$startDayOptions       	= array(
@@ -1868,6 +1971,37 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					</table>
 				</div>
 			<?php
+		}		/**
+		 * Adds a style chooser to the write post page
+		 *
+		 * @return void
+		 */
+		public function OrganizerMetaBox() {
+			global $post;
+			$options = '';
+			$style = '';
+			$postId = $post->ID;
+
+			if($post->post_type == self::ORGANIZER_POST_TYPE){
+					
+				foreach ( $this->organizerTags as $tag ) {
+					if ( $postId && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
+						$$tag = get_post_meta( $postId, $tag, true );
+					}
+				}
+			}
+			?>
+				<style type="text/css">
+						#EventInfo {border:none;}
+				</style>
+				<div id='eventDetails' class="inside eventForm">	
+					<table cellspacing="0" cellpadding="0" id="EventInfo" class="OrganizerInfo">
+					<?php
+					include( $this->pluginPath . 'views/organizer-meta-box.php' );
+					?>
+					</table>
+				</div>
+			<?php
 		}
 		
 		/**
@@ -1924,6 +2058,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function addEventBox( ) {
 			add_meta_box( 'Event Details', $this->pluginName, array( $this, 'EventsChooserBox' ), self::POSTTYPE, 'normal', 'high' );
 			add_meta_box( 'Venue Details', 'Venue Information', array( $this, 'VenueMetaBox' ), self::VENUE_POST_TYPE, 'normal', 'high' );
+			add_meta_box( 'Organizer Details', 'Organizer Information', array( $this, 'OrganizerMetaBox' ), self::ORGANIZER_POST_TYPE, 'normal', 'high' );
 		}
 		/** 
 		 * Builds a set of options for diplaying a meridian chooser

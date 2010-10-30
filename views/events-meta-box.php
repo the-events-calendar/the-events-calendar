@@ -17,6 +17,8 @@ try {
 ?>
 
 </div>
+
+	
 <div id='eventDetails' class="inside eventForm">
 	<?php
 	try {
@@ -29,6 +31,22 @@ try {
 	}
 	
 	?>
+	<table id="event_organizer">
+			<tr>
+				<td colspan="2" class="snp_sectionheader"><h4><?php _e('Event Organizer Details', $this->pluginDomain); ?></h4></td>
+			</tr>
+			<tr class="">
+				<td><?php _e('Use Saved Organizer:',$this->pluginDomain); ?></td>
+				<td> <?php echo $_EventOrganizerID;?>
+					<?php $this->saved_organizers_dropdown($_EventOrganizerID);?>
+				</td>
+			</tr>
+				
+			<?php
+				include( $this->pluginPath . 'views/organizer-meta-box.php' );
+
+			?>
+	</table>
 	<table cellspacing="0" cellpadding="0" id="EventInfo">
 		<tr>
 			<td colspan="2" class="snp_sectionheader"><h4 class="event-time"><?php _e('Event Time &amp; Date', $this->pluginDomain); ?></h4></td>
