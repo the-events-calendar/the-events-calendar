@@ -189,6 +189,31 @@ Returns an EventBrite.com embedded ticket sales inline (not WordPress) widget
 
 == Changelog ==
 
+= 1.2.2 =
+
+Features
+# Added default values for state, zip, etc
+# Google maps are now localized based on WordPress' language setting.
+# Added a "No upcoming or previous events" message
+# Why show all the countries when you only need two? You can now manage the list of countries
+# Added custom page titles for event pages for SEO.
+# Added "Post Thumbnail" support to single events and to the popups on the calender display.
+
+Bugs
+
+# Removed Yugoslavia from the country list.
+# Fixed a bug that could allow the events plugin to take over the home page on initial install.
+# fixed bugs with Google Calendar link bugs
+# Upcoming events list now show events that end after now rather than just events that start after now.
+# Event cost correctly handles "0" as free.
+# Added ability to golle more information in the Calendar Widget.
+# Events are now correctly ordered by time in calendar view.
+# "Past" events now show up up in chronological order
+# All day events now stay on upcoming events page all day
+# Issues with browsing multiple pages of events ("page/2/") are now fixed.
+# Fixed bug where filters to order event posts by date made it impossible to view past events.
+# fixed bug where bulk-editing events deletes date information.
+
 = 1.2 =
 
 Features
