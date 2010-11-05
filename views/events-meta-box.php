@@ -113,6 +113,23 @@ try {
 		<?php endif; ?>
 	</table>
 
+	<table id="event_organizer" class="eventtable">
+			<tr>
+				<td colspan="2" class="snp_sectionheader"><h4><?php _e('Event Organizer Details', $this->pluginDomain); ?></h4></td>
+			</tr>
+			<tr class="" >
+				<td style="width:170px"><?php _e('Use Saved Organizer:',$this->pluginDomain); ?></td>
+				<td>
+					<?php $this->saved_organizers_dropdown($_EventOrganizerID);?>
+				</td>
+			</tr>
+				
+			<?php
+				include( $this->pluginPath . 'views/organizer-meta-box.php' );
+
+			?>
+	</table>
+
 	<table id="event_cost" class="eventtable">
         <tr>
 			<td colspan="2" class="snp_sectionheader"><h4><?php _e('Event Cost', $this->pluginDomain); ?></h4></td>
@@ -138,23 +155,6 @@ try {
 		
 		
 	</table>
-	<table id="event_organizer" class="eventtable">
-			<tr>
-				<td colspan="2" class="snp_sectionheader"><h4><?php _e('Event Organizer Details', $this->pluginDomain); ?></h4></td>
-			</tr>
-			<tr class="">
-				<td><?php _e('Use Saved Organizer:',$this->pluginDomain); ?></td>
-				<td>
-					<?php $this->saved_organizers_dropdown($_EventOrganizerID);?>
-				</td>
-			</tr>
-				
-			<?php
-				include( $this->pluginPath . 'views/organizer-meta-box.php' );
-
-			?>
-	</table>
-
 	</div>
 	<?php 
 	try {
