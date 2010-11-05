@@ -17,8 +17,6 @@ try {
 ?>
 
 </div>
-
-	
 <div id='eventDetails' class="inside eventForm">
 	<?php
 	try {
@@ -30,24 +28,7 @@ try {
 		$e->displayMessage( $postId );
 	}
 	
-	?>
-	<table id="event_organizer">
-			<tr>
-				<td colspan="2" class="snp_sectionheader"><h4><?php _e('Event Organizer Details', $this->pluginDomain); ?></h4></td>
-			</tr>
-			<tr class="">
-				<td><?php _e('Use Saved Organizer:',$this->pluginDomain); ?></td>
-				<td> <?php echo $_EventOrganizerID;?>
-					<?php $this->saved_organizers_dropdown($_EventOrganizerID);?>
-				</td>
-			</tr>
-				
-			<?php
-				include( $this->pluginPath . 'views/organizer-meta-box.php' );
-
-			?>
-	</table>
-	<table cellspacing="0" cellpadding="0" id="EventInfo">
+	?>	<table cellspacing="0" cellpadding="0" id="EventInfo">
 		<tr>
 			<td colspan="2" class="snp_sectionheader"><h4 class="event-time"><?php _e('Event Time &amp; Date', $this->pluginDomain); ?></h4></td>
 		</tr>
@@ -97,8 +78,8 @@ try {
 				</span>
 			</td>
 		</tr>
-</table>
-	<table id="event_venue">
+	</table>
+	<table id="event_venue" class="eventtable">
 		<tr>
 			<td colspan="2" class="snp_sectionheader"><h4><?php _e('Event Location Details', $this->pluginDomain); ?></h4></td>
 		</tr>
@@ -113,8 +94,8 @@ try {
 			include( $this->pluginPath . 'views/venue-meta-box.php' );
 
 		?>
-		<tr id="google_map_link_toggle"<?php if( !sp_address_exists( $postId ) ) echo ' class="tec_hide"'; ?>>
-			<td><?php _e('Show Google Map Link:',$this->pluginDomain); ?></td>
+		<tr id="google_map_link_toggle">
+			<td><?php _e('Show Google Maps Link:',$this->pluginDomain); ?></td>
 			<td>
 				<?php // is the post new?
 					$tecPostCustomKeys = get_post_custom_keys($postId);
@@ -130,6 +111,9 @@ try {
 				<td><input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="EventShowMap" size="6" value="true" <?php if( $tecNewPost || get_post_meta( $postId, '_EventShowMap', true ) == 'true' ) echo 'checked="checked"'; ?> /></td>
 			</tr>
 		<?php endif; ?>
+	</table>
+
+	<table id="event_cost" class="eventtable">
         <tr>
 			<td colspan="2" class="snp_sectionheader"><h4><?php _e('Event Cost', $this->pluginDomain); ?></h4></td>
 		</tr>
@@ -154,6 +138,23 @@ try {
 		
 		
 	</table>
+	<table id="event_organizer" class="eventtable">
+			<tr>
+				<td colspan="2" class="snp_sectionheader"><h4><?php _e('Event Organizer Details', $this->pluginDomain); ?></h4></td>
+			</tr>
+			<tr class="">
+				<td><?php _e('Use Saved Organizer:',$this->pluginDomain); ?></td>
+				<td>
+					<?php $this->saved_organizers_dropdown($_EventOrganizerID);?>
+				</td>
+			</tr>
+				
+			<?php
+				include( $this->pluginPath . 'views/organizer-meta-box.php' );
+
+			?>
+	</table>
+
 	</div>
 	<?php 
 	try {

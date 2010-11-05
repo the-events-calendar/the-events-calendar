@@ -266,12 +266,13 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		}
 
 		$cost = getEventMeta( $postId, '_EventCost', true );
-		if ( $cost > 0 ) {
-			return esc_html($cost);
-		}elseif($cost === ''){
+
+		if($cost === ''){
 			return '';
-		}else{
+		}elseif($cost == '0'){
 			return "Free";
+		}else{
+			return esc_html($cost);
 		}
 	}
 	/**

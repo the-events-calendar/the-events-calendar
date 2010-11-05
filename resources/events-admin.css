@@ -34,7 +34,7 @@
 }
 .eventForm h4 {
 	font-size:1.2em;
-	margin:2em 0 1em;
+	margin:1em 0 1em;
 }
 .eventForm h4.event-time {
 	margin-top: 0;
@@ -44,7 +44,7 @@
 	border: 1px solid rgb(230, 219, 85);
 	margin: 5px 0 15px;
 }
-#EventInfo {
+#EventInfo, .eventtable {
 	border-color:#dfdfdf;
 	background-color:#F9F9F9;
 	border-width:1px;
@@ -59,8 +59,12 @@
 	border-spacing:0;
 	padding: 10px;
 }
+.eventtable{
+	margin-top:10px;
+	padding-top:0;
+}
 #eventIntro {
-  margin: 10px 0 25px 0;
+/*   margin: 10px 0 25px 0; */
 }
 .form-table form input {border:none;}
 #submitLabel {display: block;}

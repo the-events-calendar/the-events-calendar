@@ -1714,6 +1714,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				if ( isset( $_POST[$htmlElement] ) && $tag != self::EVENTSERROROPT ) {
 					if ( is_string($_POST[$htmlElement]) )
 						$_POST[$htmlElement] = filter_var($_POST[$htmlElement], FILTER_SANITIZE_STRING);
+					
 					update_post_meta( $postId, $tag, $_POST[$htmlElement] );
 				}
 			}
@@ -1724,7 +1725,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$this->postExceptionThrown = true;
 				update_post_meta( $postId, self::EVENTSERROROPT, trim( $e->getMessage() ) );
 			}
-			update_post_meta( $postId, '_EventCost', sp_get_cost( $postId ) ); // XXX eventbrite cost field
+		//	update_post_meta( $postId, '_EventCost', sp_get_cost( $postId ) ); // XXX eventbrite cost field
 
 		}
 		
