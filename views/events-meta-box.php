@@ -84,7 +84,7 @@ try {
 			<td colspan="2" class="snp_sectionheader"><h4><?php _e('Event Location Details', $this->pluginDomain); ?></h4></td>
 		</tr>
 		<tr class="">
-			<td><?php _e('Use Saved Venue:',$this->pluginDomain); ?></td>
+			<td style="width:170px"><?php _e('Use Saved Venue:',$this->pluginDomain); ?></td>
 			<td>
 				<?php $this->saved_venues_dropdown($_EventVenueID);?>
 			</td>
