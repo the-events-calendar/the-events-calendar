@@ -106,7 +106,7 @@ try {
 			</td>
 		</tr>
 		<?php if( sp_get_option('embedGoogleMaps') == 'on' ) : ?>
-			<tr id="google_map_toggle"<?php if( !sp_address_exists( $postId ) ) echo ' class="tec_hide"'; ?>>
+			<tr id="google_map_toggle">
 				<td><?php _e('Show Google Map:',$this->pluginDomain); ?></td>
 				<td><input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="EventShowMap" size="6" value="true" <?php if( $tecNewPost || get_post_meta( $postId, '_EventShowMap', true ) == 'true' ) echo 'checked="checked"'; ?> /></td>
 			</tr>

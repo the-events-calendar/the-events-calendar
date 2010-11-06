@@ -28,13 +28,13 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		);
 		private $postVenueTypeArgs = array(
 			'public' => true,
-			'rewrite' => array('slug' => ''),
+			'rewrite' => false,
 			'menu_position' => 6,
 			'supports' => array('thumbnail')
 		);
 		private $postOrganizerTypeArgs = array(
 			'public' => true,
-			'rewrite' => array('slug' => ''),
+			'rewrite' => false,
 			'menu_position' => 6,
 			'supports' => array('thumbnail')
 		);
@@ -43,12 +43,13 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public $supportUrl = 'http://support.makedesignnotwar.com/';
 		public $envatoUrl = 'http://plugins.shaneandpeter.com/';
 
-		private $rewriteSlug;
-		private $rewriteSlugSingular;
-		private $taxRewriteSlug;
-		private $monthSlug;
-		private $upcomingSlug;
-		private $pastSlug;
+
+		private $rewriteSlug = 'events';
+		private $rewriteSlugSingular = 'event';
+		private $taxRewriteSlug = 'event/category';
+		private $monthSlug = 'month';
+		private $pastSlug = 'past';
+		private $upcomingSlug = 'upcoming';
 		private $defaultOptions = '';
 		public $latestOptions;
 		private $postExceptionThrown = false;
@@ -413,6 +414,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$this->pluginUrl 		= WP_PLUGIN_URL.'/'.$this->pluginDir;
 			
 			register_deactivation_hook( __FILE__, 	array( &$this, 'on_deactivate' ) );
+			register_activation_hook( __FILE__, 	array( &$this, 'on_activate' ) );
 			$this->addFilters();
 			$this->addActions();
 		}
@@ -426,11 +428,14 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$this->monthSlug = __('month', $this->pluginDomain);
 			$this->upcomingSlug = __('upcoming', $this->pluginDomain);
 			$this->pastSlug = __('past', $this->pluginDomain);
-	
 			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlugSingular;
 			$this->currentDay = '';
 			$this->errors = '';
 
+			$this->registerPostType();
+
+			if(!array_key_exists('archives/'.$this->rewriteSlugSingular.'/[^/]+/([^/]+)/?$',get_option('rewrite_rules')))
+				$this->flushRewriteRules();
 
 			$this->states = array(
 				"AL" => __("Alabama", $this->pluginDomain),
@@ -494,11 +499,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$this->addOrderQueryFilters();
 		}
 
+
 		private function addFilters() {
 			add_filter( 'post_class', array( $this, 'post_class') );
 			add_filter( 'body_class', array( $this, 'body_class' ) );
 			add_filter( 'template_include', array( $this, 'templateChooser') );
-			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
 			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );
 			add_filter( 'admin_body_class', array($this, 'admin_body_class') );
 			add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
@@ -537,7 +542,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 		
 		private function addActions() {
-			add_action( 'init', array( $this, 'init'), 0 );
+			add_action( 'init', array( $this, 'init'), 10 );
+
 			add_action( 'parse_query', array( $this, 'query'), 0 );
 			//add_action( 'reschedule_event_post', array( $this, 'reschedule') );
 			add_action( 'template_redirect',				array( $this, 'loadStyle' ) );
@@ -553,7 +559,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			add_action( 'sp_events_post_errors', array( 'TEC_Post_Exception', 'displayMessage' ) );
 			add_action( 'sp_events_options_top', array( 'TEC_WP_Options_Exception', 'displayMessage') );
-			add_action( 'init', array( $this, 'registerPostType' ) );
+		//	add_action( 'init', array( $this, 'registerPostType' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
 			add_action( 'manage_posts_custom_column', array($this, 'custom_columns'), 10, 2);
@@ -1344,17 +1350,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 		
 		/**
-		 * Creates the category and sets up the theme resource folder with sample config files.
-		 * 
-		 * @return void
-		 */
-		public function on_activate( ) {
-			$now = time();
-			$firstTime = $now - ($now % 66400);
-			//wp_schedule_event( $firstTime, 'daily', 'reschedule_event_post'); // schedule this for midnight, daily
-			$this->flushRewriteRules();
-		}
-		/**
 		* This function is scheduled to run at midnight.  If any posts are set with EventStartDate
 		* to today, update the post so that it was posted today.   This will force the event to be
 		* displayed in the main loop on the homepage.
@@ -1395,7 +1390,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 * @link http://codex.wordpress.org/Custom_Queries#Permalinks_for_Custom_Archives
 		 */
 		public function flushRewriteRules() {
-			global $wp_rewrite;
+			global $wp_rewrite; 
 			$wp_rewrite->flush_rules();
 			// in case this was called too early, let's get it in the end.
 			add_action('shutdown', array($this, 'flushRewriteRules'));
@@ -1426,19 +1421,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 */
 		public function filterRewriteRules( $wp_rewrite ) {
 			if ( '' == get_option('permalink_structure') || 'off' == $this->getOption('useRewriteRules','on') ) {
-				return;
-			}
-
-			/** 
-				On initial activate the plugin doesn't have these set because init hasn't been run yet.
-			**/
-			if($this->rewriteSlug == ''){
-				$this->rewriteSlug = 'events';
-				$this->rewriteSlugSingular = 'event';
-				$this->taxRewriteSlug = 'event/category';
-				$this->monthSlug = 'month';
-				$this->pastSlug = 'past';
-				$this->upcomingSlug = 'upcoming';
+				
 			}
 
 			$base = trailingslashit( $this->rewriteSlug );
@@ -1478,8 +1461,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$newRules[$baseTax . '([^/]+)/page/?([0-9]{1,})/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=' . $wp_rewrite->preg_index(1) . '&paged=' . $wp_rewrite->preg_index(2);
 			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'eventDisplay=upcoming&sp_events_cat=' . $wp_rewrite->preg_index(1);
 			
-
-		  $wp_rewrite->rules = array_merge($newRules, $wp_rewrite->rules);
+			$wp_rewrite->rules = $newRules + $wp_rewrite->rules;	
+		  
 		
 		
 		}
@@ -1597,7 +1580,22 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 */
 		public function on_deactivate( ) { 
 		//	wp_clear_scheduled_hook('reschedule_event_post');
+
+			//remove_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
 			$this->flushRewriteRules();
+		}
+
+
+		/**
+		 * Creates the category and sets up the theme resource folder with sample config files.
+		 * 
+		 * @return void
+		 */
+		public function on_activate( ) {
+			$now = time();
+			$firstTime = $now - ($now % 66400);
+			//wp_schedule_event( $firstTime, 'daily', 'reschedule_event_post'); // schedule this for midnight, daily
+			
 		}
 		/**
 		 * Converts a set of inputs to YYYY-MM-DD HH:MM:SS format for MySQL
@@ -2453,8 +2451,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				//if( $cost ) $description .= " Cost: " . $cost;
 				// add fields to iCal output
 				$events .= "BEGIN:VEVENT\n";
-				$events .= "DTSTART:" . $startDate . "\n";
-				$events .= "DTEND:" . $endDate . "\n";
+				$events .= "DTSTART;VALUE=DATE:" . $startDate . "\n";
+				$events .= "DTEND;VALUE=DATE:" . $endDate . "\n";
 				$events .= "DTSTAMP:" . date("Ymd\THis", time()) . "\n";
 				$events .= "CREATED:" . str_replace( array("-", " ", ":") , array("", "T", "") , $eventPost->post_date ) . "\n";
 				$events .= "LAST-MODIFIED:". str_replace( array("-", " ", ":") , array("", "T", "") , $eventPost->post_modified ) . "\n";
@@ -2468,8 +2466,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 	        header('Content-type: text/calendar');
 	        header('Content-Disposition: attachment; filename="iCal-Events_Calendar_Pro.ics"');
 			$content = "BEGIN:VCALENDAR\n";
-			$content .= "PRODID:-//" . $blogName . "//NONSGML v1.0//EN\n";
 			$content .= "VERSION:2.0\n";
+			$content .= "PRODID:-//" . $blogName . "//NONSGML v1.0//EN\n";
 			$content .= "CALSCALE:GREGORIAN\n";
 			$content .= "METHOD:PUBLISH\n";
 			$content .= "X-WR-CALNAME:" . $blogName . "\n";
@@ -2490,4 +2488,5 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 	} // end Events_Calendar_Pro class
 	global $sp_ecp;
 	$sp_ecp = new Events_Calendar_Pro();
+	add_filter('generate_rewrite_rules', array(&$sp_ecp,'filterRewriteRules'));
 } // end if !class_exists Events_Calendar_Pro
