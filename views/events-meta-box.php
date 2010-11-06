@@ -17,7 +17,7 @@ try {
 ?>
 
 </div>
-<div id='eventDetails' class="inside eventForm">
+<div id='eventDetails' class="inside eventForm bubble">
 	<?php
 	try {
 		do_action('sp_events_detail_top', $postId );
