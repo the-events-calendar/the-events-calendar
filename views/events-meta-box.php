@@ -131,7 +131,8 @@ try {
 	</table>
 
 	<table id="event_cost" class="eventtable">
-        <tr>
+		<?php if(!class_exists('Event_Tickets_PRO')){ ?>
+		<tr>
 			<td colspan="2" class="snp_sectionheader"><h4><?php _e('Event Cost', $this->pluginDomain); ?></h4></td>
 		</tr>
 		<tr>
@@ -142,17 +143,28 @@ try {
 			<td></td>
 			<td><small><?php _e('Leave blank to hide the field. Enter a 0 for events that are free.', $this->pluginDomain); ?></small></td>
 		</tr>
+		
+		<?php } ?>
 		<tr class="eventBritePluginPlug">
 			<td colspan="2" class="snp_sectionheader">
 				<h4><?php _e('Sell Tickets &amp; Track Registration', $this->pluginDomain); ?></h4>	
 			</td>
 		</tr>
-		<tr class="eventBritePluginPlug">
-			<td colspan="2">
-				<p><?php printf( __('Interested in selling tickets and tracking registrations? We have an add-on in the works that will integrate your events and sell tickets on <a href="%s">EventBrite</a>. <a href="%s">Stay Tuned!</a>', $this->pluginDomain ), 'http://www.eventbrite.com/r/simpleevents', $this->envatoUrl ); ?></a></p>
-			</td>
-		</tr>
-		
+		<?php if(!class_exists('Event_Tickets_PRO')){ ?>
+			<tr class="eventBritePluginPlug">
+				<td colspan="2">
+					<p><?php printf( __('Interested in selling tickets and tracking registrations? We have an add-on in the works that will integrate your events and sell tickets on <a href="%s">EventBrite</a>. <a href="%s">Stay Tuned!</a>', $this->pluginDomain ), 'http://www.eventbrite.com/r/simpleevents', $this->envatoUrl ); ?></a></p>
+				</td>
+			</tr>
+		<?php } ?>
+		<?php try {
+		do_action( 'sp_events_cost_table', $postId );
+		if( !$this->postExceptionThrown ) delete_post_meta( $postId, self::EVENTSERROROPT );
+			} catch ( TEC_Post_Exception $e) {
+				$this->postExceptionThrown = true;
+				update_post_meta( $postId, self::EVENTSERROROPT, trim( $e->getMessage() ) );
+				$e->displayMessage( $postId );
+			}?>
 		
 	</table>
 	</div>

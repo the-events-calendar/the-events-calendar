@@ -150,22 +150,20 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string - an iframe pulling http://maps.google.com/ for this event
 	 */
 	function sp_get_embedded_map( $postId = null, $width = '', $height = '' ) {
+		global $sp_ecp;
+
 		$postId = sp_post_id_helper( $postId );
 		if ( !sp_is_event( $postId ) ) {
 			return false;
 		}
-		$languageCode = substr( get_bloginfo( 'language' ), 0, 2 );
-		$locationMetaSuffixes = array( 'Address', 'City', 'State', 'Province', 'Zip', 'Country' );
-		$toUrlEncode = "";
-		foreach( $locationMetaSuffixes as $val ) {
-			$metaVal = get_post_meta( $postId, '_Event' . $val, true );
-			if( $metaVal ) $toUrlEncode .= $metaVal . " ";
-		}
+
+		$url_string = $sp_ecp->get_google_maps_args();
+
 		if (!$height) $height = sp_get_option('embedGoogleMapsHeight','350');
 		if (!$width) $width = sp_get_option('embedGoogleMapsWidth','100%');
-		if( $toUrlEncode ) $googleaddress = urlencode( trim( $toUrlEncode ) );
-		if ($googleaddress) {
-			$google_iframe = '<div id="googlemaps"><iframe width="'.$width.'" height="'.$height.'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://www.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q='.$googleaddress.'?>&amp;output=embed"></iframe><div class="view-larger-map"><a href="http://www.google.com/maps?f=q&amp;source=embed&amp;hl=' . $languageCode . '&amp;geocode=&amp;q='.$googleaddress.'">View Larger Map</a></div></div>';
+
+		if ($url_string) {
+			$google_iframe = '<div id="googlemaps"><iframe width="'.$width.'" height="'.$height.'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://www.google.com/maps?'.$url_string.'&amp;output=embed"></iframe><div class="view-larger-map"><a href="http://www.google.com/maps?'.$url_string.'">View Larger Map</a></div></div>';
 			return $google_iframe;
 		}
 		else return '';
@@ -375,24 +373,9 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return void
 	 */
 	function sp_previous_event_link( $anchor = "Previous Event" ) {
-		global $sp_ecp, $post,$wpdb;
-		$date = get_post_meta($post->ID,'_EventStartDate',true);
-		$eventsQuery = "
-			SELECT $wpdb->posts.ID, post_title, d1.meta_value as EventStartDate
-				$extraSelectClause
-				FROM $wpdb->posts 
-			LEFT JOIN $wpdb->postmeta as d1 ON($wpdb->posts.ID = d1.post_id)
-			WHERE $wpdb->posts.post_type = 'sp_events'
-			AND d1.meta_key = '_EventStartDate'
-			AND ((d1.meta_value = '" .$date . "' AND ID < ".$post->ID.") OR
-				d1.meta_value < '" .$date . "')
-			AND $wpdb->posts.post_status = 'publish'
-			ORDER BY TIMESTAMP(d1.meta_value) DESC, ID DESC
-			LIMIT 5";
-			$results = $wpdb->get_results($eventsQuery, OBJECT);
+		global $sp_ecp, $post;
 
-		echo '<a href='.get_permalink($results[0]->ID).'>'.$anchor.'</a>';
-		
+		echo $sp_ecp->get_event_link($post->ID,'previous',$anchor);
 	}
 	/**
 	 * Displays a link to the next post by start date for the given event
@@ -401,23 +384,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return void
 	 */
 	function sp_next_event_link( $anchor = "Next Event" ) {
-		global $sp_ecp, $post,$wpdb;
-		$date = get_post_meta($post->ID,'_EventStartDate',true);
-		$eventsQuery = "
-			SELECT $wpdb->posts.ID, post_title, d1.meta_value as EventStartDate
-				$extraSelectClause
-				FROM $wpdb->posts 
-			LEFT JOIN $wpdb->postmeta as d1 ON($wpdb->posts.ID = d1.post_id)
-			WHERE $wpdb->posts.post_type = 'sp_events'
-			AND d1.meta_key = '_EventStartDate'
-			AND ((d1.meta_value = '" .$date . "' AND ID > ".$post->ID.") OR
-				d1.meta_value > '" .$date . "')
-			AND $wpdb->posts.post_status = 'publish'
-			ORDER BY TIMESTAMP(d1.meta_value) ASC, ID ASC
-			LIMIT 5";
-			$results = $wpdb->get_results($eventsQuery, OBJECT);
-
-		echo '<a href='.get_permalink($results[0]->ID).'>'.$anchor.'</a>';
+		global $sp_ecp, $post;
+		echo $sp_ecp->get_event_link($post->ID, 'next',$anchor);
 	}
 	/**
 	 * Helper function to determine postId. Pulls from global $post object if null or non-numeric.

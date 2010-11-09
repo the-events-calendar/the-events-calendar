@@ -1553,16 +1553,38 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 * @param string $postId 
 		 * @return string a fully qualified link to http://maps.google.com/ for this event
 		 */
+		public function get_google_maps_args() {
+
+			$locationMetaSuffixes = array( 'address', 'city', 'state', 'province', 'zip', 'country' );
+			$toUrlEncode = "";
+			$languageCode = substr( get_bloginfo( 'language' ), 0, 2 );
+			foreach( $locationMetaSuffixes as $val ) {
+				$metaVal = call_user_func('sp_get_'.$val);
+				if ( $metaVal ) 
+					$toUrlEncode .= $metaVal . " ";
+			}
+			if ( $toUrlEncode ) 
+				return 'f=q&amp;source=embed&amp;hl=' . $languageCode . '&amp;geocode=&amp;q='. urlencode( trim( $toUrlEncode ) );
+			return "";
+			
+		}
+		
+		/**
+		 * Returns a link to google maps for the given event
+		 *
+		 * @param string $postId 
+		 * @return string a fully qualified link to http://maps.google.com/ for this event
+		 */
 		public function googleMapLink( $postId = null ) {
 			if ( $postId === null || !is_numeric( $postId ) ) {
 				global $post;
 				$postId = $post->ID;
 			}
 			
-			$locationMetaSuffixes = array( 'Address', 'City', 'State', 'Province', 'Zip', 'Country' );
+			$locationMetaSuffixes = array( 'address', 'city', 'state', 'province', 'zip', 'country' );
 			$toUrlEncode = "";
 			foreach( $locationMetaSuffixes as $val ) {
-				$metaVal = get_post_meta( $postId, '_Event' . $val, true );
+				$metaVal = call_user_func('sp_get_'.$val);
 				if ( $metaVal ) 
 					$toUrlEncode .= $metaVal . " ";
 			}
@@ -2417,6 +2439,38 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				return true;
 			}
 			return false;
+		}
+
+		/**
+		** Get a "previous/next post" link for events. Ordered by start date instead of ID.
+		**/
+
+		public function get_event_link($id, $mode = 'next',$anchor = 'Next Event'){
+			global $wpdb;
+
+			if($mode == 'previous'){
+				$order = 'DESC';
+				$sign = '<';
+			}else{
+				$order = 'ASC';
+				$sign = '>';
+			}
+
+			$date = get_post_meta($id,'_EventStartDate',true);
+			$eventsQuery = "
+				SELECT $wpdb->posts.ID, post_title, d1.meta_value as EventStartDate
+				FROM $wpdb->posts 
+				LEFT JOIN $wpdb->postmeta as d1 ON($wpdb->posts.ID = d1.post_id)
+				WHERE $wpdb->posts.post_type = '".self::POSTTYPE."'
+				AND d1.meta_key = '_EventStartDate'
+				AND ((d1.meta_value = '" .$date . "' AND ID $sign ".$id.") OR
+					d1.meta_value $sign '" .$date . "')
+				AND $wpdb->posts.post_status = 'publish'
+				ORDER BY TIMESTAMP(d1.meta_value) $order, ID $order
+				LIMIT 1";
+				$results = $wpdb->get_row($eventsQuery, OBJECT);
+
+			echo '<a href='.get_permalink($results->ID).'>'.$anchor.'</a>';
 		}
 		
 		/**

@@ -69,34 +69,34 @@ jQuery(document).ready(function($) {
 		$("select[name='EventEndYear']").change(function() {
 			$("select[name='EventEndMonth']").change();
 		});
-		// hide / show google map toggles
-		var tecAddressExists = false;
-		var tecAddressInputs = ["EventAddress","EventCity","EventZip"];
-		function tecShowHideGoogleMapToggles() {
-			var selectValExists = false;
-			var inputValExists = false;
-				if($('input[name="EventCountryLabel"]').val()) selectValExists = true;
-				$.each( tecAddressInputs, function(key, val) {
-					if( $('input[name="' + val + '"]').val() ) {
-						inputValExists = true;
-						return false;
-					}
-				});
-			if( selectValExists || inputValExists ) $('tr#google_map_link_toggle,tr#google_map_toggle').removeClass('tec_hide');
-			else $('tr#google_map_link_toggle,tr#google_map_toggle').addClass('tec_hide');
-		}
-		$.each( tecAddressInputs, function(key, val) {
-			$('input[name="' + val + '"]').bind('keyup', function(event) {
-				var textLength = event.currentTarget.textLength;
-				if(textLength == 0) tecShowHideGoogleMapToggles();
-				else if(textLength == 1) tecShowHideGoogleMapToggles();
-			});
-		});
-		$('select[name="EventCountry"]').bind('change', function(event) {
-			if(event.currentTarget.selectedIndex) tecShowHideGoogleMapToggles();
-			else tecShowHideGoogleMapToggles();
-		});
-		tecShowHideGoogleMapToggles();
+// 		// hide / show google map toggles
+// 		var tecAddressExists = false;
+// 		var tecAddressInputs = ["EventAddress","EventCity","EventZip"];
+// 		function tecShowHideGoogleMapToggles() {
+// 			var selectValExists = false;
+// 			var inputValExists = false;
+// 				if($('input[name="EventCountryLabel"]').val()) selectValExists = true;
+// 				$.each( tecAddressInputs, function(key, val) {
+// 					if( $('input[name="' + val + '"]').val() ) {
+// 						inputValExists = true;
+// 						return false;
+// 					}
+// 				});
+// 			if( selectValExists || inputValExists ) $('tr#google_map_link_toggle,tr#google_map_toggle').removeClass('tec_hide');
+// 			else $('tr#google_map_link_toggle,tr#google_map_toggle').addClass('tec_hide');
+// 		}
+// 		$.each( tecAddressInputs, function(key, val) {
+// 			$('input[name="' + val + '"]').bind('keyup', function(event) {
+// 				var textLength = event.currentTarget.textLength;
+// 				if(textLength == 0) tecShowHideGoogleMapToggles();
+// 				else if(textLength == 1) tecShowHideGoogleMapToggles();
+// 			});
+// 		});
+// 		$('select[name="EventCountry"]').bind('change', function(event) {
+// 			if(event.currentTarget.selectedIndex) tecShowHideGoogleMapToggles();
+// 			else tecShowHideGoogleMapToggles();
+// 		});
+// 		tecShowHideGoogleMapToggles();
 		// Form validation
 		$("form[name='post']").submit(function() {
 			if( $("#isEventNo").attr('checked') == true ) {

@@ -377,6 +377,20 @@ h4.tec-event-day + .post .entry-title {margin-top:6px;}
 	margin:6px 0;
 }
 
+.navlink{
+	width:30%;
+}
+
+.previous{
+	float:left;
+	clear:both;
+}
+
+.next{
+	float:right;
+	text-align:right;
+}
+
 /*===== Sidebar Calendar Widget =====*/
 .widget #calendar_wrap {
 	width:100%;

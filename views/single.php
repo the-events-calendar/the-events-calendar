@@ -60,6 +60,9 @@
 				<a class="ical single" href="<?php echo sp_get_single_ical_link(); ?>"><?php _e('iCal Import', $sp_ecp->pluginDomain); ?></a>
 				<a href="<?php echo sp_get_add_to_gcal_link() ?>" class="gcal-add" title="<?php _e('Add to Google Calendar', $sp_ecp->pluginDomain); ?>"><?php _e('+ Google Calendar', $sp_ecp->pluginDomain); ?></a>
 				<?php edit_post_link('Edit', '<span class="edit-link">', '</span>'); ?>
+				<div class="navlink previous"><?php sp_previous_event_link();?></div>
+
+				<div class="navlink next"><?php sp_next_event_link();?></div>
 			</div><!-- post -->
 
 		<?php if(sp_get_option('showComments','no') == 'yes'){ comments_template();} ?>
