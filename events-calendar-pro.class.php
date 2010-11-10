@@ -434,7 +434,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			$this->registerPostType();
 
-			if(!array_key_exists('archives/'.$this->rewriteSlugSingular.'/[^/]+/([^/]+)/?$',get_option('rewrite_rules')))
+			if(is_array(get_option('rewrite_rules')) && !array_key_exists('archives/'.$this->rewriteSlugSingular.'/[^/]+/([^/]+)/?$',get_option('rewrite_rules')))
 				$this->flushRewriteRules();
 
 			$this->states = array(
@@ -1717,8 +1717,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			// give add-on plugins a chance to cancel this meta update
 
 
-			$_POST['EventVenueID'] = $this->save_venue_data();
 			$_POST['EventOrganizerID'] = $this->save_organizer_data();
+			$_POST['EventVenueID'] = $this->save_venue_data();
 
 			try {
 				do_action( 'sp_events_event_save', $postId );
@@ -1792,7 +1792,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				update_post_meta($venue_id, '_Venue'.$key, $var);
 			}
 
-			do_action( 'sp_events_venue_save', $venue_id );
+			//do_action( 'sp_events_venue_save', $venue_id );
 
 			return $venue_id;
 		}
@@ -1859,7 +1859,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				update_post_meta($organizer_id, '_Organizer'.$key, $var);
 			}
 
-			do_action( 'sp_events_organizer_save', $organizer_id );
+			//do_action( 'sp_events_organizer_save', $organizer_id, $data['Organizer']);
 
 			return $organizer_id;
 		}
