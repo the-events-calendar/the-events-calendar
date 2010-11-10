@@ -1214,10 +1214,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 **/
 
 		public function getTemplateHierarchy($template) {
-			// whether or not .php was added
-			$template_slug = rtrim($template, '.php');
-			$template = $template_slug . '.php';
-			
+			if ( substr($template, -4) != '.php' ) {
+				$template .= '.php';
+			}
+
 			if ( $theme_file = locate_template(array('events/'.$template)) ) {
 				$file = $theme_file;
 			}
