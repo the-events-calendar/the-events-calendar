@@ -2027,12 +2027,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		
 		public function verify_unique_name($name, $type,$id = 0){
 			global $wpdb;
-
+			$name = stripslashes($name);
 			if($type == 'venue'){
 				$post_type = self::VENUE_POST_TYPE;
 			}elseif($type == 'organizer'){
 				$post_type = self::ORGANIZER_POST_TYPE;
-
 			}
 
 			$results = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->posts} WHERE post_type = %s && post_title = %s && post_status = 'publish' && ID != %s",$post_type,$name,$id));
