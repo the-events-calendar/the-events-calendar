@@ -171,3 +171,9 @@ td.snp_message {
 	border-color:#E6DB55;
 }
 
+.invalid input{
+	border: 2px solid red !important;
+}
+.valid input{
+	border: 1px solid green;
+}

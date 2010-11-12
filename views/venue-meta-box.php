@@ -57,3 +57,24 @@
 	<td><?php _e('Phone:',$this->pluginDomain); ?></td>
 	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventPhone' name='venue[Phone]' size='14' value='<?php echo $_VenuePhone; ?>' /></td>
 </tr>
+
+<script type="text/javascript">
+
+	jQuery(document).ready(function($) { 
+		jQuery('[name=venue\\[Venue\\]]').blur(function(){
+
+		jQuery.ajax(
+			{
+				type: 'POST', 
+				url: '<?php echo $this->pluginUrl?>events-validator.class.php', data: 'type=venue&validation_nonce=<?php echo wp_create_nonce('venue-validation-nonce');?>&validate_name='+jQuery('[name=venue\\[Venue\\]]').get(0).value,
+				success:function(r){
+					if(r == 1){
+						jQuery('[name=venue\\[Venue\\]]').parent().removeClass('invalid').addClass('valid');
+					}else{
+						jQuery('[name=venue\\[Venue\\]]').parent().removeClass('valid').addClass('invalid');
+					}
+					}, 
+				async:false 
+			});
+	})});
+</script>

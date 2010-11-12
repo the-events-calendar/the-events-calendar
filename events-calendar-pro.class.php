@@ -2025,6 +2025,25 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			<?php
 		}
 		
+		public function verify_unique_name($name, $type,$id = 0){
+			global $wpdb;
+
+			if($type == 'venue'){
+				$post_type = self::VENUE_POST_TYPE;
+			}elseif($type == 'organizer'){
+				$post_type = self::ORGANIZER_POST_TYPE;
+
+			}
+
+			$results = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->posts} WHERE post_type = %s && post_title = %s && post_status = 'publish' && ID != %s",$post_type,$name,$id));
+
+			if($results){
+				return 0;
+			}else{
+				return 1;
+			}
+
+		}
 		/**
 		 * Given a date (YYYY-MM-DD), returns the first of the next month
 		 *
