@@ -387,21 +387,21 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 						"ZM" => __("Zambia", $this->pluginDomain),
 						"ZW" => __("Zimbabwe", $this->pluginDomain)
 						);
-// 					if ( $postId || $useDefault ) {
-// 						$countryValue = get_post_meta( $postId, '_EventCountry', true );
-// 						if( $countryValue ) $defaultCountry = array( array_search( $countryValue, $countries ), $countryValue );
-// 						else $defaultCountry = $this->getOption('defaultCountry');
-// 						if( $defaultCountry && $defaultCountry[0] != "" ) {
-// 							$selectCountry = array_shift( $countries );
-// 							asort($countries);
-// 							$countries = array($defaultCountry[0] => __($defaultCountry[1], $this->pluginDomain)) + $countries;
-// 							$countries = array("" => __($selectCountry, $this->pluginDomain)) + $countries;
-// 							array_unique($countries);
-// 						}
-// 						$this->countries = $countries;
-// 					} else {
+					if ( $postId || $useDefault ) {
+						$countryValue = get_post_meta( $postId, '_EventCountry', true );
+						if( $countryValue ) $defaultCountry = array( array_search( $countryValue, $countries ), $countryValue );
+						else $defaultCountry = $this->getOption('defaultCountry');
+						if( $defaultCountry && $defaultCountry[0] != "" ) {
+							$selectCountry = array_shift( $countries );
+							asort($countries);
+							$countries = array($defaultCountry[0] => __($defaultCountry[1], $this->pluginDomain)) + $countries;
+							$countries = array("" => __($selectCountry, $this->pluginDomain)) + $countries;
+							array_unique($countries);
+						}
 						$this->countries = $countries;
-					//}
+					} else {
+						$this->countries = $countries;
+					}
 		}
 		/**
 		 * Initializes plugin variables and sets up wordpress hooks/actions.
@@ -493,10 +493,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 		
 
-		public function query() {
-		global $wp_query;
-			if ( !is_admin() && (($_GET['post_type'] == self::POSTTYPE || $_GET['sp_events_cat'] != '') || ($wp_query->query_vars['post_type'] == self::POSTTYPE || $wp_query->query_vars['sp_events_cat'] != ''))) 
-				$this->addOrderQueryFilters();
+		public function query($query) {
+			if ( !is_admin() && (($_GET['post_type'] == self::POSTTYPE || $_GET['sp_events_cat'] != '') || ($query->query_vars['post_type'] == self::POSTTYPE || $query->query_vars['sp_events_cat'] != ''))) 
+				$this->addOrderQueryFilters($query);
 		}
 
 
@@ -519,8 +518,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			}
 		}
 		
-		private function addOrderQueryFilters(){
-			if(get_query_var('eventDisplay') == 'upcoming' || get_query_var('eventDisplay') == 'past' || get_query_var('sp_events_cat') != ''){
+		private function addOrderQueryFilters($query){
+
+			if($query->get('eventDisplay') == 'upcoming' || $query->get('eventDisplay') == 'past' || $query->get('sp_events_cat') != ''){
 				add_filter('posts_where', array($this, 'events_ordering_where'));
 				add_filter('posts_join', array($this, 'events_ordering_join'));
 				add_filter( 'posts_orderby',	array( $this, 'events_ordering_orderby' ) );

@@ -36,7 +36,7 @@
 			<?php
 			$this->constructCountries( $postId );
 			$defaultCountry = sp_get_option('defaultCountry');
-			$current = ($_VenueCountry) ? $_VenueCountry : $defaultCountry;
+			$current = ($_VenueCountry) ? $_VenueCountry : $defaultCountry[1];
 
 			foreach ($this->countries as $abbr => $fullname) {
 				echo '<option label="' . $abbr . '" value="' . $fullname . '" ';
