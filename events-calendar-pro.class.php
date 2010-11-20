@@ -996,6 +996,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$extraJoin .= " LEFT JOIN {$wpdb->postmeta} as eventStart ON( {$wpdb->posts}.ID = eventStart.post_id ) ";
 			$extraJoin .= " LEFT JOIN {$wpdb->postmeta} as eventEnd ON( {$wpdb->posts}.ID = eventEnd.post_id ) ";
 
+			remove_filter('posts_join', array($this, 'events_ordering_join'));
 			return $extraJoin;
 		}
 
@@ -1004,6 +1005,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			global $wpdb;
 			$orderby = 'DATE(eventStart.meta_value) '.$this->order.', TIME(eventStart.meta_value) '.$this->order;
 
+			remove_filter( 'posts_orderby',	array( $this, 'events_ordering_orderby' ) );
 		return $orderby;
 		}
 
@@ -1020,6 +1022,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					$whereClause .= ' AND  eventEnd.meta_value <= "'.$this->date.'" ';
 				}
 
+				remove_filter('posts_where', array($this, 'events_ordering_where'));
 			return $whereClause;
 		}
 		
