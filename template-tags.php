@@ -274,6 +274,67 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		}
 	}
 	/**
+	 * Returns the event Organizer
+	 *
+	 * @return string Organizer
+	 */
+	function sp_has_organizer( $postId = null) {
+		$postId = sp_post_id_helper( $postId );
+		//echo getEventMeta( $postId, '_EventVenueID', true ).'|';
+		return getEventMeta( $postId, '_EventOrganizerID', true );
+	}
+	/**
+	 * Returns the event Organizer
+	 *
+	 * @return string Organizer
+	 */
+	function sp_get_organizer( $postId = null) {
+		$postId = sp_post_id_helper( $postId );
+		return esc_html(getEventMeta( sp_has_organizer(), '_OrganizerOrganizer', true ));
+	}
+	/**
+	 * Returns the event Organizer
+	 *
+	 * @return string Organizer
+	 */
+	function sp_get_organizer_email( $postId = null) {
+		$postId = sp_post_id_helper( $postId );
+		return esc_html(getEventMeta( sp_has_organizer(), '_OrganizerEmail', true ));
+	}
+	/**
+	 * Returns the event Organizer
+	 *
+	 * @return string Organizer
+	 */
+	function sp_get_organizer_website( $postId = null) {
+		$postId = sp_post_id_helper( $postId );
+		return esc_html(getEventMeta( sp_has_organizer(), '_OrganizerWebsite', true ));
+	}
+	/**
+	 * Returns the event Organizer
+	 *
+	 * @return string Organizer
+	 */
+	function sp_get_organizer_link( $postId = null) {
+		$postId = sp_post_id_helper( $postId );
+
+		$link = sp_get_organizer($postId);
+
+		if(sp_get_organizer_website($postId)){
+			$link = '<a href="'.sp_get_organizer_website($postId).'">'.$link.'</a>';
+		}
+		return $link;
+	}
+	/**
+	 * Returns the event Organizer
+	 *
+	 * @return string Organizer
+	 */
+	function sp_get_organizer_phone( $postId = null) {
+		$postId = sp_post_id_helper( $postId );
+		return esc_html(getEventMeta( sp_has_organizer(), '_OrganizerPhone', true ));
+	}
+	/**
 	 * Returns the event venue
 	 *
 	 * @return string venue

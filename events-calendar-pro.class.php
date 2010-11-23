@@ -1005,7 +1005,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			global $wpdb;
 			$orderby = 'DATE(eventStart.meta_value) '.$this->order.', TIME(eventStart.meta_value) '.$this->order;
 
-			remove_filter( 'posts_orderby',	array( $this, 'events_ordering_orderby' ) );
+			remove_filter( 'posts_orderby', array( $this, 'events_ordering_orderby' ) );
 		return $orderby;
 		}
 

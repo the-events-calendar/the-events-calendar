@@ -23,6 +23,18 @@
 							<dd><?php echo sp_get_cost(); ?></dd>
 						<?php endif; ?>
 						<?php sp_meta_event_cats(); ?>
+						<?php if ( sp_get_organizer_link() ) : ?>
+							<dt><?php _e('Organizer:', $sp_ecp->pluginDomain) ?></dt>
+							<dd><?php echo sp_get_organizer_link(); ?></dd>
+						<?php endif; ?>
+						<?php if ( sp_get_organizer_phone() ) : ?>
+							<dt><?php _e('Phone:', $sp_ecp->pluginDomain) ?></dt>
+							<dd><?php echo sp_get_organizer_phone(); ?></dd>
+						<?php endif; ?>
+						<?php if ( sp_get_organizer_email() ) : ?>
+							<dt><?php _e('Email:', $sp_ecp->pluginDomain) ?></dt>
+							<dd><?php echo sp_get_organizer_email(); ?></dd>
+						<?php endif; ?>
 					</dl>
 					<dl class="column">
 						<?php if(sp_get_venue()) : ?>
