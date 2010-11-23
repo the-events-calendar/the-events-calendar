@@ -296,14 +296,14 @@ try {
 					<label><input type="text" name="eventsDefaultPhone" value="<?php echo sp_get_option('eventsDefaultPhone') ?>" /> <?php _e('The default phone value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), sp_get_option('eventsDefaultPhone') )  ?>
 				</fieldset></td>
 			</tr>
-
+<!--
 			<tr>
 				<th scope="row"><?php _e('Default Cost', $this->pluginDomain); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Cost', $this->pluginDomain ); ?></legend>
 					<label><input type="text" name="eventsDefaultCost" value="<?php echo sp_get_option('eventsDefaultCost') ?>" /> <?php _e('The default cost value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), sp_get_option('eventsDefaultCost') )  ?>
 				</fieldset></td>
-			</tr>
+			</tr>-->
 
 			<tr>
 				<th scope="row"><?php _e('Use a custom list of countries', $this->pluginDomain ); ?></th>
