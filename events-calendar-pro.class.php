@@ -881,7 +881,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					$_POST['eventsSlug'] = 'events';
 				}
 				
-				$opts = array('embedGoogleMaps', 'showComments', 'displayEventsOnHomepage', 'resetEventPostDate', 'useRewriteRules', 'spEventsDebug', 'eventsSlug', 'singleEventSlug','spEventsAfterHTML','spEventsBeforeHTML','spEventsCountries','defaultValueReplace','eventsDefaultVenue','eventsDefaultState','eventsDefaultAddress','eventsDefaultCity','eventsDefaultZip','eventsDefaultPhone','eventsDefaultCost' );
+				$opts = array('embedGoogleMaps', 'showComments', 'displayEventsOnHomepage', 'resetEventPostDate', 'useRewriteRules', 'spEventsDebug', 'eventsSlug', 'singleEventSlug','spEventsAfterHTML','spEventsBeforeHTML','spEventsCountries','defaultValueReplace','eventsDefaultVenue','eventsDefaultState','eventsDefaultAddress','eventsDefaultCity','eventsDefaultZip','eventsDefaultPhone');
 				foreach ($opts as $opt) {
 					$options[$opt] = $_POST[$opt];
 				}
