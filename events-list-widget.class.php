@@ -37,7 +37,7 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 
 				if( function_exists( 'sp_get_events' ) ) {
 					$old_display = $wp_query->get('eventDisplay');
-					$wp_query->set('eventDisplay', 'upcoming');echo $category;
+					$wp_query->set('eventDisplay', 'upcoming');
 					$posts = sp_get_events( 'numResults=' . $limit .'&eventCat=' . $category );
 					$template = $sp_ecp->getTemplateHierarchy('events-list-load-widget-display');
 				}
@@ -98,7 +98,7 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 					return $instance;
 			}
 		
-			function form( $instance ) {print_r($instance);
+			function form( $instance ) {
 				/* Set up default widget settings. */
 				$defaults = array( 'title' => 'Upcoming Events', 'limit' => '5', 'start' => true, 'end' => false, 'venue' => false, 'country' => true, 'address' => false, 'city' => true, 'region' => true, 'zip' => false, 'phone' => false, 'cost' => false,'category' => false);
 				$instance = wp_parse_args( (array) $instance, $defaults );			

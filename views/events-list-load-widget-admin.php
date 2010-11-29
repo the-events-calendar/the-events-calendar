@@ -15,18 +15,7 @@
 	<label for="<?php echo $this->get_field_id( 'no_upcoming_events' ); ?>"><?php _e('Show widget only if there are upcoming events:',$this->pluginDomain);?></label>
 	<input id="<?php echo $this->get_field_id( 'no_upcoming_events' ); ?>" name="<?php echo $this->get_field_name( 'no_upcoming_events' ); ?>" type="checkbox" <?php checked( $instance['no_upcoming_events'], 1 ); ?> value="1" />
 <p> 
-	<label for="<?php echo $this->get_field_id( 'category' ); ?>"><?php _e('Category:',$this->pluginDomain);?>
-		<?php 
 
-			echo wp_dropdown_categories( array(
-				'hide_empty' => 0,
-				'echo' => 0,
-				'name' => $this->get_field_name( 'category' ),
-				'id' => $this->get_field_id( 'category' ),
-				'taxonomy' => 'sp_events_cat',
-				'selected' => $instance['category']
-			));
-		?>
 </p>
 
 <p><?php _e( 'Display:', $this->pluginDomain ); ?><br />
@@ -48,5 +37,18 @@
 		<label for="<?php echo $this->get_field_id( $option ); ?>"><?php echo $label ?></label>
 		<br/>
 <?php } ?>
+	<label for="<?php echo $this->get_field_id( 'category' ); ?>"><?php _e('Category:',$this->pluginDomain);?>
+		<?php 
+
+			echo wp_dropdown_categories( array(
+				'show_option_none' => 'All Events',
+				'hide_empty' => 0,
+				'echo' => 0,
+				'name' => $this->get_field_name( 'category' ),
+				'id' => $this->get_field_id( 'category' ),
+				'taxonomy' => 'sp_events_cat',
+				'selected' => $instance['category']
+			));
+		?>
 </p>
 <p><small><em><?php _e('If you wish to customize the widget display yourself, see the file views/events-list-load-widget-display.php inside the Events Premium plugin.', $this->pluginDomain);?></em></small></p>
