@@ -12,27 +12,37 @@
 	<?php } ?>							
 	</select>
 </p>
-	<label for="<?php echo $this->get_field_id( 'no_upcoming_events' ); ?>"><?php _e('Don\'t show the widget if there are no upcoming events:',$this->pluginDomain);?></label>
+	<label for="<?php echo $this->get_field_id( 'no_upcoming_events' ); ?>"><?php _e('Show widget only if there are upcoming events:',$this->pluginDomain);?></label>
 	<input id="<?php echo $this->get_field_id( 'no_upcoming_events' ); ?>" name="<?php echo $this->get_field_name( 'no_upcoming_events' ); ?>" type="checkbox" <?php checked( $instance['no_upcoming_events'], 1 ); ?> value="1" />
-<p>
+<p> 
+	<label for="<?php echo $this->get_field_id( 'category' ); ?>"><?php _e('Category:',$this->pluginDomain);?>
+		<?php 
 
+			echo wp_dropdown_categories( array(
+				'hide_empty' => 0,
+				'echo' => 0,
+				'name' => $this->get_field_name( 'category' ),
+				'id' => $this->get_field_id( 'category' ),
+				'taxonomy' => 'sp_events_cat',
+				'selected' => $instance['category']
+			));
+		?>
 </p>
 
 <p><?php _e( 'Display:', $this->pluginDomain ); ?><br />
 
 <?php $displayoptions = array (
-	"start" => __('Start Date & Time', $this->pluginDomain) .'<small><br/>'.__('(Widget will always show start date)', $this->pluginDomain).'</small>',
-	"end" => __("End Date & Time", $this->pluginDomain),
-	"venue" => __("Venue", $this->pluginDomain),
-	"address" => __("Address", $this->pluginDomain),
-	"city" => __("City", $this->pluginDomain),
-	"state" => __("State (US)", $this->pluginDomain),
-	"province" => __("Province (Int)", $this->pluginDomain),
-	"zip" => __("Postal Code", $this->pluginDomain),
-	"country" => __("Country", $this->pluginDomain),
-	"phone" => __("Phone", $this->pluginDomain),
-	"cost" => __("Price", $this->pluginDomain),
-);
+					"start" => __('Start Date & Time', $this->pluginDomain) .'<small><br/>'.__('(Widget will always show start date)', $this->pluginDomain).'</small>',
+					"end" => __("End Date & Time", $this->pluginDomain),
+					"venue" => __("Venue", $this->pluginDomain),
+					"address" => __("Address", $this->pluginDomain),
+					"city" => __("City", $this->pluginDomain),
+					"region" => __("State (US) Or Province (Int)", $this->pluginDomain),
+					"zip" => __("Postal Code", $this->pluginDomain),
+					"country" => __("Country", $this->pluginDomain),
+					"phone" => __("Phone", $this->pluginDomain),
+					"cost" => __("Price", $this->pluginDomain),
+				);
 	foreach ($displayoptions as $option => $label) { ?>
 		<input class="checkbox" type="checkbox" <?php checked( $instance[$option], 'on' ); ?> id="<?php echo $this->get_field_id( $option ); ?>" name="<?php echo $this->get_field_name( $option ); ?>" style="margin-left:5px"/>
 		<label for="<?php echo $this->get_field_id( $option ); ?>"><?php echo $label ?></label>

@@ -37,8 +37,8 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 
 				if( function_exists( 'sp_get_events' ) ) {
 					$old_display = $wp_query->get('eventDisplay');
-					$wp_query->set('eventDisplay', 'upcoming');
-					$posts = sp_get_events( 'numResults=' . $limit );
+					$wp_query->set('eventDisplay', 'upcoming');echo $category;
+					$posts = sp_get_events( 'numResults=' . $limit .'&eventCat=' . $category );
 					$template = $sp_ecp->getTemplateHierarchy('events-list-load-widget-display');
 				}
 				
@@ -89,18 +89,18 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 					$instance['country'] = $new_instance['country'];
 					$instance['address'] = $new_instance['address'];
 					$instance['city'] = $new_instance['city'];
-					$instance['state'] = $new_instance['state'];
-					$instance['province'] = $new_instance['province'];
+					$instance['region'] = $new_instance['region'];
 					$instance['zip'] = $new_instance['zip'];
 					$instance['phone'] = $new_instance['phone'];
 					$instance['cost'] = $new_instance['cost'];
+					$instance['category'] = $new_instance['category'];
 
 					return $instance;
 			}
 		
-			function form( $instance ) {
+			function form( $instance ) {print_r($instance);
 				/* Set up default widget settings. */
-				$defaults = array( 'title' => 'Upcoming Events', 'limit' => '5', 'start' => true, 'end' => false, 'venue' => false, 'country' => true, 'address' => false, 'city' => true, 'state' => true, 'province' => true, 'zip' => false, 'phone' => false, 'cost' => false);
+				$defaults = array( 'title' => 'Upcoming Events', 'limit' => '5', 'start' => true, 'end' => false, 'venue' => false, 'country' => true, 'address' => false, 'city' => true, 'region' => true, 'zip' => false, 'phone' => false, 'cost' => false,'category' => false);
 				$instance = wp_parse_args( (array) $instance, $defaults );			
 				include( $sp_ecp->pluginPath . 'views/events-list-load-widget-admin.php' );
 			}

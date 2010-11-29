@@ -56,41 +56,36 @@
 		$space = false;
 		$output = '';
 
-		if ( $venue && $event->Venue != '') {
+		if ( $venue && sp_get_venue() != '') {
 			$output .= ( $space ) ? '<br />' : '';
-			$output .= $event->Venue; 
+			$output .= sp_get_venue(); 
 		}
 
-		if ( $address && $event->Address != '') {
+		if ( $address && sp_get_address() != '') {
 			$output .= ( $space ) ? '<br />' : '';
-			$output .= $event->Address; 
+			$output .= sp_get_address(); 
 		}
 
-		if ( $city && $event->City != '' ) {
+		if ( $city && sp_get_city() != '' ) {
 			$space = true;
-			$output = $event->City . ', ';
+			$output = sp_get_city() . ', ';
 		}
-		if ( $state || $province ) {
-			if ( $event->Country == "United States" &&  $event->State != '') {
-				$space = true;
-				$output .= $event->State;
-			} elseif  ( $event->Province != '' ) {
-				$space = true;
-				$output .= $event->Province;
-			}
+		if ( $region || $state || $province ) {
+			$space = true;
+			$output .= sp_get_stateprovince();
 		} else {
 			$output = rtrim( $output, ', ' );
 		}
 
-		if ( $zip && $event->Zip != '') {
+		if ( $zip && sp_get_zip() != '') {
 			$output .= ( $space ) ? '<br />' : '';
-			$output .= $event->Zip;
+			$output .= sp_get_zip();
 			$space = true;
 		}
 
-		if ( $country && $event->Country != '') {
+		if ( $country && sp_get_country() != '') {
 			$output .= ( $space ) ? '<br />' : '';
-			$output .= $event->Country; 
+			$output .= sp_get_country(); 
 		}
 
 
@@ -113,16 +108,16 @@
 			$output .= sp_get_end_date($post->ID); 
 		}
 
-		if ( $phone && $event->Phone != '') {
+		if ( $phone && sp_get_phone() != '') {
 			if($output) 
 				$output .= '<br/>';
 
-			$output .= $event->Phone; 
+			$output .= sp_get_phone(); 
 		}
-		if ( $cost && $event->Cost != '') {		
+		if ( $cost && sp_get_cost() != '') {		
 			if($output) 
 				$output .= '<br/>';
-			$output .= $event->Cost; 
+			$output .= sp_get_cost(); 
 		}
 
 		echo $output;

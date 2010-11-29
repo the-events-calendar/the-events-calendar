@@ -2441,9 +2441,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			// we have an event cat. what is it?
 			if ( $eventCat ) {
-				if ( is_int($eventCat) )
+				if ( is_numeric($eventCat) ){
 					$cat = get_term_by('id', $eventCat, self::TAXONOMY );
-				else if ( is_string($eventCat) )
+				}else if ( is_string($eventCat) )
 					$cat = get_term_by('name', $eventCat, self::TAXONOMY );
 			}
 
