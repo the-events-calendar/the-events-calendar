@@ -22,14 +22,16 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 		private $postTypeArgs = array(
 			'public' => true,
-			'rewrite' => array('slug' => 'event'),
+			'rewrite' => array('slug' => 'event', 'with_front' => false),
 			'menu_position' => 6,
 			'supports' => array('title','editor','excerpt','author','thumbnail')
 		);
 		private $postVenueTypeArgs = array(
 			'public' => true,
 			'rewrite' => false,
-			'menu_position' => 6,
+			'show_ui' => true,
+			'show_in_menu' => 0,
+// 			'menu_position' => 6,
 			'supports' => array('thumbnail')
 		);
 		private $postOrganizerTypeArgs = array(
@@ -511,6 +513,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_action( 'sp_events_event_save', array($this, 'save_organizer_data' ), 10, 2 );
 			if ( is_admin() && ! $this->getOption('spEventsDebug', false) ) {
 				$this->addQueryFilters();
+				add_action('admin_footer', array($this, 'removeMenuItems'));
 			}
 			else if ( $this->getOption('spEventsDebug', false) ) {
 				$this->addDebugColumns();
@@ -812,7 +815,26 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			);
 			return $bits;
 		}
-		
+
+		public function removeMenuItems(){
+			?>		
+			<script type='text/javascript'>
+			/* <![CDATA[ */
+
+			jQuery(document).ready(function($) {
+				jQuery('#menu-posts-spvenue').remove();
+				jQuery('#menu-posts-sporganizer').remove()
+			}
+			/* ]]> */
+			</script>
+			<style type='text/css'>
+
+				#menu-posts-spvenue, #menu-posts-sporganizer{ display:none;}
+			
+			</style>
+			<?php
+		}
+
 		public function printLocalizedAdmin() {
 			$object_name = 'TEC';
 			$vars = $this->localizeAdmin();
@@ -842,7 +864,12 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 		
 		public function addOptionsPage() {
-    		add_options_page($this->pluginName, $this->pluginName, 'administrator', $this->pluginDomain, array($this,'optionsPageView'));
+			add_options_page($this->pluginName, $this->pluginName, 'administrator', $this->pluginDomain, array($this,'optionsPageView'));
+
+			add_submenu_page( '/edit.php?post_type=sp_events', __('Add a new Venue',$this->pluginDomain), __('Add a new Venue',$this->pluginDomain), 'edit_posts', 'post-new.php?post_type=sp_venue');
+			add_submenu_page( '/edit.php?post_type=sp_events', __('Edit Venues',$this->pluginDomain), __('Edit Venues',$this->pluginDomain), 'edit_posts', 'edit.php?post_type=sp_venue');
+			add_submenu_page( '/edit.php?post_type=sp_events', __('Add a new Organizer',$this->pluginDomain), __('Add a new Organizer',$this->pluginDomain), 'edit_posts', 'post-new.php?post_type=sp_organizer');
+			add_submenu_page( '/edit.php?post_type=sp_events', __('Edit Organizers',$this->pluginDomain), __('Edit Organizers',$this->pluginDomain), 'edit_posts', 'edit.php?post_type=sp_organizer');
 		}
 		
 		public function optionsPageView() {

@@ -85,11 +85,14 @@
 					$is_cat_message = sprintf(__(' listed under %s; check out past events for this category or the full calendar',$sp_ecp->pluginDomain),$cat->name);
 				}
 			?>
+
 			<?php if(sp_is_upcoming()){ ?>
-				<?php _e('No upcoming events'.$is_cat_message.'.', $sp_ecp->pluginDomain) ?>
-				
+				<?php _e('No upcoming events.', $sp_ecp->pluginDomain);
+				echo $is_cat_message ;?>
+
 			<?php }elseif(sp_is_past()){ ?>
-				<?php _e('No previous events'.$is_cat_message.'.', $sp_ecp->pluginDomain) ?>
+				<?php _e('No previous events.', $sp_ecp->pluginDomain);
+				echo $is_cat_message ?>
 			<?php } ?>
 			
 		<?php endif; ?>

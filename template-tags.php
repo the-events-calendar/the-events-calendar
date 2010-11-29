@@ -714,7 +714,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 
 	function sp_meta_event_cats() {
 		global $sp_ecp;
-		the_terms( get_the_ID(), $sp_ecp->get_event_taxonomy(), '<dt>'.__('Category:').'</dt><dd>', ', ', '</dd>' );
+		the_terms( get_the_ID(), $sp_ecp->get_event_taxonomy(), '<dt>'.__('Category:',$sp_ecp->pluginDomain ).'</dt><dd>', ', ', '</dd>' );
 	}
 
 	/** Just a global function alias of the class function by the same name. **/
