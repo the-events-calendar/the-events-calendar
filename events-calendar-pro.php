@@ -33,6 +33,7 @@ if ( ! function_exists('events_calendar_pro_load') ) {
 			require_once($events_dir . '/the-events-calendar-exception.class.php');
 			require_once($events_dir . '/events-calendar-widget.class.php');
 			require_once($events_dir . '/events-list-widget.class.php');
+			require_once($events_dir . '/events-featured-widget.class.php');
 			require_once($events_dir . '/template-tags.php');
 		}
 	}

@@ -824,7 +824,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			jQuery(document).ready(function($) {
 				jQuery('#menu-posts-spvenue').remove();
 				jQuery('#menu-posts-sporganizer').remove()
-			}
+			});
 			/* ]]> */
 			</script>
 			<style type='text/css'>
