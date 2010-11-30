@@ -866,10 +866,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function addOptionsPage() {
 			add_options_page($this->pluginName, $this->pluginName, 'administrator', $this->pluginDomain, array($this,'optionsPageView'));
 
-			add_submenu_page( '/edit.php?post_type=sp_events', __('Add a new Venue',$this->pluginDomain), __('Add a new Venue',$this->pluginDomain), 'edit_posts', 'post-new.php?post_type=sp_venue');
-			add_submenu_page( '/edit.php?post_type=sp_events', __('Edit Venues',$this->pluginDomain), __('Edit Venues',$this->pluginDomain), 'edit_posts', 'edit.php?post_type=sp_venue');
-			add_submenu_page( '/edit.php?post_type=sp_events', __('Add a new Organizer',$this->pluginDomain), __('Add a new Organizer',$this->pluginDomain), 'edit_posts', 'post-new.php?post_type=sp_organizer');
-			add_submenu_page( '/edit.php?post_type=sp_events', __('Edit Organizers',$this->pluginDomain), __('Edit Organizers',$this->pluginDomain), 'edit_posts', 'edit.php?post_type=sp_organizer');
+			//add_submenu_page( '/edit.php?post_type=sp_events', __('Add a new Venue',$this->pluginDomain), __('Add a new Venue',$this->pluginDomain), 'edit_posts', 'post-new.php?post_type=sp_venue');
+			add_submenu_page( '/edit.php?post_type=sp_events', __('Venues',$this->pluginDomain), __('Venues',$this->pluginDomain), 'edit_posts', 'edit.php?post_type=sp_venue');
+			/*add_submenu_page( '/edit.php?post_type=sp_events', __('Add a new Organizer',$this->pluginDomain), __('Add a new Organizer',$this->pluginDomain), 'edit_posts', 'post-new.php?post_type=sp_organizer');*/
+			add_submenu_page( '/edit.php?post_type=sp_events', __('Organizers',$this->pluginDomain), __('Organizers',$this->pluginDomain), 'edit_posts', 'edit.php?post_type=sp_organizer');
 		}
 		
 		public function optionsPageView() {
