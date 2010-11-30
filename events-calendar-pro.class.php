@@ -436,7 +436,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			$this->registerPostType();
 
-			if(is_array(get_option('rewrite_rules')) && !array_key_exists('archives/'.$this->rewriteSlugSingular.'/[^/]+/([^/]+)/?$',get_option('rewrite_rules')))
+	//If the custom post type's rewrite rules have not been generated yet, flush them. (This can happen on reactivations.)
+			if(is_array(get_option('rewrite_rules')) && !array_key_exists($this->rewriteSlugSingular.'/[^/]+/([^/]+)/?$',get_option('rewrite_rules')))
 				$this->flushRewriteRules();
 
 			$this->states = array(
