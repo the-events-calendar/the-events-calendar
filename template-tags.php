@@ -84,7 +84,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_map_link( $postId = null ) {
 		global $sp_ecp;
-		return $sp_ecp->googleMapLink( $postId );
+		return esc_html($sp_ecp->googleMapLink( $postId ));
 	}
 	/**
 	 * Displays a link to google maps for the given event
@@ -93,7 +93,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return void
 	 */
 	function sp_the_map_link( $postId = null ) {
-		echo sp_get_map_link( $postId );
+		echo esc_html(sp_get_map_link( $postId ));
 	}
 	/**
 	 * @return string formatted event address
@@ -547,7 +547,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_past_link() {
 		global $sp_ecp;
-		return $sp_ecp->getLink('past');
+		return esc_html($sp_ecp->getLink('past'));
 	}
 	/**
 	 * Returns a link to the upcoming events in list view
@@ -556,7 +556,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_upcoming_link() {
 		global $sp_ecp;
-		return $sp_ecp->getLink('upcoming');
+		return esc_html($sp_ecp->getLink('upcoming'));
 	}
 	/**
 	 * Returns a link to the next month's events page
@@ -565,7 +565,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_next_month_link() {
 		global $sp_ecp;
-		return $sp_ecp->getLink( 'month', $sp_ecp->nextMonth( $sp_ecp->date ) );
+		return esc_html($sp_ecp->getLink( 'month', $sp_ecp->nextMonth( $sp_ecp->date ) ));
 	}
 	/**
 	 * Returns a link to the previous month's events page
@@ -574,7 +574,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_previous_month_link() {
 		global $sp_ecp;
-		return $sp_ecp->getLink( 'month', $sp_ecp->previousMonth( $sp_ecp->date ) );
+		return esc_html($sp_ecp->getLink( 'month', $sp_ecp->previousMonth( $sp_ecp->date ) ));
 	}
 	
 	/**
@@ -584,7 +584,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_single_ical_link() {
 		global $sp_ecp;
-		return $sp_ecp->getLink( 'ical', 'single' );
+		return esc_html($sp_ecp->getLink( 'ical', 'single' ));
 	}
 
 	/**
@@ -594,31 +594,31 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_events_link() {
 		global $sp_ecp;
-		return $sp_ecp->getLink('home');
+		return esc_html($sp_ecp->getLink('home'));
 	}
 	
 	function sp_get_gridview_link() {
 		global $sp_ecp;
-		return $sp_ecp->getLink('month');
+		return esc_html($sp_ecp->getLink('month'));
 	}
 		
 	function sp_get_listview_link() {
 		global $sp_ecp;
-		return $sp_ecp->getLink('upcoming');
+		return esc_html($sp_ecp->getLink('upcoming'));
 	}
 	
 	function sp_get_listview_past_link() {
 		global $sp_ecp;
-		return $sp_ecp->getLink('past');
+		return esc_html($sp_ecp->getLink('past'));
 	}
 	
 	function sp_get_dropdown_link_prefix() {
 		global $sp_ecp;
-		return $sp_ecp->getLink('dropdown');
+		return esc_html($sp_ecp->getLink('dropdown'));
 	}
 	function sp_get_ical_link() {
 		global $sp_ecp;
-		return $sp_ecp->getLink('ical');
+		return esc_html($sp_ecp->getLink('ical'));
 	}
 
 	/**
@@ -668,7 +668,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	function sp_get_this_month_link() {
 		global $sp_ecp;
 		if ( $sp_ecp->displaying == 'month' ) {
-			return $sp_ecp->getLink( 'month', $sp_ecp->date );
+			return esc_html($sp_ecp->getLink( 'month', $sp_ecp->date ));
 		}
 		return false;
 	}
@@ -759,7 +759,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 			'sprop' => 'website:' . home_url()
 		);
 		$url = add_query_arg( $params, $base_url );
-		return $url;
+		return esc_html($url);
 	}
 	
 	include_once 'deprecated-template-tags.php';
