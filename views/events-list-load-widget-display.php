@@ -13,13 +13,6 @@
 // 			'$event->AllDay',
 // 			'$event->StartDate',
 // 			'$event->EndDate',
-// 			'$event->Venue',
-// 			'$event->Country',
-// 			'$event->Address',
-// 			'$event->City',
-// 			'$event->State',
-// 			'$event->Province',
-// 			'$event->Zip',
 // 			'$event->ShowMapLink',
 // 			'$event->ShowMap',
 // 			'$event->Cost',
@@ -59,20 +52,21 @@
 		if ( $venue && sp_get_venue() != '') {
 			$output .= ( $space ) ? '<br />' : '';
 			$output .= sp_get_venue(); 
+			$space = true;
 		}
 
-		if ( $address && sp_get_address() != '') {
+		if ( $address && sp_get_address()) {
 			$output .= ( $space ) ? '<br />' : '';
 			$output .= sp_get_address(); 
 		}
 
 		if ( $city && sp_get_city() != '' ) {
 			$space = true;
-			$output = sp_get_city() . ', ';
+			$output .= sp_get_city() . ', ';
 		}
-		if ( $region || $state || $province ) {
+		if ( $region && sp_get_region()) {
 			$space = true;
-			$output .= sp_get_stateprovince();
+			$output .= sp_get_region();
 		} else {
 			$output = rtrim( $output, ', ' );
 		}
