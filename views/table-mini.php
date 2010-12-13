@@ -17,7 +17,7 @@ $monthView = sp_sort_by_month( $eventPosts, $sp_ecp->date );
 
 
 ?>
-<h4 class="cal-header"><?php echo $sp_ecp->monthsShort[date('M')]; echo date(' Y'); ?> <a class="sp-view-all-events" href="<?php echo sp_get_events_link(); ?>"><?php _e('View all &raquo;', $sp_ecp->pluginDomain); ?></a></h4>
+<h4 class="cal-header"><?php echo $sp_ecp->monthsShort[date('M',$date)]; echo date(' Y',$date); ?> <a class="sp-view-all-events" href="<?php echo sp_get_events_link(); ?>"><?php _e('View all &raquo;', $sp_ecp->pluginDomain); ?></a></h4>
 <table class="tec-calendar tec-calendar-widget" id="small">
 	<thead>
 			<tr>
