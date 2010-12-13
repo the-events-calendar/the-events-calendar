@@ -510,8 +510,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'admin_body_class', array($this, 'admin_body_class') );
 			add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
 			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
-			add_action( 'sp_events_event_save', array($this, 'save_venue_data' ), 10, 2 );
-			add_action( 'sp_events_event_save', array($this, 'save_organizer_data' ), 10, 2 );
+			add_action( 'sp_events_event_save', array($this, 'save_venue_data' ), 1, 2 );
+			add_action( 'sp_events_event_save', array($this, 'save_organizer_data' ), 1, 2 );
 			if ( is_admin() && ! $this->getOption('spEventsDebug', false) ) {
 				$this->addQueryFilters();
 				add_action('admin_footer', array($this, 'removeMenuItems'));
