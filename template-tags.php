@@ -24,9 +24,14 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return void
 	 */
 	function sp_calendar_mini_grid() {
-		global $sp_ecp;
+		global $sp_ecp, $wp_query;
+		$old_query = $wp_query;
+
+		$wp_query = NEW WP_Query('post_type=sp_events');
 		set_query_var( 'eventDisplay', 'bydate' );
 		load_template( $sp_ecp->getTemplateHierarchy('table-mini') );
+	
+		$wp_query = $old_query;
 	}
 	
 	/**
@@ -320,9 +325,10 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 
 		$link = sp_get_organizer($postId);
 
-		if(sp_get_organizer_website($postId)){
+		if(sp_get_organizer_website($postId) != ''){
 			$link = '<a href="'.sp_get_organizer_website($postId).'">'.$link.'</a>';
 		}
+
 		return $link;
 	}
 	/**

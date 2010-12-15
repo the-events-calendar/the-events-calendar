@@ -234,10 +234,19 @@ try {
 	        </td>
 		</tr>
 			<tr>
-				<th scope="row"><?php _e('Default Venue', $this->pluginDomain); ?></th>
-				<td><fieldset>
+				<th scope="row"><?php _e('Default Organizer for Events', $this->pluginDomain); ?></th>
+				<td>
+				<fieldset>
+					<legend class="screen-reader-text"><?php _e('Default Organizer', $this->pluginDomain ); ?></legend>
+					<label><?php $this->saved_organizers_dropdown(sp_get_option('eventsDefaultOrganizerID'),'eventsDefaultOrganizerID');?><?php _e('The default organizer value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), sp_get_option('eventsDefaultOrganizerID') )  ?>
+				</fieldset></td>
+			</tr>
+			<tr>
+				<th scope="row"><?php _e('Default Venue for Events', $this->pluginDomain); ?></th>
+				<td>
+				<fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Venue', $this->pluginDomain ); ?></legend>
-					<label><input type="text" name="eventsDefaultVenue" value="<?php echo sp_get_option('eventsDefaultVenue') ?>" /> <?php _e('The default venue value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), sp_get_option('eventsDefaultVenue') )  ?>
+					<label><?php $this->saved_venues_dropdown(sp_get_option('eventsDefaultVenueID'),'eventsDefaultVenueID');?><?php _e('The default venue value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), sp_get_option('eventsDefaultVenueID') )  ?>
 				</fieldset></td>
 			</tr>
 			<tr>

@@ -909,7 +909,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					$_POST['eventsSlug'] = 'events';
 				}
 				
-				$opts = array('embedGoogleMaps', 'showComments', 'displayEventsOnHomepage', 'resetEventPostDate', 'useRewriteRules', 'spEventsDebug', 'eventsSlug', 'singleEventSlug','spEventsAfterHTML','spEventsBeforeHTML','spEventsCountries','defaultValueReplace','eventsDefaultVenue','eventsDefaultState','eventsDefaultAddress','eventsDefaultCity','eventsDefaultZip','eventsDefaultPhone');
+				$opts = array('embedGoogleMaps', 'showComments', 'displayEventsOnHomepage', 'resetEventPostDate', 'useRewriteRules', 'spEventsDebug', 'eventsSlug', 'singleEventSlug','spEventsAfterHTML','spEventsBeforeHTML','spEventsCountries','defaultValueReplace','eventsDefaultVenueID', 'eventsDefaultOrganizerID', 'eventsDefaultState','eventsDefaultAddress','eventsDefaultCity','eventsDefaultZip','eventsDefaultPhone');
 				foreach ($opts as $opt) {
 					$options[$opt] = $_POST[$opt];
 				}
@@ -1836,10 +1836,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			return false;
 		}
 
-		function saved_venues_dropdown($current = null){
+		function saved_venues_dropdown($current = null, $name="venue[VenueID]"){
 			$venues = $this->get_venue_info();
 			if($venues){
-				echo '<select name="venue[VenueID]" id="saved_venue">';
+				echo '<select name="'.$name.'" id="saved_venue">';
 					echo '<option value="0">Use New Venue</option>';
 				foreach($venues as $venue){
 					$selected = ($current == $venue->ID) ? 'selected="selected"' : '';
@@ -1903,10 +1903,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			return false;
 		}
 
-		function saved_organizers_dropdown($current = null){
+		function saved_organizers_dropdown($current = null, $name="organizer[OrganizerID]"){
 			$organizers = $this->get_organizer_info();
 			if($organizers){
-				echo '<select name="organizer[OrganizerID]" id="saved_organizer">';
+				echo '<select name="'.$name.'" id="saved_organizer">';
 					echo '<option value="0">Use New Organizer</option>';
 				foreach($organizers as $organizer){
 					$selected = ($current == $organizer->ID) ? 'selected="selected"' : '';

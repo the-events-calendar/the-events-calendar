@@ -40,6 +40,10 @@
 
 			foreach ($this->countries as $abbr => $fullname) {
 				echo '<option label="' . $abbr . '" value="' . $fullname . '" ';
+
+				if($abbr == '')
+					echo "disabled='disabled' ";
+
 				if ($current == $fullname) {
 					echo 'selected="selected" ';
 				}
