@@ -1948,6 +1948,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 						$$cleaned_tag = get_post_meta( $postId, $tag, true );
 					} else {
 						$cleaned_tag = str_replace('_Event','',$tag);
+
+						if($cleaned_tag == 'Cost')
+							continue;
+
 						${'_Venue'.$cleaned_tag} = sp_get_option('eventsDefault'.$cleaned_tag);
 					}
 				}
