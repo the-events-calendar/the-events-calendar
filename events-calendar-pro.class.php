@@ -1,4 +1,4 @@
-$EventEndDate<?php
+<?php
 if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 	/**
 	 * Main plugin
