@@ -593,6 +593,13 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			}elseif(get_query_var('eventDisplay') == 'past'){
  				$new_title = __("Past Events", $this->pluginDomain) . ' '. $sep . ' ' . $title;
 
+			}elseif(get_query_var('eventDisplay') == 'month'){
+				if(get_query_var('eventDate')){
+					$new_title = sprintf(__("Events for %s", $this->pluginDomain),date("F, Y",strtotime(get_query_var('eventDate')))) . ' '. $sep . ' ' . $title;
+				}else{
+					$new_title = sprintf(__("Events this month", $this->pluginDomain),get_query_var('eventDate')) . ' '. $sep . ' ' . $title;
+				}
+
 			}else{
 				return $title;
 			}
