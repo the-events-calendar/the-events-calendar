@@ -1,4 +1,4 @@
-<?php
+$EventEndDate<?php
 if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 	/**
 	 * Main plugin
@@ -1985,7 +1985,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$EventStartDate = ( $start ) ? $start : date('Y-m-d');
 			
 			$end = $this->dateOnly($_EventEndDate);
-			$EventEndDate = ( $end ) ? $end : date('Y-m-d', strtotime('tomorrow') );
+			$EventEndDate = ( $end ) ? $end : date('Y-m-d');
 
 			include( $this->pluginPath . 'views/events-meta-box.php' );
 		}
