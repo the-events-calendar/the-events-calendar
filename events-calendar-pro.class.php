@@ -2552,26 +2552,29 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					// endDate bumped ahead one day to counter iCal's off-by-one error
 					$endDateStamp = strtotime($endDate);
 					$endDate = date( 'Ymd', $endDateStamp + 86400 );
+					$type="DATE";
+				}else{
+					$type="DATE-TIME";
 				}
 				$description = preg_replace("/[\n\t\r]/", " ", strip_tags( $eventPost->post_content ) );
 				//$cost = get_post_meta( $eventPost->ID, "_EventCost", true);
 				//if( $cost ) $description .= " Cost: " . $cost;
 				// add fields to iCal output
 				$events .= "BEGIN:VEVENT\n";
-				$events .= "DTSTART;VALUE=DATE:" . $startDate . "\n";
-				$events .= "DTEND;VALUE=DATE:" . $endDate . "\n";
+				$events .= "DTSTART;VALUE=$type:" . $startDate . "\n";
+				$events .= "DTEND;VALUE=$type:" . $endDate . "\n";
 				$events .= "DTSTAMP:" . date("Ymd\THis", time()) . "\n";
 				$events .= "CREATED:" . str_replace( array("-", " ", ":") , array("", "T", "") , $eventPost->post_date ) . "\n";
 				$events .= "LAST-MODIFIED:". str_replace( array("-", " ", ":") , array("", "T", "") , $eventPost->post_modified ) . "\n";
 		        $events .= "UID:" . $eventPost->ID . "@" . $blogHome . "\n";
 		        $events .= "SUMMARY:" . $eventPost->post_title . "\n";				
-		        $events .= "DESCRIPTION:" . $description . "\n";
+		        $events .= "DESCRIPTION:" . str_replace(",",'\,',$description) . "\n";
 				$events .= "LOCATION:" . sp_get_address( $eventPost->ID ) . "\n";
 				$events .= "URL:" . get_permalink( $eventPost->ID ) . "\n";
 		        $events .= "END:VEVENT\n";
 			}
-	        header('Content-type: text/calendar');
-	        header('Content-Disposition: attachment; filename="iCal-Events_Calendar_Pro.ics"');
+	      //  header('Content-type: text/calendar');
+	       // header('Content-Disposition: attachment; filename="iCal-Events_Calendar_Pro.ics"');
 			$content = "BEGIN:VCALENDAR\n";
 			$content .= "VERSION:2.0\n";
 			$content .= "PRODID:-//" . $blogName . "//NONSGML v1.0//EN\n";
