@@ -65,7 +65,7 @@
 			$output .= sp_get_city() . ', ';
 		}
 		if ( $region && sp_get_region()) {
-			$output .= ( !sp_get_city() ) ? '<br />' : '';
+			$output .= ( !$city ) ? '<br />' : '';
 			$space = true;
 			$output .= sp_get_region();
 		} else {
