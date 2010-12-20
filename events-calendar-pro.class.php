@@ -2580,8 +2580,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$events .= "URL:" . get_permalink( $eventPost->ID ) . "\n";
 		        $events .= "END:VEVENT\n";
 			}
-	      //  header('Content-type: text/calendar');
-	       // header('Content-Disposition: attachment; filename="iCal-Events_Calendar_Pro.ics"');
+	        header('Content-type: text/calendar');
+	        header('Content-Disposition: attachment; filename="iCal-Events_Calendar_Pro.ics"');
 			$content = "BEGIN:VCALENDAR\n";
 			$content .= "VERSION:2.0\n";
 			$content .= "PRODID:-//" . $blogName . "//NONSGML v1.0//EN\n";
