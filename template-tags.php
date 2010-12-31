@@ -436,10 +436,10 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	/**
 	 * Displays a link to the previous post by start date for the given event
 	 *
-	 * @param string $postId 
+	 * @param string $anchor link text. Use %title% to place the post title in your string.
 	 * @return void
 	 */
-	function sp_previous_event_link( $anchor = "Previous Event" ) {
+	function sp_previous_event_link( $anchor = false ) {
 		global $sp_ecp, $post;
 
 		echo $sp_ecp->get_event_link($post->ID,'previous',$anchor);
@@ -447,10 +447,10 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	/**
 	 * Displays a link to the next post by start date for the given event
 	 *
-	 * @param string $postId 
+	 * @param string $anchor link text. Use %title% to place the post title in your string.
 	 * @return void
 	 */
-	function sp_next_event_link( $anchor = "Next Event" ) {
+	function sp_next_event_link( $anchor = false ) {
 		global $sp_ecp, $post;
 		echo $sp_ecp->get_event_link($post->ID, 'next',$anchor);
 	}

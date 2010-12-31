@@ -2505,7 +2505,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		** Get a "previous/next post" link for events. Ordered by start date instead of ID.
 		**/
 
-		public function get_event_link($id, $mode = 'next',$anchor = 'Next Event'){
+		public function get_event_link($id, $mode = 'next',$anchor = false){
 			global $wpdb;
 
 			if($mode == 'previous'){
@@ -2528,7 +2528,13 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				AND $wpdb->posts.post_status = 'publish'
 				ORDER BY TIMESTAMP(d1.meta_value) $order, ID $order
 				LIMIT 1";
-				$results = $wpdb->get_row($eventsQuery, OBJECT);
+			$results = $wpdb->get_row($eventsQuery, OBJECT);
+			
+			if ( !$anchor ) {
+				$anchor = $results->post_title;
+			} elseif ( strpos( $anchor, '%title%' ) ) {
+				$anchor = preg_replace( '|%title%|', $results->post_title, $anchor );
+			}
 
 			echo '<a href='.get_permalink($results->ID).'>'.$anchor.'</a>';
 		}
