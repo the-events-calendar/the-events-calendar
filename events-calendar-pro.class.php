@@ -1791,12 +1791,15 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		//** If you are saving a new venue along with the event, we will do this:
 		public function save_venue_data( $postID = null, $post=null ) {
 			global $_POST;
-		
+
 			// don't do anything on autosave or auto-draft either or massupdates
 			// Or inline saves, or data being posted without a venue Or
 			// finally, called from the save_post action, but on save_posts that
 			// are not venue posts
-			if ( wp_is_post_autosave( $postID ) || $post->post_status == 'auto-draft' || isset($_GET['bulk_edit']) || $_REQUEST['action'] == 'inline-save' || !$_POST['venue'] ||  ($post->post_type != self::VENUE_POST_TYPE && $postID)) {
+			if ( wp_is_post_autosave( $postID ) || $post->post_status == 'auto-draft' ||
+                 isset($_GET['bulk_edit']) || $_REQUEST['action'] == 'inline-save' ||
+                 !$_POST['venue'] || $_POST['venue']['VenueID'] == 0 ||
+                 ($post->post_type != self::VENUE_POST_TYPE && $postID)) {
 				return;
 			}
 
@@ -1862,14 +1865,18 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		//** If you are saving a new organizer along with the event, we will do this:
 		public function save_organizer_data( $postID = null, $post=null ) {
 			global $_POST;
-		
+
 			// don't do anything on autosave or auto-draft either or massupdates
 			// Or inline saves, or data being posted without a organizer Or
 			// finally, called from the save_post action, but on save_posts that
 			// are not organizer posts
-			if ( wp_is_post_autosave( $postID ) || $post->post_status == 'auto-draft' || isset($_GET['bulk_edit']) || $_REQUEST['action'] == 'inline-save' || !$_POST['organizer'] ||  ($post->post_type != self::ORGANIZER_POST_TYPE && $postID)) {
+			if ( wp_is_post_autosave( $postID ) || $post->post_status == 'auto-draft' ||
+                 isset($_GET['bulk_edit']) || $_REQUEST['action'] == 'inline-save' ||
+                 !$_POST['organizer'] || $_POST['organizer']['OrganizerID'] == 0 ||
+                 ($post->post_type != self::ORGANIZER_POST_TYPE && $postID)) {
 				return;
 			}
+
 			//There is a possibility to get stuck in an infinite loop. 
 			//That would be bad.
 			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
