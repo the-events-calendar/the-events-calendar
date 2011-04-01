@@ -549,6 +549,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_action( 'init', array( $this, 'init'), 10 );
 
 			add_action( 'parse_query', array( $this, 'query'), 0 );
+         add_action( 'parse_request', array ($this, 'checkTaxonomyQueryVars' ) );
 			//add_action( 'reschedule_event_post', array( $this, 'reschedule') );
 			add_action( 'template_redirect',				array( $this, 'loadStyle' ) );
 			add_action( 'sp-events-save-more-options', array( $this, 'flushRewriteRules' ) );
@@ -568,6 +569,18 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
 			add_action( 'manage_posts_custom_column', array($this, 'custom_columns'), 10, 2);
 		}
+
+      public function checkTaxonomyQueryVars($query) {
+         if( isset( $query->query_vars['sp_events_cat'] ) ) {
+            $hasAdditionalVar = isset( $query->query_vars['eventDisplay'] ) ||
+               isset( $query->query_vars['eventDate'] ) ||
+               isset( $query->query_vars['paged'] ) ||
+               isset( $query->query_vars['feed'] );
+
+            if($hasAdditionalVar)
+               remove_action('template_redirect', 'redirect_canonical');
+         }
+      }
 		
 		public function debugInfo() {
 			echo '<h4>Events Calendar Pro Debug Info:</h4>';
