@@ -1734,8 +1734,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 * @return void
 		 */
 		public function addEventMeta( $postId, $post ) {
-
-
 			// only continue if it's an event post
 			if ( $post->post_type != self::POSTTYPE ) {
 				return;
@@ -1748,56 +1746,59 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 
-			if( $_POST['EventAllDay'] == 'yes' ) {
-				$_POST['EventStartDate'] = $this->dateToTimeStamp( $_POST['EventStartDate'], "12", "00", "AM" );
-				$_POST['EventEndDate'] = $this->dateToTimeStamp( $_POST['EventEndDate'], "11", "59", "PM" );
+			$this->save_event_meta($postId, $_POST);
+		}
+
+		function save_event_meta($event_id, $data) {
+			if( $data['EventAllDay'] == 'yes' ) {
+				$data['EventStartDate'] = $this->dateToTimeStamp( $data['EventStartDate'], "12", "00", "AM" );
+				$data['EventEndDate'] = $this->dateToTimeStamp( $data['EventEndDate'], "11", "59", "PM" );
 			} else {
-				delete_post_meta( $postId, '_EventAllDay' );
-				$_POST['EventStartDate'] = $this->dateToTimeStamp( $_POST['EventStartDate'], $_POST['EventStartHour'], $_POST['EventStartMinute'], $_POST['EventStartMeridian'] );
-				$_POST['EventEndDate'] = $this->dateToTimeStamp( $_POST['EventEndDate'], $_POST['EventEndHour'], $_POST['EventEndMinute'], $_POST['EventEndMeridian'] );
+				delete_post_meta( $event_id, '_EventAllDay' );
+				$data['EventStartDate'] = $this->dateToTimeStamp( $data['EventStartDate'], $data['EventStartHour'], $data['EventStartMinute'], $data['EventStartMeridian'] );
+				$data['EventEndDate'] = $this->dateToTimeStamp( $data['EventEndDate'], $data['EventEndHour'], $data['EventEndMinute'], $data['EventEndMeridian'] );
 			}
-			
+
 			// sanity check that start date < end date
-			$startTimestamp = strtotime( $_POST['EventStartDate'] );
-			$endTimestamp 	= strtotime( $_POST['EventEndDate'] );
+			$startTimestamp = strtotime( $data['EventStartDate'] );
+			$endTimestamp 	= strtotime( $data['EventEndDate'] );
+
 			if ( $startTimestamp > $endTimestamp ) {
-				$_POST['EventEndDate'] = $_POST['EventStartDate'];
+				$data['EventEndDate'] = $data['EventStartDate'];
 			}
-			if( !isset( $_POST['EventShowMapLink'] ) ) update_post_meta( $postId, '_EventShowMapLink', 'false' );
-			if( !isset( $_POST['EventShowMap'] ) ) update_post_meta( $postId, '_EventShowMap', 'false' );
+			if( !isset( $data['EventShowMapLink'] ) ) update_post_meta( $event_id, '_EventShowMapLink', 'false' );
+			if( !isset( $data['EventShowMap'] ) ) update_post_meta( $event_id, '_EventShowMap', 'false' );
 			// give add-on plugins a chance to cancel this meta update
 
 
-			$_POST['EventOrganizerID'] = $this->save_organizer_data();
-			$_POST['EventVenueID'] = $this->save_venue_data();
+			$data['EventOrganizerID'] = $this->add_new_organizer($data["Organizer"]);
+			$data['EventVenueID'] = $this->add_new_venue($data["Venue"]);
 
 			try {
-				do_action( 'sp_events_event_save', $postId );
-				if( !$this->postExceptionThrown ) delete_post_meta( $postId, self::EVENTSERROROPT );
+				do_action( 'sp_events_event_save', $event_id );
+				if( !$this->postExceptionThrown ) delete_post_meta( $event_id, self::EVENTSERROROPT );
 			} catch ( TEC_Post_Exception $e ) {
 				$this->postExceptionThrown = true;
-				update_post_meta( $postId, self::EVENTSERROROPT, trim( $e->getMessage() ) );
+				update_post_meta( $event_id, self::EVENTSERROROPT, trim( $e->getMessage() ) );
 			}
 
-			//update meta fields		
+			//update meta fields
 			foreach ( $this->metaTags as $tag ) {
 				$htmlElement = ltrim( $tag, '_' );
-				if ( isset( $_POST[$htmlElement] ) && $tag != self::EVENTSERROROPT ) {
-					if ( is_string($_POST[$htmlElement]) )
-						$_POST[$htmlElement] = filter_var($_POST[$htmlElement], FILTER_SANITIZE_STRING);
-					
-					update_post_meta( $postId, $tag, $_POST[$htmlElement] );
+				if ( isset( $data[$htmlElement] ) && $tag != self::EVENTSERROROPT ) {
+					if ( is_string($data[$htmlElement]) )
+						$data[$htmlElement] = filter_var($data[$htmlElement], FILTER_SANITIZE_STRING);
+
+					update_post_meta( $event_id, $tag, $data[$htmlElement] );
 				}
 			}
 			try {
-				do_action( 'sp_events_update_meta', $postId );
-				if( !$this->postExceptionThrown ) delete_post_meta( $postId, self::EVENTSERROROPT );
+				do_action( 'sp_events_update_meta', $event_id );
+				if( !$this->postExceptionThrown ) delete_post_meta( $event_id, self::EVENTSERROROPT );
 			} catch( TEC_Post_Exception $e ) {
 				$this->postExceptionThrown = true;
-				update_post_meta( $postId, self::EVENTSERROROPT, trim( $e->getMessage() ) );
+				update_post_meta( $event_id, self::EVENTSERROROPT, trim( $e->getMessage() ) );
 			}
-		//	update_post_meta( $postId, '_EventCost', sp_get_cost( $postId ) ); // XXX eventbrite cost field
-
 		}
 		
 		
@@ -1811,7 +1812,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			// are not venue posts
 			if ( wp_is_post_autosave( $postID ) || $post->post_status == 'auto-draft' ||
                  isset($_GET['bulk_edit']) || $_REQUEST['action'] == 'inline-save' ||
-                 !$_POST['venue'] || $_POST['venue']['VenueID'] == 0 ||
+                 !$_POST['venue'] ||
                  ($post->post_type != self::VENUE_POST_TYPE && $postID)) {
 				return;
 			}
@@ -1822,6 +1823,14 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			$data = stripslashes_deep($_POST['venue']);
 
+			$venue_id = $this->add_new_venue($data);
+			//do_action( 'sp_events_venue_save', $venue_id );
+
+			return $venue_id;
+		}
+
+		public function add_new_venue($data)
+		{
 			if($data['VenueID'])
 				return $data['VenueID'];
 
@@ -1842,13 +1851,14 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			$venue_id = wp_insert_post($postdata, true);
 
-			foreach ($data as $key => $var) {
-				update_post_meta($venue_id, '_Venue'.$key, $var);
+			if( !is_wp_error($venue_id) ) {
+
+				foreach ($data as $key => $var) {
+					update_post_meta($venue_id, '_Venue'.$key, $var);
+				}
+
+				return $venue_id;
 			}
-
-			//do_action( 'sp_events_venue_save', $venue_id );
-
-			return $venue_id;
 		}
 
 		function get_venue_info($p = null){
@@ -1885,7 +1895,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			// are not organizer posts
 			if ( wp_is_post_autosave( $postID ) || $post->post_status == 'auto-draft' ||
                  isset($_GET['bulk_edit']) || $_REQUEST['action'] == 'inline-save' ||
-                 !$_POST['organizer'] || $_POST['organizer']['OrganizerID'] == 0 ||
+                 !$_POST['organizer'] ||
                  ($post->post_type != self::ORGANIZER_POST_TYPE && $postID)) {
 				return;
 			}
@@ -1896,6 +1906,14 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			$data = stripslashes_deep($_POST['organizer']);
 
+			
+			$organizer_id = $this->add_new_organizer($data);
+			//do_action( 'sp_events_organizer_save', $organizer_id, $data['Organizer']);
+
+			return $organizer_id;
+		}
+
+		public function add_new_organizer($data) {
 			if($data['OrganizerID'])
 				return $data['OrganizerID'];
 
@@ -1913,13 +1931,13 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			$organizer_id = wp_insert_post($postdata, true);
 
-			foreach ($data as $key => $var) {
-				update_post_meta($organizer_id, '_Organizer'.$key, $var);
+			if( !is_wp_error($organizer_id) ) {
+				foreach ($data as $key => $var) {
+					update_post_meta($organizer_id, '_Organizer'.$key, $var);
+				}
+
+				return $organizer_id;
 			}
-
-			//do_action( 'sp_events_organizer_save', $organizer_id, $data['Organizer']);
-
-			return $organizer_id;
 		}
 
 		function get_organizer_info($p = null){
