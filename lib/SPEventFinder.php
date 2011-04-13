@@ -41,7 +41,7 @@ class SPEventFinder {
 
 	public function setArgsFromDisplayType() {
 		global $wp_query;
-echo $this->display_type;
+
 		switch ( $this->display_type ) {
 			case "past":
 				$this->setPastDisplayTypeArgs();
