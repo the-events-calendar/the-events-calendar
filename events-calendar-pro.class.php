@@ -498,7 +498,16 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 		public function query($query) {
 			if ( !is_admin() && (($_GET['post_type'] == self::POSTTYPE || $_GET['sp_events_cat'] != '') || ($query->query_vars['post_type'] == self::POSTTYPE || $query->query_vars['sp_events_cat'] != ''))) 
-				$this->addOrderQueryFilters($query);
+			{
+				if($query->get('eventDisplay') == 'upcoming' || $query->get('eventDisplay') == 'past' || $query->get('sp_events_cat') != ''){
+					global $wp_query;
+					$finder = new SPEventFinder($wp_query->query_vars);
+					$wp_query->query_vars = $finder->getArgs();
+				}
+				//print_r($wp_query);
+				//setArgsFromDisplayType();
+				//	$this->addOrderQueryFilters($query);
+			}
 		}
 
 
@@ -2427,6 +2436,18 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function tabIndex() {
 			echo $this->tabIndexStart;
 			$this->tabIndexStart++;
+		}
+
+		public function getEventsNew( $args = '' ) {
+			global $wp_query;
+
+			if (is_admin())
+				$display = 'admin';
+			else
+				$display = (isset( $wp_query->query_vars['eventDisplay'] ) ) ? $wp_query->query_vars['eventDisplay'] : $this->getOption('viewOption','month');
+
+			$eventFinder = new SPEventFinder($args, $display);
+			return $eventFinder->getEvents();
 		}
 		
 		/**

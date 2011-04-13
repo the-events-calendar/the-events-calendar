@@ -52,13 +52,21 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		for( $i = 1; $i <= 31; $i++ ) {
 			$monthView[$i] = array();
 		}
+
+
 		foreach ( $results as $event ) {
 			$started = false;
+
+			$event->EventStartDate = get_post_meta($event->ID, '_EventStartDate', true);
+			$event->EventEndDate = get_post_meta($event->ID, 'EventEndDate', true);
+
 			list( $startYear, $startMonth, $startDay, $garbage ) = explode( '-', $event->EventStartDate );
 			list( $endYear, $endMonth, $endDay, $garbage ) = explode( '-', $event->EventEndDate );
 			list( $startDay, $garbage ) = explode( ' ', $startDay );
+			
 			list( $endDay, $garbage ) = explode( ' ', $endDay );
 			for( $i = 1; $i <= 31 ; $i++ ) {
+				$started = false;
 				if ( ( $i == $startDay && $startMonth == $queryMonth ) ||  strtotime( $startYear.'-'.$startMonth ) < strtotime( $queryYear.'-'.$queryMonth ) ) {
 					$started = true;
 				}
@@ -70,6 +78,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 				}
 			}
 		}
+
 		return $monthView;
 	}
 
@@ -517,7 +526,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_events( $args = '' ) {
 		global $sp_ecp;
-		return $sp_ecp->getEvents( $args );
+		return $sp_ecp->getEventsNew( $args );
 	}
 	/**
 	 * Returns true if the query is set for past events, false otherwise
