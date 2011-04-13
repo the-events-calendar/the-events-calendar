@@ -1733,6 +1733,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 
+			$_POST['Organizer'] = stripslashes_deep($_POST['organizer']);
+			$_POST['Venue'] = stripslashes_deep($_POST['venue']);
+
 			$this->save_event_meta($postId, $_POST);
 		}
 
