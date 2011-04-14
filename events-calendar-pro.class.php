@@ -530,15 +530,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				add_action('admin_footer', array($this, 'debugInfo'));
 			}
 		}
-		
-		private function addOrderQueryFilters($query){
-
-			if($query->get('eventDisplay') == 'upcoming' || $query->get('eventDisplay') == 'past' || $query->get('sp_events_cat') != ''){
-				add_filter('posts_where', array($this, 'events_ordering_where'));
-				add_filter('posts_join', array($this, 'events_ordering_join'));
-				add_filter( 'posts_orderby',	array( $this, 'events_ordering_orderby' ) );
-			}
-		}
 
 		private function addQueryFilters() {
 			add_filter( 'posts_join',		array( $this, 'events_search_join' ) );
@@ -1032,42 +1023,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				}
 			}
 			return $cats;
-		}
-
-		public function events_ordering_join($extraJoin){
-			global $wpdb;
-
-			$extraJoin .= " LEFT JOIN {$wpdb->postmeta} as eventStart ON( {$wpdb->posts}.ID = eventStart.post_id ) ";
-			$extraJoin .= " LEFT JOIN {$wpdb->postmeta} as eventEnd ON( {$wpdb->posts}.ID = eventEnd.post_id ) ";
-
-			remove_filter('posts_join', array($this, 'events_ordering_join'));
-			return $extraJoin;
-		}
-
-
-		public function events_ordering_orderby($orderby){
-			global $wpdb;
-			$orderby = 'DATE(eventStart.meta_value) '.$this->order.', TIME(eventStart.meta_value) '.$this->order;
-
-			remove_filter( 'posts_orderby', array( $this, 'events_ordering_orderby' ) );
-		return $orderby;
-		}
-
-
-		public function events_ordering_where($whereClause){
-			global $wpdb; 
-				$date = explode(' ', $this->date);
-
-				$whereClause .= ' AND ( eventStart.meta_key = "_EventStartDate" AND eventEnd.meta_key = "_EventEndDate" ) ';
-
-				$whereClause .= $wpdb->prepare(" AND (eventStart.meta_value ".$this->startOperator." %s || ( DATE(eventStart.meta_value) = %s && TIME(eventStart.meta_value) ".$this->startOperator." %s) || eventEnd.meta_value ".$this->startOperator." %s)  \n", $this->date	, $date[0]	, $date[1], $this->date	 );
-
-				if( sp_is_past( ) ) { //Don't show ongoing events. Only show ended events.
-					$whereClause .= ' AND  eventEnd.meta_value <= "'.$this->date.'" ';
-				}
-
-				remove_filter('posts_where', array($this, 'events_ordering_where'));
-			return $whereClause;
 		}
 		
 				/**
