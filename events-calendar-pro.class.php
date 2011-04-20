@@ -419,6 +419,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			register_activation_hook( __FILE__, 	array( &$this, 'on_activate' ) );
 			$this->addFilters();
 			$this->addActions();
+			Events_Recurrence_Meta::init();
 		}
 		
 		public function init() {
@@ -1917,6 +1918,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$options = '';
 			$style = '';
 			$postId = $post->ID;
+
+			// convert array to variables that can be used in the view
+			extract(Events_Recurrence_Meta::getRecurrenceMeta($postId));
 
 			foreach ( $this->metaTags as $tag ) {
 				if ( $postId && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
