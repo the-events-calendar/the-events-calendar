@@ -25,7 +25,11 @@
 							        <?php endif; ?>
 						<?php the_title('<h2 class="entry-title"><a href="' . get_permalink() . '" title="' . the_title_attribute('echo=0') . '" rel="bookmark">', '</a></h2>'); ?>
 					<div class="entry-content tec-event-entry">
-						<?php the_content(); ?>
+						<?php if (has_excerpt ()): ?>
+							<?php the_excerpt(); ?>
+						<?php else: ?>
+							<?php the_content(); ?>
+						<?php endif; ?>
 					</div> <!-- End tec-event-entry -->
 
 					<div class="tec-event-list-meta">

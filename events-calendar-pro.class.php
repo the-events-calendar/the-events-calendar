@@ -521,6 +521,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
 			add_action( 'sp_events_event_save', array($this, 'save_venue_data' ), 1, 2 );
 			add_action( 'sp_events_event_save', array($this, 'save_organizer_data' ), 1, 2 );
+			add_filter('bloginfo_rss',  array($this, 'add_space_to_rss' ));
+			add_filter( 'get_the_excerpt', array($this, 'removeExcerptMore' ), 1 );
+
 			if ( is_admin() && ! $this->getOption('spEventsDebug', false) ) {
 				$this->addQueryFilters();
 				add_action('admin_footer', array($this, 'removeMenuItems'));
@@ -549,7 +552,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_action( 'init', array( $this, 'init'), 10 );
 
 			add_action( 'parse_query', array( $this, 'query'), 0 );
-			//add_action( 'reschedule_event_post', array( $this, 'reschedule') );
 			add_action( 'template_redirect',				array( $this, 'loadStyle' ) );
 			add_action( 'sp-events-save-more-options', array( $this, 'flushRewriteRules' ) );
 			add_action( 'pre_get_posts',	array( $this, 'setOptions' ) );
@@ -585,6 +587,23 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		
 		public function get_event_taxonomy() {
 			return self::TAXONOMY;
+		}
+
+		public function add_space_to_rss($title) {
+			global $wp_query;
+			if(get_query_var('eventDisplay') == 'upcoming' && get_query_var('post_type') == Events_Calendar_Pro::POSTTYPE) {
+				return $title . ' ';
+			}
+
+			return $title;
+		}
+
+		public function removeExcerptMore($more) {
+			if(get_query_var('post_type') == Events_Calendar_Pro::POSTTYPE) {
+				remove_all_filters('get_the_excerpt', 10); // remove any default excerpt filters
+			}
+
+			return $more; 
 		}
 
 		public function maybeAddEventTitle($title, $sep){
@@ -1350,34 +1369,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			return $years;
 		}
-		
-		/**
-		* This function is scheduled to run at midnight.  If any posts are set with EventStartDate
-		* to today, update the post so that it was posted today.   This will force the event to be
-		* displayed in the main loop on the homepage.
-		* 
-		* @return void
-		*/	
-		public function reschedule( ) {
-			$resetEventPostDate = $this->getOption('resetEventPostDate', 'off');
-			if( $resetEventPostDate == 'off' ){
-				return;
-			}
-			global $wpdb;
-			$query = "
-				SELECT * FROM $wpdb->posts
-				LEFT JOIN $wpdb->postmeta ON($wpdb->posts.ID = $wpdb->postmeta.post_id)
-				WHERE 
-				$wpdb->postmeta.meta_key = '_EventStartDate' 
-				AND $wpdb->postmeta.meta_value = CURRENT_DATE()";
-			$return = $wpdb->get_results($query, OBJECT);
-			if ( is_array( $return ) && count( $return ) ) {
-				foreach ( $return as $row ) {
-					$updateQuery = "UPDATE $wpdb->posts SET post_date = NOW() WHERE $wpdb->posts.ID = " . $row->ID;
-					$wpdb->query( $updateQuery );
-				}
-			}
-		}
+	
 		/**
 	     * Gets the Category id to use for an Event
 		 * Deprecated, but keeping in for legacy users for now.
@@ -1429,6 +1421,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$base = trailingslashit( $this->rewriteSlug );
 			$baseSingle = trailingslashit( $this->rewriteSlugSingular );
 			$baseTax = trailingslashit( $this->taxRewriteSlug );
+			$baseTax = "(.*)" . $baseTax;
 			
 			$month = $this->monthSlug;
 			$upcoming = $this->upcomingSlug;
@@ -1448,20 +1441,20 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			// single ical
 			$newRules[$baseSingle . '([^/]+)/ical/?$' ] = 'index.php?post_type=' . self::POSTTYPE . '&name=' . $wp_rewrite->preg_index(1) . '&ical=1';
-			
+
 			// taxonomy rules.
-			$newRules[$baseTax . '([^/]+)/' . $month] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month';
-			$newRules[$baseTax . '([^/]+)/' . $upcoming . '/page/(\d+)'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(2);
-			$newRules[$baseTax . '([^/]+)/' . $upcoming] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
-			$newRules[$baseTax . '([^/]+)/' . $past . '/page/(\d+)'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(2);
-			$newRules[$baseTax . '([^/]+)/' . $past] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past';
-			$newRules[$baseTax . '([^/]+)/(\d{4}-\d{2})$'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(2);
-			$newRules[$baseTax . '([^/]+)/feed/?$'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
-			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(1) . '&post_type=' . self::POSTTYPE . '&eventDisplay=' . $this->getOption('viewOption','month');
-			$newRules[$baseTax . '([^/]+)/ical/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'eventDisplay=upcoming&sp_events_cat=' . $wp_rewrite->preg_index(1) . '&ical=1';
-			$newRules[$baseTax . '([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=' . $wp_rewrite->preg_index(1) . '&feed=' . $wp_rewrite->preg_index(2);
-			$newRules[$baseTax . '([^/]+)/page/?([0-9]{1,})/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=' . $wp_rewrite->preg_index(1) . '&paged=' . $wp_rewrite->preg_index(2);
-			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'eventDisplay=upcoming&sp_events_cat=' . $wp_rewrite->preg_index(1);
+			$newRules[$baseTax . '([^/]+)/' . $month] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month';
+			$newRules[$baseTax . '([^/]+)/' . $upcoming . '/page/(\d+)'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(3);
+			$newRules[$baseTax . '([^/]+)/' . $upcoming] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
+			$newRules[$baseTax . '([^/]+)/' . $past . '/page/(\d+)'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(3);
+			$newRules[$baseTax . '([^/]+)/' . $past] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past';
+			$newRules[$baseTax . '([^/]+)/(\d{4}-\d{2})$'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(3);
+			$newRules[$baseTax . '([^/]+)/feed/?$'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(2) . '&eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
+			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=' . $this->getOption('viewOption','month');
+			$newRules[$baseTax . '([^/]+)/ical/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'eventDisplay=upcoming&sp_events_cat=' . $wp_rewrite->preg_index(2) . '&ical=1';
+			$newRules[$baseTax . '([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=' . $wp_rewrite->preg_index(2) . '&feed=' . $wp_rewrite->preg_index(3);
+			$newRules[$baseTax . '([^/]+)/page/?([0-9]{1,})/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=' . $wp_rewrite->preg_index(2) . '&paged=' . $wp_rewrite->preg_index(3);
+			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'eventDisplay=upcoming&sp_events_cat=' . $wp_rewrite->preg_index(2);
 			
 			$wp_rewrite->rules = $newRules + $wp_rewrite->rules;	
 		  
@@ -1603,8 +1596,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 * @return void
 		 */
 		public function on_deactivate( ) { 
-		//	wp_clear_scheduled_hook('reschedule_event_post');
-
 			//remove_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
 			$this->flushRewriteRules();
 		}
@@ -1618,7 +1609,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function on_activate( ) {
 			$now = time();
 			$firstTime = $now - ($now % 66400);
-			//wp_schedule_event( $firstTime, 'daily', 'reschedule_event_post'); // schedule this for midnight, daily
 			
 		}
 		/**
