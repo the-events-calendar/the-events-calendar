@@ -15,7 +15,7 @@ jQuery(document).ready(function($) {
 			}
 		};
 		$.extend(datepickerOpts, TEC);
-		var dates = $("#EventStartDate, #EventEndDate").datepicker(datepickerOpts);
+		var dates = $("#EventStartDate, #EventEndDate, .datepicker").datepicker(datepickerOpts);
 
 		// toggle time input
 		$('#allDayCheckbox').click(function(){

@@ -78,6 +78,7 @@ try {
 				</span>
 			</td>
 		</tr>
+		<?php include( $this->pluginPath . 'views/event-recurrence.php' ); ?>
 	</table>
 	<table id="event_venue" class="eventtable">
 		<tr>
