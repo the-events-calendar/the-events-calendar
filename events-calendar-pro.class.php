@@ -551,7 +551,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_action( 'init', array( $this, 'init'), 10 );
 
 			add_action( 'parse_query', array( $this, 'query'), 0 );
-			//add_action( 'reschedule_event_post', array( $this, 'reschedule') );
 			add_action( 'template_redirect',				array( $this, 'loadStyle' ) );
 			add_action( 'sp-events-save-more-options', array( $this, 'flushRewriteRules' ) );
 			add_action( 'pre_get_posts',	array( $this, 'setOptions' ) );
@@ -1397,34 +1396,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			return $years;
 		}
-		
-		/**
-		* This function is scheduled to run at midnight.  If any posts are set with EventStartDate
-		* to today, update the post so that it was posted today.   This will force the event to be
-		* displayed in the main loop on the homepage.
-		* 
-		* @return void
-		*/	
-		public function reschedule( ) {
-			$resetEventPostDate = $this->getOption('resetEventPostDate', 'off');
-			if( $resetEventPostDate == 'off' ){
-				return;
-			}
-			global $wpdb;
-			$query = "
-				SELECT * FROM $wpdb->posts
-				LEFT JOIN $wpdb->postmeta ON($wpdb->posts.ID = $wpdb->postmeta.post_id)
-				WHERE 
-				$wpdb->postmeta.meta_key = '_EventStartDate' 
-				AND $wpdb->postmeta.meta_value = CURRENT_DATE()";
-			$return = $wpdb->get_results($query, OBJECT);
-			if ( is_array( $return ) && count( $return ) ) {
-				foreach ( $return as $row ) {
-					$updateQuery = "UPDATE $wpdb->posts SET post_date = NOW() WHERE $wpdb->posts.ID = " . $row->ID;
-					$wpdb->query( $updateQuery );
-				}
-			}
-		}
+	
 		/**
 	     * Gets the Category id to use for an Event
 		 * Deprecated, but keeping in for legacy users for now.
@@ -1650,8 +1622,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 * @return void
 		 */
 		public function on_deactivate( ) { 
-		//	wp_clear_scheduled_hook('reschedule_event_post');
-
 			//remove_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
 			$this->flushRewriteRules();
 		}
@@ -1665,7 +1635,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function on_activate( ) {
 			$now = time();
 			$firstTime = $now - ($now % 66400);
-			//wp_schedule_event( $firstTime, 'daily', 'reschedule_event_post'); // schedule this for midnight, daily
 			
 		}
 		/**
