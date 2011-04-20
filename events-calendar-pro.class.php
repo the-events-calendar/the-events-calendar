@@ -513,6 +513,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_action( 'sp_events_event_save', array($this, 'save_venue_data' ), 1, 2 );
 			add_action( 'sp_events_event_save', array($this, 'save_organizer_data' ), 1, 2 );
 			add_filter('bloginfo_rss',  array($this, 'add_space_to_rss' ));
+			add_filter( 'get_the_excerpt', array($this, 'removeExcerptMore' ), 1 );
 
 			if ( is_admin() && ! $this->getOption('spEventsDebug', false) ) {
 				$this->addQueryFilters();
@@ -595,6 +596,14 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			}
 
 			return $title;
+		}
+
+		public function removeExcerptMore($more) {
+			if(get_query_var('post_type') == Events_Calendar_Pro::POSTTYPE) {
+				remove_all_filters('get_the_excerpt', 10); // remove any default excerpt filters
+			}
+
+			return $more; 
 		}
 
 		public function maybeAddEventTitle($title, $sep){
