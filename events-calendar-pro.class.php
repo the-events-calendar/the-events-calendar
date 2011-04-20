@@ -512,6 +512,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
 			add_action( 'sp_events_event_save', array($this, 'save_venue_data' ), 1, 2 );
 			add_action( 'sp_events_event_save', array($this, 'save_organizer_data' ), 1, 2 );
+			add_filter('bloginfo_rss',  array($this, 'add_space_to_rss' ));
+
 			if ( is_admin() && ! $this->getOption('spEventsDebug', false) ) {
 				$this->addQueryFilters();
 				add_action('admin_footer', array($this, 'removeMenuItems'));
@@ -585,6 +587,15 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		
 		public function get_event_taxonomy() {
 			return self::TAXONOMY;
+		}
+
+		public function add_space_to_rss($title) {
+			global $wp_query;
+			if(get_query_var('eventDisplay') == 'upcoming' && get_query_var('post_type') == Events_Calendar_Pro::POSTTYPE) {
+				return $title . ' ';
+			}
+
+			return $title;
 		}
 
 		public function maybeAddEventTitle($title, $sep){
