@@ -1526,11 +1526,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					if ( $secondary ) {
 						return $eventUrl . $secondary;
 					}
-					return $eventUrl . 'month/';
+					return $eventUrl . $this->monthSlug . '/';
 				case 'upcoming':
-					return $eventUrl . 'upcoming/';
+					return $eventUrl . $this->upcomingSlug . '/';
 				case 'past':
-					return $eventUrl . 'past/';
+					return $eventUrl . $this->pastSlug . '/';
 				case 'dropdown':
 					return $eventUrl;
 				case 'ical':
