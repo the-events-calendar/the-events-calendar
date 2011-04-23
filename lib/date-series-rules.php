@@ -33,7 +33,7 @@ class WeekSeriesRules implements DateSeriesRules
 	public function getNextDate($curdate) {
 		$nextdate = $curdate;
 
-		if ( sizeof($this->days) > 0 || ( sizeof($this->days) == 1 && $this->days[0] == date("N", $curdate) ) ) {
+		if ( sizeof($this->days) > 0 ) {
 			// get current day of week
 			$curDayOfWeek = date("N", $curdate);
 
@@ -46,6 +46,8 @@ class WeekSeriesRules implements DateSeriesRules
 
 			if($nextDayOfWeek > $curDayOfWeek) {
 				return strtotime(date(DateSeriesRules::DATE_FORMAT, $nextdate));
+			} else if($nextDayOfWeek < $curDayOfWeek) {
+				return strtotime(date(DateSeriesRules::DATE_FORMAT, $nextdate) . " + " . ( $this->weeks_between - 1 ) . " weeks");
 			}
 		}
 

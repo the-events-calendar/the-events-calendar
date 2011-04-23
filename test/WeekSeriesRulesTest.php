@@ -29,9 +29,9 @@ class WeekSeriesRulesTest extends PHPUnit_Framework_TestCase
 		// find next monday
 		$rules = new WeekSeriesRules(2, array(1));
 		$nextDate = $rules->getNextDate($this->date);
-		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-05-09");
+		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-05-02");
 		$nextDate = $rules->getNextDate($nextDate);
-		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-05-23");
+		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-05-16");
 	}
 
 	public function testEveryTwoThursdaysAndTuesdays() {
