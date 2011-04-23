@@ -1491,11 +1491,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					if ( $secondary ) {
 						return $eventUrl . $secondary;
 					}
-					return $eventUrl . 'month/';
+					return $eventUrl . $this->monthSlug . '/';
 				case 'upcoming':
-					return $eventUrl . 'upcoming/';
+					return $eventUrl . $this->upcomingSlug . '/';
 				case 'past':
-					return $eventUrl . 'past/';
+					return $eventUrl . $this->pastSlug . '/';
 				case 'dropdown':
 					return $eventUrl;
 				case 'ical':
@@ -1807,7 +1807,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 
 		function get_venue_info($p = null){
-			$r = new WP_Query(array('post_type' => self::VENUE_POST_TYPE, 'nopaging' => 1, 'post_status' => 'publish', 'caller_get_posts' => 1,'orderby'=>'post_title','p' => $p));
+			$r = new WP_Query(array('post_type' => self::VENUE_POST_TYPE, 'nopaging' => 1, 'post_status' => 'publish', 'caller_get_posts' => 1,'orderby'=>'title', 'order'=>'ASC','p' => $p));
 			if ($r->have_posts()) :
 				return $r->posts;
 			endif;
@@ -1886,7 +1886,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 
 		function get_organizer_info($p = null){
-			$r = new WP_Query(array('post_type' => self::ORGANIZER_POST_TYPE, 'nopaging' => 1, 'post_status' => 'publish', 'caller_get_posts' => 1,'orderby'=>'post_title','p' => $p));
+			$r = new WP_Query(array('post_type' => self::ORGANIZER_POST_TYPE, 'nopaging' => 1, 'post_status' => 'publish', 'caller_get_posts' => 1,'orderby'=>'title', 'order'=>'ASC', 'p' => $p));
 			if ($r->have_posts()) :
 				return $r->posts;
 			endif;

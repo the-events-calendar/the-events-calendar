@@ -13,23 +13,6 @@
 	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' name='venue[City]' size='25' value='<?php echo $_VenueCity; ?>' /></td>
 </tr>
 <tr class="venue">
-	<td><?php _e('State or Province:',$this->pluginDomain); ?></td>
-	<td><input tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceText" name="venue[Province]" class="tec_hide" type='text' name='' size='25' value='<?php echo $_VenueStateProvince; ?>' />
-	<select tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceSelect" name="venue[State]" class="tec_hide" name=''>
-		<option value=""><?php _e('Select a State:',$this->pluginDomain); ?></option> 
-		<?php 
-			foreach ($this->states as $abbr => $fullname) {
-				print ("<option value=\"$abbr\" ");
-				if ($_VenueStateProvince == $abbr) { 
-					print ('selected="selected" '); 
-				}
-				print (">$fullname</option>\n");
-			}
-		?>
-	</select>
-	</td>
-</tr>
-<tr class="venue">
 	<td><?php _e('Country:',$this->pluginDomain); ?></td>
 	<td>
 		<select tabindex="<?php $this->tabIndex(); ?>" name='venue[Country]' id="EventCountry">
@@ -51,6 +34,23 @@
 			}
 			?>
 		</select>
+	</td>
+</tr>
+<tr class="venue">
+	<td><?php _e('State or Province:',$this->pluginDomain); ?></td>
+	<td><input tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceText" name="venue[Province]" class="tec_hide" type='text' name='' size='25' value='<?php echo $_VenueStateProvince; ?>' />
+	<select tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceSelect" name="venue[State]" class="tec_hide" name=''>
+		<option value=""><?php _e('Select a State:',$this->pluginDomain); ?></option>
+		<?php
+			foreach ($this->states as $abbr => $fullname) {
+				print ("<option value=\"$abbr\" ");
+				if ($_VenueStateProvince == $abbr) {
+					print ('selected="selected" ');
+				}
+				print (">$fullname</option>\n");
+			}
+		?>
+	</select>
 	</td>
 </tr>
 <tr class="venue">
