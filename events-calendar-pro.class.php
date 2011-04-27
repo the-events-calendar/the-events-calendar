@@ -818,9 +818,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			}elseif( $current_screen->post_type == self::VENUE_POST_TYPE){
 
 				wp_enqueue_script( self::VENUE_POST_TYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js');
+				wp_enqueue_style( self::VENUE_POST_TYPE.'-admin', $this->pluginUrl . 'resources/hide-visibility.css' );
 			}elseif( $current_screen->post_type == self::ORGANIZER_POST_TYPE){
 
 				wp_enqueue_script( self::ORGANIZER_POST_TYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js');
+				wp_enqueue_style( self::ORGANIZER_POST_TYPE.'-admin', $this->pluginUrl . 'resources/hide-visibility.css' );
 			}
 			
 
