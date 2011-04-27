@@ -41,6 +41,11 @@ h2.tec-cal-title {
 	position:relative;
 	z-index:5;
 }
+
+.upcoming h2.tec-cal-title {
+	margin-bottom: 15px;
+}
+
 h2.tec-cal-title a {
 	color:#000;
 }
@@ -303,7 +308,6 @@ span.back {
 #tec-events-loop {
 	font-size:13px;
 	clear:both;
-	margin-top:-36px;
 }
 .tec-events .tec-event-entry {
 	width:60%;
@@ -451,6 +455,9 @@ h4 .sp-view-all-events {
 /* IE7, I love to hate you */
 *+html .events-archive h2.tec-cal-title {
 	padding-bottom:30px;
+}
+*+html .events-archive .upcoming h2.tec-cal-title {
+	padding-bottom:0;
 }
 *+html #tec-events-calendar-header {
 	margin-bottom:30px;
