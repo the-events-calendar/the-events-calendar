@@ -243,7 +243,7 @@ table.tec-calendar, .tec-calendar td {
 	background-color:#666;
 	font-size:12px;
 	padding:0 6px;
-	height:24px;
+	min-height:24px;
 	line-height:24px;
 	letter-spacing:1px;
 }
