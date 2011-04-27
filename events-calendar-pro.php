@@ -29,6 +29,8 @@ if ( ! function_exists('events_calendar_pro_load') ) {
 	function events_calendar_pro_load() {
 		if ( SP_EVENTS_SUPPORTED_WP_VERSION && SP_EVENTS_SUPPORTED_PHP_VERSION ) {
 			$events_dir = dirname(__FILE__);
+			require_once($events_dir . '/lib/date-series-rules.php' );
+			require_once($events_dir . '/lib/recurrence.class.php' );
 			require_once($events_dir . '/lib/events-recurrence-meta.class.php' );
 			require_once($events_dir . '/events-calendar-pro.class.php');
 			require_once($events_dir . '/the-events-calendar-exception.class.php');

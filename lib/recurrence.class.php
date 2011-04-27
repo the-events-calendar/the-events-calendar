@@ -2,12 +2,12 @@
 class Recurrence {
 	private $start_date;
 	private $end_date;
-	private $recurrence_type;
+	private $series_rules;
 
-	public function  __construct($start_date, $end_date, $recurrence_type) {
+	public function  __construct($start_date, $end_date, $series_rules) {
 		$this->start_date = $start_date;
 		$this->end_date = $end_date;
-		$this->recurrence_type = $recurrence_type;
+		$this->series_rules = $series_rules;
 	}
 
 	public function getDates() {
@@ -15,8 +15,10 @@ class Recurrence {
 		$cur_date = $this->start_date;
 
 		while($cur_date <= $this->end_date) {
-			$cur_date = $recurrence_type->getNextDate($cur_date);
-			$dates[] = $cur_date;
+			$cur_date = $this->series_rules->getNextDate($cur_date);
+
+			if($cur_date <= $this->end_date)
+				$dates[] = $cur_date;
 		}
 
 		return $dates;

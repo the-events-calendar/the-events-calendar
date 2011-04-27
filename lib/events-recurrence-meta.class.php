@@ -47,12 +47,54 @@ class Events_Recurrence_Meta {
 
 		// TODO: Validate
 		update_post_meta($postId, 'recurrence', $recurrence_meta);
-		Events_Recurrence_Meta::saveEvents();
+		Events_Recurrence_Meta::saveEvents($postId, $post);
 	}
 
-	public static function saveEvents( $postId, $post )
-	{
+	public static function saveEvents( $postId, $post ) {
+		extract(Events_Recurrence_Meta::getRecurrenceMeta($postId));
+		$rules = Events_Recurrence_Meta::getSeriesRules($postId);
 		
+		$recStart = strtotime(get_post_meta($postId, '_EventStartDate', true));
+		$eventEnd = strtotime(get_post_meta($postId, '_EventEndDate', true));
+		$duration = $eventEnd - $recStart;
+		
+		$recEnd = $recEndType == "On" ? strtotime($recEnd) : strtoTime($recEnc + " + 1 day");
+
+		$recurrence = new Recurrence($recStart, $recEnd, $rules);
+		$dates = $recurrence->getDates();
+
+		delete_post_meta($postId, '_EventStartDate');
+		delete_post_meta($postId, '_EventEndDate');
+
+		// add back original start and end date
+		add_post_meta($postId,'_EventStartDate', date(DateSeriesRules::DATE_FORMAT, $recStart));
+		add_post_meta($postId,'_EventEndDate', date(DateSeriesRules::DATE_FORMAT, $eventEnd));
+
+		// add meta for all dates in recurrence
+		foreach($dates as $date) {
+			add_post_meta($postId,'_EventStartDate', date(DateSeriesRules::DATE_FORMAT, $date));
+			add_post_meta($postId,'_EventEndDate', date(DateSeriesRules::DATE_FORMAT, $date+$duration));
+		}
+	}
+
+	public static function getSeriesRules($postId) {
+		extract(Events_Recurrence_Meta::getRecurrenceMeta($postId));
+		$rules = null;
+
+		if(!$recCustomInterval)
+			$recCustomInterval = 1;
+
+		if($recType == "Every Day" || $recCustomType == "Daily") {
+			$rules = new DaySeriesRules($recType == "Every Day" ? 1 : $recCustomInterval);
+		} else if($recType == "Every Week" || $recCustomType == "Weekly") {
+			$rules = new WeekSeriesRules($recType == "Every Week" ? 1 : $recCustomInterval, $recCustomWeekDay);
+		} else if($recType == "Every Month" || $recCustomType == "Monthly") {
+			$rules = new MonthSeriesRules($recType == "Every Month" ? 1 : $recCustomInterval, $recCustomMonthDayOfMonth, $recCustomMonthNumber, $recCustomMonthDay);
+		} else if($recType == "Every Year" || $recCustomType == "Yearly") {
+			$rules = new YearSeriesRules($recType == "Every Year" ? 1 : $recCustomInterval, $recCustomYearMonth, $recCustomYearFilter ? $recCustomYearMonthNumber : null, $recCustomYearFilter ? $recCustomYearMonthDay : null);
+		}
+
+		return $rules;
 	}
 }
 ?>

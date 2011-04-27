@@ -17,11 +17,71 @@ class MonthSeriesRulesTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-05-23");
 	}
 
+	public function testEvery3Months()
+	{
+		$rules = new MonthSeriesRules(3);
+		$nextDate = $rules->getNextDate($this->date);
+		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-07-23");
+	}
+
 	public function testNextMonthEndOfMonth() {
 		$this->date = strtotime("2011-01-31");
 		$rules = new MonthSeriesRules();
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-03-31");
+	}
+
+	public function testDaysOfMonth() {
+		$rules = new MonthSeriesRules(1, array(1,3,29));
+		$nextDate = $rules->getNextDate($this->date);
+		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-04-29");
+		$nextDate = $rules->getNextDate($nextDate);
+		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-05-01");
+	}
+
+	public function testDaysOfMonthWithSkip() {
+		$this->date = strtotime("2011-01-31");
+		$rules = new MonthSeriesRules(1, array(27, 31));
+		$nextDate = $rules->getNextDate($this->date);
+		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-02-27");
+		$nextDate = $rules->getNextDate($nextDate);
+		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-03-27");
+	}
+
+	public function testDaysOfMultiMonthWithSkip() {
+		$this->date = strtotime("2010-12-31");
+		$rules = new MonthSeriesRules(2, array(27, 31));
+		$nextDate = $rules->getNextDate($this->date);
+		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-02-27");
+		$nextDate = $rules->getNextDate($nextDate);
+		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-04-27");
+	}
+
+	public function testDaysOfMultiMonthWithSkip2() {
+		$this->date = strtotime("2010-12-31");
+		$rules = new MonthSeriesRules(2, array(29, 31));
+		$nextDate = $rules->getNextDate($this->date);
+		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-04-29");
+		$nextDate = $rules->getNextDate($nextDate);
+		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-06-29");
+	}
+
+	public function testDayOfWeek() {
+		// 4th wednesday
+		$rules = new MonthSeriesRules(1, array(), 4, 3);
+		$nextDate = $rules->getNextDate($this->date);
+		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-04-27");
+		$nextDate = $rules->getNextDate($nextDate);
+		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-05-25");
+	}
+
+	public function testLastDayOfWeek() {
+		// 4th wednesday
+		$rules = new MonthSeriesRules(1, array(), -1, 3);
+		$nextDate = $rules->getNextDate($this->date);
+		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-04-27");
+		$nextDate = $rules->getNextDate($nextDate);
+		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-05-25");
 	}
 }
 ?>
