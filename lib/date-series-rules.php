@@ -64,4 +64,25 @@ class WeekSeriesRules implements DateSeriesRules
 	}
 }
 
+class MonthSeriesRules implements DateSeriesRules
+{
+	private $months_between;
+	private $days_of_month;
+	private $week_of_month;
+	private $day_of_week;
+
+	public function __construct($months_between = 1, $days_of_month = array(), $week_of_month = null, $day_of_week = null) {
+		$this->months_between = $months_between;
+		$this->days_of_month = $days_of_month;
+		$this->week_of_month = $week_of_month;
+		$this->day_of_week = $day_of_week;
+		sort($this->days_of_month);
+	}
+
+	public function getNextDate($curdate) {
+		$nextdate = $curdate;
+		
+		return strtotime(date(DateSeriesRules::DATE_FORMAT, $nextdate) . " + " . $this->months_between . " months");
+	}
+}
 ?>
