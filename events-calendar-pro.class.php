@@ -84,7 +84,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			'_EventCity',
 			'_EventState',
 			'_EventProvince',
-			'_EventZip'
+			'_EventZip',
+			'_EventPhone',
 		);
 
 		public $venueTags = array(
@@ -1980,6 +1981,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 							continue;
 
 						${'_Venue'.$cleaned_tag} = sp_get_option('eventsDefault'.$cleaned_tag);
+
+						// hack to fix naming convention issue in state/province defaults
+						if ($cleaned_tag == "State")
+							$_VenueStateProvince = $_VenueState;
 					}
 				}
 			}
