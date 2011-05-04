@@ -751,7 +751,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		$start_date = strtotime(get_post_meta( $post_id, '_EventStartDate', true ));
 		$end_date = strtotime(get_post_meta( $post_id, '_EventEndDate', true ) . (sp_get_all_day() ? " + 1 day" : ""));
 		$dates = ( sp_get_all_day() ) ? date('Ymd', $start_date) . '/' . date('Ymd', $end_date) : date('Ymd', $start_date) . 'T' . date('Hi00', $start_date) . '/' . date('Ymd', $end_date) . 'T' . date('Hi00', $end_date);
-		$location = trim( sp_get_venue() );
+		$location = trim( sp_get_full_address($post_id, true) );
 		
 		$base_url = 'http://www.google.com/calendar/event';
 		$params = array(
