@@ -6,7 +6,7 @@
 
 global $sp_ecp; 
 $eventPosts = sp_get_events();
-$daysInMonth = date("t", $date);
+$daysInMonth = isset($date) ? date("t", $date) : date("t");
 $startOfWeek = get_option( 'start_of_week', 0 );
 list( $year, $month ) = split( '-', $sp_ecp->date );
 $date = mktime(12, 0, 0, $month, 1, $year); // 1st day of month as unix stamp

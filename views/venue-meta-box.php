@@ -37,6 +37,7 @@
 	</td>
 </tr>
 <tr class="venue">
+	<?php if(!isset($_VenueStateProvince)) $_VenueStateProvince = ""; ?>
 	<td><?php _e('State or Province:',$this->pluginDomain); ?></td>
 	<td><input tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceText" name="venue[Province]" class="tec_hide" type='text' name='' size='25' value='<?php echo $_VenueStateProvince; ?>' />
 	<select tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceSelect" name="venue[State]" class="tec_hide" name=''>

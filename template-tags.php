@@ -60,8 +60,9 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 			$event->EventStartDate = get_post_meta($event->ID, '_EventStartDate', true);
 			$event->EventEndDate = get_post_meta($event->ID, 'EventEndDate', true);
 
-			list( $startYear, $startMonth, $startDay, $garbage ) = explode( '-', $event->EventStartDate );
-			list( $endYear, $endMonth, $endDay, $garbage ) = explode( '-', $event->EventEndDate );
+			list( $startYear, $startMonth, $startDay ) = explode( '-', $event->EventStartDate );
+			list( $endYear, $endMonth, $endDay ) = explode( '-', $event->EventEndDate );
+
 			list( $startDay, $garbage ) = explode( ' ', $startDay );
 			
 			list( $endDay, $garbage ) = explode( ' ', $endDay );
@@ -507,13 +508,17 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		global $sp_ecp, $post;
 		$retval = false;
 		$now = time();
-		$postTimestamp = strtotime( $post->EventStartDate, $now );
-		$postTimestamp = strtotime( date( Events_Calendar_Pro::DBDATEFORMAT, $postTimestamp ), $now); // strip the time
-		if ( $postTimestamp != $sp_ecp->currentPostTimestamp ) { 
-			$retval = true;
+		if(isset($post->EventStartDate)) {
+			$postTimestamp = strtotime( $post->EventStartDate, $now );
+			$postTimestamp = strtotime( date( Events_Calendar_Pro::DBDATEFORMAT, $postTimestamp ), $now); // strip the time
+			if ( $postTimestamp != $sp_ecp->currentPostTimestamp ) {
+				$retval = true;
+			}
+			$sp_ecp->currentPostTimestamp = $postTimestamp;
+			return $retval;
+		} else {
+			return true;
 		}
-		$sp_ecp->currentPostTimestamp = $postTimestamp; 
-		return $retval;
 	}
 	/**
 	 * Call this function in a template to query the events
@@ -758,9 +763,9 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	function sp_get_add_to_gcal_link() {
 		$post_id = get_the_ID();
 		$start_date = strtotime(get_post_meta( $post_id, '_EventStartDate', true ));
-		$end_date = strtotime(get_post_meta( $post_id, '_EventEndDate', true ));
+		$end_date = strtotime(get_post_meta( $post_id, '_EventEndDate', true ) . (sp_get_all_day() ? " + 1 day" : ""));
 		$dates = ( sp_get_all_day() ) ? date('Ymd', $start_date) . '/' . date('Ymd', $end_date) : date('Ymd', $start_date) . 'T' . date('Hi00', $start_date) . '/' . date('Ymd', $end_date) . 'T' . date('Hi00', $end_date);
-		$location = trim( sp_get_venue() );
+		$location = trim( sp_get_full_address($post_id, true) );
 		
 		$base_url = 'http://www.google.com/calendar/event';
 		$params = array(

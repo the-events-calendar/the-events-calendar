@@ -52,7 +52,9 @@ try {
 	                </legend>
 	                <label title='Calendar'>
 	                    <?php 
-	                    $viewOptionValue = sp_get_option('viewOption','month'); 
+	                    $viewOptionValue = sp_get_option('viewOption','month');
+							  $listViewStatus = ""; $gridViewStatus = "";
+							  
 	                    if( $viewOptionValue == 'upcoming' ) {
 	                        $listViewStatus = 'checked="checked"';
 	                    } else {
@@ -78,7 +80,8 @@ try {
 	                </legend>
 	                <label title='Yes'>
 	                    <?php 
-	                    $showCommentValue = sp_get_option('showComments','no'); 
+	                    $showCommentValue = sp_get_option('showComments','no');
+							  $noCommentStatus = ""; $yesCommentStatus = "";
 	                    if( $showCommentValue == 'no' ) {
 	                        $noCommentStatus = 'checked="checked"';
 	                    } else {
@@ -109,8 +112,9 @@ try {
 	                <label title='Yes'>
 	                    <?php 
 	                    $embedGoogleMapsValue = sp_get_option('embedGoogleMaps','off'); 
-	 					$embedGoogleMapsHeightValue = sp_get_option('embedGoogleMapsHeight','350'); 
-	 					$embedGoogleMapsWidthValue = sp_get_option('embedGoogleMapsWidth','100%'); 
+								$embedGoogleMapsHeightValue = sp_get_option('embedGoogleMapsHeight','350');
+								$embedGoogleMapsWidthValue = sp_get_option('embedGoogleMapsWidth','100%');
+								$embedGoogleMapsOnStatus = ""; $embedGoogleMapsOffStatus = "";
 	                    if( $embedGoogleMapsValue == 'on' ) {
 	                        $embedGoogleMapsOnStatus = 'checked="checked"';
 	                    } else {
@@ -216,7 +220,8 @@ try {
 	                </legend>
 	                <label title='Enable'>
 	                    <?php 
-	                    $defaultValueReplace = sp_get_option('defaultValueReplace','0'); 
+	                    $defaultValueReplace = sp_get_option('defaultValueReplace','0');
+							  $defaultValueReplaceEnabled = ""; $defaultValueReplaceDisabled = "";
 	                    if( $defaultValueReplace == 1 ) {
 	                        $defaultValueReplaceEnabled = 'checked="checked"';
 	                    } else {
