@@ -11,7 +11,7 @@ jQuery(document).ready(function($) {
 				var option = this.id == "EventStartDate" ? "minDate" : "maxDate";
 				var instance = $(this).data("datepicker");
 				var date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
-				dates.not(this).datepicker("option", option, date);
+				dates.not(this).not('#recurrence_end').datepicker("option", option, date);
 			}
 		};
 		$.extend(datepickerOpts, TEC);

@@ -420,7 +420,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			register_activation_hook( __FILE__, 	array( &$this, 'on_activate' ) );
 			$this->addFilters();
 			$this->addActions();
-			Events_Recurrence_Meta::init();
+			Events_Recurrence_Meta::init(); // hooks and filters for event recurrenct
+			Admin_Events_List::init(); // hooks and filters for the admin events list
+
 		}
 		
 		public function init() {
@@ -507,7 +509,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			{
 				if($query->get('eventDisplay') == 'upcoming' || $query->get('eventDisplay') == 'past' || $query->get('sp_events_cat') != ''){
 					global $wp_query;
-					$finder = new SPEventFinder($wp_query->query_vars);
+					$finder = new SP_Event_Query($wp_query->query_vars);
 					$wp_query->query_vars = $finder->getArgs();
 				}
 				//print_r($wp_query);
@@ -530,26 +532,16 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter('bloginfo_rss',  array($this, 'add_space_to_rss' ));
 			add_filter( 'get_the_excerpt', array($this, 'removeExcerptMore' ), 1 );
 
-			if ( is_admin() && ! $this->getOption('spEventsDebug', false) ) {
-				$this->addQueryFilters();
+			if ( is_admin() && !$this->getOption('spEventsDebug', false) ) {
 				add_action('admin_footer', array($this, 'removeMenuItems'));
 			}
+
 			else if ( $this->getOption('spEventsDebug', false) ) {
 				$this->addDebugColumns();
 				add_action('admin_footer', array($this, 'debugInfo'));
 			}
 		}
 
-		private function addQueryFilters() {
-			add_filter( 'posts_distinct', array( $this, 'events_search_distinct'));
-			add_filter( 'posts_join',		array( $this, 'events_search_join' ) );
-			add_filter( 'posts_where',		array( $this, 'events_search_where' ) );
-			add_filter( 'posts_orderby',	array( $this, 'events_search_orderby' ) );
-			add_filter( 'posts_fields',		array( $this, 'events_search_fields' ) );
-			add_filter( 'post_limits',		array( $this, 'events_search_limits' ) );
-			add_filter( 'manage_posts_columns', array($this, 'column_headers'));
-		}
-		
 		private function addDebugColumns() {
 			add_filter( 'manage_posts_columns', array($this, 'debug_column_headers'));
 			add_action( 'manage_posts_custom_column', array($this, 'debug_custom_columns'), 10, 2);
@@ -575,7 +567,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		//	add_action( 'init', array( $this, 'registerPostType' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
-			add_action( 'manage_posts_custom_column', array($this, 'custom_columns'), 10, 2);
 		}
 		
 		public function debugInfo() {
@@ -640,46 +631,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$content = __('No description has been entered for this event.', $this->pluginDomain);
 			}
 			return $content;
-		}
-		
-		public function column_headers( $columns ) {
-			global $post;
-
-			if ( $post->post_type == self::POSTTYPE ) {
-
-				foreach ( $columns as $key => $value ) {
-					$mycolumns[$key] = $value;
-					if ( $key =='author' )
-						$mycolumns['events-cats'] = __( 'Event Categories', $this->pluginDomain );
-				}
-				$columns = $mycolumns;
-
-				unset($columns['date']);
-				$columns['start-date'] = __( 'Start Date', $this->pluginDomain );
-				$columns['end-date'] = __( 'End Date', $this->pluginDomain );
-				$columns['recurring'] = __( 'Recurring?', $this->pluginDomain );
-			}
-			
-			return $columns;
-		}
-		
-		public function custom_columns( $column_id, $post_id ) {
-			if ( $column_id == 'events-cats' ) {
-				$event_cats = get_the_term_list( $post_id, self::TAXONOMY, '', ', ', '' );
-				echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
-			}
-			if ( $column_id == 'start-date' ) {
-				echo sp_get_start_date($post_id, false);
-			}
-			if ( $column_id == 'end-date' ) {
-				echo sp_get_end_date($post_id, false);
-			}
-
-			if ( $column_id == 'recurring' ) {
-				echo sizeof(get_post_meta($post_id, '_EventStartDate')) > 1 ? "Yes" : "No";
-			}
-
-			
 		}
 		
 		public function debug_column_headers( $columns ) {
@@ -1060,108 +1011,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				}
 			}
 			return $cats;
-		}
-
-		public function events_search_distinct($distinct) {
-			return "DISTINCT";
-		}
-		
-				/**
-		 * fields filter for standard wordpress templates.  Adds the start and end date to queries in the
-		 * events category
-		 *
-		 * @param string fields
-		 * @param string modified fields for events queries
-		 */
-		public function events_search_fields( $fields ) {
-			if ( get_query_var('post_type') != self::POSTTYPE ) { 
-				return $fields;
-			}
-			global $wpdb;
-			$fields .= ', eventStart.meta_value as EventStartDate ';
-			return $fields;
-
-		}
-		/**
-		 * join filter for admin quries
-		 *
-		 * @param string join clause
-		 * @return string modified join clause 
-		 */
-		public function events_search_join( $join ) {
-			global $wpdb;
-			if ( get_query_var('post_type') != self::POSTTYPE ) { 
-				return $join;
-			}
-			$join .= " LEFT JOIN {$wpdb->postmeta} as eventStart ON( {$wpdb->posts}.ID = eventStart.post_id ) ";
-			$join .= " LEFT JOIN {$wpdb->postmeta} as eventEnd ON( {$wpdb->posts}.ID = eventEnd.post_id ) ";
-			return $join;
-		}
-		/**
-		 * where filter for admin queries
-		 *
-		 * @param string where clause
-		 * @return string modified where clause
-		 */
-		public function events_search_where( $where ) {
-			if ( get_query_var('post_type') != self::POSTTYPE ) { 
-				return $where;
-			}
-			$where .= ' AND ( eventStart.meta_key = "_EventStartDate" AND eventEnd.meta_key = "_EventEndDate" ) ';
-
-			if( sp_is_upcoming( ) ) {	
-				// Is the start date in the future?
-				$where .= ' AND ( eventStart.meta_value > "'.$this->date.'" ';
-				// Or is the start date in the past but the end date in the future? (meaning the event is currently ongoing)
-				$where .= ' OR ( eventStart.meta_value < "'.$this->date.'" AND eventEnd.meta_value > "'.$this->date.'" ) ) ';
-			}
-			if( sp_is_past( ) ) {
-				// Is the start date in the past?
-				$where .= ' AND  eventStart.meta_value < "'.$this->date.'" ';
-			}
-			return $where;
-		}
-
-		/**
-		 * orderby filter for standard admin queries
-		 *
-		 * @param string orderby
-		 * @return string modified orderby clause
-		 */
-		public function events_search_orderby( $orderby ) {
-			if ( get_query_var('post_type') != self::POSTTYPE ) { 
-				return $orderby;
-			}
-			$orderby = ' eventStart.meta_value '.$this->order . ', eventEnd.meta_value '.$this->order;
-			return $orderby;
-		}
-		/**
-		 * limit filter for admin queries
-		 *
-		 * @param string limits clause
-		 * @return string modified limits clause
-		 */
-		public function events_search_limits( $limits ) { 
-			if ( get_query_var('post_type') != self::POSTTYPE ) { 
-				return $limits;
-			}
-			global $current_screen;
-			$paged = (int) get_query_var('paged');
-			if (empty($paged)) {
-					$paged = 1;
-			}
-			if ( is_admin() ) {
-				$option = str_replace( '-', '_', "{$current_screen->id}_per_page" );
-				$per_page = get_user_option( $option );
-				$per_page = ( $per_page ) ? (int) $per_page : 20; // 20 is default in backend
-			}
-			else {
-				$per_page = intval( get_option('posts_per_page') );
-			}
-
-			$page_start = ( $paged - 1 ) * $per_page;
-			$limits = 'LIMIT ' . $page_start . ', ' . $per_page;
-			return $limits;
 		}
 		
 		/// OPTIONS DATA
@@ -1837,6 +1686,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 		function saved_venues_dropdown($current = null, $name="venue[VenueID]"){
 			$venues = $this->get_venue_info();
+			
 			if($venues){
 				echo '<select name="'.$name.'" id="saved_venue">';
 					echo '<option value="0">Use New Venue</option>';
@@ -1945,7 +1795,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			foreach ( $this->metaTags as $tag ) {
 				if ( $postId && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
-					$$tag = get_post_meta( $postId, $tag, true );
+					// Sort the meta to make sure it is correct for recurring events
+					$meta = get_post_meta($postId,$tag); sort($meta);
+					$$tag = $meta[0];
 				} else {
 					$cleaned_tag = str_replace('_Event','',$tag);
 					$$tag = sp_get_option('eventsDefault'.$cleaned_tag);
@@ -2420,7 +2272,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			else
 				$display = (isset( $wp_query->query_vars['eventDisplay'] ) ) ? $wp_query->query_vars['eventDisplay'] : $this->getOption('viewOption','month');
 
-			$eventFinder = new SPEventFinder($args, $display);
+			$eventFinder = new SP_Event_Query($args, $display);
 			return $eventFinder->getEvents();
 		}
 		

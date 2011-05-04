@@ -57,9 +57,6 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		foreach ( $results as $event ) {
 			$started = false;
 
-			$event->EventStartDate = get_post_meta($event->ID, '_EventStartDate', true);
-			$event->EventEndDate = get_post_meta($event->ID, 'EventEndDate', true);
-
 			list( $startYear, $startMonth, $startDay ) = explode( '-', $event->EventStartDate );
 			list( $endYear, $endMonth, $endDay ) = explode( '-', $event->EventEndDate );
 
@@ -212,6 +209,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		$yearOptions = $sp_ecp->getYearOptions( $date );
 		include('views/datepicker.php');
 	}
+
 	/**
 	 * Returns the event start date
 	 *
@@ -220,21 +218,32 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @param string date format
 	 * @return string date
 	 */
-	function sp_get_start_date( $postId = null, $showtime = 'true', $dateFormat = '' ) {
+	function sp_get_start_date( $postId = null, $showtime = true, $dateFormat = '' ) {
 		global $sp_ecp, $post;
 		$postId = sp_post_id_helper( $postId );
+
+		if( sp_get_all_day( $postId ) )
+		    $showtime = false;
+
+		$date = strtotime( $post->EventStartDate ? $post->EventStartDate : getEventMeta( $postId, '_EventStartDate', true ));
+
+		return sp_event_format_date($date);
+	}
+
+	function sp_event_format_date($date, $showtime = true,  $dateFormat = '') {
+		global $sp_ecp;
+		
 		if( $dateFormat ) $format = $dateFormat;
 		else $format = get_option( 'date_format', Events_Calendar_Pro::DATEONLYFORMAT );
-		if( sp_get_all_day( $postId ) ) {
-		    $showtime = false;
-		}
-		if ( $showtime ) {
+
+		if ( $showtime )
 			$format = $sp_ecp->getTimeFormat( $format );
-		}
+
 		$shortMonthNames = ( strstr( $format, 'M' ) ) ? true : false;
-		$date = date ( $format, strtotime( getEventMeta( $postId, '_EventStartDate', true ) ) );
+		$date = date ( $format, $date );
 		return str_replace( array_keys($sp_ecp->monthNames( $shortMonthNames )), $sp_ecp->monthNames( $shortMonthNames ), $date);
 	}
+
 	/**
 	 * Returns the event end date
 	 *
@@ -244,18 +253,15 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string date
 	 */
 	function sp_get_end_date( $postId = null, $showtime = 'true', $dateFormat = '' ) {
-		global $sp_ecp;
+		global $sp_ecp, $post;
 		$postId = sp_post_id_helper( $postId );
-		if ( $dateFormat ) $format = $dateFormat;
-		else $format = get_option( 'date_format', Events_Calendar_Pro::DATEONLYFORMAT );
-		if( sp_get_all_day( $postId ) ) {
+	
+		if( sp_get_all_day( $postId ) )
 		    $showtime = false;
-		}
-		if ( $showtime ) {
-			$format = $sp_ecp->getTimeFormat( $format );
-		}
-		$date = date ( $format, strtotime( getEventMeta( $postId, '_EventEndDate', true ) ) );
-		return str_replace( array_keys($sp_ecp->monthNames()), $sp_ecp->monthNames(), $date);
+
+		$date = strtotime( $post->EventEndDate ? $post->EventEndDate : getEventMeta( $postId, '_EventEndDate', true ));
+
+		return sp_event_format_date($date);
 	}
 	/**
 	* If EventBrite plugin is active

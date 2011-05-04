@@ -1,7 +1,8 @@
 <?php
+// WordPress Hooks and Filters for events recurrence meta
 class Events_Recurrence_Meta {
 	public static function init() {
-		add_action( 'save_post', array( 'Events_Recurrence_Meta', 'saveRecurrenceMeta' ), 17, 2 );
+		add_action( 'save_post', array( __CLASS__, 'saveRecurrenceMeta' ), 17, 2 );
 	}
 
 	public static function getRecurrenceMeta( $postId ) {
@@ -10,25 +11,27 @@ class Events_Recurrence_Meta {
 
 		$recArray = array();
 
-		$recArray['recType'] = $recurrenceData['type'];
-		$recArray['recEndType'] = $recurrenceData['end-type'];
-		$recArray['recEnd'] = $recurrenceData['end'];
-		
-		$recArray['recCustomType'] = $recurrenceData['custom-type'];
-		$recArray['recCustomInterval'] = $recurrenceData['custom-interval'];
-		$recArray['recCustomTypeText'] = $recurrenceData['custom-type-text'];
-		
-		$recArray['recCustomWeekDay'] = $recurrenceData['custom-week-day'];
-		
-		$recArray['recCustomMonthType'] = $recurrenceData['custom-months-type'];
-		$recArray['recCustomMonthDayOfMonth'] = $recurrenceData['custom-month-day-of-month'];
-		$recArray['recCustomMonthNumber'] = $recurrenceData['custom-month-number'];
-		$recArray['recCustomMonthDay'] = $recurrenceData['custom-month-day'];
+		if ( $recurrenceData ) {
+			$recArray['recType'] = $recurrenceData['type'];
+			$recArray['recEndType'] = $recurrenceData['end-type'];
+			$recArray['recEnd'] = $recurrenceData['end'];
 
-		$recArray['recCustomYearMonth'] = $recurrenceData['custom-year-month'] ?  $recurrenceData['custom-year-month'] : array();
-		$recArray['recCustomYearFilter'] = $recurrenceData['custom-year-filter'];
-		$recArray['recCustomYearMonthNumber'] = $recurrenceData['custom-year-month-number'];
-		$recArray['recCustomYearMonthDay'] = $recurrenceData['custom-year-month-day'];
+			$recArray['recCustomType'] = $recurrenceData['custom-type'];
+			$recArray['recCustomInterval'] = $recurrenceData['custom-interval'];
+			$recArray['recCustomTypeText'] = $recurrenceData['custom-type-text'];
+
+			$recArray['recCustomWeekDay'] = $recurrenceData['custom-week-day'];
+
+			$recArray['recCustomMonthType'] = $recurrenceData['custom-months-type'];
+			$recArray['recCustomMonthDayOfMonth'] = $recurrenceData['custom-month-day-of-month'];
+			$recArray['recCustomMonthNumber'] = $recurrenceData['custom-month-number'];
+			$recArray['recCustomMonthDay'] = $recurrenceData['custom-month-day'];
+
+			$recArray['recCustomYearMonth'] = $recurrenceData['custom-year-month'] ?  $recurrenceData['custom-year-month'] : array();
+			$recArray['recCustomYearFilter'] = $recurrenceData['custom-year-filter'];
+			$recArray['recCustomYearMonthNumber'] = $recurrenceData['custom-year-month-number'];
+			$recArray['recCustomYearMonthDay'] = $recurrenceData['custom-year-month-day'];
+		}
 
 		return $recArray;
 	}
@@ -53,27 +56,31 @@ class Events_Recurrence_Meta {
 	public static function saveEvents( $postId, $post ) {
 		extract(Events_Recurrence_Meta::getRecurrenceMeta($postId));
 		$rules = Events_Recurrence_Meta::getSeriesRules($postId);
-		
+
+		// use the recurrence start meta if necessary because we can't guarantee which order the start date will come back in
 		$recStart = strtotime(get_post_meta($postId, '_EventStartDate', true));
 		$eventEnd = strtotime(get_post_meta($postId, '_EventEndDate', true));
 		$duration = $eventEnd - $recStart;
 		
 		$recEnd = $recEndType == "On" ? strtotime($recEnd) : strtoTime($recEnc + " + 1 day");
 
-		$recurrence = new Recurrence($recStart, $recEnd, $rules);
-		$dates = $recurrence->getDates();
-
 		delete_post_meta($postId, '_EventStartDate');
 		delete_post_meta($postId, '_EventEndDate');
+		delete_post_meta($postId,'_EventDuration');
 
 		// add back original start and end date
 		add_post_meta($postId,'_EventStartDate', date(DateSeriesRules::DATE_FORMAT, $recStart));
 		add_post_meta($postId,'_EventEndDate', date(DateSeriesRules::DATE_FORMAT, $eventEnd));
+		add_post_meta($postId,'_EventDuration', $duration);
 
-		// add meta for all dates in recurrence
-		foreach($dates as $date) {
-			add_post_meta($postId,'_EventStartDate', date(DateSeriesRules::DATE_FORMAT, $date));
-			add_post_meta($postId,'_EventEndDate', date(DateSeriesRules::DATE_FORMAT, $date+$duration));
+		if ( $recType != "None") {
+			$recurrence = new Recurrence($recStart, $recEnd, $rules);
+			$dates = $recurrence->getDates();
+
+			// add meta for all dates in recurrence
+			foreach($dates as $date) {
+				add_post_meta($postId,'_EventStartDate', date(DateSeriesRules::DATE_FORMAT, $date));
+			}
 		}
 	}
 
@@ -84,13 +91,19 @@ class Events_Recurrence_Meta {
 		if(!$recCustomInterval)
 			$recCustomInterval = 1;
 
-		if($recType == "Every Day" || $recCustomType == "Daily") {
+		if($recType == "Every Day" || ($recType == "Custom" && $recCustomType == "Daily")) {
 			$rules = new DaySeriesRules($recType == "Every Day" ? 1 : $recCustomInterval);
-		} else if($recType == "Every Week" || $recCustomType == "Weekly") {
+		} else if($recType == "Every Week") {
+			$rules = new WeekSeriesRules(1);
+		} else if ($recType == "Custom" && $recCustomType == "Weekly") {
 			$rules = new WeekSeriesRules($recType == "Every Week" ? 1 : $recCustomInterval, $recCustomWeekDay);
-		} else if($recType == "Every Month" || $recCustomType == "Monthly") {
+		} else if($recType == "Every Month") {
+			$rules = new MonthSeriesRules(1);
+		} else if($recType == "Custom" && $recCustomType == "Monthly") {
 			$rules = new MonthSeriesRules($recType == "Every Month" ? 1 : $recCustomInterval, $recCustomMonthDayOfMonth, $recCustomMonthNumber, $recCustomMonthDay);
-		} else if($recType == "Every Year" || $recCustomType == "Yearly") {
+		} else if($recType == "Every Year") {
+			$rules = new YearSeriesRules(1);
+		} else if($recType == "Custom" && $recCustomType == "Yearly") {
 			$rules = new YearSeriesRules($recType == "Every Year" ? 1 : $recCustomInterval, $recCustomYearMonth, $recCustomYearFilter ? $recCustomYearMonthNumber : null, $recCustomYearFilter ? $recCustomYearMonthDay : null);
 		}
 

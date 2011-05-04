@@ -53,7 +53,7 @@
 						<option value="On" <?php selected($recEndType, "None") ?>>On</option>
 						<option value="After" <?php selected($recEndType, "After") ?>>After</option>
 					</select>
-					<input autocomplete="off" type="text" class="datepicker" name="recurrence[end]" id=""  value="<?php echo $recEnd ?>" />
+					<input autocomplete="off" type="text" class="datepicker" name="recurrence[end]" id="recurrence_end"  value="<?php echo $recEnd ?>" />
 				</span>
 			</td>
 		</tr>
