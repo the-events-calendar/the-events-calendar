@@ -536,6 +536,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 
 		private function addQueryFilters() {
+			add_filter( 'posts_distinct', array( $this, 'events_search_distinct'));
 			add_filter( 'posts_join',		array( $this, 'events_search_join' ) );
 			add_filter( 'posts_where',		array( $this, 'events_search_where' ) );
 			add_filter( 'posts_orderby',	array( $this, 'events_search_orderby' ) );
@@ -651,6 +652,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				unset($columns['date']);
 				$columns['start-date'] = __( 'Start Date', $this->pluginDomain );
 				$columns['end-date'] = __( 'End Date', $this->pluginDomain );
+				$columns['recurring'] = __( 'Recurring?', $this->pluginDomain );
 			}
 			
 			return $columns;
@@ -667,6 +669,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			if ( $column_id == 'end-date' ) {
 				echo sp_get_end_date($post_id, false);
 			}
+
+			if ( $column_id == 'recurring' ) {
+				echo sizeof(get_post_meta($post_id, '_EventStartDate')) > 1 ? "Yes" : "No";
+			}
+
 			
 		}
 		
@@ -1046,6 +1053,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			}
 			return $cats;
 		}
+
+		public function events_search_distinct($distinct) {
+			return "DISTINCT";
+		}
 		
 				/**
 		 * fields filter for standard wordpress templates.  Adds the start and end date to queries in the
@@ -1059,7 +1070,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				return $fields;
 			}
 			global $wpdb;
-			$fields .= ', eventStart.meta_value as EventStartDate, eventEnd.meta_value as EventEndDate ';
+			$fields .= ', eventStart.meta_value as EventStartDate ';
 			return $fields;
 
 		}
@@ -1113,7 +1124,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			if ( get_query_var('post_type') != self::POSTTYPE ) { 
 				return $orderby;
 			}
-			$orderby = ' eventStart.meta_value '.$this->order;
+			$orderby = ' eventStart.meta_value '.$this->order . ', eventEnd.meta_value '.$this->order;
 			return $orderby;
 		}
 		/**
