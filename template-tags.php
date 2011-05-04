@@ -54,8 +54,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		}
 		foreach ( $results as $event ) {
 			$started = false;
-			list( $startYear, $startMonth, $startDay, $garbage ) = explode( '-', $event->EventStartDate );
-			list( $endYear, $endMonth, $endDay, $garbage ) = explode( '-', $event->EventEndDate );
+			list( $startYear, $startMonth, $startDay ) = explode( '-', $event->EventStartDate );
+			list( $endYear, $endMonth, $endDay ) = explode( '-', $event->EventEndDate );
 			list( $startDay, $garbage ) = explode( ' ', $startDay );
 			list( $endDay, $garbage ) = explode( ' ', $endDay );
 			for( $i = 1; $i <= 31 ; $i++ ) {
@@ -498,13 +498,17 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		global $sp_ecp, $post;
 		$retval = false;
 		$now = time();
-		$postTimestamp = strtotime( $post->EventStartDate, $now );
-		$postTimestamp = strtotime( date( Events_Calendar_Pro::DBDATEFORMAT, $postTimestamp ), $now); // strip the time
-		if ( $postTimestamp != $sp_ecp->currentPostTimestamp ) { 
-			$retval = true;
+		if(isset($post->EventStartDate)) {
+			$postTimestamp = strtotime( $post->EventStartDate, $now );
+			$postTimestamp = strtotime( date( Events_Calendar_Pro::DBDATEFORMAT, $postTimestamp ), $now); // strip the time
+			if ( $postTimestamp != $sp_ecp->currentPostTimestamp ) {
+				$retval = true;
+			}
+			$sp_ecp->currentPostTimestamp = $postTimestamp;
+			return $retval;
+		} else {
+			return true;
 		}
-		$sp_ecp->currentPostTimestamp = $postTimestamp; 
-		return $retval;
 	}
 	/**
 	 * Call this function in a template to query the events

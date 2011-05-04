@@ -145,7 +145,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 				}
 
-				if(!is_array($countries) || count($countries) == 1)
+				if(!isset($countries) || !is_array($countries) || count($countries) == 1)
 					$countries = array(
 						"" => __("Select a Country:", $this->pluginDomain),
 						"US" => __("United States", $this->pluginDomain),
@@ -390,11 +390,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 						"ZM" => __("Zambia", $this->pluginDomain),
 						"ZW" => __("Zimbabwe", $this->pluginDomain)
 						);
-					if ( $postId || $useDefault ) {
+					if ( ($postId || $useDefault)) {
 						$countryValue = get_post_meta( $postId, '_EventCountry', true );
 						if( $countryValue ) $defaultCountry = array( array_search( $countryValue, $countries ), $countryValue );
 						else $defaultCountry = $this->getOption('defaultCountry');
-						if( $defaultCountry && $defaultCountry[0] != "" ) {
+						if( $defaultCountry && $defaultCountry[0] != "") {
 							$selectCountry = array_shift( $countries );
 							asort($countries);
 							$countries = array($defaultCountry[0] => __($defaultCountry[1], $this->pluginDomain)) + $countries;
@@ -498,7 +498,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		
 
 		public function query($query) {
-			if ( !is_admin() && (($_GET['post_type'] == self::POSTTYPE || $_GET['sp_events_cat'] != '') || ($query->query_vars['post_type'] == self::POSTTYPE || $query->query_vars['sp_events_cat'] != ''))) 
+			if ( !is_admin() && (
+					  ((isset($_GET['post_type']) && $_GET['post_type'] == self::POSTTYPE) || (isset($_GET['sp_events_cat']) && $_GET['sp_events_cat'] != '')) ||
+					  ((isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == self::POSTTYPE) || (isset($query->query_vars['sp_events_cat']) && $query->query_vars['sp_events_cat'] != ''))
+					)
+				)
 				$this->addOrderQueryFilters($query);
 		}
 
@@ -690,7 +694,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 
 		public function accessibleMonthForm() {
-			if ( $_GET['EventJumpToMonth'] && $_GET['EventJumpToYear'] ) {
+			if ( isset($_GET['EventJumpToMonth']) && isset($_GET['EventJumpToYear'] )) {
 				$_GET['eventDisplay'] = 'month';
 				$_GET['eventDate'] = $_GET['EventJumpToYear'] . '-' . $_GET['EventJumpToMonth'];
 			}
@@ -800,7 +804,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		
 		public function admin_body_class( $classes ) {
 			global $current_screen;			
-			if ( $current_screen->post_type == self::POSTTYPE || $current_screen->id == 'settings_page_the-events-calendar.class' ) {
+			if ( isset($current_screen->post_type) &&
+					($current_screen->post_type == self::POSTTYPE || $current_screen->id == 'settings_page_the-events-calendar.class')
+		   ) {
 				$classes .= ' events-cal ';
 			}
 			return $classes;
@@ -810,23 +816,23 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			// always load style. need for icon in nav.
 			wp_enqueue_style( self::POSTTYPE.'-admin', $this->pluginUrl . 'resources/events-admin.css' );
 			
-			global $current_screen;			
-			if ( $current_screen->post_type == self::POSTTYPE || $current_screen->id == 'settings_page_the-events-calendar.class' ) {
-				wp_enqueue_script( 'jquery-ui-datepicker', $this->pluginUrl . 'resources/ui.datepicker.min.js', array('jquery-ui-core'), '1.7.3', true );
-				wp_enqueue_script( self::POSTTYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js', array('jquery-ui-datepicker'), '', true );
-				// calling our own localization because wp_localize_scripts doesn't support arrays or objects for values, which we need.
-				add_action('admin_footer', array($this, 'printLocalizedAdmin') );
-			}elseif( $current_screen->post_type == self::VENUE_POST_TYPE){
+			global $current_screen;
+			if ( isset($current_screen->post_type) ) {
+				if ( $current_screen->post_type == self::POSTTYPE || $current_screen->id == 'settings_page_the-events-calendar.class' ) {
+					wp_enqueue_script( 'jquery-ui-datepicker', $this->pluginUrl . 'resources/ui.datepicker.min.js', array('jquery-ui-core'), '1.7.3', true );
+					wp_enqueue_script( self::POSTTYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js', array('jquery-ui-datepicker'), '', true );
+					// calling our own localization because wp_localize_scripts doesn't support arrays or objects for values, which we need.
+					add_action('admin_footer', array($this, 'printLocalizedAdmin') );
+				}elseif( $current_screen->post_type == self::VENUE_POST_TYPE){
 
-				wp_enqueue_script( self::VENUE_POST_TYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js');
-				wp_enqueue_style( self::VENUE_POST_TYPE.'-admin', $this->pluginUrl . 'resources/hide-visibility.css' );
-			}elseif( $current_screen->post_type == self::ORGANIZER_POST_TYPE){
+					wp_enqueue_script( self::VENUE_POST_TYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js');
+					wp_enqueue_style( self::VENUE_POST_TYPE.'-admin', $this->pluginUrl . 'resources/hide-visibility.css' );
+				}elseif( $current_screen->post_type == self::ORGANIZER_POST_TYPE){
 
-				wp_enqueue_script( self::ORGANIZER_POST_TYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js');
-				wp_enqueue_style( self::ORGANIZER_POST_TYPE.'-admin', $this->pluginUrl . 'resources/hide-visibility.css' );
+					wp_enqueue_script( self::ORGANIZER_POST_TYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js');
+					wp_enqueue_style( self::ORGANIZER_POST_TYPE.'-admin', $this->pluginUrl . 'resources/hide-visibility.css' );
+				}
 			}
-			
-
 		}
 		
 		public function localizeAdmin() {
@@ -940,7 +946,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				
 				$opts = array('embedGoogleMaps', 'showComments', 'displayEventsOnHomepage', 'resetEventPostDate', 'useRewriteRules', 'spEventsDebug', 'eventsSlug', 'singleEventSlug','spEventsAfterHTML','spEventsBeforeHTML','spEventsCountries','defaultValueReplace','eventsDefaultVenueID', 'eventsDefaultOrganizerID', 'eventsDefaultState','eventsDefaultAddress','eventsDefaultCity','eventsDefaultZip','eventsDefaultPhone');
 				foreach ($opts as $opt) {
-					$options[$opt] = $_POST[$opt];
+					if(isset($_POST[$opt]))
+						$options[$opt] = $_POST[$opt];
 				}
 				
 				// events slug happiness
@@ -1197,7 +1204,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			return $this->latestOptions[$optionName];
 
 		$options = $this->getOptions();
-		return ( $options[$optionName] ) ? $options[$optionName] : $default;
+		return ( isset($options[$optionName]) ) ? $options[$optionName] : $default;
 		
 	}
 		
@@ -1845,7 +1852,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 
 		function get_venue_info($p = null){
-			$r = new WP_Query(array('post_type' => self::VENUE_POST_TYPE, 'nopaging' => 1, 'post_status' => 'publish', 'caller_get_posts' => 1,'orderby'=>'title', 'order'=>'ASC','p' => $p));
+			$r = new WP_Query(array('post_type' => self::VENUE_POST_TYPE, 'nopaging' => 1, 'post_status' => 'publish', 'ignore_sticky_posts ' => 1,'orderby'=>'title', 'order'=>'ASC','p' => $p));
 			if ($r->have_posts()) :
 				return $r->posts;
 			endif;
@@ -1924,7 +1931,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 
 		function get_organizer_info($p = null){
-			$r = new WP_Query(array('post_type' => self::ORGANIZER_POST_TYPE, 'nopaging' => 1, 'post_status' => 'publish', 'caller_get_posts' => 1,'orderby'=>'title', 'order'=>'ASC', 'p' => $p));
+			$r = new WP_Query(array('post_type' => self::ORGANIZER_POST_TYPE, 'nopaging' => 1, 'post_status' => 'publish', 'ignore_sticky_posts ' => 1,'orderby'=>'title', 'order'=>'ASC', 'p' => $p));
 			if ($r->have_posts()) :
 				return $r->posts;
 			endif;
@@ -2485,7 +2492,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			}
 
 			// we really have an event cat. query it.
-			if ( $cat && ! is_wp_error($cat) ) {
+			if ( isset($cat) && $cat && ! is_wp_error($cat) ) {
 				$extraJoin .= " LEFT JOIN {$wpdb->term_relationships} as r2 ON ($wpdb->posts.ID = r2.object_ID) ";
 				$extraJoin .= " LEFT JOIN {$wpdb->term_taxonomy} as t2 ON (r2.term_taxonomy_id = t2.term_taxonomy_id) ";
 				$extraJoin .= " LEFT JOIN {$wpdb->terms} as tax ON (t2.term_id = tax.term_id) ";
@@ -2554,14 +2561,16 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				ORDER BY TIMESTAMP(d1.meta_value) $order, ID $order
 				LIMIT 1";
 			$results = $wpdb->get_row($eventsQuery, OBJECT);
-			
-			if ( !$anchor ) {
-				$anchor = $results->post_title;
-			} elseif ( strpos( $anchor, '%title%' ) ) {
-				$anchor = preg_replace( '|%title%|', $results->post_title, $anchor );
-			}
 
-			echo '<a href='.get_permalink($results->ID).'>'.$anchor.'</a>';
+			if(is_object($results)) {
+				if ( !$anchor ) {
+					$anchor = $results->post_title;
+				} elseif ( strpos( $anchor, '%title%' ) ) {
+					$anchor = preg_replace( '|%title%|', $results->post_title, $anchor );
+				}
+
+				echo '<a href='.get_permalink($results->ID).'>'.$anchor.'</a>';
+			}
 		}
 		
 		/**
