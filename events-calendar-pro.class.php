@@ -1817,19 +1817,20 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			$data = stripslashes_deep($_POST['venue']);
 
-			$venue_id = $this->add_new_venue($data);
+			$venue_id = $this->add_new_venue($data, $post);
 			//do_action( 'sp_events_venue_save', $venue_id );
 
 			return $venue_id;
 		}
 
-		public function add_new_venue($data)
+		// abstracted for EventBrite
+		public function add_new_venue($data, $post = null)
 		{
 			if($data['VenueID'])
 				return $data['VenueID'];
 
-			if ( $post->post_type == self::VENUE_POST_TYPE && $postID) {
-				$data['VenueID'] = $postID;
+			if ( $post->post_type == self::VENUE_POST_TYPE && $post->ID) {
+				$data['VenueID'] = $post->ID;
 			}
 
 			// make state and province mutually exclusive
@@ -1843,7 +1844,12 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				'ID' => $data['VenueID']
 			);
 
-			$venue_id = wp_insert_post($postdata, true);
+			if( isset($data['VenueID'])  && $data['VenueID'] != "0" ) {
+				$venue_id = $data['VenueID'];
+				wp_update_post( array('post_title' => $data['Venue'], 'ID'=>$data['VenueID'] ));
+			} else {
+				$venue_id = wp_insert_post($postdata, true);
+			}
 
 			if( !is_wp_error($venue_id) ) {
 
@@ -1901,18 +1907,18 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$data = stripslashes_deep($_POST['organizer']);
 
 			
-			$organizer_id = $this->add_new_organizer($data);
-			//do_action( 'sp_events_organizer_save', $organizer_id, $data['Organizer']);
+			$organizer_id = $this->add_new_organizer($data, $post);
 
 			return $organizer_id;
 		}
 
-		public function add_new_organizer($data) {
+		// abstracted for EventBrite
+		public function add_new_organizer($data, $post=null) {
 			if($data['OrganizerID'])
 				return $data['OrganizerID'];
 
-			if ( $post->post_type == self::ORGANIZER_POST_TYPE && $postID) {
-				$data['OrganizerID'] = $postID;
+			if ( $post->post_type == self::ORGANIZER_POST_TYPE && $post->ID) {
+				$data['OrganizerID'] = $post->ID;
 			}
 
 			//google map checkboxes
@@ -1923,7 +1929,12 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				'ID' => $data['OrganizerID']
 			);
 
-			$organizer_id = wp_insert_post($postdata, true);
+			if( isset($data['OrganizerID']) && $data['OrganizerID'] != "0" ) {
+				$organizer_id = $data['OrganizerID'];
+				wp_update_post( array('post_title' => $data['Organizer'], 'ID'=>$data['OrganizerID'] ));
+			} else {
+				$organizer_id = wp_insert_post($postdata, true);
+			}
 
 			if( !is_wp_error($organizer_id) ) {
 				foreach ($data as $key => $var) {
