@@ -944,7 +944,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					$_POST['eventsSlug'] = 'events';
 				}
 				
-				$opts = array('embedGoogleMaps', 'showComments', 'displayEventsOnHomepage', 'resetEventPostDate', 'useRewriteRules', 'spEventsDebug', 'eventsSlug', 'singleEventSlug','spEventsAfterHTML','spEventsBeforeHTML','spEventsCountries','defaultValueReplace','eventsDefaultVenueID', 'eventsDefaultOrganizerID', 'eventsDefaultState','eventsDefaultAddress','eventsDefaultCity','eventsDefaultZip','eventsDefaultPhone');
+				$opts = array('embedGoogleMaps', 'showComments', 'displayEventsOnHomepage', 'resetEventPostDate', 'useRewriteRules', 'spEventsDebug', 'eventsSlug', 'singleEventSlug','spEventsAfterHTML','spEventsBeforeHTML','spEventsCountries','defaultValueReplace','eventsDefaultVenueID', 'eventsDefaultOrganizerID', 'eventsDefaultState','eventsDefaultProvince','eventsDefaultAddress','eventsDefaultCity','eventsDefaultZip','eventsDefaultPhone');
 				foreach ($opts as $opt) {
 					if(isset($_POST[$opt]))
 						$options[$opt] = $_POST[$opt];
@@ -1988,12 +1988,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 							continue;
 
 						${'_Venue'.$cleaned_tag} = sp_get_option('eventsDefault'.$cleaned_tag);
-
-						// hack to fix naming convention issue in state/province defaults
-						if ($cleaned_tag == "State")
-							$_VenueStateProvince = $_VenueState;
 					}
 				}
+
+				$_VenueStateProvince = -1; // we want to use default values here
 			}
 	/*
 			foreach($this->organizerTags as $tag)

@@ -39,13 +39,13 @@
 <tr class="venue">
 	<?php if(!isset($_VenueStateProvince)) $_VenueStateProvince = ""; ?>
 	<td><?php _e('State or Province:',$this->pluginDomain); ?></td>
-	<td><input tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceText" name="venue[Province]" class="tec_hide" type='text' name='' size='25' value='<?php echo $_VenueStateProvince; ?>' />
+	<td><input tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceText" name="venue[Province]" class="tec_hide" type='text' name='' size='25' value='<?php echo $_VenueStateProvince != -1 ? $_VenueStateProvince : $_VenueProvince; ?>' />
 	<select tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceSelect" name="venue[State]" class="tec_hide" name=''>
 		<option value=""><?php _e('Select a State:',$this->pluginDomain); ?></option>
 		<?php
 			foreach ($this->states as $abbr => $fullname) {
 				print ("<option value=\"$abbr\" ");
-				if ($_VenueStateProvince == $abbr) {
+				if (($_VenueStateProvince != -1 ? $_VenueStateProvince : $_VenueState) == $abbr) {
 					print ('selected="selected" ');
 				}
 				print (">$fullname</option>\n");
