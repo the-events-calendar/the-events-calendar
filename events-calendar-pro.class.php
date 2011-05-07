@@ -1744,7 +1744,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 
 		function save_event_meta($event_id, $data) {
-			if( $data['EventAllDay'] == 'yes' || !isset($data['EventAllDay']) ) {
+			if( $data['EventAllDay'] == 'yes' || !isset($data['EventStartDate']) ) {
 				$data['EventStartDate'] = $this->dateToTimeStamp( $data['EventStartDate'], "12", "00", "AM" );
 				$data['EventEndDate'] = $this->dateToTimeStamp( $data['EventEndDate'], "11", "59", "PM" );
 			} else {
