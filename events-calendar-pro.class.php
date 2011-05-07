@@ -961,7 +961,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				if ( $options['useRewriteRules'] == 'on' || isset( $options['eventsSlug']) ) {
 					$this->flushRewriteRules();
 				}
-				
+
+				if( !isset($_POST['spEventsDebug']) ) {
+					$options['spEventsDebug'] = "";
+				}
+
 				try {
 					do_action( 'sp-events-save-more-options' );
 					if ( !$this->optionsExceptionThrown ) $options['error'] = "";
