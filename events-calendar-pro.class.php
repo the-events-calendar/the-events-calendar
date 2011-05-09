@@ -1988,8 +1988,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				}
 			}
 			if($_EventVenueID){
-				foreach($this->venueTags as $tag)
+				foreach($this->venueTags as $tag) {
 					$$tag = get_post_meta($_EventVenueID, $tag, true );
+				}
 
 			}else{
 				foreach ( $this->legacyVenueTags as $tag ) {
@@ -2060,7 +2061,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					
 				foreach ( $this->venueTags as $tag ) {
 					if ( $postId && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
-						$$tag = get_post_meta( $postId, $tag, true );
+						$$tag = esc_html(get_post_meta( $postId, $tag, true ));
 					} else {
 						$cleaned_tag = str_replace('_Venue','',$tag);
 						$$tag = sp_get_option('eventsDefault'.$cleaned_tag);
