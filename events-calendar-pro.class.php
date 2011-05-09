@@ -1629,7 +1629,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$locationMetaSuffixes = array( 'address', 'city', 'state', 'province', 'zip', 'country' );
 			$toUrlEncode = "";
 			foreach( $locationMetaSuffixes as $val ) {
-				$metaVal = call_user_func('sp_get_'.$val);
+				$metaVal = call_user_func('sp_get_'.$val, $postId);
 				if ( $metaVal ) 
 					$toUrlEncode .= $metaVal . " ";
 			}
