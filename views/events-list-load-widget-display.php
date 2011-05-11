@@ -35,20 +35,25 @@
 ?>
 <li <?php echo $class ?>>
 	<div class="when">
-		<?php 
+		<?php
+			$space = false;
+			$output = '';
 			echo sp_get_start_date( $post->ID, $start ); 
 
-			if($event->AllDay && $start)
+			if($event->AllDay && $start) {
 				echo ' <small>('.__('All Day',$this->pluginDomain).')</small>';
+			} else {
+				if ( $end && $event->EndDate != '') {
+					echo "<br/>" . __('Ends ', $this->pluginDomain);
+					echo sp_get_end_date($post->ID);
+				}
+			}
 		?> 
 	</div>
 	<div class="event">
 		<a href="<?php echo get_permalink($post->ID) ?>"><?php echo $post->post_title ?></a>
 	</div>
 	<div class="loc"><?php
-		$space = false;
-		$output = '';
-
 		if ( $venue && sp_get_venue() != '') {
 			$output .= ( $space ) ? '<br />' : '';
 			$output .= sp_get_venue(); 
@@ -57,12 +62,14 @@
 
 		if ( $address && sp_get_address()) {
 			$output .= ( $space ) ? '<br />' : '';
-			$output .= sp_get_address(); 
+			$output .= sp_get_address();
+			$space = true;
 		}
 
 		if ( $city && sp_get_city() != '' ) {
-			$space = true;
+			$output .= ( $space ) ? '<br />' : '';
 			$output .= sp_get_city() . ', ';
+			$space = true;
 		}
 		if ( $region && sp_get_region()) {
 			$output .= ( !$city ) ? '<br />' : '';
@@ -81,26 +88,6 @@
 		if ( $country && sp_get_country() != '') {
 			$output .= ( $space ) ? '<br />' : ' ';
 			$output .= sp_get_country(); 
-		}
-
-
-// 		if ( $start && $event->StartDate != '') {
-// 			$output .= '<br/>';
-// 			if($end)
-// 				$output .= __('From ', $this->pluginDomain);
-// 			$output .= sp_get_start_date($post->ID); 
-// 
-// 			if($end)
-// 				$output .= __(' until ', $this->pluginDomain);
-// 		}
-
-		if ( $end && $event->EndDate != '') {
-			if($output) //It is entirely possible that this is the first data.
-				$output .= '<br/>';
-
-			$output .= __('Ends ', $this->pluginDomain);
-
-			$output .= sp_get_end_date($post->ID); 
 		}
 
 		if ( $phone && sp_get_phone() != '') {

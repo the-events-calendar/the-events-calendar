@@ -374,7 +374,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_venue( $postId = null) {
 		$postId = sp_post_id_helper( $postId );
-		return esc_html((sp_has_venue()) ?  getEventMeta( sp_has_venue(), '_VenueVenue', true ) : getEventMeta( $postId, '_EventVenue', true ));
+		return esc_html((sp_has_venue( $postId )) ?  getEventMeta( sp_has_venue( $postId ), '_VenueVenue', true ) : getEventMeta( $postId, '_EventVenue', true ));
 	}
 	/**
 	 * Returns the event country
@@ -383,7 +383,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_country( $postId = null) {
 		$postId = sp_post_id_helper( $postId );
-		return esc_html((sp_has_venue()) ?  getEventMeta( sp_has_venue(), '_VenueCountry', true ) : getEventMeta( $postId, '_EventCountry', true ));
+		return esc_html((sp_has_venue( $postId )) ?  getEventMeta( sp_has_venue( $postId ), '_VenueCountry', true ) : getEventMeta( $postId, '_EventCountry', true ));
 	}
 	/**
 	 * Returns the event address
@@ -392,7 +392,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_address( $postId = null) {
 		$postId = sp_post_id_helper( $postId );
-		return esc_html((sp_has_venue()) ?  getEventMeta( sp_has_venue(), '_VenueAddress', true ) : getEventMeta( $postId, '_EventAddress', true ));
+		return esc_html((sp_has_venue( $postId )) ?  getEventMeta( sp_has_venue( $postId ), '_VenueAddress', true ) : getEventMeta( $postId, '_EventAddress', true ));
 	}
 	/**
 	 * Returns the event city
@@ -401,7 +401,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_city( $postId = null) {
 		$postId = sp_post_id_helper( $postId );
-		return esc_html((sp_has_venue()) ?  getEventMeta( sp_has_venue(), '_VenueCity', true ) : getEventMeta( $postId, '_EventCity', true ));
+		return esc_html((sp_has_venue( $postId )) ?  getEventMeta( sp_has_venue( $postId ), '_VenueCity', true ) : getEventMeta( $postId, '_EventCity', true ));
 	}
 	/**
 	 * Returns the event state or Province
@@ -410,7 +410,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_stateprovince( $postId = null) {
 		$postId = sp_post_id_helper( $postId );
-		return esc_html(getEventMeta( sp_has_venue(), '_VenueStateProvince', true ));
+		return esc_html(getEventMeta( sp_has_venue( $postId ), '_VenueStateProvince', true ));
 	}
 	/**
 	 * Returns the event state
@@ -419,7 +419,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_state( $postId = null) {
 		$postId = sp_post_id_helper( $postId );
-		return esc_html((sp_has_venue()) ?  getEventMeta( sp_has_venue(), '_VenueState', true ) : getEventMeta( $postId, '_VenueState', true ));
+		return esc_html((sp_has_venue( $postId )) ?  getEventMeta( sp_has_venue( $postId ), '_VenueState', true ) : getEventMeta( $postId, '_VenueState', true ));
 	}
 	/**
 	 * Returns the event province
@@ -428,7 +428,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_province( $postId = null) {
 		$postId = sp_post_id_helper( $postId );
-		return esc_html((sp_has_venue()) ?  getEventMeta( sp_has_venue(), '_VenueProvince', true ) : getEventMeta( $postId, '_EventProvince', true ));
+		return esc_html((sp_has_venue( $postId )) ?  getEventMeta( sp_has_venue( $postId ), '_VenueProvince', true ) : getEventMeta( $postId, '_EventProvince', true ));
 	}
 	/**
 	 * Returns the event zip code
@@ -437,7 +437,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_zip( $postId = null) {
 		$postId = sp_post_id_helper( $postId );
-		return esc_html((sp_has_venue()) ?  getEventMeta( sp_has_venue(), '_VenueZip', true ) : getEventMeta( $postId, '_EventZip', true ));
+		return esc_html((sp_has_venue( $postId )) ?  getEventMeta( sp_has_venue( $postId ), '_VenueZip', true ) : getEventMeta( $postId, '_EventZip', true ));
 	}
 	/**
 	 * Returns the event phone number
@@ -446,7 +446,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_phone( $postId = null) {
 		$postId = sp_post_id_helper( $postId );
-		return esc_html((sp_has_venue()) ?  getEventMeta( sp_has_venue(), '_VenuePhone', true ) : getEventMeta( $postId, '_EventPhone', true ));
+		return esc_html((sp_has_venue( $postId )) ?  getEventMeta( sp_has_venue( $postId ), '_VenuePhone', true ) : getEventMeta( $postId, '_EventPhone', true ));
 	}
 	
 	/**
@@ -703,10 +703,10 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 *
 	 * @return string
 	 */
-	function sp_get_region() {
+	function sp_get_region( $postId = null ) {
 		global $sp_ecp;
-		if(getEventMeta(sp_has_venue(), '_VenueStateProvince', true )){
-			return getEventMeta(sp_has_venue(), '_VenueStateProvince', true );
+		if(getEventMeta(sp_has_venue( $postId ), '_VenueStateProvince', true )){
+			return getEventMeta(sp_has_venue( $postId ), '_VenueStateProvince', true );
 		}else
 		if ( sp_get_country() == __('United States', $sp_ecp->pluginDomain ) ) {
 			return sp_get_state();

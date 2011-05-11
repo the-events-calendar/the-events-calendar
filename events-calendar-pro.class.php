@@ -903,7 +903,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					$_POST['eventsSlug'] = 'events';
 				}
 				
-				$opts = array('embedGoogleMaps', 'showComments', 'displayEventsOnHomepage', 'resetEventPostDate', 'useRewriteRules', 'spEventsDebug', 'eventsSlug', 'singleEventSlug','spEventsAfterHTML','spEventsBeforeHTML','spEventsCountries','defaultValueReplace','eventsDefaultVenueID', 'eventsDefaultOrganizerID', 'eventsDefaultState','eventsDefaultAddress','eventsDefaultCity','eventsDefaultZip','eventsDefaultPhone');
+				$opts = array('embedGoogleMaps', 'showComments', 'displayEventsOnHomepage', 'resetEventPostDate', 'useRewriteRules', 'spEventsDebug', 'eventsSlug', 'singleEventSlug','spEventsAfterHTML','spEventsBeforeHTML','spEventsCountries','defaultValueReplace','eventsDefaultVenueID', 'eventsDefaultOrganizerID', 'eventsDefaultState','eventsDefaultProvince','eventsDefaultAddress','eventsDefaultCity','eventsDefaultZip','eventsDefaultPhone');
 				foreach ($opts as $opt) {
 					if(isset($_POST[$opt]))
 						$options[$opt] = $_POST[$opt];
@@ -920,7 +920,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				if ( $options['useRewriteRules'] == 'on' || isset( $options['eventsSlug']) ) {
 					$this->flushRewriteRules();
 				}
-				
+
+				if( !isset($_POST['spEventsDebug']) ) {
+					$options['spEventsDebug'] = "";
+				}
+
 				try {
 					do_action( 'sp-events-save-more-options' );
 					if ( !$this->optionsExceptionThrown ) $options['error'] = "";
@@ -1450,7 +1454,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$locationMetaSuffixes = array( 'address', 'city', 'state', 'province', 'zip', 'country' );
 			$toUrlEncode = "";
 			foreach( $locationMetaSuffixes as $val ) {
-				$metaVal = call_user_func('sp_get_'.$val);
+				$metaVal = call_user_func('sp_get_'.$val, $postId);
 				if ( $metaVal ) 
 					$toUrlEncode .= $metaVal . " ";
 			}
@@ -1565,7 +1569,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 
 		function save_event_meta($event_id, $data) {
-			if( $data['EventAllDay'] == 'yes' || !isset($data['EventAllDay']) ) {
+			if( $data['EventAllDay'] == 'yes' || !isset($data['EventStartDate']) ) {
 				$data['EventStartDate'] = $this->dateToTimeStamp( $data['EventStartDate'], "12", "00", "AM" );
 				$data['EventEndDate'] = $this->dateToTimeStamp( $data['EventEndDate'], "11", "59", "PM" );
 			} else {
@@ -1638,19 +1642,20 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			$data = stripslashes_deep($_POST['venue']);
 
-			$venue_id = $this->add_new_venue($data);
+			$venue_id = $this->add_new_venue($data, $post);
 			//do_action( 'sp_events_venue_save', $venue_id );
 
 			return $venue_id;
 		}
 
-		public function add_new_venue($data)
+		// abstracted for EventBrite
+		public function add_new_venue($data, $post = null)
 		{
 			if($data['VenueID'])
 				return $data['VenueID'];
 
-			if ( $post->post_type == self::VENUE_POST_TYPE && $postID) {
-				$data['VenueID'] = $postID;
+			if ( $post->post_type == self::VENUE_POST_TYPE && $post->ID) {
+				$data['VenueID'] = $post->ID;
 			}
 
 			// make state and province mutually exclusive
@@ -1664,7 +1669,12 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				'ID' => $data['VenueID']
 			);
 
-			$venue_id = wp_insert_post($postdata, true);
+			if( isset($data['VenueID'])  && $data['VenueID'] != "0" ) {
+				$venue_id = $data['VenueID'];
+				wp_update_post( array('post_title' => $data['Venue'], 'ID'=>$data['VenueID'] ));
+			} else {
+				$venue_id = wp_insert_post($postdata, true);
+			}
 
 			if( !is_wp_error($venue_id) ) {
 
@@ -1723,18 +1733,18 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$data = stripslashes_deep($_POST['organizer']);
 
 			
-			$organizer_id = $this->add_new_organizer($data);
-			//do_action( 'sp_events_organizer_save', $organizer_id, $data['Organizer']);
+			$organizer_id = $this->add_new_organizer($data, $post);
 
 			return $organizer_id;
 		}
 
-		public function add_new_organizer($data) {
+		// abstracted for EventBrite
+		public function add_new_organizer($data, $post=null) {
 			if($data['OrganizerID'])
 				return $data['OrganizerID'];
 
-			if ( $post->post_type == self::ORGANIZER_POST_TYPE && $postID) {
-				$data['OrganizerID'] = $postID;
+			if ( $post->post_type == self::ORGANIZER_POST_TYPE && $post->ID) {
+				$data['OrganizerID'] = $post->ID;
 			}
 
 			//google map checkboxes
@@ -1745,7 +1755,12 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				'ID' => $data['OrganizerID']
 			);
 
-			$organizer_id = wp_insert_post($postdata, true);
+			if( isset($data['OrganizerID']) && $data['OrganizerID'] != "0" ) {
+				$organizer_id = $data['OrganizerID'];
+				wp_update_post( array('post_title' => $data['Organizer'], 'ID'=>$data['OrganizerID'] ));
+			} else {
+				$organizer_id = wp_insert_post($postdata, true);
+			}
 
 			if( !is_wp_error($organizer_id) ) {
 				foreach ($data as $key => $var) {
@@ -1804,8 +1819,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				}
 			}
 			if($_EventVenueID){
-				foreach($this->venueTags as $tag)
+				foreach($this->venueTags as $tag) {
 					$$tag = get_post_meta($_EventVenueID, $tag, true );
+				}
 
 			}else{
 				foreach ( $this->legacyVenueTags as $tag ) {
@@ -1819,12 +1835,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 							continue;
 
 						${'_Venue'.$cleaned_tag} = sp_get_option('eventsDefault'.$cleaned_tag);
-
-						// hack to fix naming convention issue in state/province defaults
-						if ($cleaned_tag == "State")
-							$_VenueStateProvince = $_VenueState;
 					}
 				}
+
+				$_VenueStateProvince = -1; // we want to use default values here
 			}
 	/*
 			foreach($this->organizerTags as $tag)
@@ -1878,7 +1892,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					
 				foreach ( $this->venueTags as $tag ) {
 					if ( $postId && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
-						$$tag = get_post_meta( $postId, $tag, true );
+						$$tag = esc_html(get_post_meta( $postId, $tag, true ));
 					} else {
 						$cleaned_tag = str_replace('_Venue','',$tag);
 						$$tag = sp_get_option('eventsDefault'.$cleaned_tag);
@@ -2459,7 +2473,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		        $events .= "UID:" . $eventPost->ID . "@" . $blogHome . "\n";
 		        $events .= "SUMMARY:" . $eventPost->post_title . "\n";				
 		        $events .= "DESCRIPTION:" . str_replace(",",'\,',$description) . "\n";
-				$events .= "LOCATION:" . sp_get_address( $eventPost->ID ) . "\n";
+				$events .= "LOCATION:" . html_entity_decode(sp_get_full_address( $eventPost->ID, true ), ENT_QUOTES) . "\n";
 				$events .= "URL:" . get_permalink( $eventPost->ID ) . "\n";
 		        $events .= "END:VEVENT\n";
 			}
