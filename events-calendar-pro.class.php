@@ -2630,7 +2630,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		        $events .= "UID:" . $eventPost->ID . "@" . $blogHome . "\n";
 		        $events .= "SUMMARY:" . $eventPost->post_title . "\n";				
 		        $events .= "DESCRIPTION:" . str_replace(",",'\,',$description) . "\n";
-				$events .= "LOCATION:" . sp_get_full_address( $eventPost->ID, true ) . "\n";
+				$events .= "LOCATION:" . html_entity_decode(sp_get_full_address( $eventPost->ID, true ), ENT_QUOTES) . "\n";
 				$events .= "URL:" . get_permalink( $eventPost->ID ) . "\n";
 		        $events .= "END:VEVENT\n";
 			}
