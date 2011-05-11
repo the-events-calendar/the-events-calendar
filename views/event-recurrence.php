@@ -1,44 +1,8 @@
-<script>
-	// temporary spot for js during dev.  Move to main js file before release
-	jQuery(document).ready(function($) {
-		$('[name="recurrence[type]"]').change(function() {
-			var curOption =  $(this).find("option:selected").val();
-			$('.custom-recurrence-row').hide();
-
-			if (curOption == "Custom" ) {
-				$('#recurrence-end').show();
-				$('#custom-recurrence-frequency').show();
-				$('[name="recurrence[custom-type]"]').change();
-			} else if (curOption == "None") {
-				$('#recurrence-end').hide();
-			} else {
-				$('#recurrence-end').show();
-				$('#custom-recurrence-frequency').hide();
-			}
-		});
-
-		$('[name="recurrence[custom-type]"]').change(function() {
-			$('.custom-recurrence-row').hide();
-			var option = $(this).find('option:selected'), customSelector = option.data('tablerow');
-			$(customSelector).show()
-			$('#recurrence-interval-type').text(option.data('plural'));
-			$('[name="recurrence[custom-type-text]"]').val(option.data('plural'));
-		});
-
-		$('[name="recurrence[custom-months-type]"]').click(function() {
-			if($(this).val() == "Each") {
-				$('#recurrence-month-on-the').hide();
-				$('#recurrence-month-each').show();
-			} else if($(this).val() == "On The") {
-				$('#recurrence-month-on-the').show();
-				$('#recurrence-month-each').hide();
-			}
-		});
-	});
-</script>
 		<tr>
 			<td><?php _e('Recurrence:',$this->pluginDomain); ?></td>
 			<td>
+				<input type="hidden" name="is_recurring" value="<?php echo $recType && $recType != "None" ? "true" : "false" ?>" />
+				<input type="hidden" name="recurrence_action" value="" />
 				<select name="recurrence[type]">
 					<option value="None" <?php selected($recType, "None") ?>>None</option>
 					<option value="Every Day" <?php selected($recType, "Every Day") ?>>Every Day</option>
@@ -47,8 +11,8 @@
 					<option value="Every Year" <?php selected($recType, "Every Year") ?>>Every Year</option>
 					<option value="Custom" <?php selected($recType, "Custom") ?>>Custom</option>
 				</select>
-				End
-				<span id="recurrence-end">
+				<span id="recurrence-end" style="display: <?php echo !$recType || $recType == "None" ? "none" : "inline" ?>">
+					End						
 					<select name="recurrence[end-type]">
 						<option value="On" <?php selected($recEndType, "None") ?>>On</option>
 						<option value="After" <?php selected($recEndType, "After") ?>>After</option>
@@ -67,11 +31,12 @@
 					<option value="Monthly" data-plural="Month(s) on:" data-tablerow="#custom-recurrence-months" <?php selected($recCustomType, "Monthly") ?>>Monthly</option>
 					<option value="Yearly" data-plural="Year(s) on:" data-tablerow="#custom-recurrence-years" <?php selected($recCustomType, "Yearly") ?>>Yearly</option>
 				</select>
-				Every <input name="recurrence[custom-interval]" value="<?php echo $recCustomInterval ?>"/> <span id="recurrence-interval-type"><?php echo $recCustomTypeText ?></span>
+				Every <input type="text" name="recurrence[custom-interval]" value="<?php echo $recCustomInterval ?>"/> <span id="recurrence-interval-type"><?php echo $recCustomTypeText ?></span>
 				<input type="hidden" name="recurrence[custom-type-text]" value="<?php echo $recCustomTypeText ?>"/>
 			</td>
 		</tr>
-		<tr class="custom-recurrence-row" id="custom-recurrence-weeks" style="display: <?php echo $recCustomType == "Weekly" ? "table-row" : "none" ?>;">
+		<?php if(!isset($recCustomWeekDay)) $recCustomWeekDay = array(); ?>
+		<tr class="custom-recurrence-row" id="custom-recurrence-weeks" style="display: <?php echo $recType == "Custom"  && $recCustomType == "Weekly" ? "table-row" : "none" ?>;">
 			<td></td>
 			<td>
 				<input type="checkbox" name="recurrence[custom-week-day][]" value="1" <?php checked(in_array("1", $recCustomWeekDay)) ?>/> M
@@ -83,10 +48,10 @@
 				<input type="checkbox" name="recurrence[custom-week-day][]" value="7" <?php checked(in_array("7", $recCustomWeekDay)) ?>/> Su
 			</td>
 		</tr>
-		<tr class="custom-recurrence-row" id="custom-recurrence-months" style="display: <?php echo $recCustomType == "Monthly" ? "table-row" : "none" ?>;">
+		<tr class="custom-recurrence-row" id="custom-recurrence-months" style="display: <?php echo $recType == "Custom"  && $recCustomType == "Monthly" ? "table-row" : "none" ?>;">
 			<td></td>
 			<td>
-				<input type="radio" name="recurrence[custom-months-type]" value="Each" <?php checked(!$recCustomMonthType || $recCustomMonthType == "Each") ?>/> Each
+				<input type="radio" name="recurrence[custom-months-type]" value="Each" <?php checked(!$recCustomMonthType || $recCustomMonthType == "Each") ?>/> On Day
 				<input type="radio" name="recurrence[custom-months-type]" value="On The" <?php checked($recCustomMonthType, "On The") ?>/> On The
 				<div id="recurrence-month-each" style="display: <?php echo $recCustomMonthType == "Each" ? "block" : "none" ?>;">
 					<select name="recurrence[custom-month-day-of-month]">
@@ -113,8 +78,6 @@
 						<option value="7" <?php selected($recCustomMonthDay, "7") ?>>Sunday</option>
 						<option value="-" <?php selected($recCustomMonthDay, "-") ?>>-</option>
 						<option value="-1" <?php selected($recCustomMonthDay, "-1") ?>>Day</option>
-						<option value="-2" <?php selected($recCustomMonthDay, "-2") ?>>Weekday</option>
-						<option value="-3" <?php selected($recCustomMonthDay, "-3") ?>>Weekend Day</option>
 					</select>
 				</div>
 			</td>
@@ -123,21 +86,23 @@
 			<td></td>
 			<td>
 				<div>
-					<input type="checkbox" name="recurrence[custom-year-month][]" value="1" <?php checked(in_array("1", $recCustomYearMonth)) ?>/> Jan
-					<input type="checkbox" name="recurrence[custom-year-month][]" value="2" <?php checked(in_array("2", $recCustomYearMonth)) ?>/> Feb
-					<input type="checkbox" name="recurrence[custom-year-month][]" value="3" <?php checked(in_array("3", $recCustomYearMonth)) ?>/> Mar
-					<input type="checkbox" name="recurrence[custom-year-month][]" value="4" <?php checked(in_array("4", $recCustomYearMonth)) ?>/> Apr
-					<input type="checkbox" name="recurrence[custom-year-month][]" value="5" <?php checked(in_array("5", $recCustomYearMonth)) ?>/> May
-					<input type="checkbox" name="recurrence[custom-year-month][]" value="6" <?php checked(in_array("6", $recCustomYearMonth)) ?>/> Jun
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="1" <?php checked(in_array("1", $recCustomYearMonth)) ?>/> Jan</label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="2" <?php checked(in_array("2", $recCustomYearMonth)) ?>/> Feb</label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="3" <?php checked(in_array("3", $recCustomYearMonth)) ?>/> Mar</label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="4" <?php checked(in_array("4", $recCustomYearMonth)) ?>/> Apr</label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="5" <?php checked(in_array("5", $recCustomYearMonth)) ?>/> May</label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="6" <?php checked(in_array("6", $recCustomYearMonth)) ?>/> Jun</label>
 				</div>
+				<div style="clear:both"></div>
 				<div>
-					<input type="checkbox" name="recurrence[custom-year-month][]" value="7" <?php checked(in_array("7", $recCustomYearMonth)) ?>/> Jul
-					<input type="checkbox" name="recurrence[custom-year-month][]" value="8" <?php checked(in_array("8", $recCustomYearMonth)) ?>/> Aug
-					<input type="checkbox" name="recurrence[custom-year-month][]" value="9" <?php checked(in_array("9", $recCustomYearMonth)) ?>/> Sep
-					<input type="checkbox" name="recurrence[custom-year-month][]" value="10" <?php checked(in_array("10", $recCustomYearMonth)) ?>/> Oct
-					<input type="checkbox" name="recurrence[custom-year-month][]" value="11" <?php checked(in_array("11", $recCustomYearMonth)) ?>/> Nov
-					<input type="checkbox" name="recurrence[custom-year-month][]" value="12" <?php checked(in_array("12", $recCustomYearMonth)) ?>/> Dec
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="7" <?php checked(in_array("7", $recCustomYearMonth)) ?>/> Jul</label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="8" <?php checked(in_array("8", $recCustomYearMonth)) ?>/> Aug</label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="9" <?php checked(in_array("9", $recCustomYearMonth)) ?>/> Sep</label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="10" <?php checked(in_array("10", $recCustomYearMonth)) ?>/> Oct</label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="11" <?php checked(in_array("11", $recCustomYearMonth)) ?>/> Nov</label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="12" <?php checked(in_array("12", $recCustomYearMonth)) ?>/> Dec</label>
 				</div>
+				<div style="clear:both"></div>				
 				<div>
 					<input type="checkbox" name="recurrence[custom-year-filter]" value="1" <?php checked($recCustomYearFilter, "1") ?>/> On the:
 					<select name="recurrence[custom-year-month-number]">
@@ -157,8 +122,6 @@
 						<option value="7" <?php selected($recCustomYearMonthDay, "7") ?>>Sunday</option>
 						<option value="-" <?php selected($recCustomYearMonthDay, "-") ?>>-</option>
 						<option value="-1" <?php selected($recCustomYearMonthDay, "-1") ?>>Day</option>
-						<option value="-2" <?php selected($recCustomYearMonthDay, "-2") ?>>Weekday</option>
-						<option value="-3" <?php selected($recCustomYearMonthDay, "-3") ?>>Weekend Day</option>
 					</select>
 				</div>
 			</td>

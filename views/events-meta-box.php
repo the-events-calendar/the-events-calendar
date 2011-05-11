@@ -3,6 +3,14 @@
 		.eventBritePluginPlug {display:none;}
 	<?php endif; ?>
 </style>
+
+<div id="recurring-dialog"  title="Saving Recurring Event" style="display: none;">
+	Do you wish to update<br/>
+	<input type='radio' value="<?php echo Events_Recurrence_Meta::UPDATE_TYPE_ALL ?>" name="events_to_update" checked/> All events<br/>
+	<input type='radio' value="<?php echo Events_Recurrence_Meta::UPDATE_TYPE_SINGLE ?>" name="events_to_update"/> Only this event<br/>
+	<input type='radio' value="<?php echo Events_Recurrence_Meta::UPDATE_TYPE_FUTURE ?>" name="events_to_update"/> Future Events</p>
+</div>
+
 <div id="eventIntro">
 <div id="tec-post-error" class="tec-events-error error"></div>
 <?php

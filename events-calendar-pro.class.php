@@ -112,300 +112,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public $daysOfWeekMin;
 		public $monthsFull;
 		public $monthsShort;
-		private function constructDaysOfWeek() {
-			global $wp_locale;
-			for ($i = 0; $i <= 6; $i++) {
-				$day = $wp_locale->get_weekday($i);
-				$this->daysOfWeek[$i] = $day;
-				$this->daysOfWeekShort[$i] = $wp_locale->get_weekday_abbrev($day);
-				$this->daysOfWeekMin[$i] = $wp_locale->get_weekday_initial($day);
-			}
-		}
-
 		public $countries;
-		public function constructCountries( $postId = '', $useDefault = true ) {
 
-				if(sp_get_option('spEventsCountries') != ''){
-					$countries = array(
-						"" => __("Select a Country:", $this->pluginDomain)
-						);
-
-					$country_rows = explode("\n", sp_get_option('spEventsCountries'));
-					foreach($country_rows as $crow){
-						$country = explode(",", $crow);
-						$country[0] = trim($country[0]);
-						$country[1] = trim($country[1]);
-
-						if($country[0] && $country[1]){
-							$countries[$country[0]] = $country[1];
-						}
-
-					}
-
-
-				}
-
-				if(!isset($countries) || !is_array($countries) || count($countries) == 1)
-					$countries = array(
-						"" => __("Select a Country:", $this->pluginDomain),
-						"US" => __("United States", $this->pluginDomain),
-						"AF" => __("Afghanistan", $this->pluginDomain),
-						"AL" => __("Albania", $this->pluginDomain),
-						"DZ" => __("Algeria", $this->pluginDomain),
-						"AS" => __("American Samoa", $this->pluginDomain),
-						"AD" => __("Andorra", $this->pluginDomain),
-						"AO" => __("Angola", $this->pluginDomain),
-						"AI" => __("Anguilla", $this->pluginDomain),
-						"AQ" => __("Antarctica", $this->pluginDomain),
-						"AG" => __("Antigua And Barbuda", $this->pluginDomain),
-						"AR" => __("Argentina", $this->pluginDomain),
-						"AM" => __("Armenia", $this->pluginDomain),
-						"AW" => __("Aruba", $this->pluginDomain),
-						"AU" => __("Australia", $this->pluginDomain),
-						"AT" => __("Austria", $this->pluginDomain),
-						"AZ" => __("Azerbaijan", $this->pluginDomain),
-						"BS" => __("Bahamas", $this->pluginDomain),
-						"BH" => __("Bahrain", $this->pluginDomain),
-						"BD" => __("Bangladesh", $this->pluginDomain),
-						"BB" => __("Barbados", $this->pluginDomain),
-						"BY" => __("Belarus", $this->pluginDomain),
-						"BE" => __("Belgium", $this->pluginDomain),
-						"BZ" => __("Belize", $this->pluginDomain),
-						"BJ" => __("Benin", $this->pluginDomain),
-						"BM" => __("Bermuda", $this->pluginDomain),
-						"BT" => __("Bhutan", $this->pluginDomain),
-						"BO" => __("Bolivia", $this->pluginDomain),
-						"BA" => __("Bosnia And Herzegowina", $this->pluginDomain),
-						"BW" => __("Botswana", $this->pluginDomain),
-						"BV" => __("Bouvet Island", $this->pluginDomain),
-						"BR" => __("Brazil", $this->pluginDomain),
-						"IO" => __("British Indian Ocean Territory", $this->pluginDomain),
-						"BN" => __("Brunei Darussalam", $this->pluginDomain),
-						"BG" => __("Bulgaria", $this->pluginDomain),
-						"BF" => __("Burkina Faso", $this->pluginDomain),
-						"BI" => __("Burundi", $this->pluginDomain),
-						"KH" => __("Cambodia", $this->pluginDomain),
-						"CM" => __("Cameroon", $this->pluginDomain),
-						"CA" => __("Canada", $this->pluginDomain),
-						"CV" => __("Cape Verde", $this->pluginDomain),
-						"KY" => __("Cayman Islands", $this->pluginDomain),
-						"CF" => __("Central African Republic", $this->pluginDomain),
-						"TD" => __("Chad", $this->pluginDomain),
-						"CL" => __("Chile", $this->pluginDomain),
-						"CN" => __("China", $this->pluginDomain),
-						"CX" => __("Christmas Island", $this->pluginDomain),
-						"CC" => __("Cocos (Keeling) Islands", $this->pluginDomain),
-						"CO" => __("Colombia", $this->pluginDomain),
-						"KM" => __("Comoros", $this->pluginDomain),
-						"CG" => __("Congo", $this->pluginDomain),
-						"CD" => __("Congo, The Democratic Republic Of The", $this->pluginDomain),
-						"CK" => __("Cook Islands", $this->pluginDomain),
-						"CR" => __("Costa Rica", $this->pluginDomain),
-						"CI" => __("Cote D'Ivoire", $this->pluginDomain),
-						"HR" => __("Croatia (Local Name: Hrvatska)", $this->pluginDomain),
-						"CU" => __("Cuba", $this->pluginDomain),
-						"CY" => __("Cyprus", $this->pluginDomain),
-						"CZ" => __("Czech Republic", $this->pluginDomain),
-						"DK" => __("Denmark", $this->pluginDomain),
-						"DJ" => __("Djibouti", $this->pluginDomain),
-						"DM" => __("Dominica", $this->pluginDomain),
-						"DO" => __("Dominican Republic", $this->pluginDomain),
-						"TP" => __("East Timor", $this->pluginDomain),
-						"EC" => __("Ecuador", $this->pluginDomain),
-						"EG" => __("Egypt", $this->pluginDomain),
-						"SV" => __("El Salvador", $this->pluginDomain),
-						"GQ" => __("Equatorial Guinea", $this->pluginDomain),
-						"ER" => __("Eritrea", $this->pluginDomain),
-						"EE" => __("Estonia", $this->pluginDomain),
-						"ET" => __("Ethiopia", $this->pluginDomain),
-						"FK" => __("Falkland Islands (Malvinas)", $this->pluginDomain),
-						"FO" => __("Faroe Islands", $this->pluginDomain),
-						"FJ" => __("Fiji", $this->pluginDomain),
-						"FI" => __("Finland", $this->pluginDomain),
-						"FR" => __("France", $this->pluginDomain),
-						"FX" => __("France, Metropolitan", $this->pluginDomain),
-						"GF" => __("French Guiana", $this->pluginDomain),
-						"PF" => __("French Polynesia", $this->pluginDomain),
-						"TF" => __("French Southern Territories", $this->pluginDomain),
-						"GA" => __("Gabon", $this->pluginDomain),
-						"GM" => __("Gambia", $this->pluginDomain),
-						"GE" => __("Georgia", $this->pluginDomain),
-						"DE" => __("Germany", $this->pluginDomain),
-						"GH" => __("Ghana", $this->pluginDomain),
-						"GI" => __("Gibraltar", $this->pluginDomain),
-						"GR" => __("Greece", $this->pluginDomain),
-						"GL" => __("Greenland", $this->pluginDomain),
-						"GD" => __("Grenada", $this->pluginDomain),
-						"GP" => __("Guadeloupe", $this->pluginDomain),
-						"GU" => __("Guam", $this->pluginDomain),
-						"GT" => __("Guatemala", $this->pluginDomain),
-						"GN" => __("Guinea", $this->pluginDomain),
-						"GW" => __("Guinea-Bissau", $this->pluginDomain),
-						"GY" => __("Guyana", $this->pluginDomain),
-						"HT" => __("Haiti", $this->pluginDomain),
-						"HM" => __("Heard And Mc Donald Islands", $this->pluginDomain),
-						"VA" => __("Holy See (Vatican City State)", $this->pluginDomain),
-						"HN" => __("Honduras", $this->pluginDomain),
-						"HK" => __("Hong Kong", $this->pluginDomain),
-						"HU" => __("Hungary", $this->pluginDomain),
-						"IS" => __("Iceland", $this->pluginDomain),
-						"IN" => __("India", $this->pluginDomain),
-						"ID" => __("Indonesia", $this->pluginDomain),
-						"IR" => __("Iran (Islamic Republic Of)", $this->pluginDomain),
-						"IQ" => __("Iraq", $this->pluginDomain),
-						"IE" => __("Ireland", $this->pluginDomain),
-						"IL" => __("Israel", $this->pluginDomain),
-						"IT" => __("Italy", $this->pluginDomain),
-						"JM" => __("Jamaica", $this->pluginDomain),
-						"JP" => __("Japan", $this->pluginDomain),
-						"JO" => __("Jordan", $this->pluginDomain),
-						"KZ" => __("Kazakhstan", $this->pluginDomain),
-						"KE" => __("Kenya", $this->pluginDomain),
-						"KI" => __("Kiribati", $this->pluginDomain),
-						"KP" => __("Korea, Democratic People's Republic Of", $this->pluginDomain),
-						"KR" => __("Korea, Republic Of", $this->pluginDomain),
-						"KW" => __("Kuwait", $this->pluginDomain),
-						"KG" => __("Kyrgyzstan", $this->pluginDomain),
-						"LA" => __("Lao People's Democratic Republic", $this->pluginDomain),
-						"LV" => __("Latvia", $this->pluginDomain),
-						"LB" => __("Lebanon", $this->pluginDomain),
-						"LS" => __("Lesotho", $this->pluginDomain),
-						"LR" => __("Liberia", $this->pluginDomain),
-						"LY" => __("Libyan Arab Jamahiriya", $this->pluginDomain),
-						"LI" => __("Liechtenstein", $this->pluginDomain),
-						"LT" => __("Lithuania", $this->pluginDomain),
-						"LU" => __("Luxembourg", $this->pluginDomain),
-						"MO" => __("Macau", $this->pluginDomain),
-						"MK" => __("Macedonia, Former Yugoslav Republic Of", $this->pluginDomain),
-						"MG" => __("Madagascar", $this->pluginDomain),
-						"MW" => __("Malawi", $this->pluginDomain),
-						"MY" => __("Malaysia", $this->pluginDomain),
-						"MV" => __("Maldives", $this->pluginDomain),
-						"ML" => __("Mali", $this->pluginDomain),
-						"MT" => __("Malta", $this->pluginDomain),
-						"MH" => __("Marshall Islands", $this->pluginDomain),
-						"MQ" => __("Martinique", $this->pluginDomain),
-						"MR" => __("Mauritania", $this->pluginDomain),
-						"MU" => __("Mauritius", $this->pluginDomain),
-						"YT" => __("Mayotte", $this->pluginDomain),
-						"MX" => __("Mexico", $this->pluginDomain),
-						"FM" => __("Micronesia, Federated States Of", $this->pluginDomain),
-						"MD" => __("Moldova, Republic Of", $this->pluginDomain),
-						"MC" => __("Monaco", $this->pluginDomain),
-						"MN" => __("Mongolia", $this->pluginDomain),
-						"ME" => __("Montenegro", $this->pluginDomain),
-						"MS" => __("Montserrat", $this->pluginDomain),
-						"MA" => __("Morocco", $this->pluginDomain),
-						"MZ" => __("Mozambique", $this->pluginDomain),
-						"MM" => __("Myanmar", $this->pluginDomain),
-						"NA" => __("Namibia", $this->pluginDomain),
-						"NR" => __("Nauru", $this->pluginDomain),
-						"NP" => __("Nepal", $this->pluginDomain),
-						"NL" => __("Netherlands", $this->pluginDomain),
-						"AN" => __("Netherlands Antilles", $this->pluginDomain),
-						"NC" => __("New Caledonia", $this->pluginDomain),
-						"NZ" => __("New Zealand", $this->pluginDomain),
-						"NI" => __("Nicaragua", $this->pluginDomain),
-						"NE" => __("Niger", $this->pluginDomain),
-						"NG" => __("Nigeria", $this->pluginDomain),
-						"NU" => __("Niue", $this->pluginDomain),
-						"NF" => __("Norfolk Island", $this->pluginDomain),
-						"MP" => __("Northern Mariana Islands", $this->pluginDomain),
-						"NO" => __("Norway", $this->pluginDomain),
-						"OM" => __("Oman", $this->pluginDomain),
-						"PK" => __("Pakistan", $this->pluginDomain),
-						"PW" => __("Palau", $this->pluginDomain),
-						"PA" => __("Panama", $this->pluginDomain),
-						"PG" => __("Papua New Guinea", $this->pluginDomain),
-						"PY" => __("Paraguay", $this->pluginDomain),
-						"PE" => __("Peru", $this->pluginDomain),
-						"PH" => __("Philippines", $this->pluginDomain),
-						"PN" => __("Pitcairn", $this->pluginDomain),
-						"PL" => __("Poland", $this->pluginDomain),
-						"PT" => __("Portugal", $this->pluginDomain),
-						"PR" => __("Puerto Rico", $this->pluginDomain),
-						"QA" => __("Qatar", $this->pluginDomain),
-						"RE" => __("Reunion", $this->pluginDomain),
-						"RO" => __("Romania", $this->pluginDomain),
-						"RU" => __("Russian Federation", $this->pluginDomain),
-						"RW" => __("Rwanda", $this->pluginDomain),
-						"KN" => __("Saint Kitts And Nevis", $this->pluginDomain),
-						"LC" => __("Saint Lucia", $this->pluginDomain),
-						"VC" => __("Saint Vincent And The Grenadines", $this->pluginDomain),
-						"WS" => __("Samoa", $this->pluginDomain),
-						"SM" => __("San Marino", $this->pluginDomain),
-						"ST" => __("Sao Tome And Principe", $this->pluginDomain),
-						"SA" => __("Saudi Arabia", $this->pluginDomain),
-						"SN" => __("Senegal", $this->pluginDomain),
-						"RS" => __("Serbia", $this->pluginDomain),
-						"SC" => __("Seychelles", $this->pluginDomain),
-						"SL" => __("Sierra Leone", $this->pluginDomain),
-						"SG" => __("Singapore", $this->pluginDomain),
-						"SK" => __("Slovakia (Slovak Republic)", $this->pluginDomain),
-						"SI" => __("Slovenia", $this->pluginDomain),
-						"SB" => __("Solomon Islands", $this->pluginDomain),
-						"SO" => __("Somalia", $this->pluginDomain),
-						"ZA" => __("South Africa", $this->pluginDomain),
-						"GS" => __("South Georgia, South Sandwich Islands", $this->pluginDomain),
-						"ES" => __("Spain", $this->pluginDomain),
-						"LK" => __("Sri Lanka", $this->pluginDomain),
-						"SH" => __("St. Helena", $this->pluginDomain),
-						"PM" => __("St. Pierre And Miquelon", $this->pluginDomain),
-						"SD" => __("Sudan", $this->pluginDomain),
-						"SR" => __("Suriname", $this->pluginDomain),
-						"SJ" => __("Svalbard And Jan Mayen Islands", $this->pluginDomain),
-						"SZ" => __("Swaziland", $this->pluginDomain),
-						"SE" => __("Sweden", $this->pluginDomain),
-						"CH" => __("Switzerland", $this->pluginDomain),
-						"SY" => __("Syrian Arab Republic", $this->pluginDomain),
-						"TW" => __("Taiwan", $this->pluginDomain),
-						"TJ" => __("Tajikistan", $this->pluginDomain),
-						"TZ" => __("Tanzania, United Republic Of", $this->pluginDomain),
-						"TH" => __("Thailand", $this->pluginDomain),
-						"TG" => __("Togo", $this->pluginDomain),
-						"TK" => __("Tokelau", $this->pluginDomain),
-						"TO" => __("Tonga", $this->pluginDomain),
-						"TT" => __("Trinidad And Tobago", $this->pluginDomain),
-						"TN" => __("Tunisia", $this->pluginDomain),
-						"TR" => __("Turkey", $this->pluginDomain),
-						"TM" => __("Turkmenistan", $this->pluginDomain),
-						"TC" => __("Turks And Caicos Islands", $this->pluginDomain),
-						"TV" => __("Tuvalu", $this->pluginDomain),
-						"UG" => __("Uganda", $this->pluginDomain),
-						"UA" => __("Ukraine", $this->pluginDomain),
-						"AE" => __("United Arab Emirates", $this->pluginDomain),
-						"GB" => __("United Kingdom", $this->pluginDomain),
-						"UM" => __("United States Minor Outlying Islands", $this->pluginDomain),
-						"UY" => __("Uruguay", $this->pluginDomain),
-						"UZ" => __("Uzbekistan", $this->pluginDomain),
-						"VU" => __("Vanuatu", $this->pluginDomain),
-						"VE" => __("Venezuela", $this->pluginDomain),
-						"VN" => __("Viet Nam", $this->pluginDomain),
-						"VG" => __("Virgin Islands (British)", $this->pluginDomain),
-						"VI" => __("Virgin Islands (U.S.)", $this->pluginDomain),
-						"WF" => __("Wallis And Futuna Islands", $this->pluginDomain),
-						"EH" => __("Western Sahara", $this->pluginDomain),
-						"YE" => __("Yemen", $this->pluginDomain),
-						"YU" => __("Yugoslavia", $this->pluginDomain),
-						"ZM" => __("Zambia", $this->pluginDomain),
-						"ZW" => __("Zimbabwe", $this->pluginDomain)
-						);
-					if ( ($postId || $useDefault)) {
-						$countryValue = get_post_meta( $postId, '_EventCountry', true );
-						if( $countryValue ) $defaultCountry = array( array_search( $countryValue, $countries ), $countryValue );
-						else $defaultCountry = $this->getOption('defaultCountry');
-						if( $defaultCountry && $defaultCountry[0] != "") {
-							$selectCountry = array_shift( $countries );
-							asort($countries);
-							$countries = array($defaultCountry[0] => __($defaultCountry[1], $this->pluginDomain)) + $countries;
-							$countries = array("" => __($selectCountry, $this->pluginDomain)) + $countries;
-							array_unique($countries);
-						}
-						$this->countries = $countries;
-					} else {
-						$this->countries = $countries;
-					}
-		}
 		/**
 		 * Initializes plugin variables and sets up wordpress hooks/actions.
 		 *
@@ -440,66 +148,13 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			$this->registerPostType();
 
-	//If the custom post type's rewrite rules have not been generated yet, flush them. (This can happen on reactivations.)
+			//If the custom post type's rewrite rules have not been generated yet, flush them. (This can happen on reactivations.)
 			if(is_array(get_option('rewrite_rules')) && !array_key_exists($this->rewriteSlugSingular.'/[^/]+/([^/]+)/?$',get_option('rewrite_rules')))
 				$this->flushRewriteRules();
 
-			$this->states = array(
-				"AL" => __("Alabama", $this->pluginDomain),
-				"AK" => __("Alaska", $this->pluginDomain),
-				"AZ" => __("Arizona", $this->pluginDomain),
-				"AR" => __("Arkansas", $this->pluginDomain),
-				"CA" => __("California", $this->pluginDomain),
-				"CO" => __("Colorado", $this->pluginDomain),
-				"CT" => __("Connecticut", $this->pluginDomain),
-				"DE" => __("Delaware", $this->pluginDomain),
-				"DC" => __("District of Columbia", $this->pluginDomain),
-				"FL" => __("Florida", $this->pluginDomain),
-				"GA" => __("Georgia", $this->pluginDomain),
-				"HI" => __("Hawaii", $this->pluginDomain),
-				"ID" => __("Idaho", $this->pluginDomain),
-				"IL" => __("Illinois", $this->pluginDomain),
-				"IN" => __("Indiana", $this->pluginDomain),
-				"IA" => __("Iowa", $this->pluginDomain),
-				"KS" => __("Kansas", $this->pluginDomain),
-				"KY" => __("Kentucky", $this->pluginDomain),
-				"LA" => __("Louisiana", $this->pluginDomain),
-				"ME" => __("Maine", $this->pluginDomain),
-				"MD" => __("Maryland", $this->pluginDomain),
-				"MA" => __("Massachusetts", $this->pluginDomain),
-				"MI" => __("Michigan", $this->pluginDomain),
-				"MN" => __("Minnesota", $this->pluginDomain),
-				"MS" => __("Mississippi", $this->pluginDomain),
-				"MO" => __("Missouri", $this->pluginDomain),
-				"MT" => __("Montana", $this->pluginDomain),
-				"NE" => __("Nebraska", $this->pluginDomain),
-				"NV" => __("Nevada", $this->pluginDomain),
-				"NH" => __("New Hampshire", $this->pluginDomain),
-				"NJ" => __("New Jersey", $this->pluginDomain),
-				"NM" => __("New Mexico", $this->pluginDomain),
-				"NY" => __("New York", $this->pluginDomain),
-				"NC" => __("North Carolina", $this->pluginDomain),
-				"ND" => __("North Dakota", $this->pluginDomain),
-				"OH" => __("Ohio", $this->pluginDomain),
-				"OK" => __("Oklahoma", $this->pluginDomain),
-				"OR" => __("Oregon", $this->pluginDomain),
-				"PA" => __("Pennsylvania", $this->pluginDomain),
-				"RI" => __("Rhode Island", $this->pluginDomain),
-				"SC" => __("South Carolina", $this->pluginDomain),
-				"SD" => __("South Dakota", $this->pluginDomain),
-				"TN" => __("Tennessee", $this->pluginDomain),
-				"TX" => __("Texas", $this->pluginDomain),
-				"UT" => __("Utah", $this->pluginDomain),
-				"VT" => __("Vermont", $this->pluginDomain),
-				"VA" => __("Virginia", $this->pluginDomain),
-				"WA" => __("Washington", $this->pluginDomain),
-				"WV" => __("West Virginia", $this->pluginDomain),
-				"WI" => __("Wisconsin", $this->pluginDomain),
-				"WY" => __("Wyoming", $this->pluginDomain),
-			);
+			$this->states = $this->loadStates();
 		}
 		
-
 		public function query($query) {
 			if ( !is_admin() && (
 					  ((isset($_GET['post_type']) && $_GET['post_type'] == self::POSTTYPE) || (isset($_GET['sp_events_cat']) && $_GET['sp_events_cat'] != '')) ||
@@ -512,12 +167,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					$finder = new SP_Event_Query($wp_query->query_vars);
 					$wp_query->query_vars = $finder->getArgs();
 				}
-				//print_r($wp_query);
-				//setArgsFromDisplayType();
-				//	$this->addOrderQueryFilters($query);
 			}
 		}
-
 
 		private function addFilters() {
 			add_filter( 'post_class', array( $this, 'post_class') );
@@ -527,19 +178,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'admin_body_class', array($this, 'admin_body_class') );
 			add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
 			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
-			add_action( 'sp_events_event_save', array($this, 'save_venue_data' ), 1, 2 );
-			add_action( 'sp_events_event_save', array($this, 'save_organizer_data' ), 1, 2 );
 			add_filter('bloginfo_rss',  array($this, 'add_space_to_rss' ));
 			add_filter( 'get_the_excerpt', array($this, 'removeExcerptMore' ), 1 );
-
-			if ( is_admin() && !$this->getOption('spEventsDebug', false) ) {
-				add_action('admin_footer', array($this, 'removeMenuItems'));
-			}
-
-			else if ( $this->getOption('spEventsDebug', false) ) {
-				$this->addDebugColumns();
-				add_action('admin_footer', array($this, 'debugInfo'));
-			}
 		}
 
 		private function addDebugColumns() {
@@ -553,20 +193,23 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_action( 'parse_query', array( $this, 'query'), 0 );
 			add_action( 'template_redirect',				array( $this, 'loadStyle' ) );
 			add_action( 'sp-events-save-more-options', array( $this, 'flushRewriteRules' ) );
-			add_action( 'pre_get_posts',	array( $this, 'setOptions' ) );
 			add_action( 'admin_menu', 		array( $this, 'addOptionsPage' ) );
 			add_action( 'admin_init', 		array( $this, 'checkForOptionsChanges' ) );
 			add_action( 'admin_menu', 		array( $this, 'addEventBox' ) );
 			add_action( 'save_post',		array( $this, 'addEventMeta' ), 15, 2 );
 			add_action( 'save_post',		array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post',		array( $this, 'save_organizer_data' ), 16, 2 );
-			//add_action( 'publish_post',		array( $this, 'addEventMeta' ), 15, 2 );
-
 			add_action( 'sp_events_post_errors', array( 'TEC_Post_Exception', 'displayMessage' ) );
 			add_action( 'sp_events_options_top', array( 'TEC_WP_Options_Exception', 'displayMessage') );
-		//	add_action( 'init', array( $this, 'registerPostType' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
+			
+			if ( is_admin() && !$this->getOption('spEventsDebug', false) ) {
+				add_action('admin_footer', array($this, 'removeMenuItems'));
+			} else if ( $this->getOption('spEventsDebug', false) ) {
+				$this->addDebugColumns();
+				add_action('admin_footer', array($this, 'debugInfo'));
+			}			
 		}
 		
 		public function debugInfo() {
@@ -779,6 +422,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			if ( isset($current_screen->post_type) ) {
 				if ( $current_screen->post_type == self::POSTTYPE || $current_screen->id == 'settings_page_the-events-calendar.class' ) {
 					wp_enqueue_script( 'jquery-ui-datepicker', $this->pluginUrl . 'resources/ui.datepicker.min.js', array('jquery-ui-core'), '1.7.3', true );
+					wp_enqueue_script( 'jquery-ui-dialog', $this->pluginUrl . 'resources/ui.dialog.min.js', array('jquery-ui-core'), '1.7.3', true );					
 					wp_enqueue_script( self::POSTTYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js', array('jquery-ui-datepicker'), '', true );
 					// calling our own localization because wp_localize_scripts doesn't support arrays or objects for values, which we need.
 					add_action('admin_footer', array($this, 'printLocalizedAdmin') );
@@ -860,10 +504,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		
 		public function addOptionsPage() {
 			add_options_page($this->pluginName, $this->pluginName, 'administrator', $this->pluginDomain, array($this,'optionsPageView'));
-
-			//add_submenu_page( '/edit.php?post_type=sp_events', __('Add a new Venue',$this->pluginDomain), __('Add a new Venue',$this->pluginDomain), 'edit_posts', 'post-new.php?post_type=sp_venue');
 			add_submenu_page( '/edit.php?post_type=sp_events', __('Venues',$this->pluginDomain), __('Venues',$this->pluginDomain), 'edit_posts', 'edit.php?post_type=sp_venue');
-			/*add_submenu_page( '/edit.php?post_type=sp_events', __('Add a new Organizer',$this->pluginDomain), __('Add a new Organizer',$this->pluginDomain), 'edit_posts', 'post-new.php?post_type=sp_organizer');*/
 			add_submenu_page( '/edit.php?post_type=sp_events', __('Organizers',$this->pluginDomain), __('Organizers',$this->pluginDomain), 'edit_posts', 'edit.php?post_type=sp_organizer');
 		}
 		
@@ -936,11 +577,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$this->latestOptions = $options; //XXX ? duplicated in saveOptions() ?
 			} // end if
 		}
+		
 		/**
 		 * Will upgrade data from old free plugin to new plugin
 		 *
 		 */
-		
 		private function upgradeData() {
 			$posts = $this->getLegacyEvents();
 			
@@ -1564,11 +1205,12 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			$_POST['Organizer'] = stripslashes_deep($_POST['organizer']);
 			$_POST['Venue'] = stripslashes_deep($_POST['venue']);
-
-			$this->save_event_meta($postId, $_POST);
+			
+			$this->save_event_meta($postId, $_POST, $post);
 		}
-
-		function save_event_meta($event_id, $data) {
+		
+		// abstracted so EventBrite can call without needing $_POST data
+		function save_event_meta($event_id, $data, $event = null) {
 			if( $data['EventAllDay'] == 'yes' || !isset($data['EventStartDate']) ) {
 				$data['EventStartDate'] = $this->dateToTimeStamp( $data['EventStartDate'], "12", "00", "AM" );
 				$data['EventEndDate'] = $this->dateToTimeStamp( $data['EventEndDate'], "11", "59", "PM" );
@@ -1588,8 +1230,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			if( !isset( $data['EventShowMapLink'] ) ) update_post_meta( $event_id, '_EventShowMapLink', 'false' );
 			if( !isset( $data['EventShowMap'] ) ) update_post_meta( $event_id, '_EventShowMap', 'false' );
 			// give add-on plugins a chance to cancel this meta update
-
-
+			
 			$data['EventOrganizerID'] = $this->add_new_organizer($data["Organizer"]);
 			$data['EventVenueID'] = $this->add_new_venue($data["Venue"]);
 
@@ -1611,6 +1252,12 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					update_post_meta( $event_id, $tag, $data[$htmlElement] );
 				}
 			}
+			
+			// save recurrence
+			$recurrence_meta = $_REQUEST['recurrence'];			
+			update_post_meta($event_id, 'recurrence', $recurrence_meta);
+			Events_Recurrence_Meta::saveEvents($event_id, $event);
+
 			try {
 				do_action( 'sp_events_update_meta', $event_id );
 				if( !$this->postExceptionThrown ) delete_post_meta( $event_id, self::EVENTSERROROPT );
@@ -1618,10 +1265,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$this->postExceptionThrown = true;
 				update_post_meta( $event_id, self::EVENTSERROROPT, trim( $e->getMessage() ) );
 			}
-		}
+		}	
 		
 		
-		//** If you are saving a new venue along with the event, we will do this:
+		//** If you are saving a new venu separate from an event
 		public function save_venue_data( $postID = null, $post=null ) {
 			global $_POST;
 
@@ -1709,7 +1356,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				echo '<p class="nosaved">'.__('No saved venues yet.',$this->lion).'</p>';
 			}
 		}
-
 
 		//** If you are saving a new organizer along with the event, we will do this:
 		public function save_organizer_data( $postID = null, $post=null ) {
@@ -2209,60 +1855,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 	      }
 	      return $minutes;
 	    }
-		/**
-		 * Sets event options based on the current query string
-		 *
-		 * @return void
-		 */
-		public function setOptions( ) {
-			global $wp_query;
-			if ( is_admin() ) {
-				$display = 'admin';
-			}
-			else {
-				$display = ( isset( $wp_query->query_vars['eventDisplay'] ) ) ? $wp_query->query_vars['eventDisplay'] : $this->getOption('viewOption','month');
-			}
-			
-			switch ( $display ) {
-				case "past":
-					$this->displaying		= "past";
-					$this->startOperator	= "<=";
-					$this->order			= "DESC";
-					$this->date				= date_i18n( self::DBDATETIMEFORMAT );
-					break;
-				case "upcoming":
-					$this->displaying		= "upcoming";					
-					$this->startOperator	= ">=";
-					$this->order			= "ASC";
-					$this->date				= date_i18n( self::DBDATETIMEFORMAT );
-					break;					
-				case "month":
-					$this->displaying		= "month";
-					$this->startOperator	= ">=";
-					$this->order			= "ASC";
-					// TODO date set to YYYY-MM
-					// TODO store DD as an anchor to the URL
-					if ( isset ( $wp_query->query_vars['eventDate'] ) ) {
-						$this->date = $wp_query->query_vars['eventDate'] . "-01";
-					} else {
-						$date = date_i18n( self::DBDATEFORMAT );
-						$this->date = substr_replace( $date, '01', -2 );
-					}
-					break;
-				default:
-					$this->displaying		= "month";
-					$this->startOperator	= ">=";
-					$this->order			= "DESC";
-					// TODO date set to YYYY-MM
-					// TODO store DD as an anchor to the URL
-					if ( isset ( $wp_query->query_vars['eventDate'] ) ) {
-						$this->date = $wp_query->query_vars['eventDate'] . "-01";
-					} else {
-						$date = date_i18n( self::DBDATEFORMAT );
-						$this->date = substr_replace( $date, '01', -2 );
-					}
-			}
-		}
+
 		public function getDateString( $date ) {
 			$monthNames = $this->monthNames();
 			$dateParts = split( '-', $date );
@@ -2278,7 +1871,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$this->tabIndexStart++;
 		}
 
-		public function getEventsNew( $args = '' ) {
+		public function getEvents( $args = '' ) {
 			global $wp_query;
 
 			if (is_admin())
@@ -2288,95 +1881,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			$eventFinder = new SP_Event_Query($args, $display);
 			return $eventFinder->getEvents();
-		}
-		
-		/**
-		 * Call this function in a template to query the events
-		 *
-		 * @param int numResults number of results to display for upcoming or past modes (default 10)
-		 * @param string|int eventCat Event Category: use int for term ID, string for name.
-		 * @param string metaKey A meta key to query. Useful for sorting by country, venue, etc. metaValue must also be set to use.
-		 * @param string metaValue The value of the queried metaKey, which also must be set.
-		 * @return array results
-		 * @uses $wpdb
-		 * @uses $wp_query
-		 * @return array results
-		 */
-		
-		public function getEvents( $args = '' ) {
-			$defaults = array(
-				'numResults' => get_option( 'posts_per_page', 10 ),
-				'eventCat' => null,
-				'metaKey' => null,
-				'metaValue' => null,
-				'time_order' => $this->order
-			);
-			$args = wp_parse_args( $args, $defaults);
-			extract( $args );
-			global $wpdb;
-			$this->setOptions();
-
-			$extraSelectClause ='';
-			$extraJoin ='';
-			if ( sp_is_month() ) {
-				$extraSelectClause	= ", d2.meta_value as EventEndDate ";
-				$extraJoin	 = " LEFT JOIN $wpdb->postmeta  as d2 ON($wpdb->posts.ID = d2.post_id) ";
-				$whereClause = " AND d1.meta_key = '_EventStartDate' AND d2.meta_key = '_EventEndDate' ";
-				// does this event start in this month?
-				$whereClause .= " AND ((d1.meta_value >= '".$this->date."'  AND  d1.meta_value < '".$this->nextMonth( $this->date )."')  ";
-				// Or does it end in this month?
-				$whereClause .= " OR (d2.meta_value  >= '".$this->date."' AND d2.meta_value < '".$this->nextMonth( $this->date )."' ) ";
-				// Or does the event start sometime in the past and end sometime in the distant future?
-				$whereClause .= " OR (d1.meta_value  <= '".$this->date."' AND d2.meta_value > '".$this->nextMonth( $this->date )."' ) ) ";
-				$numResults = 999999999;
-			}
-			if ( sp_is_upcoming() ) {
-				$extraSelectClause	= ", d2.meta_value as EventEndDate ";
-				$extraJoin	 = " LEFT JOIN $wpdb->postmeta  as d2 ON($wpdb->posts.ID = d2.post_id) ";
-				$whereClause = " AND d1.meta_key = '_EventStartDate' AND d2.meta_key = '_EventEndDate' ";
-				// Is the start date in the future?
-				$whereClause .= ' AND ( d1.meta_value > "'.$this->date.'" ';
-				// Or is the start date in the past but the end date in the future? (meaning the event is currently ongoing)
-				$whereClause .= ' OR ( d1.meta_value < "'.$this->date.'" AND d2.meta_value > "'.$this->date.'" ) ) ';
-			}
-
-			// we have an event cat. what is it?
-			if ( $eventCat ) {
-				if ( is_numeric($eventCat) ){
-					$cat = get_term_by('id', $eventCat, self::TAXONOMY );
-				}else if ( is_string($eventCat) )
-					$cat = get_term_by('name', $eventCat, self::TAXONOMY );
-			}
-
-			// we really have an event cat. query it.
-			if ( isset($cat) && $cat && ! is_wp_error($cat) ) {
-				$extraJoin .= " LEFT JOIN {$wpdb->term_relationships} as r2 ON ($wpdb->posts.ID = r2.object_ID) ";
-				$extraJoin .= " LEFT JOIN {$wpdb->term_taxonomy} as t2 ON (r2.term_taxonomy_id = t2.term_taxonomy_id) ";
-				$extraJoin .= " LEFT JOIN {$wpdb->terms} as tax ON (t2.term_id = tax.term_id) ";
-				// don't need to bother WHERE'ing the taxonomy type, since we wouldn't be this far if it didn't fit anyway
-				$whereClause .= $wpdb->prepare(" AND t2.term_id = %s ", $cat->term_id );
-			}
-			
-			// query some meta values
-			if ( $metaKey && $metaValue ) {
-				$extraJoin .= " LEFT JOIN $wpdb->postmeta as p2 ON ($wpdb->posts.ID = p2.post_id) \n";
-				$whereClause .= $wpdb->prepare(" AND p2.meta_key = %s \n", $metaKey );
-				$whereClause .= $wpdb->prepare(" AND p2.meta_value = %s \n", $metaValue );
-			}
-			
-			$eventsQuery = "
-				SELECT $wpdb->posts.*, d1.meta_value as EventStartDate
-					$extraSelectClause
-				 	FROM $wpdb->posts 
-				LEFT JOIN $wpdb->postmeta as d1 ON($wpdb->posts.ID = d1.post_id)
-				$extraJoin
-				WHERE $wpdb->posts.post_type = '" . self::POSTTYPE . "'
-				AND $wpdb->posts.post_status = 'publish'
-				$whereClause
-				ORDER BY DATE(d1.meta_value) ".$this->order.", TIME(d1.meta_value) $time_order
-				LIMIT $numResults";
-			$results = $wpdb->get_results($eventsQuery, OBJECT);
-			return $results;
 		}
 		
 		public function isEvent( $postId = null ) {
@@ -2493,6 +1997,356 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			echo $content;
 			exit;
 		}
+		
+		private function constructDaysOfWeek() {
+			global $wp_locale;
+			for ($i = 0; $i <= 6; $i++) {
+				$day = $wp_locale->get_weekday($i);
+				$this->daysOfWeek[$i] = $day;
+				$this->daysOfWeekShort[$i] = $wp_locale->get_weekday_abbrev($day);
+				$this->daysOfWeekMin[$i] = $wp_locale->get_weekday_initial($day);
+			}
+		}
+
+		public function constructCountries( $postId = '', $useDefault = true ) {
+
+				if(sp_get_option('spEventsCountries') != ''){
+					$countries = array(
+						"" => __("Select a Country:", $this->pluginDomain)
+						);
+
+					$country_rows = explode("\n", sp_get_option('spEventsCountries'));
+					foreach($country_rows as $crow){
+						$country = explode(",", $crow);
+						$country[0] = trim($country[0]);
+						$country[1] = trim($country[1]);
+
+						if($country[0] && $country[1]){
+							$countries[$country[0]] = $country[1];
+						}
+
+					}
+
+
+				}
+
+				if(!isset($countries) || !is_array($countries) || count($countries) == 1)
+					$countries = array(
+						"" => __("Select a Country:", $this->pluginDomain),
+						"US" => __("United States", $this->pluginDomain),
+						"AF" => __("Afghanistan", $this->pluginDomain),
+						"AL" => __("Albania", $this->pluginDomain),
+						"DZ" => __("Algeria", $this->pluginDomain),
+						"AS" => __("American Samoa", $this->pluginDomain),
+						"AD" => __("Andorra", $this->pluginDomain),
+						"AO" => __("Angola", $this->pluginDomain),
+						"AI" => __("Anguilla", $this->pluginDomain),
+						"AQ" => __("Antarctica", $this->pluginDomain),
+						"AG" => __("Antigua And Barbuda", $this->pluginDomain),
+						"AR" => __("Argentina", $this->pluginDomain),
+						"AM" => __("Armenia", $this->pluginDomain),
+						"AW" => __("Aruba", $this->pluginDomain),
+						"AU" => __("Australia", $this->pluginDomain),
+						"AT" => __("Austria", $this->pluginDomain),
+						"AZ" => __("Azerbaijan", $this->pluginDomain),
+						"BS" => __("Bahamas", $this->pluginDomain),
+						"BH" => __("Bahrain", $this->pluginDomain),
+						"BD" => __("Bangladesh", $this->pluginDomain),
+						"BB" => __("Barbados", $this->pluginDomain),
+						"BY" => __("Belarus", $this->pluginDomain),
+						"BE" => __("Belgium", $this->pluginDomain),
+						"BZ" => __("Belize", $this->pluginDomain),
+						"BJ" => __("Benin", $this->pluginDomain),
+						"BM" => __("Bermuda", $this->pluginDomain),
+						"BT" => __("Bhutan", $this->pluginDomain),
+						"BO" => __("Bolivia", $this->pluginDomain),
+						"BA" => __("Bosnia And Herzegowina", $this->pluginDomain),
+						"BW" => __("Botswana", $this->pluginDomain),
+						"BV" => __("Bouvet Island", $this->pluginDomain),
+						"BR" => __("Brazil", $this->pluginDomain),
+						"IO" => __("British Indian Ocean Territory", $this->pluginDomain),
+						"BN" => __("Brunei Darussalam", $this->pluginDomain),
+						"BG" => __("Bulgaria", $this->pluginDomain),
+						"BF" => __("Burkina Faso", $this->pluginDomain),
+						"BI" => __("Burundi", $this->pluginDomain),
+						"KH" => __("Cambodia", $this->pluginDomain),
+						"CM" => __("Cameroon", $this->pluginDomain),
+						"CA" => __("Canada", $this->pluginDomain),
+						"CV" => __("Cape Verde", $this->pluginDomain),
+						"KY" => __("Cayman Islands", $this->pluginDomain),
+						"CF" => __("Central African Republic", $this->pluginDomain),
+						"TD" => __("Chad", $this->pluginDomain),
+						"CL" => __("Chile", $this->pluginDomain),
+						"CN" => __("China", $this->pluginDomain),
+						"CX" => __("Christmas Island", $this->pluginDomain),
+						"CC" => __("Cocos (Keeling) Islands", $this->pluginDomain),
+						"CO" => __("Colombia", $this->pluginDomain),
+						"KM" => __("Comoros", $this->pluginDomain),
+						"CG" => __("Congo", $this->pluginDomain),
+						"CD" => __("Congo, The Democratic Republic Of The", $this->pluginDomain),
+						"CK" => __("Cook Islands", $this->pluginDomain),
+						"CR" => __("Costa Rica", $this->pluginDomain),
+						"CI" => __("Cote D'Ivoire", $this->pluginDomain),
+						"HR" => __("Croatia (Local Name: Hrvatska)", $this->pluginDomain),
+						"CU" => __("Cuba", $this->pluginDomain),
+						"CY" => __("Cyprus", $this->pluginDomain),
+						"CZ" => __("Czech Republic", $this->pluginDomain),
+						"DK" => __("Denmark", $this->pluginDomain),
+						"DJ" => __("Djibouti", $this->pluginDomain),
+						"DM" => __("Dominica", $this->pluginDomain),
+						"DO" => __("Dominican Republic", $this->pluginDomain),
+						"TP" => __("East Timor", $this->pluginDomain),
+						"EC" => __("Ecuador", $this->pluginDomain),
+						"EG" => __("Egypt", $this->pluginDomain),
+						"SV" => __("El Salvador", $this->pluginDomain),
+						"GQ" => __("Equatorial Guinea", $this->pluginDomain),
+						"ER" => __("Eritrea", $this->pluginDomain),
+						"EE" => __("Estonia", $this->pluginDomain),
+						"ET" => __("Ethiopia", $this->pluginDomain),
+						"FK" => __("Falkland Islands (Malvinas)", $this->pluginDomain),
+						"FO" => __("Faroe Islands", $this->pluginDomain),
+						"FJ" => __("Fiji", $this->pluginDomain),
+						"FI" => __("Finland", $this->pluginDomain),
+						"FR" => __("France", $this->pluginDomain),
+						"FX" => __("France, Metropolitan", $this->pluginDomain),
+						"GF" => __("French Guiana", $this->pluginDomain),
+						"PF" => __("French Polynesia", $this->pluginDomain),
+						"TF" => __("French Southern Territories", $this->pluginDomain),
+						"GA" => __("Gabon", $this->pluginDomain),
+						"GM" => __("Gambia", $this->pluginDomain),
+						"GE" => __("Georgia", $this->pluginDomain),
+						"DE" => __("Germany", $this->pluginDomain),
+						"GH" => __("Ghana", $this->pluginDomain),
+						"GI" => __("Gibraltar", $this->pluginDomain),
+						"GR" => __("Greece", $this->pluginDomain),
+						"GL" => __("Greenland", $this->pluginDomain),
+						"GD" => __("Grenada", $this->pluginDomain),
+						"GP" => __("Guadeloupe", $this->pluginDomain),
+						"GU" => __("Guam", $this->pluginDomain),
+						"GT" => __("Guatemala", $this->pluginDomain),
+						"GN" => __("Guinea", $this->pluginDomain),
+						"GW" => __("Guinea-Bissau", $this->pluginDomain),
+						"GY" => __("Guyana", $this->pluginDomain),
+						"HT" => __("Haiti", $this->pluginDomain),
+						"HM" => __("Heard And Mc Donald Islands", $this->pluginDomain),
+						"VA" => __("Holy See (Vatican City State)", $this->pluginDomain),
+						"HN" => __("Honduras", $this->pluginDomain),
+						"HK" => __("Hong Kong", $this->pluginDomain),
+						"HU" => __("Hungary", $this->pluginDomain),
+						"IS" => __("Iceland", $this->pluginDomain),
+						"IN" => __("India", $this->pluginDomain),
+						"ID" => __("Indonesia", $this->pluginDomain),
+						"IR" => __("Iran (Islamic Republic Of)", $this->pluginDomain),
+						"IQ" => __("Iraq", $this->pluginDomain),
+						"IE" => __("Ireland", $this->pluginDomain),
+						"IL" => __("Israel", $this->pluginDomain),
+						"IT" => __("Italy", $this->pluginDomain),
+						"JM" => __("Jamaica", $this->pluginDomain),
+						"JP" => __("Japan", $this->pluginDomain),
+						"JO" => __("Jordan", $this->pluginDomain),
+						"KZ" => __("Kazakhstan", $this->pluginDomain),
+						"KE" => __("Kenya", $this->pluginDomain),
+						"KI" => __("Kiribati", $this->pluginDomain),
+						"KP" => __("Korea, Democratic People's Republic Of", $this->pluginDomain),
+						"KR" => __("Korea, Republic Of", $this->pluginDomain),
+						"KW" => __("Kuwait", $this->pluginDomain),
+						"KG" => __("Kyrgyzstan", $this->pluginDomain),
+						"LA" => __("Lao People's Democratic Republic", $this->pluginDomain),
+						"LV" => __("Latvia", $this->pluginDomain),
+						"LB" => __("Lebanon", $this->pluginDomain),
+						"LS" => __("Lesotho", $this->pluginDomain),
+						"LR" => __("Liberia", $this->pluginDomain),
+						"LY" => __("Libyan Arab Jamahiriya", $this->pluginDomain),
+						"LI" => __("Liechtenstein", $this->pluginDomain),
+						"LT" => __("Lithuania", $this->pluginDomain),
+						"LU" => __("Luxembourg", $this->pluginDomain),
+						"MO" => __("Macau", $this->pluginDomain),
+						"MK" => __("Macedonia, Former Yugoslav Republic Of", $this->pluginDomain),
+						"MG" => __("Madagascar", $this->pluginDomain),
+						"MW" => __("Malawi", $this->pluginDomain),
+						"MY" => __("Malaysia", $this->pluginDomain),
+						"MV" => __("Maldives", $this->pluginDomain),
+						"ML" => __("Mali", $this->pluginDomain),
+						"MT" => __("Malta", $this->pluginDomain),
+						"MH" => __("Marshall Islands", $this->pluginDomain),
+						"MQ" => __("Martinique", $this->pluginDomain),
+						"MR" => __("Mauritania", $this->pluginDomain),
+						"MU" => __("Mauritius", $this->pluginDomain),
+						"YT" => __("Mayotte", $this->pluginDomain),
+						"MX" => __("Mexico", $this->pluginDomain),
+						"FM" => __("Micronesia, Federated States Of", $this->pluginDomain),
+						"MD" => __("Moldova, Republic Of", $this->pluginDomain),
+						"MC" => __("Monaco", $this->pluginDomain),
+						"MN" => __("Mongolia", $this->pluginDomain),
+						"ME" => __("Montenegro", $this->pluginDomain),
+						"MS" => __("Montserrat", $this->pluginDomain),
+						"MA" => __("Morocco", $this->pluginDomain),
+						"MZ" => __("Mozambique", $this->pluginDomain),
+						"MM" => __("Myanmar", $this->pluginDomain),
+						"NA" => __("Namibia", $this->pluginDomain),
+						"NR" => __("Nauru", $this->pluginDomain),
+						"NP" => __("Nepal", $this->pluginDomain),
+						"NL" => __("Netherlands", $this->pluginDomain),
+						"AN" => __("Netherlands Antilles", $this->pluginDomain),
+						"NC" => __("New Caledonia", $this->pluginDomain),
+						"NZ" => __("New Zealand", $this->pluginDomain),
+						"NI" => __("Nicaragua", $this->pluginDomain),
+						"NE" => __("Niger", $this->pluginDomain),
+						"NG" => __("Nigeria", $this->pluginDomain),
+						"NU" => __("Niue", $this->pluginDomain),
+						"NF" => __("Norfolk Island", $this->pluginDomain),
+						"MP" => __("Northern Mariana Islands", $this->pluginDomain),
+						"NO" => __("Norway", $this->pluginDomain),
+						"OM" => __("Oman", $this->pluginDomain),
+						"PK" => __("Pakistan", $this->pluginDomain),
+						"PW" => __("Palau", $this->pluginDomain),
+						"PA" => __("Panama", $this->pluginDomain),
+						"PG" => __("Papua New Guinea", $this->pluginDomain),
+						"PY" => __("Paraguay", $this->pluginDomain),
+						"PE" => __("Peru", $this->pluginDomain),
+						"PH" => __("Philippines", $this->pluginDomain),
+						"PN" => __("Pitcairn", $this->pluginDomain),
+						"PL" => __("Poland", $this->pluginDomain),
+						"PT" => __("Portugal", $this->pluginDomain),
+						"PR" => __("Puerto Rico", $this->pluginDomain),
+						"QA" => __("Qatar", $this->pluginDomain),
+						"RE" => __("Reunion", $this->pluginDomain),
+						"RO" => __("Romania", $this->pluginDomain),
+						"RU" => __("Russian Federation", $this->pluginDomain),
+						"RW" => __("Rwanda", $this->pluginDomain),
+						"KN" => __("Saint Kitts And Nevis", $this->pluginDomain),
+						"LC" => __("Saint Lucia", $this->pluginDomain),
+						"VC" => __("Saint Vincent And The Grenadines", $this->pluginDomain),
+						"WS" => __("Samoa", $this->pluginDomain),
+						"SM" => __("San Marino", $this->pluginDomain),
+						"ST" => __("Sao Tome And Principe", $this->pluginDomain),
+						"SA" => __("Saudi Arabia", $this->pluginDomain),
+						"SN" => __("Senegal", $this->pluginDomain),
+						"RS" => __("Serbia", $this->pluginDomain),
+						"SC" => __("Seychelles", $this->pluginDomain),
+						"SL" => __("Sierra Leone", $this->pluginDomain),
+						"SG" => __("Singapore", $this->pluginDomain),
+						"SK" => __("Slovakia (Slovak Republic)", $this->pluginDomain),
+						"SI" => __("Slovenia", $this->pluginDomain),
+						"SB" => __("Solomon Islands", $this->pluginDomain),
+						"SO" => __("Somalia", $this->pluginDomain),
+						"ZA" => __("South Africa", $this->pluginDomain),
+						"GS" => __("South Georgia, South Sandwich Islands", $this->pluginDomain),
+						"ES" => __("Spain", $this->pluginDomain),
+						"LK" => __("Sri Lanka", $this->pluginDomain),
+						"SH" => __("St. Helena", $this->pluginDomain),
+						"PM" => __("St. Pierre And Miquelon", $this->pluginDomain),
+						"SD" => __("Sudan", $this->pluginDomain),
+						"SR" => __("Suriname", $this->pluginDomain),
+						"SJ" => __("Svalbard And Jan Mayen Islands", $this->pluginDomain),
+						"SZ" => __("Swaziland", $this->pluginDomain),
+						"SE" => __("Sweden", $this->pluginDomain),
+						"CH" => __("Switzerland", $this->pluginDomain),
+						"SY" => __("Syrian Arab Republic", $this->pluginDomain),
+						"TW" => __("Taiwan", $this->pluginDomain),
+						"TJ" => __("Tajikistan", $this->pluginDomain),
+						"TZ" => __("Tanzania, United Republic Of", $this->pluginDomain),
+						"TH" => __("Thailand", $this->pluginDomain),
+						"TG" => __("Togo", $this->pluginDomain),
+						"TK" => __("Tokelau", $this->pluginDomain),
+						"TO" => __("Tonga", $this->pluginDomain),
+						"TT" => __("Trinidad And Tobago", $this->pluginDomain),
+						"TN" => __("Tunisia", $this->pluginDomain),
+						"TR" => __("Turkey", $this->pluginDomain),
+						"TM" => __("Turkmenistan", $this->pluginDomain),
+						"TC" => __("Turks And Caicos Islands", $this->pluginDomain),
+						"TV" => __("Tuvalu", $this->pluginDomain),
+						"UG" => __("Uganda", $this->pluginDomain),
+						"UA" => __("Ukraine", $this->pluginDomain),
+						"AE" => __("United Arab Emirates", $this->pluginDomain),
+						"GB" => __("United Kingdom", $this->pluginDomain),
+						"UM" => __("United States Minor Outlying Islands", $this->pluginDomain),
+						"UY" => __("Uruguay", $this->pluginDomain),
+						"UZ" => __("Uzbekistan", $this->pluginDomain),
+						"VU" => __("Vanuatu", $this->pluginDomain),
+						"VE" => __("Venezuela", $this->pluginDomain),
+						"VN" => __("Viet Nam", $this->pluginDomain),
+						"VG" => __("Virgin Islands (British)", $this->pluginDomain),
+						"VI" => __("Virgin Islands (U.S.)", $this->pluginDomain),
+						"WF" => __("Wallis And Futuna Islands", $this->pluginDomain),
+						"EH" => __("Western Sahara", $this->pluginDomain),
+						"YE" => __("Yemen", $this->pluginDomain),
+						"YU" => __("Yugoslavia", $this->pluginDomain),
+						"ZM" => __("Zambia", $this->pluginDomain),
+						"ZW" => __("Zimbabwe", $this->pluginDomain)
+						);
+					if ( ($postId || $useDefault)) {
+						$countryValue = get_post_meta( $postId, '_EventCountry', true );
+						if( $countryValue ) $defaultCountry = array( array_search( $countryValue, $countries ), $countryValue );
+						else $defaultCountry = $this->getOption('defaultCountry');
+						if( $defaultCountry && $defaultCountry[0] != "") {
+							$selectCountry = array_shift( $countries );
+							asort($countries);
+							$countries = array($defaultCountry[0] => __($defaultCountry[1], $this->pluginDomain)) + $countries;
+							$countries = array("" => __($selectCountry, $this->pluginDomain)) + $countries;
+							array_unique($countries);
+						}
+						$this->countries = $countries;
+					} else {
+						$this->countries = $countries;
+					}
+		}
+		
+		private function loadStates() {
+			return array("AL" => __("Alabama", $this->pluginDomain),
+				"AK" => __("Alaska", $this->pluginDomain),
+				"AZ" => __("Arizona", $this->pluginDomain),
+				"AR" => __("Arkansas", $this->pluginDomain),
+				"CA" => __("California", $this->pluginDomain),
+				"CO" => __("Colorado", $this->pluginDomain),
+				"CT" => __("Connecticut", $this->pluginDomain),
+				"DE" => __("Delaware", $this->pluginDomain),
+				"DC" => __("District of Columbia", $this->pluginDomain),
+				"FL" => __("Florida", $this->pluginDomain),
+				"GA" => __("Georgia", $this->pluginDomain),
+				"HI" => __("Hawaii", $this->pluginDomain),
+				"ID" => __("Idaho", $this->pluginDomain),
+				"IL" => __("Illinois", $this->pluginDomain),
+				"IN" => __("Indiana", $this->pluginDomain),
+				"IA" => __("Iowa", $this->pluginDomain),
+				"KS" => __("Kansas", $this->pluginDomain),
+				"KY" => __("Kentucky", $this->pluginDomain),
+				"LA" => __("Louisiana", $this->pluginDomain),
+				"ME" => __("Maine", $this->pluginDomain),
+				"MD" => __("Maryland", $this->pluginDomain),
+				"MA" => __("Massachusetts", $this->pluginDomain),
+				"MI" => __("Michigan", $this->pluginDomain),
+				"MN" => __("Minnesota", $this->pluginDomain),
+				"MS" => __("Mississippi", $this->pluginDomain),
+				"MO" => __("Missouri", $this->pluginDomain),
+				"MT" => __("Montana", $this->pluginDomain),
+				"NE" => __("Nebraska", $this->pluginDomain),
+				"NV" => __("Nevada", $this->pluginDomain),
+				"NH" => __("New Hampshire", $this->pluginDomain),
+				"NJ" => __("New Jersey", $this->pluginDomain),
+				"NM" => __("New Mexico", $this->pluginDomain),
+				"NY" => __("New York", $this->pluginDomain),
+				"NC" => __("North Carolina", $this->pluginDomain),
+				"ND" => __("North Dakota", $this->pluginDomain),
+				"OH" => __("Ohio", $this->pluginDomain),
+				"OK" => __("Oklahoma", $this->pluginDomain),
+				"OR" => __("Oregon", $this->pluginDomain),
+				"PA" => __("Pennsylvania", $this->pluginDomain),
+				"RI" => __("Rhode Island", $this->pluginDomain),
+				"SC" => __("South Carolina", $this->pluginDomain),
+				"SD" => __("South Dakota", $this->pluginDomain),
+				"TN" => __("Tennessee", $this->pluginDomain),
+				"TX" => __("Texas", $this->pluginDomain),
+				"UT" => __("Utah", $this->pluginDomain),
+				"VT" => __("Vermont", $this->pluginDomain),
+				"VA" => __("Virginia", $this->pluginDomain),
+				"WA" => __("Washington", $this->pluginDomain),
+				"WV" => __("West Virginia", $this->pluginDomain),
+				"WI" => __("Wisconsin", $this->pluginDomain),
+				"WY" => __("Wyoming", $this->pluginDomain),
+			);
+		}
+
 		public function setPostExceptionThrown( $thrown ) {
 			$this->postExceptionThrown = $thrown;
 		}

@@ -50,7 +50,6 @@ class Admin_Events_List {
 		global $wpdb;
 		$fields .= ", eventStart.meta_value as EventStartDate, IFNULL(DATE_ADD(CAST(eventStart.meta_value AS DATETIME), INTERVAL eventDuration.meta_value SECOND), eventEnd.meta_value) as EventEndDate ";
 		return $fields;
-//'Y-m-d G:i:s';
 	}
 	/**
 	 * join filter for admin quries

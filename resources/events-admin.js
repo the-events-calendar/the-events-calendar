@@ -167,4 +167,62 @@ jQuery(document).ready(function($) {
 		spShowHideCorrectStateProvinceInput( countryLabel );
 	});
 	
+	/* Recurring Events Dialog */
+	$('.wp-admin.events-cal #post').submit(function(e) {
+		var self = this;
+
+		if($('[name="is_recurring"]').val() == "true" && !$('[name="recurrence_action"]').val() ) { // not a new event
+			e.preventDefault();
+			$('#recurring-dialog').dialog({
+				modal: true,
+				buttons: [{
+						text:"Ok",
+						click: function() { 
+							$('[name="recurrence_action"]').val($('.ui-dialog-content [name="events_to_update"]:checked').val());
+							$(this).dialog("close"); 
+							self.submit();
+						}
+				}]
+			});
+			//jQuery('#testTB').dialog();			
+		}
+	});	
+	
+	// recurrence ui
+	$('[name="recurrence[type]"]').change(function() {
+		var curOption =  $(this).find("option:selected").val();
+		$('.custom-recurrence-row').hide();
+
+		if (curOption == "Custom" ) {
+
+			$('#recurrence-end').show();
+			$('#custom-recurrence-frequency').show();
+			$('[name="recurrence[custom-type]"]').change();
+		} else if (curOption == "None") {
+			$('#recurrence-end').hide();
+			$('#custom-recurrence-frequency').hide();				
+		} else {
+			$('#recurrence-end').show();
+			$('#custom-recurrence-frequency').hide();
+		}
+	});
+
+	$('[name="recurrence[custom-type]"]').change(function() {
+		$('.custom-recurrence-row').hide();
+		var option = $(this).find('option:selected'), customSelector = option.data('tablerow');
+		$(customSelector).show()
+		$('#recurrence-interval-type').text(option.data('plural'));
+		$('[name="recurrence[custom-type-text]"]').val(option.data('plural'));
+	});
+
+	$('[name="recurrence[custom-months-type]"]').click(function() {
+		if($(this).val() == "Each") {
+			$('#recurrence-month-on-the').hide();
+			$('#recurrence-month-each').show();
+		} else if($(this).val() == "On The") {
+			$('#recurrence-month-on-the').show();
+			$('#recurrence-month-each').hide();
+		}
+	});
+	
 });

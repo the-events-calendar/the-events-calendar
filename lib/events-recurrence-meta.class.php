@@ -1,9 +1,101 @@
 <?php
 // WordPress Hooks and Filters for events recurrence meta
 class Events_Recurrence_Meta {
+	const UPDATE_TYPE_ALL = 1;
+	const UPDATE_TYPE_FUTURE = 2;
+	const UPDATE_TYPE_SINGLE = 3;
+	
 	public static function init() {
-		add_action( 'save_post', array( __CLASS__, 'saveRecurrenceMeta' ), 17, 2 );
+		// need to make it modular so eventbrite can call if necessary
+		//add_action( 'save_post', array( __CLASS__, 'saveRecurrenceMeta' ), 17, 2 );
+		add_action('pre_post_update', array( __CLASS__, 'maybeBreakFromSeries' ));
 	}
+	
+	public static function maybeBreakFromSeries( $postId ) {
+		if($_POST['recurrence_action'] && $_POST['recurrence_action'] == Events_Recurrence_Meta::UPDATE_TYPE_FUTURE) {
+			// move recurrence end to the last date of the series before today
+			self::adjustRecurrenceEnd( $postId );			
+			
+			// prune future occurrences on original event
+			self::removeFutureOccurrences( $postId );
+			
+			// redirect form to new event
+			$post = self::cloneEvent(get_post($postId), $_POST);
+			
+			// remove past occurrences of new event
+			self::removePastOccurrences( $post );
+			// end time potentially needs to be adjusted up
+			self::adjustEndTime( $post );
+
+			// clear this so no infinite loop - clear after new post is inserted so it can be used in the recurrence logic
+			$_POST['recurrence_action'] = null;
+
+			// redirect back to event screen
+			wp_redirect('post.php?post=' . $post . '&action=edit&message=1');
+			exit();
+		}
+	}
+	
+	private static function removeFutureOccurrences( $postId ) {
+		$occurrences = get_post_meta($postId, '_EventStartDate');
+		
+		foreach($occurrences as $occurrence) {
+			if (strtotime($occurrence) > time() ) {
+				delete_post_meta($postId, '_EventStartDate', $occurrence);
+			}
+		}
+	}
+	
+	private static function adjustRecurrenceEnd( $postId ) {
+		$occurrences = get_post_meta($postId, '_EventStartDate');
+		sort($occurrences);
+		
+		if( is_array($occurrences) && sizeof($occurrences) > 0 ) {
+			$prev = $occurrences[0];
+		}
+				  
+		foreach($occurrences as $occurrence) {
+			echo $occurrence;
+			if (strtotime($occurrence) > time() ) {
+				$recurrenceMeta = get_post_meta($postId, 'recurrence', true);
+				$recurrenceMeta['end'] = date(DateSeriesRules::DATE_ONLY_FORMAT, strtotime($prev));
+				update_post_meta($postId, 'recurrence', $recurrenceMeta);
+				break;
+			}
+			
+			$prev = $occurrence;
+		}
+	}
+	
+	private static function removePastOccurrences( $postId ) {
+		$occurrences = get_post_meta($postId, '_EventStartDate');
+		
+		foreach($occurrences as $occurrence) {
+			if (strtotime($occurrence) < time() ) {
+				delete_post_meta($postId, '_EventStartDate', $occurrence);
+			}
+		}
+	}	
+	
+	private static function adjustEndTime( $postId ) {
+		$occurrences = get_post_meta($postId, '_EventStartDate');
+		sort($occurrences);
+
+		$duration = get_post_meta($postId, '_EventDuration', true);
+		
+		if( is_array($occurrences) && sizeof($occurrences) > 0 ) {
+			update_post_meta($postId, '_EventEndDate', date(DateSeriesRules::DATE_FORMAT, strtotime($occurrences[0]) + $duration));
+		}	
+	}	
+	
+	
+	private static function cloneEvent($event_to_clone, $data) {
+		global $sp_ecp;
+		
+		$data['ID'] = null;
+		$new_event = wp_insert_post($data);
+		return $new_event;
+	}		
 
 	public static function getRecurrenceMeta( $postId ) {
 		// TODO: Load these from request if validation failed
@@ -36,11 +128,16 @@ class Events_Recurrence_Meta {
 		return $recArray;
 	}
 
-	public static function saveRecurrenceMeta( $postId, $post ) {
+	public static function saveRecurrenceMeta( $postId, $post ) {	
+		
 		// only continue if it's an event post
 		if ( $post->post_type != Events_Calendar_Pro::POSTTYPE ) {
 			return;
 		}
+
+  	   if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+			return;			
+
 		// don't do anything on autosave or auto-draft either or massupdates
 		if ( wp_is_post_autosave( $postId ) || $post->post_status == 'auto-draft' || isset($_GET['bulk_edit']) || $_REQUEST['action'] == 'inline-save' ) {
 			return;
@@ -53,7 +150,8 @@ class Events_Recurrence_Meta {
 		Events_Recurrence_Meta::saveEvents($postId, $post);
 	}
 
-	public static function saveEvents( $postId, $post ) {
+	public static function saveEvents( $postId, $post) {
+
 		extract(Events_Recurrence_Meta::getRecurrenceMeta($postId));
 		$rules = Events_Recurrence_Meta::getSeriesRules($postId);
 
@@ -61,9 +159,9 @@ class Events_Recurrence_Meta {
 		$recStart = strtotime(get_post_meta($postId, '_EventStartDate', true));
 		$eventEnd = strtotime(get_post_meta($postId, '_EventEndDate', true));
 		$duration = $eventEnd - $recStart;
-		
-		$recEnd = $recEndType == "On" ? strtotime($recEnd) : strtoTime($recEnc + " + 1 day");
+		$recEnd = $recEndType == "On" ? strtotime($recEnd) : strtotime($recEnd . " +1 days");
 
+		// different update types
 		delete_post_meta($postId, '_EventStartDate');
 		delete_post_meta($postId, '_EventEndDate');
 		delete_post_meta($postId,'_EventDuration');

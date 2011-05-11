@@ -11,16 +11,18 @@ class Recurrence {
 	}
 
 	public function getDates() {
-		$dates = array();
-		$cur_date = $this->start_date;
+		if( $this->series_rules ) {
+			$dates = array();
+			$cur_date = $this->start_date;
 
-		while($cur_date <= $this->end_date) {
-			$cur_date = $this->series_rules->getNextDate($cur_date);
+			while($cur_date <= $this->end_date) {
+				$cur_date = $this->series_rules->getNextDate($cur_date);
 
-			if($cur_date <= $this->end_date)
-				$dates[] = $cur_date;
+				if($cur_date <= $this->end_date)
+					$dates[] = $cur_date;
+			}
+
+			return $dates;
 		}
-
-		return $dates;
 	}
 }
