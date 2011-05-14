@@ -82,12 +82,12 @@ class SP_Event_Query {
 	}
 	
 	public function setPastDisplayTypeArgs() {
-		$this->args['end_date'] = date_i18n( Events_Calendar_Pro::DBDATETIMEFORMAT );
+		$this->args['end_date'] = date_i18n( DateUtils::DBDATETIMEFORMAT );
 		add_filter('posts_orderby', array($this, 'setDescendingDisplayOrder'));
 	}
 
 	public function setUpcomingDisplayTypeArgs() {
-		$this->args['start_date'] = date_i18n( Events_Calendar_Pro::DBDATETIMEFORMAT );
+		$this->args['start_date'] = date_i18n( DateUtils::DBDATETIMEFORMAT );
 		add_filter('posts_orderby', array($this, 'setAscendingDisplayOrder'));
 	}
 
@@ -96,7 +96,7 @@ class SP_Event_Query {
 		global $wp_query;
 		global $sp_ecp;
 		$this->args['posts_per_page'] = -1; // show ALL month posts
-		$this->args['start_date'] = date_i18n( Events_Calendar_Pro::DBDATEFORMAT );
+		$this->args['start_date'] = date_i18n( DateUtils::DBDATEFORMAT );
 		$this->args['start_date'] = substr_replace( $this->args['start_date'], '01', -2 );
 
 		if ( isset ( $wp_query->query_vars['eventDate'] ) )

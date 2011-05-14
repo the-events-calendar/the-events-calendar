@@ -57,7 +57,7 @@ try {
 					<select tabindex="<?php $this->tabIndex(); ?>" name='EventStartMinute'>
 						<?php echo $startMinuteOptions; ?>
 					</select>
-					<?php if ( !strstr( get_option( 'time_format', Events_Calendar_Pro::TIMEFORMAT ), 'H' ) ) : ?>
+					<?php if ( !strstr( get_option( 'time_format', DateUtils::TIMEFORMAT ), 'H' ) ) : ?>
 						<select tabindex="<?php $this->tabIndex(); ?>" name='EventStartMeridian'>
 							<?php echo $startMeridianOptions; ?>
 						</select>
@@ -78,7 +78,7 @@ try {
 					<select tabindex="<?php $this->tabIndex(); ?>" name='EventEndMinute'>
 						<?php echo $endMinuteOptions; ?>
 					</select>
-					<?php if ( !strstr( get_option( 'time_format', Events_Calendar_Pro::TIMEFORMAT ), 'H' ) ) : ?>
+					<?php if ( !strstr( get_option( 'time_format', DateUtils::TIMEFORMAT ), 'H' ) ) : ?>
 						<select tabindex="<?php $this->tabIndex(); ?>" name='EventEndMeridian'>
 							<?php echo $endMeridianOptions; ?>
 						</select>

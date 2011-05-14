@@ -9,12 +9,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		const OPTIONNAME 			= 'sp_events_calendar_options';
 		const POSTTYPE				= 'sp_events';
 		const TAXONOMY				= 'sp_events_cat';
-		// default formats, they are overridden by WP options or by arguments to date methods
-		const DATEONLYFORMAT 		= 'F j, Y';
-		const TIMEFORMAT			= 'g:i A';
-		const DBDATEFORMAT	 		= 'Y-m-d';
-		const DBDATETIMEFORMAT 		= 'Y-m-d G:i:s';
-		const DBYEARMONTHTIMEFORMAT = 'Y-m';
+		
 		const VENUE_POST_TYPE = 'sp_venue';
 		const VENUE_TITLE = 'Venue';
 		const ORGANIZER_POST_TYPE = 'sp_organizer';
@@ -61,6 +56,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public $pluginPath;
 		public $pluginUrl;
 		public $pluginName;
+		public $date;
 		public $pluginDomain = 'events-calendar-pro';
 		private $tabIndexStart = 2000;
 
@@ -180,6 +176,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
 			add_filter('bloginfo_rss',  array($this, 'add_space_to_rss' ));
 			add_filter( 'get_the_excerpt', array($this, 'removeExcerptMore' ), 1 );
+			add_filter( 'the_permalink', array($this, 'addDateToRecurringEvents') );
 		}
 
 		private function addDebugColumns() {
@@ -199,10 +196,12 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_action( 'save_post',		array( $this, 'addEventMeta' ), 15, 2 );
 			add_action( 'save_post',		array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post',		array( $this, 'save_organizer_data' ), 16, 2 );
+			add_action( 'pre_get_posts',  array( $this, 'setDate' ));
 			add_action( 'sp_events_post_errors', array( 'TEC_Post_Exception', 'displayMessage' ) );
 			add_action( 'sp_events_options_top', array( 'TEC_WP_Options_Exception', 'displayMessage') );
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
+			add_action( 'the_post', array( $this, 'setReccuringEventDates' ) );
 			
 			if ( is_admin() && !$this->getOption('spEventsDebug', false) ) {
 				add_action('admin_footer', array($this, 'removeMenuItems'));
@@ -245,6 +244,16 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			}
 
 			return $more; 
+		}
+		
+		public function addDateToRecurringEvents($permalink) {
+			global $post;
+			
+			if($post->post_type == self::POSTTYPE && sp_is_recurring_event($post->ID)) {
+				$permalink = add_query_arg('eventDate', urlencode( DateUtils::dateOnly( $post->EventStartDate ) ), $permalink );
+			}
+			
+			return $permalink;
 		}
 
 		public function maybeAddEventTitle($title, $sep){
@@ -806,6 +815,33 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				wp_enqueue_style('sp-events-calendar-style', $styleUrl);
 		}
 	
+		
+		public function setDate() {
+			global $wp_query;
+			if ( isset ( $wp_query->query_vars['eventDate'] ) && isset( $wp_query->query_vars['eventDisplay']) && $wp_query->query_vars['eventDisplay'] == 'month' ) {
+				$this->date = $wp_query->query_vars['eventDate'] . "-01";
+			} else if (isset( $wp_query->query_vars['eventDisplay']) && $wp_query->query_vars['eventDisplay'] == 'month') {
+				$date = date_i18n( DateUtils::DBDATEFORMAT );
+				$this->date = substr_replace( $date, '01', -2 );
+			} else if (is_singular(self::POSTTYPE) && isset ( $wp_query->query_vars['eventDate'] )) {
+				$this->date = $wp_query->query_vars['eventDate'];
+			} else if (!is_singular(self::POSTTYPE)) { // don't set date for single event unless recurring
+				$this->date = date(DateUtils::DBDATETIMEFORMAT);
+			}
+		}
+		
+		public function setReccuringEventDates() {
+			global $post;
+			
+			if( is_singular(self::POSTTYPE) && sp_is_recurring_event() ) {
+				$startTime = get_post_meta($post->ID, '_EventStartDate', true);
+				$startTime = DateUtils::timeOnly($startTime);
+				
+				$post->EventStartDate = DateUtils::addTimeToDate($this->date, $startTime);
+				$post->EventEndDate = date( DateUtils::DBDATETIMEFORMAT, strtotime($post->EventStartDate) + get_post_meta($post->ID, '_EventDuration', true) );
+			}
+		}		
+		
 		/**
 		 * Helper method to return an array of 1-12 for months
 		 */
@@ -1136,8 +1172,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$date = $this->dateHelper($date);
 			return "$date $hour:$minute:00";
 		}
-		public function getTimeFormat( $dateFormat = self::DATEONLYFORMAT ) {
-			return $dateFormat . ' ' . get_option( 'time_format', self::TIMEFORMAT );
+		public function getTimeFormat( $dateFormat = DateUtils::DATEONLYFORMAT ) {
+			return $dateFormat . ' ' . get_option( 'time_format', DateUtils::TIMEFORMAT );
 		}
 		/*
 		 * ensures date follows proper YYYY-MM-DD format
@@ -1146,23 +1182,18 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		private function dateHelper( $date ) {
 
 			if($date == '')
-				return date(self::DBDATEFORMAT);
+				return date(DateUtils::DBDATEFORMAT);
 
 			$date = str_replace( array('-','/',' ',':','–','—','-'), '-', $date );
 			// ensure no extra bits are added
 			list($year, $month, $day) = explode('-', $date);
 			
 			if ( ! checkdate($month, $day, $year) )
-				$date = date(self::DBDATEFORMAT); // today's date if error
+				$date = date(DateUtils::DBDATEFORMAT); // today's date if error
 			else
 				$date = $year . '-' . $month . '-' . $day;
 	
 			return $date;
-		}
-		
-		public function dateOnly( $date ) {
-			$date = explode(' ', $date);
-			return $date[0];
 		}
 		
 		/**
@@ -1490,7 +1521,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			foreach($this->organizerTags as $tag)
 				$$tag = get_post_meta($_EventOrganizerID, $tag, true );*/
 
-			$isEventAllDay = ( $_EventAllDay == 'yes' || ! $this->dateOnly( $_EventStartDate ) ) ? 'checked="checked"' : ''; // default is all day for new posts
+			$isEventAllDay = ( $_EventAllDay == 'yes' || ! DateUtils::dateOnly( $_EventStartDate ) ) ? 'checked="checked"' : ''; // default is all day for new posts
 			
 			$startDayOptions       	= array(
 										31 => $this->getDayOptions( $_EventStartDate, 31 ),
@@ -1515,10 +1546,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$startMeridianOptions	= $this->getMeridianOptions( $_EventStartDate, true );
 			$endMeridianOptions		= $this->getMeridianOptions( $_EventEndDate );
 			
-			$start = $this->dateOnly($_EventStartDate);
+			$start = DateUtils::dateOnly($_EventStartDate);
 			$EventStartDate = ( $start ) ? $start : date('Y-m-d');
 			
-			$end = $this->dateOnly($_EventEndDate);
+			$end = DateUtils::dateOnly($_EventEndDate);
 			$EventEndDate = ( $end ) ? $end : date('Y-m-d');
 
 			include( $this->pluginPath . 'views/events-meta-box.php' );
@@ -1671,7 +1702,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 * @return string a set of HTML options with all meridians 
 		 */
 		public function getMeridianOptions( $date = "", $isStart = false ) {
-			if( strstr( get_option( 'time_format', self::TIMEFORMAT ), 'A' ) ) {
+			if( strstr( get_option( 'time_format', DateUtils::TIMEFORMAT ), 'A' ) ) {
 				$a = 'A';
 				$meridians = array( "AM", "PM" );
 			} else {
@@ -1833,7 +1864,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 	     */
 	    public function hours() {
 	      $hours = array();
-		  $rangeMax = ( strstr( get_option( 'time_format', self::TIMEFORMAT ), 'H' ) ) ? 23 : 12;
+		  $rangeMax = ( strstr( get_option( 'time_format', DateUtils::TIMEFORMAT ), 'H' ) ) ? 23 : 12;
 	      foreach(range(1,$rangeMax) as $hour) {
 			if ( $hour < 10 ) {
 				$hour = "0".$hour;

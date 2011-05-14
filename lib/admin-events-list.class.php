@@ -26,14 +26,6 @@ class Admin_Events_List {
 		return $posts;
 	}
 
-	public static function sort_events_by_start($a, $b) {
-		if($a->EventStartDate == $b->EventStartDate) {
-		  return 0;
-		}
-
-		return ($a->EventStartDate < $b->EventStartDate) ? -1 : +1;
-	}
-
 	public static function events_search_distinct($distinct) {
 		return "DISTINCT";
 	}

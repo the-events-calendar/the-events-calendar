@@ -203,7 +203,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		if ( isset ( $wp_query->query_vars['eventDate'] ) ) { 
 			$date = $wp_query->query_vars['eventDate'] . "-01";
 		} else {
-			$date = date_i18n( Events_Calendar_Pro::DBDATEFORMAT );
+			$date = date_i18n( DateUtils::DBDATEFORMAT );
 		}
 		$monthOptions = $sp_ecp->getMonthOptions( $date );
 		$yearOptions = $sp_ecp->getYearOptions( $date );
@@ -234,7 +234,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		global $sp_ecp;
 		
 		if( $dateFormat ) $format = $dateFormat;
-		else $format = get_option( 'date_format', Events_Calendar_Pro::DATEONLYFORMAT );
+		else $format = get_option( 'date_format', DateUtils::DATEONLYFORMAT );
 
 		if ( $showtime )
 			$format = $sp_ecp->getTimeFormat( $format );
