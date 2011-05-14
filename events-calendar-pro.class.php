@@ -542,10 +542,12 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		private function addQueryFilters() {
 			add_filter( 'posts_join',		array( $this, 'events_search_join' ) );
 			add_filter( 'posts_where',		array( $this, 'events_search_where' ) );
-			add_filter( 'posts_orderby',	array( $this, 'events_search_orderby' ) );
+			//add_filter( 'posts_orderby',	array( $this, 'events_search_orderby' ) );
+			add_filter( 'request', array( $this, 'events_search_orderby' ));			
 			add_filter( 'posts_fields',		array( $this, 'events_search_fields' ) );
 			add_filter( 'post_limits',		array( $this, 'events_search_limits' ) );
 			add_filter( 'manage_posts_columns', array($this, 'column_headers'));
+			add_filter( 'manage_edit-' . Events_Calendar_Pro::POSTTYPE . '_sortable_columns', array($this, 'register_date_sortables') );
 		}
 		
 		private function addDebugColumns() {
@@ -659,6 +661,13 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			
 			return $columns;
 		}
+		
+		public function register_date_sortables($columns) {
+			$columns['start-date'] = 'start-date';
+			$columns['end-date'] = 'end-date';
+ 
+			return $columns;
+		}		
 		
 		public function custom_columns( $column_id, $post_id ) {
 			if ( $column_id == 'events-cats' ) {
@@ -1071,10 +1080,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 		public function events_ordering_orderby($orderby){
 			global $wpdb;
+			
 			$orderby = 'DATE(eventStart.meta_value) '.$this->order.', TIME(eventStart.meta_value) '.$this->order;
 
 			remove_filter( 'posts_orderby', array( $this, 'events_ordering_orderby' ) );
-		return $orderby;
+			return $orderby;
 		}
 
 
@@ -1156,12 +1166,24 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 * @param string orderby
 		 * @return string modified orderby clause
 		 */
-		public function events_search_orderby( $orderby ) {
+		public function events_search_orderby( $vars ) {
 			if ( get_query_var('post_type') != self::POSTTYPE ) { 
-				return $orderby;
+				return $vars;
 			}
-			$orderby = ' eventStart.meta_value '.$this->order;
-			return $orderby;
+
+			if ( isset( $vars['orderby'] ) && 'start-date' == $vars['orderby'] ) {
+				$vars = array_merge( $vars, array(
+					'meta_key' => 'start-date',
+					'orderby' => 'meta_value_num'
+				) );
+			} else if ( isset( $vars['orderby'] ) && 'start-date' == $vars['orderby'] ) {
+				$vars = array_merge( $vars, array(
+					'meta_key' => 'end-date',
+					'orderby' => 'meta_value_num'
+				) );
+			}
+ 
+			return $vars;
 		}
 		/**
 		 * limit filter for admin queries
