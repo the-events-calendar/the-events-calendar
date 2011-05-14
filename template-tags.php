@@ -760,6 +760,14 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 			return $term_info->name;
 		}
 	}
+	
+	/* is this event recurring? */
+	function sp_is_recurring_event( $postId = null ) {
+		global $sp_ecp;
+		$postId = sp_post_id_helper( $postId );
+		
+		return sizeof(get_post_meta($postId, '_EventStartDate')) > 1;
+	}
 
 	/**
 	 * Returns an add to Google Calendar link. Must be used in the loop

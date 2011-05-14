@@ -206,6 +206,18 @@ jQuery(document).ready(function($) {
 			$('#custom-recurrence-frequency').hide();
 		}
 	});
+	
+	$('[name="recurrence[end-type]"]').change(function() {
+		var val = $(this).find('option:selected').val();
+		
+		if (val == "On") {
+			$('#rec-count').hide();
+			$('#recurrence_end').show();
+		} else {
+			$('#recurrence_end').hide();
+			$('#rec-count').show();
+		}
+	});
 
 	$('[name="recurrence[custom-type]"]').change(function() {
 		$('.custom-recurrence-row').hide();

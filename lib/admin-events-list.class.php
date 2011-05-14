@@ -8,10 +8,11 @@ class Admin_Events_List {
 			add_filter( 'posts_join',		array( __CLASS__, 'events_search_join' ) );
 			add_filter( 'posts_where',		array( __CLASS__, 'events_search_where' ) );
 			add_filter( 'posts_orderby',	array( __CLASS__, 'events_search_orderby' ) );
-			add_filter( 'posts_fields',		array( __CLASS__, 'events_search_fields' ) );
+			add_filter( 'posts_fields',	array( __CLASS__, 'events_search_fields' ) );
 			add_filter( 'post_limits',		array( __CLASS__, 'events_search_limits' ) );
 			add_filter( 'manage_posts_columns', array(__CLASS__, 'column_headers'));
 			add_filter( 'posts_results',  array(__CLASS__, 'cache_posts_results'));
+			add_filter( 'get_edit_post_link',  array(__CLASS__, 'add_event_occurrance_to_edit_link'), 10, 2);
 			add_action( 'manage_posts_custom_column', array(__CLASS__, 'custom_columns'), 10, 2);
 		}
 	}
@@ -163,6 +164,19 @@ class Admin_Events_List {
 		if ( $column_id == 'recurring' ) {
 			echo sizeof(get_post_meta($post_id, '_EventStartDate')) > 1 ? "Yes" : "No";
 		}
+	}
+	
+	public static function add_event_occurrance_to_edit_link($link, $eventId) {
+		if ( get_query_var('post_type') != Events_Calendar_Pro::POSTTYPE ) {
+			return $link;
+		}
+		
+		// if is a recurring event
+		if ( sp_is_recurring_event($eventId) ) {
+			$link = add_query_arg('event_start', urlencode( self::$events_list[0]->EventEndDate ), $link);
+		}
+		
+		return $link;
 	}
 }
 ?>
