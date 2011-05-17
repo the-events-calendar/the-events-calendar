@@ -1,14 +1,14 @@
-# Translation of the WordPress plugin Events Calendar Pro 1.3.1 by Shane & Peter, Inc..
+# Translation of the WordPress plugin Events Calendar Pro 1.2.1b by Shane & Peter, Inc..
 # Copyright (C) 2010 Shane & Peter, Inc.
 # This file is distributed under the same license as the Events Calendar Pro package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Events Calendar Pro 1.3.1\n"
+"Project-Id-Version: Events Calendar Pro 1.2.1b\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-11 09:50-0500\n"
-"PO-Revision-Date: 2011-05-11 09:50-0500\n"
+"POT-Creation-Date: 2011-05-17 18:17-0500\n"
+"PO-Revision-Date: 2011-05-17 18:17-0500\n"
 "Last-Translator: John Gadbois <jgadbois@gmail.com>\n"
 "Language-Team: LANGUAGE <aaron@aahacreative.com>\n"
 "MIME-Version: 1.0\n"
@@ -1211,217 +1211,225 @@ msgstr ""
 msgid "Wyoming"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:616
+#: ../events-calendar-pro.class.php:617
 msgid "Upcoming Events"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:618
+#: ../events-calendar-pro.class.php:619
 msgid "Past Events"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:622
+#: ../events-calendar-pro.class.php:623
 #, php-format
 msgid "Events for %s"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:624
+#: ../events-calendar-pro.class.php:625
 msgid "Events this month"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:638
+#: ../events-calendar-pro.class.php:639
 msgid "No description has been entered for this event."
 msgstr ""
 
-#: ../events-calendar-pro.class.php:651
-#: ../events-calendar-pro.class.php:791
+#: ../events-calendar-pro.class.php:652
+#: ../events-calendar-pro.class.php:792
 msgid "Event Categories"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:656
+#: ../events-calendar-pro.class.php:657
 msgid "Start Date"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:657
+#: ../events-calendar-pro.class.php:658
 msgid "End Date"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:681
+#: ../events-calendar-pro.class.php:682
 #: ../views/events-options.php:192
 #: ../views/events-options.php:194
 msgid "Debug"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:752
+#: ../events-calendar-pro.class.php:753
 msgid "Events"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:753
+#: ../events-calendar-pro.class.php:754
 msgid "Event"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:754
-#: ../events-calendar-pro.class.php:767
-#: ../events-calendar-pro.class.php:780
+#: ../events-calendar-pro.class.php:755
+#: ../events-calendar-pro.class.php:768
+#: ../events-calendar-pro.class.php:781
 msgid "Add New"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:755
+#: ../events-calendar-pro.class.php:756
 msgid "Add New Event"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:756
+#: ../events-calendar-pro.class.php:757
 msgid "Edit Event"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:757
+#: ../events-calendar-pro.class.php:758
 msgid "New Event"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:758
+#: ../events-calendar-pro.class.php:759
 msgid "View Event"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:759
+#: ../events-calendar-pro.class.php:760
 msgid "Search Events"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:760
+#: ../events-calendar-pro.class.php:761
 msgid "No events found"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:761
+#: ../events-calendar-pro.class.php:762
 msgid "No events found in Trash"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:765
-#: ../events-calendar-pro.class.php:906
+#: ../events-calendar-pro.class.php:766
+#: ../events-calendar-pro.class.php:907
 msgid "Venues"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:766
+#: ../events-calendar-pro.class.php:767
 #: ../views/events-list-load-widget-admin.php:26
 msgid "Venue"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:768
+#: ../events-calendar-pro.class.php:769
 msgid "Add New Venue"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:769
+#: ../events-calendar-pro.class.php:770
 msgid "Edit Venue"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:770
+#: ../events-calendar-pro.class.php:771
 msgid "New Venue"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:771
-#: ../events-calendar-pro.class.php:784
+#: ../events-calendar-pro.class.php:772
+#: ../events-calendar-pro.class.php:785
 msgid "View Venue"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:772
+#: ../events-calendar-pro.class.php:773
 msgid "Search Venues"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:773
+#: ../events-calendar-pro.class.php:774
 msgid "No venue found"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:774
+#: ../events-calendar-pro.class.php:775
 msgid "No venues found in Trash"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:778
-#: ../events-calendar-pro.class.php:908
+#: ../events-calendar-pro.class.php:779
+#: ../events-calendar-pro.class.php:909
 msgid "Organizers"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:779
+#: ../events-calendar-pro.class.php:780
 msgid "Organizer"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:781
+#: ../events-calendar-pro.class.php:782
 msgid "Add New Organizer"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:782
+#: ../events-calendar-pro.class.php:783
 msgid "Edit Organizer"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:783
+#: ../events-calendar-pro.class.php:784
 msgid "New Organizer"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:785
+#: ../events-calendar-pro.class.php:786
 msgid "Search Organizers"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:786
+#: ../events-calendar-pro.class.php:787
 msgid "No organizer found"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:787
+#: ../events-calendar-pro.class.php:788
 msgid "No organizers found in Trash"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:792
+#: ../events-calendar-pro.class.php:793
 msgid "Event Category"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:793
+#: ../events-calendar-pro.class.php:794
 msgid "Search Event Categories"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:794
+#: ../events-calendar-pro.class.php:795
 msgid "All Event Categories"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:795
+#: ../events-calendar-pro.class.php:796
 msgid "Parent Event Category"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:796
+#: ../events-calendar-pro.class.php:797
 msgid "Parent Event Category:"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:797
+#: ../events-calendar-pro.class.php:798
 msgid "Edit Event Category"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:798
+#: ../events-calendar-pro.class.php:799
 msgid "Update Event Category"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:799
+#: ../events-calendar-pro.class.php:800
 msgid "Add New Event Category"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:800
+#: ../events-calendar-pro.class.php:801
 msgid "New Event Category Name"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:847
+#: ../events-calendar-pro.class.php:848
 msgid "Next"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:848
+#: ../events-calendar-pro.class.php:849
 msgid "Prev"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:849
+#: ../events-calendar-pro.class.php:850
 msgid "Today"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:850
+#: ../events-calendar-pro.class.php:851
 msgid "Done"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:1883
+#: ../events-calendar-pro.class.php:1890
+msgid "Use New Venue"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:1897
 msgid "No saved venues yet."
 msgstr ""
 
-#: ../events-calendar-pro.class.php:1967
+#: ../events-calendar-pro.class.php:1974
+msgid "Use New Organizer"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:1981
 msgid "No saved organizers yet."
 msgstr ""
 
@@ -1759,6 +1767,10 @@ msgstr ""
 
 #: ../views/events-options.php:221
 msgid "Customize Defaults"
+msgstr ""
+
+#: ../views/events-options.php:222
+msgid "These settings change the default event form. For example, if you set a default venue, this field will be automatically filled in on a new event."
 msgstr ""
 
 #: ../views/events-options.php:225
