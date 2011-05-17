@@ -1,6 +1,6 @@
 === Events Calendar Pro ===
 
-Contributors: Kelsey Damas, Matt Wiebe, Justin Endler, Reid Peifer, Dan Cameron, Aaron Rhodes produced by Shane & Peter, Inc.
+Contributors: John Gadbois, Rob La Gatta, Kelsey Damas, Matt Wiebe, Justin Endler, Reid Peifer, Dan Cameron, Aaron Rhodes produced by Shane & Peter, Inc.
 Tags: widget, events, simple, tooltips, grid, month, list, calendar, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
 Requires at least: 3.0
 Tested up to: 3.1.2
@@ -8,21 +8,25 @@ Stable tag: 1.3.1
 
 == Description ==
 
-The Events Calendar Pro plugin enables you to rapidly create and manage events using the post editor.  Features include Google Maps integration as well as default templates such as a calendar grid and event list for streamlined one click installation. Requires WordPress 3.0 and PHP 5.2.
+The Events Calendar Pro plugin enables you to rapidly create and manage events using the post editor.  Features include Google Maps integration as well as default templates such as a calendar grid and event list for streamlined one click installation. Requires WordPress 3.0 and PHP 5.2. For a detailed FAQ related to Events Calendar Pro, visit http://shaneandpeter.com/events-calendar-pro-frequently-asked-questions/. 
 
 = Events Calendar Pro =
 
 * Manage event details in the Events post type
-* Upcoming Events Widget
+* Upcoming Events widget
 * Provides full template to complement the 2010 theme out of the box (month and list view)
 * Extensive template tags for customization
-* MU Compatible
-* Google Maps Integration
+* MU compatible
+* Google Maps integration
 * Calendar Month view with tooltips
-* Includes support for venue, cost, address, start and end time, google maps link
+* Includes support for venue, cost, address, start and end time, Google Maps link
+* Default event settings
+* Saved venue & organizer data
+* Events Tickets Pro compatible
 * Support for international addresses, time and languages:
 ** Czech
 ** Danish
+** German
 ** Spanish
 ** French
 ** Italian
@@ -31,13 +35,17 @@ The Events Calendar Pro plugin enables you to rapidly create and manage events u
 ** Portuguese
 ** Russian
 ** Swedish
+** Turkish
 
 = Upcoming Features =
 
 * Recurring events
-* Sync with facebook events
-* Saved venues
+* Sync with Facebook events
 * Global event maps
+* Event tagging
+* Subcategory filters for widgets
+* "Return to today" button in calendar grid view
+* Venue categories
 
 == Installation ==
 
@@ -50,15 +58,17 @@ The Events Calendar Pro plugin enables you to rapidly create and manage events u
 
 = Activate =
 
-No setup required. Just plug and play!
+No setup required. Just navigate to your site's Plugins section, activate and play!
 
 = Settings = 
 
-There are a growing number of options you can set to make your calendar behave in a specific manner. Simple click The Event Calendar in the settings panel:
+There are a growing number of options you can set to make your calendar behave in a specific manner. Simple click Events Calendar Pro in the settings panel:
 
 * Default View for Events: Select Calendar or Event list as the default view for the events view
-* Default Country: Select the default country for creating events
-* Embed Google Maps: Turn on embedded Google Maps and define the height and width of the map.
+* Show Comments: Enable or disable comments for events
+* Embed Google Maps: Turn on embedded Google Maps and define the height and width of the map
+* Theme Settings: Add HTML before or after the calendar
+* Customized Defaults: Default organizer/venue data
 * Date / Time format is now managed via the default WordPress setting
 
 = Requirements =
@@ -78,6 +88,9 @@ The Events Calendar Pro plugin comes with default templates for the list view, g
 * list.php
 * single.php
 * events-list-load-widget-display.php
+* widget-featured-display.php
+* table.php
+* table-mini.php
 * events.css ( original in the plugin's resources/ directory )
 
 Edit the new files to your hearts content. Please do not edit the one's in the plugin folder as that will cause conflicts when you update the plugin to the latest release.
@@ -191,11 +204,36 @@ Returns an EventBrite.com embedded ticket sales inline (not WordPress) widget
 
 = 1.3.1 =
 
-* Added support for post titles in previous and next links in the post.
+Features
+
+# Added support for post titles in previous and next links in the post.
+# Venue/organizer dropdowns are now sorted alphabetically, instead of by date added.
+# Events now use the excerpt field -- if excerpt is added, it appears in list view and upon hover in grid view. If nothing is added to the excerpt field, the system ignores it.
+# State now appears below country, instead of above, when editing or creating a new event.
+# Removed visibility options from Venues & Organizers.
+# Plugin now can handle both default WP permalinks and custom ones.
+
+Bugs
+
+# Fixed issue where RSS feed for upcoming events appeared as SitenameUpcoming Events (now reads as Sitename Upcoming Events).
+# The first event in list view is now an active link in all browsers, after previously being unclickable. 
+# Reordering events by title and/or author now works properly.
+# Overall performance improvements for how the Event List widget displays data.
+# Navigation in calendar subcategories is now functional. 
+# Draft events no longer default to having a date of publication as 1/1/1970.
+# Editing organizer/venue data no longer creates a duplicate entry.
+# Customized defaults for state, phone number now work correctly.
+# Fixed an issue with the German language files functioning incorrectly.
+# Long event titles now wrap correctly in tooltip upon hover.
+# Created 100% consistency between how Google Calendar and iCal handle imported event location data. 
+# Fixed an issue that yielded problems when trying to use template functions outside normal ECP pages.
+# "Debug Events display issues" can now be turned off. 
+# Google Calendar now handles all-day events more smoothly than in 1.3.
 
 = 1.2.2 =
 
 Features
+
 # Added default values for state, zip, etc
 # Google maps are now localized based on WordPress' language setting.
 # Added a "No upcoming or previous events" message
