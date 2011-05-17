@@ -1,7 +1,7 @@
 <?php
 /*
  Plugin Name:  Events Calendar Pro
- Description:  The Events Calendar plugin enables you to rapidly create and manage events using the post editor. Features include optional Eventbrite integration, Google Maps integration as well as default calendar grid and list templates for streamlined one click installation. When updating The Events Calendar, if Event Tickets Pro is being used, the two plugins must be updated together. Requires WordPress 3.0 (or higher) and PHP 5.2 (or above). 
+ Description:  The Events Calendar Pro plugin enables you to rapidly create and manage events using the post editor. Features include optional Eventbrite integration, Google Maps integration as well as default calendar grid and list templates for streamlined one click installation. When updating Events Calendar Pro, if Event Tickets Pro is being used, the two plugins must be updated together. Requires WordPress 3.0 (or higher) and PHP 5.2 (or above). 
  Version: 1.3.1
  Author: Shane & Peter, Inc.
  Author URI: http://www.shaneandpeter.com/

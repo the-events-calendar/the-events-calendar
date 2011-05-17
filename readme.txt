@@ -72,7 +72,7 @@ The built in template can be overridden by files within your template.
 
 = Default vs. Custom Templates =
 
-The Events Calendar plugin comes with default templates for the list view, grid view and single post view, tailored to the 2010 default theme. If you would like to alter them, create a new folder called "events" in your template directory and copy over the following files from within the plugin folder (from the plugin's views/ directory):
+The Events Calendar Pro plugin comes with default templates for the list view, grid view and single post view, tailored to the 2010 default theme. If you would like to alter them, create a new folder called "events" in your template directory and copy over the following files from within the plugin folder (from the plugin's views/ directory):
 
 * gridview.php
 * list.php

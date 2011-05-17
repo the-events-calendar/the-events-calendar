@@ -547,7 +547,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'posts_fields',		array( $this, 'events_search_fields' ) );
 			add_filter( 'post_limits',		array( $this, 'events_search_limits' ) );
 			add_filter( 'manage_posts_columns', array($this, 'column_headers'));
-			add_filter( 'manage_edit-' . Events_Calendar_Pro::POSTTYPE . '_sortable_columns', array($this, 'register_date_sortables') );
 		}
 		
 		private function addDebugColumns() {
@@ -661,13 +660,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			
 			return $columns;
 		}
-		
-		public function register_date_sortables($columns) {
-			$columns['start-date'] = 'start-date';
-			$columns['end-date'] = 'end-date';
- 
-			return $columns;
-		}		
 		
 		public function custom_columns( $column_id, $post_id ) {
 			if ( $column_id == 'events-cats' ) {
