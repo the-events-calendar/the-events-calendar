@@ -1887,7 +1887,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$venues = $this->get_venue_info();
 			if($venues){
 				echo '<select name="'.$name.'" id="saved_venue">';
-					echo '<option value="0">' . __("Use New Venue") . '</option>';
+					echo '<option value="0">' . __("Use New Venue", $this->pluginDomain) . '</option>';
 				foreach($venues as $venue){
 					$selected = ($current == $venue->ID) ? 'selected="selected"' : '';
 					echo "<option value='{$venue->ID}' $selected>{$venue->post_title}</option>";
@@ -1971,7 +1971,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$organizers = $this->get_organizer_info();
 			if($organizers){
 				echo '<select name="'.$name.'" id="saved_organizer">';
-					echo '<option value="0">' . __('Use New Organizer') . '</option>';
+					echo '<option value="0">' . __('Use New Organizer', $this->pluginDomain) . '</option>';
 				foreach($organizers as $organizer){
 					$selected = ($current == $organizer->ID) ? 'selected="selected"' : '';
 					echo "<option value='{$organizer->ID}' $selected>{$organizer->post_title}</option>";
