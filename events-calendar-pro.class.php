@@ -2198,8 +2198,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 */
 		public function addEventBox( ) {
 			add_meta_box( 'Event Details', $this->pluginName, array( $this, 'EventsChooserBox' ), self::POSTTYPE, 'normal', 'high' );
-			add_meta_box( 'Venue Details', 'Venue Information', array( $this, 'VenueMetaBox' ), self::VENUE_POST_TYPE, 'normal', 'high' );
-			add_meta_box( 'Organizer Details', 'Organizer Information', array( $this, 'OrganizerMetaBox' ), self::ORGANIZER_POST_TYPE, 'normal', 'high' );
+			add_meta_box( 'Venue Details', __('Venue Information', $this->pluginDomain), array( $this, 'VenueMetaBox' ), self::VENUE_POST_TYPE, 'normal', 'high' );
+			add_meta_box( 'Organizer Details', __('Organizer Information', $this->pluginDomain), array( $this, 'OrganizerMetaBox' ), self::ORGANIZER_POST_TYPE, 'normal', 'high' );
 		}
 		/** 
 		 * Builds a set of options for diplaying a meridian chooser
