@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Events Calendar Pro 1.2.1b\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-17 18:17-0500\n"
-"PO-Revision-Date: 2011-05-17 18:17-0500\n"
+"POT-Creation-Date: 2011-05-17 19:14-0500\n"
+"PO-Revision-Date: 2011-05-17 19:14-0500\n"
 "Last-Translator: John Gadbois <jgadbois@gmail.com>\n"
 "Language-Team: LANGUAGE <aaron@aahacreative.com>\n"
 "MIME-Version: 1.0\n"
@@ -1431,6 +1431,14 @@ msgstr ""
 
 #: ../events-calendar-pro.class.php:1981
 msgid "No saved organizers yet."
+msgstr ""
+
+#: ../events-calendar-pro.class.php:2201
+msgid "Venue Information"
+msgstr ""
+
+#: ../events-calendar-pro.class.php:2202
+msgid "Organizer Information"
 msgstr ""
 
 #: ../events-calendar-widget.class.php:12
