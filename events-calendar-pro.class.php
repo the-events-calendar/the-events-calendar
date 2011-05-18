@@ -197,6 +197,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_action( 'save_post',		array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post',		array( $this, 'save_organizer_data' ), 16, 2 );
 			add_action( 'pre_get_posts',  array( $this, 'setDate' ));
+			add_action( 'pre_get_posts',  array( $this, 'setDisplay' ));
 			add_action( 'sp_events_post_errors', array( 'TEC_Post_Exception', 'displayMessage' ) );
 			add_action( 'sp_events_options_top', array( 'TEC_WP_Options_Exception', 'displayMessage') );
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
@@ -828,6 +829,15 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			} else if (!is_singular(self::POSTTYPE)) { // don't set date for single event unless recurring
 				$this->date = date(DateUtils::DBDATETIMEFORMAT);
 			}
+		}
+		
+		public function setDisplay() {
+			global $wp_query;
+
+			if (is_admin())
+				$this->displaying = 'admin';
+			else
+				$this->displaying = (isset( $wp_query->query_vars['eventDisplay'] ) ) ? $wp_query->query_vars['eventDisplay'] : $this->getOption('viewOption','month');
 		}
 		
 		public function setReccuringEventDates() {
@@ -1905,12 +1915,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function getEvents( $args = '' ) {
 			global $wp_query;
 
-			if (is_admin())
-				$display = 'admin';
-			else
-				$display = (isset( $wp_query->query_vars['eventDisplay'] ) ) ? $wp_query->query_vars['eventDisplay'] : $this->getOption('viewOption','month');
-
-			$eventFinder = new SP_Event_Query($args, $display);
+			$eventFinder = new SP_Event_Query($args, $this->display);
 			return $eventFinder->getEvents();
 		}
 		

@@ -62,7 +62,7 @@ class SP_Event_Query {
 		if ( get_query_var('post_type') != Events_Calendar_Pro::POSTTYPE ) {
 			return $join;
 		}
-		add_filter( 'posts_join',		array( __CLASS__, 'events_search_join' ) );
+		//add_filter( 'posts_join', array( __CLASS__, 'events_search_join' ) );
 		$join .= " LEFT JOIN {$wpdb->postmeta} as eventStart ON( {$wpdb->posts}.ID = eventStart.post_id AND eventStart.meta_key = '_EventStartDate') ";
 		$join .= " LEFT JOIN {$wpdb->postmeta} as eventDuration ON( {$wpdb->posts}.ID = eventDuration.post_id AND eventDuration.meta_key = '_EventDuration') ";
 		$join .= " LEFT JOIN {$wpdb->postmeta} as eventEnd ON( {$wpdb->posts}.ID = eventEnd.post_id AND eventEnd.meta_key = '_EventEndDate') ";

@@ -516,7 +516,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		$now = time();
 		if(isset($post->EventStartDate)) {
 			$postTimestamp = strtotime( $post->EventStartDate, $now );
-			$postTimestamp = strtotime( date( Events_Calendar_Pro::DBDATEFORMAT, $postTimestamp ), $now); // strip the time
+			$postTimestamp = strtotime( date( DateUtils::DBDATEFORMAT, $postTimestamp ), $now); // strip the time
 			if ( $postTimestamp != $sp_ecp->currentPostTimestamp ) {
 				$retval = true;
 			}
