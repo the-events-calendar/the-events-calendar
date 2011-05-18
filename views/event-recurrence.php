@@ -1,4 +1,4 @@
-		<tr>
+		<tr class="recurrence-row">
 			<td><?php _e('Recurrence:',$this->pluginDomain); ?></td>
 			<td>
 				<input type="hidden" name="is_recurring" value="<?php echo $recType && $recType != "None" ? "true" : "false" ?>" />
@@ -22,7 +22,7 @@
 				</span>
 			</td>
 		</tr>
-		<tr id="custom-recurrence-frequency" style="display: <?php echo $recType == "Custom" ? "table-row" : "none" ?>;">
+		<tr class="recurrence-row" id="custom-recurrence-frequency" style="display: <?php echo $recType == "Custom" ? "table-row" : "none" ?>;">
 			<td></td>
 			<td>
 				Frequency

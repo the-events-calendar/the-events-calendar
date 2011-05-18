@@ -3,11 +3,13 @@ class Recurrence {
 	private $start_date;
 	private $end;
 	private $series_rules;
+	private $by_occurrence_count;
 
-	public function  __construct($start_date, $end, $series_rules) {
+	public function  __construct($start_date, $end, $series_rules, $by_occurrence_count = false) {
 		$this->start_date = $start_date;
 		$this->end = $end;
 		$this->series_rules = $series_rules;
+		$this->by_occurrence_count = $by_occurrence_count;
 	}
 
 	public function getDates() {
@@ -15,7 +17,7 @@ class Recurrence {
 			$dates = array();
 			$cur_date = $this->start_date;
 
-			if(is_numeric($this->end)) {
+			if($this->by_occurrence_count) {
 				// a set number of occurrences
 				for( $i = 0; $i < $this->end; $i++ ) {
 					$cur_date = $this->series_rules->getNextDate($cur_date);

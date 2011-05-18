@@ -14,10 +14,10 @@ class Events_Recurrence_Meta {
 		if($_POST['recurrence_action'] && $_POST['recurrence_action'] == Events_Recurrence_Meta::UPDATE_TYPE_FUTURE) {
 			
 			// move recurrence end to the last date of the series before today
-			$numOccurrences = self::adjustRecurrenceEnd( $postId );			
-			
+			$numOccurrences = self::adjustRecurrenceEnd( $postId, $_POST['EventStartDate'] );			
+
 			// prune future occurrences on original event
-			self::removeFutureOccurrences( $postId );
+			self::removeFutureOccurrences( $postId, $_POST['EventStartDate'] );
 			
 			if ($_POST['recurrence']['end-type'] == 'After') {
 				// num occurrences for new series is total occurrences minus occurrences still in original series
@@ -79,17 +79,21 @@ class Events_Recurrence_Meta {
 		return null;
 	}
 	
-	private static function removeFutureOccurrences( $postId ) {
+	private static function removeFutureOccurrences( $postId, $date = null ) {
+		$date = $date ? strtotime($date) : time();
+	
 		$occurrences = get_post_meta($postId, '_EventStartDate');
 		
 		foreach($occurrences as $occurrence) {
-			if (strtotime($occurrence) > time() ) {
+			if (strtotime(DateUtils::dateOnly($occurrence)) >= $date ) {
 				delete_post_meta($postId, '_EventStartDate', $occurrence);
 			}
 		}
 	}
 	
-	private static function adjustRecurrenceEnd( $postId ) {
+	private static function adjustRecurrenceEnd( $postId, $date = null ) {
+		$date = $date ? strtotime($date) : time();
+
 		$occurrences = get_post_meta($postId, '_EventStartDate');
 		$occurrenceCount = 0;
 		sort($occurrences);
@@ -100,10 +104,11 @@ class Events_Recurrence_Meta {
 				  
 		foreach($occurrences as $occurrence) {
 			$occurrenceCount++; // keep track of how many we are keeping
-			if (strtotime($occurrence) > time() ) {
-				$recurrenceMeta = get_post_meta($postId, 'recurrence', true);
+			if (strtotime(DateUtils::dateOnly($occurrence)) > $date ) {
+				$recurrenceMeta = get_post_meta($postId, '_EventRecurrence', true);
 				$recurrenceMeta['end'] = date(DateSeriesRules::DATE_ONLY_FORMAT, strtotime($prev));
-				update_post_meta($postId, 'recurrence', $recurrenceMeta);
+
+				update_post_meta($postId, '_EventRecurrence', $recurrenceMeta);
 				break;
 			}
 			
@@ -114,11 +119,12 @@ class Events_Recurrence_Meta {
 		return $occurrenceCount; 
 	}
 	
-	private static function removePastOccurrences( $postId ) {
+	private static function removePastOccurrences( $postId, $date = null ) {
+		$date = $date ? strtotime($date) : time();
 		$occurrences = get_post_meta($postId, '_EventStartDate');
 		
 		foreach($occurrences as $occurrence) {
-			if (strtotime($occurrence) < time() ) {
+			if (strtotime(DateUtils::dateOnly($occurrence)) < $date ) {
 				delete_post_meta($postId, '_EventStartDate', $occurrence);
 			}
 		}
@@ -199,7 +205,6 @@ class Events_Recurrence_Meta {
 	}
 
 	public static function saveEvents( $postId, $post) {
-
 		extract(Events_Recurrence_Meta::getRecurrenceMeta($postId));
 		$rules = Events_Recurrence_Meta::getSeriesRules($postId);
 
@@ -207,7 +212,8 @@ class Events_Recurrence_Meta {
 		$recStart = strtotime(get_post_meta($postId, '_EventStartDate', true));
 		$eventEnd = strtotime(get_post_meta($postId, '_EventEndDate', true));
 		$duration = $eventEnd - $recStart;
-		$recEnd = $recEndType == "On" ? $recEnd : $recEndCount - 1; // subtract one because event is first occurrence
+
+		$recEnd = $recEndType == "On" ? strtotime($recEnd) : $recEndCount - 1; // subtract one because event is first occurrence
 
 		// different update types
 		delete_post_meta($postId, '_EventStartDate');
@@ -220,7 +226,7 @@ class Events_Recurrence_Meta {
 		add_post_meta($postId,'_EventDuration', $duration);
 
 		if ( $recType != "None") {
-			$recurrence = new Recurrence($recStart, $recEnd, $rules);
+			$recurrence = new Recurrence($recStart, $recEnd, $rules, $recEndType == "After");
 			$dates = $recurrence->getDates();
 
 			// add meta for all dates in recurrence

@@ -207,3 +207,4 @@ td.snp_message {
 }
 
 #custom-recurrence-years label { width: 50px; display: block; float: left; margin-bottom: 3px;}
+#recurrence-changed-row { color: red; display: none; }

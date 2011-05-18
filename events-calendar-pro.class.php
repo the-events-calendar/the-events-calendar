@@ -1556,13 +1556,17 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$startMeridianOptions	= $this->getMeridianOptions( $_EventStartDate, true );
 			$endMeridianOptions		= $this->getMeridianOptions( $_EventEndDate );
 			
-			$start = DateUtils::dateOnly($_EventStartDate);
+			if( $_EventStartDate )
+				$start = DateUtils::dateOnly($_EventStartDate);
+
 			$EventStartDate = ( $start ) ? $start : date('Y-m-d');
 			
 			if ( $_REQUEST['event_start'] != null )
 				$EventStartDate = $_REQUEST['event_start'];
 			
-			$end = DateUtils::dateOnly($_EventEndDate);
+			if( $_EventEndDate )
+				$end = DateUtils::dateOnly($_EventEndDate);
+
 			$EventEndDate = ( $end ) ? $end : date('Y-m-d');
 			
 			if ( $_REQUEST['event_start'] != null ) {

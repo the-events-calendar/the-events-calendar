@@ -167,11 +167,22 @@ jQuery(document).ready(function($) {
 		spShowHideCorrectStateProvinceInput( countryLabel );
 	});
 	
+	// If recurrence changes on a recurring event, then show warning, and automatically change whole recurrence
+	if($('[name="is_recurring"]').val() == "true" && !$('[name="recurrence_action"]').val() ) {	
+		$('.recurrence-row input, .custom-recurrence-row input,.recurrence-row select, .custom-recurrence-row select').change(recurrenceChanged)
+		$( '[name="recurrence[end]"]' ).datepicker('option', 'onSelect', recurrenceChanged);
+		
+		function recurrenceChanged() {
+			$('#recurrence-changed-row').show();
+			$('[name="recurrence_action"]').val(2);
+		}
+	}
+	
 	/* Recurring Events Dialog */
 	$('.wp-admin.events-cal #post').submit(function(e) {
 		var self = this;
 
-		if($('[name="is_recurring"]').val() == "true" && !$('[name="recurrence_action"]').val() ) { // not a new event
+		if($('[name="is_recurring"]').val() == "true" && !$('[name="recurrence_action"]').val() && !$('[name="recurrence_action"]').val() ) { // not a new event
 			e.preventDefault();
 			$('#recurring-dialog').dialog({
 				modal: true,
