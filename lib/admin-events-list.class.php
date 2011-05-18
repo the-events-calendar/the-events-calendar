@@ -13,6 +13,7 @@ class Admin_Events_List {
 			add_filter( 'manage_posts_columns', array(__CLASS__, 'column_headers'));
 			add_filter( 'posts_results',  array(__CLASS__, 'cache_posts_results'));
 			add_filter( 'get_edit_post_link',  array(__CLASS__, 'add_event_occurrance_to_edit_link'), 10, 2);
+			add_filter( 'views_edit-sp_events',		array( __CLASS__, 'update_event_counts' ) );			
 			add_action( 'manage_posts_custom_column', array(__CLASS__, 'custom_columns'), 10, 2);
 		}
 	}
@@ -170,5 +171,82 @@ class Admin_Events_List {
 		
 		return $link;
 	}
+	
+	// update counts
+	public static function update_event_counts($counts) {
+		global $post_type, $post_type_object, $locked_post_status, $avail_post_stati;		
+
+		$num_posts = self::count_events();
+		
+		$total_posts = array_sum( (array) $num_posts );
+
+		foreach ( get_post_stati( array('show_in_admin_all_list' => false) ) as $state ) {
+			$total_posts -= $num_posts->$state;
+		}
+
+		$counts['all'] = "<a href='edit.php?post_type=sp_events' class='current'>All <span class='count'>($total_posts)</span></a>";
+		
+		foreach ( get_post_stati(array('show_in_admin_status_list' => true), 'objects') as $status ) {
+			$class = '';
+
+			$status_name = $status->name;
+
+			if ( !in_array( $status_name, $avail_post_stati ) )
+				continue;
+
+			if ( empty( $num_posts->$status_name ) )
+				continue;
+
+			if ( isset($_REQUEST['post_status']) && $status_name == $_REQUEST['post_status'] )
+				$class = ' class="current"';
+
+			$counts[$status_name] = "<a href='edit.php?post_status=$status_name&amp;post_type=$post_type'$class>" . sprintf( translate_nooped_plural( $status->label_count, $num_posts->$status_name ), number_format_i18n( $num_posts->$status_name ) ) . '</a>';
+		}		
+
+		return $counts;
+	}
+	
+	// taken from wp_count_posts;
+	private static function count_events() {
+		$type = Events_Calendar_Pro::POSTTYPE;
+		$perm = 'readable';
+
+		global $wpdb;
+
+		$user = wp_get_current_user();
+
+		$cache_key = $type;
+
+		$query = "SELECT post_status, COUNT( * ) AS num_posts FROM {$wpdb->posts}";
+		$query .= " LEFT JOIN {$wpdb->postmeta} as eventStart ON( {$wpdb->posts}.ID = eventStart.post_id AND eventStart.meta_key = '_EventStartDate') ";		
+		$query .= " WHERE post_type = %s";
+		if ( 'readable' == $perm && is_user_logged_in() ) {
+			$post_type_object = get_post_type_object($type);
+			if ( !current_user_can( $post_type_object->cap->read_private_posts ) ) {
+				$cache_key .= '_' . $perm . '_' . $user->ID;
+				$query .= " AND (post_status != 'private' OR ( post_author = '$user->ID' AND post_status = 'private' ))";
+			}
+		}
+		$query .= ' GROUP BY post_status';
+
+		$count = wp_cache_get($cache_key, 'counts');
+		$count = false;
+		if ( false !== $count )
+			return $count;
+
+		$count = $wpdb->get_results( $wpdb->prepare( $query, $type ), ARRAY_A );
+
+		$stats = array();
+		foreach ( get_post_stati() as $state )
+			$stats[$state] = 0;
+
+		foreach ( (array) $count as $row )
+			$stats[$row['post_status']] = $row['num_posts'];
+
+		$stats = (object) $stats;
+		wp_cache_set($cache_key, $stats, 'counts');
+
+		return $stats;
+	}	
 }
 ?>
