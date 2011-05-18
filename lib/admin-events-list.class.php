@@ -165,7 +165,7 @@ class Admin_Events_List {
 		
 		// if is a recurring event
 		if ( sp_is_recurring_event($eventId) ) {
-			$link = add_query_arg('event_start', urlencode( self::$events_list[0]->EventEndDate ), $link);
+			$link = add_query_arg('event_start', urlencode( DateUtils::dateOnly( self::$events_list[0]->EventEndDate ) ), $link);
 		}
 		
 		return $link;

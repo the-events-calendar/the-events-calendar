@@ -1559,8 +1559,16 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$start = DateUtils::dateOnly($_EventStartDate);
 			$EventStartDate = ( $start ) ? $start : date('Y-m-d');
 			
+			if ( $_REQUEST['event_start'] != null )
+				$EventStartDate = $_REQUEST['event_start'];
+			
 			$end = DateUtils::dateOnly($_EventEndDate);
 			$EventEndDate = ( $end ) ? $end : date('Y-m-d');
+			
+			if ( $_REQUEST['event_start'] != null ) {
+				$duration = get_post_meta( $postId, '_EventDuration', true );
+				$EventEndDate = DateUtils::dateOnly( strtotime($EventStartDate) + $duration, true );
+			}
 
 			include( $this->pluginPath . 'views/events-meta-box.php' );
 		}

@@ -6,13 +6,13 @@ class Events_Recurrence_Meta {
 	const UPDATE_TYPE_SINGLE = 3;
 	
 	public static function init() {
-		// need to make it modular so eventbrite can call if necessary
-		//add_action( 'save_post', array( __CLASS__, 'saveRecurrenceMeta' ), 17, 2 );
 		add_action('pre_post_update', array( __CLASS__, 'maybeBreakFromSeries' ));
 	}
 	
 	public static function maybeBreakFromSeries( $postId ) {
+		// make new series for future events
 		if($_POST['recurrence_action'] && $_POST['recurrence_action'] == Events_Recurrence_Meta::UPDATE_TYPE_FUTURE) {
+			
 			// move recurrence end to the last date of the series before today
 			$numOccurrences = self::adjustRecurrenceEnd( $postId );			
 			
@@ -25,12 +25,12 @@ class Events_Recurrence_Meta {
 			}
 
 			// redirect form to new event
-			$post = self::cloneEvent(get_post($postId), $_POST);
+			$post = self::cloneEvent( $_POST );
 			
 			// remove past occurrences of new event
 			self::removePastOccurrences( $post );
-			// end time potentially needs to be adjusted up
-			self::adjustEndTime( $post );
+			// actual event end time potentially needs to be adjusted up
+			self::adjustEndDate( $post );
 
 			// clear this so no infinite loop - clear after new post is inserted so it can be used in the recurrence logic
 			$_POST['recurrence_action'] = null;
@@ -38,7 +38,45 @@ class Events_Recurrence_Meta {
 			// redirect back to event screen
 			wp_redirect('post.php?post=' . $post . '&action=edit&message=1');
 			exit();
+		// break from series			
+		} else if($_POST['recurrence_action'] && $_POST['recurrence_action'] == Events_Recurrence_Meta::UPDATE_TYPE_SINGLE) {
+			// new event should have no recurrence
+			$_REQUEST['recurrence'] = $_POST['recurrence'] = null;
+
+			// create new event
+			$post = self::cloneEvent( $_POST );
+			
+			// remove this occurrance from the original series
+			self::removeOccurrence( $postId, $_POST['EventStartDate'] );
+
+			// the end date on original series will need to be moved if it was the first event in the series removed
+			self::adjustEndDate( $postId );
+
+			$_POST['recurrence_action'] = null;
+
+			// redirect back to event screen
+			wp_redirect('post.php?post=' . $post . '&action=edit&message=1');		
+			exit();
 		}
+	}
+	
+	private static function removeOccurrence( $postId, $date ) {
+		$startDate = self::getRealStartDate($postId);
+		$date = DateUtils::addTimeToDate( $date, DateUtils::timeOnly($startDate) );
+
+		delete_post_meta( $postId, '_EventStartDate', $date );
+	}
+	
+	// sorts the meta to ensure we are getting the real start date
+	private static function getRealStartDate( $postId ) {
+		$start_dates = get_post_meta( $postId, '_EventStartDate' );
+		
+		if( is_array( $start_dates ) && sizeof( $star_dates ) > 0 ) {
+			sort($start_dates);
+			return $start_dates[0];
+		}
+		
+		return null;
 	}
 	
 	private static function removeFutureOccurrences( $postId ) {
@@ -86,7 +124,7 @@ class Events_Recurrence_Meta {
 		}
 	}	
 	
-	private static function adjustEndTime( $postId ) {
+	private static function adjustEndDate( $postId ) {
 		$occurrences = get_post_meta($postId, '_EventStartDate');
 		sort($occurrences);
 
@@ -98,7 +136,7 @@ class Events_Recurrence_Meta {
 	}	
 	
 	
-	private static function cloneEvent($event_to_clone, $data) {
+	private static function cloneEvent( $data ) {
 		global $sp_ecp;
 		
 		$data['ID'] = null;
