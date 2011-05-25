@@ -162,7 +162,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
 			add_filter('bloginfo_rss',  array($this, 'add_space_to_rss' ));
 			add_filter( 'get_the_excerpt', array($this, 'removeExcerptMore' ), 1 );
-			add_filter( 'the_permalink', array($this, 'addDateToRecurringEvents') );
+			//add_filter( 'the_permalink', array($this, 'addDateToRecurringEvents') );
+			add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
+			
 		}
 
 		private function addDebugColumns() {
@@ -233,9 +235,13 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		
 		public function addDateToRecurringEvents($permalink) {
 			global $post;
-			
-			if($post->post_type == self::POSTTYPE && sp_is_recurring_event($post->ID)) {
-				return trailingslashit($this->getLink( 'recurring', DateUtils::dateOnly( $post->EventStartDate ) ));
+
+			if($post->post_type == self::POSTTYPE && sp_is_recurring_event($post->ID) ) {
+				if( '' == get_option('permalink_structure') || 'off' == $this->getOption('useRewriteRules','on') ) {
+					return add_query_arg('eventDisplay', DateUtils::dateOnly( $post->EventStartDate ), $permalink ); 					
+				} else {
+					return trailingslashit($permalink) . DateUtils::dateOnly( $post->EventStartDate );
+				}
 			}
 			
 			return $permalink;
@@ -1054,8 +1060,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					if ( $secondary == 'single' )
 						$eventUrl = trailingslashit(get_permalink());
 					return $eventUrl . 'ical/';
-			   case 'recurring':
-					return trailingslashit(get_permalink()) . $secondary;
 				default:
 					return $eventUrl;
 			}
@@ -1092,8 +1096,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 						return add_query_arg('ical', '1', get_permalink() );
 					}
 					return home_url() . '/?ical';
-				case 'recurring':
-					return add_query_arg('eventDisplay', $secondary, get_permalink() ); 
 				default:
 					return $eventUrl;
 			}
