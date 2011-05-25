@@ -24,32 +24,34 @@ class Events_Recurrence_Meta {
 	public static function maybeBreakFromSeries( $postId ) {
 		// make new series for future events
 		if($_POST['recurrence_action'] && $_POST['recurrence_action'] == Events_Recurrence_Meta::UPDATE_TYPE_FUTURE) {
-			
-			// move recurrence end to the last date of the series before today
-			$numOccurrences = self::adjustRecurrenceEnd( $postId, $_POST['EventStartDate'] );			
+			// only do this if not the first event in the series
+			if( $_POST['EventStartDate'] != DateUtils::dateOnly( self::getRealStartDate($postId) )) {
+				// move recurrence end to the last date of the series before today
+				$numOccurrences = self::adjustRecurrenceEnd( $postId, $_POST['EventStartDate'] );			
 
-			// prune future occurrences on original event
-			self::removeFutureOccurrences( $postId, $_POST['EventStartDate'] );
-			
-			if ($_POST['recurrence']['end-type'] == 'After') {
-				// num occurrences for new series is total occurrences minus occurrences still in original series
-				$_POST['recurrence']['end-count'] = $_POST['recurrence']['end-count'] - $numOccurrences;
+				// prune future occurrences on original event
+				self::removeFutureOccurrences( $postId, $_POST['EventStartDate'] );
+
+				if ($_POST['recurrence']['end-type'] == 'After') {
+					// num occurrences for new series is total occurrences minus occurrences still in original series
+					$_POST['recurrence']['end-count'] = $_POST['recurrence']['end-count'] - $numOccurrences;
+				}
+
+				// redirect form to new event
+				$post = self::cloneEvent( $_POST );
+
+				// remove past occurrences of new event
+				self::removePastOccurrences( $post );
+				// actual event end time potentially needs to be adjusted up
+				self::adjustEndDate( $post );
+
+				// clear this so no infinite loop - clear after new post is inserted so it can be used in the recurrence logic
+				$_POST['recurrence_action'] = null;
+
+				// redirect back to event screen
+				wp_redirect('post.php?post=' . $post . '&action=edit&message=1');
+				exit();
 			}
-
-			// redirect form to new event
-			$post = self::cloneEvent( $_POST );
-			
-			// remove past occurrences of new event
-			self::removePastOccurrences( $post );
-			// actual event end time potentially needs to be adjusted up
-			self::adjustEndDate( $post );
-
-			// clear this so no infinite loop - clear after new post is inserted so it can be used in the recurrence logic
-			$_POST['recurrence_action'] = null;
-
-			// redirect back to event screen
-			wp_redirect('post.php?post=' . $post . '&action=edit&message=1');
-			exit();
 		// break from series			
 		} else if($_POST['recurrence_action'] && $_POST['recurrence_action'] == Events_Recurrence_Meta::UPDATE_TYPE_SINGLE) {
 			// new event should have no recurrence
@@ -82,8 +84,8 @@ class Events_Recurrence_Meta {
 	// sorts the meta to ensure we are getting the real start date
 	private static function getRealStartDate( $postId ) {
 		$start_dates = get_post_meta( $postId, '_EventStartDate' );
-		
-		if( is_array( $start_dates ) && sizeof( $star_dates ) > 0 ) {
+
+		if( is_array( $start_dates ) && sizeof( $start_dates ) > 0 ) {
 			sort($start_dates);
 			return $start_dates[0];
 		}
@@ -266,7 +268,7 @@ class Events_Recurrence_Meta {
 		} else if($recType == "Every Month") {
 			$rules = new MonthSeriesRules(1);
 		} else if($recType == "Custom" && $recCustomType == "Monthly") {
-			$recCustomMonthDayOfMonth = is_numeric($recCustomMonthNumber) ? $recCustomMonthNumber : null;
+			$recCustomMonthDayOfMonth = is_numeric($recCustomMonthNumber) ? array($recCustomMonthNumber) : null;
 			$recCustomMonthNumber = self::ordinalToInt($recCustomMonthNumber);
 			$rules = new MonthSeriesRules($recCustomInterval ? $recCustomInterval : 1, $recCustomMonthDayOfMonth, $recCustomMonthNumber, $recCustomMonthDay);
 		} else if($recType == "Every Year") {
