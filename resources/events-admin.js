@@ -198,11 +198,15 @@ jQuery(document).ready(function($) {
 		}
 	});
 	
+	function isExistingRecurringEvent() {
+		return $('[name="is_recurring"]').val() == "true" && !$('[name="recurrence_action"]').val() && !$('[name="recurrence_action"]').val()
+	}
+	
 	/* Recurring Events Dialog */
 	$('.wp-admin.events-cal #post').submit(function(e) {
 		var self = this;
 
-		if($('[name="is_recurring"]').val() == "true" && !$('[name="recurrence_action"]').val() && !$('[name="recurrence_action"]').val() ) { // not a new event
+		if( isExistingRecurringEvent() ) { // not a new event
 			e.preventDefault();
 			$('#recurring-dialog').dialog({
 				modal: true,
@@ -215,9 +219,32 @@ jQuery(document).ready(function($) {
 						}
 				}]
 			});
-			//jQuery('#testTB').dialog();			
 		}
 	});	
+	
+	$('.wp-admin.events-cal .submitdelete').click(function(e) {
+		if(isExistingRecurringEvent()) {
+			var link = $(this);
+			e.preventDefault();
+
+			$('#deletion-dialog').dialog({
+				//submitdelete
+				modal: true,
+				buttons: [{
+					text: "Delete just this occurrence.",
+					click: function() {
+						document.location = link.attr('href') + '&event_start=' + $(this).data('start');
+					}
+				},
+				{
+					text: "Delete all occurrences of this event.",
+					click: function() {
+						document.location = link.attr('href');
+					}
+				}]
+			});
+		}
+	});
 	
 	// recurrence ui
 	$('[name="recurrence[type]"]').change(function() {

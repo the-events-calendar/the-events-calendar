@@ -3,3 +3,6 @@
 	<input type='radio' value="<?php echo Events_Recurrence_Meta::UPDATE_TYPE_SINGLE ?>" name="events_to_update" checked/> Only this event<br/>
 	<input type='radio' value="<?php echo Events_Recurrence_Meta::UPDATE_TYPE_FUTURE ?>" name="events_to_update"/> Future Events</p>
 </div>
+<div id="deletion-dialog"  title="Delete Recurring Event" style="display: none;" data-start="<?php echo $_REQUEST['event_start'] ?>" data-post="<?php echo $_REQUEST['post'] ?>">
+	Select your desired action<br/>
+</div>

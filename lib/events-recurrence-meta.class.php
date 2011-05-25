@@ -7,6 +7,18 @@ class Events_Recurrence_Meta {
 	
 	public static function init() {
 		add_action('pre_post_update', array( __CLASS__, 'maybeBreakFromSeries' ));
+		add_action('trash_post', array( __CLASS__, 'deleteRecurringEvent'));
+	}
+	
+	// delete a recurring event instance
+	public static function deleteRecurringEvent($postId) {
+		$occurrenceDate = $_REQUEST['event_start'];
+		
+		if( $occurrenceDate ) {
+			self::removeOccurrence( $postId, $occurrenceDate );
+			wp_redirect( add_query_arg( 'post_type', Events_Calendar_Pro::POSTTYPE, admin_url( 'edit.php' ) ) );
+			exit();
+		}
 	}
 	
 	public static function maybeBreakFromSeries( $postId ) {

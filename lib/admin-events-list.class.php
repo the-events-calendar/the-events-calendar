@@ -15,8 +15,20 @@ class Admin_Events_List {
 			add_filter( 'get_edit_post_link',  array(__CLASS__, 'add_event_occurrance_to_edit_link'), 10, 2);
 			add_filter( 'views_edit-sp_events',		array( __CLASS__, 'update_event_counts' ) );			
 			add_action( 'manage_posts_custom_column', array(__CLASS__, 'custom_columns'), 10, 2);
+			
+			// event deletion
+			add_filter( 'get_delete_post_link', array(__CLASS__, 'add_date_to_recurring_event_trash_link'), 10, 2 );	
 		}
 	}
+	
+	// event deletion
+	public static function add_date_to_recurring_event_trash_link( $link, $postId ) {
+		if ( is_array(self::$events_list) && sp_is_recurring_event($postId) ) {
+			return add_query_arg( array( 'event_start'=>urlencode( DateUtils::dateOnly( self::$events_list[0]->EventEndDate ) ) ), $link );
+		}
+		
+		return $link;
+	} 
 
 	public static function cache_posts_results($posts) {
 		if ( get_query_var('post_type') == Events_Calendar_Pro::POSTTYPE ) {
