@@ -24,6 +24,7 @@ $date = mktime(12, 0, 0, $month, 1, $year); // 1st day of month as unix stamp
 $rawOffset = date("w", $date) - $startOfWeek;
 $offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
 $rows = 1;
+
 $monthView = sp_sort_by_month( $eventPosts, $sp_ecp->date );
 
 ?>

@@ -42,6 +42,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return array days of the month with events as values
 	 */
 	function sp_sort_by_month( $results, $date ) {
+
 		if( preg_match( '/(\d{4})-(\d{2})/', $date, $matches ) ) {
 			$queryYear	= $matches[1];
 			$queryMonth = $matches[2];
@@ -61,7 +62,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 			list( $endYear, $endMonth, $endDay ) = explode( '-', $event->EventEndDate );
 
 			list( $startDay, $garbage ) = explode( ' ', $startDay );
-			
+	
 			list( $endDay, $garbage ) = explode( ' ', $endDay );
 			for( $i = 1; $i <= 31 ; $i++ ) {
 				$started = false;

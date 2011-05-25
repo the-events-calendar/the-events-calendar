@@ -3,17 +3,19 @@ class SP_Event_Query {
 	private $args;
 	private $display_type;
 	
-	function __construct($args, $display_type = null) {
+	function __construct($args) {
+			global $sp_ecp;
 			$defaults = array(
 				'posts_per_page' => get_option( 'posts_per_page', 10 ),
 				'tax_query' => array(),
 				'meta_query' => array(),
 				'time_order' => $this->order,
-				'post_type' => Events_Calendar_Pro::POSTTYPE
+				'post_type' => Events_Calendar_Pro::POSTTYPE,
+			   'eventDisplay' => $sp_ecp->getOption('viewOption','month')
 			);
 			
 			$this->args = wp_parse_args( $args, $defaults);
-			$this->display_type = $display_type ? $display_type : $args['eventDisplay'];
+			$this->display_type = $this->args['eventDisplay'];
 
 			// eventCat becomes a standard taxonomy query - will need to deprecate and update views eventually
 			if ($args['eventCat']) {
@@ -52,6 +54,7 @@ class SP_Event_Query {
 				break;
 			case "month":
 		   case "bydate":
+		   default:
 				$this->setMonthDisplayTypeArgs();
 		}
 	}
@@ -81,7 +84,7 @@ class SP_Event_Query {
 		return $fields;
 	}
 	
-	public function setPastDisplayTypeArgs() {
+	public function setPastDisplayTypeArgs() {		
 		$this->args['end_date'] = date_i18n( DateUtils::DBDATETIMEFORMAT );
 		add_filter('posts_orderby', array($this, 'setDescendingDisplayOrder'));
 	}
@@ -102,7 +105,8 @@ class SP_Event_Query {
 		if ( isset ( $wp_query->query_vars['eventDate'] ) )
 			$this->args['start_date'] = $wp_query->query_vars['eventDate'] . "-01";
 
-		$this->args['end_date'] = $sp_ecp->nextMonth($this->args['start_date']);
+		$this->args['eventDate'] = $this->args['start_date'];		
+		$this->args['end_date'] = $sp_ecp->nextMonth($this->args['start_date']) . "-01";
 
 		add_filter('posts_orderby', array($this, 'setDescendingDisplayOrder'));
 	}

@@ -819,6 +819,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		
 		public function setDate() {
 			global $wp_query;
+
 			if ( isset ( $wp_query->query_vars['eventDate'] ) && isset( $wp_query->query_vars['eventDisplay']) && $wp_query->query_vars['eventDisplay'] == 'month' ) {
 				$this->date = $wp_query->query_vars['eventDate'] . "-01";
 			} else if (isset( $wp_query->query_vars['eventDisplay']) && $wp_query->query_vars['eventDisplay'] == 'month') {
@@ -828,7 +829,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$this->date = $wp_query->query_vars['eventDate'];
 			} else if (!is_singular(self::POSTTYPE)) { // don't set date for single event unless recurring
 				$this->date = date(DateUtils::DBDATETIMEFORMAT);
-			}
+			}			
 		}
 		
 		public function setDisplay() {
