@@ -180,15 +180,17 @@ class Events_Recurrence_Meta {
 
 			$recArray['recCustomWeekDay'] = $recurrenceData['custom-week-day'];
 
-			$recArray['recCustomMonthType'] = $recurrenceData['custom-months-type'];
-			$recArray['recCustomMonthDayOfMonth'] = $recurrenceData['custom-month-day-of-month'];
+			//$recArray['recCustomMonthType'] = $recurrenceData['custom-months-type'];
+			//$recArray['recCustomMonthDayOfMonth'] = $recurrenceData['custom-month-day-of-month'];
 			$recArray['recCustomMonthNumber'] = $recurrenceData['custom-month-number'];
 			$recArray['recCustomMonthDay'] = $recurrenceData['custom-month-day'];
 
-			$recArray['recCustomYearMonth'] = $recurrenceData['custom-year-month'] ?  $recurrenceData['custom-year-month'] : array();
+			$recArray['recCustomYearMonth'] = $recurrenceData['custom-year-month'] ? $recurrenceData['custom-year-month'] : array();
 			$recArray['recCustomYearFilter'] = $recurrenceData['custom-year-filter'];
 			$recArray['recCustomYearMonthNumber'] = $recurrenceData['custom-year-month-number'];
 			$recArray['recCustomYearMonthDay'] = $recurrenceData['custom-year-month-day'];
+		} else {
+			$recArray['recCustomYearMonth'] = array();
 		}
 
 		return $recArray;
@@ -260,18 +262,31 @@ class Events_Recurrence_Meta {
 		} else if($recType == "Every Week") {
 			$rules = new WeekSeriesRules(1);
 		} else if ($recType == "Custom" && $recCustomType == "Weekly") {
-			$rules = new WeekSeriesRules($recType == "Every Week" ? 1 : $recCustomInterval, $recCustomWeekDay);
+			$rules = new WeekSeriesRules($recCustomInterval ? $recCustomInterval : 1, $recCustomWeekDay);
 		} else if($recType == "Every Month") {
 			$rules = new MonthSeriesRules(1);
 		} else if($recType == "Custom" && $recCustomType == "Monthly") {
-			$rules = new MonthSeriesRules($recType == "Every Month" ? 1 : $recCustomInterval, $recCustomMonthDayOfMonth, $recCustomMonthNumber, $recCustomMonthDay);
+			$recCustomMonthDayOfMonth = is_numeric($recCustomMonthNumber) ? $recCustomMonthNumber : null;
+			$recCustomMonthNumber = self::ordinalToInt($recCustomMonthNumber);
+			$rules = new MonthSeriesRules($recCustomInterval ? $recCustomInterval : 1, $recCustomMonthDayOfMonth, $recCustomMonthNumber, $recCustomMonthDay);
 		} else if($recType == "Every Year") {
 			$rules = new YearSeriesRules(1);
 		} else if($recType == "Custom" && $recCustomType == "Yearly") {
-			$rules = new YearSeriesRules($recType == "Every Year" ? 1 : $recCustomInterval, $recCustomYearMonth, $recCustomYearFilter ? $recCustomYearMonthNumber : null, $recCustomYearFilter ? $recCustomYearMonthDay : null);
+			$rules = new YearSeriesRules($recCustomInterval ? $recCustomInterval : 1, $recCustomYearMonth, $recCustomYearFilter ? $recCustomYearMonthNumber : null, $recCustomYearFilter ? $recCustomYearMonthDay : null);
 		}
 
 		return $rules;
+	}
+	
+	private static function ordinalToInt($ordinal) {
+		switch( $ordinal ) {
+			case "First": return 1;
+			case "Second": return 2;
+			case "Third": return 3;
+			case "Fourth": return 4;
+			case "Last": return -1;
+		   default: return null;
+		}
 	}
 }
 ?>

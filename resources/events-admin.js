@@ -252,7 +252,6 @@ jQuery(document).ready(function($) {
 		$('.custom-recurrence-row').hide();
 
 		if (curOption == "Custom" ) {
-
 			$('#recurrence-end').show();
 			$('#custom-recurrence-frequency').show();
 			$('[name="recurrence[custom-type]"]').change();
@@ -284,15 +283,14 @@ jQuery(document).ready(function($) {
 		$('#recurrence-interval-type').text(option.data('plural'));
 		$('[name="recurrence[custom-type-text]"]').val(option.data('plural'));
 	});
-
-	$('[name="recurrence[custom-months-type]"]').click(function() {
-		if($(this).val() == "Each") {
-			$('#recurrence-month-on-the').hide();
-			$('#recurrence-month-each').show();
-		} else if($(this).val() == "On The") {
-			$('#recurrence-month-on-the').show();
-			$('#recurrence-month-each').hide();
+	
+	$('[name="recurrence[custom-month-number]"]').change(function() {
+		var option = $(this).find('option:selected'), dayselect = $('[name="recurrence[custom-month-day]"]');
+		
+		if(isNaN(option.val())) {
+			dayselect.show();
+		} else {
+			dayselect.hide();
 		}
 	});
-	
 });

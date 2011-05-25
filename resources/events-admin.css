@@ -205,6 +205,7 @@ td.snp_message {
 .valid input{
 	border: 1px solid green;
 }
-
+#custom-recurrence-weeks label { width: 45px; display: block; float: left; margin-bottom: 3px;}
+#custom-recurrence-frequency input { width: 30px; }
 #custom-recurrence-years label { width: 50px; display: block; float: left; margin-bottom: 3px;}
 #recurrence-changed-row { color: red; display: none; }
