@@ -141,6 +141,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlugSingular;
 			$this->currentDay = '';
 			$this->errors = '';
+			SP_Event_Query::init();
 
 			$this->registerPostType();
 
@@ -149,21 +150,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$this->flushRewriteRules();
 
 			$this->states = $this->loadStates();
-		}
-		
-		public function query($query) {
-			if ( !is_admin() && (
-					  ((isset($_GET['post_type']) && $_GET['post_type'] == self::POSTTYPE) || (isset($_GET['sp_events_cat']) && $_GET['sp_events_cat'] != '')) ||
-					  ((isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == self::POSTTYPE) || (isset($query->query_vars['sp_events_cat']) && $query->query_vars['sp_events_cat'] != ''))
-					)
-				)
-			{
-				if($query->get('eventDisplay') == 'upcoming' || $query->get('eventDisplay') == 'past' || $query->get('sp_events_cat') != ''){
-					global $wp_query;
-					$finder = new SP_Event_Query($wp_query->query_vars);
-					$wp_query->query_vars = $finder->getArgs();
-				}
-			}
 		}
 
 		private function addFilters() {
@@ -186,8 +172,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		
 		private function addActions() {
 			add_action( 'init', array( $this, 'init'), 10 );
-
-			add_action( 'parse_query', array( $this, 'query'), 0 );
 			add_action( 'template_redirect',				array( $this, 'loadStyle' ) );
 			add_action( 'sp-events-save-more-options', array( $this, 'flushRewriteRules' ) );
 			add_action( 'admin_menu', 		array( $this, 'addOptionsPage' ) );
@@ -818,19 +802,24 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 	
 		
-		public function setDate() {
-			global $wp_query;
+		public function setDate($args = null) {
+			if(!is_array($args)) {
+				global $wp_query;
+				$args = $wp_query->query_vars;
+			}
 
-			if ( isset ( $wp_query->query_vars['eventDate'] ) && isset( $wp_query->query_vars['eventDisplay']) && $wp_query->query_vars['eventDisplay'] == 'month' ) {
-				$this->date = $wp_query->query_vars['eventDate'] . "-01";
-			} else if (isset( $wp_query->query_vars['eventDisplay']) && $wp_query->query_vars['eventDisplay'] == 'month') {
+			if ( isset ( $args['eventDate'] ) && isset( $args['eventDisplay']) && $args['eventDisplay'] == 'month' ) {
+				$this->date = $args['eventDate'] . "-01";
+			} else if ( isset( $args['eventDisplay']) && $args['eventDisplay'] == 'bydate' && isset ( $args['eventDate'] ) ) {
+				$this->date = $args['eventDate'];
+			} else if (isset( $args['eventDisplay']) && $args['eventDisplay'] == 'month') {
 				$date = date_i18n( DateUtils::DBDATEFORMAT );
 				$this->date = substr_replace( $date, '01', -2 );
-			} else if (is_singular(self::POSTTYPE) && isset ( $wp_query->query_vars['eventDate'] )) {
-				$this->date = $wp_query->query_vars['eventDate'];
+			} else if (is_singular(self::POSTTYPE) && isset ( $args['eventDate'] )) {
+				$this->date = $args['eventDate'];
 			} else if (!is_singular(self::POSTTYPE)) { // don't set date for single event unless recurring
 				$this->date = date(DateUtils::DBDATETIMEFORMAT);
-			}			
+			}
 		}
 		
 		public function setDisplay() {
@@ -963,6 +952,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$qvars[] = 'eventDisplay';
 			$qvars[] = 'eventDate';
 			$qvars[] = 'ical';
+			$qvars[] = 'start_date';
+			$qvars[] = 'end_date';
 			return $qvars;		  
 		}
 		/**
@@ -1929,10 +1920,15 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 
 		public function getEvents( $args = '' ) {
-			global $wp_query;
+			global $sp_ecp;
+			$defaults = array(
+				'posts_per_page' => get_option( 'posts_per_page', 10 ),
+				'post_type' => Events_Calendar_Pro::POSTTYPE,
+				'eventDisplay' => $sp_ecp->getOption('viewOption','month')
+			);			
 
-			$eventFinder = new SP_Event_Query($args, $this->display);
-			return $eventFinder->getEvents();
+			$args = wp_parse_args( $args, $defaults);
+			return SP_Event_Query::getEvents($args);
 		}
 		
 		public function isEvent( $postId = null ) {
