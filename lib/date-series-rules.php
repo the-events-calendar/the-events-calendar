@@ -288,7 +288,7 @@ class YearSeriesRules implements DateSeriesRules
 	private function getLastDayOfWeekInMonth($curdate, $day_of_week) {
 		$nextdate = mktime (date("H", $curdate), date("i", $curdate), date("s", $curdate), date('n', $curdate), $this->getLastDayOfMonth($curdate), date('Y', $curdate));;
 
-		while(date('N', $nextdate) != $day_of_week) {
+		while(date('N', $nextdate) != $day_of_week  && $day_of_week != -1) {
 			$nextdate = strtotime(date(DateSeriesRules::DATE_FORMAT, $nextdate) . " - 1 day");
 		}
 
