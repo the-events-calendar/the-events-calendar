@@ -251,7 +251,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			global $post;
 			
 			if($post->post_type == self::POSTTYPE && sp_is_recurring_event($post->ID)) {
-				$permalink = add_query_arg('eventDate', urlencode( DateUtils::dateOnly( $post->EventStartDate ) ), $permalink );
+				return trailingslashit($this->getLink( 'recurring', DateUtils::dateOnly( $post->EventStartDate ) ));
 			}
 			
 			return $permalink;
@@ -990,6 +990,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$month = $this->monthSlug;
 			$upcoming = $this->upcomingSlug;
 			$past = $this->pastSlug;
+			// single event
+			$newRules[$baseSingle . '([^/]+)/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?' . self::POSTTYPE . '=' . $wp_rewrite->preg_index(1) . "&eventDate=" . $wp_rewrite->preg_index(2);
 			
 			$newRules[$base . 'page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . 'ical'] = 'index.php?post_type=' . self::POSTTYPE . '&ical=1';
@@ -1021,9 +1023,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'eventDisplay=upcoming&sp_events_cat=' . $wp_rewrite->preg_index(2);
 			
 			$wp_rewrite->rules = $newRules + $wp_rewrite->rules;	
-		  
-		
-		
 		}
 		
 		/**
@@ -1033,7 +1032,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 */
 		
 		public function getLink( $type = 'home', $secondary = false ) {
-
 			// if permalinks are off or user doesn't want them: ugly.
 			if( '' == get_option('permalink_structure') || 'off' == $this->getOption('useRewriteRules','on') ) {
 				return $this->uglyLink($type, $secondary);
@@ -1065,6 +1063,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					if ( $secondary == 'single' )
 						$eventUrl = trailingslashit(get_permalink());
 					return $eventUrl . 'ical/';
+			   case 'recurring':
+					return trailingslashit(get_permalink()) . $secondary;
 				default:
 					return $eventUrl;
 			}
@@ -1101,6 +1101,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 						return add_query_arg('ical', '1', get_permalink() );
 					}
 					return home_url() . '/?ical';
+				case 'recurring':
+					return add_query_arg('eventDisplay', $secondary, get_permalink() ); 
 				default:
 					return $eventUrl;
 			}
