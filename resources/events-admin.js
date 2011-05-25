@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-	if(typeof(TEC) != 'undefined'){
+	if(typeof(TEC) != 'undefined'){	
 		var datepickerOpts = { 
 			dateFormat: 'yy-mm-dd',
 			showAnim: 'fadeIn',
@@ -166,7 +166,7 @@ jQuery(document).ready(function($) {
 		var countryLabel = $(this).find('option:selected').attr('label');
 		spShowHideCorrectStateProvinceInput( countryLabel );
 	});
-	
+
 	// If recurrence changes on a recurring event, then show warning, and automatically change whole recurrence
 	if($('[name="is_recurring"]').val() == "true" && !$('[name="recurrence_action"]').val() ) {	
 		$('.recurrence-row input, .custom-recurrence-row input,.recurrence-row select, .custom-recurrence-row select').change(recurrenceChanged)
@@ -177,6 +177,10 @@ jQuery(document).ready(function($) {
 			$('[name="recurrence_action"]').val(2);
 		}
 	}
+	
+	$( '[name="recurrence[end]"]' ).datepicker('option', 'onSelect', function() {
+		$('[name="recurrence[end]"]').removeClass('placeholder');
+	});	
 	
 	/* Fix for deleting multiple events */
 	$('.wp-admin.events-cal.edit-php #doaction').click(function(e) {
@@ -202,6 +206,36 @@ jQuery(document).ready(function($) {
 		return $('[name="is_recurring"]').val() == "true" && !$('[name="recurrence_action"]').val() && !$('[name="recurrence_action"]').val()
 	}
 	
+	function validRecEnd() {
+		if($('[name="recurrence[type]"]').val() != "None" && 
+			$('[name="recurrence[end-type]"] option:selected"').val() == "On")
+		{
+			return $('[name="recurrence[end]"]').val() && 
+			!$('[name="recurrence[end]"]').hasClass('placeholder');
+		}
+		
+		return true;
+	} 
+	
+	function resetSubmitButton() {
+		$('#publishing-action .button-primary-disabled').removeClass('button-primary-disabled');
+		$('#publishing-action #ajax-loading').css('visibility', 'hidden');
+		
+	}
+	
+	$('.wp-admin.events-cal #post').submit(function(e) {
+		if(!validRecEnd()) {
+			e.preventDefault();
+			alert($('#rec-end-error').text());
+			$('#rec-end-error').show();
+			resetSubmitButton();
+		}
+	});
+	
+	$('#EventInfo input, #EventInfo select').change(function() {
+		$('.rec-error').hide();
+	})
+	
 	/* Recurring Events Dialog */
 	$('.wp-admin.events-cal #post').submit(function(e) {
 		var self = this;
@@ -211,12 +245,19 @@ jQuery(document).ready(function($) {
 			$('#recurring-dialog').dialog({
 				modal: true,
 				buttons: [{
-						text:"Ok",
+						text:"Only This Event",
 						click: function() { 
-							$('[name="recurrence_action"]').val($('.ui-dialog-content [name="events_to_update"]:checked').val());
+							$('[name="recurrence_action"]').val(3);
 							$(this).dialog("close"); 
 							self.submit();
 						}
+				}, {
+						text:"Future Events",
+						click: function() { 
+							$('[name="recurrence_action"]').val(2);
+							$(this).dialog("close"); 
+							self.submit();
+						}					
 				}]
 			});
 		}

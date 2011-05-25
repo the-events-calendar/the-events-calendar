@@ -17,8 +17,9 @@
 						<option value="On" <?php selected($recEndType, "None") ?>>On</option>
 						<option value="After" <?php selected($recEndType, "After") ?>>After</option>
 					</select>
-					<input autocomplete="off" type="text" class="datepicker" name="recurrence[end]" id="recurrence_end"  value="<?php echo $recEnd ?>" style="display:<?php echo !$recEndType || $recEndType == "On" ? "inline" : "none"; ?>"/>
-					<span id="rec-count" style="display:<?php echo $recEndType == "After" ? "inline" : "none"; ?>"><input autocomplete="off" type="text" name="recurrence[end-count]" id="recurrence_end_count"  value="<?php echo $recEndCount ?>" style='width: 40px;'/> occurrences</span>
+					<input autocomplete="off" placeholder="<?php echo DateUtils::dateOnly( date(DateUtils::DBDATEFORMAT) ) ?>" type="text" class="datepicker" name="recurrence[end]" id="recurrence_end"  value="<?php echo $recEnd  ?>" style="display:<?php echo !$recEndType || $recEndType == "On" ? "inline" : "none"; ?>"/>
+					<span id="rec-count" style="display:<?php echo $recEndType == "After" ? "inline" : "none"; ?>"><input autocomplete="off" type="text" name="recurrence[end-count]" id="recurrence_end_count"  value="<?php echo $recEndCount ? $recEndCount : 1 ?>" style='width: 40px;'/> occurrences</span>
+					<span id="rec-end-error" class="rec-error">You must select a recurrence end date</span>
 				</span>
 			</td>
 		</tr>

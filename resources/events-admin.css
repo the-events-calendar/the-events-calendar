@@ -209,3 +209,9 @@ td.snp_message {
 #custom-recurrence-frequency input { width: 30px; }
 #custom-recurrence-years label { width: 50px; display: block; float: left; margin-bottom: 3px;}
 #recurrence-changed-row { color: red; display: none; }
+#rec-end-error { color: red; } 
+.rec-error { display:none; }
+
+.placeholder { cursor: text; padding: 4px 4px 4px 4px; color: #999999; }
+input:placeholder, textarea:placeholder { color: #999999; }
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #999999; }
