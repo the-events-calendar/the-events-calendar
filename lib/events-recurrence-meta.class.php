@@ -12,7 +12,7 @@ class Events_Recurrence_Meta {
 	
 	// delete a recurring event instance
 	public static function deleteRecurringEvent($postId) {
-		$occurrenceDate = $_REQUEST['event_start'];
+		$occurrenceDate = $_REQUEST['eventDate'];
 		
 		if( $occurrenceDate ) {
 			self::removeOccurrence( $postId, $occurrenceDate );

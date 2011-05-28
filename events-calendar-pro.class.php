@@ -237,8 +237,13 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			global $post;
 
 			if($post->post_type == self::POSTTYPE && sp_is_recurring_event($post->ID) ) {
+				
+				if( is_admin() && !$post->EventStartDate && isset($_REQUEST['eventDate'] ) ) {
+					$post->EventStartDate = $_REQUEST['eventDate'];
+				}
+				
 				if( '' == get_option('permalink_structure') || 'off' == $this->getOption('useRewriteRules','on') ) {
-					return add_query_arg('eventDisplay', DateUtils::dateOnly( $post->EventStartDate ), $permalink ); 					
+					return add_query_arg('eventDate', DateUtils::dateOnly( $post->EventStartDate ), $permalink ); 					
 				} else {
 					return trailingslashit($permalink) . DateUtils::dateOnly( $post->EventStartDate );
 				}
@@ -1558,15 +1563,15 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			$EventStartDate = ( $start ) ? $start : date('Y-m-d');
 			
-			if ( $_REQUEST['event_start'] != null )
-				$EventStartDate = $_REQUEST['event_start'];
+			if ( $_REQUEST['eventDisplay'] != null )
+				$EventStartDate = $_REQUEST['eventDisplay'];
 			
 			if( $_EventEndDate )
 				$end = DateUtils::dateOnly($_EventEndDate);
 
 			$EventEndDate = ( $end ) ? $end : date('Y-m-d');
 			
-			if ( $_REQUEST['event_start'] != null ) {
+			if ( $_REQUEST['eventDisplay'] != null ) {
 				$duration = get_post_meta( $postId, '_EventDuration', true );
 				$EventEndDate = DateUtils::dateOnly( strtotime($EventStartDate) + $duration, true );
 			}
