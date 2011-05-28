@@ -29,7 +29,9 @@ try {
 		$e->displayMessage( $postId );
 	}
 	
-	?>	<table cellspacing="0" cellpadding="0" id="EventInfo">
+	?>	
+	<?php wp_nonce_field( Events_Calendar_Pro::POSTTYPE, 'ecp_nonce' ); ?>
+	<table cellspacing="0" cellpadding="0" id="EventInfo">
 		<tr>
 			<td colspan="2" class="snp_sectionheader"><h4 class="event-time"><?php _e('Event Time &amp; Date', $this->pluginDomain); ?></h4></td>
 		</tr>

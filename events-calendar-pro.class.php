@@ -1243,6 +1243,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				return;
 			}
 			
+			if ( !wp_verify_nonce( $_POST['ecp_nonce'], Events_Calendar_Pro::POSTTYPE ) )
+				return;
+			
+			
 			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 
