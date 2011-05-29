@@ -22,6 +22,13 @@ class DateUtils {
 		return date(DateUtils::DBDATETIMEFORMAT, $date );
 	}		
 	
+	public static function endOfDay( $date, $isTimestamp = false ) {
+		$date = $isTimestamp ? $date : strtotime($date);
+		$date = date(DateUtils::DBDATEFORMAT, $date );
+		$date = strtotime($date . ' 11:59:59');
+		return date(DateUtils::DBDATETIMEFORMAT, $date );		
+	}
+	
 	public static function addTimeToDate( $date, $time ) {
 		$date = self::dateOnly($date);
 		return date(DateUtils::DBDATETIMEFORMAT, strtotime($date . $time) );

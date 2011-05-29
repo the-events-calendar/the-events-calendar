@@ -1,7 +1,10 @@
 <?php
 class SP_Event_Query {
+	public static $args;
+	
 	public static function init() {
 		add_action( 'parse_query', array( __CLASS__, 'setupQuery'), 0 );			
+		self::$args = array();
 	}
 	
 	// if this is an event, then set up our query vars
@@ -15,8 +18,9 @@ class SP_Event_Query {
 			$query->query_vars['suppress_filters'] = false;
 			self::setupQueryArgs($query->query_vars);
 			add_filter( 'posts_join', array(__CLASS__, 'setupJoins' ) );
-			add_filter( 'posts_where', array(__CLASS__, 'addEventConditions'));
-			add_filter( 'posts_fields', array(__CLASS__, 'setupFields' ) );					
+			add_filter( 'posts_where', array(__CLASS__, 'addEventConditions'), 10, 2);
+			add_filter( 'posts_fields', array(__CLASS__, 'setupFields' ) );	
+			add_filter( 'posts_groupby', array(__CLASS__, 'addStartDateToGroupBy'));
 		}	
 	}
 	
@@ -38,6 +42,7 @@ class SP_Event_Query {
 			$args['meta_query'][] = array('key'=>$args['metaKey'], 'value'=>$args['metaValue']);
 
 		self::setArgsFromDisplayType($args);
+		self::$args = $args;
 	}
 
 	public static function getEvents($args) {
@@ -75,6 +80,14 @@ class SP_Event_Query {
 		return $fields;
 	}
 	
+	public static function addStartDateToGroupBy( $group ) {
+		if ( $group ) {
+			$group .= ', eventStart.meta_value';
+		}
+
+		return $group;
+	}
+	
 	public static function setPastDisplayTypeArgs(&$args) {		
 		$args['end_date'] = date_i18n( DateUtils::DBDATETIMEFORMAT );
 		add_filter('posts_orderby', array(__CLASS__, 'setDescendingDisplayOrder'));
@@ -103,22 +116,29 @@ class SP_Event_Query {
 		add_filter('posts_orderby', array(__CLASS__, 'setDescendingDisplayOrder'));
 	}
 
-	public static function addEventConditions($where) {
-		global $wp_query, $wpdb;
+	public static function addEventConditions($where, $cur_query) {
+		global $wpdb;
+
+		// these should come from cur_query, but there appears to be a WP bug
+		$start_date = self::$args['start_date'];
+		
+		if ( self::$args['end_date'] ) {
+			$end_date = DateUtils::endOfDay( self::$args['end_date'] );
+		}
 
 		// we can't store end date directly because it messes up the distinc clause
 		$endDate = " IFNULL(DATE_ADD(CAST(eventStart.meta_value AS DATETIME), INTERVAL eventDuration.meta_value SECOND), eventEnd.meta_value) ";
 
-		if(get_query_var('end_date') && get_query_var('start_date')) {
-			$start_clause = $wpdb->prepare("(eventStart.meta_value >= %s AND eventStart.meta_value <= %s)", get_query_var('start_date'), get_query_var('end_date'));
-			$end_clause = $wpdb->prepare("($endDate >= %s AND eventStart.meta_value <= %s )", get_query_var('start_date'), get_query_var('end_date'));
-			$within_clause = $wpdb->prepare("(eventStart.meta_value < %s AND $endDate > %s )", get_query_var('start_date'), get_query_var('end_date'));
+		if($start_date && $end_date) {
+			$start_clause = $wpdb->prepare("(eventStart.meta_value >= %s AND eventStart.meta_value <= %s)", $start_date, $end_date);
+			$end_clause = $wpdb->prepare("($endDate >= %s AND eventStart.meta_value <= %s )", $start_date, $end_date);
+			$within_clause = $wpdb->prepare("(eventStart.meta_value < %s AND $endDate > %s )", $start_date, $end_date);
 			$where .= " AND ($start_clause OR $end_clause OR $within_clause)";
-		} else if(get_query_var('end_date')) {
-			$start_clause = $wpdb->prepare("$endDate < %s", get_query_var('end_date'));
+		} else if($end_date) {
+			$start_clause = $wpdb->prepare("$endDate < %s", $end_date);
 			$where .= " AND $start_clause";
-		} else if(get_query_var('start_date')) {
-		   $end_clause = $wpdb->prepare("eventStart.meta_value > %s", get_query_var('start_date'));
+		} else if($start_date) {
+		   $end_clause = $wpdb->prepare("eventStart.meta_value > %s", $start_date);
 		   $where .= " AND $end_clause";
 		}
 

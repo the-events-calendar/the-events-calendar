@@ -171,7 +171,11 @@ $events_options = array(
 	'eventCat' => null, // an events category to get events from
 	'metaKey' => null, // you can query an additional piece of meta. Useful if, for example, you want all events in a certain country
 	'metaValue' => null // the value to query. both metaKey and metaValue are needed.
+   'start_date' => null // only get events that appear after this date
+   'end_date' => null // only get events that appear before this date (use in conjunction with start date to filter events by an arbitrary date range
 );
+
+In addition to the above parameters, you can pass in any other standard WPQuery parameters that apply to your events
 sp_get_events($events_options);
 
 **sp_is_past()**

@@ -538,7 +538,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_events( $args = '' ) {
 		global $sp_ecp;
-		return $sp_ecp->getEvents( $argetEventsNewgs );
+		return $sp_ecp->getEvents( $args );
 	}
 	/**
 	 * Returns true if the query is set for past events, false otherwise
