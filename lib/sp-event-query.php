@@ -1,10 +1,8 @@
 <?php
 class SP_Event_Query {
-	public static $args;
 	
 	public static function init() {
 		add_action( 'parse_query', array( __CLASS__, 'setupQuery'), 0 );			
-		self::$args = array();
 	}
 	
 	// if this is an event, then set up our query vars
@@ -42,7 +40,6 @@ class SP_Event_Query {
 			$args['meta_query'][] = array('key'=>$args['metaKey'], 'value'=>$args['metaValue']);
 
 		self::setArgsFromDisplayType($args);
-		self::$args = $args;
 	}
 
 	public static function getEvents($args) {
@@ -120,10 +117,10 @@ class SP_Event_Query {
 		global $wpdb;
 
 		// these should come from cur_query, but there appears to be a WP bug
-		$start_date = self::$args['start_date'];
+		$start_date = $cur_query->get('start_date');
 		
-		if ( self::$args['end_date'] ) {
-			$end_date = DateUtils::endOfDay( self::$args['end_date'] );
+		if ( $cur_query->get('end_date') ) {
+			$end_date = DateUtils::endOfDay(  $cur_query->get('end_date') );
 		}
 
 		// we can't store end date directly because it messes up the distinc clause

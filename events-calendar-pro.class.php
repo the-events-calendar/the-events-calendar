@@ -813,21 +813,16 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 	
 		
-		public function setDate($args = null) {
-			if(!is_array($args)) {
-				global $wp_query;
-				$args = $wp_query->query_vars;
-			}
-
-			if ( isset ( $args['eventDate'] ) && isset( $args['eventDisplay']) && $args['eventDisplay'] == 'month' ) {
-				$this->date = $args['eventDate'] . "-01";
-			} else if ( isset( $args['eventDisplay']) && $args['eventDisplay'] == 'bydate' && isset ( $args['eventDate'] ) ) {
-				$this->date = $args['eventDate'];
-			} else if (isset( $args['eventDisplay']) && $args['eventDisplay'] == 'month') {
+		public function setDate($query) {
+			if ( $query->get('eventDisplay') == 'month' ) {
+				$this->date = $query->get('eventDate') . "-01";
+			} else if ( $query->get('eventDisplay') == 'bydate' && $query->get('eventDate') ) {
+				$this->date = $query->get('eventDate');
+			} else if ( $query->get('eventDisplay') == 'month' ) {
 				$date = date_i18n( DateUtils::DBDATEFORMAT );
 				$this->date = substr_replace( $date, '01', -2 );
-			} else if (is_singular(self::POSTTYPE) && isset ( $args['eventDate'] )) {
-				$this->date = $args['eventDate'];
+			} else if (is_singular(self::POSTTYPE) && $query->get('eventDate') ) {
+				$this->date = $query->get('eventDate');
 			} else if (!is_singular(self::POSTTYPE)) { // don't set date for single event unless recurring
 				$this->date = date(DateUtils::DBDATETIMEFORMAT);
 			}
