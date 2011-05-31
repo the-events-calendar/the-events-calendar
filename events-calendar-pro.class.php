@@ -816,7 +816,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function setDate($query) {
 			if ( $query->get('eventDisplay') == 'month' ) {
 				$this->date = $query->get('eventDate') . "-01";
-			} else if ( $query->get('eventDisplay') == 'bydate' && $query->get('eventDate') ) {
+			} else if ( $query->get('eventDate') ) {
 				$this->date = $query->get('eventDate');
 			} else if ( $query->get('eventDisplay') == 'month' ) {
 				$date = date_i18n( DateUtils::DBDATEFORMAT );
@@ -1562,15 +1562,15 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			$EventStartDate = ( $start ) ? $start : date('Y-m-d');
 			
-			if ( $_REQUEST['eventDisplay'] != null )
-				$EventStartDate = $_REQUEST['eventDisplay'];
+			if ( $_REQUEST['eventDate'] != null )
+				$EventStartDate = $_REQUEST['eventDate'];
 			
 			if( $_EventEndDate )
 				$end = DateUtils::dateOnly($_EventEndDate);
 
 			$EventEndDate = ( $end ) ? $end : date('Y-m-d');
 			
-			if ( $_REQUEST['eventDisplay'] != null ) {
+			if ( $_REQUEST['eventDate'] != null ) {
 				$duration = get_post_meta( $postId, '_EventDuration', true );
 				$EventEndDate = DateUtils::dateOnly( strtotime($EventStartDate) + $duration, true );
 			}
