@@ -54,6 +54,9 @@ class SP_Event_Query {
 			case "upcoming":
 				self::setUpcomingDisplayTypeArgs($args);
 				break;
+			case "all":
+				self::setAllDisplayTypeArgs($args);
+				break;				
 			case "month":
 		   case "bydate":
 				self::setMonthDisplayTypeArgs($args);
@@ -92,6 +95,10 @@ class SP_Event_Query {
 
 	public static function setUpcomingDisplayTypeArgs(&$args) {
 		$args['start_date'] = date_i18n( DateUtils::DBDATETIMEFORMAT );
+		add_filter('posts_orderby', array(__CLASS__, 'setAscendingDisplayOrder'));
+	}
+	
+	public static function setAllDisplayTypeArgs($args) {
 		add_filter('posts_orderby', array(__CLASS__, 'setAscendingDisplayOrder'));
 	}
 

@@ -280,6 +280,106 @@ class Events_Recurrence_Meta {
 		return $rules;
 	}
 	
+	public static function recurrenceToText( $postId = null ) {
+		$text = "";
+		$custom_text = "";
+		
+		if( $postId == null ) {
+			global $post;
+			$postId = $post->ID;
+		}
+		
+		extract(Events_Recurrence_Meta::getRecurrenceMeta($postId));
+		
+		if ($recType == "Every Day") {
+			$text = __("Every day"); 
+			$custom_text = ""; 
+		} else if($recType == "Every Week") {
+			$text = __("Every week");
+		} else if($recType == "Every Month") {
+			$text = __("Every month");
+		} else if($recType == "Every Year") {
+			$text = __("Every year");
+		} else if ($recType == "Custom") {
+			if ($recCustomType == "Daily") {
+				$text = $recCustomInterval == 1 ? 
+					__("Every day") : 
+					sprintf(__("Every %d days"), $recCustomInterval);
+			} else if ($recCustomType == "Weekly") {
+				$text = $recCustomInterval == 1 ? 
+					__("Every week") : 
+					sprintf(__("Every %d weeks"), $recCustomInterval);	
+				$custom_text = sprintf(__("on %s"), self::daysToText($recCustomWeekDay));
+			} else if ($recCustomType == "Monthly") {
+				$text = $recCustomInterval == 1 ? 
+					__("Every month") : 
+					sprintf(__("Every %d months"), $recCustomInterval);								
+				$custom_text = sprintf(__("on the %s %s"), strtolower($recCustomMonthNumber),  is_numeric($recCustomMonthNumber) ? __("day of the month") : self::daysToText($recCustomMonthDay));
+			} else if ($recCustomType == "Yearly") {
+				$text = $recCustomInterval == 1 ? 
+					__("Every year") : 
+					sprintf(__("Every %d years"), $recCustomInterval);												
+				
+				$customYearNumber = $recCustomYearMonthNumber != -1 ? DateUtils::numberToOrdinal($recCustomYearMonthNumber) : __("last");
+				
+				$day = $recCustomYearFilter ? $customYearNumber : DateUtils::numberToOrdinal( date('j', strtotime( self::getRealStartDate( $postId ) ) ) );
+				$of_week = $recCustomYearFilter ? self::daysToText($recCustomYearMonthDay) : "";
+				$months = self::monthsToText($recCustomYearMonth);
+				$custom_text = sprintf(__("on the %s %s of %s"), $day, $of_week, $months);				
+			}
+		}
+		
+		// end text
+		if ( $recEndType == "On" ) {
+			$endText = sprintf(__(" until %s"), $recEnd);
+		} else {
+			$endText = sprintf(__(" for %s occurrences"), $recEndCount);
+		}
+		
+		return sprintf(__('%s %s %s'), $text, $custom_text, $endText);
+	}
+	
+	private static function daysToText($days) {
+		$day_words = array(__("Monday"), __("Tuesday"), __("Wednesday"), __("Thursday"), __("Friday"), __("Saturday"), __("Sunday"));
+		$count = sizeof($days);
+		$day_text = "";
+		
+		for($i = 0; $i < $count ; $i++) {
+			if ( $count > 2 && $i == $count - 1 ) {
+				$day_text .= __(", and ");
+			} else if ($count == 2 && $i == $count - 1) {
+				$day_text .= __(" and ");
+			} else if ($count > 2 && $i > 0) {
+				$day_text .= __(", ");
+			}
+
+			$day_text .= $day_words[$days[$i]-1] ? $day_words[$days[$i]-1] : "day";
+		}
+		
+		return $day_text;
+	}
+	
+	private static function monthsToText($months) {
+		$month_words = array(__("January"), __("February"), __("March"), __("April"), 
+			 __("May"), __("June"), __("July"), __("August"), __("September"), __("October"), __("November"), __("December"));
+		$count = sizeof($months);
+		$month_text = "";
+		
+		for($i = 0; $i < $count ; $i++) {
+			if ( $count > 2 && $i == $count - 1 ) {
+				$month_text .= __(", and ");
+			} else if ($count == 2 && $i == $count - 1) {
+				$month_text .= __(" and ");				
+			} else if ($count > 2 && $i > 0) {
+				$month_text .= __(", ");
+			}
+			
+			$month_text .= $month_words[$months[$i]-1];
+		}
+		
+		return $month_text;
+	}	
+	
 	private static function ordinalToInt($ordinal) {
 		switch( $ordinal ) {
 			case "First": return 1;

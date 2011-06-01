@@ -35,6 +35,10 @@
 							<dt><?php _e('Email:', $sp_ecp->pluginDomain) ?></dt>
 							<dd><?php echo sp_get_organizer_email(); ?></dd>
 						<?php endif; ?>
+						<?php if ( sp_is_recurring_event() ) : ?>
+							<dt><?php _e('Schedule:', $sp_ecp->pluginDomain) ?></dt>
+							<dd><?php echo sp_get_recurrence_text(); ?> (<a href='<?php sp_all_occurences_link() ?>'>See all</a>)</dd>
+						<?php endif; ?>
 					</dl>
 					<dl class="column">
 						<?php if(sp_get_venue()) : ?>

@@ -77,5 +77,11 @@ class DateUtils {
 
 		return $nextdate;
 	}	
+	
+	// from http://php.net/manual/en/function.date.php
+	public static function numberToOrdinal($number) {
+		return $number.(((strlen($number)>1)&&(substr($number,-2,1)=='1'))? 
+			'th' : date("S",mktime(0,0,0,0,substr($number,-1),0))); 
+	}
 }
 ?>

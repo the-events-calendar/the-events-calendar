@@ -313,7 +313,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		
 		public function body_class( $c ) {
 			if ( get_query_var('post_type') == self::POSTTYPE ) {
-				if ( ! is_single() ) {
+				if ( ! is_single() || sp_is_showing_all() ) {
 					$c[] = 'events-archive';
 				}
 				else {
@@ -725,7 +725,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			//is_home fixer
 			global $wp_query;
 			$wp_query->is_home = false;
-			
+
 			if ( is_tax( self::TAXONOMY) ) {
 				if ( sp_is_upcoming() || sp_is_past() )
 					return $this->getTemplateHierarchy('list');
@@ -733,11 +733,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					return $this->getTemplateHierarchy('gridview');
 			}
 			// single event
-			if ( is_single() ) {
+			if ( is_single() && !sp_is_showing_all() ) {
 				return $this->getTemplateHierarchy('single');
 			}
 			// list view
-			elseif ( sp_is_upcoming() || sp_is_past() ) {
+			elseif ( sp_is_upcoming() || sp_is_past() || (is_single() && sp_is_showing_all()) ) {
 				return $this->getTemplateHierarchy('list');
 			}
 			// grid view
@@ -840,7 +840,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function setReccuringEventDates() {
 			global $post;
 			
-			if( is_singular(self::POSTTYPE) && sp_is_recurring_event() ) {
+			if( is_singular(self::POSTTYPE) && sp_is_recurring_event() && !sp_is_showing_all() ) {
 				$startTime = get_post_meta($post->ID, '_EventStartDate', true);
 				$startTime = DateUtils::timeOnly($startTime);
 				
@@ -989,6 +989,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$past = $this->pastSlug;
 			// single event
 			$newRules[$baseSingle . '([^/]+)/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?' . self::POSTTYPE . '=' . $wp_rewrite->preg_index(1) . "&eventDate=" . $wp_rewrite->preg_index(2);
+			$newRules[$baseSingle . '([^/]+)/all/?$'] = 'index.php?' . self::POSTTYPE . '=' . $wp_rewrite->preg_index(1) . "&eventDisplay=all";			
 			
 			$newRules[$base . 'page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . 'ical'] = 'index.php?post_type=' . self::POSTTYPE . '&ical=1';
@@ -1060,6 +1061,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					if ( $secondary == 'single' )
 						$eventUrl = trailingslashit(get_permalink());
 					return $eventUrl . 'ical/';
+				case 'all':
+					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );					
+					$eventUrl = trailingslashit(get_permalink());
+					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );										
+					return $eventUrl . 'all/';
 				default:
 					return $eventUrl;
 			}
@@ -1096,6 +1102,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 						return add_query_arg('ical', '1', get_permalink() );
 					}
 					return home_url() . '/?ical';
+			   case 'all':
+					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );					
+					$eventUrl = add_query_arg('eventDisplay', 'all', get_permalink() );
+					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );															
+					return $eventUrl;
 				default:
 					return $eventUrl;
 			}

@@ -228,7 +228,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 
 		$date = strtotime( $post->EventStartDate ? $post->EventStartDate : getEventMeta( $postId, '_EventStartDate', true ));
 
-		return sp_event_format_date($date);
+		return sp_event_format_date($date, $showtime, $dateFormat );
 	}
 
 	function sp_event_format_date($date, $showtime = true,  $dateFormat = '') {
@@ -262,7 +262,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 
 		$date = strtotime( $post->EventEndDate ? $post->EventEndDate : getEventMeta( $postId, '_EventEndDate', true ));
 
-		return sp_event_format_date($date);
+		return sp_event_format_date($date, $showtime, $dateFormat );
 	}
 	/**
 	* If EventBrite plugin is active
@@ -450,6 +450,12 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		return esc_html((sp_has_venue( $postId )) ?  getEventMeta( sp_has_venue( $postId ), '_VenuePhone', true ) : getEventMeta( $postId, '_EventPhone', true ));
 	}
 	
+	function sp_all_occurences_link( ) {
+		global $sp_ecp, $post;
+
+		echo $sp_ecp->getLink('all');		
+	}
+	
 	/**
 	 * Displays a link to the previous post by start date for the given event
 	 *
@@ -557,6 +563,11 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	function sp_is_upcoming() {
 		global $sp_ecp;
 		return ($sp_ecp->displaying == 'upcoming') ? true : false;
+	}
+	
+	function sp_is_showing_all() {
+		global $sp_ecp;
+		return ($sp_ecp->displaying == 'all') ? true : false;		
 	}
 	/**
 	 * Returns true if the query is set for month display (as opposed to Upcoming / Past)
@@ -768,6 +779,12 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		$postId = sp_post_id_helper( $postId );
 		
 		return sizeof(get_post_meta($postId, '_EventStartDate')) > 1;
+	}
+	
+	function sp_get_recurrence_text( $postId = null ) {
+		global $sp_ecp;
+		$postId = sp_post_id_helper( $postId );
+	   return apply_filters( 'sp_get_recurrence_text', Events_Recurrence_Meta::recurrenceToText( $postId ) );
 	}
 
 	/**
