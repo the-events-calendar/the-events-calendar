@@ -14,7 +14,12 @@ class SP_Event_Query {
 			)
 		{
 			$query->query_vars['suppress_filters'] = false;
-			self::setupQueryArgs($query->query_vars);
+
+			add_filter('parse_sp_event_query', array( __CLASS__, 'setupQueryArgs' ) );
+			add_filter('parse_sp_event_query', array( __CLASS__, 'setArgsFromDisplayType' ) );			
+			
+			// filter to manipulate the sp_event_query parameters
+			apply_filters( 'parse_sp_event_query', $query );		
 			add_filter( 'posts_join', array(__CLASS__, 'setupJoins' ) );
 			add_filter( 'posts_where', array(__CLASS__, 'addEventConditions'), 10, 2);
 			add_filter( 'posts_fields', array(__CLASS__, 'setupFields' ) );	
@@ -23,8 +28,9 @@ class SP_Event_Query {
 	}
 	
 	// sets query vars based on display type if designated and deals with backwards compatability
-	private static function setupQueryArgs(&$args) {	
-
+	public static function setupQueryArgs($query) {	
+		$args = &$query->query_vars;
+		
 		// eventCat becomes a standard taxonomy query - will need to deprecate and update views eventually
 		if ($args['eventCat']) {
 			$tax_field = is_numeric($args['eventCat']) ? "id" : "name";
@@ -38,29 +44,31 @@ class SP_Event_Query {
 		// proprietary metaKeys go to standard meta
 		if ($args['metaKey'])
 			$args['meta_query'][] = array('key'=>$args['metaKey'], 'value'=>$args['metaValue']);
-
-		self::setArgsFromDisplayType($args);
+		
+		return $query;
 	}
 
 	public static function getEvents($args) {
 		return get_posts($args);
 	}
 
-	private static function setArgsFromDisplayType(&$args) {
-		switch ( $args['eventDisplay'] ) {
+	public static function setArgsFromDisplayType($query) {
+		switch ( $query->query_vars['eventDisplay'] ) {
 			case "past":
-				self::setPastDisplayTypeArgs($args);
+				$query = self::setPastDisplayTypeArgs($query);
 				break;
 			case "upcoming":
-				self::setUpcomingDisplayTypeArgs($args);
+				$query = self::setUpcomingDisplayTypeArgs($query);
 				break;
 			case "all":
-				self::setAllDisplayTypeArgs($args);
+				$query = self::setAllDisplayTypeArgs($query);
 				break;				
 			case "month":
 		   case "bydate":
-				self::setMonthDisplayTypeArgs($args);
+				$query = self::setMonthDisplayTypeArgs($query);
 		}
+		
+		return $query;
 	}
 
 	public static function setupJoins($join) {
@@ -88,24 +96,34 @@ class SP_Event_Query {
 		return $group;
 	}
 	
-	public static function setPastDisplayTypeArgs(&$args) {		
+	public static function setPastDisplayTypeArgs($query) {		
+		$args = &$query->query_vars;
 		$args['end_date'] = date_i18n( DateUtils::DBDATETIMEFORMAT );
 		add_filter('posts_orderby', array(__CLASS__, 'setDescendingDisplayOrder'));
+		
+		return $query;
 	}
 
-	public static function setUpcomingDisplayTypeArgs(&$args) {
+	public static function setUpcomingDisplayTypeArgs($query) {
+		$args = &$query->query_vars;
 		$args['start_date'] = date_i18n( DateUtils::DBDATETIMEFORMAT );
 		add_filter('posts_orderby', array(__CLASS__, 'setAscendingDisplayOrder'));
+
+		return $query;
 	}
 	
-	public static function setAllDisplayTypeArgs($args) {
+	public static function setAllDisplayTypeArgs($query) {
+		$args = &$query->query_vars;
 		add_filter('posts_orderby', array(__CLASS__, 'setAscendingDisplayOrder'));
+		
+		return $query;		
 	}
 
 	// month functions
-	public static function setMonthDisplayTypeArgs(&$args) {
+	public static function setMonthDisplayTypeArgs($query) {
 		global $wp_query;
 		global $sp_ecp;
+		$args = &$query->query_vars;		
 		
 		$args['posts_per_page'] = -1; // show ALL month posts
 		$args['start_date'] = date_i18n( DateUtils::DBDATEFORMAT );
@@ -118,6 +136,8 @@ class SP_Event_Query {
 		$args['end_date'] = $sp_ecp->nextMonth($args['start_date']) . "-01";
 
 		add_filter('posts_orderby', array(__CLASS__, 'setDescendingDisplayOrder'));
+		
+		return $query;		
 	}
 
 	public static function addEventConditions($where, $cur_query) {

@@ -25,7 +25,7 @@ class DateUtils {
 	public static function endOfDay( $date, $isTimestamp = false ) {
 		$date = $isTimestamp ? $date : strtotime($date);
 		$date = date(DateUtils::DBDATEFORMAT, $date );
-		$date = strtotime($date . ' 11:59:59');
+		$date = strtotime($date . ' 23:59:59');
 		return date(DateUtils::DBDATETIMEFORMAT, $date );		
 	}
 	
