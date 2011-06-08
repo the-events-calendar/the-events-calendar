@@ -2535,18 +2535,34 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$whereClause .= $wpdb->prepare(" AND p2.meta_key = %s \n", $metaKey );
 				$whereClause .= $wpdb->prepare(" AND p2.meta_value = %s \n", $metaValue );
 			}
-			
-			$eventsQuery = "
-				SELECT $wpdb->posts.*, d1.meta_value as EventStartDate
-					$extraSelectClause
-				 	FROM $wpdb->posts 
-				LEFT JOIN $wpdb->postmeta as d1 ON($wpdb->posts.ID = d1.post_id)
-				$extraJoin
-				WHERE $wpdb->posts.post_type = '" . self::POSTTYPE . "'
+
+
+			// Let other plugins filter everything
+			$fields = "$wpdb->posts.*, d1.meta_value as EventStartDate $extraSelectClause ";
+			$fields = apply_filters('sp_events_get_events_fields', $fields, $args);
+
+			$join = "LEFT JOIN $wpdb->postmeta as d1 ON($wpdb->posts.ID = d1.post_id) $extraJoin ";
+			$join = apply_filters('sp_events_get_events_join', $join, $args);
+
+			$where = "$wpdb->posts.post_type = '" . self::POSTTYPE . "'
 				AND $wpdb->posts.post_status = 'publish'
-				$whereClause
-				ORDER BY DATE(d1.meta_value) ".$this->order.", TIME(d1.meta_value) $time_order
-				LIMIT $numResults";
+				$whereClause ";
+			$where = apply_filters('sp_events_get_events_where', $where, $args);
+
+			$order_by = "DATE(d1.meta_value) ".$this->order.", TIME(d1.meta_value) $time_order ";
+			$order_by = apply_filters('sp_events_get_events_order_by', $order_by, $args);
+
+			$limit = $numResults;
+			$limit = apply_filters('sp_events_get_events_limit', $limit, $args);
+
+			$eventsQuery = "
+				SELECT $fields
+				 	FROM $wpdb->posts
+				 	$join
+				WHERE $where
+				ORDER BY $order_by
+				LIMIT $limit";
+			
 			$results = $wpdb->get_results($eventsQuery, OBJECT);
 			return $results;
 		}
