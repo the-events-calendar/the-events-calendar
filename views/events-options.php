@@ -108,7 +108,7 @@ try {
 	            </fieldset>
 	        </td>
 		</tr>
-		<?php $repeatMultidayEvents = sp_get_option('repeatMultidayEvents','no'); ?>
+		<?php $repeatMultidayEvents = sp_get_option('repeatMultidayEvents','yes'); ?>
 		<tr>
 			<th scope="row"><?php _e('Repeat Multiday Events',$this->pluginDomain); ?></th>
 	        <td>
