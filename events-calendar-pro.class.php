@@ -574,6 +574,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
 			add_action( 'manage_posts_custom_column', array($this, 'custom_columns'), 10, 2);
+			add_action( "trash_" . Events_Calendar_Pro::VENUE_POST_TYPE, array($this, 'cleanupPostVenues'));
+			add_action( "trash_" . Events_Calendar_Pro::ORGANIZER_POST_TYPE, array($this, 'cleanupPostOrganizers'));
 		}
 		
 		public function debugInfo() {
@@ -1217,6 +1219,27 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		return ( isset($options[$optionName]) ) ? $options[$optionName] : $default;
 		
 	}
+
+			// clean up trashed venues
+			public function cleanupPostVenues($postId) {
+				$this->removeDeletedPostTypeAssociation('_EventVenueID', $postId);
+			}
+
+			// clean up trashed organizers
+			public function cleanupPostOrganizers($postId) {
+				$this->removeDeletedPostTypeAssociation('_EventOrganizerID', $postId);
+			}		
+
+			// do clean up for trashed venues or organizers
+			private function removeDeletedPostTypeAssociation($key, $postId) {
+				$the_query = new WP_Query(array('meta_key'=>$key, 'meta_value'=>$postId, 'post_type'=> Events_Calendar_Pro::POSTTYPE ));
+
+				while ( $the_query->have_posts() ): $the_query->the_post();
+					delete_post_meta(get_the_ID(), $key);
+				endwhile;
+
+				wp_reset_postdata();
+			}	
 		
         private function saveOptions($options) {
             if (!is_array($options)) {
