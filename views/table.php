@@ -129,7 +129,7 @@ function display_day( $day, $monthView ) {
 			<div id='tooltip_<?php echo $eventId; ?>' class="tec-tooltip" style="display:none;">
 				<h5 class="tec-event-title"><?php the_title();?></h5>
 				<div class="tec-event-body">
-					<?php if ( !sp_get_all_day($post->ID) ) : ?>
+					<?php if ( !sp_get_all_day($post->ID) || sp_is_multiday($post->ID) ) : ?>
 					<div class="tec-event-date">
 						<?php if ( !empty( $start ) )	echo $start; ?>
 						<?php if ( !empty( $end )  && $start !== $end )		echo " – " . $end . '<br />'; ?>

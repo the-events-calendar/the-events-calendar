@@ -714,6 +714,13 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		return !! getEventMeta( $postId, '_EventAllDay', true );
 	}
 	
+	function sp_is_multiday( $postId = null) {
+		$postId = sp_post_id_helper( $postId );
+		$start = strtotime(getEventMeta( $postId, '_EventStartDate', true ));
+		$end = strtotime(getEventMeta( $postId, '_EventEndDate', true ));
+		return date('d-m-Y', $start) != date('d-m-Y', $end);
+	}
+	
 	/**
 	 * echos an events title, with pseudo-breadcrumb if on a category
 	*/ 
