@@ -23,7 +23,7 @@ jQuery(document).ready(function($) {
 			$("#EventTimeFormatDiv").toggle();
 		});
 		
-		if( $('#allDayCheckbox').prop('checked') ) {
+		if( $('#allDayCheckbox').attr("checked") === true || $('#allDayCheckbox').attr("checked") === "checked" ) {
 			$(".timeofdayoptions").addClass("tec_hide");
 			$("#EventTimeFormatDiv").addClass("tec_hide");
 		}
@@ -73,7 +73,7 @@ jQuery(document).ready(function($) {
 
 		// Form validation
 		$("form[name='post']").submit(function() {
-			if( $("#isEventNo").prop('checked') ) {
+			if( $("#isEventNo").attr('checked') === true || $("#isEventNo").attr('checked') === "checked" ) {
 				// do not validate since this is not an event
 				return true;
 			}
