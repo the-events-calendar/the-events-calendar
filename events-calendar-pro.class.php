@@ -2067,8 +2067,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$endYearOptions		 	= $this->getYearOptions( $_EventEndDate );
 			$startMinuteOptions 	= $this->getMinuteOptions( $_EventStartDate );
 			$endMinuteOptions 		= $this->getMinuteOptions( $_EventEndDate );
-			$startHourOptions	 	= $this->getHourOptions( $_EventStartDate, true );
-			$endHourOptions		 	= $this->getHourOptions( $_EventEndDate );
+			$startHourOptions	 	= $this->getHourOptions( $_EventAllDay == 'yes' ? null : $_EventStartDate, true );
+			$endHourOptions		 	= $this->getHourOptions( $_EventAllDay == 'yes' ? null : $_EventEndDate );
 			$startMeridianOptions	= $this->getMeridianOptions( $_EventStartDate, true );
 			$endMeridianOptions		= $this->getMeridianOptions( $_EventEndDate );
 			
