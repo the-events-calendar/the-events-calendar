@@ -42,6 +42,9 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return array days of the month with events as values
 	 */
 	function sp_sort_by_month( $results, $date ) {
+		$repeat_events = sp_get_option('repeatMultidayEvents', 'no') == 'yes';
+		$used_events = array();
+		
 		if( preg_match( '/(\d{4})-(\d{2})/', $date, $matches ) ) {
 			$queryYear	= $matches[1];
 			$queryMonth = $matches[2];
@@ -63,7 +66,10 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 					$started = true;
 				}
 				if ( $started ) {
-					$monthView[$i][] = $event;
+					if ($repeat_events || !$used_events[$event->EventStartDate . '-' . $event->ID]) {
+						$monthView[$i][] = $event;
+						$used_events[$event->EventStartDate . '-' . $event->ID] = $event;
+					}
 				}
 				if( $i == $endDay && $endMonth == $queryMonth ) {
 					continue 2;

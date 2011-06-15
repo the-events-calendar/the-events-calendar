@@ -108,6 +108,28 @@ try {
 	            </fieldset>
 	        </td>
 		</tr>
+		<?php $repeatMultidayEvents = sp_get_option('repeatMultidayEvents','no'); ?>
+		<tr>
+			<th scope="row"><?php _e('Repeat Multiday Events',$this->pluginDomain); ?></th>
+	        <td>
+	            <fieldset>
+	                <legend class="screen-reader-text">
+	                    <span><?php _e('Repeat Multiday Events',$this->pluginDomain); ?></span>
+	                </legend>
+	                <label title='Yes'>
+	                    <input type="radio" name="repeatMultidayEvents" value="yes" <?php checked($repeatMultidayEvents == 'yes') ?>/> 
+	                    <?php _e('Yes',$this->pluginDomain); ?>
+	                </label><br/>
+	                <label title='No'>
+	                    <input type="radio" name="repeatMultidayEvents" value="no" <?php checked($repeatMultidayEvents == 'no') ?>/> 
+	                    <?php _e('No',$this->pluginDomain); ?>
+	                </label>
+	            </fieldset>
+					<div>
+						<?php _e('This setting only applies to the grid view.',$this->pluginDomain); ?> 
+					</div>				  
+	        </td>
+		</tr>		
 			<?php 
 			$embedGoogleMapsValue = sp_get_option('embedGoogleMaps','off');                 
 	        ?>
