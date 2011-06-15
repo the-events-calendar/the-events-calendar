@@ -1547,7 +1547,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 * @param string $secondary for $type = month, pass a YYYY-MM string for a specific month's URL
 		 */
 		
-		public function getLink( $type = 'home', $secondary = false ) {
+		public function getLink( $type = 'home', $secondary = false, $term = null ) {
 
 			// if permalinks are off or user doesn't want them: ugly.
 			if( '' == get_option('permalink_structure') || 'off' == $this->getOption('useRewriteRules','on') ) {
@@ -1559,6 +1559,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			// if we're on an Event Cat, show the cat link, except for home.
 			if ( $type !== 'home' && is_tax( self::TAXONOMY ) ) {
 				$eventUrl = trailingslashit( get_term_link( get_query_var('term'), self::TAXONOMY ) );
+			} else if ( $term ) {
+				$eventUrl = trailingslashit( get_term_link( $term, self::TAXONOMY ) );
 			}
 			
 			switch( $type ) {

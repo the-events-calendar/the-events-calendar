@@ -607,14 +607,14 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		return esc_html($sp_ecp->getLink('home'));
 	}
 	
-	function sp_get_gridview_link() {
+	function sp_get_gridview_link($term = null) {
 		global $sp_ecp;
-		return esc_html($sp_ecp->getLink('month'));
+		return esc_html($sp_ecp->getLink('month', false, $term));
 	}
 		
-	function sp_get_listview_link() {
+	function sp_get_listview_link($term = null) {
 		global $sp_ecp;
-		return esc_html($sp_ecp->getLink('upcoming'));
+		return esc_html($sp_ecp->getLink('upcoming', false, $term));
 	}
 	
 	function sp_get_listview_past_link() {

@@ -28,11 +28,10 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 				extract( $instance, EXTR_SKIP );
 				// extracting $instance provides $title, $limit, $no_upcoming_events, $start, $end, $venue, $address, $city, $state, $province'], $zip, $country, $phone , $cost
 				$title = apply_filters('widget_title', $title );
-				
 				if ( sp_get_option('viewOption') == 'upcoming') {
-					$event_url = sp_get_listview_link();
+					$event_url = sp_get_listview_link($category != -1 ? intval($category) : null);
 				} else {
-					$event_url = sp_get_gridview_link();
+					$event_url = sp_get_gridview_link($category != -1 ? intval($category) : null);
 				}
 
 				if( function_exists( 'sp_get_events' ) ) {
@@ -63,7 +62,7 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 					echo "</ul>";
 
 					$wp_query->set('eventDisplay', $old_display);
-					
+
 					/* Display link to all events */
 					echo '<div class="dig-in"><a href="' . $event_url . '">' . __('View All Events', $this->pluginDomain ) . '</a></div>';
 				} 
