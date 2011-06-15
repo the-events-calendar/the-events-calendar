@@ -42,8 +42,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return array days of the month with events as values
 	 */
 	function sp_sort_by_month( $results, $date ) {
-		$repeat_events = sp_get_option('repeatMultidayEvents', 'yes') == 'yes';
-		$used_events = array();
+		$cutoff_time = sp_get_option('multiDayCutoff', '12:00');
 		
 		if( preg_match( '/(\d{4})-(\d{2})/', $date, $matches ) ) {
 			$queryYear	= $matches[1];
@@ -62,14 +61,25 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 			list( $startDay, $garbage ) = explode( ' ', $startDay );
 			list( $endDay, $garbage ) = explode( ' ', $endDay );
 			for( $i = 1; $i <= 31 ; $i++ ) {
+				$curDate = strtotime( $queryYear.'-'.$queryMonth.'-'.$i );
+
 				if ( ( $i == $startDay && $startMonth == $queryMonth ) ||  strtotime( $startYear.'-'.$startMonth ) < strtotime( $queryYear.'-'.$queryMonth ) ) {
 					$started = true;
 				}
-				if ( $started ) {
-					if ($repeat_events || !$used_events[$event->EventStartDate . '-' . $event->ID]) {
-						$monthView[$i][] = $event;
-						$used_events[$event->EventStartDate . '-' . $event->ID] = $event;
+				
+				// if last day of multiday event 			
+				if( !sp_get_all_day() && sp_is_multiday($event->ID) && date('Y-m-d', $curDate) == date('Y-m-d', strtotime($event->EventEndDate)) ) {
+					$endTime = strtotime(date('Y-m-d') . date('h:i A', strtotime($event->EventEndDate)));
+					$cutoffTime = strtotime(date('Y-m-d') . $cutoff_time .  "AM");
+					
+					// if end time is before cutoff, then dont' show
+					if ($endTime < $cutoffTime) {
+						$started = false;
 					}
+				}
+				
+				if ( $started ) {
+					$monthView[$i][] = $event;
 				}
 				if( $i == $endDay && $endMonth == $queryMonth ) {
 					continue 2;

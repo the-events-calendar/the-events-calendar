@@ -108,25 +108,27 @@ try {
 	            </fieldset>
 	        </td>
 		</tr>
-		<?php $repeatMultidayEvents = sp_get_option('repeatMultidayEvents','yes'); ?>
+		<?php $multiDayCutoff = sp_get_option('multiDayCutoff','12:00'); ?>
 		<tr>
-			<th scope="row"><?php _e('Repeat Multiday Events',$this->pluginDomain); ?></th>
+			<th scope="row"><?php _e('Multiday Event Cutoff',$this->pluginDomain); ?></th>
 	        <td>
 	            <fieldset>
 	                <legend class="screen-reader-text">
-	                    <span><?php _e('Repeat Multiday Events',$this->pluginDomain); ?></span>
+	                    <span><?php _e('Multiday Event Cutoff',$this->pluginDomain); ?></span>
 	                </legend>
-	                <label title='Yes'>
-	                    <input type="radio" name="repeatMultidayEvents" value="yes" <?php checked($repeatMultidayEvents == 'yes') ?>/> 
-	                    <?php _e('Yes',$this->pluginDomain); ?>
-	                </label><br/>
-	                <label title='No'>
-	                    <input type="radio" name="repeatMultidayEvents" value="no" <?php checked($repeatMultidayEvents == 'no') ?>/> 
-	                    <?php _e('No',$this->pluginDomain); ?>
+	                <label title='Multiday Event Cutoff'>
+							  <select name="multiDayCutoff">
+								  <option <?php selected($multiDayCutoff == "12:00") ?> value="12:00" >12:00</option>
+								  <option <?php selected($multiDayCutoff == "12:30") ?> value="12:30">12:30</option>
+								  <?php for($i=1; $i < 23; $i++): ?>
+									 <?php $val = (ceil($i/2) < 10 ? "0" : "") . ceil($i/2) . ":" . ($i % 2 == 1 ? "00" : "30" ); ?>
+								    <option <?php selected($multiDayCutoff == $val) ?> value="<?php echo $val?>"><?php echo $val ?></option>
+								  <?php endfor; ?>	
+							  </select> AM
 	                </label>
 	            </fieldset>
 					<div>
-						<?php _e('This setting only applies to the grid view.',$this->pluginDomain); ?> 
+						<?php _e('Events that end before this time will not show up on the last day in the grid view .',$this->pluginDomain); ?> 
 					</div>				  
 	        </td>
 		</tr>		
