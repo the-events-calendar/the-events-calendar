@@ -138,7 +138,7 @@ function display_day( $day, $monthView ) {
 					<?php if ( function_exists('has_post_thumbnail') && has_post_thumbnail() ) { ?>
 						<div class="tec-event-thumb"><?php the_post_thumbnail( array(75,75));?></div>
 					<?php } ?>
-					<?php echo has_excerpt() ? Events_Calendar_Pro::truncate(get_the_excerpt(), 60) : Events_Calendar_Pro::truncate(get_the_content(), 30); ?>
+					<?php echo has_excerpt() ? Events_Calendar_Pro::truncate($post->post_excerpt) : Events_Calendar_Pro::truncate(get_the_content(), 30); ?>
 
 				</div>
 				<span class="tec-arrow"></span>
