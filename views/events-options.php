@@ -128,7 +128,7 @@ try {
 	                </label>
 	            </fieldset>
 					<div>
-						<?php _e('For multi-day events, hide the last day from grid view if it ends before this time.',$this->pluginDomain); ?> 
+						<?php _e('For multi-day events, hide the last day from grid view if it ends on or before this time.',$this->pluginDomain); ?> 
 					</div>				  
 	        </td>
 		</tr>		

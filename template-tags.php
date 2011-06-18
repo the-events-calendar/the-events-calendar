@@ -72,8 +72,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 					$endTime = strtotime(date('Y-m-d') . date('h:i A', strtotime($event->EventEndDate)));
 					$cutoffTime = strtotime(date('Y-m-d') . $cutoff_time .  "AM");
 					
-					// if end time is before cutoff, then dont' show
-					if ($endTime < $cutoffTime) {
+					// if end time is before cutoff, then don't show
+					if ($endTime <= $cutoffTime) {
 						$started = false;
 					}
 				}
