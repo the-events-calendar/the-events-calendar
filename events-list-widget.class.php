@@ -98,6 +98,8 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 			}
 		
 			function form( $instance ) {
+				global $sp_ecp;
+				
 				/* Set up default widget settings. */
 				$defaults = array( 'title' => 'Upcoming Events', 'limit' => '5', 'start' => true, 'end' => false, 'venue' => false, 'country' => true, 'address' => false, 'city' => true, 'region' => true, 'zip' => false, 'phone' => false, 'cost' => false,'category' => false);
 				$instance = wp_parse_args( (array) $instance, $defaults );			

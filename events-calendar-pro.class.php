@@ -721,7 +721,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			global $post;
 			if ( $post->post_type == self::POSTTYPE && $terms = get_the_terms( $post->ID , self::TAXONOMY ) ) {
 				foreach ($terms as $term) {
-					$c[] = 'cat_' . sanitize_html_class($term->slug, $term->cat_ID);
+					$c[] = 'cat_' . sanitize_html_class($term->slug, $term->term_taxonomy_id);
 				}
 			}
 			return $c;
@@ -2014,7 +2014,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$postId = $post->ID;
 
 			foreach ( $this->metaTags as $tag ) {
-				if ( $postId && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
+				if ( $postId && isset($_GET['post']) && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
 					$$tag = get_post_meta( $postId, $tag, true );
 				} else {
 					$cleaned_tag = str_replace('_Event','',$tag);
@@ -2028,7 +2028,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			}else{
 				foreach ( $this->legacyVenueTags as $tag ) {
-					if ( $postId && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
+					if ( $postId && isset($_GET['post']) && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
 						$cleaned_tag = str_replace('_Event','_Venue',$tag);
 						$$cleaned_tag = get_post_meta( $postId, $tag, true );
 					} else {
@@ -2094,7 +2094,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			if($post->post_type == self::VENUE_POST_TYPE){
 					
 				foreach ( $this->venueTags as $tag ) {
-					if ( $postId && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
+					if ( $postId && isset($_GET['post']) && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
 						$$tag = esc_html(get_post_meta( $postId, $tag, true ));
 					} else {
 						$cleaned_tag = str_replace('_Venue','',$tag);
@@ -2128,7 +2128,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			if($post->post_type == self::ORGANIZER_POST_TYPE){
 					
 				foreach ( $this->organizerTags as $tag ) {
-					if ( $postId && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
+					if ( $postId && isset($_GET['post']) && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
 						$$tag = get_post_meta( $postId, $tag, true );
 					}
 				}
