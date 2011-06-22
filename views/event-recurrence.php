@@ -4,12 +4,12 @@
 				<input type="hidden" name="is_recurring" value="<?php echo $recType && $recType != "None" ? "true" : "false" ?>" />
 				<input type="hidden" name="recurrence_action" value="" />
 				<select name="recurrence[type]">
-					<option value="None" <?php selected($recType, "None") ?>><?php _e('None',$this->pluginDomain); ?></option>
-					<option value="Every Day" <?php selected($recType, "Every Day") ?>><?php _e('Every Day',$this->pluginDomain); ?></option>
-					<option value="Every Week" <?php selected($recType, "Every Week") ?>><?php _e('Every Week',$this->pluginDomain); ?></option>
-					<option value="Every Month" <?php selected($recType, "Every Month") ?>><?php _e('Every Month',$this->pluginDomain); ?></option>
-					<option value="Every Year" <?php selected($recType, "Every Year") ?>><?php _e('Every Year',$this->pluginDomain); ?></option>
-					<option value="Custom" <?php selected($recType, "Custom") ?>><?php _e('Custom',$this->pluginDomain); ?></option>
+					<option data-plural="" value="None" <?php selected($recType, "None") ?>><?php _e('None',$this->pluginDomain); ?></option>
+					<option data-single="day" data-plural="days" value="Every Day" <?php selected($recType, "Every Day") ?>><?php _e('Every Day',$this->pluginDomain); ?></option>
+					<option data-single="week" data-plural="weeks" value="Every Week" <?php selected($recType, "Every Week") ?>><?php _e('Every Week',$this->pluginDomain); ?></option>
+					<option data-single="month" data-plural="months" value="Every Month" <?php selected($recType, "Every Month") ?>><?php _e('Every Month',$this->pluginDomain); ?></option>
+					<option data-single="year" data-plural="years" value="Every Year" <?php selected($recType, "Every Year") ?>><?php _e('Every Year',$this->pluginDomain); ?></option>
+					<option data-single="event" data-plural="events" value="Custom" <?php selected($recType, "Custom") ?>><?php _e('Custom',$this->pluginDomain); ?></option>
 				</select>
 				<span id="recurrence-end" style="display: <?php echo !$recType || $recType == "None" ? "none" : "inline" ?>">
 					End						
@@ -18,7 +18,7 @@
 						<option value="After" <?php selected($recEndType, "After") ?>><?php _e('After',$this->pluginDomain); ?></option>
 					</select>
 					<input autocomplete="off" placeholder="<?php echo DateUtils::dateOnly( date(DateUtils::DBDATEFORMAT) ) ?>" type="text" class="datepicker" name="recurrence[end]" id="recurrence_end"  value="<?php echo $recEnd  ?>" style="display:<?php echo !$recEndType || $recEndType == "On" ? "inline" : "none"; ?>"/>
-					<span id="rec-count" style="display:<?php echo $recEndType == "After" ? "inline" : "none"; ?>"><input autocomplete="off" type="text" name="recurrence[end-count]" id="recurrence_end_count"  value="<?php echo $recEndCount ? $recEndCount : 1 ?>" style='width: 40px;'/> <?php _e('occurrences',$this->pluginDomain); ?></span>
+					<span id="rec-count" style="display:<?php echo $recEndType == "After" ? "inline" : "none"; ?>"><input autocomplete="off" type="text" name="recurrence[end-count]" id="recurrence_end_count"  value="<?php echo $recEndCount ? $recEndCount : 1 ?>" style='width: 40px;'/> <span id='occurence-count-text'><?php echo $recOccurrenceCountText; ?></span></span>
 					<span id="rec-end-error" class="rec-error"><?php _e('You must select a recurrence end date',$this->pluginDomain); ?></span>
 				</span>
 			</td>
@@ -35,6 +35,7 @@
 				</select>
 				Every <input type="text" name="recurrence[custom-interval]" value="<?php echo $recCustomInterval ?>"/> <span id="recurrence-interval-type"><?php echo $recCustomTypeText ?></span>
 				<input type="hidden" name="recurrence[custom-type-text]" value="<?php echo $recCustomTypeText ?>"/>
+				<input type="hidden" name="recurrence[occurrence-count-text]" value="<?php echo $recOccurrenceCountText ?>"/>
 			</td>
 		</tr>
 		<?php if(!isset($recCustomWeekDay)) $recCustomWeekDay = array(); ?>

@@ -290,13 +290,23 @@ jQuery(document).ready(function($) {
 			$('#rec-count').show();
 		}
 	});
-
+	
 	$('[name="recurrence[custom-type]"]').change(function() {
 		$('.custom-recurrence-row').hide();
 		var option = $(this).find('option:selected'), customSelector = option.data('tablerow');
 		$(customSelector).show()
 		$('#recurrence-interval-type').text(option.data('plural'));
 		$('[name="recurrence[custom-type-text]"]').val(option.data('plural'));
+	});
+	
+	$('#recurrence_end_count').change(function() {
+		$('[name="recurrence[type]"]').change();
+	});	
+	
+	$('[name="recurrence[type]"]').change(function() {
+		var option = $(this).find('option:selected'), numOccurrences = $('#recurrence_end_count').val();
+		$('#occurence-count-text').text(numOccurrences == 1 ? option.data('single') : option.data('plural'));
+		$('[name="recurrence[occurrence-count-text]"]').val($('#occurence-count-text').text());
 	});
 	
 	$('[name="recurrence[custom-month-number]"]').change(function() {

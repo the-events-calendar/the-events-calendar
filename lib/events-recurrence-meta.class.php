@@ -169,7 +169,10 @@ class Events_Recurrence_Meta {
 
 			$recArray['recCustomType'] = $recurrenceData['custom-type'];
 			$recArray['recCustomInterval'] = $recurrenceData['custom-interval'];
+			
+			// the following two fields are just text fields used in the display
 			$recArray['recCustomTypeText'] = $recurrenceData['custom-type-text'];
+			$recArray['recOccurrenceCountText'] = $recurrenceData['occurrence-count-text'];
 
 			$recArray['recCustomWeekDay'] = $recurrenceData['custom-week-day'];
 
@@ -294,6 +297,7 @@ class Events_Recurrence_Meta {
 	public static function recurrenceToText( $postId = null ) {
 		$text = "";
 		$custom_text = "";
+		$occurrence_text = "";
 		
 		if( $postId == null ) {
 			global $post;
@@ -304,28 +308,35 @@ class Events_Recurrence_Meta {
 		
 		if ($recType == "Every Day") {
 			$text = __("Every day"); 
+			$occurrence_text = sprintf(_n(" for %d day", " for %d days", $recEndCount), $recEndCount);
 			$custom_text = ""; 
 		} else if($recType == "Every Week") {
 			$text = __("Every week");
+			$occurrence_text = sprintf(_n(" for %d week", " for %d weeks", $recEndCount), $recEndCount);		
 		} else if($recType == "Every Month") {
 			$text = __("Every month");
+			$occurrence_text = sprintf(_n(" for %d month", " for %d months", $recEndCount), $recEndCount);						
 		} else if($recType == "Every Year") {
 			$text = __("Every year");
+			$occurrence_text = sprintf(_n(" for %d year", " for %d years", $recEndCount), $recEndCount);					
 		} else if ($recType == "Custom") {
 			if ($recCustomType == "Daily") {
 				$text = $recCustomInterval == 1 ? 
 					__("Every day") : 
 					sprintf(__("Every %d days"), $recCustomInterval);
+				$occurrence_text = sprintf(_n(" for %d event", " for %d events", $recEndCount), $recEndCount);	
 			} else if ($recCustomType == "Weekly") {
 				$text = $recCustomInterval == 1 ? 
 					__("Every week") : 
 					sprintf(__("Every %d weeks"), $recCustomInterval);	
 				$custom_text = sprintf(__("on %s"), self::daysToText($recCustomWeekDay));
+				$occurrence_text = sprintf(_n(" for %d event", " for %d events", $recEndCount), $recEndCount);	
 			} else if ($recCustomType == "Monthly") {
 				$text = $recCustomInterval == 1 ? 
 					__("Every month") : 
 					sprintf(__("Every %d months"), $recCustomInterval);								
-				$custom_text = sprintf(__("on the %s %s"), strtolower($recCustomMonthNumber),  is_numeric($recCustomMonthNumber) ? __("day of the month") : self::daysToText($recCustomMonthDay));
+				$custom_text = sprintf(__("on the %s %s"), strtolower($recCustomMonthNumber),  is_numeric($recCustomMonthNumber) ? __("day") : self::daysToText($recCustomMonthDay));
+				$occurrence_text = sprintf(_n(" for %d event", " for %d events", $recEndCount), $recEndCount);	
 			} else if ($recCustomType == "Yearly") {
 				$text = $recCustomInterval == 1 ? 
 					__("Every year") : 
@@ -337,14 +348,15 @@ class Events_Recurrence_Meta {
 				$of_week = $recCustomYearFilter ? self::daysToText($recCustomYearMonthDay) : "";
 				$months = self::monthsToText($recCustomYearMonth);
 				$custom_text = sprintf(__("on the %s %s of %s"), $day, $of_week, $months);				
+				$occurrence_text = sprintf(_n(" for %d event", " for %d events", $recEndCount), $recEndCount);	
 			}
 		}
 		
 		// end text
 		if ( $recEndType == "On" ) {
-			$endText = sprintf(__(" until %s"), $recEnd);
+			$endText = sprintf(__(" until %s"), date_i18n(get_option('date_format'), strtotime($recEnd))) ;
 		} else {
-			$endText = sprintf(__(" for %s occurrences"), $recEndCount);
+			$endText = $occurrence_text;
 		}
 		
 		return sprintf(__('%s %s %s'), $text, $custom_text, $endText);
