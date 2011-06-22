@@ -25,7 +25,7 @@ class Events_Recurrence_Meta {
 		// make new series for future events
 		if($_POST['recurrence_action'] && $_POST['recurrence_action'] == Events_Recurrence_Meta::UPDATE_TYPE_FUTURE) {
 			// only do this if not the first event in the series
-			if( $_POST['EventStartDate'] != DateUtils::dateOnly( self::getRealStartDate($postId) )) {
+			if( $_POST['EventStartDate'] != DateUtils::dateOnly( Events_Calendar_Pro::getRealStartDate($postId) )) {
 				// move recurrence end to the last date of the series before today
 				$numOccurrences = self::adjustRecurrenceEnd( $postId, $_POST['EventStartDate'] );			
 
@@ -75,22 +75,10 @@ class Events_Recurrence_Meta {
 	}
 	
 	private static function removeOccurrence( $postId, $date ) {
-		$startDate = self::getRealStartDate($postId);
+		$startDate = Events_Calendar_Pro::getRealStartDate($postId);
 		$date = DateUtils::addTimeToDate( $date, DateUtils::timeOnly($startDate) );
 
 		delete_post_meta( $postId, '_EventStartDate', $date );
-	}
-	
-	// sorts the meta to ensure we are getting the real start date
-	private static function getRealStartDate( $postId ) {
-		$start_dates = get_post_meta( $postId, '_EventStartDate' );
-
-		if( is_array( $start_dates ) && sizeof( $start_dates ) > 0 ) {
-			sort($start_dates);
-			return $start_dates[0];
-		}
-		
-		return null;
 	}
 	
 	private static function removeFutureOccurrences( $postId, $date = null ) {
@@ -322,7 +310,7 @@ class Events_Recurrence_Meta {
 				
 				$customYearNumber = $recCustomYearMonthNumber != -1 ? DateUtils::numberToOrdinal($recCustomYearMonthNumber) : __("last");
 				
-				$day = $recCustomYearFilter ? $customYearNumber : DateUtils::numberToOrdinal( date('j', strtotime( self::getRealStartDate( $postId ) ) ) );
+				$day = $recCustomYearFilter ? $customYearNumber : DateUtils::numberToOrdinal( date('j', strtotime( Events_Calendar_Pro::getRealStartDate( $postId ) ) ) );
 				$of_week = $recCustomYearFilter ? self::daysToText($recCustomYearMonthDay) : "";
 				$months = self::monthsToText($recCustomYearMonth);
 				$custom_text = sprintf(__("on the %s %s of %s"), $day, $of_week, $months);				

@@ -231,8 +231,12 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			if($post->post_type == self::POSTTYPE && sp_is_recurring_event($post->ID) ) {
 				
-				if( is_admin() && !$post->EventStartDate && isset($_REQUEST['eventDate'] ) ) {
-					$post->EventStartDate = $_REQUEST['eventDate'];
+				if( is_admin() && !$post->EventStartDate ) {
+					if( isset($_REQUEST['eventDate'] ) ) {
+						$post->EventStartDate = $_REQUEST['eventDate'];
+					} else  {
+						$post->EventStartDate = Events_Calendar_Pro::getRealStartDate( $post->ID );
+					}
 				}
 				
 				if( '' == get_option('permalink_structure') || 'off' == $this->getOption('useRewriteRules','on') ) {
@@ -244,6 +248,18 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			
 			return $permalink;
 		}
+		
+		// sorts the meta to ensure we are getting the real start date
+		public static function getRealStartDate( $postId ) {
+			$start_dates = get_post_meta( $postId, '_EventStartDate' );
+
+			if( is_array( $start_dates ) && sizeof( $start_dates ) > 0 ) {
+				sort($start_dates);
+				return $start_dates[0];
+			}
+
+			return null;
+		}		
 
 		public function maybeAddEventTitle($title, $sep){
 			if(get_query_var('eventDisplay') == 'upcoming'){

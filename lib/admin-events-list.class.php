@@ -7,7 +7,7 @@ class Admin_Events_List {
 			add_filter( 'posts_distinct', array( __CLASS__, 'events_search_distinct'));
 			add_filter( 'posts_join',		array( __CLASS__, 'events_search_join' ) );
 			add_filter( 'posts_where',		array( __CLASS__, 'events_search_where' ) );
-			add_filter( 'request',	array( __CLASS__, 'events_search_orderby' ) );
+			add_filter( 'posts_orderby',  array( __CLASS__, 'events_search_orderby' ) );
 			add_filter( 'posts_fields',	array( __CLASS__, 'events_search_fields' ) );
 			add_filter( 'post_limits',		array( __CLASS__, 'events_search_limits' ) );
 			add_filter( 'manage_posts_columns', array(__CLASS__, 'column_headers'));
@@ -96,26 +96,23 @@ class Admin_Events_List {
 	 * @param string orderby
 	 * @return string modified orderby clause
 	 */
-	public static function events_search_orderby( $vars ) {
-		if ( !isset( $vars['orderby'] ) ) {
-			$vars['orderby'] = 'start-date';
-			$vars['order'] = 'asc';
+	public static function events_search_orderby( $orderby_sql ) {
+		if ( get_query_var('post_type') != Events_Calendar_Pro::POSTTYPE ) {
+			return $orderby_sql;
 		}
-	
-		if ( isset( $vars['orderby'] ) && 'start-date' == $vars['orderby'] ) {
-			$vars = array_merge( $vars, array(
-				'meta_key' => '_EventStartDate',
-				'orderby' => 'meta_value'
-			) );
-		} else if ( isset( $vars['orderby'] ) && 'end-date' == $vars['orderby'] ) {
-			$vars = array_merge( $vars, array(
-				'meta_key' => '_EventEndDate',
-				'orderby' => 'meta_value'
-			) );
-		}
+		
+		$endDateSQL = " IFNULL(DATE_ADD(CAST(eventStart.meta_value AS DATETIME), INTERVAL eventDuration.meta_value SECOND), eventEnd.meta_value) ";
+		$order = get_query_var('order') ? get_query_var('order') : 'asc';
+		$orderby = get_query_var('orderby') ? get_query_var('orderby') : 'start-date';
+		
+		if ($orderby == 'start-date')
+			$orderby_sql = ' eventStart.meta_value ' . $order . ', ' . $endDateSQL . $order;
+		else if ($orderby == 'end-date')
+			$orderby_sql = $endDateSQL . $order . ', eventStart.meta_value ' . $order;
 
-		return $vars;
+		return $orderby_sql;
 	}
+
 	/**
 	 * limit filter for admin queries
 	 *
