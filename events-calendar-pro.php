@@ -42,6 +42,7 @@ if ( ! function_exists('events_calendar_pro_load') ) {
 			require_once($events_dir . '/events-featured-widget.class.php');
 			require_once($events_dir . '/template-tags.php');
 			require_once($events_dir . '/lib/tribe-event-query.class.php' );
+			require_once($events_dir . '/lib/tribe-facebook-export.php' );
 		}
 	}
 }
