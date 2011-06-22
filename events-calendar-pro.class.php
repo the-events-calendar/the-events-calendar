@@ -164,6 +164,41 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			//add_filter( 'the_permalink', array($this, 'addDateToRecurringEvents') );
 			add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
 			
+			/* Add nav menu item */
+			add_filter( 'nav_menu_items_' . Events_Calendar_Pro::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
+			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events'), null, 2);
+		}
+
+		public function add_current_menu_item_class_to_events( $items, $args ) {
+			foreach($items as $item) {
+				if($item->url == $this->getLink() ) {
+					if ( is_singular( Events_Calendar_Pro::POSTTYPE ) || sp_is_upcoming() || sp_is_past() || sp_is_month() ) {
+						$item->classes[] = 'current-menu-item';
+					}
+					break;
+				}
+			}
+
+			return $items;
+		}
+		
+		public function add_events_checkbox_to_menu( $posts, $args, $post_type ) {
+			global $_nav_menu_placeholder, $wp_rewrite;
+			$_nav_menu_placeholder = ( 0 > $_nav_menu_placeholder ) ? intval($_nav_menu_placeholder) - 1 : -1;
+			$archive_slug = $this->getLink();
+
+			array_unshift( $posts, (object) array(
+				'ID' => 0,
+				'object_id' => $_nav_menu_placeholder,
+				'post_content' => '',
+				'post_excerpt' => '',
+				'post_title' => $post_type['args']->labels->all_items,
+				'post_type' => 'nav_menu_item',
+				'type' => 'custom',
+				'url' => $archive_slug,
+			) );
+
+			return $posts;			
 		}
 
 		private function addDebugColumns() {
