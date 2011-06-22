@@ -32,7 +32,7 @@ class SP_Event_Query {
 		$args = &$query->query_vars;
 		
 		// eventCat becomes a standard taxonomy query - will need to deprecate and update views eventually
-		if ($args['eventCat']) {
+		if ($args['eventCat'] && $args['eventCat'] != '-1') {
 			$tax_field = is_numeric($args['eventCat']) ? "id" : "name";
 			$args['tax_query'][] = array('taxonomy'=>Events_Calendar_Pro::TAXONOMY, 'field'=>$tax_field, 'terms'=>$args['eventCat']);
 		}

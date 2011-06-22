@@ -35,12 +35,10 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 				}
 
 				if( function_exists( 'sp_get_events' ) ) {
-					$old_display = $wp_query->get('eventDisplay');
-					$wp_query->set('eventDisplay', 'upcoming');
-					$posts = sp_get_events( 'numResults=' . $limit .'&eventCat=' . $category );
+					$posts = sp_get_events( 'eventDisplay=upcoming&numResults=' . $limit .'&eventCat=' . $category );
 					$template = $sp_ecp->getTemplateHierarchy('events-list-load-widget-display');
 				}
-				
+
 				// if no posts, and the don't show if no posts checked, let's bail
 				if ( ! $posts && $no_upcoming_events ) {
 					return;
