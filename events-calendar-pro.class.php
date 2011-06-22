@@ -125,7 +125,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$this->addFilters();
 			$this->addActions();
 			Events_Recurrence_Meta::init(); // hooks and filters for event recurrenct
-			Admin_Events_List::init(); // hooks and filters for the admin events list
+			Tribe_Admin_Events_List::init(); // hooks and filters for the admin events list
 
 		}
 		
@@ -141,7 +141,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlugSingular;
 			$this->currentDay = '';
 			$this->errors = '';
-			SP_Event_Query::init();
+			Tribe_Event_Query::init();
 
 			$this->registerPostType();
 
@@ -1327,69 +1327,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$_POST['Organizer'] = stripslashes_deep($_POST['organizer']);
 			$_POST['Venue'] = stripslashes_deep($_POST['venue']);
 			
-			$this->save_event_meta($postId, $_POST, $post);
+			Tribe_Event_API::save_event_meta($postId, $_POST, $post);
 		}
-		
-		// abstracted so EventBrite can call without needing $_POST data
-		function save_event_meta($event_id, $data, $event = null) {
-			if( $data['EventAllDay'] == 'yes' || !isset($data['EventStartDate']) ) {
-				$data['EventStartDate'] = $this->dateToTimeStamp( $data['EventStartDate'], "12", "00", "AM" );
-				$data['EventEndDate'] = $this->dateToTimeStamp( $data['EventEndDate'], "11", "59", "PM" );
-			} else {
-				delete_post_meta( $event_id, '_EventAllDay' );
-				$data['EventStartDate'] = $this->dateToTimeStamp( $data['EventStartDate'], $data['EventStartHour'], $data['EventStartMinute'], $data['EventStartMeridian'] );
-				$data['EventEndDate'] = $this->dateToTimeStamp( $data['EventEndDate'], $data['EventEndHour'], $data['EventEndMinute'], $data['EventEndMeridian'] );
-			}
-
-			// sanity check that start date < end date
-			$startTimestamp = strtotime( $data['EventStartDate'] );
-			$endTimestamp 	= strtotime( $data['EventEndDate'] );
-
-			if ( $startTimestamp > $endTimestamp ) {
-				$data['EventEndDate'] = $data['EventStartDate'];
-			}
-			if( !isset( $data['EventShowMapLink'] ) ) update_post_meta( $event_id, '_EventShowMapLink', 'false' );
-			if( !isset( $data['EventShowMap'] ) ) update_post_meta( $event_id, '_EventShowMap', 'false' );
-			// give add-on plugins a chance to cancel this meta update
-			
-			$data['EventOrganizerID'] = $this->add_new_organizer($data["Organizer"]);
-			$data['EventVenueID'] = $this->add_new_venue($data["Venue"]);
-
-			try {
-				do_action( 'sp_events_event_save', $event_id );
-				if( !$this->postExceptionThrown ) delete_post_meta( $event_id, self::EVENTSERROROPT );
-			} catch ( TEC_Post_Exception $e ) {
-				$this->postExceptionThrown = true;
-				update_post_meta( $event_id, self::EVENTSERROROPT, trim( $e->getMessage() ) );
-			}
-
-			//update meta fields
-			foreach ( $this->metaTags as $tag ) {
-				$htmlElement = ltrim( $tag, '_' );
-				if ( isset( $data[$htmlElement] ) && $tag != self::EVENTSERROROPT ) {
-					if ( is_string($data[$htmlElement]) )
-						$data[$htmlElement] = filter_var($data[$htmlElement], FILTER_SANITIZE_STRING);
-
-					update_post_meta( $event_id, $tag, $data[$htmlElement] );
-				}
-			}
-			
-			// save recurrence
-			$recurrence_meta = $_REQUEST['recurrence'];						
-
-			if( Events_Recurrence_Meta::isRecurrenceValid( $event, $recurrence_meta ) ) {
-				update_post_meta($event_id, '_EventRecurrence', $recurrence_meta);				
-				Events_Recurrence_Meta::saveEvents($event_id, $event);
-			}
-
-			try {
-				do_action( 'sp_events_update_meta', $event_id );
-				if( !$this->postExceptionThrown ) delete_post_meta( $event_id, self::EVENTSERROROPT );
-			} catch( TEC_Post_Exception $e ) {
-				$this->postExceptionThrown = true;
-				update_post_meta( $event_id, self::EVENTSERROROPT, trim( $e->getMessage() ) );
-			}
-		}	
 		
 		
 		//** If you are saving a new venu separate from an event
@@ -1412,49 +1351,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 
 			$data = stripslashes_deep($_POST['venue']);
-
-			$venue_id = $this->add_new_venue($data, $post);
-			//do_action( 'sp_events_venue_save', $venue_id );
+			$venue_id = Tribe_Event_API::updateVenue($postID, $data);
 
 			return $venue_id;
-		}
-
-		// abstracted for EventBrite
-		public function add_new_venue($data, $post = null)
-		{
-			if($data['VenueID'])
-				return $data['VenueID'];
-
-			if ( $post->post_type == self::VENUE_POST_TYPE && $post->ID) {
-				$data['VenueID'] = $post->ID;
-			}
-
-			// make state and province mutually exclusive
-			$data['StateProvince'] = ( $data['Country'] != 'United States' )? $data['Province'] : $data['State'];
-
-			//google map checkboxes
-			$postdata = array(
-				'post_title' => $data['Venue'],
-				'post_type' => self::VENUE_POST_TYPE,
-				'post_status' => 'publish',
-				'ID' => $data['VenueID']
-			);
-
-			if( isset($data['VenueID'])  && $data['VenueID'] != "0" ) {
-				$venue_id = $data['VenueID'];
-				wp_update_post( array('post_title' => $data['Venue'], 'ID'=>$data['VenueID'] ));
-			} else {
-				$venue_id = wp_insert_post($postdata, true);
-			}
-
-			if( !is_wp_error($venue_id) ) {
-
-				foreach ($data as $key => $var) {
-					update_post_meta($venue_id, '_Venue'.$key, $var);
-				}
-
-				return $venue_id;
-			}
 		}
 
 		function get_venue_info($p = null){
@@ -1502,8 +1401,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			$data = stripslashes_deep($_POST['organizer']);
 
-			
-			$organizer_id = $this->add_new_organizer($data, $post);
+			$organizer_id = Tribe_Event_API::updateOrganizer($postID, $data);
 
 			return $organizer_id;
 		}
@@ -2016,7 +1914,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			);			
 
 			$args = wp_parse_args( $args, $defaults);
-			return SP_Event_Query::getEvents($args);
+			return Tribe_Event_Query::getEvents($args);
 		}
 		
 		public function isEvent( $postId = null ) {

@@ -1,5 +1,5 @@
 <?php
-class Admin_Events_List {
+class Tribe_Admin_Events_List {
 	public static $events_list;
 	
 	public static function init() {

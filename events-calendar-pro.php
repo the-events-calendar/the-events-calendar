@@ -33,14 +33,15 @@ if ( ! function_exists('events_calendar_pro_load') ) {
 			require_once($events_dir . '/lib/date-series-rules.php' );
 			require_once($events_dir . '/lib/recurrence.class.php' );
 			require_once($events_dir . '/lib/events-recurrence-meta.class.php' );
-			require_once($events_dir . '/lib/admin-events-list.class.php' );
+			require_once($events_dir . '/lib/tribe-admin-events-list.class.php' );
+			require_once($events_dir . '/lib/tribe-event-api.class.php' );			
 			require_once($events_dir . '/events-calendar-pro.class.php');
 			require_once($events_dir . '/the-events-calendar-exception.class.php');
 			require_once($events_dir . '/events-calendar-widget.class.php');
 			require_once($events_dir . '/events-list-widget.class.php');
 			require_once($events_dir . '/events-featured-widget.class.php');
 			require_once($events_dir . '/template-tags.php');
-			require_once($events_dir . '/lib/sp-event-query.php' );
+			require_once($events_dir . '/lib/tribe-event-query.class.php' );
 		}
 	}
 }

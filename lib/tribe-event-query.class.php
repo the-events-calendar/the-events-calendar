@@ -1,5 +1,5 @@
 <?php
-class SP_Event_Query {
+class Tribe_Event_Query {
 	
 	public static function init() {
 		add_action( 'parse_query', array( __CLASS__, 'setupQuery'), 0 );			
@@ -15,11 +15,11 @@ class SP_Event_Query {
 		{
 			$query->query_vars['suppress_filters'] = false;
 
-			add_filter('parse_sp_event_query', array( __CLASS__, 'setupQueryArgs' ) );
-			add_filter('parse_sp_event_query', array( __CLASS__, 'setArgsFromDisplayType' ) );			
+			add_filter('parse_tribe_event_query', array( __CLASS__, 'setupQueryArgs' ) );
+			add_filter('parse_tribe_event_query', array( __CLASS__, 'setArgsFromDisplayType' ) );			
 			
 			// filter to manipulate the sp_event_query parameters
-			apply_filters( 'parse_sp_event_query', $query );		
+			apply_filters( 'parse_tribe_event_query', $query );		
 			add_filter( 'posts_join', array(__CLASS__, 'setupJoins' ) );
 			add_filter( 'posts_where', array(__CLASS__, 'addEventConditions'), 10, 2);
 			add_filter( 'posts_fields', array(__CLASS__, 'setupFields' ) );	
