@@ -8,7 +8,10 @@ class Events_Recurrence_Meta {
 	public static function init() {
 		add_action('pre_post_update', array( __CLASS__, 'maybeBreakFromSeries' ));
 		add_action('trash_post', array( __CLASS__, 'deleteRecurringEvent'));
-	}
+		
+		add_action( 'admin_notices', array( __CLASS__, 'showRecurrenceErrorFlash') );
+		add_action( 'sp_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg'), 10, 2);
+	}	
 	
 	// delete a recurring event instance
 	public static function deleteRecurringEvent($postId) {
@@ -152,9 +155,9 @@ class Events_Recurrence_Meta {
 		return $new_event;
 	}		
 
-	public static function getRecurrenceMeta( $postId ) {
-		// TODO: Load these from request if validation failed
-		$recurrenceData = get_post_meta($postId, '_EventRecurrence', true);
+	public static function getRecurrenceMeta( $postId, $recurrenceData = null ) {
+		if (!$recurrenceData )
+			$recurrenceData = get_post_meta($postId, '_EventRecurrence', true);
 
 		$recArray = array();
 
@@ -186,26 +189,46 @@ class Events_Recurrence_Meta {
 		return $recArray;
 	}
 
-	public static function saveRecurrenceMeta( $postId, $post ) {	
-		
-		// only continue if it's an event post
-		if ( $post->post_type != Events_Calendar_Pro::POSTTYPE ) {
-			return;
+	public static function isRecurrenceValid( $event, $recurrence_meta  ) {
+		extract(Events_Recurrence_Meta::getRecurrenceMeta( $event->ID, $recurrence_meta ));
+		$valid = true;
+		$errorMsg = '';
+
+		if($recType == "Custom" && $recCustomType == "Monthly" && $recCustomMonthDay == '-') {
+			$valid = false;
+			$errorMsg = __('Monthly custom recurrences cannot have a dash set as the day to occur on.');
+		} else if($recType == "Custom" && $recCustomType == "Yearly" && $recCustomYearMonthDay == '-') {
+			$valid = false;
+			$errorMsg = __('Yearly custom recurrences cannot have a dash set as the day to occur on.');			
 		}
 
-  	   if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
-			return;			
-
-		// don't do anything on autosave or auto-draft either or massupdates
-		if ( wp_is_post_autosave( $postId ) || $post->post_status == 'auto-draft' || isset($_GET['bulk_edit']) || $_REQUEST['action'] == 'inline-save' ) {
-			return;
+		if ( !$valid ) {
+			do_action( 'sp_recurring_event_error', $event, $errorMsg );
 		}
 
-		$recurrence_meta = $_REQUEST['recurrence'];
+		return $valid;
+	}
 
-		// TODO: Validate
-		update_post_meta($postId, '_EventRecurrence', $recurrence_meta);
-		Events_Recurrence_Meta::saveEvents($postId, $post);
+	public static function setupRecurrenceErrorMsg( $event, $msg ) {
+		global $current_screen;
+
+		// only do this when editing events
+		if( is_admin() && $current_screen->id == Events_Calendar_Pro::POSTTYPE ) {
+			update_post_meta($event->ID, 'sp_flash_message', $msg);
+		}
+	}
+	
+	public static function showRecurrenceErrorFlash(){
+		global $post, $current_screen;
+
+		if ( $current_screen->base == 'post' && $current_screen->post_type == Events_Calendar_Pro::POSTTYPE ) {
+			$msg = get_post_meta($post->ID, 'sp_flash_message', true);
+
+			if ($msg) {
+				echo '<div class="error"><p>Recurrence not saved: ' . $msg . '</p></div>';
+			   delete_post_meta($post->ID, 'sp_flash_message');
+		   }		  
+	   }
 	}
 
 	public static function saveEvents( $postId, $post) {

@@ -1340,9 +1340,12 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			}
 			
 			// save recurrence
-			$recurrence_meta = $_REQUEST['recurrence'];			
-			update_post_meta($event_id, '_EventRecurrence', $recurrence_meta);
-			Events_Recurrence_Meta::saveEvents($event_id, $event);
+			$recurrence_meta = $_REQUEST['recurrence'];						
+
+			if( Events_Recurrence_Meta::isRecurrenceValid( $event, $recurrence_meta ) ) {
+				update_post_meta($event_id, '_EventRecurrence', $recurrence_meta);				
+				Events_Recurrence_Meta::saveEvents($event_id, $event);
+			}
 
 			try {
 				do_action( 'sp_events_update_meta', $event_id );
