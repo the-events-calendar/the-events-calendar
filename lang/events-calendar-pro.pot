@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Events Calendar Pro 1.2.1b\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-22 07:19-0500\n"
-"PO-Revision-Date: 2011-06-22 07:20-0500\n"
+"POT-Creation-Date: 2011-06-22 14:47-0500\n"
+"PO-Revision-Date: 2011-06-22 14:47-0500\n"
 "Last-Translator: John Gadbois <jgadbois@gmail.com>\n"
 "Language-Team: LANGUAGE <aaron@aahacreative.com>\n"
 "MIME-Version: 1.0\n"
@@ -1671,6 +1671,10 @@ msgstr ""
 msgid "Multiday Event Cutoff"
 msgstr ""
 
+#: ../views/events-options.php:127
+msgid "AM"
+msgstr ""
+
 #: ../views/events-options.php:131
 msgid "For multi-day events, hide the last day from grid view if it ends on or before this time."
 msgstr ""
@@ -1932,6 +1936,10 @@ msgstr ""
 
 #: ../views/events-options.php:412
 msgid "We built a vibrant community around our free <a href=\"http://wordpress.org/extend/plugins/the-events-calendar/\" target=\"_blank\">The Events Calendar</a> plugin. If you used the free version and are now using our premium version, thanks, we’re glad to have you here!"
+msgstr ""
+
+#: ../views/events-options.php:414
+msgid "Migrate Data!"
 msgstr ""
 
 #: ../views/gridview.php:32

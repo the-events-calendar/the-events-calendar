@@ -124,7 +124,7 @@ try {
 									 <?php $val = (ceil($i/2) < 10 ? "0" : "") . ceil($i/2) . ":" . ($i % 2 == 1 ? "00" : "30" ); ?>
 								    <option <?php selected($multiDayCutoff == $val) ?> value="<?php echo $val?>"><?php echo $val ?></option>
 								  <?php endfor; ?>	
-							  </select> AM
+							  </select> <?php _e("AM", $this->pluginDomain); ?>
 	                </label>
 	            </fieldset>
 					<div>
@@ -411,7 +411,7 @@ if ( $old_events ) {
 	<h4><?php _e('Upgrade from The Events Calendar', $this->pluginDomain ); ?></h4>
 	<p><?php _e('We built a vibrant community around our free <a href="http://wordpress.org/extend/plugins/the-events-calendar/" target="_blank">The Events Calendar</a> plugin. If you used the free version and are now using our premium version, thanks, we’re glad to have you here!', $this->pluginDomain ) ?></p>
 	<?php echo $old_events_copy; ?>
-	<input type="submit" value="Migrate Data!" class="button-secondary" name="upgradeEventsCalendar" />
+	<input type="submit" value="<?php _e('Migrate Data!') ?>" class="button-secondary" name="upgradeEventsCalendar" />
 </form>		
 		
 <?php
