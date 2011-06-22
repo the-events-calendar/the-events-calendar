@@ -2431,13 +2431,13 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					$this->displaying		= "past";
 					$this->startOperator	= "<=";
 					$this->order			= "DESC";
-					$this->date				= date( self::DBDATETIMEFORMAT );
+					$this->date				= date( self::DBDATETIMEFORMAT, current_time( 'timestamp' ) );
 					break;
 				case "upcoming":
 					$this->displaying		= "upcoming";					
 					$this->startOperator	= ">=";
 					$this->order			= "ASC";
-					$this->date				= date( self::DBDATETIMEFORMAT );
+					$this->date				= date( self::DBDATETIMEFORMAT, current_time( 'timestamp' ) );
 					break;					
 				case "month":
 					$this->displaying		= "month";
@@ -2448,7 +2448,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					if ( isset ( $wp_query->query_vars['eventDate'] ) ) {
 						$this->date = $wp_query->query_vars['eventDate'] . "-01";
 					} else {
-						$date = date( self::DBDATEFORMAT );
+						$date = date( self::DBDATETIMEFORMAT, current_time( 'timestamp' ) );
 						$this->date = substr_replace( $date, '01', -2 );
 					}
 					break;
@@ -2461,7 +2461,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					if ( isset ( $wp_query->query_vars['eventDate'] ) ) {
 						$this->date = $wp_query->query_vars['eventDate'] . "-01";
 					} else {
-						$date = date( self::DBDATEFORMAT );
+						$date = date( self::DBDATETIMEFORMAT, current_time( 'timestamp' ) );
 						$this->date = substr_replace( $date, '01', -2 );
 					}
 			}
