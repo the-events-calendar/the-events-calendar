@@ -161,7 +161,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
 			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
 			add_filter('bloginfo_rss',  array($this, 'add_space_to_rss' ));
-			add_filter( 'get_the_excerpt', array($this, 'removeExcerptMore' ), 1 );
 			//add_filter( 'the_permalink', array($this, 'addDateToRecurringEvents') );
 			add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
 			
@@ -196,6 +195,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$this->addDebugColumns();
 				add_action('admin_footer', array($this, 'debugInfo'));
 			}			
+			add_action( "trash_" . Events_Calendar_Pro::VENUE_POST_TYPE, array($this, 'cleanupPostVenues'));
+			add_action( "trash_" . Events_Calendar_Pro::ORGANIZER_POST_TYPE, array($this, 'cleanupPostOrganizers'));
 		}
 		
 		public function debugInfo() {
@@ -225,14 +226,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			return $title;
 		}
 
-		public function removeExcerptMore($more) {
-			if(get_query_var('post_type') == Events_Calendar_Pro::POSTTYPE) {
-				remove_all_filters('get_the_excerpt', 10); // remove any default excerpt filters
-			}
-
-			return $more; 
-		}
-		
 		public function addDateToRecurringEvents($permalink) {
 			global $post;
 
@@ -327,7 +320,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			global $post;
 			if ( $post->post_type == self::POSTTYPE && $terms = get_the_terms( $post->ID , self::TAXONOMY ) ) {
 				foreach ($terms as $term) {
-					$c[] = 'cat_' . sanitize_html_class($term->slug, $term->cat_ID);
+					$c[] = 'cat_' . sanitize_html_class($term->slug, $term->term_taxonomy_id);
 				}
 			}
 			return $c;
@@ -421,11 +414,12 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		
 		public function addAdminScriptsAndStyles() {
 			// always load style. need for icon in nav.
-			wp_enqueue_style( self::POSTTYPE.'-admin', $this->pluginUrl . 'resources/events-admin.css' );
-			
+			wp_enqueue_style( self::POSTTYPE.'-admin', $this->pluginUrl . 'resources/events-admin.css' );		
+					
 			global $current_screen;
 			if ( isset($current_screen->post_type) ) {
 				if ( $current_screen->post_type == self::POSTTYPE || $current_screen->id == 'settings_page_the-events-calendar.class' ) {
+					wp_enqueue_style( self::POSTTYPE.'-admin-ui', $this->pluginUrl . 'resources/events-admin-ui.css' );		
 					wp_enqueue_script( 'jquery-ui-datepicker', $this->pluginUrl . 'resources/ui.datepicker.min.js', array('jquery-ui-core'), '1.7.3', true );
 					wp_enqueue_script( 'jquery-ui-dialog', $this->pluginUrl . 'resources/ui.dialog.min.js', array('jquery-ui-core'), '1.7.3', true );					
 					wp_enqueue_script( 'jquery-ecp-plugins', $this->pluginUrl . 'resources/jquery-ecp-plugins.js', array('jquery') );					
@@ -433,11 +427,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					// calling our own localization because wp_localize_scripts doesn't support arrays or objects for values, which we need.
 					add_action('admin_footer', array($this, 'printLocalizedAdmin') );
 				}elseif( $current_screen->post_type == self::VENUE_POST_TYPE){
-
+					wp_enqueue_style( self::POSTTYPE.'-admin-ui', $this->pluginUrl . 'resources/events-admin-ui.css' );					
 					wp_enqueue_script( self::VENUE_POST_TYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js');
 					wp_enqueue_style( self::VENUE_POST_TYPE.'-admin', $this->pluginUrl . 'resources/hide-visibility.css' );
 				}elseif( $current_screen->post_type == self::ORGANIZER_POST_TYPE){
-
+					wp_enqueue_style( self::POSTTYPE.'-admin-ui', $this->pluginUrl . 'resources/events-admin.css' );					
 					wp_enqueue_script( self::ORGANIZER_POST_TYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js');
 					wp_enqueue_style( self::ORGANIZER_POST_TYPE.'-admin', $this->pluginUrl . 'resources/hide-visibility.css' );
 				}
@@ -550,7 +544,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					$_POST['eventsSlug'] = 'events';
 				}
 				
-				$opts = array('embedGoogleMaps', 'showComments', 'displayEventsOnHomepage', 'resetEventPostDate', 'useRewriteRules', 'spEventsDebug', 'eventsSlug', 'singleEventSlug','spEventsAfterHTML','spEventsBeforeHTML','spEventsCountries','defaultValueReplace','eventsDefaultVenueID', 'eventsDefaultOrganizerID', 'eventsDefaultState','eventsDefaultProvince','eventsDefaultAddress','eventsDefaultCity','eventsDefaultZip','eventsDefaultPhone');
+				$opts = array('embedGoogleMaps', 'showComments', 'displayEventsOnHomepage', 'resetEventPostDate', 'useRewriteRules', 'spEventsDebug', 'eventsSlug', 'singleEventSlug','spEventsAfterHTML','spEventsBeforeHTML','spEventsCountries','defaultValueReplace','eventsDefaultVenueID', 'eventsDefaultOrganizerID', 'eventsDefaultState','eventsDefaultProvince','eventsDefaultAddress','eventsDefaultCity','eventsDefaultZip','eventsDefaultPhone','multiDayCutoff');
 				foreach ($opts as $opt) {
 					if(isset($_POST[$opt]))
 						$options[$opt] = $_POST[$opt];
@@ -683,6 +677,27 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		return ( isset($options[$optionName]) ) ? $options[$optionName] : $default;
 		
 	}
+
+			// clean up trashed venues
+			public function cleanupPostVenues($postId) {
+				$this->removeDeletedPostTypeAssociation('_EventVenueID', $postId);
+			}
+
+			// clean up trashed organizers
+			public function cleanupPostOrganizers($postId) {
+				$this->removeDeletedPostTypeAssociation('_EventOrganizerID', $postId);
+			}		
+
+			// do clean up for trashed venues or organizers
+			private function removeDeletedPostTypeAssociation($key, $postId) {
+				$the_query = new WP_Query(array('meta_key'=>$key, 'meta_value'=>$postId, 'post_type'=> Events_Calendar_Pro::POSTTYPE ));
+
+				while ( $the_query->have_posts() ): $the_query->the_post();
+					delete_post_meta(get_the_ID(), $key);
+				endwhile;
+
+				wp_reset_postdata();
+			}	
 		
         private function saveOptions($options) {
             if (!is_array($options)) {
@@ -1029,7 +1044,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 * @param string $secondary for $type = month, pass a YYYY-MM string for a specific month's URL
 		 */
 		
-		public function getLink( $type = 'home', $secondary = false ) {
+		public function getLink( $type = 'home', $secondary = false, $term = null ) {
 			// if permalinks are off or user doesn't want them: ugly.
 			if( '' == get_option('permalink_structure') || 'off' == $this->getOption('useRewriteRules','on') ) {
 				return $this->uglyLink($type, $secondary);
@@ -1040,6 +1055,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			// if we're on an Event Cat, show the cat link, except for home.
 			if ( $type !== 'home' && is_tax( self::TAXONOMY ) ) {
 				$eventUrl = trailingslashit( get_term_link( get_query_var('term'), self::TAXONOMY ) );
+			} else if ( $term ) {
+				$eventUrl = trailingslashit( get_term_link( $term, self::TAXONOMY ) );
 			}
 			
 			switch( $type ) {
@@ -1508,7 +1525,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			extract(Events_Recurrence_Meta::getRecurrenceMeta($postId));
 
 			foreach ( $this->metaTags as $tag ) {
-				if ( $postId && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
+				if ( $postId && isset($_GET['post']) && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
 					// Sort the meta to make sure it is correct for recurring events
 					$meta = get_post_meta($postId,$tag); sort($meta);
 					$$tag = $meta[0];
@@ -1524,7 +1541,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			}else{
 				foreach ( $this->legacyVenueTags as $tag ) {
-					if ( $postId && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
+					if ( $postId && isset($_GET['post']) && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
 						$cleaned_tag = str_replace('_Event','_Venue',$tag);
 						$$cleaned_tag = get_post_meta( $postId, $tag, true );
 					} else {
@@ -1563,8 +1580,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$endYearOptions		 	= $this->getYearOptions( $_EventEndDate );
 			$startMinuteOptions 	= $this->getMinuteOptions( $_EventStartDate );
 			$endMinuteOptions 		= $this->getMinuteOptions( $_EventEndDate );
-			$startHourOptions	 	= $this->getHourOptions( $_EventStartDate, true );
-			$endHourOptions		 	= $this->getHourOptions( $_EventEndDate );
+			$startHourOptions	 	= $this->getHourOptions( $_EventAllDay == 'yes' ? null : $_EventStartDate, true );
+			$endHourOptions		 	= $this->getHourOptions( $_EventAllDay == 'yes' ? null : $_EventEndDate );
 			$startMeridianOptions	= $this->getMeridianOptions( $_EventStartDate, true );
 			$endMeridianOptions		= $this->getMeridianOptions( $_EventEndDate );
 			
@@ -1602,7 +1619,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			if($post->post_type == self::VENUE_POST_TYPE){
 					
 				foreach ( $this->venueTags as $tag ) {
-					if ( $postId && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
+					if ( $postId && isset($_GET['post']) && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
 						$$tag = esc_html(get_post_meta( $postId, $tag, true ));
 					} else {
 						$cleaned_tag = str_replace('_Venue','',$tag);
@@ -1636,7 +1653,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			if($post->post_type == self::ORGANIZER_POST_TYPE){
 					
 				foreach ( $this->organizerTags as $tag ) {
-					if ( $postId && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
+					if ( $postId && isset($_GET['post']) && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
 						$$tag = get_post_meta( $postId, $tag, true );
 					}
 				}

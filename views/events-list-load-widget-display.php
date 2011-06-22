@@ -29,6 +29,7 @@
 	$event = (object) $event; //Easier to work with.
 
 	ob_start();
+		if ( !isset($alt_text) ) { $alt_text = ''; }
 		post_class($alt_text,$post->ID);
 	$class = ob_get_contents();
 	ob_end_clean();

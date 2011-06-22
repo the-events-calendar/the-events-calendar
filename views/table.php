@@ -130,7 +130,7 @@ function display_day( $day, $monthView ) {
 			<div id='tooltip_<?php echo $eventId; ?>' class="tec-tooltip" style="display:none;">
 				<h5 class="tec-event-title"><?php the_title();?></h5>
 				<div class="tec-event-body">
-					<?php if ( !sp_get_all_day($post->ID) ) : ?>
+					<?php if ( !sp_get_all_day($post->ID) || sp_is_multiday($post->ID) ) : ?>
 					<div class="tec-event-date">
 						<?php if ( !empty( $start ) )	echo $start; ?>
 						<?php if ( !empty( $end )  && $start !== $end )		echo " – " . $end . '<br />'; ?>
@@ -139,7 +139,7 @@ function display_day( $day, $monthView ) {
 					<?php if ( function_exists('has_post_thumbnail') && has_post_thumbnail() ) { ?>
 						<div class="tec-event-thumb"><?php the_post_thumbnail( array(75,75));?></div>
 					<?php } ?>
-					<?php echo has_excerpt() ? Events_Calendar_Pro::truncate(get_the_excerpt(), 60) : Events_Calendar_Pro::truncate(get_the_content(), 30); ?>
+					<?php echo has_excerpt() ? Events_Calendar_Pro::truncate($post->post_excerpt) : Events_Calendar_Pro::truncate(get_the_content(), 30); ?>
 
 				</div>
 				<span class="tec-arrow"></span>

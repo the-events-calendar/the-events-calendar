@@ -79,6 +79,7 @@
 				<div class="navlink previous"><?php sp_previous_event_link();?></div>
 
 				<div class="navlink next"><?php sp_next_event_link();?></div>
+				<div style="clear:both"></div>
 			</div><!-- post -->
 
 		<?php if(sp_get_option('showComments','no') == 'yes'){ comments_template();} ?>

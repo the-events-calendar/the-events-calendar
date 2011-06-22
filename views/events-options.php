@@ -108,6 +108,30 @@ try {
 	            </fieldset>
 	        </td>
 		</tr>
+		<?php $multiDayCutoff = sp_get_option('multiDayCutoff','12:00'); ?>
+		<tr>
+			<th scope="row"><?php _e('Multiday Event Cutoff',$this->pluginDomain); ?></th>
+	        <td>
+	            <fieldset>
+	                <legend class="screen-reader-text">
+	                    <span><?php _e('Multiday Event Cutoff',$this->pluginDomain); ?></span>
+	                </legend>
+	                <label title='Multiday Event Cutoff'>
+							  <select name="multiDayCutoff">
+								  <option <?php selected($multiDayCutoff == "12:00") ?> value="12:00" >12:00</option>
+								  <option <?php selected($multiDayCutoff == "12:30") ?> value="12:30">12:30</option>
+								  <?php for($i=1; $i < 23; $i++): ?>
+									 <?php $val = (ceil($i/2) < 10 ? "0" : "") . ceil($i/2) . ":" . ($i % 2 == 1 ? "00" : "30" ); ?>
+								    <option <?php selected($multiDayCutoff == $val) ?> value="<?php echo $val?>"><?php echo $val ?></option>
+								  <?php endfor; ?>	
+							  </select> AM
+	                </label>
+	            </fieldset>
+					<div>
+						<?php _e('For multi-day events, hide the last day from grid view if it ends on or before this time.',$this->pluginDomain); ?> 
+					</div>				  
+	        </td>
+		</tr>		
 			<?php 
 			$embedGoogleMapsValue = sp_get_option('embedGoogleMaps','off');                 
 	        ?>

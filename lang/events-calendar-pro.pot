@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Events Calendar Pro 1.2.1b\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-17 19:14-0500\n"
-"PO-Revision-Date: 2011-05-17 19:14-0500\n"
+"POT-Creation-Date: 2011-06-22 07:19-0500\n"
+"PO-Revision-Date: 2011-06-22 07:20-0500\n"
 "Last-Translator: John Gadbois <jgadbois@gmail.com>\n"
 "Language-Team: LANGUAGE <aaron@aahacreative.com>\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgid "Select a Country:"
 msgstr ""
 
 #: ../events-calendar-pro.class.php:151
-#: ../template-tags.php:695
+#: ../template-tags.php:722
 msgid "United States"
 msgstr ""
 
@@ -1211,43 +1211,43 @@ msgstr ""
 msgid "Wyoming"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:617
+#: ../events-calendar-pro.class.php:610
 msgid "Upcoming Events"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:619
+#: ../events-calendar-pro.class.php:612
 msgid "Past Events"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:623
+#: ../events-calendar-pro.class.php:616
 #, php-format
 msgid "Events for %s"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:625
+#: ../events-calendar-pro.class.php:618
 msgid "Events this month"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:639
+#: ../events-calendar-pro.class.php:632
 msgid "No description has been entered for this event."
 msgstr ""
 
-#: ../events-calendar-pro.class.php:652
+#: ../events-calendar-pro.class.php:645
 #: ../events-calendar-pro.class.php:792
 msgid "Event Categories"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:657
+#: ../events-calendar-pro.class.php:650
 msgid "Start Date"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:658
+#: ../events-calendar-pro.class.php:651
 msgid "End Date"
 msgstr ""
 
 #: ../events-calendar-pro.class.php:682
-#: ../views/events-options.php:192
-#: ../views/events-options.php:194
+#: ../views/events-options.php:216
+#: ../views/events-options.php:218
 msgid "Debug"
 msgstr ""
 
@@ -1294,7 +1294,7 @@ msgid "No events found in Trash"
 msgstr ""
 
 #: ../events-calendar-pro.class.php:766
-#: ../events-calendar-pro.class.php:907
+#: ../events-calendar-pro.class.php:908
 msgid "Venues"
 msgstr ""
 
@@ -1333,7 +1333,7 @@ msgid "No venues found in Trash"
 msgstr ""
 
 #: ../events-calendar-pro.class.php:779
-#: ../events-calendar-pro.class.php:909
+#: ../events-calendar-pro.class.php:910
 msgid "Organizers"
 msgstr ""
 
@@ -1401,43 +1401,43 @@ msgstr ""
 msgid "New Event Category Name"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:848
+#: ../events-calendar-pro.class.php:849
 msgid "Next"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:849
+#: ../events-calendar-pro.class.php:850
 msgid "Prev"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:850
+#: ../events-calendar-pro.class.php:851
 msgid "Today"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:851
+#: ../events-calendar-pro.class.php:852
 msgid "Done"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:1890
+#: ../events-calendar-pro.class.php:1910
 msgid "Use New Venue"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:1897
+#: ../events-calendar-pro.class.php:1917
 msgid "No saved venues yet."
 msgstr ""
 
-#: ../events-calendar-pro.class.php:1974
+#: ../events-calendar-pro.class.php:1994
 msgid "Use New Organizer"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:1981
+#: ../events-calendar-pro.class.php:2001
 msgid "No saved organizers yet."
 msgstr ""
 
-#: ../events-calendar-pro.class.php:2201
+#: ../events-calendar-pro.class.php:2221
 msgid "Venue Information"
 msgstr ""
 
-#: ../events-calendar-pro.class.php:2202
+#: ../events-calendar-pro.class.php:2222
 msgid "Organizer Information"
 msgstr ""
 
@@ -1464,12 +1464,12 @@ msgid "Featured Event"
 msgstr ""
 
 #: ../events-featured-widget.class.php:58
-#: ../events-list-widget.class.php:71
+#: ../events-list-widget.class.php:70
 msgid "There are no upcoming events at this time."
 msgstr ""
 
 #: ../events-featured-widget.class.php:81
-#: ../template-tags.php:727
+#: ../template-tags.php:761
 #: ../views/events-list-load-widget-admin.php:40
 msgid "Category:"
 msgstr ""
@@ -1478,11 +1478,11 @@ msgstr ""
 msgid "A widget that displays the next upcoming x events."
 msgstr ""
 
-#: ../events-list-widget.class.php:68
+#: ../events-list-widget.class.php:67
 msgid "View All Events"
 msgstr ""
 
-#: ../template-tags.php:716
+#: ../template-tags.php:750
 msgid "Calendar of Events"
 msgstr ""
 
@@ -1542,11 +1542,11 @@ msgstr ""
 msgid "If you wish to customize the widget display yourself, see the file views/events-list-load-widget-display.php inside the Events Premium plugin."
 msgstr ""
 
-#: ../views/events-list-load-widget-display.php:44
+#: ../views/events-list-load-widget-display.php:45
 msgid "All Day"
 msgstr ""
 
-#: ../views/events-list-load-widget-display.php:47
+#: ../views/events-list-load-widget-display.php:48
 msgid "Ends "
 msgstr ""
 
@@ -1666,262 +1666,271 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: ../views/events-options.php:116
-#: ../views/events-options.php:120
+#: ../views/events-options.php:113
+#: ../views/events-options.php:117
+msgid "Multiday Event Cutoff"
+msgstr ""
+
+#: ../views/events-options.php:131
+msgid "For multi-day events, hide the last day from grid view if it ends on or before this time."
+msgstr ""
+
+#: ../views/events-options.php:140
+#: ../views/events-options.php:144
 msgid "Embed Google Maps"
 msgstr ""
 
-#: ../views/events-options.php:135
-#: ../views/events-options.php:163
+#: ../views/events-options.php:159
+#: ../views/events-options.php:187
 msgid "Off"
 msgstr ""
 
-#: ../views/events-options.php:139
-#: ../views/events-options.php:167
+#: ../views/events-options.php:163
+#: ../views/events-options.php:191
 msgid "On"
 msgstr ""
 
-#: ../views/events-options.php:142
+#: ../views/events-options.php:166
 msgid "Height"
 msgstr ""
 
-#: ../views/events-options.php:143
+#: ../views/events-options.php:167
 msgid "Width"
 msgstr ""
 
-#: ../views/events-options.php:143
+#: ../views/events-options.php:167
 msgid "(number or %)"
 msgstr ""
 
-#: ../views/events-options.php:152
-#: ../views/events-options.php:156
+#: ../views/events-options.php:176
+#: ../views/events-options.php:180
 msgid "Use Pretty URLs"
 msgstr ""
 
-#: ../views/events-options.php:170
+#: ../views/events-options.php:194
 msgid "Although unlikely, pretty URLs (ie, http://site/events/upcoming) may interfere with custom themes or plugins."
 msgstr ""
 
-#: ../views/events-options.php:176
-#: ../views/events-options.php:178
+#: ../views/events-options.php:200
+#: ../views/events-options.php:202
 msgid "Events URL slug"
 msgstr ""
 
-#: ../views/events-options.php:179
+#: ../views/events-options.php:203
 msgid "The slug used for building the Events URL."
 msgstr ""
 
-#: ../views/events-options.php:179
+#: ../views/events-options.php:203
 #, php-format
 msgid "Your current Events URL is <strong>%s</strong>"
 msgstr ""
 
-#: ../views/events-options.php:183
-#: ../views/events-options.php:185
+#: ../views/events-options.php:207
+#: ../views/events-options.php:209
 msgid "Single Event URL slug"
 msgstr ""
 
-#: ../views/events-options.php:186
+#: ../views/events-options.php:210
 msgid "The slug used for building a single Event URL."
 msgstr ""
 
-#: ../views/events-options.php:187
+#: ../views/events-options.php:211
 #, php-format
 msgid "<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: <strong>%s</strong>"
 msgstr ""
 
-#: ../views/events-options.php:195
+#: ../views/events-options.php:219
 msgid "Debug Events display issues."
 msgstr ""
 
-#: ../views/events-options.php:196
+#: ../views/events-options.php:220
 msgid "If you’re experiencing issues with posts not showing up in the admin, enable this option and then ensure that all of your posts have the correct start and end dates."
 msgstr ""
 
-#: ../views/events-options.php:201
+#: ../views/events-options.php:225
 msgid "Theme Settings"
 msgstr ""
 
-#: ../views/events-options.php:204
-#: ../views/events-options.php:206
-#: ../views/events-options.php:214
+#: ../views/events-options.php:228
+#: ../views/events-options.php:230
+#: ../views/events-options.php:238
 msgid "Add HTML before calendar"
 msgstr ""
 
-#: ../views/events-options.php:208
+#: ../views/events-options.php:232
 msgid "Some themes may require that you add extra divs before the calendar list to help with styling."
 msgstr ""
 
-#: ../views/events-options.php:208
+#: ../views/events-options.php:232
 msgid "This is displayed directly after the header."
 msgstr ""
 
-#: ../views/events-options.php:208
-#: ../views/events-options.php:216
+#: ../views/events-options.php:232
+#: ../views/events-options.php:240
 msgid "You may use (x)HTML."
 msgstr ""
 
-#: ../views/events-options.php:212
+#: ../views/events-options.php:236
 msgid "Add HTML after calendar"
 msgstr ""
 
-#: ../views/events-options.php:216
+#: ../views/events-options.php:240
 msgid "Some themes may require that you add extra divs after the calendar list to help with styling."
 msgstr ""
 
-#: ../views/events-options.php:216
+#: ../views/events-options.php:240
 msgid "This is displayed directly above the footer."
 msgstr ""
 
-#: ../views/events-options.php:221
+#: ../views/events-options.php:245
 msgid "Customize Defaults"
 msgstr ""
 
-#: ../views/events-options.php:222
+#: ../views/events-options.php:246
 msgid "These settings change the default event form. For example, if you set a default venue, this field will be automatically filled in on a new event."
 msgstr ""
 
-#: ../views/events-options.php:225
-#: ../views/events-options.php:229
+#: ../views/events-options.php:249
+#: ../views/events-options.php:253
 msgid "Automatically replace empty fields with default values"
 msgstr ""
 
-#: ../views/events-options.php:242
+#: ../views/events-options.php:266
 msgid "Enabled"
 msgstr ""
 
-#: ../views/events-options.php:246
+#: ../views/events-options.php:270
 msgid "Disabled"
 msgstr ""
 
-#: ../views/events-options.php:252
+#: ../views/events-options.php:276
 msgid "Default Organizer for Events"
 msgstr ""
 
-#: ../views/events-options.php:255
+#: ../views/events-options.php:279
 msgid "Default Organizer"
 msgstr ""
 
-#: ../views/events-options.php:256
+#: ../views/events-options.php:280
 msgid "The default organizer value"
 msgstr ""
 
-#: ../views/events-options.php:256
-#: ../views/events-options.php:264
-#: ../views/events-options.php:271
-#: ../views/events-options.php:278
-#: ../views/events-options.php:299
-#: ../views/events-options.php:307
-#: ../views/events-options.php:315
-#: ../views/events-options.php:341
+#: ../views/events-options.php:280
+#: ../views/events-options.php:288
+#: ../views/events-options.php:295
+#: ../views/events-options.php:302
+#: ../views/events-options.php:323
+#: ../views/events-options.php:331
+#: ../views/events-options.php:339
+#: ../views/events-options.php:365
 #, php-format
 msgid "The current default value is <strong>%s</strong>"
 msgstr ""
 
-#: ../views/events-options.php:260
+#: ../views/events-options.php:284
 msgid "Default Venue for Events"
 msgstr ""
 
-#: ../views/events-options.php:263
+#: ../views/events-options.php:287
 msgid "Default Venue"
 msgstr ""
 
-#: ../views/events-options.php:264
+#: ../views/events-options.php:288
 msgid "The default venue value"
 msgstr ""
 
-#: ../views/events-options.php:268
-#: ../views/events-options.php:270
+#: ../views/events-options.php:292
+#: ../views/events-options.php:294
 msgid "Default Address"
 msgstr ""
 
-#: ../views/events-options.php:271
+#: ../views/events-options.php:295
 msgid "The default address value"
 msgstr ""
 
-#: ../views/events-options.php:275
-#: ../views/events-options.php:277
+#: ../views/events-options.php:299
+#: ../views/events-options.php:301
 msgid "Default City"
 msgstr ""
 
-#: ../views/events-options.php:278
+#: ../views/events-options.php:302
 msgid "The default city value"
 msgstr ""
 
-#: ../views/events-options.php:283
+#: ../views/events-options.php:307
 msgid "Default State"
 msgstr ""
 
-#: ../views/events-options.php:285
-#: ../views/events-options.php:306
+#: ../views/events-options.php:309
+#: ../views/events-options.php:330
 msgid "Default Province or State"
 msgstr ""
 
-#: ../views/events-options.php:288
+#: ../views/events-options.php:312
 msgid "Select a State:"
 msgstr ""
 
-#: ../views/events-options.php:299
-#: ../views/events-options.php:307
+#: ../views/events-options.php:323
+#: ../views/events-options.php:331
 msgid "The default  value"
 msgstr ""
 
-#: ../views/events-options.php:304
+#: ../views/events-options.php:328
 msgid "Default Province"
 msgstr ""
 
-#: ../views/events-options.php:312
-#: ../views/events-options.php:314
+#: ../views/events-options.php:336
+#: ../views/events-options.php:338
 msgid "Default Postal Code"
 msgstr ""
 
-#: ../views/events-options.php:315
+#: ../views/events-options.php:339
 msgid "The default Postal Code value"
 msgstr ""
 
-#: ../views/events-options.php:320
+#: ../views/events-options.php:344
 msgid "Default Country for Events"
 msgstr ""
 
-#: ../views/events-options.php:338
-#: ../views/events-options.php:340
+#: ../views/events-options.php:362
+#: ../views/events-options.php:364
 msgid "Default Phone"
 msgstr ""
 
-#: ../views/events-options.php:341
+#: ../views/events-options.php:365
 msgid "The default phone value"
 msgstr ""
 
-#: ../views/events-options.php:345
+#: ../views/events-options.php:369
 msgid "Use a custom list of countries"
 msgstr ""
 
-#: ../views/events-options.php:347
+#: ../views/events-options.php:371
 msgid "Use the following list:"
 msgstr ""
 
-#: ../views/events-options.php:349
+#: ../views/events-options.php:373
 msgid "One country per line in the following format: <br/>US, United States <br/> UK, United Kingdom."
 msgstr ""
 
-#: ../views/events-options.php:349
+#: ../views/events-options.php:373
 msgid "(Replaces the default list.)"
 msgstr ""
 
-#: ../views/events-options.php:371
+#: ../views/events-options.php:395
 msgid "Save Changes"
 msgstr ""
 
-#: ../views/events-options.php:383
+#: ../views/events-options.php:407
 #, php-format
 msgid "It looks like you have %s events in the category “%s”. Click below to import!"
 msgstr ""
 
-#: ../views/events-options.php:387
+#: ../views/events-options.php:411
 msgid "Upgrade from The Events Calendar"
 msgstr ""
 
-#: ../views/events-options.php:388
+#: ../views/events-options.php:412
 msgid "We built a vibrant community around our free <a href=\"http://wordpress.org/extend/plugins/the-events-calendar/\" target=\"_blank\">The Events Calendar</a> plugin. If you used the free version and are now using our premium version, thanks, we’re glad to have you here!"
 msgstr ""
 

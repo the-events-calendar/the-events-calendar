@@ -1,20 +1,3 @@
-/* Don't forget: this is being loaded on every page. */
-@import url(smoothness/jquery-ui-1.7.3.custom.css);
-
-#ui-datepicker-div {
-	display:none;
-}
-.ui-datepicker, .ui-datepicker select, .ui-datepicker input, .ui-datepicker td {
-	font-size:11px;
-	line-height:15px;
-}
-.ui-datepicker select, .ui-datepicker option {
-	padding:0;
-}
-.ui-datepicker thead tr th {
-	font-size:10px;
-}
-
 /* Overlays */
 .ui-widget-overlay { background: #666666 url(images/ui-bg_diagonals-thick_20_666666_40x40.png) 50% 50% repeat; opacity: .50;filter:Alpha(Opacity=50); }
 .ui-widget-shadow { margin: -5px 0 0 -5px; padding: 5px; background: #000000 url(images/ui-bg_flat_10_000000_40x100.png) 50% 50% repeat-x; opacity: .20;filter:Alpha(Opacity=20); -moz-border-radius: 5px; -webkit-border-radius: 5px; }/* Resizable

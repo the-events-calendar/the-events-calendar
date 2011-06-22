@@ -42,7 +42,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return array days of the month with events as values
 	 */
 	function sp_sort_by_month( $results, $date ) {
-
+		$cutoff_time = sp_get_option('multiDayCutoff', '12:00');
+		
 		if( preg_match( '/(\d{4})-(\d{2})/', $date, $matches ) ) {
 			$queryYear	= $matches[1];
 			$queryMonth = $matches[2];
@@ -65,10 +66,23 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	
 			list( $endDay, $garbage ) = explode( ' ', $endDay );
 			for( $i = 1; $i <= 31 ; $i++ ) {
-				$started = false;
+				$curDate = strtotime( $queryYear.'-'.$queryMonth.'-'.$i );
+
 				if ( ( $i == $startDay && $startMonth == $queryMonth ) ||  strtotime( $startYear.'-'.$startMonth ) < strtotime( $queryYear.'-'.$queryMonth ) ) {
 					$started = true;
 				}
+				
+				// if last day of multiday event 			
+				if( !sp_get_all_day() && sp_is_multiday($event->ID) && date('Y-m-d', $curDate) == date('Y-m-d', strtotime($event->EventEndDate)) ) {
+					$endTime = strtotime(date('Y-m-d') . date('h:i A', strtotime($event->EventEndDate)));
+					$cutoffTime = strtotime(date('Y-m-d') . $cutoff_time .  "AM");
+					
+					// if end time is before cutoff, then don't show
+					if ($endTime <= $cutoffTime) {
+						$started = false;
+					}
+				}
+				
 				if ( $started ) {
 					$monthView[$i][] = $event;
 				}
@@ -603,7 +617,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_next_month_link() {
 		global $sp_ecp;
-		return esc_html($sp_ecp->getLink( 'month', $sp_ecp->nextMonth( $sp_ecp->date ) ));
+		return esc_html($sp_ecp->getLink( 'month', $sp_ecp->nextMonth(sp_get_month_view_date() )));
 	}
 	/**
 	 * Returns a link to the previous month's events page
@@ -611,10 +625,21 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function sp_get_previous_month_link() {
-		global $sp_ecp;
-		return esc_html($sp_ecp->getLink( 'month', $sp_ecp->previousMonth( $sp_ecp->date ) ));
+		global $sp_ecp, $wp_query;
+		return esc_html($sp_ecp->getLink( 'month', $sp_ecp->previousMonth( sp_get_month_view_date() )));
 	}
 	
+	function sp_get_month_view_date() {
+		global $wp_query;
+
+		if ( isset ( $wp_query->query_vars['eventDate'] ) ) { 
+			$date = $wp_query->query_vars['eventDate'] . "-01";
+		} else {
+			$date = date_i18n( Events_Calendar_Pro::DBDATEFORMAT );
+		}
+		
+		return $date;
+	}
 	/**
 	 * Returns an ical feed for a single event. Must be used in the loop.
 	 * 
@@ -635,14 +660,14 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		return esc_html($sp_ecp->getLink('home'));
 	}
 	
-	function sp_get_gridview_link() {
+	function sp_get_gridview_link($term = null) {
 		global $sp_ecp;
-		return esc_html($sp_ecp->getLink('month'));
+		return esc_html($sp_ecp->getLink('month', false, $term));
 	}
 		
-	function sp_get_listview_link() {
+	function sp_get_listview_link($term = null) {
 		global $sp_ecp;
-		return esc_html($sp_ecp->getLink('upcoming'));
+		return esc_html($sp_ecp->getLink('upcoming', false, $term));
 	}
 	
 	function sp_get_listview_past_link() {
@@ -666,7 +691,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_previous_month_text() {
 		global $sp_ecp;
-		return $sp_ecp->getDateString( $sp_ecp->previousMonth( $sp_ecp->date ) );
+		return $sp_ecp->getDateString( $sp_ecp->previousMonth( sp_get_month_view_date() ) );
 	}
 	/**
 	 * Returns a textual description of the current month
@@ -675,7 +700,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_current_month_text( ){
 		global $sp_ecp; 
-		return date( 'F', strtotime( $sp_ecp->date ) );
+		return date( 'F', strtotime( sp_get_month_view_date() ) );
 	}
 	/**
 	 * Returns a textual description of the next month
@@ -684,7 +709,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function sp_get_next_month_text() {
 		global $sp_ecp;
-		return $sp_ecp->getDateString( $sp_ecp->nextMonth( $sp_ecp->date ) );
+		return $sp_ecp->getDateString( $sp_ecp->nextMonth( sp_get_month_view_date() ) );
 	}
 	/**
 	 * Returns a formatted date string of the currently displayed month (in "jump to month" mode)
@@ -734,6 +759,13 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	function sp_get_all_day( $postId = null ) {
 		$postId = sp_post_id_helper( $postId );
 		return !! getEventMeta( $postId, '_EventAllDay', true );
+	}
+	
+	function sp_is_multiday( $postId = null) {
+		$postId = sp_post_id_helper( $postId );
+		$start = strtotime(getEventMeta( $postId, '_EventStartDate', true ));
+		$end = strtotime(getEventMeta( $postId, '_EventEndDate', true ));
+		return date('d-m-Y', $start) != date('d-m-Y', $end);
 	}
 	
 	/**
