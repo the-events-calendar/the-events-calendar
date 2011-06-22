@@ -411,7 +411,7 @@ if ( $old_events ) {
 	<h4><?php _e('Upgrade from The Events Calendar', $this->pluginDomain ); ?></h4>
 	<p><?php _e('We built a vibrant community around our free <a href="http://wordpress.org/extend/plugins/the-events-calendar/" target="_blank">The Events Calendar</a> plugin. If you used the free version and are now using our premium version, thanks, we’re glad to have you here!', $this->pluginDomain ) ?></p>
 	<?php echo $old_events_copy; ?>
-	<input type="submit" value="<?php _e('Migrate Data!') ?>" class="button-secondary" name="upgradeEventsCalendar" />
+	<input type="submit" value="<?php _e('Migrate Data!', $this->pluginDomain ) ?>" class="button-secondary" name="upgradeEventsCalendar" />
 </form>		
 		
 <?php
