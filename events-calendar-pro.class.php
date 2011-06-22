@@ -13,7 +13,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		const DATEONLYFORMAT 		= 'F j, Y';
 		const TIMEFORMAT			= 'g:i A';
 		const DBDATEFORMAT	 		= 'Y-m-d';
-		const DBDATETIMEFORMAT 		= 'Y-m-d G:i:s';
+		const DBDATETIMEFORMAT 		= 'Y-m-d H:i:s';
 		const DBYEARMONTHTIMEFORMAT = 'Y-m';
 		const VENUE_POST_TYPE = 'sp_venue';
 		const VENUE_TITLE = 'Venue';
@@ -2431,13 +2431,13 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					$this->displaying		= "past";
 					$this->startOperator	= "<=";
 					$this->order			= "DESC";
-					$this->date				= date_i18n( self::DBDATETIMEFORMAT );
+					$this->date				= date( self::DBDATETIMEFORMAT );
 					break;
 				case "upcoming":
 					$this->displaying		= "upcoming";					
 					$this->startOperator	= ">=";
 					$this->order			= "ASC";
-					$this->date				= date_i18n( self::DBDATETIMEFORMAT );
+					$this->date				= date( self::DBDATETIMEFORMAT );
 					break;					
 				case "month":
 					$this->displaying		= "month";
@@ -2448,7 +2448,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					if ( isset ( $wp_query->query_vars['eventDate'] ) ) {
 						$this->date = $wp_query->query_vars['eventDate'] . "-01";
 					} else {
-						$date = date_i18n( self::DBDATEFORMAT );
+						$date = date( self::DBDATEFORMAT );
 						$this->date = substr_replace( $date, '01', -2 );
 					}
 					break;
@@ -2461,7 +2461,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					if ( isset ( $wp_query->query_vars['eventDate'] ) ) {
 						$this->date = $wp_query->query_vars['eventDate'] . "-01";
 					} else {
-						$date = date_i18n( self::DBDATEFORMAT );
+						$date = date( self::DBDATEFORMAT );
 						$this->date = substr_replace( $date, '01', -2 );
 					}
 			}
