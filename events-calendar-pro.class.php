@@ -1327,7 +1327,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$_POST['Organizer'] = stripslashes_deep($_POST['organizer']);
 			$_POST['Venue'] = stripslashes_deep($_POST['venue']);
 			
-			Tribe_Event_API::save_event_meta($postId, $_POST, $post);
+			Tribe_Event_API::saveEventMeta($postId, $_POST, $post);
 		}
 		
 		

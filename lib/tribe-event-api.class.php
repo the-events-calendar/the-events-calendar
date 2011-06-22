@@ -1,7 +1,36 @@
 <?php
 class Tribe_Event_API {
+	/* EVENT API */
+	public static function createEvent($args) {
+		$defaults = array(
+			'post_type' => Events_Calendar_Pro::POSTTYPE
+		);			
+
+		$args = wp_parse_args( $args, $defaults);
+		$eventId = wp_insert_post($args, true);	
+		
+		if( !is_wp_error($eventId) ) {
+			Tribe_Event_API::saveEventMeta($eventId, $args, get_post( $eventId ) );
+			return $eventId;
+		}		
+	}
+	
+	public static function updateEvent( $eventId, $args ) {
+		$args['ID'] == $eventId;
+		
+		if(wp_update_post($args)) {
+			Tribe_Event_API::saveEventMeta($eventId, $args, get_post( $eventId ) );
+		}
+
+		return $eventId;
+	}
+	
+	public static function deleteEvent($eventId, $force_delete = false) {
+		wp_delete_post($eventId, $force_delete);		
+	}
+	
 	// abstracted so EventBrite can call without needing $_POST data
-	public static function save_event_meta($event_id, $data, $event = null) {
+	public static function saveEventMeta($event_id, $data, $event = null) {
 		global $sp_ecp;
 		
 		if( $data['EventAllDay'] == 'yes' || !isset($data['EventStartDate']) ) {
@@ -81,8 +110,7 @@ class Tribe_Event_API {
 		return Tribe_Event_API::createVenue($data);
 	}	
 	
-	// Organizer API
-	//public function add_new_organizer() {
+	/* ORGANIZER API */
 	public static function createOrganizer($data) {
 		if ( $data['Organizer'] ) {
 			$postdata = array(
@@ -100,19 +128,22 @@ class Tribe_Event_API {
 		}
 	}	
 	
+	public static function deleteOrganizer($organizerId, $force_delete = false ) {
+		wp_delete_post($organizerId, $force_delete);
+	}		
+	
 	public static function updateOrganizer($organizerId, $data) {
 		wp_update_post( array('post_title' => $data['Organizer'], 'ID'=>$organizerId ));		
 		Tribe_Event_API::saveOrganizerMeta($organizerId, $data);
 	}
 	
-	public static function saveOrganizerMeta($organizerId, $data) {
+	private static function saveOrganizerMeta($organizerId, $data) {
 		foreach ($data as $key => $var) {
 			update_post_meta($organizerId, '_Organizer'.$key, $var);
 		}		
 	}
 	
-	// Venue API
-	//public function add_new_organizer() {
+	/* VENUE API */
 	public static function createVenue($data) {
 		if ( $data['Venue'] ) {
 			$postdata = array(
@@ -135,7 +166,12 @@ class Tribe_Event_API {
 		Tribe_Event_API::saveVenueMeta($venueId, $data);
 	}
 	
-	public static function saveVenueMeta($venueId, $data) {
+	
+	public static function deleteVenue($venueId, $force_delete = false ) {
+		wp_delete_post($venueId, $force_delete);
+	}	
+	
+	private static function saveVenueMeta($venueId, $data) {
 		foreach ($data as $key => $var) {
 			update_post_meta($venueId, '_Venue'.$key, $var);
 		}		
