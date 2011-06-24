@@ -5,6 +5,7 @@ Tags: widget, events, simple, tooltips, grid, month, list, calendar, event, venu
 Requires at least: 3.0
 Tested up to: 3.1.2
 Stable tag: 1.3.2
+Last updated: June 24 2011
 
 == Description ==
 
@@ -46,6 +47,7 @@ The Events Calendar Pro plugin enables you to rapidly create and manage events u
 * Subcategory filters for widgets
 * "Return to today" button in calendar grid view
 * Venue categories
+* Tons more with ECP 2.0, coming fall 2011
 
 == Installation ==
 
@@ -66,7 +68,11 @@ There are a growing number of options you can set to make your calendar behave i
 
 * Default View for Events: Select Calendar or Event list as the default view for the events view
 * Show Comments: Enable or disable comments for events
+* Multiday Event Cutoff: Determine - for multi-day events - whether to hide the last date from grid view if it ends on or before X time
 * Embed Google Maps: Turn on embedded Google Maps and define the height and width of the map
+* Use Pretty URLS: The ability to turn pretty URLs on or off
+* Events URL slug/Single Events URL slug: Customize the slug for your calendar & single events pages
+* Debug: Debugs Event display issues
 * Theme Settings: Add HTML before or after the calendar
 * Customized Defaults: Default organizer/venue data
 * Date / Time format is now managed via the default WordPress setting
@@ -95,7 +101,7 @@ The Events Calendar Pro plugin comes with default templates for the list view, g
 
 Edit the new files to your hearts content. Please do not edit the one's in the plugin folder as that will cause conflicts when you update the plugin to the latest release.
 
-New in 1.1: You may now also use the `sp_events_template_*` filter to override the default template behavior for .php template files. Eg: if you wanted gridview.php to reside in a folder called events-custom/ and wanted it to be called grid.php:
+You may now also use the `sp_events_template_*` filter to override the default template behavior for .php template files. Eg: if you wanted gridview.php to reside in a folder called events-custom/ and wanted it to be called grid.php:
 
 
 	add_filter('sd_events_template_gridview', 'my_gridview');
@@ -199,8 +205,30 @@ Returns an embedded google map. Width and height are set through the admin panel
 
 Returns an EventBrite.com embedded ticket sales inline (not WordPress) widget 
 
+== Suppport ==
+
+For support on Events Calendar Pro, please visit the Make Design Not War Support Forums at http://support.makedesignnotwar.com/categories/e. Before posting a question make sure it wasn't answered at our ECP FAQ: http://shaneandpeter.com/events-calendar-pro-frequently-asked-questions/. 
+
+You can also contact Rob La Gatta (rob@shaneandpeter.com or @RobLaGatta on Twitter) directly for assistance.
 
 == Changelog ==
+
+= 1.3.2 =
+
+Features
+
+# Added support for the new version of jQuery being used in WordPress 3.2.
+# Events spanning multiple days now have an option under Settings to hide the event's final day from grid view.
+# Clicking "View All Events" from a category-specific sidebar widget now takes you to all events within that category, rather than all events on the entire calendar.
+# Sorting by event start & end date in the list of events on the backend is now supported.
+# Multi-day events now display the start AND end date in the grid view tooltip, even if the event-in-question is all day.
+
+Bugs
+
+# Fixed a bug where events taking place today disappeared from the upcoming list widget after 10 a.m. local time.
+# Fixed a potentially critical issue with the_excerpt().
+# Deleted organizers and venues are now automatically removed from events.
+# Resolved a bug where users of certain themes were unable to move more than 1 month forward/back in grid view.
 
 = 1.3.1 =
 
