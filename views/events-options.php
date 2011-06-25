@@ -225,6 +225,18 @@ try {
 	<h3><?php _e('Theme Settings', $this->pluginDomain); ?></h3>
 	<table class="form-table">
 			<tr>
+				<th scope="row"><?php _e('Events Template', $this->pluginDomain ); ?></th>
+				<td><fieldset>
+					<legend class="screen-reader-text"><?php _e('Events Template', $this->pluginDomain ); ?></legend>
+					<select name="spEventsTemplate">
+						<option value=''><?php _e('Default ECP Template'); ?></option>
+						<option value='default' <?php selected(sp_get_option('spEventsTemplate') == 'default') ?>><?php _e('Default Page Template'); ?></option>
+						<?php page_template_dropdown(sp_get_option('spEventsTemplate')); ?>
+					</select>
+					<div><?php _e('Choose a page template to control the look and feel of your calendar.', $this->pluginDomain);?> </div>
+				</fieldset></td>
+			</tr>		
+			<tr>
 				<th scope="row"><?php _e('Add HTML before calendar', $this->pluginDomain ); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Add HTML before calendar', $this->pluginDomain ); ?></legend>

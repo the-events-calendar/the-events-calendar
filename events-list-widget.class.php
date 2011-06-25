@@ -36,7 +36,7 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 
 				if( function_exists( 'sp_get_events' ) ) {
 					$posts = sp_get_events( 'eventDisplay=upcoming&numResults=' . $limit .'&eventCat=' . $category );
-					$template = $sp_ecp->getTemplateHierarchy('events-list-load-widget-display');
+					$template = Tribe_ECP_Templates::getTemplateHierarchy('events-list-load-widget-display');
 				}
 
 				// if no posts, and the don't show if no posts checked, let's bail

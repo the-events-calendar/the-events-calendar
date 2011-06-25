@@ -16,7 +16,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	function sp_calendar_grid() {
 		global $sp_ecp;
 		set_query_var( 'eventDisplay', 'bydate' );
-		load_template( $sp_ecp->getTemplateHierarchy('table') );
+		load_template( Tribe_ECP_Templates::getTemplateHierarchy('table') );
 	}
 	/**
 	 * Output: Prints the mini gridded calendar table
@@ -29,7 +29,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 
 		$wp_query = NEW WP_Query('post_type=sp_events');
 		set_query_var( 'eventDisplay', 'bydate' );
-		load_template( $sp_ecp->getTemplateHierarchy('table-mini') );
+		load_template( Tribe_ECP_Templates::getTemplateHierarchy('table-mini') );
 	
 		$wp_query = $old_query;
 	}
@@ -848,4 +848,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	
 	include_once 'deprecated-template-tags.php';
 	
+	function tribe_get_current_template() {
+		return Tribe_ECP_Templates::get_current_page_template();
+	}
 } // end if class_exists('The-Events-Calendar')

@@ -1,10 +1,3 @@
-<?php
-	global $sp_ecp;
-	
-	get_header();
-
-	echo stripslashes(sp_get_option('spEventsBeforeHTML'));
-?>
 	<div id="tec-content" class="upcoming">
 		<div id='tec-events-calendar-header' class="clearfix">
 			<h2 class="tec-cal-title"><?php sp_events_title(); ?></h2>
@@ -130,9 +123,3 @@
 		</div>
 		<a title="<?php esc_attr_e('iCal Import', $sp_ecp->pluginDomain) ?>" class="ical" href="<?php echo sp_get_ical_link(); ?>"><?php _e('iCal Import', $sp_ecp->pluginDomain) ?></a>
 	</div>
-
-
-<?php
-	echo stripslashes(sp_get_option('spEventsAfterHTML'));
-
-get_footer();

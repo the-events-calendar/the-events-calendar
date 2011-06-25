@@ -126,6 +126,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$this->addActions();
 			Events_Recurrence_Meta::init(); // hooks and filters for event recurrenct
 			Tribe_Admin_Events_List::init(); // hooks and filters for the admin events list
+			Tribe_ECP_Templates::init(); //hooks and filters for loading templates
 
 		}
 		
@@ -155,7 +156,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		private function addFilters() {
 			add_filter( 'post_class', array( $this, 'post_class') );
 			add_filter( 'body_class', array( $this, 'body_class' ) );
-			add_filter( 'template_include', array( $this, 'templateChooser') );
 			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );
 			add_filter( 'admin_body_class', array($this, 'admin_body_class') );
 			add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
@@ -595,7 +595,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					$_POST['eventsSlug'] = 'events';
 				}
 				
-				$opts = array('embedGoogleMaps', 'showComments', 'displayEventsOnHomepage', 'resetEventPostDate', 'useRewriteRules', 'spEventsDebug', 'eventsSlug', 'singleEventSlug','spEventsAfterHTML','spEventsBeforeHTML','spEventsCountries','defaultValueReplace','eventsDefaultVenueID', 'eventsDefaultOrganizerID', 'eventsDefaultState','eventsDefaultProvince','eventsDefaultAddress','eventsDefaultCity','eventsDefaultZip','eventsDefaultPhone','multiDayCutoff');
+				$opts = array('embedGoogleMaps', 'showComments', 'displayEventsOnHomepage', 'resetEventPostDate', 'useRewriteRules', 'spEventsDebug', 'eventsSlug', 'singleEventSlug','spEventsAfterHTML','spEventsBeforeHTML','spEventsCountries','defaultValueReplace','eventsDefaultVenueID', 'eventsDefaultOrganizerID', 'eventsDefaultState','eventsDefaultProvince','eventsDefaultAddress','eventsDefaultCity','eventsDefaultZip','eventsDefaultPhone','multiDayCutoff', 'spEventsTemplate');
 				foreach ($opts as $opt) {
 					if(isset($_POST[$opt]))
 						$options[$opt] = $_POST[$opt];
@@ -764,77 +764,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
         public function deleteOptions() {
             delete_option(Events_Calendar_Pro::OPTIONNAME);
         }
-
-		public function templateChooser($template) {
-			
-			// hijack to iCal template
-			if ( get_query_var('ical') || isset($_GET['ical']) ) {
-				global $wp_query;
-				if ( is_single() ) {
-					$post_id = $wp_query->post->ID;
-					$this->iCalFeed($post_id);
-				}
-				else if ( is_tax( self::TAXONOMY) ) {
-					$this->iCalFeed( null, get_query_var( self::TAXONOMY ) );
-				}
-				else {
-					$this->iCalFeed();
-				}
-				die;
-			}
-
-			// no non-events need apply
-			if ( get_query_var( 'post_type' ) != self::POSTTYPE && ! is_tax( self::TAXONOMY ) ) {
-				return $template;
-			}
-
-			//is_home fixer
-			global $wp_query;
-			$wp_query->is_home = false;
-
-			if ( is_tax( self::TAXONOMY) ) {
-				if ( sp_is_upcoming() || sp_is_past() )
-					return $this->getTemplateHierarchy('list');
-				else
-					return $this->getTemplateHierarchy('gridview');
-			}
-			// single event
-			if ( is_single() && !sp_is_showing_all() ) {
-				return $this->getTemplateHierarchy('single');
-			}
-			// list view
-			elseif ( sp_is_upcoming() || sp_is_past() || (is_single() && sp_is_showing_all()) ) {
-				return $this->getTemplateHierarchy('list');
-			}
-			// grid view
-			else {
-				return $this->getTemplateHierarchy('gridview');
-	        }
-		}
-		
-		/**
-		 * Loads theme files in appropriate hierarchy: 1) child theme, 
-		 * 2) parent template, 3) plugin resources. will look in the events/
-		 * directory in a theme and the views/ directory in the plugin
-		 *
-		 * @param string $template template file to search for
-		 * @return template path
-		 * @author Matt Wiebe
-		 **/
-
-		public function getTemplateHierarchy($template) {
-			if ( substr($template, -4) != '.php' ) {
-				$template .= '.php';
-			}
-
-			if ( $theme_file = locate_template(array('events/'.$template)) ) {
-				$file = $theme_file;
-			}
-			else {
-				$file = $this->pluginPath . 'views/' . $template;
-			}
-			return apply_filters( 'sp_events_template_'.$template, $file);
-		}
 		
 		public function truncate($text, $excerpt_length = 44) {
 
