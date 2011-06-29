@@ -164,6 +164,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter('bloginfo_rss',  array($this, 'add_space_to_rss' ));
 			//add_filter( 'the_permalink', array($this, 'addDateToRecurringEvents') );
 			add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
+			add_filter( 'post_updated_messages', array($this, 'updatePostMessage') );
 			
 			/* Add nav menu item */
 			add_filter( 'nav_menu_items_' . Events_Calendar_Pro::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
@@ -452,6 +453,63 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				'new_item_name' =>  __( 'New Event Category Name', $this->pluginDomain )
 			);
 			
+		}
+
+		public function updatePostMessage( $messages ) {
+		  global $post, $post_ID;
+
+		  $messages[self::POSTTYPE] = array(
+			 0 => '', // Unused. Messages start at index 1.
+			 1 => sprintf( __('Event updated. <a href="%s">View event</a>'), esc_url( get_permalink($post_ID) ) ),
+			 2 => __('Custom field updated.'),
+			 3 => __('Custom field deleted.'),
+			 4 => __('Event updated.'),
+			 /* translators: %s: date and time of the revision */
+			 5 => isset($_GET['revision']) ? sprintf( __('Event restored to revision from %s'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+			 6 => sprintf( __('Event published. <a href="%s">View event</a>'), esc_url( get_permalink($post_ID) ) ),
+			 7 => __('Event saved.'),
+			 8 => sprintf( __('Event submitted. <a target="_blank" href="%s">Preview event</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+			 9 => sprintf( __('Event scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview event</a>'),
+				// translators: Publish box date format, see http://php.net/date
+				date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+			 10 => sprintf( __('Event draft updated. <a target="_blank" href="%s">Preview event</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+		  );
+		  
+		  $messages[self::VENUE_POST_TYPE] = array(
+			 0 => '', // Unused. Messages start at index 1.
+			 1 => sprintf( __('Venue updated. <a href="%s">View venue</a>'), esc_url( get_permalink($post_ID) ) ),
+			 2 => __('Custom field updated.'),
+			 3 => __('Custom field deleted.'),
+			 4 => __('Venue updated.'),
+			 /* translators: %s: date and time of the revision */
+			 5 => isset($_GET['revision']) ? sprintf( __('Venue restored to revision from %s'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+			 6 => sprintf( __('Venue published. <a href="%s">View venue</a>'), esc_url( get_permalink($post_ID) ) ),
+			 7 => __('Venue saved.'),
+			 8 => sprintf( __('Venue submitted. <a target="_blank" href="%s">Preview venue</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+			 9 => sprintf( __('Venue scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview venue</a>'),
+				// translators: Publish box date format, see http://php.net/date
+				date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+			 10 => sprintf( __('Venue draft updated. <a target="_blank" href="%s">Preview venue</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+		  );
+		  
+		  $messages[self::ORGANIZER_POST_TYPE] = array(
+			 0 => '', // Unused. Messages start at index 1.
+			 1 => sprintf( __('Organizer updated. <a href="%s">View organizer</a>'), esc_url( get_permalink($post_ID) ) ),
+			 2 => __('Custom field updated.'),
+			 3 => __('Custom field deleted.'),
+			 4 => __('Organizer updated.'),
+			 /* translators: %s: date and time of the revision */
+			 5 => isset($_GET['revision']) ? sprintf( __('Organizer restored to revision from %s'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+			 6 => sprintf( __('Organizer published. <a href="%s">View organizer</a>'), esc_url( get_permalink($post_ID) ) ),
+			 7 => __('Organizer saved.'),
+			 8 => sprintf( __('Organizer submitted. <a target="_blank" href="%s">Preview organizer</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+			 9 => sprintf( __('Organizer scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview organizer</a>'),
+				// translators: Publish box date format, see http://php.net/date
+				date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+			 10 => sprintf( __('Organizer draft updated. <a target="_blank" href="%s">Preview organizer</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+		  );		  
+
+		  return $messages;
 		}
 		
 		public function admin_body_class( $classes ) {
