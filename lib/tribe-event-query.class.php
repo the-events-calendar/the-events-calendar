@@ -148,9 +148,10 @@ class Tribe_Event_Query {
 	public static function addEventConditions($where, $cur_query) {
 		global $wpdb;
 
-		// these should come from cur_query, but there appears to be a WP bug
-		$start_date = $cur_query->get('start_date');
-		
+		if ( $cur_query->get('start_date') ) {
+			$start_date = DateUtils::beginningOfDay($cur_query->get('start_date'));
+		}
+
 		if ( $cur_query->get('end_date') ) {
 			$end_date = DateUtils::endOfDay(  $cur_query->get('end_date') );
 		}
@@ -161,14 +162,15 @@ class Tribe_Event_Query {
 		if($start_date && $end_date) {
 			$start_clause = $wpdb->prepare("(eventStart.meta_value >= %s AND eventStart.meta_value <= %s)", $start_date, $end_date);
 			$end_clause = $wpdb->prepare("($endDate >= %s AND eventStart.meta_value <= %s )", $start_date, $end_date);
-			$within_clause = $wpdb->prepare("(eventStart.meta_value < %s AND $endDate > %s )", $start_date, $end_date);
+			$within_clause = $wpdb->prepare("(eventStart.meta_value < %s AND $endDate >= %s )", $start_date, $end_date);
 			$where .= " AND ($start_clause OR $end_clause OR $within_clause)";
 		} else if($end_date) {
 			$start_clause = $wpdb->prepare("$endDate < %s", $end_date);
 			$where .= " AND $start_clause";
 		} else if($start_date) {
 		   $end_clause = $wpdb->prepare("eventStart.meta_value > %s", $start_date);
-		   $where .= " AND $end_clause";
+			$within_clause = $wpdb->prepare("(eventStart.meta_value <= %s AND $endDate >= %s )", $start_date, $end_date);
+		   $where .= " AND ($end_clause OR $within_clause)";
 		}
 		
 		if ( $cur_query->get('hide_upcoming') ) {

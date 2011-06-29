@@ -39,7 +39,7 @@ class Tribe_Event_API {
 		} else {
 			delete_post_meta( $event_id, '_EventAllDay' );
 			$data['EventStartDate'] = date( DateUtils::DBDATETIMEFORMAT, strtotime($data['EventStartDate'] . " " . $data['EventStartHour'] . ":" . $data['EventStartMinute'] . ":00 " . $data['EventStartMeridian']) );
-			$data['EventEndDate'] = date( DateUtils::DBDATETIMEFORMAT, strtotime($data['EventEndDate'] . " " . $data['EventEndHour'] . ":" . $data['EventEndMinute'] . ":00 " . $data['EventEndMeridian']) );
+			$data['EventEndDate'] = date( DateUtils::DBDATETIMEFORMAT, strtotime($data['EventEndDate'] . " " . $data['EventEndHour'] . ":" . $data['EventEndMinute'] . ":59 " . $data['EventEndMeridian']) );
 		}
 		
 		if(!$data['EventHideFromUpcoming']) delete_post_meta($event_id, '_EventHideFromUpcoming');
