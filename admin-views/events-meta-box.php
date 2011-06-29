@@ -84,7 +84,7 @@ try {
 				</span>
 			</td>
 		</tr>
-		<?php include( $this->pluginPath . 'views/event-recurrence.php' ); ?>
+		<?php include( $this->pluginPath . 'admin-views/event-recurrence.php' ); ?>
 	</table>
 	<table id="event_venue" class="eventtable">
 		<tr>
@@ -98,7 +98,7 @@ try {
 		</tr>
 			
 		<?php
-			include( $this->pluginPath . 'views/venue-meta-box.php' );
+			include( $this->pluginPath . 'admin-views/venue-meta-box.php' );
 
 		?>
 		<tr id="google_map_link_toggle">
@@ -132,7 +132,7 @@ try {
 			</tr>
 				
 			<?php
-				include( $this->pluginPath . 'views/organizer-meta-box.php' );
+				include( $this->pluginPath . 'admin-views/organizer-meta-box.php' );
 
 			?>
 	</table>

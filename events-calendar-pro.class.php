@@ -70,6 +70,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			'_EventCost',
 			'_EventOrganizerID',
 			'_EventPhone',
+			'_EventHideFromUpcoming',
 			self::EVENTSERROROPT
 		);
 
@@ -560,7 +561,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 		
 		public function optionsPageView() {
-			include( $this->pluginPath . 'views/events-options.php' );
+			include( $this->pluginPath . 'admin-views/events-options.php' );
 			// every visit to ECP Settings = flush rules.
 			$this->flushRewriteRules();
 		}
@@ -1484,7 +1485,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$EventEndDate = DateUtils::dateOnly( strtotime($EventStartDate) + $duration, true );
 			}
 
-			include( $this->pluginPath . 'views/events-meta-box.php' );
+			include( $this->pluginPath . 'admin-views/events-meta-box.php' );
 		}
 		/**
 		 * Adds a style chooser to the write post page
@@ -1515,7 +1516,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				<div id='eventDetails' class="inside eventForm">	
 					<table cellspacing="0" cellpadding="0" id="EventInfo" class="VenueInfo">
 					<?php
-					include( $this->pluginPath . 'views/venue-meta-box.php' );
+					include( $this->pluginPath . 'admin-views/venue-meta-box.php' );
 					?>
 					</table>
 				</div>
@@ -1546,7 +1547,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				<div id='eventDetails' class="inside eventForm">	
 					<table cellspacing="0" cellpadding="0" id="EventInfo" class="OrganizerInfo">
 					<?php
-					include( $this->pluginPath . 'views/organizer-meta-box.php' );
+					include( $this->pluginPath . 'admin-views/organizer-meta-box.php' );
 					?>
 					</table>
 				</div>
@@ -1624,8 +1625,13 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 */
 		public function addEventBox( ) {
 			add_meta_box( 'Event Details', $this->pluginName, array( $this, 'EventsChooserBox' ), self::POSTTYPE, 'normal', 'high' );
+			add_meta_box( 'Event Options', __('Event Options', $this->pluginDomain), array( $this, 'eventMetaBox' ), self::POSTTYPE, 'side', 'default' );
+			
 			add_meta_box( 'Venue Details', __('Venue Information', $this->pluginDomain), array( $this, 'VenueMetaBox' ), self::VENUE_POST_TYPE, 'normal', 'high' );
 			add_meta_box( 'Organizer Details', __('Organizer Information', $this->pluginDomain), array( $this, 'OrganizerMetaBox' ), self::ORGANIZER_POST_TYPE, 'normal', 'high' );
+		}
+		public function eventMetaBox() {
+			include( $this->pluginPath . 'admin-views/event-sidebar-options.php' );
 		}
 		/** 
 		 * Builds a set of options for diplaying a meridian chooser

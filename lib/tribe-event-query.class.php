@@ -20,7 +20,7 @@ class Tribe_Event_Query {
 			
 			// filter to manipulate the sp_event_query parameters
 			apply_filters( 'parse_tribe_event_query', $query );		
-			add_filter( 'posts_join', array(__CLASS__, 'setupJoins' ) );
+			add_filter( 'posts_join', array(__CLASS__, 'setupJoins' ), 10, 2 );
 			add_filter( 'posts_where', array(__CLASS__, 'addEventConditions'), 10, 2);
 			add_filter( 'posts_fields', array(__CLASS__, 'setupFields' ) );	
 			add_filter( 'posts_groupby', array(__CLASS__, 'addStartDateToGroupBy'));
@@ -71,8 +71,12 @@ class Tribe_Event_Query {
 		return $query;
 	}
 
-	public static function setupJoins($join) {
+	public static function setupJoins($join, $cur_query) {
 		global $wpdb;
+
+		if ( $cur_query->get('hide_upcoming') ) {
+			$join .= " LEFT JOIN {$wpdb->postmeta} as hideUpcoming ON( {$wpdb->posts}.ID = hideUpcoming.post_id AND hideUpcoming.meta_key = '_EventHideFromUpcoming') ";	
+		}
 
 		$join .= " LEFT JOIN {$wpdb->postmeta} as eventStart ON( {$wpdb->posts}.ID = eventStart.post_id AND eventStart.meta_key = '_EventStartDate') ";
 		$join .= " LEFT JOIN {$wpdb->postmeta} as eventDuration ON( {$wpdb->posts}.ID = eventDuration.post_id AND eventDuration.meta_key = '_EventDuration') ";
@@ -106,6 +110,7 @@ class Tribe_Event_Query {
 
 	public static function setUpcomingDisplayTypeArgs($query) {
 		$args = &$query->query_vars;
+		$args['hide_upcoming'] = true;
 		$args['start_date'] = date_i18n( DateUtils::DBDATETIMEFORMAT );
 		add_filter('posts_orderby', array(__CLASS__, 'setAscendingDisplayOrder'));
 
@@ -165,6 +170,10 @@ class Tribe_Event_Query {
 		   $end_clause = $wpdb->prepare("eventStart.meta_value > %s", $start_date);
 		   $where .= " AND $end_clause";
 		}
+		
+		if ( $cur_query->get('hide_upcoming') ) {
+			$where .= " AND (hideUpcoming.meta_value != 'yes' OR hideUpcoming.meta_value IS null) ";	
+		}		
 
 		return $where;
 	}

@@ -41,6 +41,8 @@ class Tribe_Event_API {
 			$data['EventStartDate'] = date( DateUtils::DBDATETIMEFORMAT, strtotime($data['EventStartDate'] . " " . $data['EventStartHour'] . ":" . $data['EventStartMinute'] . ":00 " . $data['EventStartMeridian']) );
 			$data['EventEndDate'] = date( DateUtils::DBDATETIMEFORMAT, strtotime($data['EventEndDate'] . " " . $data['EventEndHour'] . ":" . $data['EventEndMinute'] . ":00 " . $data['EventEndMeridian']) );
 		}
+		
+		if(!$data['EventHideFromUpcoming']) delete_post_meta($event_id, '_EventHideFromUpcoming');
 
 		// sanity check that start date < end date
 		$startTimestamp = strtotime( $data['EventStartDate'] );
@@ -55,7 +57,7 @@ class Tribe_Event_API {
 		
 		$data['EventOrganizerID'] = Tribe_Event_API::saveEventOrganizer($data["Organizer"]);
 		$data['EventVenueID'] = Tribe_Event_API::saveEventVenue($data["Venue"]);
-
+		
 		try {
 			do_action( 'sp_events_event_save', $event_id );
 			if( !$sp_ecp->getPostExceptionThrown() ) delete_post_meta( $event_id, Events_Calendar_Pro::EVENTSERROROPT );
