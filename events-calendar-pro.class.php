@@ -26,14 +26,13 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			'rewrite' => false,
 			'show_ui' => true,
 			'show_in_menu' => 0,
-// 			'menu_position' => 6,
-			'supports' => array('thumbnail')
+			'supports' => array()
 		);
 		private $postOrganizerTypeArgs = array(
 			'public' => true,
 			'rewrite' => false,
 			'menu_position' => 6,
-			'supports' => array('thumbnail')
+			'supports' => array()
 		);
 		private $taxonomyLabels;
 
