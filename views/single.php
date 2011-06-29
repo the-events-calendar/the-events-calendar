@@ -1,9 +1,4 @@
-	<div id="container">
-	<div id="content" class="tec-event widecolumn">
-	<?php the_post(); global $post; ?>
-			<div id="post-<?php the_ID() ?>" <?php post_class() ?>>
-				<span class="back"><a href="<?php echo sp_get_events_link(); ?>"><?php _e('&laquo; Back to Events', $sp_ecp->pluginDomain); ?></a></span>
-				<h2 class="entry-title"><?php the_title() ?></h2>
+				<span class="back"><a href="<?php echo sp_get_events_link(); ?>"><?php _e('&laquo; Back to Events', $sp_ecp->pluginDomain); ?></a></span>				
 				<?php if (sp_get_end_date() > time()  ) { ?><small><?php  _e('This event has passed.', $sp_ecp->pluginDomain) ?></small> <?php } ?>
 				<div id="tec-event-meta">
 					<dl class="column">
@@ -70,15 +65,7 @@
 				</div>
 				<a class="ical single" href="<?php echo sp_get_single_ical_link(); ?>"><?php _e('iCal Import', $sp_ecp->pluginDomain); ?></a>
 				<a href="<?php echo sp_get_add_to_gcal_link() ?>" class="gcal-add" title="<?php _e('Add to Google Calendar', $sp_ecp->pluginDomain); ?>"><?php _e('+ Google Calendar', $sp_ecp->pluginDomain); ?></a>
-				<?php edit_post_link('Edit', '<span class="edit-link">', '</span>'); ?>
 				<div class="navlink previous"><?php sp_previous_event_link();?></div>
 
 				<div class="navlink next"><?php sp_next_event_link();?></div>
 				<div style="clear:both"></div>
-			</div><!-- post -->
-
-		<?php if(sp_get_option('showComments','no') == 'yes'){ comments_template();} ?>
-
-	</div><!-- #content -->
-	</div><!--#container-->
-<?php get_sidebar(); ?>	

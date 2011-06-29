@@ -772,14 +772,20 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * echos an events title, with pseudo-breadcrumb if on a category
 	*/ 
 	function sp_events_title() {
+		echo sp_get_events_title();
+	}
+	
+	function sp_get_events_title() {
 		global $sp_ecp;
+
 		$title = __('Calendar of Events', $sp_ecp->pluginDomain);
 		if ( is_tax( $sp_ecp->get_event_taxonomy() ) ) {
 			$cat = get_term_by( 'slug', get_query_var('term'), $sp_ecp->get_event_taxonomy() );
 			$title = '<a href="'.sp_get_events_link().'">'.$title.'</a>';
 			$title .= ' &#8250; ' . $cat->name;
 		}
-		echo $title;
+
+		return $title;
 	}
 
 	function sp_meta_event_cats() {

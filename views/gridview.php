@@ -5,7 +5,6 @@
 ?>	
 	<div id="tec-content" class="grid">
 		<div id='tec-events-calendar-header' class="clearfix">
-			<h2 class="tec-cal-title"><?php sp_events_title(); ?></h2>
 			<span class='tec-month-nav'>
 				<span class='tec-prev-month'>
 					<a href='<?php echo sp_get_previous_month_link(); ?>'>

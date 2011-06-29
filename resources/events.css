@@ -19,10 +19,13 @@
 #tec-content a, #tec-event-meta a {
 	text-decoration:none;
 }
+
 #tec-events-calendar-header {
 	position:relative;
 	margin-bottom:18px;
+	height: 50px;
 }
+
 .tec-calendar-buttons {
 	position:absolute;
 	right:0;
@@ -32,9 +35,8 @@
 	top:-24px;
 }
 h2.tec-cal-title {
-	float:left;
-	padding-right:15px;
-	margin-bottom: 33px;
+	padding-left:20px;
+	margin-bottom: 0px;
 	font-size:21px;
 	font-weight:bold;
 	color:#000;
@@ -60,8 +62,8 @@ h2.tec-cal-title a:hover, h2.tec-cal-title a:focus {
 .tec-month-nav a:hover, .tec-nav a:hover, .back a:hover, .eventsListWidget .dig-in a:hover {
 	text-decoration:underline;
 }
-#tec-content .ical, .events-single #content .ical, #content .gcal-add {
-	color:#fff;
+a.ical, a.gcal-add {
+	color:#fff !important;
 	font-size:10px;
 	background:#777;
 	padding:0 6px;
@@ -71,19 +73,19 @@ h2.tec-cal-title a:hover, h2.tec-cal-title a:focus {
 	float:right;
 	text-transform:uppercase;
 	letter-spacing:1px;
-}
-.events-single #content .ical, #content .gcal-add {
-	text-decoration:none;
+	text-decoration: none;
 	line-height:18px;
-	margin-bottom:21px;
+	margin-bottom:21px;	
 }
-#content .gcal-add {
+
+.gcal-add {
 	margin-right:9px;
 }
+
 .tec-calendar-buttons a {
 	background:#999;
 	border-radius:3px;
-	color:#fff;
+	color:#fff !important;
 	display:block;
 	float:left;
 	font-size:11px;
@@ -140,10 +142,12 @@ select.tec-events-dropdown {
 	margin:15px 0 6px;
 	font-size:18px;
 	font-weight:bold;
+	line-height: 1em;
+	padding: 0;
 }
 .events-archive .event-day {
 	font-size:18px;
-	margin-top:36px;
+	margin-top:36px !important;
 	font-style:italic;
 }
 .events-archive .entry-title a, .tec-event-meta-desc, .tec-event-day {
@@ -151,9 +155,10 @@ select.tec-events-dropdown {
 }
 .events-archive .hentry {
 	margin:0;
+	padding: 0 !important;
 }
 table.tec-calendar {
-	margin:18px 0 12px;
+	margin:18px 0 12px !important;
 	clear:both;
 	font-size:12px;
 	border-collapse:collapse;
@@ -186,15 +191,15 @@ table.tec-calendar, .tec-calendar td {
 	letter-spacing:1px;
 }
 .tec-calendar td {
-	height: 110px;
+	height: 110px !important;
 	width:14.28%;
 	color: #114B7D;
 	vertical-align: top;
-	padding:0;
+	padding:0 !important;
 	font-size:12px;
 }
 .tec-calendar td .tec-event {
-	padding:6px 9px;
+	padding:6px 9px !important;
 	line-height:1.2;
 }
 .tec-calendar td a {font-size:91.7%;}
@@ -203,7 +208,7 @@ table.tec-calendar, .tec-calendar td {
 	display:block;
 	height:1px;
 	background-color:#E7E7E7;
-	margin:0 9px;
+	margin:0 9px !important;
 }
 .tec-calendar .tec-event {
 	position:relative;
@@ -266,7 +271,7 @@ table.tec-calendar, .tec-calendar td {
 	border-width:1px 0;
 	border-style:solid;
 	border-color:#bbb;
-	margin: 18px 0;
+	margin: 8px 0 18px 0;
 	padding: 12px 0 2px;
 	overflow:hidden;
 	clear:both;
@@ -301,8 +306,6 @@ table.tec-calendar, .tec-calendar td {
 	white-space:nowrap;
 }
 span.back {
-	position:relative;
-	top:-12px;
 	font-size:12px;
 }
 #tec-events-loop {
@@ -327,11 +330,14 @@ span.back {
 	font-size:12px;
 	margin-bottom:20px;
 }
-.tec-event-list-meta table {border-collapse:collapse;}
+.tec-event-list-meta table {border-collapse:collapse; border: 0 !important;}
+.tec-event-list-meta tr { border: 0 !important; }
 .tec-event-list-meta td {
 	vertical-align:top;
-	padding-bottom:4px;
+	padding: 0 0 4px 0 !important;
 	text-align:left;
+	border: 0 !important;
+	background-color: white;
 }
 .tec-event-meta-desc {
 	font-weight:bold;
@@ -362,14 +368,9 @@ h4.tec-event-day + .post .entry-title {margin-top:6px;}
 	margin-bottom:1em;
 	line-height:16px;
 }
-.clearfix:after {
-	content: " ";
-	display: block;
-	height: 0;
-	clear: both;
-	visibility: hidden;
-}
-.clearfix {zoom:1; /* For IE */}
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
 .tec-events-error {display:none;}
 .tec_hide {display:none;}
 .tec-multi-event-day {color: #0F81BB;}
@@ -418,7 +419,7 @@ h4 .sp-view-all-events {
 	width:14.28%;
 }
 .tec-calendar-widget td {
-	height:auto;
+	height:auto !important;
 	text-align:center;
 }
 .tec-calendar-widget td .tec-event {
