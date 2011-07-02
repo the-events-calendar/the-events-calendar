@@ -100,7 +100,7 @@
 		if ( $cost && sp_get_cost() != '') {		
 			if($output) 
 				$output .= '<br/>';
-			$output .= sp_get_cost(); 
+			$output .= "Price: " . sp_get_cost(); 
 		}
 
 		echo $output;
