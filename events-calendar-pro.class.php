@@ -23,7 +23,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		);
 		private $postVenueTypeArgs = array(
 			'public' => true,
-			'rewrite' => false,
+			'rewrite' => array('slug'=>'venue', 'with_front' => false),
 			'show_ui' => true,
 			'show_in_menu' => 0,
 			'supports' => array()
@@ -140,6 +140,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$this->upcomingSlug = __('upcoming', $this->pluginDomain);
 			$this->pastSlug = __('past', $this->pluginDomain);
 			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlugSingular;
+         $this->postVenueTypeArgs['rewrite']['slug'] = __( 'venue', $this->pluginDomain );
 			$this->currentDay = '';
 			$this->errors = '';
 			Tribe_Event_Query::init();

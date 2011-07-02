@@ -41,6 +41,10 @@ class Tribe_Event_Query {
 			$args['posts_per_page'] = $args['numResults'];
 		}
 
+      if ($args['venue']) {
+			$args['meta_query'][] = array('key'=>'_EventVenueID', 'value'=>$args['venue']);
+      }
+
 		// proprietary metaKeys go to standard meta
 		if ($args['metaKey'])
 			$args['meta_query'][] = array('key'=>$args['metaKey'], 'value'=>$args['metaValue']);

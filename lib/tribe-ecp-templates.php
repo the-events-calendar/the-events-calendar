@@ -28,7 +28,7 @@ class Tribe_ECP_Templates {
 		}
 
 		// no non-events need apply
-		if ( get_query_var( 'post_type' ) != Events_Calendar_Pro::POSTTYPE && ! is_tax( Events_Calendar_Pro::TAXONOMY ) ) {
+		if ( get_query_var( 'post_type' ) != Events_Calendar_Pro::POSTTYPE && ! is_tax( Events_Calendar_Pro::TAXONOMY ) && get_query_var( 'post_type' ) != Events_Calendar_Pro::VENUE_POST_TYPE ) {
 			return $template;
 		}
 
@@ -75,6 +75,10 @@ class Tribe_ECP_Templates {
 		
 	// get the correct internal page template
 	public static function get_current_page_template() {
+      if ( is_singular( Events_Calendar_Pro::VENUE_POST_TYPE ) ) {
+         return Tribe_ECP_Templates::getTemplateHierarchy('single-venue');
+      }
+
 		if ( is_tax( Events_Calendar_Pro::TAXONOMY) ) {
 			if ( sp_is_upcoming() || sp_is_past() )
 				return Tribe_ECP_Templates::getTemplateHierarchy('list');
