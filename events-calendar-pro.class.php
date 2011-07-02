@@ -165,7 +165,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
 			add_filter( 'post_updated_messages', array($this, 'updatePostMessage') );
 			
-			/* Add nav menu item */
+			/* Add nav menu item - thanks to http://wordpress.org/extend/plugins/cpt-archives-in-nav-menus/ */
 			add_filter( 'nav_menu_items_' . Events_Calendar_Pro::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
 			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events'), null, 2);
 		}
