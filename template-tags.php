@@ -635,7 +635,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		if ( isset ( $wp_query->query_vars['eventDate'] ) ) { 
 			$date = $wp_query->query_vars['eventDate'] . "-01";
 		} else {
-			$date = date_i18n( Events_Calendar_Pro::DBDATEFORMAT );
+			$date = date_i18n( DateUtils::DBDATEFORMAT );
 		}
 		
 		return $date;
