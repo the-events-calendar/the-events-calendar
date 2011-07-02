@@ -822,7 +822,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	function sp_get_recurrence_text( $postId = null ) {
 		global $sp_ecp;
 		$postId = sp_post_id_helper( $postId );
-	   return apply_filters( 'sp_get_recurrence_text', Events_Recurrence_Meta::recurrenceToText( $postId ) );
+	   return apply_filters( 'tribe_get_recurrence_text', Events_Recurrence_Meta::recurrenceToText( $postId ) );
 	}
 
 	/**

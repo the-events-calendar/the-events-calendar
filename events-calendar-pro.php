@@ -50,8 +50,8 @@ if ( ! function_exists('events_calendar_pro_load') ) {
 
 events_calendar_pro_load();
 
-add_action('admin_head', 'sp_events_notices');
-function sp_events_notices() {
+add_action('admin_head', 'tribe_events_notices');
+function tribe_events_notices() {
 	if ( ! SP_EVENTS_SUPPORTED_WP_VERSION ) {
 		echo '<div class="error"><p>Events Calendar Pro requires WordPress 3.0 or higher. Please upgrade WordPress or deactivate Events Calendar Pro.</p></div>';
 	}

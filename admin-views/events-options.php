@@ -26,22 +26,8 @@ div.snp_settings{
 <?php screen_icon(); ?><h2><?php printf( '%s Settings', $this->pluginName ); ?></h2>
 <div id="tec-options-error" class="tec-events-error error"></div>
 <?php
-try {
 	$hasDefaultVenue = sp_get_option('eventsDefaultVenueID') && sp_get_option('eventsDefaultVenueID') != "0";
-	do_action( 'sp_events_options_top' );
-	if ( !$this->optionsExceptionThrown ) {
-		//TODO error saving is breaking options saving, to be fixed and uncommented later
-		//$allOptions = $this->getOptions();
-		//$allOptions['error'] = "";
-		//$this->saveOptions( $allOptions );
-	}
-} catch( TEC_WP_Options_Exception $e ) {
-	$this->optionsExceptionThrown = true;
-	//$allOptions = $this->getOptions();
-	//$allOptions['error'] = $e->getMessage();
-	//$this->saveOptions( $allOptions );
-	//$e->displayMessage(); //
-}
+   $this->do_action( 'tribe_events_options_top' );
 ?>
 <div class="form">
 	<h3><?php _e('Need a hand?',$this->pluginDomain); ?></h3>
@@ -385,23 +371,7 @@ try {
 					<div><?php _e('One country per line in the following format: <br/>US, United States <br/> UK, United Kingdom.', $this->pluginDomain);?> <?php _e('(Replaces the default list.)', $this->pluginDomain) ?></div>
 				</fieldset></td>
 			</tr>
-	    <?php
-		try {
-			do_action( 'sp_events_options_bottom' );
-			if ( !$this->optionsExceptionThrown ) {
-				//TODO error saving is breaking options saving, to be fixed and uncommented later
-				//$allOptions = $this->getOptions();
-				//$allOptions['error'] = "";
-				//$this->saveOptions( $allOptions );
-			}
-		} catch( TEC_WP_Options_Exception $e ) {
-			$this->optionsExceptionThrown = true;
-			//$allOptions = $this->getOptions();
-			//$allOptions['error'] = $e->getMessage();
-			//$this->saveOptions( $allOptions );
-			//$e->displayMessage();
-		}
-		?>
+         <?php $this->do_action( 'tribe_events_options_bottom' ); ?>
 		<tr>
 	    	<td>
 	    		<input id="saveEventsCalendarOptions" class="button-primary" type="submit" name="saveEventsCalendarOptions" value="<?php _e('Save Changes', $this->pluginDomain); ?>" />

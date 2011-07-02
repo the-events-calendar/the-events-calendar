@@ -6,30 +6,11 @@
 <?php require_once('recurrence-dialog.php'); ?>
 <div id="eventIntro">
 <div id="tec-post-error" class="tec-events-error error"></div>
-<?php
-try {
-	do_action('sp_events_post_errors', $postId );
-	if( !$this->postExceptionThrown ) delete_post_meta( $postId, self::EVENTSERROROPT );
-} catch ( TEC_Post_Exception $e) {
-	$this->postExceptionThrown = true;
-	update_post_meta( $postId, self::EVENTSERROROPT, trim( $e->getMessage() ) );
-	$e->displayMessage( $postId );
-}
-?>
+<?php $this->do_action('tribe_events_post_errors', $postId, true) ?>
 
 </div>
 <div id='eventDetails' class="inside eventForm bubble">
-	<?php
-	try {
-		do_action('sp_events_detail_top', $postId );
-		if( !$this->postExceptionThrown ) delete_post_meta( $postId, self::EVENTSERROROPT );
-	} catch ( TEC_Post_Exception $e) {
-		$this->postExceptionThrown = true;
-		update_post_meta( $postId, self::EVENTSERROROPT, trim( $e->getMessage() ) );
-		$e->displayMessage( $postId );
-	}
-	
-	?>	
+   <?php $this->do_action('tribe_events_detail_top', $postId, true) ?>
 	<?php wp_nonce_field( Events_Calendar_Pro::POSTTYPE, 'ecp_nonce' ); ?>
 	<table cellspacing="0" cellpadding="0" id="EventInfo">
 		<tr>
@@ -164,35 +145,8 @@ try {
 				</td>
 			</tr>
 		<?php } ?>
-		<?php try {
-		do_action( 'sp_events_cost_table', $postId );
-		if( !$this->postExceptionThrown ) delete_post_meta( $postId, self::EVENTSERROROPT );
-			} catch ( TEC_Post_Exception $e) {
-				$this->postExceptionThrown = true;
-				update_post_meta( $postId, self::EVENTSERROROPT, trim( $e->getMessage() ) );
-				$e->displayMessage( $postId );
-			}?>
-		
+      <?php $this->do_action('tribe_events_cost_table', $postId, true) ?>
 	</table>
 	</div>
-	<?php 
-	try {
-		do_action( 'sp_events_above_donate', $postId );
-		if( !$this->postExceptionThrown ) delete_post_meta( $postId, self::EVENTSERROROPT );
-	} catch ( TEC_Post_Exception $e) {
-		$this->postExceptionThrown = true;
-		update_post_meta( $postId, self::EVENTSERROROPT, trim( $e->getMessage() ) );
-		$e->displayMessage( $postId );
-	}	
-	?>
-
-<?php
-try {
-	do_action( 'sp_events_details_bottom', $postId );
-	if( !$this->postExceptionThrown ) delete_post_meta( $postId, self::EVENTSERROROPT );
-} catch ( TEC_Post_Exception $e) {
-	$this->postExceptionThrown = true;
-	update_post_meta( $postId, self::EVENTSERROROPT, trim( $e->getMessage() ) );
-	$e->displayMessage( $postId );
-}
-?>
+   <?php $this->do_action('tribe_events_above_donate', $postId, true) ?>
+   <?php $this->do_action('tribe_events_details_bottom', $postId, true) ?>

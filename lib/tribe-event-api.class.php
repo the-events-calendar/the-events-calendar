@@ -57,14 +57,8 @@ class Tribe_Event_API {
 		
 		$data['EventOrganizerID'] = Tribe_Event_API::saveEventOrganizer($data["Organizer"]);
 		$data['EventVenueID'] = Tribe_Event_API::saveEventVenue($data["Venue"]);
-		
-		try {
-			do_action( 'sp_events_event_save', $event_id );
-			if( !$sp_ecp->getPostExceptionThrown() ) delete_post_meta( $event_id, Events_Calendar_Pro::EVENTSERROROPT );
-		} catch ( TEC_Post_Exception $e ) {
-			$sp_ecp->setPostExceptionThrown(true);
-			update_post_meta( $event_id, self::EVENTSERROROPT, trim( $e->getMessage() ) );
-		}
+
+      $sp_ecp->do_action('tribe_events_event_save', $event_id);
 
 		//update meta fields
 		foreach ( $sp_ecp->metaTags as $tag ) {
@@ -85,13 +79,7 @@ class Tribe_Event_API {
 			Events_Recurrence_Meta::saveEvents($event_id, $event);
 		}
 
-		try {
-			do_action( 'sp_events_update_meta', $event_id );
-			if( !$sp_ecp->getPostExceptionThrown() ) delete_post_meta( $event_id, Events_Calendar_Pro::EVENTSERROROPT );
-		} catch( TEC_Post_Exception $e ) {
-			$sp_ecp->setPostExceptionThrown(true);
-			update_post_meta( $event_id, Events_Calendar_Pro::EVENTSERROROPT, trim( $e->getMessage() ) );
-		}
+      $sp_ecp->do_action('tribe_events_update_meta', $event_id);
 	}	
 	
 	// used when saving event meta

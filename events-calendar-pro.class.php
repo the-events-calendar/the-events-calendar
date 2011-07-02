@@ -211,7 +211,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		private function addActions() {
 			add_action( 'init', array( $this, 'init'), 10 );
 			add_action( 'template_redirect',				array( $this, 'loadStyle' ) );
-			add_action( 'sp-events-save-more-options', array( $this, 'flushRewriteRules' ) );
+			add_action( 'tribe-events-save-more-options', array( $this, 'flushRewriteRules' ) );
 			add_action( 'admin_menu', 		array( $this, 'addOptionsPage' ) );
 			add_action( 'admin_init', 		array( $this, 'checkForOptionsChanges' ) );
 			add_action( 'admin_menu', 		array( $this, 'addEventBox' ) );
@@ -220,8 +220,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_action( 'save_post',		array( $this, 'save_organizer_data' ), 16, 2 );
 			add_action( 'pre_get_posts',  array( $this, 'setDate' ));
 			add_action( 'pre_get_posts',  array( $this, 'setDisplay' ));
-			add_action( 'sp_events_post_errors', array( 'TEC_Post_Exception', 'displayMessage' ) );
-			add_action( 'sp_events_options_top', array( 'TEC_WP_Options_Exception', 'displayMessage') );
+			add_action( 'tribe_events_post_errors', array( 'TEC_Post_Exception', 'displayMessage' ) );
+			add_action( 'tribe_events_options_top', array( 'TEC_WP_Options_Exception', 'displayMessage') );
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
 			add_action( 'the_post', array( $this, 'setReccuringEventDates' ) );
@@ -683,7 +683,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				}
 
 				try {
-					do_action( 'sp-events-save-more-options' );
+					do_action( 'tribe-events-save-more-options' );
 					if ( !$this->optionsExceptionThrown ) $options['error'] = "";
 				} catch( TEC_WP_Options_Exception $e ) {
 					$this->optionsExceptionThrown = true;
@@ -866,7 +866,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			else {
 				$styleUrl = $eventsURL.'events.css';
 			}
-			$styleUrl = apply_filters( 'sp_events_stylesheet_url', $styleUrl );
+			$styleUrl = apply_filters( 'tribe_events_stylesheet_url', $styleUrl );
 			
 			if ( $styleUrl )
 				wp_enqueue_style('sp-events-calendar-style', $styleUrl);
@@ -2386,7 +2386,24 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function getPostExceptionThrown() {
 			return $this->postExceptionThrown;
 		}
+
+      public function do_action($name, $event_id = null, $showMessage = false) {
+         try {
+            do_action( $name, $event_id );
+            if( !$this->getPostExceptionThrown() && $event_id ) delete_post_meta( $event_id, Events_Calendar_Pro::EVENTSERROROPT );
+         } catch ( TEC_Post_Exception $e ) {
+            $this->setPostExceptionThrown(true);
+            if ($event_id) {
+               update_post_meta( $event_id, self::EVENTSERROROPT, trim( $e->getMessage() ) );
+            }
+
+            if( $showMessage ) {
+               $e->displayMessage($showMessage);
+            }
+         }
+      }
 	} // end Events_Calendar_Pro class
+
 	global $sp_ecp;
 	$sp_ecp = new Events_Calendar_Pro();
 	add_filter('generate_rewrite_rules', array(&$sp_ecp,'filterRewriteRules'));

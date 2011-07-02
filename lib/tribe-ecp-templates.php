@@ -162,7 +162,7 @@ class Tribe_ECP_Templates {
 		else {
 			$file = $sp_ecp->pluginPath . 'views/' . $template;
 		}
-		return apply_filters( 'sp_events_template_'.$template, $file);
+		return apply_filters( 'tribe_events_template_'.$template, $file);
 	}
 	
 	private static function spoofQuery() {

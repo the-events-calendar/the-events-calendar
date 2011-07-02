@@ -10,7 +10,7 @@ class Events_Recurrence_Meta {
 		add_action('trash_post', array( __CLASS__, 'deleteRecurringEvent'));
 		
 		add_action( 'admin_notices', array( __CLASS__, 'showRecurrenceErrorFlash') );
-		add_action( 'sp_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg'), 10, 2);
+		add_action( 'tribe_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg'), 10, 2);
 	}	
 	
 	// delete a recurring event instance
@@ -206,7 +206,7 @@ class Events_Recurrence_Meta {
 		}
 
 		if ( !$valid ) {
-			do_action( 'sp_recurring_event_error', $event, $errorMsg );
+			do_action( 'tribe_recurring_event_error', $event, $errorMsg );
 		}
 
 		return $valid;
