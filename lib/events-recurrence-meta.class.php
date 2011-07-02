@@ -324,19 +324,20 @@ class Events_Recurrence_Meta {
 				$text = $recCustomInterval == 1 ? 
 					__("Every day") : 
 					sprintf(__("Every %d days"), $recCustomInterval);
-				$occurrence_text = sprintf(_n(" for %d event", " for %d events", $recEndCount), $recEndCount);	
+				$occurrence_text = sprintf(_n(", recurring %d time", ", recurring %d times", $recEndCount), $recEndCount);	
 			} else if ($recCustomType == "Weekly") {
 				$text = $recCustomInterval == 1 ? 
 					__("Every week") : 
 					sprintf(__("Every %d weeks"), $recCustomInterval);	
 				$custom_text = sprintf(__("on %s"), self::daysToText($recCustomWeekDay));
-				$occurrence_text = sprintf(_n(" for %d event", " for %d events", $recEndCount), $recEndCount);	
+				$occurrence_text = sprintf(_n(", recurring %d time", ", recurring %d times", $recEndCount), $recEndCount);	
 			} else if ($recCustomType == "Monthly") {
 				$text = $recCustomInterval == 1 ? 
 					__("Every month") : 
 					sprintf(__("Every %d months"), $recCustomInterval);								
-				$custom_text = sprintf(__("on the %s %s"), strtolower($recCustomMonthNumber),  is_numeric($recCustomMonthNumber) ? __("day") : self::daysToText($recCustomMonthDay));
-				$occurrence_text = sprintf(_n(" for %d event", " for %d events", $recEndCount), $recEndCount);	
+               $number_display = is_numeric($recCustomMonthNumber) ? DateUtils::numberToOrdinal( $recCustomMonthNumber ) : strtolower($recCustomMonthNumber); 
+				$custom_text = sprintf(__("on the %s %s"), $number_display,  is_numeric($recCustomMonthNumber) ? __("day") : self::daysToText($recCustomMonthDay));
+				$occurrence_text = sprintf(_n(", recurring %d time", ", recurring %d times", $recEndCount), $recEndCount);	
 			} else if ($recCustomType == "Yearly") {
 				$text = $recCustomInterval == 1 ? 
 					__("Every year") : 
@@ -348,7 +349,7 @@ class Events_Recurrence_Meta {
 				$of_week = $recCustomYearFilter ? self::daysToText($recCustomYearMonthDay) : "";
 				$months = self::monthsToText($recCustomYearMonth);
 				$custom_text = sprintf(__("on the %s %s of %s"), $day, $of_week, $months);				
-				$occurrence_text = sprintf(_n(" for %d event", " for %d events", $recEndCount), $recEndCount);	
+				$occurrence_text = sprintf(_n(", recurring %d time", ", recurring %d times", $recEndCount), $recEndCount);	
 			}
 		}
 		
@@ -359,7 +360,7 @@ class Events_Recurrence_Meta {
 			$endText = $occurrence_text;
 		}
 		
-		return sprintf(__('%s %s %s'), $text, $custom_text, $endText);
+		return sprintf(__('%s %s%s'), $text, $custom_text, $endText);
 	}
 	
 	private static function daysToText($days) {
