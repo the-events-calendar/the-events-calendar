@@ -197,7 +197,7 @@ class Events_Recurrence_Meta {
 		$valid = true;
 		$errorMsg = '';
 
-		if($recType == "Custom" && $recCustomType == "Monthly" && $recCustomMonthDay == '-') {
+		if($recType == "Custom" && $recCustomType == "Monthly" && ($recCustomMonthDay == '-' || $recCustomMonthNumber == '')) {
 			$valid = false;
 			$errorMsg = __('Monthly custom recurrences cannot have a dash set as the day to occur on.');
 		} else if($recType == "Custom" && $recCustomType == "Yearly" && $recCustomYearMonthDay == '-') {

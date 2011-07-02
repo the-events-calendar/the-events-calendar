@@ -74,7 +74,7 @@
 						<option value="5" <?php selected($recCustomMonthDay, "5") ?>><?php _e('Friday',$this->pluginDomain); ?></option>
 						<option value="6" <?php selected($recCustomMonthDay, "6") ?>><?php _e('Saturday',$this->pluginDomain); ?></option>
 						<option value="7" <?php selected($recCustomMonthDay, "7") ?>><?php _e('Sunday',$this->pluginDomain); ?></option>
-						<option value="-" <?php selected($recCustomMonthDay, "-") ?>>-</option>
+						<option value="-" <?php selected($recCustomMonthDay, "-") ?>>--</option>
 						<option value="-1" <?php selected($recCustomMonthDay, "-1") ?>><?php _e('Day',$this->pluginDomain); ?></option>
 					</select>
 				</div>
@@ -118,7 +118,7 @@
 						<option value="5" <?php selected($recCustomYearMonthDay, "5") ?>><?php _e('Friday',$this->pluginDomain); ?></option>
 						<option value="6" <?php selected($recCustomYearMonthDay, "6") ?>><?php _e('Saturday',$this->pluginDomain); ?></option>
 						<option value="7" <?php selected($recCustomYearMonthDay, "7") ?>><?php _e('Sunday',$this->pluginDomain); ?></option>
-						<option value="-" <?php selected($recCustomYearMonthDay, "-") ?>>-</option>
+						<option value="-" <?php selected($recCustomYearMonthDay, "-") ?>>--</option>
 						<option value="-1" <?php selected($recCustomYearMonthDay, "-1") ?>><?php _e('Day',$this->pluginDomain); ?></option>
 					</select>
 				</div>
