@@ -204,7 +204,6 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		if (!$width) $width = tribe_get_option('embedGoogleMapsWidth','100%');
 
 		if ($address) {
-			$google_iframe = '<div id="googlemaps"><iframe width="'.$width.'" height="'.$height.'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://www.google.com/maps?'.$url_string.'&amp;output=embed"></iframe><div class="view-larger-map"><a href="http://www.google.com/maps?'.$url_string.'">View Larger Map</a></div></div>';
 			ob_start();
 			include('admin-views/event-map.php');
 			$google_map = ob_get_contents();
@@ -396,7 +395,6 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 */
 	function tribe_has_venue( $postId = null)  {
 		$postId = tribe_post_id_helper( $postId );
-		//echo getEventMeta( $postId, '_EventVenueID', true ).'|';
 		return getEventMeta( $postId, '_EventVenueID', true );
 	}
 	/**
@@ -405,10 +403,25 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 *
 	 * @return string venue
 	 */
-	function tribe_get_venue( $postId = null)  {
+	function tribe_get_venue( $postId = null, $with_link = false)  {
 		$postId = tribe_post_id_helper( $postId );
-		return esc_html((sp_has_venue( $postId )) ?  getEventMeta( tribe_has_venue( $postId ), '_VenueVenue', true ) : getEventMeta( $postId, '_EventVenue', true ));
+		$venue = esc_html((sp_has_venue( $postId )) ?  getEventMeta( tribe_has_venue( $postId ), '_VenueVenue', true ) : getEventMeta( $postId, '_EventVenue', true ));
+		
+		if( $with_link && tribe_has_venue( $postId ) )
+			return "<a href='" . get_permalink(tribe_has_venue( $postId )) . "'>$venue</a>";
+		
+		return $venue;
 	}
+	
+	/**
+	 * Returns the event venue permalink
+	 *
+	 * @return string venue
+	 */
+	function tribe_get_venue_permalink( $postId = null)  {
+		$postId = tribe_post_id_helper( $postId );
+		return esc_html((sp_has_venue( $postId )) ? get_permalink(tribe_has_venue( $postId )) : "");
+	}	
 	/**
 	 * Returns the event country
 	 *
@@ -875,4 +888,215 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	function tribe_get_current_template() {
 		return Tribe_ECP_Templates::get_current_page_template();
 	}
+	
+	
+	/* Venue Template Tags */
+	
+	/*
+ 	 * Returns the venue name
+	 *
+	 * @return string country
+	 */
+	function tribe_venue_get_name( $postId = null)  {
+		$postId = tribe_post_id_helper( $postId );
+		return esc_html(getEventMeta( $postId, '_VenueVenue', true ));
+	}
+	/* 
+	 * Returns the event country
+	 *
+	 * @return string country
+	 */
+	function tribe_venue_get_country( $postId = null)  {
+		$postId = tribe_post_id_helper( $postId );
+		return esc_html(getEventMeta( $postId, '_VenueCountry', true ));
+	}
+	/**
+	 * Returns the event address
+	 *
+	 * @return string address
+	 */
+	function tribe_venue_get_address( $postId = null)  {
+		$postId = tribe_post_id_helper( $postId );
+		return esc_html(getEventMeta( $postId, '_VenueAddress', true ));
+	}
+	/**
+	 * Returns the event city
+	 *
+	 * @return string city
+	 */
+	function tribe_venue_get_city( $postId = null)  {
+		$postId = tribe_post_id_helper( $postId );
+		return esc_html(getEventMeta( $postId, '_VenueCity', true ));
+	}
+	/**
+	 * Returns the event state or Province
+	 *
+	 * @return string state
+	 */
+	function tribe_venue_get_stateprovince( $postId = null)  {
+		$postId = tribe_post_id_helper( $postId );
+		return esc_html(getEventMeta( $postId, '_VenueStateProvince', true ));
+	}
+	/**
+	 * Returns the event state
+	 *
+	 * @return string state
+	 */
+	function tribe_venue_get_state( $postId = null)  {
+		$postId = tribe_post_id_helper( $postId );
+		return esc_html(getEventMeta( $postId, '_VenueState', true ));
+	}
+	/**
+	 * Returns the event province
+	 *
+	 * @return string province
+	 */
+	function tribe_venue_get_province( $postId = null)  {
+		$postId = tribe_post_id_helper( $postId );
+		return esc_html(getEventMeta( $postId, '_VenueProvince', true ));
+	}
+	/**
+	 * Returns the event zip code
+	 *
+	 * @return string zip code 
+	 */
+	function tribe_venue_get_zip( $postId = null)  {
+		$postId = tribe_post_id_helper( $postId );
+		return esc_html(getEventMeta( $postId, '_VenueZip', true ));
+	}
+	/**
+	 * Returns the event phone number
+	 *
+	 * @return string phone number
+	 */
+	function tribe_venue_get_phone( $postId = null)  {
+		$postId = tribe_post_id_helper( $postId );
+		return esc_html(getEventMeta( $postId, '_VenuePhone', true ));
+	}	
+	
+	/**
+	 * Returns the state or province for US or non-US addresses
+	 *
+	 * @return string
+	 */
+	function tribe_venue_get_region( $postId = null )  {
+		global $sp_ecp;
+		if(getEventMeta($postId, '_VenueStateProvince', true )){
+			return getEventMeta($postId, '_VenueStateProvince', true );
+		}else
+		if ( tribe_venue_get_country() == __('United States', $sp_ecp->pluginDomain ) ) {
+			return tribe_venue_get_state();
+		} else {
+			return tribe_venue_get_province(); 
+		}
+	}	
+	
+	/**
+	 * @return string formatted event address
+	 */
+	function tribe_venue_get_full_address( $postId = null, $includeName = false )  {
+		$postId = tribe_post_id_helper( $postId );
+		$address = '';
+		if( $includeVenue ) $address .= tribe_venue_get_name( $postId );
+		if( tribe_venue_get_address( $postId ) ) {
+			if( $address ) $address .= ', ';
+			$address .= tribe_venue_get_address( $postId );
+		}
+		if( tribe_venue_get_city( $postId ) ) {
+			if( $address ) $address .= ', ';
+			$address .= tribe_venue_get_city( $postId );
+		}
+		if( tribe_venue_get_region( $postId ) ) {
+			if( $address ) $address .= ', ';
+			$address .= tribe_venue_get_region( $postId );
+		}
+		if( tribe_venue_get_country( $postId ) ) {
+			if( $address ) $address .= ', ';
+			$address .= tribe_venue_get_country( $postId );
+		}
+		if( tribe_venue_get_zip( $postId ) ) {
+			if( $address ) $address .= ', ';
+			$address .= tribe_venue_get_zip( $postId );
+		}
+		$address = str_replace(' ,', ',', $address);
+		return $address;
+	}
+	/**
+	 * Displays a formatted event address
+	 *
+	 * @param string $postId 
+	 * @return void
+	 */
+	function tribe_venue_the_full_address( $postId = null )  {
+		echo tribe_venue_get_full_address( $postId );
+	}
+	/**
+	 * @return boolean true if any part of an address exists
+	 */
+	function tribe_venue_address_exists( $postId = null )  {
+		$postId = tribe_post_id_helper( $postId );
+		return ( tribe_venue_get_address( $postId ) || tribe_venue_get_city( $postId ) || tribe_venue_get_region( $postId ) || tribe_venue_get_country( $postId ) || tribe_venue_get_zip( $postId ) ) ? true : false;
+	}	
+	
+/**
+	 * Returns an embedded google maps for the given event
+	 *
+	 * @param string $postId 
+	 * @param int $width 
+	 * @param int $height
+	 * @return string - an iframe pulling http://maps.google.com/ for this event
+	 */
+	function tribe_venue_get_embedded_map( $postId = null, $width = '', $height = '' )  {
+		global $sp_ecp;
+
+		$postId = tribe_post_id_helper( $postId );
+		if ( !tribe_is_venue( $postId ) ) return false;
+		
+		$locationMetaSuffixes = array( 'address', 'city', 'state', 'province', 'zip', 'country' );
+		$toUrlEncode = "";
+
+		foreach( $locationMetaSuffixes as $val ) {
+			$metaVal = call_user_func('tribe_venue_get_'.$val);
+			if ( $metaVal ) 
+				$toUrlEncode .= $metaVal . " ";
+		}
+
+		if ( $toUrlEncode ) 
+			$address = $toUrlEncode;
+		else
+			$address = null;		
+
+		if (!$height) $height = tribe_get_option('embedGoogleMapsHeight','350');
+		if (!$width) $width = tribe_get_option('embedGoogleMapsWidth','100%');
+
+		if ($address) {
+			ob_start();
+			include('admin-views/event-map.php');
+			$google_map = ob_get_contents();
+			ob_get_clean();
+			return $google_map;
+		}
+		else return '';
+	}
+	/**
+	 * Displays an embedded google map for the given event
+	 *
+	 * @param string $postId 
+	 * @param int $width 
+	 * @param int $height
+	 * @return void
+	 */
+	function tribe_venue_the_embedded_map( $postId = null, $width = null, $height = null )  {
+		if (sp_get_option('embedGoogleMaps') == 'on')
+			echo tribe_get_embedded_map( $postId, $width, $height );
+	}	
+	
+	/**
+	 * Template function: 
+	 * @return boolean
+	 */
+	function tribe_is_venue( $postId = null )  {
+		global $sp_ecp;
+		return $sp_ecp->isVenue($postId);
+	}	
 } // end if class_exists('The-Events-Calendar')

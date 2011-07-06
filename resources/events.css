@@ -138,14 +138,14 @@ select.tec-events-dropdown {
 	overflow:hidden;
 	margin-bottom:0;
 }
-.events-archive .upcoming .entry-title {
+.single-sp_venue .upcoming .entry-title, .events-archive .upcoming .entry-title {
 	margin:15px 0 6px;
 	font-size:18px;
 	font-weight:bold;
 	line-height: 1em;
 	padding: 0;
 }
-.events-archive .event-day {
+.events-archive .event-day, .single-sp_venue .event-day {
 	font-size:18px;
 	margin-top:36px !important;
 	font-style:italic;

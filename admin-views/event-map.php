@@ -1,4 +1,4 @@
-		<div id="googlemaps" style="height: <?php echo $height ?>px; width: <?php echo $width ?>px;"></div>
+		<div id="googlemaps" style="height: <?php echo $height ?>; width: <?php echo $width ?>;"></div>
 			<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 			<script type="text/javascript">
 			  var event_address;

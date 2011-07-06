@@ -1926,6 +1926,17 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			}
 			return false;
 		}
+		
+		public function isVenue( $postId = null ) {
+			if ( $postId === null || ! is_numeric( $postId ) ) {
+				global $post;
+				$postId = $post->ID;
+			}
+			if ( get_post_field('post_type', $postId) == self::VENUE_POST_TYPE ) {
+				return true;
+			}
+			return false;
+		}
 
 		/**
 		** Get a "previous/next post" link for events. Ordered by start date instead of ID.
