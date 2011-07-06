@@ -217,7 +217,6 @@ jQuery(document).ready(function($) {
 		if( isExistingRecurringEvent() ) { // not a new event
 			e.preventDefault();
 			$('#recurring-dialog').dialog({
-            width: 270,
 				modal: true,
 				buttons: [{
 						text:"Only This Event",
