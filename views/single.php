@@ -39,21 +39,22 @@
 						<dt><?php _e('Phone:', $sp_ecp->pluginDomain) ?></dt> 
 							<dd><?php echo sp_get_phone(); ?></dd>
 						<?php endif; ?>
-						<?php if( sp_address_exists( $post->ID ) ) : ?>
+						<?php if( sp_address_exists( get_the_ID() ) ) : ?>
 						<dt>
 							<?php _e('Address:', $sp_ecp->pluginDomain) ?><br />
-							<?php if( get_post_meta( $post->ID, '_EventShowMapLink', true ) == 'true' ) : ?>
+							<?php if( get_post_meta( get_the_ID(), '_EventShowMapLink', true ) == 'true' ) : ?>
 								<a class="gmap" href="<?php sp_the_map_link() ?>" title="<?php _e('Click to view a Google Map', $sp_ecp->pluginDomain); ?>" target="_blank"><?php _e('Google Map', $sp_ecp->pluginDomain ); ?></a>
 							<?php endif; ?>
 						</dt>
 							<dd>
-							<?php sp_the_full_address( $post->ID ); ?>
+							<?php sp_the_full_address( get_the_ID() ); ?>
 							</dd>
 						<?php endif; ?>
 					</dl>
 				</div>
-				<?php if( get_post_meta( $post->ID, '_EventShowMap', true ) == 'true' ) : ?>
-					<?php if( sp_address_exists( $post->ID ) ) sp_the_embedded_map(); ?>
+
+				<?php if( get_post_meta( get_the_ID(), '_EventShowMap', true ) == 'true' ) : ?>
+					<?php if( sp_address_exists( get_the_ID() ) ) sp_the_embedded_map(); ?>
 				<?php endif; ?>
 				<div class="entry">
 					<?php

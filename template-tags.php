@@ -183,15 +183,33 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		if ( !sp_is_event( $postId ) ) {
 			return false;
 		}
+		
 
-		$url_string = $sp_ecp->get_google_maps_args();
+		$locationMetaSuffixes = array( 'address', 'city', 'state', 'province', 'zip', 'country' );
+		$toUrlEncode = "";
+
+		foreach( $locationMetaSuffixes as $val ) {
+			$metaVal = call_user_func('sp_get_'.$val);
+			if ( $metaVal ) 
+				$toUrlEncode .= $metaVal . " ";
+		}
+
+		if ( $toUrlEncode ) 
+			$address = $toUrlEncode;
+		else
+			$address = null;		
+
 
 		if (!$height) $height = tribe_get_option('embedGoogleMapsHeight','350');
 		if (!$width) $width = tribe_get_option('embedGoogleMapsWidth','100%');
 
-		if ($url_string) {
+		if ($address) {
 			$google_iframe = '<div id="googlemaps"><iframe width="'.$width.'" height="'.$height.'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://www.google.com/maps?'.$url_string.'&amp;output=embed"></iframe><div class="view-larger-map"><a href="http://www.google.com/maps?'.$url_string.'">View Larger Map</a></div></div>';
-			return $google_iframe;
+			ob_start();
+			include('admin-views/event-map.php');
+			$google_map = ob_get_contents();
+			ob_get_clean();
+			return $google_map;
 		}
 		else return '';
 	}
