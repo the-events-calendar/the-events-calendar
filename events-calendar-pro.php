@@ -35,7 +35,7 @@ if ( ! function_exists('events_calendar_pro_load') ) {
 			require_once($events_dir . '/lib/events-recurrence-meta.class.php' );
 			require_once($events_dir . '/lib/tribe-admin-events-list.class.php' );
 			require_once($events_dir . '/lib/tribe-event-api.class.php' );			
-			require_once($events_dir . '/lib/tribe-ecp-templates.php' );			
+			require_once($events_dir . '/lib/tribe-ecp-templates.class.php' );						
 			require_once($events_dir . '/events-calendar-pro.class.php');
 			require_once($events_dir . '/the-events-calendar-exception.class.php');
 			require_once($events_dir . '/events-calendar-widget.class.php');
@@ -43,6 +43,7 @@ if ( ! function_exists('events_calendar_pro_load') ) {
 			require_once($events_dir . '/events-featured-widget.class.php');
 			require_once($events_dir . '/template-tags.php');
 			require_once($events_dir . '/lib/tribe-event-query.class.php' );
+			require_once($events_dir . '/lib/tribe-ecp-custom-meta.class.php' );			
 			require_once($events_dir . '/lib/tribe-facebook-export.php' );
 		}
 	}

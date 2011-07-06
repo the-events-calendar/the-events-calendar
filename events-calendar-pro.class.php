@@ -144,7 +144,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$this->currentDay = '';
 			$this->errors = '';
 			Tribe_Event_Query::init();
-
+			Tribe_ECP_Custom_Meta::init();
 			$this->registerPostType();
 
 			//If the custom post type's rewrite rules have not been generated yet, flush them. (This can happen on reactivations.)
@@ -684,6 +684,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				}
 
 				try {
+					$options = apply_filters( 'tribe-events-options', $options );		
 					do_action( 'tribe-events-save-more-options' );
 					if ( !$this->optionsExceptionThrown ) $options['error'] = "";
 				} catch( TEC_WP_Options_Exception $e ) {

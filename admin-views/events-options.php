@@ -371,14 +371,15 @@ div.snp_settings{
 					<div><?php _e('One country per line in the following format: <br/>US, United States <br/> UK, United Kingdom.', $this->pluginDomain);?> <?php _e('(Replaces the default list.)', $this->pluginDomain) ?></div>
 				</fieldset></td>
 			</tr>
-         <?php $this->do_action( 'tribe_events_options_bottom' ); ?>
+</table>
+	<?php $this->do_action( 'tribe_events_options_bottom' ); ?>
+	<table>
 		<tr>
 	    	<td>
 	    		<input id="saveEventsCalendarOptions" class="button-primary" type="submit" name="saveEventsCalendarOptions" value="<?php _e('Save Changes', $this->pluginDomain); ?>" />
 	        </td>
-	    </tr>
-</table>
-
+	    </tr>	
+	 </table>
 </form>
 
 <?php

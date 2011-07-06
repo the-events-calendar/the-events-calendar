@@ -239,7 +239,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		}
 		$monthOptions = $sp_ecp->getMonthOptions( $date );
 		$yearOptions = $sp_ecp->getYearOptions( $date );
-		include('views/datepicker.php');
+		include('admin-views/datepicker.php');
 	}
 
 	/**
