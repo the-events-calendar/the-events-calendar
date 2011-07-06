@@ -174,8 +174,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function add_current_menu_item_class_to_events( $items, $args ) {
 			foreach($items as $item) {
 				if($item->url == $this->getLink() ) {
-					if ( is_singular( Events_Calendar_Pro::POSTTYPE ) || sp_is_upcoming() || sp_is_past() || sp_is_month() ) {
-						$item->classes[] = 'current-menu-item';
+					echo  sp_is_month()  ? "YES" : "NO";
+					if ( is_singular( Events_Calendar_Pro::POSTTYPE ) || tribe_is_upcoming() || tribe_is_past() || tribe_is_month() ) {
+						$item->classes[] = 'current-menu-item current_page_item';
 					}
 					break;
 				}
@@ -894,7 +895,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			if (is_admin())
 				$this->displaying = 'admin';
 			else
-				$this->displaying = (isset( $wp_query->query_vars['eventDisplay'] ) ) ? $wp_query->query_vars['eventDisplay'] : $this->getOption('viewOption','month');
+				$this->displaying = $wp_query->query_vars['eventDisplay'];
 		}
 		
 		public function setReccuringEventDates() {
