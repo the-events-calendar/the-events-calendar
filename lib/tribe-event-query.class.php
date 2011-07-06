@@ -173,7 +173,7 @@ class Tribe_Event_Query {
 			$where .= " AND $start_clause";
 		} else if($start_date) {
 		   $end_clause = $wpdb->prepare("eventStart.meta_value > %s", $start_date);
-			$within_clause = $wpdb->prepare("(eventStart.meta_value <= %s AND $endDate >= %s )", $start_date, $end_date);
+			$within_clause = $wpdb->prepare("(eventStart.meta_value <= %s AND $endDate >= %s )", $start_date, $start_date);
 		   $where .= " AND ($end_clause OR $within_clause)";
 		}
 		

@@ -76,6 +76,7 @@
 		<?php endwhile;// posts ?>
 		<?php else :?>
 			<?php 
+				global $sp_ecp;
 				if ( is_tax( $sp_ecp->get_event_taxonomy() ) ) {
 					$cat = get_term_by( 'slug', get_query_var('term'), $sp_ecp->get_event_taxonomy() );
 					$is_cat_message = sprintf(__(' listed under %s; check out past events for this category or the full calendar',$sp_ecp->pluginDomain),$cat->name);
