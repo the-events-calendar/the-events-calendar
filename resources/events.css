@@ -44,6 +44,14 @@ h2.tec-cal-title {
 	z-index:5;
 }
 
+.venue-events h2.tec-cal-title {
+	padding-left: 0;
+}
+
+.venue-events .entry-title a {
+	color: #333; text-decoration: none; font-size: 18px;
+}
+
 .upcoming h2.tec-cal-title {
 	margin-bottom: 15px;
 }

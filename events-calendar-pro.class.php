@@ -162,8 +162,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
 			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
 			add_filter('bloginfo_rss',  array($this, 'add_space_to_rss' ));
-			//add_filter( 'the_permalink', array($this, 'addDateToRecurringEvents') );
-			add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
+			add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
 			add_filter( 'post_updated_messages', array($this, 'updatePostMessage') );
 			
 			/* Add nav menu item - thanks to http://wordpress.org/extend/plugins/cpt-archives-in-nav-menus/ */
@@ -264,11 +263,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			return $title;
 		}
 
-		public function addDateToRecurringEvents($permalink) {
-			global $post;
-
+		public function addDateToRecurringEvents($permalink, $post) {
 			if($post->post_type == self::POSTTYPE && sp_is_recurring_event($post->ID) ) {
-				
 				if( is_admin() && !$post->EventStartDate ) {
 					if( isset($_REQUEST['eventDate'] ) ) {
 						$post->EventStartDate = $_REQUEST['eventDate'];
@@ -1128,7 +1124,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				case 'all':
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );					
 					$eventUrl = trailingslashit(get_permalink());
-					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );										
+					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );										
 					return $eventUrl . 'all/';
 				default:
 					return $eventUrl;
