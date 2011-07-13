@@ -210,10 +210,15 @@ jQuery(document).ready(function($) {
 		$('.rec-error').hide();
 	})
 	
+	var eventSubmitButton = $('.wp-admin.events-cal #post #publishing-action input[type="submit"]');
+	eventSubmitButton.click(function(e) {
+		$(this).data('clicked', true);
+	});
+	
 	/* Recurring Events Dialog */
 	$('.wp-admin.events-cal #post').submit(function(e) {
-		var self = this;
-
+		var self = $(this);
+		
 		if( isExistingRecurringEvent() ) { // not a new event
 			e.preventDefault();
 			$('#recurring-dialog').dialog({
@@ -222,20 +227,35 @@ jQuery(document).ready(function($) {
 						text:"Only This Event",
 						click: function() { 
 							$('[name="recurrence_action"]').val(3);
-							$(this).dialog("close"); 
+							
+							if (eventSubmitButton.data('clicked') )
+								$('<input type="hidden" name="' + eventSubmitButton.attr('name') + '" value="' + eventSubmitButton.val() + '"/>').appendTo(self);
+							
+							$(this).dialog("close"); 							
 							self.submit();
 						}
 				}, {
 						text:"Future Events",
 						click: function() { 
 							$('[name="recurrence_action"]').val(2);
+
+							if (eventSubmitButton.data('clicked') )
+								$('<input type="hidden" name="' + eventSubmitButton.attr('name') + '" value="' + eventSubmitButton.val() + '"/>').appendTo(self);							
+
 							$(this).dialog("close"); 
 							self.submit();
 						}					
-				}]
+				}],
+				close: function() {
+					eventSubmitButton.data('clicked', null);
+				}
 			});
 		}
 	});	
+	
+	function setupSubmitButton() {
+		//publishing-action		
+	}
 	
 	$('.wp-admin.events-cal .submitdelete').click(function(e) {
 		if(isExistingRecurringEvent()) {

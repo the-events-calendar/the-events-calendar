@@ -170,21 +170,43 @@ class Tribe_Admin_Events_List {
 	}		
 
 	public static function custom_columns( $column_id, $post_id ) {
-		if ( $column_id == 'events-cats' ) {
-			$event_cats = get_the_term_list( $post_id, Events_Calendar_Pro::TAXONOMY, '', ', ', '' );
-			echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
-		}
-		if ( $column_id == 'start-date' ) {
-			echo sp_event_format_date(strtotime(self::$events_list[0]->EventStartDate), false);
-		}
-		if ( $column_id == 'end-date' ) {
-			echo sp_event_format_date(strtotime(self::$events_list[0]->EventEndDate), false);
-			array_shift( self::$events_list );
-		}
+		if(self::$events_list && sizeof(self::$events_list) > 0) {
+			if ( $column_id == 'events-cats' ) {
+				$event_cats = get_the_term_list( $post_id, Events_Calendar_Pro::TAXONOMY, '', ', ', '' );
+				echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
+			}
+			if ( $column_id == 'start-date' ) {
+				echo sp_event_format_date(strtotime(self::$events_list[0]->EventStartDate), false);
+			}
+			if ( $column_id == 'end-date' ) {
+				echo sp_event_format_date(strtotime(self::$events_list[0]->EventEndDate), false);
+				array_shift( self::$events_list );
+			}
 
-		if ( $column_id == 'recurring' ) {
-			echo sizeof(get_post_meta($post_id, '_EventStartDate')) > 1 ? "Yes" : "No";
+			if ( $column_id == 'recurring' ) {
+				echo sizeof(get_post_meta($post_id, '_EventStartDate')) > 1 ? "Yes" : "No";
+			}
+		} else {
+			self::ajax_custom_columns($column_id, $post_id);
 		}
+	}
+	
+	public static function ajax_custom_columns ($column_id, $post_id) {
+			if ( $column_id == 'events-cats' ) {
+				$event_cats = get_the_term_list( $post_id, Events_Calendar_Pro::TAXONOMY, '', ', ', '' );
+				echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
+			}
+			
+			if ( $column_id == 'recurring' ) {
+				echo sizeof(get_post_meta($post_id, '_EventStartDate')) > 1 ? "Yes" : "No";
+			}			
+			
+			if ( $column_id == 'start-date' ) {
+				echo tribe_event_format_date(strtotime(Events_Calendar_Pro::getRealStartDate( $post_id )), false);
+			}
+			if ( $column_id == 'end-date' ) {
+				echo tribe_get_end_date($post_id, false);
+			}
 	}
 	
 	public static function add_event_occurrance_to_edit_link($link, $eventId) {

@@ -1300,7 +1300,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 */
 		public function addEventMeta( $postId, $post ) {
 			// only continue if it's an event post
-			if ( $post->post_type != self::POSTTYPE ) {
+			if ( $post->post_type != self::POSTTYPE || defined('DOING_AJAX') ) {
 				return;
 			}
 			// don't do anything on autosave or auto-draft either or massupdates
@@ -1308,12 +1308,12 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				return;
 			}
 			
+			// remove these actions even if nonce is not set
+			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
+			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );			
+						
 			if ( !wp_verify_nonce( $_POST['ecp_nonce'], Events_Calendar_Pro::POSTTYPE ) )
 				return;
-			
-			
-			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
-			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 
 			$_POST['Organizer'] = stripslashes_deep($_POST['organizer']);
 			$_POST['Venue'] = stripslashes_deep($_POST['venue']);
