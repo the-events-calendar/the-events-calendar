@@ -173,8 +173,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function add_current_menu_item_class_to_events( $items, $args ) {
 			foreach($items as $item) {
 				if($item->url == $this->getLink() ) {
-					echo  sp_is_month()  ? "YES" : "NO";
-					if ( is_singular( Events_Calendar_Pro::POSTTYPE ) || tribe_is_upcoming() || tribe_is_past() || tribe_is_month() ) {
+					if ( is_singular( Events_Calendar_Pro::POSTTYPE ) || is_singular( Events_Calendar_Pro::VENUE_POST_TYPE ) || tribe_is_upcoming() || tribe_is_past() || tribe_is_month() ) {
 						$item->classes[] = 'current-menu-item current_page_item';
 					}
 					break;
