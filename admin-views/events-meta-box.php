@@ -146,6 +146,7 @@
 			</tr>
 		<?php } ?>
       <?php $this->do_action('tribe_events_cost_table', $postId, true) ?>
+      <?php $this->do_action('tribe_events_details_table_bottom', $postId, true) ?>
 	</table>
 	</div>
    <?php $this->do_action('tribe_events_above_donate', $postId, true) ?>

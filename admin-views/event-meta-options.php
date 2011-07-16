@@ -1,10 +1,11 @@
 <h3><?php _e('Additional Fields') ?></h3>
 <p><?php _e('You can set up any additional custom fields that you would like to use for events here.') ?></p>
-<table class='form-table' id="additional-field-table" style='width: 300px;'>
+<table class='wp-list-table widefat' id="additional-field-table" style=''>
 	<tr><th><?php _e('Field Label') ?></th><th><?php _e('Field Type') ?></th><th><?php _e('Options (one per line)') ?></th><th></th></tr>
+   <?php $customFields[] = array() ?>
 	<?php foreach ( $customFields as $customField ): ?> 
 		<tr>
-			<td><input type="text" name="custom-field-<?php echo $count ?>" data-name-template='custom-field-' data-count='<?php echo $count ?>' value="<?php echo $customField['name'] ?>"/></td>
+         <td><input type="text" name="custom-field-<?php echo $count ?>" data-persisted='<?php echo $count != sizeof($customFields) ? "yes" : "no" ?>' data-name-template='custom-field-' data-count='<?php echo $count ?>' value="<?php echo $customField['label'] ?>"/></td>
 			<td>
 				<select name="custom-field-type-<?php echo $count ?>" data-name-template='custom-field-type-' data-count='<?php echo $count ?>'>
 					<option value="text" <?php selected($customField['type'] == 'text') ?>>Text</option>
@@ -18,6 +19,8 @@
 			<td>
 				<?php if ($count == sizeof($customFields)): ?>
 					<a name="add-field" href='#add-field' class='add-another-field'>Add another</a>
+            <?php else: ?>
+               <a name="remove-field" href='#remove-field' class='remove-another-field'>Remove</a>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -26,10 +29,27 @@
 <script>
 	jQuery(document).ready(function($) {
 		if($('#additional-field-table').size() > 0) {
+         $('#additional-field-table').delegate('.remove-another-field', 'click', function() {
+            var row = $(this).closest('tr'), firstInput=row.find('td:first input'), data = { action: 'remove_option', field: firstInput.data('count') }, persisted = firstInput.data('persisted')
+            if(confirm('Are you sure you wish to remove this field from all events?')) {
+               if(persisted == "yes") {
+                  jQuery.post(ajaxurl, data, function(response) {
+                     row.fadeOut('slow', function() {
+                        $(this).remove();
+                     });
+                  });
+               } else {
+                  row.fadeOut('slow', function() {
+                     $(this).remove();
+                  });
+               }
+            }
+         });
+
 			$('#additional-field-table').delegate('.add-another-field', 'click', function() {
 				var table = $(this).closest('table tbody'), lastRow = table.find('tr:last'), newRow = lastRow.clone();
 				
-				lastRow.find('td:last').html('');
+				lastRow.find('td:last').html(lastRow.prev().find('td:last').html());
 				newRow.find('input, select, textarea').each(function() {
 					var input = $(this), number = parseInt(input.data('count')) + 1;
 					input.attr('name', input.data('name-template') + number);

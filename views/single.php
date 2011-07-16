@@ -51,6 +51,9 @@
 							</dd>
 						<?php endif; ?>
 					</dl>
+               <dl class='column'>
+                  <?php echo tribe_event_meta( get_the_ID() ); ?>
+               </dl>
 				</div>
 
 				<?php if( get_post_meta( get_the_ID(), '_EventShowMap', true ) == 'true' ) : ?>
