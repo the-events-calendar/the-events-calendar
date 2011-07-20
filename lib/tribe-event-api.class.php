@@ -8,7 +8,7 @@ class Tribe_Event_API {
 
 		$args = wp_parse_args( $args, $defaults);
 		$eventId = wp_insert_post($args, true);	
-		
+
 		if( !is_wp_error($eventId) ) {
 			Tribe_Event_API::saveEventMeta($eventId, $args, get_post( $eventId ) );
 			return $eventId;
