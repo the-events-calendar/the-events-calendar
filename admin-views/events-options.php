@@ -309,7 +309,7 @@ div.snp_settings{
 						<select id="eventsDefaultState" name='eventsDefaultState'>
 							<option value=""><?php _e('Select a State:',$this->pluginDomain); ?></option>
 							<?php
-								foreach ($this->states as $abbr => $fullname) {
+								foreach (Tribe_View_Helpers::loadStates() as $abbr => $fullname) {
 									print ("<option value=\"$abbr\" ");
 									if (sp_get_option('eventsDefaultState') == $abbr) {
 										print ('selected="selected" ');
@@ -343,9 +343,9 @@ div.snp_settings{
 				<td>
 					<select name="defaultCountry" id="defaultCountry">
 							<?php 
-							$this->constructCountries();
+							$countries = Tribe_View_Helpers::constructCountries();
 							$defaultCountry = sp_get_option('defaultCountry');
-					foreach ($this->countries as $abbr => $fullname) {
+					foreach ($countries as $abbr => $fullname) {
 						print ("<option value=\"$fullname\" ");
 						if ($defaultCountry[1] == $fullname) { 
 							print ('selected="selected" ');

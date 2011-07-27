@@ -17,11 +17,11 @@
 	<td>
 		<select tabindex="<?php $this->tabIndex(); ?>" name='venue[Country]' id="EventCountry">
 			<?php
-			$this->constructCountries( $postId );
+			$countries = Tribe_View_Helpers::constructCountries( $postId );
 			$defaultCountry = sp_get_option('defaultCountry');
 			$current = ($_VenueCountry) ? $_VenueCountry : $defaultCountry[1];
 
-			foreach ($this->countries as $abbr => $fullname) {
+			foreach ($countries as $abbr => $fullname) {
 				echo '<option label="' . $abbr . '" value="' . $fullname . '" ';
 
 				if($abbr == '')
@@ -43,7 +43,7 @@
 	<select tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceSelect" name="venue[State]" class="tec_hide" name=''>
 		<option value=""><?php _e('Select a State:',$this->pluginDomain); ?></option>
 		<?php
-			foreach ($this->states as $abbr => $fullname) {
+			foreach (Tribe_View_Helpers::loadStates() as $abbr => $fullname) {
 				print ("<option value=\"$abbr\" ");
 				if (($_VenueStateProvince != -1 ? $_VenueStateProvince : $_VenueState) == $abbr) {
 					print ('selected="selected" ');
