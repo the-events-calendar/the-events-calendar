@@ -198,3 +198,6 @@ td.snp_message {
 .placeholder { cursor: text; padding: 4px 4px 4px 4px; color: #999999; }
 input:placeholder, textarea:placeholder { color: #999999; }
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #999999; }
+
+#additional-field-table input, #additional-field-table select, #additional-field-table textarea { width: 200px; }
+#additional-field-table tbody tr { height: 72px; }

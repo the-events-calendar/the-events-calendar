@@ -1109,7 +1109,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
       $meta_html = '';
 
       foreach ($customFields as $field) {
-         $meta = str_replace('|', ',', get_post_meta($postId, $field['name'], true));
+         $meta = str_replace('|', ', ', get_post_meta($postId, $field['name'], true));
          if($meta) {
             $meta_html .= '<dt>' . $field['label'] . ':</dt><dd>' . $meta . '</dd>';
          }

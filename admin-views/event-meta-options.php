@@ -1,21 +1,22 @@
 <h3><?php _e('Additional Fields') ?></h3>
 <p><?php _e('You can set up any additional custom fields that you would like to use for events here.') ?></p>
 <table class='wp-list-table widefat' id="additional-field-table" style=''>
-	<tr><th><?php _e('Field Label') ?></th><th><?php _e('Field Type') ?></th><th><?php _e('Options (one per line)') ?></th><th></th></tr>
+	<thead><tr><th><?php _e('Field Label') ?></th><th><?php _e('Field Type') ?></th><th><?php _e('Options (one per line)') ?></th><th></th></tr></thead>
+	<tbody>
    <?php $customFields[] = array() ?>
 	<?php foreach ( $customFields as $customField ): ?> 
 		<tr>
          <td><input type="text" name="custom-field-<?php echo $count ?>" data-persisted='<?php echo $count != sizeof($customFields) ? "yes" : "no" ?>' data-name-template='custom-field-' data-count='<?php echo $count ?>' value="<?php echo $customField['label'] ?>"/></td>
 			<td>
 				<select name="custom-field-type-<?php echo $count ?>" data-name-template='custom-field-type-' data-count='<?php echo $count ?>'>
-					<option value="text" <?php selected($customField['type'] == 'text') ?>>Text</option>
+					<option value="text" <?php selected($customField['type'] == 'textarea') ?>>Text</option>
 					<option value="radio" <?php selected($customField['type'] == 'radio') ?>>Radio</option>
 					<option value="checkbox" <?php selected($customField['type'] == 'checkbox') ?>>Checkbox</option>
 					<option value="dropdown" <?php selected($customField['type'] == 'dropdown') ?>>Dropdown</option>
-					<option value="textarea" <?php selected($customField['type'] == 'textarea') ?>>Text Area</option>
+					<!--<option value="textarea" <?php selected($customField['type'] == 'textarea') ?>>Text Area</option>-->
 				</select>
 			</td>
-			<td><textarea name="custom-field-options-<?php echo $count ?>" data-name-template='custom-field-options-' data-count='<?php echo $count ?>'><?php echo $customField['values'] ?></textarea></td>
+			<td><textarea style='display: <?php echo $customField['type'] == 'radio' || $customField['type'] == 'checkbox' || $customField['type'] == 'dropdown' ? "inline" : "none" ?>;' name="custom-field-options-<?php echo $count ?>" data-name-template='custom-field-options-' data-count='<?php echo $count ?>' rows="3"><?php echo $customField['values'] ?></textarea></td>
 			<td>
 				<?php if ($count == sizeof($customFields)): ?>
 					<a name="add-field" href='#add-field' class='add-another-field'>Add another</a>
@@ -25,6 +26,7 @@
 			</td>
 		</tr>
 	<?php $count++; endforeach; ?>
+	</tbody>
 </table>
 <script>
 	jQuery(document).ready(function($) {
@@ -58,6 +60,15 @@
 				});
 				
 				table.append(newRow);
+			});
+			
+			$('#additional-field-table').delegate('select', 'change', function() {
+				var fieldType = $(this).find("option:selected").val();
+				if( fieldType == 'radio' || fieldType == 'dropdown' || fieldType == 'checkbox' ) {
+					$(this).closest('tr').find('textarea').show();
+				} else {
+					$(this).closest('tr').find('textarea').hide();
+				}
 			});
 		}
 	});

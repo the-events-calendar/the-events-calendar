@@ -11,7 +11,7 @@
                   <input type='text' name='<?php echo $customField['name']?>' value='<?php echo $val ?>'/>
                <?php elseif($customField['type'] == 'radio'): ?>
                   <?php foreach ($options as $option): ?>
-                     <div><label><input type='radio' name='<?php echo $customField['name']?>' value='<?php echo $option ?>' <?php checked($val, $option) ?>/> <?php echo $option ?></label></div>
+                     <div><label><input type='radio' name='<?php echo $customField['name']?>' value='<?php echo $option ?>' <?php checked(trim($val), trim($option)) ?>/> <?php echo $option ?></label></div>
                   <?php endforeach ?>
                <?php elseif($customField['type'] == 'checkbox'): ?>
                   <?php foreach ($options as $option): ?>
