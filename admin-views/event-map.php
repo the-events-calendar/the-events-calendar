@@ -1,4 +1,4 @@
-		<div id="googlemaps" style="height: <?php echo $height ?>; width: <?php echo $width ?>;"></div>
+		<div id="googlemaps" style="height: <?php echo is_numeric($height) ? "{$height}px" : $height ?>; width: <?php echo is_numeric($width) ? "{$width}px" : $width ?>;"></div>
 			<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 			<script type="text/javascript">
 			  var event_address;
@@ -9,6 +9,7 @@
 					center: event_address,
 					mapTypeId: google.maps.MapTypeId.ROADMAP
 				 };
+
 				 var map = new google.maps.Map(document.getElementById("googlemaps"),
 					  myOptions);
 					  
