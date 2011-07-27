@@ -1,10 +1,19 @@
 <?php
 class Tribe_The_Events_Calendar_Import {
+	public static $curVenues = array();
+	public static $legacyVenueTags = array(
+		'_EventVenue',
+		'_EventCountry',
+		'_EventAddress',
+		'_EventCity',
+		'_EventZip',
+		'_EventPhone',
+	);	
 	/**
 	 * Will upgrade data from old free plugin to new plugin
 	 *
 	 */
-	public function upgradeData() {
+	public static function upgradeData() {
 		$posts = self::getLegacyEvents();
 
 		// we don't want the old event category
@@ -45,11 +54,42 @@ class Tribe_The_Events_Calendar_Import {
 			// set new events cats. we stored the array above, remember?
 			if ( ! empty($post->cats) )
 				wp_set_object_terms( $post->ID, $post->cats, Events_Calendar_Pro::TAXONOMY );
+
+			self::convertVenue($post);
 		}
 	}
 	
 	public static function hasLegacyEvents() {
 		return count( self::getLegacyEvents( 1 ) );
+	}
+	
+	private static function convertVenue($post) {
+		$venue = array();
+		
+		foreach( self::$legacyVenueTags as $tag) {
+			$strippedTag = str_replace('_Event','',$tag);
+			$meta = get_post_meta($post->ID, $tag, true);
+			$venue[$strippedTag] = $meta;
+			delete_post_meta($post->ID, $tag);
+		}
+		
+		if( $venue['Country'] == 'United States') {
+			$venue['StateProvince'] = get_post_meta($post->ID, '_EventState', true);
+		} else {
+			$venue['StateProvince'] = get_post_meta($post->ID, '_EventProvince', true);
+		}
+		
+		$unique_venue = $venue['Venue'] . $venue['Address'] . $venue['StateProvince'];
+
+		if( $unique_venue && trim($unique_venue) != "" ) {
+			if( !self::$curVenues[$unique_venue] ) {
+				self::$curVenues[$unique_venue] = Tribe_Event_API::createVenue($venue);
+			} else {
+				Tribe_Event_API::updateVenue(self::$curVenues[$unique_venue], $venue);
+			}
+			
+			update_post_meta($post->ID, '_EventVenueID', self::$curVenues[$unique_venue]);
+		}
 	}
 	
 
