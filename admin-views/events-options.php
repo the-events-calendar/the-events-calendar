@@ -383,10 +383,7 @@ div.snp_settings{
 </form>
 
 <?php
-$old_events_posts = $this->getLegacyEvents();
-$old_events = count($old_events_posts);
-
-if ( $old_events ) {
+if ( Tribe_The_Events_Calendar_Import::hasLegacyEvents() ) {
 	$old_events_copy = '<p class="message">' . sprintf( __('It looks like you have %s events in the category “%s”. Click below to import!', $this->pluginDomain ), $old_events, self::CATEGORYNAME ) . '</p>'; ?>
 		
 <form id="sp-upgrade" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">

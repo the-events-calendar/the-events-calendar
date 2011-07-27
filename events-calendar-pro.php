@@ -35,6 +35,7 @@ if ( ! function_exists('events_calendar_pro_load') ) {
 			require_once($events_dir . '/lib/events-recurrence-meta.class.php' );
 			require_once($events_dir . '/lib/tribe-view-helpers.class.php' );			
 			require_once($events_dir . '/lib/tribe-admin-events-list.class.php' );
+			require_once($events_dir . '/lib/tribe-the-events-calendar-import.class.php' );			
 			require_once($events_dir . '/lib/tribe-event-api.class.php' );			
 			require_once($events_dir . '/lib/tribe-ecp-templates.class.php' );						
 			require_once($events_dir . '/events-calendar-pro.class.php');
