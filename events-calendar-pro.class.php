@@ -27,13 +27,15 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			'rewrite' => array('slug'=>'venue', 'with_front' => false),
 			'show_ui' => true,
 			'show_in_menu' => 0,
-			'supports' => array()
+			'supports' => array('')
 		);
 		private $postOrganizerTypeArgs = array(
 			'public' => true,
 			'rewrite' => false,
+			'show_ui' => true,
+			'show_in_menu' => 0,			 
 			'menu_position' => 6,
-			'supports' => array()
+			'supports' => array('')
 		);
 		private $taxonomyLabels;
 
@@ -124,7 +126,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			register_activation_hook( __FILE__, 	array( &$this, 'on_activate' ) );
 			$this->addFilters();
 			$this->addActions();
-			Events_Recurrence_Meta::init(); // hooks and filters for event recurrenct
+			Events_Recurrence_Meta::init(); // hooks and filters for event recurrence
 			Tribe_Admin_Events_List::init(); // hooks and filters for the admin events list
 			Tribe_ECP_Templates::init(); //hooks and filters for loading templates
 
