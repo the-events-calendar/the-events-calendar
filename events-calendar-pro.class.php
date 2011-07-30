@@ -38,6 +38,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			'public' => true,
 			'rewrite' => false,
 			'menu_position' => 6,
+			'show_in_menu' => 0,
 			'supports' => array('thumbnail')
 		);
 		private $taxonomyLabels;
