@@ -2449,7 +2449,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					if ( isset ( $wp_query->query_vars['eventDate'] ) ) {
 						$this->date = $wp_query->query_vars['eventDate'] . "-01";
 					} else {
-						$date = date( self::DBDATETIMEFORMAT, current_time( 'timestamp' ) );
+						$date = date( self::DBDATEFORMAT, current_time( 'timestamp' ) );
 						$this->date = substr_replace( $date, '01', -2 );
 					}
 					break;
@@ -2462,7 +2462,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					if ( isset ( $wp_query->query_vars['eventDate'] ) ) {
 						$this->date = $wp_query->query_vars['eventDate'] . "-01";
 					} else {
-						$date = date( self::DBDATETIMEFORMAT, current_time( 'timestamp' ) );
+						$date = date( self::DBDATEFORMAT, current_time( 'timestamp' ) );
 						$this->date = substr_replace( $date, '01', -2 );
 					}
 			}
