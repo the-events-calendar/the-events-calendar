@@ -257,7 +257,7 @@ class Events_Recurrence_Meta {
 
 		if ( $recType != "None") {
 			$recurrence = new Recurrence($recStart, $recEnd, $rules, $recEndType == "After");
-			$dates = $recurrence->getDates();
+			$dates = (array) $recurrence->getDates();
 
 			// add meta for all dates in recurrence
 			foreach($dates as $date) {

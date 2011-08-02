@@ -27,12 +27,12 @@ class Tribe_ECP_Custom_Meta {
 
    public static function single_event_meta() {
       global $sp_ecp;
-      $customFields = tribe_get_option('custom-fields');
+      $customFields = tribe_get_option('custom-fields', array() );
 		include( $sp_ecp->pluginPath . 'admin-views/event-meta.php' );
    }
 
    public static function save_single_event_meta($postId) {
-      $customFields = tribe_get_option('custom-fields');
+      $customFields = tribe_get_option('custom-fields', array() );
 
       foreach( $customFields as $customField) {
          $val = $_POST[$customField['name']];
