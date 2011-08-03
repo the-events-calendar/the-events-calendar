@@ -1774,9 +1774,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			return $this->postExceptionThrown;
 		}
 
-      public function do_action($name, $event_id = null, $showMessage = false) {
+      public function do_action($name, $event_id = null, $showMessage = false, $extra_args = null) {
          try {
-            do_action( $name, $event_id );
+            do_action( $name, $event_id, $extra_args );
             if( !$this->getPostExceptionThrown() && $event_id ) delete_post_meta( $event_id, Events_Calendar_Pro::EVENTSERROROPT );
          } catch ( TEC_Post_Exception $e ) {
             $this->setPostExceptionThrown(true);

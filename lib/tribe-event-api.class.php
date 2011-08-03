@@ -8,7 +8,7 @@ class Tribe_Event_API {
 
 		$args = wp_parse_args( $args, $defaults);
 		$eventId = wp_insert_post($args, true);	
-
+		
 		if( !is_wp_error($eventId) ) {
 			Tribe_Event_API::saveEventMeta($eventId, $args, get_post( $eventId ) );
 			return $eventId;
@@ -72,14 +72,14 @@ class Tribe_Event_API {
 		}
 
 		// save recurrence
-		$recurrence_meta = $_REQUEST['recurrence'];						
+		$recurrence_meta = $data['recurrence'];
 
 		if( Events_Recurrence_Meta::isRecurrenceValid( $event, $recurrence_meta ) ) {
 			update_post_meta($event_id, '_EventRecurrence', $recurrence_meta);				
 			Events_Recurrence_Meta::saveEvents($event_id, $event);
 		}
 
-      $sp_ecp->do_action('tribe_events_update_meta', $event_id);
+      $sp_ecp->do_action('tribe_events_update_meta', $event_id, false, $data);
 	}	
 	
 	// used when saving event meta
