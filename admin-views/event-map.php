@@ -19,9 +19,9 @@
 					position: event_address});
 			  }
 			  
-			  function codeAddress() {
+			  function codeAddress(address) {
 			    var geocoder= new google.maps.Geocoder();
-				 var address = <?php echo json_encode($address) ?>;
+				 var address = address || <?php echo json_encode($address) ?>;
 
 				 geocoder.geocode( { 'address': address}, function(results, status) {
 					if (status == google.maps.GeocoderStatus.OK) {

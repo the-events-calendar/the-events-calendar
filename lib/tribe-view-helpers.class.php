@@ -403,7 +403,7 @@ class Tribe_View_Helpers {
 	/**
 	 * Helper method to return an array of 1-12 for hours
 	 */
-	private function hours() {
+	private static function hours() {
 		$hours = array();
 		$rangeMax = ( strstr(get_option('time_format', DateUtils::TIMEFORMAT), 'H') ) ? 23 : 12;
 		foreach (range(1, $rangeMax) as $hour) {
@@ -435,7 +435,7 @@ class Tribe_View_Helpers {
 	 * @param string YYYY-MM-DD HH:MM:SS to select (optional)
 	 * @return string a set of HTML options with all meridians 
 	 */
-	public function getMeridianOptions($date = "", $isStart = false) {
+	public static function getMeridianOptions($date = "", $isStart = false) {
 		if (strstr(get_option('time_format', DateUtils::TIMEFORMAT), 'A')) {
 			$a = 'A';
 			$meridians = array("AM", "PM");
@@ -464,8 +464,9 @@ class Tribe_View_Helpers {
 	 * @param string the current date to select  (optional)
 	 * @return string a set of HTML options with all months (current month selected)
 	 */
-	public function getMonthOptions($date = "") {
-		$months = $this->monthNames();
+	public static function getMonthOptions($date = "") {
+		global $sp_ecp;
+		$months = $sp_ecp->monthNames();
 		$options = '';
 		if (empty($date)) {
 			$month = ( date_i18n('j') == date_i18n('t') ) ? date('F', time() + 86400) : date_i18n('F');
@@ -494,8 +495,8 @@ class Tribe_View_Helpers {
 	 * @param string the current date (optional)
 	 * @return string a set of HTML options with all days (current day selected)
 	 */
-	public function getDayOptions($date = "", $totalDays = 31) {
-		$days = $this->days($totalDays);
+	public static function getDayOptions($date = "", $totalDays = 31) {
+		$days = Tribe_View_Helpers::days($totalDays);
 		$options = '';
 		if (empty($date)) {
 			$day = date_i18n('j');
@@ -527,8 +528,8 @@ class Tribe_View_Helpers {
 	 * @param string the current date (optional)
 	 * @return string a set of HTML options with adjacent years (current year selected)
 	 */
-	public function getYearOptions($date = "") {
-		$years = $this->years();
+	public static function getYearOptions($date = "") {
+		$years = Tribe_View_Helpers::years();
 		$options = '';
 		if (empty($date)) {
 			$year = date_i18n('Y');
@@ -546,6 +547,33 @@ class Tribe_View_Helpers {
 			$options .= "<option value='$yearText' $selected>$yearText</option>\n";
 		}
 		return $options;
+	}
+
+	/**
+	 * Helper method to return an array of years, back 2 and forward 5
+	 */
+	private static function years( ) {
+		$year = ( int )date_i18n( 'Y' );
+		// Back two years, forward 5
+		$year_list = array( $year - 5, $year - 4, $year - 3, $year - 2, $year - 1, $year, $year + 1, $year + 2, $year + 3, $year + 4, $year + 5 );
+		$years = array();
+		foreach( $year_list as $single_year ) {
+			$years[ $single_year ] = $single_year;
+		}
+
+		return $years;
+	}
+
+
+	/**
+	 * Helper method to return an array of 1-31 for days
+	 */
+	public static function days( $totalDays ) {
+		$days = array();
+		foreach( range( 1, $totalDays ) as $day ) {
+			$days[ $day ] = $day;
+		}
+		return $days;
 	}
 
 }

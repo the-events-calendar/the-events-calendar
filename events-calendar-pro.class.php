@@ -881,32 +881,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				return $this->monthsShort;
 			return $this->monthsFull;
 		}
-
-		/**
-		 * Helper method to return an array of 1-31 for days
-		 */
-		public function days( $totalDays ) {
-			$days = array();
-			foreach( range( 1, $totalDays ) as $day ) {
-				$days[ $day ] = $day;
-			}
-			return $days;
-		}
-
-		/**
-		 * Helper method to return an array of years, back 2 and forward 5
-		 */
-		public function years( ) {
-			$year = ( int )date_i18n( 'Y' );
-			// Back two years, forward 5
-			$year_list = array( $year - 5, $year - 4, $year - 3, $year - 2, $year - 1, $year, $year + 1, $year + 2, $year + 3, $year + 4, $year + 5 );
-			$years = array();
-			foreach( $year_list as $single_year ) {
-				$years[ $single_year ] = $single_year;
-			}
-
-			return $years;
-		}
 	
 		/**
 	     * Gets the Category id to use for an Event
@@ -1285,7 +1259,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					echo '<option value="0">' . __("Use New Venue", $this->pluginDomain) . '</option>';
 				foreach($venues as $venue){
 					$selected = ($current == $venue->ID) ? 'selected="selected"' : '';
-					echo "<option value='{$venue->ID}' $selected>{$venue->post_title}</option>";
+					echo "<option data-address=" . json_encode( tribe_venue_get_full_address($venue->ID) ) . " value='{$venue->ID}' $selected>{$venue->post_title}</option>";
 				}
 				echo '</select>';
 			}else{

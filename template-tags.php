@@ -237,8 +237,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		} else {
 			$date = date_i18n( DateUtils::DBDATEFORMAT );
 		}
-		$monthOptions = $sp_ecp->getMonthOptions( $date );
-		$yearOptions = $sp_ecp->getYearOptions( $date );
+		$monthOptions = Tribe_View_Helpers::getMonthOptions( $date );
+		$yearOptions = Tribe_View_Helpers::getYearOptions( $date );
 		include('admin-views/datepicker.php');
 	}
 

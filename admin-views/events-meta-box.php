@@ -67,40 +67,45 @@
 		</tr>
 		<?php include( $this->pluginPath . 'admin-views/event-recurrence.php' ); ?>
 	</table>
-	<table id="event_venue" class="eventtable">
-		<tr>
-			<td colspan="2" class="snp_sectionheader"><h4><?php _e('Event Location Details', $this->pluginDomain); ?></h4></td>
-		</tr>
-		<tr class="">
-			<td style="width:170px"><?php _e('Use Saved Venue:',$this->pluginDomain); ?></td>
-			<td>
-				<?php $this->saved_venues_dropdown($_EventVenueID);?>
-			</td>
-		</tr>
-			
-		<?php
-			include( $this->pluginPath . 'admin-views/venue-meta-box.php' );
-
-		?>
-		<tr id="google_map_link_toggle">
-			<td><?php _e('Show Google Maps Link:',$this->pluginDomain); ?></td>
-			<td>
-				<?php // is the post new?
-					$tecPostCustomKeys = get_post_custom_keys($postId);
-					$tecHasCustomKeys = count( $tecPostCustomKeys );
-					$tecNewPost = ( $tecHasCustomKeys ) ? !in_array( "_EventShowMapLink", $tecPostCustomKeys ) : true;
-				?>
-				<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="EventShowMapLink" size="6" value="true" <?php if( $tecNewPost || get_post_meta( $postId, '_EventShowMapLink', true ) == 'true' ) echo 'checked="checked"'?> />
-			</td>
-		</tr>
-		<?php if( sp_get_option('embedGoogleMaps') == 'on' ) : ?>
-			<tr id="google_map_toggle">
-				<td><?php _e('Show Google Map:',$this->pluginDomain); ?></td>
-				<td><input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="EventShowMap" size="6" value="true" <?php if( $tecNewPost || get_post_meta( $postId, '_EventShowMap', true ) == 'true' ) echo 'checked="checked"'; ?> /></td>
+	<div class="snp_sectionheader" style="padding: 6px 6px 0 0; font-size: 11px; margin: 0 10px;"><h4><?php _e('Event Location Details', $this->pluginDomain); ?></h4></div>
+	<div style="float: left;">
+		<table id="event_venue" class="eventtable">
+			<tr class="">
+				<td style="width:170px"><?php _e('Use Saved Venue:',$this->pluginDomain); ?></td>
+				<td>
+					<?php $this->saved_venues_dropdown($_EventVenueID);?>
+				</td>
 			</tr>
-		<?php endif; ?>
-	</table>
 
+			<?php
+				include( $this->pluginPath . 'admin-views/venue-meta-box.php' );
+
+			?>
+			<tr id="google_map_link_toggle">
+				<td><?php _e('Show Google Maps Link:',$this->pluginDomain); ?></td>
+				<td>
+					<?php // is the post new?
+						$tecPostCustomKeys = get_post_custom_keys($postId);
+						$tecHasCustomKeys = count( $tecPostCustomKeys );
+						$tecNewPost = ( $tecHasCustomKeys ) ? !in_array( "_EventShowMapLink", $tecPostCustomKeys ) : true;
+					?>
+					<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="EventShowMapLink" size="6" value="true" <?php if( $tecNewPost || get_post_meta( $postId, '_EventShowMapLink', true ) == 'true' ) echo 'checked="checked"'?> />
+				</td>
+			</tr>
+			<?php if( sp_get_option('embedGoogleMaps') == 'on' ) : ?>
+				<tr id="google_map_toggle">
+					<td><?php _e('Show Google Map:',$this->pluginDomain); ?></td>
+					<td><input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="EventShowMap" size="6" value="true" <?php if( $tecNewPost || get_post_meta( $postId, '_EventShowMap', true ) == 'true' ) echo 'checked="checked"'; ?> /></td>
+				</tr>
+			<?php endif; ?>
+		</table>
+	</div>
+	<?php if( sp_get_option('embedGoogleMaps') == 'on'): ?>
+		<div style="float:right; display: <?php echo $tecNewPost || get_post_meta( $postId, '_EventShowMap', true) == 'true' ? "block" : "none" ?>">
+			<?php echo tribe_get_embedded_map($postId, 200, 200) ?>
+		</div>
+	<?php endif; ?>
+	<div style="clear:both"></div>
 	<table id="event_organizer" class="eventtable">
 			<tr>
 				<td colspan="2" class="snp_sectionheader"><h4><?php _e('Event Organizer Details', $this->pluginDomain); ?></h4></td>

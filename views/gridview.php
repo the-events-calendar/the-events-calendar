@@ -12,7 +12,7 @@
 					</a>
 				</span>
 
-				<?php sp_month_year_dropdowns( "tec-" ); ?>
+				<?php tribe_month_year_dropdowns( "tec-" ); ?>
 	
 				<span class='tec-next-month'>
 					<a href='<?php echo sp_get_next_month_link(); ?>'>				
