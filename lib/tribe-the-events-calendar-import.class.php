@@ -126,4 +126,3 @@ class Tribe_The_Events_Calendar_Import {
 		return $cats;
 	}		
 }
-?>

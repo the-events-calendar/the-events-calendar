@@ -577,4 +577,3 @@ class Tribe_View_Helpers {
 	}
 
 }
-?>

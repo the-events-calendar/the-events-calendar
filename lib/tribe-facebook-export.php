@@ -62,4 +62,3 @@
 			print_r($results); die();
 		}
 	}
-?>

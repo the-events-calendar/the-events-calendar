@@ -167,4 +167,3 @@ class Tribe_Event_API {
 		}		
 	}	
 }
-?>

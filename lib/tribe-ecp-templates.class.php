@@ -192,4 +192,3 @@ class Tribe_ECP_Templates {
 		$wp_query->rewind_posts();
 	}
 }
-?>

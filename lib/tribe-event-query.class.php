@@ -192,4 +192,3 @@ class Tribe_Event_Query {
 		return "DATE(eventStart.meta_value) DESC, TIME(eventStart.meta_value) DESC";
 	}
 }
-?>

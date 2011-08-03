@@ -244,4 +244,3 @@ class YearSeriesRules implements DateSeriesRules
 		return $this->months_of_year[0];
 	}
 }
-?>

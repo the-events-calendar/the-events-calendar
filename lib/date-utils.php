@@ -91,4 +91,3 @@ class DateUtils {
 			'th' : date("S",mktime(0,0,0,0,substr($number,-1),0))); 
 	}
 }
-?>

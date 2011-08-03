@@ -415,4 +415,3 @@ class Events_Recurrence_Meta {
 		}
 	}
 }
-?>

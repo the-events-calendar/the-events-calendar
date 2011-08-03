@@ -20,5 +20,3 @@ if($_POST['validate_name'] && $_POST['validation_nonce']){
 }else{
 	exit;
 }
-
-?>

@@ -299,4 +299,3 @@ class Tribe_Admin_Events_List {
 		return $stats;
 	}	
 }
-?>
