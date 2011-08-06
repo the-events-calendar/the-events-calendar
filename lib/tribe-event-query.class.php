@@ -24,6 +24,7 @@ class Tribe_Event_Query {
 			add_filter( 'posts_where', array(__CLASS__, 'addEventConditions'), 10, 2);
 			add_filter( 'posts_fields', array(__CLASS__, 'setupFields' ) );	
 			add_filter( 'posts_groupby', array(__CLASS__, 'addStartDateToGroupBy'));
+			add_filter( 'posts_orderby', array(__CLASS__, 'dateOrderBy'), 10, 2);
 		}	
 	}
 	
@@ -68,8 +69,7 @@ class Tribe_Event_Query {
 				$query = self::setAllDisplayTypeArgs($query);
 				break;				
 			case "month":
-		   case "bydate":
-				$query = self::setMonthDisplayTypeArgs($query);
+				$query = self::setMonthDisplayTypeArgs($query);				
 		}
 		
 		return $query;
@@ -107,7 +107,8 @@ class Tribe_Event_Query {
 	public static function setPastDisplayTypeArgs($query) {		
 		$args = &$query->query_vars;
 		$args['end_date'] = date_i18n( DateUtils::DBDATETIMEFORMAT );
-		add_filter('posts_orderby', array(__CLASS__, 'setDescendingDisplayOrder'));
+		$args['orderby'] = 'event_date';
+		$args['order'] = "DESC";
 		
 		return $query;
 	}
@@ -116,14 +117,16 @@ class Tribe_Event_Query {
 		$args = &$query->query_vars;
 		$args['hide_upcoming'] = true;
 		$args['start_date'] = date_i18n( DateUtils::DBDATETIMEFORMAT );
-		add_filter('posts_orderby', array(__CLASS__, 'setAscendingDisplayOrder'));
+		$args['orderby'] = 'event_date';
+		$args['order'] = "ASC";
 
 		return $query;
 	}
 	
 	public static function setAllDisplayTypeArgs($query) {
 		$args = &$query->query_vars;
-		add_filter('posts_orderby', array(__CLASS__, 'setAscendingDisplayOrder'));
+		$args['orderby'] = 'event_date';
+		$args['order'] = "ASC";
 		
 		return $query;		
 	}
@@ -143,8 +146,8 @@ class Tribe_Event_Query {
 
 		$args['eventDate'] = $args['start_date'];		
 		$args['end_date'] = $sp_ecp->nextMonth($args['start_date']) . "-01";
-
-		add_filter('posts_orderby', array(__CLASS__, 'setDescendingDisplayOrder'));
+		$args['orderby'] = 'event_date';
+		$args['order'] = "DESC";
 		
 		return $query;		
 	}
@@ -184,11 +187,12 @@ class Tribe_Event_Query {
 		return $where;
 	}
 
-	public static function setAscendingDisplayOrder($order_sql) {
-		return "DATE(eventStart.meta_value) ASC, TIME(eventStart.meta_value) ASC";
-	}
-
-	public static function setDescendingDisplayOrder($order_sql) {
-		return "DATE(eventStart.meta_value) DESC, TIME(eventStart.meta_value) DESC";
+	public static function dateOrderBy($order_sql, $cur_query) {
+		if( $cur_query->get( 'orderby' ) == 'event_date' ) {
+			$direction = $cur_query->get( 'order' );
+			$order_sql = "DATE(eventStart.meta_value) $direction, TIME(eventStart.meta_value) $direction";
+		}
+		
+		return $order_sql;
 	}
 }

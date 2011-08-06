@@ -1598,7 +1598,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$defaults = array(
 				'posts_per_page' => get_option( 'posts_per_page', 10 ),
 				'post_type' => Events_Calendar_Pro::POSTTYPE,
-				//'eventDisplay' => $sp_ecp->getOption('viewOption','month')
+				'orderby' => 'event_date',
+				'order' => 'ASC'
 			);			
 
 			$args = wp_parse_args( $args, $defaults);
