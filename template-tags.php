@@ -4,7 +4,7 @@ if( class_exists( 'ECP_Premium' ) && !function_exists( 'tribe_get_recurrence_tex
 	
 	/* Get the textual version of event recurrence */
 	function tribe_get_recurrence_text( $postId = null )  {
-		global $sp_ecp;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 		$postId = tribe_post_id_helper( $postId );
 	   return apply_filters( 'tribe_get_recurrence_text', Events_Recurrence_Meta::recurrenceToText( $postId ) );
 	}

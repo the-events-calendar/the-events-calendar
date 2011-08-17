@@ -167,7 +167,7 @@ class Events_Recurrence_Meta {
 	
 	
 	private static function cloneEvent( $data ) {
-		global $sp_ecp;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 		
 		$data['ID'] = null;
 		$new_event = wp_insert_post($data);

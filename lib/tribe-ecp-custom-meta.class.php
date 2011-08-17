@@ -13,23 +13,23 @@ class Tribe_ECP_Custom_Meta {
 	}
 
     public static function remove_meta_field() {
-		global $wpdb, $sp_ecp;
-      	$options = $sp_ecp->getOptions();
+		global $wpdb, $tribe_ecp;
+      	$options = $tribe_ecp->getOptions();
       	array_splice($options['custom-fields'], $_POST['field'] - 1, 1);
-      	$sp_ecp->saveOptions($options);
+      	$tribe_ecp->saveOptions($options);
       	$wpdb->query($wpdb->prepare("DELETE FROM $wpdb->postmeta WHERE meta_key=%s", '_ecp_custom_' . $_POST['field']));
       	die();
     }
 	
 	public static function event_meta_options() {
-		global $sp_ecp;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 		$customFields = tribe_get_option('custom-fields');
 		$count = 1;
 		include( ECP_Premium::instance()->pluginPath . 'admin-views/event-meta-options.php' );
 	}
 
     public static function single_event_meta() {
-		global $sp_ecp;
+		$tribe_ecp = Events_Calendar_Pro::instance();
       	$customFields = tribe_get_option('custom-fields');
 		include( ECP_Premium::instance()->pluginPath . 'admin-views/event-meta.php' );
     }
