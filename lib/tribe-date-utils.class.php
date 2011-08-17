@@ -1,4 +1,7 @@
 <?php
+/**
+ * Date utility functions used throughout ECP
+ */
 if(!class_exists('TribeDateUtils')) {
 	class TribeDateUtils {
 		// default formats, they are overridden by WP options or by arguments to date methods

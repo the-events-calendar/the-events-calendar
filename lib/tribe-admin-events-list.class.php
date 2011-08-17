@@ -1,4 +1,7 @@
 <?php
+/**
+ * Controls the ECP admin list views for events
+ */
 class Tribe_Admin_Events_List {
 	public static $events_list;
 	

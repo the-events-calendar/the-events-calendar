@@ -1,4 +1,7 @@
 <?php
+/**
+ * Templating functionality for ECP
+ */
 class Tribe_ECP_Templates {
 	public static $origPostCount;
 	public static $origCurrentPost;

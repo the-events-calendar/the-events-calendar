@@ -1,4 +1,7 @@
 <?php
+/**
+ * Various helper methods used in views
+ */
 class Tribe_View_Helpers {
 	public static function constructCountries( $postId = '', $useDefault = true ) {
 		$tribe_ecp = Events_Calendar_Pro::instance();

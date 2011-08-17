@@ -1,4 +1,7 @@
 <?php
+/**
+ * Import functionality from the old open source plugin - The Events Calendar
+ */
 class Tribe_The_Events_Calendar_Import {
 	public static $curVenues = array();
 	public static $legacyVenueTags = array(

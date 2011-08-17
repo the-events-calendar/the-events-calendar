@@ -1,4 +1,7 @@
 <?php
+/**
+ * Controls the main event query.  Allows for recurring events.
+ */
 class Tribe_Event_Query {
 	
 	public static function init() {
