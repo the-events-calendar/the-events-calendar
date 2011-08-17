@@ -235,7 +235,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		if ( isset ( $wp_query->query_vars['eventDate'] ) ) { 
 			$date = $wp_query->query_vars['eventDate'] . "-01";
 		} else {
-			$date = date_i18n( DateUtils::DBDATEFORMAT );
+			$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
 		}
 		$monthOptions = Tribe_View_Helpers::getMonthOptions( $date );
 		$yearOptions = Tribe_View_Helpers::getYearOptions( $date );
@@ -266,7 +266,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		global $sp_ecp;
 		
 		if( $dateFormat ) $format = $dateFormat;
-		else $format = get_option( 'date_format', DateUtils::DATEONLYFORMAT );
+		else $format = get_option( 'date_format', TribeDateUtils::DATEONLYFORMAT );
 
 		if ( $showtime )
 			$format = $sp_ecp->getTimeFormat( $format );
@@ -568,7 +568,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		$now = time();
 		if(isset($post->EventStartDate)) {
 			$postTimestamp = strtotime( $post->EventStartDate, $now );
-			$postTimestamp = strtotime( date( DateUtils::DBDATEFORMAT, $postTimestamp ), $now); // strip the time
+			$postTimestamp = strtotime( date( TribeDateUtils::DBDATEFORMAT, $postTimestamp ), $now); // strip the time
 			if ( $postTimestamp != $sp_ecp->currentPostTimestamp ) {
 				$retval = true;
 			}
@@ -666,7 +666,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		if ( isset ( $wp_query->query_vars['eventDate'] ) ) { 
 			$date = $wp_query->query_vars['eventDate'] . "-01";
 		} else {
-			$date = date_i18n( DateUtils::DBDATEFORMAT );
+			$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
 		}
 		
 		return $date;

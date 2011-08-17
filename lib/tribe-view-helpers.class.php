@@ -405,7 +405,7 @@ class Tribe_View_Helpers {
 	 */
 	private static function hours() {
 		$hours = array();
-		$rangeMax = ( strstr(get_option('time_format', DateUtils::TIMEFORMAT), 'H') ) ? 23 : 12;
+		$rangeMax = ( strstr(get_option('time_format', TribeDateUtils::TIMEFORMAT), 'H') ) ? 23 : 12;
 		foreach (range(1, $rangeMax) as $hour) {
 			if ($hour < 10) {
 				$hour = "0" . $hour;
@@ -436,7 +436,7 @@ class Tribe_View_Helpers {
 	 * @return string a set of HTML options with all meridians 
 	 */
 	public static function getMeridianOptions($date = "", $isStart = false) {
-		if (strstr(get_option('time_format', DateUtils::TIMEFORMAT), 'A')) {
+		if (strstr(get_option('time_format', TribeDateUtils::TIMEFORMAT), 'A')) {
 			$a = 'A';
 			$meridians = array("AM", "PM");
 		} else {

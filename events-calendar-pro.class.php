@@ -274,9 +274,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				}
 				
 				if( '' == get_option('permalink_structure') || 'off' == $this->getOption('useRewriteRules','on') ) {
-					return add_query_arg('eventDate', DateUtils::dateOnly( $post->EventStartDate ), $permalink ); 					
+					return add_query_arg('eventDate', TribeDateUtils::dateOnly( $post->EventStartDate ), $permalink ); 					
 				} else {
-					return trailingslashit($permalink) . DateUtils::dateOnly( $post->EventStartDate );
+					return trailingslashit($permalink) . TribeDateUtils::dateOnly( $post->EventStartDate );
 				}
 			}
 			
@@ -797,12 +797,12 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			} else if ( $query->get('eventDate') ) {
 				$this->date = $query->get('eventDate');
 			} else if ( $query->get('eventDisplay') == 'month' ) {
-				$date = date_i18n( DateUtils::DBDATEFORMAT );
+				$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
 				$this->date = substr_replace( $date, '01', -2 );
 			} else if (is_singular(self::POSTTYPE) && $query->get('eventDate') ) {
 				$this->date = $query->get('eventDate');
 			} else if (!is_singular(self::POSTTYPE)) { // don't set date for single event unless recurring
-				$this->date = date(DateUtils::DBDATETIMEFORMAT);
+				$this->date = date(TribeDateUtils::DBDATETIMEFORMAT);
 			}
 		}
 		
@@ -820,10 +820,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			
 			if( is_singular(self::POSTTYPE) && tribe_is_recurring_event() && !sp_is_showing_all() ) {
 				$startTime = get_post_meta($post->ID, '_EventStartDate', true);
-				$startTime = DateUtils::timeOnly($startTime);
+				$startTime = TribeDateUtils::timeOnly($startTime);
 				
-				$post->EventStartDate = DateUtils::addTimeToDate($this->date, $startTime);
-				$post->EventEndDate = date( DateUtils::DBDATETIMEFORMAT, strtotime($post->EventStartDate) + get_post_meta($post->ID, '_EventDuration', true) );
+				$post->EventStartDate = TribeDateUtils::addTimeToDate($this->date, $startTime);
+				$post->EventEndDate = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($post->EventStartDate) + get_post_meta($post->ID, '_EventDuration', true) );
 			}
 		}		
 		
@@ -1144,8 +1144,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$date = $this->dateHelper($date);
 			return "$date $hour:$minute:00";
 		}
-		public function getTimeFormat( $dateFormat = DateUtils::DATEONLYFORMAT ) {
-			return $dateFormat . ' ' . get_option( 'time_format', DateUtils::TIMEFORMAT );
+		public function getTimeFormat( $dateFormat = TribeDateUtils::DATEONLYFORMAT ) {
+			return $dateFormat . ' ' . get_option( 'time_format', TribeDateUtils::TIMEFORMAT );
 		}
 		/*
 		 * ensures date follows proper YYYY-MM-DD format
@@ -1154,14 +1154,14 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		private function dateHelper( $date ) {
 
 			if($date == '')
-				return date(DateUtils::DBDATEFORMAT);
+				return date(TribeDateUtils::DBDATEFORMAT);
 
 			$date = str_replace( array('-','/',' ',':','–','—','-'), '-', $date );
 			// ensure no extra bits are added
 			list($year, $month, $day) = explode('-', $date);
 			
 			if ( ! checkdate($month, $day, $year) )
-				$date = date(DateUtils::DBDATEFORMAT); // today's date if error
+				$date = date(TribeDateUtils::DBDATEFORMAT); // today's date if error
 			else
 				$date = $year . '-' . $month . '-' . $day;
 	
@@ -1395,7 +1395,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			foreach($this->organizerTags as $tag)
 				$$tag = get_post_meta($_EventOrganizerID, $tag, true );*/
 
-			$isEventAllDay = ( $_EventAllDay == 'yes' || ! DateUtils::dateOnly( $_EventStartDate ) ) ? 'checked="checked"' : ''; // default is all day for new posts
+			$isEventAllDay = ( $_EventAllDay == 'yes' || ! TribeDateUtils::dateOnly( $_EventStartDate ) ) ? 'checked="checked"' : ''; // default is all day for new posts
 			$startMonthOptions 	 = Tribe_View_Helpers::getMonthOptions( $_EventStartDate );
 			$endMonthOptions 		 = Tribe_View_Helpers::getMonthOptions( $_EventEndDate );
 			$startYearOptions 	 = Tribe_View_Helpers::getYearOptions( $_EventStartDate );
@@ -1408,7 +1408,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$endMeridianOptions	 = Tribe_View_Helpers::getMeridianOptions( $_EventEndDate );
 			
 			if( $_EventStartDate )
-				$start = DateUtils::dateOnly($_EventStartDate);
+				$start = TribeDateUtils::dateOnly($_EventStartDate);
 
 			$EventStartDate = ( $start ) ? $start : date('Y-m-d');
 			
@@ -1416,13 +1416,13 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$EventStartDate = $_REQUEST['eventDate'];
 			
 			if( $_EventEndDate )
-				$end = DateUtils::dateOnly($_EventEndDate);
+				$end = TribeDateUtils::dateOnly($_EventEndDate);
 
 			$EventEndDate = ( $end ) ? $end : date('Y-m-d');
 			
 			if ( $_REQUEST['eventDate'] != null ) {
 				$duration = get_post_meta( $postId, '_EventDuration', true );
-				$EventEndDate = DateUtils::dateOnly( strtotime($EventStartDate) + $duration, true );
+				$EventEndDate = TribeDateUtils::dateOnly( strtotime($EventStartDate) + $duration, true );
 			}
 
 			include( $this->pluginPath . 'admin-views/events-meta-box.php' );

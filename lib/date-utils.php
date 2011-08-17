@@ -1,6 +1,6 @@
 <?php
-if(!class_exists('DateUtils')) {
-	class DateUtils {
+if(!class_exists('TribeDateUtils')) {
+	class TribeDateUtils {
 		// default formats, they are overridden by WP options or by arguments to date methods
 		const DATEONLYFORMAT 		= 'F j, Y';
 		const TIMEFORMAT			= 'g:i A';
@@ -11,35 +11,35 @@ if(!class_exists('DateUtils')) {
 		
 		public static function dateOnly( $date, $isTimestamp = false ) {
 			$date = $isTimestamp ? $date : strtotime($date);
-			return date(DateUtils::DBDATEFORMAT, $date );
+			return date(TribeDateUtils::DBDATEFORMAT, $date );
 		}	
 		
 		public static function timeOnly( $date ) {
-			return date(DateUtils::DBTIMEFORMAT, strtotime($date) );
+			return date(TribeDateUtils::DBTIMEFORMAT, strtotime($date) );
 		}
 		
 		public static function dateAndTime( $date, $isTimestamp = false ) {
 			$date = $isTimestamp ? $date : strtotime($date);
-			return date(DateUtils::DBDATETIMEFORMAT, $date );
+			return date(TribeDateUtils::DBDATETIMEFORMAT, $date );
 		}		
 		
 		public static function endOfDay( $date, $isTimestamp = false ) {
 			$date = $isTimestamp ? $date : strtotime($date);
-			$date = date(DateUtils::DBDATEFORMAT, $date );
+			$date = date(TribeDateUtils::DBDATEFORMAT, $date );
 			$date = strtotime($date . ' 23:59:59');
-			return date(DateUtils::DBDATETIMEFORMAT, $date );		
+			return date(TribeDateUtils::DBDATETIMEFORMAT, $date );		
 		}
 		
 		public static function beginningOfDay( $date, $isTimestamp = false ) {
 			$date = $isTimestamp ? $date : strtotime($date);
-			$date = date(DateUtils::DBDATEFORMAT, $date );
+			$date = date(TribeDateUtils::DBDATEFORMAT, $date );
 			$date = strtotime($date . ' 00:00:00');
-			return date(DateUtils::DBDATETIMEFORMAT, $date );		
+			return date(TribeDateUtils::DBDATETIMEFORMAT, $date );		
 		}	
 		
 		public static function addTimeToDate( $date, $time ) {
 			$date = self::dateOnly($date);
-			return date(DateUtils::DBDATETIMEFORMAT, strtotime($date . $time) );
+			return date(TribeDateUtils::DBDATETIMEFORMAT, strtotime($date . $time) );
 		}
 		
 		// returns the last day of the month given a php date
@@ -63,7 +63,7 @@ if(!class_exists('DateUtils')) {
 		
 		// gets the last day of the week in a month (ie the last Tuesday).  Passing in -1 gives you the last day in the month
 		public static function getLastDayOfWeekInMonth($curdate, $day_of_week) {
-			$nextdate = mktime (date("H", $curdate), date("i", $curdate), date("s", $curdate), date('n', $curdate), DateUtils::getLastDayOfMonth($curdate), date('Y', $curdate));;
+			$nextdate = mktime (date("H", $curdate), date("i", $curdate), date("s", $curdate), date('n', $curdate), TribeDateUtils::getLastDayOfMonth($curdate), date('Y', $curdate));;
 	
 			while(date('N', $nextdate) != $day_of_week  && $day_of_week != -1) {
 				$nextdate = strtotime(date(DateSeriesRules::DATE_FORMAT, $nextdate) . " - 1 day");
@@ -78,8 +78,8 @@ if(!class_exists('DateUtils')) {
 			$nextdate = mktime (0, 0, 0, date('n', $curdate), 1, date('Y', $curdate));
 	
 			while(!($day_of_week > 0 && date('N', $nextdate) == $day_of_week) &&
-				!($day_of_week == -1 && DateUtils::isWeekday($nextdate)) &&
-			   !($day_of_week == -2 && DateUtils::isWeekend($nextdate))) {
+				!($day_of_week == -1 && TribeDateUtils::isWeekday($nextdate)) &&
+			   !($day_of_week == -2 && TribeDateUtils::isWeekend($nextdate))) {
 				$nextdate = strtotime(date(DateSeriesRules::DATE_FORMAT, $nextdate) . " + 1 day");
 			}
 	

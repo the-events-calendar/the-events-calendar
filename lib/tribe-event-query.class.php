@@ -106,7 +106,7 @@ class Tribe_Event_Query {
 	
 	public static function setPastDisplayTypeArgs($query) {		
 		$args = &$query->query_vars;
-		$args['end_date'] = date_i18n( DateUtils::DBDATETIMEFORMAT );
+		$args['end_date'] = date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
 		$args['orderby'] = 'event_date';
 		$args['order'] = "DESC";
 		
@@ -116,7 +116,7 @@ class Tribe_Event_Query {
 	public static function setUpcomingDisplayTypeArgs($query) {
 		$args = &$query->query_vars;
 		$args['hide_upcoming'] = true;
-		$args['start_date'] = date_i18n( DateUtils::DBDATETIMEFORMAT );
+		$args['start_date'] = date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
 		$args['orderby'] = 'event_date';
 		$args['order'] = "ASC";
 
@@ -138,7 +138,7 @@ class Tribe_Event_Query {
 		$args = &$query->query_vars;		
 		
 		$args['posts_per_page'] = -1; // show ALL month posts
-		$args['start_date'] = date_i18n( DateUtils::DBDATEFORMAT );
+		$args['start_date'] = date_i18n( TribeDateUtils::DBDATEFORMAT );
 		$args['start_date'] = substr_replace( $args['start_date'], '01', -2 );
 
 		if ( isset ( $wp_query->query_vars['eventDate'] ) )
@@ -156,11 +156,11 @@ class Tribe_Event_Query {
 		global $wpdb;
 
 		if ( $cur_query->get('start_date') ) {
-			$start_date = DateUtils::beginningOfDay($cur_query->get('start_date'));
+			$start_date = TribeDateUtils::beginningOfDay($cur_query->get('start_date'));
 		}
 
 		if ( $cur_query->get('end_date') ) {
-			$end_date = DateUtils::endOfDay(  $cur_query->get('end_date') );
+			$end_date = TribeDateUtils::endOfDay(  $cur_query->get('end_date') );
 		}
 
 		// we can't store end date directly because it messes up the distinc clause
