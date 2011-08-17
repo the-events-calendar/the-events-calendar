@@ -7,6 +7,7 @@
  Author URI: http://www.shaneandpeter.com/
  Text Domain: events-calendar-pro
  */
+
 if ( !class_exists( 'ECP_Premium' ) ) {
 	class ECP_Premium
 	{
@@ -48,7 +49,13 @@ if ( !class_exists( 'ECP_Premium' ) ) {
 	        return self::$instance;
 	    }
 		
-		public static function check_for_ecp() {
+		/**
+		 * check_for_ecp
+		 *
+		 * Check that the required minimum version of the base events plugin is activated.
+		 * 
+		 * @author John Gadbois 
+		 */public static function check_for_ecp() {
 			if( !class_exists( 'Events_Calendar_Pro' ) || !defined('Events_Calendar_Pro::VERSION') || !version_compare( Events_Calendar_Pro::VERSION, '2.0', '>=') ) {
 				deactivate_plugins(basename(__FILE__)); // Deactivate ourself
 				wp_die("Sorry, but you must activate Events Calendar Pro 2.0 or greater in order for this plugin to be installed.");	
@@ -57,6 +64,8 @@ if ( !class_exists( 'ECP_Premium' ) ) {
 	}
 	
 	register_activation_hook( __FILE__, array('ECP_Premium', 'check_for_ecp') );	
+
+	// Instantiate class and set up WordPress actions.
 	ECP_Premium::instance();
 }
 ?>

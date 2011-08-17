@@ -1,6 +1,11 @@
 <?php
-/*
- * This class allows events to have user-defined custom meta
+
+/**
+ * Tribe_ECP_Custom_Meta
+ *
+ * This class allows users to create custom fields in the settings & displays the
+ * custom fields in the event editor
+ * @return void
  */
 class Tribe_ECP_Custom_Meta {
 	public static function init() {

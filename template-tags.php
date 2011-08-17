@@ -2,15 +2,27 @@
 if( class_exists( 'ECP_Premium' ) && !function_exists( 'tribe_get_recurrence_text' ) ) {
 	/* Premium Template Tags */	
 	
-	/* Get the textual version of event recurrence */
+	
+	/**
+	 * tribe_get_recurrence_text 
+	 *
+	 * Get the textual version of event recurrence
+	 * e.g Repeats daily for three days 
+	 */
 	function tribe_get_recurrence_text( $postId = null )  {
 		$tribe_ecp = Events_Calendar_Pro::instance();
 		$postId = tribe_post_id_helper( $postId );
 	   return apply_filters( 'tribe_get_recurrence_text', Events_Recurrence_Meta::recurrenceToText( $postId ) );
 	}
 
-	/* Get the custom meta for a particular event */
-    function tribe_event_meta( $postId = null ) {
+	
+    /**
+     * tribe_event_meta
+     *
+	 * Get the custom meta for a particular event and return via template tags
+     * 
+     */
+	function tribe_event_meta( $postId = null ) {
 	  	$postId = tribe_post_id_helper( $postId );
       	$customFields = tribe_get_option('custom-fields');
 	  	$meta_html = '';
@@ -25,4 +37,6 @@ if( class_exists( 'ECP_Premium' ) && !function_exists( 'tribe_get_recurrence_tex
 	
 		return $meta_html;
     }
+	// TODO: create seperate template tags for each custom field
+
 }
