@@ -26,6 +26,8 @@ if ( !class_exists( 'ECP_Premium' ) ) {
 			$this->pluginUrl 		= WP_PLUGIN_URL.'/'.$this->pluginDir;
 			
 			include 'template-tags.php';
+
+			//TODO: manually include files
 	    	foreach (glob($this->pluginPath . "lib/*.php") as $filename) {
 				include $filename;
 			}

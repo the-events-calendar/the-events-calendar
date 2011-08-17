@@ -33,7 +33,7 @@
 		if($('#additional-field-table').size() > 0) {
          $('#additional-field-table').delegate('.remove-another-field', 'click', function() {
             var row = $(this).closest('tr'), firstInput=row.find('td:first input'), data = { action: 'remove_option', field: firstInput.data('count') }, persisted = firstInput.data('persisted')
-            if(confirm('Are you sure you wish to remove this field from all events?')) {
+            if(confirm('Are you sure you wish to remove this field and its data from all events? Once you click OK this cannot be undone.')) {
                if(persisted == "yes") {
                   jQuery.post(ajaxurl, data, function(response) {
                      row.fadeOut('slow', function() {

@@ -1,20 +1,31 @@
 <?php
-// WordPress Hooks and Filters for events recurrence meta
+/**
+ * Events_Recurrence_Meta
+ * 
+ * WordPress hooks and filters controlling event recurrence
+ * @author John Gadbois
+ */
 class Events_Recurrence_Meta {
 	const UPDATE_TYPE_ALL = 1;
 	const UPDATE_TYPE_FUTURE = 2;
 	const UPDATE_TYPE_SINGLE = 3;
 	
 	public static function init() {
+		add_action( 'tribe_events_update_meta', array( __CLASS__, 'updateRecurrenceMeta' ), 1, 3 );
+		add_action( 'tribe_events_date_display', array( __CLASS__, 'loadRecurrenceData' ) );
+		add_action('trash_post', array( __CLASS__, 'deleteRecurringEvent'));		
+
 		add_action('pre_post_update', array( __CLASS__, 'maybeBreakFromSeries' ));
-		add_action('trash_post', array( __CLASS__, 'deleteRecurringEvent'));
-		
 		add_action( 'admin_notices', array( __CLASS__, 'showRecurrenceErrorFlash') );
 		add_action( 'tribe_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg'), 10, 2);
-		add_action( 'tribe_events_date_display', array( __CLASS__, 'loadRecurrenceData' ) );
-		add_action( 'tribe_events_update_meta', array( __CLASS__, 'updateRecurrenceMeta' ), 1, 3 );
 	}	
 	
+	/**
+	 * Update event recurrence when a recurring event is saved
+	 * @param integer $event_id id of the event to update
+	 * @param array $data data defining the recurrence of this event
+	 * @return void  
+	 */
 	public static function updateRecurrenceMeta($event_id, $data) {
 		// save recurrence
 		$recurrence_meta = $data['recurrence'];
@@ -24,15 +35,25 @@ class Events_Recurrence_Meta {
 			Events_Recurrence_Meta::saveEvents($event_id);
 		}
 	}
-	
+
+	/**
+	 * Displays the events recurrence form on the event editor screen
+	 * @param integer $postId ID of the current event 
+	 * @return void  
+	 */	
 	public static function loadRecurrenceData($postId) {
 		// convert array to variables that can be used in the view
+		extract(Events_Recurrence_Meta::getRecurrenceMeta($postId));
 
 		$premium = ECP_Premium::instance();		
 		include( ECP_Premium::instance()->pluginPath . 'admin-views/event-recurrence.php' );
 	}		
 	
-	// delete a recurring event instance
+	/**
+	 * Deletes a SINGLE occurrence of a recurring event
+	 * @param integer $postId ID of the event that may have an occurence deleted from it
+	 * @return void  
+	 */	
 	public static function deleteRecurringEvent($postId) {
 		$occurrenceDate = $_REQUEST['eventDate'];
 		
@@ -43,10 +64,15 @@ class Events_Recurrence_Meta {
 		}
 	}
 	
+	/**
+	 * Handles updating recurring events. 
+	 * @param integer $postId ID of the event being updated
+	 * @return void  
+	 */		
 	public static function maybeBreakFromSeries( $postId ) {
 		// make new series for future events
 		if($_POST['recurrence_action'] && $_POST['recurrence_action'] == Events_Recurrence_Meta::UPDATE_TYPE_FUTURE) {
-			// only do this if not the first event in the series
+			// if this is the first event in the series, then we don't need to break it into two series
 			if( $_POST['EventStartDate'] != TribeDateUtils::dateOnly( Events_Calendar_Pro::getRealStartDate($postId) )) {
 				// move recurrence end to the last date of the series before today
 				$numOccurrences = self::adjustRecurrenceEnd( $postId, $_POST['EventStartDate'] );			
@@ -95,85 +121,48 @@ class Events_Recurrence_Meta {
 			exit();
 		}
 	}
-	
-	private static function removeOccurrence( $postId, $date ) {
-		$startDate = Events_Calendar_Pro::getRealStartDate($postId);
-		$date = TribeDateUtils::addTimeToDate( $date, TribeDateUtils::timeOnly($startDate) );
 
-		delete_post_meta( $postId, '_EventStartDate', $date );
-	}
-	
-	private static function removeFutureOccurrences( $postId, $date = null ) {
-		$date = $date ? strtotime($date) : time();
-	
-		$occurrences = get_post_meta($postId, '_EventStartDate');
-		
-		foreach($occurrences as $occurrence) {
-			if (strtotime(TribeDateUtils::dateOnly($occurrence)) >= $date ) {
-				delete_post_meta($postId, '_EventStartDate', $occurrence);
-			}
+
+	/**
+	 * Setup an error message if there is a problem with a given recurrence.  
+	 * The message is saved in an option to survive the page load and is deleted after being displayed 
+ 	 * @param array $event The event object that is being saved
+	 * @param array $msg The message to display 
+	 * @return void
+	 */	
+	public static function setupRecurrenceErrorMsg( $event, $msg ) {
+		global $current_screen;
+
+		// only do this when editing events
+		if( is_admin() && $current_screen->id == Events_Calendar_Pro::POSTTYPE ) {
+			update_post_meta($event->ID, 'sp_flash_message', $msg);
 		}
 	}
 	
-	private static function adjustRecurrenceEnd( $postId, $date = null ) {
-		$date = $date ? strtotime($date) : time();
 
-		$occurrences = get_post_meta($postId, '_EventStartDate');
-		$occurrenceCount = 0;
-		sort($occurrences);
-		
-		if( is_array($occurrences) && sizeof($occurrences) > 0 ) {
-			$prev = $occurrences[0];
-		}
-				  
-		foreach($occurrences as $occurrence) {
-			$occurrenceCount++; // keep track of how many we are keeping
-			if (strtotime(TribeDateUtils::dateOnly($occurrence)) > $date ) {
-				$recurrenceMeta = get_post_meta($postId, '_EventRecurrence', true);
-				$recurrenceMeta['end'] = date(DateSeriesRules::DATE_ONLY_FORMAT, strtotime($prev));
+	/**
+	 * Display an error message if there is a problem with a given recurrence and clear it from the cache 
+	 * @return void
+	 */		
+	public static function showRecurrenceErrorFlash(){
+		global $post, $current_screen;
 
-				update_post_meta($postId, '_EventRecurrence', $recurrenceMeta);
-				break;
-			}
-			
-			$prev = $occurrence;
-		}
-		
-		// useful for knowing how many occurrences are needed for new series		
-		return $occurrenceCount; 
+		if ( $current_screen->base == 'post' && $current_screen->post_type == Events_Calendar_Pro::POSTTYPE ) {
+			$msg = get_post_meta($post->ID, 'sp_flash_message', true);
+
+			if ($msg) {
+				echo '<div class="error"><p>Recurrence not saved: ' . $msg . '</p></div>';
+			   delete_post_meta($post->ID, 'sp_flash_message');
+		   }		  
+	   }
 	}
-	
-	private static function removePastOccurrences( $postId, $date = null ) {
-		$date = $date ? strtotime($date) : time();
-		$occurrences = get_post_meta($postId, '_EventStartDate');
-		
-		foreach($occurrences as $occurrence) {
-			if (strtotime(TribeDateUtils::dateOnly($occurrence)) < $date ) {
-				delete_post_meta($postId, '_EventStartDate', $occurrence);
-			}
-		}
-	}	
-	
-	private static function adjustEndDate( $postId ) {
-		$occurrences = get_post_meta($postId, '_EventStartDate');
-		sort($occurrences);
 
-		$duration = get_post_meta($postId, '_EventDuration', true);
-		
-		if( is_array($occurrences) && sizeof($occurrences) > 0 ) {
-			update_post_meta($postId, '_EventEndDate', date(DateSeriesRules::DATE_FORMAT, strtotime($occurrences[0]) + $duration));
-		}	
-	}	
-	
-	
-	private static function cloneEvent( $data ) {
-		$tribe_ecp = Events_Calendar_Pro::instance();
-		
-		$data['ID'] = null;
-		$new_event = wp_insert_post($data);
-		return $new_event;
-	}		
-
+	/**
+	 * Convenience method for turning event meta into keys available to turn into PHP variables 
+	 * @param integer $postId ID of the event being updated
+	 * @param $recurrenceData array The actual recurrence data
+	 * @return void  
+	 */		
 	public static function getRecurrenceMeta( $postId, $recurrenceData = null ) {
 		if (!$recurrenceData )
 			$recurrenceData = get_post_meta($postId, '_EventRecurrence', true);
@@ -211,6 +200,129 @@ class Events_Recurrence_Meta {
 		return $recArray;
 	}
 
+	
+	/**
+	 * Deletes a single occurrence of an event
+ 	 * @param integer $postId ID of the event that occurrence will be deleted from 
+	 * @param string $date date of occurrence to delete 
+	 * @return void  
+	 */			
+	private static function removeOccurrence( $postId, $date ) {
+		$startDate = Events_Calendar_Pro::getRealStartDate($postId);
+		$date = TribeDateUtils::addTimeToDate( $date, TribeDateUtils::timeOnly($startDate) );
+
+		delete_post_meta( $postId, '_EventStartDate', $date );
+	}
+	
+	/**
+	 * Removes all occurrences of an event that are after a given date
+ 	 * @param integer $postId ID of the event that occurrences will be deleted from 
+	 * @param string $date date to delete occurrences after, current date if not specified  
+	 * @return void  
+	 */				
+	private static function removeFutureOccurrences( $postId, $date = null ) {
+		$date = $date ? strtotime($date) : time();
+	
+		$occurrences = get_post_meta($postId, '_EventStartDate');
+		
+		foreach($occurrences as $occurrence) {
+			if (strtotime(TribeDateUtils::dateOnly($occurrence)) >= $date ) {
+				delete_post_meta($postId, '_EventStartDate', $occurrence);
+			}
+		}
+	}
+	
+	/**
+	 * Removes all occurrences of an event that are before a given date
+ 	 * @param integer $postId ID of the event that occurrences will be deleted from 
+	 * @param string $date date to delete occurrences before, current date if not specified  
+	 * @return void  
+	 */		
+	private static function removePastOccurrences( $postId, $date = null ) {
+		$date = $date ? strtotime($date) : time();
+		$occurrences = get_post_meta($postId, '_EventStartDate');
+		
+		foreach($occurrences as $occurrence) {
+			if (strtotime(TribeDateUtils::dateOnly($occurrence)) < $date ) {
+				delete_post_meta($postId, '_EventStartDate', $occurrence);
+			}
+		}
+	}	
+		
+	
+	/**
+	 * Adjust the end date of a series to be the start date of the last instance after a given date.  This function is used
+	 * when a series is split into two and the original series needs to be shortened to the start date of the new series
+ 	 * @param integer $postId ID of the event that will have it's series end adjusted 
+	 * @param string $date new end date for the series  
+	 * @return the number of occurrences in the shortened series.  This is useful if you need to know how many occurrences
+	 * the new series should have  
+	 */		
+	private static function adjustRecurrenceEnd( $postId, $date = null ) {
+		$date = $date ? strtotime($date) : time();
+
+		$occurrences = get_post_meta($postId, '_EventStartDate');
+		$occurrenceCount = 0;
+		sort($occurrences);
+		
+		if( is_array($occurrences) && sizeof($occurrences) > 0 ) {
+			$prev = $occurrences[0];
+		}
+				  
+		foreach($occurrences as $occurrence) {
+			$occurrenceCount++; // keep track of how many we are keeping
+			if (strtotime(TribeDateUtils::dateOnly($occurrence)) > $date ) {
+				$recurrenceMeta = get_post_meta($postId, '_EventRecurrence', true);
+				$recurrenceMeta['end'] = date(DateSeriesRules::DATE_ONLY_FORMAT, strtotime($prev));
+
+				update_post_meta($postId, '_EventRecurrence', $recurrenceMeta);
+				break;
+			}
+			
+			$prev = $occurrence;
+		}
+		
+		// useful for knowing how many occurrences are needed for new series		
+		return $occurrenceCount; 
+	}
+
+	/**
+	 * Change the EventEndDate of a recurring event.  This is needed when a recurring series is split into two series.  The new series
+	 * has to have its end date adjusted.  Note:  EventEndDate is only set once per recurring event and is the end date of the first occurrence.
+	 * Subsequent occurrences have a calculated event date based on duration of the first event (EventEndDate - EventStartDate)
+ 	 * @param integer $postId ID of the event that will have it's series end date adjusted 
+	 * @return void
+	 */		
+	private static function adjustEndDate( $postId ) {
+		$occurrences = get_post_meta($postId, '_EventStartDate');
+		sort($occurrences);
+
+		$duration = get_post_meta($postId, '_EventDuration', true);
+		
+		if( is_array($occurrences) && sizeof($occurrences) > 0 ) {
+			update_post_meta($postId, '_EventEndDate', date(DateSeriesRules::DATE_FORMAT, strtotime($occurrences[0]) + $duration));
+		}	
+	}	
+	
+	/**
+	 * Clone an event when splitting up a recurring series
+ 	 * @param array $data The event information for the original event 
+	 * @return void
+	 */			
+	private static function cloneEvent( $data ) {
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		
+		$data['ID'] = null;
+		$new_event = wp_insert_post($data);
+		return $new_event;
+	}		
+
+	/**
+	 * Recurrence validation method.  This is checked after saving an event, but before splitting a series out into multiple occurrences
+ 	 * @param array $event The event object that is being saved
+	 * @param array $recurrence_meta Recurrence information for this event 
+	 * @return void
+	 */	
 	public static function isRecurrenceValid( $event, $recurrence_meta  ) {
 		extract(Events_Recurrence_Meta::getRecurrenceMeta( $event->ID, $recurrence_meta ));
 		$valid = true;
@@ -231,28 +343,11 @@ class Events_Recurrence_Meta {
 		return $valid;
 	}
 
-	public static function setupRecurrenceErrorMsg( $event, $msg ) {
-		global $current_screen;
-
-		// only do this when editing events
-		if( is_admin() && $current_screen->id == Events_Calendar_Pro::POSTTYPE ) {
-			update_post_meta($event->ID, 'sp_flash_message', $msg);
-		}
-	}
-	
-	public static function showRecurrenceErrorFlash(){
-		global $post, $current_screen;
-
-		if ( $current_screen->base == 'post' && $current_screen->post_type == Events_Calendar_Pro::POSTTYPE ) {
-			$msg = get_post_meta($post->ID, 'sp_flash_message', true);
-
-			if ($msg) {
-				echo '<div class="error"><p>Recurrence not saved: ' . $msg . '</p></div>';
-			   delete_post_meta($post->ID, 'sp_flash_message');
-		   }		  
-	   }
-	}
-
+	/**
+	 * Do the actual work of saving a recurring series of events
+ 	 * @param array $postId The event that is being saved 
+	 * @return void
+	 */		
 	public static function saveEvents( $postId) {
 		extract(Events_Recurrence_Meta::getRecurrenceMeta($postId));
 		$rules = Events_Recurrence_Meta::getSeriesRules($postId);
@@ -285,6 +380,11 @@ class Events_Recurrence_Meta {
 		}
 	}
 
+	/**
+	 * Decide which rule set to use for finding all the dates in an event series
+ 	 * @param array $postId The event to find the series for
+	 * @return void
+	 */		
 	public static function getSeriesRules($postId) {
 		extract(Events_Recurrence_Meta::getRecurrenceMeta($postId));
 		$rules = null;
@@ -313,6 +413,11 @@ class Events_Recurrence_Meta {
 		return $rules;
 	}
 	
+	/**
+	 * Convert the event recurrence meta into a human readable string
+ 	 * @param array $postId The recurring event
+	 * @return The human readable string
+	 */			
 	public static function recurrenceToText( $postId = null ) {
 		$text = "";
 		$custom_text = "";
@@ -382,6 +487,11 @@ class Events_Recurrence_Meta {
 		return sprintf(__('%s%s%s'), $text, $custom_text, $endText);
 	}
 	
+	/**
+	 * Convert an array of day ids into a human readable string
+ 	 * @param array $days The day ids
+	 * @return The human readable string
+	 */			
 	private static function daysToText($days) {
 		$day_words = array(__("Monday"), __("Tuesday"), __("Wednesday"), __("Thursday"), __("Friday"), __("Saturday"), __("Sunday"));
 		$count = sizeof($days);
@@ -402,6 +512,11 @@ class Events_Recurrence_Meta {
 		return $day_text;
 	}
 	
+	/**
+	 * Convert an array of month ids into a human readable string
+ 	 * @param array $months The month ids
+	 * @return The human readable string
+	 */		
 	private static function monthsToText($months) {
 		$month_words = array(__("January"), __("February"), __("March"), __("April"), 
 			 __("May"), __("June"), __("July"), __("August"), __("September"), __("October"), __("November"), __("December"));
@@ -423,6 +538,11 @@ class Events_Recurrence_Meta {
 		return $month_text;
 	}	
 	
+	/**
+	 * Convert an ordinal from an ECP recurrence series into an integer
+ 	 * @param string $ordinal The ordinal number
+	 * @return An integer representation of the ordinal
+	 */		
 	private static function ordinalToInt($ordinal) {
 		switch( $ordinal ) {
 			case "First": return 1;
