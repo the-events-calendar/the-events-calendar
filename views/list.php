@@ -15,7 +15,7 @@
 							        <?php if ( sp_is_new_event_day() ) : ?>
 					<h4 class="event-day"><?php echo sp_get_start_date( null, false ); ?></h4>
 							        <?php endif; ?>
-						<?php the_title('<h2 class="entry-title"><a href="' . get_permalink() . '" title="' . the_title_attribute('echo=0') . '" rel="bookmark">', '</a></h2>'); ?>
+						<?php the_title('<h2 class="entry-title"><a href="' . tribe_get_event_link() . '" title="' . the_title_attribute('echo=0') . '" rel="bookmark">', '</a></h2>'); ?>
 					<div class="entry-content tec-event-entry">
 						<?php if (has_excerpt ()): ?>
 							<?php the_excerpt(); ?>

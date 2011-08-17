@@ -517,7 +517,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		global $post;
 		$tribe_ecp = Events_Calendar_Pro::instance();
 
-		echo $tribe_ecp->get_event_link($post->ID,'previous',$anchor);
+		echo $tribe_ecp->get_event_link($post,'previous',$anchor);
 	}
 	/**
 	 * Displays a link to the next post by start date for the given event
@@ -528,7 +528,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	function tribe_next_event_link( $anchor = false )  {
 		global $post;
 		$tribe_ecp = Events_Calendar_Pro::instance();
-		echo $tribe_ecp->get_event_link($post->ID, 'next',$anchor);
+		echo $tribe_ecp->get_event_link($post, 'next',$anchor);
 	}
 	/**
 	 * Helper function to determine postId. Pulls from global $post object if null or non-numeric.
@@ -682,6 +682,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		
 		return $date;
 	}
+	
 	/**
 	 * Returns an ical feed for a single event. Must be used in the loop.
 	 * 
@@ -725,6 +726,17 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		$tribe_ecp = Events_Calendar_Pro::instance();
 		return esc_html($tribe_ecp->getLink('ical'));
 	}
+	// pass in whole post object to retain start date
+	function tribe_event_link($post = null) {
+		echo tribe_get_event_link($post);
+	}	
+	function tribe_get_event_link($post = null) {
+		if(tribe_is_recurring_event($post->ID)) {
+			return Events_Calendar_Pro::instance()->getLink('single', $post);
+		} else {
+			return get_permalink();
+		}
+	}		
 
 	/**
 	 * Returns a textual description of the previous month

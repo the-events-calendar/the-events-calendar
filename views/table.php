@@ -126,7 +126,7 @@ function display_day( $day, $monthView ) {
 		$country	= sp_get_country( $post->ID );
 		?>
 		<div id='event_<?php echo $eventId; ?>' <?php post_class('tec-event') ?>>
-			<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+			<a href="<?php tribe_event_link(); ?>"><?php the_title(); ?></a>
 			<div id='tooltip_<?php echo $eventId; ?>' class="tec-tooltip" style="display:none;">
 				<h5 class="tec-event-title"><?php the_title();?></h5>
 				<div class="tec-event-body">

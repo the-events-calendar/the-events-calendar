@@ -1,7 +1,5 @@
 <?php
 	$tribe_ecp = Events_Calendar_Pro::instance();
-	//get_header();
-	echo stripslashes(sp_get_option('spEventsBeforeHTML'));
 ?>	
 	<div id="tec-content" class="grid">
 		<div id='tec-events-calendar-header' class="clearfix">

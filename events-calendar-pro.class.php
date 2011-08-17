@@ -951,6 +951,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$month = $this->monthSlug;
 			$upcoming = $this->upcomingSlug;
 			$past = $this->pastSlug;
+			$newRules = array();
+			
 			// single event
 			$newRules[$baseSingle . '([^/]+)/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?' . self::POSTTYPE . '=' . $wp_rewrite->preg_index(1) . "&eventDate=" . $wp_rewrite->preg_index(2);
 			$newRules[$baseSingle . '([^/]+)/all/?$'] = 'index.php?' . self::POSTTYPE . '=' . $wp_rewrite->preg_index(1) . "&eventDisplay=all";			
@@ -982,9 +984,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$newRules[$baseTax . '([^/]+)/ical/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'eventDisplay=upcoming&sp_events_cat=' . $wp_rewrite->preg_index(2) . '&ical=1';
 			$newRules[$baseTax . '([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=' . $wp_rewrite->preg_index(2) . '&feed=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTax . '([^/]+)/page/?([0-9]{1,})/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=' . $wp_rewrite->preg_index(2) . '&paged=' . $wp_rewrite->preg_index(3);
-			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'eventDisplay=upcoming&sp_events_cat=' . $wp_rewrite->preg_index(2);
+			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . '&eventDisplay=upcoming&sp_events_cat=' . $wp_rewrite->preg_index(2);
 			
-			$wp_rewrite->rules = $newRules + $wp_rewrite->rules;	
+			$wp_rewrite->rules = $newRules + $wp_rewrite->rules; 
 		}
 		
 		/**
@@ -1027,6 +1029,16 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					if ( $secondary == 'single' )
 						$eventUrl = trailingslashit(get_permalink());
 					return $eventUrl . 'ical/';
+				case 'single':
+					if($secondary) 
+						$post = $secondary;
+					else
+						global $post;
+
+					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );					
+					$eventUrl = trailingslashit(get_permalink($post));
+					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
+					return $eventUrl . TribeDateUtils::dateOnly( $post->EventStartDate );					
 				case 'all':
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );					
 					$eventUrl = trailingslashit(get_permalink());
@@ -1068,6 +1080,14 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 						return add_query_arg('ical', '1', get_permalink() );
 					}
 					return home_url() . '/?ical';
+			   case 'single':
+				   	global $post;
+					$post = $secondary ? $secondary : $post;
+
+					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );					
+					$eventUrl = trailingslashit(get_permalink($post));
+					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
+					return add_query_arg('eventDate', TribeDateUtils::dateOnly( $post->EventStartDate ), $eventUrl );					   
 			   case 'all':
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );					
 					$eventUrl = add_query_arg('eventDisplay', 'all', get_permalink() );
@@ -1649,7 +1669,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		** Get a "previous/next post" link for events. Ordered by start date instead of ID.
 		**/
 
-		public function get_event_link($id, $mode = 'next',$anchor = false){
+		public function get_event_link($post, $mode = 'next',$anchor = false){
 			global $wpdb;
 
 			if($mode == 'previous'){
@@ -1659,10 +1679,12 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$order = 'ASC';
 				$sign = '>';
 			}
-
-			$date = get_post_meta($id,'_EventStartDate',true);
+			
+			$date = $post->EventStartDate;
+			$id = $post->ID;
+			
 			$eventsQuery = "
-				SELECT $wpdb->posts.ID, post_title, d1.meta_value as EventStartDate
+				SELECT $wpdb->posts.*, d1.meta_value as EventStartDate
 				FROM $wpdb->posts 
 				LEFT JOIN $wpdb->postmeta as d1 ON($wpdb->posts.ID = d1.post_id)
 				WHERE $wpdb->posts.post_type = '".self::POSTTYPE."'
@@ -1672,6 +1694,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				AND $wpdb->posts.post_status = 'publish'
 				ORDER BY TIMESTAMP(d1.meta_value) $order, ID $order
 				LIMIT 1";
+
 			$results = $wpdb->get_row($eventsQuery, OBJECT);
 
 			if(is_object($results)) {
@@ -1681,7 +1704,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					$anchor = preg_replace( '|%title%|', $results->post_title, $anchor );
 				}
 
-				echo '<a href='.get_permalink($results->ID).'>'.$anchor.'</a>';
+				echo '<a href='.tribe_get_event_link($results).'>'.$anchor.'</a>';
+				
 			}
 		}
 		

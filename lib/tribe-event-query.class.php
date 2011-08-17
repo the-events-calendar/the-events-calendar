@@ -60,7 +60,7 @@ class Tribe_Event_Query {
 		return get_posts($args);
 	}
 
-	public static function setArgsFromDisplayType($query) {
+	public static function setArgsFromDisplayType($query) { 
 		switch ( $query->query_vars['eventDisplay'] ) {
 			case "past":
 				$query = self::setPastDisplayTypeArgs($query);
