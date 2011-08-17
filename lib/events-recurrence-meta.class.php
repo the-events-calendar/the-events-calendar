@@ -275,7 +275,7 @@ class Events_Recurrence_Meta {
 		add_post_meta($postId,'_EventDuration', $duration);
 
 		if ( $recType != "None") {
-			$recurrence = new Recurrence($recStart, $recEnd, $rules, $recEndType == "After");
+			$recurrence = new TribeRecurrence($recStart, $recEnd, $rules, $recEndType == "After");
 			$dates = (array) $recurrence->getDates();
 
 			// add meta for all dates in recurrence
