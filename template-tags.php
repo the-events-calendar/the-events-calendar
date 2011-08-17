@@ -18,7 +18,8 @@ if( class_exists( 'ECP_Premium' ) && !function_exists( 'tribe_get_recurrence_tex
 	  	foreach ($customFields as $field) {
 	     	$meta = str_replace('|', ', ', get_post_meta($postId, $field['name'], true));
 	     	if($meta) {
-				$meta_html .= '<dt>' . $field['label'] . ':</dt><dd>' . $meta . '</dd>';
+	     		// $meta is passed through kses
+				$meta_html .= '<dt>' . esc_html($field['label']) . ':</dt><dd>' . $meta . '</dd>';
 			}
 		}
 	

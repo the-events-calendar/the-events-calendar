@@ -40,7 +40,7 @@ class Tribe_ECP_Custom_Meta {
       	foreach( $customFields as $customField) {
 			$val = $_POST[$customField['name']];
         	$val = is_array($val) ? implode("|", $val) : $val;
-        	update_post_meta($postId, $customField['name'], $val);
+        	update_post_meta($postId,  wp_kses_data($customField['name']), $val);
 		}
     }
 	
