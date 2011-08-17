@@ -26,7 +26,7 @@
 		<tr>
 			<td style="width:125px;"><?php _e('Start Date / Time:',$this->pluginDomain); ?></td>
 			<td>
-				<input autocomplete="off" tabindex="<?php $this->tabIndex(); ?>" type="text" class="datepicker" name="EventStartDate" id="EventStartDate"  value="<?php echo $EventStartDate ?>" />
+				<input autocomplete="off" tabindex="<?php $this->tabIndex(); ?>" type="text" class="datepicker" name="EventStartDate" id="EventStartDate"  value="<?php echo esc_attr($EventStartDate) ?>" />
 				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', $this->pluginDomain) ?></span>
 				<span class='timeofdayoptions'>
 					<?php _e('@',$this->pluginDomain); ?>
@@ -47,7 +47,7 @@
 		<tr>
 			<td><?php _e('End Date / Time:',$this->pluginDomain); ?></td>
 			<td>
-				<input autocomplete="off" type="text" class="datepicker" name="EventEndDate" id="EventEndDate"  value="<?php echo $EventEndDate; ?>" />
+				<input autocomplete="off" type="text" class="datepicker" name="EventEndDate" id="EventEndDate"  value="<?php echo esc_attr( $EventEndDate ); ?>" />
 				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', $this->pluginDomain) ?></span>
 				<span class='timeofdayoptions'>
 					<?php _e('@',$this->pluginDomain); ?>
@@ -122,15 +122,15 @@
 
 			?>
 	</table>
-
-	<table id="event_cost" class="eventtable">
+    <?php $this->do_action('tribe_events_details_table_bottom', $postId, true) ?>
+	<table id="event_cost" class="eventtable">		
 		<?php if(!class_exists('Event_Tickets_PRO')){ ?>
 		<tr>
 			<td colspan="2" class="snp_sectionheader"><h4><?php _e('Event Cost', $this->pluginDomain); ?></h4></td>
 		</tr>
 		<tr>
 			<td><?php _e('Cost:',$this->pluginDomain); ?></td>
-			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventCost' name='EventCost' size='6' value='<?php echo $_EventCost; ?>' /></td>
+			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventCost' name='EventCost' size='6' value='<?php echo esc_attr($_EventCost); ?>' /></td>
 		</tr>
 		<tr>
 			<td></td>
@@ -149,9 +149,8 @@
 					<p><?php printf( __('Interested in selling tickets and tracking registrations? We have an add-on in the works that will integrate your events and sell tickets on <a href="%s">EventBrite</a>. <a href="%s">Stay Tuned!</a>', $this->pluginDomain ), 'http://www.eventbrite.com/r/simpleevents', $this->envatoUrl ); ?></a></p>
 				</td>
 			</tr>
-		<?php } ?>
+		<?php } ?>		
       <?php $this->do_action('tribe_events_cost_table', $postId, true) ?>
-      <?php $this->do_action('tribe_events_details_table_bottom', $postId, true) ?>
 	</table>
 	</div>
    <?php $this->do_action('tribe_events_above_donate', $postId, true) ?>

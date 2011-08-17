@@ -379,7 +379,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		$link = tribe_get_organizer($postId);
 
 		if(sp_get_organizer_website($postId) != ''){
-			$link = '<a href="'.sp_get_organizer_website($postId).'">'.$link.'</a>';
+			$link = '<a href="'.esc_attr(sp_get_organizer_website($postId)).'">'.$link.'</a>';
 		}
 
 		return $link;

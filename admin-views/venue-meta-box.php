@@ -1,16 +1,16 @@
 <tr class="venue">
 	<td><?php _e('Venue Name:',$this->pluginDomain); ?></td>
 	<td>
-		<input tabindex="<?php $this->tabIndex(); ?>" type='text' name='venue[Venue]' size='25'  value='<?php echo $_VenueVenue; ?>' />
+		<input tabindex="<?php $this->tabIndex(); ?>" type='text' name='venue[Venue]' size='25'  value='<?php echo esc_attr($_VenueVenue); ?>' />
 	</td>
 </tr>
 <tr class="venue">
 	<td><?php _e('Address:',$this->pluginDomain); ?></td>
-	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' name='venue[Address]' size='25' value='<?php echo $_VenueAddress; ?>' /></td>
+	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' name='venue[Address]' size='25' value='<?php echo esc_attr($_VenueAddress); ?>' /></td>
 </tr>
 <tr class="venue">
 	<td><?php _e('City:',$this->pluginDomain); ?></td>
-	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' name='venue[City]' size='25' value='<?php echo $_VenueCity; ?>' /></td>
+	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' name='venue[City]' size='25' value='<?php echo esc_attr($_VenueCity); ?>' /></td>
 </tr>
 <tr class="venue">
 	<td><?php _e('Country:',$this->pluginDomain); ?></td>
@@ -22,7 +22,7 @@
 			$current = ($_VenueCountry) ? $_VenueCountry : $defaultCountry[1];
 
 			foreach ($countries as $abbr => $fullname) {
-				echo '<option label="' . $abbr . '" value="' . $fullname . '" ';
+				echo '<option label="' . esc_attr($abbr) . '" value="' . esc_attr($fullname) . '" ';
 
 				if($abbr == '')
 					echo "disabled='disabled' ";
@@ -30,7 +30,7 @@
 				if ($current == $fullname) {
 					echo 'selected="selected" ';
 				}
-				echo '>' . $fullname . '</option>';
+				echo '>' . esc_html($fullname) . '</option>';
 			}
 			?>
 		</select>
@@ -39,7 +39,7 @@
 <tr class="venue">
 	<?php if(!isset($_VenueStateProvince)) $_VenueStateProvince = ""; ?>
 	<td><?php _e('State or Province:',$this->pluginDomain); ?></td>
-	<td><input tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceText" name="venue[Province]" class="tec_hide" type='text' name='' size='25' value='<?php echo $_VenueStateProvince != -1 ? $_VenueStateProvince : $_VenueProvince; ?>' />
+	<td><input tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceText" name="venue[Province]" class="tec_hide" type='text' name='' size='25' value='<?php echo $_VenueStateProvince != -1 ? esc_attr($_VenueStateProvince) : esc_attr($_VenueProvince); ?>' />
 	<select tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceSelect" name="venue[State]" class="tec_hide" name=''>
 		<option value=""><?php _e('Select a State:',$this->pluginDomain); ?></option>
 		<?php
@@ -48,7 +48,7 @@
 				if (($_VenueStateProvince != -1 ? $_VenueStateProvince : $_VenueState) == $abbr) {
 					print ('selected="selected" ');
 				}
-				print (">$fullname</option>\n");
+				print (">" . esc_html($fullname) . "</option>\n");
 			}
 		?>
 	</select>
@@ -56,11 +56,11 @@
 </tr>
 <tr class="venue">
 	<td><?php _e('Postal Code:',$this->pluginDomain); ?></td>
-	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventZip' name='venue[Zip]' size='6' value='<?php echo $_VenueZip; ?>' /></td>
+	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventZip' name='venue[Zip]' size='6' value='<?php echo esc_attr($_VenueZip); ?>' /></td>
 </tr>
 <tr class="venue">
 	<td><?php _e('Phone:',$this->pluginDomain); ?></td>
-	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventPhone' name='venue[Phone]' size='14' value='<?php echo $_VenuePhone; ?>' /></td>
+	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventPhone' name='venue[Phone]' size='14' value='<?php echo esc_attr($_VenuePhone); ?>' /></td>
 </tr>
 
 <script type="text/javascript">
