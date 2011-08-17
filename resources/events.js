@@ -6,7 +6,7 @@ jQuery(document).ready(function($) {
 	});
 
 	// big popups
-	$("table.tec-calendar:not(.tec-calendar-widget) .tec-event a").live('hover', function() {
+	$("table.tec-calendar:not(.tec-calendar-widget) .tec-event a").live('mouseenter', function() {
 		
 		// one for IE6, one for everybody else
 		if ($.browser.msie && $.browser.version == 6) {
@@ -17,12 +17,12 @@ jQuery(document).ready(function($) {
 		}
 		
 		$(this).next(".tec-tooltip").css('bottom', bottomPad).fadeIn(300);
-	}, function() {
+	}).live('mouseleave', function() {
 		$(this).next(".tec-tooltip").fadeOut(100);
 	});
 	
 	// little popups
-	$("table.tec-calendar-widget .tec-event:has(a)").live('hover', function() {
+	$("table.tec-calendar-widget .tec-event:has(a)").live('mouseenter', function() {
 		
 		// one for IE6, one for everybody else
 		if ($.browser.msie && $.browser.version == 6) {
@@ -33,7 +33,7 @@ jQuery(document).ready(function($) {
 		}
 		
 		$(this).find(".tec-tooltip").css('bottom', bottomPad).fadeIn(300);
-	}, function() {
+	}).live('mouseleave', function() {
 		$(this).find(".tec-tooltip").fadeOut(100);
 	});
 	
