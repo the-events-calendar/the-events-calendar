@@ -24,7 +24,7 @@ class Tribe_Admin_Events_List {
 	
 	// event deletion
 	public static function add_date_to_recurring_event_trash_link( $link, $postId ) {
-		if ( is_array(self::$events_list) && sp_is_recurring_event($postId) ) {
+		if ( is_array(self::$events_list) && tribe_is_recurring_event($postId) ) {
 			return add_query_arg( array( 'eventDate'=>urlencode( DateUtils::dateOnly( self::$events_list[0]->EventEndDate ) ) ), $link );
 		}
 		
@@ -215,7 +215,7 @@ class Tribe_Admin_Events_List {
 		}
 
 		// if is a recurring event
-		if ( sp_is_recurring_event($eventId) ) {
+		if ( tribe_is_recurring_event($eventId) ) {
 			$link = add_query_arg('eventDate', urlencode( DateUtils::dateOnly( self::$events_list[0]->EventEndDate ) ), $link);
 		}
 		

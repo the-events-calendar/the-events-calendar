@@ -127,7 +127,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			register_activation_hook( __FILE__, 	array( &$this, 'on_activate' ) );
 			$this->addFilters();
 			$this->addActions();
-			Events_Recurrence_Meta::init(); // hooks and filters for event recurrence
 			Tribe_Admin_Events_List::init(); // hooks and filters for the admin events list
 			Tribe_ECP_Templates::init(); //hooks and filters for loading templates
 
@@ -265,7 +264,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 
 		public function addDateToRecurringEvents($permalink, $post) {
-			if($post->post_type == self::POSTTYPE && sp_is_recurring_event($post->ID) ) {
+			if($post->post_type == self::POSTTYPE && tribe_is_recurring_event($post->ID) ) {
 				if( is_admin() && !$post->EventStartDate ) {
 					if( isset($_REQUEST['eventDate'] ) ) {
 						$post->EventStartDate = $_REQUEST['eventDate'];
@@ -819,7 +818,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function setReccuringEventDates() {
 			global $post;
 			
-			if( is_singular(self::POSTTYPE) && sp_is_recurring_event() && !sp_is_showing_all() ) {
+			if( is_singular(self::POSTTYPE) && tribe_is_recurring_event() && !sp_is_showing_all() ) {
 				$startTime = get_post_meta($post->ID, '_EventStartDate', true);
 				$startTime = DateUtils::timeOnly($startTime);
 				
@@ -1359,9 +1358,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$options = '';
 			$style = '';
 			$postId = $post->ID;
-
-			// convert array to variables that can be used in the view
-			extract(Events_Recurrence_Meta::getRecurrenceMeta($postId));
 
 			foreach ( $this->metaTags as $tag ) {
 				if ( $postId && isset($_GET['post']) && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.

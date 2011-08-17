@@ -65,7 +65,7 @@
 				</span>
 			</td>
 		</tr>
-		<?php include( $this->pluginPath . 'admin-views/event-recurrence.php' ); ?>
+		<?php $this->do_action('tribe_events_date_display', $postId, true) ?>
 	</table>
 	<div class="snp_sectionheader" style="padding: 6px 6px 0 0; font-size: 11px; margin: 0 10px;"><h4><?php _e('Event Location Details', $this->pluginDomain); ?></h4></div>
 	<div style="float: left;">

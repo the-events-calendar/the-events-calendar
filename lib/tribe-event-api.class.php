@@ -58,7 +58,7 @@ class Tribe_Event_API {
 		$data['EventOrganizerID'] = Tribe_Event_API::saveEventOrganizer($data["Organizer"]);
 		$data['EventVenueID'] = Tribe_Event_API::saveEventVenue($data["Venue"]);
 
-      $sp_ecp->do_action('tribe_events_event_save', $event_id);
+		$sp_ecp->do_action('tribe_events_event_save', $event_id);
 
 		//update meta fields
 		foreach ( $sp_ecp->metaTags as $tag ) {
@@ -71,15 +71,7 @@ class Tribe_Event_API {
 			}
 		}
 
-		// save recurrence
-		$recurrence_meta = $data['recurrence'];
-
-		if( Events_Recurrence_Meta::isRecurrenceValid( $event, $recurrence_meta ) ) {
-			update_post_meta($event_id, '_EventRecurrence', $recurrence_meta);				
-			Events_Recurrence_Meta::saveEvents($event_id, $event);
-		}
-
-      $sp_ecp->do_action('tribe_events_update_meta', $event_id, false, $data);
+      	$sp_ecp->do_action('tribe_events_update_meta', $event_id, false, $data, $event);
 	}	
 	
 	// used when saving event meta

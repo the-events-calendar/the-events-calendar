@@ -25,7 +25,7 @@
 							<dt><?php _e('Email:', $tribe_ecp->pluginDomain) ?></dt>
 							<dd><?php echo tribe_get_organizer_email(); ?></dd>
 						<?php endif; ?>
-						<?php if ( tribe_is_recurring_event() ) : ?>
+						<?php if ( tribe_is_recurring_event() && function_exists('tribe_get_recurrence_text') ) : ?>
 							<dt><?php _e('Schedule:', $tribe_ecp->pluginDomain) ?></dt>
 							<dd><?php echo tribe_get_recurrence_text(); ?> (<a href='<?php tribe_all_occurences_link() ?>'>See all</a>)</dd>
 						<?php endif; ?>
@@ -51,9 +51,12 @@
 							</dd>
 						<?php endif; ?>
 					</dl>
-               <dl class='column'>
-                  <?php echo tribe_event_meta( get_the_ID() ); ?>
-               </dl>
+			   
+				   	<?php if( function_exists('tribe_event_meta') ): ?>
+		                <dl class='column'>
+		                	<?php echo tribe_event_meta( get_the_ID() ); ?>
+		               	</dl>
+		            <?php endif; ?>
 				</div>
 
 				<?php if( get_post_meta( get_the_ID(), '_EventShowMap', true ) == 'true' ) : ?>

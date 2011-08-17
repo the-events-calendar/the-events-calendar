@@ -849,12 +849,6 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		
 		return sizeof(get_post_meta($postId, '_EventStartDate')) > 1;
 	}
-	
-	function tribe_get_recurrence_text( $postId = null )  {
-		global $sp_ecp;
-		$postId = tribe_post_id_helper( $postId );
-	   return apply_filters( 'tribe_get_recurrence_text', Events_Recurrence_Meta::recurrenceToText( $postId ) );
-	}
 
 	/**
 	 * Returns an add to Google Calendar link. Must be used in the loop
@@ -1098,24 +1092,6 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	function tribe_is_venue( $postId = null )  {
 		global $sp_ecp;
 		return $sp_ecp->isVenue($postId);
-	}	
-
-   /**
-    * Template function
-    */
-   function tribe_event_meta( $postId = null ) {
-		$postId = tribe_post_id_helper( $postId );
-      $customFields = tribe_get_option('custom-fields');
-      $meta_html = '';
-
-      foreach ($customFields as $field) {
-         $meta = str_replace('|', ', ', get_post_meta($postId, $field['name'], true));
-         if($meta) {
-            $meta_html .= '<dt>' . $field['label'] . ':</dt><dd>' . $meta . '</dd>';
-         }
-      }
-
-      return $meta_html;
-   }
+	}
 
 } // end if class_exists('The-Events-Calendar')
