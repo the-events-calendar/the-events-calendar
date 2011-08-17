@@ -28,22 +28,17 @@ if ( ! function_exists('events_calendar_pro_load') ) {
 	function events_calendar_pro_load() {
 		if ( SP_EVENTS_SUPPORTED_WP_VERSION && SP_EVENTS_SUPPORTED_PHP_VERSION ) {
 			$events_dir = dirname(__FILE__);
-			require_once($events_dir . '/lib/date-utils.php' );
-			require_once($events_dir . '/lib/date-series-rules.php' );
-			require_once($events_dir . '/lib/recurrence.class.php' );
-			require_once($events_dir . '/lib/tribe-view-helpers.class.php' );			
-			require_once($events_dir . '/lib/tribe-admin-events-list.class.php' );
-			require_once($events_dir . '/lib/tribe-the-events-calendar-import.class.php' );			
-			require_once($events_dir . '/lib/tribe-event-api.class.php' );			
-			require_once($events_dir . '/lib/tribe-ecp-templates.class.php' );						
+
+	    	foreach (glob($events_dir . "/lib/*.php") as $filename) {
+				include $filename;
+			}			
+			
 			require_once($events_dir . '/events-calendar-pro.class.php');
 			require_once($events_dir . '/the-events-calendar-exception.class.php');
 			require_once($events_dir . '/events-calendar-widget.class.php');
 			require_once($events_dir . '/events-list-widget.class.php');
 			require_once($events_dir . '/events-featured-widget.class.php');
 			require_once($events_dir . '/template-tags.php');
-			require_once($events_dir . '/lib/tribe-event-query.class.php' );			
-			require_once($events_dir . '/lib/tribe-facebook-export.php' );
 		}
 	}
 }
