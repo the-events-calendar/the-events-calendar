@@ -177,7 +177,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @param int $height
 	 * @return string - an iframe pulling http://maps.google.com/ for this event
 	 */
-	function tribe_get_embedded_map( $postId = null, $width = '', $height = '' )  {
+	function tribe_get_embedded_map( $postId = null, $width = '', $height = '', $force_load = false )  {
 		$tribe_ecp = Events_Calendar_Pro::instance();
 
 		$postId = tribe_post_id_helper( $postId );
@@ -204,7 +204,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		if (!$height) $height = tribe_get_option('embedGoogleMapsHeight','350');
 		if (!$width) $width = tribe_get_option('embedGoogleMapsWidth','100%');
 
-		if ($address) {
+		if ($address || $force_load) {
 			ob_start();
 			include('admin-views/event-map.php');
 			$google_map = ob_get_contents();

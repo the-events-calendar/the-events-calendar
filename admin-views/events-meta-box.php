@@ -102,7 +102,7 @@
 	</div>
 	<?php if( sp_get_option('embedGoogleMaps') == 'on'): ?>
 		<div style="float:right; display: <?php echo $tecNewPost || get_post_meta( $postId, '_EventShowMap', true) == 'true' ? "block" : "none" ?>">
-			<?php echo tribe_get_embedded_map($postId, 200, 200) ?>
+			<?php echo tribe_get_embedded_map($postId, 200, 200, true) ?>
 		</div>
 	<?php endif; ?>
 	<div style="clear:both"></div>
