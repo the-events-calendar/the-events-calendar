@@ -1,5 +1,5 @@
 <?php
-	global $sp_ecp;
+	$tribe_ecp = Events_Calendar_Pro::instance();
 	//get_header();
 	echo stripslashes(sp_get_option('spEventsBeforeHTML'));
 ?>	
@@ -22,13 +22,13 @@
 			</span>
 
 			<span class='tec-calendar-buttons'> 
-				<a class='tec-button-off' href='<?php echo sp_get_listview_link(); ?>'><?php _e('Event List', $sp_ecp->pluginDomain)?></a>
-				<a class='tec-button-on' href='<?php echo sp_get_gridview_link(); ?>'><?php _e('Calendar', $sp_ecp->pluginDomain)?></a>
+				<a class='tec-button-off' href='<?php echo sp_get_listview_link(); ?>'><?php _e('Event List', $tribe_ecp->pluginDomain)?></a>
+				<a class='tec-button-on' href='<?php echo sp_get_gridview_link(); ?>'><?php _e('Calendar', $tribe_ecp->pluginDomain)?></a>
 			</span>
 
 		</div><!-- tec-events-calendar-header -->
 		<?php sp_calendar_grid(); // See the views/table.php template for customization ?>
-		<a title="<?php esc_attr_e('iCal Import', $sp_ecp->pluginDomain) ?>" class="ical" href="<?php echo sp_get_ical_link(); ?>"><?php _e('iCal Import', $sp_ecp->pluginDomain) ?></a>
+		<a title="<?php esc_attr_e('iCal Import', $tribe_ecp->pluginDomain) ?>" class="ical" href="<?php echo sp_get_ical_link(); ?>"><?php _e('iCal Import', $tribe_ecp->pluginDomain) ?></a>
 	</div>
 
 <?php

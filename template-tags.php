@@ -5,8 +5,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * retrieve specific key from options array, optionally provide a default return value
 	 */
 	function tribe_get_option($optionName, $default = '')  {
-		global $sp_ecp;
-		return $sp_ecp->getOption($optionName, $default);
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return $tribe_ecp->getOption($optionName, $default);
 	}
 	/**
 	 * Output function: Prints the gridded calendar table
@@ -14,7 +14,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return void
 	 */
 	function tribe_calendar_grid()  {
-		global $sp_ecp;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 		set_query_var( 'eventDisplay', 'bydate' );
 		load_template( Tribe_ECP_Templates::getTemplateHierarchy('table') );
 	}
@@ -24,7 +24,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return void
 	 */
 	function tribe_calendar_mini_grid()  {
-		global $sp_ecp, $wp_query;
+		global $wp_query;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 		$old_query = $wp_query;
 
 		$wp_query = NEW WP_Query('post_type=sp_events');
@@ -100,8 +101,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return boolean
 	 */
 	function tribe_is_event( $postId = null )  {
-		global $sp_ecp;
-		return $sp_ecp->isEvent($postId);
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return $tribe_ecp->isEvent($postId);
 	}
 	/**
 	 * Returns a link to google maps for the given event
@@ -110,8 +111,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string a fully qualified link to http://maps.google.com/ for this event
 	 */
 	function tribe_get_map_link( $postId = null )  {
-		global $sp_ecp;
-		return esc_html($sp_ecp->googleMapLink( $postId ));
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return esc_html($tribe_ecp->googleMapLink( $postId ));
 	}
 	/**
 	 * Displays a link to google maps for the given event
@@ -177,7 +178,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string - an iframe pulling http://maps.google.com/ for this event
 	 */
 	function tribe_get_embedded_map( $postId = null, $width = '', $height = '' )  {
-		global $sp_ecp;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 
 		$postId = tribe_post_id_helper( $postId );
 		if ( !sp_is_event( $postId ) ) {
@@ -231,7 +232,9 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return void
 	 */
 	function tribe_month_year_dropdowns( $prefix = '' )  {
-		global $sp_ecp, $wp_query;
+		global $wp_query;
+		$tribe_ecp = Events_Calendar_Pro::instance();
+
 		if ( isset ( $wp_query->query_vars['eventDate'] ) ) { 
 			$date = $wp_query->query_vars['eventDate'] . "-01";
 		} else {
@@ -251,7 +254,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string date
 	 */
 	function tribe_get_start_date( $postId = null, $showtime = true, $dateFormat = '' )  {
-		global $sp_ecp, $post;
+		global $post;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 		$postId = tribe_post_id_helper( $postId );
 
 		if( tribe_get_all_day( $postId ) )
@@ -263,17 +267,17 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	}
 
 	function tribe_event_format_date($date, $showtime = true,  $dateFormat = '')  {
-		global $sp_ecp;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 		
 		if( $dateFormat ) $format = $dateFormat;
 		else $format = get_option( 'date_format', TribeDateUtils::DATEONLYFORMAT );
 
 		if ( $showtime )
-			$format = $sp_ecp->getTimeFormat( $format );
+			$format = $tribe_ecp->getTimeFormat( $format );
 
 		$shortMonthNames = ( strstr( $format, 'M' ) ) ? true : false;
 		$date = date ( $format, $date );
-		return str_replace( array_keys($sp_ecp->monthNames( $shortMonthNames )), $sp_ecp->monthNames( $shortMonthNames ), $date);
+		return str_replace( array_keys($tribe_ecp->monthNames( $shortMonthNames )), $tribe_ecp->monthNames( $shortMonthNames ), $date);
 	}
 
 	/**
@@ -285,7 +289,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string date
 	 */
 	function tribe_get_end_date( $postId = null, $showtime = 'true', $dateFormat = '' )  {
-		global $sp_ecp, $post;
+		global $post;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 		$postId = tribe_post_id_helper( $postId );
 	
 		if( tribe_get_all_day( $postId ) )
@@ -306,7 +311,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	* @return string
 	*/
 	function tribe_get_cost( $postId = null)  {
-		global $sp_ecp;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 		$postId = tribe_post_id_helper( $postId );
 		if( class_exists( 'Eventbrite_for_Events_Calendar_Pro' ) ) {
 			global $spEventBrite;
@@ -496,9 +501,10 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	}
 	
 	function tribe_all_occurences_link( )  {
-		global $sp_ecp, $post;
+		global $post;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 
-		echo $sp_ecp->getLink('all');		
+		echo $tribe_ecp->getLink('all');		
 	}
 	
 	/**
@@ -508,9 +514,10 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return void
 	 */
 	function tribe_previous_event_link( $anchor = false )  {
-		global $sp_ecp, $post;
+		global $post;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 
-		echo $sp_ecp->get_event_link($post->ID,'previous',$anchor);
+		echo $tribe_ecp->get_event_link($post->ID,'previous',$anchor);
 	}
 	/**
 	 * Displays a link to the next post by start date for the given event
@@ -519,8 +526,9 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return void
 	 */
 	function tribe_next_event_link( $anchor = false )  {
-		global $sp_ecp, $post;
-		echo $sp_ecp->get_event_link($post->ID, 'next',$anchor);
+		global $post;
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		echo $tribe_ecp->get_event_link($post->ID, 'next',$anchor);
 	}
 	/**
 	 * Helper function to determine postId. Pulls from global $post object if null or non-numeric.
@@ -563,16 +571,17 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return bool
 	 */
 	function tribe_is_new_event_day()  {
-		global $sp_ecp, $post;
+		global $post;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 		$retval = false;
 		$now = time();
 		if(isset($post->EventStartDate)) {
 			$postTimestamp = strtotime( $post->EventStartDate, $now );
 			$postTimestamp = strtotime( date( TribeDateUtils::DBDATEFORMAT, $postTimestamp ), $now); // strip the time
-			if ( $postTimestamp != $sp_ecp->currentPostTimestamp ) {
+			if ( $postTimestamp != $tribe_ecp->currentPostTimestamp ) {
 				$retval = true;
 			}
-			$sp_ecp->currentPostTimestamp = $postTimestamp;
+			$tribe_ecp->currentPostTimestamp = $postTimestamp;
 			return $retval;
 		} else {
 			return true;
@@ -588,8 +597,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return array results
 	 */
 	function tribe_get_events( $args = '' )  {
-		global $sp_ecp;
-		return $sp_ecp->getEvents( $args );
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return $tribe_ecp->getEvents( $args );
 	}
 	/**
 	 * Returns true if the query is set for past events, false otherwise
@@ -597,8 +606,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return bool
 	 */
 	function tribe_is_past()  {
-		global $sp_ecp;
-		return ($sp_ecp->displaying == 'past') ? true : false;
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return ($tribe_ecp->displaying == 'past') ? true : false;
 	}
 	/**
 	 * Returns true if the query is set for upcoming events, false otherwise
@@ -606,13 +615,13 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return bool
 	 */
 	function tribe_is_upcoming()  {
-		global $sp_ecp;
-		return ($sp_ecp->displaying == 'upcoming') ? true : false;
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return ($tribe_ecp->displaying == 'upcoming') ? true : false;
 	}
 	
 	function tribe_is_showing_all()  {
-		global $sp_ecp;
-		return ($sp_ecp->displaying == 'all') ? true : false;		
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return ($tribe_ecp->displaying == 'all') ? true : false;		
 	}
 	/**
 	 * Returns true if the query is set for month display (as opposed to Upcoming / Past)
@@ -620,8 +629,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return bool
 	 */
 	function tribe_is_month()  {
-		global $sp_ecp;
-		return ( $sp_ecp->displaying == 'month' ) ? true : false;
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return ( $tribe_ecp->displaying == 'month' ) ? true : false;
 	}
 	/**
 	 * Returns a link to the previous events in list view
@@ -629,8 +638,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string 
 	 */
 	function tribe_get_past_link()  {
-		global $sp_ecp;
-		return esc_html($sp_ecp->getLink('past'));
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return esc_html($tribe_ecp->getLink('past'));
 	}
 	/**
 	 * Returns a link to the upcoming events in list view
@@ -638,8 +647,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string 
 	 */
 	function tribe_get_upcoming_link()  {
-		global $sp_ecp;
-		return esc_html($sp_ecp->getLink('upcoming'));
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return esc_html($tribe_ecp->getLink('upcoming'));
 	}
 	/**
 	 * Returns a link to the next month's events page
@@ -647,8 +656,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string 
 	 */
 	function tribe_get_next_month_link()  {
-		global $sp_ecp;
-		return esc_html($sp_ecp->getLink( 'month', $sp_ecp->nextMonth(sp_get_month_view_date() )));
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return esc_html($tribe_ecp->getLink( 'month', $tribe_ecp->nextMonth(sp_get_month_view_date() )));
 	}
 	/**
 	 * Returns a link to the previous month's events page
@@ -656,8 +665,10 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function tribe_get_previous_month_link()  {
-		global $sp_ecp, $wp_query;
-		return esc_html($sp_ecp->getLink( 'month', $sp_ecp->previousMonth( tribe_get_month_view_date() )));
+		global $wp_query;
+		$tribe_ecp = Events_Calendar_Pro::instance();
+
+		return esc_html($tribe_ecp->getLink( 'month', $tribe_ecp->previousMonth( tribe_get_month_view_date() )));
 	}
 	
 	function tribe_get_month_view_date()  {
@@ -677,8 +688,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function tribe_get_single_ical_link()  {
-		global $sp_ecp;
-		return esc_html($sp_ecp->getLink( 'ical', 'single' ));
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return esc_html($tribe_ecp->getLink( 'ical', 'single' ));
 	}
 
 	/**
@@ -687,32 +698,32 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function tribe_get_events_link()  {
-		global $sp_ecp;
-		return esc_html($sp_ecp->getLink('home'));
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return esc_html($tribe_ecp->getLink('home'));
 	}
 	
 	function tribe_get_gridview_link($term = null)  {
-		global $sp_ecp;
-		return esc_html($sp_ecp->getLink('month', false, $term));
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return esc_html($tribe_ecp->getLink('month', false, $term));
 	}
 		
 	function tribe_get_listview_link($term = null)  {
-		global $sp_ecp;
-		return esc_html($sp_ecp->getLink('upcoming', false, $term));
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return esc_html($tribe_ecp->getLink('upcoming', false, $term));
 	}
 	
 	function tribe_get_listview_past_link()  {
-		global $sp_ecp;
-		return esc_html($sp_ecp->getLink('past'));
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return esc_html($tribe_ecp->getLink('past'));
 	}
 	
 	function tribe_get_dropdown_link_prefix()  {
-		global $sp_ecp;
-		return esc_html($sp_ecp->getLink('dropdown'));
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return esc_html($tribe_ecp->getLink('dropdown'));
 	}
 	function tribe_get_ical_link()  {
-		global $sp_ecp;
-		return esc_html($sp_ecp->getLink('ical'));
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return esc_html($tribe_ecp->getLink('ical'));
 	}
 
 	/**
@@ -721,8 +732,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function tribe_get_previous_month_text()  {
-		global $sp_ecp;
-		return $sp_ecp->getDateString( $sp_ecp->previousMonth( tribe_get_month_view_date() ) );
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return $tribe_ecp->getDateString( $tribe_ecp->previousMonth( tribe_get_month_view_date() ) );
 	}
 	/**
 	 * Returns a textual description of the current month
@@ -730,7 +741,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function tribe_get_current_month_text( ) {
-		global $sp_ecp; 
+		$tribe_ecp = Events_Calendar_Pro::instance(); 
 		return date( 'F', strtotime( tribe_get_month_view_date() ) );
 	}
 	/**
@@ -739,8 +750,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function tribe_get_next_month_text()  {
-		global $sp_ecp;
-		return $sp_ecp->getDateString( $sp_ecp->nextMonth( tribe_get_month_view_date() ) );
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return $tribe_ecp->getDateString( $tribe_ecp->nextMonth( tribe_get_month_view_date() ) );
 	}
 	/**
 	 * Returns a formatted date string of the currently displayed month (in "jump to month" mode)
@@ -748,9 +759,9 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function tribe_get_displayed_month()  {
-		global $sp_ecp;
-		if ( $sp_ecp->displaying == 'month' ) {
-			return $sp_ecp->getDateString( $sp_ecp->date );
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		if ( $tribe_ecp->displaying == 'month' ) {
+			return $tribe_ecp->getDateString( $tribe_ecp->date );
 		}
 		return " ";
 	}
@@ -760,9 +771,9 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function tribe_get_this_month_link()  {
-		global $sp_ecp;
-		if ( $sp_ecp->displaying == 'month' ) {
-			return esc_html($sp_ecp->getLink( 'month', $sp_ecp->date ));
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		if ( $tribe_ecp->displaying == 'month' ) {
+			return esc_html($tribe_ecp->getLink( 'month', $tribe_ecp->date ));
 		}
 		return false;
 	}
@@ -772,11 +783,11 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function tribe_get_region( $postId = null )  {
-		global $sp_ecp;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 		if(getEventMeta(sp_has_venue( $postId ), '_VenueStateProvince', true )){
 			return getEventMeta(sp_has_venue( $postId ), '_VenueStateProvince', true );
 		}else
-		if ( tribe_get_country() == __('United States', $sp_ecp->pluginDomain ) ) {
+		if ( tribe_get_country() == __('United States', $tribe_ecp->pluginDomain ) ) {
 			return tribe_get_state();
 		} else {
 			return tribe_get_province(); 
@@ -807,11 +818,11 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	}
 	
 	function tribe_get_events_title()  {
-		global $sp_ecp;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 
-		$title = __('Calendar of Events', $sp_ecp->pluginDomain);
-		if ( is_tax( $sp_ecp->get_event_taxonomy() ) ) {
-			$cat = get_term_by( 'slug', get_query_var('term'), $sp_ecp->get_event_taxonomy() );
+		$title = __('Calendar of Events', $tribe_ecp->pluginDomain);
+		if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
+			$cat = get_term_by( 'slug', get_query_var('term'), $tribe_ecp->get_event_taxonomy() );
 			$title = '<a href="'.sp_get_events_link().'">'.$title.'</a>';
 			$title .= ' &#8250; ' . $cat->name;
 		}
@@ -820,31 +831,31 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	}
 
 	function tribe_meta_event_cats()  {
-		global $sp_ecp;
-		the_terms( get_the_ID(), $sp_ecp->get_event_taxonomy(), '<dt>'.__('Category:',$sp_ecp->pluginDomain ).'</dt><dd>', ', ', '</dd>' );
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		the_terms( get_the_ID(), $tribe_ecp->get_event_taxonomy(), '<dt>'.__('Category:',$tribe_ecp->pluginDomain ).'</dt><dd>', ', ', '</dd>' );
 	}
 
 	/** Just a global function alias of the class function by the same name. **/
 	function getEventMeta( $id, $meta, $single = true ){
-			global $sp_ecp;
-			return $sp_ecp->getEventMeta( $id, $meta, $single );
+			$tribe_ecp = Events_Calendar_Pro::instance();
+			return $tribe_ecp->getEventMeta( $id, $meta, $single );
 	}
 	
 	/**
 	 * r the current event category name
 	*/ 
 	function tribe_meta_event_category_name() {
-		global $sp_ecp;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 		$current_cat = get_query_var('sp_events_cat');
 		if($current_cat){
-			$term_info = get_term_by('slug',$current_cat,$sp_ecp->get_event_taxonomy());
+			$term_info = get_term_by('slug',$current_cat,$tribe_ecp->get_event_taxonomy());
 			return $term_info->name;
 		}
 	}
 	
 	/* is this event recurring? */
 	function tribe_is_recurring_event( $postId = null )  {
-		global $sp_ecp;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 		$postId = tribe_post_id_helper( $postId );
 		
 		return sizeof(get_post_meta($postId, '_EventStartDate')) > 1;
@@ -974,11 +985,11 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string
 	 */
 	function tribe_venue_get_region( $postId = null )  {
-		global $sp_ecp;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 		if(getEventMeta($postId, '_VenueStateProvince', true )){
 			return getEventMeta($postId, '_VenueStateProvince', true );
 		}else
-		if ( tribe_venue_get_country() == __('United States', $sp_ecp->pluginDomain ) ) {
+		if ( tribe_venue_get_country() == __('United States', $tribe_ecp->pluginDomain ) ) {
 			return tribe_venue_get_state();
 		} else {
 			return tribe_venue_get_province(); 
@@ -1041,7 +1052,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return string - an iframe pulling http://maps.google.com/ for this event
 	 */
 	function tribe_venue_get_embedded_map( $postId = null, $width = '', $height = '' )  {
-		global $sp_ecp;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 
 		$postId = tribe_post_id_helper( $postId );
 		if ( !tribe_is_venue( $postId ) ) return false;
@@ -1090,8 +1101,8 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 	 * @return boolean
 	 */
 	function tribe_is_venue( $postId = null )  {
-		global $sp_ecp;
-		return $sp_ecp->isVenue($postId);
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		return $tribe_ecp->isVenue($postId);
 	}
 
 } // end if class_exists('The-Events-Calendar')

@@ -1,5 +1,5 @@
 <?php
-	global $sp_ecp;
+	$tribe_ecp = Events_Calendar_Pro::instance();
 	get_header();
 	echo stripslashes(sp_get_option('spEventsBeforeHTML'));
 ?>	

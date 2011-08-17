@@ -9,12 +9,12 @@
           require_once($root.'/wp-config.php');
       }
 
-global $sp_ecp;
+$tribe_ecp = Events_Calendar_Pro::instance();
 if($_POST['validate_name'] && $_POST['validation_nonce']){
 	if($_REQUEST['type'] == 'venue' && wp_verify_nonce($_REQUEST['validation_nonce'], 'venue-validation-nonce')){
-		echo $sp_ecp->verify_unique_name($_REQUEST['validate_name'],'venue');
+		echo $tribe_ecp->verify_unique_name($_REQUEST['validate_name'],'venue');
 	}elseif($_REQUEST['type'] == 'organizer' && wp_verify_nonce($_REQUEST['validation_nonce'], 'organizer-validation-nonce')){
-		echo $sp_ecp->verify_unique_name($_REQUEST['validate_name'],'organizer');
+		echo $tribe_ecp->verify_unique_name($_REQUEST['validate_name'],'organizer');
 	}
 	exit;
 }else{

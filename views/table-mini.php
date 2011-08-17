@@ -4,28 +4,28 @@
  * Copy and paste this to events/table-mini.php in your template to customize
  */
 
-global $sp_ecp; 
+$tribe_ecp = Events_Calendar_Pro::instance(); 
 $eventPosts = sp_get_events();
 $daysInMonth = isset($date) ? date("t", $date) : date("t");
 $startOfWeek = get_option( 'start_of_week', 0 );
-list( $year, $month ) = split( '-', $sp_ecp->date );
+list( $year, $month ) = split( '-', $tribe_ecp->date );
 $date = mktime(12, 0, 0, $month, 1, $year); // 1st day of month as unix stamp
 $rawOffset = date("w", $date) - $startOfWeek;
 $offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
 $rows = 1;
-$monthView = sp_sort_by_month( $eventPosts, $sp_ecp->date );
+$monthView = sp_sort_by_month( $eventPosts, $tribe_ecp->date );
 
 
 ?>
-<h4 class="cal-header"><?php echo $sp_ecp->monthsShort[date('M',$date)]; echo date(' Y',$date); ?> <a class="sp-view-all-events" href="<?php echo sp_get_events_link(); ?>"><?php _e('View all &raquo;', $sp_ecp->pluginDomain); ?></a></h4>
+<h4 class="cal-header"><?php echo $tribe_ecp->monthsShort[date('M',$date)]; echo date(' Y',$date); ?> <a class="sp-view-all-events" href="<?php echo sp_get_events_link(); ?>"><?php _e('View all &raquo;', $tribe_ecp->pluginDomain); ?></a></h4>
 <table class="tec-calendar tec-calendar-widget" id="small">
 	<thead>
 			<tr>
 				<?php
 
-				for( $n = $startOfWeek; $n < count($sp_ecp->daysOfWeekMin) + $startOfWeek; $n++ ) {
+				for( $n = $startOfWeek; $n < count($tribe_ecp->daysOfWeekMin) + $startOfWeek; $n++ ) {
 					$dayOfWeek = ( $n >= 7 ) ? $n - 7 : $n;
-					echo '<th id="tec-' . strtolower($sp_ecp->daysOfWeekMin[$dayOfWeek]) . '" title="' . $sp_ecp->daysOfWeek[$dayOfWeek] . '">' . $sp_ecp->daysOfWeekMin[$dayOfWeek] . '</th>';
+					echo '<th id="tec-' . strtolower($tribe_ecp->daysOfWeekMin[$dayOfWeek]) . '" title="' . $tribe_ecp->daysOfWeek[$dayOfWeek] . '">' . $tribe_ecp->daysOfWeekMin[$dayOfWeek] . '</th>';
 				}
 				?>
 			</tr>

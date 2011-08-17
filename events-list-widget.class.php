@@ -22,7 +22,7 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 			}
 		
 			function widget( $args, $instance ) {
-				global $wp_query, $sp_ecp, $post;
+				global $wp_query, $tribe_ecp, $post;
 				$old_post = $post;
 				extract( $args, EXTR_SKIP );
 				extract( $instance, EXTR_SKIP );
@@ -96,12 +96,12 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 			}
 		
 			function form( $instance ) {
-				global $sp_ecp;
+				$tribe_ecp = Events_Calendar_Pro::instance();
 				
 				/* Set up default widget settings. */
 				$defaults = array( 'title' => 'Upcoming Events', 'limit' => '5', 'start' => true, 'end' => false, 'venue' => false, 'country' => true, 'address' => false, 'city' => true, 'region' => true, 'zip' => false, 'phone' => false, 'cost' => false,'category' => false);
 				$instance = wp_parse_args( (array) $instance, $defaults );			
-				include( $sp_ecp->pluginPath . 'admin-views/events-list-load-widget-admin.php' );
+				include( $tribe_ecp->pluginPath . 'admin-views/events-list-load-widget-admin.php' );
 			}
 	}
 

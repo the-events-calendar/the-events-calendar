@@ -131,11 +131,11 @@ class Tribe_ECP_Templates {
 	}
 	
 	public static function load_ecp_comments_page_template($template) {
-		global $sp_ecp;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 		
 		remove_filter('comments_template', array(__CLASS__, 'load_ecp_comments_page_template') );		
 		if (!is_single() || sp_is_showing_all() || (sp_get_option('showComments','no') == 'no')) {
-			return $sp_ecp->pluginPath . 'admin-views/no-comments.php';
+			return $tribe_ecp->pluginPath . 'admin-views/no-comments.php';
 		}
 		return $template;
 	}
@@ -150,7 +150,7 @@ class Tribe_ECP_Templates {
 	 * @author Matt Wiebe
 	 **/
 	public static function getTemplateHierarchy($template) {
-		global $sp_ecp;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 
 		if ( substr($template, -4) != '.php' ) {
 			$template .= '.php';
@@ -160,7 +160,7 @@ class Tribe_ECP_Templates {
 			$file = $theme_file;
 		}
 		else {
-			$file = $sp_ecp->pluginPath . 'views/' . $template;
+			$file = $tribe_ecp->pluginPath . 'views/' . $template;
 		}
 		return apply_filters( 'tribe_events_template_'.$template, $file);
 	}

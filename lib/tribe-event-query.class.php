@@ -134,7 +134,7 @@ class Tribe_Event_Query {
 	// month functions
 	public static function setMonthDisplayTypeArgs($query) {
 		global $wp_query;
-		global $sp_ecp;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 		$args = &$query->query_vars;		
 		
 		$args['posts_per_page'] = -1; // show ALL month posts
@@ -145,7 +145,7 @@ class Tribe_Event_Query {
 			$args['start_date'] = $wp_query->query_vars['eventDate'] . "-01";
 
 		$args['eventDate'] = $args['start_date'];		
-		$args['end_date'] = $sp_ecp->nextMonth($args['start_date']) . "-01";
+		$args['end_date'] = $tribe_ecp->nextMonth($args['start_date']) . "-01";
 		$args['orderby'] = 'event_date';
 		$args['order'] = "DESC";
 		

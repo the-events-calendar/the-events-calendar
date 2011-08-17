@@ -19,9 +19,9 @@
 // 			'$event->Phone',
 
 	$event = array();
-	global $sp_ecp;
-	reset($sp_ecp->metaTags); // Move pointer to beginning of array.
-	foreach($sp_ecp->metaTags as $tag){
+	$tribe_ecp = Events_Calendar_Pro::instance();
+	reset($tribe_ecp->metaTags); // Move pointer to beginning of array.
+	foreach($tribe_ecp->metaTags as $tag){
 		$var_name = str_replace('_Event','',$tag);
 		$event[$var_name] = getEventMeta( $post->ID, $tag, true );
 	}

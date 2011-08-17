@@ -31,7 +31,7 @@ class Tribe_Event_API {
 	
 	// abstracted so EventBrite can call without needing $_POST data
 	public static function saveEventMeta($event_id, $data, $event = null) {
-		global $sp_ecp;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 		
 		if( $data['EventAllDay'] == 'yes' || !isset($data['EventStartDate']) ) {
 			$data['EventStartDate'] = TribeDateUtils::beginningOfDay($data['EventStartDate']);
@@ -58,10 +58,10 @@ class Tribe_Event_API {
 		$data['EventOrganizerID'] = Tribe_Event_API::saveEventOrganizer($data["Organizer"]);
 		$data['EventVenueID'] = Tribe_Event_API::saveEventVenue($data["Venue"]);
 
-		$sp_ecp->do_action('tribe_events_event_save', $event_id);
+		$tribe_ecp->do_action('tribe_events_event_save', $event_id);
 
 		//update meta fields
-		foreach ( $sp_ecp->metaTags as $tag ) {
+		foreach ( $tribe_ecp->metaTags as $tag ) {
 			$htmlElement = ltrim( $tag, '_' );
 			if ( isset( $data[$htmlElement] ) && $tag != Events_Calendar_Pro::EVENTSERROROPT ) {
 				if ( is_string($data[$htmlElement]) )
@@ -71,7 +71,7 @@ class Tribe_Event_API {
 			}
 		}
 
-      	$sp_ecp->do_action('tribe_events_update_meta', $event_id, false, $data, $event);
+      	$tribe_ecp->do_action('tribe_events_update_meta', $event_id, false, $data, $event);
 	}	
 	
 	// used when saving event meta

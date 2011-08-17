@@ -143,20 +143,20 @@ class Tribe_Admin_Events_List {
 	}
 
 	public static function column_headers( $columns ) {
-		global $post, $sp_ecp;
+		global $post, $tribe_ecp;
 
 		if ( is_object($post) && $post->post_type == Events_Calendar_Pro::POSTTYPE ) {
 			foreach ( $columns as $key => $value ) {
 				$mycolumns[$key] = $value;
 				if ( $key =='author' )
-					$mycolumns['events-cats'] = __( 'Event Categories', $sp_ecp->pluginDomain );
+					$mycolumns['events-cats'] = __( 'Event Categories', $tribe_ecp->pluginDomain );
 			}
 			$columns = $mycolumns;
 
 			unset($columns['date']);
-			$columns['start-date'] = __( 'Start Date', $sp_ecp->pluginDomain );
-			$columns['end-date'] = __( 'End Date', $sp_ecp->pluginDomain );
-			$columns['recurring'] = __( 'Recurring?', $sp_ecp->pluginDomain );
+			$columns['start-date'] = __( 'Start Date', $tribe_ecp->pluginDomain );
+			$columns['end-date'] = __( 'End Date', $tribe_ecp->pluginDomain );
+			$columns['recurring'] = __( 'Recurring?', $tribe_ecp->pluginDomain );
 		}
 
 		return $columns;

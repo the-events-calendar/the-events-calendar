@@ -1,7 +1,7 @@
 <?php
 class Tribe_View_Helpers {
 	public static function constructCountries( $postId = '', $useDefault = true ) {
-		global $sp_ecp;
+		$tribe_ecp = Events_Calendar_Pro::instance();
 
 		if(sp_get_option('spEventsCountries') != ''){
 			$countries = array(
@@ -268,7 +268,7 @@ class Tribe_View_Helpers {
 			if ( ($postId || $useDefault)) {
 				$countryValue = get_post_meta( $postId, '_EventCountry', true );
 				if( $countryValue ) $defaultCountry = array( array_search( $countryValue, $countries ), $countryValue );
-				else $defaultCountry = $sp_ecp->getOption('defaultCountry');
+				else $defaultCountry = $tribe_ecp->getOption('defaultCountry');
 				if( $defaultCountry && $defaultCountry[0] != "") {
 					$selectCountry = array_shift( $countries );
 					asort($countries);
@@ -465,8 +465,8 @@ class Tribe_View_Helpers {
 	 * @return string a set of HTML options with all months (current month selected)
 	 */
 	public static function getMonthOptions($date = "") {
-		global $sp_ecp;
-		$months = $sp_ecp->monthNames();
+		$tribe_ecp = Events_Calendar_Pro::instance();
+		$months = $tribe_ecp->monthNames();
 		$options = '';
 		if (empty($date)) {
 			$month = ( date_i18n('j') == date_i18n('t') ) ? date('F', time() + 86400) : date_i18n('F');

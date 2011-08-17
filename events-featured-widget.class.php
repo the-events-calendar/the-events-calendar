@@ -14,7 +14,7 @@ if( !class_exists( 'Events_Featured_Widget') ) {
 
 
 			function widget( $args, $instance ) {
-				global $wp_query, $sp_ecp, $post;
+				global $wp_query, $tribe_ecp, $post;
 				$old_post = $post;
 				extract( $args, EXTR_SKIP );
 				extract( $instance, EXTR_SKIP );
@@ -31,7 +31,7 @@ if( !class_exists( 'Events_Featured_Widget') ) {
 					$old_display = $wp_query->get('eventDisplay');
 					$wp_query->set('eventDisplay', 'upcoming');
 					$posts = sp_get_events( 'numResults=1&eventCat=' . $category );
-					$template = $sp_ecp->getTemplateHierarchy('widget-featured-display');
+					$template = $tribe_ecp->getTemplateHierarchy('widget-featured-display');
 				}
 				
 				// if no posts, and the don't show if no posts checked, let's bail

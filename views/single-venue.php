@@ -39,11 +39,11 @@
 								<div class="tec-event-list-meta">
 									  <table cellspacing="0">
 											<tr>
-											  <td class="tec-event-meta-desc"><?php _e('Start:', $sp_ecp->pluginDomain) ?></td>
+											  <td class="tec-event-meta-desc"><?php _e('Start:', $tribe_ecp->pluginDomain) ?></td>
 											  <td class="tec-event-meta-value"><?php echo sp_get_start_date(); ?></td>
 											</tr>
 											<tr>
-											  <td class="tec-event-meta-desc"><?php _e('End:', $sp_ecp->pluginDomain) ?></td>
+											  <td class="tec-event-meta-desc"><?php _e('End:', $tribe_ecp->pluginDomain) ?></td>
 											  <td class="tec-event-meta-value"><?php echo sp_get_end_date(); ?></td>
 											</tr>
 											<?php
@@ -51,7 +51,7 @@
 											  if ( !empty( $cost ) ) :
 											?>
 												<tr>
-													<td class="tec-event-meta-desc"><?php _e('Cost:', $sp_ecp->pluginDomain) ?></td>
+													<td class="tec-event-meta-desc"><?php _e('Cost:', $tribe_ecp->pluginDomain) ?></td>
 													<td class="tec-event-meta-value"><?php echo $cost; ?></td>
 												</tr>
 											<?php endif; ?>

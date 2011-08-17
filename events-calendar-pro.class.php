@@ -43,7 +43,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public $supportUrl = 'http://support.makedesignnotwar.com/';
 		public $envatoUrl = 'http://plugins.shaneandpeter.com/';
 
-
+	    private static $instance;
 		private $rewriteSlug = 'events';
 		private $rewriteSlugSingular = 'event';
 		private $taxRewriteSlug = 'event/category';
@@ -112,13 +112,24 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public $daysOfWeekMin;
 		public $monthsFull;
 		public $monthsShort;
+		
+		/* Static Singleton Factory Method */
+	    public static function instance()
+	    {
+	        if (!isset(self::$instance)) {
+	            $className = __CLASS__;
+	            self::$instance = new $className;
+	        }
+
+	        return self::$instance;
+	    }		
 
 		/**
 		 * Initializes plugin variables and sets up wordpress hooks/actions.
 		 *
 		 * @return void
 		 */
-		function __construct( ) {
+		private function __construct( ) {
 			$this->pluginDir		= trailingslashit( basename( dirname(__FILE__) ) );
 			$this->pluginPath		= trailingslashit( dirname(__FILE__) );
 			$this->pluginUrl 		= WP_PLUGIN_URL.'/'.$this->pluginDir;
@@ -142,7 +153,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$this->upcomingSlug = __('upcoming', $this->pluginDomain);
 			$this->pastSlug = __('past', $this->pluginDomain);
 			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlugSingular;
-         $this->postVenueTypeArgs['rewrite']['slug'] = __( 'venue', $this->pluginDomain );
+         	$this->postVenueTypeArgs['rewrite']['slug'] = __( 'venue', $this->pluginDomain );
 			$this->currentDay = '';
 			$this->errors = '';
 			Tribe_Event_Query::init();
@@ -1590,7 +1601,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 
 		public function getEvents( $args = '' ) {
-			global $sp_ecp;
+			$tribe_ecp = Events_Calendar_Pro::instance();
 			$defaults = array(
 				'posts_per_page' => get_option( 'posts_per_page', 10 ),
 				'post_type' => Events_Calendar_Pro::POSTTYPE,
@@ -1762,7 +1773,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
       }
 	} // end Events_Calendar_Pro class
 
+	Events_Calendar_Pro::instance();
+	
+	// backwards compatability
 	global $sp_ecp;
-	$sp_ecp = new Events_Calendar_Pro();
+	$sp_ecp = Events_Calendar_Pro::instance();
+	
 	add_filter('generate_rewrite_rules', array(&$sp_ecp,'filterRewriteRules'));
 } // end if !class_exists Events_Calendar_Pro

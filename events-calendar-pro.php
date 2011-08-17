@@ -18,8 +18,8 @@ if ( ! function_exists('events_calendar_pro_activate') ) {
 	function events_calendar_pro_activate() {
 		if ( SP_EVENTS_SUPPORTED_WP_VERSION && SP_EVENTS_SUPPORTED_PHP_VERSION ) {
 			events_calendar_pro_load();
-			global $sp_ecp;
-			$sp_ecp->on_activate();
+			$tribe_ecp = Events_Calendar_Pro::instance();
+			$tribe_ecp->on_activate();
 		}
 	}
 }

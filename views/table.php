@@ -4,11 +4,11 @@
  * Copy and paste this to events/table.php in your template to customize
  */
 
-global $sp_ecp;
+$tribe_ecp = Events_Calendar_Pro::instance();
 
 // in an events cat
-if ( is_tax( $sp_ecp->get_event_taxonomy() ) ) {
-	$cat = get_term_by( 'slug', get_query_var('term'), $sp_ecp->get_event_taxonomy() );
+if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
+	$cat = get_term_by( 'slug', get_query_var('term'), $tribe_ecp->get_event_taxonomy() );
 	$eventCat = (int) $cat->term_id;
 	$eventPosts = sp_get_events( array( 'eventCat' => $eventCat, 'time_order' => 'ASC', 'eventDisplay'=>'month' ) );
 } // not in a cat
@@ -19,23 +19,23 @@ else {
 
 $daysInMonth = isset($date) ? date("t", $date) : date("t");
 $startOfWeek = get_option( 'start_of_week', 0 );
-list( $year, $month ) = split( '-', $sp_ecp->date );
+list( $year, $month ) = split( '-', $tribe_ecp->date );
 $date = mktime(12, 0, 0, $month, 1, $year); // 1st day of month as unix stamp
 $rawOffset = date("w", $date) - $startOfWeek;
 $offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
 $rows = 1;
 
-$monthView = sp_sort_by_month( $eventPosts, $sp_ecp->date );
+$monthView = sp_sort_by_month( $eventPosts, $tribe_ecp->date );
 
 ?>
 <table class="tec-calendar" id="big">
 	<thead>
 			<tr>
-				<?php //$sp_ecp->log($sp_ecp->daysOfWeekShort);
-				for( $n = $startOfWeek; $n < count($sp_ecp->daysOfWeek) + $startOfWeek; $n++ ) {
+				<?php //$tribe_ecp->log($tribe_ecp->daysOfWeekShort);
+				for( $n = $startOfWeek; $n < count($tribe_ecp->daysOfWeek) + $startOfWeek; $n++ ) {
 					$dayOfWeek = ( $n >= 7 ) ? $n - 7 : $n;
 					
-					echo '<th id="tec-' . strtolower($sp_ecp->daysOfWeek[$dayOfWeek]) . '" abbr="' . $sp_ecp->daysOfWeek[$dayOfWeek] . '">' . $sp_ecp->daysOfWeekShort[$dayOfWeek] . '</th>';
+					echo '<th id="tec-' . strtolower($tribe_ecp->daysOfWeek[$dayOfWeek]) . '" abbr="' . $tribe_ecp->daysOfWeek[$dayOfWeek] . '">' . $tribe_ecp->daysOfWeekShort[$dayOfWeek] . '</th>';
 				}
 				?>
 			</tr>
