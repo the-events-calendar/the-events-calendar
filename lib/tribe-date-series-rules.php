@@ -1,11 +1,25 @@
 <?php
+/**
+ * This file contains all of the classes that define recurrence rules
+ * Corresponding unit tests live in the /test directory.  Tests should be run when changing anything in here
+ * as the rules are quite complex in many cases.
+ * @author John Gadbois
+ */
+
+/**
+ *  The interface for all DateSeriesRules.  They all implement a function called getNextDate 
+ *  that returns the next date in a series based on it's particular set of rules. 
+ */
 interface DateSeriesRules
 {
-	 const DATE_ONLY_FORMAT = "Y-m-d";
-	 const DATE_FORMAT = "Y-m-d H:i:s";
+	const DATE_ONLY_FORMAT = "Y-m-d";
+	const DATE_FORMAT = "Y-m-d H:i:s";
     public function getNextDate($curdate);
 }
 
+/**
+ * Rules for daily recurrences
+ */
 class DaySeriesRules implements DateSeriesRules
 {
 	private $days_between;
@@ -19,6 +33,9 @@ class DaySeriesRules implements DateSeriesRules
 	}
 }
 
+/**
+ * Rules for weekly recurrences
+ */
 class WeekSeriesRules implements DateSeriesRules
 {
 	private $weeks_between;
@@ -64,6 +81,9 @@ class WeekSeriesRules implements DateSeriesRules
 	}
 }
 
+/**
+ * Rules for monthly recurrences
+ */
 class MonthSeriesRules implements DateSeriesRules
 {
 	private $months_between;
@@ -157,6 +177,9 @@ class MonthSeriesRules implements DateSeriesRules
 	}
 }
 
+/**
+ * Rules for yearly recurrences
+ */
 class YearSeriesRules implements DateSeriesRules
 {
 	private $years_between;

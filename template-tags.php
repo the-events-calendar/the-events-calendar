@@ -1,8 +1,9 @@
 <?php
-if( class_exists( 'ECP_Premium' ) && !function_exists( 'tribe_get_recurrence_text' ) ) {
-	/* Premium Template Tags */	
-	
-	
+/**
+ * Template tags for premium ECP functionality
+ * @author John Gadbois
+ */
+if( class_exists( 'ECP_Premium' ) && !function_exists( 'tribe_get_recurrence_text' ) ) {	
 	/**
 	 * tribe_get_recurrence_text 
 	 *

@@ -1,4 +1,8 @@
 <?php
+/**
+ * Given a start date, series end (end date or number of occurrences), and rules engine; find me all the dates in a recurrence
+ * @author John Gadbois
+ */
 class TribeRecurrence {
 	private $start_date;
 	private $end;
@@ -12,6 +16,11 @@ class TribeRecurrence {
 		$this->by_occurrence_count = $by_occurrence_count;
 	}
 
+	/**
+	 * Using the rules engine, find all dates in the series 
+	 *
+	 * @return An array of all dates in the series
+	 */
 	public function getDates() {
 		if( $this->series_rules ) {
 			$dates = array();
