@@ -1221,6 +1221,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 						
 			if ( !wp_verify_nonce( $_POST['ecp_nonce'], Events_Calendar_Pro::POSTTYPE ) )
 				return;
+			
+			if ( !current_user_can( 'publish_posts' ) )
+				return;
 
 			$_POST['Organizer'] = stripslashes_deep($_POST['organizer']);
 			$_POST['Venue'] = stripslashes_deep($_POST['venue']);
@@ -1243,6 +1246,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
                  ($post->post_type != self::VENUE_POST_TYPE && $postID)) {
 				return;
 			}
+				 
+			if ( !current_user_can( 'publish_posts' ) )
+				return;				 
 
 			//There is a possibility to get stuck in an infinite loop. 
 			//That would be bad.
@@ -1292,6 +1298,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
                  ($post->post_type != self::ORGANIZER_POST_TYPE && $postID)) {
 				return;
 			}
+				 
+			if ( !current_user_can( 'publish_posts' ) )
+				return;				 				 
 
 			//There is a possibility to get stuck in an infinite loop. 
 			//That would be bad.
