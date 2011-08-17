@@ -68,4 +68,3 @@ class Tribe_ECP_Custom_Meta {
 		return $ecp_options;
 	}
 }
-?>

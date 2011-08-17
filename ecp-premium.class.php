@@ -16,12 +16,15 @@ if ( !class_exists( 'ECP_Premium' ) ) {
 		public $pluginDir;
 		public $pluginPath;
 		public $pluginUrl;
+		public $pluginDomain = 'events-calendar-pro';		
 		
 	    private function __construct()
 	    {
 			$this->pluginDir		= trailingslashit( basename( dirname(__FILE__) ) );
 			$this->pluginPath		= trailingslashit( dirname(__FILE__) );
 			$this->pluginUrl 		= WP_PLUGIN_URL.'/'.$this->pluginDir;
+			
+			include 'template-tags.php';
 	    	foreach (glob($this->pluginPath . "lib/*.php") as $filename) {
 				include $filename;
 			}
@@ -31,6 +34,7 @@ if ( !class_exists( 'ECP_Premium' ) ) {
 		
 		public function init() {
 			Tribe_ECP_Custom_Meta::init();
+			Events_Recurrence_Meta::init();
 		}
 	
 		/* Static Methods */
