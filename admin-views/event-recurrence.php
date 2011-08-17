@@ -17,7 +17,7 @@
 						<option value="On" <?php selected($recEndType, "None") ?>><?php _e('On',$premium->pluginDomain); ?></option>
 						<option value="After" <?php selected($recEndType, "After") ?>><?php _e('After',$premium->pluginDomain); ?></option>
 					</select>
-					<input autocomplete="off" placeholder="<?php echo DateUtils::dateOnly( date(DateUtils::DBDATEFORMAT) ) ?>" type="text" class="datepicker" name="recurrence[end]" id="recurrence_end"  value="<?php echo $recEnd  ?>" style="display:<?php echo !$recEndType || $recEndType == "On" ? "inline" : "none"; ?>"/>
+					<input autocomplete="off" placeholder="<?php echo TribeDateUtils::dateOnly( date(TribeDateUtils::DBDATEFORMAT) ) ?>" type="text" class="datepicker" name="recurrence[end]" id="recurrence_end"  value="<?php echo $recEnd  ?>" style="display:<?php echo !$recEndType || $recEndType == "On" ? "inline" : "none"; ?>"/>
 					<span id="rec-count" style="display:<?php echo $recEndType == "After" ? "inline" : "none"; ?>"><input autocomplete="off" type="text" name="recurrence[end-count]" id="recurrence_end_count"  value="<?php echo $recEndCount ? $recEndCount : 1 ?>" style='width: 40px;'/> <span id='occurence-count-text'><?php echo $recOccurrenceCountText; ?></span></span>
 					<span id="rec-end-error" class="rec-error"><?php _e('You must select a recurrence end date',$premium->pluginDomain); ?></span>
 				</span>

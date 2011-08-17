@@ -91,7 +91,7 @@ class MonthSeriesRules implements DateSeriesRules
 			if(sizeof($this->days_of_month) > 0) {
 				$next_day_of_month = $this->getNextDayOfMonth($next_day_of_month);
 
-				while(DateUtils::getLastDayOfMonth($curdate) < $next_day_of_month)
+				while(TribeDateUtils::getLastDayOfMonth($curdate) < $next_day_of_month)
 				{
 					$next_day_of_month = $this->days_of_month[0];
 					$curdate = mktime(date("H", $curdate), date("i", $curdate), date("s", $curdate), date('n', $curdate) + $this->months_between, 1, date('Y', $curdate));
@@ -104,7 +104,7 @@ class MonthSeriesRules implements DateSeriesRules
 			} else {
 				$nextdate = mktime (0, 0, 0, date('n', $curdate) + $this->months_between, 1, date('Y', $curdate));
 
-				while(DateUtils::getLastDayOfMonth($nextdate) < $next_day_of_month) {
+				while(TribeDateUtils::getLastDayOfMonth($nextdate) < $next_day_of_month) {
 					$nextdate = mktime (0, 0, 0, date('n', $nextdate) + $this->months_between, 1, date('Y', $nextdate));
 				}
 
@@ -117,29 +117,29 @@ class MonthSeriesRules implements DateSeriesRules
 		$curmonth = date('n', $curdate);
 
 		if($week_of_month == -1) { // LAST WEEK
-			$nextdate = DateUtils::getLastDayOfWeekInMonth($curdate, $day_of_week);
+			$nextdate = TribeDateUtils::getLastDayOfWeekInMonth($curdate, $day_of_week);
 
 			if($curdate == $nextdate) {
 				$curdate = mktime (0, 0, 0, date('n', $curdate) + $this->months_between, 1, date('Y', $curdate));
-				$nextdate = DateUtils::getLastDayOfWeekInMonth($curdate, $day_of_week);
+				$nextdate = TribeDateUtils::getLastDayOfWeekInMonth($curdate, $day_of_week);
 			}
 
 			return $nextdate;
 		} else {
-			$nextdate = DateUtils::getFirstDayOfWeekInMonth($curdate, $day_of_week);
+			$nextdate = TribeDateUtils::getFirstDayOfWeekInMonth($curdate, $day_of_week);
 			$maybe_date = strtotime(date(DateSeriesRules::DATE_FORMAT, $nextdate) . " + " . ($week_of_month-1) . " weeks");
 
 			// if on the correct date, then try next month
 			if(date(DateSeriesRules::DATE_ONLY_FORMAT, $maybe_date) == date(DateSeriesRules::DATE_ONLY_FORMAT, $curdate)) {
 				$curdate = mktime (0, 0, 0, date('n', $curdate) + $this->months_between, 1, date('Y', $curdate));
-				$nextdate = DateUtils::getFirstDayOfWeekInMonth($curdate, $day_of_week);
+				$nextdate = TribeDateUtils::getFirstDayOfWeekInMonth($curdate, $day_of_week);
 				$maybe_date = strtotime(date(DateSeriesRules::DATE_FORMAT, $nextdate) . " + " . ($week_of_month-1) . " weeks");
 			}
 
 			// if this doesn't exist, then try next month
 			while(date('n', $maybe_date) != date('n', $nextdate)) {
 				$nextdate = mktime (0, 0, 0, date('n', $nextdate) + $this->months_between, 1, date('Y', $nextdate));
-				$nextdate = DateUtils::getFirstDayOfWeekInMonth($curdate, $day_of_week);
+				$nextdate = TribeDateUtils::getFirstDayOfWeekInMonth($curdate, $day_of_week);
 				$maybe_date = strtotime(date(DateSeriesRules::DATE_FORMAT, $nextdate) . " + " . ($week_of_month-1) . " weeks");
 			}
 
@@ -212,10 +212,10 @@ class YearSeriesRules implements DateSeriesRules
 
 	private function getNthDayOfMonth($curdate, $day_of_week, $week_of_month, $next_month_of_year) {
 		$nextdate = $this->advanceDate($curdate, $next_month_of_year, 1); // advance to correct month
-		$nextdate = DateUtils::getFirstDayOfWeekInMonth($nextdate, $day_of_week);
+		$nextdate = TribeDateUtils::getFirstDayOfWeekInMonth($nextdate, $day_of_week);
 
 		if($week_of_month == -1) { // LAST WEEK
-			$nextdate = DateUtils::getLastDayOfWeekInMonth($nextdate, $day_of_week);
+			$nextdate = TribeDateUtils::getLastDayOfWeekInMonth($nextdate, $day_of_week);
 			return $nextdate;
 		} else {
 			$maybe_date = strtotime(date(DateSeriesRules::DATE_FORMAT, $nextdate) . " + " . ($week_of_month-1) . " weeks");
@@ -225,7 +225,7 @@ class YearSeriesRules implements DateSeriesRules
 				// advance again
 				$next_month_of_year = $this->getNextMonthOfYear(date('n', $nextdate)); 
 				$nextdate = $this->advanceDate($nextdate, $next_month_of_year);
-				$nextdate = DateUtils::getFirstDayOfWeekInMonth($curdate, $day_of_week);
+				$nextdate = TribeDateUtils::getFirstDayOfWeekInMonth($curdate, $day_of_week);
 				$maybe_date = strtotime(date(DateSeriesRules::DATE_FORMAT, $nextdate) . " + " . ($week_of_month-1) . " weeks");
 			}
 

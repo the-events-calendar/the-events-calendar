@@ -27,7 +27,7 @@ class Events_Recurrence_Meta {
 	
 	public static function loadRecurrenceData($postId) {
 		// convert array to variables that can be used in the view
-		extract(Events_Recurrence_Meta::getRecurrenceMeta($postId));
+
 		$premium = ECP_Premium::instance();		
 		include( ECP_Premium::instance()->pluginPath . 'admin-views/event-recurrence.php' );
 	}		
@@ -47,7 +47,7 @@ class Events_Recurrence_Meta {
 		// make new series for future events
 		if($_POST['recurrence_action'] && $_POST['recurrence_action'] == Events_Recurrence_Meta::UPDATE_TYPE_FUTURE) {
 			// only do this if not the first event in the series
-			if( $_POST['EventStartDate'] != DateUtils::dateOnly( Events_Calendar_Pro::getRealStartDate($postId) )) {
+			if( $_POST['EventStartDate'] != TribeDateUtils::dateOnly( Events_Calendar_Pro::getRealStartDate($postId) )) {
 				// move recurrence end to the last date of the series before today
 				$numOccurrences = self::adjustRecurrenceEnd( $postId, $_POST['EventStartDate'] );			
 
@@ -98,7 +98,7 @@ class Events_Recurrence_Meta {
 	
 	private static function removeOccurrence( $postId, $date ) {
 		$startDate = Events_Calendar_Pro::getRealStartDate($postId);
-		$date = DateUtils::addTimeToDate( $date, DateUtils::timeOnly($startDate) );
+		$date = TribeDateUtils::addTimeToDate( $date, TribeDateUtils::timeOnly($startDate) );
 
 		delete_post_meta( $postId, '_EventStartDate', $date );
 	}
@@ -109,7 +109,7 @@ class Events_Recurrence_Meta {
 		$occurrences = get_post_meta($postId, '_EventStartDate');
 		
 		foreach($occurrences as $occurrence) {
-			if (strtotime(DateUtils::dateOnly($occurrence)) >= $date ) {
+			if (strtotime(TribeDateUtils::dateOnly($occurrence)) >= $date ) {
 				delete_post_meta($postId, '_EventStartDate', $occurrence);
 			}
 		}
@@ -128,7 +128,7 @@ class Events_Recurrence_Meta {
 				  
 		foreach($occurrences as $occurrence) {
 			$occurrenceCount++; // keep track of how many we are keeping
-			if (strtotime(DateUtils::dateOnly($occurrence)) > $date ) {
+			if (strtotime(TribeDateUtils::dateOnly($occurrence)) > $date ) {
 				$recurrenceMeta = get_post_meta($postId, '_EventRecurrence', true);
 				$recurrenceMeta['end'] = date(DateSeriesRules::DATE_ONLY_FORMAT, strtotime($prev));
 
@@ -148,7 +148,7 @@ class Events_Recurrence_Meta {
 		$occurrences = get_post_meta($postId, '_EventStartDate');
 		
 		foreach($occurrences as $occurrence) {
-			if (strtotime(DateUtils::dateOnly($occurrence)) < $date ) {
+			if (strtotime(TribeDateUtils::dateOnly($occurrence)) < $date ) {
 				delete_post_meta($postId, '_EventStartDate', $occurrence);
 			}
 		}
@@ -354,7 +354,7 @@ class Events_Recurrence_Meta {
 				$text = $recCustomInterval == 1 ? 
 					__("Every month") : 
 					sprintf(__("Every %d months"), $recCustomInterval);								
-               $number_display = is_numeric($recCustomMonthNumber) ? DateUtils::numberToOrdinal( $recCustomMonthNumber ) : strtolower($recCustomMonthNumber); 
+               $number_display = is_numeric($recCustomMonthNumber) ? TribeDateUtils::numberToOrdinal( $recCustomMonthNumber ) : strtolower($recCustomMonthNumber); 
 				$custom_text = sprintf(__(" on the %s %s"), $number_display,  is_numeric($recCustomMonthNumber) ? __("day") : self::daysToText($recCustomMonthDay));
 				$occurrence_text = sprintf(_n(", recurring %d time", ", recurring %d times", $recEndCount), $recEndCount);	
 			} else if ($recCustomType == "Yearly") {
@@ -362,9 +362,9 @@ class Events_Recurrence_Meta {
 					__("Every year") : 
 					sprintf(__("Every %d years"), $recCustomInterval);												
 				
-				$customYearNumber = $recCustomYearMonthNumber != -1 ? DateUtils::numberToOrdinal($recCustomYearMonthNumber) : __("last");
+				$customYearNumber = $recCustomYearMonthNumber != -1 ? TribeDateUtils::numberToOrdinal($recCustomYearMonthNumber) : __("last");
 				
-				$day = $recCustomYearFilter ? $customYearNumber : DateUtils::numberToOrdinal( date('j', strtotime( Events_Calendar_Pro::getRealStartDate( $postId ) ) ) );
+				$day = $recCustomYearFilter ? $customYearNumber : TribeDateUtils::numberToOrdinal( date('j', strtotime( Events_Calendar_Pro::getRealStartDate( $postId ) ) ) );
 				$of_week = $recCustomYearFilter ? self::daysToText($recCustomYearMonthDay) : "";
 				$months = self::monthsToText($recCustomYearMonth);
 				$custom_text = sprintf(__(" on the %s %s of %s"), $day, $of_week, $months);				
