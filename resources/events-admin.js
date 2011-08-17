@@ -165,7 +165,7 @@ jQuery(document).ready(function($) {
 				$('[name="post[]"]:checked').each(function() {
 					var curval = $(this).val();
 					if(ids[curval]) {
-						$(this).attr('checked', '');
+						$(this).prop('checked', false);
 					}
 
 					ids[curval] = true;

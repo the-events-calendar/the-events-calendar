@@ -787,7 +787,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function loadStyle() {
 			
 			$eventsURL = trailingslashit( $this->pluginUrl ) . 'resources/';
-			wp_enqueue_script('sp-events-calendar-script', $eventsURL.'events.js', array('jquery') );
+			wp_enqueue_script('sp-events-pjax', $eventsURL.'jquery.pjax.js', array('jquery') );			
+			wp_enqueue_script('sp-events-calendar-script', $eventsURL.'events.js', array('jquery', 'sp-events-pjax') );
 			// is there an events.css file in the theme?
 			if ( $user_style = locate_template(array('events/events.css')) ) {
 				$styleUrl = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $user_style );

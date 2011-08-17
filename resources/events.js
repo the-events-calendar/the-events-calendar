@@ -6,7 +6,7 @@ jQuery(document).ready(function($) {
 	});
 
 	// big popups
-	$("table.tec-calendar:not(.tec-calendar-widget) .tec-event a").hover(function() {
+	$("table.tec-calendar:not(.tec-calendar-widget) .tec-event a").live('hover', function() {
 		
 		// one for IE6, one for everybody else
 		if ($.browser.msie && $.browser.version == 6) {
@@ -22,7 +22,7 @@ jQuery(document).ready(function($) {
 	});
 	
 	// little popups
-	$("table.tec-calendar-widget .tec-event:has(a)").hover(function() {
+	$("table.tec-calendar-widget .tec-event:has(a)").live('hover', function() {
 		
 		// one for IE6, one for everybody else
 		if ($.browser.msie && $.browser.version == 6) {
@@ -38,10 +38,15 @@ jQuery(document).ready(function($) {
 	});
 	
 	// datepicker
-	$(".tec-events-dropdown").change(function() {
+	$(".tec-events-dropdown").live('change', function() {
 		baseUrl = $(this).parent().attr("action");
 		
-		location.href = baseUrl + $('#tec-events-year').val() + '-' + $('#tec-events-month').val();
+		url = baseUrl + $('#tec-events-year').val() + '-' + $('#tec-events-month').val();
+		
+		$.pjax({ url: url, container: '#tec-content', fragment: '#tec-content' });
 	});
+	
+	// PJAX
+	$('.tec-prev-month a, .tec-next-month a').pjax('#tec-content', { timeout: 10000, fragment: '#tec-content' });
 	
 });
