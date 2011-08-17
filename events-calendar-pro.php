@@ -14,7 +14,6 @@ register_activation_hook(__FILE__, 'events_calendar_pro_activate');
 define( 'SP_EVENTS_SUPPORTED_WP_VERSION', version_compare(get_bloginfo('version'), '3.0', '>=') );
 define( 'SP_EVENTS_SUPPORTED_PHP_VERSION', version_compare( phpversion(), '5.2', '>=') );
 
-
 if ( ! function_exists('events_calendar_pro_activate') ) {
 	function events_calendar_pro_activate() {
 		if ( SP_EVENTS_SUPPORTED_WP_VERSION && SP_EVENTS_SUPPORTED_PHP_VERSION ) {
@@ -44,8 +43,7 @@ if ( ! function_exists('events_calendar_pro_load') ) {
 			require_once($events_dir . '/events-list-widget.class.php');
 			require_once($events_dir . '/events-featured-widget.class.php');
 			require_once($events_dir . '/template-tags.php');
-			require_once($events_dir . '/lib/tribe-event-query.class.php' );
-			require_once($events_dir . '/lib/tribe-ecp-custom-meta.class.php' );			
+			require_once($events_dir . '/lib/tribe-event-query.class.php' );			
 			require_once($events_dir . '/lib/tribe-facebook-export.php' );
 		}
 	}

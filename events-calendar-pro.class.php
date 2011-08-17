@@ -15,6 +15,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		const ORGANIZER_POST_TYPE = 'sp_organizer';
 		const ORGANIZER_TITLE = 'Organizer';
 		const PLUGIN_DOMAIN = 'events-calendar-pro';
+		const VERSION = '2.0';
 
 		private $postTypeArgs = array(
 			'public' => true,
@@ -146,7 +147,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$this->currentDay = '';
 			$this->errors = '';
 			Tribe_Event_Query::init();
-			Tribe_ECP_Custom_Meta::init();
 			$this->registerPostType();
 
 			//If the custom post type's rewrite rules have not been generated yet, flush them. (This can happen on reactivations.)
