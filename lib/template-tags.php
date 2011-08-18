@@ -1,6 +1,6 @@
 <?php
 
-if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' ) ) {
+if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * retrieve specific key from options array, optionally provide a default return value
 	 */
@@ -1110,7 +1110,5 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		$tribe_ecp = Events_Calendar_Pro::instance();
 		return $tribe_ecp->isVenue($postId);
 	}
-
-	include_once('template-tags-deprecated.php');
 
 } // end if class_exists('The-Events-Calendar')
