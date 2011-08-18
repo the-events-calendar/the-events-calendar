@@ -197,8 +197,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 			add_action( 'pre_get_posts', array( $this, 'setDate' ));
 			add_action( 'pre_get_posts', array( $this, 'setDisplay' ));
-			add_action( 'tribe_events_post_errors', array( 'TEC_Post_Exception', 'displayMessage' ) );
-			add_action( 'tribe_events_options_top', array( 'TEC_WP_Options_Exception', 'displayMessage') );
+			add_action( 'tribe_events_post_errors', array( 'TribeEventsPostException', 'displayMessage' ) );
+			add_action( 'tribe_events_options_top', array( 'TribeEventsOptionsException', 'displayMessage') );
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
 			add_action( 'the_post', array( $this, 'setReccuringEventDates' ) );
@@ -757,7 +757,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					$options = apply_filters( 'tribe-events-options', $options );		
 					do_action( 'tribe-events-save-more-options' );
 					if ( !$this->optionsExceptionThrown ) $options['error'] = "";
-				} catch( TEC_WP_Options_Exception $e ) {
+				} catch( TribeEventsOptionsException $e ) {
 					$this->optionsExceptionThrown = true;
 					$options['error'] .= $e->getMessage();
 				}
@@ -1861,7 +1861,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
          try {
             do_action( $name, $event_id, $extra_args );
             if( !$this->getPostExceptionThrown() && $event_id ) delete_post_meta( $event_id, Events_Calendar_Pro::EVENTSERROROPT );
-         } catch ( TEC_Post_Exception $e ) {
+         } catch ( TribeEventsPostException $e ) {
             $this->setPostExceptionThrown(true);
             if ($event_id) {
                update_post_meta( $event_id, self::EVENTSERROROPT, trim( $e->getMessage() ) );

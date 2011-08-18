@@ -6,8 +6,8 @@
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-if( !class_exists( 'TEC_Post_Exception' ) ) {
-	class TEC_Post_Exception extends Exception {
+if( !class_exists( 'TribeEventsPostException' ) ) {
+	class TribeEventsPostException extends Exception {
 		/**
 		* Display the exception message in the div #tec-post-error
 		* @param int $post->ID
@@ -17,14 +17,14 @@ if( !class_exists( 'TEC_Post_Exception' ) ) {
 				<script type="text/javascript">jQuery('#tec-post-error').append('<h3>Error</h3><p>' + '<?php echo $error; ?>' + '</p>').show();</script>
 			<?php endif;
 		}
-	} // end TEC_Post_Exception
-} // end if !class_exists TEC_Post_Exception
+	} // end TribeEventsPostException
+} // end if !class_exists TribeEventsPostException
 
 /**
  * Exception handling for third-party plugins dealing with the Wordpress options view.
  */
-if( !class_exists( 'TEC_WP_Options_Exception' ) ) {
-	class TEC_WP_Options_Exception extends Exception {
+if( !class_exists( 'TribeEventsOptionsException' ) ) {
+	class TribeEventsOptionsException extends Exception {
 		/**
 		* Display the exception message in the div #tec-options-error
 		*/
@@ -34,6 +34,6 @@ if( !class_exists( 'TEC_WP_Options_Exception' ) ) {
 				<script type="text/javascript">jQuery('#tec-options-error').append('<h3>Error</h3><p>' + '<?php echo $eventsOptions['error']; ?>' + '</p>').show();</script>
 			<?php endif;
 	    }
-	} // end TEC_WP_Options_Exception
-} // end if !class_exists TEC_WP_Options_Exception
+	} // end TribeEventsOptionsException
+} // end if !class_exists TribeEventsOptionsException
 ?>
