@@ -1,4 +1,10 @@
 <?php
+/**
+ * Template Tags
+ */
+
+// Don't load directly
+if ( !defined('ABSPATH') ) { die('-1'); }
 
 if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
@@ -1112,3 +1118,4 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'tribe_get_option
 	}
 
 } // end if class_exists('The-Events-Calendar')
+?>

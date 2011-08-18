@@ -1,11 +1,14 @@
 <?php
-if( !class_exists( 'Events_List_Widget' ) ) {
-	/**
-	 * Event List Widget
-	 *
-	 * Creates a widget that displays the next upcoming x events
-	 */
+/**
+ * Event List Widget
+ *
+ * Creates a widget that displays the next upcoming x events
+ */
 
+// Don't load directly
+if ( !defined('ABSPATH') ) { die('-1'); }
+
+if( !class_exists( 'Events_List_Widget' ) ) {
 	class Events_List_Widget extends WP_Widget {
 		
 		public $pluginDomain = 'the-events-calendar';
@@ -116,3 +119,4 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 		load_plugin_textdomain( 'the-events-calendar', false, basename(dirname(__FILE__)) . '/lang/');
 	}
 }
+?>

@@ -3,9 +3,8 @@
  * Controls Tribe Events Calendar admin list views for events
  */
 
-// don't load directly
-if ( !defined('ABSPATH') )
-	die('-1');
+// Don't load directly
+if ( !defined('ABSPATH') ) { die('-1'); }
 
 if (!class_exists('Tribe_Admin_Events_List')) {
 	class Tribe_Admin_Events_List {

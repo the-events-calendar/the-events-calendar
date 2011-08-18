@@ -2,6 +2,10 @@
 /**
  * Date utility functions used throughout ECP
  */
+
+// Don't load directly
+if ( !defined('ABSPATH') ) { die('-1'); }
+
 if(!class_exists('TribeDateUtils')) {
 	class TribeDateUtils {
 		// default formats, they are overridden by WP options or by arguments to date methods
@@ -96,3 +100,4 @@ if(!class_exists('TribeDateUtils')) {
 		}
 	}
 }
+?>

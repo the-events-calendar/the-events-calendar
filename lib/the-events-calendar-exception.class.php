@@ -2,6 +2,10 @@
 /**
  * Exception handling for third-party plugins dealing with the post edit view.
  */
+
+// Don't load directly
+if ( !defined('ABSPATH') ) { die('-1'); }
+
 if( !class_exists( 'TEC_Post_Exception' ) ) {
 	class TEC_Post_Exception extends Exception {
 		/**
@@ -32,3 +36,4 @@ if( !class_exists( 'TEC_WP_Options_Exception' ) ) {
 	    }
 	} // end TEC_WP_Options_Exception
 } // end if !class_exists TEC_WP_Options_Exception
+?>
