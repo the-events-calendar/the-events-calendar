@@ -162,7 +162,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			require_once( 'widget-list.class.php' );
 			require_once( 'tribe-admin-events-list.class.php' );
 			require_once( 'tribe-date-utils.class.php' );
-			require_once( 'tribe-ecp-templates.class.php' );
+			require_once( 'tribe-templates.class.php' );
 			require_once( 'tribe-event-api.class.php' );
 			require_once( 'tribe-event-query.class.php' );
 			require_once( 'tribe-the-events-calendar-import.class.php' );
