@@ -131,16 +131,13 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 */
 		private function __construct( ) {
 			$this->pluginDir		= trailingslashit( basename( dirname(__FILE__) ) );
-			$this->pluginPath		= trailingslashit( dirname(__FILE__) );
+			$this->pluginPath		= trailingslashit( dirname( dirname(__FILE__) ) );
 			$this->pluginUrl 		= WP_PLUGIN_URL.'/'.$this->pluginDir;
 			
 			register_deactivation_hook( __FILE__, 	array( &$this, 'on_deactivate' ) );
 			register_activation_hook( __FILE__, 	array( &$this, 'on_activate' ) );
 			$this->addFilters();
 			$this->addActions();
-			Tribe_Admin_Events_List::init(); // hooks and filters for the admin events list
-			Tribe_ECP_Templates::init(); //hooks and filters for loading templates
-
 		}
 		
 		public function init() {
@@ -275,7 +272,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 
 		public function addDateToRecurringEvents($permalink, $post) {
-			if($post->post_type == self::POSTTYPE && tribe_is_recurring_event($post->ID) ) {
+			if(function_exists('tribe_is_recurring_event') && $post->post_type == self::POSTTYPE && tribe_is_recurring_event($post->ID) ) {
 				if( is_admin() && !$post->EventStartDate ) {
 					if( isset($_REQUEST['eventDate'] ) ) {
 						$post->EventStartDate = $_REQUEST['eventDate'];
@@ -830,7 +827,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function setReccuringEventDates() {
 			global $post;
 			
-			if( is_singular(self::POSTTYPE) && tribe_is_recurring_event() && !sp_is_showing_all() ) {
+			if( function_exists('tribe_is_recurring_event') && is_singular(self::POSTTYPE) && tribe_is_recurring_event() && !sp_is_showing_all() ) {
 				$startTime = get_post_meta($post->ID, '_EventStartDate', true);
 				$startTime = TribeDateUtils::timeOnly($startTime);
 				
