@@ -1,8 +1,10 @@
 <?php
-
 /**
- * Copy and paste this to events/table.php in your template to customize
- */
+* Copy and paste this to events/table.php in your template to customize
+*/
+
+// Don't load directly
+if ( !defined('ABSPATH') ) { die('-1'); }
 
 $tribe_ecp = Events_Calendar_Pro::instance();
 
@@ -10,10 +12,10 @@ $tribe_ecp = Events_Calendar_Pro::instance();
 if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
 	$cat = get_term_by( 'slug', get_query_var('term'), $tribe_ecp->get_event_taxonomy() );
 	$eventCat = (int) $cat->term_id;
-	$eventPosts = sp_get_events( array( 'eventCat' => $eventCat, 'time_order' => 'ASC', 'eventDisplay'=>'month' ) );
+	$eventPosts = tribe_get_events( array( 'eventCat' => $eventCat, 'time_order' => 'ASC', 'eventDisplay'=>'month' ) );
 } // not in a cat
 else {
-	$eventPosts = sp_get_events(array( 'time_order' => 'ASC', 'eventDisplay'=>'month' ));
+	$eventPosts = tribe_get_events(array( 'time_order' => 'ASC', 'eventDisplay'=>'month' ));
 }
 
 
@@ -25,7 +27,7 @@ $rawOffset = date("w", $date) - $startOfWeek;
 $offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
 $rows = 1;
 
-$monthView = sp_sort_by_month( $eventPosts, $tribe_ecp->date );
+$monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 
 ?>
 <table class="tec-calendar" id="big">
@@ -116,21 +118,21 @@ function display_day( $day, $monthView ) {
 		$post = $monthView[$day][$i];
 		setup_postdata( $post );
 		$eventId	= $post->ID.'-'.$day;
-		$start		= sp_get_start_date( $post->ID );
-		$end		= sp_get_end_date( $post->ID );
-		$cost		= sp_get_cost( $post->ID );
-		$address	= sp_get_address( $post->ID );
-		$city		= sp_get_city( $post->ID );
-		$state		= sp_get_state( $post->ID );
-		$province	= sp_get_province( $post->ID );
-		$country	= sp_get_country( $post->ID );
+		$start		= tribe_get_start_date( $post->ID );
+		$end		= tribe_get_end_date( $post->ID );
+		$cost		= tribe_get_cost( $post->ID );
+		$address	= tribe_get_address( $post->ID );
+		$city		= tribe_get_city( $post->ID );
+		$state		= tribe_get_state( $post->ID );
+		$province	= tribe_get_province( $post->ID );
+		$country	= tribe_get_country( $post->ID );
 		?>
 		<div id='event_<?php echo $eventId; ?>' <?php post_class('tec-event') ?>>
 			<a href="<?php tribe_event_link(); ?>"><?php the_title(); ?></a>
 			<div id='tooltip_<?php echo $eventId; ?>' class="tec-tooltip" style="display:none;">
 				<h5 class="tec-event-title"><?php the_title();?></h5>
 				<div class="tec-event-body">
-					<?php if ( !sp_get_all_day($post->ID) || sp_is_multiday($post->ID) ) : ?>
+					<?php if ( !tribe_get_all_day($post->ID) || tribe_is_multiday($post->ID) ) : ?>
 					<div class="tec-event-date">
 						<?php if ( !empty( $start ) )	echo $start; ?>
 						<?php if ( !empty( $end )  && $start !== $end )		echo " – " . $end . '<br />'; ?>
@@ -151,3 +153,4 @@ function display_day( $day, $monthView ) {
 		}
 	}
 }
+?>

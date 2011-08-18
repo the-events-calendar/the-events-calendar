@@ -1,11 +1,13 @@
 <?php
-
 /**
- * Copy and paste this to events/table-mini.php in your template to customize
- */
+* Copy and paste this to events/table-mini.php in your template to customize
+*/
+
+// Don't load directly
+if ( !defined('ABSPATH') ) { die('-1'); }
 
 $tribe_ecp = Events_Calendar_Pro::instance(); 
-$eventPosts = sp_get_events();
+$eventPosts = tribe_get_events();
 $daysInMonth = isset($date) ? date("t", $date) : date("t");
 $startOfWeek = get_option( 'start_of_week', 0 );
 list( $year, $month ) = split( '-', $tribe_ecp->date );
@@ -13,11 +15,11 @@ $date = mktime(12, 0, 0, $month, 1, $year); // 1st day of month as unix stamp
 $rawOffset = date("w", $date) - $startOfWeek;
 $offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
 $rows = 1;
-$monthView = sp_sort_by_month( $eventPosts, $tribe_ecp->date );
+$monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 
 
 ?>
-<h4 class="cal-header"><?php echo $tribe_ecp->monthsShort[date('M',$date)]; echo date(' Y',$date); ?> <a class="sp-view-all-events" href="<?php echo sp_get_events_link(); ?>"><?php _e('View all &raquo;', $tribe_ecp->pluginDomain); ?></a></h4>
+<h4 class="cal-header"><?php echo $tribe_ecp->monthsShort[date('M',$date)]; echo date(' Y',$date); ?> <a class="sp-view-all-events" href="<?php echo tribe_get_events_link(); ?>"><?php _e('View all &raquo;', $tribe_ecp->pluginDomain); ?></a></h4>
 <table class="tec-calendar tec-calendar-widget" id="small">
 	<thead>
 			<tr>
@@ -64,7 +66,7 @@ $monthView = sp_sort_by_month( $eventPosts, $tribe_ecp->date );
 				} elseif ( $current_month < $month && $current_year == $year || $current_year < $year ) {
 					$ppf = ' tec-future';
 				} else { $ppf = false; }
-			    echo "<td class='tec-thismonth" . $ppf . "'>" . sp_mini_display_day( $day, $monthView ) . "\n";
+			    echo "<td class='tec-thismonth" . $ppf . "'>" . tribe_mini_display_day( $day, $monthView ) . "\n";
 				echo "</td>";
 			}
 			// skip next month
@@ -79,7 +81,7 @@ $monthView = sp_sort_by_month( $eventPosts, $tribe_ecp->date );
 </table>
 <?php
 
-function sp_mini_display_day( $day, $monthView ) {
+function tribe_mini_display_day( $day, $monthView ) {
 	$return = "<div class='daynum tec-event' id='daynum_$day'>";
 
 	$return .= ( count($monthView[$day]) ) ? "<a class='tec-mini-has-event'>$day</a>" : $day;

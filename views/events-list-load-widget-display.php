@@ -1,4 +1,5 @@
-<?php /**
+<?php 
+/**
  * This is the template for the output of the events list widget. 
  * All the items are turned on and off through the widget admin.
  * There is currently no default styling, which is highly needed.
@@ -9,44 +10,47 @@
  * @return string
  */
 
-//Vars set:
-// 			'$event->AllDay',
-// 			'$event->StartDate',
-// 			'$event->EndDate',
-// 			'$event->ShowMapLink',
-// 			'$event->ShowMap',
-// 			'$event->Cost',
-// 			'$event->Phone',
+// Vars set:
+// '$event->AllDay',
+// '$event->StartDate',
+// '$event->EndDate',
+// '$event->ShowMapLink',
+// '$event->ShowMap',
+// '$event->Cost',
+// '$event->Phone',
 
-	$event = array();
-	$tribe_ecp = Events_Calendar_Pro::instance();
-	reset($tribe_ecp->metaTags); // Move pointer to beginning of array.
-	foreach($tribe_ecp->metaTags as $tag){
-		$var_name = str_replace('_Event','',$tag);
-		$event[$var_name] = getEventMeta( $post->ID, $tag, true );
-	}
+// Don't load directly
+if ( !defined('ABSPATH') ) { die('-1'); }
 
-	$event = (object) $event; //Easier to work with.
+$event = array();
+$tribe_ecp = Events_Calendar_Pro::instance();
+reset($tribe_ecp->metaTags); // Move pointer to beginning of array.
+foreach($tribe_ecp->metaTags as $tag){
+	$var_name = str_replace('_Event','',$tag);
+	$event[$var_name] = getEventMeta( $post->ID, $tag, true );
+}
 
-	ob_start();
-		if ( !isset($alt_text) ) { $alt_text = ''; }
-		post_class($alt_text,$post->ID);
-	$class = ob_get_contents();
-	ob_end_clean();
+$event = (object) $event; //Easier to work with.
+
+ob_start();
+if ( !isset($alt_text) ) { $alt_text = ''; }
+post_class($alt_text,$post->ID);
+$class = ob_get_contents();
+ob_end_clean();
 ?>
 <li <?php echo $class ?>>
 	<div class="when">
 		<?php
 			$space = false;
 			$output = '';
-			echo sp_get_start_date( $post->ID, $start ); 
+			echo tribe_get_start_date( $post->ID, $start ); 
 
 			if($event->AllDay && $start) {
 				echo ' <small>('.__('All Day',$this->pluginDomain).')</small>';
 			} else {
 				if ( $end && $event->EndDate != '') {
 					echo "<br/>" . __('Ends ', $this->pluginDomain);
-					echo sp_get_end_date($post->ID);
+					echo tribe_get_end_date($post->ID);
 				}
 			}
 		?> 
@@ -55,56 +59,56 @@
 		<a href="<?php echo get_permalink($post->ID) ?>"><?php echo $post->post_title ?></a>
 	</div>
 	<div class="loc"><?php
-		if ( $venue && sp_get_venue() != '') {
+		if ( $venue && tribe_get_venue() != '') {
 			$output .= ( $space ) ? '<br />' : '';
-			$output .= sp_get_venue(); 
+			$output .= tribe_get_venue(); 
 			$space = true;
 		}
 
-		if ( $address && sp_get_address()) {
+		if ( $address && tribe_get_address()) {
 			$output .= ( $space ) ? '<br />' : '';
-			$output .= sp_get_address();
+			$output .= tribe_get_address();
 			$space = true;
 		}
 
-		if ( $city && sp_get_city() != '' ) {
+		if ( $city && tribe_get_city() != '' ) {
 			$output .= ( $space ) ? '<br />' : '';
-			$output .= sp_get_city() . ', ';
+			$output .= tribe_get_city() . ', ';
 			$space = true;
 		}
-		if ( $region && sp_get_region()) {
+		if ( $region && tribe_get_region()) {
 			$output .= ( !$city ) ? '<br />' : '';
 			$space = true;
-			$output .= sp_get_region();
+			$output .= tribe_get_region();
 		} else {
 			$output = rtrim( $output, ', ' );
 		}
 
-		if ( $zip && sp_get_zip() != '') {
+		if ( $zip && tribe_get_zip() != '') {
 			$output .= ( $space ) ? '<br />' : '';
-			$output .= sp_get_zip();
+			$output .= tribe_get_zip();
 			$space = true;
 		}
 
-		if ( $country && sp_get_country() != '') {
+		if ( $country && tribe_get_country() != '') {
 			$output .= ( $space ) ? '<br />' : ' ';
-			$output .= sp_get_country(); 
+			$output .= tribe_get_country(); 
 		}
 
-		if ( $phone && sp_get_phone() != '') {
+		if ( $phone && tribe_get_phone() != '') {
 			if($output) 
 				$output .= '<br/>';
 
-			$output .= sp_get_phone(); 
+			$output .= tribe_get_phone(); 
 		}
-		if ( $cost && sp_get_cost() != '') {		
+		if ( $cost && tribe_get_cost() != '') {		
 			if($output) 
 				$output .= '<br/>';
-			$output .= "Price: " . sp_get_cost(); 
+			$output .= "Price: " . tribe_get_cost(); 
 		}
 
 		echo $output;
 	?>
 	</div>
 </li>
-<?php $alt_text = ( empty( $alt_text ) ) ? 'alt' : '';
+<?php $alt_text = ( empty( $alt_text ) ) ? 'alt' : ''; ?>
