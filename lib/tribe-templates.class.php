@@ -45,9 +45,9 @@ if (!class_exists('Tribe_ECP_Templates')) {
 			global $wp_query;
 			$wp_query->is_home = false;
 
-			//echo  sp_get_option('spEventsTemplate', ''); die();
-			if( sp_get_option('spEventsTemplate', '') == '' ) {
-				if(is_single() && !sp_is_showing_all() ) {
+			//echo  tribe_get_option('spEventsTemplate', ''); die();
+			if( tribe_get_option('spEventsTemplate', '') == '' ) {
+				if(is_single() && !tribe_is_showing_all() ) {
 					return Tribe_ECP_Templates::getTemplateHierarchy('ecp-single-template');
 				} else {
 					return Tribe_ECP_Templates::getTemplateHierarchy('ecp-page-template');
@@ -57,7 +57,7 @@ if (!class_exists('Tribe_ECP_Templates')) {
 				self::spoofQuery();
 				add_action( 'loop_start', array(__CLASS__, 'setup_ecp_template'));
 			
-				$template = locate_template( sp_get_option('spEventsTemplate', '') == 'default' ? 'page.php' : sp_get_option('spEventsTemplate', '') );
+				$template = locate_template( tribe_get_option('spEventsTemplate', '') == 'default' ? 'page.php' : tribe_get_option('spEventsTemplate', '') );
 				if ($template ==  '') $template = get_index_template();
 			
 				return $template;
@@ -89,17 +89,17 @@ if (!class_exists('Tribe_ECP_Templates')) {
 	      }
 
 			if ( is_tax( Events_Calendar_Pro::TAXONOMY) ) {
-				if ( sp_is_upcoming() || sp_is_past() )
+				if ( tribe_is_upcoming() || tribe_is_past() )
 					return Tribe_ECP_Templates::getTemplateHierarchy('list');
 				else
 					return Tribe_ECP_Templates::getTemplateHierarchy('gridview');
 			}
 			// single event
-			if ( is_single() && !sp_is_showing_all() ) {
+			if ( is_single() && !tribe_is_showing_all() ) {
 				return Tribe_ECP_Templates::getTemplateHierarchy('single');
 			}
 			// list view
-			elseif ( sp_is_upcoming() || sp_is_past() || (is_single() && sp_is_showing_all()) ) {
+			elseif ( tribe_is_upcoming() || tribe_is_past() || (is_single() && tribe_is_showing_all()) ) {
 				return Tribe_ECP_Templates::getTemplateHierarchy('list');
 			}
 			// grid view
@@ -118,9 +118,9 @@ if (!class_exists('Tribe_ECP_Templates')) {
 			self::restoreQuery();
 		
 			ob_start();
-			echo stripslashes(sp_get_option('spEventsBeforeHTML'));
+			echo stripslashes(tribe_get_option('spEventsBeforeHTML'));
 			include Tribe_ECP_Templates::get_current_page_template();
-			echo stripslashes(sp_get_option('spEventsAfterHTML'));				
+			echo stripslashes(tribe_get_option('spEventsAfterHTML'));				
 			$contents = ob_get_contents();
 			ob_end_clean();
 		
@@ -132,10 +132,10 @@ if (!class_exists('Tribe_ECP_Templates')) {
 	
 		public static function load_ecp_title_into_page_template($title) {
 			global $post;
-			if (is_single() && !sp_is_showing_all()) {
+			if (is_single() && !tribe_is_showing_all()) {
 				return $title;
 			} else {
-				return sp_get_events_title();	
+				return tribe_get_events_title();	
 			}
 		}
 	
@@ -143,7 +143,7 @@ if (!class_exists('Tribe_ECP_Templates')) {
 			$tribe_ecp = Events_Calendar_Pro::instance();
 		
 			remove_filter('comments_template', array(__CLASS__, 'load_ecp_comments_page_template') );		
-			if (!is_single() || sp_is_showing_all() || (sp_get_option('showComments','no') == 'no')) {
+			if (!is_single() || tribe_is_showing_all() || (tribe_get_option('showComments','no') == 'no')) {
 				return $tribe_ecp->pluginPath . 'admin-views/no-comments.php';
 			}
 			return $template;

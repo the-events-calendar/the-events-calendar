@@ -184,10 +184,10 @@ if (!class_exists('Tribe_Admin_Events_List')) {
 					echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
 				}
 				if ( $column_id == 'start-date' ) {
-					echo sp_event_format_date(strtotime(self::$events_list[0]->EventStartDate), false);
+					echo tribe_event_format_date(strtotime(self::$events_list[0]->EventStartDate), false);
 				}
 				if ( $column_id == 'end-date' ) {
-					echo sp_event_format_date(strtotime(self::$events_list[0]->EventEndDate), false);
+					echo tribe_event_format_date(strtotime(self::$events_list[0]->EventEndDate), false);
 					array_shift( self::$events_list );
 				}
 

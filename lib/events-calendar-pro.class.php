@@ -430,7 +430,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		
 		public function body_class( $c ) {
 			if ( get_query_var('post_type') == self::POSTTYPE ) {
-				if ( ! is_single() || sp_is_showing_all() ) {
+				if ( ! is_single() || tribe_is_showing_all() ) {
 					$c[] = 'events-archive';
 				}
 				else {
@@ -893,7 +893,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function setReccuringEventDates() {
 			global $post;
 			
-			if( function_exists('tribe_is_recurring_event') && is_singular(self::POSTTYPE) && tribe_is_recurring_event() && !sp_is_showing_all() ) {
+			if( function_exists('tribe_is_recurring_event') && is_singular(self::POSTTYPE) && tribe_is_recurring_event() && !tribe_is_showing_all() ) {
 				$startTime = get_post_meta($post->ID, '_EventStartDate', true);
 				$startTime = TribeDateUtils::timeOnly($startTime);
 				
@@ -1173,7 +1173,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$toUrlEncode = "";
 			$languageCode = substr( get_bloginfo( 'language' ), 0, 2 );
 			foreach( $locationMetaSuffixes as $val ) {
-				$metaVal = call_user_func('sp_get_'.$val);
+				$metaVal = call_user_func('tribe_get_'.$val);
 				if ( $metaVal ) 
 					$toUrlEncode .= $metaVal . " ";
 			}
@@ -1198,7 +1198,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			$locationMetaSuffixes = array( 'address', 'city', 'state', 'province', 'zip', 'country' );
 			$toUrlEncode = "";
 			foreach( $locationMetaSuffixes as $val ) {
-				$metaVal = call_user_func('sp_get_'.$val, $postId);
+				$metaVal = call_user_func('tribe_get_'.$val, $postId);
 				if ( $metaVal ) 
 					$toUrlEncode .= $metaVal . " ";
 			}
@@ -1258,10 +1258,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 * This is mainly for templates.
 		 */
 		public function getEventMeta( $id, $meta, $single = true ){
-			$use_def_if_empty = sp_get_option('defaultValueReplace');
+			$use_def_if_empty = tribe_get_option('defaultValueReplace');
 			if($use_def_if_empty){
 				$cleaned_tag = str_replace('_Event','',$meta);
-				$default = sp_get_option('eventsDefault'.$cleaned_tag);
+				$default = tribe_get_option('eventsDefault'.$cleaned_tag);
 				$default = apply_filters('filter_eventsDefault'.$cleaned_tag,$default);
 				return (get_post_meta( $id, $meta, $single )) ? get_post_meta( $id, $meta, $single ) : $default;
 			}else{
@@ -1457,7 +1457,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					$$tag = $meta[0];
 				} else {
 					$cleaned_tag = str_replace('_Event','',$tag);
-					$$tag = sp_get_option('eventsDefault'.$cleaned_tag);
+					$$tag = tribe_get_option('eventsDefault'.$cleaned_tag);
 				}
 			}
 			if($_EventVenueID){
@@ -1476,7 +1476,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 						if($cleaned_tag == 'Cost')
 							continue;
 
-						${'_Venue'.$cleaned_tag} = sp_get_option('eventsDefault'.$cleaned_tag);
+						${'_Venue'.$cleaned_tag} = tribe_get_option('eventsDefault'.$cleaned_tag);
 					}
 				}
 
@@ -1536,7 +1536,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 						$$tag = esc_html(get_post_meta( $postId, $tag, true ));
 					} else {
 						$cleaned_tag = str_replace('_Venue','',$tag);
-						$$tag = sp_get_option('eventsDefault'.$cleaned_tag);
+						$$tag = tribe_get_option('eventsDefault'.$cleaned_tag);
 					}
 				}
 			}
@@ -1819,7 +1819,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		        $events .= "UID:" . $eventPost->ID . "@" . $blogHome . "\n";
 		        $events .= "SUMMARY:" . $eventPost->post_title . "\n";				
 		        $events .= "DESCRIPTION:" . str_replace(",",'\,',$description) . "\n";
-				$events .= "LOCATION:" . html_entity_decode(sp_get_full_address( $eventPost->ID, true ), ENT_QUOTES) . "\n";
+				$events .= "LOCATION:" . html_entity_decode(tribe_get_full_address( $eventPost->ID, true ), ENT_QUOTES) . "\n";
 				$events .= "URL:" . get_permalink( $eventPost->ID ) . "\n";
 		        $events .= "END:VEVENT\n";
 			}
