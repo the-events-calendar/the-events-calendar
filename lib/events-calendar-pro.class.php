@@ -174,7 +174,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'body_class', array( $this, 'body_class' ) );
 			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );
 			add_filter( 'admin_body_class', array($this, 'admin_body_class') );
-			add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
+			//add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
 			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
 			add_filter( 'bloginfo_rss',  array($this, 'add_space_to_rss' ) );
 			add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );

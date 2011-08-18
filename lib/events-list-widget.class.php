@@ -11,7 +11,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( !class_exists( 'Events_List_Widget' ) ) {
 	class Events_List_Widget extends WP_Widget {
 		
-		public $pluginDomain = 'the-events-calendar';
+		public $pluginDomain = 'tribe-events-calendar';
 		
 		function Events_List_Widget() {
 				/* Widget settings. */
@@ -98,12 +98,11 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 					return $instance;
 			}
 		
-			function form( $instance ) {
-				$tribe_ecp = Events_Calendar_Pro::instance();
-				
+			function form( $instance ) {				
 				/* Set up default widget settings. */
 				$defaults = array( 'title' => 'Upcoming Events', 'limit' => '5', 'start' => true, 'end' => false, 'venue' => false, 'country' => true, 'address' => false, 'city' => true, 'region' => true, 'zip' => false, 'phone' => false, 'cost' => false,'category' => false);
-				$instance = wp_parse_args( (array) $instance, $defaults );			
+				$instance = wp_parse_args( (array) $instance, $defaults );
+				$tribe_ecp = Events_Calendar_Pro::instance();		
 				include( $tribe_ecp->pluginPath . 'admin-views/widget-admin-list.php' );
 			}
 	}
@@ -113,10 +112,9 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 
 	/* Function that registers widget. */
 	function events_list_load_widgets() {
-		global $pluginDomain;
 		register_widget( 'Events_List_Widget' );
 		// load text domain after class registration
-		load_plugin_textdomain( 'the-events-calendar', false, basename(dirname(__FILE__)) . '/lang/');
+		load_plugin_textdomain( 'tribe-events-calendar', false, basename(dirname(dirname(__FILE__))) . '/lang/');
 	}
 }
 ?>

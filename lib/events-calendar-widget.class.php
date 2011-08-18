@@ -10,7 +10,7 @@ if( !class_exists( 'Events_Calendar_Widget') ) {
 
 	class Events_Calendar_Widget extends WP_Widget {
 		
-		public $pluginDomain = 'the-events-calendar';
+		public $pluginDomain = 'tribe-events-calendar';
 
 		function Events_Calendar_Widget() {
 			$widget_ops = array('classname' => 'events_calendar_widget', 'description' => __( 'A calendar of your events') );
@@ -38,11 +38,8 @@ if( !class_exists( 'Events_Calendar_Widget') ) {
 
 		function form( $instance ) {
 			$instance = wp_parse_args( (array) $instance, array( 'title' => '' ) );
-			$title = strip_tags($instance['title']);
-	?>
-			<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
-			<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></p>
-	<?php
+			$tribe_ecp = Events_Calendar_Pro::instance();		
+			include( $tribe_ecp->pluginPath . 'admin-views/widget-admin-calendar.php' );
 		}
 	
 	}
@@ -56,10 +53,9 @@ if( !class_exists( 'Events_Calendar_Widget') ) {
 
 	/* Function that registers widget. */
 	function events_calendar_load_widgets() {
-		global $pluginDomain;
 		register_widget( 'Events_Calendar_Widget' );
 		// load text domain after class registration
-		load_plugin_textdomain( 'the-events-calendar', false, basename(dirname(__FILE__)) . '/lang/');
+		load_plugin_textdomain( 'tribe-events-calendar', false, basename(dirname(dirname(__FILE__))) . '/lang/');
 	}
 }
 ?>

@@ -9,7 +9,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( !class_exists( 'Events_Featured_Widget') ) {
 	class Events_Featured_Widget extends WP_Widget {
 		
-		public $pluginDomain = 'the-events-calendar';
+		public $pluginDomain = 'tribe-events-calendar';
 
 		function Events_Featured_Widget() {
 			$widget_ops = array('classname' => 'Events_Featured_Widget', 'description' => __( 'Your next upcoming event') );
@@ -18,7 +18,7 @@ if( !class_exists( 'Events_Featured_Widget') ) {
 
 
 		function widget( $args, $instance ) {
-			global $wp_query, $tribe_ecp, $post;
+			global $wp_query, $post;
 			$old_post = $post;
 			extract( $args, EXTR_SKIP );
 			extract( $instance, EXTR_SKIP );
@@ -34,8 +34,8 @@ if( !class_exists( 'Events_Featured_Widget') ) {
 			if( function_exists( 'sp_get_events' ) ) {
 				$old_display = $wp_query->get('eventDisplay');
 				$wp_query->set('eventDisplay', 'upcoming');
-				$posts = sp_get_events( 'numResults=1&eventCat=' . $category );
-				$template = $tribe_ecp->getTemplateHierarchy('widget-featured-display');
+				$posts = sp_get_events( 'numResults=1&eventCat=' . $category );				
+				$template = Tribe_ECP_Templates::getTemplateHierarchy('widget-featured-display');
 			}
 			
 			// if no posts, and the don't show if no posts checked, let's bail
@@ -77,26 +77,8 @@ if( !class_exists( 'Events_Featured_Widget') ) {
 
 		function form( $instance ) {
 			$instance = wp_parse_args( (array) $instance, array( 'title' => '' ) );
-			$title = strip_tags($instance['title']);
-	?>
-			<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
-			<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></p>
-			<p>
-				<label for="<?php echo $this->get_field_id( 'category' ); ?>"><?php _e('Category:',$this->pluginDomain);?>
-				<?php 
-
-					echo wp_dropdown_categories( array(
-						'show_option_none' => 'All Events',
-						'hide_empty' => 0,
-						'echo' => 0,
-						'name' => $this->get_field_name( 'category' ),
-						'id' => $this->get_field_id( 'category' ),
-						'taxonomy' => 'sp_events_cat',
-						'selected' => $instance['category']
-					));
-				?>
-			</p>
-	<?php
+			$tribe_ecp = Events_Calendar_Pro::instance();
+			include( $tribe_ecp->pluginPath . 'admin-views/widget-admin-feature.php' );
 		}
 	
 	}
@@ -110,10 +92,9 @@ if( !class_exists( 'Events_Featured_Widget') ) {
 
 	/* Function that registers widget. */
 	function events_calendar_load_featured_widget() {
-		global $pluginDomain;
 		register_widget( 'Events_Featured_Widget' );
 		// load text domain after class registration
-		load_plugin_textdomain( 'the-events-calendar', false, basename(dirname(__FILE__)) . '/lang/');
+		load_plugin_textdomain( 'tribe-events-calendar', false, basename(dirname(dirname(__FILE__))) . '/lang/');
 	}
 }
 ?>
