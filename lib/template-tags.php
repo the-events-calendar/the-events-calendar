@@ -129,35 +129,37 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'tribe_get_option
 	function tribe_the_map_link( $postId = null )  {
 		echo esc_html(sp_get_map_link( $postId ));
 	}
+	
 	/**
 	 * @return string formatted event address
-	 */
+	 */	
 	function tribe_get_full_address( $postId = null, $includeVenue = false )  {
 		$postId = tribe_post_id_helper( $postId );
-		$address = '';
-		if( $includeVenue ) $address .= tribe_get_venue( $postId );
-		if( tribe_get_address( $postId ) ) {
-			if( $address ) $address .= ', ';
-			$address .= tribe_get_address( $postId );
+		$address = array();
+		if( $includeVenue ) {
+			$address[] = tribe_get_venue( $postId );
 		}
+		if( tribe_get_address( $postId ) ) {
+			$address[] = tribe_get_address( $postId );
+		}
+
+		$cityregion = '';
 		if( tribe_get_city( $postId ) ) {
-			if( $address ) $address .= ', ';
-			$address .= tribe_get_city( $postId );
+			$cityregion .= tribe_get_city( $postId );
 		}
 		if( tribe_get_region( $postId ) ) {
-			if( $address ) $address .= ', ';
-			$address .= tribe_get_region( $postId );
+			if( $cityregion != '' ) $cityregion .= ', ';
+			$cityregion .= tribe_get_region( $postId );
+		}
+		if( $cityregion != '' ) $address[] = $cityregion;
+		
+		if( tribe_get_zip( $postId ) ) {
+			$address[] = tribe_get_zip( $postId );
 		}
 		if( tribe_get_country( $postId ) ) {
-			if( $address ) $address .= ', ';
-			$address .= tribe_get_country( $postId );
+			$address[] = tribe_get_country( $postId );
 		}
-		if( tribe_get_zip( $postId ) ) {
-			if( $address ) $address .= ', ';
-			$address .= tribe_get_zip( $postId );
-		}
-		$address = str_replace(' ,', ',', $address);
-		return $address;
+		return join("</br>\n",$address);
 	}
 	/**
 	 * Displays a formatted event address
@@ -409,7 +411,6 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'tribe_get_option
 		return getEventMeta( $postId, '_EventVenueID', true );
 	}
 	/**
-	/**
 	 * Returns the event venue
 	 *
 	 * @return string venue
@@ -449,7 +450,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'tribe_get_option
 	 */
 	function tribe_get_address( $postId = null)  {
 		$postId = tribe_post_id_helper( $postId );
-		return esc_html((sp_has_venue( $postId )) ?  getEventMeta( tribe_has_venue( $postId ), '_VenueAddress', true ) : getEventMeta( $postId, '_EventAddress', true ));
+		return esc_html((tribe_has_venue( $postId )) ?  getEventMeta( tribe_has_venue( $postId ), '_VenueAddress', true ) : getEventMeta( $postId, '_EventAddress', true ));
 	}
 	/**
 	 * Returns the event city
@@ -1013,30 +1014,31 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'tribe_get_option
 	 */
 	function tribe_venue_get_full_address( $postId = null, $includeName = false )  {
 		$postId = tribe_post_id_helper( $postId );
-		$address = '';
-		if( $includeVenue ) $address .= tribe_venue_get_name( $postId );
-		if( tribe_venue_get_address( $postId ) ) {
-			if( $address ) $address .= ', ';
-			$address .= tribe_venue_get_address( $postId );
+		$address = array();
+		if( $includeVenue ) {
+			$address[] = tribe_venue_get_name( $postId );
 		}
+		if( tribe_venue_get_address( $postId ) ) {
+			$address[] = tribe_venue_get_address( $postId );
+		}
+
+		$cityregion = '';
 		if( tribe_venue_get_city( $postId ) ) {
-			if( $address ) $address .= ', ';
-			$address .= tribe_venue_get_city( $postId );
+			$cityregion .= tribe_venue_get_city( $postId );
 		}
 		if( tribe_venue_get_region( $postId ) ) {
-			if( $address ) $address .= ', ';
-			$address .= tribe_venue_get_region( $postId );
+			if( $cityregion != '' ) $cityregion .= ', ';
+			$cityregion .= tribe_venue_get_region( $postId );
+		}
+		if( $cityregion != '' ) $address[] = $cityregion;
+		
+		if( tribe_venue_get_zip( $postId ) ) {
+			$address[] = tribe_venue_get_zip( $postId );
 		}
 		if( tribe_venue_get_country( $postId ) ) {
-			if( $address ) $address .= ', ';
-			$address .= tribe_venue_get_country( $postId );
+			$address[] = tribe_venue_get_country( $postId );
 		}
-		if( tribe_venue_get_zip( $postId ) ) {
-			if( $address ) $address .= ', ';
-			$address .= tribe_venue_get_zip( $postId );
-		}
-		$address = str_replace(' ,', ',', $address);
-		return $address;
+		return join("</br>\n",$address);
 	}
 	/**
 	 * Displays a formatted event address
