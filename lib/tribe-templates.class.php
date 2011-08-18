@@ -37,7 +37,7 @@ if (!class_exists('Tribe_ECP_Templates')) {
 			}
 
 			// no non-events need apply
-			if ( get_query_var( 'post_type' ) != Events_Calendar_Pro::POSTTYPE && ! is_tax( Events_Calendar_Pro::TAXONOMY ) && get_query_var( 'post_type' ) != Events_Calendar_Pro::VENUE_POST_TYPE ) {
+			if ( get_query_var( 'post_type' ) != TribeEvents::POSTTYPE && ! is_tax( TribeEvents::TAXONOMY ) && get_query_var( 'post_type' ) != TribeEvents::VENUE_POST_TYPE ) {
 				return $template;
 			}
 
@@ -84,11 +84,11 @@ if (!class_exists('Tribe_ECP_Templates')) {
 		
 		// get the correct internal page template
 		public static function get_current_page_template() {
-	      if ( is_singular( Events_Calendar_Pro::VENUE_POST_TYPE ) ) {
+	      if ( is_singular( TribeEvents::VENUE_POST_TYPE ) ) {
 	         return Tribe_ECP_Templates::getTemplateHierarchy('single-venue');
 	      }
 
-			if ( is_tax( Events_Calendar_Pro::TAXONOMY) ) {
+			if ( is_tax( TribeEvents::TAXONOMY) ) {
 				if ( tribe_is_upcoming() || tribe_is_past() )
 					return Tribe_ECP_Templates::getTemplateHierarchy('list');
 				else
@@ -140,7 +140,7 @@ if (!class_exists('Tribe_ECP_Templates')) {
 		}
 	
 		public static function load_ecp_comments_page_template($template) {
-			$tribe_ecp = Events_Calendar_Pro::instance();
+			$tribe_ecp = TribeEvents::instance();
 		
 			remove_filter('comments_template', array(__CLASS__, 'load_ecp_comments_page_template') );		
 			if (!is_single() || tribe_is_showing_all() || (tribe_get_option('showComments','no') == 'no')) {
@@ -159,7 +159,7 @@ if (!class_exists('Tribe_ECP_Templates')) {
 		 * @author Matt Wiebe
 		 **/
 		public static function getTemplateHierarchy($template) {
-			$tribe_ecp = Events_Calendar_Pro::instance();
+			$tribe_ecp = TribeEvents::instance();
 
 			if ( substr($template, -4) != '.php' ) {
 				$template .= '.php';

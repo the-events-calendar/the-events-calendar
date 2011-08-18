@@ -33,7 +33,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	</dl>
 </div>
 <div id="tec-events-loop" class="tec-events post-list clearfix upcoming venue-events">
-	<?php $venueEvents =tribe_get_events(array('post_type'=>Events_Calendar_Pro::POSTTYPE, 'venue'=>get_the_ID(), 'posts_per_page'=> -1)); global $post; $first = true?>					
+	<?php $venueEvents =tribe_get_events(array('post_type'=>TribeEvents::POSTTYPE, 'venue'=>get_the_ID(), 'posts_per_page'=> -1)); global $post; $first = true?>					
 	<?php if( sizeof($venueEvents) > 0 ): ?>
 		<h2 class='tec-cal-title'>Upcoming Events At This Venue</h2>					
 		<?php foreach( $venueEvents as $post ): setup_postdata($post);  ?>

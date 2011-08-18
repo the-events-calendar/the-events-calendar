@@ -16,8 +16,8 @@ if (!class_exists('Tribe_Event_Query')) {
 		// if this is an event, then set up our query vars
 		public static function setupQuery($query) {
 			if ( !is_admin() && (
-					  ((isset($_GET['post_type']) && $_GET['post_type'] == Events_Calendar_Pro::POSTTYPE) || (isset($_GET['sp_events_cat']) && $_GET['sp_events_cat'] != '')) ||
-					  ((isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == Events_Calendar_Pro::POSTTYPE) || (isset($query->query_vars['sp_events_cat']) && $query->query_vars['sp_events_cat'] != ''))
+					  ((isset($_GET['post_type']) && $_GET['post_type'] == TribeEvents::POSTTYPE) || (isset($_GET['sp_events_cat']) && $_GET['sp_events_cat'] != '')) ||
+					  ((isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == TribeEvents::POSTTYPE) || (isset($query->query_vars['sp_events_cat']) && $query->query_vars['sp_events_cat'] != ''))
 					)
 				)
 			{
@@ -43,7 +43,7 @@ if (!class_exists('Tribe_Event_Query')) {
 			// eventCat becomes a standard taxonomy query - will need to deprecate and update views eventually
 			if ($args['eventCat'] && $args['eventCat'] != '-1') {
 				$tax_field = is_numeric($args['eventCat']) ? "id" : "name";
-				$args['tax_query'][] = array('taxonomy'=>Events_Calendar_Pro::TAXONOMY, 'field'=>$tax_field, 'terms'=>$args['eventCat']);
+				$args['tax_query'][] = array('taxonomy'=>TribeEvents::TAXONOMY, 'field'=>$tax_field, 'terms'=>$args['eventCat']);
 			}
 		
 			if ($args['numResults']) {
@@ -142,7 +142,7 @@ if (!class_exists('Tribe_Event_Query')) {
 		// month functions
 		public static function setMonthDisplayTypeArgs($query) {
 			global $wp_query;
-			$tribe_ecp = Events_Calendar_Pro::instance();
+			$tribe_ecp = TribeEvents::instance();
 			$args = &$query->query_vars;		
 		
 			$args['posts_per_page'] = -1; // show ALL month posts

@@ -77,7 +77,7 @@ if( !class_exists( 'Events_Featured_Widget') ) {
 
 		function form( $instance ) {
 			$instance = wp_parse_args( (array) $instance, array( 'title' => '' ) );
-			$tribe_ecp = Events_Calendar_Pro::instance();
+			$tribe_ecp = TribeEvents::instance();
 			include( $tribe_ecp->pluginPath . 'admin-views/widget-admin-featured.php' );
 		}
 	

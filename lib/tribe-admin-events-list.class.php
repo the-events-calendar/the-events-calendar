@@ -23,7 +23,7 @@ if (!class_exists('Tribe_Admin_Events_List')) {
 				add_filter( 'get_edit_post_link',  array(__CLASS__, 'add_event_occurrance_to_edit_link'), 10, 2);
 				add_filter( 'views_edit-sp_events',		array( __CLASS__, 'update_event_counts' ) );			
 				add_action( 'manage_posts_custom_column', array(__CLASS__, 'custom_columns'), 10, 2);
-				add_action( 'manage_edit-' . Events_Calendar_Pro::POSTTYPE . '_sortable_columns', array(__CLASS__, 'register_date_sortables'), 10, 2);
+				add_action( 'manage_edit-' . TribeEvents::POSTTYPE . '_sortable_columns', array(__CLASS__, 'register_date_sortables'), 10, 2);
 			
 				// event deletion
 				add_filter( 'get_delete_post_link', array(__CLASS__, 'add_date_to_recurring_event_trash_link'), 10, 2 );	
@@ -40,7 +40,7 @@ if (!class_exists('Tribe_Admin_Events_List')) {
 		} 
 
 		public static function cache_posts_results($posts) {
-			if ( get_query_var('post_type') == Events_Calendar_Pro::POSTTYPE ) {
+			if ( get_query_var('post_type') == TribeEvents::POSTTYPE ) {
 				// sort by start date
 				self::$events_list = $posts; // cache results so i can get the end dates later
 			}
@@ -59,7 +59,7 @@ if (!class_exists('Tribe_Admin_Events_List')) {
 		 * @param string fields
 		 */
 		public static function events_search_fields( $fields ) {
-			if ( get_query_var('post_type') != Events_Calendar_Pro::POSTTYPE ) {
+			if ( get_query_var('post_type') != TribeEvents::POSTTYPE ) {
 				return $fields;
 			}
 			global $wpdb;
@@ -74,7 +74,7 @@ if (!class_exists('Tribe_Admin_Events_List')) {
 		 */
 		public static function events_search_join( $join ) {
 			global $wpdb;
-			if ( get_query_var('post_type') != Events_Calendar_Pro::POSTTYPE ) {
+			if ( get_query_var('post_type') != TribeEvents::POSTTYPE ) {
 				return $join;
 			}
 			$join .= " LEFT JOIN {$wpdb->postmeta} as eventStart ON( {$wpdb->posts}.ID = eventStart.post_id AND eventStart.meta_key = '_EventStartDate') ";
@@ -89,7 +89,7 @@ if (!class_exists('Tribe_Admin_Events_List')) {
 		 * @return string modified where clause
 		 */
 		public static function events_search_where( $where ) {
-			if ( get_query_var('post_type') != Events_Calendar_Pro::POSTTYPE ) {
+			if ( get_query_var('post_type') != TribeEvents::POSTTYPE ) {
 				return $where;
 			}
 
@@ -105,7 +105,7 @@ if (!class_exists('Tribe_Admin_Events_List')) {
 		 * @return string modified orderby clause
 		 */
 		public static function events_search_orderby( $orderby_sql ) {
-			if ( get_query_var('post_type') != Events_Calendar_Pro::POSTTYPE ) {
+			if ( get_query_var('post_type') != TribeEvents::POSTTYPE ) {
 				return $orderby_sql;
 			}
 		
@@ -128,7 +128,7 @@ if (!class_exists('Tribe_Admin_Events_List')) {
 		 * @return string modified limits clause
 		 */
 		public static function events_search_limits( $limits ) {
-			if ( get_query_var('post_type') != Events_Calendar_Pro::POSTTYPE ) {
+			if ( get_query_var('post_type') != TribeEvents::POSTTYPE ) {
 				return $limits;
 			}
 			global $current_screen;
@@ -153,7 +153,7 @@ if (!class_exists('Tribe_Admin_Events_List')) {
 		public static function column_headers( $columns ) {
 			global $post, $tribe_ecp;
 
-			if ( is_object($post) && $post->post_type == Events_Calendar_Pro::POSTTYPE ) {
+			if ( is_object($post) && $post->post_type == TribeEvents::POSTTYPE ) {
 				foreach ( $columns as $key => $value ) {
 					$mycolumns[$key] = $value;
 					if ( $key =='author' )
@@ -180,7 +180,7 @@ if (!class_exists('Tribe_Admin_Events_List')) {
 		public static function custom_columns( $column_id, $post_id ) {
 			if(self::$events_list && sizeof(self::$events_list) > 0) {
 				if ( $column_id == 'events-cats' ) {
-					$event_cats = get_the_term_list( $post_id, Events_Calendar_Pro::TAXONOMY, '', ', ', '' );
+					$event_cats = get_the_term_list( $post_id, TribeEvents::TAXONOMY, '', ', ', '' );
 					echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
 				}
 				if ( $column_id == 'start-date' ) {
@@ -201,7 +201,7 @@ if (!class_exists('Tribe_Admin_Events_List')) {
 	
 		public static function ajax_custom_columns ($column_id, $post_id) {
 				if ( $column_id == 'events-cats' ) {
-					$event_cats = get_the_term_list( $post_id, Events_Calendar_Pro::TAXONOMY, '', ', ', '' );
+					$event_cats = get_the_term_list( $post_id, TribeEvents::TAXONOMY, '', ', ', '' );
 					echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
 				}
 			
@@ -210,7 +210,7 @@ if (!class_exists('Tribe_Admin_Events_List')) {
 				}			
 			
 				if ( $column_id == 'start-date' ) {
-					echo tribe_event_format_date(strtotime(Events_Calendar_Pro::getRealStartDate( $post_id )), false);
+					echo tribe_event_format_date(strtotime(TribeEvents::getRealStartDate( $post_id )), false);
 				}
 				if ( $column_id == 'end-date' ) {
 					echo tribe_get_end_date($post_id, false);
@@ -218,7 +218,7 @@ if (!class_exists('Tribe_Admin_Events_List')) {
 		}
 	
 		public static function add_event_occurrance_to_edit_link($link, $eventId) {
-			if ( get_query_var('post_type') != Events_Calendar_Pro::POSTTYPE ) {
+			if ( get_query_var('post_type') != TribeEvents::POSTTYPE ) {
 				return $link;
 			}
 
@@ -266,7 +266,7 @@ if (!class_exists('Tribe_Admin_Events_List')) {
 	
 		// taken from wp_count_posts;
 		private static function count_events() {
-			$type = Events_Calendar_Pro::POSTTYPE;
+			$type = TribeEvents::POSTTYPE;
 			$perm = 'readable';
 
 			global $wpdb;

@@ -23,7 +23,7 @@
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 $event = array();
-$tribe_ecp = Events_Calendar_Pro::instance();
+$tribe_ecp = TribeEvents::instance();
 reset($tribe_ecp->metaTags); // Move pointer to beginning of array.
 foreach($tribe_ecp->metaTags as $tag){
 	$var_name = str_replace('_Event','',$tag);

@@ -6,9 +6,9 @@
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-if ( !class_exists( 'Events_Calendar_Pro' ) ) {
+if ( !class_exists( 'TribeEvents' ) ) {
 
-	class Events_Calendar_Pro {
+	class TribeEvents {
 		const EVENTSERROROPT = '_tec_events_errors';
 		const CATEGORYNAME = 'Events'; // legacy category
 		const OPTIONNAME = 'sp_events_calendar_options';
@@ -181,7 +181,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'post_updated_messages', array($this, 'updatePostMessage') );
 			
 			/* Add nav menu item - thanks to http://wordpress.org/extend/plugins/cpt-archives-in-nav-menus/ */
-			add_filter( 'nav_menu_items_' . Events_Calendar_Pro::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
+			add_filter( 'nav_menu_items_' . TribeEvents::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
 			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events'), null, 2);
 		}
 
@@ -209,8 +209,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$this->addDebugColumns();
 				add_action('admin_footer', array($this, 'debugInfo'));
 			}			
-			add_action( "trash_" . Events_Calendar_Pro::VENUE_POST_TYPE, array($this, 'cleanupPostVenues'));
-			add_action( "trash_" . Events_Calendar_Pro::ORGANIZER_POST_TYPE, array($this, 'cleanupPostOrganizers'));
+			add_action( "trash_" . TribeEvents::VENUE_POST_TYPE, array($this, 'cleanupPostVenues'));
+			add_action( "trash_" . TribeEvents::ORGANIZER_POST_TYPE, array($this, 'cleanupPostOrganizers'));
 			add_action( "wp_ajax_tribe_event_validation", array($this,'ajax_form_validate') );
 		}
 
@@ -274,8 +274,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function add_current_menu_item_class_to_events( $items, $args ) {
 			foreach($items as $item) {
 				if($item->url == $this->getLink() ) {
-					if ( is_singular( Events_Calendar_Pro::POSTTYPE ) || is_singular( Events_Calendar_Pro::VENUE_POST_TYPE ) || 
-							  is_tax(Events_Calendar_Pro::TAXONOMY) ||
+					if ( is_singular( TribeEvents::POSTTYPE ) || is_singular( TribeEvents::VENUE_POST_TYPE ) || 
+							  is_tax(TribeEvents::TAXONOMY) ||
 							  tribe_is_upcoming() || tribe_is_past() || tribe_is_month() ) {
 						$item->classes[] = 'current-menu-item current_page_item';
 					}
@@ -330,7 +330,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 		public function add_space_to_rss($title) {
 			global $wp_query;
-			if(get_query_var('eventDisplay') == 'upcoming' && get_query_var('post_type') == Events_Calendar_Pro::POSTTYPE) {
+			if(get_query_var('eventDisplay') == 'upcoming' && get_query_var('post_type') == TribeEvents::POSTTYPE) {
 				return $title . ' ';
 			}
 
@@ -343,7 +343,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 					if( isset($_REQUEST['eventDate'] ) ) {
 						$post->EventStartDate = $_REQUEST['eventDate'];
 					} else  {
-						$post->EventStartDate = Events_Calendar_Pro::getRealStartDate( $post->ID );
+						$post->EventStartDate = TribeEvents::getRealStartDate( $post->ID );
 					}
 				}
 				
@@ -769,7 +769,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		/// OPTIONS DATA
         public function getOptions() {
             if ('' === $this->defaultOptions) {
-                $this->defaultOptions = get_option(Events_Calendar_Pro::OPTIONNAME, array());
+                $this->defaultOptions = get_option(TribeEvents::OPTIONNAME, array());
             }
             return $this->defaultOptions;
         }
@@ -798,7 +798,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 			// do clean up for trashed venues or organizers
 			private function removeDeletedPostTypeAssociation($key, $postId) {
-				$the_query = new WP_Query(array('meta_key'=>$key, 'meta_value'=>$postId, 'post_type'=> Events_Calendar_Pro::POSTTYPE ));
+				$the_query = new WP_Query(array('meta_key'=>$key, 'meta_value'=>$postId, 'post_type'=> TribeEvents::POSTTYPE ));
 
 				while ( $the_query->have_posts() ): $the_query->the_post();
 					delete_post_meta(get_the_ID(), $key);
@@ -811,7 +811,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
             if (!is_array($options)) {
                 return;
             }
-            if ( update_option(Events_Calendar_Pro::OPTIONNAME, $options) ) {
+            if ( update_option(TribeEvents::OPTIONNAME, $options) ) {
 				$this->latestOptions = $options;
 			} else {
 				$this->latestOptions = $this->getOptions();
@@ -819,7 +819,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
         }
         
         public function deleteOptions() {
-            delete_option(Events_Calendar_Pro::OPTIONNAME);
+            delete_option(TribeEvents::OPTIONNAME);
         }
 		
 		public function truncate($text, $excerpt_length = 44) {
@@ -962,7 +962,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 	     * @return int|false Category id to use or false is none is set
 	     */
 	    static function eventCategory() {
-			return get_cat_id( Events_Calendar_Pro::CATEGORYNAME );
+			return get_cat_id( TribeEvents::CATEGORYNAME );
 	    }
 		/**
 		 * Flush rewrite rules to support custom links
@@ -1289,7 +1289,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );			
 						
-			if ( !wp_verify_nonce( $_POST['ecp_nonce'], Events_Calendar_Pro::POSTTYPE ) )
+			if ( !wp_verify_nonce( $_POST['ecp_nonce'], TribeEvents::POSTTYPE ) )
 				return;
 			
 			if ( !current_user_can( 'publish_posts' ) )
@@ -1698,10 +1698,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 
 		public function getEvents( $args = '' ) {
-			$tribe_ecp = Events_Calendar_Pro::instance();
+			$tribe_ecp = TribeEvents::instance();
 			$defaults = array(
 				'posts_per_page' => get_option( 'posts_per_page', 10 ),
-				'post_type' => Events_Calendar_Pro::POSTTYPE,
+				'post_type' => TribeEvents::POSTTYPE,
 				'orderby' => 'event_date',
 				'order' => 'ASC'
 			);			
@@ -1824,7 +1824,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		        $events .= "END:VEVENT\n";
 			}
 	        header('Content-type: text/calendar');
-	        header('Content-Disposition: attachment; filename="iCal-Events_Calendar_Pro.ics"');
+	        header('Content-Disposition: attachment; filename="iCal-TribeEvents.ics"');
 			$content = "BEGIN:VCALENDAR\n";
 			$content .= "VERSION:2.0\n";
 			$content .= "PRODID:-//" . $blogName . "//NONSGML v1.0//EN\n";
@@ -1860,7 +1860,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
       public function do_action($name, $event_id = null, $showMessage = false, $extra_args = null) {
          try {
             do_action( $name, $event_id, $extra_args );
-            if( !$this->getPostExceptionThrown() && $event_id ) delete_post_meta( $event_id, Events_Calendar_Pro::EVENTSERROROPT );
+            if( !$this->getPostExceptionThrown() && $event_id ) delete_post_meta( $event_id, TribeEvents::EVENTSERROROPT );
          } catch ( TribeEventsPostException $e ) {
             $this->setPostExceptionThrown(true);
             if ($event_id) {
@@ -1872,14 +1872,14 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
             }
          }
       }
-	} // end Events_Calendar_Pro class
+	} // end TribeEvents class
 
-	Events_Calendar_Pro::instance();
+	TribeEvents::instance();
 	
 	// backwards compatability
 	global $sp_ecp;
-	$sp_ecp = Events_Calendar_Pro::instance();
+	$sp_ecp = TribeEvents::instance();
 	
 	add_filter('generate_rewrite_rules', array(&$sp_ecp,'filterRewriteRules'));
-} // end if !class_exists Events_Calendar_Pro
+} // end if !class_exists TribeEvents
 ?>

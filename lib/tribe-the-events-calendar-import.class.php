@@ -25,9 +25,9 @@ if (!class_exists('Tribe_The_Events_Calendar_Import')) {
 			$posts = self::getLegacyEvents();
 
 			// we don't want the old event category
-			$eventCat = get_term_by('name', Events_Calendar_Pro::CATEGORYNAME, 'category' );
+			$eventCat = get_term_by('name', TribeEvents::CATEGORYNAME, 'category' );
 			// existing event cats
-			$existingEventCats = (array) get_terms(Events_Calendar_Pro::TAXONOMY, array('fields' => 'names'));
+			$existingEventCats = (array) get_terms(TribeEvents::TAXONOMY, array('fields' => 'names'));
 			// store potential new event cats;
 			$newEventCats = array();
 
@@ -50,18 +50,18 @@ if (!class_exists('Tribe_The_Events_Calendar_Import')) {
 					continue;
 
 				// make 'em!
-				wp_insert_term( $cat, Events_Calendar_Pro::TAXONOMY );
+				wp_insert_term( $cat, TribeEvents::TAXONOMY );
 			}
 			// now we know what we're in for
-			$masterCats = get_terms( Events_Calendar_Pro::TAXONOMY, array('hide_empty'=>false) );
+			$masterCats = get_terms( TribeEvents::TAXONOMY, array('hide_empty'=>false) );
 
 			// let's convert those posts
 			foreach ( $posts as $post ) {
 				// new post_type sir
-				set_post_type( $post->ID, Events_Calendar_Pro::POSTTYPE );
+				set_post_type( $post->ID, TribeEvents::POSTTYPE );
 				// set new events cats. we stored the array above, remember?
 				if ( ! empty($post->cats) )
-					wp_set_object_terms( $post->ID, $post->cats, Events_Calendar_Pro::TAXONOMY );
+					wp_set_object_terms( $post->ID, $post->cats, TribeEvents::TAXONOMY );
 
 				self::convertVenue($post);
 			}
@@ -106,7 +106,7 @@ if (!class_exists('Tribe_The_Events_Calendar_Import')) {
 				'post_status' => 'any',
 				'posts_per_page' => $number,
 				'meta_key' => '_EventStartDate',
-				'category_name' => Events_Calendar_Pro::CATEGORYNAME
+				'category_name' => TribeEvents::CATEGORYNAME
 			));
 			return $query->posts;
 		}

@@ -8,7 +8,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 ?>
 <style type="text/css">
-	<?php if( class_exists( 'Eventbrite_for_Events_Calendar_Pro' ) ) : ?>
+	<?php if( class_exists( 'Eventbrite_for_TribeEvents' ) ) : ?>
 		.eventBritePluginPlug {display:none;}
 	<?php endif; ?>
 </style>
@@ -20,7 +20,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 </div>
 <div id='eventDetails' class="inside eventForm bubble">
    <?php $this->do_action('tribe_events_detail_top', $postId, true) ?>
-	<?php wp_nonce_field( Events_Calendar_Pro::POSTTYPE, 'ecp_nonce' ); ?>
+	<?php wp_nonce_field( TribeEvents::POSTTYPE, 'ecp_nonce' ); ?>
 	<table cellspacing="0" cellpadding="0" id="EventInfo">
 		<tr>
 			<td colspan="2" class="tribe_sectionheader"><h4 class="event-time"><?php _e('Event Time &amp; Date', $this->pluginDomain); ?></h4></td>

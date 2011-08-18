@@ -85,7 +85,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<?php endwhile;// posts ?>
 	<?php else :?>
 		<?php 
-			$tribe_ecp = Events_Calendar_Pro::instance();
+			$tribe_ecp = TribeEvents::instance();
 			if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
 				$cat = get_term_by( 'slug', get_query_var('term'), $tribe_ecp->get_event_taxonomy() );
 				$is_cat_message = sprintf(__(' listed under %s; check out past events for this category or the full calendar',$tribe_ecp->pluginDomain),$cat->name);

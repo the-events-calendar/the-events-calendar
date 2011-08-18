@@ -6,7 +6,7 @@
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-$tribe_ecp = Events_Calendar_Pro::instance();
+$tribe_ecp = TribeEvents::instance();
 
 // in an events cat
 if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
@@ -141,7 +141,7 @@ function display_day( $day, $monthView ) {
 					<?php if ( function_exists('has_post_thumbnail') && has_post_thumbnail() ) { ?>
 						<div class="tec-event-thumb"><?php the_post_thumbnail( array(75,75));?></div>
 					<?php } ?>
-					<?php echo has_excerpt() ? Events_Calendar_Pro::truncate($post->post_excerpt) : Events_Calendar_Pro::truncate(get_the_content(), 30); ?>
+					<?php echo has_excerpt() ? TribeEvents::truncate($post->post_excerpt) : TribeEvents::truncate(get_the_content(), 30); ?>
 
 				</div>
 				<span class="tec-arrow"></span>

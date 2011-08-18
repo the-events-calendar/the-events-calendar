@@ -14,7 +14,7 @@ if (!class_exists('Tribe_Event_API')) {
 		 */
 		public static function createEvent($args) {
 			$defaults = array(
-				'post_type' => Events_Calendar_Pro::POSTTYPE
+				'post_type' => TribeEvents::POSTTYPE
 			);			
 
 			$args = wp_parse_args( $args, $defaults);
@@ -50,7 +50,7 @@ if (!class_exists('Tribe_Event_API')) {
 		 * Used by createEvent and updateEvent - saves all the various event meta 
 		 */
 		public static function saveEventMeta($event_id, $data, $event = null) {
-			$tribe_ecp = Events_Calendar_Pro::instance();
+			$tribe_ecp = TribeEvents::instance();
 		
 			if( $data['EventAllDay'] == 'yes' || !isset($data['EventStartDate']) ) {
 				$data['EventStartDate'] = TribeDateUtils::beginningOfDay($data['EventStartDate']);
@@ -82,7 +82,7 @@ if (!class_exists('Tribe_Event_API')) {
 			//update meta fields
 			foreach ( $tribe_ecp->metaTags as $tag ) {
 				$htmlElement = ltrim( $tag, '_' );
-				if ( isset( $data[$htmlElement] ) && $tag != Events_Calendar_Pro::EVENTSERROROPT ) {
+				if ( isset( $data[$htmlElement] ) && $tag != TribeEvents::EVENTSERROROPT ) {
 					if ( is_string($data[$htmlElement]) )
 						$data[$htmlElement] = filter_var($data[$htmlElement], FILTER_SANITIZE_STRING);
 
@@ -122,7 +122,7 @@ if (!class_exists('Tribe_Event_API')) {
 			if ( $data['Organizer'] ) {
 				$postdata = array(
 					'post_title' => $data['Organizer'],
-					'post_type' => Events_Calendar_Pro::ORGANIZER_POST_TYPE,
+					'post_type' => TribeEvents::ORGANIZER_POST_TYPE,
 					'post_status' => 'publish',
 				);			
 
@@ -166,7 +166,7 @@ if (!class_exists('Tribe_Event_API')) {
 			if ( $data['Venue'] ) {
 				$postdata = array(
 					'post_title' => $data['Venue'],
-					'post_type' => Events_Calendar_Pro::VENUE_POST_TYPE,
+					'post_type' => TribeEvents::VENUE_POST_TYPE,
 					'post_status' => 'publish',
 				);			
 

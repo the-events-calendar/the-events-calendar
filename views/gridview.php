@@ -6,7 +6,7 @@
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-$tribe_ecp = Events_Calendar_Pro::instance();
+$tribe_ecp = TribeEvents::instance();
 ?>	
 	<div id="tec-content" class="grid">
 		<div id='tec-events-calendar-header' class="clearfix">

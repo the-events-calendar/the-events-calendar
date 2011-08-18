@@ -6,7 +6,7 @@
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-$tribe_ecp = Events_Calendar_Pro::instance(); 
+$tribe_ecp = TribeEvents::instance(); 
 $eventPosts = tribe_get_events();
 $daysInMonth = isset($date) ? date("t", $date) : date("t");
 $startOfWeek = get_option( 'start_of_week', 0 );
