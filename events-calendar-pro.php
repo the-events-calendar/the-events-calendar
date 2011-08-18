@@ -27,18 +27,10 @@ if ( ! function_exists('events_calendar_pro_activate') ) {
 if ( ! function_exists('events_calendar_pro_load') ) {
 	function events_calendar_pro_load() {
 		if ( SP_EVENTS_SUPPORTED_WP_VERSION && SP_EVENTS_SUPPORTED_PHP_VERSION ) {
-			$events_dir = dirname(__FILE__);
-
-	    	foreach (glob($events_dir . "/lib/*.php") as $filename) {
-				include $filename;
-			}			
-			
-			require_once($events_dir . '/events-calendar-pro.class.php');
-			require_once($events_dir . '/the-events-calendar-exception.class.php');
-			require_once($events_dir . '/events-calendar-widget.class.php');
-			require_once($events_dir . '/events-list-widget.class.php');
-			require_once($events_dir . '/events-featured-widget.class.php');
-			require_once($events_dir . '/lib/template-tags.php');
+			// Include all files in the /lib folder
+	    	foreach (glob(dirname(__FILE__) . "/lib/*.php") as $filename) {
+				require_once($filename);
+			}
 		}
 	}
 }
