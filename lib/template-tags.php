@@ -900,7 +900,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		return esc_html($url);
 	}
 	
-	include_once 'deprecated-template-tags.php';
+	include_once 'lib/deprecated-template-tags.php';
 	
 	function tribe_get_current_template() {
 		return Tribe_ECP_Templates::get_current_page_template();

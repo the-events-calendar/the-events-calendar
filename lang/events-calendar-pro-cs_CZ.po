@@ -54,16 +54,16 @@ msgid "Featured Event"
 msgstr "Kalendář událostí"
 
 #: ../events-featured-widget.class.php:81
-#: ../template-tags.php:723
+#: ../lib/template-tags.php:723
 msgid "Category:"
 msgstr ""
 
-#: ../template-tags.php:691
+#: ../lib/template-tags.php:691
 #: ../events-calendar-pro.class.php:150
 msgid "United States"
 msgstr "USA"
 
-#: ../template-tags.php:712
+#: ../lib/template-tags.php:712
 msgid "Calendar of Events"
 msgstr "Kalendář událostí"
 

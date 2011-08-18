@@ -26,7 +26,7 @@ msgid "Select a Country:"
 msgstr ""
 
 #: ../events-calendar-pro.class.php:151
-#: ../template-tags.php:722
+#: ../lib/template-tags.php:722
 msgid "United States"
 msgstr ""
 
@@ -1469,7 +1469,7 @@ msgid "There are no upcoming events at this time."
 msgstr ""
 
 #: ../events-featured-widget.class.php:81
-#: ../template-tags.php:761
+#: ../lib/template-tags.php:761
 #: ../views/events-list-load-widget-admin.php:40
 msgid "Category:"
 msgstr ""
@@ -1482,7 +1482,7 @@ msgstr ""
 msgid "View All Events"
 msgstr ""
 
-#: ../template-tags.php:750
+#: ../lib/template-tags.php:750
 msgid "Calendar of Events"
 msgstr ""
 
