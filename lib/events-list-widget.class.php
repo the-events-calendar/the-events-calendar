@@ -104,7 +104,7 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 				/* Set up default widget settings. */
 				$defaults = array( 'title' => 'Upcoming Events', 'limit' => '5', 'start' => true, 'end' => false, 'venue' => false, 'country' => true, 'address' => false, 'city' => true, 'region' => true, 'zip' => false, 'phone' => false, 'cost' => false,'category' => false);
 				$instance = wp_parse_args( (array) $instance, $defaults );			
-				include( $tribe_ecp->pluginPath . 'admin-views/events-list-load-widget-admin.php' );
+				include( $tribe_ecp->pluginPath . 'admin-views/widget-admin-list.php' );
 			}
 	}
 
