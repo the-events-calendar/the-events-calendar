@@ -25,7 +25,7 @@
 							<dt><?php _e('Email:', $tribe_ecp->pluginDomain) ?></dt>
 							<dd><?php echo tribe_get_organizer_email(); ?></dd>
 						<?php endif; ?>
-						<?php if ( tribe_is_recurring_event() && function_exists('tribe_get_recurrence_text') ) : ?>
+						<?php if ( function_exists('tribe_get_recurrence_text') && tribe_is_recurring_event() ) : ?>
 							<dt><?php _e('Schedule:', $tribe_ecp->pluginDomain) ?></dt>
 							<dd><?php echo tribe_get_recurrence_text(); ?> (<a href='<?php tribe_all_occurences_link() ?>'>See all</a>)</dd>
 						<?php endif; ?>
