@@ -731,11 +731,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		echo tribe_get_event_link($post);
 	}	
 	function tribe_get_event_link($post = null) {
-		if(tribe_is_recurring_event($post->ID)) {
-			return Events_Calendar_Pro::instance()->getLink('single', $post);
-		} else {
-			return get_permalink();
-		}
+		return Events_Calendar_Pro::instance()->getLink('single', $post);
 	}		
 
 	/**
