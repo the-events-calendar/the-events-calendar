@@ -18,22 +18,21 @@
 </tr>
 
 <script type="text/javascript">
-
-	jQuery(document).ready(function($) { 
-		jQuery('[name=organizer\\[Organizer\\]]').blur(function(){
-
-		jQuery.ajax(
+	jQuery('[name=organizer\\[Organizer\\]]').blur(function(){
+		jQuery.post('<?php echo admin_url('admin-ajax.php'); ?>',
 			{
-				type: 'POST', 
-				url: '<?php echo $this->pluginUrl?>resources/events-validator.class.php', data: 'type=organizer&validation_nonce=<?php echo wp_create_nonce('organizer-validation-nonce');?>&validate_name='+jQuery('[name=organizer\\[Organizer\\]]').get(0).value,
-				success:function(r){
-					if(r == 1){
-						jQuery('[name=organizer\\[Organizer\\]]').parent().removeClass('invalid').addClass('valid');
-					}else{
-						jQuery('[name=organizer\\[Organizer\\]]').parent().removeClass('valid').addClass('invalid');
-					}
-					}, 
-				async:false 
-			});
-	})});
+				action: 'tribe_event_validation',
+				nonce: '<?php echo wp_create_nonce('tribe-validation-nonce'); ?>',
+				type: 'organizer',
+				name: jQuery('[name=organizer\\[Organizer\\]]').get(0).value
+			},
+			function(result) {
+				if (result == 1) {
+					jQuery('[name=organizer\\[Organizer\\]]').parent().removeClass('invalid').addClass('valid');
+				} else {
+					jQuery('[name=organizer\\[Organizer\\]]').parent().removeClass('valid').addClass('invalid');
+				}
+			}
+		);
+	});
 </script>

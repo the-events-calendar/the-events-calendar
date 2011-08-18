@@ -1,8 +1,13 @@
 <?php
+/**
+ * Central Tribe Events Calendar class.
+ */
+
+// Don't load directly
+if ( !defined('ABSPATH') ) { die('-1'); }
+
 if ( !class_exists( 'Events_Calendar_Pro' ) ) {
-	/**
-	 * Main plugin
-	 */
+
 	class Events_Calendar_Pro {
 		const EVENTSERROROPT = '_tec_events_errors';
 		const CATEGORYNAME = 'Events'; // legacy category
@@ -130,8 +135,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 * @return void
 		 */
 		private function __construct( ) {
-			$this->pluginDir = trailingslashit( basename( dirname(__FILE__) ) );
 			$this->pluginPath = trailingslashit( dirname( dirname(__FILE__) ) );
+			$this->pluginDir = trailingslashit( basename( $this->pluginPath ) );
 			$this->pluginUrl = WP_PLUGIN_URL.'/'.$this->pluginDir;
 			if (self::supportedVersion('wordpress') && self::supportedVersion('php')) {
 				register_deactivation_hook( __FILE__, array( $this, 'on_deactivate' ) );
@@ -171,7 +176,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			add_filter( 'admin_body_class', array($this, 'admin_body_class') );
 			add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
 			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
-			add_filter('bloginfo_rss',  array($this, 'add_space_to_rss' ));
+			add_filter( 'bloginfo_rss',  array($this, 'add_space_to_rss' ) );
 			add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
 			add_filter( 'post_updated_messages', array($this, 'updatePostMessage') );
 			
@@ -182,16 +187,16 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 
 		private function addActions() {
 			add_action( 'init', array( $this, 'init'), 10 );
-			add_action( 'template_redirect',				array( $this, 'loadStyle' ) );
+			add_action( 'template_redirect', array( $this, 'loadStyle' ) );
 			add_action( 'tribe-events-save-more-options', array( $this, 'flushRewriteRules' ) );
-			add_action( 'admin_menu', 		array( $this, 'addOptionsPage' ) );
-			add_action( 'admin_init', 		array( $this, 'checkForOptionsChanges' ) );
-			add_action( 'admin_menu', 		array( $this, 'addEventBox' ) );
-			add_action( 'save_post',		array( $this, 'addEventMeta' ), 15, 2 );
-			add_action( 'save_post',		array( $this, 'save_venue_data' ), 16, 2 );
-			add_action( 'save_post',		array( $this, 'save_organizer_data' ), 16, 2 );
-			add_action( 'pre_get_posts',  array( $this, 'setDate' ));
-			add_action( 'pre_get_posts',  array( $this, 'setDisplay' ));
+			add_action( 'admin_menu', array( $this, 'addOptionsPage' ) );
+			add_action( 'admin_init', array( $this, 'checkForOptionsChanges' ) );
+			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
+			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
+			add_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
+			add_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
+			add_action( 'pre_get_posts', array( $this, 'setDate' ));
+			add_action( 'pre_get_posts', array( $this, 'setDisplay' ));
 			add_action( 'tribe_events_post_errors', array( 'TEC_Post_Exception', 'displayMessage' ) );
 			add_action( 'tribe_events_options_top', array( 'TEC_WP_Options_Exception', 'displayMessage') );
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
@@ -206,6 +211,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			}			
 			add_action( "trash_" . Events_Calendar_Pro::VENUE_POST_TYPE, array($this, 'cleanupPostVenues'));
 			add_action( "trash_" . Events_Calendar_Pro::ORGANIZER_POST_TYPE, array($this, 'cleanupPostOrganizers'));
+			add_action( "wp_ajax_tribe_event_validation", array($this,'ajax_form_validate') );
 		}
 
 		/**
@@ -244,7 +250,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			} else {
 				switch (strtolower($system)) {
 					case 'wordpress' :
-						$supported = version_compare(get_bloginfo('version'), '4.0', '>=');
+						$supported = version_compare(get_bloginfo('version'), '3.0', '>=');
 						break;
 					case 'php' :
 						$supported = version_compare( phpversion(), '5.2', '>=');
@@ -1579,25 +1585,42 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				</div>
 			<?php
 		}
+
+		/**
+		 * Handle ajax requests from admin form
+		 */
+		public function ajax_form_validate() {
+			if ($_REQUEST['name'] && $_REQUEST['nonce'] && wp_verify_nonce($_REQUEST['nonce'], 'tribe-validation-nonce')) {
+				if($_REQUEST['type'] == 'venue'){
+					echo $this->verify_unique_name($_REQUEST['name'],'venue');
+					exit;
+				} elseif ($_REQUEST['type'] == 'organizer'){
+					echo $this->verify_unique_name($_REQUEST['name'],'organizer');
+					exit;
+				}
+			}
+		}
 		
-		public function verify_unique_name($name, $type,$id = 0){
+		/**
+		 * Verify that a venue or organizer is unique
+		 *
+		 * @param string $name - name of venue or organizer
+		 * @param string $type - post type (venue or organizer) 
+		 * @return boolean
+		 */
+		public function verify_unique_name($name, $type){
 			global $wpdb;
 			$name = stripslashes($name);
-			if($type == 'venue'){
+			if ('' == $name) { return 1; }
+			if ($type == 'venue') {
 				$post_type = self::VENUE_POST_TYPE;
-			}elseif($type == 'organizer'){
+			} elseif($type == 'organizer') {
 				$post_type = self::ORGANIZER_POST_TYPE;
 			}
-
-			$results = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->posts} WHERE post_type = %s && post_title = %s && post_status = 'publish' && ID != %s",$post_type,$name,$id));
-
-			if($results){
-				return 0;
-			}else{
-				return 1;
-			}
-
+			$results = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->posts} WHERE post_type = %s && post_title = %s && post_status = 'publish'",$post_type,$name));
+			return ($results) ? 0 : 1;
 		}
+
 		/**
 		 * Given a date (YYYY-MM-DD), returns the first of the next month
 		 *
@@ -1860,3 +1883,4 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 	
 	add_filter('generate_rewrite_rules', array(&$sp_ecp,'filterRewriteRules'));
 } // end if !class_exists Events_Calendar_Pro
+?>
