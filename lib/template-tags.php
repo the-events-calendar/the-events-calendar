@@ -899,9 +899,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		$url = add_query_arg( $params, $base_url );
 		return esc_html($url);
 	}
-	
-	include_once 'lib/deprecated-template-tags.php';
-	
+		
 	function tribe_get_current_template() {
 		return Tribe_ECP_Templates::get_current_page_template();
 	}
@@ -1116,5 +1114,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'sp_get_option' )
 		$tribe_ecp = Events_Calendar_Pro::instance();
 		return $tribe_ecp->isVenue($postId);
 	}
+
+	include_once('template-tags-deprecated.php');
 
 } // end if class_exists('The-Events-Calendar')
