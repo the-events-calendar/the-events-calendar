@@ -206,7 +206,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'tribe_get_option
 
 		if ($address || $force_load) {
 			ob_start();
-			include('admin-views/event-map.php');
+			include($tribe_ecp->pluginPath.'admin-views/event-map.php');
 			$google_map = ob_get_contents();
 			ob_get_clean();
 			return $google_map;
@@ -242,7 +242,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'tribe_get_option
 		}
 		$monthOptions = Tribe_View_Helpers::getMonthOptions( $date );
 		$yearOptions = Tribe_View_Helpers::getYearOptions( $date );
-		include('admin-views/datepicker.php');
+		include($tribe_ecp->pluginPath.'admin-views/datepicker.php');
 	}
 
 	/**
@@ -1082,7 +1082,7 @@ if( class_exists( 'Events_Calendar_Pro' ) && !function_exists( 'tribe_get_option
 
 		if ($address) {
 			ob_start();
-			include('admin-views/event-map.php');
+			include($tribe_ecp->pluginPath.'admin-views/event-map.php');
 			$google_map = ob_get_contents();
 			ob_get_clean();
 			return $google_map;
