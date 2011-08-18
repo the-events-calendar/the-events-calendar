@@ -1230,10 +1230,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public function getTimeFormat( $dateFormat = TribeDateUtils::DATEONLYFORMAT ) {
 			return $dateFormat . ' ' . get_option( 'time_format', TribeDateUtils::TIMEFORMAT );
 		}
+
 		/*
-		 * ensures date follows proper YYYY-MM-DD format
+		 * Ensures date follows proper YYYY-MM-DD format
 		 * converts /, - and space chars to -
-		**/
+		 */
 		private function dateHelper( $date ) {
 
 			if($date == '')
@@ -1252,12 +1253,10 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		}
 		
 		/**
-		 * 
-			Adds an alias for get_post_meta so we can do extra stuff to the plugin values.
-			If you need the raw unfiltered data, use get_post_meta directly. 
-			This is mainly for templates.
-
-		***/
+		 * Adds an alias for get_post_meta so we can do extra stuff to the plugin values.
+		 * If you need the raw unfiltered data, use get_post_meta directly. 
+		 * This is mainly for templates.
+		 */
 		public function getEventMeta( $id, $meta, $single = true ){
 			$use_def_if_empty = sp_get_option('defaultValueReplace');
 			if($use_def_if_empty){
