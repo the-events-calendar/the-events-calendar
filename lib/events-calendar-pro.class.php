@@ -154,7 +154,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 * Load all the required library files.
 		 **/
 		private function loadLibraries() {
-			require_once( 'the-events-calendar-exception.class.php' );
+			require_once( 'tribe-event-exception.class.php' );
 			require_once( 'template-tags.php' );
 			require_once( 'template-tags-deprecated.php' );
 			require_once( 'widget-calendar.class.php' );
