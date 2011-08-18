@@ -1,3 +1,12 @@
+<?php
+/**
+* Venue metabox
+*/
+
+// Don't load directly
+if ( !defined('ABSPATH') ) { die('-1'); }
+
+?>
 <tr class="venue">
 	<td><?php _e('Venue Name:',$this->pluginDomain); ?></td>
 	<td>
@@ -18,7 +27,7 @@
 		<select tabindex="<?php $this->tabIndex(); ?>" name='venue[Country]' id="EventCountry">
 			<?php
 			$countries = Tribe_View_Helpers::constructCountries( $postId );
-			$defaultCountry = sp_get_option('defaultCountry');
+			$defaultCountry = tribe_get_option('defaultCountry');
 			$current = ($_VenueCountry) ? $_VenueCountry : $defaultCountry[1];
 
 			foreach ($countries as $abbr => $fullname) {

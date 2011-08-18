@@ -1,3 +1,12 @@
+<?php
+/**
+* Recurrence dialogue box
+*/
+
+// Don't load directly
+if ( !defined('ABSPATH') ) { die('-1'); }
+
+?>
 <div id="recurring-dialog"  title="Saving Recurring Event" style="display: none;">
 	<?php _e('Which events do you wish to update?',$this->pluginDomain); ?><br/>
 </div>

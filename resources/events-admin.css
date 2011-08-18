@@ -97,15 +97,15 @@
 	padding-bottom: 10px !important;
 	padding-top: 0 !important;
 }
-.eventForm .snp_sectionheader {
+.eventForm .tribe_sectionheader {
 	padding-bottom: 5px !important;
 }
-#snp_thanks {
+#tribe_thanks {
 	float: left;
 	width: 200px;
 	margin: 5px 0 0 0;
 }
-.snp_brand {
+.tribe_brand {
 	font-weight: normal;
 	margin: 8px 0;
 	font-family: Georgia !important;
@@ -147,7 +147,7 @@
 	table.eventForm {
 	width: 100%;
 }
-td.snp_message {
+td.tribe_message {
 	padding-bottom: 10px !important;
 }
 .clearfix {zoom:1; /* For IE */}

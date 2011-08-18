@@ -1,3 +1,12 @@
+<?php
+/**
+* Settings panel
+*/
+
+// Don't load directly
+if ( !defined('ABSPATH') ) { die('-1'); }
+
+?>
 <script type="text/javascript">
 jQuery(document).ready(function($) {
 
@@ -18,21 +27,21 @@ jQuery(document).ready(function($) {
 });
 </script>
 <style type="text/css">
-div.snp_settings{
+div.tribe_settings{
 	width:90%;
 }
 </style>
-<div class="snp_settings wrap">
+<div class="tribe_settings wrap">
 <?php screen_icon(); ?><h2><?php printf( '%s Settings', $this->pluginName ); ?></h2>
 <div id="tec-options-error" class="tec-events-error error"></div>
 <?php
-	$hasDefaultVenue = sp_get_option('eventsDefaultVenueID') && sp_get_option('eventsDefaultVenueID') != "0";
+	$hasDefaultVenue = tribe_get_option('eventsDefaultVenueID') && tribe_get_option('eventsDefaultVenueID') != "0";
    $this->do_action( 'tribe_events_options_top' );
 ?>
 <div class="form">
 	<h3><?php _e('Need a hand?',$this->pluginDomain); ?></h3>
 	<p><?php printf( __( 'If you’re stuck on these options, please <a href="%s">check out the documentation</a>. Or, go to the <a href="%s">support forum</a>.', $this->pluginDomain ), trailingslashit($this->pluginUrl) . 'readme.txt', $this->supportUrl ); ?></p>
-	<p><?php _e('Here is the iCal feed URL for your events: ' ,$this->pluginDomain); ?><code><?php echo sp_get_ical_link(); ?></code></p>
+	<p><?php _e('Here is the iCal feed URL for your events: ' ,$this->pluginDomain); ?><code><?php echo tribe_get_ical_link(); ?></code></p>
 
 	<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 	<?php wp_nonce_field('saveEventsCalendarOptions'); ?>
@@ -48,7 +57,7 @@ div.snp_settings{
 	                </legend>
 	                <label title='Calendar'>
 	                    <?php 
-	                    $viewOptionValue = sp_get_option('viewOption','month');
+	                    $viewOptionValue = tribe_get_option('viewOption','month');
 							  $listViewStatus = ""; $gridViewStatus = "";
 							  
 	                    if( $viewOptionValue == 'upcoming' ) {
@@ -76,7 +85,7 @@ div.snp_settings{
 	                </legend>
 	                <label title='Yes'>
 	                    <?php 
-	                    $showCommentValue = sp_get_option('showComments','no');
+	                    $showCommentValue = tribe_get_option('showComments','no');
 							  $noCommentStatus = ""; $yesCommentStatus = "";
 	                    if( $showCommentValue == 'no' ) {
 	                        $noCommentStatus = 'checked="checked"';
@@ -94,7 +103,7 @@ div.snp_settings{
 	            </fieldset>
 	        </td>
 		</tr>
-		<?php $multiDayCutoff = sp_get_option('multiDayCutoff','12:00'); ?>
+		<?php $multiDayCutoff = tribe_get_option('multiDayCutoff','12:00'); ?>
 		<tr>
 			<th scope="row"><?php _e('Multiday Event Cutoff',$this->pluginDomain); ?></th>
 	        <td>
@@ -119,7 +128,7 @@ div.snp_settings{
 	        </td>
 		</tr>		
 			<?php 
-			$embedGoogleMapsValue = sp_get_option('embedGoogleMaps','off');                 
+			$embedGoogleMapsValue = tribe_get_option('embedGoogleMaps','off');                 
 	        ?>
 
 		<tr>
@@ -131,9 +140,9 @@ div.snp_settings{
 	                </legend>
 	                <label title='Yes'>
 	                    <?php 
-	                    $embedGoogleMapsValue = sp_get_option('embedGoogleMaps','off'); 
-								$embedGoogleMapsHeightValue = sp_get_option('embedGoogleMapsHeight','350');
-								$embedGoogleMapsWidthValue = sp_get_option('embedGoogleMapsWidth','100%');
+	                    $embedGoogleMapsValue = tribe_get_option('embedGoogleMaps','off'); 
+								$embedGoogleMapsHeightValue = tribe_get_option('embedGoogleMapsHeight','350');
+								$embedGoogleMapsWidthValue = tribe_get_option('embedGoogleMapsWidth','100%');
 								$embedGoogleMapsOnStatus = ""; $embedGoogleMapsOffStatus = "";
 	                    if( $embedGoogleMapsValue == 'on' ) {
 	                        $embedGoogleMapsOnStatus = 'checked="checked"';
@@ -167,7 +176,7 @@ div.snp_settings{
 		                </legend>
 		                <label title='Yes'>
 		                    <?php 
-		                    $useRewriteRules = sp_get_option('useRewriteRules','on'); 
+		                    $useRewriteRules = tribe_get_option('useRewriteRules','on'); 
 		                    ?>
 		                    <input type="radio" name="useRewriteRules" value="off" <?php checked($useRewriteRules, 'off'); ?>  /> 
 		                    <?php _e('Off',$this->pluginDomain); ?>
@@ -186,15 +195,15 @@ div.snp_settings{
 				<th scope="row"><?php _e('Events URL slug', $this->pluginDomain); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Events URL slug', $this->pluginDomain ); ?></legend>
-					<label><input type="text" name="eventsSlug" value="<?php echo sp_get_option('eventsSlug', 'events') ?>" /> <?php _e('The slug used for building the Events URL.', $this->pluginDomain ) ?></label><br /><?php printf( __('Your current Events URL is <strong>%s</strong>', $this->pluginDomain ), sp_get_events_link() )  ?>
+					<label><input type="text" name="eventsSlug" value="<?php echo tribe_get_option('eventsSlug', 'events') ?>" /> <?php _e('The slug used for building the Events URL.', $this->pluginDomain ) ?></label><br /><?php printf( __('Your current Events URL is <strong>%s</strong>', $this->pluginDomain ), tribe_get_events_link() )  ?>
 				</fieldset></td>
 			</tr>
 			<tr>
 				<th scope="row"><?php _e('Single Event URL slug', $this->pluginDomain); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Single Event URL slug', $this->pluginDomain ); ?></legend>
-					<label><input type="text" name="singleEventSlug" value="<?php echo sp_get_option('singleEventSlug', 'event') ?>" /> <?php _e('The slug used for building a single Event URL.', $this->pluginDomain );  ?></label><br />
-					<?php printf( __('<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: <strong>%s</strong>', $this->pluginDomain ), trailingslashit( home_url() ) . sp_get_option('singleEventSlug', 'event') . '/single-post-name/' ); ?>
+					<label><input type="text" name="singleEventSlug" value="<?php echo tribe_get_option('singleEventSlug', 'event') ?>" /> <?php _e('The slug used for building a single Event URL.', $this->pluginDomain );  ?></label><br />
+					<?php printf( __('<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: <strong>%s</strong>', $this->pluginDomain ), trailingslashit( home_url() ) . tribe_get_option('singleEventSlug', 'event') . '/single-post-name/' ); ?>
 				</fieldset></td>
 			</tr>
 			<?php endif; // permalink structure ?>
@@ -202,7 +211,7 @@ div.snp_settings{
 				<th scope="row"><?php _e('Debug', $this->pluginDomain ); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Debug', $this->pluginDomain ); ?></legend>
-					<label><input type="checkbox" name="spEventsDebug" value="on" <?php checked(sp_get_option('spEventsDebug'), 'on' ) ?> /> <?php _e('Debug Events display issues.', $this->pluginDomain ) ?></label>
+					<label><input type="checkbox" name="spEventsDebug" value="on" <?php checked(tribe_get_option('spEventsDebug'), 'on' ) ?> /> <?php _e('Debug Events display issues.', $this->pluginDomain ) ?></label>
 					<div><?php _e('If you’re experiencing issues with posts not showing up in the admin, enable this option and then ensure that all of your posts have the correct start and end dates.', $this->pluginDomain) ?></div>
 				</fieldset></td>
 			</tr>
@@ -216,8 +225,8 @@ div.snp_settings{
 					<legend class="screen-reader-text"><?php _e('Events Template', $this->pluginDomain ); ?></legend>
 					<select name="spEventsTemplate">
 						<option value=''><?php _e('Default ECP Template'); ?></option>
-						<option value='default' <?php selected(sp_get_option('spEventsTemplate') == 'default') ?>><?php _e('Default Page Template'); ?></option>
-						<?php page_template_dropdown(sp_get_option('spEventsTemplate')); ?>
+						<option value='default' <?php selected(tribe_get_option('spEventsTemplate') == 'default') ?>><?php _e('Default Page Template'); ?></option>
+						<?php page_template_dropdown(tribe_get_option('spEventsTemplate')); ?>
 					</select>
 					<div><?php _e('Choose a page template to control the look and feel of your calendar.', $this->pluginDomain);?> </div>
 				</fieldset></td>
@@ -226,7 +235,7 @@ div.snp_settings{
 				<th scope="row"><?php _e('Add HTML before calendar', $this->pluginDomain ); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Add HTML before calendar', $this->pluginDomain ); ?></legend>
-					<textarea style="width:100%; height:100px;" name="spEventsBeforeHTML"><?php echo  stripslashes(sp_get_option('spEventsBeforeHTML'));?></textarea>
+					<textarea style="width:100%; height:100px;" name="spEventsBeforeHTML"><?php echo  stripslashes(tribe_get_option('spEventsBeforeHTML'));?></textarea>
 					<div><?php _e('Some themes may require that you add extra divs before the calendar list to help with styling.', $this->pluginDomain);?> <?php _e('This is displayed directly after the header.', $this->pluginDomain);?> <?php  _e('You may use (x)HTML.', $this->pluginDomain) ?></div>
 				</fieldset></td>
 			</tr>
@@ -234,7 +243,7 @@ div.snp_settings{
 				<th scope="row"><?php _e('Add HTML after calendar', $this->pluginDomain ); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Add HTML before calendar', $this->pluginDomain ); ?></legend>
-					<textarea style="width:100%; height:100px;" name="spEventsAfterHTML"><?php echo stripslashes(sp_get_option('spEventsAfterHTML'));?></textarea>
+					<textarea style="width:100%; height:100px;" name="spEventsAfterHTML"><?php echo stripslashes(tribe_get_option('spEventsAfterHTML'));?></textarea>
 					<div><?php _e('Some themes may require that you add extra divs after the calendar list to help with styling.', $this->pluginDomain);?> <?php _e('This is displayed directly above the footer.', $this->pluginDomain);?> <?php _e('You may use (x)HTML.', $this->pluginDomain) ?></div>
 				</fieldset></td>
 			</tr>
@@ -252,7 +261,7 @@ div.snp_settings{
 	                </legend>
 	                <label title='Enable'>
 	                    <?php 
-	                    $defaultValueReplace = sp_get_option('defaultValueReplace','0');
+	                    $defaultValueReplace = tribe_get_option('defaultValueReplace','0');
 							  $defaultValueReplaceEnabled = ""; $defaultValueReplaceDisabled = "";
 	                    if( $defaultValueReplace == 1 ) {
 	                        $defaultValueReplaceEnabled = 'checked="checked"';
@@ -275,7 +284,7 @@ div.snp_settings{
 				<td>
 				<fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Organizer', $this->pluginDomain ); ?></legend>
-					<label><?php $this->saved_organizers_dropdown(sp_get_option('eventsDefaultOrganizerID'),'eventsDefaultOrganizerID');?><?php _e('The default organizer value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), sp_get_option('eventsDefaultOrganizerID') )  ?>
+					<label><?php $this->saved_organizers_dropdown(tribe_get_option('eventsDefaultOrganizerID'),'eventsDefaultOrganizerID');?><?php _e('The default organizer value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), tribe_get_option('eventsDefaultOrganizerID') )  ?>
 				</fieldset></td>
 			</tr>
 			<tr>
@@ -283,21 +292,21 @@ div.snp_settings{
 				<td>
 				<fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Venue', $this->pluginDomain ); ?></legend>
-					<label><?php $this->saved_venues_dropdown(sp_get_option('eventsDefaultVenueID'),'eventsDefaultVenueID');?><?php _e('The default venue value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), sp_get_option('eventsDefaultVenueID') )  ?>
+					<label><?php $this->saved_venues_dropdown(tribe_get_option('eventsDefaultVenueID'),'eventsDefaultVenueID');?><?php _e('The default venue value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), tribe_get_option('eventsDefaultVenueID') )  ?>
 				</fieldset></td>
 			</tr>
 			<tr class="venue-default-info<?php echo $hasDefaultVenue ? " tec_hide" : "" ?>">
 				<th scope="row"><?php _e('Default Address', $this->pluginDomain); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Address', $this->pluginDomain ); ?></legend>
-					<label><input type="text" name="eventsDefaultAddress" value="<?php echo sp_get_option('eventsDefaultAddress') ?>" /> <?php _e('The default address value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), sp_get_option('eventsDefaultAddress') )  ?>
+					<label><input type="text" name="eventsDefaultAddress" value="<?php echo tribe_get_option('eventsDefaultAddress') ?>" /> <?php _e('The default address value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), tribe_get_option('eventsDefaultAddress') )  ?>
 				</fieldset></td>
 			</tr>
 			<tr class="venue-default-info<?php echo $hasDefaultVenue ? " tec_hide" : "" ?>">
 				<th scope="row"><?php _e('Default City', $this->pluginDomain); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default City', $this->pluginDomain ); ?></legend>
-					<label><input type="text" name="eventsDefaultCity" value="<?php echo sp_get_option('eventsDefaultCity') ?>" /> <?php _e('The default city value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), sp_get_option('eventsDefaultCity') )  ?>
+					<label><input type="text" name="eventsDefaultCity" value="<?php echo tribe_get_option('eventsDefaultCity') ?>" /> <?php _e('The default city value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), tribe_get_option('eventsDefaultCity') )  ?>
 				</fieldset></td>
 			</tr>
 
@@ -311,14 +320,14 @@ div.snp_settings{
 							<?php
 								foreach (Tribe_View_Helpers::loadStates() as $abbr => $fullname) {
 									print ("<option value=\"$abbr\" ");
-									if (sp_get_option('eventsDefaultState') == $abbr) {
+									if (tribe_get_option('eventsDefaultState') == $abbr) {
 										print ('selected="selected" ');
 									}
 									print (">$fullname</option>\n");
 								}
 							?>
 						</select>
-						<?php _e('The default  value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), sp_get_option('eventsDefaultState') )  ?>
+						<?php _e('The default  value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), tribe_get_option('eventsDefaultState') )  ?>
 				</fieldset></td>
 			</tr>
 
@@ -326,7 +335,7 @@ div.snp_settings{
 				<th scope="row"><?php _e('Default Province', $this->pluginDomain); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Province or State', $this->pluginDomain ); ?></legend>
-					<label><input type="text" name="eventsDefaultProvince" value="<?php echo sp_get_option('eventsDefaultProvince') ?>" /> <?php _e('The default  value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), sp_get_option('eventsDefaultProvince') )  ?>
+					<label><input type="text" name="eventsDefaultProvince" value="<?php echo tribe_get_option('eventsDefaultProvince') ?>" /> <?php _e('The default  value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), tribe_get_option('eventsDefaultProvince') )  ?>
 				</fieldset></td>
 			</tr>
 
@@ -334,7 +343,7 @@ div.snp_settings{
 				<th scope="row"><?php _e('Default Postal Code', $this->pluginDomain); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Postal Code', $this->pluginDomain ); ?></legend>
-					<label><input type="text" name="eventsDefaultZip" value="<?php echo sp_get_option('eventsDefaultZip') ?>" /> <?php _e('The default Postal Code value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), sp_get_option('eventsDefaultZip') )  ?>
+					<label><input type="text" name="eventsDefaultZip" value="<?php echo tribe_get_option('eventsDefaultZip') ?>" /> <?php _e('The default Postal Code value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), tribe_get_option('eventsDefaultZip') )  ?>
 				</fieldset></td>
 			</tr>
 
@@ -344,7 +353,7 @@ div.snp_settings{
 					<select name="defaultCountry" id="defaultCountry">
 							<?php 
 							$countries = Tribe_View_Helpers::constructCountries();
-							$defaultCountry = sp_get_option('defaultCountry');
+							$defaultCountry = tribe_get_option('defaultCountry');
 					foreach ($countries as $abbr => $fullname) {
 						print ("<option value=\"$fullname\" ");
 						if ($defaultCountry[1] == $fullname) { 
@@ -360,14 +369,14 @@ div.snp_settings{
 				<th scope="row"><?php _e('Default Phone', $this->pluginDomain); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Phone', $this->pluginDomain ); ?></legend>
-					<label><input type="text" name="eventsDefaultPhone" value="<?php echo sp_get_option('eventsDefaultPhone') ?>" /> <?php _e('The default phone value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), sp_get_option('eventsDefaultPhone') )  ?>
+					<label><input type="text" name="eventsDefaultPhone" value="<?php echo tribe_get_option('eventsDefaultPhone') ?>" /> <?php _e('The default phone value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), tribe_get_option('eventsDefaultPhone') )  ?>
 				</fieldset></td>
 			</tr>
 			<tr>
 				<th scope="row"><?php _e('Use a custom list of countries', $this->pluginDomain ); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Use the following list:', $this->pluginDomain ); ?></legend>
-					<textarea style="width:100%; height:100px;" name="spEventsCountries"><?php echo stripslashes(sp_get_option('spEventsCountries'));?></textarea>
+					<textarea style="width:100%; height:100px;" name="spEventsCountries"><?php echo stripslashes(tribe_get_option('spEventsCountries'));?></textarea>
 					<div><?php _e('One country per line in the following format: <br/>US, United States <br/> UK, United Kingdom.', $this->pluginDomain);?> <?php _e('(Replaces the default list.)', $this->pluginDomain) ?></div>
 				</fieldset></td>
 			</tr>
@@ -398,10 +407,6 @@ if ( Tribe_The_Events_Calendar_Import::hasLegacyEvents() ) {
 }
 
 ?>
-
-
-
-
 
 <script>
 function showstuff(boxid){

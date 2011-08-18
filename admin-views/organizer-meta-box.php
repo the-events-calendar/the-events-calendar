@@ -1,3 +1,12 @@
+<?php
+/**
+* Organizer metabox
+*/
+
+// Don't load directly
+if ( !defined('ABSPATH') ) { die('-1'); }
+
+?>
 <tr class="organizer">
 	<td><?php _e('Organizer Name:',$this->pluginDomain); ?></td>
 	<td>

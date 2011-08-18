@@ -1,3 +1,12 @@
+<?php
+/**
+* Events post main metabox
+*/
+
+// Don't load directly
+if ( !defined('ABSPATH') ) { die('-1'); }
+
+?>
 <style type="text/css">
 	<?php if( class_exists( 'Eventbrite_for_Events_Calendar_Pro' ) ) : ?>
 		.eventBritePluginPlug {display:none;}
@@ -14,7 +23,7 @@
 	<?php wp_nonce_field( Events_Calendar_Pro::POSTTYPE, 'ecp_nonce' ); ?>
 	<table cellspacing="0" cellpadding="0" id="EventInfo">
 		<tr>
-			<td colspan="2" class="snp_sectionheader"><h4 class="event-time"><?php _e('Event Time &amp; Date', $this->pluginDomain); ?></h4></td>
+			<td colspan="2" class="tribe_sectionheader"><h4 class="event-time"><?php _e('Event Time &amp; Date', $this->pluginDomain); ?></h4></td>
 		</tr>
 		<tr id="recurrence-changed-row">
 			<td colspan='2'><?php _e("You have changed the recurrence rules of this event.  Saving the event will update all future events.  If you did not mean to change all events, then please refresh the page.") ?></td>
@@ -67,7 +76,7 @@
 		</tr>
 		<?php $this->do_action('tribe_events_date_display', $postId, true) ?>
 	</table>
-	<div class="snp_sectionheader" style="padding: 6px 6px 0 0; font-size: 11px; margin: 0 10px;"><h4><?php _e('Event Location Details', $this->pluginDomain); ?></h4></div>
+	<div class="tribe_sectionheader" style="padding: 6px 6px 0 0; font-size: 11px; margin: 0 10px;"><h4><?php _e('Event Location Details', $this->pluginDomain); ?></h4></div>
 	<div style="float: left;">
 		<table id="event_venue" class="eventtable">
 			<tr class="">
@@ -92,7 +101,7 @@
 					<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="EventShowMapLink" size="6" value="true" <?php if( $tecNewPost || get_post_meta( $postId, '_EventShowMapLink', true ) == 'true' ) echo 'checked="checked"'?> />
 				</td>
 			</tr>
-			<?php if( sp_get_option('embedGoogleMaps') == 'on' ) : ?>
+			<?php if( tribe_get_option('embedGoogleMaps') == 'on' ) : ?>
 				<tr id="google_map_toggle">
 					<td><?php _e('Show Google Map:',$this->pluginDomain); ?></td>
 					<td><input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="EventShowMap" size="6" value="true" <?php if( $tecNewPost || get_post_meta( $postId, '_EventShowMap', true ) == 'true' ) echo 'checked="checked"'; ?> /></td>
@@ -100,7 +109,7 @@
 			<?php endif; ?>
 		</table>
 	</div>
-	<?php if( sp_get_option('embedGoogleMaps') == 'on'): ?>
+	<?php if( tribe_get_option('embedGoogleMaps') == 'on'): ?>
 		<div style="float:right; display: <?php echo $tecNewPost || get_post_meta( $postId, '_EventShowMap', true) == 'true' ? "block" : "none" ?>">
 			<?php echo tribe_get_embedded_map($postId, 200, 200, true) ?>
 		</div>
@@ -108,7 +117,7 @@
 	<div style="clear:both"></div>
 	<table id="event_organizer" class="eventtable">
 			<tr>
-				<td colspan="2" class="snp_sectionheader"><h4><?php _e('Event Organizer Details', $this->pluginDomain); ?></h4></td>
+				<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event Organizer Details', $this->pluginDomain); ?></h4></td>
 			</tr>
 			<tr class="" >
 				<td style="width:170px"><?php _e('Use Saved Organizer:',$this->pluginDomain); ?></td>
@@ -126,7 +135,7 @@
 	<table id="event_cost" class="eventtable">		
 		<?php if(!class_exists('Event_Tickets_PRO')){ ?>
 		<tr>
-			<td colspan="2" class="snp_sectionheader"><h4><?php _e('Event Cost', $this->pluginDomain); ?></h4></td>
+			<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event Cost', $this->pluginDomain); ?></h4></td>
 		</tr>
 		<tr>
 			<td><?php _e('Cost:',$this->pluginDomain); ?></td>
@@ -139,7 +148,7 @@
 		
 		<?php } ?>
 		<tr class="eventBritePluginPlug">
-			<td colspan="2" class="snp_sectionheader">
+			<td colspan="2" class="tribe_sectionheader">
 				<h4><?php _e('Sell Tickets &amp; Track Registration', $this->pluginDomain); ?></h4>	
 			</td>
 		</tr>
