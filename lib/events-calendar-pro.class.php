@@ -14,7 +14,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		const VENUE_TITLE = 'Venue';
 		const ORGANIZER_POST_TYPE = 'sp_organizer';
 		const ORGANIZER_TITLE = 'Organizer';
-		const PLUGIN_DOMAIN = 'events-calendar-pro';
+		const PLUGIN_DOMAIN = 'tribe-events-calendar';
 		const VERSION = '2.0';
 
 		private $postTypeArgs = array(
@@ -60,7 +60,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		public $pluginUrl;
 		public $pluginName;
 		public $date;
-		public $pluginDomain = 'events-calendar-pro';
+		public $pluginDomain = 'tribe-events-calendar';
 		private $tabIndexStart = 2000;
 
 		public $metaTags = array(
@@ -142,7 +142,7 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		
 		public function init() {
 			$this->loadTextDomain();
-			$this->pluginName = __( 'Events Calendar Pro', $this->pluginDomain );
+			$this->pluginName = __( 'The Events Calendar', $this->pluginDomain );
 			$this->rewriteSlug = $this->getOption('eventsSlug', 'events');
 			$this->rewriteSlugSingular = $this->getOption('singleEventSlug', 'event');
 			$this->taxRewriteSlug = $this->rewriteSlug . '/' . __( 'category', $this->pluginDomain );
