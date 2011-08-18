@@ -25,7 +25,7 @@
 		jQuery.ajax(
 			{
 				type: 'POST', 
-				url: '<?php echo $this->pluginUrl?>events-validator.class.php', data: 'type=organizer&validation_nonce=<?php echo wp_create_nonce('organizer-validation-nonce');?>&validate_name='+jQuery('[name=organizer\\[Organizer\\]]').get(0).value,
+				url: '<?php echo $this->pluginUrl?>resources/events-validator.class.php', data: 'type=organizer&validation_nonce=<?php echo wp_create_nonce('organizer-validation-nonce');?>&validate_name='+jQuery('[name=organizer\\[Organizer\\]]').get(0).value,
 				success:function(r){
 					if(r == 1){
 						jQuery('[name=organizer\\[Organizer\\]]').parent().removeClass('invalid').addClass('valid');
