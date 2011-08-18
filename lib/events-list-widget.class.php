@@ -31,14 +31,14 @@ if( !class_exists( 'Events_List_Widget' ) ) {
 				extract( $instance, EXTR_SKIP );
 				// extracting $instance provides $title, $limit, $no_upcoming_events, $start, $end, $venue, $address, $city, $state, $province'], $zip, $country, $phone , $cost
 				$title = apply_filters('widget_title', $title );
-				if ( sp_get_option('viewOption') == 'upcoming') {
-					$event_url = sp_get_listview_link($category != -1 ? intval($category) : null);
+				if ( tribe_get_option('viewOption') == 'upcoming') {
+					$event_url = tribe_get_listview_link($category != -1 ? intval($category) : null);
 				} else {
-					$event_url = sp_get_gridview_link($category != -1 ? intval($category) : null);
+					$event_url = tribe_get_gridview_link($category != -1 ? intval($category) : null);
 				}
 
-				if( function_exists( 'sp_get_events' ) ) {
-					$posts = sp_get_events( 'eventDisplay=upcoming&numResults=' . $limit .'&eventCat=' . $category );
+				if( function_exists( 'tribe_get_events' ) ) {
+					$posts = tribe_get_events( 'eventDisplay=upcoming&numResults=' . $limit .'&eventCat=' . $category );
 					$template = Tribe_ECP_Templates::getTemplateHierarchy('events-list-load-widget-display');
 				}
 

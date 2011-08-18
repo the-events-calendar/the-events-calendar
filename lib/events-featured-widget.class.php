@@ -25,16 +25,16 @@ if( !class_exists( 'Events_Featured_Widget') ) {
 			// extracting $instance provides $title, $limit, $no_upcoming_events, $start, $end, $venue, $address, $city, $state, $province'], $zip, $country, $phone , $cost
 			$title = apply_filters('widget_title', $title );
 			
-			if ( sp_get_option('viewOption') == 'upcoming') {
-				$event_url = sp_get_listview_link();
+			if ( tribe_get_option('viewOption') == 'upcoming') {
+				$event_url = tribe_get_listview_link();
 			} else {
-				$event_url = sp_get_gridview_link();
+				$event_url = tribe_get_gridview_link();
 			}
 
-			if( function_exists( 'sp_get_events' ) ) {
+			if( function_exists( 'tribe_get_events' ) ) {
 				$old_display = $wp_query->get('eventDisplay');
 				$wp_query->set('eventDisplay', 'upcoming');
-				$posts = sp_get_events( 'numResults=1&eventCat=' . $category );				
+				$posts = tribe_get_events( 'numResults=1&eventCat=' . $category );				
 				$template = Tribe_ECP_Templates::getTemplateHierarchy('widget-featured-display');
 			}
 			
