@@ -157,9 +157,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 			require_once( 'the-events-calendar-exception.class.php' );
 			require_once( 'template-tags.php' );
 			require_once( 'template-tags-deprecated.php' );
-			require_once( 'events-calendar-widget.class.php' );
-			require_once( 'events-featured-widget.class.php' );
-			require_once( 'events-list-widget.class.php' );
+			require_once( 'widget-calendar.class.php' );
+			require_once( 'widget-featured.class.php' );
+			require_once( 'widget-list.class.php' );
 			require_once( 'tribe-admin-events-list.class.php' );
 			require_once( 'tribe-date-utils.class.php' );
 			require_once( 'tribe-ecp-templates.class.php' );
