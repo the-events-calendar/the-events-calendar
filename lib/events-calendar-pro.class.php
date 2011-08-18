@@ -4,11 +4,11 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 	 * Main plugin
 	 */
 	class Events_Calendar_Pro {
-		const EVENTSERROROPT		= '_tec_events_errors';
-		const CATEGORYNAME	 		= 'Events'; // legacy category
-		const OPTIONNAME 			= 'sp_events_calendar_options';
-		const POSTTYPE				= 'sp_events';
-		const TAXONOMY				= 'sp_events_cat';
+		const EVENTSERROROPT = '_tec_events_errors';
+		const CATEGORYNAME = 'Events'; // legacy category
+		const OPTIONNAME = 'sp_events_calendar_options';
+		const POSTTYPE = 'sp_events';
+		const TAXONOMY = 'sp_events_cat';
 		
 		const VENUE_POST_TYPE = 'sp_venue';
 		const VENUE_TITLE = 'Venue';
@@ -40,8 +40,8 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		);
 		private $taxonomyLabels;
 
-		public $supportUrl = 'http://support.makedesignnotwar.com/';
-		public $envatoUrl = 'http://plugins.shaneandpeter.com/';
+		public $supportUrl = 'http://tribe.pro/support/';
+		public $envatoUrl = 'http://tribe.pro/';
 
 	    private static $instance;
 		private $rewriteSlug = 'events';
@@ -130,16 +130,87 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 * @return void
 		 */
 		private function __construct( ) {
-			$this->pluginDir		= trailingslashit( basename( dirname(__FILE__) ) );
-			$this->pluginPath		= trailingslashit( dirname( dirname(__FILE__) ) );
-			$this->pluginUrl 		= WP_PLUGIN_URL.'/'.$this->pluginDir;
-			
-			register_deactivation_hook( __FILE__, 	array( &$this, 'on_deactivate' ) );
-			register_activation_hook( __FILE__, 	array( &$this, 'on_activate' ) );
-			$this->addFilters();
-			$this->addActions();
+			$this->pluginDir = trailingslashit( basename( dirname(__FILE__) ) );
+			$this->pluginPath = trailingslashit( dirname( dirname(__FILE__) ) );
+			$this->pluginUrl = WP_PLUGIN_URL.'/'.$this->pluginDir;
+			if (self::supportedVersion('wordpress') && self::supportedVersion('php')) {
+				register_deactivation_hook( __FILE__, array( $this, 'on_deactivate' ) );
+				$this->addFilters();
+				$this->addActions();
+				$this->loadLibraries();
+			} else {
+				// Either PHP or WordPress version is inadequate so we simply return an error.
+				add_action('init', array($this,'loadTextDomain'));
+				add_action('admin_head', array($this,'notSupportedError'));
+			}
 		}
 		
+		/**
+		 * Load all the required library files.
+		 **/
+		private function loadLibraries() {
+			require_once( 'the-events-calendar-exception.class.php' );
+			require_once( 'template-tags.php' );
+			require_once( 'template-tags-deprecated.php' );
+			require_once( 'events-calendar-widget.class.php' );
+			require_once( 'events-featured-widget.class.php' );
+			require_once( 'events-list-widget.class.php' );
+			require_once( 'tribe-admin-events-list.class.php' );
+			require_once( 'tribe-date-utils.class.php' );
+			require_once( 'tribe-ecp-templates.class.php' );
+			require_once( 'tribe-event-api.class.php' );
+			require_once( 'tribe-event-query.class.php' );
+			require_once( 'tribe-the-events-calendar-import.class.php' );
+			require_once( 'tribe-view-helpers.class.php' );
+		}
+
+		private function addFilters() {
+			add_filter( 'post_class', array( $this, 'post_class') );
+			add_filter( 'body_class', array( $this, 'body_class' ) );
+			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );
+			add_filter( 'admin_body_class', array($this, 'admin_body_class') );
+			add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
+			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
+			add_filter('bloginfo_rss',  array($this, 'add_space_to_rss' ));
+			add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
+			add_filter( 'post_updated_messages', array($this, 'updatePostMessage') );
+			
+			/* Add nav menu item - thanks to http://wordpress.org/extend/plugins/cpt-archives-in-nav-menus/ */
+			add_filter( 'nav_menu_items_' . Events_Calendar_Pro::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
+			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events'), null, 2);
+		}
+
+		private function addActions() {
+			add_action( 'init', array( $this, 'init'), 10 );
+			add_action( 'template_redirect',				array( $this, 'loadStyle' ) );
+			add_action( 'tribe-events-save-more-options', array( $this, 'flushRewriteRules' ) );
+			add_action( 'admin_menu', 		array( $this, 'addOptionsPage' ) );
+			add_action( 'admin_init', 		array( $this, 'checkForOptionsChanges' ) );
+			add_action( 'admin_menu', 		array( $this, 'addEventBox' ) );
+			add_action( 'save_post',		array( $this, 'addEventMeta' ), 15, 2 );
+			add_action( 'save_post',		array( $this, 'save_venue_data' ), 16, 2 );
+			add_action( 'save_post',		array( $this, 'save_organizer_data' ), 16, 2 );
+			add_action( 'pre_get_posts',  array( $this, 'setDate' ));
+			add_action( 'pre_get_posts',  array( $this, 'setDisplay' ));
+			add_action( 'tribe_events_post_errors', array( 'TEC_Post_Exception', 'displayMessage' ) );
+			add_action( 'tribe_events_options_top', array( 'TEC_WP_Options_Exception', 'displayMessage') );
+			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
+			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
+			add_action( 'the_post', array( $this, 'setReccuringEventDates' ) );
+			
+			if ( is_admin() && !$this->getOption('spEventsDebug', false) ) {
+				add_action('admin_footer', array($this, 'removeMenuItems'));
+			} else if ( $this->getOption('spEventsDebug', false) ) {
+				$this->addDebugColumns();
+				add_action('admin_footer', array($this, 'debugInfo'));
+			}			
+			add_action( "trash_" . Events_Calendar_Pro::VENUE_POST_TYPE, array($this, 'cleanupPostVenues'));
+			add_action( "trash_" . Events_Calendar_Pro::ORGANIZER_POST_TYPE, array($this, 'cleanupPostOrganizers'));
+		}
+
+		/**
+		 * Run on applied action init
+		 */
 		public function init() {
 			$this->loadTextDomain();
 			$this->pluginName = __( 'The Events Calendar', $this->pluginDomain );
@@ -161,20 +232,37 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$this->flushRewriteRules();
 		}
 
-		private function addFilters() {
-			add_filter( 'post_class', array( $this, 'post_class') );
-			add_filter( 'body_class', array( $this, 'body_class' ) );
-			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );
-			add_filter( 'admin_body_class', array($this, 'admin_body_class') );
-			add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
-			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
-			add_filter('bloginfo_rss',  array($this, 'add_space_to_rss' ));
-			add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
-			add_filter( 'post_updated_messages', array($this, 'updatePostMessage') );
-			
-			/* Add nav menu item - thanks to http://wordpress.org/extend/plugins/cpt-archives-in-nav-menus/ */
-			add_filter( 'nav_menu_items_' . Events_Calendar_Pro::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
-			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events'), null, 2);
+		/**
+		 * Test PHP and WordPress versions for compatibility
+		 *
+		 * @param string $system - system to be tested such as 'php' or 'wordpress'
+		 * @return boolean - is the existing version of the system supported?
+		 */
+		public function supportedVersion($system) {
+			if ($supported = wp_cache_get($system,'tribe_version_test')) {
+				return $supported;
+			} else {
+				switch (strtolower($system)) {
+					case 'wordpress' :
+						$supported = version_compare(get_bloginfo('version'), '4.0', '>=');
+						break;
+					case 'php' :
+						$supported = version_compare( phpversion(), '5.2', '>=');
+						break;
+				}
+				$supported = apply_filters('tribe_events_supported_version',$supported,$system);
+				wp_cache_set($system,$supported,'tribe_version_test');
+				return $supported;
+			}
+		}
+		
+		public function notSupportedError() {
+			if ( !self::supportedVersion('wordpress') ) {
+				echo '<div class="error"><p>'.__(sprintf('Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install.','3.0'), $this->pluginDomain).'</p></div>';
+			}
+			if ( !self::supportedVersion('php') ) {
+				echo '<div class="error"><p>'.__(sprintf('Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP.','5.2'), $this->pluginDomain).'</p></div>';
+			}
 		}
 
 		public function add_current_menu_item_class_to_events( $items, $args ) {
@@ -214,34 +302,6 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		private function addDebugColumns() {
 			add_filter( 'manage_posts_columns', array($this, 'debug_column_headers'));
 			add_action( 'manage_posts_custom_column', array($this, 'debug_custom_columns'), 10, 2);
-		}
-		
-		private function addActions() {
-			add_action( 'init', array( $this, 'init'), 10 );
-			add_action( 'template_redirect',				array( $this, 'loadStyle' ) );
-			add_action( 'tribe-events-save-more-options', array( $this, 'flushRewriteRules' ) );
-			add_action( 'admin_menu', 		array( $this, 'addOptionsPage' ) );
-			add_action( 'admin_init', 		array( $this, 'checkForOptionsChanges' ) );
-			add_action( 'admin_menu', 		array( $this, 'addEventBox' ) );
-			add_action( 'save_post',		array( $this, 'addEventMeta' ), 15, 2 );
-			add_action( 'save_post',		array( $this, 'save_venue_data' ), 16, 2 );
-			add_action( 'save_post',		array( $this, 'save_organizer_data' ), 16, 2 );
-			add_action( 'pre_get_posts',  array( $this, 'setDate' ));
-			add_action( 'pre_get_posts',  array( $this, 'setDisplay' ));
-			add_action( 'tribe_events_post_errors', array( 'TEC_Post_Exception', 'displayMessage' ) );
-			add_action( 'tribe_events_options_top', array( 'TEC_WP_Options_Exception', 'displayMessage') );
-			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
-			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
-			add_action( 'the_post', array( $this, 'setReccuringEventDates' ) );
-			
-			if ( is_admin() && !$this->getOption('spEventsDebug', false) ) {
-				add_action('admin_footer', array($this, 'removeMenuItems'));
-			} else if ( $this->getOption('spEventsDebug', false) ) {
-				$this->addDebugColumns();
-				add_action('admin_footer', array($this, 'debugInfo'));
-			}			
-			add_action( "trash_" . Events_Calendar_Pro::VENUE_POST_TYPE, array($this, 'cleanupPostVenues'));
-			add_action( "trash_" . Events_Calendar_Pro::ORGANIZER_POST_TYPE, array($this, 'cleanupPostOrganizers'));
 		}
 		
 		public function debugInfo() {
@@ -1149,21 +1209,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 		 * @return void
 		 */
 		public function on_deactivate( ) { 
-			//remove_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
 			$this->flushRewriteRules();
 		}
 
-
-		/**
-		 * Creates the category and sets up the theme resource folder with sample config files.
-		 * 
-		 * @return void
-		 */
-		public function on_activate( ) {
-			$now = time();
-			$firstTime = $now - ($now % 66400);
-			
-		}
 		/**
 		 * Converts a set of inputs to YYYY-MM-DD HH:MM:SS format for MySQL
 		 */
