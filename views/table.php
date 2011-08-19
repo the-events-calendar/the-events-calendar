@@ -33,7 +33,7 @@ $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 <table class="tec-calendar" id="big">
 	<thead>
 			<tr>
-				<?php //$tribe_ecp->log($tribe_ecp->daysOfWeekShort);
+				<?php
 				for( $n = $startOfWeek; $n < count($tribe_ecp->daysOfWeek) + $startOfWeek; $n++ ) {
 					$dayOfWeek = ( $n >= 7 ) ? $n - 7 : $n;
 					
