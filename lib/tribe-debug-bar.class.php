@@ -30,9 +30,9 @@ function load_tribe_debug_bar($panels) {
 					echo '<ul>';
 					foreach(self::$debug_log as $k => $logentry) {
 						echo "<li class='tribe-debug-{$logentry['format']} {$logentry['format']}'>";
-						echo "<b>{$logentry['title']}</b>";
+						echo "<div class='tribe-debug-entry-title'>{$logentry['title']}</b>";
 						if (isset($logentry['data']) && $logentry['data']) {
-							echo '<div class="code"><pre>';
+							echo '<div class="tribe-debug-entry-data"><pre>';
 							print_r($logentry['data']);
 							echo '</pre></div>';
 						}

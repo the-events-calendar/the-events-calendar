@@ -41,8 +41,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		);
 		private $taxonomyLabels;
 
-		public $supportUrl = 'http://tribe.pro/support/';
-		public $envatoUrl = 'http://tribe.pro/';
+		public static $supportUrl = 'http://tribe.pro/support/';
 
 		private static $instance;
 		private $rewriteSlug = 'events';
@@ -53,7 +52,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		private $upcomingSlug = 'upcoming';
 		private $postExceptionThrown = false;
 		private $optionsExceptionThrown = false;
-		public $options;
+		public static $options;
 		public $displaying;
 		public $pluginDir;
 		public $pluginPath;
@@ -666,7 +665,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function saveSettings() {
 	
 			if ( isset($_POST['saveEventsCalendarOptions']) && check_admin_referer('saveEventsCalendarOptions') ) {
-				$options = $this->getOptions();
+				$options = self::getOptions();
 				$options['viewOption'] = $_POST['viewOption'];
 				if($_POST['defaultCountry']) {
 					$countries = Tribe_View_Helpers::constructCountries();
@@ -740,12 +739,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *
 		 * @return array of options
 		 */
-		public function getOptions() {
-			if ( !isset( $this->options ) ) {
+		public static function getOptions() {
+			if ( !isset( self::$options ) ) {
 				$options = get_option( TribeEvents::OPTIONNAME, array() );
-				$this->options = apply_filters( 'tribe_get_options', $options );
+				self::$options = apply_filters( 'tribe_get_options', $options );
 			}
-			return $this->options;
+			return self::$options;
 		}
 
 		/**
@@ -759,11 +758,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if( !$optionName )
 				return null;
 
-			if( !isset( $this->options ) ) 
-				$this->getOptions();
+			if( !isset( self::$options ) ) 
+				self::getOptions();
 		
-			if ( isset( $this->options[$optionName] ) ) {
-				$option = $this->options[$optionName];
+			if ( isset( self::$options[$optionName] ) ) {
+				$option = self::$options[$optionName];
 			} else {
 				$option = $default;
 			}
@@ -783,12 +782,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 			$options = apply_filters( 'tribe-events-save-options', $options );		
 			if ( update_option( TribeEvents::OPTIONNAME, $options ) ) {
-				$this->options = apply_filters( 'tribe_get_options', $options );
-				if ( $this->options['useRewriteRules'] == true || $this->options['eventsSlug'] != '' ) {
+				self::$options = apply_filters( 'tribe_get_options', $options );
+				if ( self::$options['useRewriteRules'] == true || self::$options['eventsSlug'] != '' ) {
 					$this->flushRewriteRules();
 				}
 			} else {
-				$this->options = $this->getOptions();
+				self::$options = self::getOptions();
 			}
 		}
 

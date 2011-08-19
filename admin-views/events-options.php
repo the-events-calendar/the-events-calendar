@@ -169,7 +169,7 @@ div.tribe_settings{
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Debug', self::PLUGIN_DOMAIN ); ?></legend>
 					<label><input type="checkbox" name="debugEvents" value="1" <?php checked( tribe_get_option('debugEvents') ) ?> /> <?php _e('Debug Events display issues.', self::PLUGIN_DOMAIN ) ?></label>
-					<div><?php _e('If you\'re experiencing issues with posts not showing up in the admin, enable this option and then ensure that all of your posts have the correct start and end dates.', self::PLUGIN_DOMAIN) ?></div>
+					<div><?php printf(__('Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the <a href="%s" target="_blank">Debug Bar Plugin</a> and look for the "Tribe" tab in the debug output.', self::PLUGIN_DOMAIN),'http://wordpress.org/extend/plugins/debug-bar/'); ?></div>
 				</fieldset></td>
 			</tr>
 </table>
