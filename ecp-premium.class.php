@@ -8,8 +8,8 @@
  Text Domain: events-calendar-pro
  */
 
-if ( !class_exists( 'ECP_Premium' ) ) {
-	class ECP_Premium
+if ( !class_exists( 'TribeEventsPro' ) ) {
+	class TribeEventsPro
 	{
 	    private static $instance;
 
@@ -58,16 +58,16 @@ if ( !class_exists( 'ECP_Premium' ) ) {
 		 * 
 		 * @author John Gadbois 
 		 */public static function check_for_ecp() {
-			if( !class_exists( 'Events_Calendar_Pro' ) || !defined('Events_Calendar_Pro::VERSION') || !version_compare( Events_Calendar_Pro::VERSION, '2.0', '>=') ) {
+			if( !class_exists( 'TribeEvents' ) || !defined('TribeEvents::VERSION') || !version_compare( TribeEvents::VERSION, '2.0', '>=') ) {
 				deactivate_plugins(basename(__FILE__)); // Deactivate ourself
 				wp_die("Sorry, but you must activate Events Calendar Pro 2.0 or greater in order for this plugin to be installed.");	
 			}
 		}
 	}
 	
-	register_activation_hook( __FILE__, array('ECP_Premium', 'check_for_ecp') );	
+	register_activation_hook( __FILE__, array('TribeEventsPro', 'check_for_ecp') );	
 
 	// Instantiate class and set up WordPress actions.
-	ECP_Premium::instance();
+	TribeEventsPro::instance();
 }
 ?>

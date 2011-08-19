@@ -45,8 +45,8 @@ class Events_Recurrence_Meta {
 		// convert array to variables that can be used in the view
 		extract(Events_Recurrence_Meta::getRecurrenceMeta($postId));
 
-		$premium = ECP_Premium::instance();		
-		include( ECP_Premium::instance()->pluginPath . 'admin-views/event-recurrence.php' );
+		$premium = TribeEventsPro::instance();		
+		include( TribeEventsPro::instance()->pluginPath . 'admin-views/event-recurrence.php' );
 	}		
 	
 	/**
@@ -59,7 +59,7 @@ class Events_Recurrence_Meta {
 		
 		if( $occurrenceDate ) {
 			self::removeOccurrence( $postId, $occurrenceDate );
-			wp_redirect( add_query_arg( 'post_type', Events_Calendar_Pro::POSTTYPE, admin_url( 'edit.php' ) ) );
+			wp_redirect( add_query_arg( 'post_type', TribeEvents::POSTTYPE, admin_url( 'edit.php' ) ) );
 			exit();
 		}
 	}
@@ -73,7 +73,7 @@ class Events_Recurrence_Meta {
 		// make new series for future events
 		if($_POST['recurrence_action'] && $_POST['recurrence_action'] == Events_Recurrence_Meta::UPDATE_TYPE_FUTURE) {
 			// if this is the first event in the series, then we don't need to break it into two series
-			if( $_POST['EventStartDate'] != TribeDateUtils::dateOnly( Events_Calendar_Pro::getRealStartDate($postId) )) {
+			if( $_POST['EventStartDate'] != TribeDateUtils::dateOnly( TribeEvents::getRealStartDate($postId) )) {
 				// move recurrence end to the last date of the series before today
 				$numOccurrences = self::adjustRecurrenceEnd( $postId, $_POST['EventStartDate'] );			
 
@@ -134,7 +134,7 @@ class Events_Recurrence_Meta {
 		global $current_screen;
 
 		// only do this when editing events
-		if( is_admin() && $current_screen->id == Events_Calendar_Pro::POSTTYPE ) {
+		if( is_admin() && $current_screen->id == TribeEvents::POSTTYPE ) {
 			update_post_meta($event->ID, 'sp_flash_message', $msg);
 		}
 	}
@@ -147,7 +147,7 @@ class Events_Recurrence_Meta {
 	public static function showRecurrenceErrorFlash(){
 		global $post, $current_screen;
 
-		if ( $current_screen->base == 'post' && $current_screen->post_type == Events_Calendar_Pro::POSTTYPE ) {
+		if ( $current_screen->base == 'post' && $current_screen->post_type == TribeEvents::POSTTYPE ) {
 			$msg = get_post_meta($post->ID, 'sp_flash_message', true);
 
 			if ($msg) {
@@ -208,7 +208,7 @@ class Events_Recurrence_Meta {
 	 * @return void  
 	 */			
 	private static function removeOccurrence( $postId, $date ) {
-		$startDate = Events_Calendar_Pro::getRealStartDate($postId);
+		$startDate = TribeEvents::getRealStartDate($postId);
 		$date = TribeDateUtils::addTimeToDate( $date, TribeDateUtils::timeOnly($startDate) );
 
 		delete_post_meta( $postId, '_EventStartDate', $date );
@@ -310,7 +310,7 @@ class Events_Recurrence_Meta {
 	 * @return void
 	 */			
 	private static function cloneEvent( $data ) {
-		$tribe_ecp = Events_Calendar_Pro::instance();
+		$tribe_ecp = TribeEvents::instance();
 		
 		$data['ID'] = null;
 		$new_event = wp_insert_post($data);
@@ -469,7 +469,7 @@ class Events_Recurrence_Meta {
 				
 				$customYearNumber = $recCustomYearMonthNumber != -1 ? TribeDateUtils::numberToOrdinal($recCustomYearMonthNumber) : __("last");
 				
-				$day = $recCustomYearFilter ? $customYearNumber : TribeDateUtils::numberToOrdinal( date('j', strtotime( Events_Calendar_Pro::getRealStartDate( $postId ) ) ) );
+				$day = $recCustomYearFilter ? $customYearNumber : TribeDateUtils::numberToOrdinal( date('j', strtotime( TribeEvents::getRealStartDate( $postId ) ) ) );
 				$of_week = $recCustomYearFilter ? self::daysToText($recCustomYearMonthDay) : "";
 				$months = self::monthsToText($recCustomYearMonth);
 				$custom_text = sprintf(__(" on the %s %s of %s"), $day, $of_week, $months);				

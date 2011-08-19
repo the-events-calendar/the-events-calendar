@@ -3,7 +3,7 @@
  * Template tags for premium ECP functionality
  * @author John Gadbois
  */
-if( class_exists( 'ECP_Premium' ) && !function_exists( 'tribe_get_recurrence_text' ) ) {	
+if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_text' ) ) {	
 	/**
 	 * tribe_get_recurrence_text 
 	 *
@@ -11,7 +11,7 @@ if( class_exists( 'ECP_Premium' ) && !function_exists( 'tribe_get_recurrence_tex
 	 * e.g Repeats daily for three days 
 	 */
 	function tribe_get_recurrence_text( $postId = null )  {
-		$tribe_ecp = Events_Calendar_Pro::instance();
+		$tribe_ecp = TribeEvents::instance();
 		$postId = tribe_post_id_helper( $postId );
 	   return apply_filters( 'tribe_get_recurrence_text', Events_Recurrence_Meta::recurrenceToText( $postId ) );
 	}

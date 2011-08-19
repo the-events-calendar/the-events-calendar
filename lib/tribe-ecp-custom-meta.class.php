@@ -41,10 +41,10 @@ class Tribe_ECP_Custom_Meta {
 	 * @return void
 	 */	
 	public static function event_meta_options() {
-		$tribe_ecp = Events_Calendar_Pro::instance();
+		$tribe_ecp = TribeEvents::instance();
 		$customFields = tribe_get_option('custom-fields');
 		$count = 1;
-		include( ECP_Premium::instance()->pluginPath . 'admin-views/event-meta-options.php' );
+		include( TribeEventsPro::instance()->pluginPath . 'admin-views/event-meta-options.php' );
 	}
 
 	/**
@@ -55,9 +55,9 @@ class Tribe_ECP_Custom_Meta {
 	 * @return void
 	 */
     public static function single_event_meta() {
-		$tribe_ecp = Events_Calendar_Pro::instance();
+		$tribe_ecp = TribeEvents::instance();
       	$customFields = tribe_get_option('custom-fields');
-		include( ECP_Premium::instance()->pluginPath . 'admin-views/event-meta.php' );
+		include( TribeEventsPro::instance()->pluginPath . 'admin-views/event-meta.php' );
     }
 
 	/**
