@@ -14,7 +14,7 @@ class Tribe_ECP_Custom_Meta {
       	add_action( 'tribe_events_details_table_bottom', array(__CLASS__, 'single_event_meta') );
 		add_action( 'tribe_community_events_details_table_bottom', array(__CLASS__, 'single_event_meta') );			
 		add_action( 'tribe_events_update_meta', array(__CLASS__, 'save_single_event_meta') );
-		add_filter( 'tribe-events-options', array( __CLASS__, 'save_meta_options' ) );	
+		add_filter( 'tribe-events-save-options', array( __CLASS__, 'save_meta_options' ) );	
 	}
 
 	/**
