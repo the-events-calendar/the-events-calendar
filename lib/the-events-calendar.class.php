@@ -52,7 +52,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		private $upcomingSlug = 'upcoming';
 		private $postExceptionThrown = false;
 		private $optionsExceptionThrown = false;
-		public static $options;
+		private static $options;
 		public $displaying;
 		public $pluginDir;
 		public $pluginPath;
