@@ -43,7 +43,7 @@ if (!class_exists('TribeEventsImport')) {
 					<h4><?php _e('Upgrade from The Events Calendar', TribeEvents::PLUGIN_DOMAIN ); ?></h4>
 					<p><?php _e('We built a vibrant community around our free <a href="http://wordpress.org/extend/plugins/the-events-calendar/" target="_blank">The Events Calendar</a> plugin. If you used the free version and are now using our premium version, thanks, we\'re glad to have you here!', TribeEvents::PLUGIN_DOMAIN ) ?></p>
 					<?php echo $old_events_copy; ?>
-					<input type="submit" value="Migrate Data!" class="button-secondary" name="upgradeEventsCalendar" />
+					<input type="submit" value="<?php _e('Migrate Data!', TribeEvents::PLUGIN_DOMAIN); ?>" class="button-secondary" name="upgradeEventsCalendar" />
 				</form>	
 				<?php 
 			}
