@@ -231,7 +231,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * @return void
 	 */
 	function tribe_the_embedded_map( $postId = null, $width = null, $height = null )  {
-		if (tribe_get_option('embedGoogleMaps') == 'on')
+		if (tribe_get_option('embedGoogleMaps'))
 			echo tribe_get_embedded_map( $postId, $width, $height );
 	}
 	/**
@@ -1107,7 +1107,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * @return void
 	 */
 	function tribe_venue_the_embedded_map( $postId = null, $width = null, $height = null )  {
-		if (tribe_get_option('embedGoogleMaps') == 'on')
+		if (tribe_get_option('embedGoogleMaps'))
 			echo tribe_get_embedded_map( $postId, $width, $height );
 	}	
 	

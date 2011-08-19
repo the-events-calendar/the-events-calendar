@@ -42,7 +42,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 					"cost" => __("Price", self::PLUGIN_DOMAIN),
 				);
 	foreach ($displayoptions as $option => $label) { ?>
-		<input class="checkbox" type="checkbox" <?php checked( $instance[$option], 'on' ); ?> id="<?php echo $this->get_field_id( $option ); ?>" name="<?php echo $this->get_field_name( $option ); ?>" style="margin-left:5px"/>
+		<input class="checkbox" type="checkbox" <?php checked( $instance[$option], true ); ?> id="<?php echo $this->get_field_id( $option ); ?>" name="<?php echo $this->get_field_name( $option ); ?>" style="margin-left:5px"/>
 		<label for="<?php echo $this->get_field_id( $option ); ?>"><?php echo $label ?></label>
 		<br/>
 <?php } ?>

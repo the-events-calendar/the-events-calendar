@@ -7,23 +7,35 @@
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 ?>
+
 <script type="text/javascript">
 jQuery(document).ready(function($) {
 
-	function displayOptionsError() {
-		$.post('<?php bloginfo("wpurl"); ?>/wp-admin/admin-ajax.php', { action: 'getOptionsError' }, function(error) {
-		  $('#tec-options-error').append('<h3>Error</h3><p>' + error + '</p>')
-		});
-	}
-
-	// hide and show some defaults
+	// toggle view of the venue defaults fields
 	$('[name="eventsDefaultVenueID"]').change(function() {
-		if($(this).find('option:selected').val() != "0") {
+		updateVenueFields();
+	})
+	function updateVenueFields() {
+		if($('[name="eventsDefaultVenueID"]').find('option:selected').val() != "0") {
 			$('.venue-default-info').hide();
 		} else {
 			$('.venue-default-info').show();
-		}
+		}		
+	}
+	updateVenueFields();
+
+	// toggle view of the google maps size fields
+	$('#embedGoogleMaps').change(function() {
+		updateMapsFields();
 	})
+	function updateMapsFields() {
+		if($('#embedGoogleMaps').attr("checked")) {
+			$('#googleEmbedSize').show();
+		} else {
+			$('#googleEmbedSize').hide();			
+		}
+	}
+	updateMapsFields();
 });
 </script>
 <style type="text/css">
@@ -32,15 +44,12 @@ div.tribe_settings{
 }
 </style>
 <div class="tribe_settings wrap">
-<?php screen_icon(); ?><h2><?php printf( '%s Settings', $this->pluginName ); ?></h2>
+<?php screen_icon(); ?><h2><?php printf( __('%s Settings', self::PLUGIN_DOMAIN), $this->pluginName ); ?></h2>
 <div id="tec-options-error" class="tec-events-error error"></div>
-<?php
-	$hasDefaultVenue = tribe_get_option('eventsDefaultVenueID') && tribe_get_option('eventsDefaultVenueID') != "0";
-   $this->do_action( 'tribe_events_options_top' );
-?>
+<?php $this->do_action( 'tribe_events_options_top' ); ?>
 <div class="form">
 	<h3><?php _e('Need a hand?',self::PLUGIN_DOMAIN); ?></h3>
-	<p><?php printf( __( 'If you’re stuck on these options, please <a href="%s">check out the documentation</a>. Or, go to the <a href="%s">support forum</a>.', self::PLUGIN_DOMAIN ), trailingslashit($this->pluginUrl) . 'readme.txt', $this->supportUrl ); ?></p>
+	<p><?php printf( __( 'If you\'re stuck on these options, please <a href="%s">check out the documentation</a>. Or, go to the <a href="%s">support forum</a>.', self::PLUGIN_DOMAIN ), trailingslashit($this->pluginUrl) . 'readme.txt', $this->supportUrl ); ?></p>
 	<p><?php _e('Here is the iCal feed URL for your events: ' ,self::PLUGIN_DOMAIN); ?><code><?php echo tribe_get_ical_link(); ?></code></p>
 
 	<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
@@ -56,21 +65,11 @@ div.tribe_settings{
 	                    <span><?php _e('Default View for the Events',self::PLUGIN_DOMAIN); ?></span>
 	                </legend>
 	                <label title='Calendar'>
-	                    <?php 
-	                    $viewOptionValue = tribe_get_option('viewOption','month');
-							  $listViewStatus = ""; $gridViewStatus = "";
-							  
-	                    if( $viewOptionValue == 'upcoming' ) {
-	                        $listViewStatus = 'checked="checked"';
-	                    } else {
-	                        $gridViewStatus = 'checked="checked"';
-	                    }
-	                    ?>
-	                    <input type="radio" name="viewOption" value="month" <?php echo $gridViewStatus; ?> /> 
+	                    <input type="radio" name="viewOption" value="month" <?php checked( tribe_get_option('viewOption','month'), 'month' ); ?> /> 
 	                    <?php _e('Calendar',self::PLUGIN_DOMAIN); ?>
 	                </label><br />
 	                <label title='List View'>
-	                    <input type="radio" name="viewOption" value="upcoming" <?php echo $listViewStatus; ?> /> 
+	                    <input type="radio" name="viewOption" value="upcoming" <?php checked( tribe_get_option('viewOption','month'), 'upcoming' ); ?> /> 
 	                    <?php _e('Event List',self::PLUGIN_DOMAIN); ?>
 	                </label><br />
 	            </fieldset>
@@ -83,23 +82,9 @@ div.tribe_settings{
 	                <legend class="screen-reader-text">
 	                    <span><?php _e('Show Comments',self::PLUGIN_DOMAIN); ?></span>
 	                </legend>
-	                <label title='Yes'>
-	                    <?php 
-	                    $showCommentValue = tribe_get_option('showComments','no');
-							  $noCommentStatus = ""; $yesCommentStatus = "";
-	                    if( $showCommentValue == 'no' ) {
-	                        $noCommentStatus = 'checked="checked"';
-	                    } else {
-	                        $yesCommentStatus = 'checked="checked"';
-	                    }
-	                    ?>
-	                    <input type="radio" name="showComments" value="yes" <?php echo $yesCommentStatus; ?> /> 
-	                    <?php _e('Yes',self::PLUGIN_DOMAIN); ?>
-	                </label><br />
-	                <label title='Yes'>
-	                    <input type="radio" name="showComments" value="no" <?php echo $noCommentStatus; ?> /> 
-	                    <?php _e('No',self::PLUGIN_DOMAIN); ?>
-	                </label><br />
+	                <label title='<?php _e('Show Comments',self::PLUGIN_DOMAIN); ?>'>
+	                    <input type="checkbox" name="showComments" value="1" <?php checked( tribe_get_option('showComments') ) ?> />
+	                </label>
 	            </fieldset>
 	        </td>
 		</tr>
@@ -126,11 +111,7 @@ div.tribe_settings{
 						<?php _e('For multi-day events, hide the last day from grid view if it ends on or before this time.',self::PLUGIN_DOMAIN); ?> 
 					</div>				  
 	        </td>
-		</tr>		
-			<?php 
-			$embedGoogleMapsValue = tribe_get_option('embedGoogleMaps','off');                 
-	        ?>
-
+		</tr>
 		<tr>
 			<th scope="row"><?php _e('Embed Google Maps',self::PLUGIN_DOMAIN); ?></th>
 	        <td>
@@ -138,28 +119,12 @@ div.tribe_settings{
 	                <legend class="screen-reader-text">
 	                    <span><?php _e('Embed Google Maps',self::PLUGIN_DOMAIN); ?></span>
 	                </legend>
-	                <label title='Yes'>
-	                    <?php 
-	                    $embedGoogleMapsValue = tribe_get_option('embedGoogleMaps','off'); 
-								$embedGoogleMapsHeightValue = tribe_get_option('embedGoogleMapsHeight','350');
-								$embedGoogleMapsWidthValue = tribe_get_option('embedGoogleMapsWidth','100%');
-								$embedGoogleMapsOnStatus = ""; $embedGoogleMapsOffStatus = "";
-	                    if( $embedGoogleMapsValue == 'on' ) {
-	                        $embedGoogleMapsOnStatus = 'checked="checked"';
-	                    } else {
-	                        $embedGoogleMapsOffStatus = 'checked="checked"';
-	                    }
-	                    ?>
-	                    <input type="radio" name="embedGoogleMaps" value="off" <?php echo $embedGoogleMapsOffStatus; ?> onClick="hidestuff('googleEmbedSize');" /> 
-	                    <?php _e('Off',self::PLUGIN_DOMAIN); ?>
-	                </label> 
-	                <label title='List View'>
-	                    <input type="radio" name="embedGoogleMaps" value="on" <?php echo $embedGoogleMapsOnStatus; ?> onClick="showstuff('googleEmbedSize');" /> 
-	                    <?php _e('On',self::PLUGIN_DOMAIN); ?>
+	                <label title='Embed Google Maps'>
+						<input type="checkbox" id="embedGoogleMaps" name="embedGoogleMaps" value="1" <?php checked( tribe_get_option('embedGoogleMaps') ); ?>/>
 	                </label>
 					<span id="googleEmbedSize" name="googleEmbedSize" style="margin-left:20px;" >
-						<?php _e('Height',self::PLUGIN_DOMAIN); ?> <input type="text" name="embedGoogleMapsHeight" value="<?php echo $embedGoogleMapsHeightValue ?>" size=4>
-						&nbsp;<?php _e('Width',self::PLUGIN_DOMAIN); ?> <input type="text" name="embedGoogleMapsWidth" value="<?php echo $embedGoogleMapsWidthValue ?>" size=4> <?php _e('(number or %)', self::PLUGIN_DOMAIN); ?>
+						<?php _e('Height',self::PLUGIN_DOMAIN); ?> <input type="text" name="embedGoogleMapsHeight" value="<?php echo tribe_get_option('embedGoogleMapsHeight','350'); ?>" size=4>
+						&nbsp;<?php _e('Width',self::PLUGIN_DOMAIN); ?> <input type="text" name="embedGoogleMapsWidth" value="<?php echo tribe_get_option('embedGoogleMapsWidth','100%'); ?>" size=4> <?php _e('(number or %)', self::PLUGIN_DOMAIN); ?>
 					</span>
 	<br />
 	            </fieldset>
@@ -174,16 +139,8 @@ div.tribe_settings{
 		                <legend class="screen-reader-text">
 		                    <span><?php _e('Use Pretty URLs',self::PLUGIN_DOMAIN); ?></span>
 		                </legend>
-		                <label title='Yes'>
-		                    <?php 
-		                    $useRewriteRules = tribe_get_option('useRewriteRules','on'); 
-		                    ?>
-		                    <input type="radio" name="useRewriteRules" value="off" <?php checked($useRewriteRules, 'off'); ?>  /> 
-		                    <?php _e('Off',self::PLUGIN_DOMAIN); ?>
-		                </label> 
-		                <label title='List View'>
-	                    <input type="radio" name="useRewriteRules" value="on" <?php checked($useRewriteRules, 'on'); ?>  /> 
-		                    <?php _e('On',self::PLUGIN_DOMAIN); ?>
+		                <label title='Use Rewrite Rules'>
+		                    <input type="checkbox" name="useRewriteRules" value="1" <?php checked( tribe_get_option('useRewriteRules') ); ?>  />
 		                </label>
 						<div>
 							<?php _e('Although unlikely, pretty URLs (ie, http://site/events/upcoming) may interfere with custom themes or plugins.',self::PLUGIN_DOMAIN); ?> 
@@ -211,8 +168,8 @@ div.tribe_settings{
 				<th scope="row"><?php _e('Debug', self::PLUGIN_DOMAIN ); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Debug', self::PLUGIN_DOMAIN ); ?></legend>
-					<label><input type="checkbox" name="spEventsDebug" value="on" <?php checked(tribe_get_option('spEventsDebug'), 'on' ) ?> /> <?php _e('Debug Events display issues.', self::PLUGIN_DOMAIN ) ?></label>
-					<div><?php _e('If you’re experiencing issues with posts not showing up in the admin, enable this option and then ensure that all of your posts have the correct start and end dates.', self::PLUGIN_DOMAIN) ?></div>
+					<label><input type="checkbox" name="debugEvents" value="1" <?php checked( tribe_get_option('debugEvents') ) ?> /> <?php _e('Debug Events display issues.', self::PLUGIN_DOMAIN ) ?></label>
+					<div><?php _e('If you\'re experiencing issues with posts not showing up in the admin, enable this option and then ensure that all of your posts have the correct start and end dates.', self::PLUGIN_DOMAIN) ?></div>
 				</fieldset></td>
 			</tr>
 </table>
@@ -259,23 +216,10 @@ div.tribe_settings{
 	                <legend class="screen-reader-text">
 	                    <span><?php _e('Automatically replace empty fields with default values',self::PLUGIN_DOMAIN); ?></span>
 	                </legend>
-	                <label title='Enable'>
-	                    <?php 
-	                    $defaultValueReplace = tribe_get_option('defaultValueReplace','0');
-							  $defaultValueReplaceEnabled = ""; $defaultValueReplaceDisabled = "";
-	                    if( $defaultValueReplace == 1 ) {
-	                        $defaultValueReplaceEnabled = 'checked="checked"';
-	                    } else {
-	                        $defaultValueReplaceDisabled = 'checked="checked"';
-	                    }
-	                    ?>
-	                    <input type="radio" name="defaultValueReplace" value="1" <?php echo $defaultValueReplaceEnabled; ?> /> 
+	                <label title='Replace empty fields'>
+	                    <input type="checkbox" name="defaultValueReplace" value="1" <?php checked( tribe_get_option('defaultValueReplace') ); ?> /> 
 	                    <?php _e('Enabled',self::PLUGIN_DOMAIN); ?>
-	                </label><br />
-	                <label title='Disable'>
-	                    <input type="radio" name="defaultValueReplace" value="0" <?php echo $defaultValueReplaceDisabled; ?> /> 
-	                    <?php _e('Disabled',self::PLUGIN_DOMAIN); ?>
-	                </label><br />
+	                </label>
 	            </fieldset>
 	        </td>
 		</tr>
@@ -295,14 +239,14 @@ div.tribe_settings{
 					<label><?php $this->saved_venues_dropdown(tribe_get_option('eventsDefaultVenueID'),'eventsDefaultVenueID');?><?php _e('The default venue value', self::PLUGIN_DOMAIN ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', self::PLUGIN_DOMAIN ), tribe_get_option('eventsDefaultVenueID') )  ?>
 				</fieldset></td>
 			</tr>
-			<tr class="venue-default-info<?php echo $hasDefaultVenue ? " tec_hide" : "" ?>">
+			<tr class="venue-default-info">
 				<th scope="row"><?php _e('Default Address', self::PLUGIN_DOMAIN); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Address', self::PLUGIN_DOMAIN ); ?></legend>
 					<label><input type="text" name="eventsDefaultAddress" value="<?php echo tribe_get_option('eventsDefaultAddress') ?>" /> <?php _e('The default address value', self::PLUGIN_DOMAIN ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', self::PLUGIN_DOMAIN ), tribe_get_option('eventsDefaultAddress') )  ?>
 				</fieldset></td>
 			</tr>
-			<tr class="venue-default-info<?php echo $hasDefaultVenue ? " tec_hide" : "" ?>">
+			<tr class="venue-default-info">
 				<th scope="row"><?php _e('Default City', self::PLUGIN_DOMAIN); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default City', self::PLUGIN_DOMAIN ); ?></legend>
@@ -310,7 +254,7 @@ div.tribe_settings{
 				</fieldset></td>
 			</tr>
 
-			<tr class="venue-default-info<?php echo $hasDefaultVenue ? " tec_hide" : "" ?>">
+			<tr class="venue-default-info">
 				<th scope="row"><?php _e('Default State', self::PLUGIN_DOMAIN); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Province or State', self::PLUGIN_DOMAIN ); ?></legend>
@@ -331,7 +275,7 @@ div.tribe_settings{
 				</fieldset></td>
 			</tr>
 
-			<tr class="venue-default-info<?php echo $hasDefaultVenue ? " tec_hide" : "" ?>">
+			<tr class="venue-default-info">
 				<th scope="row"><?php _e('Default Province', self::PLUGIN_DOMAIN); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Province or State', self::PLUGIN_DOMAIN ); ?></legend>
@@ -339,7 +283,7 @@ div.tribe_settings{
 				</fieldset></td>
 			</tr>
 
-			<tr class="venue-default-info<?php echo $hasDefaultVenue ? " tec_hide" : "" ?>">
+			<tr class="venue-default-info">
 				<th scope="row"><?php _e('Default Postal Code', self::PLUGIN_DOMAIN); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Postal Code', self::PLUGIN_DOMAIN ); ?></legend>
@@ -347,7 +291,7 @@ div.tribe_settings{
 				</fieldset></td>
 			</tr>
 
-			<tr class="venue-default-info<?php echo $hasDefaultVenue ? " tec_hide" : "" ?>">
+			<tr class="venue-default-info">
 			<th scope="row"><?php _e('Default Country for Events',self::PLUGIN_DOMAIN); ?></th>
 				<td>
 					<select name="defaultCountry" id="defaultCountry">
@@ -365,7 +309,7 @@ div.tribe_settings{
 					</select>
 				</td>
 			</tr>
-			<tr class="venue-default-info<?php echo $hasDefaultVenue ? " tec_hide" : "" ?>">
+			<tr class="venue-default-info">
 				<th scope="row"><?php _e('Default Phone', self::PLUGIN_DOMAIN); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Phone', self::PLUGIN_DOMAIN ); ?></legend>
@@ -392,18 +336,5 @@ div.tribe_settings{
 </form>
 
 <?php $this->do_action( 'tribe_events_options_post_form' ); ?>
-
-<script>
-function showstuff(boxid){
-   document.getElementById(boxid).style.visibility="visible";
-}
-
-function hidestuff(boxid){
-   document.getElementById(boxid).style.visibility="hidden";
-}
-<?php if( $embedGoogleMapsValue == 'off' ) { ?>
-hidestuff('googleEmbedSize');
-<?php }; ?>
-</script>
 </div>
 </div>

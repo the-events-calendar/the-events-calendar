@@ -10,15 +10,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 	class TribeEvents {
 		const EVENTSERROROPT = '_tec_events_errors';
-		const CATEGORYNAME = 'Events'; // legacy category
 		const OPTIONNAME = 'sp_events_calendar_options';
-		const POSTTYPE = 'sp_events';
 		const TAXONOMY = 'sp_events_cat';
-
+		const POSTTYPE = 'sp_events';
 		const VENUE_POST_TYPE = 'sp_venue';
-		const VENUE_TITLE = 'Venue';
 		const ORGANIZER_POST_TYPE = 'sp_organizer';
-		const ORGANIZER_TITLE = 'Organizer';
 		const PLUGIN_DOMAIN = 'tribe-events-calendar';
 		const VERSION = '2.0';
 
@@ -184,7 +180,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		private function addActions() {
 			add_action( 'init', array( $this, 'init'), 10 );
 			add_action( 'template_redirect', array( $this, 'loadStyle' ) );
-			add_action( 'tribe-events-save-more-options', array( $this, 'flushRewriteRules' ) );
 			add_action( 'admin_menu', array( $this, 'addOptionsPage' ) );
 			add_action( 'admin_init', array( $this, 'saveSettings' ) );
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
@@ -199,9 +194,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
 			add_action( 'the_post', array( $this, 'setReccuringEventDates' ) );
 	
-			if ( is_admin() && !$this->getOption('spEventsDebug', false) ) {
+			if ( is_admin() && !$this->getOption('debugEvents', false) ) {
 				add_action('admin_footer', array($this, 'removeMenuItems'));
-			} else if ( $this->getOption('spEventsDebug', false) ) {
+			} else if ( $this->getOption('debugEvents', false) ) {
 				$this->addDebugColumns();
 				add_action('admin_footer', array($this, 'debugInfo'));
 			}			
@@ -343,7 +338,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					}
 				}
 		
-				if( '' == get_option('permalink_structure') || 'off' == $this->getOption('useRewriteRules','on') ) {
+				if( '' == get_option('permalink_structure') || false == $this->getOption('useRewriteRules',true) ) {
 					return add_query_arg('eventDate', TribeDateUtils::dateOnly( $post->EventStartDate ), $permalink ); 					
 				} else {
 					return trailingslashit($permalink) . TribeDateUtils::dateOnly( $post->EventStartDate );
@@ -726,7 +721,36 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$_POST['eventsSlug'] = 'events';
 				}
 		
-				$opts = array('embedGoogleMaps', 'showComments', 'displayEventsOnHomepage', 'resetEventPostDate', 'useRewriteRules', 'spEventsDebug', 'eventsSlug', 'singleEventSlug','spEventsAfterHTML','spEventsBeforeHTML','spEventsCountries','defaultValueReplace','eventsDefaultVenueID', 'eventsDefaultOrganizerID', 'eventsDefaultState','eventsDefaultProvince','eventsDefaultAddress','eventsDefaultCity','eventsDefaultZip','eventsDefaultPhone','multiDayCutoff', 'spEventsTemplate');
+				$boolean_opts = array(
+					'embedGoogleMaps',
+					'showComments',
+					'displayEventsOnHomepage',
+					'useRewriteRules',
+					'debugEvents',
+				);
+				foreach ($boolean_opts as $opt) {					
+					$options[$opt] = (isset($_POST[$opt])) ? true : false;
+				}
+				
+				$opts = array( 
+					'resetEventPostDate',
+					'eventsSlug',
+					'singleEventSlug',
+					'spEventsAfterHTML',
+					'spEventsBeforeHTML',
+					'spEventsCountries',
+					'defaultValueReplace',
+					'eventsDefaultVenueID',
+					'eventsDefaultOrganizerID',
+					'eventsDefaultState',
+					'eventsDefaultProvince',
+					'eventsDefaultAddress',
+					'eventsDefaultCity',
+					'eventsDefaultZip',
+					'eventsDefaultPhone',
+					'multiDayCutoff',
+					'spEventsTemplate'
+				);
 				foreach ($opts as $opt) {
 					if(isset($_POST[$opt]))
 						$options[$opt] = $_POST[$opt];
@@ -738,24 +762,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$slug = str_replace('/',' ',$slug);
 				$options['eventsSlug'] = $slug;
 				$this->rewriteSlug = $slug;
-		
-		
-				if ( $options['useRewriteRules'] == 'on' || isset( $options['eventsSlug']) ) {
-					$this->flushRewriteRules();
-				}
 
-				if( !isset($_POST['spEventsDebug']) ) {
-					$options['spEventsDebug'] = "";
-				}
-
-				try {
-					$options = apply_filters( 'tribe-events-options', $options );		
-					do_action( 'tribe-events-save-more-options' );
-					if ( !$this->optionsExceptionThrown ) $options['error'] = "";
-				} catch( TribeEventsOptionsException $e ) {
-					$this->optionsExceptionThrown = true;
-					$options['error'] .= $e->getMessage();
-				}
 				$this->setOptions($options);
 			} // end if
 		}
@@ -806,8 +813,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if (!is_array($options)) {
 				return;
 			}
+			$options = apply_filters( 'tribe-events-save-options', $options );		
 			if ( update_option( TribeEvents::OPTIONNAME, $options ) ) {
 				$this->options = apply_filters( 'tribe_get_options', $options );
+				if ( $this->options['useRewriteRules'] == true || $this->options['eventsSlug'] != '' ) {
+					$this->flushRewriteRules();
+				}
 			} else {
 				$this->options = $this->getOptions();
 			}
@@ -969,14 +980,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Gets the Category id to use for an Event
-		 * Deprecated, but keeping in for legacy users for now.
-		 * @return int|false Category id to use or false is none is set
-		 */
-			static function eventCategory() {
-			return get_cat_id( TribeEvents::CATEGORYNAME );
-			}
-		/**
 		 * Flush rewrite rules to support custom links
 		 *
 		 * @link http://codex.wordpress.org/Custom_Queries#Permalinks_for_Custom_Archives
@@ -1014,7 +1017,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function filterRewriteRules( $wp_rewrite ) {
-			if ( '' == get_option('permalink_structure') || 'off' == $this->getOption('useRewriteRules','on') ) {
+			if ( '' == get_option('permalink_structure') || false == $this->getOption('useRewriteRules',true) ) {
 		
 			}
 
@@ -1072,7 +1075,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function getLink( $type = 'home', $secondary = false, $term = null ) {
 			// if permalinks are off or user doesn't want them: ugly.
-			if( '' == get_option('permalink_structure') || 'off' == $this->getOption('useRewriteRules','on') ) {
+			if( '' == get_option('permalink_structure') || false == $this->getOption('useRewriteRules',true) ) {
 				return $this->uglyLink($type, $secondary);
 			}
 

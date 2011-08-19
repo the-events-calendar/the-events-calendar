@@ -41,7 +41,7 @@ if (!class_exists('TribeEventsImport')) {
 				<form id="sp-upgrade" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 					<?php wp_nonce_field('upgradeEventsCalendar') ?>
 					<h4><?php _e('Upgrade from The Events Calendar', TribeEvents::PLUGIN_DOMAIN ); ?></h4>
-					<p><?php _e('We built a vibrant community around our free <a href="http://wordpress.org/extend/plugins/the-events-calendar/" target="_blank">The Events Calendar</a> plugin. If you used the free version and are now using our premium version, thanks, we’re glad to have you here!', TribeEvents::PLUGIN_DOMAIN ) ?></p>
+					<p><?php _e('We built a vibrant community around our free <a href="http://wordpress.org/extend/plugins/the-events-calendar/" target="_blank">The Events Calendar</a> plugin. If you used the free version and are now using our premium version, thanks, we\'re glad to have you here!', TribeEvents::PLUGIN_DOMAIN ) ?></p>
 					<?php echo $old_events_copy; ?>
 					<input type="submit" value="Migrate Data!" class="button-secondary" name="upgradeEventsCalendar" />
 				</form>	
@@ -52,13 +52,26 @@ if (!class_exists('TribeEventsImport')) {
 		/**
 		 * Will upgrade data from old free plugin to pro plugin
 		 */
-		public static function upgradeData() {
+		public static function upgradeData() {			
 			if ( isset($_POST['upgradeEventsCalendar']) && check_admin_referer('upgradeEventsCalendar') ) {
-
+				
+				/*
+				
+				TODO: migrate the following:
+				
+				* option "sp_events_calendar_options" needs to be renamed as TribeEvents::OPTIONNAME
+				* posts of type "sp_events" need to be moved to TribeEvents::POSTTYPE
+				* posts of type "sp_venue" need to be moved to TribeEvents::VENUE_POST_TYPE
+				* posts of type "sp_organizer" need to be moved to TribeEvents::ORGANIZER_POST_TYPE
+				* categories of type "sp_events_cat" need to be moved to TribeEvents::TAXONOMY
+				* options that saved using on/enabled/yes need to be set to true and off/disabled/no being false
+			
+				*/
+				
 				$posts = self::getLegacyEvents();
 
 				// we don't want the old event category
-				$eventCat = get_term_by('name', TribeEvents::CATEGORYNAME, 'category' );
+				$eventCat = get_term_by('name', 'Events', 'category' );
 				// existing event cats
 				$existingEventCats = (array) get_terms(TribeEvents::TAXONOMY, array('fields' => 'names'));
 				// store potential new event cats;
@@ -151,11 +164,12 @@ if (!class_exists('TribeEventsImport')) {
 		 * @return query of posts
 		 */
 		private static function getLegacyEvents( $number = -1 ) {
+			// TODO: needs to account for either v1 posts or v2 'sp_events'
 			$query = new WP_Query( array(
 				'post_status' => 'any',
 				'posts_per_page' => $number,
 				'meta_key' => '_EventStartDate',
-				'category_name' => TribeEvents::CATEGORYNAME
+				'category_name' => 'Events'
 			));
 			return $query->posts;
 		}

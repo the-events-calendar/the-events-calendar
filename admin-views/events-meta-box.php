@@ -101,7 +101,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 					<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="EventShowMapLink" size="6" value="true" <?php if( $tecNewPost || get_post_meta( $postId, '_EventShowMapLink', true ) == 'true' ) echo 'checked="checked"'?> />
 				</td>
 			</tr>
-			<?php if( tribe_get_option('embedGoogleMaps') == 'on' ) : ?>
+			<?php if( tribe_get_option('embedGoogleMaps') ) : ?>
 				<tr id="google_map_toggle">
 					<td><?php _e('Show Google Map:',self::PLUGIN_DOMAIN); ?></td>
 					<td><input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="EventShowMap" size="6" value="true" <?php if( $tecNewPost || get_post_meta( $postId, '_EventShowMap', true ) == 'true' ) echo 'checked="checked"'; ?> /></td>
@@ -109,7 +109,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<?php endif; ?>
 		</table>
 	</div>
-	<?php if( tribe_get_option('embedGoogleMaps') == 'on'): ?>
+	<?php if( tribe_get_option('embedGoogleMaps') ): ?>
 		<div style="float:right; display: <?php echo $tecNewPost || get_post_meta( $postId, '_EventShowMap', true) == 'true' ? "block" : "none" ?>">
 			<?php echo tribe_get_embedded_map($postId, 200, 200, true) ?>
 		</div>
