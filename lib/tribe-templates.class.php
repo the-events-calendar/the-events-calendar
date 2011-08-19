@@ -7,8 +7,8 @@
 if ( !defined('ABSPATH') )
 	die('-1');
 
-if (!class_exists('Tribe_ECP_Templates')) {
-	class Tribe_ECP_Templates {
+if (!class_exists('TribeEventsTemplates')) {
+	class TribeEventsTemplates {
 		public static $origPostCount;
 		public static $origCurrentPost;
 		public static $throughHead = false;
@@ -48,9 +48,9 @@ if (!class_exists('Tribe_ECP_Templates')) {
 			//echo  tribe_get_option('spEventsTemplate', ''); die();
 			if( tribe_get_option('spEventsTemplate', '') == '' ) {
 				if(is_single() && !tribe_is_showing_all() ) {
-					return Tribe_ECP_Templates::getTemplateHierarchy('ecp-single-template');
+					return TribeEventsTemplates::getTemplateHierarchy('ecp-single-template');
 				} else {
-					return Tribe_ECP_Templates::getTemplateHierarchy('ecp-page-template');
+					return TribeEventsTemplates::getTemplateHierarchy('ecp-page-template');
 				}
 			} else {
 				// we need to ensure that we always enter the loop, whether or not there are any events in the actual query
@@ -85,27 +85,27 @@ if (!class_exists('Tribe_ECP_Templates')) {
 		// get the correct internal page template
 		public static function get_current_page_template() {
 	      if ( is_singular( TribeEvents::VENUE_POST_TYPE ) ) {
-	         return Tribe_ECP_Templates::getTemplateHierarchy('single-venue');
+	         return TribeEventsTemplates::getTemplateHierarchy('single-venue');
 	      }
 
 			if ( is_tax( TribeEvents::TAXONOMY) ) {
 				if ( tribe_is_upcoming() || tribe_is_past() )
-					return Tribe_ECP_Templates::getTemplateHierarchy('list');
+					return TribeEventsTemplates::getTemplateHierarchy('list');
 				else
-					return Tribe_ECP_Templates::getTemplateHierarchy('gridview');
+					return TribeEventsTemplates::getTemplateHierarchy('gridview');
 			}
 			// single event
 			if ( is_single() && !tribe_is_showing_all() ) {
-				return Tribe_ECP_Templates::getTemplateHierarchy('single');
+				return TribeEventsTemplates::getTemplateHierarchy('single');
 			}
 			// list view
 			elseif ( tribe_is_upcoming() || tribe_is_past() || (is_single() && tribe_is_showing_all()) ) {
-				return Tribe_ECP_Templates::getTemplateHierarchy('list');
+				return TribeEventsTemplates::getTemplateHierarchy('list');
 			}
 			// grid view
 			else 
 			{
-				return Tribe_ECP_Templates::getTemplateHierarchy('gridview');
+				return TribeEventsTemplates::getTemplateHierarchy('gridview');
 			}
 		}
 
@@ -119,7 +119,7 @@ if (!class_exists('Tribe_ECP_Templates')) {
 		
 			ob_start();
 			echo stripslashes(tribe_get_option('spEventsBeforeHTML'));
-			include Tribe_ECP_Templates::get_current_page_template();
+			include TribeEventsTemplates::get_current_page_template();
 			echo stripslashes(tribe_get_option('spEventsAfterHTML'));				
 			$contents = ob_get_contents();
 			ob_end_clean();
@@ -176,8 +176,8 @@ if (!class_exists('Tribe_ECP_Templates')) {
 	
 		private static function spoofQuery() {
 			global $wp_query, $withcomments;
-			Tribe_ECP_Templates::$origPostCount = $wp_query->post_count;
-			Tribe_ECP_Templates::$origCurrentPost =  $wp_query->current_post;
+			TribeEventsTemplates::$origPostCount = $wp_query->post_count;
+			TribeEventsTemplates::$origCurrentPost =  $wp_query->current_post;
 			$wp_query->current_post = -1;
 			$wp_query->post_count = 2;		
 			$wp_query->is_page = true; // don't show comments
@@ -196,12 +196,12 @@ if (!class_exists('Tribe_ECP_Templates')) {
 		private static function restoreQuery() {
 			global $wp_query;
 			remove_filter('the_title', array(__CLASS__, 'load_ecp_title_into_page_template') );			
-			$wp_query->current_post = Tribe_ECP_Templates::$origCurrentPost;
-			$wp_query->post_count = Tribe_ECP_Templates::$origPostCount;
+			$wp_query->current_post = TribeEventsTemplates::$origCurrentPost;
+			$wp_query->post_count = TribeEventsTemplates::$origPostCount;
 			$wp_query->rewind_posts();
 		}
 	}
 
-	Tribe_ECP_Templates::init();
+	TribeEventsTemplates::init();
 }
 ?>

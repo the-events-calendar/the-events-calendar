@@ -33,7 +33,7 @@ if( !class_exists( 'Events_Featured_Widget') ) {
 				$old_display = $wp_query->get('eventDisplay');
 				$wp_query->set('eventDisplay', 'upcoming');
 				$posts = tribe_get_events( 'numResults=1&eventCat=' . $category );				
-				$template = Tribe_ECP_Templates::getTemplateHierarchy('widget-featured-display');
+				$template = TribeEventsTemplates::getTemplateHierarchy('widget-featured-display');
 			}
 			
 			// if no posts, and the don't show if no posts checked, let's bail

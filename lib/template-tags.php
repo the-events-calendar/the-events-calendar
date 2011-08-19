@@ -23,7 +23,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	function tribe_calendar_grid()  {
 		$tribe_ecp = TribeEvents::instance();
 		set_query_var( 'eventDisplay', 'bydate' );
-		load_template( Tribe_ECP_Templates::getTemplateHierarchy('table') );
+		load_template( TribeEventsTemplates::getTemplateHierarchy('table') );
 	}
 	/**
 	 * Output: Prints the mini gridded calendar table
@@ -37,7 +37,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 
 		$wp_query = NEW WP_Query('post_type=sp_events');
 		set_query_var( 'eventDisplay', 'bydate' );
-		load_template( Tribe_ECP_Templates::getTemplateHierarchy('table-mini') );
+		load_template( TribeEventsTemplates::getTemplateHierarchy('table-mini') );
 	
 		$wp_query = $old_query;
 	}
@@ -905,7 +905,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 		
 	function tribe_get_current_template() {
-		return Tribe_ECP_Templates::get_current_page_template();
+		return TribeEventsTemplates::get_current_page_template();
 	}
 	
 	
