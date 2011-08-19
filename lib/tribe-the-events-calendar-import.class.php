@@ -6,8 +6,19 @@
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-if (!class_exists('Tribe_The_Events_Calendar_Import')) {
-	class Tribe_The_Events_Calendar_Import {
+if (!class_exists('TribeEventsImport')) {
+	class TribeEventsImport {
+
+		/* Static Singleton Factory Method */
+		private static $instance;
+		public static function instance() {
+			if (!isset(self::$instance)) {
+				$className = __CLASS__;
+				self::$instance = new $className;
+			}
+			return self::$instance;
+		}
+		
 		public static $curVenues = array();
 		public static $legacyVenueTags = array(
 			'_EventVenue',
@@ -16,61 +27,94 @@ if (!class_exists('Tribe_The_Events_Calendar_Import')) {
 			'_EventCity',
 			'_EventZip',
 			'_EventPhone',
-		);	
-		/**
-		 * Will upgrade data from old free plugin to new plugin
-		 *
-		 */
-		public static function upgradeData() {
-			$posts = self::getLegacyEvents();
+		);
+		
+		private function __construct( ) {
+			add_action( 'admin_init', array( $this, 'upgradeData' ) );
+			add_action( 'tribe_events_options_post_form', array( $this, 'adminForm' ) );
+		}
+		
+		public function adminForm() {
+			if ( self::hasLegacyEvents() ) {
+				$old_events_copy = '<p class="message">' . sprintf( __('It looks like you have %s events in the category "%s". Click below to import!', TribeEvents::PLUGIN_DOMAIN ), $old_events, self::CATEGORYNAME ) . '</p>'; ?>
 
-			// we don't want the old event category
-			$eventCat = get_term_by('name', TribeEvents::CATEGORYNAME, 'category' );
-			// existing event cats
-			$existingEventCats = (array) get_terms(TribeEvents::TAXONOMY, array('fields' => 'names'));
-			// store potential new event cats;
-			$newEventCats = array();
-
-			// first create log needed new event categories
-			foreach ($posts as $key => $post) {
-				// we don't want the old Events category
-				$cats = self::removeEventCat( get_the_category($post->ID), $eventCat );
-				// see what new ones we need
-				$newEventCats = self::mergeCatList( $cats, $newEventCats );
-				// store on the $post to keep from re-querying
-				$posts[$key]->cats = self::getCatNames( $cats );
-			}
-			// dedupe
-			$newEventCats = array_unique($newEventCats);
-
-			// let's create new events cats
-			foreach ( $newEventCats as $cat ) {
-				// leave alone existing ones
-				if ( in_array( $cat, $existingEventCats ) )
-					continue;
-
-				// make 'em!
-				wp_insert_term( $cat, TribeEvents::TAXONOMY );
-			}
-			// now we know what we're in for
-			$masterCats = get_terms( TribeEvents::TAXONOMY, array('hide_empty'=>false) );
-
-			// let's convert those posts
-			foreach ( $posts as $post ) {
-				// new post_type sir
-				set_post_type( $post->ID, TribeEvents::POSTTYPE );
-				// set new events cats. we stored the array above, remember?
-				if ( ! empty($post->cats) )
-					wp_set_object_terms( $post->ID, $post->cats, TribeEvents::TAXONOMY );
-
-				self::convertVenue($post);
+				<form id="sp-upgrade" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+					<?php wp_nonce_field('upgradeEventsCalendar') ?>
+					<h4><?php _e('Upgrade from The Events Calendar', TribeEvents::PLUGIN_DOMAIN ); ?></h4>
+					<p><?php _e('We built a vibrant community around our free <a href="http://wordpress.org/extend/plugins/the-events-calendar/" target="_blank">The Events Calendar</a> plugin. If you used the free version and are now using our premium version, thanks, we’re glad to have you here!', TribeEvents::PLUGIN_DOMAIN ) ?></p>
+					<?php echo $old_events_copy; ?>
+					<input type="submit" value="Migrate Data!" class="button-secondary" name="upgradeEventsCalendar" />
+				</form>	
+				<?php 
 			}
 		}
-	
+		
+		/**
+		 * Will upgrade data from old free plugin to pro plugin
+		 */
+		public static function upgradeData() {
+			if ( isset($_POST['upgradeEventsCalendar']) && check_admin_referer('upgradeEventsCalendar') ) {
+
+				$posts = self::getLegacyEvents();
+
+				// we don't want the old event category
+				$eventCat = get_term_by('name', TribeEvents::CATEGORYNAME, 'category' );
+				// existing event cats
+				$existingEventCats = (array) get_terms(TribeEvents::TAXONOMY, array('fields' => 'names'));
+				// store potential new event cats;
+				$newEventCats = array();
+
+				// first create log needed new event categories
+				foreach ($posts as $key => $post) {
+					// we don't want the old Events category
+					$cats = self::removeEventCat( get_the_category($post->ID), $eventCat );
+					// see what new ones we need
+					$newEventCats = self::mergeCatList( $cats, $newEventCats );
+					// store on the $post to keep from re-querying
+					$posts[$key]->cats = self::getCatNames( $cats );
+				}
+				// dedupe
+				$newEventCats = array_unique($newEventCats);
+
+				// let's create new events cats
+				foreach ( $newEventCats as $cat ) {
+					// leave alone existing ones
+					if ( in_array( $cat, $existingEventCats ) )
+						continue;
+
+					// make 'em!
+					wp_insert_term( $cat, TribeEvents::TAXONOMY );
+				}
+				// now we know what we're in for
+				$masterCats = get_terms( TribeEvents::TAXONOMY, array('hide_empty'=>false) );
+
+				// let's convert those posts
+				foreach ( $posts as $post ) {
+					// new post_type sir
+					set_post_type( $post->ID, TribeEvents::POSTTYPE );
+					// set new events cats. we stored the array above, remember?
+					if ( ! empty($post->cats) )
+						wp_set_object_terms( $post->ID, $post->cats, TribeEvents::TAXONOMY );
+
+					self::convertVenue($post);
+				}
+			}
+		}
+
+		/**
+		 * Test for legacy events
+		 *
+		 * @return boolean for legacy events
+		 */
 		public static function hasLegacyEvents() {
 			return count( self::getLegacyEvents( 1 ) );
 		}
-	
+
+		/**
+		 * Convert Venue data
+		 *
+		 * @param string $post 
+		 */
 		private static function convertVenue($post) {
 			$venue = array();
 		
@@ -99,8 +143,13 @@ if (!class_exists('Tribe_The_Events_Calendar_Import')) {
 				update_post_meta($post->ID, '_EventVenueID', self::$curVenues[$unique_venue]);
 			}
 		}
-	
 
+		/**
+		 * Search for legacy events
+		 *
+		 * @param int $number max event count to look up
+		 * @return query of posts
+		 */
 		private static function getLegacyEvents( $number = -1 ) {
 			$query = new WP_Query( array(
 				'post_status' => 'any',
@@ -111,7 +160,12 @@ if (!class_exists('Tribe_The_Events_Calendar_Import')) {
 			return $query->posts;
 		}
 
-
+		/**
+		 * Get category names
+		 *
+		 * @param array $cats array of category objects
+		 * @return array of category names
+		 */
 		private static function getCatNames( $cats ) {
 			foreach ( $cats as $cat ) {
 				$r[] = $cat->name;
@@ -119,11 +173,23 @@ if (!class_exists('Tribe_The_Events_Calendar_Import')) {
 			return $r;
 		}
 
+		/**
+		 * Merge lists of category names
+		 *
+		 * @return array of merged category names
+		 */
 		private static function mergeCatList ( $new, $old ) {
 			$r = (array) self::getCatNames( $new );
 			return array_merge( $r, $old );
 		}
 
+		/**
+		 * Remove event category names
+		 *
+		 * @param array $cats category names
+		 * @param object $removeCat category object to remove from array of categories
+		 * @return array of category names
+		 */
 		private static function removeEventCat( $cats, $removeCat ) {
 
 			foreach ( $cats as $k => $cat ) {
@@ -134,5 +200,7 @@ if (!class_exists('Tribe_The_Events_Calendar_Import')) {
 			return $cats;
 		}		
 	}
+
+	TribeEventsImport::instance();
 }
 ?>

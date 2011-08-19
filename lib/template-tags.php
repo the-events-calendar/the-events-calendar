@@ -7,6 +7,7 @@
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
+	
 	/**
 	 * retrieve specific key from options array, optionally provide a default return value
 	 */

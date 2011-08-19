@@ -10,8 +10,6 @@ if( !class_exists( 'Events_Calendar_Widget') ) {
 
 	class Events_Calendar_Widget extends WP_Widget {
 		
-		public $pluginDomain = 'tribe-events-calendar';
-
 		function Events_Calendar_Widget() {
 			$widget_ops = array('classname' => 'events_calendar_widget', 'description' => __( 'A calendar of your events') );
 			$this->WP_Widget('calendar', __('Events Calendar'), $widget_ops);

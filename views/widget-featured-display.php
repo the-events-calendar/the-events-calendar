@@ -45,7 +45,7 @@ ob_end_clean();
 		echo tribe_get_start_date( $post->ID, $start ); 
 
 		if($event->AllDay && $start)
-			echo ' <small>('.__('All Day',$this->pluginDomain).')</small>';
+			echo ' <small>('.__('All Day',self::PLUGIN_DOMAIN).')</small>';
 	?> 
 </div>
 <div class="loc">

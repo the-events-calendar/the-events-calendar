@@ -39,21 +39,21 @@ div.tribe_settings{
    $this->do_action( 'tribe_events_options_top' );
 ?>
 <div class="form">
-	<h3><?php _e('Need a hand?',$this->pluginDomain); ?></h3>
-	<p><?php printf( __( 'If you’re stuck on these options, please <a href="%s">check out the documentation</a>. Or, go to the <a href="%s">support forum</a>.', $this->pluginDomain ), trailingslashit($this->pluginUrl) . 'readme.txt', $this->supportUrl ); ?></p>
-	<p><?php _e('Here is the iCal feed URL for your events: ' ,$this->pluginDomain); ?><code><?php echo tribe_get_ical_link(); ?></code></p>
+	<h3><?php _e('Need a hand?',self::PLUGIN_DOMAIN); ?></h3>
+	<p><?php printf( __( 'If you’re stuck on these options, please <a href="%s">check out the documentation</a>. Or, go to the <a href="%s">support forum</a>.', self::PLUGIN_DOMAIN ), trailingslashit($this->pluginUrl) . 'readme.txt', $this->supportUrl ); ?></p>
+	<p><?php _e('Here is the iCal feed URL for your events: ' ,self::PLUGIN_DOMAIN); ?><code><?php echo tribe_get_ical_link(); ?></code></p>
 
 	<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 	<?php wp_nonce_field('saveEventsCalendarOptions'); ?>
 
-	<h3><?php _e('Settings', $this->pluginDomain); ?></h3>
+	<h3><?php _e('Settings', self::PLUGIN_DOMAIN); ?></h3>
 	<table class="form-table">
 		<tr>
-			<th scope="row"><?php _e('Default View for the Events',$this->pluginDomain); ?></th>
+			<th scope="row"><?php _e('Default View for the Events',self::PLUGIN_DOMAIN); ?></th>
 	        <td>
 	            <fieldset>
 	                <legend class="screen-reader-text">
-	                    <span><?php _e('Default View for the Events',$this->pluginDomain); ?></span>
+	                    <span><?php _e('Default View for the Events',self::PLUGIN_DOMAIN); ?></span>
 	                </legend>
 	                <label title='Calendar'>
 	                    <?php 
@@ -67,21 +67,21 @@ div.tribe_settings{
 	                    }
 	                    ?>
 	                    <input type="radio" name="viewOption" value="month" <?php echo $gridViewStatus; ?> /> 
-	                    <?php _e('Calendar',$this->pluginDomain); ?>
+	                    <?php _e('Calendar',self::PLUGIN_DOMAIN); ?>
 	                </label><br />
 	                <label title='List View'>
 	                    <input type="radio" name="viewOption" value="upcoming" <?php echo $listViewStatus; ?> /> 
-	                    <?php _e('Event List',$this->pluginDomain); ?>
+	                    <?php _e('Event List',self::PLUGIN_DOMAIN); ?>
 	                </label><br />
 	            </fieldset>
 	        </td>
 		</tr>
 		<tr>
-			<th scope="row"><?php _e('Show Comments',$this->pluginDomain); ?></th>
+			<th scope="row"><?php _e('Show Comments',self::PLUGIN_DOMAIN); ?></th>
 	        <td>
 	            <fieldset>
 	                <legend class="screen-reader-text">
-	                    <span><?php _e('Show Comments',$this->pluginDomain); ?></span>
+	                    <span><?php _e('Show Comments',self::PLUGIN_DOMAIN); ?></span>
 	                </legend>
 	                <label title='Yes'>
 	                    <?php 
@@ -94,22 +94,22 @@ div.tribe_settings{
 	                    }
 	                    ?>
 	                    <input type="radio" name="showComments" value="yes" <?php echo $yesCommentStatus; ?> /> 
-	                    <?php _e('Yes',$this->pluginDomain); ?>
+	                    <?php _e('Yes',self::PLUGIN_DOMAIN); ?>
 	                </label><br />
 	                <label title='Yes'>
 	                    <input type="radio" name="showComments" value="no" <?php echo $noCommentStatus; ?> /> 
-	                    <?php _e('No',$this->pluginDomain); ?>
+	                    <?php _e('No',self::PLUGIN_DOMAIN); ?>
 	                </label><br />
 	            </fieldset>
 	        </td>
 		</tr>
 		<?php $multiDayCutoff = tribe_get_option('multiDayCutoff','12:00'); ?>
 		<tr>
-			<th scope="row"><?php _e('Multiday Event Cutoff',$this->pluginDomain); ?></th>
+			<th scope="row"><?php _e('Multiday Event Cutoff',self::PLUGIN_DOMAIN); ?></th>
 	        <td>
 	            <fieldset>
 	                <legend class="screen-reader-text">
-	                    <span><?php _e('Multiday Event Cutoff',$this->pluginDomain); ?></span>
+	                    <span><?php _e('Multiday Event Cutoff',self::PLUGIN_DOMAIN); ?></span>
 	                </legend>
 	                <label title='Multiday Event Cutoff'>
 							  <select name="multiDayCutoff">
@@ -123,7 +123,7 @@ div.tribe_settings{
 	                </label>
 	            </fieldset>
 					<div>
-						<?php _e('For multi-day events, hide the last day from grid view if it ends on or before this time.',$this->pluginDomain); ?> 
+						<?php _e('For multi-day events, hide the last day from grid view if it ends on or before this time.',self::PLUGIN_DOMAIN); ?> 
 					</div>				  
 	        </td>
 		</tr>		
@@ -132,11 +132,11 @@ div.tribe_settings{
 	        ?>
 
 		<tr>
-			<th scope="row"><?php _e('Embed Google Maps',$this->pluginDomain); ?></th>
+			<th scope="row"><?php _e('Embed Google Maps',self::PLUGIN_DOMAIN); ?></th>
 	        <td>
 	            <fieldset>
 	                <legend class="screen-reader-text">
-	                    <span><?php _e('Embed Google Maps',$this->pluginDomain); ?></span>
+	                    <span><?php _e('Embed Google Maps',self::PLUGIN_DOMAIN); ?></span>
 	                </legend>
 	                <label title='Yes'>
 	                    <?php 
@@ -151,15 +151,15 @@ div.tribe_settings{
 	                    }
 	                    ?>
 	                    <input type="radio" name="embedGoogleMaps" value="off" <?php echo $embedGoogleMapsOffStatus; ?> onClick="hidestuff('googleEmbedSize');" /> 
-	                    <?php _e('Off',$this->pluginDomain); ?>
+	                    <?php _e('Off',self::PLUGIN_DOMAIN); ?>
 	                </label> 
 	                <label title='List View'>
 	                    <input type="radio" name="embedGoogleMaps" value="on" <?php echo $embedGoogleMapsOnStatus; ?> onClick="showstuff('googleEmbedSize');" /> 
-	                    <?php _e('On',$this->pluginDomain); ?>
+	                    <?php _e('On',self::PLUGIN_DOMAIN); ?>
 	                </label>
 					<span id="googleEmbedSize" name="googleEmbedSize" style="margin-left:20px;" >
-						<?php _e('Height',$this->pluginDomain); ?> <input type="text" name="embedGoogleMapsHeight" value="<?php echo $embedGoogleMapsHeightValue ?>" size=4>
-						&nbsp;<?php _e('Width',$this->pluginDomain); ?> <input type="text" name="embedGoogleMapsWidth" value="<?php echo $embedGoogleMapsWidthValue ?>" size=4> <?php _e('(number or %)', $this->pluginDomain); ?>
+						<?php _e('Height',self::PLUGIN_DOMAIN); ?> <input type="text" name="embedGoogleMapsHeight" value="<?php echo $embedGoogleMapsHeightValue ?>" size=4>
+						&nbsp;<?php _e('Width',self::PLUGIN_DOMAIN); ?> <input type="text" name="embedGoogleMapsWidth" value="<?php echo $embedGoogleMapsWidthValue ?>" size=4> <?php _e('(number or %)', self::PLUGIN_DOMAIN); ?>
 					</span>
 	<br />
 	            </fieldset>
@@ -168,96 +168,96 @@ div.tribe_settings{
 
 			<?php if( '' != get_option('permalink_structure') ) : ?>
 			<tr>
-				<th scope="row"><?php _e('Use Pretty URLs',$this->pluginDomain); ?></th>
+				<th scope="row"><?php _e('Use Pretty URLs',self::PLUGIN_DOMAIN); ?></th>
 		        <td>
 		            <fieldset>
 		                <legend class="screen-reader-text">
-		                    <span><?php _e('Use Pretty URLs',$this->pluginDomain); ?></span>
+		                    <span><?php _e('Use Pretty URLs',self::PLUGIN_DOMAIN); ?></span>
 		                </legend>
 		                <label title='Yes'>
 		                    <?php 
 		                    $useRewriteRules = tribe_get_option('useRewriteRules','on'); 
 		                    ?>
 		                    <input type="radio" name="useRewriteRules" value="off" <?php checked($useRewriteRules, 'off'); ?>  /> 
-		                    <?php _e('Off',$this->pluginDomain); ?>
+		                    <?php _e('Off',self::PLUGIN_DOMAIN); ?>
 		                </label> 
 		                <label title='List View'>
 	                    <input type="radio" name="useRewriteRules" value="on" <?php checked($useRewriteRules, 'on'); ?>  /> 
-		                    <?php _e('On',$this->pluginDomain); ?>
+		                    <?php _e('On',self::PLUGIN_DOMAIN); ?>
 		                </label>
 						<div>
-							<?php _e('Although unlikely, pretty URLs (ie, http://site/events/upcoming) may interfere with custom themes or plugins.',$this->pluginDomain); ?> 
+							<?php _e('Although unlikely, pretty URLs (ie, http://site/events/upcoming) may interfere with custom themes or plugins.',self::PLUGIN_DOMAIN); ?> 
 						</div>
 		            </fieldset>
 		        </td>
 			</tr>
 			<tr>
-				<th scope="row"><?php _e('Events URL slug', $this->pluginDomain); ?></th>
+				<th scope="row"><?php _e('Events URL slug', self::PLUGIN_DOMAIN); ?></th>
 				<td><fieldset>
-					<legend class="screen-reader-text"><?php _e('Events URL slug', $this->pluginDomain ); ?></legend>
-					<label><input type="text" name="eventsSlug" value="<?php echo tribe_get_option('eventsSlug', 'events') ?>" /> <?php _e('The slug used for building the Events URL.', $this->pluginDomain ) ?></label><br /><?php printf( __('Your current Events URL is <strong>%s</strong>', $this->pluginDomain ), tribe_get_events_link() )  ?>
+					<legend class="screen-reader-text"><?php _e('Events URL slug', self::PLUGIN_DOMAIN ); ?></legend>
+					<label><input type="text" name="eventsSlug" value="<?php echo tribe_get_option('eventsSlug', 'events') ?>" /> <?php _e('The slug used for building the Events URL.', self::PLUGIN_DOMAIN ) ?></label><br /><?php printf( __('Your current Events URL is <strong>%s</strong>', self::PLUGIN_DOMAIN ), tribe_get_events_link() )  ?>
 				</fieldset></td>
 			</tr>
 			<tr>
-				<th scope="row"><?php _e('Single Event URL slug', $this->pluginDomain); ?></th>
+				<th scope="row"><?php _e('Single Event URL slug', self::PLUGIN_DOMAIN); ?></th>
 				<td><fieldset>
-					<legend class="screen-reader-text"><?php _e('Single Event URL slug', $this->pluginDomain ); ?></legend>
-					<label><input type="text" name="singleEventSlug" value="<?php echo tribe_get_option('singleEventSlug', 'event') ?>" /> <?php _e('The slug used for building a single Event URL.', $this->pluginDomain );  ?></label><br />
-					<?php printf( __('<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: <strong>%s</strong>', $this->pluginDomain ), trailingslashit( home_url() ) . tribe_get_option('singleEventSlug', 'event') . '/single-post-name/' ); ?>
+					<legend class="screen-reader-text"><?php _e('Single Event URL slug', self::PLUGIN_DOMAIN ); ?></legend>
+					<label><input type="text" name="singleEventSlug" value="<?php echo tribe_get_option('singleEventSlug', 'event') ?>" /> <?php _e('The slug used for building a single Event URL.', self::PLUGIN_DOMAIN );  ?></label><br />
+					<?php printf( __('<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: <strong>%s</strong>', self::PLUGIN_DOMAIN ), trailingslashit( home_url() ) . tribe_get_option('singleEventSlug', 'event') . '/single-post-name/' ); ?>
 				</fieldset></td>
 			</tr>
 			<?php endif; // permalink structure ?>
 			<tr>
-				<th scope="row"><?php _e('Debug', $this->pluginDomain ); ?></th>
+				<th scope="row"><?php _e('Debug', self::PLUGIN_DOMAIN ); ?></th>
 				<td><fieldset>
-					<legend class="screen-reader-text"><?php _e('Debug', $this->pluginDomain ); ?></legend>
-					<label><input type="checkbox" name="spEventsDebug" value="on" <?php checked(tribe_get_option('spEventsDebug'), 'on' ) ?> /> <?php _e('Debug Events display issues.', $this->pluginDomain ) ?></label>
-					<div><?php _e('If you’re experiencing issues with posts not showing up in the admin, enable this option and then ensure that all of your posts have the correct start and end dates.', $this->pluginDomain) ?></div>
+					<legend class="screen-reader-text"><?php _e('Debug', self::PLUGIN_DOMAIN ); ?></legend>
+					<label><input type="checkbox" name="spEventsDebug" value="on" <?php checked(tribe_get_option('spEventsDebug'), 'on' ) ?> /> <?php _e('Debug Events display issues.', self::PLUGIN_DOMAIN ) ?></label>
+					<div><?php _e('If you’re experiencing issues with posts not showing up in the admin, enable this option and then ensure that all of your posts have the correct start and end dates.', self::PLUGIN_DOMAIN) ?></div>
 				</fieldset></td>
 			</tr>
 </table>
 
-	<h3><?php _e('Theme Settings', $this->pluginDomain); ?></h3>
+	<h3><?php _e('Theme Settings', self::PLUGIN_DOMAIN); ?></h3>
 	<table class="form-table">
 			<tr>
-				<th scope="row"><?php _e('Events Template', $this->pluginDomain ); ?></th>
+				<th scope="row"><?php _e('Events Template', self::PLUGIN_DOMAIN ); ?></th>
 				<td><fieldset>
-					<legend class="screen-reader-text"><?php _e('Events Template', $this->pluginDomain ); ?></legend>
+					<legend class="screen-reader-text"><?php _e('Events Template', self::PLUGIN_DOMAIN ); ?></legend>
 					<select name="spEventsTemplate">
 						<option value=''><?php _e('Default ECP Template'); ?></option>
 						<option value='default' <?php selected(tribe_get_option('spEventsTemplate') == 'default') ?>><?php _e('Default Page Template'); ?></option>
 						<?php page_template_dropdown(tribe_get_option('spEventsTemplate')); ?>
 					</select>
-					<div><?php _e('Choose a page template to control the look and feel of your calendar.', $this->pluginDomain);?> </div>
+					<div><?php _e('Choose a page template to control the look and feel of your calendar.', self::PLUGIN_DOMAIN);?> </div>
 				</fieldset></td>
 			</tr>		
 			<tr>
-				<th scope="row"><?php _e('Add HTML before calendar', $this->pluginDomain ); ?></th>
+				<th scope="row"><?php _e('Add HTML before calendar', self::PLUGIN_DOMAIN ); ?></th>
 				<td><fieldset>
-					<legend class="screen-reader-text"><?php _e('Add HTML before calendar', $this->pluginDomain ); ?></legend>
+					<legend class="screen-reader-text"><?php _e('Add HTML before calendar', self::PLUGIN_DOMAIN ); ?></legend>
 					<textarea style="width:100%; height:100px;" name="spEventsBeforeHTML"><?php echo  stripslashes(tribe_get_option('spEventsBeforeHTML'));?></textarea>
-					<div><?php _e('Some themes may require that you add extra divs before the calendar list to help with styling.', $this->pluginDomain);?> <?php _e('This is displayed directly after the header.', $this->pluginDomain);?> <?php  _e('You may use (x)HTML.', $this->pluginDomain) ?></div>
+					<div><?php _e('Some themes may require that you add extra divs before the calendar list to help with styling.', self::PLUGIN_DOMAIN);?> <?php _e('This is displayed directly after the header.', self::PLUGIN_DOMAIN);?> <?php  _e('You may use (x)HTML.', self::PLUGIN_DOMAIN) ?></div>
 				</fieldset></td>
 			</tr>
 			<tr>
-				<th scope="row"><?php _e('Add HTML after calendar', $this->pluginDomain ); ?></th>
+				<th scope="row"><?php _e('Add HTML after calendar', self::PLUGIN_DOMAIN ); ?></th>
 				<td><fieldset>
-					<legend class="screen-reader-text"><?php _e('Add HTML before calendar', $this->pluginDomain ); ?></legend>
+					<legend class="screen-reader-text"><?php _e('Add HTML before calendar', self::PLUGIN_DOMAIN ); ?></legend>
 					<textarea style="width:100%; height:100px;" name="spEventsAfterHTML"><?php echo stripslashes(tribe_get_option('spEventsAfterHTML'));?></textarea>
-					<div><?php _e('Some themes may require that you add extra divs after the calendar list to help with styling.', $this->pluginDomain);?> <?php _e('This is displayed directly above the footer.', $this->pluginDomain);?> <?php _e('You may use (x)HTML.', $this->pluginDomain) ?></div>
+					<div><?php _e('Some themes may require that you add extra divs after the calendar list to help with styling.', self::PLUGIN_DOMAIN);?> <?php _e('This is displayed directly above the footer.', self::PLUGIN_DOMAIN);?> <?php _e('You may use (x)HTML.', self::PLUGIN_DOMAIN) ?></div>
 				</fieldset></td>
 			</tr>
 </table>
 
-	<h3><?php _e('Customize Defaults', $this->pluginDomain); ?></h3>
-	<p><?php _e('These settings change the default event form. For example, if you set a default venue, this field will be automatically filled in on a new event.', $this->pluginDomain) ?></p>
+	<h3><?php _e('Customize Defaults', self::PLUGIN_DOMAIN); ?></h3>
+	<p><?php _e('These settings change the default event form. For example, if you set a default venue, this field will be automatically filled in on a new event.', self::PLUGIN_DOMAIN) ?></p>
 	<table class="form-table">
 <tr>
-			<th scope="row"><?php _e('Automatically replace empty fields with default values',$this->pluginDomain); ?></th>
+			<th scope="row"><?php _e('Automatically replace empty fields with default values',self::PLUGIN_DOMAIN); ?></th>
 	        <td>
 	            <fieldset>
 	                <legend class="screen-reader-text">
-	                    <span><?php _e('Automatically replace empty fields with default values',$this->pluginDomain); ?></span>
+	                    <span><?php _e('Automatically replace empty fields with default values',self::PLUGIN_DOMAIN); ?></span>
 	                </legend>
 	                <label title='Enable'>
 	                    <?php 
@@ -270,53 +270,53 @@ div.tribe_settings{
 	                    }
 	                    ?>
 	                    <input type="radio" name="defaultValueReplace" value="1" <?php echo $defaultValueReplaceEnabled; ?> /> 
-	                    <?php _e('Enabled',$this->pluginDomain); ?>
+	                    <?php _e('Enabled',self::PLUGIN_DOMAIN); ?>
 	                </label><br />
 	                <label title='Disable'>
 	                    <input type="radio" name="defaultValueReplace" value="0" <?php echo $defaultValueReplaceDisabled; ?> /> 
-	                    <?php _e('Disabled',$this->pluginDomain); ?>
+	                    <?php _e('Disabled',self::PLUGIN_DOMAIN); ?>
 	                </label><br />
 	            </fieldset>
 	        </td>
 		</tr>
 			<tr>
-				<th scope="row"><?php _e('Default Organizer for Events', $this->pluginDomain); ?></th>
+				<th scope="row"><?php _e('Default Organizer for Events', self::PLUGIN_DOMAIN); ?></th>
 				<td>
 				<fieldset>
-					<legend class="screen-reader-text"><?php _e('Default Organizer', $this->pluginDomain ); ?></legend>
-					<label><?php $this->saved_organizers_dropdown(tribe_get_option('eventsDefaultOrganizerID'),'eventsDefaultOrganizerID');?><?php _e('The default organizer value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), tribe_get_option('eventsDefaultOrganizerID') )  ?>
+					<legend class="screen-reader-text"><?php _e('Default Organizer', self::PLUGIN_DOMAIN ); ?></legend>
+					<label><?php $this->saved_organizers_dropdown(tribe_get_option('eventsDefaultOrganizerID'),'eventsDefaultOrganizerID');?><?php _e('The default organizer value', self::PLUGIN_DOMAIN ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', self::PLUGIN_DOMAIN ), tribe_get_option('eventsDefaultOrganizerID') )  ?>
 				</fieldset></td>
 			</tr>
 			<tr>
-				<th scope="row"><?php _e('Default Venue for Events', $this->pluginDomain); ?></th>
+				<th scope="row"><?php _e('Default Venue for Events', self::PLUGIN_DOMAIN); ?></th>
 				<td>
 				<fieldset>
-					<legend class="screen-reader-text"><?php _e('Default Venue', $this->pluginDomain ); ?></legend>
-					<label><?php $this->saved_venues_dropdown(tribe_get_option('eventsDefaultVenueID'),'eventsDefaultVenueID');?><?php _e('The default venue value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), tribe_get_option('eventsDefaultVenueID') )  ?>
+					<legend class="screen-reader-text"><?php _e('Default Venue', self::PLUGIN_DOMAIN ); ?></legend>
+					<label><?php $this->saved_venues_dropdown(tribe_get_option('eventsDefaultVenueID'),'eventsDefaultVenueID');?><?php _e('The default venue value', self::PLUGIN_DOMAIN ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', self::PLUGIN_DOMAIN ), tribe_get_option('eventsDefaultVenueID') )  ?>
 				</fieldset></td>
 			</tr>
 			<tr class="venue-default-info<?php echo $hasDefaultVenue ? " tec_hide" : "" ?>">
-				<th scope="row"><?php _e('Default Address', $this->pluginDomain); ?></th>
+				<th scope="row"><?php _e('Default Address', self::PLUGIN_DOMAIN); ?></th>
 				<td><fieldset>
-					<legend class="screen-reader-text"><?php _e('Default Address', $this->pluginDomain ); ?></legend>
-					<label><input type="text" name="eventsDefaultAddress" value="<?php echo tribe_get_option('eventsDefaultAddress') ?>" /> <?php _e('The default address value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), tribe_get_option('eventsDefaultAddress') )  ?>
+					<legend class="screen-reader-text"><?php _e('Default Address', self::PLUGIN_DOMAIN ); ?></legend>
+					<label><input type="text" name="eventsDefaultAddress" value="<?php echo tribe_get_option('eventsDefaultAddress') ?>" /> <?php _e('The default address value', self::PLUGIN_DOMAIN ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', self::PLUGIN_DOMAIN ), tribe_get_option('eventsDefaultAddress') )  ?>
 				</fieldset></td>
 			</tr>
 			<tr class="venue-default-info<?php echo $hasDefaultVenue ? " tec_hide" : "" ?>">
-				<th scope="row"><?php _e('Default City', $this->pluginDomain); ?></th>
+				<th scope="row"><?php _e('Default City', self::PLUGIN_DOMAIN); ?></th>
 				<td><fieldset>
-					<legend class="screen-reader-text"><?php _e('Default City', $this->pluginDomain ); ?></legend>
-					<label><input type="text" name="eventsDefaultCity" value="<?php echo tribe_get_option('eventsDefaultCity') ?>" /> <?php _e('The default city value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), tribe_get_option('eventsDefaultCity') )  ?>
+					<legend class="screen-reader-text"><?php _e('Default City', self::PLUGIN_DOMAIN ); ?></legend>
+					<label><input type="text" name="eventsDefaultCity" value="<?php echo tribe_get_option('eventsDefaultCity') ?>" /> <?php _e('The default city value', self::PLUGIN_DOMAIN ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', self::PLUGIN_DOMAIN ), tribe_get_option('eventsDefaultCity') )  ?>
 				</fieldset></td>
 			</tr>
 
 			<tr class="venue-default-info<?php echo $hasDefaultVenue ? " tec_hide" : "" ?>">
-				<th scope="row"><?php _e('Default State', $this->pluginDomain); ?></th>
+				<th scope="row"><?php _e('Default State', self::PLUGIN_DOMAIN); ?></th>
 				<td><fieldset>
-					<legend class="screen-reader-text"><?php _e('Default Province or State', $this->pluginDomain ); ?></legend>
+					<legend class="screen-reader-text"><?php _e('Default Province or State', self::PLUGIN_DOMAIN ); ?></legend>
 					<label>
 						<select id="eventsDefaultState" name='eventsDefaultState'>
-							<option value=""><?php _e('Select a State:',$this->pluginDomain); ?></option>
+							<option value=""><?php _e('Select a State:',self::PLUGIN_DOMAIN); ?></option>
 							<?php
 								foreach (Tribe_View_Helpers::loadStates() as $abbr => $fullname) {
 									print ("<option value=\"$abbr\" ");
@@ -327,28 +327,28 @@ div.tribe_settings{
 								}
 							?>
 						</select>
-						<?php _e('The default  value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), tribe_get_option('eventsDefaultState') )  ?>
+						<?php _e('The default  value', self::PLUGIN_DOMAIN ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', self::PLUGIN_DOMAIN ), tribe_get_option('eventsDefaultState') )  ?>
 				</fieldset></td>
 			</tr>
 
 			<tr class="venue-default-info<?php echo $hasDefaultVenue ? " tec_hide" : "" ?>">
-				<th scope="row"><?php _e('Default Province', $this->pluginDomain); ?></th>
+				<th scope="row"><?php _e('Default Province', self::PLUGIN_DOMAIN); ?></th>
 				<td><fieldset>
-					<legend class="screen-reader-text"><?php _e('Default Province or State', $this->pluginDomain ); ?></legend>
-					<label><input type="text" name="eventsDefaultProvince" value="<?php echo tribe_get_option('eventsDefaultProvince') ?>" /> <?php _e('The default  value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), tribe_get_option('eventsDefaultProvince') )  ?>
+					<legend class="screen-reader-text"><?php _e('Default Province or State', self::PLUGIN_DOMAIN ); ?></legend>
+					<label><input type="text" name="eventsDefaultProvince" value="<?php echo tribe_get_option('eventsDefaultProvince') ?>" /> <?php _e('The default  value', self::PLUGIN_DOMAIN ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', self::PLUGIN_DOMAIN ), tribe_get_option('eventsDefaultProvince') )  ?>
 				</fieldset></td>
 			</tr>
 
 			<tr class="venue-default-info<?php echo $hasDefaultVenue ? " tec_hide" : "" ?>">
-				<th scope="row"><?php _e('Default Postal Code', $this->pluginDomain); ?></th>
+				<th scope="row"><?php _e('Default Postal Code', self::PLUGIN_DOMAIN); ?></th>
 				<td><fieldset>
-					<legend class="screen-reader-text"><?php _e('Default Postal Code', $this->pluginDomain ); ?></legend>
-					<label><input type="text" name="eventsDefaultZip" value="<?php echo tribe_get_option('eventsDefaultZip') ?>" /> <?php _e('The default Postal Code value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), tribe_get_option('eventsDefaultZip') )  ?>
+					<legend class="screen-reader-text"><?php _e('Default Postal Code', self::PLUGIN_DOMAIN ); ?></legend>
+					<label><input type="text" name="eventsDefaultZip" value="<?php echo tribe_get_option('eventsDefaultZip') ?>" /> <?php _e('The default Postal Code value', self::PLUGIN_DOMAIN ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', self::PLUGIN_DOMAIN ), tribe_get_option('eventsDefaultZip') )  ?>
 				</fieldset></td>
 			</tr>
 
 			<tr class="venue-default-info<?php echo $hasDefaultVenue ? " tec_hide" : "" ?>">
-			<th scope="row"><?php _e('Default Country for Events',$this->pluginDomain); ?></th>
+			<th scope="row"><?php _e('Default Country for Events',self::PLUGIN_DOMAIN); ?></th>
 				<td>
 					<select name="defaultCountry" id="defaultCountry">
 							<?php 
@@ -366,18 +366,18 @@ div.tribe_settings{
 				</td>
 			</tr>
 			<tr class="venue-default-info<?php echo $hasDefaultVenue ? " tec_hide" : "" ?>">
-				<th scope="row"><?php _e('Default Phone', $this->pluginDomain); ?></th>
+				<th scope="row"><?php _e('Default Phone', self::PLUGIN_DOMAIN); ?></th>
 				<td><fieldset>
-					<legend class="screen-reader-text"><?php _e('Default Phone', $this->pluginDomain ); ?></legend>
-					<label><input type="text" name="eventsDefaultPhone" value="<?php echo tribe_get_option('eventsDefaultPhone') ?>" /> <?php _e('The default phone value', $this->pluginDomain ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', $this->pluginDomain ), tribe_get_option('eventsDefaultPhone') )  ?>
+					<legend class="screen-reader-text"><?php _e('Default Phone', self::PLUGIN_DOMAIN ); ?></legend>
+					<label><input type="text" name="eventsDefaultPhone" value="<?php echo tribe_get_option('eventsDefaultPhone') ?>" /> <?php _e('The default phone value', self::PLUGIN_DOMAIN ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', self::PLUGIN_DOMAIN ), tribe_get_option('eventsDefaultPhone') )  ?>
 				</fieldset></td>
 			</tr>
 			<tr>
-				<th scope="row"><?php _e('Use a custom list of countries', $this->pluginDomain ); ?></th>
+				<th scope="row"><?php _e('Use a custom list of countries', self::PLUGIN_DOMAIN ); ?></th>
 				<td><fieldset>
-					<legend class="screen-reader-text"><?php _e('Use the following list:', $this->pluginDomain ); ?></legend>
+					<legend class="screen-reader-text"><?php _e('Use the following list:', self::PLUGIN_DOMAIN ); ?></legend>
 					<textarea style="width:100%; height:100px;" name="spEventsCountries"><?php echo stripslashes(tribe_get_option('spEventsCountries'));?></textarea>
-					<div><?php _e('One country per line in the following format: <br/>US, United States <br/> UK, United Kingdom.', $this->pluginDomain);?> <?php _e('(Replaces the default list.)', $this->pluginDomain) ?></div>
+					<div><?php _e('One country per line in the following format: <br/>US, United States <br/> UK, United Kingdom.', self::PLUGIN_DOMAIN);?> <?php _e('(Replaces the default list.)', self::PLUGIN_DOMAIN) ?></div>
 				</fieldset></td>
 			</tr>
 </table>
@@ -385,28 +385,13 @@ div.tribe_settings{
 	<table>
 		<tr>
 	    	<td>
-	    		<input id="saveEventsCalendarOptions" class="button-primary" type="submit" name="saveEventsCalendarOptions" value="<?php _e('Save Changes', $this->pluginDomain); ?>" />
+	    		<input id="saveEventsCalendarOptions" class="button-primary" type="submit" name="saveEventsCalendarOptions" value="<?php _e('Save Changes', self::PLUGIN_DOMAIN); ?>" />
 	        </td>
 	    </tr>	
 	 </table>
 </form>
 
-<?php
-if ( Tribe_The_Events_Calendar_Import::hasLegacyEvents() ) {
-	$old_events_copy = '<p class="message">' . sprintf( __('It looks like you have %s events in the category “%s”. Click below to import!', $this->pluginDomain ), $old_events, self::CATEGORYNAME ) . '</p>'; ?>
-		
-<form id="sp-upgrade" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
-	<?php wp_nonce_field('upgradeEventsCalendar') ?>
-	<h4><?php _e('Upgrade from The Events Calendar', $this->pluginDomain ); ?></h4>
-	<p><?php _e('We built a vibrant community around our free <a href="http://wordpress.org/extend/plugins/the-events-calendar/" target="_blank">The Events Calendar</a> plugin. If you used the free version and are now using our premium version, thanks, we’re glad to have you here!', $this->pluginDomain ) ?></p>
-	<?php echo $old_events_copy; ?>
-	<input type="submit" value="Migrate Data!" class="button-secondary" name="upgradeEventsCalendar" />
-</form>		
-		
-<?php
-}
-
-?>
+<?php $this->do_action( 'tribe_events_options_post_form' ); ?>
 
 <script>
 function showstuff(boxid){

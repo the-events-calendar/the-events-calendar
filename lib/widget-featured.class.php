@@ -9,8 +9,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( !class_exists( 'Events_Featured_Widget') ) {
 	class Events_Featured_Widget extends WP_Widget {
 		
-		public $pluginDomain = 'tribe-events-calendar';
-
 		function Events_Featured_Widget() {
 			$widget_ops = array('classname' => 'Events_Featured_Widget', 'description' => __( 'Your next upcoming event') );
 			$this->WP_Widget('featured_event', __('Featured Event'), $widget_ops);
@@ -59,7 +57,7 @@ if( !class_exists( 'Events_Featured_Widget') ) {
 				$wp_query->set('eventDisplay', $old_display);
 			} 
 			else {
-				_e('There are no upcoming events at this time.', $this->pluginDomain);
+				_e('There are no upcoming events at this time.', TribeEvents::PLUGIN_DOMAIN);
 			}
 
 			/* After widget (defined by themes). */
