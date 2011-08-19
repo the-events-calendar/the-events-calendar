@@ -171,6 +171,9 @@ if (!class_exists('TribeEventsImport')) {
 				'meta_key' => '_EventStartDate',
 				'category_name' => 'Events'
 			));
+			if (count($query->posts)) {
+				TribeEvents::debug('Install has 1 or more legacy event!',false,'warning');
+			}
 			return $query->posts;
 		}
 

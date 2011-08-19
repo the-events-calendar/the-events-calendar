@@ -159,6 +159,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-event-query.class.php' );
 			require_once( 'tribe-the-events-calendar-import.class.php' );
 			require_once( 'tribe-view-helpers.class.php' );
+			require_once( 'tribe-debug-bar.class.php' );
 		}
 
 		private function addFilters() {
@@ -175,6 +176,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			/* Add nav menu item - thanks to http://wordpress.org/extend/plugins/cpt-archives-in-nav-menus/ */
 			add_filter( 'nav_menu_items_' . TribeEvents::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
 			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events'), null, 2);
+			add_filter( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
 		}
 
 		private function addActions() {
@@ -192,14 +194,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_events_options_top', array( 'TribeEventsOptionsException', 'displayMessage') );
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
-			add_action( 'the_post', array( $this, 'setReccuringEventDates' ) );
-	
-			if ( is_admin() && !$this->getOption('debugEvents', false) ) {
-				add_action('admin_footer', array($this, 'removeMenuItems'));
-			} else if ( $this->getOption('debugEvents', false) ) {
-				$this->addDebugColumns();
-				add_action('admin_footer', array($this, 'debugInfo'));
-			}			
+			add_action( 'the_post', array( $this, 'setReccuringEventDates' ) );			
 			add_action( "trash_" . TribeEvents::VENUE_POST_TYPE, array($this, 'cleanupPostVenues'));
 			add_action( "trash_" . TribeEvents::ORGANIZER_POST_TYPE, array($this, 'cleanupPostOrganizers'));
 			add_action( "wp_ajax_tribe_event_validation", array($this,'ajax_form_validate') );
@@ -225,8 +220,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->registerPostType();
 
 			//If the custom post type's rewrite rules have not been generated yet, flush them. (This can happen on reactivations.)
-			if(is_array(get_option('rewrite_rules')) && !array_key_exists($this->rewriteSlugSingular.'/[^/]+/([^/]+)/?$',get_option('rewrite_rules')))
+			if(is_array(get_option('rewrite_rules')) && !array_key_exists($this->rewriteSlugSingular.'/[^/]+/([^/]+)/?$',get_option('rewrite_rules'))) {
 				$this->flushRewriteRules();
+			}
+			self::debug(sprintf(__('Initializing Tribe Events on %s',self::PLUGIN_DOMAIN),date('M, jS \a\t h:m:s a')));
 		}
 
 		/**
@@ -296,23 +293,36 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			return $posts;			
 		}
 
-		private function addDebugColumns() {
-			add_filter( 'manage_posts_columns', array($this, 'debug_column_headers'));
-			add_action( 'manage_posts_custom_column', array($this, 'debug_custom_columns'), 10, 2);
+		/**
+		 * Tribe debug function. usage: TribeEvents::debug('Message',$data,'log');
+		 *
+		 * @param string $title - message to display in log
+		 * @param string $data - optional data to display
+		 * @param string $format - optional format (log|warning|error|notice)
+		 * @return void
+		 * @author Peter Chester
+		 */
+		public static function debug($title,$data=false,$format='log') {
+			apply_filters('tribe_debug',$title,$data,$format);
 		}
-
-		public function debugInfo() {
-			echo '<h4>Events Calendar Pro Debug Info:</h4>';
-			$this->printDebug($this->date, '$this->date');
-			$this->printDebug($this->displaying, '$this->displaying');
-		}
-
-		public function printDebug($data, $title = '') {
-			$title = ($title) ? '<strong>' . $title . '</strong> : ' : '';
-			echo '<pre style="white-space:pre-wrap;font-size:11px;margin:1em;">';
-			echo $title;
-			print_r($data);
-			echo '</pre>';
+		
+		/**
+		 * Render the debug logging to the php error log. This can be over-riden by removing the filter.
+		 *
+		 * @param string $title - message to display in log
+		 * @param string $data - optional data to display
+		 * @param string $format - optional format (log|warning|error|notice)
+		 * @return void
+		 * @author Peter Chester
+		 */
+		public function renderDebug($title,$data=false,$format='log') {
+			$format = ucfirst($format);
+			if ($this->getOption('debugEvents')) {
+				error_log("Tribe $format: $title");
+				if ($data && $data!='') {
+					error_log("Tribe $format: ".print_r($data,true));
+				}
+			}
 		}
 
 		public function get_event_taxonomy() {
@@ -389,34 +399,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			return $content;
 		}
 
-		public function debug_column_headers( $columns ) {
-			global $post;
-
-			if ( $post->post_type == self::POSTTYPE ) {
-				$columns['sp-debug'] = __( 'Debug', self::PLUGIN_DOMAIN );
-			}
-	
-			return $columns;
-		}
-
-		public function debug_custom_columns( $column_id, $post_id ) {
-			if ( $column_id == 'sp-debug' ) {
-				echo 'EventStartDate: ' . get_post_meta($post_id, '_EventStartDate', true );
-				echo '<br />';
-				echo 'EventEndDate: ' . get_post_meta($post_id, '_EventEndDate', true );
-			}
-	
-		}
-
 		public function accessibleMonthForm() {
 			if ( isset($_GET['EventJumpToMonth']) && isset($_GET['EventJumpToYear'] )) {
 				$_GET['eventDisplay'] = 'month';
 				$_GET['eventDate'] = $_GET['EventJumpToYear'] . '-' . $_GET['EventJumpToMonth'];
 			}
-		}
-
-		public function log( $data = array() ) {
-			error_log(print_r($data,1));
 		}
 
 		public function body_class( $c ) {
@@ -633,25 +620,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			return $bits;
 		}
 
-		public function removeMenuItems(){
-			?>		
-			<script type='text/javascript'>
-			/* <![CDATA[ */
-
-			jQuery(document).ready(function($) {
-				jQuery('#menu-posts-spvenue').remove();
-				jQuery('#menu-posts-sporganizer').remove()
-			});
-			/* ]]> */
-			</script>
-			<style type='text/css'>
-
-				#menu-posts-spvenue, #menu-posts-sporganizer{ display:none;}
-	
-			</style>
-			<?php
-		}
-
 		public function printLocalizedAdmin() {
 			$object_name = 'TEC';
 			$vars = $this->localizeAdmin();
@@ -698,7 +666,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function saveSettings() {
 	
 			if ( isset($_POST['saveEventsCalendarOptions']) && check_admin_referer('saveEventsCalendarOptions') ) {
-						$options = $this->getOptions();
+				$options = $this->getOptions();
 				$options['viewOption'] = $_POST['viewOption'];
 				if($_POST['defaultCountry']) {
 					$countries = Tribe_View_Helpers::constructCountries();
