@@ -8,5 +8,5 @@
  Text Domain: tribe-events-calendar
  */
 
-require_once( dirname(__FILE__) . '/lib/events-calendar-pro.class.php' );
+require_once( dirname(__FILE__) . '/lib/the-events-calendar.class.php' );
 ?>
