@@ -1,16 +1,16 @@
-=== Events Calendar Pro ===
+=== The Events Calendar ===
 
-Contributors: Kelsey Damas, Matt Wiebe, Justin Endler, Reid Peifer, Dan Cameron, Aaron Rhodes produced by Shane & Peter, Inc.
+Contributors: Peter Chester (peterchester), John Gadbois, Kelsey Damas (kelseydamas), Matt Wiebe (mattwiebe), Justin Endler, Reid Peifer, Dan Cameron (dancameron), Aaron Rhodes produced by Modern Tribe, Inc.
 Tags: widget, events, simple, tooltips, grid, month, list, calendar, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
 Requires at least: 3.0
 Tested up to: 3.1.2
-Stable tag: 1.3.2
+Stable tag: 2.0
 
 == Description ==
 
-The Events Calendar Pro plugin enables you to rapidly create and manage events using the post editor.  Features include Google Maps integration as well as default templates such as a calendar grid and event list for streamlined one click installation. Requires WordPress 3.0 and PHP 5.2.
+The Events Calendar plugin enables you to rapidly create and manage events using the post editor.  Features include Google Maps integration as well as default templates such as a calendar grid and event list for streamlined one click installation. Requires WordPress 3.0 and PHP 5.2.
 
-= Events Calendar Pro =
+= The Events Calendar =
 
 * Manage event details in the Events post type
 * Upcoming Events Widget
@@ -20,19 +20,8 @@ The Events Calendar Pro plugin enables you to rapidly create and manage events u
 * Google Maps Integration
 * Calendar Month view with tooltips
 * Includes support for venue, cost, address, start and end time, google maps link
-* Support for international addresses, time and languages:
-** Czech
-** Danish
-** Spanish
-** French
-** Italian
-** Dutch
-** Polish
-** Portuguese
-** Russian
-** Swedish
 
-= Upcoming Features =
+= Events Calendar Pro Features =
 
 * Recurring events
 * Sync with facebook events
@@ -43,7 +32,7 @@ The Events Calendar Pro plugin enables you to rapidly create and manage events u
 
 = Install =
 
-1. Unzip the `events-calendar-premium.zip` file. 
+1. Unzip the `the-events-calendar.zip` file. 
 1. Upload the the `events-calendar-premium` folder (not just the files in it!) to your `wp-content/plugins` folder. If you're using FTP, use 'binary' mode.
 1. Update your permalinks to ensure that the event specific rewrite rules take effect.
 1. If you have trouble installing, see the [Codex](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) for more helpful info.
