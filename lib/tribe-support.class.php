@@ -61,13 +61,10 @@ if( !class_exists( 'TribeEventsProSupport' ) ) {
 		 * @author Peter Chester
 		 */
 		public static function supportForm() {
-			//$action = TribeEvents::$supportUrl;
-			$action = 'http://tribe.pro.local';
-			$form = '<form method="post" action="'.$action.'">';
-			$form .= '<input type="hidden" name="supportinfo" value="'.self::generateSupportHash().'" />';
-			$form .= '<textarea name="description"></textarea>';
-			$form .= '<input type="submit" value="Send a Support Request"\>';
-			$form .= '</form>';
+			ob_start();
+			include( TribeEventsPro::instance()->pluginPath . 'admin-views/support-form.php' );
+			$form = ob_get_contents();
+			ob_get_clean();
 			return $form;
 		}
 
