@@ -9,8 +9,10 @@
  */
 
 if ( !class_exists( 'TribeEventsPro' ) ) {
-	class TribeEventsPro
-	{
+	class TribeEventsPro {
+
+		const PLUGIN_DOMAIN = 'tribe-events-calendar-pro';
+
 	    private static $instance;
 
 		//instance variables

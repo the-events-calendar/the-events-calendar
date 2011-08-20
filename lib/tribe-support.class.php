@@ -8,8 +8,38 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 if( !class_exists( 'TribeEventsProSupport' ) ) {
 	class TribeEventsProSupport {
+
+		/**
+		 * Enforce Singleton Pattern
+		 */
+		private static $instance;
+		public function getInstance() {
+			if(null == self::$instance) {
+				$className = __CLASS__;
+				self::$instance = new $className;
+			}
+			return self::$instance;
+		}
+		
 		
 		public static $support;
+		
+		private function __construct( ) {
+			//add_action( 'init', array( $this, 'addSupportLink'), 10 );
+			add_action( 'wp_before_admin_bar_render', array( $this, 'addSupportForm') );
+		}
+		
+		public function addSupportLink() {
+			if (class_exists('Debug_Bar')) {
+				TribeEvents::debug(self::supportLink());
+			}
+		}
+		
+		public function addSupportForm() {
+			if (class_exists('Debug_Bar')) {
+				TribeEvents::debug(self::supportForm());
+			}
+		}
 
 		/**
 		 * Generate a support link based on the user's options. This link is serialized and base64 encoded. On the other end we can decode it and then unserialize it to create a ticket.
@@ -18,13 +48,62 @@ if( !class_exists( 'TribeEventsProSupport' ) ) {
 		 * @author Peter Chester
 		 */
 		public static function supportLink() {
-			$installinfo = TribeEvents::getOptions();
-			$installinfo['site'] = get_bloginfo('url');
-			$installinfo = serialize($installinfo);
-			$installinfo = base64_encode($installinfo);
-			return TribeEvents::$supportUrl.'?installinfo='.$installinfo;
+			$text = __('Send a support request for this site.',TribeEventsPro::PLUGIN_DOMAIN);
+			$link = TribeEvents::$supportUrl.'?supportinfo='.self::generateSupportHash();
+			$html = '<div class="tribe-support-link"><a href="'.$link.'" target="_blank">'.$text.'</a></div>';
+			return apply_filters('tribe-events-pro-support-link',$html,$link);
+		}
+
+		/**
+		 * Generate a support form.
+		 *
+		 * @return void
+		 * @author Peter Chester
+		 */
+		public static function supportForm() {
+			//$action = TribeEvents::$supportUrl;
+			$action = 'http://tribe.pro.local';
+			$form = '<form method="post" action="'.$action.'">';
+			$form .= '<input type="hidden" name="supportinfo" value="'.self::generateSupportHash().'" />';
+			$form .= '<textarea name="description"></textarea>';
+			$form .= '<input type="submit" value="Send a Support Request"\>';
+			$form .= '</form>';
+			return $form;
+		}
+
+		/**
+		 * Generate a hash with all the system support information
+		 *
+		 * @return string of encoded support info
+		 * @author Peter Chester
+		 */
+		public static function generateSupportHash() {
+			$user = wp_get_current_user();
+			$plugins_raw = wp_get_active_and_valid_plugins();
+			$plugins = array();
+			foreach($plugins_raw as $k => $v) {
+				$plugins[] = basename($v);
+			}
+			$systeminfo = array(
+				'URL' => 'http://'.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI'],
+				'NAME' => $user->display_name,
+				'EMAIL' => $user->user_email,
+				'PLUGIN VERSION' => TribeEvents::VERSION,
+				'WORDPRESS VERSION' => get_bloginfo('version'),				
+				'PHP VERSION' => phpversion(),				
+				'PLUGINS' => $plugins,			
+				'THEME' => get_current_theme(),
+				'MU INSTALL' => (is_multisite()) ? 'TRUE' : 'FALSE',			
+				'SETTINGS' => TribeEvents::getOptions()
+			);
+			$systeminfo = apply_filters('tribe-events-pro-support',$systeminfo);			
+			$systeminfo = serialize($systeminfo);
+			$systeminfo = base64_encode($systeminfo);
+			return $systeminfo;
 		}
 
 	}
+
+	TribeEventsProSupport::getInstance();
 }
 ?>
