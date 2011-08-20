@@ -223,6 +223,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$this->flushRewriteRules();
 			}
 			self::debug(sprintf(__('Initializing Tribe Events on %s',self::PLUGIN_DOMAIN),date('M, jS \a\t h:m:s a')));
+			/*
+			self::debug('Debug Example: Log',false,'log');
+			self::debug('Debug Example: Warning',false,'warning');
+			self::debug('Debug Example: Notice',false,'notice');
+			self::debug('Debug Example: Error',false,'error');
+			*/
 		}
 
 		/**
