@@ -18,10 +18,11 @@ function load_tribe_debug_bar($panels) {
 				$this->title( __('Tribe', TribeEvents::PLUGIN_DOMAIN) );
 				remove_action( 'tribe_debug', array( TribeEvents::instance(), 'renderDebug' ), 10, 2 );
 				add_action( 'tribe_debug', array( $this, 'logDebug' ), 8, 3 );
+				wp_enqueue_style( 'tribe-debugger', TribeEvents::instance()->pluginUrl . 'resources/debugger.css' );		
 			}
 
 			function prerender() {
-				$this->set_visible( is_admin() );
+				$this->set_visible( true );
 			}
 
 			function render() {
