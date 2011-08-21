@@ -16,8 +16,8 @@ function load_tribe_debug_bar($panels) {
 			
 			function init() {
 				$this->title( __('Tribe', TribeEvents::PLUGIN_DOMAIN) );
-				remove_filter( 'tribe_debug', array( TribeEvents::instance(), 'renderDebug' ), 10, 2 );
-				add_filter( 'tribe_debug', array( $this, 'logDebug' ), 8, 3 );
+				remove_action( 'tribe_debug', array( TribeEvents::instance(), 'renderDebug' ), 10, 2 );
+				add_action( 'tribe_debug', array( $this, 'logDebug' ), 8, 3 );
 			}
 
 			function prerender() {

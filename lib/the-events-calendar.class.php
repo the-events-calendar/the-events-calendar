@@ -175,7 +175,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			/* Add nav menu item - thanks to http://wordpress.org/extend/plugins/cpt-archives-in-nav-menus/ */
 			add_filter( 'nav_menu_items_' . TribeEvents::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
 			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events'), null, 2);
-			add_filter( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
 		}
 
 		private function addActions() {
@@ -197,6 +196,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( "trash_" . TribeEvents::VENUE_POST_TYPE, array($this, 'cleanupPostVenues'));
 			add_action( "trash_" . TribeEvents::ORGANIZER_POST_TYPE, array($this, 'cleanupPostOrganizers'));
 			add_action( "wp_ajax_tribe_event_validation", array($this,'ajax_form_validate') );
+			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
 		}
 
 		/**
@@ -308,7 +308,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @author Peter Chester
 		 */
 		public static function debug($title,$data=false,$format='log') {
-			apply_filters('tribe_debug',$title,$data,$format);
+			do_action('tribe_debug',$title,$data,$format);
 		}
 		
 		/**
