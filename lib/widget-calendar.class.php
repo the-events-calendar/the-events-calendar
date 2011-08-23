@@ -6,11 +6,11 @@
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-if( !class_exists( 'Events_Calendar_Widget') ) {
+if( !class_exists( 'TribeEventsCalendarWidget') ) {
 
-	class Events_Calendar_Widget extends WP_Widget {
+	class TribeEventsCalendarWidget extends WP_Widget {
 		
-		function Events_Calendar_Widget() {
+		function TribeEventsCalendarWidget() {
 			$widget_ops = array('classname' => 'events_calendar_widget', 'description' => __( 'A calendar of your events') );
 			$this->WP_Widget('calendar', __('Events Calendar'), $widget_ops);
 		}
@@ -51,7 +51,7 @@ if( !class_exists( 'Events_Calendar_Widget') ) {
 
 	/* Function that registers widget. */
 	function events_calendar_load_widgets() {
-		register_widget( 'Events_Calendar_Widget' );
+		register_widget( 'TribeEventsCalendarWidget' );
 		// load text domain after class registration
 		load_plugin_textdomain( 'tribe-events-calendar', false, basename(dirname(dirname(__FILE__))) . '/lang/');
 	}
