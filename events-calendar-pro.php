@@ -1,10 +1,10 @@
 <?php
 /*
- Plugin Name:  Events Calendar Pro - Premium
- Description:  The Events Calendar Pro Premium plugin enables recurring events, custom meta, and other premium features for the Events Calendar Pro plugin 
+ Plugin Name: Events Calendar Pro
+ Description: The Events Calendar Pro Premium plugin enables recurring events, custom meta, and other premium features for The Events Calendar plugin 
  Version: 2.0
- Author: Shane & Peter, Inc.
- Author URI: http://www.shaneandpeter.com/
+ Author: Modern Tribe, Inc.
+ Author URI: http://tribe.pro/
  Text Domain: events-calendar-pro
  */
 
@@ -19,21 +19,25 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $pluginDir;
 		public $pluginPath;
 		public $pluginUrl;
+		public static $updateUrl = 'http://tribe.pro/updates/';
 		
 	    private function __construct()
 	    {
-			$this->pluginDir		= trailingslashit( basename( dirname(__FILE__) ) );
-			$this->pluginPath		= trailingslashit( dirname(__FILE__) );
-			$this->pluginUrl 		= WP_PLUGIN_URL.'/'.$this->pluginDir;
+			$this->pluginDir = trailingslashit( basename( dirname(__FILE__) ) );
+			$this->pluginPath = trailingslashit( dirname(__FILE__) );
+			$this->pluginUrl = WP_PLUGIN_URL.'/'.$this->pluginDir;
 			
-			include 'template-tags.php';
-
-			//TODO: manually include files
-	    	foreach (glob($this->pluginPath . "lib/*.php") as $filename) {
-				include $filename;
-			}
+			require_once( 'lib/tribe-date-series-rules.class.php' );
+			require_once( 'lib/tribe-ecp-custom-meta.class.php' );
+			require_once( 'lib/tribe-events-recurrence-meta.class.php' );
+			require_once( 'lib/tribe-recurrence.class.php' );
+			require_once( 'lib/tribe-support.class.php' );
+			require_once( 'template-tags.php' );
+			require_once( 'lib/plugins/pue-client.php' );
 			
-			add_action( 'init', array( $this, 'init'), 10 );			
+			add_action( 'init', array( $this, 'init' ), 10 );			
+			//add_action( 'admin_init', array( $this, 'checkForUpdates' ), 10 );	
+			$this->checkForUpdates();
 	    }
 		
 		public function init() {
@@ -58,11 +62,23 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * Check that the required minimum version of the base events plugin is activated.
 		 * 
 		 * @author John Gadbois 
-		 */public static function check_for_ecp() {
+		 */
+		public static function check_for_ecp() {
 			if( !class_exists( 'TribeEvents' ) || !defined('TribeEvents::VERSION') || !version_compare( TribeEvents::VERSION, '2.0', '>=') ) {
 				deactivate_plugins(basename(__FILE__)); // Deactivate ourself
 				wp_die("Sorry, but you must activate Events Calendar Pro 2.0 or greater in order for this plugin to be installed.");	
 			}
+		}
+
+		
+		/**
+		 * Check for updates
+		 *
+		 * @return void
+		 */
+		public function checkForUpdates() {
+			//$check_for_updates = new PluginUpdateEngineChecker(self::$updateUrl, self::PLUGIN_DOMAIN);
+			$check_for_updates = new PluginUpdateEngineChecker(self::$updateUrl, self::PLUGIN_DOMAIN);
 		}
 	}
 	
