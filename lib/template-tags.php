@@ -249,8 +249,8 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		} else {
 			$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
 		}
-		$monthOptions = Tribe_View_Helpers::getMonthOptions( $date );
-		$yearOptions = Tribe_View_Helpers::getYearOptions( $date );
+		$monthOptions = TribeEventsViewHelpers::getMonthOptions( $date );
+		$yearOptions = TribeEventsViewHelpers::getYearOptions( $date );
 		include($tribe_ecp->pluginPath.'admin-views/datepicker.php');
 	}
 

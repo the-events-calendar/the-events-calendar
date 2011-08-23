@@ -262,7 +262,7 @@ div.tribe_settings{
 						<select id="eventsDefaultState" name='eventsDefaultState'>
 							<option value=""><?php _e('Select a State:',self::PLUGIN_DOMAIN); ?></option>
 							<?php
-								foreach (Tribe_View_Helpers::loadStates() as $abbr => $fullname) {
+								foreach (TribeEventsViewHelpers::loadStates() as $abbr => $fullname) {
 									print ("<option value=\"$abbr\" ");
 									if (tribe_get_option('eventsDefaultState') == $abbr) {
 										print ('selected="selected" ');
@@ -296,7 +296,7 @@ div.tribe_settings{
 				<td>
 					<select name="defaultCountry" id="defaultCountry">
 							<?php 
-							$countries = Tribe_View_Helpers::constructCountries();
+							$countries = TribeEventsViewHelpers::constructCountries();
 							$defaultCountry = tribe_get_option('defaultCountry');
 					foreach ($countries as $abbr => $fullname) {
 						print ("<option value=\"$fullname\" ");

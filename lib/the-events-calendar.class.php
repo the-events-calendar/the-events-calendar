@@ -674,7 +674,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$options = self::getOptions();
 				$options['viewOption'] = $_POST['viewOption'];
 				if($_POST['defaultCountry']) {
-					$countries = Tribe_View_Helpers::constructCountries();
+					$countries = TribeEventsViewHelpers::constructCountries();
 					$defaultCountryKey = array_search( $_POST['defaultCountry'], $countries );
 					$options['defaultCountry'] = array( $defaultCountryKey, $_POST['defaultCountry'] );
 				}
@@ -1475,16 +1475,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$$tag = get_post_meta($_EventOrganizerID, $tag, true );*/
 
 			$isEventAllDay = ( $_EventAllDay == 'yes' || ! TribeDateUtils::dateOnly( $_EventStartDate ) ) ? 'checked="checked"' : ''; // default is all day for new posts
-			$startMonthOptions 		= Tribe_View_Helpers::getMonthOptions( $_EventStartDate );
-			$endMonthOptions 			= Tribe_View_Helpers::getMonthOptions( $_EventEndDate );
-			$startYearOptions 		= Tribe_View_Helpers::getYearOptions( $_EventStartDate );
-			$endYearOptions			= Tribe_View_Helpers::getYearOptions( $_EventEndDate );
-			$startMinuteOptions 		= Tribe_View_Helpers::getMinuteOptions( $_EventStartDate );
-			$endMinuteOptions		= Tribe_View_Helpers::getMinuteOptions( $_EventEndDate );
-			$startHourOptions				= Tribe_View_Helpers::getHourOptions( $_EventAllDay == 'yes' ? null : $_EventStartDate, true );
-			$endHourOptions			= Tribe_View_Helpers::getHourOptions( $_EventAllDay == 'yes' ? null : $_EventEndDate );
-			$startMeridianOptions = Tribe_View_Helpers::getMeridianOptions( $_EventStartDate, true );
-			$endMeridianOptions		= Tribe_View_Helpers::getMeridianOptions( $_EventEndDate );
+			$startMonthOptions 		= TribeEventsViewHelpers::getMonthOptions( $_EventStartDate );
+			$endMonthOptions 			= TribeEventsViewHelpers::getMonthOptions( $_EventEndDate );
+			$startYearOptions 		= TribeEventsViewHelpers::getYearOptions( $_EventStartDate );
+			$endYearOptions			= TribeEventsViewHelpers::getYearOptions( $_EventEndDate );
+			$startMinuteOptions 		= TribeEventsViewHelpers::getMinuteOptions( $_EventStartDate );
+			$endMinuteOptions		= TribeEventsViewHelpers::getMinuteOptions( $_EventEndDate );
+			$startHourOptions				= TribeEventsViewHelpers::getHourOptions( $_EventAllDay == 'yes' ? null : $_EventStartDate, true );
+			$endHourOptions			= TribeEventsViewHelpers::getHourOptions( $_EventAllDay == 'yes' ? null : $_EventEndDate );
+			$startMeridianOptions = TribeEventsViewHelpers::getMeridianOptions( $_EventStartDate, true );
+			$endMeridianOptions		= TribeEventsViewHelpers::getMeridianOptions( $_EventEndDate );
 	
 			if( $_EventStartDate )
 				$start = TribeDateUtils::dateOnly($_EventStartDate);

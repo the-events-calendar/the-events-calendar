@@ -26,7 +26,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<td>
 		<select tabindex="<?php $this->tabIndex(); ?>" name='venue[Country]' id="EventCountry">
 			<?php
-			$countries = Tribe_View_Helpers::constructCountries( $postId );
+			$countries = TribeEventsViewHelpers::constructCountries( $postId );
 			$defaultCountry = tribe_get_option('defaultCountry');
 			$current = ($_VenueCountry) ? $_VenueCountry : $defaultCountry[1];
 
@@ -52,7 +52,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<select tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceSelect" name="venue[State]" class="tec_hide" name=''>
 		<option value=""><?php _e('Select a State:',self::PLUGIN_DOMAIN); ?></option>
 		<?php
-			foreach (Tribe_View_Helpers::loadStates() as $abbr => $fullname) {
+			foreach (TribeEventsViewHelpers::loadStates() as $abbr => $fullname) {
 				print ("<option value=\"$abbr\" ");
 				if (($_VenueStateProvince != -1 ? $_VenueStateProvince : $_VenueState) == $abbr) {
 					print ('selected="selected" ');

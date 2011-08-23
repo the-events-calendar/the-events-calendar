@@ -6,8 +6,8 @@
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-if (!class_exists('Tribe_View_Helpers')) {
-	class Tribe_View_Helpers {
+if (!class_exists('TribeEventsViewHelpers')) {
+	class TribeEventsViewHelpers {
 		public static function constructCountries( $postId = '', $useDefault = true ) {
 			$tribe_ecp = TribeEvents::instance();
 
@@ -351,7 +351,7 @@ if (!class_exists('Tribe_View_Helpers')) {
 		 * @return string a set of HTML options with hours (current hour selected)
 		 */
 		public static function getHourOptions($date = "", $isStart = false) {
-			$hours = Tribe_View_Helpers::hours();
+			$hours = TribeEventsViewHelpers::hours();
 		
 			if (count($hours) == 12)
 				$h = 'h';
@@ -387,7 +387,7 @@ if (!class_exists('Tribe_View_Helpers')) {
 		 * @return string a set of HTML options with minutes (current minute selected)
 		 */
 		public static function getMinuteOptions($date = "") {
-			$minutes = Tribe_View_Helpers::minutes();
+			$minutes = TribeEventsViewHelpers::minutes();
 			$options = '';
 		
 			if (empty($date)) {
@@ -504,7 +504,7 @@ if (!class_exists('Tribe_View_Helpers')) {
 		 * @return string a set of HTML options with all days (current day selected)
 		 */
 		public static function getDayOptions($date = "", $totalDays = 31) {
-			$days = Tribe_View_Helpers::days($totalDays);
+			$days = TribeEventsViewHelpers::days($totalDays);
 			$options = '';
 			if (empty($date)) {
 				$day = date_i18n('j');
@@ -537,7 +537,7 @@ if (!class_exists('Tribe_View_Helpers')) {
 		 * @return string a set of HTML options with adjacent years (current year selected)
 		 */
 		public static function getYearOptions($date = "") {
-			$years = Tribe_View_Helpers::years();
+			$years = TribeEventsViewHelpers::years();
 			$options = '';
 			if (empty($date)) {
 				$year = date_i18n('Y');
