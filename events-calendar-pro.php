@@ -36,13 +36,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/plugins/pue-client.php' );
 			
 			add_action( 'init', array( $this, 'init' ), 10 );			
-			//add_action( 'admin_init', array( $this, 'checkForUpdates' ), 10 );	
-			$this->checkForUpdates();
 	    }
 		
 		public function init() {
 			TribeEventsCustomMeta::init();
 			TribeEventsRecurrenceMeta::init();
+			new PluginUpdateEngineChecker(self::$updateUrl, self::PLUGIN_DOMAIN);
 		}
 	
 		/* Static Methods */
@@ -68,17 +67,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				deactivate_plugins(basename(__FILE__)); // Deactivate ourself
 				wp_die("Sorry, but you must activate Events Calendar Pro 2.0 or greater in order for this plugin to be installed.");	
 			}
-		}
-
-		
-		/**
-		 * Check for updates
-		 *
-		 * @return void
-		 */
-		public function checkForUpdates() {
-			//$check_for_updates = new PluginUpdateEngineChecker(self::$updateUrl, self::PLUGIN_DOMAIN);
-			$check_for_updates = new PluginUpdateEngineChecker(self::$updateUrl, self::PLUGIN_DOMAIN);
 		}
 	}
 	
