@@ -6,8 +6,8 @@
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-if (!class_exists('Tribe_Event_API')) {
-	class Tribe_Event_API {
+if (!class_exists('TribeEventsAPI')) {
+	class TribeEventsAPI {
 	
 		/**
 		 * Create a new event
@@ -21,7 +21,7 @@ if (!class_exists('Tribe_Event_API')) {
 			$eventId = wp_insert_post($args, true);	
 		
 			if( !is_wp_error($eventId) ) {
-				Tribe_Event_API::saveEventMeta($eventId, $args, get_post( $eventId ) );
+				TribeEventsAPI::saveEventMeta($eventId, $args, get_post( $eventId ) );
 				return $eventId;
 			}		
 		}
@@ -33,7 +33,7 @@ if (!class_exists('Tribe_Event_API')) {
 			$args['ID'] == $eventId;
 		
 			if(wp_update_post($args)) {
-				Tribe_Event_API::saveEventMeta($eventId, $args, get_post( $eventId ) );
+				TribeEventsAPI::saveEventMeta($eventId, $args, get_post( $eventId ) );
 			}
 
 			return $eventId;
@@ -74,8 +74,8 @@ if (!class_exists('Tribe_Event_API')) {
 			if( !isset( $data['EventShowMapLink'] ) ) update_post_meta( $event_id, '_EventShowMapLink', 'false' );
 			if( !isset( $data['EventShowMap'] ) ) update_post_meta( $event_id, '_EventShowMap', 'false' );
 		
-			$data['EventOrganizerID'] = Tribe_Event_API::saveEventOrganizer($data["Organizer"]);
-			$data['EventVenueID'] = Tribe_Event_API::saveEventVenue($data["Venue"]);
+			$data['EventOrganizerID'] = TribeEventsAPI::saveEventOrganizer($data["Organizer"]);
+			$data['EventVenueID'] = TribeEventsAPI::saveEventVenue($data["Venue"]);
 
 			$tribe_ecp->do_action('tribe_events_event_save', $event_id);
 
@@ -101,7 +101,7 @@ if (!class_exists('Tribe_Event_API')) {
 			if($data['OrganizerID'] && $data['OrganizerID'] != "0")
 				return $data['OrganizerID'];
 
-			return Tribe_Event_API::createOrganizer($data);
+			return TribeEventsAPI::createOrganizer($data);
 		}
 	
 		/**
@@ -112,7 +112,7 @@ if (!class_exists('Tribe_Event_API')) {
 			if($data['VenueID'] && $data['VenueID'] != "0")
 				return $data['VenueID'];
 
-			return Tribe_Event_API::createVenue($data);
+			return TribeEventsAPI::createVenue($data);
 		}	
 	
 		/**
@@ -129,7 +129,7 @@ if (!class_exists('Tribe_Event_API')) {
 				$organizerId = wp_insert_post($postdata, true);		
 
 				if( !is_wp_error($organizerId) ) {
-					Tribe_Event_API::saveOrganizerMeta($organizerId, $data);
+					TribeEventsAPI::saveOrganizerMeta($organizerId, $data);
 					return $organizerId;
 				}
 			}
@@ -147,7 +147,7 @@ if (!class_exists('Tribe_Event_API')) {
 		 */		
 		public static function updateOrganizer($organizerId, $data) {
 			wp_update_post( array('post_title' => $data['Organizer'], 'ID'=>$organizerId ));		
-			Tribe_Event_API::saveOrganizerMeta($organizerId, $data);
+			TribeEventsAPI::saveOrganizerMeta($organizerId, $data);
 		}
 	
 		/**
@@ -173,7 +173,7 @@ if (!class_exists('Tribe_Event_API')) {
 				$venueId = wp_insert_post($postdata, true);		
 
 				if( !is_wp_error($venueId) ) {
-					Tribe_Event_API::saveVenueMeta($venueId, $data);
+					TribeEventsAPI::saveVenueMeta($venueId, $data);
 					return $venueId;
 				}
 			}
@@ -184,7 +184,7 @@ if (!class_exists('Tribe_Event_API')) {
 		 */
 		public static function updateVenue($venueId, $data) {
 			wp_update_post( array('post_title' => $data['Venue'], 'ID'=>$venueId ));		
-			Tribe_Event_API::saveVenueMeta($venueId, $data);
+			TribeEventsAPI::saveVenueMeta($venueId, $data);
 		}
 	
 		/**

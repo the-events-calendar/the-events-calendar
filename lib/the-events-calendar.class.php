@@ -1286,7 +1286,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$_POST['Organizer'] = stripslashes_deep($_POST['organizer']);
 			$_POST['Venue'] = stripslashes_deep($_POST['venue']);
 	
-			Tribe_Event_API::saveEventMeta($postId, $_POST, $post);
+			TribeEventsAPI::saveEventMeta($postId, $_POST, $post);
 		}
 
 
@@ -1313,7 +1313,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 
 			$data = stripslashes_deep($_POST['venue']);
-			$venue_id = Tribe_Event_API::updateVenue($postID, $data);
+			$venue_id = TribeEventsAPI::updateVenue($postID, $data);
 
 			return $venue_id;
 		}
@@ -1366,7 +1366,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$data = stripslashes_deep($_POST['organizer']);
 
-			$organizer_id = Tribe_Event_API::updateOrganizer($postID, $data);
+			$organizer_id = TribeEventsAPI::updateOrganizer($postID, $data);
 
 			return $organizer_id;
 		}
