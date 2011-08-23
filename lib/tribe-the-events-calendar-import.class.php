@@ -148,9 +148,9 @@ if (!class_exists('TribeEventsImport')) {
 
 			if( $unique_venue && trim($unique_venue) != "" ) {
 				if( !self::$curVenues[$unique_venue] ) {
-					self::$curVenues[$unique_venue] = Tribe_Event_API::createVenue($venue);
+					self::$curVenues[$unique_venue] = TribeEventsAPI::createVenue($venue);
 				} else {
-					Tribe_Event_API::updateVenue(self::$curVenues[$unique_venue], $venue);
+					TribeEventsAPI::updateVenue(self::$curVenues[$unique_venue], $venue);
 				}
 			
 				update_post_meta($post->ID, '_EventVenueID', self::$curVenues[$unique_venue]);

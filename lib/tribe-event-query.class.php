@@ -6,8 +6,8 @@
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-if (!class_exists('Tribe_Event_Query')) {
-	class Tribe_Event_Query {
+if (!class_exists('TribeEventsQuery')) {
+	class TribeEventsQuery {
 	
 		public static function init() {
 			add_action( 'parse_query', array( __CLASS__, 'setupQuery'), 0 );			

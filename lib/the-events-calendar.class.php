@@ -215,7 +215,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->postVenueTypeArgs['rewrite']['slug'] = __( 'venue', self::PLUGIN_DOMAIN );
 			$this->currentDay = '';
 			$this->errors = '';
-			Tribe_Event_Query::init();
+			TribeEventsQuery::init();
 			$this->registerPostType();
 
 			//If the custom post type's rewrite rules have not been generated yet, flush them. (This can happen on reactivations.)
@@ -1695,7 +1695,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			);			
 
 			$args = wp_parse_args( $args, $defaults);
-			return Tribe_Event_Query::getEvents($args);
+			return TribeEventsQuery::getEvents($args);
 		}
 
 		public function isEvent( $postId = null ) {
