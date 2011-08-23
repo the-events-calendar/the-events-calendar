@@ -37,7 +37,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	    }
 		
 		public function init() {
-			Tribe_ECP_Custom_Meta::init();
+			TribeEventsCustomMeta::init();
 			TribeEventsRecurrenceMeta::init();
 		}
 	

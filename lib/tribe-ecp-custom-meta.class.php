@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Tribe_ECP_Custom_Meta
+ * TribeEventsCustomMeta
  *
  * This class allows users to create custom fields in the settings & displays the
  * custom fields in the event editor
  * @author John Gadbois
  */
-class Tribe_ECP_Custom_Meta {
+class TribeEventsCustomMeta {
 	public static function init() {
 		add_action( 'wp_ajax_remove_option', array(__CLASS__, 'remove_meta_field') );		
 		add_action( 'tribe_events_options_bottom', array( __CLASS__, 'event_meta_options' ) );
