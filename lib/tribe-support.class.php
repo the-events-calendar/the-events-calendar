@@ -21,12 +21,13 @@ if( !class_exists( 'TribeEventsProSupport' ) ) {
 			return self::$instance;
 		}
 		
-		
+		private static $debug_log = array();
 		public static $support;
 		
 		private function __construct( ) {
 			//add_action( 'init', array( $this, 'addSupportLink'), 10 );
 			add_action( 'wp_before_admin_bar_render', array( $this, 'addSupportForm') );
+			add_action( 'tribe_debug', array( $this, 'logDebug' ), 8, 3 );
 		}
 		
 		public function addSupportLink() {
@@ -91,12 +92,30 @@ if( !class_exists( 'TribeEventsProSupport' ) ) {
 				'PLUGINS' => $plugins,			
 				'THEME' => get_current_theme(),
 				'MU INSTALL' => (is_multisite()) ? 'TRUE' : 'FALSE',			
-				'SETTINGS' => TribeEvents::getOptions()
+				'SETTINGS' => TribeEvents::getOptions(),
+				'ERRORS' => self::$debug_log
 			);
 			$systeminfo = apply_filters('tribe-events-pro-support',$systeminfo);			
 			$systeminfo = serialize($systeminfo);
 			$systeminfo = base64_encode($systeminfo);
 			return $systeminfo;
+		}
+
+		/**
+		 * capture log messages for support requests.
+		 *
+		 * @param string $title - message to display in log
+		 * @param string $data - optional data to display
+		 * @param string $format - optional format (log|warning|error|notice)
+		 * @return void
+		 * @author Peter Chester
+		 */
+		public function logDebug($title,$data=false,$format='log') {
+			self::$debug_log[] = array(
+				'title' => $title,
+				'data' => $data,
+				'format' => $format,
+			);
 		}
 
 	}
