@@ -13,7 +13,7 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 	function tribe_get_recurrence_text( $postId = null )  {
 		$tribe_ecp = TribeEvents::instance();
 		$postId = tribe_post_id_helper( $postId );
-	   return apply_filters( 'tribe_get_recurrence_text', Events_Recurrence_Meta::recurrenceToText( $postId ) );
+	   return apply_filters( 'tribe_get_recurrence_text', TribeEventsRecurrenceMeta::recurrenceToText( $postId ) );
 	}
 
 	

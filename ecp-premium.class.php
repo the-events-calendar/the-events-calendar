@@ -11,7 +11,7 @@
 if ( !class_exists( 'TribeEventsPro' ) ) {
 	class TribeEventsPro {
 
-		const PLUGIN_DOMAIN = 'tribe-events-calendar-pro';
+		const PLUGIN_DOMAIN = 'events-calendar-pro';
 
 	    private static $instance;
 
@@ -19,7 +19,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $pluginDir;
 		public $pluginPath;
 		public $pluginUrl;
-		public $pluginDomain = 'events-calendar-pro';		
 		
 	    private function __construct()
 	    {
@@ -39,7 +38,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		
 		public function init() {
 			Tribe_ECP_Custom_Meta::init();
-			Events_Recurrence_Meta::init();
+			TribeEventsRecurrenceMeta::init();
 		}
 	
 		/* Static Methods */

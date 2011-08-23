@@ -1,11 +1,11 @@
 <?php
 /**
- * Events_Recurrence_Meta
+ * TribeEventsRecurrenceMeta
  * 
  * WordPress hooks and filters controlling event recurrence
  * @author John Gadbois
  */
-class Events_Recurrence_Meta {
+class TribeEventsRecurrenceMeta {
 	const UPDATE_TYPE_ALL = 1;
 	const UPDATE_TYPE_FUTURE = 2;
 	const UPDATE_TYPE_SINGLE = 3;
@@ -30,9 +30,9 @@ class Events_Recurrence_Meta {
 		// save recurrence
 		$recurrence_meta = $data['recurrence'];
 	
-		if( Events_Recurrence_Meta::isRecurrenceValid( $event, $recurrence_meta ) ) {
+		if( TribeEventsRecurrenceMeta::isRecurrenceValid( $event, $recurrence_meta ) ) {
 			update_post_meta($event_id, '_EventRecurrence', $recurrence_meta);				
-			Events_Recurrence_Meta::saveEvents($event_id);
+			TribeEventsRecurrenceMeta::saveEvents($event_id);
 		}
 	}
 
@@ -43,7 +43,7 @@ class Events_Recurrence_Meta {
 	 */	
 	public static function loadRecurrenceData($postId) {
 		// convert array to variables that can be used in the view
-		extract(Events_Recurrence_Meta::getRecurrenceMeta($postId));
+		extract(TribeEventsRecurrenceMeta::getRecurrenceMeta($postId));
 
 		$premium = TribeEventsPro::instance();		
 		include( TribeEventsPro::instance()->pluginPath . 'admin-views/event-recurrence.php' );
@@ -71,7 +71,7 @@ class Events_Recurrence_Meta {
 	 */		
 	public static function maybeBreakFromSeries( $postId ) {
 		// make new series for future events
-		if($_POST['recurrence_action'] && $_POST['recurrence_action'] == Events_Recurrence_Meta::UPDATE_TYPE_FUTURE) {
+		if($_POST['recurrence_action'] && $_POST['recurrence_action'] == TribeEventsRecurrenceMeta::UPDATE_TYPE_FUTURE) {
 			// if this is the first event in the series, then we don't need to break it into two series
 			if( $_POST['EventStartDate'] != TribeDateUtils::dateOnly( TribeEvents::getRealStartDate($postId) )) {
 				// move recurrence end to the last date of the series before today
@@ -101,7 +101,7 @@ class Events_Recurrence_Meta {
 				exit();
 			}
 		// break from series			
-		} else if($_POST['recurrence_action'] && $_POST['recurrence_action'] == Events_Recurrence_Meta::UPDATE_TYPE_SINGLE) {
+		} else if($_POST['recurrence_action'] && $_POST['recurrence_action'] == TribeEventsRecurrenceMeta::UPDATE_TYPE_SINGLE) {
 			// new event should have no recurrence
 			$_REQUEST['recurrence'] = $_POST['recurrence'] = null;
 
@@ -324,7 +324,7 @@ class Events_Recurrence_Meta {
 	 * @return void
 	 */	
 	public static function isRecurrenceValid( $event, $recurrence_meta  ) {
-		extract(Events_Recurrence_Meta::getRecurrenceMeta( $event->ID, $recurrence_meta ));
+		extract(TribeEventsRecurrenceMeta::getRecurrenceMeta( $event->ID, $recurrence_meta ));
 		$valid = true;
 		$errorMsg = '';
 
@@ -349,8 +349,8 @@ class Events_Recurrence_Meta {
 	 * @return void
 	 */		
 	public static function saveEvents( $postId) {
-		extract(Events_Recurrence_Meta::getRecurrenceMeta($postId));
-		$rules = Events_Recurrence_Meta::getSeriesRules($postId);
+		extract(TribeEventsRecurrenceMeta::getRecurrenceMeta($postId));
+		$rules = TribeEventsRecurrenceMeta::getSeriesRules($postId);
 
 		// use the recurrence start meta if necessary because we can't guarantee which order the start date will come back in
 		$recStart = strtotime(get_post_meta($postId, '_EventStartDate', true));
@@ -386,7 +386,7 @@ class Events_Recurrence_Meta {
 	 * @return void
 	 */		
 	public static function getSeriesRules($postId) {
-		extract(Events_Recurrence_Meta::getRecurrenceMeta($postId));
+		extract(TribeEventsRecurrenceMeta::getRecurrenceMeta($postId));
 		$rules = null;
 
 		if(!$recCustomInterval)
@@ -428,7 +428,7 @@ class Events_Recurrence_Meta {
 			$postId = $post->ID;
 		}
 		
-		extract(Events_Recurrence_Meta::getRecurrenceMeta($postId));
+		extract(TribeEventsRecurrenceMeta::getRecurrenceMeta($postId));
 		
 		if ($recType == "Every Day") {
 			$text = __("Every day"); 
