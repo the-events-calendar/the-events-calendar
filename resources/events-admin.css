@@ -151,9 +151,9 @@ td.tribe_message {
 	padding-bottom: 10px !important;
 }
 .clearfix {zoom:1; /* For IE */}
-.tec-events-error {display:none;}
+.tribe-events-error {display:none;}
 .tec_hide {display:none;}
-.tec-multi-event-day {color: #0F81BB;}
+.tribe-events-multi-event-day {color: #0F81BB;}
 
 #adminmenu #menu-posts-spevents div.wp-menu-image {
 	background:url(images/menu.png) no-repeat 0 -32px;

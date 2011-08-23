@@ -20,14 +20,14 @@ $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 
 ?>
 <h4 class="cal-header"><?php echo $tribe_ecp->monthsShort[date('M',$date)]; echo date(' Y',$date); ?> <a class="sp-view-all-events" href="<?php echo tribe_get_events_link(); ?>"><?php _e('View all &raquo;', $tribe_ecp->pluginDomain); ?></a></h4>
-<table class="tec-calendar tec-calendar-widget" id="small">
+<table class="tribe-events-calendar tribe-events-calendar-widget" id="small">
 	<thead>
 			<tr>
 				<?php
 
 				for( $n = $startOfWeek; $n < count($tribe_ecp->daysOfWeekMin) + $startOfWeek; $n++ ) {
 					$dayOfWeek = ( $n >= 7 ) ? $n - 7 : $n;
-					echo '<th id="tec-' . strtolower($tribe_ecp->daysOfWeekMin[$dayOfWeek]) . '" title="' . $tribe_ecp->daysOfWeek[$dayOfWeek] . '">' . $tribe_ecp->daysOfWeekMin[$dayOfWeek] . '</th>';
+					echo '<th id="tribe-events-' . strtolower($tribe_ecp->daysOfWeekMin[$dayOfWeek]) . '" title="' . $tribe_ecp->daysOfWeek[$dayOfWeek] . '">' . $tribe_ecp->daysOfWeekMin[$dayOfWeek] . '</th>';
 				}
 				?>
 			</tr>
@@ -38,7 +38,7 @@ $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 		<?php
 			// skip last month
 			for( $i = 1; $i <= $offset; $i++ ){ 
-				echo "<td class='tec-othermonth'></td>";
+				echo "<td class='tribe-events-othermonth'></td>";
 			}
 			// output this month
 			for( $day = 1; $day <= date("t", $date); $day++ ) {
@@ -55,24 +55,24 @@ $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 				if ( $current_month == $month && $current_year == $year) {
 					// Past, Present, Future class
 					if ($current_day == $day ) {
-						$ppf = ' tec-present';
+						$ppf = ' tribe-events-present';
 					} elseif ($current_day > $day) {
-						$ppf = ' tec-past';
+						$ppf = ' tribe-events-past';
 					} elseif ($current_day < $day) {
-						$ppf = ' tec-future';
+						$ppf = ' tribe-events-future';
 					}
 				} elseif ( $current_month > $month && $current_year == $year || $current_year > $year ) {
-					$ppf = ' tec-past';
+					$ppf = ' tribe-events-past';
 				} elseif ( $current_month < $month && $current_year == $year || $current_year < $year ) {
-					$ppf = ' tec-future';
+					$ppf = ' tribe-events-future';
 				} else { $ppf = false; }
-			    echo "<td class='tec-thismonth" . $ppf . "'>" . tribe_mini_display_day( $day, $monthView ) . "\n";
+			    echo "<td class='tribe-events-thismonth" . $ppf . "'>" . tribe_mini_display_day( $day, $monthView ) . "\n";
 				echo "</td>";
 			}
 			// skip next month
 			while( ($day + $offset) <= $rows * 7)
 			{
-			    echo "<td class='tec-othermonth'></td>";
+			    echo "<td class='tribe-events-othermonth'></td>";
 			    $day++;
 			}
 		?>
@@ -82,16 +82,16 @@ $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 <?php
 
 function tribe_mini_display_day( $day, $monthView ) {
-	$return = "<div class='daynum tec-event' id='daynum_$day'>";
+	$return = "<div class='daynum tribe-events-event' id='daynum_$day'>";
 
-	$return .= ( count($monthView[$day]) ) ? "<a class='tec-mini-has-event'>$day</a>" : $day;
-	$return .= "<div id='tooltip_day_$day' class='tec-tooltip' style='display:none;'>";
+	$return .= ( count($monthView[$day]) ) ? "<a class='tribe-events-mini-has-event'>$day</a>" : $day;
+	$return .= "<div id='tooltip_day_$day' class='tribe-events-tooltip' style='display:none;'>";
 	for( $i = 0; $i < count( $monthView[$day] ); $i++ ) {
 		$post = $monthView[$day][$i];
 		setup_postdata( $post );
-		$return .= '<h5 class="tec-event-title-mini"><a href="'. get_permalink($post->ID) .'">' . $post->post_title . '</a></h5>';
+		$return .= '<h5 class="tribe-events-event-title-mini"><a href="'. get_permalink($post->ID) .'">' . $post->post_title . '</a></h5>';
 	}
-	$return .= '<span class="tec-arrow"></span>';
+	$return .= '<span class="tribe-events-arrow"></span>';
 	$return .= '</div>';
 
 	$return .= "</div>";

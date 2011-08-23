@@ -9,7 +9,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 ?>
 <span class="back"><a href="<?php echo tribe_get_events_link(); ?>"><?php _e('&laquo; Back to Events', $tribe_ecp->pluginDomain); ?></a></span>				
 <?php if (tribe_get_end_date() > time()  ) { ?><small><?php  _e('This event has passed.', $tribe_ecp->pluginDomain) ?></small> <?php } ?>
-<div id="tec-event-meta">
+<div id="tribe-events-event-meta">
 	<dl class="column">
 		<dt><?php _e('Start:', $tribe_ecp->pluginDomain) ?></dt> 
 			<dd><?php echo tribe_get_start_date(); ?></dd>

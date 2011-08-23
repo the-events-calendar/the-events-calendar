@@ -30,14 +30,14 @@ $rows = 1;
 $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 
 ?>
-<table class="tec-calendar" id="big">
+<table class="tribe-events-calendar" id="big">
 	<thead>
 			<tr>
 				<?php
 				for( $n = $startOfWeek; $n < count($tribe_ecp->daysOfWeek) + $startOfWeek; $n++ ) {
 					$dayOfWeek = ( $n >= 7 ) ? $n - 7 : $n;
 					
-					echo '<th id="tec-' . strtolower($tribe_ecp->daysOfWeek[$dayOfWeek]) . '" abbr="' . $tribe_ecp->daysOfWeek[$dayOfWeek] . '">' . $tribe_ecp->daysOfWeekShort[$dayOfWeek] . '</th>';
+					echo '<th id="tribe-events-' . strtolower($tribe_ecp->daysOfWeek[$dayOfWeek]) . '" abbr="' . $tribe_ecp->daysOfWeek[$dayOfWeek] . '">' . $tribe_ecp->daysOfWeekShort[$dayOfWeek] . '</th>';
 				}
 				?>
 			</tr>
@@ -48,7 +48,7 @@ $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 		<?php
 			// skip last month
 			for( $i = 1; $i <= $offset; $i++ ){ 
-				echo "<td class='tec-othermonth'></td>";
+				echo "<td class='tribe-events-othermonth'></td>";
 			}
 			// output this month
 			for( $day = 1; $day <= date("t", $date); $day++ ) {
@@ -65,26 +65,26 @@ $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 				if ( $current_month == $month && $current_year == $year) {
 					// Past, Present, Future class
 					if ($current_day == $day ) {
-						$ppf = ' tec-present';
+						$ppf = ' tribe-events-present';
 					} elseif ($current_day > $day) {
-						$ppf = ' tec-past';
+						$ppf = ' tribe-events-past';
 					} elseif ($current_day < $day) {
-						$ppf = ' tec-future';
+						$ppf = ' tribe-events-future';
 					}
 				} elseif ( $current_month > $month && $current_year == $year || $current_year > $year ) {
-					$ppf = ' tec-past';
+					$ppf = ' tribe-events-past';
 				} elseif ( $current_month < $month && $current_year == $year || $current_year < $year ) {
-					$ppf = ' tec-future';
+					$ppf = ' tribe-events-future';
 				} else { $ppf = false; }
 				
-			    echo "<td class='tec-thismonth" . $ppf . "'>" . display_day_title( $day, $monthView ) . "\n";
+			    echo "<td class='tribe-events-thismonth" . $ppf . "'>" . display_day_title( $day, $monthView ) . "\n";
 				echo display_day( $day, $monthView );
 				echo "</td>";
 			}
 			// skip next month
 			while( ($day + $offset) <= $rows * 7)
 			{
-			    echo "<td class='tec-othermonth'></td>";
+			    echo "<td class='tribe-events-othermonth'></td>";
 			    $day++;
 			}
 		?>
@@ -94,16 +94,16 @@ $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 <?php
 
 function display_day_title( $day, $monthView ) {
-	$return = "<div class='daynum tec-event' id='daynum_$day'>";
+	$return = "<div class='daynum tribe-events-event' id='daynum_$day'>";
 
 	$return .= $day;
-	$return .= "<div id='tooltip_day_$day' class='tec-tooltip' style='display:none;'>";
+	$return .= "<div id='tooltip_day_$day' class='tribe-events-tooltip' style='display:none;'>";
 	for( $i = 0; $i < count( $monthView[$day] ); $i++ ) {
 		$post = $monthView[$day][$i];
 		setup_postdata( $post );
-		$return .= '<h5 class="tec-event-title">' . get_the_title() . '</h5>';
+		$return .= '<h5 class="tribe-events-event-title">' . get_the_title() . '</h5>';
 	}
-	$return .= '<span class="tec-arrow"></span>';
+	$return .= '<span class="tribe-events-arrow"></span>';
 	$return .= '</div>';
 
 	$return .= "</div>";
@@ -127,24 +127,24 @@ function display_day( $day, $monthView ) {
 		$province	= tribe_get_province( $post->ID );
 		$country	= tribe_get_country( $post->ID );
 		?>
-		<div id='event_<?php echo $eventId; ?>' <?php post_class('tec-event') ?>>
+		<div id='event_<?php echo $eventId; ?>' <?php post_class('tribe-events-event') ?>>
 			<a href="<?php tribe_event_link(); ?>"><?php the_title(); ?></a>
-			<div id='tooltip_<?php echo $eventId; ?>' class="tec-tooltip" style="display:none;">
-				<h5 class="tec-event-title"><?php the_title();?></h5>
-				<div class="tec-event-body">
+			<div id='tooltip_<?php echo $eventId; ?>' class="tribe-events-tooltip" style="display:none;">
+				<h5 class="tribe-events-event-title"><?php the_title();?></h5>
+				<div class="tribe-events-event-body">
 					<?php if ( !tribe_get_all_day($post->ID) || tribe_is_multiday($post->ID) ) : ?>
-					<div class="tec-event-date">
+					<div class="tribe-events-event-date">
 						<?php if ( !empty( $start ) )	echo $start; ?>
 						<?php if ( !empty( $end )  && $start !== $end )		echo " – " . $end . '<br />'; ?>
 					</div>
 					<?php endif; ?>
 					<?php if ( function_exists('has_post_thumbnail') && has_post_thumbnail() ) { ?>
-						<div class="tec-event-thumb"><?php the_post_thumbnail( array(75,75));?></div>
+						<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array(75,75));?></div>
 					<?php } ?>
 					<?php echo has_excerpt() ? TribeEvents::truncate($post->post_excerpt) : TribeEvents::truncate(get_the_content(), 30); ?>
 
 				</div>
-				<span class="tec-arrow"></span>
+				<span class="tribe-events-arrow"></span>
 			</div>
 		</div>
 		<?php

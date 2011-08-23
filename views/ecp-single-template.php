@@ -9,7 +9,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <?php get_header(); ?>
 <?php echo stripslashes(tribe_get_option('spEventsBeforeHTML')); ?>		
 <div id="container">
-	<div id="content" class="tec-event widecolumn">
+	<div id="content" class="tribe-events-event widecolumn">
 		<?php the_post(); global $post; ?>
 		<div id="post-<?php the_ID() ?>" <?php post_class() ?>>
 			<h2 class="entry-title"><?php the_title() ?></h2>

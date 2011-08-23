@@ -14,7 +14,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 </style>
 <?php require_once('recurrence-dialog.php'); ?>
 <div id="eventIntro">
-<div id="tec-post-error" class="tec-events-error error"></div>
+<div id="tribe-events-post-error" class="tribe-events-error error"></div>
 <?php $this->do_action('tribe_events_post_errors', $postId, true) ?>
 
 </div>

@@ -45,7 +45,7 @@ div.tribe_settings{
 </style>
 <div class="tribe_settings wrap">
 <?php screen_icon(); ?><h2><?php printf( __('%s Settings', self::PLUGIN_DOMAIN), $this->pluginName ); ?></h2>
-<div id="tec-options-error" class="tec-events-error error"></div>
+<div id="tribe-events-options-error" class="tribe-events-error error"></div>
 <?php $this->do_action( 'tribe_events_options_top' ); ?>
 <div class="form">
 	<h3><?php _e('Need a hand?',self::PLUGIN_DOMAIN); ?></h3>
