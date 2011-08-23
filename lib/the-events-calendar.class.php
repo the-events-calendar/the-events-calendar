@@ -224,10 +224,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 			self::debug(sprintf(__('Initializing Tribe Events on %s',self::PLUGIN_DOMAIN),date('M, jS \a\t h:m:s a')));
 			/*
-			self::debug('Debug Example: Log',false,'log');
-			self::debug('Debug Example: Warning',false,'warning');
-			self::debug('Debug Example: Notice',false,'notice');
-			self::debug('Debug Example: Error',false,'error');
+			self::debug(__('Debug Example: Log',self::PLUGIN_DOMAIN),false,'log');
+			self::debug(__('Debug Example: Warning',self::PLUGIN_DOMAIN),false,'warning');
+			self::debug(__('Debug Example: Notice',self::PLUGIN_DOMAIN),false,'notice');
+			self::debug(__('Debug Example: Error',self::PLUGIN_DOMAIN),false,'error');
 			*/
 		}
 
@@ -257,10 +257,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function notSupportedError() {
 			if ( !self::supportedVersion('wordpress') ) {
-				echo '<div class="error"><p>'.__(sprintf('Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install.','3.0'), self::PLUGIN_DOMAIN).'</p></div>';
+				echo '<div class="error"><p>'.sprintf(__('Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install.', self::PLUGIN_DOMAIN),'3.0').'</p></div>';
 			}
 			if ( !self::supportedVersion('php') ) {
-				echo '<div class="error"><p>'.__(sprintf('Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP.','5.2'), self::PLUGIN_DOMAIN).'</p></div>';
+				echo '<div class="error"><p>'.sprintf(__('Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP.', self::PLUGIN_DOMAIN),'5.2').'</p></div>';
 			}
 		}
 
@@ -312,7 +312,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 		
 		/**
-		 * Render the debug logging to the php error log. This can be over-riden by removing the filter.
+		 * Render the debug logging to the php error log. This can be over-ridden by removing the filter.
 		 *
 		 * @param string $title - message to display in log
 		 * @param string $data - optional data to display
@@ -323,9 +323,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function renderDebug($title,$data=false,$format='log') {
 			$format = ucfirst($format);
 			if ($this->getOption('debugEvents')) {
-				error_log("Tribe $format: $title");
+				error_log($this->pluginName." $format: $title");
 				if ($data && $data!='') {
-					error_log("Tribe $format: ".print_r($data,true));
+					error_log($this->pluginName." $format: ".print_r($data,true));
 				}
 			}
 		}
