@@ -48,7 +48,10 @@ if(!class_exists('TribeDateUtils')) {
 			$date = self::dateOnly($date);
 			return date(TribeDateUtils::DBDATETIMEFORMAT, strtotime($date . $time) );
 		}
-		
+
+      public static function timeBetween( $date1, $date2 ) {
+         return abs(strtotime($date1) - strtotime($date2));
+      }
 		// returns the last day of the month given a php date
 		public static function getLastDayOfMonth( $timestamp ) {
 			$curmonth = date('n', $timestamp);

@@ -1022,6 +1022,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 	
 			// single event
 			$newRules[$baseSingle . '([^/]+)/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?' . self::POSTTYPE . '=' . $wp_rewrite->preg_index(1) . "&eventDate=" . $wp_rewrite->preg_index(2);
+			$newRules[$baseSingle . '([^/]+)/(\d{4}-\d{2}-\d{2})/ical/?$'] = 'index.php?ical=1&' . self::POSTTYPE . '=' . $wp_rewrite->preg_index(1) . "&eventDate=" . $wp_rewrite->preg_index(2);
 			$newRules[$baseSingle . '([^/]+)/all/?$'] = 'index.php?' . self::POSTTYPE . '=' . $wp_rewrite->preg_index(1) . "&eventDisplay=all";			
 	
 			$newRules[$base . 'page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(1);
@@ -1779,7 +1780,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * build an ical feed from events posts
 		 */
-		public function iCalFeed( $postId = null, $eventCatSlug = null ) {
+		public function iCalFeed( $post = null, $eventCatSlug = null, $eventDate = null ) {
+         $postId = $post ? $post->ID : null;
 			$getstring = $_GET['ical'];
 			$wpTimezoneString = get_option("timezone_string");
 			$postType = self::POSTTYPE;
@@ -1791,11 +1793,26 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$includePosts = ( $postId ) ? '&include=' . $postId : '';
 			$eventsCats = ( $eventCatSlug ) ? '&'.self::TAXONOMY.'='.$eventCatSlug : '';
 	
-			$eventPosts = get_posts( 'numberposts=-1&post_type=' . $postType . $includePosts . $eventsCats );
+         if ($post) {
+            $eventPosts = array();
+            $eventPosts[] = $post;
+         } else {
+            $eventPosts = get_posts( 'numberposts=-1&post_type=' . $postType . $includePosts . $eventsCats );
+         }
+
 			foreach( $eventPosts as $eventPost ) {
+            if ( $eventDate) {
+               $duration = TribeDateUtils::timeBetween($eventPost->EventStartDate, $eventPost->EventEndDate);
+               $startDate = TribeDateUtils::addTimeToDate($eventDate, TribeDateUtils::timeOnly($eventPost->EventStartDate));
+               $endDate = TribeDateUtils::dateAndTime(strtotime($startDate) + $duration, true);
+            } else {
+               $startDate = $eventPost->EventStartDate;
+               $endDate = $eventPost->EventEndDate;
+            }
+
 				// convert 2010-04-08 00:00:00 to 20100408T000000 or YYYYMMDDTHHMMSS
-				$startDate = str_replace( array("-", " ", ":") , array("", "T", "") , get_post_meta( $eventPost->ID, "_EventStartDate", true) );
-				$endDate = str_replace( array("-", " ", ":") , array("", "T", "") , get_post_meta( $eventPost->ID, "_EventEndDate", true) );
+				$startDate = str_replace( array("-", " ", ":") , array("", "T", "") , $startDate);
+				$endDate = str_replace( array("-", " ", ":") , array("", "T", "") , $endDate);
 				if( get_post_meta( $eventPost->ID, "_EventAllDay", true ) == "yes" ) {
 					$startDate = substr( $startDate, 0, 8 );
 					$endDate = substr( $endDate, 0, 8 );
