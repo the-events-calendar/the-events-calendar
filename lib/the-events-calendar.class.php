@@ -223,7 +223,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
       public function maybeMigrateDatabase() {
-            $this->setOption('data_migration_version', null);
          if( !$this->getOption('data_migration_version') ) {
             global $wpdb; 
             // rename option
