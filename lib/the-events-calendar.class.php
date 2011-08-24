@@ -10,11 +10,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 	class TribeEvents {
 		const EVENTSERROROPT = '_tribe_events_errors';
-		const OPTIONNAME = 'sp_events_calendar_options';
-		const TAXONOMY = 'sp_events_cat';
-		const POSTTYPE = 'sp_events';
-		const VENUE_POST_TYPE = 'sp_venue';
-		const ORGANIZER_POST_TYPE = 'sp_organizer';
+		const OPTIONNAME = 'tribe_events_calendar_options';
+		const TAXONOMY = 'tribe_events_cat';
+		const POSTTYPE = 'tribe_events';
+		const VENUE_POST_TYPE = 'tribe_venue';
+		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 		const PLUGIN_DOMAIN = 'tribe-events-calendar';
 		const VERSION = '2.0';
 
@@ -212,6 +212,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$this->flushRewriteRules();
 			}
 			self::debug(sprintf(__('Initializing Tribe Events on %s',self::PLUGIN_DOMAIN),date('M, jS \a\t h:m:s a')));
+
+         $this->maybeMigrateDatabase();
 			/*
 			self::debug(__('Debug Example: Log',self::PLUGIN_DOMAIN),false,'log');
 			self::debug(__('Debug Example: Warning',self::PLUGIN_DOMAIN),false,'warning');
@@ -219,6 +221,25 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			self::debug(__('Debug Example: Error',self::PLUGIN_DOMAIN),false,'error');
 			*/
 		}
+
+      public function maybeMigrateDatabase() {
+            $this->setOption('data_migration_version', null);
+         if( !$this->getOption('data_migration_version') ) {
+            global $wpdb; 
+            // rename option
+            update_option(self::OPTIONNAME, get_option('sp_events_calendar_options'));
+            delete_option('sp_events_calendar_options');
+
+            // update post type names
+            $wpdb->update($wpdb->posts, array( 'post_type' => self::POSTTYPE ), array( 'post_type' => 'sp_events') );
+            $wpdb->update($wpdb->posts, array( 'post_type' => self::VENUE_POST_TYPE ), array( 'post_type' => 'sp_venue') );
+            $wpdb->update($wpdb->posts, array( 'post_type' => self::ORGANIZER_POST_TYPE ), array( 'post_type' => 'sp_organizer') );
+
+            // update taxonomy names
+            $wpdb->update($wpdb->term_taxonomy, array( 'taxonomy' => self::TAXONOMY ), array( 'taxonomy' => 'sp_events_cat') );
+            $this->setOption('data_migration_version', '2.0');
+         }
+      }
 
 		/**
 		 * Test PHP and WordPress versions for compatibility
@@ -644,8 +665,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function addOptionsPage() {
 			add_options_page($this->pluginName, $this->pluginName, 'administrator', self::PLUGIN_DOMAIN, array($this,'optionsPageView'));
-			add_submenu_page( '/edit.php?post_type=sp_events', __('Venues',self::PLUGIN_DOMAIN), __('Venues',self::PLUGIN_DOMAIN), 'edit_posts', 'edit.php?post_type=sp_venue');
-			add_submenu_page( '/edit.php?post_type=sp_events', __('Organizers',self::PLUGIN_DOMAIN), __('Organizers',self::PLUGIN_DOMAIN), 'edit_posts', 'edit.php?post_type=sp_organizer');
+			add_submenu_page( '/edit.php?post_type='.self::POSTTYPE, __('Venues',self::PLUGIN_DOMAIN), __('Venues',self::PLUGIN_DOMAIN), 'edit_posts', 'edit.php?post_type='.self::VENUE_POST_TYPE);
+			add_submenu_page( '/edit.php?post_type='.self::POSTTYPE, __('Organizers',self::PLUGIN_DOMAIN), __('Organizers',self::PLUGIN_DOMAIN), 'edit_posts', 'edit.php?post_type='.self::ORGANIZER_POST_TYPE);
 		}
 
 		public function optionsPageView() {
@@ -785,6 +806,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				self::$options = self::getOptions();
 			}
 		}
+
+      public function setOption($name, $value) {
+         $newOption = array();
+         $newOption[$name] = $value;
+         $options = self::getOptions();
+         $this->setOptions( wp_parse_args( $newOption, $options ) );
+      }
 
 		// clean up trashed venues
 		public function cleanupPostVenues($postId) {
