@@ -7,7 +7,7 @@
 if ( !defined('ABSPATH') ) { die('-1'); }
 ?>
 <?php get_header(); ?>
-<?php echo stripslashes(tribe_get_option('spEventsBeforeHTML')); ?>		
+<?php tribe_events_before_html() ?>
 <div id="container">
 	<div id="content" class="tribe-events-event widecolumn">
 		<?php the_post(); global $post; ?>
@@ -20,5 +20,5 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	</div><!-- #content -->
 </div><!--#container-->
 <?php get_sidebar(); ?>
-<?php echo stripslashes(tribe_get_option('spEventsAfterHTML')); ?>
+<?php tribe_events_after_html() ?>
 <?php get_footer(); ?>

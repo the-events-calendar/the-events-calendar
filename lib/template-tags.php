@@ -1120,5 +1120,13 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		return $tribe_ecp->isVenue($postId);
 	}
 
+   function tribe_events_before_html() {
+      echo stripslashes(tribe_get_option('spEventsBeforeHTML'));
+   }
+
+   function tribe_events_after_html() {
+      echo stripslashes(tribe_get_option('spEventsAfterHTML'));
+   }
+
 } // end if class_exists('The-Events-Calendar')
 ?>
