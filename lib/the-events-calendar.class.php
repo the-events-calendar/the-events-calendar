@@ -75,17 +75,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			self::EVENTSERROROPT
 		);
 
-		public $legacyVenueTags = array(
-			'_EventVenue',
-			'_EventCountry',
-			'_EventAddress',
-			'_EventCity',
-			'_EventState',
-			'_EventProvince',
-			'_EventZip',
-			'_EventPhone',
-		);
-
 		public $venueTags = array(
 			'_VenueVenue',
 			'_VenueCountry',
@@ -1454,12 +1443,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 
 			}else{
-				foreach ( $this->legacyVenueTags as $tag ) {
-					if ( $postId && isset($_GET['post']) && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
-						$cleaned_tag = str_replace('_Event','_Venue',$tag);
-						$$cleaned_tag = get_post_meta( $postId, $tag, true );
-					} else {
-						$cleaned_tag = str_replace('_Event','',$tag);
+            $defaults = $this->venueTags;
+            $defaults[] = '_VenueState';
+            $defaults[] = '_VenueProvince';
+				foreach ( $defaults as $tag ) {
+					if ( !$postId || !isset($_GET['post']) ) { //if there is a post AND the post has been saved at least once.
+						$cleaned_tag = str_replace('_Venue','',$tag);
 
 						if($cleaned_tag == 'Cost')
 							continue;
