@@ -738,8 +738,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	function tribe_event_link($post = null) {
 		echo tribe_get_event_link($post);
 	}	
+
 	function tribe_get_event_link($post = null) {
-		return TribeEvents::instance()->getLink('single', $post);
+		return apply_filters( 'tribe_get_event_link', TribeEvents::instance()->getLink('single', $post), $post );
 	}		
 
 	/**

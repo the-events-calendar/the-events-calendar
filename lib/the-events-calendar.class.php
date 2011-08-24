@@ -1070,16 +1070,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						$eventUrl = trailingslashit(get_permalink());
 					return $eventUrl . 'ical/';
 				case 'single':
-					if($secondary) 
-						$post = $secondary;
-					else
-						global $post;
-
+               global $post;
+					$post = $secondary ? $secondary : $post;
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );					
-					$eventUrl = trailingslashit(get_permalink($post));
-					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
-					return $eventUrl . TribeDateUtils::dateOnly( $post->EventStartDate );					
-				case 'all':
+               $link = trailingslashit(get_permalink($post));
+					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );										
+               return $link;
+            case 'all':
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );					
 					$eventUrl = trailingslashit(get_permalink());
 					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );										
@@ -1121,14 +1118,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					}
 					return home_url() . '/?ical';
 				case 'single':
-						global $post;
+               global $post;
 					$post = $secondary ? $secondary : $post;
-
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );					
-					$eventUrl = trailingslashit(get_permalink($post));
-					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
-					return add_query_arg('eventDate', TribeDateUtils::dateOnly( $post->EventStartDate ), $eventUrl );						
-				case 'all':
+               $link = trailingslashit(get_permalink($post));
+					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );										
+               return $link;
+            case 'all':
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );					
 					$eventUrl = add_query_arg('eventDisplay', 'all', get_permalink() );
 					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );															
