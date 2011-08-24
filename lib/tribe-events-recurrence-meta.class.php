@@ -18,7 +18,24 @@ class TribeEventsRecurrenceMeta {
 		add_action('pre_post_update', array( __CLASS__, 'maybeBreakFromSeries' ));
 		add_action( 'admin_notices', array( __CLASS__, 'showRecurrenceErrorFlash') );
 		add_action( 'tribe_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg'), 10, 2);
+
+      add_filter( 'tribe_get_event_link', array( __CLASS__, 'addDateToEventPermalink'), 10, 2);
 	}	
+
+   public static function addDateToEventPermalink($permalink, $the_post) {
+      global $post;
+      $post = $the_post ? $the_post : $post;
+
+      if(tribe_is_recurring_event($post->ID)) {
+         $events = TribeEvents::instance();
+			if( '' == get_option('permalink_structure') || false == $events->getOption('useRewriteRules',true) )
+            return add_query_arg('eventDate', TribeDateUtils::dateOnly( $post->EventStartDate ), $eventUrl );						
+         else
+            return $permalink . TribeDateUtils::dateOnly( $post->EventStartDate );					
+      } else {
+         return $permalink;
+      }
+   }
 	
 	/**
 	 * Update event recurrence when a recurring event is saved
