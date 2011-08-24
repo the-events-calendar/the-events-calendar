@@ -1883,6 +1883,9 @@ if ( !class_exists( 'Events_Calendar_Pro' ) ) {
 				$venue_id = $data['VenueID'];
 				wp_update_post( array('post_title' => $data['Venue'], 'ID'=>$data['VenueID'] ));
 			} else {
+            if ( !$postdata['post_title'] )
+               $postdata['post_title'] = 'Unnamed Venue';
+
 				$venue_id = wp_insert_post($postdata, true);
 			}
 
