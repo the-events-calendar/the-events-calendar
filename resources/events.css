@@ -380,7 +380,6 @@ h4.tribe-events-event-day + .post .entry-title {margin-top:6px;}
 .clearfix:after { clear: both; }
 .clearfix { zoom: 1; }
 .tribe-events-error {display:none;}
-.tec_hide {display:none;}
 .tribe-events-multi-event-day {color: #0F81BB;}
 
 #tribe-events-picker {

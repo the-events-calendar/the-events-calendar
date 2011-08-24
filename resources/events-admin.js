@@ -16,18 +16,24 @@ jQuery(document).ready(function($) {
 		};
 		$.extend(datepickerOpts, TEC);
 		var dates = $("#EventStartDate, #EventEndDate, .datepicker").datepicker(datepickerOpts);
-
-		// toggle time input
-		$('#allDayCheckbox').click(function(){
-			$(".timeofdayoptions").toggle();
-			$("#EventTimeFormatDiv").toggle();
-		});
 		
-		if( $('#allDayCheckbox').attr("checked") === true || $('#allDayCheckbox').attr("checked") === "checked" ) {
-			$(".timeofdayoptions").addClass("tec_hide");
-			$("#EventTimeFormatDiv").addClass("tec_hide");
+		// toggle time input
+		function toggleDayTimeDisplay(){
+			if( $('#allDayCheckbox').attr("checked") === true || $('#allDayCheckbox').attr("checked") === "checked" ) {
+				$(".timeofdayoptions").hide();
+				$("#EventTimeFormatDiv").hide();
+			} else {
+				$(".timeofdayoptions").show();
+				$("#EventTimeFormatDiv").show();				
+			}
 		}
-
+		// check on click
+		$('#allDayCheckbox').click(function(){
+			toggleDayTimeDisplay();
+		});
+		// check on load
+		toggleDayTimeDisplay();
+		
 		var spDaysPerMonth = [29,31,28,31,30,31,30,31,31,30,31,30,31];
 		
 		// start and end date select sections
@@ -123,14 +129,14 @@ jQuery(document).ready(function($) {
 	//show state/province input based on first option in countries list, or based on user input of country
 	function spShowHideCorrectStateProvinceInput(country) {
 		if (country == 'US') {
-			$("#StateProvinceSelect").removeClass("tec_hide");
-			$("#StateProvinceText").addClass("tec_hide");
+			$("#StateProvinceSelect").show();
+			$("#StateProvinceText").hide();
 		} else if ( country != '' ) {
-			$("#StateProvinceText").removeClass("tec_hide");
-			$("#StateProvinceSelect").addClass("tec_hide");
+			$("#StateProvinceText").show();
+			$("#StateProvinceSelect").hide();
 		} else {
-			$("#StateProvinceText").addClass("tec_hide");
-			$("#StateProvinceSelect").addClass("tec_hide");
+			$("#StateProvinceText").hide();
+			$("#StateProvinceSelect").hide();
 		}
 	}
 	

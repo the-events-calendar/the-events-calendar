@@ -64,7 +64,8 @@ if (!class_exists('TribeEventsImport')) {
 				* posts of type "sp_venue" need to be moved to TribeEvents::VENUE_POST_TYPE
 				* posts of type "sp_organizer" need to be moved to TribeEvents::ORGANIZER_POST_TYPE
 				* categories of type "sp_events_cat" need to be moved to TribeEvents::TAXONOMY
-				* options that saved using on/enabled/yes need to be set to true and off/disabled/no being false
+				* options that saved using on/enabled/yes need to be set to 1 and off/disabled/no being 0
+				* update plugin meta for EVERY event post meta to replace on/enabled/yes with 1 and off/disabled/no to be 0
 			
 				*/
 				

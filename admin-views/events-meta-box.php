@@ -86,31 +86,23 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 				</td>
 			</tr>
 
-			<?php
-				include( $this->pluginPath . 'admin-views/venue-meta-box.php' );
-
-			?>
+			<?php include( $this->pluginPath . 'admin-views/venue-meta-box.php' ); ?>
 			<tr id="google_map_link_toggle">
 				<td><?php _e('Show Google Maps Link:',self::PLUGIN_DOMAIN); ?></td>
-				<td>
-					<?php // is the post new?
-						$tecPostCustomKeys = get_post_custom_keys($postId);
-						$tecHasCustomKeys = count( $tecPostCustomKeys );
-						$tecNewPost = ( $tecHasCustomKeys ) ? !in_array( "_EventShowMapLink", $tecPostCustomKeys ) : true;
-					?>
-					<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="EventShowMapLink" size="6" value="true" <?php if( $tecNewPost || get_post_meta( $postId, '_EventShowMapLink', true ) == 'true' ) echo 'checked="checked"'?> />
+				<td>					
+					<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="EventShowMapLink" value="1" <?php checked(get_post_meta( $postId, '_EventShowMapLink', true )); ?> />
 				</td>
 			</tr>
 			<?php if( tribe_get_option('embedGoogleMaps') ) : ?>
 				<tr id="google_map_toggle">
 					<td><?php _e('Show Google Map:',self::PLUGIN_DOMAIN); ?></td>
-					<td><input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="EventShowMap" size="6" value="true" <?php if( $tecNewPost || get_post_meta( $postId, '_EventShowMap', true ) == 'true' ) echo 'checked="checked"'; ?> /></td>
+					<td><input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="EventShowMap" value="1" <?php checked(get_post_meta( $postId, '_EventShowMap', true )); ?> /></td>
 				</tr>
 			<?php endif; ?>
 		</table>
 	</div>
 	<?php if( tribe_get_option('embedGoogleMaps') ): ?>
-		<div style="float:right; display: <?php echo $tecNewPost || get_post_meta( $postId, '_EventShowMap', true) == 'true' ? "block" : "none" ?>">
+		<div style="float:right;">
 			<?php echo tribe_get_embedded_map($postId, 200, 200, true) ?>
 		</div>
 	<?php endif; ?>

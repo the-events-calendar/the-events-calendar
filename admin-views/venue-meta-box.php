@@ -48,8 +48,8 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <tr class="venue">
 	<?php if(!isset($_VenueStateProvince)) $_VenueStateProvince = ""; ?>
 	<td><?php _e('State or Province:',self::PLUGIN_DOMAIN); ?></td>
-	<td><input tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceText" name="venue[Province]" class="tec_hide" type='text' name='' size='25' value='<?php echo $_VenueStateProvince != -1 ? esc_attr($_VenueStateProvince) : esc_attr($_VenueProvince); ?>' />
-	<select tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceSelect" name="venue[State]" class="tec_hide" name=''>
+	<td><input tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceText" name="venue[Province]" type='text' name='' size='25' value='<?php echo $_VenueStateProvince != -1 ? esc_attr($_VenueStateProvince) : esc_attr($_VenueProvince); ?>' />
+	<select tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceSelect" name="venue[State]" name=''>
 		<option value=""><?php _e('Select a State:',self::PLUGIN_DOMAIN); ?></option>
 		<?php
 			foreach (TribeEventsViewHelpers::loadStates() as $abbr => $fullname) {

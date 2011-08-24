@@ -9,7 +9,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if ( !class_exists( 'TribeEvents' ) ) {
 
 	class TribeEvents {
-		const EVENTSERROROPT = '_tec_events_errors';
+		const EVENTSERROROPT = '_tribe_events_errors';
 		const OPTIONNAME = 'sp_events_calendar_options';
 		const TAXONOMY = 'sp_events_cat';
 		const POSTTYPE = 'sp_events';
