@@ -19,13 +19,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $pluginDir;
 		public $pluginPath;
 		public $pluginUrl;
-		public static $updateUrl = 'http://tribe.pro/updates/';
+		public static $updateUrl = 'http://tribe.pro/';
 		
 	    private function __construct()
 	    {
 			$this->pluginDir = trailingslashit( basename( dirname(__FILE__) ) );
 			$this->pluginPath = trailingslashit( dirname(__FILE__) );
 			$this->pluginUrl = WP_PLUGIN_URL.'/'.$this->pluginDir;
+			if (defined('TRIBE_UPDATE_URL')) { self::$updateUrl = TRIBE_UPDATE_URL; }
 			
 			require_once( 'lib/tribe-date-series-rules.class.php' );
 			require_once( 'lib/tribe-ecp-custom-meta.class.php' );
@@ -41,7 +42,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function init() {
 			TribeEventsCustomMeta::init();
 			TribeEventsRecurrenceMeta::init();
-			new PluginUpdateEngineChecker(self::$updateUrl, self::PLUGIN_DOMAIN);
+			new PluginUpdateEngineChecker(self::$updateUrl, self::PLUGIN_DOMAIN, array('apikey'=>'ec94dc0f20324d00831a56b3013f428a'));
 		}
 	
 		/* Static Methods */
