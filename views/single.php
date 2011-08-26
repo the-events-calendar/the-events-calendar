@@ -78,7 +78,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<?php if (function_exists('tribe_get_ticket_form')) { tribe_get_ticket_form(); } ?>		
 </div>
 <a class="ical single" href="<?php echo tribe_get_single_ical_link(); ?>"><?php _e('iCal Import', $tribe_ecp->pluginDomain); ?></a>
-<a href="<?php echo tribe_get_add_to_gcal_link() ?>" class="gcal-add" title="<?php _e('Add to Google Calendar', $tribe_ecp->pluginDomain); ?>"><?php _e('+ Google Calendar', $tribe_ecp->pluginDomain); ?></a>
+<a href="<?php echo tribe_get_gcal_link() ?>" class="gcal-add" title="<?php _e('Add to Google Calendar', $tribe_ecp->pluginDomain); ?>"><?php _e('+ Google Calendar', $tribe_ecp->pluginDomain); ?></a>
 <div class="navlink previous"><?php tribe_previous_event_link();?></div>
 
 <div class="navlink next"><?php tribe_next_event_link();?></div>

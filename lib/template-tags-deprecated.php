@@ -423,7 +423,7 @@ if (!function_exists('event_grid_view')) {
 	}
 
 	function sp_get_add_to_gcal_link() {
-		return tribe_get_add_to_gcal_link();
+		return tribe_get_gcal_link();
 	}
 	
 	function eventsGetOptionValue($optionName) {

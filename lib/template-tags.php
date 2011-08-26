@@ -891,7 +891,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * @author Julien Cornic [www.juxy.fr]
 	 * @author Matt Wiebe
 	*/
-	function tribe_get_add_to_gcal_link()  {
+	function tribe_get_gcal_link()  {
 		$post_id = get_the_ID();
 		$start_date = strtotime(get_post_meta( $post_id, '_EventStartDate', true ));
 		$end_date = strtotime(get_post_meta( $post_id, '_EventEndDate', true ) . (tribe_get_all_day() ? " + 1 day" : ""));
