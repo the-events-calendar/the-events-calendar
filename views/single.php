@@ -61,11 +61,9 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<?php endif; ?>
 	</dl>
   
-   	<?php if( function_exists('tribe_event_meta') ): ?>
-              <dl class='column'>
-              	<?php echo tribe_event_meta( get_the_ID() ); ?>
-             	</dl>
-          <?php endif; ?>
+   	<?php if( function_exists('tribe_the_custom_fields') ): ?>
+	  	<?php echo tribe_the_custom_fields( get_the_ID() ); ?>
+	<?php endif; ?>
 </div>
 
 <?php if( get_post_meta( get_the_ID(), '_EventShowMap', true ) == 'true' ) : ?>
