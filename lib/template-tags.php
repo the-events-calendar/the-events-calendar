@@ -268,7 +268,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		$postId = tribe_post_id_helper( $postId );
 
 		if( tribe_get_all_day( $postId ) )
-		    $showtime = false;
+			 $showtime = false;
 
 		$date = strtotime( $post->EventStartDate ? $post->EventStartDate : tribe_get_event_meta( $postId, '_EventStartDate', true ));
 
@@ -303,7 +303,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		$postId = tribe_post_id_helper( $postId );
 	
 		if( tribe_get_all_day( $postId ) )
-		    $showtime = false;
+			 $showtime = false;
 
 		$date = strtotime( $post->EventEndDate ? $post->EventEndDate : tribe_get_event_meta( $postId, '_EventEndDate', true ));
 
@@ -560,17 +560,17 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	function load_xml($url) {/*
 		TODO remove and use built-in WP functions. Used by eventbrite plugin.
 	*/
-        $ch = curl_init($url);
+		  $ch = curl_init($url);
 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
+		  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		  curl_setopt($ch, CURLOPT_HEADER, 0);
 
-        $data = simplexml_load_string(curl_exec($ch));
+		  $data = simplexml_load_string(curl_exec($ch));
 
-        curl_close($ch);
+		  curl_close($ch);
 
-        return $data;
-    }
+		  return $data;
+	 }
 		
 	/**
 	 * Called inside of the loop, returns true if the current post's meta_value (EventStartDate)
@@ -853,26 +853,21 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Get event post meta. If $meta is passed then only return the value for that item.
+	 * Get event post meta.
 	 *
 	 * @param string $postId 
 	 * @param string $meta 
 	 * @param string $single 
-	 * @return string
-	 * @author Peter Chester
+	 * @return string meta value
 	 */
 	function tribe_get_event_meta( $postId = null, $meta = false, $single = true ){
-	  	$postId = tribe_post_id_helper( $postId );
-		if ( $meta ) {
-			$tribe_ecp = TribeEvents::instance();
-			return $tribe_ecp->getEventMeta( $postId, $meta, $single );
-		} else {
-
-		}
+		$postId = tribe_post_id_helper( $postId );
+		$tribe_ecp = TribeEvents::instance();
+		return $tribe_ecp->getEventMeta( $postId, $meta, $single );
 	}
 	
 	/**
-	 * r the current event category name
+	 * return the current event category name
 	*/ 
 	function tribe_meta_event_category_name() {
 		$tribe_ecp = TribeEvents::instance();
@@ -1134,13 +1129,13 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		return $tribe_ecp->isVenue($postId);
 	}
 
-   function tribe_events_before_html() {
-      echo stripslashes(tribe_get_option('spEventsBeforeHTML'));
-   }
+	function tribe_events_before_html() {
+		echo stripslashes(tribe_get_option('spEventsBeforeHTML'));
+	}
 
-   function tribe_events_after_html() {
-      echo stripslashes(tribe_get_option('spEventsAfterHTML'));
-   }
+	function tribe_events_after_html() {
+		echo stripslashes(tribe_get_option('spEventsAfterHTML'));
+	}
 
 } // end if class_exists('The-Events-Calendar')
 ?>

@@ -439,7 +439,7 @@ if (!function_exists('event_grid_view')) {
 	}
 
 	function getEventMeta( $id, $meta, $single = true ){
-		return tribe_event_meta( $id, $meta, $single );
+		return tribe_get_event_meta( $id, $meta, $single );
 	}
 }
 ?>
