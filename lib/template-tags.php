@@ -867,18 +867,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 			$tribe_ecp = TribeEvents::instance();
 			return $tribe_ecp->getEventMeta( $postId, $meta, $single );
 		} else {
-	      	$customFields = tribe_get_option('custom-fields');
-		  	$meta_html = '';
-	
-		  	foreach ($customFields as $field) {
-		     	$meta = str_replace('|', ', ', get_post_meta($postId, $field['name'], true));
-		     	if($meta) {
-		     		// $meta is passed through kses
-					$meta_html .= '<dt>' . esc_html($field['label']) . ':</dt><dd>' . $meta . '</dd>';
-				}
-			}
-	
-			return $meta_html;
+
 		}
 	}
 	
