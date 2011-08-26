@@ -437,5 +437,9 @@ if (!function_exists('event_grid_view')) {
 	function is_event( $postId = null ) {
 		return tribe_is_event( $postId );
 	}
+
+	function getEventMeta( $id, $meta, $single = true ){
+		return tribe_event_meta( $id, $meta, $single );
+	}
 }
 ?>

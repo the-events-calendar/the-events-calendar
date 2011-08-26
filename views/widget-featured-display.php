@@ -27,7 +27,7 @@ $tribe_ecp = TribeEvents::instance();
 reset($tribe_ecp->metaTags); // Move pointer to beginning of array.
 foreach($tribe_ecp->metaTags as $tag){
 	$var_name = str_replace('_Event','',$tag);
-	$event[$var_name] = getEventMeta( $post->ID, $tag, true );
+	$event[$var_name] = tribe_get_event_meta( $post->ID, $tag, true );
 }
 
 $event = (object) $event; //Easier to work with.
