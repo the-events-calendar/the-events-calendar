@@ -132,12 +132,10 @@ function display_day( $day, $monthView ) {
 			<div id='tooltip_<?php echo $eventId; ?>' class="tribe-events-tooltip" style="display:none;">
 				<h5 class="tribe-events-event-title"><?php the_title();?></h5>
 				<div class="tribe-events-event-body">
-					<?php if ( !tribe_get_all_day($post->ID) || tribe_is_multiday($post->ID) ) : ?>
 					<div class="tribe-events-event-date">
 						<?php if ( !empty( $start ) )	echo $start; ?>
 						<?php if ( !empty( $end )  && $start !== $end )		echo " – " . $end . '<br />'; ?>
 					</div>
-					<?php endif; ?>
 					<?php if ( function_exists('has_post_thumbnail') && has_post_thumbnail() ) { ?>
 						<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array(75,75));?></div>
 					<?php } ?>
