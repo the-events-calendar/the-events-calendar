@@ -6,19 +6,19 @@ jQuery(document).ready(function($) {
 	});
 
 	// big popups
-	$("table.tribe-events-calendar:not(.tribe-events-calendar-widget) .tribe-events-event a").live('mouseenter', function() {
+	$("table.tribe-events-calendar:not(.tribe-events-calendar-widget) .tribe-events-event:not(.daynum)").live('mouseenter', function() {
 		
 		// one for IE6, one for everybody else
 		if ($.browser.msie && $.browser.version == 6) {
 			var bottomPad = $(this).parents("td").outerHeight() + 5;
 		}
 		else {
-			var bottomPad = $(this).outerHeight() + 18;
+			var bottomPad = $(this).find('a').outerHeight() + 18;
 		}
 		
-		$(this).next(".tribe-events-tooltip").css('bottom', bottomPad).fadeIn(300);
+		$(this).find(".tribe-events-tooltip").css('bottom', bottomPad).show();
 	}).live('mouseleave', function() {
-		$(this).next(".tribe-events-tooltip").fadeOut(100);
+		$(this).find(".tribe-events-tooltip").fadeOut(200);
 	});
 	
 	// little popups

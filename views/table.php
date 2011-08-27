@@ -127,7 +127,7 @@ function display_day( $day, $monthView ) {
 		$province	= tribe_get_province( $post->ID );
 		$country	= tribe_get_country( $post->ID );
 		?>
-		<div id='event_<?php echo $eventId; ?>' <?php post_class('tribe-events-event') ?>>
+		<div id='event_<?php echo $eventId; ?>' <?php post_class('tribe-events-event tribe-events-real-event') ?>>
 			<a href="<?php tribe_event_link(); ?>"><?php the_title(); ?></a>
 			<div id='tooltip_<?php echo $eventId; ?>' class="tribe-events-tooltip" style="display:none;">
 				<h5 class="tribe-events-event-title"><?php the_title();?></h5>

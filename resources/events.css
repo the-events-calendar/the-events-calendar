@@ -222,6 +222,9 @@ table.tribe-events-calendar, .tribe-events-calendar td {
 	position:relative;
 	margin:0;
 }
+.tribe-events-real-event {
+   cursor: pointer;
+}
 .tribe-events-calendar .tribe-events-tooltip {
 	border:1px solid #666;
 	position:absolute;
