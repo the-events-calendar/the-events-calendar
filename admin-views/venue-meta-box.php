@@ -31,7 +31,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			$current = ($_VenueCountry) ? $_VenueCountry : $defaultCountry[1];
 
 			foreach ($countries as $abbr => $fullname) {
-				echo '<option label="' . esc_attr($abbr) . '" value="' . esc_attr($fullname) . '" ';
+				echo '<option value="' . esc_attr($fullname) . '" ';
 
 				if($abbr == '')
 					echo "disabled='disabled' ";
