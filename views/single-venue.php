@@ -10,16 +10,17 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <span class="back"><a href="<?php echo tribe_get_events_link(); ?>"><?php _e('&laquo; Back to Events', $tribe_ecp->pluginDomain); ?></a></span>								
 <div id="tribe-events-event-meta">
 	<div style='margin: 0 0 10px 0; float: right;'>
-		<?php echo tribe_venue_get_embedded_map(get_the_ID(), '350px', '200px') ?>
+		<?php echo tribe_get_embedded_map(get_the_ID(), '350px', '200px') ?>
 	</div>					
 	<dl class="column">
 		<dt><?php _e('Name:', $tribe_ecp->pluginDomain) ?></dt> 
 			<dd><?php the_title() ?></dd>
-		<?php if(tribe_venue_get_phone()) : ?>
+		<?php if(tribe_get_phone()) : ?>
 		<dt><?php _e('Phone:', $tribe_ecp->pluginDomain) ?></dt> 
-			<dd><?php echo tribe_venue_get_phone(); ?></dd>
+			<dd><?php echo tribe_get_phone(); ?></dd>
 		<?php endif; ?>
-		<?php if( tribe_venue_address_exists( get_the_ID() ) ) : ?>
+		
+		<?php if( tribe_address_exists( get_the_ID() ) ) : ?>
 		<dt>
 			<?php _e('Address:', $tribe_ecp->pluginDomain) ?><br />
 			<?php if( get_post_meta( get_the_ID(), '_EventShowMapLink', true ) == 'true' ) : ?>
@@ -27,7 +28,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<?php endif; ?>
 		</dt>
 			<dd>
-			<?php tribe_venue_the_full_address( get_the_ID() ); ?>
+			<?php tribe_the_full_address( get_the_ID() ); ?>
 			</dd>
 		<?php endif; ?>
 	</dl>

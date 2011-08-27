@@ -199,7 +199,7 @@ if (!function_exists('event_grid_view')) {
 	}
 
 	function sp_get_full_address( $postId = null, $includeVenue = false ) {
-		return tribe_get_full_address( $postId, $includeVenue );
+		return tribe_get_full_address( $postId );
 	}
 
 	function sp_the_full_address( $postId = null ) {
@@ -259,7 +259,7 @@ if (!function_exists('event_grid_view')) {
 	}
 
 	function sp_has_venue( $postId = null) {
-		return tribe_has_venue( $postId);
+		return tribe_get_venue_id( $postId);
 	}
 
 	function sp_get_venue( $postId = null) {

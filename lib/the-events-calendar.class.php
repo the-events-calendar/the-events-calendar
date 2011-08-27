@@ -1216,7 +1216,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$start_date = strtotime(get_post_meta( $postId, '_EventStartDate', true ));
 			$end_date = strtotime(get_post_meta( $postId, '_EventEndDate', true ) . ( get_post_meta( $postId, '_EventAllDay', true ) ? " + 1 day" : ""));
 			$dates = ( get_post_meta( $postId, '_EventAllDay', true ) ) ? date('Ymd', $start_date) . '/' . date('Ymd', $end_date) : date('Ymd', $start_date) . 'T' . date('Hi00', $start_date) . '/' . date('Ymd', $end_date) . 'T' . date('Hi00', $end_date);
-			$location = trim( tribe_get_full_address($postId, true) );
+			$location = trim( tribe_get_full_address( $postId ) );
 			$base_url = 'http://www.google.com/calendar/event';
 			$params = array(
 				'action' => 'TEMPLATE',
@@ -1230,6 +1230,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			);
 			$url = add_query_arg( $params, $base_url );
 			return esc_url($url);
+		}
+		
+		public function fullAddress( $postId=null, $includeVenueName=false ) {
+			ob_start();
+			load_template( TribeEventsTemplates::getTemplateHierarchy( 'full-address' ), false );
+			$address = ob_get_contents();
+			ob_end_clean();
+			return $address;
 		}
 
 		/**
@@ -1370,7 +1378,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					echo '<option value="0">' . __("Use New Venue", self::PLUGIN_DOMAIN) . '</option>';
 				foreach($venues as $venue){
 					$selected = ($current == $venue->ID) ? 'selected="selected"' : '';
-					echo "<option data-address=" . json_encode( tribe_venue_get_full_address($venue->ID) ) . " value='{$venue->ID}' $selected>{$venue->post_title}</option>";
+					echo "<option data-address=" . json_encode( tribe_get_full_address($venue->ID) ) . " value='{$venue->ID}' $selected>{$venue->post_title}</option>";
 				}
 				echo '</select>';
 			}else{
@@ -1859,7 +1867,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$events .= "UID:" . $eventPost->ID . "@" . $blogHome . "\n";
 				$events .= "SUMMARY:" . $eventPost->post_title . "\n";				
 				$events .= "DESCRIPTION:" . str_replace(",",'\,',$description) . "\n";
-				$events .= "LOCATION:" . html_entity_decode(tribe_get_full_address( $eventPost->ID, true ), ENT_QUOTES) . "\n";
+				$events .= "LOCATION:" . html_entity_decode(tribe_get_full_address( $eventPost->ID ), ENT_QUOTES) . "\n";
 				$events .= "URL:" . get_permalink( $eventPost->ID ) . "\n";
 				$events .= "END:VEVENT\n";
 			}
