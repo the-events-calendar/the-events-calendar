@@ -111,6 +111,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		$tribe_ecp = TribeEvents::instance();
 		return $tribe_ecp->isEvent($postId);
 	}
+
 	/**
 	 * Returns a link to google maps for the given event
 	 *
@@ -121,6 +122,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		$tribe_ecp = TribeEvents::instance();
 		return esc_html($tribe_ecp->googleMapLink( $postId ));
 	}
+
 	/**
 	 * Displays a link to google maps for the given event
 	 *
@@ -130,6 +132,16 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	function tribe_the_map_link( $postId = null )  {
 		echo esc_html(tribe_get_map_link( $postId ));
 	}
+
+	/**
+	 * Returns an add to Google Calendar link. Must be used in the loop
+	 */
+	function tribe_get_gcal_link( $postId = null )  {
+		$postId = tribe_post_id_helper( $postId );
+		$tribe_ecp = TribeEvents::instance();
+		return $tribe_ecp->googleCalendarLink( $postId );
+	}
+
 	
 	/**
 	 * @return string formatted event address
@@ -882,35 +894,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	function tribe_is_recurring_event( $postId = null )  {
 		$tribe_ecp = TribeEvents::instance();
 		$postId = tribe_post_id_helper( $postId );
-		
 		return sizeof(get_post_meta($postId, '_EventStartDate')) > 1;
-	}
-
-	/**
-	 * Returns an add to Google Calendar link. Must be used in the loop
-	 * @author Julien Cornic [www.juxy.fr]
-	 * @author Matt Wiebe
-	*/
-	function tribe_get_gcal_link()  {
-		$post_id = get_the_ID();
-		$start_date = strtotime(get_post_meta( $post_id, '_EventStartDate', true ));
-		$end_date = strtotime(get_post_meta( $post_id, '_EventEndDate', true ) . (tribe_get_all_day() ? " + 1 day" : ""));
-		$dates = ( tribe_get_all_day() ) ? date('Ymd', $start_date) . '/' . date('Ymd', $end_date) : date('Ymd', $start_date) . 'T' . date('Hi00', $start_date) . '/' . date('Ymd', $end_date) . 'T' . date('Hi00', $end_date);
-		$location = trim( tribe_get_full_address($post_id, true) );
-		
-		$base_url = 'http://www.google.com/calendar/event';
-		$params = array(
-			'action' => 'TEMPLATE',
-			'text' => strip_tags(get_the_title()),
-			'dates' => $dates,
-			'details' => strip_tags( get_the_excerpt() ),
-			'location' => $location,
-			'sprop' => get_option('blogname'),
-			'trp' => 'false',
-			'sprop' => 'website:' . home_url()
-		);
-		$url = add_query_arg( $params, $base_url );
-		return esc_html($url);
 	}
 		
 	function tribe_get_current_template() {

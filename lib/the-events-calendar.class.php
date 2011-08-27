@@ -1206,7 +1206,30 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( $toUrlEncode ) 
 				return "http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=" . urlencode( trim( $toUrlEncode ) );
 			return "";
-	
+		}
+		
+		public function googleCalendarLink( $postId = null ) {
+			if ( $postId === null || !is_numeric( $postId ) ) {
+				global $post;
+				$postId = $post->ID;
+			}
+			$start_date = strtotime(get_post_meta( $postId, '_EventStartDate', true ));
+			$end_date = strtotime(get_post_meta( $postId, '_EventEndDate', true ) . ( get_post_meta( $postId, '_EventAllDay', true ) ? " + 1 day" : ""));
+			$dates = ( get_post_meta( $postId, '_EventAllDay', true ) ) ? date('Ymd', $start_date) . '/' . date('Ymd', $end_date) : date('Ymd', $start_date) . 'T' . date('Hi00', $start_date) . '/' . date('Ymd', $end_date) . 'T' . date('Hi00', $end_date);
+			$location = trim( tribe_get_full_address($postId, true) );
+			$base_url = 'http://www.google.com/calendar/event';
+			$params = array(
+				'action' => 'TEMPLATE',
+				'text' => strip_tags(get_the_title()),
+				'dates' => $dates,
+				'details' => strip_tags( get_the_excerpt() ),
+				'location' => $location,
+				'sprop' => get_option('blogname'),
+				'trp' => 'false',
+				'sprop' => 'website:' . home_url()
+			);
+			$url = add_query_arg( $params, $base_url );
+			return esc_url($url);
 		}
 
 		/**
