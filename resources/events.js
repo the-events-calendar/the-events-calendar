@@ -38,15 +38,18 @@ jQuery(document).ready(function($) {
 	});
 	
 	// datepicker
-	$(".tribe-events-dropdown").live('change', function() {
+	$(".tribe-events-events-dropdown").live('change', function() {
 		baseUrl = $(this).parent().attr("action");
 		
-		url = baseUrl + $('#tribe-events-year').val() + '-' + $('#tribe-events-month').val();
-		
-		$.pjax({ url: url, container: '#tribe-events-content', fragment: '#tribe-events-content' });
+		url = baseUrl + $('#tribe-events-events-year').val() + '-' + $('#tribe-events-events-month').val();
+
+      $('.ajax-loading').show(); 
+		$.pjax({ url: url, container: '#tribe-events-content', fragment: '#tribe-events-content', timeout: 1000 });
 	});
 	
 	// PJAX
-	$('.tribe-events-prev-month a, .tribe-events-next-month a').pjax('#tribe-events-content', { timeout: 10000, fragment: '#tribe-events-content' });
+	$('.tribe-events-prev-month a, .tribe-events-next-month a').pjax('#tribe-events-content', { timeout: 10000, fragment: '#tribe-events-content' }).live('click', function() {
+     $('.ajax-loading').show(); 
+   });
 	
 });

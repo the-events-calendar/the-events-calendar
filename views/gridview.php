@@ -23,6 +23,7 @@ $tribe_ecp = TribeEvents::instance();
 					<a href='<?php echo tribe_get_next_month_link(); ?>'>				
 					<?php echo tribe_get_next_month_text(); ?> &#x2192; 
 					</a>
+               <img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" class="ajax-loading" id="ajax-loading" alt="" style='display: none'/>
 				</span>
 			</span>
 
