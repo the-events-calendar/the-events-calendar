@@ -57,7 +57,9 @@ if( !class_exists( 'TribeEventsFeatureWidget') ) {
 				$wp_query->set('eventDisplay', $old_display);
 			} 
 			else {
+            echo "<p>";
 				_e('There are no upcoming events at this time.', TribeEvents::PLUGIN_DOMAIN);
+            echo "</p>";
 			}
 
 			/* After widget (defined by themes). */
