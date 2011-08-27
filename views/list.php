@@ -20,12 +20,12 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<?php if (have_posts()) : ?>
 	<?php while ( have_posts() ) : the_post(); ?>
 
-			<div id="post-<?php the_ID() ?>" <?php post_class('tribe-events-event clearfix') ?>>
+			<div id="post-<?php the_ID() ?>" <?php post_class('tribe-events-event clearfix') ?> itemscope itemtype="http://schema.org/Event">
 						        <?php if ( tribe_is_new_event_day() ) : ?>
 				<h4 class="event-day"><?php echo tribe_get_start_date( null, false ); ?></h4>
 						        <?php endif; ?>
-					<?php the_title('<h2 class="entry-title"><a href="' . tribe_get_event_link() . '" title="' . the_title_attribute('echo=0') . '" rel="bookmark">', '</a></h2>'); ?>
-				<div class="entry-content tribe-events-event-entry">
+					<?php the_title('<h2 class="entry-title" itemprop="name"><a href="' . tribe_get_event_link() . '" title="' . the_title_attribute('echo=0') . '" rel="bookmark">', '</a></h2>'); ?>
+				<div class="entry-content tribe-events-event-entry" itemprop="description">
 					<?php if (has_excerpt ()): ?>
 						<?php the_excerpt(); ?>
 					<?php else: ?>
@@ -33,15 +33,15 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 					<?php endif; ?>
 				</div> <!-- End tribe-events-event-entry -->
 
-				<div class="tribe-events-event-list-meta">
+				<div class="tribe-events-event-list-meta" itemprop="location" itemscope itemtype="http://schema.org/Place">
 	              <table cellspacing="0">
 	                  <tr>
 	                    <td class="tribe-events-event-meta-desc"><?php _e('Start:', $tribe_ecp->pluginDomain) ?></td>
-	                    <td class="tribe-events-event-meta-value"><?php echo tribe_get_start_date(); ?></td>
+	                    <td class="tribe-events-event-meta-value" itemprop="startDate" content="<?php echo tribe_get_start_date( null, false, 'Y-m-d' ); ?>"><?php echo tribe_get_start_date(); ?></td>
 	                  </tr>
 	                  <tr>
 	                    <td class="tribe-events-event-meta-desc"><?php _e('End:', $tribe_ecp->pluginDomain) ?></td>
-	                    <td class="tribe-events-event-meta-value"><?php echo tribe_get_end_date(); ?></td>
+	                    <td class="tribe-events-event-meta-value" itemprop="endDate" content="<?php echo tribe_get_end_date( null, false, 'Y-m-d' ); ?>"><?php echo tribe_get_end_date(); ?></td>
 	                  </tr>
 	                  <?php
 	                    $venue = tribe_get_venue();
@@ -49,7 +49,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	                  ?>
 	                  <tr>
 	                    <td class="tribe-events-event-meta-desc"><?php _e('Venue:', $tribe_ecp->pluginDomain) ?></td>
-	                    <td class="tribe-events-event-meta-value"><?php echo $venue; ?></td>
+	                    <td class="tribe-events-event-meta-value" itemprop="name"><?php echo $venue; ?></td>
 	                  </tr>
 	                  <?php endif; ?>
 	                  <?php
@@ -58,14 +58,14 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	                  ?>
 	                  <tr>
 	                    <td class="tribe-events-event-meta-desc"><?php _e('Phone:', $tribe_ecp->pluginDomain) ?></td>
-	                    <td class="tribe-events-event-meta-value"><?php echo $phone; ?></td>
+	                    <td class="tribe-events-event-meta-value" itemprop="telephone"><?php echo $phone; ?></td>
 	                  </tr>
 	                  <?php endif; ?>
 	                  <?php if (tribe_address_exists( $post->ID ) ) : ?>
 	                  <tr>
 						<td class="tribe-events-event-meta-desc"><?php _e('Address:', $tribe_ecp->pluginDomain); ?><br />
 						<?php if( get_post_meta( $post->ID, '_EventShowMapLink', true ) == 'true' ) : ?>
-							<a class="gmap" href="<?php tribe_the_map_link(); ?>" title="Click to view a Google Map" target="_blank"><?php _e('Google Map', $tribe_ecp->pluginDomain ); ?></a>
+							<a class="gmap" itemprop="maps" href="<?php tribe_the_map_link(); ?>" title="Click to view a Google Map" target="_blank"><?php _e('Google Map', $tribe_ecp->pluginDomain ); ?></a>
 						<?php endif; ?></td>
 						<td class="tribe-events-event-meta-value"><?php tribe_the_full_address( $post->ID ); ?></td>
 	                  </tr>
@@ -76,7 +76,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	                  ?>
  		              <tr>
 						<td class="tribe-events-event-meta-desc"><?php _e('Cost:', $tribe_ecp->pluginDomain) ?></td>
-						<td class="tribe-events-event-meta-value"><?php echo $cost; ?></td>
+						<td class="tribe-events-event-meta-value" itemprop="price"><?php echo $cost; ?></td>
 					 </tr>
 	                  <?php endif; ?>
 	              </table>

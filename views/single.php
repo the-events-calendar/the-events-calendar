@@ -9,17 +9,17 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 ?>
 <span class="back"><a href="<?php echo tribe_get_events_link(); ?>"><?php _e('&laquo; Back to Events', $tribe_ecp->pluginDomain); ?></a></span>				
 <?php if (tribe_get_end_date() > time()  ) { ?><small><?php  _e('This event has passed.', $tribe_ecp->pluginDomain) ?></small> <?php } ?>
-<div id="tribe-events-event-meta">
+<div id="tribe-events-event-meta" itemscope itemtype="http://schema.org/Event">
 	<dl class="column">
 		<dt><?php _e('Start:', $tribe_ecp->pluginDomain) ?></dt> 
-			<dd><?php echo tribe_get_start_date(); ?></dd>
+			<dd itemprop="startDate" content="<?php echo tribe_get_start_date( null, false, 'Y-m-d' ); ?>"><?php echo tribe_get_start_date(); ?></dd>
 		<?php if (tribe_get_start_date() !== tribe_get_end_date() ) { ?>
 			<dt><?php _e('End:', $tribe_ecp->pluginDomain) ?></dt>
-			<dd><?php echo tribe_get_end_date();  ?></dd>						
+			<dd itemprop="endDate" content="<?php echo tribe_get_end_date( null, false, 'Y-m-d' ); ?>"><?php echo tribe_get_end_date();  ?></dd>						
 		<?php } ?>
 		<?php if ( tribe_get_cost() ) : ?>
 			<dt><?php _e('Cost:', $tribe_ecp->pluginDomain) ?></dt>
-			<dd><?php echo tribe_get_cost(); ?></dd>
+			<dd itemprop="price"><?php echo tribe_get_cost(); ?></dd>
 		<?php endif; ?>
 		<?php tribe_meta_event_cats(); ?>
 		<?php if ( tribe_get_organizer_link() ) : ?>
@@ -28,31 +28,31 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<?php endif; ?>
 		<?php if ( tribe_get_organizer_phone() ) : ?>
 			<dt><?php _e('Phone:', $tribe_ecp->pluginDomain) ?></dt>
-			<dd><?php echo tribe_get_organizer_phone(); ?></dd>
+			<dd itemprop="telephone"><?php echo tribe_get_organizer_phone(); ?></dd>
 		<?php endif; ?>
 		<?php if ( tribe_get_organizer_email() ) : ?>
 			<dt><?php _e('Email:', $tribe_ecp->pluginDomain) ?></dt>
-			<dd><?php echo tribe_get_organizer_email(); ?></dd>
+			<dd itemprop="email"><?php echo tribe_get_organizer_email(); ?></dd>
 		<?php endif; ?>
 		<?php if ( function_exists('tribe_get_recurrence_text') && tribe_is_recurring_event() ) : ?>
 			<dt><?php _e('Schedule:', $tribe_ecp->pluginDomain) ?></dt>
 			<dd><?php echo tribe_get_recurrence_text(); ?> (<a href='<?php tribe_all_occurences_link() ?>'>See all</a>)</dd>
 		<?php endif; ?>
 	</dl>
-	<dl class="column">
+	<dl class="column" itemprop="location" itemscope itemtype="http://schema.org/Place">
 		<?php if(tribe_get_venue()) : ?>
 		<dt><?php _e('Venue:', $tribe_ecp->pluginDomain) ?></dt> 
-			<dd><?php echo tribe_get_venue(get_the_ID(), true); ?></dd>
+			<dd itemprop="name"><?php echo tribe_get_venue(get_the_ID(), true); ?></dd>
 		<?php endif; ?>
 		<?php if(tribe_get_phone()) : ?>
 		<dt><?php _e('Phone:', $tribe_ecp->pluginDomain) ?></dt> 
-			<dd><?php echo tribe_get_phone(); ?></dd>
+			<dd itemprop="telephone"><?php echo tribe_get_phone(); ?></dd>
 		<?php endif; ?>
 		<?php if( tribe_address_exists( get_the_ID() ) ) : ?>
 		<dt>
 			<?php _e('Address:', $tribe_ecp->pluginDomain) ?><br />
 			<?php if( get_post_meta( get_the_ID(), '_EventShowMapLink', true ) == 'true' ) : ?>
-				<a class="gmap" href="<?php tribe_the_map_link() ?>" title="<?php _e('Click to view a Google Map', $tribe_ecp->pluginDomain); ?>" target="_blank"><?php _e('Google Map', $tribe_ecp->pluginDomain ); ?></a>
+				<a class="gmap" itemprop="maps" href="<?php tribe_the_map_link() ?>" title="<?php _e('Click to view a Google Map', $tribe_ecp->pluginDomain); ?>" target="_blank"><?php _e('Google Map', $tribe_ecp->pluginDomain ); ?></a>
 			<?php endif; ?>
 		</dt>
 			<dd>
