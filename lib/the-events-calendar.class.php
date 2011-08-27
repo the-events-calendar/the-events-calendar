@@ -235,7 +235,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
             $wpdb->update($wpdb->posts, array( 'post_type' => self::ORGANIZER_POST_TYPE ), array( 'post_type' => 'sp_organizer') );
 
             // update taxonomy names
-            $wpdb->update($wpdb->term_taxonomy, array( 'taxonomy' => self::TAXONOMY ), array( 'taxonomy' => 'sp_events_cat') );
+            $wpdb->update($wpdb->term_taxonomy, array( 'taxonomy' => self::TAXONOMY ), array( 'taxonomy' => 'tribe_events_cat') );
             $this->setOption('data_migration_version', '2.0');
          }
       }
@@ -1041,18 +1041,18 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$newRules[$baseSingle . '([^/]+)/ical/?$' ] = 'index.php?post_type=' . self::POSTTYPE . '&name=' . $wp_rewrite->preg_index(1) . '&ical=1';
 
 			// taxonomy rules.
-			$newRules[$baseTax . '([^/]+)/' . $month] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month';
-			$newRules[$baseTax . '([^/]+)/' . $upcoming . '/page/(\d+)'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(3);
-			$newRules[$baseTax . '([^/]+)/' . $upcoming] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
-			$newRules[$baseTax . '([^/]+)/' . $past . '/page/(\d+)'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(3);
-			$newRules[$baseTax . '([^/]+)/' . $past] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past';
-			$newRules[$baseTax . '([^/]+)/(\d{4}-\d{2})$'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(3);
-			$newRules[$baseTax . '([^/]+)/feed/?$'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(2) . '&eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
-			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?sp_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=' . $this->getOption('viewOption','month');
-			$newRules[$baseTax . '([^/]+)/ical/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'eventDisplay=upcoming&sp_events_cat=' . $wp_rewrite->preg_index(2) . '&ical=1';
-			$newRules[$baseTax . '([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=' . $wp_rewrite->preg_index(2) . '&feed=' . $wp_rewrite->preg_index(3);
-			$newRules[$baseTax . '([^/]+)/page/?([0-9]{1,})/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'sp_events_cat=' . $wp_rewrite->preg_index(2) . '&paged=' . $wp_rewrite->preg_index(3);
-			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . '&eventDisplay=upcoming&sp_events_cat=' . $wp_rewrite->preg_index(2);
+			$newRules[$baseTax . '([^/]+)/' . $month] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month';
+			$newRules[$baseTax . '([^/]+)/' . $upcoming . '/page/(\d+)'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(3);
+			$newRules[$baseTax . '([^/]+)/' . $upcoming] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
+			$newRules[$baseTax . '([^/]+)/' . $past . '/page/(\d+)'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(3);
+			$newRules[$baseTax . '([^/]+)/' . $past] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past';
+			$newRules[$baseTax . '([^/]+)/(\d{4}-\d{2})$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(3);
+			$newRules[$baseTax . '([^/]+)/feed/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
+			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=' . $this->getOption('viewOption','month');
+			$newRules[$baseTax . '([^/]+)/ical/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'eventDisplay=upcoming&tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&ical=1';
+			$newRules[$baseTax . '([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&feed=' . $wp_rewrite->preg_index(3);
+			$newRules[$baseTax . '([^/]+)/page/?([0-9]{1,})/?$'] = 'index.php?post_type= ' . self::POSTTYPE . 'tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&paged=' . $wp_rewrite->preg_index(3);
+			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?post_type= ' . self::POSTTYPE . '&eventDisplay=upcoming&tribe_events_cat=' . $wp_rewrite->preg_index(2);
 	
 			$wp_rewrite->rules = $newRules + $wp_rewrite->rules; 
 		}
