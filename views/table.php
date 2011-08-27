@@ -1,6 +1,8 @@
 <?php
 /**
-* Copy and paste this to events/table.php in your template to customize
+* This file outputs the actual days of the month in the TEC calendar view
+*
+* You can customize this view by putting a replacement file of the same name (table.php) in the events/ directory of your theme.
 */
 
 // Don't load directly

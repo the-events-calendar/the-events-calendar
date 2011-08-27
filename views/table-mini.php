@@ -1,6 +1,8 @@
 <?php
 /**
-* Copy and paste this to events/table-mini.php in your template to customize
+* The calendar widget display.
+*
+* You can customize this view by putting a replacement file of the same name (table-mini.php) in the events/ directory of your theme.
 */
 
 // Don't load directly

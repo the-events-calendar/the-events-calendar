@@ -1,6 +1,9 @@
 <?php
 /**
-* Single event template
+* A single event.  This displays the event title, description, meta, and 
+* optionally, the Google map for the event.
+*
+* You can customize this view by putting a replacement file of the same name (single.php) in the events/ directory of your theme.
 */
 
 // Don't load directly

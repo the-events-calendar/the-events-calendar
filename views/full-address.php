@@ -1,6 +1,8 @@
 <?php
 /**
-* Render an address
+* Render an address.  This is used by default in the single event view.
+*
+* You can customize this view by putting a replacement file of the same name (full-address.php) in the events/ directory of your theme.
 */
 
 // Don't load directly

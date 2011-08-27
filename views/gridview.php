@@ -1,6 +1,10 @@
 <?php
 /**
- * Grid view template
+ * Grid view template.  This file loads the TEC month view, specifically the 
+ * month view navigation.  The actual rendering if the calendar happens in the 
+ * table.php template.
+ *
+ * You can customize this view by putting a replacement file of the same name (gridview.php) in the events/ directory of your theme.
  */
 
 // Don't load directly

@@ -1,6 +1,9 @@
 <?php
 /**
-* Single venue template
+* The template for a venue.  By default it displays venue information and lists 
+* events that occur at the specified venue.
+*
+* You can customize this view by putting a replacement file of the same name (single-venue.php) in the events/ directory of your theme.
 */
 
 // Don't load directly

@@ -1,6 +1,9 @@
 <?php
 /**
-* List View
+* The TEC template for a list of events.  This includes the Past Events and Upcoming Events views 
+* as well as those same views filtered to a specific category.
+*
+* You can customize this view by putting a replacement file of the same name (list.php) in the events/ directory of your theme.
 */
 
 // Don't load directly
