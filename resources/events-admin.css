@@ -154,10 +154,10 @@ td.tribe_message {
 .tribe-events-error {display:none;}
 .tribe-events-multi-event-day {color: #0F81BB;}
 
-#adminmenu #menu-posts-spevents div.wp-menu-image {
+#adminmenu #menu-posts-tribe_events div.wp-menu-image {
 	background:url(images/menu.png) no-repeat 0 -32px;
 }
-#adminmenu #menu-posts-spevents:hover div.wp-menu-image, #adminmenu #menu-posts-spevents.wp-has-current-submenu div.wp-menu-image {
+#adminmenu #menu-posts-tribe_events:hover div.wp-menu-image, #adminmenu #menu-posts-spevents.wp-has-current-submenu div.wp-menu-image {
 	background-position:0 0;
 }
 
