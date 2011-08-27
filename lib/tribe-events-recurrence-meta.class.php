@@ -20,7 +20,16 @@ class TribeEventsRecurrenceMeta {
 		add_action( 'tribe_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg'), 10, 2);
 
       add_filter( 'tribe_get_event_link', array( __CLASS__, 'addDateToEventPermalink'), 10, 2);
+      add_filter( 'post_row_actions', array( __CLASS__, 'removeQuickEdit'), 10, 2);
 	}	
+
+   public static function removeQuickEdit( $actions, $post ) {
+      if( tribe_is_recurring_event( $post ) ) {
+         unset($actions['inline hide-if-no-js']);
+      }
+
+      return $actions;
+   }
 
    public static function addDateToEventPermalink($permalink, $the_post) {
       global $post;
