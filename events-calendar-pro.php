@@ -67,7 +67,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public static function check_for_ecp() {
 			if( !class_exists( 'TribeEvents' ) || !defined('TribeEvents::VERSION') || !version_compare( TribeEvents::VERSION, '2.0', '>=') ) {
 				deactivate_plugins(basename(__FILE__)); // Deactivate ourself
-				wp_die("Sorry, but you must activate Events Calendar Pro 2.0 or greater in order for this plugin to be installed.");	
+				wp_die("Sorry, but you must activate The Events Calendar 2.0 or greater in order for this plugin to be installed.");	
 			}
 		}
 	}
