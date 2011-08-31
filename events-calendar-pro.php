@@ -33,6 +33,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/tribe-events-recurrence-meta.class.php' );
 			require_once( 'lib/tribe-recurrence.class.php' );
 			require_once( 'lib/tribe-support.class.php' );
+			require_once( 'lib/widget-calendar.class.php' );
 			require_once( 'template-tags.php' );
 			require_once( 'lib/plugins/pue-client.php' );
 			
