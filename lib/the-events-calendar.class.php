@@ -137,7 +137,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-event-exception.class.php' );
 			require_once( 'template-tags.php' );
 			require_once( 'template-tags-deprecated.php' );
-			require_once( 'widget-calendar.class.php' );
 			require_once( 'widget-featured.class.php' );
 			require_once( 'widget-list.class.php' );
 			require_once( 'tribe-admin-events-list.class.php' );
