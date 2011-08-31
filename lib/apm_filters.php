@@ -1,0 +1,174 @@
+<?php
+class ECP_APM_Filters {
+	
+	public function __construct() {
+		add_action( 'init', array($this, 'ecp_filters') );
+	}
+	
+	public function ecp_filters() {
+		$filter_args = array(
+			'ecp_start_date' => array(
+				'name' => 'Start Date',
+				'meta' => '_EventStartDate',
+				'cast' => 'DATETIME',
+				'date_format' => 'M j, Y'
+			),		
+			'ecp_venue_filter_key'=>array(
+				'name'=>'Venue',
+				'custom_type' => 'ecp_venue_filter',
+				'sortable' => 'true'
+			),
+			'ecp_organizer_filter_key'=>array(
+				'name'=>'Organizer',
+				'custom_type' => 'ecp_organizer_filter',
+				'sortable' => 'true'
+			)
+		);
+		
+		global $cpt_filters;
+		$cpt_filters = tribe_setup_apm(TribeEvents::POSTTYPE, $filter_args );
+		$cpt_filters->do_metaboxes = false;
+	}
+
+	public function log($data = array() ) {
+		error_log(print_r($data,1));
+	}
+	
+}
+new ECP_APM_Filters;
+
+class Tribe_Venue_Filter {
+	
+	protected $key = 'ecp_venue_filter';
+	protected $type = 'ecp_venue_filter';
+	
+	public function __construct() {
+		$type = $this->type;
+		
+		add_filter( 'tribe_custom_column'.$type, array($this, 'column_value'), 10, 3 );
+		add_filter( 'tribe_custom_row'.$type, array($this, 'form_row'), 10, 4 );
+		add_filter( 'tribe_maybe_active'.$type, array($this, 'maybe_set_active'), 10, 3 );
+		add_action( 'tribe_after_parse_query', array($this, 'parse_query'), 10, 2 );
+		add_action( 'tribe_orderby_custom'.$type, array($this, 'orderby'), 10, 2 );
+	}
+	
+	public function orderby($wp_query, $filter) {
+		add_filter( 'posts_orderby', array($this, 'set_orderby'), 10, 2 );
+	}
+	
+	public function set_orderby($orderby, $wp_query) {
+		// run once
+		remove_filter( 'posts_orderby', array($this, 'set_orderby'), 10, 2 );
+		global $wpdb;
+		list($by, $order) = explode(' ', trim($orderby) );
+		$by = "{$wpdb->posts}.post_status";
+		return $by . ' ' . $order;
+	}
+	
+	public function parse_query($wp_query, $active) {
+		if ( ! isset($active[$this->key]) ) {
+			return;
+		}
+		$status = $active[$this->key]['value'];
+		$wp_query->set('post_status', $status);
+	}
+	
+	public function maybe_set_active($return, $key, $filter) {
+		if ( isset($_POST[$key]) && ! empty($_POST[$key]) ) {
+			return array('value' => $_POST[$key]);
+		}
+		return $return;
+	}
+	
+	public function form_row($return, $key, $value, $filter) {
+		$venues = get_posts( array( 'post_type'=>TribeEvents::VENUE_POST_TYPE ) );
+
+		foreach ( $venues as $venue ) {
+			$args[$venue->ID] = $venue->post_title;
+		}
+		
+		return tribe_select_field($key, $args, $value['value'], true);
+	}
+
+	public function column_value($value, $column_id, $post_id) {
+		$venue = get_post( get_post_meta($post_id, '_EventVenueID', true) );
+		
+		if( $venue )
+			return $venue->post_title;
+	}
+	
+	public function log($data = array() ) {
+		error_log(print_r($data,1));
+	}
+	
+	
+}
+new Tribe_Venue_Filter;
+
+class Tribe_Organizer_Filter {
+	
+	protected $key = 'ecp_organizer_filter';
+	protected $type = 'ecp_organizer_filter';
+	
+	public function __construct() {
+		$type = $this->type;
+		
+		add_filter( 'tribe_custom_column'.$type, array($this, 'column_value'), 10, 3 );
+		add_filter( 'tribe_custom_row'.$type, array($this, 'form_row'), 10, 4 );
+		add_filter( 'tribe_maybe_active'.$type, array($this, 'maybe_set_active'), 10, 3 );
+		add_action( 'tribe_after_parse_query', array($this, 'parse_query'), 10, 2 );
+		add_action( 'tribe_orderby_custom'.$type, array($this, 'orderby'), 10, 2 );
+	}
+	
+	public function orderby($wp_query, $filter) {
+		add_filter( 'posts_orderby', array($this, 'set_orderby'), 10, 2 );
+	}
+	
+	public function set_orderby($orderby, $wp_query) {
+		// run once
+		remove_filter( 'posts_orderby', array($this, 'set_orderby'), 10, 2 );
+		global $wpdb;
+		list($by, $order) = explode(' ', trim($orderby) );
+		$by = "{$wpdb->posts}.post_status";
+		return $by . ' ' . $order;
+	}
+	
+	public function parse_query($wp_query, $active) {
+		if ( ! isset($active[$this->key]) ) {
+			return;
+		}
+		$status = $active[$this->key]['value'];
+		$wp_query->set('post_status', $status);
+	}
+	
+	public function maybe_set_active($return, $key, $filter) {
+		if ( isset($_POST[$key]) && ! empty($_POST[$key]) ) {
+			return array('value' => $_POST[$key]);
+		}
+		return $return;
+	}
+	
+	public function form_row($return, $key, $value, $filter) {
+		$organizers = get_posts( array( 'post_type'=>TribeEvents::ORGANIZER_POST_TYPE ) );
+
+		foreach ( $organizers as $organizers ) {
+			$args[$organizers->ID] = $organizers->post_title;
+		}
+		
+		return tribe_select_field($key, $args, $value['value'], true);
+	}
+
+	public function column_value($value, $column_id, $post_id) {
+		$org = get_post( get_post_meta($post_id, '_EventOrganizerID', true) );
+		
+		if( $org )
+			return $org->post_title;
+	}
+	
+	public function log($data = array() ) {
+		error_log(print_r($data,1));
+	}
+	
+	
+}
+new Tribe_Organizer_Filter;
