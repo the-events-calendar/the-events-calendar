@@ -185,7 +185,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( "trash_" . TribeEvents::ORGANIZER_POST_TYPE, array($this, 'cleanupPostOrganizers'));
 			add_action( "wp_ajax_tribe_event_validation", array($this,'ajax_form_validate') );
 			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
+         // noindex grid view
+         add_action('wp_head', array( $this, 'noindex_months' ) );
 		}
+
+      /**
+       * Add code to tell search engines not to index the grid view of the 
+       * calendar.  Users were seeing 100s of months being indexed.
+       */
+      function noindex_months() {
+         if (get_query_var('eventDisplay') == 'month') {
+            echo " <meta name=\"robots\" content=\"noindex, follow\"/>\n";
+         } 
+      }
 
 		/**
 		 * Run on applied action init
