@@ -29,7 +29,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'rewrite' => array('slug'=>'venue', 'with_front' => false),
 			'show_ui' => true,
 			'show_in_menu' => 0,
-			'supports' => array('')
+			'supports' => array('title', 'editor')
 		);
 		private $postOrganizerTypeArgs = array(
 			'public' => true,
@@ -1366,6 +1366,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			//That would be bad.
 			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 
+         $_POST['venue']['Venue'] = $_POST['post_title'];
 			$data = stripslashes_deep($_POST['venue']);
 			$venue_id = TribeEventsAPI::updateVenue($postID, $data);
 

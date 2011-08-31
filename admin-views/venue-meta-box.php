@@ -7,12 +7,14 @@
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 ?>
-<tr class="venue">
-	<td><?php _e('Venue Name:',self::PLUGIN_DOMAIN); ?></td>
-	<td>
-		<input tabindex="<?php $this->tabIndex(); ?>" type='text' name='venue[Venue]' size='25'  value='<?php echo esc_attr($_VenueVenue); ?>' />
-	</td>
-</tr>
+<?php if ($post->post_type != TribeEvents::VENUE_POST_TYPE): ?>
+   <tr class="venue">
+      <td><?php _e('Venue Name:',self::PLUGIN_DOMAIN); ?></td>
+      <td>
+         <input tabindex="<?php $this->tabIndex(); ?>" type='text' name='venue[Venue]' size='25'  value='<?php echo esc_attr($_VenueVenue); ?>' />
+      </td>
+   </tr>
+<?php endif; ?>
 <tr class="venue">
 	<td><?php _e('Address:',self::PLUGIN_DOMAIN); ?></td>
 	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' name='venue[Address]' size='25' value='<?php echo esc_attr($_VenueAddress); ?>' /></td>
