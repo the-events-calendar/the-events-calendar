@@ -4,7 +4,7 @@ Contributors: John Gadbois, Rob La Gatta, Kelsey Damas, Matt Wiebe, Justin Endle
 Tags: widget, events, simple, tooltips, grid, month, list, calendar, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
 Requires at least: 3.0
 Tested up to: 3.1.2
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 Last updated: June 24 2011
 
 == Description ==
@@ -212,6 +212,10 @@ For support on Events Calendar Pro, please visit the Make Design Not War Support
 You can also contact Rob La Gatta (rob@shaneandpeter.com or @RobLaGatta on Twitter) directly for assistance.
 
 == Changelog ==
+
+= 1.3.3 =
+# Fixed bug where past events in current month did not show up in calendar
+# Fixed bug where venue would not saved if a name was not specified
 
 = 1.3.2 =
 
