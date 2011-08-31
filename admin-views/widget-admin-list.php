@@ -55,8 +55,9 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 				'echo' => 0,
 				'name' => $this->get_field_name( 'category' ),
 				'id' => $this->get_field_id( 'category' ),
-				'taxonomy' => 'sp_events_cat',
-				'selected' => $instance['category']
+				'taxonomy' => TribeEvents::TAXONOMY,
+            'selected' => $instance['category'],
+            'hierarchical'=>1
 			));
 		?>
 </p>
