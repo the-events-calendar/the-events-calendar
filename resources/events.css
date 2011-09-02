@@ -385,7 +385,7 @@ h4.tribe-events-event-day + .post .entry-title {margin-top:6px;}
 .tribe-events-error {display:none;}
 .tribe-events-multi-event-day {color: #0F81BB;}
 
-#tribe-events-picker {
+#tribe-events-events-picker, #tribe-events-picker {
 	display:inline;
 }
 .eventsListWidget li {
