@@ -46,6 +46,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'init', array( $this, 'init' ), 10 );			
          add_action( 'init', array( $this, 'enqueue_resources') );
          add_action( 'tribe_after_location_details', array( $this, 'add_google_map_preview') );
+         add_action( 'tribe-events-after-theme-settings', array( $this, 'event_defaults_options') );
          add_filter( 'tribe_current_events_page_template', array( $this, 'select_venue_template' ) );
          add_filter( 'tribe_events_template_single-venue.php', array( $this, 'load_venue_template' ) );
 	    }
@@ -55,6 +56,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			TribeEventsRecurrenceMeta::init();
 			new PluginUpdateEngineChecker(self::$updateUrl, self::PLUGIN_DOMAIN, array('apikey'=>'ec94dc0f20324d00831a56b3013f428a'));
 		}
+
+      public function event_defaults_options() {
+         $tec = TribeEvents::instance();
+			include( $this->pluginPath . 'admin-views/event-defaults.php' );
+      }
 
       public function select_venue_template($template) {
 	      if ( is_singular( TribeEvents::VENUE_POST_TYPE ) ) {
