@@ -44,6 +44,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
          require_once( 'lib/widget-featured.class.php');
 			
 			add_action( 'init', array( $this, 'init' ), 10 );			
+         add_action( 'init', array( $this, 'enqueue_resources') );
+         add_action( 'tribe_after_location_details', array( $this, 'add_google_map_preview') );
 	    }
 		
 		public function init() {
@@ -51,6 +53,21 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			TribeEventsRecurrenceMeta::init();
 			new PluginUpdateEngineChecker(self::$updateUrl, self::PLUGIN_DOMAIN, array('apikey'=>'ec94dc0f20324d00831a56b3013f428a'));
 		}
+
+      public function add_google_map_preview($postId) {
+         if( tribe_get_option('embedGoogleMaps') ) {
+            ?><div style="float:right;"><?php
+               echo tribe_get_embedded_map($postId, 200, 200, true);
+            ?></div><?php
+         }
+         ?><div style="clear:both"></div><?php
+      }
+
+      public function enqueue_resources() {
+         if( is_admin() ) {
+            wp_enqueue_script( TribeEvents::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.js', array('jquery-ui-datepicker'), '', true );
+         }
+      }
 	
 		/* Static Methods */
 	    public static function instance()
