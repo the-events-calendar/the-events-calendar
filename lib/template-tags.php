@@ -443,7 +443,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		$postId = tribe_post_id_helper( $postId );
 		$venue = esc_html((tribe_has_venue( $postId )) ?  tribe_get_event_meta( tribe_get_venue_id( $postId ), '_VenueVenue', true ) : tribe_get_event_meta( $postId, '_EventVenue', true ));
 		
-		if( $with_link && tribe_has_venue( $postId ) )
+		if( $with_link && tribe_has_venue( $postId ) && class_exists('TribeEventsPro') )
 			return "<a href='" . get_permalink(tribe_get_venue_id( $postId )) . "'>$venue</a>";
 		
 		return $venue;

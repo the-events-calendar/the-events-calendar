@@ -85,29 +85,29 @@ if (!class_exists('TribeEventsTemplates')) {
 		
 		// get the correct internal page template
 		public static function get_current_page_template() {
-	      if ( is_singular( TribeEvents::VENUE_POST_TYPE ) ) {
-	         return TribeEventsTemplates::getTemplateHierarchy('single-venue');
-	      }
+         $template = '';
 
 			if ( is_tax( TribeEvents::TAXONOMY) ) {
 				if ( tribe_is_upcoming() || tribe_is_past() )
-					return TribeEventsTemplates::getTemplateHierarchy('list');
+					$template = TribeEventsTemplates::getTemplateHierarchy('list');
 				else
-					return TribeEventsTemplates::getTemplateHierarchy('gridview');
+					$template = TribeEventsTemplates::getTemplateHierarchy('gridview');
 			}
 			// single event
 			if ( is_single() && !tribe_is_showing_all() ) {
-				return TribeEventsTemplates::getTemplateHierarchy('single');
+				$template = TribeEventsTemplates::getTemplateHierarchy('single');
 			}
 			// list view
 			elseif ( tribe_is_upcoming() || tribe_is_past() || (is_single() && tribe_is_showing_all()) ) {
-				return TribeEventsTemplates::getTemplateHierarchy('list');
+				$template = TribeEventsTemplates::getTemplateHierarchy('list');
 			}
 			// grid view
 			else 
 			{
-				return TribeEventsTemplates::getTemplateHierarchy('gridview');
+				$template = TribeEventsTemplates::getTemplateHierarchy('gridview');
 			}
+
+         return apply_filters('tribe_current_events_page_template', $template);
 		}
 
 		// loads the contents into the page template
