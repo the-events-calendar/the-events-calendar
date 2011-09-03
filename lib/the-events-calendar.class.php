@@ -1241,7 +1241,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$url = add_query_arg( $params, $base_url );
 			return esc_url($url);
 		}
-		
+
+      /**
+       *  Returns the full address of an event along with HTML markup.  It 
+       *  loads the full-address template to generate the HTML
+       */  
 		public function fullAddress( $postId=null, $includeVenueName=false ) {
 			ob_start();
 			load_template( TribeEventsTemplates::getTemplateHierarchy( 'full-address' ), false );
@@ -1249,6 +1253,38 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			ob_end_clean();
 			return $address;
 		}
+
+      /**
+       *  Returns a string version of the full address of an event
+       */
+      public function fullAddressString( $postId=null ) {
+         $address = '';
+         if( tribe_get_address( $postId ) ) { 
+            $address .= tribe_get_address( $postId );
+         } 
+
+         if( tribe_get_city( $postId ) ) {
+            if($address != '') $address .= ",";
+            $address .= tribe_get_city( $postId );
+         }
+
+         if( tribe_get_region( $postId ) ) {
+            if($address != '') $address .= ",";
+            $address .= tribe_get_region( $postId );
+         }
+
+         if( tribe_get_zip( $postId ) ) { 
+            if($address != '') $address .= ",";
+            $address .= tribe_get_zip( $postId );
+         } 
+
+         if( tribe_get_country( $postId ) ) {
+            if($address != '') $address .= ",";
+            $address .= tribe_get_country( $postId );
+         }
+
+         return $address;
+      }
 
 		/**
 		 * This plugin does not have any deactivation functionality. Any events, categories, options and metadata are
@@ -1389,7 +1425,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					echo '<option value="0">' . __("Use New Venue", self::PLUGIN_DOMAIN) . '</option>';
 				foreach($venues as $venue){
 					$selected = ($current == $venue->ID) ? 'selected="selected"' : '';
-					echo "<option data-address=" . json_encode( tribe_get_full_address($venue->ID) ) . " value='{$venue->ID}' $selected>{$venue->post_title}</option>";
+					echo "<option data-address='" . esc_attr($this->fullAddressString($venue->ID)) . "' value='{$venue->ID}' $selected>{$venue->post_title}</option>";
 				}
 				echo '</select>';
 			}else{
