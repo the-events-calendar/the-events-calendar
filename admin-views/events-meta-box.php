@@ -101,12 +101,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<?php endif; ?>
 		</table>
 	</div>
-	<?php if( tribe_get_option('embedGoogleMaps') ): ?>
-		<div style="float:right;">
-			<?php echo tribe_get_embedded_map($postId, 200, 200, true) ?>
-		</div>
-	<?php endif; ?>
-	<div style="clear:both"></div>
+   <?php do_action('tribe_after_location_details', $postId); ?>
 	<table id="event_organizer" class="eventtable">
 			<tr>
 				<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event Organizer Details', self::PLUGIN_DOMAIN); ?></h4></td>
