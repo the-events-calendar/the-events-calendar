@@ -46,10 +46,10 @@ ob_end_clean();
 			echo tribe_get_start_date( $post->ID, $start ); 
 
 			if($event->AllDay && $start) {
-				echo ' <small>('.__('All Day',self::PLUGIN_DOMAIN).')</small>';
+				echo ' <small>('.__('All Day',$tribe_ecp::PLUGIN_DOMAIN).')</small>';
 			} else {
 				if ( $end && $event->EndDate != '') {
-					echo "<br/>" . __('Ends ', self::PLUGIN_DOMAIN);
+					echo "<br/>" . __('Ends ', $tribe_ecp::PLUGIN_DOMAIN);
 					echo tribe_get_end_date($post->ID);
 				}
 			}
