@@ -115,4 +115,3 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 		load_plugin_textdomain( 'tribe-events-calendar', false, basename(dirname(dirname(__FILE__))) . '/lang/');
 	}
 }
-?>

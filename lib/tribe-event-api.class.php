@@ -204,4 +204,3 @@ if (!class_exists('TribeEventsAPI')) {
 		}	
 	}
 }
-?>

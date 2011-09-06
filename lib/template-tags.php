@@ -1056,4 +1056,3 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 } // end if class_exists('The-Events-Calendar')
-?>

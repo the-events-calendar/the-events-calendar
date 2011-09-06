@@ -442,4 +442,3 @@ if (!function_exists('event_grid_view')) {
 		return tribe_get_event_meta( $id, $meta, $single );
 	}
 }
-?>

@@ -67,4 +67,3 @@ function load_tribe_debug_bar($panels) {
 }
 
 add_filter( 'debug_bar_panels', 'load_tribe_debug_bar' );
-?>

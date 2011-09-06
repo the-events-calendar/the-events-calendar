@@ -309,4 +309,3 @@ if (!class_exists('TribeEventsAdminList')) {
 	}
 	TribeEventsAdminList::init();
 }
-?>

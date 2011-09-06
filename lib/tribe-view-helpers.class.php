@@ -585,4 +585,3 @@ if (!class_exists('TribeEventsViewHelpers')) {
 		}
 	}
 }
-?>

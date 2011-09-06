@@ -221,4 +221,3 @@ if (!class_exists('TribeEventsImport')) {
 
 	TribeEventsImport::instance();
 }
-?>

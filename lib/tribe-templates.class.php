@@ -205,4 +205,3 @@ if (!class_exists('TribeEventsTemplates')) {
 
 	TribeEventsTemplates::init();
 }
-?>

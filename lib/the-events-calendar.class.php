@@ -18,20 +18,20 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		const PLUGIN_DOMAIN = 'tribe-events-calendar';
 		const VERSION = '2.0';
 
-		private $postTypeArgs = array(
+		protected $postTypeArgs = array(
 			'public' => true,
 			'rewrite' => array('slug' => 'event', 'with_front' => false),
 			'menu_position' => 6,
 			'supports' => array('title','editor','excerpt','author','thumbnail')
 		);
-		private $postVenueTypeArgs = array(
+		protected $postVenueTypeArgs = array(
 			'public' => true,
 			'rewrite' => array('slug'=>'venue', 'with_front' => false),
 			'show_ui' => true,
 			'show_in_menu' => 0,
 			'supports' => array('title', 'editor')
 		);
-		private $postOrganizerTypeArgs = array(
+		protected $postOrganizerTypeArgs = array(
 			'public' => true,
 			'rewrite' => false,
 			'show_ui' => true,
@@ -39,27 +39,27 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'menu_position' => 6,
 			'supports' => array('')
 		);
-		private $taxonomyLabels;
+		protected $taxonomyLabels;
 
 		public static $supportUrl = 'http://tribe.pro/support/';
 
-		private static $instance;
-		private $rewriteSlug = 'events';
-		private $rewriteSlugSingular = 'event';
-		private $taxRewriteSlug = 'event/category';
-		private $monthSlug = 'month';
-		private $pastSlug = 'past';
-		private $upcomingSlug = 'upcoming';
-		private $postExceptionThrown = false;
-		private $optionsExceptionThrown = false;
-		private static $options;
+		protected static $instance;
+		protected $rewriteSlug = 'events';
+		protected $rewriteSlugSingular = 'event';
+		protected $taxRewriteSlug = 'event/category';
+		protected $monthSlug = 'month';
+		protected $pastSlug = 'past';
+		protected $upcomingSlug = 'upcoming';
+		protected $postExceptionThrown = false;
+		protected $optionsExceptionThrown = false;
+		protected static $options;
 		public $displaying;
 		public $pluginDir;
 		public $pluginPath;
 		public $pluginUrl;
 		public $pluginName;
 		public $date;
-		private $tabIndexStart = 2000;
+		protected $tabIndexStart = 2000;
 
 		public $metaTags = array(
 			'_EventAllDay',
@@ -114,7 +114,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *
 		 * @return void
 		 */
-		private function __construct( ) {
+		protected function __construct( ) {
 			$this->pluginPath = trailingslashit( dirname( dirname(__FILE__) ) );
 			$this->pluginDir = trailingslashit( basename( $this->pluginPath ) );
 			$this->pluginUrl = WP_PLUGIN_URL.'/'.$this->pluginDir;
@@ -133,7 +133,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Load all the required library files.
 		 **/
-		private function loadLibraries() {
+		protected function loadLibraries() {
 			require_once( 'tribe-event-exception.class.php' );
 			require_once( 'template-tags.php' );
 			require_once( 'template-tags-deprecated.php' );
@@ -148,7 +148,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-debug-bar.class.php' );
 		}
 
-		private function addFilters() {
+		protected function addFilters() {
 			add_filter( 'post_class', array( $this, 'post_class') );
 			add_filter( 'body_class', array( $this, 'body_class' ) );
 			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );
@@ -164,7 +164,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events'), null, 2);
 		}
 
-		private function addActions() {
+		protected function addActions() {
 			add_action( 'init', array( $this, 'init'), 10 );
 			add_action( 'template_redirect', array( $this, 'loadStyle' ) );
 			add_action( 'admin_menu', array( $this, 'addOptionsPage' ) );
@@ -473,7 +473,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 	
 		}
 
-		private function generatePostTypeLabels() {
+		protected function generatePostTypeLabels() {
 			$this->postTypeArgs['labels'] = array(
 				'name' => __('Events', self::PLUGIN_DOMAIN),
 				'singular_name' => __('Event', self::PLUGIN_DOMAIN),
@@ -834,7 +834,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}		
 
 		// do clean up for trashed venues or organizers
-		private function removeDeletedPostTypeAssociation($key, $postId) {
+		protected function removeDeletedPostTypeAssociation($key, $postId) {
 			$the_query = new WP_Query(array('meta_key'=>$key, 'meta_value'=>$postId, 'post_type'=> TribeEvents::POSTTYPE ));
 
 			while ( $the_query->have_posts() ): $the_query->the_post();
@@ -935,7 +935,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			return $months;
 		}
 
-		private function initMonthNames() {
+		protected function initMonthNames() {
 			global $wp_locale;
 			$this->monthsFull = array( 
 				'January' => $wp_locale->get_month('01'), 
@@ -1125,7 +1125,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 	
 		}
 
-		private function uglyLink( $type = 'home', $secondary = false ) {
+		protected function uglyLink( $type = 'home', $secondary = false ) {
 	
 			$eventUrl = add_query_arg('post_type', self::POSTTYPE, home_url() );
 	
@@ -1313,7 +1313,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Ensures date follows proper YYYY-MM-DD format
 		 * converts /, - and space chars to -
 		 */
-		private function dateHelper( $date ) {
+		protected function dateHelper( $date ) {
 
 			if($date == '')
 				return date(TribeDateUtils::DBDATEFORMAT);
@@ -1935,7 +1935,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			exit;
 		}
 
-		private function constructDaysOfWeek() {
+		protected function constructDaysOfWeek() {
 			global $wp_locale;
 			for ($i = 0; $i <= 6; $i++) {
 				$day = $wp_locale->get_weekday($i);
@@ -1969,12 +1969,5 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 	} // end TribeEvents class
 
-	TribeEvents::instance();
-
-	// backwards compatability
-	global $sp_ecp;
-	$sp_ecp = TribeEvents::instance();
-
-	add_filter('generate_rewrite_rules', array(&$sp_ecp,'filterRewriteRules'));
 } // end if !class_exists TribeEvents
 ?>

@@ -36,4 +36,3 @@ if( !class_exists( 'TribeEventsOptionsException' ) ) {
 	    }
 	} // end TribeEventsOptionsException
 } // end if !class_exists TribeEventsOptionsException
-?>
