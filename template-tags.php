@@ -27,7 +27,7 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 	  	foreach ($customFields as $field) {
 		 	$meta = str_replace('|', ', ', get_post_meta($postId, $field['name'], true));
 		 	if($meta) {
-				$data[esc_html($field['label'])] = esc_html($meta);
+				$data[esc_html($field['label'])] = $meta; // $meta has been through wp_kses - links are allowed
 			}
 		}
 		return $data;

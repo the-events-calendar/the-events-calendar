@@ -29,7 +29,7 @@ class ECP_APM_Filters {
 	}
 	
 }
-new ECP_APM_Filters;
+//new ECP_APM_Filters;
 
 class Tribe_Venue_Filter {
 	
