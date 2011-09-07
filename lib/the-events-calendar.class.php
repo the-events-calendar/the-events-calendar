@@ -1907,7 +1907,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$events .= "UID:" . $eventPost->ID . "@" . $blogHome . "\n";
 				$events .= "SUMMARY:" . $eventPost->post_title . "\n";				
 				$events .= "DESCRIPTION:" . str_replace(",",'\,',$description) . "\n";
-				$events .= "LOCATION:" . html_entity_decode(tribe_get_full_address( $eventPost->ID ), ENT_QUOTES) . "\n";
+				$events .= "LOCATION:" . html_entity_decode($this->fullAddressString( $eventPost->ID ), ENT_QUOTES) . "\n";
 				$events .= "URL:" . get_permalink( $eventPost->ID ) . "\n";
 				$events .= "END:VEVENT\n";
 			}
