@@ -157,14 +157,14 @@ if (!class_exists('TribeEventsAdminList')) {
 				foreach ( $columns as $key => $value ) {
 					$mycolumns[$key] = $value;
 					if ( $key =='author' )
-						$mycolumns['events-cats'] = __( 'Event Categories', $tribe_ecp->pluginDomain );
+						$mycolumns['events-cats'] = __( 'Event Categories', TribeEvents::PLUGIN_DOMAIN );
 				}
 				$columns = $mycolumns;
 
 				unset($columns['date']);
-				$columns['start-date'] = __( 'Start Date', $tribe_ecp->pluginDomain );
-				$columns['end-date'] = __( 'End Date', $tribe_ecp->pluginDomain );
-				$columns['recurring'] = __( 'Recurring?', $tribe_ecp->pluginDomain );
+				$columns['start-date'] = __( 'Start Date', TribeEvents::PLUGIN_DOMAIN );
+				$columns['end-date'] = __( 'End Date', TribeEvents::PLUGIN_DOMAIN );
+				$columns['recurring'] = __( 'Recurring?', TribeEvents::PLUGIN_DOMAIN );
 			}
 
 			return $columns;

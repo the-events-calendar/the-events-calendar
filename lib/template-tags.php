@@ -848,7 +848,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		if(tribe_get_event_meta(tribe_get_venue_id( $postId ), '_VenueStateProvince', true )){
 			return tribe_get_event_meta(tribe_get_venue_id( $postId ), '_VenueStateProvince', true );
 		}else
-		if ( tribe_get_country() == __('United States', $tribe_ecp->pluginDomain ) ) {
+		if ( tribe_get_country() == __('United States', TribeEvents::PLUGIN_DOMAIN ) ) {
 			return tribe_get_state();
 		} else {
 			return tribe_get_province(); 
@@ -881,7 +881,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	function tribe_get_events_title()  {
 		$tribe_ecp = TribeEvents::instance();
 
-		$title = __('Calendar of Events', $tribe_ecp->pluginDomain);
+		$title = __('Calendar of Events', TribeEvents::PLUGIN_DOMAIN);
 		if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
 			$cat = get_term_by( 'slug', get_query_var('term'), $tribe_ecp->get_event_taxonomy() );
 			$title = '<a href="'.tribe_get_events_link().'">'.$title.'</a>';
@@ -893,7 +893,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 
 	function tribe_meta_event_cats()  {
 		$tribe_ecp = TribeEvents::instance();
-		the_terms( get_the_ID(), $tribe_ecp->get_event_taxonomy(), '<dt>'.__('Category:',$tribe_ecp->pluginDomain ).'</dt><dd>', ', ', '</dd>' );
+		the_terms( get_the_ID(), $tribe_ecp->get_event_taxonomy(), '<dt>'.__('Category:',TribeEvents::PLUGIN_DOMAIN ).'</dt><dd>', ', ', '</dd>' );
 	}
 
 	/**
@@ -978,7 +978,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		if(tribe_get_event_meta($postId, '_VenueStateProvince', true )){
 			return tribe_get_event_meta($postId, '_VenueStateProvince', true );
 		}else
-		if ( tribe_get_country() == __('United States', $tribe_ecp->pluginDomain ) ) {
+		if ( tribe_get_country() == __('United States', TribeEvents::PLUGIN_DOMAIN ) ) {
 			return tribe_get_state();
 		} else {
 			return tribe_get_province(); 
