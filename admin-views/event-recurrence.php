@@ -12,7 +12,7 @@
 					<option data-single="event" data-plural="events" value="Custom" <?php selected($recType, "Custom") ?>><?php _e('Custom',TribeEventsPro::PLUGIN_DOMAIN); ?></option>
 				</select>
 				<span id="recurrence-end" style="display: <?php echo !$recType || $recType == "None" ? "none" : "inline" ?>">
-					End						
+					<?php _e('End',TribeEventsPro::PLUGIN_DOMAIN); ?>
 					<select name="recurrence[end-type]">
 						<option value="On" <?php selected($recEndType, "None") ?>><?php _e('On',TribeEventsPro::PLUGIN_DOMAIN); ?></option>
 						<option value="After" <?php selected($recEndType, "After") ?>><?php _e('After',TribeEventsPro::PLUGIN_DOMAIN); ?></option>
@@ -26,14 +26,15 @@
 		<tr class="recurrence-row" id="custom-recurrence-frequency" style="display: <?php echo $recType == "Custom" ? "table-row" : "none" ?>;">
 			<td></td>
 			<td>
-				Frequency
+				<?php _e('Frequency',TribeEventsPro::PLUGIN_DOMAIN); ?>
 				<select name="recurrence[custom-type]">
 					<option value="Daily" data-plural="<?php _e('Day(s)',TribeEventsPro::PLUGIN_DOMAIN); ?>" data-tablerow="" <?php selected($recCustomType, "None") ?>><?php _e('Daily',TribeEventsPro::PLUGIN_DOMAIN); ?></option>
 					<option value="Weekly" data-plural="<?php _e('Week(s) on:',TribeEventsPro::PLUGIN_DOMAIN); ?>" data-tablerow="#custom-recurrence-weeks" <?php selected($recCustomType, "Weekly") ?>><?php _e('Weekly',TribeEventsPro::PLUGIN_DOMAIN); ?></option>
 					<option value="Monthly" data-plural="<?php _e('Month(s) on the:',TribeEventsPro::PLUGIN_DOMAIN); ?>" data-tablerow="#custom-recurrence-months" <?php selected($recCustomType, "Monthly") ?>><?php _e('Monthly',TribeEventsPro::PLUGIN_DOMAIN); ?></option>
 					<option value="Yearly" data-plural="<?php _e('Year(s) on:',TribeEventsPro::PLUGIN_DOMAIN); ?>" data-tablerow="#custom-recurrence-years" <?php selected($recCustomType, "Yearly") ?>><?php _e('Yearly',TribeEventsPro::PLUGIN_DOMAIN); ?></option>
 				</select>
-				Every <input type="text" name="recurrence[custom-interval]" value="<?php echo $recCustomInterval ?>"/> <span id="recurrence-interval-type"><?php echo $recCustomTypeText ?></span>
+				<?php _e('Every',TribeEventsPro::PLUGIN_DOMAIN); ?>
+				<input type="text" name="recurrence[custom-interval]" value="<?php echo $recCustomInterval ?>"/> <span id="recurrence-interval-type"><?php echo $recCustomTypeText ?></span>
 				<input type="hidden" name="recurrence[custom-type-text]" value="<?php echo $recCustomTypeText ?>"/>
 				<input type="hidden" name="recurrence[occurrence-count-text]" value="<?php echo $recOccurrenceCountText ?>"/>
 			</td>
@@ -102,7 +103,8 @@
 				</div>
 				<div style="clear:both"></div>				
 				<div>
-					<input type="checkbox" name="recurrence[custom-year-filter]" value="1" <?php checked($recCustomYearFilter, "1") ?>/> On the:
+					<input type="checkbox" name="recurrence[custom-year-filter]" value="1" <?php checked($recCustomYearFilter, "1") ?>/>
+					<?php _e('On the:',TribeEventsPro::PLUGIN_DOMAIN); ?>
 					<select name="recurrence[custom-year-month-number]">
 						<option value="1" <?php selected($recCustomYearMonthNumber, "1") ?>><?php _e('First',TribeEventsPro::PLUGIN_DOMAIN); ?></option>
 						<option value="2" <?php selected($recCustomYearMonthNumber, "2") ?>><?php _e('Second',TribeEventsPro::PLUGIN_DOMAIN); ?></option>
