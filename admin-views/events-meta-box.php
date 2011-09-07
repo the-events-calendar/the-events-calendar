@@ -136,16 +136,14 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<?php } ?>
 		<tr class="eventBritePluginPlug">
 			<td colspan="2" class="tribe_sectionheader">
-				<h4><?php _e('Sell Tickets &amp; Track Registration', self::PLUGIN_DOMAIN); ?></h4>	
+				<h4><?php _e('Additional Functionality', self::PLUGIN_DOMAIN); ?></h4>	
 			</td>
 		</tr>
-		<?php if(!class_exists('Event_Tickets_PRO')){ ?>
-			<tr class="eventBritePluginPlug">
-				<td colspan="2">
-					<p><?php printf( __('Interested in selling tickets and tracking registrations? We have an add-on in the works that will integrate your events and sell tickets on <a href="%s">EventBrite</a>. <a href="%s">Stay Tuned!</a>', self::PLUGIN_DOMAIN ), 'http://www.eventbrite.com/r/simpleevents', $this->envatoUrl ); ?></a></p>
-				</td>
-			</tr>
-		<?php } ?>		
+		<tr class="eventBritePluginPlug">
+			<td colspan="2">
+				<p><?php _e('Looking for additional functionality including reoccurring events, custom meta, community events, ticket sales and more?', self::PLUGIN_DOMAIN ) ?> <?php printf( __('Check out the <a href="%s">available Add-Ons</a>.', self::PLUGIN_DOMAIN ), 'http://tribe.pro/?ref=tec-event' ); ?></p>
+			</td>
+		</tr>
       <?php $this->do_action('tribe_events_cost_table', $postId, true) ?>
 	</table>
 	</div>

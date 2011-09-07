@@ -17,6 +17,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 		const PLUGIN_DOMAIN = 'tribe-events-calendar';
 		const VERSION = '2.0';
+		const FEED_URL = 'http://shaneandpeter.com/category/articles/feed/';
 
 		protected $postTypeArgs = array(
 			'public' => true,
@@ -186,6 +187,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
          // noindex grid view
          add_action('wp_head', array( $this, 'noindex_months' ) );
+			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
+			add_action( 'wp_dashboard_setup', array( $this, 'dashboardWidget' ) );
 		}
 
       /**
@@ -1826,6 +1829,24 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				echo '<a href='.tribe_get_event_link($results).'>'.$anchor.'</a>';
 		
 			}
+		}
+
+		public function addMetaLinks( $links, $file ) {
+			if ( $file == $this->pluginDir . 'the-events-calendar.php' ) {
+				$anchor = __( 'View All Add-Ons', self::PLUGIN_DOMAIN ); 
+				$links []= '<a href="http://tribe.pro/?ref=tec-plugins">' . $anchor . '</a>';
+			}
+			return $links;
+		}
+
+		public function dashboardWidget() {
+			wp_add_dashboard_widget( 'tribe_dashboard_widget', __( 'News from Tribe Pro' ), array( $this, 'outputDashboardWidget' ) );
+		}
+
+		public function outputDashboardWidget() {
+			echo '<div class="rss-widget">';
+			wp_widget_rss_output( self::FEED_URL );
+			echo "</div>";
 		}
 
 		protected function constructDaysOfWeek() {
