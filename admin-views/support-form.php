@@ -15,7 +15,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<textarea name="description"></textarea>
 	</div>
 	<div class="tribe-support-form-submit">
-		<input type="submit" value="Send a Support Request"\>
+		<input type="submit" value="<?php _e('Send a Support Request',TribeEventsPro::PLUGIN_DOMAIN); ?>"\>
 	</div>
 </form>
 </div>
