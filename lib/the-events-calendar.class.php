@@ -908,7 +908,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function setReccuringEventDates() {
 			global $post;
 	
-			if( function_exists('tribe_is_recurring_event') && is_singular(self::POSTTYPE) && tribe_is_recurring_event() && !tribe_is_showing_all() ) {
+         if( function_exists('tribe_is_recurring_event') && 
+            is_singular(self::POSTTYPE) && 
+            tribe_is_recurring_event() && 
+            ( !tribe_is_showing_all() && !tribe_is_upcoming() && !tribe_is_past() && !tribe_is_month() && !tribe_is_by_date() ) ) {
 				$startTime = get_post_meta($post->ID, '_EventStartDate', true);
 				$startTime = TribeDateUtils::timeOnly($startTime);
 		

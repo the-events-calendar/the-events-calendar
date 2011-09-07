@@ -673,6 +673,11 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		$tribe_ecp = TribeEvents::instance();
 		return ( $tribe_ecp->displaying == 'month' ) ? true : false;
 	}
+
+   function tribe_is_by_date() {
+		$tribe_ecp = TribeEvents::instance();
+		return ( $tribe_ecp->displaying == 'bydate' ) ? true : false;
+   }
 	/**
 	 * Returns a link to the previous events in list view
 	 *

@@ -17,7 +17,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<a class='tribe-events-button-off' href='<?php echo tribe_get_gridview_link(); ?>'><?php _e('Calendar', TribeEvents::PLUGIN_DOMAIN)?></a>
 	</span>
 
-	</div><!--#tribe-events-calendar-header-->
+	</div><!--tribe-events-calendar-header-->
 	<div id="tribe-events-loop" class="tribe-events-events post-list clearfix">
 	
 	<?php if (have_posts()) : ?>
