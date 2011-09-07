@@ -155,7 +155,7 @@ if (!class_exists('TribeEventsQuery')) {
 			$args['eventDate'] = $args['start_date'];		
 			$args['end_date'] = $tribe_ecp->nextMonth($args['start_date']) . "-01";
 			$args['orderby'] = 'event_date';
-			$args['order'] = "DESC";
+			$args['order'] = "ASC";
 		
 			return $query;		
 		}

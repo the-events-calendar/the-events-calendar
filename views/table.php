@@ -17,7 +17,7 @@ if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
 	$eventPosts = tribe_get_events( array( 'eventCat' => $eventCat, 'time_order' => 'ASC', 'eventDisplay'=>'month' ) );
 } // not in a cat
 else {
-	$eventPosts = tribe_get_events(array( 'time_order' => 'ASC', 'eventDisplay'=>'month' ));
+	$eventPosts = tribe_get_events(array( 'eventDisplay'=>'month' ));
 }
 
 
