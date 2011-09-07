@@ -222,14 +222,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$this->flushRewriteRules();
 			}
 			self::debug(sprintf(__('Initializing Tribe Events on %s',self::PLUGIN_DOMAIN),date('M, jS \a\t h:m:s a')));
-
-         $this->maybeMigrateDatabase();
-			/*
-			self::debug(__('Debug Example: Log',self::PLUGIN_DOMAIN),false,'log');
-			self::debug(__('Debug Example: Warning',self::PLUGIN_DOMAIN),false,'warning');
-			self::debug(__('Debug Example: Notice',self::PLUGIN_DOMAIN),false,'notice');
-			self::debug(__('Debug Example: Error',self::PLUGIN_DOMAIN),false,'error');
-			*/
+			$this->maybeMigrateDatabase();
 		}
 
       public function maybeMigrateDatabase() {
@@ -1429,7 +1422,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 				echo '</select>';
 			}else{
-				echo '<p class="nosaved">'.__('No saved venues yet.',$this->lion).'</p>';
+				echo '<p class="nosaved">'.__('No saved venues yet.',self::PLUGIN_DOMAIN).'</p>';
 			}
 		}
 
@@ -1514,7 +1507,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 				echo '</select>';
 			}else{
-				echo '<p class="nosaved_organizer">'.__('No saved organizers yet.',$this->lion).'</p>';
+				echo '<p class="nosaved_organizer">'.__('No saved organizers yet.',self::PLUGIN_DOMAIN).'</p>';
 			}
 		}
 
