@@ -47,4 +47,36 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 		$meta_html .= "</dl>\n";
 		echo $meta_html;
 	}
+	
+	/**
+	 * Returns an ical feed for a single event. Must be used in the loop.
+	 * 
+	 * @return string
+	 */
+	function tribe_get_single_ical_link()  {
+		$tribe_ecp = TribeEvents::instance();
+		$output = esc_url($tribe_ecp->getLink( 'ical', 'single' ));
+		return $output;
+	}
+
+   /**
+    * Returns a sitewide ical link
+    */
+	function tribe_get_ical_link()  {
+		$tribe_ecp = TribeEvents::instance();
+		$output = esc_url($tribe_ecp->getLink('ical'));
+		return $output;
+	}
+
+	/**
+	 * Returns an add to Google Calendar link. Must be used in the loop
+	 */
+	function tribe_get_gcal_link( $postId = null )  {
+		$postId = tribe_post_id_helper( $postId );
+		$tribe_ecp = TribeEventsPro::instance();
+		$output = esc_url($tribe_ecp->googleCalendarLink( $postId ));
+		return $output;
+	}
+	
+
 }
