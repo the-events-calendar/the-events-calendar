@@ -36,13 +36,11 @@ if (!class_exists('TribeEventsImport')) {
 		
 		public function adminForm() {
 			if ( self::hasLegacyEvents() ) {
-				$old_events_copy = '<p class="message">' . sprintf( __('It looks like you have %s events in the category "%s". Click below to import!', TribeEvents::PLUGIN_DOMAIN ), $old_events, self::CATEGORYNAME ) . '</p>'; ?>
-
+				?>
 				<form id="sp-upgrade" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 					<?php wp_nonce_field('upgradeEventsCalendar') ?>
 					<h4><?php _e('Upgrade from The Events Calendar', TribeEvents::PLUGIN_DOMAIN ); ?></h4>
-					<p><?php _e('We built a vibrant community around our free <a href="http://wordpress.org/extend/plugins/the-events-calendar/" target="_blank">The Events Calendar</a> plugin. If you used the free version and are now using our premium version, thanks, we\'re glad to have you here!', TribeEvents::PLUGIN_DOMAIN ) ?></p>
-					<?php echo $old_events_copy; ?>
+					<p><?php _e('It appears that you have some old events calendar data that needs to be upgraded. Please be sure to back up your database before initiating the upgrade. This process can not be undone.', TribeEvents::PLUGIN_DOMAIN ) ?></p>
 					<input type="submit" value="<?php _e('Migrate Data!', TribeEvents::PLUGIN_DOMAIN); ?>" class="button-secondary" name="upgradeEventsCalendar" />
 				</form>	
 				<?php 
@@ -173,7 +171,7 @@ if (!class_exists('TribeEventsImport')) {
 				'category_name' => 'Events'
 			));
 			if (count($query->posts)) {
-				TribeEvents::debug('Install has 1 or more legacy event!',false,'warning');
+				TribeEvents::debug( __( 'Install has 1 or more legacy event!', TribeEvents::PLUGIN_DOMAIN ), false, 'warning' );
 			}
 			return $query->posts;
 		}
