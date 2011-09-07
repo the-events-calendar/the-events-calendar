@@ -27,7 +27,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			$old_post = $post;
 			extract( $args, EXTR_SKIP );
 			extract( $instance, EXTR_SKIP );
-			// extracting $instance provides $title, $limit, $no_upcoming_events, $start, $end, $venue, $address, $city, $state, $province'], $zip, $country, $phone , $cost
+			// extracting $instance provides $title, $limit
 			$title = apply_filters('widget_title', $title );
 			if ( tribe_get_option('viewOption') == 'upcoming') {
 				$event_url = tribe_get_listview_link($category != -1 ? intval($category) : null);
@@ -81,24 +81,13 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				$instance['title'] = strip_tags( $new_instance['title'] );
 				$instance['limit'] = $new_instance['limit'];
 				$instance['no_upcoming_events'] = $new_instance['no_upcoming_events'];
-				$instance['start'] = $new_instance['start'];
-				$instance['end'] = $new_instance['end'];
-				$instance['venue'] = $new_instance['venue'];
-				$instance['country'] = $new_instance['country'];
-				$instance['address'] = $new_instance['address'];
-				$instance['city'] = $new_instance['city'];
-				$instance['region'] = $new_instance['region'];
-				$instance['zip'] = $new_instance['zip'];
-				$instance['phone'] = $new_instance['phone'];
-				$instance['cost'] = $new_instance['cost'];
-				$instance['category'] = $new_instance['category'];
 
 				return $instance;
 		}
 	
 		function form( $instance ) {				
 			/* Set up default widget settings. */
-			$defaults = array( 'title' => 'Upcoming Events', 'limit' => '5', 'start' => true, 'end' => false, 'venue' => false, 'country' => true, 'address' => false, 'city' => true, 'region' => true, 'zip' => false, 'phone' => false, 'cost' => false,'category' => false);
+			$defaults = array( 'title' => 'Upcoming Events', 'limit' => '5');
 			$instance = wp_parse_args( (array) $instance, $defaults );
 			$tribe_ecp = TribeEvents::instance();		
 			include( $tribe_ecp->pluginPath . 'admin-views/widget-admin-list.php' );
@@ -106,7 +95,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 	}
 
 	/* Add function to the widgets_ hook. */
-	add_action( 'widgets_init', 'events_list_load_widgets',100 );
+	add_action( 'widgets_init', 'events_list_load_widgets',90 );
 
 	/* Function that registers widget. */
 	function events_list_load_widgets() {

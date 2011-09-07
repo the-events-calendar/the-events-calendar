@@ -27,38 +27,4 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 </p>
 
-<p><?php _e( 'Display:', TribeEvents::PLUGIN_DOMAIN ); ?><br />
-
-<?php $displayoptions = array (
-					"start" => __('Start Date & Time', TribeEvents::PLUGIN_DOMAIN) .'<small><br/>'.__('(Widget will always show start date)', TribeEvents::PLUGIN_DOMAIN).'</small>',
-					"end" => __("End Date & Time", TribeEvents::PLUGIN_DOMAIN),
-					"venue" => __("Venue", TribeEvents::PLUGIN_DOMAIN),
-					"address" => __("Address", TribeEvents::PLUGIN_DOMAIN),
-					"city" => __("City", TribeEvents::PLUGIN_DOMAIN),
-					"region" => __("State (US) Or Province (Int)", TribeEvents::PLUGIN_DOMAIN),
-					"zip" => __("Postal Code", TribeEvents::PLUGIN_DOMAIN),
-					"country" => __("Country", TribeEvents::PLUGIN_DOMAIN),
-					"phone" => __("Phone", TribeEvents::PLUGIN_DOMAIN),
-					"cost" => __("Price", TribeEvents::PLUGIN_DOMAIN),
-				);
-	foreach ($displayoptions as $option => $label) { ?>
-		<input class="checkbox" type="checkbox" <?php checked( $instance[$option], true ); ?> id="<?php echo $this->get_field_id( $option ); ?>" name="<?php echo $this->get_field_name( $option ); ?>" style="margin-left:5px"/>
-		<label for="<?php echo $this->get_field_id( $option ); ?>"><?php echo $label ?></label>
-		<br/>
-<?php } ?>
-	<label for="<?php echo $this->get_field_id( 'category' ); ?>"><?php _e('Category:',TribeEvents::PLUGIN_DOMAIN);?>
-		<?php 
-
-			echo wp_dropdown_categories( array(
-				'show_option_none' => 'All Events',
-				'hide_empty' => 0,
-				'echo' => 0,
-				'name' => $this->get_field_name( 'category' ),
-				'id' => $this->get_field_id( 'category' ),
-				'taxonomy' => TribeEvents::TAXONOMY,
-            'selected' => $instance['category'],
-            'hierarchical'=>1
-			));
-		?>
-</p>
 <p><small><em><?php _e('If you wish to customize the widget display yourself, see the file views/events-list-load-widget-display.php inside the Events Premium plugin.', TribeEvents::PLUGIN_DOMAIN);?></em></small></p>
