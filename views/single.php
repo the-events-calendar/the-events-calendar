@@ -68,8 +68,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	  	<?php echo tribe_the_custom_fields( get_the_ID() ); ?>
 	<?php endif; ?>
 </div>
-
-<?php if( get_post_meta( get_the_ID(), '_EventShowMap', true ) == 'true' ) : ?>
+<?php if( get_post_meta( get_the_ID(), '_EventShowMap', true ) == true ) : ?>
 	<?php if( tribe_address_exists( get_the_ID() ) ) tribe_the_embedded_map(); ?>
 <?php endif; ?>
 <div class="entry">
