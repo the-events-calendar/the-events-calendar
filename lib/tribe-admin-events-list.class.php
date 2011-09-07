@@ -242,7 +242,7 @@ if (!class_exists('TribeEventsAdminList')) {
 				$total_posts -= $num_posts->$state;
 			}
 
-			$counts['all'] = "<a href='edit.php?post_type=sp_events' class='current'>All <span class='count'>($total_posts)</span></a>";
+			$counts['all'] = "<a href='edit.php?post_type=sp_events' class='current'>".sprintf(__( 'All %s', TribeEvents::PLUGIN_DOMAIN),"<span class='count'>($total_posts)</span>")."</a>";
 		
 			foreach ( get_post_stati(array('show_in_admin_status_list' => true), 'objects') as $status ) {
 				$class = '';
