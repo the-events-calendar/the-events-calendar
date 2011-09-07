@@ -1214,30 +1214,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			return "";
 		}
 		
-		public function googleCalendarLink( $postId = null ) {
-			if ( $postId === null || !is_numeric( $postId ) ) {
-				global $post;
-				$postId = $post->ID;
-			}
-			$start_date = strtotime(get_post_meta( $postId, '_EventStartDate', true ));
-			$end_date = strtotime(get_post_meta( $postId, '_EventEndDate', true ) . ( get_post_meta( $postId, '_EventAllDay', true ) ? " + 1 day" : ""));
-			$dates = ( get_post_meta( $postId, '_EventAllDay', true ) ) ? date('Ymd', $start_date) . '/' . date('Ymd', $end_date) : date('Ymd', $start_date) . 'T' . date('Hi00', $start_date) . '/' . date('Ymd', $end_date) . 'T' . date('Hi00', $end_date);
-			$location = trim( tribe_get_full_address( $postId ) );
-			$base_url = 'http://www.google.com/calendar/event';
-			$params = array(
-				'action' => 'TEMPLATE',
-				'text' => strip_tags(get_the_title()),
-				'dates' => $dates,
-				'details' => strip_tags( get_the_excerpt() ),
-				'location' => $location,
-				'sprop' => get_option('blogname'),
-				'trp' => 'false',
-				'sprop' => 'website:' . home_url()
-			);
-			$url = add_query_arg( $params, $base_url );
-			return esc_url($url);
-		}
-
       /**
        *  Returns the full address of an event along with HTML markup.  It 
        *  loads the full-address template to generate the HTML
@@ -1849,86 +1825,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				echo '<a href='.tribe_get_event_link($results).'>'.$anchor.'</a>';
 		
 			}
-		}
-
-		/**
-		 * build an ical feed from events posts
-		 */
-		public function iCalFeed( $post = null, $eventCatSlug = null, $eventDate = null ) {
-         $postId = $post ? $post->ID : null;
-			$getstring = $_GET['ical'];
-			$wpTimezoneString = get_option("timezone_string");
-			$postType = self::POSTTYPE;
-			$events = "";
-			$lastBuildDate = "";
-			$eventsTestArray = array();
-			$blogHome = get_bloginfo('home');
-			$blogName = get_bloginfo('name');
-			$includePosts = ( $postId ) ? '&include=' . $postId : '';
-			$eventsCats = ( $eventCatSlug ) ? '&'.self::TAXONOMY.'='.$eventCatSlug : '';
-	
-         if ($post) {
-            $eventPosts = array();
-            $eventPosts[] = $post;
-         } else {
-            $eventPosts = get_posts( 'numberposts=-1&post_type=' . $postType . $includePosts . $eventsCats );
-         }
-
-			foreach( $eventPosts as $eventPost ) {
-            if ( $eventDate) {
-               $duration = TribeDateUtils::timeBetween($eventPost->EventStartDate, $eventPost->EventEndDate);
-               $startDate = TribeDateUtils::addTimeToDate($eventDate, TribeDateUtils::timeOnly($eventPost->EventStartDate));
-               $endDate = TribeDateUtils::dateAndTime(strtotime($startDate) + $duration, true);
-            } else {
-               $startDate = $eventPost->EventStartDate;
-               $endDate = $eventPost->EventEndDate;
-            }
-
-				// convert 2010-04-08 00:00:00 to 20100408T000000 or YYYYMMDDTHHMMSS
-				$startDate = str_replace( array("-", " ", ":") , array("", "T", "") , $startDate);
-				$endDate = str_replace( array("-", " ", ":") , array("", "T", "") , $endDate);
-				if( get_post_meta( $eventPost->ID, "_EventAllDay", true ) == "yes" ) {
-					$startDate = substr( $startDate, 0, 8 );
-					$endDate = substr( $endDate, 0, 8 );
-					// endDate bumped ahead one day to counter iCal's off-by-one error
-					$endDateStamp = strtotime($endDate);
-					$endDate = date( 'Ymd', $endDateStamp + 86400 );
-					$type="DATE";
-				}else{
-					$type="DATE-TIME";
-				}
-				$description = preg_replace("/[\n\t\r]/", " ", strip_tags( $eventPost->post_content ) );
-				//$cost = get_post_meta( $eventPost->ID, "_EventCost", true);
-				//if( $cost ) $description .= " Cost: " . $cost;
-				// add fields to iCal output
-				$events .= "BEGIN:VEVENT\n";
-				$events .= "DTSTART;VALUE=$type:" . $startDate . "\n";
-				$events .= "DTEND;VALUE=$type:" . $endDate . "\n";
-				$events .= "DTSTAMP:" . date("Ymd\THis", time()) . "\n";
-				$events .= "CREATED:" . str_replace( array("-", " ", ":") , array("", "T", "") , $eventPost->post_date ) . "\n";
-				$events .= "LAST-MODIFIED:". str_replace( array("-", " ", ":") , array("", "T", "") , $eventPost->post_modified ) . "\n";
-				$events .= "UID:" . $eventPost->ID . "@" . $blogHome . "\n";
-				$events .= "SUMMARY:" . $eventPost->post_title . "\n";				
-				$events .= "DESCRIPTION:" . str_replace(",",'\,',$description) . "\n";
-				$events .= "LOCATION:" . html_entity_decode($this->fullAddressString( $eventPost->ID ), ENT_QUOTES) . "\n";
-				$events .= "URL:" . get_permalink( $eventPost->ID ) . "\n";
-				$events .= "END:VEVENT\n";
-			}
-			header('Content-type: text/calendar');
-			header('Content-Disposition: attachment; filename="iCal-TribeEvents.ics"');
-			$content = "BEGIN:VCALENDAR\n";
-			$content .= "VERSION:2.0\n";
-			$content .= "PRODID:-//" . $blogName . "//NONSGML v1.0//EN\n";
-			$content .= "CALSCALE:GREGORIAN\n";
-			$content .= "METHOD:PUBLISH\n";
-			$content .= "X-WR-CALNAME:" . $blogName . "\n";
-			$content .= "X-ORIGINAL-URL:" . $blogHome . "\n";
-			$content .= "X-WR-CALDESC:Events for " . $blogName . "\n";
-			if( $wpTimezoneString ) $content .= "X-WR-TIMEZONE:" . $wpTimezoneString . "\n";
-			$content .= $events;
-			$content .= "END:VCALENDAR";
-			echo $content;
-			exit;
 		}
 
 		protected function constructDaysOfWeek() {

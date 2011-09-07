@@ -50,7 +50,9 @@ div.tribe_settings{
 <div class="form">
 	<h3><?php _e('Need a hand?',self::PLUGIN_DOMAIN); ?></h3>
 	<p><?php printf( __( 'If you\'re stuck on these options, please <a href="%s">check out the documentation</a>. Or, go to the <a href="%s">support forum</a>.', self::PLUGIN_DOMAIN ), trailingslashit($this->pluginUrl) . 'readme.txt', $this->supportUrl ); ?></p>
-	<p><?php _e('Here is the iCal feed URL for your events: ' ,self::PLUGIN_DOMAIN); ?><code><?php echo tribe_get_ical_link(); ?></code></p>
+   <?php if( function_exists( 'tribe_get_ical_link' ) ): ?>
+      <p><?php _e('Here is the iCal feed URL for your events: ' ,self::PLUGIN_DOMAIN); ?><code><?php echo tribe_get_ical_link(); ?></code></p>
+   <?php endif; ?>
 
 	<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 	<?php wp_nonce_field('saveEventsCalendarOptions'); ?>

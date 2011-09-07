@@ -135,16 +135,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Returns an add to Google Calendar link. Must be used in the loop
-	 */
-	function tribe_get_gcal_link( $postId = null )  {
-		$postId = tribe_post_id_helper( $postId );
-		$tribe_ecp = TribeEvents::instance();
-		$output = esc_url($tribe_ecp->googleCalendarLink( $postId ));
-		return $output;
-	}
-	
-	/**
 	 * @return string formatted event address
 	 */	
 	function tribe_get_full_address( $postId = null, $includeVenueName = false )  {
@@ -731,17 +721,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		
 		return $date;
 	}
-	
-	/**
-	 * Returns an ical feed for a single event. Must be used in the loop.
-	 * 
-	 * @return string
-	 */
-	function tribe_get_single_ical_link()  {
-		$tribe_ecp = TribeEvents::instance();
-		$output = esc_url($tribe_ecp->getLink( 'ical', 'single' ));
-		return $output;
-	}
 
 	/**
 	 * Returns a link to the events URL
@@ -775,11 +754,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	function tribe_get_dropdown_link_prefix()  {
 		$tribe_ecp = TribeEvents::instance();
 		$output = esc_url($tribe_ecp->getLink('dropdown'));
-		return $output;
-	}
-	function tribe_get_ical_link()  {
-		$tribe_ecp = TribeEvents::instance();
-		$output = esc_url($tribe_ecp->getLink('ical'));
 		return $output;
 	}
 	// pass in whole post object to retain start date

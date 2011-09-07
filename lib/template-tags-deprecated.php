@@ -351,7 +351,8 @@ if (!function_exists('event_grid_view')) {
 	}
 
 	function sp_get_single_ical_link() {
-		return tribe_get_single_ical_link();
+      if( function_exists('tribe_get_single_ical_link') )
+         return tribe_get_single_ical_link();
 	}
 
 	function sp_get_events_link() {

@@ -21,22 +21,8 @@ if (!class_exists('TribeEventsTemplates')) {
 		// pick the correct template to include
 		public static function templateChooser($template) {
          $events = TribeEvents::instance();
-			// hijack to iCal template
-			if ( get_query_var('ical') || isset($_GET['ical']) ) {
-				global $wp_query;
-				if ( is_single() ) {
-					$post_id = $wp_query->post->ID;
-					$events->iCalFeed($wp_query->post, null, get_query_var('eventDate') );
-				}
-				else if ( is_tax( self::TAXONOMY) ) {
-					$events->iCalFeed( null, get_query_var( self::TAXONOMY ) );
-				}
-				else {
-					$events->iCalFeed();
-				}
-				die;
-			}
-
+         do_action('tribe_tec_template_chooser', $template);
+  
 			// no non-events need apply
 			if ( get_query_var( 'post_type' ) != TribeEvents::POSTTYPE && ! is_tax( TribeEvents::TAXONOMY ) && get_query_var( 'post_type' ) != TribeEvents::VENUE_POST_TYPE ) {
 				return $template;
