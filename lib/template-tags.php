@@ -338,7 +338,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		if($cost === ''){
 			return '';
 		}elseif($cost == '0'){
-			return "Free";
+			return __( "Free", TribeEvents::PLUGIN_DOMAIN );
 		}else{
 			return esc_html($cost);
 		}
