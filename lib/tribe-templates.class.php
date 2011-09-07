@@ -46,8 +46,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			global $wp_query;
 			$wp_query->is_home = false;
 
-			//echo  tribe_get_option('spEventsTemplate', ''); die();
-			if( tribe_get_option('spEventsTemplate', '') == '' ) {
+			if( tribe_get_option('spEventsTemplate', 'default') == '' ) {
 				if(is_single() && !tribe_is_showing_all() ) {
 					return TribeEventsTemplates::getTemplateHierarchy('ecp-single-template');
 				} else {
@@ -58,7 +57,7 @@ if (!class_exists('TribeEventsTemplates')) {
 				self::spoofQuery();
 				add_action( 'loop_start', array(__CLASS__, 'setup_ecp_template'));
 			
-				$template = locate_template( tribe_get_option('spEventsTemplate', '') == 'default' ? 'page.php' : tribe_get_option('spEventsTemplate', '') );
+				$template = locate_template( tribe_get_option('spEventsTemplate', 'default') == 'default' ? 'page.php' : tribe_get_option('spEventsTemplate', 'default') );
 				if ($template ==  '') $template = get_index_template();
 			
 				return $template;

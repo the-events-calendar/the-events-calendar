@@ -182,8 +182,8 @@ div.tribe_settings{
 					<legend class="screen-reader-text"><?php _e('Events Template', self::PLUGIN_DOMAIN ); ?></legend>
 					<select name="spEventsTemplate">
 						<option value=''><?php _e('Default ECP Template'); ?></option>
-						<option value='default' <?php selected(tribe_get_option('spEventsTemplate') == 'default') ?>><?php _e('Default Page Template'); ?></option>
-						<?php page_template_dropdown(tribe_get_option('spEventsTemplate')); ?>
+						<option value='default' <?php selected(tribe_get_option('spEventsTemplate', 'default') == 'default') ?>><?php _e('Default Page Template'); ?></option>
+						<?php page_template_dropdown(tribe_get_option('spEventsTemplate', 'default')); ?>
 					</select>
 					<div><?php _e('Choose a page template to control the look and feel of your calendar.', self::PLUGIN_DOMAIN);?> </div>
 				</fieldset></td>
