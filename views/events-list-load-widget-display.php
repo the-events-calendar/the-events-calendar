@@ -46,10 +46,10 @@ ob_end_clean();
 			echo tribe_get_start_date( $post->ID, $start ); 
 
 			if($event->AllDay && $start) {
-				echo ' <small>('.__('All Day',$tribe_ecp::PLUGIN_DOMAIN).')</small>';
+				echo ' <small>('.__('All Day',TribeEvents::PLUGIN_DOMAIN).')</small>';
 			} else {
 				if ( $end && $event->EndDate != '') {
-					echo "<br/>" . __('Ends ', $tribe_ecp::PLUGIN_DOMAIN);
+					echo '<br/>' . __('Ends', TribeEvents::PLUGIN_DOMAIN) . ' ';
 					echo tribe_get_end_date($post->ID);
 				}
 			}
@@ -104,7 +104,7 @@ ob_end_clean();
 		if ( $cost && tribe_get_cost() != '') {		
 			if($output) 
 				$output .= '<br/>';
-			$output .= "Price: " . tribe_get_cost(); 
+			$output .= __('Price:', TribeEvents::PLUGIN_DOMAIN) . ' ' . tribe_get_cost(); 
 		}
 
 		echo $output;
