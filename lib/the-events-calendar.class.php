@@ -1260,22 +1260,22 @@ if ( !class_exists( 'TribeEvents' ) ) {
          } 
 
          if( tribe_get_city( $postId ) ) {
-            if($address != '') $address .= ",";
+            if($address != '') $address .= ", ";
             $address .= tribe_get_city( $postId );
          }
 
          if( tribe_get_region( $postId ) ) {
-            if($address != '') $address .= ",";
+            if($address != '') $address .= ", ";
             $address .= tribe_get_region( $postId );
          }
 
          if( tribe_get_zip( $postId ) ) { 
-            if($address != '') $address .= ",";
+            if($address != '') $address .= ", ";
             $address .= tribe_get_zip( $postId );
          } 
 
          if( tribe_get_country( $postId ) ) {
-            if($address != '') $address .= ",";
+            if($address != '') $address .= ", ";
             $address .= tribe_get_country( $postId );
          }
 
