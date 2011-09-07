@@ -113,13 +113,13 @@ div.tribe_settings{
 	        </td>
 		</tr>
 		<tr>
-			<th scope="row"><?php _e('Embed Google Maps',self::PLUGIN_DOMAIN); ?></th>
+			<th scope="row"><?php _e('Enable Google Maps',self::PLUGIN_DOMAIN); ?></th>
 	        <td>
 	            <fieldset>
 	                <legend class="screen-reader-text">
-	                    <span><?php _e('Embed Google Maps',self::PLUGIN_DOMAIN); ?></span>
+	                    <span><?php _e('Enable Google Maps',self::PLUGIN_DOMAIN); ?></span>
 	                </legend>
-	                <label title='Embed Google Maps'>
+	                <label title='Enable Google Maps'>
 						<input type="checkbox" id="embedGoogleMaps" name="embedGoogleMaps" value="1" <?php checked( tribe_get_option('embedGoogleMaps') ); ?>/>
 	                </label>
 					<span id="googleEmbedSize" name="googleEmbedSize" style="margin-left:20px;" >
@@ -127,6 +127,9 @@ div.tribe_settings{
 						&nbsp;<?php _e('Width',self::PLUGIN_DOMAIN); ?> <input type="text" name="embedGoogleMapsWidth" value="<?php echo tribe_get_option('embedGoogleMapsWidth','100%'); ?>" size=4> <?php _e('(number or %)', self::PLUGIN_DOMAIN); ?>
 					</span>
 	<br />
+					<div>
+						<?php _e('If you don\'t have this turned on, your event listings won\'t have the backend map preview or frontend embedded map.',self::PLUGIN_DOMAIN); ?> 
+					<div>
 	            </fieldset>
 	        </td>
 		</tr>
