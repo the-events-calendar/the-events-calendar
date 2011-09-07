@@ -143,7 +143,7 @@ div.tribe_settings{
 		                    <span><?php _e('Use Pretty URLs',self::PLUGIN_DOMAIN); ?></span>
 		                </legend>
 		                <label title='Use Rewrite Rules'>
-		                    <input type="checkbox" name="useRewriteRules" value="1" <?php checked( tribe_get_option('useRewriteRules') ); ?>  />
+		                    <input type="checkbox" name="useRewriteRules" value="1" <?php checked( tribe_get_option('useRewriteRules', 1) ); ?>  />
 		                </label>
 						<div>
 							<?php _e('Although unlikely, pretty URLs (ie, http://site/events/upcoming) may interfere with custom themes or plugins.',self::PLUGIN_DOMAIN); ?> 

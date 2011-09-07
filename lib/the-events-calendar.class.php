@@ -1071,7 +1071,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function getLink( $type = 'home', $secondary = false, $term = null ) {
 			// if permalinks are off or user doesn't want them: ugly.
-			if( '' == get_option('permalink_structure') || false == $this->getOption('useRewriteRules',true) ) {
+			if( '' == get_option('permalink_structure') || false == $this->getOption('useRewriteRules',1) ) {
 				return $this->uglyLink($type, $secondary);
 			}
 
