@@ -13,6 +13,8 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 $tribe_ecp = TribeEvents::instance();
 ?>	
 	<div id="tribe-events-content" class="grid">
+      <!-- This title is here for pjax loading - do not remove if you wish to use ajax switching between month views -->
+      <title><?php wp_title() ?></title>
 		<div id='tribe-events-calendar-header' class="clearfix">
 			<span class='tribe-events-month-nav'>
 				<span class='tribe-events-prev-month'>
@@ -35,7 +37,6 @@ $tribe_ecp = TribeEvents::instance();
 				<a class='tribe-events-button-off' href='<?php echo tribe_get_listview_link(); ?>'><?php _e('Event List', TribeEvents::PLUGIN_DOMAIN)?></a>
 				<a class='tribe-events-button-on' href='<?php echo tribe_get_gridview_link(); ?>'><?php _e('Calendar', TribeEvents::PLUGIN_DOMAIN)?></a>
 			</span>
-
 		</div><!-- tribe-events-calendar-header -->
 		<?php tribe_calendar_grid(); // See the views/table.php template for customization ?>
 		<a title="<?php esc_attr_e('iCal Import', TribeEvents::PLUGIN_DOMAIN) ?>" class="ical" href="<?php echo tribe_get_ical_link(); ?>"><?php _e('iCal Import', TribeEvents::PLUGIN_DOMAIN) ?></a>
