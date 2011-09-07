@@ -14,7 +14,7 @@ if( !class_exists( 'TribeEventsPostException' ) ) {
 		*/
 		public function displayMessage( $postId ) {
 			if( $error = get_post_meta( $postId, TribeEvents::EVENTSERROROPT, true ) ) : ?>
-				<script type="text/javascript">jQuery('#tribe-events-post-error').append('<h3>Error</h3><p>' + '<?php echo $error; ?>' + '</p>').show();</script>
+				<script type="text/javascript">jQuery('#tribe-events-post-error').append('<h3><?php _e( 'Error', TribeEvents::PLUGIN_DOMAIN ); ?></h3><p>' + '<?php echo $error; ?>' + '</p>').show();</script>
 			<?php endif;
 		}
 	} // end TribeEventsPostException
@@ -31,7 +31,7 @@ if( !class_exists( 'TribeEventsOptionsException' ) ) {
 		public function displayMessage() {
 			$eventsOptions = get_option(TribeEvents::OPTIONNAME, array() );
 			if( $eventsOptions['error'] ) : ?>
-				<script type="text/javascript">jQuery('#tribe-events-options-error').append('<h3>Error</h3><p>' + '<?php echo $eventsOptions['error']; ?>' + '</p>').show();</script>
+				<script type="text/javascript">jQuery('#tribe-events-options-error').append('<h3><?php _e( 'Error', TribeEvents::PLUGIN_DOMAIN ); ?></h3><p>' + '<?php echo $eventsOptions['error']; ?>' + '</p>').show();</script>
 			<?php endif;
 	    }
 	} // end TribeEventsOptionsException
