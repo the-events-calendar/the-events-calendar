@@ -18,7 +18,11 @@ jQuery(document).ready(function($) {
 		
 		$(this).find(".tribe-events-tooltip").css('bottom', bottomPad).show();
 	}).live('mouseleave', function() {
-		$(this).find(".tribe-events-tooltip").fadeOut(200);
+		if ($.browser.msie && $.browser.version <= 9) {
+         $(this).find(".tribe-events-tooltip").hide()
+      } else {
+         $(this).find(".tribe-events-tooltip").fadeOut(200);
+      }
 	});
 	
 	// little popups
@@ -34,7 +38,11 @@ jQuery(document).ready(function($) {
 		
 		$(this).find(".tribe-events-tooltip").css('bottom', bottomPad).fadeIn(300);
 	}).live('mouseleave', function() {
-		$(this).find(".tribe-events-tooltip").fadeOut(100);
+		if ($.browser.msie && $.browser.version <= 9) {
+         $(this).find(".tribe-events-tooltip").hide()
+      } else {
+         $(this).find(".tribe-events-tooltip").fadeOut(200);
+      }
 	});
 	
 	// datepicker
