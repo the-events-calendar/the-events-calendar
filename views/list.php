@@ -91,17 +91,21 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			$tribe_ecp = TribeEvents::instance();
 			if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
 				$cat = get_term_by( 'slug', get_query_var('term'), $tribe_ecp->get_event_taxonomy() );
-				$is_cat_message = sprintf(__(' listed under %s; check out past events for this category or the full calendar',TribeEvents::PLUGIN_DOMAIN),$cat->name);
+            if( tribe_is_upcoming() ) {
+               $is_cat_message = sprintf(__(' listed under %s. Check out upcoming events for this category or view the full calendar.',TribeEvents::PLUGIN_DOMAIN),$cat->name);
+            } else if( tribe_is_past() ) {
+               $is_cat_message = sprintf(__(' listed under %s. Check out past events for this category or view the full calendar.',TribeEvents::PLUGIN_DOMAIN),$cat->name);
+            }
 			}
 		?>
 
 		<?php if(tribe_is_upcoming()){ ?>
-			<?php _e('No upcoming events.', TribeEvents::PLUGIN_DOMAIN);
-			echo $is_cat_message ;?>
+			<?php _e('No upcoming events', TribeEvents::PLUGIN_DOMAIN);
+			echo $is_cat_message ? $is_cat_message : ".";?>
 
 		<?php }elseif(tribe_is_past()){ ?>
-			<?php _e('No previous events.', TribeEvents::PLUGIN_DOMAIN);
-			echo $is_cat_message ?>
+			<?php _e('No previous events' , TribeEvents::PLUGIN_DOMAIN);
+			echo $is_cat_message ? $is_cat_message : ".";?>
 		<?php } ?>
 		
 	<?php endif; ?>
