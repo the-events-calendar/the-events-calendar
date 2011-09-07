@@ -1,7 +1,7 @@
-<h3><?php _e('Additional Fields') ?></h3>
-<p><?php _e('You can set up any additional custom fields that you would like to use for events here.') ?></p>
+<h3><?php _e('Additional Fields',TribeEventsPro::PLUGIN_DOMAIN); ?></h3>
+<p><?php _e('You can set up any additional custom fields that you would like to use for events here.',TribeEventsPro::PLUGIN_DOMAIN); ?></p>
 <table class='wp-list-table widefat' id="additional-field-table" style=''>
-	<thead><tr><th><?php _e('Field Label') ?></th><th><?php _e('Field Type') ?></th><th><?php _e('Options (one per line)') ?></th><th></th></tr></thead>
+	<thead><tr><th><?php _e('Field Label',TribeEventsPro::PLUGIN_DOMAIN); ?></th><th><?php _e('Field Type',TribeEventsPro::PLUGIN_DOMAIN); ?></th><th><?php _e('Options (one per line)',TribeEventsPro::PLUGIN_DOMAIN); ?></th><th></th></tr></thead>
 	<tbody>
    <?php $customFields[] = array() ?>
 	<?php foreach ( $customFields as $customField ): ?> 
@@ -9,19 +9,18 @@
          <td><input type="text" name="custom-field-<?php echo esc_attr($count) ?>" data-persisted='<?php echo $count != sizeof($customFields) ? "yes" : "no" ?>' data-name-template='custom-field-' data-count='<?php echo esc_attr($count) ?>' value="<?php echo esc_attr($customField['label']) ?>"/></td>
 			<td>
 				<select name="custom-field-type-<?php echo $count ?>" data-name-template='custom-field-type-' data-count='<?php echo $count ?>'>
-					<option value="text" <?php selected($customField['type'] == 'textarea') ?>>Text</option>
-					<option value="radio" <?php selected($customField['type'] == 'radio') ?>>Radio</option>
-					<option value="checkbox" <?php selected($customField['type'] == 'checkbox') ?>>Checkbox</option>
-					<option value="dropdown" <?php selected($customField['type'] == 'dropdown') ?>>Dropdown</option>
-					<!--<option value="textarea" <?php selected($customField['type'] == 'textarea') ?>>Text Area</option>-->
+					<option value="text" <?php selected($customField['type'] == 'textarea') ?>><?php _e('Text',TribeEventsPro::PLUGIN_DOMAIN); ?></option>
+					<option value="radio" <?php selected($customField['type'] == 'radio') ?>><?php _e('Radio',TribeEventsPro::PLUGIN_DOMAIN); ?></option>
+					<option value="checkbox" <?php selected($customField['type'] == 'checkbox') ?>><?php _e('Checkbox',TribeEventsPro::PLUGIN_DOMAIN); ?></option>
+					<option value="dropdown" <?php selected($customField['type'] == 'dropdown') ?>><?php _e('Dropdown',TribeEventsPro::PLUGIN_DOMAIN); ?></option>
 				</select>
 			</td>
 			<td><textarea style='display: <?php echo $customField['type'] == 'radio' || $customField['type'] == 'checkbox' || $customField['type'] == 'dropdown' ? "inline" : "none" ?>;' name="custom-field-options-<?php echo $count ?>" data-name-template='custom-field-options-' data-count='<?php echo esc_attr($count) ?>' rows="3"><?php echo esc_textarea($customField['values']) ?></textarea></td>
 			<td>
 				<?php if ($count == sizeof($customFields)): ?>
-					<a name="add-field" href='#add-field' class='add-another-field'>Add another</a>
+					<a name="add-field" href='#add-field' class='add-another-field'><?php _e('Add another',TribeEventsPro::PLUGIN_DOMAIN); ?></a>
             <?php else: ?>
-               <a name="remove-field" href='#remove-field' class='remove-another-field'>Remove</a>
+               <a name="remove-field" href='#remove-field' class='remove-another-field'><?php _e('Remove',TribeEventsPro::PLUGIN_DOMAIN); ?></a>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -33,7 +32,7 @@
 		if($('#additional-field-table').size() > 0) {
          $('#additional-field-table').delegate('.remove-another-field', 'click', function() {
             var row = $(this).closest('tr'), firstInput=row.find('td:first input'), data = { action: 'remove_option', field: firstInput.data('count') }, persisted = firstInput.data('persisted')
-            if(confirm('Are you sure you wish to remove this field and its data from all events? Once you click OK this cannot be undone.')) {
+            if(confirm(<?php _e('Are you sure you wish to remove this field and its data from all events? Once you click OK this cannot be undone.',TribeEventsPro::PLUGIN_DOMAIN); ?>)) {
                if(persisted == "yes") {
                   jQuery.post(ajaxurl, data, function(response) {
                      row.fadeOut('slow', function() {
