@@ -238,7 +238,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		/**
-		 * Re-registers the custom post types for venues and organizers so they allow search from the frontend.
+		 * Re-registers the custom post types for venues so they allow search from the frontend.
 		 *
 		 * @return void
 		 * @author Elliot Wiltshire
@@ -247,11 +247,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function allow_cpt_search() {
 			$tec = TribeEvents::instance();
 			$venue_args = $tec->getVenuePostTypeArgs();
-			$organizer_args = $tec->getOrganizerPostTypeArgs();
 			$venue_args['exclude_from_search'] = false;
-			$organizer_args['exclude_from_search'] = false;
 			register_post_type( TribeEvents::VENUE_POST_TYPE, $venue_args );
- 			register_post_type( TribeEvents::ORGANIZER_POST_TYPE, $organizer_args );
 		}
 
 		/* Static Methods */
