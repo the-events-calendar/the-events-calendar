@@ -48,7 +48,7 @@ div.tribe_settings{
 <div id="tribe-events-options-error" class="tribe-events-error error"></div>
 <?php $this->do_action( 'tribe_events_options_top' ); ?>
 <div class="form">
-	<p><?php _e('Looking for additional functionality including reoccurring events, custom meta, community events, ticket sales and more?', self::PLUGIN_DOMAIN ); ?></p>
+	<p><?php _e('Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', self::PLUGIN_DOMAIN ); ?></p>
 	<p><?php printf(__('Check out the <a href="%s">available Add-Ons</a>.', self::PLUGIN_DOMAIN ), 'http://tribe.pro/?ref=tec-options') ?></p>
 	<h3><?php _e('Need a hand?',self::PLUGIN_DOMAIN); ?></h3>
 	<p><?php printf( __( 'If you\'re stuck on these options, please <a href="%s">check out the documentation</a>. Or, go to the <a href="%s">support forum</a>.', self::PLUGIN_DOMAIN ), trailingslashit($this->pluginUrl) . 'readme.txt', $this->supportUrl ); ?></p>
