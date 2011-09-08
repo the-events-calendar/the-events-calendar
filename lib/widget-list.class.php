@@ -21,8 +21,12 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			/* Create the widget. */
 			$this->WP_Widget( 'events-list-widget', 'Events List Widget', $widget_ops, $control_ops );
 		}
-	
+
 		function widget( $args, $instance ) {
+			return $this->widget_output( $args, $instance );
+		}
+
+		function widget_output( $args, $instance, $template_name='events-list-load-widget-display' ) {
 			global $wp_query, $tribe_ecp, $post;
 			$old_post = $post;
 			extract( $args, EXTR_SKIP );
@@ -37,7 +41,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 
 			if( function_exists( 'tribe_get_events' ) ) {
 				$posts = tribe_get_events( 'eventDisplay=upcoming&numResults=' . $limit .'&eventCat=' . $category );
-				$template = TribeEventsTemplates::getTemplateHierarchy('events-list-load-widget-display');
+				$template = TribeEventsTemplates::getTemplateHierarchy( $template_name );
 			}
 
 			// if no posts, and the don't show if no posts checked, let's bail
@@ -95,7 +99,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 	}
 
 	/* Add function to the widgets_ hook. */
-	add_action( 'widgets_init', 'events_list_load_widgets',90 );
+	add_action( 'widgets_init', 'events_list_load_widgets', 90 );
 
 	/* Function that registers widget. */
 	function events_list_load_widgets() {
