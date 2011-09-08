@@ -34,7 +34,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/tribe-recurrence.class.php' );
 			require_once( 'lib/tribe-support.class.php' );
 			require_once( 'lib/widget-calendar.class.php' );
-			require_once( 'lib/widget-advanced-list.class.php' );
 			require_once( 'template-tags.php' );
 			require_once( 'lib/plugins/pue-client.php' );
          // Advanced Post Manager
@@ -51,6 +50,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
          add_action( 'tribe-events-after-theme-settings', array( $this, 'event_defaults_options') );
          add_filter( 'tribe_current_events_page_template', array( $this, 'select_venue_template' ) );
          add_filter( 'tribe_events_template_single-venue.php', array( $this, 'load_venue_template' ) );
+	 add_action( 'widgets_init', array( $this, 'pro_widgets_init' ), 100 );
 	    }
 		
 		public function init() {
@@ -221,6 +221,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			return esc_url($url);
 		}
 
+		public function pro_widgets_init() {
+			error_log("In pro_widgets_init.");
+			require_once( 'lib/widget-advanced-list.class.php' );
+			unregister_widget( 'TribeEventsListWidget' );
+	                register_widget( 'TribeEventsAdvancedListWidget' );
+        	        // load text domain after class registration
+                	load_plugin_textdomain( 'tribe-events-calendar', false, basename(dirname(dirname(__FILE__))) . '/lang/');
+		}
 
 		/* Static Methods */
 	    public static function instance()
