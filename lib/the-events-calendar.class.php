@@ -30,7 +30,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'rewrite' => array('slug'=>'venue', 'with_front' => false),
 			'show_ui' => true,
 			'show_in_menu' => 0,
-			'supports' => array('title', 'editor')
+			'supports' => array('title', 'editor'),
+			'exclude_from_search' => true
 		);
 		protected $postOrganizerTypeArgs = array(
 			'public' => true,
@@ -38,7 +39,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'show_ui' => true,
 			'show_in_menu' => 0,				
 			'menu_position' => 6,
-			'supports' => array('')
+			'supports' => array(''),
+			'exclude_from_search' => true
 		);
 		protected $taxonomyLabels;
 
@@ -467,6 +469,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				add_post_type_support( self::POSTTYPE, 'comments');
 			}
 	
+		}
+
+		public function getVenuePostTypeArgs() {
+			return $this->postVenueTypeArgs;
+		}
+
+		public function getOrganizerPostTypeArgs() {
+			return $this->postOrganizerTypeArgs;
 		}
 
 		protected function generatePostTypeLabels() {
