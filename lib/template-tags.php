@@ -853,26 +853,30 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * echos an events title, with pseudo-breadcrumb if on a category
 	*/ 
-	function tribe_events_title()  {
-		echo tribe_get_events_title();
+	function tribe_events_title( $depth = true )  {
+		echo tribe_get_events_title( $depth );
 	}
 	
-	function tribe_get_events_title()  {
+	function tribe_get_events_title( $depth = true )  {
 		$tribe_ecp = TribeEvents::instance();
 
 		$title = __('Calendar of Events', TribeEvents::PLUGIN_DOMAIN);
 		if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
 			$cat = get_term_by( 'slug', get_query_var('term'), $tribe_ecp->get_event_taxonomy() );
-			$title = '<a href="'.tribe_get_events_link().'">'.$title.'</a>';
-			$title .= ' &#8250; ' . $cat->name;
+			if ( $depth ) {
+				$title = '<a href="'.tribe_get_events_link().'">'.$title.'</a>';
+				$title .= ' &#8250; ' . $cat->name;
+			} else {
+				$title = $cat->name;
+			}
 		}
 
 		return $title;
 	}
 
-	function tribe_meta_event_cats()  {
+	function tribe_meta_event_cats( $label='Category:', $separator=', ')  {
 		$tribe_ecp = TribeEvents::instance();
-		the_terms( get_the_ID(), $tribe_ecp->get_event_taxonomy(), '<dt>'.__('Category:',TribeEvents::PLUGIN_DOMAIN ).'</dt><dd>', ', ', '</dd>' );
+		the_terms( get_the_ID(), $tribe_ecp->get_event_taxonomy(), '<dt>'.__($label,TribeEvents::PLUGIN_DOMAIN ).'</dt><dd>', $separator, '</dd>' );
 	}
 
 	/**
