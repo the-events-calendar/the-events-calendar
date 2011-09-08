@@ -278,7 +278,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 			$format = $tribe_ecp->getTimeFormat( $format );
 
 		$shortMonthNames = ( strstr( $format, 'M' ) ) ? true : false;
-		$date = date ( $format, $date );
+		$date = date_i18n ( $format, $date );
 		return str_replace( array_keys($tribe_ecp->monthNames( $shortMonthNames )), $tribe_ecp->monthNames( $shortMonthNames ), $date);
 	}
 
