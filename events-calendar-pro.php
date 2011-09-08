@@ -51,6 +51,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
          add_filter( 'tribe_current_events_page_template', array( $this, 'select_venue_template' ) );
          add_filter( 'tribe_events_template_single-venue.php', array( $this, 'load_venue_template' ) );
 	 add_action( 'widgets_init', array( $this, 'pro_widgets_init' ), 100 );
+	 add_action( 'wp_loaded', array( $this, 'allow_cpt_search' ) );
 	    }
 		
 		public function init() {
@@ -221,13 +222,36 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			return esc_url($url);
 		}
 
+		/**
+		 * Includes and handles registration/de-registration of the advanced list widget. Idea from John Gadbois.
+		 *
+		 * @return void
+		 * @author Elliot Wiltshire
+		 */
+
 		public function pro_widgets_init() {
-			error_log("In pro_widgets_init.");
 			require_once( 'lib/widget-advanced-list.class.php' );
 			unregister_widget( 'TribeEventsListWidget' );
 	                register_widget( 'TribeEventsAdvancedListWidget' );
         	        // load text domain after class registration
                 	load_plugin_textdomain( 'tribe-events-calendar', false, basename(dirname(dirname(__FILE__))) . '/lang/');
+		}
+
+		/**
+		 * Re-registers the custom post types for venues and organizers so they allow search from the frontend.
+		 *
+		 * @return void
+		 * @author Elliot Wiltshire
+		 */
+
+		public function allow_cpt_search() {
+			$tec = TribeEvents::instance();
+			$venue_args = $tec->getVenuePostTypeArgs();
+			$organizer_args = $tec->getOrganizerPostTypeArgs();
+			$venue_args['exclude_from_search'] = false;
+			$organizer_args['exclude_from_search'] = false;
+			register_post_type( TribeEvents::VENUE_POST_TYPE, $venue_args );
+ 			register_post_type( TribeEvents::ORGANIZER_POST_TYPE, $organizer_args );
 		}
 
 		/* Static Methods */
