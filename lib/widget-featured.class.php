@@ -12,8 +12,9 @@ if( !class_exists( 'TribeEventsFeatureWidget') ) {
 		function TribeEventsFeatureWidget() {
 			$widget_ops = array('classname' => 'TribeEventsFeatureWidget', 'description' => __( 'Your next upcoming event') );
 			$this->WP_Widget('next_event', __('Next Event Widget'), $widget_ops);
+			/* Add function to look for view in premium directory rather than free. */
+			add_filter( 'tribe_events_template_widget-featured-display.php', array( $this, 'load_premium_view' ) );
 		}
-
 
 		function widget( $args, $instance ) {
 			global $wp_query, $post;
@@ -80,7 +81,14 @@ if( !class_exists( 'TribeEventsFeatureWidget') ) {
 			$tribe_ecp = TribeEventsPro::instance();
 			include( $tribe_ecp->pluginPath . 'admin-views/widget-admin-featured.php' );
 		}
-	
+
+		function load_premium_view($file) {
+                        if ( !file_exists($file) ) {
+                                $file = TribeEventsPro::instance()->pluginPath . 'views/widget-featured-display.php';
+                        }
+
+                        return $file;
+                }
 	}
 
 	/* Add function to the widgets_ hook. */
