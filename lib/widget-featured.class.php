@@ -58,7 +58,7 @@ if( !class_exists( 'TribeEventsFeatureWidget') ) {
 			} 
 			else {
             echo "<p>";
-				_e('There are no upcoming events at this time.', TribeEvents::PLUGIN_DOMAIN);
+				_e('There are no upcoming events at this time.', 'tribe-events-calendar-pro');
             echo "</p>";
 			}
 

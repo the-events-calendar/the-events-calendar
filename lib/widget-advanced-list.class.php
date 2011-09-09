@@ -13,7 +13,7 @@ if( !class_exists( 'TribeEventsAdvancedListWidget' ) ) {
 				
 		function TribeEventsAdvancedListWidget() {
 			/* Widget settings. */
-			$widget_ops = array( 'classname' => 'eventsAdvancedListWidget', 'description' => __( 'A widget that displays the next upcoming x events.', TribeEvents::PLUGIN_DOMAIN ) );
+			$widget_ops = array( 'classname' => 'eventsAdvancedListWidget', 'description' => __( 'A widget that displays the next upcoming x events.', 'tribe-events-calendar-pro' ) );
 
 			/* Widget control settings. */
 			$control_ops = array( 'id_base' => 'events-advanced-list-widget' );

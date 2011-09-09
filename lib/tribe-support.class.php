@@ -49,7 +49,7 @@ if( !class_exists( 'TribeEventsProSupport' ) ) {
 		 * @author Peter Chester
 		 */
 		public static function supportLink() {
-			$text = __('Send a support request for this site.',TribeEventsPro::PLUGIN_DOMAIN);
+			$text = __('Send a support request for this site.','tribe-events-calendar-pro');
 			$link = TribeEvents::$supportUrl.'?supportinfo='.self::generateSupportHash();
 			$html = '<div class="tribe-support-link"><a href="'.$link.'" target="_blank">'.$text.'</a></div>';
 			return apply_filters('tribe-events-pro-support-link',$html,$link);
