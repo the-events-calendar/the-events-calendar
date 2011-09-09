@@ -15,7 +15,7 @@ function load_tribe_debug_bar($panels) {
 			private static $debug_log = array();
 			
 			function init() {
-				$this->title( __('Tribe', TribeEvents::PLUGIN_DOMAIN) );
+				$this->title( __('Tribe', 'tribe-events-calendar') );
 				remove_action( 'tribe_debug', array( TribeEvents::instance(), 'renderDebug' ), 10, 2 );
 				add_action( 'tribe_debug', array( $this, 'logDebug' ), 8, 3 );
 				wp_enqueue_style( 'tribe-debugger', TribeEvents::instance()->pluginUrl . 'resources/debugger.css' );		

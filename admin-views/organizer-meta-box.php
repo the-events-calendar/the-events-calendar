@@ -8,21 +8,21 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 ?>
 <tr class="organizer">
-	<td><?php _e('Organizer Name:',self::PLUGIN_DOMAIN); ?></td>
+	<td><?php _e('Organizer Name:','tribe-events-calendar'); ?></td>
 	<td>
 		<input tabindex="<?php $this->tabIndex(); ?>" type='text' name='organizer[Organizer]' size='25'  value='<?php echo isset($_OrganizerOrganizer) ? esc_attr($_OrganizerOrganizer) : ""; ?>' />
 	</td>
 </tr>
 <tr class="organizer">
-	<td><?php _e('Phone:',self::PLUGIN_DOMAIN); ?></td>
+	<td><?php _e('Phone:','tribe-events-calendar'); ?></td>
 	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='OrganizerPhone' name='organizer[Phone]' size='25' value='<?php echo isset($_OrganizerPhone) ? esc_attr($_OrganizerPhone) : ""; ?>' /></td>
 </tr>
 <tr class="organizer">
-	<td><?php _e('Website:',self::PLUGIN_DOMAIN); ?></td>
+	<td><?php _e('Website:','tribe-events-calendar'); ?></td>
 	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='OrganizerWebsite' name='organizer[Website]' size='25' value='<?php echo isset($_OrganizerWebsite) ? esc_attr($_OrganizerWebsite) : ""; ?>' /></td>
 </tr>
 <tr class="organizer">
-	<td><?php _e('Email:',self::PLUGIN_DOMAIN); ?></td>
+	<td><?php _e('Email:','tribe-events-calendar'); ?></td>
 	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='OrganizerEmail' name='organizer[Email]' size='25' value='<?php echo isset($_OrganizerEmail) ? esc_attr($_OrganizerEmail) : ""; ?>' /></td>
 </tr>
 

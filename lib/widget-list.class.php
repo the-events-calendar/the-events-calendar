@@ -13,7 +13,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				
 		function TribeEventsListWidget() {
 			/* Widget settings. */
-			$widget_ops = array( 'classname' => 'eventsListWidget', 'description' => __( 'A widget that displays the next upcoming x events.', TribeEvents::PLUGIN_DOMAIN ) );
+			$widget_ops = array( 'classname' => 'eventsListWidget', 'description' => __( 'A widget that displays the next upcoming x events.', 'tribe-events-calendar' ) );
 
 			/* Widget control settings. */
 			$control_ops = array( 'id_base' => 'events-list-widget' );
@@ -67,10 +67,10 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				$wp_query->set('eventDisplay', $old_display);
 
 				/* Display link to all events */
-				echo '<div class="dig-in"><a href="' . $event_url . '">' . __('View All Events', TribeEvents::PLUGIN_DOMAIN ) . '</a></div>';
+				echo '<div class="dig-in"><a href="' . $event_url . '">' . __('View All Events', 'tribe-events-calendar' ) . '</a></div>';
 			} 
 			else {
-				_e('There are no upcoming events at this time.', TribeEvents::PLUGIN_DOMAIN);
+				_e('There are no upcoming events at this time.', 'tribe-events-calendar');
 			}
 
 			/* After widget (defined by themes). */

@@ -23,22 +23,22 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<?php wp_nonce_field( TribeEvents::POSTTYPE, 'ecp_nonce' ); ?>
 	<table cellspacing="0" cellpadding="0" id="EventInfo">
 		<tr>
-			<td colspan="2" class="tribe_sectionheader"><h4 class="event-time"><?php _e('Event Time &amp; Date', self::PLUGIN_DOMAIN); ?></h4></td>
+			<td colspan="2" class="tribe_sectionheader"><h4 class="event-time"><?php _e('Event Time &amp; Date', 'tribe-events-calendar'); ?></h4></td>
 		</tr>
 		<tr id="recurrence-changed-row">
 			<td colspan='2'><?php _e("You have changed the recurrence rules of this event.  Saving the event will update all future events.  If you did not mean to change all events, then please refresh the page.") ?></td>
 		</tr>
 		<tr>
-			<td><?php _e('All day event?', self::PLUGIN_DOMAIN); ?></td>
+			<td><?php _e('All day event?', 'tribe-events-calendar'); ?></td>
 			<td><input tabindex="<?php $this->tabIndex(); ?>" type='checkbox' id='allDayCheckbox' name='EventAllDay' value='yes' <?php echo $isEventAllDay; ?> /></td>
 		</tr>
 		<tr>
-			<td style="width:125px;"><?php _e('Start Date / Time:',self::PLUGIN_DOMAIN); ?></td>
+			<td style="width:125px;"><?php _e('Start Date / Time:','tribe-events-calendar'); ?></td>
 			<td>
 				<input autocomplete="off" tabindex="<?php $this->tabIndex(); ?>" type="text" class="datepicker" name="EventStartDate" id="EventStartDate"  value="<?php echo esc_attr($EventStartDate) ?>" />
-				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', self::PLUGIN_DOMAIN) ?></span>
+				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', 'tribe-events-calendar') ?></span>
 				<span class='timeofdayoptions'>
-					<?php _e('@',self::PLUGIN_DOMAIN); ?>
+					<?php _e('@','tribe-events-calendar'); ?>
 					<select tabindex="<?php $this->tabIndex(); ?>" name='EventStartHour'>
 						<?php echo $startHourOptions; ?>
 					</select>
@@ -54,12 +54,12 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			</td>
 		</tr>
 		<tr>
-			<td><?php _e('End Date / Time:',self::PLUGIN_DOMAIN); ?></td>
+			<td><?php _e('End Date / Time:','tribe-events-calendar'); ?></td>
 			<td>
 				<input autocomplete="off" type="text" class="datepicker" name="EventEndDate" id="EventEndDate"  value="<?php echo esc_attr( $EventEndDate ); ?>" />
-				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', self::PLUGIN_DOMAIN) ?></span>
+				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', 'tribe-events-calendar') ?></span>
 				<span class='timeofdayoptions'>
-					<?php _e('@',self::PLUGIN_DOMAIN); ?>
+					<?php _e('@','tribe-events-calendar'); ?>
 					<select class="spEventsInput" tabindex="<?php $this->tabIndex(); ?>" name='EventEndHour'>
 						<?php echo $endHourOptions; ?>
 					</select>
@@ -76,11 +76,11 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		</tr>
 		<?php $this->do_action('tribe_events_date_display', $postId, true) ?>
 	</table>
-	<div class="tribe_sectionheader" style="padding: 6px 6px 0 0; font-size: 11px; margin: 0 10px;"><h4><?php _e('Event Location Details', self::PLUGIN_DOMAIN); ?></h4></div>
+	<div class="tribe_sectionheader" style="padding: 6px 6px 0 0; font-size: 11px; margin: 0 10px;"><h4><?php _e('Event Location Details', 'tribe-events-calendar'); ?></h4></div>
 	<div style="float: left;">
 		<table id="event_venue" class="eventtable">
 			<tr class="">
-				<td style="width:170px"><?php _e('Use Saved Venue:',self::PLUGIN_DOMAIN); ?></td>
+				<td style="width:170px"><?php _e('Use Saved Venue:','tribe-events-calendar'); ?></td>
 				<td>
 					<?php $this->saved_venues_dropdown($_EventVenueID);?>
 				</td>
@@ -88,14 +88,14 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 			<?php include( $this->pluginPath . 'admin-views/venue-meta-box.php' ); ?>
 			<tr id="google_map_link_toggle">
-				<td><?php _e('Show Google Maps Link:',self::PLUGIN_DOMAIN); ?></td>
+				<td><?php _e('Show Google Maps Link:','tribe-events-calendar'); ?></td>
 				<td>					
 					<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="EventShowMapLink" value="1" <?php checked(get_post_meta( $postId, '_EventShowMapLink', true )); ?> />
 				</td>
 			</tr>
 			<?php if( tribe_get_option('embedGoogleMaps') ) : ?>
 				<tr id="google_map_toggle">
-					<td><?php _e('Show Google Map:',self::PLUGIN_DOMAIN); ?></td>
+					<td><?php _e('Show Google Map:','tribe-events-calendar'); ?></td>
 					<td><input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="EventShowMap" value="1" <?php checked(get_post_meta( $postId, '_EventShowMap', true )); ?> /></td>
 				</tr>
 			<?php endif; ?>
@@ -104,10 +104,10 @@ if ( !defined('ABSPATH') ) { die('-1'); }
    <?php do_action('tribe_after_location_details', $postId); ?>
 	<table id="event_organizer" class="eventtable">
 			<tr>
-				<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event Organizer Details', self::PLUGIN_DOMAIN); ?></h4></td>
+				<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event Organizer Details', 'tribe-events-calendar'); ?></h4></td>
 			</tr>
 			<tr class="" >
-				<td style="width:170px"><?php _e('Use Saved Organizer:',self::PLUGIN_DOMAIN); ?></td>
+				<td style="width:170px"><?php _e('Use Saved Organizer:','tribe-events-calendar'); ?></td>
 				<td>
 					<?php $this->saved_organizers_dropdown($_EventOrganizerID);?>
 				</td>
@@ -122,26 +122,26 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<table id="event_cost" class="eventtable">		
 		<?php if(!class_exists('Event_Tickets_PRO')){ ?>
 		<tr>
-			<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event Cost', self::PLUGIN_DOMAIN); ?></h4></td>
+			<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event Cost', 'tribe-events-calendar'); ?></h4></td>
 		</tr>
 		<tr>
-			<td><?php _e('Cost:',self::PLUGIN_DOMAIN); ?></td>
+			<td><?php _e('Cost:','tribe-events-calendar'); ?></td>
 			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventCost' name='EventCost' size='6' value='<?php echo esc_attr($_EventCost); ?>' /></td>
 		</tr>
 		<tr>
 			<td></td>
-			<td><small><?php _e('Leave blank to hide the field. Enter a 0 for events that are free.', self::PLUGIN_DOMAIN); ?></small></td>
+			<td><small><?php _e('Leave blank to hide the field. Enter a 0 for events that are free.', 'tribe-events-calendar'); ?></small></td>
 		</tr>
 		
 		<?php } ?>
 		<tr class="eventBritePluginPlug">
 			<td colspan="2" class="tribe_sectionheader">
-				<h4><?php _e('Additional Functionality', self::PLUGIN_DOMAIN); ?></h4>	
+				<h4><?php _e('Additional Functionality', 'tribe-events-calendar'); ?></h4>	
 			</td>
 		</tr>
 		<tr class="eventBritePluginPlug">
 			<td colspan="2">
-				<p><?php _e('Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', self::PLUGIN_DOMAIN ) ?> <?php printf( __('Check out the <a href="%s">available Add-Ons</a>.', self::PLUGIN_DOMAIN ), 'http://tribe.pro/?ref=tec-event' ); ?></p>
+				<p><?php _e('Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ) ?> <?php printf( __('Check out the <a href="%s">available Add-Ons</a>.', 'tribe-events-calendar' ), 'http://tribe.pro/?ref=tec-event' ); ?></p>
 			</td>
 		</tr>
       <?php $this->do_action('tribe_events_cost_table', $postId, true) ?>

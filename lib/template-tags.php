@@ -328,7 +328,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		if($cost === ''){
 			return '';
 		}elseif($cost == '0'){
-			return __( "Free", TribeEvents::PLUGIN_DOMAIN );
+			return __( "Free", 'tribe-events-calendar' );
 		}else{
 			return esc_html($cost);
 		}
@@ -827,7 +827,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		if(tribe_get_event_meta(tribe_get_venue_id( $postId ), '_VenueStateProvince', true )){
 			return tribe_get_event_meta(tribe_get_venue_id( $postId ), '_VenueStateProvince', true );
 		}else
-		if ( tribe_get_country() == __('United States', TribeEvents::PLUGIN_DOMAIN ) ) {
+		if ( tribe_get_country() == __('United States', 'tribe-events-calendar' ) ) {
 			return tribe_get_state();
 		} else {
 			return tribe_get_province(); 
@@ -860,7 +860,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	function tribe_get_events_title( $depth = true )  {
 		$tribe_ecp = TribeEvents::instance();
 
-		$title = __('Calendar of Events', TribeEvents::PLUGIN_DOMAIN);
+		$title = __('Calendar of Events', 'tribe-events-calendar');
 		if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
 			$cat = get_term_by( 'slug', get_query_var('term'), $tribe_ecp->get_event_taxonomy() );
 			if ( $depth ) {
@@ -876,7 +876,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 
 	function tribe_meta_event_cats( $label='Category:', $separator=', ')  {
 		$tribe_ecp = TribeEvents::instance();
-		the_terms( get_the_ID(), $tribe_ecp->get_event_taxonomy(), '<dt>'.__($label,TribeEvents::PLUGIN_DOMAIN ).'</dt><dd>', $separator, '</dd>' );
+		the_terms( get_the_ID(), $tribe_ecp->get_event_taxonomy(), '<dt>'.$label.'</dt><dd>', $separator, '</dd>' );
 	}
 
 	/**
@@ -961,7 +961,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		if(tribe_get_event_meta($postId, '_VenueStateProvince', true )){
 			return tribe_get_event_meta($postId, '_VenueStateProvince', true );
 		}else
-		if ( tribe_get_country() == __('United States', TribeEvents::PLUGIN_DOMAIN ) ) {
+		if ( tribe_get_country() == __('United States', 'tribe-events-calendar' ) ) {
 			return tribe_get_state();
 		} else {
 			return tribe_get_province(); 

@@ -34,12 +34,12 @@ $tribe_ecp = TribeEvents::instance();
 			</span>
 
 			<span class='tribe-events-calendar-buttons'> 
-				<a class='tribe-events-button-off' href='<?php echo tribe_get_listview_link(); ?>'><?php _e('Event List', TribeEvents::PLUGIN_DOMAIN)?></a>
-				<a class='tribe-events-button-on' href='<?php echo tribe_get_gridview_link(); ?>'><?php _e('Calendar', TribeEvents::PLUGIN_DOMAIN)?></a>
+				<a class='tribe-events-button-off' href='<?php echo tribe_get_listview_link(); ?>'><?php _e('Event List', 'tribe-events-calendar')?></a>
+				<a class='tribe-events-button-on' href='<?php echo tribe_get_gridview_link(); ?>'><?php _e('Calendar', 'tribe-events-calendar')?></a>
 			</span>
 		</div><!-- tribe-events-calendar-header -->
 		<?php tribe_calendar_grid(); // See the views/table.php template for customization ?>
-		<a title="<?php esc_attr_e('iCal Import', TribeEvents::PLUGIN_DOMAIN) ?>" class="ical" href="<?php echo tribe_get_ical_link(); ?>"><?php _e('iCal Import', TribeEvents::PLUGIN_DOMAIN) ?></a>
+		<a title="<?php esc_attr_e('iCal Import', 'tribe-events-calendar') ?>" class="ical" href="<?php echo tribe_get_ical_link(); ?>"><?php _e('iCal Import', 'tribe-events-calendar') ?></a>
 	</div>
 
 <?php tribe_events_after_html() ?>

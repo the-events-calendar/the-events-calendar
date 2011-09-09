@@ -21,7 +21,7 @@ $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 
 
 ?>
-<h4 class="cal-header"><?php echo $tribe_ecp->monthsShort[date('M',$date)]; echo date(' Y',$date); ?> <a class="tribe-view-all-events" href="<?php echo tribe_get_events_link(); ?>"><?php _e('View all &raquo;', TribeEvents::PLUGIN_DOMAIN); ?></a></h4>
+<h4 class="cal-header"><?php echo $tribe_ecp->monthsShort[date('M',$date)]; echo date(' Y',$date); ?> <a class="tribe-view-all-events" href="<?php echo tribe_get_events_link(); ?>"><?php _e('View all &raquo;', 'tribe-events-calendar'); ?></a></h4>
 <table class="tribe-events-calendar tribe-events-calendar-widget" id="small">
 	<thead>
 			<tr>

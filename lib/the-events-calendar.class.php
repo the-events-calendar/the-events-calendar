@@ -208,15 +208,15 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function init() {
 			$this->loadTextDomain();
-			$this->pluginName = __( 'The Events Calendar', self::PLUGIN_DOMAIN );
+			$this->pluginName = __( 'The Events Calendar', 'tribe-events-calendar' );
 			$this->rewriteSlug = $this->getOption('eventsSlug', 'events');
 			$this->rewriteSlugSingular = $this->getOption('singleEventSlug', 'event');
-			$this->taxRewriteSlug = $this->rewriteSlug . '/' . __( 'category', self::PLUGIN_DOMAIN );
-			$this->monthSlug = __('month', self::PLUGIN_DOMAIN);
-			$this->upcomingSlug = __('upcoming', self::PLUGIN_DOMAIN);
-			$this->pastSlug = __('past', self::PLUGIN_DOMAIN);
+			$this->taxRewriteSlug = $this->rewriteSlug . '/' . __( 'category', 'tribe-events-calendar' );
+			$this->monthSlug = __('month', 'tribe-events-calendar');
+			$this->upcomingSlug = __('upcoming', 'tribe-events-calendar');
+			$this->pastSlug = __('past', 'tribe-events-calendar');
 			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlugSingular;
-			$this->postVenueTypeArgs['rewrite']['slug'] = __( 'venue', self::PLUGIN_DOMAIN );
+			$this->postVenueTypeArgs['rewrite']['slug'] = __( 'venue', 'tribe-events-calendar' );
 			$this->currentDay = '';
 			$this->errors = '';
 			TribeEventsQuery::init();
@@ -226,7 +226,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if(is_array(get_option('rewrite_rules')) && !array_key_exists($this->rewriteSlugSingular.'/[^/]+/([^/]+)/?$',get_option('rewrite_rules'))) {
 				$this->flushRewriteRules();
 			}
-			self::debug(sprintf(__('Initializing Tribe Events on %s',self::PLUGIN_DOMAIN),date('M, jS \a\t h:m:s a')));
+			self::debug(sprintf(__('Initializing Tribe Events on %s','tribe-events-calendar'),date('M, jS \a\t h:m:s a')));
 			$this->maybeMigrateDatabase();
 		}
 
@@ -274,10 +274,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function notSupportedError() {
 			if ( !self::supportedVersion('wordpress') ) {
-				echo '<div class="error"><p>'.sprintf(__('Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install.', self::PLUGIN_DOMAIN),'3.0').'</p></div>';
+				echo '<div class="error"><p>'.sprintf(__('Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install.', 'tribe-events-calendar'),'3.0').'</p></div>';
 			}
 			if ( !self::supportedVersion('php') ) {
-				echo '<div class="error"><p>'.sprintf(__('Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP.', self::PLUGIN_DOMAIN),'5.2').'</p></div>';
+				echo '<div class="error"><p>'.sprintf(__('Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP.', 'tribe-events-calendar'),'5.2').'</p></div>';
 			}
 		}
 
@@ -394,15 +394,15 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function maybeAddEventTitle($title, $sep){
 			if(get_query_var('eventDisplay') == 'upcoming'){
-				$new_title = __("Upcoming Events", self::PLUGIN_DOMAIN). ' '.$sep . ' ' . $title;
+				$new_title = __("Upcoming Events", 'tribe-events-calendar'). ' '.$sep . ' ' . $title;
 			}elseif(get_query_var('eventDisplay') == 'past'){
-					$new_title = __("Past Events", self::PLUGIN_DOMAIN) . ' '. $sep . ' ' . $title;
+					$new_title = __("Past Events", 'tribe-events-calendar') . ' '. $sep . ' ' . $title;
 
 			}elseif(get_query_var('eventDisplay') == 'month'){
 				if(get_query_var('eventDate')){
-					$new_title = sprintf(__("Events for %s", self::PLUGIN_DOMAIN),date("F, Y",strtotime(get_query_var('eventDate')))) . ' '. $sep . ' ' . $title;
+					$new_title = sprintf(__("Events for %s", 'tribe-events-calendar'),date("F, Y",strtotime(get_query_var('eventDate')))) . ' '. $sep . ' ' . $title;
 				}else{
-					$new_title = sprintf(__("Events this month", self::PLUGIN_DOMAIN),get_query_var('eventDate')) . ' '. $sep . ' ' . $title;
+					$new_title = sprintf(__("Events this month", 'tribe-events-calendar'),get_query_var('eventDate')) . ' '. $sep . ' ' . $title;
 				}
 
 			}else{
@@ -416,7 +416,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function emptyEventContent( $content ) {
 			global $post;
 			if ( '' == $content && $post->post_type == self::POSTTYPE ) {
-				$content = __('No description has been entered for this event.', self::PLUGIN_DOMAIN);
+				$content = __('No description has been entered for this event.', 'tribe-events-calendar');
 			}
 			return $content;
 		}
@@ -481,55 +481,55 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		protected function generatePostTypeLabels() {
 			$this->postTypeArgs['labels'] = array(
-				'name' => __('Events', self::PLUGIN_DOMAIN),
-				'singular_name' => __('Event', self::PLUGIN_DOMAIN),
-				'add_new' => __('Add New', self::PLUGIN_DOMAIN),
-				'add_new_item' => __('Add New Event', self::PLUGIN_DOMAIN),
-				'edit_item' => __('Edit Event', self::PLUGIN_DOMAIN),
-				'new_item' => __('New Event', self::PLUGIN_DOMAIN),
-				'view_item' => __('View Event', self::PLUGIN_DOMAIN),
-				'search_items' => __('Search Events', self::PLUGIN_DOMAIN),
-				'not_found' => __('No events found', self::PLUGIN_DOMAIN),
-				'not_found_in_trash' => __('No events found in Trash', self::PLUGIN_DOMAIN)
+				'name' => __('Events', 'tribe-events-calendar'),
+				'singular_name' => __('Event', 'tribe-events-calendar'),
+				'add_new' => __('Add New', 'tribe-events-calendar'),
+				'add_new_item' => __('Add New Event', 'tribe-events-calendar'),
+				'edit_item' => __('Edit Event', 'tribe-events-calendar'),
+				'new_item' => __('New Event', 'tribe-events-calendar'),
+				'view_item' => __('View Event', 'tribe-events-calendar'),
+				'search_items' => __('Search Events', 'tribe-events-calendar'),
+				'not_found' => __('No events found', 'tribe-events-calendar'),
+				'not_found_in_trash' => __('No events found in Trash', 'tribe-events-calendar')
 			);
 	
 			$this->postVenueTypeArgs['labels'] = array(
-				'name' => __('Venues', self::PLUGIN_DOMAIN),
-				'singular_name' => __('Venue', self::PLUGIN_DOMAIN),
-				'add_new' => __('Add New', self::PLUGIN_DOMAIN),
-				'add_new_item' => __('Add New Venue', self::PLUGIN_DOMAIN),
-				'edit_item' => __('Edit Venue', self::PLUGIN_DOMAIN),
-				'new_item' => __('New Venue', self::PLUGIN_DOMAIN),
-				'view_item' => __('View Venue', self::PLUGIN_DOMAIN),
-				'search_items' => __('Search Venues', self::PLUGIN_DOMAIN),
-				'not_found' => __('No venue found', self::PLUGIN_DOMAIN),
-				'not_found_in_trash' => __('No venues found in Trash', self::PLUGIN_DOMAIN)
+				'name' => __('Venues', 'tribe-events-calendar'),
+				'singular_name' => __('Venue', 'tribe-events-calendar'),
+				'add_new' => __('Add New', 'tribe-events-calendar'),
+				'add_new_item' => __('Add New Venue', 'tribe-events-calendar'),
+				'edit_item' => __('Edit Venue', 'tribe-events-calendar'),
+				'new_item' => __('New Venue', 'tribe-events-calendar'),
+				'view_item' => __('View Venue', 'tribe-events-calendar'),
+				'search_items' => __('Search Venues', 'tribe-events-calendar'),
+				'not_found' => __('No venue found', 'tribe-events-calendar'),
+				'not_found_in_trash' => __('No venues found in Trash', 'tribe-events-calendar')
 			);
 	
 			$this->postOrganizerTypeArgs['labels'] = array(
-				'name' => __('Organizers', self::PLUGIN_DOMAIN),
-				'singular_name' => __('Organizer', self::PLUGIN_DOMAIN),
-				'add_new' => __('Add New', self::PLUGIN_DOMAIN),
-				'add_new_item' => __('Add New Organizer', self::PLUGIN_DOMAIN),
-				'edit_item' => __('Edit Organizer', self::PLUGIN_DOMAIN),
-				'new_item' => __('New Organizer', self::PLUGIN_DOMAIN),
-				'view_item' => __('View Venue', self::PLUGIN_DOMAIN),
-				'search_items' => __('Search Organizers', self::PLUGIN_DOMAIN),
-				'not_found' => __('No organizer found', self::PLUGIN_DOMAIN),
-				'not_found_in_trash' => __('No organizers found in Trash', self::PLUGIN_DOMAIN)
+				'name' => __('Organizers', 'tribe-events-calendar'),
+				'singular_name' => __('Organizer', 'tribe-events-calendar'),
+				'add_new' => __('Add New', 'tribe-events-calendar'),
+				'add_new_item' => __('Add New Organizer', 'tribe-events-calendar'),
+				'edit_item' => __('Edit Organizer', 'tribe-events-calendar'),
+				'new_item' => __('New Organizer', 'tribe-events-calendar'),
+				'view_item' => __('View Venue', 'tribe-events-calendar'),
+				'search_items' => __('Search Organizers', 'tribe-events-calendar'),
+				'not_found' => __('No organizer found', 'tribe-events-calendar'),
+				'not_found_in_trash' => __('No organizers found in Trash', 'tribe-events-calendar')
 			);
 	
 			$this->taxonomyLabels = array(
-				'name' =>	__( 'Event Categories', self::PLUGIN_DOMAIN ),
-				'singular_name' =>	__( 'Event Category', self::PLUGIN_DOMAIN ),
-				'search_items' =>	__( 'Search Event Categories', self::PLUGIN_DOMAIN ),
-				'all_items' => __( 'All Event Categories', self::PLUGIN_DOMAIN ),
-				'parent_item' =>	__( 'Parent Event Category', self::PLUGIN_DOMAIN ),
-				'parent_item_colon' =>	__( 'Parent Event Category:', self::PLUGIN_DOMAIN ),
-				'edit_item' =>	__( 'Edit Event Category', self::PLUGIN_DOMAIN ),
-				'update_item' =>	__( 'Update Event Category', self::PLUGIN_DOMAIN ),
-				'add_new_item' =>	__( 'Add New Event Category', self::PLUGIN_DOMAIN ),
-				'new_item_name' =>	__( 'New Event Category Name', self::PLUGIN_DOMAIN )
+				'name' =>	__( 'Event Categories', 'tribe-events-calendar' ),
+				'singular_name' =>	__( 'Event Category', 'tribe-events-calendar' ),
+				'search_items' =>	__( 'Search Event Categories', 'tribe-events-calendar' ),
+				'all_items' => __( 'All Event Categories', 'tribe-events-calendar' ),
+				'parent_item' =>	__( 'Parent Event Category', 'tribe-events-calendar' ),
+				'parent_item_colon' =>	__( 'Parent Event Category:', 'tribe-events-calendar' ),
+				'edit_item' =>	__( 'Edit Event Category', 'tribe-events-calendar' ),
+				'update_item' =>	__( 'Update Event Category', 'tribe-events-calendar' ),
+				'add_new_item' =>	__( 'Add New Event Category', 'tribe-events-calendar' ),
+				'new_item_name' =>	__( 'New Event Category Name', 'tribe-events-calendar' )
 			);
 	
 		}
@@ -633,19 +633,17 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
-		public function localizeAdmin() {
-			$dom = self::PLUGIN_DOMAIN;
-	
+		public function localizeAdmin() {	
 			$bits = array(
 				'dayNames' => $this->daysOfWeek,
 				'dayNamesShort' => $this->daysOfWeekShort,
 				'dayNamesMin' => $this->daysOfWeekMin,
 				'monthNames' => array_values( $this->monthNames() ),
 				'monthNamesShort' => array_values( $this->monthNames( true ) ),
-				'nextText' => __( 'Next', $dom ),
-				'prevText' => __( 'Prev', $dom ),
-				'currentText' => __( 'Today', $dom ),
-				'closeText' => __( 'Done', $dom )
+				'nextText' => __( 'Next', 'tribe-events-calendar' ),
+				'prevText' => __( 'Prev', 'tribe-events-calendar' ),
+				'currentText' => __( 'Today', 'tribe-events-calendar' ),
+				'closeText' => __( 'Done', 'tribe-events-calendar' )
 			);
 			return $bits;
 		}
@@ -679,9 +677,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function addOptionsPage() {
-			add_options_page($this->pluginName, $this->pluginName, 'administrator', self::PLUGIN_DOMAIN, array($this,'optionsPageView'));
-			add_submenu_page( '/edit.php?post_type='.self::POSTTYPE, __('Venues',self::PLUGIN_DOMAIN), __('Venues',self::PLUGIN_DOMAIN), 'edit_posts', 'edit.php?post_type='.self::VENUE_POST_TYPE);
-			add_submenu_page( '/edit.php?post_type='.self::POSTTYPE, __('Organizers',self::PLUGIN_DOMAIN), __('Organizers',self::PLUGIN_DOMAIN), 'edit_posts', 'edit.php?post_type='.self::ORGANIZER_POST_TYPE);
+			add_options_page($this->pluginName, $this->pluginName, 'administrator', 'tribe-events-calendar', array($this,'optionsPageView'));
+			add_submenu_page( '/edit.php?post_type='.self::POSTTYPE, __('Venues','tribe-events-calendar'), __('Venues','tribe-events-calendar'), 'edit_posts', 'edit.php?post_type='.self::VENUE_POST_TYPE);
+			add_submenu_page( '/edit.php?post_type='.self::POSTTYPE, __('Organizers','tribe-events-calendar'), __('Organizers','tribe-events-calendar'), 'edit_posts', 'edit.php?post_type='.self::ORGANIZER_POST_TYPE);
 		}
 
 		public function optionsPageView() {
@@ -870,7 +868,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function loadTextDomain() {
-			load_plugin_textdomain( self::PLUGIN_DOMAIN, false, $this->pluginDir . 'lang/');
+			load_plugin_textdomain( 'tribe-events-calendar', false, $this->pluginDir . 'lang/');
 			$this->constructDaysOfWeek();
 			$this->initMonthNames();
 		}
@@ -1408,14 +1406,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 	
 			if($venues){
 				echo '<select name="'.$name.'" id="saved_venue">';
-					echo '<option value="0">' . __("Use New Venue", self::PLUGIN_DOMAIN) . '</option>';
+					echo '<option value="0">' . __("Use New Venue", 'tribe-events-calendar') . '</option>';
 				foreach($venues as $venue){
 					$selected = ($current == $venue->ID) ? 'selected="selected"' : '';
 					echo "<option data-address='" . esc_attr($this->fullAddressString($venue->ID)) . "' value='{$venue->ID}' $selected>{$venue->post_title}</option>";
 				}
 				echo '</select>';
 			}else{
-				echo '<p class="nosaved">'.__('No saved venues yet.',self::PLUGIN_DOMAIN).'</p>';
+				echo '<p class="nosaved">'.__('No saved venues yet.','tribe-events-calendar').'</p>';
 			}
 		}
 
@@ -1493,14 +1491,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$organizers = $this->get_organizer_info();
 			if($organizers){
 				echo '<select name="'.$name.'" id="saved_organizer">';
-					echo '<option value="0">' . __('Use New Organizer', self::PLUGIN_DOMAIN) . '</option>';
+					echo '<option value="0">' . __('Use New Organizer', 'tribe-events-calendar') . '</option>';
 				foreach($organizers as $organizer){
 					$selected = ($current == $organizer->ID) ? 'selected="selected"' : '';
 					echo "<option value='{$organizer->ID}' $selected>{$organizer->post_title}</option>";
 				}
 				echo '</select>';
 			}else{
-				echo '<p class="nosaved_organizer">'.__('No saved organizers yet.',self::PLUGIN_DOMAIN).'</p>';
+				echo '<p class="nosaved_organizer">'.__('No saved organizers yet.','tribe-events-calendar').'</p>';
 			}
 		}
 
@@ -1738,10 +1736,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function addEventBox( ) {
 			add_meta_box( 'Event Details', $this->pluginName, array( $this, 'EventsChooserBox' ), self::POSTTYPE, 'normal', 'high' );
-			add_meta_box( 'Event Options', __('Event Options', self::PLUGIN_DOMAIN), array( $this, 'eventMetaBox' ), self::POSTTYPE, 'side', 'default' );
+			add_meta_box( 'Event Options', __('Event Options', 'tribe-events-calendar'), array( $this, 'eventMetaBox' ), self::POSTTYPE, 'side', 'default' );
 	
-			add_meta_box( 'Venue Details', __('Venue Information', self::PLUGIN_DOMAIN), array( $this, 'VenueMetaBox' ), self::VENUE_POST_TYPE, 'normal', 'high' );
-			add_meta_box( 'Organizer Details', __('Organizer Information', self::PLUGIN_DOMAIN), array( $this, 'OrganizerMetaBox' ), self::ORGANIZER_POST_TYPE, 'normal', 'high' );
+			add_meta_box( 'Venue Details', __('Venue Information', 'tribe-events-calendar'), array( $this, 'VenueMetaBox' ), self::VENUE_POST_TYPE, 'normal', 'high' );
+			add_meta_box( 'Organizer Details', __('Organizer Information', 'tribe-events-calendar'), array( $this, 'OrganizerMetaBox' ), self::ORGANIZER_POST_TYPE, 'normal', 'high' );
 		}
 		public function eventMetaBox() {
 			include( $this->pluginPath . 'admin-views/event-sidebar-options.php' );
@@ -1843,7 +1841,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function addMetaLinks( $links, $file ) {
 			if ( $file == $this->pluginDir . 'the-events-calendar.php' ) {
-				$anchor = __( 'View All Add-Ons', self::PLUGIN_DOMAIN ); 
+				$anchor = __( 'View All Add-Ons', 'tribe-events-calendar' ); 
 				$links []= '<a href="http://tribe.pro/?ref=tec-plugins">' . $anchor . '</a>';
 			}
 			return $links;

@@ -9,22 +9,22 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 ?>
 <?php if ($post->post_type != TribeEvents::VENUE_POST_TYPE): ?>
    <tr class="venue">
-      <td><?php _e('Venue Name:',self::PLUGIN_DOMAIN); ?></td>
+      <td><?php _e('Venue Name:','tribe-events-calendar'); ?></td>
       <td>
          <input tabindex="<?php $this->tabIndex(); ?>" type='text' name='venue[Venue]' size='25'  value='<?php echo esc_attr($_VenueVenue); ?>' />
       </td>
    </tr>
 <?php endif; ?>
 <tr class="venue">
-	<td><?php _e('Address:',self::PLUGIN_DOMAIN); ?></td>
+	<td><?php _e('Address:','tribe-events-calendar'); ?></td>
 	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' name='venue[Address]' size='25' value='<?php echo esc_attr($_VenueAddress); ?>' /></td>
 </tr>
 <tr class="venue">
-	<td><?php _e('City:',self::PLUGIN_DOMAIN); ?></td>
+	<td><?php _e('City:','tribe-events-calendar'); ?></td>
 	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' name='venue[City]' size='25' value='<?php echo esc_attr($_VenueCity); ?>' /></td>
 </tr>
 <tr class="venue">
-	<td><?php _e('Country:',self::PLUGIN_DOMAIN); ?></td>
+	<td><?php _e('Country:','tribe-events-calendar'); ?></td>
 	<td>
 		<select tabindex="<?php $this->tabIndex(); ?>" name='venue[Country]' id="EventCountry">
 			<?php
@@ -49,10 +49,10 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 </tr>
 <tr class="venue">
 	<?php if(!isset($_VenueStateProvince)) $_VenueStateProvince = ""; ?>
-	<td><?php _e('State or Province:',self::PLUGIN_DOMAIN); ?></td>
+	<td><?php _e('State or Province:','tribe-events-calendar'); ?></td>
 	<td><input tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceText" name="venue[Province]" type='text' name='' size='25' value='<?php echo $_VenueStateProvince != -1 ? esc_attr($_VenueStateProvince) : esc_attr($_VenueProvince); ?>' />
 	<select tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceSelect" name="venue[State]" name=''>
-		<option value=""><?php _e('Select a State:',self::PLUGIN_DOMAIN); ?></option>
+		<option value=""><?php _e('Select a State:','tribe-events-calendar'); ?></option>
 		<?php
 			foreach (TribeEventsViewHelpers::loadStates() as $abbr => $fullname) {
 				print ("<option value=\"$abbr\" ");
@@ -66,11 +66,11 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	</td>
 </tr>
 <tr class="venue">
-	<td><?php _e('Postal Code:',self::PLUGIN_DOMAIN); ?></td>
+	<td><?php _e('Postal Code:','tribe-events-calendar'); ?></td>
 	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventZip' name='venue[Zip]' size='6' value='<?php echo esc_attr($_VenueZip); ?>' /></td>
 </tr>
 <tr class="venue">
-	<td><?php _e('Phone:',self::PLUGIN_DOMAIN); ?></td>
+	<td><?php _e('Phone:','tribe-events-calendar'); ?></td>
 	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventPhone' name='venue[Phone]' size='14' value='<?php echo esc_attr($_VenuePhone); ?>' /></td>
 </tr>
 

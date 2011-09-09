@@ -39,9 +39,9 @@ if (!class_exists('TribeEventsImport')) {
 				?>
 				<form id="sp-upgrade" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 					<?php wp_nonce_field('upgradeEventsCalendar') ?>
-					<h4><?php _e('Upgrade from The Events Calendar', TribeEvents::PLUGIN_DOMAIN ); ?></h4>
-					<p><?php _e('It appears that you have some old events calendar data that needs to be upgraded. Please be sure to back up your database before initiating the upgrade. This process can not be undone.', TribeEvents::PLUGIN_DOMAIN ) ?></p>
-					<input type="submit" value="<?php _e('Migrate Data!', TribeEvents::PLUGIN_DOMAIN); ?>" class="button-secondary" name="upgradeEventsCalendar" />
+					<h4><?php _e('Upgrade from The Events Calendar', 'tribe-events-calendar' ); ?></h4>
+					<p><?php _e('It appears that you have some old events calendar data that needs to be upgraded. Please be sure to back up your database before initiating the upgrade. This process can not be undone.', 'tribe-events-calendar' ) ?></p>
+					<input type="submit" value="<?php _e('Migrate Data!', 'tribe-events-calendar'); ?>" class="button-secondary" name="upgradeEventsCalendar" />
 				</form>	
 				<?php 
 			}
@@ -171,7 +171,7 @@ if (!class_exists('TribeEventsImport')) {
 				'category_name' => 'Events'
 			));
 			if (count($query->posts)) {
-				TribeEvents::debug( __( 'Install has 1 or more legacy event!', TribeEvents::PLUGIN_DOMAIN ), false, 'warning' );
+				TribeEvents::debug( __( 'Install has 1 or more legacy event!', 'tribe-events-calendar' ), false, 'warning' );
 			}
 			return $query->posts;
 		}

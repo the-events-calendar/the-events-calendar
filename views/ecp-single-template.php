@@ -21,7 +21,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<div id="post-<?php the_ID() ?>" <?php post_class() ?>>
 			<h2 class="entry-title"><?php the_title() ?></h2>
 			<?php include(tribe_get_current_template()) ?>
-			<?php edit_post_link(__('Edit',TribeEvents::PLUGIN_DOMAIN), '<span class="edit-link">', '</span>'); ?>
+			<?php edit_post_link(__('Edit','tribe-events-calendar'), '<span class="edit-link">', '</span>'); ?>
 		</div><!-- post -->
 		<?php if(tribe_get_option('showComments','no') == 'yes'){ comments_template();} ?>
 	</div><!-- #content -->

@@ -157,14 +157,14 @@ if (!class_exists('TribeEventsAdminList')) {
 				foreach ( $columns as $key => $value ) {
 					$mycolumns[$key] = $value;
 					if ( $key =='author' )
-						$mycolumns['events-cats'] = __( 'Event Categories', TribeEvents::PLUGIN_DOMAIN );
+						$mycolumns['events-cats'] = __( 'Event Categories', 'tribe-events-calendar' );
 				}
 				$columns = $mycolumns;
 
 				unset($columns['date']);
-				$columns['start-date'] = __( 'Start Date', TribeEvents::PLUGIN_DOMAIN );
-				$columns['end-date'] = __( 'End Date', TribeEvents::PLUGIN_DOMAIN );
-				$columns['recurring'] = __( 'Recurring?', TribeEvents::PLUGIN_DOMAIN );
+				$columns['start-date'] = __( 'Start Date', 'tribe-events-calendar' );
+				$columns['end-date'] = __( 'End Date', 'tribe-events-calendar' );
+				$columns['recurring'] = __( 'Recurring?', 'tribe-events-calendar' );
 			}
 
 			return $columns;
@@ -242,7 +242,7 @@ if (!class_exists('TribeEventsAdminList')) {
 				$total_posts -= $num_posts->$state;
 			}
 
-			$counts['all'] = "<a href='edit.php?post_type=sp_events' class='current'>".sprintf(__( 'All %s', TribeEvents::PLUGIN_DOMAIN),"<span class='count'>($total_posts)</span>")."</a>";
+			$counts['all'] = "<a href='edit.php?post_type=sp_events' class='current'>".sprintf(__( 'All %s', 'tribe-events-calendar'),"<span class='count'>($total_posts)</span>")."</a>";
 		
 			foreach ( get_post_stati(array('show_in_admin_status_list' => true), 'objects') as $status ) {
 				$class = '';
