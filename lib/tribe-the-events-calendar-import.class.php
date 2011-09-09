@@ -29,9 +29,12 @@ if (!class_exists('TribeEventsImport')) {
 			'_EventPhone',
 		);
 		
+		private static $upgradeMessage = '';
+
 		private function __construct( ) {
 			add_action( 'admin_init', array( $this, 'upgradeData' ) );
 			add_action( 'tribe_events_options_post_form', array( $this, 'adminForm' ) );
+			add_action( 'admin_notices', array( $this, 'upgradeNotice' ) );
 		}
 		
 		public function adminForm() {
@@ -50,7 +53,8 @@ if (!class_exists('TribeEventsImport')) {
 		/**
 		 * Will upgrade data from old free plugin to pro plugin
 		 */
-		public static function upgradeData() {			
+		public static function upgradeData() {		
+			$num_upgraded = 0;
 			if ( isset($_POST['upgradeEventsCalendar']) && check_admin_referer('upgradeEventsCalendar') ) {
 				
 				/*
@@ -109,7 +113,18 @@ if (!class_exists('TribeEventsImport')) {
 						wp_set_object_terms( $post->ID, $post->cats, TribeEvents::TAXONOMY );
 
 					self::convertVenue($post);
+					$num_upgraded++;
 				}
+				if ( $num_upgraded > 0 ) {
+					self::$upgradeMessage = sprintf( __( 'You successfully migrated (%d) entries.' ), $num_upgraded );
+				}
+			}
+		}
+
+		public static function upgradeNotice() {
+			if ( self::$upgradeMessage != '' ) {
+				echo '<div class="updated"><p>' . self::$upgradeMessage . '</p></div>';
+				self::$upgradeMessage = '';
 			}
 		}
 
