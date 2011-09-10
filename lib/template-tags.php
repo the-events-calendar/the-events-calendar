@@ -915,6 +915,15 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	function tribe_get_current_template() {
 		return TribeEventsTemplates::get_current_page_template();
 	}
+
+   function tribe_embed_google_map($postId = null) {
+		$postId = tribe_post_id_helper( $postId );
+      return get_post_meta( get_the_ID(), '_EventShowMap', 1) == 1;
+   }
+
+   function tribe_show_google_map_link($postId = null) {
+      return get_post_meta( get_the_ID(), '_EventShowMapLink', 1) == 1;
+   }
 	
 	
 	/* Venue Template Tags */

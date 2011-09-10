@@ -54,7 +54,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<?php if( tribe_address_exists( get_the_ID() ) ) : ?>
 		<dt>
 			<?php _e('Address:', 'tribe-events-calendar') ?><br />
-			<?php if( get_post_meta( get_the_ID(), '_EventShowMapLink', true ) == 'true' ) : ?>
+			<?php if( tribe_show_google_map_link( get_the_ID() ) ) : ?>
 				<a class="gmap" itemprop="maps" href="<?php tribe_the_map_link() ?>" title="<?php _e('Click to view a Google Map', 'tribe-events-calendar'); ?>" target="_blank"><?php _e('Google Map', 'tribe-events-calendar' ); ?></a>
 			<?php endif; ?>
 		</dt>
@@ -68,7 +68,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	  	<?php echo tribe_the_custom_fields( get_the_ID() ); ?>
 	<?php endif; ?>
 </div>
-<?php if( get_post_meta( get_the_ID(), '_EventShowMap', true ) == true ) : ?>
+<?php if( tribe_embed_google_map( get_the_ID() ) ) : ?>
 	<?php if( tribe_address_exists( get_the_ID() ) ) tribe_the_embedded_map(); ?>
 <?php endif; ?>
 <div class="entry">
