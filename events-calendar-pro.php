@@ -101,7 +101,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
       public function add_google_map_preview($postId) {
          if( tribe_get_option('embedGoogleMaps') ) {
-            ?><div style="float:right;"><?php
+            // && tribe_embed_google_map($postId )
+            $display = tribe_embed_google_map( $postId ) ? "block" : "none";
+            ?><div style="float:right; display:<?php echo $display ?>;"><?php
                echo tribe_get_embedded_map($postId, 200, 200, true);
             ?></div><?php
          }
