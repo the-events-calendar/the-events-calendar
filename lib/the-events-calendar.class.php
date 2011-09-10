@@ -370,7 +370,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					}
 				}
 		
-				if( '' == get_option('permalink_structure') || false == $this->getOption('useRewriteRules',true) ) {
+				if( '' == get_option('permalink_structure') ) {
 					return add_query_arg('eventDate', TribeDateUtils::dateOnly( $post->EventStartDate ), $permalink ); 					
 				} else {
 					return trailingslashit($permalink) . TribeDateUtils::dateOnly( $post->EventStartDate );
@@ -721,7 +721,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					'embedGoogleMaps',
 					'showComments',
 					'displayEventsOnHomepage',
-					'useRewriteRules',
 					'debugEvents',
 				);
 				foreach ($boolean_opts as $opt) {					
@@ -812,7 +811,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$options = apply_filters( 'tribe-events-save-options', $options );		
 			if ( update_option( TribeEvents::OPTIONNAME, $options ) ) {
 				self::$options = apply_filters( 'tribe_get_options', $options );
-				if ( self::$options['useRewriteRules'] == true || self::$options['eventsSlug'] != '' ) {
+				if ( self::$options['eventsSlug'] != '' ) {
 					$this->flushRewriteRules();
 				}
 			} else {
@@ -1023,7 +1022,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function filterRewriteRules( $wp_rewrite ) {
-			if ( '' == get_option('permalink_structure') || false == $this->getOption('useRewriteRules',true) ) {
+			if ( '' == get_option('permalink_structure') ) {
 		
 			}
 
@@ -1082,7 +1081,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function getLink( $type = 'home', $secondary = false, $term = null ) {
 			// if permalinks are off or user doesn't want them: ugly.
-			if( '' == get_option('permalink_structure') || false == $this->getOption('useRewriteRules',1) ) {
+			if( '' == get_option('permalink_structure') ) {
 				return $this->uglyLink($type, $secondary);
 			}
 

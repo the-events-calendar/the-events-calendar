@@ -140,22 +140,6 @@ div.tribe_settings{
 
 			<?php if( '' != get_option('permalink_structure') ) : ?>
 			<tr>
-				<th scope="row"><?php _e('Use Pretty URLs','tribe-events-calendar'); ?></th>
-		        <td>
-		            <fieldset>
-		                <legend class="screen-reader-text">
-		                    <span><?php _e('Use Pretty URLs','tribe-events-calendar'); ?></span>
-		                </legend>
-		                <label title='Use Rewrite Rules'>
-		                    <input type="checkbox" name="useRewriteRules" value="1" <?php checked( tribe_get_option('useRewriteRules', 1) ); ?>  />
-		                </label>
-						<div>
-							<?php _e('Although unlikely, pretty URLs (ie, http://site/events/upcoming) may interfere with custom themes or plugins.','tribe-events-calendar'); ?> 
-						</div>
-		            </fieldset>
-		        </td>
-			</tr>
-			<tr>
 				<th scope="row"><?php _e('Events URL slug', 'tribe-events-calendar'); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Events URL slug', 'tribe-events-calendar' ); ?></legend>
