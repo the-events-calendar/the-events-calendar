@@ -9,6 +9,8 @@ class ECP_APM_Filters {
 	public function default_columns($apm) {
 		global $ecp_apm;
 		if ( $ecp_apm === $apm ) {
+			// Fallback is the order the columns fall back to if nothing was explicitly set
+			// An array of column header IDs
 			$ecp_apm->columns->set_fallback(array('title', 'ecp_organizer_filter_key', 'ecp_venue_filter_key', 'events-cats', 'recurring', 'start-date', 'end-date'));
 		}
 	}
