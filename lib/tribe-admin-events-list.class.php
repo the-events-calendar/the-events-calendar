@@ -18,7 +18,7 @@ if (!class_exists('TribeEventsAdminList')) {
 				add_filter( 'posts_orderby',  array( __CLASS__, 'events_search_orderby' ) );
 				add_filter( 'posts_fields',	array( __CLASS__, 'events_search_fields' ) );
 				add_filter( 'post_limits',		array( __CLASS__, 'events_search_limits' ) );
-				add_filter( 'manage_posts_columns', array(__CLASS__, 'column_headers'));
+				add_filter( 'manage_' . TribeEvents::POSTTYPE . '_posts_columns', array(__CLASS__, 'column_headers'));
 				add_filter( 'posts_results',  array(__CLASS__, 'cache_posts_results'));
 				add_filter( 'get_edit_post_link',  array(__CLASS__, 'add_event_occurrance_to_edit_link'), 10, 2);
 				add_filter( 'views_edit-sp_events',		array( __CLASS__, 'update_event_counts' ) );			
@@ -151,25 +151,24 @@ if (!class_exists('TribeEventsAdminList')) {
 		}
 
 		public static function column_headers( $columns ) {
-			global $post, $tribe_ecp;
+			global $tribe_ecp;
 
-			if ( is_object($post) && $post->post_type == TribeEvents::POSTTYPE ) {
-				foreach ( $columns as $key => $value ) {
-					$mycolumns[$key] = $value;
-					if ( $key =='author' )
-						$mycolumns['events-cats'] = __( 'Event Categories', 'tribe-events-calendar' );
-				}
-				$columns = $mycolumns;
-
-				unset($columns['date']);
-				$columns['start-date'] = __( 'Start Date', 'tribe-events-calendar' );
-				$columns['end-date'] = __( 'End Date', 'tribe-events-calendar' );
-				$columns['recurring'] = __( 'Recurring?', 'tribe-events-calendar' );
+			foreach ( $columns as $key => $value ) {
+				$mycolumns[$key] = $value;
+				if ( $key =='author' )
+					$mycolumns['events-cats'] = __( 'Event Categories', 'tribe-events-calendar' );
 			}
+			$columns = $mycolumns;
+
+			unset($columns['date']);
+			$columns['start-date'] = __( 'Start Date', 'tribe-events-calendar' );
+			$columns['end-date'] = __( 'End Date', 'tribe-events-calendar' );
+			$columns['recurring'] = __( 'Recurring?', 'tribe-events-calendar' );
+
 
 			return $columns;
 		}
-	
+
 		public static function register_date_sortables($columns) {
 			$columns['start-date'] = 'start-date';
 			$columns['end-date'] = 'end-date';
