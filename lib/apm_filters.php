@@ -3,6 +3,14 @@ class ECP_APM_Filters {
 	
 	public function __construct() {
 		add_action( 'init', array($this, 'ecp_filters') );
+		add_action( 'tribe_cpt_filters_after_init', array($this, 'default_columns') );
+	}
+	
+	public function default_columns($apm) {
+		global $ecp_apm;
+		if ( $ecp_apm === $apm ) {
+			$ecp_apm->columns->set_fallback(array('title', 'ecp_organizer_filter_key', 'ecp_venue_filter_key', 'events-cats', 'recurring', 'start-date', 'end-date'));
+		}
 	}
 	
 	public function ecp_filters() {
@@ -19,9 +27,10 @@ class ECP_APM_Filters {
          )
       );
 		
-		global $cpt_filters;
-		$cpt_filters = tribe_setup_apm(TribeEvents::POSTTYPE, $filter_args );
-		$cpt_filters->do_metaboxes = false;
+		global $ecp_apm;
+		$ecp_apm = tribe_setup_apm(TribeEvents::POSTTYPE, $filter_args );
+		$ecp_apm->do_metaboxes = false;
+		$ecp_apm->add_taxonomies = false;
 	}
 
 	public function log($data = array() ) {
@@ -29,7 +38,7 @@ class ECP_APM_Filters {
 	}
 	
 }
-//new ECP_APM_Filters;
+new ECP_APM_Filters;
 
 class Tribe_Venue_Filter {
 	
