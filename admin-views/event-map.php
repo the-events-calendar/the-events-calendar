@@ -7,7 +7,7 @@
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 ?>
-<div id="googlemaps" style="height: <?php echo is_numeric($height) ? "{$height}px" : $height ?>; width: <?php echo is_numeric($width) ? "{$width}px" : $width ?>;"></div>
+<div id="googlemaps" style="height: <?php echo is_numeric($height) ? "{$height}px" : $height ?>; width: <?php echo is_numeric($width) ? "{$width}px" : $width ?>; margin-bottom: 15px;"></div>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
 var event_address;
