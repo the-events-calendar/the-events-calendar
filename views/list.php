@@ -92,9 +92,9 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
 				$cat = get_term_by( 'slug', get_query_var('term'), $tribe_ecp->get_event_taxonomy() );
             if( tribe_is_upcoming() ) {
-               $is_cat_message = sprintf(__(' listed under %s. Check out upcoming events for this category or view the full calendar.','tribe-events-calendar'),$cat->name);
-            } else if( tribe_is_past() ) {
                $is_cat_message = sprintf(__(' listed under %s. Check out past events for this category or view the full calendar.','tribe-events-calendar'),$cat->name);
+            } else if( tribe_is_past() ) {
+               $is_cat_message = sprintf(__(' listed under %s. Check out upcoming events for this category or view the full calendar.','tribe-events-calendar'),$cat->name);
             }
 			}
 		?>
