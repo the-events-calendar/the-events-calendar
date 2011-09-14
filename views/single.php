@@ -27,7 +27,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<?php tribe_meta_event_cats(); ?>
 		<?php if ( tribe_get_organizer_link() ) : ?>
 			<dt><?php _e('Organizer:', 'tribe-events-calendar') ?></dt>
-			<dd><?php echo tribe_get_organizer_link(); ?></dd>
+			<dd class="vcard author"><?php echo tribe_get_organizer_link(); ?></dd>
 		<?php endif; ?>
 		<?php if ( tribe_get_organizer_phone() ) : ?>
 			<dt><?php _e('Phone:', 'tribe-events-calendar') ?></dt>
