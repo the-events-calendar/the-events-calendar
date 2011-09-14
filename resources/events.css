@@ -390,7 +390,7 @@ h4.tribe-events-event-day + .post .entry-title {margin-top:6px;}
 }
 .eventsListWidget li, .singular.page li.hentry {
 	margin:6px 0 !important;
-   padding: 0 0 10px 0;
+	padding: 0 0 10px 0 !important;
 }
 
 .navlink{
