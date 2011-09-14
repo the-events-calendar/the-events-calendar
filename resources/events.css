@@ -466,6 +466,7 @@ h4 .tribe-view-all-events {
 
 /* 2011 needs more calendar room */
 .events-archive .entry-content, .events-archive .entry-header { width: 98%; }
+.events-archive .tribe-events-event-entry { width: 60%; }
 
 /* IE7, I love to hate you */
 *+html .events-archive h2.tribe-events-cal-title {
