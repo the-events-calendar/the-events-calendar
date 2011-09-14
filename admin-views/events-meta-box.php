@@ -26,7 +26,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<td colspan="2" class="tribe_sectionheader"><h4 class="event-time"><?php _e('Event Time &amp; Date', 'tribe-events-calendar'); ?></h4></td>
 		</tr>
 		<tr id="recurrence-changed-row">
-			<td colspan='2'><?php _e("You have changed the recurrence rules of this event.  Saving the event will update all future events.  If you did not mean to change all events, then please refresh the page.") ?></td>
+			<td colspan='2'><?php _e("You have changed the recurrence rules of this event.  Saving the event will update all future events.  If you did not mean to change all events, then please refresh the page.", 'tribe-events-calendar') ?></td>
 		</tr>
 		<tr>
 			<td><?php _e('All day event?', 'tribe-events-calendar'); ?></td>

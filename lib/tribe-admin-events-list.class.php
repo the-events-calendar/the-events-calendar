@@ -191,7 +191,7 @@ if (!class_exists('TribeEventsAdminList')) {
 				}
 
 				if ( $column_id == 'recurring' ) {
-					echo sizeof(get_post_meta($post_id, '_EventStartDate')) > 1 ? "Yes" : "No";
+					echo sizeof(get_post_meta($post_id, '_EventStartDate')) > 1 ? __("Yes", 'tribe-events-calendar') : __("No", 'tribe-events-calendar');
 				}
 			} else {
 				self::ajax_custom_columns($column_id, $post_id);
