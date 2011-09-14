@@ -136,7 +136,15 @@ function display_day( $day, $monthView ) {
 				<div class="tribe-events-event-body">
 					<div class="tribe-events-event-date">
 						<?php if ( !empty( $start ) )	echo $start; ?>
-						<?php if ( !empty( $end )  && $start !== $end )		echo " – " . $end . '<br />'; ?>
+						<?php if ( !empty( $end )  && $start !== $end ) {
+							$start_as_ts = (int)strtotime( $start );
+							$end_as_ts = (int)strtotime( $end );
+							if ( date_i18n( 'Y-m-d', $start_as_ts ) == date_i18n( 'Y-m-d', $end_as_ts ) ) {
+								echo " - " . date_i18n( 'g:i a', $end_as_ts );
+							} else {
+								echo " – " . $end . '<br />';
+							}
+						} ?>
 					</div>
 					<?php if ( function_exists('has_post_thumbnail') && has_post_thumbnail() ) { ?>
 						<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array(75,75));?></div>
