@@ -9,6 +9,7 @@
  *  VI. Other Event Meta Template Tags
  *  VII. Link Template Tags
  *  VIII. Misc Template Tags
+ *  IX. API Template Tags
  */
 
 // Don't load directly
@@ -1049,5 +1050,73 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
    function tribe_is_pro_active() {
      return class_exists('TribeEventsPro');
    }
+
+   /**
+    * IX. API Template Tags
+    */
+
+   /**
+    * Create an event
+    */
+   function tribe_create_event($args) {
+      TribeEventsAPI::createEvent($args);
+   }
+
+   /**
+    * Update an event
+    */
+   function tribe_update_event($eventId, $args) {
+      TribeEventsAPI::updateEvent($eventId, $args);
+   }
+
+   /**
+    * Delete an event
+    */
+   function tribe_delete_event($eventId, $args) {
+      TribeEventsAPI::deleteEvent($eventId, $args);
+   }
+
+   /**
+    * Create a venue
+    */
+   function tribe_create_venue($args) {
+      TribeEventsAPI::createVenue($args);
+   }
+
+   /**
+    * Update a venue
+    */
+   function tribe_update_venue($venueId, $args) {
+      TribeEventsAPI::updateVenue($venueId, $args);
+   }
+
+   /**
+    * Delete a venue
+    */
+   function tribe_delete_venue($venueId, $args) {
+      TribeEventsAPI::deleteVenue($venueId, $args);
+   }
+
+   /**
+    * Create an organizer
+    */
+   function tribe_create_organizer($args) {
+      TribeEventsAPI::createOrganizer($args);
+   }
+
+   /**
+    * Update an organizer
+    */
+   function tribe_update_organizer($organizerId, $args) {
+      TribeEventsAPI::updateOrganizer($organizerId, $args);
+   }
+
+   /**
+    * Delete an organizer
+    */
+   function tribe_delete_organizer($organizerId, $args) {
+      TribeEventsAPI::deleteOrganizer($organizerId, $args);
+   }
+
 
 } // end if class_exists('The-Events-Calendar')
