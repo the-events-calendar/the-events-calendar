@@ -1519,7 +1519,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$$tag = $meta[0];
 				} else {
 					$cleaned_tag = str_replace('_Event','',$tag);
-					$$tag = tribe_get_option('eventsDefault'.$cleaned_tag);
+					$$tag = tribe_is_pro_active() ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
 				}
 			}
 			if($_EventVenueID){
@@ -1531,22 +1531,22 @@ if ( !class_exists( 'TribeEvents' ) ) {
             $defaults = $this->venueTags;
             $defaults[] = '_VenueState';
             $defaults[] = '_VenueProvince';
-				foreach ( $defaults as $tag ) {
-					if ( !$postId || !isset($_GET['post']) ) { //if there is a post AND the post has been saved at least once.
-						$cleaned_tag = str_replace('_Venue','',$tag);
 
-						if($cleaned_tag == 'Cost')
-							continue;
+            if (tribe_is_pro_active()) {
+               foreach ( $defaults as $tag ) {
+                  if ( !$postId || !isset($_GET['post']) ) { //if there is a post AND the post has been saved at least once.
+                     $cleaned_tag = str_replace('_Venue','',$tag);
 
-						${'_Venue'.$cleaned_tag} = tribe_get_option('eventsDefault'.$cleaned_tag);
-					}
-				}
+                     if($cleaned_tag == 'Cost')
+                        continue;
 
-				$_VenueStateProvince = -1; // we want to use default values here
+                     ${'_Venue'.$cleaned_tag} = tribe_get_option('eventsDefault'.$cleaned_tag);
+                  }
+               }
+
+               $_VenueStateProvince = -1; // we want to use default values here
+            }
 			}
-/*
-			foreach($this->organizerTags as $tag)
-				$$tag = get_post_meta($_EventOrganizerID, $tag, true );*/
 
 			$isEventAllDay = ( $_EventAllDay == 'yes' || ! TribeDateUtils::dateOnly( $_EventStartDate ) ) ? 'checked="checked"' : ''; // default is all day for new posts
 			$startMonthOptions 		= TribeEventsViewHelpers::getMonthOptions( $_EventStartDate );

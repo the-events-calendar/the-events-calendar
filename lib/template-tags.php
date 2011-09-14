@@ -1043,4 +1043,11 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		echo stripslashes(tribe_get_option('spEventsAfterHTML'));
 	}
 
+   /**
+    * Check to see if pro is activated
+    */
+   function tribe_is_pro_active() {
+     return class_exists('TribeEventsPro');
+   }
+
 } // end if class_exists('The-Events-Calendar')
