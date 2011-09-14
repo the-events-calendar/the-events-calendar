@@ -457,60 +457,60 @@ class TribeEventsRecurrenceMeta {
 		extract(TribeEventsRecurrenceMeta::getRecurrenceMeta($postId));
 		
 		if ($recType == "Every Day") {
-			$text = __("Every day"); 
-			$occurrence_text = sprintf(_n(" for %d day", " for %d days", $recEndCount), $recEndCount);
+			$text = __("Every day", 'tribe-events-calendar-pro'); 
+			$occurrence_text = sprintf(_n(" for %d day", " for %d days", $recEndCount, 'tribe-events-calendar-pro'), $recEndCount);
 			$custom_text = ""; 
 		} else if($recType == "Every Week") {
 			$text = __("Every week");
-			$occurrence_text = sprintf(_n(" for %d week", " for %d weeks", $recEndCount), $recEndCount);		
+			$occurrence_text = sprintf(_n(" for %d week", " for %d weeks", $recEndCount, 'tribe-events-calendar-pro'), $recEndCount);		
 		} else if($recType == "Every Month") {
 			$text = __("Every month");
-			$occurrence_text = sprintf(_n(" for %d month", " for %d months", $recEndCount), $recEndCount);						
+			$occurrence_text = sprintf(_n(" for %d month", " for %d months", $recEndCount, 'tribe-events-calendar-pro'), $recEndCount);						
 		} else if($recType == "Every Year") {
 			$text = __("Every year");
-			$occurrence_text = sprintf(_n(" for %d year", " for %d years", $recEndCount), $recEndCount);					
+			$occurrence_text = sprintf(_n(" for %d year", " for %d years", $recEndCount, 'tribe-events-calendar-pro'), $recEndCount);					
 		} else if ($recType == "Custom") {
 			if ($recCustomType == "Daily") {
 				$text = $recCustomInterval == 1 ? 
-					__("Every day") : 
-					sprintf(__("Every %d days"), $recCustomInterval);
-				$occurrence_text = sprintf(_n(", recurring %d time", ", recurring %d times", $recEndCount), $recEndCount);	
+					__("Every day", 'tribe-events-calendar-pro') : 
+					sprintf(__("Every %d days", 'tribe-events-calendar-pro'), $recCustomInterval);
+				$occurrence_text = sprintf(_n(", recurring %d time", ", recurring %d times", $recEndCount, 'tribe-events-calendar-pro'), $recEndCount);	
 			} else if ($recCustomType == "Weekly") {
 				$text = $recCustomInterval == 1 ? 
-					__("Every week") : 
-					sprintf(__("Every %d weeks"), $recCustomInterval);	
-				$custom_text = sprintf(__(" on %s"), self::daysToText($recCustomWeekDay));
-				$occurrence_text = sprintf(_n(", recurring %d time", ", recurring %d times", $recEndCount), $recEndCount);	
+					__("Every week", 'tribe-events-calendar-pro') : 
+					sprintf(__("Every %d weeks", 'tribe-events-calendar-pro'), $recCustomInterval);	
+				$custom_text = sprintf(__(" on %s", 'tribe-events-calendar-pro'), self::daysToText($recCustomWeekDay));
+				$occurrence_text = sprintf(_n(", recurring %d time", ", recurring %d times", $recEndCount, 'tribe-events-calendar-pro'), $recEndCount);	
 			} else if ($recCustomType == "Monthly") {
 				$text = $recCustomInterval == 1 ? 
-					__("Every month") : 
-					sprintf(__("Every %d months"), $recCustomInterval);								
+					__("Every month", 'tribe-events-calendar-pro') : 
+					sprintf(__("Every %d months", 'tribe-events-calendar-pro'), $recCustomInterval);								
                $number_display = is_numeric($recCustomMonthNumber) ? TribeDateUtils::numberToOrdinal( $recCustomMonthNumber ) : strtolower($recCustomMonthNumber); 
-				$custom_text = sprintf(__(" on the %s %s"), $number_display,  is_numeric($recCustomMonthNumber) ? __("day") : self::daysToText($recCustomMonthDay));
-				$occurrence_text = sprintf(_n(", recurring %d time", ", recurring %d times", $recEndCount), $recEndCount);	
+				$custom_text = sprintf(__(" on the %s %s", 'tribe-events-calendar-pro'), $number_display,  is_numeric($recCustomMonthNumber) ? __("day", 'tribe-events-calendar-pro') : self::daysToText($recCustomMonthDay));
+				$occurrence_text = sprintf(_n(", recurring %d time", ", recurring %d times", $recEndCount, 'tribe-events-calendar-pro'), $recEndCount);	
 			} else if ($recCustomType == "Yearly") {
 				$text = $recCustomInterval == 1 ? 
-					__("Every year") : 
-					sprintf(__("Every %d years"), $recCustomInterval);												
+					__("Every year", 'tribe-events-calendar-pro') : 
+					sprintf(__("Every %d years", 'tribe-events-calendar-pro'), $recCustomInterval);												
 				
-				$customYearNumber = $recCustomYearMonthNumber != -1 ? TribeDateUtils::numberToOrdinal($recCustomYearMonthNumber) : __("last");
+				$customYearNumber = $recCustomYearMonthNumber != -1 ? TribeDateUtils::numberToOrdinal($recCustomYearMonthNumber) : __("last", 'tribe-events-calendar-pro');
 				
 				$day = $recCustomYearFilter ? $customYearNumber : TribeDateUtils::numberToOrdinal( date('j', strtotime( TribeEvents::getRealStartDate( $postId ) ) ) );
 				$of_week = $recCustomYearFilter ? self::daysToText($recCustomYearMonthDay) : "";
 				$months = self::monthsToText($recCustomYearMonth);
-				$custom_text = sprintf(__(" on the %s %s of %s"), $day, $of_week, $months);				
-				$occurrence_text = sprintf(_n(", recurring %d time", ", recurring %d times", $recEndCount), $recEndCount);	
+				$custom_text = sprintf(__(" on the %s %s of %s", 'tribe-events-calendar-pro'), $day, $of_week, $months);				
+				$occurrence_text = sprintf(_n(", recurring %d time", ", recurring %d times", $recEndCount, 'tribe-events-calendar-pro'), $recEndCount);	
 			}
 		}
 		
 		// end text
 		if ( $recEndType == "On" ) {
-			$endText = sprintf(__(" until %s"), date_i18n(get_option('date_format'), strtotime($recEnd))) ;
+			$endText = sprintf(__(" until %s", 'tribe-events-calendar-pro'), date_i18n(get_option('date_format'), strtotime($recEnd))) ;
 		} else {
 			$endText = $occurrence_text;
 		}
 		
-		return sprintf(__('%s%s%s'), $text, $custom_text, $endText);
+		return sprintf(__('%s%s%s', 'tribe-events-calendar-pro'), $text, $custom_text, $endText);
 	}
 	
 	/**
@@ -519,17 +519,17 @@ class TribeEventsRecurrenceMeta {
 	 * @return The human readable string
 	 */			
 	private static function daysToText($days) {
-		$day_words = array(__("Monday"), __("Tuesday"), __("Wednesday"), __("Thursday"), __("Friday"), __("Saturday"), __("Sunday"));
+		$day_words = array(__("Monday", 'tribe-events-calendar-pro'), __("Tuesday", 'tribe-events-calendar-pro'), __("Wednesday", 'tribe-events-calendar-pro'), __("Thursday", 'tribe-events-calendar-pro'), __("Friday", 'tribe-events-calendar-pro'), __("Saturday", 'tribe-events-calendar-pro'), __("Sunday", 'tribe-events-calendar-pro'));
 		$count = sizeof($days);
 		$day_text = "";
 		
 		for($i = 0; $i < $count ; $i++) {
 			if ( $count > 2 && $i == $count - 1 ) {
-				$day_text .= __(", and ");
+				$day_text .= __(", and ", 'tribe-events-calendar-pro');
 			} else if ($count == 2 && $i == $count - 1) {
-				$day_text .= __(" and ");
+				$day_text .= __(" and ", 'tribe-events-calendar-pro');
 			} else if ($count > 2 && $i > 0) {
-				$day_text .= __(", ");
+				$day_text .= __(", ", 'tribe-events-calendar-pro');
 			}
 
 			$day_text .= $day_words[$days[$i]-1] ? $day_words[$days[$i]-1] : "day";
@@ -544,18 +544,18 @@ class TribeEventsRecurrenceMeta {
 	 * @return The human readable string
 	 */		
 	private static function monthsToText($months) {
-		$month_words = array(__("January"), __("February"), __("March"), __("April"), 
-			 __("May"), __("June"), __("July"), __("August"), __("September"), __("October"), __("November"), __("December"));
+		$month_words = array(__("January", 'tribe-events-calendar-pro'), __("February", 'tribe-events-calendar-pro'), __("March", 'tribe-events-calendar-pro'), __("April", 'tribe-events-calendar-pro'), 
+			 __("May", 'tribe-events-calendar-pro'), __("June", 'tribe-events-calendar-pro'), __("July", 'tribe-events-calendar-pro'), __("August", 'tribe-events-calendar-pro'), __("September", 'tribe-events-calendar-pro'), __("October", 'tribe-events-calendar-pro'), __("November", 'tribe-events-calendar-pro'), __("December", 'tribe-events-calendar-pro'));
 		$count = sizeof($months);
 		$month_text = "";
 		
 		for($i = 0; $i < $count ; $i++) {
 			if ( $count > 2 && $i == $count - 1 ) {
-				$month_text .= __(", and ");
+				$month_text .= __(", and ", 'tribe-events-calendar-pro');
 			} else if ($count == 2 && $i == $count - 1) {
-				$month_text .= __(" and ");				
+				$month_text .= __(" and ", 'tribe-events-calendar-pro');				
 			} else if ($count > 2 && $i > 0) {
-				$month_text .= __(", ");
+				$month_text .= __(", ", 'tribe-events-calendar-pro');
 			}
 			
 			$month_text .= $month_words[$months[$i]-1];
