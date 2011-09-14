@@ -15,10 +15,10 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <div id="tribe-events-event-meta" itemscope itemtype="http://schema.org/Event">
 	<dl class="column">
 		<dt><?php _e('Start:', 'tribe-events-calendar') ?></dt> 
-			<dd itemprop="startDate" content="<?php echo tribe_get_start_date( null, false, 'Y-m-d' ); ?>"><?php echo tribe_get_start_date(); ?></dd>
+			<dd><meta itemprop="startDate" content="<?php echo tribe_get_start_date( null, false, 'Y-m-d' ); ?>"/><?php echo tribe_get_start_date(); ?></dd>
 		<?php if (tribe_get_start_date() !== tribe_get_end_date() ) { ?>
 			<dt><?php _e('End:', 'tribe-events-calendar') ?></dt>
-			<dd itemprop="endDate" content="<?php echo tribe_get_end_date( null, false, 'Y-m-d' ); ?>"><?php echo tribe_get_end_date();  ?></dd>						
+			<dd><meta itemprop="endDate" content="<?php echo tribe_get_end_date( null, false, 'Y-m-d' ); ?>"/><?php echo tribe_get_end_date();  ?></dd>						
 		<?php } ?>
 		<?php if ( tribe_get_cost() ) : ?>
 			<dt><?php _e('Cost:', 'tribe-events-calendar') ?></dt>
