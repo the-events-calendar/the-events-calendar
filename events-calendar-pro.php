@@ -213,7 +213,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				'action' => 'TEMPLATE',
 				'text' => str_replace( ' ', '+', strip_tags(get_the_title()) ),
 				'dates' => $dates,
-				'details' => str_replace( ' ', '+', strip_tags( get_the_excerpt() ) ),
+				'details' => str_replace( ' ', '+', strip_tags( apply_filters( 'the_content', get_the_content() ) ) ),
 				'location' => str_replace( ' ', '+', $location ),
 				'sprop' => get_option('blogname'),
 				'trp' => 'false',
