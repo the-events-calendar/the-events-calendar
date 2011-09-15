@@ -154,12 +154,12 @@ if (!class_exists('TribeEventsViewHelpers')) {
 					"LB" => __("Lebanon", 'tribe-events-calendar'),
 					"LS" => __("Lesotho", 'tribe-events-calendar'),
 					"LR" => __("Liberia", 'tribe-events-calendar'),
-					"LY" => __("Libyan Arab Jamahiriya", 'tribe-events-calendar'),
+					"LY" => __("Libya", 'tribe-events-calendar'),
 					"LI" => __("Liechtenstein", 'tribe-events-calendar'),
 					"LT" => __("Lithuania", 'tribe-events-calendar'),
 					"LU" => __("Luxembourg", 'tribe-events-calendar'),
 					"MO" => __("Macau", 'tribe-events-calendar'),
-					"MK" => __("Macedonia, Former Yugoslav Republic Of", 'tribe-events-calendar'),
+					"MK" => __("Macedonia", 'tribe-events-calendar'),
 					"MG" => __("Madagascar", 'tribe-events-calendar'),
 					"MW" => __("Malawi", 'tribe-events-calendar'),
 					"MY" => __("Malaysia", 'tribe-events-calendar'),
@@ -269,7 +269,6 @@ if (!class_exists('TribeEventsViewHelpers')) {
 					"WF" => __("Wallis And Futuna Islands", 'tribe-events-calendar'),
 					"EH" => __("Western Sahara", 'tribe-events-calendar'),
 					"YE" => __("Yemen", 'tribe-events-calendar'),
-					"YU" => __("Yugoslavia", 'tribe-events-calendar'),
 					"ZM" => __("Zambia", 'tribe-events-calendar'),
 					"ZW" => __("Zimbabwe", 'tribe-events-calendar')
 					);
