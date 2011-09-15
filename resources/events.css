@@ -1,5 +1,5 @@
 /* Use Helvetica */
-#tribe-events-calendar-header, .tribe-events-calendar, #tribe-events-content .ical, .events-single #content .ical, a.gmap, .tribe-events-event-list-meta td, .tribe-events-nav, #tribe-events-event-meta, span.back, .eventsListWidget .dig-in, .gcal-add {
+#tribe-events-calendar-header, .tribe-events-calendar, #tribe-events-content .ical, .events-single #content .ical, a.gmap, .tribe-events-event-list-meta td, .tribe-events-nav, #tribe-events-event-meta, span.back, .eventsListWidget .dig-in, .eventsAdvancedListWidget .dig-in, .gcal-add {
 	font-family:"Helvetica Neue",Arial,Helvetica,"Nimbus Sans L",sans-serif;
 }
 
@@ -63,11 +63,11 @@ h2.tribe-events-cal-title a:hover, h2.tribe-events-cal-title a:focus {
 	color:#333;
 	text-decoration:underline !important;
 }
-.tribe-events-month-nav a, .tribe-events-nav a, .back a, .eventsListWidget .dig-in a {
+.tribe-events-month-nav a, .tribe-events-nav a, .back a, .eventsListWidget .dig-in a, .eventsAdvancedListWidget .dig-in a {
 	color:#888;
 	text-decoration:none;
 }
-.tribe-events-month-nav a:hover, .tribe-events-nav a:hover, .back a:hover, .eventsListWidget .dig-in a:hover {
+.tribe-events-month-nav a:hover, .tribe-events-nav a:hover, .back a:hover, .eventsListWidget .dig-in a:hover, .eventsAdvancedListWidget .dig-in a:hover {
 	text-decoration:underline;
 }
 a.ical, a.gcal-add {
@@ -388,7 +388,7 @@ h4.tribe-events-event-day + .post .entry-title {margin-top:6px;}
 #tribe-events-events-picker, #tribe-events-picker {
 	display:inline;
 }
-.eventsListWidget li, .singular.page li.hentry {
+.eventsListWidget li, .singular.page li.hentry, .eventsAdvancedListWidget li, .singular.page li.hentry {
 	margin:6px 0 !important;
 	padding: 0 0 10px 0 !important;
 }
