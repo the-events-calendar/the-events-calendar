@@ -41,7 +41,7 @@ h2.tribe-events-cal-title {
 	font-weight:bold;
 	color:#000;
 	position:relative;
-	z-index:5;
+	z-index:0;
 }
 
 .venue-events h2.tribe-events-cal-title {
@@ -122,7 +122,7 @@ a.ical, a.gcal-add {
 	position: absolute;
 	left:0;
 	bottom:0;
-	z-index:2;
+	z-index:0;
 }
 .tribe-events-prev-month {
 	margin-right:5px;
