@@ -1,6 +1,6 @@
 <?php
 /**
-*  If 'Default ECP Template' is selected in Settings -> The Events Calendar -> Theme Settings -> Events Template, 
+*  If 'Default Events Template' is selected in Settings -> The Events Calendar -> Theme Settings -> Events Template, 
 *  then this file loads the page template for all ECP views except for the individual 
 *  event view.  Generally, this setting should only be used if you want to manually 
 *  specify all the shell HTML of your ECP pages in this template file.  Use one of the other Theme 
