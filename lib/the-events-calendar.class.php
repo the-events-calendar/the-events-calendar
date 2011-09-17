@@ -134,7 +134,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Load all the required library files.
+		 *ctiv Load all the required library files.
 		 **/
 		protected function loadLibraries() {
 			require_once( 'tribe-event-exception.class.php' );
@@ -191,6 +191,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
          add_action('wp_head', array( $this, 'noindex_months' ) );
 			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
 			add_action( 'wp_dashboard_setup', array( $this, 'dashboardWidget' ) );
+         // organizer and venue
+         add_action( 'tribe_venue_table_top', array($this, 'displayEventVenueInput') );
+         add_action( 'tribe_organizer_table_top', array($this, 'displayEventOrganizerInput') );
 		}
 
       /**
@@ -678,8 +681,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function addOptionsPage() {
 			add_options_page($this->pluginName, $this->pluginName, 'administrator', 'tribe-events-calendar', array($this,'optionsPageView'));
-			add_submenu_page( '/edit.php?post_type='.self::POSTTYPE, __('Venues','tribe-events-calendar'), __('Venues','tribe-events-calendar'), 'edit_posts', 'edit.php?post_type='.self::VENUE_POST_TYPE);
-			add_submenu_page( '/edit.php?post_type='.self::POSTTYPE, __('Organizers','tribe-events-calendar'), __('Organizers','tribe-events-calendar'), 'edit_posts', 'edit.php?post_type='.self::ORGANIZER_POST_TYPE);
 		}
 
 		public function optionsPageView() {
@@ -1402,22 +1403,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			return false;
 		}
 
-		function saved_venues_dropdown($current = null, $name="venue[VenueID]"){
-			$venues = $this->get_venue_info();
-	
-			if($venues){
-				echo '<select name="'.$name.'" id="saved_venue">';
-					echo '<option value="0">' . __("Use New Venue", 'tribe-events-calendar') . '</option>';
-				foreach($venues as $venue){
-					$selected = ($current == $venue->ID) ? 'selected="selected"' : '';
-					echo "<option data-address='" . esc_attr($this->fullAddressString($venue->ID)) . "' value='{$venue->ID}' $selected>{$venue->post_title}</option>";
-				}
-				echo '</select>';
-			}else{
-				echo '<p class="nosaved">'.__('No saved venues yet.','tribe-events-calendar').'</p>';
-			}
-		}
-
 		//** If you are saving a new organizer along with the event, we will do this:
 		public function save_organizer_data( $postID = null, $post=null ) {
 			global $_POST;
@@ -1488,21 +1473,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			return false;
 		}
 
-		function saved_organizers_dropdown($current = null, $name="organizer[OrganizerID]"){
-			$organizers = $this->get_organizer_info();
-			if($organizers){
-				echo '<select name="'.$name.'" id="saved_organizer">';
-					echo '<option value="0">' . __('Use New Organizer', 'tribe-events-calendar') . '</option>';
-				foreach($organizers as $organizer){
-					$selected = ($current == $organizer->ID) ? 'selected="selected"' : '';
-					echo "<option value='{$organizer->ID}' $selected>{$organizer->post_title}</option>";
-				}
-				echo '</select>';
-			}else{
-				echo '<p class="nosaved_organizer">'.__('No saved organizers yet.','tribe-events-calendar').'</p>';
-			}
-		}
-
 		/**
 		 * Adds a style chooser to the write post page
 		 *
@@ -1524,6 +1494,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$$tag = tribe_is_pro_active() ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
 				}
 			}
+
+         if( $_EventOrganizerID ) {
+            foreach($this->organizerTags as $tag) {
+					$$tag = get_post_meta($_EventOrganizerID, $tag, true );
+				}
+         }
+
 			if($_EventVenueID){
 				foreach($this->venueTags as $tag) {
 					$$tag = get_post_meta($_EventVenueID, $tag, true );
@@ -1584,6 +1561,18 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			include( $this->pluginPath . 'admin-views/events-meta-box.php' );
 		}
+
+      public function displayEventVenueInput($postId) {
+         $curVenue = get_post_meta( $postId, '_EventVenueID', true);
+         ?><input type='hidden' name='venue[curVenue]' value='<?php echo esc_attr($curVenue) ?>'/><?php
+      }
+
+      public function displayEventOrganizerInput($postId) {
+         $curOrg = get_post_meta( $postId, '_EventOrganizerID', true);
+         ?><input type='hidden' name='organizer[curOrganizer]' value='<?php echo esc_attr($curOrg) ?>'/><?php
+      }
+      
+
 		/**
 		 * Adds a style chooser to the write post page
 		 *

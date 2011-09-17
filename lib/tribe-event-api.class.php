@@ -74,8 +74,8 @@ if (!class_exists('TribeEventsAPI')) {
 			if( !isset( $data['EventShowMapLink'] ) ) update_post_meta( $event_id, '_EventShowMapLink', 'false' );
 			if( !isset( $data['EventShowMap'] ) ) update_post_meta( $event_id, '_EventShowMap', 'false' );
 		
-			$data['EventOrganizerID'] = TribeEventsAPI::saveEventOrganizer($data["Organizer"]);
-			$data['EventVenueID'] = TribeEventsAPI::saveEventVenue($data["Venue"]);
+			$data['EventOrganizerID'] = TribeEventsAPI::saveEventOrganizer($data["Organizer"], $event);
+			$data['EventVenueID'] = TribeEventsAPI::saveEventVenue($data["Venue"], $event);
 
 			$tribe_ecp->do_action('tribe_events_event_save', $event_id);
 
@@ -101,7 +101,11 @@ if (!class_exists('TribeEventsAPI')) {
 			if($data['OrganizerID'] && $data['OrganizerID'] != "0")
 				return $data['OrganizerID'];
 
-			return TribeEventsAPI::createOrganizer($data);
+         if($data['curOrganizer']) {
+            return TribeEventsAPI::updateOrganizer($data['curOrganizer'], $data);
+         } else {
+            return TribeEventsAPI::createOrganizer($data);
+         }
 		}
 	
 		/**
@@ -112,7 +116,11 @@ if (!class_exists('TribeEventsAPI')) {
 			if($data['VenueID'] && $data['VenueID'] != "0")
 				return $data['VenueID'];
 
-			return TribeEventsAPI::createVenue($data);
+         if($data['curVenue']) {
+            return TribeEventsAPI::updateVenue($data['curVenue'], $data);
+         } else {
+            return TribeEventsAPI::createVenue($data);
+         }
 		}	
 	
 		/**

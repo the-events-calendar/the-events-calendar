@@ -79,13 +79,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<div class="tribe_sectionheader" style="padding: 6px 6px 0 0; font-size: 11px; margin: 0 10px;"><h4><?php _e('Event Location Details', 'tribe-events-calendar'); ?></h4></div>
 	<div style="float: left;">
 		<table id="event_venue" class="eventtable">
-			<tr class="">
-				<td style="width:170px"><?php _e('Use Saved Venue:','tribe-events-calendar'); ?></td>
-				<td>
-					<?php $this->saved_venues_dropdown($_EventVenueID);?>
-				</td>
-			</tr>
-
+         <?php do_action('tribe_venue_table_top', $postId) ?>
 			<?php include( $this->pluginPath . 'admin-views/venue-meta-box.php' ); ?>
 			<tr id="google_map_link_toggle">
 				<td><?php _e('Show Google Maps Link:','tribe-events-calendar'); ?></td>
@@ -106,17 +100,8 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<tr>
 				<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event Organizer Details', 'tribe-events-calendar'); ?></h4></td>
 			</tr>
-			<tr class="" >
-				<td style="width:170px"><?php _e('Use Saved Organizer:','tribe-events-calendar'); ?></td>
-				<td>
-					<?php $this->saved_organizers_dropdown($_EventOrganizerID);?>
-				</td>
-			</tr>
-				
-			<?php
-				include( $this->pluginPath . 'admin-views/organizer-meta-box.php' );
-
-			?>
+         <?php do_action('tribe_organizer_table_top', $postId) ?>
+			<?php include( $this->pluginPath . 'admin-views/organizer-meta-box.php' ); ?>
 	</table>
     <?php $this->do_action('tribe_events_details_table_bottom', $postId, true) ?>
 	<table id="event_cost" class="eventtable">		
