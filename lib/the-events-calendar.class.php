@@ -750,6 +750,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					if(isset($_POST[$opt]))
 						$options[$opt] = $_POST[$opt];
 				}
+
+            $options['spEventsCountries'] = stripslashes($options['spEventsCountries']);
 		
 				// events slug happiness
 				$slug = $options['eventsSlug'];
@@ -1572,6 +1574,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$end = TribeDateUtils::dateOnly($_EventEndDate);
 
 			$EventEndDate = ( $end ) ? $end : date('Y-m-d');
+         $recStart = $_REQUEST['event_start'];
+         $recPost = $_REQUEST['post'];
 	
 			if ( $_REQUEST['eventDate'] != null ) {
 				$duration = get_post_meta( $postId, '_EventDuration', true );

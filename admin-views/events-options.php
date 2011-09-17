@@ -56,7 +56,7 @@ div.tribe_settings{
       <p><?php _e('Here is the iCal feed URL for your events: ' ,'tribe-events-calendar'); ?><code><?php echo tribe_get_ical_link(); ?></code></p>
    <?php endif; ?>
 
-	<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+	<form method="post">
 	<?php wp_nonce_field('saveEventsCalendarOptions'); ?>
 
 	<h3><?php _e('Settings', 'tribe-events-calendar'); ?></h3>
