@@ -56,7 +56,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function init() {
 			TribeEventsCustomMeta::init();
 			TribeEventsRecurrenceMeta::init();
-			new PluginUpdateEngineChecker(self::$updateUrl, 'events-calendar-pro', array('apikey'=>'ec94dc0f20324d00831a56b3013f428a'));
+			new PluginUpdateEngineChecker(self::$updateUrl, 'events-calendar-pro', array('installkey' => $installkey), plugin_basename(__FILE__));
 		}
 
       	public function do_ical_template($template) {
