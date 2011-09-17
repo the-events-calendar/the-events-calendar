@@ -112,7 +112,7 @@
 				<th scope="row"><?php _e('Use a custom list of countries', 'tribe-events-calendar-pro' ); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Use the following list:', 'tribe-events-calendar-pro' ); ?></legend>
-					<textarea style="width:100%; height:100px;" name="spEventsCountries"><?php echo stripslashes(tribe_get_option('spEventsCountries'));?></textarea>
+					<textarea style="width:100%; height:100px;" name="spEventsCountries"><?php echo esc_textarea(tribe_get_option('spEventsCountries')); ?></textarea>
 					<div><?php _e('One country per line in the following format: <br/>US, United States <br/> UK, United Kingdom.', 'tribe-events-calendar-pro');?> <?php _e('(Replaces the default list.)', 'tribe-events-calendar-pro') ?></div>
 				</fieldset></td>
 			</tr>

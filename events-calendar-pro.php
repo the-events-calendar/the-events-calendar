@@ -262,25 +262,15 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 	        return self::$instance;
 	    }
-		
-		/**
-		 * check_for_ecp
-		 *
-		 * Check that the required minimum version of the base events plugin is activated.
-		 * 
-		 * @author John Gadbois 
-		 */
-		public static function check_for_ecp() {
-			if( !class_exists( 'TribeEvents' ) || !defined('TribeEvents::VERSION') || !version_compare( TribeEvents::VERSION, '2.0', '>=') ) {
-				deactivate_plugins(basename(__FILE__)); // Deactivate ourself
-				wp_die(__("Sorry, but you must activate The Events Calendar 2.0 or greater in order for this plugin to be installed.", 'tribe-events-calendar-pro'));	
-			}
-		}
 	}
 	
-	register_activation_hook( __FILE__, array('TribeEventsPro', 'check_for_ecp') );	
-
 	// Instantiate class and set up WordPress actions.
-	TribeEventsPro::instance();
+   function Tribe_ECP_Load() {
+      if( class_exists( 'TribeEvents' ) && defined('TribeEvents::VERSION') && version_compare( TribeEvents::VERSION, '2.0', '>=') ) {
+         TribeEventsPro::instance();
+      }
+   }
+
+   add_action( 'plugins_loaded', 'Tribe_ECP_Load');
 }
 ?>
