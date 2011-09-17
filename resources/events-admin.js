@@ -19,7 +19,8 @@ jQuery(document).ready(function($) {
 
 			codeAddress(address);
 		} else {
-			codeAddress(selectedOption.data('address'));
+         if ( typeof codeAddress == 'function' )
+            codeAddress(selectedOption.data('address'));
 		}
 		
 	});

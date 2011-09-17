@@ -51,6 +51,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_events_template_single-venue.php', array( $this, 'load_venue_template' ) );
 			add_action( 'widgets_init', array( $this, 'pro_widgets_init' ), 100 );
 			add_action( 'wp_loaded', array( $this, 'allow_cpt_search' ) );
+
+         // Load organizer and venue editors
+         add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
+         add_action( 'tribe_venue_table_top', array($this, 'displayEventVenueDropdown') );
+         add_action( 'tribe_organizer_table_top', array($this, 'displayEventOrganizerDropdown') );
 	    }
 		
 		public function init() {
@@ -59,7 +64,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			new PluginUpdateEngineChecker(self::$updateUrl, 'events-calendar-pro', array('installkey' => $installkey), plugin_basename(__FILE__));
 		}
 
-      	public function do_ical_template($template) {
+      public function do_ical_template($template) {
 			// hijack to iCal template
 			if ( get_query_var('ical') || isset($_GET['ical']) ) {
 				global $wp_query;
@@ -77,6 +82,36 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 
       }
+
+      public function addVenueAndOrganizerEditor() {
+         add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __('Venues','tribe-events-calendar'), __('Venues','tribe-events-calendar'), 'edit_posts', 'edit.php?post_type='.TribeEvents::VENUE_POST_TYPE);
+         add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __('Organizers','tribe-events-calendar'), __('Organizers','tribe-events-calendar'), 'edit_posts', 'edit.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE);
+      }
+
+      public function displayEventVenueDropdown($postId) {
+         $curVenue = get_post_meta( $postId, '_EventVenueID', true);
+         ?>
+			<tr class="">
+				<td style="width:170px"><?php _e('Use Saved Venue:','tribe-events-calendar'); ?></td>
+				<td>
+					<?php $this->saved_venues_dropdown($curVenue);?>
+				</td>
+			</tr>
+         <?php
+      }
+
+      public function displayEventOrganizerDropdown($postId) {
+         $curOrg = get_post_meta( $postId, '_EventOrganizerID', true);
+         ?>
+			<tr class="" >
+				<td style="width:170px"><?php _e('Use Saved Organizer:','tribe-events-calendar'); ?></td>
+				<td>
+					<?php $this->saved_organizers_dropdown($curOrg);?>
+				</td>
+			</tr>
+         <?php
+      }
+
 
       public function event_defaults_options() {
          $tec = TribeEvents::instance();
@@ -251,6 +286,45 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$venue_args['exclude_from_search'] = false;
 			register_post_type( TribeEvents::VENUE_POST_TYPE, $venue_args );
 		}
+
+      /**
+       * Creates the venue dropdown
+       */
+		function saved_venues_dropdown($current = null, $name="venue[VenueID]"){
+			$venues = TribeEvents::instance()->get_venue_info();
+	
+			if($venues){
+				echo '<select name="'.$name.'" id="saved_venue">';
+					echo '<option value="0">' . __("Use New Venue", 'tribe-events-calendar') . '</option>';
+				foreach($venues as $venue){
+					$selected = ($current == $venue->ID) ? 'selected="selected"' : '';
+					echo "<option data-address='" . esc_attr(TribeEvents::instance()->fullAddressString($venue->ID)) . "' value='{$venue->ID}' $selected>{$venue->post_title}</option>";
+				}
+				echo '</select>';
+			}else{
+				echo '<p class="nosaved">'.__('No saved venues yet.','tribe-events-calendar').'</p>';
+			}
+		}
+
+      /**
+       * Creates the organizer dropdown
+       */
+		function saved_organizers_dropdown($current = null, $name="organizer[OrganizerID]"){
+			$organizers = TribeEvents::instance()->get_organizer_info();
+			if($organizers){
+				echo '<select name="'.$name.'" id="saved_organizer">';
+					echo '<option value="0">' . __('Use New Organizer', 'tribe-events-calendar') . '</option>';
+				foreach($organizers as $organizer){
+					$selected = ($current == $organizer->ID) ? 'selected="selected"' : '';
+					echo "<option value='{$organizer->ID}' $selected>{$organizer->post_title}</option>";
+				}
+				echo '</select>';
+			}else{
+				echo '<p class="nosaved_organizer">'.__('No saved organizers yet.','tribe-events-calendar').'</p>';
+			}
+		}
+
+
 
 		/* Static Methods */
 	    public static function instance()
