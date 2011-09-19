@@ -142,7 +142,8 @@ function display_day( $day, $monthView ) {
 							$start_as_ts = (int)strtotime( $start );
 							$end_as_ts = (int)strtotime( $end );
 							if ( date_i18n( 'Y-m-d', $start_as_ts ) == date_i18n( 'Y-m-d', $end_as_ts ) ) {
-								echo " - " . date_i18n( 'g:i a', $end_as_ts );
+								$time_format = get_option( 'time_format', 'g:i a' );
+								echo " - " . date_i18n( $time_format, $end_as_ts );
 							} else {
 								echo " – " . $end . '<br />';
 							}
