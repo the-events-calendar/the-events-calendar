@@ -11,16 +11,20 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 ?>
 <div id="tribe-events-content" class="upcoming">
-	<div id='tribe-events-calendar-header' class="clearfix">
-	<span class='tribe-events-calendar-buttons'> 
-		<a class='tribe-events-button-on' href='<?php echo tribe_get_listview_link(); ?>'><?php _e('Event List', 'tribe-events-calendar')?></a>
-		<a class='tribe-events-button-off' href='<?php echo tribe_get_gridview_link(); ?>'><?php _e('Calendar', 'tribe-events-calendar')?></a>
-	</span>
 
-	</div><!--tribe-events-calendar-header-->
+   <?php if(!tribe_is_day()): // day view doesn't have a grid ?>
+      <div id='tribe-events-calendar-header' class="clearfix">
+      <span class='tribe-events-calendar-buttons'> 
+         <a class='tribe-events-button-on' href='<?php echo tribe_get_listview_link(); ?>'><?php _e('Event List', 'tribe-events-calendar')?></a>
+         <a class='tribe-events-button-off' href='<?php echo tribe_get_gridview_link(); ?>'><?php _e('Calendar', 'tribe-events-calendar')?></a>
+      </span>
+
+      </div><!--tribe-events-calendar-header-->
+   <?php endif; ?>
 	<div id="tribe-events-loop" class="tribe-events-events post-list clearfix">
 	
 	<?php if (have_posts()) : ?>
+   <?php $hasPosts = true ?>
 	<?php while ( have_posts() ) : the_post(); ?>
 
 			<div id="post-<?php the_ID() ?>" <?php post_class('tribe-events-event clearfix') ?> itemscope itemtype="http://schema.org/Event">
@@ -98,6 +102,9 @@ if ( !defined('ABSPATH') ) { die('-1'); }
             }
 			}
 		?>
+      <?php if(tribe_is_day()): ?>
+         <?php _e('No events scheduled for this day. Please try another day', 'tribe-events-calendar'); ?>
+      <?php endif; ?>
 
 		<?php if(tribe_is_upcoming()){ ?>
 			<?php _e('No upcoming events', 'tribe-events-calendar');
@@ -137,5 +144,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		</div>
 
 	</div>
-	<a title="<?php esc_attr_e('iCal Import', 'tribe-events-calendar') ?>" class="ical" href="<?php echo tribe_get_ical_link(); ?>"><?php _e('iCal Import', 'tribe-events-calendar') ?></a>
+   <?php if ( $hasPosts ): ?>
+      <a title="<?php esc_attr_e('iCal Import', 'tribe-events-calendar') ?>" class="ical" href="<?php echo tribe_get_ical_link(); ?>"><?php _e('iCal Import', 'tribe-events-calendar') ?></a>
+   <?php endif; ?>
 </div>

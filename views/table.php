@@ -98,9 +98,12 @@ $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 
 function display_day_title( $day, $monthView, $date ) {
 	$return = "<div class='daynum tribe-events-event' id='daynum_$day'>";
-   $return .= "<a href='" . tribe_get_day_link($date) . "'>";
-	$return .= $day;
-   $return .= "</a>";
+   
+   if( function_exists('tribe_get_linked_day') ) {
+      $return .= tribe_get_linked_day($date, $day); // premium
+   } else {
+      $return .= $day;
+   }
 	$return .= "<div id='tooltip_day_$day' class='tribe-events-tooltip' style='display:none;'>";
 	for( $i = 0; $i < count( $monthView[$day] ); $i++ ) {
 		$post = $monthView[$day][$i];
