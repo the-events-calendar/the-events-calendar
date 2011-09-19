@@ -102,7 +102,7 @@ if( !class_exists( 'TribeEventsFeatureWidget') ) {
 	function events_calendar_load_featured_widget() {
 		register_widget( 'TribeEventsFeatureWidget' );
 		// load text domain after class registration
-		load_plugin_textdomain( 'tribe-events-calendar', false, basename(dirname(dirname(__FILE__))) . '/lang/');
+		load_plugin_textdomain( 'tribe-events-calendar-pro', false, basename(dirname(dirname(__FILE__))) . '/lang/');
 	}
 }
 ?>

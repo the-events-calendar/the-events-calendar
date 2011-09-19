@@ -16,26 +16,25 @@ class ECP_APM_Filters {
 	}
 	
 	public function ecp_filters() {
-		$td = TribeEvents::PLUGIN_DOMAIN;
 		$filter_args = array(
 			'ecp_venue_filter_key'=>array(
-				'name' => __('Venue', $td),
+				'name' => __('Venue', 'tribe-events-calendar-pro'),
 				'custom_type' => 'ecp_venue_filter',
 				'sortable' => 'true'
 			),
 			'ecp_organizer_filter_key'=>array(
-				'name' => __('Organizer', $td),
+				'name' => __('Organizer', 'tribe-events-calendar-pro'),
 				'custom_type' => 'ecp_organizer_filter',
 				'sortable' => 'true'
 			),
 			'ecp_start' => array(
-				'name' => __('Start Date', $td),
+				'name' => __('Start Date', 'tribe-events-calendar-pro'),
 				'meta' => '_EventStartDate',
 				'cast' => 'DATETIME',
 				'disable' => 'columns'
 			),
 			'ecp_cost' => array(
-				'name' => __('Event Cost', $td),
+				'name' => __('Event Cost', 'tribe-events-calendar-pro'),
 				'meta' => '_EventCost',
 				'cast' => 'NUMERIC'
 			)
