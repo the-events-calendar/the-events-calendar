@@ -73,6 +73,9 @@ if (!class_exists('TribeEventsQuery')) {
 				case "upcoming":
 					$query = self::setUpcomingDisplayTypeArgs($query);
 					break;
+				case "day":
+					$query = self::setDayDisplayTypeArgs($query);
+					break;
 				case "all":
 					$query = self::setAllDisplayTypeArgs($query);
 					break;				
@@ -130,6 +133,18 @@ if (!class_exists('TribeEventsQuery')) {
 
 			return $query;
 		}
+
+		public static function setDayDisplayTypeArgs($query) {
+         global $wp_query;
+			$args = &$query->query_vars;
+         $args['start_date'] = $wp_query->query_vars['eventDate'];
+         $args['end_date'] = $args['start_date'];
+			$args['orderby'] = 'event_date';
+			$args['order'] = "ASC";
+
+			return $query;
+		}
+
 	
 		public static function setAllDisplayTypeArgs($query) {
 			$args = &$query->query_vars;

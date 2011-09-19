@@ -83,7 +83,7 @@ if (!class_exists('TribeEventsTemplates')) {
 				$template = TribeEventsTemplates::getTemplateHierarchy('single');
 			}
 			// list view
-			elseif ( tribe_is_upcoming() || tribe_is_past() || (is_single() && tribe_is_showing_all()) ) {
+			elseif ( tribe_is_upcoming() || tribe_is_past() || tribe_is_day() || (is_single() && tribe_is_showing_all()) ) {
 				$template = TribeEventsTemplates::getTemplateHierarchy('list');
 			}
 			// grid view

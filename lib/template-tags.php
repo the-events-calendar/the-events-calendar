@@ -636,6 +636,11 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 
 		echo $tribe_ecp->getLink('all');		
 	}
+
+   function tribe_get_day_link($date) {
+		$tribe_ecp = TribeEvents::instance();
+		return $tribe_ecp->getLink('day', $date);		
+   }
 	
 	/**
 	 * Displays a link to the previous post by start date for the given event
@@ -844,6 +849,17 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		$tribe_ecp = TribeEvents::instance();
 		return ($tribe_ecp->displaying == 'past') ? true : false;
 	}
+
+	/**
+	 * Returns true if the query is set for past events, false otherwise
+	 * 
+	 * @return bool
+	 */
+	function tribe_is_day()  {
+		$tribe_ecp = TribeEvents::instance();
+		return ($tribe_ecp->displaying == 'day') ? true : false;
+	}
+
 	/**
 	 * Returns true if the query is set for upcoming events, false otherwise
 	 * 

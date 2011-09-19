@@ -39,7 +39,9 @@ $tribe_ecp = TribeEvents::instance();
 			</span>
 		</div><!-- tribe-events-calendar-header -->
 		<?php tribe_calendar_grid(); // See the views/table.php template for customization ?>
-		<a title="<?php esc_attr_e('iCal Import', 'tribe-events-calendar') ?>" class="ical" href="<?php echo tribe_get_ical_link(); ?>"><?php _e('iCal Import', 'tribe-events-calendar') ?></a>
+      <?php if( function_exists( 'tribe_get_ical_link' ) ): ?>
+         <a title="<?php esc_attr_e('iCal Import', 'tribe-events-calendar') ?>" class="ical" href="<?php echo tribe_get_ical_link(); ?>"><?php _e('iCal Import', 'tribe-events-calendar') ?></a>
+      <?php endif; ?>
 	</div>
 
 <?php tribe_events_after_html() ?>

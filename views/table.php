@@ -63,6 +63,7 @@ $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 				$current_day = date_i18n( 'd' );
 				$current_month = date_i18n( 'm' );
 				$current_year = date_i18n( 'Y' );
+            $date = "$year-$month-$day";
 				
 				if ( $current_month == $month && $current_year == $year) {
 					// Past, Present, Future class
@@ -79,7 +80,7 @@ $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 					$ppf = ' tribe-events-future';
 				} else { $ppf = false; }
 				
-			    echo "<td class='tribe-events-thismonth" . $ppf . "'>" . display_day_title( $day, $monthView ) . "\n";
+			    echo "<td class='tribe-events-thismonth" . $ppf . "'>" . display_day_title( $day, $monthView, $date ) . "\n";
 				echo display_day( $day, $monthView );
 				echo "</td>";
 			}
@@ -95,10 +96,11 @@ $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 </table>
 <?php
 
-function display_day_title( $day, $monthView ) {
+function display_day_title( $day, $monthView, $date ) {
 	$return = "<div class='daynum tribe-events-event' id='daynum_$day'>";
-
+   $return .= "<a href='" . tribe_get_day_link($date) . "'>";
 	$return .= $day;
+   $return .= "</a>";
 	$return .= "<div id='tooltip_day_$day' class='tribe-events-tooltip' style='display:none;'>";
 	for( $i = 0; $i < count( $monthView[$day] ); $i++ ) {
 		$post = $monthView[$day][$i];

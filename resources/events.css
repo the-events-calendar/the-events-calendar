@@ -174,18 +174,18 @@ table.tribe-events-calendar {
 table.tribe-events-calendar, .tribe-events-calendar td {
 	border:1px solid #bbb;
 }
-.tribe-events-calendar .daynum {
+.tribe-events-calendar .daynum, .tribe-events-calendar .daynum a {
 	background-color:#F5F5F5;
 	color:#333;
 	font-size:11px;
 	padding:3px 9px;
 	font-weight:bold;
 }
-.tribe-events-calendar td.tribe-events-present .daynum {
+.tribe-events-calendar td.tribe-events-present .daynum, .tribe-events-calendar td.tribe-events-present .daynum a  {
 	background-color: #666;
 	color: #fff;
 }
-.tribe-events-calendar td.tribe-events-past .daynum {
+.tribe-events-calendar td.tribe-events-past .daynum, .tribe-events-calendar td.tribe-events-past .daynum a {
 	color: #999;
 }
 .tribe-events-calendar th {
