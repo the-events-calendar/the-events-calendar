@@ -20,7 +20,7 @@
 				<td>
 				<fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Organizer', 'tribe-events-calendar-pro' ); ?></legend>
-					<label><?php $tec->saved_organizers_dropdown(tribe_get_option('eventsDefaultOrganizerID'),'eventsDefaultOrganizerID');?><?php _e('The default organizer value', 'tribe-events-calendar-pro' ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', 'tribe-events-calendar-pro' ), tribe_get_option('eventsDefaultOrganizerID') )  ?>
+					<label><?php $tecp->saved_organizers_dropdown(tribe_get_option('eventsDefaultOrganizerID'),'eventsDefaultOrganizerID');?><?php _e('The default organizer value', 'tribe-events-calendar-pro' ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', 'tribe-events-calendar-pro' ), tribe_get_option('eventsDefaultOrganizerID') )  ?>
 				</fieldset></td>
 			</tr>
 			<tr>
@@ -28,7 +28,7 @@
 				<td>
 				<fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Venue', 'tribe-events-calendar-pro' ); ?></legend>
-					<label><?php $tec->saved_venues_dropdown(tribe_get_option('eventsDefaultVenueID'),'eventsDefaultVenueID');?><?php _e('The default venue value', 'tribe-events-calendar-pro' ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', 'tribe-events-calendar-pro' ), tribe_get_option('eventsDefaultVenueID') )  ?>
+					<label><?php $tecp->saved_venues_dropdown(tribe_get_option('eventsDefaultVenueID'),'eventsDefaultVenueID');?><?php _e('The default venue value', 'tribe-events-calendar-pro' ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', 'tribe-events-calendar-pro' ), tribe_get_option('eventsDefaultVenueID') )  ?>
 				</fieldset></td>
 			</tr>
 			<tr class="venue-default-info">

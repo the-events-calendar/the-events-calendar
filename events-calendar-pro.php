@@ -115,7 +115,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
       public function event_defaults_options() {
          $tec = TribeEvents::instance();
-			include( $this->pluginPath . 'admin-views/event-defaults.php' );
+         $tecp = $this;
+ 	 include( $this->pluginPath . 'admin-views/event-defaults.php' );
       }
 
       public function select_venue_template($template) {
