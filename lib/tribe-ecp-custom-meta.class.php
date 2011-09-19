@@ -26,9 +26,12 @@ class TribeEventsCustomMeta {
 	 */
     public static function remove_meta_field() {
 		global $wpdb, $tribe_ecp;
-      	$options = $tribe_ecp->getOptions();
+	if ( ! isset( $tribe_ecp ) ) {
+		$tribe_ecp = TribeEvents::instance();
+	}
+	$options = $tribe_ecp->getOptions();
       	array_splice($options['custom-fields'], $_POST['field'] - 1, 1);
-      	$tribe_ecp->saveOptions($options);
+      	$tribe_ecp->setOptions($options, false);
       	$wpdb->query($wpdb->prepare("DELETE FROM $wpdb->postmeta WHERE meta_key=%s", '_ecp_custom_' . $_POST['field']));
       	die();
     }
