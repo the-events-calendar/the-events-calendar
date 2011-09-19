@@ -168,7 +168,7 @@ select.tribe-events-dropdown {
 }
 .events-archive .hentry {
 	margin:0;
-	padding: 0 !important;
+	padding: 0 0 15px 0 !important;
 }
 table.tribe-events-calendar {
 	margin:18px 0 12px !important;
