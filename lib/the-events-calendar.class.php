@@ -807,11 +807,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param array $options formatted the same as from getOptions()
 		 * @return void
 		 */
-		public function setOptions($options) {
+		public function setOptions($options, $apply_filters=true) {
 			if (!is_array($options)) {
 				return;
 			}
-			$options = apply_filters( 'tribe-events-save-options', $options );		
+			if ( $apply_filters == true ) {
+				$options = apply_filters( 'tribe-events-save-options', $options );
+			}
 			if ( update_option( TribeEvents::OPTIONNAME, $options ) ) {
 				self::$options = apply_filters( 'tribe_get_options', $options );
 				if ( self::$options['eventsSlug'] != '' ) {
