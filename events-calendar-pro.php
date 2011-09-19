@@ -245,10 +245,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$base_url = 'http://www.google.com/calendar/event';
 			$params = array(
 				'action' => 'TEMPLATE',
-				'text' => str_replace( ' ', '+', strip_tags(get_the_title()) ),
+				'text' => str_replace( ' ', '+', strip_tags( str_replace( '#', '%23', get_the_title() ) ) ),
 				'dates' => $dates,
-				'details' => str_replace( ' ', '+', strip_tags( apply_filters( 'the_content', get_the_content() ) ) ),
-				'location' => str_replace( ' ', '+', $location ),
+				'details' => str_replace( ' ' , '+', strip_tags( apply_filters( 'the_content', str_replace( '#', '%23', get_the_content() ) ) ) ),
+				'location' => str_replace( ' ', '+', str_replace( '#', '%23', $location ) ),
 				'sprop' => get_option('blogname'),
 				'trp' => 'false',
 				'sprop' => 'website:' . home_url()

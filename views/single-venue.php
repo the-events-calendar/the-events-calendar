@@ -34,10 +34,11 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<?php tribe_the_full_address( get_the_ID() ); ?>
 			</dd>
 		<?php endif; ?>
+		<?php if ( get_the_content() != ''): ?>
+		<dt><?php _e('Description:', 'tribe-events-calendar-pro') ?></dt>
+		<dd><?php the_content() ?></dd>
+		<?php endif ?>
 	</dl>
-</div>
-<div class='entry'>
-   <?php the_content() ?>
 </div>
 <div id="tribe-events-loop" class="tribe-events-events post-list clearfix upcoming venue-events">
 	<?php 
