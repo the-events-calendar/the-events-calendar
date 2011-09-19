@@ -717,6 +717,22 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				if ( empty( $_POST['eventsSlug'] ) ) {
 					$_POST['eventsSlug'] = 'events';
 				}
+				
+				//Handle ECP License Key if present
+				if($_POST['licenseKey']) {
+				
+					//echo $_POST['licenseKey'];
+				
+					$tribe_license_keys = maybe_unserialize(get_option('tribe_license_keys'));
+					
+					//validate key - first time
+					
+					//save key
+					$tribe_license_keys['events-calendar-pro'] = $_POST['licenseKey'];
+					
+					update_option( 'tribe_license_keys', serialize($tribe_license_keys) );
+					
+				}
 		
 				$boolean_opts = array(
 					'embedGoogleMaps',
