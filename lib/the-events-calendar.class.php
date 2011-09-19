@@ -44,8 +44,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		);
 		protected $taxonomyLabels;
 
-		public static $supportUrl = 'http://tribepro.dev.tri.be/support/forums/';
-		public static $docUrl = 'http://tribepro.dev.tri.be/events-calendar-support/knowledge-base/';
+		public static $supportUrl = 'http://tribe.pro/support/forums/';
+		public static $docUrl = 'http://tribe.pro/events-calendar-support/knowledge-base/';
 
 		protected static $instance;
 		protected $rewriteSlug = 'events';
