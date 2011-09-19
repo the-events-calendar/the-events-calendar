@@ -127,8 +127,8 @@ div.tribe_settings{
 						<input type="checkbox" id="embedGoogleMaps" name="embedGoogleMaps" value="1" <?php checked( tribe_get_option('embedGoogleMaps') ); ?>/>
 	                </label>
 					<span id="googleEmbedSize" name="googleEmbedSize" style="margin-left:20px;" >
-						<?php _e('Height','tribe-events-calendar'); ?> <input type="text" name="embedGoogleMapsHeight" value="<?php echo tribe_get_option('embedGoogleMapsHeight','350'); ?>" size=4>
-						&nbsp;<?php _e('Width','tribe-events-calendar'); ?> <input type="text" name="embedGoogleMapsWidth" value="<?php echo tribe_get_option('embedGoogleMapsWidth','100%'); ?>" size=4> <?php _e('(number or %)', 'tribe-events-calendar'); ?>
+						<?php _e('Height','tribe-events-calendar'); ?> <input type="text" name="embedGoogleMapsHeight" value="<?php echo esc_attr( tribe_get_option('embedGoogleMapsHeight','350') ); ?>" size=4>
+						&nbsp;<?php _e('Width','tribe-events-calendar'); ?> <input type="text" name="embedGoogleMapsWidth" value="<?php echo esc_attr( tribe_get_option('embedGoogleMapsWidth','100%') ); ?>" size=4> <?php _e('(number or %)', 'tribe-events-calendar'); ?>
 					</span>
 	<br />
 					<div>
@@ -143,14 +143,14 @@ div.tribe_settings{
 				<th scope="row"><?php _e('Events URL slug', 'tribe-events-calendar'); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Events URL slug', 'tribe-events-calendar' ); ?></legend>
-					<label><input type="text" name="eventsSlug" value="<?php echo tribe_get_option('eventsSlug', 'events') ?>" /> <?php _e('The slug used for building the Events URL.', 'tribe-events-calendar' ) ?></label><br /><?php printf( __('Your current Events URL is <strong>%s</strong>', 'tribe-events-calendar' ), tribe_get_events_link() )  ?>
+					<label><input type="text" name="eventsSlug" value="<?php echo esc_attr( tribe_get_option('eventsSlug', 'events') ) ?>" /> <?php _e('The slug used for building the Events URL.', 'tribe-events-calendar' ) ?></label><br /><?php printf( __('Your current Events URL is <strong>%s</strong>', 'tribe-events-calendar' ), tribe_get_events_link() )  ?>
 				</fieldset></td>
 			</tr>
 			<tr>
 				<th scope="row"><?php _e('Single Event URL slug', 'tribe-events-calendar'); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Single Event URL slug', 'tribe-events-calendar' ); ?></legend>
-					<label><input type="text" name="singleEventSlug" value="<?php echo tribe_get_option('singleEventSlug', 'event') ?>" /> <?php _e('The slug used for building a single Event URL.', 'tribe-events-calendar' );  ?></label><br />
+					<label><input type="text" name="singleEventSlug" value="<?php echo esc_attr( tribe_get_option('singleEventSlug', 'event') ) ?>" /> <?php _e('The slug used for building a single Event URL.', 'tribe-events-calendar' );  ?></label><br />
 					<?php printf( __('<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: <strong>%s</strong>', 'tribe-events-calendar' ), trailingslashit( home_url() ) . tribe_get_option('singleEventSlug', 'event') . '/single-post-name/' ); ?>
 				</fieldset></td>
 			</tr>
