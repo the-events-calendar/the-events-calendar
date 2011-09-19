@@ -35,8 +35,8 @@
 				</select>
 				<?php _e('Every','tribe-events-calendar-pro'); ?>
 				<input type="text" name="recurrence[custom-interval]" value="<?php echo $recCustomInterval ?>"/> <span id="recurrence-interval-type"><?php echo $recCustomTypeText ?></span>
-				<input type="hidden" name="recurrence[custom-type-text]" value="<?php echo $recCustomTypeText ?>"/>
-				<input type="hidden" name="recurrence[occurrence-count-text]" value="<?php echo $recOccurrenceCountText ?>"/>
+				<input type="hidden" name="recurrence[custom-type-text]" value="<?php echo esc_attr( $recCustomTypeText ) ?>"/>
+				<input type="hidden" name="recurrence[occurrence-count-text]" value="<?php echo esc_attr( $recOccurrenceCountText ) ?>"/>
 			</td>
 		</tr>
 		<?php if(!isset($recCustomWeekDay)) $recCustomWeekDay = array(); ?>

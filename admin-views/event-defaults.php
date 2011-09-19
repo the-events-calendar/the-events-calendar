@@ -35,14 +35,14 @@
 				<th scope="row"><?php _e('Default Address', 'tribe-events-calendar-pro'); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Address', 'tribe-events-calendar-pro' ); ?></legend>
-					<label><input type="text" name="eventsDefaultAddress" value="<?php echo tribe_get_option('eventsDefaultAddress') ?>" /> <?php _e('The default address value', 'tribe-events-calendar-pro' ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', 'tribe-events-calendar-pro' ), tribe_get_option('eventsDefaultAddress') )  ?>
+					<label><input type="text" name="eventsDefaultAddress" value="<?php echo esc_attr( tribe_get_option('eventsDefaultAddress') ) ?>" /> <?php _e('The default address value', 'tribe-events-calendar-pro' ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', 'tribe-events-calendar-pro' ), tribe_get_option('eventsDefaultAddress') )  ?>
 				</fieldset></td>
 			</tr>
 			<tr class="venue-default-info">
 				<th scope="row"><?php _e('Default City', 'tribe-events-calendar-pro'); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default City', 'tribe-events-calendar-pro' ); ?></legend>
-					<label><input type="text" name="eventsDefaultCity" value="<?php echo tribe_get_option('eventsDefaultCity') ?>" /> <?php _e('The default city value', 'tribe-events-calendar-pro' ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', 'tribe-events-calendar-pro' ), tribe_get_option('eventsDefaultCity') )  ?>
+					<label><input type="text" name="eventsDefaultCity" value="<?php echo esc_attr( tribe_get_option('eventsDefaultCity') ) ?>" /> <?php _e('The default city value', 'tribe-events-calendar-pro' ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', 'tribe-events-calendar-pro' ), tribe_get_option('eventsDefaultCity') )  ?>
 				</fieldset></td>
 			</tr>
 
@@ -71,7 +71,7 @@
 				<th scope="row"><?php _e('Default Province', 'tribe-events-calendar-pro'); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Province or State', 'tribe-events-calendar-pro' ); ?></legend>
-					<label><input type="text" name="eventsDefaultProvince" value="<?php echo tribe_get_option('eventsDefaultProvince') ?>" /> <?php _e('The default  value', 'tribe-events-calendar-pro' ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', 'tribe-events-calendar-pro' ), tribe_get_option('eventsDefaultProvince') )  ?>
+					<label><input type="text" name="eventsDefaultProvince" value="<?php echo esc_attr( tribe_get_option('eventsDefaultProvince') ) ?>" /> <?php _e('The default  value', 'tribe-events-calendar-pro' ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', 'tribe-events-calendar-pro' ), tribe_get_option('eventsDefaultProvince') )  ?>
 				</fieldset></td>
 			</tr>
 
@@ -79,7 +79,7 @@
 				<th scope="row"><?php _e('Default Postal Code', 'tribe-events-calendar-pro'); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Postal Code', 'tribe-events-calendar-pro' ); ?></legend>
-					<label><input type="text" name="eventsDefaultZip" value="<?php echo tribe_get_option('eventsDefaultZip') ?>" /> <?php _e('The default Postal Code value', 'tribe-events-calendar-pro' ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', 'tribe-events-calendar-pro' ), tribe_get_option('eventsDefaultZip') )  ?>
+					<label><input type="text" name="eventsDefaultZip" value="<?php echo esc_attr( tribe_get_option('eventsDefaultZip') ) ?>" /> <?php _e('The default Postal Code value', 'tribe-events-calendar-pro' ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', 'tribe-events-calendar-pro' ), tribe_get_option('eventsDefaultZip') )  ?>
 				</fieldset></td>
 			</tr>
 
@@ -105,7 +105,7 @@
 				<th scope="row"><?php _e('Default Phone', 'tribe-events-calendar-pro'); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Phone', 'tribe-events-calendar-pro' ); ?></legend>
-					<label><input type="text" name="eventsDefaultPhone" value="<?php echo tribe_get_option('eventsDefaultPhone') ?>" /> <?php _e('The default phone value', 'tribe-events-calendar-pro' ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', 'tribe-events-calendar-pro' ), tribe_get_option('eventsDefaultPhone') )  ?>
+					<label><input type="text" name="eventsDefaultPhone" value="<?php echo esc_attr( tribe_get_option('eventsDefaultPhone') ) ?>" /> <?php _e('The default phone value', 'tribe-events-calendar-pro' ) ?></label><br /><?php printf( __('The current default value is <strong>%s</strong>', 'tribe-events-calendar-pro' ), tribe_get_option('eventsDefaultPhone') )  ?>
 				</fieldset></td>
 			</tr>
 			<tr>
