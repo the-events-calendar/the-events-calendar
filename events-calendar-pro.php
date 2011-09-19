@@ -354,9 +354,21 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
    function Tribe_ECP_Load() {
       if( class_exists( 'TribeEvents' ) && defined('TribeEvents::VERSION') && version_compare( TribeEvents::VERSION, '2.0', '>=') ) {
          TribeEventsPro::instance();
+      } else {
+	add_action( 'admin_notices', 'show_fail_message' );
       }
    }
 
    add_action( 'plugins_loaded', 'Tribe_ECP_Load');
+
+   /**
+    * Shows message if the plugin can't load due to TEC not being installed.
+    */
+
+   function show_fail_message() {
+       if ( current_user_can('manage_options') ) {
+           echo "<div class=\"error\"><p>To begin using Events Calendar PRO, please activate The Events Calendar 2.0.</p></div>";
+       }
+   }   
 }
 ?>
