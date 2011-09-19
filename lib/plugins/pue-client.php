@@ -34,6 +34,7 @@ if ( !class_exists('PluginUpdateEngineChecker') ):
  * 
  * @original author (c) Janis Elsts
  * @heavily modified by Darren Ethier
+ * @slighty modified by Nick Ciske
  * @license GPL2 or greater. 
  * @version 1.1
  * @access public
@@ -64,14 +65,20 @@ class PluginUpdateEngineChecker {
 	 * 	@key integer $checkPeriod How often to check for updates (in hours). Defaults to checking every 12 hours. Set to 0 to disable automatic update checks.
 	 * 	@key string $optionName Where to store book-keeping info about update checks. Defaults to 'external_updates-$slug'. 
 	 *  @key string $apikey used to authorize download updates from developer server
-	 *	@key string $lang_domain If the plugin file pue-client.php is included with is localized you can put the domain reference string here so any strings in this file get included in the localization.
+		@key string $lang_domain If the plugin file pue-client.php is included with is localized you can put the domain reference string here so any strings in this file get included in the localization.
 	 * @return void
 	 */
-	function __construct( $metadataUrl, $slug = '', $options = array() ){
+	function __construct( $metadataUrl, $slug = '', $options = array(), $pluginFile = '' ){
 		$this->metadataUrl = $metadataUrl;
 		$this->slug = $slug;
 		$tr_slug = str_replace('-','_',$this->slug);
-		$this->pluginFile = $slug.'/'.$slug.'.php';
+
+		if( !empty($pluginFile) ){
+			$this->pluginFile = $pluginFile;
+		}else{
+			$this->pluginFile = $slug.'/'.$slug.'.php';
+		}
+
 		$this->dismiss_upgrade = 'pu_dismissed_upgrade_'.$tr_slug;
 		$this->pluginName = ucwords(str_replace('-', ' ', $this->slug));
 		$this->pue_install_key = 'pue_install_key_'.$tr_slug;
@@ -79,6 +86,7 @@ class PluginUpdateEngineChecker {
 		$defaults = array(
 			'optionName' => 'external_updates-' . $this->slug,
 			'apikey' => '',
+			'installkey' => '',
 			'lang_domain' => '',
 			'checkPeriod' => 12
 		);
@@ -89,6 +97,7 @@ class PluginUpdateEngineChecker {
 		$this->optionName = $optionName;
 		$this->checkPeriod = (int) $checkPeriod;
 		$this->api_secret_key = $apikey;
+		$this->install_key = $installkey;
 		$this->lang_domain = $lang_domain;
 		
 		$this->set_api();
@@ -197,10 +206,28 @@ class PluginUpdateEngineChecker {
 			$queryArgs['pu_plugin_api'] = $this->api_secret_key;  
 			
 		if ( !empty($this->install_key) )
-			$queryArgs['pue_install_key'] = $this->install_key;
+			$queryArgs['pu_install_key'] = $this->install_key;
         
 		//include version info
 			$queryArgs['pue_active_version'] = $this->getInstalledVersion();
+			
+			global $wp_version;
+			$queryArgs['wp_version'] = $wp_version;
+
+		//include domain and multisite stats
+			$queryArgs['domain'] = $_SERVER['SERVER_NAME'];
+		
+		if( is_multisite() ){
+			$queryArgs['multisite'] = 1;
+			$queryArgs['network_activated'] = is_plugin_active_for_network( $this->pluginFile );
+			global $wpdb;
+			$queryArgs['active_sites'] = $wpdb->get_var( "SELECT count(blog_id) FROM $wpdb->blogs WHERE public = '1' AND archived = '0' AND spam = '0' AND deleted = '0'" );
+
+		}else{
+			$queryArgs['multisite'] = 0;
+			$queryArgs['network_activated'] = 0;
+			$queryArgs['active_sites'] = 1;
+		}
 
 		$queryArgs = apply_filters('puc_request_info_query_args-'.$this->slug, $queryArgs);
 		
@@ -218,10 +245,14 @@ class PluginUpdateEngineChecker {
 			$url = add_query_arg($queryArgs, $url);
 		}
 		
+		//echo $url; //DEBUG
+		
 		$result = wp_remote_get(
 			$url,
 			$options
 		);
+		
+		//echo $result['body']; //DEBUG
 		
 		//Try to parse the response
 		$pluginInfo = null;
@@ -269,7 +300,6 @@ class PluginUpdateEngineChecker {
 	function in_plugin_update_message($plugin_data) {
 		$plugininfo = $this->json_error;
 		//only display messages if there is a new version of the plugin.
-		
 		if ( version_compare($plugininfo->version, $this->getInstalledVersion(), '>') ) {
 			if ( $plugininfo->api_invalid ) {
 				$msg = str_replace('%plugin_name%', $this->pluginName, $plugininfo->api_inline_invalid_message);
@@ -382,6 +412,7 @@ class PluginUpdateEngineChecker {
 			!isset($state->lastCheck) || 
 			( (time() - $state->lastCheck) >= $this->checkPeriod*3600 );
 		
+		//$shouldCheck = true; //DEBUG
 		if ( $shouldCheck ){
 			$this->checkForUpdates();
 		}

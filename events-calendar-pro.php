@@ -17,12 +17,15 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $pluginDir;
 		public $pluginPath;
 		public $pluginUrl;
-		public static $updateUrl = 'http://tribe.pro/';
+		public $pluginSlug;
+		public $licenseKey;
+		public static $updateUrl = 'http://tribe.local:8888/';
 		
 	    private function __construct() {
 			$this->pluginDir = trailingslashit( basename( dirname(__FILE__) ) );
 			$this->pluginPath = trailingslashit( dirname(__FILE__) );
 			$this->pluginUrl = WP_PLUGIN_URL.'/'.$this->pluginDir;
+			$this->pluginSlug = 'events-calendar-pro';
 			if (defined('TRIBE_UPDATE_URL')) { self::$updateUrl = TRIBE_UPDATE_URL; }
 
 			require_once( 'lib/tribe-date-series-rules.class.php' );
@@ -45,6 +48,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'tribe_after_location_details', array( $this, 'add_google_map_preview') );
 			add_action( 'tribe_tec_template_chooser', array( $this, 'do_ical_template' ) );
 			add_action( 'tribe-events-after-theme-settings', array( $this, 'event_defaults_options') );
+			add_action( 'tribe-events-after-theme-settings', array( $this, 'event_license_key') );
 			add_filter( 'tribe_current_events_page_template', array( $this, 'select_venue_template' ) );
 			add_filter( 'tribe_events_template_single-venue.php', array( $this, 'load_venue_template' ) );
 			add_action( 'widgets_init', array( $this, 'pro_widgets_init' ), 100 );
@@ -59,7 +63,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function init() {
 			TribeEventsCustomMeta::init();
 			TribeEventsRecurrenceMeta::init();
-			new PluginUpdateEngineChecker(self::$updateUrl, 'events-calendar-pro', array('installkey' => $installkey), plugin_basename(__FILE__));
+			
+			$tribe_license_keys = maybe_unserialize(get_option('tribe_license_keys'));
+			$this->licenseKey = $tribe_license_keys[$this->pluginSlug];
+			
+			new PluginUpdateEngineChecker(self::$updateUrl, $this->pluginSlug, array('installkey' => $this->licenseKey), plugin_basename(__FILE__));
 		}
 
       public function do_ical_template($template) {
@@ -110,11 +118,16 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
          <?php
       }
 
-
       public function event_defaults_options() {
          $tec = TribeEvents::instance();
          $tecp = $this;
- 	 include( $this->pluginPath . 'admin-views/event-defaults.php' );
+ 	 	 include( $this->pluginPath . 'admin-views/event-defaults.php' );
+      }
+
+      public function event_license_key() {
+         $tec = TribeEvents::instance();
+         $tecp = $this;
+ 	 	 include( $this->pluginPath . 'admin-views/event-license-key.php' );
       }
 
       public function select_venue_template($template) {
