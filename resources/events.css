@@ -142,6 +142,11 @@ select.tribe-events-dropdown {
 	font-size:11px;
 	margin:33px 9px 0 0;
 }
+
+.singular .tribe-events-event.hentry {
+	padding-top: 1em !important;
+}
+
 .events-archive .post {
 	overflow:hidden;
 	margin-bottom:0;
@@ -302,7 +307,7 @@ table.tribe-events-calendar, .tribe-events-calendar td {
 }
 #tribe-events-event-meta dd {
 	padding:0;
-	margin-left:70px;
+	margin-left:80px;
 	margin-bottom: 10px;
 }
 #tribe-events-event-meta .gmap, .tribe-events-event-meta-desc .gmap {
