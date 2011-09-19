@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-09 18:07-0500\n"
-"PO-Revision-Date: 2011-09-09 18:07-0500\n"
+"POT-Creation-Date: 2011-09-19 16:35-0500\n"
+"PO-Revision-Date: 2011-09-19 16:36-0500\n"
 "Last-Translator: John Gadbois <jgadbois@gmail.com>\n"
 "Language-Team: Modern Tribe, Inc.\n"
 "Language: \n"
@@ -19,6 +19,38 @@ msgstr ""
 "X-Poedit-Language: English\n"
 "X-Poedit-Country: UNITED STATES\n"
 "X-Poedit-SearchPath-0: ..\n"
+
+#: ../events-calendar-pro.php:85
+msgid "Venues"
+msgstr ""
+
+#: ../events-calendar-pro.php:86
+msgid "Organizers"
+msgstr ""
+
+#: ../events-calendar-pro.php:93
+msgid "Use Saved Venue:"
+msgstr ""
+
+#: ../events-calendar-pro.php:105
+msgid "Use Saved Organizer:"
+msgstr ""
+
+#: ../events-calendar-pro.php:297
+msgid "Use New Venue"
+msgstr ""
+
+#: ../events-calendar-pro.php:304
+msgid "No saved venues yet."
+msgstr ""
+
+#: ../events-calendar-pro.php:315
+msgid "Use New Organizer"
+msgstr ""
+
+#: ../events-calendar-pro.php:322
+msgid "No saved organizers yet."
+msgstr ""
 
 #: ../views/events-advanced-list-load-widget-display.php:49
 #: ../views/widget-featured-display.php:48
@@ -57,15 +89,19 @@ msgstr ""
 msgid "Google Map"
 msgstr ""
 
-#: ../views/single-venue.php:62
+#: ../views/single-venue.php:38
+msgid "Description:"
+msgstr ""
+
+#: ../views/single-venue.php:63
 msgid "Start:"
 msgstr ""
 
-#: ../views/single-venue.php:66
+#: ../views/single-venue.php:67
 msgid "End:"
 msgstr ""
 
-#: ../views/single-venue.php:74
+#: ../views/single-venue.php:75
 msgid "Cost:"
 msgstr ""
 
@@ -807,6 +843,18 @@ msgstr ""
 msgid "December"
 msgstr ""
 
+#: ../lib/apm_filters.php:26
+msgid "Organizer"
+msgstr ""
+
+#: ../lib/apm_filters.php:31
+msgid "Start Date"
+msgstr ""
+
+#: ../lib/apm_filters.php:37
+msgid "Event Cost"
+msgstr ""
+
 #: ../lib/widget-featured.class.php:13
 msgid "Your next upcoming event"
 msgstr ""
@@ -815,7 +863,7 @@ msgstr ""
 msgid "Next Event Widget"
 msgstr ""
 
-#: ../lib/widget-featured.class.php:61
+#: ../lib/widget-featured.class.php:62
 msgid "There are no upcoming events at this time."
 msgstr ""
 
