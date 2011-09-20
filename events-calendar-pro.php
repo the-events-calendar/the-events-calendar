@@ -19,7 +19,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $pluginUrl;
 		public $pluginSlug;
 		public $licenseKey;
-		public static $updateUrl = 'http://tribe.local:8888/';
+		public static $updateUrl = 'http://tribe.pro/';
 		
 	    private function __construct() {
 			$this->pluginDir = trailingslashit( basename( dirname(__FILE__) ) );
