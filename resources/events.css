@@ -468,6 +468,15 @@ h4 .tribe-view-all-events {
 	font-size:11px;
 }
 
+/* Fixes for rich snippets */
+.event .entry-title {
+	color: inherit !important;
+	font-size: inherit !important;
+	font-weight: inherit !important;
+	line-height: inherit !important;
+	padding: inherit !important;
+}
+
 /* 2011 needs more calendar room */
 .events-archive .entry-content, .events-archive .entry-header { width: 98%; }
 .events-archive .tribe-events-event-entry { width: 60%; }

@@ -14,11 +14,13 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <?php if (tribe_get_end_date() > time()  ) { ?><small><?php  _e('This event has passed.', 'tribe-events-calendar') ?></small> <?php } ?>
 <div id="tribe-events-event-meta" itemscope itemtype="http://schema.org/Event">
 	<dl class="column">
+		<dt><?php _e('Event:', 'tribe-events-calendar') ?></dt>
+		<dd itemprop="name"><span class="summary"><?php the_title() ?></span></dd>
 		<dt><?php _e('Start:', 'tribe-events-calendar') ?></dt> 
-			<dd><meta itemprop="startDate" content="<?php echo tribe_get_start_date( null, false, 'Y-m-d' ); ?>"/><?php echo tribe_get_start_date(); ?></dd>
+			<dd><meta itemprop="startDate" content="<?php echo tribe_get_start_date( null, false, 'Y-m-d-h:i:s' ); ?>"/><?php echo tribe_get_start_date(); ?></dd>
 		<?php if (tribe_get_start_date() !== tribe_get_end_date() ) { ?>
 			<dt><?php _e('End:', 'tribe-events-calendar') ?></dt>
-			<dd><meta itemprop="endDate" content="<?php echo tribe_get_end_date( null, false, 'Y-m-d' ); ?>"/><?php echo tribe_get_end_date();  ?></dd>						
+			<dd><meta itemprop="endDate" content="<?php echo tribe_get_end_date( null, false, 'Y-m-d-h:i:s' ); ?>"/><?php echo tribe_get_end_date();  ?></dd>						
 		<?php } ?>
 		<?php if ( tribe_get_cost() ) : ?>
 			<dt><?php _e('Cost:', 'tribe-events-calendar') ?></dt>
@@ -27,7 +29,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<?php tribe_meta_event_cats(); ?>
 		<?php if ( tribe_get_organizer_link() ) : ?>
 			<dt><?php _e('Organizer:', 'tribe-events-calendar') ?></dt>
-			<dd class="vcard author"><?php echo tribe_get_organizer_link(); ?></dd>
+			<dd class="vcard author"><span class="fn url"><?php echo tribe_get_organizer_link(); ?></span></dd>
 		<?php endif; ?>
 		<?php if ( tribe_get_organizer_phone() ) : ?>
 			<dt><?php _e('Phone:', 'tribe-events-calendar') ?></dt>
@@ -37,6 +39,8 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<dt><?php _e('Email:', 'tribe-events-calendar') ?></dt>
 			<dd itemprop="email"><?php echo tribe_get_organizer_email(); ?></dd>
 		<?php endif; ?>
+		<dt><?php _e('Updated:', 'tribe-events-calendar') ?></dt>
+		<dd><span class="date updated"><?php the_date(); ?></span></dd>
 		<?php if ( function_exists('tribe_get_recurrence_text') && tribe_is_recurring_event() ) : ?>
 			<dt><?php _e('Schedule:', 'tribe-events-calendar') ?></dt>
 			<dd><?php echo tribe_get_recurrence_text(); ?> (<a href='<?php tribe_all_occurences_link() ?>'>See all</a>)</dd>
@@ -76,7 +80,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	if ( function_exists('has_post_thumbnail') && has_post_thumbnail() ) {?>
 		<?php the_post_thumbnail(); ?>
 	<?php } ?>
-	<?php the_content() ?>	
+	<div class="summary"><?php the_content() ?></div>
 	<?php if (function_exists('tribe_get_ticket_form')) { tribe_get_ticket_form(); } ?>		
 </div>
 <?php if( function_exists('tribe_get_single_ical_link') ): ?>
