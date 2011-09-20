@@ -103,7 +103,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			}
 		?>
       <?php if(tribe_is_day()): ?>
-         <?php _e('No events scheduled for this day. Please try another day', 'tribe-events-calendar'); ?>
+         <?php printf( __('No events scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar'), date_i18n('F d, Y', strtotime(get_query_var('eventDate')))); ?>
       <?php endif; ?>
 
 		<?php if(tribe_is_upcoming()){ ?>

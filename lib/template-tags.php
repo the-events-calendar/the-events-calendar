@@ -960,7 +960,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	
 	function tribe_is_multiday( $postId = null)  {
 		$postId = tribe_post_id_helper( $postId );
-		$start = strtotime(tribe_get_event_meta( $postId, '_EventStartDate', true ));
+		$start = (array)tribe_get_event_meta( $postId, '_EventStartDate', false );
+      sort($start);
+      $start = strtotime($start[0]);
 		$end = strtotime(tribe_get_event_meta( $postId, '_EventEndDate', true ));
 		return date('d-m-Y', $start) != date('d-m-Y', $end);
 	}
