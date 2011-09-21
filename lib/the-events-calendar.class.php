@@ -1140,9 +1140,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					return $eventUrl . 'ical/';
 				case 'single':
                global $post;
-					$post = $secondary ? $secondary : $post;
+					$p = $secondary ? $secondary : $post;
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );					
-               $link = trailingslashit(get_permalink($post));
+               $link = trailingslashit(get_permalink($p));
 					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );										
                return $link;
             case 'day':
@@ -1838,11 +1838,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				AND ((d1.meta_value = '" .$date . "' AND ID $sign ".$id.") OR
 					d1.meta_value $sign '" .$date . "')
 				AND $wpdb->posts.post_status = 'publish'
+				AND $wpdb->posts.ID != $id
 				ORDER BY TIMESTAMP(d1.meta_value) $order, ID $order
 				LIMIT 1";
 
 			$results = $wpdb->get_row($eventsQuery, OBJECT);
-
 			if(is_object($results)) {
 				if ( !$anchor ) {
 					$anchor = $results->post_title;
