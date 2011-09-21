@@ -147,7 +147,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		</div>
 
 	</div>
-   <?php if ( $hasPosts ): ?>
+   <?php if ( $hasPosts && function_exists('tribe_get_ical_link') ): ?>
       <a title="<?php esc_attr_e('iCal Import', 'tribe-events-calendar') ?>" class="ical" href="<?php echo tribe_get_ical_link(); ?>"><?php _e('iCal Import', 'tribe-events-calendar') ?></a>
    <?php endif; ?>
 </div>
