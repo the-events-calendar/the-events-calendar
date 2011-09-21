@@ -485,6 +485,7 @@ h4 .tribe-view-all-events {
 
 .updated-info {
 	text-indent: -9999px;
+	height: 0;
 }
 
 /* 2011 needs more calendar room */
