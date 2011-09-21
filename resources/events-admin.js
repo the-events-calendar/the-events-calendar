@@ -24,4 +24,25 @@ jQuery(document).ready(function($) {
 		}
 		
 	});
+
+   $('#doaction, #doaction2').click(function(e){
+      var n = $(this).attr('id').substr(2);
+      if ( $('select[name="'+n+'"]').val() == 'edit' && $('.post_type_page').val() == 'tribe_events' ) {
+         e.preventDefault();
+
+         var ids = new Array();
+
+         $('#bulk-titles div').each(function() {
+            var id = $(this).attr('id'), postId = id.replace('ttle', ''), 
+               title = $('#post-' + postId + ' .row-title').first().text();
+            var curLink = $('<div/>').append($(this).find('a').clone()).html();
+         $(this).html(curLink + title);
+
+            if(ids[id])
+               $(this).remove();
+
+            ids[id] = true;
+         });
+      }
+   });
 });
