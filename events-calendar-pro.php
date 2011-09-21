@@ -1,10 +1,10 @@
 <?php
 /*
  Plugin Name: Events Calendar Pro
- Description: The Events Calendar Pro Premium plugin enables recurring events, custom meta, and other premium features for The Events Calendar plugin 
+ Description: The Events Calendar PRO, a premium add-on to the open source The Events Calendar plugin (required), enables recurring events, custom attributes, venue pages, new widgets and a host of other premium features.
  Version: 2.0
  Author: Modern Tribe, Inc.
- Author URI: http://tribe.pro/
+ Author URI: http://tri.be/?ref=ecp-plugin
  Text Domain: tribe-events-calendar-pro
  */
 
@@ -53,6 +53,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_events_template_single-venue.php', array( $this, 'load_venue_template' ) );
 			add_action( 'widgets_init', array( $this, 'pro_widgets_init' ), 100 );
 			add_action( 'wp_loaded', array( $this, 'allow_cpt_search' ) );
+			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
 
          // Load organizer and venue editors
          add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
@@ -336,8 +337,19 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				echo '<p class="nosaved_organizer">'.__('No saved organizers yet.','tribe-events-calendar-pro').'</p>';
 			}
 		}
+      /**
+       * Add meta links on the plugin page
+       */
+		public function addMetaLinks( $links, $file ) {
+         if ( $file == $this->pluginDir . 'events-calendar-pro.php' ) {
+            $anchor = __( 'Support', 'tribe-events-calendar' );
+            $links []= '<a href="http://tribe.pro/events-calendar-support/ref=ecp-plugin">' . $anchor . '</a>';
 
-
+				$anchor = __( 'View All Add-Ons', 'tribe-events-calendar' ); 
+				$links []= '<a href="http://tribe.pro/events-calendar/features/add-ons/?ref=ecp-plugin">' . $anchor . '</a>';
+			}
+			return $links;
+		}
 
 		/* Static Methods */
 	    public static function instance()
