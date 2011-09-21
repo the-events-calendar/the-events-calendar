@@ -226,6 +226,12 @@ table.tribe-events-calendar, .tribe-events-calendar td {
 	position:relative;
 	margin:0;
 }
+.tribe-events-event .entry img.attachment-post-thumbnail {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	text-align: center;
+}
 .tribe-events-real-event {
    cursor: pointer;
 }
