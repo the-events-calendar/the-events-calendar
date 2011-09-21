@@ -310,7 +310,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					echo '<option value="0">' . __("Use New Venue", 'tribe-events-calendar-pro') . '</option>';
 				foreach($venues as $venue){
 					$selected = ($current == $venue->ID) ? 'selected="selected"' : '';
-					echo "<option data-address='" . esc_attr(TribeEvents::instance()->fullAddressString($venue->ID)) . "' value='{$venue->ID}' $selected>{$venue->post_title}</option>";
+               $venue_title = strlen($venue->post_title) > 70 ? substr($venue->post_title, 0, 67) . '...' : $venue->post_title;
+					echo "<option data-address='" . esc_attr(TribeEvents::instance()->fullAddressString($venue->ID)) . "' value='{$venue->ID}' $selected>{$venue_title}</option>";
 				}
 				echo '</select>';
 			}else{
