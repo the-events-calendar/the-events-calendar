@@ -24,7 +24,7 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 		$postId = tribe_post_id_helper( $postId );
 		$data = array();
 		$customFields = tribe_get_option('custom-fields', false);
-		if ( ! is_array( $customFields ) || ! trim($customFields) ) {
+		if ( ! trim($customFields) ) {
 			return $data;
 		}
 		foreach ($customFields as $field) {
