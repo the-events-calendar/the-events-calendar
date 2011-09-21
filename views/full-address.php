@@ -10,12 +10,13 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 ?>
 <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+	<?php $address_out = Array() ?>
 	<?php if( $includeVenueName && tribe_get_venue( $postId ) ) { ?>
-		<span itemprop="addressLocality"><?php tribe_get_venue( $postId ); ?></span>
+		<?php $address_out []= '<span itemprop="addressLocality">' . tribe_get_venue( $postId ) .'</span>'; ?>
 	<?php } ?>
 	
 	<?php if( tribe_get_address( $postId ) ) { ?>
-		<span itemprop="streetAddress"><?php echo tribe_get_address( $postId ); ?></span>
+		<?php $address_out []= '<span itemprop="streetAddress">' . tribe_get_address( $postId ) . '</span>'; ?>
 	<?php } ?>
 
 	<?php
@@ -28,14 +29,18 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		$cityregion .= tribe_get_region( $postId );
 	}
 	if( $cityregion != '' ) { ?>
-		<span itemprop="addressRegion"><?php echo $cityregion; ?></span>
+		<?php $address_out []= '<span itemprop="addressRegion">' . $cityregion . '</span>'; ?>
 	<?php } ?>
 
 	<?php if( tribe_get_zip( $postId ) ) { ?>
-		<span itemprop="postalCode"><?php echo tribe_get_zip( $postId ); ?></span>
+		<?php $address_out []= '<span itemprop="postalCode">' . tribe_get_zip( $postId ) . '</span>'; ?>
 	<?php } ?>
 
 	<?php if( tribe_get_country( $postId ) ) { ?>
-		<span itemprop="addressCountry"><?php echo tribe_get_country( $postId ); ?></span>
+		<?php $address_out []= '<span itemprop="addressCountry">' . tribe_get_country( $postId ) . '</span>'; ?>
 	<?php } ?>
+
+	<?php if ( count( $address_out ) > 0 ) : ?>
+	<?php echo implode( ', ', $address_out ); ?>
+	<?php endif ?>
 </div>

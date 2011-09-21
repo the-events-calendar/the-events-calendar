@@ -37,7 +37,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<?php endif; ?>
 		<?php if ( tribe_get_organizer_email() ) : ?>
 			<dt><?php _e('Email:', 'tribe-events-calendar') ?></dt>
-			<dd itemprop="email"><?php echo tribe_get_organizer_email(); ?></dd>
+			<dd itemprop="email"><a href="mailto:<?php echo tribe_get_organizer_email(); ?>"><?php echo tribe_get_organizer_email(); ?></a></dd>
 		<?php endif; ?>
 		<dt><?php _e('Updated:', 'tribe-events-calendar') ?></dt>
 		<dd><span class="date updated"><?php the_date(); ?></span></dd>
