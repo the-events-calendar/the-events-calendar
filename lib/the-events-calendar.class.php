@@ -85,6 +85,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'_VenueAddress',
 			'_VenueCity',
 			'_VenueStateProvince',
+			'_VenueState',
+			'_VenueProvince',
 			'_VenueZip',
 			'_VenuePhone'
 		);
