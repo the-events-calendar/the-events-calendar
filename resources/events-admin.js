@@ -34,9 +34,9 @@ jQuery(document).ready(function($) {
 
          $('#bulk-titles div').each(function() {
             var id = $(this).attr('id'), postId = id.replace('ttle', ''), 
-               title = $('#post-' + postId + ' .row-title').first().text();
-            var curLink = $('<div/>').append($(this).find('a').clone()).html();
-         $(this).html(curLink + title);
+               title = $('#post-' + postId + ' .row-title').first().text(), 
+               tempHolder = $('<div/>').append($(this).find('a'));
+         $(this).html('').append(tempHolder).append(title);
 
             if(ids[id])
                $(this).remove();
