@@ -57,7 +57,7 @@ ob_end_clean();
 	</div>
 	<div class="event">
 		<a href="<?php echo get_permalink($post->ID) ?>"><span class="entry-title"><?php echo $post->post_title ?></span></a><br />
-		Updated: <span class="date updated"><?php echo $post->post_date ?></span><br />
+		<div class="updated-info">Updated: <span class="date updated"><?php echo $post->post_date ?></span></div><br />
 		<span class="vcard author"><span class="fn url"><?php echo tribe_get_organizer_link() ?></span></span>
 	</div>
 	<div class="loc"><?php
