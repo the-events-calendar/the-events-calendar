@@ -226,9 +226,9 @@ class Tribe_Title_Filter {
 new Tribe_Title_Filter;
 
 class Tribe_Venue_Filter {
-	
-	protected $key = 'ecp_venue_filter';
+	protected $key = 'ecp_venue_filter_key';
 	protected $type = 'ecp_venue_filter';
+	protected $meta = '_EventVenueID';
 	
 	public function __construct() {
 		$type = $this->type;
@@ -236,17 +236,41 @@ class Tribe_Venue_Filter {
 		add_filter( 'tribe_custom_column'.$type, array($this, 'column_value'), 10, 3 );
 		add_filter( 'tribe_custom_row'.$type, array($this, 'form_row'), 10, 4 );
 		add_action( 'tribe_orderby_custom'.$type, array($this, 'orderby'), 10, 2 );
+		add_filter( 'tribe_maybe_active'.$type, array($this, 'maybe_set_active'), 10, 3 );
+		add_action( 'tribe_after_parse_query', array($this, 'parse_query'), 10, 2 );
+	}
+	
+	public function parse_query($wp_query, $active) {
+		if ( ! isset($active[$this->key]) ) {
+			return;
+		}
+		$value = $active[$this->key];
+		$compare = is_array($value) ? 'IN' : '=';
+		$meta_query = (array) $wp_query->get('meta_query');
+		$meta_query[] = array(
+			'key' => $this->meta,
+			'value' => $value,
+			'compare' => $compare
+		);
+		$wp_query->set('meta_query', $meta_query);
+		
+	}
+	
+	public function maybe_set_active($return, $key, $filter) {
+		if ( isset($_POST[$this->key]) && ! empty($_POST[$this->key]) ) {
+			return $_POST[$this->key];
+		}
+		return $return;
 	}
 	
 	public function orderby($wp_query, $filter) {
 		add_filter( 'posts_orderby', array($this, 'set_orderby'), 10, 2 );
-		add_filter( 'posts_join', array($this, 'join_venue'), 10, 2 );
+		add_filter( 'posts_join', array($this, 'join_venue'), 10, 2);
 	}
 
 	public function join_venue($join, $wp_query) {
 		global $wpdb;
-		
-		$join .= "LEFT JOIN {$wpdb->postmeta} AS venue_meta ON({$wpdb->posts}.ID = venue_meta.post_id AND venue_meta.meta_key='_EventVenueID') "; 
+		$join .= "LEFT JOIN {$wpdb->postmeta} AS venue_meta ON({$wpdb->posts}.ID = venue_meta.post_id AND venue_meta.meta_key='{$this->meta}') "; 
 		$join .= "LEFT JOIN {$wpdb->posts} AS venue ON (venue_meta.meta_value = venue.ID) ";
 		return $join;
 	}
@@ -256,18 +280,18 @@ class Tribe_Venue_Filter {
 		remove_filter( 'posts_orderby', array($this, 'set_orderby'), 10, 2 );
 		global $wpdb;
 		list($by, $order) = explode(' ', trim($orderby) );
-		$by = 'venue.post_title';
+		$by = "venue.post_title";
 		return $by . ' ' . $order;
 	}
 	
 	public function form_row($return, $key, $value, $filter) {
-		$venues = get_posts( array( 'post_type'=>TribeEvents::VENUE_POST_TYPE, 'nopaging' => true ) );
+		$venues = get_posts( array( 'post_type' => TribeEvents::VENUE_POST_TYPE, 'nopaging' => true ) );
 
-		foreach ( $venues as $venue ) {
-			$args[$venue->ID] = $venue->post_title;
+		foreach ( $venues as $venues ) {
+			$args[$venues->ID] = $venues->post_title;
 		}
 		
-		return tribe_select_field($key, $args, $value['value'], true);
+		return tribe_select_field($key, $args, $value, true);
 	}
 
 	public function column_value($value, $column_id, $post_id) {
@@ -277,20 +301,19 @@ class Tribe_Venue_Filter {
 		if( $venue_id && $venue )
 			echo $venue->post_title;
 		else
-			echo "--";
+			echo "–";
 	}
 	
 	public function log($data = array() ) {
 		error_log(print_r($data,1));
 	}
-	
-	
 }
 new Tribe_Venue_Filter;
 
 class Tribe_Organizer_Filter {
-	protected $key = 'ecp_organizer_filter';
+	protected $key = 'ecp_organizer_filter_key';
 	protected $type = 'ecp_organizer_filter';
+	protected $meta = '_EventOrganizerID';
 	
 	public function __construct() {
 		$type = $this->type;
@@ -298,6 +321,31 @@ class Tribe_Organizer_Filter {
 		add_filter( 'tribe_custom_column'.$type, array($this, 'column_value'), 10, 3 );
 		add_filter( 'tribe_custom_row'.$type, array($this, 'form_row'), 10, 4 );
 		add_action( 'tribe_orderby_custom'.$type, array($this, 'orderby'), 10, 2 );
+		add_filter( 'tribe_maybe_active'.$type, array($this, 'maybe_set_active'), 10, 3 );
+		add_action( 'tribe_after_parse_query', array($this, 'parse_query'), 10, 2 );
+	}
+	
+	public function parse_query($wp_query, $active) {
+		if ( ! isset($active[$this->key]) ) {
+			return;
+		}
+		$value = $active[$this->key];
+		$compare = is_array($value) ? 'IN' : '=';
+		$meta_query = (array) $wp_query->get('meta_query');
+		$meta_query[] = array(
+			'key' => $this->meta,
+			'value' => $value,
+			'compare' => $compare
+		);
+		$wp_query->set('meta_query', $meta_query);
+		
+	}
+	
+	public function maybe_set_active($return, $key, $filter) {
+		if ( isset($_POST[$this->key]) && ! empty($_POST[$this->key]) ) {
+			return $_POST[$this->key];
+		}
+		return $return;
 	}
 	
 	public function orderby($wp_query, $filter) {
@@ -307,7 +355,7 @@ class Tribe_Organizer_Filter {
 
 	public function join_organizer($join, $wp_query) {
 		global $wpdb;
-		$join .= "LEFT JOIN {$wpdb->postmeta} AS organizer_meta ON({$wpdb->posts}.ID = organizer_meta.post_id AND organizer_meta.meta_key='_EventOrganizerID') "; 
+		$join .= "LEFT JOIN {$wpdb->postmeta} AS organizer_meta ON({$wpdb->posts}.ID = organizer_meta.post_id AND organizer_meta.meta_key='{$this->meta}') "; 
 		$join .= "LEFT JOIN {$wpdb->posts} AS organizer ON (organizer_meta.meta_value = organizer.ID) ";
 		return $join;
 	}
@@ -328,15 +376,15 @@ class Tribe_Organizer_Filter {
 			$args[$organizers->ID] = $organizers->post_title;
 		}
 		
-		return tribe_select_field($key, $args, $value['value'], true);
+		return tribe_select_field($key, $args, $value, true);
 	}
 
 	public function column_value($value, $column_id, $post_id) {
 		$organizer_id = get_post_meta($post_id, '_EventOrganizerID', true);
-		$org = get_post( $organizer_id );
+		$organizer = get_post( $organizer_id );
 
-		if( $organizer_id && $org )
-			echo $org->post_title;
+		if( $organizer_id && $organizer )
+			echo $organizer->post_title;
 		else
 			echo "–";
 	}
