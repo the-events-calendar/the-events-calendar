@@ -1856,9 +1856,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function addMetaLinks( $links, $file ) {
-			if ( $file == $this->pluginDir . 'the-events-calendar.php' ) {
+         if ( $file == $this->pluginDir . 'the-events-calendar.php' ) {
+            $anchor = __( 'Support', 'tribe-events-calendar' );
+            $links []= '<a href="http://wordpress.org/tags/the-events-calendar?forum_id=10">' . $anchor . '</a>';
+
 				$anchor = __( 'View All Add-Ons', 'tribe-events-calendar' ); 
-				$links []= '<a href="http://tribe.pro/?ref=tec-plugins">' . $anchor . '</a>';
+				$links []= '<a href="http://tribe.pro/events-calendar/features/add-ons/?ref=tec-plugin">' . $anchor . '</a>';
 			}
 			return $links;
 		}

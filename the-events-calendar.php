@@ -1,10 +1,10 @@
 <?php
 /*
  Plugin Name: The Events Calendar
- Description: The Events Calendar plugin enables you to rapidly create and manage events using the post editor. Features include optional Eventbrite integration, Google Maps integration as well as default calendar grid and list templates for streamlined one click installation. When updating Events Calendar Pro, if Event Tickets Pro is being used, the two plugins must be updated together. Requires WordPress 3.0 (or higher) and PHP 5.2 (or above). 
+ Description: The Events Calendar open source plugin empowers you to rapidly create and manage events using the post editor. Google Maps, microformats for SEO, calendar grid view and event list view, widgets and much more. <a href="http://tribepro.dev.tri.be/events-calendar/features/">Checkout the full feature list</a>. Requires WordPress 3.0 (or higher) and PHP 5.2 (or above). Need more features, peruse the selection of Add-Ons.
  Version: 2.0
  Author: Modern Tribe, Inc.
- Author URI: http://tribe.pro
+ Author URI: http://tri.be?ref=tec-plugin
  Text Domain: tribe-events-calendar
  */
 
