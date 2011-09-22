@@ -44,12 +44,22 @@ h2.tribe-events-cal-title {
 	z-index:0;
 }
 
+.venue-events .tribe-events-event {
+	border-bottom: 1px solid #DDDDDD;
+}
+
 .venue-events h2.tribe-events-cal-title {
 	padding-left: 0;
 }
 
-.venue-events .entry-title a {
-	color: #333; text-decoration: none; font-size: 18px;
+.venue-events .entry-title {
+	color: #333; 
+	text-decoration: none; 
+	font-size: 18px;
+	margin: 15px 0 6px;
+	padding: 0;
+	line-height: 1em;
+	font-weight: bold;
 }
 
 .upcoming h2.tribe-events-cal-title {
@@ -158,7 +168,7 @@ select.tribe-events-dropdown {
 	line-height: 1em;
 	padding: 0;
 }
-.events-archive .event-day, .single-sp_venue .event-day {
+.events-archive .event-day, .single-sp_venue .event-day, .venue-events .event-day {
 	font-size:18px;
 	margin-top:36px !important;
 	font-style:italic;
@@ -338,7 +348,7 @@ span.back {
 	float:left;
 	padding:0 5% 0 0;
 }
-.events-archive .tribe-events-event-entry p {
+.events-archive .tribe-events-event-entry p, .venue-events .tribe-events-event-entry p {
 	margin:0;
 	font-size:16px;
 	line-height:24px;
