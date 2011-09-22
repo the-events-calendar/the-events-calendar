@@ -249,7 +249,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
             $wpdb->update($wpdb->posts, array( 'post_type' => self::ORGANIZER_POST_TYPE ), array( 'post_type' => 'sp_organizer') );
 
             // update taxonomy names
-            $wpdb->update($wpdb->term_taxonomy, array( 'taxonomy' => self::TAXONOMY ), array( 'taxonomy' => 'tribe_events_cat') );
+            $wpdb->update($wpdb->term_taxonomy, array( 'taxonomy' => self::TAXONOMY ), array( 'taxonomy' => 'sp_events_cat') );
             $this->setOption('data_migration_version', '2.0');
          }
       }
