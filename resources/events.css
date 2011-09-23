@@ -25,6 +25,10 @@
 	height: 15px;
 }
 
+.grid #tribe-events-calendar-header {
+	height: 50px;
+}
+
 .tribe-events-calendar-buttons {
 	position:absolute;
 	right:0;
