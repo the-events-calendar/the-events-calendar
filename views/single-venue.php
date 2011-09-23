@@ -15,7 +15,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<div style='margin: 0 0 10px 0; float: right;'>
 		<?php echo tribe_get_embedded_map(get_the_ID(), '350px', '200px') ?>
 	</div>
-	<dl class="column location" itemprop="location" itemscope itemtype="http://schema.org/Place">
+	<dl class="column location" itemscope itemtype="http://schema.org/Place">
 		<dt><?php _e('Name:', 'tribe-events-calendar-pro') ?></dt> 
 			<dd itemprop="name"><?php the_title() ?></dd>
 		<?php if(tribe_get_phone()) : ?>
@@ -58,14 +58,14 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 					<?php has_excerpt() ? the_excerpt() : the_content() ?>
 				</div> <!-- End tribe-events-event-entry -->
 				<div class="tribe-events-event-list-meta">
-					<table cellspacing="0">
+					<table>
 						<tr>
 							<td class="tribe-events-event-meta-desc"><?php _e('Start:', 'tribe-events-calendar-pro') ?></td>
-							<td class="tribe-events-event-meta-value" itemprop="startDate" content="<?php echo tribe_get_start_date( null, false, 'Y-m-d' ); ?>"><?php echo tribe_get_start_date(); ?></td>
+							<td class="tribe-events-event-meta-value"><meta itemprop="startDate" content="<?php echo tribe_get_start_date( null, false, 'Y-m-d' ); ?>" /><?php echo tribe_get_start_date(); ?></td>
 						</tr>
 						<tr>
 							<td class="tribe-events-event-meta-desc"><?php _e('End:', 'tribe-events-calendar-pro') ?></td>
-							<td class="tribe-events-event-meta-value" itemprop="endDate" content="<?php echo tribe_get_end_date( null, false, 'Y-m-d' ); ?>"><?php echo tribe_get_end_date(); ?></td>
+							<td class="tribe-events-event-meta-value"><meta itemprop="endDate" content="<?php echo tribe_get_end_date( null, false, 'Y-m-d' ); ?>" /><?php echo tribe_get_end_date(); ?></td>
 						</tr>
 						<?php
 						$cost = tribe_get_cost();
