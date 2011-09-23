@@ -22,8 +22,7 @@
 
 #tribe-events-calendar-header {
 	position:relative;
-	margin-bottom:18px;
-	height: 50px;
+	height: 15px;
 }
 
 .tribe-events-calendar-buttons {
@@ -172,7 +171,7 @@ select.tribe-events-dropdown {
 }
 .events-archive .event-day, .single-sp_venue .event-day, .venue-events .event-day {
 	font-size:18px;
-	margin-top:36px !important;
+	margin-top:18px !important;
 	font-style:italic;
 }
 .events-archive .entry-title a, .tribe-events-event-meta-desc, .tribe-events-event-day {
