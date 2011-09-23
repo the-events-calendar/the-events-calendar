@@ -46,6 +46,8 @@ h2.tribe-events-cal-title {
 
 .venue-events .tribe-events-event {
 	border-bottom: 1px solid #DDDDDD;
+	padding: 0 0 15px !important;
+	margin: 0 !important;
 }
 
 .venue-events h2.tribe-events-cal-title {
