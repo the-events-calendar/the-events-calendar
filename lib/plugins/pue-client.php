@@ -412,7 +412,8 @@ class PluginUpdateEngineChecker {
 			!isset($state->lastCheck) || 
 			( (time() - $state->lastCheck) >= $this->checkPeriod*3600 );
 		
-		//$shouldCheck = true; //DEBUG
+		if ( PUE_ALWAYS_CHECK ) $shouldCheck = true;
+		
 		if ( $shouldCheck ){
 			$this->checkForUpdates();
 		}
