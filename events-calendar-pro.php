@@ -11,7 +11,7 @@
 if ( !class_exists( 'TribeEventsPro' ) ) {
 	class TribeEventsPro {
 
-	    private static $instance;
+		private static $instance;
 
 		//instance variables
 		public $pluginDir;
@@ -281,9 +281,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function pro_widgets_init() {
 			require_once( 'lib/widget-advanced-list.class.php' );
 			unregister_widget( 'TribeEventsListWidget' );
-	                register_widget( 'TribeEventsAdvancedListWidget' );
-        	        // load text domain after class registration
-                	load_plugin_textdomain( 'tribe-events-calendar-pro', false, basename(dirname(dirname(__FILE__))) . '/lang/');
+			register_widget( 'TribeEventsAdvancedListWidget' );
+			add_filter( 'tribe_apm_textdomain', array(__CLASS__, 'apm_textdomain') );
+			// load text domain after class registration
+			load_plugin_textdomain( 'tribe-events-calendar-pro', false, basename(dirname(dirname(__FILE__))) . '/lang/');
+		}
+		
+		public function apm_textdomain($domain) {
+			return 'tribe-events-calendar-pro';
 		}
 
 		/**
