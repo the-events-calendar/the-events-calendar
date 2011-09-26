@@ -299,9 +299,9 @@ class Tribe_Venue_Filter {
 		$venue = get_post( $venue_id );
 
 		if( $venue_id && $venue )
-			echo $venue->post_title;
+			return $venue->post_title;
 		else
-			echo "–";
+			return '';
 	}
 	
 	public function log($data = array() ) {
@@ -384,9 +384,9 @@ class Tribe_Organizer_Filter {
 		$organizer = get_post( $organizer_id );
 
 		if( $organizer_id && $organizer )
-			echo $organizer->post_title;
+			return $organizer->post_title;
 		else
-			echo "–";
+			return $value;
 	}
 	
 	public function log($data = array() ) {
