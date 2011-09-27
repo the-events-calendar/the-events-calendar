@@ -936,7 +936,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if (is_admin())
 				$this->displaying = 'admin';
 			else
-				$this->displaying = $wp_query->query_vars['eventDisplay'];
+				$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : 'upcoming';
 		}
 
 		public function setReccuringEventDates() {
