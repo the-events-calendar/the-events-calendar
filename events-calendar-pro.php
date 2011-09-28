@@ -384,7 +384,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
     */
 
    function show_fail_message() {
-       if ( current_user_can('manage_options') ) {
+       if ( current_user_can('activate_plugins') ) {
            echo "<div class=\"error\"><p>To begin using Events Calendar PRO, please activate The Events Calendar 2.0.</p></div>";
        }
    }   
