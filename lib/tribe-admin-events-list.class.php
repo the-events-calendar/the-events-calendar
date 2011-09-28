@@ -9,6 +9,9 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if (!class_exists('TribeEventsAdminList')) {
 	class TribeEventsAdminList {
 		public static $events_list;
+		protected static $start_col_active = true;
+		protected static $end_col_active = true;
+		protected static $start_col_first = true;
 	
 		public static function init() {
 			if ( is_admin() ) {
@@ -19,6 +22,7 @@ if (!class_exists('TribeEventsAdminList')) {
 				add_filter( 'posts_fields',	array( __CLASS__, 'events_search_fields' ) );
 				add_filter( 'post_limits',		array( __CLASS__, 'events_search_limits' ) );
 				add_filter( 'manage_' . TribeEvents::POSTTYPE . '_posts_columns', array(__CLASS__, 'column_headers'));
+				add_filter( 'tribe_apm_headers_' . TribeEvents::POSTTYPE, array(__CLASS__, 'column_headers_check'), 10, 1 );
 				add_filter( 'posts_results',  array(__CLASS__, 'cache_posts_results'));
 				add_filter( 'get_edit_post_link',  array(__CLASS__, 'add_event_occurrance_to_edit_link'), 10, 2);
 				add_filter( 'views_edit-sp_events',		array( __CLASS__, 'update_event_counts' ) );			
@@ -165,8 +169,22 @@ if (!class_exists('TribeEventsAdminList')) {
 			$columns['end-date'] = __( 'End Date', 'tribe-events-calendar' );
 			$columns['recurring'] = __( 'Recurring?', 'tribe-events-calendar' );
 
-
 			return $columns;
+		}
+		
+		/**
+		 * This will only be fired if Advanced Post Manger is active
+		 * Helps ensure dates show correctly if only one or the other of
+		 * start & end date columns is showing
+		 */
+		public static function column_headers_check( $columns ) {
+			$active = array_keys($columns);
+			self::$end_col_active = in_array('end-date', $active);
+			self::$start_col_active = in_array('start-date', $active);
+			// What if, oddly, end_col is placed first when both are active?
+			if ( self::$end_col_active && self::$start_col_active ) {
+				self::$start_col_first = ( array_search('start-date', $active) < array_search('end-date', $active) );
+			}
 		}
 
 		public static function register_date_sortables($columns) {
@@ -184,10 +202,11 @@ if (!class_exists('TribeEventsAdminList')) {
 				}
 				if ( $column_id == 'start-date' ) {
 					echo tribe_event_format_date(strtotime(self::$events_list[0]->EventStartDate), false);
+					if ( ! self::$end_col_active ) self::advance_date();
 				}
 				if ( $column_id == 'end-date' ) {
 					echo tribe_event_format_date(strtotime(self::$events_list[0]->EventEndDate), false);
-					array_shift( self::$events_list );
+					if ( self::$start_col_first) self::advance_date();
 				}
 
 				if ( $column_id == 'recurring' ) {
@@ -196,6 +215,10 @@ if (!class_exists('TribeEventsAdminList')) {
 			} else {
 				self::ajax_custom_columns($column_id, $post_id);
 			}
+		}
+		
+		protected static function advance_date() {
+			array_shift( self::$events_list );
 		}
 	
 		public static function ajax_custom_columns ($column_id, $post_id) {
