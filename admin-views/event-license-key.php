@@ -13,6 +13,7 @@
 	                </label>
                    <a href='#validate-key123' id='validate-key'>Validate</a>
                    <img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" id="ajax-loading-license" alt="" style='display: none'/>
+                   <span id='valid-key' style='display:none;color:green'>Valid Key</span><span id='invalid-key' style='display:none;color:red'>Invalid Key</span>
 	            </fieldset>
 	        </td>
 		</tr>
@@ -20,12 +21,20 @@
    <script>
       jQuery(document).ready(function($) {
          $('#validate-key').click(function() {
+            $('#invalid-key').hide();
+            $('#valid-key').hide();
             $('#ajax-loading-license').show();
 
-            var data = { action: 'tribe-validate-key' };
+            var data = { action: 'tribe-validate-key', key: $('[name="licenseKey"]').val() };
             jQuery.post(ajaxurl, data, function(response) {
                $('#ajax-loading-license').hide();
-               alert(response);
+               if(response == "0") {
+                  $('#invalid-key').show();
+                  $('#valid-key').hide();
+               } else {
+                  $('#invalid-key').hide();
+                  $('#valid-key').show();
+               }
             });
          });
       });

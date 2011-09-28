@@ -73,7 +73,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
       public function ajax_validate_key() {
-         echo "HERE";
+         $key = $_POST['key'];
+			$pue = new PluginUpdateEngineChecker(self::$updateUrl, $this->pluginSlug, array('installkey' => $key), plugin_basename(__FILE__));
+         $pluginInfo = $pue->requestInfo(array('pu_checking_for_updates' => '1'));
+         echo $pluginInfo->api_invalid == 1 ? 0 : 1;
          exit;
       }
 
