@@ -115,11 +115,13 @@ class PluginUpdateEngineChecker {
 		$this->download_query['pue_active_version'] = $this->getInstalledVersion();
 			
 		//the following is for install key inclusion (will apply later with PUE addons.)
-		if ( $install_key = get_option($this->pue_install_key) ) {
+      if ( isset( $this->install_key ) ) {
+			$this->download_query['pu_install_key'] = $this->install_key;
+      } else if ( $install_key = get_option($this->pue_install_key) ) {
 			$this->install_key = $install_key;
-			$this->download_query['pue_install_key'] = $this->install_key;
+			$this->download_query['pu_install_key'] = $this->install_key;
 		} else {
-			$this->download_query['pue_install_key'] = '';
+			$this->download_query['pu_install_key'] = '';
 		}
 		
 		if ( !empty($new_api) ) {
@@ -129,7 +131,7 @@ class PluginUpdateEngineChecker {
 		}
 		
 		if ( empty($new_api) ) {
-			$this->download_query['pu_plugin_api'] = $this->api_secret_key;
+			//$this->download_query['pu_plugin_api'] = $this->api_secret_key;
 			return;
 		}
 	}
@@ -291,8 +293,11 @@ class PluginUpdateEngineChecker {
 		
 		//need to correct the download url so it contains the custom user data (i.e. api and any other paramaters)
 				
-		if ( !empty($this->download_query) ) 
+		if ( !empty($this->download_query) )  {
+         error_log(print_r($this->download_query, true));
 			$pluginInfo->download_url = add_query_arg($this->download_query, $pluginInfo->download_url);
+         error_log($pluginInfo->download_url);
+      }
 		
 		return PluginUpdateUtility::fromPluginInfo($pluginInfo);
 	}
