@@ -69,7 +69,13 @@ class PluginUpdateEngineChecker {
 	 * @return void
 	 */
 	function __construct( $metadataUrl, $slug = '', $options = array(), $pluginFile = '' ){
-		$this->metadataUrl = $metadataUrl;
+
+      if (defined('PUE_UPDATE_URL')) { 
+         $this->metadataUrl = trailingslashit(PUE_UPDATE_URL); 
+      } else {
+         $this->metadataUrl = trailingslashit($metadataUrl);
+      }
+
 		$this->slug = $slug;
 		$tr_slug = str_replace('-','_',$this->slug);
 
