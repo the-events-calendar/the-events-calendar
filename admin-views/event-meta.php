@@ -1,4 +1,5 @@
-<?php if ( empty($customFields) ) {
+<?php
+if ( empty($customFields) || !is_array($customFields) ) {
 	return;
 } ?>
 <table id='event-meta' class='eventtable'>

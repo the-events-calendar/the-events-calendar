@@ -337,11 +337,36 @@ class TribeEventsRecurrenceMeta {
 	 */			
 	private static function cloneEvent( $data ) {
 		$tribe_ecp = TribeEvents::instance();
+      $old_id = $data['ID'];
 		
 		$data['ID'] = null;
 		$new_event = wp_insert_post($data);
+      self::cloneEventAttachments( $old_id, $new_event );
+
 		return $new_event;
 	}		
+
+   private static function cloneEventAttachments( $old_event, $new_event ) {
+      $args = array( 'post_type' => 'attachment', 'numberposts' => -1, 'post_status' => null, 'post_parent' => $old_event ); 
+      $attachments = get_posts($args);
+
+      if ($attachments) {
+         foreach ( $attachments as $attachment ) {
+            $attachment_data = array(
+               'post_mime_type' => $attachment->post_mime_type,
+               'post_title' => $attachment->post_title,
+               'post_content' => $attachment->post_content,
+               'post_status' => 'inherit'
+            );
+            $file = get_attached_file($attachment->ID);
+            $attach_id = wp_insert_attachment( $attachment_data, $file, $new_event );
+            require_once(ABSPATH . 'wp-admin/includes/image.php');
+            $attach_data = wp_generate_attachment_metadata( $attach_id, $file );
+            wp_update_attachment_metadata( $attach_id, $attach_data );
+            update_post_meta($new_event, '_thumbnail_id', $attach_id);
+         }
+      }
+   }
 
 	/**
 	 * Recurrence validation method.  This is checked after saving an event, but before splitting a series out into multiple occurrences
