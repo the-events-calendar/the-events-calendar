@@ -9,7 +9,7 @@
 	                    <span><?php _e('A valid license key is required for support and updates.','tribe-events-calendar-pro'); ?></span>
 	                </legend>
 	                <label title='Replace empty fields'>
-	                    <input type="text" name="licenseKey" value="<?php echo $tecp->licenseKey ?>" />
+	                    <input type="text" name="licenseKey" value="<?php echo $licenseKey ?>" />
 	                </label>
 	            </fieldset>
 	        </td>
