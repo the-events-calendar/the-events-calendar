@@ -58,7 +58,7 @@ div.tribe_settings{
 
 	<form method="post">
 	<?php wp_nonce_field('saveEventsCalendarOptions'); ?>
-
+   <?php do_action('tribe-events-settings-top'); ?>
 	<h3><?php _e('Settings', 'tribe-events-calendar'); ?></h3>
 	<table class="form-table">
 		<tr>
