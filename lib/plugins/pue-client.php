@@ -5,28 +5,23 @@
 * 
 * You also have to make sure you call this class in any addons/plugins you want to be added to the update checker.  Here's what you do:
 * if ( file_exists(WP_PLUGIN_DIR . '/location_of_file/plugin_updaters.php') ) { //include the file 
-	require( WP_PLUGIN_DIR . '/location_of_file/pue-client.php' );
-	$host_server_url = 'http://updateserver.com'; //this needs to be the host server where plugin update engine is installed.
-	$plugin_slug = 'plugin-slug'; //this needs to be the slug of the plugin/addon that you want updated (and that pue-client.php is included with).  This slug should match what you've set as the value for plugin-slug when adding the plugin to the plugin list via plugin-update-engine on your server.
-	//$options needs to be an array with the included keys as listed.
-	$options = array(
-		'optionName' => '', //(optional) - used as the reference for saving update information in the clients options table.  Will be automatically set if left blank.
-		'apikey' => $api_key, //(required), you will need to obtain the apikey that the client gets from your site and then saves in their sites options table (see 'getting an api-key' below)
-		'lang_domain' => '', //(optional) - put here whatever reference you are using for the localization of your plugin (if it's localized).  That way strings in this file will be included in the translation for your plugin.
-		'checkPeriod' => '', //(optional) - use this parameter to indicate how often you want the client's install to ping your server for update checks.  The integer indicates hours.  If you don't include this parameter it will default to 12 hours.
-	);
-	$check_for_updates = new PluginUpdateEngineChecker($host_server_url, $plugin_slug, $options); //initiate the class and start the plugin update engine!
-}
-
-
-/**
- * getting an api-key
- *
-*/
-//You'll need to put something like this here before initiating the PluginUpdateEngineChecker class to obtain the api-key the client has set for your plugin. Of course this means you will need to include a field in your plugin option page for the client to enter this key.  (modify to match your setup):
-/*
- $settings = get_option('plugin_options'); //'plugin_options' should be replaced by whatever holds your plugin options and the api_key
- $api_key = $settings['plugin_api_key']; 
+* 	require( WP_PLUGIN_DIR . '/location_of_file/pue-client.php' );
+* 	$host_server_url = 'http://updateserver.com'; //this needs to be the host server where plugin update engine is installed.
+* 	$plugin_slug = 'plugin-slug'; //this needs to be the slug of the plugin/addon that you want updated (and that pue-client.php is included with).  This slug should match what you've set as the value for plugin-slug when adding the plugin to the plugin list via plugin-update-engine on your server.
+*	//$options needs to be an array with the included keys as listed.
+*	$options = array(
+*		'optionName' => '', //(optional) - used as the reference for saving update information in the clients options table.  Will be automatically set if left blank.
+*		'apikey' => $api_key, //(required), you will need to obtain the apikey that the client gets from your site and then saves in their sites options table (see 'getting an api-key' below)
+*		'lang_domain' => '', //(optional) - put here whatever reference you are using for the localization of your plugin (if it's localized).  That way strings in this file will be included in the translation for your plugin.
+*		'checkPeriod' => '', //(optional) - use this parameter to indicate how often you want the client's install to ping your server for update checks.  The integer indicates hours.  If you don't include this parameter it will default to 12 hours.
+*	);
+*	$check_for_updates = new PluginUpdateEngineChecker($host_server_url, $plugin_slug, $options); //initiate the class and start the plugin update engine!
+* }
+*
+* // Getting an api-key
+* //You'll need to put something like this here before initiating the PluginUpdateEngineChecker class to obtain the api-key the client has set for your plugin. Of course this means you will need to include a field in your plugin option page for the client to enter this key.  (modify to match your setup):
+* $settings = get_option('plugin_options'); //'plugin_options' should be replaced by whatever holds your plugin options and the api_key
+* $api_key = $settings['plugin_api_key']; 
 */
 if ( !class_exists('PluginUpdateEngineChecker') ):
 /**
@@ -65,7 +60,7 @@ class PluginUpdateEngineChecker {
 	 * 	@key integer $checkPeriod How often to check for updates (in hours). Defaults to checking every 12 hours. Set to 0 to disable automatic update checks.
 	 * 	@key string $optionName Where to store book-keeping info about update checks. Defaults to 'external_updates-$slug'. 
 	 *  @key string $apikey used to authorize download updates from developer server
-		@key string $lang_domain If the plugin file pue-client.php is included with is localized you can put the domain reference string here so any strings in this file get included in the localization.
+	 *	@key string $lang_domain If the plugin file pue-client.php is included with is localized you can put the domain reference string here so any strings in this file get included in the localization.
 	 * @return void
 	 */
 	function __construct( $metadataUrl, $slug = '', $options = array(), $pluginFile = '' ){
@@ -117,28 +112,26 @@ class PluginUpdateEngineChecker {
 		
 		//download query flag
 		$this->download_query['pu_get_download'] = 1;
+		
 		//include current version 
-		$this->download_query['pue_active_version'] = $this->getInstalledVersion();
-			
+		if ($version = $this->getInstalledVersion()) {
+			$this->download_query['pue_active_version'] = $version;
+		}
+		
 		//the following is for install key inclusion (will apply later with PUE addons.)
-      if ( isset( $this->install_key ) ) {
+      	if ( isset( $this->install_key ) ) {
 			$this->download_query['pu_install_key'] = $this->install_key;
-      } else if ( $install_key = get_option($this->pue_install_key) ) {
+      	} elseif ( $install_key = get_option($this->pue_install_key) ) {
 			$this->install_key = $install_key;
 			$this->download_query['pu_install_key'] = $this->install_key;
-		} else {
-			$this->download_query['pu_install_key'] = '';
 		}
 		
+		// pass api key if appropriate
 		if ( !empty($new_api) ) {
 			$this->api_secret_key = $new_api;
-			$this->download_query['pu_plugin_api'] = $this->api_secret_key;
-			return;
 		}
-		
-		if ( empty($new_api) ) {
-			//$this->download_query['pu_plugin_api'] = $this->api_secret_key;
-			return;
+		if ( !empty($this->api_secret_key) ) {
+			$this->download_query['pu_plugin_api'] = $this->api_secret_key;
 		}
 	}
 	
@@ -311,7 +304,7 @@ class PluginUpdateEngineChecker {
 	function in_plugin_update_message($plugin_data) {
 		$plugininfo = $this->json_error;
 		//only display messages if there is a new version of the plugin.
-		if ( version_compare($plugininfo->version, $this->getInstalledVersion(), '>') ) {
+		if ( is_object($plugininfo) && version_compare($plugininfo->version, $this->getInstalledVersion(), '>') ) {
 			if ( $plugininfo->api_invalid ) {
 				$msg = str_replace('%plugin_name%', $this->pluginName, $plugininfo->api_inline_invalid_message);
 				$msg = str_replace('%version%', $plugininfo->version, $msg);
@@ -372,14 +365,11 @@ class PluginUpdateEngineChecker {
 	 */
 	function getInstalledVersion(){
 		if ( function_exists('get_plugins') ) {
-		$allPlugins = get_plugins();
-		if ( array_key_exists($this->pluginFile, $allPlugins) && array_key_exists('Version', $allPlugins[$this->pluginFile]) ){
-			return $allPlugins[$this->pluginFile]['Version']; 
-		} else {
-			return ''; //This should never happen.
-		};
+			$allPlugins = get_plugins();
+			if ( array_key_exists($this->pluginFile, $allPlugins) && array_key_exists('Version', $allPlugins[$this->pluginFile]) ){
+				return $allPlugins[$this->pluginFile]['Version']; 
+			}
 		}
-		return ''; //this should never happen
 	}
 	
 	/**
