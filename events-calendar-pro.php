@@ -2,7 +2,7 @@
 /*
  Plugin Name: Events Calendar PRO
  Description: The Events Calendar PRO, a premium add-on to the open source The Events Calendar plugin (required), enables recurring events, custom attributes, venue pages, new widgets and a host of other premium features.
- Version: 2.0
+ Version: 1.9 
  Author: Modern Tribe, Inc.
  Author URI: http://tri.be/?ref=ecp-plugin
  Text Domain: tribe-events-calendar-pro
@@ -48,7 +48,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'tribe_after_location_details', array( $this, 'add_google_map_preview') );
 			add_action( 'tribe_tec_template_chooser', array( $this, 'do_ical_template' ) );
 			add_action( 'tribe-events-after-theme-settings', array( $this, 'event_defaults_options') );
-			add_action( 'tribe-events-after-theme-settings', array( $this, 'event_license_key') );
+			add_action( 'tribe-events-settings-top', array( $this, 'event_license_key') );
 			add_filter( 'tribe_current_events_page_template', array( $this, 'select_venue_template' ) );
 			add_filter( 'tribe_events_template_single-venue.php', array( $this, 'load_venue_template' ) );
 			add_action( 'widgets_init', array( $this, 'pro_widgets_init' ), 100 );
@@ -59,6 +59,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
          add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
          add_action( 'tribe_venue_table_top', array($this, 'displayEventVenueDropdown') );
          add_action( 'tribe_organizer_table_top', array($this, 'displayEventOrganizerDropdown') );
+
+         // key validation
+         add_action( 'wp_ajax_tribe-validate-key', array($this, 'ajax_validate_key' ) );
+         
 	    }
 		
 		public function init() {
@@ -68,6 +72,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
          $this->getLicenseKey();
 			new PluginUpdateEngineChecker(self::$updateUrl, $this->pluginSlug, array('installkey' => $this->licenseKey), plugin_basename(__FILE__));
 		}
+
+      public function ajax_validate_key() {
+         echo "HERE";
+         exit;
+      }
 
       public function do_ical_template($template) {
 			// hijack to iCal template
