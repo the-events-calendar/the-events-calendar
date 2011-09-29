@@ -76,7 +76,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
          $key = $_POST['key'];
 			$pue = new PluginUpdateEngineChecker(self::$updateUrl, $this->pluginSlug, array('installkey' => $key), plugin_basename(__FILE__));
          $pluginInfo = $pue->requestInfo(array('pu_checking_for_updates' => '1'));
-         echo $pluginInfo->api_invalid == 1 ? 0 : 1;
+         echo $pluginInfo->api_invalid == 1 ? 0 : $pluginInfo->expiration;
          exit;
       }
 
