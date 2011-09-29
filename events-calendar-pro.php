@@ -54,31 +54,17 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'wp_loaded', array( $this, 'allow_cpt_search' ) );
 			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
 
-         // Load organizer and venue editors
-         add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
-         add_action( 'tribe_venue_table_top', array($this, 'displayEventVenueDropdown') );
-         add_action( 'tribe_organizer_table_top', array($this, 'displayEventOrganizerDropdown') );
-
-         // key validation
-         add_action( 'wp_ajax_tribe-validate-key', array($this, 'ajax_validate_key' ) );
-         
+			// Load organizer and venue editors
+			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
+			add_action( 'tribe_venue_table_top', array($this, 'displayEventVenueDropdown') );
+			add_action( 'tribe_organizer_table_top', array($this, 'displayEventOrganizerDropdown') );
 	    }
 		
 		public function init() {
 			TribeEventsCustomMeta::init();
-			TribeEventsRecurrenceMeta::init();
-			
-         $this->getLicenseKey();
-			new PluginUpdateEngineChecker(self::$updateUrl, $this->pluginSlug, array('installkey' => $this->licenseKey), plugin_basename(__FILE__));
+			TribeEventsRecurrenceMeta::init();			
+			new PluginUpdateEngineChecker(self::$updateUrl, $this->pluginSlug, array(), plugin_basename(__FILE__));
 		}
-
-      public function ajax_validate_key() {
-         $key = $_POST['key'];
-			$pue = new PluginUpdateEngineChecker(self::$updateUrl, $this->pluginSlug, array('installkey' => $key), plugin_basename(__FILE__));
-         $pluginInfo = $pue->requestInfo(array('pu_checking_for_updates' => '1'));
-         echo $pluginInfo->api_invalid == 1 ? 0 : $pluginInfo->expiration;
-         exit;
-      }
 
       public function do_ical_template($template) {
 			// hijack to iCal template
@@ -97,16 +83,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				die;
 			}
 
-      }
-
-      public function getLicenseKey() {
-
-         if(!$this->licenseKey) {
-            $tribe_license_keys = maybe_unserialize(get_option('tribe_license_keys'));
-            $this->licenseKey = $tribe_license_keys[$this->pluginSlug];
-         }
-
-         return $this->licenseKey;
       }
 
       public function addVenueAndOrganizerEditor() {
@@ -145,10 +121,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
       }
 
       public function event_license_key() {
-         $tec = TribeEvents::instance();
-         $tecp = $this;
-         $licenseKey = $this->getLicenseKey();
-         include( $this->pluginPath . 'admin-views/event-license-key.php' );
+		do_action('pue-settings_events-calendar-pro');
       }
 
       public function select_venue_template($template) {
