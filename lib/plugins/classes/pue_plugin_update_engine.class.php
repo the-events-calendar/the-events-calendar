@@ -174,15 +174,27 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 		}
 
 		public function ajax_validate_key() {
+			$response = array();
+			$response['status'] = 0;
 			if (isset($_POST['key'])) {
 				$pluginInfo = $this->requestInfo(array(
 					'pu_install_key' => $_POST['key'],
 					'pu_checking_for_updates' => '1'
 				));
-				echo (isset($pluginInfo->api_invalid) && $pluginInfo->api_invalid == 1) ? 0 : 1;
+				error_log( '$pluginInfo='. print_r( $pluginInfo, true ) );
+				if (empty($pluginInfo)) {
+					$response['message'] = __('Sorry, key validation server is not available.','plugin-update-engine');
+				} elseif (isset($pluginInfo->api_invalid) && $pluginInfo->api_invalid == 1) {
+					$response['message'] = __('Sorry, this key is not valid.','plugin-update-engine');
+				} else {
+					$response['status'] = 1;
+					$response['message'] = sprintf(__('Valid Key! Expires on %s','plugin-update-engine'),$pluginInfo->expiration);
+					$response['expiration'] = $pluginInfo->expiration;
+				}
 			} else {
-				echo 0;
+				$response['message'] = __('Hmmm... something\'s wrong with this validator. Please contact <a href="http://tribe.pro/support">support.</a>','plugin-update-engine');
 			}
+			echo json_encode($response);
 			exit;
 		}	
 	
