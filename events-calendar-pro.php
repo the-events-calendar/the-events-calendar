@@ -34,8 +34,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			//require_once( 'lib/tribe-support.class.php' );
 			require_once( 'lib/widget-calendar.class.php' );
 			require_once( 'template-tags.php' );
-			require_once( 'lib/plugins/pue-client.php' );
-			// Advanced Post Manager
+			require_once( 'vendor/pue-client/pue-client.php' );
 			require_once( 'vendor/advanced-post-manager/tribe-apm.php' );
 			require_once( 'lib/apm_filters.php');
 
