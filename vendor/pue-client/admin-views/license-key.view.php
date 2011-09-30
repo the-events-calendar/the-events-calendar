@@ -1,3 +1,11 @@
+<?php
+/**
+ * PUE License Admin
+ */
+
+// Don't load directly
+if ( !defined('ABSPATH') ) { die('-1'); }
+?>
 <h3><?php _e('License Key', 'plugin-update-engine'); ?></h3>
 <p><?php _e('A valid license key is required for support and updates.', 'plugin-update-engine') ?></p>
 <table class="form-table">
