@@ -24,7 +24,7 @@
          $('#valid-key').hide();
          $('#ajax-loading-license').show();
 
-         var data = { action: 'pue-validate-key_<?php echo $this->slug; ?>', key: $('[name="licenseKey"]').val() };
+         var data = { action: 'pue-validate-key_<?php echo $this->slug; ?>', key: $('[name="install_key"]').val() };
          jQuery.post(ajaxurl, data, function(response) {
             $('#ajax-loading-license').hide();
 

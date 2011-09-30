@@ -174,12 +174,15 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 		}
 
 		public function ajax_validate_key() {
-			error_log( 'ajax_validate_key='.print_r( $_POST, true ) );
-			$pluginInfo = $this->requestInfo(array(
-				'pu_install_key' => $_POST['key'],
-				'pu_checking_for_updates' => '1'
-			));
-			echo $pluginInfo->api_invalid == 1 ? 0 : 1;
+			if (isset($_POST['key'])) {
+				$pluginInfo = $this->requestInfo(array(
+					'pu_install_key' => $_POST['key'],
+					'pu_checking_for_updates' => '1'
+				));
+				echo (isset($pluginInfo->api_invalid) && $pluginInfo->api_invalid == 1) ? 0 : 1;
+			} else {
+				echo 0;
+			}
 			exit;
 		}	
 	
