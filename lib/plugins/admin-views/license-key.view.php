@@ -9,7 +9,7 @@
 				<span><?php _e('A valid license key is required for support and updates.','plugin-update-engine'); ?></span>
 			</legend>
 			<label title='Replace empty fields'>
-				<input type="text" name="install_key" id="install_key" value="<?php echo $this->install_key ?>" />
+				<input type="text" name="install_key" id="install_key" value="<?php echo $this->install_key ?>" size="45" />
 			</label>
 			<img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" id="ajax-loading-license" alt="" style='display: none'/>
 			<span id='valid-key' style='display:none;color:green'></span>
