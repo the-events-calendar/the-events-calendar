@@ -68,7 +68,6 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 
 			$this->dismiss_upgrade = 'pu_dismissed_upgrade_'.$tr_slug;
 			$this->pluginName = ucwords(str_replace('-', ' ', $this->slug));
-			error_log( '$tr_slug = '.print_r( $tr_slug, true ) );
 			$this->pue_install_key = 'pue_install_key_'.$tr_slug;
 		
 			$defaults = array(
@@ -181,7 +180,6 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 					'pu_install_key' => $_POST['key'],
 					'pu_checking_for_updates' => '1'
 				));
-				error_log( '$pluginInfo='. print_r( $pluginInfo, true ) );
 				if (empty($pluginInfo)) {
 					$response['message'] = __('Sorry, key validation server is not available.','plugin-update-engine');
 				} elseif (isset($pluginInfo->api_invalid) && $pluginInfo->api_invalid == 1) {
@@ -320,10 +318,8 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 			//need to correct the download url so it contains the custom user data (i.e. api and any other paramaters)
 				
 			if ( !empty($this->download_query) )  {
-	         error_log(print_r($this->download_query, true));
 				$pluginInfo->download_url = add_query_arg($this->download_query, $pluginInfo->download_url);
-	         error_log($pluginInfo->download_url);
-	      }
+			}
 		
 			return PluginUpdateUtility::fromPluginInfo($pluginInfo);
 		}
