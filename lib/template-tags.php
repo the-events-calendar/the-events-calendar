@@ -101,8 +101,8 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 				
 				// if last day of multiday event 			
 				if( !tribe_get_all_day() && tribe_is_multiday($event->ID) && date('Y-m-d', $curDate) == date('Y-m-d', strtotime($event->EventEndDate)) ) {
-					$endTime = strtotime(date('Y-m-d') . date('h:i A', strtotime($event->EventEndDate)));
-					$cutoffTime = strtotime(date('Y-m-d') . $cutoff_time .  "AM");
+					$endTime = strtotime(date('Y-m-d', $curDate) . date('h:i A', strtotime($event->EventEndDate)));
+					$cutoffTime = strtotime(date('Y-m-d', $curDate) . $cutoff_time .  "AM");
 					
 					// if end time is before cutoff, then don't show
 					if ($endTime <= $cutoffTime) {
