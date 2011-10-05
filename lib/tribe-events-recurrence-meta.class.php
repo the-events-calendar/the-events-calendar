@@ -208,18 +208,29 @@ class TribeEventsRecurrenceMeta {
 			$recArray['recCustomTypeText'] = $recurrenceData['custom-type-text'];
 			$recArray['recOccurrenceCountText'] = $recurrenceData['occurrence-count-text'];
 
-			$recArray['recCustomWeekDay'] = $recurrenceData['custom-week-day'];
-
-			//$recArray['recCustomMonthType'] = $recurrenceData['custom-months-type'];
-			//$recArray['recCustomMonthDayOfMonth'] = $recurrenceData['custom-month-day-of-month'];
+			$recArray['recCustomWeekDay'] = !empty($recurrenceData['custom-week-day']) ? $recurrenceData['custom-week-day'] : null;
 			$recArray['recCustomMonthNumber'] = $recurrenceData['custom-month-number'];
 			$recArray['recCustomMonthDay'] = $recurrenceData['custom-month-day'];
 
-			$recArray['recCustomYearMonth'] = $recurrenceData['custom-year-month'] ? $recurrenceData['custom-year-month'] : array();
-			$recArray['recCustomYearFilter'] = $recurrenceData['custom-year-filter'];
+			$recArray['recCustomYearMonth'] = !empty($recurrenceData['custom-year-month']) ? $recurrenceData['custom-year-month'] : array();
+			$recArray['recCustomYearFilter'] = !empty($recurrenceData['custom-year-filter']) ?  $recurrenceData['custom-year-filter'] : null;
 			$recArray['recCustomYearMonthNumber'] = $recurrenceData['custom-year-month-number'];
 			$recArray['recCustomYearMonthDay'] = $recurrenceData['custom-year-month-day'];
 		} else {
+			$recArray['recType'] = null;
+			$recArray['recEndType'] = null;
+			$recArray['recEnd'] = null;
+			$recArray['recEndCount'] = null;
+			$recArray['recCustomType'] = null;
+			$recArray['recCustomInterval'] = null;
+			$recArray['recCustomTypeText'] = null;
+			$recArray['recOccurrenceCountText'] = null;
+			$recArray['recCustomWeekDay'] = null;
+			$recArray['recCustomMonthNumber'] = null;
+			$recArray['recCustomMonthDay'] = null;
+			$recArray['recCustomYearFilter'] = null;
+			$recArray['recCustomYearMonthNumber'] = null;
+			$recArray['recCustomYearMonthDay'] = null;
 			$recArray['recCustomYearMonth'] = array();
 		}
 

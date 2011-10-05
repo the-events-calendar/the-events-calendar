@@ -83,6 +83,7 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
     * Get a link to day view
     */
    function tribe_get_linked_day($date, $day) {
+      $return = '';
       $return .= "<a href='" . tribe_get_day_link($date) . "'>";
       $return .= $day;
       $return .= "</a>";

@@ -6,7 +6,7 @@
    <?php $customFields[] = array() ?>
 	<?php foreach ( $customFields as $customField ): ?> 
 		<tr>
-         <td><input type="text" name="custom-field-<?php echo esc_attr($count) ?>" data-persisted='<?php echo $count != sizeof($customFields) ? "yes" : "no" ?>' data-name-template='custom-field-' data-count='<?php echo esc_attr($count) ?>' value="<?php echo esc_attr($customField['label']) ?>"/></td>
+         <td><input type="text" name="custom-field-<?php echo esc_attr($count) ?>" data-persisted='<?php echo $count != sizeof($customFields) ? "yes" : "no" ?>' data-name-template='custom-field-' data-count='<?php echo esc_attr($count) ?>' value="<?php echo esc_attr(isset($customField['label']) ? $customField['label'] : "") ?>"/></td>
 			<td>
 				<select name="custom-field-type-<?php echo $count ?>" data-name-template='custom-field-type-' data-count='<?php echo $count ?>'>
 					<option value="text" <?php selected($customField['type'] == 'textarea') ?>><?php _e('Text','tribe-events-calendar-pro'); ?></option>
@@ -15,7 +15,7 @@
 					<option value="dropdown" <?php selected($customField['type'] == 'dropdown') ?>><?php _e('Dropdown','tribe-events-calendar-pro'); ?></option>
 				</select>
 			</td>
-			<td><textarea style='display: <?php echo $customField['type'] == 'radio' || $customField['type'] == 'checkbox' || $customField['type'] == 'dropdown' ? "inline" : "none" ?>;' name="custom-field-options-<?php echo $count ?>" data-name-template='custom-field-options-' data-count='<?php echo esc_attr($count) ?>' rows="3"><?php echo esc_textarea($customField['values']) ?></textarea></td>
+			<td><textarea style='display: <?php echo $customField['type'] == 'radio' || $customField['type'] == 'checkbox' || $customField['type'] == 'dropdown' ? "inline" : "none" ?>;' name="custom-field-options-<?php echo $count ?>" data-name-template='custom-field-options-' data-count='<?php echo esc_attr($count) ?>' rows="3"><?php echo esc_textarea(isset($customField['values']) ? $customField['values'] : "") ?></textarea></td>
 			<td>
 				<?php if ($count == sizeof($customFields)): ?>
 					<a name="add-field" href='#add-field' class='add-another-field'><?php _e('Add another','tribe-events-calendar-pro'); ?></a>
