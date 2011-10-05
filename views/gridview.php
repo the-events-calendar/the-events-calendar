@@ -43,5 +43,3 @@ $tribe_ecp = TribeEvents::instance();
          <a title="<?php esc_attr_e('iCal Import', 'tribe-events-calendar') ?>" class="ical" href="<?php echo tribe_get_ical_link(); ?>"><?php _e('iCal Import', 'tribe-events-calendar') ?></a>
       <?php endif; ?>
 	</div>
-
-<?php tribe_events_after_html() ?>
