@@ -17,7 +17,8 @@ jQuery(document).ready(function($) {
 				zip = form.find('[name="venue[Zip]"]').val(),
 				address = street + "," + city + "," + state + "," + country + "," + zip;
 
-			codeAddress(address);
+         if ( typeof codeAddress == 'function' )
+            codeAddress(address);
 		} else {
          if ( typeof codeAddress == 'function' )
             codeAddress(selectedOption.data('address'));
