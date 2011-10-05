@@ -206,6 +206,10 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 
 				if (empty($pluginInfo)) {
 					$response['message'] = __('Sorry, key validation server is not available.','plugin-update-engine');
+				} elseif (isset($pluginInfo->api_expired) && $pluginInfo->api_expired == 1) {
+					$response['message'] = __('Sorry, this key is expired.','plugin-update-engine');
+				} elseif (isset($pluginInfo->api_upgrade) && $pluginInfo->api_upgrade == 1) {
+					$response['message'] = __('Sorry, this key is out of installs.','plugin-update-engine');
 				} elseif (isset($pluginInfo->api_invalid) && $pluginInfo->api_invalid == 1) {
 					$response['message'] = __('Sorry, this key is not valid.','plugin-update-engine');
 				} else {
@@ -214,7 +218,7 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 					$response['expiration'] = $pluginInfo->expiration;
 				}
 			} else {
-				$response['message'] = __('Hmmm... something\'s wrong with this validator. Please contact <a href="http://tribe.pro/support">support.</a>','plugin-update-engine');
+				$response['message'] = __('Hmmm... something\'s wrong with this validator. Please contact <a href="http://tri.be/support">support.</a>','plugin-update-engine');
 			}
 			echo json_encode($response);
 			exit;
