@@ -71,13 +71,13 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	                    <td class="tribe-events-event-meta-value" itemprop="telephone"><?php echo $phone; ?></td>
 	                  </tr>
 	                  <?php endif; ?>
-	                  <?php if (tribe_address_exists( $post->ID ) ) : ?>
+	                  <?php if (tribe_address_exists( get_the_ID() ) ) : ?>
 	                  <tr>
 						<td class="tribe-events-event-meta-desc"><?php _e('Address:', 'tribe-events-calendar'); ?><br />
-						<?php if( get_post_meta( $post->ID, '_EventShowMapLink', true ) == 'true' ) : ?>
+						<?php if( get_post_meta( get_the_ID(), '_EventShowMapLink', true ) == 'true' ) : ?>
 							<a class="gmap" itemprop="maps" href="<?php tribe_the_map_link(); ?>" title="Click to view a Google Map" target="_blank"><?php _e('Google Map', 'tribe-events-calendar' ); ?></a>
 						<?php endif; ?></td>
-						<td class="tribe-events-event-meta-value"><?php tribe_the_full_address( $post->ID ); ?></td>
+						<td class="tribe-events-event-meta-value"><?php tribe_the_full_address( get_the_ID() ); ?></td>
 	                  </tr>
 	                  <?php endif; ?>
 	                  <?php
@@ -111,11 +111,11 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 		<?php if(tribe_is_upcoming()){ ?>
 			<?php _e('No upcoming events', 'tribe-events-calendar');
-			echo $is_cat_message ? $is_cat_message : ".";?>
+			echo !empty($is_cat_message) ? $is_cat_message : ".";?>
 
 		<?php }elseif(tribe_is_past()){ ?>
 			<?php _e('No previous events' , 'tribe-events-calendar');
-			echo $is_cat_message ? $is_cat_message : ".";?>
+			echo !empty($is_cat_message) ? $is_cat_message : ".";?>
 		<?php } ?>
 		
 	<?php endif; ?>
@@ -147,7 +147,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		</div>
 
 	</div>
-   <?php if ( $hasPosts && function_exists('tribe_get_ical_link') ): ?>
+   <?php if ( !empty($hasPosts) && function_exists('tribe_get_ical_link') ): ?>
       <a title="<?php esc_attr_e('iCal Import', 'tribe-events-calendar') ?>" class="ical" href="<?php echo tribe_get_ical_link(); ?>"><?php _e('iCal Import', 'tribe-events-calendar') ?></a>
    <?php endif; ?>
 </div>

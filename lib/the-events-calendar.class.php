@@ -379,7 +379,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				if( '' == get_option('permalink_structure') ) {
 					return add_query_arg('eventDate', TribeDateUtils::dateOnly( $post->EventStartDate ), $permalink ); 					
 				} else {
-					return trailingslashit($permalink) . TribeDateUtils::dateOnly( $post->EventStartDate );
+					return trailingslashit($permalink) . TribeDateUtils::dateOnly( isset($post->EventStartDate) ? $post->EventStartDate : null );
 				}
 			}
 	
@@ -1550,19 +1550,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if( $_EventStartDate )
 				$start = TribeDateUtils::dateOnly($_EventStartDate);
 
-			$EventStartDate = ( $start ) ? $start : date('Y-m-d');
+			$EventStartDate = ( isset($start) && $start ) ? $start : date('Y-m-d');
 	
-			if ( $_REQUEST['eventDate'] != null )
+			if ( !empty($_REQUEST['eventDate']) )
 				$EventStartDate = $_REQUEST['eventDate'];
 	
 			if( $_EventEndDate )
 				$end = TribeDateUtils::dateOnly($_EventEndDate);
 
-			$EventEndDate = ( $end ) ? $end : date('Y-m-d');
-         $recStart = $_REQUEST['event_start'];
-         $recPost = $_REQUEST['post'];
+			$EventEndDate = ( isset($end) && $end ) ? $end : date('Y-m-d');
+         $recStart = isset($_REQUEST['event_start']) ? $_REQUEST['event_start'] : null;
+         $recPost = isset($_REQUEST['post']) ? $_REQUEST['post'] : null;
 	
-			if ( $_REQUEST['eventDate'] != null ) {
+			if ( !empty($_REQUEST['eventDate']) ) {
 				$duration = get_post_meta( $postId, '_EventDuration', true );
 				$EventEndDate = TribeDateUtils::dateOnly( strtotime($EventStartDate) + $duration, true );
 			}

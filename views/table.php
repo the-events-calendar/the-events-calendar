@@ -53,7 +53,7 @@ $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 				echo "<td class='tribe-events-othermonth'></td>";
 			}
 			// output this month
-			for( $day = 1; $day <= date("t", $date); $day++ ) {
+			for( $day = 1; $day <= date("t", intval($date)); $day++ ) {
 			    if( ($day + $offset - 1) % 7 == 0 && $day != 1) {
 			        echo "</tr>\n\t<tr>";
 			        $rows++;

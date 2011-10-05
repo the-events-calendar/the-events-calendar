@@ -41,21 +41,21 @@ if (!class_exists('TribeEventsQuery')) {
 			$args = &$query->query_vars;
 		
 			// eventCat becomes a standard taxonomy query - will need to deprecate and update views eventually
-			if ($args['eventCat'] && $args['eventCat'] != '-1') {
+			if (!empty($args['eventCat']) && $args['eventCat'] != '-1') {
 				$tax_field = is_numeric($args['eventCat']) ? "id" : "name";
 				$args['tax_query'][] = array('taxonomy'=>TribeEvents::TAXONOMY, 'field'=>$tax_field, 'terms'=>$args['eventCat']);
 			}
 		
-			if ($args['numResults']) {
+			if (!empty($args['numResults'])) {
 				$args['posts_per_page'] = $args['numResults'];
 			}
 
-	      if ($args['venue']) {
+	      if (!empty($args['venue'])) {
 				$args['meta_query'][] = array('key'=>'_EventVenueID', 'value'=>$args['venue']);
 	      }
 
 			// proprietary metaKeys go to standard meta
-			if ($args['metaKey'])
+			if (!empty($args['metaKey']))
 				$args['meta_query'][] = array('key'=>$args['metaKey'], 'value'=>$args['metaValue']);
 		
 			return $query;
@@ -66,22 +66,24 @@ if (!class_exists('TribeEventsQuery')) {
 		}
 
 		public static function setArgsFromDisplayType($query) { 
-			switch ( $query->query_vars['eventDisplay'] ) {
-				case "past":
-					$query = self::setPastDisplayTypeArgs($query);
-					break;
-				case "upcoming":
-					$query = self::setUpcomingDisplayTypeArgs($query);
-					break;
-				case "day":
-					$query = self::setDayDisplayTypeArgs($query);
-					break;
-				case "all":
-					$query = self::setAllDisplayTypeArgs($query);
-					break;				
-				case "month":
-					$query = self::setMonthDisplayTypeArgs($query);				
-			}
+         if( !empty($query->query_vars['eventDisplay']) ) {
+            switch ( $query->query_vars['eventDisplay'] ) {
+               case "past":
+                  $query = self::setPastDisplayTypeArgs($query);
+                  break;
+               case "upcoming":
+                  $query = self::setUpcomingDisplayTypeArgs($query);
+                  break;
+               case "day":
+                  $query = self::setDayDisplayTypeArgs($query);
+                  break;
+               case "all":
+                  $query = self::setAllDisplayTypeArgs($query);
+                  break;				
+               case "month":
+                  $query = self::setMonthDisplayTypeArgs($query);				
+            }
+         }
 		
 			return $query;
 		}
@@ -189,15 +191,15 @@ if (!class_exists('TribeEventsQuery')) {
 			// we can't store end date directly because it messes up the distinc clause
 			$endDate = " IFNULL(DATE_ADD(CAST(eventStart.meta_value AS DATETIME), INTERVAL eventDuration.meta_value SECOND), eventEnd.meta_value) ";
 
-			if($start_date && $end_date) {
+			if(!empty($start_date) && !empty($end_date)) {
 				$start_clause = $wpdb->prepare("(eventStart.meta_value >= %s AND eventStart.meta_value <= %s)", $start_date, $end_date);
 				$end_clause = $wpdb->prepare("($endDate >= %s AND eventStart.meta_value <= %s )", $start_date, $end_date);
 				$within_clause = $wpdb->prepare("(eventStart.meta_value < %s AND $endDate >= %s )", $start_date, $end_date);
 				$where .= " AND ($start_clause OR $end_clause OR $within_clause)";
-			} else if($end_date) {
+			} else if(!empty($end_date)) {
 				$start_clause = $wpdb->prepare("$endDate < %s", $end_date);
 				$where .= " AND $start_clause";
-			} else if($start_date) {
+			} else if(!empty($start_date)) {
 			   $end_clause = $wpdb->prepare("eventStart.meta_value > %s", $start_date);
 				$within_clause = $wpdb->prepare("(eventStart.meta_value <= %s AND $endDate >= %s )", $start_date, $start_date);
 			   $where .= " AND ($end_clause OR $within_clause)";

@@ -7,11 +7,11 @@
 
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
-
+  if( !isset($postId) ) $postId = null;
 ?>
 <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
 	<?php $address_out = Array() ?>
-	<?php if( $includeVenueName && tribe_get_venue( $postId ) ) { ?>
+	<?php if( isset($includeVenueName) && $includeVenueName && tribe_get_venue( $postId ) ) { ?>
 		<?php $address_out []= '<span itemprop="addressLocality">' . tribe_get_venue( $postId ) .'</span>'; ?>
 	<?php } ?>
 	
