@@ -128,7 +128,7 @@ jQuery(document).ready(function($) {
 
 	//show state/province input based on first option in countries list, or based on user input of country
 	function spShowHideCorrectStateProvinceInput(country) {
-		if (country == 'US') {
+		if (country == 'US' || country == 'United States') {
 			$("#StateProvinceSelect").show();
 			$("#StateProvinceText").hide();
 		} else if ( country != '' ) {
@@ -140,10 +140,10 @@ jQuery(document).ready(function($) {
 		}
 	}
 	
-	spShowHideCorrectStateProvinceInput( $("#EventCountry > option:selected").attr('label') );
+	spShowHideCorrectStateProvinceInput( $("#EventCountry > option:selected").val() );
 
 	$("#EventCountry").change(function() {
-		var countryLabel = $(this).find('option:selected').attr('label');
+		var countryLabel = $(this).find('option:selected').val();
 		spShowHideCorrectStateProvinceInput( countryLabel );
 	});
 
