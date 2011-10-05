@@ -176,10 +176,34 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 			$response = array();
 			$response['status'] = 0;
 			if (isset($_POST['key'])) {
-				$pluginInfo = $this->requestInfo(array(
-					'pu_install_key' => $_POST['key'],
-					'pu_checking_for_updates' => '1'
-				));
+			
+				$queryArgs = array(
+						'pu_install_key' => $_POST['key'],
+						'pu_checking_for_updates' => '1'
+				);
+					
+				//include version info
+				$queryArgs['pue_active_version'] = $this->getInstalledVersion();
+	
+				global $wp_version;
+				$queryArgs['wp_version'] = $wp_version;
+	
+				//include domain and multisite stats
+				$queryArgs['domain'] = $_SERVER['SERVER_NAME'];
+			
+				if( is_multisite() ){
+					$queryArgs['multisite'] = 1;
+					$queryArgs['network_activated'] = is_plugin_active_for_network( $this->pluginFile );
+					global $wpdb;
+					$queryArgs['active_sites'] = $wpdb->get_var( "SELECT count(blog_id) FROM $wpdb->blogs WHERE public = '1' AND archived = '0' AND spam = '0' AND deleted = '0'" );
+				}else{
+					$queryArgs['multisite'] = 0;
+					$queryArgs['network_activated'] = 0;
+					$queryArgs['active_sites'] = 1;
+				}
+	
+				$pluginInfo = $this->requestInfo( $queryArgs );
+
 				if (empty($pluginInfo)) {
 					$response['message'] = __('Sorry, key validation server is not available.','plugin-update-engine');
 				} elseif (isset($pluginInfo->api_invalid) && $pluginInfo->api_invalid == 1) {
