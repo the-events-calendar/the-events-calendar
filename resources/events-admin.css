@@ -200,3 +200,7 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #
 
 #additional-field-table input, #additional-field-table select, #additional-field-table textarea { width: 200px; }
 #additional-field-table tbody tr { height: 72px; }
+
+.tribe_settings #pu_dashboard_message{
+display: none;
+}
