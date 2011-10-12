@@ -19,7 +19,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $pluginUrl;
 		public $pluginSlug;
 		public $licenseKey;
-		public static $updateUrl = 'http://tribe.pro/';
+		public static $updateUrl = 'http://tri.be/';
 		
 	    private function __construct() {
 			$this->pluginDir = trailingslashit( basename( dirname(__FILE__) ) );
@@ -340,10 +340,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function addMetaLinks( $links, $file ) {
          if ( $file == $this->pluginDir . 'events-calendar-pro.php' ) {
             $anchor = __( 'Support', 'tribe-events-calendar' );
-            $links []= '<a href="http://tribe.pro/events-calendar-support/ref=ecp-plugin">' . $anchor . '</a>';
+            $links []= '<a href="'.self::$updateUrl.'support/ref=ecp-plugin">' . $anchor . '</a>';
 
 				$anchor = __( 'View All Add-Ons', 'tribe-events-calendar' ); 
-				$links []= '<a href="http://tribe.pro/events-calendar/features/add-ons/?ref=ecp-plugin">' . $anchor . '</a>';
+				$links []= '<a href="'.self::$updateUrl.'shop/?ref=ecp-plugin">' . $anchor . '</a>';
 			}
 			return $links;
 		}
