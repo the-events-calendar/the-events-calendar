@@ -1501,7 +1501,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$$tag = $meta[0];
 				} else {
 					$cleaned_tag = str_replace('_Event','',$tag);
-					$$tag = tribe_is_pro_active() ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
+					$$tag = class_exists('TribeEventsPro') ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
 				}
 			}
 
@@ -1521,7 +1521,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
             $defaults[] = '_VenueState';
             $defaults[] = '_VenueProvince';
 
-            if (tribe_is_pro_active()) {
+            if (class_exists('TribeEventsPro')) {
                foreach ( $defaults as $tag ) {
                   if ( !$postId || !isset($_GET['post']) ) { //if there is a post AND the post has been saved at least once.
                      $cleaned_tag = str_replace('_Venue','',$tag);

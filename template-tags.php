@@ -1063,13 +1063,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
    /**
-    * Check to see if pro is activated
-    */
-   function tribe_is_pro_active() {
-     return class_exists('TribeEventsPro');
-   }
-
-   /**
     * IX. API Template Tags
     */
 
