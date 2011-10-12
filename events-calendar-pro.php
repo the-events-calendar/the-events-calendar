@@ -377,7 +377,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
    function tribe_show_fail_message() {
        if ( current_user_can('activate_plugins') ) {
-           echo "<div class=\"error\"><p>To begin using Events Calendar PRO, please activate The Events Calendar 2.0.</p></div>";
+			$url = wp_nonce_url(self_admin_url('update.php?action=install-plugin&plugin=the-events-calendar'), 'install-plugin_the-events-calendar');
+			echo '<div class="error"><p>'.sprintf(__('To begin using Events Calendar PRO, please install the latest version of <a href="%s">The Events Calendar</a>.', 'tribe-events-calendar'),$url).'</p></div>';
        }
    }   
 
