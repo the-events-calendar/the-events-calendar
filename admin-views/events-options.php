@@ -51,7 +51,7 @@ div.tribe_settings{
 	<p><?php _e('Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ); ?></p>
 	<p><?php printf(__('Check out the <a href="%s">available Add-Ons</a>.', 'tribe-events-calendar' ), 'http://tribe.pro/?ref=tec-options') ?></p>
 	<h3><?php _e('Need a hand?','tribe-events-calendar'); ?></h3>
-	<p><?php printf( __( 'If you\'re stuck on these options, please <a href="%s">check out the documentation</a>. Or, go to the <a href="%s">support forum</a>.', 'tribe-events-calendar' ), TribeEvents::$docUrl, TribeEvents::$supportUrl ); ?></p>
+	<p><?php printf( __( 'If you\'re stuck on these options, please go to the <a href="%s">support forum</a>.', 'tribe-events-calendar' ), TribeEvents::$tribeUrl.TribeEvents::$supportPath ); ?></p>
    <?php if( function_exists( 'tribe_get_ical_link' ) ): ?>
       <p><?php _e('Here is the iCal feed URL for your events: ' ,'tribe-events-calendar'); ?><code><?php echo tribe_get_ical_link(); ?></code></p>
    <?php endif; ?>

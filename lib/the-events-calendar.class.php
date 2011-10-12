@@ -17,7 +17,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 		const PLUGIN_DOMAIN = 'tribe-events-calendar';
 		const VERSION = '2.0';
-		const FEED_URL = 'http://shaneandpeter.com/category/articles/feed/';
+		const FEED_URL = 'http://tri.be/category/products/feed/';
 
 		protected $postTypeArgs = array(
 			'public' => true,
@@ -44,8 +44,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		);
 		protected $taxonomyLabels;
 
-		public static $supportUrl = 'http://tribe.pro/support/forums/';
-		public static $docUrl = 'http://tribe.pro/events-calendar-support/knowledge-base/';
+		public static $tribeUrl = 'http://tri.be/';
+		public static $supportPath = 'support/';
 
 		protected static $instance;
 		protected $rewriteSlug = 'events';
