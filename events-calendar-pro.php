@@ -377,8 +377,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
    function tribe_show_fail_message() {
        if ( current_user_can('activate_plugins') ) {
-			$url = wp_nonce_url(self_admin_url('update.php?action=install-plugin&plugin=the-events-calendar'), 'install-plugin_the-events-calendar');
-			echo '<div class="error"><p>'.sprintf(__('To begin using Events Calendar PRO, please install the latest version of <a href="%s">The Events Calendar</a>.', 'tribe-events-calendar'),$url).'</p></div>';
+			$url = 'http://wordpress.local/wp-admin/plugin-install.php?tab=plugin-information&plugin=the-events-calendar&TB_iframe=true';
+			$title = __('The Events Calendar', 'tribe-events-calendar');
+			echo '<div class="error"><p>'.sprintf(__('To begin using Events Calendar PRO, please install the latest version of <a href="%s" class="thickbox" title="%s">The Events Calendar</a>.', 'tribe-events-calendar'),$url,$title).'</p></div>';
        }
    }   
 
