@@ -300,12 +300,10 @@ if (!class_exists('ECP_Events_Importer')) {
 		if ( $id = $this->findEventByNameAndDate( $event_name, $event_start_date, $event_end_date ) ) {
 		    // Event already exists, so update.
 		    TribeEventsAPI::updateEvent( $id, $event );
-		    //echo "Updating: " . print_r( $event, true );
 		    $ret = 'update';
 		} else {
 		    // Create new event.
 		    TribeEventsAPI::createEvent( $event );
-		    //echo "Inserting: " . print_r( $event, true );
 		    $ret = 'insert';
 		}
 	    }
@@ -371,21 +369,32 @@ if (!class_exists('ECP_Events_Importer')) {
 	    $ret = false;
 	    // We can't search based on post title, so search on start date and then
 	    // iterate.
-	    $query_args = array( 'post_type' => 'tribe_venues',
+	   /*
+	    $query_args = array( 'post_type' => 'tribe_events',
 				 'post_status' => 'publish',
 				 'meta_key' => '_EventStartDate',
 				 'meta_value' => $start_date );
+	   */
+	    $start_date = date( 'Y-m-d h:ia', $start_date );
+	    $end_date = date( 'Y-m-d h:ia', $end_date );
+	    $query_args = array( 'post_type' => 'tribe_events',
+				 'post_status' => 'publish',
+				 'meta_query' => array( array( 'key' => '_EventStartDate',
+								'type' => 'DATETIME',
+				 				'value' => $start_date,
+								'compare' => '=' ) ) );
 	    
 	    $q = new WP_Query( $query_args );
-	    while( $q->have_posts() && $ret == false ) {
+	    while( $q->have_posts() ) {
 		$q->the_post();
 		$id = get_the_ID();
 		$title = get_the_title();
-		$current_start_date = get_post_meta( $id, '_EventStartDate', true );
-		$current_end_date = get_post_meta( $id, '_EventEndDate', true );
+		$current_start_date = date( 'Y-m-d h:ia', strtotime( get_post_meta( $id, '_EventStartDate', true ) ) );
+		$current_end_date = date( 'Y-m-d h:ia', strtotime( get_post_meta( $id, '_EventEndDate', true ) ) );
 		if ( $title == $name && $start_date == $current_start_date && $end_date == $current_end_date ) {
 		    // Found it! Setting $ret also drops us out of the loop.
 		    $ret = $id;
+		    break;
 		}
 	    }
 	    return $ret;
