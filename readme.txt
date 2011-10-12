@@ -9,7 +9,9 @@ Stable tag: 2.0
 
 == Description ==
 
-The Events Calendar plugin enables you to rapidly create and manage events. Features include Google Maps integration as well as default templates such as a calendar grid and event list, widget and so much more. Looking for recurring events, the ability to sell tickets, manage conference schedules, accept user submitted events automatically and more? Check out the <a href="http://tri.be/products/">available premium and community add-ons</a>. Have questions or looking to get help from our active user community, <a href="https://www.facebook.com/ModernTribeInc">join us on Facebook</a>, sign up for our newsletter (bottom of the home page) or check out <a href="http://tri.be/support/">our support page</a>. Please note that while we are actively supporting this plugin, we aren't supporting open source users.
+IMPORTANT NOTICE: If you are upgrading from a previous version of The Events Calendar, please BACK UP your data before upgrading! This is a significant update.
+
+The Events Calendar plugin enables you to rapidly create and manage events. Features include Google Maps integration as well as default templates such as a calendar grid and event list, widget and so much more. Looking for recurring events, the ability to sell tickets, manage conference schedules, accept user submitted events automatically and more? Check out the <a href="http://tri.be/products/?ref=tec-readme">available premium and community add-ons</a>. Have questions or looking to get help from our active user community, <a href="https://www.facebook.com/ModernTribeInc">join us on Facebook</a>, sign up for our newsletter (bottom of the home page) or check out <a href="http://tri.be/support/?ref=tec-readme">our support page</a>. Please note that while we are actively supporting this plugin, we aren't supporting open source users.
 
 = The Events Calendar 2.0 =
 
@@ -36,13 +38,13 @@ The Events Calendar plugin enables you to rapidly create and manage events. Feat
 * Gcal / ical user download (import)
 * and lots more.
 
-<a href="http://tri.be/wordpress-events-calendar-pro/">Grab a copy of Events Calendar Pro!</a>
+<a href="http://tri.be/wordpress-events-calendar-pro/?ref=tec-readme">Grab a copy of Events Calendar Pro!</a>
 
 == Installation ==
 
 = Install =
 
-1. <a href="http://tri.be/downloading-installing-activating-the-events-calendar-2-0-pro-2-0/">Follow the directions in our simple video</a>
+1. <a href="http://tri.be/downloading-installing-activating-the-events-calendar-2-0-pro-2-0/?ref=tec-readme">Follow the directions in our simple video</a>
 1. Update your permalinks to ensure that the event specific rewrite rules take effect.
 1. If you have trouble installing, see the [Codex](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) for more helpful info.
 
@@ -57,7 +59,7 @@ No setup required. Just plug and play!
 
 == Documentation ==
 
-We are developing a wealth of <a href="http://tri.be/support/">documentation on our support page</a>.
+We are developing a wealth of <a href="http://tri.be/support/?ref=tec-readme">documentation on our support page</a>.
 
 For template tags, you can view our template tag include and read through the functions directly. Please see template-tags.php.
 
