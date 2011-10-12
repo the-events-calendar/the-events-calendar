@@ -24,11 +24,12 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 		$postId = tribe_post_id_helper( $postId );
 		$data = array();
 		$customFields = tribe_get_option('custom-fields', false);
-
-		foreach ($customFields as $field) {
-			$meta = str_replace('|', ', ', get_post_meta($postId, $field['name'], true));
-		if ( $meta ) {
-				$data[esc_html($field['label'])] = $meta; // $meta has been through wp_kses - links are allowed
+		if (is_array($customFields)) {
+			foreach ($customFields as $field) {
+				$meta = str_replace('|', ', ', get_post_meta($postId, $field['name'], true));
+				if ( $meta ) {
+					$data[esc_html($field['label'])] = $meta; // $meta has been through wp_kses - links are allowed
+				}
 			}
 		}
 		return $data;
