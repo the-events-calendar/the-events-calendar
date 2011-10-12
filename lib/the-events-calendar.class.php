@@ -168,6 +168,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			/* Add nav menu item - thanks to http://wordpress.org/extend/plugins/cpt-archives-in-nav-menus/ */
 			add_filter( 'nav_menu_items_' . TribeEvents::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
 			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events'), null, 2);
+			
+			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
 		}
 
 		protected function addActions() {

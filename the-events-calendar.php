@@ -11,9 +11,3 @@
 require_once( dirname(__FILE__) . '/lib/the-events-calendar.class.php' );
 
 TribeEvents::instance();
-
-// backwards compatability
-global $sp_ecp;
-$sp_ecp = TribeEvents::instance();
-
-add_filter('generate_rewrite_rules', array(&$sp_ecp,'filterRewriteRules'));
