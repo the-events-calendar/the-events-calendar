@@ -1847,7 +1847,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
             $links []= '<a href="http://wordpress.org/tags/the-events-calendar?forum_id=10">' . $anchor . '</a>';
 
 				$anchor = __( 'View All Add-Ons', 'tribe-events-calendar' ); 
-				$links []= '<a href="http://tribe.pro/events-calendar/features/add-ons/?ref=tec-plugin">' . $anchor . '</a>';
+				$links []= '<a href="'.self::$tribeUrl.'events-calendar/features/add-ons/?ref=tec-plugin">' . $anchor . '</a>';
 			}
 			return $links;
 		}

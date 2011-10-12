@@ -49,7 +49,7 @@ div.tribe_settings{
 <?php $this->do_action( 'tribe_events_options_top' ); ?>
 <div class="form">
 	<p><?php _e('Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ); ?></p>
-	<p><?php printf(__('Check out the <a href="%s">available Add-Ons</a>.', 'tribe-events-calendar' ), 'http://tribe.pro/?ref=tec-options') ?></p>
+	<p><?php printf(__('Check out the <a href="%s">available Add-Ons</a>.', 'tribe-events-calendar' ), self::$tribeUrl.'?ref=tec-options') ?></p>
 	<h3><?php _e('Need a hand?','tribe-events-calendar'); ?></h3>
 	<p><?php printf( __( 'If you\'re stuck on these options, please go to the <a href="%s">support forum</a>.', 'tribe-events-calendar' ), TribeEvents::$tribeUrl.TribeEvents::$supportPath ); ?></p>
    <?php if( function_exists( 'tribe_get_ical_link' ) ): ?>
