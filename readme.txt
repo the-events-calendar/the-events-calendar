@@ -2,6 +2,7 @@
 
 Contributors: Shane Pearlman (shane.pearlman), Peter Chester (peterchester), John Gadbois (jgadbois), Kelsey Damas (kelseydamas), Matt Wiebe (mattwiebe), Rob La Gatta (roblagatta),  Justin Endler, Reid Peifer (reid.peifer), Dan Cameron (dancameron) produced by Modern Tribe, Inc. (moderntribe)
 Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar, recurring, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.1
 Tested up to: 3.2.1
 Stable tag: 2.0
@@ -41,7 +42,6 @@ The Events Calendar plugin enables you to rapidly create and manage events. Feat
 
 = Install =
 
-1. Download the zip file.
 1. <a href="http://tri.be/downloading-installing-activating-the-events-calendar-2-0-pro-2-0/">Follow the directions in our simple video</a>
 1. Update your permalinks to ensure that the event specific rewrite rules take effect.
 1. If you have trouble installing, see the [Codex](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) for more helpful info.
