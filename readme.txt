@@ -9,7 +9,7 @@ Stable tag: 2.0
 
 == Description ==
 
-The Events Calendar plugin enables you to rapidly create and manage events. Features include Google Maps integration as well as default templates such as a calendar grid and event list, widget and so much more. Looking for recurring events, the ability to sell tickets, manage conference schedules, accept user submitted events automatically and more? Check out the <a href="http://tri.be/products/">available premium and community add-ons</a>. Have questions or looking to get help from our active user community, <a href="https://www.facebook.com/ModernTribeInc">join us on facebook</a>, sign up for our newsletter (bottom of the home page) or check out <a href="http://tri.be/support/">our support page</a>. Please note that while we are active supporting this plugin, we aren't supporting open source users.
+The Events Calendar plugin enables you to rapidly create and manage events. Features include Google Maps integration as well as default templates such as a calendar grid and event list, widget and so much more. Looking for recurring events, the ability to sell tickets, manage conference schedules, accept user submitted events automatically and more? Check out the <a href="http://tri.be/products/">available premium and community add-ons</a>. Have questions or looking to get help from our active user community, <a href="https://www.facebook.com/ModernTribeInc">join us on Facebook</a>, sign up for our newsletter (bottom of the home page) or check out <a href="http://tri.be/support/">our support page</a>. Please note that while we are actively supporting this plugin, we aren't supporting open source users.
 
 = The Events Calendar 2.0 =
 
