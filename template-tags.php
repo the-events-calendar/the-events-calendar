@@ -544,6 +544,14 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		return tribe_event_format_date($date, $showtime, $dateFormat );
 	}
 
+	/**
+	 * Returns formatted date
+	 *
+	 * @param string $date 
+	 * @param boolean $showtime display time?
+	 * @param string $dateFormat date format
+	 * @return string
+	 */
 	function tribe_event_format_date($date, $showtime = true,  $dateFormat = '')  {
 		$tribe_ecp = TribeEvents::instance();
 		
