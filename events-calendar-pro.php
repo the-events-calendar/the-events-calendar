@@ -120,7 +120,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
       }
 
       public function event_license_key() {
-		do_action('pue-settings_events-calendar-pro');
+			do_action('pue-settings_events-calendar-pro');
       }
 
       public function select_venue_template($template) {
@@ -365,7 +365,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
       if( class_exists( 'TribeEvents' ) && defined('TribeEvents::VERSION') && version_compare( TribeEvents::VERSION, '2.0', '>=') ) {
          TribeEventsPro::instance();
       } else {
-	add_action( 'admin_notices', 'show_fail_message' );
+			add_action( 'admin_notices', 'tribe_show_fail_message' );
       }
    }
 
@@ -375,10 +375,16 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
     * Shows message if the plugin can't load due to TEC not being installed.
     */
 
-   function show_fail_message() {
+   function tribe_show_fail_message() {
        if ( current_user_can('activate_plugins') ) {
            echo "<div class=\"error\"><p>To begin using Events Calendar PRO, please activate The Events Calendar 2.0.</p></div>";
        }
    }   
+
+	register_uninstall_hook(__FILE__, 'tribe_ecp_uninstall'); 
+
+	function tribe_ecp_uninstall() {
+		delete_option('pue_install_key_events_calendar_pro');
+	}
 }
 ?>
