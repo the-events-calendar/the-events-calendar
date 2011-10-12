@@ -137,11 +137,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 *ctiv Load all the required library files.
+		 *Load all the required library files.
 		 **/
 		protected function loadLibraries() {
 			require_once( 'tribe-event-exception.class.php' );
-			require_once( 'template-tags.php' );
+			require_once( $this->pluginPath.'template-tags.php' );
 			require_once( 'template-tags-deprecated.php' );
 			require_once( 'widget-list.class.php' );
 			require_once( 'tribe-admin-events-list.class.php' );
