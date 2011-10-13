@@ -1,88 +1,96 @@
 <?php
-	global $sp_ecp;
-	get_header();
-	echo stripslashes(sp_get_option('spEventsBeforeHTML'));
-?>	
-	<div id="container">
-	<div id="content" class="tec-event widecolumn">
-	<?php the_post(); global $post; ?>
-			<div id="post-<?php the_ID() ?>" <?php post_class() ?>>
-				<span class="back"><a href="<?php echo sp_get_events_link(); ?>"><?php _e('&laquo; Back to Events', $sp_ecp->pluginDomain); ?></a></span>
-				<h2 class="entry-title"><?php the_title() ?></h2>
-				<?php if (sp_get_end_date() > time()  ) { ?><small><?php  _e('This event has passed.', $sp_ecp->pluginDomain) ?></small> <?php } ?>
-				<div id="tec-event-meta">
-					<dl class="column">
-						<dt><?php _e('Start:', $sp_ecp->pluginDomain) ?></dt> 
-							<dd><?php echo sp_get_start_date(); ?></dd>
-						<?php if (sp_get_start_date() !== sp_get_end_date() ) { ?>
-							<dt><?php _e('End:', $sp_ecp->pluginDomain) ?></dt>
-							<dd><?php echo sp_get_end_date();  ?></dd>						
-						<?php } ?>
-						<?php if ( sp_get_cost() ) : ?>
-							<dt><?php _e('Cost:', $sp_ecp->pluginDomain) ?></dt>
-							<dd><?php echo sp_get_cost(); ?></dd>
-						<?php endif; ?>
-						<?php sp_meta_event_cats(); ?>
-						<?php if ( sp_get_organizer_link() ) : ?>
-							<dt><?php _e('Organizer:', $sp_ecp->pluginDomain) ?></dt>
-							<dd><?php echo sp_get_organizer_link(); ?></dd>
-						<?php endif; ?>
-						<?php if ( sp_get_organizer_phone() ) : ?>
-							<dt><?php _e('Phone:', $sp_ecp->pluginDomain) ?></dt>
-							<dd><?php echo sp_get_organizer_phone(); ?></dd>
-						<?php endif; ?>
-						<?php if ( sp_get_organizer_email() ) : ?>
-							<dt><?php _e('Email:', $sp_ecp->pluginDomain) ?></dt>
-							<dd><?php echo sp_get_organizer_email(); ?></dd>
-						<?php endif; ?>
-					</dl>
-					<dl class="column">
-						<?php if(sp_get_venue()) : ?>
-						<dt><?php _e('Venue:', $sp_ecp->pluginDomain) ?></dt> 
-							<dd><?php echo sp_get_venue(); ?></dd>
-						<?php endif; ?>
-						<?php if(sp_get_phone()) : ?>
-						<dt><?php _e('Phone:', $sp_ecp->pluginDomain) ?></dt> 
-							<dd><?php echo sp_get_phone(); ?></dd>
-						<?php endif; ?>
-						<?php if( sp_address_exists( $post->ID ) ) : ?>
-						<dt>
-							<?php _e('Address:', $sp_ecp->pluginDomain) ?><br />
-							<?php if( get_post_meta( $post->ID, '_EventShowMapLink', true ) == 'true' ) : ?>
-								<a class="gmap" href="<?php sp_the_map_link() ?>" title="<?php _e('Click to view a Google Map', $sp_ecp->pluginDomain); ?>" target="_blank"><?php _e('Google Map', $sp_ecp->pluginDomain ); ?></a>
-							<?php endif; ?>
-						</dt>
-							<dd>
-							<?php sp_the_full_address( $post->ID ); ?>
-							</dd>
-						<?php endif; ?>
-					</dl>
-				</div>
-				<?php if( get_post_meta( $post->ID, '_EventShowMap', true ) == 'true' ) : ?>
-					<?php if( sp_address_exists( $post->ID ) ) sp_the_embedded_map(); ?>
-				<?php endif; ?>
-				<div class="entry">
-					<?php
-					if ( function_exists('has_post_thumbnail') && has_post_thumbnail() ) {?>
-						<?php the_post_thumbnail(); ?>
-					<?php } ?>
-					<?php the_content() ?>	
-					<?php if (function_exists('sp_get_ticket_form')) { sp_get_ticket_form(); } ?>		
-				</div>
-				<a class="ical single" href="<?php echo sp_get_single_ical_link(); ?>"><?php _e('iCal Import', $sp_ecp->pluginDomain); ?></a>
-				<a href="<?php echo sp_get_add_to_gcal_link() ?>" class="gcal-add" title="<?php _e('Add to Google Calendar', $sp_ecp->pluginDomain); ?>"><?php _e('+ Google Calendar', $sp_ecp->pluginDomain); ?></a>
-				<?php edit_post_link('Edit', '<span class="edit-link">', '</span>'); ?>
-				<div class="navlink previous"><?php sp_previous_event_link();?></div>
+/**
+* A single event.  This displays the event title, description, meta, and 
+* optionally, the Google map for the event.
+*
+* You can customize this view by putting a replacement file of the same name (single.php) in the events/ directory of your theme.
+*/
 
-				<div class="navlink next"><?php sp_next_event_link();?></div>
-				<div style="clear:both"></div>
-			</div><!-- post -->
+// Don't load directly
+if ( !defined('ABSPATH') ) { die('-1'); }
 
-		<?php if(sp_get_option('showComments','no') == 'yes'){ comments_template();} ?>
+?>
+<span class="back"><a href="<?php echo tribe_get_events_link(); ?>"><?php _e('&laquo; Back to Events', 'tribe-events-calendar'); ?></a></span>				
+<?php if (tribe_get_end_date() > time()  ) { ?><small><?php  _e('This event has passed.', 'tribe-events-calendar') ?></small> <?php } ?>
+<div id="tribe-events-event-meta" itemscope itemtype="http://schema.org/Event">
+	<dl class="column">
+		<dt><?php _e('Event:', 'tribe-events-calendar') ?></dt>
+		<dd itemprop="name"><span class="summary"><?php the_title() ?></span></dd>
+		<dt><?php _e('Start:', 'tribe-events-calendar') ?></dt> 
+			<dd><meta itemprop="startDate" content="<?php echo tribe_get_start_date( null, false, 'Y-m-d-h:i:s' ); ?>"/><?php echo tribe_get_start_date(); ?></dd>
+		<?php if (tribe_get_start_date() !== tribe_get_end_date() ) { ?>
+			<dt><?php _e('End:', 'tribe-events-calendar') ?></dt>
+			<dd><meta itemprop="endDate" content="<?php echo tribe_get_end_date( null, false, 'Y-m-d-h:i:s' ); ?>"/><?php echo tribe_get_end_date();  ?></dd>						
+		<?php } ?>
+		<?php if ( tribe_get_cost() ) : ?>
+			<dt><?php _e('Cost:', 'tribe-events-calendar') ?></dt>
+			<dd itemprop="price"><?php echo tribe_get_cost(); ?></dd>
+		<?php endif; ?>
+		<?php tribe_meta_event_cats(); ?>
+		<?php if ( tribe_get_organizer_link() ) : ?>
+			<dt><?php _e('Organizer:', 'tribe-events-calendar') ?></dt>
+			<dd class="vcard author"><span class="fn url"><?php echo tribe_get_organizer_link(); ?></span></dd>
+		<?php endif; ?>
+		<?php if ( tribe_get_organizer_phone() ) : ?>
+			<dt><?php _e('Phone:', 'tribe-events-calendar') ?></dt>
+			<dd itemprop="telephone"><?php echo tribe_get_organizer_phone(); ?></dd>
+		<?php endif; ?>
+		<?php if ( tribe_get_organizer_email() ) : ?>
+			<dt><?php _e('Email:', 'tribe-events-calendar') ?></dt>
+			<dd itemprop="email"><a href="mailto:<?php echo tribe_get_organizer_email(); ?>"><?php echo tribe_get_organizer_email(); ?></a></dd>
+		<?php endif; ?>
+		<dt><?php _e('Updated:', 'tribe-events-calendar') ?></dt>
+		<dd><span class="date updated"><?php the_date(); ?></span></dd>
+		<?php if ( function_exists('tribe_get_recurrence_text') && tribe_is_recurring_event() ) : ?>
+			<dt><?php _e('Schedule:', 'tribe-events-calendar') ?></dt>
+			<dd><?php echo tribe_get_recurrence_text(); ?> (<a href='<?php tribe_all_occurences_link() ?>'>See all</a>)</dd>
+		<?php endif; ?>
+	</dl>
+	<dl class="column" itemprop="location" itemscope itemtype="http://schema.org/Place">
+		<?php if(tribe_get_venue()) : ?>
+		<dt><?php _e('Venue:', 'tribe-events-calendar') ?></dt> 
+			<dd itemprop="name"><?php echo tribe_get_venue(get_the_ID(), true); ?></dd>
+		<?php endif; ?>
+		<?php if(tribe_get_phone()) : ?>
+		<dt><?php _e('Phone:', 'tribe-events-calendar') ?></dt> 
+			<dd itemprop="telephone"><?php echo tribe_get_phone(); ?></dd>
+		<?php endif; ?>
+		<?php if( tribe_address_exists( get_the_ID() ) ) : ?>
+		<dt>
+			<?php _e('Address:', 'tribe-events-calendar') ?><br />
+			<?php if( tribe_show_google_map_link( get_the_ID() ) ) : ?>
+				<a class="gmap" itemprop="maps" href="<?php tribe_the_map_link() ?>" title="<?php _e('Click to view a Google Map', 'tribe-events-calendar'); ?>" target="_blank"><?php _e('Google Map', 'tribe-events-calendar' ); ?></a>
+			<?php endif; ?>
+		</dt>
+			<dd>
+			<?php tribe_the_full_address( get_the_ID() ); ?>
+			</dd>
+		<?php endif; ?>
+	</dl>
+  
+   	<?php if( function_exists('tribe_the_custom_fields') ): ?>
+	  	<?php echo tribe_the_custom_fields( get_the_ID() ); ?>
+	<?php endif; ?>
+</div>
+<?php if( tribe_embed_google_map( get_the_ID() ) ) : ?>
+	<?php if( tribe_address_exists( get_the_ID() ) ) tribe_the_embedded_map(); ?>
+<?php endif; ?>
+<div class="entry">
+	<?php
+	if ( function_exists('has_post_thumbnail') && has_post_thumbnail() ) {?>
+		<?php the_post_thumbnail(); ?>
+	<?php } ?>
+	<div class="summary"><?php the_content() ?></div>
+	<?php if (function_exists('tribe_get_ticket_form')) { tribe_get_ticket_form(); } ?>		
+</div>
+<?php if( function_exists('tribe_get_single_ical_link') ): ?>
+   <a class="ical single" href="<?php echo tribe_get_single_ical_link(); ?>"><?php _e('iCal Import', 'tribe-events-calendar'); ?></a>
+<?php endif; ?>
+<?php if( function_exists('tribe_get_gcal_link') ): ?>
+   <a href="<?php echo tribe_get_gcal_link() ?>" class="gcal-add" title="<?php _e('Add to Google Calendar', 'tribe-events-calendar'); ?>"><?php _e('+ Google Calendar', 'tribe-events-calendar'); ?></a>
+<?php endif; ?>
 
-	</div><!-- #content -->
-	</div><!--#container-->
-<?php get_sidebar(); ?>	
-<?php
-	echo stripslashes(sp_get_option('spEventsAfterHTML'));
-	get_footer();
+<div class="navlink previous"><?php tribe_previous_event_link();?></div>
+
+<div class="navlink next"><?php tribe_next_event_link();?></div>
+<div style="clear:both"></div>

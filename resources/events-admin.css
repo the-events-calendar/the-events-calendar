@@ -1,3 +1,31 @@
+/* Overlays */
+.ui-widget-overlay { background: #666666 url(images/ui-bg_diagonals-thick_20_666666_40x40.png) 50% 50% repeat; opacity: .50;filter:Alpha(Opacity=50); }
+.ui-widget-shadow { margin: -5px 0 0 -5px; padding: 5px; background: #000000 url(images/ui-bg_flat_10_000000_40x100.png) 50% 50% repeat-x; opacity: .20;filter:Alpha(Opacity=20); -moz-border-radius: 5px; -webkit-border-radius: 5px; }/* Resizable
+----------------------------------*/
+.ui-resizable { position: relative;}
+.ui-resizable-handle { position: absolute;font-size: 0.1px;z-index: 99999; display: block;}
+.ui-resizable-disabled .ui-resizable-handle, .ui-resizable-autohide .ui-resizable-handle { display: none; }
+.ui-resizable-n { cursor: n-resize; height: 7px; width: 100%; top: -5px; left: 0px; }
+.ui-resizable-s { cursor: s-resize; height: 7px; width: 100%; bottom: -5px; left: 0px; }
+.ui-resizable-e { cursor: e-resize; width: 7px; right: -5px; top: 0px; height: 100%; }
+.ui-resizable-w { cursor: w-resize; width: 7px; left: -5px; top: 0px; height: 100%; }
+.ui-resizable-se { cursor: se-resize; width: 12px; height: 12px; right: 1px; bottom: 1px; }
+.ui-resizable-sw { cursor: sw-resize; width: 9px; height: 9px; left: -5px; bottom: -5px; }
+.ui-resizable-nw { cursor: nw-resize; width: 9px; height: 9px; left: -5px; top: -5px; }
+.ui-resizable-ne { cursor: ne-resize; width: 9px; height: 9px; right: -5px; top: -5px;}/* Dialog
+----------------------------------*/
+.ui-dialog { position: relative; padding: .2em; width: 300px; }
+.ui-dialog .ui-dialog-titlebar { padding: .5em .3em .3em 1em; position: relative;  }
+.ui-dialog .ui-dialog-title { float: left; margin: .1em 0 .2em; } 
+.ui-dialog .ui-dialog-titlebar-close { position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
+.ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }
+.ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus { padding: 0; }
+.ui-dialog .ui-dialog-content { border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
+.ui-dialog .ui-dialog-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
+.ui-dialog .ui-dialog-buttonpane button { float: right; margin: .5em .4em .5em 0; cursor: pointer; padding: .2em .6em .3em .6em; line-height: 1.4em; width:auto; overflow:visible; text-shadow:none; }
+.ui-dialog .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
+.ui-draggable .ui-dialog-titlebar { cursor: move; }
+
 .events-cal #icon-edit {
 	background:url(images/events-screen-icon.png) no-repeat 6px 3px;
 }
@@ -69,15 +97,15 @@
 	padding-bottom: 10px !important;
 	padding-top: 0 !important;
 }
-.eventForm .snp_sectionheader {
+.eventForm .tribe_sectionheader {
 	padding-bottom: 5px !important;
 }
-#snp_thanks {
+#tribe_thanks {
 	float: left;
 	width: 200px;
 	margin: 5px 0 0 0;
 }
-.snp_brand {
+.tribe_brand {
 	font-weight: normal;
 	margin: 8px 0;
 	font-family: Georgia !important;
@@ -119,18 +147,17 @@
 	table.eventForm {
 	width: 100%;
 }
-td.snp_message {
+td.tribe_message {
 	padding-bottom: 10px !important;
 }
 .clearfix {zoom:1; /* For IE */}
-.tec-events-error {display:none;}
-.tec_hide {display:none;}
-.tec-multi-event-day {color: #0F81BB;}
+.tribe-events-error {display:none;}
+.tribe-events-multi-event-day {color: #0F81BB;}
 
-#adminmenu #menu-posts-spevents div.wp-menu-image {
+#adminmenu #menu-posts-tribe_events div.wp-menu-image {
 	background:url(images/menu.png) no-repeat 0 -32px;
 }
-#adminmenu #menu-posts-spevents:hover div.wp-menu-image, #adminmenu #menu-posts-spevents.wp-has-current-submenu div.wp-menu-image {
+#adminmenu #menu-posts-tribe_events:hover div.wp-menu-image, #adminmenu #menu-posts-spevents.wp-has-current-submenu div.wp-menu-image {
 	background-position:0 0;
 }
 
@@ -159,4 +186,21 @@ td.snp_message {
 }
 .valid input{
 	border: 1px solid green;
+}
+#custom-recurrence-weeks label { width: 45px; display: block; float: left; margin-bottom: 3px;}
+#custom-recurrence-frequency input { width: 30px; }
+#custom-recurrence-years label { width: 50px; display: block; float: left; margin-bottom: 3px;}
+#recurrence-changed-row { color: red; display: none; }
+#rec-end-error { color: red; } 
+.rec-error { display:none; }
+
+.placeholder { cursor: text; padding: 4px 4px 4px 4px; color: #999999; }
+input:placeholder, textarea:placeholder { color: #999999; }
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #999999; }
+
+#additional-field-table input, #additional-field-table select, #additional-field-table textarea { width: 200px; }
+#additional-field-table tbody tr { height: 72px; }
+
+.tribe_settings #pu_dashboard_message{
+display: none;
 }
