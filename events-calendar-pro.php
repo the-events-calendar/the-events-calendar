@@ -340,7 +340,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function addMetaLinks( $links, $file ) {
          if ( $file == $this->pluginDir . 'events-calendar-pro.php' ) {
             $anchor = __( 'Support', 'tribe-events-calendar' );
-            $links []= '<a href="'.self::$updateUrl.'support/ref=ecp-plugin">' . $anchor . '</a>';
+            $links []= '<a href="'.self::$updateUrl.'support/?ref=ecp-plugin">' . $anchor . '</a>';
 
 				$anchor = __( 'View All Add-Ons', 'tribe-events-calendar' ); 
 				$links []= '<a href="'.self::$updateUrl.'shop/?ref=ecp-plugin">' . $anchor . '</a>';
