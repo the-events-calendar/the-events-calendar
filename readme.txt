@@ -40,6 +40,15 @@ The Events Calendar plugin enables you to rapidly create and manage events. Feat
 
 <a href="http://tri.be/wordpress-events-calendar-pro/?ref=tec-readme">Grab a copy of Events Calendar Pro!</a>
 
+== Screenshots ==
+
+1. Calendar View
+1. List View
+1. Single Post
+1. Event Editor
+1. Event List Admin
+1. Settings Panel
+
 == Installation ==
 
 = Install =
