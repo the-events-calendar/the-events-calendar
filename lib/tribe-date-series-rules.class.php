@@ -93,7 +93,7 @@ class MonthSeriesRules implements DateSeriesRules
 
 	public function __construct($months_between = 1, $days_of_month = array(), $week_of_month = null, $day_of_week = null) {
 		$this->months_between = $months_between;
-		$this->days_of_month = $days_of_month;
+		$this->days_of_month = (array)$days_of_month;
 		$this->week_of_month = $week_of_month;
 		$this->day_of_week = $day_of_week;
 		
