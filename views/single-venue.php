@@ -27,11 +27,11 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<dt>
 			<?php _e('Address:', 'tribe-events-calendar-pro') ?><br />
 			<?php if( get_post_meta( get_the_ID(), '_EventShowMapLink', true ) == 'true' ) : ?>
-				<a class="gmap" itemprop="maps" href="<?php tribe_the_map_link() ?>" title="<?php _e('Click to view a Google Map', 'tribe-events-calendar-pro'); ?>" target="_blank"><?php _e('Google Map', 'tribe-events-calendar-pro' ); ?></a>
+				<a class="gmap" itemprop="maps" href="<?php echo tribe_get_map_link() ?>" title="<?php _e('Click to view a Google Map', 'tribe-events-calendar-pro'); ?>" target="_blank"><?php _e('Google Map', 'tribe-events-calendar-pro' ); ?></a>
 			<?php endif; ?>
 		</dt>
 			<dd>
-			<?php tribe_the_full_address( get_the_ID() ); ?>
+			<?php echo tribe_get_full_address( get_the_ID() ); ?>
 			</dd>
 		<?php endif; ?>
 		<?php if ( get_the_content() != ''): ?>
