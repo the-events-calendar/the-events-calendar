@@ -241,8 +241,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	
 
 	/**
-	 * Returns the event Organizer
+	 * Returns the event Organizer ID.
 	 *
+	 * @param int $postId can supply either event id or organizer id, if none specified, current post is used
 	 * @return string Organizer
 	 */
 	function tribe_get_organizer_id( $postId = null)  {
@@ -260,7 +261,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Returns the event Organizer
+	 * Returns the name of the Organizer
 	 *
 	 * @return string Organizer
 	 */
@@ -293,7 +294,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Returns the event Organizer
+	 * Returns the event Organizer Name with a link to their supplied website url
 	 *
 	 * @return string Organizer
 	 */
