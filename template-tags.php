@@ -1,15 +1,15 @@
 <?php
 /**
- * Template Tags
- *  I. Option Template Tags
- *  II. Grid View Template Tags
- *  III. Google Map Template Tags
- *  IV. Event Organizer Template Tags
- *  V. Event Venue (& Address) Template Tags
- *  VI. Other Event Meta Template Tags
- *  VII. Link Template Tags
- *  VIII. Misc Template Tags
- *  IX. API Template Tags
+ * TABLE OF CONTENTS
+ * General Template Tags
+ * Calendar View Template Tags
+ * Google Map Template Tags
+ * Organizer Template Tags
+ * Venue (& Address) Template Tags
+ * Other Event Meta Template Tags
+ * Link Template Tags
+ * Misc Template Tags
+ * API Template Tags
  */
 
 // Don't load directly
@@ -17,9 +17,9 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	
-	/**
-	 * I. Option View Template Tags
-	 */
+	/**************************************************
+	 * SECTION: General Template Tags
+	 **************************************************/
 
 	/**
 	 * retrieve specific key from options array, optionally provide a default return value
@@ -30,11 +30,21 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * II. Grid View Template Tags
+	 * Checks type of $postId to determine if it is an event
+	 * @return boolean
 	 */
+	function tribe_is_event( $postId = null )  {
+		$tribe_ecp = TribeEvents::instance();
+		return $tribe_ecp->isEvent($postId);
+	}
+
+
+	/**************************************************
+	 * SECTION: Calendar View Template Tags
+	 **************************************************/
 
 	/**
-	 * Output function: Prints the gridded calendar table
+	 * Display the full size grid calendar table
 	 *
 	 * @return void
 	 */
@@ -45,7 +55,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Output: Prints the mini gridded calendar table
+	 * Displays the mini grid calendar table (usually in a widget)
 	 *
 	 * @return void
 	 */
@@ -142,22 +152,12 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		include($tribe_ecp->pluginPath.'admin-views/datepicker.php');
 	}
 
-	/**
-	 * Checks type of $postId to determine if it is an event
-	 * @return boolean
-	 */
-	function tribe_is_event( $postId = null )  {
-		$tribe_ecp = TribeEvents::instance();
-		return $tribe_ecp->isEvent($postId);
-	}
-
+	/**************************************************
+	 * SECTION: Google Map Template Tags
+	 **************************************************/
 
 	/**
-	 * III. Google Map Template Tags
-	 */
-
-	/**
-	 * Returns a link to google maps for the given event
+	 * Returns a url to google maps for the given event
 	 *
 	 * @param string $postId 
 	 * @return string a fully qualified link to http://maps.google.com/ for this event
@@ -166,16 +166,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		$tribe_ecp = TribeEvents::instance();
 		$output = esc_url($tribe_ecp->googleMapLink( $postId ));
 		return apply_filters( 'tribe_get_map_link', $output );
-	}
-
-	/**
-	 * Displays a link to google maps for the given event
-	 *
-	 * @param string $postId 
-	 * @return void
-	 */
-	function tribe_the_map_link( $postId = null )  {
-		echo tribe_get_map_link( $postId );
 	}
 
 	/**
@@ -222,18 +212,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		else return '';
 	}
 
-	/**
-	 * Displays an embedded google map for the given event
-	 *
-	 * @param string $postId 
-	 * @param int $width 
-	 * @param int $height
-	 * @return void
-	 */
-	function tribe_the_embedded_map( $postId = null, $width = null, $height = null )  {
-		if (tribe_get_option('embedGoogleMaps'))
-			echo tribe_get_embedded_map( $postId, $width, $height );
-	}
 
 	/**
 	 * Check if embed google map is enabled for this post
@@ -250,9 +228,11 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		return get_post_meta( get_the_ID(), '_EventShowMapLink', 1) == 1;
 	}
 
-	/**
-	 * IV. Event Organizer Template Tags
-	 */
+
+	/**************************************************
+	 * SECTION: Organizer Template Tags
+	 **************************************************/
+	
 
 	/**
 	 * Returns the event Organizer
@@ -325,9 +305,10 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		return apply_filters( 'tribe_get_organizer_phone', $output ); 
 	}
 
-	/**
-	 * V. Event Venue Template Tags
-	 */
+	/**************************************************
+	 * SECTION: Venue Template Tags
+	 **************************************************/
+	
 
 	/**
 	 * Returns the venue id if post has a venue meta id or the post id if the post is a venue
@@ -400,16 +381,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		$postId = tribe_post_id_helper( $postId );
 		$tribe_ecp = TribeEvents::instance();
 		return apply_filters('tribe_get_full_address', $tribe_ecp->fullAddress( $postId, $includeVenueName ) );
-	}
-
-	/**
-	 * Displays a formatted event address
-	 *
-	 * @param string $postId 
-	 * @return void
-	 */
-	function tribe_the_full_address( $postId = null, $includeVenueName = false )  {
-		echo tribe_get_full_address( $postId );
 	}
 
 	/**
@@ -637,9 +608,10 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		return $output;
 	}
 
-	/**
-	 * VII. Event Link Template Tags
-	 */
+	/**************************************************
+	 * SECTION: Link Template Tags
+	 **************************************************/
+	
 	
 	/**
 	 * Link for all occurrences of an event (based on the currently queried event).
@@ -811,9 +783,10 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 
-	/**
-	 * VIII. Misc Template Tags
-	 */
+	/**************************************************
+	 * SECTION: Misc Template Tags
+	 **************************************************/
+	
 
 	/**
 	 * Helper function to determine postId. Pulls from global $post object if null or non-numeric.
@@ -1117,9 +1090,11 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		echo stripslashes(tribe_get_option('spEventsAfterHTML'));
 	}
 
-	/**
-	 * IX. API Template Tags
-	 */
+
+	/**************************************************
+	 * SECTION: API Template Tags
+	 **************************************************/
+	
 
 	/**
 	 * Create an event
