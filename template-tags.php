@@ -263,7 +263,8 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Returns the name of the Organizer
 	 *
-	 * @return string Organizer
+	 * @param int $postId can supply either event id or organizer id, if none specified, current post is used
+	 * @return string Organizer's Name
 	 */
 	function tribe_get_organizer( $postId = null)  {
 		$postId = tribe_post_id_helper( $postId );
@@ -272,9 +273,10 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Returns the event Organizer
+	 * Returns the Organizer's Email
 	 *
-	 * @return string Organizer
+	 * @param int $postId can supply either event id or organizer id, if none specified, current post is used
+	 * @return string Organizer's Email
 	 */
 	function tribe_get_organizer_email( $postId = null)  {
 		$postId = tribe_post_id_helper( $postId );
@@ -285,7 +287,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Returns the event Organizer Name with a link to their supplied website url
 	 *
-	 * @return string Organizer
+	 * @param int $postId can supply either event id or organizer id, if none specified, current post is used
+	 * @param boolean $display if true displays full html links around organizers name, if false returns just the link without displaying it
+	 * @return string Organizer Name + Url
 	 */
 	function tribe_get_organizer_link( $postId = null, $display = true ) {
 		$postId = tribe_post_id_helper( $postId );
@@ -305,9 +309,10 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Returns the event Organizer
+	 * Returns the event Organizer's phone number
 	 *
-	 * @return string Organizer
+	 * @param int $postId can supply either event id or organizer id, if none specified, current post is used
+	 * @return string Organizer's Phone Number
 	 */
 	function tribe_get_organizer_phone( $postId = null)  {
 		$postId = tribe_post_id_helper( $postId );
