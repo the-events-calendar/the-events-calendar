@@ -59,11 +59,11 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<dt>
 			<?php _e('Address:', 'tribe-events-calendar') ?><br />
 			<?php if( tribe_show_google_map_link( get_the_ID() ) ) : ?>
-				<a class="gmap" itemprop="maps" href="<?php tribe_the_map_link() ?>" title="<?php _e('Click to view a Google Map', 'tribe-events-calendar'); ?>" target="_blank"><?php _e('Google Map', 'tribe-events-calendar' ); ?></a>
+				<a class="gmap" itemprop="maps" href="<?php echo tribe_get_map_link() ?>" title="<?php _e('Click to view a Google Map', 'tribe-events-calendar'); ?>" target="_blank"><?php _e('Google Map', 'tribe-events-calendar' ); ?></a>
 			<?php endif; ?>
 		</dt>
 			<dd>
-			<?php tribe_the_full_address( get_the_ID() ); ?>
+			<?php echo tribe_get_full_address( get_the_ID() ); ?>
 			</dd>
 		<?php endif; ?>
 	</dl>
@@ -73,7 +73,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<?php endif; ?>
 </div>
 <?php if( tribe_embed_google_map( get_the_ID() ) ) : ?>
-	<?php if( tribe_address_exists( get_the_ID() ) ) tribe_the_embedded_map(); ?>
+<?php if( tribe_address_exists( get_the_ID() ) ) { echo tribe_get_embedded_map(); } ?>
 <?php endif; ?>
 <div class="entry">
 	<?php

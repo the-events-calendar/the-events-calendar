@@ -192,10 +192,10 @@ if (!function_exists('event_grid_view')) {
 
 	function sp_get_map_link( $postId = null ) {
 		return tribe_get_map_link( $postId );
-		}
+	}
 
 	function sp_the_map_link( $postId = null ) {
-		return tribe_the_map_link( $postId );
+		echo tribe_get_map_link( $postId );
 	}
 
 	function sp_get_full_address( $postId = null, $includeVenue = false ) {
@@ -203,7 +203,7 @@ if (!function_exists('event_grid_view')) {
 	}
 
 	function sp_the_full_address( $postId = null ) {
-		return tribe_the_full_address( $postId );
+		echo tribe_get_full_address( $postId );
 	}
 
 	function sp_address_exists( $postId = null ) {
@@ -215,7 +215,7 @@ if (!function_exists('event_grid_view')) {
 	}
 
 	function sp_the_embedded_map( $postId = null, $width = null, $height = null ) {
-		return tribe_the_embedded_map( $postId, $width, $height );
+		echo tribe_get_embedded_map( $postId, $width, $height );
 	}
 
 	function sp_month_year_dropdowns( $prefix = '' ) {
@@ -442,4 +442,17 @@ if (!function_exists('event_grid_view')) {
 	function getEventMeta( $id, $meta, $single = true ){
 		return tribe_get_event_meta( $id, $meta, $single );
 	}
+
+	function tribe_the_map_link( $postId = null ) {
+		echo tribe_get_map_link( $postId );
+	}
+
+	function tribe_the_embedded_map( $postId = null, $width = null, $height = null ) {
+		echo tribe_get_embedded_map( $postId, $width, $height );
+	}
+
+	function tribe_the_full_address( $postId = null, $includeVenueName = false ) {
+		echo tribe_get_full_address( $postId );
+	}
 }
+?>

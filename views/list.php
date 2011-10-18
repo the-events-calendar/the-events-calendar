@@ -26,6 +26,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<?php if (have_posts()) : ?>
    <?php $hasPosts = true; $first = true; ?>
 	<?php while ( have_posts() ) : the_post(); ?>
+
 			<div id="post-<?php the_ID() ?>" <?php post_class('tribe-events-event clearfix') ?> itemscope itemtype="http://schema.org/Event">
            <?php if ( tribe_is_new_event_day() && !tribe_is_day() ) : ?>
                <h4 class="event-day"><?php echo tribe_get_start_date( null, false ); ?></h4>
@@ -38,7 +39,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 					<?php if (has_excerpt ()): ?>
 						<?php the_excerpt(); ?>
 					<?php else: ?>
-						<?php global $more; $more = 0; ?>
 						<?php the_content(); ?>
 					<?php endif; ?>
 				</div> <!-- End tribe-events-event-entry -->
@@ -75,9 +75,9 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	                  <tr>
 						<td class="tribe-events-event-meta-desc"><?php _e('Address:', 'tribe-events-calendar'); ?><br />
 						<?php if( get_post_meta( get_the_ID(), '_EventShowMapLink', true ) == 'true' ) : ?>
-							<a class="gmap" itemprop="maps" href="<?php tribe_the_map_link(); ?>" title="Click to view a Google Map" target="_blank"><?php _e('Google Map', 'tribe-events-calendar' ); ?></a>
+							<a class="gmap" itemprop="maps" href="<?php echo tribe_get_map_link(); ?>" title="Click to view a Google Map" target="_blank"><?php _e('Google Map', 'tribe-events-calendar' ); ?></a>
 						<?php endif; ?></td>
-						<td class="tribe-events-event-meta-value"><?php tribe_the_full_address( get_the_ID() ); ?></td>
+						<td class="tribe-events-event-meta-value"><?php echo tribe_get_full_address( get_the_ID() ); ?></td>
 	                  </tr>
 	                  <?php endif; ?>
 	                  <?php
