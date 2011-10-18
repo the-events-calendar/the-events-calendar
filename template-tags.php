@@ -283,31 +283,25 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Returns the event Organizer
-	 *
-	 * @return string Organizer
-	 */
-	function tribe_get_organizer_website( $postId = null)  {
-		$postId = tribe_post_id_helper( $postId );
-		$output = esc_url(tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerWebsite', true ));
-		return apply_filters( 'tribe_get_organizer_website', $output);
-	}
-
-	/**
 	 * Returns the event Organizer Name with a link to their supplied website url
 	 *
 	 * @return string Organizer
 	 */
-	function tribe_get_organizer_link( $postId = null)  {
+	function tribe_get_organizer_link( $postId = null, $display = true ) {
 		$postId = tribe_post_id_helper( $postId );
-
-		$link = tribe_get_organizer($postId);
-
-		if(tribe_get_organizer_website($postId) != ''){
-			$link = '<a href="'.esc_attr(tribe_get_organizer_website($postId)).'">'.$link.'</a>';
+		$url = esc_url(tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerWebsite', true ));
+		if( $display && tribe_get_organizer_website($postId) != '' ) {
+			$organizer_name = tribe_get_organizer($postId);
+			$link = '<a href="'.$url.'">'.$organizer_name.'</a>';
+		} else {
+			$link = $url;
 		}
-
-		return apply_filters( 'tribe_get_organizer_link', $link);
+		$link = apply_filters( 'tribe_get_organizer_link', $link, $postId, $display, $url );
+		if ( $display ) {
+			echo $link;
+		} else {
+			return $link;
+		}
 	}
 
 	/**
