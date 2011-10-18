@@ -169,7 +169,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Returns an embedded google maps for the given event
+	 * Returns an embedded google maps for an event
 	 *
 	 * @param string $postId 
 	 * @param int $width 
@@ -214,7 +214,10 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 
 
 	/**
-	 * Check if embed google map is enabled for this post
+	 * Check if embed google map is enabled for this event.
+	 *
+     * @param int $postId id of the post, if none specified, current post is used
+	 * @return boolean true if google map option is set to embed the map
 	 */
 	function tribe_embed_google_map($postId = null) {
 		$postId = tribe_post_id_helper( $postId );
@@ -222,7 +225,10 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Check if google map link is enabled for this post
+	 * Check if google map link is enabled for this event
+	 *
+     * @param int $postId id of the post, if none specified, current post is used
+	 * @return boolean true if google map link is set to display the event
 	 */
 	function tribe_show_google_map_link($postId = null) {
 		return get_post_meta( get_the_ID(), '_EventShowMapLink', 1) == 1;
