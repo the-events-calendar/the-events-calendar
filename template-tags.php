@@ -245,9 +245,18 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 *
 	 * @return string Organizer
 	 */
-	function tribe_has_organizer( $postId = null)  {
+	function tribe_get_organizer_id( $postId = null)  {
 		$postId = tribe_post_id_helper( $postId );
-		return apply_filters('tribe_has_organizer', tribe_get_event_meta( $postId, '_EventOrganizerID', true ) );
+		if (is_numeric($postId) && $postId > 0) {
+			$tribe_ecp = TribeEvents::instance();
+			// check if $postId is an organizer id
+			if ($tribe_ecp->isOrganizer($postId)) {
+				$organizer_id = $postId;
+			} else {
+				$organizer_id = tribe_get_event_meta( $postId, '_EventOrganizerID', true );
+			}
+		}
+		return apply_filters('tribe_get_organizer_id', $organizer_id, $postId );
 	}
 
 	/**
@@ -257,7 +266,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 */
 	function tribe_get_organizer( $postId = null)  {
 		$postId = tribe_post_id_helper( $postId );
-		$output = esc_html(tribe_get_event_meta( tribe_has_organizer(), '_OrganizerOrganizer', true ));
+		$output = esc_html(tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerOrganizer', true ));
 		return apply_filters( 'tribe_get_organizer', $output );
 	}
 
@@ -268,7 +277,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 */
 	function tribe_get_organizer_email( $postId = null)  {
 		$postId = tribe_post_id_helper( $postId );
-		$output = esc_html(tribe_get_event_meta( tribe_has_organizer(), '_OrganizerEmail', true ));
+		$output = esc_html(tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerEmail', true ));
 		return apply_filters( 'tribe_get_organizer_email', $output);
 	}
 
@@ -279,7 +288,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 */
 	function tribe_get_organizer_website( $postId = null)  {
 		$postId = tribe_post_id_helper( $postId );
-		$output = esc_url(tribe_get_event_meta( tribe_has_organizer(), '_OrganizerWebsite', true ));
+		$output = esc_url(tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerWebsite', true ));
 		return apply_filters( 'tribe_get_organizer_website', $output);
 	}
 
@@ -307,7 +316,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 */
 	function tribe_get_organizer_phone( $postId = null)  {
 		$postId = tribe_post_id_helper( $postId );
-		$output = esc_html(tribe_get_event_meta( tribe_has_organizer(), '_OrganizerPhone', true ));
+		$output = esc_html(tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerPhone', true ));
 		return apply_filters( 'tribe_get_organizer_phone', $output ); 
 	}
 

@@ -1797,6 +1797,17 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			return false;
 		}
 
+		public function isOrganizer( $postId = null ) {
+			if ( $postId === null || ! is_numeric( $postId ) ) {
+				global $post;
+				$postId = $post->ID;
+			}
+			if ( get_post_field('post_type', $postId) == self::ORGANIZER_POST_TYPE ) {
+				return true;
+			}
+			return false;
+		}
+
 		/**
 	 ** Get a "previous/next post" link for events. Ordered by start date instead of ID.
 	 **/
