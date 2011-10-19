@@ -301,7 +301,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				if($item->url == $this->getLink() ) {
 					if ( is_singular( TribeEvents::POSTTYPE ) || is_singular( TribeEvents::VENUE_POST_TYPE ) || 
 								is_tax(TribeEvents::TAXONOMY) ||
-								tribe_is_upcoming() || tribe_is_past() || tribe_is_month() ) {
+								( ( tribe_is_upcoming() || tribe_is_past() || tribe_is_month() ) && isset($wp_query->query_vars['eventDisplay']) ) ) {
 						$item->classes[] = 'current-menu-item current_page_item';
 					}
 					break;
