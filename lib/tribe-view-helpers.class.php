@@ -11,7 +11,7 @@ if (!class_exists('TribeEventsViewHelpers')) {
 		public static function constructCountries( $postId = '', $useDefault = true ) {
 			$tribe_ecp = TribeEvents::instance();
 
-			if(sp_get_option('spEventsCountries') != ''){
+			if(tribe_get_option('spEventsCountries') != ''){
 				$countries = array(
 					"" => __("Select a Country:", 'tribe-events-calendar')
 					);
