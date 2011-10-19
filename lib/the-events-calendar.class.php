@@ -142,6 +142,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		protected function loadLibraries() {
 			require_once( 'tribe-event-exception.class.php' );
 			require_once( $this->pluginPath.'template-tags.php' );
+			require_once( $this->pluginPath.'advanced-functions.php' );
 			require_once( 'template-tags-deprecated.php' );
 			require_once( 'widget-list.class.php' );
 			require_once( 'tribe-admin-events-list.class.php' );
@@ -1583,13 +1584,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
       public function displayEventVenueInput($postId) {
-         $curVenue = get_post_meta( $postId, '_EventVenueID', true);
-         ?><input type='hidden' name='venue[curVenue]' value='<?php echo esc_attr($curVenue) ?>'/><?php
+         $VenueID = get_post_meta( $postId, '_EventVenueID', true);
+         ?><input type='hidden' name='venue[VenueID]' value='<?php echo esc_attr($VenueID) ?>'/><?php
       }
 
       public function displayEventOrganizerInput($postId) {
-         $curOrg = get_post_meta( $postId, '_EventOrganizerID', true);
-         ?><input type='hidden' name='organizer[curOrganizer]' value='<?php echo esc_attr($curOrg) ?>'/><?php
+         $OrganizerID = get_post_meta( $postId, '_EventOrganizerID', true);
+         ?><input type='hidden' name='organizer[OrganizerID]' value='<?php echo esc_attr($OrganizerID) ?>'/><?php
       }
       
 

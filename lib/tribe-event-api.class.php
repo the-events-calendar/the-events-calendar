@@ -52,7 +52,7 @@ if (!class_exists('TribeEventsAPI')) {
 		public static function saveEventMeta($event_id, $data, $event = null) {
 			$tribe_ecp = TribeEvents::instance();
 		
-			if( $data['EventAllDay'] == 'yes' || !isset($data['EventStartDate']) ) {
+			if( $data['EventAllDay'] == 'yes' || $data['EventAllDay'] == true || !isset($data['EventStartDate']) ) {
 				$data['EventStartDate'] = TribeDateUtils::beginningOfDay($data['EventStartDate']);
 				$data['EventEndDate'] = TribeDateUtils::endOfDay($data['EventEndDate']);
 			} else {
@@ -73,9 +73,13 @@ if (!class_exists('TribeEventsAPI')) {
 		
 			if( !isset( $data['EventShowMapLink'] ) ) update_post_meta( $event_id, '_EventShowMapLink', 'false' );
 			if( !isset( $data['EventShowMap'] ) ) update_post_meta( $event_id, '_EventShowMap', 'false' );
-		
-			$data['EventOrganizerID'] = TribeEventsAPI::saveEventOrganizer($data["Organizer"], $event);
-			$data['EventVenueID'] = TribeEventsAPI::saveEventVenue($data["Venue"], $event);
+			
+			if (isset($data["Organizer"])) {
+				$data['EventOrganizerID'] = TribeEventsAPI::saveEventOrganizer($data["Organizer"], $event);
+			}
+			if (isset($data["Venue"])) {
+				$data['EventVenueID'] = TribeEventsAPI::saveEventVenue($data["Venue"], $event);
+			}
 
 			$tribe_ecp->do_action('tribe_events_event_save', $event_id);
 
@@ -97,30 +101,32 @@ if (!class_exists('TribeEventsAPI')) {
 		 * Saves the event organizer information passed via an event
 		 */
 		private static function saveEventOrganizer($data, $post=null) {
-			// return if organizer is already created
-			if($data['OrganizerID'] && $data['OrganizerID'] != "0")
-				return $data['OrganizerID'];
-
-         if($data['curOrganizer']) {
-            return TribeEventsAPI::updateOrganizer($data['curOrganizer'], $data);
-         } else {
-            return TribeEventsAPI::createOrganizer($data);
-         }
+			if( isset($data['OrganizerID']) && $data['OrganizerID'] > 0) {
+				if (count($data) == 1) {
+					// Only an ID was passed and we should do nothing.
+					return $data['OrganizerID'];
+				} else {
+					return TribeEventsAPI::updateOrganizer($data['OrganizerID'], $data);
+				}
+			} else {
+				return TribeEventsAPI::createOrganizer($data);
+			}
 		}
 	
 		/**
 		 * Saves the event venue information passed via an event
 		 */
 		private static function saveEventVenue($data, $post=null) {
-			// return if Venue is already created
-			if($data['VenueID'] && $data['VenueID'] != "0")
-				return $data['VenueID'];
-
-         if($data['curVenue']) {
-            return TribeEventsAPI::updateVenue($data['curVenue'], $data);
-         } else {
-            return TribeEventsAPI::createVenue($data);
-         }
+			if( isset($data['VenueID']) && $data['VenueID'] > 0) {
+				if (count($data) == 1) {
+					// Only an ID was passed and we should do nothing.
+					return $data['VenueID'];
+				} else {
+					return TribeEventsAPI::updateVenue($data['VenueID'], $data);
+				}
+			} else {
+				return TribeEventsAPI::createVenue($data);
+			}
 		}	
 	
 		/**
