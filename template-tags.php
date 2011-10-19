@@ -1,5 +1,6 @@
 <?php
-/**
+
+/**************************************************
  * TABLE OF CONTENTS
  * General Template Tags
  * Calendar View Template Tags
@@ -10,7 +11,7 @@
  * Date Template Tags
  * Link Template Tags
  * API Template Tags
- */
+ **************************************************/
 
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
@@ -32,7 +33,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 
 	/**
 	 * Checks type of $postId to determine if it is an event
-	 * @return boolean
+	 * @return bool
 	 */
 	function tribe_is_event( $postId = null )  {
 		$tribe_ecp = TribeEvents::instance();
@@ -470,7 +471,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Echo an event's title with pseudo-breadcrumb if on a category
 	 *
-	 * @param boolean $depth include linked title
+	 * @param bool $depth include linked title
 	*/ 
 	function tribe_events_title( $depth = true )  {
 		echo tribe_get_events_title( $depth );
@@ -479,7 +480,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Return an event's title with pseudo-breadcrumb if on a category
 	 *
-	 * @param boolean $depth include linked title
+	 * @param bool $depth include linked title
 	 * @return string title
 	 */
 	function tribe_get_events_title( $depth = true )  {
@@ -567,7 +568,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * Check if embed google map is enabled for this event.
 	 *
      * @param int $postId id of the post, if none specified, current post is used
-	 * @return boolean true if google map option is set to embed the map
+	 * @return bool true if google map option is set to embed the map
 	 */
 	function tribe_embed_google_map($postId = null) {
 		$postId = tribe_post_id_helper( $postId );
@@ -578,7 +579,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * Check if google map link is enabled for this event
 	 *
      * @param int $postId id of the post, if none specified, current post is used
-	 * @return boolean true if google map link is set to display the event
+	 * @return bool true if google map link is set to display the event
 	 */
 	function tribe_show_google_map_link($postId = null) {
 		return get_post_meta( get_the_ID(), '_EventShowMapLink', 1) == 1;
@@ -627,7 +628,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Returns true or false depending on if the post id has/is a n organizer
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	function tribe_has_organizer( $postId = null) {
 		$postId = tribe_post_id_helper( $postId );
@@ -650,7 +651,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * Returns the event Organizer Name with a link to their supplied website url
 	 *
 	 * @param int $postId can supply either event id or organizer id, if none specified, current post is used
-	 * @param boolean $display if true displays full html links around organizers name, if false returns just the link without displaying it
+	 * @param bool $display if true displays full html links around organizers name, if false returns just the link without displaying it
 	 * @return string Organizer Name + Url
 	 */
 	function tribe_get_organizer_link( $postId = null, $display = true ) {
@@ -708,7 +709,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * Returns true or false depending on if the post id for the event has a venue or if the post id is a venue
 	 *
 	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
-	 * @return boolean
+	 * @return bool
 	 */
 	function tribe_has_venue( $postId = null) {
 		$postId = tribe_post_id_helper( $postId );
@@ -719,7 +720,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * Returns the event venue name
 	 *
 	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
-	 * @param boolean $with_link (deprecated in 2.0.1)
+	 * @param bool $with_link (deprecated in 2.0.1)
 	 * @return string Venue Name
 	 */
 	function tribe_get_venue( $postId = null, $with_link = false )  {
@@ -734,7 +735,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * Returns the event Organizer Name with a link to their supplied website url
 	 *
 	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
-	 * @param boolean $display if true displays full html links around venue's name, if false returns just the link without displaying it
+	 * @param bool $display if true displays full html links around venue's name, if false returns just the link without displaying it
 	 * @return string venue
 	 */
 	function tribe_get_venue_link( $postId = null, $display = true )  {
@@ -783,7 +784,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * Returns true if any of the following exist: address, city, state/province (region), country or zip
 	 *
 	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
-	 * @return boolean true if any part of an address exists
+	 * @return bool true if any part of an address exists
 	 */
 	function tribe_address_exists( $postId = null )  {
 		$postId = tribe_post_id_helper( $postId );
@@ -923,7 +924,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * Returns the event start date and time
 	 *
 	 * @param int post id
-	 * @param boolean $displayTime if true shows date and time, if false only shows date
+	 * @param bool $displayTime if true shows date and time, if false only shows date
 	 * @param string $dateFormat allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 * @return string date
 	 */
@@ -944,7 +945,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * Returns formatted date
 	 *
 	 * @param string $date 
-	 * @param boolean $displayTime if true shows date and time, if false only shows date
+	 * @param bool $displayTime if true shows date and time, if false only shows date
 	 * @param string $dateFormat allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 * @return string
 	 */
@@ -966,7 +967,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * Returns the event end date
 	 *
 	 * @param int post id
-	 * @param boolean $displayTime if true shows date and time, if false only shows date
+	 * @param bool $displayTime if true shows date and time, if false only shows date
 	 * @param string $dateFormat allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 * @return string date
 	 */
@@ -1171,33 +1172,49 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		return false;
 	}
 
-
 	/**************************************************
 	 * SECTION: API Template Tags
 	 **************************************************/
 	
-
 	/**
 	 * Create an event
 	 *
-	 * @param $args - Elements that make up post to insert. See WordPress's wp_insert_post() http://codex.wordpress.org/Function_Reference/wp_insert_post
+	 * @param array $args - Elements that make up post to insert.
+	 * @return int - ID of the event that was created. False if insert failed.
+	 * @link http://codex.wordpress.org/Function_Reference/wp_insert_post
+	 * @see wp_insert_post()
 	 */
 	function tribe_create_event($args) {
-		TribeEventsAPI::createEvent($args);
+		$eventId = TribeEventsAPI::createEvent($args);
+		return $eventId;
 	}
 
 	/**
 	 * Update an event
+	 *
+	 * @param int $eventId - ID of the event to be modified.
+	 * @param array $args - Args for updating the post.
+	 * @return int - ID of the event that was created. False if update failed.
+	 * @link http://codex.wordpress.org/Function_Reference/wp_update_post
+	 * @see wp_update_post()
 	 */
 	function tribe_update_event($eventId, $args) {
-		TribeEventsAPI::updateEvent($eventId, $args);
+		$eventId = TribeEventsAPI::updateEvent($eventId, $args);
+		return $eventId;
 	}
 
 	/**
 	 * Delete an event
+	 *
+	 * @param int $eventId - ID of the event to be deleted.
+	 * @param bool $force_delete - Whether to bypass trash and force deletion. Defaults to false.
+	 * @return bool false if delete failed.
+	 * @link http://codex.wordpress.org/Function_Reference/wp_delete_post
+	 * @see wp_delete_post()
 	 */
-	function tribe_delete_event($eventId, $args) {
-		TribeEventsAPI::deleteEvent($eventId, $args);
+	function tribe_delete_event($eventId, $force_delete = false) {
+		$success = TribeEventsAPI::deleteEvent($eventId, $args);
+		return $success;
 	}
 
 	/**
@@ -1240,7 +1257,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 */
 	function tribe_delete_organizer($organizerId, $args) {
 		TribeEventsAPI::deleteOrganizer($organizerId, $args);
-	}
-	
-} // end if class_exists('The-Events-Calendar')
+	}	
+}
 ?>

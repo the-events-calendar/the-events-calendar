@@ -43,7 +43,7 @@ if (!class_exists('TribeEventsAPI')) {
 		 * Delete an event - all instances if recurring
 		 */
 		public static function deleteEvent($eventId, $force_delete = false) {
-			wp_delete_post($eventId, $force_delete);		
+			return wp_delete_post($eventId, $force_delete);		
 		}
 	
 		/**
