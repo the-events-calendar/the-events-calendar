@@ -57,7 +57,7 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 	 */
 	function tribe_get_single_ical_link()  {
 		$tribe_ecp = TribeEvents::instance();
-		$output = esc_url($tribe_ecp->getLink( 'ical', 'single' ));
+		$output = $tribe_ecp->getLink( 'ical', 'single' );
 		return $output;
 	}
 
@@ -66,7 +66,7 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
     */
 	function tribe_get_ical_link()  {
 		$tribe_ecp = TribeEvents::instance();
-		$output = esc_url($tribe_ecp->getLink('ical'));
+		$output = $tribe_ecp->getLink('ical');
 		return $output;
 	}
 
