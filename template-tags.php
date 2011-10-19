@@ -377,7 +377,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 	
 	/**
-	 * Returns the event venue permalink
+	 * Returns the event Organizer Name with a link to their supplied website url
 	 *
 	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
 	 * @param boolean $display if true displays full html links around venue's name, if false returns just the link without displaying it
@@ -403,6 +403,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Returns the event country
 	 *
+	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
 	 * @return string country
 	 */
 	function tribe_get_country( $postId = null)  {
@@ -413,6 +414,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
+	 * Returns the full address for the venue. Function uses the views/full-address.php template which you can override in your theme (including google microformats etc).
+	 *
+	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
 	 * @return string formatted event address
 	 */	
 	function tribe_get_full_address( $postId = null, $includeVenueName = false )  {
@@ -422,6 +426,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
+	 * Returns true if any of the following exist: address, city, state/province (region), country or zip
+	 *
+	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
 	 * @return boolean true if any part of an address exists
 	 */
 	function tribe_address_exists( $postId = null )  {
@@ -440,9 +447,10 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Returns the event address
+	 * Returns the venue street address
 	 *
-	 * @return string address
+	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
+	 * @return string street address
 	 */
 	function tribe_get_address( $postId = null)  {
 		$postId = tribe_post_id_helper( $postId );
@@ -452,8 +460,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Returns the event city
+	 * Returns the venue city
 	 *
+	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
 	 * @return string city
 	 */
 	function tribe_get_city( $postId = null)  {
@@ -464,7 +473,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Returns the event state or Province
+	 * Returns the venue state or province
 	 *
 	 * @return string state
 	 */
@@ -476,8 +485,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Returns the event state
+	 * Returns the venue state
 	 *
+	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
 	 * @return string state
 	 */
 	function tribe_get_state( $postId = null)  {
@@ -488,8 +498,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Returns the event province
+	 * Returns the venue province
 	 *
+	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
 	 * @return string province
 	 */
 	function tribe_get_province( $postId = null)  {
@@ -502,6 +513,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Returns the state or province for US or non-US addresses
 	 *
+	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
 	 * @return string
 	 */
 	function tribe_get_region( $postId = null )  {
@@ -523,6 +535,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Returns the event zip code
 	 *
+	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
 	 * @return string zip code 
 	 */
 	function tribe_get_zip( $postId = null)  {
@@ -532,9 +545,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		return $output;
 	}
 
-	/**
-	 * VI. Other Event Meta Template Tags
-	 */
+	/**************************************************
+	 * SECTION: Other Event Meta Template Tags
+	 **************************************************/
 
 	/**
 	 * Returns the event start date
