@@ -1,9 +1,10 @@
 <?php
 /*
- Plugin Name:  Events Calendar PRO - Events Importer
+ Plugin Name: Events Calendar PRO Events Importer
  Version: 1.0
- Author: Shane & Peter, Inc.
- Author URI: http://www.shaneandpeter.com/
+ Description: The Events Calendar PRO Events Importer is a premium add-on to the Events Calendar PRO plugin. This add-on enables import of organizers, venues and events via CSV file. Column mapping is chosen after the file is uploaded.
+ Author: Modern Tribe, Inc.
+ Author URI: http://tri.be?ref=importer-addon
  Text Domain: tribe-events-calendar-pro
 */
 
@@ -57,15 +58,15 @@ if (!class_exists('ECP_Events_Importer')) {
 					    );
 		
 	private function __construct() {
-	    $this->pluginName = __( 'ECP Events Importer', 'events-calendar-pro' );
-	    $this->pluginDir = trailingslashit( basename( dirname(__FILE__) ) );
-	    $this->pluginPath = trailingslashit( dirname(__FILE__) );
-	    $this->pluginUrl = WP_PLUGIN_URL.'/'.$this->pluginDir;
-	    $this->pluginSlug = 'events-importer';
-	    $this->fileLocation = $this->pluginPath . 'ecp-import.csv';
+		$this->pluginName = __( 'ECP Events Importer', 'events-calendar-pro' );
+		$this->pluginDir = trailingslashit( basename( dirname(__FILE__) ) );
+		$this->pluginPath = trailingslashit( dirname(__FILE__) );
+		$this->pluginUrl = WP_PLUGIN_URL.'/'.$this->pluginDir;
+		$this->pluginSlug = 'events-importer';
+		$this->fileLocation = $this->pluginPath . 'ecp-import.csv';
 	    
-	    add_action( 'admin_menu', array( $this, 'addImportOptionsPage' ) );
-	    //add_action( 'admin_init', array( $this, 'processForm' ) );
+		add_action( 'admin_menu', array( $this, 'addImportOptionsPage' ) );
+		add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
 	}
 	
 	public function addImportOptionsPage() {
@@ -562,7 +563,17 @@ if (!class_exists('ECP_Events_Importer')) {
 	    }
 	    return $ret;
 	}
-    }
+
+	public function addMetaLinks( $links, $file ) {
+		if ( $file == $this->pluginDir . 'ecp-events-importer.php' ) {
+			$anchor = __( 'Support', 'tribe-events-calendar' );
+			$links []= '<a href="http://wordpress.org/tags/the-events-calendar?forum_id=10">' . $anchor . '</a>';
+			$anchor = __( 'View All Add-Ons', 'tribe-events-calendar' ); 
+			$links []= '<a href="http://tribe.pro/events-calendar/features/add-ons/?ref=importer-addon">' . $anchor . '</a>';
+		}
+		return $links;
+	}
+}
     
     /** Load and dependecy checks. **/
     
