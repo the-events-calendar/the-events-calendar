@@ -413,7 +413,8 @@ if (!class_exists('TribeEventsViewHelpers')) {
 		private static function hours() {
 			$hours = array();
 			$rangeMax = ( strstr(get_option('time_format', TribeDateUtils::TIMEFORMAT), 'H') ) ? 23 : 12;
-			foreach (range(1, $rangeMax) as $hour) {
+			$rangeStart = $rangeMax > 12 ? 0 : 1;
+			foreach (range($rangeStart, $rangeMax) as $hour) {
 				if ($hour < 10) {
 					$hour = "0" . $hour;
 				}
