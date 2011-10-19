@@ -26,7 +26,7 @@ if ( empty($customFields) || !is_array($customFields) ) {
                   <select name='<?php echo $customField['name']?>'>
                      <?php $options = explode("\n", $customField['values']) ?> 
                      <?php foreach ($options as $option): ?>
-                       <option value='<?php echo esc_attr($option) ?>' <?php selected($val, $option) ?>><?php echo esc_html($option) ?></option>
+							<option value='<?php echo esc_attr($option) ?>' <?php selected(trim($val), trim($option)) ?>><?php echo esc_html($option) ?></option>
                      <?php endforeach ?>
                   </select>
                <?php elseif($customField['type'] == 'textarea'): ?>
