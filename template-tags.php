@@ -304,7 +304,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	function tribe_get_organizer_link( $postId = null, $display = true ) {
 		$postId = tribe_post_id_helper( $postId );
 		$url = esc_url(tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerWebsite', true ));
-		if( $display && tribe_get_organizer_website($postId) != '' ) {
+		if( $display && $url != '' ) {
 			$organizer_name = tribe_get_organizer($postId);
 			$link = '<a href="'.$url.'">'.$organizer_name.'</a>';
 		} else {
@@ -365,29 +365,39 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * Returns the event venue name
 	 *
 	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
-	 * @param boolean $display if true displays full html links around venue's name, if false returns just the link without displaying it
+	 * @param boolean $with_link (deprecated in 2.0.1)
 	 * @return string Venue Name
 	 */
-	function tribe_get_venue( $postId = null, $with_link = false)  {
+	function tribe_get_venue( $postId = null, $with_link = false )  {
+		if ( $with_link ) {	_deprecated_argument( __FUNCTION__, '2.0.1' ); }
 		$postId = tribe_post_id_helper( $postId );
 		$postId = tribe_is_venue( $postId ) ? $postId : tribe_get_venue_id( $postId );
 		$venue = esc_html(tribe_get_event_meta( $postId, '_VenueVenue', true ));
-		
-		if( $with_link && tribe_has_venue( $postId ) && class_exists('TribeEventsPro') )
-			return "<a href='" . get_permalink(tribe_get_venue_id( $postId )) . "'>$venue</a>";
-		
 		return $venue;
 	}
 	
 	/**
 	 * Returns the event venue permalink
 	 *
+	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
+	 * @param boolean $display if true displays full html links around venue's name, if false returns just the link without displaying it
 	 * @return string venue
 	 */
-	function tribe_get_venue_permalink( $postId = null)  {
+	function tribe_get_venue_link( $postId = null, $display = true )  {
 		$postId = tribe_post_id_helper( $postId );
-		$output = esc_html((tribe_has_venue( $postId )) ? get_permalink( tribe_get_venue_id( $postId ) ) : "");
-		return $output;
+		$url = esc_url((tribe_has_venue( $postId )) ? get_permalink( tribe_get_venue_id( $postId ) ) : "");
+		if( $display && $url != '' ) {
+			$venue_name = tribe_get_venue($postId);
+			$link = '<a href="'.$url.'">'.$venue_name.'</a>';
+		} else {
+			$link = $url;
+		}
+		$link = apply_filters( 'tribe_get_venue_link', $link, $postId, $display, $url );
+		if ( $display ) {
+			echo $link;
+		} else {
+			return $link;
+		}
 	}
 	
 	/**
