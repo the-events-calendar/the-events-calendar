@@ -35,6 +35,15 @@ if (!class_exists('TribeEventsImport')) {
 			add_action( 'admin_init', array( $this, 'upgradeData' ) );
 			add_action( 'tribe_events_options_post_form', array( $this, 'adminForm' ) );
 			add_action( 'admin_notices', array( $this, 'upgradeNotice' ) );
+			add_action( 'admin_notices', array( $this, 'promptUpgrade') );
+		}
+
+		public function promptUpgrade() {
+			if ( self::hasLegacyEvents() ) {
+				echo '<div class="error"><p>' . 
+					__('You have events that need to be migrated.  Please visit the bottom of the <a href="options-general.php?page=tribe-events-calendar">settings page</a> to perform the migration.', 'tribe-events-calendar') . 
+					'</p></div>';
+			}
 		}
 		
 		public function adminForm() {
@@ -185,6 +194,7 @@ if (!class_exists('TribeEventsImport')) {
 				'meta_key' => '_EventStartDate',
 				'category_name' => 'Events'
 			));
+
 			if (count($query->posts)) {
 				TribeEvents::debug( __( 'Install has 1 or more legacy event!', 'tribe-events-calendar' ), false, 'warning' );
 			}
