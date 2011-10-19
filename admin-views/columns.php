@@ -9,7 +9,7 @@ $importer_instance = ECP_Events_importer::instance();
 
 <?php if ( $error_message != '' ): ?>
     <p><?php _e( 'There was an error:', 'tribe-events-calendar-pro' ) ?> <?php echo $error_message ?></p>
-    <p><a href="#" onClick="history.go(-1)"><?php _e( 'Go back', 'tribe-events-calendar-pro' ) ?></a></p>
+    <p><a href="#" onClick="history.go(-1);return false;"><?php _e( 'Go back', 'tribe-events-calendar-pro' ) ?></a></p>
 <?php else: ?>
     <div class="form">
         <p><?php _e( 'In order to import your file, you need to match up columns in the file, with attributes of events, venues and organizers.',
