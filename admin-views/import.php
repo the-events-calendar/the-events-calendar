@@ -15,8 +15,8 @@ div.tribe_settings{
     <h2><?php _e( 'Events Import', 'tribe-events-calendar-pro' ) ?></h2>
 
     <div class="form">
+	<p class="error"><strong><?php _e('Please import venues and organizations first, followed by events.', 'tribe-events-calendar-pro' ) ?></strong></p>
 	<p><?php _e( 'To begin importing events, please choose the type of import and the file.', 'tribe-events-calendar-pro' ) ?></p>
-	<p class="error"><?php _e('Please import venues and organizations first, followed by events.', 'tribe-events-calendar-pro' ) ?></p>
 	
 	<form method="POST" enctype="multipart/form-data">
 	    <table class="form-table">
