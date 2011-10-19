@@ -182,7 +182,7 @@ if (!class_exists('ECP_Events_Importer')) {
 			}
 			// Report results.
 			$error_message = '';
-			$success_message = sprintf( __( "Import successfully completed! Failed: %d Updated: %d Inserted: %d\n" ),
+			$success_message = sprintf( __( "<strong>Import successfully completed!</strong><br/> <ul><li>Failed: %d</li><li>Updated: %d</li><li>Inserted: %d</li></ul>\n" ),
 						    $results[ 'fail' ],
 						    $results[ 'update' ],
 						    $results[ 'insert' ] );
@@ -474,7 +474,7 @@ if (!class_exists('ECP_Events_Importer')) {
 	    $ret = false;
 	    if ( isset( $inverted_mapping[ $key ] ) &&
 		 isset( $row[ $inverted_mapping[ $key ] ] ) &&
-		 trim( $row[ $inverted_mapping[ $key ] ] != '' ) ) {
+		 trim( $row[ $inverted_mapping[ $key ] ] ) != '' ) {
 		$ret = true;
 	    }
 	    return $ret;
