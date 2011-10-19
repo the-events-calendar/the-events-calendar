@@ -1497,21 +1497,22 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			foreach ( $this->metaTags as $tag ) {
 				if ( $postId && isset($_GET['post']) && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
 					// Sort the meta to make sure it is correct for recurring events
-					$meta = get_post_meta($postId,$tag); sort($meta);
-					$$tag = $meta[0];
+					$meta = get_post_meta($postId,$tag); 
+					sort($meta);
+					if (isset($meta[0])) { $$tag = $meta[0]; }
 				} else {
 					$cleaned_tag = str_replace('_Event','',$tag);
 					$$tag = class_exists('TribeEventsPro') ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
 				}
 			}
 
-         if( $_EventOrganizerID ) {
+         if( isset($_EventOrganizerID) && $_EventOrganizerID ) {
             foreach($this->organizerTags as $tag) {
 					$$tag = get_post_meta($_EventOrganizerID, $tag, true );
 				}
          }
 
-			if($_EventVenueID){
+			if(isset($_EventVenueID) && $_EventVenueID){
 				foreach($this->venueTags as $tag) {
 					$$tag = get_post_meta($_EventVenueID, $tag, true );
 				}
