@@ -18,7 +18,6 @@ div.tribe_settings{
 	<p class="error"><strong><?php _e( 'Please import venues and organizations first, followed by events.', 'tribe-events-calendar-pro' ) ?></strong></p>
 	<p><?php echo _e( '<ol><li><strong>Organizer import requires:</strong> Organizer name</li><li><strong>Venue import requires:</strong> Venue name</li><li><strong>Event import requires:</strong> Event name and event start date.</li></ol>', 'tribe-events-calendar-pro' ) ?></p>
 	<br />
-	<br />
 	<p><?php _e( 'To begin importing events, please choose the type of import and the file.', 'tribe-events-calendar-pro' ) ?></p>
 	
 	<form method="POST" enctype="multipart/form-data">
@@ -56,9 +55,11 @@ div.tribe_settings{
 	    ?>
 	    <table class="form-table">
 		<tr>
+		  <td>
 		    <input type="submit" class="button-primary" style="" value="<?php _e( 'Import CSV File', 'tribe-events-calendar-pro' ) ?>" />
 		    <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo (2 * 1024 * 1024); ?>" />
 		    <input type="hidden" name="ecp_import_action" value="map" />
+		  </td>
 		</tr>
 	    </table>
 	</form>
