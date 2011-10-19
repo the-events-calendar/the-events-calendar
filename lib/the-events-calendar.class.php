@@ -1136,6 +1136,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );										
             return esc_url($link);
          case 'day':
+				$date = strtotime($secondary);
+            $secondary = date('Y-m-d', $date);
             return esc_url($eventUrl . $secondary);
          case 'all':
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );					
