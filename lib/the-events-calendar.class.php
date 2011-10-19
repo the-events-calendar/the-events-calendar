@@ -369,8 +369,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function addDateToRecurringEvents($permalink, $post) {
-			if(function_exists('tribe_is_recurring_event') && $post->post_type == self::POSTTYPE && tribe_is_recurring_event($post->ID) ) {
-				if( is_admin() && !$post->EventStartDate ) {
+			if( function_exists('tribe_is_recurring_event') && $post->post_type == self::POSTTYPE && tribe_is_recurring_event($post->ID) ) {
+				if( is_admin() && (!isset($post->EventStartDate) || !$post->EventStartDate) ) {
 					if( isset($_REQUEST['eventDate'] ) ) {
 						$post->EventStartDate = $_REQUEST['eventDate'];
 					} else	{
