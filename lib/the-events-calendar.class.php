@@ -203,6 +203,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				add_action( 'tribe_events_cost_table', array($this, 'maybeShowMetaUpsell'));
 				add_action( 'tribe_events_options_top', array($this, 'maybeShowSettingsUpsell'));
 			}
+
+			add_action('admin_notices', array($this, 'majorUpgradeNotice'));
+			add_action('wp_ajax_dismiss_admin_notice', array($this, 'dismissUpgradeNotice'));
 		}
 
       /**
@@ -1931,7 +1934,37 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			<p><?php printf(__('Check out the <a href="%s">available Add-Ons</a>.', 'tribe-events-calendar' ), self::$tribeUrl.'?ref=tec-options') ?></p> <?php 
 		}
 
+		public function majorUpgradeNotice() {
+         if( !$this->getOption('20_upgrade_dismissed') ) {
+				?><div class="updated" id='upgrade-notice'><p><?php
+				_e('Welcome to Events 2.0! This is a HUGE upgrade from 1.6.5. ' .
+					'Please make sure you have backed up before proceeding any further. ' .
+					'You can easily <a href=" http://wordpress.org/extend/plugins/the-events-calendar/download/">revert to an old version</a> ' .
+					'if you want to backup first. This upgrade includes two major steps, ' .
+					'<a href="options-general.php?page=tribe-events-calendar">migrating data</a> & updating your templates as necessary. ' . 
+					'There have been significant changes to the template tags and functions. ' . 
+					'Check out our <a href="http://tri.be/migrating-from-events-calendar-1-6-5-to-2-0">walkthrough on the upgrade</a> before proceeding ' .
+					'and check out the FAQ & Knowledge base from the <a href="http://tri.be/support/">support page</a>.')
+				?>
+				<a href='#' class='dismiss-notice'>Dismiss this message</a></p></div>
+				<script>
+				  jQuery('.dismiss-notice').click(function() {
+					  var data = {
+						  action: 'dismiss_admin_notice'
+					  }
+					  jQuery.post(ajaxurl, data, function(response) {
+						  jQuery('#upgrade-notice').fadeOut('slow');
+					  })
+				  });
+				</script>
+				<?php		
+			}
+		}
 
+		public function dismissUpgradeNotice() {
+         $this->setOption('20_upgrade_dismissed', true);
+			exit;
+		}
 	} // end TribeEvents class
 
 } // end if !class_exists TribeEvents

@@ -344,5 +344,4 @@ jQuery(document).ready(function($) {
 			dayselect.hide();
 		}
 	});
-
 });
