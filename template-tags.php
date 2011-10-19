@@ -688,7 +688,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 
 	function tribe_get_upcoming_link()  {
 		$tribe_ecp = TribeEvents::instance();
-		$output = esc_html($tribe_ecp->getLink('upcoming'));
+		$output = $tribe_ecp->getLink('upcoming');
 		return $output;
 	}
 
@@ -699,7 +699,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 */
 	function tribe_get_next_month_link()  {
 		$tribe_ecp = TribeEvents::instance();
-		$output = esc_html($tribe_ecp->getLink( 'month', $tribe_ecp->nextMonth(tribe_get_month_view_date() )));
+		$output = $tribe_ecp->getLink( 'month', $tribe_ecp->nextMonth(tribe_get_month_view_date() ));
 		return $output;
 	}
 
@@ -711,7 +711,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	function tribe_get_previous_month_link()  {
 		global $wp_query;
 		$tribe_ecp = TribeEvents::instance();
-		$output = esc_html($tribe_ecp->getLink( 'month', $tribe_ecp->previousMonth( tribe_get_month_view_date() )));
+		$output = $tribe_ecp->getLink( 'month', $tribe_ecp->previousMonth( tribe_get_month_view_date() ));
 		return $output;
 	}
 
@@ -722,7 +722,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 */
 	function tribe_get_past_link()  {
 		$tribe_ecp = TribeEvents::instance();
-		$output = esc_html($tribe_ecp->getLink('past'));
+		$output = $tribe_ecp->getLink('past');
 		return $output;
 	}
 
@@ -733,7 +733,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 */
 	function tribe_get_events_link()  {
 		$tribe_ecp = TribeEvents::instance();
-		$output = esc_url($tribe_ecp->getLink('home'));
+		$output = $tribe_ecp->getLink('home');
 		return $output;
 	}
 	
@@ -742,7 +742,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 */
 	function tribe_get_gridview_link($term = null)  {
 		$tribe_ecp = TribeEvents::instance();
-		$output = esc_url($tribe_ecp->getLink('month', false, $term));
+		$output = $tribe_ecp->getLink('month', false, $term);
 		return $output;
 	}
 		
@@ -751,7 +751,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 */
 	function tribe_get_listview_link($term = null)  {
 		$tribe_ecp = TribeEvents::instance();
-		$output = esc_url($tribe_ecp->getLink('upcoming', false, $term));
+		$output = $tribe_ecp->getLink('upcoming', false, $term);
 		return $output;
 	}
 	
@@ -760,7 +760,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 */
 	function tribe_get_listview_past_link()  {
 		$tribe_ecp = TribeEvents::instance();
-		$output = esc_url($tribe_ecp->getLink('past'));
+		$output = $tribe_ecp->getLink('past');
 		return $output;
 	}
 	
@@ -769,7 +769,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 */
 	function tribe_get_dropdown_link_prefix()  {
 		$tribe_ecp = TribeEvents::instance();
-		$output = esc_url($tribe_ecp->getLink('dropdown'));
+		$output = $tribe_ecp->getLink('dropdown');
 		return $output;
 	}
 
@@ -796,7 +796,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	function tribe_get_this_month_link()  {
 		$tribe_ecp = TribeEvents::instance();
 		if ( $tribe_ecp->displaying == 'month' ) {
-			$output = esc_url($tribe_ecp->getLink( 'month', $tribe_ecp->date ));
+			$output = $tribe_ecp->getLink( 'month', $tribe_ecp->date );
 			return $output;
 		}
 		return false;
