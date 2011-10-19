@@ -244,7 +244,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * Returns the event Organizer ID.
 	 *
 	 * @param int $postId can supply either event id or organizer id, if none specified, current post is used
-	 * @return string Organizer
+	 * @return int Organizer
 	 */
 	function tribe_get_organizer_id( $postId = null)  {
 		$postId = tribe_post_id_helper( $postId );
@@ -270,6 +270,16 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		$postId = tribe_post_id_helper( $postId );
 		$output = esc_html(tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerOrganizer', true ));
 		return apply_filters( 'tribe_get_organizer', $output );
+	}
+
+	/**
+	 * Returns true or false depending on if the post id has/is a n organizer
+	 *
+	 * @return boolean
+	 */
+	function tribe_has_organizer( $postId = null) {
+		$postId = tribe_post_id_helper( $postId );
+		return ( tribe_get_organizer_id( $postId ) > 0 ) ? true : false;
 	}
 
 	/**
@@ -326,10 +336,10 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	
 
 	/**
-	 * Returns the venue id if post has a venue meta id or the post id if the post is a venue
+	 * Returns the event Venue ID.
 	 *
-	 * @param string $postId 
-	 * @return int venue id
+	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
+	 * @return int Venue
 	 */
 	function tribe_get_venue_id( $postId = null ) {
 		$postId = tribe_post_id_helper( $postId );
@@ -341,8 +351,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Returns true or false depending on if the post id has/is a venue
+	 * Returns true or false depending on if the post id for the event has a venue or if the post id is a venue
 	 *
+	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
 	 * @return boolean
 	 */
 	function tribe_has_venue( $postId = null) {
@@ -351,9 +362,11 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Returns the event venue
+	 * Returns the event venue name
 	 *
-	 * @return string venue
+	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
+	 * @param boolean $display if true displays full html links around venue's name, if false returns just the link without displaying it
+	 * @return string Venue Name
 	 */
 	function tribe_get_venue( $postId = null, $with_link = false)  {
 		$postId = tribe_post_id_helper( $postId );
