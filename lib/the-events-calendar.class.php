@@ -199,6 +199,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
          // organizer and venue
          add_action( 'tribe_venue_table_top', array($this, 'displayEventVenueInput') );
          add_action( 'tribe_organizer_table_top', array($this, 'displayEventOrganizerInput') );
+			if( !defined('TRIBE_HIDE_UPSELL') || !TRIBE_HIDE_UPSELL ) {
+				add_action( 'tribe_events_cost_table', array($this, 'maybeShowMetaUpsell'));
+				add_action( 'tribe_events_options_top', array($this, 'maybeShowSettingsUpsell'));
+			}
 		}
 
       /**
@@ -1906,6 +1910,26 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 			}
 		}
+
+		public function maybeShowMetaUpsell($postId) {
+			?><tr class="eventBritePluginPlug">
+				<td colspan="2" class="tribe_sectionheader">
+					<h4><?php _e('Additional Functionality', 'tribe-events-calendar'); ?></h4>	
+				</td>
+			</tr>
+			<tr class="eventBritePluginPlug">
+				<td colspan="2">
+					<p><?php _e('Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ) ?> <?php printf( __('Check out the <a href="%s">available Add-Ons</a>.', 'tribe-events-calendar' ), TribeEvents::$tribeUrl.'shop/?ref=tec-event' ); ?></p>
+				</td>
+			</tr><?php 
+		}
+
+		public function maybeShowSettingsUpsell($postId) {
+			?><p><?php _e('Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ); ?></p>
+			<p><?php printf(__('Check out the <a href="%s">available Add-Ons</a>.', 'tribe-events-calendar' ), self::$tribeUrl.'?ref=tec-options') ?></p> <?php 
+		}
+
+
 	} // end TribeEvents class
 
 } // end if !class_exists TribeEvents
