@@ -359,7 +359,7 @@ if (!class_exists('TribeEventsViewHelpers')) {
 			$options = '';
 		
 			if (empty($date)) {
-				$hour = ( $isStart ) ? '08' : '05';
+				$hour = ( $isStart ) ? '08' : (count($hours) == 12 ? '05' : '17');
 			} else {
 				$timestamp = strtotime($date);
 				$hour = date($h, $timestamp);
