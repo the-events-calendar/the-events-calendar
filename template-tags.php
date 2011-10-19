@@ -3,12 +3,12 @@
  * TABLE OF CONTENTS
  * General Template Tags
  * Calendar View Template Tags
+ * Loop Template Tags
  * Google Map Template Tags
  * Organizer Template Tags
  * Venue (& Address) Template Tags
  * Date Template Tags
  * Link Template Tags
- * Misc Template Tags
  * API Template Tags
  */
 
@@ -16,6 +16,7 @@
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
+	
 	
 	/**************************************************
 	 * SECTION: General Template Tags
@@ -36,6 +37,170 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	function tribe_is_event( $postId = null )  {
 		$tribe_ecp = TribeEvents::instance();
 		return $tribe_ecp->isEvent($postId);
+	}
+
+	/**
+	 * Helper function to determine postId. Pulls from global $post object if null or non-numeric.
+	 * 
+	 * @return int postId;
+	 */
+	function tribe_post_id_helper( $postId )  {
+		if ( $postId === null || ! is_numeric( $postId ) ) {
+			global $post;
+			return $post->ID;
+		}
+		return (int) $postId;
+	}
+	
+	/**
+	 * Call this function in a template to query the events
+	 *
+	 * @param int numResults number of results to display for upcoming or past modes (default 10)
+	 * @param string|int eventCat Event Category: use int for term ID, string for name.
+	 * @param string metaKey A meta key to query. Useful for sorting by country, venue, etc. metaValue must also be set to use.
+	 * @param string metaValue The value of the queried metaKey, which also must be set.
+	 * @return array results
+	 */
+	function tribe_get_events( $args = '' )  {
+		$tribe_ecp = TribeEvents::instance();
+		return $tribe_ecp->getEvents( $args );
+	}
+
+	/**
+	 * Returns true if the event is an all day event
+	 *
+	 * @param int $postId (optional)
+	 * @return bool
+	 */
+	function tribe_get_all_day( $postId = null )  {
+		$postId = tribe_post_id_helper( $postId );
+		return !! tribe_get_event_meta( $postId, '_EventAllDay', true );
+	}
+	
+	/**
+	 * Returns true if the event spans multiple days
+	 *
+	 * @param int $postId (optional)
+	 * @return bool
+	 */
+	function tribe_is_multiday( $postId = null)  {
+		$postId = tribe_post_id_helper( $postId );
+		$start = (array)tribe_get_event_meta( $postId, '_EventStartDate', false );
+		sort($start);
+		$start = strtotime($start[0]);
+		$end = strtotime(tribe_get_event_meta( $postId, '_EventEndDate', true ));
+		return date('d-m-Y', $start) != date('d-m-Y', $end);
+	}
+
+	/**
+	 * Echo the event categories
+	 *
+	 * @param string $label
+	 * @param string $separator
+	 */	
+	function tribe_meta_event_cats( $label=null, $separator=', ')  {
+		if( !$label ) { $label = __('Category:', 'tribe-events-calendar'); }
+
+		$tribe_ecp = TribeEvents::instance();
+		the_terms( get_the_ID(), $tribe_ecp->get_event_taxonomy(), '<dt>'.$label.'</dt><dd>', $separator, '</dd>' );
+	}
+
+	/**
+	 * Get event post meta.
+	 *
+	 * @param string $postId 
+	 * @param string $meta 
+	 * @param string $single 
+	 * @return string meta value
+	 */
+	function tribe_get_event_meta( $postId = null, $meta = false, $single = true ){
+		$postId = tribe_post_id_helper( $postId );
+		$tribe_ecp = TribeEvents::instance();
+		return $tribe_ecp->getEventMeta( $postId, $meta, $single );
+	}
+	
+	/**
+	 * return the current event category name
+	*/ 
+	function tribe_meta_event_category_name() {
+		$tribe_ecp = TribeEvents::instance();
+		$current_cat = get_query_var('tribe_events_cat');
+		if($current_cat){
+			$term_info = get_term_by('slug',$current_cat,$tribe_ecp->get_event_taxonomy());
+			return $term_info->name;
+		}
+	}
+	
+	/*
+	 * Is this event recurring
+	 */
+	function tribe_is_recurring_event( $postId = null )  {
+		$tribe_ecp = TribeEvents::instance();
+		$postId = tribe_post_id_helper( $postId );
+		return sizeof(get_post_meta($postId, '_EventStartDate')) > 1;
+	}
+		
+	/**
+	 * Get the current page template that we are on
+	 */
+	function tribe_get_current_template() {
+		return TribeEventsTemplates::get_current_page_template();
+	}
+
+	/**
+	 * Is this postId a venue?
+	 */
+	function tribe_is_venue( $postId = null )  {
+		$tribe_ecp = TribeEvents::instance();
+		return $tribe_ecp->isVenue($postId);
+	}
+
+	/**
+	 * HTML to output before the event template
+	 */
+	function tribe_events_before_html() {
+		echo stripslashes(tribe_get_option('spEventsBeforeHTML'));
+	}
+
+	/**
+	 * HTML to ouput after the event template
+	 */
+	function tribe_events_after_html() {
+		echo stripslashes(tribe_get_option('spEventsAfterHTML'));
+	}
+	
+	/**
+	* If EventBrite plugin is active
+	* 	If the event is registered in eventbrite, and has one ticket.  Return the cost of that ticket.
+	* 	If the event is registered in eventbrite, and there are many tickets, return "Varies"
+	* If the event is not registered in eventbrite, and there is meta, return that.
+	* If the event is not registered in eventbrite, and there is no meta, return ""
+	*
+	* @param mixed post id or null if used in the loop
+	* @return string
+	*/
+	function tribe_get_cost( $postId = null)  {
+		$tribe_ecp = TribeEvents::instance();
+		$postId = tribe_post_id_helper( $postId );
+		if( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
+			global $spEventBrite;
+			$returned = $spEventBrite->tribe_get_cost($postId);
+			if($returned) {
+				return esc_html($returned);
+			}
+		}
+
+		$cost = tribe_get_event_meta( $postId, '_EventCost', true );
+
+		if($cost === ''){
+			$cost = '';
+		}elseif($cost == '0'){
+			$cost = __( "Free", 'tribe-events-calendar' );
+		}else{
+			$cost = esc_html($cost);
+		}
+
+		return apply_filters( 'tribe_get_cost', $cost );
 	}
 
 
@@ -152,6 +317,191 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		include($tribe_ecp->pluginPath.'admin-views/datepicker.php');
 	}
 
+	/**
+	 *  Get current calendar gridview date
+	 *
+	 * @return date $date
+	 */
+	function tribe_get_month_view_date()  {
+		global $wp_query;
+
+		if ( isset ( $wp_query->query_vars['eventDate'] ) ) { 
+			$date = $wp_query->query_vars['eventDate'] . "-01";
+		} else {
+			$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
+		}
+		
+		return $date;
+	}
+	
+	/**
+	 * Returns a textual description of the previous month
+	 *
+	 * @return string
+	 */
+	function tribe_get_previous_month_text()  {
+		$tribe_ecp = TribeEvents::instance();
+		return $tribe_ecp->getDateString( $tribe_ecp->previousMonth( tribe_get_month_view_date() ) );
+	}
+
+	/**
+	 * Returns a textual description of the current month
+	 *
+	 * @return string
+	 */
+	function tribe_get_current_month_text( ) {
+		$tribe_ecp = TribeEvents::instance(); 
+		return date( 'F', strtotime( tribe_get_month_view_date() ) );
+	}
+
+	/**
+	 * Returns a textual description of the next month
+	 *
+	 * @return string
+	 */
+	function tribe_get_next_month_text()  {
+		$tribe_ecp = TribeEvents::instance();
+		return $tribe_ecp->getDateString( $tribe_ecp->nextMonth( tribe_get_month_view_date() ) );
+	}
+
+	/**
+	 * Returns a formatted date string of the currently displayed month (in "jump to month" mode)
+	 *
+	 * @return string
+	 */
+	function tribe_get_displayed_month()  {
+		$tribe_ecp = TribeEvents::instance();
+		if ( $tribe_ecp->displaying == 'month' ) {
+			return $tribe_ecp->getDateString( $tribe_ecp->date );
+		}
+		return " ";
+	}
+
+
+
+
+	/**************************************************
+	 * SECTION: Loop Template Tags
+	 **************************************************/
+	
+	
+	/**
+	 * Called inside of the loop, returns true if the current post's meta_value (EventStartDate)
+	 * is different than the previous post. Will always return true for the first event in the loop.
+	 *
+	 * @return bool
+	 */
+	function tribe_is_new_event_day()  {
+		global $post;
+		$tribe_ecp = TribeEvents::instance();
+		$retval = false;
+		$now = time();
+		if(isset($post->EventStartDate)) {
+			$postTimestamp = strtotime( $post->EventStartDate, $now );
+			$postTimestamp = strtotime( date( TribeDateUtils::DBDATEFORMAT, $postTimestamp ), $now); // strip the time
+			if ( $postTimestamp != $tribe_ecp->currentPostTimestamp ) {
+				$retval = true;
+			}
+			$tribe_ecp->currentPostTimestamp = $postTimestamp;
+			return $retval;
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * Returns true if the query is set for past events, false otherwise
+	 * 
+	 * @return bool
+	 */
+	function tribe_is_past()  {
+		$tribe_ecp = TribeEvents::instance();
+		return ($tribe_ecp->displaying == 'past') ? true : false;
+	}
+
+	/**
+	 * Returns true if the query is set for single day, false otherwise
+	 * 
+	 * @return bool
+	 */
+	function tribe_is_day()  {
+		$tribe_ecp = TribeEvents::instance();
+		return ($tribe_ecp->displaying == 'day') ? true : false;
+	}
+
+	/**
+	 * Returns true if the query is set for upcoming events, false otherwise
+	 * 
+	 * @return bool
+	 */
+	function tribe_is_upcoming()  {
+		$tribe_ecp = TribeEvents::instance();
+		return ($tribe_ecp->displaying == 'upcoming') ? true : false;
+	}
+	
+	/**
+	 * Returns true if the query is set to show all events, false otherwise
+	 * 
+	 * @return bool
+	 */
+	function tribe_is_showing_all()  {
+		$tribe_ecp = TribeEvents::instance();
+		return ($tribe_ecp->displaying == 'all') ? true : false;		
+	}
+
+	/**
+	 * Returns true if the query is set for month display (as opposed to Upcoming / Past)
+	 *
+	 * @return bool
+	 */
+	function tribe_is_month()  {
+		$tribe_ecp = TribeEvents::instance();
+		return ( $tribe_ecp->displaying == 'month' ) ? true : false;
+	}
+
+	/**
+	 *  Check if current display is "bydate"
+	 */
+	function tribe_is_by_date() {
+		$tribe_ecp = TribeEvents::instance();
+		return ( $tribe_ecp->displaying == 'bydate' ) ? true : false;
+	}
+
+	/**
+	 * Echo an event's title with pseudo-breadcrumb if on a category
+	 *
+	 * @param boolean $depth include linked title
+	*/ 
+	function tribe_events_title( $depth = true )  {
+		echo tribe_get_events_title( $depth );
+	}
+	
+	/**
+	 * Return an event's title with pseudo-breadcrumb if on a category
+	 *
+	 * @param boolean $depth include linked title
+	 * @return string title
+	 */
+	function tribe_get_events_title( $depth = true )  {
+		$tribe_ecp = TribeEvents::instance();
+
+		$title = __('Calendar of Events', 'tribe-events-calendar');
+		if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
+			$cat = get_term_by( 'slug', get_query_var('term'), $tribe_ecp->get_event_taxonomy() );
+			if ( $depth ) {
+				$title = '<a href="'.tribe_get_events_link().'">'.$title.'</a>';
+				$title .= ' &#8250; ' . $cat->name;
+			} else {
+				$title = $cat->name;
+			}
+		}
+
+		return $title;
+	}	
+
+
+
+
 	/**************************************************
 	 * SECTION: Google Map Template Tags
 	 **************************************************/
@@ -233,6 +583,8 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	function tribe_show_google_map_link($postId = null) {
 		return get_post_meta( get_the_ID(), '_EventShowMapLink', 1) == 1;
 	}
+
+
 
 
 	/**************************************************
@@ -330,11 +682,13 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		return apply_filters( 'tribe_get_organizer_phone', $output ); 
 	}
 
+
+
+
 	/**************************************************
 	 * SECTION: Venue Template Tags
 	 **************************************************/
 	
-
 	/**
 	 * Returns the event Venue ID.
 	 *
@@ -558,6 +912,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		return $output;
 	}
 
+
+
+
 	/**************************************************
 	 * SECTION: Date Template Tags
 	 **************************************************/
@@ -628,10 +985,10 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 
 
 
+
 	/**************************************************
 	 * SECTION: Link Template Tags
-	 **************************************************/
-	
+	 **************************************************/	
 	
 	/**
 	 * Link for all occurrences of an event (based on the currently queried event).
@@ -685,7 +1042,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 *
 	 * @return string 
 	 */
-
 	function tribe_get_upcoming_link()  {
 		$tribe_ecp = TribeEvents::instance();
 		$output = $tribe_ecp->getLink('upcoming');
@@ -738,7 +1094,10 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 	
 	/**
-	 * Returns a link to the overall or category gridview
+	 * Returns a link to the general or category calendar gridview
+	 *
+	 * @param string $term
+	 * @return string
 	 */
 	function tribe_get_gridview_link($term = null)  {
 		$tribe_ecp = TribeEvents::instance();
@@ -747,7 +1106,10 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 		
 	/**
-	 * Returns a link to the overall or category upcoming view
+	 * Returns a link to the general or category upcoming view
+	 *
+	 * @param string $term
+	 * @return string
 	 */
 	function tribe_get_listview_link($term = null)  {
 		$tribe_ecp = TribeEvents::instance();
@@ -756,7 +1118,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 	
 	/**
-	 * Returns a link to the overall or category past view
+	 * Returns a link to the general or category past view
+	 *
+	 * @return string
 	 */
 	function tribe_get_listview_past_link()  {
 		$tribe_ecp = TribeEvents::instance();
@@ -765,7 +1129,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 	
 	/**
-	 * Returns a link to the overall or category dropdown view
+	 * Returns a link to the general or category dropdown view
+	 *
+	 * @return string
 	 */
 	function tribe_get_dropdown_link_prefix()  {
 		$tribe_ecp = TribeEvents::instance();
@@ -775,6 +1141,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 
 	/**
 	 * Echo link to a single event
+	 *
+	 * @param int $post
+	 * @return string
 	 */
 	function tribe_event_link($post = null) {
 		// pass in whole post object to retain start date
@@ -800,347 +1169,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 			return $output;
 		}
 		return false;
-	}
-
-
-	/**************************************************
-	 * SECTION: Misc Template Tags
-	 **************************************************/
-	
-	/**
-	* If EventBrite plugin is active
-	* 	If the event is registered in eventbrite, and has one ticket.  Return the cost of that ticket.
-	* 	If the event is registered in eventbrite, and there are many tickets, return "Varies"
-	* If the event is not registered in eventbrite, and there is meta, return that.
-	* If the event is not registered in eventbrite, and there is no meta, return ""
-	*
-	* @param mixed post id or null if used in the loop
-	* @return string
-	*/
-	function tribe_get_cost( $postId = null)  {
-		$tribe_ecp = TribeEvents::instance();
-		$postId = tribe_post_id_helper( $postId );
-		if( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
-			global $spEventBrite;
-			$returned = $spEventBrite->tribe_get_cost($postId);
-			if($returned) {
-				return esc_html($returned);
-			}
-		}
-
-		$cost = tribe_get_event_meta( $postId, '_EventCost', true );
-
-		if($cost === ''){
-			$cost = '';
-		}elseif($cost == '0'){
-			$cost = __( "Free", 'tribe-events-calendar' );
-		}else{
-			$cost = esc_html($cost);
-		}
-
-		return apply_filters( 'tribe_get_cost', $cost );
-	}
-
-	/**
-	 * Helper function to determine postId. Pulls from global $post object if null or non-numeric.
-	 * 
-	 * @return int postId;
-	 */
-	function tribe_post_id_helper( $postId )  {
-		if ( $postId === null || ! is_numeric( $postId ) ) {
-			global $post;
-			return $post->ID;
-		}
-		return (int) $postId;
-	}
-
-	/**
-	 * Called inside of the loop, returns true if the current post's meta_value (EventStartDate)
-	 * is different than the previous post. Will always return true for the first event in the loop.
-	 *
-	 * @return bool
-	 */
-	function tribe_is_new_event_day()  {
-		global $post;
-		$tribe_ecp = TribeEvents::instance();
-		$retval = false;
-		$now = time();
-		if(isset($post->EventStartDate)) {
-			$postTimestamp = strtotime( $post->EventStartDate, $now );
-			$postTimestamp = strtotime( date( TribeDateUtils::DBDATEFORMAT, $postTimestamp ), $now); // strip the time
-			if ( $postTimestamp != $tribe_ecp->currentPostTimestamp ) {
-				$retval = true;
-			}
-			$tribe_ecp->currentPostTimestamp = $postTimestamp;
-			return $retval;
-		} else {
-			return true;
-		}
-	}
-
-	/**
-	 * Call this function in a template to query the events
-	 *
-	 * @param int numResults number of results to display for upcoming or past modes (default 10)
-	 * @param string|int eventCat Event Category: use int for term ID, string for name.
-	 * @param string metaKey A meta key to query. Useful for sorting by country, venue, etc. metaValue must also be set to use.
-	 * @param string metaValue The value of the queried metaKey, which also must be set.
-	 * @return array results
-	 */
-	function tribe_get_events( $args = '' )  {
-		$tribe_ecp = TribeEvents::instance();
-		return $tribe_ecp->getEvents( $args );
-	}
-
-	/**
-	 * Returns true if the query is set for past events, false otherwise
-	 * 
-	 * @return bool
-	 */
-	function tribe_is_past()  {
-		$tribe_ecp = TribeEvents::instance();
-		return ($tribe_ecp->displaying == 'past') ? true : false;
-	}
-
-	/**
-	 * Returns true if the query is set for past events, false otherwise
-	 * 
-	 * @return bool
-	 */
-	function tribe_is_day()  {
-		$tribe_ecp = TribeEvents::instance();
-		return ($tribe_ecp->displaying == 'day') ? true : false;
-	}
-
-	/**
-	 * Returns true if the query is set for upcoming events, false otherwise
-	 * 
-	 * @return bool
-	 */
-	function tribe_is_upcoming()  {
-		$tribe_ecp = TribeEvents::instance();
-		return ($tribe_ecp->displaying == 'upcoming') ? true : false;
-	}
-	
-	/**
-	 * Returns true if the query is set to show all events, false otherwise
-	 * 
-	 * @return bool
-	 */
-	function tribe_is_showing_all()  {
-		$tribe_ecp = TribeEvents::instance();
-		return ($tribe_ecp->displaying == 'all') ? true : false;		
-	}
-
-	/**
-	 * Returns true if the query is set for month display (as opposed to Upcoming / Past)
-	 *
-	 * @return bool
-	 */
-	function tribe_is_month()  {
-		$tribe_ecp = TribeEvents::instance();
-		return ( $tribe_ecp->displaying == 'month' ) ? true : false;
-	}
-
-	/**
-	 *  Check if current display is "bydate"
-	 */
-	function tribe_is_by_date() {
-		$tribe_ecp = TribeEvents::instance();
-		return ( $tribe_ecp->displaying == 'bydate' ) ? true : false;
-	}
-	
-	/**
-	 *  Get current gridview date
-	 */
-	function tribe_get_month_view_date()  {
-		global $wp_query;
-
-		if ( isset ( $wp_query->query_vars['eventDate'] ) ) { 
-			$date = $wp_query->query_vars['eventDate'] . "-01";
-		} else {
-			$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
-		}
-		
-		return $date;
-	}
-
-	/**
-	 * Returns a textual description of the previous month
-	 *
-	 * @return string
-	 */
-	function tribe_get_previous_month_text()  {
-		$tribe_ecp = TribeEvents::instance();
-		return $tribe_ecp->getDateString( $tribe_ecp->previousMonth( tribe_get_month_view_date() ) );
-	}
-
-	/**
-	 * Returns a textual description of the current month
-	 *
-	 * @return string
-	 */
-	function tribe_get_current_month_text( ) {
-		$tribe_ecp = TribeEvents::instance(); 
-		return date( 'F', strtotime( tribe_get_month_view_date() ) );
-	}
-
-	/**
-	 * Returns a textual description of the next month
-	 *
-	 * @return string
-	 */
-	function tribe_get_next_month_text()  {
-		$tribe_ecp = TribeEvents::instance();
-		return $tribe_ecp->getDateString( $tribe_ecp->nextMonth( tribe_get_month_view_date() ) );
-	}
-
-	/**
-	 * Returns a formatted date string of the currently displayed month (in "jump to month" mode)
-	 *
-	 * @return string
-	 */
-	function tribe_get_displayed_month()  {
-		$tribe_ecp = TribeEvents::instance();
-		if ( $tribe_ecp->displaying == 'month' ) {
-			return $tribe_ecp->getDateString( $tribe_ecp->date );
-		}
-		return " ";
-	}
-
-	/**
-	 * Returns true if the event is an all day event
-	 *
-	 * @param int $postId (optional)
-	 * @return bool
-	 */
-	function tribe_get_all_day( $postId = null )  {
-		$postId = tribe_post_id_helper( $postId );
-		return !! tribe_get_event_meta( $postId, '_EventAllDay', true );
-	}
-	
-	/**
-	 * Returns true if the event spans multiple days
-	 *
-	 * @param int $postId (optional)
-	 * @return bool
-	 */
-	function tribe_is_multiday( $postId = null)  {
-		$postId = tribe_post_id_helper( $postId );
-		$start = (array)tribe_get_event_meta( $postId, '_EventStartDate', false );
-		sort($start);
-		$start = strtotime($start[0]);
-		$end = strtotime(tribe_get_event_meta( $postId, '_EventEndDate', true ));
-		return date('d-m-Y', $start) != date('d-m-Y', $end);
-	}
-	
-	/**
-	 * Echo an event's title with pseudo-breadcrumb if on a category
-	 *
-	 * @param boolean $depth include linked title
-	*/ 
-	function tribe_events_title( $depth = true )  {
-		echo tribe_get_events_title( $depth );
-	}
-	
-	/**
-	 * Return an event's title with pseudo-breadcrumb if on a category
-	 *
-	 * @param boolean $depth include linked title
-	 * @return string title
-	 */
-	function tribe_get_events_title( $depth = true )  {
-		$tribe_ecp = TribeEvents::instance();
-
-		$title = __('Calendar of Events', 'tribe-events-calendar');
-		if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
-			$cat = get_term_by( 'slug', get_query_var('term'), $tribe_ecp->get_event_taxonomy() );
-			if ( $depth ) {
-				$title = '<a href="'.tribe_get_events_link().'">'.$title.'</a>';
-				$title .= ' &#8250; ' . $cat->name;
-			} else {
-				$title = $cat->name;
-			}
-		}
-
-		return $title;
-	}
-
-	/**
-	 * Echo the event categories
-	 *
-	 * @param string $label
-	 * @param string $separator
-	 */	
-	function tribe_meta_event_cats( $label=null, $separator=', ')  {
-		if( !$label ) { $label = __('Category:', 'tribe-events-calendar'); }
-
-		$tribe_ecp = TribeEvents::instance();
-		the_terms( get_the_ID(), $tribe_ecp->get_event_taxonomy(), '<dt>'.$label.'</dt><dd>', $separator, '</dd>' );
-	}
-
-	/**
-	 * Get event post meta.
-	 *
-	 * @param string $postId 
-	 * @param string $meta 
-	 * @param string $single 
-	 * @return string meta value
-	 */
-	function tribe_get_event_meta( $postId = null, $meta = false, $single = true ){
-		$postId = tribe_post_id_helper( $postId );
-		$tribe_ecp = TribeEvents::instance();
-		return $tribe_ecp->getEventMeta( $postId, $meta, $single );
-	}
-	
-	/**
-	 * return the current event category name
-	*/ 
-	function tribe_meta_event_category_name() {
-		$tribe_ecp = TribeEvents::instance();
-		$current_cat = get_query_var('tribe_events_cat');
-		if($current_cat){
-			$term_info = get_term_by('slug',$current_cat,$tribe_ecp->get_event_taxonomy());
-			return $term_info->name;
-		}
-	}
-	
-	/*
-	 * Is this event recurring
-	 */
-	function tribe_is_recurring_event( $postId = null )  {
-		$tribe_ecp = TribeEvents::instance();
-		$postId = tribe_post_id_helper( $postId );
-		return sizeof(get_post_meta($postId, '_EventStartDate')) > 1;
-	}
-		
-	/**
-	 * Get the current page template that we are on
-	 */
-	function tribe_get_current_template() {
-		return TribeEventsTemplates::get_current_page_template();
-	}
-
-	/**
-	 * Is this postId a venue?
-	 */
-	function tribe_is_venue( $postId = null )  {
-		$tribe_ecp = TribeEvents::instance();
-		return $tribe_ecp->isVenue($postId);
-	}
-
-	/**
-	 * HTML to output before the event template
-	 */
-	function tribe_events_before_html() {
-		echo stripslashes(tribe_get_option('spEventsBeforeHTML'));
-	}
-
-	/**
-	 * HTML to ouput after the event template
-	 */
-	function tribe_events_after_html() {
-		echo stripslashes(tribe_get_option('spEventsAfterHTML'));
 	}
 
 
