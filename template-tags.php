@@ -6,7 +6,7 @@
  * Google Map Template Tags
  * Organizer Template Tags
  * Venue (& Address) Template Tags
- * Other Event Meta Template Tags
+ * Date Template Tags
  * Link Template Tags
  * Misc Template Tags
  * API Template Tags
@@ -544,47 +544,60 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		$output = esc_html(tribe_get_event_meta( $postId, '_VenueZip', true ));
 		return $output;
 	}
+	
+	/**
+	 * Returns the venue phone number
+	 *
+	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
+	 * @return string phone number
+	 */
+	function tribe_get_phone( $postId = null)  {
+		$postId = tribe_post_id_helper( $postId );
+	 	$postId = tribe_is_venue( $postId ) ? $postId : tribe_get_venue_id( $postId );
+		$output = esc_html(tribe_get_event_meta( $postId, '_VenuePhone', true ));
+		return $output;
+	}
 
 	/**************************************************
-	 * SECTION: Other Event Meta Template Tags
+	 * SECTION: Date Template Tags
 	 **************************************************/
 
 	/**
-	 * Returns the event start date
+	 * Returns the event start date and time
 	 *
 	 * @param int post id
-	 * @param bool display time?
-	 * @param string date format
+	 * @param boolean $displayTime if true shows date and time, if false only shows date
+	 * @param string $dateFormat allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 * @return string date
 	 */
-	function tribe_get_start_date( $postId = null, $showtime = true, $dateFormat = '' )  {
+	function tribe_get_start_date( $postId = null, $displayTime = true, $dateFormat = '' )  {
 		global $post;
 		$tribe_ecp = TribeEvents::instance();
 		$postId = tribe_post_id_helper( $postId );
 
 		if( tribe_get_all_day( $postId ) )
-			 $showtime = false;
+			 $displayTime = false;
 
 		$date = strtotime( $post->EventStartDate ? $post->EventStartDate : tribe_get_event_meta( $postId, '_EventStartDate', true ));
 
-		return tribe_event_format_date($date, $showtime, $dateFormat );
+		return tribe_event_format_date($date, $displayTime, $dateFormat );
 	}
 
 	/**
 	 * Returns formatted date
 	 *
 	 * @param string $date 
-	 * @param boolean $showtime display time?
-	 * @param string $dateFormat date format
+	 * @param boolean $displayTime if true shows date and time, if false only shows date
+	 * @param string $dateFormat allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 * @return string
 	 */
-	function tribe_event_format_date($date, $showtime = true,  $dateFormat = '')  {
+	function tribe_event_format_date($date, $displayTime = true,  $dateFormat = '')  {
 		$tribe_ecp = TribeEvents::instance();
 		
 		if( $dateFormat ) $format = $dateFormat;
 		else $format = get_option( 'date_format', TribeDateUtils::DATEONLYFORMAT );
 
-		if ( $showtime )
+		if ( $displayTime )
 			$format = $tribe_ecp->getTimeFormat( $format );
 
 		$shortMonthNames = ( strstr( $format, 'M' ) ) ? true : false;
@@ -596,68 +609,24 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * Returns the event end date
 	 *
 	 * @param int post id
-	 * @param bool display time?
-	 * @param string date format
+	 * @param boolean $displayTime if true shows date and time, if false only shows date
+	 * @param string $dateFormat allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 * @return string date
 	 */
-	function tribe_get_end_date( $postId = null, $showtime = 'true', $dateFormat = '' )  {
+	function tribe_get_end_date( $postId = null, $displayTime = 'true', $dateFormat = '' )  {
 		global $post;
 		$tribe_ecp = TribeEvents::instance();
 		$postId = tribe_post_id_helper( $postId );
 	
 		if( tribe_get_all_day( $postId ) )
-			 $showtime = false;
+			 $displayTime = false;
 
 		$date = strtotime( $post->EventEndDate ? $post->EventEndDate : tribe_get_event_meta( $postId, '_EventEndDate', true ));
 
-		return tribe_event_format_date($date, $showtime, $dateFormat );
+		return tribe_event_format_date($date, $displayTime, $dateFormat );
 	}
 
-	/**
-	* If EventBrite plugin is active
-	* 	If the event is registered in eventbrite, and has one ticket.  Return the cost of that ticket.
-	* 	If the event is registered in eventbrite, and there are many tickets, return "Varies"
-	* If the event is not registered in eventbrite, and there is meta, return that.
-	* If the event is not registered in eventbrite, and there is no meta, return ""
-	*
-	* @param mixed post id or null if used in the loop
-	* @return string
-	*/
-	function tribe_get_cost( $postId = null)  {
-		$tribe_ecp = TribeEvents::instance();
-		$postId = tribe_post_id_helper( $postId );
-		if( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
-			global $spEventBrite;
-			$returned = $spEventBrite->tribe_get_cost($postId);
-			if($returned) {
-				return esc_html($returned);
-			}
-		}
 
-		$cost = tribe_get_event_meta( $postId, '_EventCost', true );
-
-		if($cost === ''){
-			$cost = '';
-		}elseif($cost == '0'){
-			$cost = __( "Free", 'tribe-events-calendar' );
-		}else{
-			$cost = esc_html($cost);
-		}
-
-		return apply_filters( 'tribe_get_cost', $cost );
-	}
-
-	/**
-	 * Returns the event phone number
-	 *
-	 * @return string phone number
-	 */
-	function tribe_get_phone( $postId = null)  {
-		$postId = tribe_post_id_helper( $postId );
-	 	$postId = tribe_is_venue( $postId ) ? $postId : tribe_get_venue_id( $postId );
-		$output = esc_html(tribe_get_event_meta( $postId, '_VenuePhone', true ));
-		return $output;
-	}
 
 	/**************************************************
 	 * SECTION: Link Template Tags
@@ -838,6 +807,39 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * SECTION: Misc Template Tags
 	 **************************************************/
 	
+	/**
+	* If EventBrite plugin is active
+	* 	If the event is registered in eventbrite, and has one ticket.  Return the cost of that ticket.
+	* 	If the event is registered in eventbrite, and there are many tickets, return "Varies"
+	* If the event is not registered in eventbrite, and there is meta, return that.
+	* If the event is not registered in eventbrite, and there is no meta, return ""
+	*
+	* @param mixed post id or null if used in the loop
+	* @return string
+	*/
+	function tribe_get_cost( $postId = null)  {
+		$tribe_ecp = TribeEvents::instance();
+		$postId = tribe_post_id_helper( $postId );
+		if( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
+			global $spEventBrite;
+			$returned = $spEventBrite->tribe_get_cost($postId);
+			if($returned) {
+				return esc_html($returned);
+			}
+		}
+
+		$cost = tribe_get_event_meta( $postId, '_EventCost', true );
+
+		if($cost === ''){
+			$cost = '';
+		}elseif($cost == '0'){
+			$cost = __( "Free", 'tribe-events-calendar' );
+		}else{
+			$cost = esc_html($cost);
+		}
+
+		return apply_filters( 'tribe_get_cost', $cost );
+	}
 
 	/**
 	 * Helper function to determine postId. Pulls from global $post object if null or non-numeric.
