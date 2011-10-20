@@ -23,7 +23,11 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 **************************************************/
 
 	/**
-	 * retrieve specific key from options array, optionally provide a default return value
+	 * Retrieve specific key from options array, optionally provide a default return value
+	 *
+	 * @param string $optionName Name of the option to retrieve.
+	 * @param string $default Value to return if no such option is found.
+	 * @return mixed Value of the option if found.
 	 * @since 2.0
 	 */
 	function tribe_get_option($optionName, $default = '')  {
@@ -33,12 +37,13 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 
 	/**
 	 * Checks type of $postId to determine if it is an event
-	 * @return bool
+	 *
+	 * @param int $postId (optional)
+	 * @return bool true if this post is an Event post type
 	 * @since 2.0
 	 */
 	function tribe_is_event( $postId = null )  {
-		$tribe_ecp = TribeEvents::instance();
-		return $tribe_ecp->isEvent($postId);
+		return TribeEvents::instance()->isEvent($postId);
 	}
 	
 	/**
@@ -73,7 +78,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * Returns true if the event spans multiple days
 	 *
 	 * @param int $postId (optional)
-	 * @return bool
+	 * @return bool true if event spans multiple days
 	 * @since 2.0
 	 */
 	function tribe_is_multiday( $postId = null)  {
@@ -86,7 +91,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Echo the event categories
+	 * Display the event categories
 	 *
 	 * @param string $label
 	 * @param string $separator
@@ -103,10 +108,10 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Get event post meta.
 	 *
-	 * @param string $postId 
-	 * @param string $meta 
-	 * @param string $single 
-	 * @return string meta value
+	 * @param int $postId (optional)
+	 * @param string $meta name of the meta_key
+	 * @param bool $single determines if the results should be a single item or an array of items.
+	 * @return mixed meta value(s)
 	 * @since 2.0
 	 */
 	function tribe_get_event_meta( $postId = null, $meta = false, $single = true ){
@@ -116,8 +121,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 	
 	/**
-	 * Return the current event category name
+	 * Return the current event category name based the url.
 	 *
+	 * @return string Name of the Event Category
 	 * @since 2.0
 	 */ 
 	function tribe_meta_event_category_name() {
@@ -127,17 +133,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 			$term_info = get_term_by('slug',$current_cat,$tribe_ecp->get_event_taxonomy());
 			return $term_info->name;
 		}
-	}
-	
-	/**
-	 * Is this event recurring
-	 * 
-	 * @since 2.0
-	 */
-	function tribe_is_recurring_event( $postId = null )  {
-		$tribe_ecp = TribeEvents::instance();
-		$postId = TribeEvents::postIdHelper( $postId );
-		return sizeof(get_post_meta($postId, '_EventStartDate')) > 1;
 	}
 		
 	/**
@@ -159,6 +154,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 
 	/**
 	 * HTML to output before the event template
+	 *
 	 * @since 2.0
 	 */
 	function tribe_events_before_html() {
@@ -167,6 +163,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 
 	/**
 	 * HTML to ouput after the event template
+	 *
 	 * @since 2.0
 	 */
 	function tribe_events_after_html() {
@@ -174,15 +171,15 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 	
 	/**
-	* If EventBrite plugin is active
-	* * If the event is registered in eventbrite, and has one ticket.  Return the cost of that ticket.
-	* * If the event is registered in eventbrite, and there are many tickets, return "Varies"
-	* If the event is not registered in eventbrite, and there is meta, return that.
-	* If the event is not registered in eventbrite, and there is no meta, return ""
-	*
-	* @param mixed post id or null if used in the loop
-	* @return string
-	*/
+	 * If EventBrite plugin is active
+	 * * If the event is registered in eventbrite, and has one ticket.  Return the cost of that ticket.
+	 * * If the event is registered in eventbrite, and there are many tickets, return "Varies"
+	 * If the event is not registered in eventbrite, and there is meta, return that.
+	 * If the event is not registered in eventbrite, and there is no meta, return ""
+	 *
+	 * @param mixed post id or null if used in the loop
+	 * @return string
+	 */
 	function tribe_get_cost( $postId = null)  {
 		$tribe_ecp = TribeEvents::instance();
 		$postId = TribeEvents::postIdHelper( $postId );
