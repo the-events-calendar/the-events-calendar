@@ -61,7 +61,7 @@ if (!class_exists('TribeEventsAPI')) {
 				$data['EventEndDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventEndDate'] . " " . $data['EventEndHour'] . ":" . $data['EventEndMinute'] . ":59 " . $data['EventEndMeridian']) );
 			}
 		
-			if(!$data['EventHideFromUpcoming']) delete_post_meta($event_id, '_EventHideFromUpcoming');
+			if(!isset($data['EventHideFromUpcoming']) || !$data['EventHideFromUpcoming']) delete_post_meta($event_id, '_EventHideFromUpcoming');
 
 			// sanity check that start date < end date
 			$startTimestamp = strtotime( $data['EventStartDate'] );
