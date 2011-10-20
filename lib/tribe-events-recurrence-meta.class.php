@@ -55,8 +55,8 @@ class TribeEventsRecurrenceMeta {
 	public static function updateRecurrenceMeta($event_id, $data) {
 		// save recurrence
 		$recurrence_meta = $data['recurrence'];
-	
-		if( TribeEventsRecurrenceMeta::isRecurrenceValid( $event, $recurrence_meta ) ) {
+
+		if( TribeEventsRecurrenceMeta::isRecurrenceValid( $event_id, $recurrence_meta ) ) {
 			update_post_meta($event_id, '_EventRecurrence', $recurrence_meta);				
 			TribeEventsRecurrenceMeta::saveEvents($event_id);
 		}
@@ -156,12 +156,12 @@ class TribeEventsRecurrenceMeta {
 	 * @param array $msg The message to display 
 	 * @return void
 	 */	
-	public static function setupRecurrenceErrorMsg( $event, $msg ) {
+	public static function setupRecurrenceErrorMsg( $event_id, $msg ) {
 		global $current_screen;
 
 		// only do this when editing events
 		if( is_admin() && $current_screen->id == TribeEvents::POSTTYPE ) {
-			update_post_meta($event->ID, 'sp_flash_message', $msg);
+			update_post_meta($event_id, 'sp_flash_message', $msg);
 		}
 	}
 	
@@ -385,8 +385,8 @@ class TribeEventsRecurrenceMeta {
 	 * @param array $recurrence_meta Recurrence information for this event 
 	 * @return void
 	 */	
-	public static function isRecurrenceValid( $event, $recurrence_meta  ) {
-		extract(TribeEventsRecurrenceMeta::getRecurrenceMeta( $event->ID, $recurrence_meta ));
+	public static function isRecurrenceValid( $event_id, $recurrence_meta  ) {
+		extract(TribeEventsRecurrenceMeta::getRecurrenceMeta( $event_id, $recurrence_meta ));
 		$valid = true;
 		$errorMsg = '';
 
@@ -399,7 +399,7 @@ class TribeEventsRecurrenceMeta {
 		}
 
 		if ( !$valid ) {
-			do_action( 'tribe_recurring_event_error', $event, $errorMsg );
+			do_action( 'tribe_recurring_event_error', $event_id, $errorMsg );
 		}
 
 		return $valid;
