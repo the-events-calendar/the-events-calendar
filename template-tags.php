@@ -4,9 +4,27 @@
  * @author John Gadbois
  */
 if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_text' ) ) {	
+
+	/**
+	 * Is this event recurring
+	 * 
+	 * @param int $postId (optional)
+	 * @return bool true if event is a recurring event.
+	 * @since 2.0
+	 */
+	function tribe_is_recurring_event( $postId = null )  {
+		$tribe_ecp = TribeEvents::instance();
+		$postId = TribeEvents::postIdHelper( $postId );
+		return sizeof(get_post_meta($postId, '_EventStartDate')) > 1;
+	}
+
 	/**
 	 * Get the textual version of event recurrence
 	 * e.g Repeats daily for three days 
+	 *
+	 * @param int $postId (optional)
+	 * @return string Summary of recurrence.
+	 * @since 2.0
 	 */
 	function tribe_get_recurrence_text( $postId = null )  {
 		$postId = TribeEvents::postIdHelper( $postId );
@@ -17,8 +35,9 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 	/**
 	 * Get an array of custom fields
 	 *
-	 * @param int $postId 
+	 * @param int $postId (optional)
 	 * @return array $data of custom fields
+	 * @since 2.0
 	 */
 	function tribe_get_custom_fields( $postId = null ) {
 		$postId = TribeEvents::postIdHelper( $postId );
@@ -36,9 +55,10 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 	}
 	
 	/**
-	 * Echo a definition term list of custom fields
+	 * Display a definition term list of custom fields
 	 *
-	 * @param int $postId
+	 * @param int $postId (optional)
+	 * @since 2.0
 	 */
 	function tribe_the_custom_fields( $postId = null ) {
 		$fields = tribe_get_custom_fields( $postId );
@@ -53,7 +73,8 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 	/**
 	 * Returns an ical feed for a single event. Must be used in the loop.
 	 * 
-	 * @return string
+	 * @return string URL for ical for single event.
+	 * @since 2.0
 	 */
 	function tribe_get_single_ical_link()  {
 		$tribe_ecp = TribeEvents::instance();
@@ -61,9 +82,12 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 		return $output;
 	}
 
-   /**
-    * Returns a sitewide ical link
-    */
+	/**
+	 * Returns a sitewide ical link
+	 *
+	 * @return string URL for ical dump.
+	 * @since 2.0
+	 */
 	function tribe_get_ical_link()  {
 		$tribe_ecp = TribeEvents::instance();
 		$output = $tribe_ecp->getLink('ical');
@@ -72,6 +96,10 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 
 	/**
 	 * Returns an add to Google Calendar link. Must be used in the loop
+	 *
+	 * @param int $postId (optional)
+	 * @return string URL for google calendar.
+	 * @since 2.0
 	 */
 	function tribe_get_gcal_link( $postId = null )  {
 		$postId = TribeEvents::postIdHelper( $postId );
@@ -80,15 +108,20 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 		return $output;
 	}
 
-   /** 
-    * Get a link to day view
-    */
-   function tribe_get_linked_day($date, $day) {
-      $return = '';
-      $return .= "<a href='" . tribe_get_day_link($date) . "'>";
-      $return .= $day;
-      $return .= "</a>";
-      return $return;
-   }
+	/** 
+	 * Get a link to day view
+	 *
+	 * @param string $date
+	 * @param string $day
+	 * @return string HTML linked date
+	 * @since 2.0
+	 */
+	function tribe_get_linked_day($date, $day) {
+		$return = '';
+		$return .= "<a href='" . tribe_get_day_link($date) . "'>";
+		$return .= $day;
+		$return .= "</a>";
+		return $return;
+	}
 
 }
