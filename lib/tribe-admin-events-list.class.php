@@ -232,7 +232,7 @@ if (!class_exists('TribeEventsAdminList')) {
 				}			
 			
 				if ( $column_id == 'start-date' ) {
-					echo tribe_event_format_date(strtotime(TribeEvents::getRealStartDate( $post_id )), false);
+					echo tribe_get_start_date($post_id, false);
 				}
 				if ( $column_id == 'end-date' ) {
 					echo tribe_get_end_date($post_id, false);
