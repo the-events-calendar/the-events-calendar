@@ -1030,12 +1030,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Adds Event specific rewrite rules.
 		 *
-		 *	events/				=>	/?post_type=sp_events
-		 *	events/month		=>	/?post_type=sp_events&eventDisplay=month
-		 *	events/upcoming		=>	/?post_type=sp_events&eventDisplay=upcoming
-		 *	events/past			=>	/?post_type=sp_events&eventDisplay=past
-		 *	events/2008-01/#15	=>	/?post_type=sp_events&eventDisplay=bydate&eventDate=2008-01-01
-		 * events/category/some-events-category => /?post_type=sp_events&sp_event_cat=some-events-category
+		 *	events/				=>	/?post_type=tribe_events
+		 *	events/month		=>	/?post_type=tribe_events&eventDisplay=month
+		 *	events/upcoming		=>	/?post_type=tribe_events&eventDisplay=upcoming
+		 *	events/past			=>	/?post_type=tribe_events&eventDisplay=past
+		 *	events/2008-01/#15	=>	/?post_type=tribe_events&eventDisplay=bydate&eventDate=2008-01-01
+		 * events/category/some-events-category => /?post_type=tribe_events&tribe_event_cat=some-events-category
 		 *
 		 * @return void
 		 */
