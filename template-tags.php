@@ -9,7 +9,7 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 	 * e.g Repeats daily for three days 
 	 */
 	function tribe_get_recurrence_text( $postId = null )  {
-		$postId = tribe_post_id_helper( $postId );
+		$postId = TribeEvents::postIdHelper( $postId );
 		$tribe_ecp = TribeEvents::instance();
 	  	return apply_filters( 'tribe_get_recurrence_text', TribeEventsRecurrenceMeta::recurrenceToText( $postId ) );
 	}
@@ -21,7 +21,7 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 	 * @return array $data of custom fields
 	 */
 	function tribe_get_custom_fields( $postId = null ) {
-		$postId = tribe_post_id_helper( $postId );
+		$postId = TribeEvents::postIdHelper( $postId );
 		$data = array();
 		$customFields = tribe_get_option('custom-fields', false);
 		if (is_array($customFields)) {
@@ -74,7 +74,7 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 	 * Returns an add to Google Calendar link. Must be used in the loop
 	 */
 	function tribe_get_gcal_link( $postId = null )  {
-		$postId = tribe_post_id_helper( $postId );
+		$postId = TribeEvents::postIdHelper( $postId );
 		$tribe_ecp = TribeEventsPro::instance();
 		$output = esc_url($tribe_ecp->googleCalendarLink( $postId ));
 		return $output;
