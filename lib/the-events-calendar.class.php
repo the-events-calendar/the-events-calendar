@@ -1938,16 +1938,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function majorUpgradeNotice() {
          if( !$this->getOption('20_upgrade_dismissed') ) {
 				?><div class="updated" id='upgrade-notice'><p><?php
-				_e('Welcome to Events 2.0! This is a HUGE upgrade from 1.6.5. ' .
-					'Please make sure you have backed up before proceeding any further. ' .
+				_e('Welcome to Events 2.0.1!<br><br>Events 2.0 is a HUGE upgrade from 1.6.5. ' .
+					'If you just hit update to 2.0 for the first time, please make sure you have backed up before proceeding any further. ' .
 					'You can easily <a href=" http://wordpress.org/extend/plugins/the-events-calendar/download/">revert to an old version</a> ' .
-					'if you want to backup first. This upgrade includes two major steps, ' .
-					'<a href="options-general.php?page=tribe-events-calendar">migrating data</a> & updating your templates as necessary. ' . 
+					'anytime before you migrate your content.<br><br>This upgrade includes two major steps, ' .
+					'<a href="options-general.php?page=tribe-events-calendar">migrating data from the settings panel</a> & updating your templates as necessary. ' . 
 					'There have been significant changes to the template tags and functions. ' . 
 					'Check out our <a href="http://tri.be/migrating-from-events-calendar-1-6-5-to-2-0">walkthrough on the upgrade</a> before proceeding ' .
-					'and check out the FAQ & Knowledge base from the <a href="http://tri.be/support/">support page</a>.')
+					'and check out the FAQ & Documentation from the <a href="http://tri.be/support/">support page</a>.<br><br>')
 				?>
-				<a href='#' class='dismiss-notice'>Dismiss this message</a></p></div>
+				<a href='#' class='dismiss-notice'>Dismiss this one time message</a></p></div>
 				<script>
 				  jQuery('.dismiss-notice').click(function() {
 					  var data = {
