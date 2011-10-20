@@ -219,7 +219,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_calendar_grid()  {
-		$tribe_ecp = TribeEvents::instance();
 		set_query_var( 'eventDisplay', 'bydate' );
 		load_template( TribeEventsTemplates::getTemplateHierarchy('table') );
 	}
@@ -232,10 +231,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 */
 	function tribe_calendar_mini_grid()  {
 		global $wp_query;
-		$tribe_ecp = TribeEvents::instance();
 		$old_query = $wp_query;
 
-		$wp_query = NEW WP_Query('post_type=sp_events');
+		$wp_query = NEW WP_Query('post_type='.TribeEvents::POSTTYPE);
 		set_query_var( 'eventDisplay', 'bydate' );
 		load_template( TribeEventsTemplates::getTemplateHierarchy('table-mini') );
 	
@@ -313,7 +311,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 */
 	function tribe_month_year_dropdowns( $prefix = '' )  {
 		global $wp_query;
-		$tribe_ecp = TribeEvents::instance();
 
 		if ( isset ( $wp_query->query_vars['eventDate'] ) ) { 
 			$date = $wp_query->query_vars['eventDate'] . "-01";
@@ -322,7 +319,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		}
 		$monthOptions = TribeEventsViewHelpers::getMonthOptions( $date );
 		$yearOptions = TribeEventsViewHelpers::getYearOptions( $date );
-		include($tribe_ecp->pluginPath.'admin-views/datepicker.php');
+		include(TribeEvents::instance()->pluginPath.'admin-views/datepicker.php');
 	}
 
 	/**
@@ -361,7 +358,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_current_month_text( ) {
-		$tribe_ecp = TribeEvents::instance(); 
 		return date( 'F', strtotime( tribe_get_month_view_date() ) );
 	}
 
@@ -550,7 +546,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_embedded_map( $postId = null, $width = '', $height = '', $force_load = false )  {
-		$tribe_ecp = TribeEvents::instance();
 		$postId = TribeEvents::postIdHelper( $postId );
 		if ( !tribe_is_venue( $postId ) && !tribe_is_event( $postId ) ) {
 			return false;
@@ -577,7 +572,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 
 		if ($address || $force_load) {
 			ob_start();
-			include($tribe_ecp->pluginPath.'admin-views/event-map.php');
+			include(TribeEvents::instance()->pluginPath.'admin-views/event-map.php');
 			$google_map = ob_get_contents();
 			ob_get_clean();
 			return $google_map;
@@ -743,7 +738,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_has_venue( $postId = null) {
-		$postId = TribeEvents::postIdHelper( $postId );
 		return ( tribe_get_venue_id( $postId ) > 0 ) ? true : false;
 	}
 
@@ -757,8 +751,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 */
 	function tribe_get_venue( $postId = null, $with_link = false )  {
 		if ( $with_link ) {	_deprecated_argument( __FUNCTION__, '2.0.1' ); }
-		$postId = TribeEvents::postIdHelper( $postId );
-		$postId = tribe_is_venue( $postId ) ? $postId : tribe_get_venue_id( $postId );
+		$postId = tribe_get_venue_id( $postId );
 		$venue = esc_html(tribe_get_event_meta( $postId, '_VenueVenue', true ));
 		return $venue;
 	}
@@ -772,8 +765,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_venue_link( $postId = null, $display = true )  {
-		$postId = TribeEvents::postIdHelper( $postId );
-		$url = esc_url((tribe_has_venue( $postId )) ? get_permalink( tribe_get_venue_id( $postId ) ) : "");
+		$url = esc_url( get_permalink( tribe_get_venue_id( $postId ) ) );
 		if( $display && $url != '' ) {
 			$venue_name = tribe_get_venue($postId);
 			$link = '<a href="'.$url.'">'.$venue_name.'</a>';
@@ -796,8 +788,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_country( $postId = null)  {
-		$postId = TribeEvents::postIdHelper( $postId );
-		$postId = tribe_is_venue( $postId ) ? $postId : tribe_get_venue_id( $postId );
+		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html( tribe_get_event_meta( $postId, '_VenueCountry', true ) );
 		return $output;
 	}
@@ -810,7 +801,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * @since 2.0
 	 */	
 	function tribe_get_full_address( $postId = null, $includeVenueName = false )  {
-		$postId = TribeEvents::postIdHelper( $postId );
+		$postId = tribe_get_venue_id( $postId );
 		$tribe_ecp = TribeEvents::instance();
 		return apply_filters('tribe_get_full_address', $tribe_ecp->fullAddress( $postId, $includeVenueName ) );
 	}
@@ -823,7 +814,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_address_exists( $postId = null )  {
-		$postId = TribeEvents::postIdHelper( $postId );
 		if (
 			tribe_get_address( $postId ) ||
 			tribe_get_city( $postId ) ||
@@ -845,8 +835,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_address( $postId = null)  {
-		$postId = TribeEvents::postIdHelper( $postId );
-		$postId = tribe_is_venue( $postId ) ? $postId : tribe_get_venue_id( $postId );
+		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html( tribe_get_event_meta( $postId, '_VenueAddress', true ) );
 		return $output;
 	}
@@ -859,8 +848,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_city( $postId = null)  {
-		$postId = TribeEvents::postIdHelper( $postId );
-		$postId = tribe_is_venue( $postId ) ? $postId : tribe_get_venue_id( $postId );
+		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html( tribe_get_event_meta( $postId, '_VenueCity', true ) );
 		return $output;
 	}
@@ -872,8 +860,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_stateprovince( $postId = null)  {
-		$postId = TribeEvents::postIdHelper( $postId );
-		$postId = tribe_is_venue( $postId ) ? $postId : tribe_get_venue_id( $postId );
+		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html( tribe_get_event_meta( $postId, '_VenueStateProvince', true ) );
 		return $output;
 	}
@@ -886,8 +873,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_state( $postId = null)  {
-		$postId = TribeEvents::postIdHelper( $postId );
-		$postId = tribe_is_venue( $postId ) ? $postId : tribe_get_venue_id( $postId );
+		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html( tribe_get_event_meta( $postId, '_VenueState', true ) );
 		return $output;
 	}
@@ -900,8 +886,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_province( $postId = null)  {
-		$postId = TribeEvents::postIdHelper( $postId );
-		$postId = tribe_is_venue( $postId ) ? $postId : tribe_get_venue_id( $postId );
+		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html( tribe_get_event_meta( $postId, '_VenueProvince', true ) );
 		return $output;
 	}
@@ -914,10 +899,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_region( $postId = null )  {
-		$postId = TribeEvents::postIdHelper( $postId );
-		$postId = tribe_is_venue( $postId ) ? $postId : tribe_get_venue_id( $postId );
-
-		$tribe_ecp = TribeEvents::instance();
+		$postId = tribe_get_venue_id( $postId );
 		if(tribe_get_event_meta($postId, '_VenueStateProvince', true )){
 			return tribe_get_event_meta($postId, '_VenueStateProvince', true );
 		} else {
@@ -937,8 +919,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_zip( $postId = null)  {
-		$postId = TribeEvents::postIdHelper( $postId );
-		$postId = tribe_is_venue( $postId ) ? $postId : tribe_get_venue_id( $postId );
+		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html(tribe_get_event_meta( $postId, '_VenueZip', true ));
 		return $output;
 	}
@@ -951,8 +932,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_phone( $postId = null)  {
-		$postId = TribeEvents::postIdHelper( $postId );
-	 	$postId = tribe_is_venue( $postId ) ? $postId : tribe_get_venue_id( $postId );
+		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html(tribe_get_event_meta( $postId, '_VenuePhone', true ));
 		return $output;
 	}
