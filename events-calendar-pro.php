@@ -90,12 +90,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
       }
 
       public function displayEventVenueDropdown($postId) {
-         $curVenue = get_post_meta( $postId, '_EventVenueID', true);
+         $VenueID = get_post_meta( $postId, '_EventVenueID', true);
          ?>
 			<tr class="">
 				<td style="width:170px"><?php _e('Use Saved Venue:','tribe-events-calendar-pro'); ?></td>
 				<td>
-					<?php $this->saved_venues_dropdown($curVenue);?>
+					<?php $this->saved_venues_dropdown($VenueID);?>
 				</td>
 			</tr>
          <?php
