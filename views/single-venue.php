@@ -59,6 +59,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 				</div> <!-- End tribe-events-event-entry -->
 				<div class="tribe-events-event-list-meta">
 					<table>
+						<?php if (tribe_is_multiday()): ?>
 						<tr>
 							<td class="tribe-events-event-meta-desc"><?php _e('Start:', 'tribe-events-calendar-pro') ?></td>
 							<td class="tribe-events-event-meta-value"><meta itemprop="startDate" content="<?php echo tribe_get_start_date( null, false, 'Y-m-d' ); ?>" /><?php echo tribe_get_start_date(); ?></td>
@@ -67,6 +68,12 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 							<td class="tribe-events-event-meta-desc"><?php _e('End:', 'tribe-events-calendar-pro') ?></td>
 							<td class="tribe-events-event-meta-value"><meta itemprop="endDate" content="<?php echo tribe_get_end_date( null, false, 'Y-m-d' ); ?>" /><?php echo tribe_get_end_date(); ?></td>
 						</tr>
+						<?php else: ?>
+						<tr>
+							<td class="tribe-events-event-meta-desc"><?php _e('Date:', 'tribe-events-calendar-pro') ?></td>
+							<td class="tribe-events-event-meta-value"><meta itemprop="startDate" content="<?php echo tribe_get_start_date( null, false, 'Y-m-d' ); ?>" /><?php echo tribe_get_start_date(); ?></td>
+						</tr>
+						<?php endif; ?>
 						<?php
 						$cost = tribe_get_cost();
 						if ( !empty( $cost ) ) :
