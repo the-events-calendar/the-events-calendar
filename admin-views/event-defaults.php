@@ -92,7 +92,7 @@
 							$defaultCountry = tribe_get_option('defaultCountry');
 					foreach ($countries as $abbr => $fullname) {
 						print ("<option value=\"$fullname\" ");
-						if ($defaultCountry[1] == $fullname) { 
+						if ( isset($defaultCountry[1]) && $defaultCountry[1] == $fullname) { 
 							print ('selected="selected" ');
 						}
 						print (">$fullname</option>\n");
