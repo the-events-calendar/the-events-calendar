@@ -137,6 +137,8 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		
 	/**
 	 * Get the current page template that we are on
+	 *
+	 * @return string page template
 	 * @since 2.0
 	 */
 	function tribe_get_current_template() {
@@ -145,6 +147,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 
 	/**
 	 * Is this postId a venue?
+	 *
+	 * @param int $postId (optional)
+	 * @return bool true if post type id Venue
 	 * @since 2.0
 	 */
 	function tribe_is_venue( $postId = null )  {
@@ -153,7 +158,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * HTML to output before the event template
+	 * Display HTML to output before the event template
 	 *
 	 * @since 2.0
 	 */
@@ -162,7 +167,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * HTML to ouput after the event template
+	 * Display HTML to ouput after the event template
 	 *
 	 * @since 2.0
 	 */
@@ -177,8 +182,8 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * If the event is not registered in eventbrite, and there is meta, return that.
 	 * If the event is not registered in eventbrite, and there is no meta, return ""
 	 *
-	 * @param mixed post id or null if used in the loop
-	 * @return string
+	 * @param int $postId (optional)
+	 * @return string Cost of the event.
 	 */
 	function tribe_get_cost( $postId = null)  {
 		$tribe_ecp = TribeEvents::instance();
@@ -212,7 +217,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Display the full size grid calendar table
 	 *
-	 * @return void
+	 * @uses load_template()
 	 * @since 2.0
 	 */
 	function tribe_calendar_grid()  {
@@ -223,7 +228,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Displays the mini grid calendar table (usually in a widget)
 	 *
-	 * @return void
+	 * @uses load_template()
 	 * @since 2.0
 	 */
 	function tribe_calendar_mini_grid()  {
@@ -240,8 +245,8 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Maps events to days
 	 *
-	 * @param array of events from tribe_get_events()
-	 * @param string date of the 
+	 * @param array $results Array of events from tribe_get_events()
+	 * @param string $date
 	 * @return array days of the month with events as values
 	 * @since 2.0
 	 */
@@ -302,7 +307,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Prints the year & month dropdowns. JavaScript in the resources/events-admin.js file will autosubmit on the change event. 
 	 *
-	 * @param string a prefix to add to the ID of the calendar elements.  This allows you to reuse the calendar on the same page.
+	 * @param string $prefix A prefix to add to the ID of the calendar elements.  This allows you to reuse the calendar on the same page.
 	 * @return void
 	 * @since 2.0
 	 */
@@ -322,7 +327,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 *  Get current calendar gridview date
 	 *
-	 * @return date $date
+	 * @return string date currently queried
 	 * @since 2.0
 	 */
 	function tribe_get_month_view_date()  {
@@ -340,7 +345,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Returns a textual description of the previous month
 	 *
-	 * @return string
+	 * @return string Name of the previous month.
 	 * @since 2.0
 	 */
 	function tribe_get_previous_month_text()  {
@@ -351,7 +356,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Returns a textual description of the current month
 	 *
-	 * @return string
+	 * @return string Name of the current month.
 	 * @since 2.0
 	 */
 	function tribe_get_current_month_text( ) {
@@ -361,7 +366,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Returns a textual description of the next month
 	 *
-	 * @return string
+	 * @return string Name of the next month.
 	 * @since 2.0
 	 */
 	function tribe_get_next_month_text()  {
@@ -372,7 +377,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Returns a formatted date string of the currently displayed month (in "jump to month" mode)
 	 *
-	 * @return string
+	 * @return string Name of the displayed month.
 	 * @since 2.0
 	 */
 	function tribe_get_displayed_month()  {
@@ -473,6 +478,8 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 
 	/**
 	 *  Check if current display is "bydate"
+	 *
+	 * @return bool
 	 * @since 2.0
 	 */
 	function tribe_is_by_date() {
@@ -481,9 +488,10 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Echo an event's title with pseudo-breadcrumb if on a category
+	 * Display an event's title with pseudo-breadcrumb if on a category
 	 *
 	 * @param bool $depth include linked title
+	 * @since 2.0
 	 */ 
 	function tribe_events_title( $depth = true )  {
 		echo tribe_get_events_title( $depth );
@@ -539,6 +547,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * @param string $postId 
 	 * @param int $width 
 	 * @param int $height
+	 * @param bool $force_load
 	 * @return string - an iframe pulling http://maps.google.com/ for this event
 	 * @since 2.0
 	 */
@@ -645,6 +654,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Returns true or false depending on if the post id has/is a n organizer
 	 *
+	 * @param int $postId can supply either event id or organizer id, if none specified, current post is used
 	 * @return bool
 	 * @since 2.0
 	 */
@@ -754,11 +764,11 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 	
 	/**
-	 * Returns the event Organizer Name with a link to their supplied website url
+	 * Returns or display the event Organizer Name with a link to their supplied website url
 	 *
 	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
 	 * @param bool $display if true displays full html links around venue's name, if false returns just the link without displaying it
-	 * @return string venue
+	 * @return string venue if $display is set to false, void if it's set to true.
 	 * @since 2.0
 	 */
 	function tribe_get_venue_link( $postId = null, $display = true )  {
@@ -853,6 +863,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Returns the venue state or province
 	 *
+	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
 	 * @return string state
 	 * @since 2.0
 	 */
@@ -889,7 +900,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Returns the state or province for US or non-US addresses
+	 * Returns the state or province for US or non-US addresses (effectively the same thing as tribe_get_stateprovince())
 	 *
 	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
 	 * @return string
@@ -944,7 +955,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Returns the event start date and time
 	 *
-	 * @param int post id
+	 * @param int $postId (optional)
 	 * @param bool $displayTime if true shows date and time, if false only shows date
 	 * @param string $dateFormat allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 * @return string date
@@ -953,12 +964,36 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	function tribe_get_start_date( $postId = null, $displayTime = true, $dateFormat = '' )  {
 		global $post;
 		$postId = TribeEvents::postIdHelper( $postId );
+		// TODO: get the postId to actually impact the results.
 		//$post = get_post($postId);
 
 		if( tribe_get_all_day( $postId ) )
 			 $displayTime = false;
 
 		$date = strtotime( $post->EventStartDate ? $post->EventStartDate : tribe_get_event_meta( $postId, '_EventStartDate', true ));
+
+		return tribe_event_format_date($date, $displayTime, $dateFormat );
+	}
+
+	/**
+	 * Returns the event end date
+	 *
+	 * @param int $postId (optional)
+	 * @param bool $displayTime if true shows date and time, if false only shows date
+	 * @param string $dateFormat allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 * @return string date
+	 * @since 2.0
+	 */
+	function tribe_get_end_date( $postId = null, $displayTime = 'true', $dateFormat = '' )  {
+		global $post;
+		$postId = TribeEvents::postIdHelper( $postId );
+		// TODO: get the postId to actually impact the results.
+		//$post = get_post($postId);
+	
+		if( tribe_get_all_day( $postId ) )
+			 $displayTime = false;
+
+		$date = strtotime( $post->EventEndDate ? $post->EventEndDate : tribe_get_event_meta( $postId, '_EventEndDate', true ));
 
 		return tribe_event_format_date($date, $displayTime, $dateFormat );
 	}
@@ -986,29 +1021,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		return str_replace( array_keys($tribe_ecp->monthNames( $shortMonthNames )), $tribe_ecp->monthNames( $shortMonthNames ), $date);
 	}
 
-	/**
-	 * Returns the event end date
-	 *
-	 * @param int post id
-	 * @param bool $displayTime if true shows date and time, if false only shows date
-	 * @param string $dateFormat allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
-	 * @return string date
-	 * @since 2.0
-	 */
-	function tribe_get_end_date( $postId = null, $displayTime = 'true', $dateFormat = '' )  {
-		global $post;
-		$postId = TribeEvents::postIdHelper( $postId );
-		//$post = get_post($postId);
-	
-		if( tribe_get_all_day( $postId ) )
-			 $displayTime = false;
-
-		$date = strtotime( $post->EventEndDate ? $post->EventEndDate : tribe_get_event_meta( $postId, '_EventEndDate', true ));
-
-		return tribe_event_format_date($date, $displayTime, $dateFormat );
-	}
-
-
 
 
 	/**************************************************
@@ -1016,10 +1028,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 **************************************************/	
 	
 	/**
-	 * Link for all occurrences of an event (based on the currently queried event).
+	 * Display link for all occurrences of an event (based on the currently queried event).
 	 *
-	 * @param int post id
-	 * @return string url
+	 * @param int $postId (optional)
 	 * @since 2.0
 	 */
 	function tribe_all_occurences_link( $postId = null )  {
@@ -1045,7 +1056,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 * Displays a link to the previous post by start date for the given event
 	 *
 	 * @param string $anchor link text. Use %title% to place the post title in your string.
-	 * @return void
 	 * @since 2.0
 	 */
 	function tribe_previous_event_link( $anchor = false )  {
@@ -1056,10 +1066,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Displays a link to the next post by start date for the given event
+	 * Display a link to the next post by start date for the given event
 	 *
 	 * @param string $anchor link text. Use %title% to place the post title in your string.
-	 * @return void
 	 * @since 2.0
 	 */
 	function tribe_next_event_link( $anchor = false )  {
@@ -1180,10 +1189,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Echo link to a single event
+	 * Display link to a single event
 	 *
-	 * @param int $post
-	 * @return string
+	 * @param int $postId (optional)
 	 * @since 2.0
 	 */
 	function tribe_event_link($post = null) {
@@ -1194,6 +1202,8 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Get link to a single event
 	 * 
+	 * @param int $postId (optional)
+	 * @return string
 	 * @since 2.0
 	 */
 	function tribe_get_event_link($post = null) {
