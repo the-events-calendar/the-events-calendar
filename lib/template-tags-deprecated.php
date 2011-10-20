@@ -382,8 +382,8 @@ if (!function_exists('event_grid_view')) {
 	}
 
 	function sp_post_id_helper( $postId ) {
-		_deprecated_function( __FUNCTION__, '2.0', 'tribe_post_id_helper()' );
-		return tribe_post_id_helper( $postId );
+		_deprecated_function( __FUNCTION__, '2.0' );
+		return TribeEvents::postIdHelper( $postId );
 	}
 
 	function sp_is_new_event_day() {

@@ -193,13 +193,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( "trash_" . TribeEvents::ORGANIZER_POST_TYPE, array($this, 'cleanupPostOrganizers'));
 			add_action( "wp_ajax_tribe_event_validation", array($this,'ajax_form_validate') );
 			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
-         // noindex grid view
-         add_action('wp_head', array( $this, 'noindex_months' ) );
+			// noindex grid view
+			add_action('wp_head', array( $this, 'noindex_months' ) );
 			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
 			add_action( 'wp_dashboard_setup', array( $this, 'dashboardWidget' ) );
-         // organizer and venue
-         add_action( 'tribe_venue_table_top', array($this, 'displayEventVenueInput') );
-         add_action( 'tribe_organizer_table_top', array($this, 'displayEventOrganizerInput') );
+			// organizer and venue
+			add_action( 'tribe_venue_table_top', array($this, 'displayEventVenueInput') );
+			add_action( 'tribe_organizer_table_top', array($this, 'displayEventOrganizerInput') );
 			if( !defined('TRIBE_HIDE_UPSELL') || !TRIBE_HIDE_UPSELL ) {
 				add_action( 'tribe_events_cost_table', array($this, 'maybeShowMetaUpsell'));
 				add_action( 'tribe_events_options_top', array($this, 'maybeShowSettingsUpsell'));
@@ -1966,6 +1966,21 @@ if ( !class_exists( 'TribeEvents' ) ) {
          $this->setOption('20_upgrade_dismissed', true);
 			exit;
 		}
+		
+		/**
+		 * Helper function for getting Post Id. Accepts null or a post id.
+		 *
+		 * @param int $postId (optional)
+		 * @return int post ID
+		 */
+		public static function postIdHelper( $postId = null ) {
+			if ( $postId != null && is_numeric( $postId ) && $postId > 0 ) {
+				return (int) $postId;
+			} else {
+				return get_the_ID();
+			}
+		}
+
 	} // end TribeEvents class
 
 } // end if !class_exists TribeEvents
