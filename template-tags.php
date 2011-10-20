@@ -956,6 +956,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	function tribe_get_start_date( $postId = null, $displayTime = true, $dateFormat = '' )  {
 		global $post;
 		$postId = TribeEvents::postIdHelper( $postId );
+		//$post = get_post($postId);
 
 		if( tribe_get_all_day( $postId ) )
 			 $displayTime = false;
@@ -1000,6 +1001,7 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	function tribe_get_end_date( $postId = null, $displayTime = 'true', $dateFormat = '' )  {
 		global $post;
 		$postId = TribeEvents::postIdHelper( $postId );
+		//$post = get_post($postId);
 	
 		if( tribe_get_all_day( $postId ) )
 			 $displayTime = false;
@@ -1019,11 +1021,13 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Link for all occurrences of an event (based on the currently queried event).
 	 *
+	 * @param int post id
 	 * @return string url
 	 * @since 2.0
 	 */
-	function tribe_all_occurences_link( )  {
-		global $post;
+	function tribe_all_occurences_link( $postId = null )  {
+		$postId = TribeEvents::postIdHelper( $postId );
+		$post = get_post($postId);
 		$tribe_ecp = TribeEvents::instance();
 		echo $tribe_ecp->getLink('all');		
 	}
