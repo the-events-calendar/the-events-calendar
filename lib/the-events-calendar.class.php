@@ -941,7 +941,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if( function_exists('tribe_is_recurring_event') && 
 				is_singular(self::POSTTYPE) && 
 				tribe_is_recurring_event() && 
-				( !tribe_is_showing_all() && !tribe_is_upcoming() && !tribe_is_past() && !tribe_is_month() && !tribe_is_by_date() ) ) {
+				!tribe_is_showing_all() && 
+				!tribe_is_upcoming() && 
+				!tribe_is_past() && 
+				!tribe_is_month() && 
+				!tribe_is_by_date() ) {
+
 				$startTime = get_post_meta($post->ID, '_EventStartDate', true);
 				$startTime = TribeDateUtils::timeOnly($startTime);
 		
@@ -1138,7 +1143,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				global $post;
 					$p = $secondary ? $secondary : $post;
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );					
-				$link = trailingslashit(get_permalink($p));
+					$link = trailingslashit(get_permalink($p));
 					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );										
 				return esc_url($link);
 			case 'day':
@@ -1976,7 +1981,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return int post ID
 		 */
 		public static function postIdHelper( $postId = null ) {
-			if ( $postId != null && is_numeric( $postId ) && $postId > 0 ) {
+			if ( $postId != null && is_numeric( $postId ) > 0 ) {
 				return (int) $postId;
 			} else {
 				return get_the_ID();
