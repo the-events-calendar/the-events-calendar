@@ -80,7 +80,7 @@ if (!class_exists('TribeEventsAPI')) {
 			if (isset($data["Venue"])) {
 				$data['EventVenueID'] = TribeEventsAPI::saveEventVenue($data["Venue"], $event);
 			}
-
+			
 			$tribe_ecp->do_action('tribe_events_event_save', $event_id);
 
 			//update meta fields
@@ -212,6 +212,14 @@ if (!class_exists('TribeEventsAPI')) {
 		 * Saves venue meta
 		 */
 		private static function saveVenueMeta($venueId, $data) {
+			// TODO: We should probably do away with 'StateProvince' and stick to 'State' and 'Province'.
+			if (!isset($data['StateProvince'])) {
+				if (isset($data['State'])) {
+					$data['StateProvince'] = $data['State'];
+				} else if(isset($data['Province'])) {
+					$data['StateProvince'] = $data['Province'];					
+				}
+			}
 			foreach ($data as $key => $var) {
 				update_post_meta($venueId, '_Venue'.$key, $var);
 			}		
