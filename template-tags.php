@@ -40,21 +40,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 		$tribe_ecp = TribeEvents::instance();
 		return $tribe_ecp->isEvent($postId);
 	}
-
-	/**
-	 * Helper function to determine postId. Pulls from global $post object if null or non-numeric.
-	 * 
-	 * @return int postId;
-	 * @since 2.0
-	 */
-	function TribeEvents::postIdHelper( $postId = null )  {
-		if ( is_numeric( $postId ) && $postId > 0 ) {
-			return (int) $postId;
-		} else {
-			global $post;
-			return $post->ID;
-		}
-	}
 	
 	/**
 	 * Queries the events using WordPress get_posts() by setting the post type and sorting by event date.
