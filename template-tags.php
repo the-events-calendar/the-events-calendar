@@ -955,7 +955,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 */
 	function tribe_get_start_date( $postId = null, $displayTime = true, $dateFormat = '' )  {
 		global $post;
-		$tribe_ecp = TribeEvents::instance();
 		$postId = TribeEvents::postIdHelper( $postId );
 
 		if( tribe_get_all_day( $postId ) )
@@ -1000,7 +999,6 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 */
 	function tribe_get_end_date( $postId = null, $displayTime = 'true', $dateFormat = '' )  {
 		global $post;
-		$tribe_ecp = TribeEvents::instance();
 		$postId = TribeEvents::postIdHelper( $postId );
 	
 		if( tribe_get_all_day( $postId ) )
