@@ -33,9 +33,18 @@ if (!class_exists('TribeEventsImport')) {
 
 		private function __construct( ) {
 			add_action( 'admin_init', array( $this, 'upgradeData' ) );
+			add_action( 'admin_init', array( $this, 'upgradeNewData') );
 			add_action( 'tribe_events_options_post_form', array( $this, 'adminForm' ) );
 			add_action( 'admin_notices', array( $this, 'upgradeNotice' ) );
 			add_action( 'admin_notices', array( $this, 'promptUpgrade') );
+		}
+
+		public function upgradeNewData() {
+			if ( isset($_POST['upgradeNewEventsCalendar']) && check_admin_referer('upgradeNewEventsCalendar') ) {
+				$sp = TribeEvents::instance();
+				$sp->maybeMigrateDatabase(true);
+				self::$upgradeMessage = __('Your ECP 1.3 events have been migrated.', 'tribe-events-calendar');
+			}
 		}
 
 		public function promptUpgrade() {
@@ -56,6 +65,14 @@ if (!class_exists('TribeEventsImport')) {
 					<input type="submit" value="<?php _e('Migrate Data!', 'tribe-events-calendar'); ?>" class="button-secondary" name="upgradeEventsCalendar" />
 				</form>	
 				<?php 
+			} else {
+				// once legacy events are updated allow users to manually run 
+				// 1.3.3->2.0 upgrade
+				?><form method="post" >
+					<p><?php _e('If you do not see your events after upgrading from ECP 1.3.x to 2.0, use this button to manually retry the import.', 'tribe-events-calendar') ?></p>
+					<?php wp_nonce_field('upgradeNewEventsCalendar') ?>
+					<input type="submit" value="<?php _e('Migrate Data!', 'tribe-events-calendar'); ?>" class="button-secondary" name="upgradeNewEventsCalendar" />
+				</form><?php
 			}
 		}
 		

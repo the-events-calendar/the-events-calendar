@@ -246,8 +246,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->maybeMigrateDatabase();
 		}
 
-      public function maybeMigrateDatabase() {
-         if( !$this->getOption('data_migration_version') ) {
+      public function maybeMigrateDatabase( $ignoreOption = false ) {
+         if( $ignoreOption || !$this->getOption('data_migration_version') ) {
             global $wpdb; 
             // rename option
             update_option(self::OPTIONNAME, get_option('sp_events_calendar_options'));
