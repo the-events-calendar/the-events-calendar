@@ -30,7 +30,13 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<?php
 			$countries = TribeEventsViewHelpers::constructCountries( $postId );
 			$defaultCountry = tribe_get_option('defaultCountry');
-			$current = ($_VenueCountry) ? $_VenueCountry : $defaultCountry[1];
+			if (isset($_VenueCountry) && $_VenueCountry) {
+				$current = $_VenueCountry;
+			} elseif (isset($defaultCountry[1])) {
+				$current = $defaultCountry[1];
+			} else {
+				$current = null;
+			}
 
 			foreach ($countries as $abbr => $fullname) {
 				echo '<option value="' . esc_attr($fullname) . '" ';
