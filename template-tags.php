@@ -955,17 +955,20 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Returns the event start date and time
 	 *
-	 * @param int $postId (optional)
+	 * @param int $postId (optional) - this only works for non recurring events
 	 * @param bool $displayTime if true shows date and time, if false only shows date
 	 * @param string $dateFormat allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 * @return string date
+	 * @todo support $postId for recurring events.
 	 * @since 2.0
 	 */
 	function tribe_get_start_date( $postId = null, $displayTime = true, $dateFormat = '' )  {
-		global $post;
 		$postId = TribeEvents::postIdHelper( $postId );
-		// TODO: get the postId to actually impact the results.
-		//$post = get_post($postId);
+		if (!$postId || ( function_exists('tribe_is_recurring_event') && tribe_is_recurring_event( $postId ) ) ) {
+			global $post;
+		} else {
+			$post = get_post($postId);
+		}
 
 		if( tribe_get_all_day( $postId ) )
 			 $displayTime = false;
@@ -978,17 +981,20 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	/**
 	 * Returns the event end date
 	 *
-	 * @param int $postId (optional)
+	 * @param int $postId (optional) - this only works for non recurring events
 	 * @param bool $displayTime if true shows date and time, if false only shows date
 	 * @param string $dateFormat allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 * @return string date
+	 * @todo support $postId for recurring events.
 	 * @since 2.0
 	 */
 	function tribe_get_end_date( $postId = null, $displayTime = 'true', $dateFormat = '' )  {
-		global $post;
 		$postId = TribeEvents::postIdHelper( $postId );
-		// TODO: get the postId to actually impact the results.
-		//$post = get_post($postId);
+		if (!$postId || ( function_exists('tribe_is_recurring_event') && tribe_is_recurring_event( $postId ) ) ) {
+			global $post;
+		} else {
+			$post = get_post($postId);
+		}
 	
 		if( tribe_get_all_day( $postId ) )
 			 $displayTime = false;
