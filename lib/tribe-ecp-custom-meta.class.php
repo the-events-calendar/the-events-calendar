@@ -73,10 +73,12 @@ class TribeEventsCustomMeta {
     public static function save_single_event_meta($postId) {
 		$customFields = (array)tribe_get_option('custom-fields');
 
-      	foreach( $customFields as $customField) {
-			$val = $_POST[$customField['name']];
-        	$val = is_array($val) ? implode("|", $val) : $val;
-        	update_post_meta($postId,  wp_kses_data($customField['name']), $val);
+		foreach( $customFields as $customField) {
+			if( isset( $customField['name'] ) && isset( $_POST[$customField['name']] ) ) {
+				$val = $_POST[$customField['name']];
+				$val = is_array($val) ? implode("|", $val) : $val;
+				update_post_meta($postId,  wp_kses_data($customField['name']), $val);
+			}
 		}
     }
 	
