@@ -1393,6 +1393,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$_POST['Organizer'] = stripslashes_deep($_POST['organizer']);
 			$_POST['Venue'] = stripslashes_deep($_POST['venue']);
+
+			if( !empty($_POST['Venue']['VenueID']) )
+				$_POST['Venue'] = array('VenueID' => $_POST['Venue']['VenueID']);
+
+			if( !empty($_POST['Organizer']['OrganizerID']) )
+				$_POST['Organizer'] = array('OrganizerID' => $_POST['Organizer']['OrganizerID']);
 	
 			TribeEventsAPI::saveEventMeta($postId, $_POST, $post);
 		}

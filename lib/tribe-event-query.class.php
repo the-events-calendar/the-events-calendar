@@ -83,7 +83,13 @@ if (!class_exists('TribeEventsQuery')) {
                case "month":
                   $query = self::setMonthDisplayTypeArgs($query);				
             }
-         }
+         } else if ( is_single() ) {
+				$args = &$query->query_vars;
+				if( isset($args['eventDate']) ) {
+					$args['start_date'] = $args['eventDate'];
+					$args['end_date'] = $args['eventDate'];
+				}
+			}
 		
 			return $query;
 		}

@@ -133,7 +133,7 @@ if (!class_exists('TribeEventsAPI')) {
 		 * Creates a new organizer
 		 */
 		public static function createOrganizer($data) {
-			if ( $data['Organizer'] ) {
+			if ( isset($data['Organizer']) ) {
 				$postdata = array(
 					'post_title' => $data['Organizer'],
 					'post_type' => TribeEvents::ORGANIZER_POST_TYPE,
