@@ -31,9 +31,7 @@ if( !class_exists( 'TribeEventsFeatureWidget') ) {
 			}
 
 			if( function_exists( 'tribe_get_events' ) ) {
-				$old_display = $wp_query->get('eventDisplay');
-				$wp_query->set('eventDisplay', 'upcoming');
-				$posts = tribe_get_events( 'numResults=1&eventCat=' . $category );				
+				$posts = tribe_get_events( 'eventDisplay=upcoming&numResults=1&eventCat=' . $category );				
 				$template = TribeEventsTemplates::getTemplateHierarchy('widget-featured-display');
 			}
 			
@@ -54,8 +52,6 @@ if( !class_exists( 'TribeEventsFeatureWidget') ) {
 					setup_postdata($post);
 					include $template;
 				endforeach;
-
-				$wp_query->set('eventDisplay', $old_display);
 			} 
 			else {
             echo "<p>";

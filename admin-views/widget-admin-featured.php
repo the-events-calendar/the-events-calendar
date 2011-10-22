@@ -20,7 +20,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			'name' => $this->get_field_name( 'category' ),
 			'id' => $this->get_field_id( 'category' ),
 			'taxonomy' => TribeEvents::TAXONOMY,
-			'selected' => $instance['category'],
+			'selected' => isset($instance['category']) ? $instance['category'] : '',
 			'hierarchical' => 1
 		));
 	?>
