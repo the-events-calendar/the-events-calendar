@@ -52,7 +52,7 @@ if (!class_exists('TribeEventsAPI')) {
 		public static function saveEventMeta($event_id, $data, $event = null) {
 			$tribe_ecp = TribeEvents::instance();
 		
-			if( $data['EventAllDay'] && ( $data['EventAllDay'] == 'yes' || $data['EventAllDay'] == true || !isset($data['EventStartDate'] ) ) ) {
+			if( isset($data['EventAllDay']) && ( $data['EventAllDay'] == 'yes' || $data['EventAllDay'] == true || !isset($data['EventStartDate'] ) ) ) {
 				$data['EventStartDate'] = TribeDateUtils::beginningOfDay($data['EventStartDate']);
 				$data['EventEndDate'] = TribeDateUtils::endOfDay($data['EventEndDate']);
 			} else {
