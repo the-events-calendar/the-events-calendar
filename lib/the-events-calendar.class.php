@@ -196,11 +196,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// noindex grid view
 			add_action('wp_head', array( $this, 'noindex_months' ) );
 			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
-			add_action( 'wp_dashboard_setup', array( $this, 'dashboardWidget' ) );
 			// organizer and venue
 			add_action( 'tribe_venue_table_top', array($this, 'displayEventVenueInput') );
 			add_action( 'tribe_organizer_table_top', array($this, 'displayEventOrganizerInput') );
 			if( !defined('TRIBE_HIDE_UPSELL') || !TRIBE_HIDE_UPSELL ) {
+				add_action( 'wp_dashboard_setup', array( $this, 'dashboardWidget' ) );
 				add_action( 'tribe_events_cost_table', array($this, 'maybeShowMetaUpsell'));
 				add_action( 'tribe_events_options_top', array($this, 'maybeShowSettingsUpsell'));
 			}
