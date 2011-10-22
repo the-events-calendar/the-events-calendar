@@ -26,7 +26,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<?php if (have_posts()) : ?>
 	<?php $hasPosts = true; $first = true; ?>
 	<?php while ( have_posts() ) : the_post(); ?>
-
+		<?php global $more; $more = false; ?>
 		<div id="post-<?php the_ID() ?>" <?php post_class('tribe-events-event clearfix') ?> itemscope itemtype="http://schema.org/Event">
 			<?php if ( tribe_is_new_event_day() && !tribe_is_day() ) : ?>
 				<h4 class="event-day"><?php echo tribe_get_start_date( null, false ); ?></h4>
