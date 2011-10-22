@@ -16,7 +16,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		const VENUE_POST_TYPE = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 		const PLUGIN_DOMAIN = 'tribe-events-calendar';
-		const VERSION = '2.0';
+		const VERSION = '2.0.1';
 		const FEED_URL = 'http://tri.be/category/products/feed/';
 
 		protected $postTypeArgs = array(
@@ -204,9 +204,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				add_action( 'tribe_events_cost_table', array($this, 'maybeShowMetaUpsell'));
 				add_action( 'tribe_events_options_top', array($this, 'maybeShowSettingsUpsell'));
 			}
-
-			add_action('admin_notices', array($this, 'majorUpgradeNotice'));
-			add_action('wp_ajax_dismiss_admin_notice', array($this, 'dismissUpgradeNotice'));
 		}
 
 		/**
@@ -244,10 +241,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 			self::debug(sprintf(__('Initializing Tribe Events on %s','tribe-events-calendar'),date('M, jS \a\t h:m:s a')));
 			$this->maybeMigrateDatabase();
+			$this->maybeSetTECVersion();
 		}
 
-		public function maybeMigrateDatabase( $ignoreOption = false ) {
-			if( $ignoreOption || !$this->getOption('data_migration_version') ) {
+		public function maybeMigrateDatabase( ) {
+			// future migrations should actually check the db_version
+			if( !get_option('tribe_events_db_version') ) {
 				global $wpdb; 
 				// rename option
 				update_option(self::OPTIONNAME, get_option('sp_events_calendar_options'));
@@ -260,7 +259,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 				// update taxonomy names
 				$wpdb->update($wpdb->term_taxonomy, array( 'taxonomy' => self::TAXONOMY ), array( 'taxonomy' => 'sp_events_cat') );
-				$this->setOption('data_migration_version', '2.0');
+				update_option('tribe_events_db_version', '2.0.1');
+			}
+		}
+
+		public function maybeSetTECVersion() {
+			if(!$this->getOption('latest_ecp_version') ) {
+				if ( version_compare($this->getOption('latest_ecp_version'), self::VERSION, '<') )
+					$this->setOption('latest_ecp_version', self::VERSION);
 			}
 		}
 
@@ -1940,38 +1946,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function maybeShowSettingsUpsell($postId) {
 			?><p><?php _e('Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ); ?></p>
 			<p><?php printf(__('Check out the <a href="%s">available Add-Ons</a>.', 'tribe-events-calendar' ), self::$tribeUrl.'?ref=tec-options') ?></p> <?php 
-		}
-
-		public function majorUpgradeNotice() {
-			if( !$this->getOption('20_upgrade_dismissed') ) {
-				?><div class="updated" id='upgrade-notice'><p><?php
-				_e('Welcome to Events 2.0.1!<br><br>Events 2.0 is a HUGE upgrade from 1.6.5. ' .
-					'If you just hit update to 2.0 for the first time, please make sure you have backed up before proceeding any further. ' .
-					'You can easily <a href=" http://wordpress.org/extend/plugins/the-events-calendar/download/">revert to an old version</a> ' .
-					'anytime before you migrate your content.<br><br>This upgrade includes two major steps, ' .
-					'<a href="options-general.php?page=tribe-events-calendar">migrating data from the settings panel</a> & updating your templates as necessary. ' . 
-					'There have been significant changes to the template tags and functions. ' . 
-					'Check out our <a href="http://tri.be/migrating-from-events-calendar-1-6-5-to-2-0">walkthrough on the upgrade</a> before proceeding ' .
-					'and check out the FAQ & Documentation from the <a href="http://tri.be/support/">support page</a>.<br><br>')
-				?>
-				<a href='#' class='dismiss-notice'>Dismiss this one time message</a></p></div>
-				<script>
-				  jQuery('.dismiss-notice').click(function() {
-					  var data = {
-						  action: 'dismiss_admin_notice'
-					  }
-					  jQuery.post(ajaxurl, data, function(response) {
-						  jQuery('#upgrade-notice').fadeOut('slow');
-					  })
-				  });
-				</script>
-				<?php		
-			}
-		}
-
-		public function dismissUpgradeNotice() {
-			$this->setOption('20_upgrade_dismissed', true);
-			exit;
 		}
 		
 		/**
