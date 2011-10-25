@@ -27,6 +27,9 @@ if (!class_exists('ECP_Events_Importer')) {
 	public $venuesLoaded = false;
 	public $venues = array();
 	
+	public $eventsLoaded = false;
+	public $events = array();
+
 	public $eventColumnNames = array(// Event defaults.
 					    'event_name' => 'Event Name',
 					    'event_description' => 'Event Description',
@@ -306,7 +309,9 @@ if (!class_exists('ECP_Events_Importer')) {
 		    $ret = 'update';
 		} else {
 		    // Create new event.
-		    TribeEventsAPI::createEvent( $event );
+		    $id = TribeEventsAPI::createEvent( $event );
+		    // Insert into hash table so we don't re-insert.
+		    $this->events[ $this->generateEventKey( $event_name, $event_start_date, $event_end_date ) ] = $id;
 		    $ret = 'insert';
 		}
 	    }
@@ -371,40 +376,40 @@ if (!class_exists('ECP_Events_Importer')) {
 	
 	private function findEventByNameAndDate( $name, $start_date, $end_date ) {
 	    $ret = false;
-	    // We can't search based on post title, so search on start date and then
-	    // iterate.
-	   /*
-	    $query_args = array( 'post_type' => 'tribe_events',
-				 'post_status' => 'publish',
-				 'meta_key' => '_EventStartDate',
-				 'meta_value' => $start_date );
-	   */
-	    $start_date = date( 'Y-m-d h:ia', $start_date );
-	    $end_date = date( 'Y-m-d h:ia', $end_date );
-	    $query_args = array( 'post_type' => 'tribe_events',
-				 'post_status' => 'publish',
-				 'meta_query' => array( array( 'key' => '_EventStartDate',
-								'type' => 'DATETIME',
-				 				'value' => $start_date,
-								'compare' => '=' ) ) );
-	    
-	    $q = new WP_Query( $query_args );
-	    while( $q->have_posts() ) {
-		$q->the_post();
-		$id = get_the_ID();
-		$title = get_the_title();
-		$current_start_date = date( 'Y-m-d h:ia', strtotime( get_post_meta( $id, '_EventStartDate', true ) ) );
-		$current_end_date = date( 'Y-m-d h:ia', strtotime( get_post_meta( $id, '_EventEndDate', true ) ) );
-		if ( $title == $name && $start_date == $current_start_date && $end_date == $current_end_date ) {
-		    // Found it! Setting $ret also drops us out of the loop.
-		    $ret = $id;
-		    break;
+	    if ( $this->eventsLoaded == false ) {
+		$this->populateEventsTable();
+		$this->eventsLoaded = true;
+	    }
+	    if ( $name != '' && $start_date && $end_date ) {
+		$key = $this->generateEventKey( $name, $start_date, $end_date );
+		if ( isset( $this->events[ $key ] ) ) {
+			$ret = $this->events[ $key ];
 		}
 	    }
 	    return $ret;
 	}
 	
-	
+	private function populateEventsTable() {
+		$query_args = array( 'post_type' => 'tribe_events',
+                                 'post_status' => 'publish',
+				 'posts_per_page' => -1);
+		$q = new WP_Query( $query_args );
+		while( $q->have_posts() ) {
+			$q->the_post();
+			$id = get_the_ID();
+	                $title = get_the_title();
+			$start_date = strtotime( get_post_meta( $id, '_EventStartDate', true ) );
+			$end_date = strtotime( get_post_meta( $id, '_EventEndDate', true ) );
+			$this->events[ $this->generateEventKey( $title, $start_date, $end_date ) ] = $id;
+		}
+	}
+
+	private function generateEventKey( $name, $start_date, $end_date ) {
+		$s = date( 'Y-m-d h:ia', $start_date );
+		$e = date( 'Y-m-d h:ia', $end_date );
+		return md5( "$name $s $e" );
+	}	
+
 	/**
 	 * Attempts to locate an organizer with the given name and returns the ID
 	 * if found. Otherwise returns false.
@@ -444,7 +449,7 @@ if (!class_exists('ECP_Events_Importer')) {
 	 **/
 	
 	private function populateOrganizerTable() {
-   	    $q = new WP_Query( 'post_type=tribe_organizer&post_status=publish' );
+   	    $q = new WP_Query( 'post_type=tribe_organizer&post_status=publish&posts_per_page=-1' );
 	    while ( $q->have_posts() ) {
 		$q->the_post();
 		$id = get_the_ID();
@@ -459,7 +464,7 @@ if (!class_exists('ECP_Events_Importer')) {
 	**/
 	
 	private function populateVenueTable() {
-	    $q = new WP_Query( 'post_type=tribe_venue&post_status=publish' );
+	    $q = new WP_Query( 'post_type=tribe_venue&post_status=publish&posts_per_page=-1' );
 	    while ( $q->have_posts() ) {
 		$q->the_post();
 		$id = get_the_ID();
@@ -591,7 +596,7 @@ if (!class_exists('ECP_Events_Importer')) {
     add_action( 'plugins_loaded', 'Tribe_ECP_Events_Importer_Load' );
     
     function show_importer_fail_message() {
-	if ( current_user_can('activate_plugins') ) {
+	if ( current_user_can( 'activate_plugins') ) {
 	    echo '<div class="error"><p>' . __('The Events Calendar PRO - Events Importer requires the Events Calendar PRO plugin.', 'tribe-events-calendar-pro' ) . '</p></div>';
 	}
     }
