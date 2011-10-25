@@ -29,6 +29,7 @@ if (!class_exists('ECP_Events_Importer')) {
 	
 	public $eventColumnNames = array(// Event defaults.
 					    'event_name' => 'Event Name',
+					    'event_description' => 'Event Description',
 					    'event_start_date' => 'Event Start Date',
 					    'event_start_time' => 'Event Start Time',
 					    'event_end_date' => 'Event End Date',
@@ -319,6 +320,7 @@ if (!class_exists('ECP_Events_Importer')) {
 	private function generateEvent( $event_name, $event_start, $event_end, $row, $inverted_mapping ) {
 	    $ret = array( 'post_title' => $event_name,
 			  'post_status' => 'publish',
+			  'post_content' => $this->getFromRow( $row, $inverted_mapping, 'event_description' ),
 			  'EventStartDate' => date( 'Y-m-d', $event_start ),
 			  'EventStartHour' => date( 'h', $event_start ),
 			  'EventStartMinute' => date( 'i', $event_start ),
