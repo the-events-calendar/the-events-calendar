@@ -185,12 +185,12 @@ if (!class_exists('ECP_Events_Importer')) {
 			}
 			// Report results.
 			$error_message = '';
-			$success_message = sprintf( __( "<strong>Import successfully completed!</strong><br/> <ul><li>Failed: %d</li><li>Updated: %d</li><li>Inserted: %d</li></ul>\n" ),
-						    $results[ 'fail' ],
+			$success_message = sprintf( __( "<strong>Import successfully completed!</strong><br/> <ul><li>Inserted: %d</li><li>Updated: %d</li><li>Failed: %d</li></ul>\n" ),
+						    $results[ 'insert' ],
 						    $results[ 'update' ],
-						    $results[ 'insert' ] );
+						    $results[ 'fail' ] );
 			if ( count( $fail_rows ) > 0 ) {
-			    $success_message .= sprintf( __( "Failed Row Numbers: %s" ), implode( ', ', $fail_rows ) );
+			    $success_message .= sprintf( __( "<p>Failed Row Numbers: %s</p>" ), implode( ', ', $fail_rows ) );
 			}
 			
 		    } else {
