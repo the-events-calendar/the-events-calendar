@@ -570,9 +570,9 @@ if (!class_exists('ECP_Events_Importer')) {
 	public function addMetaLinks( $links, $file ) {
 		if ( $file == $this->pluginDir . 'ecp-events-importer.php' ) {
 			$anchor = __( 'Support', 'tribe-events-calendar' );
-			$links []= '<a href="http://wordpress.org/tags/the-events-calendar?forum_id=10">' . $anchor . '</a>';
+			$links []= '<a href="http://tri.be/support/?ref=importer-addon">' . $anchor . '</a>';
 			$anchor = __( 'View All Add-Ons', 'tribe-events-calendar' ); 
-			$links []= '<a href="http://tribe.pro/events-calendar/features/add-ons/?ref=importer-addon">' . $anchor . '</a>';
+			$links []= '<a href="http://tri.be/shop/?ref=importer-addon">' . $anchor . '</a>';
 		}
 		return $links;
 	}
