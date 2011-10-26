@@ -9,7 +9,7 @@
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 $tribe_ecp = TribeEvents::instance(); 
-$eventPosts = tribe_get_events();
+$eventPosts = tribe_get_events(array( 'eventDisplay'=>'month' ) );
 $daysInMonth = isset($date) ? date("t", $date) : date("t");
 $startOfWeek = get_option( 'start_of_week', 0 );
 list( $year, $month ) = split( '-', $tribe_ecp->date );
@@ -91,7 +91,8 @@ function tribe_mini_display_day( $day, $monthView ) {
 	for( $i = 0; $i < count( $monthView[$day] ); $i++ ) {
 		$post = $monthView[$day][$i];
 		setup_postdata( $post );
-		$return .= '<h5 class="tribe-events-event-title-mini"><a href="'. get_permalink($post->ID) .'">' . $post->post_title . '</a></h5>';
+
+		$return .= '<h5 class="tribe-events-event-title-mini"><a href="'. tribe_get_event_link($post) .'">' . $post->post_title . '</a></h5>';
 	}
 	$return .= '<span class="tribe-events-arrow"></span>';
 	$return .= '</div>';
