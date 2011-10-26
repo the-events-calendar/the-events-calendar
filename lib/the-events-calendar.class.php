@@ -431,7 +431,15 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$new_title = sprintf(__("Events this month", 'tribe-events-calendar'),get_query_var('eventDate')) . ' '. $sep . ' ' . $title;
 				}
 
-			}else{
+			} elseif(get_query_var('eventDisplay') == 'day') {
+				$new_title = sprintf(__("Events for %s", 'tribe-events-calendar'),date("F d, Y",strtotime(get_query_var('eventDate')))) . ' '. $sep . ' ' . $title;
+         } elseif(get_query_var('post_type') == self::POSTTYPE && is_single() && $this->getOption('spEventsTemplate') != '' ) {
+				global $post;
+				$new_title = $post->post_title . ' '. $sep . ' ' . $title;
+			} elseif(get_query_var('post_type') == self::VENUE_POST_TYPE && $this->getOption('spEventsTemplate') != '' ) {
+				global $post;
+				$new_title = sprintf(__("Events at %s", 'tribe-events-calendar'), $post->post_title) . ' '. $sep . ' ' . $title;
+			} else {
 				return $title;
 			}
 
