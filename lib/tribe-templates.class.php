@@ -41,6 +41,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			} else {
 				// we need to ensure that we always enter the loop, whether or not there are any events in the actual query
 				self::spoofQuery();
+				add_filter( 'wp_title', array(__CLASS__, 'remove_default_title'), 1);
 				add_action( 'loop_start', array(__CLASS__, 'setup_ecp_template'));
 			
 				$template = locate_template( tribe_get_option('spEventsTemplate', 'default') == 'default' ? 'page.php' : tribe_get_option('spEventsTemplate', 'default') );
@@ -52,6 +53,10 @@ if (!class_exists('TribeEventsTemplates')) {
 	
 		public static function wpHeadFinished() {
 			self::$throughHead = true;
+		}
+
+		public static function remove_default_title($title) {
+			return '';
 		}
 	
 		public static function setup_ecp_template($query) {
