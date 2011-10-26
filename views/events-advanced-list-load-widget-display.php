@@ -56,7 +56,7 @@ ob_end_clean();
 		?> 
 	</div>
 	<div class="event">
-		<a href="<?php echo get_permalink($post->ID) ?>"><?php echo $post->post_title ?></a>
+		<a href="<?php echo tribe_get_event_link($post) ?>"><?php echo $post->post_title ?></a>
 	</div>
 	<div class="loc"><?php
 		if ( $venue && tribe_get_venue() != '') {

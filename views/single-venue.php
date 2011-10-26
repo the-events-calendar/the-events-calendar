@@ -48,12 +48,13 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	?>					
 	<?php if( sizeof($venueEvents) > 0 ): ?>
 		<h2 class='tribe-events-cal-title'>Upcoming Events At This Venue</h2>					
-		<?php foreach( $venueEvents as $post ): setup_postdata($post);	?>
+		<?php foreach( $venueEvents as $post ): 
+			setup_postdata($post);	?>
 			<div id="post-<?php the_ID() ?>" <?php post_class($first ? 'tribe-events-event clearfix first': 'tribe-events-event clearfix' ); $first = false; ?> itemscope itemtype="http://schema.org/Event">
 				<?php if ( tribe_is_new_event_day() ) : ?>
 					<h4 class="event-day"><?php echo tribe_get_start_date( null, false ); ?></h4>
 				<?php endif; ?>
-				<?php the_title('<h2 class="entry-title" itemprop="name"><a href="' . get_permalink() . '" title="' . the_title_attribute('echo=0') . '" rel="bookmark" itemprop="url">', '</a></h2>'); ?>
+				<?php the_title('<h2 class="entry-title" itemprop="name"><a href="' . tribe_get_event_link() . '" title="' . the_title_attribute('echo=0') . '" rel="bookmark" itemprop="url">', '</a></h2>'); ?>
 				<div class="entry-content tribe-events-event-entry" itemprop="description">
 					<?php has_excerpt() ? the_excerpt() : the_content() ?>
 				</div> <!-- End tribe-events-event-entry -->
