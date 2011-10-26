@@ -1551,22 +1551,21 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$defaults[] = '_VenueState';
 				$defaults[] = '_VenueProvince';
 
-				if (class_exists('TribeEventsPro')) {
-					foreach ( $defaults as $tag ) {
-						if ( !$postId || !isset($_GET['post']) ) { //if there is a post AND the post has been saved at least once.
-							$cleaned_tag = str_replace('_Venue','',$tag);
+				foreach ( $defaults as $tag ) {
+					if ( !$postId || !isset($_GET['post']) ) { //if there is a post AND the post has been saved at least once.
+						$cleaned_tag = str_replace('_Venue','',$tag);
 
-							if($cleaned_tag == 'Cost')
-								continue;
+						if($cleaned_tag == 'Cost')
+							continue;
 
-							${'_Venue'.$cleaned_tag} = tribe_get_option('eventsDefault'.$cleaned_tag);
-						}
+						${'_Venue'.$cleaned_tag} = class_exists('TribeEventsPro') ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
 					}
-
-					$_VenueStateProvince = -1; // we want to use default values here
 				}
+
+				$_VenueStateProvince = -1; // we want to use default values here
 			}
 
+			$_EventAllDay = isset($_EventAllDay) ? $_EventAllDay : false;
 			$isEventAllDay = ( $_EventAllDay == 'yes' || ! TribeDateUtils::dateOnly( $_EventStartDate ) ) ? 'checked="checked"' : ''; // default is all day for new posts
 			$startMonthOptions 		= TribeEventsViewHelpers::getMonthOptions( $_EventStartDate );
 			$endMonthOptions 			= TribeEventsViewHelpers::getMonthOptions( $_EventEndDate );

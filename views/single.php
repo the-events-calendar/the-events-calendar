@@ -52,7 +52,13 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<dl class="column" itemprop="location" itemscope itemtype="http://schema.org/Place">
 		<?php if(tribe_get_venue()) : ?>
 		<dt><?php _e('Venue:', 'tribe-events-calendar') ?></dt> 
-			<dd itemprop="name"><?php tribe_get_venue_link( get_the_ID(), class_exists( 'TribeEventsPro' ) ); ?></dd>
+		<dd itemprop="name">
+			<? if( class_exists( 'TribeEventsPro' ) ): ?>
+				<?php tribe_get_venue_link( get_the_ID(), class_exists( 'TribeEventsPro' ) ); ?>
+			<? else: ?>
+				<?php echo tribe_get_venue( get_the_ID() ) ?>
+			<? endif; ?>
+		</dd>
 		<?php endif; ?>
 		<?php if(tribe_get_phone()) : ?>
 		<dt><?php _e('Phone:', 'tribe-events-calendar') ?></dt> 
