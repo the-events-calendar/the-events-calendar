@@ -31,7 +31,16 @@ if (!class_exists('TribeEventsAdminList')) {
 			
 				// event deletion
 				add_filter( 'get_delete_post_link', array(__CLASS__, 'add_date_to_recurring_event_trash_link'), 10, 2 );	
+				add_filter( 'post_row_actions', array(__CLASS__, 'add_recurring_event_view_link'));
 			}
+		}
+		public static function add_recurring_event_view_link($actions) {
+			global $post;
+			if ( function_exists('tribe_is_recurring_event') && is_array(self::$events_list) && tribe_is_recurring_event(self::$events_list[0]->ID) && isset(self::$events_list[0]) ) {
+				$actions['view'] = '<a href="' . tribe_get_event_link(self::$events_list[0]) . '" title="' . esc_attr( sprintf( __( 'View &#8220;%s&#8221;' ), $post->post_title ) ) . '" rel="permalink">' . __( 'View' ) . '</a>';
+			}
+
+			return $actions;
 		}
 	
 		// event deletion
@@ -44,7 +53,7 @@ if (!class_exists('TribeEventsAdminList')) {
 		} 
 
 		public static function cache_posts_results($posts) {
-			if ( get_query_var('post_type') == TribeEvents::POSTTYPE ) {
+			if ( get_query_var('post_type') == TribeEvents::POSTTYPE && sizeof(self::$events_list) <= 0 ) {
 				// sort by start date
 				self::$events_list = $posts; // cache results so i can get the end dates later
 			}
