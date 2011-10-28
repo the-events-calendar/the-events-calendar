@@ -1,6 +1,6 @@
 <?php
 /**
- * The Events Calendar Template Tags
+ * Venue Functions
  *
  * Display functions for use in WordPress templates.
  */

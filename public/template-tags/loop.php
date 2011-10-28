@@ -1,6 +1,6 @@
 <?php
 /**
- * The Events Calendar Template Tags
+ * Loop Functions
  *
  * Display functions for use in WordPress templates.
  */
@@ -11,6 +11,8 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( class_exists( 'TribeEvents' ) ) {
 
 	/**
+	 * New Day Test
+	 *
 	 * Called inside of the loop, returns true if the current post's meta_value (EventStartDate)
 	 * is different than the previous post. Will always return true for the first event in the loop.
 	 *
@@ -36,6 +38,22 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Single Day Test
+	 *
+	 * Returns true if the query is set for single day, false otherwise
+	 * 
+	 * @return bool
+	 * @since 2.0
+	 */
+	function tribe_is_day()  {
+		$tribe_ecp = TribeEvents::instance();
+		return ($tribe_ecp->displaying == 'day') ? true : false;
+	}
+
+
+	/**
+	 * Past Loop View Test
+	 *
 	 * Returns true if the query is set for past events, false otherwise
 	 * 
 	 * @return bool
@@ -47,17 +65,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Returns true if the query is set for single day, false otherwise
-	 * 
-	 * @return bool
-	 * @since 2.0
-	 */
-	function tribe_is_day()  {
-		$tribe_ecp = TribeEvents::instance();
-		return ($tribe_ecp->displaying == 'day') ? true : false;
-	}
-
-	/**
+	 * Upcoming Loop View Test
+	 *
 	 * Returns true if the query is set for upcoming events, false otherwise
 	 * 
 	 * @return bool
@@ -69,6 +78,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 	
 	/**
+	 * Show All Test
+	 *
 	 * Returns true if the query is set to show all events, false otherwise
 	 * 
 	 * @return bool
@@ -80,17 +91,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Returns true if the query is set for month display (as opposed to Upcoming / Past)
+	 * Date View Test
 	 *
-	 * @return bool
-	 * @since 2.0
-	 */
-	function tribe_is_month()  {
-		$tribe_ecp = TribeEvents::instance();
-		return ( $tribe_ecp->displaying == 'month' ) ? true : false;
-	}
-
-	/**
 	 *  Check if current display is "bydate"
 	 *
 	 * @return bool
@@ -102,6 +104,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Event Title (Display)
+	 *
 	 * Display an event's title with pseudo-breadcrumb if on a category
 	 *
 	 * @param bool $depth include linked title
@@ -112,6 +116,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 	
 	/**
+	 * Event Title
+	 *
 	 * Return an event's title with pseudo-breadcrumb if on a category
 	 *
 	 * @param bool $depth include linked title
@@ -133,6 +139,34 @@ if( class_exists( 'TribeEvents' ) ) {
 		}
 
 		return $title;
+	}
+
+	/**
+	 * Link to Upcoming Events
+	 * 
+	 * Returns a link to the upcoming events in list view. Used in the loop view.
+	 *
+	 * @return string URL
+	 * @since 2.0
+	 */
+	function tribe_get_upcoming_link()  {
+		$tribe_ecp = TribeEvents::instance();
+		$output = $tribe_ecp->getLink('upcoming');
+		return $output;
+	}
+	
+	/**
+	 * Link to Past Events
+	 * 
+	 * Returns a link to the previous events in list view. Used in the loop view.
+	 *
+	 * @return string URL
+	 * @since 2.0
+	 */
+	function tribe_get_past_link()  {
+		$tribe_ecp = TribeEvents::instance();
+		$output = $tribe_ecp->getLink('past');
+		return $output;
 	}
 
 }

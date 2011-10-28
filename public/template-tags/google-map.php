@@ -1,6 +1,6 @@
 <?php
 /**
- * The Events Calendar Template Tags
+ * Google Maps Integration
  *
  * Display functions for use in WordPress templates.
  */
@@ -11,10 +11,12 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( class_exists( 'TribeEvents' ) ) {
 
 	/**
+	 * Google Map Link
+	 *
 	 * Returns a url to google maps for the given event
 	 *
 	 * @param string $postId 
-	 * @return string a fully qualified link to http://maps.google.com/ for this event
+	 * @return string A fully qualified link to http://maps.google.com/ for this event
 	 * @since 2.0
 	 */
 	function tribe_get_map_link( $postId = null )  {
@@ -24,13 +26,15 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Google Map Embed
+	 *
 	 * Returns an embedded google maps for an event
 	 *
 	 * @param string $postId 
 	 * @param int $width 
 	 * @param int $height
-	 * @param bool $force_load
-	 * @return string - an iframe pulling http://maps.google.com/ for this event
+	 * @param bool $force_load If true, then load the map even if an address is not provided.
+	 * @return string An iframe pulling http://maps.google.com/ for this event
 	 * @since 2.0
 	 */
 	function tribe_get_embedded_map( $postId = null, $width = '', $height = '', $force_load = false )  {
@@ -69,10 +73,12 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Google Map Embed Test
+	 *
 	 * Check if embed google map is enabled for this event.
 	 *
-     * @param int $postId id of the post, if none specified, current post is used
-	 * @return bool true if google map option is set to embed the map
+     * @param int $postId Id of the post, if none specified, current post is used
+	 * @return bool True if google map option is set to embed the map
 	 * @since 2.0
 	 */
 	function tribe_embed_google_map($postId = null) {
@@ -81,10 +87,12 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Google Map Link Test
+	 *
 	 * Check if google map link is enabled for this event
 	 *
-     * @param int $postId id of the post, if none specified, current post is used
-	 * @return bool true if google map link is set to display the event
+     * @param int $postId Id of the post, if none specified, current post is used
+	 * @return bool True if google map link is set to display the event
 	 * @since 2.0
 	 */
 	function tribe_show_google_map_link($postId = null) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * The Events Calendar Template Tags
+ * Calendar Grid Functions
  *
  * Display functions for use in WordPress templates.
  */
@@ -40,6 +40,19 @@ if( class_exists( 'TribeEvents' ) ) {
 		load_template( TribeEventsTemplates::getTemplateHierarchy('table-mini') );
 	
 		$wp_query = $old_query;
+	}
+
+	/**
+	 * Grid View Test
+	 *
+	 * Returns true if the query is set for grid display (as opposed to Upcoming / Past)
+	 *
+	 * @return bool
+	 * @since 2.0
+	 */
+	function tribe_is_month()  {
+		$tribe_ecp = TribeEvents::instance();
+		return ( $tribe_ecp->displaying == 'month' ) ? true : false;
 	}
 	
 	/**
@@ -105,6 +118,20 @@ if( class_exists( 'TribeEvents' ) ) {
 
 		return $monthView;
 	}
+	
+	/**
+	 * Drop Menu Post Link
+	 *
+	 * Returns the URL where the jump menu sends the month/year request.
+	 *
+	 * @return string URL
+	 * @since 2.0
+	 */
+	function tribe_get_dropdown_link_prefix()  {
+		$tribe_ecp = TribeEvents::instance();
+		$output = $tribe_ecp->getLink('dropdown');
+		return $output;
+	}
 
 	/**
 	 * Month / Year Dropdown Selector (Display)
@@ -112,7 +139,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Display the year & month dropdowns. JavaScript in the resources/events-admin.js file will autosubmit on the change event. 
 	 *
 	 * @param string $prefix A prefix to add to the ID of the calendar elements.  This allows you to reuse the calendar on the same page.
-	 * @return void
 	 * @since 2.0
 	 */
 	function tribe_month_year_dropdowns( $prefix = '' )  {
@@ -129,11 +155,28 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Link to This Month
+	 *
+	 * Returns a link to the currently displayed month (if in "jump to month" mode)
+	 *
+	 * @return string URL
+	 * @since 2.0
+	 */
+	function tribe_get_this_month_link()  {
+		$tribe_ecp = TribeEvents::instance();
+		if ( $tribe_ecp->displaying == 'month' ) {
+			$output = $tribe_ecp->getLink( 'month', $tribe_ecp->date );
+			return $output;
+		}
+		return false;
+	}
+	
+	/**
 	 * Gridview Date
 	 *
 	 * Get current calendar gridview date
 	 *
-	 * @return string date currently queried
+	 * @return string Date currently queried
 	 * @since 2.0
 	 */
 	function tribe_get_month_view_date()  {
@@ -147,8 +190,25 @@ if( class_exists( 'TribeEvents' ) ) {
 		
 		return $date;
 	}
+
+	/**
+	 * Link to Previous Month
+	 * 
+	 * Returns a link to the previous month's events page. Used in the grid view.
+	 *
+	 * @return string URL
+	 * @since 2.0
+	 */
+	function tribe_get_previous_month_link()  {
+		global $wp_query;
+		$tribe_ecp = TribeEvents::instance();
+		$output = $tribe_ecp->getLink( 'month', $tribe_ecp->previousMonth( tribe_get_month_view_date() ));
+		return $output;
+	}
 	
 	/**
+	 * Previous Month Text
+	 *
 	 * Returns a textual description of the previous month
 	 *
 	 * @return string Name of the previous month.
@@ -160,6 +220,22 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Link to Next Month
+	 * 
+	 * Returns a link to the next month's events page. Used in the grid view.
+	 *
+	 * @return string URL 
+	 * @since 2.0
+	 */
+	function tribe_get_next_month_link()  {
+		$tribe_ecp = TribeEvents::instance();
+		$output = $tribe_ecp->getLink( 'month', $tribe_ecp->nextMonth(tribe_get_month_view_date() ));
+		return $output;
+	}
+
+	/**
+	 * Current Month Text
+	 *
 	 * Returns a textual description of the current month
 	 *
 	 * @return string Name of the current month.
@@ -170,6 +246,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Next Month Text
+	 *
 	 * Returns a textual description of the next month
 	 *
 	 * @return string Name of the next month.
@@ -181,6 +259,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Current Month Date
+	 *
 	 * Returns a formatted date string of the currently displayed month (in "jump to month" mode)
 	 *
 	 * @return string Name of the displayed month.

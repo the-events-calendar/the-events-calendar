@@ -1,6 +1,6 @@
 <?php
 /**
- * The Events Calendar Template Tags
+ * Link Functions
  *
  * Display functions for use in WordPress templates.
  */
@@ -51,63 +51,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Link to Next Month
-	 * 
-	 * Returns a link to the next month's events page. Used in the grid view.
-	 *
-	 * @return string URL 
-	 * @since 2.0
-	 */
-	function tribe_get_next_month_link()  {
-		$tribe_ecp = TribeEvents::instance();
-		$output = $tribe_ecp->getLink( 'month', $tribe_ecp->nextMonth(tribe_get_month_view_date() ));
-		return $output;
-	}
-
-	/**
-	 * Link to Previous Month
-	 * 
-	 * Returns a link to the previous month's events page. Used in the grid view.
-	 *
-	 * @return string URL
-	 * @since 2.0
-	 */
-	function tribe_get_previous_month_link()  {
-		global $wp_query;
-		$tribe_ecp = TribeEvents::instance();
-		$output = $tribe_ecp->getLink( 'month', $tribe_ecp->previousMonth( tribe_get_month_view_date() ));
-		return $output;
-	}
-
-	/**
-	 * Link to Upcoming Events
-	 * 
-	 * Returns a link to the upcoming events in list view. Used in the loop view.
-	 *
-	 * @return string URL
-	 * @since 2.0
-	 */
-	function tribe_get_upcoming_link()  {
-		$tribe_ecp = TribeEvents::instance();
-		$output = $tribe_ecp->getLink('upcoming');
-		return $output;
-	}
-	
-	/**
-	 * Link to Past Events
-	 * 
-	 * Returns a link to the previous events in list view. Used in the loop view.
-	 *
-	 * @return string URL
-	 * @since 2.0
-	 */
-	function tribe_get_past_link()  {
-		$tribe_ecp = TribeEvents::instance();
-		$output = $tribe_ecp->getLink('past');
-		return $output;
-	}
-
-	/**
 	 * Link to All Events
 	 *
 	 * Returns a link to the events URL
@@ -120,7 +63,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		$output = $tribe_ecp->getLink('home');
 		return $output;
 	}
-	
+
 	/**
 	 * Link to Grid View
 	 *
@@ -164,20 +107,6 @@ if( class_exists( 'TribeEvents' ) ) {
 		$output = $tribe_ecp->getLink('past');
 		return $output;
 	}
-	
-	/**
-	 * Drop Menu Post Link
-	 *
-	 * Returns the URL where the jump menu sends the month/year request.
-	 *
-	 * @return string URL
-	 * @since 2.0
-	 */
-	function tribe_get_dropdown_link_prefix()  {
-		$tribe_ecp = TribeEvents::instance();
-		$output = $tribe_ecp->getLink('dropdown');
-		return $output;
-	}
 
 	/**
 	 * Single Event Link (Display)
@@ -203,23 +132,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_event_link($post = null) {
 		return apply_filters( 'tribe_get_event_link', TribeEvents::instance()->getLink('single', $post), $post );
-	}		
-
-	/**
-	 * Link to This Month
-	 *
-	 * Returns a link to the currently displayed month (if in "jump to month" mode)
-	 *
-	 * @return string URL
-	 * @since 2.0
-	 */
-	function tribe_get_this_month_link()  {
-		$tribe_ecp = TribeEvents::instance();
-		if ( $tribe_ecp->displaying == 'month' ) {
-			$output = $tribe_ecp->getLink( 'month', $tribe_ecp->date );
-			return $output;
-		}
-		return false;
 	}
 
 }

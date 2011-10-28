@@ -1,6 +1,6 @@
 <?php
 /**
- * The Events Calendar Template Tags
+ * Organizer Functions
  *
  * Display functions for use in WordPress templates.
  */
@@ -11,9 +11,11 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( class_exists( 'TribeEvents' ) ) {
 
 	/**
+	 * Organizer ID
+	 *
 	 * Returns the event Organizer ID.
 	 *
-	 * @param int $postId can supply either event id or organizer id, if none specified, current post is used
+	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
 	 * @return int Organizer
 	 * @since 2.0
 	 */
@@ -32,9 +34,11 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Get Organizer
+	 *
 	 * Returns the name of the Organizer
 	 *
-	 * @param int $postId can supply either event id or organizer id, if none specified, current post is used
+	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
 	 * @return string Organizer's Name
 	 * @since 2.0
 	 */
@@ -45,9 +49,11 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Organizer Test
+	 *
 	 * Returns true or false depending on if the post id has/is a n organizer
 	 *
-	 * @param int $postId can supply either event id or organizer id, if none specified, current post is used
+	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
 	 * @return bool
 	 * @since 2.0
 	 */
@@ -57,9 +63,11 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Organizer Email
+	 *
 	 * Returns the Organizer's Email
 	 *
-	 * @param int $postId can supply either event id or organizer id, if none specified, current post is used
+	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
 	 * @return string Organizer's Email
 	 * @since 2.0
 	 */
@@ -70,11 +78,13 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Organizer Website Link
+	 *
 	 * Returns the event Organizer Name with a link to their supplied website url
 	 *
-	 * @param int $postId can supply either event id or organizer id, if none specified, current post is used
-	 * @param bool $display if true displays full html links around organizers name, if false returns just the link without displaying it
-	 * @return string Organizer Name + Url
+	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
+	 * @param bool $display If true displays full html links around organizers name, if false returns just the link without displaying it
+	 * @return string Organizer Name and Url
 	 * @since 2.0
 	 */
 	function tribe_get_organizer_link( $postId = null, $display = true ) {
@@ -95,9 +105,11 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Organizer Phone
+	 *
 	 * Returns the event Organizer's phone number
 	 *
-	 * @param int $postId can supply either event id or organizer id, if none specified, current post is used
+	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
 	 * @return string Organizer's Phone Number
 	 * @since 2.0
 	 */
