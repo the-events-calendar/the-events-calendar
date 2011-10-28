@@ -1,12 +1,19 @@
 <?php
 /**
- * Template tags for premium ECP functionality
- * @author John Gadbois
+ * Events Calendar Pro template Tags
+ *
+ * Display functions for use in WordPress templates.
  */
+
+// Don't load directly
+if ( !defined('ABSPATH') ) { die('-1'); }
+
 if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_text' ) ) {	
 
 	/**
-	 * Is this event recurring
+	 * Event Recurrence
+	 * 
+	 * Test to see if event is recurring.
 	 * 
 	 * @param int $postId (optional)
 	 * @return bool true if event is a recurring event.
@@ -19,6 +26,8 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 	}
 
 	/**
+	 * Recurrence Text
+	 * 
 	 * Get the textual version of event recurrence
 	 * e.g Repeats daily for three days 
 	 *
@@ -33,6 +42,8 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 	}
 	
 	/**
+	 * Event Custom Fields
+	 * 
 	 * Get an array of custom fields
 	 *
 	 * @param int $postId (optional)
@@ -55,6 +66,8 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 	}
 	
 	/**
+	 * Event Custom Fields (Display)
+	 * 
 	 * Display a definition term list of custom fields
 	 *
 	 * @param int $postId (optional)
@@ -71,6 +84,8 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 	}
 	
 	/**
+	 * iCal Link (Single)
+	 * 
 	 * Returns an ical feed for a single event. Must be used in the loop.
 	 * 
 	 * @return string URL for ical for single event.
@@ -83,6 +98,8 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 	}
 
 	/**
+	 * iCal Link
+	 * 
 	 * Returns a sitewide ical link
 	 *
 	 * @return string URL for ical dump.
@@ -95,6 +112,8 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 	}
 
 	/**
+	 * Google Calendar Link
+	 * 
 	 * Returns an add to Google Calendar link. Must be used in the loop
 	 *
 	 * @param int $postId (optional)
@@ -109,6 +128,8 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 	}
 
 	/** 
+	 * Day View Link
+	 * 
 	 * Get a link to day view
 	 *
 	 * @param string $date
