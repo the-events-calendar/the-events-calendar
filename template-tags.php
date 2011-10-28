@@ -28,6 +28,8 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 **************************************************/
 
 	/**
+	 * Get Options
+	 *
 	 * Retrieve specific key from options array, optionally provide a default return value
 	 *
 	 * @param string $optionName Name of the option to retrieve.
@@ -41,7 +43,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Checks type of $postId to determine if it is an event
+	 * Event Type Test
+	 *
+	 * Checks type of $postId to determine if it is an Event
 	 *
 	 * @param int $postId (optional)
 	 * @return bool true if this post is an Event post type
@@ -52,6 +56,8 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 	
 	/**
+	 * Get Event
+	 *
 	 * Queries the events using WordPress get_posts() by setting the post type and sorting by event date.
 	 *
 	 * @param array $args query vars with added defaults including post_type of events, sorted (orderby) by event date (order) ascending
@@ -68,6 +74,8 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
+	 * All Day Event Test
+	 *
 	 * Returns true if the event is an all day event
 	 *
 	 * @param int $postId (optional)
@@ -80,6 +88,8 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 	
 	/**
+	 * Multi-day Event Test
+	 *
 	 * Returns true if the event spans multiple days
 	 *
 	 * @param int $postId (optional)
@@ -96,6 +106,8 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
+	 * Event Categories (Display)
+	 *
 	 * Display the event categories
 	 *
 	 * @param string $label
@@ -111,6 +123,8 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
+	 * Event Post Meta
+	 *
 	 * Get event post meta.
 	 *
 	 * @param int $postId (optional)
@@ -126,6 +140,8 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 	
 	/**
+	 * Event Category Name
+	 *
 	 * Return the current event category name based the url.
 	 *
 	 * @return string Name of the Event Category
@@ -141,9 +157,12 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 		
 	/**
+	 * Current Template
+	 *
 	 * Get the current page template that we are on
 	 *
-	 * @return string page template
+	 * @todo Update the function name to ensure there are no namespace conflicts.
+	 * @return string Page template
 	 * @since 2.0
 	 */
 	function tribe_get_current_template() {
@@ -151,10 +170,12 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Is this postId a venue?
+	 * Venue Type Test
+	 *
+	 * Checks type of $postId to determine if it is a Venue
 	 *
 	 * @param int $postId (optional)
-	 * @return bool true if post type id Venue
+	 * @return bool True if post type id Venue
 	 * @since 2.0
 	 */
 	function tribe_is_venue( $postId = null )  {
@@ -163,6 +184,8 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
+	 * HTML Before Event (Display)
+	 *
 	 * Display HTML to output before the event template
 	 *
 	 * @since 2.0
@@ -172,7 +195,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Display HTML to ouput after the event template
+	 * HTML After Event (Display)
+	 *
+	 * Display HTML to output after the event template
 	 *
 	 * @since 2.0
 	 */
@@ -181,11 +206,13 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 	
 	/**
+	 * Event Cost
+	 *
 	 * If EventBrite plugin is active
-	 * * If the event is registered in eventbrite, and has one ticket.  Return the cost of that ticket.
-	 * * If the event is registered in eventbrite, and there are many tickets, return "Varies"
-	 * If the event is not registered in eventbrite, and there is meta, return that.
-	 * If the event is not registered in eventbrite, and there is no meta, return ""
+	 * - If the event is registered in eventbrite, and has one ticket. Return the cost of that ticket.
+	 * - If the event is registered in eventbrite, and there are many tickets, return "Varies"
+	 *   - If the event is not registered in eventbrite, and there is meta, return that.
+	 *   - If the event is not registered in eventbrite, and there is no meta, return ""
 	 *
 	 * @param int $postId (optional)
 	 * @return string Cost of the event.
@@ -220,6 +247,8 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	 **************************************************/
 
 	/**
+	 * Calendar Grid (Display)
+	 *
 	 * Display the full size grid calendar table
 	 *
 	 * @uses load_template()
@@ -231,6 +260,8 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
+	 * Calendar Mini Grid (Display)
+	 *
 	 * Displays the mini grid calendar table (usually in a widget)
 	 *
 	 * @uses load_template()
@@ -248,11 +279,13 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 	
 	/**
-	 * Maps events to days
+	 * Sort Events by Day
+	 *
+	 * Maps events to days of the month.
 	 *
 	 * @param array $results Array of events from tribe_get_events()
 	 * @param string $date
-	 * @return array days of the month with events as values
+	 * @return array Days of the month with events as values
 	 * @since 2.0
 	 */
 	function tribe_sort_by_month( $results, $date )  {
@@ -310,7 +343,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 * Prints the year & month dropdowns. JavaScript in the resources/events-admin.js file will autosubmit on the change event. 
+	 * Month / Year Dropdown Selector (Display)
+	 *
+	 * Display the year & month dropdowns. JavaScript in the resources/events-admin.js file will autosubmit on the change event. 
 	 *
 	 * @param string $prefix A prefix to add to the ID of the calendar elements.  This allows you to reuse the calendar on the same page.
 	 * @return void
@@ -330,7 +365,9 @@ if( class_exists( 'TribeEvents' ) && !function_exists( 'tribe_get_option' ) ) {
 	}
 
 	/**
-	 *  Get current calendar gridview date
+	 * Gridview Date
+	 *
+	 * Get current calendar gridview date
 	 *
 	 * @return string date currently queried
 	 * @since 2.0
