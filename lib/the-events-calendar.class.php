@@ -141,8 +141,20 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 **/
 		protected function loadLibraries() {
 			require_once( 'tribe-event-exception.class.php' );
-			require_once( $this->pluginPath.'template-tags.php' );
-			require_once( $this->pluginPath.'advanced-functions.php' );
+			// Load Template Tags
+			require_once( $this->pluginPath.'public/template-tags/general.php' );
+			require_once( $this->pluginPath.'public/template-tags/calendar.php' );
+			require_once( $this->pluginPath.'public/template-tags/loop.php' );
+			require_once( $this->pluginPath.'public/template-tags/google-map.php' );
+			require_once( $this->pluginPath.'public/template-tags/organizer.php' );
+			require_once( $this->pluginPath.'public/template-tags/venue.php' );
+			require_once( $this->pluginPath.'public/template-tags/date.php' );
+			require_once( $this->pluginPath.'public/template-tags/link.php' );
+			// Load Advanced Functions
+			require_once( $this->pluginPath.'public/advanced-functions/event.php' );
+			require_once( $this->pluginPath.'public/advanced-functions/venue.php' );
+			require_once( $this->pluginPath.'public/advanced-functions/organizer.php' );
+			// Load Deprecated Template Tags
 			require_once( 'template-tags-deprecated.php' );
 			require_once( 'widget-list.class.php' );
 			require_once( 'tribe-admin-events-list.class.php' );
