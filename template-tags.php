@@ -40,6 +40,21 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 		$tribe_ecp = TribeEvents::instance();
 	  	return apply_filters( 'tribe_get_recurrence_text', TribeEventsRecurrenceMeta::recurrenceToText( $postId ) );
 	}
+
+	/**
+	 * Recurring Event List Link
+	 *
+	 * Display link for all occurrences of an event (based on the currently queried event).
+	 *
+	 * @param int $postId (optional)
+	 * @since 2.0
+	 */
+	function tribe_all_occurences_link( $postId = null )  {
+		$postId = TribeEvents::postIdHelper( $postId );
+		$post = get_post($postId);
+		$tribe_ecp = TribeEvents::instance();
+		echo $tribe_ecp->getLink('all');		
+	}
 	
 	/**
 	 * Event Custom Fields
