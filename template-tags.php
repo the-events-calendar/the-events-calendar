@@ -8,7 +8,7 @@
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_text' ) ) {	
+if( class_exists( 'TribeEventsPro' ) ) {	
 
 	/**
 	 * Event Recurrence
@@ -19,10 +19,12 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 	 * @return bool true if event is a recurring event.
 	 * @since 2.0
 	 */
-	function tribe_is_recurring_event( $postId = null )  {
-		$tribe_ecp = TribeEvents::instance();
-		$postId = TribeEvents::postIdHelper( $postId );
-		return sizeof(get_post_meta($postId, '_EventStartDate')) > 1;
+	if (!function_exists( 'tribe_is_recurring_event' )) {
+		function tribe_is_recurring_event( $postId = null )  {
+			$tribe_ecp = TribeEvents::instance();
+			$postId = TribeEvents::postIdHelper( $postId );
+			return sizeof(get_post_meta($postId, '_EventStartDate')) > 1;
+		}
 	}
 
 	/**
@@ -35,10 +37,12 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 	 * @return string Summary of recurrence.
 	 * @since 2.0
 	 */
-	function tribe_get_recurrence_text( $postId = null )  {
-		$postId = TribeEvents::postIdHelper( $postId );
-		$tribe_ecp = TribeEvents::instance();
-	  	return apply_filters( 'tribe_get_recurrence_text', TribeEventsRecurrenceMeta::recurrenceToText( $postId ) );
+	if (!function_exists( 'tribe_get_recurrence_text' )) {
+		function tribe_get_recurrence_text( $postId = null )  {
+			$postId = TribeEvents::postIdHelper( $postId );
+			$tribe_ecp = TribeEvents::instance();
+		  	return apply_filters( 'tribe_get_recurrence_text', TribeEventsRecurrenceMeta::recurrenceToText( $postId ) );
+		}
 	}
 
 	/**
@@ -49,11 +53,13 @@ if( class_exists( 'TribeEventsPro' ) && !function_exists( 'tribe_get_recurrence_
 	 * @param int $postId (optional)
 	 * @since 2.0
 	 */
-	function tribe_all_occurences_link( $postId = null )  {
-		$postId = TribeEvents::postIdHelper( $postId );
-		$post = get_post($postId);
-		$tribe_ecp = TribeEvents::instance();
-		echo $tribe_ecp->getLink('all');		
+	if (!function_exists( 'tribe_all_occurences_link' )) {
+		function tribe_all_occurences_link( $postId = null )  {
+			$postId = TribeEvents::postIdHelper( $postId );
+			$post = get_post($postId);
+			$tribe_ecp = TribeEvents::instance();
+			echo $tribe_ecp->getLink('all');		
+		}
 	}
 	
 	/**
