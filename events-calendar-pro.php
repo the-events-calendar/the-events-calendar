@@ -363,9 +363,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	// Instantiate class and set up WordPress actions.
    function Tribe_ECP_Load() {
       if( class_exists( 'TribeEvents' ) && defined('TribeEvents::VERSION') && version_compare( TribeEvents::VERSION, '2.0', '>=') ) {
-         TribeEventsPro::instance();
+		TribeEventsPro::instance();
       } else {
-			add_action( 'admin_notices', 'tribe_show_fail_message' );
+		add_action( 'admin_notices', 'tribe_show_fail_message' );
       }
    }
 
