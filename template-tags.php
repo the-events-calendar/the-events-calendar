@@ -1,4 +1,9 @@
 <?php
+/**
+ * The Events Calendar Template Tags
+ *
+ * Display functions for use in WordPress templates.
+ */
 
 /**************************************************
  * TABLE OF CONTENTS
