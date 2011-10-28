@@ -2,7 +2,7 @@
 /**
  * The Events Calendar Template Tags
  *
- * Display functions for use in WordPress templates.
+ * Display functions (template-tags) for use in WordPress templates.
  */
 
 // Don't load directly
