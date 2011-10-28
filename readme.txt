@@ -68,21 +68,35 @@ No setup required. Just plug and play!
 
 == Documentation ==
 
-We are developing a wealth of <a href="http://tri.be/support/?ref=tec-readme">documentation on our support page</a>.
-
-For template tags, you can view our template tag include and read through the functions directly. Please see the files in /public or visit our online documentation at http://tri.be/support/documentation
+For template tags, you can view our template tag includes in the "public" folder to read through the functions directly or visit our online documentation at <a href="http://tri.be/support/documentation?ref=tec-readme">http://tri.be/support/documentation</a>
 
 == Changelog ==
 
 = 2.0.1 =
 
-* Massive cleanup of the template tags including a bunch of documentation and breaking them up into the /public folder as multiple files.
-* Refractor some aspects of the tribe API class.
-* Bug fixes pertaining to upgrade paths.
-* 00 hour in 24 hour mode.
-* Added view my events link in settings.
-* wp-config var to disable upsell - define( 'TRIBE_HIDE_UPSELL', true );
-* A FAT pile of other minor bugs! :) For more info read our post: http://tri.be/release-the-events-calendar-2-0-1
+Small features, UX and Content Tweeks:
+* Enabled method to turn off event upsell messages on your site in wp-config.php - define( 'TRIBE_HIDE_UPSELL', true );
+* Updated migration message to help 1.6.5 users have an easier time when they upgrade to 2.0
+* Added a "View my events" link in the settings panel to help users find where the calendar lives
+* Added Russian and Swedish translation files.
+* Broke out advanced functions into their own file "advanced-functions.php"
+* Added in line documentation to all template tags and moved them to separate files in the /public folder
+* Added and updated documentation on http://tri.be/support/documentation/
+
+Bugs:
+* Added "00" in the time drop down when in 24 hour mode
+* Updated default end time to "17" for 24 hour mode
+* Fixed broken link in the "you need events 2.0 open source" on activation for PRO users.
+* More tag now properly crops content in loop
+* Custom meta > number only drop down values now carry over
+* Resolved an issue where single day view yielded a 404 if date was in the past
+* Next event widget now shows the proper event
+* Attachments on recurring events now persist across instances
+* Custom recurring event error caused by blank end date fixed
+* Default state now shows properly
+* Title tags wrong in various views fixed
+* Event date showing incorrectly for certain cases of recurrence fixed.
+* Venue / Organizer data not saving for certain cases of recurrence fixed.
 
 = 2.0 =
 
