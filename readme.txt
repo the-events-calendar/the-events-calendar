@@ -82,7 +82,7 @@ For template tags, you can view our template tag include and read through the fu
 * 00 hour in 24 hour mode.
 * Added view my events link in settings.
 * wp-config var to disable upsell - define( 'TRIBE_HIDE_UPSELL', true );
-* A FAT pile of other minor bugs! :)
+* A FAT pile of other minor bugs! :) For more info read our post: http://tri.be/release-the-events-calendar-2-0-1
 
 = 2.0 =
 
