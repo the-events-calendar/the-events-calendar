@@ -5,7 +5,7 @@ Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.1
 Tested up to: 3.2.1
-Stable tag: 2.0
+Stable tag: 2.0.1
 
 == Description ==
 
@@ -70,9 +70,19 @@ No setup required. Just plug and play!
 
 We are developing a wealth of <a href="http://tri.be/support/?ref=tec-readme">documentation on our support page</a>.
 
-For template tags, you can view our template tag include and read through the functions directly. Please see template-tags.php.
+For template tags, you can view our template tag include and read through the functions directly. Please see the files in /public or visit our online documentation at http://tri.be/support/documentation
 
 == Changelog ==
+
+= 2.0.1 =
+
+* Massive cleanup of the template tags including a bunch of documentation and breaking them up into the /public folder as multiple files.
+* Refractor some aspects of the tribe API class.
+* Bug fixes pertaining to upgrade paths.
+* 00 hour in 24 hour mode.
+* Added view my events link in settings.
+* wp-config var to disable upsell - define( 'TRIBE_HIDE_UPSELL', true );
+* A FAT pile of other minor bugs! :)
 
 = 2.0 =
 
