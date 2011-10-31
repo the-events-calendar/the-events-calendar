@@ -46,7 +46,9 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<dd><span class="date updated"><?php the_date(); ?></span></dd>
 		<?php if ( function_exists('tribe_get_recurrence_text') && tribe_is_recurring_event() ) : ?>
 			<dt><?php _e('Schedule:', 'tribe-events-calendar') ?></dt>
-			<dd><?php echo tribe_get_recurrence_text(); ?> (<a href='<?php tribe_all_occurences_link() ?>'>See all</a>)</dd>
+         <dd><?php echo tribe_get_recurrence_text(); ?> 
+            <?php if(function_exists('tribe_all_occurences_link')): ?>(<a href='<?php tribe_all_occurences_link() ?>'>See all</a>)<?php endif; ?>
+         </dd>
 		<?php endif; ?>
 	</dl>
 	<dl class="column" itemprop="location" itemscope itemtype="http://schema.org/Place">
