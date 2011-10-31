@@ -596,7 +596,8 @@ if (!class_exists('ECP_Events_Importer')) {
     add_action( 'plugins_loaded', 'Tribe_ECP_Events_Importer_Load' );
     
     function show_importer_fail_message() {
-	if ( current_user_can( 'activate_plugins') ) {
+	$currentScript = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
+	if ( current_user_can( 'activate_plugins') && ( substr( $currentScript, -11 ) == 'plugins.php') ) {
 	    echo '<div class="error"><p>' . __('The Events Calendar PRO - Events Importer requires the Events Calendar PRO plugin.', 'tribe-events-calendar-pro' ) . '</p></div>';
 	}
     }
