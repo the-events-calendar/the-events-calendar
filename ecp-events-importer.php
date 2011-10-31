@@ -178,14 +178,21 @@ if (!class_exists('ECP_Events_Importer')) {
 		    if ( isset( $csv->data ) && is_callable( $method ) ) {
 			$results = array( 'fail' => 0, 'update' => 0, 'insert' => 0 );
 			$fail_rows = array();
+			$total_start = microtime();
 			foreach( $csv->data as $row_num => $row ) {
+				$start = microtime();
 			    $result = call_user_func( $method, array_values( $row ), $inverted_map );
 			    $results[ $result ] = $results[ $result ] + 1;
 			    // Record failed rows for report and make them 1-based.
 			    if ( $result == 'fail' ) {
 				$fail_rows []= ( $row_num + 1 );
 			    }
+				$end = microtime();
+				echo("<pre>Executed: " . ($end - $start) . "</pre>");
 			}
+			$total_end = microtime();
+			$total_diff = $total_end - $total_start;
+			echo("<pre>Entire process: $total_diff</pre>");
 			// Report results.
 			$error_message = '';
 			$success_message = sprintf( __( "<strong>Import successfully completed!</strong><br/> <ul><li>Inserted: %d</li><li>Updated: %d</li><li>Failed: %d</li></ul>\n" ),
@@ -305,13 +312,21 @@ if (!class_exists('ECP_Events_Importer')) {
 		$event = $this->generateEvent( $event_name, $event_start_date, $event_end_date, $row, $inverted_mapping );
 		if ( $id = $this->findEventByNameAndDate( $event_name, $event_start_date, $event_end_date ) ) {
 		    // Event already exists, so update.
+			$start = microtime();
 		    TribeEventsAPI::updateEvent( $id, $event );
+			$end = microtime();
+			$elapsed = $end - $start;
+			echo "<pre>Update event: $elapsed</pre>";
 		    $ret = 'update';
 		} else {
 		    // Create new event.
+			$start = microtime();
 		    $id = TribeEventsAPI::createEvent( $event );
 		    // Insert into hash table so we don't re-insert.
 		    $this->events[ $this->generateEventKey( $event_name, $event_start_date, $event_end_date ) ] = $id;
+			$end = microtime();
+                        $elapsed = $end - $start;
+                        echo "<pre>Created event: $elapsed</pre>";
 		    $ret = 'insert';
 		}
 	    }
