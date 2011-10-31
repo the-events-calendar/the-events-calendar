@@ -20,6 +20,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $pluginSlug;
 		public $licenseKey;
 		public static $updateUrl = 'http://tri.be/';
+      const REQUIRED_TEC_VERSION = '2.0.1';
 		
 	    private function __construct() {
 			$this->pluginDir = trailingslashit( basename( dirname(__FILE__) ) );
@@ -362,7 +363,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	
 	// Instantiate class and set up WordPress actions.
    function Tribe_ECP_Load() {
-      if( class_exists( 'TribeEvents' ) && defined('TribeEvents::VERSION') && version_compare( TribeEvents::VERSION, '2.0.1', '>=') ) {
+      if( class_exists( 'TribeEvents' ) && defined('TribeEvents::VERSION') && version_compare( TribeEvents::VERSION, TribeEventsPro::REQUIRED_TEC_VERSION, '>=') ) {
 		TribeEventsPro::instance();
       } else {
 		add_action( 'admin_notices', 'tribe_show_fail_message' );
