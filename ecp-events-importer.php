@@ -117,6 +117,12 @@ if (!class_exists('ECP_Events_Importer')) {
 	 **/
 	 
 	private function importCsv( $import_type, $column_mapping ) {
+	    
+	    //set really big limits to avoid issues wth large files
+	    ini_set('memory_limit', -1);
+		ini_set('max_execution_time', 6000);
+	    
+	    
 	    $error_message = '';
 	    $success_message = '';
 	    $inverted_map = array();
@@ -179,20 +185,31 @@ if (!class_exists('ECP_Events_Importer')) {
 			$results = array( 'fail' => 0, 'update' => 0, 'insert' => 0 );
 			$fail_rows = array();
 			$total_start = microtime();
+			
+			$num = 1;
+			
 			foreach( $csv->data as $row_num => $row ) {
-				$start = microtime();
+			
+				echo $num.'. ';
+				$num++;
+			
+				set_time_limit(10); //increase script time limit by 10 seconds
+			
+//				$start = microtime();
 			    $result = call_user_func( $method, array_values( $row ), $inverted_map );
 			    $results[ $result ] = $results[ $result ] + 1;
 			    // Record failed rows for report and make them 1-based.
 			    if ( $result == 'fail' ) {
 				$fail_rows []= ( $row_num + 1 );
 			    }
+/*
 				$end = microtime();
 				echo("<pre>Executed: " . ($end - $start) . "</pre>");
+*/
 			}
-			$total_end = microtime();
-			$total_diff = $total_end - $total_start;
-			echo("<pre>Entire process: $total_diff</pre>");
+			//$total_end = microtime();
+			//$total_diff = $total_end - $total_start;
+			//echo("<pre>Entire process: $total_diff</pre>");
 			// Report results.
 			$error_message = '';
 			$success_message = sprintf( __( "<strong>Import successfully completed!</strong><br/> <ul><li>Inserted: %d</li><li>Updated: %d</li><li>Failed: %d</li></ul>\n" ),
@@ -211,7 +228,10 @@ if (!class_exists('ECP_Events_Importer')) {
 	    	$error_message = __( 'Could not import CSV file - either the file upload failed, or the file was not a CSV file.' );
 	    }
 	    
-	    include( $this->pluginPath . 'admin-views/result.php' );	    
+	    include( $this->pluginPath . 'admin-views/result.php' );
+	    
+	    //flush output
+	    //flush();	    
 	}
 	
 	/**
@@ -312,11 +332,15 @@ if (!class_exists('ECP_Events_Importer')) {
 		$event = $this->generateEvent( $event_name, $event_start_date, $event_end_date, $row, $inverted_mapping );
 		if ( $id = $this->findEventByNameAndDate( $event_name, $event_start_date, $event_end_date ) ) {
 		    // Event already exists, so update.
-			$start = microtime();
+			//$start = microtime();
 		    TribeEventsAPI::updateEvent( $id, $event );
+/*
 			$end = microtime();
 			$elapsed = $end - $start;
 			echo "<pre>Update event: $elapsed</pre>";
+*/
+			$end = microtime();
+			echo $event_name . ' updated<br>';
 		    $ret = 'update';
 		} else {
 		    // Create new event.
@@ -324,9 +348,13 @@ if (!class_exists('ECP_Events_Importer')) {
 		    $id = TribeEventsAPI::createEvent( $event );
 		    // Insert into hash table so we don't re-insert.
 		    $this->events[ $this->generateEventKey( $event_name, $event_start_date, $event_end_date ) ] = $id;
+/*
 			$end = microtime();
                         $elapsed = $end - $start;
                         echo "<pre>Created event: $elapsed</pre>";
+*/
+			$end = microtime();
+			echo $event_name . ' created<br>';
 		    $ret = 'insert';
 		}
 	    }
@@ -530,7 +558,26 @@ if (!class_exists('ECP_Events_Importer')) {
 		if ( move_uploaded_file( $import_file, $this->fileLocation ) ) {
 				
 			//get first 5 lines
-		    $csv = new parseCSV( $this->fileLocation, 0, 5 );
+		    //$csv = new parseCSV( $this->fileLocation, 0, 5 );
+		    
+		    //copy first 5 lines to seperate file and parse that (fix for big files)
+		    
+		    $cfile = fopen($this->fileLocation, 'rb');
+		    
+		    $nfile = fopen($this->fileLocation.'.tmp','wb');
+		    
+		    for($i = 1; $i <= 5; $i++){
+		    
+		    	$line = fgets($cfile);
+		    	fwrite($nfile, $line);
+		    
+		    }
+
+			fclose($cfile);
+			fclose($nfile);
+		    
+		    $csv = new parseCSV( $this->fileLocation.'.tmp');
+		    
 		    if ( !$csv ) {
 			// Couldn't parse CSV.
 			$error_message = __( 'Sorry, this file does not appear to be a valid CSV file.' );
