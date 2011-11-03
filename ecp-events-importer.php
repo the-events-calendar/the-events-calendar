@@ -288,7 +288,7 @@ $csv->limit = 10;
 			
 			$newoffset=$offset+$limit;
 			
-			echo "<script>window.location.href='/wp-admin/options-general.php?page=events-importer&action=continue&offset=".$newoffset."';</script>";
+			echo "<script>window.location.href='".$_SERVER['SCRIPT_NAME']."?page=events-importer&action=continue&offset=".$newoffset."';</script>";
 			
 		}
 	    } else {
