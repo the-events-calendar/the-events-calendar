@@ -79,10 +79,17 @@ if (!class_exists('ECP_Events_Importer')) {
 	}
 	
 	public function importPageView() {
-	    if ( ! isset( $_POST[ 'ecp_import_action' ] ) ) {
+	    
+	    if(isset($_POST[ 'ecp_import_action' ])) $action = trim( $_POST[ 'ecp_import_action' ] );
+		if(isset($_GET['action'])) $action = trim( $_GET[ 'action' ] );
+	    
+	    $limit = 2500; //umber of records in a batch
+	    
+	    if ( ! isset( $action ) ) {
 		include( $this->pluginPath . 'admin-views/import.php' );
 	    } else {
-		$action = trim( $_POST[ 'ecp_import_action' ] );
+		
+		
 		if ( $this->isValidAction( $action ) ) {
 		    switch ( $action ) {
 			case 'map':
@@ -101,8 +108,25 @@ if (!class_exists('ECP_Events_Importer')) {
 				    $column_mapping[ str_replace( 'col_', '', $name ) ] = $value;
 				}
 			    }
-			    $this->importCsv( $import_type, $column_mapping );
+			    
+			    //save column mapping in WP options for future reference
+			    update_option('tribe_events_import_column_mapping',$column_mapping);
+			    update_option('tribe_events_import_type',$import_type);
+			    
+			    $this->importCsv( $import_type, $column_mapping, 0, $limit );
 			    break;
+			
+			case 'continue':
+			
+			    $column_mapping = get_option('tribe_events_import_column_mapping');
+			    $import_type = get_option('tribe_events_import_type');
+			    
+			    $offset = intval( $_GET['offset'] );
+			    
+				$this->importCsv( $import_type, $column_mapping, $offset, $limit );				
+				
+				
+				break;
 			
 			default:
 			    // Should never get here.
@@ -116,13 +140,12 @@ if (!class_exists('ECP_Events_Importer')) {
 	 * Actual import.
 	 **/
 	 
-	private function importCsv( $import_type, $column_mapping ) {
+	private function importCsv( $import_type, $column_mapping, $offset, $limit ) {
 	    
 	    //set really big limits to avoid issues wth large files
 	    ini_set('memory_limit', -1);
 		ini_set('max_execution_time', 6000);
-	    
-	    
+	    	    
 	    $error_message = '';
 	    $success_message = '';
 	    $inverted_map = array();
@@ -130,7 +153,44 @@ if (!class_exists('ECP_Events_Importer')) {
 	    include_once( $this->pluginPath . 'lib/parsecsv.lib.php' );
 	    // Bail right here and now if the file isn't available or we can't parse it.
 	    if ( file_exists( $this->fileLocation ) && $csv = new parseCSV() ) {
-		$csv->auto( $this->fileLocation );
+	   
+/*
+$csv->offset = 500;
+$csv->limit = 10;
+*/
+	    
+		//$csv->auto( $this->fileLocation );
+		
+		$csv->parseCSV($this->fileLocation, $offset, $limit);
+		
+		if(!$csv->data){
+		
+					$results = get_option('tribe_events_import_results');
+					$fail_rows = get_option('tribe_events_import_failed_rows');
+					
+					$error_message = '';
+					$success_message = sprintf( __( "<strong>Import successfully completed!</strong><br/> <ul><li>Inserted: %d</li><li>Updated: %d</li><li>Failed: %d</li></ul>\n" ),
+					$results[ 'insert' ],
+					$results[ 'update' ],
+					$results[ 'fail' ] );
+					if ( count( $fail_rows ) > 0 ) {
+					$success_message .= sprintf( __( "<p>Failed Row Numbers: %s</p>" ), implode( ', ', $fail_rows ) );
+					}
+	    
+	    include( $this->pluginPath . 'admin-views/result.php' );
+	    
+	    //delete options
+	    
+	    delete_option('tribe_events_import_results');
+	    delete_option('tribe_events_import_failed_rows');
+	    
+	    //delete files
+	    unlink($this->fileLocation);
+	    unlink($this->fileLocation.'.tmp');
+		
+		}else{
+		
+		
 		
 		// Invert the column mapping so we can grab CSV columns by name.
 		// Columns that we're not importing will not be in the hash.
@@ -182,11 +242,17 @@ if (!class_exists('ECP_Events_Importer')) {
 		if ( $error_message == '' && $import_function != null ) {
 		    $method = array( $this, $import_function );
 		    if ( isset( $csv->data ) && is_callable( $method ) ) {
-			$results = array( 'fail' => 0, 'update' => 0, 'insert' => 0 );
-			$fail_rows = array();
-			$total_start = microtime();
 			
-			$num = 1;
+			$results = get_option('tribe_events_import_results');
+			$fail_rows = get_option('tribe_events_import_failed_rows');
+			
+			//initialize if not pulled from options
+			if(empty($results)) $results = array( 'fail' => 0, 'update' => 0, 'insert' => 0 );
+			if(empty($fail_rows)) $fail_rows = array();
+			
+			//$total_start = microtime();
+			
+			$num = $offset + 1;
 			
 			foreach( $csv->data as $row_num => $row ) {
 			
@@ -210,28 +276,28 @@ if (!class_exists('ECP_Events_Importer')) {
 			//$total_end = microtime();
 			//$total_diff = $total_end - $total_start;
 			//echo("<pre>Entire process: $total_diff</pre>");
-			// Report results.
-			$error_message = '';
-			$success_message = sprintf( __( "<strong>Import successfully completed!</strong><br/> <ul><li>Inserted: %d</li><li>Updated: %d</li><li>Failed: %d</li></ul>\n" ),
-						    $results[ 'insert' ],
-						    $results[ 'update' ],
-						    $results[ 'fail' ] );
-			if ( count( $fail_rows ) > 0 ) {
-			    $success_message .= sprintf( __( "<p>Failed Row Numbers: %s</p>" ), implode( ', ', $fail_rows ) );
-			}
 			
-		    } else {
-			$error_message = __( 'General badness.' );
-		    }
+			// Save results for later display
+			
+			update_option('tribe_events_import_results', $results);
+			update_option('tribe_events_import_failed_rows', $fail_rows);
+			
+			//redirect to continue processing
+			
+			echo 'Redirecting...<br>';
+			
+			$newoffset=$offset+$limit;
+			
+			echo "<script>window.location.href='/wp-admin/options-general.php?page=events-importer&action=continue&offset=".$newoffset."';</script>";
+			
 		}
 	    } else {
-	    	$error_message = __( 'Could not import CSV file - either the file upload failed, or the file was not a CSV file.' );
+	    		$error_message = __( 'Could not import CSV file - either the file upload failed, or the file was not a CSV file.' );
 	    }
+	    }
+
+	    }			
 	    
-	    include( $this->pluginPath . 'admin-views/result.php' );
-	    
-	    //flush output
-	    //flush();	    
 	}
 	
 	/**
@@ -341,6 +407,7 @@ if (!class_exists('ECP_Events_Importer')) {
 */
 			$end = microtime();
 			echo $event_name . ' updated<br>';
+			flush();
 		    $ret = 'update';
 		} else {
 		    // Create new event.
@@ -355,6 +422,7 @@ if (!class_exists('ECP_Events_Importer')) {
 */
 			$end = microtime();
 			echo $event_name . ' created<br>';
+			flush();
 		    $ret = 'insert';
 		}
 	    }
@@ -556,7 +624,12 @@ if (!class_exists('ECP_Events_Importer')) {
 	    if ( file_exists( $import_file ) && $csv = new parseCSV() ) {
 		// Move file to known location.
 		if ( move_uploaded_file( $import_file, $this->fileLocation ) ) {
-				
+		
+		//delete tmp file if it's still there
+		if (file_exists($this->fileLocation.'.tmp'))
+				    unlink($this->fileLocation.'.tmp');
+
+		
 			//get first 5 lines
 		    //$csv = new parseCSV( $this->fileLocation, 0, 5 );
 		    
@@ -572,9 +645,9 @@ if (!class_exists('ECP_Events_Importer')) {
 		    	fwrite($nfile, $line);
 		    
 		    }
-
+		    
 			fclose($cfile);
-			fclose($nfile);
+			fclose($nfile);		    
 		    
 		    $csv = new parseCSV( $this->fileLocation.'.tmp');
 		    
@@ -630,7 +703,7 @@ if (!class_exists('ECP_Events_Importer')) {
 	
 	private function isValidAction( $action ) {
 	    $ret = false;
-	    if ( $action == 'import' || $action == 'map' ) {
+	    if ( $action == 'import' || $action == 'map' || $action == 'continue' ) {
 		$ret = true;
 	    }
 	    return $ret;
