@@ -528,7 +528,9 @@ if (!class_exists('ECP_Events_Importer')) {
 	    if ( file_exists( $import_file ) && $csv = new parseCSV() ) {
 		// Move file to known location.
 		if ( move_uploaded_file( $import_file, $this->fileLocation ) ) {
-		    $csv = new parseCSV( $this->fileLocation );
+				
+			//get first 5 lines
+		    $csv = new parseCSV( $this->fileLocation, 0, 5 );
 		    if ( !$csv ) {
 			// Couldn't parse CSV.
 			$error_message = __( 'Sorry, this file does not appear to be a valid CSV file.' );
