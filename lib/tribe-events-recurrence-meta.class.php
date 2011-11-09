@@ -419,7 +419,7 @@ class TribeEventsRecurrenceMeta {
 		$eventEnd = strtotime(get_post_meta($postId, '_EventEndDate', true));
 		$duration = $eventEnd - $recStart;
 
-		$recEnd = $recEndType == "On" ? strtotime($recEnd) : $recEndCount - 1; // subtract one because event is first occurrence
+		$recEnd = $recEndType == "On" ? strtotime(TribeDateUtils::endOfDay($recEnd)) : $recEndCount - 1; // subtract one because event is first occurrence
 
 		// different update types
 		delete_post_meta($postId, '_EventStartDate');

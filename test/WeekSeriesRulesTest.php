@@ -1,5 +1,7 @@
 <?php
-require_once('../lib/date-series-rules.php');
+define('ABSPATH', 1);
+require_once('../../events/lib/tribe-date-utils.class.php');
+require_once('../lib/tribe-date-series-rules.class.php');
 
 class WeekSeriesRulesTest extends PHPUnit_Framework_TestCase
 {
