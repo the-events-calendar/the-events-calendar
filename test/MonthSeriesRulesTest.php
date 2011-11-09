@@ -1,5 +1,7 @@
 <?php
-require_once('../lib/date-series-rules.php');
+define('ABSPATH', 1);
+require_once('../../events/lib/tribe-date-utils.class.php');
+require_once('../lib/tribe-date-series-rules.class.php');
 
 class MonthSeriesRulesTest extends PHPUnit_Framework_TestCase
 {
@@ -20,6 +22,13 @@ class MonthSeriesRulesTest extends PHPUnit_Framework_TestCase
 		$nextDate = $rules->getNextDate($nextDate);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-07-23");
 	}
+
+   public function testStartsOnNextMonth() {
+		$this->date = strtotime("2011-10-27");
+		$rules = new MonthSeriesRules(1, array(), 3, 4);
+		$nextDate = $rules->getNextDate($this->date);
+		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-11-17");
+   }
 
 	public function testEvery3Months()
 	{

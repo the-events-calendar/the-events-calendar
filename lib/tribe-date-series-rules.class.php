@@ -149,8 +149,8 @@ class MonthSeriesRules implements DateSeriesRules
 			$nextdate = TribeDateUtils::getFirstDayOfWeekInMonth($curdate, $day_of_week);
 			$maybe_date = strtotime(date(DateSeriesRules::DATE_FORMAT, $nextdate) . " + " . ($week_of_month-1) . " weeks");
 
-			// if on the correct date, then try next month
-			if(date(DateSeriesRules::DATE_ONLY_FORMAT, $maybe_date) == date(DateSeriesRules::DATE_ONLY_FORMAT, $curdate)) {
+			// if on the correct date or before current date, then try next month
+			if(date(DateSeriesRules::DATE_ONLY_FORMAT, $maybe_date) <= date(DateSeriesRules::DATE_ONLY_FORMAT, $curdate)) {
 				$curdate = mktime (0, 0, 0, date('n', $curdate) + $this->months_between, 1, date('Y', $curdate));
 				$nextdate = TribeDateUtils::getFirstDayOfWeekInMonth($curdate, $day_of_week);
 				$maybe_date = strtotime(date(DateSeriesRules::DATE_FORMAT, $nextdate) . " + " . ($week_of_month-1) . " weeks");
