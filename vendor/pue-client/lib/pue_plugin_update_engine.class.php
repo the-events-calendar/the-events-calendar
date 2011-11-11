@@ -85,9 +85,9 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 			$this->checkPeriod = (int) $checkPeriod;
 			$this->api_secret_key = $apikey;
 			if (isset($installkey) && $installkey) {
-				$this->install_key = $installkey;				
+				$this->install_key = trim($installkey);
 			} else {
-				$this->install_key = get_option( $this->pue_install_key );
+				$this->install_key = trim(get_option( $this->pue_install_key ));
 			}
 			$this->lang_domain = $lang_domain;
 		
@@ -167,7 +167,7 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 		public function displayKeySettings() {
 			if (isset($_POST) && isset($_POST['install_key'])) {
 				$this->install_key = $_POST['install_key'];
-				update_option($this->pue_install_key, $this->install_key);
+				update_option($this->pue_install_key, trim($this->install_key));
 			}
 			include( $this->puePluginPath.'admin-views/license-key.view.php' );
 		}
@@ -178,7 +178,7 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 			if (isset($_POST['key'])) {
 			
 				$queryArgs = array(
-						'pu_install_key' => $_POST['key'],
+						'pu_install_key' => trim($_POST['key']),
 						'pu_checking_for_updates' => '1'
 				);
 					

@@ -37,7 +37,7 @@ function validateKey() {
 		jQuery('#valid-key').hide();
 		jQuery('#ajax-loading-license').show();
 
-		var data = { action: 'pue-validate-key_<?php echo $this->slug; ?>', key: jQuery('[name="install_key"]').val() };
+		var data = { action: 'pue-validate-key_<?php echo $this->slug; ?>', key: jQuery('[name="install_key"]').val().replace(/^\s+|\s+$/g, "") };
 		jQuery.post(ajaxurl, data, function(response) {
 			var data = jQuery.parseJSON(response);
 			jQuery('#ajax-loading-license').hide();
