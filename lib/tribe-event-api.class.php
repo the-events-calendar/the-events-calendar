@@ -8,6 +8,13 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 if (!class_exists('TribeEventsAPI')) {
 	class TribeEventsAPI {
+      public static $valid_venue_keys = array(
+         'Venue', 'Address', 'City', 'Province', 'State', 'StateProvince', 'Zip', 'Phone'
+      );
+
+      public static $valid_organizer_keys = array(
+         'Organizer', 'Phone', 'Email', 'Website'
+      );
 	
 		/**
 		 * Create a new event
@@ -133,9 +140,9 @@ if (!class_exists('TribeEventsAPI')) {
 		 * Creates a new organizer
 		 */
 		public static function createOrganizer($data) {
-			if ( isset($data['Organizer']) ) {
+			if ( $data['Organizer'] || self::someOrganizerDataSet($data) ) {
 				$postdata = array(
-					'post_title' => $data['Organizer'],
+					'post_title' => $data['Organizer'] ? $data['Organizer'] : "Unnamed Organizer",
 					'post_type' => TribeEvents::ORGANIZER_POST_TYPE,
 					'post_status' => 'publish',
 				);			
@@ -148,7 +155,18 @@ if (!class_exists('TribeEventsAPI')) {
 				}
 			}
 		}	
-	
+
+      /**
+       * Check to see if any organizer data set
+       */
+      private static function someOrganizerDataSet($data) {
+         foreach(self::$valid_organizer_keys as $key) {
+            if($data[$key]) return true;
+         }
+
+         return false;
+      }
+
 		/**
 		 * Deletes an organizer
 		 */	
@@ -177,9 +195,9 @@ if (!class_exists('TribeEventsAPI')) {
 		 * Creates a new venue
 		 */
 		public static function createVenue($data) {
-			if ( $data['Venue'] ) {
+			if ( $data['Venue'] || self::someVenueDataSet($data) ) {
 				$postdata = array(
-					'post_title' => $data['Venue'],
+					'post_title' => $data['Venue'] ? $data['Venue'] : "Unnamed Venue",
 					'post_type' => TribeEvents::VENUE_POST_TYPE,
 					'post_status' => 'publish',
 				);			
@@ -192,6 +210,17 @@ if (!class_exists('TribeEventsAPI')) {
 				}
 			}
 		}	
+
+      /**
+       * Check to see if any venue data set
+       */
+      private static function someVenueDataSet($data) {
+         foreach(self::$valid_venue_keys as $key) {
+            if($data[$key]) return true;
+         }
+
+         return false;
+      }
 	
 		/**
 		 * Updates a venue
