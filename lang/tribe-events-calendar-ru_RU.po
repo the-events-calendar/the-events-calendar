@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: The Events Calendar 2.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-09-19 16:36-0500\n"
-"PO-Revision-Date: 2011-10-18 01:59-0800\n"
+"PO-Revision-Date: 2011-10-23 02:22-0800\n"
 "Last-Translator: mikei <mm@hilightprojects.com>\n"
 "Language-Team: mikei <mm@hilightprojects.com>\n"
 "Language: \n"
@@ -235,7 +235,7 @@ msgstr "Страна:"
 
 #: ../admin-views/venue-meta-box.php:52
 msgid "State or Province:"
-msgstr "Шта,  Провинция или Область:"
+msgstr "Штат,  Провинция или Область:"
 
 #: ../admin-views/venue-meta-box.php:55
 msgid "Select a State:"
@@ -323,30 +323,30 @@ msgstr "Если не подключено, то карта не будет по
 #: ../admin-views/events-options.php:143
 #: ../admin-views/events-options.php:145
 msgid "Events URL slug"
-msgstr "Строка URL для события  "
+msgstr "URL страницы событий"
 
 #: ../admin-views/events-options.php:146
 msgid "The slug used for building the Events URL."
-msgstr "Строка используется для URL события"
+msgstr "Поле используется для URL страницы Календаря."
 
 #: ../admin-views/events-options.php:146
 #, php-format
 msgid "Your current Events URL is <strong>%s</strong>"
-msgstr "Текущий URL события<strong>%s</strong>"
+msgstr "Ваш URL страницы Календаря <strong>%s</strong>"
 
 #: ../admin-views/events-options.php:150
 #: ../admin-views/events-options.php:152
 msgid "Single Event URL slug"
-msgstr "Строка URL для одноразового события"
+msgstr "URL страницы одиночного события"
 
 #: ../admin-views/events-options.php:153
 msgid "The slug used for building a single Event URL."
-msgstr "Строка используется для URL одноразового события"
+msgstr "Поле используется для URL страницы одиночного события"
 
 #: ../admin-views/events-options.php:154
 #, php-format
 msgid "<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: <strong>%s</strong>"
-msgstr "<strong>ВНИМАНИЕ:</strong> <em>Нельзя</em> использовать ту же строку, как выше. Эта строка в идеале должна быть во множественном числе, и в единственном числе.<br />ваш одноразовый URL, как: <strong>%s</strong>"
+msgstr "<strong>ВНИМАНИЕ:</strong> <em>Нельзя</em> использовать тоже слово, как выше. В первом случае, слово в идеале должно быть во множественном числе, а это слово - в единственном числе.<br /> URL страницы одиночного события должен выглядеть как: <strong>%s</strong>"
 
 #: ../admin-views/events-options.php:159
 #: ../admin-views/events-options.php:161
@@ -1197,7 +1197,7 @@ msgstr ""
 
 #: ../lib/tribe-view-helpers.class.php:213
 msgid "Russian Federation"
-msgstr "Россия"
+msgstr ""
 
 #: ../lib/tribe-view-helpers.class.php:214
 msgid "Rwanda"
