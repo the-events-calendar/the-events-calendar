@@ -200,11 +200,11 @@ table.tribe-events-calendar, .tribe-events-calendar td {
 	font-size:11px;
 	font-weight:bold;
 }
-.tribe-events-calendar td.tribe-events-present .daynum, .tribe-events-calendar td.tribe-events-present .daynum a  {
+.tribe-events-calendar td.tribe-events-present .daynum, .tribe-events-calendar td.tribe-events-present .daynum > a  {
 	background-color: #666;
 	color: #fff;
 }
-.tribe-events-calendar td.tribe-events-past .daynum, .tribe-events-calendar td.tribe-events-past .daynum a {
+.tribe-events-calendar td.tribe-events-past .daynum, .tribe-events-calendar td.tribe-events-past .daynum > a {
 	color: #999;
 }
 .tribe-events-calendar th {
