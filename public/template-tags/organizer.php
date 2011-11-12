@@ -83,14 +83,16 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Returns the event Organizer Name with a link to their supplied website url
 	 *
 	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
-	 * @param bool $display If true displays full html links around organizers name, if false returns just the link without displaying it
+	 * @param bool $full_link If true displays full html links around organizers name, if false returns just the link without displaying it
+	 * @param bool $display If true, echo the link, otherwise return
 	 * @return string Organizer Name and Url
 	 * @since 2.0
 	 */
-	function tribe_get_organizer_link( $postId = null, $display = true ) {
+	function tribe_get_organizer_link( $postId = null, $full_link = true, $display = true ) {
 		$postId = TribeEvents::postIdHelper( $postId );
 		$url = esc_url(tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerWebsite', true ));
-		if( $display && $url != '' ) {
+
+		if( $full_link && $url != '' ) {
 			$organizer_name = tribe_get_organizer($postId);
 			$link = '<a href="'.$url.'">'.$organizer_name.'</a>';
 		} else {
