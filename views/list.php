@@ -45,7 +45,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 			<div class="tribe-events-event-list-meta" itemprop="location" itemscope itemtype="http://schema.org/Place">
 				<table cellspacing="0">
-					<?php if (tribe_is_multiday()): ?>
+					<?php if (tribe_is_multiday() || !tribe_get_all_day()): ?>
 					<tr>
 						<td class="tribe-events-event-meta-desc"><?php _e('Start:', 'tribe-events-calendar') ?></td>
 						<td class="tribe-events-event-meta-value" itemprop="startDate" content="<?php echo tribe_get_start_date(); ?>"><?php echo tribe_get_start_date(); ?></td>
