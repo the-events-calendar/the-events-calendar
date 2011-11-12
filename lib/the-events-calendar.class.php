@@ -1884,7 +1884,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				AND ((d1.meta_value = '" .$date . "' AND ID $sign ".$id.") OR
 					d1.meta_value $sign '" .$date . "')
 				AND $wpdb->posts.post_status = 'publish'
-				AND $wpdb->posts.ID != $id
+				AND ($wpdb->posts.ID != $id OR d1.meta_value != '$date')
 				ORDER BY TIMESTAMP(d1.meta_value) $order, ID $order
 				LIMIT 1";
 
@@ -1892,7 +1892,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if(is_object($results)) {
 				if ( !$anchor ) {
 					$anchor = $results->post_title;
-				} elseif ( strpos( $anchor, '%title%' !== false ) ) {
+				} elseif ( strpos( $anchor, '%title%' ) ) {
 					$anchor = preg_replace( '|%title%|', $results->post_title, $anchor );
 				}
 
