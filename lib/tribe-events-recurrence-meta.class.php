@@ -33,14 +33,14 @@ class TribeEventsRecurrenceMeta {
 
    public static function addDateToEventPermalink($permalink, $the_post) {
       global $post;
-      $post = $the_post ? $the_post : $post;
+      $event = $the_post ? $the_post : $post;
 
       if(tribe_is_recurring_event($post->ID)) {
          $events = TribeEvents::instance();
 			if( '' == get_option('permalink_structure') || false == $events->getOption('useRewriteRules',true) )
-            return add_query_arg('eventDate', TribeDateUtils::dateOnly( $post->EventStartDate ), $eventUrl );						
+            return add_query_arg('eventDate', TribeDateUtils::dateOnly( $event->EventStartDate ), $eventUrl );						
          else
-            return $permalink . TribeDateUtils::dateOnly( $post->EventStartDate );					
+            return $permalink . TribeDateUtils::dateOnly( $event->EventStartDate );					
       } else {
          return $permalink;
       }
