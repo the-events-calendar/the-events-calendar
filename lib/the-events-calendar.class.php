@@ -1138,7 +1138,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 
          // account for semi-pretty permalinks
-         if(strpos(get_option('permalink_structure'),"index.php")) {
+         if( strpos(get_option('permalink_structure'),"index.php") !== FALSE ) {
             $eventUrl = trailingslashit( home_url() . '/index.php/' . $this->rewriteSlug );
          } else {
             $eventUrl = trailingslashit( home_url() . '/' . $this->rewriteSlug );
