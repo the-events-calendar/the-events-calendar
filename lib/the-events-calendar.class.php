@@ -1137,7 +1137,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				return esc_url($this->uglyLink($type, $secondary));
 			}
 
-			$eventUrl = trailingslashit( home_url() . '/' . $this->rewriteSlug );
+         // account for semi-pretty permalinks
+         if(strpos(get_option('permalink_structure'),"index.php")) {
+            $eventUrl = trailingslashit( home_url() . '/index.php/' . $this->rewriteSlug );
+         } else {
+            $eventUrl = trailingslashit( home_url() . '/' . $this->rewriteSlug );
+         }
 	
 			// if we're on an Event Cat, show the cat link, except for home.
 			if ( $type !== 'home' && is_tax( self::TAXONOMY ) ) {
