@@ -1484,6 +1484,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// Or inline saves, or data being posted without a organizer Or
 			// finally, called from the save_post action, but on save_posts that
 			// are not organizer posts
+			
+			if( !isset($_POST['organizer']) ) $_POST['organizer'] = null;
+			
 			if ( wp_is_post_autosave( $postID ) || $post->post_status == 'auto-draft' ||
 						isset($_GET['bulk_edit']) || $_REQUEST['action'] == 'inline-save' ||
 						!$_POST['organizer'] ||
