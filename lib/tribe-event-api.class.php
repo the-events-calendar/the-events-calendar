@@ -216,7 +216,7 @@ if (!class_exists('TribeEventsAPI')) {
        */
       private static function someVenueDataSet($data) {
          foreach(self::$valid_venue_keys as $key) {
-            if($data[$key]) return true;
+            if( isset($data[$key]) && $data[$key]) return true;
          }
 
          return false;
