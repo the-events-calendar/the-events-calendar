@@ -224,6 +224,30 @@ if( class_exists( 'TribeEvents' ) ) {
 
 		return apply_filters( 'tribe_get_cost', $cost );
 	}
+	
+	/** 
+	 * Event in Category Conditional
+	 * 
+	 * Returns true if the event is in the specified catagory slug
+	 *
+	 * @param string $event_cat_slug
+	 * @param int $event_id
+	 * @return boolean
+	 * @since 2.0.2
+	 */
+	function tribe_event_in_category($event_cat_slug, $event_id = null){
+	
+		if( empty($event_id) )
+			$event_id = get_the_ID();
+		
+		$term = term_exists($event_cat_slug, TribeEvents::TAXONOMY);
+		
+		if ( tribe_is_event($event_id) && is_object_in_term($event_id, TribeEvents::TAXONOMY, array( $term['term_id'] ) ) ) {
+			return true;
+		}else{
+			return false;
+		}
+	}
 
 }
 ?>
