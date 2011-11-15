@@ -81,7 +81,11 @@ class TribeEventsRecurrenceMeta {
 	 * @return void  
 	 */	
 	public static function deleteRecurringEvent($postId) {
-		$occurrenceDate = $_REQUEST['eventDate'];
+		if( isset($_REQUEST['eventDate']) ){
+			$occurrenceDate = $_REQUEST['eventDate'];
+		}else{
+			$occurrenceDate = null;
+		}
 		
 		if( $occurrenceDate ) {
 			self::removeOccurrence( $postId, $occurrenceDate );
@@ -97,7 +101,7 @@ class TribeEventsRecurrenceMeta {
 	 */		
 	public static function maybeBreakFromSeries( $postId ) {
 		// make new series for future events
-		if($_POST['recurrence_action'] && $_POST['recurrence_action'] == TribeEventsRecurrenceMeta::UPDATE_TYPE_FUTURE) {
+		if( isset( $_POST['recurrence_action'] ) && $_POST['recurrence_action'] && $_POST['recurrence_action'] == TribeEventsRecurrenceMeta::UPDATE_TYPE_FUTURE) {
 			// if this is the first event in the series, then we don't need to break it into two series
 			if( $_POST['EventStartDate'] != TribeDateUtils::dateOnly( TribeEvents::getRealStartDate($postId) )) {
 				// move recurrence end to the last date of the series before today
@@ -127,7 +131,7 @@ class TribeEventsRecurrenceMeta {
 				exit();
 			}
 		// break from series			
-		} else if($_POST['recurrence_action'] && $_POST['recurrence_action'] == TribeEventsRecurrenceMeta::UPDATE_TYPE_SINGLE) {
+		} else if(isset( $_POST['recurrence_action'] ) && $_POST['recurrence_action'] && $_POST['recurrence_action'] == TribeEventsRecurrenceMeta::UPDATE_TYPE_SINGLE) {
 			// new event should have no recurrence
 			$_REQUEST['recurrence'] = $_POST['recurrence'] = null;
 
