@@ -752,7 +752,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 		
 				// single event cannot be same as plural. Or empty.
-				if ( $_POST['singleEventSlug'] === $_POST['eventsSlug'] || empty($_POST['singleEventSlug']) ) {
+				if( isset($_POST['singleEventSlug']) && isset($_POST['eventsSlug']) ){
+					if ( $_POST['singleEventSlug'] === $_POST['eventsSlug'] ) {
+						$_POST['singleEventSlug'] = 'event';
+					}
+				}
+
+				if( empty($_POST['singleEventSlug']) ){
 					$_POST['singleEventSlug'] = 'event';
 				}
 		
@@ -1402,13 +1408,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				return;
 			}
 			// don't do anything on autosave or auto-draft either or massupdates
-			if ( wp_is_post_autosave( $postId ) || $post->post_status == 'auto-draft' || isset($_GET['bulk_edit']) || $_REQUEST['action'] == 'inline-save' ) {
+			if ( wp_is_post_autosave( $postId ) || $post->post_status == 'auto-draft' || isset($_GET['bulk_edit']) || (isset($_REQUEST['action']) && $_REQUEST['action'] == 'inline-save') ) {
 				return;
 			}
 	
 			// remove these actions even if nonce is not set
 			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );			
+			
+			if( !isset($_POST['ecp_nonce']) )
+				return;
 				
 			if ( !wp_verify_nonce( $_POST['ecp_nonce'], TribeEvents::POSTTYPE ) )
 				return;
