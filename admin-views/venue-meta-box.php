@@ -11,7 +11,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
    <tr class="venue">
       <td><?php _e('Venue Name:','tribe-events-calendar'); ?></td>
       <td>
-         <input tabindex="<?php $this->tabIndex(); ?>" type='text' name='venue[Venue]' size='25'  value='<?php echo esc_attr($_VenueVenue); ?>' />
+         <input tabindex="<?php $this->tabIndex(); ?>" type='text' name='venue[Venue]' size='25'  value='<?php if( isset($_VenueVenue) ) echo esc_attr($_VenueVenue); ?>' />
       </td>
    </tr>
 <?php endif; ?>
