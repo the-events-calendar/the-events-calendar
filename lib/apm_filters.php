@@ -287,6 +287,8 @@ class Tribe_Venue_Filter {
 	public function form_row($return, $key, $value, $filter) {
 		$venues = get_posts( array( 'post_type' => TribeEvents::VENUE_POST_TYPE, 'nopaging' => true ) );
 
+		$args = array();
+
 		foreach ( $venues as $venues ) {
 			$args[$venues->ID] = $venues->post_title;
 		}
@@ -371,6 +373,8 @@ class Tribe_Organizer_Filter {
 	
 	public function form_row($return, $key, $value, $filter) {
 		$organizers = get_posts( array( 'post_type' => TribeEvents::ORGANIZER_POST_TYPE, 'nopaging' => true ) );
+
+		$args = array();
 
 		foreach ( $organizers as $organizers ) {
 			$args[$organizers->ID] = $organizers->post_title;
