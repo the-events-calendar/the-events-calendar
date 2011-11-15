@@ -1923,7 +1923,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function outputDashboardWidget() {
 			echo '<div class="rss-widget">';
-			wp_widget_rss_output( self::FEED_URL );
+			wp_widget_rss_output( self::FEED_URL, array( 'items' => 10 ) );
 			echo "</div>";
 		}
 
