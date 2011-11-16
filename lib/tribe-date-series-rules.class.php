@@ -122,10 +122,10 @@ class MonthSeriesRules implements DateSeriesRules
 				// no need to jump ahead stay in current month
 				return mktime(date("H", $curdate), date("i", $curdate), date("s", $curdate), date('n', $curdate), $next_day_of_month, date('Y', $curdate));
 			} else {
-				$nextdate = mktime (0, 0, 0, date('n', $curdate) + $this->months_between, 1, date('Y', $curdate));
+				$nextdate = mktime (date("H", $curdate), date("i", $curdate), date("s", $curdate), date('n', $curdate) + $this->months_between, 1, date('Y', $curdate));
 
 				while(TribeDateUtils::getLastDayOfMonth($nextdate) < $next_day_of_month) {
-					$nextdate = mktime (0, 0, 0, date('n', $nextdate) + $this->months_between, 1, date('Y', $nextdate));
+					$nextdate = mktime (date("H", $curdate), date("i", $curdate), date("s", $curdate), date('n', $nextdate) + $this->months_between, 1, date('Y', $nextdate));
 				}
 
 				return mktime(date("H", $curdate), date("i", $curdate), date("s", $curdate), date('n', $nextdate), $next_day_of_month, date('Y', $nextdate));
