@@ -504,7 +504,32 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			register_post_type(self::POSTTYPE, $this->postTypeArgs);
 			register_post_type(self::VENUE_POST_TYPE, $this->postVenueTypeArgs);
 			register_post_type(self::ORGANIZER_POST_TYPE, $this->postOrganizerTypeArgs);
-	
+
+         $role = get_role( 'administrator' );
+         $role->add_cap( 'edit_tribe_event' );
+         $role->add_cap( 'read_tribe_event' );
+         $role->add_cap( 'delete_tribe_event' );
+         $role->add_cap( 'edit_tribe_events' );
+         $role->add_cap( 'edit_others_tribe_events' );
+         $role->add_cap( 'publish_tribe_events' );
+         $role->add_cap( 'read_private_tribe_events' );
+
+         $role->add_cap( 'edit_tribe_venue' );
+         $role->add_cap( 'read_tribe_venue' );
+         $role->add_cap( 'delete_tribe_venue' );
+         $role->add_cap( 'edit_tribe_venues' );
+         $role->add_cap( 'edit_others_tribe_venues' );
+         $role->add_cap( 'publish_tribe_venues' );
+         $role->add_cap( 'read_private_tribe_venues' );
+
+         $role->add_cap( 'edit_tribe_organizer' );
+         $role->add_cap( 'read_tribe_organizer' );
+         $role->add_cap( 'delete_tribe_organizer' );
+         $role->add_cap( 'edit_tribe_organizers' );
+         $role->add_cap( 'edit_others_tribe_organizers' );
+         $role->add_cap( 'publish_tribe_organizers' );
+         $role->add_cap( 'read_private_tribe_organizers' );
+
 			register_taxonomy( self::TAXONOMY, self::POSTTYPE, array(
 				'hierarchical' => true,
 				'update_count_callback' => '',
