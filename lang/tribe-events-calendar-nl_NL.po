@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: The Events Calendar 2.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-09-09 18:04-0500\n"
-"PO-Revision-Date: 2011-11-14 14:05+0100\n"
+"PO-Revision-Date: 2011-11-18 11:02+0100\n"
 "Last-Translator: Rick van Dalen <rick@studio-pit.nl>\n"
 "Language-Team: Modern Tribe, Inc.\n"
 "Language: \n"
@@ -221,7 +221,7 @@ msgstr "Extra functionaliteiten"
 
 #: ../admin-views/events-meta-box.php:144
 msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
-msgstr "Zoek je naar extra functionaliteiten zoals terugkerende activiteiten, verkoop tickets en meer?Looking for additional functionality including recurring events, op maat meta, gemeenschappelijke activiteiten, ticket sales and more?"
+msgstr "Zoek je naar extra functionaliteiten zoals terugkerende activiteiten, verkoop tickets en meer?"
 
 #: ../admin-views/events-meta-box.php:144
 #, php-format
@@ -296,11 +296,11 @@ msgstr "Laat commentaar zien"
 #: ../admin-views/events-options.php:97
 #: ../admin-views/events-options.php:101
 msgid "Multiday Event Cutoff"
-msgstr "Multiday Event Cutoff"
+msgstr "Laatste dag van een meerdaagse activiteit"
 
 #: ../admin-views/events-options.php:115
 msgid "For multi-day events, hide the last day from grid view if it ends on or before this time."
-msgstr "For multi-day events, hide the last day from grid view if it ends on or before this time."
+msgstr "Voor een meerdaagse activiteit, verberg de laatste dag als het eindigt voor deze tijd."
 
 #: ../admin-views/events-options.php:120
 #: ../admin-views/events-options.php:124
@@ -335,11 +335,11 @@ msgstr "Het is onwaarschijnlijk, maar het kan zijn dat zoekmachine vriendelijk U
 #: ../admin-views/events-options.php:159
 #: ../admin-views/events-options.php:161
 msgid "Events URL slug"
-msgstr "Activiteiten URL slak"
+msgstr "Activiteiten URL permalink"
 
 #: ../admin-views/events-options.php:162
 msgid "The slug used for building the Events URL."
-msgstr "The slug used for building the Events URL."
+msgstr "De permalink is gebruikt om activiteiten URL op te bouwen."
 
 #: ../admin-views/events-options.php:162
 #, php-format
@@ -353,7 +353,7 @@ msgstr "Single Event URL slug"
 
 #: ../admin-views/events-options.php:169
 msgid "The slug used for building a single Event URL."
-msgstr "The slug used for building a enkele gebeurtenis URL."
+msgstr "De permalink is gebruikt om een eenmalige activiteit URL op te bouwen."
 
 #: ../admin-views/events-options.php:170
 #, php-format
@@ -372,7 +372,7 @@ msgstr "Debug activiteiten toont conflicten."
 #: ../admin-views/events-options.php:179
 #, php-format
 msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the <a href=\"%s\" target=\"_blank\">Debug Bar Plugin</a> and look for the \"Tribe\" tab in the debug output."
-msgstr "Sta toe om debug informatie te loggen. Standaard wordt dit aan PHP error log toegevoegd. Als u log messages in de browser wilt zien dan adviseren wij om <a href=\"%s\" target=\"_blank\">Debug Bar Plugin</a> te installeren. Kijk onder de \"Tribe\" tab in de debug output."
+msgstr "Sta toe om debug informatie te loggen. Standaard wordt dit aan PHP error log toegevoegd. Als u log berichten in de browser wilt zien dan adviseren wij om <a href=\"%s\" target=\"_blank\">Debug Bar Plugin</a> te installeren. Kijk onder de \"Tribe\" tab in de debug output."
 
 #: ../admin-views/events-options.php:184
 msgid "Theme Settings"
@@ -1690,7 +1690,7 @@ msgstr "Sorry, The Events Calendar heeft WordPress versie %s nodig of hoger. Gra
 #: ../lib/the-events-calendar.class.php:280
 #, php-format
 msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
-msgstr "Sorry, The Events Calendar heeft PHP %s nodig of een hogere versie. Vraag aan u webhost of de nieuwste versie van PHP geinstalleerd kan worden."
+msgstr "Sorry, The Events Calendar heeft PHP versie %s nodig of hoger. Vraag aan u webhost of de nieuwste versie van PHP geinstalleerd kan worden."
 
 #: ../lib/the-events-calendar.class.php:397
 msgid "Upcoming Events"
@@ -1930,7 +1930,7 @@ msgstr "Locatie geupdate."
 #: ../lib/the-events-calendar.class.php:564
 #, php-format
 msgid "Venue restored to revision from %s"
-msgstr "Locatie opgelslagen voor revisie %s"
+msgstr "Locatie opgeslagen voor revisie %s"
 
 #: ../lib/the-events-calendar.class.php:565
 #, php-format
