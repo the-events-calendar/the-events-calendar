@@ -36,10 +36,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'template-tags.php' );
 
 			// Tribe common resources
-			require_once( 'vendor/tribe-register-helpers/tribe-register-helpers.class.php' );
-			TribeRegisterHelpers::register( 'pue-client', '1.1', $this->pluginPath . 'vendor/pue-client/pue-client.php' );
-			TribeRegisterHelpers::register( 'advanced-post-manager', '1.0.5', $this->pluginPath . 'vendor/advanced-post-manager/tribe-apm.php' );
-			//TribeRegisterHelpers::register( 'tribe-support', '0.1', $this->pluginPath . 'vendor/tribe-support/tribe-support.class.php' );
+			require_once( 'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
+			TribeCommonLibraries::register( 'pue-client', '1.1', $this->pluginPath . 'vendor/pue-client/pue-client.php' );
+			TribeCommonLibraries::register( 'advanced-post-manager', '1.0.5', $this->pluginPath . 'vendor/advanced-post-manager/tribe-apm.php' );
+			//TribeCommonLibraries::register( 'tribe-support', '0.1', $this->pluginPath . 'vendor/tribe-support/tribe-support.class.php' );
 
 			// Next Event Widget
 			require_once( 'lib/widget-featured.class.php');
