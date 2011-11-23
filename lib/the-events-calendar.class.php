@@ -1937,7 +1937,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if(is_object($results)) {
 				if ( !$anchor ) {
 					$anchor = $results->post_title;
-				} elseif ( strpos( $anchor, '%title%' ) ) {
+            } elseif ( strpos( $anchor, '%title%' ) !== false ) {
 					$anchor = preg_replace( '|%title%|', $results->post_title, $anchor );
 				}
 

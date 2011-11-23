@@ -44,7 +44,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_organizer( $postId = null)  {
 		$postId = TribeEvents::postIdHelper( $postId );
-		$output = esc_html(tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerOrganizer', true ));
+		$output = esc_html(get_the_title( tribe_get_organizer_id( $postId ) ));
 		return apply_filters( 'tribe_get_organizer', $output );
 	}
 
