@@ -1395,7 +1395,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if($date == '')
 				return date(TribeDateUtils::DBDATEFORMAT);
 
-			$date = str_replace( array('-','/',' ',':','–','—','-'), '-', $date );
+			$date = str_replace( array('-','/',' ',':',chr(150),chr(151),chr(45)), '-', $date );
 			// ensure no extra bits are added
 			list($year, $month, $day) = explode('-', $date);
 	
@@ -1476,7 +1476,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// are not venue posts
 			if ( wp_is_post_autosave( $postID ) || $post->post_status == 'auto-draft' ||
 						isset($_GET['bulk_edit']) || $_REQUEST['action'] == 'inline-save' ||
-						!$_POST['venue'] ||
+						(isset($_POST['venue']) && !$_POST['venue']) ||
 						($post->post_type != self::VENUE_POST_TYPE && $postID)) {
 				return;
 			}
