@@ -140,7 +140,7 @@ if (!class_exists('TribeEventsAPI')) {
 		 * Creates a new organizer
 		 */
 		public static function createOrganizer($data) {
-			if ( $data['Organizer'] || self::someOrganizerDataSet($data) ) {
+			if ( (isset($data['Organizer']) && $data['Organizer']) || self::someOrganizerDataSet($data) ) {
 				$postdata = array(
 					'post_title' => $data['Organizer'] ? $data['Organizer'] : "Unnamed Organizer",
 					'post_type' => TribeEvents::ORGANIZER_POST_TYPE,
@@ -161,7 +161,7 @@ if (!class_exists('TribeEventsAPI')) {
        */
       private static function someOrganizerDataSet($data) {
          foreach(self::$valid_organizer_keys as $key) {
-            if($data[$key]) return true;
+            if(isset($data[$key]) && $data[$key]) return true;
          }
 
          return false;
@@ -195,7 +195,7 @@ if (!class_exists('TribeEventsAPI')) {
 		 * Creates a new venue
 		 */
 		public static function createVenue($data) {
-			if ( $data['Venue'] || self::someVenueDataSet($data) ) {
+			if ( (isset($data['Venue']) && $data['Venue']) || self::someVenueDataSet($data) ) {
 				$postdata = array(
 					'post_title' => $data['Venue'] ? $data['Venue'] : "Unnamed Venue",
 					'post_type' => TribeEvents::VENUE_POST_TYPE,
