@@ -54,7 +54,11 @@ class TribeEventsRecurrenceMeta {
 	 */
 	public static function updateRecurrenceMeta($event_id, $data) {
 		// save recurrence
-		$recurrence_meta = $data['recurrence'];
+		if( isset($data['recurrence']) ){
+			$recurrence_meta = $data['recurrence'];
+		}else{
+			$recurrence_meta = null;
+		}
 
 		if( TribeEventsRecurrenceMeta::isRecurrenceValid( $event_id, $recurrence_meta ) ) {
 			update_post_meta($event_id, '_EventRecurrence', $recurrence_meta);				
