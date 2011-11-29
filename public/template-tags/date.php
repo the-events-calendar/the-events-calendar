@@ -33,7 +33,11 @@ if( class_exists( 'TribeEvents' ) ) {
 		if( tribe_get_all_day( $postId ) )
 			 $displayTime = false;
 
-		$date = strtotime( $post->EventStartDate ? $post->EventStartDate : tribe_get_event_meta( $postId, '_EventStartDate', true ));
+		if( isset($post->EventStartDate) ){
+			$date = strtotime( $post->EventStartDate ? $post->EventStartDate : tribe_get_event_meta( $postId, '_EventStartDate', true ));
+		}else{
+			return; // '&mdash;';
+		}
 
 		return tribe_event_format_date($date, $displayTime, $dateFormat );
 	}
@@ -61,7 +65,11 @@ if( class_exists( 'TribeEvents' ) ) {
 		if( tribe_get_all_day( $postId ) )
 			 $displayTime = false;
 
-		$date = strtotime( $post->EventEndDate ? $post->EventEndDate : tribe_get_event_meta( $postId, '_EventEndDate', true ));
+		if( isset($post->EventEndDate) ){
+			$date = strtotime( $post->EventEndDate ? $post->EventEndDate : tribe_get_event_meta( $postId, '_EventEndDate', true ));
+		}else{
+			return; // '&mdash;';
+		}
 
 		return tribe_event_format_date($date, $displayTime, $dateFormat );
 	}
