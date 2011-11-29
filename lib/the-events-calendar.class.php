@@ -768,7 +768,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( isset($_POST['saveEventsCalendarOptions']) && check_admin_referer('saveEventsCalendarOptions') ) {
 				$options = self::getOptions();
 				$options['viewOption'] = $_POST['viewOption'];
-				if($_POST['defaultCountry']) {
+				if(isset($_POST['defaultCountry']) && $_POST['defaultCountry']) {
 					$countries = TribeEventsViewHelpers::constructCountries();
 					$defaultCountryKey = array_search( $_POST['defaultCountry'], $countries );
 					$options['defaultCountry'] = array( $defaultCountryKey, $_POST['defaultCountry'] );
