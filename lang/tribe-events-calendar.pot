@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-26 21:47-0500\n"
-"PO-Revision-Date: 2011-10-26 21:48-0500\n"
+"POT-Creation-Date: 2011-12-01 12:15-0500\n"
+"PO-Revision-Date: 2011-12-01 12:15-0500\n"
 "Last-Translator: John Gadbois <jgadbois@gmail.com>\n"
 "Language-Team: Modern Tribe, Inc.\n"
 "Language: \n"
@@ -20,590 +20,313 @@ msgstr ""
 "X-Poedit-Country: UNITED STATES\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../template-tags.php:102
-msgid "Category:"
+#: ../admin-views/event-sidebar-options.php:11
+msgid "Hide From Upcoming Events List"
 msgstr ""
 
-#: ../template-tags.php:204
-msgid "Free"
+#: ../admin-views/events-meta-box.php:26
+msgid "Event Time &amp; Date"
 msgstr ""
 
-#: ../template-tags.php:510
-msgid "Calendar of Events"
+#: ../admin-views/events-meta-box.php:29
+msgid "You have changed the recurrence rules of this event.  Saving the event will update all future events.  If you did not mean to change all events, then please refresh the page."
 msgstr ""
 
-#: ../template-tags.php:914
-msgid "United States"
+#: ../admin-views/events-meta-box.php:32
+msgid "All day event?"
 msgstr ""
 
-#: ../views/events-list-load-widget-display.php:52
-msgid "All Day"
+#: ../admin-views/events-meta-box.php:36
+msgid "Start Date / Time:"
 msgstr ""
 
-#: ../views/table-mini.php:24
-msgid "View all &raquo;"
+#: ../admin-views/events-meta-box.php:39
+#: ../admin-views/events-meta-box.php:60
+msgid "YYYY-MM-DD"
 msgstr ""
 
-#: ../views/list.php:18
-#: ../views/gridview.php:37
-msgid "Event List"
+#: ../admin-views/events-meta-box.php:41
+#: ../admin-views/events-meta-box.php:62
+msgid "@"
 msgstr ""
 
-#: ../views/list.php:19
-#: ../views/gridview.php:38
-msgid "Calendar"
+#: ../admin-views/events-meta-box.php:57
+msgid "End Date / Time:"
 msgstr ""
 
-#: ../views/list.php:50
-#: ../views/single.php:20
-msgid "Start:"
+#: ../admin-views/events-meta-box.php:79
+msgid "Event Location Details"
 msgstr ""
 
-#: ../views/list.php:54
-#: ../views/single.php:22
-msgid "End:"
+#: ../admin-views/events-meta-box.php:85
+msgid "Show Google Maps Link:"
 msgstr ""
 
-#: ../views/list.php:59
-#: ../views/single.php:25
-msgid "Date:"
+#: ../admin-views/events-meta-box.php:92
+msgid "Show Google Map:"
 msgstr ""
 
-#: ../views/list.php:69
-#: ../views/single.php:54
-msgid "Venue:"
+#: ../admin-views/events-meta-box.php:101
+msgid "Event Organizer Details"
 msgstr ""
 
-#: ../views/list.php:84
-#: ../views/single.php:38
-#: ../views/single.php:64
-msgid "Phone:"
+#: ../admin-views/events-meta-box.php:110
+msgid "Event Cost"
 msgstr ""
 
-#: ../views/list.php:90
-#: ../views/single.php:69
-msgid "Address:"
-msgstr ""
-
-#: ../views/list.php:92
-#: ../views/single.php:71
-msgid "Google Map"
-msgstr ""
-
-#: ../views/list.php:102
-#: ../views/single.php:29
+#: ../admin-views/events-meta-box.php:113
 msgid "Cost:"
 msgstr ""
 
-#: ../views/list.php:116
+#: ../admin-views/events-meta-box.php:118
+msgid "Leave blank to hide the field. Enter a 0 for events that are free."
+msgstr ""
+
+#: ../admin-views/events-options.php:47
 #, php-format
-msgid " listed under %s. Check out past events for this category or view the full calendar."
+msgid "%s Settings"
 msgstr ""
 
-#: ../views/list.php:118
+#: ../admin-views/events-options.php:51
+msgid "Need a hand?"
+msgstr ""
+
+#: ../admin-views/events-options.php:52
 #, php-format
-msgid " listed under %s. Check out upcoming events for this category or view the full calendar."
+msgid "If you're stuck on these options, please go to the <a href=\"%s\">support forum</a>."
 msgstr ""
 
-#: ../views/list.php:123
+#: ../admin-views/events-options.php:54
+msgid "Here is the iCal feed URL for your events: "
+msgstr ""
+
+#: ../admin-views/events-options.php:60
+msgid "Settings"
+msgstr ""
+
+#: ../admin-views/events-options.php:63
+#: ../admin-views/events-options.php:67
+msgid "Default View for the Events"
+msgstr ""
+
+#: ../admin-views/events-options.php:71
+msgid "Calendar"
+msgstr ""
+
+#: ../admin-views/events-options.php:75
+msgid "Event List"
+msgstr ""
+
+#: ../admin-views/events-options.php:81
+#: ../admin-views/events-options.php:85
+#: ../admin-views/events-options.php:87
+msgid "Show Comments"
+msgstr ""
+
+#: ../admin-views/events-options.php:95
+#: ../admin-views/events-options.php:99
+msgid "Multiday Event Cutoff"
+msgstr ""
+
+#: ../admin-views/events-options.php:113
+msgid "For multi-day events, hide the last day from grid view if it ends on or before this time."
+msgstr ""
+
+#: ../admin-views/events-options.php:118
+#: ../admin-views/events-options.php:122
+msgid "Enable Google Maps"
+msgstr ""
+
+#: ../admin-views/events-options.php:128
+msgid "Height"
+msgstr ""
+
+#: ../admin-views/events-options.php:129
+msgid "Width"
+msgstr ""
+
+#: ../admin-views/events-options.php:129
+msgid "(number or %)"
+msgstr ""
+
+#: ../admin-views/events-options.php:133
+msgid "If you don't have this turned on, your event listings won't have the backend map preview or frontend embedded map."
+msgstr ""
+
+#: ../admin-views/events-options.php:141
+#: ../admin-views/events-options.php:143
+msgid "Events URL slug"
+msgstr ""
+
+#: ../admin-views/events-options.php:144
+msgid "The slug used for building the Events URL."
+msgstr ""
+
+#: ../admin-views/events-options.php:144
 #, php-format
-msgid "No events scheduled for <strong>%s</strong>. Please try another day."
+msgid "Your current Events URL is <strong><a href=\"%s\">%s</a></strong>"
 msgstr ""
 
-#: ../views/list.php:127
-msgid "No upcoming events"
+#: ../admin-views/events-options.php:148
+#: ../admin-views/events-options.php:150
+msgid "Single Event URL slug"
 msgstr ""
 
-#: ../views/list.php:131
-msgid "No previous events"
+#: ../admin-views/events-options.php:151
+msgid "The slug used for building a single Event URL."
 msgstr ""
 
-#: ../views/list.php:144
-#: ../views/list.php:146
-#: ../views/list.php:148
-msgid "&laquo; Previous Events"
+#: ../admin-views/events-options.php:152
+#, php-format
+msgid "<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: <strong>%s</strong>"
 msgstr ""
 
-#: ../views/list.php:155
-#: ../views/list.php:157
-#: ../views/list.php:159
-msgid "Next Events &raquo;"
+#: ../admin-views/events-options.php:157
+#: ../admin-views/events-options.php:159
+msgid "Debug"
 msgstr ""
 
-#: ../views/list.php:165
-#: ../views/single.php:96
-#: ../views/gridview.php:43
-msgid "iCal Import"
+#: ../admin-views/events-options.php:160
+msgid "Debug Events display issues."
 msgstr ""
 
-#: ../views/single.php:13
-msgid "&laquo; Back to Events"
+#: ../admin-views/events-options.php:161
+#, php-format
+msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the <a href=\"%s\" target=\"_blank\">Debug Bar Plugin</a> and look for the \"Tribe\" tab in the debug output."
 msgstr ""
 
-#: ../views/single.php:14
-msgid "This event has passed."
+#: ../admin-views/events-options.php:166
+msgid "Theme Settings"
 msgstr ""
 
-#: ../views/single.php:17
-msgid "Event:"
+#: ../admin-views/events-options.php:169
+#: ../admin-views/events-options.php:171
+msgid "Events Template"
 msgstr ""
 
-#: ../views/single.php:34
-msgid "Organizer:"
+#: ../admin-views/events-options.php:173
+msgid "Default Events Template"
 msgstr ""
 
-#: ../views/single.php:42
+#: ../admin-views/events-options.php:174
+msgid "Default Page Template"
+msgstr ""
+
+#: ../admin-views/events-options.php:177
+msgid "Choose a page template to control the look and feel of your calendar."
+msgstr ""
+
+#: ../admin-views/events-options.php:181
+#: ../admin-views/events-options.php:183
+#: ../admin-views/events-options.php:191
+msgid "Add HTML before calendar"
+msgstr ""
+
+#: ../admin-views/events-options.php:185
+msgid "Some themes may require that you add extra divs before the calendar list to help with styling."
+msgstr ""
+
+#: ../admin-views/events-options.php:185
+msgid "This is displayed directly after the header."
+msgstr ""
+
+#: ../admin-views/events-options.php:185
+#: ../admin-views/events-options.php:193
+msgid "You may use (x)HTML."
+msgstr ""
+
+#: ../admin-views/events-options.php:189
+msgid "Add HTML after calendar"
+msgstr ""
+
+#: ../admin-views/events-options.php:193
+msgid "Some themes may require that you add extra divs after the calendar list to help with styling."
+msgstr ""
+
+#: ../admin-views/events-options.php:193
+msgid "This is displayed directly above the footer."
+msgstr ""
+
+#: ../admin-views/events-options.php:202
+msgid "Save Changes"
+msgstr ""
+
+#: ../admin-views/widget-admin-list.php:11
+msgid "Title:"
+msgstr ""
+
+#: ../admin-views/widget-admin-list.php:16
+msgid "Show:"
+msgstr ""
+
+#: ../admin-views/widget-admin-list.php:24
+msgid "Show widget only if there are upcoming events:"
+msgstr ""
+
+#: ../admin-views/widget-admin-list.php:30
+msgid "If you wish to customize the widget display yourself, see the file views/events-list-load-widget-display.php inside the Events Premium plugin."
+msgstr ""
+
+#: ../admin-views/venue-meta-box.php:12
+msgid "Venue Name:"
+msgstr ""
+
+#: ../admin-views/venue-meta-box.php:19
+msgid "Address:"
+msgstr ""
+
+#: ../admin-views/venue-meta-box.php:23
+msgid "City:"
+msgstr ""
+
+#: ../admin-views/venue-meta-box.php:27
+msgid "Country:"
+msgstr ""
+
+#: ../admin-views/venue-meta-box.php:58
+msgid "State or Province:"
+msgstr ""
+
+#: ../admin-views/venue-meta-box.php:61
+msgid "Select a State:"
+msgstr ""
+
+#: ../admin-views/venue-meta-box.php:77
+msgid "Postal Code:"
+msgstr ""
+
+#: ../admin-views/venue-meta-box.php:81
+#: ../admin-views/organizer-meta-box.php:17
+msgid "Phone:"
+msgstr ""
+
+#: ../admin-views/organizer-meta-box.php:11
+msgid "Organizer Name:"
+msgstr ""
+
+#: ../admin-views/organizer-meta-box.php:21
+msgid "Website:"
+msgstr ""
+
+#: ../admin-views/organizer-meta-box.php:25
 msgid "Email:"
 msgstr ""
 
-#: ../views/single.php:45
-msgid "Updated:"
+#: ../admin-views/recurrence-dialog.php:11
+msgid "Which events do you wish to update?"
 msgstr ""
 
-#: ../views/single.php:48
-msgid "Schedule:"
-msgstr ""
-
-#: ../views/single.php:71
-msgid "Click to view a Google Map"
-msgstr ""
-
-#: ../views/single.php:99
-msgid "Add to Google Calendar"
-msgstr ""
-
-#: ../views/single.php:99
-msgid "+ Google Calendar"
-msgstr ""
-
-#: ../views/ecp-single-template.php:24
-msgid "Edit"
-msgstr ""
-
-#: ../lib/widget-list.class.php:16
-msgid "A widget that displays the next upcoming x events."
-msgstr ""
-
-#: ../lib/widget-list.class.php:70
-msgid "View All Events"
-msgstr ""
-
-#: ../lib/widget-list.class.php:73
-msgid "There are no upcoming events at this time."
-msgstr ""
-
-#: ../lib/tribe-event-exception.class.php:17
-#: ../lib/tribe-event-exception.class.php:34
-msgid "Error"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:224
-msgid "The Events Calendar"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:227
-msgid "category"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:228
-msgid "month"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:229
-msgid "upcoming"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:230
-msgid "past"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:232
-msgid "venue"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:242
-#, php-format
-msgid "Initializing Tribe Events on %s"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:299
-#, php-format
-msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:302
-#, php-format
-msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:423
-msgid "Upcoming Events"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:425
-msgid "Past Events"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:429
-#: ../lib/the-events-calendar.class.php:435
-#, php-format
-msgid "Events for %s"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:431
-msgid "Events this month"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:441
-#, php-format
-msgid "Events at %s"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:453
-msgid "No description has been entered for this event."
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:518
-msgid "Events"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:519
-msgid "Event"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:520
-#: ../lib/the-events-calendar.class.php:533
-#: ../lib/the-events-calendar.class.php:546
-msgid "Add New"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:521
-msgid "Add New Event"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:522
-msgid "Edit Event"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:523
-msgid "New Event"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:524
-msgid "View Event"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:525
-msgid "Search Events"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:526
-msgid "No events found"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:527
-msgid "No events found in Trash"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:531
-msgid "Venues"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:532
-msgid "Venue"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:534
-msgid "Add New Venue"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:535
-msgid "Edit Venue"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:536
-msgid "New Venue"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:537
-#: ../lib/the-events-calendar.class.php:550
-msgid "View Venue"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:538
-msgid "Search Venues"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:539
-msgid "No venue found"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:540
-msgid "No venues found in Trash"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:544
-msgid "Organizers"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:545
-msgid "Organizer"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:547
-msgid "Add New Organizer"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:548
-msgid "Edit Organizer"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:549
-msgid "New Organizer"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:551
-msgid "Search Organizers"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:552
-msgid "No organizer found"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:553
-msgid "No organizers found in Trash"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:557
-msgid "Event Categories"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:558
-msgid "Event Category"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:559
-msgid "Search Event Categories"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:560
-msgid "All Event Categories"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:561
-msgid "Parent Event Category"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:562
-msgid "Parent Event Category:"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:563
-msgid "Edit Event Category"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:564
-msgid "Update Event Category"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:565
-msgid "Add New Event Category"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:566
-msgid "New Event Category Name"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:576
-#, php-format
-msgid "Event updated. <a href=\"%s\">View event</a>"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:577
-#: ../lib/the-events-calendar.class.php:594
-#: ../lib/the-events-calendar.class.php:611
-msgid "Custom field updated."
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:578
-#: ../lib/the-events-calendar.class.php:595
-#: ../lib/the-events-calendar.class.php:612
-msgid "Custom field deleted."
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:579
-msgid "Event updated."
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:581
-#, php-format
-msgid "Event restored to revision from %s"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:582
-#, php-format
-msgid "Event published. <a href=\"%s\">View event</a>"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:583
-msgid "Event saved."
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:584
-#, php-format
-msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:585
-#, php-format
-msgid "Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview event</a>"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:587
-#: ../lib/the-events-calendar.class.php:604
-#: ../lib/the-events-calendar.class.php:621
-msgid "M j, Y @ G:i"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:588
-#, php-format
-msgid "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:593
-#, php-format
-msgid "Venue updated. <a href=\"%s\">View venue</a>"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:596
-msgid "Venue updated."
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:598
-#, php-format
-msgid "Venue restored to revision from %s"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:599
-#, php-format
-msgid "Venue published. <a href=\"%s\">View venue</a>"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:600
-msgid "Venue saved."
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:601
-#, php-format
-msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:602
-#, php-format
-msgid "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview venue</a>"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:605
-#, php-format
-msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:610
-#, php-format
-msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:613
-msgid "Organizer updated."
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:615
-#, php-format
-msgid "Organizer restored to revision from %s"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:616
-#, php-format
-msgid "Organizer published. <a href=\"%s\">View organizer</a>"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:617
-msgid "Organizer saved."
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:618
-#, php-format
-msgid "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:619
-#, php-format
-msgid "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview organizer</a>"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:622
-#, php-format
-msgid "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:677
-msgid "Next"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:678
-msgid "Prev"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:679
-msgid "Today"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:680
-msgid "Done"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:1778
-msgid "Event Options"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:1780
-msgid "Venue Information"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:1781
-msgid "Organizer Information"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:1894
-msgid "Support"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:1897
-msgid "View All Add-Ons"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:1904
-msgid "News from Tribe Pro"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:1949
-msgid "Additional Functionality"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:1954
-#: ../lib/the-events-calendar.class.php:1960
-msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:1954
-#: ../lib/the-events-calendar.class.php:1961
-#, php-format
-msgid "Check out the <a href=\"%s\">available Add-Ons</a>."
+#: ../admin-views/recurrence-dialog.php:14
+msgid "Select your desired action"
 msgstr ""
 
 #: ../lib/tribe-view-helpers.class.php:16
 #: ../lib/tribe-view-helpers.class.php:33
 msgid "Select a Country:"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:34
+msgid "United States"
 msgstr ""
 
 #: ../lib/tribe-view-helpers.class.php:35
@@ -1763,10 +1486,6 @@ msgstr ""
 msgid "Wyoming"
 msgstr ""
 
-#: ../lib/tribe-debug-bar.class.php:18
-msgid "Tribe"
-msgstr ""
-
 #: ../lib/tribe-the-events-calendar-import.class.php:44
 msgid "Welcome to Events 2.0! This is a HUGE upgrade from 1.6.5. Please make sure you have backed up before proceeding any further. You can easily <a href=\" http://wordpress.org/extend/plugins/the-events-calendar/download/\">revert to an old version</a> if you want to backup first. This upgrade includes two major steps, <a href=\"options-general.php?page=tribe-events-calendar\">migrating data</a> & updating your templates as necessary. There have been significant changes to the template tags and functions. Check out our <a href=\"http://tri.be/migrating-from-events-calendar-1-6-5-to-2-0\">walkthrough on the upgrade</a> before proceeding and check out the FAQ & Knowledge base from the <a href=\"http://tri.be/support/\">support page</a>.<br/><br/> You have events that need to be migrated.  Please visit the bottom of the <a href=\"options-general.php?page=tribe-events-calendar\">settings page</a> to perform the migration."
 msgstr ""
@@ -1801,6 +1520,11 @@ msgstr ""
 msgid "View"
 msgstr ""
 
+#: ../lib/tribe-admin-events-list.class.php:172
+#: ../lib/the-events-calendar.class.php:597
+msgid "Event Categories"
+msgstr ""
+
 #: ../lib/tribe-admin-events-list.class.php:177
 msgid "Start Date"
 msgstr ""
@@ -1826,278 +1550,551 @@ msgstr ""
 msgid "All %s"
 msgstr ""
 
-#: ../admin-views/event-sidebar-options.php:11
-msgid "Hide From Upcoming Events List"
+#: ../lib/the-events-calendar.class.php:239
+msgid "The Events Calendar"
 msgstr ""
 
-#: ../admin-views/widget-admin-list.php:11
-msgid "Title:"
+#: ../lib/the-events-calendar.class.php:242
+msgid "category"
 msgstr ""
 
-#: ../admin-views/widget-admin-list.php:16
-msgid "Show:"
+#: ../lib/the-events-calendar.class.php:243
+msgid "month"
 msgstr ""
 
-#: ../admin-views/widget-admin-list.php:24
-msgid "Show widget only if there are upcoming events:"
+#: ../lib/the-events-calendar.class.php:244
+msgid "upcoming"
 msgstr ""
 
-#: ../admin-views/widget-admin-list.php:30
-msgid "If you wish to customize the widget display yourself, see the file views/events-list-load-widget-display.php inside the Events Premium plugin."
+#: ../lib/the-events-calendar.class.php:245
+msgid "past"
 msgstr ""
 
-#: ../admin-views/recurrence-dialog.php:11
-msgid "Which events do you wish to update?"
+#: ../lib/the-events-calendar.class.php:247
+msgid "venue"
 msgstr ""
 
-#: ../admin-views/recurrence-dialog.php:14
-msgid "Select your desired action"
-msgstr ""
-
-#: ../admin-views/events-options.php:47
+#: ../lib/the-events-calendar.class.php:257
 #, php-format
-msgid "%s Settings"
+msgid "Initializing Tribe Events on %s"
 msgstr ""
 
-#: ../admin-views/events-options.php:51
-msgid "Need a hand?"
-msgstr ""
-
-#: ../admin-views/events-options.php:52
+#: ../lib/the-events-calendar.class.php:314
 #, php-format
-msgid "If you're stuck on these options, please go to the <a href=\"%s\">support forum</a>."
+msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
 msgstr ""
 
-#: ../admin-views/events-options.php:54
-msgid "Here is the iCal feed URL for your events: "
-msgstr ""
-
-#: ../admin-views/events-options.php:60
-msgid "Settings"
-msgstr ""
-
-#: ../admin-views/events-options.php:63
-#: ../admin-views/events-options.php:67
-msgid "Default View for the Events"
-msgstr ""
-
-#: ../admin-views/events-options.php:81
-#: ../admin-views/events-options.php:85
-#: ../admin-views/events-options.php:87
-msgid "Show Comments"
-msgstr ""
-
-#: ../admin-views/events-options.php:95
-#: ../admin-views/events-options.php:99
-msgid "Multiday Event Cutoff"
-msgstr ""
-
-#: ../admin-views/events-options.php:113
-msgid "For multi-day events, hide the last day from grid view if it ends on or before this time."
-msgstr ""
-
-#: ../admin-views/events-options.php:118
-#: ../admin-views/events-options.php:122
-msgid "Enable Google Maps"
-msgstr ""
-
-#: ../admin-views/events-options.php:128
-msgid "Height"
-msgstr ""
-
-#: ../admin-views/events-options.php:129
-msgid "Width"
-msgstr ""
-
-#: ../admin-views/events-options.php:129
-msgid "(number or %)"
-msgstr ""
-
-#: ../admin-views/events-options.php:133
-msgid "If you don't have this turned on, your event listings won't have the backend map preview or frontend embedded map."
-msgstr ""
-
-#: ../admin-views/events-options.php:141
-#: ../admin-views/events-options.php:143
-msgid "Events URL slug"
-msgstr ""
-
-#: ../admin-views/events-options.php:144
-msgid "The slug used for building the Events URL."
-msgstr ""
-
-#: ../admin-views/events-options.php:144
+#: ../lib/the-events-calendar.class.php:317
 #, php-format
-msgid "Your current Events URL is <strong><a href=\"%s\">%s</a></strong>"
+msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
 msgstr ""
 
-#: ../admin-views/events-options.php:148
-#: ../admin-views/events-options.php:150
-msgid "Single Event URL slug"
+#: ../lib/the-events-calendar.class.php:438
+msgid "Upcoming Events"
 msgstr ""
 
-#: ../admin-views/events-options.php:151
-msgid "The slug used for building a single Event URL."
+#: ../lib/the-events-calendar.class.php:440
+msgid "Past Events"
 msgstr ""
 
-#: ../admin-views/events-options.php:152
+#: ../lib/the-events-calendar.class.php:444
+#: ../lib/the-events-calendar.class.php:450
 #, php-format
-msgid "<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: <strong>%s</strong>"
+msgid "Events for %s"
 msgstr ""
 
-#: ../admin-views/events-options.php:157
-#: ../admin-views/events-options.php:159
-msgid "Debug"
+#: ../lib/the-events-calendar.class.php:446
+msgid "Events this month"
 msgstr ""
 
-#: ../admin-views/events-options.php:160
-msgid "Debug Events display issues."
-msgstr ""
-
-#: ../admin-views/events-options.php:161
+#: ../lib/the-events-calendar.class.php:456
 #, php-format
-msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the <a href=\"%s\" target=\"_blank\">Debug Bar Plugin</a> and look for the \"Tribe\" tab in the debug output."
+msgid "Events at %s"
 msgstr ""
 
-#: ../admin-views/events-options.php:166
-msgid "Theme Settings"
+#: ../lib/the-events-calendar.class.php:468
+msgid "No description has been entered for this event."
 msgstr ""
 
-#: ../admin-views/events-options.php:169
-#: ../admin-views/events-options.php:171
-msgid "Events Template"
+#: ../lib/the-events-calendar.class.php:558
+msgid "Events"
 msgstr ""
 
-#: ../admin-views/events-options.php:173
-msgid "Default Events Template"
+#: ../lib/the-events-calendar.class.php:559
+msgid "Event"
 msgstr ""
 
-#: ../admin-views/events-options.php:174
-msgid "Default Page Template"
+#: ../lib/the-events-calendar.class.php:560
+#: ../lib/the-events-calendar.class.php:573
+#: ../lib/the-events-calendar.class.php:586
+msgid "Add New"
 msgstr ""
 
-#: ../admin-views/events-options.php:177
-msgid "Choose a page template to control the look and feel of your calendar."
+#: ../lib/the-events-calendar.class.php:561
+msgid "Add New Event"
 msgstr ""
 
-#: ../admin-views/events-options.php:181
-#: ../admin-views/events-options.php:183
-#: ../admin-views/events-options.php:191
-msgid "Add HTML before calendar"
+#: ../lib/the-events-calendar.class.php:562
+msgid "Edit Event"
 msgstr ""
 
-#: ../admin-views/events-options.php:185
-msgid "Some themes may require that you add extra divs before the calendar list to help with styling."
+#: ../lib/the-events-calendar.class.php:563
+msgid "New Event"
 msgstr ""
 
-#: ../admin-views/events-options.php:185
-msgid "This is displayed directly after the header."
+#: ../lib/the-events-calendar.class.php:564
+msgid "View Event"
 msgstr ""
 
-#: ../admin-views/events-options.php:185
-#: ../admin-views/events-options.php:193
-msgid "You may use (x)HTML."
+#: ../lib/the-events-calendar.class.php:565
+msgid "Search Events"
 msgstr ""
 
-#: ../admin-views/events-options.php:189
-msgid "Add HTML after calendar"
+#: ../lib/the-events-calendar.class.php:566
+msgid "No events found"
 msgstr ""
 
-#: ../admin-views/events-options.php:193
-msgid "Some themes may require that you add extra divs after the calendar list to help with styling."
+#: ../lib/the-events-calendar.class.php:567
+msgid "No events found in Trash"
 msgstr ""
 
-#: ../admin-views/events-options.php:193
-msgid "This is displayed directly above the footer."
+#: ../lib/the-events-calendar.class.php:571
+msgid "Venues"
 msgstr ""
 
-#: ../admin-views/events-options.php:202
-msgid "Save Changes"
+#: ../lib/the-events-calendar.class.php:572
+msgid "Venue"
 msgstr ""
 
-#: ../admin-views/organizer-meta-box.php:11
-msgid "Organizer Name:"
+#: ../lib/the-events-calendar.class.php:574
+msgid "Add New Venue"
 msgstr ""
 
-#: ../admin-views/organizer-meta-box.php:21
-msgid "Website:"
+#: ../lib/the-events-calendar.class.php:575
+msgid "Edit Venue"
 msgstr ""
 
-#: ../admin-views/venue-meta-box.php:12
-msgid "Venue Name:"
+#: ../lib/the-events-calendar.class.php:576
+msgid "New Venue"
 msgstr ""
 
-#: ../admin-views/venue-meta-box.php:23
-msgid "City:"
+#: ../lib/the-events-calendar.class.php:577
+#: ../lib/the-events-calendar.class.php:590
+msgid "View Venue"
 msgstr ""
 
-#: ../admin-views/venue-meta-box.php:27
-msgid "Country:"
+#: ../lib/the-events-calendar.class.php:578
+msgid "Search Venues"
 msgstr ""
 
-#: ../admin-views/venue-meta-box.php:58
-msgid "State or Province:"
+#: ../lib/the-events-calendar.class.php:579
+msgid "No venue found"
 msgstr ""
 
-#: ../admin-views/venue-meta-box.php:61
-msgid "Select a State:"
+#: ../lib/the-events-calendar.class.php:580
+msgid "No venues found in Trash"
 msgstr ""
 
-#: ../admin-views/venue-meta-box.php:75
-msgid "Postal Code:"
+#: ../lib/the-events-calendar.class.php:584
+msgid "Organizers"
 msgstr ""
 
-#: ../admin-views/events-meta-box.php:26
-msgid "Event Time &amp; Date"
+#: ../lib/the-events-calendar.class.php:585
+msgid "Organizer"
 msgstr ""
 
-#: ../admin-views/events-meta-box.php:29
-msgid "You have changed the recurrence rules of this event.  Saving the event will update all future events.  If you did not mean to change all events, then please refresh the page."
+#: ../lib/the-events-calendar.class.php:587
+msgid "Add New Organizer"
 msgstr ""
 
-#: ../admin-views/events-meta-box.php:32
-msgid "All day event?"
+#: ../lib/the-events-calendar.class.php:588
+msgid "Edit Organizer"
 msgstr ""
 
-#: ../admin-views/events-meta-box.php:36
-msgid "Start Date / Time:"
+#: ../lib/the-events-calendar.class.php:589
+msgid "New Organizer"
 msgstr ""
 
-#: ../admin-views/events-meta-box.php:39
-#: ../admin-views/events-meta-box.php:60
-msgid "YYYY-MM-DD"
+#: ../lib/the-events-calendar.class.php:591
+msgid "Search Organizers"
 msgstr ""
 
-#: ../admin-views/events-meta-box.php:41
-#: ../admin-views/events-meta-box.php:62
-msgid "@"
+#: ../lib/the-events-calendar.class.php:592
+msgid "No organizer found"
 msgstr ""
 
-#: ../admin-views/events-meta-box.php:57
-msgid "End Date / Time:"
+#: ../lib/the-events-calendar.class.php:593
+msgid "No organizers found in Trash"
 msgstr ""
 
-#: ../admin-views/events-meta-box.php:79
-msgid "Event Location Details"
+#: ../lib/the-events-calendar.class.php:598
+msgid "Event Category"
 msgstr ""
 
-#: ../admin-views/events-meta-box.php:85
-msgid "Show Google Maps Link:"
+#: ../lib/the-events-calendar.class.php:599
+msgid "Search Event Categories"
 msgstr ""
 
-#: ../admin-views/events-meta-box.php:92
-msgid "Show Google Map:"
+#: ../lib/the-events-calendar.class.php:600
+msgid "All Event Categories"
 msgstr ""
 
-#: ../admin-views/events-meta-box.php:101
-msgid "Event Organizer Details"
+#: ../lib/the-events-calendar.class.php:601
+msgid "Parent Event Category"
 msgstr ""
 
-#: ../admin-views/events-meta-box.php:110
-msgid "Event Cost"
+#: ../lib/the-events-calendar.class.php:602
+msgid "Parent Event Category:"
 msgstr ""
 
-#: ../admin-views/events-meta-box.php:118
-msgid "Leave blank to hide the field. Enter a 0 for events that are free."
+#: ../lib/the-events-calendar.class.php:603
+msgid "Edit Event Category"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:604
+msgid "Update Event Category"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:605
+msgid "Add New Event Category"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:606
+msgid "New Event Category Name"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:616
+#, php-format
+msgid "Event updated. <a href=\"%s\">View event</a>"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:617
+#: ../lib/the-events-calendar.class.php:634
+#: ../lib/the-events-calendar.class.php:651
+msgid "Custom field updated."
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:618
+#: ../lib/the-events-calendar.class.php:635
+#: ../lib/the-events-calendar.class.php:652
+msgid "Custom field deleted."
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:619
+msgid "Event updated."
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:621
+#, php-format
+msgid "Event restored to revision from %s"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:622
+#, php-format
+msgid "Event published. <a href=\"%s\">View event</a>"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:623
+msgid "Event saved."
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:624
+#, php-format
+msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:625
+#, php-format
+msgid "Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview event</a>"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:627
+#: ../lib/the-events-calendar.class.php:644
+#: ../lib/the-events-calendar.class.php:661
+msgid "M j, Y @ G:i"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:628
+#, php-format
+msgid "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:633
+#, php-format
+msgid "Venue updated. <a href=\"%s\">View venue</a>"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:636
+msgid "Venue updated."
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:638
+#, php-format
+msgid "Venue restored to revision from %s"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:639
+#, php-format
+msgid "Venue published. <a href=\"%s\">View venue</a>"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:640
+msgid "Venue saved."
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:641
+#, php-format
+msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:642
+#, php-format
+msgid "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview venue</a>"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:645
+#, php-format
+msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:650
+#, php-format
+msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:653
+msgid "Organizer updated."
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:655
+#, php-format
+msgid "Organizer restored to revision from %s"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:656
+#, php-format
+msgid "Organizer published. <a href=\"%s\">View organizer</a>"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:657
+msgid "Organizer saved."
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:658
+#, php-format
+msgid "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:659
+#, php-format
+msgid "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview organizer</a>"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:662
+#, php-format
+msgid "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:717
+msgid "Next"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:718
+msgid "Prev"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:719
+msgid "Today"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:720
+msgid "Done"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:1835
+msgid "Event Options"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:1837
+msgid "Venue Information"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:1838
+msgid "Organizer Information"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:1951
+msgid "Support"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:1954
+msgid "View All Add-Ons"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:1961
+msgid "News from Modern Tribe"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:2006
+msgid "Additional Functionality"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:2011
+#: ../lib/the-events-calendar.class.php:2017
+msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:2011
+#: ../lib/the-events-calendar.class.php:2018
+#, php-format
+msgid "Check out the <a href=\"%s\">available Add-Ons</a>."
+msgstr ""
+
+#: ../lib/widget-list.class.php:16
+msgid "A widget that displays the next upcoming x events."
+msgstr ""
+
+#: ../lib/widget-list.class.php:70
+msgid "View All Events"
+msgstr ""
+
+#: ../lib/widget-list.class.php:73
+msgid "There are no upcoming events at this time."
+msgstr ""
+
+#: ../lib/tribe-debug-bar.class.php:18
+msgid "Tribe"
+msgstr ""
+
+#: ../lib/tribe-event-exception.class.php:17
+#: ../lib/tribe-event-exception.class.php:34
+msgid "Error"
+msgstr ""
+
+#: ../public/template-tags/loop.php:130
+msgid "Calendar of Events"
+msgstr ""
+
+#: ../public/template-tags/general.php:103
+msgid "Category:"
+msgstr ""
+
+#: ../public/template-tags/general.php:220
+msgid "Free"
+msgstr ""
+
+#: ../views/list.php:50
+#: ../views/single.php:20
+msgid "Start:"
+msgstr ""
+
+#: ../views/list.php:54
+#: ../views/single.php:22
+msgid "End:"
+msgstr ""
+
+#: ../views/list.php:59
+#: ../views/single.php:25
+msgid "Date:"
+msgstr ""
+
+#: ../views/list.php:69
+#: ../views/single.php:59
+msgid "Venue:"
+msgstr ""
+
+#: ../views/list.php:92
+#: ../views/single.php:76
+msgid "Google Map"
+msgstr ""
+
+#: ../views/list.php:116
+#, php-format
+msgid " listed under %s. Check out past events for this category or view the full calendar."
+msgstr ""
+
+#: ../views/list.php:118
+#, php-format
+msgid " listed under %s. Check out upcoming events for this category or view the full calendar."
+msgstr ""
+
+#: ../views/list.php:123
+#, php-format
+msgid "No events scheduled for <strong>%s</strong>. Please try another day."
+msgstr ""
+
+#: ../views/list.php:127
+msgid "No upcoming events"
+msgstr ""
+
+#: ../views/list.php:131
+msgid "No previous events"
+msgstr ""
+
+#: ../views/list.php:144
+#: ../views/list.php:146
+#: ../views/list.php:148
+msgid "&laquo; Previous Events"
+msgstr ""
+
+#: ../views/list.php:155
+#: ../views/list.php:157
+#: ../views/list.php:159
+msgid "Next Events &raquo;"
+msgstr ""
+
+#: ../views/list.php:165
+#: ../views/gridview.php:43
+#: ../views/single.php:101
+msgid "iCal Import"
+msgstr ""
+
+#: ../views/ecp-single-template.php:24
+msgid "Edit"
+msgstr ""
+
+#: ../views/events-list-load-widget-display.php:52
+msgid "All Day"
+msgstr ""
+
+#: ../views/table-mini.php:24
+msgid "View all &raquo;"
+msgstr ""
+
+#: ../views/single.php:13
+msgid "&laquo; Back to Events"
+msgstr ""
+
+#: ../views/single.php:14
+msgid "This event has passed."
+msgstr ""
+
+#: ../views/single.php:17
+msgid "Event:"
+msgstr ""
+
+#: ../views/single.php:34
+#: ../views/single.php:37
+msgid "Organizer:"
+msgstr ""
+
+#: ../views/single.php:48
+msgid "Updated:"
+msgstr ""
+
+#: ../views/single.php:51
+msgid "Schedule:"
+msgstr ""
+
+#: ../views/single.php:76
+msgid "Click to view a Google Map"
+msgstr ""
+
+#: ../views/single.php:104
+msgid "Add to Google Calendar"
+msgstr ""
+
+#: ../views/single.php:104
+msgid "+ Google Calendar"
 msgstr ""
 
