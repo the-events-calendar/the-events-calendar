@@ -24,6 +24,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'rewrite' => array('slug' => 'event', 'with_front' => false),
 			'menu_position' => 6,
 			'supports' => array('title','editor','excerpt','author','thumbnail'),
+			'taxonomies' => array('post_tag'),
          'capability_type' => array('tribe_event', 'tribe_events')
 		);
 		protected $postVenueTypeArgs = array(
