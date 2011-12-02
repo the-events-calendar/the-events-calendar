@@ -24,7 +24,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		if ( tribe_is_venue( $postId ) ) {
 			return $postId;
 		} else {
-			return tribe_get_event_meta( $postId, '_EventVenueID', true );
+			return apply_filters('tribe_get_venue_id', tribe_get_event_meta( $postId, '_EventVenueID', true ));
 		}
 	}
 
@@ -38,7 +38,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_has_venue( $postId = null) {
-		return ( tribe_get_venue_id( $postId ) > 0 ) ? true : false;
+		$has_venue = (tribe_get_venue_id( $postId ) > 0 ) ? true : false;
+		return apply_filters('tribe_has_venue', $has_venue);
 	}
 
 	/**
@@ -55,7 +56,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		if ( $with_link ) {	_deprecated_argument( __FUNCTION__, '2.0.1' ); }
 		$postId = tribe_get_venue_id( $postId );
 		$venue = esc_html(tribe_get_event_meta( $postId, '_VenueVenue', true ));
-		return $venue;
+		return apply_filters('tribe_get_venue', $venue);
 	}
 	
 	/**
@@ -96,7 +97,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_country( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html( tribe_get_event_meta( $postId, '_VenueCountry', true ) );
-		return $output;
+		return apply_filters('tribe_get_country', $output);
 	}
 
 	/**
@@ -149,7 +150,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_address( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html( tribe_get_event_meta( $postId, '_VenueAddress', true ) );
-		return $output;
+		return apply_filters('tribe_get_address', $output);
 	}
 
 	/**
@@ -164,7 +165,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_city( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html( tribe_get_event_meta( $postId, '_VenueCity', true ) );
-		return $output;
+		return apply_filters('tribe_get_city', $output);
 	}
 
 	/**
@@ -180,7 +181,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_stateprovince( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html( tribe_get_event_meta( $postId, '_VenueStateProvince', true ) );
-		return $output;
+		return apply_filters('tribe_get_stateprovince', $output);
 	}
 
 	/**
@@ -195,7 +196,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_state( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html( tribe_get_event_meta( $postId, '_VenueState', true ) );
-		return $output;
+		return apply_filters('tribe_get_state', $output);
 	}
 
 	/**
@@ -210,7 +211,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_province( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html( tribe_get_event_meta( $postId, '_VenueProvince', true ) );
-		return $output;
+		return apply_filters('tribe_get_province', $output);
 	}
 
 	/**
@@ -226,14 +227,15 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_region( $postId = null )  {
 		$postId = tribe_get_venue_id( $postId );
 		if(tribe_get_event_meta($postId, '_VenueStateProvince', true )){
-			return tribe_get_event_meta($postId, '_VenueStateProvince', true );
+			$region = tribe_get_event_meta($postId, '_VenueStateProvince', true );
 		} else {
 			if ( tribe_get_country($postId) == __('United States', 'tribe-events-calendar' ) ) {
-				return tribe_get_state($postId);
+				$region = tribe_get_state($postId);
 			} else {
-				return tribe_get_province(); 
+				$region = tribe_get_province();
 			}
 		}
+		return apply_filters('tribe_get_region', $region);
 	}
 
 	/**
@@ -248,7 +250,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_zip( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html(tribe_get_event_meta( $postId, '_VenueZip', true ));
-		return $output;
+		return apply_filters('tribe_get_zip', $output);
 	}
 	
 	/**
@@ -263,7 +265,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_phone( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html(tribe_get_event_meta( $postId, '_VenuePhone', true ));
-		return $output;
+		return apply_filters('tribe_get_phone', $output);
 	}
 
 }

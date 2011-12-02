@@ -59,7 +59,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_has_organizer( $postId = null) {
 		$postId = TribeEvents::postIdHelper( $postId );
-		return ( tribe_get_organizer_id( $postId ) > 0 ) ? true : false;
+		$has_organizer = ( tribe_get_organizer_id( $postId ) > 0 ) ? true : false;
+		return apply_filters('tribe_has_organizer', $has_organizer);
 	}
 
 	/**
@@ -118,7 +119,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_organizer_phone( $postId = null)  {
 		$postId = TribeEvents::postIdHelper( $postId );
 		$output = esc_html(tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerPhone', true ));
-		return apply_filters( 'tribe_get_organizer_phone', $output ); 
+		return apply_filters( 'tribe_get_organizer_phone', $output );
 	}
 
 }

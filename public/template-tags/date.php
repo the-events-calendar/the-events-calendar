@@ -36,10 +36,10 @@ if( class_exists( 'TribeEvents' ) ) {
 		if( isset($post->EventStartDate) ){
 			$date = strtotime( $post->EventStartDate ? $post->EventStartDate : tribe_get_event_meta( $postId, '_EventStartDate', true ));
 		}else{
-			return; // '&mdash;';
+			return apply_filters('tribe_get_start_date', __return_false()); // '&mdash;';
 		}
 
-		return tribe_event_format_date($date, $displayTime, $dateFormat );
+		return apply_filters('tribe_get_start_date', tribe_event_format_date($date, $displayTime, $dateFormat ));
 	}
 
 	/**
@@ -68,10 +68,10 @@ if( class_exists( 'TribeEvents' ) ) {
 		if( isset($post->EventEndDate) ){
 			$date = strtotime( $post->EventEndDate ? $post->EventEndDate : tribe_get_event_meta( $postId, '_EventEndDate', true ));
 		}else{
-			return; // '&mdash;';
+			return apply_filters('tribe_get_end_date', __return_false()); // '&mdash;';
 		}
 
-		return tribe_event_format_date($date, $displayTime, $dateFormat );
+		return apply_filters('tribe_get_end_date', tribe_event_format_date($date, $displayTime, $dateFormat ));
 	}
 
 	/**
@@ -96,7 +96,8 @@ if( class_exists( 'TribeEvents' ) ) {
 
 		$shortMonthNames = ( strstr( $format, 'M' ) ) ? true : false;
 		$date = date_i18n ( $format, $date );
-		return str_replace( array_keys($tribe_ecp->monthNames( $shortMonthNames )), $tribe_ecp->monthNames( $shortMonthNames ), $date);
+		$output = str_replace( array_keys($tribe_ecp->monthNames( $shortMonthNames )), $tribe_ecp->monthNames( $shortMonthNames ), $date);
+		return apply_filters('tribe_event_format_date', $output);
 	}
 
 }

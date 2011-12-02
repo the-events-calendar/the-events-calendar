@@ -23,7 +23,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_option($optionName, $default = '')  {
 		$tribe_ecp = TribeEvents::instance();
-		return $tribe_ecp->getOption($optionName, $default);
+		return apply_filters('tribe_get_option', $tribe_ecp->getOption($optionName, $default));
 	}
 
 	/**
@@ -36,7 +36,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_is_event( $postId = null )  {
-		return TribeEvents::instance()->isEvent($postId);
+		return apply_filters('tribe_is_event', TribeEvents::instance()->isEvent($postId));
 	}
 	
 	/**
@@ -54,7 +54,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_events( $args = '' )  {
 		$tribe_ecp = TribeEvents::instance();
-		return $tribe_ecp->getEvents( $args );
+		return apply_filters('tribe_get_events', $tribe_ecp->getEvents( $args ));
 	}
 
 	/**
@@ -68,7 +68,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_all_day( $postId = null )  {
 		$postId = TribeEvents::postIdHelper( $postId );
-		return !! tribe_get_event_meta( $postId, '_EventAllDay', true );
+		$output = !! tribe_get_event_meta( $postId, '_EventAllDay', true );
+		return apply_filters('tribe_get_all_day', $output);
 	}
 	
 	/**
@@ -86,7 +87,8 @@ if( class_exists( 'TribeEvents' ) ) {
 		sort($start);
 		$start = strtotime($start[0]);
 		$end = strtotime(tribe_get_event_meta( $postId, '_EventEndDate', true ));
-		return date('d-m-Y', $start) != date('d-m-Y', $end);
+		$output = date('d-m-Y', $start) != date('d-m-Y', $end);
+		return apply_filters('tribe_is_multiday', $output);
 	}
 
 	/**
@@ -103,7 +105,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		if( !$label ) { $label = __('Category:', 'tribe-events-calendar'); }
 
 		$tribe_ecp = TribeEvents::instance();
-		the_terms( get_the_ID(), $tribe_ecp->get_event_taxonomy(), '<dt>'.$label.'</dt><dd>', $separator, '</dd>' );
+		apply_filters('tribe_meta_event_cats', the_terms( get_the_ID(), $tribe_ecp->get_event_taxonomy(), '<dt>'.$label.'</dt><dd>', $separator, '</dd>' ));
 	}
 
 	/**
@@ -120,7 +122,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_event_meta( $postId = null, $meta = false, $single = true ){
 		$postId = TribeEvents::postIdHelper( $postId );
 		$tribe_ecp = TribeEvents::instance();
-		return $tribe_ecp->getEventMeta( $postId, $meta, $single );
+		$output = $tribe_ecp->getEventMeta( $postId, $meta, $single );
+		return apply_filters('tribe_get_event_meta', $output);
 	}
 	
 	/**
@@ -136,7 +139,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		$current_cat = get_query_var('tribe_events_cat');
 		if($current_cat){
 			$term_info = get_term_by('slug',$current_cat,$tribe_ecp->get_event_taxonomy());
-			return $term_info->name;
+			return apply_filters('tribe_meta_event_category_name', $term_info->name);
 		}
 	}
 		
@@ -150,7 +153,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_current_template() {
-		return TribeEventsTemplates::get_current_page_template();
+		return apply_filters('tribe_get_current_template', TribeEventsTemplates::get_current_page_template());
 	}
 
 	/**
@@ -164,7 +167,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_is_venue( $postId = null )  {
 		$tribe_ecp = TribeEvents::instance();
-		return $tribe_ecp->isVenue($postId);
+		return apply_filters('tribe_is_venue', $tribe_ecp->isVenue($postId));
 	}
 
 	/**
@@ -175,7 +178,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_events_before_html() {
-		echo stripslashes(tribe_get_option('spEventsBeforeHTML'));
+		echo apply_filters('tribe_events_before_html', stripslashes(tribe_get_option('spEventsBeforeHTML')));
 	}
 
 	/**
@@ -186,7 +189,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_events_after_html() {
-		echo stripslashes(tribe_get_option('spEventsAfterHTML'));
+		echo apply_filters('tribe_events_after_html', stripslashes(tribe_get_option('spEventsAfterHTML')));
 	}
 	
 	/**
@@ -208,7 +211,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			global $spEventBrite;
 			$returned = $spEventBrite->tribe_get_cost($postId);
 			if($returned) {
-				return esc_html($returned);
+				return apply_filters( 'tribe_get_cost', esc_html($returned));
 			}
 		}
 
@@ -243,10 +246,11 @@ if( class_exists( 'TribeEvents' ) ) {
 		$term = term_exists($event_cat_slug, TribeEvents::TAXONOMY);
 		
 		if ( tribe_is_event($event_id) && is_object_in_term($event_id, TribeEvents::TAXONOMY, array( $term['term_id'] ) ) ) {
-			return true;
+			$return = true;
 		}else{
-			return false;
+			$return = false;
 		}
+		apply_filters('tribe_event_in_category', $return);
 	}
 
 }
