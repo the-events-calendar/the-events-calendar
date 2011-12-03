@@ -44,6 +44,7 @@ if (!class_exists('ECP_Events_Importer')) {
 					    'event_show_map' => 'Event Show Map',
 					    'event_cost' => 'Event Cost',
 					    'event_phone' => 'Event Phone',
+					    'custom_field' => '[Custom Field]'
 					    //'event_hide' => 'Event Hide From Upcoming' 
 					);
 	public $venueColumnNames = array(// Venues
@@ -54,12 +55,15 @@ if (!class_exists('ECP_Events_Importer')) {
 					    'venue_city' => 'Venue City',
 					    'venue_state' => 'Venue State/Province',
 					    'venue_zip' => 'Venue Zip',
-					    'venue_phone' => 'Venue Phone' );
+					    'venue_phone' => 'Venue Phone',
+					    'custom_field' => '[Custom Field]'
+					     );
 	public $organizerColumnNames = array(// Organizers
 					    'organizer_name' => 'Organizer Name',
 					    'organizer_email' => 'Organizer Email',
 					    'organizer_website' => 'Organizer Website',
-					    'organizer_phone' => 'Organizer Phone'
+					    'organizer_phone' => 'Organizer Phone',
+					    'custom_field' => '[Custom Field]'
 					    );
 		
 	private function __construct() {
@@ -102,12 +106,32 @@ if (!class_exists('ECP_Events_Importer')) {
 			    $import_type = $_POST[ 'import_type' ];
 			    // Deconstruct mapping.
 			    $column_mapping = array();
+			    
+/*
+				echo '<pre>';
+				print_r($_POST);
+				die;
+*/
+							    
 			    foreach( $_POST as $name => $value ) {
 				if ( preg_match( '/^col_(\d+)$/', $name ) ) {
 				    // Column definition.
-				    $column_mapping[ str_replace( 'col_', '', $name ) ] = $value;
+				    
+				    if($value == 'custom_field'){
+				    	$i = str_replace( 'col_', '', $name );
+					    $column_mapping[ $i ] = 'CUSTOM:'.$_POST['txt_'.$i];
+				    }else{
+				    	$column_mapping[ str_replace( 'col_', '', $name ) ] = $value;
+				    }
 				}
+
 			    }
+
+/*
+				echo '<pre>';
+				print_r($column_mapping);
+				die;
+*/
 			    
 			    //save column mapping in WP options for future reference
 			    update_option('tribe_events_import_column_mapping',$column_mapping);
@@ -154,49 +178,43 @@ if (!class_exists('ECP_Events_Importer')) {
 	    // Bail right here and now if the file isn't available or we can't parse it.
 	    if ( file_exists( $this->fileLocation ) && $csv = new parseCSV() ) {
 	   
-/*
-$csv->offset = 500;
-$csv->limit = 10;
-*/
-	    
 		//$csv->auto( $this->fileLocation );
 		
 		$csv->parseCSV($this->fileLocation, $offset, $limit);
 		
 		if(!$csv->data){
 		
-					$results = get_option('tribe_events_import_results');
-					$fail_rows = get_option('tribe_events_import_failed_rows');
-					
-					$error_message = '';
-					$success_message = sprintf( __( "<strong>Import successfully completed!</strong><br/> <ul><li>Inserted: %d</li><li>Updated: %d</li><li>Failed: %d</li></ul>\n" ),
-					$results[ 'insert' ],
-					$results[ 'update' ],
-					$results[ 'fail' ] );
-					if ( count( $fail_rows ) > 0 ) {
-					$success_message .= sprintf( __( "<p>Failed Row Numbers: %s</p>" ), implode( ', ', $fail_rows ) );
-					}
+			$results = get_option('tribe_events_import_results');
+			$fail_rows = get_option('tribe_events_import_failed_rows');
+			
+			$error_message = '';
+			$success_message = sprintf( __( "<strong>Import successfully completed!</strong><br/> <ul><li>Inserted: %d</li><li>Updated: %d</li><li>Failed: %d</li></ul>\n" ),
+			$results[ 'insert' ],
+			$results[ 'update' ],
+			$results[ 'fail' ] );
+			if ( count( $fail_rows ) > 0 ) {
+			$success_message .= sprintf( __( "<p>Failed Row Numbers: %s</p>" ), implode( ', ', $fail_rows ) );
+			}
 	    
-	    include( $this->pluginPath . 'admin-views/result.php' );
-	    
-	    //delete options
-	    
-	    delete_option('tribe_events_import_results');
-	    delete_option('tribe_events_import_failed_rows');
-	    
-	    //delete files
-	    unlink($this->fileLocation);
-	    unlink($this->fileLocation.'.tmp');
+		    include( $this->pluginPath . 'admin-views/result.php' );
+		    
+	
+		    //delete options
+		    delete_option('tribe_events_import_results');
+		    delete_option('tribe_events_import_failed_rows');
+	
+		    
+		    //delete files
+		    unlink($this->fileLocation);
+		    unlink($this->fileLocation.'.tmp');
 		
 		}else{
 		
-		
-		
-		// Invert the column mapping so we can grab CSV columns by name.
-		// Columns that we're not importing will not be in the hash.
-		foreach( $column_mapping as $col => $name ) {
-		    if ( $name != '' ) {
-		        $inverted_map[ $name ] = $col;		
+			// Invert the column mapping so we can grab CSV columns by name.
+			// Columns that we're not importing will not be in the hash.
+			foreach( $column_mapping as $col => $name ) {
+			    if ( $name != '' ) {
+			        $inverted_map[ $name ] = $col;		
 		    }
 		}
 	    
@@ -261,24 +279,15 @@ $csv->limit = 10;
 			
 				set_time_limit(10); //increase script time limit by 10 seconds
 			
-//				$start = microtime();
 			    $result = call_user_func( $method, array_values( $row ), $inverted_map );
 			    $results[ $result ] = $results[ $result ] + 1;
 			    // Record failed rows for report and make them 1-based.
 			    if ( $result == 'fail' ) {
 				$fail_rows []= ( $row_num + 1 );
 			    }
-/*
-				$end = microtime();
-				echo("<pre>Executed: " . ($end - $start) . "</pre>");
-*/
 			}
-			//$total_end = microtime();
-			//$total_diff = $total_end - $total_start;
-			//echo("<pre>Entire process: $total_diff</pre>");
-			
+
 			// Save results for later display
-			
 			update_option('tribe_events_import_results', $results);
 			update_option('tribe_events_import_failed_rows', $fail_rows);
 			
@@ -314,6 +323,7 @@ $csv->limit = 10;
 		    // Perform update.
 		    TribeEventsAPI::updateVenue( $id, $venue );
 		    $ret = 'update';
+   		    echo $venue_name . ' created<br>';
 		} else {
 		    // Insert new venue.
 		    $venue_id = TribeEventsAPI::createVenue( $venue );
@@ -322,7 +332,17 @@ $csv->limit = 10;
 			$this->venues[ $venue_name ] = $venue_id;
 		    }
 		    $ret = 'insert';
+   		    echo $venue_name . ' created<br>';
 		}
+
+			//update/add any custom fields
+			foreach($venue as $key=>$val){
+	    		if( substr($key,0,7) == 'CUSTOM:' ){
+	    			update_post_meta($id, substr($key,7), $val);
+	    		}
+	    			
+	    	}
+		
 	    }
 	    return $ret;
 	}
@@ -334,7 +354,7 @@ $csv->limit = 10;
 	private function generateVenue( $row, $inverted_mapping, $venue_name ) {
 	    $venue_address = trim( $this->getFromRow( $row, $inverted_mapping, 'venue_address' ) . ' ' .
 				    $this->getFromRow( $row, $inverted_mapping, 'venue_address2' ) );
-	    return array( 'Venue' => $venue_name,
+	    $venue =  array( 'Venue' => $venue_name,
 			  'Address' => $venue_address,
 			  'City' => $this->getFromRow( $row, $inverted_mapping, 'venue_city' ),
 			  'Country' => $this->getFromRow( $row, $inverted_mapping, 'venue_country', 'United States' ),
@@ -342,6 +362,15 @@ $csv->limit = 10;
 			  'State' => $this->getFromRow( $row, $inverted_mapping, 'venue_state' ),
 			  'Zip' => $this->getFromRow( $row, $inverted_mapping, 'venue_zip' ),
 			  'Phone' => $this->getFromRow( $row, $inverted_mapping, 'venue_phone' ) );
+	
+		//Custom Fields
+	    foreach($inverted_mapping as $key=>$val){
+	    	if( substr($key,0,7) == 'CUSTOM:' )
+	    		$venue[ $key ] = $this->getFromRow( $row, $inverted_mapping, $key );
+	    }
+	    
+	    return $venue;
+	
 	}
 	
 	/**
@@ -359,6 +388,7 @@ $csv->limit = 10;
 		    // Perform update.
 		    TribeEventsAPI::updateOrganizer( $id, $organizer );
 		    $ret = 'update';
+		    echo $organizer_name . ' updated<br>';
 		} else {
 		    // Insert new organizer.
 		    $organizer_id = TribeEventsAPI::createOrganizer( $organizer );
@@ -366,7 +396,19 @@ $csv->limit = 10;
 			$this->organizers[ $organizer_name ] = $organizer_id;
 		    }
 		    $ret = 'insert';
+		    echo $organizer_name . ' created<br>';
 		}
+		
+		//dumpit($organizer);
+		
+			//update/add any custom fields
+			foreach($organizer as $key=>$val){
+	    		if( substr($key,0,7) == 'CUSTOM:' ){
+	    			update_post_meta($id, substr($key,7), $val);
+	    		}
+	    			
+	    	}
+		
 	    }
 	    return $ret;
 	}
@@ -376,10 +418,19 @@ $csv->limit = 10;
 	**/
 	
 	private function generateOrganizer( $row, $inverted_mapping, $organizer_name ) {
-	    return array( 'Organizer' => $organizer_name,
+	    $organizer = array( 'Organizer' => $organizer_name,
 			  'Email' => $this->getFromRow( $row, $inverted_mapping, 'organizer_email' ),
 			  'Phone' => $this->getFromRow( $row, $inverted_mapping, 'organizer_phone' ),
 			  'Website' => $this->getFromRow( $row, $inverted_mapping, 'organizer_website') );
+		
+		//Custom Fields
+	    foreach($inverted_mapping as $key=>$val){
+	    	if( substr($key,0,7) == 'CUSTOM:' )
+	    		$organizer[ $key ] = $this->getFromRow( $row, $inverted_mapping, $key );
+	    }
+		
+		return $organizer;
+			  
 	}
 	
 	/**
@@ -400,11 +451,6 @@ $csv->limit = 10;
 		    // Event already exists, so update.
 			//$start = microtime();
 		    TribeEventsAPI::updateEvent( $id, $event );
-/*
-			$end = microtime();
-			$elapsed = $end - $start;
-			echo "<pre>Update event: $elapsed</pre>";
-*/
 			$end = microtime();
 			echo $event_name . ' updated<br>';
 			flush();
@@ -413,18 +459,24 @@ $csv->limit = 10;
 		    // Create new event.
 			$start = microtime();
 		    $id = TribeEventsAPI::createEvent( $event );
+		    
 		    // Insert into hash table so we don't re-insert.
 		    $this->events[ $this->generateEventKey( $event_name, $event_start_date, $event_end_date ) ] = $id;
-/*
-			$end = microtime();
-                        $elapsed = $end - $start;
-                        echo "<pre>Created event: $elapsed</pre>";
-*/
+
 			$end = microtime();
 			echo $event_name . ' created<br>';
 			flush();
 		    $ret = 'insert';
 		}
+
+			//update/add any custom fields
+			foreach($event as $key=>$val){
+	    		if( substr($key,0,7) == 'CUSTOM:' ){
+	    			update_post_meta($id, substr($key,7), $val);
+	    		}
+	    			
+	    	}
+
 	    }
 	    return $ret;
 	}
@@ -451,6 +503,13 @@ $csv->limit = 10;
 			  'EventAllDay' => $this->getFromRow( $row, $inverted_mapping, 'event_all_day', false ),
 			  'EventHideFromUpcoming' => $this->getFromRow( $row, $inverted_mapping, 'event_hide' ) );
 	    
+	    //Custom Fields
+	    foreach($inverted_mapping as $key=>$val){
+	    	if( substr($key,0,7) == 'CUSTOM:' )
+	    		$ret[ $key ] = $this->getFromRow( $row, $inverted_mapping, $key );
+	    }
+	    
+	    
 	    // Organizer & Venue IDs
 	    $organizer_id = $this->findOrganizerByName( $this->getFromRow( $row, $inverted_mapping, 'event_organizer_name' ) );
 	    $venue_id = $this->findVenueByName( $this->getFromRow( $row, $inverted_mapping, 'event_venue_name' ) );
@@ -460,6 +519,12 @@ $csv->limit = 10;
 	    if ( $venue_id != false ) {
 		$ret[ 'Venue' ] = array( 'VenueID' => $venue_id );
 	    }
+	    
+/*
+	    echo '<pre>';
+	    print_r($ret);
+	    die;
+*/
 	    
 	    return $ret;
 	}
@@ -689,6 +754,9 @@ $csv->limit = 10;
 		$ret .= '<option value="' . $key . '">' . $value . '</option>';
 	    }
 	    $ret .= '</select>';
+	    
+	    $ret .= '<input type="text" name="txt_' . $col . '">';	    
+	    
 	    return $ret;
 	}
 	
