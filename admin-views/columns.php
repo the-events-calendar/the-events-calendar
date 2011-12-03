@@ -33,5 +33,21 @@ $importer_instance = ECP_Events_importer::instance();
 	    </table>	    
 	</form>
     </div>
-    
+
+<script>
+	jQuery(document).ready(function() {
+		jQuery('.tribe-events-imnporter-custom-field').css('visibility', 'hidden');
+	});
+	
+	function tribeShowCf(field, col){
+		
+		if( jQuery('select[name="col_'+col+'"]').val() == 'custom_field' ){
+			jQuery('select[name="txt_'+col+'"]').css('visibility', 'visible');
+		}else{
+			jQuery('select[name="txt_'+col+'"]').css('visibility', 'hidden');
+		}
+	
+	}
+</script>
+
 <?php endif ?>

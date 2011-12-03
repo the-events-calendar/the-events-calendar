@@ -56,14 +56,14 @@ if (!class_exists('ECP_Events_Importer')) {
 					    'venue_state' => 'Venue State/Province',
 					    'venue_zip' => 'Venue Zip',
 					    'venue_phone' => 'Venue Phone',
-					    'custom_field' => '[Custom Field]'
+					    //'custom_field' => '[Custom Field]'
 					     );
 	public $organizerColumnNames = array(// Organizers
 					    'organizer_name' => 'Organizer Name',
 					    'organizer_email' => 'Organizer Email',
 					    'organizer_website' => 'Organizer Website',
 					    'organizer_phone' => 'Organizer Phone',
-					    'custom_field' => '[Custom Field]'
+					    //'custom_field' => '[Custom Field]'
 					    );
 		
 	private function __construct() {
@@ -76,7 +76,17 @@ if (!class_exists('ECP_Events_Importer')) {
 	    
 		add_action( 'admin_menu', array( $this, 'addImportOptionsPage' ) );
 		add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
+		
+		//add_action('init', array( $this, 'add_cf_support'));
 	}
+
+/*
+	public function add_cf_support(){
+		add_post_type_support( TribeEvents::POSTTYPE, 'custom-fields' );
+		add_post_type_support( TribeEvents::VENUE_POST_TYPE, 'custom-fields' );
+		add_post_type_support( TribeEvents::ORGANIZER_POST_TYPE, 'custom-fields' );
+	}
+*/
 	
 	public function addImportOptionsPage() {
 	    add_options_page( $this->pluginName, $this->pluginName, 'administrator', 'events-importer', array( $this, 'importPageView' ) );
@@ -729,6 +739,9 @@ if (!class_exists('ECP_Events_Importer')) {
 		// Hmm. File wasn't uploaded or something funky happened.
 		$error_message = __( 'Error uploading file. Are you sure it was included?' );
 	    }
+	    
+	    
+	    
 	    include( $this->pluginPath . 'admin-views/columns.php' );
 	}
 	
@@ -737,7 +750,7 @@ if (!class_exists('ECP_Events_Importer')) {
 	 **/
 	
 	public function generateColumnSelects( $col, $title, $type ) {
-	    $ret = '<select name="col_' . $col . '">';
+	    $ret = '<select onchange="tribeShowCf(this, '.$col.');" name="col_' . $col . '">';
 	    $defaults = array();
 	    if ( $type == 'events' ) {
 		$defaults = array_merge( $defaults, $this->eventColumnNames );
@@ -755,7 +768,15 @@ if (!class_exists('ECP_Events_Importer')) {
 	    }
 	    $ret .= '</select>';
 	    
-	    $ret .= '<input type="text" name="txt_' . $col . '">';	    
+	    //$ret .= '<input type="text" name="txt_' . $col . '">';
+	    
+	    $customFields = tribe_get_option('custom-fields');
+	    
+	    $ret .= '<select class="tribe-events-imnporter-custom-field" name="txt_' . $col . '">';
+	    foreach($customFields as $cf){
+		    $ret .= '<option value="'.$cf['name'] .'">'. $cf['label'] .'</option>';
+	    }
+	    $ret .= '</select>';
 	    
 	    return $ret;
 	}
