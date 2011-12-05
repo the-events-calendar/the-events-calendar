@@ -105,3 +105,8 @@ This is such a major re-write that we are starting the change log over.
 = 2.0.2 =
 
 2.0.2 is a minor bug patch for 2.0. Are you upgrading from 1.6.5? Events 2.0 is a MAJOR upgrade, please backup your data and plan a little time in case you have to make any theme edits. Check out the upgrade tutorials in support on the tri.be website.
+
+* Dutch translation (free only) from Rick van Dalen
+* Russian translation (both versions) from Mikhail Michouris
+* Danish translation (PRO only) from Christian Andersen
+* Italian translation (free & PRO) from Stefano Castelli
