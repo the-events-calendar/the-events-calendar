@@ -5,7 +5,7 @@ Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.1
 Tested up to: 3.2.1
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 
 == Description ==
 
@@ -72,6 +72,47 @@ For template tags, you can view our template tag includes in the "public" folder
 
 == Changelog ==
 
+= 2.0.2 =
+
+2.0.2 is a minor bug patch for 2.0. Are you upgrading from 1.6.5? Events 2.0 is a MAJOR upgrade, please backup your data and plan a little time in case you have to make any theme edits. Check out the upgrade tutorials in support on the tri.be website.
+
+Small features, UX and Content Tweaks:
+
+* Added link to new user primer (http://tri.be/support/documentation/events-calendar-pro-new-user-primer/) to the activation message.
+* Added tribe_is_event_in_category conditional to plugin code base.
+* Plugin now adds a default role when registering custom post types.
+* Russian language files incorporated (free & PRO) from Mikhail Michouris
+* Dutch translation files incorporated (free only) from Rick van Dalen
+* Danish translation files incorporated (PRO only) from Christian Andersen
+* Italian translation files incorporated (free & PRO) from Stefano Castelli
+
+Bugs:
+
+* Months will now show appropriate day count, instead of 31 days as they were previously.
+* Custom recurring events previously not showing start AND end time (just start time); now are showing both.
+* Hack to include events in your main loop no longer causes event link to vanish.
+* Fixed issue of recurrence settings changing upon publication.
+* Fixed other bug related to recurrence details showing incorrect date/time.
+* General bugs with weekly recurrence have been squashed.
+* Admin page should no longer hang when updating a recurring event.
+* Breadcrumbs will now show the correct slug info on Thesis.
+* Not entering a name for an organizer or venue doesn’t stop it from publishing, as it did previously.
+* Admin events list now appears with soonest event at the top, not the bottom.
+* Deleting instances of recurrence now works within individual entries.
+* Unnamed venue/organizer now created when no venue or organizer name added.
+* Featured image no longer overlaps the map on individual entries in the default 2011 theme.
+* Custom recurrence events weren't previously showing end time on the frontend; they will now.
+* Comments box now appears on the default page template (was previously only on default events template).
+* Minor change to line 1835 of the-events-calendar.class.php.
+* Incorporated patch to include file name in permalink for users running the plugin on shared IIS servers.
+* Changes to incorrect tag on lines 58, 60 & 62 in views/single.php.
+* Next/Previous link in recurring & standalone events both work fine.
+* General display tweaks to Calendar widget (wasn't showing future events previously, and CSS was screwy)
+* Renamed the dashboard Tribe newsfeed widget to conform with rebranding efforts.
+* Worked to better display comments in Thesis & Genesis themes.
+* General display bugs related to the WP 3.3 beta.
+* Fixed general PHP notices that appeared with debug turned on in your wp-config file.
+
 = 2.0.1 =
 
 Small features, UX and Content Tweeks:
@@ -101,12 +142,3 @@ Bugs:
 = 2.0 =
 
 This is such a major re-write that we are starting the change log over.
-
-= 2.0.2 =
-
-2.0.2 is a minor bug patch for 2.0. Are you upgrading from 1.6.5? Events 2.0 is a MAJOR upgrade, please backup your data and plan a little time in case you have to make any theme edits. Check out the upgrade tutorials in support on the tri.be website.
-
-* Dutch translation (free only) from Rick van Dalen
-* Russian translation (both versions) from Mikhail Michouris
-* Danish translation (PRO only) from Christian Andersen
-* Italian translation (free & PRO) from Stefano Castelli
