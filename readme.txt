@@ -5,7 +5,7 @@ Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.1
 Tested up to: 3.2.1
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 
 == Description ==
 
@@ -72,6 +72,15 @@ For template tags, you can view our template tag includes in the "public" folder
 
 == Changelog ==
 
+= 2.0.2 =
+
+2.0.2 is a minor bug patch for 2.0. Are you upgrading from 1.6.5? Events 2.0 is a MAJOR upgrade, please backup your data and plan a little time in case you have to make any theme edits. Check out the upgrade tutorials in support on the tri.be website.
+
+* Dutch translation (free only) from Rick van Dalen
+* Russian translation (both versions) from Mikhail Michouris
+* Danish translation (PRO only) from Christian Andersen
+* Italian translation (free & PRO) from Stefano Castelli
+
 = 2.0.1 =
 
 Small features, UX and Content Tweeks:
@@ -101,12 +110,3 @@ Bugs:
 = 2.0 =
 
 This is such a major re-write that we are starting the change log over.
-
-= 2.0.2 =
-
-2.0.2 is a minor bug patch for 2.0. Are you upgrading from 1.6.5? Events 2.0 is a MAJOR upgrade, please backup your data and plan a little time in case you have to make any theme edits. Check out the upgrade tutorials in support on the tri.be website.
-
-* Dutch translation (free only) from Rick van Dalen
-* Russian translation (both versions) from Mikhail Michouris
-* Danish translation (PRO only) from Christian Andersen
-* Italian translation (free & PRO) from Stefano Castelli
