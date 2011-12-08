@@ -109,6 +109,23 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Event Tags (Display)
+	 *
+	 * Display the event tags
+	 *
+	 * @param string $label
+	 * @param string $separator
+	 * @uses the_terms()
+	 * @since 2.1
+	 */
+	function tribe_meta_event_tags( $label=null, $separator=', ')  {
+		if( !$label ) { $label = __('Tags:', 'tribe-events-calendar'); }
+
+		$tribe_ecp = TribeEvents::instance();
+		apply_filters('tribe_meta_event_tags', the_terms( get_the_ID(), 'post_tag', '<dt>'.$label.'</dt><dd>', $separator, '</dd>' ));
+	}
+
+	/**
 	 * Event Post Meta
 	 *
 	 * Get event post meta.

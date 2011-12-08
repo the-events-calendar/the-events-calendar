@@ -30,6 +30,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<dd itemprop="price"><?php echo tribe_get_cost(); ?></dd>
 		<?php endif; ?>
 		<?php tribe_meta_event_cats(); ?>
+		<?php tribe_meta_event_tags(); ?>
 		<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) ) : ?>
 			<dt><?php _e('Organizer:', 'tribe-events-calendar') ?></dt>
 			<dd class="vcard author"><span class="fn url"><?php echo tribe_get_organizer_link(); ?></span></dd>
