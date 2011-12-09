@@ -204,3 +204,4 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #
 .tribe_settings #pu_dashboard_message{
 display: none;
 }
+.tribe_settings .expiring-license{color: red;}
