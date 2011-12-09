@@ -5,9 +5,20 @@
 
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
+
+$expiration = $this->get_key_expiration();
+$expiration_date = $expiration['expiration'];
+
 ?>
 <h3><?php _e('License Key', 'plugin-update-engine'); ?></h3>
-<p><?php _e('A valid license key is required for support and updates.', 'plugin-update-engine') ?></p>
+<p><?php 
+	_e('A valid license key is required for support and updates.', 'plugin-update-engine'); 
+	if ($expiration['expired']) { // expired
+		echo ' <span class="expiring-license">'.$this->expiredNotice.'</span>';
+	} elseif (is_string($expiration_date) && $expiration_date != '' && (strtotime($expiration_date) < time()+(604800))) { // expires within the week
+		echo ' <span class="expiring-license">'.$this->expiringWeekNotice.'</span>';
+	}
+	?></p>
 <table class="form-table">
 	<tr>
 		<th scope="row"><?php _e('License Key','plugin-update-engine'); ?></th>
