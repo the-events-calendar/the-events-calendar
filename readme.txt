@@ -4,7 +4,7 @@ Contributors: Shane Pearlman (shane.pearlman), Peter Chester (peterchester), Joh
 Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar, recurring, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.1
-Tested up to: 3.2.1
+Tested up to: 3.3
 Stable tag: 2.0.2
 
 == Description ==
@@ -12,6 +12,8 @@ Stable tag: 2.0.2
 IMPORTANT NOTICE: If you are upgrading from a previous version of The Events Calendar, please BACK UP your data before upgrading! This is a significant update.
 
 The Events Calendar plugin enables you to rapidly create and manage events. Features include Google Maps integration as well as default templates such as a calendar grid and event list, widget and so much more. Looking for recurring events, the ability to sell tickets, manage conference schedules, accept user submitted events automatically and more? Check out the <a href="http://tri.be/products/?ref=tec-readme">available premium and community add-ons</a>. Have questions or looking to get help from our active user community, <a href="https://www.facebook.com/ModernTribeInc">join us on Facebook</a>, sign up for our newsletter (bottom of the home page) or check out <a href="http://tri.be/support/?ref=tec-readme">our support page</a>. Please note that while we are actively supporting this plugin, we don't provide support for non-paying users.
+
+Just getting started? Check out our <a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/?ref=tec-readme">new user primer!</a>
 
 = The Events Calendar 2.0 =
 
@@ -57,6 +59,9 @@ The Events Calendar plugin enables you to rapidly create and manage events. Feat
 1. Update your permalinks to ensure that the event specific rewrite rules take effect.
 1. If you have trouble installing, see the [Codex](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) for more helpful info.
 
+For more information, check out our <a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/?ref=tec-readme">new user primer!</a>
+
+
 = Activate =
 
 No setup required. Just plug and play!
@@ -76,7 +81,7 @@ For template tags, you can view our template tag includes in the "public" folder
 
 Small features, UX and Content Tweaks:
 
-* Added link to new user primer (http://tri.be/support/documentation/events-calendar-pro-new-user-primer/) to the activation message.
+* Added link to new user primer (http://tri.be/support/documentation/events-calendar-pro-new-user-primer?ref=tec-readme) to the activation message.
 * Added tribe_is_event_in_category conditional to plugin code base.
 * Plugin now adds a default role when registering custom post types.
 * Russian language files incorporated (free & PRO) from Mikhail Michouris
@@ -144,4 +149,5 @@ This is such a major re-write that we are starting the change log over.
 == Upgrade Notice ==
 
 = 2.0.2 =
+
 2.0.2 is a minor bug patch for 2.0. Are you upgrading from 1.6.5? Events 2.0 is a MAJOR upgrade, please backup your data and plan a little time in case you have to make any theme edits. Check out the upgrade tutorials in support on the tri.be website.
