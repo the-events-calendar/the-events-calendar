@@ -83,7 +83,7 @@ if ( !class_exists('PU_PluginInfo') ) {
 			foreach($sameFormat as $field){
 				if ( isset($this->$field) ) {
 					$info->$field = $this->$field;
-				}else{
+				} else {
 					$info->$field = NULL;
 				}
 			}
