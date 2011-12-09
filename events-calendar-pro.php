@@ -33,6 +33,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/tribe-events-recurrence-meta.class.php' );
 			require_once( 'lib/tribe-recurrence.class.php' );
 			require_once( 'lib/widget-calendar.class.php' );
+			require_once( 'lib/tribe-related-events.class.php' );
+			require_once( 'lib/widget-related-events.class.php' );
 			require_once( 'template-tags.php' );
 
 			// Tribe common resources
@@ -176,9 +178,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
       }
 
       public function enqueue_resources() {
-         if( is_admin() ) {
+		 if( is_admin() ) {
             wp_enqueue_script( TribeEvents::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.js', array('jquery-ui-datepicker'), '', true );
          }
+         // Enqueue the pro-stylesheet.
+         $stylesheet_url = $this->pluginUrl . 'resources/events.css';
+         if ( $stylesheet_url ) {
+	         wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url );
+		 }
       }
 
 		/**

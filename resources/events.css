@@ -1,0 +1,52 @@
+/* Stylesheet for all pro-only functionality */
+
+/* Related Events */
+.related-events-wrapper {
+	min-height: 200px;
+}
+.related-events-title {
+	text-transform: uppercase;
+	font-family: Georgia, "Times New Roman";
+	letter-spacing: .17em;
+	color: #666;
+	margin-bottom: 10px;
+}
+ul.related-events {
+	display: block;
+	margin: 0;
+}
+ul.related-events li {
+	display: block;
+	min-width: 160px;
+	min-height: 160px;
+	vertical-align: text-bottom;
+	position: relative;
+	float: left;
+	list-style-type: none;
+	padding-right: 0px;
+	margin-bottom: 15px;
+}
+.related-event-date {
+	color: #999;
+	font-family: Georgia, "Times New Roman";
+	font-size: .65em;
+	text-transform: uppercase;
+	margin-top: 3px;
+}
+.related-event-title a {
+	color: #666;
+	font-size: 1em;
+}
+ul.related-events-widget {
+	display: block;
+	margin: 0;
+}
+ul.related-events-widget li {
+	display: block;
+	vertical-align: text-bottom;
+	position: relative;
+	float: left;
+	list-style-type: none;
+	padding-right: 20px;
+	margin-bottom: 15px;
+}
