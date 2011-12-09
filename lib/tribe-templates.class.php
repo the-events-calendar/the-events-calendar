@@ -12,10 +12,18 @@ if (!class_exists('TribeEventsTemplates')) {
 		public static $origPostCount;
 		public static $origCurrentPost;
 		public static $throughHead = false;
+		public static $isMainLoop = false;
 	
 		public static function init() {
 			add_filter( 'template_include', array( __CLASS__, 'templateChooser') );
 			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished'), 999 );
+
+			/**
+			 * functions to insert events into the main loop
+			 * @since 2.1
+			 */
+	 		add_action( 'pre_get_posts', array( __CLASS__, 'showInLoops' ));
+			add_filter( 'the_content', array( __CLASS__, 'hijackContentInMainLoop') );
 		}
 
 		// pick the correct template to include
@@ -69,8 +77,11 @@ if (!class_exists('TribeEventsTemplates')) {
 		}					
 	
 		private static function is_main_loop($query) {
+			if (method_exists($query, 'is_main_query')) // WP 3.3+
+     		return $query->is_main_query();
+
 			global $wp_the_query;
-			return $query === $wp_the_query;
+			return $query === $wp_the_query; // fallback
 		}
 		
 		// get the correct internal page template
@@ -138,6 +149,52 @@ if (!class_exists('TribeEventsTemplates')) {
 				return $tribe_ecp->pluginPath . 'admin-views/no-comments.php';
 			}
 			return $template;
+		}
+
+
+		/**
+		 * checks where we are are and determines if we
+		 * should show events in the main loop
+		 *
+		 * @since 2.1
+		 */
+		public static function showInLoops($query) {
+			if (!is_admin() && tribe_get_option('showInLoops') && ($query->is_home() || $query->is_tag) && empty($query->query_vars['post_type']) && false == $query->query_vars['suppress_filters']) {
+
+				// 3.3 know-how for main query check
+        // if (method_exists($query, 'is_main_query')) {
+          if (self::is_main_loop($query)) {
+            self::$isMainLoop = true;
+        		$post_types = array('post', TribeEvents::POSTTYPE);
+            $query->set('post_type', $post_types);
+          }
+
+			}
+		}
+
+		/**
+		 * filters the_content to show the event when
+		 * we are in the main loop and showing events
+		 *
+		 * @return string filtered $content
+		 * @since 2.1
+		 */
+		public static function hijackContentInMainLoop($content) {
+
+			// only run once!!!
+			remove_filter('the_content', array(__CLASS__, 'hijackContentInMainLoop') );
+
+			global $post;
+			if (tribe_is_in_main_loop() && tribe_is_event($post->ID)) {
+				ob_start();
+				echo stripslashes(tribe_get_option('spEventsBeforeHTML'));
+				include_once(TribeEventsTemplates::getTemplateHierarchy('in-loop'));
+				echo stripslashes(tribe_get_option('spEventsAfterHTML'));
+				$content = ob_get_contents();
+				ob_end_clean();
+			}
+
+			return $content;
 		}
 
 		/**

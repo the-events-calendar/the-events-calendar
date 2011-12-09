@@ -134,7 +134,20 @@ if( class_exists( 'TribeEvents' ) ) {
 		$tribe_ecp = TribeEvents::instance();
 
 		$title = __('Calendar of Events', 'tribe-events-calendar');
+
 		if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
+			$cat = get_term_by( 'slug', get_query_var('term'), $tribe_ecp->get_event_taxonomy() );
+			if ( $depth ) {
+				$title = '<a href="'.tribe_get_events_link().'">'.$title.'</a>';
+				$title .= ' &#8250; ' . $cat->name;
+			} else {
+				$title = $cat->name;
+			}
+		}
+
+		// global $wp_rewrite;
+		// die(var_dump($wp_rewrite));
+		if ( is_tax( 'post_tag' ) ) {
 			$cat = get_term_by( 'slug', get_query_var('term'), $tribe_ecp->get_event_taxonomy() );
 			if ( $depth ) {
 				$title = '<a href="'.tribe_get_events_link().'">'.$title.'</a>';
@@ -173,6 +186,17 @@ if( class_exists( 'TribeEvents' ) ) {
 		$tribe_ecp = TribeEvents::instance();
 		$output = $tribe_ecp->getLink('past');
 		return apply_filters('tribe_get_past_link', $output);
+	}
+
+
+	/**
+	 * Determines if we are in the main Loop (home/archives/tags)
+	 *
+	 * @return bool
+	 * @since 2.1
+	 */
+	function tribe_is_in_main_loop()  {
+		return apply_filters('tribe_is_main_loop', TribeEventsTemplates::$isMainLoop);
 	}
 
 }
