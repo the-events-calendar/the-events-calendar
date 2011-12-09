@@ -99,7 +99,7 @@ Bugs:
 * General bugs with weekly recurrence have been squashed.
 * Admin page should no longer hang when updating a recurring event.
 * Breadcrumbs will now show the correct slug info on Thesis.
-* Not entering a name for an organizer or venue doesn’t stop it from publishing, as it did previously.
+* Not entering a name for an organizer or venue doesn't stop it from publishing, as it did previously.
 * Admin events list now appears with soonest event at the top, not the bottom.
 * Deleting instances of recurrence now works within individual entries.
 * Unnamed venue/organizer now created when no venue or organizer name added.
