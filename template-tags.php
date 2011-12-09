@@ -23,7 +23,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		function tribe_is_recurring_event( $postId = null )  {
 			$tribe_ecp = TribeEvents::instance();
 			$postId = TribeEvents::postIdHelper( $postId );
-			return sizeof(get_post_meta($postId, '_EventStartDate')) > 1;
+			return apply_filters('tribe_is_recurring_event', (sizeof(get_post_meta($postId, '_EventStartDate')) > 1));
 		}
 	}
 
@@ -58,7 +58,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			$postId = TribeEvents::postIdHelper( $postId );
 			$post = get_post($postId);
 			$tribe_ecp = TribeEvents::instance();
-			echo $tribe_ecp->getLink('all');		
+			echo apply_filters('tribe_all_occurences_link', $tribe_ecp->getLink('all'));
 		}
 	}
 	
@@ -83,7 +83,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 				}
 			}
 		}
-		return $data;
+		return apply_filters('tribe_get_custom_fields', $data);
 	}
 	
 	/**
@@ -101,7 +101,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			$meta_html .= apply_filters('tribe_the_custom_field',"<dt>$label:</dt><dd>$value</dd>\n",$label,$value);
 		}
 		$meta_html .= "</dl>\n";
-		echo $meta_html;
+		echo apply_filters('tribe_the_custom_fields', $meta_html);
 	}
 	
 	/**
@@ -115,7 +115,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	function tribe_get_single_ical_link()  {
 		$tribe_ecp = TribeEvents::instance();
 		$output = $tribe_ecp->getLink( 'ical', 'single' );
-		return $output;
+		return apply_filters('tribe_get_single_ical_link', $output);
 	}
 
 	/**
@@ -129,7 +129,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	function tribe_get_ical_link()  {
 		$tribe_ecp = TribeEvents::instance();
 		$output = $tribe_ecp->getLink('ical');
-		return $output;
+		return apply_filters('tribe_get_ical_link', $output);
 	}
 
 	/**
@@ -145,7 +145,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$postId = TribeEvents::postIdHelper( $postId );
 		$tribe_ecp = TribeEventsPro::instance();
 		$output = esc_url($tribe_ecp->googleCalendarLink( $postId ));
-		return $output;
+		return apply_filters('tribe_get_gcal_link', $output);
 	}
 
 	/** 
@@ -163,7 +163,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$return .= "<a href='" . tribe_get_day_link($date) . "'>";
 		$return .= $day;
 		$return .= "</a>";
-		return $return;
+		return apply_filters('tribe_get_linked_day', $return);
 	}
 
 }
