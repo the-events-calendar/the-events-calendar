@@ -24,8 +24,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'rewrite' => array('slug' => 'event', 'with_front' => false),
 			'menu_position' => 6,
 			'supports' => array('title','editor','excerpt','author','thumbnail'),
-			'capability_type' => array('tribe_event', 'tribe_events'),
-			'map_meta_cap' => TRUE,
+			//'capability_type' => array('tribe_event', 'tribe_events'),
+			//'map_meta_cap' => TRUE,
 		);
 		protected $postVenueTypeArgs = array(
 			'public' => true,
@@ -33,8 +33,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'show_ui' => true,
 			'show_in_menu' => 0,
 			'supports' => array('title', 'editor'),
-			'capability_type' => array('tribe_venue', 'tribe_venues'),
-			'map_meta_cap' => TRUE,
+			//'capability_type' => array('tribe_venue', 'tribe_venues'),
+			//'map_meta_cap' => TRUE,
 			'exclude_from_search' => true
 		);
 		protected $postOrganizerTypeArgs = array(
@@ -44,8 +44,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'show_in_menu' => 0,
 			'menu_position' => 6,
 			'supports' => array(''),
-			'capability_type' => array('tribe_organizer', 'tribe_organizers'),
-			'map_meta_cap' => TRUE,
+			//'capability_type' => array('tribe_organizer', 'tribe_organizers'),
+			//'map_meta_cap' => TRUE,
 			'exclude_from_search' => true
 		);
 		protected $taxonomyLabels;

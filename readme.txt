@@ -74,8 +74,6 @@ For template tags, you can view our template tag includes in the "public" folder
 
 = 2.0.2 =
 
-2.0.2 is a minor bug patch for 2.0. Are you upgrading from 1.6.5? Events 2.0 is a MAJOR upgrade, please backup your data and plan a little time in case you have to make any theme edits. Check out the upgrade tutorials in support on the tri.be website.
-
 Small features, UX and Content Tweaks:
 
 * Added link to new user primer (http://tri.be/support/documentation/events-calendar-pro-new-user-primer/) to the activation message.
@@ -142,3 +140,8 @@ Bugs:
 = 2.0 =
 
 This is such a major re-write that we are starting the change log over.
+
+== Upgrade Notice ==
+
+= 2.0.2 =
+2.0.2 is a minor bug patch for 2.0. Are you upgrading from 1.6.5? Events 2.0 is a MAJOR upgrade, please backup your data and plan a little time in case you have to make any theme edits. Check out the upgrade tutorials in support on the tri.be website.
