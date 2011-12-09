@@ -799,6 +799,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$boolean_opts = array(
 					'embedGoogleMaps',
 					'showComments',
+					'showInLoops',
 					'displayEventsOnHomepage',
 					'debugEvents',
 				);
