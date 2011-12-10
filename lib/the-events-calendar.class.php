@@ -239,6 +239,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function init() {
 			$this->loadTextDomain();
+			$this->addCustomFieldSupport();
 			$this->pluginName = __( 'The Events Calendar', 'tribe-events-calendar' );
 			$this->rewriteSlug = $this->getOption('eventsSlug', 'events');
 			$this->rewriteSlugSingular = $this->getOption('singleEventSlug', 'event');
@@ -957,6 +958,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			load_plugin_textdomain( 'tribe-events-calendar', false, $this->pluginDir . 'lang/');
 			$this->constructDaysOfWeek();
 			$this->initMonthNames();
+		}
+		
+		public function addCustomFieldSupport() {
+			add_post_type_support( self::POSTTYPE, 'custom-fields' );
 		}
 
 		public function loadStyle() {
