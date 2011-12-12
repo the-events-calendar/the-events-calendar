@@ -19,7 +19,8 @@ if( !class_exists( 'TribeRelatedEventsWidget') ) {
 			echo $before_widget;
 			$title = apply_filters('widget_title', empty($instance['title']) ? '&nbsp;' : $instance['title']);
 			$events = tribe_get_related_events($instance['count']);
-			tribe_related_events($title, $instance['count'], $instance['thumbnails'], $instance['start_date']);
+			echo '<h3 class="widget-title">' . $title . '</h3>';
+			tribe_related_events($title, $instance['count'], $instance['thumbnails'], $instance['start_date'], false);
 			echo $after_widget;
 		}
 		

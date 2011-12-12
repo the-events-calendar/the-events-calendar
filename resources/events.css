@@ -13,7 +13,6 @@ ul.related-events {
 ul.related-events li {
 	display: block;
 	min-width: 160px;
-	min-height: 160px;
 	vertical-align: text-bottom;
 	position: relative;
 	float: left;

@@ -92,12 +92,14 @@ if ( !class_exists( 'TribeRelatedEvents' ) ) {
 		}
 		
 		// Set up the code to display the events.
-		public function displayEvents( $title, $count=3, $thumbnails=false, $start_date=false ) {
+		public function displayEvents( $title, $count=3, $thumbnails=false, $start_date=false, $get_title=true ) {
 			// Get the evemts.
 			$events = self::getEvents( $count );
 			
 			echo '<div class="related-events-wrapper">';
-			echo '<h2 class="related-events-title">'.$title .'</h2>';
+			if ($get_title == true) {
+				echo '<h2 class="related-events-title">'.$title .'</h2>';
+			}
 			// If events were returned, display them.
 			if (is_array($events) && count($events)) {
 				echo '<ul class="related-events">';

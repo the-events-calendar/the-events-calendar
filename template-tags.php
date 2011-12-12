@@ -190,8 +190,8 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	* @param bool $start_date
 	* @since 2.1
 	*/
-	function tribe_related_events ($title, $count=3, $thumbnails=false, $start_date=false) {
-		return apply_filters('tribe_related_events', TribeRelatedEvents::displayEvents( $title, $count, $thumbnails, $start_date ) );
+	function tribe_related_events ($title, $count=3, $thumbnails=false, $start_date=false, $get_title=true) {
+		return apply_filters('tribe_related_events', TribeRelatedEvents::displayEvents( $title, $count, $thumbnails, $start_date, $get_title ) );
 	}
 
 }
