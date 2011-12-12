@@ -165,5 +165,33 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$return .= "</a>";
 		return apply_filters('tribe_get_linked_day', $return);
 	}
+	
+	/**
+	* Get Related Events
+	*
+	* Get a list of related events to the current post
+	*
+	* @param int $count
+	* @return array Array of events
+	* @since 2.1
+	*/
+	function tribe_get_related_events ($count=3) {
+		return apply_filters('tribe_get_related_events', TribeRelatedEvents::getEvents( $count ) );
+	}
+	
+	/**
+	* Display Related Events
+	*
+	* Display a list of related events to the current post
+	*
+	* @param string $title
+	* @param int $count
+	* @param bool $thumbnails
+	* @param bool $start_date
+	* @since 2.1
+	*/
+	function tribe_related_events ($title, $count=3, $thumbnails=false, $start_date=false) {
+		return apply_filters('tribe_related_events', TribeRelatedEvents::displayEvents( $title, $count, $thumbnails, $start_date ) );
+	}
 
 }

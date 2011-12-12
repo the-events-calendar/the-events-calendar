@@ -47,7 +47,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/widget-featured.class.php');
 
 			add_action( 'init', array( $this, 'init' ), 10 );			
-			add_action( 'init', array( $this, 'enqueue_resources') );
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts') );
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles') );
 			add_action( 'tribe_after_location_details', array( $this, 'add_google_map_preview') );
 			add_action( 'tribe_tec_template_chooser', array( $this, 'do_ical_template' ) );
 			add_action( 'tribe-events-after-theme-settings', array( $this, 'event_defaults_options') );
@@ -177,10 +178,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
          ?><div style="clear:both"></div><?php
       }
 
-      public function enqueue_resources() {
-		 if( is_admin() ) {
+      public function admin_enqueue_scripts() {
             wp_enqueue_script( TribeEvents::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.js', array('jquery-ui-datepicker'), '', true );
-         }
+      }
+      
+      public function enqueue_styles() {
          // Enqueue the pro-stylesheet.
          $stylesheet_url = $this->pluginUrl . 'resources/events.css';
          if ( $stylesheet_url ) {

@@ -1,4 +1,19 @@
 <?php
+/**
+* Tribe Related Events
+*
+* Allows the user to created use a shortcode or widget to display events related
+* to the current post. The shortcode is [related-events] and accepts
+* "title", "count", "thumbnails", and "start_date" as arguments to accept a 
+* title, the number of events to show, to show or not show thumbnails, and to show
+* or not show the start date of each event, respectively.
+*
+* @author Paul Hughes
+*/
+
+// Don't load directly
+if ( !defined('ABSPATH') ) { die('-1'); }
+
 if ( !class_exists( 'TribeRelatedEvents' ) ) {
 	class TribeRelatedEvents {
 		
@@ -42,7 +57,7 @@ if ( !class_exists( 'TribeRelatedEvents' ) ) {
 		public function setUpThumbnails() {
 			if (current_theme_supports('post-thumbnails')) {
 				global $_wp_additional_image_sizes;
-				if (!isset($_wp_additional_image_sizes['realted-event-thumbnail'])) {
+				if (!isset($_wp_additional_image_sizes['related-event-thumbnail'])) {
 					add_image_size('related-event-thumbnail', 150, 100, true);
 				}
 			}
@@ -50,9 +65,9 @@ if ( !class_exists( 'TribeRelatedEvents' ) ) {
 		
 		
 		// Function to get the Related Events.
-		public function getEvents($count=3 ) {
+		public function getEvents( $count=3 ) {
 			$post_id = get_the_ID();
-			$event_taxonomy_name = "tribe_events";
+			$event_taxonomy_name = TribeEvents::POSTTYPE;
 			if ($count > 5) { $count = 5; }
 			if ($count < 1) { $count = 1; }
 			
@@ -70,7 +85,7 @@ if ( !class_exists( 'TribeRelatedEvents' ) ) {
 				$events = array();
 				// Get an array of posts.
 				if ($tag = get_term_by('slug', $tag, 'post_tag')) {
-					$events = get_posts( array( 'tag' => $tag->slug, 'numberposts' => $count, 'exclude' => $exclude, 'post_type' => $event_taxonomy_name, 'orderby' => 'rand' ) );
+					$events = get_posts( array( 'tag' => $tag->slug, 'posts_per_page' => $count, 'exclude' => $exclude, 'post_type' => $event_taxonomy_name, 'orderby' => 'rand' ) );
 				}
 			}
 			return $events;
@@ -82,7 +97,7 @@ if ( !class_exists( 'TribeRelatedEvents' ) ) {
 			$events = self::getEvents( $count );
 			
 			echo '<div class="related-events-wrapper">';
-			echo '<div class="related-events-title">'.$title .'</div>';
+			echo '<h2 class="related-events-title">'.$title .'</h2>';
 			// If events were returned, display them.
 			if (is_array($events) && count($events)) {
 				echo '<ul class="related-events">';
@@ -90,42 +105,28 @@ if ( !class_exists( 'TribeRelatedEvents' ) ) {
 					echo '<li>';
 					// If thumbnail was requested, get and display it.
 					if ($thumbnails) {
-						$thumb = get_the_post_thumbnail($event->ID, 'related-event-thumbnail' );
-						if ($thumb) {
-							echo '<div class="related-event-thumbnail"><a href="' .get_permalink($event) .'">' .$thumb .'</a></div>';
+						if (has_post_thumbnail($event->ID)) {
+							echo '<div class="related-event-thumbnail"><a href="' .get_permalink($event) .'">' .get_the_post_thumbnail($event->ID, 'related-event-thumbnail' ).'</a></div>';
 						}
 					}
+
 					// If startdate was requested, get and display it.
 					if ($start_date) {
-						$date = $event->EventStartDate;
-						$date = new DateTime($date);
-						$date = $date->format('M. jS');
-						echo '<div class="related-event-date">' .$date .'</div>';
+						$date_format = 'M. jS';
+						echo '<div class="related-event-date">' .tribe_get_start_date($event->ID, false, $date_format).'</div>';
 					}
+					
 					// Display the other event information.
 					echo '<div class="related-event-title"><a href="' .get_permalink($event) .'">' .get_the_title($event) .'</a></div>';
 					echo '</li>';
 				}
 				echo '</ul>';
+			} else {
+				echo __('No Related Events', 'tribe-events-calendar-pro');
 			}
 			echo '</div>';
 		}
 		
 	}
 	TribeRelatedEvents::getInstance();
-	
-	
-	// Declare some functions that other scripts can use.
-	
-	if ( !function_exists('tribe_get_related_events') ) {
-		function tribe_get_related_events ($count=3) {
-			return TribeRelatedEvents::getEvents( $count );
-		}
-	}
-	
-	if ( !function_exists('tribe_related_events') ) {
-		function tribe_related_events ($title, $count=3, $thumbnails=false, $start_date=false) {
-			return TribeRelatedEvents::displayEvents( $title, $count, $thumbnails, $start_date );
-		}
-	}
 }
