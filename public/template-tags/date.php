@@ -26,6 +26,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		$postId = TribeEvents::postIdHelper( $postId );
 		if (!$postId || ( function_exists('tribe_is_recurring_event') && tribe_is_recurring_event( $postId ) ) ) {
 			global $post;
+			$post = get_post(get_the_ID());
 		} else {
 			$post = get_post($postId);
 		}
@@ -33,8 +34,11 @@ if( class_exists( 'TribeEvents' ) ) {
 		if( tribe_get_all_day( $postId ) )
 			 $displayTime = false;
 
+		if( empty($post->EventStartDate) )
+			$post->EventStartDate = tribe_get_event_meta( $postId, '_EventStartDate', true );
+
 		if( isset($post->EventStartDate) ){
-			$date = strtotime( $post->EventStartDate ? $post->EventStartDate : tribe_get_event_meta( $postId, '_EventStartDate', true ));
+			$date = strtotime( $post->EventStartDate );
 		}else{
 			return; // '&mdash;';
 		}
@@ -65,8 +69,11 @@ if( class_exists( 'TribeEvents' ) ) {
 		if( tribe_get_all_day( $postId ) )
 			 $displayTime = false;
 
+		if( empty($post->EventStartDate) )
+			$post->EventEndDate = tribe_get_event_meta( $postId, '_EventEndDate', true );
+
 		if( isset($post->EventEndDate) ){
-			$date = strtotime( $post->EventEndDate ? $post->EventEndDate : tribe_get_event_meta( $postId, '_EventEndDate', true ));
+			$date = strtotime( $post->EventEndDate );
 		}else{
 			return; // '&mdash;';
 		}
