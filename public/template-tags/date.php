@@ -26,7 +26,6 @@ if( class_exists( 'TribeEvents' ) ) {
 		$postId = TribeEvents::postIdHelper( $postId );
 		if (!$postId || ( function_exists('tribe_is_recurring_event') && tribe_is_recurring_event( $postId ) ) ) {
 			global $post;
-			$post = get_post(get_the_ID());
 		} else {
 			$post = get_post($postId);
 		}
