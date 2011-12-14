@@ -1524,7 +1524,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			//That would be bad.
 			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 
-			if( !$_POST['post_title'] ) { $_POST['post_title'] = "Unnamed Venue"; }
+			if( !isset($_POST['post_title']) || !$_POST['post_title'] ) { $_POST['post_title'] = "Unnamed Venue"; }
 			$_POST['venue']['Venue'] = $_POST['post_title'];
 			$data = stripslashes_deep($_POST['venue']);
 			$venue_id = TribeEventsAPI::updateVenue($postID, $data);
@@ -1672,6 +1672,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$_VenueStateProvince = -1; // we want to use default values here
 			}
 
+			$_EventStartDate = (isset($_EventStartDate)) ? $_EventStartDate : null;
+			$_EventEndDate = (isset($_EventEndDate)) ? $_EventEndDate : null;
 			$_EventAllDay = isset($_EventAllDay) ? $_EventAllDay : false;
 			$isEventAllDay = ( $_EventAllDay == 'yes' || ! TribeDateUtils::dateOnly( $_EventStartDate ) ) ? 'checked="checked"' : ''; // default is all day for new posts
 			$startMonthOptions 		= TribeEventsViewHelpers::getMonthOptions( $_EventStartDate );
