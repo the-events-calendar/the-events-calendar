@@ -153,6 +153,9 @@ if (!class_exists('TribeEventsAPI')) {
 					TribeEventsAPI::saveOrganizerMeta($organizerId, $data);
 					return $organizerId;
 				}
+			} else {
+				// if the venue is blank, let's save the value as 0 instead
+				return 0;
 			}
 		}	
 
@@ -208,6 +211,9 @@ if (!class_exists('TribeEventsAPI')) {
 					TribeEventsAPI::saveVenueMeta($venueId, $data);
 					return $venueId;
 				}
+			} else {
+				// if the venue is blank, let's save the value as 0 instead
+				return 0;
 			}
 		}	
 
