@@ -9,7 +9,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if (!class_exists('TribeEventsAPI')) {
 	class TribeEventsAPI {
       public static $valid_venue_keys = array(
-         'Venue', 'Address', 'City', 'Province', 'State', 'StateProvince', 'Zip', 'Phone'
+         'Venue', 'Address', 'City', 'Province', 'State', 'StateProvince', 'Province', 'Zip', 'Phone'
       );
 
       public static $valid_organizer_keys = array(
@@ -242,10 +242,10 @@ if (!class_exists('TribeEventsAPI')) {
 		 */
 		private static function saveVenueMeta($venueId, $data) {
 			// TODO: We should probably do away with 'StateProvince' and stick to 'State' and 'Province'.
-			if (!isset($data['StateProvince'])) {
-				if (isset($data['State'])) {
+			if (!isset($data['StateProvince']) || $data['StateProvince'] == '') {
+				if (isset($data['State']) && $data['State'] != '') {
 					$data['StateProvince'] = $data['State'];
-				} else if(isset($data['Province'])) {
+				} else if(isset($data['Province'])  && $data['Province'] != '') {
 					$data['StateProvince'] = $data['Province'];					
 				}
 			}
