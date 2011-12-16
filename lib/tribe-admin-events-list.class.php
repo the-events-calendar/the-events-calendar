@@ -203,49 +203,62 @@ if (!class_exists('TribeEventsAdminList')) {
 			return $columns;
 		}		
 
-		public static function custom_columns( $column_id, $post_id ) {
+		public static function custom_columns( $column_id, $post_id, $echo = true ) {
 			if(self::$events_list && sizeof(self::$events_list) > 0) {
 				if ( $column_id == 'events-cats' ) {
 					$event_cats = get_the_term_list( $post_id, TribeEvents::TAXONOMY, '', ', ', '' );
-					echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
+					$custom_columns = ( $event_cats ) ? strip_tags( $event_cats ) : '—';
 				}
 				if ( $column_id == 'start-date' ) {
-					echo tribe_event_format_date(strtotime(self::$events_list[0]->EventStartDate), false);
+					$custom_columns = tribe_event_format_date(strtotime(self::$events_list[0]->EventStartDate), false);
 					if ( ! self::$end_col_active ) self::advance_date();
 				}
 				if ( $column_id == 'end-date' ) {
-					echo tribe_event_format_date(strtotime(self::$events_list[0]->EventEndDate), false);
+					$custom_columns = tribe_event_format_date(strtotime(self::$events_list[0]->EventEndDate), false);
 					if ( self::$start_col_first) self::advance_date();
 				}
 
 				if ( $column_id == 'recurring' ) {
-					echo sizeof(get_post_meta($post_id, '_EventStartDate')) > 1 ? __("Yes", 'tribe-events-calendar') : __("No", 'tribe-events-calendar');
+					$custom_columns = sizeof(get_post_meta($post_id, '_EventStartDate')) > 1 ? __("Yes", 'tribe-events-calendar') : __("No", 'tribe-events-calendar');
 				}
 			} else {
-				self::ajax_custom_columns($column_id, $post_id);
+				$custom_columns = self::ajax_custom_columns($column_id, $post_id, $echo);
 			}
+			
+			if( $echo ){
+				echo $custom_columns;
+			}else{
+				return $custom_columns;
+			}
+			
 		}
 		
 		protected static function advance_date() {
 			array_shift( self::$events_list );
 		}
 	
-		public static function ajax_custom_columns ($column_id, $post_id) {
+		public static function ajax_custom_columns ($column_id, $post_id, $echo = true) {
 				if ( $column_id == 'events-cats' ) {
 					$event_cats = get_the_term_list( $post_id, TribeEvents::TAXONOMY, '', ', ', '' );
-					echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
+					$ajax_custom_columns = ( $event_cats ) ? strip_tags( $event_cats ) : '—';
 				}
 			
 				if ( $column_id == 'recurring' ) {
-					echo sizeof(get_post_meta($post_id, '_EventStartDate')) > 1 ? "Yes" : "No";
+					$ajax_custom_columns = sizeof(get_post_meta($post_id, '_EventStartDate')) > 1 ? "Yes" : "No";
 				}			
 			
 				if ( $column_id == 'start-date' ) {
-					echo tribe_get_start_date($post_id, false);
+					$ajax_custom_columns = tribe_get_start_date($post_id, false);
 				}
 				if ( $column_id == 'end-date' ) {
-					echo tribe_get_end_date($post_id, false);
+					$ajax_custom_columns = tribe_get_end_date($post_id, false);
 				}
+				
+			if( $echo ){
+				echo $ajax_custom_columns;
+			}else{
+				return $ajax_custom_columns;
+			}
 		}
 	
 		public static function add_event_occurrance_to_edit_link($link, $eventId) {

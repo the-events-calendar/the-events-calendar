@@ -1,4 +1,8 @@
 jQuery(document).ready(function($) {
+
+	//not done by default on front end
+	$('.hide-if-js').hide();
+
 	if(typeof(TEC) != 'undefined'){	
 		var datepickerOpts = { 
 			dateFormat: 'yy-mm-dd',

@@ -224,6 +224,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
+		public static function ecpActive() {
+			return class_exists( 'TribeEventsPro' ) && defined('TribeEventsPro::VERSION') && version_compare( TribeEventsPro::VERSION, '2.1', '>=');
+		}
+
 		/**
 		 * Add code to tell search engines not to index the grid view of the 
 		 * calendar.  Users were seeing 100s of months being indexed.
@@ -685,6 +689,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			wp_enqueue_style( self::POSTTYPE.'-admin', $this->pluginUrl . 'resources/events-admin.css' );		
 			
 			global $current_screen;
+			
 			if ( isset($current_screen->post_type) ) {
 				if ( $current_screen->post_type == self::POSTTYPE || $current_screen->id == 'settings_page_the-events-calendar.class' ) {
 					wp_enqueue_style( self::POSTTYPE.'-admin-ui', $this->pluginUrl . 'resources/events-admin-ui.css' );		
@@ -1624,42 +1629,59 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *
 		 * @return void
 		 */
-		public function EventsChooserBox() {
-			global $post;
+		public function EventsChooserBox($event = null) {
+			
+			$saved = false;
+			
+			if(!$event){
+				global $post;
+				
+				if( isset($_GET['post']) && $_GET['post'] )
+					$saved = true;
+			}else{
+				$post = $event;
+				$saved = true;
+			}
+			
 			$options = '';
 			$style = '';
 			$postId = $post->ID;
 
-			foreach ( $this->metaTags as $tag ) {
-				if ( $postId && isset($_GET['post']) && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
-					// Sort the meta to make sure it is correct for recurring events
-					$meta = get_post_meta($postId,$tag); 
-					sort($meta);
-					if (isset($meta[0])) { $$tag = $meta[0]; }
-				} else {
-					$cleaned_tag = str_replace('_Event','',$tag);
-					$$tag = class_exists('TribeEventsPro') ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
+				foreach ( $this->metaTags as $tag ) {
+					if ( $postId && $saved ) { //if there is a post AND the post has been saved at least once.
+					
+						// Sort the meta to make sure it is correct for recurring events
+						
+						$meta = get_post_meta($postId,$tag);
+						sort($meta);
+						if (isset($meta[0])) { $$tag = $meta[0]; }
+					} else {
+						$cleaned_tag = str_replace('_Event','',$tag);
+						$$tag = class_exists('TribeEventsPro') ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
+					}
 				}
-			}
 
-			if( isset($_EventOrganizerID) && $_EventOrganizerID ) {
+			if( isset($_EventOrganizerID) && $_EventOrganizerID) {
 				foreach($this->organizerTags as $tag) {
 					$$tag = get_post_meta($_EventOrganizerID, $tag, true );
 				}
 			}
 
 			if(isset($_EventVenueID) && $_EventVenueID){
+			
 				foreach($this->venueTags as $tag) {
 					$$tag = get_post_meta($_EventVenueID, $tag, true );
 				}
 
 			}else{
+			
 				$defaults = $this->venueTags;
 				$defaults[] = '_VenueState';
 				$defaults[] = '_VenueProvince';
 
 				foreach ( $defaults as $tag ) {
-					if ( !$postId || !isset($_GET['post']) ) { //if there is a post AND the post has been saved at least once.
+					if ( !$postId && !$saved ) { //if there is a post AND the post has been saved at least once?
+						
 						$cleaned_tag = str_replace('_Venue','',$tag);
 
 						if($cleaned_tag == 'Cost')
