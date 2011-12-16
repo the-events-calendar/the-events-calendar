@@ -68,7 +68,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		if( tribe_get_all_day( $postId ) )
 			 $displayTime = false;
 
-		if( empty($post->EventStartDate) )
+		if( empty($post->EventEndDate) )
 			$post->EventEndDate = tribe_get_event_meta( $postId, '_EventEndDate', true );
 
 		if( isset($post->EventEndDate) ){
