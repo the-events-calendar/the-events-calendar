@@ -687,6 +687,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function addAdminScriptsAndStyles() {
 			// always load style. need for icon in nav.
 			wp_enqueue_style( self::POSTTYPE.'-admin', $this->pluginUrl . 'resources/events-admin.css' );		
+			wp_enqueue_style( 'chosen-style', $this->pluginUrl . 'resources/chosen.css' );
+			wp_enqueue_script( 'chosen-jquery', $this->pluginUrl . 'resources/chosen.jquery.min.js', array('jquery'), '0.9.5', false );
+			wp_enqueue_script( 'chosen-jquery-load', $this->pluginUrl . 'resources/chosen-load.js', array('jquery', 'chosen-jquery'), '', false );
 			
 			global $current_screen;
 			

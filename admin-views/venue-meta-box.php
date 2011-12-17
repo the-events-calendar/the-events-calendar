@@ -26,7 +26,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <tr class="venue">
 	<td><?php _e('Country:','tribe-events-calendar'); ?></td>
 	<td>
-		<select tabindex="<?php $this->tabIndex(); ?>" name='venue[Country]' id="EventCountry">
+		<select class="chosen" tabindex="<?php $this->tabIndex(); ?>" name='venue[Country]' id="EventCountry">
 			<?php
 			$countries = TribeEventsViewHelpers::constructCountries( $postId );
 			$defaultCountry = tribe_get_option('defaultCountry');
