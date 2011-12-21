@@ -72,6 +72,9 @@ For template tags, you can view our template tag includes in the "public" folder
 
 == Changelog ==
 
+= 2.1 =
+* Revised Dutch translation files (thanks to Jacob Roel Meijering)
+
 = 2.0.1 =
 
 Small features, UX and Content Tweeks:
