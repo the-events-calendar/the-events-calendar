@@ -73,7 +73,9 @@ For template tags, you can view our template tag includes in the "public" folder
 == Changelog ==
 
 = 2.1 =
-* Revised Dutch translation files (thanks to Jacob Roel Meijering)
+
+* Revised Events Calendar (free) Dutch translation files (thanks to Jacob Roel Meijering)
+* Revised Events Calendar PRO Dutch translation files (thanks to Ed Boon)
 
 = 2.0.1 =
 
