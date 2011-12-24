@@ -33,7 +33,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) ) : ?>
 			<dt><?php _e('Organizer:', 'tribe-events-calendar') ?></dt>
 			<dd class="vcard author"><span class="fn url"><?php echo tribe_get_organizer_link(); ?></span></dd>
-      <?php else: ?>
+      <?php elseif (tribe_get_organizer()): ?>
 			<dt><?php _e('Organizer:', 'tribe-events-calendar') ?></dt>
 			<dd class="vcard author"><span class="fn url"><?php echo tribe_get_organizer(); ?></span></dd>
 		<?php endif; ?>
