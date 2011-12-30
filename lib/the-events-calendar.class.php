@@ -803,6 +803,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					'showComments',
 					'displayEventsOnHomepage',
 					'debugEvents',
+					'defaultValueReplace',
 				);
 				foreach ($boolean_opts as $opt) {					
 					$options[$opt] = (isset($_POST[$opt])) ? true : false;
@@ -815,7 +816,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					'spEventsAfterHTML',
 					'spEventsBeforeHTML',
 					'spEventsCountries',
-					'defaultValueReplace',
 					'eventsDefaultVenueID',
 					'eventsDefaultOrganizerID',
 					'eventsDefaultState',
