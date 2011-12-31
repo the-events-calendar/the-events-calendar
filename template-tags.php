@@ -103,7 +103,36 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$meta_html .= "</dl>\n";
 		echo apply_filters('tribe_the_custom_fields', $meta_html);
 	}
-	
+
+	/**
+	 * Get Event Custom Field by Label
+	 *
+	 * retrieve a custom field's value by searching its label
+	 * instead of its (more obscure) ID
+	 *
+	 * @since 2.1
+	 * @param (string) $label, the label to search for
+	 * @param (int) $eventID (optional), the event to look for, defaults to global $post
+	 * @return (string) value of the field
+	 */
+	function tribe_get_custom_field( $label, $eventID = null ) {
+		return apply_filters('tribe_get_custom_field', TribeEventsCustomMeta::get_custom_field_by_label( $label, $eventID ) );
+	}
+
+	/**
+	 * Echo Event Custom Field by Label
+	 *
+	 * same as above but echo instead of return
+	 *
+	 * @since 2.1
+	 * @param (string) $label, the label to search for
+	 * @param (int) $eventID (optional), the event to look for, defaults to global $post
+	 * @return (string) value of the field
+	 */
+	function tribe_custom_field( $label, $eventID = null ) {
+		echo tribe_get_custom_field( $label, $eventID = null );
+	}
+
 	/**
 	 * iCal Link (Single)
 	 * 
