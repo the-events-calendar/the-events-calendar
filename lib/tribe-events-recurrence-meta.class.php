@@ -38,7 +38,7 @@ class TribeEventsRecurrenceMeta {
       if(tribe_is_recurring_event($post->ID)) {
          $events = TribeEvents::instance();
 			if( '' == get_option('permalink_structure') || false == $events->getOption('useRewriteRules',true) )
-            return add_query_arg('eventDate', TribeDateUtils::dateOnly( $event->EventStartDate ), $eventUrl );						
+            return esc_url(add_query_arg('eventDate', TribeDateUtils::dateOnly( $event->EventStartDate ), get_permalink($event->ID) ));
          else
             return $permalink . TribeDateUtils::dateOnly( $event->EventStartDate );					
       } else {
