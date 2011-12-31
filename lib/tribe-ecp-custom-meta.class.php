@@ -56,9 +56,9 @@ class TribeEventsCustomMeta {
 	 * @return void
 	 */
     public static function single_event_meta() {
-		$tribe_ecp = TribeEvents::instance();
-      	$customFields = tribe_get_option('custom-fields');
-		include( TribeEventsPro::instance()->pluginPath . 'admin-views/event-meta.php' );
+			$tribe_ecp = TribeEvents::instance();
+      $customFields = tribe_get_option('custom-fields');
+			include( TribeEventsPro::instance()->pluginPath . 'admin-views/event-meta.php' );
     }
 
 	/**
@@ -68,15 +68,15 @@ class TribeEventsCustomMeta {
 	 * @return void
 	 */
     public static function save_single_event_meta($postId) {
-		$customFields = (array)tribe_get_option('custom-fields');
+			$customFields = (array)tribe_get_option('custom-fields');
 
-		foreach( $customFields as $customField) {
-			if( isset( $customField['name'] ) && isset( $_POST[$customField['name']] ) ) {
-				$val = $_POST[$customField['name']];
-				$val = is_array($val) ? implode("|", $val) : $val;
-				update_post_meta($postId,  wp_kses_data($customField['name']), $val);
+			foreach( $customFields as $customField) {
+				if( isset( $customField['name'] ) && isset( $_POST[$customField['name']] ) ) {
+					$val = $_POST[$customField['name']];
+					$val = is_array($val) ? implode("|", $val) : $val;
+					update_post_meta($postId,  wp_kses_data($customField['name']), $val);
+				}
 			}
-		}
     }
 
 	/**
@@ -96,7 +96,7 @@ class TribeEventsCustomMeta {
 
 			if( $name ) {
 				$ecp_options['custom-fields'][] = array(
-               'name'=>'_ecp_custom_' . $count,
+					'name'=>'_ecp_custom_' . $count,
 					'label'=>$name,
 					'type'=>$type,
 					'values'=>$values
