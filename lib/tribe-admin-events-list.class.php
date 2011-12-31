@@ -37,7 +37,7 @@ if (!class_exists('TribeEventsAdminList')) {
 		public static function add_recurring_event_view_link($actions) {
 			global $post;
 			if ( function_exists('tribe_is_recurring_event') && is_array(self::$events_list) && tribe_is_recurring_event(self::$events_list[0]->ID) && isset(self::$events_list[0]) ) {
-				$actions['view'] = '<a href="' . tribe_get_event_link(self::$events_list[0]) . '" title="' . esc_attr( sprintf( __( 'View &#8220;%s&#8221;' ), $post->post_title ) ) . '" rel="permalink">' . __( 'View' ) . '</a>';
+				$actions['view'] = '<a href="' . tribe_get_event_link(self::$events_list[0]) . '" title="' . esc_attr( sprintf( __( 'View &#8220;%s&#8221;', 'tribe-events-calendar' ), $post->post_title ) ) . '" rel="permalink">' . __( 'View', 'tribe-events-calendar' ) . '</a>';
 			}
 
 			return $actions;

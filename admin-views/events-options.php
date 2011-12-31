@@ -186,8 +186,8 @@ div.tribe_settings{
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Events Template', 'tribe-events-calendar' ); ?></legend>
 					<select name="spEventsTemplate">
-						<option value=''><?php _e('Default Events Template'); ?></option>
-						<option value='default' <?php selected(tribe_get_option('spEventsTemplate', 'default') == 'default') ?>><?php _e('Default Page Template'); ?></option>
+						<option value=''><?php _e('Default Events Template', 'tribe-events-calendar' ); ?></option>
+						<option value='default' <?php selected(tribe_get_option('spEventsTemplate', 'default') == 'default') ?>><?php _e('Default Page Template', 'tribe-events-calendar' ); ?></option>
 						<?php page_template_dropdown(tribe_get_option('spEventsTemplate', 'default')); ?>
 					</select>
 					<div><?php _e('Choose a page template to control the look and feel of your calendar.', 'tribe-events-calendar');?> </div>

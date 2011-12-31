@@ -622,53 +622,53 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$messages[self::POSTTYPE] = array(
 				0 => '', // Unused. Messages start at index 1.
-				1 => sprintf( __('Event updated. <a href="%s">View event</a>'), esc_url( get_permalink($post_ID) ) ),
-				2 => __('Custom field updated.'),
-				3 => __('Custom field deleted.'),
-				4 => __('Event updated.'),
+				1 => sprintf( __('Event updated. <a href="%s">View event</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) ),
+				2 => __('Custom field updated.', 'tribe-events-calendar'),
+				3 => __('Custom field deleted.', 'tribe-events-calendar'),
+				4 => __('Event updated.', 'tribe-events-calendar'),
 				/* translators: %s: date and time of the revision */
-				5 => isset($_GET['revision']) ? sprintf( __('Event restored to revision from %s'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-				6 => sprintf( __('Event published. <a href="%s">View event</a>'), esc_url( get_permalink($post_ID) ) ),
-				7 => __('Event saved.'),
-				8 => sprintf( __('Event submitted. <a target="_blank" href="%s">Preview event</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
-				9 => sprintf( __('Event scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview event</a>'),
+				5 => isset($_GET['revision']) ? sprintf( __('Event restored to revision from %s', 'tribe-events-calendar'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+				6 => sprintf( __('Event published. <a href="%s">View event</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) ),
+				7 => __('Event saved.', 'tribe-events-calendar'),
+				8 => sprintf( __('Event submitted. <a target="_blank" href="%s">Preview event</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+				9 => sprintf( __('Event scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview event</a>', 'tribe-events-calendar'),
 				// translators: Publish box date format, see http://php.net/date
-				date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
-				10 => sprintf( __('Event draft updated. <a target="_blank" href="%s">Preview event</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+				date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar'), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+				10 => sprintf( __('Event draft updated. <a target="_blank" href="%s">Preview event</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
 			);
 
 			$messages[self::VENUE_POST_TYPE] = array(
 				0 => '', // Unused. Messages start at index 1.
-				1 => sprintf( __('Venue updated. <a href="%s">View venue</a>'), esc_url( get_permalink($post_ID) ) ),
-				2 => __('Custom field updated.'),
-				3 => __('Custom field deleted.'),
-				4 => __('Venue updated.'),
+				1 => sprintf( __('Venue updated. <a href="%s">View venue</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) ),
+				2 => __('Custom field updated.', 'tribe-events-calendar'),
+				3 => __('Custom field deleted.', 'tribe-events-calendar'),
+				4 => __('Venue updated.', 'tribe-events-calendar'),
 				/* translators: %s: date and time of the revision */
-				5 => isset($_GET['revision']) ? sprintf( __('Venue restored to revision from %s'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-				6 => sprintf( __('Venue published. <a href="%s">View venue</a>'), esc_url( get_permalink($post_ID) ) ),
+				5 => isset($_GET['revision']) ? sprintf( __('Venue restored to revision from %s', 'tribe-events-calendar'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+				6 => sprintf( __('Venue published. <a href="%s">View venue</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) ),
 				7 => __('Venue saved.'),
-				8 => sprintf( __('Venue submitted. <a target="_blank" href="%s">Preview venue</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
-				9 => sprintf( __('Venue scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview venue</a>'),
+				8 => sprintf( __('Venue submitted. <a target="_blank" href="%s">Preview venue</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+				9 => sprintf( __('Venue scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview venue</a>', 'tribe-events-calendar'),
 				// translators: Publish box date format, see http://php.net/date
-				date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
-				10 => sprintf( __('Venue draft updated. <a target="_blank" href="%s">Preview venue</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+				date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar'), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+				10 => sprintf( __('Venue draft updated. <a target="_blank" href="%s">Preview venue</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
 				);
 
 				$messages[self::ORGANIZER_POST_TYPE] = array(
 				0 => '', // Unused. Messages start at index 1.
-				1 => sprintf( __('Organizer updated. <a href="%s">View organizer</a>'), esc_url( get_permalink($post_ID) ) ),
-				2 => __('Custom field updated.'),
-				3 => __('Custom field deleted.'),
-				4 => __('Organizer updated.'),
+				1 => sprintf( __('Organizer updated. <a href="%s">View organizer</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) ),
+				2 => __('Custom field updated.', 'tribe-events-calendar'),
+				3 => __('Custom field deleted.', 'tribe-events-calendar'),
+				4 => __('Organizer updated.', 'tribe-events-calendar'),
 				/* translators: %s: date and time of the revision */
-				5 => isset($_GET['revision']) ? sprintf( __('Organizer restored to revision from %s'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-				6 => sprintf( __('Organizer published. <a href="%s">View organizer</a>'), esc_url( get_permalink($post_ID) ) ),
+				5 => isset($_GET['revision']) ? sprintf( __('Organizer restored to revision from %s', 'tribe-events-calendar'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+				6 => sprintf( __('Organizer published. <a href="%s">View organizer</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) ),
 				7 => __('Organizer saved.'),
-				8 => sprintf( __('Organizer submitted. <a target="_blank" href="%s">Preview organizer</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
-				9 => sprintf( __('Organizer scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview organizer</a>'),
+				8 => sprintf( __('Organizer submitted. <a target="_blank" href="%s">Preview organizer</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+				9 => sprintf( __('Organizer scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview organizer</a>', 'tribe-events-calendar'),
 				// translators: Publish box date format, see http://php.net/date
-				date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
-				10 => sprintf( __('Organizer draft updated. <a target="_blank" href="%s">Preview organizer</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+				date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar'), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+				10 => sprintf( __('Organizer draft updated. <a target="_blank" href="%s">Preview organizer</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
 			);			
 
 			return $messages;
