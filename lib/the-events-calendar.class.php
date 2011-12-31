@@ -1262,9 +1262,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				case 'single':
 					global $post;
 					$post = $secondary ? $secondary : $post;
-					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );					
 					$link = trailingslashit(get_permalink($post));
-					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );										
 					return $link;
 				case 'all':
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );					
