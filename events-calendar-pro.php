@@ -95,23 +95,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 
       }
-         
+
       // event deletion
       public function add_date_to_recurring_event_trash_link( $link, $postId ) {
-         if(function_exists('tribe_is_recurring_event') && tribe_is_recurring_event($postId) && isset($_REQUEST['eventDate'])) {
-            return add_query_arg( 
-               array( 
-                  'eventDate'=>urlencode( 
-                     TribeDateUtils::dateOnly( 
-                        $_REQUEST['eventDate'] 
-                     ) 
-                  ) 
-               ), $link 
-            );
+         if ( tribe_is_recurring_event($postId) && isset($_REQUEST['eventDate']) ) {
+            return add_query_arg( array( 'eventDate' => urlencode( TribeDateUtils::dateOnly($_REQUEST['eventDate']) ) ), $link );
          }
-      
          return $link;
-      } 
+      }
 
       public function addVenueAndOrganizerEditor() {
          add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __('Venues','tribe-events-calendar-pro'), __('Venues','tribe-events-calendar-pro'), 'edit_posts', 'edit.php?post_type='.TribeEvents::VENUE_POST_TYPE);
