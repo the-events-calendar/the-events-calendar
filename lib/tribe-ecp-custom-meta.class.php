@@ -112,4 +112,25 @@ class TribeEventsCustomMeta {
 
 		return $ecp_options;
 	}
+
+	/**
+	 * get_custom_field_by_label
+	 *
+	 * retrieve a custom field's value by searching its label
+	 * instead of its (more obscure) ID
+	 * @author Joachim Kudish
+	 * @since 2.0.3
+	 * @param (string) $label, the label to search for
+	 * @param (int) $eventID (optional), the event to look for, defaults to global $post
+	 * @return (string) value of the field
+	 */
+	public static function get_custom_field_by_label($label, $eventID = null) {
+		$eventID = TribeEvents::postIdHelper( $eventID );
+		$customFields = tribe_get_option('custom-fields', false);
+		if (is_array($customFields))
+			foreach ($customFields as $field)
+				if ($field['label'] == $label)
+					return get_post_meta($eventID, $field['name'], true);
+	}
+
 }
