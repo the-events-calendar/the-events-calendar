@@ -129,7 +129,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		protected function __construct( ) {
 			$this->pluginPath = trailingslashit( dirname( dirname(__FILE__) ) );
 			$this->pluginDir = trailingslashit( basename( $this->pluginPath ) );
-			$this->pluginUrl = WP_PLUGIN_URL.'/'.$this->pluginDir;
+			$this->pluginUrl = plugins_url().'/'.$this->pluginDir;
 			if (self::supportedVersion('wordpress') && self::supportedVersion('php')) {
 				register_deactivation_hook( __FILE__, array( $this, 'on_deactivate' ) );
 				$this->addFilters();
@@ -964,7 +964,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			wp_enqueue_script('sp-events-calendar-script', $eventsURL.'events.js', array('jquery', 'sp-events-pjax') );
 			// is there an events.css file in the theme?
 			if ( $user_style = locate_template(array('events/events.css')) ) {
-				$styleUrl = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $user_style );
+				$styleUrl = str_replace( get_theme_root(), get_theme_root_uri(), $user_style );
 			}
 			else {
 				$styleUrl = $eventsURL.'events.css';
