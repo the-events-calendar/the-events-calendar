@@ -30,13 +30,16 @@ class TribeRecurrence {
 				// a set number of occurrences
 				for( $i = 0; $i < $this->end; $i++ ) {
 					$cur_date = $this->series_rules->getNextDate($cur_date);
+					// Makes sure to assign the proper hours to the date.
+					$cur_date = mktime (date("H", $this->start_date), date("i", $this->start_date), date("s", $this->start_date), date('n', $cur_date),  date('j', $cur_date), date('Y', $cur_date));
 					$dates[] = $cur_date;
 				}				
 			} else {
 				// date driven
 				while($cur_date <= $this->end) {
 					$cur_date = $this->series_rules->getNextDate($cur_date);
-
+					// Makes sure to assign the proper hours to the date.
+					$cur_date = mktime (date("H", $this->start_date), date("i", $this->start_date), date("s", $this->start_date), date('n', $cur_date),  date('j', $cur_date), date('Y', $cur_date));
 					if($cur_date <= $this->end)
 						$dates[] = $cur_date;
 				}
