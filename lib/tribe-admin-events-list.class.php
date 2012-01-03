@@ -225,10 +225,10 @@ if (!class_exists('TribeEventsAdminList')) {
 				$custom_columns = self::ajax_custom_columns($column_id, $post_id, $echo);
 			}
 			
-			if( $echo ){
+			if ( $echo && isset($custom_columns) ){
 				echo $custom_columns;
-			}else{
-				return $custom_columns;
+			} else {
+				return (isset($custom_columns)) ? $custom_columns : null;
 			}
 			
 		}
@@ -254,10 +254,10 @@ if (!class_exists('TribeEventsAdminList')) {
 					$ajax_custom_columns = tribe_get_end_date($post_id, false);
 				}
 				
-			if( $echo ){
+			if ( $echo && isset($ajax_custom_columns) ) {
 				echo $ajax_custom_columns;
-			}else{
-				return $ajax_custom_columns;
+			} else {
+				return (isset($ajax_custom_columns)) ? $ajax_custom_columns : null;
 			}
 		}
 	
