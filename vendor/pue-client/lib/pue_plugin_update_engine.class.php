@@ -204,7 +204,8 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 			if (isset($result->api_expired) && $result->api_expired) {
 				return array('expired' => true, 'expiration' => null);
 			} else {
-				return array('expired' => false, 'expiration' => @$result->expiration);
+				$expiration = (isset($result->expiration)) ? $result->expiration : null;
+				return array('expired' => false, 'expiration' => $expiration);
 			}
 		}
 
@@ -422,7 +423,7 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 				}
 			}
 
-			if ($msg != '') {
+			if (isset($msg) && $msg != '') {
 				echo '</tr><tr class="plugin-update-tr"><td colspan="3" class="plugin-update"><div class="update-message">' . $msg . '</div></td>';
 			}
 		}
