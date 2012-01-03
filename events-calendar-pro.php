@@ -111,6 +111,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
       public function displayEventVenueDropdown($postId) {
          $VenueID = get_post_meta( $postId, '_EventVenueID', true);
+         $defaultsEnabled = tribe_get_option('defaultValueReplace');
+         if (!$VenueID && $defaultsEnabled) {
+         	$VenueID = tribe_get_option('eventsDefaultVenueID');
+         }
          ?>
 			<tr class="">
 				<td style="width:170px"><?php _e('Use Saved Venue:','tribe-events-calendar-pro'); ?></td>
@@ -122,7 +126,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
       }
 
       public function displayEventOrganizerDropdown($postId) {
-         $curOrg = get_post_meta( $postId, '_EventOrganizerID', true);
+	     $curOrg = get_post_meta( $postId, '_EventOrganizerID', true);
+         $defaultsEnabled = tribe_get_option('defaultValueReplace');
+		 if (!$curOrg && defaultsEnabled) {
+         	$curOrg = tribe_get_option('eventsDefaultOrganizerID');
+         }
          ?>
 			<tr class="" >
 				<td style="width:170px"><?php _e('Use Saved Organizer:','tribe-events-calendar-pro'); ?></td>
