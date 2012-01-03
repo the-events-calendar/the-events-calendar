@@ -125,7 +125,7 @@ if (!class_exists('TribeEventsImport')) {
 					$num_upgraded++;
 				}
 				if ( $num_upgraded > 0 ) {
-					self::$upgradeMessage = sprintf( __( 'You successfully migrated (%d) entries.' ), $num_upgraded );
+					self::$upgradeMessage = sprintf( __( 'You successfully migrated (%d) entries.', 'tribe-events-calendar' ), $num_upgraded );
 				}
 			}
 		}
