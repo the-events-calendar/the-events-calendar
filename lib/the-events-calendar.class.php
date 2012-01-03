@@ -1601,36 +1601,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 			}
 
-			if( isset($_EventOrganizerID) && $_EventOrganizerID ) {
-				foreach($this->organizerTags as $tag) {
-					$$tag = get_post_meta($_EventOrganizerID, $tag, true );
-				}
-			}
-
-			if(isset($_EventVenueID) && $_EventVenueID){
-				foreach($this->venueTags as $tag) {
-					$$tag = get_post_meta($_EventVenueID, $tag, true );
-				}
-
-			}else{
-				$defaults = $this->venueTags;
-				$defaults[] = '_VenueState';
-				$defaults[] = '_VenueProvince';
-
-				foreach ( $defaults as $tag ) {
-					if ( !$postId || !isset($_GET['post']) ) { //if there is a post AND the post has been saved at least once.
-						$cleaned_tag = str_replace('_Venue','',$tag);
-
-						if($cleaned_tag == 'Cost')
-							continue;
-
-						${'_Venue'.$cleaned_tag} = class_exists('TribeEventsPro') ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
-					}
-				}
-
-				$_VenueStateProvince = -1; // we want to use default values here
-			}
-
 			$_EventStartDate = (isset($_EventStartDate)) ? $_EventStartDate : null;
 			$_EventEndDate = (isset($_EventEndDate)) ? $_EventEndDate : null;
 			$_EventAllDay = isset($_EventAllDay) ? $_EventAllDay : false;
