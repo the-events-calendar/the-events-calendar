@@ -55,7 +55,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'widgets_init', array( $this, 'pro_widgets_init' ), 100 );
 			add_action( 'wp_loaded', array( $this, 'allow_cpt_search' ) );
 			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
-			add_filter( 'get_delete_post_link', array($this, 'add_date_to_recurring_event_trash_link'), 10, 2 );	
+			add_filter( 'get_delete_post_link', array($this, 'adjust_date_on_recurring_event_trash_link'), 10, 2 );	
+			add_action( 'admin_footer', array( $this, 'addDeleteDialogForRecurringEvents' ) );	
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
 			add_action( 'tribe_venue_table_top', array($this, 'displayEventVenueDropdown') );
@@ -90,24 +91,29 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				die;
 			}
 
+    }
+
+		 public function adjust_date_on_recurring_event_trash_link( $link, $postId ) {
+		   global $post;
+			 if ( isset($_REQUEST['deleteAll']) ) {
+					$link = remove_query_arg( array( 'eventDate', 'deleteAll'), $link );
+				}
+			 elseif ( (isset($post->ID)) && tribe_is_recurring_event($post->ID) && isset($_REQUEST['eventDate']) ) {
+					$link = add_query_arg( 'eventDate', $_REQUEST['eventDate'], $link );
+			 }
+			 return $link;
+     }
+
+      public function addDeleteDialogForRecurringEvents() {
+      	global $current_screen, $post;
+      	if ( is_admin() && isset($current_screen->post_type) && $current_screen->post_type == TribeEvents::POSTTYPE
+	      	&& (
+		      ( isset($current_screen->id) && $current_screen->id == 'edit-'.TribeEvents::POSTTYPE ) // listing page
+      		|| ( (isset($post->ID)) && tribe_is_recurring_event($post->ID) ) // single event page
+	      ) )
+	      	// load the dialog
+      		require_once(TribeEvents::instance()->pluginPath.'admin-views/recurrence-dialog.php');
       }
-         
-      // event deletion
-      public function add_date_to_recurring_event_trash_link( $link, $postId ) {
-         if(function_exists('tribe_is_recurring_event') && tribe_is_recurring_event($postId) && isset($_REQUEST['eventDate'])) {
-            return add_query_arg( 
-               array( 
-                  'eventDate'=>urlencode( 
-                     TribeDateUtils::dateOnly( 
-                        $_REQUEST['eventDate'] 
-                     ) 
-                  ) 
-               ), $link 
-            );
-         }
-      
-         return $link;
-      } 
 
       public function addVenueAndOrganizerEditor() {
          add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __('Venues','tribe-events-calendar-pro'), __('Venues','tribe-events-calendar-pro'), 'edit_posts', 'edit.php?post_type='.TribeEvents::VENUE_POST_TYPE);
