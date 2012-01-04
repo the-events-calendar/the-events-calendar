@@ -86,7 +86,7 @@ class TribeEventsRecurrenceMeta {
 	 * @return void
 	 */
 	public static function deleteRecurringEvent($postId) {
-		if (isset($_REQUEST['eventDate'])) {
+		if (isset($_REQUEST['eventDate']) && !isset($_REQUEST['deleteAll'])) {
 			$occurrenceDate = $_REQUEST['eventDate'];
 		} else {
 			$occurrenceDate = null;
