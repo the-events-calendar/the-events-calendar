@@ -12,7 +12,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		.eventBritePluginPlug {display:none;}
 	<?php endif; ?>
 </style>
-<?php require_once('recurrence-dialog.php'); ?>
 <div id="eventIntro">
 <div id="tribe-events-post-error" class="tribe-events-error error"></div>
 <?php $this->do_action('tribe_events_post_errors', $postId, true) ?>
