@@ -111,7 +111,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		</tr>
 		<tr>
 			<td><?php _e('Cost:','tribe-events-calendar'); ?></td>
-			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventCost' name='EventCost' size='6' value='<?php echo esc_attr($_EventCost); ?>' /></td>
+			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventCost' name='EventCost' size='6' value='<?php echo (isset($_EventCost)) ? esc_attr($_EventCost) : ''; ?>' /></td>
 		</tr>
 		<tr>
 			<td></td>
