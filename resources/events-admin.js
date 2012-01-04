@@ -266,10 +266,13 @@ jQuery(document).ready(function($) {
 	function setupSubmitButton() {
 		//publishing-action		
 	}
-	
+
 	$('.wp-admin.events-cal .submitdelete').click(function(e) {
-		if(isExistingRecurringEvent()) {
-			var link = $(this);
+
+		var link = $(this);
+		var isRecurringLink = $(this).attr('href').split('&eventDate');
+
+		if(isRecurringLink[1]) {
 			e.preventDefault();
 
 			$('#deletion-dialog').dialog({
@@ -284,13 +287,14 @@ jQuery(document).ready(function($) {
 				{
 					text: "Delete all occurrences of this event.",
 					click: function() {
-						document.location = link.attr('href');
+						document.location = link.attr('href') + '&deleteAll';
 					}
 				}]
 			});
 		}
+
 	});
-	
+
 	// recurrence ui
 	$('[name="recurrence[type]"]').change(function() {
 		var curOption =  $(this).find("option:selected").val();
