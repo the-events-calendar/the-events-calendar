@@ -1442,6 +1442,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 	
 			// remove these actions even if nonce is not set
+			// note: we're removing these because these actions are actually for PRO,
+			// these functions are used when editing an existing venue or organizer
 			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );			
 			
@@ -1457,12 +1459,18 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$_POST['Organizer'] = stripslashes_deep($_POST['organizer']);
 			$_POST['Venue'] = stripslashes_deep($_POST['venue']);
 
-			if( !empty($_POST['Venue']['VenueID']) )
+
+			/**
+			 * When using pro and we have a VenueID/OrganizerID, we just save the ID, because we're not
+			 * editing the venue/organizer from within the event.
+			 */
+			if( isset($_POST['Venue']['VenueID']) && !empty($_POST['Venue']['VenueID']) && class_exists('TribeEventsPro') )
 				$_POST['Venue'] = array('VenueID' => $_POST['Venue']['VenueID']);
 
-			if( !empty($_POST['Organizer']['OrganizerID']) )
+			if( isset($_POST['Organizer']['OrganizerID']) && !empty($_POST['Organizer']['OrganizerID']) && class_exists('TribeEventsPro') )
 				$_POST['Organizer'] = array('OrganizerID' => $_POST['Organizer']['OrganizerID']);
-	
+
+
 			TribeEventsAPI::saveEventMeta($postId, $_POST, $post);
 		}
 
@@ -1533,6 +1541,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$data = stripslashes_deep($_POST['organizer']);
 
 			$organizer_id = TribeEventsAPI::updateOrganizer($postID, $data);
+
+			/**
+			 * Put our hook back
+			 * @link http://codex.wordpress.org/Plugin_API/Action_Reference/save_post#Avoiding_infinite_loops
+			 */
+			add_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 
 			return $organizer_id;
 		}
