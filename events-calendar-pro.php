@@ -139,7 +139,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
       public function displayEventOrganizerDropdown($postId) {
 	     $curOrg = get_post_meta( $postId, '_EventOrganizerID', true);
          $defaultsEnabled = tribe_get_option('defaultValueReplace');
-		 if (!$curOrg && defaultsEnabled) {
+		 if (!$curOrg && $defaultsEnabled) {
          	$curOrg = tribe_get_option('eventsDefaultOrganizerID');
          }
          ?>
