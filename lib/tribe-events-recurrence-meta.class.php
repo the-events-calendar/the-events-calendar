@@ -13,14 +13,15 @@ class TribeEventsRecurrenceMeta {
 	public static function init() {
 		add_action( 'tribe_events_update_meta', array( __CLASS__, 'updateRecurrenceMeta' ), 1, 3 );
 		add_action( 'tribe_events_date_display', array( __CLASS__, 'loadRecurrenceData' ) );
-		add_action('trash_post', array( __CLASS__, 'deleteRecurringEvent'));		
+		add_action(	'trash_post', array( __CLASS__, 'deleteRecurringEvent') ); // WP 3.2 and older
+		add_action(	'wp_trash_post', array( __CLASS__, 'deleteRecurringEvent') ); // WP 3.3 and newer
 
-		add_action('pre_post_update', array( __CLASS__, 'maybeBreakFromSeries' ));
+		add_action(	'pre_post_update', array( __CLASS__, 'maybeBreakFromSeries' ) );
 		add_action( 'admin_notices', array( __CLASS__, 'showRecurrenceErrorFlash') );
-		add_action( 'tribe_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg'), 10, 2);
+		add_action( 'tribe_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg'), 10, 2 );
 
-      add_filter( 'tribe_get_event_link', array( __CLASS__, 'addDateToEventPermalink'), 10, 2);
-      add_filter( 'post_row_actions', array( __CLASS__, 'removeQuickEdit'), 10, 2);
+    add_filter( 'tribe_get_event_link', array( __CLASS__, 'addDateToEventPermalink'), 10, 2 );
+    add_filter( 'post_row_actions', array( __CLASS__, 'removeQuickEdit'), 10, 2 );
 	}	
 
    public static function removeQuickEdit( $actions, $post ) {
