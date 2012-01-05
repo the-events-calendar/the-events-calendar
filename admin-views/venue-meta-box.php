@@ -32,7 +32,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			$defaultCountry = tribe_get_option('defaultCountry');
 			if (isset($_VenueCountry) && $_VenueCountry) {
 				$current = $_VenueCountry;
-			} elseif (isset($defaultCountry[1]) && tribe_get_option('defaultValueReplace') ) {
+			} elseif (isset($defaultCountry[1]) && tribe_get_option('defaultValueReplace')) {
 				$current = $defaultCountry[1];
 			} else {
 				$current = null;
@@ -56,7 +56,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <tr class="venue">
 	<?php if(!isset($_VenueStateProvince) || $_VenueStateProvince == "") $_VenueStateProvince = -1; ?>
 	<td><?php _e('State or Province:','tribe-events-calendar'); ?></td>
-	<td><input tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceText" name="venue[Province]" type='text' name='' size='25' value='<?php echo ( isset($_VenueStateProvince) && $_VenueStateProvince != '' && $_VenueStateProvince != -1 ) ? esc_attr($_VenueStateProvince) : esc_attr(''); ?>' />
+	<td><input tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceText" name="venue[Province]" type='text' name='' size='25' value='<?php echo ( isset($_VenueStateProvince) && $_VenueStateProvince != '' && $_VenueStateProvince != -1 ) ? esc_attr($_VenueProvince) : esc_attr(''); ?>' />
 	<select tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceSelect" name="venue[State]" name=''>
 		<option value=""><?php _e('Select a State:','tribe-events-calendar'); ?></option>
 		<?php
@@ -68,9 +68,11 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 					}
 				}
 				print (">" . esc_html($fullname) . "</option>\n");
+
 			}
 		?>
 	</select>
+
 	</td>
 </tr>
 <tr class="venue">

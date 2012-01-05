@@ -1615,13 +1615,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 			}
 			
-			if( isset($_EventOrganizerID) && $_EventOrganizerID ) {
+			if( isset($_EventOrganizerID) && $_EventOrganizerID && tribe_get_option('defaultValueReplace') ) {
 				foreach($this->organizerTags as $tag) {
 					$$tag = get_post_meta($_EventOrganizerID, $tag, true );
 				}
 			}
 
-			if( isset($_EventVenueID) && $_EventVenueID ){
+			if( isset($_EventVenueID) && $_EventVenueID && tribe_get_option('defaultValueReplace') ){
 				foreach($this->venueTags as $tag) {
 					$$tag = get_post_meta($_EventVenueID, $tag, true );
 				}
@@ -1641,8 +1641,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						${'_Venue'.$cleaned_tag} = class_exists('TribeEventsPro') ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
 					}
 				}
-
-				$_VenueStateProvince = -1; // we want to use default values here
+				if ( isset($_VenueState) ) {
+					$_VenueStateProvince = $_VenueState; // we want to use default values here
+				} else {
+					$_VenueStateProvince = $_VenueProvince;
+				}
 			}
 			
 			$_EventStartDate = (isset($_EventStartDate)) ? $_EventStartDate : null;
