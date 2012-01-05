@@ -436,7 +436,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			return null;
 		}		
 
-		public function maybeAddEventTitle($title, $sep){
+		public function maybeAddEventTitle($title, $sep = null){
 			if(get_query_var('eventDisplay') == 'upcoming'){
 				$new_title = __("Upcoming Events", 'tribe-events-calendar'). ' '.$sep . ' ' . $title;
 			}elseif(get_query_var('eventDisplay') == 'past'){
