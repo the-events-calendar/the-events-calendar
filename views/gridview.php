@@ -13,7 +13,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 $tribe_ecp = TribeEvents::instance();
 ?>	
 	<div id="tribe-events-content" class="grid">
-      <!-- This title is here for pjax loading - do not remove if you wish to use ajax switching between month views -->
+      <!-- This title is here for ajax loading - do not remove if you wish to use ajax switching between month views -->
       <title><?php wp_title() ?></title>
 		<div id='tribe-events-calendar-header' class="clearfix">
 			<span class='tribe-events-month-nav'>
