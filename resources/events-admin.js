@@ -1,4 +1,5 @@
 jQuery(document).ready(function($) {
+
 	// Admin Google Maps Preview
 	$('#event_venue input, #event_venue select').change(function() {
 		if($('#EventShowMap').prop('checked')) {
@@ -26,7 +27,7 @@ jQuery(document).ready(function($) {
 		
 	});
 
-   $('#doaction, #doaction2').click(function(e){
+  $('#doaction, #doaction2').click(function(e){
       var n = $(this).attr('id').substr(2);
       if ( $('select[name="'+n+'"]').val() == 'edit' && $('.post_type_page').val() == 'tribe_events' ) {
          e.preventDefault();
@@ -46,4 +47,35 @@ jQuery(document).ready(function($) {
          });
       }
    });
+
+
+	$('.wp-admin.events-cal .submitdelete').click(function(e) {
+
+		var link = $(this);
+		var isRecurringLink = $(this).attr('href').split('&eventDate');
+
+		if(isRecurringLink[1]) {
+			e.preventDefault();
+
+			$('#deletion-dialog').dialog({
+				//submitdelete
+				modal: true,
+				buttons: [{
+					text: "Delete just this occurrence.",
+					click: function() {
+						document.location = link.attr('href') + '&event_start=' + $(this).data('start');
+					}
+				},
+				{
+					text: "Delete all occurrences of this event.",
+					click: function() {
+						document.location = link.attr('href') + '&deleteAll';
+					}
+				}]
+			});
+		}
+
+	});
+
+
 });
