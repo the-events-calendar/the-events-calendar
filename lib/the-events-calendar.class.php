@@ -187,7 +187,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			/* Add nav menu item - thanks to http://wordpress.org/extend/plugins/cpt-archives-in-nav-menus/ */
 			add_filter( 'nav_menu_items_' . TribeEvents::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
 			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events'), null, 2);
-			
+
+			// a fix for Twenty Eleven specifically
+			if (function_exists('twentyeleven_body_classes')) {
+				remove_filter( 'body_class', 'twentyeleven_body_classes' );
+				add_filter( 'body_class', array( $this, 'twentyeleven_body_classes' ) );
+			}
+
 			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
 		}
 
@@ -324,7 +330,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function add_current_menu_item_class_to_events( $items, $args ) {
 			foreach($items as $item) {
 				if($item->url == $this->getLink() ) {
-					if ( is_singular( TribeEvents::POSTTYPE ) 
+					if ( (is_singular() && get_post_type() == TribeEvents::POSTTYPE)
 						|| is_singular( TribeEvents::VENUE_POST_TYPE ) 
 						|| is_tax(TribeEvents::TAXONOMY) 
 						|| ( ( tribe_is_upcoming() 
@@ -467,7 +473,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function emptyEventContent( $content ) {
 			global $post;
-			if ( '' == $content && $post->post_type == self::POSTTYPE ) {
+			if ( '' == $content && isset($post->post_type) && $post->post_type == self::POSTTYPE ) {
 				$content = __('No description has been entered for this event.', 'tribe-events-calendar');
 			}
 			return $content;
@@ -492,9 +498,25 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			return $c;
 		}
 
+
+		/**
+		 * this funciton provides compatibility for twenty eleven body classes
+		 * without this slight rewrite of the twentyeleven_body_classes, there is a persistent php notice
+		 * on some event pages
+		 */
+		public function twentyeleven_body_classes( $c ) {
+			if ( function_exists( 'is_multi_author' ) && ! is_multi_author() )
+				$c[] = 'single-author';
+
+			if ( is_singular() && get_post_type() != self::POSTTYPE && ! is_home() && ! is_page_template( 'showcase.php' ) && ! is_page_template( 'sidebar-page.php' ) )
+			$c[] = 'singular';
+
+			return $c;
+		}
+
 		public function post_class( $c ) {
 			global $post;
-			if ( $post->post_type == self::POSTTYPE && $terms = get_the_terms( $post->ID , self::TAXONOMY ) ) {
+			if ( is_object($post) && isset($post->post_type) && $post->post_type == self::POSTTYPE && $terms = get_the_terms( $post->ID , self::TAXONOMY ) ) {
 				foreach ($terms as $term) {
 					$c[] = 'cat_' . sanitize_html_class($term->slug, $term->term_taxonomy_id);
 				}
@@ -1002,7 +1024,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function setReccuringEventDates( $post ) {	
 			if( function_exists('tribe_is_recurring_event') && 
-				is_singular(self::POSTTYPE) && 
+				is_singular() &&
+				get_post_type() == self::POSTTYPE &&
 				tribe_is_recurring_event() && 
 				!tribe_is_showing_all() && 
 				!tribe_is_upcoming() && 
