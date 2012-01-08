@@ -74,7 +74,7 @@ class TribeEventsCustomMeta {
 		$customFields = (array)tribe_get_option('custom-fields');
 
 		foreach( $customFields as $customField) {
-			if( isset( $customField['name'] ) ) {
+			if( isset( $customField['name'] ) && isset($_POST[$customField['name']]) ) {
 				$val = $_POST[$customField['name']];
 				$val = is_array($val) ? implode("|", $val) : $val;
 				update_post_meta($postId,  wp_kses_data($customField['name']), $val);
