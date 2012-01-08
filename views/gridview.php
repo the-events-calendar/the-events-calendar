@@ -9,7 +9,6 @@
 
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
-
 $tribe_ecp = TribeEvents::instance();
 ?>	
 	<div id="tribe-events-content" class="grid">

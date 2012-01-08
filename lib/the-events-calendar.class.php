@@ -854,7 +854,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						$options[$opt] = $_POST[$opt];
 				}
 
-				$options['spEventsCountries'] = stripslashes($options['spEventsCountries']);
+				$options['spEventsCountries'] = (isset($options['spEventsCountries'])) ? stripslashes($options['spEventsCountries']) : null;
 		
 				// events slug happiness
 				$slug = $options['eventsSlug'];
@@ -918,7 +918,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 			if ( update_option( TribeEvents::OPTIONNAME, $options ) ) {
 				self::$options = apply_filters( 'tribe_get_options', $options );
-				if ( self::$options['eventsSlug'] != '' ) {
+				if ( isset(self::$options['eventsSlug']) && self::$options['eventsSlug'] != '' ) {
 					$this->flushRewriteRules();
 				}
 			} else {
