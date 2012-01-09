@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors: Shane Pearlman (shane.pearlman), Peter Chester (peterchester), John Gadbois (jgadbois), Kelsey Damas (kelseydamas), Matt Wiebe (mattwiebe), Rob La Gatta (roblagatta),  Justin Endler, Reid Peifer (reid.peifer), Dan Cameron (dancameron) produced by Modern Tribe, Inc. (moderntribe)
+Contributors: Current: shane.pearlman, peterchester, reid.peifer, roblagatta, jkudish, Nick Ciske, Paul Hughes, Past: kelseydamas, mattwiebe, Justin Endler, dancameron, jgadbois, Produced By Modern Tribe, Inc: moderntribe
 Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar, recurring, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.1
