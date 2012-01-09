@@ -2,7 +2,7 @@
 /*
  Plugin Name: Events Calendar PRO
  Description: The Events Calendar PRO, a premium add-on to the open source The Events Calendar plugin (required), enables recurring events, custom attributes, venue pages, new widgets and a host of other premium features.
- Version: 2.0.2
+ Version: 2.0.3
  Author: Modern Tribe, Inc.
  Author URI: http://tri.be/?ref=ecp-plugin
  Text Domain: tribe-events-calendar-pro
@@ -20,7 +20,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $pluginSlug;
 		public $licenseKey;
 		public static $updateUrl = 'http://tri.be/';
-		const REQUIRED_TEC_VERSION = '2.0.2';
+		const REQUIRED_TEC_VERSION = '2.0.3';
 		
 	    private function __construct() {
 			$this->pluginDir = trailingslashit( basename( dirname(__FILE__) ) );
@@ -262,7 +262,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			header('Content-type: text/calendar');
 			header('Content-Disposition: attachment; filename="iCal-TribeEvents.ics"');
 			$content = "BEGIN:VCALENDAR\n";
-			$content .= "VERSION:2.0\n";
+			$content .= "VERSION:2.0.3\n";
 			$content .= "PRODID:-//" . $blogName . "//NONSGML v1.0//EN\n";
 			$content .= "CALSCALE:GREGORIAN\n";
 			$content .= "METHOD:PUBLISH\n";
