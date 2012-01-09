@@ -422,7 +422,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 	}   
 
-	register_uninstall_hook(__FILE__, 'tribe_ecp_uninstall'); 
+	register_deactivation_hook(__FILE__, 'tribe_ecp_deactivate');
+	register_uninstall_hook(__FILE__, 'tribe_ecp_uninstall');
+
+	function tribe_ecp_deactivate() {
+		// when we deactivate pro, we should reset this to true
+		tribe_update_option('defaultValueReplace', true);
+	}
 
 	function tribe_ecp_uninstall() {
 		delete_option('pue_install_key_events_calendar_pro');
