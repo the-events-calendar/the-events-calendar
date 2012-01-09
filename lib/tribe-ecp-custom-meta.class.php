@@ -69,7 +69,6 @@ class TribeEventsCustomMeta {
 	 */
     public static function save_single_event_meta($postId) {
 			$customFields = (array)tribe_get_option('custom-fields');
-
 			foreach( $customFields as $customField) {
 				if( isset( $customField['name'] ) && isset( $_POST[$customField['name']] ) ) {
 					$val = $_POST[$customField['name']];
