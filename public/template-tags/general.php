@@ -27,6 +27,21 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Update Option
+	 *
+	 * Set specific key from options array, optionally provide a default return value
+	 *
+	 * @param string $optionName Name of the option to retrieve.
+	 * @param string $value Value to save
+	 * @return void
+	 * @since 2.0.3
+	 */
+	function tribe_update_option($optionName, $value)  {
+		$tribe_ecp = TribeEvents::instance();
+		return $tribe_ecp->setOption($optionName, $value);
+	}
+
+	/**
 	 * Event Type Test
 	 *
 	 * Checks type of $postId to determine if it is an Event
