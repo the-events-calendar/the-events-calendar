@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors: Current: shane.pearlman, peterchester, reid.peifer, roblagatta, jkudish, Nick Ciske, Paul Hughes, Past: kelseydamas, mattwiebe, Justin Endler, dancameron, jgadbois, Produced By Modern Tribe, Inc: moderntribe
+Contributors: [Current Contributors], shane.pearlman, peterchester, reid.peifer, roblagatta, jkudish, Nick Ciske, Paul Hughes, [Past Contributors], kelseydamas, mattwiebe, dancameron, jgadbois, Justin Endler, [Produced By Modern Tribe Inc], ModernTribe
 Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar, recurring, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.1
@@ -9,7 +9,7 @@ Stable tag: 2.0.3
 
 == Description ==
 
-IMPORTANT NOTICE: If you are upgrading from a previous version of The Events Calendar, please BACK UP your data before upgrading! This is a significant update.
+IMPORTANT NOTICE: If you are upgrading from a pre 2.0 version of The Events Calendar, please BACK UP your data before upgrading! This is a significant update.
 
 The Events Calendar plugin enables you to rapidly create and manage events. Features include Google Maps integration as well as default templates such as a calendar grid and event list, widget and so much more. Looking for recurring events, the ability to sell tickets, manage conference schedules, accept user submitted events automatically and more? Check out the <a href="http://tri.be/products/?ref=tec-readme">available premium and community add-ons</a>. Have questions or looking to get help from our active user community, <a href="https://www.facebook.com/ModernTribeInc">join us on Facebook</a>, sign up for our newsletter (bottom of the home page) or check out <a href="http://tri.be/support/?ref=tec-readme">our support page</a>. Please note that while we are actively supporting this plugin, we don't provide support for non-paying users.
 
