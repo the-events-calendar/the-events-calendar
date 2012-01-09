@@ -28,7 +28,7 @@ if ( class_exists('TribeEvents') ) {
 		function tribe_get_recurrence_text( $postId = null )  {
 			$postId = TribeEvents::postIdHelper( $postId );
 			$tribe_ecp = TribeEvents::instance();
-		  	return apply_filters( 'tribe_get_recurrence_text', TribeEventsRecurrenceMeta::recurrenceToText( $postId ) );
+	  	return (class_exists('TribeEventsRecurrenceMeta')) ? apply_filters( 'tribe_get_recurrence_text', TribeEventsRecurrenceMeta::recurrenceToText( $postId ) ) : '';
 		}
 	}
 

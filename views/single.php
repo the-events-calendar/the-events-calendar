@@ -47,10 +47,10 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<?php endif; ?>
 		<dt><?php _e('Updated:', 'tribe-events-calendar') ?></dt>
 		<dd><span class="date updated"><?php the_date(); ?></span></dd>
-		<?php if ( function_exists('tribe_get_recurrence_text') && tribe_is_recurring_event() ) : ?>
+		<?php if ( class_exists('TribeEventsRecurrenceMeta') && function_exists('tribe_get_recurrence_text') && tribe_is_recurring_event() ) : ?>
 			<dt><?php _e('Schedule:', 'tribe-events-calendar') ?></dt>
          <dd><?php echo tribe_get_recurrence_text(); ?> 
-            <?php if(function_exists('tribe_all_occurences_link')): ?>(<a href='<?php tribe_all_occurences_link() ?>'>See all</a>)<?php endif; ?>
+            <?php if( class_exists('TribeEventsRecurrenceMeta') && function_exists('tribe_all_occurences_link')): ?>(<a href='<?php tribe_all_occurences_link() ?>'>See all</a>)<?php endif; ?>
          </dd>
 		<?php endif; ?>
 	</dl>
