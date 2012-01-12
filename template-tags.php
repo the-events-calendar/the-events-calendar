@@ -98,7 +98,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$fields = tribe_get_custom_fields( $postId );
 	  	$meta_html = "<dl class='column'>\n";
 	  	foreach ($fields as $label => $value) {
-			$meta_html .= apply_filters('tribe_the_custom_field',"<dt>$label:</dt><dd>$value</dd>\n",$label,$value);
+			$meta_html .= apply_filters('tribe_the_custom_field',"<dt class=\"custom-label\">$label:</dt><dd class=\"custom-meta\">$value</dd>\n",$label,$value);
 		}
 		$meta_html .= "</dl>\n";
 		echo apply_filters('tribe_the_custom_fields', $meta_html);

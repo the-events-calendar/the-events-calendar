@@ -16,27 +16,27 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<?php echo tribe_get_embedded_map(get_the_ID(), '350px', '200px') ?>
 	</div>
 	<dl class="column location" itemscope itemtype="http://schema.org/Place">
-		<dt><?php _e('Name:', 'tribe-events-calendar-pro') ?></dt> 
-			<dd itemprop="name"><?php the_title() ?></dd>
+		<dt class="venue-label venue-label-name"><?php _e('Name:', 'tribe-events-calendar-pro') ?></dt> 
+			<dd itemprop="name" class="venue-meta venue-meta-name"><?php the_title() ?></dd>
 		<?php if(tribe_get_phone()) : ?>
-		<dt><?php _e('Phone:', 'tribe-events-calendar-pro') ?></dt> 
-			<dd itemprop="telephone"><?php echo tribe_get_phone(); ?></dd>
+		<dt class="venue-label venue-label-phone"><?php _e('Phone:', 'tribe-events-calendar-pro') ?></dt> 
+			<dd itemprop="telephone" class="venue-meta venue-meta-phone"><?php echo tribe_get_phone(); ?></dd>
 		<?php endif; ?>
 		
 		<?php if( tribe_address_exists( get_the_ID() ) ) : ?>
-		<dt>
+		<dt class="venue-label venue-label-address">
 			<?php _e('Address:', 'tribe-events-calendar-pro') ?><br />
 			<?php if( get_post_meta( get_the_ID(), '_EventShowMapLink', true ) == 'true' ) : ?>
 				<a class="gmap" itemprop="maps" href="<?php echo tribe_get_map_link() ?>" title="<?php _e('Click to view a Google Map', 'tribe-events-calendar-pro'); ?>" target="_blank"><?php _e('Google Map', 'tribe-events-calendar-pro' ); ?></a>
 			<?php endif; ?>
 		</dt>
-			<dd>
+			<dd class="venue-meta venue-meta-address">
 			<?php echo tribe_get_full_address( get_the_ID() ); ?>
 			</dd>
 		<?php endif; ?>
 		<?php if ( get_the_content() != ''): ?>
-		<dt><?php _e('Description:', 'tribe-events-calendar-pro') ?></dt>
-		<dd><?php the_content() ?></dd>
+		<dt class="venue-label venue-label-description"><?php _e('Description:', 'tribe-events-calendar-pro') ?></dt>
+		<dd class="venue-meta venue-meta-description"><?php the_content() ?></dd>
 		<?php endif ?>
 	</dl>
 </div>
