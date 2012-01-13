@@ -57,7 +57,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 				'event_ID' => null,
 				'show_seconds' => true,
 				'complete' => 'Hooray!',
-				);
+			);
 			$instance = wp_parse_args( (array) $instance, $defaults);
 			$events = get_posts( array( 'post_type' => TribeEvents::POSTTYPE, 'orderby' => 'title', 'nopaging' => true ) );
 			include( TribeEventsPro::instance()->pluginPath . 'admin-views/widget-admin-countdown.php' );
