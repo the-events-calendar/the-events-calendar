@@ -36,6 +36,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/tribe-related-events.class.php' );
 			require_once( 'lib/widget-related-events.class.php' );
 			require_once( 'lib/widget-venue.class.php' );
+			require_once( 'lib/widget-countdown.class.php' );
 			require_once( 'template-tags.php' );
 
 			// Tribe common resources
