@@ -509,7 +509,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$c[] = 'events-single';
 				}
 			}
-			if ( tribe_is_venue( $post->ID ) ) {
+			global $post;
+			if ( is_object($post) && tribe_is_venue( $post->ID ) ) {
 					$c[] = 'events-venue';
 			}
 			
