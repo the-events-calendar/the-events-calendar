@@ -14,21 +14,15 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 			$control_ops = array( 'id_base' => 'countdown_widget' );
 			$this->WP_Widget( 'countdown_widget', __('Countdown Widget', 'tribe-events-calendar-pro'), $widget_ops, $control_ops );
 
-			wp_enqueue_script( $control_ops['id_base'], TribeEventsPro::instance()->pluginUrl .'lib/widget-countdown.js', array( 'jquery' ), false, true );
-			// Add the styles for hiding the info passed to jQuery.
-			add_action( 'wp_enqueue_scripts', array( $this, 'custom_css' ) );
+			// Add the javascript.
+			add_action( 'wp_enqueue_scripts', array( $this, 'load_countdown_js' ) );
 		}
-
-		// Hides the necessary elements to be passed to Javascript.
-		function custom_css() {
-			?>
-			<style type="text/css">
-			.countdown-timer span.seconds, .countdown-timer span.format, .countdown-timer span.complete {
-				display: none;
-			}
-			</style>
-			<?php
+		
+		// Enqueues the javascript.
+		function load_countdown_js() {
+			wp_enqueue_script( 'countdown_widget', TribeEventsPro::instance()->pluginUrl .'resources/widget-countdown.js', array( 'jquery' ), false, true );
 		}
+	
 
 		function widget( $args, $instance ) {
 			extract( $args );
@@ -66,9 +60,9 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 		function get_output($event_ID, $complete, $show_seconds) {
 			$ret = $complete;
 			if ($show_seconds) {
-				$hourformat = "dd d hh h mm m ss s";
+				$hourformat = "dd days hh:mm:ss";
 			} else {
-				$hourformat = "dd d hh h mm m";
+				$hourformat = "dd days hh:mm";
 			}
 			// Get the event start date.
 			$startdate = tribe_get_start_date($event_ID, false, 'Y-m-d H:i:s');
@@ -82,7 +76,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 
 		// Generate the hidden information to be passed to jQuery.
 		function generate_countdown_output( $seconds, $complete, $hourformat ) {
-			return "<div class=\"countdown-timer\"><span class=\"seconds\">$seconds</span><span class=\"format\">$hourformat</span><span class=\"complete\">$complete</span></div>";
+			return '<div class="tribe-countdown-timer"><span class="tribe-countdown-seconds">'.$seconds.'</span><span class="tribe-countdown-format">'.$hourformat.'</span><span class="tribe-countdown-complete">'.$complete.'</span></div>';
 		}
 
 	}

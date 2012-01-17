@@ -50,17 +50,17 @@
 
 		// Find all countdown timer divs, create a timer object for each
 		// one and kick off the timers.
-		var countdown_timers = $( '.countdown-timer' );
+		var countdown_timers = $( '.tribe-countdown-timer' );
 		if ( $( countdown_timers ).length > 0 ) {
 			$(countdown_timers).each( function( index, value ) {
-				var unique_id = 'countdown-' + Math.floor( Math.random()*99999 );
-				var seconds = $(value).find( 'span.seconds' ).text();
-				var format = $(value).find( 'span.format' ).text();
-				var complete = $(value).find( 'span.complete' ).text();
+				var unique_id = 'tribe-countdown-' + Math.floor( Math.random()*99999 );
+				var seconds = $(value).find( 'span.tribe-countdown-seconds' ).text();
+				var format = $(value).find( 'span.tribe-countdown-format' ).text();
+				var complete = $(value).find( 'span.tribe-countdown-complete' ).text();
 
 				// Wrap the timer in a span with a unique id so we can refer to it
 				// in the timer update code.
-				$(value).wrap( '<span class="countdown-time" id=' + unique_id + '/>' );
+				$(value).wrap( '<span class="tribe-countdown-time" id=' + unique_id + '/>' );
 				timers.push( new Timer( unique_id, seconds, format, complete ) );
 
 				// Kick off first update if we're at the end.

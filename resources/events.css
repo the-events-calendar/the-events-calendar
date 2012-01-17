@@ -23,3 +23,9 @@ ul.related-events li {
 	font-size: .75em;
 	text-transform: uppercase;
 }
+
+
+/* Events Countdown Widget */
+.tribe-countdown-timer span.tribe-countdown-seconds, .tribe-countdown-timer span.format, .tribe-countdown-timer span.tribe-countdown-complete {
+	display: none;
+}

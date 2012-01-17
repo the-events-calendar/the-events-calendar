@@ -1,3 +1,12 @@
+<?php
+/**
+* Widget admin for the event countdown widget.
+*/
+
+// Don't load directly
+if ( !defined('ABSPATH') ) { die('-1'); }
+
+?>
 <p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'tribe-events-calendar-pro'); ?></label>
 <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr(strip_tags($instance['title'])); ?>" /></p>
 <p><label for="<?php echo $this->get_field_id( 'event_ID' ); ?>"><?php _e('Event:','tribe-events-calendar-pro');?>
@@ -5,7 +14,7 @@
 <?php 
 foreach ($events as $event )
 	{ ?>
-	<option value="<?php echo $event->ID; ?>" <?php if ( $event->ID == $instance['event_ID'] ) {echo 'selected="selected"';}?> > <?php echo $event->post_title ?> </option>
+	<option value="<?php echo $event->ID; ?>" <?php echo ( $event->ID == $instance['event_ID'] ) ? 'selected="selected"' : ''?>> <?php echo $event->post_title ?> </option>
 <?php } ?>
 </select>
 </p>
