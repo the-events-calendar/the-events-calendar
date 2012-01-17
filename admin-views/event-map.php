@@ -14,7 +14,7 @@ var event_address;
 
 function initialize() {
 	var myOptions = {
-	    zoom: 8,
+	    zoom: <?php echo tribe_get_option( 'embedGoogleMapsZoom', '10' ); ?>,
 	    center: event_address,
 	    mapTypeId: google.maps.MapTypeId.ROADMAP
 	};

@@ -141,7 +141,8 @@ div.tribe_settings{
 						<input type="checkbox" id="embedGoogleMaps" name="embedGoogleMaps" value="1" <?php checked( tribe_get_option('embedGoogleMaps') ); ?>/>
 	                </label>
 					<span id="googleEmbedSize" name="googleEmbedSize" style="margin-left:20px;" >
-						<?php _e('Height','tribe-events-calendar'); ?> <input type="text" name="embedGoogleMapsHeight" value="<?php echo esc_attr( tribe_get_option('embedGoogleMapsHeight','350') ); ?>" size=4>
+						<?php _e('Zoom Level (0-21)', 'tribe-events-calendar'); ?> <input type="text" name="embedGoogleMapsZoom" value="<?php echo esc_attr( tribe_get_option('embedGoogleMapsZoom','10') ); ?>" size=2>
+						&nbsp;<?php _e('Height','tribe-events-calendar'); ?> <input type="text" name="embedGoogleMapsHeight" value="<?php echo esc_attr( tribe_get_option('embedGoogleMapsHeight','350') ); ?>" size=4>
 						&nbsp;<?php _e('Width','tribe-events-calendar'); ?> <input type="text" name="embedGoogleMapsWidth" value="<?php echo esc_attr( tribe_get_option('embedGoogleMapsWidth','100%') ); ?>" size=4> <?php _e('(number or %)', 'tribe-events-calendar'); ?>
 					</span>
 	<br />
