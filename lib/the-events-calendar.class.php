@@ -1229,14 +1229,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
          } else {
             $eventUrl = trailingslashit( home_url() . '/' . $this->rewriteSlug );
          }
-	
-			// if we're on an Event Cat, show the cat link, except for home.
-			if ( $type !== 'home' && is_tax( self::TAXONOMY ) ) {
+         
+			// if we're on an Event Cat, show the cat link, except for home and days.
+			if ( $type !== 'home' && $type !== 'day' && is_tax( self::TAXONOMY ) ) {
 				$eventUrl = trailingslashit( get_term_link( get_query_var('term'), self::TAXONOMY ) );
 			} else if ( $term ) {
 				$eventUrl = trailingslashit( get_term_link( $term, self::TAXONOMY ) );
 			}
-	
+			
 			switch( $type ) {
 		
 				case 'home':
