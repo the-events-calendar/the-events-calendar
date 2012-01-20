@@ -412,7 +412,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function addDateToRecurringEvents($permalink, $post) {
-			if( function_exists('tribe_is_recurring_event') && $post->post_type == self::POSTTYPE && tribe_is_recurring_event($post->ID) ) {
+			if( function_exists('tribe_is_recurring_event') && $post->post_type == self::POSTTYPE && tribe_is_recurring_event($post->ID) && !is_search()) {
 				if( is_admin() && (!isset($post->EventStartDate) || !$post->EventStartDate) ) {
 					if( isset($_REQUEST['eventDate'] ) ) {
 						$post->EventStartDate = $_REQUEST['eventDate'];
@@ -1223,22 +1223,21 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				return esc_url($this->uglyLink($type, $secondary));
 			}
 
-         // account for semi-pretty permalinks
-         if( strpos(get_option('permalink_structure'),"index.php") !== FALSE ) {
-            $eventUrl = trailingslashit( home_url() . '/index.php/' . $this->rewriteSlug );
-         } else {
-            $eventUrl = trailingslashit( home_url() . '/' . $this->rewriteSlug );
-         }
-         
+       // account for semi-pretty permalinks
+      if( strpos(get_option('permalink_structure'),"index.php") !== FALSE ) {
+        $eventUrl = trailingslashit( home_url() . '/index.php/' . $this->rewriteSlug );
+       } else {
+       	$eventUrl = trailingslashit( home_url() . '/' . $this->rewriteSlug );
+       }
+
 			// if we're on an Event Cat, show the cat link, except for home and days.
 			if ( $type !== 'home' && $type !== 'day' && is_tax( self::TAXONOMY ) ) {
 				$eventUrl = trailingslashit( get_term_link( get_query_var('term'), self::TAXONOMY ) );
 			} else if ( $term ) {
 				$eventUrl = trailingslashit( get_term_link( $term, self::TAXONOMY ) );
 			}
-			
+
 			switch( $type ) {
-		
 				case 'home':
 					return esc_url($eventUrl);
 				case 'month':
@@ -1257,25 +1256,24 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						$eventUrl = trailingslashit(get_permalink());
 					return esc_url($eventUrl . 'ical/');
 				case 'single':
-				global $post;
+					global $post;
 					$p = $secondary ? $secondary : $post;
-					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );					
+					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
 					$link = trailingslashit(get_permalink($p));
-					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );										
-				return esc_url($link);
-			case 'day':
-				$date = strtotime($secondary);
-				$secondary = date('Y-m-d', $date);
-				return esc_url($eventUrl . $secondary);
-			case 'all':
-					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );					
+					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
+					return esc_url($link);
+				case 'day':
+					$date = strtotime($secondary);
+					$secondary = date('Y-m-d', $date);
+					return esc_url($eventUrl . $secondary);
+				case 'all':
+					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
 					$eventUrl = trailingslashit(get_permalink());
-					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );										
+					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
 					return esc_url($eventUrl . 'all/');
 				default:
 					return esc_url($eventUrl);
 			}
-	
 		}
 
 		protected function uglyLink( $type = 'home', $secondary = false ) {
