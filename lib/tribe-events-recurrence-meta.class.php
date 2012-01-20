@@ -32,6 +32,15 @@ class TribeEventsRecurrenceMeta {
       return $actions;
    }
 
+   /**
+    * adds the date to event permalinks
+    *
+    * @since 2.0.3
+    * @author jkudish
+    * @param string $permalink the original link
+    * @param stdClass $the_post the post object
+    * @return string $link the filtered link
+    */
    public static function addDateToEventPermalink($permalink, $the_post) {
       global $post;
       $event = $the_post ? $the_post : $post;
@@ -41,12 +50,12 @@ class TribeEventsRecurrenceMeta {
 			if( '' == get_option('permalink_structure') || false == $events->getOption('useRewriteRules',true) )
             return esc_url(add_query_arg('eventDate', TribeDateUtils::dateOnly( $event->EventStartDate ), get_permalink($event->ID) ));
          else
-            return $permalink . TribeDateUtils::dateOnly( $event->EventStartDate );					
+            return $permalink . TribeDateUtils::dateOnly( $event->EventStartDate );
       } else {
          return $permalink;
       }
    }
-	
+
 	/**
 	 * Update event recurrence when a recurring event is saved
 	 * @param integer $event_id id of the event to update
