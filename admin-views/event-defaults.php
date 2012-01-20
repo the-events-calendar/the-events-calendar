@@ -86,7 +86,7 @@
 			<tr class="venue-default-info">
 			<th scope="row"><?php _e('Default Country for Events','tribe-events-calendar-pro'); ?></th>
 				<td>
-					<select name="defaultCountry" id="defaultCountry">
+					<select class="chosen" name="defaultCountry" id="defaultCountry">
 							<?php 
 							$countries = TribeEventsViewHelpers::constructCountries();
 							$defaultCountry = tribe_get_option('defaultCountry');
