@@ -262,7 +262,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			header('Content-type: text/calendar');
 			header('Content-Disposition: attachment; filename="iCal-TribeEvents.ics"');
 			$content = "BEGIN:VCALENDAR\n";
-			$content .= "VERSION:2.0.3\n";
+			$content .= "VERSION:2.0\n";
 			$content .= "PRODID:-//" . $blogName . "//NONSGML v1.0//EN\n";
 			$content .= "CALSCALE:GREGORIAN\n";
 			$content .= "METHOD:PUBLISH\n";

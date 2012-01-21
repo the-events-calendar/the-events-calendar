@@ -110,7 +110,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * retrieve a custom field's value by searching its label
 	 * instead of its (more obscure) ID
 	 *
-	 * @since 2.1
+	 * @since 2.0.3
 	 * @param (string) $label, the label to search for
 	 * @param (int) $eventID (optional), the event to look for, defaults to global $post
 	 * @return (string) value of the field
@@ -124,7 +124,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * same as above but echo instead of return
 	 *
-	 * @since 2.1
+	 * @since 2.0.3
 	 * @param (string) $label, the label to search for
 	 * @param (int) $eventID (optional), the event to look for, defaults to global $post
 	 * @return (string) value of the field
