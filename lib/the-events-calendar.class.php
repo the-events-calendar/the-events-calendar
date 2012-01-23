@@ -222,7 +222,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if( !defined('TRIBE_HIDE_UPSELL') || !TRIBE_HIDE_UPSELL ) {
 				add_action( 'wp_dashboard_setup', array( $this, 'dashboardWidget' ) );
 				add_action( 'tribe_events_cost_table', array($this, 'maybeShowMetaUpsell'));
-				add_action( 'tribe_events_options_top', array($this, 'maybeShowSettingsUpsell'));
+				add_action( 'tribe-events-before-general-settings', array($this, 'maybeShowSettingsUpsell'));
 			}
 		}
 
@@ -794,7 +794,23 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// every visit to ECP Settings = flush rules.
 			$this->flushRewriteRules();
 		}
-
+		
+		/**
+		 * Create the settings tabs.
+		 */
+		 public function settingsTabs( $current = 'general' ) {
+		 	$tabs = array( 'general' => 'General', 'theme' => 'Theme');
+		 	echo '<div id="icon-settings" class="icon32"<br/></div>';
+		 	echo '<h2 class="nav-tab-wrapper">';
+		 	foreach ($tabs as $tab => $name ) {
+		 		$class = ( $tab == $current ) ? 'nav-tab-active' : '';
+		 		echo '<a class="nav-tab ' . $class .'" href="?page=tribe-events-calendar&tab=' . $tab .'">' . $name . '</a>';
+		 	}
+		 	$this->do_action( 'tribe-events-settings-tab' );
+		 	echo '</h2>';
+		 }
+		
+		
 		/**
 		 * Process settings form submissions and save settings if appropriate
 		 */
@@ -802,14 +818,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 	
 			if ( isset($_POST['saveEventsCalendarOptions']) && check_admin_referer('saveEventsCalendarOptions') ) {
 				$options = self::getOptions();
-				$options['viewOption'] = $_POST['viewOption'];
+				if ( isset($_POST['viewOption']) ) {
+					$options['viewOption'] = $_POST['viewOption'];
+				}
 				if(isset($_POST['defaultCountry']) && $_POST['defaultCountry']) {
 					$countries = TribeEventsViewHelpers::constructCountries();
 					$defaultCountryKey = array_search( $_POST['defaultCountry'], $countries );
 					$options['defaultCountry'] = array( $defaultCountryKey, $_POST['defaultCountry'] );
 				}
 
-				if( $_POST['embedGoogleMapsHeight'] ) {
+				if( isset($_POST['embedGoogleMapsHeight']) ) {
 					$options['embedGoogleMapsHeight'] = $_POST['embedGoogleMapsHeight'];
 					$options['embedGoogleMapsWidth'] = $_POST['embedGoogleMapsWidth'];
 					$options['embedGoogleMapsZoom'] = $_POST['embedGoogleMapsZoom'];
@@ -1684,25 +1702,22 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$$tag = get_post_meta($_EventOrganizerID, $tag, true );
 				}
 			}
-			
-			if( isset($_EventOrganizerID) && $_EventOrganizerID && tribe_get_option('defaultValueReplace') ) {
-				foreach($this->organizerTags as $tag) {
-					$$tag = get_post_meta($_EventOrganizerID, $tag, true );
-				}
-			}
 
-			if( isset($_EventVenueID) && $_EventVenueID && tribe_get_option('defaultValueReplace') ){
+			if(isset($_EventVenueID) && $_EventVenueID){
+			
 				foreach($this->venueTags as $tag) {
 					$$tag = get_post_meta($_EventVenueID, $tag, true );
 				}
 
-			}elseif ( tribe_get_option('defaultValueReplace') ){
+			}else{
+			
 				$defaults = $this->venueTags;
 				$defaults[] = '_VenueState';
 				$defaults[] = '_VenueProvince';
 
 				foreach ( $defaults as $tag ) {
-					if ( !$postId || !isset($_GET['post']) ) { //if there is a post AND the post has been saved at least once.
+					if ( !$postId && !$saved ) { //if there is a post AND the post has been saved at least once?
+						
 						$cleaned_tag = str_replace('_Venue','',$tag);
 
 						if($cleaned_tag == 'Cost')
@@ -1711,11 +1726,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						${'_Venue'.$cleaned_tag} = class_exists('TribeEventsPro') ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
 					}
 				}
-				if ( isset($_VenueState) ) {
-					$_VenueStateProvince = $_VenueState; // we want to use default values here
-				} else {
-					$_VenueStateProvince = $_VenueProvince;
-				}
+
+				$_VenueStateProvince = -1; // we want to use default values here
 			}
 
 			$_EventStartDate = (isset($_EventStartDate)) ? $_EventStartDate : null;
