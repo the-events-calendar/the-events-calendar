@@ -166,18 +166,18 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
       }
       
       public function add_defaults_settings_tab() {
-      	 $tab = 'defaults';
-      	 $name = 'Defaults';
-      	 if (isset ( $_GET['tab'] ) ) {
-      	 	$_GET['tab'] == 'defaults' ? $class = 'nav-tab-active' : $class = '';
-		 } else {
-		 	$class = '';
-		 }
-		 echo '<a class="nav-tab ' . $class .'" href="?page=tribe-events-calendar&tab=' . $tab .'">' . $name . '</a>';
-      }
+				$tab = 'defaults';
+				$name = 'Defaults';
+				if (isset ( $_GET['tab'] ) ) {
+					$class = ($_GET['tab'] == $tab) ? ' nav-tab-active' : '';
+				} else {
+					$class = '';
+				}
+				echo '<a class="nav-tab' . $class .'" href="?page=tribe-events-calendar&tab=' . $tab .'">' . $name . '</a>';
+			}
 
       public function event_license_key() {
-			do_action('pue-settings_events-calendar-pro');
+				do_action('pue-settings_events-calendar-pro');
       }
 
       public function select_venue_template($template) {
