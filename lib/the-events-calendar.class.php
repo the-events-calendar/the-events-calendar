@@ -1665,7 +1665,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *
 		 * @return void
 		 */
-		public function EventsChooserBox($event = null) {
+		public function EventsChooserBox($event = null, $frontend = false) {
 			
 			$saved = false;
 			
@@ -1676,12 +1676,32 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$saved = true;
 			}else{
 				$post = $event;
-				$saved = true;
+				
+				echo $post->ID;
+				
+				if($post->ID){
+					$saved = true;
+				}else{
+					$saved = false;
+				}
 			}
 			
 			$options = '';
 			$style = '';
 			$postId = $post->ID;
+
+			if( $frontend ){
+				echo '<pre>';
+				print_r($_POST); // DEBUG
+				echo '</pre>';
+
+				echo '<hr>';
+
+				echo '<pre>';
+				//print_r($this); // DEBUG
+				echo '</pre>';
+
+			}
 
 				foreach ( $this->metaTags as $tag ) {
 					if ( $postId && $saved ) { //if there is a post AND the post has been saved at least once.
@@ -1694,13 +1714,47 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					} else {
 						$cleaned_tag = str_replace('_Event','',$tag);
 						$$tag = class_exists('TribeEventsPro') ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
+						
+						if( $frontend){
+							//get submitted data from $_POST						
+							$tag_key = str_replace('_','',$tag);
+							$$tag = $_POST[$tag_key];
+						}
+						
 					}
 				}
+			
+			if( $frontend ){
+
+				//check for Organizer and Venue ID in $_POST data
+				if ( isset($_POST['organizer']['OrganizerID']) && $_POST['organizer']['OrganizerID'] )
+					$_EventOrganizerID = $_POST['organizer']['OrganizerID'];
+
+				if ( isset($_POST['venue']['VenueID']) && $_POST['venue']['VenueID'] )
+					$_EventVenueID = $_POST['venue']['VenueID'];
+
+				echo $_EventOrganizerID .' | '.$_EventVenueID.'<br>';
+
+			}
 
 			if( isset($_EventOrganizerID) && $_EventOrganizerID) {
 				foreach($this->organizerTags as $tag) {
 					$$tag = get_post_meta($_EventOrganizerID, $tag, true );
 				}
+			}else{
+			
+				if( $frontend ){
+				
+					foreach($this->organizerTags as $tag) {
+						$cleaned_tag = str_replace('_Organizer','',$tag);
+						
+						//echo $cleaned_tag . '<br>';
+						
+						if( isset($_POST['organizer'][$cleaned_tag]) && $_POST['organizer'][$cleaned_tag] )
+						${'_Organizer'.$cleaned_tag} = $_POST['organizer'][$cleaned_tag];
+					}
+				}
+			
 			}
 
 			if(isset($_EventVenueID) && $_EventVenueID){
@@ -1719,15 +1773,33 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					if ( !$postId && !$saved ) { //if there is a post AND the post has been saved at least once?
 						
 						$cleaned_tag = str_replace('_Venue','',$tag);
+						
+						//echo $tag.' | '.$cleaned_tag.'<BR>';
 
 						if($cleaned_tag == 'Cost')
 							continue;
 
 						${'_Venue'.$cleaned_tag} = class_exists('TribeEventsPro') ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
 					}
+					
+					if( $frontend ){
+							if( isset($_POST['venue'][$cleaned_tag]) && $_POST['venue'][$cleaned_tag] )
+							${'_Venue'.$cleaned_tag} = $_POST['venue'][$cleaned_tag];
+					}
+					
 				}
 
-				$_VenueStateProvince = -1; // we want to use default values here
+				if( $frontend ){
+					
+					if( $_POST['venue']['Country'] == 'United States' ){
+						$_VenueStateProvince = $_POST['venue']['State'];
+					}else{
+						$_VenueStateProvince = $_POST['venue']['Province'];
+					}
+					
+				}else{
+					$_VenueStateProvince = -1; // we want to use default values here
+				}
 			}
 
 			$_EventStartDate = (isset($_EventStartDate)) ? $_EventStartDate : null;
