@@ -44,21 +44,16 @@ div.tribe_settings{
 }
 </style>
 <div class="tribe_settings wrap">
+<?php $tab = ( isset($_GET['tab']) && $_GET['tab'] ) ? esc_attr($_GET['tab']) : 'general'; ?>
 <?php screen_icon(); ?><h2><?php printf( __('%s Settings', 'tribe-events-calendar'), $this->pluginName ); ?></h2>
 <div id="tribe-events-options-error" class="tribe-events-error error"></div>
-<?php isset ( $_GET['tab'] ) ? $this->settingsTabs( $_GET['tab'] ) : $this->settingsTabs( 'general' );
+<?php $this->settingsTabs( $tab );
 $this->do_action( 'tribe_events_options_top' ); ?>
 <div class="form">
-<?php if (isset ( $_GET['tab'] ) ) {
-	$this->do_action('tribe-events-before-' . $_GET['tab'] .'-settings');
-} else {
-	$this->do_action('tribe-events-before-general-settings');
-} ?>
-
+<?php $this->do_action('tribe-events-before-'.$tab.'-settings'); ?>
 	<form method="post">
 	<?php wp_nonce_field('saveEventsCalendarOptions'); ?>
 	<?php do_action('tribe-events-settings-top'); ?>
-		<?php isset( $_GET['tab'] ) ? $tab = $_GET['tab'] : $tab = 'general'; ?>
 		<?php switch ( $tab ) {
 			case 'general': ?>
 			<h3><?php _e('Need a hand?','tribe-events-calendar'); ?></h3>
@@ -224,16 +219,10 @@ $this->do_action( 'tribe_events_options_top' ); ?>
 		
 		<?php break;
 		default:
-			if ( isset( $_GET['tab'] ) ) {
-				$this->do_action('tribe-events-' .$_GET['tab'] .'-settings-tab');
-			}
+			$this->do_action('tribe-events-'.$tab.'-settings-tab');
 		break;
 	 	}
-	if (isset ( $_GET['tab'] ) ) {
-		$this->do_action('tribe-events-after-' . $_GET['tab'] .'-settings');
-	} else {
-		$this->do_action('tribe-events-after-general-settings');
-	}
+		$this->do_action('tribe-events-after-'.$tab.'-settings');
    	$this->do_action( 'tribe_events_options_bottom' );
    	?>
 	<table>
