@@ -184,8 +184,8 @@ $this->do_action( 'tribe_events_options_top' ); ?>
 					</tr>
 				</table>
 			<?php break;
-			case 'theme':?>
-			<h3><?php _e('Theme Settings', 'tribe-events-calendar'); ?></h3>
+			case 'template':?>
+			<h3><?php _e('Template Settings', 'tribe-events-calendar'); ?></h3>
 			<table class="form-table">
 					<tr>
 						<th scope="row"><?php _e('Events Template', 'tribe-events-calendar' ); ?></th>

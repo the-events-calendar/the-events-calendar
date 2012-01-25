@@ -799,8 +799,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Create the settings tabs.
 		 */
 		 public function settingsTabs( $current = 'general' ) {
-		 	$tabs = array( 'general' => 'General', 'theme' => 'Theme');
-		 	echo '<div id="icon-settings" class="icon32"<br/></div>';
+		 	$tabs = array( 'general' => 'General', 'template' => 'Template');
 		 	echo '<h2 class="nav-tab-wrapper">';
 		 	foreach ($tabs as $tab => $name ) {
 		 		$class = ( $tab == $current ) ? 'nav-tab-active' : '';
