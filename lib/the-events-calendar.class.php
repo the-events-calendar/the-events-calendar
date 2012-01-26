@@ -820,6 +820,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				if ( isset($_POST['viewOption']) ) {
 					$options['viewOption'] = $_POST['viewOption'];
 				}
+				if ( isset($_POST['postsPerPage']) ) {
+					$options['postsPerPage'] = $_POST['postsPerPage'];
+				}
 				if(isset($_POST['defaultCountry']) && $_POST['defaultCountry']) {
 					$countries = TribeEventsViewHelpers::constructCountries();
 					$defaultCountryKey = array_search( $_POST['defaultCountry'], $countries );
@@ -2032,7 +2035,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function getEvents( $args = '' ) {
 			$tribe_ecp = TribeEvents::instance();
 			$defaults = array(
-				'posts_per_page' => get_option( 'posts_per_page', 10 ),
+				'posts_per_page' => tribe_get_option( 'postsPerPage', 10 ),
 				'post_type' => TribeEvents::POSTTYPE,
 				'orderby' => 'event_date',
 				'order' => 'ASC'

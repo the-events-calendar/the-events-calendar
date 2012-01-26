@@ -48,6 +48,8 @@ if (!class_exists('TribeEventsQuery')) {
 		
 			if (!empty($args['numResults'])) {
 				$args['posts_per_page'] = $args['numResults'];
+			} else {
+				$args['posts_per_page'] = tribe_get_option( 'postsPerPage', '10' );
 			}
 
 	      if (!empty($args['venue'])) {
