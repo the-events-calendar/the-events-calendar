@@ -224,6 +224,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				add_action( 'tribe_events_cost_table', array($this, 'maybeShowMetaUpsell'));
 				add_action( 'tribe-events-before-general-settings', array($this, 'maybeShowSettingsUpsell'));
 			}
+			// option pages
+			add_action( 'tribe-events-general-settings-content', array($this, 'optionsPageViewGeneral') );
+			add_action( 'tribe-events-template-settings-content', array($this, 'optionsPageViewTemplate') );
 		}
 
 		public static function ecpActive() {
@@ -791,10 +794,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function optionsPageView() {
 			include( $this->pluginPath . 'admin-views/events-options.php' );
-			// every visit to ECP Settings = flush rules.
+		}
+
+		public function optionsPageViewGeneral() {
+			include( $this->pluginPath . 'admin-views/events-options-general.php' );
+			// every visit to ECP General Settings = flush rules.
 			$this->flushRewriteRules();
 		}
-		
+
+
+		public function optionsPageViewTemplate() {
+			include( $this->pluginPath . 'admin-views/events-options-template.php' );
+		}
+
 		/**
 		 * Create the settings tabs.
 		 */
