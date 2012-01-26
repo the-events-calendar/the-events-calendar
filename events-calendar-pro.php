@@ -160,10 +160,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
       }
       
       public function add_defaults_settings_content() {
-      			$tec = TribeEvents::instance();
-         		$tecp = $this;
-      			include( $this->pluginPath . 'admin-views/event-defaults.php' );
-      		}
+				$tec = TribeEvents::instance();
+	   		$tecp = $this;
+				include( $this->pluginPath . 'admin-views/events-options-defaults.php' );
+  		}
       
       public function add_defaults_settings_tab() {
 				$tab = 'defaults';
