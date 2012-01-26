@@ -1799,8 +1799,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						$_VenueStateProvince = $_POST['venue']['Province'];
 					}
 					
-				}else{
-					$_VenueStateProvince = -1; // we want to use default values here
 				}
 			}
 
