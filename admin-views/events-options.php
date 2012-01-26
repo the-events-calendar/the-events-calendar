@@ -233,11 +233,12 @@ $this->do_action( 'tribe_events_options_top' ); ?>
 		
 		<?php break;
 		default:
-			$this->do_action('tribe-events-'.$tab.'-settings-tab');
+			$default_content = 'You\'ve requested a nonexistent tab.';
+			echo apply_filters( 'tribe-events-'.$tab.'-settings-content', $default_content );
 		break;
 	 	}
 		$this->do_action('tribe-events-after-'.$tab.'-settings');
-   	$this->do_action( 'tribe_events_options_bottom' );
+   		$this->do_action( 'tribe_events_options_bottom' );
    	?>
 	<table>
 		<tr>
