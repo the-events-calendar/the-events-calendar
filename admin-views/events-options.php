@@ -107,7 +107,7 @@ $this->do_action( 'tribe_events_options_top' ); ?>
 								<label><input type="text" name="postsPerPage" size="4" value="<?php echo esc_attr( tribe_get_option('postsPerPage', 10) ) ?>" /></label>
 						</fieldset>
 								<div>
-									<?php _e('This is the number of posts displayed per page when returning a list of events.','tribe-events-calendar'); ?>
+									<?php _e('This is the number of events displayed per page when returning a list of events.','tribe-events-calendar'); ?>
 								</div>
 					</td>
 				</tr>
