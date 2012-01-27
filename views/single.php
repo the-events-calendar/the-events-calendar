@@ -83,8 +83,8 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<?php endif; ?>
 	</dl>
   
-   	<?php if( function_exists('tribe_the_custom_fields') ): ?>
-	  	<?php echo tribe_the_custom_fields( get_the_ID() ); ?>
+   	<?php if( function_exists('tribe_the_custom_fields') && tribe_get_custom_fields( get_the_ID() ) ): ?>
+	  	<?php tribe_the_custom_fields( get_the_ID() ); ?>
 	<?php endif; ?>
 </div>
 <?php if( tribe_embed_google_map( get_the_ID() ) ) : ?>
