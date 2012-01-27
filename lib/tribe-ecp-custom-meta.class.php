@@ -57,8 +57,11 @@ class TribeEventsCustomMeta {
 	 */
     public static function single_event_meta() {
 			$tribe_ecp = TribeEvents::instance();
-      $customFields = tribe_get_option('custom-fields');
-			include( TribeEventsPro::instance()->pluginPath . 'admin-views/event-meta.php' );
+			$customFields = tribe_get_option('custom-fields');
+			
+			$events_event_meta_template = TribeEventsPro::instance()->pluginPath . 'admin-views/event-meta.php';
+			$events_event_meta_template = apply_filters('tribe_events_event_meta_template', $events_event_meta_template);
+			include( $events_event_meta_template );
     }
 
 	/**
