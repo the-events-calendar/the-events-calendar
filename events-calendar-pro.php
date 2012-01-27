@@ -21,6 +21,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $licenseKey;
 		public static $updateUrl = 'http://tri.be/';
 		const REQUIRED_TEC_VERSION = '2.0.2';
+		const VERSION = '2.1';
 		
 	    private function __construct() {
 			$this->pluginDir = trailingslashit( basename( dirname(__FILE__) ) );
