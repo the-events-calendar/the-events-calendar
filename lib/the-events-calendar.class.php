@@ -2199,4 +2199,3 @@ if ( !class_exists( 'TribeEvents' ) ) {
 	} // end TribeEvents class
 
 } // end if !class_exists TribeEvents
-?>
