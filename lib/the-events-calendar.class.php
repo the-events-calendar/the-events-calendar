@@ -1566,7 +1566,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// finally, called from the save_post action, but on save_posts that
 			// are not venue posts
 			if ( wp_is_post_autosave( $postID ) || $post->post_status == 'auto-draft' ||
-						isset($_GET['bulk_edit']) || $_REQUEST['action'] == 'inline-save' ||
+						isset($_GET['bulk_edit']) || (isset($_REQUEST['action']) && $_REQUEST['action'] == 'inline-save') ||
 						(isset($_POST['venue']) && !$_POST['venue']) ||
 						($post->post_type != self::VENUE_POST_TYPE && $postID)) {
 				return;
@@ -1607,7 +1607,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if( !isset($_POST['organizer']) ) $_POST['organizer'] = null;
 			
 			if ( wp_is_post_autosave( $postID ) || $post->post_status == 'auto-draft' ||
-						isset($_GET['bulk_edit']) || $_REQUEST['action'] == 'inline-save' ||
+						isset($_GET['bulk_edit']) || (isset($_REQUEST['action']) && $_REQUEST['action'] == 'inline-save') ||
 						!$_POST['organizer'] ||
 						($post->post_type != self::ORGANIZER_POST_TYPE && $postID)) {
 				return;
@@ -1843,8 +1843,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			if($post->post_type == self::VENUE_POST_TYPE){
 			
+				if( (is_admin() && isset($_GET['post']) && $_GET['post']) || (!is_admin() && isset($_GET['tribe_venue_id']) && $_GET['tribe_venue_id']) )
+					$saved = true;
+			
 				foreach ( $this->venueTags as $tag ) {
-					if ( $postId && isset($_GET['post']) && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
+					if ( $postId && $saved ) { //if there is a post AND the post has been saved at least once.
 						$$tag = esc_html(get_post_meta( $postId, $tag, true ));
 					} else {
 						$cleaned_tag = str_replace('_Venue','',$tag);
@@ -1859,12 +1862,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				<div id='eventDetails' class="inside eventForm">	
 					<table cellspacing="0" cellpadding="0" id="EventInfo" class="VenueInfo">
 					<?php
-					include( $this->pluginPath . 'admin-views/venue-meta-box.php' );
+					$venue_meta_box_template = $this->pluginPath . 'admin-views/venue-meta-box.php';
+					$venue_meta_box_template = apply_filters('tribe_events_venue_meta_box_template', $venue_meta_box_template);
+					include( $venue_meta_box_template );
 					?>
 					</table>
 				</div>
 			<?php
-		}		/**
+		}
+		
+		/**
 		 * Adds a style chooser to the write post page
 		 *
 		 * @return void
@@ -1876,9 +1883,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$postId = $post->ID;
 
 			if($post->post_type == self::ORGANIZER_POST_TYPE){
+
+				if( (is_admin() && isset($_GET['post']) && $_GET['post']) || (!is_admin() && isset($_GET['tribe_organizer_id']) && $_GET['tribe_organizer_id']) )
+					$saved = true;
 			
 				foreach ( $this->organizerTags as $tag ) {
-					if ( $postId && isset($_GET['post']) && $_GET['post'] ) { //if there is a post AND the post has been saved at least once.
+					if ( $postId && $saved ) { //if there is a post AND the post has been saved at least once.
 						$$tag = get_post_meta( $postId, $tag, true );
 					}
 				}
@@ -1890,7 +1900,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				<div id='eventDetails' class="inside eventForm">	
 					<table cellspacing="0" cellpadding="0" id="EventInfo" class="OrganizerInfo">
 					<?php
-					include( $this->pluginPath . 'admin-views/organizer-meta-box.php' );
+					$organizer_meta_box_template = $this->pluginPath . 'admin-views/organizer-meta-box.php';
+					$organizer_meta_box_template = apply_filters('tribe_events_organizer_meta_box_template', $organizer_meta_box_template);
+					include( $organizer_meta_box_template );
 					?>
 					</table>
 				</div>
