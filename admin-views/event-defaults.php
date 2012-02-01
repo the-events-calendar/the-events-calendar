@@ -1,20 +1,20 @@
 	<h3><?php _e('Customize Defaults', 'tribe-events-calendar-pro'); ?></h3>
 	<p><?php _e('These settings change the default event form. For example, if you set a default venue, this field will be automatically filled in on a new event.', 'tribe-events-calendar-pro') ?></p>
 	<table class="form-table">
-<tr>
-			<th scope="row"><?php _e('Automatically replace empty fields with default values','tribe-events-calendar-pro'); ?></th>
-	        <td>
-	            <fieldset>
-	                <legend class="screen-reader-text">
-	                    <span><?php _e('Automatically replace empty fields with default values','tribe-events-calendar-pro'); ?></span>
-	                </legend>
-	                <label title='Replace empty fields'>
-	                    <input type="checkbox" name="defaultValueReplace" value="1" <?php checked( tribe_get_option('defaultValueReplace') ); ?> /> 
-	                    <?php _e('Enabled','tribe-events-calendar-pro'); ?>
-	                </label>
-	            </fieldset>
-	        </td>
-		</tr>
+			<tr>
+				<th scope="row"><?php _e('Automatically replace empty fields with default values','tribe-events-calendar-pro'); ?></th>
+		        <td>
+		            <fieldset>
+		                <legend class="screen-reader-text">
+		                    <span><?php _e('Automatically replace empty fields with default values','tribe-events-calendar-pro'); ?></span>
+		                </legend>
+		                <label title='Replace empty fields'>
+		                    <input type="checkbox" name="defaultValueReplace" value="1" <?php checked( tribe_get_option('defaultValueReplace') ); ?> /> 
+		                    <?php _e('Enabled','tribe-events-calendar-pro'); ?>
+		                </label>
+		            </fieldset>
+		        </td>
+			</tr>
 			<tr>
 				<th scope="row"><?php _e('Default Organizer for Events', 'tribe-events-calendar-pro'); ?></th>
 				<td>
