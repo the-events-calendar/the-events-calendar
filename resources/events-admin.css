@@ -205,3 +205,7 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #
 display: none;
 }
 .tribe_settings .expiring-license{color: red;}
+
+.tribe_settings .tribe-error { 
+	border: 1px solid #F00;
+}

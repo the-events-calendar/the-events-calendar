@@ -71,6 +71,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public $pluginName;
 		public $date;
 		protected $tabIndexStart = 2000;
+		
+		public $form_errors = array();
+		public $form_message = array();
 
 		public $metaTags = array(
 			'_EventAllDay',
@@ -198,6 +201,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'template_redirect', array( $this, 'loadStyle' ) );
 			add_action( 'admin_menu', array( $this, 'addOptionsPage' ) );
 			add_action( 'admin_init', array( $this, 'saveSettings' ) );
+			add_action( 'tribe_validate_form_settings', array( $this, 'validateGeneralSettings' ) );
+			add_action( 'tribe_validate_form_settings', array( $this, 'validateTemplateSettings' ) );
+			add_action( 'tribe_events_options_top', array( $this, 'displayFormErrors' ) );
+			add_action( 'tribe_events_options_top', array( $this, 'displayFormMessage' ) );
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
 			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
 			add_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
@@ -821,94 +828,142 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 	echo '</h2>';
 		 }
 		
+		/**
+		 * Display any errors accrued during form validation.
+		 */
+		public function displayFormErrors() {
+			$count = count( $this->form_errors );
+			if ( $count ) {
+				echo '<div id="message" class="error"><p><strong>Your form had the following errors:</strong></p><ul>';
+				foreach ($this->form_errors as $error) {
+					echo '<li>' . $error . '</li>';
+				}
+				$message = _n('The above setting was not saved.', 'The above settings were not saved.', $count, 'tribe-events-calendar');
+				echo '</ul><p>' . $message . '</p></div>';
+			}
+		}
+		
+		/**
+		 * Display success message if settings are saved.
+		 */
+		public function displayFormMessage() {
+			if ( isset($_POST['saveEventsCalendarOptions']) && check_admin_referer('saveEventsCalendarOptions') ) {
+				if ( !count( $this->form_errors ) ) {
+					$message = __('Settings saved.', 'tribe-events-calendar');
+					echo '<div id="message" class="updated"><p><strong>' . $message . '</strong></p></div>';
+				}
+			}
+		}
+		
+		/**
+		 * Validate General settings form before saving the settings.
+		 */
+		public function validateGeneralSettings() {
+			if ( isset( $_POST['current-settings-tab'] ) ) {
+				if ( $_POST['current-settings-tab'] == 'general' ) {
+					$options = self::getOptions();
+					if ( isset($_POST['viewOption']) ) {
+						$options['viewOption'] = $_POST['viewOption'];
+					}
+					if ( isset($_POST['postsPerPage'] ) ) {
+						if ( !preg_match( '/^[0-9]+$/', $_POST['postsPerPage'] ) ) {
+							$this->form_errors['postsPerPage'] = __('Number of events to show per page in the loop must be a positive integer.', 'tribe-events-calendar');
+						} else {
+							$options['postsPerPage'] = $_POST['postsPerPage'];
+						}
+					}
+					if ( isset($_POST['eventsSlug'] ) ) {
+						if ( !preg_match( '/^[a-zA-Z0-9-_]+$/', $_POST['eventsSlug'] ) ) {
+							$this->form_errors['eventsSlug'] = __('Events slug must be a valid slug (numbers, letters, dashes, and underscores).', 'tribe-events-calendar');
+						}
+					}
+					if ( isset($_POST['singleEventSlug'] ) ) {
+						if ( !preg_match( '/^[a-zA-Z0-9-_]+$/', $_POST['singleEventSlug'] ) ) {
+							$this->form_errors['singleEventSlug'] = __('Single event slug must be a valid slug (numbers, letters, dashes, and underscores).', 'tribe-events-calendar');
+						} else {
+							$options['postsPerPage'] = $_POST['postsPerPage'];
+						}		
+					}
+					// Plural cannot be the same as singular.
+					if ( isset($_POST['eventsSlug']) && isset($_POST['singleEventSlug']) ) {
+						if ( $_POST['singleEventSlug'] === $_POST['eventsSlug'] ) {
+							$this->form_errors['singleEventSlug'] = __('Single event slug must not be the same as the (plural) events slug.', 'tribe-events-calendar');	
+						} else {
+							$options['postsPerPage'] = $_POST['postsPerPage'];
+						}
+					}
+					if ( isset($_POST['embedGoogleMapsHeight'] ) ) {
+						if ( !preg_match( '/^[0-9]+%{0,1}$/', $_POST['embedGoogleMapsHeight'] ) ) {
+							$this->form_errors['embedGoogleMapsHeight'] = __('Google Maps height must be a number or percentage.', 'tribe-events-calendar');
+						} else {
+							$options['postsPerPage'] = $_POST['postsPerPage'];
+						}		
+					}
+					if ( isset($_POST['embedGoogleMapsWidth'] ) ) {
+						if ( !preg_match( '/^[0-9]+%{0,1}$/', $_POST['embedGoogleMapsWidth'] ) ) {
+							$this->form_errors['embedGoogleMapsWidth'] = __('Google Maps width must be a number or percentage.', 'tribe-events-calendar');
+						} else {
+							$options['postsPerPage'] = $_POST['postsPerPage'];
+						}		
+					}
+					if ( isset($_POST['embedGoogleMapsZoom'] ) ) {
+						if ( !preg_match( '/^([0-9]|[0-1][0-9]|2[0-1])$/', $_POST['embedGoogleMapsZoom'] ) ) {
+							$this->form_errors['embedGoogleMapsZoom'] = __('Google Maps Zoom Level must be a number between 0 and 21.', 'tribe-events-calendar');
+						} else {
+							$options['postsPerPage'] = $_POST['postsPerPage'];
+						}		
+					}
+					$boolean_opts = array(
+						'embedGoogleMaps',
+						'showComments',
+						'showInLoops',
+						'debugEvents',
+					);
+					foreach ($boolean_opts as $opt) {					
+						$options[$opt] = (isset($_POST[$opt])) ? true : false;
+					}
+					$opts = array( 
+						'multiDayCutoff',
+					);
+					foreach ($opts as $opt) {
+						if(isset($_POST[$opt]))
+							$options[$opt] = $_POST[$opt];
+					}
+					
+					$this->setOptions($options);
+				}
+			}
+		}
+		
+		/**
+		 * Validate Template settings form before saving the settings.
+		 */
+		public function validateTemplateSettings() {
+			if ( isset( $_POST['current-settings-tab'] ) ) {
+				if ( $_POST['current-settings-tab'] == 'template' ) {
+					$options = self::getOptions();
+					$opts = array(
+					'spEventsAfterHTML',
+					'spEventsBeforeHTML',
+					'spEventsTemplate'					
+					);
+					foreach ($opts as $opt) {
+						if(isset($_POST[$opt]))
+							$options[$opt] = $_POST[$opt];
+					}
+					
+					$this->setOptions($options);
+				}
+			}
+		}
 		
 		/**
 		 * Process settings form submissions and save settings if appropriate
 		 */
 		public function saveSettings() {
-	
 			if ( isset($_POST['saveEventsCalendarOptions']) && check_admin_referer('saveEventsCalendarOptions') ) {
-				$options = self::getOptions();
-				if ( isset($_POST['viewOption']) ) {
-					$options['viewOption'] = $_POST['viewOption'];
-				}
-				if ( isset($_POST['postsPerPage']) ) {
-					$options['postsPerPage'] = $_POST['postsPerPage'];
-				}
-				if(isset($_POST['defaultCountry']) && $_POST['defaultCountry']) {
-					$countries = TribeEventsViewHelpers::constructCountries();
-					$defaultCountryKey = array_search( $_POST['defaultCountry'], $countries );
-					$options['defaultCountry'] = array( $defaultCountryKey, $_POST['defaultCountry'] );
-				}
-
-				if( isset($_POST['embedGoogleMapsHeight']) ) {
-					$options['embedGoogleMapsHeight'] = $_POST['embedGoogleMapsHeight'];
-					$options['embedGoogleMapsWidth'] = $_POST['embedGoogleMapsWidth'];
-					$options['embedGoogleMapsZoom'] = $_POST['embedGoogleMapsZoom'];
-				}
-		
-				// single event cannot be same as plural. Or empty.
-				if( isset($_POST['singleEventSlug']) && isset($_POST['eventsSlug']) ){
-					if ( $_POST['singleEventSlug'] === $_POST['eventsSlug'] ) {
-						$_POST['singleEventSlug'] = 'event';
-					}
-				}
-
-				if( empty($_POST['singleEventSlug']) ){
-					$_POST['singleEventSlug'] = 'event';
-				}
-		
-				// Events slug can't be empty
-				if ( empty( $_POST['eventsSlug'] ) ) {
-					$_POST['eventsSlug'] = 'events';
-				}
-		
-				$boolean_opts = array(
-					'embedGoogleMaps',
-					'showComments',
-					'showInLoops',
-					'displayEventsOnHomepage',
-					'debugEvents',
-					'defaultValueReplace',
-				);
-				foreach ($boolean_opts as $opt) {					
-					$options[$opt] = (isset($_POST[$opt])) ? true : false;
-				}
-				
-				$opts = array( 
-					'resetEventPostDate',
-					'eventsSlug',
-					'singleEventSlug',
-					'spEventsAfterHTML',
-					'spEventsBeforeHTML',
-					'spEventsCountries',
-					'eventsDefaultVenueID',
-					'eventsDefaultOrganizerID',
-					'eventsDefaultState',
-					'eventsDefaultProvince',
-					'eventsDefaultAddress',
-					'eventsDefaultCity',
-					'eventsDefaultZip',
-					'eventsDefaultPhone',
-					'multiDayCutoff',
-					'spEventsTemplate'
-				);
-				foreach ($opts as $opt) {
-					if(isset($_POST[$opt]))
-						$options[$opt] = $_POST[$opt];
-				}
-
-				$options['spEventsCountries'] = stripslashes($options['spEventsCountries']);
-		
-				// events slug happiness
-				$slug = $options['eventsSlug'];
-				$slug = sanitize_title_with_dashes($slug);
-				$slug = str_replace('/',' ',$slug);
-				$options['eventsSlug'] = $slug;
-				$this->rewriteSlug = $slug;
-
-				$this->setOptions($options);
-			} // end if
+				do_action('tribe_validate_form_settings');
+			}
 		}
 
 		/**
@@ -962,8 +1017,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 			if ( update_option( TribeEvents::OPTIONNAME, $options ) ) {
 				self::$options = apply_filters( 'tribe_get_options', $options );
-				if ( self::$options['eventsSlug'] != '' ) {
-					$this->flushRewriteRules();
+				if ( isset( self::$options['eventsSlug'] ) ) {
+					if ( self::$options['eventsSlug'] != '' ) {
+						$this->flushRewriteRules();
+					}
 				}
 			} else {
 				self::$options = self::getOptions();

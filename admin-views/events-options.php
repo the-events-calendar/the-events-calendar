@@ -66,6 +66,7 @@ $this->do_action( 'tribe_events_options_top' ); ?>
 		<table>
 			<tr>
 		    	<td>
+		    		<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="<?php echo $tab; ?>" />
 		    		<input id="saveEventsCalendarOptions" class="button-primary" type="submit" name="saveEventsCalendarOptions" value="<?php _e('Save Changes', 'tribe-events-calendar'); ?>" />
 		        </td>
 		    </tr>	

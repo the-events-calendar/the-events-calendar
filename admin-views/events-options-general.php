@@ -46,7 +46,7 @@
 			<legend class="screen-reader-text">
 				<span><?php _e('Number of events to show per page in the loop','tribe-events-calendar'); ?></span>
 			</legend>
-				<label><input type="text" name="postsPerPage" size="4" value="<?php echo esc_attr( tribe_get_option('postsPerPage', 10) ) ?>" /></label>
+				<label><input <?php if( isset($this->form_errors['postsPerPage']) ) echo 'class="tribe-error"'; ?> type="text" name="postsPerPage" size="4" value="<?php if ( isset( $_POST['postsPerPage']) ): echo $_POST['postsPerPage']; else: echo esc_attr( tribe_get_option('postsPerPage', 10) ); endif; ?>" /></label>
 		</fieldset>
 				<div>
 					<?php _e('This is the number of events displayed per page when returning a list of events.','tribe-events-calendar'); ?>
@@ -101,9 +101,9 @@
 				<input type="checkbox" id="embedGoogleMaps" name="embedGoogleMaps" value="1" <?php checked( tribe_get_option('embedGoogleMaps') ); ?>/>
 			</label>
 			<span id="googleEmbedSize" name="googleEmbedSize" style="margin-left:20px;" >
-				<?php _e('Height','tribe-events-calendar'); ?> <input type="text" name="embedGoogleMapsHeight" value="<?php echo esc_attr( tribe_get_option('embedGoogleMapsHeight','350') ); ?>" size=4>
-				&nbsp;<?php _e('Width','tribe-events-calendar'); ?> <input type="text" name="embedGoogleMapsWidth" value="<?php echo esc_attr( tribe_get_option('embedGoogleMapsWidth','100%') ); ?>" size=4> <?php _e('(number or %)', 'tribe-events-calendar'); ?>
-				&nbsp;<?php _e('Zoom Level', 'tribe-events-calendar'); ?> <input type="text" name="embedGoogleMapsZoom" value="<?php echo esc_attr( tribe_get_option('embedGoogleMapsZoom','10') ); ?>" size=2> <?php  _e('(0 = zoomed-out; 21 = zoomed-in)', 'tribe-events-calendar'); ?>
+				<?php _e('Height','tribe-events-calendar'); ?> <input <?php if( isset($this->form_errors['embedGoogleMapsHeight']) ) echo 'class="tribe-error"'; ?> type="text" name="embedGoogleMapsHeight" value="<?php if ( isset( $_POST['embedGoogleMapsHeight']) ): echo $_POST['embedGoogleMapsHeight']; else: echo esc_attr( tribe_get_option('embedGoogleMapsHeight','350') ); endif; ?>" size=4>
+				&nbsp;<?php _e('Width','tribe-events-calendar'); ?> <input <?php if( isset($this->form_errors['embedGoogleMapsWidth']) ) echo 'class="tribe-error"'; ?> type="text" name="embedGoogleMapsWidth" value="<?php if ( isset( $_POST['embedGoogleMapsWidth']) ): echo $_POST['embedGoogleMapsWidth']; else: echo esc_attr( tribe_get_option('embedGoogleMapsWidth','100%') ); endif; ?>" size=4> <?php _e('(number or %)', 'tribe-events-calendar'); ?>
+				&nbsp;<?php _e('Zoom Level', 'tribe-events-calendar'); ?> <input <?php if( isset($this->form_errors['embedGoogleMapsZoom']) ) echo 'class="tribe-error"'; ?> type="text" name="embedGoogleMapsZoom" value="<?php if ( isset( $_POST['embedGoogleMapsZoom']) ): echo $_POST['embedGoogleMapsZoom']; else: echo esc_attr( tribe_get_option('embedGoogleMapsZoom','10') ); endif; ?>" size=2> <?php  _e('(0 = zoomed-out; 21 = zoomed-in)', 'tribe-events-calendar'); ?>
 			</span>
 			<br />
 			<div>
@@ -118,14 +118,14 @@
 		<th scope="row"><?php _e('Events URL slug', 'tribe-events-calendar'); ?></th>
 		<td><fieldset>
 			<legend class="screen-reader-text"><?php _e('Events URL slug', 'tribe-events-calendar' ); ?></legend>
-			<label><input type="text" name="eventsSlug" value="<?php echo esc_attr( tribe_get_option('eventsSlug', 'events') ) ?>" /> <?php _e('The slug used for building the Events URL.', 'tribe-events-calendar' ) ?></label><br /><?php printf( __('Your current Events URL is <strong><a href="%s">%s</a></strong>', 'tribe-events-calendar' ), tribe_get_events_link(), tribe_get_events_link() )  ?>
+			<label><input <?php if( isset($this->form_errors['eventsSlug']) ) echo 'class="tribe-error"'; ?> type="text" name="eventsSlug" value="<?php if ( isset( $_POST['eventsSlug']) ): echo $_POST['eventsSlug']; else: echo esc_attr( tribe_get_option('eventsSlug', 'events') ); endif; ?>" /> <?php _e('The slug used for building the Events URL.', 'tribe-events-calendar' ) ?></label><br /><?php printf( __('Your current Events URL is <strong><a href="%s">%s</a></strong>', 'tribe-events-calendar' ), tribe_get_events_link(), tribe_get_events_link() )  ?>
 		</fieldset></td>
 	</tr>
 	<tr>
 		<th scope="row"><?php _e('Single Event URL slug', 'tribe-events-calendar'); ?></th>
 		<td><fieldset>
 			<legend class="screen-reader-text"><?php _e('Single Event URL slug', 'tribe-events-calendar' ); ?></legend>
-			<label><input type="text" name="singleEventSlug" value="<?php echo esc_attr( tribe_get_option('singleEventSlug', 'event') ) ?>" /> <?php _e('The slug used for building a single Event URL.', 'tribe-events-calendar' );  ?></label><br />
+			<label><input <?php if( isset($this->form_errors['singleEventSlug']) ) echo 'class="tribe-error"'; ?> type="text" name="singleEventSlug" value="<?php if ( isset( $_POST['singleEventSlug']) ): echo $_POST['singleEventSlug']; else: echo esc_attr( tribe_get_option('singleEventSlug', 'event') ); endif; ?>" /> <?php _e('The slug used for building a single Event URL.', 'tribe-events-calendar' );  ?></label><br />
 			<?php printf( __('<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: <strong>%s</strong>', 'tribe-events-calendar' ), trailingslashit( home_url() ) . tribe_get_option('singleEventSlug', 'event') . '/single-post-name/' ); ?>
 		</fieldset></td>
 	</tr>
