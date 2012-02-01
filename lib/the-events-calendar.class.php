@@ -819,6 +819,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		 public function settingsTabs( $current = 'general' ) {
 		 	$tabs = array( 'general' => 'General', 'template' => 'Template');
+		 	$tabs = apply_filters('tribe_events_calendar_tabs', $tabs);
+		 	
 		 	echo '<h2 class="nav-tab-wrapper">';
 		 	foreach ($tabs as $tab => $name ) {
 		 		$class = ( $tab == $current ) ? 'nav-tab-active' : '';
