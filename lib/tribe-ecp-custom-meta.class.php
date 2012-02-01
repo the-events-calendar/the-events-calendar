@@ -90,24 +90,28 @@ class TribeEventsCustomMeta {
 	public static function save_meta_options($ecp_options) {
 		$count = 1;
 		$ecp_options['custom-fields'] = array();
-
-		while( isset($_POST['custom-field-' . $count]) ) {
-			$name = $_POST['custom-field-' . $count];
-			$type = $_POST['custom-field-type-' . $count];
-			$values = $_POST['custom-field-options-' . $count];
-
-			if( $name ) {
-				$ecp_options['custom-fields'][] = array(
-					'name'=>'_ecp_custom_' . $count,
-					'label'=>$name,
-					'type'=>$type,
-					'values'=>$values
-				);
+		if ( isset( $_POST['current-settings-tab'] ) ) {
+			if ( $_POST['current-settings-tab'] == 'general' ) {
+				while( isset($_POST['custom-field-' . $count]) ) {
+					$name = $_POST['custom-field-' . $count];
+					$type = $_POST['custom-field-type-' . $count];
+					$values = $_POST['custom-field-options-' . $count];
+		
+					if( $name ) {
+						$ecp_options['custom-fields'][] = array(
+							'name'=>'_ecp_custom_' . $count,
+							'label'=>$name,
+							'type'=>$type,
+							'values'=>$values
+						);
+					}
+		
+					$count++;
+				}
+			} else {
+				$ecp_options['custom-fields'] = tribe_get_option('custom-fields');
 			}
-
-			$count++;
 		}
-
 		return $ecp_options;
 	}
 

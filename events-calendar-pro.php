@@ -56,6 +56,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'tribe_tec_template_chooser', array( $this, 'do_ical_template' ) );
 			add_action( 'tribe-events-settings-tab', array( $this, 'add_defaults_settings_tab') );
 			add_action( 'tribe-events-defaults-settings-content', array( $this, 'add_defaults_settings_content') );
+			add_action( 'tribe_validate_form_settings', array( $this, 'validateDefaultsSettings' ) );
 			add_action( 'tribe-events-before-general-settings', array( $this, 'event_license_key') );
 			add_filter( 'tribe_current_events_page_template', array( $this, 'select_venue_template' ) );
 			add_filter( 'tribe_events_template_single-venue.php', array( $this, 'load_venue_template' ) );
@@ -69,7 +70,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'tribe_venue_table_top', array($this, 'displayEventVenueDropdown') );
 			add_action( 'tribe_organizer_table_top', array($this, 'displayEventOrganizerDropdown') );
 			add_action( 'tribe_helper_activation_complete', array($this, 'helpersLoaded') );
-	    }
+		}
 		
 		public function init() {
 			TribeEventsCustomMeta::init();
@@ -98,7 +99,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				die;
 			}
 
-      }
+		}
 
       // event deletion
       public function adjust_date_on_recurring_event_trash_link( $link, $postId ) {
@@ -176,6 +177,77 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				}
 				echo '<a class="nav-tab' . $class .'" href="?page=tribe-events-calendar&tab=' . $tab .'">' . $name . '</a>';
 			}
+		
+		public function validateDefaultsSettings() {
+			if ( isset( $_POST['current-settings-tab'] ) ) {
+				if ( $_POST['current-settings-tab'] == 'defaults' ) {
+					$tribeEvents = TribeEvents::instance();
+					$options = $tribeEvents->getOptions();
+					$options['defaultValueReplace'] = (isset($_POST['defaultValueReplace'])) ? true : false;
+					if ( isset( $_POST['eventsDefaultAddress'] ) ) {
+						if ( !preg_match( '/^[a-zA-Z0-9- ]+$/', $_POST['eventsDefaultAddress'] ) ) {
+							$tribeEvents->form_errors['eventsDefaultAddress'] = __('Events Default Address must consist of letters, numbers, dashes, and spaces only.');
+						} else {
+							$options['eventsDefaultAddress'] = $_POST['eventsDefaultAddress'];
+						}
+					}
+					if ( isset($_POST['eventsDefaultCity'] ) ) {
+						if ( !preg_match( '/^[a-zA-Z- ]+$/', $_POST['eventsDefaultCity'] ) ) {
+							$tribeEvents->form_errors['eventsDefaultCity'] = 'Default City must consist of letters, spaces, and dashes.';
+						} else {
+							$options['eventsDefaultCity'] = $_POST['eventsDefaultCity'];
+						}
+					}
+					if ( isset($_POST['eventsDefaultProvince'] ) ) {
+						if ( !preg_match( '/^[a-zA-Z- ]+$/', $_POST['eventsDefaultProvince'] ) ) {
+							$tribeEvents->form_errors['eventsDefaultProvince'] = 'Default Province must consist of letters, spaces, and dashes.';
+						} else {
+							$options['eventsDefaultProvince'] = $_POST['eventsDefaultProvince'];
+						}			
+					}
+					if ( isset($_POST['eventsDefaultZip'] ) ) {
+						if ( !preg_match( '/^[0-9]{5}$/', $_POST['eventsDefaultZip'] ) ) {
+							$tribeEvents->form_errors['eventsDefaultZip'] = 'Default Zip must consist of 5 numbers.';
+						} else {
+							$options['eventsDefaultZip'] = $_POST['eventsDefaultZip'];
+						}			
+					}
+					if ( isset($_POST['eventsDefaultPhone'] ) ) {
+						if ( !preg_match( '/^[0-9\(\)\+ -]+$/', $_POST['eventsDefaultPhone'] ) ) {
+							$tribeEvents->form_errors['eventsDefaultPhone'] = 'Must be a phone number.';
+						} else {
+							$options['eventsDefaultPhone'] = $_POST['eventsDefaultPhone'];
+						}			
+					}
+					$boolean_opts = array(
+						'defaultValueReplace'
+					);
+					foreach ($boolean_opts as $opt) {					
+						$options[$opt] = (isset($_POST[$opt])) ? true : false;
+					}
+					$opts = array( 
+					'spEventsCountries',
+					'eventsDefaultVenueID',
+					'eventsDefaultOrganizerID',
+					'eventsDefaultState',
+					);
+					foreach ($opts as $opt) {
+						if(isset($_POST[$opt])) {
+							$options[$opt] = $_POST[$opt];
+						}
+					}
+					// Sanitize countries list.
+					$options['spEventsCountries'] = stripslashes($options['spEventsCountries']);
+					if (isset($_POST['defaultCountry']) && $_POST['defaultCountry']) {
+						$countries = TribeEventsViewHelpers::constructCountries();
+						$defaultCountryKey = array_search( $_POST['defaultCountry'], $countries );
+						$options['defaultCountry'] = array( $defaultCountryKey, $_POST['defaultCountry'] );
+					}
+					
+					$tribeEvents->setOptions($options);
+				}
+			} 
+		}
 
       public function event_license_key() {
 				do_action('pue-settings_events-calendar-pro');

@@ -1,3 +1,4 @@
+	<?php $tribeEvents = TribeEvents::instance(); ?>
 	<h3><?php _e('Customize Defaults', 'tribe-events-calendar-pro'); ?></h3>
 	<p><?php _e('These settings change the default event form. For example, if you set a default venue, this field will be automatically filled in on a new event.', 'tribe-events-calendar-pro') ?></p>
 	<table class="form-table">
@@ -37,7 +38,7 @@
 				<th scope="row"><?php _e('Default Address', 'tribe-events-calendar-pro'); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Address', 'tribe-events-calendar-pro' ); ?></legend>
-					<label><input type="text" name="eventsDefaultAddress" value="<?php echo esc_attr( tribe_get_option('eventsDefaultAddress') ) ?>" /> <?php _e('The default address value', 'tribe-events-calendar-pro' ) ?></label><br />
+					<label><input <?php if( isset($tribeEvents->form_errors['eventsDefaultAddress']) ) echo 'class="tribe-error"'; ?> type="text" name="eventsDefaultAddress" value="<?php if ( isset( $_POST['eventsDefaultAddress']) ): echo $_POST['eventsDefaultAddress']; else: echo esc_attr( tribe_get_option('eventsDefaultAddress') ); endif; ?>" /> <?php _e('The default address value', 'tribe-events-calendar-pro' ) ?></label><br />
 					<?php echo (tribe_get_option('eventsDefaultAddress') != null) ? sprintf( __('The current default value is <strong>%s</strong>', 'tribe-events-calendar-pro' ), tribe_get_option('eventsDefaultAddress') ) : __('No default value set');  ?>					
 				</fieldset></td>
 			</tr>
@@ -45,7 +46,7 @@
 				<th scope="row"><?php _e('Default City', 'tribe-events-calendar-pro'); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default City', 'tribe-events-calendar-pro' ); ?></legend>
-					<label><input type="text" name="eventsDefaultCity" value="<?php echo esc_attr( tribe_get_option('eventsDefaultCity') ) ?>" /> <?php _e('The default city value', 'tribe-events-calendar-pro' ) ?></label><br />
+					<label><input <?php if( isset($tribeEvents->form_errors['eventsDefaultCity']) ) echo 'class="tribe-error"'; ?> type="text" name="eventsDefaultCity" value="<?php if ( isset( $_POST['eventsDefaultAddress']) ): echo $_POST['eventsDefaultCity']; else: echo esc_attr( tribe_get_option('eventsDefaultCity') ); endif; ?>" /> <?php _e('The default city value', 'tribe-events-calendar-pro' ) ?></label><br />
 					<?php echo (tribe_get_option('eventsDefaultCity') != null) ? sprintf( __('The current default value is <strong>%s</strong>', 'tribe-events-calendar-pro' ), tribe_get_option('eventsDefaultCity') ) : __('No default value set');  ?>					
 				</fieldset></td>
 			</tr>
@@ -76,7 +77,7 @@
 				<th scope="row"><?php _e('Default Province', 'tribe-events-calendar-pro'); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Province or State', 'tribe-events-calendar-pro' ); ?></legend>
-					<label><input type="text" name="eventsDefaultProvince" value="<?php echo esc_attr( tribe_get_option('eventsDefaultProvince') ) ?>" /> <?php _e('The default  value', 'tribe-events-calendar-pro' ) ?></label><br />
+					<label><input <?php if( isset($tribeEvents->form_errors['eventsDefaultProvince']) ) echo 'class="tribe-error"'; ?> type="text" name="eventsDefaultProvince" value="<?php if ( isset( $_POST['eventsDefaultAddress']) ): echo $_POST['eventsDefaultProvince']; else: echo esc_attr( tribe_get_option('eventsDefaultProvince') ); endif; ?>" /> <?php _e('The default  value', 'tribe-events-calendar-pro' ) ?></label><br />
 					<?php echo (tribe_get_option('eventsDefaultProvince') != null) ? sprintf( __('The current default value is <strong>%s</strong>', 'tribe-events-calendar-pro' ), tribe_get_option('eventsDefaultProvince') ) : __('No default value set');  ?>					
 				</fieldset></td>
 			</tr>
@@ -85,7 +86,7 @@
 				<th scope="row"><?php _e('Default Postal Code', 'tribe-events-calendar-pro'); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Postal Code', 'tribe-events-calendar-pro' ); ?></legend>
-					<label><input type="text" name="eventsDefaultZip" value="<?php echo esc_attr( tribe_get_option('eventsDefaultZip') ) ?>" /> <?php _e('The default Postal Code value', 'tribe-events-calendar-pro' ) ?></label><br />
+					<label><input <?php if( isset($tribeEvents->form_errors['eventsDefaultZip']) ) echo 'class="tribe-error"'; ?> type="text" name="eventsDefaultZip" value="<?php if ( isset( $_POST['eventsDefaultAddress']) ): echo $_POST['eventsDefaultZip']; else: echo esc_attr( tribe_get_option('eventsDefaultZip') ); endif; ?>" /> <?php _e('The default Postal Code value', 'tribe-events-calendar-pro' ) ?></label><br />
 					<?php echo (tribe_get_option('eventsDefaultZip') != null) ? sprintf( __('The current default value is <strong>%s</strong>', 'tribe-events-calendar-pro' ), tribe_get_option('eventsDefaultZip') ) : __('No default value set');  ?>					
 				</fieldset></td>
 			</tr>
@@ -93,10 +94,10 @@
 			<tr class="venue-default-info">
 			<th scope="row"><?php _e('Default Country for Events','tribe-events-calendar-pro'); ?></th>
 				<td>
-					<select class="chosen" name="defaultCountry" id="defaultCountry">
 							<?php 
 							$countries = TribeEventsViewHelpers::constructCountries();
 							$defaultCountry = tribe_get_option('defaultCountry');
+							echo '<select class="chosen" name="defaultCountry" id="defaultCountry">';
 					foreach ($countries as $abbr => $fullname) {
 						print ("<option value=\"$fullname\" ");
 						if ( isset($defaultCountry[1]) && $defaultCountry[1] == $fullname) { 
@@ -112,7 +113,7 @@
 				<th scope="row"><?php _e('Default Phone', 'tribe-events-calendar-pro'); ?></th>
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Phone', 'tribe-events-calendar-pro' ); ?></legend>
-					<label><input type="text" name="eventsDefaultPhone" value="<?php echo esc_attr( tribe_get_option('eventsDefaultPhone') ) ?>" /> <?php _e('The default phone value', 'tribe-events-calendar-pro' ) ?></label><br />
+					<label><input <?php if( isset($tribeEvents->form_errors['eventsDefaultPhone']) ) echo 'class="tribe-error"'; ?> type="text" name="eventsDefaultPhone" value="<?php if ( isset( $_POST['eventsDefaultAddress']) ): echo $_POST['eventsDefaultPhone']; else: echo esc_attr( tribe_get_option('eventsDefaultPhone') ); endif; ?>" /> <?php _e('The default phone value', 'tribe-events-calendar-pro' ) ?></label><br />
 					<?php echo (tribe_get_option('eventsDefaultPhone') != null) ? sprintf( __('The current default value is <strong>%s</strong>', 'tribe-events-calendar-pro' ), tribe_get_option('eventsDefaultPhone') ) : __('No default value set');  ?>					
 				</fieldset></td>
 			</tr>
