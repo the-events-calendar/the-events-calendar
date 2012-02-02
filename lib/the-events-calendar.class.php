@@ -823,6 +823,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 	
 		 	echo '<h2 class="nav-tab-wrapper">';
 		 	foreach ($tabs as $tab => $name ) {
+		 		$tab = esc_attr($tab);
+		 		$name = esc_attr($name);
 		 		$class = ( $tab == $current ) ? 'nav-tab-active' : '';
 		 		echo '<a class="nav-tab ' . $class .'" href="?page=tribe-events-calendar&tab=' . $tab .'">' . $name . '</a>';
 		 	}
