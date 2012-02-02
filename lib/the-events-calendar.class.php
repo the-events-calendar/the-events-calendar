@@ -838,7 +838,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function displayFormErrors() {
 			$count = count( $this->form_errors );
 			if ( $count ) {
-				echo '<div id="message" class="error"><p><strong>Your form had the following errors:</strong></p><ul>';
+				echo __('<div id="message" class="error"><p><strong>Your form had the following errors:</strong></p><ul>');
 				foreach ($this->form_errors as $error) {
 					echo '<li>' . $error . '</li>';
 				}
@@ -877,23 +877,27 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						}
 					}
 					if ( isset($_POST['eventsSlug'] ) ) {
+						$sanitized_slug = sanitize_title( $_POST['eventsSlug'] );						
 						if ( !preg_match( '/^[a-zA-Z0-9-_]+$/', $_POST['eventsSlug'] ) ) {
 							$this->form_errors['eventsSlug'] = __('Events slug must be a valid slug (numbers, letters, dashes, and underscores).', 'tribe-events-calendar');
-						}
+						} else {
+							$options['eventsSlug'] = $sanitized_slug;
+							$_POST['eventsSlug'] = $sanitized_slug;
+						}	
 					}
 					if ( isset($_POST['singleEventSlug'] ) ) {
+						$sanitized_slug = sanitize_title( $_POST['singleEventSlug'] );
 						if ( !preg_match( '/^[a-zA-Z0-9-_]+$/', $_POST['singleEventSlug'] ) ) {
 							$this->form_errors['singleEventSlug'] = __('Single event slug must be a valid slug (numbers, letters, dashes, and underscores).', 'tribe-events-calendar');
 						} else {
-							$options['postsPerPage'] = $_POST['postsPerPage'];
+							$options['singleEventSlug'] = $sanitized_slug;
+							$_POST['singleEventSlug'] = $sanitized_slug;
 						}		
 					}
 					// Plural cannot be the same as singular.
 					if ( isset($_POST['eventsSlug']) && isset($_POST['singleEventSlug']) ) {
 						if ( $_POST['singleEventSlug'] === $_POST['eventsSlug'] ) {
-							$this->form_errors['singleEventSlug'] = __('Single event slug must not be the same as the (plural) events slug.', 'tribe-events-calendar');	
-						} else {
-							$options['postsPerPage'] = $_POST['postsPerPage'];
+							$this->form_errors['singleEventSlug'] = __('Single event slug has to be different from the (plural) events slug.', 'tribe-events-calendar');	
 						}
 					}
 					if ( isset($_POST['embedGoogleMapsHeight'] ) ) {
