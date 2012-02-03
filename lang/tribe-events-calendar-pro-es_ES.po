@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: The Events Calendar 2.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-09-09 18:07-0500\n"
-"PO-Revision-Date: 2011-09-16 04:29-0600\n"
+"PO-Revision-Date: 2012-02-03 07:18-0600\n"
 "Last-Translator: \n"
 "Language-Team: Modern Tribe, Inc.\n"
 "Language: \n"
@@ -741,7 +741,7 @@ msgstr "en el %s %s de %s"
 #: ../lib/tribe-events-recurrence-meta.class.php:508
 #, php-format
 msgid " until %s"
-msgstr "hasta %s"
+msgstr " hasta %s"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:513
 #, php-format

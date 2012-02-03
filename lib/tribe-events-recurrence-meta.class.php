@@ -515,13 +515,13 @@ class TribeEventsRecurrenceMeta {
 			$occurrence_text = sprintf(_n(" for %d day", " for %d days", $recEndCount, 'tribe-events-calendar-pro'), $recEndCount);
 			$custom_text = ""; 
 		} else if($recType == "Every Week") {
-			$text = __("Every week");
+			$text = __("Every week", 'tribe-events-calendar-pro');
 			$occurrence_text = sprintf(_n(" for %d week", " for %d weeks", $recEndCount, 'tribe-events-calendar-pro'), $recEndCount);		
 		} else if($recType == "Every Month") {
-			$text = __("Every month");
+			$text = __("Every month", 'tribe-events-calendar-pro');
 			$occurrence_text = sprintf(_n(" for %d month", " for %d months", $recEndCount, 'tribe-events-calendar-pro'), $recEndCount);						
 		} else if($recType == "Every Year") {
-			$text = __("Every year");
+			$text = __("Every year", 'tribe-events-calendar-pro');
 			$occurrence_text = sprintf(_n(" for %d year", " for %d years", $recEndCount, 'tribe-events-calendar-pro'), $recEndCount);					
 		} else if ($recType == "Custom") {
 			if ($recCustomType == "Daily") {
@@ -559,11 +559,11 @@ class TribeEventsRecurrenceMeta {
 		
 		// end text
 		if ( $recEndType == "On" ) {
-			$endText = sprintf(__(" until %s", 'tribe-events-calendar-pro'), date_i18n(get_option('date_format'), strtotime($recEnd))) ;
+			$endText = ' '.sprintf(__("until %s", 'tribe-events-calendar-pro'), date_i18n(get_option('date_format'), strtotime($recEnd))) ;
 		} else {
 			$endText = $occurrence_text;
 		}
-		
+
 		return sprintf(__('%s%s%s', 'tribe-events-calendar-pro'), $text, $custom_text, $endText);
 	}
 	
