@@ -56,7 +56,7 @@
 				<td><fieldset>
 					<legend class="screen-reader-text"><?php _e('Default Province or State', 'tribe-events-calendar-pro' ); ?></legend>
 					<label>
-						<select id="eventsDefaultState" name='eventsDefaultState'>
+						<select class="chosen" id="eventsDefaultState" name='eventsDefaultState'>
 							<option value=""><?php _e('Select a State:','tribe-events-calendar-pro'); ?></option>
 							<?php
 								foreach (TribeEventsViewHelpers::loadStates() as $abbr => $fullname) {

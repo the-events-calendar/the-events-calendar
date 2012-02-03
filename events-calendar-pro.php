@@ -443,7 +443,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$venues = TribeEvents::instance()->get_venue_info();
 	
 			if($venues){
-				echo '<select name="'.$name.'" id="saved_venue">';
+				echo '<select class="chosen" name="'.$name.'" id="saved_venue">';
 					echo '<option value="0">' . __("Use New Venue", 'tribe-events-calendar-pro') . '</option>';
 				foreach($venues as $venue){
 					$selected = ($current == $venue->ID) ? 'selected="selected"' : '';
@@ -462,7 +462,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		function saved_organizers_dropdown($current = null, $name="organizer[OrganizerID]"){
 			$organizers = TribeEvents::instance()->get_organizer_info();
 			if($organizers){
-				echo '<select name="'.$name.'" id="saved_organizer">';
+				echo '<select class="chosen" name="'.$name.'" id="saved_organizer">';
 					echo '<option value="0">' . __('Use New Organizer', 'tribe-events-calendar-pro') . '</option>';
 				foreach($organizers as $organizer){
 					$selected = ($current == $organizer->ID) ? 'selected="selected"' : '';
