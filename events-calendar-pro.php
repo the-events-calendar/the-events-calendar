@@ -135,6 +135,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
          if (!$VenueID && $defaultsEnabled) {
          	$VenueID = tribe_get_option('eventsDefaultVenueID');
          }
+         $VenueID = apply_filters('tribe_display_event_venue_dropdown_id',$VenueID);
          ?>
 			<tr class="">
 				<td style="width:170px"><?php _e('Use Saved Venue:','tribe-events-calendar-pro'); ?></td>
@@ -151,6 +152,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 if (!$curOrg && $defaultsEnabled) {
          	$curOrg = tribe_get_option('eventsDefaultOrganizerID');
          }
+         $curOrg = apply_filters('tribe_display_event_organizer_dropdown_id',$curOrg);
+
          ?>
 			<tr class="" >
 				<td style="width:170px"><?php _e('Use Saved Organizer:','tribe-events-calendar-pro'); ?></td>
