@@ -66,7 +66,7 @@ if (!class_exists('TribeEventsAdminList')) {
 		}
 
 		/**
-		 * fields filter for standard wordpress templates.  Adds the start and end date to queries in the
+		 * fields filter for standard WordPress templates.  Adds the start and end date to queries in the
 		 * events category
 		 *
 		 * @param string fields

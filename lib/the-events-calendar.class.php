@@ -126,7 +126,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}		
 
 		/**
-		 * Initializes plugin variables and sets up wordpress hooks/actions.
+		 * Initializes plugin variables and sets up WordPress hooks/actions.
 		 *
 		 * @return void
 		 */
@@ -1215,7 +1215,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action('shutdown', array($this, 'flushRewriteRules'));
 		}		
 		/**
-		 * Adds the event specific query vars to Wordpress
+		 * Adds the event specific query vars to WordPress
 		 *
 		 * @link http://codex.wordpress.org/Custom_Queries#Permalinks_for_Custom_Archives
 		 * @return mixed array of query variables that this plugin understands

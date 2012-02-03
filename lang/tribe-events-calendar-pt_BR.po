@@ -1675,7 +1675,7 @@ msgstr "Iniciando Tribe Events em %s."
 #: ../lib/the-events-calendar.class.php:280
 #, php-format
 msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
-msgstr "Descukpe, mas o plugin Agenda de Eventos precisa do Wordpress %s ou superior. Por favor, atualize seu Wordpress."
+msgstr "Descukpe, mas o plugin Agenda de Eventos precisa do WordPress %s ou superior. Por favor, atualize seu WordPress."
 
 #: ../lib/the-events-calendar.class.php:283
 #, php-format

@@ -467,7 +467,7 @@ msgstr "Initierar Tribe evenemang på %s"
 #: ../lib/the-events-calendar.class.php:283
 #, php-format
 msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
-msgstr "Tyvärr, The Events Calendar kräver Wordpress %s eller högre. Uppdatera din Wordpress installation."
+msgstr "Tyvärr, The Events Calendar kräver WordPress %s eller högre. Uppdatera din WordPress installation."
 
 #: ../lib/the-events-calendar.class.php:286
 #, php-format
