@@ -2334,7 +2334,7 @@ msgstr "Tribe Events wordt geinitialiseerd voor %s"
 #: lib/the-events-calendar.class.php:277
 #, php-format
 msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
-msgstr "Sorry, The Events Calendar Plugin heeft WordPress versie %s of hoger nodig. Update uw Wordpress installatie."
+msgstr "Sorry, The Events Calendar Plugin heeft WordPress versie %s of hoger nodig. Update uw WordPress installatie."
 
 #@ tribe-events-calendar
 #: lib/the-events-calendar.class.php:280
