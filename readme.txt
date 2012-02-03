@@ -45,11 +45,11 @@ Just getting started? Check out our <a href="http://tri.be/support/documentation
 == Screenshots ==
 
 1. Calendar View
-1. List View
-1. Single Post
-1. Event Editor
-1. Event List Admin
-1. Settings Panel
+2. List View
+3. Single Post
+4. Event Editor
+5. Event List Admin
+6. Settings Panel
 
 == Installation ==
 
