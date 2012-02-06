@@ -249,7 +249,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				echo " <meta name=\"robots\" content=\"noindex, follow\"/>\n";
 			} 
 		}
-
+		
 		/**
 		 * Run on applied action init
 		 */
@@ -258,13 +258,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->pluginName = __( 'The Events Calendar', 'tribe-events-calendar' );
 			$this->rewriteSlug = $this->getOption('eventsSlug', 'events');
 			$this->rewriteSlugSingular = $this->getOption('singleEventSlug', 'event');
-			$this->taxRewriteSlug = $this->rewriteSlug . '/' . __( 'category', 'tribe-events-calendar' );
-			$this->tagRewriteSlug = $this->rewriteSlug . '/' . __( 'tag', 'tribe-events-calendar' );
-			$this->monthSlug = __('month', 'tribe-events-calendar');
-			$this->upcomingSlug = __('upcoming', 'tribe-events-calendar');
-			$this->pastSlug = __('past', 'tribe-events-calendar');
+			$this->taxRewriteSlug = $this->rewriteSlug . '/' . sanitize_title(__( 'category', 'tribe-events-calendar' ));
+			$this->tagRewriteSlug = $this->rewriteSlug . '/' . sanitize_title(__( 'tag', 'tribe-events-calendar' ));
+			$this->monthSlug = sanitize_title(__('month', 'tribe-events-calendar'));
+			$this->upcomingSlug = sanitize_title(__('upcoming', 'tribe-events-calendar'));
+			$this->pastSlug = sanitize_title(__('past', 'tribe-events-calendar'));
 			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlugSingular;
-			$this->postVenueTypeArgs['rewrite']['slug'] = __( 'venue', 'tribe-events-calendar' );
+			$this->postVenueTypeArgs['rewrite']['slug'] = sanitize_title(__( 'venue', 'tribe-events-calendar' ));
 			$this->currentDay = '';
 			$this->errors = '';
 			TribeEventsQuery::init();
@@ -1306,8 +1306,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$newRules[$baseTag . '([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type=' . self::POSTTYPE . '&post_tag=' . $wp_rewrite->preg_index(2) . '&feed=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTag . '([^/]+)$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&post_tag=' . $wp_rewrite->preg_index(2);
 	
-
-
 			$wp_rewrite->rules = $newRules + $wp_rewrite->rules; 
 		}
 
