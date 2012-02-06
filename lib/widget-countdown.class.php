@@ -60,23 +60,27 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 		function get_output($event_ID, $complete, $show_seconds) {
 			$ret = $complete;
 			if ($show_seconds) {
-				$hourformat = "dd days hh:mm:ss";
+				$hourformat = '<div class="tribe-countdown-timer"><div class="tribe-countdown-days tribe-countdown-number">DD<br /><span class="tribe-countdown-under">days</span></div><div class="tribe-countdown-colon">:</div><div class="tribe-countdown-hours tribe-countdown-number">HH<br /><span class="tribe-countdown-under">hours</span></div><div class="tribe-countdown-colon">:</div><div class="tribe-countdown-minutes tribe-countdown-number">MM<br /><span class="tribe-countdown-under">min</span></div><div class="tribe-countdown-colon">:</div><div class="tribe-countdown-seconds tribe-countdown-number tribe-countdown-right">SS<br /><span class="tribe-countdown-under">sec</span></div></div>';
 			} else {
 				$hourformat = "dd days hh:mm";
+				$hourformat = '<div class="tribe-countdown-timer"><div class="tribe-countdown-days tribe-countdown-number">DD<br /><span class="tribe-countdown-under">days</span></div><div class="tribe-countdown-colon">:</div><div class="tribe-countdown-hours tribe-countdown-number">HH<br /><span class="tribe-countdown-under">hours</span></div><div class="tribe-countdown-colon">:</div><div class="tribe-countdown-minutes tribe-countdown-number tribe-countdown-right">MM<br /><span class="tribe-countdown-under">min</span></div></div>';
+
 			}
 			// Get the event start date.
 			$startdate = tribe_get_start_date($event_ID, false, 'Y-m-d H:i:s');
 			// Get the number of seconds remaining until the date in question.
 			$seconds = strtotime( $startdate) - strtotime( 'now' );
 			if ( $seconds > 0 ) {
-				$ret = $this->generate_countdown_output( $seconds, $complete, $hourformat );
+				$ret = $this->generate_countdown_output( $seconds, $complete, $hourformat, $event_ID );
 			}
 			return $ret;
 		}
 
 		// Generate the hidden information to be passed to jQuery.
-		function generate_countdown_output( $seconds, $complete, $hourformat ) {
-			return '<div class="tribe-countdown-timer"><span class="tribe-countdown-seconds">'.$seconds.'</span><span class="tribe-countdown-format">'.$hourformat.'</span><span class="tribe-countdown-complete">'.$complete.'</span></div>';
+		function generate_countdown_output( $seconds, $complete, $hourformat, $event_ID ) {
+			$link = tribe_get_event_link($event_ID);
+			$event = get_post($event_ID);
+			return '<div class="tribe-countdown-timer"><span class="tribe-countdown-seconds">'.$seconds.'</span><span class="tribe-countdown-format">'.$hourformat.'</span><span class="tribe-countdown-complete">'.$complete.'</span></div><div class="tribe-countdown-text">Until <a href="' .$link . '">' . $event->post_title . '</a></div>';
 		}
 
 	}

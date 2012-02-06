@@ -40,9 +40,9 @@
 			var hours = zeroPad( ( t.seconds  % ( 60*60*24 ) / (60*60)));
 			var minutes = zeroPad( ( t.seconds % ( 60*60 ) )/( 60 ) );
 			var seconds = zeroPad( ( t.seconds % 60 ) );
-			output = t.format.replace( 'dd', days ).replace( 'hh', hours ).replace( 'mm', minutes ).replace('ss', seconds );
+			output = t.format.replace( 'DD', days ).replace( 'HH', hours ).replace( 'MM', minutes ).replace('SS', seconds );
 		}
-		$( "#" + t.id ).text( output );
+		$( "#" + t.id ).html( output );
 	}
 
 
@@ -55,7 +55,7 @@
 			$(countdown_timers).each( function( index, value ) {
 				var unique_id = 'tribe-countdown-' + Math.floor( Math.random()*99999 );
 				var seconds = $(value).find( 'span.tribe-countdown-seconds' ).text();
-				var format = $(value).find( 'span.tribe-countdown-format' ).text();
+				var format = $(value).find( 'span.tribe-countdown-format' ).html();
 				var complete = $(value).find( 'span.tribe-countdown-complete' ).text();
 
 				// Wrap the timer in a span with a unique id so we can refer to it
