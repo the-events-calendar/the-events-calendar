@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-09 11:29-0800\n"
-"PO-Revision-Date: 2012-01-09 11:29-0800\n"
+"POT-Creation-Date: 2012-02-13 11:19-0800\n"
+"PO-Revision-Date: 2012-02-13 11:19-0800\n"
 "Last-Translator: Joachim Kudish <info@jkudish.com>\n"
 "Language-Team: Modern Tribe, Inc.\n"
 "MIME-Version: 1.0\n"
@@ -679,7 +679,7 @@ msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:553
 #, php-format
-msgid " until %s"
+msgid "until %s"
 msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:558
@@ -775,19 +775,19 @@ msgstr ""
 msgid "It looks like you might not have any demo data. <a href=\"%s\">Download our data</a> and use the <a href=\"%s\">WordPress Importer</a>."
 msgstr ""
 
-#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:132
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:133
 msgid "Add a Column"
 msgstr ""
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:505
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:507
 msgid "Choose a Saved Filter"
 msgstr ""
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:621
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:623
 msgid "Add a Filter"
 msgstr ""
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:43
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:46
 msgid "Extended Information"
 msgstr ""
 
