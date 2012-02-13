@@ -209,3 +209,8 @@ display: none;
 .tribe_settings .tribe-error { 
 	border: 1px solid #F00;
 }
+
+/* Chosen <select> widths */
+.venue-dropdown, .organizer-dropdown {
+	width: 220px; !important
+}
