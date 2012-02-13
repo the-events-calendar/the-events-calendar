@@ -155,7 +155,7 @@ if (!class_exists('TribeEventsAdminList')) {
 				$per_page = ( $per_page ) ? (int) $per_page : 20; // 20 is default in backend
 			}
 			else {
-				$per_page = intval( get_option('posts_per_page') );
+				$per_page = (int) tribe_get_option('postsPerPage', 10);
 			}
 
 			$page_start = ( $paged - 1 ) * $per_page;

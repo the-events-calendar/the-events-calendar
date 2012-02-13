@@ -77,6 +77,9 @@ For template tags, you can view our template tag includes in the "public" folder
 
 == Changelog ==
 
+= 2.0.4 =
+* Revised Dutch translation files (thanks to Jacob Roel Meijering)
+
 = 2.0.3 =
 
 **Small features, UX and Content Tweaks:**
@@ -142,6 +145,7 @@ For template tags, you can view our template tag includes in the "public" folder
 * Worked to better display comments in Thesis & Genesis themes.
 * General display bugs related to the WP 3.3 beta.
 * Fixed general PHP notices that appeared with debug turned on in your wp-config file.
+
 
 = 2.0.1 =
 

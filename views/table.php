@@ -121,7 +121,7 @@ function display_day_title( $day, $monthView, $date ) {
 function display_day( $day, $monthView ) {
 	global $post;
 	$output = '';
-	$posts_per_page = get_option( 'posts_per_page' );
+	$posts_per_page = tribe_get_option( 'postsPerPage', 10 );
 	for ( $i = 0; $i < count( $monthView[$day] ); $i++ ) {
 		$post = $monthView[$day][$i];
 		setup_postdata( $post );

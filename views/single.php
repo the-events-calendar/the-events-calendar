@@ -14,50 +14,50 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <?php if (tribe_get_end_date() > time()  ) { ?><small><?php  _e('This event has passed.', 'tribe-events-calendar') ?></small> <?php } ?>
 <div id="tribe-events-event-meta" itemscope itemtype="http://schema.org/Event">
 	<dl class="column">
-		<dt><?php _e('Event:', 'tribe-events-calendar') ?></dt>
-		<dd itemprop="name"><span class="summary"><?php the_title() ?></span></dd>
+		<dt class="event-label event-label-name"><?php _e('Event:', 'tribe-events-calendar') ?></dt>
+		<dd itemprop="name" class="event-meta event-meta-name"><span class="summary"><?php the_title() ?></span></dd>
 		<?php if (tribe_get_start_date() !== tribe_get_end_date() ) { ?>
-			<dt><?php _e('Start:', 'tribe-events-calendar') ?></dt> 
-			<dd><meta itemprop="startDate" content="<?php echo tribe_get_start_date( null, false, 'Y-m-d-h:i:s' ); ?>"/><?php echo tribe_get_start_date(); ?></dd>
-			<dt><?php _e('End:', 'tribe-events-calendar') ?></dt>
-			<dd><meta itemprop="endDate" content="<?php echo tribe_get_end_date( null, false, 'Y-m-d-h:i:s' ); ?>"/><?php echo tribe_get_end_date();  ?></dd>						
+			<dt class="event-label event-label-start"><?php _e('Start:', 'tribe-events-calendar') ?></dt> 
+			<dd class="event-meta event-meta-start"><meta itemprop="startDate" content="<?php echo tribe_get_start_date( null, false, 'Y-m-d-h:i:s' ); ?>"/><?php echo tribe_get_start_date(); ?></dd>
+			<dt class="event-label event-label-end"><?php _e('End:', 'tribe-events-calendar') ?></dt>
+			<dd class="event-meta event-meta-end"><meta itemprop="endDate" content="<?php echo tribe_get_end_date( null, false, 'Y-m-d-h:i:s' ); ?>"/><?php echo tribe_get_end_date();  ?></dd>						
 		<?php } else { ?>
-			<dt><?php _e('Date:', 'tribe-events-calendar') ?></dt> 
-			<dd><meta itemprop="startDate" content="<?php echo tribe_get_start_date( null, false, 'Y-m-d-h:i:s' ); ?>"/><?php echo tribe_get_start_date(); ?></dd>
+			<dt class="event-label event-label-date"><?php _e('Date:', 'tribe-events-calendar') ?></dt> 
+			<dd class="event-meta event-meta-date"><meta itemprop="startDate" content="<?php echo tribe_get_start_date( null, false, 'Y-m-d-h:i:s' ); ?>"/><?php echo tribe_get_start_date(); ?></dd>
 		<?php } ?>
 		<?php if ( tribe_get_cost() ) : ?>
-			<dt><?php _e('Cost:', 'tribe-events-calendar') ?></dt>
-			<dd itemprop="price"><?php echo tribe_get_cost(); ?></dd>
+			<dt class="event-label event-label-cost"><?php _e('Cost:', 'tribe-events-calendar') ?></dt>
+			<dd itemprop="price" class="event-meta event-meta-cost"><?php echo tribe_get_cost(); ?></dd>
 		<?php endif; ?>
 		<?php tribe_meta_event_cats(); ?>
 		<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) ) : ?>
-			<dt><?php _e('Organizer:', 'tribe-events-calendar') ?></dt>
-			<dd class="vcard author"><span class="fn url"><?php echo tribe_get_organizer_link(); ?></span></dd>
+			<dt class="event-label event-label-organizer"><?php _e('Organizer:', 'tribe-events-calendar') ?></dt>
+			<dd class="vcard author event-meta event-meta-author"><span class="fn url"><?php echo tribe_get_organizer_link(); ?></span></dd>
       <?php elseif (tribe_get_organizer()): ?>
-			<dt><?php _e('Organizer:', 'tribe-events-calendar') ?></dt>
-			<dd class="vcard author"><span class="fn url"><?php echo tribe_get_organizer(); ?></span></dd>
+			<dt class="event-label event-label-organizer"><?php _e('Organizer:', 'tribe-events-calendar') ?></dt>
+			<dd class="vcard author event-meta event-meta-author"><span class="fn url"><?php echo tribe_get_organizer(); ?></span></dd>
 		<?php endif; ?>
 		<?php if ( tribe_get_organizer_phone() ) : ?>
-			<dt><?php _e('Phone:', 'tribe-events-calendar') ?></dt>
-			<dd itemprop="telephone"><?php echo tribe_get_organizer_phone(); ?></dd>
+			<dt class="event-label event-label-organizer-phone"><?php _e('Phone:', 'tribe-events-calendar') ?></dt>
+			<dd itemprop="telephone" class="event-meta event-meta-phone"><?php echo tribe_get_organizer_phone(); ?></dd>
 		<?php endif; ?>
 		<?php if ( tribe_get_organizer_email() ) : ?>
-			<dt><?php _e('Email:', 'tribe-events-calendar') ?></dt>
-			<dd itemprop="email"><a href="mailto:<?php echo tribe_get_organizer_email(); ?>"><?php echo tribe_get_organizer_email(); ?></a></dd>
+			<dt class="event-label event-label-email"><?php _e('Email:', 'tribe-events-calendar') ?></dt>
+			<dd itemprop="email" class="event-meta event-meta-email"><a href="mailto:<?php echo tribe_get_organizer_email(); ?>"><?php echo tribe_get_organizer_email(); ?></a></dd>
 		<?php endif; ?>
-		<dt><?php _e('Updated:', 'tribe-events-calendar') ?></dt>
-		<dd><span class="date updated"><?php the_date(); ?></span></dd>
+		<dt class="event-label event-label-updated"><?php _e('Updated:', 'tribe-events-calendar') ?></dt>
+		<dd class="event-meta event-meta-updated"><span class="date updated"><?php the_date(); ?></span></dd>
 		<?php if ( class_exists('TribeEventsRecurrenceMeta') && function_exists('tribe_get_recurrence_text') && tribe_is_recurring_event() ) : ?>
-			<dt><?php _e('Schedule:', 'tribe-events-calendar') ?></dt>
-         <dd><?php echo tribe_get_recurrence_text(); ?> 
+			<dt class="event-label event-label-schedule"><?php _e('Schedule:', 'tribe-events-calendar') ?></dt>
+         <dd class="event-meta event-meta-schedule"><?php echo tribe_get_recurrence_text(); ?> 
             <?php if( class_exists('TribeEventsRecurrenceMeta') && function_exists('tribe_all_occurences_link')): ?>(<a href='<?php tribe_all_occurences_link() ?>'>See all</a>)<?php endif; ?>
          </dd>
 		<?php endif; ?>
 	</dl>
 	<dl class="column" itemprop="location" itemscope itemtype="http://schema.org/Place">
 		<?php if(tribe_get_venue()) : ?>
-		<dt><?php _e('Venue:', 'tribe-events-calendar') ?></dt> 
-		<dd itemprop="name">
+		<dt class="event-label event-label-venue"><?php _e('Venue:', 'tribe-events-calendar') ?></dt> 
+		<dd itemprop="name" class="event-meta event-meta-venue">
 			<?php if( class_exists( 'TribeEventsPro' ) ): ?>
 				<?php tribe_get_venue_link( get_the_ID(), class_exists( 'TribeEventsPro' ) ); ?>
 			<?php else: ?>
@@ -66,24 +66,24 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		</dd>
 		<?php endif; ?>
 		<?php if(tribe_get_phone()) : ?>
-		<dt><?php _e('Phone:', 'tribe-events-calendar') ?></dt> 
-			<dd itemprop="telephone"><?php echo tribe_get_phone(); ?></dd>
+		<dt class="event-label event-label-venue-phone"><?php _e('Phone:', 'tribe-events-calendar') ?></dt> 
+			<dd itemprop="telephone" class="event-meta event-meta-venue-phone"><?php echo tribe_get_phone(); ?></dd>
 		<?php endif; ?>
 		<?php if( tribe_address_exists( get_the_ID() ) ) : ?>
-		<dt>
+		<dt class="event-label event-label-address">
 			<?php _e('Address:', 'tribe-events-calendar') ?><br />
 			<?php if( tribe_show_google_map_link( get_the_ID() ) ) : ?>
 				<a class="gmap" itemprop="maps" href="<?php echo tribe_get_map_link() ?>" title="<?php _e('Click to view a Google Map', 'tribe-events-calendar'); ?>" target="_blank"><?php _e('Google Map', 'tribe-events-calendar' ); ?></a>
 			<?php endif; ?>
 		</dt>
-			<dd>
+			<dd class="event-meta event-meta-address">
 			<?php echo tribe_get_full_address( get_the_ID() ); ?>
 			</dd>
 		<?php endif; ?>
 	</dl>
   
-   	<?php if( function_exists('tribe_the_custom_fields') ): ?>
-	  	<?php echo tribe_the_custom_fields( get_the_ID() ); ?>
+   	<?php if( function_exists('tribe_the_custom_fields') && tribe_get_custom_fields( get_the_ID() ) ): ?>
+	  	<?php tribe_the_custom_fields( get_the_ID() ); ?>
 	<?php endif; ?>
 </div>
 <?php if( tribe_embed_google_map( get_the_ID() ) ) : ?>
