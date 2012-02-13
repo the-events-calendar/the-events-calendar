@@ -1671,7 +1671,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						}
 					}
 				}
-			}
 			
 			if( isset($_EventOrganizerID) && $_EventOrganizerID && tribe_get_option('defaultValueReplace') ) {
 				foreach($this->organizerTags as $tag) {
