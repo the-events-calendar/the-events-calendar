@@ -1816,7 +1816,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$cleaned_tag = str_replace('_Venue','',$tag);
 					//echo $tag.' | '.$cleaned_tag.'<BR>';
 
-					if ( !$postId && !$saved ) { //if there is a not post AND the post has not been saved at least once?
+					if ( !$postId || !isset($_GET['post']) ) { //if there is a not post AND the post has not been saved at least once?
 
 						if($cleaned_tag == 'Cost')
 							continue;
@@ -1830,8 +1830,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					
 				}
 
-				$_VenueStateProvince = -1; // we want to use default values here
-
+				if ( isset($_VenueState) ) {
+					$_VenueStateProvince = $_VenueState;
+				} else {
+					$_VenueStateProvince = $_VenueProvince;
+				}
+				
 				if( isset($_POST['venue']['Country']) ){
 					if( $_POST['venue']['Country'] == 'United States' ){
 						$_VenueStateProvince = $_POST['venue']['State'];
