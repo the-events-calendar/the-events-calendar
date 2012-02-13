@@ -9,7 +9,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:','tribe-events-calendar-pro'); ?></label>
 <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr(strip_tags($instance['title'])); ?>" /></p>
 <p><label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php _e('Venue:','tribe-events-calendar-pro');?>
-<select class="chosen" id="<?php echo $this->get_field_id('venue_ID'); ?>" name="<?php echo $this->get_field_name('venue_ID'); ?>" value="<?php echo $instance['venue_ID']; ?>" >
+<select class="chosen venue-dropdown" id="<?php echo $this->get_field_id('venue_ID'); ?>" name="<?php echo $this->get_field_name('venue_ID'); ?>" value="<?php echo $instance['venue_ID']; ?>" >
 <?php 
 foreach ($venues as $venue )
 	{ ?>
