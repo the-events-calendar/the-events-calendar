@@ -302,13 +302,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function iCalFeed( $post = null, $eventCatSlug = null, $eventDate = null ) {
 			$tribeEvents = TribeEvents::instance();
 			$postId = $post ? $post->ID : null;
-			$getstring = $_GET['ical'];
+			$getstring = (isset($_GET['ical']) ? $_GET['ical'] : null);
 			$wpTimezoneString = get_option("timezone_string");
 			$postType = TribeEvents::POSTTYPE;
 			$events = "";
 			$lastBuildDate = "";
 			$eventsTestArray = array();
-			$blogHome = get_bloginfo('home');
+			$blogHome = get_bloginfo('url');
 			$blogName = get_bloginfo('name');
 			$includePosts = ( $postId ) ? '&include=' . $postId : '';
 			$eventsCats = ( $eventCatSlug ) ? '&'.TribeEvents::TAXONOMY.'='.$eventCatSlug : '';
@@ -346,19 +346,24 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				$description = preg_replace("/[\n\t\r]/", " ", strip_tags( $eventPost->post_content ) );
 				//$cost = get_post_meta( $eventPost->ID, "_EventCost", true);
 				//if( $cost ) $description .= " Cost: " . $cost;
+				
 				// add fields to iCal output
-				$events .= "BEGIN:VEVENT\n";
-				$events .= "DTSTART;VALUE=$type:" . $startDate . "\n";
-				$events .= "DTEND;VALUE=$type:" . $endDate . "\n";
-				$events .= "DTSTAMP:" . date("Ymd\THis", time()) . "\n";
-				$events .= "CREATED:" . str_replace( array("-", " ", ":") , array("", "T", "") , $eventPost->post_date ) . "\n";
-				$events .= "LAST-MODIFIED:". str_replace( array("-", " ", ":") , array("", "T", "") , $eventPost->post_modified ) . "\n";
-				$events .= "UID:" . $eventPost->ID . "@" . $blogHome . "\n";
-				$events .= "SUMMARY:" . $eventPost->post_title . "\n";				
-				$events .= "DESCRIPTION:" . str_replace(",",'\,',$description) . "\n";
-				$events .= "LOCATION:" . html_entity_decode($tribeEvents->fullAddressString( $eventPost->ID ), ENT_QUOTES) . "\n";
-				$events .= "URL:" . get_permalink( $eventPost->ID ) . "\n";
-				$events .= "END:VEVENT\n";
+				$item = array();
+				$item[] = "DTSTART;VALUE=$type:" . $startDate;
+				$item[] = "DTEND;VALUE=$type:" . $endDate;
+				$item[] = "DTSTAMP:" . date("Ymd\THis", time());
+				$item[] = "CREATED:" . str_replace( array("-", " ", ":") , array("", "T", "") , $eventPost->post_date );
+				$item[] = "LAST-MODIFIED:". str_replace( array("-", " ", ":") , array("", "T", "") , $eventPost->post_modified );
+				$item[] = "UID:" . $eventPost->ID . "@" . $blogHome;
+				$item[] = "SUMMARY:" . $eventPost->post_title;				
+				$item[] = "DESCRIPTION:" . str_replace(",",'\,',$description);
+				$item[] = "LOCATION:" . html_entity_decode($tribeEvents->fullAddressString( $eventPost->ID ), ENT_QUOTES);
+				$item[] = "URL:" . get_permalink( $eventPost->ID );
+
+				$item = apply_filters('tribe_ical_feed_item', $item, $eventPost );
+				
+				$events .= "BEGIN:VEVENT\n" . implode("\n",$item) . "\nEND:VEVENT\n";
+
 			}
 			header('Content-type: text/calendar');
 			header('Content-Disposition: attachment; filename="iCal-TribeEvents.ics"');
