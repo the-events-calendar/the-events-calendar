@@ -1836,8 +1836,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 				if ( isset($_VenueState) ) {
 					$_VenueStateProvince = $_VenueState;
-				} else {
+				} elseif ( isset($_VenueProvince) ) {
 					$_VenueStateProvince = $_VenueProvince;
+				} else {
+					$_VenueStateProvince = null;
 				}
 				
 				if( isset($_POST['venue']['Country']) ){
