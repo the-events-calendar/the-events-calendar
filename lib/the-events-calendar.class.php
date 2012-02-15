@@ -815,6 +815,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				if( $_POST['embedGoogleMapsHeight'] ) {
 					$options['embedGoogleMapsHeight'] = $_POST['embedGoogleMapsHeight'];
 					$options['embedGoogleMapsWidth'] = $_POST['embedGoogleMapsWidth'];
+					$options['embedGoogleMapsZoom'] = $_POST['embedGoogleMapsZoom'];
 				}
 		
 				// single event cannot be same as plural. Or empty.
