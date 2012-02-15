@@ -427,8 +427,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 	function tribe_ecp_deactivate() {
 		// when we deactivate pro, we should reset this to true
-		tribe_update_option('defaultValueReplace', true);
-		tribe_update_option('defaultCountry', null);
+		if (function_exists(tribe_update_option)) {
+			tribe_update_option('defaultValueReplace', true);
+			tribe_update_option('defaultCountry', null);
+		}
 	}
 
 	function tribe_ecp_uninstall() {
