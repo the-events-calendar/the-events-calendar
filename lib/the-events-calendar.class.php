@@ -250,13 +250,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function init() {
 			$this->loadTextDomain();
 			$this->pluginName = __( 'The Events Calendar', 'tribe-events-calendar' );
-			$this->rewriteSlug = $this->getOption('eventsSlug', 'events');
-			$this->rewriteSlugSingular = $this->getOption('singleEventSlug', 'event');
-			$this->taxRewriteSlug = $this->rewriteSlug . '/' . __( 'category', 'tribe-events-calendar' );
-			$this->monthSlug = __('month', 'tribe-events-calendar');
-			$this->upcomingSlug = __('upcoming', 'tribe-events-calendar');
-			$this->pastSlug = __('past', 'tribe-events-calendar');
-			$this->postTypeArgs['rewrite']['slug'] = $this->rewriteSlugSingular;
+			$this->rewriteSlug = sanitize_title($this->getOption('eventsSlug', 'events'));
+			$this->rewriteSlugSingular = sanitize_title($this->getOption('singleEventSlug', 'event'));
+			$this->taxRewriteSlug = $this->rewriteSlug . '/' . sanitize_title(__( 'category', 'tribe-events-calendar' ));
+			$this->monthSlug = sanitize_title(__('month', 'tribe-events-calendar'));
+			$this->upcomingSlug = sanitize_title(__('upcoming', 'tribe-events-calendar'));
+			$this->pastSlug = sanitize_title(__('past', 'tribe-events-calendar'));
+			$this->postTypeArgs['rewrite']['slug'] = sanitize_title($this->rewriteSlugSingular);
 			$this->postVenueTypeArgs['rewrite']['slug'] = sanitize_title(__( 'venue', 'tribe-events-calendar' ));
 			$this->currentDay = '';
 			$this->errors = '';
