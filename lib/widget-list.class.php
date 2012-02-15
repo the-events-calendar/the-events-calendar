@@ -28,7 +28,6 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 
 		function widget_output( $args, $instance, $template_name='events-list-load-widget-display' ) {
 			global $wp_query, $tribe_ecp, $post;
-			$old_post = $post;
 			extract( $args, EXTR_SKIP );
 			extract( $instance, EXTR_SKIP );
 			// extracting $instance provides $title, $limit
@@ -64,8 +63,6 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				endforeach;
 				echo "</ul>";
 
-				$wp_query->set('eventDisplay', $old_display);
-
 				/* Display link to all events */
 				echo '<div class="dig-in"><a href="' . $event_url . '">' . __('View All Events', 'tribe-events-calendar' ) . '</a></div>';
 			} 
@@ -75,7 +72,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 
 			/* After widget (defined by themes). */
 			echo $after_widget;
-			$post = $old_post;
+			wp_reset_query();
 		}	
 	
 		function update( $new_instance, $old_instance ) {
