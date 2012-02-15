@@ -570,11 +570,11 @@ class TribeEventsRecurrenceMeta {
 		
 		for($i = 0; $i < $count ; $i++) {
 			if ( $count > 2 && $i == $count - 1 ) {
-				$day_text .= __(", and ", 'tribe-events-calendar-pro');
+				$day_text .= __(", and", 'tribe-events-calendar-pro').' ';
 			} else if ($count == 2 && $i == $count - 1) {
-				$day_text .= __(" and ", 'tribe-events-calendar-pro');
+				$day_text .= ' '.__("and", 'tribe-events-calendar-pro').' ';
 			} else if ($count > 2 && $i > 0) {
-				$day_text .= __(", ", 'tribe-events-calendar-pro');
+				$day_text .= __(",", 'tribe-events-calendar-pro').' ';
 			}
 
 			$day_text .= $day_words[$days[$i]-1] ? $day_words[$days[$i]-1] : "day";
