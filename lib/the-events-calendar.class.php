@@ -1711,8 +1711,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 				if ( isset($_VenueState) ) {
 					$_VenueStateProvince = $_VenueState; // we want to use default values here
-				} else {
+				} elseif ( isset($_VenueProvince) ) {
 					$_VenueStateProvince = $_VenueProvince;
+				} else {
+					$_VenueStateProvince = null;
 				}
 			}
 
