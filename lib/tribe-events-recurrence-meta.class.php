@@ -550,7 +550,7 @@ class TribeEventsRecurrenceMeta {
 		
 		// end text
 		if ( $recEndType == "On" ) {
-			$endText = ' '.sprintf(__("until %s", 'tribe-events-calendar-pro'), date_i18n(get_option('date_format'), strtotime($recEnd))) ;
+			$endText = ' '.sprintf(__(" until %s", 'tribe-events-calendar-pro'), date_i18n(get_option('date_format'), strtotime($recEnd))) ;
 		} else {
 			$endText = $occurrence_text;
 		}
