@@ -51,7 +51,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		protected $taxonomyLabels;
 
 		public static $tribeUrl = 'http://tri.be/';
+		public static $addOnPath = 'shop/';
 		public static $supportPath = 'support/';
+		public static $refQueryString = '?ref=tec-plugin';
+		public static $dotOrgSupportUrl = 'http://wordpress.org/tags/the-events-calendar';
 
 		protected static $instance;
 		protected $rewriteSlug = 'events';
@@ -2187,10 +2190,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function addMetaLinks( $links, $file ) {
 			if ( $file == $this->pluginDir . 'the-events-calendar.php' ) {
 				$anchor = __( 'Support', 'tribe-events-calendar' );
-				$links []= '<a href="http://wordpress.org/tags/the-events-calendar?forum_id=10">' . $anchor . '</a>';
+				$links []= '<a href="'.self::$dotOrgSupportUrl.'">' . $anchor . '</a>';
 
-				$anchor = __( 'View All Add-Ons', 'tribe-events-calendar' ); 
-				$links []= '<a href="'.self::$tribeUrl.'events-calendar/features/add-ons/?ref=tec-plugin">' . $anchor . '</a>';
+				$anchor = __( 'View All Add-Ons', 'tribe-events-calendar' );
+				$links []= '<a href="'.self::$tribeUrl.self::$addOnPath.self::$refQueryString.'">' . $anchor . '</a>';
 			}
 			return $links;
 		}
