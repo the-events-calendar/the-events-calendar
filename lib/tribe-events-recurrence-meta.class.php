@@ -9,20 +9,20 @@ class TribeEventsRecurrenceMeta {
 	const UPDATE_TYPE_ALL = 1;
 	const UPDATE_TYPE_FUTURE = 2;
 	const UPDATE_TYPE_SINGLE = 3;
-
+	
 	public static function init() {
 		add_action( 'tribe_events_update_meta', array( __CLASS__, 'updateRecurrenceMeta' ), 1, 3 );
 		add_action( 'tribe_events_date_display', array( __CLASS__, 'loadRecurrenceData' ) );
-		add_action( 'trash_post', array( __CLASS__, 'deleteRecurringEvent')); // WP 3.2 and older
-		add_action( 'wp_trash_post', array( __CLASS__, 'deleteRecurringEvent')); // WP 3.3 and newer
+		add_action(	'trash_post', array( __CLASS__, 'deleteRecurringEvent') ); // WP 3.2 and older
+		add_action(	'wp_trash_post', array( __CLASS__, 'deleteRecurringEvent') ); // WP 3.3 and newer
 
-		add_action( 'pre_post_update', array( __CLASS__, 'maybeBreakFromSeries' ));
+		add_action(	'pre_post_update', array( __CLASS__, 'maybeBreakFromSeries' ) );
 		add_action( 'admin_notices', array( __CLASS__, 'showRecurrenceErrorFlash') );
-		add_action( 'tribe_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg'), 10, 2);
+		add_action( 'tribe_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg'), 10, 2 );
 
-    add_filter( 'tribe_get_event_link', array( __CLASS__, 'addDateToEventPermalink'), 10, 2);
-    add_filter( 'post_row_actions', array( __CLASS__, 'removeQuickEdit'), 10, 2);
-	}
+    add_filter( 'tribe_get_event_link', array( __CLASS__, 'addDateToEventPermalink'), 10, 2 );
+    add_filter( 'post_row_actions', array( __CLASS__, 'removeQuickEdit'), 10, 2 );
+	}	
 
    public static function removeQuickEdit( $actions, $post ) {
       if( tribe_is_recurring_event( $post ) ) {
@@ -32,15 +32,6 @@ class TribeEventsRecurrenceMeta {
       return $actions;
    }
 
-   /**
-    * adds the date to event permalinks
-    *
-    * @since 2.0.3
-    * @author jkudish
-    * @param string $permalink the original link
-    * @param stdClass $the_post the post object
-    * @return string $link the filtered link
-    */
    public static function addDateToEventPermalink($permalink, $the_post) {
       global $post;
       $event = $the_post ? $the_post : $post;
@@ -50,12 +41,12 @@ class TribeEventsRecurrenceMeta {
 			if( '' == get_option('permalink_structure') || false == $events->getOption('useRewriteRules',true) )
             return esc_url(add_query_arg('eventDate', TribeDateUtils::dateOnly( $event->EventStartDate ), get_permalink($event->ID) ));
          else
-            return $permalink . TribeDateUtils::dateOnly( $event->EventStartDate );
+            return $permalink . TribeDateUtils::dateOnly( $event->EventStartDate );					
       } else {
          return $permalink;
       }
    }
-
+	
 	/**
 	 * Update event recurrence when a recurring event is saved
 	 * @param integer $event_id id of the event to update
@@ -88,26 +79,26 @@ class TribeEventsRecurrenceMeta {
 		$premium = TribeEventsPro::instance();		
 		include( TribeEventsPro::instance()->pluginPath . 'admin-views/event-recurrence.php' );
 	}		
-
+	
 	/**
 	 * Deletes a SINGLE occurrence of a recurring event
 	 * @param integer $postId ID of the event that may have an occurence deleted from it
-	 * @return void
-	 */
+	 * @return void  
+	 */	
 	public static function deleteRecurringEvent($postId) {
 		if (isset($_REQUEST['eventDate']) && !isset($_REQUEST['deleteAll'])) {
 			$occurrenceDate = $_REQUEST['eventDate'];
-		} else {
+		}else{
 			$occurrenceDate = null;
 		}
-
+		
 		if( $occurrenceDate ) {
 			self::removeOccurrence( $postId, $occurrenceDate );
 			wp_redirect( add_query_arg( 'post_type', TribeEvents::POSTTYPE, admin_url( 'edit.php' ) ) );
 			exit();
 		}
 	}
-
+	
 	/**
 	 * Handles updating recurring events. 
 	 * @param integer $postId ID of the event being updated
@@ -376,34 +367,26 @@ class TribeEventsRecurrenceMeta {
 	}		
 
    private static function cloneEventAttachments( $old_event, $new_event ) {
-		// Update the post thumbnail.
-		if ( has_post_thumbnail( $old_event ) ) {
-			$thumbnail_id = get_post_thumbnail_id( $old_event );
-			update_post_meta( $new_event, '_thumbnail_id', $thumbnail_id );
-		} else {
-			$thumbnail_id = null;
-		}
-		
-		// Update all other attachments.
-		$args = array( 'post_type' => 'attachment', 'exclude' => $thumbnail_id, 'numberposts' => -1, 'post_status' => null, 'post_parent' => $old_event ); 
-		$attachments = get_posts($args);
-		if ($attachments) {
-			foreach ( $attachments as $attachment ) {
-				$attachment_data = array(
-				'post_mime_type' => $attachment->post_mime_type,
-				'post_title' => $attachment->post_title,
-				'post_content' => $attachment->post_content,
-				'post_status' => 'inherit'
-				);
-				$file = get_attached_file($attachment->ID);
-				$attach_id = wp_insert_attachment( $attachment_data, $file, $new_event );
-				require_once(ABSPATH . 'wp-admin/includes/image.php');
-				$attach_data = wp_generate_attachment_metadata( $attach_id, $file );
-				wp_update_attachment_metadata( $attach_id, $attach_data );
-				update_post_meta($new_event, '_thumbnail_id', $attach_id);
-			}
-		}
-	}
+      $args = array( 'post_type' => 'attachment', 'numberposts' => -1, 'post_status' => null, 'post_parent' => $old_event ); 
+      $attachments = get_posts($args);
+
+      if ($attachments) {
+         foreach ( $attachments as $attachment ) {
+            $attachment_data = array(
+               'post_mime_type' => $attachment->post_mime_type,
+               'post_title' => $attachment->post_title,
+               'post_content' => $attachment->post_content,
+               'post_status' => 'inherit'
+            );
+            $file = get_attached_file($attachment->ID);
+            $attach_id = wp_insert_attachment( $attachment_data, $file, $new_event );
+            require_once(ABSPATH . 'wp-admin/includes/image.php');
+            $attach_data = wp_generate_attachment_metadata( $attach_id, $file );
+            wp_update_attachment_metadata( $attach_id, $attach_data );
+            update_post_meta($new_event, '_thumbnail_id', $attach_id);
+         }
+      }
+   }
 
 	/**
 	 * Recurrence validation method.  This is checked after saving an event, but before splitting a series out into multiple occurrences
@@ -587,11 +570,11 @@ class TribeEventsRecurrenceMeta {
 		
 		for($i = 0; $i < $count ; $i++) {
 			if ( $count > 2 && $i == $count - 1 ) {
-				$day_text .= __(", and ", 'tribe-events-calendar-pro');
+				$day_text .= __(", and", 'tribe-events-calendar-pro').' ';
 			} else if ($count == 2 && $i == $count - 1) {
-				$day_text .= __(" and ", 'tribe-events-calendar-pro');
+				$day_text .= ' '.__("and", 'tribe-events-calendar-pro').' ';
 			} else if ($count > 2 && $i > 0) {
-				$day_text .= __(", ", 'tribe-events-calendar-pro');
+				$day_text .= __(",", 'tribe-events-calendar-pro').' ';
 			}
 
 			$day_text .= $day_words[$days[$i]-1] ? $day_words[$days[$i]-1] : "day";
