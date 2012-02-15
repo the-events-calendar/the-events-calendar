@@ -474,6 +474,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				return $title;
 			}
 
+			if( isset($new_title) ){
+				global $post;
+				$post->post_title = str_replace($sep,'',$new_title);
+			}
+			
 			return $new_title;
 
 		}
@@ -680,7 +685,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				10 => sprintf( __('Venue draft updated. <a target="_blank" href="%s">Preview venue</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
 				);
 
-				$messages[self::ORGANIZER_POST_TYPE] = array(
+			$messages[self::ORGANIZER_POST_TYPE] = array(
 				0 => '', // Unused. Messages start at index 1.
 				1 => sprintf( __('Organizer updated. <a href="%s">View organizer</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) ),
 				2 => __('Custom field updated.', 'tribe-events-calendar'),
