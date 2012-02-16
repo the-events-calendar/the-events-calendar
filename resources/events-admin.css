@@ -211,6 +211,6 @@ display: none;
 }
 
 /* Chosen <select> widths */
-.venue-dropdown, .organizer-dropdown {
-	width: 220px; !important
+.venue-dropdown, .organizer-dropdown, .events-dropdown {
+	width: 220px !important;
 }
