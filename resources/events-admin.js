@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
 
 	// Load the Chosen JQuery plugin for all select elements with the class 'chosen'.
-	$(".chosen").chosen();
+	$(".chosen").not('#widget-list .chosen').chosen();
 
 	//not done by default on front end
 	$('.hide-if-js').hide();
@@ -355,4 +355,14 @@ jQuery(document).ready(function($) {
 			dayselect.hide();
 		}
 	});
+});
+
+/**
+ * Re-initialize chosen on widgets when moved
+ * credits: http://www.johngadbois.com/adding-your-own-callbacks-to-wordpress-ajax-requests/
+ */
+jQuery(document).ajaxSuccess(function(e, xhr, settings) {
+	if(settings.data.search('action=save-widget') != -1) {
+		jQuery("#widgets-right .chosen").chosen();
+	}
 });

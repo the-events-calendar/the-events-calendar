@@ -214,3 +214,7 @@ display: none;
 .venue-dropdown, .organizer-dropdown, .events-dropdown {
 	width: 220px !important;
 }
+/* fix for widgets + chosen support */
+.widget-liquid-right .widget, .inactive-sidebar .widget, .widget-liquid-right .sidebar-description {
+	overflow: visible !important;
+}
