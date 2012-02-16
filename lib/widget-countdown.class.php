@@ -13,16 +13,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 			$widget_ops = array( 'classname' => 'tribe_countdown_widget', 'description' => __( 'Displays the time remaining until a specified event.', 'tribe-events-calendar-pro' ) );
 			$control_ops = array( 'id_base' => 'tribe_countdown_widget' );
 			$this->WP_Widget( 'tribe_countdown_widget', __('Countdown Widget', 'tribe-events-calendar-pro'), $widget_ops, $control_ops );
-
-			// Add the javascript.
-			add_action( 'wp_enqueue_scripts', array( $this, 'load_countdown_js' ) );
 		}
-
-		// Enqueues the javascript.
-		function load_countdown_js() {
-			// wp_enqueue_script( 'countdown_widget', TribeEventsPro::instance()->pluginUrl .'resources/widget-countdown.js', array( 'jquery' ), false, true );
-		}
-
 
 		function widget( $args, $instance ) {
 			extract( $args );
