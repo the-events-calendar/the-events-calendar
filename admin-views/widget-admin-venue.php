@@ -13,7 +13,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <?php 
 foreach ($venues as $venue )
 	{ ?>
-	<option value="<?php echo $venue->ID; ?>" <?php if ( $venue->ID == $instance['venue_ID'] ) {echo 'selected="selected"';}?> > <?php echo tribe_get_venue($venue->ID); ?> </option>
+	<option value="<?php echo $venue->ID; ?>" <?php selected( $venue->ID == $instance['venue_ID'] ) ?>> <?php echo tribe_get_venue($venue->ID); ?></option>
 <?php } ?>
 </select>
 </p>
@@ -21,7 +21,7 @@ foreach ($venues as $venue )
 <select class="widefat" id="<?php echo $this->get_field_id('count'); ?>" name="<?php echo $this->get_field_name('count'); ?>" value="<?php echo $instance['count']; ?>" >
 <?php for ($i=1; $i<=10; $i++)
 	{ ?>
-	<option <?php if ( $i == $instance['count'] ) {echo 'selected="selected"';}?> > <?php echo $i;?> </option>
+	<option <?php selected( $i == $instance['count'] ) ?>> <?php echo $i;?> </option>
 <?php } ?>
 </select>
 </p>
