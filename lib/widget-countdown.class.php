@@ -10,29 +10,30 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 	class TribeCountdownWidget extends WP_Widget {
 
 		function TribeCountdownWidget() {
-			$widget_ops = array( 'classname' => 'countdown_widget', 'description' => __( 'Displays the time remaining until a specified event.', 'tribe-events-calendar-pro' ) );
-			$control_ops = array( 'id_base' => 'countdown_widget' );
-			$this->WP_Widget( 'countdown_widget', __('Countdown Widget', 'tribe-events-calendar-pro'), $widget_ops, $control_ops );
+			$widget_ops = array( 'classname' => 'tribe_countdown_widget', 'description' => __( 'Displays the time remaining until a specified event.', 'tribe-events-calendar-pro' ) );
+			$control_ops = array( 'id_base' => 'tribe_countdown_widget' );
+			$this->WP_Widget( 'tribe_countdown_widget', __('Countdown Widget', 'tribe-events-calendar-pro'), $widget_ops, $control_ops );
 
 			// Add the javascript.
 			add_action( 'wp_enqueue_scripts', array( $this, 'load_countdown_js' ) );
 		}
-		
+
 		// Enqueues the javascript.
 		function load_countdown_js() {
-			wp_enqueue_script( 'countdown_widget', TribeEventsPro::instance()->pluginUrl .'resources/widget-countdown.js', array( 'jquery' ), false, true );
+			// wp_enqueue_script( 'countdown_widget', TribeEventsPro::instance()->pluginUrl .'resources/widget-countdown.js', array( 'jquery' ), false, true );
 		}
-	
+
 
 		function widget( $args, $instance ) {
 			extract( $args );
 			extract( $instance );
-			$title = apply_filters( 'widget_title', empty( $title ) ? '' : $title );
+			$title = apply_filters( 'widget_title', $title );
+			wp_enqueue_script( 'tribe_countdown_widget', TribeEventsPro::instance()->pluginUrl .'resources/widget-countdown.js', array( 'jquery' ), false, true );
 			// Get the timer data.
-			$eventdate = $this->get_output($instance['event_ID'], $instance['complete'], $instance['show_seconds']);
+			$eventdate = $this->get_output($event_ID, $complete, $show_seconds);
 			echo $before_widget;
-			if ( !empty( $title ) ) { echo $before_title . $title . $after_title; }
-			if ( !empty( $eventdate ) ) { echo $eventdate; }
+			if ( !empty( $title ) ) echo $before_title.$title.$after_title;
+			if ( !empty( $eventdate ) ) echo $eventdate;
 			echo $after_widget;
 		}
 
@@ -60,11 +61,40 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 		function get_output($event_ID, $complete, $show_seconds) {
 			$ret = $complete;
 			if ($show_seconds) {
-				$hourformat = '<div class="tribe-countdown-timer"><div class="tribe-countdown-days tribe-countdown-number">DD<br /><span class="tribe-countdown-under">days</span></div><div class="tribe-countdown-colon">:</div><div class="tribe-countdown-hours tribe-countdown-number">HH<br /><span class="tribe-countdown-under">hours</span></div><div class="tribe-countdown-colon">:</div><div class="tribe-countdown-minutes tribe-countdown-number">MM<br /><span class="tribe-countdown-under">min</span></div><div class="tribe-countdown-colon">:</div><div class="tribe-countdown-seconds tribe-countdown-number tribe-countdown-right">SS<br /><span class="tribe-countdown-under">sec</span></div></div>';
+				$hourformat = '
+				<div class="tribe-countdown-timer">
+					<div class="tribe-countdown-days tribe-countdown-number">DD<br />
+						<span class="tribe-countdown-under">'.__('days', 'tribe-events-calendar-pro').'</span>
+					</div>
+					<div class="tribe-countdown-colon">:</div>
+					<div class="tribe-countdown-hours tribe-countdown-number">HH<br />
+						<span class="tribe-countdown-under">'.__('hours', 'tribe-events-calendar-pro').'</span>
+					</div>
+					<div class="tribe-countdown-colon">:</div>
+					<div class="tribe-countdown-minutes tribe-countdown-number">MM<br />
+						<span class="tribe-countdown-under">'.__('min', 'tribe-events-calendar-pro').'</span>
+					</div>
+					<div class="tribe-countdown-colon">:</div>
+					<div class="tribe-countdown-seconds tribe-countdown-number tribe-countdown-right">SS<br />
+						<span class="tribe-countdown-under">'.__('sec', 'tribe-events-calendar-pro').'</span>
+					</div>
+				</div>';
 			} else {
-				$hourformat = "dd days hh:mm";
-				$hourformat = '<div class="tribe-countdown-timer"><div class="tribe-countdown-days tribe-countdown-number">DD<br /><span class="tribe-countdown-under">days</span></div><div class="tribe-countdown-colon">:</div><div class="tribe-countdown-hours tribe-countdown-number">HH<br /><span class="tribe-countdown-under">hours</span></div><div class="tribe-countdown-colon">:</div><div class="tribe-countdown-minutes tribe-countdown-number tribe-countdown-right">MM<br /><span class="tribe-countdown-under">min</span></div></div>';
-
+				$hourformat = 'dd days hh:mm';
+				$hourformat = '
+				<div class="tribe-countdown-timer">
+					<div class="tribe-countdown-days tribe-countdown-number">DD<br />
+						<span class="tribe-countdown-under">'.__('days', 'tribe-events-calendar-pro').'</span>
+					</div>
+					<div class="tribe-countdown-colon">:</div>
+					<div class="tribe-countdown-hours tribe-countdown-number">HH<br />
+						<span class="tribe-countdown-under">'.__('hours', 'tribe-events-calendar-pro').'</span>
+					</div>
+					<div class="tribe-countdown-colon">:</div>
+					<div class="tribe-countdown-minutes tribe-countdown-number tribe-countdown-right">MM<br />
+						<span class="tribe-countdown-under">'.__('min', 'tribe-events-calendar-pro').'</span>
+					</div>
+				</div>';
 			}
 			// Get the event start date.
 			$startdate = tribe_get_start_date($event_ID, false, 'Y-m-d H:i:s');
@@ -80,13 +110,19 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 		function generate_countdown_output( $seconds, $complete, $hourformat, $event_ID ) {
 			$link = tribe_get_event_link($event_ID);
 			$event = get_post($event_ID);
-			return '<div class="tribe-countdown-timer"><span class="tribe-countdown-seconds">'.$seconds.'</span><span class="tribe-countdown-format">'.$hourformat.'</span><span class="tribe-countdown-complete">'.$complete.'</span></div><div class="tribe-countdown-text">Until <a href="' .$link . '">' . $event->post_title . '</a></div>';
+			return '
+			<div class="tribe-countdown-timer">
+				<span class="tribe-countdown-seconds">'.$seconds.'</span>
+				<span class="tribe-countdown-format">'.$hourformat.'</span>
+				<span class="tribe-countdown-complete">'.$complete.'</span>
+			</div>
+			<div class="tribe-countdown-text">'.__('Until', 'tribe-events-calendar-pro').' <a href="' .esc_url($link) . '">' . esc_attr($event->post_title) . '</a></div>';
 		}
 
 	}
 
 	add_action('widgets_init', 'tribe_countdown_register_widget');
 	function tribe_countdown_register_widget() {
-		register_widget ('TribeCountdownWidget');
+		register_widget('TribeCountdownWidget');
 	}
 }

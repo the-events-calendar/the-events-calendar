@@ -60,5 +60,5 @@ div.tribe-countdown-right {
 }
 
 div.tribe-countdown-text {
-	float: left;
+	clear: both;
 }
