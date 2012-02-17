@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors: [Current Contributors], shane.pearlman, peterchester, reid.peifer, roblagatta, jkudish, Nick Ciske, Paul Hughes, [Past Contributors], kelseydamas, mattwiebe, dancameron, jgadbois, Justin Endler, [Produced By Modern Tribe Inc], ModernTribe
+Contributors: [Current Contributors], shane.pearlman, peterchester, reid.peifer, roblagatta, jkudish, jonahcoyote, Nick Ciske, Paul Hughes, [Past Contributors], kelseydamas, mattwiebe, dancameron, jgadbois, Justin Endler, [produced By Modern Tribe Inc], ModernTribe
 Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar, recurring, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.1
@@ -9,7 +9,7 @@ Stable tag: 2.0.4
 
 == Description ==
 
-IMPORTANT NOTICE: If you are upgrading from a pre 2.0 version of The Events Calendar, please BACK UP your data before upgrading! This is a significant update.
+IMPORTANT NOTICE: If you are upgrading from a pre-2.0 version of The Events Calendar, please BACK UP your data before upgrading! This is a significant update.
 
 The Events Calendar plugin enables you to rapidly create and manage events. Features include Google Maps integration as well as default templates such as a calendar grid and event list, widget and so much more. Looking for recurring events, the ability to sell tickets, manage conference schedules, accept user submitted events automatically and more? Check out the <a href="http://tri.be/products/?ref=tec-readme">available premium and community add-ons</a>. Have questions or looking to get help from our active user community, <a href="https://www.facebook.com/ModernTribeInc">join us on Facebook</a>, sign up for our newsletter (bottom of the home page) or check out <a href="http://tri.be/support/?ref=tec-readme">our support page</a>. Please note that while we are actively supporting this plugin, we don't provide support for non-paying users.
 
@@ -20,14 +20,14 @@ Just getting started? Check out our <a href="http://tri.be/support/documentation
 * Event custom post type
 * Easily manage events
 * Upcoming Events Widget
-* Provides full template to complement the 2010 & 2011 theme out of the box (month and list view)
+* provides full template to complement the 2010 & 2011 theme out of the box (month and list view)
 * Extensive template tags for customization
 * MU Compatible
 * Google Maps Integration
 * Calendar Month view with tooltips
 * Includes support for venue, cost, address, start and end time, google maps link
 
-= Events Calendar Pro Features =
+= Events Calendar PRO Features =
 
 * Recurring events
 * Saved venues & organizers
@@ -40,7 +40,7 @@ Just getting started? Check out our <a href="http://tri.be/support/documentation
 * Gcal / ical user download (import)
 * and lots more.
 
-<a href="http://tri.be/wordpress-events-calendar-pro/?ref=tec-readme">Grab a copy of Events Calendar Pro!</a>
+<a href="http://tri.be/wordpress-events-calendar-pro/?ref=tec-readme">Grab a copy of Events Calendar PRO!</a>
 
 == Screenshots ==
 
@@ -55,7 +55,7 @@ Just getting started? Check out our <a href="http://tri.be/support/documentation
 
 = Install =
 
-1. <a href="http://tri.be/downloading-installing-activating-the-events-calendar-2-0-pro-2-0/?ref=tec-readme">Follow the directions in our simple video</a>
+1. <a href="http://tri.be/downloading-installing-activating-the-events-calendar-2-0-pro-2-0/?ref=tec-readme">Follow the directions in our simple video.</a>
 1. Update your permalinks to ensure that the event specific rewrite rules take effect.
 1. If you have trouble installing, see the [Codex](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) for more helpful info.
 
@@ -81,10 +81,27 @@ For template tags, you can view our template tag includes in the "public" folder
 
 **Small features, UX and Content Tweaks:**
 
-* Revised Dutch translation files (thanks to Jacob Roel Meijering)
+* Settings option to control the default zoom level for embedded Google Maps (select from 0-21)
+* Filters for all template tags
+* Settings option to control the number of events that appear in each loop, independent of your overall WordPress settings
+* Hook for integrating with custom fields
+* Contextual body classes for events pages
+* Added a unique CSS ID / class for each DD and DT meta data item so that people can style them differently if they like; and a template tag to give developers flexibility
+* New Dutch translation files for core courtesy of community member Jacob Roel Meijering
+* New Dutch translation files for PRO courtesy of community member Ed Boon
 
 **Bug Fixes:**
 
+*Venue and organizer data - which previously disappeared - now remains in place when you go back to edit an existing event
+* Fix for a conflict impacting Headway users where the calendar title repeated in the header nav
+* Removed incomplete da_DK & nb_NO translation files from PRO code
+* Specific dates within category no longer return 404 errors
+* Translated slugs now run through sanitize title before use
+* Resolved translation issue with tribe_get_recurrence_text (PRO only)
+* Removed date from recurring events in search results (PRO only)
+* tribe_the_custom_fields no longer displays any HTML if there are no custom fields (PRO only)
+* Resolved an issue where the advanced post manager wasn't using WP's internal plugins_url() function and causing problems on IIS7 installs (PRO only)
+* Addressed various debug notices & errors
 
 = 2.0.3 =
 
@@ -189,7 +206,7 @@ This is such a major re-write that we are starting the change log over.
 
 = 2.0.4 =
 
-2.0.4 is a minor bug patch for 2.0. Are you upgrading from 1.6.5? Events 2.0 is a MAJOR upgrade, please backup your data and plan a little time in case you have to make any theme edits. Check out the upgrade tutorials in support on the tri.be website.
+2.0.4 contains bug patches and new features for 2.0. Are you upgrading from 1.6.5? Events 2.0 is a MAJOR upgrade, please backup your data and plan a little time in case you have to make any theme edits. Check out the upgrade tutorials in support on the tri.be website.
 
 = 2.0.3 =
 
