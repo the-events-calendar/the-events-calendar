@@ -1789,7 +1789,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						if( isset($_POST['Event'.$cleaned_tag]) ){
 							$$tag = $_POST['Event'.$cleaned_tag];
 						}else{
-							$$tag = (class_exists('TribeEventsPro') && tribe_get_option('defaultValueReplace')) ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
+							$$tag = (class_exists('TribeEventsPro') && $this->defaultValueReplaceEnabled()) ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
 						}
 					}
 				}
@@ -1828,7 +1828,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						if($cleaned_tag == 'Cost')
 							continue;
 
-						${'_Venue'.$cleaned_tag} = (class_exists('TribeEventsPro') && tribe_get_option('defaultValueReplace')) ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
+						${'_Venue'.$cleaned_tag} = (class_exists('TribeEventsPro') && $this->defaultValueReplaceEnabled()) ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
 					}
 					
 					if( isset($_POST['venue'][$cleaned_tag]) )
@@ -1904,7 +1904,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$OrganizerID = get_post_meta( $postId, '_EventOrganizerID', true);
 			?><input type='hidden' name='organizer[OrganizerID]' value='<?php echo esc_attr($OrganizerID) ?>'/><?php
 		}
-		
 
 		/**
 		 * Adds a style chooser to the write post page
@@ -1998,6 +1997,20 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					exit;
 				}
 			}
+		}
+
+		/**
+		 * Allow programmatic override of defaultValueReplace setting
+		 *
+		 * @return boolean
+		 */
+		 public function defaultValueReplaceEnabled(){
+		
+			if( !is_admin() )
+				return false;
+				
+			return tribe_get_option('defaultValueReplace');
+		
 		}
 
 		/**
