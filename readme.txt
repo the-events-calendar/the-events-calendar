@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors: [Current Contributors], shane.pearlman, peterchester, reid.peifer, roblagatta, jkudish, jonahcoyote, nickciske, Paul Hughes, [Past Contributors], kelseydamas, mattwiebe, dancameron, jgadbois, Justin Endler, [produced By Modern Tribe Inc], ModernTribe
+Contributors: shane.pearlman, peterchester, reid.peifer, roblagatta, jkudish, jonahcoyote, nickciske, paulhughes01, ModernTribe
 Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar, recurring, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.1
@@ -73,7 +73,51 @@ No setup required. Just plug and play!
 
 == Documentation ==
 
-For template tags, you can view our template tag includes in the "public" folder to read through the functions directly or visit our online documentation at <a href="http://tri.be/support/documentation?ref=tec-readme">http://tri.be/support/documentation</a>
+All of our online documentation can be found at <a href="http://tri.be/support/documentation?ref=tec-readme" target="_blank">http://tri.be/support/documentation</a>
+
+For template tags, you can view our template tag includes in the "public" folder to read through the functions directly.
+
+If you have any questions about this plugin, please take look at the dedicated forum here on WordPress.org at <a href="http://wordpress.org/tags/the-events-calendar">http://wordpress.org/tags/the-events-calendar</a>. Please search before opening a new thread.
+
+If you want, you can read the <a href="http://tri.be/support/forums/?ref=tec-readme">Modern Tribe PRO support forums</a> in case that helps, although you won’t be able to post a message, unless you have purchase a PRO license.
+
+== Contributors ==
+
+The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe Inc</a>.
+
+= Current Contributors =
+
+* <a href="http://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
+* <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
+* <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
+* <a href="http://profiles.wordpress.org/users/roblagatta">Rob Lagatta</a>
+* <a href="http://profiles.wordpress.org/users/jkudish">Joachim kudish</a>
+* <a href="http://profiles.wordpress.org/users/jonahcoyote">Jonah West</a>
+* <a href="http://profiles.wordpress.org/users/nickciske">Nick Ciske</a>
+* <a href="http://profiles.wordpress.org/users/paulhughes01">Paul Hughes</a>
+
+= Past Contributors =
+
+* <a href="http://profiles.wordpress.org/users/kelseydamas">Kelsey Damas</a>
+* <a href="http://profiles.wordpress.org/users/mattwiebe">Matt Wiebe</a>
+* <a href="http://profiles.wordpress.org/users/dancameron">Dan Cameron</a>
+* <a href="http://profiles.wordpress.org/users/jgadbois">John Gadbois</a>
+* Justin Endler
+
+= External Contributors =
+
+
+== Add-Ons ==
+
+You can see a full list of Modern Tribe Products at <a href="http://tri.be/shop/?ref=tec-readme" target="_blank">http://tri.be/shop/</a>
+
+Here are our most popular add-ons:
+
+* <a href="http://tri.be/wordpress-events-calendar-pro/?ref=tec-readme" target="_blank">Events Calendar Pro</a>
+* <a href="http://tri.be/shop/wordpress-eventbrite-ticketing/?ref=tec-readme" target="_blank">Eventbrite Ticketing (coming soon!)</a>
+* <a href="http://tri.be/shop/wordpress-community-events/?ref=tec-readme" target="_blank">Community Events (coming soon!)</a>
+* <a href="http://tri.be/shop/conference-manager/?ref=tec-readme" target="_blank">Conference Manager (coming later in 2012)</a>
+
 
 == Changelog ==
 
