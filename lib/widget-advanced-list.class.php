@@ -51,7 +51,7 @@ if( !class_exists( 'TribeEventsAdvancedListWidget' ) ) {
 	
 		function form( $instance ) {				
 			/* Set up default widget settings. */
-			$defaults = array( 'title' => 'Upcoming Events', 'limit' => '5', 'start' => true, 'end' => false, 'venue' => false, 'country' => true, 'address' => false, 'city' => true, 'region' => true, 'zip' => false, 'phone' => false, 'cost' => false,'category' => false);
+			$defaults = array( 'title' => 'Upcoming Events', 'limit' => '5', 'no_upcoming_events' => false, 'start' => true, 'end' => false, 'venue' => false, 'country' => true, 'address' => false, 'city' => true, 'region' => true, 'zip' => false, 'phone' => false, 'cost' => false,'category' => false);
 			$instance = wp_parse_args( (array) $instance, $defaults );
 			include( TribeEventsPro::instance()->pluginPath . 'admin-views/widget-admin-advanced-list.php' );
 		}
