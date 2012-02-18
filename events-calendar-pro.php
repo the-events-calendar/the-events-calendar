@@ -23,7 +23,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		const REQUIRED_TEC_VERSION = '2.0.2';
 		const VERSION = '2.1';
 		
-	    private function __construct() {
+    private function __construct() {
 			$this->pluginDir = trailingslashit( basename( dirname(__FILE__) ) );
 			$this->pluginPath = trailingslashit( dirname(__FILE__) );
 			$this->pluginUrl = WP_PLUGIN_URL.'/'.$this->pluginDir;
