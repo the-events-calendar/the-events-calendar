@@ -57,7 +57,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<?php if(!isset($_VenueStateProvince) || $_VenueStateProvince == "") $_VenueStateProvince = -1; ?>
 	<td><?php _e('State or Province:','tribe-events-calendar'); ?></td>
 	<td><input tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceText" name="venue[Province]" type='text' name='' size='25' value='<?php echo ( isset($_VenueStateProvince) && $_VenueStateProvince != '' && $_VenueStateProvince != -1 ) ? esc_attr($_VenueProvince) : esc_attr(''); ?>' />
-	<select tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceSelect" name="venue[State]" name=''>
+	<select tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceSelect" name="venue[State]">
 		<option value=""><?php _e('Select a State:','tribe-events-calendar'); ?></option>
 		<?php
 			foreach (TribeEventsViewHelpers::loadStates() as $abbr => $fullname) {
