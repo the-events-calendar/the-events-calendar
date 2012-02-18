@@ -66,6 +66,7 @@ if ( !class_exists( 'TribeRelatedEvents' ) ) {
 		
 		// Function to get the Related Events.
 		public function getEvents( $count=3 ) {
+			$events = array();
 			$post_id = get_the_ID();
 			$event_taxonomy_name = TribeEvents::POSTTYPE;
 			if ($count > 5) { $count = 5; }
@@ -78,11 +79,10 @@ if ( !class_exists( 'TribeRelatedEvents' ) ) {
 				$tag = $tags[array_rand($tags, 1)]->slug;
 			}
 			
-			if ( $tag ) {
+			if ( isset($tag) && $tag ) {
 				// Make sure not to return the current post/event.
 				$exclude = array($post_id);
 				
-				$events = array();
 				// Get an array of posts.
 				if ($tag = get_term_by('slug', $tag, 'post_tag')) {
 					$events = get_posts( array( 'tag' => $tag->slug, 'posts_per_page' => $count, 'exclude' => $exclude, 'post_type' => $event_taxonomy_name, 'orderby' => 'rand' ) );
