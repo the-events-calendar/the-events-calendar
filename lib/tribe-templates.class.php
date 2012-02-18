@@ -15,6 +15,7 @@ if (!class_exists('TribeEventsTemplates')) {
 		public static $isMainLoop = false;
 	
 		public static function init() {
+			add_filter( 'parse_query', array( __CLASS__, 'fixIsHome') );
 			add_filter( 'template_include', array( __CLASS__, 'templateChooser') );
 			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished'), 999 );
 
@@ -36,10 +37,6 @@ if (!class_exists('TribeEventsTemplates')) {
 				return $template;
 			}
 
-			//is_home fixer
-			global $wp_query;
-			$wp_query->is_home = false;
-
 			if( tribe_get_option('spEventsTemplate', 'default') == '' ) {
 				if(is_single() && !tribe_is_showing_all() ) {
 					return TribeEventsTemplates::getTemplateHierarchy('ecp-single-template');
@@ -57,6 +54,19 @@ if (!class_exists('TribeEventsTemplates')) {
 			
 				return $template;
 			}			
+		}
+
+		/**
+		 * fixes if (is_home()) in pre_get_posts
+		 *
+		 * @param  stdClass $query the query
+		 * @return stdclass $query the filtered query
+		 */
+		public static function fixIsHome($query) {
+			if (isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == TribeEvents::POSTTYPE) {
+				$query->is_home = false;
+			}
+			return $query;
 		}
 	
 		public static function wpHeadFinished() {
@@ -159,6 +169,7 @@ if (!class_exists('TribeEventsTemplates')) {
 		 * @since 2.1
 		 */
 		public static function showInLoops($query) {
+
 			if (!is_admin() && tribe_get_option('showInLoops') && ($query->is_home() || $query->is_tag) && empty($query->query_vars['post_type']) && false == $query->query_vars['suppress_filters']) {
 
 				// 3.3 know-how for main query check
@@ -170,6 +181,8 @@ if (!class_exists('TribeEventsTemplates')) {
           }
 
 			}
+
+			return $query;
 		}
 
 		/**
