@@ -88,7 +88,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 	
 		function form( $instance ) {				
 			/* Set up default widget settings. */
-			$defaults = array( 'title' => 'Upcoming Events', 'limit' => '5');
+			$defaults = array( 'title' => 'Upcoming Events', 'limit' => '5', 'no_upcoming_events' => false);
 			$instance = wp_parse_args( (array) $instance, $defaults );
 			$tribe_ecp = TribeEvents::instance();		
 			include( $tribe_ecp->pluginPath . 'admin-views/widget-admin-list.php' );
