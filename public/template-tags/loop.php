@@ -138,7 +138,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
-		return $title;
+		return apply_filters('tribe_get_events_title', $title);
 	}
 
 	/**
