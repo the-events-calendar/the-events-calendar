@@ -46,15 +46,11 @@ if (!class_exists('TribeEventsQuery')) {
 				$args['tax_query'][] = array('taxonomy'=>TribeEvents::TAXONOMY, 'field'=>$tax_field, 'terms'=>$args['eventCat']);
 			}
 		
-			if (!empty($args['numResults'])) {
-				$args['posts_per_page'] = $args['numResults'];
-			} else {
-				$args['posts_per_page'] = (int) tribe_get_option( 'postsPerPage', 10 );
-			}
+			$args['posts_per_page'] = (isset($args['posts_per_page']) && !empty($args['posts_per_page'])) ? $args['posts_per_page'] : (int) tribe_get_option( 'postsPerPage', 10 );
 
-	      if (!empty($args['venue'])) {
+      if (!empty($args['venue'])) {
 				$args['meta_query'][] = array('key'=>'_EventVenueID', 'value'=>$args['venue']);
-	      }
+      }
 
 			// proprietary metaKeys go to standard meta
 			if (!empty($args['metaKey']))
