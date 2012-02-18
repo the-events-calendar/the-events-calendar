@@ -9,20 +9,19 @@ if( !class_exists( 'TribeRelatedPostsWidget' ) ) {
 	class TribeRelatedPostsWidget extends WP_Widget {
 		function TribeRelatedPostsWidget() {
 			// Widget settings.
-			$widget_ops = array( 'classname' => 'related_posts_widget', 'description' => __( 'Displays posts related to the post.', 'tribe-events-calendar-pro' ) );
+			$widget_ops = array( 'classname' => 'tribe_related_posts_widget', 'description' => __( 'Displays posts related to the post.', 'tribe-events-calendar-pro' ) );
 			// Create the widget.
-			$this->WP_Widget( 'related-posts-widget', __( 'Related Posts', 'tribe-events-calendar-pro' ), $widget_ops );
+			$this->WP_Widget( 'tribe_related-posts-widget', __( 'Related Posts', 'tribe-events-calendar-pro' ), $widget_ops );
 		}
-		
+
 		function widget($args, $instance) {
 			extract($args);
 			echo $before_widget;
-			$title = apply_filters( 'widget_title', empty($instance['title'] ) ? '&nbsp;' : $instance['title'] );
-			echo '<h3 class="widget-title">' . $title . '</h3>';
+			$title = $before_title.apply_filters( 'widget_title', $instance['title'] ).$after_title;
 			tribe_related_posts( false, $instance['count'], false, $instance['only_display_related'], $instance['thumbnails'], $instance['post_type'] );
 			echo $after_widget;
 		}
-		
+
 		// Include the file for the administration view of the widget.
 		function form( $instance ) {
 			$defaults = array(
@@ -61,25 +60,25 @@ if( !class_exists( 'TribeRelatedPostsWidget' ) ) {
 			</select>
 			</p>
 		<?php }
-		
+
 		// Function allowing updating of widget information.
 		function update( $new_instance, $old_instance ) {
 			$instance = parent::update( $new_instance, $old_instance );
-			
+
 			$instance['title'] = $new_instance['title'];
 			$instance['count'] = $new_instance['count'];
-			$instance['thumbnails'] = ( isset( $new_instance['thumbnails'] ) ? true : false );			
+			$instance['thumbnails'] = ( isset( $new_instance['thumbnails'] ) ? true : false );
 			$instance['only_display_related'] = ( isset( $new_instance['only_display_related'] ) ? true : false );
 			$instance['post_type'] = $new_instance['post_type'];
-						
+
 			return $instance;
 		}
-	
+
 	}
-	
+
 	// Load the widget with the 'widgets_init' action.
 	add_action( 'widgets_init', 'tribe_related_posts_register_widget', 100 );
-		
+
 	function tribe_related_posts_register_widget() {
 		register_widget ( 'TribeRelatedPostsWidget' );
 	}

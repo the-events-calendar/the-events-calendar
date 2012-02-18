@@ -3,25 +3,24 @@
 if( !class_exists( 'TribeRelatedPosts' ) ) {
 	include('tribe-related-posts-widget.php');
 	class TribeRelatedPosts {
-		
+
 		private static $instance;
-		private static $cache;
-	
-	
+		private static $cache = array();
+
+
 		public static function instance() {
 			if ( !isset( self::$instance ) ) {
 				$className = __CLASS__;
 				self::$instance = new $className;
 			}
 			return self::$instance;
-		}	
-	
+		}
+
 		public function __construct() {
 			add_action( 'init', array( $this, 'registerShortcodes' ), 5 );
 			add_action( 'init', array( $this, 'setUpThumbnails' ), 5 );
-			self::$cache = array();
 		}
-	
+
 		public function setUpThumbnails() {
 			if ( current_theme_supports( 'post-thumbnails' ) ) {
 				global $_wp_additional_image_sizes;
@@ -30,18 +29,18 @@ if( !class_exists( 'TribeRelatedPosts' ) ) {
 				}
 			}
 		}
-	
+
 		public function registerShortcodes() {
 			add_shortcode( 'tribe-related-posts', array($this, 'shortcodeFeature' ) );
 		}
-	
-		public function shortcodeFeature($atts, $content = null) {
-			$defaults = array( 'tag'=>false, 'blog'=>false, 'count'=>5, 'only_display_related'=>false, 'thumbnails'=>true, 'post_type'=>'post' );
+
+		public function shortcodeFeature( $atts, $content = null ) {
+			$defaults = array( 'tag' => false, 'blog' => false, 'count' => 5, 'only_display_related' => false, 'thumbnails' => true, 'post_type' => 'post' );
 			$atts = shortcode_atts( $defaults, $atts );
 			return self::displayPosts( $atts['tag'], $atts['count'], $atts['blog'], $atts['only_display_related'], $atts['thumbnails'], $atts['post_type'] );
 		}
-		
-		public function getPosts( $tags=array(), $count=5, $blog=false, $only_display_related=false, $post_type='post' ) {
+
+		public function getPosts( $tags = array(), $count = 5, $blog = false, $only_display_related = false, $post_type = 'post' ) {
 			$post_id = get_the_ID();
 			if ( is_string( $tags ) ) {
 				$tags = explode( ',', $tags );
@@ -72,7 +71,7 @@ if( !class_exists( 'TribeRelatedPosts' ) ) {
 					foreach ( $posts as $post ) {
 						$exclude[] = $post->ID;
 					}
-					$args = array( 'numberposts' => ( $count-count( $posts ) ), 'exclude'=>$exclude, 'post_type' => $post_type, 'orderby' => 'rand' );
+					$args = array( 'numberposts' => ( $count-count( $posts ) ), 'exclude' => $exclude, 'post_type' => $post_type, 'orderby' => 'rand' );
 					$args = apply_filters( 'tribe-related-posts-args-extra', $args );
 					$posts = array_merge( $posts, get_posts( $args ) );
 				}
@@ -83,8 +82,8 @@ if( !class_exists( 'TribeRelatedPosts' ) ) {
 			}
 			return self::$cache[$post_id];
 		}
-		
-		public function displayPosts( $tag=false, $count=5, $blog=false, $only_display_related=false, $thumbnails=false, $post_type='post' ) {
+
+		public function displayPosts( $tag = false, $count = 5, $blog = false, $only_display_related = false, $thumbnails = false, $post_type = 'post' ) {
 			// Create an array of types if the user submitted more than one.
 			$post_type = explode( ',', $post_type );
 			$posts = self::getPosts( $tag, $count, $blog, $only_display_related, $post_type );

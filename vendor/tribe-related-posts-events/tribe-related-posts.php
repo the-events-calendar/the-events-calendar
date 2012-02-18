@@ -13,4 +13,3 @@ include( 'tribe-related-posts-widget.php' );
 include( 'template-tags.php' );
 
 TribeRelatedPosts::instance();
-?>
