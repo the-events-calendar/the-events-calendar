@@ -104,19 +104,27 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 * <a href="http://profiles.wordpress.org/users/jgadbois">John Gadbois</a>
 * Justin Endler
 
-= External Contributors =
+= Translators =
 
+[waiting for names]
 
 == Add-Ons ==
 
 You can see a full list of Modern Tribe Products at <a href="http://tri.be/shop/?ref=tec-readme" target="_blank">http://tri.be/shop/</a>
 
-Here are our most popular add-ons:
+Our Free Plugins:
+
+* <a href="http://wordpress.org/extend/plugins/advanced-post-manager/?ref=tec-readme" target="_blank>Advanced Post Manager</a>
+* Event Importer (coming soon!)
+* Facebook Sync Events (coming soon!)
+
+Our Premium Plugins:
 
 * <a href="http://tri.be/wordpress-events-calendar-pro/?ref=tec-readme" target="_blank">Events Calendar Pro</a>
-* <a href="http://tri.be/shop/wordpress-eventbrite-ticketing/?ref=tec-readme" target="_blank">Eventbrite Ticketing (coming soon!)</a>
+* <a href="http://tri.be/shop/wordpress-eventbrite-ticketing/?ref=tec-readme" target="_blank">Eventbrite Tickets (coming soon!)</a>
 * <a href="http://tri.be/shop/wordpress-community-events/?ref=tec-readme" target="_blank">Community Events (coming soon!)</a>
 * <a href="http://tri.be/shop/conference-manager/?ref=tec-readme" target="_blank">Conference Manager (coming later in 2012)</a>
+* <a href="http://tri.be/shop/wootickets/?ref=tec-readme" target="_blank">WooTickets (coming later in 2012)</a>
 
 
 == Changelog ==
