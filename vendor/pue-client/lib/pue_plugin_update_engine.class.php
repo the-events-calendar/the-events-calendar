@@ -20,7 +20,6 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 	class PluginUpdateEngineChecker {
 	
 		public $metadataUrl = ''; //The URL of the plugin's metadata file.
-		public $renewUrl = ''; //The URL to renew licenses
 		public $pluginFile = '';  //Plugin filename relative to the plugins directory.
 		public $pluginName = ''; //variable used to hold the pluginName as set by the constructor.
 		public $slug = '';        //Plugin slug. (with .php extension)
@@ -32,11 +31,8 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 		public $download_query = array(); //used to hold the query variables for download checks;
 		public $lang_domain = ''; //used to hold the localization domain for translations .
 		public $dismiss_upgrade; //for setting the dismiss upgrade option (per plugin).
-		public $dismiss_expiration; //for setting the dismiss expiration option (per plugin).
 		public $pue_install_key; //we'll customize this later so each plugin can have it's own install key!
 		public $puePluginPath;
-		public $expiredNotice; //string to be used when the license is expired
-		public $expiringWeekNotice; //string to be used when the license is about to expired within the week
 		
 		/**
 		 * Class constructor.
@@ -71,14 +67,16 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 			}
 
 			$this->dismiss_upgrade = 'pu_dismissed_upgrade_'.$tr_slug;
-			$this->dismiss_expiration = 'pu_dismissed_expiration_'.$tr_slug;
-			$this->renewUrl = 'http://tri.be/license/';
-			$this->pluginName = ucwords(str_replace('-', ' ', $this->slug));
+			
+			//get name from plugin file itself
+			if ( ! function_exists( 'get_plugins' ) )
+				require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+			$plugin_details = explode('/',$pluginFile);
+			$plugin_folder = get_plugins( '/'.$plugin_details[0] );
+			$this->pluginName = $plugin_folder[ $plugin_details[1] ]['Name'];
+			//get name from plugin file itself
+			
 			$this->pue_install_key = 'pue_install_key_'.$tr_slug;
-
-			$link = '<a href="'.$this->renewUrl.'" target="_blank">'.__('click here', 'plugin-update-engine').'</a>';
-			$this->expiredNotice = sprintf( __("Your Events Calendar Pro license has expired, %s to renew it", 'plugin-update-engine'), $link);
-			$this->expiringWeekNotice = sprintf( __("Your Events Calendar Pro license is expiring in less then a week, %s to renew it", 'plugin-update-engine'), $link);
 		
 			$defaults = array(
 				'optionName' => 'external_updates-' . $this->slug,
@@ -103,7 +101,6 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 		
 			$this->set_api();
 			$this->installHooks();		
-			$this->requestUpdate(); // DEBUG
 		}
 	
 		/**
@@ -136,7 +133,7 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 		/**
 		 * Install the hooks required to run periodic update checks and inject update info 
 		 * into WP data structures. 
-		 * Also other hooks related to the automatic updates (such as checking against API and what not (@from Darren)
+		 * Also other hooks related to the automatic updates (such as checking agains API and what not (@from Darren)
 		 * @return void
 		 */
 		function installHooks(){
@@ -150,9 +147,6 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 		
 			//Insert our update info into the update array maintained by WP
 			add_filter('site_transient_update_plugins', array(&$this,'injectUpdate')); //WP 3.0+
-
-			// key expiration
-			add_action('admin_notices', array(&$this, 'expiration_admin_notice'));
 				
 			//Set up the periodic update checks
 			$cronHook = 'check_plugin_updates-' . $this->slug;
@@ -176,37 +170,14 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 			}
 			//dashboard message "dismiss upgrade" link
 			add_action( "wp_ajax_".$this->dismiss_upgrade, array(&$this, 'dashboard_dismiss_upgrade')); 
-			add_action( "wp_ajax_".$this->dismiss_expiration, array(&$this, 'dashboard_dismiss_expiration')); 
 		}
 
 		public function displayKeySettings() {
 			if (isset($_POST) && isset($_POST['install_key'])) {
 				$this->install_key = $_POST['install_key'];
 				update_option($this->pue_install_key, trim($this->install_key));
-				delete_option($this->dismiss_expiration);
-				delete_transient($this->dismiss_expiration);
 			}
 			include( $this->puePluginPath.'admin-views/license-key.view.php' );
-		}
-
-		/**
-		 * checks if the current key is expired and if not returns the expiration date
-		 */
-		public function get_key_expiration() {
-			$response = array();
-			$response['status'] = 0;
-			$queryArgs = array(
-				'pu_install_key' => trim($this->install_key),
-				'pu_checking_for_updates' => '1'
-			);
-
-			$result = $this->requestInfo( $queryArgs );
-			if (isset($result->api_expired) && $result->api_expired) {
-				return array('expired' => true, 'expiration' => null);
-			} else {
-				$expiration = (isset($result->expiration)) ? $result->expiration : null;
-				return array('expired' => false, 'expiration' => $expiration);
-			}
 		}
 
 		public function ajax_validate_key() {
@@ -253,9 +224,6 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 					$response['status'] = 1;
 					$response['message'] = sprintf(__('Valid Key! Expires on %s','plugin-update-engine'),$pluginInfo->expiration);
 					$response['expiration'] = $pluginInfo->expiration;
-					$expiration_timestamp = strtotime($pluginInfo->expiration);
-					$transient_expiration = $expiration_timestamp-time()-691200; // the transient expires when the license does minus 8 days
-					set_transient($this->dismiss_expiration, time(), $transient_expiration);
 				}
 			} else {
 				$response['message'] = __('Hmmm... something\'s wrong with this validator. Please contact <a href="http://tri.be/support">support.</a>','plugin-update-engine');
@@ -339,16 +307,15 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 				$url = add_query_arg($queryArgs, $url);
 			}
 		
-			// echo $url; //DEBUG
+			//echo $url; //DEBUG
 		
 			$result = wp_remote_get(
 				$url,
 				$options
 			);
 		
-			// die(var_dump($result)); // DEBUG
-			// echo $result['body']; //DEBUG
-			
+			//echo $result['body']; //DEBUG
+		
 			//Try to parse the response
 			$pluginInfo = null;
 			if ( !is_wp_error($result) && isset($result['response']['code']) && ($result['response']['code'] == 200) && !empty($result['body']) ){
@@ -373,15 +340,13 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 			if ( $pluginInfo == null ){
 				return null;
 			}
-			
-
 			//admin display for if the update check reveals that there is a new version but the API key isn't valid.  
 			if ( isset($pluginInfo->api_invalid) )  { //we have json_error returned let's display a message
 				$this->json_error = $pluginInfo;
 				add_action('admin_notices', array(&$this, 'display_json_error'));  
 				return null;
 			}
-
+		
 			if ( isset($pluginInfo->new_install_key) ) {
 				update_option($this->pue_install_key, $pluginInfo->new_install_key);
 			}
@@ -397,34 +362,14 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 	
 		function in_plugin_update_message($plugin_data) {
 			$plugininfo = $this->json_error;
-
-			if ( is_object($plugininfo) && version_compare($plugininfo->version, $this->getInstalledVersion(), '>') ) { // there is a new version of the plugin.
+			//only display messages if there is a new version of the plugin.
+			if ( is_object($plugininfo) && version_compare($plugininfo->version, $this->getInstalledVersion(), '>') ) {
 				if ( $plugininfo->api_invalid ) {
-					$msg = str_replace('%plugin_name%', $this->pluginName, $plugininfo->api_inline_invalid_message);
+					$msg = str_replace('%plugin_name%', '<b>'.$this->pluginName.'</b>', $plugininfo->api_inline_invalid_message);
 					$msg = str_replace('%version%', $plugininfo->version, $msg);
 					$msg = str_replace('%changelog%', '<a class="thickbox" title="'.$this->pluginName.'" href="plugin-install.php?tab=plugin-information&plugin='.$this->slug.'&TB_iframe=true&width=640&height=808">What\'s New</a>', $msg);
+					echo '</tr><tr class="plugin-update-tr"><td colspan="3" class="plugin-update"><div class="update-message">' . $msg . '</div></td>';
 				}
-			} 
-
-			$expiration = $this->get_key_expiration();
-			if ($expiration['expired']) { // already expired
-				// @todo test this
-				if (isset($msg)) {
-					$msg .= '<br>'.$this->expiredNotice;
-				} else {
-					$msg = $this->expiredNotice;
-				}
-			} elseif (is_string($expiration['expiration']) && $expiration['expiration'] != '' && strtotime($expiration['expiration']) < time()+(604800)) { // expires within the week
-				// @todo test this
-				if (isset($msg)) {
-					$msg .= '<br>'.$this->expiringWeekNotice;
-				} else {
-					$msg = $this->expiringWeekNotice;
-				}
-			}
-
-			if (isset($msg) && $msg != '') {
-				echo '</tr><tr class="plugin-update-tr"><td colspan="3" class="plugin-update"><div class="update-message">' . $msg . '</div></td>';
 			}
 		}
 	
@@ -445,12 +390,12 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 			//only display messages if there is a new version of the plugin.  
 			if ( version_compare($pluginInfo->version, $this->getInstalledVersion(), '>') ) {
 				if ( $pluginInfo->api_invalid ) {
-					$msg = str_replace('%plugin_name%', $this->pluginName, $pluginInfo->api_invalid_message);
+					$msg = str_replace('%plugin_name%', '<b>'.$this->pluginName.'</b>', $pluginInfo->api_invalid_message);
 					$msg = str_replace('%version%', $pluginInfo->version, $msg);
 				}
 				//Dismiss code idea below is obtained from the Gravity Forms Plugin by rocketgenius.com
 				?>
-					<div class="updated" style="padding:15px; position:relative;" id="pu_dashboard_message"><?php echo $msg ?>
+					<div class="updated" style="padding:5px; position:relative;" id="pu_dashboard_message"><?php echo $msg ?>
 					<a href="javascript:void(0);" onclick="PUDismissUpgrade();" style='float:right;'><?php _e("Dismiss") ?></a>
 	            </div>
 	            <script type="text/javascript">
@@ -462,49 +407,14 @@ if ( !class_exists('PluginUpdateEngineChecker') ) {
 				<?php
 			}
 		}
-
-		function expiration_admin_notice() {
-			$is_dismissed = (get_option($this->dismiss_expiration) || get_transient($this->dismiss_expiration)) ? true : false;
-		
-			if ($is_dismissed)
-				return;
-
-			$expiration = $this->get_key_expiration();
-			$expiration_date = $expiration['expiration'];
-
-			if ($expiration['expired']) { // expired
-				$msg = $this->expiredNotice;
-			} elseif (is_string($expiration_date) && $expiration_date != '' && (strtotime($expiration_date) < time()+(604800))) { // expires within the week
-				$msg = $this->expiringWeekNotice;
-			}
-
-			if (isset($msg)) {
-				//Dismiss code idea below is obtained from the Gravity Forms Plugin by rocketgenius.com
-				?>
- 				<div class="updated" style="padding:15px; position:relative;" id="pu_expiration_message"><?php echo $msg ?>
-				<a href="javascript:void(0);" onclick="PUDismissExpiration();" style='float:right;'><?php _e("Dismiss") ?></a>
-            </div>
-            <script type="text/javascript">
-                function PUDismissExpiration(){
-                    jQuery("#pu_expiration_message").slideUp();
-                    jQuery.post(ajaxurl, {action:"<?php echo $this->dismiss_expiration; ?>", cookie: encodeURIComponent(document.cookie)});
-                }
-            </script>
-				<?php
-			}
-		}
-
+	
 		function dashboard_dismiss_upgrade() {
 			$os_ary = get_option($this->dismiss_upgrade);
 			if (!is_array($os_ary))
 				$os_ary = array();
 		
-			$os_ary[] = time();
+			$os_ary[] = $_POST['version'];
 			update_option($this->dismiss_upgrade, $os_ary);
-		}
-
-		function dashboard_dismiss_expiration() {
-			update_option($this->dismiss_expiration, 1);
 		}
 	
 		/**
