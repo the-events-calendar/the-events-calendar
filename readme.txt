@@ -61,7 +61,6 @@ Just getting started? Check out our <a href="http://tri.be/support/documentation
 
 For more information, check out our <a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/?ref=tec-readme">new user primer!</a>
 
-
 = Activate =
 
 No setup required. Just plug and play!
@@ -106,7 +105,12 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 
 = Translators =
 
-[waiting for names]
+* Swedish (PRO only) from Ben Andersen
+* Russian (free & PRO) from Mikhail Michouris
+* Dutch (free & PRO) from Ed Boon, RIck van Dalen & Jacob Roel Meijering
+* Danish (PRO only) from Christian Andersen
+* Italian (free & PRO) from Stefano Castelli
+* German (free only) from David Decker
 
 == Add-Ons ==
 
@@ -141,6 +145,7 @@ Our Premium Plugins:
 * Added a unique CSS ID / class for each DD and DT meta data item so that people can style them differently if they like; and a template tag to give developers flexibility
 * New Dutch translation files for core courtesy of community member Jacob Roel Meijering
 * New Dutch translation files for PRO courtesy of community member Ed Boon
+* Added a new contributors section to the readme, thank you to everyone who did/does!
 
 **Bug Fixes:**
 
