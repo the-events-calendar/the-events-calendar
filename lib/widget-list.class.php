@@ -32,6 +32,9 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			extract( $instance, EXTR_SKIP );
 			// extracting $instance provides $title, $limit
 			$title = apply_filters('widget_title', $title );
+			if (!isset($category)) {
+				$category = null;
+			}
 			if ( tribe_get_option('viewOption') == 'upcoming') {
 				$event_url = tribe_get_listview_link($category != -1 ? intval($category) : null);
 			} else {
@@ -39,7 +42,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			}
 
 			if( function_exists( 'tribe_get_events' ) ) {
-				$posts = tribe_get_events( 'eventDisplay=upcoming&numResults=' . $limit .'&eventCat=' . $category );
+				$posts = tribe_get_events( 'eventDisplay=upcoming&posts_per_page=' . $limit .'&eventCat=' . $category );
 				$template = TribeEventsTemplates::getTemplateHierarchy( $template_name );
 			}
 
