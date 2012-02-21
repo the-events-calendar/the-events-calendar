@@ -369,6 +369,9 @@ if (!class_exists('TribeEventsViewHelpers')) {
 				if ($hour > 12 && $h == 'h')
 					$hour = $hour - 12;
 			}
+
+			$hour = apply_filters('tribe_get_hour_options', $hour, $date, $isStart);
+
 			foreach ($hours as $hourText) {
 				if ($hour == $hourText) {
 					$selected = 'selected="selected"';
@@ -385,7 +388,7 @@ if (!class_exists('TribeEventsViewHelpers')) {
 		 * @param string the current date (optional)
 		 * @return string a set of HTML options with minutes (current minute selected)
 		 */
-		public static function getMinuteOptions($date = "") {
+		public static function getMinuteOptions($date = "", $isStart = false) {
 			$minutes = TribeEventsViewHelpers::minutes();
 			$options = '';
 		
@@ -394,7 +397,9 @@ if (!class_exists('TribeEventsViewHelpers')) {
 			} else {
 				$minute = date('i', strtotime($date));
 			}
-		
+			
+			$minute = apply_filters('tribe_get_minute_options', $minute, $date, $isStart);
+			
 			foreach ($minutes as $minuteText) {
 				if ($minute == $minuteText) {
 					$selected = 'selected="selected"';
@@ -456,6 +461,9 @@ if (!class_exists('TribeEventsViewHelpers')) {
 			} else {
 				$meridian = date($a, strtotime($date));
 			}
+			
+			$meridian = apply_filters('tribe_get_meridian_options', $meridian, $date, $isStart);
+			
 			$return = '';
 			foreach ($meridians as $m) {
 				$return .= "<option value='$m'";
