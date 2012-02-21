@@ -1860,14 +1860,15 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$_EventAllDay = isset($_EventAllDay) ? $_EventAllDay : false;
 			$isEventAllDay = ( $_EventAllDay == 'yes' || ! TribeDateUtils::dateOnly( $_EventStartDate ) ) ? 'checked="checked"' : ''; // default is all day for new posts
 			$startMonthOptions 		= TribeEventsViewHelpers::getMonthOptions( $_EventStartDate );
-			$endMonthOptions 			= TribeEventsViewHelpers::getMonthOptions( $_EventEndDate );
+			$endMonthOptions 		= TribeEventsViewHelpers::getMonthOptions( $_EventEndDate );
 			$startYearOptions 		= TribeEventsViewHelpers::getYearOptions( $_EventStartDate );
 			$endYearOptions			= TribeEventsViewHelpers::getYearOptions( $_EventEndDate );
-			$startMinuteOptions 		= TribeEventsViewHelpers::getMinuteOptions( $_EventStartDate );
+			
+			$startMinuteOptions 	= TribeEventsViewHelpers::getMinuteOptions( $_EventStartDate, true );
 			$endMinuteOptions		= TribeEventsViewHelpers::getMinuteOptions( $_EventEndDate );
-			$startHourOptions				= TribeEventsViewHelpers::getHourOptions( $_EventAllDay == 'yes' ? null : $_EventStartDate, true );
+			$startHourOptions		= TribeEventsViewHelpers::getHourOptions( $_EventAllDay == 'yes' ? null : $_EventStartDate, true );
 			$endHourOptions			= TribeEventsViewHelpers::getHourOptions( $_EventAllDay == 'yes' ? null : $_EventEndDate );
-			$startMeridianOptions = TribeEventsViewHelpers::getMeridianOptions( $_EventStartDate, true );
+			$startMeridianOptions 	= TribeEventsViewHelpers::getMeridianOptions( $_EventStartDate, true );
 			$endMeridianOptions		= TribeEventsViewHelpers::getMeridianOptions( $_EventEndDate );
 	
 			if( $_EventStartDate )
