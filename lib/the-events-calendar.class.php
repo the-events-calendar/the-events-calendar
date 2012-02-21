@@ -2138,9 +2138,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function isVenue( $postId = null ) {
 			if ( $postId === null || ! is_numeric( $postId ) ) {
 				global $post;
-				$postId = $post->ID;
+				if( isset($post->ID) ) $postId = $post->ID;
 			}
-			if ( get_post_field('post_type', $postId) == self::VENUE_POST_TYPE ) {
+			if ( isset($postId) && get_post_field('post_type', $postId) == self::VENUE_POST_TYPE ) {
 				return true;
 			}
 			return false;
@@ -2274,7 +2274,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 		
 		/**
-		 * Helper function for getting Post Id. Accepts null or a post id.
+		 * Helper function for getting Post Id. Accepts null or a post id. If no $post object exists, returns false to avoid a PHP NOTICE
 		 *
 		 * @param int $postId (optional)
 		 * @return int post ID
@@ -2283,7 +2283,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( $postId != null && is_numeric( $postId ) > 0 ) {
 				return (int) $postId;
 			} else {
-				return get_the_ID();
+				global $post;
+				if ( is_object($post) ){
+					return get_the_ID();
+				}else{
+					return false;
+				}
 			}
 		}
 
