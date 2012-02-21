@@ -128,6 +128,11 @@ if( class_exists( 'TribeEvents' ) ) {
 		$tribe_ecp = TribeEvents::instance();
 
 		$title = __('Calendar of Events', 'tribe-events-calendar');
+
+		if ( tribe_is_upcoming() ) {
+			$title = __('Upcoming Events', 'tribe-events-calendar');
+		}
+
 		if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
 			$cat = get_term_by( 'slug', get_query_var('term'), $tribe_ecp->get_event_taxonomy() );
 			if ( $depth ) {

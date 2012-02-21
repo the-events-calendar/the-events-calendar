@@ -474,11 +474,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				return $title;
 			}
 
-			if( isset($new_title) ){
-				global $post;
-				$post->post_title = str_replace($sep,'',$new_title);
-			}
-			
+
 			return $new_title;
 
 		}
