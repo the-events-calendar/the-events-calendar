@@ -524,7 +524,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		if ( current_user_can('activate_plugins') ) {
 			$url = 'plugin-install.php?tab=plugin-information&plugin=the-events-calendar&TB_iframe=true';
 			$title = __('The Events Calendar', 'tribe-events-calendar-pro');
-			echo '<div class="error"><p>'.sprintf(__('To begin using Events Calendar PRO, please install the latest version of <a href="%s" class="thickbox" title="%s">The Events Calendar</a>.', 'tribe-events-calendar-pro'),$url,$title).'</p></div>';
+			echo '<div class="error"><p>'.sprintf(__('To begin using <b>Events Calendar PRO</b>, please install the latest version of <a href="%s" class="thickbox" title="%s">The Events Calendar</a>.', 'tribe-events-calendar-pro'),$url,$title).'</p></div>';
 		}
 	}   
 
