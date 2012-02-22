@@ -48,13 +48,13 @@ if (!class_exists('TribeEventsQuery')) {
 		
 			if (!empty($args['numResults'])) {
 				$args['posts_per_page'] = $args['numResults'];
-			} else {
+			} elseif (empty($args['posts_per_page'])) {
 				$args['posts_per_page'] = (int) tribe_get_option( 'postsPerPage', 10 );
 			}
-
-	      if (!empty($args['venue'])) {
+			
+	      	if (!empty($args['venue'])) {
 				$args['meta_query'][] = array('key'=>'_EventVenueID', 'value'=>$args['venue']);
-	      }
+	      	}
 
 			// proprietary metaKeys go to standard meta
 			if (!empty($args['metaKey']))
