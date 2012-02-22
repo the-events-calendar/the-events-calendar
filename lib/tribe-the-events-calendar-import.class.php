@@ -122,7 +122,11 @@ if (!class_exists('TribeEventsImport')) {
 						wp_set_object_terms( $post->ID, $post->cats, TribeEvents::TAXONOMY );
 
 					self::convertVenue($post);
+					
+					// Translate the post's setting for google maps display
+					self::translateGoogleMaps( $post );
 					$num_upgraded++;
+					
 				}
 				if ( $num_upgraded > 0 ) {
 					self::$upgradeMessage = sprintf( __( 'You successfully migrated (%d) entries.', 'tribe-events-calendar' ), $num_upgraded );
@@ -239,7 +243,19 @@ if (!class_exists('TribeEventsImport')) {
 				}
 			}
 			return $cats;
-		}		
+		}
+		
+		/**
+		 * Translate Google Maps setting over
+		 *
+		 * @param object $post post object
+		 */
+		private static function translateGoogleMaps( $post ) {
+			$show_map = (get_post_meta( $post->ID, '_EventShowMap', 'false' ) == 'true') ? '1' : '0';
+			update_post_meta( $post->ID, '_EventShowMap', $show_map );
+			$show_map_link = (get_post_meta( $post->ID, '_EventShowMapLink', 'false' ) == 'true') ? '1' : '0';
+			update_post_meta( $post->ID, '_EventShowMapLink', $show_map_link );
+		}
 	}
 
 	TribeEventsImport::instance();
