@@ -209,6 +209,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_events_options_top', array( $this, 'displayFormErrors' ) );
 			add_action( 'tribe_events_options_top', array( $this, 'displayFormMessage' ) );
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
+			add_action( 'wp_insert_post', array( $this, 'addVenueOrigin' ), 10, 2 );			
+			add_action( 'wp_insert_post', array( $this, 'addOrganizerOrigin' ), 10, 2 );			
+			add_action( 'wp_insert_post', array( $this, 'addEventOrigin' ), 10, 2 );			
 			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
 			add_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
@@ -1626,6 +1629,60 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			TribeEventsAPI::saveEventMeta($postId, $_POST, $post);
 		}
 
+		/**
+		 * Adds the '_EventOrigin' meta field for a newly inserted event.
+		 *
+		 * @param string $postId
+		 * @param object $post
+		 *
+		 * @return void
+		 */
+		public function addEventOrigin( $postId, $post ) {
+			// Only continue of the post being added is an event.
+			if ( $post->post_type != self::POSTTYPE ) {
+				return;
+			}
+			
+			// Add the meta value for the event origin. 
+			update_post_meta( $postId, '_EventOrigin', apply_filters( 'event-origin', 'events-calendar' ) );
+		}
+
+		/**
+		 * Adds the '_VenueOrigin' meta field for a newly inserted venue.
+		 *
+		 * @param string $postId
+		 * @param object $post
+		 *
+		 * @return void
+		 */
+		public function addVenueOrigin( $postId, $post ) {
+			// Only continue of the post being added is an event.
+			if ( $post->post_type != self::VENUE_POST_TYPE ) {
+				return;
+			}
+			
+			// Add the meta value for the venue origin. 
+			update_post_meta( $postId, '_VenueOrigin', apply_filters( 'venue-origin', 'events-calendar' ) );
+		}
+		
+		/**
+		 * Adds the '_OrganizerOrigin' meta field for a newly inserted organizer.
+		 *
+		 * @param string $postId
+		 * @param object $post
+		 *
+		 * @return void
+		 */
+		public function addOrganizerOrigin( $postId, $post ) {
+			// Only continue of the post being added is an event.
+			if ( $post->post_type != self::ORGANIZER_POST_TYPE ) {
+				return;
+			}
+			
+			// Add the meta value for the organizer origin. 
+			update_post_meta( $postId, '_OrganizerOrigin', apply_filters( 'organizer-origin', 'events-calendar' ) );
+		}
+		
 
 		//** If you are saving a new venu separate from an event
 		public function save_venue_data( $postID = null, $post=null ) {
