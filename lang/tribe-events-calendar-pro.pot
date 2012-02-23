@@ -5,9 +5,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-13 11:19-0800\n"
-"PO-Revision-Date: 2012-02-13 11:19-0800\n"
-"Last-Translator: Joachim Kudish <info@jkudish.com>\n"
+"POT-Creation-Date: 2012-02-23 08:20-0800\n"
+"PO-Revision-Date: 2012-02-23 08:21-0800\n"
+"Last-Translator: Paul Hughes <paul@paulalexanderhughes.com>\n"
 "Language-Team: Modern Tribe, Inc.\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -679,7 +679,7 @@ msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:553
 #, php-format
-msgid "until %s"
+msgid " until %s"
 msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:558
@@ -688,18 +688,15 @@ msgid "%s%s%s"
 msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:573
-#: ../lib/tribe-events-recurrence-meta.class.php:599
-msgid ", and "
+msgid ", and"
 msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:575
-#: ../lib/tribe-events-recurrence-meta.class.php:601
-msgid " and "
+msgid "and"
 msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:577
-#: ../lib/tribe-events-recurrence-meta.class.php:603
-msgid ", "
+msgid ","
 msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:592
@@ -744,6 +741,18 @@ msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:593
 msgid "December"
+msgstr ""
+
+#: ../lib/tribe-events-recurrence-meta.class.php:599
+msgid ", and "
+msgstr ""
+
+#: ../lib/tribe-events-recurrence-meta.class.php:601
+msgid " and "
+msgstr ""
+
+#: ../lib/tribe-events-recurrence-meta.class.php:603
+msgid ", "
 msgstr ""
 
 #: ../lib/widget-advanced-list.class.php:16
