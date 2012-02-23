@@ -208,13 +208,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_validate_form_settings', array( $this, 'validateTemplateSettings' ) );
 			add_action( 'tribe_events_options_top', array( $this, 'displayFormErrors' ) );
 			add_action( 'tribe_events_options_top', array( $this, 'displayFormMessage' ) );
-			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
-			add_action( 'wp_insert_post', array( $this, 'addVenueOrigin' ), 10, 2 );			
-			add_action( 'wp_insert_post', array( $this, 'addOrganizerOrigin' ), 10, 2 );			
-			add_action( 'wp_insert_post', array( $this, 'addEventOrigin' ), 10, 2 );			
+			add_action( 'admin_menu', array( $this, 'addEventBox' ) );	
+			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );		
 			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
 			add_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
+			add_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
 			add_action( 'pre_get_posts', array( $this, 'setDate' ));
 			add_action( 'wp', array( $this, 'setDisplay' ));
 			add_action( 'tribe_events_post_errors', array( 'TribeEventsPostException', 'displayMessage' ) );
@@ -1624,61 +1623,55 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			TribeEventsAPI::saveEventMeta($postId, $_POST, $post);
 		}
-
+		
 		/**
-		 * Adds the '_EventOrigin' meta field for a newly inserted event.
+		 * Adds the '_<posttype>Origin' meta field for a newly inserted events-calendar post.
 		 *
 		 * @param string $postId
 		 * @param object $post
 		 *
 		 * @return void
 		 */
-		public function addEventOrigin( $postId, $post ) {
-			// Only continue of the post being added is an event.
-			if ( $post->post_type != self::POSTTYPE ) {
+		public function addPostOrigin( $postId, $post ) {
+			// Only continue of the post being added is an event, venue, or organizer.
+			if ( $post->post_type == self::POSTTYPE ) {
+				$post_type = '_Event';
+			} elseif ( $post->post_type == self::VENUE_POST_TYPE ) {
+				$post_type = '_Venue';
+			} elseif ( $post->post_type == self::ORGANIZER_POST_TYPE ) {
+				$post_type = '_Organizer';
+			} else {
 				return;
 			}
-			
-			// Add the meta value for the event origin. 
-			update_post_meta( $postId, '_EventOrigin', apply_filters( 'event-origin', 'events-calendar' ) );
-		}
-
-		/**
-		 * Adds the '_VenueOrigin' meta field for a newly inserted venue.
-		 *
-		 * @param string $postId
-		 * @param object $post
-		 *
-		 * @return void
-		 */
-		public function addVenueOrigin( $postId, $post ) {
-			// Only continue of the post being added is an event.
-			if ( $post->post_type != self::VENUE_POST_TYPE ) {
-				return;
-			}
-			
-			// Add the meta value for the venue origin. 
-			update_post_meta( $postId, '_VenueOrigin', apply_filters( 'venue-origin', 'events-calendar' ) );
+			update_post_meta( $postId, $post_type . 'Origin', apply_filters( 'post-origin', 'events-calendar' ) );
 		}
 		
 		/**
-		 * Adds the '_OrganizerOrigin' meta field for a newly inserted organizer.
+		 * Adds to the '_<posttype>AuditTrail' meta field for an events-calendar post.
 		 *
 		 * @param string $postId
 		 * @param object $post
 		 *
 		 * @return void
 		 */
-		public function addOrganizerOrigin( $postId, $post ) {
-			// Only continue of the post being added is an event.
-			if ( $post->post_type != self::ORGANIZER_POST_TYPE ) {
+		public function addToPostAuditTrail( $postId, $post ) {
+			// Only continue of the post being added is an event, venue, or organizer.
+			if ( $post->post_type == self::POSTTYPE ) {
+				$post_type = '_Event';
+			} elseif ( $post->post_type == self::VENUE_POST_TYPE ) {
+				$post_type = '_Venue';
+			} elseif ( $post->post_type == self::ORGANIZER_POST_TYPE ) {
+				$post_type = '_Organizer';
+			} else {
 				return;
 			}
-			
-			// Add the meta value for the organizer origin. 
-			update_post_meta( $postId, '_OrganizerOrigin', apply_filters( 'organizer-origin', 'events-calendar' ) );
+			$post_audit_trail = get_post_meta( $postId, $post_type . 'AuditTrail', true );
+			if ( !isset( $post_audit_trail ) ) {
+				$post_audit_trail = array();
+			}
+			$post_audit_trail[] = array( apply_filters( 'post-audit-trail', 'events-calendar' ), time() );
+			update_post_meta( $postId, $post_type . 'AuditTrail', $post_audit_trail );
 		}
-		
 
 		//** If you are saving a new venu separate from an event
 		public function save_venue_data( $postID = null, $post=null ) {
