@@ -174,7 +174,7 @@ if (!class_exists('TribeEventsImport')) {
 			$unique_venue = $venue['Venue'] . $venue['Address'] . $venue['StateProvince'];
 
 			if( $unique_venue && trim($unique_venue) != "" ) {
-				if( !self::$curVenues[$unique_venue] ) {
+				if( !isset( self::$curVenues[$unique_venue] ) ) {
 					self::$curVenues[$unique_venue] = TribeEventsAPI::createVenue($venue);
 				} else {
 					TribeEventsAPI::updateVenue(self::$curVenues[$unique_venue], $venue);
@@ -212,6 +212,7 @@ if (!class_exists('TribeEventsImport')) {
 		 * @return array of category names
 		 */
 		private static function getCatNames( $cats ) {
+			$r = array();
 			foreach ( $cats as $cat ) {
 				$r[] = $cat->name;
 			}
