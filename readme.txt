@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors:  ModernTribe, jkudish, nickciske, paulhughes01, roblagatta, jonahcoyote, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, jkudish, nickciske, PaulHughes01, roblagatta, jonahcoyote, peterchester, reid.peifer, shane.pearlman
 Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar, recurring, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.1
@@ -86,10 +86,10 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 
 = Current Contributors =
 
-* <a href="http://profiles.wordpress.org/users/jkudish">Joachim kudish</a>
+* <a href="http://profiles.wordpress.org/users/jkudish">Joachim Kudish</a>
 * <a href="http://profiles.wordpress.org/users/nickciske">Nick Ciske</a>
 * <a href="http://profiles.wordpress.org/users/paulhughes01">Paul Hughes</a>
-* <a href="http://profiles.wordpress.org/users/roblagatta">Rob Lagatta</a>
+* <a href="http://profiles.wordpress.org/users/roblagatta">Rob La Gatta</a>
 * <a href="http://profiles.wordpress.org/users/jonahcoyote">Jonah West</a>
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
@@ -118,14 +118,14 @@ You can see a full list of Modern Tribe Products at <a href="http://tri.be/shop/
 
 Our Free Plugins:
 
-* <a href="http://wordpress.org/extend/plugins/advanced-post-manager/?ref=tec-readme" target="_blank>Advanced Post Manager</a>
+* <a href="http://wordpress.org/extend/plugins/advanced-post-manager/?ref=tec-readme" target="_blank">Advanced Post Manager</a>
 * Event Importer (coming soon!)
 * Facebook Sync Events (coming soon!)
 
 Our Premium Plugins:
 
 * <a href="http://tri.be/wordpress-events-calendar-pro/?ref=tec-readme" target="_blank">Events Calendar Pro</a>
-* <a href="http://tri.be/shop/wordpress-eventbrite-ticketing/?ref=tec-readme" target="_blank">Eventbrite Tickets (coming soon!)</a>
+* <a href="http://tri.be/shop/wordpress-eventbrite-tickets/?ref=tec-readme" target="_blank">Eventbrite Tickets (coming soon!)</a>
 * <a href="http://tri.be/shop/wordpress-community-events/?ref=tec-readme" target="_blank">Community Events (coming soon!)</a>
 * <a href="http://tri.be/shop/conference-manager/?ref=tec-readme" target="_blank">Conference Manager (coming later in 2012)</a>
 * <a href="http://tri.be/shop/wootickets/?ref=tec-readme" target="_blank">WooTickets (coming later in 2012)</a>
