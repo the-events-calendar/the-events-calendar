@@ -79,7 +79,7 @@ if (!class_exists('TribeEventsTemplates')) {
 	
 		public static function setup_ecp_template($query) {
 			if( self::is_main_loop($query) && self::$throughHead) {
-				add_filter('the_title', array(__CLASS__, 'load_ecp_title_into_page_template') );		
+				add_filter('the_title', array(__CLASS__, 'load_ecp_title_into_page_template'), 10, 2 );		
 				add_filter('the_content', array(__CLASS__, 'load_ecp_into_page_template') );		
 				add_filter('comments_template', array(__CLASS__, 'load_ecp_comments_page_template') );
 				remove_action( 'loop_start', array(__CLASS__, 'setup_ecp_template') );
@@ -142,13 +142,9 @@ if (!class_exists('TribeEventsTemplates')) {
 			return $contents;
 		} 
 	
-		public static function load_ecp_title_into_page_template($title) {
+		public static function load_ecp_title_into_page_template($title, $id) {
 			global $post;
-			if (is_single() && !tribe_is_showing_all()) {
-				return $title;
-			} else {
-				return tribe_get_events_title();	
-			}
+			return ( !is_single() && (isset($post->ID) && $post->ID == $id) ) ? tribe_get_events_title() : $title;
 		}
 	
 		public static function load_ecp_comments_page_template($template) {
