@@ -467,13 +467,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			}elseif(get_query_var('eventDisplay') == 'month'){
 				if(get_query_var('eventDate')){
-					$new_title = sprintf(__("Events for %s", 'tribe-events-calendar'),date("F, Y",strtotime(get_query_var('eventDate')))) . ' '. $sep . ' ' . $title;
+					$new_title = sprintf(__("Events for %s", 'tribe-events-calendar'),date_i18n("F, Y",strtotime(get_query_var('eventDate')))) . ' '. $sep . ' ' . $title;
 				}else{
 					$new_title = sprintf(__("Events this month", 'tribe-events-calendar'),get_query_var('eventDate')) . ' '. $sep . ' ' . $title;
 				}
 
 			} elseif(get_query_var('eventDisplay') == 'day') {
-				$new_title = sprintf(__("Events for %s", 'tribe-events-calendar'),date("F d, Y",strtotime(get_query_var('eventDate')))) . ' '. $sep . ' ' . $title;
+				$new_title = sprintf(__("Events for %s", 'tribe-events-calendar'),date_i18n("F d, Y",strtotime(get_query_var('eventDate')))) . ' '. $sep . ' ' . $title;
          } elseif(get_query_var('post_type') == self::POSTTYPE && is_single() && $this->getOption('spEventsTemplate') != '' ) {
 				global $post;
 				$new_title = $post->post_title . ' '. $sep . ' ' . $title;
