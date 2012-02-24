@@ -176,8 +176,10 @@ if (!class_exists('TribeEventsAdminList')) {
 			unset($columns['date']);
 			$columns['start-date'] = __( 'Start Date', 'tribe-events-calendar' );
 			$columns['end-date'] = __( 'End Date', 'tribe-events-calendar' );
-			$columns['recurring'] = __( 'Recurring?', 'tribe-events-calendar' );
-
+			if ( function_exists( 'tribe_is_recurring_event' ) ) {
+				$columns['recurring'] = __( 'Recurring?', 'tribe-events-calendar' );
+			}
+			
 			return $columns;
 		}
 		
