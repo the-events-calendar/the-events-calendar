@@ -55,7 +55,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles') );
 			add_action( 'tribe_after_location_details', array( $this, 'add_google_map_preview') );
 			add_action( 'tribe_tec_template_chooser', array( $this, 'do_ical_template' ) );
-			add_action( 'tribe-events-settings-tab', array( $this, 'add_defaults_settings_tab') );
+			add_filter( 'tribe_events_calendar_tabs', array( $this, 'add_defaults_settings_tab' ), 10, 1 );
 			add_action( 'tribe-events-defaults-settings-content', array( $this, 'add_defaults_settings_content') );
 			add_action( 'tribe_validate_form_settings', array( $this, 'validateDefaultsSettings' ) );
 			add_action( 'tribe-events-before-general-settings', array( $this, 'event_license_key') );
@@ -171,16 +171,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				include( $this->pluginPath . 'admin-views/events-options-defaults.php' );
   		}
       
-      public function add_defaults_settings_tab() {
-				$tab = 'defaults';
-				$name = 'Defaults';
-				if (isset ( $_GET['tab'] ) ) {
-					$class = ($_GET['tab'] == $tab) ? ' nav-tab-active' : '';
-				} else {
-					$class = '';
-				}
-				echo '<a class="nav-tab' . $class .'" href="?page=tribe-events-calendar&tab=' . $tab .'">' . $name . '</a>';
-			}
+    	public function add_defaults_settings_tab( $tabs ) {
+    		$tabs['defaults'] = 'Defaults';
+    		return $tabs;
+      	}
 		
 		public function validateDefaultsSettings() {
 			if ( isset( $_POST['current-settings-tab'] ) ) {
