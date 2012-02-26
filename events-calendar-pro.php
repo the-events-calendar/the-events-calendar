@@ -230,7 +230,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$options[$opt] = (isset($_POST[$opt])) ? true : false;
 					}
 					$opts = array( 
-					'spEventsCountries',
+					'tribeEventsCountries',
 					'eventsDefaultVenueID',
 					'eventsDefaultOrganizerID',
 					'eventsDefaultState',
@@ -241,7 +241,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						}
 					}
 					// Sanitize countries list.
-					$options['spEventsCountries'] = stripslashes($options['spEventsCountries']);
+					$options['tribeEventsCountries'] = stripslashes($options['tribeEventsCountries']);
 					if (isset($_POST['defaultCountry']) && $_POST['defaultCountry']) {
 						$countries = TribeEventsViewHelpers::constructCountries();
 						$defaultCountryKey = array_search( $_POST['defaultCountry'], $countries );
