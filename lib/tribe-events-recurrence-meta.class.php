@@ -170,7 +170,7 @@ class TribeEventsRecurrenceMeta {
 
 		// only do this when editing events
 		if( is_admin() && $current_screen->id == TribeEvents::POSTTYPE ) {
-			update_post_meta($event_id, 'sp_flash_message', $msg);
+			update_post_meta($event_id, 'tribe_flash_message', $msg);
 		}
 	}
 	
@@ -183,11 +183,11 @@ class TribeEventsRecurrenceMeta {
 		global $post, $current_screen;
 
 		if ( $current_screen->base == 'post' && $current_screen->post_type == TribeEvents::POSTTYPE ) {
-			$msg = get_post_meta($post->ID, 'sp_flash_message', true);
+			$msg = get_post_meta($post->ID, 'tribe_flash_message', true);
 
 			if ($msg) {
 				echo '<div class="error"><p>Recurrence not saved: ' . $msg . '</p></div>';
-			   delete_post_meta($post->ID, 'sp_flash_message');
+			   delete_post_meta($post->ID, 'tribe_flash_message');
 		   }		  
 	   }
 	}
