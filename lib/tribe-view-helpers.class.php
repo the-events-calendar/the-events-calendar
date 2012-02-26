@@ -11,12 +11,13 @@ if (!class_exists('TribeEventsViewHelpers')) {
 		public static function constructCountries( $postId = '', $useDefault = true ) {
 			$tribe_ecp = TribeEvents::instance();
 
-			if(tribe_get_option('spEventsCountries') != ''){
+			if(tribe_get_option('tribeEventsCountries') != ''){
 				$countries = array(
 					"" => __("Select a Country:", 'tribe-events-calendar')
 					);
 
-				$country_rows = explode("\n", sp_get_option('spEventsCountries'));
+				$country_rows = explode("\n", tribe_get_option('tribeEventsCountries'));
+				var_dump ($countries);
 				foreach($country_rows as $crow){
 					$country = explode(",", $crow);
 					$country[0] = trim($country[0]);

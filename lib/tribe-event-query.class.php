@@ -16,8 +16,8 @@ if (!class_exists('TribeEventsQuery')) {
 		// if this is an event, then set up our query vars
 		public static function setupQuery($query) {
 			if ( !is_admin() && (
-					  ((isset($_GET['post_type']) && $_GET['post_type'] == TribeEvents::POSTTYPE) || (isset($_GET['sp_events_cat']) && $_GET['sp_events_cat'] != '')) ||
-					  ((isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == TribeEvents::POSTTYPE) || (isset($query->query_vars['sp_events_cat']) && $query->query_vars['sp_events_cat'] != ''))
+					  ((isset($_GET['post_type']) && $_GET['post_type'] == TribeEvents::POSTTYPE) || (isset($_GET['tribe_events_cat']) && $_GET['tribe_events_cat'] != '')) ||
+					  ((isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == TribeEvents::POSTTYPE) || (isset($query->query_vars['tribe_events_cat']) && $query->query_vars['tribe_events_cat'] != ''))
 					)
 				)
 			{
@@ -26,7 +26,7 @@ if (!class_exists('TribeEventsQuery')) {
 				add_filter('parse_tribe_event_query', array( __CLASS__, 'setupQueryArgs' ) );
 				add_filter('parse_tribe_event_query', array( __CLASS__, 'setArgsFromDisplayType' ) );			
 			
-				// filter to manipulate the sp_event_query parameters
+				// filter to manipulate the tribe_event_query parameters
 				apply_filters( 'parse_tribe_event_query', $query );		
 				add_filter( 'posts_join', array(__CLASS__, 'setupJoins' ), 10, 2 );
 				add_filter( 'posts_where', array(__CLASS__, 'addEventConditions'), 10, 2);
