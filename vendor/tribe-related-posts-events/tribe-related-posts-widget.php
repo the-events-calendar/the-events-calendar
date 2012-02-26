@@ -7,6 +7,14 @@ if ( !defined( 'ABSPATH' ) ) { die( '-1' ); }
 
 if( !class_exists( 'TribeRelatedPostsWidget' ) ) {
 	class TribeRelatedPostsWidget extends WP_Widget {
+		
+		/**
+		 * Class instantiation function
+		 *
+		 * @since 1.1
+		 * @author Paul Hughes
+		 * @return void
+		 */
 		function TribeRelatedPostsWidget() {
 			// Widget settings.
 			$widget_ops = array( 'classname' => 'tribe_related_posts_widget', 'description' => __( 'Displays posts related to the post.', 'tribe-events-calendar-pro' ) );
@@ -14,6 +22,15 @@ if( !class_exists( 'TribeRelatedPostsWidget' ) ) {
 			$this->WP_Widget( 'tribe_related-posts-widget', __( 'Related Posts', 'tribe-events-calendar-pro' ), $widget_ops );
 		}
 
+		/**
+		 * Main widget function.
+		 *
+		 * @since 1.1
+		 * @author Paul Hughes
+		 * @param array $args the widget arguments.
+		 * @param array $instance the widget instance variables.
+		 * @return void.
+		 */
 		function widget($args, $instance) {
 			extract($args);
 			echo $before_widget;
@@ -22,7 +39,14 @@ if( !class_exists( 'TribeRelatedPostsWidget' ) ) {
 			echo $after_widget;
 		}
 
-		// Include the file for the administration view of the widget.
+		/**
+		 * Include the file for the administration view of the widget.
+		 *
+		 * @since 1.1
+		 * @author Paul Hughes
+		 * @param array $instance the widget instance variables.
+		 * @return void
+		 */
 		function form( $instance ) {
 			$defaults = array(
 				'title' => '',
@@ -61,7 +85,15 @@ if( !class_exists( 'TribeRelatedPostsWidget' ) ) {
 			</p>
 		<?php }
 
-		// Function allowing updating of widget information.
+		/**
+		 * Function allowing updating of widget information.
+		 *
+		 * @since 1.1
+		 * @author Paul Hughes
+		 * @param array $new_instance new instance variables.
+		 * @param array $old_instance old instance variables.
+		 * @return array $instance the returned new instance variable values.
+		 */
 		function update( $new_instance, $old_instance ) {
 			$instance = parent::update( $new_instance, $old_instance );
 
@@ -79,6 +111,13 @@ if( !class_exists( 'TribeRelatedPostsWidget' ) ) {
 	// Load the widget with the 'widgets_init' action.
 	add_action( 'widgets_init', 'tribe_related_posts_register_widget', 100 );
 
+	/**
+	 * Register the widget with wordpress install.
+	 *
+	 * @since 1.1
+	 * @author Paul Hughes
+	 * @return void
+	 */
 	function tribe_related_posts_register_widget() {
 		register_widget ( 'TribeRelatedPostsWidget' );
 	}
