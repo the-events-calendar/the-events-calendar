@@ -188,40 +188,42 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					$tribeEvents = TribeEvents::instance();
 					$options = $tribeEvents->getOptions();
 					$options['defaultValueReplace'] = (isset($_POST['defaultValueReplace'])) ? true : false;
-					if ( isset( $_POST['eventsDefaultAddress'] ) ) {
-						if ( !preg_match( '/^[a-zA-Z0-9- ]+$/', $_POST['eventsDefaultAddress'] ) ) {
-							$tribeEvents->form_errors['eventsDefaultAddress'] = __('Events Default Address must consist of letters, numbers, dashes, and spaces only.');
-						} else {
-							$options['eventsDefaultAddress'] = $_POST['eventsDefaultAddress'];
+					if ( $_POST['eventsDefaultVenueID'] == '0' ) {
+						if ( isset( $_POST['eventsDefaultAddress'] ) ) {
+							if ( !preg_match( '/^[a-zA-Z0-9- ]+$/', $_POST['eventsDefaultAddress'] ) ) {
+								$tribeEvents->form_errors['eventsDefaultAddress'] = __('Events Default Address must consist of letters, numbers, dashes, and spaces only.');
+							} else {
+								$options['eventsDefaultAddress'] = $_POST['eventsDefaultAddress'];
+							}
 						}
-					}
-					if ( isset($_POST['eventsDefaultCity'] ) ) {
-						if ( !preg_match( '/^[a-zA-Z- ]+$/', $_POST['eventsDefaultCity'] ) ) {
-							$tribeEvents->form_errors['eventsDefaultCity'] = 'Default City must consist of letters, spaces, and dashes.';
-						} else {
-							$options['eventsDefaultCity'] = $_POST['eventsDefaultCity'];
+						if ( isset($_POST['eventsDefaultCity'] ) ) {
+							if ( !preg_match( '/^[a-zA-Z- ]+$/', $_POST['eventsDefaultCity'] ) ) {
+								$tribeEvents->form_errors['eventsDefaultCity'] = 'Default City must consist of letters, spaces, and dashes.';
+							} else {
+								$options['eventsDefaultCity'] = $_POST['eventsDefaultCity'];
+							}
 						}
-					}
-					if ( isset($_POST['eventsDefaultProvince'] ) ) {
-						if ( !preg_match( '/^[a-zA-Z- ]+$/', $_POST['eventsDefaultProvince'] ) ) {
-							$tribeEvents->form_errors['eventsDefaultProvince'] = 'Default Province must consist of letters, spaces, and dashes.';
-						} else {
-							$options['eventsDefaultProvince'] = $_POST['eventsDefaultProvince'];
-						}			
-					}
-					if ( isset($_POST['eventsDefaultZip'] ) ) {
-						if ( !preg_match( '/^[0-9]{5}$/', $_POST['eventsDefaultZip'] ) ) {
-							$tribeEvents->form_errors['eventsDefaultZip'] = 'Default Zip must consist of 5 numbers.';
-						} else {
-							$options['eventsDefaultZip'] = $_POST['eventsDefaultZip'];
-						}			
-					}
-					if ( isset($_POST['eventsDefaultPhone'] ) ) {
-						if ( !preg_match( '/^[0-9\(\)\+ -]+$/', $_POST['eventsDefaultPhone'] ) ) {
-							$tribeEvents->form_errors['eventsDefaultPhone'] = 'Must be a phone number.';
-						} else {
-							$options['eventsDefaultPhone'] = $_POST['eventsDefaultPhone'];
-						}			
+						if ( isset($_POST['eventsDefaultProvince'] ) ) {
+							if ( !preg_match( '/^[a-zA-Z- ]+$/', $_POST['eventsDefaultProvince'] ) ) {
+								$tribeEvents->form_errors['eventsDefaultProvince'] = 'Default Province must consist of letters, spaces, and dashes.';
+							} else {
+								$options['eventsDefaultProvince'] = $_POST['eventsDefaultProvince'];
+							}			
+						}
+						if ( isset($_POST['eventsDefaultZip'] ) ) {
+							if ( !preg_match( '/^[0-9]{5}$/', $_POST['eventsDefaultZip'] ) ) {
+								$tribeEvents->form_errors['eventsDefaultZip'] = 'Default Zip must consist of 5 numbers.';
+							} else {
+								$options['eventsDefaultZip'] = $_POST['eventsDefaultZip'];
+							}			
+						}
+						if ( isset($_POST['eventsDefaultPhone'] ) ) {
+							if ( !preg_match( '/^[0-9\(\)\+ -]+$/', $_POST['eventsDefaultPhone'] ) ) {
+								$tribeEvents->form_errors['eventsDefaultPhone'] = 'Must be a phone number.';
+							} else {
+								$options['eventsDefaultPhone'] = $_POST['eventsDefaultPhone'];
+							}			
+						}
 					}
 					$boolean_opts = array(
 						'defaultValueReplace'
