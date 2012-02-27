@@ -17,7 +17,6 @@ if (!class_exists('TribeEventsViewHelpers')) {
 					);
 
 				$country_rows = explode("\n", tribe_get_option('tribeEventsCountries'));
-				var_dump ($countries);
 				foreach($country_rows as $crow){
 					$country = explode(",", $crow);
 					$country[0] = trim($country[0]);
