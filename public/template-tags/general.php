@@ -213,10 +213,10 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Event Cost
 	 *
 	 * If EventBrite plugin is active
-	 * - If the event is registered in eventbrite, and has one ticket. Return the cost of that ticket.
-	 * - If the event is registered in eventbrite, and there are many tickets, return "Varies"
-	 *   - If the event is not registered in eventbrite, and there is meta, return that.
-	 *   - If the event is not registered in eventbrite, and there is no meta, return ""
+	 * - If the event is registered in Eventbrite, and has one ticket. Return the cost of that ticket.
+	 * - If the event is registered in Eventbrite, and there are many tickets, return "Varies"
+	 *   - If the event is not registered in Eventbrite, and there is meta, return that.
+	 *   - If the event is not registered in Eventbrite, and there is no meta, return ""
 	 *
 	 * @param int $postId (optional)
 	 * @return string Cost of the event.
