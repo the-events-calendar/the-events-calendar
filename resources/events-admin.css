@@ -218,3 +218,8 @@ display: none;
 .widget-liquid-right .widget, .inactive-sidebar .widget, .widget-liquid-right .sidebar-description {
 	overflow: visible !important;
 }
+
+/* Settings Tabs CSS */
+.admin-indent {
+	margin-left: 15px;
+}

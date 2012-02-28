@@ -62,7 +62,7 @@ $this->do_action( 'tribe_events_options_top' ); ?>
 		$this->do_action('tribe-events-after-'.$tab.'-settings');
  		$this->do_action( 'tribe_events_options_bottom' );
  	?>
-  <?php if (has_action('tribe-events-'.$tab.'-settings-content')) : ?>
+  <?php if (has_action('tribe-events-'.$tab.'-settings-content') && $tab != 'help') : ?>
 		<table>
 			<tr>
 		    	<td>

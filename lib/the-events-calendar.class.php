@@ -206,6 +206,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'admin_init', array( $this, 'saveSettings' ) );
 			add_action( 'tribe_validate_form_settings', array( $this, 'validateGeneralSettings' ) );
 			add_action( 'tribe_validate_form_settings', array( $this, 'validateTemplateSettings' ) );
+			add_filter( 'tribe_events_calendar_tabs', array( $this, 'addHelpSettingsTab' ), 100, 1 );
+			add_action( 'tribe-events-help-settings-content', array( $this, 'addHelpSettingsContent' ) );
 			add_action( 'tribe_events_options_top', array( $this, 'displayFormErrors' ) );
 			add_action( 'tribe_events_options_top', array( $this, 'displayFormMessage' ) );
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );	
@@ -822,7 +824,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Create the settings tabs.
 		 */
-		 public function settingsTabs( $current = 'general' ) {
+		public function settingsTabs( $current = 'general' ) {
 		 	$tabs = array( 'general' => 'General', 'template' => 'Template');
 		 	$tabs = apply_filters('tribe_events_calendar_tabs', $tabs);
 		 	
@@ -978,6 +980,18 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				do_action('tribe_validate_form_settings');
 			}
 		}
+		
+		/**
+		 * Add the Help settings tab
+		 */
+		public function addHelpSettingsTab( $tabs ) {
+			$tabs['help'] = 'Help';
+			return $tabs;
+		}
+		
+		public function addHelpSettingsContent() {
+			include( $this->pluginPath . 'admin-views/events-options-help.php' );
+  		}
 
 		/**
 		 * Get all options for the Events Calendar
