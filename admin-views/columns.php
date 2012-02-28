@@ -3,9 +3,11 @@
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 $importer_instance = ECP_Events_importer::instance();
+
+require_once 'header.php';
 ?>
 
-<h2><?php _e( 'Column Mapping', 'tribe-events-calendar-pro' ) ?></h2>
+<h3><?php _e( 'Column Mapping', 'tribe-events-calendar-pro' ) ?></h3>
 
 <?php if ( $error_message != '' ): ?>
     <p><?php _e( 'There was an error:', 'tribe-events-calendar-pro' ) ?> <?php echo $error_message ?></p>
@@ -50,4 +52,7 @@ $importer_instance = ECP_Events_importer::instance();
 	}
 </script>
 
-<?php endif ?>
+<?php endif;
+
+require_once 'footer.php';
+?>

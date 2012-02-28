@@ -9,5 +9,5 @@ div.tribe_settings{
 </style>
 <div class="tribe_settings wrap">
 
-    <?php screen_icon(); ?><h2><?php _e( 'Events Import', 'tribe-events-calendar-pro' ) ?></h2>
+    <?php screen_icon(); ?><h2><?php _e( 'Events Import (CSV)', 'tribe-events-calendar-pro' ) ?></h2>
 <div class="form">

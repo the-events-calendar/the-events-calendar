@@ -75,64 +75,88 @@ if (!class_exists('ECP_Events_Importer')) {
 	}
 	
 	public function addImportOptionsPage() {
-	    add_submenu_page( 'tools.php', $this->pluginName, $this->pluginName, 'administrator', 'events-importer', array( $this, 'importPageView' ) );
+	    add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __('CSV Import','tribe-events-importer'),  __('CSV Import','tribe-events-importer'), 'administrator', 'events-importer', array( $this, 'importPageView' ) );
 	}
 	
 	public function importPageView() {
 	    
+	    //print_r($_POST);
+	    
 	    if(isset($_POST[ 'ecp_import_action' ])) $action = trim( $_POST[ 'ecp_import_action' ] );
 		if(isset($_GET['action'])) $action = trim( $_GET[ 'action' ] );
 	    
-	    $limit = 2500; //number of records in a batch
+	    //if (isset($action)) die('act'.$action);
 	    
+	    $limit = 2500; //number of records in a batch
+
 	    if ( ! isset( $action ) ) {
-		include( $this->pluginPath . 'admin-views/import.php' );
+
+			include( $this->pluginPath . 'admin-views/import.php' );
+
 	    } else {
-		
-		
-		if ( $this->isValidAction( $action ) ) {
-		    switch ( $action ) {
-			case 'map':
-			    $import_type = $_POST[ 'import_type' ];
-			    $import_file = $_FILES[ 'import_file' ][ 'tmp_name' ];
-			    $this->columnMapping( $import_type, $import_file );
-			    break;
 			
-			case 'import':
-			    $import_type = $_POST[ 'import_type' ];
-			    // Deconstruct mapping.
-			    $column_mapping = array();
-			    foreach( $_POST as $name => $value ) {
-				if ( preg_match( '/^col_(\d+)$/', $name ) ) {
-				    // Column definition.
-				    $column_mapping[ str_replace( 'col_', '', $name ) ] = $value;
-				}
+			if ( $this->isValidAction( $action ) ) {
+			    switch ( $action ) {
+				case 'map':
+				
+				//die('map');
+				
+				    $import_type = $_POST[ 'import_type' ];
+/*
+echo '<pre>';
+print_r($_POST);
+print_r($_FILES);
+echo '</pre>';
+*/
+//die('a');
+				    $import_file = $_FILES[ 'import_file' ][ 'tmp_name' ];
+//die('2');
+				    if( isset($_POST[ 'import_header' ]) && $_POST[ 'import_header' ] ){
+				    	$import_header = true;
+				    }else{
+				    	$import_header = false;
+				    }
+				    
+				    //die('wee');
+				    
+				    $this->columnMapping( $import_type, $import_file, $import_header );
+				    break;
+				
+				case 'import':
+				    $import_type = $_POST[ 'import_type' ];
+				    // Deconstruct mapping.
+				    $column_mapping = array();
+				    foreach( $_POST as $name => $value ) {
+					if ( preg_match( '/^col_(\d+)$/', $name ) ) {
+					    // Column definition.
+					    $column_mapping[ str_replace( 'col_', '', $name ) ] = $value;
+					}
+				    }
+				    
+				    //save column mapping in WP options for future reference
+				    update_option('tribe_events_import_column_mapping',$column_mapping);
+				    update_option('tribe_events_import_type',$import_type);
+				    
+				    $this->importCsv( $import_type, $column_mapping, 0, $limit );
+				    break;
+				
+				case 'continue':
+				
+				    $column_mapping = get_option('tribe_events_import_column_mapping');
+				    $import_type = get_option('tribe_events_import_type');
+				    
+				    $offset = intval( $_GET['offset'] );
+				    
+					$this->importCsv( $import_type, $column_mapping, $offset, $limit );				
+					
+					
+					break;
+				
+				default:
+				    // Should never get here.
+				    break;
 			    }
-			    
-			    //save column mapping in WP options for future reference
-			    update_option('tribe_events_import_column_mapping',$column_mapping);
-			    update_option('tribe_events_import_type',$import_type);
-			    
-			    $this->importCsv( $import_type, $column_mapping, 0, $limit );
-			    break;
-			
-			case 'continue':
-			
-			    $column_mapping = get_option('tribe_events_import_column_mapping');
-			    $import_type = get_option('tribe_events_import_type');
-			    
-			    $offset = intval( $_GET['offset'] );
-			    
-				$this->importCsv( $import_type, $column_mapping, $offset, $limit );				
-				
-				
-				break;
-			
-			default:
-			    // Should never get here.
-			    break;
-		    }
-		}
+			}
 	    }
 	}
 	
@@ -153,11 +177,6 @@ if (!class_exists('ECP_Events_Importer')) {
 	    include_once( $this->pluginPath . 'lib/parsecsv.lib.php' );
 	    // Bail right here and now if the file isn't available or we can't parse it.
 	    if ( file_exists( $this->fileLocation ) && $csv = new parseCSV() ) {
-	   
-/*
-$csv->offset = 500;
-$csv->limit = 10;
-*/
 	    
 		//$csv->auto( $this->fileLocation );
 		
@@ -256,6 +275,8 @@ $csv->limit = 10;
 			
 			include 'admin-views/header.php';
 			
+			echo '<h3>Importing Data</h3>';
+			
 			echo '<p>';
 			
 			foreach( $csv->data as $row_num => $row ) {
@@ -282,13 +303,13 @@ $csv->limit = 10;
 			//redirect to continue processing
 			
 			echo '</p><p>Redirecting...</p>';
+
+			$newoffset=$offset+$limit;
+			$url = add_query_arg(array( 'post_type'=>TribeEvents::POSTTYPE, 'page'=>'events-importer', 'action'=>'continue', 'offset'=>$newoffset ), admin_url().basename($_SERVER['SCRIPT_NAME']));
+		
+			echo $url;
 			
 			include 'admin-views/footer.php';
-
-			
-			$newoffset=$offset+$limit;
-			
-			$url = admin_url().basename($_SERVER['SCRIPT_NAME'])."?page=events-importer&action=continue&offset=".$newoffset;
 			//echo "<script>window.location.href='".$url."';</script>";
 			
 		}
@@ -630,51 +651,85 @@ $csv->limit = 10;
 	 * Column mapping functionality.
 	 **/
 	 
-	 private function columnMapping( $import_type, $import_file ) {
+	 private function columnMapping( $import_type, $import_file, $import_header ) {
 	    // User has submitted an import request and file.
 	    $error_message = '';
+	    
+	    //clear out old files
+	  	if( file_exists($this->fileLocation.'.tmp') )
+	    	unlink($this->fileLocation.'.tmp');
+
+	  	if( file_exists($this->fileLocation) )
+	    	unlink($this->fileLocation);
+	    
 	    include_once( $this->pluginPath . 'lib/parsecsv.lib.php' );
 	    if ( file_exists( $import_file ) && $csv = new parseCSV() ) {
+		
 		// Move file to known location.
 		if ( move_uploaded_file( $import_file, $this->fileLocation ) ) {
-		
-		//delete tmp file if it's still there
-		if (file_exists($this->fileLocation.'.tmp'))
-				    unlink($this->fileLocation.'.tmp');
+			
+			    //copy first 5 lines to seperate file and parse that (fix for big files)
+			    
+			    $cfile = fopen($this->fileLocation, 'rb');
+			    
+			    $nfile = fopen($this->fileLocation.'.tmp','wb');
+			    
+			    for($i = 1; $i <= 5; $i++){
+			    
+			    	$line = stream_get_line($cfile, 1000000, "\r");
 
-		
-			//get first 5 lines
-		    //$csv = new parseCSV( $this->fileLocation, 0, 5 );
-		    
-		    //copy first 5 lines to seperate file and parse that (fix for big files)
-		    
-		    $cfile = fopen($this->fileLocation, 'rb');
-		    
-		    $nfile = fopen($this->fileLocation.'.tmp','wb');
-		    
-		    for($i = 1; $i <= 5; $i++){
-		    
-		    	$line = fgets($cfile);
-		    	fwrite($nfile, $line);
-		    
-		    }
-		    
-			fclose($cfile);
-			fclose($nfile);		    
-		    
-		    $csv = new parseCSV( $this->fileLocation.'.tmp');
-		    
-		    if ( !$csv ) {
-			// Couldn't parse CSV.
-			$error_message = __( 'Sorry, this file does not appear to be a valid CSV file.', 'tribe-events-importer' );
-		    }
-		} else {
-		    // File couldn't be moved. Likely permissions issue.
-		    $error_message = sprintf( __( 'Sorry, it looks like there is a permissions issue on your server. Please ensure that %s is writable by the webserver.', 'tribe-events-importer' ) );
-		}
+/*
+			    	if(1 == $i){
+			    		$first_line = str_getcsv($line);
+			    	
+   					    //determine if we need to fix the file first
+				    	if(count($first_line) != count(array_unique($first_line))){
+				    		//die('DUPES!');
+				    		
+				    		$new_line = '';
+				    		$x = 1;
+				    		
+				    		foreach( $first_line as $item ){
+				    		
+				    			$new_line .= $x .'. '. $item . ',';
+				    			$x++;
+				    			
+				    		}
+				    		
+				    		$line = substr($new_line,0, strlen($new_line)-1); //implode(',',$new_line)."\n";
+				    	}
+
+			    	
+			    	}
+*/
+/*
+			    	echo '<pre>';
+			    	print_r($line);
+			    	echo'<hr>';
+*/
+
+			    	fwrite($nfile, $line."\n");
+			    
+			    }
+			    
+	
+				//close file		    
+				fclose($cfile);
+				fclose($nfile);		    
+			    
+			    $csv = new parseCSV( $this->fileLocation.'.tmp');
+			    
+			    if ( !$csv ) {
+				// Couldn't parse CSV.
+				$error_message = __( 'Sorry, this file does not appear to be a valid CSV file.', 'tribe-events-importer' );
+			    }
+			} else {
+			    // File couldn't be moved. Likely permissions issue.
+			    $error_message = sprintf( __( 'Sorry, it looks like there is a permissions issue on your server. Please ensure that %s is writable by the webserver.', 'tribe-events-importer' ) );
+			}
 	    } else {
-		// Hmm. File wasn't uploaded or something funky happened.
-		$error_message = __( 'Error uploading file. Are you sure it was included?', 'tribe-events-importer' );
+			// Hmm. File wasn't uploaded or something funky happened.
+			$error_message = __( 'Error uploading file. Are you sure it was included?', 'tribe-events-importer' );
 	    }
 	    include( $this->pluginPath . 'admin-views/columns.php' );
 	}

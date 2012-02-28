@@ -6,9 +6,9 @@ $importer_instance = ECP_Events_importer::instance();
 
 require_once 'header.php';
 ?>
-	<p class="error"><strong><?php _e( 'Please import venues and organizations first, followed by events.', 'tribe-events-calendar-pro' ) ?></strong></p>
-	<p><?php echo _e( '<ol><li><strong>Organizer import requires:</strong> Organizer name</li><li><strong>Venue import requires:</strong> Venue name</li><li><strong>Event import requires:</strong> Event name and event start date</li></ol>', 'tribe-events-calendar-pro' ) ?></p>
-	<p><?php _e( 'To begin importing events, please choose the type of import and the file.', 'tribe-events-calendar-pro' ) ?></p>
+	<p class="error"><strong><?php _e( 'Please import venues and organizers <i>before</i> events.', 'tribe-events-calendar-pro' ) ?></strong></p>
+	<p><?php echo _e( '<ol><li><strong>Organizer import requires:</strong> Organizer Name</li><li><strong>Venue import requires:</strong> Venue Name</li><li><strong>Event import requires:</strong> Event Name and Event Start Date</li></ol>', 'tribe-events-calendar-pro' ) ?></p>
+	<p><?php _e( 'To begin importing data, please choose the type of import and the CSV file.', 'tribe-events-calendar-pro' ) ?></p>
 	
 	<form method="POST" enctype="multipart/form-data">
 	    <table class="form-table">
@@ -33,6 +33,16 @@ require_once 'header.php';
 			</label>
 		    </td>
 		</tr>
+
+		<tr>
+		    <td>
+			<label title="Header Row">
+			    <input type="checkbox" name="import_header" value="1" id="events-import-csv-file"/>
+			    <?php _e( 'This file has field labels in the first row', 'tribe-events-calendar-pro' ) ?>
+			</label>
+		    </td>
+		</tr>
+
 	    </table>
 	    <?php
 		// Check that we can upload to the server
