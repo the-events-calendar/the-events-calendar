@@ -181,6 +181,12 @@ echo '</pre>';
 		//$csv->auto( $this->fileLocation );
 		
 		$csv->parseCSV($this->fileLocation, $offset, $limit);
+
+/*
+		echo 'IMPORT<pre>';
+		print_r($csv);
+		echo '</pre>';
+*/
 		
 		if(!$csv->data){
 		
@@ -307,10 +313,10 @@ echo '</pre>';
 			$newoffset=$offset+$limit;
 			$url = add_query_arg(array( 'post_type'=>TribeEvents::POSTTYPE, 'page'=>'events-importer', 'action'=>'continue', 'offset'=>$newoffset ), admin_url().basename($_SERVER['SCRIPT_NAME']));
 		
-			echo $url;
+			//echo $url;
 			
 			include 'admin-views/footer.php';
-			//echo "<script>window.location.href='".$url."';</script>";
+			echo "<script>window.location.href='".$url."';</script>";
 			
 		}
 	    } else {
@@ -652,8 +658,14 @@ echo '</pre>';
 	 **/
 	 
 	 private function columnMapping( $import_type, $import_file, $import_header ) {
+	    
+	    ini_set("auto_detect_line_endings", true);
+	    
 	    // User has submitted an import request and file.
 	    $error_message = '';
+	    
+	    // Are there duplicate fields on first line?
+	    $dupes = false;
 	    
 	    //clear out old files
 	  	if( file_exists($this->fileLocation.'.tmp') )
@@ -670,54 +682,96 @@ echo '</pre>';
 			
 			    //copy first 5 lines to seperate file and parse that (fix for big files)
 			    
-			    $cfile = fopen($this->fileLocation, 'rb');
+			    $csvfile = fopen($this->fileLocation, 'rb');
 			    
-			    $nfile = fopen($this->fileLocation.'.tmp','wb');
+			    $tmpfile = fopen($this->fileLocation.'.tmp','wb');
 			    
 			    for($i = 1; $i <= 5; $i++){
 			    
-			    	$line = stream_get_line($cfile, 1000000, "\r");
-
-/*
+			    	//$line = stream_get_line($cfile, 1000000, "\r");
+					$line = fgets($csvfile);
+					
 			    	if(1 == $i){
-			    		$first_line = str_getcsv($line);
-			    	
+			    		$first_line = $this->csv2array($line, ',', '', '\\');
+			    		//$first_line = str_getcsv($line);
+			    		
+						//print_r($first_line);
+						
+						$first_line_length = strlen($line);
+						
+						$line_end = substr($line,-1);
+						
    					    //determine if we need to fix the file first
-				    	if(count($first_line) != count(array_unique($first_line))){
-				    		//die('DUPES!');
+				    	if( (count($first_line) != count(array_unique($first_line))) || !$import_header ){
+				    		
+				    		$dupes = true;
 				    		
 				    		$new_line = '';
 				    		$x = 1;
 				    		
 				    		foreach( $first_line as $item ){
 				    		
-				    			$new_line .= $x .'. '. $item . ',';
+				    			$item = stripslashes($item);
+				    			
+				    			$item = str_replace(array('\\','/','"'), '', $item);
+				    			
+				    			if( $import_header ){
+				    				//fix field labels to be unique
+				    				$new_line .= $x .'. '. $item . ',';
+				    			}else{
+				    				//add unique field labels
+				    				$new_line .= $x .'. '.$item.',';
+				    			}
+				    			
 				    			$x++;
 				    			
 				    		}
 				    		
-				    		$line = substr($new_line,0, strlen($new_line)-1); //implode(',',$new_line)."\n";
+				    		if( $import_header ){
+					    		$first_line_fixed = substr($new_line,0, strlen($new_line)-1);
+					    		$line = $first_line_fixed;
+					    	}else{
+					    		$first_line_fixed = substr($new_line,0, strlen($new_line)-1) .$line_end;
+					    		$line = $first_line_fixed . $line;
+					    	}
 				    	}
 
 			    	
 			    	}
-*/
-/*
-			    	echo '<pre>';
-			    	print_r($line);
-			    	echo'<hr>';
-*/
+					
+					
+			    	fwrite($tmpfile, $line);
+			    
 
-			    	fwrite($nfile, $line."\n");
-			    
-			    }
-			    
-	
-				//close file		    
-				fclose($cfile);
-				fclose($nfile);		    
+			    } //end for
+
+			    //close files
+				fclose($csvfile);
+		    	fclose($tmpfile);
+		    	
+		    	if( $dupes ){
+		    	
+			    	//fix master CSV file
+		    		if( $import_header ){
+		    			//prepend, excluding first line from read
+			    		$fileContents = file_get_contents($this->fileLocation, null, null, $first_line_length);
+						file_put_contents($this->fileLocation, $first_line_fixed . $fileContents);
+			    	}else{
+			    		//prepend, overwriting existing file
+			    		$fileContents = file_get_contents($this->fileLocation);
+						file_put_contents($this->fileLocation, $first_line_fixed . $fileContents);	    	
+			    	}
+		    	
+		    	}			    
+						    
 			    
 			    $csv = new parseCSV( $this->fileLocation.'.tmp');
+			    
+/*
+			    echo 'TMP<pre>';
+			    print_r($csv);
+			    echo '</pre>';
+*/
 			    
 			    if ( !$csv ) {
 				// Couldn't parse CSV.
@@ -785,6 +839,18 @@ echo '</pre>';
 		}
 		return $links;
 	}
+	
+	public function csv2array($input,$delimiter=',',$enclosure='"',$escape='\\'){ 
+	    if( $enclosure ){
+	    	$fields=explode($enclosure.$delimiter.$enclosure,substr($input,1,-1)); 
+	    }else{
+	    	$fields=explode($enclosure.$delimiter.$enclosure,$input); 
+	    }
+	    foreach ($fields as $key=>$value) 
+	        $fields[$key]=str_replace($escape.$enclosure,$enclosure,$value); 
+	    return($fields); 
+	} 
+	
 }
     
     /** Load and dependecy checks. **/

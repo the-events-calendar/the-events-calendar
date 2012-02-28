@@ -38,7 +38,7 @@ require_once 'header.php';
 		    <td>
 			<label title="Header Row">
 			    <input type="checkbox" name="import_header" value="1" id="events-import-csv-file"/>
-			    <?php _e( 'This file has field labels in the first row', 'tribe-events-calendar-pro' ) ?>
+			    <?php _e( 'This file has column names in the first row', 'tribe-events-calendar-pro' ) ?>
 			</label>
 		    </td>
 		</tr>
