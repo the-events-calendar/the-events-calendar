@@ -75,7 +75,7 @@ if (!class_exists('ECP_Events_Importer')) {
 	}
 	
 	public function addImportOptionsPage() {
-	    add_options_page( $this->pluginName, $this->pluginName, 'administrator', 'events-importer', array( $this, 'importPageView' ) );
+	    add_submenu_page( 'tools.php', $this->pluginName, $this->pluginName, 'administrator', 'events-importer', array( $this, 'importPageView' ) );
 	}
 	
 	public function importPageView() {
@@ -288,7 +288,8 @@ $csv->limit = 10;
 			
 			$newoffset=$offset+$limit;
 			
-			echo "<script>window.location.href='".admin_url().$_SERVER['SCRIPT_NAME']."?page=events-importer&action=continue&offset=".$newoffset."';</script>";
+			$url = admin_url().basename($_SERVER['SCRIPT_NAME'])."?page=events-importer&action=continue&offset=".$newoffset;
+			echo "<script>window.location.href='".$url."';</script>";
 			
 		}
 	    } else {
