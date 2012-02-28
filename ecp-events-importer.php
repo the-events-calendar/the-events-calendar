@@ -265,21 +265,14 @@ $csv->limit = 10;
 			
 				set_time_limit(10); //increase script time limit by 10 seconds
 			
-//				$start = microtime();
 			    $result = call_user_func( $method, array_values( $row ), $inverted_map );
 			    $results[ $result ] = $results[ $result ] + 1;
+
 			    // Record failed rows for report and make them 1-based.
 			    if ( $result == 'fail' ) {
 				$fail_rows []= ( $row_num + 1 );
 			    }
-/*
-				$end = microtime();
-				echo("<pre>Executed: " . ($end - $start) . "</pre>");
-*/
 			}
-			//$total_end = microtime();
-			//$total_diff = $total_end - $total_start;
-			//echo("<pre>Entire process: $total_diff</pre>");
 			
 			// Save results for later display
 			
@@ -314,25 +307,30 @@ $csv->limit = 10;
 	 **/
 	 
 	private function createVenueFromRow( $row, $inverted_mapping ) {
+
+	    //remove save post action to avoid it being called twice
+	    remove_action( 'save_post', array( TribeEvents::instance(), 'save_venue_data' ), 16, 2 );
+
 	    $ret = 'fail';
 	    if ( $this->isRowGood( $row, $inverted_mapping, 'venue_name' ) ) {
-		$venue_name = $this->getFromRow( $row, $inverted_mapping, 'venue_name' );
-		$venue = $this->generateVenue( $row, $inverted_mapping, $venue_name );
-		if ( $id = $this->findVenueByName( $venue_name ) ) {
-		    // Perform update.
-		    TribeEventsAPI::updateVenue( $id, $venue );
-		    echo $venue_name . ' '.__('updated', 'tribe-events-importer').'<br>';
-		    $ret = 'update';
-		} else {
-		    // Insert new venue.
-		    $venue_id = TribeEventsAPI::createVenue( $venue );
-		    echo $venue_name . ' '.__('created', 'tribe-events-importer').'<br>';
-		    if ( $venue_id ) {
-			// Insert so we don't dupe.
-			$this->venues[ $venue_name ] = $venue_id;
-		    }
-		    $ret = 'insert';
-		}
+			$venue_name = $this->getFromRow( $row, $inverted_mapping, 'venue_name' );
+			$venue = $this->generateVenue( $row, $inverted_mapping, $venue_name );
+			
+			if ( $id = $this->findVenueByName( $venue_name ) ) {
+			    // Perform update
+			    TribeEventsAPI::updateVenue( $id, $venue );
+			    echo $venue_name . ' '.__('updated', 'tribe-events-importer').'<br>';
+			    $ret = 'update';
+			} else {
+			    // Insert new venue.
+			    $venue_id = TribeEventsAPI::createVenue( $venue );
+			    echo $venue_name . ' '.__('created', 'tribe-events-importer').'<br>';
+			    if ( $venue_id ) {
+				// Insert so we don't dupe.
+				$this->venues[ $venue_name ] = $venue_id;
+			    }
+			    $ret = 'insert';
+			}
 	    }
 	    return $ret;
 	}
@@ -361,6 +359,9 @@ $csv->limit = 10;
 	 **/
 	 
 	private function createOrganizerFromRow( $row, $inverted_mapping ) {
+	    //remove save post action to avoid it being called twice
+		remove_action( 'save_post', array( TribeEvents::instance(), 'save_organizer_data' ), 16, 2 );
+
 	    $ret = 'fail';
 	    if ( $this->isRowGood( $row, $inverted_mapping, 'organizer_name' ) ) {
 		$organizer_name = $this->getFromRow( $row, $inverted_mapping, 'organizer_name' );
