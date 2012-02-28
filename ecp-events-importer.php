@@ -63,7 +63,7 @@ if (!class_exists('ECP_Events_Importer')) {
 					    );
 		
 	private function __construct() {
-		$this->pluginName = __( 'ECP Events Importer', 'events-calendar-pro' );
+		$this->pluginName = __( 'ECP Events Importer', 'tribe-events-importer' );
 		$this->pluginDir = trailingslashit( basename( dirname(__FILE__) ) );
 		$this->pluginPath = trailingslashit( dirname(__FILE__) );
 		$this->pluginUrl = WP_PLUGIN_URL.'/'.$this->pluginDir;
@@ -83,7 +83,7 @@ if (!class_exists('ECP_Events_Importer')) {
 	    if(isset($_POST[ 'ecp_import_action' ])) $action = trim( $_POST[ 'ecp_import_action' ] );
 		if(isset($_GET['action'])) $action = trim( $_GET[ 'action' ] );
 	    
-	    $limit = 2500; //umber of records in a batch
+	    $limit = 2500; //number of records in a batch
 	    
 	    if ( ! isset( $action ) ) {
 		include( $this->pluginPath . 'admin-views/import.php' );
@@ -169,12 +169,12 @@ $csv->limit = 10;
 					$fail_rows = get_option('tribe_events_import_failed_rows');
 					
 					$error_message = '';
-					$success_message = sprintf( __( "<strong>Import successfully completed!</strong><br/> <ul><li>Inserted: %d</li><li>Updated: %d</li><li>Failed: %d</li></ul>\n" ),
+					$success_message = sprintf( __( "<strong>Import successfully completed!</strong><br/> <ul><li>Inserted: %d</li><li>Updated: %d</li><li>Failed: %d</li></ul>\n", 'tribe-events-importer' ),
 					$results[ 'insert' ],
 					$results[ 'update' ],
 					$results[ 'fail' ] );
 					if ( count( $fail_rows ) > 0 ) {
-					$success_message .= sprintf( __( "<p>Failed Row Numbers: %s</p>" ), implode( ', ', $fail_rows ) );
+					$success_message .= sprintf( __( "<p>Failed Row Numbers: %s</p>", 'tribe-events-importer' ), implode( ', ', $fail_rows ) );
 					}
 	    
 	    include( $this->pluginPath . 'admin-views/result.php' );
@@ -209,7 +209,7 @@ $csv->limit = 10;
 			     $import_function = 'createEventFromRow';
 			} else {
 			    $success_message = '';
-			    $error_message = __( 'Event import requires at least an Event Name and Event Start Date.' );
+			    $error_message = __( 'Event import requires at least an Event Name and Event Start Date.', 'tribe-events-importer' );
 			}
 			break;
 		
@@ -219,7 +219,7 @@ $csv->limit = 10;
 			    $import_function = 'createOrganizerFromRow';
 			} else {
 			    $success_message = '';
-			    $error_message = __( 'Organizer import requires at least one column assigned to Organizer Name.' );
+			    $error_message = __( 'Organizer import requires at least one column assigned to Organizer Name.', 'tribe-events-importer' );
 			}
 			break;
 		
@@ -229,7 +229,7 @@ $csv->limit = 10;
 			    $import_function = 'createVenueFromRow';
 			} else {
 			    $success_message = '';
-			    $error_message = __( 'Venue import requires at least one column assigned to Venue Name.' );
+			    $error_message = __( 'Venue import requires at least one column assigned to Venue Name.', 'tribe-events-importer' );
 			}
 			break;
 	    
@@ -253,6 +253,10 @@ $csv->limit = 10;
 			//$total_start = microtime();
 			
 			$num = $offset + 1;
+			
+			include 'admin-views/header.php';
+			
+			echo '<p>';
 			
 			foreach( $csv->data as $row_num => $row ) {
 			
@@ -284,16 +288,19 @@ $csv->limit = 10;
 			
 			//redirect to continue processing
 			
-			echo 'Redirecting...<br>';
+			echo '</p><p>Redirecting...</p>';
+			
+			include 'admin-views/footer.php';
+
 			
 			$newoffset=$offset+$limit;
 			
 			$url = admin_url().basename($_SERVER['SCRIPT_NAME'])."?page=events-importer&action=continue&offset=".$newoffset;
-			echo "<script>window.location.href='".$url."';</script>";
+			//echo "<script>window.location.href='".$url."';</script>";
 			
 		}
 	    } else {
-	    		$error_message = __( 'Could not import CSV file - either the file upload failed, or the file was not a CSV file.' );
+	    		$error_message = __( 'Could not import CSV file - either the file upload failed, or the file was not a CSV file.', 'tribe-events-importer' );
 	    }
 	    }
 
@@ -314,10 +321,12 @@ $csv->limit = 10;
 		if ( $id = $this->findVenueByName( $venue_name ) ) {
 		    // Perform update.
 		    TribeEventsAPI::updateVenue( $id, $venue );
+		    echo $venue_name . ' '.__('updated', 'tribe-events-importer').'<br>';
 		    $ret = 'update';
 		} else {
 		    // Insert new venue.
 		    $venue_id = TribeEventsAPI::createVenue( $venue );
+		    echo $venue_name . ' '.__('created', 'tribe-events-importer').'<br>';
 		    if ( $venue_id ) {
 			// Insert so we don't dupe.
 			$this->venues[ $venue_name ] = $venue_id;
@@ -359,10 +368,12 @@ $csv->limit = 10;
 		if ( $id = $this->findOrganizerByName( $organizer_name ) ) {
 		    // Perform update.
 		    TribeEventsAPI::updateOrganizer( $id, $organizer );
+   		    echo $organizer_name . ' '.__('updated', 'tribe-events-importer').'<br>';
 		    $ret = 'update';
 		} else {
 		    // Insert new organizer.
 		    $organizer_id = TribeEventsAPI::createOrganizer( $organizer );
+   		    echo $organizer_name . ' '.__('created', 'tribe-events-importer').'<br>';
 		    if ( $organizer_id ) {
 			$this->organizers[ $organizer_name ] = $organizer_id;
 		    }
@@ -407,7 +418,7 @@ $csv->limit = 10;
 			echo "<pre>Update event: $elapsed</pre>";
 */
 			$end = microtime();
-			echo $event_name . ' updated<br>';
+			echo $event_name . ' '.__('updated', 'tribe-events-importer').'<br>';
 			flush();
 		    $ret = 'update';
 		} else {
@@ -422,7 +433,7 @@ $csv->limit = 10;
                         echo "<pre>Created event: $elapsed</pre>";
 */
 			$end = microtime();
-			echo $event_name . ' created<br>';
+			echo $event_name . ' '.__('created', 'tribe-events-importer').'<br>';
 			flush();
 		    $ret = 'insert';
 		}
@@ -654,16 +665,15 @@ $csv->limit = 10;
 		    
 		    if ( !$csv ) {
 			// Couldn't parse CSV.
-			$error_message = __( 'Sorry, this file does not appear to be a valid CSV file.' );
+			$error_message = __( 'Sorry, this file does not appear to be a valid CSV file.', 'tribe-events-importer' );
 		    }
 		} else {
 		    // File couldn't be moved. Likely permissions issue.
-		    $error_message = sprintf( __( 'Sorry, it looks like there is a permissions issue on your server. Please ensure that %s is writable by the webserver.',
-						$this->pluginPath ) );
+		    $error_message = sprintf( __( 'Sorry, it looks like there is a permissions issue on your server. Please ensure that %s is writable by the webserver.', 'tribe-events-importer' ) );
 		}
 	    } else {
 		// Hmm. File wasn't uploaded or something funky happened.
-		$error_message = __( 'Error uploading file. Are you sure it was included?' );
+		$error_message = __( 'Error uploading file. Are you sure it was included?', 'tribe-events-importer' );
 	    }
 	    include( $this->pluginPath . 'admin-views/columns.php' );
 	}
@@ -685,7 +695,7 @@ $csv->limit = 10;
 		// ??
 	    }
 	    
-	    $ret .= '<option value="" selected="selected">' . __( 'Do Not Import' ) . '</option>';
+	    $ret .= '<option value="" selected="selected">' . __( 'Do Not Import', 'tribe-events-importer' ) . '</option>';
 	    foreach( $defaults as $key => $value ) {
 		$ret .= '<option value="' . $key . '">' . $value . '</option>';
 	    }
@@ -712,9 +722,9 @@ $csv->limit = 10;
 
 	public function addMetaLinks( $links, $file ) {
 		if ( $file == $this->pluginDir . 'ecp-events-importer.php' ) {
-			$anchor = __( 'Support', 'tribe-events-calendar' );
+			$anchor = __( 'Support', 'tribe-events-importer' );
 			$links []= '<a href="http://tri.be/support/?ref=importer-addon">' . $anchor . '</a>';
-			$anchor = __( 'View All Add-Ons', 'tribe-events-calendar' ); 
+			$anchor = __( 'View All Add-Ons', 'tribe-events-importer' ); 
 			$links []= '<a href="http://tri.be/shop/?ref=importer-addon">' . $anchor . '</a>';
 		}
 		return $links;
@@ -736,7 +746,7 @@ $csv->limit = 10;
     function show_importer_fail_message() {
 	$currentScript = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
 	if ( current_user_can( 'activate_plugins') && ( substr( $currentScript, -11 ) == 'plugins.php') ) {
-	    echo '<div class="error"><p>' . __('The Events Calendar PRO - Events Importer requires the Events Calendar PRO plugin.', 'tribe-events-calendar-pro' ) . '</p></div>';
+	    echo '<div class="error"><p>' . __('The Events Calendar PRO - Events Importer requires the Events Calendar PRO plugin.', 'tribe-events-importer' ) . '</p></div>';
 	}
     }
 }
