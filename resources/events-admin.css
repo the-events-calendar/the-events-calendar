@@ -210,10 +210,17 @@ display: none;
 	border: 1px solid #F00;
 }
 
-/* Chosen <select> widths */
-.venue-dropdown, .organizer-dropdown, .events-dropdown {
+/* Chosen css adjustments */
+.chosen, .chzn-container {
+	margin-right: 10px!important;
+}
+.venue-dropdown, .organizer-dropdown, .events-dropdown, #eventsDefaultState, #defaultCountry {
 	width: 220px !important;
 }
+.multi-day-cutoff-dropdown {
+	width: 100px !important;
+}
+
 /* fix for widgets + chosen support */
 .widget-liquid-right .widget, .inactive-sidebar .widget, .widget-liquid-right .sidebar-description {
 	overflow: visible !important;

@@ -75,7 +75,7 @@
 				<span><?php _e('Multiday Event Cutoff','tribe-events-calendar'); ?></span>
 			</legend>
 			<label title='Multiday Event Cutoff'>
-					  <select class="chosen" name="multiDayCutoff">
+					  <select class="chosen multi-day-cutoff-dropdown" name="multiDayCutoff">
 						  <option <?php selected($multiDayCutoff == "12:00") ?> value="12:00" >12:00</option>
 						  <option <?php selected($multiDayCutoff == "12:30") ?> value="12:30">12:30</option>
 						  <?php for($i=1; $i < 23; $i++): ?>
