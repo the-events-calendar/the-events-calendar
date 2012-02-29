@@ -157,7 +157,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
          ?>
 			<tr class="" >
-				<td style="width:170px"><?php _e('Use Saved Organizer:','tribe-events-calendar-pro'); ?></td>
+				<td style="width:170px"><?php _e('Use Saved Organizer:', 'tribe-events-calendar-pro'); ?></td>
 				<td>
 					<?php $this->saved_organizers_dropdown($curOrg);?>
 				</td>
@@ -183,37 +183,37 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					$options = $tribeEvents->getOptions();
 					$options['defaultValueReplace'] = (isset($_POST['defaultValueReplace'])) ? true : false;
 					if ( $_POST['eventsDefaultVenueID'] == '0' ) {
-						if ( isset( $_POST['eventsDefaultAddress'] ) ) {
+						if ( isset( $_POST['eventsDefaultAddress']) && $_POST['eventsDefaultAddress'] != '' ) {
 							if ( !preg_match( '/^[a-zA-Z0-9- ]+$/', $_POST['eventsDefaultAddress'] ) ) {
-								$tribeEvents->form_errors['eventsDefaultAddress'] = __('Events Default Address must consist of letters, numbers, dashes, and spaces only.');
+								$tribeEvents->form_errors['eventsDefaultAddress'] = __('Events Default Address must consist of letters, numbers, dashes, and spaces only.', 'tribe-events-calendar-pro');
 							} else {
 								$options['eventsDefaultAddress'] = $_POST['eventsDefaultAddress'];
 							}
 						}
-						if ( isset($_POST['eventsDefaultCity'] ) ) {
+						if ( isset($_POST['eventsDefaultCity']) && $_POST['eventsDefaultCity'] != '' ) {
 							if ( !preg_match( '/^[a-zA-Z- ]+$/', $_POST['eventsDefaultCity'] ) ) {
-								$tribeEvents->form_errors['eventsDefaultCity'] = 'Default City must consist of letters, spaces, and dashes.';
+								$tribeEvents->form_errors['eventsDefaultCity'] = __('Default City must consist of letters, spaces, and dashes.', 'tribe-events-calendar-pro');
 							} else {
 								$options['eventsDefaultCity'] = $_POST['eventsDefaultCity'];
 							}
 						}
-						if ( isset($_POST['eventsDefaultProvince'] ) ) {
+						if ( isset($_POST['eventsDefaultProvince']) && $_POST['eventsDefaultProvince'] != '' ) {
 							if ( !preg_match( '/^[a-zA-Z- ]+$/', $_POST['eventsDefaultProvince'] ) ) {
-								$tribeEvents->form_errors['eventsDefaultProvince'] = 'Default Province must consist of letters, spaces, and dashes.';
+								$tribeEvents->form_errors['eventsDefaultProvince'] = __('Default Province must consist of letters, spaces, and dashes.', 'tribe-events-calendar-pro');
 							} else {
 								$options['eventsDefaultProvince'] = $_POST['eventsDefaultProvince'];
 							}			
 						}
-						if ( isset($_POST['eventsDefaultZip'] ) ) {
+						if ( isset($_POST['eventsDefaultZip']) && $_POST['eventsDefaultZip'] != '' ) {
 							if ( !preg_match( '/^[0-9]{5}$/', $_POST['eventsDefaultZip'] ) ) {
-								$tribeEvents->form_errors['eventsDefaultZip'] = 'Default Zip must consist of 5 numbers.';
+								$tribeEvents->form_errors['eventsDefaultZip'] = __('Default Zip must consist of 5 numbers.', 'tribe-events-calendar-pro');
 							} else {
 								$options['eventsDefaultZip'] = $_POST['eventsDefaultZip'];
 							}			
 						}
-						if ( isset($_POST['eventsDefaultPhone'] ) ) {
+						if ( isset($_POST['eventsDefaultPhone']) && $_POST['eventsDefaultPhone'] != '' ) {
 							if ( !preg_match( '/^[0-9\(\)\+ -]+$/', $_POST['eventsDefaultPhone'] ) ) {
-								$tribeEvents->form_errors['eventsDefaultPhone'] = 'Must be a phone number.';
+								$tribeEvents->form_errors['eventsDefaultPhone'] = __('Must be a phone number.', 'tribe-events-calendar-pro');
 							} else {
 								$options['eventsDefaultPhone'] = $_POST['eventsDefaultPhone'];
 							}			
@@ -226,10 +226,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$options[$opt] = (isset($_POST[$opt])) ? true : false;
 					}
 					$opts = array( 
-					'tribeEventsCountries',
-					'eventsDefaultVenueID',
-					'eventsDefaultOrganizerID',
-					'eventsDefaultState',
+						'tribeEventsCountries',
+						'eventsDefaultVenueID',
+						'eventsDefaultOrganizerID',
+						'eventsDefaultState',
 					);
 					foreach ($opts as $opt) {
 						if(isset($_POST[$opt])) {
@@ -262,11 +262,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
       }
 
       public function load_venue_template($file) {
-         if ( !file_exists($file) ) {
-            $file = $this->pluginPath . 'views/single-venue.php';
-         }
-
-         return $file;
+        return (file_exists($file)) ? $file : $this->pluginPath . 'views/single-venue.php';
       }
 
       public function add_google_map_preview($postId) {
