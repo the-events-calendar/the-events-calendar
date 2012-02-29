@@ -1897,7 +1897,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						${'_Venue'.$cleaned_tag} = (class_exists('TribeEventsPro') && $this->defaultValueReplaceEnabled()) ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
 					}
 					
-					if( isset($_POST['venue'][$cleaned_tag]) )
+					if( isset($cleaned_tag) && isset($_POST['venue'][$cleaned_tag]) )
 						${'_Venue'.$cleaned_tag} = $_POST['venue'][$cleaned_tag];
 
 					
