@@ -1649,7 +1649,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function addPostOrigin( $postId, $post ) {
 			// Only continue of the post being added is an event, venue, or organizer.
-			if ( $postID && isset($post->post_type) ) {
+			if ( isset($postId) && isset($post->post_type) ) {
 				if ( $post->post_type == self::POSTTYPE ) {
 					$post_type = '_Event';
 				} elseif ( $post->post_type == self::VENUE_POST_TYPE ) {
@@ -1674,7 +1674,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function addToPostAuditTrail( $postId, $post ) {
 			// Only continue of the post being added is an event, venue, or organizer.
-			if ( $postID && isset($post->post_type) ) {
+			if ( isset($postId) && isset($post->post_type) ) {
 				if ( $post->post_type == self::POSTTYPE ) {
 					$post_type = '_Event';
 				} elseif ( $post->post_type == self::VENUE_POST_TYPE ) {
