@@ -20,7 +20,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $pluginSlug;
 		public $licenseKey;
 		public static $updateUrl = 'http://tri.be/';
-		const REQUIRED_TEC_VERSION = '2.0.2';
+		const REQUIRED_TEC_VERSION = '2.1';
 		const VERSION = '2.1';
 		
     private function __construct() {
