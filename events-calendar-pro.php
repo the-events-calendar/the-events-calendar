@@ -1,12 +1,29 @@
 <?php
 /*
- Plugin Name: Events Calendar PRO
- Description: The Events Calendar PRO, a premium add-on to the open source The Events Calendar plugin (required), enables recurring events, custom attributes, venue pages, new widgets and a host of other premium features.
- Version: 2.1
- Author: Modern Tribe, Inc.
- Author URI: http://tri.be/?ref=ecp-plugin
- Text Domain: tribe-events-calendar-pro
- */
+Plugin Name: Events Calendar PRO
+Description: The Events Calendar PRO, a premium add-on to the open source The Events Calendar plugin (required), enables recurring events, custom attributes, venue pages, new widgets and a host of other premium features.
+Version: 2.1
+Author: Modern Tribe, Inc.
+Author URI: http://tri.be/?ref=ecp-plugin
+Text Domain: tribe-events-calendar-pro
+License: GPLv2 or later
+*/
+
+/*
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 
 if ( !class_exists( 'TribeEventsPro' ) ) {
 	class TribeEventsPro {
