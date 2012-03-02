@@ -1,12 +1,30 @@
 <?php
 /*
- Plugin Name: Events Calendar PRO Events Importer
- Version: 1.0
- Description: The Events Calendar PRO Events Importer is a premium add-on to the Events Calendar PRO plugin. This add-on enables import of organizers, venues and events via CSV file. Column mapping is chosen after the file is uploaded.
- Author: Modern Tribe, Inc.
- Author URI: http://tri.be?ref=importer-addon
- Text Domain: tribe-events-calendar-pro
+Plugin Name: The Events Calendar - CSV Importer
+Version: 1.0
+Description: The Events Calendar PRO Events Importer is a premium add-on to the Events Calendar PRO plugin. This add-on enables import of organizers, venues and events via CSV file. Column mapping is chosen after the file is uploaded.
+Author: Modern Tribe, Inc.
+Author URI: http://tri.be?ref=importer-addon
+Text Domain: tribe-events-importer
+License: GPLv2 or later
 */
+
+/*
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 
 if (!class_exists('ECP_Events_Importer')) {
     class ECP_Events_importer {
