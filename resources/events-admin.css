@@ -230,3 +230,25 @@ display: none;
 .admin-indent {
 	margin-left: 15px;
 }
+
+/* Ratings Stars */
+.star-holder {
+	position: relative;
+	height: 19px;
+	width: 100px;
+	font-size: 19px;
+}
+
+.star {
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: transparent;
+	letter-spacing: 1ex;
+	border: none;
+}
+
+.star-rating {
+	background-color: #FC0;
+}
