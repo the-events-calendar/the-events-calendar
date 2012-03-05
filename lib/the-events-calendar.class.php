@@ -1080,8 +1080,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function truncate($text, $excerpt_length = 44) {
 
-			$text = strip_shortcodes( $text );
-
 			$text = apply_filters('the_content', $text);
 			$text = str_replace(']]>', ']]&gt;', $text);
 			$text = strip_tags($text);
