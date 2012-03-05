@@ -566,18 +566,24 @@ if (!class_exists('TribeEventsViewHelpers')) {
 		}
 
 		/**
-		 * Helper method to return an array of years, back 2 and forward 5
+		 * Helper method to return an array of years
+		 * default is back 5 and forward 5
 		 */
-		private static function years( ) {
-			$year = ( int )date_i18n( 'Y' );
-			// Back two years, forward 5
-			$year_list = array( $year - 5, $year - 4, $year - 3, $year - 2, $year - 1, $year, $year + 1, $year + 2, $year + 3, $year + 4, $year + 5 );
+		private static function years() {
+			$current_year = (int) date_i18n( 'Y' );
+			$years_back = (int) apply_filters('tribe_years_to_go_back', 5, $current_year);
+			$years_forward = (int) apply_filters('tribe_years_to_go_forward', 5, $current_year);
 			$years = array();
-			foreach( $year_list as $single_year ) {
-				$years[ $single_year ] = $single_year;
+			for ($i = $years_back; $i > 0; $i--) {
+				$year = $current_year - $i;
+				$years[] = $year;
 			}
-
-			return $years;
+			$years[] = $current_year;
+			for ($i = 0; $i <= $years_forward; $i++) {
+				$year = $current_year + $i;
+				$years[] = $year;
+			}
+			return (array) apply_filters('tribe_years_array', $years);
 		}
 
 
