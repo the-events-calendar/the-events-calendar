@@ -75,7 +75,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles') );
 			add_action( 'tribe_after_location_details', array( $this, 'add_google_map_preview') );
 			add_action( 'tribe_tec_template_chooser', array( $this, 'do_ical_template' ) );
-			add_filter( 'tribe_events_calendar_tabs', array( $this, 'add_defaults_settings_tab' ), 10, 1 );
+			add_filter( 'tribe_settings_tabs_after_template', array( $this, 'add_defaults_settings_tab' ), 10, 1 );
 			add_action( 'tribe-events-defaults-settings-content', array( $this, 'add_defaults_settings_content') );
 			add_action( 'tribe_validate_form_settings', array( $this, 'validateDefaultsSettings' ) );
 			add_action( 'tribe-events-before-general-settings', array( $this, 'event_license_key') );
@@ -192,9 +192,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
   		}
       
     	public function add_defaults_settings_tab( $tabs ) {
-    		$tabs['defaults'] = 'Defaults';
-    		return $tabs;
-      	}
+				new TribeSettingsTab( 'defaults', __('Defaults', 'tribe-events-calendar') );
+    	}
 		
 		public function validateDefaultsSettings() {
 			if ( isset( $_POST['current-settings-tab'] ) ) {
