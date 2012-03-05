@@ -1106,8 +1106,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function loadStyle() {
 	
 			$eventsURL = trailingslashit( $this->pluginUrl ) . 'resources/';
-			wp_enqueue_script('sp-events-pjax', $eventsURL.'jquery.pjax.js', array('jquery') );			
-			wp_enqueue_script('sp-events-calendar-script', $eventsURL.'events.js', array('jquery', 'sp-events-pjax') );
+			wp_enqueue_script('tribe-events-pjax', $eventsURL.'jquery.pjax.js', array('jquery') );			
+			wp_enqueue_script('tribe-events-calendar-script', $eventsURL.'events.js', array('jquery', 'tribe-events-pjax') );
 			// is there an events.css file in the theme?
 			if ( $user_style = locate_template(array('events/events.css')) ) {
 				$styleUrl = str_replace( get_theme_root(), get_theme_root_uri(), $user_style );
@@ -1118,7 +1118,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$styleUrl = apply_filters( 'tribe_events_stylesheet_url', $styleUrl );
 	
 			if ( $styleUrl )
-				wp_enqueue_style('sp-events-calendar-style', $styleUrl);
+				wp_enqueue_style('tribe-events-calendar-style', $styleUrl);
 		}
 
 
