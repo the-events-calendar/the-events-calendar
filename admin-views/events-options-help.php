@@ -5,10 +5,31 @@
 $tec_info = file_get_contents( 'http://wpapi.org/api/plugin/the-events-calendar.php' );
 $tec_info = unserialize($tec_info);
 $rating = $tec_info['rating'] / 20;
+
+$up_to_date = __('You are up to date!', 'tribe-events-calendar');
+if ( version_compare( TribeEvents::VERSION, $tec_info['version'], '<' ) ) {
+	$up_to_date = __('You need to upgrade!', 'tribe-events-calendar');
+}
+
+$news_rss = new DOMDocument();
+$news_rss->load('http://tri.be/category/products/feed/');
+$news_feed = array();
+$i = 0;
+foreach( $news_rss->getElementsByTagName( 'item' ) as $node ) {
+	$item = array(
+		'title' => $node->getElementsByTagName( 'title' )->item(0)->nodeValue,
+		'link' => $node->getElementsByTagName( 'link' )->item(0)->nodeValue
+	);
+	$news_feed[] = $item;
+	if (++$i >= 5) break;
+}
+
+$more_text = __('More...', 'tribe-events-calendar');
 ?>
+<p><?php echo( $up_to_date ); ?></p>
 <p><b><?php _e('Latest Version:', 'tribe-events-calendar'); ?></b> <?php echo( $tec_info['version'] ); ?><br />
 <b><?php _e('Author:', 'tribe-events-calendar'); ?></b> <?php echo( $tec_info['author']['name'] ); ?><br />
-<b><?php _e('Requires:', 'tribe-events-calendar'); ?></b> <?php _e('Wordpress ', 'tribe-events-calendar'); echo( $tec_info['requires'] ); ?><br /> 
+<b><?php _e('Requires:', 'tribe-events-calendar'); ?></b> <?php _e('WordPress ', 'tribe-events-calendar'); echo( $tec_info['requires'] ); ?>+<br /> 
 <b><?php _e('Downloads:', 'tribe-events-calendar'); ?></b> <?php echo( number_format( $tec_info['total_downloads'] ) ); ?><br />
 <a href="http://wordpress.org/extend/plugins/the-events-calendar/"><?php _e('Wordpress.org Plugin Page', 'tribe-events-calendar'); ?></a></p>
 </div>
@@ -24,23 +45,26 @@ $rating = $tec_info['rating'] / 20;
 <?php printf( _n('Based on %s rating', 'Based on %s ratings', $tec_info['num_ratings'], 'tribe-events-calendar' ), $tec_info['num_ratings'] ); ?>
 <h3><?php _e('Free Add-Ons', 'tribe-events-calendar'); ?></h3>
 <ul>
-<li><a href="http://wordpress.org/extend/plugins/advanced-post-manager/?ref=tec-readme">Advanced Post Manager</a></li>
+<li><a href="http://wordpress.org/extend/plugins/advanced-post-manager/?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin">Advanced Post Manager</a></li>
 <li>Event Importer (coming soon!)</li>
 <li>Facebook Sync Events (coming soon!)</li>
 </ul>
 <h3><?php _e('Premium Add-Ons', 'tribe-events-calendar'); ?></h3>
 <ul>
-<li><a href="http://tri.be/wordpress-events-calendar-pro/?ref=tec-readme">Events Calendar Pro</a></li>
-<li><a href="http://tri.be/shop/wordpress-eventbrite-tickets/?ref=tec-readme">Eventbrite Tickets (coming soon!)</a></li>
-<li><a href="http://tri.be/shop/wordpress-community-events/?ref=tec-readme">Community Events (coming soon!)</a></li>
-<li><a href="http://tri.be/shop/conference-manager/?ref=tec-readme">Conference Manager (coming later in 2012)</a></li>
-<li><a href="http://tri.be/shop/wootickets/?ref=tec-readme">WooTickets (coming later in 2012)</a></li>
+<li><a href="http://tri.be/wordpress-events-calendar-pro/?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin">Events Calendar Pro</a></li>
+<li><a href="http://tri.be/shop/wordpress-eventbrite-tickets/?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin">Eventbrite Tickets (coming soon!)</a></li>
+<li><a href="http://tri.be/shop/wordpress-community-events/?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin">Community Events (coming soon!)</a></li>
+<li><a href="http://tri.be/shop/conference-manager/?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin">Conference Manager (coming later in 2012)</a></li>
+<li><a href="http://tri.be/shop/wootickets/?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin">WooTickets (coming later in 2012)</a></li>
 </ul>
 <h3><?php _e('News and Tutorials', 'tribe-events-calendar'); ?></h3>
 <ul>
-<li><a href="#">News Article 1</a></li>
-<li><a href="#">News Article 2</a></li>
-<li><a href="#">More...</a></li>
+<?php
+foreach ( $news_feed as $item ) {
+	echo( '<li><a href="' . $item['link'] . '">' . $item['title'] . '</a></li>' );
+}
+echo '<li><a href="http://tri.be/category/products/feed/">' . $more_text . '</a></li>';
+?>
 </ul>
 </div>
 <p><?php _e('Hi! Thank you so much for using the labor of our love. We are Modern Tribe and we are here to help you kick ass.', 'tribe-events-calendar'); ?></p>
