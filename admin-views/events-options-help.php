@@ -43,6 +43,8 @@ $more_text = __('More...', 'tribe-events-calendar');
 <div class="star star1"><img src="<?php echo( $this->pluginUrl . 'resources/images/star.gif' ); ?>" alt="1 star" /></div>
 </div>
 <?php printf( _n('Based on %s rating', 'Based on %s ratings', $tec_info['num_ratings'], 'tribe-events-calendar' ), $tec_info['num_ratings'] ); ?>
+<br />
+<?php _e('Give us 5 stars!', 'tribe-events-calendar'); ?>
 <h3><?php _e('Free Add-Ons', 'tribe-events-calendar'); ?></h3>
 <ul>
 <li><a href="http://wordpress.org/extend/plugins/advanced-post-manager/?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin">Advanced Post Manager</a></li>
@@ -72,11 +74,11 @@ echo '<li><a href="http://tri.be/category/products/feed/">' . $more_text . '</a>
 <p class="admin-indent"><?php _e('This is where information and help for new users will be. Rob is working on drafting all sorts of useful information for The Events Calendar first time users. Yay!!!', 'tribe-events-calendar'); ?></p>
 <h3><?php _e('Resources to Help You Kick Ass', 'tribe-events-calendar'); ?></h3>
 <ul class="admin-indent">
-<li><a href="http://tri.be/support/documentation/"><?php _e('Documentation', 'tribe-events-calendar'); ?></a></li>
-<li><a href="http://tri.be/support/faqs/"><?php _e('FAQ', 'tribe-events-calendar'); ?></a></li>
-<li><a href="http://tri.be/category/products/help-video/"><?php _e('Help Videos', 'tribe-events-calendar'); ?></a></li>
-<li><a href="http://tri.be/category/products/tutorial/"><?php _e('Tutorials', 'tribe-events-calendar'); ?></a></li>
-<li><a href="http://tri.be/category/products/release-notes/"><?php _e('Release Notes', 'tribe-events-calendar'); ?></a></li>
+<li><a href="http://tri.be/support/documentation/?utm_source=helptab&utm_medium=supportlink&utm_campaign=plugin"><?php _e('Documentation', 'tribe-events-calendar'); ?></a></li>
+<li><a href="http://tri.be/support/faqs/?utm_source=helptab&utm_medium=supportlink&utm_campaign=plugin"><?php _e('FAQ', 'tribe-events-calendar'); ?></a></li>
+<li><a href="http://tri.be/category/products/help-video/?utm_source=helptab&utm_medium=supportlink&utm_campaign=plugin"><?php _e('Help Videos', 'tribe-events-calendar'); ?></a></li>
+<li><a href="http://tri.be/category/products/tutorial/?utm_source=helptab&utm_medium=supportlink&utm_campaign=plugin"><?php _e('Tutorials', 'tribe-events-calendar'); ?></a></li>
+<li><a href="http://tri.be/category/products/release-notes/?utm_source=helptab&utm_medium=supportlink&utm_campaign=plugin"><?php _e('Release Notes', 'tribe-events-calendar'); ?></a></li>
 </ul>
 <h3><?php _e('Everyone Needs a Buddy', 'tribe-events-calendar'); ?></h3>
 <p class="admin-indent"><?php _e('Good thing about being a PRO user is that you are not alone. Take advantage of our awesome community and smart, friendly support team.', 'tribe-events-calendar'); ?></p>
