@@ -37,7 +37,7 @@ if (!class_exists('TribeEventsTemplates')) {
 				return $template;
 			}
 
-			if( tribe_get_option('spEventsTemplate', 'default') == '' ) {
+			if( tribe_get_option('tribeEventsTemplate', 'default') == '' ) {
 				if(is_single() && !tribe_is_showing_all() ) {
 					return TribeEventsTemplates::getTemplateHierarchy('ecp-single-template');
 				} else {
@@ -49,7 +49,7 @@ if (!class_exists('TribeEventsTemplates')) {
 				add_filter( 'wp_title', array(__CLASS__, 'remove_default_title'), 1);
 				add_action( 'loop_start', array(__CLASS__, 'setup_ecp_template'));
 			
-				$template = locate_template( tribe_get_option('spEventsTemplate', 'default') == 'default' ? 'page.php' : tribe_get_option('spEventsTemplate', 'default') );
+				$template = locate_template( tribe_get_option('tribeEventsTemplate', 'default') == 'default' ? 'page.php' : tribe_get_option('tribeEventsTemplate', 'default') );
 				if ($template ==  '') $template = get_index_template();
 			
 				return $template;
@@ -130,9 +130,9 @@ if (!class_exists('TribeEventsTemplates')) {
 			self::restoreQuery();
 		
 			ob_start();
-			echo stripslashes(tribe_get_option('spEventsBeforeHTML'));
+			echo stripslashes(tribe_get_option('tribeEventsBeforeHTML'));
 			include TribeEventsTemplates::get_current_page_template();
-			echo stripslashes(tribe_get_option('spEventsAfterHTML'));				
+			echo stripslashes(tribe_get_option('tribeEventsAfterHTML'));				
 			$contents = ob_get_contents();
 			ob_end_clean();
 		
@@ -196,9 +196,9 @@ if (!class_exists('TribeEventsTemplates')) {
 			global $post;
 			if (tribe_is_in_main_loop() && tribe_is_event($post->ID)) {
 				ob_start();
-				echo stripslashes(tribe_get_option('spEventsBeforeHTML'));
+				echo stripslashes(tribe_get_option('tribeEventsBeforeHTML'));
 				include_once(TribeEventsTemplates::getTemplateHierarchy('in-loop'));
-				echo stripslashes(tribe_get_option('spEventsAfterHTML'));
+				echo stripslashes(tribe_get_option('tribeEventsAfterHTML'));
 				$content = ob_get_contents();
 				ob_end_clean();
 			}

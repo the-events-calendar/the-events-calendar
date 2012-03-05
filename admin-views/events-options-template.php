@@ -16,7 +16,7 @@
 		<th scope="row"><?php _e('Add HTML before calendar', 'tribe-events-calendar' ); ?></th>
 		<td><fieldset>
 			<legend class="screen-reader-text"><?php _e('Add HTML before calendar', 'tribe-events-calendar' ); ?></legend>
-			<textarea style="width:100%; height:100px;" name="spEventsBeforeHTML"><?php echo  stripslashes(tribe_get_option('spEventsBeforeHTML'));?></textarea>
+			<textarea style="width:100%; height:100px;" name="tribeEventsBeforeHTML"><?php echo  stripslashes(tribe_get_option('tribeEventsBeforeHTML'));?></textarea>
 			<div><?php _e('Some themes may require that you add extra divs before the calendar list to help with styling.', 'tribe-events-calendar');?> <?php _e('This is displayed directly after the header.', 'tribe-events-calendar');?> <?php  _e('You may use (x)HTML.', 'tribe-events-calendar') ?></div>
 		</fieldset></td>
 	</tr>
@@ -24,7 +24,7 @@
 		<th scope="row"><?php _e('Add HTML after calendar', 'tribe-events-calendar' ); ?></th>
 		<td><fieldset>
 			<legend class="screen-reader-text"><?php _e('Add HTML before calendar', 'tribe-events-calendar' ); ?></legend>
-			<textarea style="width:100%; height:100px;" name="spEventsAfterHTML"><?php echo stripslashes(tribe_get_option('spEventsAfterHTML'));?></textarea>
+			<textarea style="width:100%; height:100px;" name="tribeEventsAfterHTML"><?php echo stripslashes(tribe_get_option('tribeEventsAfterHTML'));?></textarea>
 			<div><?php _e('Some themes may require that you add extra divs after the calendar list to help with styling.', 'tribe-events-calendar');?> <?php _e('This is displayed directly above the footer.', 'tribe-events-calendar');?> <?php _e('You may use (x)HTML.', 'tribe-events-calendar') ?></div>
 		</fieldset></td>
 	</tr>

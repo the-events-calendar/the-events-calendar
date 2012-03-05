@@ -195,7 +195,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_events_before_html() {
-		echo apply_filters('tribe_events_before_html', stripslashes(tribe_get_option('spEventsBeforeHTML')));
+		echo apply_filters('tribe_events_before_html', stripslashes(tribe_get_option('tribeEventsBeforeHTML')));
 	}
 
 	/**
@@ -206,7 +206,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_events_after_html() {
-		echo apply_filters('tribe_events_after_html', stripslashes(tribe_get_option('spEventsAfterHTML')));
+		echo apply_filters('tribe_events_after_html', stripslashes(tribe_get_option('tribeEventsAfterHTML')));
 	}
 	
 	/**

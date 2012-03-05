@@ -280,6 +280,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 			self::debug(sprintf(__('Initializing Tribe Events on %s','tribe-events-calendar'),date('M, jS \a\t h:m:s a')));
 			$this->maybeMigrateDatabase();
+			$this->maybeRenameOptions();
 			$this->maybeSetTECVersion();
 			$this->initOptions();
 		}
@@ -302,12 +303,29 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				update_option('tribe_events_db_version', '2.0.1');
 			}
 		}
-
-		public function maybeSetTECVersion() {
-			if(!$this->getOption('latest_ecp_version') ) {
-				if ( version_compare($this->getOption('latest_ecp_version'), self::VERSION, '<') )
-					$this->setOption('latest_ecp_version', self::VERSION);
+		
+		public function maybeRenameOptions() {
+			if ( version_compare( $this->getOption('latest_ecp_version'), '2.1', '<' ) ) {
+				$option_names = array(
+					'spEventsTemplate' => 'tribeEventsTemplate',
+					'spEventsBeforeHTML' => 'tribeEventsBeforeHTML',
+					'spEventsAfterHTML' => 'tribeEventsAfterHTML',
+				);
+				$old_option_names = array_keys( $option_names );
+				$new_option_names = array_values( $option_names );
+				$new_options = array();
+				$current_options = self::getOptions();
+				for ( $i = 0; $i < count( $old_option_names ); $i++ ) {
+					$new_options[$new_option_names[$i]] = $this->getOption( $old_option_names[$i] );
+					unset( $current_options[$old_option_names[$i]] );
+				}
+				$this->setOptions( wp_parse_args( $new_options, $current_options ) );
 			}
+		}
+		
+		public function maybeSetTECVersion() {
+			if ( version_compare($this->getOption('latest_ecp_version'), self::VERSION, '<') )
+				$this->setOption('latest_ecp_version', self::VERSION);
 		}
 
 		/**
@@ -467,9 +485,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				if ( $_POST['current-settings-tab'] == 'template' ) {
 					$options = self::getOptions();
 					$opts = array(
-					'spEventsAfterHTML',
-					'spEventsBeforeHTML',
-					'spEventsTemplate'					
+					'tribeEventsAfterHTML',
+					'tribeEventsBeforeHTML',
+					'tribeEventsTemplate'					
 					);
 					foreach ($opts as $opt) {
 						if(isset($_POST[$opt]))
@@ -644,10 +662,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			} elseif(get_query_var('eventDisplay') == 'day') {
 				$new_title = sprintf(__("Events for %s", 'tribe-events-calendar'),date_i18n("F d, Y",strtotime(get_query_var('eventDate')))) . ' '. $sep . ' ' . $title;
-         } elseif(get_query_var('post_type') == self::POSTTYPE && is_single() && $this->getOption('spEventsTemplate') != '' ) {
+         } elseif(get_query_var('post_type') == self::POSTTYPE && is_single() && $this->getOption('tribeEventsTemplate') != '' ) {
 				global $post;
 				$new_title = $post->post_title . ' '. $sep . ' ' . $title;
-			} elseif(get_query_var('post_type') == self::VENUE_POST_TYPE && $this->getOption('spEventsTemplate') != '' ) {
+			} elseif(get_query_var('post_type') == self::VENUE_POST_TYPE && $this->getOption('tribeEventsTemplate') != '' ) {
 				global $post;
 				$new_title = sprintf(__("Events at %s", 'tribe-events-calendar'), $post->post_title) . ' '. $sep . ' ' . $title;
 			} else {
