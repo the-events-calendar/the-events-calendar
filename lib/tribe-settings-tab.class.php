@@ -21,14 +21,14 @@ if ( !class_exists('TribeSettingsTab') ) {
 		public static $show_save;
 		public static $display_callback;
 
-		public function __construct($id, $name, $fields = array(), $order = null, $show_save = true, $display_callback = false) {
+		public function __construct($id, $name, $fields = array(), $placement = null, $show_save = true, $display_callback = false) {
 
 			// set instance variables
 			$this->id = apply_filters( 'tribe_settings_tab_id', $id );
 			$this->name = apply_filters( 'tribe_settings_tab_name', $name );
 			$this->fields = apply_filters( 'tribe_settings_tab_fields', $fields );
 			$this->show_save = apply_filters( 'tribe_settings_tab_show_save', $show_save );
-			$this->order = apply_filters( 'tribe_settings_tab_order', $order );
+			$this->placement = apply_filters( 'tribe_settings_tab_placement', $placement );
 			$this->display_callback = apply_filters( 'tribe_settings_tab_display_callback', $display_callback );
 
 			// run actions & filters

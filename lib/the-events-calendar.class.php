@@ -339,6 +339,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			do_action('tribe_settings_new_tabs');
 			new TribeSettingsTab( 'general', __('General', 'tribe-events-calendar') );
 			new TribeSettingsTab( 'template', __('Template', 'tribe-events-calendar') );
+			do_action('tribe_settings_tabs_after_template');
 			new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar') );
 			new TribeSettingsTab( 'help', __('Help', 'tribe-events-calendar') );
 			TribeSettings::instance();
