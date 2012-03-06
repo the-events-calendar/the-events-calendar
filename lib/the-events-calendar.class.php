@@ -33,8 +33,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'show_ui' => true,
 			'show_in_menu' => 0,
 			'supports' => array('title', 'editor'),
-			//'capability_type' => array('tribe_venue', 'tribe_venues'),
-			//'map_meta_cap' => TRUE,
+			'capability_type' => array('tribe_venue', 'tribe_venues'),
 			'exclude_from_search' => true
 		);
 		protected $postOrganizerTypeArgs = array(
@@ -44,8 +43,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'show_in_menu' => 0,
 			'menu_position' => 6,
 			'supports' => array(''),
-			//'capability_type' => array('tribe_organizer', 'tribe_organizers'),
-			//'map_meta_cap' => TRUE,
+			'capability_type' => array('tribe_organizer', 'tribe_organizers'),
 			'exclude_from_search' => true
 		);
 		protected $taxonomyLabels;
