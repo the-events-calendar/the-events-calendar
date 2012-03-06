@@ -44,7 +44,7 @@ $more_text = __('More...', 'tribe-events-calendar');
 </div>
 <?php printf( _n('Based on %s rating', 'Based on %s ratings', $tec_info['num_ratings'], 'tribe-events-calendar' ), $tec_info['num_ratings'] ); ?>
 <br />
-<?php _e('Give us 5 stars!', 'tribe-events-calendar'); ?>
+<a href="http://wordpress.org/extend/plugins/the-events-calendar/"><?php _e('Give us 5 stars!', 'tribe-events-calendar'); ?></a>
 <h3><?php _e('Free Add-Ons', 'tribe-events-calendar'); ?></h3>
 <ul>
 <li><a href="http://wordpress.org/extend/plugins/advanced-post-manager/?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin">Advanced Post Manager</a></li>
@@ -63,9 +63,9 @@ $more_text = __('More...', 'tribe-events-calendar');
 <ul>
 <?php
 foreach ( $news_feed as $item ) {
-	echo( '<li><a href="' . $item['link'] . '">' . $item['title'] . '</a></li>' );
+	echo( '<li><a href="' . $item['link'] . '?utm_source=helptab&utm_medium=news&utm_campaign=plugin">' . $item['title'] . '</a></li>' );
 }
-echo '<li><a href="http://tri.be/category/products/feed/">' . $more_text . '</a></li>';
+echo '<li><a href="http://tri.be/category/products/?utm_source=helptab&utm_medium=news&utm_campaign=plugin">' . $more_text . '</a></li>';
 ?>
 </ul>
 </div>
@@ -83,4 +83,4 @@ echo '<li><a href="http://tri.be/category/products/feed/">' . $more_text . '</a>
 <h3><?php _e('Everyone Needs a Buddy', 'tribe-events-calendar'); ?></h3>
 <p class="admin-indent"><?php _e('Good thing about being a PRO user is that you are not alone. Take advantage of our awesome community and smart, friendly support team.', 'tribe-events-calendar'); ?></p>
 <p class="admin-indent"><?php _e('How to submit your issue to the support forum:', 'tribe-events-calendar'); ?></p>
-<p class="admin-indent"><a href="http://tri.be/support/forums/"><?php _e('Modern Tribe Support Forum', 'tribe-events-calendar'); ?></p>
+<p class="admin-indent"><a href="http://tri.be/support/forums/?utm_source=helptab&utm_medium=supportlink&utm_campaign=plugin"><?php _e('Modern Tribe Support Forum', 'tribe-events-calendar'); ?></p>
