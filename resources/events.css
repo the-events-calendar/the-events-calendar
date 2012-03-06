@@ -166,14 +166,14 @@ select.tribe-events-dropdown {
 	overflow:hidden;
 	margin-bottom:0;
 }
-.single-sp_venue .upcoming .entry-title, .events-archive .upcoming .entry-title {
+.single-tribe_venue .upcoming .entry-title, .events-archive .upcoming .entry-title {
 	margin:15px 0 6px;
 	font-size:18px;
 	font-weight:bold;
 	line-height: 1em;
 	padding: 0;
 }
-.events-archive .event-day, .single-sp_venue .event-day, .venue-events .event-day {
+.events-archive .event-day, .single-tribe_venue .event-day, .venue-events .event-day {
 	font-size:18px;
 	margin-top:18px !important;
 	font-style:italic;

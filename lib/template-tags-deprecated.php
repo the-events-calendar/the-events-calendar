@@ -10,28 +10,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 if ( class_exists('TribeEvents') ) {
 
-	if (!function_exists( 'tribe_is_recurring_event' )) {
-		/**
-		 * Moved to ECP. Delete in 2.1
-		 */
-		function tribe_is_recurring_event( $postId = null )  {
-			$tribe_ecp = TribeEvents::instance();
-			$postId = TribeEvents::postIdHelper( $postId );
-			return sizeof(get_post_meta($postId, '_EventStartDate')) > 1;
-		}
-	}
-
-	if (!function_exists( 'tribe_get_recurrence_text' )) {
-		/**
-		 * Moved to ECP. Delete in 2.1
-		 */
-		function tribe_get_recurrence_text( $postId = null )  {
-			$postId = TribeEvents::postIdHelper( $postId );
-			$tribe_ecp = TribeEvents::instance();
-	  	return (class_exists('TribeEventsRecurrenceMeta')) ? apply_filters( 'tribe_get_recurrence_text', TribeEventsRecurrenceMeta::recurrenceToText( $postId ) ) : '';
-		}
-	}
-
 	function event_grid_view() {
 		_deprecated_function( __FUNCTION__, '2.0', 'tribe_calendar_grid()' );
 		tribe_calendar_grid();

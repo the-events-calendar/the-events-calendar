@@ -23,12 +23,6 @@
 .ui-dialog .ui-dialog-content { border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
 .ui-dialog .ui-dialog-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
 .ui-dialog .ui-dialog-buttonpane button { float: right; margin: .5em .4em .5em 0; cursor: pointer; padding: .2em .6em .3em .6em; line-height: 1.4em; width:auto; overflow:visible; text-shadow:none; }
-
-/* fixes for listing page */
-.edit-php .ui-dialog .ui-dialog-buttonpane button {padding: 0;}
-.edit-php .ui-button-text-only .ui-button-text {padding: 5px;}
-
-
 .ui-dialog .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
 .ui-draggable .ui-dialog-titlebar { cursor: move; }
 
@@ -209,4 +203,52 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #
 
 .tribe_settings #pu_dashboard_message{
 display: none;
+}
+.tribe_settings .expiring-license{color: red;}
+
+.tribe_settings .tribe-error { 
+	border: 1px solid #F00;
+}
+
+/* Chosen css adjustments */
+.chosen, .chzn-container {
+	margin-right: 10px!important;
+}
+.venue-dropdown, .organizer-dropdown, .events-dropdown, #eventsDefaultState, #defaultCountry {
+	width: 220px !important;
+}
+.multi-day-cutoff-dropdown {
+	width: 100px !important;
+}
+
+/* fix for widgets + chosen support */
+.widget-liquid-right .widget, .inactive-sidebar .widget, .widget-liquid-right .sidebar-description {
+	overflow: visible !important;
+}
+
+/* Settings Tabs CSS */
+.admin-indent {
+	margin-left: 15px;
+}
+
+/* Ratings Stars */
+.star-holder {
+	position: relative;
+	height: 19px;
+	width: 100px;
+	font-size: 19px;
+}
+
+.star {
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: transparent;
+	letter-spacing: 1ex;
+	border: none;
+}
+
+.star-rating {
+	background-color: #FC0;
 }

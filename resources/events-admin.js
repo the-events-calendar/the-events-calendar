@@ -1,4 +1,11 @@
 jQuery(document).ready(function($) {
+
+	// Load the Chosen JQuery plugin for all select elements with the class 'chosen'.
+	$(".chosen").chosen();
+
+	//not done by default on front end
+	$('.hide-if-js').hide();
+
 	if(typeof(TEC) != 'undefined'){	
 		var datepickerOpts = { 
 			dateFormat: 'yy-mm-dd',
@@ -262,6 +269,34 @@ jQuery(document).ready(function($) {
 	function setupSubmitButton() {
 		//publishing-action		
 	}
+
+	$('.wp-admin.events-cal .submitdelete').click(function(e) {
+
+		var link = $(this);
+		var isRecurringLink = $(this).attr('href').split('&eventDate');
+
+		if(isRecurringLink[1]) {
+			e.preventDefault();
+
+			$('#deletion-dialog').dialog({
+				//submitdelete
+				modal: true,
+				buttons: [{
+					text: "Delete just this occurrence.",
+					click: function() {
+						document.location = link.attr('href') + '&event_start=' + $(this).data('start');
+					}
+				},
+				{
+					text: "Delete all occurrences of this event.",
+					click: function() {
+						document.location = link.attr('href') + '&deleteAll';
+					}
+				}]
+			});
+		}
+
+	});
 
 	// recurrence ui
 	$('[name="recurrence[type]"]').change(function() {
