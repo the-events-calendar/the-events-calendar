@@ -2016,6 +2016,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$options = '';
 			$style = '';
 			$postId = $post->ID;
+			$saved = false;
 
 			if($post->post_type == self::ORGANIZER_POST_TYPE){
 
