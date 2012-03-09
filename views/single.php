@@ -95,7 +95,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<?php the_post_thumbnail(); ?>
 	<?php } ?>
 	<div class="summary"><?php the_content() ?></div>
-	<?php if (function_exists('tribe_get_ticket_form')) { tribe_get_ticket_form(); } ?>		
+	<?php if (function_exists('tribe_get_ticket_form') && tribe_get_ticket_form()) { tribe_get_ticket_form(); } ?>		
 </div>
 <?php if( function_exists('tribe_get_single_ical_link') ): ?>
    <a class="ical single" href="<?php echo tribe_get_single_ical_link(); ?>"><?php _e('iCal Import', 'tribe-events-calendar'); ?></a>
