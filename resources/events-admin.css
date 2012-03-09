@@ -252,3 +252,8 @@ display: none;
 .star-rating {
 	background-color: #FC0;
 }
+
+.admin-list {
+	list-style-type: square;
+	margin-left: 35px;
+}

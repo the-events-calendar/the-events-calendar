@@ -24,7 +24,18 @@ foreach( $news_rss->getElementsByTagName( 'item' ) as $node ) {
 	if (++$i >= 5) break;
 }
 
+$getting_started_text = sprintf( __('%sIf this is your first time using The Events Calendar, you\'re in for a treat. The more adventurous users can jump right into it by finding the "Events" section in the admin menu to the left of this message and getting down to it. For those who like to dip their toes before diving in full-on, we\'ve got you covered too. First things first: visit our %s, designed with folks exactly like yourself in mind and meant to familiarize you with the plugin\'s basics. From there, the Resources listed below (meant to help you kick ass, of course) should keep up the momentum.%s', 'tribe-events-calendar'), '<p class="admin-indent">', sprintf( '<a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/">%s</a>', __('new user primer', 'tribe-events-calendar') ), '</p>' );
+$enb_text[] = sprintf( __('%sWe love all our users and want to help free & PRO customers alike. If you\'re running the latest version of The Events Calendar and are having problems, post a thread the %s at WordPress.org. We hit the forum a few times a week and do what we can to assist users.%s', 'tribe-events-calendar'), '<p class="admin-indent">', sprintf( '<a href="http://wordpress.org/tags/the-events-calendar?forum_id=10">%s</a>', __('forum for The Events Calendar', 'tribe-events-calendar') ), '</p>' );
+$enb_text[] = sprintf( __('%sA few things to keep in mind before posting:%s', 'tribe-events-calendar'), '<p class="admin-indent">', '</p><ul class="admin-list">' );
+$enb_text[] = sprintf( __('%sLook through the recent active threads before posting a new one and check that there isn\'t already a discussion going on your issue.%s', 'tribe-events-calendar'), '<li>', '</li>' );
+$enb_text[] = sprintf( __('%sA good way to help us out before posting is to check whether the issue is a conflict with another plugin or your theme. This can be tested relatively easily on a staging site by deactivating other plugins one-by-one, and reverting to the default 2011 theme as needed, to see if conflicts can be easily identified. If so, please note that when posting your thread.%s', 'tribe-events-calendar'), '<li>', '</li>' );
+$enb_text[] = sprintf( __('%sSometimes, just resaving your permalinks (under Settings -> Permalinks) can resolve events-related problems on your site. It is worth a shot before creating a new thread.%s', 'tribe-events-calendar'), '<li>', '</li>' );
+$enb_text[] = sprintf( __('%sMake sure you\'re running The Events Calendar, rather than Events Calendar. They\'re two separate plugins :)%s', 'tribe-events-calendar'), '<li>', '</li></ul>' );
+$enb_text[] = sprintf( __('%sWhile our team is happy to help with bugs and provide light integration tips for users of The Events Calendar, we\'re not able to provide customization tips or assist in integrating with 3rd party plugins on the WordPress.org forums.%s', 'tribe-events-calendar'), '<p class="admin-indent">', '</p>' );
+$enb_text = implode( $enb_text );
+$sns_text = sprintf( __('%sShoot us an email to %s or tweet to %s and tell us why. We\'ll do what we can to make it right.%s', 'tribe-events-calendar'), '<p class="admin-indent">', sprintf( '<a href="mailto:pro@tri.be">%s</a>', __('pro@tri.be', 'tribe-events-calendar') ), sprintf( '<a href="http://www.twitter.com/moderntribeinc">%s</a>', __('@moderntribeinc', 'tribe-events-calendar') ), '</p>' );
 $more_text = __('More...', 'tribe-events-calendar');
+
 ?>
 <p><?php echo( $up_to_date ); ?></p>
 <p><b><?php _e('Latest Version:', 'tribe-events-calendar'); ?></b> <?php echo( $tec_info['version'] ); ?><br />
@@ -71,7 +82,7 @@ echo '<li><a href="http://tri.be/category/products/?utm_source=helptab&utm_mediu
 </div>
 <p><?php _e('Hi! Thank you so much for using the labor of our love. We are Modern Tribe and we are here to help you kick ass.', 'tribe-events-calendar'); ?></p>
 <h3><?php _e('Getting Started', 'tribe-events-calendar'); ?></h3>
-<p class="admin-indent"><?php _e('This is where information and help for new users will be. Rob is working on drafting all sorts of useful information for The Events Calendar first time users. Yay!!!', 'tribe-events-calendar'); ?></p>
+<?php echo( apply_filters( 'tribe-settings-help-getting-started-content', $getting_started_text ) ); ?>
 <h3><?php _e('Resources to Help You Kick Ass', 'tribe-events-calendar'); ?></h3>
 <ul class="admin-indent">
 <li><a href="http://tri.be/support/documentation/?utm_source=helptab&utm_medium=supportlink&utm_campaign=plugin"><?php _e('Documentation', 'tribe-events-calendar'); ?></a></li>
@@ -81,6 +92,6 @@ echo '<li><a href="http://tri.be/category/products/?utm_source=helptab&utm_mediu
 <li><a href="http://tri.be/category/products/release-notes/?utm_source=helptab&utm_medium=supportlink&utm_campaign=plugin"><?php _e('Release Notes', 'tribe-events-calendar'); ?></a></li>
 </ul>
 <h3><?php _e('Everyone Needs a Buddy', 'tribe-events-calendar'); ?></h3>
-<p class="admin-indent"><?php _e('Good thing about being a PRO user is that you are not alone. Take advantage of our awesome community and smart, friendly support team.', 'tribe-events-calendar'); ?></p>
-<p class="admin-indent"><?php _e('How to submit your issue to the support forum:', 'tribe-events-calendar'); ?></p>
-<p class="admin-indent"><a href="http://tri.be/support/forums/?utm_source=helptab&utm_medium=supportlink&utm_campaign=plugin"><?php _e('Modern Tribe Support Forum', 'tribe-events-calendar'); ?></p>
+<?php echo( apply_filters( 'tribe-settings-help-enb-content', $enb_text ) ); ?>
+<h3><?php _e('Still Not Satisfied?', 'tribe-events-calendar'); ?></h3>
+<?php echo( apply_filters( 'tribe-settings-sns-content', $sns_text ) ); ?>
