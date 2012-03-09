@@ -6,7 +6,7 @@
    <?php $customFields[] = array() ?>
 	<?php foreach ( $customFields as $customField ): ?> 
 		<tr>
-         <td><input type="text" name="custom-field-<?php echo esc_attr($count) ?>" data-persisted='<?php echo $count != sizeof($customFields) ? "yes" : "no" ?>' data-name-template='custom-field-' data-count='<?php echo esc_attr($count) ?>' value="<?php echo esc_attr(isset($customField['label']) ? $customField['label'] : "") ?>"/></td>
+         <td><input type="text" name="custom-field-<?php echo esc_attr($count) ?>" data-persisted='<?php echo $count != sizeof($customFields) ? "yes" : "no" ?>' data-name-template='custom-field-' data-count='<?php echo esc_attr($count) ?>' value="<?php echo isset($customField['label']) ? esc_attr(stripslashes($customField['label'])) : ""; ?>"/></td>
 			<td>
 				<select name="custom-field-type-<?php echo $count ?>" data-name-template='custom-field-type-' data-count='<?php echo $count ?>'>
 					<option value="text" <?php selected(isset($customField['type']) && $customField['type'] == 'textarea') ?>><?php _e('Text','tribe-events-calendar-pro'); ?></option>
