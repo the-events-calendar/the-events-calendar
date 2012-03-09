@@ -1,4 +1,37 @@
 	<?php $tribeEvents = TribeEvents::instance(); ?>
+	<script type="text/javascript">
+jQuery(document).ready(function($) {
+
+	// toggle view of the venue defaults fields
+	$('#defaultValueReplace').change(function() {
+		updateDefaultsFields();
+	})
+	function updateDefaultsFields() {
+		if($('#defaultValueReplace').attr("checked")) {
+			$('.tribe-defaults-dropdown').show();
+			updateVenueFields();
+		} else {
+			$('.tribe-defaults-dropdown').hide();
+			$('.venue-default-info').hide();
+		}		
+	}
+	
+	// toggle view of the venue defaults fields
+	$('[name="eventsDefaultVenueID"]').change(function() {
+		updateVenueFields();
+	})
+	function updateVenueFields() {
+		if($('[name="eventsDefaultVenueID"]').find('option:selected').val() != "0") {
+			$('.venue-default-info').hide();
+		} else {
+			$('.venue-default-info').show();
+		}		
+	}
+	
+	updateVenueFields();
+	updateDefaultsFields();
+});
+</script>
 	<h3><?php _e('Customize Defaults', 'tribe-events-calendar-pro'); ?></h3>
 	<p><?php _e('These settings change the default event form. For example, if you set a default venue, this field will be automatically filled in on a new event.', 'tribe-events-calendar-pro') ?></p>
 	<table class="form-table">
@@ -10,13 +43,13 @@
 	                    <span><?php _e('Automatically replace empty fields with default values','tribe-events-calendar-pro'); ?></span>
 	                </legend>
 	                <label title='Replace empty fields'>
-	                    <input type="checkbox" name="defaultValueReplace" value="1" <?php checked( tribe_get_option('defaultValueReplace') ); ?> /> 
+	                    <input id="defaultValueReplace" type="checkbox" name="defaultValueReplace" value="1" <?php checked( tribe_get_option('defaultValueReplace') ); ?> /> 
 	                    <?php _e('Enabled','tribe-events-calendar-pro'); ?>
 	                </label>
 	            </fieldset>
 	        </td>
 		</tr>
-			<tr>
+			<tr class="tribe-defaults-dropdown">
 				<th scope="row"><?php _e('Default Organizer for Events', 'tribe-events-calendar-pro'); ?></th>
 				<td>
 				<fieldset>
@@ -25,7 +58,7 @@
 					<?php echo (tribe_get_option('eventsDefaultOrganizerID') != 0) ? sprintf( __('<em>The current default value is:</em> <strong>%s</strong>', 'tribe-events-calendar-pro' ), tribe_get_organizer(tribe_get_option('eventsDefaultOrganizerID')) ) : '<em>'.__('No default value set').'</em>';  ?>
 				</fieldset></td>
 			</tr>
-			<tr>
+			<tr class="tribe-defaults-dropdown">
 				<th scope="row"><?php _e('Default Venue for Events', 'tribe-events-calendar-pro'); ?></th>
 				<td>
 				<fieldset>
