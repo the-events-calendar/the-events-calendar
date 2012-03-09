@@ -10,20 +10,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 <script type="text/javascript">
 jQuery(document).ready(function($) {
-
-	// toggle view of the venue defaults fields
-	$('[name="eventsDefaultVenueID"]').change(function() {
-		updateVenueFields();
-	})
-	function updateVenueFields() {
-		if($('[name="eventsDefaultVenueID"]').find('option:selected').val() != "0") {
-			$('.venue-default-info').hide();
-		} else {
-			$('.venue-default-info').show();
-		}		
-	}
-	updateVenueFields();
-
 	// toggle view of the google maps size fields
 	$('#embedGoogleMaps').change(function() {
 		updateMapsFields();
