@@ -34,7 +34,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0.1
 	 */
 	function tribe_create_venue($args) {
-		$postId = TribeEventsAPI::createEvent($args);
+		$postId = TribeEventsAPI::createVenue($args);
 		return $postId;
 	}
 
@@ -51,7 +51,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0.1
 	 */
 	function tribe_update_venue($postId, $args) {
-		$postId = TribeEventsAPI::updateEvent($postId, $args);
+		$postId = TribeEventsAPI::updateVenue($postId, $args);
 		return $postId;
 	}
 
