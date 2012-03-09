@@ -80,6 +80,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'tribe_validate_form_settings', array( $this, 'validateDefaultsSettings' ) );
 			add_action( 'tribe-events-before-general-settings', array( $this, 'event_license_key') );
 			add_filter( 'tribe_current_events_page_template', array( $this, 'select_venue_template' ) );
+			add_filter( 'tribe-settings-help-getting-started-content', array( $this, 'add_help_tab_getting_started_text' ) );
+			add_filter( 'tribe-settings-help-enb-content', array( $this, 'add_help_tab_enb_text' ) );
 			add_filter( 'tribe_events_template_single-venue.php', array( $this, 'load_venue_template' ) );
 			add_action( 'widgets_init', array( $this, 'pro_widgets_init' ), 100 );
 			add_action( 'wp_loaded', array( $this, 'allow_cpt_search' ) );
@@ -266,6 +268,27 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					$tribeEvents->setOptions($options);
 				}
 			} 
+		}
+		
+		public function add_help_tab_getting_started_text() {
+			$getting_started_text[] = sprintf( __('%sWelcome to Events Calendar PRO, a full-featured events management system for WordPress. By buying a license you\'ve given us a vote of confidence and have hooked yourself up with some sweet new features not found in the free The Events Calendar.%s', 'tribe-events-calendar-pro'), '<p class="admin-indent">', '</p>' );
+			$getting_started_text[] = sprintf( __('%sIf you aren\'t familiar with The Events Calendar, it may be wise to check out our %s. It\'ll introduce you to the basics of what the plugin has to offer and will have you creating events in no time. From there, the resources below -- extensive template tag documentation, FAQs, video walkthroughs and more -- will give you a leg up as you dig deeper into it.%s', 'tribe-events-calendar-pro'), '<p class="admin-indent">', sprintf( '<a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/">%s</a>', __('new user primer', 'tribe-events-calendar-pro') ), '</p>' );
+			$getting_started_text[] = sprintf( __('%sOh, wondering what to do with your license key and whether you need it before you can get into event creation? Check out %s on that subject for an answer. %s, too.%s', 'tribe-events-calendar-pro'), '<p class="admin-indent">', sprintf( '<a href="http://tri.be/events-calendar-pro-license-keys-when-you-need-them-when-you-dont/">%s</a>', __('our blog post', 'tribe-events-calendar-pro') ), sprintf( '<a href="http://tri.be/finding-your-pro-license-key-re-downloading-the-plugin/">%s</a>', __('Here\'s how you find your license key') ), '</p>' );
+			$content = implode( $getting_started_text );
+			
+			return $content;
+		}
+		
+		public function add_help_tab_enb_text() {
+			$enb_text[] = sprintf( __('%sOne of the advantages of being a PRO user is that you have access to our PRO-exclusive forums at %s. Our support staff hits the forums on a daily basis, and what they can\'t answer on the spot they\'ll bring a member of our dev team in to address directly.%s', 'tribe-events-calendar-pro'), '<p class="admin-indent">', sprintf( '<a href="http://tri.be/support/forums">%s</a>', __('tri.be', 'tribe-events-calendar-pro') ), '</p>' );
+			$enb_text[] = sprintf( __('%sSome things to consider before posting on the forum:%s', 'tribe-events-calendar'), '<p class="admin-indent">', '</p><ul class="admin-list">' );
+			$enb_text[] = sprintf( __('%sLook through existing threads before posting a new one and check that there isn\'t already a discussion going on your issue. The tri.be site has a solid search function that should help find what you\'re looking for, if it indeed already is present.%s', 'tribe-events-calendar'), '<li>', '</li>' );
+			$enb_text[] = sprintf( __('%sA good way to help us out before posting is to check whether the issue is a conflict with another plugin or your theme. This can be tested relatively easily on a staging site by deactivating other plugins one-by-one, and reverting to the default 2011 theme as needed, to see if conflicts can be easily identified. If so, please note that when posting your thread.%s', 'tribe-events-calendar'), '<li>', '</li>' );
+			$enb_text[] = sprintf( __('%sSometimes, just resaving your permalinks (under Settings -> Permalinks) can resolve events-related problems on your site. It is worth a shot before creating a new thread.%s', 'tribe-events-calendar'), '<li>', '</li></ul>' );
+			$enb_text[] = sprintf( __('%sWhile we won\'t build your site for you and can\'t guarantee The Events Calendar/PRO to play nicely with every theme and plugin out there, our team will do our best to help you get it functioning nicely with your site. And as an added bonus, once you\'re done you can post it in the %s so the rest of the community can see what you\'ve been working on.%s', 'tribe-events-calendar'), '<p class="admin-indent">', sprintf( '<a href="http://tri.be/support/forums/topic/showcase-2-0/">%s</a>', __('Showcase thread', 'tribe-events-calendar-pro') ), '</p>' );
+			$content = implode ( $enb_text );
+			
+			return $content;
 		}
 
       public function event_license_key() {
