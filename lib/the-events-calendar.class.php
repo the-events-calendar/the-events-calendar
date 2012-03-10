@@ -18,6 +18,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		const PLUGIN_DOMAIN = 'tribe-events-calendar';
 		const VERSION = '2.0.5';
 		const FEED_URL = 'http://tri.be/category/products/feed/';
+		const INFO_API_URL = 'http://wpapi.org/api/plugin/the-events-calendar.php';
+		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
 		protected $postTypeArgs = array(
 			'public' => true,
