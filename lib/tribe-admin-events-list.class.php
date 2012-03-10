@@ -213,7 +213,7 @@ if (!class_exists('TribeEventsAdminList')) {
 				}
 				if ( $column_id == 'start-date' ) {
 					echo tribe_event_format_date(strtotime(self::$events_list[0]->EventStartDate), false);
-					if ( ! self::$end_col_active ) self::advance_date();
+					if ( ! self::$end_col_active || ! self::$start_col_first ) self::advance_date();
 				}
 				if ( $column_id == 'end-date' ) {
 					echo tribe_event_format_date(strtotime(self::$events_list[0]->EventEndDate), false);
