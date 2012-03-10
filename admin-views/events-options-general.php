@@ -24,22 +24,6 @@
 	</td>
 </tr>
 <tr>
-	<th scope="row"><?php _e('Show events in main WordPress loops','tribe-events-calendar'); ?></th>
-	<td>
-		<fieldset>
-			<legend class="screen-reader-text">
-				<span><?php _e('Show events in main WordPress Loops','tribe-events-calendar'); ?></span>
-			</legend>
-			<label title='<?php _e('Show events in main WordPress Loops','tribe-events-calendar'); ?>'>
-				<input type="checkbox" name="showInLoops" value="1" <?php checked( tribe_get_option('showInLoops') ) ?> />
-			</label>
-		</fieldset>
-				<div>
-					<?php _e('This will display events anywhere posts are displayed (main Loop, tag pages, etc...)','tribe-events-calendar'); ?>
-				</div>
-	</td>
-</tr>
-<tr>
 	<th scope="row"><?php _e('Number of events to show per page in the loop','tribe-events-calendar'); ?></th>
 	<td>
 		<fieldset>

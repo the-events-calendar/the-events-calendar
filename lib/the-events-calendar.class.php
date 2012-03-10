@@ -179,7 +179,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-view-helpers.class.php' );
 			require_once( 'tribe-settings.class.php' );
 			require_once( 'tribe-settings-tab.class.php' );
+			require_once( 'tribe-field.class.php' );
 			require_once( 'tribe-debug-bar.class.php' );
+			require_once( $this->pluginPath.'tests/tab-test.php' );
 		}
 
 		protected function addFilters() {
@@ -233,9 +235,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				add_action( 'tribe-events-before-general-settings', array($this, 'maybeShowSettingsUpsell'));
 			}
 			// option pages
-			add_action( 'tribe-events-general-settings-content', array($this, 'optionsPageViewGeneral') );
-			add_action( 'tribe-events-template-settings-content', array($this, 'optionsPageViewTemplate') );
-			add_action( 'tribe-events-help-settings-content', array( &$this, 'addHelpSettingsContent' ) );
+			add_action( 'tribe_settings_content_tab_general', array($this, 'optionsPageViewGeneral') );
+			add_action( 'tribe_settings_content_tab_template', array($this, 'optionsPageViewTemplate') );
+			add_action( 'tribe_settings_content_tab_help', array( &$this, 'addHelpSettingsContent' ) );
 			add_action( 'tribe_validate_form_settings', array( $this, 'validateGeneralSettings' ) );
 			add_action( 'tribe_validate_form_settings', array( $this, 'validateTemplateSettings' ) );
 		}
@@ -342,6 +344,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			do_action('tribe_settings_tabs_after_template');
 			new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar') );
 			new TribeSettingsTab( 'help', __('Help', 'tribe-events-calendar') );
+			do_action('tribe_settings_tabs_after_help');
 			TribeSettings::instance();
 		}
 
@@ -486,9 +489,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				if ( $_POST['current-settings-tab'] == 'template' ) {
 					$options = self::getOptions();
 					$opts = array(
-					'tribeEventsAfterHTML',
-					'tribeEventsBeforeHTML',
-					'tribeEventsTemplate'					
+						'tribeEventsAfterHTML',
+						'tribeEventsBeforeHTML',
+						'tribeEventsTemplate'					
 					);
 					foreach ($opts as $opt) {
 						if(isset($_POST[$opt]))

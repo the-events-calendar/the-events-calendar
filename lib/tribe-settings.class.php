@@ -46,11 +46,11 @@ if ( !class_exists('TribeSettings') ) {
 			$this->errors = (array) apply_filters( 'tribe_settings_errors', array() );
 
 			// run actions & filters
-			add_action( 'admin_menu', array( &$this, 'addPage' ) );
-			add_action( 'admin_init', array( &$this, 'save' ) );
-			add_action( 'tribe_validate_form_settings', array( &$this, 'validate' ) );
-			add_action( 'tribe_events_options_top', array( &$this, 'displayErrors' ) );
-			add_action( 'tribe_events_options_top', array( &$this, 'displaySuccess' ) );
+			add_action( 'admin_menu', array( $this, 'addPage' ) );
+			add_action( 'admin_init', array( $this, 'save' ) );
+			add_action( 'tribe_validate_form_settings', array( $this, 'validate' ) );
+			add_action( 'tribe_events_options_top', array( $this, 'displayErrors' ) );
+			add_action( 'tribe_events_options_top', array( $this, 'displaySuccess' ) );
 		}
 
 		/**
