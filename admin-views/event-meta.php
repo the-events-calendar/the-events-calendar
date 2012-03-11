@@ -8,7 +8,7 @@ if ( empty($customFields) || !is_array($customFields) ) {
       <?php foreach ($customFields as $customField): ?>
          <?php $val = get_post_meta(get_the_ID(), $customField['name'], true) ?>
          <tr>
-            <td><?php echo esc_html($customField['label']) ?></td>
+            <td><?php echo esc_html(stripslashes($customField['label'])) ?></td>
             <td>
                <?php $options = explode("\n", $customField['values']) ?> 
                <?php if($customField['type'] == 'text'): ?>
