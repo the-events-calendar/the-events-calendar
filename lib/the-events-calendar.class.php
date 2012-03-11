@@ -25,7 +25,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'menu_position' => 6,
 			'supports' => array('title','editor','excerpt','author','thumbnail', 'custom-fields'),
 			'taxonomies' => array('post_tag'),
-			'capability_type' => array('tribe_event', 'tribe_events')
+			'capability_type' => array('tribe_event', 'tribe_events'),
+			'map_meta_cap' => true
 		);
 		protected $postVenueTypeArgs = array(
 			'public' => true,
@@ -34,6 +35,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'show_in_menu' => 0,
 			'supports' => array('title', 'editor'),
 			'capability_type' => array('tribe_venue', 'tribe_venues'),
+			'map_meta_cap' => true,
 			'exclude_from_search' => true
 		);
 		protected $postOrganizerTypeArgs = array(
@@ -44,6 +46,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'menu_position' => 6,
 			'supports' => array(''),
 			'capability_type' => array('tribe_organizer', 'tribe_organizers'),
+			'map_meta_cap' => true,
 			'exclude_from_search' => true
 		);
 		protected $taxonomyLabels;
@@ -743,38 +746,162 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			register_post_type(self::VENUE_POST_TYPE, $this->postVenueTypeArgs);
 			register_post_type(self::ORGANIZER_POST_TYPE, $this->postOrganizerTypeArgs);
 
-         $role = get_role( 'administrator' );
-         $role->add_cap( 'edit_tribe_event' );
-         $role->add_cap( 'read_tribe_event' );
-         $role->add_cap( 'delete_tribe_event' );
-         $role->add_cap( 'edit_tribe_events' );
-         $role->add_cap( 'edit_others_tribe_events' );
-         $role->add_cap( 'publish_tribe_events' );
-         $role->add_cap( 'read_private_tribe_events' );
+			$role = get_role( 'administrator' );
+			$role->add_cap( 'edit_tribe_event' );
+			$role->add_cap( 'read_tribe_event' );
+			$role->add_cap( 'delete_tribe_event' );
+			$role->add_cap( 'delete_tribe_events');
+			$role->add_cap( 'edit_tribe_events' );
+			$role->add_cap( 'edit_others_tribe_events' );
+			$role->add_cap( 'delete_others_tribe_events' );
+			$role->add_cap( 'publish_tribe_events' );
+			$role->add_cap( 'edit_published_tribe_events' );
+			$role->add_cap( 'delete_published_tribe_events' );
+			$role->add_cap( 'delete_private_tribe_events' );
+			$role->add_cap( 'edit_private_tribe_events' );
+			$role->add_cap( 'read_private_tribe_events' );
+		
+			$role->add_cap( 'edit_tribe_venue' );
+			$role->add_cap( 'read_tribe_venue' );
+			$role->add_cap( 'delete_tribe_venue' );
+			$role->add_cap( 'delete_tribe_venues');
+			$role->add_cap( 'edit_tribe_venues' );
+			$role->add_cap( 'edit_others_tribe_venues' );
+			$role->add_cap( 'delete_others_tribe_venues' );
+			$role->add_cap( 'publish_tribe_venues' );
+			$role->add_cap( 'edit_published_tribe_venues' );
+			$role->add_cap( 'delete_published_tribe_venues' );
+			$role->add_cap( 'delete_private_tribe_venues' );
+			$role->add_cap( 'edit_private_tribe_venues' );
+			$role->add_cap( 'read_private_tribe_venues' );
+		
+			$role->add_cap( 'edit_tribe_organizer' );
+			$role->add_cap( 'read_tribe_organizer' );
+			$role->add_cap( 'delete_tribe_organizer' );
+			$role->add_cap( 'delete_tribe_organizers');
+			$role->add_cap( 'edit_tribe_organizers' );
+			$role->add_cap( 'edit_others_tribe_organizers' );
+			$role->add_cap( 'delete_others_tribe_organizers' );
+			$role->add_cap( 'publish_tribe_organizers' );
+			$role->add_cap( 'edit_published_tribe_organizers' );
+			$role->add_cap( 'delete_published_tribe_organizers' );
+			$role->add_cap( 'delete_private_tribe_organizers' );
+			$role->add_cap( 'edit_private_tribe_organizers' );
+			$role->add_cap( 'read_private_tribe_organizers' );
+			 
+			$editor = get_role( 'editor' );
+			$editor->add_cap( 'edit_tribe_event' );
+			$editor->add_cap( 'read_tribe_event' );
+			$editor->add_cap( 'delete_tribe_event' );
+			$editor->add_cap( 'delete_tribe_events');
+			$editor->add_cap( 'edit_tribe_events' );
+			$editor->add_cap( 'edit_others_tribe_events' );
+			$editor->add_cap( 'delete_others_tribe_events' );
+			$editor->add_cap( 'publish_tribe_events' );
+			$editor->add_cap( 'edit_published_tribe_events' );
+			$editor->add_cap( 'delete_published_tribe_events' );
+			$editor->add_cap( 'delete_private_tribe_events' );
+			$editor->add_cap( 'edit_private_tribe_events' );
+			$editor->add_cap( 'read_private_tribe_events' );
+		
+			$editor->add_cap( 'edit_tribe_venue' );
+			$editor->add_cap( 'read_tribe_venue' );
+			$editor->add_cap( 'delete_tribe_venue' );
+			$editor->add_cap( 'delete_tribe_venues');
+			$editor->add_cap( 'edit_tribe_venues' );
+			$editor->add_cap( 'edit_others_tribe_venues' );
+			$editor->add_cap( 'delete_others_tribe_venues' );
+			$editor->add_cap( 'publish_tribe_venues' );
+			$editor->add_cap( 'edit_published_tribe_venues' );
+			$editor->add_cap( 'delete_published_tribe_venues' );
+			$editor->add_cap( 'delete_private_tribe_venues' );
+			$editor->add_cap( 'edit_private_tribe_venues' );
+			$editor->add_cap( 'read_private_tribe_venues' );
+		
+			$editor->add_cap( 'edit_tribe_organizer' );
+			$editor->add_cap( 'read_tribe_organizer' );
+			$editor->add_cap( 'delete_tribe_organizer' );
+			$editor->add_cap( 'delete_tribe_organizers');
+			$editor->add_cap( 'edit_tribe_organizers' );
+			$editor->add_cap( 'edit_others_tribe_organizers' );
+			$editor->add_cap( 'delete_others_tribe_organizers' );
+			$editor->add_cap( 'publish_tribe_organizers' );
+			$editor->add_cap( 'edit_published_tribe_organizers' );
+			$editor->add_cap( 'delete_published_tribe_organizers' );
+			$editor->add_cap( 'delete_private_tribe_organizers' );
+			$editor->add_cap( 'edit_private_tribe_organizers' );
+			$editor->add_cap( 'read_private_tribe_organizers' );
+			 
+			$author = get_role( 'author' );
+			$author->add_cap( 'edit_tribe_event' );
+			$author->add_cap( 'read_tribe_event' );
+			$author->add_cap( 'delete_tribe_event' );
+			$author->add_cap( 'delete_tribe_events' );
+			$author->add_cap( 'edit_tribe_events' );
+			$author->add_cap( 'publish_tribe_events' );
+			$author->add_cap( 'edit_published_tribe_events' );
+			$author->add_cap( 'delete_published_tribe_events' );
+			
+			$author->add_cap( 'edit_tribe_venue' );
+			$author->add_cap( 'read_tribe_venue' );
+			$author->add_cap( 'delete_tribe_venue' );
+			$author->add_cap( 'delete_tribe_venues' );
+			$author->add_cap( 'edit_tribe_venues' );
+			$author->add_cap( 'publish_tribe_venues' );
+			$author->add_cap( 'edit_published_tribe_venues' );
+			$author->add_cap( 'delete_published_tribe_venues' );
+			
+			$author->add_cap( 'edit_tribe_organizer' );
+			$author->add_cap( 'read_tribe_organizer' );
+			$author->add_cap( 'delete_tribe_organizer' );
+			$author->add_cap( 'delete_tribe_organizers' );
+			$author->add_cap( 'edit_tribe_organizers' );
+			$author->add_cap( 'publish_tribe_organizers' );
+			$author->add_cap( 'edit_published_tribe_organizers' );
+			$author->add_cap( 'delete_published_tribe_organizers' );
+			
+			$contributor = get_role( 'contributor' );
+			$contributor->add_cap( 'edit_tribe_event' );
+			$contributor->add_cap( 'read_tribe_event' );
+			$contributor->add_cap( 'delete_tribe_event' );
+			$contributor->add_cap( 'delete_tribe_events' );
+			$contributor->add_cap( 'edit_tribe_events' );
+			
+			$contributor->add_cap( 'edit_tribe_venue' );
+			$contributor->add_cap( 'read_tribe_venue' );
+			$contributor->add_cap( 'delete_tribe_venue' );
+			$contributor->add_cap( 'delete_tribe_venues' );
+			$contributor->add_cap( 'edit_tribe_venues');
+			
+			$contributor->add_cap( 'edit_tribe_organizer' );
+			$contributor->add_cap( 'read_tribe_organizer' );
+			$contributor->add_cap( 'delete_tribe_organizer' );
+			$contributor->add_cap( 'delete_tribe_organizers' );
+			$contributor->add_cap( 'edit_tribe_organizers' );
+			
 
-         $role->add_cap( 'edit_tribe_venue' );
-         $role->add_cap( 'read_tribe_venue' );
-         $role->add_cap( 'delete_tribe_venue' );
-         $role->add_cap( 'edit_tribe_venues' );
-         $role->add_cap( 'edit_others_tribe_venues' );
-         $role->add_cap( 'publish_tribe_venues' );
-         $role->add_cap( 'read_private_tribe_venues' );
+			
+			$subscriber = get_role( 'subscriber' );
+			$subscriber->add_cap( 'read_tribe_event' );
+			
+			$subscriber->add_cap( 'read_tribe_organizer' );
 
-         $role->add_cap( 'edit_tribe_organizer' );
-         $role->add_cap( 'read_tribe_organizer' );
-         $role->add_cap( 'delete_tribe_organizer' );
-         $role->add_cap( 'edit_tribe_organizers' );
-         $role->add_cap( 'edit_others_tribe_organizers' );
-         $role->add_cap( 'publish_tribe_organizers' );
-         $role->add_cap( 'read_private_tribe_organizers' );
+			$subscriber->add_cap( 'read_tribe_venue' );
 
+			         
 			register_taxonomy( self::TAXONOMY, self::POSTTYPE, array(
 				'hierarchical' => true,
 				'update_count_callback' => '',
 				'rewrite' => array('slug'=> $this->taxRewriteSlug),
 				'public' => true,
 				'show_ui' => true,
-				'labels' => $this->taxonomyLabels
+				'labels' => $this->taxonomyLabels,
+				'capabilities' => array( 
+					'manage_terms' => 'publish_tribe_events',
+					'edit_terms' => 'publish_tribe_events',
+					'delete_terms' => 'publish_tribe_events',
+					'assign_terms' => 'edit_tribe_events'
+				)
 			));
 	
 			if( $this->getOption('showComments','no') == 'yes' ) {
