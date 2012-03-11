@@ -327,8 +327,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 		
 		public function maybeSetTECVersion() {
-			if ( version_compare($this->getOption('latest_ecp_version'), self::VERSION, '<') )
+			if ( version_compare($this->getOption('latest_ecp_version'), self::VERSION, '<') ) {
+				$previous_versions = $this->getOption('previous_ecp_versions');
+				$previous_versions[] = $this->getOption('latest_ecp_version');
+				$this->setOption('previous_ecp_versions', $previous_versions);
 				$this->setOption('latest_ecp_version', self::VERSION);
+			}
 		}
 
 		/**
