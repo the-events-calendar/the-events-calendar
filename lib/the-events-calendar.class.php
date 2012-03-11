@@ -307,7 +307,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 		
 		public function maybeRenameOptions() {
-			if ( version_compare( get_option('tribe_events_db_version'), '2.1', '<' ) ) {
+			if ( version_compare( get_option('tribe_events_db_version'), '2.0.5', '<' ) ) {
 				$option_names = array(
 					'spEventsTemplate' => 'tribeEventsTemplate',
 					'spEventsBeforeHTML' => 'tribeEventsBeforeHTML',
@@ -322,7 +322,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					unset( $current_options[$old_option_names[$i]] );
 				}
 				$this->setOptions( wp_parse_args( $new_options, $current_options ) );
-				update_option('tribe_events_db_version', '2.1');
+				update_option('tribe_events_db_version', '2.0.5');
 			}
 		}
 		
