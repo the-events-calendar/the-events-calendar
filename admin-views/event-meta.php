@@ -15,18 +15,18 @@ if ( empty($customFields) || !is_array($customFields) ) {
                   <input type='text' name='<?php echo esc_attr($customField['name']) ?>' value='<?php echo esc_attr($val) ?>'/>
                <?php elseif($customField['type'] == 'radio'): ?>
                   <?php foreach ($options as $option): ?>
-                     <div><label><input type='radio' name='<?php echo esc_attr($customField['name']) ?>' value='<?php echo esc_attr($option) ?>' <?php checked(trim($val), trim($option)) ?>/> <?php echo esc_html($option) ?></label></div>
+                     <div><label><input type='radio' name='<?php echo esc_attr($customField['name']) ?>' value='<?php echo esc_attr($option) ?>' <?php checked(trim($val), trim($option)) ?>/> <?php echo esc_html(stripslashes($option)) ?></label></div>
                   <?php endforeach ?>
                <?php elseif($customField['type'] == 'checkbox'): ?>
                   <?php foreach ($options as $option): ?>
                      <?php $values = explode("|", $val); ?>
-                     <div><label><input type='checkbox' value='<?php echo esc_attr(trim($option)) ?>' <?php checked(in_array(trim($option), $values)) ?> name='<?php echo esc_attr($customField['name']) ?>[]'/> <?php echo esc_html($option) ?></label></div>
+                     <div><label><input type='checkbox' value='<?php echo esc_attr(trim($option)) ?>' <?php checked(in_array(trim($option), $values)) ?> name='<?php echo esc_attr($customField['name']) ?>[]'/> <?php echo esc_html(stripslashes($option)) ?></label></div>
                   <?php endforeach ?>
                <?php elseif($customField['type'] == 'dropdown'): ?>
                   <select name='<?php echo $customField['name']?>'>
                      <?php $options = explode("\n", $customField['values']) ?> 
                      <?php foreach ($options as $option): ?>
-							<option value='<?php echo esc_attr($option) ?>' <?php selected(trim($val), trim($option)) ?>><?php echo esc_html($option) ?></option>
+							<option value='<?php echo esc_attr($option) ?>' <?php selected(trim($val), trim($option)) ?>><?php echo esc_html(stripslashes($option)) ?></option>
                      <?php endforeach ?>
                   </select>
                <?php elseif($customField['type'] == 'textarea'): ?>

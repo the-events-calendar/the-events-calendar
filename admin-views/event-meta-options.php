@@ -15,7 +15,7 @@
 					<option value="dropdown" <?php selected(isset($customField['type']) && $customField['type'] == 'dropdown') ?>><?php _e('Dropdown','tribe-events-calendar-pro'); ?></option>
 				</select>
 			</td>
-			<td><textarea style='display: <?php echo (isset($customField['type']) && ($customField['type'] == 'radio' || $customField['type'] == 'checkbox' || $customField['type'] == 'dropdown')) ? "inline" : "none" ?>;' name="custom-field-options-<?php echo $count ?>" data-name-template='custom-field-options-' data-count='<?php echo esc_attr($count) ?>' rows="3"><?php echo esc_textarea(isset($customField['values']) ? $customField['values'] : "") ?></textarea></td>
+			<td><textarea style='display: <?php echo (isset($customField['type']) && ($customField['type'] == 'radio' || $customField['type'] == 'checkbox' || $customField['type'] == 'dropdown')) ? "inline" : "none" ?>;' name="custom-field-options-<?php echo $count ?>" data-name-template='custom-field-options-' data-count='<?php echo esc_attr($count) ?>' rows="3"><?php echo stripslashes(esc_textarea(isset($customField['values']) ? $customField['values'] : "")) ?></textarea></td>
 			<td>
 				<?php if ($count == sizeof($customFields)): ?>
 					<a name="add-field" href='#add-field' class='add-another-field'><?php _e('Add another','tribe-events-calendar-pro'); ?></a>
