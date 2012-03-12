@@ -94,7 +94,7 @@ if ( !class_exists('TribeField') ) {
 			$return = '<fieldset id="tribe-field-'.$this->id.'"';
 			$return .= ' class="tribe-field tribe-field-'.$this->type;
 			$return .= ($this->error) ? 'tribe-error' : '';
-			$return .= ($this->class) ? ' '.$this->class.'"' : '';
+			$return .= ($this->class) ? ' '.$this->class.'"' : '"';
 			$return .= '>';
 			return apply_filters( 'tribe_field_start', $return, $this->id, $this->type, $this->error, $this->class, $this );
 		}
@@ -109,6 +109,16 @@ if ( !class_exists('TribeField') ) {
 			if ($this->label)
 				$return = '<legend class="tribe-field-label">'.$this->label.'</legend>';
 			return apply_filters( 'tribe_field_label', $return, $this->label, $this );
+		}
+
+		public function doFieldDivStart() {
+			$return = '<div class="tribe-field-wrap">';
+			return apply_filters( 'tribe_field_div_start', $return, $this );
+		}
+
+		public function doFieldDivEnd() {
+			$return = '</div>';
+			return apply_filters( 'tribe_field_div_end', $return, $this );
 		}
 
 		public function doToolTip() {
@@ -157,6 +167,7 @@ if ( !class_exists('TribeField') ) {
 			}
 			$field = $this->doFieldStart();
 			$field .= $this->doFieldLabel();
+			$field .= $this->doFieldDivStart();
 			$field .= '<input';
 			$field .= ' type="text"';
 			$field .= $this->doFieldName();
@@ -166,12 +177,14 @@ if ( !class_exists('TribeField') ) {
 			$field .= '/>';
 			$field .= $this->doScreenReaderLabel();
 			$field .= $this->doFieldEnd();
+			$field .= $this->doFieldEnd();
 			return $field;
 		}
 
 		public function textarea() {
 			$field = $this->doFieldStart();
 			$field .= $this->doFieldLabel();
+			$field .= $this->doFieldDivStart();
 			$field .= '<textarea';
 			$field .= $this->doFieldName();
 			$field .= $this->doToolTip();
@@ -180,12 +193,14 @@ if ( !class_exists('TribeField') ) {
 			$field .= '</textarea>';
 			$field .= $this->doScreenReaderLabel();
 			$field .= $this->doFieldEnd();
+			$field .= $this->doFieldEnd();
 			return $field;
 		}
 
 		public function radio() {
 			$field = $this->doFieldStart();
 			$field .= $this->doFieldLabel();
+			$field .= $this->doFieldDivStart();
 			if ( is_array($this->options) ) {
 				foreach ($this->options as $option_id => $title) {
 					$field .= '<label title="'.$title.'">';
@@ -198,6 +213,7 @@ if ( !class_exists('TribeField') ) {
 			} else {
 				$field .= '<span class="tribe-error">'.__('No radio options specified', 'tribe-events-calendar').'</span>';
 			}
+			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
 			return $field;
 		}
@@ -205,12 +221,14 @@ if ( !class_exists('TribeField') ) {
 		public function checkbox_bool() {
 			$field = $this->doFieldStart();
 			$field .= $this->doFieldLabel();
+			$field .= $this->doFieldDivStart();
 			$field .= '<input type="checkbox"';
 			$field .= $this->doFieldName();
 			$field .= ' value="1" '.checked( $this->value, true, false );
 			$field .= $this->doToolTip();
 			$field .= '/>';
 			$field .= $this->doScreenReaderLabel();
+			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
 			return $field;
 		}
@@ -218,6 +236,7 @@ if ( !class_exists('TribeField') ) {
 		public function dropdown() {
 			$field = $this->doFieldStart();
 			$field .= $this->doFieldLabel();
+			$field .= $this->doFieldDivStart();
 			$field .= '<select';
 			$field .= $this->doFieldName();
 			$field .= $this->doToolTip();
@@ -235,6 +254,7 @@ if ( !class_exists('TribeField') ) {
 				$field .= $this->doScreenReaderLabel();
 				$field .= '<span class="tribe-error">'.__('No select options specified', 'tribe-events-calendar').'</span>';
 			}
+			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
 			return $field;
 		}
@@ -242,6 +262,7 @@ if ( !class_exists('TribeField') ) {
 		public function dropdown_chosen() {
 			$field = $this->doFieldStart();
 			$field .= $this->doFieldLabel();
+			$field .= $this->doFieldDivStart();
 			$field .= '<select';
 			$field .= $this->doFieldName();
 			$field .= $this->doToolTip();
@@ -259,6 +280,7 @@ if ( !class_exists('TribeField') ) {
 				$field .= $this->doScreenReaderLabel();
 				$field .= '<span class="tribe-error">'.__('No select options specified', 'tribe-events-calendar').'</span>';
 			}
+			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
 			return $field;
 		}

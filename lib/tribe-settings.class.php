@@ -15,6 +15,7 @@ if ( !class_exists('TribeSettings') ) {
 	class TribeSettings {
 
 		public static $instance;
+		public static $admin_page;
 		public static $tabs;
 		public static $defaultTab;
 		public static $currentTab;
@@ -23,6 +24,7 @@ if ( !class_exists('TribeSettings') ) {
 		public static $menuName;
 		public static $requiredCap;
 		public static $errors;
+		const VERSION = '1.0';
 
 		/* Static Singleton Factory Method */
 		public static function instance() {
@@ -61,7 +63,7 @@ if ( !class_exists('TribeSettings') ) {
 		 * @return void
 		 */
 		public function addPage() {
-			$page = add_options_page( $this->menuName, $this->menuName, $this->requiredCap, $this->adminSlug, array(&$this, 'generatePage') );
+			$this->admin_page = add_options_page( $this->menuName, $this->menuName, $this->requiredCap, $this->adminSlug, array(&$this, 'generatePage') );
 		}
 
 
@@ -75,18 +77,38 @@ if ( !class_exists('TribeSettings') ) {
 		 */
 		public function generatePage() {
 			$tec = TribeEvents::instance();
-			include_once( apply_filters( 'tribe_settings_generate_page', $tec->pluginPath . 'admin-views/tribe-options.php' ) );
-		}
-
-		/**
-		 * enqueue scripts & styles for options page
-		 *
-		 * @since 2.1
-		 * @author jkudish
-		 * @return void
-		 */
-		public function enqueue() {
-
+			do_action( 'tribe_settings_top' );
+			echo '<div class="tribe_settings wrap">';
+				screen_icon();
+				echo '<h2>';
+					printf( _x('%s Settings', 'The Event Calendar settings heading', 'tribe-events-calendar'), $this->menuName );
+				echo '</h2>';
+				$this->generateTabs( $this->currentTab );
+				do_action( 'tribe_settings_below_tabs' );
+				do_action( 'tribe_settings_below_tabs_tab_'.$this->currentTab );
+				echo '<div class="tribe-settings-form form">';
+					do_action( 'tribe_settings_above_form_element' );
+					do_action( 'tribe_settings_above_form_element_tab_'.$this->currentTab );
+					echo apply_filters( 'tribe_settings_form_element', '<form method="post">' );
+						do_action( 'tribe_settings_before_content' );
+						do_action( 'tribe_settings_before_content_tab_'.$this->currentTab );
+						do_action( 'tribe_settings_content_tab_'.$this->currentTab );
+						if ( !has_action( 'tribe_settings_content_tab_'.$this->currentTab ) ) {
+							echo '<p>'.__('You\'ve requested a non-existent tab.', 'tribe-events-calendar').'</p>';
+						}
+						do_action( 'tribe_settings_after_content_tab_'.$this->currentTab );
+			 			do_action( 'tribe_settings_after_content' );
+			  		if ( has_action('tribe_settings_content_tab_'.$this->currentTab) && !in_array($this->currentTab, $this->noSaveTabs) ) {
+							wp_nonce_field('saveTribeOptions', 'saveTribeOptions');
+		    			echo '<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="'.$this->currentTab.'" />';
+		    			echo '<input id="saveTribeOptions" class="button-primary" type="submit" name="saveTribeOptions" value="'.__('Save Changes', 'tribe-events-calendar').'" />';
+						}
+					echo apply_filters( 'tribe_settings_closing_form_element', ' </form>' );
+					do_action( 'tribe_settings_after_form_element' );
+				echo '</div>';
+				do_action( 'tribe_settings_after_form_div' );
+			echo '</div>';
+			do_action( 'tribe_settings_bottom' );
 		}
 
 		/**
@@ -109,18 +131,6 @@ if ( !class_exists('TribeSettings') ) {
 				echo '</h2>';
 			}
 		 }
-
-
-		/**
-		 * generate field
-		 *
-		 * @since 2.1
-		 * @author jkudish
-		 * @return void
-		 */
-		public function generateField() {
-
-		}
 
 
 		/**
