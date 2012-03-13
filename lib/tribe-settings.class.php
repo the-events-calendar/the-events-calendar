@@ -159,7 +159,7 @@ if ( !class_exists('TribeSettings') ) {
 							}
 						}
 					}
-					// $this->save();
+					$this->save();
 				}
 			}
 		}
