@@ -9,7 +9,7 @@ if ( !class_exists('TribeSettings') ) {
 	 * helper class that allows registration of settings
 	 * note: this is a work in progress
 	 *
-	 * @since 2.1
+	 * @since 2.0.5
 	 * @author jkudish
 	 */
 	class TribeSettings {
@@ -17,6 +17,7 @@ if ( !class_exists('TribeSettings') ) {
 		public static $instance;
 		public static $admin_page;
 		public static $tabs;
+		public static $fields;
 		public static $defaultTab;
 		public static $currentTab;
 		public static $noSaveTabs;
@@ -24,7 +25,7 @@ if ( !class_exists('TribeSettings') ) {
 		public static $menuName;
 		public static $requiredCap;
 		public static $errors;
-		const VERSION = '1.0';
+		public static $validated;
 
 		/* Static Singleton Factory Method */
 		public static function instance() {
@@ -39,6 +40,7 @@ if ( !class_exists('TribeSettings') ) {
 
 			// set instance variables
 			$this->tabs = (array) apply_filters( 'tribe_settings_tabs', array() );
+			$this->fields = (array) apply_filters( 'tribe_settings_fields', array() );
 			$this->defaultTab = apply_filters( 'tribe_settings_default_tab', 'general' );
 			$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset($_GET['tab']) && $_GET['tab'] ) ? esc_attr($_GET['tab']) : $this->defaultTab );
 			$this->noSaveTabs = (array) apply_filters( 'tribe_settings_no_save_tabs', array() );
@@ -49,16 +51,15 @@ if ( !class_exists('TribeSettings') ) {
 
 			// run actions & filters
 			add_action( 'admin_menu', array( $this, 'addPage' ) );
-			add_action( 'admin_init', array( $this, 'save' ) );
-			add_action( 'tribe_validate_form_settings', array( $this, 'validate' ) );
-			add_action( 'tribe_events_options_top', array( $this, 'displayErrors' ) );
-			add_action( 'tribe_events_options_top', array( $this, 'displaySuccess' ) );
+			add_action( 'tribe_settings_top', array( $this, 'validate' ) );
+			// add_action( 'tribe_settings_below_tabs', array( $this, 'displayErrors' ) );
+			// add_action( 'tribe_settings_below_tabs', array( $this, 'displaySuccess' ) );
 		}
 
 		/**
 		 * create the main option page
 		 *
-		 * @since 2.1
+		 * @since 2.0.5
 		 * @author jkudish
 		 * @return void
 		 */
@@ -71,7 +72,7 @@ if ( !class_exists('TribeSettings') ) {
 		 * generate the main option page
 		 * includes the view file
 		 *
-		 * @since 2.1
+		 * @since 2.0.5
 		 * @author jkudish
 		 * @return void
 		 */
@@ -99,7 +100,7 @@ if ( !class_exists('TribeSettings') ) {
 						do_action( 'tribe_settings_after_content_tab_'.$this->currentTab );
 			 			do_action( 'tribe_settings_after_content' );
 			  		if ( has_action('tribe_settings_content_tab_'.$this->currentTab) && !in_array($this->currentTab, $this->noSaveTabs) ) {
-							wp_nonce_field('saveTribeOptions', 'saveTribeOptions');
+							wp_nonce_field('saveTribeOptionsNonce');
 		    			echo '<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="'.$this->currentTab.'" />';
 		    			echo '<input id="saveTribeOptions" class="button-primary" type="submit" name="saveTribeOptions" value="'.__('Save Changes', 'tribe-events-calendar').'" />';
 						}
@@ -114,7 +115,7 @@ if ( !class_exists('TribeSettings') ) {
 		/**
 		 * generate the tabs in the settings screen
 		 *
-		 * @since 2.1
+		 * @since 2.0.5
 		 * @author PaulHughes01, jkudish
 		 * @return void
 		 */
@@ -136,19 +137,38 @@ if ( !class_exists('TribeSettings') ) {
 		/**
 		 * validate the settings
 		 *
-		 * @since 2.1
+		 * @since 2.0.5
 		 * @author jkudish
 		 * @return void
 		 */
 		public function validate() {
-
+			do_action('tribe_validate_settings');
+			do_action('tribe_validate_settings_tab_'.$this->currentTab);
+			if ( isset($_POST['saveTribeOptions']) && isset($_POST['current-settings-tab']) && $_POST['current-settings-tab'] == $this->currentTab ) {
+				$tab = $this->currentTab;
+				$fields = $this->fields[$tab];
+				if (is_array($fields)) {
+					foreach ($fields as $field_id => $field) {
+						$value = ( isset($_POST[$field_id]) ) ? $_POST[$field_id] : null;
+						if ( isset($field['validation_type']) || isset($field['validation_callback']) ) {
+							$validate = new TribeValidate($field_id, $field, $value);
+							if (isset($validate->result->error)) {
+								$this->errors[$field->id] = $validate->error;
+							} elseif ( $validate->result->valid ) {
+								$this->validated[$field_id] = $field_id;
+							}
+						}
+					}
+					// $this->save();
+				}
+			}
 		}
 
 		/**
 		 * save the settings
 		 * note: this will be refactored
 		 *
-		 * @since 2.1
+		 * @since 2.0.5
 		 * @author jkudish
 		 * @return void
 		 */
@@ -159,7 +179,7 @@ if ( !class_exists('TribeSettings') ) {
 		/**
 		 * display errors after saving
 		 *
-		 * @since 2.1
+		 * @since 2.0.5
 		 * @author PaulHughes01, jkudish
 		 * @return void
 		 */
@@ -182,7 +202,7 @@ if ( !class_exists('TribeSettings') ) {
 		/**
 		 * display errors after saving
 		 *
-		 * @since 2.1
+		 * @since 2.0.5
 		 * @author PaulHughes01, jkudish
 		 * @return void
 		 */

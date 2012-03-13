@@ -4,9 +4,9 @@ add_action( 'tribe_settings_tabs_after_help', 'tribe_test_tab' );
 function tribe_test_tab() {
 	$testTabArgs = array(
 		'fields' => array(
-			'heading_test' => array( 'type' => 'heading', 'label' => 'Heading Test' ),
+			'heading_test' => array( 'type' => 'heading', 'label' => 'Heading Test'),
 			'html_test' => array( 'type' => 'html', 'label' => 'Html Test', 'html' => 'some random html'),
-			'text_test_small' => array( 'type' => 'text', 'label' => 'This is a small text field', 'size' => 'small'),
+			'text_test_small' => array( 'type' => 'text', 'label' => 'This is a small text field', 'size' => 'small', 'validation_type' => 'positive_int'),
 			'text_test_medium' => array( 'type' => 'text', 'label' => 'This is a medium text field'),
 			'text_test_large' => array( 'type' => 'text', 'label' => 'This is a large text field', 'size' => 'large'),
 			'textarea_test' => array( 'type' => 'textarea', 'label' => 'This is a textarea field', 'size' => 'large'),

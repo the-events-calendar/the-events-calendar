@@ -43,6 +43,7 @@ if ( !class_exists('TribeSettingsTab') ) {
 
 			// run actions & filters
 			add_filter('tribe_settings_tabs', array($this, 'addTab') );
+			add_filter('tribe_settings_fields', array($this, 'addFields') );
 			add_filter('tribe_settings_no_save_tabs', array($this, 'showSaveTab') );
 			add_filter('tribe_settings_content_tab_'.$this->id, array($this, 'doContent') );
 
@@ -51,6 +52,11 @@ if ( !class_exists('TribeSettingsTab') ) {
 		public function addTab($tabs) {
 			$tabs[$this->id] = $this->name;
 			return $tabs;
+		}
+
+		public function addFields($fields) {
+			$fields[$this->id] = $this->fields;
+			return $fields;
 		}
 
 		public function showSaveTab($noSaveTabs) {

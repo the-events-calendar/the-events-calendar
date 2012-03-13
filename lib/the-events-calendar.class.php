@@ -156,7 +156,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *Load all the required library files.
 		 **/
 		protected function loadLibraries() {
+
+			// Exceptions Helper
 			require_once( 'tribe-event-exception.class.php' );
+
 			// Load Template Tags
 			require_once( $this->pluginPath.'public/template-tags/general.php' );
 			require_once( $this->pluginPath.'public/template-tags/calendar.php' );
@@ -166,12 +169,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( $this->pluginPath.'public/template-tags/venue.php' );
 			require_once( $this->pluginPath.'public/template-tags/date.php' );
 			require_once( $this->pluginPath.'public/template-tags/link.php' );
+
 			// Load Advanced Functions
 			require_once( $this->pluginPath.'public/advanced-functions/event.php' );
 			require_once( $this->pluginPath.'public/advanced-functions/venue.php' );
 			require_once( $this->pluginPath.'public/advanced-functions/organizer.php' );
+
 			// Load Deprecated Template Tags
 			require_once( 'template-tags-deprecated.php' );
+
+			// Load Classes
 			require_once( 'widget-list.class.php' );
 			require_once( 'tribe-admin-events-list.class.php' );
 			require_once( 'tribe-date-utils.class.php' );
@@ -183,6 +190,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-settings.class.php' );
 			require_once( 'tribe-settings-tab.class.php' );
 			require_once( 'tribe-field.class.php' );
+			require_once( 'tribe-validate.class.php' );
 			require_once( 'tribe-debug-bar.class.php' );
 			require_once( $this->pluginPath.'tests/tab-test.php' );
 		}
