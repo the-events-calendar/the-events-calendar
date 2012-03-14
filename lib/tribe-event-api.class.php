@@ -64,8 +64,13 @@ if (!class_exists('TribeEventsAPI')) {
 				$data['EventEndDate'] = TribeDateUtils::endOfDay($data['EventEndDate']);
 			} else {
 				delete_post_meta( $event_id, '_EventAllDay' );
-				$data['EventStartDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventStartDate'] . " " . $data['EventStartHour'] . ":" . $data['EventStartMinute'] . ":00 " . $data['EventStartMeridian']) );
-				$data['EventEndDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventEndDate'] . " " . $data['EventEndHour'] . ":" . $data['EventEndMinute'] . ":59 " . $data['EventEndMeridian']) );
+				if( isset( $data['EventStartMeridian'] ) ) {
+					$data['EventStartDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventStartDate'] . " " . $data['EventStartHour'] . ":" . $data['EventStartMinute'] . ":00 " . $data['EventStartMeridian']) );
+					$data['EventEndDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventEndDate'] . " " . $data['EventEndHour'] . ":" . $data['EventEndMinute'] . ":59 " . $data['EventEndMeridian']) );
+				} else {
+					$data['EventStartDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventStartDate'] . " " . $data['EventStartHour'] . ":" . $data['EventStartMinute'] . ":00") );
+					$data['EventEndDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventEndDate'] . " " . $data['EventEndHour'] . ":" . $data['EventEndMinute'] . ":59") );				
+				}
 			}
 		
 			if(!isset($data['EventHideFromUpcoming']) || !$data['EventHideFromUpcoming']) delete_post_meta($event_id, '_EventHideFromUpcoming');
