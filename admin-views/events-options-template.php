@@ -4,10 +4,10 @@
 		<th scope="row"><?php _e('Events Template', 'tribe-events-calendar' ); ?></th>
 		<td><fieldset>
 			<legend class="screen-reader-text"><?php _e('Events Template', 'tribe-events-calendar' ); ?></legend>
-			<select class="chosen" name="spEventsTemplate">
+			<select class="chosen" name="tribeEventsTemplate">
 				<option value=''><?php _e('Default Events Template', 'tribe-events-calendar' ); ?></option>
-				<option value='default' <?php selected(tribe_get_option('spEventsTemplate', 'default') == 'default') ?>><?php _e('Default Page Template', 'tribe-events-calendar' ); ?></option>
-				<?php page_template_dropdown(tribe_get_option('spEventsTemplate', 'default')); ?>
+				<option value='default' <?php selected(tribe_get_option('tribeEventsTemplate', 'default') == 'default') ?>><?php _e('Default Page Template', 'tribe-events-calendar' ); ?></option>
+				<?php page_template_dropdown(tribe_get_option('tribeEventsTemplate', 'default')); ?>
 			</select>
 			<div><?php _e('Choose a page template to control the look and feel of your calendar.', 'tribe-events-calendar');?> </div>
 		</fieldset></td>

@@ -49,7 +49,7 @@ if (!class_exists('TribeEventsImport')) {
 		public function adminForm() {
 			if ( self::hasLegacyEvents() ) {
 				?>
-				<form id="sp-upgrade" method="post" >
+				<form id="tribe-upgrade" method="post" >
 					<?php wp_nonce_field('upgradeEventsCalendar') ?>
 					<h4><?php _e('Upgrade from The Events Calendar', 'tribe-events-calendar' ); ?></h4>
 					<p><?php _e('It appears that you have some old events calendar data that needs to be upgraded. Please be sure to back up your database before initiating the upgrade. This process can not be undone.', 'tribe-events-calendar' ) ?></p>

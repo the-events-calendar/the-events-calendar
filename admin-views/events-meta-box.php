@@ -59,7 +59,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', 'tribe-events-calendar') ?></span>
 				<span class='timeofdayoptions'>
 					<?php _e('@','tribe-events-calendar'); ?>
-					<select class="spEventsInput" tabindex="<?php $this->tabIndex(); ?>" name='EventEndHour'>
+					<select class="tribeEventsInput" tabindex="<?php $this->tabIndex(); ?>" name='EventEndHour'>
 						<?php echo $endHourOptions; ?>
 					</select>
 					<select tabindex="<?php $this->tabIndex(); ?>" name='EventEndMinute'>
