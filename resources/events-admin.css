@@ -94,9 +94,6 @@ td.tribe_message {padding-bottom: 10px !important;}
 /* = Help Screen
 =============================================*/
 .admin-indent {margin-left: 15px;}
-.star-holder {position: relative; height: 19px; width: 100px; font-size: 19px;}
-.star {height: 100%; position: absolute; top: 0px; left: 0px; background-color: transparent; letter-spacing: 1ex; border: none;}
-.star-rating {background-color: #FC0;}
 .admin-list {list-style-type: square; margin-left: 35px;}
 
 /* = jQuery UI

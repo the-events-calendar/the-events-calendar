@@ -8,12 +8,13 @@ if ( !is_wp_error($tec_info) ) {
 	$tec_info = unserialize($tec_info);
 	$rating = ( isset($tec_info['rating']) ) ? $tec_info['rating'] / 20 : _x('n/a', 'not available', 'tribe-events-calendar');
 	$requires = ( isset($tec_info['requires']) ) ? $tec_info['requires'] : _x('n/a', 'not available', 'tribe-events-calendar');
+	$version = ( isset($tec_info['version']) ) ? $tec_info['version'] : _x('n/a', 'not available', 'tribe-events-calendar');
 	$total_downloads = ( isset($tec_info['total_downloads']) ) ? number_format( $tec_info['total_downloads'] ) : _x('n/a', 'not available', 'tribe-events-calendar');
+	$up_to_date = ( isset($tec_info['version']) && version_compare( TribeEvents::VERSION, $tec_info['version'], '<' ) ) ? __('You need to upgrade!', 'tribe-events-calendar') : __('You are up to date!', 'tribe-events-calendar');
 } else {
 	$rating = $total_downloads = $requires = _x('n/a', 'not available', 'tribe-events-calendar');
+	$up_to_date = '';
 }
-
-$up_to_date = ( isset($tec_info['version']) && version_compare( TribeEvents::VERSION, $tec_info['version'], '<' ) ) ? __('You need to upgrade!', 'tribe-events-calendar') : __('You are up to date!', 'tribe-events-calendar');
 
 $news_rss = fetch_feed(TribeEvents::FEED_URL);
 if ( !is_wp_error($news_rss) ) {
@@ -119,7 +120,7 @@ $more_text = __('More...', 'tribe-events-calendar');
 ?>
 
 <p><?php echo $up_to_date; ?></p>
-<p><b><?php _e('Latest Version:', 'tribe-events-calendar'); ?></b> <?php echo $rating; ?><br />
+<p><b><?php _e('Latest Version:', 'tribe-events-calendar'); ?></b> <?php echo $version; ?><br />
 <b><?php _e('Author:', 'tribe-events-calendar'); ?></b> <?php _e('Modern Tribe Inc', 'tribe-events-calendar'); ?><br />
 <b><?php _e('Requires:', 'tribe-events-calendar'); ?></b> <?php _e('WordPress ', 'tribe-events-calendar'); echo $requires; ?>+<br />
 <b><?php _e('Downloads:', 'tribe-events-calendar'); ?></b> <?php echo $total_downloads; ?><br />
@@ -132,7 +133,7 @@ $more_text = __('More...', 'tribe-events-calendar');
 	<div class="star-holder">
 		<div class="star star-rating" style="width: <?php echo( $tec_info['rating'] ); ?>px"></div>
 		<?php for ($i = 5; $i > 0; $i--) : ?>
-			<div class="star star<?php echo $i ?>"><img src="<?php echo $this->pluginUrl . 'resources/images/star.gif'; ?>" alt="<?php echo $i ?> stars" /></div>
+			<div class="star star<?php echo $i ?>"><img src="<?php echo admin_url('images/star.png'); ?>" alt="<?php echo $i ?> stars" /></div>
 		<?php endfor; ?>
 	</div>
 	<?php printf( _n('Based on %d rating', 'Based on %d ratings', $tec_info['num_ratings'], 'tribe-events-calendar' ), $tec_info['num_ratings'] ); ?>
