@@ -11,7 +11,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 ?>
 <span class="back"><a href="<?php echo tribe_get_events_link(); ?>"><?php _e('&laquo; Back to Events', 'tribe-events-calendar'); ?></a></span>				
-<?php if (strtotime(tribe_get_end_date()) <= time() ) { ?><h4><small><?php  _e('This event has passed.', 'tribe-events-calendar') ?></small></h4> <?php } ?>
+<?php if (strtotime(tribe_get_end_date()) <= time() ) { ?><div class="event-passed"><?php  _e('This event has passed.', 'tribe-events-calendar') ?></div><?php } ?>
 <div id="tribe-events-event-meta" itemscope itemtype="http://schema.org/Event">
 	<dl class="column">
 		<dt class="event-label event-label-name"><?php _e('Event:', 'tribe-events-calendar') ?></dt>
