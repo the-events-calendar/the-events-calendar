@@ -24,8 +24,81 @@ foreach( $news_rss->getElementsByTagName( 'item' ) as $node ) {
 	if (++$i >= 5) break;
 }
 
-$getting_started_text = sprintf( __('%sIf this is your first time using The Events Calendar, you\'re in for a treat. The more adventurous users can jump right into it by finding the "Events" section in the admin menu to the left of this message and getting down to it. For those who like to dip their toes before diving in full-on, we\'ve got you covered too. First things first: visit our %s, designed with folks exactly like yourself in mind and meant to familiarize you with the plugin\'s basics. From there, the Resources listed below (meant to help you kick ass, of course) should keep up the momentum.%s', 'tribe-events-calendar'), '<p class="admin-indent">', sprintf( '<a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/">%s</a>', __('new user primer', 'tribe-events-calendar') ), '</p>' );
-$enb_text[] = sprintf( __('%sWe love all our users and want to help free & PRO customers alike. If you\'re running the latest version of The Events Calendar and are having problems, post a thread the %s at WordPress.org. We hit the forum a few times a week and do what we can to assist users.%s', 'tribe-events-calendar'), '<p class="admin-indent">', sprintf( '<a href="http://wordpress.org/tags/the-events-calendar?forum_id=10">%s</a>', __('forum for The Events Calendar', 'tribe-events-calendar') ), '</p>' );
+$ga_query_string = '?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin';
+
+$free_add_ons = array();
+$free_add_ons[] = array(
+	'title' => __('Advanced Post Manager', 'tribe_events_calendar'),
+	'link' => apply_filters('tribe_help_tab_apm_wp_url', 'http://wordpress.org/extend/plugins/advanced-post-manager/'),
+);
+$free_add_ons[] = array(
+	'title' => __('Event Importer', 'tribe_events_calendar'),
+	'coming_soon' => true,
+);
+$free_add_ons[] = array(
+	'title' => __('Facebook Sync Events', 'tribe_events_calendar'),
+	'coming_soon' => true,
+);
+$free_add_ons = (array) apply_filters( 'tribe_help_tab_free_addons', $free_add_ons );
+
+$premium_add_ons = array();
+$premium_add_ons[] = array(
+	'title' => __('Events Calendar Pro', 'tribe_events_calendar'),
+	'link' => apply_filters('tribe_help_tab_ecp_tribe_url', 'http://tri.be/wordpress-events-calendar-pro/'.$ga_query_string),
+);
+$premium_add_ons[] = array(
+	'title' => __('Eventbrite Tickets', 'tribe_events_calendar'),
+	'link' => apply_filters('tribe_help_tab_eventbrite_tribe_url', 'http://tri.be/shop/wordpress-eventbrite-tickets/'.$ga_query_string),
+	'coming_soon' => true,
+);
+$premium_add_ons[] = array(
+	'title' => __('Community Events', 'tribe_events_calendar'),
+	'link' => apply_filters('tribe_help_tab_community_events_tribe_url', 'http://tri.be/shop/wordpress-community-events/'.$ga_query_string),
+	'coming_soon' => true,
+);
+$premium_add_ons[] = array(
+	'title' => __('WooTickets', 'tribe_events_calendar'),
+	'link' => apply_filters('tribe_help_tab_wootickets_tribe_url', 'http://tri.be/shop/wootickets/'.$ga_query_string),
+	'coming_soon' => __('(coming later in 2012)', 'tribe_events_calendar'),
+);
+$premium_add_ons[] = array(
+	'title' => __('Conference Manager', 'tribe_events_calendar'),
+	'link' => apply_filters('tribe_help_tab_conference_manager_tribe_url', 'http://tri.be/shop/conference-manager/'.$ga_query_string),
+	'coming_soon' => __('(coming later in 2012)', 'tribe_events_calendar'),
+);
+$premium_add_ons = (array) apply_filters( 'tribe_help_tab_premium_addons', $premium_add_ons );
+
+
+$resources = array();
+$resources[] = array(
+	'title' => __('Documentation', 'tribe-events-calendar'),
+	'link' => apply_filters('tribe_help_tab_documentation_url', 'http://tri.be/support/documentation/'.$ga_query_string),
+);
+$resources[] = array(
+	'title' => __('FAQ', 'tribe-events-calendar'),
+	'link' => apply_filters('tribe_help_tab_faq_url', 'http://tri.be/support/faqs/'.$ga_query_string),
+);
+$resources[] = array(
+	'title' => __('Help', 'tribe-events-calendar'),
+	'link' => apply_filters('tribe_help_tab_help_video_url', 'http://tri.be/category/products/help-video/'.$ga_query_string),
+);
+$resources[] = array(
+	'title' => __('Tutorials', 'tribe-events-calendar'),
+	'link' => apply_filters('tribe_help_tab_tutorials_url', 'http://tri.be/category/products/tutorial/'.$ga_query_string),
+);
+$resources[] = array(
+	'title' => __('Release Notes', 'tribe-events-calendar'),
+	'link' => apply_filters('tribe_help_tab_release_notes_url', 'http://tri.be/category/products/release-notes/'.$ga_query_string),
+);
+$resources = (array) apply_filters( 'tribe_help_tab_resources', $resources );
+
+
+$getting_started_text = sprintf( __('If this is your first time using The Events Calendar, you\'re in for a treat. The more adventurous users can jump right into it by finding the "Events" section in the admin menu to the left of this message and getting down to it. For those who like to dip their toes before diving in full-on, we\'ve got you covered too. First things first: visit our %s, designed with folks exactly like yourself in mind and meant to familiarize you with the plugin\'s basics. From there, the Resources listed below (meant to help you kick ass, of course) should keep up the momentum.', 'tribe-events-calendar'), sprintf( '<a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/' .$ga_query_string .'">%s</a>', __('new user primer', 'tribe-events-calendar') ) );
+$getting_started_text = apply_filters( 'tribe_help_tab_getting_started_text', $getting_started_text );
+
+$enb_text[] = sprintf( __('We love all our users and want to help free & PRO customers alike. If you\'re running the latest version of The Events Calendar and are having problems, post a thread the %s at WordPress.org. We hit the forum a few times a week and do what we can to assist users.', 'tribe-events-calendar'), sprintf( '<a href="http://wordpress.org/tags/the-events-calendar/' .$ga_query_string .'&forum_id=10">%s</a>', __('forum for The Events Calendar', 'tribe-events-calendar') ) );
+
+
 $enb_text[] = sprintf( __('%sA few things to keep in mind before posting:%s', 'tribe-events-calendar'), '<p class="admin-indent">', '</p><ul class="admin-list">' );
 $enb_text[] = sprintf( __('%sLook through the recent active threads before posting a new one and check that there isn\'t already a discussion going on your issue.%s', 'tribe-events-calendar'), '<li>', '</li>' );
 $enb_text[] = sprintf( __('%sA good way to help us out before posting is to check whether the issue is a conflict with another plugin or your theme. This can be tested relatively easily on a staging site by deactivating other plugins one-by-one, and reverting to the default 2011 theme as needed, to see if conflicts can be easily identified. If so, please note that when posting your thread.%s', 'tribe-events-calendar'), '<li>', '</li>' );

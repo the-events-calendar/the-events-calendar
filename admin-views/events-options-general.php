@@ -1,5 +1,5 @@
 <h3><?php _e('Need a hand?','tribe-events-calendar'); ?></h3>
-<p><?php printf( __( 'If you\'re stuck on these options, please go to the <a href="%s">support forum</a>.', 'tribe-events-calendar' ), TribeEvents::$tribeUrl.TribeEvents::$supportPath ); ?></p>
+<p><?php printf( __( 'If you\'re stuck on these options, please go to the <a href="%s?utm_source=generaltab&utm_medium=promolink&utm_campaign=plugin">support forum</a>.', 'tribe-events-calendar' ), TribeEvents::$tribeUrl.TribeEvents::$supportPath ); ?></p>
 <?php if( function_exists( 'tribe_get_ical_link' ) ): ?>
 <p><?php _e('Here is the iCal feed URL for your events: ' ,'tribe-events-calendar'); ?><code><?php echo tribe_get_ical_link(); ?></code></p>
 <?php endif; ?>
