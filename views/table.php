@@ -99,8 +99,7 @@ $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 
 function display_day_title( $day, $monthView, $date ) {
 	$return = "<div class='daynum tribe-events-event' id='daynum_$day'>";
-   
-   if( function_exists('tribe_get_linked_day') ) {
+   if( function_exists('tribe_get_linked_day') && count( tribe_get_events( array( 'start_date' => $date, 'end_date' => $date, 'eventDisplay' => 'all') ) ) > 0 ) {
       $return .= tribe_get_linked_day($date, $day); // premium
    } else {
       $return .= $day;
