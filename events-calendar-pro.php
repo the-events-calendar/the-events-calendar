@@ -93,6 +93,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'tribe_venue_table_top', array($this, 'displayEventVenueDropdown') );
 			add_action( 'tribe_organizer_table_top', array($this, 'displayEventOrganizerDropdown') );
 			add_action( 'tribe_helper_activation_complete', array($this, 'helpersLoaded') );
+			add_filter( 'tribe_promo_banner', array($this, 'tribePromoBannerPro') );
 		}
 		
 		public function init() {
@@ -478,6 +479,17 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$venue_args = $tec->getVenuePostTypeArgs();
 			$venue_args['exclude_from_search'] = false;
 			register_post_type( TribeEvents::VENUE_POST_TYPE, $venue_args );
+		}
+		/**
+		 * Adds the "PRO" to the promo banner and changes the link to link to the pro website.
+		 *
+		 * @author Paul Hughes
+		 * @since 2.0.5 
+		 *
+		 * @return string The new banner.
+		 */
+		public function tribePromoBannerPro() {
+			return sprintf( __('Calendar powered by %sThe Events Calendar PRO%s', 'tribe-events-calendar'), '<a href="http://tri.be/wordpress-events-calendar-pro/">', '</a>' );
 		}
 
       /**
