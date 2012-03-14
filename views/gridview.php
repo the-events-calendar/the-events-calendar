@@ -42,6 +42,6 @@ $tribe_ecp = TribeEvents::instance();
          <a title="<?php esc_attr_e('iCal Import', 'tribe-events-calendar') ?>" class="ical" href="<?php echo tribe_get_ical_link(); ?>"><?php _e('iCal Import', 'tribe-events-calendar') ?></a>
       <?php endif; ?>
 		<?php if (tribe_get_option('promo-banner', true) == true) { ?>
-			<p class="promo-banner">Calendar powered by <a href="http://tri.be/wordpress-events-calendar/">The Events Calendar</a></p>
+			<p class="tribe-promo-banner"><?php echo apply_filters('tribe_promo_banner', sprintf( __('Calendar powered by %sThe Events Calendar%s', 'tribe-events-calendar'), '<a href="http://tri.be/wordpress-events-calendar/">', '</a>' ) ); ?></p>
 		<?php } ?>
 	</div>

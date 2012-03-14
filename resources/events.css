@@ -532,11 +532,11 @@ h4 .tribe-view-all-events {
 }
 
 /* Promo-Banner styling */
-p.promo-banner {
+p.tribe-promo-banner {
 	font-size: 12px;
 	color: #999;
 }
 
-p.promo-banner a {
+p.tribe-promo-banner a {
 	color: #666;	
 }
