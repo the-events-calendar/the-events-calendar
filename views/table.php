@@ -126,8 +126,8 @@ function display_day( $day, $monthView ) {
 		$post = $monthView[$day][$i];
 		setup_postdata( $post );
 		$eventId	= $post->ID.'-'.$day;
-		$start		= tribe_get_start_date( $post->ID );
-		$end		= tribe_get_end_date( $post->ID );
+		$start		= tribe_get_start_date( $post->ID, false, 'U' );
+		$end		= tribe_get_end_date( $post->ID, false, 'U' );
 		$cost		= tribe_get_cost( $post->ID );
 		$address	= tribe_get_address( $post->ID );
 		$city		= tribe_get_city( $post->ID );
@@ -141,13 +141,11 @@ function display_day( $day, $monthView ) {
 				<h5 class="tribe-events-event-title"><?php the_title();?></h5>
 				<div class="tribe-events-event-body">
 					<div class="tribe-events-event-date">
-						<?php if ( !empty( $start ) )	echo $start; ?>
+						<?php if ( !empty( $start ) )	echo date_i18n( get_option('date_format', 'F j, Y'), $start) . ' ' . date_i18n( get_option('time_format', 'g:i a'), $start); ?>
 						<?php if ( !empty( $end )  && $start !== $end ) {
-							$start_as_ts = (int)strtotime( $start );
-							$end_as_ts = (int)strtotime( $end );
-							if ( date_i18n( 'Y-m-d', $start_as_ts ) == date_i18n( 'Y-m-d', $end_as_ts ) ) {
+							if ( date_i18n( 'Y-m-d', $start ) == date_i18n( 'Y-m-d', $end ) ) {
 								$time_format = get_option( 'time_format', 'g:i a' );
-								echo " - " . date_i18n( $time_format, $end_as_ts );
+								echo " - " . date_i18n( $time_format, $end );
 							} else {
 								echo " – " . $end . '<br />';
 							}
