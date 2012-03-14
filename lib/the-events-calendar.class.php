@@ -252,7 +252,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_validate_form_settings', array( $this, 'validateGeneralSettings' ) );
 			add_action( 'tribe_validate_form_settings', array( $this, 'validateTemplateSettings' ) );
 			add_action( 'tribe_settings_after_content_tab_general', array( $this, 'addResetCapabilitiesForm' ) );
-			add_action( 'admin_init', array( $this, 'resetCapabilities' ) );
+			add_action( 'tribe_validate_form_settings', array( $this, 'resetCapabilities' ) );
 		}
 
 		public static function ecpActive() {
@@ -956,11 +956,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Reset the user role capabilities to their defaults.
 		 *
 		 * @author Paul Hughes
-		 * @ since 2.0.5
+		 * @since 2.0.5
 		 *
 		 * @return void
 		 */
-		public static function resetCapabilities() {		
+		public static function resetCapabilities() {
 			if ( isset($_POST['resetCapabilities']) && check_admin_referer('resetCapabilities') ) {
 				$role = get_role( 'administrator' );
 				$role->remove_cap( 'edit_tribe_event' );

@@ -86,7 +86,8 @@ td.tribe_message {padding-bottom: 10px !important;}
 .tribe-settings-form .tribe-field-radio label {display: block; margin: 5px 0;}
 .tribe-settings-form .tribe-field-radio label input {margin-right: 5px;}
 .tribe_settings #pu_dashboard_message{ display: none;}
-.tribe_settings .expiring-license{color: red;}
+.tribe_settings .tribe-errors-list {margin-left: 15px;}
+.tribe_settings .expiring-license {color: red;}
 .tribe_settings .tribe-error {border: 1px solid #F00;}
 
 

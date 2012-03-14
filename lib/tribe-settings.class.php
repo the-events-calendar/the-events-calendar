@@ -7,7 +7,8 @@ if ( !class_exists('TribeSettings') ) {
 
 	/**
 	 * helper class that allows registration of settings
-	 * note: this is a work in progress
+	 * this is a static class & uses the singleton design method
+	 * instantiation takes place in TribeEvents
 	 *
 	 * @since 2.0.5
 	 * @author jkudish
@@ -25,9 +26,17 @@ if ( !class_exists('TribeSettings') ) {
 		public static $menuName;
 		public static $requiredCap;
 		public static $errors;
+		public static $major_error;
 		public static $validated;
+		public static $saved;
 
-		/* Static Singleton Factory Method */
+		/**
+		 * Static Singleton Factory Method
+		 *
+		 * @since 2.0.5
+		 * @author jkudish
+		 * @return void
+		 */
 		public static function instance() {
 			if (!isset(self::$instance)) {
 				$className = __CLASS__;
@@ -36,6 +45,13 @@ if ( !class_exists('TribeSettings') ) {
 			return self::$instance;
 		}
 
+		/**
+		 * Class constructor
+		 *
+		 * @since 2.0.5
+		 * @author jkudish
+		 * @return void
+		 */
 		public function __construct() {
 
 			// set instance variables
@@ -47,13 +63,14 @@ if ( !class_exists('TribeSettings') ) {
 			$this->adminSlug = apply_filters( 'tribe_settings_admin_slug', 'tribe-settings' );
 			$this->menuName = apply_filters( 'tribe_settings_menu_name', __('The Events Calendar', 'tribe-events-calendar') );
 			$this->requiredCap = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
-			$this->errors = (array) apply_filters( 'tribe_settings_errors', array() );
+			$this->errors = null;
+			$this->saved = false;
 
 			// run actions & filters
 			add_action( 'admin_menu', array( $this, 'addPage' ) );
 			add_action( 'tribe_settings_top', array( $this, 'validate' ) );
-			// add_action( 'tribe_settings_below_tabs', array( $this, 'displayErrors' ) );
-			// add_action( 'tribe_settings_below_tabs', array( $this, 'displaySuccess' ) );
+			add_action( 'tribe_settings_below_tabs', array( $this, 'displayErrors' ) );
+			add_action( 'tribe_settings_below_tabs', array( $this, 'displaySuccess' ) );
 		}
 
 		/**
@@ -84,6 +101,7 @@ if ( !class_exists('TribeSettings') ) {
 				echo '<h2>';
 					printf( _x('%s Settings', 'The Event Calendar settings heading', 'tribe-events-calendar'), $this->menuName );
 				echo '</h2>';
+				do_action( 'tribe_settings_above_tabs' );
 				$this->generateTabs( $this->currentTab );
 				do_action( 'tribe_settings_below_tabs' );
 				do_action( 'tribe_settings_below_tabs_tab_'.$this->currentTab );
@@ -100,9 +118,9 @@ if ( !class_exists('TribeSettings') ) {
 						do_action( 'tribe_settings_after_content_tab_'.$this->currentTab );
 			 			do_action( 'tribe_settings_after_content' );
 			  		if ( has_action('tribe_settings_content_tab_'.$this->currentTab) && !in_array($this->currentTab, $this->noSaveTabs) ) {
-							wp_nonce_field('saveTribeOptionsNonce');
+							wp_nonce_field('saving', 'tribe-save-settings');
 		    			echo '<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="'.$this->currentTab.'" />';
-		    			echo '<input id="saveTribeOptions" class="button-primary" type="submit" name="saveTribeOptions" value="'.__('Save Changes', 'tribe-events-calendar').'" />';
+		    			echo '<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="'.__('Save Changes', 'tribe-events-calendar').'" />';
 						}
 					echo apply_filters( 'tribe_settings_closing_form_element', ' </form>' );
 					do_action( 'tribe_settings_after_form_element' );
@@ -142,77 +160,222 @@ if ( !class_exists('TribeSettings') ) {
 		 * @return void
 		 */
 		public function validate() {
-			do_action('tribe_validate_settings');
-			do_action('tribe_validate_settings_tab_'.$this->currentTab);
-			if ( isset($_POST['saveTribeOptions']) && isset($_POST['current-settings-tab']) && $_POST['current-settings-tab'] == $this->currentTab ) {
+
+			do_action('tribe_settings_validate_before_checks');
+
+			// check that the right POST && variables are set
+			if ( isset($_POST['tribeSaveSettings']) && isset($_POST['current-settings-tab']) ) {
+
+				// check permissions
+				if ( !current_user_can('manage_options') ) {
+					$this->errors[] = __('You don\'t have permission to do that.', 'tribe-events-calendar');
+					$this->major_error = true;
+				}
+
+				// check the nonce
+				if ( !wp_verify_nonce($_POST['tribe-save-settings'], 'saving') ) {
+					$this->errors[] = __('The request was sent insecurely.', 'tribe-events-calendar');
+					$this->major_error = true;
+				}
+
+				// check that the request originated from the current tab
+				if ($_POST['current-settings-tab'] != $this->currentTab) {
+					$this->errors[] = __('The request wasn\'t sent from this tab.', 'tribe-events-calendar');
+					$this->major_error = true;
+				}
+
+				// bail if we have errors
+				if ( count($this->errors) )
+					return;
+
+				// some hooks
+				do_action('tribe_settings_validate');
+				do_action('tribe_settings_validate_tab_'.$this->currentTab);
+
+				// set the current tab and current fields
 				$tab = $this->currentTab;
 				$fields = $this->fields[$tab];
+
 				if (is_array($fields)) {
+					// loop through the fields and validate them
 					foreach ($fields as $field_id => $field) {
+
+						// get the value
 						$value = ( isset($_POST[$field_id]) ) ? $_POST[$field_id] : null;
+						$value = apply_filters('tribe_settings_validate_field_value', $value, $field_id, $field);
+
+						// make sure it has validation set up for it, else do nothing
 						if ( isset($field['validation_type']) || isset($field['validation_callback']) ) {
+
+							// some hooks
+							do_action('tribe_settings_validate_field', $field_id, $value, $field);
+							do_action('tribe_settings_validate_field_'.$field_id, $value, $field);
+
+							// validate this sucka
 							$validate = new TribeValidate($field_id, $field, $value);
+
 							if (isset($validate->result->error)) {
-								$this->errors[$field->id] = $validate->error;
+
+								// uh oh; validation failed
+								$this->errors[$field_id] = $validate->result->error;
+
 							} elseif ( $validate->result->valid ) {
-								$this->validated[$field_id] = $field_id;
+
+								// validation passed
+								$this->validated[$field_id] = $field;
+
 							}
+
 						}
 					}
+
+					// run the saving method
 					$this->save();
 				}
 			}
+
 		}
 
 		/**
 		 * save the settings
-		 * note: this will be refactored
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
 		 * @return void
 		 */
 		public function save() {
-			do_action('tribe_validate_form_settings');
+
+			// some hooks
+			do_action('tribe_settings_save');
+			do_action('tribe_settings_save_tab_'.$this->currentTab);
+
+			// we'll need this later
+			$parent_options = array();
+
+			/**
+			 * loop through each validated option and either
+			 * save it as is or figure out its parent option ID
+			 * (in that case, it's a serialized option array and
+			 * will be saved in the next loop)
+			 */
+			if ( isset($this->validated) && is_array($this->validated) ) {
+				foreach ($this->validated as $field_id => $validated_field) {
+
+					// get the value and filter it
+					$value = ( isset($_POST[$field_id]) ) ? $_POST[$field_id] : null;
+					$value = apply_filters('tribe_settings_save_field_value', $value, $field_id, $validated_field);
+
+					// figure out the parent option [could be set to false] and filter it
+					$parent_option = ( isset($validated_field['parent_option']) ) ? $validated_field['parent_option'] : TribeEvents::OPTIONNAME;
+					$parent_option = apply_filters('tribe_settings_save_field_parent_option', $parent_option, $field_id);
+
+					// some hooks
+					do_action('tribe_settings_save_field', $field_id, $value, $validated_field);
+					do_action('tribe_settings_save_field_'.$field_id, $value, $validated_field);
+
+					if ( !$parent_option ) {
+
+						// if no parent option, then just save the option
+						$$this->saved = update_option($field_id, $value);
+
+					} else {
+
+						// set the parent option
+						$parent_options[$parent_option][$field_id] = $value;
+
+					}
+				}
+			}
+
+			/**
+			 * loop through parent option arrays
+			 * and save them
+			 * NOTE: in the case of the main option Tribe Options,
+			 * this will save using the TribeEvents:setOptions method.
+			 */
+			foreach ($parent_options as $option_id => $new_options) {
+
+				// get the old options
+				$old_options = (array) get_option($option_id);
+
+				// set the options by parsing old + new and filter that
+				$options = apply_filters('tribe_settings_save_option_array', wp_parse_args( $new_options, $old_options ), $option_id );
+
+				if ($option_id == TribeEvents::OPTIONNAME) {
+
+					// save using the TribeEvents method
+					TribeEvents::setOptions($options);
+				} else {
+
+					// save using regular WP method
+					$this->saved = update_option($option_id, $options);
+				}
+
+			}
+
 		}
 
 		/**
-		 * display errors after saving
+		 * display errors, if any, after saving
 		 *
 		 * @since 2.0.5
 		 * @author PaulHughes01, jkudish
 		 * @return void
 		 */
 		public function displayErrors() {
-			$errors = (array) $this->errors;
+
+			// fetch the errors and filter them
+			$errors = (array) apply_filters( 'tribe_settings_display_errors', $this->errors);
 			$count = apply_filters( 'tribe_settings_count_errors', count( $errors ) );
-			if ( $count ) {
+
+			if ( !empty($_POST) && apply_filters( 'tribe_settings_display_errors_or_not', !$this->saved ) ) {
+				// output a message if we have errors
+
 				$output = '<div id="message" class="error"><p><strong>';
-				$output = __('Your form had the following errors:', 'tribe-events-calendar');
-				$output = '</strong></p><ul>';
+				$output .= __('Your form had the following errors:', 'tribe-events-calendar');
+				$output .= '</strong></p><ul class="tribe-errors-list">';
+
+				// loop through each error
 				foreach ($errors as $error) {
-					$output ='<li>'.esc_attr($error).'</li>';
+					$output .='<li>'.(string) $error.'</li>';
 				}
-				$message = _n('The above setting was not saved.', 'The above settings were not saved.', $count, 'tribe-events-calendar');
-				$output = '</ul><p>'.$message.'</p></div>';
+
+				if ( count($errors) ) {
+					$message = (isset($this->major_error)) ? __('None of your settings were saved. Please try again.') : _n('The above setting was not saved.', 'The above settings were not saved.', $count, 'tribe-events-calendar');
+				} else {
+					// if we got here, the update_option failed
+					$message = __('There was an error writting your options to the database. Please try again.', 'tribe-events-calendar');
+				}
+
+				$output .= '</ul><p>'.$message.'</p></div>';
+
+				// final output, filtered of course
 				echo apply_filters( 'tribe_settings_error_message', $output );
 			}
 		}
 
 		/**
-		 * display errors after saving
+		 * display success message after saving
 		 *
 		 * @since 2.0.5
 		 * @author PaulHughes01, jkudish
 		 * @return void
 		 */
 		public function displaySuccess() {
-			if ( isset($_POST['saveTribeOptions']) && check_admin_referer('saveTribeOptions') ) {
-				if ( !count( $this->errors ) ) {
+
+			// are we coming from the right place?
+			if ( isset($_POST['tribeSaveSettings']) && check_admin_referer('saving', 'tribe-save-settings') ) {
+
+				// did we save?
+				if ( $this->saved ) {
+
+					// output the filtered message
 					$message = __('Settings saved.', 'tribe-events-calendar');
 					$output = '<div id="message" class="updated"><p><strong>' . $message . '</strong></p></div>';
 					echo apply_filters( 'tribe_settings_success_message', $output );
+
 				}
+
 			}
 		}
 

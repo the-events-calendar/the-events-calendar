@@ -22,13 +22,25 @@ if ( !class_exists('TribeValidate') ) {
 		public $result;
 		protected $valid_types;
 
+		/**
+		 * Class constructor
+		 *
+		 * @since 2.0.5
+		 * @author jkudish
+		 * @param string $field_id the field ID to validate
+		 * @param array $field_id the field object to validate
+		 * @param mixed $value the value to validate
+		 * @return array $result the result of the validation
+		 */
 		public function __construct($field_id, $field, $value) {
 
+			// prepare object properties
 			$this->result = new stdClass;
 			$this->field = $field;
 			$this->field['id'] = $field_id;
 			$this->value = $value;
 
+			// if the field is invalid or incomplete, fail validation
 			if ( !is_array($this->field) || ( !isset($this->field['validation_type']) && !isset($this->field['validation_callback']) ) ) {
 				$this->result->valid = false;
 				$this->result->error = __('Invalid or incomplete field passed', 'tribe-events-calendar');
@@ -36,28 +48,39 @@ if ( !class_exists('TribeValidate') ) {
 				return $this->result;
 			}
 
+			// call validation callback if a validation callback function is set
 			if ( isset($this->field['validation_callback']) ) {
 				if ( function_exists($this->field['validation_callback']) ) {
 					return call_user_func($validation_callback);
 				}
 			}
 
+
 			if ( isset($this->field['validation_type']) ) {
+
 				if ( method_exists( $this, $this->field['validation_type'] ) ) {
+
+					// make sure there's a field validation type set for this validation and that such method exists
 					$this->type = $this->field['validation_type'];
 					$this->label = isset($this->field['label']) ? $this->field['label'] : $this->field['id'];
-					call_user_method($this->type, $this);
+					call_user_method($this->type, $this); // run the validation
+
 				} else {
+
+					// invalid validation type set, validation fails
 					$this->result->valid = false;
-					$this->result->error = __('Non-existant fieldthis->field validation function passed', 'tribe-events-calendar');
+					$this->result->error = __('Non-existant field validation function passed', 'tribe-events-calendar');
 					$this->result->error .= (isset($this->field['id'])) ? ' ('.__('Field ID:', 'tribe-events-calendar').' '.$this->field['id'].' '._x('with function name:', 'non-existant function name passed for field validation', 'tribe-events-calendar' ).' '.$this->field['validation_type'].' )' : '';
 				}
 			} else {
+
+				// no validation type set, validation fails
 				$this->result->valid = false;
 				$this->result->error = __('Invalid or incomplete field passed', 'tribe-events-calendar');
 				$this->result->error .= (isset($this->field['id'])) ? ' ('.__('Field ID:', 'tribe-events-calendar').' '.$this->field['id'].' )' : '';
 			}
 
+			// return the result
 			return $this->result;
 		}
 
@@ -66,7 +89,7 @@ if ( !class_exists('TribeValidate') ) {
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
-		 * @return stdClass validation object
+		 * @return stdClass validation result object
 		 */
 		public function positive_int() {
 			if ( preg_match( '/^[0-9]+$/', $this->value ) ) {
@@ -82,7 +105,7 @@ if ( !class_exists('TribeValidate') ) {
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
-		 * @return stdClass validation object
+		 * @return stdClass validation result object
 		 */
 		public function slug() {
 
@@ -94,7 +117,7 @@ if ( !class_exists('TribeValidate') ) {
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
-		 * @return stdClass validation object
+		 * @return stdClass validation result object
 		 */
 		public function cannot_be_the_same_as() {
 
@@ -105,7 +128,7 @@ if ( !class_exists('TribeValidate') ) {
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
-		 * @return stdClass validation object
+		 * @return stdClass validation result object
 		 */
 		public function number_or_percent() {
 
@@ -117,7 +140,7 @@ if ( !class_exists('TribeValidate') ) {
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
-		 * @return stdClass validation object
+		 * @return stdClass validation result object
 		 */
 		public function number_between() {
 
@@ -128,7 +151,7 @@ if ( !class_exists('TribeValidate') ) {
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
-		 * @return stdClass validation object
+		 * @return stdClass validation result object
 		 */
 		public function boolean() {
 
@@ -140,7 +163,7 @@ if ( !class_exists('TribeValidate') ) {
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
-		 * @return stdClass validation object
+		 * @return stdClass validation result object
 		 */
 		public function address() {
 
@@ -152,7 +175,7 @@ if ( !class_exists('TribeValidate') ) {
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
-		 * @return stdClass validation object
+		 * @return stdClass validation result object
 		 */
 		public function city_or_province() {
 
@@ -163,7 +186,7 @@ if ( !class_exists('TribeValidate') ) {
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
-		 * @return stdClass validation object
+		 * @return stdClass validation result object
 		 */
 		public function zip() {
 
@@ -174,20 +197,19 @@ if ( !class_exists('TribeValidate') ) {
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
-		 * @return stdClass validation object
+		 * @return stdClass validation result object
 		 */
 		public function phone() {
 
 		}
 
 		/**
-		 * automatically validate a field
-		 * regardless of the value
+		 * automatically validate a field regardless of the value
 		 * Don't use this unless you know what you are doing
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
-		 * @return stdClass validation object
+		 * @return stdClass validation result object
 		 */
 		public function none() {
 

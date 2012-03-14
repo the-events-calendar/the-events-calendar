@@ -7,7 +7,8 @@ if ( !class_exists('TribeSettingsTab') ) {
 
 	/**
 	 * helper class that creates a settings tab
-	 * note: this is a work in progress, not everything is properly implemented yet
+	 * this is a public API, use it to create tabs
+	 * simply by instantiating this class
 	 *
 	 * @since 2.0.5
 	 * @author jkudish
@@ -19,6 +20,16 @@ if ( !class_exists('TribeSettingsTab') ) {
 		public $args;
 		public static $defaults;
 
+		/**
+		 * class constructor
+		 *
+		 * @since 2.0.5
+		 * @author jkudish
+		 * @param string $id the tab's id (no spaces or special characters)
+		 * @param string $name the tab's visible name
+		 * @param array $args additional arguments for the tab
+		 * @return void
+		 */
 		public function __construct($id, $name, $args = array()) {
 
 			// seetup the defaults
@@ -49,22 +60,56 @@ if ( !class_exists('TribeSettingsTab') ) {
 
 		}
 
+		/**
+		 * filters the tabs array from TribeSettings
+		 * and adds the current tab to it
+		 *
+		 * @since 2.0.5
+		 * @author jkudish
+		 * @param array $tabs the $tabs from TribeSettings
+		 * @return array $tabs the filtered tabs
+		 */
 		public function addTab($tabs) {
 			$tabs[$this->id] = $this->name;
 			return $tabs;
 		}
 
+		/**
+		 * filters the fields array from TribeSettings
+		 * and adds the current tab's fields to it
+		 *
+		 * @since 2.0.5
+		 * @author jkudish
+		 * @param array $field the $fields from TribeSettings
+		 * @return array $fields the filtered fields
+		 */
 		public function addFields($fields) {
 			$fields[$this->id] = $this->fields;
 			return $fields;
 		}
 
+		/**
+		 * sets whether the current tab should show the save
+		 * button or not
+		 *
+		 * @since 2.0.5
+		 * @author jkudish
+		 * @param array $noSaveTabs the $noSaveTabs from TribeSettings
+		 * @return array $noSaveTabs the filtered non saving tabs
+		 */
 		public function showSaveTab($noSaveTabs) {
 			if ( !$this->show_save )
 				$noSaveTabs[$this->id] = $this->id;
 			return $noSaveTabs;
 		}
 
+		/**
+		 * displays the content for the tab
+		 *
+		 * @since 2.0.5
+		 * @author jkudish
+		 * @return void
+		 */
 		public function doContent() {
 
 			if ( $this->display_callback && function_exists($this->display_callback) )
@@ -72,9 +117,49 @@ if ( !class_exists('TribeSettingsTab') ) {
 
 			if (is_array($this->fields)) {
 				foreach ($this->fields as $key => $field) {
-					new TribeField($key, $field);
+
+					if ( isset($_POST[$key]) ) {
+
+						// if we just saved [or attempted to], get the value that was inputed
+						$value = $_POST[$key];
+
+					} else {
+
+						// get the field's parent_option in order to later get the field's value
+						$parent_option = ( isset($field['parent_option']) ) ? $field['parent_option'] : TribeEvents::OPTIONNAME;
+						$parent_option = apply_filters('tribe_settings_do_content_parent_option', $parent_option, $key);
+
+						if ( !$parent_option ) {
+
+							// no parent option, get the straight up value
+							$value = get_option($key);
+
+						} else {
+							// there's a parent option
+
+							if ($parent_option == TribeEvents::OPTIONNAME) {
+								// get the options from TribeEvents if we're getting the main array
+								$value = TribeEvents::getOption($key);
+							} else {
+								// else, get the parent option normally
+								$options = (array) get_option($parent_option);
+								$value = ( isset($options[$key]) ) ? $options[$key] : null;
+							}
+
+						}
+
+					}
+
+					// filter the value
+					$value = apply_filters('tribe_settings_get_option_value_pre_display', $value, $key, $field);
+
+					// create the field
+					new TribeField($key, $field, $value);
+
 				}
 			} else {
+
+				// no fields setup for this tab yet
 				echo '<p>'.__('There are no fields setup for this tab yet.', 'tribe-events-calendar').'</p>';
 			}
 

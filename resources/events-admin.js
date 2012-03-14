@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
 
 	// Load the Chosen JQuery plugin for all select elements with the class 'chosen'.
-	$(".chosen").chosen();
+	$('.chosen, .tribe-field-dropdown_chosen select').chosen();
 
 	//not done by default on front end
 	$('.hide-if-js').hide();
