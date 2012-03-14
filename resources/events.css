@@ -530,3 +530,13 @@ h4 .tribe-view-all-events {
         -moz-border-radius: 4px;
         border-radius: 4px;
 }
+
+/* Promo-Banner styling */
+p.promo-banner {
+	font-size: 12px;
+	color: #999;
+}
+
+p.promo-banner a {
+	color: #666;	
+}
