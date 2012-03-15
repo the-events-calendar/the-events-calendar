@@ -247,7 +247,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 			// option pages
 			add_action( 'init', array( $this, 'initOptions' ) );
-			add_action( 'tribe_add_setting_tabs', array( $this, 'doSettingTabs' ) );
+			add_action( 'admin_init', array( $this, 'doSettingTabs' ) );
 			add_action( 'tribe_settings_after_content_tab_general', array( $this, 'addResetCapabilitiesForm' ) );
 			add_action( 'tribe_validate_form_settings', array( $this, 'resetCapabilities' ) );
 		}

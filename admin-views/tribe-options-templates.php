@@ -4,7 +4,7 @@ $template_options = array(
 	'' => __('Default Events Template', 'tribe-events-calendar' ),
 	'default' => __('Default Page Template', 'tribe-events-calendar' ),
 );
-$templates = array_flip( wp_get_theme()->get_page_templates() );
+$templates = get_page_templates();
 ksort( $templates );
 foreach (array_keys( $templates ) as $template ) {
 	$template_options[$templates[$template]] = $template;
