@@ -15,6 +15,7 @@ if (!class_exists('TribeEventsTemplates')) {
 	
 		public static function init() {
 			add_filter( 'parse_query', array( __CLASS__, 'fixIsHome') );
+			add_filter( 'template_include', array( __CLASS__, 'fixIs404') );
 			add_filter( 'template_include', array( __CLASS__, 'templateChooser') );
 			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished'), 999 );
 		}
@@ -59,6 +60,12 @@ if (!class_exists('TribeEventsTemplates')) {
 				$query->is_home = false;
 			}
 			return $query;
+		}
+		
+		public static function fixIs404() {
+			global $wp_query;
+			$wp_query->is_404 = false;
+			
 		}
 	
 		public static function wpHeadFinished() {
