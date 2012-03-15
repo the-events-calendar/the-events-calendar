@@ -63,7 +63,7 @@ if ( !class_exists('TribeValidate') ) {
 		 * @param mixed $value the value to validate
 		 * @return array $result the result of the validation
 		 */
-		public function __construct($field_id, $field, $value, $additional_args) {
+		public function __construct($field_id, $field, $value, $additional_args = array()) {
 
 			// prepare object properties
 			$this->result = new stdClass;
@@ -207,6 +207,18 @@ if ( !class_exists('TribeValidate') ) {
 				$this->result->valid = false;
 				$this->result->error = sprintf( __('%s must be a number or percentage.', 'tribe-events-calendar'), $this->label);
 			}
+		}
+
+		/**
+		 * sanitizes an html field
+		 *
+		 * @since 2.0.5
+		 * @author jkudish
+		 * @return stdClass validation result object
+		 */
+		public function html() {
+			$this->value = balanceTags($this->value);
+			$this->result->valid = true;
 		}
 
 		/**

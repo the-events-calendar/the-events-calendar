@@ -370,9 +370,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function doSettingTabs() {
 
 			include_once($this->pluginPath.'admin-views/tribe-options-general.php');
+			include_once($this->pluginPath.'admin-views/tribe-options-templates.php');
 
 			new TribeSettingsTab( 'general', __('General', 'tribe-events-calendar'), $generalTab, 10 );
-			// new TribeSettingsTab( 'template', __('Template', 'tribe-events-calendar'), $templateTab, 20 );
+			new TribeSettingsTab( 'template', __('Template', 'tribe-events-calendar'), $templatesTab, 20 );
 			// new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar'), $licenseTab, 40 );
 			// new TribeSettingsTab( 'help', __('Help', 'tribe-events-calendar'), $helpTab, 60 );
 

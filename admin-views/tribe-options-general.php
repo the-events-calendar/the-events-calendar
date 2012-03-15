@@ -4,7 +4,7 @@ $generalTab = array(
 	'fields' => array(
 		'upsell-heading' => array(
 			'type' => 'heading',
-			'label' => 'Additional Functionality',
+			'label' => __('Additional Functionality', 'tribe-events-calendar'),
 		),
 		'upsell-info' => array(
 			'type' => 'html',
@@ -12,7 +12,7 @@ $generalTab = array(
 		),
 		'ical-heading' => array(
 			'type' => 'heading',
-			'label' => 'iCal',
+			'label' => __('iCal', 'tribe-events-calendar'),
 		),
 		'ical-info' => array(
 			'type' => 'html',
@@ -20,7 +20,7 @@ $generalTab = array(
 		),
 		'settings-heading' => array(
 			'type' => 'heading',
-			'label' => 'Settings'
+			'label' => __('Settings', 'tribe-events-calendar'),
 		),
 		'viewOption' => array(
 			'type' => 'radio',
