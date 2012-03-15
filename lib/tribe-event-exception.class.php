@@ -21,7 +21,7 @@ if( !class_exists( 'TribeEventsPostException' ) ) {
 } // end if !class_exists TribeEventsPostException
 
 /**
- * Exception handling for third-party plugins dealing with the Wordpress options view.
+ * Exception handling for third-party plugins dealing with the WordPress options view.
  */
 if( !class_exists( 'TribeEventsOptionsException' ) ) {
 	class TribeEventsOptionsException extends Exception {

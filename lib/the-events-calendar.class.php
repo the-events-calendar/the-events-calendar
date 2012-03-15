@@ -222,7 +222,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'pre_get_posts', array( $this, 'setDate' ));
 			add_action( 'wp', array( $this, 'setDisplay' ));
 			add_action( 'tribe_events_post_errors', array( 'TribeEventsPostException', 'displayMessage' ) );
-			add_action( 'tribe_events_options_top', array( 'TribeEventsOptionsException', 'displayMessage') );
+			add_action( 'tribe_settings_top', array( 'TribeEventsOptionsException', 'displayMessage') );
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
 			add_action( 'the_post', array( $this, 'setReccuringEventDates' ) );			
@@ -374,72 +374,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar'), $licenseTab, 40 );
 			// new TribeSettingsTab( 'help', __('Help', 'tribe-events-calendar'), $helpTab, 60 );
 
-		}
-
-		/**
-		 * output the general option page
-		 * note: this will get refactored very soon
-		 *
-		 * @since 2.1
-		 * @author jkudish
-		 * @return void
-		 */
-		public function optionsPageViewGeneral() {
-			include_once( $this->pluginPath . 'admin-views/events-options-general.php' );
-			// every visit to ECP General Settings = flush rules.
-			$this->flushRewriteRules();
-		}
-
-		/**
-		 * output the template option page
-		 * note: this will get refactored very soon
-		 *
-		 * @since 2.1
-		 * @author jkudish
-		 * @return void
-		 */
-		public function optionsPageViewTemplate() {
-			include_once( $this->pluginPath . 'admin-views/events-options-template.php' );
-		}
-
-		/**
-		 * output the help option page
-		 * note: this will get refactored very soon
-		 *
-		 * @since 2.1
-		 * @author jkudish
-		 * @return void
-		 */
-		public function addHelpSettingsContent() {
-			include_once( $this->pluginPath . 'admin-views/events-options-help.php' );
-  	}
-
-
-		/**
-		 * save template settings
-		 * note: this will get refactored very soon
-		 *
-		 * @since 2.1
-		 * @author jkudish
-		 * @return void
-		 */
-		public function validateTemplateSettings() {
-			if ( isset( $_POST['current-settings-tab'] ) ) {
-				if ( $_POST['current-settings-tab'] == 'template' ) {
-					$options = self::getOptions();
-					$opts = array(
-						'tribeEventsAfterHTML',
-						'tribeEventsBeforeHTML',
-						'tribeEventsTemplate'					
-					);
-					foreach ($opts as $opt) {
-						if(isset($_POST[$opt]))
-							$options[$opt] = $_POST[$opt];
-					}
-					
-					$this->setOptions($options);
-				}
-			}
 		}
 
 		/**
@@ -1167,7 +1101,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function admin_body_class( $classes ) {
 			global $current_screen;			
 			if ( isset($current_screen->post_type) &&
-					($current_screen->post_type == self::POSTTYPE || $current_screen->id == 'settings_page_the-events-calendar.class')
+					($current_screen->post_type == self::POSTTYPE || $current_screen->id == 'settings_page_tribe-settings')
 			) {
 				$classes .= ' events-cal ';
 			}
@@ -2583,10 +2517,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			</tr><?php 
 		}
 
-		public function maybeShowSettingsUpsell($postId) {
-			?><p><?php _e('Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ); ?></p>
-			<p><?php printf(__('Check out the <a href="%s">available Add-Ons</a>.', 'tribe-events-calendar' ), self::$tribeUrl.'?ref=tec-options') ?></p> <?php 
-		}
 		
 		/**
 		 * Helper function for getting Post Id. Accepts null or a post id.
