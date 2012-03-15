@@ -147,22 +147,24 @@ if ( !class_exists('TribeSettingsTab') ) {
 						// get the field's parent_option in order to later get the field's value
 						$parent_option = ( isset($field['parent_option']) ) ? $field['parent_option'] : TribeEvents::OPTIONNAME;
 						$parent_option = apply_filters('tribe_settings_do_content_parent_option', $parent_option, $key);
+						$default = ( isset($field['default']) )  ? $field['default'] : null;
+						$default = apply_filters('tribe_settings_field_default', $default, $field);
 
 						if ( !$parent_option ) {
 
 							// no parent option, get the straight up value
-							$value = get_option($key);
+							$value = get_option($key, $default);
 
 						} else {
 							// there's a parent option
 
 							if ($parent_option == TribeEvents::OPTIONNAME) {
 								// get the options from TribeEvents if we're getting the main array
-								$value = TribeEvents::getOption($key);
+								$value = TribeEvents::getOption($key, $default);
 							} else {
 								// else, get the parent option normally
 								$options = (array) get_option($parent_option);
-								$value = ( isset($options[$key]) ) ? $options[$key] : null;
+								$value = ( isset($options[$key]) ) ? $options[$key] : $default;
 							}
 
 						}

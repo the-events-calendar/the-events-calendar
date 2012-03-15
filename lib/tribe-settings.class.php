@@ -134,7 +134,7 @@ if ( !class_exists('TribeSettings') ) {
 			$this->noSaveTabs = (array) apply_filters( 'tribe_settings_no_save_tabs', array() );
 			$this->menuName = apply_filters( 'tribe_settings_menu_name', __('The Events Calendar', 'tribe-events-calendar') );
 			$this->requiredCap = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
-			$this->adminSlug = null;
+			$this->adminSlug = apply_filters( 'tribe_settings_admin_slug', 'tribe-settings' );
 			$this->errors = null;
 			$this->saved = false;
 			$this->major_error = false;
@@ -378,7 +378,7 @@ if ( !class_exists('TribeSettings') ) {
 				if ($option_id == TribeEvents::OPTIONNAME) {
 
 					// save using the TribeEvents method
-					TribeEvents::setOptions($options);
+					$this->saved = TribeEvents::setOptions($options);
 				} else {
 
 					// save using regular WP method
@@ -402,7 +402,7 @@ if ( !class_exists('TribeSettings') ) {
 			$errors = (array) apply_filters( 'tribe_settings_display_errors', $this->errors);
 			$count = apply_filters( 'tribe_settings_count_errors', count( $errors ) );
 
-			if ( !empty($_POST) && apply_filters( 'tribe_settings_display_errors_or_not', !$this->saved ) ) {
+			if ( !empty($_POST) && apply_filters( 'tribe_settings_display_errors_or_not', ( $count > 0) ) ) {
 				// output a message if we have errors
 
 				$output = '<div id="message" class="error"><p><strong>';
@@ -416,9 +416,6 @@ if ( !class_exists('TribeSettings') ) {
 
 				if ( count($errors) ) {
 					$message = (isset($this->major_error)) ? __('None of your settings were saved. Please try again.') : _n('The above setting was not saved.', 'The above settings were not saved.', $count, 'tribe-events-calendar');
-				} else {
-					// if we got here, the update_option failed
-					$message = __('There was an error writting your options to the database. Please try again.', 'tribe-events-calendar');
 				}
 
 				$output .= '</ul><p>'.$message.'</p></div>';
@@ -437,18 +434,13 @@ if ( !class_exists('TribeSettings') ) {
 		 */
 		public function displaySuccess() {
 
-			// are we coming from the right place?
+			// are we coming from the saving place?
 			if ( isset($_POST['tribeSaveSettings']) && check_admin_referer('saving', 'tribe-save-settings') ) {
 
-				// did we save?
-				if ( $this->saved ) {
-
-					// output the filtered message
-					$message = __('Settings saved.', 'tribe-events-calendar');
-					$output = '<div id="message" class="updated"><p><strong>' . $message . '</strong></p></div>';
-					echo apply_filters( 'tribe_settings_success_message', $output );
-
-				}
+				// output the filtered message
+				$message = __('Settings saved.', 'tribe-events-calendar');
+				$output = '<div id="message" class="updated"><p><strong>' . $message . '</strong></p></div>';
+				echo apply_filters( 'tribe_settings_success_message', $output );
 
 			}
 		}

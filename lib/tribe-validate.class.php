@@ -131,7 +131,19 @@ if ( !class_exists('TribeValidate') ) {
 		 * @return stdClass validation result object
 		 */
 		public function slug() {
+			$this->result->valid = true;
+		}
 
+		/**
+		 * validates fields that have options (radios, dropdowns, etc.)
+		 * by making sure the value is part of the options array
+		 *
+		 * @since 2.0.5
+		 * @author jkudish
+		 * @return stdClass validation result object
+		 */
+		public function options() {
+			$this->result->valid = true;
 		}
 
 		/**
@@ -143,7 +155,7 @@ if ( !class_exists('TribeValidate') ) {
 		 * @return stdClass validation result object
 		 */
 		public function cannot_be_the_same_as() {
-
+			$this->result->valid = true;
 		}
 
 		/**
@@ -154,7 +166,7 @@ if ( !class_exists('TribeValidate') ) {
 		 * @return stdClass validation result object
 		 */
 		public function number_or_percent() {
-
+			$this->result->valid = true;
 		}
 
 		/**
@@ -166,7 +178,7 @@ if ( !class_exists('TribeValidate') ) {
 		 * @return stdClass validation result object
 		 */
 		public function number_between() {
-
+			$this->result->valid = true;
 		}
 
 		/**
@@ -177,7 +189,7 @@ if ( !class_exists('TribeValidate') ) {
 		 * @return stdClass validation result object
 		 */
 		public function boolean() {
-
+			$this->result->valid = true;
 		}
 
 		/**
@@ -189,7 +201,7 @@ if ( !class_exists('TribeValidate') ) {
 		 * @return stdClass validation result object
 		 */
 		public function address() {
-
+			$this->result->valid = true;
 		}
 
 		/**
@@ -201,7 +213,7 @@ if ( !class_exists('TribeValidate') ) {
 		 * @return stdClass validation result object
 		 */
 		public function city_or_province() {
-
+			$this->result->valid = true;
 		}
 
 		/**
@@ -212,7 +224,7 @@ if ( !class_exists('TribeValidate') ) {
 		 * @return stdClass validation result object
 		 */
 		public function zip() {
-
+			$this->result->valid = true;
 		}
 
 		/**
@@ -223,7 +235,7 @@ if ( !class_exists('TribeValidate') ) {
 		 * @return stdClass validation result object
 		 */
 		public function phone() {
-
+			$this->result->valid = true;
 		}
 
 		/**
@@ -235,7 +247,7 @@ if ( !class_exists('TribeValidate') ) {
 		 * @return stdClass validation result object
 		 */
 		public function none() {
-
+			$this->result->valid = true;
 		}
 
 	} // end class

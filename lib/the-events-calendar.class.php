@@ -246,11 +246,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				add_action( 'tribe-events-before-general-settings', array($this, 'maybeShowSettingsUpsell'));
 			}
 			// option pages
-			add_action( 'tribe_settings_content_tab_general', array($this, 'optionsPageViewGeneral') );
-			add_action( 'tribe_settings_content_tab_template', array($this, 'optionsPageViewTemplate') );
-			add_action( 'tribe_settings_content_tab_help', array( &$this, 'addHelpSettingsContent' ) );
-			add_action( 'tribe_validate_form_settings', array( $this, 'validateGeneralSettings' ) );
-			add_action( 'tribe_validate_form_settings', array( $this, 'validateTemplateSettings' ) );
+			add_action( 'init', array( $this, 'initOptions' ) );
+			add_action( 'tribe_add_setting_tabs', array( $this, 'doSettingTabs' ) );
 			add_action( 'tribe_settings_after_content_tab_general', array( $this, 'addResetCapabilitiesForm' ) );
 			add_action( 'tribe_validate_form_settings', array( $this, 'resetCapabilities' ) );
 		}
@@ -297,7 +294,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->maybeMigrateDatabase();
 			$this->maybeRenameOptions();
 			$this->maybeSetTECVersion();
-			$this->initOptions();
 		}
 
 		public function maybeMigrateDatabase( ) {
@@ -349,21 +345,46 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * init the options class
+		 * init the settings API and add a hook to add your own setting tabs
 		 *
-		 * @since 2.1
+		 * @since 2.0.5
 		 * @author jkudish
 		 * @return void
 		 */
 		public function initOptions() {
-			do_action('tribe_settings_new_tabs');
-			new TribeSettingsTab( 'general', __('General', 'tribe-events-calendar') );
-			new TribeSettingsTab( 'template', __('Template', 'tribe-events-calendar') );
-			do_action('tribe_settings_tabs_after_template');
-			new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar') );
-			new TribeSettingsTab( 'help', __('Help', 'tribe-events-calendar') );
-			do_action('tribe_settings_tabs_after_help');
+
+			if (!is_admin())
+				return;
+
+			do_action('tribe_add_setting_tabs'); // if you want to add tabs, this is the hook to use
 			TribeSettings::instance();
+		}
+
+		/**
+		 * create setting tabs
+		 *
+		 * @since 2.0.5
+		 * @author jkudish
+		 * @return void
+		 */
+		public function doSettingTabs() {
+
+			include_once('settings/general.php');
+
+			$templateTab = array(
+			);
+
+			$licenseTab = array(
+			);
+
+			$helpTab = array(
+			);
+
+			new TribeSettingsTab( 'general', __('General', 'tribe-events-calendar'), $generalTab, 10 );
+			new TribeSettingsTab( 'template', __('Template', 'tribe-events-calendar'), $templateTab, 20 );
+			new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar'), $licenseTab, 40 );
+			new TribeSettingsTab( 'help', __('Help', 'tribe-events-calendar'), $helpTab, 60 );
+
 		}
 
 		/**
@@ -1373,8 +1394,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						$this->flushRewriteRules();
 					}
 				}
+				return true;
 			} else {
 				self::$options = self::getOptions();
+				return false;
 			}
 		}
 
