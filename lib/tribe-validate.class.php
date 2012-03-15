@@ -222,6 +222,18 @@ if ( !class_exists('TribeValidate') ) {
 		}
 
 		/**
+		 * sanitizes a textarea field
+		 *
+		 * @since 2.0.5
+		 * @author jkudish
+		 * @return stdClass validation result object
+		 */
+		public function textarea() {
+			$this->value = esc_textarea($this->value);
+			$this->result->valid = true;
+		}
+
+		/**
 		 * sanitizes a field as beeing a boolean
 		 *
 		 * @since 2.0.5

@@ -71,6 +71,7 @@ if ( !class_exists('TribeField') ) {
 				'options' => null,
 				'conditional' => true,
 				'display_callback' => null,
+				'if_empty' => null,
 			);
 
 			// a list of valid field types, to prevent screwy behaviour
@@ -419,21 +420,21 @@ if ( !class_exists('TribeField') ) {
 			$field = $this->doFieldStart();
 			$field .= $this->doFieldLabel();
 			$field .= $this->doFieldDivStart();
-			$field .= '<select';
-			$field .= $this->doFieldName();
-			$field .= $this->doToolTip();
-			$field .= '>';
-			if ( is_array($this->options) ) {
+			if ( is_array($this->options) && !empty($this->options) ) {
+				$field .= '<select';
+				$field .= $this->doFieldName();
+				$field .= $this->doToolTip();
+				$field .= '>';
 				foreach ($this->options as $option_id => $title) {
 					$field .= '<option value="'.$option_id.'"';
 					$field .= selected( $this->value, $option_id, false );
 					$field .= '>'.$title.'</option>';
 				}
-			$field .= '</select>';
-			$field .= $this->doScreenReaderLabel();
-			} else {
 				$field .= '</select>';
 				$field .= $this->doScreenReaderLabel();
+			} elseif ($this->if_empty) {
+				$field .= '<span class="empty-field">'.(string) $this->if_empty.'</span>';
+			} else {
 				$field .= '<span class="tribe-error">'.__('No select options specified', 'tribe-events-calendar').'</span>';
 			}
 			$field .= $this->doFieldDivEnd();
