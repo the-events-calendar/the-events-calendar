@@ -15,20 +15,92 @@ if ( !class_exists('TribeSettings') ) {
 	 */
 	class TribeSettings {
 
+		/**
+		 * singleton instance var
+		 * @var stdClass
+		 */
 		public static $instance;
-		public static $admin_page;
+
+		/**
+		 * the tabs that will appear in the settings page
+		 * filtered on class construct
+		 * @var array
+		 */
 		public static $tabs;
+
+		/**
+		 * multidimentional array of the fields that will be generated
+		 * for the entire settings panel, tabs are represented in the array keys
+		 * @var array
+		 */
 		public static $fields;
+
+		/**
+		 * the default tab for the settings panel
+		 * this should be a tab ID
+		 * @var string
+		 */
 		public static $defaultTab;
+
+		/**
+		 * the current tab being displayed
+		 * @var string
+		 */
 		public static $currentTab;
+
+		/**
+		 * tabs that shouldn't show the save button
+		 * @var array
+		 */
 		public static $noSaveTabs;
+
+		/**
+		 * the slug used in the admin to generate the settings page
+		 * @var string
+		 */
 		public static $adminSlug;
+
+		/**
+		 * the menu name used for the settings page
+		 * @var string
+		 */
 		public static $menuName;
+
+		/**
+		 * the required capability for the settings page
+		 * @var string
+		 */
 		public static $requiredCap;
+
+		/**
+		 * errors that occur after a save operation
+		 * @var mixed
+		 */
 		public static $errors;
-		public static $major_error;
-		public static $validated;
+
+		/**
+		 * true when just saved
+		 * @var bool
+		 */
 		public static $saved;
+
+		/**
+		 * the $current_screen name corresponding to the admin page
+		 * @var string
+		 */
+		public static $admin_page;
+
+		/**
+		 * true if a major error that prevents saving occurred
+		 * @var bool
+		 */
+		public static $major_error;
+
+		/**
+		 * holds validated fields
+		 * @var array
+		 */
+		public static $validated;
 
 		/**
 		 * Static Singleton Factory Method
@@ -60,11 +132,13 @@ if ( !class_exists('TribeSettings') ) {
 			$this->defaultTab = apply_filters( 'tribe_settings_default_tab', 'general' );
 			$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset($_GET['tab']) && $_GET['tab'] ) ? esc_attr($_GET['tab']) : $this->defaultTab );
 			$this->noSaveTabs = (array) apply_filters( 'tribe_settings_no_save_tabs', array() );
-			$this->adminSlug = apply_filters( 'tribe_settings_admin_slug', 'tribe-settings' );
 			$this->menuName = apply_filters( 'tribe_settings_menu_name', __('The Events Calendar', 'tribe-events-calendar') );
 			$this->requiredCap = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
+			$this->adminSlug = null;
 			$this->errors = null;
 			$this->saved = false;
+			$this->major_error = false;
+			$this->validated = array();
 
 			// run actions & filters
 			add_action( 'admin_menu', array( $this, 'addPage' ) );
@@ -122,7 +196,7 @@ if ( !class_exists('TribeSettings') ) {
 		    			echo '<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="'.$this->currentTab.'" />';
 		    			echo '<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="'.__('Save Changes', 'tribe-events-calendar').'" />';
 						}
-					echo apply_filters( 'tribe_settings_closing_form_element', ' </form>' );
+					echo apply_filters( 'tribe_settings_closing_form_element', '</form>' );
 					do_action( 'tribe_settings_after_form_element' );
 				echo '</div>';
 				do_action( 'tribe_settings_after_form_div' );

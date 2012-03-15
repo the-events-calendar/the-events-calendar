@@ -6,17 +6,44 @@ if ( !defined('ABSPATH') ) die('-1');
 if ( !class_exists('TribeField') ) {
 
 	/**
-	 * helper class that creates fields for use in Settings, MetaBoxes, Users, anywhere...
+	 * helper class that creates fields for use in Settings, MetaBoxes, Users, anywhere.
+	 * Instantiate it whenever you need a field
 	 *
 	 * @since 2.0.5
 	 * @author jkudish
 	 */
 	class TribeField {
 
+		/**
+		 * the field's id
+		 * @var string
+		 */
 		public $id;
+
+		/**
+		 * the field's name (also known as it's label)
+		 * @var string
+		 */
 		public $name;
+
+		/**
+		 * the field's arguments
+		 * @var array
+		 */
 		public $args;
+
+		/**
+		 * field defaults (static)
+		 * @var array
+		 */
 		public static $defaults;
+
+		/**
+		 * valid field types (static)
+		 * @var array
+		 */
+		public static $valid_field_types;
+
 
 		/**
 		 * Class constructor
@@ -28,7 +55,7 @@ if ( !class_exists('TribeField') ) {
 		 * @param mixed $value the field's current value
 		 * @return void
 		 */
-		public function __construct($id, $field, $value) {
+		public function __construct($id, $field, $value = null) {
 
 			// seetup the defaults
 			$this->defaults = array(
@@ -115,8 +142,8 @@ if ( !class_exists('TribeField') ) {
 				$field = call_user_method($this->type, $this);
 
 				// filter the output
-				$field = apply_filters( 'tribe_field_'.$this->type, $field, $this->id, $this );
-				echo apply_filters( 'tribe_field_'.$this->type.'_'.$this->id, $field, $this->id, $this );
+				$field = apply_filters( 'tribe_field_output_'.$this->type, $field, $this->id, $this );
+				echo apply_filters( 'tribe_field_output_'.$this->type.'_'.$this->id, $field, $this->id, $this );
 
 			} else {
 

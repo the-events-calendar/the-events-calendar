@@ -6,21 +6,44 @@ if ( !defined('ABSPATH') ) die('-1');
 if ( !class_exists('TribeValidate') ) {
 
 	/**
-	 * helper class that validates fields for use in Settings, MetaBoxes, Users, anywhere...
+	 * helper class that validates fields for use in Settings, MetaBoxes, Users, anywhere.
+	 * Instantiate whenever you want to validate a field
 	 *
 	 * @since 2.0.5
 	 * @author jkudish
 	 */
 	class TribeValidate {
 
+		/**
+		 * the field object to validate
+		 * @var array
+		 */
 		public $field;
+
+		/**
+		 * the field's value
+		 * @var mixed
+		 */
 		public $value;
+
+		/**
+		 * the field's label, used in error messages
+		 * @var string
+		 */
 		public $label;
-		public $error;
+
+		/**
+		 * the type of validation to perform
+		 * @var string
+		 */
 		public $type;
-		public $callback;
+
+
+		/**
+		 * the result object of the validation
+		 * @var stdClass
+		 */
 		public $result;
-		protected $valid_types;
 
 		/**
 		 * Class constructor

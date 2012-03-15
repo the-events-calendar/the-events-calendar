@@ -15,9 +15,28 @@ if ( !class_exists('TribeSettingsTab') ) {
 	 */
 	class TribeSettingsTab {
 
+		/**
+		 * Tab ID, used in query string and elsewhere
+		 * @var string
+		 */
 		public $id;
+
+		/**
+		 * Tab's name
+		 * @var string
+		 */
 		public $name;
+
+		/**
+		 * Tab's arguments
+		 * @var array
+		 */
 		public $args;
+
+		/**
+		 * Defaults for tabs
+		 * @var array
+		 */
 		public static $defaults;
 
 		/**
@@ -35,7 +54,7 @@ if ( !class_exists('TribeSettingsTab') ) {
 			// seetup the defaults
 			$this->defaults = array(
 				'fields' => array(),
-				'placement' => null,
+				'priority' => 50,
 				'show_save' => true,
 				'display_callback' => false,
 			);
@@ -53,7 +72,7 @@ if ( !class_exists('TribeSettingsTab') ) {
 
 
 			// run actions & filters
-			add_filter('tribe_settings_tabs', array($this, 'addTab') );
+			add_filter('tribe_settings_tabs', array($this, 'addTab'), $priority );
 			add_filter('tribe_settings_fields', array($this, 'addFields') );
 			add_filter('tribe_settings_no_save_tabs', array($this, 'showSaveTab') );
 			add_filter('tribe_settings_content_tab_'.$this->id, array($this, 'doContent') );
