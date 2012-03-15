@@ -296,7 +296,7 @@ if ( !class_exists('TribeSettings') ) {
 							} elseif ( $validate->result->valid ) {
 
 								// validation passed
-								$this->validated[$field_id] = $field;
+								$this->validated[$field_id] = $validate->field;
 
 							}
 
@@ -336,7 +336,7 @@ if ( !class_exists('TribeSettings') ) {
 				foreach ($this->validated as $field_id => $validated_field) {
 
 					// get the value and filter it
-					$value = ( isset($_POST[$field_id]) ) ? $_POST[$field_id] : null;
+					$value = $validated_field;
 					$value = apply_filters('tribe_settings_save_field_value', $value, $field_id, $validated_field);
 
 					// figure out the parent option [could be set to false] and filter it
@@ -350,7 +350,7 @@ if ( !class_exists('TribeSettings') ) {
 					if ( !$parent_option ) {
 
 						// if no parent option, then just save the option
-						$$this->saved = update_option($field_id, $value);
+						$this->saved = update_option($field_id, $value);
 
 					} else {
 

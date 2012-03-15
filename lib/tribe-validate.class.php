@@ -27,6 +27,14 @@ if ( !class_exists('TribeValidate') ) {
 		public $value;
 
 		/**
+		 * additional arguments for validation
+		 * used by some methods only
+		 * @var array
+		 */
+		public $additional_args;
+
+
+		/**
 		 * the field's label, used in error messages
 		 * @var string
 		 */
@@ -55,13 +63,14 @@ if ( !class_exists('TribeValidate') ) {
 		 * @param mixed $value the value to validate
 		 * @return array $result the result of the validation
 		 */
-		public function __construct($field_id, $field, $value) {
+		public function __construct($field_id, $field, $value, $additional_args) {
 
 			// prepare object properties
 			$this->result = new stdClass;
 			$this->field = $field;
 			$this->field['id'] = $field_id;
 			$this->value = $value;
+			$this->additional_args = $additional_args;
 
 			// if the field is invalid or incomplete, fail validation
 			if ( !is_array($this->field) || ( !isset($this->field['validation_type']) && !isset($this->field['validation_callback']) ) ) {
@@ -108,7 +117,7 @@ if ( !class_exists('TribeValidate') ) {
 		}
 
 		/**
-		 * validates & sanitizes fields as being positive integers
+		 * validates a field as being positive integers
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
@@ -131,7 +140,13 @@ if ( !class_exists('TribeValidate') ) {
 		 * @return stdClass validation result object
 		 */
 		public function slug() {
-			$this->result->valid = true;
+			if ( preg_match( '/^[a-zA-Z0-9-_]+$/', $this->value ) ) {
+				$this->result->valid = true;
+				$this->value = sanitize_title($this->value);
+			} else {
+				$this->result->valid = false;
+				$this->result->error = sprintf( __('%s must be a valid slug (numbers, letters, dashes, and underscores).', 'tribe-events-calendar'), $this->label);
+			}
 		}
 
 		/**
@@ -143,11 +158,16 @@ if ( !class_exists('TribeValidate') ) {
 		 * @return stdClass validation result object
 		 */
 		public function options() {
-			$this->result->valid = true;
+			if ( array_key_exists( $this->value, $this->field['options'] ) ) {
+				$this->result->valid = true;
+			} else {
+				$this->result->valid = false;
+				$this->result->error = sprintf( __('%s must have a value that\'s part of its options.'), $this->label);
+			}
 		}
 
 		/**
-		 * validates & sanitizes fields as not being able to be the same
+		 * validates a field as not being able to be the same
 		 * as the specified field
 		 *
 		 * @since 2.0.5
@@ -155,45 +175,69 @@ if ( !class_exists('TribeValidate') ) {
 		 * @return stdClass validation result object
 		 */
 		public function cannot_be_the_same_as() {
-			$this->result->valid = true;
+			if ( !isset($this->additional_args['compare']) ) {
+				$this->result->valid = false;
+				$this->result->error = sprintf( __('Comparison validation failed because no comparison value was provided, for field %s', 'tribe-events-calendar'), $this->field['id'] );
+			} else {
+				if ($this->value != $this->additional_args['compare']) {
+					$this->result = true;
+				} else {
+					$this->result->valid = false;
+					if (isset($this->additional_args['compare_name'])) {
+						$this->result->error = sprintf( __('%s cannot be the same as %s.', 'tribe-events-calendar'), $this->label, $this->additional_args['compare_name']);
+					} else {
+						$this->result->error = sprintf( __('%s cannot be a duplicate', 'tribe-events-calendar'), $this->label );
+					}
+				}
+			}
 		}
 
 		/**
-		 * validates & sanitizes fields as being a number or a percentage
+		 * validates a field as being a number or a percentage
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
 		 * @return stdClass validation result object
 		 */
 		public function number_or_percent() {
-			$this->result->valid = true;
+			if ( preg_match( '/^[0-9]+%{0,1}$/', $this->value ) ) {
+				$this->result->valid = true;
+			} else {
+				$this->result->valid = false;
+				$this->result->error = sprintf( __('%s must be a number or percentage.', 'tribe-events-calendar'), $this->label);
+			}
 		}
 
 		/**
-		 * validates & sanitizes fields as being a number in between
-		 * two specified numbers
-		 *
-		 * @since 2.0.5
-		 * @author jkudish
-		 * @return stdClass validation result object
-		 */
-		public function number_between() {
-			$this->result->valid = true;
-		}
-
-		/**
-		 * validates & sanitizes fields as beeing a boolean
+		 * sanitizes a field as beeing a boolean
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
 		 * @return stdClass validation result object
 		 */
 		public function boolean() {
+			$this->value = (bool) $this->value;
 			$this->result->valid = true;
 		}
 
 		/**
-		 * validates & sanitizes fields as being part of an address
+		 * validates a Google Maps Zoom field
+		 *
+		 * @since 2.0.5
+		 * @author jkudish
+		 * @return stdClass validation result object
+		 */
+		public function google_maps_zoom() {
+			if ( preg_match( '/^([0-9]|[0-1][0-9]|2[0-1])$/', $this->value ) ) {
+				$this->result->valid = true;
+			} else {
+				$this->result->valid = false;
+				$this->result->error = sprintf( __('%s must be a number between 0 and 21.', 'tribe-events-calendar'), $this->label);
+			}
+		}
+
+		/**
+		 * validates a field as being part of an address
 		 * allows for letters, numbers, dashses and spaces only
 		 *
 		 * @since 2.0.5
@@ -201,11 +245,16 @@ if ( !class_exists('TribeValidate') ) {
 		 * @return stdClass validation result object
 		 */
 		public function address() {
-			$this->result->valid = true;
+			if ( preg_match( '/^[a-zA-Z0-9- ]+$/', $this->value ) ) {
+				$this->result->valid = true;
+			} else {
+				$this->result->valid = false;
+				$this->result->error = sprintf( __('%s must consist of letters, numbers, dashes, and spaces only.', 'tribe-events-calendar'), $this->label);
+			}
 		}
 
 		/**
-		 * validates & sanitizes fields as being a city or province
+		 * validates a field as being a city or province
 		 * allows for letters, dashses and spaces only
 		 *
 		 * @since 2.0.5
@@ -213,29 +262,44 @@ if ( !class_exists('TribeValidate') ) {
 		 * @return stdClass validation result object
 		 */
 		public function city_or_province() {
-			$this->result->valid = true;
+			if ( preg_match( '/^[a-zA-Z- ]+$/', $this->value ) ) {
+				$this->result->valid = true;
+			} else {
+				$this->result->valid = false;
+				$this->result->error = sprintf( __('%s must consist of letters, spaces, and dashes.', 'tribe-events-calendar'), $this->label);
+			}
 		}
 
 		/**
-		 * validates & sanitizes fields as being a zip code
+		 * validates a field as being a zip code
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
 		 * @return stdClass validation result object
 		 */
 		public function zip() {
-			$this->result->valid = true;
+		if ( preg_match( '/^[0-9]{5}$/', $this->value ) ) {
+				$this->result->valid = true;
+			} else {
+				$this->result->valid = false;
+				$this->result->error = sprintf( __('%s must consist of 5 numbers.', 'tribe-events-calendar'), $this->label);
+			}
 		}
 
 		/**
-		 * validates & sanitizes fields as being a phone number
+		 * validates a field as being a phone number
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
 		 * @return stdClass validation result object
 		 */
 		public function phone() {
-			$this->result->valid = true;
+		if ( preg_match( '/^[0-9\(\)\+ -]+$/', $this->value ) ) {
+				$this->result->valid = true;
+			} else {
+				$this->result->valid = false;
+				$this->result->error = sprintf( __('%s must be a phone number.', 'tribe-events-calendar'), $this->label);
+			}
 		}
 
 		/**
