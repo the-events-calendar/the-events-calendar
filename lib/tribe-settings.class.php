@@ -304,7 +304,9 @@ if ( !class_exists('TribeSettings') ) {
 							} elseif ( $validate->result->valid ) {
 
 								// validation passed
-								$this->validated[$field_id] = $validate->field;
+								$this->validated[$field_id] = new stdClass;
+								$this->validated[$field_id]->field = $validate->field;
+								$this->validated[$field_id]->value = $validate->value;
 
 							}
 
@@ -344,11 +346,11 @@ if ( !class_exists('TribeSettings') ) {
 				foreach ($this->validated as $field_id => $validated_field) {
 
 					// get the value and filter it
-					$value = $validated_field;
+					$value = $validated_field->value;
 					$value = apply_filters('tribe_settings_save_field_value', $value, $field_id, $validated_field);
 
 					// figure out the parent option [could be set to false] and filter it
-					$parent_option = ( isset($validated_field['parent_option']) ) ? $validated_field['parent_option'] : TribeEvents::OPTIONNAME;
+					$parent_option = ( isset($validated_field->field['parent_option']) ) ? $validated_field->field['parent_option'] : TribeEvents::OPTIONNAME;
 					$parent_option = apply_filters('tribe_settings_save_field_parent_option', $parent_option, $field_id);
 
 					// some hooks
