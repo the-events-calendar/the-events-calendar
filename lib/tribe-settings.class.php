@@ -155,10 +155,14 @@ if ( !class_exists('TribeSettings') ) {
 		}
 
 		/**
-		 * init tabs
-		 * @return [type]
+		 * init all the tabs
+		 *
+		 * @since 2.0.5
+		 * @author jkudish
+		 * @return void
 		 */
 		public function initTabs() {
+			do_action('tribe_add_setting_tabs'); // this is the hook to use to add new tabs
 			$this->tabs = (array) apply_filters( 'tribe_settings_tabs', array() );
 			$this->fields = (array) apply_filters( 'tribe_settings_fields', array() );
 			$this->defaultTab = apply_filters( 'tribe_settings_default_tab', 'general' );
