@@ -168,7 +168,8 @@ if ( !class_exists('TribeValidate') ) {
 
 		/**
 		 * validates a field as not being able to be the same
-		 * as the specified field
+		 * as the specified value as specified in
+		 * $this->additional_args['compare_name']
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
