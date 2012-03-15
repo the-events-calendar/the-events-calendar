@@ -15,8 +15,8 @@ if (!class_exists('TribeEventsTemplates')) {
 		public static $isMainLoop = false;
 	
 		public static function init() {
-			add_filter( 'parse_query', array( __CLASS__, 'fixIsHome') );
-			add_filter( 'template_include', array( __CLASS__, 'fixIs404') );
+			//add_filter( 'parse_query', array( __CLASS__, 'fixIsHome') );
+			//add_filter( 'template_include', array( __CLASS__, 'fixIs404') );
 			add_filter( 'template_include', array( __CLASS__, 'templateChooser') );
 			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished'), 999 );
 
@@ -37,6 +37,10 @@ if (!class_exists('TribeEventsTemplates')) {
 			if ( get_query_var( 'post_type' ) != TribeEvents::POSTTYPE && ! is_tax( TribeEvents::TAXONOMY ) && get_query_var( 'post_type' ) != TribeEvents::VENUE_POST_TYPE ) {
 				return $template;
 			}
+			
+			//is_home fixer
+			global $wp_query;
+			$wp_query->is_home = false;
 
 			if( tribe_get_option('tribeEventsTemplate', 'default') == '' ) {
 				if(is_single() && !tribe_is_showing_all() ) {
@@ -55,25 +59,6 @@ if (!class_exists('TribeEventsTemplates')) {
 			
 				return $template;
 			}			
-		}
-
-		/**
-		 * fixes if (is_home()) in pre_get_posts
-		 *
-		 * @param  stdClass $query the query
-		 * @return stdclass $query the filtered query
-		 */
-		public static function fixIsHome($query) {
-			if (isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == TribeEvents::POSTTYPE) {
-				$query->is_home = false;
-			}
-			return $query;
-		}
-		
-		public static function fixIs404() {
-			global $wp_query;
-			$wp_query->is_404 = false;
-			
 		}
 	
 		public static function wpHeadFinished() {
