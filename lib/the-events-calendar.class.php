@@ -371,15 +371,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			include_once('settings/general.php');
 
-			$templateTab = array(
-			);
-
-			$licenseTab = array(
-			);
-
-			$helpTab = array(
-			);
-
 			new TribeSettingsTab( 'general', __('General', 'tribe-events-calendar'), $generalTab, 10 );
 			new TribeSettingsTab( 'template', __('Template', 'tribe-events-calendar'), $templateTab, 20 );
 			new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar'), $licenseTab, 40 );
