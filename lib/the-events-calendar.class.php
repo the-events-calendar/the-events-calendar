@@ -249,7 +249,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'init', array( $this, 'initOptions' ) );
 			add_action( 'tribe_settings_do_tabs', array( $this, 'doSettingTabs' ) );
 			add_action( 'tribe_settings_after_content_tab_general', array( $this, 'addResetCapabilitiesForm' ) );
-			add_action( 'tribe_validate_form_settings', array( $this, 'resetCapabilities' ) );
+			add_action( 'tribe_settings_validate_before_checks', array( $this, 'resetCapabilities' ) );
+			add_action( 'tribe_settings_below_tabs', array( $this, 'resetCapabilitiesSuccess' ) );
 		}
 
 		public static function ecpActive() {
@@ -854,7 +855,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *
 		 * @author Paul Hughes
 		 * @since 2.0.5
-		 *
 		 * @return void
 		 */
 		public function addResetCapabilitiesForm() {
@@ -880,11 +880,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *
 		 * @author Paul Hughes
 		 * @since 2.0.5
-		 *
 		 * @return void
 		 */
 		public static function resetCapabilities() {
-			if ( isset($_POST['resetCapabilities']) && check_admin_referer('resetCapabilities') ) {
+			if ( isset($_POST['resetCapabilities']) && check_admin_referer('resetCapabilities') && current_user_can('edit_users') ) {
 				$role = get_role( 'administrator' );
 				$role->remove_cap( 'edit_tribe_event' );
 				$role->remove_cap( 'read_tribe_event' );
@@ -1026,6 +1025,25 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$subscriber->remove_cap( 'read_tribe_venue' );
 				
 				self::addCapabilities();
+			}
+		}
+
+		/**
+		 * Display success message after capabilities have been reset
+		 *
+		 * @author jkudish
+		 * @since 2.0.5
+		 * @return void
+		 */
+		public function resetCapabilitiesSuccess() {
+			// are we coming from the reset place?
+			if ( isset($_POST['resetCapabilities']) && check_admin_referer('resetCapabilities') && current_user_can('edit_users') ) {
+
+				// output the filtered message
+				$message = __('Capabilities have been reset.', 'tribe-events-calendar');
+				$output = '<div id="message" class="updated"><p><strong>' . $message . '</strong></p></div>';
+				echo apply_filters( 'tribe_caps_reset_success_message', $output );
+
 			}
 		}
 
