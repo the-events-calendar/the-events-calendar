@@ -369,12 +369,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function doSettingTabs() {
 
-			include_once('settings/general.php');
+			include_once($this->pluginPath.'admin-views/tribe-options-general.php');
 
 			new TribeSettingsTab( 'general', __('General', 'tribe-events-calendar'), $generalTab, 10 );
-			new TribeSettingsTab( 'template', __('Template', 'tribe-events-calendar'), $templateTab, 20 );
-			new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar'), $licenseTab, 40 );
-			new TribeSettingsTab( 'help', __('Help', 'tribe-events-calendar'), $helpTab, 60 );
+			// new TribeSettingsTab( 'template', __('Template', 'tribe-events-calendar'), $templateTab, 20 );
+			// new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar'), $licenseTab, 40 );
+			// new TribeSettingsTab( 'help', __('Help', 'tribe-events-calendar'), $helpTab, 60 );
 
 		}
 
@@ -416,95 +416,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			include_once( $this->pluginPath . 'admin-views/events-options-help.php' );
   	}
 
-		/**
-		 * save general settings
-		 * note: this will get refactored very soon
-		 *
-		 * @since 2.1
-		 * @author jkudish
-		 * @return void
-		 */
-  	public function validateGeneralSettings() {
-			if ( isset( $_POST['current-settings-tab'] ) ) {
-				if ( $_POST['current-settings-tab'] == 'general' ) {
-					$options = self::getOptions();
-					if ( isset($_POST['viewOption']) ) {
-						$options['viewOption'] = $_POST['viewOption'];
-					}
-					if ( isset($_POST['postsPerPage'] ) ) {
-						if ( !preg_match( '/^[0-9]+$/', $_POST['postsPerPage'] ) ) {
-							$this->form_errors['postsPerPage'] = __('Number of events to show per page in the loop must be a positive integer.', 'tribe-events-calendar');
-						} else {
-							$options['postsPerPage'] = $_POST['postsPerPage'];
-						}
-					}
-					if ( isset($_POST['eventsSlug'] ) ) {
-						$sanitized_slug = sanitize_title( $_POST['eventsSlug'] );						
-						if ( !preg_match( '/^[a-zA-Z0-9-_]+$/', $_POST['eventsSlug'] ) ) {
-							$this->form_errors['eventsSlug'] = __('Events slug must be a valid slug (numbers, letters, dashes, and underscores).', 'tribe-events-calendar');
-						} else {
-							$options['eventsSlug'] = $sanitized_slug;
-							$_POST['eventsSlug'] = $sanitized_slug;
-						}	
-					}
-					if ( isset($_POST['singleEventSlug'] ) ) {
-						$sanitized_slug = sanitize_title( $_POST['singleEventSlug'] );
-						if ( !preg_match( '/^[a-zA-Z0-9-_]+$/', $_POST['singleEventSlug'] ) ) {
-							$this->form_errors['singleEventSlug'] = __('Single event slug must be a valid slug (numbers, letters, dashes, and underscores).', 'tribe-events-calendar');
-						} else {
-							$options['singleEventSlug'] = $sanitized_slug;
-							$_POST['singleEventSlug'] = $sanitized_slug;
-						}		
-					}
-					// Plural cannot be the same as singular.
-					if ( isset($_POST['eventsSlug']) && isset($_POST['singleEventSlug']) ) {
-						if ( $_POST['singleEventSlug'] === $_POST['eventsSlug'] ) {
-							$this->form_errors['singleEventSlug'] = __('Single event slug has to be different from the (plural) events slug.', 'tribe-events-calendar');	
-						}
-					}
-					if ( isset($_POST['embedGoogleMapsHeight'] ) ) {
-						if ( !preg_match( '/^[0-9]+%{0,1}$/', $_POST['embedGoogleMapsHeight'] ) ) {
-							$this->form_errors['embedGoogleMapsHeight'] = __('Google Maps height must be a number or percentage.', 'tribe-events-calendar');
-						} else {
-							$options['postsPerPage'] = $_POST['postsPerPage'];
-						}		
-					}
-					if ( isset($_POST['embedGoogleMapsWidth'] ) ) {
-						if ( !preg_match( '/^[0-9]+%{0,1}$/', $_POST['embedGoogleMapsWidth'] ) ) {
-							$this->form_errors['embedGoogleMapsWidth'] = __('Google Maps width must be a number or percentage.', 'tribe-events-calendar');
-						} else {
-							$options['postsPerPage'] = $_POST['postsPerPage'];
-						}		
-					}
-					if ( isset($_POST['embedGoogleMapsZoom'] ) ) {
-						if ( !preg_match( '/^([0-9]|[0-1][0-9]|2[0-1])$/', $_POST['embedGoogleMapsZoom'] ) ) {
-							$this->form_errors['embedGoogleMapsZoom'] = __('Google Maps Zoom Level must be a number between 0 and 21.', 'tribe-events-calendar');
-						} else {
-							$options['postsPerPage'] = $_POST['postsPerPage'];
-						}		
-					}
-					$boolean_opts = array(
-						'embedGoogleMaps',
-						'showComments',
-						'showInLoops',
-						'debugEvents',
-					);
-					foreach ($boolean_opts as $opt) {					
-						$options[$opt] = (isset($_POST[$opt])) ? true : false;
-					}
-					$opts = array( 
-						'multiDayCutoff',
-					);
-					foreach ($opts as $opt) {
-						if(isset($_POST[$opt]))
-							$options[$opt] = $_POST[$opt];
-					}
-					
-					$this->setOptions($options);
-				}
-			}
-		}
-		
 
 		/**
 		 * save template settings
@@ -1256,8 +1167,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			wp_enqueue_script( self::POSTTYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js', array('jquery-ui-datepicker'), '', true );
 	
 			global $current_screen;
-			if ($current_screen->id == 'settings_page_tribe-events-calendar') {
+			if ($current_screen->id == 'settings_page_tribe-settings') {
 				wp_enqueue_script( self::POSTTYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js', array('jquery-ui-datepicker'), '', true );
+				wp_enqueue_script( 'tribe-settings', $this->pluginUrl . 'resources/tribe-settings.js', array('jquery'), '', true );
 			}
 			if ( isset($current_screen->post_type) ) {
 				if ( $current_screen->post_type == self::POSTTYPE || $current_screen->id == 'settings_page_the-events-calendar.class' ) {

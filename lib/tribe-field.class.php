@@ -69,6 +69,7 @@ if ( !class_exists('TribeField') ) {
 				'error' => false,
 				'value' => $value,
 				'options' => null,
+				'conditional' => true,
 				'display_callback' => null,
 			);
 
@@ -102,6 +103,7 @@ if ( !class_exists('TribeField') ) {
 			$html = $html;
 			$error = (bool) $error;
 			$value = $value;
+			$conditional = $conditional;
 			$display_callback = esc_attr($display_callback);
 
 
@@ -131,24 +133,28 @@ if ( !class_exists('TribeField') ) {
 		 */
 		public function doField() {
 
-			if ( $this->display_callback && function_exists($this->display_callback) ) {
+			if ($this->conditional) {
 
-				// if there's a callback, run it
-				call_user_func($this->display_callback);
+				if ( $this->display_callback && function_exists($this->display_callback) ) {
 
-			} elseif ( in_array($this->type, $this->valid_field_types) ) {
+					// if there's a callback, run it
+					call_user_func($this->display_callback);
 
-				// the specified type exists, run the appropriate method
-				$field = call_user_method($this->type, $this);
+				} elseif ( in_array($this->type, $this->valid_field_types) ) {
 
-				// filter the output
-				$field = apply_filters( 'tribe_field_output_'.$this->type, $field, $this->id, $this );
-				echo apply_filters( 'tribe_field_output_'.$this->type.'_'.$this->id, $field, $this->id, $this );
+					// the specified type exists, run the appropriate method
+					$field = call_user_method($this->type, $this);
 
-			} else {
+					// filter the output
+					$field = apply_filters( 'tribe_field_output_'.$this->type, $field, $this->id, $this );
+					echo apply_filters( 'tribe_field_output_'.$this->type.'_'.$this->id, $field, $this->id, $this );
 
-				// fail, log the error
-				TribeEvents::debug( __('Invalid field type specified', 'tribe-events-calendar'), $this->type, 'notice');
+				} else {
+
+					// fail, log the error
+					TribeEvents::debug( __('Invalid field type specified', 'tribe-events-calendar'), $this->type, 'notice');
+
+				}
 
 			}
 		}
