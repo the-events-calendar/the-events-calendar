@@ -213,6 +213,7 @@ if ( !class_exists('TribeSettings') ) {
 						}
 					echo apply_filters( 'tribe_settings_closing_form_element', '</form>' );
 					do_action( 'tribe_settings_after_form_element' );
+					do_action( 'tribe_settings_after_form_element_tab_'.$this->currentTab );
 				echo '</div>';
 				do_action( 'tribe_settings_after_form_div' );
 			echo '</div>';

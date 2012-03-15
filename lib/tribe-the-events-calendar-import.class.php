@@ -33,7 +33,7 @@ if (!class_exists('TribeEventsImport')) {
 
 		private function __construct( ) {
 			add_action( 'admin_init', array( $this, 'upgradeData' ) );
-			add_action( 'tribe_settings_after_content_tab_general', array( $this, 'adminForm' ) );
+			add_action( 'tribe_settings_after_form_element_tab_general', array( $this, 'adminForm' ) );
 			add_action( 'admin_notices', array( $this, 'upgradeNotice' ) );
 			add_action( 'admin_notices', array( $this, 'promptUpgrade') );
 		}
