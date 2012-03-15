@@ -185,14 +185,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-templates.class.php' );
 			require_once( 'tribe-event-api.class.php' );
 			require_once( 'tribe-event-query.class.php' );
-			require_once( 'tribe-the-events-calendar-import.class.php' );
 			require_once( 'tribe-view-helpers.class.php' );
-			require_once( 'tribe-settings.class.php' );
-			require_once( 'tribe-settings-tab.class.php' );
-			require_once( 'tribe-field.class.php' );
-			require_once( 'tribe-validate.class.php' );
+			require_once( 'tribe-the-events-calendar-import.class.php' );
 			require_once( 'tribe-debug-bar.class.php' );
-			require_once( $this->pluginPath.'tests/tab-test.php' );
+
 		}
 
 		protected function addFilters() {
@@ -246,7 +242,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				add_action( 'tribe-events-before-general-settings', array($this, 'maybeShowSettingsUpsell'));
 			}
 			// option pages
-			add_action( 'init', array( $this, 'initOptions' ) );
+			add_action( '_admin_menu', array( $this, 'initOptions' ) );
 			add_action( 'tribe_settings_do_tabs', array( $this, 'doSettingTabs' ) );
 			add_action( 'tribe_settings_after_content_tab_general', array( $this, 'addResetCapabilitiesForm' ) );
 			add_action( 'tribe_settings_validate_before_checks', array( $this, 'resetCapabilities' ) );
@@ -354,8 +350,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function initOptions() {
 
-			if (!is_admin())
-				return;
+			require_once( 'tribe-settings.class.php' );
+			require_once( 'tribe-settings-tab.class.php' );
+			require_once( 'tribe-field.class.php' );
+			require_once( 'tribe-validate.class.php' );
 
 			TribeSettings::instance();
 		}
