@@ -5,10 +5,12 @@ $generalTab = array(
 		'upsell-heading' => array(
 			'type' => 'heading',
 			'label' => __('Additional Functionality', 'tribe-events-calendar'),
+			'conditional' => ( !defined('TRIBE_HIDE_UPSELL') || !TRIBE_HIDE_UPSELL ),
 		),
 		'upsell-info' => array(
 			'type' => 'html',
 			'html' => '<p>'.__('Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ).'</p>'.'<p>'.sprintf(__('Check out the %s.', 'tribe-events-calendar' ), '<a href="'.self::$tribeUrl.'?ref=tec-options'.'">'.__('available Add-Ons', 'tribe-events-calendar').'</a>').'</p>',
+			'conditional' => ( !defined('TRIBE_HIDE_UPSELL') || !TRIBE_HIDE_UPSELL ),
 		),
 		'ical-heading' => array(
 			'type' => 'heading',

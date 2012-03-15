@@ -239,7 +239,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if( !defined('TRIBE_HIDE_UPSELL') || !TRIBE_HIDE_UPSELL ) {
 				add_action( 'wp_dashboard_setup', array( $this, 'dashboardWidget' ) );
 				add_action( 'tribe_events_cost_table', array($this, 'maybeShowMetaUpsell'));
-				add_action( 'tribe-events-before-general-settings', array($this, 'maybeShowSettingsUpsell'));
 			}
 			// option pages
 			add_action( '_admin_menu', array( $this, 'initOptions' ) );
