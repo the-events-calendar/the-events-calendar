@@ -243,6 +243,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// option pages
 			add_action( '_admin_menu', array( $this, 'initOptions' ) );
 			add_action( 'tribe_settings_do_tabs', array( $this, 'doSettingTabs' ) );
+			add_action( 'tribe_settings_content_tab_help', array( $this, 'doHelpTab' ) );
 		}
 
 		public static function ecpActive() {
@@ -366,11 +367,15 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			include_once($this->pluginPath.'admin-views/tribe-options-general.php');
 			include_once($this->pluginPath.'admin-views/tribe-options-templates.php');
 
-			new TribeSettingsTab( 'general', __('General', 'tribe-events-calendar'), $generalTab, 10 );
-			new TribeSettingsTab( 'template', __('Template', 'tribe-events-calendar'), $templatesTab, 20 );
+			new TribeSettingsTab( 'general', __('General', 'tribe-events-calendar'), $generalTab );
+			new TribeSettingsTab( 'template', __('Template', 'tribe-events-calendar'), $templatesTab );
 			// new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar'), $licenseTab, 40 );
-			// new TribeSettingsTab( 'help', __('Help', 'tribe-events-calendar'), $helpTab, 60 );
+			new TribeSettingsTab( 'help', __('Help', 'tribe-events-calendar'), array('priority' => 60, 'show_save' => false) );
 
+		}
+
+		public function doHelpTab() {
+			include_once($this->pluginPath.'admin-views/tribe-options-help.php');
 		}
 
 		/**
