@@ -13,10 +13,12 @@ $generalTab = array(
 		'ical-heading' => array(
 			'type' => 'heading',
 			'label' => __('iCal', 'tribe-events-calendar'),
+			'conditional' => function_exists('tribe_get_ical_link'),
 		),
 		'ical-info' => array(
 			'type' => 'html',
-			'html' => '<p>'.__('Here is the iCal feed URL for your events:', 'tribe-events-calendar').' '.'<code>'.tribe_get_ical_link().'</code></p>',
+			'html' => (function_exists('tribe_get_ical_link')) ? '<p>'.__('Here is the iCal feed URL for your events:', 'tribe-events-calendar').' '.'<code>'.tribe_get_ical_link().'</code></p>' : '',
+			'conditional' => function_exists('tribe_get_ical_link'),
 		),
 		'settings-heading' => array(
 			'type' => 'heading',

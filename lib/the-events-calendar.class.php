@@ -1295,7 +1295,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				self::$options = apply_filters( 'tribe_get_options', $options );
 				if ( isset( self::$options['eventsSlug'] ) ) {
 					if ( self::$options['eventsSlug'] != '' ) {
-						$this->flushRewriteRules();
+						self::flushRewriteRules();
 					}
 				}
 				return true;

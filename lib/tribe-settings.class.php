@@ -127,11 +127,6 @@ if ( !class_exists('TribeSettings') ) {
 		public function __construct() {
 
 			// set instance variables
-			$this->tabs = (array) apply_filters( 'tribe_settings_tabs', array() );
-			$this->fields = (array) apply_filters( 'tribe_settings_fields', array() );
-			$this->defaultTab = apply_filters( 'tribe_settings_default_tab', 'general' );
-			$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset($_GET['tab']) && $_GET['tab'] ) ? esc_attr($_GET['tab']) : $this->defaultTab );
-			$this->noSaveTabs = (array) apply_filters( 'tribe_settings_no_save_tabs', array() );
 			$this->menuName = apply_filters( 'tribe_settings_menu_name', __('The Events Calendar', 'tribe-events-calendar') );
 			$this->requiredCap = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
 			$this->adminSlug = apply_filters( 'tribe_settings_admin_slug', 'tribe-settings' );
@@ -142,6 +137,7 @@ if ( !class_exists('TribeSettings') ) {
 
 			// run actions & filters
 			add_action( 'admin_menu', array( $this, 'addPage' ) );
+			add_action( 'admin_init', array( $this, 'initTabs' ) );
 			add_action( 'tribe_settings_top', array( $this, 'validate' ) );
 			add_action( 'tribe_settings_below_tabs', array( $this, 'displayErrors' ) );
 			add_action( 'tribe_settings_below_tabs', array( $this, 'displaySuccess' ) );
@@ -156,6 +152,18 @@ if ( !class_exists('TribeSettings') ) {
 		 */
 		public function addPage() {
 			$this->admin_page = add_options_page( $this->menuName, $this->menuName, $this->requiredCap, $this->adminSlug, array(&$this, 'generatePage') );
+		}
+
+		/**
+		 * init tabs
+		 * @return [type]
+		 */
+		public function initTabs() {
+			$this->tabs = (array) apply_filters( 'tribe_settings_tabs', array() );
+			$this->fields = (array) apply_filters( 'tribe_settings_fields', array() );
+			$this->defaultTab = apply_filters( 'tribe_settings_default_tab', 'general' );
+			$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset($_GET['tab']) && $_GET['tab'] ) ? esc_attr($_GET['tab']) : $this->defaultTab );
+			$this->noSaveTabs = (array) apply_filters( 'tribe_settings_no_save_tabs', array() );
 		}
 
 
