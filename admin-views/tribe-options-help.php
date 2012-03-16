@@ -123,7 +123,6 @@ $more_text = __('More...', 'tribe-events-calendar');
 <p><b><?php _e('Latest Version:', 'tribe-events-calendar'); ?></b> <?php echo $version; ?><br />
 <b><?php _e('Author:', 'tribe-events-calendar'); ?></b> <?php _e('Modern Tribe Inc', 'tribe-events-calendar'); ?><br />
 <b><?php _e('Requires:', 'tribe-events-calendar'); ?></b> <?php _e('WordPress ', 'tribe-events-calendar'); echo $requires; ?>+<br />
-<b><?php _e('Downloads:', 'tribe-events-calendar'); ?></b> <?php echo $total_downloads; ?><br />
 <a href="<?php echo apply_filters('tribe_help_tab_wp_plugin_url', TribeEvents::WP_PLUGIN_URL); ?>"><?php _e('Wordpress.org Plugin Page', 'tribe-events-calendar'); ?></a></p>
 </div>
 
