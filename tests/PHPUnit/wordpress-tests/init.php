@@ -28,3 +28,5 @@ require_once $config_file_path;
 require_once ABSPATH . '/wp-settings.php';
 require dirname( __FILE__ ) . '/lib/testcase.php';
 require dirname( __FILE__ ) . '/lib/exceptions.php';
+// Load Tribe-specific Test Class.
+require dirname( __FILE__ ) . '/lib/tribe-testcase.php';
