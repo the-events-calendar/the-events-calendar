@@ -171,7 +171,8 @@ if ( !class_exists('TribeField') ) {
 		public function doFieldStart() {
 			$return = '<fieldset id="tribe-field-'.$this->id.'"';
 			$return .= ' class="tribe-field tribe-field-'.$this->type;
-			$return .= ($this->error) ? 'tribe-error' : '';
+			$return .= ($this->error) ? ' tribe-error' : '';
+			$return .= ($this->size) ? ' tribe-size-'.$this->size : '';
 			$return .= ($this->class) ? ' '.$this->class.'"' : '"';
 			$return .= '>';
 			return apply_filters( 'tribe_field_start', $return, $this->id, $this->type, $this->error, $this->class, $this );
@@ -316,18 +317,12 @@ if ( !class_exists('TribeField') ) {
 		 * @return string the field
 		 */
 		public function text() {
-			switch ($this->size) {
-				case 'large' : $size = '118'; break;
-				case 'medium' : $size = '30'; break;
-				case 'small'; default : $size = '4'; break;
-			}
 			$field = $this->doFieldStart();
 			$field .= $this->doFieldLabel();
 			$field .= $this->doFieldDivStart();
 			$field .= '<input';
 			$field .= ' type="text"';
 			$field .= $this->doFieldName();
-			$field .= ' size="'.$size.'"';
 			$field .= $this->doFieldValue();
 			$field .= $this->doToolTip();
 			$field .= '/>';
