@@ -82,8 +82,13 @@ if ( !class_exists('TribeValidate') ) {
 
 			// call validation callback if a validation callback function is set
 			if ( isset($this->field['validation_callback']) ) {
-				if ( function_exists($this->field['validation_callback']) ) {
-					return call_user_func($validation_callback);
+				if ( function_exists($this->field['validation_callback']) ) {;
+					if ( (!isset($_POST[$field_id]) || !$_POST[$field_id] || $_POST[$field_id] == '') && isset($this->field['can_be_empty']) && $this->field['can_be_empty']) {
+						$this->result->valid = true;
+						return $this->result;
+					} else {
+						return call_user_func($validation_callback);
+					}
 				}
 			}
 
@@ -95,7 +100,12 @@ if ( !class_exists('TribeValidate') ) {
 					// make sure there's a field validation type set for this validation and that such method exists
 					$this->type = $this->field['validation_type'];
 					$this->label = isset($this->field['label']) ? $this->field['label'] : $this->field['id'];
-					call_user_method($this->type, $this); // run the validation
+					if ( (!isset($_POST[$field_id]) || !$_POST[$field_id] || $_POST[$field_id] == '') && isset($this->field['can_be_empty']) && $this->field['can_be_empty']) {
+						$this->result->valid = true;
+						return $this->result;
+					} else {
+						call_user_method($this->type, $this); // run the validation
+					}
 
 				} else {
 

@@ -72,6 +72,7 @@ if ( !class_exists('TribeField') ) {
 				'conditional' => true,
 				'display_callback' => null,
 				'if_empty' => null,
+				'can_be_empty' => false,
 			);
 
 			// a list of valid field types, to prevent screwy behaviour
