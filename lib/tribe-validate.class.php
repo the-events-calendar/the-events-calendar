@@ -169,6 +169,7 @@ if ( !class_exists('TribeValidate') ) {
 		 */
 		public function options() {
 			if ( array_key_exists( $this->value, $this->field['options'] ) ) {
+				$this->value = ($this->value == 0) ? false : $this->value;
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;

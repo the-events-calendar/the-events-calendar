@@ -138,7 +138,7 @@ if ( !class_exists('TribeSettings') ) {
 			// run actions & filters
 			add_action( 'admin_menu', array( $this, 'addPage' ) );
 			add_action( 'admin_head', array( $this, 'initTabs' ) );
-			add_action( 'tribe_settings_top', array( $this, 'validate' ) );
+			add_action( 'tribe_settings_after_do_tabs', array( $this, 'validate' ) );
 			add_action( 'tribe_settings_below_tabs', array( $this, 'displayErrors' ) );
 			add_action( 'tribe_settings_below_tabs', array( $this, 'displaySuccess' ) );
 		}
@@ -166,10 +166,10 @@ if ( !class_exists('TribeSettings') ) {
 			if ($current_screen->id == $this->admin_page) {
 				do_action('tribe_settings_do_tabs'); // this is the hook to use to add new tabs
 				$this->tabs = (array) apply_filters( 'tribe_settings_tabs', array() );
-				$this->fields = (array) apply_filters( 'tribe_settings_fields', array() );
 				$this->defaultTab = apply_filters( 'tribe_settings_default_tab', 'general' );
 				$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset($_GET['tab']) && $_GET['tab'] ) ? esc_attr($_GET['tab']) : $this->defaultTab );
 				$this->noSaveTabs = (array) apply_filters( 'tribe_settings_no_save_tabs', array() );
+				$this->fields = (array) apply_filters( 'tribe_settings_fields', array() );
 			}
 		}
 
