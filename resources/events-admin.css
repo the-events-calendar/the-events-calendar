@@ -80,7 +80,7 @@ td.tribe_message {padding-bottom: 10px !important;}
 
 /* = Settings Screen
 =============================================*/
-.tribe-settings-form fieldset {margin: 20px 0;}
+.tribe-settings-form fieldset {padding: 20px 0; display: inline-block; clear: both;}
 .tribe-settings-form fieldset.google-embed-field {margin: 10px 25px;}
 .tribe-settings-form legend {width: 240px; float: left;}
 .tribe-settings-form .tribe-field-wrap {float: left;}
@@ -91,6 +91,11 @@ td.tribe_message {padding-bottom: 10px !important;}
 .tribe_settings .tribe-errors-list {margin-left: 15px;}
 .tribe_settings .expiring-license {color: red;}
 .tribe_settings .tribe-error {border: 1px solid #F00;}
+
+/* tooltips */
+.tribe-tooltip {max-width: 600px; margin-right: 15px;}
+.tribe-tooltip .wp-pointer-content {padding-bottom: 0;}
+.tribe-tooltip-inner {margin: 6px 0;}
 
 /* sizes */
 .tribe-field-textarea.tribe-size-small textarea {width: 180px; height: 60px}

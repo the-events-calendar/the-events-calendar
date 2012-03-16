@@ -174,6 +174,7 @@ if ( !class_exists('TribeField') ) {
 			$return .= ($this->error) ? ' tribe-error' : '';
 			$return .= ($this->size) ? ' tribe-size-'.$this->size : '';
 			$return .= ($this->class) ? ' '.$this->class.'"' : '"';
+			$return .= $this->doToolTip();
 			$return .= '>';
 			return apply_filters( 'tribe_field_start', $return, $this->id, $this->type, $this->error, $this->class, $this );
 		}
@@ -187,6 +188,7 @@ if ( !class_exists('TribeField') ) {
 		 */
 		public function doFieldEnd() {
 			$return = '</fieldset>';
+			$return .= '<div class="clear"></div>';
 			return apply_filters( 'tribe_field_end', $return, $this->id, $this );
 		}
 
@@ -371,6 +373,7 @@ if ( !class_exists('TribeField') ) {
 					$field .= '<label title="'.$title.'">';
 					$field .= '<input type="radio"';
 					$field .= $this->doFieldName();
+					$field .= $this->doToolTip();
  					$field .= ' value="'.$option_id.'" '.checked( $this->value, $option_id, false ).'/>';
 					$field .= $title;
 					$field .= '</label>';
