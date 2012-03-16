@@ -921,7 +921,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			wp_enqueue_script( self::POSTTYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js', array('jquery-ui-datepicker'), '', true );
 	
 			global $current_screen;
-			if ($current_screen->id == 'settings_page_tribe-settings') {
+			if (isset($current_screen->id) && $current_screen->id == 'settings_page_tribe-settings') {
 				wp_enqueue_script( self::POSTTYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js', array('jquery-ui-datepicker'), '', true );
 				wp_enqueue_script( 'tribe-settings', $this->pluginUrl . 'resources/tribe-settings.js', array('jquery'), '', true );
 			}
