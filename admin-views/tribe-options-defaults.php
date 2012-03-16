@@ -47,6 +47,7 @@ $defaultsTab = array(
 			'validation_type' => 'options',
 			'options' => $organizer_options,
 			'if_empty' => __('No saved organizers yet.','tribe-events-calendar-pro'),
+			'can_be_empty' => true,
 		),
 		'current-default-organizer' => array(
 			'type' => 'html',
@@ -59,6 +60,7 @@ $defaultsTab = array(
 			'validation_type' => 'options',
 			'options' => $venue_options,
 			'if_empty' => __('No saved venues yet.','tribe-events-calendar-pro'),
+			'can_be_empty' => true,
 		),
 		'current-default-venue' => array(
 			'type' => 'html',
@@ -70,6 +72,7 @@ $defaultsTab = array(
 			'default' => false,
 			'class' => 'venue-default-info',
 			'validation_type' => 'address',
+			'can_be_empty' => true,
 		),
 		'current-default-address' => array(
 			'type' => 'html',
@@ -82,6 +85,7 @@ $defaultsTab = array(
 			'default' => false,
 			'class' => 'venue-default-info',
 			'validation_type' => 'city_or_province',
+			'can_be_empty' => true,
 		),
 		'current-default-city' => array(
 			'type' => 'html',
@@ -94,6 +98,7 @@ $defaultsTab = array(
 			'default' => false,
 			'validation_type' => 'options',
 			'options' => $state_options,
+			'can_be_empty' => true,
 		),
 		'current-default-state' => array(
 			'type' => 'html',
@@ -105,6 +110,7 @@ $defaultsTab = array(
 			'default' => false,
 			'class' => 'venue-default-info',
 			'validation_type' => 'city_or_province',
+			'can_be_empty' => true,
 		),
 		'current-default-province' => array(
 			'type' => 'html',
@@ -117,6 +123,7 @@ $defaultsTab = array(
 			'default' => false,
 			'class' => 'venue-default-info',
 			'validation_type' => 'address', // allows for letters, numbers, dashses and spaces only
+			'can_be_empty' => true,
 		),
 		'current-default-zip' => array(
 			'type' => 'html',
@@ -129,6 +136,7 @@ $defaultsTab = array(
 			'default' => false,
 			'validation_type' => 'options',
 			'options' => $country_options,
+			'can_be_empty' => true,
 		),
 		'current-default-country' => array(
 			'type' => 'html',
@@ -140,6 +148,7 @@ $defaultsTab = array(
 			'default' => false,
 			'class' => 'venue-default-info',
 			'validation_type' => 'phone',
+			'can_be_empty' => true,
 		),
 		'current-default-phone' => array(
 			'type' => 'html',
@@ -152,6 +161,7 @@ $defaultsTab = array(
 			'default' => false,
 			'validation_type' => 'textarea',
 			'tooltip' => __('One country per line in the following format: <br>US, United States <br> UK, United Kingdom. <br> (Replaces the default list.)', 'tribe-events-calendar-pro'),
+			'can_be_empty' => true,
 		),
 	)
 );
