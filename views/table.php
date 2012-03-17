@@ -144,9 +144,9 @@ function display_day( $day, $monthView ) {
 						<?php if ( !empty( $end )  && $start !== $end ) {
 							if ( date_i18n( 'Y-m-d', $start ) == date_i18n( 'Y-m-d', $end ) ) {
 								$time_format = get_option( 'time_format', 'g:i a' );
-								echo " - " . date_i18n( $time_format, $end );
+								echo " – " . date_i18n( $time_format, $end );
 							} else {
-								echo " – " . $end . '<br />';
+								echo " – " . date_i18n( get_option('date_format', 'F j, Y'), $end) . ' ' . date_i18n( get_option('time_format', 'g:i a'), $end) . '<br />';
 							}
 						} ?>
 					</div>
