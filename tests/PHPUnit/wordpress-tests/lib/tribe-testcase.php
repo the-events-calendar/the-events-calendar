@@ -1,7 +1,8 @@
 <?php
 class Tribe_WP_UnitTestCase extends WP_UnitTestCase {
-	var $plugin_slugs = array();
-	var $default_plugin_slug = 'the-events-calendar';
+	var $plugin_slugs = array(
+		'the-events-calendar'
+	);
 	
 	function setUp() {
 		parent::setUp();
@@ -9,13 +10,14 @@ class Tribe_WP_UnitTestCase extends WP_UnitTestCase {
 	}
 	
 	function activate_tested_plugins() {
+		$plugin_slugs = unserialize( LOCAL_PLUGINS );
 		require_once ABSPATH . '/wp-admin/includes/plugin.php';
-		if ( !$this->plugin_slugs ) {
+		if ( !$plugin_slugs ) {
 			if ( file_exists( WP_PLUGIN_DIR . '/' . $this->default_plugin_slug . '/' .$this->default_plugin_slug . '.php' ) )
 				activate_plugin( $this->default_plugin_slug . '/' . $this->default_plugin_slug . '.php'  );
 			return;
 		}
-		foreach( $this->plugin_slugs as $plugin_slug ) {
+		foreach( $plugin_slugs as $plugin_slug ) {
 			if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin_slug . '.php' ) )
 				activate_plugin( $plugin_slug . '.php' );
 			elseif ( file_exists( WP_PLUGIN_DIR . '/' . $plugin_slug . '/' . $plugin_slug . '.php' ) )

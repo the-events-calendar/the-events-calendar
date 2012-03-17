@@ -1,9 +1,7 @@
 <?php
 /* -- tribe-events-class.Test.php -- */
 
-class WP_Test_TribeEventsClass extends WP_UnitTestCase {
-	
-	var $plugin_slug = 'the-events-calendar';
+class WP_Test_TribeEventsClass extends Tribe_WP_UnitTestCase {
 	
 	function test_events_class_exists() {
 		$class = 'TribeEvents';

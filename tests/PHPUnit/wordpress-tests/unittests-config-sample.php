@@ -34,4 +34,13 @@ define( 'WP_DEBUG_DISPLAY', true );
  */
 define( 'DISABLE_WP_CRON', true );
 
+/** 
+ * Set this constant to a serialized array of plugins 
+ * (without php suffix, but can be with directory) that you want to activate.
+ * e.g. define( 'LOCAL_PLUGINS', serialize( array( 'the-events-calendar/the-events-calendar', 'events-calendar-pro/events-calendar-pro' ) ) );
+ */
+define( 'LOCAL_PLUGINS', serialize( array(
+	'the-events-calendar/the-events-calendar'
+) ) );
+
 $table_prefix  = 'wp_';

@@ -1,13 +1,11 @@
 <?php
 /* -- tribe-capabilities.Test.php -- */
 
-class WP_Test_TribeCapabilities extends WP_UnitTestCase {
-	
-	var $plugin_slug = 'the-events-calendar';
+class WP_Test_TribeCapabilities extends Tribe_WP_UnitTestCase {
 	
 	public function setUp() {
 		parent::setUp();
-		// Instantiate the events calendar.
+		// Instantiate the events calendar and execute the init() function
 		$tribe_ecp = TribeEvents::instance();
 		$tribe_ecp->init();		
 	}
