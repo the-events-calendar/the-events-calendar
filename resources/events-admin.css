@@ -120,6 +120,9 @@ td.tribe_message {padding-bottom: 10px !important;}
 .valid-key {color: green;}
 .invalid-key {color: red;}
 
+/* additional fields */
+#additional-field-table {margin-bottom: 20px;}
+
 
 /* = Help Screen
 =============================================*/
