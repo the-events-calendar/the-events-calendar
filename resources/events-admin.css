@@ -17,7 +17,6 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #
 =============================================*/
 .events-cal .tablenav select[name=m], .events-cal #post-query-submit {display:none;}
 .fixed .column-start-date, .fixed .column-end-date, .fixed .column-events-cats {width:14%;}
-#additional-field-table { max-width: 600px; }
 #additional-field-table input, #additional-field-table select, #additional-field-table textarea { width: 200px; }
 #additional-field-table tbody tr { height: 72px; }
 
