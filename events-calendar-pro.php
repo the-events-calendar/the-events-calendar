@@ -62,7 +62,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			// Tribe common resources
 			require_once( 'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
-			TribeCommonLibraries::register( 'pue-client', '1.1', $this->pluginPath . 'vendor/pue-client/pue-client.php' );
+			TribeCommonLibraries::register( 'pue-client', '1.2', $this->pluginPath . 'vendor/pue-client/pue-client.php' );
 			TribeCommonLibraries::register( 'advanced-post-manager', '1.0.5', $this->pluginPath . 'vendor/advanced-post-manager/tribe-apm.php' );
 			TribeCommonLibraries::register( 'related-posts', '1.1', $this->pluginPath. 'vendor/tribe-related-posts/tribe-related-posts.php' );
 			//TribeCommonLibraries::register( 'tribe-support', '0.1', $this->pluginPath . 'vendor/tribe-support/tribe-support.class.php' );
@@ -76,7 +76,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'tribe_after_location_details', array( $this, 'add_google_map_preview') );
 			add_action( 'tribe_tec_template_chooser', array( $this, 'do_ical_template' ) );
 			add_filter( 'tribe_settings_do_tabs', array( $this, 'add_defaults_settings_tab' ), 10, 1 );
-			add_action( 'tribe-events-before-general-settings', array( $this, 'event_license_key') );
 			add_filter( 'tribe_current_events_page_template', array( $this, 'select_venue_template' ) );
 			add_filter( 'tribe_help_tab_getting_started_text', array( $this, 'add_help_tab_getting_started_text' ) );
 			add_filter( 'tribe_help_tab_enb_content', array( $this, 'add_help_tab_enb_text' ) );
@@ -224,9 +223,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			return $content;
 		}
 
-      public function event_license_key() {
-				do_action('pue-settings_events-calendar-pro');
-      }
 
       public function select_venue_template($template) {
 	      if ( is_singular( TribeEvents::VENUE_POST_TYPE ) ) {
