@@ -233,6 +233,18 @@ if ( !class_exists('TribeValidate') ) {
 		}
 
 		/**
+		 * validates & sanitizes a license key
+		 *
+		 * @since 2.0.5
+		 * @author jkudish
+		 * @return stdClass validation result object
+		 */
+		public function license_key() {
+			$this->value = trim($this->value);
+			$this->result->valid = true;
+		}
+
+		/**
 		 * sanitizes a textarea field
 		 *
 		 * @since 2.0.5

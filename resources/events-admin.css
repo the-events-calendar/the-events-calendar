@@ -98,21 +98,27 @@ td.tribe_message {padding-bottom: 10px !important;}
 .tribe-tooltip-inner {margin: 6px 0;}
 
 /* sizes */
-.tribe-field-textarea.tribe-size-small textarea {width: 180px; height: 60px}
+.tribe-field-textarea.tribe-size-small textarea {width: 180px; height: 60px;}
 .tribe-field-textarea.tribe-size-medium textarea {width: 300px; height: 80px;}
 .tribe-field-textarea.tribe-size-large textarea {width: 450px; height: 120px;}
 
-.tribe-field-text.tribe-size-small input {width: 50px;}
-.tribe-field-text.tribe-size-medium input {width: 225px}
-.tribe-field-text.tribe-size-large input {width: 450px;}
+.tribe-field-text.tribe-size-small input, .tribe-field-license_key.tribe-size-small input {width: 50px;}
+.tribe-field-text.tribe-size-medium input, .tribe-field-license_key.tribe-size-medium input {width: 225px}
+.tribe-field-text.tribe-size-large input, .tribe-field-license_key.tribe-size-large input {width: 450px;}
 
-.tribe-field-dropdown.tribe-size-small select {width: 100px}
+.tribe-field-dropdown.tribe-size-small select {width: 100px;}
 .tribe-field-dropdown.tribe-size-medium select {width: 300px;}
 .tribe-field-dropdown.tribe-size-large select {width: 450px;}
 
-.tribe-field-dropdown_chosen.tribe-size-small select {width: 100px}
+.tribe-field-dropdown_chosen.tribe-size-small select {width: 100px;}
 .tribe-field-dropdown_chosen.tribe-size-medium select {width: 200px;}
 .tribe-field-dropdown_chosen.tribe-size-large select {width: 300px;}
+
+/* license keys */
+.ajax-loading-license, .valid-key, .invalid-key {display: none; margin: 0 5px;}
+.ajax-loading-license {position: relative; top: 5px;}
+.valid-key {color: green;}
+.invalid-key {color: red;}
 
 
 /* = Help Screen
