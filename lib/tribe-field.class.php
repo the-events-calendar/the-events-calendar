@@ -144,7 +144,9 @@ if ( !class_exists('TribeField') ) {
 
 				} elseif ( $this->display_callback && is_array($this->display_callback) && method_exists($this->display_callback[0], $this->display_callback[1]) ) {
 
-					call_user_method($this->display_callback[1], $this->display_callback[0]);
+					// die(var_dump($this->display_callback));
+
+					call_user_func($this->display_callback[0].'::'.$this->display_callback[1]);
 
 				} elseif ( in_array($this->type, $this->valid_field_types) ) {
 
