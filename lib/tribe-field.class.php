@@ -83,6 +83,7 @@ if ( !class_exists('TribeField') ) {
 				'textarea',
 				'radio',
 				'checkbox_bool',
+				'checkbox_list',
 				'dropdown',
 				'dropdown_chosen',
 				'license_key',
@@ -384,6 +385,35 @@ if ( !class_exists('TribeField') ) {
 				}
 			} else {
 				$field .= '<span class="tribe-error">'.__('No radio options specified', 'tribe-events-calendar').'</span>';
+			}
+			$field .= $this->doFieldDivEnd();
+			$field .= $this->doFieldEnd();
+			return $field;
+		}
+
+		/**
+		 * generate a checkbox_list field
+		 *
+		 * @since 2.0.5
+		 * @author jkudish, mod by nciske
+		 * @return string the field
+		 */
+		public function checkbox_list() {
+			$field = $this->doFieldStart();
+			$field .= $this->doFieldLabel();
+			$field .= $this->doFieldDivStart();
+			if ( is_array($this->options) ) {
+				foreach ($this->options as $option_id => $title) {
+					$field .= '<label title="'.$title.'">';
+					$field .= '<input type="checkbox"';
+					$field .= $this->doFieldName();
+					$field .= $this->doToolTip();
+ 					$field .= ' value="'.$option_id.'" '.checked( $this->value, $option_id, false ).'/>';
+					$field .= $title;
+					$field .= '</label>';
+				}
+			} else {
+				$field .= '<span class="tribe-error">'.__('No checkbox options specified', 'tribe-events-calendar').'</span>';
 			}
 			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();

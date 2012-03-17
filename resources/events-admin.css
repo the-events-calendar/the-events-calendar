@@ -17,6 +17,7 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #
 =============================================*/
 .events-cal .tablenav select[name=m], .events-cal #post-query-submit {display:none;}
 .fixed .column-start-date, .fixed .column-end-date, .fixed .column-events-cats {width:14%;}
+#additional-field-table { max-width: 600px; }
 #additional-field-table input, #additional-field-table select, #additional-field-table textarea { width: 200px; }
 #additional-field-table tbody tr { height: 72px; }
 
@@ -80,12 +81,13 @@ td.tribe_message {padding-bottom: 10px !important;}
 
 /* = Settings Screen
 =============================================*/
-.tribe-settings-form fieldset {padding: 20px 0; display: inline-block; clear: both;}
+.tribe-settings-form { max-width: 1000px; }
+.tribe-settings-form fieldset {padding: 10px 0; display: inline-block; clear: both;}
 .tribe-settings-form fieldset.google-embed-field {margin: 10px 25px;}
 .tribe-settings-form legend {width: 240px; float: left;}
 .tribe-settings-form .tribe-field-wrap {float: left;}
-.tribe-settings-form .tribe-field-radio label {display: block; margin: 5px 0;}
-.tribe-settings-form .tribe-field-radio label input {margin-right: 5px;}
+.tribe-settings-form .tribe-field-radio label, .tribe-settings-form .tribe-field-checkbox_list label {display: block; margin: 5px 0;}
+.tribe-settings-form .tribe-field-radio label input, .tribe-settings-form .tribe-field-checkbox_list label input {margin-right: 5px;}
 .tribe_settings .tribe-field-indent {margin-left: 245px;}
 .tribe_settings #pu_dashboard_message{ display: none;}
 .tribe_settings .tribe-errors-list {margin-left: 15px;}
