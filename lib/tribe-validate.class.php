@@ -351,6 +351,28 @@ if ( !class_exists('TribeValidate') ) {
 		}
 
 		/**
+		 * validates/sanitizes a field as being a country list
+		 *
+		 * @since 2.0.5
+		 * @author jkudish
+		 * @return stdClass validation result object
+		 */
+		public function country_list() {
+			$country_rows = explode("\n", $this->value);
+			if ( is_array($country_rows) ) {
+				foreach($country_rows as $crow) {
+					$country = explode(",", $crow);
+					if ( !isset($country[0]) || !isset($country[1]) ) {
+						$this->result->valid = false;
+						$this->result->error = sprintf( __('Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom.', 'tribe-events-calendar'), $this->label);
+						return;
+					}
+				}
+			}
+			$this->result->valid = true;
+		}
+
+		/**
 		 * automatically validate a field regardless of the value
 		 * Don't use this unless you know what you are doing
 		 *
