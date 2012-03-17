@@ -100,8 +100,9 @@ if ( !class_exists('TribeField') ) {
 			$type = esc_attr($type);
 			$name = esc_attr($name);
 			$class = sanitize_html_class($class);
-			$label = wp_kses($label, array('a' => array('href' => array(),'title' => array()),'br' => array(),'em' => array(),'strong' => array(), 'b' => array(), 'i' => array(), 'u' => array() ));
-			$tooltip = esc_attr($tooltip);
+			$label = wp_kses($label, array('a' => array('href' => array(),'title' => array()),'br' => array(),'em' => array(),'strong' => array(), 'b' => array(), 'i' => array(), 'u' => array(), 'img' => array('title' => array(), 'src' => array(), 'alt' => array()) ));
+			$tooltip = wp_kses($tooltip, array('a' => array('href' => array(),'title' => array()),'br' => array(),'em' => array(),'strong' => array(), 'b' => array(), 'i' => array(), 'u' => array(), 'img' => array('title' => array(), 'src' => array(), 'alt' => array()) ));
+
 			$size = esc_attr($size);
 			$html = $html;
 			$error = (bool) $error;
