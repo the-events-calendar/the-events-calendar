@@ -19,11 +19,13 @@ if (!class_exists('TribeEventsViewHelpers')) {
 				$country_rows = explode("\n", tribe_get_option('tribeEventsCountries'));
 				foreach($country_rows as $crow){
 					$country = explode(",", $crow);
-					$country[0] = trim($country[0]);
-					$country[1] = trim($country[1]);
+					if ( isset($country[0]) && isset($country[1]) ) {
+						$country[0] = trim($country[0]);
+	 					$country[1] = trim($country[1]);
 
-					if($country[0] && $country[1]){
-						$countries[$country[0]] = $country[1];
+						if($country[0] && $country[1]){
+							$countries[$country[0]] = $country[1];
+						}
 					}
 				}
 			}
