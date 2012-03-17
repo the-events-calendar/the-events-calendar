@@ -8,10 +8,10 @@
 
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
-
 ?>
 <span class="back"><a href="<?php echo tribe_get_events_link(); ?>"><?php _e('&laquo; Back to Events', 'tribe-events-calendar'); ?></a></span>				
-<?php if (strtotime(tribe_get_end_date()) <= time() ) { ?><h4><small><?php  _e('This event has passed.', 'tribe-events-calendar') ?></small></h4> <?php } ?>
+<?php if (tribe_get_end_date(get_the_ID(), false, 'U') <= time() ) { ?><div class="event-passed"><?php  _e('This event has passed.', 'tribe-events-calendar') ?></div><?php } ?>
+<?php echo tribe_get_end_date(); ?>
 <div id="tribe-events-event-meta" itemscope itemtype="http://schema.org/Event">
 	<dl class="column">
 		<dt class="event-label event-label-name"><?php _e('Event:', 'tribe-events-calendar') ?></dt>
@@ -30,7 +30,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<dd itemprop="price" class="event-meta event-meta-cost"><?php echo tribe_get_cost(); ?></dd>
 		<?php endif; ?>
 		<?php tribe_meta_event_cats(); ?>
-		<?php tribe_meta_event_tags(); ?>
 		<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) ) : ?>
 			<dt class="event-label event-label-organizer"><?php _e('Organizer:', 'tribe-events-calendar') ?></dt>
 			<dd class="vcard author event-meta event-meta-author"><span class="fn url"><?php echo tribe_get_organizer_link(); ?></span></dd>
@@ -48,10 +47,10 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<?php endif; ?>
 		<dt class="event-label event-label-updated"><?php _e('Updated:', 'tribe-events-calendar') ?></dt>
 		<dd class="event-meta event-meta-updated"><span class="date updated"><?php the_date(); ?></span></dd>
-		<?php if ( function_exists('tribe_get_recurrence_text') && tribe_is_recurring_event() ) : ?>
+		<?php if ( class_exists('TribeEventsRecurrenceMeta') && function_exists('tribe_get_recurrence_text') && tribe_is_recurring_event() ) : ?>
 			<dt class="event-label event-label-schedule"><?php _e('Schedule:', 'tribe-events-calendar') ?></dt>
          <dd class="event-meta event-meta-schedule"><?php echo tribe_get_recurrence_text(); ?> 
-            <?php if(function_exists('tribe_all_occurences_link')): ?>(<a href='<?php tribe_all_occurences_link() ?>'>See all</a>)<?php endif; ?>
+            <?php if( class_exists('TribeEventsRecurrenceMeta') && function_exists('tribe_all_occurences_link')): ?>(<a href='<?php tribe_all_occurences_link() ?>'>See all</a>)<?php endif; ?>
          </dd>
 		<?php endif; ?>
 	</dl>
