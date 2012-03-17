@@ -3,7 +3,7 @@
 $organizers = TribeEvents::instance()->get_organizer_info();
 $organizer_options = array();
 if ( is_array($organizers) && !empty($organizers) ) {
-	$organizer_options[0] = __('Use New Organizer', 'tribe-events-calendar-pro');
+	$organizer_options[0] = __('No Default', 'tribe-events-calendar-pro');
 	foreach ($organizers as $organizer) {
 		$organizer_options[$organizer->ID] = $organizer->post_title;
 	}
@@ -12,7 +12,7 @@ if ( is_array($organizers) && !empty($organizers) ) {
 $venues = TribeEvents::instance()->get_venue_info();
 $venue_options = array();
 if ( is_array($venues) && !empty($venues) ) {
-	$venue_options[0] = __('Use New Venue', 'tribe-events-calendar-pro');
+	$venue_options[0] = __('Use New Venue/No Default', 'tribe-events-calendar-pro');
 	foreach ($venues as $venue) {
 		$venue_options[$venue->ID] = $venue->post_title;
 	}
@@ -22,6 +22,12 @@ $state_options = TribeEventsViewHelpers::loadStates();
 $state_options = array_merge( array( '' => __('Select a State','tribe-events-calendar-pro') ), $state_options );
 
 $country_options = TribeEventsViewHelpers::constructCountries();
+
+$current_organizer_id = tribe_get_option('eventsDefaultOrganizerID', 'none' );
+$current_organizer = ($current_organizer_id != 'none' && $current_organizer_id != 0 && $current_organizer_id) ? tribe_get_organizer($current_organizer_id) : __('No default set', 'tribe-events-calendar-pro');
+
+$current_venue_id = tribe_get_option('eventsDefaultVenueID', 'none' );
+$current_venue = ($current_venue_id != 'none' && $current_venue_id != 0 && $current_venue_id) ? tribe_get_venue($current_venue_id) : __('No default set', 'tribe-events-calendar-pro');
 
 $defaultsTab = array(
 	'priority' => 30,
@@ -51,7 +57,7 @@ $defaultsTab = array(
 		),
 		'current-default-organizer' => array(
 			'type' => 'html',
-			'html' => '<p class="tribe-field-indent">'.sprintf( __('The current default organizer is: %s', 'tribe-events-calendar-pro' ), '<strong>'.tribe_get_option('eventsDefaultOrganizerID', __('No default set') ).'</strong>').'</p>',
+			'html' => '<p class="tribe-field-indent">'.sprintf( __('The current default organizer is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$current_organizer.'</strong>').'</p>',
 		),
 		'eventsDefaultVenueID' => array(
 			'type' => 'dropdown_chosen',
@@ -64,7 +70,7 @@ $defaultsTab = array(
 		),
 		'current-default-venue' => array(
 			'type' => 'html',
-			'html' => '<p class="tribe-field-indent">'.sprintf( __('The current default venue is: %s', 'tribe-events-calendar-pro' ), '<strong>'.tribe_get_option('eventsDefaultVenueID', __('No default set') ).'</strong>').'</p>',
+			'html' => '<p class="tribe-field-indent">'.sprintf( __('The current default venue is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$current_venue.'</strong>').'</p>',
 		),
 		'eventsDefaultAddress' => array(
 			'type' => 'text',
@@ -77,7 +83,7 @@ $defaultsTab = array(
 		'current-default-address' => array(
 			'type' => 'html',
 			'class' => 'venue-default-info',
-			'html' => '<p class="tribe-field-indent">'.sprintf( __('The current default address is: %s', 'tribe-events-calendar-pro' ), '<strong>'.tribe_get_option('eventsDefaultAddress', __('No default set') ).'</strong>').'</p>',
+			'html' => '<p class="tribe-field-indent venue-default-info">'.sprintf( __('The current default address is: %s', 'tribe-events-calendar-pro' ), '<strong>'.tribe_get_option('eventsDefaultAddress', __('No default set') ).'</strong>').'</p>',
 		),
 		'eventsDefaultCity' => array(
 			'type' => 'text',
@@ -90,19 +96,20 @@ $defaultsTab = array(
 		'current-default-city' => array(
 			'type' => 'html',
 			'class' => 'venue-default-info',
-			'html' => '<p class="tribe-field-indent">'.sprintf( __('The current default city is: %s', 'tribe-events-calendar-pro' ), '<strong>'.tribe_get_option('eventsDefaultCity', __('No default set') ).'</strong>').'</p>',
+			'html' => '<p class="tribe-field-indent venue-default-info">'.sprintf( __('The current default city is: %s', 'tribe-events-calendar-pro' ), '<strong>'.tribe_get_option('eventsDefaultCity', __('No default set') ).'</strong>').'</p>',
 		),
 		'eventsDefaultState' => array(
 			'type' => 'dropdown_chosen',
 			'label' => __('Default State for Events','tribe-events-calendar-pro'),
 			'default' => false,
+			'class' => 'venue-default-info',
 			'validation_type' => 'options',
 			'options' => $state_options,
 			'can_be_empty' => true,
 		),
 		'current-default-state' => array(
 			'type' => 'html',
-			'html' => '<p class="tribe-field-indent">'.sprintf( __('The current default state is: %s', 'tribe-events-calendar-pro' ), '<strong>'.tribe_get_option('eventsDefaultState', __('No default set') ).'</strong>').'</p>',
+			'html' => '<p class="tribe-field-indent venue-default-info">'.sprintf( __('The current default state is: %s', 'tribe-events-calendar-pro' ), '<strong>'.tribe_get_option('eventsDefaultState', __('No default set') ).'</strong>').'</p>',
 		),
 		'eventsDefaultProvince' => array(
 			'type' => 'text',
@@ -115,7 +122,7 @@ $defaultsTab = array(
 		'current-default-province' => array(
 			'type' => 'html',
 			'class' => 'venue-default-info',
-			'html' => '<p class="tribe-field-indent">'.sprintf( __('The current default province is: %s', 'tribe-events-calendar-pro' ), '<strong>'.tribe_get_option('eventsDefaultProvince', __('No default set') ).'</strong>').'</p>',
+			'html' => '<p class="tribe-field-indent venue-default-info">'.sprintf( __('The current default province is: %s', 'tribe-events-calendar-pro' ), '<strong>'.tribe_get_option('eventsDefaultProvince', __('No default set') ).'</strong>').'</p>',
 		),
 		'eventsDefaultZip' => array(
 			'type' => 'text',
@@ -128,19 +135,20 @@ $defaultsTab = array(
 		'current-default-zip' => array(
 			'type' => 'html',
 			'class' => 'venue-default-info',
-			'html' => '<p class="tribe-field-indent">'.sprintf( __('The current default postal code/zip code is: %s', 'tribe-events-calendar-pro' ), '<strong>'.tribe_get_option('eventsDefaultZip', __('No default set') ).'</strong>').'</p>',
+			'html' => '<p class="tribe-field-indent venue-default-info">'.sprintf( __('The current default postal code/zip code is: %s', 'tribe-events-calendar-pro' ), '<strong>'.tribe_get_option('eventsDefaultZip', __('No default set') ).'</strong>').'</p>',
 		),
 		'defaultCountry' => array(
 			'type' => 'dropdown_chosen',
 			'label' => __('Default Country for Events','tribe-events-calendar-pro'),
 			'default' => false,
+			'class' => 'venue-default-info',
 			'validation_type' => 'options',
 			'options' => $country_options,
 			'can_be_empty' => true,
 		),
 		'current-default-country' => array(
 			'type' => 'html',
-			'html' => '<p class="tribe-field-indent">'.sprintf( __('The current default country is: %s', 'tribe-events-calendar-pro' ), '<strong>'.tribe_get_option('defaultCountry', __('No default set') ).'</strong>').'</p>',
+			'html' => '<p class="tribe-field-indent venue-default-info">'.sprintf( __('The current default country is: %s', 'tribe-events-calendar-pro' ), '<strong>'.tribe_get_option('defaultCountry', __('No default set') ).'</strong>').'</p>',
 		),
 		'eventsDefaultPhone' => array(
 			'type' => 'text',
@@ -153,7 +161,7 @@ $defaultsTab = array(
 		'current-default-phone' => array(
 			'type' => 'html',
 			'class' => 'venue-default-info',
-			'html' => '<p class="tribe-field-indent">'.sprintf( __('The current default phone is: %s', 'tribe-events-calendar-pro' ), '<strong>'.tribe_get_option('eventsDefaultPhone', __('No default set') ).'</strong>').'</p>',
+			'html' => '<p class="tribe-field-indent venue-default-info">'.sprintf( __('The current default phone is: %s', 'tribe-events-calendar-pro' ), '<strong>'.tribe_get_option('eventsDefaultPhone', __('No default set') ).'</strong>').'</p>',
 		),
 		'tribeEventsCountries' => array(
 			'type' => 'textarea',

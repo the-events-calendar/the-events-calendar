@@ -10,7 +10,7 @@
 class TribeEventsCustomMeta {
 	public static function init() {
 		add_action( 'wp_ajax_remove_option', array(__CLASS__, 'remove_meta_field') );
-		add_action( 'tribe-events-after-general-settings', array( __CLASS__, 'event_meta_options' ) );
+		add_action( 'tribe_settings_after_content_tab_general', array( __CLASS__, 'event_meta_options' ) );
     	add_action( 'tribe_events_details_table_bottom', array(__CLASS__, 'single_event_meta') );
 		add_action( 'tribe_community_events_details_table_bottom', array(__CLASS__, 'single_event_meta') );
 		add_action( 'tribe_events_update_meta', array(__CLASS__, 'save_single_event_meta') );
