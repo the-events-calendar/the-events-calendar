@@ -106,7 +106,7 @@ if ( !class_exists('TribeField') ) {
 			$error = (bool) $error;
 			$value = $value;
 			$conditional = $conditional;
-			$display_callback = esc_attr($display_callback);
+			$display_callback = $display_callback;
 
 
 			// set the ID
@@ -137,10 +137,14 @@ if ( !class_exists('TribeField') ) {
 
 			if ($this->conditional) {
 
-				if ( $this->display_callback && function_exists($this->display_callback) ) {
+				if ( $this->display_callback && is_string($this->display_callback) && function_exists($this->display_callback) ) {
 
 					// if there's a callback, run it
 					call_user_func($this->display_callback);
+
+				} elseif ( $this->display_callback && is_array($this->display_callback) && method_exists($this->display_callback[0], $this->display_callback[1]) ) {
+
+					call_user_method($this->display_callback[1], $this->display_callback[0]);
 
 				} elseif ( in_array($this->type, $this->valid_field_types) ) {
 
