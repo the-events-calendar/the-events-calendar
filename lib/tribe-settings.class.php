@@ -170,6 +170,7 @@ if ( !class_exists('TribeSettings') ) {
 				$this->defaultTab = apply_filters( 'tribe_settings_default_tab', 'general' );
 				$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset($_GET['tab']) && $_GET['tab'] ) ? esc_attr($_GET['tab']) : $this->defaultTab );
 				$this->noSaveTabs = (array) apply_filters( 'tribe_settings_no_save_tabs', array() );
+				do_action('tribe_settings_after_do_tabs');
 			}
 		}
 
@@ -433,7 +434,7 @@ if ( !class_exists('TribeSettings') ) {
 				}
 
 				if ( count($errors) ) {
-					$message = (isset($this->major_error) && $this->major_error) ? __('None of your settings were saved. Please try again.') : _n('The above setting was not saved.', 'The above settings were not saved.', $count, 'tribe-events-calendar');
+					$message = (isset($this->major_error) && $this->major_error) ? __('None of your settings were saved. Please try again.') : _n('The above setting was not saved. Other settings were successfully saved.', 'The above settings were not saved. Other settings were successfully saved.', $count, 'tribe-events-calendar');
 				}
 
 				$output .= '</ul><p>'.$message.'</p></div>';
@@ -452,13 +453,16 @@ if ( !class_exists('TribeSettings') ) {
 		 */
 		public function displaySuccess() {
 
+			$errors = (array) apply_filters( 'tribe_settings_display_errors', $this->errors);
+			$count = apply_filters( 'tribe_settings_count_errors', count( $errors ) );
+
 			// are we coming from the saving place?
-			if ( isset($_POST['tribeSaveSettings']) && check_admin_referer('saving', 'tribe-save-settings') ) {
+			if ( isset($_POST['tribeSaveSettings']) && check_admin_referer('saving', 'tribe-save-settings') && !apply_filters( 'tribe_settings_display_errors_or_not', ( $count > 0) ) ) {
 
 				// output the filtered message
 				$message = __('Settings saved.', 'tribe-events-calendar');
 				$output = '<div id="message" class="updated"><p><strong>' . $message . '</strong></p></div>';
-				echo apply_filters( 'tribe_settings_success_message', $output );
+				echo apply_filters( 'tribe_settings_success_message', $output, $this->currentTab );
 
 			}
 		}

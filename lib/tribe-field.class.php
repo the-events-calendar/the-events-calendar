@@ -330,7 +330,6 @@ if ( !class_exists('TribeField') ) {
 			$field .= '/>';
 			$field .= $this->doScreenReaderLabel();
 			$field .= $this->doFieldEnd();
-			$field .= $this->doFieldEnd();
 			return $field;
 		}
 
@@ -352,7 +351,6 @@ if ( !class_exists('TribeField') ) {
 			$field .= stripslashes($this->value);
 			$field .= '</textarea>';
 			$field .= $this->doScreenReaderLabel();
-			$field .= $this->doFieldEnd();
 			$field .= $this->doFieldEnd();
 			return $field;
 		}
@@ -456,16 +454,27 @@ if ( !class_exists('TribeField') ) {
 		}
 
 		/**
-		 * generate a license key field - the same as the
-		 * regular text field but wrapped so it can have the
-		 * right css class applied to it
+		 * generate a license key field
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
 		 * @return string the field
 		 */
 		public function license_key() {
-			$field = $this->text();
+			$field = $this->doFieldStart();
+			$field .= $this->doFieldLabel();
+			$field .= $this->doFieldDivStart();
+			$field .= '<input';
+			$field .= ' type="text"';
+			$field .= $this->doFieldName();
+			$field .= $this->doFieldValue();
+			$field .= $this->doToolTip();
+			$field .= '/>';
+			$field .= '<img src="'.esc_url( admin_url( 'images/wpspin_light.gif' ) ).'" class="ajax-loading-license" alt="Loading" style="display: none"/>';
+			$field .= '<span class="valid-key"></span>';
+			$field .= '<span class="invalid-key"></span>';
+			$field .= $this->doScreenReaderLabel();
+			$field .= $this->doFieldEnd();
 			return $field;
 		}
 

@@ -82,6 +82,7 @@ if ( !class_exists('TribeSettingsTab') ) {
 		/**
 		 * filters the tabs array from TribeSettings
 		 * and adds the current tab to it
+		 * does not add a tab if it's empty
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
@@ -89,7 +90,8 @@ if ( !class_exists('TribeSettingsTab') ) {
 		 * @return array $tabs the filtered tabs
 		 */
 		public function addTab($tabs) {
-			$tabs[$this->id] = $this->name;
+			if ( !empty($this->fields) || has_action('tribe_settings_content_tab_'.$this->id) )
+				$tabs[$this->id] = $this->name;
 			return $tabs;
 		}
 
@@ -103,7 +105,8 @@ if ( !class_exists('TribeSettingsTab') ) {
 		 * @return array $fields the filtered fields
 		 */
 		public function addFields($fields) {
-			$fields[$this->id] = $this->fields;
+			if ( !empty($this->fields) )
+				$fields[$this->id] = $this->fields;
 			return $fields;
 		}
 
@@ -117,7 +120,7 @@ if ( !class_exists('TribeSettingsTab') ) {
 		 * @return array $noSaveTabs the filtered non saving tabs
 		 */
 		public function showSaveTab($noSaveTabs) {
-			if ( !$this->show_save )
+			if ( !$this->show_save || empty($this->fields) )
 				$noSaveTabs[$this->id] = $this->id;
 			return $noSaveTabs;
 		}
@@ -134,7 +137,7 @@ if ( !class_exists('TribeSettingsTab') ) {
 			if ( $this->display_callback && function_exists($this->display_callback) )
 				call_user_func($this->display_callback);
 
-			if (is_array($this->fields)) {
+			if (is_array($this->fields) && !empty($this->fields) ) {
 				foreach ($this->fields as $key => $field) {
 
 					if ( isset($_POST[$key]) ) {
