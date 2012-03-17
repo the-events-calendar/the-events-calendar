@@ -365,6 +365,7 @@ if ( !class_exists('TribeValidate') ) {
 					if ( !isset($country[0]) || !isset($country[1]) ) {
 						$this->result->valid = false;
 						$this->result->error = sprintf( __('Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom.', 'tribe-events-calendar'), $this->label);
+						$this->value = esc_textarea($this->value);
 						return;
 					}
 				}
