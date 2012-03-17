@@ -99,7 +99,7 @@ if ( !class_exists('TribeField') ) {
 			$type = esc_attr($type);
 			$name = esc_attr($name);
 			$class = sanitize_html_class($class);
-			$label = esc_attr($label);
+			$label = wp_kses($label, array('a' => array('href' => array(),'title' => array()),'br' => array(),'em' => array(),'strong' => array(), 'b' => array(), 'i' => array(), 'u' => array() ));
 			$tooltip = esc_attr($tooltip);
 			$size = esc_attr($size);
 			$html = $html;
