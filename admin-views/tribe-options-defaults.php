@@ -167,7 +167,7 @@ $defaultsTab = array(
 			'type' => 'textarea',
 			'label' => __('Use a custom list of countries','tribe-events-calendar-pro'),
 			'default' => false,
-			'validation_type' => 'textarea',
+			'validation_type' => 'country_list',
 			'tooltip' => __('One country per line in the following format: <br>US, United States <br> UK, United Kingdom. <br> (Replaces the default list.)', 'tribe-events-calendar-pro'),
 			'can_be_empty' => true,
 		),
