@@ -160,6 +160,23 @@ if ( !class_exists('TribeValidate') ) {
 		}
 
 		/**
+		 * validates & sanitizes fields as URLs
+		 *
+		 * @since 2.0.5
+		 * @author jkudish, nciske
+		 * @return stdClass validation result object
+		 */
+		public function url() {
+	
+			if ( esc_url_raw( $this->value ) == $this->value ) {
+				$this->result->valid = true;
+			} else {
+				$this->result->valid = false;
+				$this->result->error = sprintf( __('%s must be a valid absolute URL.', 'tribe-events-calendar'), $this->label);
+			}
+		}
+
+		/**
 		 * validates fields that have options (radios, dropdowns, etc.)
 		 * by making sure the value is part of the options array
 		 *
