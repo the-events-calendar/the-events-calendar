@@ -19,6 +19,7 @@ class WP_Test_TribePreviousEcpVersionsClass extends Tribe_WP_UnitTestCase {
 	 */
 	function test_previous_ecp_versions_saving() {
 		$tribe_ecp = TribeEvents::instance();
+		$tribe_ecp->init();
 		$tribe_ecp->setOption('latest_ecp_version', '1.6.5');
 		$tribe_ecp->init();
 		$previous_ecp_versions = tribe_get_option( 'previous_ecp_versions' );
