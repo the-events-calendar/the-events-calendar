@@ -25,7 +25,7 @@ $generalTab = array(
 		'donate-link' => array(
 			'type' => 'checkbox_bool',
 			'label' => __('Donate a link', 'tribe-events-calendar'),
-			'tooltip' => sprintf( __('%sAre you thinking "Wow, this plugin is amazing! I should say thanks to tribe for all their hard work." The greatest thanks we could ask for is recognition. Check this box to add a small text only link at the bottom of your calendar pointing to the events calendar project.', 'tribe-events-calendar'), '<img src="' .$this->pluginPath .'"resources/images/donate-link-screenshot.png" />' ),
+			'tooltip' => __('Are you thinking \'\'Wow, this plugin is amazing! I should say thanks to tribe for all their hard work.\'\' The greatest thanks we could ask for is recognition. Check this box to add a small text only link at the bottom of your calendar pointing to the events calendar project.', 'tribe-events-calendar'),
 			'default' => false,
 			'validation_type' => 'boolean'
 		),
