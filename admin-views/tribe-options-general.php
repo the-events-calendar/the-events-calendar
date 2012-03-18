@@ -22,6 +22,13 @@ $generalTab = array(
 			'html' => (function_exists('tribe_get_ical_link')) ? '<p>'.__('Here is the iCal feed URL for your events:', 'tribe-events-calendar').' '.'<code>'.tribe_get_ical_link().'</code></p>' : '',
 			'conditional' => function_exists('tribe_get_ical_link'),
 		),
+		'donate-link' => array(
+			'type' => 'checkbox_bool',
+			'label' => __('Donate a link', 'tribe-events-calendar'),
+			'tooltip' => sprintf( __('%sAre you thinking "Wow, this plugin is amazing! I should say thanks to tribe for all their hard work." The greatest thanks we could ask for is recognition. Check this box to add a small text only link at the bottom of your calendar pointing to the events calendar project.', 'tribe-events-calendar'), '<img src="' .$this->pluginPath .'"resources/images/donate-link-screenshot.png" />' ),
+			'default' => false,
+			'validation_type' => 'boolean'
+		),
 		'settings-heading' => array(
 			'type' => 'heading',
 			'label' => __('Settings', 'tribe-events-calendar'),
