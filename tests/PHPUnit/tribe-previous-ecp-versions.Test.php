@@ -23,7 +23,8 @@ class WP_Test_TribePreviousEcpVersionsClass extends Tribe_WP_UnitTestCase {
 		$tribe_ecp->init();
 		$previous_ecp_versions = tribe_get_option( 'previous_ecp_versions' );
 		$this->assertEquals( '0', $previous_ecp_versions[0] );
-		$this->assertEquals( '1.6.5', $previous_ecp_versions[count( $previous_ecp_versions ) - 1] );
+		$this->assertEquals( '1.6.5', $previous_ecp_versions[1]);
+		$this->assertFalse( isset( $previous_ecp_versions[2] ) );
 	}
 	
 }
