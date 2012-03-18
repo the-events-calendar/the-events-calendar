@@ -8,7 +8,7 @@ jQuery(document).ready(function($) {
     position: "center right",
     offset: [-4, 10],
     effect: "fade",
-    opacity: 0.7,
+    opacity: 1,
     layout: '<div><div class="wp-pointer-content"><p class="tribe-tooltip-inner"></p></div><div class="wp-pointer-arrow"><div class="wp-pointer-arrow-inner"></div></div></div>',
     tipInner: 'tribe-tooltip-inner',
     tipClass: "wp-pointer-left tribe-tooltip"

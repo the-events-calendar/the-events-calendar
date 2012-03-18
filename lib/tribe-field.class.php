@@ -73,6 +73,7 @@ if ( !class_exists('TribeField') ) {
 				'display_callback' => null,
 				'if_empty' => null,
 				'can_be_empty' => false,
+				'clear_after' => true,
 			);
 
 			// a list of valid field types, to prevent screwy behaviour
@@ -108,6 +109,7 @@ if ( !class_exists('TribeField') ) {
 			$value = $value;
 			$conditional = $conditional;
 			$display_callback = $display_callback;
+			$clear_after = (bool) $clear_after;
 
 
 			// set the ID
@@ -195,7 +197,7 @@ if ( !class_exists('TribeField') ) {
 		 */
 		public function doFieldEnd() {
 			$return = '</fieldset>';
-			$return .= '<div class="clear"></div>';
+			$return .= ($this->clear_after) ? '<div class="clear"></div>' : '';
 			return apply_filters( 'tribe_field_end', $return, $this->id, $this );
 		}
 

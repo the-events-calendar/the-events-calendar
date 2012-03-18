@@ -96,6 +96,7 @@ td.tribe_message {padding-bottom: 10px !important;}
 .tribe-tooltip {max-width: 400px; margin-right: 15px;}
 .tribe-tooltip .wp-pointer-content {padding-bottom: 0;}
 .tribe-tooltip-inner {margin: 6px 0;}
+#donate-link-tooltip {display: none;}
 
 /* sizes */
 .tribe-field-textarea.tribe-size-small textarea {width: 180px; height: 60px;}
