@@ -108,6 +108,8 @@ if ( !class_exists('TribeSettingsTab') ) {
 		public function addFields($fields) {
 			if ( !empty($this->fields) )
 				$fields[$this->id] = $this->fields;
+			elseif ( has_action('tribe_settings_content_tab_'.$this->id) )
+				$fields[$this->id] = $this->fields = array(0 => null); // just to trick it
 			return $fields;
 		}
 
