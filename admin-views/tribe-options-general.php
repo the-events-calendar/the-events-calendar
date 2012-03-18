@@ -25,9 +25,13 @@ $generalTab = array(
 		'donate-link' => array(
 			'type' => 'checkbox_bool',
 			'label' => __('Donate a link', 'tribe-events-calendar'),
-			'tooltip' => __('Are you thinking \'\'Wow, this plugin is amazing! I should say thanks to tribe for all their hard work.\'\' The greatest thanks we could ask for is recognition. Check this box to add a small text only link at the bottom of your calendar pointing to the events calendar project.', 'tribe-events-calendar'),
 			'default' => false,
-			'validation_type' => 'boolean'
+			'validation_type' => 'boolean',
+			'clear_after' => false,
+		),
+		'donate-link-tooltip' => array(
+			'type' => 'html',
+			'html' => '<div id="donate-link-tooltip" class="wp-pointer-left tribe-tooltip"><div class="wp-pointer-content"><p class="tribe-tooltip-inner"><p>'.__('Are you thinking "Wow, this plugin is amazing! I should say thanks to tribe for all their hard work." The greatest thanks we could ask for is recognition. Check this box to add a small text only link at the bottom of your calendar pointing to the events calendar project.', 'tribe-events-calendar').'<br><br><img src="'.$this->pluginUrl.'/resources/images/donate-link-screenshot.png"></p></div><div class="wp-pointer-arrow"><div class="wp-pointer-arrow-inner"></div></div></div>',
 		),
 		'settings-heading' => array(
 			'type' => 'heading',
