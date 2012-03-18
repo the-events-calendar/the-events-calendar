@@ -129,7 +129,12 @@ class WP_Test_TribeCapabilities extends Tribe_WP_UnitTestCase {
 		$this->assertTrue( $role->has_cap( 'publish_tribe_events' ) );
 		$this->assertTrue( $role->has_cap( 'edit_published_tribe_events' ) );
 		$this->assertTrue( $role->has_cap( 'delete_published_tribe_events' ) );
-		
+		$this->assertFalse( $role->has_cap( 'edit_others_tribe_events' ) );		
+		$this->assertFalse( $role->has_cap( 'delete_others_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'delete_private_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'edit_private_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'read_private_tribe_events' ) );
+				
 		$this->assertTrue( $role->has_cap( 'edit_tribe_venue' ) );
 		$this->assertTrue( $role->has_cap( 'read_tribe_venue' ) );
 		$this->assertTrue( $role->has_cap( 'delete_tribe_venue' ) );
@@ -138,7 +143,12 @@ class WP_Test_TribeCapabilities extends Tribe_WP_UnitTestCase {
 		$this->assertTrue( $role->has_cap( 'publish_tribe_venues' ) );
 		$this->assertTrue( $role->has_cap( 'edit_published_tribe_venues' ) );
 		$this->assertTrue( $role->has_cap( 'delete_published_tribe_venues' ) );
-		
+		$this->assertFalse( $role->has_cap( 'edit_others_tribe_venues' ) );		
+		$this->assertFalse( $role->has_cap( 'delete_others_tribe_venues' ) );
+		$this->assertFalse( $role->has_cap( 'delete_private_tribe_venues' ) );
+		$this->assertFalse( $role->has_cap( 'edit_private_tribe_venues' ) );
+		$this->assertFalse( $role->has_cap( 'read_private_tribe_venues' ) );
+				
 		$this->assertTrue( $role->has_cap( 'edit_tribe_organizer' ) );
 		$this->assertTrue( $role->has_cap( 'read_tribe_organizer' ) );
 		$this->assertTrue( $role->has_cap( 'delete_tribe_organizer' ) );
@@ -147,6 +157,11 @@ class WP_Test_TribeCapabilities extends Tribe_WP_UnitTestCase {
 		$this->assertTrue( $role->has_cap( 'publish_tribe_organizers' ) );
 		$this->assertTrue( $role->has_cap( 'edit_published_tribe_organizers' ) );
 		$this->assertTrue( $role->has_cap( 'delete_published_tribe_organizers' ) );
+		$this->assertFalse( $role->has_cap( 'edit_others_tribe_organizers' ) );		
+		$this->assertFalse( $role->has_cap( 'delete_others_tribe_organizers' ) );
+		$this->assertFalse( $role->has_cap( 'delete_private_tribe_organizers' ) );
+		$this->assertFalse( $role->has_cap( 'edit_private_tribe_organizers' ) );
+		$this->assertFalse( $role->has_cap( 'read_private_tribe_organizers' ) );
 	}
 	
 	public function test_contributor_role_capabilities() {
@@ -162,18 +177,42 @@ class WP_Test_TribeCapabilities extends Tribe_WP_UnitTestCase {
 		$this->assertTrue( $role->has_cap( 'delete_tribe_event' ) );
 		$this->assertTrue( $role->has_cap( 'delete_tribe_events') );
 		$this->assertTrue( $role->has_cap( 'edit_tribe_events' ) );
-		
+		$this->assertFalse( $role->has_cap( 'edit_others_tribe_events' ) );		
+		$this->assertFalse( $role->has_cap( 'delete_others_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'publish_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'edit_published_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'delete_published_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'delete_private_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'edit_private_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'read_private_tribe_events' ) );
+				
 		$this->assertTrue( $role->has_cap( 'edit_tribe_venue' ) );
 		$this->assertTrue( $role->has_cap( 'read_tribe_venue' ) );
 		$this->assertTrue( $role->has_cap( 'delete_tribe_venue' ) );
 		$this->assertTrue( $role->has_cap( 'delete_tribe_venues') );
 		$this->assertTrue( $role->has_cap( 'edit_tribe_venues' ) );
-		
+		$this->assertFalse( $role->has_cap( 'edit_others_tribe_venues' ) );		
+		$this->assertFalse( $role->has_cap( 'delete_others_tribe_venues' ) );
+		$this->assertFalse( $role->has_cap( 'publish_tribe_venues' ) );
+		$this->assertFalse( $role->has_cap( 'edit_published_tribe_venues' ) );
+		$this->assertFalse( $role->has_cap( 'delete_published_tribe_venues' ) );
+		$this->assertFalse( $role->has_cap( 'delete_private_tribe_venues' ) );
+		$this->assertFalse( $role->has_cap( 'edit_private_tribe_venues' ) );
+		$this->assertFalse( $role->has_cap( 'read_private_tribe_venues' ) );
+						
 		$this->assertTrue( $role->has_cap( 'edit_tribe_organizer' ) );
 		$this->assertTrue( $role->has_cap( 'read_tribe_organizer' ) );
 		$this->assertTrue( $role->has_cap( 'delete_tribe_organizer' ) );
 		$this->assertTrue( $role->has_cap( 'delete_tribe_organizers') );
 		$this->assertTrue( $role->has_cap( 'edit_tribe_organizers' ) );
+		$this->assertFalse( $role->has_cap( 'edit_others_tribe_organizers' ) );		
+		$this->assertFalse( $role->has_cap( 'delete_others_tribe_organizers' ) );
+		$this->assertFalse( $role->has_cap( 'publish_tribe_organizers' ) );
+		$this->assertFalse( $role->has_cap( 'edit_published_tribe_organizers' ) );
+		$this->assertFalse( $role->has_cap( 'delete_published_tribe_organizers' ) );
+		$this->assertFalse( $role->has_cap( 'delete_private_tribe_organizers' ) );
+		$this->assertFalse( $role->has_cap( 'edit_private_tribe_organizers' ) );
+		$this->assertFalse( $role->has_cap( 'read_private_tribe_organizers' ) );
 	}
 	
 		public function test_subscriber_role_capabilities() {
@@ -185,9 +224,44 @@ class WP_Test_TribeCapabilities extends Tribe_WP_UnitTestCase {
 		
 		// Check to make sure the user has all the tribe capabilities.
 		$this->assertTrue( $role->has_cap( 'read_tribe_event' ) );
-		
+		$this->assertFalse( $role->has_cap( 'edit_tribe_event' ) );
+		$this->assertFalse( $role->has_cap( 'delete_tribe_event' ) );
+		$this->assertFalse( $role->has_cap( 'delete_tribe_events') );
+		$this->assertFalse( $role->has_cap( 'edit_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'edit_others_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'delete_others_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'publish_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'edit_published_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'delete_published_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'delete_private_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'edit_private_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'read_private_tribe_events' ) );
+				
 		$this->assertTrue( $role->has_cap( 'read_tribe_venue' ) );
+		$this->assertFalse( $role->has_cap( 'edit_tribe_event' ) );
+		$this->assertFalse( $role->has_cap( 'delete_tribe_event' ) );
+		$this->assertFalse( $role->has_cap( 'delete_tribe_events') );
+		$this->assertFalse( $role->has_cap( 'edit_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'edit_others_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'delete_others_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'publish_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'edit_published_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'delete_published_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'delete_private_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'edit_private_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'read_private_tribe_events' ) );
 		
 		$this->assertTrue( $role->has_cap( 'read_tribe_organizer' ) );
+		$this->assertFalse( $role->has_cap( 'edit_tribe_event' ) );
+		$this->assertFalse( $role->has_cap( 'delete_tribe_event' ) );
+		$this->assertFalse( $role->has_cap( 'delete_tribe_events') );
+		$this->assertFalse( $role->has_cap( 'edit_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'edit_others_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'delete_others_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'publish_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'edit_published_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'delete_published_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'delete_private_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'edit_private_tribe_events' ) );
+		$this->assertFalse( $role->has_cap( 'read_private_tribe_events' ) );}
 	}
-}
