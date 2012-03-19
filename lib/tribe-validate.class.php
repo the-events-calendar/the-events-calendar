@@ -250,7 +250,7 @@ if ( !class_exists('TribeValidate') ) {
 		}
 
 		/**
-		 * validates & sanitizes a license key
+		 * sanitizes a license key
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
@@ -368,7 +368,7 @@ if ( !class_exists('TribeValidate') ) {
 		}
 
 		/**
-		 * validates/sanitizes a field as being a country list
+		 * validates & sanitizes a field as being a country list
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
