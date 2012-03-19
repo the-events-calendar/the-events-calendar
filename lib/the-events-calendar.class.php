@@ -353,6 +353,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$output = '';
 			$bad_versions = array();
+			$tec_addons_required_versions = array();
 
 			$tec_addons_required_versions = (array) apply_filters('tribe_tec_addons', $tec_addons_required_versions);
 
@@ -365,11 +366,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( !empty($bad_versions) ) {
 				$output .= '<div class="error">';
 				foreach ($bad_versions as $plugin => $version) {
-					$output .= '<p>'.sprintf( __('Your version of %s requires version %s or higher of The Events Calendar. Use at your own risk!', 'tribe-events-calendar'), $plugin, $version ).'</p>';
+					$output .= '<p>'.sprintf( __('Your version of %s requires version %s or higher of The Events Calendar (you are currently running %s). Visit %shelp%s for more information.', 'tribe-events-calendar'), $plugin, $version, self::VERSION, '<a href="http://shylock.local/moderntribe/wp-admin/options-general.php?page=tribe-settings&tab=help">', '</a>' ).'</p>';
 				}
 				$output .= '</div>';
 			}
-			echo apply_filters('tribe_add_on_compatibility_errors', $output);
+			if ( current_user_can( 'edit_plugins' ) ) {
+				echo apply_filters('tribe_add_on_compatibility_errors', $output);
+			}
 		}
 
 		/**
