@@ -350,15 +350,20 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function checkAddOnCompatibility() {
+
+			$output = '';
 			$bad_versions = array();
+
 			$tec_addons_required_versions = (array) apply_filters('tribe_tec_addons', $tec_addons_required_versions);
+
 			foreach ($tec_addons_required_versions as $plugin) {
 				if ( version_compare( $plugin['required_version'], self::VERSION, '>') ) {
 					$bad_versions[$plugin['plugin_name']] = $plugin['required_version'];
 				}
 			}
+
 			if ( !empty($bad_versions) ) {
-				$output = '<div class="error">';
+				$output .= '<div class="error">';
 				foreach ($bad_versions as $plugin => $version) {
 					$output .= '<p>'.sprintf( __('Your version of %s requires version %s or higher of The Events Calendar. Use at your own risk!', 'tribe-events-calendar'), $plugin, $version ).'</p>';
 				}
