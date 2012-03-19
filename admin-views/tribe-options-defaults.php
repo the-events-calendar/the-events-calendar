@@ -51,7 +51,7 @@ $defaultsTab = array(
 		),
 		'current-default-organizer' => array(
 			'type' => 'html',
-			'display_callback' => array('TribeEventsPro', 'displaySavedOrganizer'),
+			'display_callback' => 'tribe_display_saved_organizer',
 		),
 		'eventsDefaultVenueID' => array(
 			'type' => 'dropdown_chosen',
@@ -64,7 +64,7 @@ $defaultsTab = array(
 		),
 		'current-default-venue' => array(
 			'type' => 'html',
-			'display_callback' => array('TribeEventsPro', 'displaySavedVenue'),
+			'display_callback' => 'tribe_display_saved_venue',
 		),
 		'eventsDefaultAddress' => array(
 			'type' => 'text',
@@ -77,7 +77,7 @@ $defaultsTab = array(
 		'current-default-address' => array(
 			'type' => 'html',
 			'class' => 'venue-default-info',
-			'display_callback' => array('TribeEventsPro', 'displaySavedAddress'),
+			'display_callback' => 'tribe_display_saved_address',
 		),
 		'eventsDefaultCity' => array(
 			'type' => 'text',
@@ -90,7 +90,7 @@ $defaultsTab = array(
 		'current-default-city' => array(
 			'type' => 'html',
 			'class' => 'venue-default-info',
-			'display_callback' => array('TribeEventsPro', 'displaySavedCity'),
+			'display_callback' => 'tribe_display_saved_city',
 		),
 		'eventsDefaultState' => array(
 			'type' => 'dropdown_chosen',
@@ -103,7 +103,7 @@ $defaultsTab = array(
 		),
 		'current-default-state' => array(
 			'type' => 'html',
-			'display_callback' => array('TribeEventsPro', 'displaySavedState'),
+			'display_callback' => 'tribe_display_saved_state',
 		),
 		'eventsDefaultProvince' => array(
 			'type' => 'text',
@@ -116,7 +116,7 @@ $defaultsTab = array(
 		'current-default-province' => array(
 			'type' => 'html',
 			'class' => 'venue-default-info',
-			'display_callback' => array('TribeEventsPro', 'displaySavedProvince'),
+			'display_callback' => 'tribe_display_saved_province',
 		),
 		'eventsDefaultZip' => array(
 			'type' => 'text',
@@ -129,7 +129,7 @@ $defaultsTab = array(
 		'current-default-zip' => array(
 			'type' => 'html',
 			'class' => 'venue-default-info',
-			'display_callback' => array('TribeEventsPro', 'displaySavedZip'),
+			'display_callback' => 'tribe_display_saved_zip',
 		),
 		'defaultCountry' => array(
 			'type' => 'dropdown_chosen',
@@ -142,7 +142,7 @@ $defaultsTab = array(
 		),
 		'current-default-country' => array(
 			'type' => 'html',
-			'display_callback' => array('TribeEventsPro', 'displaySavedCountry'),
+			'display_callback' => 'tribe_display_saved_country',
 		),
 		'eventsDefaultPhone' => array(
 			'type' => 'text',
@@ -155,7 +155,7 @@ $defaultsTab = array(
 		'current-default-phone' => array(
 			'type' => 'html',
 			'class' => 'venue-default-info',
-			'display_callback' => array('TribeEventsPro', 'displaySavedPhone'),
+			'display_callback' => 'tribe_display_saved_phone',
 		),
 		'tribeEventsCountries' => array(
 			'type' => 'textarea',
