@@ -405,7 +405,7 @@ if ( !class_exists('TribeField') ) {
 			$field = $this->doFieldStart();
 			$field .= $this->doFieldLabel();
 			$field .= $this->doFieldDivStart();
-			
+
 			if( ! is_array( $this->value ) ){
 				if( !empty( $this->value ) ){
 					$this->value = array( $this->value );
@@ -413,7 +413,7 @@ if ( !class_exists('TribeField') ) {
 					$this->value = array();
 				}
 			}
-			
+
 			if ( is_array($this->options) ) {
 				foreach ($this->options as $option_id => $title) {
 					$field .= '<label title="'.$title.'">';
