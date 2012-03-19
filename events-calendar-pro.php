@@ -317,8 +317,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				$item[] = "DTSTAMP:" . date("Ymd\THis", time());
 				$item[] = "CREATED:" . str_replace( array("-", " ", ":") , array("", "T", "") , $eventPost->post_date );
 				$item[] = "LAST-MODIFIED:". str_replace( array("-", " ", ":") , array("", "T", "") , $eventPost->post_modified );
-				$item[] = "UID:" . $eventPost->ID . "@" . $blogHome;
-				$item[] = "SUMMARY:" . $eventPost->post_title;				
+				$item[] = "UID:" . $eventPost->ID.'-'.strtotime($startDate).'-'.strtotime($endDate)."@".$blogHome;
+				$item[] = "SUMMARY:" . $eventPost->post_title;
 				$item[] = "DESCRIPTION:" . str_replace(",",'\,',$description);
 				$item[] = "LOCATION:" . html_entity_decode($tribeEvents->fullAddressString( $eventPost->ID ), ENT_QUOTES);
 				$item[] = "URL:" . get_permalink( $eventPost->ID );
