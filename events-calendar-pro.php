@@ -75,7 +75,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles') );
 			add_action( 'tribe_after_location_details', array( $this, 'add_google_map_preview') );
 			add_action( 'tribe_tec_template_chooser', array( $this, 'do_ical_template' ) );
-			add_filter( 'tribe_settings_do_tabs', array( $this, 'add_defaults_settings_tab' ), 10, 1 );
+			add_filter( 'tribe_settings_do_tabs', array( $this, 'add_defaults_settings_tab' ) );
 			add_filter( 'tribe_current_events_page_template', array( $this, 'select_venue_template' ) );
 			add_filter( 'tribe_help_tab_getting_started_text', array( $this, 'add_help_tab_getting_started_text' ) );
 			add_filter( 'tribe_help_tab_enb_content', array( $this, 'add_help_tab_enb_text' ) );
@@ -97,6 +97,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			TribeEventsCustomMeta::init();
 			TribeEventsRecurrenceMeta::init();			
 		}
+
 		
 		public function helpersLoaded() {
 			require_once( 'lib/apm_filters.php');
@@ -595,6 +596,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			return $links;
 		}
 
+
 		/* Static Methods */
 	    public static function instance()
 	    {
@@ -606,29 +608,29 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	        return self::$instance;
 	    }
 	}
-	
+
 	// Instantiate class and set up WordPress actions.
 	function Tribe_ECP_Load() {
-		if( class_exists( 'TribeEvents' ) && defined('TribeEvents::VERSION') && version_compare( TribeEvents::VERSION, TribeEventsPro::REQUIRED_TEC_VERSION, '>=') ) {
+		add_filter( 'tribe_tec_addons', 'tribe_init_ecp_addon' );
+		$to_run_or_not_to_run = (class_exists( 'TribeEvents' ) && defined('TribeEvents::VERSION') && version_compare( TribeEvents::VERSION, TribeEventsPro::REQUIRED_TEC_VERSION, '>='));
+		if ( apply_filters('tribe_ecp_to_run_or_not_to_run', $to_run_or_not_to_run) ) {
 			TribeEventsPro::instance();
-		} else {
-			add_action( 'admin_notices', 'tribe_show_fail_message' );
 		}
 	}
 
 	add_action( 'plugins_loaded', 'Tribe_ECP_Load', 1); // high priority so that it's not too late for tribe_register-helpers class
 
 	/**
-	 * Shows message if the plugin can't load due to TEC not being installed.
+	 * Add Events PRO to the list of add-ons to check required version.
+	 *
+	 * @author Paul Hughes, jkudish
+	 * @since 2.0.5
+	 * @return array $plugin the required info
 	 */
-
-	function tribe_show_fail_message() {
-		if ( current_user_can('activate_plugins') ) {
-			$url = 'plugin-install.php?tab=plugin-information&plugin=the-events-calendar&TB_iframe=true';
-			$title = __('The Events Calendar', 'tribe-events-calendar-pro');
-			echo '<div class="error"><p>'.sprintf(__('To begin using <b>Events Calendar PRO</b>, please install the latest version of <a href="%s" class="thickbox" title="%s">The Events Calendar</a>.', 'tribe-events-calendar-pro'),$url,$title).'</p></div>';
-		}
-	}   
+	function tribe_init_ecp_addon( $plugins ) {
+		$plugins['TribeEventsPro'] = array('plugin_name' => 'Events Calendar Pro', 'required_version' => TribeEventsPro::REQUIRED_TEC_VERSION);
+		return $plugins;
+	}
 
 	register_deactivation_hook(__FILE__, 'tribe_ecp_deactivate');
 	register_uninstall_hook(__FILE__, 'tribe_ecp_uninstall'); 
@@ -645,4 +647,3 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		delete_option('pue_install_key_events_calendar_pro');
 	}
 }
-?>
