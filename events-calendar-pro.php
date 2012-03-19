@@ -612,6 +612,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	// Instantiate class and set up WordPress actions.
 	function Tribe_ECP_Load() {
 		add_filter( 'tribe_tec_addons', 'tribe_init_ecp_addon' );
+		add_filter( 'tribe_tec_addons_comparison_operator', 'tribe_version_compare_operator' );
 		$to_run_or_not_to_run = (class_exists( 'TribeEvents' ) && defined('TribeEvents::VERSION') && version_compare( TribeEvents::VERSION, TribeEventsPro::REQUIRED_TEC_VERSION, '>='));
 		if ( apply_filters('tribe_ecp_to_run_or_not_to_run', $to_run_or_not_to_run) ) {
 			TribeEventsPro::instance();
@@ -625,11 +626,25 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * @author Paul Hughes, jkudish
 	 * @since 2.0.5
-	 * @return array $plugin the required info
+	 * @return array $plugins the required info
 	 */
 	function tribe_init_ecp_addon( $plugins ) {
 		$plugins['TribeEventsPro'] = array('plugin_name' => 'Events Calendar Pro', 'required_version' => TribeEventsPro::REQUIRED_TEC_VERSION);
 		return $plugins;
+	}
+	
+	/**
+	 * What operator should be used to compare PRO's required version with TEC's version.
+	 * Note that a result of TRUE with the version_compare results in the error message.
+	 * As is the case here, if they are NOT equal (!=), an error should result.
+	 *
+	 * @author Paul Hughes
+	 * @since 2.0.5
+	 * @return string $operator the operator to use.
+	 */
+	function tribe_version_compare_operator () {
+		$operator = '!=';
+		return $operator;
 	}
 
 	register_deactivation_hook(__FILE__, 'tribe_ecp_deactivate');
