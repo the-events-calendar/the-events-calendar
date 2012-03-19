@@ -348,7 +348,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function checkAddOnCompatibility() {
-
+			$operator = apply_filters( 'tribe_tec_addons_comparison_operator', '>' );
 			$output = '';
 			$bad_versions = array();
 			$tec_addons_required_versions = array();
@@ -356,7 +356,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$tec_addons_required_versions = (array) apply_filters('tribe_tec_addons', $tec_addons_required_versions);
 
 			foreach ($tec_addons_required_versions as $plugin) {
-				if ( version_compare( $plugin['required_version'], self::VERSION, '>') ) {
+				if ( version_compare( $plugin['required_version'], self::VERSION, $operator) ) {
 					$bad_versions[$plugin['plugin_name']] = $plugin['required_version'];
 				}
 			}
