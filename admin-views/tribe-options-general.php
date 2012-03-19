@@ -25,6 +25,7 @@ $generalTab = array(
 		'donate-link' => array(
 			'type' => 'checkbox_bool',
 			'label' => __('Donate a link', 'tribe-events-calendar'),
+			'class' => 'tribe-has-custom-tooltip',
 			'default' => false,
 			'validation_type' => 'boolean',
 			'clear_after' => false,
@@ -88,13 +89,13 @@ $generalTab = array(
 		'multiDayCutoff' => array(
 			'type' => 'dropdown',
 		 	'label' => __('Multiday Event Cutoff', 'tribe-events-calendar'),
-			'tooltip' => __('This is the number of events displayed per page when returning a list of events', 'tribe-events-calendar'),
+			'tooltip' => __('For multi-day events, hide the last day from grid view if it ends on or before this time.', 'tribe-events-calendar'),
 			'validation_type' => 'options',
 			'size' => 'small',
 			'default' => '12:00',
 			'options' => array('12:00' => '12:00 am', '12:30' => '12:30 am', '01:00' => '01:00 am', '01:30' => '01:30 am', '02:00' => '02:00 am', '02:30' => '02:30 am', '03:00' => '03:00 am', '03:30' => '03:30 am', '04:00' => '04:00 am', '04:30' => '04:30 am', '05:00' => '05:00 am', '05:30' => '05:30 am', '06:00' => '06:00 am', '06:30' => '06:30 am', '07:00' => '07:00 am', '07:30' => '07:30 am', '08:00' => '08:00 am', '08:30' => '08:30 am', '09:00' => '09:00 am', '09:30' => '09:30 am', '10:00' => '10:00 am', '10:30' => '10:30 am', '11:00' => '11:00 am', '11:30' => '11:30 am'),
 		),
-		'googleEmbedSize' => array(
+		'embedGoogleMaps' => array(
 			'type' => 'checkbox_bool',
 			'label' => __('Enable Google Maps', 'tribe-events-calendar'),
 			'tooltip' => __('If you don\'t have this turned on, your event listings won\'t have the backend map preview or frontend embedded map.', 'tribe-events-calendar'),
@@ -107,6 +108,7 @@ $generalTab = array(
 			'label' => __('Google Maps Embed Height', 'tribe-events-calendar'),
 			'size' => 'small',
 			'default' => 350,
+			'tooltip' => __('number or %', 'tribe-events-calendar'),
 			'class' => 'google-embed-field',
 			'validation_type' => 'number_or_percent',
 		 ),
@@ -131,9 +133,14 @@ $generalTab = array(
 		'debugEvents' => array(
 			'type' => 'checkbox_bool',
 			'label' => __('Debug Mode', 'tribe-events-calendar'),
-			'tooltip' => sprintf( __('Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the %s and look for the "Tribe" tab in the debug output.', 'tribe-events-calendar'), '<a href="http://wordpress.org/extend/plugins/debug-bar/" target="_blank">'.__('Debug Bar Plugin', 'tribe-events-calendar').'</a>' ),
+			'class' => 'tribe-has-custom-tooltip',
+			'clear_after' => false,
 			'default' => false,
 			'validation_type' => 'boolean'
+		),
+		'debug-tooltip' => array(
+			'type' => 'html',
+			'html' => '<div id="debug-tooltip" class="wp-pointer-left tribe-tooltip"><div class="wp-pointer-content"><p class="tribe-tooltip-inner"><p>'.sprintf( __('Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the %s and look for the "Tribe" tab in the debug output.', 'tribe-events-calendar'), '<a href="http://wordpress.org/extend/plugins/debug-bar/" target="_blank">'.__('Debug Bar Plugin', 'tribe-events-calendar').'</a>' ).'</p></div><div class="wp-pointer-arrow"><div class="wp-pointer-arrow-inner"></div></div></div>',
 		),
 	),
 );
