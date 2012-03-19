@@ -4,9 +4,19 @@ jQuery(document).ready(function($) {
 	$('.tribe-field-dropdown_chosen select').chosen();
 
 	// init tooltips
-	$(".tribe-settings-form fieldset").tooltip({
+	$(".tribe-settings-form fieldset").not('.tribe-has-custom-tooltip').tooltip({
     position: "center right",
     offset: [-4, 10],
+    effect: "fade",
+    opacity: 1,
+    layout: '<div><div class="wp-pointer-content"><p class="tribe-tooltip-inner"></p></div><div class="wp-pointer-arrow"><div class="wp-pointer-arrow-inner"></div></div></div>',
+    tipInner: 'tribe-tooltip-inner',
+    tipClass: "wp-pointer-left tribe-tooltip"
+  });
+
+	$(".tribe-settings-form fieldset.tribe-has-custom-tooltip").tooltip({
+    position: "center right",
+    offset: [-25, -150],
     effect: "fade",
     opacity: 1,
     layout: '<div><div class="wp-pointer-content"><p class="tribe-tooltip-inner"></p></div><div class="wp-pointer-arrow"><div class="wp-pointer-arrow-inner"></div></div></div>',
