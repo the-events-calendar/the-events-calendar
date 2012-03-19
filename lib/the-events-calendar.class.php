@@ -244,6 +244,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( '_admin_menu', array( $this, 'initOptions' ) );
 			add_action( 'tribe_settings_do_tabs', array( $this, 'doSettingTabs' ) );
 			add_action( 'tribe_settings_content_tab_help', array( $this, 'doHelpTab' ) );
+			// add-on compatibility
+			add_action( 'admin_notices', array( $this, 'checkAddOnCompatibility' ) );
 		}
 
 		public static function ecpActive( $version = '2.0.5' ) {
@@ -336,6 +338,34 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				
 				$this->setOption('previous_ecp_versions', $previous_versions);
 				$this->setOption('latest_ecp_version', self::VERSION);
+			}
+		}
+		
+		/**
+		 * Check add-ons to make sure they are supported by currently running TEC version.
+		 * 
+		 * @since 2.0.5
+		 * @author Paul Hughes
+		 * @return void
+		 */
+		public function checkAddOnCompatibility() {
+			$bad_versions = array();
+			$tec_addons_required_versions = array();
+			$tec_addons_required_versions = (array) apply_filters('tribe_tec_addons', $tec_addons_required_versions);
+			foreach ($tec_addons_required_versions as $plugin) {
+				if ( version_compare( $plugin['required_version'], self::VERSION, '>') ) {
+					$bad_versions[$plugin['plugin_name']] = $plugin['required_version'];
+					var_dump($plugin['required_version']);
+				}
+			}
+			if ( count( $bad_versions ) > 0 ) {
+				echo '<div class="error">';
+				foreach ($bad_versions as $plugin => $version) {
+					echo '<p>';
+					printf( __('Your version of %s requires version %s or higher of The Events Calendar. Use at your own risk!', 'tribe-events-calendar'), $plugin, $version );
+					echo '</p>';
+				}
+				echo '</div>';
 			}
 		}
 
