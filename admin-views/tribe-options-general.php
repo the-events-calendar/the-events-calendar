@@ -41,7 +41,7 @@ $generalTab = array(
 		'viewOption' => array(
 			'type' => 'radio',
 			'label' => __('Default view for the Events', 'tribe-events-calendar'),
-			'tooltip' => __('Determines whether the default events view is a calendar or a list', 'tribe-events-calendar'),
+			'tooltip' => __('Determines whether the default events view is a calendar or a list.', 'tribe-events-calendar'),
 			'default' => 'month',
 			'options' => array('month' => 'Calendar', 'upcoming' => 'Event List'),
 			'validation_type' => 'options'
@@ -49,7 +49,7 @@ $generalTab = array(
 		'eventsSlug' => array(
 			'type' => 'text',
 			'label' => __('Events URL slug', 'tribe-events-calendar'),
-			'tooltip' => __('The slug used for building the Events URL', 'tribe-events-calendar'),
+			'tooltip' => __('The slug used for building the Events URL.', 'tribe-events-calendar'),
 			'default' => 'events',
 			'validation_type' => 'slug',
 			'conditional' => ( '' != get_option('permalink_structure') ),
@@ -75,7 +75,7 @@ $generalTab = array(
 		'postsPerPage' => array(
 			'type' => 'text',
 			'label' => __('Number of events to show per page in the loop', 'tribe-events-calendar'),
-			'tooltip' => __('This is the number of events displayed per page when returning a list of events', 'tribe-events-calendar'),
+			'tooltip' => __('This is the number of events displayed per page when returning a list of events.', 'tribe-events-calendar'),
 			'size' => 'small',
 			'default' => get_option('posts_per_page'),
 			'validation_type' => 'positive_int',
@@ -83,6 +83,7 @@ $generalTab = array(
 		'showComments' => array(
 			'type' => 'checkbox_bool',
 			'label' => __('Show Comments', 'tribe-events-calendar'),
+			'tooltip' => __('Enables commenting on your single event view.', 'tribe-events-calendar'),
 			'default' => false,
 			'validation_type' => 'boolean'
 		),
@@ -108,7 +109,7 @@ $generalTab = array(
 			'label' => __('Google Maps Embed Height', 'tribe-events-calendar'),
 			'size' => 'small',
 			'default' => 350,
-			'tooltip' => __('number or %', 'tribe-events-calendar'),
+			'tooltip' => __('number or %.', 'tribe-events-calendar'),
 			'class' => 'google-embed-field',
 			'validation_type' => 'number_or_percent',
 		 ),
@@ -116,7 +117,7 @@ $generalTab = array(
 			'type' => 'text',
 			'label' => __('Google Maps Embed Width', 'tribe-events-calendar'),
 			'size' => 'small',
-			'tooltip' => __('number or %', 'tribe-events-calendar'),
+			'tooltip' => __('number or %.', 'tribe-events-calendar'),
 			'default' => '100%',
 			'class' => 'google-embed-field',
 			'validation_type' => 'number_or_percent',
@@ -124,7 +125,7 @@ $generalTab = array(
 		'embedGoogleMapsZoom' => array(
 			'type' => 'text',
 			'label' => __('Google Maps Default Zoom Level', 'tribe-events-calendar'),
-			'tooltip' => __('0 = zoomed-out; 21 = zoomed-in', 'tribe_events_calendar'),
+			'tooltip' => __('0 = zoomed-out; 21 = zoomed-in.', 'tribe_events_calendar'),
 			'size' => 'small',
 			'default' => 10,
 			'class' => 'google-embed-field',
