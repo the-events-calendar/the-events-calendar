@@ -42,7 +42,7 @@ $tribe_ecp = TribeEvents::instance();
       <?php if( function_exists( 'tribe_get_ical_link' ) ): ?>
          <a title="<?php esc_attr_e('iCal Import', 'tribe-events-calendar') ?>" class="ical" href="<?php echo tribe_get_ical_link(); ?>"><?php _e('iCal Import', 'tribe-events-calendar') ?></a>
       <?php endif; ?>
-		<?php if (tribe_get_option('promo-banner', true) == true) { ?>
+		<?php if (tribe_get_option('donate-link', false) == true) { ?>
 			<p class="tribe-promo-banner"><?php echo apply_filters('tribe_promo_banner', sprintf( __('Calendar powered by %sThe Events Calendar%s', 'tribe-events-calendar'), '<a href="http://tri.be/wordpress-events-calendar/">', '</a>' ) ); ?></p>
 		<?php } ?>
 	</div>
