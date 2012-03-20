@@ -1899,7 +1899,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$options = '';
 			$style = '';
 			$postId = $post->ID;
-
+			
 				foreach ( $this->metaTags as $tag ) {
 					if ( $postId && $saved ) { //if there is a post AND the post has been saved at least once.
 					
@@ -1949,7 +1949,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$cleaned_tag = str_replace('_Venue','',$tag);
 					//echo $tag.' | '.$cleaned_tag.'<BR>';
 
-					if ( !$postId || !isset($_GET['post']) ) { //if there is a not post AND the post has not been saved at least once?
+					if ( !$postId || !$saved ) { //if there is a not post AND the post has not been saved at least once?
 
 						if($cleaned_tag == 'Cost')
 							continue;
