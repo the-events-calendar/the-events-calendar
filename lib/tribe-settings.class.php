@@ -209,6 +209,7 @@ if ( !class_exists('TribeSettings') ) {
 			 			do_action( 'tribe_settings_after_content' );
 			  		if ( has_action('tribe_settings_content_tab_'.$this->currentTab) && !in_array($this->currentTab, $this->noSaveTabs) ) {
 							wp_nonce_field('saving', 'tribe-save-settings');
+							echo '<div class="clear"></div>';
 		    			echo '<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="'.$this->currentTab.'" />';
 		    			echo '<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="'.__('Save Changes', 'tribe-events-calendar').'" />';
 						}
