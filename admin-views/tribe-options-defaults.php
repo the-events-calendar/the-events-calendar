@@ -136,7 +136,7 @@ $defaultsTab = array(
 			'label' => __('Default Country for Events','tribe-events-calendar-pro'),
 			'default' => false,
 			'class' => 'venue-default-info',
-			'validation_type' => 'options',
+			'validation_type' => 'options_with_label',
 			'options' => $country_options,
 			'can_be_empty' => true,
 		),
