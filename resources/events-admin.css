@@ -83,8 +83,8 @@ td.tribe_message {padding-bottom: 10px !important;}
 .tribe-settings-form { max-width: 1000px; }
 .tribe-settings-form fieldset {padding: 10px 0; display: inline-block; clear: both;}
 .tribe-settings-form fieldset.google-embed-field {margin: 10px 25px;}
-.tribe-settings-form legend {width: 240px; float: left;}
-.tribe-settings-form .tribe-field-wrap {float: left;}
+.tribe-settings-form legend {width: 220px; margin-right: 20px; float: left; font-weight: bold;}
+.tribe-settings-form .tribe-field-wrap {float: left; max-width: 750px;}
 .tribe-settings-form .tribe-field-radio label, .tribe-settings-form .tribe-field-checkbox_list label {display: block; margin: 5px 0;}
 .tribe-settings-form .tribe-field-radio label input, .tribe-settings-form .tribe-field-checkbox_list label input {margin-right: 5px;}
 .tribe_settings .tribe-field-indent {margin-left: 245px;}
@@ -92,12 +92,11 @@ td.tribe_message {padding-bottom: 10px !important;}
 .tribe_settings .tribe-errors-list {margin-left: 15px;}
 .tribe_settings .expiring-license {color: red;}
 .tribe_settings .tribe-error {border: 1px solid #F00;}
+.tribe_settings #ical-link {position: relative; top: -18px;}
 
-/* tooltips */
-.tribe-tooltip {max-width: 400px; margin-right: 15px;}
-.tribe-tooltip .wp-pointer-content {padding-bottom: 0;}
-.tribe-tooltip-inner {margin: 6px 0;}
-#donate-link-tooltip, #debug-tooltip {display: none;}
+/* Modern Tribe box */
+#modern-tribe-info {margin: 20px 0; background-color: #f9f9f9; padding: 25px 20px 15px; border: 1px solid #ccc; border-rarius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; -o-border-radius: 4px;}
+#modern-tribe-info img {margin: 10px 0; }
 
 /* sizes */
 .tribe-field-textarea.tribe-size-small textarea {width: 180px; height: 60px;}
@@ -124,6 +123,12 @@ td.tribe_message {padding-bottom: 10px !important;}
 
 /* additional fields */
 #additional-field-table {margin-bottom: 20px;}
+
+/* help tab */
+#tribe-help-general, #tribe-help-sidebar {float: left;}
+#tribe-help-general {width: 70%;}
+#tribe-help-sidebar {width: 25%; max-width: 200px; margin: 20px 0 0 5%;}
+#tribe-help-plugin-info {border: 1px solid #CCC; padding: 0 12px;}
 
 
 /* = Help Screen

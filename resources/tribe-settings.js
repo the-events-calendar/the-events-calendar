@@ -3,27 +3,6 @@ jQuery(document).ready(function($) {
 	// init chosen
 	$('.tribe-field-dropdown_chosen select').chosen();
 
-	// init tooltips
-	$(".tribe-settings-form fieldset").not('.tribe-has-custom-tooltip').tooltip({
-    position: "center right",
-    offset: [-4, 10],
-    effect: "fade",
-    opacity: 1,
-    layout: '<div><div class="wp-pointer-content"><p class="tribe-tooltip-inner"></p></div><div class="wp-pointer-arrow"><div class="wp-pointer-arrow-inner"></div></div></div>',
-    tipInner: 'tribe-tooltip-inner',
-    tipClass: "wp-pointer-left tribe-tooltip"
-  });
-
-	$(".tribe-settings-form fieldset.tribe-has-custom-tooltip").tooltip({
-    position: "center right",
-    offset: [-25, -150],
-    effect: "fade",
-    opacity: 1,
-    layout: '<div><div class="wp-pointer-content"><p class="tribe-tooltip-inner"></p></div><div class="wp-pointer-arrow"><div class="wp-pointer-arrow-inner"></div></div></div>',
-    tipInner: 'tribe-tooltip-inner',
-    tipClass: "wp-pointer-left tribe-tooltip"
-  });
-
 	updateVenueFields();
 	updateMapsFields();
 
@@ -39,18 +18,18 @@ jQuery(document).ready(function($) {
 	// toggle view of the venue defaults fields
 	function updateVenueFields() {
 		if($('[name="eventsDefaultVenueID"]').find('option:selected').val() != "0") {
-			$('.venue-default-info').hide();
+			$('.venue-default-info').fadeOut();
 		} else {
-			$('.venue-default-info').show();
+			$('.venue-default-info').fadeIn();
 		}
 	}
 
 	// toggle view of the google maps size fields
 	function updateMapsFields() {
 		if($('.google-embed-size input').attr("checked")) {
-			$('.google-embed-field').show();
+			$('.google-embed-field').slideDown();
 		} else {
-			$('.google-embed-field').hide();
+			$('.google-embed-field').slideUp();
 		}
 	}
 

@@ -1,7 +1,9 @@
-<div style="float: right; width: 200px; margin: 15px;">
-<div style="border: 1px solid #CCC; padding: 0 12px;">
-<h3><?php _e('The Events Calendar', 'tribe-events-calendar'); ?></h3>
 <?php
+
+/**
+ * variable setup
+ */
+
 $tec_info = wp_remote_get( apply_filters('tribe_help_tab_api_info_url', TribeEvents::INFO_API_URL) );
 if ( !is_wp_error($tec_info) ) {
 	$tec_info = $tec_info['body'];
@@ -116,94 +118,105 @@ $enb_text[] = sprintf( __('%sWhile our team is happy to help with bugs and provi
 $enb_text = implode( $enb_text );
 $sns_text = sprintf( __('%sShoot us an email to %s or tweet to %s and tell us why. We\'ll do what we can to make it right.%s', 'tribe-events-calendar'), '<p class="admin-indent">', sprintf( '<a href="mailto:pro@tri.be">%s</a>', __('pro@tri.be', 'tribe-events-calendar') ), sprintf( '<a href="http://www.twitter.com/moderntribeinc">%s</a>', __('@moderntribeinc', 'tribe-events-calendar') ), '</p>' );
 $more_text = __('More...', 'tribe-events-calendar');
-
 ?>
 
-<p><?php echo $up_to_date; ?></p>
-<p><b><?php _e('Latest Version:', 'tribe-events-calendar'); ?></b> <?php echo $version; ?><br />
-<b><?php _e('Author:', 'tribe-events-calendar'); ?></b> <?php _e('Modern Tribe Inc', 'tribe-events-calendar'); ?><br />
-<b><?php _e('Requires:', 'tribe-events-calendar'); ?></b> <?php _e('WordPress ', 'tribe-events-calendar'); echo $requires; ?>+<br />
-<a href="<?php echo apply_filters('tribe_help_tab_wp_plugin_url', TribeEvents::WP_PLUGIN_URL); ?>"><?php _e('Wordpress.org Plugin Page', 'tribe-events-calendar'); ?></a></p>
+<div id="tribe-help-general">
+	<div id="modern-tribe-info">
+		<img src="<?php echo plugins_url('resources/images/modern-tribe.png', dirname(__FILE__)) ?>" alt="Modern Tribe Inc." title="Modern Tribe Inc.">
+
+		<p><?php _e('Hi! Thank you so much for using the labor of our love. We are Modern Tribe and we are here to help you kick ass.', 'tribe-events-calendar'); ?></p>
+
+		<h3><?php _e('Getting Started', 'tribe-events-calendar'); ?></h3>
+
+		<?php echo( apply_filters( 'tribe_help_tab_getting_started_content', $getting_started_text ) ); ?>
+	</div>
+
+	<h3><?php _e('Resources to Help You Kick Ass', 'tribe-events-calendar'); ?></h3>
+
+	<ul class="admin-indent">
+	<?php foreach ($resources as $resource) :
+		echo '<li>';
+		if ( isset($resource['link']) ) echo '<a href="'.$resource['link'].'">';
+		echo $resource['title'];
+		if ( isset($resource['link']) ) echo '</a>';
+		echo '</li>';
+	endforeach; ?>
+	</ul>
+
+	<h3><?php _e('Everyone Needs a Buddy', 'tribe-events-calendar'); ?></h3>
+	<?php echo( apply_filters( 'tribe_help_tab_enb_content', $enb_text ) ); ?>
+
+	<h3><?php _e('Still Not Satisfied?', 'tribe-events-calendar'); ?></h3>
+	<?php echo( apply_filters( 'tribe_help_tab_sns_content', $sns_text ) ); ?>
 </div>
 
-<h3><?php _e('Average Rating', 'tribe-events-calendar'); ?></h3>
 
-<?php if ($rating != _x('n/a', 'not available', 'tribe-events-calendar') ) :  ?>
-	<div class="star-holder">
-		<div class="star star-rating" style="width: <?php echo( $tec_info['rating'] ); ?>px"></div>
-		<?php for ($i = 5; $i > 0; $i--) : ?>
-			<div class="star star<?php echo $i ?>"><img src="<?php echo admin_url('images/star.png'); ?>" alt="<?php echo $i ?> stars" /></div>
-		<?php endfor; ?>
+<div id="tribe-help-sidebar">
+	<div id="tribe-help-plugin-info">
+		<h3><?php _e('The Events Calendar', 'tribe-events-calendar'); ?></h3>
+
+
+		<p><?php echo $up_to_date; ?></p>
+		<p><b><?php _e('Latest Version:', 'tribe-events-calendar'); ?></b> <?php echo $version; ?><br />
+		<b><?php _e('Author:', 'tribe-events-calendar'); ?></b> <?php _e('Modern Tribe Inc', 'tribe-events-calendar'); ?><br />
+		<b><?php _e('Requires:', 'tribe-events-calendar'); ?></b> <?php _e('WordPress ', 'tribe-events-calendar'); echo $requires; ?>+<br />
+		<a href="<?php echo apply_filters('tribe_help_tab_wp_plugin_url', TribeEvents::WP_PLUGIN_URL); ?>"><?php _e('Wordpress.org Plugin Page', 'tribe-events-calendar'); ?></a></p>
 	</div>
-	<?php printf( _n('Based on %d rating', 'Based on %d ratings', $tec_info['num_ratings'], 'tribe-events-calendar' ), $tec_info['num_ratings'] ); ?>
-<?php else : ?>
-	<div class="no-rating-available">
-		<?php _e('Rating currently unavailable :(', 'tribe-events-calendar'); ?>
-	</div>
-<?php endif; ?>
+
+	<h3><?php _e('Average Rating', 'tribe-events-calendar'); ?></h3>
+
+	<?php if ($rating != _x('n/a', 'not available', 'tribe-events-calendar') ) :  ?>
+		<div class="star-holder">
+			<div class="star star-rating" style="width: <?php echo( $tec_info['rating'] ); ?>px"></div>
+			<?php for ($i = 5; $i > 0; $i--) : ?>
+				<div class="star star<?php echo $i ?>"><img src="<?php echo admin_url('images/star.png'); ?>" alt="<?php echo $i ?> stars" /></div>
+			<?php endfor; ?>
+		</div>
+		<?php printf( _n('Based on %d rating', 'Based on %d ratings', $tec_info['num_ratings'], 'tribe-events-calendar' ), $tec_info['num_ratings'] ); ?>
+	<?php else : ?>
+		<div class="no-rating-available">
+			<?php _e('Rating currently unavailable :(', 'tribe-events-calendar'); ?>
+		</div>
+	<?php endif; ?>
 
 
-<br />
-<a href="<?php echo apply_filters('tribe_help_tab_wp_plugin_url', TribeEvents::WP_PLUGIN_URL); ?>"><?php _e('Give us 5 stars!', 'tribe-events-calendar'); ?></a>
+	<br />
+	<a href="<?php echo apply_filters('tribe_help_tab_wp_plugin_url', TribeEvents::WP_PLUGIN_URL); ?>"><?php _e('Give us 5 stars!', 'tribe-events-calendar'); ?></a>
 
-<h3><?php _e('Free Add-Ons', 'tribe-events-calendar'); ?></h3>
-<ul>
-<?php foreach ($free_add_ons as $addon) :
-	echo '<li>';
-	if ( isset($addon['link']) ) echo '<a href="'.$addon['link'].'">';
-	echo $addon['title'];
-	if ( isset($addon['coming_soon']) ) echo ( is_string($addon['coming_soon']) ) ? ' '.$addon['coming_soon'] : ' '.__('(Coming Soon!)', 'tribe-events-calendar');
-	if ( isset($addon['link']) ) echo '</a>';
-	echo '</li>';
-endforeach; ?>
-</ul>
-
-
-<h3><?php _e('Premium Add-Ons', 'tribe-events-calendar'); ?></h3>
-<ul>
-<?php foreach ($premium_add_ons as $addon) :
-	echo '<li>';
-	if ( isset($addon['link']) ) echo '<a href="'.$addon['link'].'">';
-	echo $addon['title'];
-	if ( isset($addon['coming_soon']) ) echo ( is_string($addon['coming_soon']) ) ? ' '.$addon['coming_soon'] : ' '.__('(Coming Soon!)', 'tribe-events-calendar');
-	if ( isset($addon['link']) ) echo '</a>';
-	echo '</li>';
-endforeach; ?>
-</ul>
+	<h3><?php _e('Free Add-Ons', 'tribe-events-calendar'); ?></h3>
+	<ul>
+	<?php foreach ($free_add_ons as $addon) :
+		echo '<li>';
+		if ( isset($addon['link']) ) echo '<a href="'.$addon['link'].'">';
+		echo $addon['title'];
+		if ( isset($addon['coming_soon']) ) echo ( is_string($addon['coming_soon']) ) ? ' '.$addon['coming_soon'] : ' '.__('(Coming Soon!)', 'tribe-events-calendar');
+		if ( isset($addon['link']) ) echo '</a>';
+		echo '</li>';
+	endforeach; ?>
+	</ul>
 
 
-<h3><?php _e('News and Tutorials', 'tribe-events-calendar'); ?></h3>
-<ul>
-<?php
-foreach ( $news_feed as $item ) {
-	echo( '<li><a href="' . $item['link'] . '?utm_source=helptab&utm_medium=news&utm_campaign=plugin">' . $item['title'] . '</a></li>' );
-}
-echo '<li><a href="http://tri.be/category/products/?utm_source=helptab&utm_medium=news&utm_campaign=plugin">' . $more_text . '</a></li>';
-?>
-</ul>
+	<h3><?php _e('Premium Add-Ons', 'tribe-events-calendar'); ?></h3>
+	<ul>
+	<?php foreach ($premium_add_ons as $addon) :
+		echo '<li>';
+		if ( isset($addon['link']) ) echo '<a href="'.$addon['link'].'">';
+		echo $addon['title'];
+		if ( isset($addon['coming_soon']) ) echo ( is_string($addon['coming_soon']) ) ? ' '.$addon['coming_soon'] : ' '.__('(Coming Soon!)', 'tribe-events-calendar');
+		if ( isset($addon['link']) ) echo '</a>';
+		echo '</li>';
+	endforeach; ?>
+	</ul>
+
+
+	<h3><?php _e('News and Tutorials', 'tribe-events-calendar'); ?></h3>
+	<ul>
+	<?php
+	foreach ( $news_feed as $item ) {
+		echo( '<li><a href="' . $item['link'] . '?utm_source=helptab&utm_medium=news&utm_campaign=plugin">' . $item['title'] . '</a></li>' );
+	}
+	echo '<li><a href="http://tri.be/category/products/?utm_source=helptab&utm_medium=news&utm_campaign=plugin">' . $more_text . '</a></li>';
+	?>
+	</ul>
 
 </div>
-
-<p><?php _e('Hi! Thank you so much for using the labor of our love. We are Modern Tribe and we are here to help you kick ass.', 'tribe-events-calendar'); ?></p>
-
-<h3><?php _e('Getting Started', 'tribe-events-calendar'); ?></h3>
-
-<?php echo( apply_filters( 'tribe_help_tab_getting_started_content', $getting_started_text ) ); ?>
-
-<h3><?php _e('Resources to Help You Kick Ass', 'tribe-events-calendar'); ?></h3>
-
-<ul class="admin-indent">
-<?php foreach ($resources as $resource) :
-	echo '<li>';
-	if ( isset($resource['link']) ) echo '<a href="'.$resource['link'].'">';
-	echo $resource['title'];
-	if ( isset($resource['link']) ) echo '</a>';
-	echo '</li>';
-endforeach; ?>
-</ul>
-
-<h3><?php _e('Everyone Needs a Buddy', 'tribe-events-calendar'); ?></h3>
-<?php echo( apply_filters( 'tribe_help_tab_enb_content', $enb_text ) ); ?>
-
-<h3><?php _e('Still Not Satisfied?', 'tribe-events-calendar'); ?></h3>
-<?php echo( apply_filters( 'tribe_help_tab_sns_content', $sns_text ) ); ?>
