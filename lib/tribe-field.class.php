@@ -467,7 +467,7 @@ if ( !class_exists('TribeField') ) {
 				foreach ($this->options as $option_id => $title) {
 					$field .= '<option value="'.$option_id.'"';
 					$field .= selected( $this->value, $option_id, false );
-					$field .= selected( $this->value[0], $option_id, false );
+					$field .= isset($this->value[0]) ? selected( $this->value[0], $option_id, false ) : '';
 					$field .= '>'.$title.'</option>';
 				}
 				$field .= '</select>';
