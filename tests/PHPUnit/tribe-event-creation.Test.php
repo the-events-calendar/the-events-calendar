@@ -11,6 +11,12 @@ class WP_Test_TribeEventCreation extends Tribe_WP_UnitTestCase {
 	
 	var $postExampleSettings;
 	
+	/**
+	 * Add to the setUp() function the assigning of values for the event creation.
+	 *
+ 	 * @since 2.0.5
+	 * @author Paul Hughes
+	 */
 	function setUp() {
 		parent::setUp();
 		$this->postExampleSettings = array(
