@@ -75,7 +75,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles') );
 			add_action( 'tribe_after_location_details', array( $this, 'add_google_map_preview') );
 			add_action( 'tribe_tec_template_chooser', array( $this, 'do_ical_template' ) );
-			add_filter( 'tribe_settings_do_tabs', array( $this, 'add_defaults_settings_tab' ) );
+			add_filter( 'tribe_settings_do_tabs', array( $this, 'add_settings_tabs' ) );
 			add_filter( 'tribe_current_events_page_template', array( $this, 'select_venue_template' ) );
 			add_filter( 'tribe_help_tab_getting_started_text', array( $this, 'add_help_tab_getting_started_text' ) );
 			add_filter( 'tribe_help_tab_enb_content', array( $this, 'add_help_tab_enb_text' ) );
@@ -193,12 +193,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
      * @author jkudish
      * @return void
      */
-  	public function add_defaults_settings_tab() {
+  	public function add_settings_tabs() {
   		require_once( $this->pluginPath . 'admin-views/tribe-options-defaults.php' );
 			new TribeSettingsTab( 'defaults', __('Defaults', 'tribe-events-calendar-pro'), $defaultsTab );
+			new TribeSettingsTab( 'additional-fields', __('Additional Fields', 'tribe-events-calendar-pro'), array('fields' => array(0), 'priority' => 35) );
   	}
 
-		
+
 		public function add_help_tab_getting_started_text() {
 			$ga_query_string = '?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin';
 

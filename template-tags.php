@@ -234,7 +234,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	function tribe_display_saved_organizer() {
 		$current_organizer_id = tribe_get_option('eventsDefaultOrganizerID', 'none' );
 		$current_organizer = ($current_organizer_id != 'none' && $current_organizer_id != 0 && $current_organizer_id) ? tribe_get_organizer($current_organizer_id) : __('No default set', 'tribe-events-calendar-pro');
-		echo '<p class="tribe-field-indent">'.sprintf( __('The current default organizer is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$current_organizer.'</strong>').'</p>';
+		echo '<p class="tribe-field-indent description">'.sprintf( __('The current default organizer is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$current_organizer.'</strong>').'</p>';
 	}
 
 	/**
@@ -248,7 +248,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	function tribe_display_saved_venue() {
 		$current_venue_id = tribe_get_option('eventsDefaultVenueID', 'none' );
 		$current_venue = ($current_venue_id != 'none' && $current_venue_id != 0 && $current_venue_id) ? tribe_get_venue($current_venue_id) : __('No default set', 'tribe-events-calendar-pro');
-		echo '<p class="tribe-field-indent">'.sprintf( __('The current default venue is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$current_venue.'</strong>').'</p>';
+		echo '<p class="tribe-field-indent description">'.sprintf( __('The current default venue is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$current_venue.'</strong>').'</p>';
 	}
 
 	/**
@@ -262,7 +262,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	function tribe_display_saved_address() {
 		$option = tribe_get_option('eventsDefaultAddress', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
-		echo '<p class="tribe-field-indent venue-default-info">'.sprintf( __('The current default address is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
+		echo '<p class="tribe-field-indent venue-default-info description">'.sprintf( __('The current default address is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
 	}
 
 	/**
@@ -276,7 +276,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	function tribe_display_saved_city() {
 		$option = tribe_get_option('eventsDefaultCity', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
-		echo '<p class="tribe-field-indent venue-default-info">'.sprintf( __('The current default city is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
+		echo '<p class="tribe-field-indent venue-default-info description">'.sprintf( __('The current default city is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
 	}
 
 	/**
@@ -290,7 +290,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	function tribe_display_saved_state() {
 		$option = tribe_get_option('eventsDefaultState', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
-		echo '<p class="tribe-field-indent venue-default-info">'.sprintf( __('The current default state is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
+		echo '<p class="tribe-field-indent venue-default-info description">'.sprintf( __('The current default state is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
 	}
 
 	/**
@@ -304,7 +304,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	function tribe_display_saved_province() {
 		$option = tribe_get_option('eventsDefaultProvince', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
-		echo '<p class="tribe-field-indent venue-default-info">'.sprintf( __('The current default province is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
+		echo '<p class="tribe-field-indent venue-default-info description">'.sprintf( __('The current default province is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
 	}
 
 	/**
@@ -318,7 +318,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	function tribe_display_saved_zip() {
 		$option = tribe_get_option('eventsDefaultZip', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
-		echo '<p class="tribe-field-indent venue-default-info">'.sprintf( __('The current default postal code/zip code is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
+		echo '<p class="tribe-field-indent venue-default-info description">'.sprintf( __('The current default postal code/zip code is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
 	}
 
 	/**
@@ -332,7 +332,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	function tribe_display_saved_country() {
 		$option = tribe_get_option('defaultCountry', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option || empty($option) || !isset($option[1]) ) ? __('No default set', 'tribe-events-calendar-pro') : $option = $option[1];
-		echo '<p class="tribe-field-indent venue-default-info">'.sprintf( __('The current default country is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
+		echo '<p class="tribe-field-indent venue-default-info description">'.sprintf( __('The current default country is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
 	}
 
 	/**
@@ -346,7 +346,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	function tribe_display_saved_phone() {
 		$option = tribe_get_option('eventsDefaultPhone', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
-		echo '<p class="tribe-field-indent venue-default-info">'.sprintf( __('The current default phone is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
+		echo '<p class="tribe-field-indent venue-default-info description">'.sprintf( __('The current default phone is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
 	}
 
 }
