@@ -1,10 +1,22 @@
 <?php
-/* -- tribe-event-creation.Test.php -- */
 
+/**
+ * Tests event creation functionality
+ *
+ * @package TribeEvents
+ * @since 2.0.5
+ * @author Paul Hughes
+ */
 class WP_Test_TribeEventCreation extends Tribe_WP_UnitTestCase {
 	
 	var $postExampleSettings;
 	
+	/**
+	 * Add to the setUp() function the assigning of values for the event creation.
+	 *
+ 	 * @since 2.0.5
+	 * @author Paul Hughes
+	 */
 	function setUp() {
 		parent::setUp();
 		$this->postExampleSettings = array(
@@ -27,17 +39,27 @@ class WP_Test_TribeEventCreation extends Tribe_WP_UnitTestCase {
 		);
 	}
 	
+	/**
+	 * Check to make sure that the post object is created from a returned post ID.
+	 *
+ 	 * @since 2.0.5
+	 * @author Paul Hughes
+	 */
 	function test_tribe_create_event_template_tag_post_object_created() {
 		$post = get_post( tribe_create_event( $this->postExampleSettings ) );
 		
-		// Check to make sure the postID is returned and the post object was created from it.
 		$this->assertInternalType( 'object', $post);		
 	}
 	
+	/**
+	 * Check to make sure that the event data is saved properly.
+	 *
+ 	 * @since 2.0.5
+	 * @author Paul Hughes
+	 */
 	function test_tribe_create_event_template_tag_meta_information() {
 		$post = get_post( tribe_create_event( $this->postExampleSettings ) );
 		
-		// Check to make sure all the post information was saved properly.
 		$this->assertEquals( 3, $post->post_author );
 		$this->assertEquals( 'This is event content!', $post->post_content );
 		$this->assertEquals( '', get_post_meta( $post->ID, '_EventAllDay', true ) );
@@ -51,17 +73,27 @@ class WP_Test_TribeEventCreation extends Tribe_WP_UnitTestCase {
 		$this->assertEquals( '2012-01-03 15:25:59', get_post_meta( $post->ID, '_EventEndDate', true ) );
 	}
 	
+	/**
+	 * Check to make sure that the post object is created from a returned post ID.
+	 *
+ 	 * @since 2.0.5
+	 * @author Paul Hughes
+	 */
 	function test_tribe_create_event_API_post_object_created() {
 		$post = get_post( TribeEventsAPI::createEvent($this->postExampleSettings) );
 		
-		// Check to make sure the postID is returned and the post object was created from it.
 		$this->assertInternalType( 'object', $post);		
 	}
-	
+
+	/**
+	 * Check to make sure that the event data is saved properly.
+	 *
+ 	 * @since 2.0.5
+	 * @author Paul Hughes
+	 */	
 	function test_tribe_create_event_API_meta_information() {
 		$post = get_post( TribeEventsAPI::createEvent( $this->postExampleSettings ) );
 		
-		// Check to make sure all the post information was saved properly.
 		$this->assertEquals( 3, $post->post_author );
 		$this->assertEquals( 'This is event content!', $post->post_content );
 		$this->assertEquals( '', get_post_meta( $post->ID, '_EventAllDay', true ) );
