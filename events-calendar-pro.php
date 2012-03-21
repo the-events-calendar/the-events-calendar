@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Events Calendar PRO
+Plugin Name: The Events Calendar PRO
 Description: The Events Calendar PRO, a premium add-on to the open source The Events Calendar plugin (required), enables recurring events, custom attributes, venue pages, new widgets and a host of other premium features.
 Version: 2.1
 Author: Modern Tribe, Inc.
