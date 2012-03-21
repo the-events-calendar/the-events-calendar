@@ -27,7 +27,7 @@ Just getting started? Check out our <a href="http://tri.be/support/documentation
 * Calendar Month view with tooltips
 * Includes support for venue, cost, address, start and end time, google maps link
 
-= Events Calendar PRO Features =
+= The Events Calendar PRO Features =
 
 * Recurring events
 * Saved venues & organizers
@@ -40,7 +40,7 @@ Just getting started? Check out our <a href="http://tri.be/support/documentation
 * Gcal / ical user download (import)
 * and lots more.
 
-<a href="http://tri.be/wordpress-events-calendar-pro/?ref=tec-readme">Grab a copy of Events Calendar PRO!</a>
+<a href="http://tri.be/wordpress-events-calendar-pro/?ref=tec-readme">Grab a copy of The Events Calendar PRO!</a>
 
 == Screenshots ==
 
@@ -124,11 +124,11 @@ Our Free Plugins:
 
 Our Premium Plugins:
 
-* <a href="http://tri.be/wordpress-events-calendar-pro/?ref=tec-readme" target="_blank">Events Calendar Pro</a>
-* <a href="http://tri.be/shop/wordpress-eventbrite-tickets/?ref=tec-readme" target="_blank">Eventbrite Tickets (coming soon!)</a>
-* <a href="http://tri.be/shop/wordpress-community-events/?ref=tec-readme" target="_blank">Community Events (coming soon!)</a>
-* <a href="http://tri.be/shop/conference-manager/?ref=tec-readme" target="_blank">Conference Manager (coming later in 2012)</a>
-* <a href="http://tri.be/shop/wootickets/?ref=tec-readme" target="_blank">WooTickets (coming later in 2012)</a>
+* <a href="http://tri.be/wordpress-events-calendar-pro/?ref=tec-readme" target="_blank">The Events Calendar Pro</a>
+* <a href="http://tri.be/shop/wordpress-eventbrite-tickets/?ref=tec-readme" target="_blank">The Events Calendar: Eventbrite Tickets (coming soon!)</a>
+* <a href="http://tri.be/shop/wordpress-community-events/?ref=tec-readme" target="_blank">The Events Calendar: Community Events (coming soon!)</a>
+* <a href="http://tri.be/shop/conference-manager/?ref=tec-readme" target="_blank">The Events Calendar: Conference Manager (coming later in 2012)</a>
+* <a href="http://tri.be/shop/wootickets/?ref=tec-readme" target="_blank">The Events Calendar: WooTickets (coming later in 2012)</a>
 
 
 == Changelog ==
