@@ -136,14 +136,14 @@ jQuery(document).ready(function($) {
 	//show state/province input based on first option in countries list, or based on user input of country
 	function tribeShowHideCorrectStateProvinceInput(country) {
 		if (country == 'US' || country == 'United States') {
-			$("#StateProvinceSelect").show();
+			$("#StateProvinceSelect_chzn").show();
 			$("#StateProvinceText").hide();
 		} else if ( country != '' ) {
 			$("#StateProvinceText").show();
-			$("#StateProvinceSelect").hide();
+			$("#StateProvinceSelect_chzn").hide();
 		} else {
 			$("#StateProvinceText").hide();
-			$("#StateProvinceSelect").hide();
+			$("#StateProvinceSelect_chzn").hide();
 		}
 	}
 	

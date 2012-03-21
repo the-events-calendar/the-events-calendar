@@ -26,8 +26,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <tr class="venue">
 	<td><?php _e('Country:','tribe-events-calendar'); ?></td>
 	<td>
-		<select class="chosen" tabindex="<?php $this->tabIndex(); ?>" name='venue[Country]' id="EventCountry">
-			<?php
+		<?php
 			$countries = TribeEventsViewHelpers::constructCountries( $postId );
 			$defaultCountry = tribe_get_option('defaultCountry');
 			if (isset($_VenueCountry) && $_VenueCountry) {
@@ -37,16 +36,17 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			} else {
 				$current = null;
 			}
-
+		?>
+		<select class="chosen" tabindex="<?php $this->tabIndex(); ?>" name='venue[Country]' id="EventCountry">
+			<?php
 			foreach ($countries as $abbr => $fullname) {
 				echo '<option value="' . esc_attr($fullname) . '" ';
 
 				if($abbr == '')
 					echo "disabled='disabled' ";
 
-				if ($current == $fullname) {
-					echo 'selected="selected" ';
-				}
+				selected(($current == $fullname));
+
 				echo '>' . esc_html($fullname) . '</option>';
 			}
 			?>
@@ -57,18 +57,15 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<?php if(!isset($_VenueStateProvince) || $_VenueStateProvince == "") $_VenueStateProvince = -1; ?>
 	<td><?php _e('State or Province:','tribe-events-calendar'); ?></td>
 	<td><input tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceText" name="venue[Province]" type='text' name='' size='25' value='<?php echo ( isset($_VenueStateProvince) && $_VenueStateProvince != '' && $_VenueStateProvince != -1 ) ? esc_attr($_VenueProvince) : esc_attr(''); ?>' />
-	<select tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceSelect" name="venue[State]" name=''>
+	<select class="chosen" tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceSelect" name="venue[State]">
 		<option value=""><?php _e('Select a State:','tribe-events-calendar'); ?></option>
 		<?php
 			foreach (TribeEventsViewHelpers::loadStates() as $abbr => $fullname) {
-				print ("<option value=\"$abbr\" ");
+				echo '<option value="'.$abbr.'"';
 				if( $_VenueStateProvince != -1 ){
-					if (( $_VenueStateProvince != -1 ? $_VenueStateProvince : $_VenueState) == $abbr) {
-						print ('selected="selected" ');
-					}
+					selected((( $_VenueStateProvince != -1 ? $_VenueStateProvince : $_VenueState) == $abbr));
 				}
-				print (">" . esc_html($fullname) . "</option>\n");
-
+				echo '>' . esc_html($fullname) . '</option>';
 			}
 		?>
 	</select>
