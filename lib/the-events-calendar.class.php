@@ -965,8 +965,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				wp_enqueue_style( 'chosen-style', $this->pluginUrl . 'resources/chosen.css' );
 				wp_enqueue_script( 'chosen-jquery', $this->pluginUrl . 'resources/chosen.jquery.min.js', array('jquery'), '0.9.5', false );
 				wp_enqueue_script( self::POSTTYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js', array('jquery-ui-datepicker'), '', true );
-				wp_enqueue_script( 'jquery-toolips', $this->pluginUrl . 'resources/jquery.tools.min.js', array('jquery'), '1.2.6', true );
-				wp_enqueue_style( 'wp-pointer' ); // we use thse for the tooltips
+				wp_enqueue_script( 'thickbox' );
+				wp_enqueue_style( 'thickbox' );
 
 				// hook for other plugins
 				do_action('tribe_settings_enqueue');

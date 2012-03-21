@@ -102,7 +102,7 @@ if ( !class_exists('TribeField') ) {
 			$name = esc_attr($name);
 			$class = sanitize_html_class($class);
 			$label = wp_kses($label, array('a' => array('href' => array(),'title' => array()),'br' => array(),'em' => array(),'strong' => array(), 'b' => array(), 'i' => array(), 'u' => array(), 'img' => array('title' => array(), 'src' => array(), 'alt' => array()) ));
-			$tooltip = wp_kses($tooltip, array('a' => array('href' => array(),'title' => array()),'br' => array(),'em' => array(),'strong' => array(), 'b' => array(), 'i' => array(), 'u' => array(), 'img' => array('title' => array(), 'src' => array(), 'alt' => array()) ));
+			$tooltip = wp_kses($tooltip, array('a' => array('href' => array(),'title' => array()),'br' => array(),'em' => array(),'strong' => array(), 'b' => array(), 'i' => array(), 'u' => array(), 'img' => array('title' => array(), 'src' => array(), 'alt' => array()), 'code' => array('span' => array()), 'span' => array() ));
 
 			$size = esc_attr($size);
 			$html = $html;
@@ -178,7 +178,6 @@ if ( !class_exists('TribeField') ) {
 			$return .= ($this->error) ? ' tribe-error' : '';
 			$return .= ($this->size) ? ' tribe-size-'.$this->size : '';
 			$return .= ($this->class) ? ' '.$this->class.'"' : '"';
-			$return .= $this->doToolTip();
 			$return .= '>';
 			return apply_filters( 'tribe_field_start', $return, $this->id, $this->type, $this->error, $this->class, $this );
 		}
@@ -230,12 +229,13 @@ if ( !class_exists('TribeField') ) {
 		 * @return string the field div end
 		 */
 		public function doFieldDivEnd() {
-			$return = '</div>';
+			$return = $this->doToolTip();
+			$return .= '</div>';
 			return apply_filters( 'tribe_field_div_end', $return, $this );
 		}
 
 		/**
-		 * returns the field's title, which is used as the tooltip
+		 * returns the field's tooltip/description
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
@@ -244,7 +244,7 @@ if ( !class_exists('TribeField') ) {
 		public function doToolTip() {
 			$return = '';
 			if ($this->tooltip)
-				$return = ' title="'.$this->tooltip.'"';
+				$return = '<p class="description">'.$this->tooltip.'</p>';
 			return apply_filters( 'tribe_field_tooltip', $return, $this->tooltip, $this );
 		}
 
@@ -330,9 +330,9 @@ if ( !class_exists('TribeField') ) {
 			$field .= ' type="text"';
 			$field .= $this->doFieldName();
 			$field .= $this->doFieldValue();
-			$field .= $this->doToolTip();
 			$field .= '/>';
 			$field .= $this->doScreenReaderLabel();
+			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
 			return $field;
 		}
@@ -350,11 +350,11 @@ if ( !class_exists('TribeField') ) {
 			$field .= $this->doFieldDivStart();
 			$field .= '<textarea';
 			$field .= $this->doFieldName();
-			$field .= $this->doToolTip();
 			$field .= '>';
 			$field .= stripslashes($this->value);
 			$field .= '</textarea>';
 			$field .= $this->doScreenReaderLabel();
+			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
 			return $field;
 		}
@@ -375,7 +375,6 @@ if ( !class_exists('TribeField') ) {
 					$field .= '<label title="'.$title.'">';
 					$field .= '<input type="radio"';
 					$field .= $this->doFieldName();
-					$field .= $this->doToolTip();
  					$field .= ' value="'.$option_id.'" '.checked( $this->value, $option_id, false ).'/>';
 					$field .= $title;
 					$field .= '</label>';
@@ -413,7 +412,6 @@ if ( !class_exists('TribeField') ) {
 					$field .= '<label title="'.$title.'">';
 					$field .= '<input type="checkbox"';
 					$field .= $this->doFieldName();
-					$field .= $this->doToolTip();
  					$field .= ' value="'.$option_id.'" '.checked( in_array($option_id, $this->value), true, false ).'/>';
 					$field .= $title;
 					$field .= '</label>';
@@ -440,7 +438,6 @@ if ( !class_exists('TribeField') ) {
 			$field .= '<input type="checkbox"';
 			$field .= $this->doFieldName();
 			$field .= ' value="1" '.checked( $this->value, true, false );
-			$field .= $this->doToolTip();
 			$field .= '/>';
 			$field .= $this->doScreenReaderLabel();
 			$field .= $this->doFieldDivEnd();
@@ -462,7 +459,6 @@ if ( !class_exists('TribeField') ) {
 			if ( is_array($this->options) && !empty($this->options) ) {
 				$field .= '<select';
 				$field .= $this->doFieldName();
-				$field .= $this->doToolTip();
 				$field .= '>';
 				foreach ($this->options as $option_id => $title) {
 					$field .= '<option value="'.$option_id.'"';
@@ -511,12 +507,12 @@ if ( !class_exists('TribeField') ) {
 			$field .= ' type="text"';
 			$field .= $this->doFieldName();
 			$field .= $this->doFieldValue();
-			$field .= $this->doToolTip();
 			$field .= '/>';
 			$field .= '<img src="'.esc_url( admin_url( 'images/wpspin_light.gif' ) ).'" class="ajax-loading-license" alt="Loading" style="display: none"/>';
 			$field .= '<span class="valid-key"></span>';
 			$field .= '<span class="invalid-key"></span>';
 			$field .= $this->doScreenReaderLabel();
+			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
 			return $field;
 		}

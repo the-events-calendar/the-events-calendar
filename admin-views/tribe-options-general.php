@@ -2,41 +2,43 @@
 $generalTab = array(
 	'priority' => 10,
 	'fields' => array(
+		'info-start' => array(
+			'type' => 'html',
+			'html' => '<div id="modern-tribe-info"><img src="'.plugins_url('resources/images/modern-tribe.png', dirname(__FILE__)).'" alt="Modern Tribe Inc." title="Modern Tribe Inc.">'
+		),
 		'upsell-heading' => array(
 			'type' => 'heading',
-			'label' => __('Additional Functionality', 'tribe-events-calendar'),
+			'label' => __('Add functionality to The Events Calendar', 'tribe-events-calendar'),
 			'conditional' => ( !defined('TRIBE_HIDE_UPSELL') || !TRIBE_HIDE_UPSELL ),
 		),
 		'upsell-info' => array(
 			'type' => 'html',
-			'html' => '<p>'.__('Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ).'</p>'.'<p>'.sprintf(__('Check out the %s.', 'tribe-events-calendar' ), '<a href="'.self::$tribeUrl.'?ref=tec-options'.'">'.__('available Add-Ons', 'tribe-events-calendar').'</a>').'</p>',
+			'html' => '<p>'.__('Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ).'<br><a href="'.self::$tribeUrl.'?ref=tec-options'.'">'.__('Check out the available Add-Ons', 'tribe-events-calendar').'</a></p>',
 			'conditional' => ( !defined('TRIBE_HIDE_UPSELL') || !TRIBE_HIDE_UPSELL ),
 		),
-		'ical-heading' => array(
+		'donate-link-heading' => array(
 			'type' => 'heading',
-			'label' => __('iCal', 'tribe-events-calendar'),
-			'conditional' => function_exists('tribe_get_ical_link'),
+			'label' => __('We hope our plugin is helping you out.', 'tribe-events-calendar'),
 		),
-		'ical-info' => array(
+		'donate-link-info' => array(
 			'type' => 'html',
-			'html' => (function_exists('tribe_get_ical_link')) ? '<p>'.__('Here is the iCal feed URL for your events:', 'tribe-events-calendar').' '.'<code>'.tribe_get_ical_link().'</code></p>' : '',
-			'conditional' => function_exists('tribe_get_ical_link'),
+			'html' => '<p>'.__('Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar').'<br><a href="'.plugins_url('resources/images/donate-link-screenshot.jpg', dirname(__FILE__)).'" class="thickbox">'.__('See an example of the link', 'tribe-events-calendar').'</a></p>',
+			'conditional' => !class_exists('TribeEventsPro'),
+		),
+		'donate-link-pro-info' => array(
+			'type' => 'html',
+			'html' => '<p>'.__('Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar').'<br><a href="'.plugins_url('resources/images/donate-link-pro-screenshot.jpg', dirname(__FILE__)).'" class="thickbox">'.__('See an example of the link', 'tribe-events-calendar').'</a></p>',
+			'conditional' => class_exists('TribeEventsPro'),
 		),
 		'donate-link' => array(
 			'type' => 'checkbox_bool',
-			'label' => __('Donate a link', 'tribe-events-calendar'),
-			'class' => 'tribe-has-custom-tooltip',
+			'label' => __('Show Events Calendar Link', 'tribe-events-calendar'),
 			'default' => false,
 			'validation_type' => 'boolean',
-			'clear_after' => false,
 		),
-		'donate-link-tooltip' => array(
+		'info-end' => array(
 			'type' => 'html',
-			'html' => '<div id="donate-link-tooltip" class="wp-pointer-left tribe-tooltip"><div class="wp-pointer-content"><p class="tribe-tooltip-inner"><p>'.__('Are you thinking "Wow, this plugin is amazing! I should say thanks to tribe for all their hard work." The greatest thanks we could ask for is recognition. Check this box to add a small text only link at the bottom of your calendar pointing to the events calendar project.', 'tribe-events-calendar').'<br><br><img src="'.$this->pluginUrl.'/resources/images/donate-link-screenshot.png"></p></div><div class="wp-pointer-arrow"><div class="wp-pointer-arrow-inner"></div></div></div>',
-		),
-		'settings-heading' => array(
-			'type' => 'heading',
-			'label' => __('Settings', 'tribe-events-calendar'),
+			'html' => '</div>',
 		),
 		'viewOption' => array(
 			'type' => 'radio',
@@ -49,29 +51,24 @@ $generalTab = array(
 		'eventsSlug' => array(
 			'type' => 'text',
 			'label' => __('Events URL slug', 'tribe-events-calendar'),
-			'tooltip' => __('The slug used for building the Events URL.', 'tribe-events-calendar'),
 			'default' => 'events',
+			'tooltip' => __('The slug used for building the events URL.', 'tribe-events-calendar').sprintf( __('Your current Events URL is %s', 'tribe-events-calendar' ), '<code><a href="'.tribe_get_events_link().'">'.tribe_get_events_link().'</a></code>' ),
 			'validation_type' => 'slug',
 			'conditional' => ( '' != get_option('permalink_structure') ),
 		 ),
-		'slug-info' => array(
+		'ical-info' => array(
 			'type' => 'html',
-			'html' => '<p class="tribe-field-indent">'.sprintf( __('Your current Events URL is %s', 'tribe-events-calendar' ), '<strong><a href="'.tribe_get_events_link().'">'.tribe_get_events_link().'</a></strong>' ).'</p>',
-			'conditional' => ( '' != get_option('permalink_structure') ),
+			'html' => (function_exists('tribe_get_ical_link')) ? '<p id="ical-link" class="tribe-field-indent description">'.__('Here is the iCal feed URL for your events:', 'tribe-events-calendar').' '.'<code>'.tribe_get_ical_link().'</code></p>' : '',
+			'conditional' => function_exists('tribe_get_ical_link'),
 		),
 		'singleEventSlug' => array(
 			'type' => 'text',
 			'label' => __('Single Event URL slug', 'tribe-events-calendar'),
-			'tooltip' => __('The slug used for building a single Event URL.', 'tribe-events-calendar', 'tribe-events-calendar'),
+			'tooltip' => sprintf( __('You <strong>cannot</strong> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: %s', 'tribe-events-calendar' ), '<code>'.trailingslashit( home_url() ) . tribe_get_option('singleEventSlug', 'event') . '/single-post-name/'.'</code>' ),
 			'default' => 'event',
 			'validation_type' => 'slug',
 			'conditional' => ( '' != get_option('permalink_structure') ),
 		 ),
-		'single-slug-info' => array(
-			'type' => 'html',
-			'html' => '<p class="tribe-field-indent">'.sprintf( __('<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: <strong>%s</strong>', 'tribe-events-calendar' ), trailingslashit( home_url() ) . tribe_get_option('singleEventSlug', 'event') . '/single-post-name/' ).'</p>',
-			'conditional' => ( '' != get_option('permalink_structure') ),
-		),
 		'postsPerPage' => array(
 			'type' => 'text',
 			'label' => __('Number of events to show per page in the loop', 'tribe-events-calendar'),
@@ -134,14 +131,9 @@ $generalTab = array(
 		'debugEvents' => array(
 			'type' => 'checkbox_bool',
 			'label' => __('Debug Mode', 'tribe-events-calendar'),
-			'class' => 'tribe-has-custom-tooltip',
-			'clear_after' => false,
+			'tooltip' => sprintf( __('Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the %s and look for the "Tribe" tab in the debug output.', 'tribe-events-calendar'), '<a href="http://wordpress.org/extend/plugins/debug-bar/" target="_blank">'.__('Debug Bar Plugin', 'tribe-events-calendar').'</a>' ),
 			'default' => false,
 			'validation_type' => 'boolean'
-		),
-		'debug-tooltip' => array(
-			'type' => 'html',
-			'html' => '<div id="debug-tooltip" class="wp-pointer-left tribe-tooltip"><div class="wp-pointer-content"><p class="tribe-tooltip-inner"><p>'.sprintf( __('Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the %s and look for the "Tribe" tab in the debug output.', 'tribe-events-calendar'), '<a href="http://wordpress.org/extend/plugins/debug-bar/" target="_blank">'.__('Debug Bar Plugin', 'tribe-events-calendar').'</a>' ).'</p></div><div class="wp-pointer-arrow"><div class="wp-pointer-arrow-inner"></div></div></div>',
 		),
 	),
 );

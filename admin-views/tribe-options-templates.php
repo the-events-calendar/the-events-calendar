@@ -29,14 +29,14 @@ $templatesTab = array(
 		'tribeEventsBeforeHTML' => array(
 			'type' => 'textarea',
 		 	'label' => __('Add HTML before calendar', 'tribe-events-calendar'),
-			'tooltip' => __('Some themes may require that you add extra divs before the calendar list to help with styling. This is displayed directly after the header.', 'tribe-events-calendar').' '.__('You may use (x)HTML.', 'tribe-events-calendar'),
+			'tooltip' => __('Some themes may require that you add extra divs before the calendar list to help with styling.<br>This is displayed directly after the header.', 'tribe-events-calendar').' '.__('You may use (x)HTML.', 'tribe-events-calendar'),
 			'validation_type' => 'html',
 			'size' => 'large',
 		),
 		'tribeEventsAfterHTML' => array(
 			'type' => 'textarea',
 		 	'label' => __('Add HTML after calendar', 'tribe-events-calendar'),
-			'tooltip' => __('Some themes may require that you add extra divs after the calendar list to help with styling. This is displayed directly above the footer.', 'tribe-events-calendar').' '.__('You may use (x)HTML.', 'tribe-events-calendar'),
+			'tooltip' => __('Some themes may require that you add extra divs after the calendar list to help with styling.<br>This is displayed directly above the footer.', 'tribe-events-calendar').' '.__('You may use (x)HTML.', 'tribe-events-calendar'),
 			'validation_type' => 'html',
 			'size' => 'large',
 		),
