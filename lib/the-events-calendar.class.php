@@ -1116,14 +1116,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 			if ( update_option( TribeEvents::OPTIONNAME, $options ) ) {
 				self::$options = apply_filters( 'tribe_get_options', $options );
-				if ( isset( self::$options['eventsSlug'] ) ) {
-					if ( self::$options['eventsSlug'] != '' ) {
-						self::flushRewriteRules();
+				if ( isset( TribeEvents::$options['eventsSlug'] ) ) {
+					if ( TribeEvents::$options['eventsSlug'] != '' ) {
+						TribeEvents::flushRewriteRules();
 					}
 				}
 				return true;
 			} else {
-				self::$options = self::getOptions();
+				TribeEvents::$options = TribeEvents::getOptions();
 				return false;
 			}
 		}
@@ -1961,18 +1961,18 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$cleaned_tag = str_replace('_Venue','',$tag);
 					//echo $tag.' | '.$cleaned_tag.'<BR>';
 
-					if ( !$postId || !isset($_GET['post']) ) { //if there is a not post AND the post has not been saved at least once?
+					$var_name = '_Venue'.$cleaned_tag;
 
-						if($cleaned_tag == 'Cost')
-							continue;
+					if ($cleaned_tag != 'Cost') {
 
 						${'_Venue'.$cleaned_tag} = (class_exists('TribeEventsPro') && $this->defaultValueReplaceEnabled()) ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
-					}
-					
-					if( isset($cleaned_tag) && isset($_POST['venue'][$cleaned_tag]) )
-						${'_Venue'.$cleaned_tag} = $_POST['venue'][$cleaned_tag];
+						$$var_name = (class_exists('TribeEventsPro') && tribe_get_option('defaultValueReplace')) ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
 
-					
+					}
+
+					if( isset($cleaned_tag) && isset($_POST['venue'][$cleaned_tag]) )
+						$$var_name = $_POST['venue'][$cleaned_tag];
+
 				}
 
 				if ( isset($_VenueState) ) {

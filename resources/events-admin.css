@@ -71,7 +71,7 @@ td.tribe_message {padding-bottom: 10px !important;}
 /* = Chosen
 =============================================*/
 .chosen, .tribe-chosen, .chzn-container {margin-right: 10px!important;}
-.venue-dropdown, .organizer-dropdown, .events-dropdown, #eventsDefaultState, #defaultCountry {width: 220px !important;}
+.venue-dropdown, .organizer-dropdown, .events-dropdown, #eventsDefaultState, #defaultCountry, #StateProvinceSelect {width: 220px !important;}
 .multi-day-cutoff-dropdown {width: 100px !important;}
 
 /* fix for widgets + chosen support */

@@ -195,6 +195,26 @@ if ( !class_exists('TribeValidate') ) {
 		}
 
 		/**
+		 * validates fields that have options (radios, dropdowns, etc.)
+		 * by making sure the value is part of the options array
+		 * then combines the value into an array containg the value
+		 * and name from the option
+		 *
+		 * @since 2.0.5
+		 * @author jkudish
+		 * @return stdClass validation result object
+		 */
+		public function options_with_label() {
+			if ( array_key_exists( $this->value, $this->field['options'] ) ) {
+				$this->value = ($this->value === 0) ? false : array($this->value, $this->field['options'][$this->value]);
+				$this->result->valid = true;
+			} else {
+				$this->result->valid = false;
+				$this->result->error = sprintf( __('%s must have a value that\'s part of its options.'), $this->label);
+			}
+		}
+
+		/**
 		 * validates a field as not being able to be the same
 		 * as the specified value as specified in
 		 * $this->additional_args['compare_name']
