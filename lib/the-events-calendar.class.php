@@ -1961,7 +1961,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 				}
 
-				if ( isset($_VenueState) ) {
+				if ( isset($_VenueState) && !empty($_VenueState) ) {
 					$_VenueStateProvince = $_VenueState;
 				} elseif ( isset($_VenueProvince) ) {
 					$_VenueStateProvince = $_VenueProvince;
