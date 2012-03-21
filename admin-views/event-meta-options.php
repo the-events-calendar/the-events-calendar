@@ -1,5 +1,6 @@
 <h3><?php _e('Additional Fields','tribe-events-calendar-pro'); ?></h3>
-<p><?php _e('You can set up any additional custom fields that you would like to use for events here.','tribe-events-calendar-pro'); ?></p>
+<p><?php _e('Add unique fields to your event editor. Using the form below, you can quickly add checkboxes for dietary options like "low salt, vegetarian, kosher" or a dropdown for “DJ” to your event editor.','tribe-events-calendar-pro'); ?></p>
+
 <table class='wp-list-table widefat' id="additional-field-table" style=''>
 	<thead><tr><th><?php _e('Field Label','tribe-events-calendar-pro'); ?></th><th><?php _e('Field Type','tribe-events-calendar-pro'); ?></th><th><?php _e('Options (one per line)','tribe-events-calendar-pro'); ?></th><th></th></tr></thead>
 	<tbody>
@@ -27,6 +28,10 @@
 	<?php $count++; endforeach; ?>
 	</tbody>
 </table>
+
+<p><?php printf( __('Enter the field label as you want it to appear (this will be the label in the same way “Start Date,” “Organizer,” etc appear in the event details box on the frontend). Select whether the field will be a text field; radio buttons; checkboxes; or a dropdown. All of these with the exception of text allow for multiple options to be included, which you can add — one per-line — in the right-hand column. If you feel flummoxed, we\'ve got you covered with a %s.','tribe-events-calendar-pro'), '<a href="http://tri.be/pro-adding-custom-events-attributes/ ">'.__('video tutorial that will walk you through the process', 'tribe-events-calendar-pro').'</a>') ?></p>
+
+
 <script>
 	jQuery(document).ready(function($) {
 		if($('#additional-field-table').size() > 0) {
