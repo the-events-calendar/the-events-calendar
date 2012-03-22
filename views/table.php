@@ -140,13 +140,18 @@ function display_day( $day, $monthView ) {
 				<h5 class="tribe-events-event-title"><?php the_title();?></h5>
 				<div class="tribe-events-event-body">
 					<div class="tribe-events-event-date">
-						<?php if ( !empty( $start ) )	echo date_i18n( get_option('date_format', 'F j, Y'), $start) . ' ' . date_i18n( get_option('time_format', 'g:i a'), $start); ?>
+						<?php if ( !empty( $start ) )	echo date_i18n( get_option('date_format', 'F j, Y'), $start);
+						if ( !tribe_get_event_meta($post->ID, '_EventAllDay', true) )
+							echo ' ' . date_i18n( get_option('time_format', 'g:i a'), $start); ?>
 						<?php if ( !empty( $end )  && $start !== $end ) {
 							if ( date_i18n( 'Y-m-d', $start ) == date_i18n( 'Y-m-d', $end ) ) {
 								$time_format = get_option( 'time_format', 'g:i a' );
-								echo " – " . date_i18n( $time_format, $end );
+								if ( !tribe_get_event_meta($post->ID, '_EventAllDay', true) )
+									echo " – " . date_i18n( $time_format, $end );
 							} else {
-								echo " – " . date_i18n( get_option('date_format', 'F j, Y'), $end) . ' ' . date_i18n( get_option('time_format', 'g:i a'), $end) . '<br />';
+								echo " – " . date_i18n( get_option('date_format', 'F j, Y'), $end);
+								if ( !tribe_get_event_meta($post->ID, '_EventAllDay', true) )
+								 	echo ' ' . date_i18n( get_option('time_format', 'g:i a'), $end) . '<br />';
 							}
 						} ?>
 					</div>
