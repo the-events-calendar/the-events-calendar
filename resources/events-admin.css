@@ -92,7 +92,8 @@ td.tribe_message {padding-bottom: 10px !important;}
 .tribe_settings .tribe-errors-list {margin-left: 15px;}
 .tribe_settings .expiring-license {color: red;}
 .tribe_settings .tribe-error {border: 1px solid #F00;}
-.tribe_settings #ical-link {position: relative; top: -18px;}
+.tribe_settings .tribe-field-description {position: relative; top: -12px; margin-bottom: 0;}
+.tribe_settings #ical-link {top: -14px;}
 
 /* Modern Tribe box */
 #modern-tribe-info {margin: 20px 0; background-color: #f9f9f9; padding: 25px 20px 15px; border: 1px solid #ccc; border-rarius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; -o-border-radius: 4px;}

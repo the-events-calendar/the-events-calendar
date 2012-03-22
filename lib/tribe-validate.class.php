@@ -134,7 +134,7 @@ if ( !class_exists('TribeValidate') ) {
 		 * @return stdClass validation result object
 		 */
 		public function positive_int() {
-			if ( preg_match( '/^[0-9]+$/', $this->value ) ) {
+			if ( preg_match( '/^[0-9]+$/', $this->value ) && $this->value > 0 ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
