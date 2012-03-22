@@ -331,7 +331,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	function tribe_display_saved_country() {
 		$option = tribe_get_option('defaultCountry', __('No default set', 'tribe-events-calendar-pro'));
-		$option = ( !isset($option) || $option == '' || !$option || empty($option) || !isset($option[1]) ) ? __('No default set', 'tribe-events-calendar-pro') : $option = $option[1];
+		$option = ( !isset($option) || $option == '' || !$option || empty($option) || !is_array($option) || !isset($option[1]) ) ? __('No default set', 'tribe-events-calendar-pro') : $option = $option[1];
 		echo '<p class="tribe-field-indent venue-default-info description">'.sprintf( __('The current default country is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
 	}
 
