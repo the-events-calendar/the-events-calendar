@@ -167,6 +167,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( $this->pluginPath.'public/template-tags/venue.php' );
 			require_once( $this->pluginPath.'public/template-tags/date.php' );
 			require_once( $this->pluginPath.'public/template-tags/link.php' );
+			if (is_admin()) require_once( $this->pluginPath.'public/template-tags/options.php' );
 
 			// Load Advanced Functions
 			require_once( $this->pluginPath.'public/advanced-functions/event.php' );
@@ -1303,7 +1304,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			global $wp_rewrite; 
 			$wp_rewrite->flush_rules();
 			// in case this was called too early, let's get it in the end.
-			add_action('shutdown', array($this, 'flushRewriteRules'));
+			add_action('shutdown', array('TribeEvents', 'flushRewriteRules'));
 		}		
 		/**
 		 * Adds the event specific query vars to WordPress
@@ -1414,9 +1415,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
        // account for semi-pretty permalinks
       if( strpos(get_option('permalink_structure'),"index.php") !== FALSE ) {
-        $eventUrl = trailingslashit( home_url() . '/index.php/' . $this->rewriteSlug );
+        $eventUrl = trailingslashit( home_url() . '/index.php/' . sanitize_title($this->getOption('eventsSlug', 'events')) );
        } else {
-       	$eventUrl = trailingslashit( home_url() . '/' . $this->rewriteSlug );
+       	$eventUrl = trailingslashit( home_url() . '/' . sanitize_title($this->getOption('eventsSlug', 'events')) );
        }
 
 			// if we're on an Event Cat, show the cat link, except for home and days.

@@ -170,7 +170,9 @@ if ( !class_exists('TribeSettings') ) {
 				$this->defaultTab = apply_filters( 'tribe_settings_default_tab', 'general' );
 				$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset($_GET['tab']) && $_GET['tab'] ) ? esc_attr($_GET['tab']) : $this->defaultTab );
 				$this->noSaveTabs = (array) apply_filters( 'tribe_settings_no_save_tabs', array() );
+				$this->fields_for_save = (array) apply_filters( 'tribe_settings_fields', array() );
 				do_action('tribe_settings_after_do_tabs');
+				$this->fields = (array) apply_filters( 'tribe_settings_fields', array() );
 			}
 		}
 
@@ -286,7 +288,7 @@ if ( !class_exists('TribeSettings') ) {
 
 				// set the current tab and current fields
 				$tab = $this->currentTab;
-				$fields = $this->fields[$tab];
+				$fields = $this->fields_for_save[$tab];
 
 				if (is_array($fields)) {
 					// loop through the fields and validate them
