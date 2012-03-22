@@ -1637,7 +1637,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * This is mainly for templates.
 		 */
 		public function getEventMeta( $id, $meta, $single = true ){
-			$use_def_if_empty = tribe_get_option('defaultValueReplace');
+			$use_def_if_empty = (class_exists( 'TribeEventsPro' )) ? tribe_get_option('defaultValueReplace') : false;
 			if($use_def_if_empty){
 				$cleaned_tag = str_replace('_Event','',$meta);
 				$default = tribe_get_option('eventsDefault'.$cleaned_tag);
