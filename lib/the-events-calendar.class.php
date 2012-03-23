@@ -1915,7 +1915,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						if( isset($_POST['Event'.$cleaned_tag]) ){
 							$$tag = $_POST['Event'.$cleaned_tag];
 						}else{
-							$$tag = (class_exists('TribeEventsPro') && tribe_get_option('defaultValueReplace')) ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
+							$$tag = (class_exists('TribeEventsPro') && $this->defaultValueReplaceEnabled() ) ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
 						}
 					}
 				}
@@ -1953,7 +1953,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 					if ($cleaned_tag != 'Cost') {
 
-						$$var_name = (class_exists('TribeEventsPro') && tribe_get_option('defaultValueReplace')) ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
+						$$var_name = (class_exists('TribeEventsPro') && $this->defaultValueReplaceEnabled() ) ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
 					}
 
 					if( isset($_POST['venue'][$cleaned_tag]) )
@@ -1987,7 +1987,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$endMonthOptions 			= TribeEventsViewHelpers::getMonthOptions( $_EventEndDate );
 			$startYearOptions 		= TribeEventsViewHelpers::getYearOptions( $_EventStartDate );
 			$endYearOptions			= TribeEventsViewHelpers::getYearOptions( $_EventEndDate );
-			$startMinuteOptions 		= TribeEventsViewHelpers::getMinuteOptions( $_EventStartDate );
+			$startMinuteOptions 		= TribeEventsViewHelpers::getMinuteOptions( $_EventStartDate, true );
 			$endMinuteOptions		= TribeEventsViewHelpers::getMinuteOptions( $_EventEndDate );
 			$startHourOptions				= TribeEventsViewHelpers::getHourOptions( $_EventAllDay == 'yes' ? null : $_EventStartDate, true );
 			$endHourOptions			= TribeEventsViewHelpers::getHourOptions( $_EventAllDay == 'yes' ? null : $_EventEndDate );
