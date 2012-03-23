@@ -493,9 +493,23 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		if ( apply_filters('tribe_ecp_to_run_or_not_to_run', $to_run_or_not_to_run) ) {
 			TribeEventsPro::instance();
 		}
+		if ( !class_exists( 'TribeEvents' ) ) {
+			add_action( 'admin_notices', 'tribe_show_fail_message' );
+		}
 	}
 
 	add_action( 'plugins_loaded', 'Tribe_ECP_Load', 1); // high priority so that it's not too late for tribe_register-helpers class
+
+	/**
+	 * Shows message if the plugin can't load due to TEC not being installed.
+	 */
+	function tribe_show_fail_message() {
+		if ( current_user_can('activate_plugins') ) {
+			$url = 'plugin-install.php?tab=plugin-information&plugin=the-events-calendar&TB_iframe=true';
+			$title = __('The Events Calendar', 'tribe-events-calendar-pro');
+			echo '<div class="error"><p>'.sprintf(__('To begin using Events Calendar PRO, please install the latest version of <a href="%s" class="thickbox" title="%s">The Events Calendar</a>.', 'tribe-events-calendar-pro'),$url,$title).'</p></div>';
+		}
+	}   
 
 	/**
 	 * Add Events PRO to the list of add-ons to check required version.
