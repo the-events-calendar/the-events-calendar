@@ -5,7 +5,7 @@ Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.1
 Tested up to: 3.4-alpha
-Stable tag: 2.0.4
+Stable tag: 2.0.5
 
 == Description ==
 
@@ -132,6 +132,16 @@ Our Premium Plugins:
 
 
 == Changelog ==
+
+= 2.0.5 =
+
+**Small features, UX and Content Tweaks:**
+
+* Item 1
+
+**Bug Fixes:**
+
+* Item 1
 
 = 2.0.4 =
 
@@ -260,6 +270,10 @@ Our Premium Plugins:
 This is such a major re-write that we are starting the change log over.
 
 == Upgrade Notice ==
+
+= 2.0.5 =
+
+2.0.5 contains bug patches and new features for 2.0. Are you upgrading from 1.6.5? Events 2.0 is a MAJOR upgrade, please backup your data and plan a little time in case you have to make any theme edits. Check out the upgrade tutorials in support on the tri.be website.
 
 = 2.0.4 =
 
