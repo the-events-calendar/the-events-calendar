@@ -42,7 +42,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 </div>
 <div id="tribe-events-loop" class="tribe-events-events post-list clearfix upcoming venue-events">
 	<?php 
-	$venueEvents = tribe_get_events(array('venue'=>get_the_ID(), 'eventDisplay' => 'upcoming')); 
+	$venueEvents = tribe_get_events(array('venue'=>get_the_ID(), 'eventDisplay' => 'upcoming', 'posts_per_page' => -1)); 
 	global $post; 
 	$first = true;
 	?>					
