@@ -10,6 +10,7 @@
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 ?>
+<?php $venue_id = get_the_id(); ?>
 <span class="back"><a href="<?php echo tribe_get_events_link(); ?>"><?php _e('&laquo; Back to Events', 'tribe-events-calendar-pro'); ?></a></span>								
 <div id="tribe-events-event-meta">
 	<div style='margin: 0 0 10px 0; float: right;'>
@@ -89,4 +90,8 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			</div> <!-- End post -->				
 		<?php endforeach; ?>						
 	<?php endif; ?>
+	<?php // Reset the post and id to the venue post before comments template shows up.
+	$post = get_post($venue_id); 
+	global $id;
+	$id = $venue_id;?>
 </div>
