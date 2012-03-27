@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-23 15:32-0500\n"
-"PO-Revision-Date: 2012-03-23 15:32-0500\n"
+"POT-Creation-Date: 2012-03-27 12:50-0500\n"
+"PO-Revision-Date: 2012-03-27 12:51-0500\n"
 "Last-Translator: Paul Hughes <paul@paulalexanderhughes.com>\n"
 "Language-Team: Modern Tribe, Inc.\n"
 "MIME-Version: 1.0\n"
@@ -1070,7 +1070,7 @@ msgstr ""
 
 #: ../lib/tribe-validate.class.php:141
 #, php-format
-msgid "%s must be a positive integer."
+msgid "%s must be a positive number."
 msgstr ""
 
 #: ../lib/tribe-validate.class.php:158
@@ -2370,7 +2370,7 @@ msgstr ""
 
 #: ../views/gridview.php:42
 #: ../views/list.php:165
-#: ../views/single.php:100
+#: ../views/single.php:103
 msgid "iCal Import"
 msgstr ""
 
@@ -2380,27 +2380,27 @@ msgid "Calendar powered by %sThe Events Calendar%s"
 msgstr ""
 
 #: ../views/list.php:50
-#: ../views/single.php:19
+#: ../views/single.php:22
 msgid "Start:"
 msgstr ""
 
 #: ../views/list.php:54
-#: ../views/single.php:21
+#: ../views/single.php:24
 msgid "End:"
 msgstr ""
 
 #: ../views/list.php:59
-#: ../views/single.php:24
+#: ../views/single.php:27
 msgid "Date:"
 msgstr ""
 
 #: ../views/list.php:69
-#: ../views/single.php:58
+#: ../views/single.php:61
 msgid "Venue:"
 msgstr ""
 
 #: ../views/list.php:92
-#: ../views/single.php:75
+#: ../views/single.php:78
 msgid "Google Map"
 msgstr ""
 
@@ -2443,36 +2443,36 @@ msgstr ""
 msgid "&laquo; Back to Events"
 msgstr ""
 
-#: ../views/single.php:13
+#: ../views/single.php:16
 msgid "This event has passed."
 msgstr ""
 
-#: ../views/single.php:16
+#: ../views/single.php:19
 msgid "Event:"
 msgstr ""
 
-#: ../views/single.php:33
 #: ../views/single.php:36
+#: ../views/single.php:39
 msgid "Organizer:"
 msgstr ""
 
-#: ../views/single.php:47
+#: ../views/single.php:50
 msgid "Updated:"
 msgstr ""
 
-#: ../views/single.php:50
+#: ../views/single.php:53
 msgid "Schedule:"
 msgstr ""
 
-#: ../views/single.php:75
+#: ../views/single.php:78
 msgid "Click to view a Google Map"
 msgstr ""
 
-#: ../views/single.php:103
+#: ../views/single.php:106
 msgid "Add to Google Calendar"
 msgstr ""
 
-#: ../views/single.php:103
+#: ../views/single.php:106
 msgid "+ Google Calendar"
 msgstr ""
 

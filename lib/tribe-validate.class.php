@@ -138,7 +138,7 @@ if ( !class_exists('TribeValidate') ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __('%s must be a positive integer.', 'tribe-events-calendar'), $this->label);
+				$this->result->error = sprintf( __('%s must be a positive number.', 'tribe-events-calendar'), $this->label);
 			}
 		}
 
