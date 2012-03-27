@@ -16,7 +16,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		const VENUE_POST_TYPE = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 		const PLUGIN_DOMAIN = 'tribe-events-calendar';
-		const VERSION = '2.0.5';
+		const VERSION = '2.0.6';
 		const FEED_URL = 'http://tri.be/category/products/feed/';
 		const INFO_API_URL = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';
@@ -248,7 +248,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'admin_notices', array( $this, 'checkAddOnCompatibility' ) );
 		}
 
-		public static function ecpActive( $version = '2.0.5' ) {
+		public static function ecpActive( $version = '2.0.6' ) {
 			return class_exists( 'TribeEventsPro' ) && defined('TribeEventsPro::VERSION') && version_compare( TribeEventsPro::VERSION, $version, '>=');
 		}
 
@@ -312,7 +312,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 		
 		public function maybeRenameOptions() {
-			if ( version_compare( get_option('tribe_events_db_version'), '2.0.5', '<' ) ) {
+			if ( version_compare( get_option('tribe_events_db_version'), '2.0.6', '<' ) ) {
 				$option_names = array(
 					'spEventsTemplate' => 'tribeEventsTemplate',
 					'spEventsBeforeHTML' => 'tribeEventsBeforeHTML',
@@ -327,7 +327,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					unset( $current_options[$old_option_names[$i]] );
 				}
 				$this->setOptions( wp_parse_args( $new_options, $current_options ) );
-				update_option('tribe_events_db_version', '2.0.5');
+				update_option('tribe_events_db_version', '2.0.6');
 			}
 		}
 		
