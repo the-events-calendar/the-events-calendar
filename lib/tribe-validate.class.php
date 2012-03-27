@@ -195,6 +195,29 @@ if ( !class_exists('TribeValidate') ) {
 		}
 
 		/**
+		 * validates fields that have multiple options (checkbox list, etc.)
+		 * by making sure the value is part of the options array
+		 *
+		 * @since 2.0.5
+		 * @author jkudish, nciske
+		 * @return stdClass validation result object
+		 */
+		public function options_multi() {
+		
+			foreach( $this->value as $val ){
+		
+				if ( array_key_exists( $val, $this->field['options'] ) ) {
+					$this->value = ($this->value === 0) ? false : $this->value;
+					$this->result->valid = true;
+				} else {
+					$this->result->valid = false;
+					$this->result->error = sprintf( __('%s must have a value that\'s part of its options.'), $this->label);
+				}
+			
+			}
+		}
+
+		/**
 		 * validates fields that have options (radios, dropdowns, etc.)
 		 * by making sure the value is part of the options array
 		 * then combines the value into an array containg the value
