@@ -75,7 +75,7 @@ class TribeEventsCustomMeta {
 			$customFields = (array)tribe_get_option('custom-fields');
 			foreach( $customFields as $customField) {
 				if( isset( $customField['name'] ) && isset( $_POST[$customField['name']] ) ) {
-					$val = $_POST[$customField['name']];
+					$val = esc_attr($_POST[$customField['name']]);
 					$val = is_array($val) ? implode("|", $val) : $val;
 					update_post_meta($postId,  wp_kses_data($customField['name']), $val);
 				}
@@ -102,13 +102,14 @@ class TribeEventsCustomMeta {
 	public static function save_meta_options($ecp_options) {
 		$count = 1;
 		$ecp_options['custom-fields'] = array();
+
 		if ( isset( $_POST['current-settings-tab'] ) ) {
 			if ( $_POST['current-settings-tab'] == 'general' ) {
 				while( isset($_POST['custom-field-' . $count]) ) {
 					$name = $_POST['custom-field-' . $count];
 					$type = $_POST['custom-field-type-' . $count];
 					$values = $_POST['custom-field-options-' . $count];
-		
+
 					if( $name ) {
 						$ecp_options['custom-fields'][] = array(
 							'name'=>'_ecp_custom_' . $count,
@@ -117,11 +118,12 @@ class TribeEventsCustomMeta {
 							'values'=>$values
 						);
 					}
-		
+
 					$count++;
 				}
 			} else {
 				$ecp_options['custom-fields'] = tribe_get_option('custom-fields');
+
 			}
 		}
 		return $ecp_options;
