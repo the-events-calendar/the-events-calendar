@@ -605,7 +605,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function accessibleMonthForm() {
 			if ( isset($_GET['EventJumpToMonth']) && isset($_GET['EventJumpToYear'] )) {
 				$_GET['eventDisplay'] = 'month';
-				$_GET['eventDate'] = $_GET['EventJumpToYear'] . '-' . $_GET['EventJumpToMonth'];
+				$_GET['eventDate'] = intval($_GET['EventJumpToYear']) . '-' . intval($_GET['EventJumpToMonth']);
 			}
 		}
 
@@ -1689,10 +1689,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			 * editing the venue/organizer from within the event.
 			 */
 			if( isset($_POST['Venue']['VenueID']) && !empty($_POST['Venue']['VenueID']) && class_exists('TribeEventsPro') )
-				$_POST['Venue'] = array('VenueID' => $_POST['Venue']['VenueID']);
+				$_POST['Venue'] = array('VenueID' => intval($_POST['Venue']['VenueID']));
 
 			if( isset($_POST['Organizer']['OrganizerID']) && !empty($_POST['Organizer']['OrganizerID']) && class_exists('TribeEventsPro') )
-				$_POST['Organizer'] = array('OrganizerID' => $_POST['Organizer']['OrganizerID']);
+				$_POST['Organizer'] = array('OrganizerID' => intval($_POST['Organizer']['OrganizerID']));
 
 
 			TribeEventsAPI::saveEventMeta($postId, $_POST, $post);
@@ -1913,7 +1913,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						
 						//allow posted data to override default data
 						if( isset($_POST['Event'.$cleaned_tag]) ){
-							$$tag = $_POST['Event'.$cleaned_tag];
+							$$tag = stripslashes_deep($_POST['Event'.$cleaned_tag]);
 						}else{
 							$$tag = (class_exists('TribeEventsPro') && $this->defaultValueReplaceEnabled() ) ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
 						}
@@ -1928,7 +1928,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				foreach($this->organizerTags as $tag) {
 					$cleaned_tag = str_replace('_Organizer','',$tag);
 					if( isset($_POST['organizer'][$cleaned_tag]) )
-						$$tag = $_POST['organizer'][$cleaned_tag];
+						$$tag = stripslashes_deep($_POST['organizer'][$cleaned_tag]);
 				}
 			}
 
@@ -1957,7 +1957,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					}
 
 					if( isset($_POST['venue'][$cleaned_tag]) )
-						$$var_name = $_POST['venue'][$cleaned_tag];
+						$$var_name = stripslashes_deep($_POST['venue'][$cleaned_tag]);
 
 				}
 
@@ -1971,9 +1971,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				
 				if( isset($_POST['venue']['Country']) ){
 					if( $_POST['venue']['Country'] == 'United States' ){
-						$_VenueStateProvince = $_POST['venue']['State'];
+						$_VenueStateProvince = stripslashes_deep($_POST['venue']['State']);
 					}else{
-						$_VenueStateProvince = $_POST['venue']['Province'];
+						$_VenueStateProvince = stripslashes_deep($_POST['venue']['Province']);
 					}
 				}
 
