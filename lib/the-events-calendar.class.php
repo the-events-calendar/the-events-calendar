@@ -2042,7 +2042,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			if($post->post_type == self::VENUE_POST_TYPE){
 			
-				if( (is_admin() && isset($_GET['post']) && $_GET['post']) || (!is_admin() && isset($_GET['tribe_venue_id']) && $_GET['tribe_venue_id']) )
+				if( (is_admin() && isset($_GET['post']) && $_GET['post']) || (!is_admin() && isset($postId) ) )
 					$saved = true;
 			
 				foreach ( $this->venueTags as $tag ) {
@@ -2081,10 +2081,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$style = '';
 			$postId = $post->ID;
 			$saved = false;
-
+			
 			if($post->post_type == self::ORGANIZER_POST_TYPE){
 
-				if( (is_admin() && isset($_GET['post']) && $_GET['post']) || (!is_admin() && isset($_GET['tribe_organizer_id']) && $_GET['tribe_organizer_id']) )
+				if( (is_admin() && isset($_GET['post']) && $_GET['post']) || (!is_admin() && isset($postId) ))
 					$saved = true;
 			
 				foreach ( $this->organizerTags as $tag ) {
