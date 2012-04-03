@@ -1763,12 +1763,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param stdClass $post, the post object
 		 * @return void
 		 */
-		public function publishAssociatedTypes( $postId, $post ) {
+		public function publishAssociatedTypes( $postID, $post ) {
 
 			// Only continue if the post being published is an event
-			if ( isset($postId) && isset($post->post_type) ) {
-				if ( $post->post_type != self::POSTTYPE ) 
-					return;
+				
+			if ( wp_is_post_autosave( $postID ) || $post->post_status == 'auto-draft' ||
+						isset($_GET['bulk_edit']) || (isset($_REQUEST['action']) && $_REQUEST['action'] == 'inline-save') ||
+						!$_POST['organizer'] || 
+						($post->post_type != self::POSTTYPE && $postID)) {
+				return;
+			}
 				
 				if( isset( $post->post_status ) && $post->post_status == 'publish' ){
 				
@@ -1813,8 +1817,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					}
 				}
 				
-			}
-
 		}
 
 		//** If you are saving a new venue separate from an event
