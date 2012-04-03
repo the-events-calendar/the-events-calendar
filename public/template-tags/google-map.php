@@ -82,6 +82,9 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_embed_google_map($postId = null) {
+		if( !$postId )
+			return 0;
+			
 		$postId = TribeEvents::postIdHelper( $postId );
 		return get_post_meta( get_the_ID(), '_EventShowMap', 1) == 1;
 	}
