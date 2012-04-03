@@ -196,7 +196,7 @@ if (!class_exists('TribeEventsAPI')) {
 	
 		/**
 		 * Saves organizer meta
-		 */		
+		 */
 		private static function saveOrganizerMeta($organizerId, $data) {
 			foreach ($data as $key => $var) {
 				update_post_meta($organizerId, '_Organizer'.$key, $var);

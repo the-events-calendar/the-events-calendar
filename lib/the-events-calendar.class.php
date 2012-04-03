@@ -219,6 +219,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 			add_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
+			add_action( 'save_post', array( $this, 'publishAssociatedTypes'), 10, 2 );
 			add_action( 'pre_get_posts', array( $this, 'setDate' ));
 			add_action( 'wp', array( $this, 'setDisplay' ));
 			add_action( 'tribe_events_post_errors', array( 'TribeEventsPostException', 'displayMessage' ) );
@@ -1753,7 +1754,57 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
-		//** If you are saving a new venu separate from an event
+		/**
+		 * Publishes associated venue/organizer when an event is published
+		 *
+		 * @since 2.0.6
+		 * @author nciske
+		 * @param int $postId, the post ID
+		 * @param stdClass $post, the post object
+		 * @return void
+		 */
+		public function publishAssociatedTypes( $postId, $post ) {
+
+			// Only continue if the post being published is an event
+			if ( isset($postId) && isset($post->post_type) ) {
+				if ( $post->post_type != self::POSTTYPE ) 
+					return;
+				
+/*
+				echo '<pre>';
+				print_r($post);
+				die('</pre>');
+*/
+				
+				if( isset($post->post_status) && $post->post_status='publish' ){ 
+					
+					//get venue and organizer and publish them
+					$pm = get_post_custom($post->ID);
+					
+					if( isset($pm['_EventVenueID']) && $pm['_EventVenueID'] ){
+						$venue_post = array(
+							'ID' => $pm['_EventVenueID'], 
+							'post_status' => 'publish',
+						);
+						wp_update_post( $venue_post );
+						clean_post_cache( $venue_post );
+					}
+	
+					if( isset($pm['_EventOrganizerID']) && $pm['_EventOrganizerID'] ){
+						$org_post = array(
+							'ID' => $pm['_EventOrganizerID'], 
+							'post_status' => 'publish',
+						);
+						wp_update_post( $org_post );
+						clean_post_cache( $org_post );
+					}
+				}
+				
+				
+			}
+		}
+
+		//** If you are saving a new venue separate from an event
 		public function save_venue_data( $postID = null, $post=null ) {
 			global $_POST;
 
