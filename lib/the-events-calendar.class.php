@@ -1770,13 +1770,15 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				if ( $post->post_type != self::POSTTYPE ) 
 					return;
 				
+
 /*
 				echo '<pre>';
 				print_r($post);
 				die('</pre>');
 */
+
 				
-				if( isset($post->post_status) && $post->post_status='publish' ){ 
+				if( isset($post->post_status) && $post->post_status=='publish' ){
 					
 					//get venue and organizer and publish them
 					$pm = get_post_custom($post->ID);
