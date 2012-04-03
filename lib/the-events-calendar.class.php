@@ -219,7 +219,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 			add_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
-			add_action( 'save_post', array( $this, 'publishAssociatedTypes'), 10, 2 );
+			add_action( 'save_post', array( $this, 'publishAssociatedTypes'), 25, 2 );
 			add_action( 'pre_get_posts', array( $this, 'setDate' ));
 			add_action( 'wp', array( $this, 'setDisplay' ));
 			add_action( 'tribe_events_post_errors', array( 'TribeEventsPostException', 'displayMessage' ) );
@@ -1770,40 +1770,51 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				if ( $post->post_type != self::POSTTYPE ) 
 					return;
 				
-
-/*
-				echo '<pre>';
-				print_r($post);
-				die('</pre>');
-*/
-
+				if( isset( $post->post_status ) && $post->post_status == 'publish' ){
 				
-				if( isset($post->post_status) && $post->post_status=='publish' ){
-					
 					//get venue and organizer and publish them
+
 					$pm = get_post_custom($post->ID);
 					
 					if( isset($pm['_EventVenueID']) && $pm['_EventVenueID'] ){
+						
+						if( is_array($pm['_EventVenueID']) ){
+							$venue_id = current($pm['_EventVenueID']);
+						}else{
+							$venue_id = $pm['_EventVenueID'];
+						}
+						
+						
 						$venue_post = array(
-							'ID' => $pm['_EventVenueID'], 
+							'ID' => $venue_id, 
 							'post_status' => 'publish',
 						);
+						
 						wp_update_post( $venue_post );
-						clean_post_cache( $venue_post );
+						
 					}
 	
 					if( isset($pm['_EventOrganizerID']) && $pm['_EventOrganizerID'] ){
+						remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );	
+						
+						if( is_array($pm['_EventOrganizerID']) ){
+							$org_id = current($pm['_EventOrganizerID']);
+						}else{
+							$org_id = $pm['_EventOrganizerID'];
+						}
+						
+
 						$org_post = array(
-							'ID' => $pm['_EventOrganizerID'], 
+							'ID' => $org_id, 
 							'post_status' => 'publish',
 						);
+
 						wp_update_post( $org_post );
-						clean_post_cache( $org_post );
 					}
 				}
 				
-				
 			}
+
 		}
 
 		//** If you are saving a new venue separate from an event
@@ -1836,8 +1847,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			return $venue_id;
 		}
 
-		function get_venue_info($p = null){
-			$r = new WP_Query(array('post_type' => self::VENUE_POST_TYPE, 'nopaging' => 1, 'post_status' => 'publish', 'ignore_sticky_posts ' => 1,'orderby'=>'title', 'order'=>'ASC','p' => $p));
+		function get_venue_info($p = null, $post_status='publish'){
+			$r = new WP_Query(array('post_type' => self::VENUE_POST_TYPE, 'nopaging' => 1, 'post_status' => $post_status, 'ignore_sticky_posts ' => 1,'orderby'=>'title', 'order'=>'ASC','p' => $p));
 			if ($r->have_posts()) :
 				return $r->posts;
 			endif;
@@ -1915,8 +1926,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
-		function get_organizer_info($p = null){
-			$r = new WP_Query(array('post_type' => self::ORGANIZER_POST_TYPE, 'nopaging' => 1, 'post_status' => 'publish', 'ignore_sticky_posts ' => 1,'orderby'=>'title', 'order'=>'ASC', 'p' => $p));
+		function get_organizer_info($p = null, $post_status='publish'){
+			$r = new WP_Query(array('post_type' => self::ORGANIZER_POST_TYPE, 'nopaging' => 1, 'post_status' => $post_status, 'ignore_sticky_posts ' => 1,'orderby'=>'title', 'order'=>'ASC', 'p' => $p));
 			if ($r->have_posts()) :
 				return $r->posts;
 			endif;
@@ -1951,7 +1962,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			
 			$options = '';
 			$style = '';
-			$postId = $post->ID;
+			
+			if(isset($post->ID)){
+				$postId = $post->ID;
+			}else{
+				$postId = 0;
+			}
 			
 				foreach ( $this->metaTags as $tag ) {
 					if ( $postId && $saved ) { //if there is a post AND the post has been saved at least once.
