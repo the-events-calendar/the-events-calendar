@@ -1769,7 +1769,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				
 			if ( wp_is_post_autosave( $postID ) || $post->post_status == 'auto-draft' ||
 						isset($_GET['bulk_edit']) || (isset($_REQUEST['action']) && $_REQUEST['action'] == 'inline-save') ||
-						!$_POST['organizer'] || 
+						!isset($_POST['organizer']) || 
 						($post->post_type != self::POSTTYPE && $postID)) {
 				return;
 			}
@@ -1779,6 +1779,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					//get venue and organizer and publish them
 
 					$pm = get_post_custom($post->ID);
+					
+					remove_action( 'save_post', array( $this, 'publishAssociatedTypes'), 25, 2 );
 					
 					if( isset($pm['_EventVenueID']) && $pm['_EventVenueID'] ){
 						

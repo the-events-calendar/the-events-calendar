@@ -59,8 +59,6 @@ if (!class_exists('TribeEventsAPI')) {
 		public static function saveEventMeta($event_id, $data, $event = null) {
 			$tribe_ecp = TribeEvents::instance();
 
-			$post_status = $data['post_status'];
-			
 			if( isset($data['EventAllDay']) && ( $data['EventAllDay'] == 'yes' || $data['EventAllDay'] == true || !isset($data['EventStartDate'] ) ) ) {
 				$data['EventStartDate'] = TribeDateUtils::beginningOfDay($data['EventStartDate']);
 				$data['EventEndDate'] = TribeDateUtils::endOfDay($data['EventEndDate']);
@@ -87,6 +85,20 @@ if (!class_exists('TribeEventsAPI')) {
 		
 			if( !isset( $data['EventShowMapLink'] ) ) update_post_meta( $event_id, '_EventShowMapLink', 'false' );
 			if( !isset( $data['EventShowMap'] ) ) update_post_meta( $event_id, '_EventShowMap', 'false' );
+
+			if(isset($data['post_status'])){
+				$post_status = $data['post_status'];
+			}else{
+
+		//print_r($data);
+
+				if (isset($data["Organizer"]["OrganizerID"]))
+					$post_status = get_post($data["Organizer"]['OrganizerID'])->post_status;
+
+				if (isset($data['Venue']["VenueID"]))
+					$post_status = get_post($data['Venue']['VenueID'])->post_status;
+				
+			}
 			
 			if (isset($data["Organizer"])) {
 				$data['EventOrganizerID'] = TribeEventsAPI::saveEventOrganizer($data["Organizer"], $event, $post_status);
