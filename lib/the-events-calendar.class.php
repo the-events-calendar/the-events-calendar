@@ -1764,23 +1764,30 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function publishAssociatedTypes( $postID, $post ) {
+			
+			remove_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
+			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
+			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
+			remove_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
 
+			remove_action( 'save_post', array( $this, 'publishAssociatedTypes'), 25, 2 );
+			
 			// Only continue if the post being published is an event
-				
 			if ( wp_is_post_autosave( $postID ) || $post->post_status == 'auto-draft' ||
-						isset($_GET['bulk_edit']) || (isset($_REQUEST['action']) && $_REQUEST['action'] == 'inline-save') ||
-						!isset($_POST['organizer']) || 
+						isset($_GET['bulk_edit']) || (isset($_REQUEST['action']) && $_REQUEST['action'] == 'inline-save') || 
 						($post->post_type != self::POSTTYPE && $postID)) {
 				return;
 			}
+				
+				//echo '$postID='.$postID;
+				
+				global $wpdb;
 				
 				if( isset( $post->post_status ) && $post->post_status == 'publish' ){
 				
 					//get venue and organizer and publish them
 
 					$pm = get_post_custom($post->ID);
-					
-					remove_action( 'save_post', array( $this, 'publishAssociatedTypes'), 25, 2 );
 					
 					if( isset($pm['_EventVenueID']) && $pm['_EventVenueID'] ){
 						
@@ -1796,12 +1803,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 							'post_status' => 'publish',
 						);
 						
-						wp_update_post( $venue_post );
+						//wp_update_post( $venue_post );
+						$sql = "UPDATE $wpdb->posts SET post_status = 'publish' WHERE ID = '".intval($venue_id)."' AND post_type = '".TribeEvents::VENUE_POST_TYPE."' AND post_status != 'publish'";
+						$wpdb->query($sql);
 						
 					}
 	
 					if( isset($pm['_EventOrganizerID']) && $pm['_EventOrganizerID'] ){
-						remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );	
 						
 						if( is_array($pm['_EventOrganizerID']) ){
 							$org_id = current($pm['_EventOrganizerID']);
@@ -1815,7 +1823,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 							'post_status' => 'publish',
 						);
 
-						wp_update_post( $org_post );
+						//wp_update_post( $org_post );
+						$sql = "UPDATE $wpdb->posts SET post_status = 'publish' WHERE ID = '".intval($org_id)."' AND post_type = '".TribeEvents::ORGANIZER_POST_TYPE."' AND post_status != 'publish'";
+						$wpdb->query($sql);
 					}
 				}
 				
@@ -1862,7 +1872,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		//** If you are saving a new organizer along with the event, we will do this:
 		public function save_organizer_data( $postID = null, $post=null ) {
 			global $_POST;
-
+			
 			// don't do anything on autosave or auto-draft either or massupdates
 			// Or inline saves, or data being posted without a organizer Or
 			// finally, called from the save_post action, but on save_posts that
