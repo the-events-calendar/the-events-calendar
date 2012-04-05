@@ -232,7 +232,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( "wp_ajax_tribe_event_validation", array($this,'ajax_form_validate') );
 			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
 			
-			if(TRIBE_SHOW_EVENT_AUDITING)
+			if( defined('TRIBE_SHOW_EVENT_AUDITING') && TRIBE_SHOW_EVENT_AUDITING )
 				add_action('tribe_events_details_bottom', array($this,'showAuditingData') );
 				
 			// noindex grid view
