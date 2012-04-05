@@ -231,6 +231,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( "trash_" . TribeEvents::ORGANIZER_POST_TYPE, array($this, 'cleanupPostOrganizers'));
 			add_action( "wp_ajax_tribe_event_validation", array($this,'ajax_form_validate') );
 			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
+			
+			if(TRIBE_SHOW_EVENT_AUDITING)
+				add_action('tribe_events_details_bottom', array($this,'showAuditingData') );
+				
 			// noindex grid view
 			add_action('wp_head', array( $this, 'noindex_months' ) );
 			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
@@ -1722,6 +1726,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 				update_post_meta( $postId, $post_type . 'Origin', apply_filters( 'post-origin', 'events-calendar' ) );
 			}
+		}
+
+		public function showAuditingData(){
+
+			$events_audit_trail_template = $this->pluginPath . 'admin-views/events-audit-trail.php';
+			$events_audit_trail_template = apply_filters('tribe_events_audit_trail_template', $events_audit_trail_template);
+			include( $events_audit_trail_template );
+		
 		}
 
 		/**
