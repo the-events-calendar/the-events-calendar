@@ -30,7 +30,7 @@ if( is_admin() ){
 	
 	foreach( $audit_trail as $at ){
 	
-		$audit_trail_display .= date('Y-m-d h:i:s', $at[1]) .' : '. $at[0].'<br>';
+		$audit_trail_display .= date('Y-m-d g:i:s a', $at[1]) .' : '. $at[0].'<br>';
 	
 	}
 	
