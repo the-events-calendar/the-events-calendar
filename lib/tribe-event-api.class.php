@@ -37,7 +37,7 @@ if (!class_exists('TribeEventsAPI')) {
 		 * Update an existing event
 		 */
 		public static function updateEvent( $eventId, $args ) {
-			$args['ID'] == $eventId;
+			$args['ID'] = $eventId;
 		
 			if(wp_update_post($args)) {
 				TribeEventsAPI::saveEventMeta($eventId, $args, get_post( $eventId ) );
