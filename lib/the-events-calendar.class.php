@@ -2146,7 +2146,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$saved = true;
 			
 				foreach ( $this->venueTags as $tag ) {
-					if ( $postId && $saved ) { //if there is a post AND the post has been saved at least once.
+					if ( $postId && isset( $saved ) && $saved ) { //if there is a post AND the post has been saved at least once.
 						$$tag = esc_html(get_post_meta( $postId, $tag, true ));
 					} else {
 						$cleaned_tag = str_replace('_Venue','',$tag);
