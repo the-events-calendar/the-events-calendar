@@ -572,7 +572,6 @@ if (!class_exists('TribeEventsViewHelpers')) {
 				$year = $current_year - $i;
 				$years[] = $year;
 			}
-			$years[] = $current_year;
 			for ($i = 0; $i <= $years_forward; $i++) {
 				$year = $current_year + $i;
 				$years[] = $year;
