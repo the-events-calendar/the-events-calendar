@@ -211,9 +211,11 @@ if ( class_exists('TribeEvents') ) {
 	}
 
 	/* SP Template Tags.  Deprecated in favor of return tribe_ */
-	function sp_get_option($optionName, $default = '') {
-		_deprecated_function( __FUNCTION__, '2.0', 'tribe_get_option()' );
-		return tribe_get_option($optionName, $default);
+	if ( !function_exists( 'sp_get_option' ) ) {
+		function sp_get_option($optionName, $default = '') {
+			_deprecated_function( __FUNCTION__, '2.0', 'tribe_get_option()' );
+			return tribe_get_option($optionName, $default);
+		}
 	}
 
 	function sp_calendar_grid() {
