@@ -208,6 +208,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events'), null, 2);
 			
 			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
+		
+			/* If an affiliate file with link filters exists, include it here */
+			if ( file_exists( get_theme_root() . '/tribe_affiliate_data.php' ) )
+				include_once( get_theme_root() . '/tribe_affiliate_data.php' );
 		}
 
 		protected function addActions() {
