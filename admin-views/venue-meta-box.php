@@ -42,9 +42,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			foreach ($countries as $abbr => $fullname) {
 				echo '<option value="' . esc_attr($fullname) . '" ';
 
-				if($abbr == '')
-					echo "disabled='disabled' ";
-
 				selected(($current == $fullname));
 
 				echo '>' . esc_html($fullname) . '</option>';
