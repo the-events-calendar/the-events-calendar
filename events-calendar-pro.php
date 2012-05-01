@@ -151,40 +151,54 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
          add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __('Organizers','tribe-events-calendar-pro'), __('Organizers','tribe-events-calendar-pro'), 'edit_posts', 'edit.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE);
       }
 
-      public function displayEventVenueDropdown($postId) {
-         $VenueID = get_post_meta( $postId, '_EventVenueID', true);
-         $defaultsEnabled = tribe_get_option('defaultValueReplace');
-         if (!$VenueID && $defaultsEnabled) {
-         	$VenueID = tribe_get_option('eventsDefaultVenueID');
-         }
-         $VenueID = apply_filters('tribe_display_event_venue_dropdown_id',$VenueID);
-         ?>
-			<tr class="">
-				<td style="width:170px"><?php _e('Use Saved Venue:','tribe-events-calendar-pro'); ?></td>
-				<td>
-					<?php $this->saved_venues_dropdown($VenueID);?>
-				</td>
-			</tr>
-         <?php
-      }
+    /**
+     * Displays the saved venue dropdown
+     *
+     * @since 2.0
+     * @param mixed $current the current saved venue
+     * @param string $name the name value for the field
+     */
+		function saved_venues_dropdown( $current = null, $name = 'venue[VenueID]' ){
+			$venues = TribeEvents::instance()->get_venue_info();
+			if ( $venues ) {
+				echo '<select class="chosen venue-dropdown" name="' . esc_attr( $name ) . '" id="saved_venue">';
+				echo '<option value="0">' . __( 'Use New Venue' ,  'tribe-events-calendar-pro' ) . '</option>';
+				foreach ( $venues as $venue ) {
+					$venue_title = wp_kses( get_the_title( $venue->ID ), array() );
+					echo '<option data-address="' . esc_attr( TribeEvents::instance()->fullAddressString( $venue->ID ) ) . '" value="' . esc_attr( $venue->ID ) .'"';
+					selected( ($current == $venue->ID) );
+					echo '>' . $venue_title . '</option>';
+				}
+				echo '</select>';
+			} else {
+				echo '<p class="nosaved">' . __( 'No saved venues yet.', 'tribe-events-calendar-pro' ) . '</p>';
+			}
+		}
 
-      public function displayEventOrganizerDropdown($postId) {
-	     $curOrg = get_post_meta( $postId, '_EventOrganizerID', true);
-         $defaultsEnabled = tribe_get_option('defaultValueReplace');
-		 if (!$curOrg && $defaultsEnabled) {
-         	$curOrg = tribe_get_option('eventsDefaultOrganizerID');
-         }
-         $curOrg = apply_filters('tribe_display_event_organizer_dropdown_id',$curOrg);
+    /**
+     * Displays the saved organizer dropdown
+     *
+     * @since 2.0
+     * @param mixed $current the current saved venue
+     * @param string $name the name value for the field
+     */
+		function saved_organizers_dropdown( $current = null, $name = 'organizer[OrganizerID]' ){
+			$organizers = TribeEvents::instance()->get_organizer_info();
+			if ( $organizers ) {
+				echo '<select class="chosen organizer-dropdown" name="' . esc_attr( $name ) . '" id="saved_organizer">';
+				echo '<option value="0">' . __( 'Use New Organizer' ,  'tribe-events-calendar-pro' ) . '</option>';
+				foreach ( $organizers as $organizer ) {
+					$organizer_title = wp_kses( get_the_title( $organizer->ID ), array() );
+					echo '<option value="' . esc_attr( $organizer->ID ) .'"';
+					selected( ($current == $organizer->ID) );
+					echo '>' . $organizer_title . '</option>';
+				}
+				echo '</select>';
+			} else {
+				echo '<p class="nosaved">' . __( 'No saved organizers yet.', 'tribe-events-calendar-pro' ) . '</p>';
+			}
+		}
 
-         ?>
-			<tr class="" >
-				<td style="width:170px"><?php _e('Use Saved Organizer:', 'tribe-events-calendar-pro'); ?></td>
-				<td>
-					<?php $this->saved_organizers_dropdown($curOrg);?>
-				</td>
-			</tr>
-         <?php
-      }
 
     /**
      * Add the default settings tab
