@@ -166,7 +166,7 @@ if (!class_exists('TribeEventsAdminList')) {
 		public static function column_headers( $columns ) {
 			global $tribe_ecp;
 
-			foreach ( $columns as $key => $value ) {
+			foreach ( (array) $columns as $key => $value ) {
 				$mycolumns[$key] = $value;
 				if ( $key =='author' )
 					$mycolumns['events-cats'] = __( 'Event Categories', 'tribe-events-calendar' );
