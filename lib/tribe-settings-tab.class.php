@@ -1,10 +1,9 @@
 <?php
 
 // Don't load directly
-if ( !defined('ABSPATH') ) die('-1');
+if ( !defined( 'ABSPATH' ) ) die( '-1' );
 
-if ( !class_exists('TribeSettingsTab') ) {
-
+if ( !class_exists( 'TribeSettingsTab' ) ) {
 	/**
 	 * helper class that creates a settings tab
 	 * this is a public API, use it to create tabs
@@ -49,7 +48,7 @@ if ( !class_exists('TribeSettingsTab') ) {
 		 * @param array $args additional arguments for the tab
 		 * @return void
 		 */
-		public function __construct($id, $name, $args = array()) {
+		public function __construct( $id, $name, $args = array() ) {
 
 			// seetup the defaults
 			$this->defaults = array(
@@ -60,19 +59,19 @@ if ( !class_exists('TribeSettingsTab') ) {
 			);
 
 			// parse args with defaults and extract them
-			$args = wp_parse_args($args, $this->defaults);
-			extract($args);
+			$args = wp_parse_args( $args, $this->defaults );
+			extract( $args );
 
 			// set each instance variable and filter
 			$this->id = apply_filters( 'tribe_settings_tab_id', $id );
 			$this->name = apply_filters( 'tribe_settings_tab_name', $name );
-			foreach ($this->defaults as $key => $value) {
+			foreach ( $this->defaults as $key => $value ) {
 				$this->{$key} = apply_filters( 'tribe_settings_tab_'.$key, $$key );
 			}
 
 
 			// run actions & filters
-			add_filter('tribe_settings_tabs', array($this, 'addTab'), $priority );
+			add_filter( 'tribe_settings_tabs', array( $this, 'addTab' ), $priority );
 
 		}
 
@@ -86,12 +85,12 @@ if ( !class_exists('TribeSettingsTab') ) {
 		 * @param array $tabs the $tabs from TribeSettings
 		 * @return array $tabs the filtered tabs
 		 */
-		public function addTab($tabs) {
-			if ( !empty($this->fields) || has_action('tribe_settings_content_tab_'.$this->id) ) {
+		public function addTab( $tabs ) {
+			if ( !empty( $this->fields ) || has_action( 'tribe_settings_content_tab_' . $this->id ) ) {
 				$tabs[$this->id] = $this->name;
-				add_filter('tribe_settings_fields', array($this, 'addFields') );
-				add_filter('tribe_settings_no_save_tabs', array($this, 'showSaveTab') );
-				add_filter('tribe_settings_content_tab_'.$this->id, array($this, 'doContent') );
+				add_filter( 'tribe_settings_fields', array( $this, 'addFields' ) );
+				add_filter( 'tribe_settings_no_save_tabs', array( $this, 'showSaveTab' ) );
+				add_filter( 'tribe_settings_content_tab_'.$this->id, array( $this, 'doContent' ) );
 			}
 			return $tabs;
 		}
@@ -105,11 +104,12 @@ if ( !class_exists('TribeSettingsTab') ) {
 		 * @param array $field the $fields from TribeSettings
 		 * @return array $fields the filtered fields
 		 */
-		public function addFields($fields) {
-			if ( !empty($this->fields) )
+		public function addFields( $fields ) {
+			if ( !empty ($this->fields ) ) {
 				$fields[$this->id] = $this->fields;
-			elseif ( has_action('tribe_settings_content_tab_'.$this->id) )
-				$fields[$this->id] = $this->fields = array(0 => null); // just to trick it
+			} elseif ( has_action( 'tribe_settings_content_tab_' . $this->id ) ) {
+				$fields[$this->id] = $this->fields = array( 0 => null ); // just to trick it
+			}
 			return $fields;
 		}
 
@@ -122,8 +122,8 @@ if ( !class_exists('TribeSettingsTab') ) {
 		 * @param array $noSaveTabs the $noSaveTabs from TribeSettings
 		 * @return array $noSaveTabs the filtered non saving tabs
 		 */
-		public function showSaveTab($noSaveTabs) {
-			if ( !$this->show_save || empty($this->fields) )
+		public function showSaveTab( $noSaveTabs ) {
+			if ( !$this->show_save || empty( $this->fields ) )
 				$noSaveTabs[$this->id] = $this->id;
 			return $noSaveTabs;
 		}
@@ -136,63 +136,51 @@ if ( !class_exists('TribeSettingsTab') ) {
 		 * @return void
 		 */
 		public function doContent() {
+			if ( $this->display_callback && function_exists( $this->display_callback ) ) {
+				call_user_func( $this->display_callback ); return;
+			}
 
-			if ( $this->display_callback && function_exists($this->display_callback) )
-				call_user_func($this->display_callback);
+			$sent_data = get_option( 'tribe_settings_sent_data', array() );
 
-			if (is_array($this->fields) && !empty($this->fields) ) {
-				foreach ($this->fields as $key => $field) {
-
-					if ( isset($_POST[$key]) ) {
-
+			if ( is_array( $this->fields ) && !empty( $this->fields ) ) {
+				foreach ( $this->fields as $key => $field ) {
+					if ( isset( $sent_data[$key] ) ) {
 						// if we just saved [or attempted to], get the value that was inputed
-						$value = $_POST[$key];
-
+						$value = $sent_data[$key];
 					} else {
-
 						// get the field's parent_option in order to later get the field's value
-						$parent_option = ( isset($field['parent_option']) ) ? $field['parent_option'] : TribeEvents::OPTIONNAME;
-						$parent_option = apply_filters('tribe_settings_do_content_parent_option', $parent_option, $key);
-						$default = ( isset($field['default']) )  ? $field['default'] : null;
-						$default = apply_filters('tribe_settings_field_default', $default, $field);
+						$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : TribeEvents::OPTIONNAME;
+						$parent_option = apply_filters( 'tribe_settings_do_content_parent_option', $parent_option, $key );
+						$default = ( isset( $field['default'] ) ) ? $field['default'] : null;
+						$default = apply_filters( 'tribe_settings_field_default', $default, $field );
 
 						if ( !$parent_option ) {
-
 							// no parent option, get the straight up value
-							$value = get_option($key, $default);
-
+							$value = get_option( $key, $default );
 						} else {
 							// there's a parent option
-
-							if ($parent_option == TribeEvents::OPTIONNAME) {
+							if ( $parent_option == TribeEvents::OPTIONNAME ) {
 								// get the options from TribeEvents if we're getting the main array
-								$value = TribeEvents::getOption($key, $default);
+								$value = TribeEvents::getOption( $key, $default );
 							} else {
 								// else, get the parent option normally
-								$options = (array) get_option($parent_option);
-								$value = ( isset($options[$key]) ) ? $options[$key] : $default;
+								$options = (array) get_option( $parent_option );
+								$value = ( isset( $options[$key] ) ) ? $options[$key] : $default;
 							}
-
 						}
-
 					}
 
 					// filter the value
-					$value = apply_filters('tribe_settings_get_option_value_pre_display', $value, $key, $field);
+					$value = apply_filters( 'tribe_settings_get_option_value_pre_display', $value, $key, $field );
 
 					// create the field
-					new TribeField($key, $field, $value);
-
+					new TribeField( $key, $field, $value );
 				}
 			} else {
-
 				// no fields setup for this tab yet
-				echo '<p>'.__('There are no fields setup for this tab yet.', 'tribe-events-calendar').'</p>';
+				echo '<p>' . __( 'There are no fields setup for this tab yet.', 'tribe-events-calendar' ) . '</p>';
 			}
-
 		}
 
-
 	} // end class
-
 } // endif class_exists
