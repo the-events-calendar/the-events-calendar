@@ -434,45 +434,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
       /**
-       * Creates the venue dropdown
-       */
-		function saved_venues_dropdown($current = null, $name="venue[VenueID]"){
-			$venues = TribeEvents::instance()->get_venue_info();
-	
-			if($venues){
-				echo '<select class="chosen venue-dropdown" name="'.$name.'" id="saved_venue">';
-					echo '<option value="0">' . __("Use New Venue", 'tribe-events-calendar-pro') . '</option>';
-				foreach($venues as $venue){
-					$selected = ($current == $venue->ID) ? 'selected="selected"' : '';
-               $venue_title = strlen($venue->post_title) > 70 ? substr($venue->post_title, 0, 67) . '...' : $venue->post_title;
-					echo "<option data-address='" . esc_attr(TribeEvents::instance()->fullAddressString($venue->ID)) . "' value='{$venue->ID}' $selected>{$venue_title}</option>";
-				}
-				echo '</select>';
-			}else{
-				echo '<p class="nosaved">'.__('No saved venues yet.','tribe-events-calendar-pro').'</p>';
-			}
-		}
-
-      /**
-       * Creates the organizer dropdown
-       */
-		function saved_organizers_dropdown($current = null, $name="organizer[OrganizerID]"){
-			$organizers = TribeEvents::instance()->get_organizer_info();
-			if($organizers){
-				echo '<select class="chosen organizer-dropdown" name="'.$name.'" id="saved_organizer">';
-					echo '<option value="0">' . __('Use New Organizer', 'tribe-events-calendar-pro') . '</option>';
-				foreach($organizers as $organizer){
-					$selected = ($current == $organizer->ID) ? 'selected="selected"' : '';
-					echo "<option value='{$organizer->ID}' $selected>{$organizer->post_title}</option>";
-				}
-				echo '</select>';
-			}else{
-				echo '<p class="nosaved_organizer">'.__('No saved organizers yet.','tribe-events-calendar-pro').'</p>';
-			}
-		}
-
-
-      /**
        * Add meta links on the plugin page
        */
 		public function addMetaLinks( $links, $file ) {
