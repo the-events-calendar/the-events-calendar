@@ -5,7 +5,7 @@ Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.1
 Tested up to: 3.4-alpha
-Stable tag: 2.0.5
+Stable tag: 2.0.6
 
 == Description ==
 
@@ -134,6 +134,20 @@ Our Premium Plugins:
 
 
 == Changelog ==
+
+= 2.0.6 =
+
+**Small features, UX and Content Tweaks:**
+
+* Adjusted the Settings API so it now saves on page load and then redirects back to the page
+* add_cap()s are now wrapped in an if-statement
+* Added proper indentation and spacing to the Events Calendar PRO source files
+
+**Bug Fixes:**
+
+* Additional fields no longer wiped when saving changes to events/settings pages
+* Plugin now removes newlines and carriage returns in the process of saving line-separated options for custom links
+* Reviewed/improved $_POST and $_GET variables after a security audit to make sure they're sanitized before output/saving to the database (to prevent mySQL injects and/or cross-site scripting vulnerabilities)
 
 = 2.0.5 =
 
