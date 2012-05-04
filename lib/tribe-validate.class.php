@@ -121,6 +121,22 @@ if ( !class_exists( 'TribeValidate' ) ) {
 		}
 
 		/**
+		 * validates a field as a string containing only letters and numbers
+		 *
+		 * @since 2.0.7
+		 * @author jkudish
+		 * @return stdClass validation result object
+		 */
+		public function alpha_numeric() {
+			if ( preg_match( '/^[a-zA-Z0-9]+$/', $this->value ) ) {
+				$this->result->valid = true;
+			} else {
+				$this->result->valid = false;
+				$this->result->error = sprintf( __( '%s must contain numbers and letters only', 'tribe-events-calendar' ), $this->label );
+			}
+		}
+
+		/**
 		 * validates a field as being positive integers
 		 *
 		 * @since 2.0.5
