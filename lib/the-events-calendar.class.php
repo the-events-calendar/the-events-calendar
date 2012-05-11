@@ -1737,7 +1737,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				//only set origin once
 				$origin = get_post_meta($postId , $post_type . 'Origin', true);
 				if( !$origin )
-					add_post_meta( $postId, $post_type . 'Origin', apply_filters( 'post-origin', 'events-calendar', $postID, $post_type ) );
+					add_post_meta( $postId, $post_type . 'Origin', apply_filters( 'post-origin', 'events-calendar', $postID, $post ) );
 			}
 		}
 
