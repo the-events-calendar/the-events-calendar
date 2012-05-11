@@ -396,6 +396,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 				}
 			}
 
+			do_action( 'tribe_settings_after_save' );
 			remove_action( 'shutdown', array( $this, 'deleteOptions' ) );
 			add_option( 'tribe_settings_sent_data', $_POST );
 			add_option( 'tribe_settings_errors', $this->errors );
