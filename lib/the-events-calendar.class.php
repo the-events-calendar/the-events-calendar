@@ -1733,12 +1733,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				} else {
 					return;
 				}
-				
+
 				//only set origin once
 				$origin = get_post_meta($postId , $post_type . 'Origin', true);
 				if( !$origin )
-					update_post_meta( $postId, $post_type . 'Origin', apply_filters( 'post-origin', 'events-calendar' ) );
-				
+					add_post_meta( $postId, $post_type . 'Origin', apply_filters( 'post-origin', 'events-calendar', $postID, $post_type ) );
 			}
 		}
 
