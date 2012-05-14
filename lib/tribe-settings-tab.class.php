@@ -170,6 +170,13 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 						}
 					}
 
+					// escape the value for display
+					if ( !empty( $field['esc_display'] ) && function_exists( $field['esc_display'] ) ) {
+						$value = $field['esc_display']( $value );
+					} elseif ( is_string( $value ) ) {
+						$value = esc_attr( stripslashes( $value ) );
+					}
+
 					// filter the value
 					$value = apply_filters( 'tribe_settings_get_option_value_pre_display', $value, $key, $field );
 

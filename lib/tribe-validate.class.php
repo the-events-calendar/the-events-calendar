@@ -377,11 +377,12 @@ if ( !class_exists( 'TribeValidate' ) ) {
 		 * @return stdClass validation result object
 		 */
 		public function address() {
-			if ( preg_match( '/^[a-zA-Z0-9- ]+$/', $this->value ) ) {
+			$this->value = stripslashes( $this->value );
+			if ( preg_match( "/^[0-9a-zA-Z '-]+$/", $this->value ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __( '%s must consist of letters, numbers, dashes, and spaces only.', 'tribe-events-calendar' ), $this->label );
+				$this->result->error = sprintf( __( '%s must consist of letters, numbers, dashes, apostrophes, and spaces only.', 'tribe-events-calendar' ), $this->label );
 			}
 		}
 
@@ -394,11 +395,12 @@ if ( !class_exists( 'TribeValidate' ) ) {
 		 * @return stdClass validation result object
 		 */
 		public function city_or_province() {
-			if ( preg_match( '/^[a-zA-Z- ]+$/', $this->value ) ) {
+				$this->value = stripslashes( $this->value );
+			if ( preg_match( "/^[a-zA-Z '-]+$/", $this->value ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __( '%s must consist of letters, spaces, and dashes.', 'tribe-events-calendar' ), $this->label );
+				$this->result->error = sprintf( __( '%s must consist of letters, spaces, apostrophes, and dashes.', 'tribe-events-calendar' ), $this->label );
 			}
 		}
 

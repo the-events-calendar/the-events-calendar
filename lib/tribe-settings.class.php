@@ -349,7 +349,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 			 * (in that case, it's a serialized option array and
 			 * will be saved in the next loop)
 			 */
-			if ( isset( $this->validated ) && is_array( $this->validated ) ) {
+			if ( !empty( $this->validated ) ) {
 				foreach ( $this->validated as $field_id => $validated_field ) {
 					// get the value and filter it
 					$value = $validated_field->value;
