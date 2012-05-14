@@ -364,7 +364,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( !empty($bad_versions) ) {
 				$output .= '<div class="error">';
 				foreach ($bad_versions as $plugin => $version) {
-					$output .= '<p>'.sprintf( __('Your version of %s requires version %s or higher of The Events Calendar (you are currently running %s). Visit %shelp%s for more information.', 'tribe-events-calendar'), $plugin, $version, self::VERSION, '<a href="http://shylock.local/moderntribe/wp-admin/options-general.php?page=tribe-settings&tab=help">', '</a>' ).'</p>';
+					$output .= '<p>'.sprintf( __('Your version of %s requires version %s or higher of The Events Calendar (you are currently running %s). Visit %shelp%s for more information.', 'tribe-events-calendar'), $plugin, $version, self::VERSION, '<a href="' . add_query_arg( array( 'page' => 'tribe-settings', 'tab' => 'help' ), admin_url( 'options-general.php' ) ) . '">', '</a>' ).'</p>';
 				}
 				$output .= '</div>';
 			}
