@@ -817,7 +817,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			register_taxonomy( self::TAXONOMY, self::POSTTYPE, array(
 				'hierarchical' => true,
 				'update_count_callback' => '',
-				'rewrite' => array('slug'=> $this->taxRewriteSlug),
+				'rewrite' => array( 'slug'=> $this->taxRewriteSlug, 'with_front' => false ),
 				'public' => true,
 				'show_ui' => true,
 				'labels' => $this->taxonomyLabels,
