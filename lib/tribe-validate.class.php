@@ -154,6 +154,23 @@ if ( !class_exists( 'TribeValidate' ) ) {
 		}
 
 		/**
+		 * validates a field as a string containing only letters,
+		 * numbers, dots and carriage returns
+		 *
+		 * @since 2.0.7
+		 * @author jkudish
+		 * @return stdClass validation result object
+		 */
+		public function alpha_numeric_multi_line_with_dots() {
+			if ( preg_match( '/^[a-zA-Z0-9\s.]+$/', $this->value ) ) {
+				$this->result->valid = true;
+			} else {
+				$this->result->valid = false;
+				$this->result->error = sprintf( __( '%s must contain numbers, letters and dots only', 'tribe-events-calendar' ), $this->label );
+			}
+		}
+
+		/**
 		 * validates a field as being positive integers
 		 *
 		 * @since 2.0.5
