@@ -20,6 +20,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <div id='eventDetails' class="inside eventForm bubble">
    <?php $this->do_action('tribe_events_detail_top', $postId, true) ?>
 	<?php wp_nonce_field( TribeEvents::POSTTYPE, 'ecp_nonce' ); ?>
+	<?php do_action('tribe_events_eventform_top', $postId); ?>
 	<table cellspacing="0" cellpadding="0" id="EventInfo">
 		<tr>
 			<td colspan="2" class="tribe_sectionheader"><h4 class="event-time"><?php _e('Event Time &amp; Date', 'tribe-events-calendar'); ?></h4></td>
