@@ -147,6 +147,7 @@ if ( !class_exists( 'TribeValidate' ) ) {
 		public function alpha_numeric_multi_line() {
 			if ( preg_match( '/^[a-zA-Z0-9\s]+$/', $this->value ) ) {
 				$this->result->valid = true;
+				$this->value = tribe_multi_line_remove_empty_lines( $this->value );
 			} else {
 				$this->result->valid = false;
 				$this->result->error = sprintf( __( '%s must contain numbers and letters only', 'tribe-events-calendar' ), $this->label );
@@ -164,6 +165,7 @@ if ( !class_exists( 'TribeValidate' ) ) {
 		public function alpha_numeric_multi_line_with_dots() {
 			if ( preg_match( '/^[a-zA-Z0-9\s.]+$/', $this->value ) ) {
 				$this->result->valid = true;
+				$this->value = tribe_multi_line_remove_empty_lines( $this->value );
 			} else {
 				$this->result->valid = false;
 				$this->result->error = sprintf( __( '%s must contain numbers, letters and dots only', 'tribe-events-calendar' ), $this->label );

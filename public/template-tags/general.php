@@ -302,5 +302,18 @@ if( class_exists( 'TribeEvents' ) ) {
 		}
 	}
 
+	/**
+	 * helper function to remove empty lines from multi-line strings
+	 *
+	 * @since 2.0.5
+	 * @author jkudish
+	 * @link http://stackoverflow.com/questions/709669/how-do-i-remove-blank-lines-from-text-in-php
+	 * @param string $multi_line_string a multiline string
+	 * @return string the same string without empty lines
+	 */
+	function tribe_multi_line_remove_empty_lines( $multi_line_string ) {
+		return preg_replace( "/^\n+|^[\t\s]*\n+/m", '', $multi_line_string );
+	}
+
 }
 ?>
