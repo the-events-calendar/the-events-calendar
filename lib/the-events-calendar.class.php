@@ -251,7 +251,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// add-on compatibility
 			add_action( 'admin_notices', array( $this, 'checkAddOnCompatibility' ) );
 			
-			add_action( 'wp_before_admin_bar_render', array( $this, 'addToolbarItems' ) );
+			add_action( 'wp_before_admin_bar_render', array( $this, 'addToolbarItems' ), 10 );
 		}
 
 		public static function ecpActive( $version = '2.0.7' ) {
@@ -2543,11 +2543,26 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				'href' => $this->getLink( 'home' )
 			) );
 			
+			$wp_admin_bar->add_group( array(
+				'id' => 'tribe-events-group',
+				'parent' => 'tribe-events'
+			) );
+			
+			$wp_admin_bar->add_group( array(
+				'id' => 'tribe-events-add-ons-group',
+				'parent' => 'tribe-events'
+			) );
+			
+			$wp_admin_bar->add_group( array(
+				'id' => 'tribe-events-settings-group',
+				'parent' => 'tribe-events'
+			) );
+			
 			$wp_admin_bar->add_menu( array(
 				'id' => 'tribe-events-view-calendar',
 				'title' => __( 'View Calendar', 'tribe-events-calendar' ),
 				'href' => $this->getLink( 'home' ),
-				'parent' => 'tribe-events'
+				'parent' => 'tribe-events-group'
 			) );
 			
 			if( current_user_can( 'edit_tribe_events' ) ) {
@@ -2555,7 +2570,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					'id' => 'tribe-events-add-event',
 					'title' => __( 'Add Event', 'tribe-events-calendar' ),
 					'href' => trailingslashit( get_admin_url() ) . 'post-new.php?post_type=' . self::POSTTYPE,
-					'parent' => 'tribe-events'
+					'parent' => 'tribe-events-group'
 				) );
 			}
 			
@@ -2564,16 +2579,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					'id' => 'tribe-events-edit-events',
 					'title' => __( 'Edit Events', 'tribe-events-calendar' ),
 					'href' => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE,
-					'parent' => 'tribe-events'
+					'parent' => 'tribe-events-group'
 				) );
 			}
-			
+						
 			if ( current_user_can( 'manage_options' ) ) {			
 				$wp_admin_bar->add_menu( array(
 					'id' => 'tribe-events-settings',
 					'title' => __( 'Settings', 'tribe-events-calendar' ),
 					'href' => trailingslashit( get_admin_url() ) . 'options-general.php?page=tribe-settings',
-					'parent' => 'tribe-events'
+					'parent' => 'tribe-events-settings-group'
 				) );
 			}
 			
@@ -2591,7 +2606,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					'id' => 'tribe-events-help',
 					'title' => __( 'Help', 'tribe-events-calendar' ),
 					'href' => trailingslashit( get_admin_url() ) . 'options-general.php?page=tribe-settings&tab=help',
-					'parent' => 'tribe-events'
+					'parent' => 'tribe-events-settings-group'
 				) );
 			}
 		}
