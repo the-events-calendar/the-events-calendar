@@ -2558,6 +2558,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				'parent' => 'tribe-events'
 			) );
 			
+			$wp_admin_bar->add_group( array(
+				'id' => 'tribe-events-import-group',
+				'parent' => 'tribe-events-add-ons-group'
+			) );
+			
 			$wp_admin_bar->add_menu( array(
 				'id' => 'tribe-events-view-calendar',
 				'title' => __( 'View Calendar', 'tribe-events-calendar' ),
@@ -2580,6 +2585,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					'title' => __( 'Edit Events', 'tribe-events-calendar' ),
 					'href' => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE,
 					'parent' => 'tribe-events-group'
+				) );
+			}
+			
+			if ( current_user_can( 'publish_tribe_events' ) ) {
+				$wp_admin_bar->add_menu( array(
+					'id' => 'tribe-events-import',
+					'title' => __( 'Import', 'tribe-events-calendar' ),
+					'parent' => 'tribe-events-import-group'
 				) );
 			}
 						
