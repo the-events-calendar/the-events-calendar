@@ -1693,7 +1693,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( !wp_verify_nonce( $_POST['ecp_nonce'], TribeEvents::POSTTYPE ) )
 				return;
 	
-			if ( !current_user_can( 'publish_posts' ) )
+			if ( !current_user_can( 'edit_tribe_events' ) )
 				return;
 
 			$_POST['Organizer'] = stripslashes_deep($_POST['organizer']);
@@ -1873,7 +1873,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				return;
 			}
 			
-			if ( !current_user_can( 'publish_posts' ) )
+			if ( !current_user_can( 'edit_tribe_venues' ) )
 				return;					
 
 			//There is a possibility to get stuck in an infinite loop. 
@@ -1914,7 +1914,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				return;
 			}
 			
-			if ( !current_user_can( 'publish_posts' ) )
+			if ( !current_user_can( 'edit_tribe_organizers' ) )
 				return;										
 
 			//There is a possibility to get stuck in an infinite loop. 
