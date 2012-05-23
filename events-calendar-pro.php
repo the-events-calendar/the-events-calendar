@@ -242,7 +242,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	  	public function add_settings_tabs() {
 			require_once( $this->pluginPath . 'admin-views/tribe-options-defaults.php' );
 			new TribeSettingsTab( 'defaults', __( 'Defaults', 'tribe-events-calendar-pro' ), $defaultsTab );
-			new TribeSettingsTab( 'additional-fields', __( 'Additional Fields', 'tribe-events-calendar-pro' ), array( 'fields' => array( 0 ), 'priority' => 35 ) );
+			new TribeSettingsTab( 'additional-fields', __( 'Additional Fields', 'tribe-events-calendar-pro' ), array( 'priority' => 35 ) );
 	  	}
 
 
