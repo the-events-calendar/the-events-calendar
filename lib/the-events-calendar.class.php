@@ -372,7 +372,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( !empty($bad_versions) ) {
 				$output .= '<div class="error">';
 				foreach ($bad_versions as $plugin => $version) {
-					$output .= '<p>'.sprintf( __('Your version of %s requires version %s or higher of The Events Calendar (you are currently running %s). Visit %shelp%s for more information.', 'tribe-events-calendar'), $plugin, $version, self::VERSION, '<a href="' . add_query_arg( array( 'page' => 'tribe-settings', 'tab' => 'help' ), admin_url( 'options-general.php' ) ) . '">', '</a>' ).'</p>';
+					$output .= '<p>'.sprintf( __('Your version of %s requires version %s or higher of The Events Calendar (you are currently running %s). Visit %shelp%s for more information.', 'tribe-events-calendar'), $plugin, $version, self::VERSION, '<a href="' . add_query_arg( array( 'page' => 'tribe-events-calendar', 'tab' => 'help' ), admin_url( 'options-general.php' ) ) . '">', '</a>' ).'</p>';
 				}
 				$output .= '</div>';
 			}
@@ -2600,7 +2600,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$wp_admin_bar->add_menu( array(
 					'id' => 'tribe-events-settings',
 					'title' => __( 'Settings', 'tribe-events-calendar' ),
-					'href' => trailingslashit( get_admin_url() ) . 'options-general.php?page=tribe-settings',
+					'href' => trailingslashit( get_admin_url() ) . 'options-general.php?page=tribe-events-calendar',
 					'parent' => 'tribe-events-settings-group'
 				) );
 			}
@@ -2609,7 +2609,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$wp_admin_bar->add_menu( array(
 					'id' => 'tribe-events-settings-sub',
 					'title' => __( 'Events', 'tribe-events-calendar' ),
-					'href' => trailingslashit( get_admin_url() ) . 'options-general.php?page=tribe-settings',
+					'href' => trailingslashit( get_admin_url() ) . 'options-general.php?page=tribe-events-calendar',
 					'parent' => 'tribe-events-settings'
 				) );
 			}
@@ -2618,7 +2618,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$wp_admin_bar->add_menu( array(
 					'id' => 'tribe-events-help',
 					'title' => __( 'Help', 'tribe-events-calendar' ),
-					'href' => trailingslashit( get_admin_url() ) . 'options-general.php?page=tribe-settings&tab=help',
+					'href' => trailingslashit( get_admin_url() ) . 'options-general.php?page=tribe-events-calendar&tab=help',
 					'parent' => 'tribe-events-settings-group'
 				) );
 			}
