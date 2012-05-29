@@ -21,7 +21,18 @@ $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 
 
 ?>
-<h4 class="cal-header"><?php echo $tribe_ecp->monthsShort[date('M',$date)]; echo date(' Y',$date); ?> <a class="tribe-view-all-events" href="<?php echo tribe_get_events_link(); ?>"><?php _e('View all &raquo;', 'tribe-events-calendar'); ?></a></h4>
+<h4 class="cal-header">
+  <?php echo $tribe_ecp->monthsShort[date('M',$date)]; echo date(' Y',$date); ?>
+</h4>
+  <div class="tribe-events-widget-nav">  
+    <a class="tribe-mini-ajax" href='<?php echo tribe_get_previous_month_link(); ?>'>
+      &#x2190; <?php echo tribe_get_previous_month_text(); ?>
+    </a>
+    <a class="tribe-mini-ajax next-month" href='<?php echo tribe_get_next_month_link(); ?>'>				
+      <?php echo tribe_get_next_month_text(); ?> &#x2192; 
+    </a>
+    <img id="ajax-loading-mini" src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" alt="loading..." />
+  </div>  
 <table class="tribe-events-calendar tribe-events-calendar-widget" id="small">
 	<thead>
 			<tr>
@@ -81,6 +92,9 @@ $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 		</tr>
 	</tbody>
 </table>
+
+<a class="tribe-view-all-events" href="<?php echo tribe_get_events_link(); ?>"><?php _e('View all &raquo;', 'tribe-events-calendar'); ?></a>
+
 <?php
 
 function tribe_mini_display_day( $day, $monthView ) {

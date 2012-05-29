@@ -31,15 +31,9 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @uses load_template()
 	 * @since 2.0
 	 */
-	function tribe_calendar_mini_grid()  {
-		global $wp_query;
-		$old_query = $wp_query;
-
-		$wp_query = NEW WP_Query('post_type='.TribeEvents::POSTTYPE);
+	function tribe_calendar_mini_grid() {
 		set_query_var( 'eventDisplay', 'bydate' );
-		load_template( TribeEventsTemplates::getTemplateHierarchy('table-mini') );
-	
-		$wp_query = $old_query;
+		load_template( TribeEventsTemplates::getTemplateHierarchy( 'table-mini' ) );
 	}
 
 	/**
