@@ -1,0 +1,27 @@
+/* Modified and new calendar widget code for the ajax version */
+
+.events_calendar_widget h4.cal-header {
+	margin:12px 0;
+}
+
+.tribe-events-widget-nav {
+        overflow:auto;
+        width:100%;
+        position:relative;
+}
+
+.tribe-events-widget-nav a {
+        float:left;
+}
+
+.tribe-events-widget-nav a.next-month {
+        float:right;
+}
+
+#ajax-loading-mini {
+        position:absolute;
+        top:50%;
+        left:50%;
+        margin:-8px 0 0 -8px;
+        display:none;
+}
