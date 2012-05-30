@@ -68,29 +68,31 @@ if (!class_exists('TribeEventsQuery')) {
 		}
 
 		public static function setArgsFromDisplayType($query) { 
-         if( !empty($query->query_vars['eventDisplay']) ) {
-            switch ( $query->query_vars['eventDisplay'] ) {
-               case "past":
-                  $query = self::setPastDisplayTypeArgs($query);
-                  break;
-               case "upcoming":
-                  $query = self::setUpcomingDisplayTypeArgs($query);
-                  break;
-               case "day":
-                  $query = self::setDayDisplayTypeArgs($query);
-                  break;
-               case "all":
-                  $query = self::setAllDisplayTypeArgs($query);
-                  break;				
-               case "month":
-                  $query = self::setMonthDisplayTypeArgs($query);				
-            }
-         } else if ( is_single() ) {
+        	if( !empty($query->query_vars['eventDisplay']) ) {
+            	switch ( $query->query_vars['eventDisplay'] ) {
+               		case "past":
+                  		$query = self::setPastDisplayTypeArgs($query);
+                  		break;
+               		case "upcoming":
+                  		$query = self::setUpcomingDisplayTypeArgs($query);
+                  		break;
+               		case "day":
+                  		$query = self::setDayDisplayTypeArgs($query);
+                  		break;
+               		case "all":
+                  		$query = self::setAllDisplayTypeArgs($query);
+                  		break;				
+               		case "month":
+                  		$query = self::setMonthDisplayTypeArgs($query);				
+            	}
+         	} else if ( is_single() ) {
 				$args = &$query->query_vars;
 				if( isset($args['eventDate']) ) {
 					$args['start_date'] = $args['eventDate'];
 					$args['end_date'] = $args['eventDate'];
 				}
+			} else {
+				$query = self::setUpcomingDisplayTypeArgs($query);
 			}
 		
 			return $query;
