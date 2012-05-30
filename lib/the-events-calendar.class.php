@@ -1506,8 +1506,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					return home_url() . '/?ical';
 				case 'single':
 					global $post;
-					$post = $secondary ? $secondary : $post;
-					$link = trailingslashit(get_permalink($post));
+					$p = $secondary ? $secondary : $post;
+					$link = trailingslashit(get_permalink($p));
 					return $link;
 				case 'all':
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );					
