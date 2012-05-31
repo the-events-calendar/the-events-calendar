@@ -188,6 +188,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-the-events-calendar-import.class.php' );
 			require_once( 'tribe-debug-bar.class.php' );
 
+			// App Shop
+			if (!defined("TRIBE_DISABLE_SHOP") || TRIBE_DISABLE_SHOP !== true ){
+				require_once( 'tribe-app-shop.class.php' );
+			}
+
 		}
 
 		protected function addFilters() {
