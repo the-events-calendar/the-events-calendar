@@ -19,20 +19,21 @@ $offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on d
 $rows = 1;
 $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 
+// the div tribe-events-widget-nav controls ajax navigation for the calendar widget. Modify with care and do not remove any class names or elements inside that element if you wish to retain ajax functionality.
 
 ?>
-<h4 class="cal-header">
-  <?php echo $tribe_ecp->monthsShort[date('M',$date)]; echo date(' Y',$date); ?>
-</h4>
-  <div class="tribe-events-widget-nav">  
-    <a class="tribe-mini-ajax" href='<?php echo tribe_get_previous_month_link(); ?>'>
-      &#x2190; <?php echo tribe_get_previous_month_text(); ?>
-    </a>
-    <a class="tribe-mini-ajax next-month" href='<?php echo tribe_get_next_month_link(); ?>'>				
-      <?php echo tribe_get_next_month_text(); ?> &#x2192; 
-    </a>
-    <img id="ajax-loading-mini" src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" alt="loading..." />
-  </div>  
+<div class="tribe-events-widget-nav">  
+  <a class="tribe-mini-ajax prev-month" href="#" data-month="<?php echo $tribe_ecp->previousMonth( tribe_get_month_view_date() );?>" title="<?php echo tribe_get_previous_month_text(); ?>">
+    <span><?php echo tribe_get_previous_month_text(); ?></span>
+  </a>
+  <span id="tribe-mini-ajax-month">
+    <?php echo $tribe_ecp->monthsShort[date('M',$date)]; echo date(' Y',$date); ?>
+  </span>
+  <a class="tribe-mini-ajax next-month" href="#" data-month="<?php echo $tribe_ecp->nextMonth( tribe_get_month_view_date() );?>" title="<?php echo tribe_get_next_month_text(); ?>">
+    <span><?php echo tribe_get_next_month_text(); ?></span> 
+  </a>
+  <img id="ajax-loading-mini" src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" alt="loading..." />
+</div>  
 <table class="tribe-events-calendar tribe-events-calendar-widget" id="small">
 	<thead>
 			<tr>

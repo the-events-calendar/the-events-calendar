@@ -60,6 +60,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_sort_by_month( $results, $date )  {
+		global $post;
+
 		$cutoff_time = tribe_get_option('multiDayCutoff', '12:00');
 		
 		if( preg_match( '/(\d{4})-(\d{2})/', $date, $matches ) ) {
@@ -75,6 +77,8 @@ if( class_exists( 'TribeEvents' ) ) {
 
 
 		foreach ( $results as $event ) {
+			$post = $event;
+
 			$started = false;
 
 			list( $startYear, $startMonth, $startDay ) = explode( '-', $event->EventStartDate );
