@@ -29,7 +29,9 @@
         overflow:hidden;
         background:url(images/mini-ajax-arrow-sprite.png) -16px -16px no-repeat;
 }
-
+.tribe-events-widget-nav a:hover {
+		text-decoration:none;
+}
 .tribe-events-widget-nav a.prev-month {        
         left:0;
 }  
