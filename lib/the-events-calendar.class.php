@@ -418,7 +418,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			new TribeSettingsTab( 'general', __('General', 'tribe-events-calendar'), $generalTab );
 			new TribeSettingsTab( 'template', __('Template', 'tribe-events-calendar'), $templatesTab );
 			new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar'), array('priority' => '40',
-				'fields' => apply_filters('tribe_license_fields', array()) ) );
+				'fields' => apply_filters('tribe_license_fields', null) ) );
 			new TribeSettingsTab( 'help', __('Help', 'tribe-events-calendar'), array('priority' => 60, 'show_save' => false) );
 
 		}
