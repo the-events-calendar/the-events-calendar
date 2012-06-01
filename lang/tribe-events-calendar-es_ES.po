@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: The Events Calendar 2.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-09-09 18:04-0500\n"
-"PO-Revision-Date: 2011-09-16 02:57-0600\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2012-05-08 22:11-0430\n"
+"Last-Translator: Signo Creativo <signodev@signocreativo.com>\n"
 "Language-Team: Modern Tribe, Inc.\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr "Inicia:"
 #: ../views/list.php:46
 #: ../views/single.php:20
 msgid "End:"
-msgstr "Termina:"
+msgstr "Finaliza:"
 
 #: ../views/list.php:54
 #: ../views/single.php:47
@@ -50,7 +50,7 @@ msgstr "Lugar:"
 #: ../views/single.php:51
 #: ../admin-views/venue-meta-box.php:73
 msgid "Phone:"
-msgstr "Telefono:"
+msgstr "Teléfono:"
 
 #: ../views/list.php:69
 #: ../views/single.php:56
@@ -72,20 +72,20 @@ msgstr "Precio:"
 #: ../views/list.php:95
 #, php-format
 msgid " listed under %s. Check out upcoming events for this category or view the full calendar."
-msgstr "listado bajo %s. Ver los eventos futuros para esta categoria  o ver el calendario completo."
+msgstr "listado bajo %s. Ver los eventos por venir para esta categoria  o ver el calendario completo."
 
 #: ../views/list.php:97
 #, php-format
 msgid " listed under %s. Check out past events for this category or view the full calendar."
-msgstr "listado bajo %s. Ver los eventos pasados para esta categoria o ver el calendario completo."
+msgstr "listado bajo %s. Ver los eventos ya realizados bajo esta categoria o ver el calendario completo."
 
 #: ../views/list.php:103
 msgid "No upcoming events"
-msgstr "No hay eventos futuros"
+msgstr "No hay eventos por venir"
 
 #: ../views/list.php:107
 msgid "No previous events"
-msgstr "No hay eventos pasados"
+msgstr "No hay eventos ya finalizados"
 
 #: ../views/list.php:120
 #: ../views/list.php:122
@@ -97,7 +97,7 @@ msgstr "&laquo; Eventos Previos"
 #: ../views/list.php:133
 #: ../views/list.php:135
 msgid "Next Events &raquo;"
-msgstr "Siguientes Eventos &raquo;"
+msgstr "Eventos Siguientes &raquo;"
 
 #: ../views/list.php:140
 #: ../views/gridview.php:42
@@ -115,7 +115,7 @@ msgstr "&laquo; Regresar a Eventos"
 
 #: ../views/single.php:14
 msgid "This event has passed."
-msgstr "Este evento ya paso "
+msgstr "Este evento ya finalizó "
 
 #: ../views/single.php:29
 msgid "Organizer:"
@@ -127,11 +127,11 @@ msgstr "email:"
 
 #: ../views/single.php:41
 msgid "Schedule:"
-msgstr "Horario:"
+msgstr "Programado:"
 
 #: ../views/single.php:58
 msgid "Click to view a Google Map"
-msgstr "Click para ver un Mapa Google"
+msgstr "Click para ver Mapa de Google"
 
 #: ../views/single.php:86
 msgid "Add to Google Calendar"
@@ -143,31 +143,31 @@ msgstr "+ Google Calendar"
 
 #: ../views/events-list-load-widget-display.php:48
 msgid "All Day"
-msgstr "Todo el Dia"
+msgstr "Todo el Día"
 
 #: ../views/events-list-load-widget-display.php:51
 msgid "Ends"
-msgstr "Termina"
+msgstr "Finaliza"
 
 #: ../views/ecp-single-template.php:24
 msgid "Edit"
-msgstr "Editar"
+msgstr "Modificar"
 
 #: ../admin-views/events-meta-box.php:26
 msgid "Event Time &amp; Date"
-msgstr "Tiempo Del Evento &amp; Fecha"
+msgstr "Hora del Evento &amp; Fecha"
 
 #: ../admin-views/events-meta-box.php:29
 msgid "You have changed the recurrence rules of this event.  Saving the event will update all future events.  If you did not mean to change all events, then please refresh the page."
-msgstr "Has cambiando las reglas de repetición de este evento. Guardar el evento actualizará todos los eventos futuros. Si no planeabas cambiar todos los eventos, por favor vuelve a cargar la pagina."
+msgstr "Ha cambiando las reglas de repetición de este evento. Al guardar el evento se actualizaran todos los eventos futuros. Si no planeaba cambiar todos los eventos, por favor vuelve a cargar la pagina."
 
 #: ../admin-views/events-meta-box.php:32
 msgid "All day event?"
-msgstr "¿Evento de todo el dia?"
+msgstr "¿Evento de todo el día?"
 
 #: ../admin-views/events-meta-box.php:36
 msgid "Start Date / Time:"
-msgstr "Fecha / Hora de Inicio"
+msgstr "Fecha / Hora de Inicio:"
 
 #: ../admin-views/events-meta-box.php:39
 #: ../admin-views/events-meta-box.php:60
@@ -181,19 +181,19 @@ msgstr "@"
 
 #: ../admin-views/events-meta-box.php:57
 msgid "End Date / Time:"
-msgstr "Fecha / Hora Termina:"
+msgstr "Fecha / Hora Finaliza:"
 
 #: ../admin-views/events-meta-box.php:79
 msgid "Event Location Details"
-msgstr "Detalles sobre la ubicación del Evento:"
+msgstr "Detalles sobre el lugar del Evento"
 
 #: ../admin-views/events-meta-box.php:83
 msgid "Use Saved Venue:"
-msgstr "Usa Lugar Guardado:"
+msgstr "Usar Lugar Guardado:"
 
 #: ../admin-views/events-meta-box.php:91
 msgid "Show Google Maps Link:"
-msgstr "Mostrar Link De Google Maps:"
+msgstr "Mostrar enlace de Google Maps:"
 
 #: ../admin-views/events-meta-box.php:98
 msgid "Show Google Map:"
@@ -205,7 +205,7 @@ msgstr "Detalles sobre el Organizador del Evento"
 
 #: ../admin-views/events-meta-box.php:110
 msgid "Use Saved Organizer:"
-msgstr "Usar Organizador Guardado:"
+msgstr "Usar Organizador ya Guardado:"
 
 #: ../admin-views/events-meta-box.php:125
 msgid "Event Cost"
@@ -213,7 +213,7 @@ msgstr "Precio del Evento:"
 
 #: ../admin-views/events-meta-box.php:133
 msgid "Leave blank to hide the field. Enter a 0 for events that are free."
-msgstr "Dejar en blanco para esconder. Escribe un 0 para eventos gratuitos."
+msgstr "Dejar en blanco para esconder este campo. Introduzca 0 para eventos gratuitos."
 
 #: ../admin-views/events-meta-box.php:139
 msgid "Additional Functionality"
@@ -221,12 +221,12 @@ msgstr "Funcionalidad Adicional"
 
 #: ../admin-views/events-meta-box.php:144
 msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
-msgstr "¿Buscas funcionalidad adicional incluyendo eventos recurrentes, custom meta, eventos de comunidades, venta de boletos y mas?"
+msgstr "¿Busca funcionalidad adicional incluyendo eventos recurrentes, meta personalizado, eventos de comunidades, venta de boletos y más?"
 
 #: ../admin-views/events-meta-box.php:144
 #, php-format
 msgid "Check out the <a href=\"%s\">available Add-Ons</a>."
-msgstr "Ve los <a href=\"%s\">complementos disponibles</a>."
+msgstr "Vea los <a href=\"%s\">add-ons disponibles</a>."
 
 #: ../admin-views/venue-meta-box.php:12
 msgid "Venue Name:"
@@ -238,7 +238,7 @@ msgstr "Ciudad:"
 
 #: ../admin-views/venue-meta-box.php:27
 msgid "Country:"
-msgstr "Pais:"
+msgstr "País:"
 
 #: ../admin-views/venue-meta-box.php:52
 msgid "State or Province:"
@@ -246,7 +246,7 @@ msgstr "Estado o Provincia:"
 
 #: ../admin-views/venue-meta-box.php:55
 msgid "Select a State:"
-msgstr "Selecciona un Estado:"
+msgstr "Seleccione un Estado:"
 
 #: ../admin-views/venue-meta-box.php:69
 msgid "Postal Code:"
@@ -254,7 +254,7 @@ msgstr "Código Postal:"
 
 #: ../admin-views/recurrence-dialog.php:11
 msgid "Which events do you wish to update?"
-msgstr "¿Cuales eventos te gustaría actualizar?"
+msgstr "¿Cuales eventos desea actualizar?"
 
 #: ../admin-views/recurrence-dialog.php:14
 msgid "Select your desired action"
@@ -267,16 +267,16 @@ msgstr "%s Ajustes"
 
 #: ../admin-views/events-options.php:53
 msgid "Need a hand?"
-msgstr "¿Necesitas ayuda?"
+msgstr "¿Necesita ayuda?"
 
 #: ../admin-views/events-options.php:54
 #, php-format
 msgid "If you're stuck on these options, please <a href=\"%s\">check out the documentation</a>. Or, go to the <a href=\"%s\">support forum</a>."
-msgstr "Si no comprendes estas opciones por favor <a href=\"%s\">ve el manual de ayuda</a>. O, puedes ir al <a href=\"%s\">foro de ayuda</a>."
+msgstr "Si no comprende estas opciones, por favor <a href=\"%s\">consulte la documentación</a>.También puede ir al <a href=\"%s\">foro de ayuda</a>."
 
 #: ../admin-views/events-options.php:56
 msgid "Here is the iCal feed URL for your events: "
-msgstr "Aqui esta el iCal feed URL para tus eventos:"
+msgstr "Aqui está el URL del iCal feed para sus eventos:"
 
 #: ../admin-views/events-options.php:62
 msgid "Settings"
@@ -285,7 +285,7 @@ msgstr "Ajustes"
 #: ../admin-views/events-options.php:65
 #: ../admin-views/events-options.php:69
 msgid "Default View for the Events"
-msgstr "Vista Por Defecto Para Los eventos"
+msgstr "Vista por Defecto para los Eventos"
 
 #: ../admin-views/events-options.php:83
 #: ../admin-views/events-options.php:87
@@ -300,7 +300,7 @@ msgstr "Cierre de Evento Diario"
 
 #: ../admin-views/events-options.php:115
 msgid "For multi-day events, hide the last day from grid view if it ends on or before this time."
-msgstr "Para eventos que se repiten, esconde el último dia del grid view si termina en o antes de esta fecha."
+msgstr "Para eventos que se repiten, esconde el último dia de la vista de grilla si termina a esta hora o antes."
 
 #: ../admin-views/events-options.php:120
 #: ../admin-views/events-options.php:124
@@ -317,20 +317,20 @@ msgstr "Ancho"
 
 #: ../admin-views/events-options.php:131
 msgid "(number or %)"
-msgstr "(numero o %)"
+msgstr "(número o %)"
 
 #: ../admin-views/events-options.php:135
 msgid "If you don't have this turned on, your event listings won't have the backend map preview or frontend embedded map."
-msgstr "Si no tienes esta opción activada, tu lista de eventos no tendra un preview del mapa backend or un mapa pegado en el frontend."
+msgstr "Si no tiene esta opción activada, su lista de eventos no mostrará la vista previa del mapa en el área administrativa ni tampoco colocará el mapa en la página."
 
 #: ../admin-views/events-options.php:143
 #: ../admin-views/events-options.php:147
 msgid "Use Pretty URLs"
-msgstr "usar Pretty URLs"
+msgstr "Usar Pretty URLs"
 
 #: ../admin-views/events-options.php:153
 msgid "Although unlikely, pretty URLs (ie, http://site/events/upcoming) may interfere with custom themes or plugins."
-msgstr "Aunque no es comun, pretty URLs (ie, http://site/events/upcoming) pueden interferir con temas y plugins personalizados."
+msgstr "Aunque no es común, pretty URLs (ie, http://sitio/eventos/proximos) pueden interferir con algunos temas o plugins."
 
 #: ../admin-views/events-options.php:159
 #: ../admin-views/events-options.php:161
@@ -344,21 +344,21 @@ msgstr "El slug usado es para crear los URL de Eventos"
 #: ../admin-views/events-options.php:162
 #, php-format
 msgid "Your current Events URL is <strong>%s</strong>"
-msgstr "El URL de Eventos actual es <strong>%s</strong>"
+msgstr "El URL de Eventos definido es <strong>%s</strong>"
 
 #: ../admin-views/events-options.php:166
 #: ../admin-views/events-options.php:168
 msgid "Single Event URL slug"
-msgstr "Slug URL para evento unico"
+msgstr "Slug URL para evento individual"
 
 #: ../admin-views/events-options.php:169
 msgid "The slug used for building a single Event URL."
-msgstr "El slug usado para construir el URL de Evento Unico."
+msgstr "El slug usado para construir el URL de un Evento individual."
 
 #: ../admin-views/events-options.php:170
 #, php-format
 msgid "<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: <strong>%s</strong>"
-msgstr "<strong>NOTA:</strong> Usted <em>no puede</em> usar el mismo slug de arriba. El de arriba solo puede usarse idealmente como plural, y este es singular.<br /> Tu URL para Evento Unico es como: <strong>%s</strong>"
+msgstr "<strong>NOTA:</strong> Usted <em>no puede</em> usar el mismo slug de arriba. El de arriba preferiblemente deberá ser en plural, y este en singular.<br /> Su URL para Evento un individual es parecida a: <strong>%s</strong>"
 
 #: ../admin-views/events-options.php:175
 #: ../admin-views/events-options.php:177
@@ -372,11 +372,11 @@ msgstr "Debug errores de visualización de Eventos"
 #: ../admin-views/events-options.php:179
 #, php-format
 msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the <a href=\"%s\" target=\"_blank\">Debug Bar Plugin</a> and look for the \"Tribe\" tab in the debug output."
-msgstr "Usa esta opción para hacer un debug log de información. Por defecto, esto se agregara a tu log de errores PHP del servidor. Si le gustaria ver los mensajes del log en tu browser, entonces recomendamos que instales el <a href=\"%s\" target=\"_blank\">Debug Bar Plugin</a> y busques la pestaña \"Tribe\"  en el debug output."
+msgstr "Use esta opción para capturar en una bitácora (log) información para depuración (debug). Por defecto, esto se agregara a tu log de errores PHP del servidor. En caso de quere ver los mensajes del log en el navegador, entonces le recomendamos que instale el <a href=\"%s\" target=\"_blank\">Debug Bar Plugin</a> y busques la pestaña \"Tribe\"  en la pantalla de depuración."
 
 #: ../admin-views/events-options.php:184
 msgid "Theme Settings"
-msgstr "Ajustes del Tema"
+msgstr "Opciones del Tema"
 
 #: ../admin-views/events-options.php:187
 #: ../admin-views/events-options.php:189
@@ -389,25 +389,25 @@ msgstr "Pantilla ECP por Defecto"
 
 #: ../admin-views/events-options.php:192
 msgid "Default Page Template"
-msgstr "Plantilla de Pagina por Defecto"
+msgstr "Plantilla de Página por Defecto"
 
 #: ../admin-views/events-options.php:195
 msgid "Choose a page template to control the look and feel of your calendar."
-msgstr "Escoje una plantilla de pagina para controlar la forma en que se ve el calendario."
+msgstr "Escoja una plantilla de página para controlar la forma en que se verá el calendario."
 
 #: ../admin-views/events-options.php:199
 #: ../admin-views/events-options.php:201
 #: ../admin-views/events-options.php:209
 msgid "Add HTML before calendar"
-msgstr "Agrega HTML antes del calendario"
+msgstr "Agregar HTML antes del calendario"
 
 #: ../admin-views/events-options.php:203
 msgid "Some themes may require that you add extra divs before the calendar list to help with styling."
-msgstr "Algunos temas podrian requerir de agegar divs extras antes de la lista de calendario para ayudar con el diseño."
+msgstr "Algunos temas podrían requerir agegar divs adicionales antes de la lista de calendario para ayudar con el diseño."
 
 #: ../admin-views/events-options.php:203
 msgid "This is displayed directly after the header."
-msgstr "Esto se mostrara directamente despues del header"
+msgstr "Esto se mostrará directamente después del encabezado."
 
 #: ../admin-views/events-options.php:203
 #: ../admin-views/events-options.php:211
@@ -416,15 +416,15 @@ msgstr "Usted puede usar (x)HTML"
 
 #: ../admin-views/events-options.php:207
 msgid "Add HTML after calendar"
-msgstr "Agrega HTML despues del calendario"
+msgstr "Agregar HTML después del calendario"
 
 #: ../admin-views/events-options.php:211
 msgid "Some themes may require that you add extra divs after the calendar list to help with styling."
-msgstr "Algunos temas podrian requierir de agregar divs extras desde de la lista de calendario para ayudar con el diseño."
+msgstr "Algunos temas podrían requierir agregar divs adicionales luego de la lista de calendario para ayudar con el diseño."
 
 #: ../admin-views/events-options.php:211
 msgid "This is displayed directly above the footer."
-msgstr "Esto se mostraba directamente sobre el footer."
+msgstr "Esto se mostrará directamente sobre el pié de página."
 
 #: ../admin-views/events-options.php:220
 msgid "Save Changes"
@@ -432,7 +432,7 @@ msgstr "Guardar Cambios "
 
 #: ../admin-views/widget-admin-list.php:11
 msgid "Title:"
-msgstr "Titulo:"
+msgstr "Título:"
 
 #: ../admin-views/widget-admin-list.php:16
 msgid "Show:"
@@ -440,11 +440,11 @@ msgstr "Mostrar:"
 
 #: ../admin-views/widget-admin-list.php:24
 msgid "Show widget only if there are upcoming events:"
-msgstr "Mostrar El Widget Solo Si Hay Eventos Próximos "
+msgstr "Mostrar El Widget solo si hay eventos programados: "
 
 #: ../admin-views/widget-admin-list.php:30
 msgid "If you wish to customize the widget display yourself, see the file views/events-list-load-widget-display.php inside the Events Premium plugin."
-msgstr "Si desea modificar el widget por si mismo, vea el archivo views/events-list-load-widget-display.php dentro del Events Premium plugin"
+msgstr "Si usted desea modificar el widget, vea el archivo views/events-list-load-widget-display.php dentro del directorio del Events Premium plugin"
 
 #: ../admin-views/organizer-meta-box.php:11
 msgid "Organizer Name:"
@@ -457,7 +457,7 @@ msgstr "Sitio Web:"
 #: ../lib/tribe-admin-events-list.class.php:160
 #: ../lib/the-events-calendar.class.php:523
 msgid "Event Categories"
-msgstr "Categorias de Eventos"
+msgstr "Categorías de Eventos"
 
 #: ../lib/tribe-admin-events-list.class.php:165
 msgid "Start Date"
@@ -465,7 +465,7 @@ msgstr "Fecha de Inicio"
 
 #: ../lib/tribe-admin-events-list.class.php:166
 msgid "End Date"
-msgstr "Fecha que Termina"
+msgstr "Fecha Finaliza"
 
 #: ../lib/tribe-admin-events-list.class.php:167
 msgid "Recurring?"
@@ -479,17 +479,17 @@ msgstr "Todos %s"
 #: ../lib/tribe-view-helpers.class.php:16
 #: ../lib/tribe-view-helpers.class.php:33
 msgid "Select a Country:"
-msgstr "Escoge un Pais:"
+msgstr "Escoga un País:"
 
 #: ../lib/tribe-view-helpers.class.php:34
 #: ../lib/template-tags.php:830
 #: ../lib/template-tags.php:964
 msgid "United States"
-msgstr "United States"
+msgstr "Estados Unidos"
 
 #: ../lib/tribe-view-helpers.class.php:35
 msgid "Afghanistan"
-msgstr "Afghanistan"
+msgstr "Afganistan"
 
 #: ../lib/tribe-view-helpers.class.php:36
 msgid "Albania"
@@ -1659,46 +1659,46 @@ msgstr "The Events Calendar"
 
 #: ../lib/the-events-calendar.class.php:214
 msgid "category"
-msgstr "Categoria"
+msgstr "Categoría"
 
 #: ../lib/the-events-calendar.class.php:215
 msgid "month"
-msgstr "Mes"
+msgstr "mes"
 
 #: ../lib/the-events-calendar.class.php:216
 msgid "upcoming"
-msgstr "Futuro"
+msgstr "próximo"
 
 #: ../lib/the-events-calendar.class.php:217
 msgid "past"
-msgstr "Pasado"
+msgstr "realizado"
 
 #: ../lib/the-events-calendar.class.php:219
 msgid "venue"
-msgstr "Lugar"
+msgstr "lugar"
 
 #: ../lib/the-events-calendar.class.php:229
 #, php-format
 msgid "Initializing Tribe Events on %s"
-msgstr "Comenzando Eventos Tribe en %"
+msgstr "Inicializando Tribe Events en %s"
 
 #: ../lib/the-events-calendar.class.php:277
 #, php-format
 msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
-msgstr "Lo Siento, The Events Calendar requiere Wordpress %s o superior. Por favor actualiza tu instalación Wordpress."
+msgstr "Lo sentimos, The Events Calendar requiere Wordpress %s o superior. Por favor actualice su instalación de Wordpress."
 
 #: ../lib/the-events-calendar.class.php:280
 #, php-format
 msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
-msgstr "Lo Siento, The Events Calendar requiere PHP %s o superior. Comenta a tu proveedor de Hosting sobre subir a una versión mas reciente de PHP"
+msgstr "Lo sentimos, The Events Calendar requiere PHP %s o superior. Hable con su proveedor de Hospedaje Web para actualizar a una versión mas reciente de PHP"
 
 #: ../lib/the-events-calendar.class.php:397
 msgid "Upcoming Events"
-msgstr "Eventos Futuros"
+msgstr "Eventos Próximos"
 
 #: ../lib/the-events-calendar.class.php:399
 msgid "Past Events"
-msgstr "Eventos Pasados"
+msgstr "Eventos Realizados"
 
 #: ../lib/the-events-calendar.class.php:403
 #, php-format
@@ -1711,7 +1711,7 @@ msgstr "Eventos este mes"
 
 #: ../lib/the-events-calendar.class.php:419
 msgid "No description has been entered for this event."
-msgstr "No hay descripción detallada para este evento."
+msgstr "No se ha introducido una descripción para este evento."
 
 #: ../lib/the-events-calendar.class.php:484
 msgid "Events"
@@ -1725,15 +1725,15 @@ msgstr "Evento"
 #: ../lib/the-events-calendar.class.php:499
 #: ../lib/the-events-calendar.class.php:512
 msgid "Add New"
-msgstr "Agrega Nuevo"
+msgstr "Agregar Nuevo"
 
 #: ../lib/the-events-calendar.class.php:487
 msgid "Add New Event"
-msgstr "Agrega Nuevo Evento"
+msgstr "Agregar Nuevo Evento"
 
 #: ../lib/the-events-calendar.class.php:488
 msgid "Edit Event"
-msgstr "Editar Evento"
+msgstr "Modificar Evento"
 
 #: ../lib/the-events-calendar.class.php:489
 msgid "New Event"
@@ -1749,11 +1749,11 @@ msgstr "Buscar Eventos"
 
 #: ../lib/the-events-calendar.class.php:492
 msgid "No events found"
-msgstr "No se encuentran eventos"
+msgstr "No se encontrarón eventos"
 
 #: ../lib/the-events-calendar.class.php:493
 msgid "No events found in Trash"
-msgstr "No se encuentran eventos en la basura"
+msgstr "No hay eventos en la papelera"
 
 #: ../lib/the-events-calendar.class.php:497
 #: ../lib/the-events-calendar.class.php:681
@@ -1766,11 +1766,11 @@ msgstr "Lugar"
 
 #: ../lib/the-events-calendar.class.php:500
 msgid "Add New Venue"
-msgstr "No hay eventos futuros en este momento"
+msgstr "Agregar Nuevo Lugar"
 
 #: ../lib/the-events-calendar.class.php:501
 msgid "Edit Venue"
-msgstr "Editar Lugar"
+msgstr "Modificar Lugar"
 
 #: ../lib/the-events-calendar.class.php:502
 msgid "New Venue"
@@ -1783,15 +1783,15 @@ msgstr "Ver Lugar"
 
 #: ../lib/the-events-calendar.class.php:504
 msgid "Search Venues"
-msgstr "Buscar lugares"
+msgstr "Buscar Lugares"
 
 #: ../lib/the-events-calendar.class.php:505
 msgid "No venue found"
-msgstr "No se encuentra Lugar"
+msgstr "No se encontró un Lugar"
 
 #: ../lib/the-events-calendar.class.php:506
 msgid "No venues found in Trash"
-msgstr "No se encuentran Lugares en la basura"
+msgstr "No hay Lugares en la Papelera"
 
 #: ../lib/the-events-calendar.class.php:510
 #: ../lib/the-events-calendar.class.php:682
@@ -1804,11 +1804,11 @@ msgstr "Organizador"
 
 #: ../lib/the-events-calendar.class.php:513
 msgid "Add New Organizer"
-msgstr "Agrega Nuevo Organizador "
+msgstr "Agregar Nuevo Organizador "
 
 #: ../lib/the-events-calendar.class.php:514
 msgid "Edit Organizer"
-msgstr "Editar Organizador"
+msgstr "Modificar Organizador"
 
 #: ../lib/the-events-calendar.class.php:515
 msgid "New Organizer"
@@ -1820,23 +1820,23 @@ msgstr "Buscar Organizadores"
 
 #: ../lib/the-events-calendar.class.php:518
 msgid "No organizer found"
-msgstr "No se encuentra organizador"
+msgstr "No se encontró organizador"
 
 #: ../lib/the-events-calendar.class.php:519
 msgid "No organizers found in Trash"
-msgstr "No se encuentran organizadores en la basura"
+msgstr "No hay organizadores en la Papelera"
 
 #: ../lib/the-events-calendar.class.php:524
 msgid "Event Category"
-msgstr "Categoria de Evento"
+msgstr "Categoría del Evento"
 
 #: ../lib/the-events-calendar.class.php:525
 msgid "Search Event Categories"
-msgstr "Buscar Categorias de Eventos"
+msgstr "Buscar en Categorías de Eventos"
 
 #: ../lib/the-events-calendar.class.php:526
 msgid "All Event Categories"
-msgstr "Todas las Categorias de Evento"
+msgstr "Todas las Categorías de Eventos"
 
 #: ../lib/the-events-calendar.class.php:527
 msgid "Parent Event Category"
@@ -1844,23 +1844,23 @@ msgstr "Categoria Superior de Evento"
 
 #: ../lib/the-events-calendar.class.php:528
 msgid "Parent Event Category:"
-msgstr "Categoria Superior De Evento:"
+msgstr "Categoria Superior de Evento:"
 
 #: ../lib/the-events-calendar.class.php:529
 msgid "Edit Event Category"
-msgstr "Editar Categoria de Evento"
+msgstr "Modificar Categoría de Evento"
 
 #: ../lib/the-events-calendar.class.php:530
 msgid "Update Event Category"
-msgstr "Actualizar Categoria de Evento"
+msgstr "Actualizar Categoría de Evento"
 
 #: ../lib/the-events-calendar.class.php:531
 msgid "Add New Event Category"
-msgstr "Agrega Nueva Categoria de Evento"
+msgstr "Agregar Nueva Categoria de Evento"
 
 #: ../lib/the-events-calendar.class.php:532
 msgid "New Event Category Name"
-msgstr "Nuevo Nombre de Categoria de Evento"
+msgstr "Nuevo Nombre de Categoría de Evento"
 
 #: ../lib/the-events-calendar.class.php:542
 #, php-format
@@ -1871,13 +1871,13 @@ msgstr "Evento actualizado. <a href=\"%s\">Ver evento</a>"
 #: ../lib/the-events-calendar.class.php:560
 #: ../lib/the-events-calendar.class.php:577
 msgid "Custom field updated."
-msgstr "campo personalizado actualizado."
+msgstr "Campo personalizado actualizado."
 
 #: ../lib/the-events-calendar.class.php:544
 #: ../lib/the-events-calendar.class.php:561
 #: ../lib/the-events-calendar.class.php:578
 msgid "Custom field deleted."
-msgstr "campo personalizado borrado"
+msgstr "Campo personalizado borrado"
 
 #: ../lib/the-events-calendar.class.php:545
 msgid "Event updated."
@@ -1905,7 +1905,7 @@ msgstr "Evento agregado. <a target=\"_blank\" href=\"%s\">Previsualizar evento</
 #: ../lib/the-events-calendar.class.php:551
 #, php-format
 msgid "Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview event</a>"
-msgstr "Evento fijado para: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Previsualizar evento</a>"
+msgstr "Evento programado para: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Previsualizar evento</a>"
 
 #: ../lib/the-events-calendar.class.php:553
 #: ../lib/the-events-calendar.class.php:570
@@ -1916,7 +1916,7 @@ msgstr "M j, Y @ G:i"
 #: ../lib/the-events-calendar.class.php:554
 #, php-format
 msgid "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
-msgstr "Esbozo de Evento actualizado. <a target=\"_blank\" href=\"%s\">Previsualizar evento</a>"
+msgstr "Borrador de Evento actualizado. <a target=\"_blank\" href=\"%s\">Previsualizar evento</a>"
 
 #: ../lib/the-events-calendar.class.php:559
 #, php-format
@@ -1949,12 +1949,12 @@ msgstr "Lugar agregado. <a target=\"_blank\" href=\"%s\">Previsualizar lugar</a>
 #: ../lib/the-events-calendar.class.php:568
 #, php-format
 msgid "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview venue</a>"
-msgstr "Lugar agendado para: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Previsualizar lugar</a>"
+msgstr "Lugar programado para: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Previsualizar lugar</a>"
 
 #: ../lib/the-events-calendar.class.php:571
 #, php-format
 msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
-msgstr "Esbozo de Lugar actualizado. <a target=\"_blank\" href=\"%s\">Previsualizar lugar</a>"
+msgstr "Borrador de Lugar actualizado. <a target=\"_blank\" href=\"%s\">Previsualizar lugar</a>"
 
 #: ../lib/the-events-calendar.class.php:576
 #, php-format
@@ -1987,12 +1987,12 @@ msgstr "Organizador agregado. <a target=\"_blank\" href=\"%s\">Previsualizar org
 #: ../lib/the-events-calendar.class.php:585
 #, php-format
 msgid "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview organizer</a>"
-msgstr "Organizador fijado para: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Previsualizar organizador</a>"
+msgstr "Organizador programado para: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Previsualizar organizador</a>"
 
 #: ../lib/the-events-calendar.class.php:588
 #, php-format
 msgid "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
-msgstr "Esbozo de Organizador actualizado. <a target=\"_blank\" href=\"%s\">Previsualizar organizador</a>"
+msgstr "Borrador de Organizador actualizado. <a target=\"_blank\" href=\"%s\">Previsualizar organizador</a>"
 
 #: ../lib/the-events-calendar.class.php:643
 msgid "Next"
@@ -2000,7 +2000,7 @@ msgstr "Siguiente"
 
 #: ../lib/the-events-calendar.class.php:644
 msgid "Prev"
-msgstr "Prev"
+msgstr "Previo"
 
 #: ../lib/the-events-calendar.class.php:645
 msgid "Today"
@@ -2016,7 +2016,7 @@ msgstr "Usar Nuevo Lugar"
 
 #: ../lib/the-events-calendar.class.php:1416
 msgid "No saved venues yet."
-msgstr "No hay lugares guardados aun."
+msgstr "No hay lugares guardados aún."
 
 #: ../lib/the-events-calendar.class.php:1494
 msgid "Use New Organizer"
@@ -2024,7 +2024,7 @@ msgstr "Usar Nuevo Organizador"
 
 #: ../lib/the-events-calendar.class.php:1501
 msgid "No saved organizers yet."
-msgstr "No hay organizadores guardados aun."
+msgstr "No hay organizadores guardados aún."
 
 #: ../lib/the-events-calendar.class.php:1739
 msgid "Event Options"
@@ -2056,7 +2056,7 @@ msgstr "Actualizar Desde The Events Calendar"
 
 #: ../lib/tribe-the-events-calendar-import.class.php:46
 msgid "It appears that you have some old events calendar data that needs to be upgraded. Please be sure to back up your database before initiating the upgrade. This process can not be undone."
-msgstr "Parece Que Tienes Al"
+msgstr "Al Parecer usted tiene datos de events calendar que requieren ser actualizados. Por favor asegurese de respaldar su base de datos antes de iniciar la actualización. Este proceso no puede ser deshecho."
 
 #: ../lib/tribe-the-events-calendar-import.class.php:47
 msgid "Migrate Data!"
@@ -2065,11 +2065,11 @@ msgstr "¡Migrar Datos!"
 #: ../lib/tribe-the-events-calendar-import.class.php:119
 #, php-format
 msgid "You successfully migrated (%d) entries."
-msgstr "has exitosamente migrado (%d)"
+msgstr "Usted ha migrado exitosamente (%d) entradas."
 
 #: ../lib/tribe-the-events-calendar-import.class.php:189
 msgid "Install has 1 or more legacy event!"
-msgstr "La Instalación Tiene 1 O Mas Eventos Antiguos"
+msgstr "¡Esta instalación tiene uno o más eventos en formato anterior!"
 
 #: ../lib/template-tags.php:331
 msgid "Free"
@@ -2077,17 +2077,17 @@ msgstr "Gratuito"
 
 #: ../lib/template-tags.php:863
 msgid "Calendar of Events"
-msgstr "Calendario De Eventos"
+msgstr "Calendario de Eventos"
 
 #: ../lib/widget-list.class.php:16
 msgid "A widget that displays the next upcoming x events."
-msgstr "Un Widget Que Muestra Los Siguientes X Eventos"
+msgstr "Un widget que muestra los próximos x eventos programados."
 
 #: ../lib/widget-list.class.php:70
 msgid "View All Events"
-msgstr "Ver todos los eventos"
+msgstr "Ver Todos los Eventos"
 
 #: ../lib/widget-list.class.php:73
 msgid "There are no upcoming events at this time."
-msgstr "No hay eventos próximos en este momento"
+msgstr "No hay eventos programados en este momento"
 
