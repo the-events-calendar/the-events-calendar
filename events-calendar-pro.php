@@ -395,11 +395,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$dates = ( get_post_meta( $postId, '_EventAllDay', true ) ) ? date( 'Ymd', $start_date ) . '/' . date( 'Ymd', $end_date ) : date( 'Ymd', $start_date ) . 'T' . date( 'Hi00', $start_date ) . '/' . date( 'Ymd', $end_date ) . 'T' . date( 'Hi00', $end_date );
 			$location = trim( $tribeEvents->fullAddressString( $postId ) );
 			$base_url = 'http://www.google.com/calendar/event';
+			$event_details = substr( get_the_content(), 0, 996 ) . '...';
 			$params = array(
 				'action' => 'TEMPLATE',
 				'text' => str_replace( ' ', '+', strip_tags( urlencode( get_the_title() ) ) ),
 				'dates' => $dates,
-				'details' => str_replace( ' ', '+', strip_tags( apply_filters( 'the_content', urlencode( get_the_content() ) ) ) ),
+				'details' => str_replace( ' ', '+', strip_tags( apply_filters( 'the_content', urlencode( $event_details ) ) ) ),
 				'location' => str_replace( ' ', '+', urlencode( $location ) ),
 				'sprop' => get_option( 'blogname' ),
 				'trp' => 'false',
