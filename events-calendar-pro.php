@@ -383,10 +383,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		public function googleCalendarLink( $postId = null ) {
+			global $post;
 			$tribeEvents = TribeEvents::instance();
 
 			if ( $postId === null || !is_numeric( $postId ) ) {
-				global $post;
 				$postId = $post->ID;
 			}
 
@@ -396,9 +396,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$location = trim( $tribeEvents->fullAddressString( $postId ) );
 			$base_url = 'http://www.google.com/calendar/event';
 			$event_details = substr( get_the_content(), 0, 996 ) . '...';
+
 			$params = array(
 				'action' => 'TEMPLATE',
-				'text' => str_replace( ' ', '+', strip_tags( urlencode( get_the_title() ) ) ),
+				'text' => str_replace( ' ', '+', strip_tags( urlencode( $post->post_title ) ) ),
 				'dates' => $dates,
 				'details' => str_replace( ' ', '+', strip_tags( apply_filters( 'the_content', urlencode( $event_details ) ) ) ),
 				'location' => str_replace( ' ', '+', urlencode( $location ) ),
