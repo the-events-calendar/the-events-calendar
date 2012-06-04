@@ -14,11 +14,9 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 	<?php if(!tribe_is_day()): // day view doesn't have a grid ?>
 		<div id='tribe-events-calendar-header' class="clearfix">
-		<span class='tribe-events-calendar-buttons'>
-			<?php do_action('tribe_events_calendar_buttons_before'); ?>
+		<span class='tribe-events-calendar-buttons'> 
 			<a class='tribe-events-button-on' href='<?php echo tribe_get_listview_link(); ?>'><?php _e('Event List', 'tribe-events-calendar')?></a>
 			<a class='tribe-events-button-off' href='<?php echo tribe_get_gridview_link(); ?>'><?php _e('Calendar', 'tribe-events-calendar')?></a>
-			<?php do_action('tribe_events_calendar_buttons_after'); ?>
 		</span>
 
 		</div><!--tribe-events-calendar-header-->
