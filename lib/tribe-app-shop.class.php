@@ -22,6 +22,8 @@
 			const CACHE_KEY_BASE   = "tribe-app-shop";
 			const CACHE_EXPIRATION = 300; //5 min
 
+			const MENU_SLUG = "tribe-app-shop";
+
 			/**
 			 * Singleton instance
 			 *
@@ -40,7 +42,8 @@
 			 * Class constructor
 			 */
 			public function __construct() {
-				add_action( 'admin_menu', array( $this, 'add_menu_page' ) );
+				add_action( 'admin_menu', array( $this, 'add_menu_page' ), 100 );
+				add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_item' ), 20 );
 
 			}
 
@@ -51,13 +54,26 @@
 				$page_title = __( 'App Shop', 'tribe-events-calendar' );
 				$menu_title = __( 'App Shop', 'tribe-events-calendar' );
 				$capability = "edit_posts";
-				$menu_slug  = "tribe-app-shop";
+
 
 				$where = 'edit.php?post_type=' . TribeEvents::POSTTYPE;
 
-				$this->admin_page = add_submenu_page( $where, $page_title, $menu_title, $capability, $menu_slug, array( $this, 'do_menu_page' ) );
+				$this->admin_page = add_submenu_page( $where, $page_title, $menu_title, $capability, self::MENU_SLUG, array( $this, 'do_menu_page' ) );
 
 				add_action( 'admin_print_styles-' . $this->admin_page, array( $this, 'enqueue' ) );
+
+			}
+
+			public function add_toolbar_item() {
+				global $wp_admin_bar;
+
+				$where = 'edit.php?post_type=' . TribeEvents::POSTTYPE;
+
+				$wp_admin_bar->add_menu( array( 'id'     => 'tribe-events-app-shop',
+				                                'title'  => __( 'App Shop', 'tribe-events-calendar' ),
+				                                'href'   => admin_url( untrailingslashit( $where ) . "&page=" . self::MENU_SLUG ),
+				                                'parent' => 'tribe-events-settings-group' ) );
+
 
 			}
 
