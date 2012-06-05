@@ -109,12 +109,18 @@ class TribeEventsCustomMeta {
 	public static function save_meta_options($ecp_options) {
 		$count = 1;
 		$ecp_options['custom-fields'] = array();
-
-		while( isset($_POST['custom-field-' . $count]) ) {
+		
+		for ( $i = 0; $i < count( $_POST['custom-field'] ); $i++ ) {
+			$name = strip_tags( $_POST['custom-field'][$i] );
+			$type = strip_tags( $_POST['custom-field-type'][$i] );
+			$values = strip_tags( $_POST['custom-field-options'][$i] );
+		
+		
+		/*while( isset($_POST['custom-field-' . $count]) ) {
 			$name = strip_tags($_POST['custom-field-' . $count]);
 			$type = strip_tags($_POST['custom-field-type-' . $count]);
 			$values = strip_tags($_POST['custom-field-options-' . $count]);
-
+		*/
 			if( $name ) {
 				$ecp_options['custom-fields'][] = array(
           'name' => '_ecp_custom_' . $count,
