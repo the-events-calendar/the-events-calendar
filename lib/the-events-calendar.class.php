@@ -1749,7 +1749,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				//only set origin once
 				$origin = get_post_meta($postId , $post_type . 'Origin', true);
 				if( !$origin )
-					add_post_meta( $postId, $post_type . 'Origin', apply_filters( 'post-origin', 'events-calendar', $postId, $post ) );
+					add_post_meta( $postId, $post_type . 'Origin', apply_filters( 'tribe-post-origin', 'events-calendar', $postId, $post ) );
 			}
 		}
 
@@ -1786,7 +1786,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				if ( !isset( $post_audit_trail ) || !$post_audit_trail || !is_array($post_audit_trail) ) {
 					$post_audit_trail = array();
 				}
-				$post_audit_trail[] = array( apply_filters( 'post-audit-trail', 'events-calendar' ), time() );
+				$post_audit_trail[] = array( apply_filters( 'tribe-post-audit-trail', 'events-calendar' ), time() );
 				update_post_meta( $postId, $post_type . 'AuditTrail', $post_audit_trail );
 			}
 		}
