@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-01 17:07-0500\n"
-"PO-Revision-Date: 2012-05-01 17:07-0500\n"
+"POT-Creation-Date: 2012-06-05 19:33-0500\n"
+"PO-Revision-Date: 2012-06-05 19:33-0500\n"
 "Last-Translator: Paul Hughes <paul@paulalexanderhughes.com>\n"
 "Language-Team: Modern Tribe, Inc.\n"
 "MIME-Version: 1.0\n"
@@ -20,132 +20,128 @@ msgstr ""
 "X-Poedit-Country: UNITED STATES\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../events-calendar-pro.php:144
+#: ../events-calendar-pro.php:141
 msgid "Venues"
 msgstr ""
 
-#: ../events-calendar-pro.php:145
+#: ../events-calendar-pro.php:142
 msgid "Organizers"
 msgstr ""
 
-#: ../events-calendar-pro.php:157
+#: ../events-calendar-pro.php:160
 msgid "Use Saved Venue:"
 msgstr ""
 
-#: ../events-calendar-pro.php:174
+#: ../events-calendar-pro.php:181
 msgid "Use Saved Organizer:"
 msgstr ""
 
-#: ../events-calendar-pro.php:191
-msgid "Defaults"
-msgstr ""
-
-#: ../events-calendar-pro.php:192
-#: ../admin-views/event-meta-options.php:1
-msgid "Additional Fields"
-msgstr ""
-
-#: ../events-calendar-pro.php:199
-#, php-format
-msgid "%sWelcome to Events Calendar, a full-featured events management system for WordPress. By buying a license you've given us a vote of confidence, will get active support and have hooked up some sweet additional features not found in the free The Events Calendar.%s"
-msgstr ""
-
-#: ../events-calendar-pro.php:200
-#, php-format
-msgid "%sIf you aren't familiar with The Events Calendar, it may be wise to check out our %s. It'll introduce you to the basics of what the plugin has to offer and will have you creating events in no time. From there, the resources below -- extensive template tag documentation, FAQs, video walkthroughs and more -- will give you a leg up as you dig deeper.%s"
-msgstr ""
-
-#: ../events-calendar-pro.php:200
-msgid "new user primer"
-msgstr ""
-
-#: ../events-calendar-pro.php:201
-#, php-format
-msgid "%sOh, wondering what to do with your license key and whether you need it before you can get into event creation? Check out %s on that subject for an answer. %s, if you don't have it handy.%s"
-msgstr ""
-
-#: ../events-calendar-pro.php:201
-msgid "our blog post"
-msgstr ""
-
-#: ../events-calendar-pro.php:201
-msgid "Here's how you find your license key"
-msgstr ""
-
-#: ../events-calendar-pro.php:210
-#, php-format
-msgid "%sOne of the advantages of being a PRO user is that you have access to our PRO-exclusive forums at %s. Our support staff hits the forums on a daily basis, and what they can't answer on the spot they'll bring a member of our dev team in to address directly.%s"
-msgstr ""
-
-#: ../events-calendar-pro.php:210
-msgid "tri.be"
-msgstr ""
-
-#: ../events-calendar-pro.php:211
-#, php-format
-msgid "%sSome things to consider before posting on the forum:%s"
-msgstr ""
-
-#: ../events-calendar-pro.php:212
-#, php-format
-msgid "%sLook through existing threads before posting a new one and check that there isn't already a discussion going on your issue. The tri.be site has a solid search function that should help find what you're looking for, if it indeed already is present.%s"
-msgstr ""
-
-#: ../events-calendar-pro.php:213
-#, php-format
-msgid "%sA good way to help us out before posting is to check whether the issue is a conflict with another plugin or your theme. This can be tested relatively easily on a staging site by deactivating other plugins one-by-one, and reverting to the default 2011 theme as needed, to see if conflicts can be easily identified. If so, please note that when posting your thread.%s"
-msgstr ""
-
-#: ../events-calendar-pro.php:214
-#, php-format
-msgid "%sSometimes, just resaving your permalinks (under Settings -> Permalinks) can resolve events-related problems on your site. It is worth a shot before creating a new thread.%s"
-msgstr ""
-
-#: ../events-calendar-pro.php:215
-#, php-format
-msgid "%sWhile we won't build your site for you and can't guarantee The Events Calendar/PRO to play nicely with every theme and plugin out there, our team will do our best to help you get it functioning nicely with your site. And as an added bonus, once you're done you can post it in the %s so the rest of the community can see what you've been working on.%s"
-msgstr ""
-
-#: ../events-calendar-pro.php:215
-msgid "Showcase thread"
-msgstr ""
-
-#: ../events-calendar-pro.php:409
-#, php-format
-msgid "Calendar powered by %sThe Events Calendar PRO%s"
-msgstr ""
-
-#: ../events-calendar-pro.php:432
+#: ../events-calendar-pro.php:198
 msgid "Use New Venue"
 msgstr ""
 
-#: ../events-calendar-pro.php:440
+#: ../events-calendar-pro.php:207
 #: ../admin-views/tribe-options-defaults.php:62
 msgid "No saved venues yet."
 msgstr ""
 
-#: ../events-calendar-pro.php:462
+#: ../events-calendar-pro.php:222
 msgid "Use New Organizer"
 msgstr ""
 
-#: ../events-calendar-pro.php:469
+#: ../events-calendar-pro.php:231
 #: ../admin-views/tribe-options-defaults.php:49
 msgid "No saved organizers yet."
 msgstr ""
 
-#: ../events-calendar-pro.php:479
+#: ../events-calendar-pro.php:244
+msgid "Defaults"
+msgstr ""
+
+#: ../events-calendar-pro.php:246
+#: ../admin-views/event-meta-options.php:1
+msgid "Additional Fields"
+msgstr ""
+
+#: ../events-calendar-pro.php:252
+#, php-format
+msgid "%sWelcome to Events Calendar, a full-featured events management system for WordPress. By buying a license you've given us a vote of confidence, will get active support and have hooked up some sweet additional features not found in the free The Events Calendar.%s"
+msgstr ""
+
+#: ../events-calendar-pro.php:253
+#, php-format
+msgid "%sIf you aren't familiar with The Events Calendar, it may be wise to check out our %s. It'll introduce you to the basics of what the plugin has to offer and will have you creating events in no time. From there, the resources below -- extensive template tag documentation, FAQs, video walkthroughs and more -- will give you a leg up as you dig deeper.%s"
+msgstr ""
+
+#: ../events-calendar-pro.php:253
+msgid "new user primer"
+msgstr ""
+
+#: ../events-calendar-pro.php:254
+#, php-format
+msgid "%sOh, wondering what to do with your license key and whether you need it before you can get into event creation? Check out %s on that subject for an answer. %s, if you don't have it handy.%s"
+msgstr ""
+
+#: ../events-calendar-pro.php:254
+msgid "our blog post"
+msgstr ""
+
+#: ../events-calendar-pro.php:254
+msgid "Here's how you find your license key"
+msgstr ""
+
+#: ../events-calendar-pro.php:261
+#, php-format
+msgid "%sOne of the advantages of being a PRO user is that you have access to our PRO-exclusive forums at %s. Our support staff hits the forums on a daily basis, and what they can't answer on the spot they'll bring a member of our dev team in to address directly.%s"
+msgstr ""
+
+#: ../events-calendar-pro.php:262
+#, php-format
+msgid "%sSome things to consider before posting on the forum:%s"
+msgstr ""
+
+#: ../events-calendar-pro.php:263
+#, php-format
+msgid "%sLook through existing threads before posting a new one and check that there isn't already a discussion going on your issue. The tri.be site has a solid search function that should help find what you're looking for, if it indeed already is present.%s"
+msgstr ""
+
+#: ../events-calendar-pro.php:264
+#, php-format
+msgid "%sA good way to help us out before posting is to check whether the issue is a conflict with another plugin or your theme. This can be tested relatively easily on a staging site by deactivating other plugins one-by-one, and reverting to the default 2011 theme as needed, to see if conflicts can be easily identified. If so, please note that when posting your thread.%s"
+msgstr ""
+
+#: ../events-calendar-pro.php:265
+#, php-format
+msgid "%sSometimes, just resaving your permalinks (under Settings -> Permalinks) can resolve events-related problems on your site. It is worth a shot before creating a new thread.%s"
+msgstr ""
+
+#: ../events-calendar-pro.php:266
+#, php-format
+msgid "%sWhile we won't build your site for you and can't guarantee The Events Calendar/PRO to play nicely with every theme and plugin out there, our team will do our best to help you get it functioning nicely with your site. And as an added bonus, once you're done you can post it in the %s so the rest of the community can see what you've been working on.%s"
+msgstr ""
+
+#: ../events-calendar-pro.php:266
+msgid "Showcase thread"
+msgstr ""
+
+#: ../events-calendar-pro.php:454
+#, php-format
+msgid "Calendar powered by %sThe Events Calendar PRO%s"
+msgstr ""
+
+#: ../events-calendar-pro.php:463
 msgid "Support"
 msgstr ""
 
-#: ../events-calendar-pro.php:482
+#: ../events-calendar-pro.php:465
 msgid "View All Add-Ons"
 msgstr ""
 
-#: ../events-calendar-pro.php:522
+#: ../events-calendar-pro.php:505
 msgid "The Events Calendar"
 msgstr ""
 
-#: ../events-calendar-pro.php:523
+#: ../events-calendar-pro.php:506
 #, php-format
 msgid "To begin using Events Calendar PRO, please install the latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
 msgstr ""
@@ -1178,12 +1174,35 @@ msgstr ""
 msgid "[X]"
 msgstr ""
 
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:20
+msgid "Displays posts related to the post."
+msgstr ""
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:22
+msgid "Related Posts"
+msgstr ""
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:64
+msgid "Count:"
+msgstr ""
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
+msgid "Display Thumbnails?"
+msgstr ""
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:75
+msgid "Only Display Related Posts?"
+msgstr ""
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:78
+msgid "Post Type:"
+msgstr ""
+
 #: ../vendor/tribe-support/tribe-support.class.php:54
 msgid "Send a support request for this site."
 msgstr ""
 
 #: ../views/events-advanced-list-load-widget-display.php:49
-#: ../views/widget-featured-display.php:48
 msgid "All Day"
 msgstr ""
 
