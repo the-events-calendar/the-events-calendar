@@ -14,8 +14,10 @@ global $wp_query;
 $old_date = null;
 if ( !defined( "DOING_AJAX" ) || !DOING_AJAX ) {
 	$current_date = date_i18n( TribeDateUtils::DBYEARMONTHTIMEFORMAT ) . "-01";
-	$old_date = $wp_query->query_vars['eventDate'];
-	$wp_query->query_vars['eventDate'] = $current_date;
+	if ( isset( $wp_query->query_vars['eventDate'] ) ) {
+		$old_date                          = $wp_query->query_vars['eventDate'];
+		$wp_query->query_vars['eventDate'] = $current_date;
+	}
 }else{
 	$current_date = $tribe_ecp->date;
 }
