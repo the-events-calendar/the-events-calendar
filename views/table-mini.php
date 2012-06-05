@@ -10,15 +10,21 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 $tribe_ecp = TribeEvents::instance();
 
+global $wp_query;
+$old_date = null;
 if ( !defined( "DOING_AJAX" ) || !DOING_AJAX ) {
-	$current_date = date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
+	$current_date = date_i18n( TribeDateUtils::DBYEARMONTHTIMEFORMAT ) . "-01";
+	$old_date = $wp_query->query_vars['eventDate'];
+	$wp_query->query_vars['eventDate'] = $current_date;
 }else{
 	$current_date = $tribe_ecp->date;
 }
 
-$eventPosts = tribe_get_events(array( 'eventDisplay'=>'month' ) );
 
-if (!$current_date){
+
+
+$eventPosts = tribe_get_events(array( 'eventDisplay'=>'month' ) );
+if ( !$current_date ) {
 	$current_date = $tribe_ecp->date;
 }
 
@@ -109,6 +115,9 @@ $monthView = tribe_sort_by_month( $eventPosts, $current_date );
 <a class="tribe-view-all-events" href="<?php echo tribe_get_events_link(); ?>"><?php _e('View all &raquo;', 'tribe-events-calendar'); ?></a>
 
 <?php
+if ($old_date){
+	$wp_query->query_vars['eventDate'] = $old_date;
+}
 
 function tribe_mini_display_day( $day, $monthView ) {
 	$return = "<div class='daynum tribe-events-event' id='daynum_$day'>";
