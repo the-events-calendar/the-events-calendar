@@ -128,11 +128,6 @@ function display_day( $day, $monthView ) {
 		$start		= tribe_get_start_date( $post->ID, false, 'U' );
 		$end		= tribe_get_end_date( $post->ID, false, 'U' );
 		$cost		= tribe_get_cost( $post->ID );
-		$address	= tribe_get_address( $post->ID );
-		$city		= tribe_get_city( $post->ID );
-		$state		= tribe_get_state( $post->ID );
-		$province	= tribe_get_province( $post->ID );
-		$country	= tribe_get_country( $post->ID );
 		?>
 		<div id='event_<?php echo $eventId; ?>' <?php post_class('tribe-events-event tribe-events-real-event') ?>>
 			<a href="<?php tribe_event_link(); ?>"><?php the_title(); ?></a>
