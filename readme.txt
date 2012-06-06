@@ -5,7 +5,7 @@ Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.2
 Tested up to: 3.4-alpha
-Stable tag: 2.0.7
+Stable tag: 2.0.8
 
 == Description ==
 
