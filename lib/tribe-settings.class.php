@@ -128,7 +128,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 			// set instance variables
 			$this->menuName = apply_filters( 'tribe_settings_menu_name', __( 'The Events Calendar', 'tribe-events-calendar' ) );
 			$this->requiredCap = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
-			$this->adminSlug = apply_filters( 'tribe_settings_admin_slug', 'tribe-settings' );
+			$this->adminSlug = apply_filters( 'tribe_settings_admin_slug', 'tribe-events-calendar' );
 			$this->errors = get_option( 'tribe_settings_errors', array() );
 			$this->major_error = get_option( 'tribe_settings_major_error', false );
 			$this->sent_data = get_option( 'tribe_settings_sent_data', array() );
@@ -238,7 +238,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 						$tab = esc_attr( $tab );
 						$name = esc_attr( $name );
 						$class = ( $tab == $this->currentTab ) ? ' nav-tab-active' : '';
-						echo '<a id="' . $tab . '" class="nav-tab' . $class . '" href="?page=tribe-settings&tab=' . urlencode( $tab ) . '">' . $name . '</a>';
+						echo '<a id="' . $tab . '" class="nav-tab' . $class . '" href="?page=' . $this->adminSlug . '&tab=' . urlencode( $tab ) . '">' . $name . '</a>';
 					}
 					do_action( 'tribe_settings_after_tabs' );
 				echo '</h2>';

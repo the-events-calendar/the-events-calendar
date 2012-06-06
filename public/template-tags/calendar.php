@@ -31,15 +31,9 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @uses load_template()
 	 * @since 2.0
 	 */
-	function tribe_calendar_mini_grid()  {
-		global $wp_query;
-		$old_query = $wp_query;
-
-		$wp_query = NEW WP_Query('post_type='.TribeEvents::POSTTYPE);
+	function tribe_calendar_mini_grid() {
 		set_query_var( 'eventDisplay', 'bydate' );
-		apply_filters('tribe_calendar_mini_grid', load_template( TribeEventsTemplates::getTemplateHierarchy('table-mini') ));
-	
-		$wp_query = $old_query;
+		load_template( TribeEventsTemplates::getTemplateHierarchy( 'table-mini' ) );
 	}
 
 	/**
@@ -67,6 +61,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_sort_by_month( $results, $date )  {
+		global $post;
+
 		$cutoff_time = tribe_get_option('multiDayCutoff', '12:00');
 		
 		if( preg_match( '/(\d{4})-(\d{2})/', $date, $matches ) ) {
@@ -82,6 +78,8 @@ if( class_exists( 'TribeEvents' ) ) {
 
 
 		foreach ( $results as $event ) {
+			$post = $event;
+
 			$started = false;
 
 			list( $startYear, $startMonth, $startDay ) = explode( '-', $event->EventStartDate );

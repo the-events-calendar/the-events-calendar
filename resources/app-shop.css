@@ -1,0 +1,20 @@
+.tribe-addon {
+	width         : 33%;
+	float         : left;
+	margin-bottom : 40px;
+}
+
+.tribe-addon .caption p{
+	width: 300px;
+}
+
+.addon-grid{
+	width: 940px;
+}
+
+.category-title {
+	display       : block;
+	clear         : both;
+	margin-bottom : 10px;
+}
+

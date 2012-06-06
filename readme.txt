@@ -1,11 +1,11 @@
 === The Events Calendar ===
 
-Contributors:  ModernTribe, jkudish, nickciske, PaulHughes01, roblagatta, jonahcoyote, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, jkudish, PaulHughes01, roblagatta, jonahcoyote, peterchester, reid.peifer, shane.pearlman
 Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar, recurring, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
-Requires at least: 3.3
+Requires at least: 3.2
 Tested up to: 3.4-alpha
-Stable tag: 2.0.5
+Stable tag: 2.0.7
 
 == Description ==
 
@@ -68,7 +68,7 @@ No setup required. Just plug and play!
 = Requirements =
 
 * PHP 5.2 or above
-* WordPress 3.3 or above
+* WordPress 3.1 or above
 
 == Documentation ==
 
@@ -78,7 +78,7 @@ For template tags, you can view our template tag includes in the "public" folder
 
 If you have any questions about this plugin, please take look at the dedicated forum here on WordPress.org at <a href="http://wordpress.org/tags/the-events-calendar">http://wordpress.org/tags/the-events-calendar</a>. Please search before opening a new thread.
 
-If you want, you can read the <a href="http://tri.be/support/forums/?ref=tec-readme">Modern Tribe PRO support forums</a> in case that helps, although you won’t be able to post a message, unless you have purchase a PRO license.
+If you want, you can read the <a href="http://tri.be/support/forums/?ref=tec-readme">Modern Tribe PRO support forums</a> in case that helps, although you won‚Äôt be able to post a message, unless you have purchase a PRO license.
 
 == Contributors ==
 
@@ -86,17 +86,18 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 
 = Current Contributors =
 
-* <a href="http://profiles.wordpress.org/users/jkudish">Joachim Kudish</a>
-* <a href="http://profiles.wordpress.org/users/nickciske">Nick Ciske</a>
 * <a href="http://profiles.wordpress.org/users/paulhughes01">Paul Hughes</a>
 * <a href="http://profiles.wordpress.org/users/roblagatta">Rob La Gatta</a>
 * <a href="http://profiles.wordpress.org/users/jonahcoyote">Jonah West</a>
+* <a href="http://profiles.wordpress.org/users/mzaweb">Daniel Dvorkin</a>
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
 * <a href="http://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
 
 = Past Contributors =
 
+* <a href="http://profiles.wordpress.org/users/jkudish">Joachim Kudish</a>
+* <a href="http://profiles.wordpress.org/users/nickciske">Nick Ciske</a>
 * <a href="http://profiles.wordpress.org/users/kelseydamas">Kelsey Damas</a>
 * <a href="http://profiles.wordpress.org/users/mattwiebe">Matt Wiebe</a>
 * <a href="http://profiles.wordpress.org/users/dancameron">Dan Cameron</a>
@@ -110,6 +111,7 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 * Dutch (free & PRO) from Ed Boon, RIck van Dalen & Jacob Roel Meijering
 * Danish (PRO only) from Christian Andersen
 * Italian (free & PRO) from Stefano Castelli
+* Spanish (free & PRO) from Hector at Signo Creativo
 * German (free only) from David Decker
 * Polish (free & PRO) from Kamil Szymanski
 * Norwegian (free & PRO) from "Terje With Lunndal"
@@ -134,6 +136,45 @@ Our Premium Plugins:
 
 
 == Changelog ==
+
+= 2.0.7 = 
+
+**Small features, UX and Content Tweaks:**
+
+* As requested by the masses...added AJAX functionality to mini calendar widget for navigating forward/backward from month to month (PRO only).
+* Incorporated "Events" menu to the admin bar, featuring Events-specific options and integrating with Modern Tribe add-ons.
+* Added new App Shop link to Events admin menu / admin bar menu to view and download other Modern Tribe plugins & add-ons.
+* Added audit info metabox to admin (just enable it by adding define('TRIBE_SHOW_EVENT_AUDITING', true); to your wp-config file).
+* Included new Swedish translation files (free & PRO), courtesy of Ben Andersen.
+* Included new Spanish translation files (free & PRO), courtesy of Hector at Signo Creativo.
+
+**Bug Fixes:**
+
+* Google Calendar import now works and truncates appropriately for extremely long event listings (thanks for the fix, Andy Fragen!)
+* Fixed settings page slug so as not to break backwards compatibility
+* Got rid of a superfluous daily query of events that was running for once-per-day every month-view load, thereby improving overall load speed
+* Tweaked a bug where TribeEvents::uglyLink() was missing �day'
+* A message is now displayed in place of the events-slug boxes when a user does not have pretty permalinks enabled.
+* Next/previous links no longer navigate in order of event ID when pretty permalinks are disabled.
+* Contributors are now able to create recurring events.
+* Fixed an issue with single quotes getting converted to funky characters upon saving on Additional Fields and other Settings --> The Events Calendar tabs.
+* Addressed various other bugs with the Additional Fields tab in Settings --> The Events Calendar. 
+* Tiny patch to help integrate with the Duotive theme.
+* Fixed category rewrite slug issue that occurred with certain permalink structures.
+
+= 2.0.6 =
+
+**Small features, UX and Content Tweaks:**
+
+* Adjusted the Settings API so it now saves on page load and then redirects back to the page
+* add_cap()s are now wrapped in an if-statement
+* Added proper indentation and spacing to the Events Calendar PRO source files
+
+**Bug Fixes:**
+
+* Additional fields no longer wiped when saving changes to events/settings pages
+* Plugin now removes newlines and carriage returns in the process of saving line-separated options for custom links
+* Reviewed/improved $_POST and $_GET variables after a security audit to make sure they're sanitized before output/saving to the database (to prevent mySQL injects and/or cross-site scripting vulnerabilities)
 
 = 2.0.5 =
 
@@ -198,7 +239,7 @@ Our Premium Plugins:
 
 **Small features, UX and Content Tweaks:**
 
-* Incorporated get_tribe_custom(<Field label>) to code base
+* Incorporated get_tribe_custom(√îField label√ï) to code base
 * Code updated to account for additional translation strings
 * Made the $sep param of TribeEvents::maybeAddEventTitle() optional
 
@@ -294,6 +335,10 @@ Our Premium Plugins:
 This is such a major re-write that we are starting the change log over.
 
 == Upgrade Notice ==
+
+= 2.0.7 =
+
+2.0.7 contains bug patches and new features for 2.0. Are you upgrading from 1.6.5? Events 2.0 is a MAJOR upgrade, please backup your data and plan a little time in case you have to make any theme edits. Check out the upgrade tutorials in support on the tri.be website.
 
 = 2.0.5 =
 

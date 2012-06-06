@@ -5,14 +5,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-01 12:15-0500\n"
-"PO-Revision-Date: 2011-12-01 12:15-0500\n"
-"Last-Translator: John Gadbois <jgadbois@gmail.com>\n"
+"POT-Creation-Date: 2012-06-05 19:31-0500\n"
+"PO-Revision-Date: 2012-06-05 19:32-0500\n"
+"Last-Translator: Paul Hughes <paul@paulalexanderhughes.com>\n"
 "Language-Team: Modern Tribe, Inc.\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ./\n"
@@ -20,8 +20,32 @@ msgstr ""
 "X-Poedit-Country: UNITED STATES\n"
 "X-Poedit-SearchPath-0: ..\n"
 
+#: ../admin-views/app-shop.php:4
+msgid "Tribe App Shop"
+msgstr ""
+
+#: ../admin-views/app-shop.php:56
+msgid "Version"
+msgstr ""
+
+#: ../admin-views/app-shop.php:59
+msgid "Last Update"
+msgstr ""
+
 #: ../admin-views/event-sidebar-options.php:11
 msgid "Hide From Upcoming Events List"
+msgstr ""
+
+#: ../admin-views/events-audit-trail.php:41
+msgid "Auditing Information"
+msgstr ""
+
+#: ../admin-views/events-audit-trail.php:44
+msgid "Created by:"
+msgstr ""
+
+#: ../admin-views/events-audit-trail.php:48
+msgid "Audit Trail:"
 msgstr ""
 
 #: ../admin-views/events-meta-box.php:26
@@ -82,226 +106,13 @@ msgstr ""
 msgid "Leave blank to hide the field. Enter a 0 for events that are free."
 msgstr ""
 
-#: ../admin-views/events-options.php:47
-#, php-format
-msgid "%s Settings"
-msgstr ""
-
-#: ../admin-views/events-options.php:51
-msgid "Need a hand?"
-msgstr ""
-
-#: ../admin-views/events-options.php:52
-#, php-format
-msgid "If you're stuck on these options, please go to the <a href=\"%s\">support forum</a>."
-msgstr ""
-
-#: ../admin-views/events-options.php:54
-msgid "Here is the iCal feed URL for your events: "
-msgstr ""
-
-#: ../admin-views/events-options.php:60
-msgid "Settings"
-msgstr ""
-
-#: ../admin-views/events-options.php:63
-#: ../admin-views/events-options.php:67
-msgid "Default View for the Events"
-msgstr ""
-
-#: ../admin-views/events-options.php:71
-msgid "Calendar"
-msgstr ""
-
-#: ../admin-views/events-options.php:75
-msgid "Event List"
-msgstr ""
-
-#: ../admin-views/events-options.php:81
-#: ../admin-views/events-options.php:85
-#: ../admin-views/events-options.php:87
-msgid "Show Comments"
-msgstr ""
-
-#: ../admin-views/events-options.php:95
-#: ../admin-views/events-options.php:99
-msgid "Multiday Event Cutoff"
-msgstr ""
-
-#: ../admin-views/events-options.php:113
-msgid "For multi-day events, hide the last day from grid view if it ends on or before this time."
-msgstr ""
-
-#: ../admin-views/events-options.php:118
-#: ../admin-views/events-options.php:122
-msgid "Enable Google Maps"
-msgstr ""
-
-#: ../admin-views/events-options.php:128
-msgid "Height"
-msgstr ""
-
-#: ../admin-views/events-options.php:129
-msgid "Width"
-msgstr ""
-
-#: ../admin-views/events-options.php:129
-msgid "(number or %)"
-msgstr ""
-
-#: ../admin-views/events-options.php:133
-msgid "If you don't have this turned on, your event listings won't have the backend map preview or frontend embedded map."
-msgstr ""
-
-#: ../admin-views/events-options.php:141
-#: ../admin-views/events-options.php:143
-msgid "Events URL slug"
-msgstr ""
-
-#: ../admin-views/events-options.php:144
-msgid "The slug used for building the Events URL."
-msgstr ""
-
-#: ../admin-views/events-options.php:144
-#, php-format
-msgid "Your current Events URL is <strong><a href=\"%s\">%s</a></strong>"
-msgstr ""
-
-#: ../admin-views/events-options.php:148
-#: ../admin-views/events-options.php:150
-msgid "Single Event URL slug"
-msgstr ""
-
-#: ../admin-views/events-options.php:151
-msgid "The slug used for building a single Event URL."
-msgstr ""
-
-#: ../admin-views/events-options.php:152
-#, php-format
-msgid "<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: <strong>%s</strong>"
-msgstr ""
-
-#: ../admin-views/events-options.php:157
-#: ../admin-views/events-options.php:159
-msgid "Debug"
-msgstr ""
-
-#: ../admin-views/events-options.php:160
-msgid "Debug Events display issues."
-msgstr ""
-
-#: ../admin-views/events-options.php:161
-#, php-format
-msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the <a href=\"%s\" target=\"_blank\">Debug Bar Plugin</a> and look for the \"Tribe\" tab in the debug output."
-msgstr ""
-
-#: ../admin-views/events-options.php:166
-msgid "Theme Settings"
-msgstr ""
-
-#: ../admin-views/events-options.php:169
-#: ../admin-views/events-options.php:171
-msgid "Events Template"
-msgstr ""
-
-#: ../admin-views/events-options.php:173
-msgid "Default Events Template"
-msgstr ""
-
-#: ../admin-views/events-options.php:174
-msgid "Default Page Template"
-msgstr ""
-
-#: ../admin-views/events-options.php:177
-msgid "Choose a page template to control the look and feel of your calendar."
-msgstr ""
-
-#: ../admin-views/events-options.php:181
-#: ../admin-views/events-options.php:183
-#: ../admin-views/events-options.php:191
-msgid "Add HTML before calendar"
-msgstr ""
-
-#: ../admin-views/events-options.php:185
-msgid "Some themes may require that you add extra divs before the calendar list to help with styling."
-msgstr ""
-
-#: ../admin-views/events-options.php:185
-msgid "This is displayed directly after the header."
-msgstr ""
-
-#: ../admin-views/events-options.php:185
-#: ../admin-views/events-options.php:193
-msgid "You may use (x)HTML."
-msgstr ""
-
-#: ../admin-views/events-options.php:189
-msgid "Add HTML after calendar"
-msgstr ""
-
-#: ../admin-views/events-options.php:193
-msgid "Some themes may require that you add extra divs after the calendar list to help with styling."
-msgstr ""
-
-#: ../admin-views/events-options.php:193
-msgid "This is displayed directly above the footer."
-msgstr ""
-
-#: ../admin-views/events-options.php:202
-msgid "Save Changes"
-msgstr ""
-
-#: ../admin-views/widget-admin-list.php:11
-msgid "Title:"
-msgstr ""
-
-#: ../admin-views/widget-admin-list.php:16
-msgid "Show:"
-msgstr ""
-
-#: ../admin-views/widget-admin-list.php:24
-msgid "Show widget only if there are upcoming events:"
-msgstr ""
-
-#: ../admin-views/widget-admin-list.php:30
-msgid "If you wish to customize the widget display yourself, see the file views/events-list-load-widget-display.php inside the Events Premium plugin."
-msgstr ""
-
-#: ../admin-views/venue-meta-box.php:12
-msgid "Venue Name:"
-msgstr ""
-
-#: ../admin-views/venue-meta-box.php:19
-msgid "Address:"
-msgstr ""
-
-#: ../admin-views/venue-meta-box.php:23
-msgid "City:"
-msgstr ""
-
-#: ../admin-views/venue-meta-box.php:27
-msgid "Country:"
-msgstr ""
-
-#: ../admin-views/venue-meta-box.php:58
-msgid "State or Province:"
-msgstr ""
-
-#: ../admin-views/venue-meta-box.php:61
-msgid "Select a State:"
-msgstr ""
-
-#: ../admin-views/venue-meta-box.php:77
-msgid "Postal Code:"
-msgstr ""
-
-#: ../admin-views/venue-meta-box.php:81
-#: ../admin-views/organizer-meta-box.php:17
-msgid "Phone:"
-msgstr ""
-
 #: ../admin-views/organizer-meta-box.php:11
 msgid "Organizer Name:"
+msgstr ""
+
+#: ../admin-views/organizer-meta-box.php:17
+#: ../admin-views/venue-meta-box.php:77
+msgid "Phone:"
 msgstr ""
 
 #: ../admin-views/organizer-meta-box.php:21
@@ -320,1174 +131,973 @@ msgstr ""
 msgid "Select your desired action"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:16
-#: ../lib/tribe-view-helpers.class.php:33
-msgid "Select a Country:"
+#: ../admin-views/tribe-options-general.php:11
+msgid "Add functionality to The Events Calendar"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:34
-msgid "United States"
+#: ../admin-views/tribe-options-general.php:16
+msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:35
-msgid "Afghanistan"
+#: ../admin-views/tribe-options-general.php:16
+msgid "Check out the available Add-Ons"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:36
-msgid "Albania"
+#: ../admin-views/tribe-options-general.php:21
+msgid "We hope our plugin is helping you out."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:37
-msgid "Algeria"
+#: ../admin-views/tribe-options-general.php:25
+#: ../admin-views/tribe-options-general.php:30
+msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:38
-msgid "American Samoa"
+#: ../admin-views/tribe-options-general.php:25
+#: ../admin-views/tribe-options-general.php:30
+msgid "See an example of the link"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:39
-msgid "Andorra"
+#: ../admin-views/tribe-options-general.php:35
+msgid "Show Events Calendar Link"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:40
-msgid "Angola"
+#: ../admin-views/tribe-options-general.php:45
+msgid "Default view for the Events"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:41
-msgid "Anguilla"
+#: ../admin-views/tribe-options-general.php:46
+msgid "Determines whether the default events view is a calendar or a list."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:42
-msgid "Antarctica"
+#: ../admin-views/tribe-options-general.php:53
+#: ../admin-views/tribe-options-general.php:59
+msgid "Events URL slug"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:43
-msgid "Antigua And Barbuda"
+#: ../admin-views/tribe-options-general.php:54
+msgid "You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href=\" "
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:44
-msgid "Argentina"
+#: ../admin-views/tribe-options-general.php:66
+msgid "The slug used for building the events URL."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:45
-msgid "Armenia"
+#: ../admin-views/tribe-options-general.php:66
+#, php-format
+msgid "Your current Events URL is %s"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:46
-msgid "Aruba"
+#: ../admin-views/tribe-options-general.php:71
+msgid "Here is the iCal feed URL for your events:"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:47
-msgid "Australia"
+#: ../admin-views/tribe-options-general.php:76
+msgid "Single Event URL slug"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:48
-msgid "Austria"
+#: ../admin-views/tribe-options-general.php:83
+#, php-format
+msgid "You <strong>cannot</strong> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: %s"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:49
-msgid "Azerbaijan"
+#: ../admin-views/tribe-options-general.php:88
+msgid "Number of events to show per page in the loop"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:50
-msgid "Bahamas"
+#: ../admin-views/tribe-options-general.php:89
+msgid "This is the number of events displayed per page when returning a list of events."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:51
-msgid "Bahrain"
+#: ../admin-views/tribe-options-general.php:96
+msgid "Show Comments"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:52
-msgid "Bangladesh"
+#: ../admin-views/tribe-options-general.php:97
+msgid "Enables commenting on your single event view."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:53
-msgid "Barbados"
+#: ../admin-views/tribe-options-general.php:103
+msgid "Multiday Event Cutoff"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:54
-msgid "Belarus"
+#: ../admin-views/tribe-options-general.php:104
+msgid "For multi-day events, hide the last day from grid view if it ends on or before this time."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:55
-msgid "Belgium"
+#: ../admin-views/tribe-options-general.php:112
+msgid "Enable Google Maps"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:56
-msgid "Belize"
+#: ../admin-views/tribe-options-general.php:113
+msgid "If you don't have this turned on, your event listings won't have the backend map preview or frontend embedded map."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:57
-msgid "Benin"
+#: ../admin-views/tribe-options-general.php:120
+msgid "Google Maps Embed Height"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:58
-msgid "Bermuda"
+#: ../admin-views/tribe-options-general.php:123
+msgid "Enter a number."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:59
-msgid "Bhutan"
+#: ../admin-views/tribe-options-general.php:129
+msgid "Google Maps Embed Width"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:60
-msgid "Bolivia"
+#: ../admin-views/tribe-options-general.php:131
+msgid "Enter a number or %."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:61
-msgid "Bosnia And Herzegowina"
+#: ../admin-views/tribe-options-general.php:138
+msgid "Google Maps Default Zoom Level"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:62
-msgid "Botswana"
+#: ../admin-views/tribe-options-general.php:139
+msgid "0 = zoomed-out; 21 = zoomed-in."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:63
-msgid "Bouvet Island"
+#: ../admin-views/tribe-options-general.php:147
+msgid "Debug Mode"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:64
-msgid "Brazil"
+#: ../admin-views/tribe-options-general.php:148
+#, php-format
+msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"Tribe\" tab in the debug output."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:65
-msgid "British Indian Ocean Territory"
+#: ../admin-views/tribe-options-general.php:148
+msgid "Debug Bar Plugin"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:66
-msgid "Brunei Darussalam"
+#: ../admin-views/tribe-options-help.php:15
+msgid "You need to upgrade!"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:67
-msgid "Bulgaria"
+#: ../admin-views/tribe-options-help.php:15
+msgid "You are up to date!"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:68
-msgid "Burkina Faso"
+#: ../admin-views/tribe-options-help.php:41
+msgid "Advanced Post Manager"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:69
-msgid "Burundi"
+#: ../admin-views/tribe-options-help.php:45
+msgid "Event Importer"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:70
-msgid "Cambodia"
+#: ../admin-views/tribe-options-help.php:49
+msgid "Facebook Sync Events"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:71
-msgid "Cameroon"
+#: ../admin-views/tribe-options-help.php:56
+msgid "The Events Calendar Pro"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:72
-msgid "Canada"
+#: ../admin-views/tribe-options-help.php:60
+msgid "Eventbrite Tickets"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:73
-msgid "Cape Verde"
+#: ../admin-views/tribe-options-help.php:65
+msgid "Community Events"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:74
-msgid "Cayman Islands"
+#: ../admin-views/tribe-options-help.php:70
+msgid "WooTickets"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:75
-msgid "Central African Republic"
+#: ../admin-views/tribe-options-help.php:72
+#: ../admin-views/tribe-options-help.php:77
+msgid "(coming later in 2012)"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:76
-msgid "Chad"
+#: ../admin-views/tribe-options-help.php:75
+msgid "Conference Manager"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:77
-msgid "Chile"
+#: ../admin-views/tribe-options-help.php:84
+msgid "Documentation"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:78
-msgid "China"
+#: ../admin-views/tribe-options-help.php:88
+msgid "FAQ"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:79
-msgid "Christmas Island"
+#: ../admin-views/tribe-options-help.php:92
+msgid "Help"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:80
-msgid "Cocos (Keeling) Islands"
+#: ../admin-views/tribe-options-help.php:96
+msgid "Tutorials"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:81
-msgid "Colombia"
+#: ../admin-views/tribe-options-help.php:100
+msgid "Release Notes"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:82
-msgid "Comoros"
+#: ../admin-views/tribe-options-help.php:106
+#, php-format
+msgid "If this is your first time using The Events Calendar, you're in for a treat. The more adventurous users can jump right into it by finding the \"Events\" section in the admin menu to the left of this message and getting down to it. For those who like to dip their toes before diving in full-on, we've got you covered too. First things first: visit our %s, designed with folks exactly like yourself in mind and meant to familiarize you with the plugin's basics. From there, the Resources listed below (meant to help you kick ass, of course) should keep up the momentum."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:83
-msgid "Congo"
+#: ../admin-views/tribe-options-help.php:106
+msgid "new user primer"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:84
-msgid "Congo, The Democratic Republic Of The"
+#: ../admin-views/tribe-options-help.php:109
+#, php-format
+msgid "We love all our users and want to help free & PRO customers alike. If you're running the latest version of The Events Calendar and are having problems, post a thread the %s at WordPress.org. We hit the forum a few times a week and do what we can to assist users."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:85
-msgid "Cook Islands"
+#: ../admin-views/tribe-options-help.php:109
+msgid "forum for The Events Calendar"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:86
-msgid "Costa Rica"
+#: ../admin-views/tribe-options-help.php:112
+#, php-format
+msgid "%sA few things to keep in mind before posting:%s"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:87
-msgid "Cote D'Ivoire"
+#: ../admin-views/tribe-options-help.php:113
+#, php-format
+msgid "%sLook through the recent active threads before posting a new one and check that there isn't already a discussion going on your issue.%s"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:88
-msgid "Croatia (Local Name: Hrvatska)"
+#: ../admin-views/tribe-options-help.php:114
+#, php-format
+msgid "%sA good way to help us out before posting is to check whether the issue is a conflict with another plugin or your theme. This can be tested relatively easily on a staging site by deactivating other plugins one-by-one, and reverting to the default 2011 theme as needed, to see if conflicts can be easily identified. If so, please note that when posting your thread.%s"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:89
-msgid "Cuba"
+#: ../admin-views/tribe-options-help.php:115
+#, php-format
+msgid "%sSometimes, just resaving your permalinks (under Settings -> Permalinks) can resolve events-related problems on your site. It is worth a shot before creating a new thread.%s"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:90
-msgid "Cyprus"
+#: ../admin-views/tribe-options-help.php:116
+#, php-format
+msgid "%sMake sure you're running The Events Calendar, rather than Events Calendar. They're two separate plugins :)%s"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:91
-msgid "Czech Republic"
+#: ../admin-views/tribe-options-help.php:117
+#, php-format
+msgid "%sWhile our team is happy to help with bugs and provide light integration tips for users of The Events Calendar, we're not able to provide customization tips or assist in integrating with 3rd party plugins on the WordPress.org forums.%s"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:92
-msgid "Denmark"
+#: ../admin-views/tribe-options-help.php:119
+#, php-format
+msgid "%sShoot us an email to %s or tweet to %s and tell us why. We'll do what we can to make it right.%s"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:93
-msgid "Djibouti"
+#: ../admin-views/tribe-options-help.php:119
+msgid "pro@tri.be"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:94
-msgid "Dominica"
+#: ../admin-views/tribe-options-help.php:119
+msgid "@moderntribeinc"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:95
-msgid "Dominican Republic"
+#: ../admin-views/tribe-options-help.php:120
+msgid "More..."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:96
-msgid "East Timor"
+#: ../admin-views/tribe-options-help.php:127
+msgid "Hi! Thank you so much for using the labor of our love. We are Modern Tribe and we are here to help you kick ass."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:97
-msgid "Ecuador"
+#: ../admin-views/tribe-options-help.php:129
+msgid "Getting Started"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:98
-msgid "Egypt"
+#: ../admin-views/tribe-options-help.php:134
+msgid "Resources to Help You Kick Ass"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:99
-msgid "El Salvador"
+#: ../admin-views/tribe-options-help.php:146
+msgid "Everyone Needs a Buddy"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:100
-msgid "Equatorial Guinea"
+#: ../admin-views/tribe-options-help.php:149
+msgid "Still Not Satisfied?"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:101
-msgid "Eritrea"
+#: ../admin-views/tribe-options-help.php:156
+msgid "The Events Calendar"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:102
-msgid "Estonia"
+#: ../admin-views/tribe-options-help.php:160
+msgid "Latest Version:"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:103
-msgid "Ethiopia"
+#: ../admin-views/tribe-options-help.php:161
+msgid "Author:"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:104
-msgid "Falkland Islands (Malvinas)"
+#: ../admin-views/tribe-options-help.php:161
+msgid "Modern Tribe Inc"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:105
-msgid "Faroe Islands"
+#: ../admin-views/tribe-options-help.php:162
+msgid "Requires:"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:106
-msgid "Fiji"
+#: ../admin-views/tribe-options-help.php:162
+msgid "WordPress "
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:107
-msgid "Finland"
+#: ../admin-views/tribe-options-help.php:163
+msgid "Wordpress.org Plugin Page"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:108
-msgid "France"
+#: ../admin-views/tribe-options-help.php:166
+msgid "Average Rating"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:109
-msgid "France, Metropolitan"
+#: ../admin-views/tribe-options-help.php:178
+msgid "Rating currently unavailable :("
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:110
-msgid "French Guiana"
+#: ../admin-views/tribe-options-help.php:184
+msgid "Give us 5 stars!"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:111
-msgid "French Polynesia"
+#: ../admin-views/tribe-options-help.php:186
+msgid "Free Add-Ons"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:112
-msgid "French Southern Territories"
+#: ../admin-views/tribe-options-help.php:192
+#: ../admin-views/tribe-options-help.php:205
+msgid "(Coming Soon!)"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:113
-msgid "Gabon"
+#: ../admin-views/tribe-options-help.php:199
+msgid "Premium Add-Ons"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:114
-msgid "Gambia"
+#: ../admin-views/tribe-options-help.php:212
+msgid "News and Tutorials"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:115
-#: ../lib/tribe-view-helpers.class.php:303
-msgid "Georgia"
+#: ../admin-views/tribe-options-templates.php:4
+msgid "Default Events Template"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:116
-msgid "Germany"
+#: ../admin-views/tribe-options-templates.php:5
+msgid "Default Page Template"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:117
-msgid "Ghana"
+#: ../admin-views/tribe-options-templates.php:18
+msgid "Template Settings"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:118
-msgid "Gibraltar"
+#: ../admin-views/tribe-options-templates.php:22
+msgid "Events Template"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:119
-msgid "Greece"
+#: ../admin-views/tribe-options-templates.php:23
+msgid "Choose a page template to control the look and feel of your calendar."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:120
-msgid "Greenland"
+#: ../admin-views/tribe-options-templates.php:31
+msgid "Add HTML before calendar"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:121
-msgid "Grenada"
+#: ../admin-views/tribe-options-templates.php:32
+msgid "Some themes may require that you add extra divs before the calendar list to help with styling.<br>This is displayed directly after the header."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:122
-msgid "Guadeloupe"
+#: ../admin-views/tribe-options-templates.php:32
+#: ../admin-views/tribe-options-templates.php:39
+msgid "You may use (x)HTML."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:123
-msgid "Guam"
+#: ../admin-views/tribe-options-templates.php:38
+msgid "Add HTML after calendar"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:124
-msgid "Guatemala"
+#: ../admin-views/tribe-options-templates.php:39
+msgid "Some themes may require that you add extra divs after the calendar list to help with styling.<br>This is displayed directly above the footer."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:125
-msgid "Guinea"
+#: ../admin-views/venue-meta-box.php:12
+msgid "Venue Name:"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:126
-msgid "Guinea-Bissau"
+#: ../admin-views/venue-meta-box.php:19
+msgid "Address:"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:127
-msgid "Guyana"
+#: ../admin-views/venue-meta-box.php:23
+msgid "City:"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:128
-msgid "Haiti"
+#: ../admin-views/venue-meta-box.php:27
+msgid "Country:"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:129
-msgid "Heard And Mc Donald Islands"
+#: ../admin-views/venue-meta-box.php:55
+msgid "State or Province:"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:130
-msgid "Holy See (Vatican City State)"
+#: ../admin-views/venue-meta-box.php:58
+msgid "Select a State:"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:131
-msgid "Honduras"
+#: ../admin-views/venue-meta-box.php:73
+msgid "Postal Code:"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:132
-msgid "Hong Kong"
+#: ../admin-views/widget-admin-list.php:11
+msgid "Title:"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:133
-msgid "Hungary"
+#: ../admin-views/widget-admin-list.php:16
+msgid "Show:"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:134
-msgid "Iceland"
+#: ../admin-views/widget-admin-list.php:24
+msgid "Show widget only if there are upcoming events:"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:135
-msgid "India"
+#: ../admin-views/widget-admin-list.php:30
+msgid "If you wish to customize the widget display yourself, see the file views/events-list-load-widget-display.php inside the Events Premium plugin."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:136
-msgid "Indonesia"
+#: ../lib/the-events-calendar.class.php:284
+msgid "category"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:137
-msgid "Iran (Islamic Republic Of)"
+#: ../lib/the-events-calendar.class.php:285
+msgid "tag"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:138
-msgid "Iraq"
+#: ../lib/the-events-calendar.class.php:286
+msgid "month"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:139
-msgid "Ireland"
+#: ../lib/the-events-calendar.class.php:287
+msgid "upcoming"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:140
-msgid "Israel"
+#: ../lib/the-events-calendar.class.php:288
+msgid "past"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:141
-msgid "Italy"
+#: ../lib/the-events-calendar.class.php:290
+msgid "venue"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:142
-msgid "Jamaica"
+#: ../lib/the-events-calendar.class.php:300
+#, php-format
+msgid "Initializing Tribe Events on %s"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:143
-msgid "Japan"
+#: ../lib/the-events-calendar.class.php:380
+#, php-format
+msgid "Your version of %s requires version %s or higher of The Events Calendar (you are currently running %s). Visit %shelp%s for more information."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:144
-msgid "Jordan"
+#: ../lib/the-events-calendar.class.php:418
+msgid "General"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:145
-msgid "Kazakhstan"
+#: ../lib/the-events-calendar.class.php:419
+msgid "Template"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:146
-msgid "Kenya"
+#: ../lib/the-events-calendar.class.php:420
+msgid "Licenses"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:147
-msgid "Kiribati"
+#: ../lib/the-events-calendar.class.php:456
+#, php-format
+msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:148
-msgid "Korea, Democratic People's Republic Of"
+#: ../lib/the-events-calendar.class.php:459
+#, php-format
+msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:149
-msgid "Korea, Republic Of"
+#: ../lib/the-events-calendar.class.php:580
+msgid "Upcoming Events"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:150
-msgid "Kuwait"
+#: ../lib/the-events-calendar.class.php:582
+msgid "Past Events"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:151
-msgid "Kyrgyzstan"
+#: ../lib/the-events-calendar.class.php:586
+#: ../lib/the-events-calendar.class.php:592
+#, php-format
+msgid "Events for %s"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:152
-msgid "Lao People's Democratic Republic"
+#: ../lib/the-events-calendar.class.php:588
+msgid "Events this month"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:153
-msgid "Latvia"
+#: ../lib/the-events-calendar.class.php:598
+#, php-format
+msgid "Events at %s"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:154
-msgid "Lebanon"
+#: ../lib/the-events-calendar.class.php:611
+msgid "No description has been entered for this event."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:155
-msgid "Lesotho"
+#: ../lib/the-events-calendar.class.php:855
+#: ../lib/the-events-calendar.class.php:2552
+#: ../lib/the-events-calendar.class.php:2612
+msgid "Events"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:156
-msgid "Liberia"
+#: ../lib/the-events-calendar.class.php:856
+msgid "Event"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:157
-msgid "Libya"
+#: ../lib/the-events-calendar.class.php:857
+#: ../lib/the-events-calendar.class.php:870
+#: ../lib/the-events-calendar.class.php:883
+msgid "Add New"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:158
-msgid "Liechtenstein"
+#: ../lib/the-events-calendar.class.php:858
+msgid "Add New Event"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:159
-msgid "Lithuania"
+#: ../lib/the-events-calendar.class.php:859
+msgid "Edit Event"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:160
-msgid "Luxembourg"
+#: ../lib/the-events-calendar.class.php:860
+msgid "New Event"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:161
-msgid "Macau"
+#: ../lib/the-events-calendar.class.php:861
+msgid "View Event"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:162
-msgid "Macedonia"
+#: ../lib/the-events-calendar.class.php:862
+msgid "Search Events"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:163
-msgid "Madagascar"
+#: ../lib/the-events-calendar.class.php:863
+msgid "No events found"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:164
-msgid "Malawi"
+#: ../lib/the-events-calendar.class.php:864
+msgid "No events found in Trash"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:165
-msgid "Malaysia"
+#: ../lib/the-events-calendar.class.php:868
+msgid "Venues"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:166
-msgid "Maldives"
+#: ../lib/the-events-calendar.class.php:869
+msgid "Venue"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:167
-msgid "Mali"
+#: ../lib/the-events-calendar.class.php:871
+msgid "Add New Venue"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:168
-msgid "Malta"
+#: ../lib/the-events-calendar.class.php:872
+msgid "Edit Venue"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:169
-msgid "Marshall Islands"
+#: ../lib/the-events-calendar.class.php:873
+msgid "New Venue"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:170
-msgid "Martinique"
+#: ../lib/the-events-calendar.class.php:874
+#: ../lib/the-events-calendar.class.php:887
+msgid "View Venue"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:171
-msgid "Mauritania"
+#: ../lib/the-events-calendar.class.php:875
+msgid "Search Venues"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:172
-msgid "Mauritius"
+#: ../lib/the-events-calendar.class.php:876
+msgid "No venue found"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:173
-msgid "Mayotte"
+#: ../lib/the-events-calendar.class.php:877
+msgid "No venues found in Trash"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:174
-msgid "Mexico"
+#: ../lib/the-events-calendar.class.php:881
+msgid "Organizers"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:175
-msgid "Micronesia, Federated States Of"
+#: ../lib/the-events-calendar.class.php:882
+msgid "Organizer"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:176
-msgid "Moldova, Republic Of"
+#: ../lib/the-events-calendar.class.php:884
+msgid "Add New Organizer"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:177
-msgid "Monaco"
+#: ../lib/the-events-calendar.class.php:885
+msgid "Edit Organizer"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:178
-msgid "Mongolia"
+#: ../lib/the-events-calendar.class.php:886
+msgid "New Organizer"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:179
-msgid "Montenegro"
+#: ../lib/the-events-calendar.class.php:888
+msgid "Search Organizers"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:180
-msgid "Montserrat"
+#: ../lib/the-events-calendar.class.php:889
+msgid "No organizer found"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:181
-msgid "Morocco"
+#: ../lib/the-events-calendar.class.php:890
+msgid "No organizers found in Trash"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:182
-msgid "Mozambique"
+#: ../lib/the-events-calendar.class.php:894
+#: ../lib/tribe-admin-events-list.class.php:172
+msgid "Event Categories"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:183
-msgid "Myanmar"
+#: ../lib/the-events-calendar.class.php:895
+msgid "Event Category"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:184
-msgid "Namibia"
+#: ../lib/the-events-calendar.class.php:896
+msgid "Search Event Categories"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:185
-msgid "Nauru"
+#: ../lib/the-events-calendar.class.php:897
+msgid "All Event Categories"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:186
-msgid "Nepal"
+#: ../lib/the-events-calendar.class.php:898
+msgid "Parent Event Category"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:187
-msgid "Netherlands"
+#: ../lib/the-events-calendar.class.php:899
+msgid "Parent Event Category:"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:188
-msgid "Netherlands Antilles"
+#: ../lib/the-events-calendar.class.php:900
+msgid "Edit Event Category"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:189
-msgid "New Caledonia"
+#: ../lib/the-events-calendar.class.php:901
+msgid "Update Event Category"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:190
-msgid "New Zealand"
+#: ../lib/the-events-calendar.class.php:902
+msgid "Add New Event Category"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:191
-msgid "Nicaragua"
+#: ../lib/the-events-calendar.class.php:903
+msgid "New Event Category Name"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:192
-msgid "Niger"
+#: ../lib/the-events-calendar.class.php:913
+#, php-format
+msgid "Event updated. <a href=\"%s\">View event</a>"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:193
-msgid "Nigeria"
+#: ../lib/the-events-calendar.class.php:914
+#: ../lib/the-events-calendar.class.php:931
+#: ../lib/the-events-calendar.class.php:948
+msgid "Custom field updated."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:194
-msgid "Niue"
+#: ../lib/the-events-calendar.class.php:915
+#: ../lib/the-events-calendar.class.php:932
+#: ../lib/the-events-calendar.class.php:949
+msgid "Custom field deleted."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:195
-msgid "Norfolk Island"
+#: ../lib/the-events-calendar.class.php:916
+msgid "Event updated."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:196
-msgid "Northern Mariana Islands"
+#: ../lib/the-events-calendar.class.php:918
+#, php-format
+msgid "Event restored to revision from %s"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:197
-msgid "Norway"
+#: ../lib/the-events-calendar.class.php:919
+#, php-format
+msgid "Event published. <a href=\"%s\">View event</a>"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:198
-msgid "Oman"
+#: ../lib/the-events-calendar.class.php:920
+msgid "Event saved."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:199
-msgid "Pakistan"
+#: ../lib/the-events-calendar.class.php:921
+#, php-format
+msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:200
-msgid "Palau"
+#: ../lib/the-events-calendar.class.php:922
+#, php-format
+msgid "Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview event</a>"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:201
-msgid "Panama"
+#: ../lib/the-events-calendar.class.php:924
+#: ../lib/the-events-calendar.class.php:941
+#: ../lib/the-events-calendar.class.php:958
+msgid "M j, Y @ G:i"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:202
-msgid "Papua New Guinea"
+#: ../lib/the-events-calendar.class.php:925
+#, php-format
+msgid "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:203
-msgid "Paraguay"
+#: ../lib/the-events-calendar.class.php:930
+#, php-format
+msgid "Venue updated. <a href=\"%s\">View venue</a>"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:204
-msgid "Peru"
+#: ../lib/the-events-calendar.class.php:933
+msgid "Venue updated."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:205
-msgid "Philippines"
+#: ../lib/the-events-calendar.class.php:935
+#, php-format
+msgid "Venue restored to revision from %s"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:206
-msgid "Pitcairn"
+#: ../lib/the-events-calendar.class.php:936
+#, php-format
+msgid "Venue published. <a href=\"%s\">View venue</a>"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:207
-msgid "Poland"
+#: ../lib/the-events-calendar.class.php:937
+msgid "Venue saved."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:208
-msgid "Portugal"
+#: ../lib/the-events-calendar.class.php:938
+#, php-format
+msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:209
-msgid "Puerto Rico"
+#: ../lib/the-events-calendar.class.php:939
+#, php-format
+msgid "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview venue</a>"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:210
-msgid "Qatar"
+#: ../lib/the-events-calendar.class.php:942
+#, php-format
+msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:211
-msgid "Reunion"
+#: ../lib/the-events-calendar.class.php:947
+#, php-format
+msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:212
-msgid "Romania"
+#: ../lib/the-events-calendar.class.php:950
+msgid "Organizer updated."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:213
-msgid "Russian Federation"
+#: ../lib/the-events-calendar.class.php:952
+#, php-format
+msgid "Organizer restored to revision from %s"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:214
-msgid "Rwanda"
+#: ../lib/the-events-calendar.class.php:953
+#, php-format
+msgid "Organizer published. <a href=\"%s\">View organizer</a>"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:215
-msgid "Saint Kitts And Nevis"
+#: ../lib/the-events-calendar.class.php:954
+msgid "Organizer saved."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:216
-msgid "Saint Lucia"
+#: ../lib/the-events-calendar.class.php:955
+#, php-format
+msgid "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:217
-msgid "Saint Vincent And The Grenadines"
+#: ../lib/the-events-calendar.class.php:956
+#, php-format
+msgid "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview organizer</a>"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:218
-msgid "Samoa"
+#: ../lib/the-events-calendar.class.php:959
+#, php-format
+msgid "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:219
-msgid "San Marino"
+#: ../lib/the-events-calendar.class.php:1055
+msgid "Next"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:220
-msgid "Sao Tome And Principe"
+#: ../lib/the-events-calendar.class.php:1056
+msgid "Prev"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:221
-msgid "Saudi Arabia"
+#: ../lib/the-events-calendar.class.php:1057
+msgid "Today"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:222
-msgid "Senegal"
+#: ../lib/the-events-calendar.class.php:1058
+msgid "Done"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:223
-msgid "Serbia"
+#: ../lib/the-events-calendar.class.php:2334
+msgid "Event Options"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:224
-msgid "Seychelles"
+#: ../lib/the-events-calendar.class.php:2336
+msgid "Venue Information"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:225
-msgid "Sierra Leone"
+#: ../lib/the-events-calendar.class.php:2337
+msgid "Organizer Information"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:226
-msgid "Singapore"
+#: ../lib/the-events-calendar.class.php:2450
+msgid "Support"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:227
-msgid "Slovakia (Slovak Republic)"
+#: ../lib/the-events-calendar.class.php:2453
+msgid "View All Add-Ons"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:228
-msgid "Slovenia"
+#: ../lib/the-events-calendar.class.php:2460
+msgid "News from Modern Tribe"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:229
-msgid "Solomon Islands"
+#: ../lib/the-events-calendar.class.php:2505
+msgid "Additional Functionality"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:230
-msgid "Somalia"
+#: ../lib/the-events-calendar.class.php:2510
+#, php-format
+msgid "Check out the <a href=\"%s\">available Add-Ons</a>."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:231
-msgid "South Africa"
+#: ../lib/the-events-calendar.class.php:2578
+msgid "View Calendar"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:232
-msgid "South Georgia, South Sandwich Islands"
+#: ../lib/the-events-calendar.class.php:2586
+msgid "Add Event"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:233
-msgid "Spain"
+#: ../lib/the-events-calendar.class.php:2595
+msgid "Edit Events"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:234
-msgid "Sri Lanka"
+#: ../lib/the-events-calendar.class.php:2604
+msgid "Settings"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:235
-msgid "St. Helena"
+#: ../lib/tribe-admin-events-list.class.php:40
+#, php-format
+msgid "View &#8220;%s&#8221;"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:236
-msgid "St. Pierre And Miquelon"
+#: ../lib/tribe-admin-events-list.class.php:40
+msgid "View"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:237
-msgid "Sudan"
+#: ../lib/tribe-admin-events-list.class.php:177
+msgid "Start Date"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:238
-msgid "Suriname"
+#: ../lib/tribe-admin-events-list.class.php:178
+msgid "End Date"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:239
-msgid "Svalbard And Jan Mayen Islands"
+#: ../lib/tribe-admin-events-list.class.php:180
+msgid "Recurring?"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:240
-msgid "Swaziland"
+#: ../lib/tribe-admin-events-list.class.php:224
+msgid "Yes"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:241
-msgid "Sweden"
+#: ../lib/tribe-admin-events-list.class.php:224
+msgid "No"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:242
-msgid "Switzerland"
+#: ../lib/tribe-admin-events-list.class.php:278
+#, php-format
+msgid "All %s"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:243
-msgid "Syrian Arab Republic"
+#: ../lib/tribe-app-shop.class.php:54
+#: ../lib/tribe-app-shop.class.php:55
+#: ../lib/tribe-app-shop.class.php:73
+msgid "App Shop"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:244
-msgid "Taiwan"
+#: ../lib/tribe-debug-bar.class.php:18
+msgid "Tribe"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:245
-msgid "Tajikistan"
+#: ../lib/tribe-event-exception.class.php:17
+#: ../lib/tribe-event-exception.class.php:34
+msgid "Error"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:246
-msgid "Tanzania, United Republic Of"
+#: ../lib/tribe-field.class.php:161
+msgid "Invalid field type specified"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:247
-msgid "Thailand"
+#: ../lib/tribe-field.class.php:388
+msgid "No radio options specified"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:248
-msgid "Togo"
+#: ../lib/tribe-field.class.php:425
+msgid "No checkbox options specified"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:249
-msgid "Tokelau"
+#: ../lib/tribe-field.class.php:479
+msgid "No select options specified"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:250
-msgid "Tonga"
+#: ../lib/tribe-settings-tab.class.php:188
+msgid "There are no fields setup for this tab yet."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:251
-msgid "Trinidad And Tobago"
+#: ../lib/tribe-settings.class.php:207
+msgid "You've requested a non-existent tab."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:252
-msgid "Tunisia"
+#: ../lib/tribe-settings.class.php:215
+msgid " Save Changes"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:253
-msgid "Turkey"
+#: ../lib/tribe-settings.class.php:263
+msgid "You don't have permission to do that."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:254
-msgid "Turkmenistan"
+#: ../lib/tribe-settings.class.php:269
+msgid "The request was sent insecurely."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:255
-msgid "Turks And Caicos Islands"
+#: ../lib/tribe-settings.class.php:275
+msgid "The request wasn't sent from this tab."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:256
-msgid "Tuvalu"
+#: ../lib/tribe-settings.class.php:425
+msgid "Your form had the following errors:"
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:257
-msgid "Uganda"
+#: ../lib/tribe-settings.class.php:434
+msgid "None of your settings were saved. Please try again."
 msgstr ""
 
-#: ../lib/tribe-view-helpers.class.php:258
-msgid "Ukraine"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:259
-msgid "United Arab Emirates"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:260
-msgid "United Kingdom"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:261
-msgid "United States Minor Outlying Islands"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:262
-msgid "Uruguay"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:263
-msgid "Uzbekistan"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:264
-msgid "Vanuatu"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:265
-msgid "Venezuela"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:266
-msgid "Viet Nam"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:267
-msgid "Virgin Islands (British)"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:268
-msgid "Virgin Islands (U.S.)"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:269
-msgid "Wallis And Futuna Islands"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:270
-msgid "Western Sahara"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:271
-msgid "Yemen"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:272
-msgid "Zambia"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:273
-msgid "Zimbabwe"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:293
-msgid "Alabama"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:294
-msgid "Alaska"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:295
-msgid "Arizona"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:296
-msgid "Arkansas"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:297
-msgid "California"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:298
-msgid "Colorado"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:299
-msgid "Connecticut"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:300
-msgid "Delaware"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:301
-msgid "District of Columbia"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:302
-msgid "Florida"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:304
-msgid "Hawaii"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:305
-msgid "Idaho"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:306
-msgid "Illinois"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:307
-msgid "Indiana"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:308
-msgid "Iowa"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:309
-msgid "Kansas"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:310
-msgid "Kentucky"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:311
-msgid "Louisiana"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:312
-msgid "Maine"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:313
-msgid "Maryland"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:314
-msgid "Massachusetts"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:315
-msgid "Michigan"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:316
-msgid "Minnesota"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:317
-msgid "Mississippi"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:318
-msgid "Missouri"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:319
-msgid "Montana"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:320
-msgid "Nebraska"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:321
-msgid "Nevada"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:322
-msgid "New Hampshire"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:323
-msgid "New Jersey"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:324
-msgid "New Mexico"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:325
-msgid "New York"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:326
-msgid "North Carolina"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:327
-msgid "North Dakota"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:328
-msgid "Ohio"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:329
-msgid "Oklahoma"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:330
-msgid "Oregon"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:331
-msgid "Pennsylvania"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:332
-msgid "Rhode Island"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:333
-msgid "South Carolina"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:334
-msgid "South Dakota"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:335
-msgid "Tennessee"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:336
-msgid "Texas"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:337
-msgid "Utah"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:338
-msgid "Vermont"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:339
-msgid "Virginia"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:340
-msgid "Washington"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:341
-msgid "West Virginia"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:342
-msgid "Wisconsin"
-msgstr ""
-
-#: ../lib/tribe-view-helpers.class.php:343
-msgid "Wyoming"
+#: ../lib/tribe-settings.class.php:458
+msgid "Settings saved."
 msgstr ""
 
 #: ../lib/tribe-the-events-calendar-import.class.php:44
-msgid "Welcome to Events 2.0! This is a HUGE upgrade from 1.6.5. Please make sure you have backed up before proceeding any further. You can easily <a href=\" http://wordpress.org/extend/plugins/the-events-calendar/download/\">revert to an old version</a> if you want to backup first. This upgrade includes two major steps, <a href=\"options-general.php?page=tribe-events-calendar\">migrating data</a> & updating your templates as necessary. There have been significant changes to the template tags and functions. Check out our <a href=\"http://tri.be/migrating-from-events-calendar-1-6-5-to-2-0\">walkthrough on the upgrade</a> before proceeding and check out the FAQ & Knowledge base from the <a href=\"http://tri.be/support/\">support page</a>.<br/><br/> You have events that need to be migrated.  Please visit the bottom of the <a href=\"options-general.php?page=tribe-events-calendar\">settings page</a> to perform the migration."
+msgid "Welcome to Events 2.0! This is a HUGE upgrade from 1.6.5. Please make sure you have backed up before proceeding any further. You can easily <a href=\" http://wordpress.org/extend/plugins/the-events-calendar/download/\">revert to an old version</a> if you want to backup first. This upgrade includes two major steps, <a href=\"options-general.php?page=tribe-settings&tab=general\">migrating data</a> & updating your templates as necessary. There have been significant changes to the template tags and functions. Check out our <a href=\"http://tri.be/migrating-from-events-calendar-1-6-5-to-2-0\">walkthrough on the upgrade</a> before proceeding and check out the FAQ & Knowledge base from the <a href=\"http://tri.be/support/\">support page</a>. If you're new to The Events Calendar, you may want to review our <a href=\"http://tri.be/support/documentation/events-calendar-pro-new-user-primer/\">new user primer</a>.<br/><br/> You have events that need to be migrated.  Please visit the bottom of the <a href=\"options-general.php?page=tribe-events-calendar\">settings page</a> to perform the migration."
 msgstr ""
 
 #: ../lib/tribe-the-events-calendar-import.class.php:54
@@ -1502,452 +1112,1276 @@ msgstr ""
 msgid "Migrate Data!"
 msgstr ""
 
-#: ../lib/tribe-the-events-calendar-import.class.php:128
+#: ../lib/tribe-the-events-calendar-import.class.php:132
 #, php-format
 msgid "You successfully migrated (%d) entries."
 msgstr ""
 
-#: ../lib/tribe-the-events-calendar-import.class.php:199
+#: ../lib/tribe-the-events-calendar-import.class.php:203
 msgid "Install has 1 or more legacy event!"
 msgstr ""
 
-#: ../lib/tribe-admin-events-list.class.php:40
+#: ../lib/tribe-validate.class.php:77
+#: ../lib/tribe-validate.class.php:115
+msgid "Invalid or incomplete field passed"
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:78
+#: ../lib/tribe-validate.class.php:110
+#: ../lib/tribe-validate.class.php:116
+msgid "Field ID:"
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:109
+msgid "Non-existant field validation function passed"
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:135
+#: ../lib/tribe-validate.class.php:153
 #, php-format
-msgid "View &#8220;%s&#8221;"
+msgid "%s must contain numbers and letters only"
 msgstr ""
 
-#: ../lib/tribe-admin-events-list.class.php:40
-msgid "View"
-msgstr ""
-
-#: ../lib/tribe-admin-events-list.class.php:172
-#: ../lib/the-events-calendar.class.php:597
-msgid "Event Categories"
-msgstr ""
-
-#: ../lib/tribe-admin-events-list.class.php:177
-msgid "Start Date"
-msgstr ""
-
-#: ../lib/tribe-admin-events-list.class.php:178
-msgid "End Date"
-msgstr ""
-
-#: ../lib/tribe-admin-events-list.class.php:179
-msgid "Recurring?"
-msgstr ""
-
-#: ../lib/tribe-admin-events-list.class.php:222
-msgid "Yes"
-msgstr ""
-
-#: ../lib/tribe-admin-events-list.class.php:222
-msgid "No"
-msgstr ""
-
-#: ../lib/tribe-admin-events-list.class.php:276
+#: ../lib/tribe-validate.class.php:171
 #, php-format
-msgid "All %s"
+msgid "%s must contain numbers, letters and dots only"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:239
-msgid "The Events Calendar"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:242
-msgid "category"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:243
-msgid "month"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:244
-msgid "upcoming"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:245
-msgid "past"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:247
-msgid "venue"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:257
+#: ../lib/tribe-validate.class.php:187
 #, php-format
-msgid "Initializing Tribe Events on %s"
+msgid "%s must be a positive number."
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:314
+#: ../lib/tribe-validate.class.php:204
 #, php-format
-msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
+msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:317
+#: ../lib/tribe-validate.class.php:221
 #, php-format
-msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
+msgid "%s must be a valid absolute URL."
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:438
-msgid "Upcoming Events"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:440
-msgid "Past Events"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:444
-#: ../lib/the-events-calendar.class.php:450
+#: ../lib/tribe-validate.class.php:239
+#: ../lib/tribe-validate.class.php:258
+#: ../lib/tribe-validate.class.php:279
 #, php-format
-msgid "Events for %s"
+msgid "%s must have a value that's part of its options."
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:446
-msgid "Events this month"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:456
+#: ../lib/tribe-validate.class.php:295
 #, php-format
-msgid "Events at %s"
+msgid "Comparison validation failed because no comparison value was provided, for field %s"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:468
-msgid "No description has been entered for this event."
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:558
-msgid "Events"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:559
-msgid "Event"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:560
-#: ../lib/the-events-calendar.class.php:573
-#: ../lib/the-events-calendar.class.php:586
-msgid "Add New"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:561
-msgid "Add New Event"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:562
-msgid "Edit Event"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:563
-msgid "New Event"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:564
-msgid "View Event"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:565
-msgid "Search Events"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:566
-msgid "No events found"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:567
-msgid "No events found in Trash"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:571
-msgid "Venues"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:572
-msgid "Venue"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:574
-msgid "Add New Venue"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:575
-msgid "Edit Venue"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:576
-msgid "New Venue"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:577
-#: ../lib/the-events-calendar.class.php:590
-msgid "View Venue"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:578
-msgid "Search Venues"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:579
-msgid "No venue found"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:580
-msgid "No venues found in Trash"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:584
-msgid "Organizers"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:585
-msgid "Organizer"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:587
-msgid "Add New Organizer"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:588
-msgid "Edit Organizer"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:589
-msgid "New Organizer"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:591
-msgid "Search Organizers"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:592
-msgid "No organizer found"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:593
-msgid "No organizers found in Trash"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:598
-msgid "Event Category"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:599
-msgid "Search Event Categories"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:600
-msgid "All Event Categories"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:601
-msgid "Parent Event Category"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:602
-msgid "Parent Event Category:"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:603
-msgid "Edit Event Category"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:604
-msgid "Update Event Category"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:605
-msgid "Add New Event Category"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:606
-msgid "New Event Category Name"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:616
+#: ../lib/tribe-validate.class.php:302
 #, php-format
-msgid "Event updated. <a href=\"%s\">View event</a>"
+msgid "%s cannot be the same as %s."
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:617
-#: ../lib/the-events-calendar.class.php:634
-#: ../lib/the-events-calendar.class.php:651
-msgid "Custom field updated."
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:618
-#: ../lib/the-events-calendar.class.php:635
-#: ../lib/the-events-calendar.class.php:652
-msgid "Custom field deleted."
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:619
-msgid "Event updated."
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:621
+#: ../lib/tribe-validate.class.php:304
 #, php-format
-msgid "Event restored to revision from %s"
+msgid "%s cannot be a duplicate"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:622
+#: ../lib/tribe-validate.class.php:322
 #, php-format
-msgid "Event published. <a href=\"%s\">View event</a>"
+msgid "%s must be a number or percentage."
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:623
-msgid "Event saved."
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:624
+#: ../lib/tribe-validate.class.php:386
 #, php-format
-msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
+msgid "%s must be a number between 0 and 21."
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:625
+#: ../lib/tribe-validate.class.php:404
 #, php-format
-msgid "Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview event</a>"
+msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:627
-#: ../lib/the-events-calendar.class.php:644
-#: ../lib/the-events-calendar.class.php:661
-msgid "M j, Y @ G:i"
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:628
+#: ../lib/tribe-validate.class.php:422
 #, php-format
-msgid "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
+msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:633
+#: ../lib/tribe-validate.class.php:438
 #, php-format
-msgid "Venue updated. <a href=\"%s\">View venue</a>"
+msgid "%s must consist of 5 numbers."
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:636
-msgid "Venue updated."
-msgstr ""
-
-#: ../lib/the-events-calendar.class.php:638
+#: ../lib/tribe-validate.class.php:454
 #, php-format
-msgid "Venue restored to revision from %s"
+msgid "%s must be a phone number."
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:639
-#, php-format
-msgid "Venue published. <a href=\"%s\">View venue</a>"
+#: ../lib/tribe-validate.class.php:472
+msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:640
-msgid "Venue saved."
+#: ../lib/tribe-view-helpers.class.php:16
+#: ../lib/tribe-view-helpers.class.php:35
+msgid "Select a Country:"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:641
-#, php-format
-msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+#: ../lib/tribe-view-helpers.class.php:36
+msgid "United States"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:642
-#, php-format
-msgid "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview venue</a>"
+#: ../lib/tribe-view-helpers.class.php:37
+msgid "Afghanistan"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:645
-#, php-format
-msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+#: ../lib/tribe-view-helpers.class.php:38
+msgid "Albania"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:650
-#, php-format
-msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
+#: ../lib/tribe-view-helpers.class.php:39
+msgid "Algeria"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:653
-msgid "Organizer updated."
+#: ../lib/tribe-view-helpers.class.php:40
+msgid "American Samoa"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:655
-#, php-format
-msgid "Organizer restored to revision from %s"
+#: ../lib/tribe-view-helpers.class.php:41
+msgid "Andorra"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:656
-#, php-format
-msgid "Organizer published. <a href=\"%s\">View organizer</a>"
+#: ../lib/tribe-view-helpers.class.php:42
+msgid "Angola"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:657
-msgid "Organizer saved."
+#: ../lib/tribe-view-helpers.class.php:43
+msgid "Anguilla"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:658
-#, php-format
-msgid "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+#: ../lib/tribe-view-helpers.class.php:44
+msgid "Antarctica"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:659
-#, php-format
-msgid "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview organizer</a>"
+#: ../lib/tribe-view-helpers.class.php:45
+msgid "Antigua And Barbuda"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:662
-#, php-format
-msgid "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+#: ../lib/tribe-view-helpers.class.php:46
+msgid "Argentina"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:717
-msgid "Next"
+#: ../lib/tribe-view-helpers.class.php:47
+msgid "Armenia"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:718
-msgid "Prev"
+#: ../lib/tribe-view-helpers.class.php:48
+msgid "Aruba"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:719
-msgid "Today"
+#: ../lib/tribe-view-helpers.class.php:49
+msgid "Australia"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:720
-msgid "Done"
+#: ../lib/tribe-view-helpers.class.php:50
+msgid "Austria"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:1835
-msgid "Event Options"
+#: ../lib/tribe-view-helpers.class.php:51
+msgid "Azerbaijan"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:1837
-msgid "Venue Information"
+#: ../lib/tribe-view-helpers.class.php:52
+msgid "Bahamas"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:1838
-msgid "Organizer Information"
+#: ../lib/tribe-view-helpers.class.php:53
+msgid "Bahrain"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:1951
-msgid "Support"
+#: ../lib/tribe-view-helpers.class.php:54
+msgid "Bangladesh"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:1954
-msgid "View All Add-Ons"
+#: ../lib/tribe-view-helpers.class.php:55
+msgid "Barbados"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:1961
-msgid "News from Modern Tribe"
+#: ../lib/tribe-view-helpers.class.php:56
+msgid "Belarus"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:2006
-msgid "Additional Functionality"
+#: ../lib/tribe-view-helpers.class.php:57
+msgid "Belgium"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:2011
-#: ../lib/the-events-calendar.class.php:2017
-msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
+#: ../lib/tribe-view-helpers.class.php:58
+msgid "Belize"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:2011
-#: ../lib/the-events-calendar.class.php:2018
-#, php-format
-msgid "Check out the <a href=\"%s\">available Add-Ons</a>."
+#: ../lib/tribe-view-helpers.class.php:59
+msgid "Benin"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:60
+msgid "Bermuda"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:61
+msgid "Bhutan"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:62
+msgid "Bolivia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:63
+msgid "Bosnia And Herzegowina"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:64
+msgid "Botswana"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:65
+msgid "Bouvet Island"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:66
+msgid "Brazil"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:67
+msgid "British Indian Ocean Territory"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:68
+msgid "Brunei Darussalam"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:69
+msgid "Bulgaria"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:70
+msgid "Burkina Faso"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:71
+msgid "Burundi"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:72
+msgid "Cambodia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:73
+msgid "Cameroon"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:74
+msgid "Canada"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:75
+msgid "Cape Verde"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:76
+msgid "Cayman Islands"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:77
+msgid "Central African Republic"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:78
+msgid "Chad"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:79
+msgid "Chile"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:80
+msgid "China"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:81
+msgid "Christmas Island"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:82
+msgid "Cocos (Keeling) Islands"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:83
+msgid "Colombia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:84
+msgid "Comoros"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:85
+msgid "Congo"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:86
+msgid "Congo, The Democratic Republic Of The"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:87
+msgid "Cook Islands"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:88
+msgid "Costa Rica"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:89
+msgid "Cote D'Ivoire"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:90
+msgid "Croatia (Local Name: Hrvatska)"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:91
+msgid "Cuba"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:92
+msgid "Cyprus"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:93
+msgid "Czech Republic"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:94
+msgid "Denmark"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:95
+msgid "Djibouti"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:96
+msgid "Dominica"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:97
+msgid "Dominican Republic"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:98
+msgid "East Timor"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:99
+msgid "Ecuador"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:100
+msgid "Egypt"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:101
+msgid "El Salvador"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:102
+msgid "Equatorial Guinea"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:103
+msgid "Eritrea"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:104
+msgid "Estonia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:105
+msgid "Ethiopia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:106
+msgid "Falkland Islands (Malvinas)"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:107
+msgid "Faroe Islands"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:108
+msgid "Fiji"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:109
+msgid "Finland"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:110
+msgid "France"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:111
+msgid "France, Metropolitan"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:112
+msgid "French Guiana"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:113
+msgid "French Polynesia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:114
+msgid "French Southern Territories"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:115
+msgid "Gabon"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:116
+msgid "Gambia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:117
+#: ../lib/tribe-view-helpers.class.php:305
+msgid "Georgia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:118
+msgid "Germany"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:119
+msgid "Ghana"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:120
+msgid "Gibraltar"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:121
+msgid "Greece"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:122
+msgid "Greenland"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:123
+msgid "Grenada"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:124
+msgid "Guadeloupe"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:125
+msgid "Guam"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:126
+msgid "Guatemala"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:127
+msgid "Guinea"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:128
+msgid "Guinea-Bissau"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:129
+msgid "Guyana"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:130
+msgid "Haiti"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:131
+msgid "Heard And Mc Donald Islands"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:132
+msgid "Holy See (Vatican City State)"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:133
+msgid "Honduras"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:134
+msgid "Hong Kong"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:135
+msgid "Hungary"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:136
+msgid "Iceland"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:137
+msgid "India"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:138
+msgid "Indonesia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:139
+msgid "Iran (Islamic Republic Of)"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:140
+msgid "Iraq"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:141
+msgid "Ireland"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:142
+msgid "Israel"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:143
+msgid "Italy"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:144
+msgid "Jamaica"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:145
+msgid "Japan"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:146
+msgid "Jordan"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:147
+msgid "Kazakhstan"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:148
+msgid "Kenya"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:149
+msgid "Kiribati"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:150
+msgid "Korea, Democratic People's Republic Of"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:151
+msgid "Korea, Republic Of"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:152
+msgid "Kuwait"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:153
+msgid "Kyrgyzstan"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:154
+msgid "Lao People's Democratic Republic"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:155
+msgid "Latvia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:156
+msgid "Lebanon"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:157
+msgid "Lesotho"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:158
+msgid "Liberia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:159
+msgid "Libya"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:160
+msgid "Liechtenstein"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:161
+msgid "Lithuania"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:162
+msgid "Luxembourg"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:163
+msgid "Macau"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:164
+msgid "Macedonia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:165
+msgid "Madagascar"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:166
+msgid "Malawi"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:167
+msgid "Malaysia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:168
+msgid "Maldives"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:169
+msgid "Mali"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:170
+msgid "Malta"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:171
+msgid "Marshall Islands"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:172
+msgid "Martinique"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:173
+msgid "Mauritania"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:174
+msgid "Mauritius"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:175
+msgid "Mayotte"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:176
+msgid "Mexico"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:177
+msgid "Micronesia, Federated States Of"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:178
+msgid "Moldova, Republic Of"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:179
+msgid "Monaco"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:180
+msgid "Mongolia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:181
+msgid "Montenegro"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:182
+msgid "Montserrat"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:183
+msgid "Morocco"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:184
+msgid "Mozambique"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:185
+msgid "Myanmar"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:186
+msgid "Namibia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:187
+msgid "Nauru"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:188
+msgid "Nepal"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:189
+msgid "Netherlands"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:190
+msgid "Netherlands Antilles"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:191
+msgid "New Caledonia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:192
+msgid "New Zealand"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:193
+msgid "Nicaragua"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:194
+msgid "Niger"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:195
+msgid "Nigeria"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:196
+msgid "Niue"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:197
+msgid "Norfolk Island"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:198
+msgid "Northern Mariana Islands"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:199
+msgid "Norway"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:200
+msgid "Oman"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:201
+msgid "Pakistan"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:202
+msgid "Palau"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:203
+msgid "Panama"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:204
+msgid "Papua New Guinea"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:205
+msgid "Paraguay"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:206
+msgid "Peru"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:207
+msgid "Philippines"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:208
+msgid "Pitcairn"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:209
+msgid "Poland"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:210
+msgid "Portugal"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:211
+msgid "Puerto Rico"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:212
+msgid "Qatar"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:213
+msgid "Reunion"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:214
+msgid "Romania"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:215
+msgid "Russian Federation"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:216
+msgid "Rwanda"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:217
+msgid "Saint Kitts And Nevis"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:218
+msgid "Saint Lucia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:219
+msgid "Saint Vincent And The Grenadines"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:220
+msgid "Samoa"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:221
+msgid "San Marino"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:222
+msgid "Sao Tome And Principe"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:223
+msgid "Saudi Arabia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:224
+msgid "Senegal"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:225
+msgid "Serbia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:226
+msgid "Seychelles"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:227
+msgid "Sierra Leone"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:228
+msgid "Singapore"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:229
+msgid "Slovakia (Slovak Republic)"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:230
+msgid "Slovenia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:231
+msgid "Solomon Islands"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:232
+msgid "Somalia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:233
+msgid "South Africa"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:234
+msgid "South Georgia, South Sandwich Islands"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:235
+msgid "Spain"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:236
+msgid "Sri Lanka"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:237
+msgid "St. Helena"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:238
+msgid "St. Pierre And Miquelon"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:239
+msgid "Sudan"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:240
+msgid "Suriname"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:241
+msgid "Svalbard And Jan Mayen Islands"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:242
+msgid "Swaziland"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:243
+msgid "Sweden"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:244
+msgid "Switzerland"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:245
+msgid "Syrian Arab Republic"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:246
+msgid "Taiwan"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:247
+msgid "Tajikistan"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:248
+msgid "Tanzania, United Republic Of"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:249
+msgid "Thailand"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:250
+msgid "Togo"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:251
+msgid "Tokelau"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:252
+msgid "Tonga"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:253
+msgid "Trinidad And Tobago"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:254
+msgid "Tunisia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:255
+msgid "Turkey"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:256
+msgid "Turkmenistan"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:257
+msgid "Turks And Caicos Islands"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:258
+msgid "Tuvalu"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:259
+msgid "Uganda"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:260
+msgid "Ukraine"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:261
+msgid "United Arab Emirates"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:262
+msgid "United Kingdom"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:263
+msgid "United States Minor Outlying Islands"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:264
+msgid "Uruguay"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:265
+msgid "Uzbekistan"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:266
+msgid "Vanuatu"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:267
+msgid "Venezuela"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:268
+msgid "Viet Nam"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:269
+msgid "Virgin Islands (British)"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:270
+msgid "Virgin Islands (U.S.)"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:271
+msgid "Wallis And Futuna Islands"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:272
+msgid "Western Sahara"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:273
+msgid "Yemen"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:274
+msgid "Zambia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:275
+msgid "Zimbabwe"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:295
+msgid "Alabama"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:296
+msgid "Alaska"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:297
+msgid "Arizona"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:298
+msgid "Arkansas"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:299
+msgid "California"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:300
+msgid "Colorado"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:301
+msgid "Connecticut"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:302
+msgid "Delaware"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:303
+msgid "District of Columbia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:304
+msgid "Florida"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:306
+msgid "Hawaii"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:307
+msgid "Idaho"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:308
+msgid "Illinois"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:309
+msgid "Indiana"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:310
+msgid "Iowa"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:311
+msgid "Kansas"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:312
+msgid "Kentucky"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:313
+msgid "Louisiana"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:314
+msgid "Maine"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:315
+msgid "Maryland"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:316
+msgid "Massachusetts"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:317
+msgid "Michigan"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:318
+msgid "Minnesota"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:319
+msgid "Mississippi"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:320
+msgid "Missouri"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:321
+msgid "Montana"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:322
+msgid "Nebraska"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:323
+msgid "Nevada"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:324
+msgid "New Hampshire"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:325
+msgid "New Jersey"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:326
+msgid "New Mexico"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:327
+msgid "New York"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:328
+msgid "North Carolina"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:329
+msgid "North Dakota"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:330
+msgid "Ohio"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:331
+msgid "Oklahoma"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:332
+msgid "Oregon"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:333
+msgid "Pennsylvania"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:334
+msgid "Rhode Island"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:335
+msgid "South Carolina"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:336
+msgid "South Dakota"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:337
+msgid "Tennessee"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:338
+msgid "Texas"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:339
+msgid "Utah"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:340
+msgid "Vermont"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:341
+msgid "Virginia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:342
+msgid "Washington"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:343
+msgid "West Virginia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:344
+msgid "Wisconsin"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:345
+msgid "Wyoming"
 msgstr ""
 
 #: ../lib/widget-list.class.php:16
@@ -1962,49 +2396,90 @@ msgstr ""
 msgid "There are no upcoming events at this time."
 msgstr ""
 
-#: ../lib/tribe-debug-bar.class.php:18
-msgid "Tribe"
+#: ../public/template-tags/general.php:120
+msgid "Category:"
 msgstr ""
 
-#: ../lib/tribe-event-exception.class.php:17
-#: ../lib/tribe-event-exception.class.php:34
-msgid "Error"
+#: ../public/template-tags/general.php:137
+msgid "Tags:"
+msgstr ""
+
+#: ../public/template-tags/general.php:255
+msgid "Free"
 msgstr ""
 
 #: ../public/template-tags/loop.php:130
 msgid "Calendar of Events"
 msgstr ""
 
-#: ../public/template-tags/general.php:103
-msgid "Category:"
+#: ../vendor/wp-router/WP_Route.class.php:250
+msgid "You are not authorized to access this page"
 msgstr ""
 
-#: ../public/template-tags/general.php:220
-msgid "Free"
+#: ../vendor/wp-router/WP_Route.class.php:251
+msgid "Access Denied"
+msgstr ""
+
+#: ../vendor/wp-router/WP_Router_Page.class.php:78
+msgid "WP Router Placeholder Page"
+msgstr ""
+
+#: ../vendor/wp-router/WP_Router_Utility.class.php:71
+#, php-format
+msgid "%1$s requires WordPress %2$s or higher and PHP %3$s or higher."
+msgstr ""
+
+#: ../views/ecp-single-template.php:24
+msgid "Edit"
+msgstr ""
+
+#: ../views/events-list-load-widget-display.php:52
+msgid "All Day"
+msgstr ""
+
+#: ../views/gridview.php:36
+#: ../views/list.php:18
+msgid "Event List"
+msgstr ""
+
+#: ../views/gridview.php:37
+#: ../views/list.php:19
+msgid "Calendar"
+msgstr ""
+
+#: ../views/gridview.php:42
+#: ../views/list.php:165
+#: ../views/single.php:103
+msgid "iCal Import"
+msgstr ""
+
+#: ../views/gridview.php:45
+#, php-format
+msgid "Calendar powered by %sThe Events Calendar%s"
 msgstr ""
 
 #: ../views/list.php:50
-#: ../views/single.php:20
+#: ../views/single.php:22
 msgid "Start:"
 msgstr ""
 
 #: ../views/list.php:54
-#: ../views/single.php:22
+#: ../views/single.php:24
 msgid "End:"
 msgstr ""
 
 #: ../views/list.php:59
-#: ../views/single.php:25
+#: ../views/single.php:27
 msgid "Date:"
 msgstr ""
 
 #: ../views/list.php:69
-#: ../views/single.php:59
+#: ../views/single.php:61
 msgid "Venue:"
 msgstr ""
 
 #: ../views/list.php:92
-#: ../views/single.php:76
+#: ../views/single.php:78
 msgid "Google Map"
 msgstr ""
 
@@ -2043,58 +2518,44 @@ msgstr ""
 msgid "Next Events &raquo;"
 msgstr ""
 
-#: ../views/list.php:165
-#: ../views/gridview.php:43
-#: ../views/single.php:101
-msgid "iCal Import"
-msgstr ""
-
-#: ../views/ecp-single-template.php:24
-msgid "Edit"
-msgstr ""
-
-#: ../views/events-list-load-widget-display.php:52
-msgid "All Day"
-msgstr ""
-
-#: ../views/table-mini.php:24
-msgid "View all &raquo;"
-msgstr ""
-
-#: ../views/single.php:13
+#: ../views/single.php:12
 msgid "&laquo; Back to Events"
 msgstr ""
 
-#: ../views/single.php:14
+#: ../views/single.php:16
 msgid "This event has passed."
 msgstr ""
 
-#: ../views/single.php:17
+#: ../views/single.php:19
 msgid "Event:"
 msgstr ""
 
-#: ../views/single.php:34
-#: ../views/single.php:37
+#: ../views/single.php:36
+#: ../views/single.php:39
 msgid "Organizer:"
 msgstr ""
 
-#: ../views/single.php:48
+#: ../views/single.php:50
 msgid "Updated:"
 msgstr ""
 
-#: ../views/single.php:51
+#: ../views/single.php:53
 msgid "Schedule:"
 msgstr ""
 
-#: ../views/single.php:76
+#: ../views/single.php:78
 msgid "Click to view a Google Map"
 msgstr ""
 
-#: ../views/single.php:104
+#: ../views/single.php:106
 msgid "Add to Google Calendar"
 msgstr ""
 
-#: ../views/single.php:104
+#: ../views/single.php:106
 msgid "+ Google Calendar"
+msgstr ""
+
+#: ../views/table-mini.php:117
+msgid "View all &raquo;"
 msgstr ""
 

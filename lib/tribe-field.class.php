@@ -310,7 +310,8 @@ if ( !class_exists('TribeField') ) {
 		 * @return string the field
 		 */
 		public function html() {
-			$field = $this->html;
+			$field = $this->doFieldLabel();
+			$field .= $this->html;			
 			return $field;
 		}
 

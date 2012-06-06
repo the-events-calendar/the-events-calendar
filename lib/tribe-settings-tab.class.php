@@ -86,7 +86,7 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 		 * @return array $tabs the filtered tabs
 		 */
 		public function addTab( $tabs ) {
-			if ( !empty( $this->fields ) || has_action( 'tribe_settings_content_tab_' . $this->id ) ) {
+			if ( isset( $this->fields ) || has_action( 'tribe_settings_content_tab_' . $this->id ) ) {
 				$tabs[$this->id] = $this->name;
 				add_filter( 'tribe_settings_fields', array( $this, 'addFields' ) );
 				add_filter( 'tribe_settings_no_save_tabs', array( $this, 'showSaveTab' ) );
