@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: The Events Calendar 2.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-09-09 18:07-0500\n"
-"PO-Revision-Date: 2012-02-03 07:18-0600\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2012-05-08 22:42-0430\n"
+"Last-Translator: Signo Creativo <signodev@signocreativo.com>\n"
 "Language-Team: Modern Tribe, Inc.\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: ../views/events-advanced-list-load-widget-display.php:49
 #: ../views/widget-featured-display.php:48
 msgid "All Day"
-msgstr "Todo el Dia"
+msgstr "Todo el Día"
 
 #: ../views/events-advanced-list-load-widget-display.php:52
 msgid "Ends"
@@ -43,7 +43,7 @@ msgstr "Nombre:"
 
 #: ../views/single-venue.php:22
 msgid "Phone:"
-msgstr "Telefono:"
+msgstr "Teléfono:"
 
 #: ../views/single-venue.php:28
 msgid "Address:"
@@ -63,15 +63,15 @@ msgstr "Inicia:"
 
 #: ../views/single-venue.php:66
 msgid "End:"
-msgstr "Termina:"
+msgstr "Finaliza:"
 
 #: ../views/single-venue.php:74
 msgid "Cost:"
-msgstr "Costo:"
+msgstr "Precio:"
 
 #: ../admin-views/event-defaults.php:1
 msgid "Customize Defaults"
-msgstr "Personalización por Defecto"
+msgstr "Valores por Defecto"
 
 #: ../admin-views/event-defaults.php:2
 msgid "These settings change the default event form. For example, if you set a default venue, this field will be automatically filled in on a new event."
@@ -80,7 +80,7 @@ msgstr "Estos ajustes cambian la forma de evento por defecto. Por ejemplo, si es
 #: ../admin-views/event-defaults.php:5
 #: ../admin-views/event-defaults.php:9
 msgid "Automatically replace empty fields with default values"
-msgstr "Automaticamente reemplazar campos vacios con valores por defecto"
+msgstr "Automáticamente reemplazar campos vacios con valores por defecto"
 
 #: ../admin-views/event-defaults.php:13
 msgid "Enabled"
@@ -96,7 +96,7 @@ msgstr "Organizador por Defecto"
 
 #: ../admin-views/event-defaults.php:23
 msgid "The default organizer value"
-msgstr ""
+msgstr "Valor para organizador por defecto"
 
 #: ../admin-views/event-defaults.php:23
 #: ../admin-views/event-defaults.php:31
@@ -108,7 +108,7 @@ msgstr ""
 #: ../admin-views/event-defaults.php:108
 #, php-format
 msgid "The current default value is <strong>%s</strong>"
-msgstr ""
+msgstr "El valor por defecto actual es <strong>%s</strong>"
 
 #: ../admin-views/event-defaults.php:27
 msgid "Default Venue for Events"
@@ -134,11 +134,11 @@ msgstr "Valor de dirección por defecto"
 #: ../admin-views/event-defaults.php:42
 #: ../admin-views/event-defaults.php:44
 msgid "Default City"
-msgstr ""
+msgstr "Ciudad por Defecto"
 
 #: ../admin-views/event-defaults.php:45
 msgid "The default city value"
-msgstr ""
+msgstr "Valor por defecto para ciudad"
 
 #: ../admin-views/event-defaults.php:50
 msgid "Default State"
@@ -151,7 +151,7 @@ msgstr "Provincia o Estado por defecto"
 
 #: ../admin-views/event-defaults.php:55
 msgid "Select a State:"
-msgstr "Selecciona un Estado:"
+msgstr "Seleccione un Estado:"
 
 #: ../admin-views/event-defaults.php:66
 #: ../admin-views/event-defaults.php:74
@@ -165,7 +165,7 @@ msgstr "Provincia por Defecto"
 #: ../admin-views/event-defaults.php:79
 #: ../admin-views/event-defaults.php:81
 msgid "Default Postal Code"
-msgstr "Codigo Postal por Defecto"
+msgstr "Código Postal por Defecto"
 
 #: ../admin-views/event-defaults.php:82
 msgid "The default Postal Code value"
@@ -173,16 +173,16 @@ msgstr "Valor de Codigo Postal por Defecto"
 
 #: ../admin-views/event-defaults.php:87
 msgid "Default Country for Events"
-msgstr "Pais de Eventos por Defecto"
+msgstr "País por Defecto para Eventos"
 
 #: ../admin-views/event-defaults.php:105
 #: ../admin-views/event-defaults.php:107
 msgid "Default Phone"
-msgstr "Telefono por Defecto"
+msgstr "Teléfono por Defecto"
 
 #: ../admin-views/event-defaults.php:108
 msgid "The default phone value"
-msgstr "Valor "
+msgstr "Valor por defecto para teléfono"
 
 #: ../admin-views/event-defaults.php:112
 msgid "Use a custom list of countries"
@@ -194,30 +194,30 @@ msgstr "Usar la siguiente lista:"
 
 #: ../admin-views/event-defaults.php:116
 msgid "One country per line in the following format: <br/>US, United States <br/> UK, United Kingdom."
-msgstr "Un pais por linea en el siguiente formato: <br/>US, United States <br/> UK, United Kingdom."
+msgstr "Un país por linea en el siguiente formato: <br/>EE.UU., Estados Unidos<br/> RU, Reino Unido."
 
 #: ../admin-views/event-defaults.php:116
 msgid "(Replaces the default list.)"
-msgstr "(reemplaza la lista por defecto)"
+msgstr "(Reemplaza la lista por defecto)"
 
 #: ../admin-views/support-form.php:11
 msgid "Need help? Send us a support request."
-msgstr "¿necesitas ayuda? Envia una solicitud de soporte"
+msgstr "¿necesita ayuda? Envienos una solicitud de soporte"
 
 #: ../admin-views/support-form.php:14
 #, php-format
 msgid "Tell us about the problem you're seeing in as much detail as possible. Please note that we'll also be sending some basic system information along with this request so that we can better diagnose the issue. If you would like to contact us without sending any system information, please visit our support page at %s. Thanks!"
-msgstr ""
+msgstr "Describanos su problema con el mayor detalle posible. Por favor tome nota que adicionalmente se estará enviando alguna información básica de su sistema con el proposito de permitirnos diagnosticar la falla. Si desea contactarnos sin enviar información sobre su sistema, por favor visite nuestra página de soporte en %s. ¡Muchas gracias!"
 
 #: ../admin-views/support-form.php:18
 msgid "Send a Support Request"
-msgstr "Envia una Solicitud De Soporte"
+msgstr "Envie una Solicitud de Soporte"
 
 #: ../admin-views/widget-admin-advanced-list.php:11
 #: ../admin-views/widget-admin-calendar.php:10
 #: ../admin-views/widget-admin-featured.php:10
 msgid "Title:"
-msgstr "Titulo:"
+msgstr "Título:"
 
 #: ../admin-views/widget-admin-advanced-list.php:16
 msgid "Show:"
@@ -225,7 +225,7 @@ msgstr "Mostrar:"
 
 #: ../admin-views/widget-admin-advanced-list.php:24
 msgid "Show widget only if there are upcoming events:"
-msgstr "Mostrar el widget solo si hay eventos futuros:"
+msgstr "Mostrar el widget solo si hay eventos programados:"
 
 #: ../admin-views/widget-admin-advanced-list.php:30
 msgid "Display:"
@@ -233,7 +233,7 @@ msgstr "Mostrar:"
 
 #: ../admin-views/widget-admin-advanced-list.php:33
 msgid "Start Date & Time"
-msgstr "Fecha y Hora De Inicio:"
+msgstr "Fecha y Hora de Inicio:"
 
 #: ../admin-views/widget-admin-advanced-list.php:33
 msgid "(Widget will always show start date)"
@@ -241,7 +241,7 @@ msgstr "(Widget siempre mostrara la hora de inicio)"
 
 #: ../admin-views/widget-admin-advanced-list.php:34
 msgid "End Date & Time"
-msgstr "Fecha y Hora que Termina"
+msgstr "Fecha y Hora Finaliza"
 
 #: ../admin-views/widget-admin-advanced-list.php:35
 msgid "Venue"
@@ -261,15 +261,15 @@ msgstr "Estado (US) o Provincia (Int)"
 
 #: ../admin-views/widget-admin-advanced-list.php:39
 msgid "Postal Code"
-msgstr "Codigo Postal"
+msgstr "Código Postal"
 
 #: ../admin-views/widget-admin-advanced-list.php:40
 msgid "Country"
-msgstr "Pais"
+msgstr "País"
 
 #: ../admin-views/widget-admin-advanced-list.php:41
 msgid "Phone"
-msgstr "Telefono"
+msgstr "Teléfono"
 
 #: ../admin-views/widget-admin-advanced-list.php:42
 msgid "Price"
@@ -278,11 +278,11 @@ msgstr "Precio"
 #: ../admin-views/widget-admin-advanced-list.php:49
 #: ../admin-views/widget-admin-featured.php:13
 msgid "Category:"
-msgstr "Categoria:"
+msgstr "Categoría:"
 
 #: ../admin-views/widget-admin-advanced-list.php:64
 msgid "If you wish to customize the widget display yourself, see the file views/events-list-load-widget-display.php inside the Events Premium plugin."
-msgstr "Si le gustaria personalizar el widget por si mismo, vea el archivo views/events-list-load-widget-display.php dentro del Events Premium plugin."
+msgstr "Si desea personalizar el widget, vea el archivo views/events-list-load-widget-display.php dentro del Events Premium plugin."
 
 #: ../admin-views/event-meta-options.php:1
 msgid "Additional Fields"
@@ -290,11 +290,11 @@ msgstr "Campos Adicionales"
 
 #: ../admin-views/event-meta-options.php:2
 msgid "You can set up any additional custom fields that you would like to use for events here."
-msgstr "Usted puede preparar todos los campos adicionales que usted le gustaría usar para eventos aqui."
+msgstr "Aquí usted puede configurar todos los campos adicionales que desee agregar a sus eventos."
 
 #: ../admin-views/event-meta-options.php:4
 msgid "Field Label"
-msgstr "Etiqueta de Campo"
+msgstr "Etiqueta del Campo"
 
 #: ../admin-views/event-meta-options.php:4
 msgid "Field Type"
@@ -302,7 +302,7 @@ msgstr "Tipo de Campo"
 
 #: ../admin-views/event-meta-options.php:4
 msgid "Options (one per line)"
-msgstr "Opciones (una por linea)"
+msgstr "Opciones (una por línea)"
 
 #: ../admin-views/event-meta-options.php:12
 msgid "Text"
@@ -318,7 +318,7 @@ msgstr "Casilla"
 
 #: ../admin-views/event-meta-options.php:15
 msgid "Dropdown"
-msgstr "Desplegable"
+msgstr "Selección"
 
 #: ../admin-views/event-meta-options.php:21
 msgid "Add another"
@@ -330,7 +330,7 @@ msgstr "Remover"
 
 #: ../admin-views/event-meta-options.php:35
 msgid "Are you sure you wish to remove this field and its data from all events? Once you click OK this cannot be undone."
-msgstr "¿Estas seguro que deseas remover este campo y los datos de todos los eventos? una vez que le des click esto no podra deshacerse"
+msgstr "¿Estas seguro que deseas remover este campo y sus datos de todos los eventos? una vez que haga click esto no podra deshacerse."
 
 #: ../admin-views/event-recurrence.php:2
 msgid "Recurrence:"
@@ -338,11 +338,11 @@ msgstr "Repetición:"
 
 #: ../admin-views/event-recurrence.php:7
 msgid "None"
-msgstr "ninguna"
+msgstr "Ninguna"
 
 #: ../admin-views/event-recurrence.php:8
 msgid "Every Day"
-msgstr "Cada Dia"
+msgstr "Cada Día"
 
 #: ../admin-views/event-recurrence.php:9
 msgid "Every Week"
@@ -362,7 +362,7 @@ msgstr "Personalizado"
 
 #: ../admin-views/event-recurrence.php:15
 msgid "End"
-msgstr "Termina"
+msgstr "Finaliza"
 
 #: ../admin-views/event-recurrence.php:17
 msgid "On"
@@ -370,7 +370,7 @@ msgstr "En"
 
 #: ../admin-views/event-recurrence.php:18
 msgid "After"
-msgstr "Despues"
+msgstr "Después"
 
 #: ../admin-views/event-recurrence.php:22
 msgid "You must select a recurrence end date"
@@ -382,7 +382,7 @@ msgstr "Frecuencia"
 
 #: ../admin-views/event-recurrence.php:31
 msgid "Day(s)"
-msgstr "Dia(s)"
+msgstr "Día(s)"
 
 #: ../admin-views/event-recurrence.php:31
 msgid "Daily"
@@ -418,31 +418,31 @@ msgstr "Cada"
 
 #: ../admin-views/event-recurrence.php:46
 msgid "M"
-msgstr "L"
+msgstr "Lu"
 
 #: ../admin-views/event-recurrence.php:47
 msgid "Tu"
-msgstr "M"
+msgstr "Ma"
 
 #: ../admin-views/event-recurrence.php:48
 msgid "W"
-msgstr "M"
+msgstr "Mi"
 
 #: ../admin-views/event-recurrence.php:49
 msgid "Th"
-msgstr "J"
+msgstr "Ju"
 
 #: ../admin-views/event-recurrence.php:50
 msgid "F"
-msgstr "V"
+msgstr "Vi"
 
 #: ../admin-views/event-recurrence.php:51
 msgid "Sa"
-msgstr "S"
+msgstr "Sa"
 
 #: ../admin-views/event-recurrence.php:52
 msgid "Su"
-msgstr "D"
+msgstr "Do"
 
 #: ../admin-views/event-recurrence.php:60
 #: ../admin-views/event-recurrence.php:109
@@ -482,7 +482,7 @@ msgstr "Martes"
 #: ../admin-views/event-recurrence.php:73
 #: ../admin-views/event-recurrence.php:118
 msgid "Wednesday"
-msgstr "Miercoles"
+msgstr "Miércoles"
 
 #: ../admin-views/event-recurrence.php:74
 #: ../admin-views/event-recurrence.php:119
@@ -497,7 +497,7 @@ msgstr "Viernes"
 #: ../admin-views/event-recurrence.php:76
 #: ../admin-views/event-recurrence.php:121
 msgid "Saturday"
-msgstr "Sabado"
+msgstr "Sábado"
 
 #: ../admin-views/event-recurrence.php:77
 #: ../admin-views/event-recurrence.php:122
@@ -507,7 +507,7 @@ msgstr "Domingo"
 #: ../admin-views/event-recurrence.php:79
 #: ../admin-views/event-recurrence.php:124
 msgid "Day"
-msgstr "Dia"
+msgstr "Día"
 
 #: ../admin-views/event-recurrence.php:88
 msgid "Jan"
@@ -555,7 +555,7 @@ msgstr "Nov"
 
 #: ../admin-views/event-recurrence.php:102
 msgid "Dec"
-msgstr "Dec"
+msgstr "Dic"
 
 #: ../admin-views/event-recurrence.php:107
 msgid "On the:"
@@ -563,7 +563,7 @@ msgstr "En el:"
 
 #: ../admin-views/event-meta.php:6
 msgid "Event Custom Fields"
-msgstr "Campos Personalizados de Eventos"
+msgstr "Campos Personalizados del Evento"
 
 #: ../admin-views/widget-admin-featured.php:17
 msgid "All Events"
@@ -572,7 +572,7 @@ msgstr "Todos los Eventos"
 #: ../vendor/advanced-post-manager/views/edit-filters.php:7
 #: ../vendor/advanced-post-manager/views/edit-filters.php:8
 msgid "Click to toggle"
-msgstr "Clock para alternar"
+msgstr "Click para alternar"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:8
 msgid "Filters &amp; Columns"
@@ -584,7 +584,7 @@ msgstr "Aplicar"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:18
 msgid "Clear"
-msgstr "Borrar"
+msgstr "Limpiar"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:19
 #: ../vendor/advanced-post-manager/views/edit-filters.php:26
@@ -597,7 +597,7 @@ msgstr "Exportar a CSV"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:25
 msgid "Filter Name"
-msgstr "Nombre de Filtro"
+msgstr "Nombre del Filtro"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:27
 msgid "Cancel"
@@ -606,23 +606,23 @@ msgstr "Cancelar"
 #: ../vendor/advanced-post-manager/demo/demo.php:29
 #, php-format
 msgid "It looks like you might not have any demo data. <a href=\"%s\">Download our data</a> and use the <a href=\"%s\">WordPress Importer</a>."
-msgstr "Parece que usted puede no tener datos demo. <a href=\"%s\">Descarga nuestros datos</a> y usa el <a href=\"%s\">WordPress Importer</a>."
+msgstr "Parece que usted no tiene datos de demostración. <a href=\"%s\">Descargue nuestros datos</a> y use el <a href=\"%s\">WordPress Importer</a>."
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:504
 msgid "Choose a Saved Filter"
-msgstr "Escoge un Filtro Guardado"
+msgstr "Escoga un Filtro de los Guardados"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:620
 msgid "Add a Filter"
-msgstr "Egrega un Filtro"
+msgstr "Egregar un Filtro"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:42
 msgid "Extended Information"
-msgstr "Informacion extendida"
+msgstr "Información extendida"
 
 #: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:129
 msgid "Add a Column"
-msgstr "Agrega una columna"
+msgstr "Agregar una columna"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:124
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:393
@@ -645,40 +645,40 @@ msgstr "Subir nuevos archivos"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:359
 msgid "Add more file"
-msgstr "Agregar mas archivos"
+msgstr "Agregar más archivos"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:400
 msgid "Add more images"
-msgstr "Agregar mas imagenes"
+msgstr "Agregar más imagenes"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:407
 msgid "Select a color"
-msgstr "Escoge un color"
+msgstr "Escoga un color"
 
 #: ../lib/widget-calendar.class.php:14
 msgid "A calendar of your events"
-msgstr "Un calendario de tus eventos"
+msgstr "Un calendario de sus eventos"
 
 #: ../lib/widget-calendar.class.php:15
 msgid "Events Calendar"
-msgstr "Calendario De Eventos"
+msgstr "Calendario de Eventos"
 
 #: ../lib/tribe-support.class.php:52
 msgid "Send a support request for this site."
-msgstr "Envia una solicitud de soporte para este sitio."
+msgstr "Envie una solicitud de soporte para este sitio."
 
 #: ../lib/tribe-events-recurrence-meta.class.php:359
 msgid "Monthly custom recurrences cannot have a dash set as the day to occur on."
-msgstr "Repeticiones mensuales personalizadas mensuales no pueden tener un guión como dia que ocurre."
+msgstr "Repeticiones mensuales personalizadas no pueden tener un guión como el dia en que ocurre."
 
 #: ../lib/tribe-events-recurrence-meta.class.php:362
 msgid "Yearly custom recurrences cannot have a dash set as the day to occur on."
-msgstr "Repeticiones anuales personalizadas mensuales no pueden tener un guión como dia que ocurre."
+msgstr "Repeticiones anuales personalizadas no pueden tener un guión como el dia que ocurre."
 
 #: ../lib/tribe-events-recurrence-meta.class.php:460
 #: ../lib/tribe-events-recurrence-meta.class.php:475
 msgid "Every day"
-msgstr "Cada dia"
+msgstr "Cada día"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:464
 #: ../lib/tribe-events-recurrence-meta.class.php:480
@@ -698,12 +698,12 @@ msgstr "Cada año"
 #: ../lib/tribe-events-recurrence-meta.class.php:476
 #, php-format
 msgid "Every %d days"
-msgstr "Cada % dias"
+msgstr "Cada % días"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:481
 #, php-format
 msgid "Every %d weeks"
-msgstr "Cada % semanas"
+msgstr "Cada %d semanas"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:482
 #, php-format
@@ -713,7 +713,7 @@ msgstr "en %s"
 #: ../lib/tribe-events-recurrence-meta.class.php:487
 #, php-format
 msgid "Every %d months"
-msgstr "Cada % meses"
+msgstr "Cada %d meses"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:489
 #, php-format
@@ -722,16 +722,16 @@ msgstr "en el %s %s"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:489
 msgid "day"
-msgstr "dia"
+msgstr "día"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:494
 #, php-format
 msgid "Every %d years"
-msgstr "cada % años"
+msgstr "cada %d años"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:496
 msgid "last"
-msgstr "ultimo"
+msgstr "último"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:501
 #, php-format
@@ -741,7 +741,7 @@ msgstr "en el %s %s de %s"
 #: ../lib/tribe-events-recurrence-meta.class.php:508
 #, php-format
 msgid " until %s"
-msgstr " hasta %s"
+msgstr "hasta %s"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:513
 #, php-format
@@ -809,15 +809,15 @@ msgstr "Diciembre"
 
 #: ../lib/widget-featured.class.php:13
 msgid "Your next upcoming event"
-msgstr "Tu siguiente evento próximo "
+msgstr "Su siguiente evento programado"
 
 #: ../lib/widget-featured.class.php:14
 msgid "Next Event Widget"
-msgstr "Widget Siguiente Evento "
+msgstr "Widget Siguiente Evento"
 
 #: ../lib/widget-featured.class.php:61
 msgid "There are no upcoming events at this time."
-msgstr "No hay eventos futuros por el momento"
+msgstr "No hay eventos programados por el momento"
 
 #: ../lib/widget-advanced-list.class.php:16
 msgid "A widget that displays the next upcoming x events."

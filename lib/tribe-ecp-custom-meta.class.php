@@ -14,16 +14,15 @@ class TribeEventsCustomMeta {
   	add_action( 'tribe_events_details_table_bottom', array(__CLASS__, 'single_event_meta') );
 		add_action( 'tribe_community_events_details_table_bottom', array(__CLASS__, 'single_event_meta') );
 		add_action( 'tribe_events_update_meta', array(__CLASS__, 'save_single_event_meta') );
-		add_filter( 'tribe_settings_validate_tab_additional-fields', array( __CLASS__, 'force_save_meta' ) );
-		add_filter( 'tribe-events-save-options', array( __CLASS__, 'save_meta_options' ) );
+		add_filter( 'tribe_settings_validate_tab_additional-fields', array( __CLASS__, 'force_save_meta' ) );	
 	}
 
 	/**
 	 * remove_meta_field
-	 *
+	 * 
 	 * Removes a custom field from the database and from any events that may be using that field.
 	 * @return void
-	 * @author
+	 * @author  
 	 */
     public static function remove_meta_field() {
 			global $wpdb, $tribe_ecp;
@@ -39,10 +38,11 @@ class TribeEventsCustomMeta {
 
 	/**
 	 * event_meta_options
-	 *
+	 * 
 	 * loads the custom field options screen
+	 * 
 	 * @return void
-	 */
+	 */	
 	public static function event_meta_options() {
 		$tribe_ecp = TribeEvents::instance();
 		$customFields = tribe_get_option('custom-fields');
@@ -52,8 +52,9 @@ class TribeEventsCustomMeta {
 
 	/**
 	 * single_event_meta
-	 *
+	 * 
 	 * loads the custom field meta box on the event editor screen
+	 * 
 	 * @return void
 	 */
     public static function single_event_meta() {
@@ -67,22 +68,24 @@ class TribeEventsCustomMeta {
 
 	/**
 	 * save_single_event_meta
-	 *
+	 * 
 	 * saves the custom fields for a single event
+	 * 
 	 * @return void
 	 */
     public static function save_single_event_meta($postId) {
+		$customFields = (array)tribe_get_option('custom-fields');
 
-			$customFields = (array)tribe_get_option('custom-fields');
-
-			foreach( $customFields as $customField) {
-				if( isset( $customField['name'] ) && isset($_POST[$customField['name']]) ) {
-					$val = $_POST[$customField['name']];
-					$val = is_array($val) ? esc_attr(implode("|", $val)) : esc_attr($val);
-					update_post_meta($postId,  wp_kses_data($customField['name']), $val);
-				}
-	    }
-   	}
+		foreach( $customFields as $customField) {
+			if( isset( $customField['name'] ) ) {
+				if ( !isset( $_POST[$customField['name']] ) )
+					$_POST[$customField['name']] = '';
+				$val = $_POST[$customField['name']];
+				$val = is_array($val) ? esc_attr(implode("|", $val)) : esc_attr($val);
+				update_post_meta($postId,  wp_kses_data($customField['name']), $val);
+			}
+		}
+    }
 
   /**
    * enforce saving on additional fields tab
@@ -92,42 +95,44 @@ class TribeEventsCustomMeta {
    */
   public function force_save_meta() {
   	$options = TribeEvents::getOptions();
+  	$options = self::save_meta_options($options);
 		$options = TribeEvents::setOptions($options);
   }
 
 	/**
 	 * save_meta_options
-	 *
+	 * 
 	 * saves the custom field configuration (what custom fields exist for events)
+	 * 
 	 * @return void
-	 */
+	 */	
 	public static function save_meta_options($ecp_options) {
 		$count = 1;
 		$ecp_options['custom-fields'] = array();
-
-		if ( isset( $_POST['current-settings-tab'] ) ) {
-			if ( $_POST['current-settings-tab'] == 'general' ) {
-				while( isset($_POST['custom-field-' . $count]) ) {
-					$name = $_POST['custom-field-' . $count];
-					$type = $_POST['custom-field-type-' . $count];
-					$values = $_POST['custom-field-options-' . $count];
-
-					if( $name ) {
-						$ecp_options['custom-fields'][] = array(
-							'name'=>'_ecp_custom_' . $count,
-							'label'=>$name,
-							'type'=>$type,
-							'values'=>$values
-						);
-					}
-
-					$count++;
-				}
-			} else {
-				$ecp_options['custom-fields'] = tribe_get_option('custom-fields');
-
+		
+		for ( $i = 0; $i < count( $_POST['custom-field'] ); $i++ ) {
+			$name = strip_tags( $_POST['custom-field'][$i] );
+			$type = strip_tags( $_POST['custom-field-type'][$i] );
+			$values = strip_tags( $_POST['custom-field-options'][$i] );
+		
+		
+		/*while( isset($_POST['custom-field-' . $count]) ) {
+			$name = strip_tags($_POST['custom-field-' . $count]);
+			$type = strip_tags($_POST['custom-field-type-' . $count]);
+			$values = strip_tags($_POST['custom-field-options-' . $count]);
+		*/
+			if( $name ) {
+				$ecp_options['custom-fields'][] = array(
+          'name' => '_ecp_custom_' . $count,
+					'label' => $name,
+					'type' => $type,
+					'values' => $values
+				);
 			}
+
+			$count++;
 		}
+
 		return $ecp_options;
 	}
 

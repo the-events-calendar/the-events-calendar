@@ -54,8 +54,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/tribe-events-recurrence-meta.class.php' );
 			require_once( 'lib/tribe-recurrence.class.php' );
 			require_once( 'lib/widget-calendar.class.php' );
-			require_once( 'lib/tribe-related-events.class.php' );
-			require_once( 'lib/widget-related-events.class.php' );
 			require_once( 'lib/widget-venue.class.php' );
 			require_once( 'lib/widget-countdown.class.php' );
 			require_once( 'template-tags.php' );
@@ -247,12 +245,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	     * @author jkudish
 	     * @return void
 	     */
-	    public function add_settings_tabs() {
-	    	require_once( $this->pluginPath . 'admin-views/tribe-options-defaults.php' );
-	    	new TribeSettingsTab( 'defaults', __( 'Defaults', 'tribe-events-calendar-pro' ), $defaultsTab );
-	    	new TribeSettingsTab( 'additional-fields', __( 'Additional Fields', 'tribe-events-calendar-pro' ), array( 'fields' => array(0), 'priority' => 35 ) );
-	    }
-
+	  	public function add_settings_tabs() {
+			require_once( $this->pluginPath . 'admin-views/tribe-options-defaults.php' );
+			new TribeSettingsTab( 'defaults', __( 'Defaults', 'tribe-events-calendar-pro' ), $defaultsTab );
+			// The single-entry array at the end allows for the save settings button to be displayed.
+			new TribeSettingsTab( 'additional-fields', __( 'Additional Fields', 'tribe-events-calendar-pro' ), array( 'priority' => 35, 'fields' => array( null ) ) );
+	  	}
 
 	    public function add_help_tab_getting_started_text() {
 	    	$ga_query_string = '?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin';
@@ -397,10 +395,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		public function googleCalendarLink( $postId = null ) {
+			global $post;
 			$tribeEvents = TribeEvents::instance();
 
 			if ( $postId === null || !is_numeric( $postId ) ) {
-				global $post;
 				$postId = $post->ID;
 			}
 
@@ -409,11 +407,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$dates = ( get_post_meta( $postId, '_EventAllDay', true ) ) ? date( 'Ymd', $start_date ) . '/' . date( 'Ymd', $end_date ) : date( 'Ymd', $start_date ) . 'T' . date( 'Hi00', $start_date ) . '/' . date( 'Ymd', $end_date ) . 'T' . date( 'Hi00', $end_date );
 			$location = trim( $tribeEvents->fullAddressString( $postId ) );
 			$base_url = 'http://www.google.com/calendar/event';
+			$event_details = substr( get_the_content(), 0, 996 ) . '...';
+
 			$params = array(
 				'action' => 'TEMPLATE',
-				'text' => str_replace( ' ', '+', strip_tags( urlencode( get_the_title() ) ) ),
+				'text' => str_replace( ' ', '+', strip_tags( urlencode( $post->post_title ) ) ),
 				'dates' => $dates,
-				'details' => str_replace( ' ', '+', strip_tags( apply_filters( 'the_content', urlencode( get_the_content() ) ) ) ),
+				'details' => str_replace( ' ', '+', strip_tags( apply_filters( 'the_content', urlencode( $event_details ) ) ) ),
 				'location' => str_replace( ' ', '+', urlencode( $location ) ),
 				'sprop' => get_option( 'blogname' ),
 				'trp' => 'false',

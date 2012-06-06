@@ -10,7 +10,7 @@ if ( empty($customFields) || !is_array($customFields) ) {
          <tr>
             <td><?php echo esc_html(stripslashes($customField['label'])) ?></td>
             <td>
-               <?php $options = explode("\n", $customField['values']) ?> 
+               <?php $options = explode("\r\n", $customField['values']) ?> 
                <?php if($customField['type'] == 'text'): ?>
                   <input type='text' name='<?php echo esc_attr($customField['name']) ?>' value='<?php echo esc_attr($val) ?>'/>
                <?php elseif($customField['type'] == 'radio'): ?>
@@ -24,7 +24,7 @@ if ( empty($customFields) || !is_array($customFields) ) {
                   <?php endforeach ?>
                <?php elseif($customField['type'] == 'dropdown'): ?>
                   <select name='<?php echo $customField['name']?>'>
-                     <?php $options = explode("\n", $customField['values']) ?> 
+                     <?php $options = explode("\r\n", $customField['values']) ?> 
                      <?php foreach ($options as $option): ?>
 							<option value='<?php echo esc_attr($option) ?>' <?php selected(trim($val), trim($option)) ?>><?php echo esc_html(stripslashes($option)) ?></option>
                      <?php endforeach ?>
