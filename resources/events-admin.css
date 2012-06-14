@@ -61,6 +61,7 @@ td.tribe_message {padding-bottom: 10px !important;}
 #custom-recurrence-years label { width: 50px; display: block; float: left; margin-bottom: 3px;}
 #recurrence-changed-row { color: red; display: none; }
 #rec-end-error { color: red; }
+#rec-days-error { color: red; }
 .rec-error { display:none; }
 
 /* = Upgrade Screen
