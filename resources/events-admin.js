@@ -76,6 +76,50 @@ jQuery(document).ready(function($) {
 		}
 
 	});
-
+	
+	function resetSubmitButton() {
+		$('#publishing-action .button-primary-disabled').removeClass('button-primary-disabled');
+		$('#publishing-action #ajax-loading').css('visibility', 'hidden');
+		
+	}
+	
+	function validRecDays() {
+		if( $('[name="recurrence[custom-interval]"]').val() != parseInt($('[name="recurrence[custom-interval]"]').val()) && 
+			$('[name="recurrence[type]"] option:selected"').val() == "Custom")
+		{
+			return false;
+		}
+		
+		return true;
+	}
+	
+	$('.wp-admin.events-cal #post').submit(function(e) {
+		if(!validRecDays()) {
+			e.preventDefault();
+			alert($('#rec-days-error').text());
+			$('#rec-days-error').show();
+			resetSubmitButton();
+		}
+	});
+	
+	function validRecEnd() {
+		if($('[name="recurrence[type]"]').val() != "None" && 
+			$('[name="recurrence[end-type]"] option:selected"').val() == "On")
+		{
+			return $('[name="recurrence[end]"]').val() && 
+			!$('[name="recurrence[end]"]').hasClass('placeholder');
+		}
+		
+		return true;
+	} 
+	
+	$('.wp-admin.events-cal #post').submit(function(e) {
+		if(!validRecEnd()) {
+			e.preventDefault();
+			alert($('#rec-end-error').text());
+			$('#rec-end-error').show();
+			resetSubmitButton();
+		}
+	});
 
 });
