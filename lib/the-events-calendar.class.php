@@ -361,25 +361,43 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function checkAddOnCompatibility() {
-			$operator = apply_filters( 'tribe_tec_addons_comparison_operator', '>' );
+			$operator = apply_filters( 'tribe_tec_addons_comparison_operator', '!=' );
 			$output = '';
 			$bad_versions = array();
 			$tec_addons_required_versions = array();
-
+			$out_of_date_addons = array();
+			$update_link = get_admin_url() . 'plugins.php';
+			$tec_out_of_date = false;
+			
 			$tec_addons_required_versions = (array) apply_filters('tribe_tec_addons', $tec_addons_required_versions);
-
 			foreach ($tec_addons_required_versions as $plugin) {
 				if ( version_compare( $plugin['required_version'], self::VERSION, $operator) ) {
-					$bad_versions[$plugin['plugin_name']] = $plugin['required_version'];
+					$bad_versions[$plugin['plugin_name']] = $plugin['current_version'];
+					// For use later.
+					$addon_short_path = $plugin['plugin_dir_file'];
+				}
+				if ( version_compare( $plugin['required_version'], self::VERSION, '>' ) ) {
+					$tec_out_of_date = true;
 				}
 			}
-
-			if ( !empty($bad_versions) ) {
+			if ( $tec_out_of_date == true ) {
+				$plugin_short_path = basename( dirname( dirname( __FILE__ ) ) ) . '/the-events-calendar.php';
+				$upgrade_path = wp_nonce_url( add_query_arg( array( 'action' => 'upgrade-plugin', 'plugin' => $plugin_short_path ), get_admin_url() . 'update.php' ), 'upgrade-plugin_' . $plugin_short_path );
 				$output .= '<div class="error">';
-				foreach ($bad_versions as $plugin => $version) {
-					$output .= '<p>'.sprintf( __('Your version of %s requires version %s or higher of The Events Calendar (you are currently running %s). Visit %shelp%s for more information.', 'tribe-events-calendar'), $plugin, $version, self::VERSION, '<a href="' . add_query_arg( array( 'page' => 'tribe-events-calendar', 'tab' => 'help' ), admin_url( 'options-general.php' ) ) . '">', '</a>' ).'</p>';
-				}
+				$output .= '<p>' . sprintf( __('Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s', 'tribe-events-calendar'), '<a href="' . $upgrade_path . '">', '</a>') .'</p>';
 				$output .= '</div>';
+			} else {
+				if ( !empty($bad_versions) ) {
+					foreach ($bad_versions as $plugin => $version) {
+						$out_of_date_addons[] = $plugin . ' ' . $version;
+					}
+					if ( count( $out_of_date_addons ) == 1 ) {
+						$update_link = wp_nonce_url( add_query_arg( array( 'action' => 'upgrade-plugin', 'plugin' => $addon_short_path ), get_admin_url() . 'update.php' ), 'upgrade-plugin_' . $addon_short_path );
+					}
+					$output .= '<div class="error">';
+					$output .= '<p>'.sprintf( __('The following plugins are out of date: %s. Please %supdate now%s. All add-ons contain dependencies on "The Events Calendar" and will not function properly unless paired with the right version. %sWant to pair an older verion%s?', 'tribe-events-calendar'), join( $out_of_date_addons, ', ' ), '<a href="' . $update_link . '">', '</a>', '<a href="' . add_query_arg( array( 'page' => 'tribe-events-calendar', 'tab' => 'help' ), admin_url( 'options-general.php' ) ) . '">', '</a>' ).'</p>';
+					$output .= '</div>';
+				}
 			}
 			if ( current_user_can( 'edit_plugins' ) ) {
 				echo apply_filters('tribe_add_on_compatibility_errors', $output);
