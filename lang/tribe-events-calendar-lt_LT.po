@@ -1,0 +1,2565 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: The Events Calendar 2.0+\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-09-19 16:36-0500\n"
+"PO-Revision-Date: 2012-04-04 00:07-0800\n"
+"Last-Translator: \n"
+"Language-Team: DECKERWEB <deckerweb.mobil@googlemail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ tribe-events-calendar
+#: ../views/list.php:16
+#: ../views/gridview.php:37
+msgid "Event List"
+msgstr "Įvykių Sąrašas"
+
+# @ tribe-events-calendar
+#: ../views/list.php:17
+#: ../views/gridview.php:38
+msgid "Calendar"
+msgstr "Kalendorius"
+
+# @ tribe-events-calendar
+#: ../views/list.php:42
+#: ../views/single.php:19
+msgid "Start:"
+msgstr "Pradžia:"
+
+# @ tribe-events-calendar
+#: ../views/single.php:17
+msgid "Event:"
+msgstr "Įvykis:"
+
+#: ../views/single.php:42
+msgid "Updated:"
+msgstr "Atnaujinta:"
+
+# @ tribe-events-calendar
+#: ../views/list.php:46
+#: ../views/single.php:20
+msgid "End:"
+msgstr "Pabaiga:"
+
+# @ tribe-events-calendar
+#: ../views/list.php:54
+#: ../views/single.php:47
+msgid "Venue:"
+msgstr "Vieta:"
+
+# @ tribe-events-calendar
+#: ../views/list.php:63
+#: ../views/single.php:33
+#: ../views/single.php:51
+#: ../admin-views/venue-meta-box.php:73
+msgid "Phone:"
+msgstr "Telefono numeris:"
+
+# @ tribe-events-calendar
+#: ../views/list.php:69
+#: ../views/single.php:56
+#: ../admin-views/venue-meta-box.php:19
+msgid "Address:"
+msgstr "Adresas:"
+
+# @ tribe-events-calendar
+#: ../views/list.php:71
+#: ../views/single.php:58
+msgid "Google Map"
+msgstr "Google Žemėlapis"
+
+# @ tribe-events-calendar
+#: ../views/list.php:81
+#: ../views/single.php:24
+#: ../admin-views/events-meta-box.php:113
+msgid "Cost:"
+msgstr "Kaina:"
+
+# @ tribe-events-calendar
+#: ../views/list.php:95
+#, php-format
+msgid " listed under %s. Check out past events for this category or view the full calendar."
+msgstr "įtrauktas į %s sąrašą. Patikrinkite šios kategorijos praeities įvykius arba peržiūrėkite pilną kalendorių."
+
+# @ tribe-events-calendar
+#: ../views/list.php:97
+#, php-format
+msgid " listed under %s. Check out upcoming events for this category or view the full calendar."
+msgstr "įtrauktas į %s sąrašą. Patikrinkite šios kategorijos ateities įvykius arba peržiūrėkite pilną kalendorių."
+
+# @ tribe-events-calendar
+#: ../views/list.php:103
+msgid "No upcoming events"
+msgstr "Jokių artėjančių įvykių"
+
+# @ tribe-events-calendar
+#: ../views/list.php:107
+msgid "No previous events"
+msgstr "Jokių praėjusių įvykių"
+
+# @ tribe-events-calendar
+#: ../views/list.php:120
+#: ../views/list.php:122
+#: ../views/list.php:124
+msgid "&laquo; Previous Events"
+msgstr "&laquo; Praėję įvykiai"
+
+# @ tribe-events-calendar
+#: ../views/list.php:131
+#: ../views/list.php:133
+#: ../views/list.php:135
+msgid "Next Events &raquo;"
+msgstr "Sekantys įvykiai &raquo;"
+
+# @ tribe-events-calendar
+#: ../views/list.php:140
+#: ../views/gridview.php:43
+#: ../views/single.php:83
+msgid "iCal Import"
+msgstr "iCal Importavimas"
+
+# @ tribe-events-calendar
+#: ../views/table-mini.php:24
+msgid "View all &raquo;"
+msgstr "Peržiūrėti visus &raquo;"
+
+# @ tribe-events-calendar
+#: ../views/single.php:13
+msgid "&laquo; Back to Events"
+msgstr "&raquo; Grįžti į Įvykius"
+
+# @ tribe-events-calendar
+#: ../views/single.php:14
+msgid "This event has passed."
+msgstr "Šio įvykio laikas praėjo."
+
+# @ tribe-events-calendar
+#: ../views/single.php:29
+msgid "Organizer:"
+msgstr "Organizatorius:"
+
+# @ tribe-events-calendar
+#: ../views/single.php:37
+msgid "Email:"
+msgstr "Elektroninio pašto adresas:"
+
+# @ tribe-events-calendar
+#: ../views/single.php:41
+msgid "Schedule:"
+msgstr "Planas:"
+
+# @ tribe-events-calendar
+#: ../views/single.php:58
+msgid "Click to view a Google Map"
+msgstr "Paspauskite, norėdami peržiūrėti Google Žemėlapį"
+
+# @ tribe-events-calendar
+#: ../views/single.php:86
+msgid "Add to Google Calendar"
+msgstr "Pridėti į Google Kalendorių"
+
+# @ tribe-events-calendar
+#: ../views/single.php:86
+msgid "+ Google Calendar"
+msgstr "+ Google Kalendorius"
+
+# @ tribe-events-calendar
+#: ../views/events-list-load-widget-display.php:48
+msgid "All Day"
+msgstr "Visa Diena"
+
+# @ tribe-events-calendar
+#: ../views/events-list-load-widget-display.php:51
+msgid "Ends"
+msgstr "Baigiasi"
+
+# @ tribe-events-calendar
+#: ../views/ecp-single-template.php:24
+msgid "Edit"
+msgstr "Redaguoti"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:26
+msgid "Event Time &amp; Date"
+msgstr "Įvykio Laikas ir Data"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:29
+msgid "You have changed the recurrence rules of this event.  Saving the event will update all future events.  If you did not mean to change all events, then please refresh the page."
+msgstr "Jūs pakeitėtė įvykio kartojimosi taisyklės. Įvykio įrašymas įtakos visų artėjančių įvykių atnaujinimą. Jeigu Jūs nenorėjote pakeisti visų įvykių, prašome atnaujinti puslapį."
+
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:32
+msgid "All day event?"
+msgstr "Visos dienos įvykis?"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:36
+msgid "Start Date / Time:"
+msgstr "Pradžios Data / Laikas:"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:39
+#: ../admin-views/events-meta-box.php:60
+msgid "YYYY-MM-DD"
+msgstr "YYYY-MM-DD"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:41
+#: ../admin-views/events-meta-box.php:62
+msgid "@"
+msgstr "@"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:57
+msgid "End Date / Time:"
+msgstr "Pabaigos Data / Laikas:"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:79
+msgid "Event Location Details"
+msgstr "Įvykio Vietos Informacija"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:85
+msgid "Show Google Maps Link:"
+msgstr "Rodyti Google Žemėlapio Nuorodą:"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:92
+msgid "Show Google Map:"
+msgstr "Rodyti Google Žemėlapį:"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:101
+msgid "Event Organizer Details"
+msgstr "Įvykio Organizatoriaus Informacija"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:110
+msgid "Event Cost"
+msgstr "Įvykio Kaina"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:118
+msgid "Leave blank to hide the field. Enter a 0 for events that are free."
+msgstr "Palikite tuščią, jeigu norite paslėpti laukelį. Įveskite 0 įvykiams, kurie yra nemokami."
+
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:124
+msgid "Additional Functionality"
+msgstr "Išplėstinis Funkcionalumas"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:129
+msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
+msgstr "Ieškokite išplėstinio funkcionalumo (tokio kaip pasikartojančių įvykių, indvididualizuotų meta duomenų, bendruomenės įvykių, bilietų pardavimų ir kt.)?"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:129
+#, php-format
+msgid "Check out the <a href=\"%s\">available Add-Ons</a>."
+msgstr "Patikrinkite <a href=\"%s\">prieinamus Papildinius</a>."
+
+# @ tribe-events-calendar
+#: ../admin-views/venue-meta-box.php:12
+msgid "Venue Name:"
+msgstr "Vietos Pavadinimas:"
+
+# @ tribe-events-calendar
+#: ../admin-views/venue-meta-box.php:23
+msgid "City:"
+msgstr "Miestas:"
+
+# @ tribe-events-calendar
+#: ../admin-views/venue-meta-box.php:27
+msgid "Country:"
+msgstr "Valstybė:"
+
+# @ tribe-events-calendar
+#: ../admin-views/venue-meta-box.php:52
+msgid "State or Province:"
+msgstr "Valstija ar Provincija:"
+
+# @ tribe-events-calendar
+#: ../admin-views/venue-meta-box.php:55
+msgid "Select a State:"
+msgstr "Pasirinkite Valstiją:"
+
+# @ tribe-events-calendar
+#: ../admin-views/venue-meta-box.php:69
+msgid "Postal Code:"
+msgstr "Pašto Kodas:"
+
+# @ tribe-events-calendar
+#: ../admin-views/recurrence-dialog.php:11
+msgid "Which events do you wish to update?"
+msgstr "Kuriuos įvykius norėtumėte atnaujinti?"
+
+# @ tribe-events-calendar
+#: ../admin-views/recurrence-dialog.php:14
+msgid "Select your desired action"
+msgstr "Pasirinkite norimą veiksmą"
+
+# @ tribe-events-calendar
+#: ../admin-views/event-sidebar-options.php:11
+msgid "Hide From Upcoming Events List"
+msgstr "Paslėpti Artėjančių Įvykių Sąraše"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:47
+#, php-format
+msgid "%s Settings"
+msgstr "%s Nuostatos"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:53
+msgid "Need a hand?"
+msgstr "Reikia pagalbos?"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:54
+#, php-format
+msgid "If you're stuck on these options, please <a href=\"%s\">check out the documentation</a>. Or, go to the <a href=\"%s\">support forum</a>."
+msgstr "Jeigu turite problemų nustatinėdami šias parinktis, prašome <a href=\"%s\">peržvelgti dokumentaciją</a>. Arba galite užeiti į <a href=\"%s\">pagalbos forumą</a>."
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:56
+msgid "Here is the iCal feed URL for your events: "
+msgstr "Tai yra Jūsų įvykio iCal padavimo Universalioji nuoroda:"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:62
+msgid "Settings"
+msgstr "Nuostatos"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:65
+#: ../admin-views/events-options.php:69
+msgid "Default View for the Events"
+msgstr "Numatytoji Įvykių Peržiūra"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:83
+#: ../admin-views/events-options.php:87
+#: ../admin-views/events-options.php:89
+msgid "Show Comments"
+msgstr "Rodyti Komentarus"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:97
+#: ../admin-views/events-options.php:101
+msgid "Multiday Event Cutoff"
+msgstr "Daugiadienio Įvykio Apkarpymas"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:115
+msgid "For multi-day events, hide the last day from grid view if it ends on or before this time."
+msgstr "Daugiadienių įvykių tinklelio peržiūroje paslėpkite paskutinę dieną, jeigu įvykis baigsis tuo metu arba anksčiau."
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:120
+#: ../admin-views/events-options.php:124
+msgid "Enable Google Maps"
+msgstr "Suaktyvinti Google Žemėlapius"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:130
+msgid "Height"
+msgstr "Aukštis"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:131
+msgid "Width"
+msgstr "Plotis"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:131
+msgid "(number or %)"
+msgstr "(Skaičius arba %)"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:135
+msgid "If you don't have this turned on, your event listings won't have the backend map preview or frontend embedded map."
+msgstr "Jeigu tai yra neįjungta, Jūsų įvykių sąrašas neturės vidinės pusės arba įterpto išorinės pusės žemėlapio peržiūros."
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:143
+#: ../admin-views/events-options.php:145
+msgid "Events URL slug"
+msgstr "Įvykio Universaliosios nuorodos pažyminys"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:146
+msgid "The slug used for building the Events URL."
+msgstr "Pažyminys, naudojamas Įvykių Universaliųjų nuorodų kūrimui."
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:146
+#, php-format
+msgid "Your current Events URL is <strong>%s</strong>"
+msgstr "Jūsų dabartinio įvykio Universalioji nuoroda yra <strong>%s</strong>"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:150
+#: ../admin-views/events-options.php:152
+msgid "Single Event URL slug"
+msgstr "Pavienio Įvykio Universaliosios nuorodos pažyminys"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:153
+msgid "The slug used for building a single Event URL."
+msgstr "Pažiminys, naudojamas pavienio įvykio Universaliosios nuorodos kūrimui."
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:154
+#, php-format
+msgid "<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: <strong>%s</strong>"
+msgstr "<strong>Pastaba:</strong> Jūs <em>negalite</em> naudoti to paties pažyminio, kaip viršuje. Aukščiau esantis pažiminys turėtų buti daugiskaitinis, o šis - vienaskaitinis. <br /> Jūsų pavienio Įvykio Universalioji nuoroda yra: <strong>%s</strong>"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:159
+#: ../admin-views/events-options.php:161
+msgid "Debug"
+msgstr "Derinti"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:162
+msgid "Debug Events display issues."
+msgstr "Derinti įvykių vaizdavimo problemas."
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:163
+#, php-format
+msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the <a href=\"%s\" target=\"_blank\">Debug Bar Plugin</a> and look for the \"Tribe\" tab in the debug output."
+msgstr "Suaktyvinkite šią parinktį, norėdamas fiksuoti derinimo informaciją. Pagal numatytasias nuostatas, tai bus įrašyta į Jūsų serverio PHP klaidų žurnalą. Jeigu Jūs norėtumėte matyti žurnalo pranešimus savo naršyklės lange, mes rekomenduojame įdiegti  <a href=\"%s\" target=\"_blank\">Debug Bar Papildinį</a> ir stebėti  \"Tribe\" kortelę derinimo rezultatuose."
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:168
+msgid "Theme Settings"
+msgstr "Apipavidalinimo Nuostatos"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:171
+#: ../admin-views/events-options.php:173
+msgid "Events Template"
+msgstr "Įvykio Šablonas"
+
+# @ default
+#: ../admin-views/events-options.php:175
+msgid "Default Events Template"
+msgstr "Numatytasis Įvykio Šablonas"
+
+# @ default
+#: ../admin-views/events-options.php:176
+msgid "Default Page Template"
+msgstr "Numatytasis Puslapio Šablonas"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:179
+msgid "Choose a page template to control the look and feel of your calendar."
+msgstr "Pasirinkite puslapio šabloną, kad galėtumėte keisti Jūsų kalendoriaus vaizdą ir valdymą."
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:183
+#: ../admin-views/events-options.php:185
+#: ../admin-views/events-options.php:193
+msgid "Add HTML before calendar"
+msgstr "Prieš kalendorių pridėti HTML kodą"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:187
+msgid "Some themes may require that you add extra divs before the calendar list to help with styling."
+msgstr "Kai kurie apipavidalinimai gali reikalauti pridėti papildomus DIV, prieš pagalbos suteikimą keičiant kalendoriaus stilistiką."
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:187
+msgid "This is displayed directly after the header."
+msgstr "Tai yra vaizduojama tiesiogiai po puslapinės antraštės."
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:187
+#: ../admin-views/events-options.php:195
+msgid "You may use (x)HTML."
+msgstr "Jūs galite naudoti (x)HTML."
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:191
+msgid "Add HTML after calendar"
+msgstr "Po kalendoriaus pridėti HTML kodą"
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:195
+msgid "Some themes may require that you add extra divs after the calendar list to help with styling."
+msgstr "Kai kurie apipavidalinimai gali reikalauti pridėti papildomus DIV, prieš pagalbos suteikimą keičiant kalendoriaus stilistiką."
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:195
+msgid "This is displayed directly above the footer."
+msgstr "Tai yra vaizduojama tiesiogiai virš puslapinės antraštės."
+
+# @ tribe-events-calendar
+#: ../admin-views/events-options.php:204
+msgid "Save Changes"
+msgstr "Įrašyti Pakeitimus"
+
+# @ tribe-events-calendar
+#: ../admin-views/widget-admin-list.php:11
+msgid "Title:"
+msgstr "Antraštė:"
+
+# @ tribe-events-calendar
+#: ../admin-views/widget-admin-list.php:16
+msgid "Show:"
+msgstr "Rodyti:"
+
+# @ tribe-events-calendar
+#: ../admin-views/widget-admin-list.php:24
+msgid "Show widget only if there are upcoming events:"
+msgstr "Rodyti valdiklį tik jeigu yra artėjančių įvykių:"
+
+# @ tribe-events-calendar
+#: ../admin-views/widget-admin-list.php:30
+msgid "If you wish to customize the widget display yourself, see the file views/events-list-load-widget-display.php inside the Events Premium plugin."
+msgstr "Jeigu norite pats individualizuoti valdiklio atvaizdavimą, susiraskite rinkmeną views/events-list-load-widget-display.php Events Premium papildinio viduje."
+
+# @ tribe-events-calendar
+#: ../admin-views/organizer-meta-box.php:11
+msgid "Organizer Name:"
+msgstr "Organizatoriaus Vardas:"
+
+# @ tribe-events-calendar
+#: ../admin-views/organizer-meta-box.php:21
+msgid "Website:"
+msgstr "Svetainė:"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-admin-events-list.class.php:159
+#: ../lib/the-events-calendar.class.php:526
+msgid "Event Categories"
+msgstr "Įvykių Kategorijos"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-admin-events-list.class.php:164
+msgid "Start Date"
+msgstr "Pradžios Data"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-admin-events-list.class.php:165
+msgid "End Date"
+msgstr "Pabaigos Data"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-admin-events-list.class.php:166
+msgid "Recurring?"
+msgstr "Pasikartoja?"
+
+#: ../lib/tribe-admin-events-list.class.php:194
+msgid "Yes"
+msgstr "Taip"
+
+#: ../lib/tribe-admin-events-list.class.php:194
+msgid "No"
+msgstr "Ne"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-admin-events-list.class.php:244
+#, php-format
+msgid "All %s"
+msgstr "Visi %s"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:16
+#: ../lib/tribe-view-helpers.class.php:33
+msgid "Select a Country:"
+msgstr "Pasirinkite Šalį:"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:34
+#: ../lib/template-tags.php:502
+msgid "United States"
+msgstr "Jungtinės Amerikos Valstijos"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:35
+msgid "Afghanistan"
+msgstr "Afganistanas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:36
+msgid "Albania"
+msgstr "Albanija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:37
+msgid "Algeria"
+msgstr "Alžyras"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:38
+msgid "American Samoa"
+msgstr "Amerikos Samoa"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:39
+msgid "Andorra"
+msgstr "Andora"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:40
+msgid "Angola"
+msgstr "Angola"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:41
+msgid "Anguilla"
+msgstr "Angilija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:42
+msgid "Antarctica"
+msgstr "Antarktika"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:43
+msgid "Antigua And Barbuda"
+msgstr "Antigva ir Barbuda"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:44
+msgid "Argentina"
+msgstr "Argentina"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:45
+msgid "Armenia"
+msgstr "Armėnija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:46
+msgid "Aruba"
+msgstr "Aruba"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:47
+msgid "Australia"
+msgstr "Australija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:48
+msgid "Austria"
+msgstr "Austrija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:49
+msgid "Azerbaijan"
+msgstr "Azerbaidžianas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:50
+msgid "Bahamas"
+msgstr "Bahamų salos"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:51
+msgid "Bahrain"
+msgstr "Bahreinas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:52
+msgid "Bangladesh"
+msgstr "Bangladešas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:53
+msgid "Barbados"
+msgstr "Barbadosas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:54
+msgid "Belarus"
+msgstr "Baltarusija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:55
+msgid "Belgium"
+msgstr "Belgija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:56
+msgid "Belize"
+msgstr "Belizas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:57
+msgid "Benin"
+msgstr "Beninas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:58
+msgid "Bermuda"
+msgstr "Bermudų salos"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:59
+msgid "Bhutan"
+msgstr "Butanas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:60
+msgid "Bolivia"
+msgstr "Bolivija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:61
+msgid "Bosnia And Herzegowina"
+msgstr "Bosnija ir Hercogovina"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:62
+msgid "Botswana"
+msgstr "Bostvana"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:63
+msgid "Bouvet Island"
+msgstr "Buvė Sala"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:64
+msgid "Brazil"
+msgstr "Brazilija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:65
+msgid "British Indian Ocean Territory"
+msgstr "Britų teritorija Indijos Vandenyse"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:66
+msgid "Brunei Darussalam"
+msgstr "Brunėjus"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:67
+msgid "Bulgaria"
+msgstr "Bulgarija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:68
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:69
+msgid "Burundi"
+msgstr "Burundis"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:70
+msgid "Cambodia"
+msgstr "Kambodža"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:71
+msgid "Cameroon"
+msgstr "Kamerūnas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:72
+msgid "Canada"
+msgstr "Kanada"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:73
+msgid "Cape Verde"
+msgstr "Žaliasis Kyšulys"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:74
+msgid "Cayman Islands"
+msgstr "Kaimanų salos"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:75
+msgid "Central African Republic"
+msgstr "Centrinė Afrikos Respublika"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:76
+msgid "Chad"
+msgstr "Čadas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:77
+msgid "Chile"
+msgstr "Čilė"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:78
+msgid "China"
+msgstr "Kinija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:79
+msgid "Christmas Island"
+msgstr "Kalėdų sala"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:80
+msgid "Cocos (Keeling) Islands"
+msgstr "Kokosų (Keelingo) salos"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:81
+msgid "Colombia"
+msgstr "Kolumbija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:82
+msgid "Comoros"
+msgstr "Komorai"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:83
+msgid "Congo"
+msgstr "Kongas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:84
+msgid "Congo, The Democratic Republic Of The"
+msgstr "Demokratinė Kongo Respublika"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:85
+msgid "Cook Islands"
+msgstr "Kuko salos"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:86
+msgid "Costa Rica"
+msgstr "Kosta Rika"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:87
+msgid "Cote D'Ivoire"
+msgstr "Dramblio Kaulo Krantas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:88
+msgid "Croatia (Local Name: Hrvatska)"
+msgstr "Kroatija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:89
+msgid "Cuba"
+msgstr "Kuba"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:90
+msgid "Cyprus"
+msgstr "Kipras"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:91
+msgid "Czech Republic"
+msgstr "Čekija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:92
+msgid "Denmark"
+msgstr "Danija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:93
+msgid "Djibouti"
+msgstr "Džibutis"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:94
+msgid "Dominica"
+msgstr "Dominika"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:95
+msgid "Dominican Republic"
+msgstr "Dominikos Respublika"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:96
+msgid "East Timor"
+msgstr "Rytų Timoras"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:97
+msgid "Ecuador"
+msgstr "Ekvadoras"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:98
+msgid "Egypt"
+msgstr "Egiptas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:99
+msgid "El Salvador"
+msgstr "El Salvadoras"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:100
+msgid "Equatorial Guinea"
+msgstr "Pusiaujo Gvinėja"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:101
+msgid "Eritrea"
+msgstr "Eritrėja"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:102
+msgid "Estonia"
+msgstr "Estija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:103
+msgid "Ethiopia"
+msgstr "Etiopija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:104
+msgid "Falkland Islands (Malvinas)"
+msgstr "Folklando (Malvinų) salos"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:105
+msgid "Faroe Islands"
+msgstr "Farerų salos"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:106
+msgid "Fiji"
+msgstr "Fidžis"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:107
+msgid "Finland"
+msgstr "Suomija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:108
+msgid "France"
+msgstr "Prancūzija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:109
+msgid "France, Metropolitan"
+msgstr "Prancūzija, Metropolitenas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:110
+msgid "French Guiana"
+msgstr "Prancūzijos Gviana"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:111
+msgid "French Polynesia"
+msgstr "Prancūzų Polinezija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:112
+msgid "French Southern Territories"
+msgstr "Prancūzijos pietinės teritorijos"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:113
+msgid "Gabon"
+msgstr "Gabonas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:114
+msgid "Gambia"
+msgstr "Gambija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:115
+#: ../lib/tribe-view-helpers.class.php:303
+msgid "Georgia"
+msgstr "Gruzija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:116
+msgid "Germany"
+msgstr "Vokietija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:117
+msgid "Ghana"
+msgstr "Gana"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:118
+msgid "Gibraltar"
+msgstr "Gibraltaras"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:119
+msgid "Greece"
+msgstr "Graikija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:120
+msgid "Greenland"
+msgstr "Grenlandija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:121
+msgid "Grenada"
+msgstr "Grenada"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:122
+msgid "Guadeloupe"
+msgstr "Gvadelupa"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:123
+msgid "Guam"
+msgstr "Guamas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:124
+msgid "Guatemala"
+msgstr "Gvatemala"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:125
+msgid "Guinea"
+msgstr "Gvinėja"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:126
+msgid "Guinea-Bissau"
+msgstr "Bisau Gvinėja"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:127
+msgid "Guyana"
+msgstr "Gajana"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:128
+msgid "Haiti"
+msgstr "Haitis"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:129
+msgid "Heard And Mc Donald Islands"
+msgstr "Heardo ir Mc Donaldo salos"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:130
+msgid "Holy See (Vatican City State)"
+msgstr "Šventasis Sostas (Vatikano Miesto Valstybė)"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:131
+msgid "Honduras"
+msgstr "Hondūras"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:132
+msgid "Hong Kong"
+msgstr "Honkongas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:133
+msgid "Hungary"
+msgstr "Vengrija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:134
+msgid "Iceland"
+msgstr "Islandija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:135
+msgid "India"
+msgstr "Indija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:136
+msgid "Indonesia"
+msgstr "Indonezija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:137
+msgid "Iran (Islamic Republic Of)"
+msgstr "Iranas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:138
+msgid "Iraq"
+msgstr "Irakas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:139
+msgid "Ireland"
+msgstr "Airija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:140
+msgid "Israel"
+msgstr "Izraelis"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:141
+msgid "Italy"
+msgstr "Italija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:142
+msgid "Jamaica"
+msgstr "Jamaika"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:143
+msgid "Japan"
+msgstr "Japonija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:144
+msgid "Jordan"
+msgstr "Jordanija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:145
+msgid "Kazakhstan"
+msgstr "Kazakstanas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:146
+msgid "Kenya"
+msgstr "Kenija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:147
+msgid "Kiribati"
+msgstr "Kiribatis"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:148
+msgid "Korea, Democratic People's Republic Of"
+msgstr "Demokratinė Korėjos Liaudies Resupublika"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:149
+msgid "Korea, Republic Of"
+msgstr "Korėjos Respublika"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:150
+msgid "Kuwait"
+msgstr "Kuveitas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:151
+msgid "Kyrgyzstan"
+msgstr "Kirgistanas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:152
+msgid "Lao People's Democratic Republic"
+msgstr "Laoso Liaudies Demokratinė Respublika"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:153
+msgid "Latvia"
+msgstr "Latvija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:154
+msgid "Lebanon"
+msgstr "Libanas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:155
+msgid "Lesotho"
+msgstr "Lesotas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:156
+msgid "Liberia"
+msgstr "Liberija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:157
+msgid "Libya"
+msgstr "Libija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:158
+msgid "Liechtenstein"
+msgstr "Lichtenšteinas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:159
+msgid "Lithuania"
+msgstr "Lietuva"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:160
+msgid "Luxembourg"
+msgstr "Liuksemburgas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:161
+msgid "Macau"
+msgstr "Makau"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:162
+msgid "Macedonia"
+msgstr "Makedonija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:163
+msgid "Madagascar"
+msgstr "Madagaskaras"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:164
+msgid "Malawi"
+msgstr "Malavis"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:165
+msgid "Malaysia"
+msgstr "Malaizija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:166
+msgid "Maldives"
+msgstr "Maldyvai"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:167
+msgid "Mali"
+msgstr "Malis"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:168
+msgid "Malta"
+msgstr "Malta"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:169
+msgid "Marshall Islands"
+msgstr "Maršalo salos"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:170
+msgid "Martinique"
+msgstr "Martinika"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:171
+msgid "Mauritania"
+msgstr "Mauritanija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:172
+msgid "Mauritius"
+msgstr "Mauricijus"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:173
+msgid "Mayotte"
+msgstr "Mayotte'as"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:174
+msgid "Mexico"
+msgstr "Meksika"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:175
+msgid "Micronesia, Federated States Of"
+msgstr "Mikronezijos Federacinės Valstijos"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:176
+msgid "Moldova, Republic Of"
+msgstr "Moldovos Respublika"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:177
+msgid "Monaco"
+msgstr "Monakas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:178
+msgid "Mongolia"
+msgstr "Mongolija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:179
+msgid "Montenegro"
+msgstr "Juodkalnija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:180
+msgid "Montserrat"
+msgstr "Montseratas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:181
+msgid "Morocco"
+msgstr "Marokas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:182
+msgid "Mozambique"
+msgstr "Mozambikas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:183
+msgid "Myanmar"
+msgstr "Mianmaras"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:184
+msgid "Namibia"
+msgstr "Namibija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:185
+msgid "Nauru"
+msgstr "Nauru"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:186
+msgid "Nepal"
+msgstr "Nepalas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:187
+msgid "Netherlands"
+msgstr "Nyderlandai"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:188
+msgid "Netherlands Antilles"
+msgstr "Nyderlandų Antilai"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:189
+msgid "New Caledonia"
+msgstr "Naujoji Kaledonija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:190
+msgid "New Zealand"
+msgstr "Naujoji Zelandija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:191
+msgid "Nicaragua"
+msgstr "Nikaragva"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:192
+msgid "Niger"
+msgstr "Nigeris"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:193
+msgid "Nigeria"
+msgstr "Nigerija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:194
+msgid "Niue"
+msgstr "Niue"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:195
+msgid "Norfolk Island"
+msgstr "Norfolko sala"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:196
+msgid "Northern Mariana Islands"
+msgstr "Šiaurės Marianų salos"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:197
+msgid "Norway"
+msgstr "Norvegija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:198
+msgid "Oman"
+msgstr "Omanas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:199
+msgid "Pakistan"
+msgstr "Pakistanas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:200
+msgid "Palau"
+msgstr "Palau"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:201
+msgid "Panama"
+msgstr "Panama"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:202
+msgid "Papua New Guinea"
+msgstr "Papua Naujoji Gvinėja"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:203
+msgid "Paraguay"
+msgstr "Paragvajus"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:204
+msgid "Peru"
+msgstr "Peru"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:205
+msgid "Philippines"
+msgstr "Filipinai"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:206
+msgid "Pitcairn"
+msgstr "Pitkernas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:207
+msgid "Poland"
+msgstr "Lenkija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:208
+msgid "Portugal"
+msgstr "Portugalija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:209
+msgid "Puerto Rico"
+msgstr "Puerto Rikas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:210
+msgid "Qatar"
+msgstr "Kataras"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:211
+msgid "Reunion"
+msgstr "Reunionas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:212
+msgid "Romania"
+msgstr "Rumunija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:213
+msgid "Russian Federation"
+msgstr "Rusijos Federacija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:214
+msgid "Rwanda"
+msgstr "Ruanda"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:215
+msgid "Saint Kitts And Nevis"
+msgstr "Sent Kitsas ir Nevis"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:216
+msgid "Saint Lucia"
+msgstr "Sent Lusija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:217
+msgid "Saint Vincent And The Grenadines"
+msgstr "Sent Vinsentas ir Grenadinai"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:218
+msgid "Samoa"
+msgstr "Samoa"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:219
+msgid "San Marino"
+msgstr "San Marinas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:220
+msgid "Sao Tome And Principe"
+msgstr "San Tomė ir Prinsipė"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:221
+msgid "Saudi Arabia"
+msgstr "Saudo Arabija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:222
+msgid "Senegal"
+msgstr "Senegalas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:223
+msgid "Serbia"
+msgstr "Serbija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:224
+msgid "Seychelles"
+msgstr "Seišeliai"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:225
+msgid "Sierra Leone"
+msgstr "Siera Leonė"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:226
+msgid "Singapore"
+msgstr "Singapūras"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:227
+msgid "Slovakia (Slovak Republic)"
+msgstr "Slovakija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:228
+msgid "Slovenia"
+msgstr "Slovėnija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:229
+msgid "Solomon Islands"
+msgstr "Saliamono salos"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:230
+msgid "Somalia"
+msgstr "Somalis"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:231
+msgid "South Africa"
+msgstr "Pietų Afrika"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:232
+msgid "South Georgia, South Sandwich Islands"
+msgstr "Pietų Džordžija, Pietų Sandvičo salos"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:233
+msgid "Spain"
+msgstr "Ispanija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:234
+msgid "Sri Lanka"
+msgstr "Šri Lanka"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:235
+msgid "St. Helena"
+msgstr "Šventosios Elenos sala"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:236
+msgid "St. Pierre And Miquelon"
+msgstr "Sen Pjeras ir Mikelonas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:237
+msgid "Sudan"
+msgstr "Sudanas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:238
+msgid "Suriname"
+msgstr "Surinamas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:239
+msgid "Svalbard And Jan Mayen Islands"
+msgstr "Svalbardas ir Jan Mayenas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:240
+msgid "Swaziland"
+msgstr "Svazilendas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:241
+msgid "Sweden"
+msgstr "Švedija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:242
+msgid "Switzerland"
+msgstr "Šveicarija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:243
+msgid "Syrian Arab Republic"
+msgstr "Sirijos Arabų Respublika"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:244
+msgid "Taiwan"
+msgstr "Taivanas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:245
+msgid "Tajikistan"
+msgstr "Tadžikistanas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:246
+msgid "Tanzania, United Republic Of"
+msgstr "Tanzanija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:247
+msgid "Thailand"
+msgstr "Tailandas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:248
+msgid "Togo"
+msgstr "Togas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:249
+msgid "Tokelau"
+msgstr "Tokelau"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:250
+msgid "Tonga"
+msgstr "Tonga"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:251
+msgid "Trinidad And Tobago"
+msgstr "Trinidadas ir Tobagas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:252
+msgid "Tunisia"
+msgstr "Tunisas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:253
+msgid "Turkey"
+msgstr "Turkija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:254
+msgid "Turkmenistan"
+msgstr "Turkmėnistanas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:255
+msgid "Turks And Caicos Islands"
+msgstr "Turkso ir Caicoso salos"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:256
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:257
+msgid "Uganda"
+msgstr "Uganda"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:258
+msgid "Ukraine"
+msgstr "Ukraina"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:259
+msgid "United Arab Emirates"
+msgstr "Jungtiniai Arabų Emyratai"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:260
+msgid "United Kingdom"
+msgstr "Jungtinė Karalystė"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:261
+msgid "United States Minor Outlying Islands"
+msgstr "Jungtinių Valstijų mažosios aplinkinės salos"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:262
+msgid "Uruguay"
+msgstr "Urugvajus"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:263
+msgid "Uzbekistan"
+msgstr "Uzbekistanas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:264
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:265
+msgid "Venezuela"
+msgstr "Venesuela"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:266
+msgid "Viet Nam"
+msgstr "Vietnamas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:267
+msgid "Virgin Islands (British)"
+msgstr "Mergelių Salos (Didžioji Britanija)"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:268
+msgid "Virgin Islands (U.S.)"
+msgstr "Mergelių salos (JAV)"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:269
+msgid "Wallis And Futuna Islands"
+msgstr "Volisas ir Futūna"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:270
+msgid "Western Sahara"
+msgstr "Vakarų Sachara"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:271
+msgid "Yemen"
+msgstr "Jemenas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:272
+msgid "Zambia"
+msgstr "Zambija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:273
+msgid "Zimbabwe"
+msgstr "Zimbabvė"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:293
+msgid "Alabama"
+msgstr "Alabama"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:294
+msgid "Alaska"
+msgstr "Aliaska"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:295
+msgid "Arizona"
+msgstr "Arizona"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:296
+msgid "Arkansas"
+msgstr "Arkanzasas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:297
+msgid "California"
+msgstr "Kalifornija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:298
+msgid "Colorado"
+msgstr "Koloradas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:299
+msgid "Connecticut"
+msgstr "Konektikutas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:300
+msgid "Delaware"
+msgstr "Delaveras"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:301
+msgid "District of Columbia"
+msgstr "Kolumbijos Apygarda"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:302
+msgid "Florida"
+msgstr "Florida"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:304
+msgid "Hawaii"
+msgstr "Havajai"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:305
+msgid "Idaho"
+msgstr "Idaho"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:306
+msgid "Illinois"
+msgstr "Ilinojus"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:307
+msgid "Indiana"
+msgstr "Indiana"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:308
+msgid "Iowa"
+msgstr "Ajova"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:309
+msgid "Kansas"
+msgstr "Kanzasas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:310
+msgid "Kentucky"
+msgstr "Kentukis"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:311
+msgid "Louisiana"
+msgstr "Luiziana"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:312
+msgid "Maine"
+msgstr "Meinas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:313
+msgid "Maryland"
+msgstr "Merilendas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:314
+msgid "Massachusetts"
+msgstr "Masačiusetsas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:315
+msgid "Michigan"
+msgstr "Mičiganas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:316
+msgid "Minnesota"
+msgstr "Minesota"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:317
+msgid "Mississippi"
+msgstr "Misisipė"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:318
+msgid "Missouri"
+msgstr "Misūris"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:319
+msgid "Montana"
+msgstr "Montana"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:320
+msgid "Nebraska"
+msgstr "Nebraska"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:321
+msgid "Nevada"
+msgstr "Nevada"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:322
+msgid "New Hampshire"
+msgstr "Naujasis Hampšyras"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:323
+msgid "New Jersey"
+msgstr "Naujasis Džersis"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:324
+msgid "New Mexico"
+msgstr "Naujoji Meksika"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:325
+msgid "New York"
+msgstr "Naujasis Jorkas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:326
+msgid "North Carolina"
+msgstr "Šiaurės Karolina"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:327
+msgid "North Dakota"
+msgstr "Šiaurės Dakota"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:328
+msgid "Ohio"
+msgstr "Ohajas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:329
+msgid "Oklahoma"
+msgstr "Oklahoma"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:330
+msgid "Oregon"
+msgstr "Oregonas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:331
+msgid "Pennsylvania"
+msgstr "Pensilvanija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:332
+msgid "Rhode Island"
+msgstr "Rodo Sala"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:333
+msgid "South Carolina"
+msgstr "Pietų Karolina"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:334
+msgid "South Dakota"
+msgstr "Pietų Dakota"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:335
+msgid "Tennessee"
+msgstr "Tenesis"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:336
+msgid "Texas"
+msgstr "Teksasas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:337
+msgid "Utah"
+msgstr "Juta"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:338
+msgid "Vermont"
+msgstr "Vermontas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:339
+msgid "Virginia"
+msgstr "Virdžinija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:340
+msgid "Washington"
+msgstr "Vašingtonas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:341
+msgid "West Virginia"
+msgstr "Vakarų Virdžinija"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:342
+msgid "Wisconsin"
+msgstr "Viskonsinas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:343
+msgid "Wyoming"
+msgstr "Vajomingas"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-event-exception.class.php:17
+#: ../lib/tribe-event-exception.class.php:34
+msgid "Error"
+msgstr "Klaida"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:214
+msgid "The Events Calendar"
+msgstr "The Events Calendar"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:217
+msgid "category"
+msgstr "Kategorija"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:218
+msgid "month"
+msgstr "mėnuo"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:219
+msgid "upcoming"
+msgstr "artėjantis"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:220
+msgid "past"
+msgstr "praėjęs"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:222
+msgid "venue"
+msgstr "vieta"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:232
+#, php-format
+msgid "Initializing Tribe Events on %s"
+msgstr "Inicijuojami Tribe Events %s"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:280
+#, php-format
+msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
+msgstr "Atsiprašome, Events Calendar reikalauja %s arba aukštesnės WordPress versijos. Prašome naujovinti Jūsų WordPress sistemos versiją."
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:283
+#, php-format
+msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
+msgstr "Atsiprašome. Events Calendar reikalauja %s arba aukštesnės PHP versijos. Paprašykite savo internetinių paslaugų tiekėjo perkelti Jūsų svetainę į naujesnę PHP versiją."
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:400
+msgid "Upcoming Events"
+msgstr "Artėjantys Įvykiai"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:402
+msgid "Past Events"
+msgstr "Praieties Įvykiai"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:406
+#, php-format
+msgid "Events for %s"
+msgstr "Įvykiai %s"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:408
+msgid "Events this month"
+msgstr "Įvykiai šį mėnesį"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:422
+msgid "No description has been entered for this event."
+msgstr "Įvykis neturi jokio aprašymo."
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:487
+msgid "Events"
+msgstr "Įvykiai"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:488
+msgid "Event"
+msgstr "Įvykis"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:489
+#: ../lib/the-events-calendar.class.php:502
+#: ../lib/the-events-calendar.class.php:515
+msgid "Add New"
+msgstr "Pridėti Naują"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:490
+msgid "Add New Event"
+msgstr "Pridėti Naują Įvykį"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:491
+msgid "Edit Event"
+msgstr "Redaguoti Įvykį"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:492
+msgid "New Event"
+msgstr "Naujas Įvykis"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:493
+msgid "View Event"
+msgstr "Peržiūrėti Įvykį"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:494
+msgid "Search Events"
+msgstr "Ieškoti Įvykių"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:495
+msgid "No events found"
+msgstr "Nerasta jokių įvykių"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:496
+msgid "No events found in Trash"
+msgstr "Šiukšlėse nerasta jokių įvykių"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:500
+msgid "Venues"
+msgstr "Vietos"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:501
+msgid "Venue"
+msgstr "Vieta"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:503
+msgid "Add New Venue"
+msgstr "Pridėti Naują Vietą"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:504
+msgid "Edit Venue"
+msgstr "Redaguoti Vietą"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:505
+msgid "New Venue"
+msgstr "Nauja Vieta"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:506
+#: ../lib/the-events-calendar.class.php:519
+msgid "View Venue"
+msgstr "Peržiūrėti Vietą"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:507
+msgid "Search Venues"
+msgstr "Ieškoti Vietų"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:508
+msgid "No venue found"
+msgstr "Nerasta jokių vietų"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:509
+msgid "No venues found in Trash"
+msgstr "Šiukšlėse nerasta jokių vietų"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:513
+msgid "Organizers"
+msgstr "Organizatoriai"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:514
+msgid "Organizer"
+msgstr "Organizatorius"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:516
+msgid "Add New Organizer"
+msgstr "Pridėti Naują Organizatorių"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:517
+msgid "Edit Organizer"
+msgstr "Redaguoti Organizatorių"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:518
+msgid "New Organizer"
+msgstr "Naujas Organizatorius"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:520
+msgid "Search Organizers"
+msgstr "Ieškoti Organizatorių"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:521
+msgid "No organizer found"
+msgstr "Jokių organizatorių nerasta"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:522
+msgid "No organizers found in Trash"
+msgstr "Šiukšlėse nerasta jokių organizatorių"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:527
+msgid "Event Category"
+msgstr "Įvykio Kategorija"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:528
+msgid "Search Event Categories"
+msgstr "Ieškoti Įvykių Kategorijų"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:529
+msgid "All Event Categories"
+msgstr "Visos Įvykių Kategorijos"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:530
+msgid "Parent Event Category"
+msgstr "Įvykių Virškategorės"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:531
+msgid "Parent Event Category:"
+msgstr "Įvykio Virškategorė:"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:532
+msgid "Edit Event Category"
+msgstr "Redaguoti Įvykio Kategoriją"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:533
+msgid "Update Event Category"
+msgstr "Atnaujinti Įvykio Kategoriją"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:534
+msgid "Add New Event Category"
+msgstr "Pridėti Naują Įvykio Kategoriją"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:535
+msgid "New Event Category Name"
+msgstr "Naujos Įvykio Kategorijos Pavadinimas"
+
+# @ default
+#: ../lib/the-events-calendar.class.php:545
+#, php-format
+msgid "Event updated. <a href=\"%s\">View event</a>"
+msgstr "Įvykis atnaujintas. <a href=\"%s\">Peržiūrėti įvykį</a>"
+
+# @ default
+#: ../lib/the-events-calendar.class.php:546
+#: ../lib/the-events-calendar.class.php:563
+#: ../lib/the-events-calendar.class.php:580
+msgid "Custom field updated."
+msgstr "Individualizuotas laukelis atnaujintas."
+
+# @ default
+#: ../lib/the-events-calendar.class.php:547
+#: ../lib/the-events-calendar.class.php:564
+#: ../lib/the-events-calendar.class.php:581
+msgid "Custom field deleted."
+msgstr "Individualizuotas laukelis ištrintas."
+
+# @ default
+#: ../lib/the-events-calendar.class.php:548
+msgid "Event updated."
+msgstr "Įvykis atnaujintas."
+
+# @ default
+#: ../lib/the-events-calendar.class.php:550
+#, php-format
+msgid "Event restored to revision from %s"
+msgstr "Įvykis atkurtas taisymui iš %s"
+
+# @ default
+#: ../lib/the-events-calendar.class.php:551
+#, php-format
+msgid "Event published. <a href=\"%s\">View event</a>"
+msgstr "Įvykis paskelbtas. <a href=\"%s\">Peržiūrėti įvykį</a>"
+
+# @ default
+#: ../lib/the-events-calendar.class.php:552
+msgid "Event saved."
+msgstr "Įvykis įrašytas."
+
+# @ default
+#: ../lib/the-events-calendar.class.php:553
+#, php-format
+msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
+msgstr "Įvykis pateiktas. <a target=\"_blank\" href=\"%s\">Peržiūrėti įvykį</a>"
+
+# @ default
+#: ../lib/the-events-calendar.class.php:554
+#, php-format
+msgid "Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview event</a>"
+msgstr "Įvykis suplanuotas: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%s\">Peržiūrėti įvykį</a>"
+
+# @ default
+#: ../lib/the-events-calendar.class.php:556
+#: ../lib/the-events-calendar.class.php:573
+#: ../lib/the-events-calendar.class.php:590
+msgid "M j, Y @ G:i"
+msgstr "M j, Y @ G:i"
+
+# @ default
+#: ../lib/the-events-calendar.class.php:557
+#, php-format
+msgid "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
+msgstr "Įvykio juodraštis atnaujintas. <a target=\"_blank\" href=\"%s\">Peržiūrėti įvykį</a>"
+
+# @ default
+#: ../lib/the-events-calendar.class.php:562
+#, php-format
+msgid "Venue updated. <a href=\"%s\">View venue</a>"
+msgstr "Vieta atnaujinta. <a href=\"%s\">Peržiūrėti vietą</a>"
+
+# @ default
+#: ../lib/the-events-calendar.class.php:565
+msgid "Venue updated."
+msgstr "Vieta atnaujinta."
+
+# @ default
+#: ../lib/the-events-calendar.class.php:567
+#, php-format
+msgid "Venue restored to revision from %s"
+msgstr "Vieta atkurta taisymui iš %s"
+
+# @ default
+#: ../lib/the-events-calendar.class.php:568
+#, php-format
+msgid "Venue published. <a href=\"%s\">View venue</a>"
+msgstr "Vieta paskelbta. <a href=\"%s\">Peržiūrėti vietą</a>"
+
+# @ default
+#: ../lib/the-events-calendar.class.php:569
+msgid "Venue saved."
+msgstr "Vieta įrašyta."
+
+# @ default
+#: ../lib/the-events-calendar.class.php:570
+#, php-format
+msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+msgstr "Vieta pateikta. <a target=\"_blank\" href=\"%s\">Peržiūrėti vietą</a>"
+
+# @ default
+#: ../lib/the-events-calendar.class.php:571
+#, php-format
+msgid "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview venue</a>"
+msgstr "Vieta suplanuota: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%s\">Peržiūrėti vietą</a>"
+
+# @ default
+#: ../lib/the-events-calendar.class.php:574
+#, php-format
+msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+msgstr "Vietos juodraštis atnaujintas. <a target=\"_blank\" href=\"%s\">Peržiūrėti vietą</a>"
+
+# @ default
+#: ../lib/the-events-calendar.class.php:579
+#, php-format
+msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
+msgstr "Organizatorius atnaujintas. <a href=\"%s\">Peržiūrėti organizatorių</a>"
+
+# @ default
+#: ../lib/the-events-calendar.class.php:582
+msgid "Organizer updated."
+msgstr "Organizatorius atnaujintas."
+
+# @ default
+#: ../lib/the-events-calendar.class.php:584
+#, php-format
+msgid "Organizer restored to revision from %s"
+msgstr "Organizatorius atkurtas taisymui iš %s"
+
+# @ default
+#: ../lib/the-events-calendar.class.php:585
+#, php-format
+msgid "Organizer published. <a href=\"%s\">View organizer</a>"
+msgstr "Organizatorius paskelbtas. <a href=\"%s\">Peržiūrėti organizatorių</a>"
+
+# @ default
+#: ../lib/the-events-calendar.class.php:586
+msgid "Organizer saved."
+msgstr "Organizatorius įrašytas."
+
+# @ default
+#: ../lib/the-events-calendar.class.php:587
+#, php-format
+msgid "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+msgstr "Organizatorius pateiktas. <a target=\"_blank\" href=\"%s\">Peržiūrėti organizatorių </a>"
+
+# @ default
+#: ../lib/the-events-calendar.class.php:588
+#, php-format
+msgid "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview organizer</a>"
+msgstr "Organizatorius suplanuotas: <strong>%1$s</strong>.  <a target=\"_blank\" href=\"%s\">Peržiūrėti organizatorių </a>"
+
+# @ default
+#: ../lib/the-events-calendar.class.php:591
+#, php-format
+msgid "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+msgstr "Organizatoriaus juodraštis atnaujintas. < <a target=\"_blank\" href=\"%s\">Peržiūrėti organizatorių </a>"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:646
+msgid "Next"
+msgstr "Kita(-s)"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:647
+msgid "Prev"
+msgstr "Ankstesnė(-is)"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:648
+msgid "Today"
+msgstr "Šiandien"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:649
+msgid "Done"
+msgstr "Atlikta"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1734
+msgid "Event Options"
+msgstr "Įvykio Parinktys"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1736
+msgid "Venue Information"
+msgstr "Vietos Informacija"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1737
+msgid "Organizer Information"
+msgstr "Organizatoriaus Informacija"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1839
+msgid "View All Add-Ons"
+msgstr "Peržiūrėti Visus Papildinius"
+
+# @ default
+#: ../lib/the-events-calendar.class.php:1846
+msgid "News from Tribe Pro"
+msgstr "Tripe Pro naujienos"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-debug-bar.class.php:18
+msgid "Tribe"
+msgstr "Tribe"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-the-events-calendar-import.class.php:45
+msgid "Upgrade from The Events Calendar"
+msgstr "Atnaujinimas iš Events Calendar"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-the-events-calendar-import.class.php:46
+msgid "It appears that you have some old events calendar data that needs to be upgraded. Please be sure to back up your database before initiating the upgrade. This process can not be undone."
+msgstr "Panašu, jog turite pasilikęs šiek tiek senojo kalendoriaus duomenų, kurie turi būti atnaujinti. Būkite tikras, jog išsaugojote senosios duomenų bazės kopiją, prieš įdiegiant atnaujinimą. Atnaujinimo padariniai negali būti atstatyti."
+
+# @ tribe-events-calendar
+#: ../lib/tribe-the-events-calendar-import.class.php:47
+msgid "Migrate Data!"
+msgstr "Perkelti Duomenis!"
+
+# @ default
+#: ../lib/tribe-the-events-calendar-import.class.php:119
+#, php-format
+msgid "You successfully migrated (%d) entries."
+msgstr "Jūs sėkmingai perkelėte įrašus."
+
+# @ tribe-events-calendar
+#: ../lib/tribe-the-events-calendar-import.class.php:189
+msgid "Install has 1 or more legacy event!"
+msgstr "Diegimas turi vieną arba daugiau senų (paliktų) įvykių!"
+
+# @ tribe-events-calendar
+#: ../lib/template-tags.php:607
+msgid "Free"
+msgstr "Nemokamai"
+
+# @ tribe-events-calendar
+#: ../lib/template-tags.php:978
+msgid "Calendar of Events"
+msgstr "Įvykių Kalendorius"
+
+# @ tribe-events-calendar
+#: ../lib/template-tags.php:993
+msgid "Category:"
+msgstr "Kategorija:"
+
+# @ tribe-events-calendar
+#: ../lib/widget-list.class.php:16
+msgid "A widget that displays the next upcoming x events."
+msgstr "Valdiklis, kuris parodo sekančius artėjančius x įvykius."
+
+# @ tribe-events-calendar
+#: ../lib/widget-list.class.php:70
+msgid "View All Events"
+msgstr "Peržiūrėti Visus Įvykius"
+
+# @ tribe-events-calendar
+#: ../lib/widget-list.class.php:73
+msgid "There are no upcoming events at this time."
+msgstr "Šiiuo metu nėra jokių artėjančių renginių."
+
