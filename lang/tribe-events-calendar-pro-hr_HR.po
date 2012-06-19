@@ -1,0 +1,1185 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: The Events Calendar 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-23 08:20-0800\n"
+"PO-Revision-Date: 2012-06-13 15:21+0100\n"
+"Last-Translator: Marko Manojlović <manmar984@gmail.com>\n"
+"Language-Team: Modern Tribe, Inc.\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ./\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#@ tribe-events-calendar-pro
+#: ../events-calendar-pro.php:119
+msgid "Venues"
+msgstr "Mjesta"
+
+#@ tribe-events-calendar-pro
+#: ../events-calendar-pro.php:120
+msgid "Organizers"
+msgstr "Organizatori"
+
+#@ tribe-events-calendar-pro
+#: ../events-calendar-pro.php:131
+msgid "Use Saved Venue:"
+msgstr "Koristi sačuvano mjesto:"
+
+#@ tribe-events-calendar-pro
+#: ../events-calendar-pro.php:147
+msgid "Use Saved Organizer:"
+msgstr "Koristi sačuvanog organizatora:"
+
+#@ tribe-events-calendar-pro
+#: ../events-calendar-pro.php:347
+msgid "Use New Venue"
+msgstr "Koristi novo mjesto"
+
+#@ tribe-events-calendar-pro
+#: ../events-calendar-pro.php:355
+msgid "No saved venues yet."
+msgstr "Nema sačuvanih mjesta."
+
+#@ tribe-events-calendar-pro
+#: ../events-calendar-pro.php:366
+msgid "Use New Organizer"
+msgstr "Koristi novog organizatora"
+
+#@ tribe-events-calendar-pro
+#: ../events-calendar-pro.php:373
+msgid "No saved organizers yet."
+msgstr "Nema sačuvanih organizatora."
+
+#@ tribe-events-calendar-pro
+#: ../events-calendar-pro.php:381
+msgid "Support"
+msgstr "Podrška"
+
+#@ tribe-events-calendar-pro
+#: ../events-calendar-pro.php:384
+msgid "View All Add-Ons"
+msgstr "Pogledaj sve dodatke"
+
+#@ tribe-events-calendar-pro
+#: ../events-calendar-pro.php:420
+msgid "The Events Calendar"
+msgstr "Kalendar događaja"
+
+#@ tribe-events-calendar-pro
+#: ../events-calendar-pro.php:421
+#, php-format
+msgid "To begin using Events Calendar PRO, please install the latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+msgstr "Da bi ste počeli sa korišćenjem Events Calendar PRO, molimo vas instalirajte poslednju verziju <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar-a</a>."
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:1
+msgid "Customize Defaults"
+msgstr "Izmeni podrazumevane postavke"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:2
+msgid "These settings change the default event form. For example, if you set a default venue, this field will be automatically filled in on a new event."
+msgstr "Ove postavke mjenjaju podrazumevanu formu događaja. Na primer, ako postavite podrazumevano mjesto, ovo polje će biti automatski popunjeno na novom događaju."
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:5
+#: ../admin-views/event-defaults.php:9
+msgid "Automatically replace empty fields with default values"
+msgstr "Automatski zameni prazna polja podrazumevanim vrijednostima"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:13
+msgid "Enabled"
+msgstr "Omogućeno"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:19
+msgid "Default Organizer for Events"
+msgstr "Zadani organizator za događaje"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:22
+msgid "Default Organizer"
+msgstr "Zadani organizator"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:23
+msgid "The default organizer value"
+msgstr "Vrijednost za zadanog organizatora"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:23
+#: ../admin-views/event-defaults.php:31
+#: ../admin-views/event-defaults.php:38
+#: ../admin-views/event-defaults.php:45
+#: ../admin-views/event-defaults.php:66
+#: ../admin-views/event-defaults.php:74
+#: ../admin-views/event-defaults.php:82
+#: ../admin-views/event-defaults.php:108
+#, php-format
+msgid "The current default value is <strong>%s</strong>"
+msgstr "Trenutna zadana vrijednost je <strong>%s</strong>"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:27
+msgid "Default Venue for Events"
+msgstr "Zadano mjesto za događaje"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:30
+msgid "Default Venue"
+msgstr "Zadano mjesto"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:31
+msgid "The default venue value"
+msgstr "Vrijednost za zadano mesto"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:35
+#: ../admin-views/event-defaults.php:37
+msgid "Default Address"
+msgstr "Zadana adresa"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:38
+msgid "The default address value"
+msgstr "Vrijednost za zadanu adresu"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:42
+#: ../admin-views/event-defaults.php:44
+msgid "Default City"
+msgstr "Zadani grad"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:45
+msgid "The default city value"
+msgstr "Vrijednost za zadani grad"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:50
+msgid "Default State"
+msgstr "Zadana država"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:52
+#: ../admin-views/event-defaults.php:73
+msgid "Default Province or State"
+msgstr "Zadana pokrajina ili država"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:55
+msgid "Select a State:"
+msgstr "Odaberite državu:"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:66
+#: ../admin-views/event-defaults.php:74
+msgid "The default  value"
+msgstr "Zadana vrijednost"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:71
+msgid "Default Province"
+msgstr "Zadana pokrajina"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:79
+#: ../admin-views/event-defaults.php:81
+msgid "Default Postal Code"
+msgstr "Podrazumevani poštanski kod"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:82
+msgid "The default Postal Code value"
+msgstr "Vrijednost zadanog poštanskog koda"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:87
+msgid "Default Country for Events"
+msgstr "Zadana zemlja za događaje"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:105
+#: ../admin-views/event-defaults.php:107
+msgid "Default Phone"
+msgstr "Zadani telefon"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:108
+msgid "The default phone value"
+msgstr "Vrijednost za podrazumevani telefon"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:112
+msgid "Use a custom list of countries"
+msgstr "Koristi prilagođenu listu zemalja"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:114
+msgid "Use the following list:"
+msgstr "Koristi sledeću listu"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:116
+msgid "One country per line in the following format: <br/>US, United States <br/> UK, United Kingdom."
+msgstr "Jedna zemlja po redu u sledećem formatu: <br/>RS, Srbija <br/> HR, Hrvatska."
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-defaults.php:116
+msgid "(Replaces the default list.)"
+msgstr "(Zamenjuje zadanu listu.)"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-meta-options.php:1
+msgid "Additional Fields"
+msgstr "Dodatna polja"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-meta-options.php:2
+msgid "You can set up any additional custom fields that you would like to use for events here."
+msgstr "Ovde možete podesiti bilo koja dodatna polja koja bi ste željeli da koristite za događaje."
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-meta-options.php:4
+msgid "Field Label"
+msgstr "Oznaka polja"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-meta-options.php:4
+msgid "Field Type"
+msgstr "Tip polja"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-meta-options.php:4
+msgid "Options (one per line)"
+msgstr "Opcije (jedna po retku)"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-meta-options.php:12
+msgid "Text"
+msgstr "Tekst"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-meta-options.php:13
+msgid "Radio"
+msgstr "Radio"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-meta-options.php:14
+msgid "Checkbox"
+msgstr "Polje za potvrdu"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-meta-options.php:15
+msgid "Dropdown"
+msgstr "Padajući meni"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-meta-options.php:21
+msgid "Add another"
+msgstr "Dodaj"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-meta-options.php:23
+msgid "Remove"
+msgstr "Skloni"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-meta-options.php:35
+msgid "Are you sure you wish to remove this field and its data from all events? Once you click OK this cannot be undone."
+msgstr "Da li ste sigurni da želite skloniti ovo polje i sve njegove podatke iz svih događaja? Kada kliknete na OK to ne može biti opovrgnuto."
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-meta.php:7
+msgid "Event Custom Fields"
+msgstr "Prilagođena polja za događaj"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:2
+msgid "Recurrence:"
+msgstr "Ponavljanje:"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:7
+msgid "None"
+msgstr "Prazno"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:8
+msgid "Every Day"
+msgstr "Svaki dan"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:9
+msgid "Every Week"
+msgstr "Svakog tjedna"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:10
+msgid "Every Month"
+msgstr "Svakog mjeseca"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:11
+msgid "Every Year"
+msgstr "Svake godine"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:12
+msgid "Custom"
+msgstr "Prilagođeno"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:15
+msgid "End"
+msgstr "Kraj"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:17
+msgid "On"
+msgstr "Na"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:18
+msgid "After"
+msgstr "Posle"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:22
+msgid "You must select a recurrence end date"
+msgstr "Morate odabrati ponavljanje i krajnji datum"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:29
+msgid "Frequency"
+msgstr "Učestalost"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:31
+msgid "Day(s)"
+msgstr "Dan(i)"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:31
+msgid "Daily"
+msgstr "Dnevno"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:32
+msgid "Week(s) on:"
+msgstr "Tjedan/ni na:"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:32
+msgid "Weekly"
+msgstr "Tjedno"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:33
+msgid "Month(s) on the:"
+msgstr "Mjesečno na:"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:33
+msgid "Monthly"
+msgstr "Mjesečno"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:34
+msgid "Year(s) on:"
+msgstr "Godišnje na:"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:34
+msgid "Yearly"
+msgstr "Godišnje"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:36
+msgid "Every"
+msgstr "Svaki"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:46
+msgid "M"
+msgstr "Pon"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:47
+msgid "Tu"
+msgstr "Ut"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:48
+msgid "W"
+msgstr "Sre"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:49
+msgid "Th"
+msgstr "Čet"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:50
+msgid "F"
+msgstr "Pet"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:51
+msgid "Sa"
+msgstr "Sub"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:52
+msgid "Su"
+msgstr "Ned"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:60
+#: ../admin-views/event-recurrence.php:109
+msgid "First"
+msgstr "Prvi"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:61
+#: ../admin-views/event-recurrence.php:110
+msgid "Second"
+msgstr "Drugi"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:62
+#: ../admin-views/event-recurrence.php:111
+msgid "Third"
+msgstr "Treći"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:63
+#: ../admin-views/event-recurrence.php:112
+msgid "Fourth"
+msgstr "Četvrti"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:64
+#: ../admin-views/event-recurrence.php:113
+msgid "Last"
+msgstr "Poslednji"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:71
+#: ../admin-views/event-recurrence.php:116
+#: ../lib/tribe-events-recurrence-meta.class.php:567
+msgid "Monday"
+msgstr "Ponedjeljak"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:72
+#: ../admin-views/event-recurrence.php:117
+#: ../lib/tribe-events-recurrence-meta.class.php:567
+msgid "Tuesday"
+msgstr "Utorak"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:73
+#: ../admin-views/event-recurrence.php:118
+#: ../lib/tribe-events-recurrence-meta.class.php:567
+msgid "Wednesday"
+msgstr "Srijeda"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:74
+#: ../admin-views/event-recurrence.php:119
+#: ../lib/tribe-events-recurrence-meta.class.php:567
+msgid "Thursday"
+msgstr "Četvrtak"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:75
+#: ../admin-views/event-recurrence.php:120
+#: ../lib/tribe-events-recurrence-meta.class.php:567
+msgid "Friday"
+msgstr "Petak"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:76
+#: ../admin-views/event-recurrence.php:121
+#: ../lib/tribe-events-recurrence-meta.class.php:567
+msgid "Saturday"
+msgstr "Subota"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:77
+#: ../admin-views/event-recurrence.php:122
+#: ../lib/tribe-events-recurrence-meta.class.php:567
+msgid "Sunday"
+msgstr "Nedelja"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:79
+#: ../admin-views/event-recurrence.php:124
+msgid "Day"
+msgstr "Dan"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:88
+msgid "Jan"
+msgstr "Sij"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:89
+msgid "Feb"
+msgstr "Vel"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:90
+msgid "Mar"
+msgstr "Ožu"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:91
+msgid "Apr"
+msgstr "Tra"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:92
+#: ../lib/tribe-events-recurrence-meta.class.php:593
+msgid "May"
+msgstr "Svi"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:93
+msgid "Jun"
+msgstr "Lip"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:97
+msgid "Jul"
+msgstr "Srp"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:98
+msgid "Aug"
+msgstr "Kol"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:99
+msgid "Sep"
+msgstr "Ruj"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:100
+msgid "Oct"
+msgstr "Lis"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:101
+msgid "Nov"
+msgstr "Stu"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:102
+msgid "Dec"
+msgstr "Pro"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/event-recurrence.php:107
+msgid "On the:"
+msgstr "Na:"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/support-form.php:11
+msgid "Need help? Send us a support request."
+msgstr "Potrebna vam je pomoć? Pošaljite nam zahtev za podršku."
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/support-form.php:14
+#, php-format
+msgid "Tell us about the problem you're seeing in as much detail as possible. Please note that we'll also be sending some basic system information along with this request so that we can better diagnose the issue. If you would like to contact us without sending any system information, please visit our support page at %s. Thanks!"
+msgstr "Opišite nam problem koji imate što je detaljnije moguće. Imajte na umu da ćemo takođe slati osnovne informacije o sistemu zajedno sa ovim zahtevom da bi smo mogli bolje dijagnozirati problem. Ako bi ste nas željeli  kontaktirati bez slanja informacija o sistemu, molimo vas posjetite našu stranicu za podršku na %s. Hvala!"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/support-form.php:18
+msgid "Send a Support Request"
+msgstr "Pošaljite zahtjev za podršku"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/widget-admin-advanced-list.php:11
+#: ../admin-views/widget-admin-calendar.php:10
+#: ../admin-views/widget-admin-featured.php:10
+msgid "Title:"
+msgstr "Naslov:"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/widget-admin-advanced-list.php:16
+msgid "Show:"
+msgstr "Prikaži:"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/widget-admin-advanced-list.php:24
+msgid "Show widget only if there are upcoming events:"
+msgstr "Prikaži vidžet samo ako ima predstojećih događaja:"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/widget-admin-advanced-list.php:30
+msgid "Display:"
+msgstr "Prikaži:"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/widget-admin-advanced-list.php:33
+msgid "Start Date & Time"
+msgstr "Datum i vrijeme početka"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/widget-admin-advanced-list.php:33
+msgid "(Widget will always show start date)"
+msgstr "(Vidžet će uvek prikazati vrijeme početka)"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/widget-admin-advanced-list.php:34
+msgid "End Date & Time"
+msgstr "Datum i vrijeme završetka"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/widget-admin-advanced-list.php:35
+#: ../lib/apm_filters.php:21
+msgid "Venue"
+msgstr "Mjesto"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/widget-admin-advanced-list.php:36
+msgid "Address"
+msgstr "Adresa"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/widget-admin-advanced-list.php:37
+msgid "City"
+msgstr "Grad"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/widget-admin-advanced-list.php:38
+msgid "State (US) Or Province (Int)"
+msgstr "Država (SAD) ili pokrajina (Int)"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/widget-admin-advanced-list.php:39
+msgid "Postal Code"
+msgstr "Poštanski kod"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/widget-admin-advanced-list.php:40
+msgid "Country"
+msgstr "Zemlja"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/widget-admin-advanced-list.php:41
+msgid "Phone"
+msgstr "Telefon"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/widget-admin-advanced-list.php:42
+msgid "Price"
+msgstr "Cijena"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/widget-admin-advanced-list.php:49
+#: ../admin-views/widget-admin-featured.php:13
+msgid "Category:"
+msgstr "Kategorija"
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/widget-admin-advanced-list.php:64
+msgid "If you wish to customize the widget display yourself, see the file views/events-list-load-widget-display.php inside the Events Premium plugin."
+msgstr "Ako želite sami menjati izgled vidžeta pogledajte fajl views/events-list-load-widget-display.php unutar Events Premium plagina."
+
+#@ tribe-events-calendar-pro
+#: ../admin-views/widget-admin-featured.php:17
+msgid "All Events"
+msgstr "Svi događaji"
+
+#@ tribe-events-calendar-pro
+#: ../lib/apm_filters.php:26
+msgid "Organizer"
+msgstr "Organizator"
+
+#@ tribe-events-calendar-pro
+#: ../lib/apm_filters.php:31
+msgid "Start Date"
+msgstr "Datum početka"
+
+#@ tribe-events-calendar-pro
+#: ../lib/apm_filters.php:37
+msgid "Event Cost"
+msgstr "Cijena događaja"
+
+#@ tribe-events-calendar-pro
+#: ../lib/apm_filters.php:42
+msgid "Event Cats"
+msgstr "Kategorije događaja"
+
+#@ tribe-events-calendar-pro
+#: ../lib/apm_filters.php:47
+msgid "Title"
+msgstr "Naslov"
+
+#@ tribe-events-calendar-pro
+#: ../lib/apm_filters.php:52
+msgid "Recurring"
+msgstr "Ponavljajući"
+
+#@ tribe-events-calendar-pro
+#: ../lib/apm_filters.php:57
+msgid "Description"
+msgstr "Opis"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:404
+msgid "Monthly custom recurrences cannot have a dash set as the day to occur on."
+msgstr "Mjesečna prilagođena ponavljanja ne mogu imati crtu podešenu kao dan."
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:407
+msgid "Yearly custom recurrences cannot have a dash set as the day to occur on."
+msgstr "Godišnja ponavljanja ne mogu imati crtu podešenu kao dan."
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:505
+#: ../lib/tribe-events-recurrence-meta.class.php:520
+msgid "Every day"
+msgstr "Svaki dan"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:509
+#: ../lib/tribe-events-recurrence-meta.class.php:525
+msgid "Every week"
+msgstr "Svakog tjedna"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:512
+#: ../lib/tribe-events-recurrence-meta.class.php:531
+msgid "Every month"
+msgstr "Svakog mjeseca"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:515
+#: ../lib/tribe-events-recurrence-meta.class.php:538
+msgid "Every year"
+msgstr "Svake godine"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:521
+#, php-format
+msgid "Every %d days"
+msgstr "Svakih %d dana"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:526
+#, php-format
+msgid "Every %d weeks"
+msgstr "Svakih %d tjedana"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:527
+#, php-format
+msgid " on %s"
+msgstr "na %s"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:532
+#, php-format
+msgid "Every %d months"
+msgstr "Svakih %d mjeseci"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:534
+#, php-format
+msgid " on the %s %s"
+msgstr "na %s %s"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:534
+msgid "day"
+msgstr "dan"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:539
+#, php-format
+msgid "Every %d years"
+msgstr "Svakih %d godina"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:541
+msgid "last"
+msgstr "poslednji"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:546
+#, php-format
+msgid " on the %s %s of %s"
+msgstr " on the %s %s of %s"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:553
+#, php-format
+msgid " until %s"
+msgstr "do %s"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:558
+#, php-format
+msgid "%s%s%s"
+msgstr "%s%s%s"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:573
+msgid ", and"
+msgstr ", i"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:575
+msgid "and"
+msgstr "i"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:577
+msgid ","
+msgstr ","
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:592
+msgid "January"
+msgstr "Siječanj"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:592
+msgid "February"
+msgstr "Veljača"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:592
+msgid "March"
+msgstr "Ožujak"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:592
+msgid "April"
+msgstr "Travanj"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:593
+msgid "June"
+msgstr "Lipanj"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:593
+msgid "July"
+msgstr "Srpanj"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:593
+msgid "August"
+msgstr "Kolovoz"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:593
+msgid "September"
+msgstr "Rujan"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:593
+msgid "October"
+msgstr "Listopad"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:593
+msgid "November"
+msgstr "Studeni"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:593
+msgid "December"
+msgstr "Prosinac"
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:599
+msgid ", and "
+msgstr ", i "
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:601
+msgid " and "
+msgstr "i "
+
+#@ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:603
+msgid ", "
+msgstr ", "
+
+#@ tribe-events-calendar-pro
+#: ../lib/widget-advanced-list.class.php:16
+msgid "A widget that displays the next upcoming x events."
+msgstr "Vidžet koji prikazuje sljedećih x događaja."
+
+#@ tribe-events-calendar-pro
+#: ../lib/widget-calendar.class.php:14
+msgid "A calendar of your events"
+msgstr "Kalendar vaših događaja"
+
+#@ tribe-events-calendar-pro
+#: ../lib/widget-calendar.class.php:15
+msgid "Events Calendar"
+msgstr "Kalendar događaja"
+
+#@ tribe-events-calendar-pro
+#: ../lib/widget-featured.class.php:13
+msgid "Your next upcoming event"
+msgstr "Sledeći nadolazeći događaj"
+
+#@ tribe-events-calendar-pro
+#: ../lib/widget-featured.class.php:14
+msgid "Next Event Widget"
+msgstr "Sledeći događaj vidžet"
+
+#@ tribe-events-calendar-pro
+#: ../lib/widget-featured.class.php:58
+msgid "There are no upcoming events at this time."
+msgstr "Trenutno nema predstojećih događaja. "
+
+#@ tribe-events-calendar-pro
+#: ../vendor/advanced-post-manager/demo/demo.php:31
+#, php-format
+msgid "It looks like you might not have any demo data. <a href=\"%s\">Download our data</a> and use the <a href=\"%s\">WordPress Importer</a>."
+msgstr "Izgleda da nemate demo podataka. <a href=\"%s\">Skinite naše podatke</a> i koristite <a href=\"%s\">WordPress importer</a>."
+
+#@ tribe-events-calendar-pro
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:133
+msgid "Add a Column"
+msgstr "Dodajte kolonu"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:507
+msgid "Choose a Saved Filter"
+msgstr "Odaberite sačuvani filter"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:623
+msgid "Add a Filter"
+msgstr "Dodajte filter"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:46
+msgid "Extended Information"
+msgstr "Detaljne informacije"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:128
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:401
+msgid "Delete this image"
+msgstr "Obrišite ovu sliku"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:128
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:356
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:401
+msgid "Delete"
+msgstr "Obriši"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:352
+msgid "Uploaded files"
+msgstr "Okačeni fajlovi"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:362
+msgid "Upload new files"
+msgstr "Okači nove fajlove"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:365
+msgid "Add another file"
+msgstr "Dodaj još jedan fajl"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:408
+msgid "Add more images"
+msgstr "Dodajte još slika"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:416
+msgid "Select a color"
+msgstr "Odaberite boju"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/advanced-post-manager/views/edit-filters.php:7
+#: ../vendor/advanced-post-manager/views/edit-filters.php:8
+msgid "Click to toggle"
+msgstr "Kliknite da bi ste otvorili"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/advanced-post-manager/views/edit-filters.php:8
+msgid "Filters &amp; Columns"
+msgstr "Filteri i kolone"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/advanced-post-manager/views/edit-filters.php:17
+msgid "Apply"
+msgstr "Potvrdi"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/advanced-post-manager/views/edit-filters.php:18
+msgid "Clear"
+msgstr "Obriši"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/advanced-post-manager/views/edit-filters.php:19
+#: ../vendor/advanced-post-manager/views/edit-filters.php:26
+msgid "Save"
+msgstr "Sačuvaj"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/advanced-post-manager/views/edit-filters.php:21
+msgid "Export to CSV"
+msgstr "Izvezi u CSV"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/advanced-post-manager/views/edit-filters.php:25
+msgid "Filter Name"
+msgstr "Ime filtera"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/advanced-post-manager/views/edit-filters.php:27
+msgid "Cancel"
+msgstr "Otkaži"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/pue-client/admin-views/license-key.view.php:9
+#: ../vendor/pue-client/admin-views/license-key.view.php:13
+msgid "License Key"
+msgstr "Ključ licence"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/pue-client/admin-views/license-key.view.php:10
+#: ../vendor/pue-client/admin-views/license-key.view.php:17
+msgid "A valid license key is required for support and updates."
+msgstr "Validan ključ  je potreban za podršku i ažuriranje."
+
+#@ tribe-events-calendar-pro
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:208
+msgid "Sorry, key validation server is not available."
+msgstr "Žao nam je, server za validaciju nije dostupan."
+
+#@ tribe-events-calendar-pro
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:210
+msgid "Sorry, this key is expired."
+msgstr "Žao nam je, ovaj ključ je istekao."
+
+#@ tribe-events-calendar-pro
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:212
+msgid "Sorry, this key is out of installs."
+msgstr "Žao nam je, ne možete vršiti više instalacija sa ovim ključem."
+
+#@ tribe-events-calendar-pro
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:214
+msgid "Sorry, this key is not valid."
+msgstr "Žao nam je, ovaj ključ nije validan."
+
+#@ tribe-events-calendar-pro
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:217
+#, php-format
+msgid "Valid Key! Expires on %s"
+msgstr "Validan ključ! Ističe %s"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:221
+msgid "Hmmm... something's wrong with this validator. Please contact <a href=\"http://tri.be/support\">support.</a>"
+msgstr "Hmmm...nešto nije u redu sa validatorom. Molimo vas kontaktirajte <a href=\"http://tri.be/support\">podršku.</a>"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:391
+msgid "Dismiss"
+msgstr "Otkaži"
+
+#@ tribe-events-calendar-pro
+#: ../vendor/tribe-support/tribe-support.class.php:54
+msgid "Send a support request for this site."
+msgstr "Pošalji zahtev za podršku za ovaj sajt."
+
+#@ tribe-events-calendar-pro
+#: ../views/events-advanced-list-load-widget-display.php:49
+#: ../views/widget-featured-display.php:48
+msgid "All Day"
+msgstr "Cijeli dan"
+
+#@ tribe-events-calendar-pro
+#: ../views/events-advanced-list-load-widget-display.php:52
+msgid "Ends"
+msgstr "Završava se"
+
+#@ tribe-events-calendar-pro
+#: ../views/events-advanced-list-load-widget-display.php:107
+msgid "Price:"
+msgstr "Cijena:"
+
+#@ tribe-events-calendar-pro
+#: ../views/single-venue.php:13
+msgid "&laquo; Back to Events"
+msgstr "&laquo; Nazad na događaje"
+
+#@ tribe-events-calendar-pro
+#: ../views/single-venue.php:19
+msgid "Name:"
+msgstr "Ime:"
+
+#@ tribe-events-calendar-pro
+#: ../views/single-venue.php:22
+msgid "Phone:"
+msgstr "Telefon:"
+
+#@ tribe-events-calendar-pro
+#: ../views/single-venue.php:28
+msgid "Address:"
+msgstr "Adresa:"
+
+#@ tribe-events-calendar-pro
+#: ../views/single-venue.php:30
+msgid "Click to view a Google Map"
+msgstr "Kliknite da vidite Google kartu"
+
+#@ tribe-events-calendar-pro
+#: ../views/single-venue.php:30
+msgid "Google Map"
+msgstr "Google karta"
+
+#@ tribe-events-calendar-pro
+#: ../views/single-venue.php:38
+msgid "Description:"
+msgstr "Opis:"
+
+#@ tribe-events-calendar-pro
+#: ../views/single-venue.php:65
+msgid "Start:"
+msgstr "Početak:"
+
+#@ tribe-events-calendar-pro
+#: ../views/single-venue.php:69
+msgid "End:"
+msgstr "Kraj:"
+
+#@ tribe-events-calendar-pro
+#: ../views/single-venue.php:74
+msgid "Date:"
+msgstr "Datum:"
+
+#@ tribe-events-calendar-pro
+#: ../views/single-venue.php:83
+msgid "Cost:"
+msgstr "Cijena:"
+
