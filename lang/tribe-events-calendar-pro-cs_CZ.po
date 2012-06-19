@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar Pro 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-15 19:19+0100\n"
-"PO-Revision-Date: 2012-06-15 19:53+0100\n"
+"POT-Creation-Date: 2012-06-09 17:56+0100\n"
+"PO-Revision-Date: 2012-06-09 18:53+0100\n"
 "Last-Translator: Petr Baštán <pbastan@lop.cz>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -59,90 +59,90 @@ msgstr "Zatím nebyl uložen žádný pořadatel."
 msgid "Defaults"
 msgstr "Výchozí hodnoty"
 
-#: ../events-calendar-pro.php:246
+#: ../events-calendar-pro.php:245
 #: ../admin-views/event-meta-options.php:1
 msgid "Additional Fields"
 msgstr "Dodatečná pole"
 
-#: ../events-calendar-pro.php:252
+#: ../events-calendar-pro.php:251
 #, php-format
 msgid "%sWelcome to Events Calendar, a full-featured events management system for WordPress. By buying a license you've given us a vote of confidence, will get active support and have hooked up some sweet additional features not found in the free The Events Calendar.%s"
 msgstr "%sVítejte u pluginu Events Calendar Pro, plnohodnotného systému pro správu akcí ve WordPressu. Zakoupením licence jste nám dali důvěru, my vám za to poskytneme aktivní podporu a navíc přihodíme pár lákavých dodatečných funkcí, které ve volné verzi pluginu The Events Calendar nenajdete.%s"
 
-#: ../events-calendar-pro.php:253
+#: ../events-calendar-pro.php:252
 #, php-format
 msgid "%sIf you aren't familiar with The Events Calendar, it may be wise to check out our %s. It'll introduce you to the basics of what the plugin has to offer and will have you creating events in no time. From there, the resources below -- extensive template tag documentation, FAQs, video walkthroughs and more -- will give you a leg up as you dig deeper.%s"
 msgstr "%sPokud dosud nejste obeznámeni s pluginem The Events Calendar, je vhodné se nejprve podívat na naši %s. Seznámí vás se základy toho, co plugin nabízí a umožní vám tak vytvářet akce během okamžiku. Po zvládnutí tohoto základu vám níže uvedené informační zdroje (rozsáhlá dokumentace šablonových tagů, FAQ, video návody a další) jistě pomohou při hlubším zkoumání.%s"
 
-#: ../events-calendar-pro.php:253
+#: ../events-calendar-pro.php:252
 msgid "new user primer"
 msgstr "příručku nového uživatele"
 
-#: ../events-calendar-pro.php:254
+#: ../events-calendar-pro.php:253
 #, php-format
 msgid "%sOh, wondering what to do with your license key and whether you need it before you can get into event creation? Check out %s on that subject for an answer. %s, if you don't have it handy.%s"
 msgstr "%sPřemýšlíte co udělat se svým licenčním klíčem anebo jestli ho budete potřebovat ještě před vytvářením akcí? Pro odpověď se podívejte na %s. %s, pokud ho nemáte po ruce.%s"
 
-#: ../events-calendar-pro.php:254
+#: ../events-calendar-pro.php:253
 msgid "our blog post"
 msgstr "příspěvek na našem blogu"
 
-#: ../events-calendar-pro.php:254
+#: ../events-calendar-pro.php:253
 msgid "Here's how you find your license key"
 msgstr "Zde je návod, jak můžete najít svůj licenční klíč"
 
-#: ../events-calendar-pro.php:261
+#: ../events-calendar-pro.php:260
 #, php-format
 msgid "%sOne of the advantages of being a PRO user is that you have access to our PRO-exclusive forums at %s. Our support staff hits the forums on a daily basis, and what they can't answer on the spot they'll bring a member of our dev team in to address directly.%s"
 msgstr "%sJednou z výhod být PRO uživatelem je, že máte přístup k našemu exkluzivnímu fóru na stránkách %s. Naší pracovníci podpory sledují toto fórum každý den, a na co nemohou odpovědět ihned, to předají členovi našeho vývojového týmu k okamžitému řešení.%s"
 
-#: ../events-calendar-pro.php:262
+#: ../events-calendar-pro.php:261
 #, php-format
 msgid "%sSome things to consider before posting on the forum:%s"
 msgstr "%sPár věcí, které je dobré zvážit než napíšete příspěvek ve fóru:%s"
 
-#: ../events-calendar-pro.php:263
+#: ../events-calendar-pro.php:262
 #, php-format
 msgid "%sLook through existing threads before posting a new one and check that there isn't already a discussion going on your issue. The tri.be site has a solid search function that should help find what you're looking for, if it indeed already is present.%s"
 msgstr "%sProhlédněte si poslední aktivní vlákna v diskuzi a než založíte nové, zkontrolujte zda se už vašemu problému nějaká diskuze nevěnuje. Web tri.be má slušnou vyhledávací funkci, která by vám měla pomoci najít co hledáte, tedy pokud něco takového už existuje.%s"
 
-#: ../events-calendar-pro.php:264
+#: ../events-calendar-pro.php:263
 #, php-format
 msgid "%sA good way to help us out before posting is to check whether the issue is a conflict with another plugin or your theme. This can be tested relatively easily on a staging site by deactivating other plugins one-by-one, and reverting to the default 2011 theme as needed, to see if conflicts can be easily identified. If so, please note that when posting your thread.%s"
 msgstr "%sDobrým způsobem, jak nám můžete při oznamování chyb pomoci, je kontrola zda daný problém není způsoben konfliktem s jiným pluginem nebo vámi použitou šablonou. To lze relativně jednoduše otestovat na zkušebním webu tim, že postupně deaktivujete ostatní pluginy jeden po druhém a případně se vrátíte zpět k výchozí šabloně 2011. Pokud jste tímto způsobem na nějaký konflikt narazili, dejte nám to při oznamování vědět.%s"
 
-#: ../events-calendar-pro.php:265
+#: ../events-calendar-pro.php:264
 #, php-format
 msgid "%sSometimes, just resaving your permalinks (under Settings -> Permalinks) can resolve events-related problems on your site. It is worth a shot before creating a new thread.%s"
 msgstr "%sNěkdy pro vyřešení problémů ohledně akcí jenom stačí opětovně uložit nastavení vašich trvalých odkazů. Před vytvářením nového tématu v diskuzi to stojí za zkoušku.%s"
 
-#: ../events-calendar-pro.php:266
+#: ../events-calendar-pro.php:265
 #, php-format
 msgid "%sWhile we won't build your site for you and can't guarantee The Events Calendar/PRO to play nicely with every theme and plugin out there, our team will do our best to help you get it functioning nicely with your site. And as an added bonus, once you're done you can post it in the %s so the rest of the community can see what you've been working on.%s"
 msgstr "%sPřestože nebudeme budovat vaše stránky za vás a nemůžeme zaručit, že si bude plugin The Events Calendar/PRO rozumět s úplně každou šablonou a pluginem, náš tým se bude snažit vám pomoci se správnou funkčností na vašem webu. A až budete hotovi, můžete se jako bonus pochlubit s výsledkem své práce v diskuzi %s, aby zbytek komunity viděl na čem jste pracovali.%s"
 
-#: ../events-calendar-pro.php:266
+#: ../events-calendar-pro.php:265
 msgid "Showcase thread"
 msgstr "vlákna Showcase"
 
-#: ../events-calendar-pro.php:454
+#: ../events-calendar-pro.php:451
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar PRO%s"
 msgstr "Vytvořeno pomocí %sThe Events Calendar PRO%s"
 
-#: ../events-calendar-pro.php:463
+#: ../events-calendar-pro.php:460
 msgid "Support"
 msgstr "Podpora"
 
-#: ../events-calendar-pro.php:465
+#: ../events-calendar-pro.php:462
 msgid "View All Add-Ons"
 msgstr "Prohlédnout všechny doplňky"
 
-#: ../events-calendar-pro.php:505
+#: ../events-calendar-pro.php:502
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
 
-#: ../events-calendar-pro.php:506
+#: ../events-calendar-pro.php:503
 #, php-format
 msgid "To begin using Events Calendar PRO, please install the latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
 msgstr "Než začnete používat plugin Events Calendar PRO, nainstalujte si prosím aktuální verzi pluginu <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
@@ -1218,35 +1218,12 @@ msgstr "Hmmm... něco je špatně s tímto validátorem. Kontaktujte prosím <a 
 msgid "[X]"
 msgstr "[X]"
 
-#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:20
-msgid "Displays posts related to the post."
-msgstr "Zobrazí přehled souvisejících příspěvků."
-
-#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:22
-msgid "Related Posts"
-msgstr "Související příspěvky"
-
-#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:64
-msgid "Count:"
-msgstr "Počet:"
-
-#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
-msgid "Display Thumbnails?"
-msgstr "Zobrazit náhledy?"
-
-#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:75
-msgid "Only Display Related Posts?"
-msgstr "Zobrazit pouze související?"
-
-#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:78
-msgid "Post Type:"
-msgstr "Typ obsahu:"
-
 #: ../vendor/tribe-support/tribe-support.class.php:54
 msgid "Send a support request for this site."
 msgstr "Odeslat požadavek na podporu pro tento web."
 
 #: ../views/events-advanced-list-load-widget-display.php:49
+#: ../views/widget-featured-display.php:48
 msgid "All Day"
 msgstr "celý den"
 
