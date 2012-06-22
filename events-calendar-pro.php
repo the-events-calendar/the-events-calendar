@@ -369,7 +369,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			header( 'Content-Disposition: attachment; filename="iCal-TribeEvents.ics"' );
 			$content = "BEGIN:VCALENDAR\n";
 			$content .= "VERSION:2.0\n";
-			$content .= 'PRODID:-//' . $blogName . "//NONSGML v1.0//EN\n";
+			$content .= 'PRODID:-//' . $blogName . ' - ECPv' . TribeEvents::VERSION . "//NONSGML v1.0//EN\n";
 			$content .= "CALSCALE:GREGORIAN\n";
 			$content .= "METHOD:PUBLISH\n";
 			$content .= 'X-WR-CALNAME:' . $blogName . "\n";
