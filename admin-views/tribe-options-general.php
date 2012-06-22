@@ -6,7 +6,16 @@ $generalTab = array(
 			'type' => 'html',
 			'html' => '<div id="modern-tribe-info"><img src="' . plugins_url( 'resources/images/modern-tribe.png', dirname( __FILE__ ) ) . '" alt="Modern Tribe Inc." title="Modern Tribe Inc.">'
 		),
-		'upsell-heading' => array(
+		'view-calendar-heading' => array(
+			'type' => 'heading',
+			'label' => __( 'Where\'s My Calendar?', 'tribe-events-calendar' ),
+			'conditional' => ( !defined( 'TRIBE_HIDE_UPSELL' ) || !TRIBE_HIDE_UPSELL ),
+		),
+		'view-calendar-link' => array(
+			'type' => 'html',
+			'html' => '<p><a href="' . TribeEvents::getLink() . '">' . __( 'View Calendar', 'tribe-events-calendar' ) . '</a></p>',
+			'conditional' => ( !defined( 'TRIBE_HIDE_UPSELL' ) || !TRIBE_HIDE_UPSELL ),
+		),		'upsell-heading' => array(
 			'type' => 'heading',
 			'label' => __( 'Add functionality to The Events Calendar', 'tribe-events-calendar' ),
 			'conditional' => ( !defined( 'TRIBE_HIDE_UPSELL' ) || !TRIBE_HIDE_UPSELL ),
