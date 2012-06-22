@@ -376,6 +376,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$content .= 'X-ORIGINAL-URL:' . $blogHome . "\n";
 			$content .= 'X-WR-CALDESC:Events for ' . $blogName . "\n";
 			if ( $wpTimezoneString ) $content .= 'X-WR-TIMEZONE:' . $wpTimezoneString . "\n";
+			$content = apply_filters( 'tribe_ical_properties', $content );
 			$content .= $events;
 			$content .= 'END:VCALENDAR';
 			echo $content;
