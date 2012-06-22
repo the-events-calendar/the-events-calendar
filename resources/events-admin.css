@@ -19,6 +19,23 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #
 .fixed .column-start-date, .fixed .column-end-date, .fixed .column-events-cats {width:14%;}
 #additional-field-table input, #additional-field-table select, #additional-field-table textarea { width: 200px; }
 #additional-field-table tbody tr { height: 72px; }
+.view-calendar-link {
+	display:inline;
+    background: #D9EDF7;
+    border: 1px solid #fff;
+    color: #3A87AD;
+    margin: 10px 0 20px;
+    padding: 8px 14px 8px 14px;
+    text-shadow: 0 1px 0 #fff;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+    text-decoration: none;
+}
+.view-calendar-link-p {
+	float:right; 
+	margin-top: 25px;
+}
 
 /* = Post Type Editing
 =============================================*/

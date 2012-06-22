@@ -259,6 +259,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'wp_before_admin_bar_render', array( $this, 'addToolbarItems' ), 10 );
 		
 			add_action( 'admin_notices', array( $this, 'activationMessage' ) );
+		
+			add_action( 'all_admin_notices', array( $this, 'addViewCalendar' ) );
 		}
 
 		public static function ecpActive( $version = '2.0.7' ) {
@@ -2672,6 +2674,20 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function resetActivationMessage() {
 			$tec = TribeEvents::instance();
 			$tec->setOption( 'welcome_notice', false );
+		}
+		
+		/**
+		 * Displays the View Calendar link at the top of the Events list in admin.
+		 *
+		 * @since 2.0.8
+		 * @author PaulHughes01
+		 *
+		 * @return void
+		 */
+		public function addViewCalendar() {
+			global $current_screen;
+			if ( $current_screen->id == 'edit-' . self::POSTTYPE )
+				echo '<p class="view-calendar-link-p"><a class="view-calendar-link" href="' . $this->getLink() . '">' . __( 'View Calendar', 'tribe-events-calendar' ) . '</a></p>';
 		}
 
 	} // end TribeEvents class
