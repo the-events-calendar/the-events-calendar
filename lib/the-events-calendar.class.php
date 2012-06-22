@@ -1804,7 +1804,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				if ( !isset( $post_audit_trail ) || !$post_audit_trail || !is_array($post_audit_trail) ) {
 					$post_audit_trail = array();
 				}
-				$post_audit_trail[] = array( apply_filters( 'tribe-post-audit-trail', 'events-calendar' ), time() );
+				$post_audit_trail[] = array( apply_filters( 'tribe-post-origin', 'events-calendar' ), time() );
 				update_post_meta( $postId, $post_type . 'AuditTrail', $post_audit_trail );
 			}
 		}
