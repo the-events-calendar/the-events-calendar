@@ -100,6 +100,10 @@ $resources[] = array(
 	'title' => __('Release Notes', 'tribe-events-calendar'),
 	'link' => apply_filters('tribe_help_tab_release_notes_url', 'http://tri.be/category/products/release-notes/'.$ga_query_string),
 );
+$resources[] = array(
+	'title' => __('Forums', 'tribe-events-calendar'),
+	'link' => apply_filters('tribe_help_tab_forums_url', 'http://tri.be/support/forums/'.$ga_query_string),
+);
 $resources = (array) apply_filters( 'tribe_help_tab_resources', $resources );
 
 
