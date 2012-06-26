@@ -86,6 +86,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'tribe_helper_activation_complete', array( $this, 'helpersLoaded' ) );
 			add_filter( 'tribe_promo_banner', array( $this, 'tribePromoBannerPro' ) );
 			add_filter( 'tribe_help_tab_forums_url', array( $this, 'helpTabForumsLink' ) );
+			add_action( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'addLinksToPluginActions' ) );
 		}
 
 		public function init() {
@@ -425,6 +426,20 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				return 'http://tri.be/support/forums/forum/events/events-calendar-pro/?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin';
 			else
 				return $content;
+		}
+		
+		/**
+		 * Return additional action for the plugin on the plugins page.
+		 *
+		 * @since 2.0.8
+		 *
+		 * @return array
+		 */
+		public function addLinksToPluginActions( $actions ) {
+			if( class_exists( 'TribeEvents' ) ) {
+				$actions['settings'] = '<a href="' . add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'page' => 'tribe-events-calendar' ), admin_url( 'edit.php' ) ) .'">' . __('Settings', 'tribe-events-calendar') . '</a>';
+			}
+			return $actions;
 		}
 
 		/**
