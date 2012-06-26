@@ -401,7 +401,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						$update_link = wp_nonce_url( add_query_arg( array( 'action' => 'upgrade-plugin', 'plugin' => $addon_short_path ), get_admin_url() . 'update.php' ), 'upgrade-plugin_' . $addon_short_path );
 					}
 					$output .= '<div class="error">';
-					$output .= '<p>'.sprintf( __('The following plugins are out of date: %s. Please %supdate now%s. All add-ons contain dependencies on "The Events Calendar" and will not function properly unless paired with the right version. %sWant to pair an older verion%s?', 'tribe-events-calendar'), join( $out_of_date_addons, ', ' ), '<a href="' . $update_link . '">', '</a>', '<a href="' . add_query_arg( array( 'page' => 'tribe-events-calendar', 'tab' => 'help' ), admin_url( 'options-general.php' ) ) . '">', '</a>' ).'</p>';
+					$output .= '<p>'.sprintf( __('The following plugins are out of date: %s. Please %supdate now%s. All add-ons contain dependencies on "The Events Calendar" and will not function properly unless paired with the right version. %sWant to pair an older verion%s?', 'tribe-events-calendar'), join( $out_of_date_addons, ', ' ), '<a href="' . $update_link . '">', '</a>', '<a href="' . add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar', 'tab' => 'help' ), admin_url( 'edit.php' ) ) . '">', '</a>' ).'</p>';
 					$output .= '</div>';
 				}
 			}
@@ -2634,7 +2634,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$wp_admin_bar->add_menu( array(
 					'id' => 'tribe-events-settings-sub',
 					'title' => __( 'Events', 'tribe-events-calendar' ),
-					'href' => trailingslashit( get_admin_url() ) . 'options-general.php?page=tribe-events-calendar',
+					'href' => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE . '&page=tribe-events-calendar',
 					'parent' => 'tribe-events-settings'
 				) );
 			}
@@ -2643,7 +2643,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$wp_admin_bar->add_menu( array(
 					'id' => 'tribe-events-help',
 					'title' => __( 'Help', 'tribe-events-calendar' ),
-					'href' => trailingslashit( get_admin_url() ) . 'options-general.php?page=tribe-events-calendar&tab=help',
+					'href' => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE . '&page=tribe-events-calendar&tab=help',
 					'parent' => 'tribe-events-settings-group'
 				) );
 			}
