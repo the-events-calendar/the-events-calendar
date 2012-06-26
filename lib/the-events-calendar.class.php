@@ -261,6 +261,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'admin_notices', array( $this, 'activationMessage' ) );
 		
 			add_action( 'all_admin_notices', array( $this, 'addViewCalendar' ) );
+			
+			add_action( 'load-nav-menus.php', array( $this, 'setInitialMenuMetaBoxes' ) );
 		}
 
 		public static function ecpActive( $version = '2.0.7' ) {
@@ -2688,6 +2690,34 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			global $current_screen;
 			if ( $current_screen->id == 'edit-' . self::POSTTYPE )
 				echo '<p class="view-calendar-link-p"><a class="view-calendar-link" href="' . $this->getLink() . '">' . __( 'View Calendar', 'tribe-events-calendar' ) . '</a></p>';
+		}
+		
+		/**
+		 * Set the menu-edit-page to default display the events-related items.
+		 *
+		 * @since 2.0.8
+		 * @author PaulHughes01
+		 *
+		 * @return void
+		 */
+		public function setInitialMenuMetaBoxes() {
+			$user = wp_get_current_user();
+			if ( !get_user_option( 'tribe_setDefaultNavMenuBoxes', $user->ID ) ) {
+
+				$current_hidden_boxes =  get_user_option( 'metaboxhidden_nav-menus', $user->ID );
+				if ( $array_key = array_search( 'add-' . self::POSTTYPE, $current_hidden_boxes ) )
+					unset( $current_hidden_boxes[$array_key] );
+				if ( $array_key = array_search( 'add-' . self::VENUE_POST_TYPE, $current_hidden_boxes ) )
+					unset( $current_hidden_boxes[$array_key] );
+				if ( $array_key = array_search( 'add-' . self::ORGANIZER_POST_TYPE, $current_hidden_boxes ) )
+					unset( $current_hidden_boxes[$array_key] );
+				if ( $array_key = array_search( 'add-' . self::TAXONOMY, $current_hidden_boxes ) )
+					unset( $current_hidden_boxes[$array_key] );
+				
+				update_user_option( $user->ID, 'metaboxhidden_nav-menus', $current_hidden_boxes, true );
+				
+				update_user_option( $user->ID, 'tribe_setDefaultNavMenuBoxes', true, true );
+			}
 		}
 
 	} // end TribeEvents class
