@@ -126,7 +126,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		public function __construct() {
 
 			// set instance variables
-			$this->menuName = apply_filters( 'tribe_settings_menu_name', __( 'Settings', 'tribe-events-calendar' ) );
+			$this->menuName = apply_filters( 'tribe_settings_menu_name', __( 'The Events Calendar', 'tribe-events-calendar' ) );
 			$this->requiredCap = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
 			$this->adminSlug = apply_filters( 'tribe_settings_admin_slug', 'tribe-events-calendar' );
 			$this->errors = get_option( 'tribe_settings_errors', array() );
@@ -150,7 +150,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * @return void
 		 */
 		public function addPage() {
-			$this->admin_page = add_submenu_page( 'edit.php?post_type=' . TribeEvents::POSTTYPE, $this->menuName, $this->menuName, $this->requiredCap, $this->adminSlug, array( $this, 'generatePage' ) );
+			$this->admin_page = add_submenu_page( 'edit.php?post_type=' . TribeEvents::POSTTYPE, __( 'The Events Calendar Settings', 'tribe-events-calendar'), __('Settings', 'tribe-events-calendar'), $this->requiredCap, $this->adminSlug, array( $this, 'generatePage' ) );
 		}
 
 		/**
