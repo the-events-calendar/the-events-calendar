@@ -85,6 +85,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'tribe_organizer_table_top', array( $this, 'displayEventOrganizerDropdown' ) );
 			add_action( 'tribe_helper_activation_complete', array( $this, 'helpersLoaded' ) );
 			add_filter( 'tribe_promo_banner', array( $this, 'tribePromoBannerPro' ) );
+			add_filter( 'tribe_help_tab_forums_url', array( $this, 'helpTabForumsLink' ) );
 		}
 
 		public function init() {
@@ -410,6 +411,20 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			);
 			$url = add_query_arg( $params, $base_url );
 			return esc_url( $url );
+		}
+		
+		/**
+		 * Return the forums link as it should appear in the help tab.
+		 *
+		 * @since 2.0.8
+		 *
+		 * @return string
+		 */
+		public function helpTabForumsLink( $content ) {
+			if ( get_option( 'pue_install_key_events_calendar_pro ' ) )
+				return 'http://tri.be/support/forums/forum/events/events-calendar-pro/?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin';
+			else
+				return $content;
 		}
 
 		/**
