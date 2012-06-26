@@ -118,19 +118,19 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 
 == Add-Ons ==
 
-You can see a full list of Modern Tribe Products at <a href="http://tri.be/shop/?ref=tec-readme" target="_blank">http://tri.be/shop/</a>
+You can see a full list of Modern Tribe products at <a href="http://tri.be/shop/?ref=tec-readme" target="_blank">http://tri.be/shop/</a>
 
 Our Free Plugins:
 
 * <a href="http://wordpress.org/extend/plugins/advanced-post-manager/?ref=tec-readme" target="_blank">Advanced Post Manager</a>
 * Event Importer (coming soon!)
-* Facebook Sync Events (coming soon!)
 
 Our Premium Plugins:
 
-* <a href="http://tri.be/wordpress-events-calendar-pro/?ref=tec-readme" target="_blank">The Events Calendar Pro</a>
-* <a href="http://tri.be/shop/wordpress-eventbrite-tickets/?ref=tec-readme" target="_blank">The Events Calendar: Eventbrite Tickets (coming soon!)</a>
-* <a href="http://tri.be/shop/wordpress-community-events/?ref=tec-readme" target="_blank">The Events Calendar: Community Events (coming soon!)</a>
+* <a href="http://tri.be/wordpress-events-calendar-pro/?ref=tec-readme" target="_blank">The Events Calendar PRO</a>
+* <a href="http://tri.be/shop/wordpress-eventbrite-tickets/?ref=tec-readme" target="_blank">The Events Calendar: Eventbrite Tickets</a>
+* <a href="http://tri.be/shop/wordpress-community-events/?ref=tec-readme" target="_blank">The Events Calendar: Community Events</a>
+* <a href="http://tri.be/facebook-events/?ref=tec-readme" target="_blank">The Events Calendar: Facebook Events</a>
 * <a href="http://tri.be/shop/conference-manager/?ref=tec-readme" target="_blank">The Events Calendar: Conference Manager (coming later in 2012)</a>
 * <a href="http://tri.be/shop/wootickets/?ref=tec-readme" target="_blank">The Events Calendar: WooTickets (coming later in 2012)</a>
 
