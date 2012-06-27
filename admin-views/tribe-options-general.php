@@ -1,4 +1,12 @@
 <?php
+$displayPressTrendsDialogue = tribe_get_option( 'displayedPressTrendsDialogue', false );
+
+$displyPressTrendsDialogueValue = ( $displayPressTrendsDialogue == false ) ? '1' : '0';
+
+if ( $displayPressTrendsDialogue == false ) {
+	tribe_update_option( 'displayedPressTrendsDialogue', true );
+}
+
 $generalTab = array(
 	'priority' => 10,
 	'fields' => array(
@@ -151,12 +159,27 @@ $generalTab = array(
 			'class' => 'google-embed-field',
 			'validation_type' => 'number_or_percent',
 		 ),
+		'sendPressTrendsData' => array(
+			'type' => 'checkbox_bool',
+			'label' => __( 'Send PressTrends Data', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Enable this option to help us out and send us analytics regarding your usage of The Events Calendar.', 'tribe-events-calendar' ),
+			'default' => false,
+			'validation_type' => 'boolean',
+		),
 		'debugEvents' => array(
 			'type' => 'checkbox_bool',
 			'label' => __( 'Debug Mode', 'tribe-events-calendar' ),
 			'tooltip' => sprintf( __( 'Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the %s and look for the "Tribe" tab in the debug output.', 'tribe-events-calendar' ), '<a href="http://wordpress.org/extend/plugins/debug-bar/" target="_blank">' . __( 'Debug Bar Plugin', 'tribe-events-calendar' ).'</a>' ),
 			'default' => false,
 			'validation_type' => 'boolean',
+		),
+		'maybeDisplayPressTrendsDialogue' => array(
+			'type' => 'html',
+			'html' => '<input type="hidden" name="maybeDisplayPressTrendsDialogue" value="' . $displyPressTrendsDialogueValue . '"></input>',
+		),
+		'pressTrendsDialogue' => array(
+			'type' => 'html',
+			'html' => '<div id="presstrends-dialog" title="Send PressTrends Data" style="display: none;">' . __('Would you like to help us out and send analytics about your usage of The Events Calendar?','tribe-events-calendar') .'<br/></div>',
 		),
 	),
 );
