@@ -55,6 +55,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/tribe-recurrence.class.php' );
 			require_once( 'lib/widget-calendar.class.php' );
 			require_once( 'template-tags.php' );
+			require_once( 'lib/tribe-presstrends-events-calendar-pro.php' );
 
 			// Tribe common resources
 			require_once( 'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
