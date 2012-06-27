@@ -261,6 +261,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'all_admin_notices', array( $this, 'addViewCalendar' ) );
 			add_action( 'load-nav-menus.php', array( $this, 'setInitialMenuMetaBoxes' ) );
 			add_action( 'plugin_action_links_' . trailingslashit( $this->pluginDir ) . 'the-events-calendar.php', array( $this, 'addLinksToPluginActions' ) );
+			add_action( 'admin_menu', array( $this, 'addHelpAdminMenuItem' ), 50 );
 		}
 
 		public static function ecpActive( $version = '2.0.7' ) {
@@ -2723,6 +2724,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$actions['tribe-calendar'] = '<a href="' . $this->getLink() .'">' . __('Calendar', 'tribe-events-calendar') . '</a>';
 			return $actions;
 		}
+		
+		public function addHelpAdminMenuItem() {
+    		global $submenu;
+    		$submenu['edit.php?post_type=' . self::POSTTYPE][500] = array( __('Help', 'tribe-events-calendar'), 'manage_options' , add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar', 'tab' => 'help' ), admin_url( 'edit.php' ) ) ); 
+		} 
 
 	} // end TribeEvents class
 
