@@ -437,7 +437,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public function addLinksToPluginActions( $actions ) {
 			if( class_exists( 'TribeEvents' ) ) {
-				$actions['settings'] = '<a href="' . add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'page' => 'tribe-events-calendar' ), admin_url( 'edit.php' ) ) .'">' . __('Settings', 'tribe-events-calendar') . '</a>';
+				$actions['settings'] = '<a href="' . add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'page' => 'tribe-events-calendar' ), admin_url( 'edit.php' ) ) .'">' . __('Settings', 'tribe-events-calendar-pro') . '</a>';
 			}
 			return $actions;
 		}
