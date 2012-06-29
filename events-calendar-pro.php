@@ -46,7 +46,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	    private function __construct() {
 			$this->pluginDir = trailingslashit( basename( dirname( __FILE__ ) ) );
 			$this->pluginPath = trailingslashit( dirname( __FILE__ ) );
-			$this->pluginUrl = WP_PLUGIN_URL.'/'.$this->pluginDir;
+			$this->pluginUrl = plugins_url().'/'.$this->pluginDir;
 			$this->pluginSlug = 'events-calendar-pro';
 
 			require_once( 'lib/tribe-date-series-rules.class.php' );
