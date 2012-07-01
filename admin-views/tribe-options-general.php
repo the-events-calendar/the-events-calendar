@@ -13,19 +13,20 @@ $generalTab = array(
 		'info-start' => array(
 			'type' => 'html',
 			'html' => '<div id="modern-tribe-info"><img src="' . plugins_url( 'resources/images/modern-tribe.png', dirname( __FILE__ ) ) . '" alt="Modern Tribe Inc." title="Modern Tribe Inc.">'
-		),
-		'view-calendar-heading' => array(
+		),		
+		'upsell-heading' => array(
 			'type' => 'heading',
-			'label' => __( 'Where\'s My Calendar?', 'tribe-events-calendar' ),
+			'label' => __( 'Finding & extending your calendar.', 'tribe-events-calendar' ),
 			'conditional' => ( !defined( 'TRIBE_HIDE_UPSELL' ) || !TRIBE_HIDE_UPSELL ),
+		),
+		'finding-heading' => array(
+			'type' => 'heading',
+			'label' => __( 'Finding your calendar.', 'tribe-events-calendar' ),
+			'conditional' => ( defined( 'TRIBE_HIDE_UPSELL' ) && TRIBE_HIDE_UPSELL ),
 		),
 		'view-calendar-link' => array(
 			'type' => 'html',
-			'html' => '<p><a href="' . TribeEvents::getLink() . '">' . __( 'Right here', 'tribe-events-calendar' ) . '</a>.</p>',
-		),		'upsell-heading' => array(
-			'type' => 'heading',
-			'label' => __( 'Add functionality to The Events Calendar', 'tribe-events-calendar' ),
-			'conditional' => ( !defined( 'TRIBE_HIDE_UPSELL' ) || !TRIBE_HIDE_UPSELL ),
+			'html' => '<p>' . __('Where\'s my calendar?', 'tribe-events-calendar') . '<br /><a href="' . TribeEvents::getLink() . '">' . __( 'Right here', 'tribe-events-calendar' ) . '</a>.</p>',
 		),
 		'upsell-info' => array(
 			'type' => 'html',
