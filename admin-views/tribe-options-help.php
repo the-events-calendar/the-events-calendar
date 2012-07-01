@@ -102,7 +102,7 @@ $resources[] = array(
 );
 $resources[] = array(
 	'title' => __('Forums', 'tribe-events-calendar'),
-	'link' => apply_filters('tribe_help_tab_forums_url', 'http://tri.be/support/forums/'.$ga_query_string),
+	'link' => apply_filters('tribe_help_tab_forums_url', 'http://wordpress.org/support/plugin/the-events-calendar/'),
 );
 $resources = (array) apply_filters( 'tribe_help_tab_resources', $resources );
 
