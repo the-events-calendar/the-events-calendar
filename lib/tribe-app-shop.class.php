@@ -53,8 +53,8 @@
 			 * Adds the page to the admin menu
 			 */
 			public function add_menu_page() {
-				$page_title = __( 'App Shop', 'tribe-events-calendar' );
-				$menu_title = __( 'App Shop', 'tribe-events-calendar' );
+				$page_title = __( 'Event Add-Ons', 'tribe-events-calendar' );
+				$menu_title = __( 'Event Add-Ons', 'tribe-events-calendar' );
 				$capability = "edit_posts";
 
 

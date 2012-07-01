@@ -1,7 +1,7 @@
 <div id="tribe-app-shop" class="wrap">
 
 	<div class="header">
-		<h2><?php _e( 'Tribe App Shop', 'tribe-events-calendar' ); ?></h2>
+		<h2><?php _e( 'Tribe Event Add-Ons', 'tribe-events-calendar' ); ?></h2>
 	</div>
 
 
