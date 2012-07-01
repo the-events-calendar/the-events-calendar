@@ -19,6 +19,7 @@ $comments_count = wp_count_comments();
 $theme_data = get_theme_data(get_stylesheet_directory() . '/style.css');
 $plugin_count = count(get_option('active_plugins'));
 $all_plugins = get_plugins();
+$plugin_name = null;
 foreach($all_plugins as $plugin_file => $plugin_data) {
 $plugin_name .= $plugin_data['Name'];
 $plugin_name .= '&';}
