@@ -2688,7 +2688,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function addViewCalendar() {
 			global $current_screen;
 			if ( $current_screen->id == 'edit-' . self::POSTTYPE )
-				echo '<p class="view-calendar-link-p"><a class="view-calendar-link" href="' . $this->getLink() . '">' . __( 'View Calendar', 'tribe-events-calendar' ) . '</a></p>';
+				echo '<div class="view-calendar-link-div"><h2 class="wrap"><a class="add-new-h2 view-calendar-link" href="' . $this->getLink() . '">' . __( 'View Calendar', 'tribe-events-calendar' ) . '</a></h2></div>';
 		}
 		
 		/**
