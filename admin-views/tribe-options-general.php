@@ -21,8 +21,7 @@ $generalTab = array(
 		),
 		'view-calendar-link' => array(
 			'type' => 'html',
-			'html' => '<p><a href="' . TribeEvents::getLink() . '">' . __( 'View Calendar', 'tribe-events-calendar' ) . '</a></p>',
-			'conditional' => ( !defined( 'TRIBE_HIDE_UPSELL' ) || !TRIBE_HIDE_UPSELL ),
+			'html' => '<p><a href="' . TribeEvents::getLink() . '">' . __( 'Right here', 'tribe-events-calendar' ) . '</a>.</p>',
 		),		'upsell-heading' => array(
 			'type' => 'heading',
 			'label' => __( 'Add functionality to The Events Calendar', 'tribe-events-calendar' ),
@@ -30,7 +29,7 @@ $generalTab = array(
 		),
 		'upsell-info' => array(
 			'type' => 'html',
-			'html' => '<p>' . __( 'Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ) . '<br><a href="' . self::$tribeUrl . 'shop/?utm_source=generaltab&utm_medium=promolink&utm_campaign=plugin'.'">' . __( 'Check out the available Add-Ons', 'tribe-events-calendar' ) . '</a></p>',
+			'html' => '<p>' . __( 'Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ) . '<br><a href="' . self::$tribeUrl . 'shop/?utm_source=generaltab&utm_medium=promolink&utm_campaign=plugin'.'">' . __( 'Check out the available Add-Ons', 'tribe-events-calendar' ) . '</a>.</p>',
 			'conditional' => ( !defined( 'TRIBE_HIDE_UPSELL' ) || !TRIBE_HIDE_UPSELL ),
 		),
 		'donate-link-heading' => array(
@@ -39,12 +38,12 @@ $generalTab = array(
 		),
 		'donate-link-info' => array(
 			'type' => 'html',
-			'html' => '<p>' . __( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar' ).'<br><a href="' . plugins_url( 'resources/images/donate-link-screenshot.jpg', dirname( __FILE__ ) ).'" class="thickbox">' . __( 'See an example of the link', 'tribe-events-calendar' ) . '</a></p>',
+			'html' => '<p>' . __( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar' ).'<br><a href="' . plugins_url( 'resources/images/donate-link-screenshot.jpg', dirname( __FILE__ ) ).'" class="thickbox">' . __( 'See an example of the link', 'tribe-events-calendar' ) . '</a>.</p>',
 			'conditional' => !class_exists( 'TribeEventsPro' ),
 		),
 		'donate-link-pro-info' => array(
 			'type' => 'html',
-			'html' => '<p>' . __( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar' ) . '<br><a href="' . plugins_url( 'resources/images/donate-link-pro-screenshot.jpg', dirname( __FILE__ ) ) . '" class="thickbox">' . __( 'See an example of the link', 'tribe-events-calendar' ) . '</a></p>',
+			'html' => '<p>' . __( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar' ) . '<br><a href="' . plugins_url( 'resources/images/donate-link-pro-screenshot.jpg', dirname( __FILE__ ) ) . '" class="thickbox">' . __( 'See an example of the link', 'tribe-events-calendar' ) . '</a>.</p>',
 			'conditional' => class_exists( 'TribeEventsPro' ),
 		),
 		'donate-link' => array(
