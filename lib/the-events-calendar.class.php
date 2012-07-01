@@ -437,13 +437,32 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			include_once($this->pluginPath.'admin-views/tribe-options-general.php');
 			include_once($this->pluginPath.'admin-views/tribe-options-templates.php');
+			
+			$tribe_licences_tab_fields = array(
+				'info-start' => array(
+					'type' => 'html',
+					'html' => '<div id="modern-tribe-info">'
+				),
+				'info-box-title' => array(
+					'type' => 'html',
+					'html' => '<h2>' . __('Licenses', 'tribe-events-calendar') . '</h2>',
+				),
+				'info-box-description' => array(
+					'type' => 'html',
+					'html' => '<p>' . __('For all of Modern Tribe\'s paid Add-ons, the license key you received when completing your purchase is what grants you access to future updates + support. Keep in mind that you do not have to enter your key below for the plugins to work! All functionality is available whether or not a key is present. However, you will not receive prompts for automatic updates without a key in place...and our support team won\'t be able to help you until it is added and current, either.</p><p>Each plugin/add-on has its own unique license key. Simply paste the keys into their appropriate fields on the list below, and give it a moment to validate. When the green expiration date appears alongside a "Valid" message, you\'ll be set. Seeing a red message instead, either telling you the key isn\'t valid or that it\'s out of installs. Visit <a href="http://tri.be">http://tri.be</a>, log in and navigate to Account Central > Licenses on the tri.be site to see if the key is tied to another site or past its expiration date. For more on automatic updates and using your license key, please <a href="http://tri.be/updating-the-plugin/">see this blog post</a>.</p><p>Not seeing an update but expecting one? In WordPress go to Dashboard > Updates and click "Check Again".', 'tribe-events-calendar') . '</p>',
+				),
+				'info-end' => array(
+					'type' => 'html',
+					'html' => '</div>',
+				),
+			);
 
 			new TribeSettingsTab( 'general', __('General', 'tribe-events-calendar'), $generalTab );
 			new TribeSettingsTab( 'template', __('Template', 'tribe-events-calendar'), $templatesTab );
 			new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar'), array('priority' => '40',
-				'fields' => apply_filters('tribe_license_fields', null) ) );
+				'fields' => apply_filters('tribe_license_fields', $tribe_licences_tab_fields) ) );
 			new TribeSettingsTab( 'help', __('Help', 'tribe-events-calendar'), array('priority' => 60, 'show_save' => false) );
-
+			
 		}
 
 		public function doHelpTab() {
