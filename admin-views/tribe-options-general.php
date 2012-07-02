@@ -1,7 +1,7 @@
 <?php
 $displayPressTrendsDialogue = tribe_get_option( 'displayedPressTrendsDialogue', false );
 
-$displyPressTrendsDialogueValue = ( $displayPressTrendsDialogue == false ) ? '1' : '0';
+$displayPressTrendsDialogueValue = ( $displayPressTrendsDialogue == false ) ? '1' : '0';
 
 if ( $displayPressTrendsDialogue == false ) {
 	tribe_update_option( 'displayedPressTrendsDialogue', true );
@@ -175,7 +175,7 @@ $generalTab = array(
 		),
 		'maybeDisplayPressTrendsDialogue' => array(
 			'type' => 'html',
-			'html' => '<input type="hidden" name="maybeDisplayPressTrendsDialogue" value="' . $displyPressTrendsDialogueValue . '"></input>',
+			'html' => '<input type="hidden" name="maybeDisplayPressTrendsDialogue" value="' . $displayPressTrendsDialogueValue . '"></input>',
 		),
 		'pressTrendsDialogue' => array(
 			'type' => 'html',

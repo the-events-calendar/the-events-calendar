@@ -349,8 +349,7 @@ jQuery(document).ready(function($) {
 							$('[name="presstrends_action"]').val(1);
 							$(this).dialog("close"); 							
 							$('[name="sendPressTrendsData"]').prop("checked", true);
-							setTimeout(50);
-							$('.tribe-settings-form > form').submit();
+							$('#tribeSaveSettings').click();
 						}
 				}, {
 						text:"Do not send data",
