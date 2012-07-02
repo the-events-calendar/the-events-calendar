@@ -622,25 +622,27 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function maybeAddEventTitle($title, $sep = null){
 			if(get_query_var('eventDisplay') == 'upcoming'){
-				$new_title = __("Upcoming Events", 'tribe-events-calendar'). ' '.$sep . ' ' . $title;
+				$new_title = apply_filters( 'tribe_upcoming_events_title', __("Upcoming Events", 'tribe-events-calendar'). ' '.$sep . ' ' . $title, $sep );
 			}elseif(get_query_var('eventDisplay') == 'past'){
-					$new_title = __("Past Events", 'tribe-events-calendar') . ' '. $sep . ' ' . $title;
+					$new_title = apply_filters( 'tribe_past_events_title', __("Past Events", 'tribe-events-calendar') . ' '. $sep . ' ' . $title, $sep );
 
 			}elseif(get_query_var('eventDisplay') == 'month'){
 				if(get_query_var('eventDate')){
-					$new_title = sprintf(__("Events for %s", 'tribe-events-calendar'),date_i18n("F, Y",strtotime(get_query_var('eventDate')))) . ' '. $sep . ' ' . $title;
+					$title_date = date_i18n("F, Y",strtotime(get_query_var('eventDate')));
+					$new_title = apply_filters( 'tribe_month_grid_view_title', sprintf(__("Events for %s", 'tribe-events-calendar'), $title_date) . ' '. $sep . ' ' . $title, $sep, $title_date );
 				}else{
-					$new_title = sprintf(__("Events this month", 'tribe-events-calendar'),get_query_var('eventDate')) . ' '. $sep . ' ' . $title;
+					$new_title = apply_filters( 'tribe_events_this_month_title', sprintf(__("Events this month", 'tribe-events-calendar'),get_query_var('eventDate')) . ' '. $sep . ' ' . $title, $sep );
 				}
 
 			} elseif(get_query_var('eventDisplay') == 'day') {
-				$new_title = sprintf(__("Events for %s", 'tribe-events-calendar'),date_i18n("F d, Y",strtotime(get_query_var('eventDate')))) . ' '. $sep . ' ' . $title;
+				$title_date = date_i18n("F d, Y",strtotime(get_query_var('eventDate')));
+				$new_title = apply_filters( 'tribe_events_day_view_title', sprintf(__("Events for %s", 'tribe-events-calendar'), $title_date) . ' '. $sep . ' ' . $title, $sep, $title_date );
          } elseif(get_query_var('post_type') == self::POSTTYPE && is_single() && $this->getOption('tribeEventsTemplate') != '' ) {
 				global $post;
 				$new_title = $post->post_title . ' '. $sep . ' ' . $title;
 			} elseif(get_query_var('post_type') == self::VENUE_POST_TYPE && $this->getOption('tribeEventsTemplate') != '' ) {
 				global $post;
-				$new_title = sprintf(__("Events at %s", 'tribe-events-calendar'), $post->post_title) . ' '. $sep . ' ' . $title;
+				$new_title = apply_filters( 'tribe_events_venue_view_title', sprintf(__("Events at %s", 'tribe-events-calendar'), $post->post_title) . ' '. $sep . ' ' . $title,  $sep );
 			} else {
 				return $title;
 			}
