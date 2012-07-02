@@ -212,6 +212,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events'), null, 2);
 			
 			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
+		
+			add_filter( 'get_comment_link', array( $this, 'newCommentLink' ), 10, 2 );
 		}
 
 		protected function addActions() {
@@ -262,6 +264,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'admin_head', array( $this, 'setInitialMenuMetaBoxes' ), 500 );
 			add_action( 'plugin_action_links_' . trailingslashit( $this->pluginDir ) . 'the-events-calendar.php', array( $this, 'addLinksToPluginActions' ) );
 			add_action( 'admin_menu', array( $this, 'addHelpAdminMenuItem' ), 50 );
+			add_action( 'comment_form', array( $this, 'addHiddenRecurringField' ) );
 		}
 
 		public static function ecpActive( $version = '2.0.7' ) {
@@ -2752,6 +2755,37 @@ if ( !class_exists( 'TribeEvents' ) ) {
     		global $submenu;
     		$submenu['edit.php?post_type=' . self::POSTTYPE][500] = array( __('Help', 'tribe-events-calendar'), 'manage_options' , add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar', 'tab' => 'help' ), admin_url( 'edit.php' ) ) ); 
 		} 
+		
+		/**
+		 * Filter call that returns the proper link for after a comment is submitted to a recurring event.
+		 *
+		 * @author PaulHughes01
+		 * @since 2.0.8
+		 *
+		 * @param string $content
+		 * @param object $comment the comment object
+		 * @return string the link
+		 */ 
+		public function newCommentLink( $content, $comment ) {
+			if ( class_exists( 'TribeEventsPro' ) && tribe_is_recurring_event( get_the_ID() ) ) {
+				$link = trailingslashit( $this->getLink( 'single' ) ) . $_REQUEST['eventDate'] . '#comment-' . $comment->comment_ID;
+			} else {
+				$link = $content;
+			}
+			return $link;
+		}
+		
+		/**
+		 * Adds a hidden field to recurring events comments forms that stores the eventDate.
+		 *
+		 * @author PaulHughes01
+		 * @since 2.0.8
+		 * 
+		 * @return void
+		 */
+		public function addHiddenRecurringField() {
+			echo '<input type="hidden" name="eventDate" value="' . get_query_var( 'eventDate' ) . '" />';
+		}
 
 	} // end TribeEvents class
 
