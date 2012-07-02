@@ -72,7 +72,7 @@
 				$where = 'edit.php?post_type=' . TribeEvents::POSTTYPE;
 
 				$wp_admin_bar->add_menu( array( 'id'     => 'tribe-events-app-shop',
-				                                'title'  => __( 'App Shop', 'tribe-events-calendar' ),
+				                                'title'  => __( 'Event Add-Ons', 'tribe-events-calendar' ),
 				                                'href'   => admin_url( untrailingslashit( $where ) . "&page=" . self::MENU_SLUG ),
 				                                'parent' => 'tribe-events-settings-group' ) );
 
