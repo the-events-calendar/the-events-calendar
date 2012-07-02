@@ -2683,7 +2683,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function activationMessage() {
 			$has_been_activated = $this->getOption( 'welcome_notice', false );
 			if ( !$has_been_activated ) {
-				echo '<div class="updated tribe-notice"><p>'.sprintf( __('Welcome to The Events Calendar! Your events calendar can be found at %s. To change the events slug, visit %sEvents --> %sSettings%s.', 'tribe-events-calendar'), '<a href="' . $this->getLink() .'">' . $this->getLink() . '</a>', '<i>', '<a href="' . add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar' ), admin_url( 'edit.php' ) ) . '">', '</i></a>' ).'</p></div>';
+				echo '<div class="updated tribe-notice"><p>'.sprintf( __('Welcome to The Events Calendar! Your events calendar can be found at %s. To change the events slug, visit %sEvents -> Settings%s.', 'tribe-events-calendar'), '<a href="' . $this->getLink() .'">' . $this->getLink() . '</a>', '<i><a href="' . add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar' ), admin_url( 'edit.php' ) ) . '">', '</i></a>' ).'</p></div>';
 				$this->setOption( 'welcome_notice', true );
 			}
 		}
