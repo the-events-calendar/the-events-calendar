@@ -1,0 +1,87 @@
+/* common rules for all fields */
+.tribe-meta .label-row {width: 20%}
+.tribe-meta td {
+	padding:6px;
+}
+
+/* select field */
+.tribe-select {height: auto !important}
+
+/* uploaded image */
+.tribe-images li {margin: 0 10px 10px 0; float: left; width: 150px; height: 100px; text-align: center; border: 3px solid #ccc; cursor: move; position: relative}
+.tribe-images img {width: 150px; height: 100px}
+.tribe-images a {position: absolute; bottom: 0; right: 0; color: #fff; background: #000; font-weight: bold; padding: 5px}
+
+/* upload button */
+.tribe-upload-button {float: left; clear: both; margin-top: 10px}
+
+/* time picker */
+.ui-timepicker-div {font-size: 0.9em}
+.ui-timepicker-div .ui-widget-header {margin-bottom: 8px}
+.ui-timepicker-div dl {text-align: left}
+.ui-timepicker-div dl dt {height: 25px}
+.ui-timepicker-div dl dd {margin: -25px 0 10px 65px}
+.ui-timepicker-div td {font-size: 90%}
+
+.tribe-field .mceIframeContainer {background: #fff}
+
+.rw-meta .label-row {
+	width:20%;
+}
+/*
+#side-sortables .rw-meta,
+#side-sortables .rw-meta tbody,
+#side-sortbales .rw-meta tr, 
+#side-sortables .rw-meta td,
+#side-sortables .rw-meta th.label-row {
+	display:block;
+	width:auto;
+}
+*/
+.hide-remove .tribe-remove {
+	display:none;
+}
+.tribe-multi-text a {
+	border:1px solid #aaa;
+	cursor:pointer;
+	display:inline-block;
+	font-size:10px;
+	line-height:1.25;
+	text-align:center;
+	width:12px;
+	-moz-border-radius:7px;
+	-webkit-border-radius:7px;
+	border-radius:7px;
+	margin:0 2px;
+	background-image:-moz-linear-gradient(top, #F9F9F9, #E4E4E4);
+	background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#F9F9F9), to(#E4E4E4));
+	background-image:linear-gradient(top, #F9F9F9, #E4E4E4);
+}
+.tribe-multi-text .tribe-add {
+	color:#058100;
+}
+.tribe-multi-text .tribe-add:hover {
+	border-color:#058100;
+}
+.tribe-multi-text .tribe-remove {
+	color:#810002;
+}
+.tribe-multi-text .tribe-remove:hover {
+	border-color:#810002;
+}
+.tribe-meta .wp_themeSkin table.mceLayout {
+	border:1px solid #dfdfdf;
+	-webkit-border-radius:3px;
+	   -moz-border-radius:3px;
+	        border-radius:3px;
+}
+.full-span label {
+	display:block;
+}
+#post-body .rw-meta .wp_themeSkin .mceStatusbar a.mceResize {
+	top:-3px;
+	right:1px;
+}
+.p2p-connected {
+	margin:3px 0 9px;
+}
