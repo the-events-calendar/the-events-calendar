@@ -1,0 +1,12 @@
+[submodule "vendor/tribe-support"]
+	path = vendor/tribe-support
+	url = moderntribe_git@git.tri.be:tribe-support
+[submodule "vendor/tribe-common-libraries"]
+	path = vendor/tribe-common-libraries
+	url = moderntribe_git@git.tri.be:tribe-common-libraries
+[submodule "vendor/pue-client"]
+	path = vendor/pue-client
+	url = moderntribe_git@git.tri.be:pue-client
+[submodule "vendor/tribe-related-posts"]
+	path = vendor/tribe-related-posts
+	url = moderntribe_git@git.tri.be:tribe-related-posts
