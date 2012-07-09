@@ -380,9 +380,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$tec_addons_required_versions = (array) apply_filters('tribe_tec_addons', $tec_addons_required_versions);
 			foreach ($tec_addons_required_versions as $plugin) {
 				if ( version_compare( $plugin['required_version'], self::VERSION, $operator) ) {
-					$bad_versions[$plugin['plugin_name']] = $plugin['current_version'];
-					// For use later.
-					$addon_short_path = $plugin['plugin_dir_file'];
+					if ( isset( $plugin['current_version'] ) )
+						$bad_versions[$plugin['plugin_name']] = $plugin['current_version'];
+					else
+						$bad_versions[$plugin['plugin_name']] = '';
+					if ( ( isset( $plugin['plugin_dir_file'] ) ) )				
+						$addon_short_path = $plugin['plugin_dir_file'];
+					else
+						$addon_short_path = null;
 				}
 				if ( version_compare( $plugin['required_version'], self::VERSION, '>' ) ) {
 					$tec_out_of_date = true;
@@ -399,11 +404,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					foreach ($bad_versions as $plugin => $version) {
 						$out_of_date_addons[] = $plugin . ' ' . $version;
 					}
-					if ( count( $out_of_date_addons ) == 1 ) {
+					if ( count( $out_of_date_addons ) == 1 && $addon_short_path ) {
 						$update_link = wp_nonce_url( add_query_arg( array( 'action' => 'upgrade-plugin', 'plugin' => $addon_short_path ), get_admin_url() . 'update.php' ), 'upgrade-plugin_' . $addon_short_path );
 					}
 					$output .= '<div class="error">';
-					$output .= '<p>'.sprintf( __('The following plugins are out of date: %s. Please %supdate now%s. All add-ons contain dependencies on "The Events Calendar" and will not function properly unless paired with the right version. %sWant to pair an older verion%s?', 'tribe-events-calendar'), join( $out_of_date_addons, ', ' ), '<a href="' . $update_link . '">', '</a>', '<a href="' . add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar', 'tab' => 'help' ), admin_url( 'edit.php' ) ) . '">', '</a>' ).'</p>';
+					$output .= '<p>'.sprintf( __('The following plugins are out of date: <b>%s</b>. Please %supdate now%s. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sWant to pair an older version%s?', 'tribe-events-calendar'), join( $out_of_date_addons, ', ' ), '<a href="' . $update_link . '">', '</a>', '<a href="http://tri.be/version-relationships-in-modern-tribe-pluginsadd-ons/">', '</a>' ).'</p>';
 					$output .= '</div>';
 				}
 			}
