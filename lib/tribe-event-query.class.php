@@ -180,7 +180,7 @@ if (!class_exists('TribeEventsQuery')) {
 				$args['start_date'] = $wp_query->query_vars['eventDate'] . "-01";
 
 			$args['eventDate'] = $args['start_date'];		
-			$args['end_date'] = $tribe_ecp->nextMonth($args['start_date']) . "-01";
+			$args['end_date'] = date( 'Y-m-d', strtotime( $tribe_ecp->nextMonth($args['start_date']) ) -(24*3600) );
 			$args['orderby'] = 'event_date';
 			$args['order'] = "ASC";
 		
