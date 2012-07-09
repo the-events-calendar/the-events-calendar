@@ -199,7 +199,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 				echo '<div class="tribe-settings-form form">';
 					do_action( 'tribe_settings_above_form_element' );
 					do_action( 'tribe_settings_above_form_element_tab_'.$this->currentTab );
-					echo apply_filters( 'tribe_settings_form_element', '<form method="post">' );
+					echo apply_filters( 'tribe_settings_form_element_tab_'.$this->currentTab, '<form method="post">' );
 						do_action( 'tribe_settings_before_content' );
 						do_action( 'tribe_settings_before_content_tab_'.$this->currentTab );
 						do_action( 'tribe_settings_content_tab_'.$this->currentTab );
