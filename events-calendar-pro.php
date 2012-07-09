@@ -547,7 +547,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	* @return array $plugins the required info
 	*/
 	function tribe_init_ecp_addon( $plugins ) {
-		$plugins['TribeEventsPro'] = array( 'plugin_name' => 'Events Calendar Pro', 'required_version' => TribeEventsPro::REQUIRED_TEC_VERSION, 'current_version' => TribeEventsPro::VERSION, 'plugin_dir_file' => basename( dirname( __FILE__ ) ) . '/events-calendar-pro.php' );
+		$plugins['TribeEventsPro'] = array( 'plugin_name' => 'Events Calendar PRO', 'required_version' => TribeEventsPro::REQUIRED_TEC_VERSION, 'current_version' => TribeEventsPro::VERSION, 'plugin_dir_file' => basename( dirname( __FILE__ ) ) . '/events-calendar-pro.php' );
 		return $plugins;
 	}
 
