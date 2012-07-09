@@ -402,7 +402,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			} else {
 				if ( !empty($bad_versions) ) {
 					foreach ($bad_versions as $plugin => $version) {
-						$out_of_date_addons[] = $plugin . ' ' . $version;
+						if ( $version )
+							$out_of_date_addons[] = $plugin . ' ' . $version;
+						else
+							$out_of_date_addons[] = $plugin;
 					}
 					if ( count( $out_of_date_addons ) == 1 && $addon_short_path ) {
 						$update_link = wp_nonce_url( add_query_arg( array( 'action' => 'upgrade-plugin', 'plugin' => $addon_short_path ), get_admin_url() . 'update.php' ), 'upgrade-plugin_' . $addon_short_path );
