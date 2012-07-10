@@ -212,8 +212,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events'), null, 2);
 			
 			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
-		
-			add_filter( 'get_comment_link', array( $this, 'newCommentLink' ), 10, 2 );
+			
+			if ( !is_admin() )
+				add_filter( 'get_comment_link', array( $this, 'newCommentLink' ), 10, 2 );
 		}
 
 		protected function addActions() {
