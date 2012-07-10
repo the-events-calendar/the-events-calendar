@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-05 19:33-0500\n"
-"PO-Revision-Date: 2012-06-05 19:33-0500\n"
+"POT-Creation-Date: 2012-07-10 13:33-0800\n"
+"PO-Revision-Date: 2012-07-10 13:33-0800\n"
 "Last-Translator: Paul Hughes <paul@paulalexanderhughes.com>\n"
 "Language-Team: Modern Tribe, Inc.\n"
 "MIME-Version: 1.0\n"
@@ -20,128 +20,132 @@ msgstr ""
 "X-Poedit-Country: UNITED STATES\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../events-calendar-pro.php:141
+#: ../events-calendar-pro.php:144
 msgid "Venues"
 msgstr ""
 
-#: ../events-calendar-pro.php:142
+#: ../events-calendar-pro.php:145
 msgid "Organizers"
 msgstr ""
 
-#: ../events-calendar-pro.php:160
+#: ../events-calendar-pro.php:163
 msgid "Use Saved Venue:"
 msgstr ""
 
-#: ../events-calendar-pro.php:181
+#: ../events-calendar-pro.php:184
 msgid "Use Saved Organizer:"
 msgstr ""
 
-#: ../events-calendar-pro.php:198
+#: ../events-calendar-pro.php:201
 msgid "Use New Venue"
 msgstr ""
 
-#: ../events-calendar-pro.php:207
-#: ../admin-views/tribe-options-defaults.php:62
+#: ../events-calendar-pro.php:210
+#: ../admin-views/tribe-options-defaults.php:70
 msgid "No saved venues yet."
 msgstr ""
 
-#: ../events-calendar-pro.php:222
+#: ../events-calendar-pro.php:225
 msgid "Use New Organizer"
 msgstr ""
 
-#: ../events-calendar-pro.php:231
-#: ../admin-views/tribe-options-defaults.php:49
+#: ../events-calendar-pro.php:234
+#: ../admin-views/tribe-options-defaults.php:57
 msgid "No saved organizers yet."
 msgstr ""
 
-#: ../events-calendar-pro.php:244
+#: ../events-calendar-pro.php:247
 msgid "Defaults"
 msgstr ""
 
-#: ../events-calendar-pro.php:246
-#: ../admin-views/event-meta-options.php:1
+#: ../events-calendar-pro.php:249
+#: ../admin-views/event-meta-options.php:2
 msgid "Additional Fields"
 msgstr ""
 
-#: ../events-calendar-pro.php:252
+#: ../events-calendar-pro.php:255
 #, php-format
 msgid "%sWelcome to Events Calendar, a full-featured events management system for WordPress. By buying a license you've given us a vote of confidence, will get active support and have hooked up some sweet additional features not found in the free The Events Calendar.%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:253
+#: ../events-calendar-pro.php:256
 #, php-format
 msgid "%sIf you aren't familiar with The Events Calendar, it may be wise to check out our %s. It'll introduce you to the basics of what the plugin has to offer and will have you creating events in no time. From there, the resources below -- extensive template tag documentation, FAQs, video walkthroughs and more -- will give you a leg up as you dig deeper.%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:253
+#: ../events-calendar-pro.php:256
 msgid "new user primer"
 msgstr ""
 
-#: ../events-calendar-pro.php:254
+#: ../events-calendar-pro.php:257
 #, php-format
 msgid "%sOh, wondering what to do with your license key and whether you need it before you can get into event creation? Check out %s on that subject for an answer. %s, if you don't have it handy.%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:254
+#: ../events-calendar-pro.php:257
 msgid "our blog post"
 msgstr ""
 
-#: ../events-calendar-pro.php:254
+#: ../events-calendar-pro.php:257
 msgid "Here's how you find your license key"
-msgstr ""
-
-#: ../events-calendar-pro.php:261
-#, php-format
-msgid "%sOne of the advantages of being a PRO user is that you have access to our PRO-exclusive forums at %s. Our support staff hits the forums on a daily basis, and what they can't answer on the spot they'll bring a member of our dev team in to address directly.%s"
-msgstr ""
-
-#: ../events-calendar-pro.php:262
-#, php-format
-msgid "%sSome things to consider before posting on the forum:%s"
-msgstr ""
-
-#: ../events-calendar-pro.php:263
-#, php-format
-msgid "%sLook through existing threads before posting a new one and check that there isn't already a discussion going on your issue. The tri.be site has a solid search function that should help find what you're looking for, if it indeed already is present.%s"
 msgstr ""
 
 #: ../events-calendar-pro.php:264
 #, php-format
-msgid "%sA good way to help us out before posting is to check whether the issue is a conflict with another plugin or your theme. This can be tested relatively easily on a staging site by deactivating other plugins one-by-one, and reverting to the default 2011 theme as needed, to see if conflicts can be easily identified. If so, please note that when posting your thread.%s"
+msgid "%sOne of the advantages of being a PRO user is that you have access to our PRO-exclusive forums at %s. Our support staff hits the forums on a daily basis, and what they can't answer on the spot they'll bring a member of our dev team in to address directly.%s"
 msgstr ""
 
 #: ../events-calendar-pro.php:265
 #, php-format
-msgid "%sSometimes, just resaving your permalinks (under Settings -> Permalinks) can resolve events-related problems on your site. It is worth a shot before creating a new thread.%s"
+msgid "%sSome things to consider before posting on the forum:%s"
 msgstr ""
 
 #: ../events-calendar-pro.php:266
+#, php-format
+msgid "%sLook through existing threads before posting a new one and check that there isn't already a discussion going on your issue. The tri.be site has a solid search function that should help find what you're looking for, if it indeed already is present.%s"
+msgstr ""
+
+#: ../events-calendar-pro.php:267
+#, php-format
+msgid "%sA good way to help us out before posting is to check whether the issue is a conflict with another plugin or your theme. This can be tested relatively easily on a staging site by deactivating other plugins one-by-one, and reverting to the default 2011 theme as needed, to see if conflicts can be easily identified. If so, please note that when posting your thread.%s"
+msgstr ""
+
+#: ../events-calendar-pro.php:268
+#, php-format
+msgid "%sSometimes, just resaving your permalinks (under Settings -> Permalinks) can resolve events-related problems on your site. It is worth a shot before creating a new thread.%s"
+msgstr ""
+
+#: ../events-calendar-pro.php:269
 #, php-format
 msgid "%sWhile we won't build your site for you and can't guarantee The Events Calendar/PRO to play nicely with every theme and plugin out there, our team will do our best to help you get it functioning nicely with your site. And as an added bonus, once you're done you can post it in the %s so the rest of the community can see what you've been working on.%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:266
+#: ../events-calendar-pro.php:269
 msgid "Showcase thread"
 msgstr ""
 
-#: ../events-calendar-pro.php:454
+#: ../events-calendar-pro.php:441
+msgid "Settings"
+msgstr ""
+
+#: ../events-calendar-pro.php:486
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar PRO%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:463
+#: ../events-calendar-pro.php:495
 msgid "Support"
 msgstr ""
 
-#: ../events-calendar-pro.php:465
+#: ../events-calendar-pro.php:497
 msgid "View All Add-Ons"
 msgstr ""
 
-#: ../events-calendar-pro.php:505
+#: ../events-calendar-pro.php:537
 msgid "The Events Calendar"
 msgstr ""
 
-#: ../events-calendar-pro.php:506
+#: ../events-calendar-pro.php:538
 #, php-format
 msgid "To begin using Events Calendar PRO, please install the latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
 msgstr ""
@@ -212,13 +216,12 @@ msgstr ""
 
 #: ../admin-views/event-defaults.php:1
 #: ../admin-views/events-options-defaults.php:35
-#: ../admin-views/tribe-options-defaults.php:31
+#: ../admin-views/tribe-options-defaults.php:35
 msgid "Customize Defaults"
 msgstr ""
 
 #: ../admin-views/event-defaults.php:2
 #: ../admin-views/events-options-defaults.php:36
-#: ../admin-views/tribe-options-defaults.php:35
 msgid "These settings change the default event form. For example, if you set a default venue, this field will be automatically filled in on a new event."
 msgstr ""
 
@@ -226,7 +229,7 @@ msgstr ""
 #: ../admin-views/event-defaults.php:9
 #: ../admin-views/events-options-defaults.php:39
 #: ../admin-views/events-options-defaults.php:43
-#: ../admin-views/tribe-options-defaults.php:39
+#: ../admin-views/tribe-options-defaults.php:47
 msgid "Automatically replace empty fields with default values"
 msgstr ""
 
@@ -237,7 +240,7 @@ msgstr ""
 
 #: ../admin-views/event-defaults.php:19
 #: ../admin-views/events-options-defaults.php:53
-#: ../admin-views/tribe-options-defaults.php:45
+#: ../admin-views/tribe-options-defaults.php:53
 msgid "Default Organizer for Events"
 msgstr ""
 
@@ -265,7 +268,7 @@ msgstr ""
 
 #: ../admin-views/event-defaults.php:27
 #: ../admin-views/events-options-defaults.php:62
-#: ../admin-views/tribe-options-defaults.php:58
+#: ../admin-views/tribe-options-defaults.php:66
 msgid "Default Venue for Events"
 msgstr ""
 
@@ -346,7 +349,7 @@ msgstr ""
 
 #: ../admin-views/event-defaults.php:87
 #: ../admin-views/events-options-defaults.php:128
-#: ../admin-views/tribe-options-defaults.php:136
+#: ../admin-views/tribe-options-defaults.php:144
 msgid "Default Country for Events"
 msgstr ""
 
@@ -364,7 +367,7 @@ msgstr ""
 
 #: ../admin-views/event-defaults.php:112
 #: ../admin-views/events-options-defaults.php:154
-#: ../admin-views/tribe-options-defaults.php:162
+#: ../admin-views/tribe-options-defaults.php:170
 msgid "Use a custom list of countries"
 msgstr ""
 
@@ -381,56 +384,56 @@ msgstr ""
 msgid "(Replaces the default list.)"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:2
-msgid "Add unique fields to your event editor. Using the form below, you can quickly add checkboxes for dietary options like \"low salt, vegetarian, kosher\" or a dropdown for “DJ” to your event editor."
+#: ../admin-views/event-meta-options.php:3
+msgid "Add unique fields to your event creation screen with additional fields. These appear up in the event metabox atop your event listing alongside the date, time, venue, organizer, etc. Everyone who creates events will have access to these additional fields. Each new piece of data needs a label (i.e. Meal Plans), at least one option (i.e. Vegetarian, Kosher, Paleo), and a field type is accurate for your needs (i.e. checkbox). While users creating events can only select one option from the \"Radio\" fields, for example, they can select as many as the want from the \"Checkbox\" fields."
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:5
+#: ../admin-views/event-meta-options.php:6
 msgid "Field Label"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:5
+#: ../admin-views/event-meta-options.php:6
 msgid "Field Type"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:5
+#: ../admin-views/event-meta-options.php:6
 msgid "Options (one per line)"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:13
+#: ../admin-views/event-meta-options.php:14
 msgid "Text"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:14
+#: ../admin-views/event-meta-options.php:15
 msgid "Radio"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:15
+#: ../admin-views/event-meta-options.php:16
 msgid "Checkbox"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:16
+#: ../admin-views/event-meta-options.php:17
 msgid "Dropdown"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:22
+#: ../admin-views/event-meta-options.php:23
 msgid "Add another"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:24
+#: ../admin-views/event-meta-options.php:25
 msgid "Remove"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:32
+#: ../admin-views/event-meta-options.php:33
 #, php-format
 msgid "Enter the field label as you want it to appear (this will be the label in the same way “Start Date,” “Organizer,” etc appear in the event details box on the frontend). Select whether the field will be a text field; radio buttons; checkboxes; or a dropdown. All of these with the exception of text allow for multiple options to be included, which you can add — one per-line — in the right-hand column. If you feel flummoxed, we've got you covered with a %s."
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:32
+#: ../admin-views/event-meta-options.php:33
 msgid "video tutorial that will walk you through the process"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:40
+#: ../admin-views/event-meta-options.php:41
 msgid "Are you sure you wish to remove this field and its data from all events? Once you click OK this cannot be undone."
 msgstr ""
 
@@ -522,156 +525,160 @@ msgstr ""
 msgid "Every"
 msgstr ""
 
-#: ../admin-views/event-recurrence.php:46
-msgid "M"
-msgstr ""
-
-#: ../admin-views/event-recurrence.php:47
-msgid "Tu"
+#: ../admin-views/event-recurrence.php:40
+msgid "Frequency of recurring event must be a number"
 msgstr ""
 
 #: ../admin-views/event-recurrence.php:48
-msgid "W"
+msgid "M"
 msgstr ""
 
 #: ../admin-views/event-recurrence.php:49
-msgid "Th"
+msgid "Tu"
 msgstr ""
 
 #: ../admin-views/event-recurrence.php:50
-msgid "F"
+msgid "W"
 msgstr ""
 
 #: ../admin-views/event-recurrence.php:51
-msgid "Sa"
+msgid "Th"
 msgstr ""
 
 #: ../admin-views/event-recurrence.php:52
+msgid "F"
+msgstr ""
+
+#: ../admin-views/event-recurrence.php:53
+msgid "Sa"
+msgstr ""
+
+#: ../admin-views/event-recurrence.php:54
 msgid "Su"
-msgstr ""
-
-#: ../admin-views/event-recurrence.php:60
-#: ../admin-views/event-recurrence.php:109
-msgid "First"
-msgstr ""
-
-#: ../admin-views/event-recurrence.php:61
-#: ../admin-views/event-recurrence.php:110
-msgid "Second"
 msgstr ""
 
 #: ../admin-views/event-recurrence.php:62
 #: ../admin-views/event-recurrence.php:111
-msgid "Third"
+msgid "First"
 msgstr ""
 
 #: ../admin-views/event-recurrence.php:63
 #: ../admin-views/event-recurrence.php:112
-msgid "Fourth"
+msgid "Second"
 msgstr ""
 
 #: ../admin-views/event-recurrence.php:64
 #: ../admin-views/event-recurrence.php:113
+msgid "Third"
+msgstr ""
+
+#: ../admin-views/event-recurrence.php:65
+#: ../admin-views/event-recurrence.php:114
+msgid "Fourth"
+msgstr ""
+
+#: ../admin-views/event-recurrence.php:66
+#: ../admin-views/event-recurrence.php:115
 msgid "Last"
-msgstr ""
-
-#: ../admin-views/event-recurrence.php:71
-#: ../admin-views/event-recurrence.php:116
-#: ../lib/tribe-events-recurrence-meta.class.php:553
-msgid "Monday"
-msgstr ""
-
-#: ../admin-views/event-recurrence.php:72
-#: ../admin-views/event-recurrence.php:117
-#: ../lib/tribe-events-recurrence-meta.class.php:553
-msgid "Tuesday"
 msgstr ""
 
 #: ../admin-views/event-recurrence.php:73
 #: ../admin-views/event-recurrence.php:118
 #: ../lib/tribe-events-recurrence-meta.class.php:553
-msgid "Wednesday"
+msgid "Monday"
 msgstr ""
 
 #: ../admin-views/event-recurrence.php:74
 #: ../admin-views/event-recurrence.php:119
 #: ../lib/tribe-events-recurrence-meta.class.php:553
-msgid "Thursday"
+msgid "Tuesday"
 msgstr ""
 
 #: ../admin-views/event-recurrence.php:75
 #: ../admin-views/event-recurrence.php:120
 #: ../lib/tribe-events-recurrence-meta.class.php:553
-msgid "Friday"
+msgid "Wednesday"
 msgstr ""
 
 #: ../admin-views/event-recurrence.php:76
 #: ../admin-views/event-recurrence.php:121
 #: ../lib/tribe-events-recurrence-meta.class.php:553
-msgid "Saturday"
+msgid "Thursday"
 msgstr ""
 
 #: ../admin-views/event-recurrence.php:77
 #: ../admin-views/event-recurrence.php:122
 #: ../lib/tribe-events-recurrence-meta.class.php:553
-msgid "Sunday"
+msgid "Friday"
+msgstr ""
+
+#: ../admin-views/event-recurrence.php:78
+#: ../admin-views/event-recurrence.php:123
+#: ../lib/tribe-events-recurrence-meta.class.php:553
+msgid "Saturday"
 msgstr ""
 
 #: ../admin-views/event-recurrence.php:79
 #: ../admin-views/event-recurrence.php:124
+#: ../lib/tribe-events-recurrence-meta.class.php:553
+msgid "Sunday"
+msgstr ""
+
+#: ../admin-views/event-recurrence.php:81
+#: ../admin-views/event-recurrence.php:126
 msgid "Day"
 msgstr ""
 
-#: ../admin-views/event-recurrence.php:88
+#: ../admin-views/event-recurrence.php:90
 msgid "Jan"
 msgstr ""
 
-#: ../admin-views/event-recurrence.php:89
+#: ../admin-views/event-recurrence.php:91
 msgid "Feb"
 msgstr ""
 
-#: ../admin-views/event-recurrence.php:90
+#: ../admin-views/event-recurrence.php:92
 msgid "Mar"
 msgstr ""
 
-#: ../admin-views/event-recurrence.php:91
+#: ../admin-views/event-recurrence.php:93
 msgid "Apr"
 msgstr ""
 
-#: ../admin-views/event-recurrence.php:92
+#: ../admin-views/event-recurrence.php:94
 #: ../lib/tribe-events-recurrence-meta.class.php:579
 msgid "May"
 msgstr ""
 
-#: ../admin-views/event-recurrence.php:93
+#: ../admin-views/event-recurrence.php:95
 msgid "Jun"
 msgstr ""
 
-#: ../admin-views/event-recurrence.php:97
+#: ../admin-views/event-recurrence.php:99
 msgid "Jul"
 msgstr ""
 
-#: ../admin-views/event-recurrence.php:98
+#: ../admin-views/event-recurrence.php:100
 msgid "Aug"
 msgstr ""
 
-#: ../admin-views/event-recurrence.php:99
+#: ../admin-views/event-recurrence.php:101
 msgid "Sep"
 msgstr ""
 
-#: ../admin-views/event-recurrence.php:100
+#: ../admin-views/event-recurrence.php:102
 msgid "Oct"
 msgstr ""
 
-#: ../admin-views/event-recurrence.php:101
+#: ../admin-views/event-recurrence.php:103
 msgid "Nov"
 msgstr ""
 
-#: ../admin-views/event-recurrence.php:102
+#: ../admin-views/event-recurrence.php:104
 msgid "Dec"
 msgstr ""
 
-#: ../admin-views/event-recurrence.php:107
+#: ../admin-views/event-recurrence.php:109
 msgid "On the:"
 msgstr ""
 
@@ -731,31 +738,35 @@ msgstr ""
 msgid "Select a State"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:71
+#: ../admin-views/tribe-options-defaults.php:39
+msgid "Set values for event organizers & venues that appear pre-populated in the event editor whenever you create a new event. This helps save time in situations where the venue or organizer rarely changes, saving you from having to manually re-enter the data each time you create an event.</p><p>It's worth noting that these can be overridden on the event creation screen; if a venue and organizer are pre-populated but you wants to change to something else, use the dropdown to either select another existing venue/organizer, or manually enter the details of a new one."
+msgstr ""
+
+#: ../admin-views/tribe-options-defaults.php:79
 msgid "Default Address for Events"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:84
+#: ../admin-views/tribe-options-defaults.php:92
 msgid "Default City for Events"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:97
+#: ../admin-views/tribe-options-defaults.php:105
 msgid "Default State for Events"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:110
+#: ../admin-views/tribe-options-defaults.php:118
 msgid "Default Province for Events"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:123
+#: ../admin-views/tribe-options-defaults.php:131
 msgid "Default Postal Code/Zip Code for Events"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:149
+#: ../admin-views/tribe-options-defaults.php:157
 msgid "Default Phone for Events"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:165
+#: ../admin-views/tribe-options-defaults.php:173
 msgid "One country per line in the following format: <br>US, United States <br> UK, United Kingdom. <br> (Replaces the default list.)"
 msgstr ""
 
@@ -828,7 +839,8 @@ msgid "Category:"
 msgstr ""
 
 #: ../admin-views/widget-admin-advanced-list.php:64
-msgid "If you wish to customize the widget display yourself, see the file views/events-list-load-widget-display.php inside the Events Premium plugin."
+#, php-format
+msgid "Want to modify the display of this widget? Try a %stemplate override%s."
 msgstr ""
 
 #: ../admin-views/widget-admin-featured.php:17
@@ -1132,45 +1144,45 @@ msgstr ""
 msgid "A valid license key is required for support and updates."
 msgstr ""
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:194
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:174
 #, php-format
 msgid "License Key for %s"
 msgstr ""
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:195
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:175
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:258
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:238
 msgid "License key(s) updated."
 msgstr ""
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:295
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:275
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:297
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:277
 msgid "Sorry, this key is expired."
 msgstr ""
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:299
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:279
 msgid "Sorry, this key is out of installs."
 msgstr ""
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:301
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:281
 msgid "Sorry, this key is not valid."
 msgstr ""
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:304
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:284
 #, php-format
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:308
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:288
 msgid "Hmmm... something's wrong with this validator. Please contact <a href=\"http://tri.be/support\">support.</a>"
 msgstr ""
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:484
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:316
 msgid "[X]"
 msgstr ""
 
