@@ -37,6 +37,8 @@
 				<input type="text" name="recurrence[custom-interval]" value="<?php echo $recCustomInterval ?>"/> <span id="recurrence-interval-type"><?php echo $recCustomTypeText ?></span>
 				<input type="hidden" name="recurrence[custom-type-text]" value="<?php echo esc_attr( $recCustomTypeText ) ?>"/>
 				<input type="hidden" name="recurrence[occurrence-count-text]" value="<?php echo esc_attr( $recOccurrenceCountText ) ?>"/>
+				<span id="rec-days-error" class="rec-error"><?php _e('Frequency of recurring event must be a number','tribe-events-calendar-pro'); ?></span>
+
 			</td>
 		</tr>
 		<?php if(!isset($recCustomWeekDay)) $recCustomWeekDay = array(); ?>

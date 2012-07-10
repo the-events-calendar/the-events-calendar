@@ -1,0 +1,2586 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: The Events Calendar 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-01 17:07-0500\n"
+"PO-Revision-Date: 2012-06-20 14:57+0200\n"
+"Last-Translator: petri <info@petrikajander.com>\n"
+"Language-Team: Ben Andersen <wp@bentrix.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Finnish\n"
+"X-Poedit-Country: FINLAND\n"
+
+#: ../events-calendar-pro.php:144
+msgid "Venues"
+msgstr "Tapahtumat"
+
+#: ../events-calendar-pro.php:145
+msgid "Organizers"
+msgstr "Järjestäjät"
+
+#: ../events-calendar-pro.php:157
+msgid "Use Saved Venue:"
+msgstr "Käytä tallennettua tapahtumapaikkaa:"
+
+#: ../events-calendar-pro.php:174
+msgid "Use Saved Organizer:"
+msgstr "Käytä tallennettua järjestäjää:"
+
+#: ../events-calendar-pro.php:191
+msgid "Defaults"
+msgstr "Asetukset"
+
+#: ../events-calendar-pro.php:192
+#: ../admin-views/event-meta-options.php:1
+msgid "Additional Fields"
+msgstr "Lisäkentät"
+
+#: ../events-calendar-pro.php:199
+#, php-format
+msgid "%sWelcome to Events Calendar, a full-featured events management system for WordPress. By buying a license you've given us a vote of confidence, will get active support and have hooked up some sweet additional features not found in the free The Events Calendar.%s"
+msgstr "%sTervetuloa The Events Calendariin, kokonaisvaltaiseen tapahtumajärjestelmään WordPressissä. Ostamalla lisenssin tuet meitä, saat tukipalveluja ja lisäominaisuuksia, joita ei löydy ilmaisesta versiosta The Events Calendaria.%s"
+
+#: ../events-calendar-pro.php:200
+#, php-format
+msgid "%sIf you aren't familiar with The Events Calendar, it may be wise to check out our %s. It'll introduce you to the basics of what the plugin has to offer and will have you creating events in no time. From there, the resources below -- extensive template tag documentation, FAQs, video walkthroughs and more -- will give you a leg up as you dig deeper.%s"
+msgstr "%sJos The Events Calendar ei ole tuttu, kannattaa ehkä tutustua %s. Se esittelee perusasiat mitä lisäosa tarjoaa ja pääset luomaan tapahtumia hujauksessa. Sieltä lisäresurssit kuten -- extensive template tag dokumentaatio, kysymyksiä ja vastauksia (FAQ), opetusvideot jne.  -- auttavat, kun perehdyt syvällisemmin.%s"
+
+#: ../events-calendar-pro.php:200
+msgid "new user primer"
+msgstr "uuden käyttäjän opas"
+
+#: ../events-calendar-pro.php:201
+#, php-format
+msgid "%sOh, wondering what to do with your license key and whether you need it before you can get into event creation? Check out %s on that subject for an answer. %s, if you don't have it handy.%s"
+msgstr "%sIhmetteletkö mitä tehdä lisenssiavaimen kanssa ja tarvitsetko sitä ennen kuin voit luoda tapahtumia? Käy läpi  %s vastauksen löytämiseksi. %s, jos se ei ole saatavilla.%s"
+
+#: ../events-calendar-pro.php:201
+msgid "our blog post"
+msgstr "blogikirjoituksemme"
+
+#: ../events-calendar-pro.php:201
+msgid "Here's how you find your license key"
+msgstr "Näin löydät lisenssiavaimesi"
+
+#: ../events-calendar-pro.php:210
+#, php-format
+msgid "%sOne of the advantages of being a PRO user is that you have access to our PRO-exclusive forums at %s. Our support staff hits the forums on a daily basis, and what they can't answer on the spot they'll bring a member of our dev team in to address directly.%s"
+msgstr "%sEräs PRO-käyttäjänä olemisen eduista on, että pääset meidän PRO-eklusiivifoorumeihin %s. Tukihenkilöstömme vierailee foorumilla päivittäin ja mihin he eivät pysty suoraan vastaamaan, he pyytävät avuksi kehitystiimimme vastaamaan suoraan.%s"
+
+#: ../events-calendar-pro.php:210
+msgid "tri.be"
+msgstr "tri.be"
+
+#: ../events-calendar-pro.php:211
+#, php-format
+msgid "%sSome things to consider before posting on the forum:%s"
+msgstr "%sEräitä asioita harkittavasti ennen foorumille kirjoittamista:%s"
+
+#: ../events-calendar-pro.php:212
+#, php-format
+msgid "%sLook through existing threads before posting a new one and check that there isn't already a discussion going on your issue. The tri.be site has a solid search function that should help find what you're looking for, if it indeed already is present.%s"
+msgstr "%sKäy läpi nykyiset keskustelut ennen uuden avaamista ja varmista, ettei aiheesta jo keskustella. Sivustolla tri.be on hyvä hakuominaisuus, jonka pitäisi auttaa löytämään haluamasi, jos siitä on jo kirjoitettu.%s"
+
+#: ../events-calendar-pro.php:213
+#, php-format
+msgid "%sA good way to help us out before posting is to check whether the issue is a conflict with another plugin or your theme. This can be tested relatively easily on a staging site by deactivating other plugins one-by-one, and reverting to the default 2011 theme as needed, to see if conflicts can be easily identified. If so, please note that when posting your thread.%s"
+msgstr "%sHyvä tapa auttaa meitä on varmistaa ensin, ettei ongelmana ole konflikti toisen lisäosan tai ulkoasun kanssa. Tämä on suhteellisen helppo kokeilla poistamalla käytöstä muut lisäosat yksitellen ja käyttämällä tarvittaessa 2011 perusulkoasua. Jos ongelma löytyy näin, mainitse siitä kirjoituksessasi.%s"
+
+#: ../events-calendar-pro.php:214
+#, php-format
+msgid "%sSometimes, just resaving your permalinks (under Settings -> Permalinks) can resolve events-related problems on your site. It is worth a shot before creating a new thread.%s"
+msgstr "%sToisinaan osoiterakenteen uudelleentallennus (Asetukset -> Osoiterakenne) voi ratkaista tapahtumiin liittyviä ongelmia. Kannattaa yrittää ennen kuin ilmoittaa eteenpäin.%s"
+
+#: ../events-calendar-pro.php:215
+#, php-format
+msgid "%sWhile we won't build your site for you and can't guarantee The Events Calendar/PRO to play nicely with every theme and plugin out there, our team will do our best to help you get it functioning nicely with your site. And as an added bonus, once you're done you can post it in the %s so the rest of the community can see what you've been working on.%s"
+msgstr "%sVaikka emme tee sivustoa puolestasi ja emme voi taata, että The Events Calendar/PRO toimii täydellisesti kaikkien ulkoasujen ja lisäosien kanssa, teemme parhaamme auttaaksemme, että se toimii hyvin sivustosi kanssa. Lisäbonuksena, kun olet saanut kaiken valmiiksi, voit lisätä sivustosi muiden nähtäväksi tänne: %s.%s"
+
+#: ../events-calendar-pro.php:215
+msgid "Showcase thread"
+msgstr "Demot"
+
+#: ../events-calendar-pro.php:409
+#, php-format
+msgid "Calendar powered by %sThe Events Calendar PRO%s"
+msgstr "Kalenterin toimittaa  %sThe Events Calendar PRO%s"
+
+#: ../events-calendar-pro.php:432
+msgid "Use New Venue"
+msgstr "Käytä uutta paikkaa"
+
+#: ../events-calendar-pro.php:440
+#: ../admin-views/tribe-options-defaults.php:62
+msgid "No saved venues yet."
+msgstr "Ei talletettuja paikkoja."
+
+#: ../events-calendar-pro.php:462
+msgid "Use New Organizer"
+msgstr "Käytä uutta järjestäjää"
+
+#: ../events-calendar-pro.php:469
+#: ../admin-views/tribe-options-defaults.php:49
+msgid "No saved organizers yet."
+msgstr "Ei tallennettuja järjestäjiä."
+
+#: ../events-calendar-pro.php:479
+msgid "Support"
+msgstr "Tuki"
+
+#: ../events-calendar-pro.php:482
+msgid "View All Add-Ons"
+msgstr "Näytä kaikki lisäosat"
+
+#: ../events-calendar-pro.php:522
+msgid "The Events Calendar"
+msgstr "The Events Calendar"
+
+#: ../events-calendar-pro.php:523
+#, php-format
+msgid "To begin using Events Calendar PRO, please install the latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+msgstr "Aloita Events Calendar PRO:n käyttö asentamalla viimeisin versio <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendarista</a>."
+
+#: ../template-tags.php:208
+#: ../template-tags.php:222
+#: ../template-tags.php:235
+#: ../template-tags.php:236
+#: ../template-tags.php:249
+#: ../template-tags.php:250
+#: ../template-tags.php:263
+#: ../template-tags.php:264
+#: ../template-tags.php:277
+#: ../template-tags.php:278
+#: ../template-tags.php:291
+#: ../template-tags.php:292
+#: ../template-tags.php:305
+#: ../template-tags.php:306
+#: ../template-tags.php:319
+#: ../template-tags.php:320
+msgid "No default set"
+msgstr "Ei oletusvalintaa"
+
+#: ../template-tags.php:209
+#, php-format
+msgid "The current default organizer is: %s"
+msgstr "Nykyinen oletusjärjestäjä on : %s"
+
+#: ../template-tags.php:223
+#, php-format
+msgid "The current default venue is: %s"
+msgstr "Nykyinen oletuspaikka on : %s"
+
+#: ../template-tags.php:237
+#, php-format
+msgid "The current default address is: %s"
+msgstr "Nykyinen oletusosoite on : %s"
+
+#: ../template-tags.php:251
+#, php-format
+msgid "The current default city is: %s"
+msgstr "Nykyinen oletuskaupunki on : %s"
+
+#: ../template-tags.php:265
+#, php-format
+msgid "The current default state is: %s"
+msgstr "Nykyinen oletuslääni on : %s"
+
+#: ../template-tags.php:279
+#, php-format
+msgid "The current default province is: %s"
+msgstr "Nykyinen oletuslääni on : %s"
+
+#: ../template-tags.php:293
+#, php-format
+msgid "The current default postal code/zip code is: %s"
+msgstr "Nykyinen oletuspostinumero on : %s"
+
+#: ../template-tags.php:307
+#, php-format
+msgid "The current default country is: %s"
+msgstr "Nykyinen oletusmaa on : %s"
+
+#: ../template-tags.php:321
+#, php-format
+msgid "The current default phone is: %s"
+msgstr "Nykyinen oletuspuhelinnumero on : %s"
+
+#: ../admin-views/event-defaults.php:1
+#: ../admin-views/events-options-defaults.php:35
+#: ../admin-views/tribe-options-defaults.php:31
+msgid "Customize Defaults"
+msgstr "Muokkaa oletusarvoja"
+
+#: ../admin-views/event-defaults.php:2
+#: ../admin-views/events-options-defaults.php:36
+#: ../admin-views/tribe-options-defaults.php:35
+msgid "These settings change the default event form. For example, if you set a default venue, this field will be automatically filled in on a new event."
+msgstr "Nämä asetukset muuttavat oletustapahtumalomaketta. Esimerkiksi jos asetat oletuspaikan, tämä kenttä täytetään automaattisesti uuteen tapahtumaan."
+
+#: ../admin-views/event-defaults.php:5
+#: ../admin-views/event-defaults.php:9
+#: ../admin-views/events-options-defaults.php:39
+#: ../admin-views/events-options-defaults.php:43
+#: ../admin-views/tribe-options-defaults.php:39
+msgid "Automatically replace empty fields with default values"
+msgstr "Täytä automaattisesti tyhjät kentät oletusarvoilla"
+
+#: ../admin-views/event-defaults.php:13
+#: ../admin-views/events-options-defaults.php:47
+msgid "Enabled"
+msgstr "Aktivoitu"
+
+#: ../admin-views/event-defaults.php:19
+#: ../admin-views/events-options-defaults.php:53
+#: ../admin-views/tribe-options-defaults.php:45
+msgid "Default Organizer for Events"
+msgstr "Oletusjärjestäjä tapahtumille"
+
+#: ../admin-views/event-defaults.php:22
+#: ../admin-views/events-options-defaults.php:56
+msgid "Default Organizer"
+msgstr "Oletusjärjestäjä"
+
+#: ../admin-views/event-defaults.php:23
+#: ../admin-views/events-options-defaults.php:57
+msgid "The default organizer value"
+msgstr "Oletusjärjestäjä"
+
+#: ../admin-views/event-defaults.php:23
+#: ../admin-views/event-defaults.php:31
+#: ../admin-views/event-defaults.php:38
+#: ../admin-views/event-defaults.php:45
+#: ../admin-views/event-defaults.php:66
+#: ../admin-views/event-defaults.php:74
+#: ../admin-views/event-defaults.php:82
+#: ../admin-views/event-defaults.php:108
+#, php-format
+msgid "The current default value is <strong>%s</strong>"
+msgstr "Valitsemasi oletusarvo on <strong>%s</strong>"
+
+#: ../admin-views/event-defaults.php:27
+#: ../admin-views/events-options-defaults.php:62
+#: ../admin-views/tribe-options-defaults.php:58
+msgid "Default Venue for Events"
+msgstr "Oletuspaikka tapahtumille"
+
+#: ../admin-views/event-defaults.php:30
+#: ../admin-views/events-options-defaults.php:65
+msgid "Default Venue"
+msgstr "Oletuspaikka"
+
+#: ../admin-views/event-defaults.php:31
+#: ../admin-views/events-options-defaults.php:66
+msgid "The default venue value"
+msgstr "Oletuspaikka"
+
+#: ../admin-views/event-defaults.php:35
+#: ../admin-views/event-defaults.php:37
+#: ../admin-views/events-options-defaults.php:71
+#: ../admin-views/events-options-defaults.php:73
+msgid "Default Address"
+msgstr "Oletusosoite"
+
+#: ../admin-views/event-defaults.php:38
+#: ../admin-views/events-options-defaults.php:74
+msgid "The default address value"
+msgstr "Oletusosoite"
+
+#: ../admin-views/event-defaults.php:42
+#: ../admin-views/event-defaults.php:44
+#: ../admin-views/events-options-defaults.php:79
+#: ../admin-views/events-options-defaults.php:81
+msgid "Default City"
+msgstr "Oletuskaupunki"
+
+#: ../admin-views/event-defaults.php:45
+#: ../admin-views/events-options-defaults.php:82
+msgid "The default city value"
+msgstr "Oletuskaupunki"
+
+#: ../admin-views/event-defaults.php:50
+#: ../admin-views/events-options-defaults.php:88
+msgid "Default State"
+msgstr "Oletuslääni"
+
+#: ../admin-views/event-defaults.php:52
+#: ../admin-views/event-defaults.php:73
+#: ../admin-views/events-options-defaults.php:90
+#: ../admin-views/events-options-defaults.php:112
+msgid "Default Province or State"
+msgstr "Valitse lääni"
+
+#: ../admin-views/event-defaults.php:55
+#: ../admin-views/events-options-defaults.php:93
+msgid "Select a State:"
+msgstr "Valitse lääni:"
+
+#: ../admin-views/event-defaults.php:66
+#: ../admin-views/event-defaults.php:74
+#: ../admin-views/events-options-defaults.php:104
+#: ../admin-views/events-options-defaults.php:113
+msgid "The default  value"
+msgstr "Oletusarvo"
+
+#: ../admin-views/event-defaults.php:71
+#: ../admin-views/events-options-defaults.php:110
+msgid "Default Province"
+msgstr "Oletuslääni"
+
+#: ../admin-views/event-defaults.php:79
+#: ../admin-views/event-defaults.php:81
+#: ../admin-views/events-options-defaults.php:119
+#: ../admin-views/events-options-defaults.php:121
+msgid "Default Postal Code"
+msgstr "Oletuspostinumero"
+
+#: ../admin-views/event-defaults.php:82
+#: ../admin-views/events-options-defaults.php:122
+msgid "The default Postal Code value"
+msgstr "Oletuspostinumero"
+
+#: ../admin-views/event-defaults.php:87
+#: ../admin-views/events-options-defaults.php:128
+#: ../admin-views/tribe-options-defaults.php:136
+msgid "Default Country for Events"
+msgstr "Oletusmaa tapahtumille"
+
+#: ../admin-views/event-defaults.php:105
+#: ../admin-views/event-defaults.php:107
+#: ../admin-views/events-options-defaults.php:146
+#: ../admin-views/events-options-defaults.php:148
+msgid "Default Phone"
+msgstr "Oletuspuhelinnumero"
+
+#: ../admin-views/event-defaults.php:108
+#: ../admin-views/events-options-defaults.php:149
+msgid "The default phone value"
+msgstr "Valittu puhelinnumero"
+
+#: ../admin-views/event-defaults.php:112
+#: ../admin-views/events-options-defaults.php:154
+#: ../admin-views/tribe-options-defaults.php:162
+msgid "Use a custom list of countries"
+msgstr "Käytä muokattua maalistaa"
+
+#: ../admin-views/event-defaults.php:114
+#: ../admin-views/events-options-defaults.php:156
+msgid "Use the following list:"
+msgstr "Käytä seuraavaa listaa:"
+
+#: ../admin-views/event-defaults.php:116
+msgid "One country per line in the following format: <br/>US, United States <br/> UK, United Kingdom."
+msgstr "Yksi maa per rivi seuraavassa muodossa: <br/>FI, Suomi <br/> US, United States <br/> UK, United Kingdom."
+
+#: ../admin-views/event-defaults.php:116
+msgid "(Replaces the default list.)"
+msgstr "(Korvaa oletuslistan.)"
+
+#: ../admin-views/event-meta-options.php:2
+msgid "Add unique fields to your event editor. Using the form below, you can quickly add checkboxes for dietary options like \"low salt, vegetarian, kosher\" or a dropdown for “DJ” to your event editor."
+msgstr "Lisää yksilöllisiä kenttiä tapahtumaeditoriin. Alla olevalla lomakkeella voit helposti lisätä vaihtoehtoja ruokavalioon \"kasvis, vegaani, laktoositon, gluteeniton\" tai alasvetolistan \"DJ\" tapahtumaeditoriisi."
+
+#: ../admin-views/event-meta-options.php:5
+msgid "Field Label"
+msgstr "Kentän nimi"
+
+#: ../admin-views/event-meta-options.php:5
+msgid "Field Type"
+msgstr "Kenttätyyppi"
+
+#: ../admin-views/event-meta-options.php:5
+msgid "Options (one per line)"
+msgstr "Valitse (yksi per rivi)"
+
+#: ../admin-views/event-meta-options.php:13
+msgid "Text"
+msgstr "Teksti"
+
+#: ../admin-views/event-meta-options.php:14
+msgid "Radio"
+msgstr "Valintanappi"
+
+#: ../admin-views/event-meta-options.php:15
+msgid "Checkbox"
+msgstr "Valintalaatikko"
+
+#: ../admin-views/event-meta-options.php:16
+msgid "Dropdown"
+msgstr "Alasveto"
+
+#: ../admin-views/event-meta-options.php:22
+msgid "Add another"
+msgstr "Lisää toinen"
+
+#: ../admin-views/event-meta-options.php:24
+msgid "Remove"
+msgstr "Poista"
+
+#: ../admin-views/event-meta-options.php:32
+#, php-format
+msgid "Enter the field label as you want it to appear (this will be the label in the same way “Start Date,” “Organizer,” etc appear in the event details box on the frontend). Select whether the field will be a text field; radio buttons; checkboxes; or a dropdown. All of these with the exception of text allow for multiple options to be included, which you can add — one per-line — in the right-hand column. If you feel flummoxed, we've got you covered with a %s."
+msgstr "Syötä kentän nimi niin kuin halut sen näkyvän (se näkyy samoin kuin \"Aloituspäivämäärä\", \"Järjestäjä\" jne. näkyvät tapahtuman tiedoissa ulospäin). Valitse onko kenttä tekstiä, valintanappeja, valintaruutuja tai alasvalikkolista. Kaikki nämä tekstikenttää lukuun ottamatta sallivat monivalinnan - yksi per rivi - oikeanpuoleisessa sarakkeessa. Jos olet sormi suussa, tästä löydät apua %s."
+
+#: ../admin-views/event-meta-options.php:32
+msgid "video tutorial that will walk you through the process"
+msgstr "Opetusvideo opastaa koko prosessin"
+
+#: ../admin-views/event-meta-options.php:40
+msgid "Are you sure you wish to remove this field and its data from all events? Once you click OK this cannot be undone."
+msgstr "Haluatko varmasti poistaa tämän kentän ja sen tiedot kaikista tapahtumista? Kun painat OK, sitä ei voida enää perua."
+
+#: ../admin-views/event-meta.php:7
+msgid "Event Custom Fields"
+msgstr "Tapahtuman muokatut kentät"
+
+#: ../admin-views/event-recurrence.php:2
+msgid "Recurrence:"
+msgstr "Toistuvuus:"
+
+#: ../admin-views/event-recurrence.php:7
+msgid "None"
+msgstr "Ei mitään"
+
+#: ../admin-views/event-recurrence.php:8
+msgid "Every Day"
+msgstr "Joka päivä"
+
+#: ../admin-views/event-recurrence.php:9
+msgid "Every Week"
+msgstr "Joka viikko"
+
+#: ../admin-views/event-recurrence.php:10
+msgid "Every Month"
+msgstr "Joka kuukausi"
+
+#: ../admin-views/event-recurrence.php:11
+msgid "Every Year"
+msgstr "Joka vuosi"
+
+#: ../admin-views/event-recurrence.php:12
+msgid "Custom"
+msgstr "Muokkaa"
+
+#: ../admin-views/event-recurrence.php:15
+msgid "End"
+msgstr "Päättyy"
+
+#: ../admin-views/event-recurrence.php:17
+msgid "On"
+msgstr "päivänä"
+
+#: ../admin-views/event-recurrence.php:18
+msgid "After"
+msgstr "Jälkeen"
+
+#: ../admin-views/event-recurrence.php:22
+msgid "You must select a recurrence end date"
+msgstr "Toistuvalle täytyy valita päättymispäivä"
+
+#: ../admin-views/event-recurrence.php:29
+msgid "Frequency"
+msgstr "Frekvenssi"
+
+#: ../admin-views/event-recurrence.php:31
+msgid "Day(s)"
+msgstr "päivä"
+
+#: ../admin-views/event-recurrence.php:31
+msgid "Daily"
+msgstr "Päivittäin"
+
+#: ../admin-views/event-recurrence.php:32
+msgid "Week(s) on:"
+msgstr "viikko"
+
+#: ../admin-views/event-recurrence.php:32
+msgid "Weekly"
+msgstr "Viikoittain"
+
+#: ../admin-views/event-recurrence.php:33
+msgid "Month(s) on the:"
+msgstr "kuukausi:"
+
+#: ../admin-views/event-recurrence.php:33
+msgid "Monthly"
+msgstr "Kuukausittain"
+
+#: ../admin-views/event-recurrence.php:34
+msgid "Year(s) on:"
+msgstr "vuosi:"
+
+#: ../admin-views/event-recurrence.php:34
+msgid "Yearly"
+msgstr "Vuosittain"
+
+#: ../admin-views/event-recurrence.php:36
+msgid "Every"
+msgstr "Joka"
+
+#: ../admin-views/event-recurrence.php:46
+msgid "M"
+msgstr "Ma"
+
+#: ../admin-views/event-recurrence.php:47
+msgid "Tu"
+msgstr "Ti"
+
+#: ../admin-views/event-recurrence.php:48
+msgid "W"
+msgstr "Ke"
+
+#: ../admin-views/event-recurrence.php:49
+msgid "Th"
+msgstr "To"
+
+#: ../admin-views/event-recurrence.php:50
+msgid "F"
+msgstr "Pe"
+
+#: ../admin-views/event-recurrence.php:51
+msgid "Sa"
+msgstr "La"
+
+#: ../admin-views/event-recurrence.php:52
+msgid "Su"
+msgstr "Su"
+
+#: ../admin-views/event-recurrence.php:60
+#: ../admin-views/event-recurrence.php:109
+msgid "First"
+msgstr "Ensimmäinen"
+
+#: ../admin-views/event-recurrence.php:61
+#: ../admin-views/event-recurrence.php:110
+msgid "Second"
+msgstr "Toinen"
+
+#: ../admin-views/event-recurrence.php:62
+#: ../admin-views/event-recurrence.php:111
+msgid "Third"
+msgstr "Kolmas"
+
+#: ../admin-views/event-recurrence.php:63
+#: ../admin-views/event-recurrence.php:112
+msgid "Fourth"
+msgstr "Neljäs"
+
+#: ../admin-views/event-recurrence.php:64
+#: ../admin-views/event-recurrence.php:113
+msgid "Last"
+msgstr "Viimeinen"
+
+#: ../admin-views/event-recurrence.php:71
+#: ../admin-views/event-recurrence.php:116
+#: ../lib/tribe-events-recurrence-meta.class.php:553
+msgid "Monday"
+msgstr "maanantai"
+
+#: ../admin-views/event-recurrence.php:72
+#: ../admin-views/event-recurrence.php:117
+#: ../lib/tribe-events-recurrence-meta.class.php:553
+msgid "Tuesday"
+msgstr "tiistai"
+
+#: ../admin-views/event-recurrence.php:73
+#: ../admin-views/event-recurrence.php:118
+#: ../lib/tribe-events-recurrence-meta.class.php:553
+msgid "Wednesday"
+msgstr "keskiviikko"
+
+#: ../admin-views/event-recurrence.php:74
+#: ../admin-views/event-recurrence.php:119
+#: ../lib/tribe-events-recurrence-meta.class.php:553
+msgid "Thursday"
+msgstr "torstai"
+
+#: ../admin-views/event-recurrence.php:75
+#: ../admin-views/event-recurrence.php:120
+#: ../lib/tribe-events-recurrence-meta.class.php:553
+msgid "Friday"
+msgstr "perjantai"
+
+#: ../admin-views/event-recurrence.php:76
+#: ../admin-views/event-recurrence.php:121
+#: ../lib/tribe-events-recurrence-meta.class.php:553
+msgid "Saturday"
+msgstr "lauantai"
+
+#: ../admin-views/event-recurrence.php:77
+#: ../admin-views/event-recurrence.php:122
+#: ../lib/tribe-events-recurrence-meta.class.php:553
+msgid "Sunday"
+msgstr "sunnuntai"
+
+#: ../admin-views/event-recurrence.php:79
+#: ../admin-views/event-recurrence.php:124
+msgid "Day"
+msgstr "päivä"
+
+#: ../admin-views/event-recurrence.php:88
+msgid "Jan"
+msgstr "tam"
+
+#: ../admin-views/event-recurrence.php:89
+msgid "Feb"
+msgstr "hel"
+
+#: ../admin-views/event-recurrence.php:90
+msgid "Mar"
+msgstr "maa"
+
+#: ../admin-views/event-recurrence.php:91
+msgid "Apr"
+msgstr "huh"
+
+#: ../admin-views/event-recurrence.php:92
+#: ../lib/tribe-events-recurrence-meta.class.php:579
+msgid "May"
+msgstr "tou"
+
+#: ../admin-views/event-recurrence.php:93
+msgid "Jun"
+msgstr "kes"
+
+#: ../admin-views/event-recurrence.php:97
+msgid "Jul"
+msgstr "hei"
+
+#: ../admin-views/event-recurrence.php:98
+msgid "Aug"
+msgstr "elo"
+
+#: ../admin-views/event-recurrence.php:99
+msgid "Sep"
+msgstr "syy"
+
+#: ../admin-views/event-recurrence.php:100
+msgid "Oct"
+msgstr "lok"
+
+#: ../admin-views/event-recurrence.php:101
+msgid "Nov"
+msgstr "mar"
+
+#: ../admin-views/event-recurrence.php:102
+msgid "Dec"
+msgstr "jou"
+
+#: ../admin-views/event-recurrence.php:107
+msgid "On the:"
+msgstr "Aikana:"
+
+#: ../admin-views/events-options-defaults.php:58
+#: ../admin-views/events-options-defaults.php:67
+#: ../admin-views/events-options-defaults.php:75
+#: ../admin-views/events-options-defaults.php:83
+#: ../admin-views/events-options-defaults.php:105
+#: ../admin-views/events-options-defaults.php:114
+#: ../admin-views/events-options-defaults.php:123
+#: ../admin-views/events-options-defaults.php:150
+#, php-format
+msgid "<em>The current default value is:</em> <strong>%s</strong>"
+msgstr "<em>Nykyinen oletusarvo on:</em> <strong>%s</strong>"
+
+#: ../admin-views/events-options-defaults.php:58
+#: ../admin-views/events-options-defaults.php:67
+#: ../admin-views/events-options-defaults.php:75
+#: ../admin-views/events-options-defaults.php:83
+#: ../admin-views/events-options-defaults.php:105
+#: ../admin-views/events-options-defaults.php:114
+#: ../admin-views/events-options-defaults.php:123
+#: ../admin-views/events-options-defaults.php:150
+msgid "No default value set"
+msgstr "Oletusarvoa ei asetettu"
+
+#: ../admin-views/events-options-defaults.php:158
+msgid "One country per line in the following format: <br/>US, United States <br/> UK, United Kingdom.<br/>"
+msgstr "Yksi maa per rivi seuraavassa muodossa: <br/>FI, Suomi <br/> US, United States <br/> UK, United Kingdom.<br/>"
+
+#: ../admin-views/events-options-defaults.php:158
+msgid "(Replaces the default list)"
+msgstr "(Korvaa oletuslistan)"
+
+#: ../admin-views/support-form.php:11
+msgid "Need help? Send us a support request."
+msgstr "Kaipaatko apua? Lähetä tukipyyntö."
+
+#: ../admin-views/support-form.php:14
+#, php-format
+msgid "Tell us about the problem you're seeing in as much detail as possible. Please note that we'll also be sending some basic system information along with this request so that we can better diagnose the issue. If you would like to contact us without sending any system information, please visit our support page at %s. Thanks!"
+msgstr "Kuvaile meille ongelmaa mahdollisimman yksityiskohtaisesti. Huomioithan, että lähetämme myös joitain perusjärjestelmätietoja pyynnön mukana, jotta voimme paremmin tutkia ongelmaa. Jos haluat ottaa meihin yhteyttä, ilman minkään tiedon lähettämistä, vieraile tukisivullamme %s. Kiitos!"
+
+#: ../admin-views/support-form.php:18
+msgid "Send a Support Request"
+msgstr "Lähetä tukipyyntö"
+
+#: ../admin-views/tribe-options-defaults.php:6
+msgid "No Default"
+msgstr "Ei valintaa"
+
+#: ../admin-views/tribe-options-defaults.php:15
+msgid "Use New Venue/No Default"
+msgstr "Valite uusi paikka/ei oletusarvoa"
+
+#: ../admin-views/tribe-options-defaults.php:22
+msgid "Select a State"
+msgstr "Valitse lääni"
+
+#: ../admin-views/tribe-options-defaults.php:71
+msgid "Default Address for Events"
+msgstr "Oletusosoite tapahtumille"
+
+#: ../admin-views/tribe-options-defaults.php:84
+msgid "Default City for Events"
+msgstr "Oletuskaupunki tapahtumille"
+
+#: ../admin-views/tribe-options-defaults.php:97
+msgid "Default State for Events"
+msgstr "Oletuslääni tapahtumille"
+
+#: ../admin-views/tribe-options-defaults.php:110
+msgid "Default Province for Events"
+msgstr "Oletuslääni tapahtumille"
+
+#: ../admin-views/tribe-options-defaults.php:123
+msgid "Default Postal Code/Zip Code for Events"
+msgstr "Oletuspostiosoite tapahtumille"
+
+#: ../admin-views/tribe-options-defaults.php:149
+msgid "Default Phone for Events"
+msgstr "Oletuspuhelin tapahtumille"
+
+#: ../admin-views/tribe-options-defaults.php:165
+msgid "One country per line in the following format: <br>US, United States <br> UK, United Kingdom. <br> (Replaces the default list.)"
+msgstr "Vain yksi maa per rivi seuraavassa muodossa: <br/>FI, Suomi <br/> US, United States <br/> UK, United Kingdom. <br> (Korvaa oletuslistan.)"
+
+#: ../admin-views/widget-admin-advanced-list.php:11
+#: ../admin-views/widget-admin-calendar.php:10
+#: ../admin-views/widget-admin-featured.php:10
+msgid "Title:"
+msgstr "Otsikko:"
+
+#: ../admin-views/widget-admin-advanced-list.php:16
+msgid "Show:"
+msgstr "Näytä:"
+
+#: ../admin-views/widget-admin-advanced-list.php:24
+msgid "Show widget only if there are upcoming events:"
+msgstr "Näytä vimpain vain jos on tulevia tapahtumia:"
+
+#: ../admin-views/widget-admin-advanced-list.php:30
+msgid "Display:"
+msgstr "Näytä:"
+
+#: ../admin-views/widget-admin-advanced-list.php:33
+msgid "Start Date & Time"
+msgstr "Aloituspäivämäärä ja -aika"
+
+#: ../admin-views/widget-admin-advanced-list.php:33
+msgid "(Widget will always show start date)"
+msgstr "(Vimpain näyttää aina aloituspäivämäärän)"
+
+#: ../admin-views/widget-admin-advanced-list.php:34
+msgid "End Date & Time"
+msgstr "Päättymispäivä ja -aika"
+
+#: ../admin-views/widget-admin-advanced-list.php:35
+#: ../lib/apm_filters.php:21
+msgid "Venue"
+msgstr "Paikka"
+
+#: ../admin-views/widget-admin-advanced-list.php:36
+msgid "Address"
+msgstr "Osoite"
+
+#: ../admin-views/widget-admin-advanced-list.php:37
+msgid "City"
+msgstr "Kaupunki"
+
+#: ../admin-views/widget-admin-advanced-list.php:38
+msgid "State (US) Or Province (Int)"
+msgstr "Lääni"
+
+#: ../admin-views/widget-admin-advanced-list.php:39
+msgid "Postal Code"
+msgstr "Postinumero"
+
+#: ../admin-views/widget-admin-advanced-list.php:40
+msgid "Country"
+msgstr "Maa"
+
+#: ../admin-views/widget-admin-advanced-list.php:41
+msgid "Phone"
+msgstr "Puhelin"
+
+#: ../admin-views/widget-admin-advanced-list.php:42
+msgid "Price"
+msgstr "Hinta"
+
+#: ../admin-views/widget-admin-advanced-list.php:49
+#: ../admin-views/widget-admin-featured.php:13
+msgid "Category:"
+msgstr "Kategoria:"
+
+#: ../admin-views/widget-admin-advanced-list.php:64
+msgid "If you wish to customize the widget display yourself, see the file views/events-list-load-widget-display.php inside the Events Premium plugin."
+msgstr "Jos haluat muokata vimpaimen näyttöä, katso tiedosto views/events-list-load-widget-display.php the Events Premium lisäosassa."
+
+#: ../admin-views/widget-admin-featured.php:17
+msgid "All Events"
+msgstr "Kaikki tapahtumat"
+
+#: ../lib/apm_filters.php:26
+msgid "Organizer"
+msgstr "Järjestäjä"
+
+#: ../lib/apm_filters.php:31
+msgid "Start Date"
+msgstr "Aloituspäivämäärä"
+
+#: ../lib/apm_filters.php:37
+msgid "Event Cost"
+msgstr "Tapahtuman hinta"
+
+#: ../lib/apm_filters.php:42
+msgid "Event Cats"
+msgstr "Tapahtumakategoria"
+
+#: ../lib/apm_filters.php:47
+msgid "Title"
+msgstr "Otsikko"
+
+#: ../lib/apm_filters.php:52
+msgid "Recurring"
+msgstr "Toistuva"
+
+#: ../lib/apm_filters.php:57
+msgid "Description"
+msgstr "Kuvaus"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:390
+msgid "Monthly custom recurrences cannot have a dash set as the day to occur on."
+msgstr "Kuukausittain toistuvilla ei voi olla viivaa asetettuna esiintymispäiväksi. "
+
+#: ../lib/tribe-events-recurrence-meta.class.php:393
+msgid "Yearly custom recurrences cannot have a dash set as the day to occur on."
+msgstr "Vuosittain toistuvilla ei voi olla viivaa asetettuna esiintymispäiväksi."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:491
+#: ../lib/tribe-events-recurrence-meta.class.php:506
+msgid "Every day"
+msgstr "Joka päivä"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:495
+#: ../lib/tribe-events-recurrence-meta.class.php:511
+msgid "Every week"
+msgstr "Joka viikko"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:498
+#: ../lib/tribe-events-recurrence-meta.class.php:517
+msgid "Every month"
+msgstr "Joka kuukausi"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:501
+#: ../lib/tribe-events-recurrence-meta.class.php:524
+msgid "Every year"
+msgstr "Joka vuosi"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:507
+#, php-format
+msgid "Every %d days"
+msgstr "Joka %d päivä"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:512
+#, php-format
+msgid "Every %d weeks"
+msgstr "Joka %d viikko"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:513
+#, php-format
+msgid " on %s"
+msgstr "%s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:518
+#, php-format
+msgid "Every %d months"
+msgstr "Joka %d kuukausi"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:520
+#, php-format
+msgid " on the %s %s"
+msgstr " %s %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:520
+msgid "day"
+msgstr "päivä"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:525
+#, php-format
+msgid "Every %d years"
+msgstr "Joka %d vuosi"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:527
+msgid "last"
+msgstr "viimeinen"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:532
+#, php-format
+msgid " on the %s %s of %s"
+msgstr " %s %s %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:539
+#, php-format
+msgid " until %s"
+msgstr " %s saakka"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:544
+#, php-format
+msgid "%s%s%s"
+msgstr "%s%s%s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:559
+msgid ", and"
+msgstr "ja"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:561
+msgid "and"
+msgstr "ja"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:563
+msgid ","
+msgstr ","
+
+#: ../lib/tribe-events-recurrence-meta.class.php:578
+msgid "January"
+msgstr "tammikuu"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:578
+msgid "February"
+msgstr "helmikuu"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:578
+msgid "March"
+msgstr "maaliskuu"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:578
+msgid "April"
+msgstr "huhtikuu"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:579
+msgid "June"
+msgstr "kesäkuu"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:579
+msgid "July"
+msgstr "heinäkuu"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:579
+msgid "August"
+msgstr "elokuu"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:579
+msgid "September"
+msgstr "syyskuu"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:579
+msgid "October"
+msgstr "lokakuu"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:579
+msgid "November"
+msgstr "marraskuu"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:579
+msgid "December"
+msgstr "joulukuu"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:585
+msgid ", and "
+msgstr "ja "
+
+#: ../lib/tribe-events-recurrence-meta.class.php:587
+msgid " and "
+msgstr "ja "
+
+#: ../lib/tribe-events-recurrence-meta.class.php:589
+msgid ", "
+msgstr ", "
+
+#: ../lib/widget-advanced-list.class.php:16
+msgid "A widget that displays the next upcoming x events."
+msgstr "Vimpain, joka näyttää seuraavat x tulevaa tapahtumaa."
+
+#: ../lib/widget-calendar.class.php:14
+msgid "A calendar of your events"
+msgstr "Kalenteri tapahtumistasi"
+
+#: ../lib/widget-calendar.class.php:15
+msgid "Events Calendar"
+msgstr "Tapahtumakalenteri"
+
+#: ../lib/widget-featured.class.php:13
+msgid "Your next upcoming event"
+msgstr "Seuraava tuleva tapahtumasi"
+
+#: ../lib/widget-featured.class.php:14
+msgid "Next Event Widget"
+msgstr "Seuraava tapahtuma vimpain"
+
+#: ../lib/widget-featured.class.php:58
+msgid "There are no upcoming events at this time."
+msgstr "Tällä hetkellä ei ole tulevia tapahtumia."
+
+#: ../vendor/advanced-post-manager/demo/demo.php:31
+#, php-format
+msgid "It looks like you might not have any demo data. <a href=\"%s\">Download our data</a> and use the <a href=\"%s\">WordPress Importer</a>."
+msgstr "Demo tietoja ei näyttäisi olevan. <a href=\"%s\">Lataa meidän tiedot</a> ja käytä <a href=\"%s\">WordPressin tuontia</a>."
+
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:133
+msgid "Add a Column"
+msgstr "Lisää sarake"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:507
+msgid "Choose a Saved Filter"
+msgstr "Valitse talletettu suodatin"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:623
+msgid "Add a Filter"
+msgstr "Lisää suodatin"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:46
+msgid "Extended Information"
+msgstr "Lisätietoja"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:128
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:401
+msgid "Delete this image"
+msgstr "Poista tämä kuva"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:128
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:356
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:401
+msgid "Delete"
+msgstr "Poista"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:352
+msgid "Uploaded files"
+msgstr "Lisätyt tiedostot"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:362
+msgid "Upload new files"
+msgstr "Lisää uusia tiedostoja"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:365
+msgid "Add another file"
+msgstr "Lisää uusi tiedosto"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:408
+msgid "Add more images"
+msgstr "Lisää kuvia"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:416
+msgid "Select a color"
+msgstr "Valitse väri"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:7
+#: ../vendor/advanced-post-manager/views/edit-filters.php:8
+msgid "Click to toggle"
+msgstr "Paina vaihtaaksesi"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:8
+msgid "Filters &amp; Columns"
+msgstr "Suodata &amp; sarakkeet"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:17
+msgid "Apply"
+msgstr "Aseta"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:18
+msgid "Clear"
+msgstr "Tyhjennä"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:19
+#: ../vendor/advanced-post-manager/views/edit-filters.php:26
+msgid "Save"
+msgstr "Tallenna"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:21
+msgid "Export to CSV"
+msgstr "Vie CSV-muodossa"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:25
+msgid "Filter Name"
+msgstr "Suodattimen nimi"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:27
+msgid "Cancel"
+msgstr "Keskeytä"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:9
+#: ../vendor/pue-client/admin-views/license-key.view.php:13
+msgid "License Key"
+msgstr "Lisenssiavain"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:10
+#: ../vendor/pue-client/admin-views/license-key.view.php:17
+msgid "A valid license key is required for support and updates."
+msgstr "Tukeen ja päivitykseen vaaditaan voimassa olevaa lisenssiavainta."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:194
+#, php-format
+msgid "License Key for %s"
+msgstr "Lisenssiavain %s"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:195
+msgid "A valid license key is required for support and updates"
+msgstr "Tukeen ja päivitykseen vaaditaan voimassa olevaa lisenssiavainta"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:258
+msgid "License key(s) updated."
+msgstr "Lisenssiavaimia päivitetään."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:295
+msgid "Sorry, key validation server is not available."
+msgstr "Valitettavasti avaimen tunnistuspalvelin ei vastaa."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:297
+msgid "Sorry, this key is expired."
+msgstr "Avain on vanhentunut."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:299
+msgid "Sorry, this key is out of installs."
+msgstr "Valitettavasti tämän avaimen asennusmäärät ovat ylittyneet."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:301
+msgid "Sorry, this key is not valid."
+msgstr "Valitettavasti avain ei kelpaa."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:304
+#, php-format
+msgid "Valid Key! Expires on %s"
+msgstr "Avain kelpaa! Voimassaolo päättyy %s"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:308
+msgid "Hmmm... something's wrong with this validator. Please contact <a href=\"http://tri.be/support\">support.</a>"
+msgstr "Hmmm... jokin ei täsmää. Ota yhteyttä <a href=\"http://tri.be/support\">tukeen.</a>"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:484
+msgid "[X]"
+msgstr "[X]"
+
+#: ../vendor/tribe-support/tribe-support.class.php:54
+msgid "Send a support request for this site."
+msgstr "Lähetä tukipyyntö tähän kohteeseen."
+
+#: ../views/events-advanced-list-load-widget-display.php:49
+#: ../views/widget-featured-display.php:48
+msgid "All Day"
+msgstr "Kokopäivä"
+
+#: ../views/events-advanced-list-load-widget-display.php:52
+msgid "Ends"
+msgstr "Päättyy"
+
+#: ../views/events-advanced-list-load-widget-display.php:107
+msgid "Price:"
+msgstr "Hinta:"
+
+#: ../views/single-venue.php:14
+msgid "&laquo; Back to Events"
+msgstr "&laquo; Takaisin tapahtumiin"
+
+#: ../views/single-venue.php:20
+msgid "Name:"
+msgstr "Nimi:"
+
+#: ../views/single-venue.php:23
+msgid "Phone:"
+msgstr "Puhelin:"
+
+#: ../views/single-venue.php:29
+msgid "Address:"
+msgstr "Osoite:"
+
+#: ../views/single-venue.php:31
+msgid "Click to view a Google Map"
+msgstr "Avaa Google Mapissä"
+
+#: ../views/single-venue.php:31
+msgid "Google Map"
+msgstr "Google Map"
+
+#: ../views/single-venue.php:39
+msgid "Description:"
+msgstr "Kuvaus:"
+
+#: ../views/single-venue.php:66
+msgid "Start:"
+msgstr "Alkaa:"
+
+#: ../views/single-venue.php:70
+msgid "End:"
+msgstr "Päättyy:"
+
+#: ../views/single-venue.php:75
+msgid "Date:"
+msgstr "Päivämäärä:"
+
+#: ../views/single-venue.php:84
+msgid "Cost:"
+msgstr "Kulut:"
+
+#~ msgid ""
+#~ "You can set up any additional custom fields that you would like to use "
+#~ "for events here."
+#~ msgstr ""
+#~ "Du kan ställa in ytterligare anpassade fält som du vill använda för "
+#~ "evenemang här."
+
+#~ msgid "Dismiss"
+#~ msgstr "Avfärda"
+
+#~ msgid "Add more file"
+#~ msgstr "Lägg till fler filer"
+
+#~ msgid "Event List"
+#~ msgstr "Evenemangslista"
+
+#~ msgid "Venue:"
+#~ msgstr "Plats:"
+
+#~ msgid ""
+#~ " listed under %s. Check out past events for this category or view the "
+#~ "full calendar."
+#~ msgstr ""
+#~ "listad under %s. Kolla tidigare evenemang för denna kategori eller visa "
+#~ "hela kalendern."
+
+#~ msgid ""
+#~ " listed under %s. Check out upcoming events for this category or view the "
+#~ "full calendar."
+#~ msgstr ""
+#~ "listad under %s. Kolla kommande evenemang för denna kategori eller visa "
+#~ "hela kalendern."
+
+#~ msgid "No previous events"
+#~ msgstr "Inga tidigare evenemang"
+
+#~ msgid "&laquo; Previous Events"
+#~ msgstr "&laquo; Föregående evenemang"
+
+#~ msgid "Next Events &raquo;"
+#~ msgstr "Nästa evenemang &raquo;"
+
+#~ msgid "iCal Import"
+#~ msgstr "iCal import"
+
+#~ msgid "View all &raquo;"
+#~ msgstr "Visa alla &raquo;"
+
+#~ msgid "This event has passed."
+#~ msgstr "Evenemanget har varit."
+
+#~ msgid "Email:"
+#~ msgstr "E-post:"
+
+#~ msgid "Schedule:"
+#~ msgstr "Schema:"
+
+#~ msgid "Add to Google Calendar"
+#~ msgstr "Lägg till i Google Calendar"
+
+#~ msgid "+ Google Calendar"
+#~ msgstr "+ Google Calendar"
+
+#~ msgid "Edit"
+#~ msgstr "Redigera"
+
+#~ msgid "Event Time &amp; Date"
+#~ msgstr "Evenemang tid &amp; datum"
+
+#~ msgid ""
+#~ "You have changed the recurrence rules of this event.  Saving the event "
+#~ "will update all future events.  If you did not mean to change all events, "
+#~ "then please refresh the page."
+#~ msgstr ""
+#~ "Du har ändrat repetitionsreglerna för detta evenemang. Spara händelsen "
+#~ "kommer att uppdatera alla framtida evenemang. Om du ändå inte vill ändra "
+#~ "alla evenemang kan du uppdatera sidan."
+
+#~ msgid "All day event?"
+#~ msgstr "Heldagsevenemang?"
+
+#~ msgid "YYYY-MM-DD"
+#~ msgstr "ÅÅÅÅ-MM-DD"
+
+#~ msgid "@"
+#~ msgstr "@"
+
+#~ msgid "Event Location Details"
+#~ msgstr "Plats för evenemanget"
+
+#~ msgid "Show Google Maps Link:"
+#~ msgstr "Visa Google Maps länk:"
+
+#~ msgid "Show Google Map:"
+#~ msgstr "Visa Google Map:"
+
+#~ msgid "Event Organizer Details"
+#~ msgstr "Arrangör info"
+
+#~ msgid "Leave blank to hide the field. Enter a 0 for events that are free."
+#~ msgstr ""
+#~ "Lämnas blankt för att dölja fältet. Skriv 0 för evenemang som är gratis."
+
+#~ msgid ""
+#~ "Looking for additional functionality including recurring events, custom "
+#~ "meta, community events, ticket sales and more?"
+#~ msgstr ""
+#~ "Söker du ytterligare funktionalitet som repeterande evenemang, anpassad "
+#~ "meta, community evenemang, biljettförsäljning med mera?"
+
+#~ msgid "Check out the <a href=\"%s\">available Add-Ons</a>."
+#~ msgstr "Kolla <a href=\"%s\">tillgängliga  tillägg</a>."
+
+#~ msgid "Which events do you wish to update?"
+#~ msgstr "Vilka evenemang vill du uppdatera?"
+
+#~ msgid "Select your desired action"
+#~ msgstr "Välj din önskade åtgärd"
+
+#~ msgid "Hide From Upcoming Events List"
+#~ msgstr "Dölj från kommande evenemangslista"
+
+#~ msgid "%s Settings"
+#~ msgstr "%s inställningar"
+
+#~ msgid "Need a hand?"
+#~ msgstr "Behöver du hjälp?"
+
+#~ msgid ""
+#~ "If you're stuck on these options, please <a href=\"%s\">check out the "
+#~ "documentation</a>. Or, go to the <a href=\"%s\">support forum</a>."
+#~ msgstr ""
+#~ "Om du kört fast på dessa alternativ, <a href=\"%s\">kolla "
+#~ "dokumentationen</a>. Eller gå till <a href=\"%s\">supportforumet</a>."
+
+#~ msgid "Here is the iCal feed URL for your events: "
+#~ msgstr "Här är iCal feed URL för dina evenemang:"
+
+#~ msgid "Settings"
+#~ msgstr "Inställningar"
+
+#~ msgid "Show Comments"
+#~ msgstr "Visa kommentarer"
+
+#~ msgid "Multiday Event Cutoff"
+#~ msgstr "Flerdagsevenemag avklippt"
+
+#~ msgid ""
+#~ "For multi-day events, hide the last day from grid view if it ends on or "
+#~ "before this time."
+#~ msgstr ""
+#~ "För flerdagsevenemang, dölj den sista dagen från rutnätsvyn om det slutar "
+#~ "vid eller före denna tid."
+
+#~ msgid "Enable Google Maps"
+#~ msgstr "Aktivera Google Maps"
+
+#~ msgid "Height"
+#~ msgstr "Höjd"
+
+#~ msgid "Width"
+#~ msgstr "Bredd"
+
+#~ msgid "(number or %)"
+#~ msgstr "(Antal eller %)"
+
+#~ msgid ""
+#~ "If you don't have this turned on, your event listings won't have the "
+#~ "backend map preview or frontend embedded map."
+#~ msgstr ""
+#~ "Om du inte har detta aktiverat, kommer ditt evenemangs listningar inte ha "
+#~ "backend kartförhandsgranskning eller frontend inbäddad karta."
+
+#~ msgid "Events URL slug"
+#~ msgstr "Evenemangs URL slug"
+
+#~ msgid "The slug used for building the Events URL."
+#~ msgstr "Sluggen som används för att bygga evenemangs URL:en."
+
+#~ msgid "Single Event URL slug"
+#~ msgstr "Enstaka evenemangs URL slug"
+
+#~ msgid "The slug used for building a single Event URL."
+#~ msgstr ""
+#~ "Sluggen som används för att bygga evenemangs URL:en för ett enstaka "
+#~ "evenemang."
+
+#~ msgid ""
+#~ "<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. "
+#~ "The above should ideally be plural, and this singular.<br />Your single "
+#~ "Event URL is like: <strong>%s</strong>"
+#~ msgstr ""
+#~ "<strong>NOTERA:</strong> Du kan <em>inte</em> använda samma slug som "
+#~ "ovan. Det ovan bör idealt vara i plural, och detta i singular.<br />URL:"
+#~ "en för ett enstaka evenemang är: <strong>%s</strong>"
+
+#~ msgid "Debug"
+#~ msgstr "Debugga"
+
+#~ msgid "Debug Events display issues."
+#~ msgstr "Debugga problem med visning av evenemang."
+
+#~ msgid ""
+#~ "Enable this option to log debug information. By default this will log to "
+#~ "your server PHP error log. If you'd like to see the log messages in your "
+#~ "browser, then we recommend that you install the <a href=\"%s\" target="
+#~ "\"_blank\">Debug Bar Plugin</a> and look for the \"Tribe\" tab in the "
+#~ "debug output."
+#~ msgstr ""
+#~ "Aktivera detta alternativ för att logga debuginformation. Som standard "
+#~ "kommer detta att logga till din servers PHP-fellogg. Om du vill se loggen "
+#~ "i din webbläsare, rekommenderar vi att du installerar <a href=\"%s\" "
+#~ "target=\"_blank\">Debug Bar Plugin</a> och titta under \"Tribe\"fliken i "
+#~ "debug utmatningen."
+
+#~ msgid "Theme Settings"
+#~ msgstr "Temainställningar"
+
+#~ msgid "Events Template"
+#~ msgstr "Evenemangsmall"
+
+#~ msgid "Default Page Template"
+#~ msgstr "Standard sidmall"
+
+#~ msgid ""
+#~ "Choose a page template to control the look and feel of your calendar."
+#~ msgstr ""
+#~ "Välj en sidmall för att kontrollera utseendet och känslan av din kalender."
+
+#~ msgid "Add HTML before calendar"
+#~ msgstr "Lägg till HTML före kalender"
+
+#~ msgid ""
+#~ "Some themes may require that you add extra divs before the calendar list "
+#~ "to help with styling."
+#~ msgstr ""
+#~ "Vissa teman kan kräva att du lägger till extra div:ar innan "
+#~ "kalenderlistan för att hjälpa till med styling."
+
+#~ msgid "This is displayed directly after the header."
+#~ msgstr "Detta visas direkt efter sidhuvudet."
+
+#~ msgid "You may use (x)HTML."
+#~ msgstr "Du kan använda (x)HTML."
+
+#~ msgid "Add HTML after calendar"
+#~ msgstr "Lägg till HTML efter kalender"
+
+#~ msgid ""
+#~ "Some themes may require that you add extra divs after the calendar list "
+#~ "to help with styling."
+#~ msgstr ""
+#~ "Vissa teman kan kräva att du lägger extra div:ar efter kalenderlistan för "
+#~ "att hjälpa till med styling."
+
+#~ msgid "This is displayed directly above the footer."
+#~ msgstr "Detta visas direkt över sidfoten."
+
+#~ msgid "Save Changes"
+#~ msgstr "Spara ändringar"
+
+#~ msgid "Organizer Name:"
+#~ msgstr "Arrangörnamn:"
+
+#~ msgid "Website:"
+#~ msgstr "Webbplats:"
+
+#~ msgid "Yes"
+#~ msgstr "Ja"
+
+#~ msgid "All %s"
+#~ msgstr "Alla %s"
+
+#~ msgid "United States"
+#~ msgstr "Förenta Staterna"
+
+#~ msgid "Afghanistan"
+#~ msgstr "Afghanistan"
+
+#~ msgid "Albania"
+#~ msgstr "Albanien"
+
+#~ msgid "Algeria"
+#~ msgstr "Algeriet"
+
+#~ msgid "American Samoa"
+#~ msgstr "Amerikanska Samoa"
+
+#~ msgid "Andorra"
+#~ msgstr "Andorra"
+
+#~ msgid "Angola"
+#~ msgstr "Angola"
+
+#~ msgid "Anguilla"
+#~ msgstr "Anguilla"
+
+#~ msgid "Antarctica"
+#~ msgstr "Antarktis"
+
+#~ msgid "Antigua And Barbuda"
+#~ msgstr "Antigua och Barbuda"
+
+#~ msgid "Argentina"
+#~ msgstr "Argentina"
+
+#~ msgid "Armenia"
+#~ msgstr "Armenien"
+
+#~ msgid "Aruba"
+#~ msgstr "Aruba"
+
+#~ msgid "Australia"
+#~ msgstr "Australien"
+
+#~ msgid "Azerbaijan"
+#~ msgstr "Azerbajdzjan"
+
+#~ msgid "Bahamas"
+#~ msgstr "Bahamas"
+
+#~ msgid "Bahrain"
+#~ msgstr "Bahrain"
+
+#~ msgid "Bangladesh"
+#~ msgstr "Bangladesh"
+
+#~ msgid "Barbados"
+#~ msgstr "Barbados"
+
+#~ msgid "Belarus"
+#~ msgstr "Vitryssland"
+
+#~ msgid "Belgium"
+#~ msgstr "Belgien"
+
+#~ msgid "Belize"
+#~ msgstr "Belize"
+
+#~ msgid "Benin"
+#~ msgstr "Benin"
+
+#~ msgid "Bermuda"
+#~ msgstr "Bermuda"
+
+#~ msgid "Bhutan"
+#~ msgstr "Bhutan"
+
+#~ msgid "Bolivia"
+#~ msgstr "Bolivia"
+
+#~ msgid "Bosnia And Herzegowina"
+#~ msgstr "Bosnien och Hercegovina"
+
+#~ msgid "Botswana"
+#~ msgstr "Botswana"
+
+#~ msgid "Bouvet Island"
+#~ msgstr "Bouvet Island"
+
+#~ msgid "Brazil"
+#~ msgstr "Brasilien"
+
+#~ msgid "British Indian Ocean Territory"
+#~ msgstr "Brittiska territoriet i Indiska oceanen"
+
+#~ msgid "Brunei Darussalam"
+#~ msgstr "Brunei Darussalam"
+
+#~ msgid "Bulgaria"
+#~ msgstr "Bulgarien"
+
+#~ msgid "Burkina Faso"
+#~ msgstr "Burkina Faso"
+
+#~ msgid "Burundi"
+#~ msgstr "Burundi"
+
+#~ msgid "Cambodia"
+#~ msgstr "Kambodja"
+
+#~ msgid "Cameroon"
+#~ msgstr "Kamerun"
+
+#~ msgid "Canada"
+#~ msgstr "Kanada"
+
+#~ msgid "Cape Verde"
+#~ msgstr "Kap Verde"
+
+#~ msgid "Cayman Islands"
+#~ msgstr "Caymanöarna"
+
+#~ msgid "Central African Republic"
+#~ msgstr "Centralafrikanska republiken"
+
+#~ msgid "Chad"
+#~ msgstr "Tchad"
+
+#~ msgid "Chile"
+#~ msgstr "Chile"
+
+#~ msgid "China"
+#~ msgstr "Kina"
+
+#~ msgid "Christmas Island"
+#~ msgstr "Julön"
+
+#~ msgid "Cocos (Keeling) Islands"
+#~ msgstr "Kokosöarna"
+
+#~ msgid "Colombia"
+#~ msgstr "Colombia"
+
+#~ msgid "Comoros"
+#~ msgstr "Komorerna"
+
+#~ msgid "Congo"
+#~ msgstr "Kongo"
+
+#~ msgid "Congo, The Democratic Republic Of The"
+#~ msgstr "Kongo-Kinshasa (Demokratiska republiken Kongo)"
+
+#~ msgid "Cook Islands"
+#~ msgstr "Cooköarna"
+
+#~ msgid "Costa Rica"
+#~ msgstr "Costa Rica"
+
+#~ msgid "Cote D'Ivoire"
+#~ msgstr "Elfenbenskusten"
+
+#~ msgid "Croatia (Local Name: Hrvatska)"
+#~ msgstr "Kroatien"
+
+#~ msgid "Cuba"
+#~ msgstr "Kuba"
+
+#~ msgid "Cyprus"
+#~ msgstr "Cypern"
+
+#~ msgid "Czech Republic"
+#~ msgstr "Tjekien"
+
+#~ msgid "Denmark"
+#~ msgstr "Danmark"
+
+#~ msgid "Djibouti"
+#~ msgstr "Djibouti (Republiken Djibouti)"
+
+#~ msgid "Dominica"
+#~ msgstr "Dominica (Samväldet Dominica)"
+
+#~ msgid "Dominican Republic"
+#~ msgstr "Dominikanska republiken"
+
+#~ msgid "East Timor"
+#~ msgstr "Östtimor"
+
+#~ msgid "Ecuador"
+#~ msgstr "Ecuador"
+
+#~ msgid "Egypt"
+#~ msgstr "Egypten"
+
+#~ msgid "El Salvador"
+#~ msgstr "El Salvador"
+
+#~ msgid "Equatorial Guinea"
+#~ msgstr "Ekvatorialguinea"
+
+#~ msgid "Eritrea"
+#~ msgstr "Eritrea"
+
+#~ msgid "Estonia"
+#~ msgstr "Estland"
+
+#~ msgid "Ethiopia"
+#~ msgstr "Etiopien"
+
+#~ msgid "Falkland Islands (Malvinas)"
+#~ msgstr "Falklandsöarna (Malvinerna)"
+
+#~ msgid "Faroe Islands"
+#~ msgstr "Färöarna"
+
+#~ msgid "Fiji"
+#~ msgstr "Fiji"
+
+#~ msgid "Finland"
+#~ msgstr "Finland"
+
+#~ msgid "France, Metropolitan"
+#~ msgstr "France métropolitaine"
+
+#~ msgid "French Guiana"
+#~ msgstr "Franska Guyana"
+
+#~ msgid "French Polynesia"
+#~ msgstr "Franska Polynesien"
+
+#~ msgid "French Southern Territories"
+#~ msgstr "Franska sydterritorierna"
+
+#~ msgid "Gabon"
+#~ msgstr "Gabon"
+
+#~ msgid "Gambia"
+#~ msgstr "Gambia"
+
+#~ msgid "Georgia"
+#~ msgstr "Georgia"
+
+#~ msgid "Germany"
+#~ msgstr "Tyskland"
+
+#~ msgid "Ghana"
+#~ msgstr "Ghana"
+
+#~ msgid "Gibraltar"
+#~ msgstr "Gibraltar"
+
+#~ msgid "Greece"
+#~ msgstr "Grekland"
+
+#~ msgid "Greenland"
+#~ msgstr "Grönland"
+
+#~ msgid "Grenada"
+#~ msgstr "Grenada"
+
+#~ msgid "Guadeloupe"
+#~ msgstr "Guadeloupe"
+
+#~ msgid "Guam"
+#~ msgstr "Guam"
+
+#~ msgid "Guatemala"
+#~ msgstr "Guatemala"
+
+#~ msgid "Guinea-Bissau"
+#~ msgstr "Guinea-Bissau"
+
+#~ msgid "Guyana"
+#~ msgstr "Guyana"
+
+#~ msgid "Haiti"
+#~ msgstr "Haiti"
+
+#~ msgid "Heard And Mc Donald Islands"
+#~ msgstr "Heard And Mc Donald Islands"
+
+#~ msgid "Holy See (Vatican City State)"
+#~ msgstr "Vatikanen"
+
+#~ msgid "Honduras"
+#~ msgstr "Honduras"
+
+#~ msgid "Hong Kong"
+#~ msgstr "Hong Kong"
+
+#~ msgid "Hungary"
+#~ msgstr "Ungern"
+
+#~ msgid "Iceland"
+#~ msgstr "Island"
+
+#~ msgid "India"
+#~ msgstr "Indien"
+
+#~ msgid "Indonesia"
+#~ msgstr "Indonesien"
+
+#~ msgid "Iran (Islamic Republic Of)"
+#~ msgstr "Iran (Islamiska republiken Iran)"
+
+#~ msgid "Iraq"
+#~ msgstr "Irak"
+
+#~ msgid "Ireland"
+#~ msgstr "Irland"
+
+#~ msgid "Israel"
+#~ msgstr "Israel"
+
+#~ msgid "Jamaica"
+#~ msgstr "Jamaica"
+
+#~ msgid "Jordan"
+#~ msgstr "Jordanien"
+
+#~ msgid "Kazakhstan"
+#~ msgstr "Kazakstan"
+
+#~ msgid "Kenya"
+#~ msgstr "Kenya"
+
+#~ msgid "Kiribati"
+#~ msgstr "Kiribati"
+
+#~ msgid "Korea, Democratic People's Republic Of"
+#~ msgstr "Nordkorea (Demokratiska folkrepubliken Korea)"
+
+#~ msgid "Korea, Republic Of"
+#~ msgstr "Sydkorea (Republiken Korea)"
+
+#~ msgid "Kuwait"
+#~ msgstr "Kuwait"
+
+#~ msgid "Kyrgyzstan"
+#~ msgstr "Kirgizistan"
+
+#~ msgid "Lao People's Democratic Republic"
+#~ msgstr "Laos (Demokratiska folkrepubliken Laos)"
+
+#~ msgid "Latvia"
+#~ msgstr "Lettland"
+
+#~ msgid "Lebanon"
+#~ msgstr "Libanon"
+
+#~ msgid "Lesotho"
+#~ msgstr "Lesotho (Konungariket Lesotho)"
+
+#~ msgid "Liberia"
+#~ msgstr "Liberia"
+
+#~ msgid "Libya"
+#~ msgstr "Libyen"
+
+#~ msgid "Liechtenstein"
+#~ msgstr "Liechtenstein"
+
+#~ msgid "Lithuania"
+#~ msgstr "Litauen"
+
+#~ msgid "Luxembourg"
+#~ msgstr "Luxemburg"
+
+#~ msgid "Macedonia"
+#~ msgstr "Makedonien"
+
+#~ msgid "Madagascar"
+#~ msgstr "Madagaskar"
+
+#~ msgid "Malawi"
+#~ msgstr "Malawi"
+
+#~ msgid "Malaysia"
+#~ msgstr "Malaysia"
+
+#~ msgid "Maldives"
+#~ msgstr "Maldiverna (Republiken Maldiverna)"
+
+#~ msgid "Mali"
+#~ msgstr "Mali"
+
+#~ msgid "Malta"
+#~ msgstr "Malta"
+
+#~ msgid "Marshall Islands"
+#~ msgstr "Marshallöarna"
+
+#~ msgid "Martinique"
+#~ msgstr "Martinique"
+
+#~ msgid "Mauritania"
+#~ msgstr "Mauretanien (Islamiska republiken Mauretanien)"
+
+#~ msgid "Mauritius"
+#~ msgstr "Mauritius"
+
+#~ msgid "Mexico"
+#~ msgstr "Mexico"
+
+#~ msgid "Micronesia, Federated States Of"
+#~ msgstr "Mikronesien"
+
+#~ msgid "Moldova, Republic Of"
+#~ msgstr "Moldavien"
+
+#~ msgid "Monaco"
+#~ msgstr "Monaco"
+
+#~ msgid "Mongolia"
+#~ msgstr "Mongoliet"
+
+#~ msgid "Montenegro"
+#~ msgstr "Montenegro"
+
+#~ msgid "Montserrat"
+#~ msgstr "Montserrat"
+
+#~ msgid "Morocco"
+#~ msgstr "Marocko"
+
+#~ msgid "Mozambique"
+#~ msgstr "Moçambique (Republiken Moçambique)"
+
+#~ msgid "Namibia"
+#~ msgstr "Namibia"
+
+#~ msgid "Nauru"
+#~ msgstr "Nauru"
+
+#~ msgid "Nepal"
+#~ msgstr "Nepal"
+
+#~ msgid "Netherlands"
+#~ msgstr "Nederländerna"
+
+#~ msgid "Netherlands Antilles"
+#~ msgstr "Nederländska Antillerna"
+
+#~ msgid "New Caledonia"
+#~ msgstr "Nya Kaledonien"
+
+#~ msgid "New Zealand"
+#~ msgstr "Nya Zeeland"
+
+#~ msgid "Nicaragua"
+#~ msgstr "Nicaragua"
+
+#~ msgid "Niger"
+#~ msgstr "Niger"
+
+#~ msgid "Nigeria"
+#~ msgstr "Nigeria"
+
+#~ msgid "Niue"
+#~ msgstr "Niue"
+
+#~ msgid "Norfolk Island"
+#~ msgstr "Norfolkön"
+
+#~ msgid "Northern Mariana Islands"
+#~ msgstr "Nordmarianerna"
+
+#~ msgid "Norway"
+#~ msgstr "Norge"
+
+#~ msgid "Pakistan"
+#~ msgstr "Pakistan"
+
+#~ msgid "Palau"
+#~ msgstr "Palau"
+
+#~ msgid "Panama"
+#~ msgstr "Panama"
+
+#~ msgid "Papua New Guinea"
+#~ msgstr "Papua Nya Guinea"
+
+#~ msgid "Paraguay"
+#~ msgstr "Paraguay"
+
+#~ msgid "Peru"
+#~ msgstr "Peru"
+
+#~ msgid "Philippines"
+#~ msgstr "Filippinerna"
+
+#~ msgid "Pitcairn"
+#~ msgstr "Pitcairnöarna"
+
+#~ msgid "Poland"
+#~ msgstr "Polen"
+
+#~ msgid "Portugal"
+#~ msgstr "Portugal"
+
+#~ msgid "Puerto Rico"
+#~ msgstr "Puerto Rico"
+
+#~ msgid "Qatar"
+#~ msgstr "Qatar"
+
+#~ msgid "Reunion"
+#~ msgstr "Réunion"
+
+#~ msgid "Romania"
+#~ msgstr "Rumänien"
+
+#~ msgid "Russian Federation"
+#~ msgstr "Ryssland (Ryska federationen)"
+
+#~ msgid "Rwanda"
+#~ msgstr "Rwanda"
+
+#~ msgid "Saint Kitts And Nevis"
+#~ msgstr "Saint Kitts och Nevis"
+
+#~ msgid "Saint Lucia"
+#~ msgstr "Saint Lucia"
+
+#~ msgid "Saint Vincent And The Grenadines"
+#~ msgstr "Saint Vincent och Grenadinerna"
+
+#~ msgid "Samoa"
+#~ msgstr "Samoa"
+
+#~ msgid "San Marino"
+#~ msgstr "San Marino"
+
+#~ msgid "Sao Tome And Principe"
+#~ msgstr "São Tomé och Príncipe"
+
+#~ msgid "Saudi Arabia"
+#~ msgstr "Saudiarabien"
+
+#~ msgid "Senegal"
+#~ msgstr "Senegal"
+
+#~ msgid "Serbia"
+#~ msgstr "Serbien"
+
+#~ msgid "Seychelles"
+#~ msgstr "Seychellerna"
+
+#~ msgid "Sierra Leone"
+#~ msgstr "Sierra Leone"
+
+#~ msgid "Singapore"
+#~ msgstr "Singapore"
+
+#~ msgid "Slovakia (Slovak Republic)"
+#~ msgstr "Slovakien"
+
+#~ msgid "Slovenia"
+#~ msgstr "Slovenien"
+
+#~ msgid "Solomon Islands"
+#~ msgstr "Salomonöarna"
+
+#~ msgid "Somalia"
+#~ msgstr "Somalia"
+
+#~ msgid "South Africa"
+#~ msgstr "Sydafrika"
+
+#~ msgid "South Georgia, South Sandwich Islands"
+#~ msgstr "Sydgeorgien och Sydsandwichöarna"
+
+#~ msgid "Spain"
+#~ msgstr "Spanien"
+
+#~ msgid "Sri Lanka"
+#~ msgstr "Sri Lanka"
+
+#~ msgid "St. Helena"
+#~ msgstr "Sankta Helena"
+
+#~ msgid "St. Pierre And Miquelon"
+#~ msgstr "Saint-Pierre och Miquelon"
+
+#~ msgid "Suriname"
+#~ msgstr "Surinam"
+
+#~ msgid "Svalbard And Jan Mayen Islands"
+#~ msgstr "Svalbard och Jan Mayen"
+
+#~ msgid "Swaziland"
+#~ msgstr "Swaziland"
+
+#~ msgid "Sweden"
+#~ msgstr "Sverige"
+
+#~ msgid "Switzerland"
+#~ msgstr "Schweiz"
+
+#~ msgid "Syrian Arab Republic"
+#~ msgstr "Syrien (Arabrepubliken Syrien)"
+
+#~ msgid "Taiwan"
+#~ msgstr "Taiwan"
+
+#~ msgid "Tajikistan"
+#~ msgstr "Tadzjikistan"
+
+#~ msgid "Tanzania, United Republic Of"
+#~ msgstr "Tanzania"
+
+#~ msgid "Togo"
+#~ msgstr "Togo"
+
+#~ msgid "Tokelau"
+#~ msgstr "Tokelauöarna"
+
+#~ msgid "Tonga"
+#~ msgstr "Tonga"
+
+#~ msgid "Trinidad And Tobago"
+#~ msgstr "Trinidad And Tobago"
+
+#~ msgid "Tunisia"
+#~ msgstr "Tunisien"
+
+#~ msgid "Turkey"
+#~ msgstr "Turkiet"
+
+#~ msgid "Turkmenistan"
+#~ msgstr "Turkmenistan"
+
+#~ msgid "Turks And Caicos Islands"
+#~ msgstr "Turks- och Caicosöarna"
+
+#~ msgid "Tuvalu"
+#~ msgstr "Tuvalu"
+
+#~ msgid "Uganda"
+#~ msgstr "Uganda"
+
+#~ msgid "Ukraine"
+#~ msgstr "Ukraina"
+
+#~ msgid "United Arab Emirates"
+#~ msgstr "Förenade Arabemiraten"
+
+#~ msgid "United Kingdom"
+#~ msgstr "Storbritannien (Förenade kungariket Storbritannien)"
+
+#~ msgid "United States Minor Outlying Islands"
+#~ msgstr "Förenta staternas avlägset belägna öar"
+
+#~ msgid "Uruguay"
+#~ msgstr "Uruguay"
+
+#~ msgid "Uzbekistan"
+#~ msgstr "Uzbekistan"
+
+#~ msgid "Vanuatu"
+#~ msgstr "Vanuatu"
+
+#~ msgid "Venezuela"
+#~ msgstr "Venezuela"
+
+#~ msgid "Virgin Islands (British)"
+#~ msgstr "Brittiska Jungfruöarna"
+
+#~ msgid "Virgin Islands (U.S.)"
+#~ msgstr "Amerikanska Jungfruöarna"
+
+#~ msgid "Wallis And Futuna Islands"
+#~ msgstr "Wallis- och Futunaöarna"
+
+#~ msgid "Western Sahara"
+#~ msgstr "Västsahara"
+
+#~ msgid "Yemen"
+#~ msgstr "Jemen"
+
+#~ msgid "Zambia"
+#~ msgstr "Zambia"
+
+#~ msgid "Zimbabwe"
+#~ msgstr "Zimbabwe"
+
+#~ msgid "Alabama"
+#~ msgstr "Alabama"
+
+#~ msgid "Alaska"
+#~ msgstr "Alaska"
+
+#~ msgid "Arizona"
+#~ msgstr "Arizona"
+
+#~ msgid "Arkansas"
+#~ msgstr "Arkansas"
+
+#~ msgid "California"
+#~ msgstr "California"
+
+#~ msgid "Colorado"
+#~ msgstr "Colorado"
+
+#~ msgid "Connecticut"
+#~ msgstr "Connecticut"
+
+#~ msgid "Delaware"
+#~ msgstr "Delaware"
+
+#~ msgid "District of Columbia"
+#~ msgstr "District of Columbia"
+
+#~ msgid "Hawaii"
+#~ msgstr "Hawaii"
+
+#~ msgid "Idaho"
+#~ msgstr "Idaho"
+
+#~ msgid "Illinois"
+#~ msgstr "Illinois"
+
+#~ msgid "Indiana"
+#~ msgstr "Indiana"
+
+#~ msgid "Iowa"
+#~ msgstr "Iowa"
+
+#~ msgid "Kansas"
+#~ msgstr "Kansas"
+
+#~ msgid "Kentucky"
+#~ msgstr "Kentucky"
+
+#~ msgid "Louisiana"
+#~ msgstr "Louisiana"
+
+#~ msgid "Maine"
+#~ msgstr "Maine"
+
+#~ msgid "Maryland"
+#~ msgstr "Maryland"
+
+#~ msgid "Massachusetts"
+#~ msgstr "Massachusetts"
+
+#~ msgid "Michigan"
+#~ msgstr "Michigan"
+
+#~ msgid "Minnesota"
+#~ msgstr "Minnesota"
+
+#~ msgid "Mississippi"
+#~ msgstr "Mississippi"
+
+#~ msgid "Missouri"
+#~ msgstr "Missouri"
+
+#~ msgid "Montana"
+#~ msgstr "Montana"
+
+#~ msgid "Nebraska"
+#~ msgstr "Nebraska"
+
+#~ msgid "Nevada"
+#~ msgstr "Nevada"
+
+#~ msgid "New Hampshire"
+#~ msgstr "New Hampshire"
+
+#~ msgid "New Jersey"
+#~ msgstr "New Jersey"
+
+#~ msgid "New Mexico"
+#~ msgstr "New Mexico"
+
+#~ msgid "New York"
+#~ msgstr "New York"
+
+#~ msgid "North Carolina"
+#~ msgstr "North Carolina"
+
+#~ msgid "North Dakota"
+#~ msgstr "North Dakota"
+
+#~ msgid "Ohio"
+#~ msgstr "Ohio"
+
+#~ msgid "Oklahoma"
+#~ msgstr "Oklahoma"
+
+#~ msgid "Oregon"
+#~ msgstr "Oregon"
+
+#~ msgid "Pennsylvania"
+#~ msgstr "Pennsylvania"
+
+#~ msgid "Rhode Island"
+#~ msgstr "Rhode Island"
+
+#~ msgid "South Carolina"
+#~ msgstr "South Carolina"
+
+#~ msgid "South Dakota"
+#~ msgstr "South Dakota"
+
+#~ msgid "Tennessee"
+#~ msgstr "Tennessee"
+
+#~ msgid "Texas"
+#~ msgstr "Texas"
+
+#~ msgid "Utah"
+#~ msgstr "Utah"
+
+#~ msgid "Virginia"
+#~ msgstr "Virginia"
+
+#~ msgid "Washington"
+#~ msgstr "Washington"
+
+#~ msgid "West Virginia"
+#~ msgstr "West Virginia"
+
+#~ msgid "Wisconsin"
+#~ msgstr "Wisconsin"
+
+#~ msgid "Wyoming"
+#~ msgstr "Wyoming"
+
+#~ msgid "Error"
+#~ msgstr "Fel"
+
+#~ msgid "category"
+#~ msgstr "kategori"
+
+#~ msgid "upcoming"
+#~ msgstr "kommande"
+
+#~ msgid "venue"
+#~ msgstr "plats"
+
+#~ msgid "Initializing Tribe Events on %s"
+#~ msgstr "Initierar Tribe evenemang på %s"
+
+#~ msgid ""
+#~ "Sorry, The Events Calendar requires WordPress %s or higher. Please "
+#~ "upgrade your WordPress install."
+#~ msgstr ""
+#~ "Tyvärr, The Events Calendar kräver Wordpress %s eller högre. Uppdatera "
+#~ "din Wordpress installation."
+
+#~ msgid ""
+#~ "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web "
+#~ "host about moving you to a newer version of PHP."
+#~ msgstr ""
+#~ "Tyvärr, The Events Calendar kräver PHP %s eller högre. Kontakta ditt "
+#~ "webbhotell om att flytta dig till en nyare version av PHP."
+
+#~ msgid "Upcoming Events"
+#~ msgstr "Kommande evenemang"
+
+#~ msgid "Past Events"
+#~ msgstr "Tidigare evenemang"
+
+#~ msgid "Events for %s"
+#~ msgstr "Evenemang för %s"
+
+#~ msgid "No description has been entered for this event."
+#~ msgstr "Ingen beskrivning har angivits för detta evenemang."
+
+#~ msgid "Events"
+#~ msgstr "Evenemang"
+
+#~ msgid "Add New"
+#~ msgstr "Lägg till ny"
+
+#~ msgid "Add New Event"
+#~ msgstr "Lägg till nytt evenemang"
+
+#~ msgid "Edit Event"
+#~ msgstr "Redigera evenemang"
+
+#~ msgid "View Event"
+#~ msgstr "Visa evenemang"
+
+#~ msgid "Search Events"
+#~ msgstr "Sök evenemang"
+
+#~ msgid "No events found"
+#~ msgstr "Inga evenemang hittade"
+
+#~ msgid "No events found in Trash"
+#~ msgstr "Inga evenemang hittade i Papperskorgen"
+
+#~ msgid "Add New Venue"
+#~ msgstr "Lägg till ny plats"
+
+#~ msgid "Edit Venue"
+#~ msgstr "Redigera plats"
+
+#~ msgid "View Venue"
+#~ msgstr "Visa plats"
+
+#~ msgid "Search Venues"
+#~ msgstr "Sök platser"
+
+#~ msgid "No venue found"
+#~ msgstr "Ingen plats hittad"
+
+#~ msgid "No venues found in Trash"
+#~ msgstr "Inga platser hittade i Papperskorgen"
+
+#~ msgid "Add New Organizer"
+#~ msgstr "Lägg till ny arrangör"
+
+#~ msgid "Edit Organizer"
+#~ msgstr "Redigera arrangör"
+
+#~ msgid "Search Organizers"
+#~ msgstr "Sök arrangörer"
+
+#~ msgid "No organizers found in Trash"
+#~ msgstr "Inga arrangörer hittade i Papperskorgen"
+
+#~ msgid "Event Category"
+#~ msgstr "Evenemangskategori"
+
+#~ msgid "Search Event Categories"
+#~ msgstr "Sök evenemangskategorier"
+
+#~ msgid "All Event Categories"
+#~ msgstr "Alla evenemangskategorier"
+
+#~ msgid "Parent Event Category"
+#~ msgstr "Förälder evenemangskategori"
+
+#~ msgid "Parent Event Category:"
+#~ msgstr "Förälder evenemangskategori:"
+
+#~ msgid "Edit Event Category"
+#~ msgstr "Redigera evenemangskategori"
+
+#~ msgid "Update Event Category"
+#~ msgstr "Uppdatera evenemangskategori"
+
+#~ msgid "Add New Event Category"
+#~ msgstr "Lägg till ny evenemangskategori"
+
+#~ msgid "New Event Category Name"
+#~ msgstr "Nytt namn för evenemangskategori"
+
+#~ msgid "Event updated. <a href=\"%s\">View event</a>"
+#~ msgstr "Evenemang uppdatrerat. <a href=\"%s\">Visa evenemang</a>"
+
+#~ msgid "Custom field updated."
+#~ msgstr "Anpassat fält uppdaterat."
+
+#~ msgid "Event updated."
+#~ msgstr "Evenemang uppdaterat."
+
+#~ msgid "Event restored to revision from %s"
+#~ msgstr "Evenemang återställd till revision från %s"
+
+#~ msgid "Event published. <a href=\"%s\">View event</a>"
+#~ msgstr "Evenemang publicerat. <a href=\"%s\">Visa evenemang</a>"
+
+#~ msgid "Event saved."
+#~ msgstr "Evenemang sparat."
+
+#~ msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
+#~ msgstr ""
+#~ "Evenemang tillagt. <a target=\"_blank\" href=\"%s\">Förhandsgranska "
+#~ "evenemang</a>"
+
+#~ msgid ""
+#~ "Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2"
+#~ "$s\">Preview event</a>"
+#~ msgstr ""
+#~ "Evenemang schemalagt för: <strong>%1$s</strong>. <a target=\"_blank\" "
+#~ "href=\"%2$s\">Förhandsgranska evenemang</a>"
+
+#~ msgid "M j, Y @ G:i"
+#~ msgstr "Y-m-d @ G:i"
+
+#~ msgid ""
+#~ "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
+#~ msgstr ""
+#~ "Evenemangsutkast uppdaterat. <a target=\"_blank\" href=\"%s"
+#~ "\">Förhandsgranska evenemang</a>"
+
+#~ msgid "Venue updated. <a href=\"%s\">View venue</a>"
+#~ msgstr "Plats uppdaterad. <a href=\"%s\">Visa plats</a>"
+
+#~ msgid "Venue restored to revision from %s"
+#~ msgstr "Plats återställd till revision från %s"
+
+#~ msgid "Venue published. <a href=\"%s\">View venue</a>"
+#~ msgstr "Plats publicerad. <a href=\"%s\">Visa plats</a>"
+
+#~ msgid "Venue saved."
+#~ msgstr "Plats sparad."
+
+#~ msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+#~ msgstr ""
+#~ "Plats tillagd. <a target=\"_blank\" href=\"%s\">Förhandsgranska plats</a>"
+
+#~ msgid ""
+#~ "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2"
+#~ "$s\">Preview venue</a>"
+#~ msgstr ""
+#~ "Plats schemalagt för: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%"
+#~ "2$s\">Förhandsgranska plats</a>"
+
+#~ msgid ""
+#~ "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+#~ msgstr ""
+#~ "Platsutkast uppdaterat. <a target=\"_blank\" href=\"%s\">Förhandsgranska "
+#~ "plats</a>"
+
+#~ msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
+#~ msgstr "Arrangör uppdaterad. <a href=\"%s\">visa arrangör</a>"
+
+#~ msgid "Organizer updated."
+#~ msgstr "Arrangör uppdaterad."
+
+#~ msgid "Organizer restored to revision from %s"
+#~ msgstr "Arrangör återställd till revision från %s"
+
+#~ msgid "Organizer published. <a href=\"%s\">View organizer</a>"
+#~ msgstr "Arrangör publicerad. <a href=\"%s\">Visa arrangör</a>"
+
+#~ msgid "Organizer saved."
+#~ msgstr "Arrangör sparad."
+
+#~ msgid ""
+#~ "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</"
+#~ "a>"
+#~ msgstr ""
+#~ "Arrangör tillagd. <a target=\"_blank\" href=\"%s\">Förhandsgranska "
+#~ "arrangör</a>"
+
+#~ msgid ""
+#~ "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
+#~ "\"%2$s\">Preview organizer</a>"
+#~ msgstr ""
+#~ "Arrangör schemalagd för: <strong>%1$s</strong>. <a target=\"_blank\" href="
+#~ "\"%2$s\">Förhandsgranska arrangör</a>"
+
+#~ msgid ""
+#~ "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview "
+#~ "organizer</a>"
+#~ msgstr ""
+#~ "Arrangörsutkast uppdaterat. <a target=\"_blank\" href=\"%s"
+#~ "\">Förhandsgranska arrangör</a>"
+
+#~ msgid "Event Options"
+#~ msgstr "Evenemangsalternativ"
+
+#~ msgid "Organizer Information"
+#~ msgstr "Arrangörsinformation"
+
+#~ msgid "News from Tribe Pro"
+#~ msgstr "Nyheter från Tribe Pro"
+
+#~ msgid ""
+#~ "It appears that you have some old events calendar data that needs to be "
+#~ "upgraded. Please be sure to back up your database before initiating the "
+#~ "upgrade. This process can not be undone."
+#~ msgstr ""
+#~ "Det verkar som att du har några gamla kalenderhändelser som behöver "
+#~ "uppgraderas. Se till att säkerhetskopiera databasen innan du påbörjar "
+#~ "uppgraderingen. Denna process kan inte ångras."
+
+#~ msgid "Migrate Data!"
+#~ msgstr "Migrerar data!"
+
+#~ msgid "You successfully migrated (%d) entries."
+#~ msgstr "Du migrerade framgångsrikt (%d) poster."
+
+#~ msgid "Install has 1 or more legacy event!"
+#~ msgstr "Installationen har 1 eller fler föråldrade evenemang!"

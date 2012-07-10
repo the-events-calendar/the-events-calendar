@@ -2,7 +2,7 @@
 /*
 Plugin Name: The Events Calendar PRO
 Description: The Events Calendar PRO, a premium add-on to the open source The Events Calendar plugin (required), enables recurring events, custom attributes, venue pages, new widgets and a host of other premium features.
-Version: 2.0.7
+Version: 2.0.8
 Author: Modern Tribe, Inc.
 Author URI: http://tri.be/?ref=ecp-plugin
 Text Domain: tribe-events-calendar-pro
@@ -40,13 +40,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $pluginSlug;
 		public $licenseKey;
 		public static $updateUrl = 'http://tri.be/';
-		const REQUIRED_TEC_VERSION = '2.0.7';
-		const VERSION = '2.0.7';
+		const REQUIRED_TEC_VERSION = '2.0.8';
+		const VERSION = '2.0.8';
 
 	    private function __construct() {
 			$this->pluginDir = trailingslashit( basename( dirname( __FILE__ ) ) );
 			$this->pluginPath = trailingslashit( dirname( __FILE__ ) );
-			$this->pluginUrl = WP_PLUGIN_URL.'/'.$this->pluginDir;
+			$this->pluginUrl = plugins_url().'/'.$this->pluginDir;
 			$this->pluginSlug = 'events-calendar-pro';
 
 			require_once( 'lib/tribe-date-series-rules.class.php' );
@@ -55,6 +55,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/tribe-recurrence.class.php' );
 			require_once( 'lib/widget-calendar.class.php' );
 			require_once( 'template-tags.php' );
+			require_once( 'lib/tribe-presstrends-events-calendar-pro.php' );
 
 			// Tribe common resources
 			require_once( 'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
@@ -85,6 +86,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'tribe_organizer_table_top', array( $this, 'displayEventOrganizerDropdown' ) );
 			add_action( 'tribe_helper_activation_complete', array( $this, 'helpersLoaded' ) );
 			add_filter( 'tribe_promo_banner', array( $this, 'tribePromoBannerPro' ) );
+			add_filter( 'tribe_help_tab_forums_url', array( $this, 'helpTabForumsLink' ) );
+			add_action( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'addLinksToPluginActions' ) );
 		}
 
 		public function init() {
@@ -369,13 +372,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			header( 'Content-Disposition: attachment; filename="iCal-TribeEvents.ics"' );
 			$content = "BEGIN:VCALENDAR\n";
 			$content .= "VERSION:2.0\n";
-			$content .= 'PRODID:-//' . $blogName . "//NONSGML v1.0//EN\n";
+			$content .= 'PRODID:-//' . $blogName . ' - ECPv' . TribeEvents::VERSION . "//NONSGML v1.0//EN\n";
 			$content .= "CALSCALE:GREGORIAN\n";
 			$content .= "METHOD:PUBLISH\n";
 			$content .= 'X-WR-CALNAME:' . $blogName . "\n";
 			$content .= 'X-ORIGINAL-URL:' . $blogHome . "\n";
 			$content .= 'X-WR-CALDESC:Events for ' . $blogName . "\n";
 			if ( $wpTimezoneString ) $content .= 'X-WR-TIMEZONE:' . $wpTimezoneString . "\n";
+			$content = apply_filters( 'tribe_ical_properties', $content );
 			$content .= $events;
 			$content .= 'END:VCALENDAR';
 			echo $content;
@@ -409,6 +413,34 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			);
 			$url = add_query_arg( $params, $base_url );
 			return esc_url( $url );
+		}
+		
+		/**
+		 * Return the forums link as it should appear in the help tab.
+		 *
+		 * @since 2.0.8
+		 *
+		 * @return string
+		 */
+		public function helpTabForumsLink( $content ) {
+			if ( get_option( 'pue_install_key_events_calendar_pro ' ) )
+				return 'http://tri.be/support/forums/forum/events/events-calendar-pro/?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin';
+			else
+				return $content;
+		}
+		
+		/**
+		 * Return additional action for the plugin on the plugins page.
+		 *
+		 * @since 2.0.8
+		 *
+		 * @return array
+		 */
+		public function addLinksToPluginActions( $actions ) {
+			if( class_exists( 'TribeEvents' ) ) {
+				$actions['settings'] = '<a href="' . add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'page' => 'tribe-events-calendar' ), admin_url( 'edit.php' ) ) .'">' . __('Settings', 'tribe-events-calendar-pro') . '</a>';
+			}
+			return $actions;
 		}
 
 		/**
@@ -515,7 +547,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	* @return array $plugins the required info
 	*/
 	function tribe_init_ecp_addon( $plugins ) {
-		$plugins['TribeEventsPro'] = array( 'plugin_name' => 'Events Calendar Pro', 'required_version' => TribeEventsPro::REQUIRED_TEC_VERSION );
+		$plugins['TribeEventsPro'] = array( 'plugin_name' => 'Events Calendar PRO', 'required_version' => TribeEventsPro::REQUIRED_TEC_VERSION, 'current_version' => TribeEventsPro::VERSION, 'plugin_dir_file' => basename( dirname( __FILE__ ) ) . '/events-calendar-pro.php' );
 		return $plugins;
 	}
 

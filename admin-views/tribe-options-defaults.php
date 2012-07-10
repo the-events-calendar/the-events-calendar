@@ -26,13 +26,21 @@ $country_options = TribeEventsViewHelpers::constructCountries();
 $defaultsTab = array(
 	'priority' => 30,
 	'fields' => array(
-		'defaults-heading' => array(
-			'type' => 'heading',
-			'label' => __('Customize Defaults', 'tribe-events-calendar-pro'),
-		),
-		'defaults-info' => array(
+		'info-start' => array(
 			'type' => 'html',
-			'html' => '<p>'.__('These settings change the default event form. For example, if you set a default venue, this field will be automatically filled in on a new event.', 'tribe-events-calendar-pro').'</p>',
+			'html' => '<div id="modern-tribe-info">'
+		),
+		'info-box-title' => array(
+			'type' => 'html',
+			'html' => '<h2>' . __('Customize Defaults', 'tribe-events-calendar-pro') . '</h2>',
+		),
+		'info-box-description' => array(
+			'type' => 'html',
+			'html' => '<p>' . __('Set values for event organizers & venues that appear pre-populated in the event editor whenever you create a new event. This helps save time in situations where the venue or organizer rarely changes, saving you from having to manually re-enter the data each time you create an event.</p><p>It\'s worth noting that these can be overridden on the event creation screen; if a venue and organizer are pre-populated but you wants to change to something else, use the dropdown to either select another existing venue/organizer, or manually enter the details of a new one.', 'tribe-events-calendar-pro') . '</p>',
+		),
+		'info-end' => array(
+			'type' => 'html',
+			'html' => '</div>',
 		),
 		'defaultValueReplace' => array(
 			'type' => 'checkbox_bool',

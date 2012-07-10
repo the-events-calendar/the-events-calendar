@@ -1,6 +1,7 @@
-<h3><?php _e('Additional Fields','tribe-events-calendar-pro'); ?></h3>
-<p><?php _e('Add unique fields to your event editor. Using the form below, you can quickly add checkboxes for dietary options like "low salt, vegetarian, kosher" or a dropdown for “DJ” to your event editor.','tribe-events-calendar-pro'); ?></p>
-
+<div id="modern-tribe-info">
+<h2><?php _e('Additional Fields','tribe-events-calendar-pro'); ?></h2>
+<p><?php _e('Add unique fields to your event creation screen with additional fields. These appear up in the event metabox atop your event listing alongside the date, time, venue, organizer, etc. Everyone who creates events will have access to these additional fields. Each new piece of data needs a label (i.e. Meal Plans), at least one option (i.e. Vegetarian, Kosher, Paleo), and a field type is accurate for your needs (i.e. checkbox). While users creating events can only select one option from the "Radio" fields, for example, they can select as many as the want from the "Checkbox" fields.', 'tribe-events-calendar-pro') . '</p>'; ?>
+</div>
 <table class='wp-list-table widefat' id="additional-field-table" style=''>
 	<thead><tr><th><?php _e('Field Label','tribe-events-calendar-pro'); ?></th><th><?php _e('Field Type','tribe-events-calendar-pro'); ?></th><th><?php _e('Options (one per line)','tribe-events-calendar-pro'); ?></th><th></th></tr></thead>
 	<tbody>
