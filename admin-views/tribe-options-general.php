@@ -1,19 +1,36 @@
 <?php
+$displayPressTrendsDialogue = tribe_get_option( 'displayedPressTrendsDialogue', false );
+
+$displayPressTrendsDialogueValue = ( $displayPressTrendsDialogue == false ) ? '1' : '0';
+
+if ( $displayPressTrendsDialogue == false ) {
+	tribe_update_option( 'displayedPressTrendsDialogue', true );
+}
+
 $generalTab = array(
 	'priority' => 10,
 	'fields' => array(
 		'info-start' => array(
 			'type' => 'html',
 			'html' => '<div id="modern-tribe-info"><img src="' . plugins_url( 'resources/images/modern-tribe.png', dirname( __FILE__ ) ) . '" alt="Modern Tribe Inc." title="Modern Tribe Inc.">'
-		),
+		),		
 		'upsell-heading' => array(
 			'type' => 'heading',
-			'label' => __( 'Add functionality to The Events Calendar', 'tribe-events-calendar' ),
+			'label' => __( 'Finding & extending your calendar.', 'tribe-events-calendar' ),
 			'conditional' => ( !defined( 'TRIBE_HIDE_UPSELL' ) || !TRIBE_HIDE_UPSELL ),
+		),
+		'finding-heading' => array(
+			'type' => 'heading',
+			'label' => __( 'Finding your calendar.', 'tribe-events-calendar' ),
+			'conditional' => ( defined( 'TRIBE_HIDE_UPSELL' ) && TRIBE_HIDE_UPSELL ),
+		),
+		'view-calendar-link' => array(
+			'type' => 'html',
+			'html' => '<p>' . __('Where\'s my calendar?', 'tribe-events-calendar') . '<br /><a href="' . TribeEvents::getLink() . '">' . __( 'Right here', 'tribe-events-calendar' ) . '</a>.</p>',
 		),
 		'upsell-info' => array(
 			'type' => 'html',
-			'html' => '<p>' . __( 'Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ) . '<br><a href="' . self::$tribeUrl . 'shop/?utm_source=generaltab&utm_medium=promolink&utm_campaign=plugin'.'">' . __( 'Check out the available Add-Ons', 'tribe-events-calendar' ) . '</a></p>',
+			'html' => '<p>' . __( 'Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ) . '<br><a href="' . self::$tribeUrl . 'shop/?utm_source=generaltab&utm_medium=promolink&utm_campaign=plugin'.'">' . __( 'Check out the available Add-Ons', 'tribe-events-calendar' ) . '</a>.</p>',
 			'conditional' => ( !defined( 'TRIBE_HIDE_UPSELL' ) || !TRIBE_HIDE_UPSELL ),
 		),
 		'donate-link-heading' => array(
@@ -22,12 +39,12 @@ $generalTab = array(
 		),
 		'donate-link-info' => array(
 			'type' => 'html',
-			'html' => '<p>' . __( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar' ).'<br><a href="' . plugins_url( 'resources/images/donate-link-screenshot.jpg', dirname( __FILE__ ) ).'" class="thickbox">' . __( 'See an example of the link', 'tribe-events-calendar' ) . '</a></p>',
+			'html' => '<p>' . __( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar' ).'<br><a href="' . plugins_url( 'resources/images/donate-link-screenshot.jpg', dirname( __FILE__ ) ).'" class="thickbox">' . __( 'See an example of the link', 'tribe-events-calendar' ) . '</a>.</p>',
 			'conditional' => !class_exists( 'TribeEventsPro' ),
 		),
 		'donate-link-pro-info' => array(
 			'type' => 'html',
-			'html' => '<p>' . __( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar' ) . '<br><a href="' . plugins_url( 'resources/images/donate-link-pro-screenshot.jpg', dirname( __FILE__ ) ) . '" class="thickbox">' . __( 'See an example of the link', 'tribe-events-calendar' ) . '</a></p>',
+			'html' => '<p>' . __( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar' ) . '<br><a href="' . plugins_url( 'resources/images/donate-link-pro-screenshot.jpg', dirname( __FILE__ ) ) . '" class="thickbox">' . __( 'See an example of the link', 'tribe-events-calendar' ) . '</a>.</p>',
 			'conditional' => class_exists( 'TribeEventsPro' ),
 		),
 		'donate-link' => array(
@@ -142,12 +159,27 @@ $generalTab = array(
 			'class' => 'google-embed-field',
 			'validation_type' => 'number_or_percent',
 		 ),
+		'sendPressTrendsData' => array(
+			'type' => 'checkbox_bool',
+			'label' => __( 'Send PressTrends Data', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Enable this option to help us out and send us analytics regarding your usage of The Events Calendar.', 'tribe-events-calendar' ),
+			'default' => false,
+			'validation_type' => 'boolean',
+		),
 		'debugEvents' => array(
 			'type' => 'checkbox_bool',
 			'label' => __( 'Debug Mode', 'tribe-events-calendar' ),
 			'tooltip' => sprintf( __( 'Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the %s and look for the "Tribe" tab in the debug output.', 'tribe-events-calendar' ), '<a href="http://wordpress.org/extend/plugins/debug-bar/" target="_blank">' . __( 'Debug Bar Plugin', 'tribe-events-calendar' ).'</a>' ),
 			'default' => false,
 			'validation_type' => 'boolean',
+		),
+		'maybeDisplayPressTrendsDialogue' => array(
+			'type' => 'html',
+			'html' => '<input type="hidden" name="maybeDisplayPressTrendsDialogue" value="' . $displayPressTrendsDialogueValue . '"></input>',
+		),
+		'pressTrendsDialogue' => array(
+			'type' => 'html',
+			'html' => '<div id="presstrends-dialog" title="Send PressTrends Data" style="display: none;">' . __('Would you like to help us out and send analytics about your usage of The Events Calendar?','tribe-events-calendar') .'<br/></div>',
 		),
 	),
 );

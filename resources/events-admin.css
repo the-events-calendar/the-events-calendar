@@ -19,6 +19,18 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #
 .fixed .column-start-date, .fixed .column-end-date, .fixed .column-events-cats {width:14%;}
 #additional-field-table input, #additional-field-table select, #additional-field-table textarea { width: 200px; }
 #additional-field-table tbody tr { height: 72px; }
+.view-calendar-link {
+	display:inline-block;
+    font-weight: normal;
+    padding: 0;
+    height: 14.5px;
+	}
+.view-calendar-link-div {
+	display: inline-block;
+	position: absolute;
+	left: 200px;
+	margin-top: 18px;
+}
 
 /* = Post Type Editing
 =============================================*/
@@ -61,6 +73,7 @@ td.tribe_message {padding-bottom: 10px !important;}
 #custom-recurrence-years label { width: 50px; display: block; float: left; margin-bottom: 3px;}
 #recurrence-changed-row { color: red; display: none; }
 #rec-end-error { color: red; }
+#rec-days-error { color: red; }
 .rec-error { display:none; }
 
 /* = Upgrade Screen

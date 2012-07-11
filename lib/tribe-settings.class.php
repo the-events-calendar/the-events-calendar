@@ -150,7 +150,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * @return void
 		 */
 		public function addPage() {
-			$this->admin_page = add_options_page( $this->menuName, $this->menuName, $this->requiredCap, $this->adminSlug, array( $this, 'generatePage' ) );
+			$this->admin_page = add_submenu_page( 'edit.php?post_type=' . TribeEvents::POSTTYPE, __( 'The Events Calendar Settings', 'tribe-events-calendar'), __('Settings', 'tribe-events-calendar'), $this->requiredCap, $this->adminSlug, array( $this, 'generatePage' ) );
 		}
 
 		/**
@@ -166,7 +166,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 				$this->tabs = (array) apply_filters( 'tribe_settings_tabs', array() );
 				$this->defaultTab = apply_filters( 'tribe_settings_default_tab', 'general' );
 				$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->defaultTab );
-				$this->url = apply_filters( 'tribe_settings_url', add_query_arg( array( 'page' => $this->adminSlug, 'tab' => $this->currentTab ), admin_url( 'options-general.php' ) ) );
+				$this->url = apply_filters( 'tribe_settings_url', add_query_arg( array( 'page' => $this->adminSlug, 'tab' => $this->currentTab ), add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE ), admin_url( 'edit.php' ) ) ) );
 				$this->noSaveTabs = (array) apply_filters( 'tribe_settings_no_save_tabs', array() );
 				$this->fields_for_save = (array) apply_filters( 'tribe_settings_fields', array() );
 				do_action( 'tribe_settings_after_do_tabs' );
@@ -199,7 +199,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 				echo '<div class="tribe-settings-form form">';
 					do_action( 'tribe_settings_above_form_element' );
 					do_action( 'tribe_settings_above_form_element_tab_'.$this->currentTab );
-					echo apply_filters( 'tribe_settings_form_element', '<form method="post">' );
+					echo apply_filters( 'tribe_settings_form_element_tab_'.$this->currentTab, '<form method="post">' );
 						do_action( 'tribe_settings_before_content' );
 						do_action( 'tribe_settings_before_content_tab_'.$this->currentTab );
 						do_action( 'tribe_settings_content_tab_'.$this->currentTab );
@@ -237,7 +237,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 						$tab = esc_attr( $tab );
 						$name = esc_attr( $name );
 						$class = ( $tab == $this->currentTab ) ? ' nav-tab-active' : '';
-						echo '<a id="' . $tab . '" class="nav-tab' . $class . '" href="?page=' . $this->adminSlug . '&tab=' . urlencode( $tab ) . '">' . $name . '</a>';
+						echo '<a id="' . $tab . '" class="nav-tab' . $class . '" href="?post_type=' .TribeEvents::POSTTYPE . '&page=' . $this->adminSlug . '&tab=' . urlencode( $tab ) . '">' . $name . '</a>';
 					}
 					do_action( 'tribe_settings_after_tabs' );
 				echo '</h2>';

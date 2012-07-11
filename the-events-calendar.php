@@ -2,7 +2,7 @@
 /*
 Plugin Name: The Events Calendar
 Description: The Events Calendar is a fully featured event management system with multiple views, 3rd party integrations, and a slew of premium add-ons.
-Version: 2.0.7
+Version: 2.0.8-alpha
 Author: Modern Tribe, Inc.
 Author URI: http://tri.be?ref=tec-plugin
 Text Domain: tribe-events-calendar
@@ -27,8 +27,10 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
-
 require_once( dirname(__FILE__) . '/lib/the-events-calendar.class.php' );
 
 TribeEvents::instance();
+
+require_once( dirname(__FILE__) . '/lib/tribe-presstrends.php' );
+
+register_deactivation_hook( __FILE__, array( 'TribeEvents', 'resetActivationMessage' ) );

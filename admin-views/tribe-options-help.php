@@ -100,6 +100,10 @@ $resources[] = array(
 	'title' => __('Release Notes', 'tribe-events-calendar'),
 	'link' => apply_filters('tribe_help_tab_release_notes_url', 'http://tri.be/category/products/release-notes/'.$ga_query_string),
 );
+$resources[] = array(
+	'title' => __('Forums', 'tribe-events-calendar'),
+	'link' => apply_filters('tribe_help_tab_forums_url', 'http://wordpress.org/support/plugin/the-events-calendar/'),
+);
 $resources = (array) apply_filters( 'tribe_help_tab_resources', $resources );
 
 
@@ -168,9 +172,6 @@ $more_text = __('More...', 'tribe-events-calendar');
 	<?php if ($rating != _x('n/a', 'not available', 'tribe-events-calendar') ) :  ?>
 		<div class="star-holder">
 			<div class="star star-rating" style="width: <?php echo( $tec_info['rating'] ); ?>px"></div>
-			<?php for ($i = 5; $i > 0; $i--) : ?>
-				<div class="star star<?php echo $i ?>"><img src="<?php echo admin_url('images/star.png'); ?>" alt="<?php echo $i ?> stars" /></div>
-			<?php endfor; ?>
 		</div>
 		<?php printf( _n('Based on %d rating', 'Based on %d ratings', $tec_info['num_ratings'], 'tribe-events-calendar' ), $tec_info['num_ratings'] ); ?>
 	<?php else : ?>
