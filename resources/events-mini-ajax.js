@@ -2,7 +2,7 @@ jQuery(document).ready(function($) {
   
   // handler for tribe events calendar widget ajax call. jquery 1.4 minimum
   
-  $('#calendar_wrap').delegate('.tribe-mini-ajax', 'click', function(e){ 
+  $('#calendar_wrap .tribe-mini-ajax').live( 'click', function(e){
     e.preventDefault();    
     var month_target = $(this).attr("data-month");
     var params = {
