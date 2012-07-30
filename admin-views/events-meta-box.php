@@ -105,7 +105,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	</table>
     <?php $this->do_action('tribe_events_details_table_bottom', $postId, true) ?>
 	<table id="event_cost" class="eventtable">		
-		<?php if(!class_exists('Event_Tickets_PRO')){ ?>
 		<tr>
 			<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event Cost', 'tribe-events-calendar'); ?></h4></td>
 		</tr>
@@ -117,8 +116,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<td></td>
 			<td><small><?php _e('Leave blank to hide the field. Enter a 0 for events that are free.', 'tribe-events-calendar'); ?></small></td>
 		</tr>
-		
-		<?php } ?>
       <?php $this->do_action('tribe_events_cost_table', $postId, true) ?>
 	</table>
 	</div>
