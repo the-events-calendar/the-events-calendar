@@ -16,7 +16,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		const VENUE_POST_TYPE = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 		const PLUGIN_DOMAIN = 'tribe-events-calendar';
-		const VERSION = '2.0.8';
+		const VERSION = '2.0.9';
 		const FEED_URL = 'http://tri.be/category/products/feed/';
 		const INFO_API_URL = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';
@@ -205,7 +205,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_filter( 'bloginfo_rss',	array($this, 'add_space_to_rss' ) );
 			add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
 			add_filter( 'post_updated_messages', array($this, 'updatePostMessage') );
-			add_filter( 'term_link', array($this, 'tag_link'), 10, 3);
 	
 			/* Add nav menu item - thanks to http://wordpress.org/extend/plugins/cpt-archives-in-nav-menus/ */
 			add_filter( 'nav_menu_items_' . TribeEvents::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
@@ -2584,17 +2583,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			} else {
 				return get_the_ID();
 			}
-		}
-
-		/**
-		 * filter the link for tags when showing in an event
-		 */
-		public function tag_link($termlink, $term, $taxonomy) {
-			global $post;
-			if (is_object($post) && $post->post_type == self::POSTTYPE && $taxonomy == 'post_tag') {
-				$termlink = esc_url(trailingslashit(tribe_get_events_link().'tag/'.$term->name));
-			}
-			return $termlink;
 		}
 		
 		/**
