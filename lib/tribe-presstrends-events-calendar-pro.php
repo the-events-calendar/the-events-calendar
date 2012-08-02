@@ -19,11 +19,12 @@ $comments_count = wp_count_comments();
 $theme_data = get_theme_data(get_stylesheet_directory() . '/style.css');
 $plugin_count = count(get_option('active_plugins'));
 $all_plugins = get_plugins();
-$plugin_name = null;
-foreach($all_plugins as $plugin_file => $plugin_data) {
-$plugin_name .= $plugin_data['Name'];
+$plugin_name = '&';
+foreach($all_plugins as $plugin_file => $plugin_info){
+$plugin_name .= $plugin_info['Name'];
 $plugin_name .= '&';}
-$plugin_data = get_plugin_data( __FILE__ );
+// This line has been edited from the default PressTrends code. Make sure to keep it edited with any future changes.
+$plugin_data = get_plugin_data( trailingslashit( dirname( dirname( __FILE__ ) ) ) . 'events-calendar-pro.php' );
 $plugin_version = $plugin_data['Version'];
 $posts_with_comments = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}posts WHERE post_type='post' AND comment_count > 0");
 $comments_to_posts = number_format(($posts_with_comments / $count_posts->publish) * 100, 0, '.', '');
