@@ -9,7 +9,7 @@ if ( $displayPressTrendsDialogue == false ) {
 
 $generalTab = array(
 	'priority' => 10,
-	'fields' => array(
+	'fields' => apply_filters( 'tribe_general_settings_tab_fields', array(
 		'info-start' => array(
 			'type' => 'html',
 			'html' => '<div id="modern-tribe-info"><img src="' . plugins_url( 'resources/images/modern-tribe.png', dirname( __FILE__ ) ) . '" alt="Modern Tribe Inc." title="Modern Tribe Inc.">'
@@ -181,5 +181,6 @@ $generalTab = array(
 			'type' => 'html',
 			'html' => '<div id="presstrends-dialog" title="Send PressTrends Data" style="display: none;">' . __('Would you like to help us out and send analytics about your usage of The Events Calendar?','tribe-events-calendar') .'<br/></div>',
 		),
-	),
+	)
+) 
 );
