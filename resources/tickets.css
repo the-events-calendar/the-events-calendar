@@ -1,0 +1,24 @@
+#ticket_form {
+	display : none;
+}
+
+#ticket_form input[type=radio] {
+	margin-right : 5px;
+}
+
+#ticket_form span {
+	margin-right : 10px;
+}
+
+.ticket_list tr td {
+	padding        : 4px 7px 2px;
+	vertical-align : top;
+}
+
+.ticket_list tr td div.ticket_controls {
+	visibility  : hidden;
+}
+
+.ticket_list tr:hover td div.ticket_controls {
+	visibility : visible;
+}

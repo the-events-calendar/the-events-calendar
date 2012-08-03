@@ -193,6 +193,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				require_once( 'tribe-app-shop.class.php' );
 			}
 
+			// Tickets
+			require_once( 'tribe-ticket-object.php' );
+			require_once( 'tribe-tickets.php' );
+			require_once( 'tribe-tickets-metabox.php' );
+
+			do_action('tribe_events_tickets_loaded');
+
 		}
 
 		protected function addFilters() {
