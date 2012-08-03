@@ -28,7 +28,7 @@
 	</tr>
 	<tr id="ticket_form" class="ticket_form">
 		<td colspan="2" class="tribe_sectionheader">
-			<table class="eventtable ticket_form">
+			<table id="ticket_form_table" class="eventtable ticket_form">
 				<tr>
 					<td width="40%" ><label for="ticket_provider"><?php _e( 'Sell using:', 'tribe-events-calendar' ); ?></label></td>
 					<td>
@@ -82,8 +82,6 @@
 
 						<input type='button' id='ticket_form_save' name='ticket_form_save' value="Save this ticket"
 						       class="button-primary"/>
-
-						<img id="tribe-tickets-ajax-loading" src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" alt="loading..." />
 
 						<input type='button' id='ticket_form_cancel' name='ticket_form_cancel' value="Cancel"
 						       class="button-highlighted"/>

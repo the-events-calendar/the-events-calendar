@@ -47,6 +47,9 @@
 					wp_register_style( 'events-tickets', plugins_url( 'resources/tickets.css', dirname( __FILE__ ) ) );
 					wp_enqueue_style( 'events-tickets' );
 
+					if ( class_exists( 'TribeSpinJS' ) ) {
+						TribeSpinJS::load();
+					}
 
 				}
 			}
