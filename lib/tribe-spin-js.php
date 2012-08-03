@@ -16,7 +16,7 @@
 	}
 
 	add_action( 'wp_enqueue_scripts', array( 'TribeSpinJS',
-	                                         'register' ), 1 );
+	                                         'register' ), 5 );
 
 	add_action( 'admin_enqueue_scripts', array( 'TribeSpinJS',
-	                                            'register' ), 1 );
+	                                            'register' ), 5 );
