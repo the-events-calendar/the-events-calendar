@@ -35,7 +35,9 @@
 			<?php } ?>
 		<tr>
 			<td width="40%">
-				<p class="ticket_name"><?php echo esc_html( $ticket->name ); ?></p>
+				<p class="ticket_name"><?php
+					echo sprintf( "<a href='#' attr-provider='%s' attr-ticket-id='%s' class='ticket_edit'>%s</a></span>", $ticket->provider_class, $ticket->ID, esc_html( $ticket->name ) );
+					?></p>
 
 				<div class="ticket_controls">
 					<?php echo join( " | ", $controls ); ?>
