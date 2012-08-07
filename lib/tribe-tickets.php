@@ -55,15 +55,18 @@
 				// Register all TribeEventsTickets api consumers
 				self::$active_modules[$this->className] = $this->pluginName;
 
-				add_action( 'tribe_events_event_save', array( $this,
-				                                              'save_tickets' ), 10, 1 );
+				if ( is_admin() ) {
+					add_action( 'tribe_events_event_save', array( $this,
+					                                              'save_tickets' ), 10, 1 );
+
+					add_action( 'tribe_events_tickets_metabox_advanced', array( $this,
+					                                                            'do_metabox_advanced_options' ), 10, 2 );
+				}
 
 				add_filter( 'tribe_events_tickets_modules', array( $this,
 				                                                   'modules' ) );
 				add_filter( 'tribe_events_tickets_get_tickets', array( $this,
 				                                                       'get_tickets' ), 10, 2 );
-				add_action( 'tribe_events_tickets_metabox_advanced', array( $this,
-				                                                            'do_metabox_advanced_options' ), 10, 2 );
 
 				/* Admin AJAX actions */
 

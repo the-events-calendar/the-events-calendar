@@ -58,5 +58,9 @@
 
 	}
 
-	add_action( 'tribe_events_details_table_bottom', array( 'TribeEventsTicketsMetabox', 'do_meta_box' ) );
-	add_action( 'admin_enqueue_scripts', array( 'TribeEventsTicketsMetabox', 'add_admin_scripts' ) );
+	if ( is_admin() ) {
+		add_action( 'tribe_events_details_table_bottom', array( 'TribeEventsTicketsMetabox',
+		                                                        'do_meta_box' ) );
+		add_action( 'admin_enqueue_scripts', array( 'TribeEventsTicketsMetabox',
+		                                            'add_admin_scripts' ) );
+	}
