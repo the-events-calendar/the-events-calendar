@@ -2,8 +2,20 @@
 	<?php
 	$provider = null;
 	$count    = 0;
+	global $post;
+	if ( $post ) {
+		$post_id = get_the_ID();
+	}else{
+		$post_id = $_POST["post_ID"];
+	}
+
 	foreach ( $tickets as $ticket ) {
-		$controls = array();
+
+		$controls     = array();
+		$provider     = $ticket->provider_class;
+		$provider_obj = call_user_func( array( $provider,
+		                                       'get_instance' ) );
+
 
 		$controls[] = sprintf( "<span><a href='#' attr-provider='%s' attr-ticket-id='%s' id='ticket_edit_%s' class='ticket_edit'>Edit</a></span>", $ticket->provider_class, $ticket->ID, $ticket->ID );
 		$controls[] = sprintf( "<span><a href='#' attr-provider='%s' attr-ticket-id='%s' id='ticket_delete_%s' class='ticket_delete'>Delete</a></span>", $ticket->provider_class, $ticket->ID, $ticket->ID );
@@ -14,22 +26,17 @@
 			$controls[] = sprintf( "<span><a href='%s'>View</a></span>", esc_url( $ticket->frontend_link ) );
 		}
 
+		$report = $provider_obj->get_ticket_reports_link( $post_id, $ticket->ID );
+		if ( $report ) {
+			$controls[] = $report;
+		}
 
-		if ( $ticket->provider_class !== $provider ) {
+		if ( ( $ticket->provider_class !== $provider ) || $count == 0 ) {
 			?>
 			<td colspan="4" class="titlewrap">
 				<h3><?php echo esc_html( self::$active_modules[$ticket->provider_class] ); ?>
 					<?php
-					$provider      = $ticket->provider_class;
-					$provider_obj  = call_user_func( array( $provider,
-					                                        'get_instance' ) );
-					$reports_links = $provider_obj->get_reports_link();
-					if ( $reports_links ) {
-						?>
-						<small><a href="<?php echo esc_url( $reports_links );?>">Reports</a></small>
-						<?php
-					}
-					?>
+					echo $provider_obj->get_event_reports_link( $post_id ); ?>
 				</h3>
 			</td>
 			<?php } ?>
@@ -67,5 +74,6 @@
 			</td>
 		</tr>
 		<?php
+		$count++;
 	} ?>
 </table>

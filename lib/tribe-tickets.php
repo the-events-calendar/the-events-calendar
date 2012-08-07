@@ -20,7 +20,9 @@
 			protected $pluginPath;
 			protected $pluginUrl;
 
-			abstract function get_reports_link();
+			abstract function get_event_reports_link( $event_id );
+			abstract function get_ticket_reports_link( $event_id, $ticket_id );
+
 
 			abstract function save_ticket( $event_id, $ticket, $raw_data = array() );
 
