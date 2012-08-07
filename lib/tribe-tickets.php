@@ -9,9 +9,11 @@
 			public $className;
 			private $parentPath;
 			private $parentUrl;
+			private $attendees_slug = 'tickets-attendees';
 
 			// prevent re-doing the metabox by different childs
 			private static $done_metabox = false;
+			private static $done_attendees_admin_page = false;
 
 			/* API Definition */
 			/* Child classes must implement all this functions */
@@ -21,12 +23,16 @@
 			protected $pluginUrl;
 
 			abstract function get_event_reports_link( $event_id );
+
 			abstract function get_ticket_reports_link( $event_id, $ticket_id );
 
 
 			abstract function save_ticket( $event_id, $ticket, $raw_data = array() );
 
 			abstract function get_tickets( $tickets = array(), $event_id );
+
+			abstract function get_attendees( $attendees = array(), $event_id );
+
 
 			abstract function get_ticket( $event_id, $ticket_id );
 
@@ -68,6 +74,16 @@
 				add_action( 'wp_ajax_tribe-ticket-edit-' . $this->className, array( $this,
 				                                                                    'ajax_handler_ticket_edit' ) );
 
+				/* Attendees list */
+				add_filter( 'post_row_actions', array( $this,
+				                                       'attendees_row_action' ) );
+
+				add_action( 'admin_menu', array( $this,
+				                                 'attendees_page_register' ) );
+
+				add_filter( 'tribe_events_tickets_get_attendees', array( $this,
+				                                                         'get_attendees' ), 10, 2 );
+
 
 			}
 
@@ -75,7 +91,7 @@
 
 				if ( !self::$done_metabox ) {
 
-					$tickets = $this->get_event_tickets( $post_id );
+					$tickets = self::get_event_tickets( $post_id );
 
 					include $this->parentPath . 'admin-views/tickets-meta-box.php';
 
@@ -187,6 +203,64 @@
 
 			/* \AJAX Handlers */
 
+			/* Attendees */
+
+			public function attendees_row_action( $actions ) {
+				global $post;
+				if ( $post->post_type == TribeEvents::POSTTYPE ) {
+
+					$actions['tickets_attendees'] = sprintf( "<a title='See who purchased tickets to this event' href='%s'>Attendees</a>", admin_url( sprintf( 'edit.php?post_type=%s&page=%s&event_id=%d', TribeEvents::POSTTYPE, $this->attendees_slug, $post->ID ) ) );
+
+				}
+				return $actions;
+			}
+
+			public function attendees_page_register() {
+				if ( !self::$done_attendees_admin_page ) {
+					$page = add_submenu_page( NULL, 'Attendee list', 'Attendee list', 'edit_posts', $this->attendees_slug, array( $this,
+					                                                                                                              'attendees_page_inside' ) );
+
+					add_action( 'admin_print_styles-' . $page, array( $this,
+					                                                  'attendees_page_load_css' ) );
+
+					add_action( 'admin_print_scripts-' . $page, array( $this,
+					                                                   'attendees_page_load_js' ) );
+
+
+					self::$done_attendees_admin_page = true;
+				}
+			}
+
+			public function attendees_page_load_css() {
+				$ecp = TribeEvents::instance();
+
+				wp_register_style( $this->attendees_slug, trailingslashit( $ecp->pluginUrl ) . '/resources/tickets-attendees.css' );
+				wp_enqueue_style( $this->attendees_slug );
+			}
+
+			public function attendees_page_load_js() {
+				$ecp = TribeEvents::instance();
+
+				wp_register_script( $this->attendees_slug, trailingslashit( $ecp->pluginUrl ) . '/resources/tickets-attendees.js', array( 'jquery' ) );
+				wp_enqueue_script( $this->attendees_slug );
+			}
+
+			public function attendees_page_inside() {
+
+				require_once 'tribe-tickets-attendees.php';
+				$attendees_table = new TribeEventsTicketsAttendeesTable();
+				$attendees_table->prepare_items();
+
+				include $this->parentPath . 'admin-views/tickets-attendees.php';
+			}
+
+			final static public function get_event_attendees( $event_id ) {
+
+				return apply_filters( 'tribe_events_tickets_get_attendees', array(), $event_id );
+			}
+
+			/* \Attendees */
+
 			/*  Helpers */
 
 			private function module_is_valid( $module ) {
@@ -217,7 +291,7 @@
 				return self::$active_modules;
 			}
 
-			public function get_event_tickets( $event_id ) {
+			final static public function get_event_tickets( $event_id ) {
 
 				return apply_filters( 'tribe_events_tickets_get_tickets', array(), $event_id );
 			}
