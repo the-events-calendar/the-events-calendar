@@ -14,6 +14,17 @@
 			</small>
 		</td>
 	</tr>
+	<?php
+	if ( get_post_meta( get_the_ID(), '_EventOrigin', true ) === 'community-events' ) {
+		?>
+		<tr>
+			<td colspan="2" class="tribe_sectionheader updated">
+				<p class="error-message"><?php _e( 'This event was created using Community Events. Are you sure you want to sell tickets for it?', 'tribe-events-calendar' ); ?></p>
+			</td>
+		</tr>
+		<?php
+	}
+	?>
 	<tr>
 		<td colspan="2" class="tribe_sectionheader ticket_list_container">
 
@@ -30,7 +41,8 @@
 		<td colspan="2" class="tribe_sectionheader">
 			<table id="ticket_form_table" class="eventtable ticket_form">
 				<tr>
-					<td width="40%" ><label for="ticket_provider"><?php _e( 'Sell using:', 'tribe-events-calendar' ); ?></label></td>
+					<td width="40%"><label
+						for="ticket_provider"><?php _e( 'Sell using:', 'tribe-events-calendar' ); ?></label></td>
 					<td>
 						<?php
 						$checked = true;
