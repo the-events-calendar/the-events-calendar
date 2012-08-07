@@ -200,8 +200,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-tickets.php' );
 			require_once( 'tribe-tickets-metabox.php' );
 
-			do_action( 'tribe_events_tickets_loaded' );
-
 		}
 
 		protected function addFilters() {
