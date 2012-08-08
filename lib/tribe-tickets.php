@@ -29,9 +29,9 @@
 
 			abstract function save_ticket( $event_id, $ticket, $raw_data = array() );
 
-			abstract function get_tickets( $event_id );
+			abstract protected function get_tickets( $event_id );
 
-			abstract function get_attendees( $event_id );
+			abstract protected function get_attendees( $event_id );
 
 
 			abstract function get_ticket( $event_id, $ticket_id );
