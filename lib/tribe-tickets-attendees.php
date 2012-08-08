@@ -16,6 +16,10 @@
 			                            'ajax'      => true ) );
 		}
 
+		function search_box(){
+			return '';
+		}
+
 		function get_columns() {
 			$columns = array( 'cb'              => '<input type="checkbox" />',
 			                  'order_id'        => __( 'Order #', "tribe-events-calendar" ),

@@ -29,9 +29,9 @@
 
 			abstract function save_ticket( $event_id, $ticket, $raw_data = array() );
 
-			abstract function get_tickets( $tickets = array(), $event_id );
+			abstract function get_tickets( $event_id );
 
-			abstract function get_attendees( $attendees = array(), $event_id );
+			abstract function get_attendees( $event_id );
 
 
 			abstract function get_ticket( $event_id, $ticket_id );
@@ -65,8 +65,6 @@
 
 				add_filter( 'tribe_events_tickets_modules', array( $this,
 				                                                   'modules' ) );
-				add_filter( 'tribe_events_tickets_get_tickets', array( $this,
-				                                                       'get_tickets' ), 10, 2 );
 
 				/* Admin AJAX actions */
 
@@ -83,10 +81,6 @@
 
 				add_action( 'admin_menu', array( $this,
 				                                 'attendees_page_register' ) );
-
-				add_filter( 'tribe_events_tickets_get_attendees', array( $this,
-				                                                         'get_attendees' ), 10, 2 );
-
 
 			}
 
@@ -259,7 +253,17 @@
 
 			final static public function get_event_attendees( $event_id ) {
 
-				return apply_filters( 'tribe_events_tickets_get_attendees', array(), $event_id );
+				$attendees = array();
+
+				foreach ( self::$active_modules as $class=> $module ) {
+					$obj = call_user_func( array( $class,
+					                              'get_instance' ) );
+
+					$attendees = array_merge( $attendees, $obj->get_attendees( $event_id ) );
+				}
+
+				return $attendees;
+
 			}
 
 			/* \Attendees */
@@ -296,7 +300,16 @@
 
 			final static public function get_event_tickets( $event_id ) {
 
-				return apply_filters( 'tribe_events_tickets_get_tickets', array(), $event_id );
+				$tickets = array();
+
+				foreach ( self::$active_modules as $class=> $module ) {
+					$obj = call_user_func( array( $class,
+					                              'get_instance' ) );
+
+					$tickets = array_merge( $tickets, $obj->get_tickets( $event_id ) );
+				}
+
+				return $tickets;
 			}
 
 			/* \Helpers */

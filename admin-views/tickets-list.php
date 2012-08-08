@@ -35,8 +35,8 @@
 			?>
 			<td colspan="4" class="titlewrap">
 				<h3><?php echo esc_html( self::$active_modules[$ticket->provider_class] ); ?>
-					<?php
-					echo $provider_obj->get_event_reports_link( $post_id ); ?>
+					<?php echo $provider_obj->get_event_reports_link( $post_id ); ?>
+					<?php echo sprintf( "<small><a title='See who purchased tickets to this event' href='%s'>Attendees</a></small>", admin_url( sprintf( 'edit.php?post_type=%s&page=%s&event_id=%d', TribeEvents::POSTTYPE, $this->attendees_slug, get_the_ID() ) ) ); ?>
 				</h3>
 			</td>
 			<?php } ?>
