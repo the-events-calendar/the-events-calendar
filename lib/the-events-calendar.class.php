@@ -615,7 +615,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					return trailingslashit($permalink) . TribeDateUtils::dateOnly( isset($post->EventStartDate) ? $post->EventStartDate : null );
 				}
 			}
-	
 			return $permalink;
 		}
 
@@ -1473,7 +1472,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param string $secondary for $type = month, pass a YYYY-MM string for a specific month's URL
 		 */
 
-		public function getLink( $type = 'home', $secondary = false, $term = null ) {
+		public function getLink	( $type = 'home', $secondary = false, $term = null ) {
 			// if permalinks are off or user doesn't want them: ugly.
 			if( '' == get_option('permalink_structure') ) {
 				return esc_url($this->uglyLink($type, $secondary));
@@ -1495,38 +1494,38 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			switch( $type ) {
 				case 'home':
-					return esc_url($eventUrl);
+					return trailingslashit( esc_url($eventUrl) );
 				case 'month':
 					if ( $secondary ) {
-						return esc_url($eventUrl . $secondary);
+						return trailingslashit( esc_url($eventUrl . $secondary) );
 					}
-					return esc_url($eventUrl . $this->monthSlug . '/');
+					return trailingslashit( esc_url($eventUrl . $this->monthSlug) );
 				case 'upcoming':
-					return esc_url($eventUrl . $this->upcomingSlug . '/');
+					return trailingslashit( esc_url($eventUrl . $this->upcomingSlug) );
 				case 'past':
-					return esc_url($eventUrl . $this->pastSlug . '/');
+					return trailingslashit( esc_url($eventUrl . $this->pastSlug) );
 				case 'dropdown':
 					return esc_url($eventUrl);
 				case 'ical':
 					if ( $secondary == 'single' )
 						$eventUrl = trailingslashit(get_permalink());
-					return esc_url($eventUrl . 'ical/');
+					return trailingslashit( esc_url($eventUrl . 'ical') );
 				case 'single':
 					global $post;
 					$p = $secondary ? $secondary : $post;
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
 					$link = trailingslashit(get_permalink($p));
 					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
-					return esc_url($link);
+					return trailingslashit( esc_url($link) );
 				case 'day':
 					$date = strtotime($secondary);
 					$secondary = date('Y-m-d', $date);
-					return esc_url($eventUrl . $secondary);
+					return trailingslashit( esc_url($eventUrl . $secondary) );
 				case 'all':
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
 					$eventUrl = trailingslashit(get_permalink());
 					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
-					return esc_url($eventUrl . 'all/');
+					return trailingslashit( esc_url($eventUrl . 'all') );
 				default:
 					return esc_url($eventUrl);
 			}
