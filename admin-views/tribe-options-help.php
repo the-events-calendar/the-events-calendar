@@ -59,12 +59,14 @@ $premium_add_ons[] = array(
 $premium_add_ons[] = array(
 	'title' => __('Eventbrite Tickets', 'tribe_events_calendar'),
 	'link' => apply_filters('tribe_help_tab_eventbrite_tribe_url', 'http://tri.be/shop/wordpress-eventbrite-tickets/'.$ga_query_string),
-	'coming_soon' => true,
 );
 $premium_add_ons[] = array(
 	'title' => __('Community Events', 'tribe_events_calendar'),
 	'link' => apply_filters('tribe_help_tab_community_events_tribe_url', 'http://tri.be/shop/wordpress-community-events/'.$ga_query_string),
-	'coming_soon' => true,
+);
+$premium_add_ons[] = array(
+	'title' => __('Facebook Events', 'tribe_events_calendar'),
+	'link' => apply_filters('tribe_help_tab_facebook_events_tribe_url', 'http://tri.be/facebook-events/'.$ga_query_string),
 );
 $premium_add_ons[] = array(
 	'title' => __('WooTickets', 'tribe_events_calendar'),
