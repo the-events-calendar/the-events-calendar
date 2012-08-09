@@ -68,11 +68,11 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 					<tr>
 						<td class="tribe-events-event-meta-desc"><?php _e('Venue:', 'tribe-events-calendar') ?></td>
 						<td class="tribe-events-event-meta-value" itemprop="name">
-							<? if( class_exists( 'TribeEventsPro' ) ): ?>
+							<?php if( class_exists( 'TribeEventsPro' ) ): ?>
 								<?php tribe_get_venue_link( get_the_ID(), class_exists( 'TribeEventsPro' ) ); ?>
-							<? else: ?>
+							<?php else: ?>
 								<?php echo tribe_get_venue( get_the_ID() ) ?>
-							<? endif; ?>
+							<?php endif; ?>
 						</td>
 					</tr>
 					<?php endif; ?>
