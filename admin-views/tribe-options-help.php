@@ -96,7 +96,7 @@ $resources[] = array(
 );
 $resources[] = array(
 	'title' => __('Tutorials', 'tribe-events-calendar'),
-	'link' => apply_filters('tribe_help_tab_tutorials_url', 'http://tri.be/category/products/tutorial/'.$ga_query_string),
+	'link' => apply_filters('tribe_help_tab_tutorials_url', 'http://tri.be/the-events-calendar-for-wordpress-tutorials/'.$ga_query_string),
 );
 $resources[] = array(
 	'title' => __('Release Notes', 'tribe-events-calendar'),
