@@ -12,7 +12,7 @@
 					<option data-single="event" data-plural="events" value="Custom" <?php selected($recType, "Custom") ?>><?php _e('Custom','tribe-events-calendar-pro'); ?></option>
 				</select>
 				<span id="recurrence-end" style="display: <?php echo !$recType || $recType == "None" ? "none" : "inline" ?>">
-					<?php _e('End','tribe-events-calendar-pro'); ?>
+					<?php _e('* End','tribe-events-calendar-pro'); ?>
 					<select name="recurrence[end-type]">
 						<option value="On" <?php selected($recEndType, "None") ?>><?php _e('On','tribe-events-calendar-pro'); ?></option>
 						<option value="After" <?php selected($recEndType, "After") ?>><?php _e('After','tribe-events-calendar-pro'); ?></option>
