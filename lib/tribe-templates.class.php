@@ -127,9 +127,9 @@ if (!class_exists('TribeEventsTemplates')) {
 			self::restoreQuery();
 		
 			ob_start();
-			echo stripslashes(tribe_get_option('tribeEventsBeforeHTML'));
+			echo apply_filters( 'tribe_events_before_html', stripslashes( tribe_get_option( 'tribeEventsBeforeHTML' ) ) );
 			include TribeEventsTemplates::get_current_page_template();
-			echo stripslashes(tribe_get_option('tribeEventsAfterHTML'));				
+			echo apply_filters( 'tribe_events_after_html', stripslashes( tribe_get_option( 'tribeEventsAfterHTML' ) ) );				
 			$contents = ob_get_contents();
 			ob_end_clean();
 		
