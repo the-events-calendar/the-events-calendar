@@ -106,7 +106,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
    <a href="<?php echo tribe_get_gcal_link() ?>" class="gcal-add" title="<?php _e('Add to Google Calendar', 'tribe-events-calendar'); ?>"><?php _e('+ Google Calendar', 'tribe-events-calendar'); ?></a>
 <?php endif; ?>
 
-<div class="navlink previous"><?php tribe_previous_event_link();?></div>
+<div class="navlink tribe-previous"><?php tribe_previous_event_link();?></div>
 
-<div class="navlink next"><?php tribe_next_event_link();?></div>
+<div class="navlink tribe-next"><?php tribe_next_event_link();?></div>
 <div style="clear:both"></div>
