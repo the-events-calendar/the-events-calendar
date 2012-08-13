@@ -128,7 +128,7 @@ $generalTab = array(
 			'type' => 'checkbox_bool',
 			'label' => __( 'Enable Google Maps', 'tribe-events-calendar' ),
 			'tooltip' => __( 'If you don\'t have this turned on, your event listings won\'t have the backend map preview or frontend embedded map.', 'tribe-events-calendar' ),
-			'default' => false,
+			'default' => true,
 			'class' => 'google-embed-size',
 			'validation_type' => 'boolean',
 		),
