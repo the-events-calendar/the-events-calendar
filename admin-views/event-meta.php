@@ -4,7 +4,7 @@ if ( empty($customFields) || !is_array($customFields) ) {
 } ?>
 <table id='event-meta' class='eventtable'>
    <tbody>
-      <tr><td colspan='2' class='snp_sectionheader'><h4><?php _e('Event Custom Fields','tribe-events-calendar-pro'); ?></h4></td></tr>
+      <tr><td colspan='2' class='snp_sectionheader'><h4><?php _e('Additional Fields','tribe-events-calendar-pro'); ?></h4></td></tr>
       <?php foreach ($customFields as $customField): ?>
          <?php $val = get_post_meta(get_the_ID(), $customField['name'], true) ?>
          <tr>
@@ -14,6 +14,7 @@ if ( empty($customFields) || !is_array($customFields) ) {
                <?php if($customField['type'] == 'text'): ?>
                   <input type='text' name='<?php echo esc_attr($customField['name']) ?>' value='<?php echo esc_attr($val) ?>'/>
                <?php elseif($customField['type'] == 'radio'): ?>
+                   	 <div><label><input type='radio' name='<?php echo esc_attr($customField['name']) ?>' value="" <?php checked(trim($val), '') ?>/>None</label></div>
                   <?php foreach ($options as $option): ?>
                      <div><label><input type='radio' name='<?php echo esc_attr($customField['name']) ?>' value='<?php echo esc_attr($option) ?>' <?php checked(trim($val), trim($option)) ?>/> <?php echo esc_html(stripslashes($option)) ?></label></div>
                   <?php endforeach ?>
@@ -24,7 +25,8 @@ if ( empty($customFields) || !is_array($customFields) ) {
                   <?php endforeach ?>
                <?php elseif($customField['type'] == 'dropdown'): ?>
                   <select name='<?php echo $customField['name']?>'>
-                     <?php $options = explode("\r\n", $customField['values']) ?> 
+                    <option value="" <?php selected(trim($val), "") ?>>None</option>
+                     <?php $options = explode("\r\n", $customField['values']) ?>
                      <?php foreach ($options as $option): ?>
 							<option value='<?php echo esc_attr($option) ?>' <?php selected(trim($val), trim($option)) ?>><?php echo esc_html(stripslashes($option)) ?></option>
                      <?php endforeach ?>

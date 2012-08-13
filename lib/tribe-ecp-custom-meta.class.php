@@ -81,7 +81,7 @@ class TribeEventsCustomMeta {
 				if ( !isset( $_POST[$customField['name']] ) )
 					$_POST[$customField['name']] = '';
 				$val = $_POST[$customField['name']];
-				$val = is_array($val) ? esc_attr(implode("|", $val)) : esc_attr($val);
+				$val = is_array($val) ? esc_attr(implode("|", $val)) : wp_kses( $val, array( 'a' => array( 'href' => array(), 'title' => array(), 'target' => array() ), 'b' => array(), 'i' => array(), 'strong' => array(), 'em' => array() ) );
 				update_post_meta($postId,  wp_kses_data($customField['name']), $val);
 			}
 		}

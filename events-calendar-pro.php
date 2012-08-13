@@ -375,7 +375,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$content .= 'PRODID:-//' . $blogName . ' - ECPv' . TribeEvents::VERSION . "//NONSGML v1.0//EN\n";
 			$content .= "CALSCALE:GREGORIAN\n";
 			$content .= "METHOD:PUBLISH\n";
-			$content .= 'X-WR-CALNAME:' . $blogName . "\n";
+			$content .= 'X-WR-CALNAME:' . apply_filters( 'tribe_ical_feed_calname', $blogName ) . "\n";
 			$content .= 'X-ORIGINAL-URL:' . $blogHome . "\n";
 			$content .= 'X-WR-CALDESC:Events for ' . $blogName . "\n";
 			if ( $wpTimezoneString ) $content .= 'X-WR-TIMEZONE:' . $wpTimezoneString . "\n";
@@ -411,6 +411,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				'trp' => 'false',
 				'sprop' => 'website:' . home_url(),
 			);
+			$params = apply_filters( 'tribe_google_calendar_parameters', $params );
 			$url = add_query_arg( $params, $base_url );
 			return esc_url( $url );
 		}
