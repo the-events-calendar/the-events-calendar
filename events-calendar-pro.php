@@ -195,7 +195,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @param string $name the name value for the field
 		 */
 		public function saved_venues_dropdown( $current = null, $name = 'venue[VenueID]' ){
-		$venues = TribeEvents::instance()->get_venue_info();
+		$venues = TribeEvents::instance()->get_venue_info( null, array('publish','draft') );
 		if ( $venues ) {
 		echo '<select class="chosen venue-dropdown" name="' . esc_attr( $name ) . '" id="saved_venue">';
 		echo '<option value="0">' . __( 'Use New Venue' ,  'tribe-events-calendar-pro' ) . '</option>';
@@ -219,7 +219,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	     * @param string $name the name value for the field
 	     */
 			public function saved_organizers_dropdown( $current = null, $name = 'organizer[OrganizerID]' ){
-				$organizers = TribeEvents::instance()->get_organizer_info();
+				$organizers = TribeEvents::instance()->get_organizer_info( null, array('publish','draft') );
 				if ( $organizers ) {
 					echo '<select class="chosen organizer-dropdown" name="' . esc_attr( $name ) . '" id="saved_organizer">';
 					echo '<option value="0">' . __( 'Use New Organizer' ,  'tribe-events-calendar-pro' ) . '</option>';
