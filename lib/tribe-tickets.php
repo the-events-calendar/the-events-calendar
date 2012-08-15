@@ -33,12 +33,13 @@
 
 			abstract protected function get_attendees( $event_id );
 
-
 			abstract function get_ticket( $event_id, $ticket_id );
 
 			abstract function delete_ticket( $event_id, $ticket_id );
 
 			abstract function do_metabox_advanced_options( $event_id, $ticket_id );
+
+			abstract function front_end_tickets_form();
 
 			abstract static function get_instance();
 
@@ -81,6 +82,10 @@
 
 				add_action( 'admin_menu', array( $this,
 				                                 'attendees_page_register' ) );
+
+				/* Front end */
+				add_filter( 'tribe_get_ticket_form', array( $this,
+				                                            'front_end_tickets_form' ) );
 
 			}
 
@@ -266,6 +271,7 @@
 
 			}
 
+
 			/* \Attendees */
 
 			/*  Helpers */
@@ -312,8 +318,21 @@
 				return $tickets;
 			}
 
+			public function getTemplateHierarchy( $template ) {
+
+				if ( substr( $template, -4 ) != '.php' ) {
+					$template .= '.php';
+				}
+
+				if ( $theme_file = locate_template( array( 'events/' . $template ) ) ) {
+					$file = $theme_file;
+				} else {
+					$file = $this->pluginPath . 'views/' . $template;
+				}
+				return apply_filters( 'tribe_events_tickets_template_' . $template, $file );
+			}
+
 			/* \Helpers */
 
 		}
-
 	}

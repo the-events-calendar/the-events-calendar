@@ -540,3 +540,24 @@ p.tribe-promo-banner {
 p.tribe-promo-banner a {
 	color: #666;	
 }
+
+/* Tickets */
+.tribe-events-tickets td {
+	vertical-align : middle;
+}
+
+.tribe-events-tickets .tickets_description {
+	font-size : 0.8em;
+	color     : #666;
+}
+
+.tribe-events-tickets .tickets_nostock {
+	font-size : 0.8em;
+	color     : #ff0000;
+}
+
+.tribe-events-tickets .tickets_price {
+	font-style : italic;
+	color      : #000;
+	font-weight: bold;
+}
