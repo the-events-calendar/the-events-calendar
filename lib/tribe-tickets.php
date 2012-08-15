@@ -119,7 +119,11 @@
 				$ticket->ID             = isset( $data["ticket_id"] ) ? $data["ticket_id"] : NULL;
 				$ticket->name           = isset( $data["ticket_name"] ) ? $data["ticket_name"] : NULL;
 				$ticket->description    = isset( $data["ticket_description"] ) ? $data["ticket_description"] : NULL;
-				$ticket->price          = isset( $data["ticket_price"] ) ? $data["ticket_price"] : NULL;
+				$ticket->price          = isset( $data["ticket_price"] ) ? $data["ticket_price"] : 0;
+				if ( trim( $ticket->price ) === '' ) {
+					$ticket->price = 0;
+				}
+
 				$ticket->provider_class = $this->className;
 
 				/* Pass the control to the child object */
