@@ -122,6 +122,9 @@
 				$ticket->price          = isset( $data["ticket_price"] ) ? $data["ticket_price"] : 0;
 				if ( trim( $ticket->price ) === '' ) {
 					$ticket->price = 0;
+				}else{
+					//remove non-money characters
+					$ticket->price = preg_replace( '/[^0-9\.]/Uis', '', $ticket->price );
 				}
 
 				$ticket->provider_class = $this->className;
