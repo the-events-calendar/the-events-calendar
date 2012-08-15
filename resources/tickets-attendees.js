@@ -18,4 +18,29 @@ jQuery( document ).ready( function ( $ ) {
 
 	} );
 
+
+	$( '.tickets_checkin' ).click( function ( e ) {
+
+		var obj = jQuery( this );
+
+		var params = {
+			action:'tribe-ticket-checkin-' + obj.attr( 'data-provider' ),
+			provider:obj.attr( 'data-provider' ),
+			order_ID:obj.attr( 'data-order-id' )
+		};
+
+		$.post(
+			ajaxurl,
+			params,
+			function ( response ) {
+				if ( response.success ) {
+					obj.parent( 'td' ).parent( 'tr' ).addClass('tickets_checked');
+				}
+			},
+			'json'
+		);
+
+		e.preventDefault();
+	} );
+
 } );

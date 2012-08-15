@@ -1,3 +1,13 @@
 .icon32-tickets-attendees {
 	background-image : url(images/attendees-screen-icon.png) !important;
 }
+
+.tickets_checked{
+	opacity: 0.7;
+	text-decoration: line-through;
+
+}
+
+.tickets_checked a.tickets_checkin{
+	display: none;
+}

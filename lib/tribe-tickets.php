@@ -16,7 +16,7 @@
 			private static $done_attendees_admin_page = false;
 
 			/* API Definition */
-			/* Child classes must implement all this functions */
+			/* Child classes must implement all this functions / properties */
 
 			public $pluginName;
 			protected $pluginPath;
@@ -33,6 +33,8 @@
 
 			abstract protected function get_attendees( $event_id );
 
+			abstract protected function checkin( $order_id );
+
 			abstract function get_ticket( $event_id, $ticket_id );
 
 			abstract function delete_ticket( $event_id, $ticket_id );
@@ -43,6 +45,7 @@
 
 			abstract static function get_instance();
 
+			/* \API Definition */
 
 			function __construct() {
 
@@ -75,6 +78,8 @@
 				                                                                      'ajax_handler_ticket_delete' ) );
 				add_action( 'wp_ajax_tribe-ticket-edit-' . $this->className, array( $this,
 				                                                                    'ajax_handler_ticket_edit' ) );
+				add_action( 'wp_ajax_tribe-ticket-checkin-' . $this->className, array( $this,
+				                                                                       'ajax_handler_attendee_checkin' ) );
 
 				/* Attendees list */
 				add_filter( 'post_row_actions', array( $this,
@@ -116,14 +121,14 @@
 
 				$ticket = new TribeEventsTicketObject();
 
-				$ticket->ID             = isset( $data["ticket_id"] ) ? $data["ticket_id"] : NULL;
-				$ticket->name           = isset( $data["ticket_name"] ) ? $data["ticket_name"] : NULL;
-				$ticket->description    = isset( $data["ticket_description"] ) ? $data["ticket_description"] : NULL;
-				$ticket->price          = isset( $data["ticket_price"] ) ? $data["ticket_price"] : 0;
+				$ticket->ID          = isset( $data["ticket_id"] ) ? $data["ticket_id"] : NULL;
+				$ticket->name        = isset( $data["ticket_name"] ) ? $data["ticket_name"] : NULL;
+				$ticket->description = isset( $data["ticket_description"] ) ? $data["ticket_description"] : NULL;
+				$ticket->price       = isset( $data["ticket_price"] ) ? $data["ticket_price"] : 0;
 
 				if ( trim( $ticket->price ) === '' ) {
 					$ticket->price = 0;
-				}else{
+				} else {
 					//remove non-money characters
 					$ticket->price = preg_replace( '/[^0-9\.]/Uis', '', $ticket->price );
 				}
@@ -141,6 +146,19 @@
 
 				}
 
+
+				$this->ajax_ok( $return );
+			}
+
+			public final function ajax_handler_attendee_checkin() {
+
+				if ( !isset( $_POST["order_ID"] ) || intval( $_POST["order_ID"] ) == 0 ) $this->ajax_error( 'Bad post' );
+				if ( !isset( $_POST["provider"] ) || !$this->module_is_valid( $_POST["provider"] ) ) $this->ajax_error( 'Bad module' );
+
+				$order_id = $_POST["order_ID"];
+
+				/* Pass the control to the child object */
+				$return = $this->checkin( $order_id );
 
 				$this->ajax_ok( $return );
 			}

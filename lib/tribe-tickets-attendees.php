@@ -16,7 +16,7 @@
 			                            'ajax'      => true ) );
 		}
 
-		function search_box(){
+		function search_box() {
 			return '';
 		}
 
@@ -55,8 +55,22 @@
 			return $item["qty"];
 		}
 
-		function column_check_in( $item ){
-			return sprintf("<a href='' class='button-secondary'>Check in</a>");
+		function column_check_in( $item ) {
+			return sprintf( "<a href='#' data-order-id='%d' data-provider='%s' class='button-secondary tickets_checkin'>Check in</a>", $item["order_id"], $item["provider"] );
+		}
+
+		function single_row( $item ) {
+			static $row_class = '';
+			$row_class = ( $row_class == '' ? ' alternate ' : '' );
+
+			$checked = '';
+			if (intval($item["checkedin"]) === 1){
+				$checked = ' tickets_checked ';
+			}
+
+			echo '<tr class="' . $row_class . $checked . '">';
+			echo $this->single_row_columns( $item );
+			echo '</tr>';
 		}
 
 
