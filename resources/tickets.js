@@ -171,7 +171,9 @@ jQuery( document ).ready( function ( $ ) {
 	function ticket_clear_form() {
 		$( 'a#ticket_form_toggle' ).show();
 
-		$( '#ticket_form input:not(:button):not(:radio)' ).val( '' );
+		$( '#ticket_form input:not(:button):not(:radio):not(:checkbox)' ).val( '' );
+		$( '#ticket_form input:checkbox' ).attr( 'checked', false );
+
 		$( '#ticket_form textarea' ).val( '' );
 
 		$( '#ticket_form' ).hide();
