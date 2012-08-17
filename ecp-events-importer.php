@@ -874,19 +874,24 @@ echo '</pre>';
     /** Load and dependecy checks. **/
     
     function Tribe_ECP_Events_Importer_Load() {
-        if( class_exists('TribeEventsPro') ) {
-	    ECP_Events_importer::instance();
-	} else {
-	    add_action( 'admin_notices', 'show_importer_fail_message' );
-	}
+	    if( class_exists('TribeEvents') && class_exists('TribeEventsPro') ) {
+		    ECP_Events_importer::instance();
+		} else {
+		    add_action( 'admin_notices', 'show_importer_fail_message' );
+		}
     }
 	
     add_action( 'plugins_loaded', 'Tribe_ECP_Events_Importer_Load' );
     
     function show_importer_fail_message() {
-	$currentScript = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
-	if ( current_user_can( 'activate_plugins') && ( substr( $currentScript, -11 ) == 'plugins.php') ) {
-	    echo '<div class="error"><p>' . __('The Events Calendar PRO - Events Importer requires the Events Calendar PRO plugin.', 'tribe-events-importer' ) . '</p></div>';
-	}
+		$activate_plugins = current_user_can( 'activate_plugins') && ( substr( parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ), -11 ) == 'plugins.php');
+		if ( !class_exists('TribeEvents') && $activate_plugins ) {
+			$url = 'plugin-install.php?tab=plugin-information&plugin=the-events-calendar&TB_iframe=true';
+			$title = __( 'The Events Calendar', 'tribe-events-importer' );
+			echo '<div class="error"><p>'.sprintf( __( 'The Events Calendar: CSV Importer requires the latest version of <a href="%s" class="thickbox" title="%s">The Events Calendar</a> plugin.', 'tribe-events-importer' ),$url, $title ).'</p></div>';
+		}
+		if ( !class_exists('TribeEventsPro') && $activate_plugins ) {
+		    echo '<div class="error"><p>' . __('The Events Calendar: CSV Importer requires the Events Calendar PRO plugin.', 'tribe-events-importer' ) . '</p></div>';
+		}
     }
 }
