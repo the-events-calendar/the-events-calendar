@@ -195,20 +195,44 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @param string $name the name value for the field
 		 */
 		public function saved_venues_dropdown( $current = null, $name = 'venue[VenueID]' ){
-		$venues = TribeEvents::instance()->get_venue_info( null, array('publish','draft') );
-		if ( $venues ) {
-		echo '<select class="chosen venue-dropdown" name="' . esc_attr( $name ) . '" id="saved_venue">';
-		echo '<option value="0">' . __( 'Use New Venue' ,  'tribe-events-calendar-pro' ) . '</option>';
-		foreach ( $venues as $venue ) {
-		$venue_title = wp_kses( get_the_title( $venue->ID ), array() );
-		echo '<option data-address="' . esc_attr( TribeEvents::instance()->fullAddressString( $venue->ID ) ) . '" value="' . esc_attr( $venue->ID ) .'"';
-		selected( ($current == $venue->ID) );
-		echo '>' . $venue_title . '</option>';
-		}
-		echo '</select>';
-		} else {
-		echo '<p class="nosaved">' . __( 'No saved venues yet.', 'tribe-events-calendar-pro' ) . '</p>';
-		}
+			$my_venue_ids = array();
+			$current_user = wp_get_current_user();
+			$my_venues = false;
+			$my_venue_options = '';
+			if ( 0 != $current_user->ID ) {
+			    $my_venues = TribeEvents::instance()->get_venue_info( null, null, array('post_status' => array('publish', 'draft'), 'author' => $current_user->ID) );
+				foreach($my_venues as $my_venue) {
+					$my_venue_ids[] = $my_venue->ID;
+					$venue_title = wp_kses( get_the_title( $my_venue->ID ), array() );
+					$my_venue_options .= '<option data-address="' . esc_attr( TribeEvents::instance()->fullAddressString( $my_venue->ID ) ) . '" value="' . esc_attr( $my_venue->ID ) .'"';
+					$my_venue_options .= selected( $current, $my_venue->ID, false );
+					$my_venue_options .=  '>' . $venue_title . '</option>';
+				}
+			}
+			
+			$venues = TribeEvents::instance()->get_venue_info( null, null, array('post_status' => 'publish', 'post__not_in' => $my_venue_ids) );
+			if ( $venues || $my_venues ) {
+				echo '<select class="chosen venue-dropdown" name="' . esc_attr( $name ) . '" id="saved_venue">';
+				echo '<option value="0">' . __( 'Use New Venue' ,  'tribe-events-calendar-pro' ) . '</option>';
+				if( $my_venues ) {
+					echo $venues ? '<optgroup label="' . apply_filters('tribe_events_saved_venues_dropdown_my_optgroup', __('My Venues', 'tribe-events-calendar-pro')) . '">' : '';
+					echo $my_venue_options;
+					echo $venues ? '</optgroup>' : '';
+				}
+				if ( $venues ) {
+					echo $my_venues ? '<optgroup label="' . apply_filters('tribe_events_saved_venues_dropdown_optgroup', __('Available Venues', 'tribe-events-calendar-pro')) . '">' : '';
+					foreach ( $venues as $venue ) {
+						$venue_title = wp_kses( get_the_title( $venue->ID ), array() );
+						echo '<option data-address="' . esc_attr( TribeEvents::instance()->fullAddressString( $venue->ID ) ) . '" value="' . esc_attr( $venue->ID ) .'"';
+						selected( ($current == $venue->ID) );
+						echo '>' . $venue_title . '</option>';
+					}
+					echo $my_venues ? '</optgroup>'	: '';
+				}
+				echo '</select>';
+			} else {
+				echo '<p class="nosaved">' . __( 'No saved venues yet.', 'tribe-events-calendar-pro' ) . '</p>';
+			}
 		}
 
 	    /**
@@ -218,22 +242,46 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	     * @param mixed $current the current saved venue
 	     * @param string $name the name value for the field
 	     */
-			public function saved_organizers_dropdown( $current = null, $name = 'organizer[OrganizerID]' ){
-				$organizers = TribeEvents::instance()->get_organizer_info( null, array('publish','draft') );
+		public function saved_organizers_dropdown( $current = null, $name = 'organizer[OrganizerID]' ){
+			$my_organizer_ids = array();
+			$current_user = wp_get_current_user();
+			$my_organizers = false;
+			$my_organizers_options = '';
+			if ( 0 != $current_user->ID ) {
+			    $my_organizers = TribeEvents::instance()->get_organizer_info( null, null, array('post_status' => array('publish', 'draft'), 'author' => $current_user->ID) );
+				foreach($my_organizers as $my_organizer) {
+					$my_organizer_ids[] = $my_organizer->ID;
+					$organizer_title = wp_kses( get_the_title( $my_organizer->ID ), array() );
+					$my_organizers_options .= '<option value="' . esc_attr( $my_organizer->ID ) .'"';
+					$my_organizers_options .= selected( $current, $my_organizer->ID, false );
+					$my_organizers_options .=  '>' . $organizer_title . '</option>';
+				}
+			}
+			
+			$organizers = TribeEvents::instance()->get_organizer_info( null, null, array('post_status' => 'publish', 'post__not_in' => $my_organizer_ids) );
+			if ( $organizers || $my_organizers ) {
+				echo '<select class="chosen organizer-dropdown" name="' . esc_attr( $name ) . '" id="saved_organizer">';
+				echo '<option value="0">' . __( 'Use New Organizer' ,  'tribe-events-calendar-pro' ) . '</option>';
+				if( $my_organizers ) {
+					echo $organizers ? '<optgroup label="' . apply_filters('tribe_events_saved_organizers_dropdown_my_optgroup', __('My Organizers', 'tribe-events-calendar-pro')) . '">' : '';
+					echo $my_organizers_options;
+					echo $organizers ? '</optgroup>' : '';
+				}
 				if ( $organizers ) {
-					echo '<select class="chosen organizer-dropdown" name="' . esc_attr( $name ) . '" id="saved_organizer">';
-					echo '<option value="0">' . __( 'Use New Organizer' ,  'tribe-events-calendar-pro' ) . '</option>';
+					echo $my_organizers ? '<optgroup label="' . apply_filters('tribe_events_saved_organizers_dropdown_optgroup', __('Available Organizers', 'tribe-events-calendar-pro')) . '">' : '';
 					foreach ( $organizers as $organizer ) {
 						$organizer_title = wp_kses( get_the_title( $organizer->ID ), array() );
 						echo '<option value="' . esc_attr( $organizer->ID ) .'"';
 						selected( ($current == $organizer->ID) );
 						echo '>' . $organizer_title . '</option>';
 					}
-					echo '</select>';
-				} else {
-					echo '<p class="nosaved">' . __( 'No saved organizers yet.', 'tribe-events-calendar-pro' ) . '</p>';
+					echo $my_organizers ? '</optgroup>'	: '';
 				}
+				echo '</select>';
+			} else {
+				echo '<p class="nosaved">' . __( 'No saved organizers yet.', 'tribe-events-calendar-pro' ) . '</p>';
 			}
+		}
 
 	    /**
 	     * Add the default settings tab
