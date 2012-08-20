@@ -424,10 +424,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @return string
 		 */
 		public function helpTabForumsLink( $content ) {
+			$promo_suffix = '?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin';
 			if ( get_option( 'pue_install_key_events_calendar_pro ' ) )
-				return 'http://tri.be/support/forums/forum/events/events-calendar-pro/?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin';
+				return 'http://tri.be/support/forums/forum/events/events-calendar-pro/' . $promo_suffix;
 			else
-				return $content;
+				return 'http://tri.be/support/forums/' . $promo_suffix;
 		}
 		
 		/**
