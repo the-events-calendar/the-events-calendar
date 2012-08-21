@@ -104,7 +104,8 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<?php include( $this->pluginPath . 'admin-views/organizer-meta-box.php' ); ?>
 	</table>
     <?php $this->do_action('tribe_events_details_table_bottom', $postId, true) ?>
-	<table id="event_cost" class="eventtable">		
+	<?php if ( !TribeEventsTickets::$active || class_exists( 'Event_Tickets_PRO' ) ){ ?>
+	<table id="event_cost" class="eventtable">
 		<tr>
 			<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event Cost', 'tribe-events-calendar'); ?></h4></td>
 		</tr>
@@ -118,6 +119,8 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		</tr>
       <?php $this->do_action('tribe_events_cost_table', $postId, true) ?>
 	</table>
+	<?php } ?>
+
 	</div>
    <?php $this->do_action('tribe_events_above_donate', $postId, true) ?>
    <?php $this->do_action('tribe_events_details_bottom', $postId, true) ?>

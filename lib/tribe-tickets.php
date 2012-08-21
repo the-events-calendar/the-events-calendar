@@ -5,6 +5,7 @@
 
 			// All TribeEventsTickets api consumers. It's static, so it's shared across childs.
 			protected static $active_modules = array();
+			public static $active = false;
 
 			public $className;
 			private $parentPath;
@@ -58,6 +59,8 @@
 
 				// Register all TribeEventsTickets api consumers
 				self::$active_modules[$this->className] = $this->pluginName;
+
+				self::$active = true;
 
 				if ( is_admin() ) {
 					add_action( 'tribe_events_event_save', array( $this,
