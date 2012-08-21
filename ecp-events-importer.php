@@ -91,17 +91,8 @@ if (!class_exists('ECP_Events_Importer')) {
 	    add_action( 'plugins_loaded', array( $this, 'init_textdomain' ) );
 		add_action( 'admin_menu', array( $this, 'addImportOptionsPage' ) );
 		add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
-		add_filter('load_textdomain_mofile', array($this,'mofile'), 10, 2 );
- 
-
 	}
-function mofile($mofile, $domain)
-{
-    // if ('my-plugin' === $domain)
-    //     return WP_LANG_DIR.'/my-plugin/'.$domain.'-'.get_locale().'.mo';
- 	echo $mofile .'<br />' . $domain . '<br />';
-    return $mofile;
-}
+
 	/**
 	 * run hooks on WP init
 	 *
