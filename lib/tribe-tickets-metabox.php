@@ -8,19 +8,17 @@
 		 * @param $post_id
 		 */
 		public static function do_meta_box( $post_id ) {
-			$modules = apply_filters( 'tribe_events_tickets_modules', NULL );
+			add_meta_box( 'tribetickets', 'Tickets', array( 'TribeEventsTicketsMetabox',
+			                                                'do_modules_metaboxes' ), TribeEvents::POSTTYPE, 'normal', 'high' );
 
-			if ( $modules ) {
-				self::do_modules_metaboxes( $modules, $post_id );
-			}
 		}
 
 		/**
 		 * @static
-		 * @param $modules
 		 * @param $post_id
 		 */
-		private static function do_modules_metaboxes( $modules, $post_id ) {
+		public static function do_modules_metaboxes(  $post_id ) {
+			$modules = apply_filters( 'tribe_events_tickets_modules', NULL );
 			foreach ( $modules as $class => $title ) {
 				if ( class_exists( $class ) ) {
 					$obj = call_user_func( array( $class,
@@ -59,8 +57,8 @@
 	}
 
 	if ( is_admin() ) {
-		add_action( 'tribe_events_details_table_bottom', array( 'TribeEventsTicketsMetabox',
-		                                                        'do_meta_box' ) );
+		add_action( 'add_meta_boxes', array( 'TribeEventsTicketsMetabox',
+		                                     'do_meta_box' ) );
 		add_action( 'admin_enqueue_scripts', array( 'TribeEventsTicketsMetabox',
 		                                            'add_admin_scripts' ) );
 	}

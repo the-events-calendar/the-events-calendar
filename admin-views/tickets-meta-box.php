@@ -6,14 +6,6 @@
 ?>
 
 <table id="event_tickets" class="eventtable">
-	<tr>
-		<td colspan="2" class="tribe_sectionheader">
-			<h4><?php _e( 'Event Tickets', 'tribe-events-calendar' ); ?></h4>
-			<small><?php _e( 'Available tickets providers:', 'tribe-events-calendar' ); ?> <?php echo join( ", ", self::$active_modules ) . "."; ?>
-				<a href="http://tri.be/" target="_blank"><?php _e( "Want more?", "tribe-events-calendar" );?></a>
-			</small>
-		</td>
-	</tr>
 	<?php
 	if ( get_post_meta( get_the_ID(), '_EventOrigin', true ) === 'community-events' ) {
 		?>
