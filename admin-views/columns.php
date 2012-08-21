@@ -7,14 +7,14 @@ $importer_instance = ECP_Events_importer::instance();
 require_once 'header.php';
 ?>
 
-<h3><?php echo sprintf( __( 'Column Mapping: %s', 'tribe-events-calendar-pro' ), ucwords($import_type) )  ?></h3>
+<h3><?php echo sprintf( __( 'Column Mapping: %s', 'tribe-events-importer' ), ucwords($import_type) )  ?></h3>
 
 <?php if ( $error_message != '' ): ?>
-    <p><?php _e( 'There was an error:', 'tribe-events-calendar-pro' ) ?> <?php echo $error_message ?></p>
-    <p><a href="#" onClick="history.go(-1);return false;"><?php _e( 'Go back', 'tribe-events-calendar-pro' ) ?></a></p>
+    <p><?php _e( 'There was an error:', 'tribe-events-importer' ) ?> <?php echo $error_message ?></p>
+    <p><a href="#" onClick="history.go(-1);return false;"><?php _e( 'Go back', 'tribe-events-importer' ) ?></a></p>
 <?php else: ?>
     <div class="form">
-        <p><?php _e( 'Please choose the fields that best match the columns in your CSV file.', 'tribe-events-calendar-pro' ) ?>
+        <p><?php _e( 'Please choose the fields that best match the columns in your CSV file.', 'tribe-events-importer' ) ?>
         </p>
 	<form method="POST">
 	    <table class="">
@@ -26,7 +26,7 @@ require_once 'header.php';
 		<?php endforeach ?>
 	    
 	    <tr><td colspan="2">
-	    <p style="text-align: center;"><input type="submit" class="button-primary" style="" value="<?php _e( 'Perform Import', 'tribe-events-calendar-pro' ) ?>" /></p>
+	    <p style="text-align: center;"><input type="submit" class="button-primary" style="" value="<?php _e( 'Perform Import', 'tribe-events-importer' ) ?>" /></p>
 	    </td></tr>
 	    
 	    </table>
