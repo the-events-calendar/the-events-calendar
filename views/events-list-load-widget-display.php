@@ -54,7 +54,7 @@ ob_end_clean();
       ?> 
 	</div>
 	<div class="event">
-		<a href="<?php echo get_permalink($post->ID) ?>"><?php echo $post->post_title ?></a>
+		<a href="<?php echo get_permalink($post->ID); ?>"><?php echo $post->post_title; ?></a>
 	</div>
 </li>
 <?php $alt_text = ( empty( $alt_text ) ) ? 'alt' : ''; ?>

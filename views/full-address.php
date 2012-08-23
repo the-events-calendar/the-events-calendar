@@ -42,5 +42,5 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 	<?php if ( count( $address_out ) > 0 ) : ?>
 	<?php echo implode( ', ', $address_out ); ?>
-	<?php endif ?>
+	<?php endif; ?>
 </div>
