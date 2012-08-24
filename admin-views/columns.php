@@ -18,6 +18,10 @@ require_once 'header.php';
         </p>
 	<form method="POST">
 	    <table class="">
+	    	<thead>
+	    		<th><?php _e( 'Column Headings', 'tribe-events-importer' ); ?></th>
+	    		<th><?php _e( 'Event Fields', 'tribe-events-importer' ); ?></th>
+	    	</thead>
 	        <?php foreach ( $csv->titles as $col => $title): ?>
 		    <tr>
 			<td><?php echo $title ?></td>

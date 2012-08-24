@@ -55,7 +55,7 @@ if (!class_exists('ECP_Events_Importer')) {
 					    'event_start_time' => 'Event Start Time',
 					    'event_end_date' => 'Event End Date',
 					    'event_end_time' => 'Event End Time',
-					    //'event_all_day' => 'All Day Event',
+					    'event_all_day' => 'All Day Event',
 					    'event_venue_name' => 'Event Venue Name',
 					    'event_organizer_name' => 'Event Organizer Name',
 					    'event_show_map_link' => 'Event Show Map Link',
