@@ -328,7 +328,7 @@ echo '</pre>';
 
 			    // Record failed rows for report and make them 1-based.
 			    if ( $result == 'fail' ) {
-				$fail_rows []= ( $row_num + 1 );
+				$fail_rows []= ( $row_num + 2 );
 			    }
 			}
 			
