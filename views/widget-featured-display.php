@@ -66,7 +66,7 @@ ob_end_clean();
 
 	    $content = apply_filters('the_content', strip_shortcodes( $post->post_content ));
 	    $content = str_replace(']]>', ']]&gt;', $content);
-	    echo wp_trim_words( $content, apply_filters( 'excerpt_length' ), apply_filters('excerpt_more') );
+	    echo wp_trim_words( $content, apply_filters( 'excerpt_length', 55 ), apply_filters('excerpt_more', ' ' . '[...]') );
 
 	?>
 </div>
