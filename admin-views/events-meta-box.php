@@ -33,7 +33,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<td><input tabindex="<?php $this->tabIndex(); ?>" type='checkbox' id='allDayCheckbox' name='EventAllDay' value='yes' <?php echo $isEventAllDay; ?> /></td>
 		</tr>
 		<tr>
-			<td style="width:125px;"><?php _e('Start Date / Time:','tribe-events-calendar'); ?></td>
+			<td style="width:125px;"><?php _e('* Start Date / Time:','tribe-events-calendar'); ?></td>
 			<td>
 				<input autocomplete="off" tabindex="<?php $this->tabIndex(); ?>" type="text" class="datepicker" name="EventStartDate" id="EventStartDate"  value="<?php echo esc_attr($EventStartDate) ?>" />
 				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', 'tribe-events-calendar') ?></span>
@@ -54,7 +54,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			</td>
 		</tr>
 		<tr>
-			<td><?php _e('End Date / Time:','tribe-events-calendar'); ?></td>
+			<td><?php _e('* End Date / Time:','tribe-events-calendar'); ?></td>
 			<td>
 				<input autocomplete="off" type="text" class="datepicker" name="EventEndDate" id="EventEndDate"  value="<?php echo esc_attr( $EventEndDate ); ?>" />
 				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', 'tribe-events-calendar') ?></span>
@@ -105,7 +105,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	</table>
     <?php $this->do_action('tribe_events_details_table_bottom', $postId, true) ?>
 	<table id="event_cost" class="eventtable">		
-		<?php if(!class_exists('Event_Tickets_PRO')){ ?>
 		<tr>
 			<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event Cost', 'tribe-events-calendar'); ?></h4></td>
 		</tr>
@@ -117,8 +116,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<td></td>
 			<td><small><?php _e('Leave blank to hide the field. Enter a 0 for events that are free.', 'tribe-events-calendar'); ?></small></td>
 		</tr>
-		
-		<?php } ?>
       <?php $this->do_action('tribe_events_cost_table', $postId, true) ?>
 	</table>
 	</div>

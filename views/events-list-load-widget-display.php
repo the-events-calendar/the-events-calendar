@@ -41,20 +41,21 @@ ob_end_clean();
 	<div class="when">
 		<?php
 			$space = false;
-			$output = '';
+			$output = ''; 			
 			echo tribe_get_start_date( $post->ID ); 
 
-         if( tribe_is_multiday( $post->ID ) || !$event->AllDay ) {
-            echo ' - ' . tribe_get_end_date($post->ID);
-         }
+         	if( tribe_is_multiday( $post->ID ) ) {
+            	echo '<br/>' . __('Ends', 'tribe-events-calendar-pro') . ' ';
+				echo tribe_get_end_date($post->ID);
+         	}
 
 			if($event->AllDay) {
-				echo ' <small>('.__('All Day','tribe-events-calendar').')</small>';
-         }
+				echo ' <small><em>('.__('All Day','tribe-events-calendar').')</em></small>';
+         	}
       ?> 
 	</div>
 	<div class="event">
-		<a href="<?php echo get_permalink($post->ID) ?>"><?php echo $post->post_title ?></a>
+		<a href="<?php echo get_permalink($post->ID); ?>"><?php echo $post->post_title; ?></a>
 	</div>
 </li>
 <?php $alt_text = ( empty( $alt_text ) ) ? 'alt' : ''; ?>

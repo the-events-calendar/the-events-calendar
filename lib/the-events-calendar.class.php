@@ -16,7 +16,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		const VENUE_POST_TYPE = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 		const PLUGIN_DOMAIN = 'tribe-events-calendar';
-		const VERSION = '2.0.8';
+		const VERSION = '2.0.9';
 		const FEED_URL = 'http://tri.be/category/products/feed/';
 		const INFO_API_URL = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';
@@ -205,7 +205,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_filter( 'bloginfo_rss',	array($this, 'add_space_to_rss' ) );
 			add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
 			add_filter( 'post_updated_messages', array($this, 'updatePostMessage') );
-			add_filter( 'term_link', array($this, 'tag_link'), 10, 3);
 	
 			/* Add nav menu item - thanks to http://wordpress.org/extend/plugins/cpt-archives-in-nav-menus/ */
 			add_filter( 'nav_menu_items_' . TribeEvents::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
@@ -616,7 +615,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					return trailingslashit($permalink) . TribeDateUtils::dateOnly( isset($post->EventStartDate) ? $post->EventStartDate : null );
 				}
 			}
-	
 			return $permalink;
 		}
 
@@ -1474,7 +1472,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param string $secondary for $type = month, pass a YYYY-MM string for a specific month's URL
 		 */
 
-		public function getLink( $type = 'home', $secondary = false, $term = null ) {
+		public function getLink	( $type = 'home', $secondary = false, $term = null ) {
 			// if permalinks are off or user doesn't want them: ugly.
 			if( '' == get_option('permalink_structure') ) {
 				return esc_url($this->uglyLink($type, $secondary));
@@ -1496,38 +1494,38 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			switch( $type ) {
 				case 'home':
-					return esc_url($eventUrl);
+					return trailingslashit( esc_url($eventUrl) );
 				case 'month':
 					if ( $secondary ) {
-						return esc_url($eventUrl . $secondary);
+						return trailingslashit( esc_url($eventUrl . $secondary) );
 					}
-					return esc_url($eventUrl . $this->monthSlug . '/');
+					return trailingslashit( esc_url($eventUrl . $this->monthSlug) );
 				case 'upcoming':
-					return esc_url($eventUrl . $this->upcomingSlug . '/');
+					return trailingslashit( esc_url($eventUrl . $this->upcomingSlug) );
 				case 'past':
-					return esc_url($eventUrl . $this->pastSlug . '/');
+					return trailingslashit( esc_url($eventUrl . $this->pastSlug) );
 				case 'dropdown':
 					return esc_url($eventUrl);
 				case 'ical':
 					if ( $secondary == 'single' )
 						$eventUrl = trailingslashit(get_permalink());
-					return esc_url($eventUrl . 'ical/');
+					return trailingslashit( esc_url($eventUrl . 'ical') );
 				case 'single':
 					global $post;
 					$p = $secondary ? $secondary : $post;
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
 					$link = trailingslashit(get_permalink($p));
 					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
-					return esc_url($link);
+					return trailingslashit( esc_url($link) );
 				case 'day':
 					$date = strtotime($secondary);
 					$secondary = date('Y-m-d', $date);
-					return esc_url($eventUrl . $secondary);
+					return trailingslashit( esc_url($eventUrl . $secondary) );
 				case 'all':
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
 					$eventUrl = trailingslashit(get_permalink());
 					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
-					return esc_url($eventUrl . 'all/');
+					return trailingslashit( esc_url($eventUrl . 'all') );
 				default:
 					return esc_url($eventUrl);
 			}
@@ -1956,9 +1954,35 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			return $venue_id;
 		}
+		/**
+		 *
+		 * @param $p
+		 * @param $post_status (deprecated)
+		 * @param $args
+		 *
+		 * @return WP_Query->posts || false
+		 */
+		function get_venue_info( $p = null, $deprecated = null, $args = array() ){
+			$defaults = array(
+				'post_type' => self::VENUE_POST_TYPE, 
+				'nopaging' => 1, 
+				'post_status' => 'publish',
+				'ignore_sticky_posts ' => 1,
+				'orderby'=>'title', 
+				'order'=>'ASC',
+				'p' => $p
+			);
 
-		function get_venue_info($p = null, $post_status='publish'){
-			$r = new WP_Query(array('post_type' => self::VENUE_POST_TYPE, 'nopaging' => 1, 'post_status' => $post_status, 'ignore_sticky_posts ' => 1,'orderby'=>'title', 'order'=>'ASC','p' => $p));
+			// allow deprecated param to pass through by default
+			// NOTE: setting post_status in $args will override $post_status
+			if ( $deprecated != null ) {
+				_deprecated_argument( __FUNCTION__, 'The Event Calendar v2.0.9', 'To use the latest code, please supply post_status in the argument array params.' );
+				$defaults['post_status'] = $deprecated;
+			}
+
+
+			$args = wp_parse_args( $args, $defaults );
+			$r = new WP_Query( $args );
 			if ($r->have_posts()) :
 				return $r->posts;
 			endif;
@@ -2036,12 +2060,38 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
-		function get_organizer_info($p = null, $post_status='publish'){
-			$r = new WP_Query(array('post_type' => self::ORGANIZER_POST_TYPE, 'nopaging' => 1, 'post_status' => $post_status, 'ignore_sticky_posts ' => 1,'orderby'=>'title', 'order'=>'ASC', 'p' => $p));
+		/**
+		 *
+		 * @param $p
+		 * @param $post_status (deprecated)
+		 * @param $args
+		 *
+		 * @return WP_Query->posts || false
+		 */
+		function get_organizer_info( $p = null, $deprecated = null, $args = array() ){
+			$defaults = array(
+				'post_type' => self::ORGANIZER_POST_TYPE, 
+				'nopaging' => 1, 
+				'post_status' => 'publish',
+				'ignore_sticky_posts ' => 1,
+				'orderby'=>'title', 
+				'order'=>'ASC',
+				'p' => $p
+			);
+
+			// allow deprecated param to pass through by default
+			// NOTE: setting post_status in $args will override $post_status
+			if ( $deprecated != null ) {
+				_deprecated_argument( __FUNCTION__, 'The Event Calendar v2.0.9', 'To use the latest code, please supply post_status in the argument array params.' );
+				$defaults['post_status'] = $deprecated;
+			}
+
+
+			$args = wp_parse_args( $args, $defaults );
+			$r = new WP_Query( $args );
 			if ($r->have_posts()) :
 				return $r->posts;
 			endif;
-			return false;
 		}
 
 		/**
@@ -2584,17 +2634,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			} else {
 				return get_the_ID();
 			}
-		}
-
-		/**
-		 * filter the link for tags when showing in an event
-		 */
-		public function tag_link($termlink, $term, $taxonomy) {
-			global $post;
-			if (is_object($post) && $post->post_type == self::POSTTYPE && $taxonomy == 'post_tag') {
-				$termlink = esc_url(trailingslashit(tribe_get_events_link().'tag/'.$term->name));
-			}
-			return $termlink;
 		}
 		
 		/**
