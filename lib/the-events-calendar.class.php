@@ -608,6 +608,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						$post->EventStartDate = TribeEvents::getRealStartDate( $post->ID );
 					}
 				}
+
+				// prevent any call from outside the tribe from appending bad date on the end of recurring permalinks (looking at Yoast WP SEO)
+				if(!isset($post->EventStartDate) || !$post->EventStartDate)
+					return $permalink;
 		
 				if( '' == get_option('permalink_structure') ) {
 					return add_query_arg('eventDate', TribeDateUtils::dateOnly( $post->EventStartDate ), $permalink ); 					
