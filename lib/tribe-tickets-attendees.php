@@ -11,9 +11,7 @@
 		function __construct() {
 			global $status, $page;
 
-			parent::__construct( array( 'singular'  => 'attendee',
-			                            'plural'    => 'attendees',
-			                            'ajax'      => true ) );
+			parent::__construct( array( 'singular'  => 'attendee', 'plural'    => 'attendees', 'ajax'      => true ) );
 		}
 
 		function search_box() {
@@ -21,12 +19,13 @@
 		}
 
 		function get_columns() {
-			$columns = array( 'cb'              => '<input type="checkbox" />',
-			                  'order_id'        => __( 'Order #', "tribe-events-calendar" ),
-			                  'attendee'        => __( 'Attendee', "tribe-events-calendar" ),
-			                  'ticket'          => __( 'Kind of Ticket', "tribe-events-calendar" ),
-			                  'qty'             => __( 'Quantity', "tribe-events-calendar" ),
-			                  'check_in'        => __( 'Check in', "tribe-events-calendar" ) );
+			$columns = array( 'cb'                          => '<input type="checkbox" />',
+			                  'attendee_id'                 => __( 'Ticket #', "tribe-events-calendar" ),
+			                  'order_id'                    => __( 'Order #', "tribe-events-calendar" ),
+			                  'order_status'                => __( 'Order Status', "tribe-events-calendar" ),
+			                  'ticket'                      => __( 'Ticket', "tribe-events-calendar" ),
+			                  'security'                    => __( 'Security Code', "tribe-events-calendar" ),
+			                  'check_in'                    => __( 'Check in', "tribe-events-calendar" ) );
 			return $columns;
 		}
 
@@ -36,27 +35,31 @@
 		}
 
 		function column_cb( $item ) {
-			return sprintf( '<input type="checkbox" name="%1$s[]" value="%2$s" />', $this->_args['singular'], $item["order_id"] . '_' . $item["product_id"] );
+			return sprintf( '<input type="checkbox" name="%1$s[]" value="%2$s" />', $this->_args['singular'], $item["attendee_id"] . '_' . $item["product_id"] );
 		}
 
 		function column_order_id( $item ) {
 			return "<a class='row-title' href='" . get_edit_post_link( $item["order_id"], true ) . "'>" . $item["order_id"] . "</a>";
 		}
 
-		function column_attendee( $item ) {
-			return $item["attendee"];
+		function column_order_status( $item ) {
+			return ucwords( $item["order_status"] );
+		}
+
+		function column_attendee_id( $item ) {
+			return $item["attendee_id"];
 		}
 
 		function column_ticket( $item ) {
 			return $item["ticket"];
 		}
 
-		function column_qty( $item ) {
-			return $item["qty"];
+		function column_security( $item ) {
+			return $item["security"];
 		}
 
 		function column_check_in( $item ) {
-			return sprintf( "<a href='#' data-order-id='%d' data-provider='%s' class='button-secondary tickets_checkin'>Check in</a>", $item["order_id"], $item["provider"] );
+			return sprintf( "<a href='#' data-attendee-id='%d' data-provider='%s' class='button-secondary tickets_checkin'>Check in</a>", $item["attendee_id"], $item["provider"] );
 		}
 
 		function single_row( $item ) {
@@ -64,7 +67,7 @@
 			$row_class = ( $row_class == '' ? ' alternate ' : '' );
 
 			$checked = '';
-			if (intval($item["checkedin"]) === 1){
+			if ( intval( $item["checkedin"] ) === 1 ) {
 				$checked = ' tickets_checked ';
 			}
 
@@ -77,7 +80,7 @@
 		function extra_tablenav( $which ) {
 
 			if ( $which == "top" ) {
-				echo sprintf( "%s: <input type='text' name='filter_attendee' id='filter_attendee' value=''>", __( "Filter by attendee name or order #", "tribe-events-calendar" ) );
+				echo sprintf( "%s: <input type='text' name='filter_attendee' id='filter_attendee' value=''>", __( "Filter by ticket #, order # or security code", "tribe-events-calendar" ) );
 			}
 		}
 
@@ -108,9 +111,7 @@
 			$hidden   = array();
 			$sortable = array();
 
-			$this->_column_headers = array( $columns,
-			                                $hidden,
-			                                $sortable );
+			$this->_column_headers = array( $columns, $hidden, $sortable );
 
 			$current_page = $this->get_pagenum();
 

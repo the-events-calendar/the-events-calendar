@@ -11,3 +11,7 @@
 .tickets_checked a.tickets_checkin{
 	display: none;
 }
+
+.column-attendee_id, .column-order_id{
+	width: 60px;
+}

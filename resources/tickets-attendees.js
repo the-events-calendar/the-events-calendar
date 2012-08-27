@@ -4,15 +4,16 @@ jQuery( document ).ready( function ( $ ) {
 
 		var search = jQuery( this ).val().toLowerCase();
 
-		$( 'td.column-attendee' ).each( function ( i, e ) {
-			var attendee_obj = jQuery( e );
-			var attendee = attendee_obj.text().toLowerCase();
-			var order_id = attendee_obj.prev( 'td' ).children( 'a' ).text();
+		$( 'td.column-security' ).each( function ( i, e ) {
+			var attendeeobj = jQuery( e );
+			var attendee = attendeeobj.text().toLowerCase();
+			var orderid = attendeeobj.prev( 'td' ).prev( 'td' ).prev( 'td' ).children( 'a' ).text();
+			var ticketid = attendeeobj.prev( 'td' ).prev( 'td' ).prev( 'td' ).prev( 'td' ).text();
 
-			if ( attendee.indexOf( search ) >= 0 || order_id.indexOf( search ) >= 0 ) {
-				attendee_obj.parent( 'tr' ).show();
+			if ( attendee.indexOf( search ) === 0 || orderid.indexOf( search ) === 0 || ticketid.indexOf( search ) === 0 ) {
+				attendeeobj.parent( 'tr' ).show();
 			} else {
-				attendee_obj.parent( 'tr' ).hide();
+				attendeeobj.parent( 'tr' ).hide();
 			}
 		} );
 
@@ -26,7 +27,7 @@ jQuery( document ).ready( function ( $ ) {
 		var params = {
 			action:'tribe-ticket-checkin-' + obj.attr( 'data-provider' ),
 			provider:obj.attr( 'data-provider' ),
-			order_ID:obj.attr( 'data-order-id' )
+			order_ID:obj.attr( 'data-attendee-id' )
 		};
 
 		$.post(
@@ -34,7 +35,7 @@ jQuery( document ).ready( function ( $ ) {
 			params,
 			function ( response ) {
 				if ( response.success ) {
-					obj.parent( 'td' ).parent( 'tr' ).addClass('tickets_checked');
+					obj.parent( 'td' ).parent( 'tr' ).addClass( 'tickets_checked' );
 				}
 			},
 			'json'
