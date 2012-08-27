@@ -608,6 +608,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						$post->EventStartDate = TribeEvents::getRealStartDate( $post->ID );
 					}
 				}
+
+				// prevent any call from outside the tribe from appending bad date on the end of recurring permalinks (looking at Yoast WP SEO)
+				if(!isset($post->EventStartDate) || !$post->EventStartDate)
+					return $permalink;
 		
 				if( '' == get_option('permalink_structure') ) {
 					return add_query_arg('eventDate', TribeDateUtils::dateOnly( $post->EventStartDate ), $permalink ); 					
@@ -1726,7 +1730,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$cleaned_tag = str_replace('_Event','',$meta);
 				$default = tribe_get_option('eventsDefault'.$cleaned_tag);
 				$default = apply_filters('filter_eventsDefault'.$cleaned_tag,$default);
-				return (get_post_meta( $id, $meta, $single )) ? get_post_meta( $id, $meta, $single ) : $default;
+				return (get_post_meta( $id, $meta, $single ) !== false) ? get_post_meta( $id, $meta, $single ) : $default;
 			}else{
 				return get_post_meta( $id, $meta, $single );
 			}
@@ -1954,9 +1958,35 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			return $venue_id;
 		}
+		/**
+		 *
+		 * @param $p
+		 * @param $post_status (deprecated)
+		 * @param $args
+		 *
+		 * @return WP_Query->posts || false
+		 */
+		function get_venue_info( $p = null, $deprecated = null, $args = array() ){
+			$defaults = array(
+				'post_type' => self::VENUE_POST_TYPE, 
+				'nopaging' => 1, 
+				'post_status' => 'publish',
+				'ignore_sticky_posts ' => 1,
+				'orderby'=>'title', 
+				'order'=>'ASC',
+				'p' => $p
+			);
 
-		function get_venue_info($p = null, $post_status='publish'){
-			$r = new WP_Query(array('post_type' => self::VENUE_POST_TYPE, 'nopaging' => 1, 'post_status' => $post_status, 'ignore_sticky_posts ' => 1,'orderby'=>'title', 'order'=>'ASC','p' => $p));
+			// allow deprecated param to pass through by default
+			// NOTE: setting post_status in $args will override $post_status
+			if ( $deprecated != null ) {
+				_deprecated_argument( __FUNCTION__, 'The Event Calendar v2.0.9', 'To use the latest code, please supply post_status in the argument array params.' );
+				$defaults['post_status'] = $deprecated;
+			}
+
+
+			$args = wp_parse_args( $args, $defaults );
+			$r = new WP_Query( $args );
 			if ($r->have_posts()) :
 				return $r->posts;
 			endif;
@@ -2034,12 +2064,38 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
-		function get_organizer_info($p = null, $post_status='publish'){
-			$r = new WP_Query(array('post_type' => self::ORGANIZER_POST_TYPE, 'nopaging' => 1, 'post_status' => $post_status, 'ignore_sticky_posts ' => 1,'orderby'=>'title', 'order'=>'ASC', 'p' => $p));
+		/**
+		 *
+		 * @param $p
+		 * @param $post_status (deprecated)
+		 * @param $args
+		 *
+		 * @return WP_Query->posts || false
+		 */
+		function get_organizer_info( $p = null, $deprecated = null, $args = array() ){
+			$defaults = array(
+				'post_type' => self::ORGANIZER_POST_TYPE, 
+				'nopaging' => 1, 
+				'post_status' => 'publish',
+				'ignore_sticky_posts ' => 1,
+				'orderby'=>'title', 
+				'order'=>'ASC',
+				'p' => $p
+			);
+
+			// allow deprecated param to pass through by default
+			// NOTE: setting post_status in $args will override $post_status
+			if ( $deprecated != null ) {
+				_deprecated_argument( __FUNCTION__, 'The Event Calendar v2.0.9', 'To use the latest code, please supply post_status in the argument array params.' );
+				$defaults['post_status'] = $deprecated;
+			}
+
+
+			$args = wp_parse_args( $args, $defaults );
+			$r = new WP_Query( $args );
 			if ($r->have_posts()) :
 				return $r->posts;
 			endif;
-			return false;
 		}
 
 		/**

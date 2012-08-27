@@ -43,13 +43,13 @@ $monthView = tribe_sort_by_month( $eventPosts, $current_date );
 
 ?>
 <div class="tribe-events-widget-nav">  
-  <a class="tribe-mini-ajax prev-month" href="#" data-month="<?php echo $tribe_ecp->previousMonth( $current_date );?>" title="<?php echo tribe_get_previous_month_text(); ?>">
+  <a class="tribe-mini-ajax prev-month" href="#" data-month="<?php echo $tribe_ecp->previousMonth( $current_date ); ?>" title="<?php echo tribe_get_previous_month_text(); ?>">
     <span><?php echo tribe_get_previous_month_text(); ?></span>
   </a>
   <span id="tribe-mini-ajax-month">
     <?php echo $tribe_ecp->monthsShort[date('M',$date)]; echo date(' Y',$date); ?>
   </span>
-  <a class="tribe-mini-ajax next-month" href="#" data-month="<?php echo $tribe_ecp->nextMonth( $current_date );?>" title="<?php echo tribe_get_next_month_text(); ?>">
+  <a class="tribe-mini-ajax next-month" href="#" data-month="<?php echo $tribe_ecp->nextMonth( $current_date ); ?>" title="<?php echo tribe_get_next_month_text(); ?>">
     <span><?php echo tribe_get_next_month_text(); ?></span> 
   </a>
   <img id="ajax-loading-mini" src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" alt="loading..." />
