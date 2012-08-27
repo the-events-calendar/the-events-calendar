@@ -28,8 +28,11 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<?php while ( have_posts() ) : the_post(); ?>
 		<?php global $more; $more = false; ?>
 		<div id="post-<?php the_ID(); ?>" <?php post_class('tribe-events-event clearfix'); ?> itemscope itemtype="http://schema.org/Event">
-			<?php if ( tribe_is_new_event_day() && !tribe_is_day() ) : ?>
+			<?php if ( tribe_is_new_event_day() && !tribe_is_day() && !tribe_is_multiday() ) : ?>
 				<h4 class="event-day"><?php echo tribe_get_start_date( null, false ); ?></h4>
+			<?php endif; ?>
+			<?php if( !tribe_is_day() && tribe_is_multiday() ) : ?>
+				<h4 class="event-day"><?php echo tribe_get_start_date( null, false ); ?> – <?php echo tribe_get_end_date( null, false ); ?></h4>
 			<?php endif; ?>
 			<?php if ( tribe_is_day() && $first ) : $first = false; ?>
 				<h4 class="event-day"><?php echo tribe_event_format_date(strtotime(get_query_var('eventDate')), false); ?></h4>
