@@ -46,6 +46,12 @@ class TribeEventsCustomMeta {
 	public static function event_meta_options() {
 		$tribe_ecp = TribeEvents::instance();
 		$customFields = tribe_get_option('custom-fields');
+		$disable_metabox_custom_fields = tribe_get_option('disable_metabox_custom_fields');
+		// if we don't know the value lets setup a default
+		if( empty($disable_metabox_custom_fields) ){
+			$disable_metabox_custom_fields =  TribeEventsPro::displayMetaboxCustomFields() ? "hide" : "show";	
+		}
+		
 		$count = 1;
 		include( TribeEventsPro::instance()->pluginPath . 'admin-views/event-meta-options.php' );
 	}
@@ -109,6 +115,9 @@ class TribeEventsCustomMeta {
 	public static function save_meta_options($ecp_options) {
 		$count = 1;
 		$ecp_options['custom-fields'] = array();
+
+		// save the view state for custom fields
+		$ecp_options['disable_metabox_custom_fields'] = $_POST['disable_metabox_custom_fields'];
 		
 		for ( $i = 0; $i < count( $_POST['custom-field'] ); $i++ ) {
 			$name = strip_tags( $_POST['custom-field'][$i] );

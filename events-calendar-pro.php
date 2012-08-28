@@ -93,6 +93,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function init() {
 			TribeEventsCustomMeta::init();
 			TribeEventsRecurrenceMeta::init();
+			$this->displayMetaboxCustomFields();
 		}
 
 
@@ -139,6 +140,58 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// load the dialog
 			require_once( TribeEvents::instance()->pluginPath.'admin-views/recurrence-dialog.php' );
 	      }
+
+	    public function displayMetaboxCustomFields(){
+	    	// 'disable_metabox_custom_fields'
+	    	$show_box = tribe_get_option('disable_metabox_custom_fields');
+	    	if($show_box == 'show') {
+		    	return true;
+		    }
+		    if($show_box == 'hide') {
+		    	remove_post_type_support( TribeEvents::POSTTYPE, 'custom-fields' );
+		    	return false;
+		    }
+		    if(empty($show_box)){
+		    	global $wpdb;
+		    	$meta_keys = $wpdb->get_results("select distinct pm.meta_key from $wpdb->postmeta pm
+										LEFT JOIN $wpdb->posts p ON p.ID = pm.post_id
+										WHERE p.post_type = '" . TribeEvents::POSTTYPE . "'
+										AND pm.meta_key NOT LIKE '_wp_%'
+										AND pm.meta_key NOT IN (
+											'_edit_last',
+											'_edit_lock',
+											'_thumbnail_id',
+											'_EventConference', 
+											'_EventAllDay', 
+											'_EventHideFromUpcoming', 
+											'_EventAuditTrail',
+											'_EventOrigin',
+											'_EventShowMap',
+											'_EventVenueID',
+											'_EventShowMapLink',
+											'_EventCost',
+											'_EventOrganizerID',
+											'_EventRecurrence',
+											'_EventStartDate',
+											'_EventEndDate',
+											'_EventDuration',
+											'_FacebookID')");
+		    	if( empty($meta_keys) ) {
+		    		remove_post_type_support( TribeEvents::POSTTYPE, 'custom-fields' );
+		    		// update_option('disable_metabox_custom_fields','hide');
+		    		$options['disable_metabox_custom_fields'] = 'hide';
+		    		$r = false;
+		    	} else {
+		    		// update_option('disable_metabox_custom_fields','true');
+		    		$options['disable_metabox_custom_fields'] = 'show';
+		    		$r = true;
+		    	}
+
+		    	TribeEvents::setOptions($options);
+		    	return $r;
+		    }
+
+	    }
 
 		public function addVenueAndOrganizerEditor() {
 			add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __( 'Venues','tribe-events-calendar-pro' ), __( 'Venues','tribe-events-calendar-pro' ), 'edit_tribe_venues', 'edit.php?post_type='.TribeEvents::VENUE_POST_TYPE );
