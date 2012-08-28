@@ -22,7 +22,30 @@ class TribeEventsRecurrenceMeta {
 
     add_filter( 'tribe_get_event_link', array( __CLASS__, 'addDateToEventPermalink'), 10, 2 );
     add_filter( 'post_row_actions', array( __CLASS__, 'removeQuickEdit'), 10, 2 );
-	}	
+    // recurrance events don't have standard edit links - so we need to make sure they work right
+    add_filter( 'edit_post_link', array( __CLASS__, 'edit_post_link'));
+    add_action( 'wp_before_admin_bar_render', array( __CLASS__, 'admin_bar_render'));
+	}
+
+	
+	public function edit_post_link( $link )	{
+		global $post;
+		if( tribe_is_recurring_event( $post ) && preg_match("/href=\"(.*?)\"/i", $link, $edit_url) ) {
+			$link = isset($edit_url[1]) ? str_replace($edit_url[0], 'href="' . $edit_url[1] . '&eventDate=' . TribeDateUtils::dateOnly($post->EventStartDate) . '"', $link) : $link;
+			return $link;
+		} else {
+			return $link;
+		}
+	}
+	public function admin_bar_render(){
+		global $post, $wp_admin_bar;
+		if( tribe_is_recurring_event( $post ) && !is_admin() ) {
+			$edit_link = $wp_admin_bar->get_node('edit');
+			$edit_link->href = $edit_link->href . '&eventDate=' . TribeDateUtils::dateOnly($post->EventStartDate);
+			$wp_admin_bar->remove_menu('edit');
+			$wp_admin_bar->add_node($edit_link);
+		}
+	}
 
    public static function removeQuickEdit( $actions, $post ) {
       if( tribe_is_recurring_event( $post ) ) {
