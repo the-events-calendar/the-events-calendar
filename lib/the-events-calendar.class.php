@@ -189,7 +189,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-debug-bar.class.php' );
 
 			// App Shop
-			if (!defined("TRIBE_DISABLE_SHOP") || TRIBE_DISABLE_SHOP !== true ){
+			if (!defined("TRIBE_HIDE_UPSELL") || TRIBE_HIDE_UPSELL !== true ){
 				require_once( 'tribe-app-shop.class.php' );
 			}
 

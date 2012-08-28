@@ -42,11 +42,8 @@
 			 * Class constructor
 			 */
 			public function __construct() {
-				if ( !defined( 'TRIBE_HIDE_UPSELL' ) || !TRIBE_HIDE_UPSELL ) {
-					add_action( 'admin_menu', array( $this, 'add_menu_page' ), 100 );
-					add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_item' ), 20 );
-				}
-
+				add_action( 'admin_menu', array( $this, 'add_menu_page' ), 100 );
+				add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_item' ), 20 );
 			}
 
 			/**
