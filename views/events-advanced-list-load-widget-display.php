@@ -4,10 +4,14 @@
  * All the items are turned on and off through the widget admin.
  * There is currently no default styling, which is highly needed.
  *
- * You can customize this view by putting a replacement file of the same name (events-list-load-widget-display.php) in the events/ directory of your theme.
+ * You can customize this view by putting a replacement file of the same name
+ * (events-list-load-widget-display.php) in the events/ directory of your theme.
  *
- * When the template is loaded, the following vars are set: $start, $end, $venue, $address, $city, $state, $province'], $zip, $country, $phone, $cost
+ * When the template is loaded, the following vars are set: $start, $end, $venue, 
+ * $address, $city, $state, $province'], $zip, $country, $phone, $cost
+ *
  * @return string
+ *
  */
 
 // Vars set:
@@ -24,9 +28,9 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 $event = array();
 $tribe_ecp = TribeEvents::instance();
-reset($tribe_ecp->metaTags); // Move pointer to beginning of array.
-foreach($tribe_ecp->metaTags as $tag){
-	$var_name = str_replace('_Event','',$tag);
+reset( $tribe_ecp->metaTags ); // Move pointer to beginning of array.
+foreach( $tribe_ecp->metaTags as $tag ) {
+	$var_name = str_replace( '_Event', '', $tag );
 	$event[$var_name] = tribe_get_event_meta( $post->ID, $tag, true );
 }
 
@@ -34,30 +38,32 @@ $event = (object) $event; //Easier to work with.
 
 ob_start();
 if ( !isset($alt_text) ) { $alt_text = ''; }
-post_class($alt_text,$post->ID);
+post_class( $alt_text,$post->ID );
 $class = ob_get_contents();
 ob_end_clean();
 ?>
 <li <?php echo $class ?>>
+
 	<div class="when">
 		<?php
 			$space = false;
 			$output = '';
 			echo tribe_get_start_date( $post->ID, $start ); 
 
-			if($event->AllDay && $start) {
-				echo ' <small>('.__('All Day','tribe-events-calendar-pro').')</small>';
-			} else {
-				if ( $end && $event->EndDate != '') {
-					echo '<br/>' . __('Ends', 'tribe-events-calendar-pro') . ' ';
-					echo tribe_get_end_date($post->ID);
-				}
+			if ( $end && $event->EndDate != '') {
+					echo '<br/>' . __( 'Ends', 'tribe-events-calendar-pro' ) . ' ';
+					echo tribe_get_end_date( $post->ID );
 			}
+			if($event->AllDay && $start) {
+				echo ' <small><em>('.__( 'All Day','tribe-events-calendar-pro' ).')</em></small>';
+			} 
 		?> 
-	</div>
+	</div><!-- .when -->
+	
 	<div class="event">
-		<a href="<?php echo tribe_get_event_link($post) ?>"><?php echo $post->post_title ?></a>
-	</div>
+		<a href="<?php echo tribe_get_event_link( $post ) ?>"><?php echo $post->post_title ?></a>
+	</div><!-- .event -->
+	
 	<div class="loc"><?php
 		if ( $venue && tribe_get_venue() != '') {
 			$output .= ( $space ) ? '<br />' : '';
@@ -76,7 +82,7 @@ ob_end_clean();
 			$output .= tribe_get_city() . ', ';
 			$space = true;
 		}
-		if ( $region && tribe_get_region()) {
+		if ( $region && tribe_get_region() ) {
 			$output .= ( !$city ) ? '<br />' : '';
 			$space = true;
 			$output .= tribe_get_region();
@@ -84,31 +90,32 @@ ob_end_clean();
 			$output = rtrim( $output, ', ' );
 		}
 
-		if ( $zip && tribe_get_zip() != '') {
+		if ( $zip && tribe_get_zip() != '' ) {
 			$output .= ( $space ) ? '<br />' : '';
 			$output .= tribe_get_zip();
 			$space = true;
 		}
 
-		if ( $country && tribe_get_country() != '') {
+		if ( $country && tribe_get_country() != '' ) {
 			$output .= ( $space ) ? '<br />' : ' ';
 			$output .= tribe_get_country(); 
 		}
 
-		if ( $phone && tribe_get_phone() != '') {
-			if($output) 
+		if ( $phone && tribe_get_phone() != '' ) {
+			if( $output ) 
 				$output .= '<br/>';
 
 			$output .= tribe_get_phone(); 
 		}
-		if ( $cost && tribe_get_cost() != '') {		
-			if($output) 
+		if ( $cost && tribe_get_cost() != '' ) {		
+			if( $output ) 
 				$output .= '<br/>';
-			$output .= __('Price:', 'tribe-events-calendar-pro') . ' ' . tribe_get_cost(); 
+			$output .= __( 'Price:', 'tribe-events-calendar-pro' ) . ' ' . tribe_get_cost(); 
 		}
 
 		echo $output;
 	?>
-	</div>
+	</div><!-- .loc -->
+	
 </li>
 <?php $alt_text = ( empty( $alt_text ) ) ? 'alt' : ''; ?>
