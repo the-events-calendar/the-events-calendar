@@ -39,7 +39,7 @@ class TribeEventsRecurrenceMeta {
 	}
 	public function admin_bar_render(){
 		global $post, $wp_admin_bar;
-		if( tribe_is_recurring_event( $post ) && !is_admin() ) {
+		if( !is_admin() &&  tribe_is_recurring_event( $post )) {
 			$edit_link = $wp_admin_bar->get_node('edit');
 			$edit_link->href = $edit_link->href . '&eventDate=' . TribeDateUtils::dateOnly($post->EventStartDate);
 			$wp_admin_bar->remove_menu('edit');
