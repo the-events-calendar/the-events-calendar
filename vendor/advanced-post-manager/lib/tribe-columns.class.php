@@ -173,6 +173,8 @@ class Tribe_Columns {
 		add_action( 'load-edit.php', array($this, 'save_active'), 20 );
 		add_action( 'admin_enqueue_scripts', array($this, 'enqueue') );
 		add_filter( 'tribe_columns_column', array($this, 'date_column'), 10, 3 );
+		// Needs to be executed when quick edit is saved, hence the following line.
+		add_action( 'save_post', array( $this, 'init_active' ) );
 	}
 	
 	public function date_column($value, $column_id, $column) {
