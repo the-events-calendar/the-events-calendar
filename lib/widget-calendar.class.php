@@ -22,7 +22,7 @@ if( !class_exists( 'TribeEventsCalendarWidget') ) {
 
 			if ( is_active_widget( false, false, $this->id_base ) ) {
 
-				$widget_data = array( "ajaxurl" => admin_url( 'admin-ajax.php' ) );
+				$widget_data = array( "ajaxurl" => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
 
 				wp_enqueue_script( 'tribe-events-mini-calendar', TribeEventsPro::instance()->pluginUrl . 'resources/events-mini-ajax.js' );
 				wp_enqueue_style( 'tribe-events-mini-calendar', TribeEventsPro::instance()->pluginUrl . 'resources/events-mini-ajax.css' );
