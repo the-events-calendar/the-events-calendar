@@ -494,9 +494,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			if ( $postId === null || !is_numeric( $postId ) ) {
 				$postId = $post->ID;
 			}
+			// protecting for reccuring because the post object will have the start/end date available
+			$start_date = isset($post->EventStartDate) ? strtotime($post->EventStartDate) : strtotime( get_post_meta( $postId, '_EventStartDate', true ) );
+			$end_date = isset($post->EventEndDate) ? 
+				strtotime( $post->EventEndDate . ( get_post_meta( $postId, '_EventAllDay', true ) ? ' + 1 day' : '') ) :
+				strtotime( get_post_meta( $postId, '_EventEndDate', true ) . ( get_post_meta( $postId, '_EventAllDay', true ) ? ' + 1 day' : '') );
 
-			$start_date = strtotime( get_post_meta( $postId, '_EventStartDate', true ) );
-			$end_date = strtotime( get_post_meta( $postId, '_EventEndDate', true ) . ( get_post_meta( $postId, '_EventAllDay', true ) ? ' + 1 day' : '') );
 			$dates = ( get_post_meta( $postId, '_EventAllDay', true ) ) ? date( 'Ymd', $start_date ) . '/' . date( 'Ymd', $end_date ) : date( 'Ymd', $start_date ) . 'T' . date( 'Hi00', $start_date ) . '/' . date( 'Ymd', $end_date ) . 'T' . date( 'Hi00', $end_date );
 			$location = trim( $tribeEvents->fullAddressString( $postId ) );
 			$base_url = 'http://www.google.com/calendar/event';
