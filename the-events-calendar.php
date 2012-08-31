@@ -30,3 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 require_once( dirname(__FILE__) . '/lib/the-events-calendar.class.php' );
 
 TribeEvents::instance();
+
+require_once( dirname(__FILE__) . '/lib/tribe-presstrends.php' );
+
+register_deactivation_hook( __FILE__, array( 'TribeEvents', 'resetActivationMessage' ) );

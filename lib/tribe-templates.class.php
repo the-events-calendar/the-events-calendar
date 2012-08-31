@@ -12,20 +12,12 @@ if (!class_exists('TribeEventsTemplates')) {
 		public static $origPostCount;
 		public static $origCurrentPost;
 		public static $throughHead = false;
-		public static $isMainLoop = false;
 	
 		public static function init() {
 			//add_filter( 'parse_query', array( __CLASS__, 'fixIsHome') );
 			//add_filter( 'template_include', array( __CLASS__, 'fixIs404') );
 			add_filter( 'template_include', array( __CLASS__, 'templateChooser') );
 			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished'), 999 );
-
-			/**
-			 * functions to insert events into the main loop
-			 * @since 2.1
-			 */
-	 		add_action( 'pre_get_posts', array( __CLASS__, 'showInLoops' ));
-			add_filter( 'the_content', array( __CLASS__, 'hijackContentInMainLoop') );
 		}
 
 		// pick the correct template to include
@@ -56,11 +48,24 @@ if (!class_exists('TribeEventsTemplates')) {
 			
 				$template = locate_template( tribe_get_option('tribeEventsTemplate', 'default') == 'default' ? 'page.php' : tribe_get_option('tribeEventsTemplate', 'default') );
 				if ($template ==  '') $template = get_index_template();
-			
+
+				// remove singular body class if sidebar-page.php
+				if( $template == get_stylesheet_directory() . '/sidebar-page.php' ) {
+					add_filter( 'body_class', array( __CLASS__, 'remove_singular_body_class' ) );
+				}
 				return $template;
 			}			
 		}
 	
+		// remove "singular" from available body class
+		public function remove_singular_body_class( $c ) {
+			$key = array_search('singular', $c);
+			if( $key ) {
+				unset($c[ $key ]);
+			}
+            return $c;
+        }
+
 		public static function wpHeadFinished() {
 			self::$throughHead = true;
 		}
@@ -83,7 +88,7 @@ if (!class_exists('TribeEventsTemplates')) {
      		return $query->is_main_query();
 
 			global $wp_the_query;
-			return $query === $wp_the_query; // fallback
+			return $query === $wp_the_query;
 		}
 		
 		// get the correct internal page template
@@ -122,9 +127,9 @@ if (!class_exists('TribeEventsTemplates')) {
 			self::restoreQuery();
 		
 			ob_start();
-			echo stripslashes(tribe_get_option('tribeEventsBeforeHTML'));
+			echo apply_filters( 'tribe_events_before_html', stripslashes( tribe_get_option( 'tribeEventsBeforeHTML' ) ) );
 			include TribeEventsTemplates::get_current_page_template();
-			echo stripslashes(tribe_get_option('tribeEventsAfterHTML'));				
+			echo apply_filters( 'tribe_events_after_html', stripslashes( tribe_get_option( 'tribeEventsAfterHTML' ) ) );				
 			$contents = ob_get_contents();
 			ob_end_clean();
 		
@@ -148,7 +153,6 @@ if (!class_exists('TribeEventsTemplates')) {
 			}
 			return $template;
 		}
-
 
 		/**
 		 * checks where we are are and determines if we

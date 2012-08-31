@@ -17,7 +17,7 @@ jQuery(document).ready(function($) {
 
 	// toggle view of the venue defaults fields
 	function updateVenueFields() {
-		if($('[name="eventsDefaultVenueID"]').find('option:selected').val() != "0") {
+		if($('#tribe-field-eventsDefaultVenueID select').find('option:selected').val() != '0') {
 			$('.venue-default-info').fadeOut();
 		} else {
 			$('.venue-default-info').fadeIn();

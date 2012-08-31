@@ -44,15 +44,14 @@
 			public function __construct() {
 				add_action( 'admin_menu', array( $this, 'add_menu_page' ), 100 );
 				add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_item' ), 20 );
-
 			}
 
 			/**
 			 * Adds the page to the admin menu
 			 */
 			public function add_menu_page() {
-				$page_title = __( 'App Shop', 'tribe-events-calendar' );
-				$menu_title = __( 'App Shop', 'tribe-events-calendar' );
+				$page_title = __( 'Event Add-Ons', 'tribe-events-calendar' );
+				$menu_title = __( 'Event Add-Ons', 'tribe-events-calendar' );
 				$capability = "edit_posts";
 
 
@@ -70,7 +69,7 @@
 				$where = 'edit.php?post_type=' . TribeEvents::POSTTYPE;
 
 				$wp_admin_bar->add_menu( array( 'id'     => 'tribe-events-app-shop',
-				                                'title'  => __( 'App Shop', 'tribe-events-calendar' ),
+				                                'title'  => __( 'Event Add-Ons', 'tribe-events-calendar' ),
 				                                'href'   => admin_url( untrailingslashit( $where ) . "&page=" . self::MENU_SLUG ),
 				                                'parent' => 'tribe-events-settings-group' ) );
 

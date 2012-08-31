@@ -240,7 +240,7 @@
 }
 .chzn-container .chzn-results li {
   display: none;
-  line-height: 16px;
+  line-height: 80%;
   padding: 7px 7px 8px;
   margin: 0;
   list-style: none;

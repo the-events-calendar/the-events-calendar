@@ -283,10 +283,14 @@ if ( !class_exists('TribeField') ) {
 		 * @author jkudish
 		 * @return string the field name
 		 */
-		public function doFieldName() {
+		public function doFieldName($multi = false) {
 			$return = '';
 			if ($this->name)
-				$return = ' name="'.$this->name.'"';
+				if( $multi ){
+					$return = ' name="'.$this->name.'[]"';
+				}else{
+					$return = ' name="'.$this->name.'"';
+				}
 			return apply_filters( 'tribe_field_name', $return, $this->name, $this );
 		}
 
@@ -412,7 +416,7 @@ if ( !class_exists('TribeField') ) {
 				foreach ($this->options as $option_id => $title) {
 					$field .= '<label title="'.$title.'">';
 					$field .= '<input type="checkbox"';
-					$field .= $this->doFieldName();
+					$field .= $this->doFieldName(true);
  					$field .= ' value="'.$option_id.'" '.checked( in_array($option_id, $this->value), true, false ).'/>';
 					$field .= $title;
 					$field .= '</label>';

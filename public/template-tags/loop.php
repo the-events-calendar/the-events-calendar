@@ -149,18 +149,6 @@ if( class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
-		// global $wp_rewrite;
-		// die(var_dump($wp_rewrite));
-		if ( is_tax( 'post_tag' ) ) {
-			$cat = get_term_by( 'slug', get_query_var('term'), $tribe_ecp->get_event_taxonomy() );
-			if ( $depth ) {
-				$title = '<a href="'.tribe_get_events_link().'">'.$title.'</a>';
-				$title .= ' &#8250; ' . $cat->name;
-			} else {
-				$title = $cat->name;
-			}
-		}
-
 		return apply_filters('tribe_get_events_title', $title);
 	}
 

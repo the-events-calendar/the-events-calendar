@@ -52,9 +52,9 @@ if (!class_exists('TribeEventsQuery')) {
 				$args['posts_per_page'] = (int) tribe_get_option( 'postsPerPage', 10 );
 			}
 			
-	      	if (!empty($args['venue'])) {
+      if (!empty($args['venue'])) {
 				$args['meta_query'][] = array('key'=>'_EventVenueID', 'value'=>$args['venue']);
-	      	}
+      }
 
 			// proprietary metaKeys go to standard meta
 			if (!empty($args['metaKey']))
@@ -180,7 +180,7 @@ if (!class_exists('TribeEventsQuery')) {
 				$args['start_date'] = $wp_query->query_vars['eventDate'] . "-01";
 
 			$args['eventDate'] = $args['start_date'];		
-			$args['end_date'] = $tribe_ecp->nextMonth($args['start_date']) . "-01";
+			$args['end_date'] = date( 'Y-m-d', strtotime( $tribe_ecp->nextMonth($args['start_date']) ) -(24*3600) );
 			$args['orderby'] = 'event_date';
 			$args['order'] = "ASC";
 		

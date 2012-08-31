@@ -46,7 +46,7 @@ if (!class_exists('TribeEventsAdminList')) {
 		// event deletion
 		public static function add_date_to_recurring_event_trash_link( $link, $postId ) {
 			if ( function_exists('tribe_is_recurring_event') && is_array(self::$events_list) && tribe_is_recurring_event($postId) && isset(self::$events_list[0]) ) {
-				return add_query_arg( array( 'eventDate'=>urlencode( TribeDateUtils::dateOnly( self::$events_list[0]->EventEndDate ) ) ), $link );
+				return add_query_arg( array( 'eventDate'=>urlencode( TribeDateUtils::dateOnly( self::$events_list[0]->EventStartDate ) ) ), $link );
 			}
 		
 			return $link;
@@ -66,7 +66,7 @@ if (!class_exists('TribeEventsAdminList')) {
 		}
 
 		/**
-		 * fields filter for standard WordPress templates.  Adds the start and end date to queries in the
+		 * fields filter for standard wordpress templates.  Adds the start and end date to queries in the
 		 * events category
 		 *
 		 * @param string fields
@@ -166,7 +166,7 @@ if (!class_exists('TribeEventsAdminList')) {
 		public static function column_headers( $columns ) {
 			global $tribe_ecp;
 
-			foreach ( $columns as $key => $value ) {
+			foreach ( (array) $columns as $key => $value ) {
 				$mycolumns[$key] = $value;
 				if ( $key =='author' )
 					$mycolumns['events-cats'] = __( 'Event Categories', 'tribe-events-calendar' );
@@ -205,62 +205,49 @@ if (!class_exists('TribeEventsAdminList')) {
 			return $columns;
 		}		
 
-		public static function custom_columns( $column_id, $post_id, $echo = true ) {
+		public static function custom_columns( $column_id, $post_id ) {
 			if(self::$events_list && sizeof(self::$events_list) > 0) {
 				if ( $column_id == 'events-cats' ) {
 					$event_cats = get_the_term_list( $post_id, TribeEvents::TAXONOMY, '', ', ', '' );
-					$custom_columns = ( $event_cats ) ? strip_tags( $event_cats ) : '—';
+					echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
 				}
 				if ( $column_id == 'start-date' ) {
-					$custom_columns = tribe_event_format_date(strtotime(self::$events_list[0]->EventStartDate), false);
+					echo tribe_event_format_date(strtotime(self::$events_list[0]->EventStartDate), false);
 					if ( ! self::$end_col_active || ! self::$start_col_first ) self::advance_date();
 				}
 				if ( $column_id == 'end-date' ) {
-					$custom_columns = tribe_event_format_date(strtotime(self::$events_list[0]->EventEndDate), false);
+					echo tribe_event_format_date(strtotime(self::$events_list[0]->EventEndDate), false);
 					if ( self::$start_col_first) self::advance_date();
 				}
 
 				if ( $column_id == 'recurring' ) {
-					$custom_columns = sizeof(get_post_meta($post_id, '_EventStartDate')) > 1 ? __("Yes", 'tribe-events-calendar') : __("No", 'tribe-events-calendar');
+					echo sizeof(get_post_meta($post_id, '_EventStartDate')) > 1 ? __("Yes", 'tribe-events-calendar') : __("No", 'tribe-events-calendar');
 				}
 			} else {
-				$custom_columns = self::ajax_custom_columns($column_id, $post_id, $echo);
+				self::ajax_custom_columns($column_id, $post_id);
 			}
-			
-			if ( $echo && isset($custom_columns) ){
-				echo $custom_columns;
-			} else {
-				return (isset($custom_columns)) ? $custom_columns : null;
-			}
-			
 		}
 		
 		protected static function advance_date() {
 			array_shift( self::$events_list );
 		}
 	
-		public static function ajax_custom_columns ($column_id, $post_id, $echo = true) {
+		public static function ajax_custom_columns ($column_id, $post_id) {
 				if ( $column_id == 'events-cats' ) {
 					$event_cats = get_the_term_list( $post_id, TribeEvents::TAXONOMY, '', ', ', '' );
-					$ajax_custom_columns = ( $event_cats ) ? strip_tags( $event_cats ) : '—';
+					echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
 				}
 			
 				if ( $column_id == 'recurring' ) {
-					$ajax_custom_columns = sizeof(get_post_meta($post_id, '_EventStartDate')) > 1 ? "Yes" : "No";
+					echo sizeof(get_post_meta($post_id, '_EventStartDate')) > 1 ? "Yes" : "No";
 				}			
 			
 				if ( $column_id == 'start-date' ) {
-					$ajax_custom_columns = tribe_get_start_date($post_id, false);
+					echo tribe_get_start_date($post_id, false);
 				}
 				if ( $column_id == 'end-date' ) {
-					$ajax_custom_columns = tribe_get_end_date($post_id, false);
+					echo tribe_get_end_date($post_id, false);
 				}
-				
-			if ( $echo && isset($ajax_custom_columns) ) {
-				echo $ajax_custom_columns;
-			} else {
-				return (isset($ajax_custom_columns)) ? $ajax_custom_columns : null;
-			}
 		}
 	
 		public static function add_event_occurrance_to_edit_link($link, $eventId) {
@@ -270,7 +257,7 @@ if (!class_exists('TribeEventsAdminList')) {
 
 			// if is a recurring event
 			if ( function_exists('tribe_is_recurring_event') && tribe_is_recurring_event($eventId) && isset(self::$events_list[0])) {
-				$link = add_query_arg('eventDate', urlencode( TribeDateUtils::dateOnly( self::$events_list[0]->EventEndDate ) ), $link);
+				$link = add_query_arg('eventDate', urlencode( TribeDateUtils::dateOnly( self::$events_list[0]->EventStartDate ) ), $link);
 			}
 		
 			return $link;

@@ -27,6 +27,21 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Update Option
+	 *
+	 * Set specific key from options array, optionally provide a default return value
+	 *
+	 * @param string $optionName Name of the option to retrieve.
+	 * @param string $value Value to save
+	 * @return void
+	 * @since 2.0.3
+	 */
+	function tribe_update_option($optionName, $value)  {
+		$tribe_ecp = TribeEvents::instance();
+		return $tribe_ecp->setOption($optionName, $value);
+	}
+
+	/**
 	 * Event Type Test
 	 *
 	 * Checks type of $postId to determine if it is an Event
@@ -105,7 +120,10 @@ if( class_exists( 'TribeEvents' ) ) {
 		if( !$label ) { $label = __('Category:', 'tribe-events-calendar'); }
 
 		$tribe_ecp = TribeEvents::instance();
-		apply_filters('tribe_meta_event_cats', the_terms( get_the_ID(), $tribe_ecp->get_event_taxonomy(), '<dt class="tribe-category-label">'.$label.'</dt><dd class="tribe-category-meta">', $separator, '</dd>' ));
+
+		$list = apply_filters('tribe_meta_event_cats', get_the_term_list( get_the_ID(), $tribe_ecp->get_event_taxonomy(), '<dt class="category-label">'.$label.'</dt><dd class="category-meta">', $separator, '</dd>' ));
+
+		echo $list;
 	}
 
 	/**
@@ -122,7 +140,9 @@ if( class_exists( 'TribeEvents' ) ) {
 		if( !$label ) { $label = __('Tags:', 'tribe-events-calendar'); }
 
 		$tribe_ecp = TribeEvents::instance();
-		apply_filters('tribe_meta_event_tags', the_terms( get_the_ID(), 'post_tag', '<dt class="tribe-tag-label">'.$label.'</dt><dd class="tribe-tag-meta">', $separator, '</dd>' ));
+		$list = apply_filters('tribe_meta_event_tags', get_the_term_list( get_the_ID(), 'post_tag', '<dt class="tribe-tag-label">'.$label.'</dt><dd class="tribe-tag-meta">', $separator, '</dd>' ));
+
+		echo $list;
 	}
 
 	/**
@@ -267,7 +287,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		}else{
 			$return = false;
 		}
-		apply_filters('tribe_event_in_category', $return);
+		return apply_filters('tribe_event_in_category', $return);
 	}
 
 	/**

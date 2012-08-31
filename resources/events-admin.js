@@ -193,31 +193,11 @@ jQuery(document).ready(function($) {
 		return $('[name="is_recurring"]').val() == "true" && !$('[name="recurrence_action"]').val() && !$('[name="recurrence_action"]').val()
 	}
 	
-	function validRecEnd() {
-		if($('[name="recurrence[type]"]').val() != "None" && 
-			$('[name="recurrence[end-type]"] option:selected"').val() == "On")
-		{
-			return $('[name="recurrence[end]"]').val() && 
-			!$('[name="recurrence[end]"]').hasClass('placeholder');
-		}
-		
-		return true;
-	} 
-	
 	function resetSubmitButton() {
 		$('#publishing-action .button-primary-disabled').removeClass('button-primary-disabled');
 		$('#publishing-action #ajax-loading').css('visibility', 'hidden');
 		
 	}
-	
-	$('.wp-admin.events-cal #post').submit(function(e) {
-		if(!validRecEnd()) {
-			e.preventDefault();
-			alert($('#rec-end-error').text());
-			$('#rec-end-error').show();
-			resetSubmitButton();
-		}
-	});
 	
 	$('#EventInfo input, #EventInfo select').change(function() {
 		$('.rec-error').hide();
@@ -248,7 +228,7 @@ jQuery(document).ready(function($) {
 							self.submit();
 						}
 				}, {
-						text:"Future Events",
+						text:"All Events",
 						click: function() { 
 							$('[name="recurrence_action"]').val(2);
 
@@ -257,7 +237,7 @@ jQuery(document).ready(function($) {
 
 							$(this).dialog("close"); 
 							self.submit();
-						}					
+						}				
 				}],
 				close: function() {
 					eventSubmitButton.data('clicked', null);
@@ -282,13 +262,13 @@ jQuery(document).ready(function($) {
 				//submitdelete
 				modal: true,
 				buttons: [{
-					text: "Delete just this occurrence.",
+					text: "Only This Event",
 					click: function() {
 						document.location = link.attr('href') + '&event_start=' + $(this).data('start');
 					}
 				},
 				{
-					text: "Delete all occurrences of this event.",
+					text: "All Events",
 					click: function() {
 						document.location = link.attr('href') + '&deleteAll';
 					}
@@ -355,6 +335,34 @@ jQuery(document).ready(function($) {
 			dayselect.hide();
 		}
 	});
+
+	function maybeDisplayPressTrendsDialogue() {
+		return $('[name="maybeDisplayPressTrendsDialogue"]').val() == "1"
+	}
+
+	if( maybeDisplayPressTrendsDialogue() ) {
+			$('#presstrends-dialog').dialog({
+				modal: true,
+				buttons: [{
+						text:"Send data",
+						click: function() { 
+							$('[name="presstrends_action"]').val(1);
+							$(this).dialog("close"); 							
+							$('[name="sendPressTrendsData"]').prop("checked", true);
+							$('#tribeSaveSettings').click();
+						}
+				}, {
+						text:"Do not send data",
+						click: function() { 
+							$('[name="presstrends_action"]').val(0);
+							$(this).dialog("close"); 
+							$('[name="sendPressTrendsData"]').prop("checked", false);
+						}
+				}],
+			});
+			
+		}
+	
 });
 
 /**

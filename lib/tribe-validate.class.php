@@ -162,9 +162,10 @@ if ( !class_exists( 'TribeValidate' ) ) {
 		 * @author jkudish
 		 * @return stdClass validation result object
 		 */
-		public function alpha_numeric_multi_line_with_dots() {
-			if ( preg_match( '/^[a-zA-Z0-9\s.]+$/', $this->value ) ) {
+		public function alpha_numeric_multi_line_with_dots_and_dashes() {
+			if ( preg_match( '/^[a-zA-Z0-9\s.-]+$/', $this->value ) ) {
 				$this->result->valid = true;
+				$this->value = tribe_multi_line_remove_empty_lines( $this->value );
 			} else {
 				$this->result->valid = false;
 				$this->result->error = sprintf( __( '%s must contain numbers, letters and dots only', 'tribe-events-calendar' ), $this->label );

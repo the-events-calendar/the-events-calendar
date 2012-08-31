@@ -144,7 +144,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		global $wp_query;
 
 		if ( isset ( $wp_query->query_vars['eventDate'] ) ) { 
-			$date = $wp_query->query_vars['eventDate'] . "-01";
+			$date = $wp_query->query_vars['eventDate'];
 		} else {
 			$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
 		}

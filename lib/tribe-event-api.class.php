@@ -26,7 +26,7 @@ if (!class_exists('TribeEventsAPI')) {
 
 			$args = wp_parse_args( $args, $defaults);
 			$eventId = wp_insert_post($args, true);	
-		
+
 			if( !is_wp_error($eventId) ) {
 				TribeEventsAPI::saveEventMeta($eventId, $args, get_post( $eventId ) );
 				return $eventId;
@@ -37,7 +37,7 @@ if (!class_exists('TribeEventsAPI')) {
 		 * Update an existing event
 		 */
 		public static function updateEvent( $eventId, $args ) {
-			$args['ID'] == $eventId;
+			$args['ID'] = $eventId;
 		
 			if(wp_update_post($args)) {
 				TribeEventsAPI::saveEventMeta($eventId, $args, get_post( $eventId ) );
@@ -58,7 +58,7 @@ if (!class_exists('TribeEventsAPI')) {
 		 */
 		public static function saveEventMeta($event_id, $data, $event = null) {
 			$tribe_ecp = TribeEvents::instance();
-		
+
 			if( isset($data['EventAllDay']) && ( $data['EventAllDay'] == 'yes' || $data['EventAllDay'] == true || !isset($data['EventStartDate'] ) ) ) {
 				$data['EventStartDate'] = TribeDateUtils::beginningOfDay($data['EventStartDate']);
 				$data['EventEndDate'] = TribeDateUtils::endOfDay($data['EventEndDate']);
@@ -66,10 +66,10 @@ if (!class_exists('TribeEventsAPI')) {
 				delete_post_meta( $event_id, '_EventAllDay' );
 				if( isset( $data['EventStartMeridian'] ) ) {
 					$data['EventStartDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventStartDate'] . " " . $data['EventStartHour'] . ":" . $data['EventStartMinute'] . ":00 " . $data['EventStartMeridian']) );
-					$data['EventEndDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventEndDate'] . " " . $data['EventEndHour'] . ":" . $data['EventEndMinute'] . ":59 " . $data['EventEndMeridian']) );
+					$data['EventEndDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventEndDate'] . " " . $data['EventEndHour'] . ":" . $data['EventEndMinute'] . ":00 " . $data['EventEndMeridian']) );
 				} else {
 					$data['EventStartDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventStartDate'] . " " . $data['EventStartHour'] . ":" . $data['EventStartMinute'] . ":00") );
-					$data['EventEndDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventEndDate'] . " " . $data['EventEndHour'] . ":" . $data['EventEndMinute'] . ":59") );				
+					$data['EventEndDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventEndDate'] . " " . $data['EventEndHour'] . ":" . $data['EventEndMinute'] . ":00") );				
 				}
 			}
 		
@@ -85,12 +85,26 @@ if (!class_exists('TribeEventsAPI')) {
 		
 			if( !isset( $data['EventShowMapLink'] ) ) update_post_meta( $event_id, '_EventShowMapLink', 'false' );
 			if( !isset( $data['EventShowMap'] ) ) update_post_meta( $event_id, '_EventShowMap', 'false' );
+
+			if(isset($data['post_status'])){
+				$post_status = $data['post_status'];
+			}else{
+
+		//print_r($data);
+
+				if (isset($data["Organizer"]["OrganizerID"]))
+					$post_status = get_post($data["Organizer"]['OrganizerID'])->post_status;
+
+				if (isset($data['Venue']["VenueID"]))
+					$post_status = get_post($data['Venue']['VenueID'])->post_status;
+				
+			}
 			
 			if (isset($data["Organizer"])) {
-				$data['EventOrganizerID'] = TribeEventsAPI::saveEventOrganizer($data["Organizer"], $event);
+				$data['EventOrganizerID'] = TribeEventsAPI::saveEventOrganizer($data["Organizer"], $event, $post_status);
 			}
 			if (isset($data["Venue"])) {
-				$data['EventVenueID'] = TribeEventsAPI::saveEventVenue($data["Venue"], $event);
+				$data['EventVenueID'] = TribeEventsAPI::saveEventVenue($data["Venue"], $event, $post_status);
 			}
 			
 			$tribe_ecp->do_action('tribe_events_event_save', $event_id);
@@ -112,7 +126,7 @@ if (!class_exists('TribeEventsAPI')) {
 		/**
 		 * Saves the event organizer information passed via an event
 		 */
-		private static function saveEventOrganizer($data, $post=null) {
+		private static function saveEventOrganizer($data, $post=null, $post_status='publish') {
 			if( isset($data['OrganizerID']) && $data['OrganizerID'] > 0) {
 				if (count($data) == 1) {
 					// Only an ID was passed and we should do nothing.
@@ -121,14 +135,14 @@ if (!class_exists('TribeEventsAPI')) {
 					return TribeEventsAPI::updateOrganizer($data['OrganizerID'], $data);
 				}
 			} else {
-				return TribeEventsAPI::createOrganizer($data);
+				return TribeEventsAPI::createOrganizer($data, $post_status);
 			}
 		}
 	
 		/**
 		 * Saves the event venue information passed via an event
 		 */
-		private static function saveEventVenue($data, $post=null) {
+		private static function saveEventVenue($data, $post=null, $post_status='publish') {
 			if( isset($data['VenueID']) && $data['VenueID'] > 0) {
 				if (count($data) == 1) {
 					// Only an ID was passed and we should do nothing.
@@ -137,19 +151,20 @@ if (!class_exists('TribeEventsAPI')) {
 					return TribeEventsAPI::updateVenue($data['VenueID'], $data);
 				}
 			} else {
-				return TribeEventsAPI::createVenue($data);
+				return TribeEventsAPI::createVenue($data, $post_status);
 			}
 		}	
 	
 		/**
 		 * Creates a new organizer
 		 */
-		public static function createOrganizer($data) {
+		public static function createOrganizer($data, $post_status='publish') {
 			if ( (isset($data['Organizer']) && $data['Organizer']) || self::someOrganizerDataSet($data) ) {
+				
 				$postdata = array(
 					'post_title' => $data['Organizer'] ? $data['Organizer'] : "Unnamed Organizer",
 					'post_type' => TribeEvents::ORGANIZER_POST_TYPE,
-					'post_status' => 'publish',
+					'post_status' => $post_status,
 				);			
 
 				$organizerId = wp_insert_post($postdata, true);		
@@ -192,7 +207,7 @@ if (!class_exists('TribeEventsAPI')) {
 	
 		/**
 		 * Saves organizer meta
-		 */		
+		 */
 		private static function saveOrganizerMeta($organizerId, $data) {
 			foreach ($data as $key => $var) {
 				update_post_meta($organizerId, '_Organizer'.$key, $var);
@@ -202,12 +217,13 @@ if (!class_exists('TribeEventsAPI')) {
 		/**
 		 * Creates a new venue
 		 */
-		public static function createVenue($data) {
+		public static function createVenue($data, $post_status='publish') {
+		
 			if ( (isset($data['Venue']) && $data['Venue']) || self::someVenueDataSet($data) ) {
 				$postdata = array(
 					'post_title' => $data['Venue'] ? $data['Venue'] : "Unnamed Venue",
 					'post_type' => TribeEvents::VENUE_POST_TYPE,
-					'post_status' => 'publish',
+					'post_status' => $post_status,
 				);			
 
 				$venueId = wp_insert_post($postdata, true);		

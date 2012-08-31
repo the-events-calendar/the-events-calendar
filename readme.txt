@@ -3,9 +3,9 @@
 Contributors:  ModernTribe, jkudish, PaulHughes01, roblagatta, jonahcoyote, peterchester, reid.peifer, shane.pearlman
 Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar, recurring, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
-Requires at least: 3.2
-Tested up to: 3.4-alpha
-Stable tag: 2.0.7
+Requires at least: 3.3
+Tested up to: 3.4
+Stable tag: 2.0.8
 
 == Description ==
 
@@ -45,11 +45,11 @@ Just getting started? Check out our <a href="http://tri.be/new-user-primers/?ref
 == Screenshots ==
 
 1. Calendar View
-1. List View
-1. Single Post
-1. Event Editor
-1. Event List Admin
-1. Settings Panel
+2. List View
+3. Single Post
+4. Event Editor
+5. Event List Admin
+6. Settings Panel
 
 == Installation ==
 
@@ -68,17 +68,17 @@ No setup required. Just plug and play!
 = Requirements =
 
 * PHP 5.2 or above
-* WordPress 3.1 or above
+* WordPress 3.3 or above
 
 == Documentation ==
 
-All of our online documentation can be found at <a href="http://tri.be/support/documentation?ref=tec-readme" target="_blank">http://tri.be/support/documentation</a>
+All of our online documentation can be found at <a href="http://tri.be/support/documentation?ref=tec-readme" target="_blank">http://tri.be/support/documentation</a>. Tutorials are accessible at <a href="http://tri.be/the-events-calendar-for-wordpress-tutorials/?ref=tec-readme" target="_blank">http://tri.be/the-events-calendar-for-wordpress-tutorials.</a>
 
 For template tags, you can view our template tag includes in the "public" folder to read through the functions directly.
 
-If you have any questions about this plugin, please take look at the dedicated forum here on WordPress.org at <a href="http://wordpress.org/tags/the-events-calendar">http://wordpress.org/tags/the-events-calendar</a>. Please search before opening a new thread.
+If you have any questions about this plugin, please take look at the dedicated forum here on WordPress.org at <a href="http://wordpress.org/tags/the-events-calendar">http://wordpress.org/tags/the-events-calendar</a>. Please search existing threads before opening a new one.
 
-If you want, you can read the <a href="http://tri.be/support/forums/?ref=tec-readme">Modern Tribe PRO support forums</a> in case that helps, although you won‚Äôt be able to post a message, unless you have purchase a PRO license.
+If you want, you can read the <a href="http://tri.be/support/forums/?ref=tec-readme">Modern Tribe PRO support forums</a>. You won't, however, be able to post a message in any forums beyond Pre-Sale Questions unless you have purchase a PRO license.
 
 == Contributors ==
 
@@ -110,32 +110,83 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 * Russian (free & PRO) from Mikhail Michouris
 * Dutch (free & PRO) from Ed Boon, RIck van Dalen & Jacob Roel Meijering
 * Danish (PRO only) from Christian Andersen
-* Italian (free & PRO) from Stefano Castelli
+* Italian (free & PRO) from Filippo Montanari
 * Spanish (free & PRO) from Hector at Signo Creativo
 * German (free only) from David Decker
 * Polish (free & PRO) from Kamil Szymanski
 * Norwegian (free & PRO) from "Terje With Lunndal"
+* Hebrew (free & PRO) from Sagi Shrieber
+* Japanese (free only) from Matthew Meyer
+* French (free & PRO) from Arno Faure
+* Lithuanian (free only) from Vincent G from Host1Free
+* Czech (free & PRO) from Petr Bastan
+* Serbian (free & PRO) from Marko Manojlovic
+* Bosnian (free & PRO) from Marko Manojlovic
+* Croatian (free & PRO) from Marko Manojlovic
+* Finnish (free & PRO) from Petri Kajander
+* Catalan (free only) from Fran Rosa
+
+
 
 == Add-Ons ==
 
-You can see a full list of Modern Tribe Products at <a href="http://tri.be/shop/?ref=tec-readme" target="_blank">http://tri.be/shop/</a>
+You can see a full list of Modern Tribe products at <a href="http://tri.be/shop/?ref=tec-readme" target="_blank">http://tri.be/shop/</a>
 
 Our Free Plugins:
 
 * <a href="http://wordpress.org/extend/plugins/advanced-post-manager/?ref=tec-readme" target="_blank">Advanced Post Manager</a>
 * Event Importer (coming soon!)
-* Facebook Sync Events (coming soon!)
 
 Our Premium Plugins:
 
-* <a href="http://tri.be/wordpress-events-calendar-pro/?ref=tec-readme" target="_blank">The Events Calendar Pro</a>
-* <a href="http://tri.be/shop/wordpress-eventbrite-tickets/?ref=tec-readme" target="_blank">The Events Calendar: Eventbrite Tickets (coming soon!)</a>
-* <a href="http://tri.be/shop/wordpress-community-events/?ref=tec-readme" target="_blank">The Events Calendar: Community Events (coming soon!)</a>
+* <a href="http://tri.be/wordpress-events-calendar-pro/?ref=tec-readme" target="_blank">The Events Calendar PRO</a>
+* <a href="http://tri.be/shop/wordpress-eventbrite-tickets/?ref=tec-readme" target="_blank">The Events Calendar: Eventbrite Tickets</a>
+* <a href="http://tri.be/shop/wordpress-community-events/?ref=tec-readme" target="_blank">The Events Calendar: Community Events</a>
+* <a href="http://tri.be/facebook-events/?ref=tec-readme" target="_blank">The Events Calendar: Facebook Events</a>
 * <a href="http://tri.be/shop/conference-manager/?ref=tec-readme" target="_blank">The Events Calendar: Conference Manager (coming later in 2012)</a>
 * <a href="http://tri.be/shop/wootickets/?ref=tec-readme" target="_blank">The Events Calendar: WooTickets (coming later in 2012)</a>
 
 
 == Changelog ==
+
+= 2.0.8 =
+
+**Small features, UX and Content Tweaks:**
+
+* Integration with Presstrends (<a href="http://www.presstrends.io/">http://www.presstrends.io/</a>).
+* Added an prominent message showing where the calendar lives on your site, appearing immediately upon initial activation.
+* Added prominent links to the frontend calendar throughout the backend: on the admin Events list, within the admin bar Events menu, on the plugins list and in the Events panel in the main left-hand admin menu.
+* Updated Events panel in main left-hand admin menu to include "Settings" and "Help," & to rename "App Shop" to "Event Add-Ons."
+* Added info boxes with descriptions & explanations on each tab in the Events settings.
+* Set Events menu options (under Appearance -> Menus) to appear enabled/visible by default.
+* TRIBE_HIDE_UPSELL code in wp_config now also hides "Event Add-Ons" links.
+* Incorporated ECP version into iCal feed (thanks for the tip, Andy Fragen!)
+* Incorporated 'tribe_settings_above_form_element_tab_{$currentTab}' to ease integration of third-party add-ons with the Events Settings tabs. Note that as a result the 'tribe_settings_form_element' filter was changed to 'tribe_settings_form_element_tab_'.$this->currentTab.
+* Warning messages now appear when attempting to publish custom recurring events with the "Every (X)" field left blank.
+* Added filters to the carious title generators within the TribeEvents->maybeAddEventTitle method, so users can control calendar-related title tags in their functions.php file.
+* General audit-trail/post-origin improvements & tweaks.
+* Removed address/venue queries from views/table.php.
+* Included new Hebrew translation files (free & PRO), courtesy of Sagi Shrieber.
+* Included new Japanese translation files (free only), courtesy of Matthew Meyer.
+* Included new French translation files (free & PRO), courtesy of Arno Faure.
+* Included new Lithuanian translation files (free only), courtesy of Vincent G from Host1Free.
+* Included new Czech translation files (free & PRO), courtesy of Petr Bastan.
+* Included new Serbian translation files (free & PRO), courtesy of Marko Manojlovic.
+* Included new Bosnian translation files (free & PRO), courtesy of Marko Manojlovic.
+* Included new Croatian translation files (free & PRO), courtesy of Marko Manojlovic.
+* Included new Finnish translation files (free & PRO), courtesy of Petri Kajander.
+* Included new Catalan translation files (free only), courtesy of Fran Rosa.
+* Included updated Italian translation files (free & PRO), courtesy of Filippo Montanari.
+
+
+**Bug Fixes:**
+
+* Cleaned up gridview queries to improve AJAX loader speed on sites with multiple events.
+* Clarified an incorrect message regarding template override instructions for the list widget.
+* Removed unclear/confusing message warning message regarding the need for plugin consistency and added clearer warnings with appropriate links when plugins or add-ons are out date.
+* iCal feed no longer adds an extra minute to the event's end time (thanks for the fix, Andy Fragen!).
+* Fixed star rating icons that appeared broken on Settings -> Help as a result of the WP 3.4 update.
+* Users are no longer taken to a "Page not found" screen after submitting comments on recurring events.
 
 = 2.0.7 = 
 
