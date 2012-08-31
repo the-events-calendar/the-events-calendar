@@ -33,7 +33,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			$tribe_ecp->currentPostTimestamp = $postTimestamp;
 			$return = $retval;
 		} else {
-			$retun = true;
+			$return = true;
 		}
 		return apply_filters('tribe_is_new_event_day', $return);
 	}
