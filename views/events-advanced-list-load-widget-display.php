@@ -45,13 +45,14 @@ ob_end_clean();
 			$output = '';
 			echo tribe_get_start_date( $post->ID, $start ); 
 
-			if ( $end && $event->EndDate != '') {
-					echo '<br/>' . __('Ends', 'tribe-events-calendar-pro') . ' ';
-					echo tribe_get_end_date($post->ID);
-			}
-			if($event->AllDay && $start) {
-				echo ' <small><em>('.__('All Day','tribe-events-calendar-pro').')</em></small>';
-			} 
+			if( tribe_is_multiday( $post->ID ) || !$event->AllDay ) {
+            	echo '<br/>' . __('Ends', 'tribe-events-calendar-pro') . ' ';
+				echo tribe_get_end_date($post->ID);
+         	}
+
+			if( $event->AllDay ) {
+				echo ' <small><em>('.__('All Day','tribe-events-calendar').')</em></small>';
+         	}
 		?> 
 	</div>
 	<div class="event">
