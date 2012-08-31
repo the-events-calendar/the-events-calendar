@@ -12,7 +12,7 @@
 					<option data-single="event" data-plural="events" value="Custom" <?php selected($recType, "Custom") ?>><?php _e('Custom','tribe-events-calendar-pro'); ?></option>
 				</select>
 				<span id="recurrence-end" style="display: <?php echo !$recType || $recType == "None" ? "none" : "inline" ?>">
-					<?php _e('End','tribe-events-calendar-pro'); ?>
+					<?php _e('* End','tribe-events-calendar-pro'); ?>
 					<select name="recurrence[end-type]">
 						<option value="On" <?php selected($recEndType, "None") ?>><?php _e('On','tribe-events-calendar-pro'); ?></option>
 						<option value="After" <?php selected($recEndType, "After") ?>><?php _e('After','tribe-events-calendar-pro'); ?></option>
@@ -37,6 +37,8 @@
 				<input type="text" name="recurrence[custom-interval]" value="<?php echo $recCustomInterval ?>"/> <span id="recurrence-interval-type"><?php echo $recCustomTypeText ?></span>
 				<input type="hidden" name="recurrence[custom-type-text]" value="<?php echo esc_attr( $recCustomTypeText ) ?>"/>
 				<input type="hidden" name="recurrence[occurrence-count-text]" value="<?php echo esc_attr( $recOccurrenceCountText ) ?>"/>
+				<span id="rec-days-error" class="rec-error"><?php _e('Frequency of recurring event must be a number','tribe-events-calendar-pro'); ?></span>
+
 			</td>
 		</tr>
 		<?php if(!isset($recCustomWeekDay)) $recCustomWeekDay = array(); ?>

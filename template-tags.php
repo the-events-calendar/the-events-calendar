@@ -103,14 +103,14 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$meta_html .= "</dl>\n";
 		echo apply_filters('tribe_the_custom_fields', $meta_html);
 	}
-
+	
 	/**
 	 * Get Event Custom Field by Label
 	 *
 	 * retrieve a custom field's value by searching its label
 	 * instead of its (more obscure) ID
 	 *
-	 * @since 2.1
+	 * @since 2.0.3
 	 * @param (string) $label, the label to search for
 	 * @param (int) $eventID (optional), the event to look for, defaults to global $post
 	 * @return (string) value of the field
@@ -124,7 +124,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * same as above but echo instead of return
 	 *
-	 * @since 2.1
+	 * @since 2.0.3
 	 * @param (string) $label, the label to search for
 	 * @param (int) $eventID (optional), the event to look for, defaults to global $post
 	 * @return (string) value of the field
