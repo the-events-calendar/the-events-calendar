@@ -43,10 +43,10 @@ ob_end_clean();
 		<?php
 			$space = false;
 			$output = '';
-			echo tribe_get_start_date( $post->ID ) .' –'; 
+			echo tribe_get_start_date( $post->ID ); 
 
          	if( tribe_is_multiday( $post->ID ) || !$event->AllDay ) {
-            	echo '<br/>'. tribe_get_end_date($post->ID);
+            	echo ' – <br/>'. tribe_get_end_date($post->ID);
          	}
 
 			if( $event->AllDay ) {
