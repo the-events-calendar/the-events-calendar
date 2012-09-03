@@ -45,15 +45,11 @@ $free_add_ons[] = array(
 	'title' => __('Event Importer', 'tribe_events_calendar'),
 	'coming_soon' => true,
 );
-$free_add_ons[] = array(
-	'title' => __('Facebook Sync Events', 'tribe_events_calendar'),
-	'coming_soon' => true,
-);
 $free_add_ons = (array) apply_filters( 'tribe_help_tab_free_addons', $free_add_ons );
 
 $premium_add_ons = array();
 $premium_add_ons[] = array(
-	'title' => __('The Events Calendar Pro', 'tribe_events_calendar'),
+	'title' => __('The Events Calendar PRO', 'tribe_events_calendar'),
 	'link' => apply_filters('tribe_help_tab_ecp_tribe_url', 'http://tri.be/wordpress-events-calendar-pro/'.$ga_query_string),
 );
 $premium_add_ons[] = array(
