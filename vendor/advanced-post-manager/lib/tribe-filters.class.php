@@ -409,9 +409,7 @@ class Tribe_Filters {
 		$resources_url = apply_filters( 'tribe_apm_resources_url', $this->url . 'resources' );
 		$resources_url = trailingslashit($resources_url);
 		if ( $current_screen->id == 'edit-' . $this->filtered_post_type ) {
-			$googleapis = 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/base/jquery-ui.css';
-			$googleapis = empty($_SERVER['HTTPS']) ? str_replace('http://', 'https://', $googleapis) : $googleapis;
-			wp_enqueue_style('tribe-jquery-ui', $googleapis );
+			wp_enqueue_style('tribe-jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/base/jquery-ui.css' );
 			wp_enqueue_script('tribe-jquery-ui-datepicker', $resources_url . 'jquery-ui-datepicker.js', array('jquery-ui-core'), null, true );
 			wp_enqueue_script('tribe-filters', $resources_url . 'tribe-filters.js', array('jquery-ui-sortable', 'tribe-jquery-ui-datepicker'), null, true );
 		}
