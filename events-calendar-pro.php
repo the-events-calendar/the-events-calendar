@@ -254,12 +254,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$my_venue_options = '';
 			if ( 0 != $current_user->ID ) {
 			    $my_venues = TribeEvents::instance()->get_venue_info( null, null, array('post_status' => array('publish', 'draft'), 'author' => $current_user->ID) );
-				foreach($my_venues as $my_venue) {
-					$my_venue_ids[] = $my_venue->ID;
-					$venue_title = wp_kses( get_the_title( $my_venue->ID ), array() );
-					$my_venue_options .= '<option data-address="' . esc_attr( TribeEvents::instance()->fullAddressString( $my_venue->ID ) ) . '" value="' . esc_attr( $my_venue->ID ) .'"';
-					$my_venue_options .= selected( $current, $my_venue->ID, false );
-					$my_venue_options .=  '>' . $venue_title . '</option>';
+			    if( ! empty($my_venues)) {
+					foreach($my_venues as $my_venue) {
+						$my_venue_ids[] = $my_venue->ID;
+						$venue_title = wp_kses( get_the_title( $my_venue->ID ), array() );
+						$my_venue_options .= '<option data-address="' . esc_attr( TribeEvents::instance()->fullAddressString( $my_venue->ID ) ) . '" value="' . esc_attr( $my_venue->ID ) .'"';
+						$my_venue_options .= selected( $current, $my_venue->ID, false );
+						$my_venue_options .=  '>' . $venue_title . '</option>';
+					}
 				}
 			}
 			
@@ -302,12 +304,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$my_organizers_options = '';
 			if ( 0 != $current_user->ID ) {
 			    $my_organizers = TribeEvents::instance()->get_organizer_info( null, null, array('post_status' => array('publish', 'draft'), 'author' => $current_user->ID) );
-				foreach($my_organizers as $my_organizer) {
-					$my_organizer_ids[] = $my_organizer->ID;
-					$organizer_title = wp_kses( get_the_title( $my_organizer->ID ), array() );
-					$my_organizers_options .= '<option value="' . esc_attr( $my_organizer->ID ) .'"';
-					$my_organizers_options .= selected( $current, $my_organizer->ID, false );
-					$my_organizers_options .=  '>' . $organizer_title . '</option>';
+			    if( !empty($my_organizers)) {
+					foreach($my_organizers as $my_organizer) {
+						$my_organizer_ids[] = $my_organizer->ID;
+						$organizer_title = wp_kses( get_the_title( $my_organizer->ID ), array() );
+						$my_organizers_options .= '<option value="' . esc_attr( $my_organizer->ID ) .'"';
+						$my_organizers_options .= selected( $current, $my_organizer->ID, false );
+						$my_organizers_options .=  '>' . $organizer_title . '</option>';
+					}
 				}
 			}
 			
