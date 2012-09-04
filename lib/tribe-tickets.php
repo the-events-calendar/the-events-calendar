@@ -44,6 +44,8 @@
 
 			abstract function front_end_tickets_form();
 
+			abstract function get_attendee_pdf( $attendee_id, $grouped_by_order = true );
+
 			abstract static function get_instance();
 
 			/* \API Definition */
@@ -106,6 +108,14 @@
 					include $this->parentPath . 'admin-views/tickets-meta-box.php';
 
 					self::$done_metabox = true;
+				}
+
+			}
+
+			public final function load_pdf_libraries() {
+
+				if ( !class_exists( "FPDF" ) ) {
+					include $this->parentPath . 'vendor/fpdf/fpdf.php';
 				}
 
 			}

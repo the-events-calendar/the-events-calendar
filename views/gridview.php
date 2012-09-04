@@ -23,16 +23,16 @@ $tribe_ecp = TribeEvents::instance();
 				</span>
 
 				<?php tribe_month_year_dropdowns( "tribe-events-" ); ?>
-	
+
 				<span class='tribe-events-next-month'>
-					<a href='<?php echo tribe_get_next_month_link(); ?>'>				
-					<?php echo tribe_get_next_month_text(); ?> &#x2192; 
+					<a href='<?php echo tribe_get_next_month_link(); ?>'>
+					<?php echo tribe_get_next_month_text(); ?> &#x2192;
 					</a>
                <img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" class="ajax-loading" id="ajax-loading" alt="" style='display: none'/>
 				</span>
 			</span>
 
-			<span class='tribe-events-calendar-buttons'> 
+			<span class='tribe-events-calendar-buttons'>
 				<a class='tribe-events-button-off' href='<?php echo tribe_get_listview_link(); ?>'><?php _e('Event List', 'tribe-events-calendar')?></a>
 				<a class='tribe-events-button-on' href='<?php echo tribe_get_gridview_link(); ?>'><?php _e('Calendar', 'tribe-events-calendar')?></a>
 			</span>
