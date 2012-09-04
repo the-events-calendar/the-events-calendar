@@ -68,7 +68,7 @@ class Tribe_Meta_Box {
 		wp_register_style( 'tribe-meta-box', $resources_url . 'meta-box.css');
 		wp_register_script('tribe-meta-box', $resources_url . 'meta-box.js', array('jquery'), null, true);
 		
-		wp_register_style('tribe-jquery-ui-css', 'http://ajax.googleapis.com/ajax/libs/jqueryui/' . self::get_jqueryui_ver() . '/themes/base/jquery-ui.css');
+		wp_register_style('tribe-jquery-ui-css', 'https://ajax.googleapis.com/ajax/libs/jqueryui/' . self::get_jqueryui_ver() . '/themes/base/jquery-ui.css');
 		wp_register_script('tribe-jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/' . self::get_jqueryui_ver() . '/jquery-ui.min.js', array('jquery'));
 		wp_register_script('tribe-timepicker', 'https://github.com/trentrichardson/jQuery-Timepicker-Addon/raw/master/jquery-ui-timepicker-addon.js', array('tribe-jquery-ui'));
 	}
