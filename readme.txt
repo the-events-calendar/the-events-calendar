@@ -1,11 +1,11 @@
 === The Events Calendar ===
 
-Contributors:  ModernTribe, jkudish, PaulHughes01, roblagatta, jonahcoyote, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, mzaweb, codearachnid, ryancurban, peterchester, reid.peifer, shane.pearlman
 Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar, recurring, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.3
-Tested up to: 3.4
-Stable tag: 2.0.8
+Tested up to: 3.4.1
+Stable tag: 2.0.9
 
 == Description ==
 
@@ -27,7 +27,7 @@ Just getting started? Check out our <a href="http://tri.be/new-user-primers/?ref
 * Calendar Month view with tooltips
 * Includes support for venue, cost, address, start and end time, google maps link
 
-= The Events Calendar PRO Features =
+= The Events Calendar PRO features =
 
 * Recurring events
 * Saved venues & organizers
@@ -88,8 +88,10 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 
 * <a href="http://profiles.wordpress.org/users/paulhughes01">Paul Hughes</a>
 * <a href="http://profiles.wordpress.org/users/roblagatta">Rob La Gatta</a>
-* <a href="http://profiles.wordpress.org/users/jonahcoyote">Jonah West</a>
 * <a href="http://profiles.wordpress.org/users/mzaweb">Daniel Dvorkin</a>
+* <a href="http://profiles.wordpress.org/users/codearachnid">Timothy Wood</a>
+* <a href="http://profiles.wordpress.org/users/jonahcoyote">Jonah West</a>
+* <a href="http://profiles.wordpress.org/users/ryancurban">Ryan Urban</a>
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
 * <a href="http://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
@@ -124,7 +126,7 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 * Bosnian (free & PRO) from Marko Manojlovic
 * Croatian (free & PRO) from Marko Manojlovic
 * Finnish (free & PRO) from Petri Kajander
-* Catalan (free only) from Fran Rosa
+* Catalan (free & PRO) from Fran Rosa
 
 
 
@@ -148,6 +150,53 @@ Our Premium Plugins:
 
 
 == Changelog ==
+
+=2.0.9 = 
+
+**Small features, UX and Content Tweaks:**
+
+* Clarified messaging regarding how a widget template override is done, on the Appearance --> Widgets screen. 
+* Allowed for HTML in Additional Fields - a, b, i, em & strong are all accepted. (PRO only).
+* Added a filter for the $content object in the iCal feed (PRO only). 
+* Included the forum on the list of helpful resources, under Events --> Settings --> Help. 
+* Added asterisks (indicating "required") to the start/end date fields in the event editor.
+* Added end date to header in list view for multi-day events.
+* Users now have an ability to select "None" on dropdowns created using Additional Fields. (PRO only).
+* Relabeled "Event Custom Fields" to "Additional Event Fields" on the event creation page. (PRO only). 
+* Changed the .next and .previous classes for the single.php event navigation to 'tribe-next' and 'tribe-previous'. This change was also made in the stylesheet declarations for these classes in events.css.
+* Added end date for multi-day, all day events in the list widget.
+* The events admin menu bar is now a constant, and can be set to true/false by adding TRIBE_DISABLE_TOOLBAR_ITEMS to your wp-config file. 
+* All calls to HTTP are now HTTPS supported.
+* WordPress' default Custom Fields are now disabled on the event creation page by default for PRO users, unless that site already had custom fields in use at the time 2.0.9 is activated. Custom fields can be re-enabled as you see fit under Events --> Settings --> Additional Fields. (PRO only). 
+* The Google Maps checkbox on Events --> Settings --> General is now enabled by default.
+* The "Show Google Maps "Link" checkbox on the event creation page is now enabled by default. 
+* Updated the modal window that shows upon updating a recurring event, to clarify messaging. (PRO only). 
+* The TRIBE_DISABLE_SHOP constant has been removed; use TRIBE_HIDE_UPSELL instead.
+* Incorporated new Catalan translation files (PRO only), courtesy of Fran Rosa.
+
+**Bug Fixes:**
+
+* New venue & organizer are no longer created every time an event draft is saved.
+* Sidebar no longer pushes below calendar/list when using the Sidebar Template.
+* Events that have already ended no longer appear in the widget or list views.
+* Fixed a permalink conflict where events caused a conflict with Yoast-generated XML sitemaps.
+* Cost as zero ("Free") events now behave the same in free & PRO.
+* Fixed an issue where for certain users, the month dropdown in calendar/grid view showed the previous month by default.
+* Added missing trailing slashes on links generated in calendar/grid view.
+* Published events no longer display "Select a Country:" on the frontend when no address details are entered on the backend.
+* Fixed a bug where editing/saving a recurring event from the backend took you to an entry 1 date in the future.
+* Before/After HTML is now filtered along with the rest of a user's content.
+* Removed shorthand PHP tags from list.php.
+* Eliminated a "Warning: missing argument" message that showed in certain recurrence patterns.
+* Fixed incorrect "Tutorials" link found under Events --> Settings --> Help. 
+* Fixed a pair of unrelated errors in public/template-tags/general.php.
+* Tag cloud widgets no longer lead to 404 errors when clicked from within the calendar.
+* Resolved a bug where the Advanced Post Manager filters conflicted with quickedit when modifying an event. (PRO only).
+* Frontend "Edit Event" in the admin bar no longer takes you to the wrong instance of a recurrence pattern on the backend. 
+* Dates for recurring events are no longer incorrect when imported into Google Calendar. (PRO only). 
+* Added a missing label back into the datepicker.php file. 
+* Fixed an issue where the calendar widget's next/previous month links failed to load in certain situations. (PRO only). 
+
 
 = 2.0.8 =
 
@@ -355,7 +404,7 @@ Our Premium Plugins:
 
 = 2.0.1 =
 
-**Small features, UX and Content Tweeks:**
+**Small features, UX and Content Tweaks:**
 
 * Enabled method to turn off event upsell messages on your site in wp-config.php - define( 'TRIBE_HIDE_UPSELL', true );
 * Updated migration message to help 1.6.5 users have an easier time when they upgrade to 2.0
@@ -386,6 +435,14 @@ Our Premium Plugins:
 This is such a major re-write that we are starting the change log over.
 
 == Upgrade Notice ==
+
+= 2.0.9 =
+
+2.0.9 contains bug patches and new features for 2.0. Are you upgrading from 1.6.5? Events 2.0 is a MAJOR upgrade, please backup your data and plan a little time in case you have to make any theme edits. Check out the upgrade tutorials in support on the tri.be website.
+
+= 2.0.8 =
+
+2.0.8 contains bug patches and new features for 2.0. Are you upgrading from 1.6.5? Events 2.0 is a MAJOR upgrade, please backup your data and plan a little time in case you have to make any theme edits. Check out the upgrade tutorials in support on the tri.be website.
 
 = 2.0.7 =
 
