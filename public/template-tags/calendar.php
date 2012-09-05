@@ -214,7 +214,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_previous_month_text()  {
 		$tribe_ecp = TribeEvents::instance();
-		return $tribe_ecp->getDateString( $tribe_ecp->previousMonth( tribe_get_month_view_date() ) );
+		return $tribe_ecp->getDateStringShortened( $tribe_ecp->previousMonth( tribe_get_month_view_date() ) );
 	}
 
 	/**
@@ -253,7 +253,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_next_month_text()  {
 		$tribe_ecp = TribeEvents::instance();
-		return $tribe_ecp->getDateString( $tribe_ecp->nextMonth( tribe_get_month_view_date() ) );
+		return $tribe_ecp->getDateStringShortened( $tribe_ecp->nextMonth( tribe_get_month_view_date() ) );
 	}
 
 	/**

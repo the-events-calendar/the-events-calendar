@@ -2459,6 +2459,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$timestamp = mktime( 0, 0, 0, $dateParts[1], 1, $dateParts[0] );
 			return $monthNames[date( "F", $timestamp )] . " " . $dateParts[0];
 		}
+
+		public function getDateStringShortened( $date ) {
+			$monthNames = $this->monthNames();
+			$dateParts = split( '-', $date );
+			$timestamp = mktime( 0, 0, 0, $dateParts[1], 1, $dateParts[0] );
+			return $monthNames[date( "F", $timestamp )];
+		}
 		/**
 		 * echo the next tab index
 		 * @return void
