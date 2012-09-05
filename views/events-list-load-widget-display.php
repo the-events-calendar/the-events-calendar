@@ -45,8 +45,7 @@ ob_end_clean();
 			echo tribe_get_start_date( $post->ID ); 
 
          	if( tribe_is_multiday( $post->ID ) || !$event->AllDay ) {
-            	echo '<br/>' . __('Ends', 'tribe-events-calendar-pro') . ' ';
-				echo tribe_get_end_date($post->ID);
+            	echo ' – <br/>'. tribe_get_end_date($post->ID);
          	}
 
 			if( $event->AllDay ) {
