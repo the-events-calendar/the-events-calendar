@@ -148,7 +148,6 @@ Our Premium Plugins:
 * <a href="http://tri.be/shop/conference-manager/?ref=tec-readme" target="_blank">The Events Calendar: Conference Manager (coming later in 2012)</a>
 * <a href="http://tri.be/shop/wootickets/?ref=tec-readme" target="_blank">The Events Calendar: WooTickets (coming later in 2012)</a>
 
-
 == Changelog ==
 
 =2.0.9 = 
@@ -433,6 +432,31 @@ Our Premium Plugins:
 = 2.0 =
 
 This is such a major re-write that we are starting the change log over.
+
+== Help ==
+
+Welcome to The Events Calendar, a full-featured events management system for WordPress. Thank you so much for using the labor of our love. We are Modern Tribe and we are here to help you kick ass. 
+
+If you aren't familiar with The Events Calendar, it may be wise to check out our <a href="http://tri.be/new-user-primers/?ref=tec-readme">new user primer.</a> It'll introduce you to the basics of what the plugin has to offer and will have you creating events in no time. From there, the resources below -- extensive template tag documentation, FAQs, video walkthroughs and more -- will give you a leg up as you dig deeper.
+
+Additional resources available include:
+
+* <a href="http://tri.be/support/documentation/?ref=tec-readme">Documentation</a>
+* <a href="http://tri.be/support/faqs/?ref=tec-readme">FAQ</a>
+* <a href="http://tri.be/category/products/help-video/?ref=tec-readme">Help Videos</a>
+* <a href="http://tri.be/the-events-calendar-for-wordpress-tutorials/?ref=tec-readme">Tutorials</a>
+* <a href="http://tri.be/category/products/release-notes/?ref=tec-readme">Release Notes</a>
+* <a href="http://tri.be/support/forums/?ref=tec-readme">Forums</a>
+
+We hit the <a href="http://wordpress.org/support/plugin/the-events-calendar/?ref=tec-readme">The Events Calendar forum here on WordPress.org</a> about once a week, assisting users with basic troubleshooting and identifying bugs that have been reported. (If you are looking for more active support, might we suggest buying a PRO license? Our team hits the <a href="http://tri.be/support/forums/?ref=tec-readme">PRO forums</a> daily.)
+
+Some things to consider before posting on the forum:
+
+* Look through existing threads before posting a new one and check that there isn't already a discussion going on your issue.
+* A good way to help us out before posting is to check whether the issue is a conflict with another plugin or your theme. This can be tested relatively easily on a staging site by deactivating other plugins one-by-one, and reverting to the default 2011 theme as needed, to see if conflicts can be easily identified. If so, please note that when posting your thread.
+Sometimes, just resaving your permalinks (under Events -> Settings -> Permalinks) can resolve events-related problems on your site. It is worth a shot before creating a new thread.
+
+Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and tell us why. We'll do what we can to make it right.
 
 == Upgrade Notice ==
 
