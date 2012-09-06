@@ -1,22 +1,5 @@
 <?php
 
-/**
-	 * Joey's notes on this file
-	 * 	-- fixed typos in comments: s/definition/definitions (API) & s/this/these ... functions / properties
-	 *  -- // instead of /* * / for single line comments
-	 *  -- added start/end for comments (though I don't think those comments are necessary at all)
-	 *  -- fixed minor spacing/indentation niggles (WP coding standards)
-	 *  -- great overall use of OOP :)
-	 *  -- added an early return in do_meta_box
-	 *  -- minor simplifications done in ajax_handler_ticket_add()
-	 *  -- when you call ajax_error() should you also return out of the function? not sure.
-	 *  -- cleaned up attendees_row_action()'s handling of the URL + added early return
-	 *  -- null should never be NULL (WP coding standards - same goes for TRUE, FALSE, etc...)
-	 *  -- admin_print_styles and admin_print_scripts is not the right hook, use admin_enqueue_scripts for both and check the page with the global $pagenow instead (I didn't do this for you)
-	 *  -- I think that call_user_func( array( $class, 'get_instance' ) ); will fail in php 5.2, just going off the top of my head though
-	 *  -- getTemplateHierarchy() seems hacky but I am not sure off the top how to fix it
-	 */
-
 if ( ! class_exists( 'TribeEventsTickets' ) ) {
 	abstract class TribeEventsTickets {
 
@@ -28,6 +11,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		private $parentPath;
 		private $parentUrl;
 		private $attendees_slug = 'tickets-attendees';
+		private $attendees_page;
 
 		// prevent re-doing the metabox by different childs
 		private static $done_metabox = false;
@@ -82,7 +66,6 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 			if ( is_admin() ) {
 				add_action( 'tribe_events_event_save', array( $this, 'save_tickets' ), 10, 1 );
-
 				add_action( 'tribe_events_tickets_metabox_advanced', array( $this, 'do_metabox_advanced_options' ), 10, 2 );
 			}
 
@@ -96,7 +79,6 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 			// Attendees list
 			add_filter( 'post_row_actions', array( $this, 'attendees_row_action' ) );
-
 			add_action( 'admin_menu', array( $this, 'attendees_page_register' ) );
 
 			// Front end
@@ -106,23 +88,20 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 		public final function do_meta_box( $post_id ) {
 
-			if ( !self::$done_metabox ) {
+			if ( self::$done_metabox )
+				return;
 
-				$tickets = self::get_event_tickets( $post_id );
-
-				include $this->parentPath . 'admin-views/tickets-meta-box.php';
-
-				self::$done_metabox = true;
-			}
+			$tickets = self::get_event_tickets( $post_id );
+			include $this->parentPath . 'admin-views/tickets-meta-box.php';
+			self::$done_metabox = true;
 
 		}
 
 		public final function load_pdf_libraries() {
+			if ( class_exists( "FPDF" ) )
+				return;
 
-			if ( !class_exists( "FPDF" ) ) {
-				include $this->parentPath . 'vendor/fpdf/fpdf.php';
-			}
-
+			include $this->parentPath . 'vendor/fpdf/fpdf.php';
 		}
 
 		/* AJAX Handlers */
@@ -162,7 +141,6 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 				$return  = $this->get_ticket_list_markup( $tickets );
 			}
 
-
 			$this->ajax_ok( $return );
 		}
 
@@ -200,7 +178,6 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 				$return  = $this->get_ticket_list_markup( $tickets );
 			}
 
-
 			$this->ajax_ok( $return );
 		}
 
@@ -228,8 +205,9 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 		protected final function ajax_error( $message = "" ) {
 			header( 'Content-type: application/json' );
+
 			echo json_encode( array( "success" => false,
-			                         "message" => $message ) );
+									 "message" => $message ) );
 			exit;
 		}
 
@@ -245,7 +223,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 			header( 'Content-type: application/json' );
 			echo json_encode( array( "success" => true,
-			                         "data"    => $return ) );
+									 "data"    => $return ) );
 			exit;
 		}
 
@@ -255,38 +233,38 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 		public function attendees_row_action( $actions ) {
 			global $post;
-			if ( $post->post_type == TribeEvents::POSTTYPE ) {
 
-			$url = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'page' => $this->attendees_slug, 'event_id' => $post->ID ), admin_url( 'edit.php' ) );
-			$actions['tickets_attendees'] = sprintf( '<a title="See who purchased tickets to this event" href="%s">Attendees</a>', esc_url( $url ) );
+			if ( $post->post_type != TribeEvents::POSTTYPE )
+				return null;
 
-			}
+			$url = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE,
+										 'page'      => $this->attendees_slug,
+										 'event_id'  => $post->ID ), admin_url( 'edit.php' ) );
+
+			$actions['tickets_attendees'] = sprintf( '<a title="%s" href="%s">%s</a>', __( 'See who purchased tickets to this event', 'tribe-events-calendar' ), esc_url( $url ), __( 'Attendees', 'tribe-events-calendar' ) );
+
 			return $actions;
 		}
 
 		public function attendees_page_register() {
-			if ( ! self::$done_attendees_admin_page ) {
-				$page = add_submenu_page( null, 'Attendee list', 'Attendee list', 'edit_posts', $this->attendees_slug, array( $this, 'attendees_page_inside' ) );
+			if ( self::$done_attendees_admin_page )
+				return;
 
-				add_action( 'admin_print_styles-' . $page, array( $this, 'attendees_page_load_css' ) );
-				add_action( 'admin_print_scripts-' . $page, array( $this, 'attendees_page_load_js' ) );
+			$this->attendees_page = add_submenu_page( null, 'Attendee list', 'Attendee list', 'edit_posts', $this->attendees_slug, array( $this, 'attendees_page_inside' ) );
 
-				self::$done_attendees_admin_page = true;
-			}
+			add_action( 'admin_enqueue_scripts', array( $this, 'attendees_page_load_css_js' ) );
+
+			self::$done_attendees_admin_page = true;
 		}
 
-		public function attendees_page_load_css() {
+		public function attendees_page_load_css_js( $hook ) {
+
+			if ( $hook != $this->attendees_page )
+				return;
+
 			$ecp = TribeEvents::instance();
-
-			wp_register_style( $this->attendees_slug, trailingslashit( $ecp->pluginUrl ) . '/resources/tickets-attendees.css' );
-			wp_enqueue_style( $this->attendees_slug );
-		}
-
-		public function attendees_page_load_js() {
-			$ecp = TribeEvents::instance();
-
-			wp_register_script( $this->attendees_slug, trailingslashit( $ecp->pluginUrl ) . '/resources/tickets-attendees.js', array( 'jquery' ) );
-			wp_enqueue_script( $this->attendees_slug );
+			wp_enqueue_style( $this->attendees_slug, trailingslashit( $ecp->pluginUrl ) . '/resources/tickets-attendees.css' );
+			wp_enqueue_script( $this->attendees_slug, trailingslashit( $ecp->pluginUrl ) . '/resources/tickets-attendees.js', array( 'jquery' ) );
 		}
 
 		public function attendees_page_inside() {
@@ -299,7 +277,6 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		}
 
 		final static public function get_event_attendees( $event_id ) {
-
 			$attendees = array();
 
 			foreach ( self::$active_modules as $class=> $module ) {
@@ -308,7 +285,6 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			}
 
 			return $attendees;
-
 		}
 
 
@@ -370,6 +346,5 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		}
 
 		// end Helpers
-
 	}
 }
