@@ -194,7 +194,6 @@ Our Premium Plugins:
 * All calls to HTTP are now HTTPS supported.
 * WordPress' default Custom Fields are now disabled on the event creation page by default for PRO users, unless that site already had custom fields in use at the time 2.0.9 is activated. Custom fields can be re-enabled as you see fit under Events --> Settings --> Additional Fields. (PRO only). 
 * The Google Maps checkbox on Events --> Settings --> General is now enabled by default.
-* The "Show Google Maps "Link" checkbox on the event creation page is now enabled by default. 
 * Updated the modal window that shows upon updating a recurring event, to clarify messaging. (PRO only). 
 * The TRIBE_DISABLE_SHOP constant has been removed; use TRIBE_HIDE_UPSELL instead.
 * Incorporated new Catalan translation files (PRO only), courtesy of Fran Rosa.
