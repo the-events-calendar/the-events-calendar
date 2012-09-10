@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, mzaweb, codearachnid, ryancurban, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, mzaweb, codearachnid, ryancurban, barryhughes, peterchester, reid.peifer, shane.pearlman
 Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar, recurring, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.3
@@ -145,6 +145,7 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 * <a href="http://profiles.wordpress.org/users/mzaweb">Daniel Dvorkin</a>
 * <a href="http://profiles.wordpress.org/users/codearachnid">Timothy Wood</a>
 * <a href="http://profiles.wordpress.org/users/jonahcoyote">Jonah West</a>
+* <a href="http://profiles.wordpress.org/users/barryhughes">Barry Hughes</a>
 * <a href="http://profiles.wordpress.org/users/ryancurban">Ryan Urban</a>
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
