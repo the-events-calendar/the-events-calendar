@@ -101,7 +101,7 @@ There sure is. If you check out our a href="http://tri.be/support/faqs/?ref=tec-
 = Install =
 
 1. <a href="http://tri.be/downloading-installing-activating-the-events-calendar-2-0-pro-2-0/?ref=tec-readme">Follow the directions in our simple video.</a>
-1. Update your permalinks to ensure that the event specific rewrite rules take effect.
+1. 1. Update your permalinks to ensure that the event specific rewrite rules take effect. The optimal permalink option is /%postname%/.
 1. If you have trouble installing, see the [Codex](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) for more helpful info.
 
 For more information, check out our <a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/?ref=tec-readme">new user primer!</a>
@@ -506,8 +506,8 @@ We hit the <a href="http://wordpress.org/support/plugin/the-events-calendar/?ref
 Some things to consider before posting on the forum:
 
 * Look through existing threads before posting a new one and check that there isn't already a discussion going on your issue.
-* A good way to help us out before posting is to check whether the issue is a conflict with another plugin or your theme. This can be tested relatively easily on a staging site by deactivating other plugins one-by-one, and reverting to the default 2011 theme as needed, to see if conflicts can be easily identified. If so, please note that when posting your thread.
-Sometimes, just resaving your permalinks (under Events -> Settings -> Permalinks) can resolve events-related problems on your site. It is worth a shot before creating a new thread.
+* Your issue will be solved more quickly if you run a few checks before making a support request. Deactivate your plugins one by one - if the issue is fixed by deactivating a plugin you know you've got a plugin conflict. To test your Theme, revert to the default Twenty Eleven Theme to see if you are still experiencing the problem. If not, your Theme is the issue. Please provide this information when making your supper request.
+* Sometimes, just resetting your permalinks can fix the issue. Visit Events -> Settings -> Permalinks, save your permalinks with a different option and then save with your preferred choice again. This can solve events-related problems and can is worth a shot before creating a new thread.
 
 Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and tell us why. We'll do what we can to make it right.
 
