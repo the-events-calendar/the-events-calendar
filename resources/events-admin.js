@@ -358,7 +358,7 @@ jQuery(document).ready(function($) {
 							$(this).dialog("close"); 
 							$('[name="sendPressTrendsData"]').prop("checked", false);
 						}
-				}],
+				}]
 			});
 			
 		}
