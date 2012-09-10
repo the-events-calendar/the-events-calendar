@@ -225,6 +225,7 @@ Our Premium Plugins:
 * The Google Maps checkbox on Events --> Settings --> General is now enabled by default.
 * Updated the modal window that shows upon updating a recurring event, to clarify messaging. (PRO only). 
 * The TRIBE_DISABLE_SHOP constant has been removed; use TRIBE_HIDE_UPSELL instead.
+* Various content clarification tweaks throughout the tabs on Events -> Settings.
 * Incorporated new Catalan translation files (PRO only), courtesy of Fran Rosa.
 
 **Bug Fixes:**
