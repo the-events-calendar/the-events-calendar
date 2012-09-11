@@ -4,7 +4,7 @@
 				<input type="hidden" name="is_recurring" value="<?php echo $recType && $recType != "None" ? "true" : "false" ?>" />
 				<input type="hidden" name="recurrence_action" value="" />
 				<select name="recurrence[type]">
-					<option data-plural="" value="None" <?php selected($recType, "None") ?>><?php _e('None','tribe-events-calendar-pro'); ?></option>
+					<option data-plural="" value="None" <?php selected($recType, "None") ?>><?php _e('Never','tribe-events-calendar-pro'); ?></option>
 					<option data-single="day" data-plural="days" value="Every Day" <?php selected($recType, "Every Day") ?>><?php _e('Every Day','tribe-events-calendar-pro'); ?></option>
 					<option data-single="week" data-plural="weeks" value="Every Week" <?php selected($recType, "Every Week") ?>><?php _e('Every Week','tribe-events-calendar-pro'); ?></option>
 					<option data-single="month" data-plural="months" value="Every Month" <?php selected($recType, "Every Month") ?>><?php _e('Every Month','tribe-events-calendar-pro'); ?></option>

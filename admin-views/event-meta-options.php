@@ -1,6 +1,31 @@
 <div id="modern-tribe-info">
 <h2><?php _e('Additional Fields','tribe-events-calendar-pro'); ?></h2>
-<p><?php _e('Add unique fields to your event creation screen with additional fields. These appear up in the event metabox atop your event listing alongside the date, time, venue, organizer, etc. Everyone who creates events will have access to these additional fields. Each new piece of data needs a label (i.e. Meal Plans), at least one option (i.e. Vegetarian, Kosher, Paleo), and a field type is accurate for your needs (i.e. checkbox). While users creating events can only select one option from the "Radio" fields, for example, they can select as many as the want from the "Checkbox" fields.', 'tribe-events-calendar-pro') . '</p>'; ?>
+<p><?php _e('Add unique fields to your event creation screen. These appear up in the event metabox above your event listing alongside the date, time, venue, organizer, etc. Everyone who creates events will have access to these additional fields. Each new piece of data needs:', 'tribe-events-calendar-pro') . '</p>'; ?>
+<ul class="admin-list">
+<li>
+<?php _e('a label (e.g. Meal Plans)', 'tribe-events-calendar-pro'); ?>
+</li>
+<li>
+<?php _e('at least one option (e.g. Vegetarian, Kosher, Paleo)', 'tribe-events-calendar-pro'); ?>
+</li>
+<li>
+<?php _e('a field type. These are:', 'tribe-events-calendar-pro'); ?>
+</li>
+<ul class="admin-list">
+<li>
+<?php _e('text - for the user to input text', 'tribe-events-calendar-pro'); ?>
+</li>
+<li>
+<?php _e('checkbox - for multiple choice', 'tribe-events-calendar-pro'); ?>
+</li>
+<li>
+<?php _e('radio button - to select only one', 'tribe-events-calendar-pro'); ?>
+</li>
+<li>
+<?php _e('dropdown menu - for a dropdown menu', 'tribe-events-calendar-pro'); ?>
+</li>
+</ul>
+</ul>
 </div>
 <fieldset>
 	<legend class="tribe-field-label"><?php _e('Editor "Custom Fields" meta box','tribe-events-calendar-pro'); ?></legend>
