@@ -227,6 +227,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public function displayEventOrganizerDropdown( $postId ) {
 			$curOrg = get_post_meta( $postId, '_EventOrganizerID', true );
+			// override pro default with community on add page
+			if( !$curOrg && class_exists('TribeCommunityEvents') ) {
+				if( TribeCommunityEvents::instance()->isEditPage ) {
+					echo 'hello murphy';
+					$curOrg = TribeCommunityEvents::getOption( 'defaultCommunityOrganizerID' );
+				}
+			}
 			$defaultsEnabled = tribe_get_option( 'defaultValueReplace' );
 			if ( !$curOrg && $defaultsEnabled ) {
 				$curOrg = tribe_get_option( 'eventsDefaultOrganizerID' );
