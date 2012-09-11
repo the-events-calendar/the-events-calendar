@@ -221,7 +221,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		protected function addActions() {
 			add_action( 'init', array( $this, 'init'), 10 );
 			add_action( 'template_redirect', array( $this, 'loadStyle' ) );
-			add_action( 'admin_menu', array( $this, 'addEventBox' ) );	
+			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
+			add_action( 'network_admin_menu', array( $this, 'addNetworkOptionsPage' ) );
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );		
 			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
 			add_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
