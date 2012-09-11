@@ -228,7 +228,7 @@ jQuery(document).ready(function($) {
 							self.submit();
 						}
 				}, {
-						text:"Future Events",
+						text:"All Events",
 						click: function() { 
 							$('[name="recurrence_action"]').val(2);
 
@@ -237,7 +237,7 @@ jQuery(document).ready(function($) {
 
 							$(this).dialog("close"); 
 							self.submit();
-						}					
+						}				
 				}],
 				close: function() {
 					eventSubmitButton.data('clicked', null);
@@ -262,13 +262,13 @@ jQuery(document).ready(function($) {
 				//submitdelete
 				modal: true,
 				buttons: [{
-					text: "Delete just this occurrence.",
+					text: "Only This Event",
 					click: function() {
 						document.location = link.attr('href') + '&event_start=' + $(this).data('start');
 					}
 				},
 				{
-					text: "Delete all occurrences of this event.",
+					text: "All Events",
 					click: function() {
 						document.location = link.attr('href') + '&deleteAll';
 					}
@@ -358,7 +358,7 @@ jQuery(document).ready(function($) {
 							$(this).dialog("close"); 
 							$('[name="sendPressTrendsData"]').prop("checked", false);
 						}
-				}],
+				}]
 			});
 			
 		}

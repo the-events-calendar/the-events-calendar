@@ -13,7 +13,7 @@ $tribe_ecp = TribeEvents::instance();
 ?>	
 	<div id="tribe-events-content" class="grid">
       <!-- This title is here for ajax loading - do not remove if you wish to use ajax switching between month views -->
-      <title><?php wp_title() ?></title>
+      <title><?php wp_title(); ?></title>
 		<div id='tribe-events-calendar-header' class="clearfix">
 			<span class='tribe-events-month-nav'>
 				<span class='tribe-events-prev-month'>
@@ -33,13 +33,13 @@ $tribe_ecp = TribeEvents::instance();
 			</span>
 
 			<span class='tribe-events-calendar-buttons'>
-				<a class='tribe-events-button-off' href='<?php echo tribe_get_listview_link(); ?>'><?php _e('Event List', 'tribe-events-calendar')?></a>
-				<a class='tribe-events-button-on' href='<?php echo tribe_get_gridview_link(); ?>'><?php _e('Calendar', 'tribe-events-calendar')?></a>
+				<a class='tribe-events-button-off' href='<?php echo tribe_get_listview_link(); ?>'><?php _e('Event List', 'tribe-events-calendar'); ?></a>
+				<a class='tribe-events-button-on' href='<?php echo tribe_get_gridview_link(); ?>'><?php _e('Calendar', 'tribe-events-calendar'); ?></a>
 			</span>
 		</div><!-- tribe-events-calendar-header -->
 		<?php tribe_calendar_grid(); // See the views/table.php template for customization ?>
       <?php if( function_exists( 'tribe_get_ical_link' ) ): ?>
-         <a title="<?php esc_attr_e('iCal Import', 'tribe-events-calendar') ?>" class="ical" href="<?php echo tribe_get_ical_link(); ?>"><?php _e('iCal Import', 'tribe-events-calendar') ?></a>
+         <a title="<?php esc_attr_e('iCal Import', 'tribe-events-calendar'); ?>" class="ical" href="<?php echo tribe_get_ical_link(); ?>"><?php _e('iCal Import', 'tribe-events-calendar'); ?></a>
       <?php endif; ?>
 		<?php if (tribe_get_option('donate-link', false) == true) { ?>
 			<p class="tribe-promo-banner"><?php echo apply_filters('tribe_promo_banner', sprintf( __('Calendar powered by %sThe Events Calendar%s', 'tribe-events-calendar'), '<a href="http://tri.be/wordpress-events-calendar/">', '</a>' ) ); ?></p>

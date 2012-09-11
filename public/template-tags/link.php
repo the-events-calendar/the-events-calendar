@@ -131,7 +131,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_event_link($event = null) {
-		return apply_filters( 'tribe_get_event_link', TribeEvents::instance()->getLink('single', $event), $event );
+		return trailingslashit( apply_filters( 'tribe_get_event_link', TribeEvents::instance()->getLink('single', $event), $event ) );
 	}
 
 }

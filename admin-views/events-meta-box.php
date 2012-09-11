@@ -33,7 +33,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<td><input tabindex="<?php $this->tabIndex(); ?>" type='checkbox' id='allDayCheckbox' name='EventAllDay' value='yes' <?php echo $isEventAllDay; ?> /></td>
 		</tr>
 		<tr>
-			<td style="width:125px;"><?php _e('Start Date / Time:','tribe-events-calendar'); ?></td>
+			<td style="width:125px;"><?php _e('* Start Date / Time:','tribe-events-calendar'); ?></td>
 			<td>
 				<input autocomplete="off" tabindex="<?php $this->tabIndex(); ?>" type="text" class="datepicker" name="EventStartDate" id="EventStartDate"  value="<?php echo esc_attr($EventStartDate) ?>" />
 				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', 'tribe-events-calendar') ?></span>
@@ -54,7 +54,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			</td>
 		</tr>
 		<tr>
-			<td><?php _e('End Date / Time:','tribe-events-calendar'); ?></td>
+			<td><?php _e('* End Date / Time:','tribe-events-calendar'); ?></td>
 			<td>
 				<input autocomplete="off" type="text" class="datepicker" name="EventEndDate" id="EventEndDate"  value="<?php echo esc_attr( $EventEndDate ); ?>" />
 				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', 'tribe-events-calendar') ?></span>
@@ -84,7 +84,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<tr id="google_map_link_toggle">
 				<td><?php _e('Show Google Maps Link:','tribe-events-calendar'); ?></td>
 				<td>					
-					<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="EventShowMapLink" value="1" <?php checked(get_post_meta( $postId, '_EventShowMapLink', true )); ?> />
+					<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="EventShowMapLink" value="1" <?php checked((get_post_status($postId) == 'auto-draft') ? true : get_post_meta( $postId, '_EventShowMapLink', true )); ?> />
 				</td>
 			</tr>
 			<?php if( tribe_get_option('embedGoogleMaps') ) : ?>
@@ -120,7 +120,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
       <?php $this->do_action('tribe_events_cost_table', $postId, true) ?>
 	</table>
 	<?php } ?>
-
 	</div>
    <?php $this->do_action('tribe_events_above_donate', $postId, true) ?>
    <?php $this->do_action('tribe_events_details_bottom', $postId, true) ?>

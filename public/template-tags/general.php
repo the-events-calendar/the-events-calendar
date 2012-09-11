@@ -287,7 +287,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		}else{
 			$return = false;
 		}
-		apply_filters('tribe_event_in_category', $return);
+		return apply_filters('tribe_event_in_category', $return);
 	}
 
 	/**
