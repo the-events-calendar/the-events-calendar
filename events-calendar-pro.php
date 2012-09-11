@@ -206,6 +206,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public function displayEventVenueDropdown( $postId ) {
 			$VenueID = get_post_meta( $postId, '_EventVenueID', true );
+			// override pro default with community on add page
+			if( !$VenueID && class_exists('TribeCommunityEvents') ) {
+				if( TribeCommunityEvents::instance()->isEditPage ) {
+					$VenueID = TribeCommunityEvents::getOption( 'defaultCommunityVenueID' );
+				}
+			}
 			$defaultsEnabled = tribe_get_option( 'defaultValueReplace' );
 			if ( !$VenueID && $defaultsEnabled ) {
 				$VenueID = tribe_get_option( 'eventsDefaultVenueID' );
@@ -230,7 +236,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// override pro default with community on add page
 			if( !$curOrg && class_exists('TribeCommunityEvents') ) {
 				if( TribeCommunityEvents::instance()->isEditPage ) {
-					echo 'hello murphy';
 					$curOrg = TribeCommunityEvents::getOption( 'defaultCommunityOrganizerID' );
 				}
 			}
