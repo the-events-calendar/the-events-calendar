@@ -44,8 +44,6 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 		abstract function front_end_tickets_form();
 
-		abstract function get_attendee_pdf( $attendee_id, $grouped_by_order = true );
-
 		abstract static function get_instance();
 
 		// end API Definitions
@@ -97,11 +95,112 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 		}
 
-		public final function load_pdf_libraries() {
-			if ( class_exists( "FPDF" ) )
+		protected final function load_pdf_libraries() {
+			if ( class_exists( 'FPDF' ) )
 				return;
 
 			include $this->parentPath . 'vendor/fpdf/fpdf.php';
+		}
+
+		public final function generate_attendees_PDF( $tickets_list ) {
+
+			$this->load_pdf_libraries();
+
+			$pdf = new FPDF();
+
+			$pdf->SetTitle('EventTicket');
+			$pdf->SetAuthor('The Events Calendar');
+			$pdf->SetCreator('The Events Calendar');
+
+			$defaults = array( 'event_id'      => 0,
+			                   'ticket_name'   => '',
+			                   'holder_name'   => '',
+			                   'order_id'      => '',
+			                   'ticket_id'     => '',
+			                   'security_code' => ''
+			);
+
+			foreach ( $tickets_list as $ticket ) {
+
+				$ticket = wp_parse_args( $ticket, $defaults );
+
+				$event = get_post( $ticket['event_id'] );
+
+				$pdf->AddPage();
+
+				$pdf->SetFont( 'helvetica', '', 15 );
+
+				$ecp = TribeEvents::instance();
+
+				$ticket_image = apply_filters( 'tribe_events_tickets_pdf_base_image', array( 'path' => trailingslashit( $ecp->pluginPath ) . 'resources/ticket.png',
+				                                                                             'x'    => 25,
+				                                                                             'y'    => 10,
+				                                                                             'w'    => 160,
+				                                                                             'h'    => 0,
+				                                                                             'type' => 'PNG' ) );
+
+				$pdf->Image( $ticket_image['path'], $ticket_image['x'], $ticket_image['y'], $ticket_image['w'], $ticket_image['h'], $ticket_image['type'] );
+
+				$pdf->SetXY( 50, 15 );
+				$pdf->Write( 5, $ticket['holder_name'] );
+
+				$pdf->SetXY( 50, 30 );
+				$pdf->SetFontSize( 22 );
+				$pdf->Write( 5, $event->post_title );
+
+
+				$venue = tribe_get_venue( $event->ID );
+				( !empty( $venue ) ) ? $venue : "";
+
+				$pdf->SetXY( 50, 40 );
+				$pdf->SetFontSize( 18 );
+				$pdf->Write( 5, $venue );
+
+				$address = tribe_get_address( $event->ID );
+				( !empty( $address ) ) ? $address : "";
+
+				$pdf->SetFont( 'arial', '', 11 );
+				$pdf->SetXY( 50, 50 );
+				$pdf->Write( 5, $address );
+
+				$zip = tribe_get_zip( $event->ID );
+				( !empty( $zip ) ) ? $zip : "";
+
+				$country = tribe_get_country( $event->ID );
+				( !empty( $country ) ) ? $country : "";
+
+				$pdf->SetXY( 50, 55 );
+				$pdf->Write( 5, 'Venue address line 2' );
+
+				$pdf->SetFont( 'times', '', 13 );
+				$pdf->SetXY( 50, 70 );
+				$pdf->Write( 5, 'Order: ' );
+				$pdf->SetFont( 'times', 'B', 13 );
+				$pdf->Write( 5, $ticket['order_id'] );
+				$pdf->SetFont( 'times', '', 13 );
+				$pdf->Write( 5, ' Ticket: ' );
+				$pdf->SetFont( 'times', 'B', 13 );
+				$pdf->Write( 5, $ticket['ticket_id'] );
+				$pdf->SetFont( 'times', '', 13 );
+				$pdf->Write( 5, ' Verification Code: ' );
+				$pdf->SetFont( 'times', 'B', 13 );
+				$pdf->Write( 5, $ticket['security_code'] );
+
+			}
+
+			$upload_path = wp_upload_dir();
+			$upload_url  = $upload_path['url'];
+			$upload_path = $upload_path['path'];
+
+			$filename = wp_unique_filename( $upload_path, sanitize_file_name( md5( time() ) ) . '.pdf' );
+
+			$upload_path = trailingslashit( $upload_path ) . $filename;
+			$upload_url  = trailingslashit( $upload_url ) . $filename;
+
+			$pdf->Output( $upload_path, 'F' );
+
+			return array( $upload_path, $upload_url );
+
 		}
 
 		/* AJAX Handlers */
