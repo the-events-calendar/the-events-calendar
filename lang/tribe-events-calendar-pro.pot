@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-06 09:02-0500\n"
-"PO-Revision-Date: 2012-09-06 09:02-0500\n"
+"POT-Creation-Date: 2012-09-11 14:03-0500\n"
+"PO-Revision-Date: 2012-09-11 14:03-0500\n"
 "Last-Translator: Paul Hughes <paul@paulalexanderhughes.com>\n"
 "Language-Team: Modern Tribe, Inc.\n"
 "Language: en_US\n"
@@ -77,27 +77,16 @@ msgstr ""
 #: ../events-calendar-pro.php:360
 #, php-format
 msgid ""
-"%sWelcome to Events Calendar, a full-featured events management system for "
-"WordPress. By buying a license you've given us a vote of confidence, will "
-"get active support and have hooked up some sweet additional features not "
-"found in the free The Events Calendar.%s"
+"If this is your first time using The Events Calendar, you're in for a treat. "
+"You're going to find it super-easy to get up and running with managing your "
+"events. Here are some ways to get started:</p><ul><li><strong>Feeling "
+"adventurous?</strong> Jump right into it by visiting the Events menu to "
+"%sadd your first event%s.</li><li><strong>Want to get the low-down first?</"
+"strong> Visit our <a href=\"http://tri.be/support/documentation/events-"
+"calendar-pro-new-user-primer/"
 msgstr ""
 
 #: ../events-calendar-pro.php:361
-#, php-format
-msgid ""
-"%sIf you aren't familiar with The Events Calendar, it may be wise to check "
-"out our %s. It'll introduce you to the basics of what the plugin has to "
-"offer and will have you creating events in no time. From there, the "
-"resources below -- extensive template tag documentation, FAQs, video "
-"walkthroughs and more -- will give you a leg up as you dig deeper.%s"
-msgstr ""
-
-#: ../events-calendar-pro.php:361
-msgid "new user primer"
-msgstr ""
-
-#: ../events-calendar-pro.php:362
 #, php-format
 msgid ""
 "%sOh, wondering what to do with your license key and whether you need it "
@@ -105,15 +94,15 @@ msgid ""
 "answer. %s, if you don't have it handy.%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:362
+#: ../events-calendar-pro.php:361
 msgid "our blog post"
 msgstr ""
 
-#: ../events-calendar-pro.php:362
+#: ../events-calendar-pro.php:361
 msgid "Here's how you find your license key"
 msgstr ""
 
-#: ../events-calendar-pro.php:369
+#: ../events-calendar-pro.php:368
 #, php-format
 msgid ""
 "%sOne of the advantages of being a PRO user is that you have access to our "
@@ -122,12 +111,12 @@ msgid ""
 "dev team in to address directly.%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:370
+#: ../events-calendar-pro.php:369
 #, php-format
 msgid "%sSome things to consider before posting on the forum:%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:371
+#: ../events-calendar-pro.php:370
 #, php-format
 msgid ""
 "%sLook through existing threads before posting a new one and check that "
@@ -136,7 +125,7 @@ msgid ""
 "indeed already is present.%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:372
+#: ../events-calendar-pro.php:371
 #, php-format
 msgid ""
 "%sA good way to help us out before posting is to check whether the issue is "
@@ -146,7 +135,7 @@ msgid ""
 "easily identified. If so, please note that when posting your thread.%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:373
+#: ../events-calendar-pro.php:372
 #, php-format
 msgid ""
 "%sSometimes, just resaving your permalinks (under Settings -> Permalinks) "
@@ -154,7 +143,7 @@ msgid ""
 "creating a new thread.%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:374
+#: ../events-calendar-pro.php:373
 #, php-format
 msgid ""
 "%sWhile we won't build your site for you and can't guarantee The Events "
@@ -164,32 +153,32 @@ msgid ""
 "the community can see what you've been working on.%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:374
+#: ../events-calendar-pro.php:373
 msgid "Showcase thread"
 msgstr ""
 
-#: ../events-calendar-pro.php:551
+#: ../events-calendar-pro.php:550
 msgid "Settings"
 msgstr ""
 
-#: ../events-calendar-pro.php:596
+#: ../events-calendar-pro.php:595
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar PRO%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:605
+#: ../events-calendar-pro.php:604
 msgid "Support"
 msgstr ""
 
-#: ../events-calendar-pro.php:607
+#: ../events-calendar-pro.php:606
 msgid "View All Add-Ons"
 msgstr ""
 
-#: ../events-calendar-pro.php:647
+#: ../events-calendar-pro.php:646
 msgid "The Events Calendar"
 msgstr ""
 
-#: ../events-calendar-pro.php:648
+#: ../events-calendar-pro.php:647
 #, php-format
 msgid ""
 "To begin using Events Calendar PRO, please install the latest version of <a "
@@ -277,12 +266,12 @@ msgstr ""
 
 #: ../admin-views/event-defaults.php:19
 #: ../admin-views/events-options-defaults.php:53
-#: ../admin-views/tribe-options-defaults.php:53
 msgid "Default Organizer for Events"
 msgstr ""
 
 #: ../admin-views/event-defaults.php:22
 #: ../admin-views/events-options-defaults.php:56
+#: ../admin-views/tribe-options-defaults.php:53
 msgid "Default Organizer"
 msgstr ""
 
@@ -301,12 +290,12 @@ msgstr ""
 
 #: ../admin-views/event-defaults.php:27
 #: ../admin-views/events-options-defaults.php:62
-#: ../admin-views/tribe-options-defaults.php:66
 msgid "Default Venue for Events"
 msgstr ""
 
 #: ../admin-views/event-defaults.php:30
 #: ../admin-views/events-options-defaults.php:65
+#: ../admin-views/tribe-options-defaults.php:66
 msgid "Default Venue"
 msgstr ""
 
@@ -318,6 +307,7 @@ msgstr ""
 #: ../admin-views/event-defaults.php:35 ../admin-views/event-defaults.php:37
 #: ../admin-views/events-options-defaults.php:71
 #: ../admin-views/events-options-defaults.php:73
+#: ../admin-views/tribe-options-defaults.php:79
 msgid "Default Address"
 msgstr ""
 
@@ -329,6 +319,7 @@ msgstr ""
 #: ../admin-views/event-defaults.php:42 ../admin-views/event-defaults.php:44
 #: ../admin-views/events-options-defaults.php:79
 #: ../admin-views/events-options-defaults.php:81
+#: ../admin-views/tribe-options-defaults.php:92
 msgid "Default City"
 msgstr ""
 
@@ -339,6 +330,7 @@ msgstr ""
 
 #: ../admin-views/event-defaults.php:50
 #: ../admin-views/events-options-defaults.php:88
+#: ../admin-views/tribe-options-defaults.php:105
 msgid "Default State"
 msgstr ""
 
@@ -361,6 +353,7 @@ msgstr ""
 
 #: ../admin-views/event-defaults.php:71
 #: ../admin-views/events-options-defaults.php:110
+#: ../admin-views/tribe-options-defaults.php:118
 msgid "Default Province"
 msgstr ""
 
@@ -377,13 +370,13 @@ msgstr ""
 
 #: ../admin-views/event-defaults.php:87
 #: ../admin-views/events-options-defaults.php:128
-#: ../admin-views/tribe-options-defaults.php:144
 msgid "Default Country for Events"
 msgstr ""
 
 #: ../admin-views/event-defaults.php:105 ../admin-views/event-defaults.php:107
 #: ../admin-views/events-options-defaults.php:146
 #: ../admin-views/events-options-defaults.php:148
+#: ../admin-views/tribe-options-defaults.php:157
 msgid "Default Phone"
 msgstr ""
 
@@ -415,71 +408,95 @@ msgstr ""
 
 #: ../admin-views/event-meta-options.php:3
 msgid ""
-"Add unique fields to your event creation screen with additional fields. "
-"These appear up in the event metabox atop your event listing alongside the "
-"date, time, venue, organizer, etc. Everyone who creates events will have "
-"access to these additional fields. Each new piece of data needs a label (i."
-"e. Meal Plans), at least one option (i.e. Vegetarian, Kosher, Paleo), and a "
-"field type is accurate for your needs (i.e. checkbox). While users creating "
-"events can only select one option from the \"Radio\" fields, for example, "
-"they can select as many as the want from the \"Checkbox\" fields."
+"Add unique fields to your event creation screen. These appear up in the "
+"event metabox above your event listing alongside the date, time, venue, "
+"organizer, etc. Everyone who creates events will have access to these "
+"additional fields. Each new piece of data needs:"
 msgstr ""
 
 #: ../admin-views/event-meta-options.php:6
-msgid "Editor \"Custom Fields\" meta box"
-msgstr ""
-
-#: ../admin-views/event-meta-options.php:8
-msgid "Show"
+msgid "a label (e.g. Meal Plans)"
 msgstr ""
 
 #: ../admin-views/event-meta-options.php:9
+msgid "at least one option (e.g. Vegetarian, Kosher, Paleo)"
+msgstr ""
+
+#: ../admin-views/event-meta-options.php:12
+msgid "a field type. These are:"
+msgstr ""
+
+#: ../admin-views/event-meta-options.php:16
+msgid "text - for the user to input text"
+msgstr ""
+
+#: ../admin-views/event-meta-options.php:19
+msgid "checkbox - for multiple choice"
+msgstr ""
+
+#: ../admin-views/event-meta-options.php:22
+msgid "radio button - to select only one"
+msgstr ""
+
+#: ../admin-views/event-meta-options.php:25
+msgid "dropdown menu - for a dropdown menu"
+msgstr ""
+
+#: ../admin-views/event-meta-options.php:31
+msgid "Editor \"Custom Fields\" meta box"
+msgstr ""
+
+#: ../admin-views/event-meta-options.php:33
+msgid "Show"
+msgstr ""
+
+#: ../admin-views/event-meta-options.php:34
 msgid "Hide"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:10
+#: ../admin-views/event-meta-options.php:35
 msgid ""
 "Enabling this option this will not remove custom field data or "
 "functionality, just the default meta box editor."
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:14
+#: ../admin-views/event-meta-options.php:39
 msgid "Field Label"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:14
+#: ../admin-views/event-meta-options.php:39
 msgid "Field Type"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:14
+#: ../admin-views/event-meta-options.php:39
 msgid "Options (one per line)"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:22
+#: ../admin-views/event-meta-options.php:47
 msgid "Text"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:23
+#: ../admin-views/event-meta-options.php:48
 msgid "Radio"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:24
+#: ../admin-views/event-meta-options.php:49
 msgid "Checkbox"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:25
+#: ../admin-views/event-meta-options.php:50
 msgid "Dropdown"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:31
+#: ../admin-views/event-meta-options.php:56
 msgid "Add another"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:33
+#: ../admin-views/event-meta-options.php:58
 msgid "Remove"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:41
+#: ../admin-views/event-meta-options.php:66
 #, php-format
 msgid ""
 "Enter the field label as you want it to appear (this will be the label in "
@@ -491,11 +508,11 @@ msgid ""
 "with a %s."
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:41
+#: ../admin-views/event-meta-options.php:66
 msgid "video tutorial that will walk you through the process"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:49
+#: ../admin-views/event-meta-options.php:74
 msgid ""
 "Are you sure you wish to remove this field and its data from all events? "
 "Once you click OK this cannot be undone."
@@ -510,7 +527,7 @@ msgid "Recurrence:"
 msgstr ""
 
 #: ../admin-views/event-recurrence.php:7
-msgid "None"
+msgid "Never"
 msgstr ""
 
 #: ../admin-views/event-recurrence.php:8
@@ -821,28 +838,12 @@ msgid ""
 "organizer, or manually enter the details of a new one."
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:79
-msgid "Default Address for Events"
-msgstr ""
-
-#: ../admin-views/tribe-options-defaults.php:92
-msgid "Default City for Events"
-msgstr ""
-
-#: ../admin-views/tribe-options-defaults.php:105
-msgid "Default State for Events"
-msgstr ""
-
-#: ../admin-views/tribe-options-defaults.php:118
-msgid "Default Province for Events"
-msgstr ""
-
 #: ../admin-views/tribe-options-defaults.php:131
-msgid "Default Postal Code/Zip Code for Events"
+msgid "Default Postal Code/Zip Code"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:157
-msgid "Default Phone for Events"
+#: ../admin-views/tribe-options-defaults.php:144
+msgid "Default Country"
 msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:173
