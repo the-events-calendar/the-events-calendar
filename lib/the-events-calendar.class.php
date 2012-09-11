@@ -1220,7 +1220,90 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$options = self::getOptions();
 			$this->setOptions( wp_parse_args( $newOption, $options ) );
 		}
+		
+		/**
+		 * Get all network options for the Events Calendar
+		 *
+		 * @return array of options
+		 */
+		public static function getNetworkOptions() {
+			if ( !isset( self::$networkOptions ) ) {
+				$options = get_site_option( TribeEvents::OPTIONNAME, array() );
+				self::$networkOptions = apply_filters( 'tribe_get_network_options', $options );
+			}
+			return self::$networkOptions;
+		}
 
+		/**
+		 * Get value for a specific network option
+		 *
+		 * @param string $optionName name of option
+		 * @param string $default default value
+		 * @return mixed results of option query
+		 */
+		public function getNetworkOption($optionName, $default = '') {
+			if( !$optionName )
+				return null;
+
+			if( !isset( self::$networkOptions ) )
+				self::getNetworkOptions();
+
+			if ( isset( self::$networkOptions[$optionName] ) ) {
+				$option = self::$networkOptions[$optionName];
+			} else {
+				$option = $default;
+			}
+
+			return apply_filters( 'tribe_get_single_network_option', $option, $default );
+		}
+
+		/**
+		 * Saves the network options for the plugin
+		 *
+		 * @param array $options formatted the same as from getOptions()
+		 * @return void
+		 */
+		public function setNetworkOptions($options, $apply_filters=true) {
+			if (!is_array($options)) {
+				return;
+			}
+			if ( $apply_filters == true ) {
+				$options = apply_filters( 'tribe-events-save-network-options', $options );
+			}
+			if ( update_site_option( TribeEvents::OPTIONNAME, $options ) ) {
+				self::$networkOptions = apply_filters( 'tribe_get_network_options', $options );
+				if ( self::$networkOptions['eventsSlug'] != '' ) {
+					$this->flushRewriteRules();
+				}
+			} else {
+				self::$networkOptions = self::getNetworkOptions();
+			}
+		}
+		
+		/**
+		 * Saves the network option.
+		 *
+		 * @param string $name The name of the tribe network option.
+		 * @param mixed $value The value of the option you're setting.
+		 * @return void
+		 */
+		public function setNetworkOption($name, $value) {
+			$newOption = array();
+			$newOption[$name] = $value;
+			$options = self::getNetworkOptions();
+			$this->setNetworkOptions( wp_parse_args( $newOption, $options ) );
+		}
+		
+		public function addNetworkOptionsPage() {
+			add_submenu_page('settings.php', $this->pluginName, $this->pluginName, 'manage_network_options', 'tribe-events-calendar', array( $this,'networkOptionsPageView' ) );
+		}
+
+		public function networkOptionsPageView() {
+			include( $this->pluginPath . 'admin-views/tribe-network-options.php' );
+			// every visit to ECP Settings = flush rules.
+			$this->flushRewriteRules();
+		}
+		
 		// clean up trashed venues
 		public function cleanupPostVenues($postId) {
 			$this->removeDeletedPostTypeAssociation('_EventVenueID', $postId);
