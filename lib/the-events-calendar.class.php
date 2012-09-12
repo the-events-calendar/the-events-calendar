@@ -182,6 +182,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'widget-list.class.php' );
 			require_once( 'tribe-admin-events-list.class.php' );
 			require_once( 'tribe-date-utils.class.php' );
+			require_once( 'tribe-template-factory.class.php' );
 			require_once( 'tribe-templates.class.php' );
 			require_once( 'tribe-event-api.class.php' );
 			require_once( 'tribe-event-query.class.php' );
@@ -311,6 +312,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->maybeMigrateDatabase();
 			$this->maybeRenameOptions();
 			$this->maybeSetTECVersion();
+			// TribeEventsQuery::deregister();
 		}
 
 		public function maybeMigrateDatabase( ) {
@@ -2568,6 +2570,24 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				AND ($wpdb->posts.ID != $id OR d1.meta_value != '$date')
 				ORDER BY TIMESTAMP(d1.meta_value) $order, ID $order
 				LIMIT 1";
+			$args = array(
+				'post_type' => self::POSTTYPE,
+				'post_status' => 'publish',
+				'post__not_in' => array( $post->ID ),
+				// 'order' => $order, 
+				// 'orderby' => 'TIMESTAMP(wp_postmeta.meta_value) ID',
+				'posts_per_page' => 1,
+				'meta_query' => array(
+					array(
+						'key' => '_EventStartDate',
+						'value' => $post->EventStartDate,
+						'type' => 'DATE'
+					)
+				)
+			);
+			// TribeEventsQuery::deregister();
+			// $event_link = new WP_Query($args);
+			// print_r($event_link);
 
 			$results = $wpdb->get_row($eventsQuery, OBJECT);
 			if(is_object($results)) {
@@ -2576,9 +2596,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
             } elseif ( strpos( $anchor, '%title%' ) !== false ) {
 					$anchor = preg_replace( '|%title%|', $results->post_title, $anchor );
 				}
-
-				echo '<a href='.tribe_get_event_link($results).'>'.$anchor.'</a>';
-
+				return apply_filters('tribe_events_get_event_link', '<a href='.tribe_get_event_link($results).'>'.$anchor.'</a>');
 			}
 		}
 
