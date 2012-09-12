@@ -14,6 +14,8 @@
 
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
+
+/*
 ?>
 
 <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
@@ -51,3 +53,4 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<?php echo implode( ', ', $address_out ); ?>
 	<?php endif; ?>
 </div><!-- address -->
+<?php */

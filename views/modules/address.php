@@ -14,6 +14,9 @@
 
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
+
+$postId = get_the_ID();
+
 ?>
 
 <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">

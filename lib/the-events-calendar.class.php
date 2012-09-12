@@ -1655,7 +1655,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function fullAddress( $postId=null, $includeVenueName=false ) {
 			ob_start();
-			load_template( TribeEventsTemplates::getTemplateHierarchy( 'full-address' ), false );
+			load_template( TribeEventsTemplates::getTemplateHierarchy( 'address', 'modules' ), false );
 			$address = ob_get_contents();
 			ob_end_clean();
 			return $address;
@@ -2585,6 +2585,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					)
 				)
 			);
+			// TODO: Finish rewriting this query to be WP_QUERY based
 			// TribeEventsQuery::deregister();
 			// $event_link = new WP_Query($args);
 			// print_r($event_link);

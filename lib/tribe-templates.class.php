@@ -229,21 +229,24 @@ if (!class_exists('TribeEventsTemplates')) {
 		 * @return template path
 		 * @author Matt Wiebe
 		 **/
-		public static function getTemplateHierarchy($template) {
+		public static function getTemplateHierarchy($template, $subfolder = '') {
 			$tribe_ecp = TribeEvents::instance();
 
 			if ( substr($template, -4) != '.php' ) {
 				$template .= '.php';
 			}
 
+			$subfolder = !empty($subfolder) && $subfolder[0] != '/' ? '/' . $subfolder : $subfolder;
+
+			$subfolder = trailingslashit($subfolder);
+
 			if( file_exists($tribe_ecp->pluginPath . 'views/hooks/' . $template))
 				include_once $tribe_ecp->pluginPath . 'views/hooks/' . $template;
 
-			if ( $theme_file = locate_template(array('events/'.$template)) ) {
+			if ( $theme_file = locate_template(array('tribe-events' . $subfolder . $template)) ) {
 				$file = $theme_file;
-			}
-			else {
-				$file = $tribe_ecp->pluginPath . 'views/' . $template;
+			} else {
+				$file = $tribe_ecp->pluginPath . 'views' . $subfolder . $template;
 			}
 			return apply_filters( 'tribe_events_template_'.$template, $file);
 		}
