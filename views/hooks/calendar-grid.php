@@ -4,7 +4,7 @@
  * This file outputs the actual days of the month in the TEC calendar view
  *
  * You can customize this view by putting a replacement file of the same name
- * (table.php) in the events/ directory of your theme.
+ * (/modules/calendar-grid.php) in the tribe-events/ directory of your theme.
  *
  * @package TribeEventsCalendar
  * @since  1.0

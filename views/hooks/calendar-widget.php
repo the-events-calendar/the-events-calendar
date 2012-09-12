@@ -3,7 +3,7 @@
  * Calendar Widget Template
  * 
  * You can customize this view by putting a replacement file of the
- * same name (table-mini.php) in the events/ directory of your theme.
+ * same name (/widgets/calendar-widget.php) in the tribe-events/ directory of your theme.
  *
  * @package TribeEventsCalendar
  * @since  1.0

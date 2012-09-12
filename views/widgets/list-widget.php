@@ -6,7 +6,7 @@
  * There is currently no default styling, which is highly needed.
  *
  * You can customize this view by putting a replacement file of the same name
- * (events-list-load-widget-display.php) in the events/ directory of your theme.
+ * (/widgets/list-widget.php) in the tribe-events/ directory of your theme.
  *
  * @return string
  *

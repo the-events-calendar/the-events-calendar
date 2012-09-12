@@ -4,7 +4,7 @@
  * Render an address. This is used by default in the single event view.
  *
  * You can customize this view by putting a replacement file of the same
- * name (full-address.php) in the events/ directory of your theme.
+ * name (/modules/address.php) in the tribe-events/ directory of your theme.
  *
  * @package TribeEventsCalendar
  * @since  1.0
