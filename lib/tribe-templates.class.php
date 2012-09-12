@@ -125,6 +125,12 @@ if (!class_exists('TribeEventsTemplates')) {
 		
 			// restore the query so that our page template can do a normal loop
 			self::restoreQuery();
+
+			$notices = array();
+			$gmt_offset = (get_option('gmt_offset') >= '0' ) ? ' +' . get_option('gmt_offset') : " " . get_option('gmt_offset');
+			$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
+			if (strtotime( tribe_get_end_date(get_the_ID(), false, 'Y-m-d G:i') . $gmt_offset ) <= time() ) 
+				$notices[] = __('This event has passed.', 'tribe-events-calendar');
 		
 			ob_start();
 			echo apply_filters( 'tribe_events_before_html', stripslashes( tribe_get_option( 'tribeEventsBeforeHTML' ) ) );
@@ -145,9 +151,11 @@ if (!class_exists('TribeEventsTemplates')) {
 			if ( !is_single() && (isset($post->ID) && $post->ID == $post_id) ) 
 				return tribe_get_events_title();
 
-			// single event title
+			// if the helper class for single event template hasn't been loaded fix that
 			if( !class_exists('Tribe_Events_Single_Event_Template') )
 				TribeEventsTemplates::getTemplateHierarchy('single-event');
+
+			// single event title
 			$before_title = apply_filters( 'tribe_events_single_event_before_the_title', '', $post_id );
 			$the_title = apply_filters( 'tribe_events_single_event_the_title', $title, $post_id );
 			$after_title = apply_filters( 'tribe_events_single_event_after_the_title', '', $post_id );

@@ -23,7 +23,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			add_filter( 'tribe_events_single_event_after_the_title', array( __CLASS__, 'after_the_title' ), 1, 1 );
 
 			// event notices
-			add_filter( 'tribe_events_single_event_notices', array( __CLASS__, 'notices' ), 1, 1 );
+			add_filter( 'tribe_events_single_event_notices', array( __CLASS__, 'notices' ), 1, 2 );
 
 			// event meta
 			add_filter( 'tribe_events_single_event_before_the_meta', array( __CLASS__, 'before_the_meta' ), 1, 1 );
@@ -71,11 +71,9 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			$html .= parent::debug( $filter_name, false, false );
 			return $html;
 		}
-		public function notices( $post_id ) {
-			$gmt_offset = (get_option('gmt_offset') >= '0' ) ? ' +' . get_option('gmt_offset') : " " . get_option('gmt_offset');
-			$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
-			if (strtotime( tribe_get_end_date(get_the_ID(), false, 'Y-m-d G:i') . $gmt_offset ) <= time() ) 
-				echo '<div class="event-passed">' . __('This event has passed.', 'tribe-events-calendar') . '</div>'; 
+		public function notices( $notices = array(), $post_id ) {
+			if(!empty($notices))
+				echo '<div class="event-notices">' . implode('<br />', $notices) . '</div>'; 
 		}
 		public function before_the_meta( $post_id ){
 			$filter_name = 'tribe_events_single_event_before_the_meta';
@@ -213,9 +211,9 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			$filter_name = 'tribe_events_single_event_pagination';
 			parent::debug( $filter_name );
 			echo '<div class="navlink tribe-previous">';
-					tribe_previous_event_link( $post_id );
+					tribe_previous_event_link();
 			echo '</div><div class="navlink tribe-next">';
-					tribe_next_event_link( $post_id );
+					tribe_next_event_link();
 			echo '</div>';
 			parent::debug( $filter_name, false );
 		}
