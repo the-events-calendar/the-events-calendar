@@ -21,11 +21,13 @@ $networkTab = array(
 			'type' => 'html',
 			'html' => '</div>',
 		),
-		'showSettingsTabs' => array(
+		'hideSettingsTabs' => array(
 			'type' => 'checkbox_list',
-			'label' => __( 'Show the following settings tabs on every site:', 'tribe-events-calendar' ),
+			'label' => __( 'Hide the following settings tabs on every site:', 'tribe-events-calendar' ),
+			'default' => false,
 			'options' => $allTabs,
 			'validation_type' => 'options_multi',
+			'can_be_empty' => true,
 		),
 	)
 ) 

@@ -455,7 +455,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			include_once($this->pluginPath.'admin-views/tribe-options-general.php');
 			include_once($this->pluginPath.'admin-views/tribe-options-templates.php');
-					
+			
+			$showNetworkTabs = $this->getNetworkOption( 'showSettingsTabs', false );
+			
 			$tribe_licences_tab_fields = array(
 				'info-start' => array(
 					'type' => 'html',
@@ -1273,7 +1275,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( $apply_filters == true ) {
 				$options = apply_filters( 'tribe-events-save-network-options', $options );
 			}
-			if ( update_site_option( TribeEvents::OPTIONNAME, $options ) ) {
+			if ( update_site_option( TribeEvents::OPTIONNAMENETWORK, $options ) ) {
 				self::$networkOptions = apply_filters( 'tribe_get_network_options', $options );
 				if ( self::$networkOptions['eventsSlug'] != '' ) {
 					$this->flushRewriteRules();

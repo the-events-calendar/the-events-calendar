@@ -403,17 +403,19 @@ if ( !class_exists( 'TribeSettings' ) ) {
 			 */
 			foreach ( $parent_options as $option_id => $new_options ) {
 				// get the old options
-				$old_options = (array) get_option( $option_id );
+				if ( $option_id == TribeEvents::OPTIONNAME )
+					$old_options = (array) get_option( $option_id );
+				else
+					$old_options = (array) get_site_option( $option_id );
 
 				// set the options by parsing old + new and filter that
 				$options = apply_filters( 'tribe_settings_save_option_array', wp_parse_args( $new_options, $old_options ), $option_id );
 
 				if ( $option_id == TribeEvents::OPTIONNAME ) {
 					// save using the TribeEvents method
-					if ( is_network_admin() )
-						TribeEvents::setNetworkOptions( $options );
-					else
-						TribeEvents::setOptions( $options );
+					TribeEvents::setOptions( $options );						
+				} elseif ( $option_id == TribeEvents::OPTIONNAMENETWORK ) {
+					TribeEvents::setNetworkOptions( $options );
 				} else {
 					// save using regular WP method
 					if ( is_network_admin() )
