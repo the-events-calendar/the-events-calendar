@@ -31,15 +31,7 @@ if( !class_exists( 'TribeEventsFeatureWidget') ) {
 			}
 
 			if( function_exists( 'tribe_get_events' ) ) {
-				// get plenty of upcoming posts hopefully one will be late enough today not to run out
-				$posts = tribe_get_events( 'eventDisplay=upcoming&numResults=10&eventCat=' . $category );
-				foreach($posts as $key => $post){
-					if(strtotime('now') > strtotime($post->EventEndDate))
-						unset($posts[$key]);
-				}
-				// grab the first element off the array if it exists
-				if(!empty($posts))
-					$posts[0] = array_shift($posts);
+				$posts = tribe_get_events( 'eventDisplay=upcoming&numResults=1&eventCat=' . $category );
 				$template = TribeEventsTemplates::getTemplateHierarchy('widget-featured-display');
 			}
 			
