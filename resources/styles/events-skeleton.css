@@ -63,8 +63,8 @@ a.gcal-add {
 .events-archive .entry-header { width: 98%; }
 .events-archive .tribe-events-event-entry { width: 60%; }
 
-/* "Event has passed" Notice */
-.event-passed {
+/* Event Notices */
+.event-notices {
     background: #d9edf7;
     border: 1px solid #bce8f1;
     color: #3a87ad;
