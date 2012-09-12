@@ -6,7 +6,7 @@
  * There is currently no default styling, which is highly needed.
  *
  * You can customize this view by putting a replacement file of the same name
- * (/widgets/events-list-load-widget-display.php) in the tribe-events/ directory of your theme.
+ * (/widgets/list-widget.php) in the tribe-events/ directory of your theme.
  *
  * When the template is loaded, the following vars are set: $start, $end, $venue, 
  * $address, $city, $state, $province'], $zip, $country, $phone, $cost

@@ -1,6 +1,6 @@
 <?php
 /**
- * Events Pro Featured Widget Template
+ * Events Pro List Widget Output Template
  * This is the template for the output of the events list widget. 
  * All the items are turned on and off through the widget admin.
  * There is currently no default styling, which is highly needed.
