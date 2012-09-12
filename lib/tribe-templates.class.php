@@ -157,7 +157,7 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			// single event title
 			$before_title = apply_filters( 'tribe_events_single_event_before_the_title', '', $post_id );
-			$the_title = apply_filters( 'tribe_events_single_event_the_title', $title, $post_id );
+			$the_title = apply_filters( 'tribe_events_single_event_the_title', $title, $title, $post_id );
 			$after_title = apply_filters( 'tribe_events_single_event_after_the_title', '', $post_id );
 			return $before_title . $the_title . $after_title;
 		}
