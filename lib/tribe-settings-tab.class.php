@@ -56,6 +56,7 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 				'priority' => 50,
 				'show_save' => true,
 				'display_callback' => false,
+				'network_admin' => false,
 			);
 
 			// parse args with defaults and extract them

@@ -70,6 +70,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		protected $postExceptionThrown = false;
 		protected $optionsExceptionThrown = false;
 		protected static $options;
+		protected static $networkOptions;
 		public $displaying;
 		public $pluginDir;
 		public $pluginPath;
@@ -255,6 +256,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				add_action( 'tribe_events_cost_table', array($this, 'maybeShowMetaUpsell'));
 			}
 			// option pages
+			add_action( '_network_admin_menu', array( $this, 'initOptions' ) );
 			add_action( '_admin_menu', array( $this, 'initOptions' ) );
 			add_action( 'tribe_settings_do_tabs', array( $this, 'doSettingTabs' ) );
 			add_action( 'tribe_settings_content_tab_help', array( $this, 'doHelpTab' ) );
@@ -1296,11 +1298,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 		
 		public function addNetworkOptionsPage() {
-			add_submenu_page('settings.php', $this->pluginName, $this->pluginName, 'manage_network_options', 'tribe-events-calendar', array( $this,'networkOptionsPageView' ) );
+			include( $this->pluginPath . 'admin-views/tribe-network-options.php' );
+			
+			$tribe_settings = TribeSettings::instance();
+			add_submenu_page('settings.php', $this->pluginName, $this->pluginName, 'manage_network_options', 'tribe-events-calendar', array( $tribe_settings, 'generatePage' ) );
 		}
 
 		public function networkOptionsPageView() {
-			include( $this->pluginPath . 'admin-views/tribe-network-options.php' );
 			// every visit to ECP Settings = flush rules.
 			$this->flushRewriteRules();
 		}
