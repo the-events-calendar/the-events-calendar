@@ -103,7 +103,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			}
 			// single event
 			if ( is_single() && !tribe_is_showing_all() ) {
-				$template = TribeEventsTemplates::getTemplateHierarchy('single');
+				$template = TribeEventsTemplates::getTemplateHierarchy('single-event');
 			}
 			// list view
 			elseif ( tribe_is_upcoming() || tribe_is_past() || tribe_is_day() || (is_single() && tribe_is_showing_all()) ) {
@@ -217,6 +217,9 @@ if (!class_exists('TribeEventsTemplates')) {
 			if ( substr($template, -4) != '.php' ) {
 				$template .= '.php';
 			}
+
+			if( file_exists($tribe_ecp->pluginPath . 'views/hooks/' . $template))
+				include_once $tribe_ecp->pluginPath . 'views/hooks/' . $template;
 
 			if ( $theme_file = locate_template(array('events/'.$template)) ) {
 				$file = $theme_file;
