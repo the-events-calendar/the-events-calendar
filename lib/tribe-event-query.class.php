@@ -12,6 +12,10 @@ if (!class_exists('TribeEventsQuery')) {
 		public static function init() {
 			add_action( 'parse_query', array( __CLASS__, 'setupQuery'), 0 );			
 		}
+
+		public static function deregister(){
+			remove_action( 'parse_query', array( __CLASS__, 'setupQuery'), 0 );
+		}
 	
 		// if this is an event, then set up our query vars
 		public static function setupQuery($query) {
