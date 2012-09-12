@@ -12,9 +12,17 @@ if (!class_exists('TribeEventsQuery')) {
 		public static function init() {
 			add_action( 'parse_query', array( __CLASS__, 'setupQuery'), 0 );			
 		}
-
-		public static function deregister(){
-			remove_action( 'parse_query', array( __CLASS__, 'setupQuery'), 0 );
+		
+		// Remove all the filters we've used once we're done with them.
+		public static function deregister( $post ){
+			remove_filter('parse_tribe_event_query', array( __CLASS__, 'setupQueryArgs' ) );
+			remove_filter('parse_tribe_event_query', array( __CLASS__, 'setArgsFromDisplayType' ) );			
+			remove_filter( 'posts_join', array(__CLASS__, 'setupJoins' ), 10, 2 );
+			remove_filter( 'posts_where', array(__CLASS__, 'addEventConditions'), 10, 2);
+			remove_filter( 'posts_fields', array(__CLASS__, 'setupFields' ) );	
+			remove_filter( 'posts_groupby', array(__CLASS__, 'addStartDateToGroupBy'));
+			remove_filter( 'posts_orderby', array(__CLASS__, 'dateOrderBy'), 10, 2);
+			remove_action( 'the_post', array( __CLASS__, 'deregister' ), 10, 1 );	
 		}
 	
 		// if this is an event, then set up our query vars
@@ -37,6 +45,9 @@ if (!class_exists('TribeEventsQuery')) {
 				add_filter( 'posts_fields', array(__CLASS__, 'setupFields' ) );	
 				add_filter( 'posts_groupby', array(__CLASS__, 'addStartDateToGroupBy'));
 				add_filter( 'posts_orderby', array(__CLASS__, 'dateOrderBy'), 10, 2);
+				
+				// Set up to deregister the filters once we're done with them.
+				add_action( 'the_post', array( __CLASS__, 'deregister' ), 10, 1 );
 			}	
 		}
 	
