@@ -38,7 +38,7 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #
 .bubble {border-color:#dfdfdf; border-width:1px; border-style:solid; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; padding: 10px; border-style:solid; border-spacing:0; background-color:#F9F9F9;}
 
 .eventForm {margin-top: -20px;}
-.eventForm td {padding:0 6px 10px 0; font-size:11px; vertical-align:middle;}
+.eventForm td {padding:0 6px 10px 0; font-size:12px; vertical-align:middle;}
 .eventForm select, .eventForm input {font-size:11px;}
 .eventForm h4 {font-size:1.2em; margin:1em 0 1em;}
 .eventForm h4.event-time {margin-top: 0;}
