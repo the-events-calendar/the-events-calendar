@@ -31,9 +31,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			add_filter( 'tribe_events_single_event_after_the_meta', array( __CLASS__, 'after_the_meta' ), 1, 1 );
 
 			// event map
-			add_filter( 'tribe_events_single_event_before_the_map', array( __CLASS__, 'before_the_map' ), 1, 1 );
 			add_filter( 'tribe_events_single_event_the_map', array( __CLASS__, 'the_map' ), 1, 1 );
-			add_filter( 'tribe_events_single_event_after_the_map', array( __CLASS__, 'after_the_map' ), 1, 1 );
 
 			// event content
 			add_filter( 'tribe_events_single_event_before_the_content', array( __CLASS__, 'before_the_content' ), 1, 1 );
