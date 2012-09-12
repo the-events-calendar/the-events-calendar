@@ -1,10 +1,14 @@
 <?php
 /**
- * A an event within a main loop
+ * Event Within a Main Loop Template
  * This displays the event description, meta, and optionally, the Google map for the event.
  *
  * You can customize this view by putting a replacement file of the same name
  * (in-loop.php) in the events/ directory of your theme.
+ *
+ * @package TribeEventsCalendar
+ * @since  1.0
+ * @author Modern Tribe Inc.
  *
  */
 

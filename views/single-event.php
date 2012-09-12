@@ -1,12 +1,19 @@
 <?php
-
 /**
- * The abstracted view of a single event.
+ * Single Event Template
+ * A single event. This displays the event title, description, meta, and 
+ * optionally, the Google map for the event.
+ *
  * This view contains the hooks and filters required to create an effective single event view.
  *
  * You can recreate and ENTIRELY new single view (that does not utilize these hooks and filters)
  * by doing a template override, and placing a single-event.php file in a /tribe-events/ directory 
  * within your theme directory, which will override this file /events/views/single-event.php.
+ *
+ * @package TribeEventsCalendar
+ * @since  1.0
+ * @author Modern Tribe Inc.
+ *
  */
 
 // Don't load directly
