@@ -139,9 +139,19 @@ if (!class_exists('TribeEventsTemplates')) {
 			return $contents;
 		} 
 	
-		public static function load_ecp_title_into_page_template($title, $id) {
+		public static function load_ecp_title_into_page_template($title, $post_id) {
 			global $post;
-			return ( !is_single() && (isset($post->ID) && $post->ID == $id) ) ? tribe_get_events_title() : $title;
+
+			if ( !is_single() && (isset($post->ID) && $post->ID == $post_id) ) 
+				return tribe_get_events_title();
+
+			// single event title
+			if( !class_exists('Tribe_Events_Single_Event_Template') )
+				TribeEventsTemplates::getTemplateHierarchy('single-event');
+			$before_title = apply_filters( 'tribe_events_single_event_before_the_title', '', $post_id );
+			$the_title = apply_filters( 'tribe_events_single_event_the_title', $title, $post_id );
+			$after_title = apply_filters( 'tribe_events_single_event_after_the_title', '', $post_id );
+			return $before_title . $the_title . $after_title;
 		}
 	
 		public static function load_ecp_comments_page_template($template) {

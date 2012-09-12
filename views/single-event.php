@@ -15,11 +15,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 // start single template
 apply_filters( 'tribe_events_single_event_before_template', '', get_the_ID() );
 
-	// event title
-	apply_filters( 'tribe_events_single_event_before_the_title', '', get_the_ID() );
-	apply_filters( 'tribe_events_single_event_the_title', '', get_the_ID() );
-	apply_filters( 'tribe_events_single_event_after_the_title', '', get_the_ID() );
-
 	// event notice
 	apply_filters( 'tribe_events_single_event_notices', '', get_the_ID() );
 
