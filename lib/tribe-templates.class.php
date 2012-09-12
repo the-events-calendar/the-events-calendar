@@ -48,11 +48,24 @@ if (!class_exists('TribeEventsTemplates')) {
 			
 				$template = locate_template( tribe_get_option('tribeEventsTemplate', 'default') == 'default' ? 'page.php' : tribe_get_option('tribeEventsTemplate', 'default') );
 				if ($template ==  '') $template = get_index_template();
-			
+
+				// remove singular body class if sidebar-page.php
+				if( $template == get_stylesheet_directory() . '/sidebar-page.php' ) {
+					add_filter( 'body_class', array( __CLASS__, 'remove_singular_body_class' ) );
+				}
 				return $template;
 			}			
 		}
 	
+		// remove "singular" from available body class
+		public function remove_singular_body_class( $c ) {
+			$key = array_search('singular', $c);
+			if( $key ) {
+				unset($c[ $key ]);
+			}
+            return $c;
+        }
+
 		public static function wpHeadFinished() {
 			self::$throughHead = true;
 		}
@@ -114,9 +127,9 @@ if (!class_exists('TribeEventsTemplates')) {
 			self::restoreQuery();
 		
 			ob_start();
-			echo stripslashes(tribe_get_option('tribeEventsBeforeHTML'));
+			echo apply_filters( 'tribe_events_before_html', stripslashes( tribe_get_option( 'tribeEventsBeforeHTML' ) ) );
 			include TribeEventsTemplates::get_current_page_template();
-			echo stripslashes(tribe_get_option('tribeEventsAfterHTML'));				
+			echo apply_filters( 'tribe_events_after_html', stripslashes( tribe_get_option( 'tribeEventsAfterHTML' ) ) );				
 			$contents = ob_get_contents();
 			ob_end_clean();
 		

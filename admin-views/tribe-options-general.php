@@ -9,7 +9,7 @@ if ( $displayPressTrendsDialogue == false ) {
 
 $generalTab = array(
 	'priority' => 10,
-	'fields' => array(
+	'fields' => apply_filters( 'tribe_general_settings_tab_fields', array(
 		'info-start' => array(
 			'type' => 'html',
 			'html' => '<div id="modern-tribe-info"><img src="' . plugins_url( 'resources/images/modern-tribe.png', dirname( __FILE__ ) ) . '" alt="Modern Tribe Inc." title="Modern Tribe Inc.">'
@@ -60,7 +60,6 @@ $generalTab = array(
 		'viewOption' => array(
 			'type' => 'radio',
 			'label' => __( 'Default view for the Events', 'tribe-events-calendar' ),
-			'tooltip' => __( 'Determines whether the default events view is a calendar or a list.', 'tribe-events-calendar' ),
 			'default' => 'month',
 			'options' => array( 'month' => 'Calendar', 'upcoming' => 'Event List' ),
 			'validation_type' => 'options',
@@ -102,8 +101,7 @@ $generalTab = array(
 		),
 		'postsPerPage' => array(
 			'type' => 'text',
-			'label' => __( 'Number of events to show per page in the loop', 'tribe-events-calendar' ),
-			'tooltip' => __( 'This is the number of events displayed per page when returning a list of events.', 'tribe-events-calendar' ),
+			'label' => __( 'Number of events to show per page', 'tribe-events-calendar' ),
 			'size' => 'small',
 			'default' => get_option( 'posts_per_page' ),
 			'validation_type' => 'positive_int',
@@ -111,14 +109,14 @@ $generalTab = array(
 		'showComments' => array(
 			'type' => 'checkbox_bool',
 			'label' => __( 'Show Comments', 'tribe-events-calendar' ),
-			'tooltip' => __( 'Enables commenting on your single event view.', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Enable commenting on an event.', 'tribe-events-calendar' ),
 			'default' => false,
 			'validation_type' => 'boolean',
 		),
 		'multiDayCutoff' => array(
 			'type' => 'dropdown',
 		 	'label' => __( 'Multiday Event Cutoff', 'tribe-events-calendar' ),
-			'tooltip' => __( 'For multi-day events, hide the last day from grid view if it ends on or before this time.', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Hide final day from grid view if multi-day event ends before this time.', 'tribe-events-calendar' ),
 			'validation_type' => 'options',
 			'size' => 'small',
 			'default' => '12:00',
@@ -127,8 +125,8 @@ $generalTab = array(
 		'embedGoogleMaps' => array(
 			'type' => 'checkbox_bool',
 			'label' => __( 'Enable Google Maps', 'tribe-events-calendar' ),
-			'tooltip' => __( 'If you don\'t have this turned on, your event listings won\'t have the backend map preview or frontend embedded map.', 'tribe-events-calendar' ),
-			'default' => false,
+			'tooltip' => __( 'Turn on to enable backend map preview and frontend map.', 'tribe-events-calendar' ),
+			'default' => true,
 			'class' => 'google-embed-size',
 			'validation_type' => 'boolean',
 		),
@@ -153,7 +151,7 @@ $generalTab = array(
 		'embedGoogleMapsZoom' => array(
 			'type' => 'text',
 			'label' => __( 'Google Maps Default Zoom Level', 'tribe-events-calendar' ),
-			'tooltip' => __( '0 = zoomed-out; 21 = zoomed-in.', 'tribe_events_calendar' ),
+			'tooltip' => __( '0 = zoomed out; 21 = zoomed in.', 'tribe_events_calendar' ),
 			'size' => 'small',
 			'default' => 10,
 			'class' => 'google-embed-field',
@@ -162,7 +160,7 @@ $generalTab = array(
 		'sendPressTrendsData' => array(
 			'type' => 'checkbox_bool',
 			'label' => __( 'Send PressTrends Data', 'tribe-events-calendar' ),
-			'tooltip' => __( 'Enable this option to help us out and send us analytics regarding your usage of The Events Calendar.', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Help us out by sending analytics data about your usage of The Events Calendar.', 'tribe-events-calendar' ),
 			'default' => false,
 			'validation_type' => 'boolean',
 		),
@@ -181,5 +179,6 @@ $generalTab = array(
 			'type' => 'html',
 			'html' => '<div id="presstrends-dialog" title="Send PressTrends Data" style="display: none;">' . __('Would you like to help us out and send analytics about your usage of The Events Calendar?','tribe-events-calendar') .'<br/></div>',
 		),
-	),
+	)
+) 
 );

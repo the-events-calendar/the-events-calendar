@@ -40,11 +40,15 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<select class="chosen" tabindex="<?php $this->tabIndex(); ?>" name='venue[Country]' id="EventCountry">
 			<?php
 			foreach ($countries as $abbr => $fullname) {
-				echo '<option value="' . esc_attr($fullname) . '" ';
-
-				selected(($current == $fullname));
-
-				echo '>' . esc_html($fullname) . '</option>';
+				if ( $abbr == '' ) {
+					echo '<option value="">' . esc_html( $fullname ) . '</option>';
+				} else {
+					echo '<option value="' . esc_attr($fullname) . '" ';
+	
+					selected(($current == $fullname));
+	
+					echo '>' . esc_html($fullname) . '</option>';
+				}
 			}
 			?>
 		</select>
