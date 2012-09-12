@@ -99,20 +99,16 @@ if (!class_exists('TribeEventsTemplates')) {
 				if ( tribe_is_upcoming() || tribe_is_past() )
 					$template = TribeEventsTemplates::getTemplateHierarchy('list');
 				else
-					$template = TribeEventsTemplates::getTemplateHierarchy('gridview');
-			}
-			// single event
-			if ( is_single() && !tribe_is_showing_all() ) {
+					$template = TribeEventsTemplates::getTemplateHierarchy('calendar');
+			} if ( is_single() && !tribe_is_showing_all() ) {
+				// single event
 				$template = TribeEventsTemplates::getTemplateHierarchy('single-event');
-			}
-			// list view
-			elseif ( tribe_is_upcoming() || tribe_is_past() || tribe_is_day() || (is_single() && tribe_is_showing_all()) ) {
+			} elseif ( tribe_is_upcoming() || tribe_is_past() || tribe_is_day() || (is_single() && tribe_is_showing_all()) ) {
+				// list view
 				$template = TribeEventsTemplates::getTemplateHierarchy('list');
-			}
-			// grid view
-			else 
-			{
-				$template = TribeEventsTemplates::getTemplateHierarchy('gridview');
+			} else {
+				// calendar view
+				$template = TribeEventsTemplates::getTemplateHierarchy('calendar');
 			}
 
          return apply_filters('tribe_current_events_page_template', $template);

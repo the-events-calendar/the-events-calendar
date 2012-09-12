@@ -20,7 +20,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_calendar_grid()  {
 		set_query_var( 'eventDisplay', 'bydate' );
-		apply_filters('tribe_calendar_grid', load_template( TribeEventsTemplates::getTemplateHierarchy('table') ));
+		echo apply_filters('tribe_calendar_grid', load_template( TribeEventsTemplates::getTemplateHierarchy('calendar-grid', 'modules') ));
 	}
 
 	/**
