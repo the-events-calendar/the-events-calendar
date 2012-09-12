@@ -5,6 +5,9 @@ if ( !defined('ABSPATH') )
 
 if( !class_exists('Tribe_Template_Factory') ) {
 	class Tribe_Template_Factory {
+		public function debug_wrapper( $html, $filter_name ){
+			return self::debug($filter_name) . $html . self::debug($filter_name, false);
+		}
 		public static function debug( $label = null, $start = TRUE, $echo = false) {
 			if( defined('WP_DEBUG') && WP_DEBUG && !empty($label) ) {
 				$label = (!$start) ? '/' . $label : $label;
@@ -17,4 +20,5 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			}
 		}
 	}
+	add_filter( 'tribe_template_factory_debug', array( 'Tribe_Template_Factory', 'debug_wrapper' ), 1, 2 );
 }

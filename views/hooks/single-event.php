@@ -47,44 +47,29 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			apply_filters( 'tribe_events_single_event_after_template', array( __CLASS__, 'after_template' ), 1, 1 );
 		}
 		public function before_template( $post_id ){
-			$filter_name = 'tribe_events_single_event_before_template';
-			$html = parent::debug( $filter_name );
-			$html .= '<span class="back"><a href="' . tribe_get_events_link( $post_id ) . '">' . __('&laquo; Back to Events', 'tribe-events-calendar') . '</a></span>';
-			$html .= parent::debug( $filter_name, false );
-			return $html;
+			$html = '<span class="back"><a href="' . tribe_get_events_link( $post_id ) . '">' . __('&laquo; Back to Events', 'tribe-events-calendar') . '</a></span>';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_before_template');
 		}
 		public function before_the_title( $post_id ){
-			$filter_name = 'tribe_events_single_event_before_the_title';
-			$html = parent::debug( $filter_name );
-			$html .= parent::debug( $filter_name, false );
-			return $html;
+			$html = '';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_before_the_title');
 		}
 		public function the_title( $title, $post_id ){
-			$filter_name = 'tribe_events_single_event_the_title';
-			$html = parent::debug( $filter_name );
-			$html .= $title;
-			$html .= parent::debug( $filter_name, false );
-			return $html;
+			return apply_filters('tribe_template_factory_debug', $title, 'tribe_events_single_event_the_title');
 		}
 		public function after_the_title( $post_id ){
-			$filter_name = 'tribe_events_single_event_after_the_title';
-			$html = parent::debug( $filter_name );
-			$html .= parent::debug( $filter_name, false );
-			return $html;
+			$html = '';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_after_the_title');
 		}
 		public function notices( $notices = array(), $post_id ) {
-			$filter_name = 'tribe_events_single_event_notices';
-			$html = parent::debug( $filter_name );
+			$html = '';
 			if(!empty($notices))	
 				$html .= '<div class="event-notices">' . implode('<br />', $notices) . '</div>';
-			$html .= parent::debug( $filter_name, false );
-			return $html;
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_notices');
 		}
 		public function before_the_meta( $post_id ){
-			$filter_name = 'tribe_events_single_event_before_the_meta';
-			$html = parent::debug( $filter_name );
-			$html .= parent::debug( $filter_name, false );
-			return $html;
+			$html = '';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_before_the_meta');
 		}
 		public function the_meta( $post_id ){
 			$filter_name = 'tribe_events_single_event_the_meta';
@@ -169,70 +154,52 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			echo parent::debug( $filter_name, false );
 		}
 		public function after_the_meta( $post_id ){
-			$filter_name = 'tribe_events_single_event_after_the_meta';
-			echo parent::debug( $filter_name );
-			echo parent::debug( $filter_name, false );
+			$html = '';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_after_the_meta');
 		}
 		public function the_map( $post_id ){
-			$filter_name = 'tribe_events_single_event_before_the_map';
-			echo parent::debug( $filter_name );
+			$html = '';
 			if( tribe_embed_google_map( $post_id ) &&  tribe_address_exists( $post_id ) ) 
-				echo tribe_get_embedded_map();
-			echo parent::debug( $filter_name, false );
+				$html = tribe_get_embedded_map();
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_before_the_map');
 		}
 		public function before_the_content( $post_id ){
-			$filter_name = 'tribe_events_single_event_before_the_content';
-			echo parent::debug( $filter_name );
-			echo '<div class="entry">';
-			echo parent::debug( $filter_name, false );
+			$html = '<div class="entry">';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_before_the_content');
 		}
 		public function the_content( $post_id ){
-			$filter_name = 'tribe_events_single_event_the_content';
-			echo parent::debug( $filter_name );
+			$html = '';
 			if ( function_exists('has_post_thumbnail') && has_post_thumbnail() )
-				the_post_thumbnail();
-			echo '<div class="summary">';
-					the_content();
-			echo '</div>';
-			if (function_exists('tribe_get_ticket_form') && tribe_get_ticket_form()) 
-				tribe_get_ticket_form();
-			echo parent::debug( $filter_name, false );
+				$html .= get_the_post_thumbnail();
+			$html .= '<div class="summary">' . get_the_content( $post_id ) . '</div>';
+			// todo separate this into the tickets
+			// if (function_exists('tribe_get_ticket_form') && tribe_get_ticket_form()) 
+			// 	tribe_get_ticket_form();
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_the_content');
 		}
 		public function after_the_content( $post_id ){
-			$filter_name = 'tribe_events_single_event_after_the_content';
-			echo parent::debug( $filter_name );
-			echo '</div>';
+			$html = '</div>';
 			if( function_exists('tribe_get_single_ical_link') )
-				echo '<a class="ical single" href="' . tribe_get_single_ical_link() . '">' . __('iCal Import', 'tribe-events-calendar') . '</a>';
+				$html .= '<a class="ical single" href="' . tribe_get_single_ical_link() . '">' . __('iCal Import', 'tribe-events-calendar') . '</a>';
 			if( function_exists('tribe_get_gcal_link') )
-				echo '<a href="' . tribe_get_gcal_link() . '" class="gcal-add" title="' . __('Add to Google Calendar', 'tribe-events-calendar') . '">' . __('+ Google Calendar', 'tribe-events-calendar') . '</a>';
-			echo parent::debug( $filter_name, false );
+				$html .= '<a href="' . tribe_get_gcal_link() . '" class="gcal-add" title="' . __('Add to Google Calendar', 'tribe-events-calendar') . '">' . __('+ Google Calendar', 'tribe-events-calendar') . '</a>';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_after_the_content');
 		}
 		public function before_pagination( $post_id){
-			$filter_name = 'tribe_events_single_event_before_pagination';
-			echo parent::debug( $filter_name );
-			echo parent::debug( $filter_name, false );
+			$html = '';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_before_pagination');
 		}
 		public function pagination( $post_id ){
-			$filter_name = 'tribe_events_single_event_pagination';
-			echo parent::debug( $filter_name );
-			echo '<div class="navlink tribe-previous">';
-					tribe_previous_event_link();
-			echo '</div><div class="navlink tribe-next">';
-					tribe_next_event_link();
-			echo '</div>';
-			echo parent::debug( $filter_name, false );
+			$html = '<div class="navlink tribe-previous">' . tribe_get_prev_event_link() . '</div><div class="navlink tribe-next">' . tribe_get_next_event_link() . '</div>';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_pagination');
 		}
 		public function after_pagination( $post_id ){
-			$filter_name = 'tribe_events_single_event_after_pagination';
-			echo parent::debug( $filter_name );
-			echo parent::debug( $filter_name, false );
+			$html = '';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_after_pagination');
 		}
 		public function after_template( $post_id ){
-			$filter_name = 'tribe_events_single_event_after_template';
-			echo parent::debug( $filter_name );
-			echo '<div style="clear:both"></div>';
-			echo parent::debug( $filter_name, false );
+			$html = '<div style="clear:both"></div>';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_after_template');
 		}
 	}
 	Tribe_Events_Single_Event_Template::init();
