@@ -31,12 +31,12 @@ if( !class_exists( 'TribeEventsFeatureWidget') ) {
 			}
 
 			if( function_exists( 'tribe_get_events' ) ) {
-				$posts = tribe_get_events( 'eventDisplay=upcoming&numResults=1&eventCat=' . $category );				
+				$posts = tribe_get_events( 'eventDisplay=upcoming&numResults=1&eventCat=' . $category );
 				$template = TribeEventsTemplates::getTemplateHierarchy('widget-featured-display');
 			}
 			
 			// if no posts, and the don't show if no posts checked, let's bail
-			if ( ! $posts && $no_upcoming_events ) {
+			if ( ! $posts && isset($no_upcoming_events) && $no_upcoming_events ) {
 				return;
 			}
 			

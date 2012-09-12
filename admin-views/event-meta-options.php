@@ -1,7 +1,40 @@
 <div id="modern-tribe-info">
 <h2><?php _e('Additional Fields','tribe-events-calendar-pro'); ?></h2>
-<p><?php _e('Add unique fields to your event creation screen with additional fields. These appear up in the event metabox atop your event listing alongside the date, time, venue, organizer, etc. Everyone who creates events will have access to these additional fields. Each new piece of data needs a label (i.e. Meal Plans), at least one option (i.e. Vegetarian, Kosher, Paleo), and a field type is accurate for your needs (i.e. checkbox). While users creating events can only select one option from the "Radio" fields, for example, they can select as many as the want from the "Checkbox" fields.', 'tribe-events-calendar-pro') . '</p>'; ?>
+<p><?php _e('Add unique fields to your event creation screen. These appear up in the event metabox above your event listing alongside the date, time, venue, organizer, etc. Everyone who creates events will have access to these additional fields. Each new piece of data needs:', 'tribe-events-calendar-pro') . '</p>'; ?>
+<ul class="admin-list">
+<li>
+<?php _e('a label (e.g. Meal Plans)', 'tribe-events-calendar-pro'); ?>
+</li>
+<li>
+<?php _e('at least one option (e.g. Vegetarian, Kosher, Paleo)', 'tribe-events-calendar-pro'); ?>
+</li>
+<li>
+<?php _e('a field type. These are:', 'tribe-events-calendar-pro'); ?>
+</li>
+<ul class="admin-list">
+<li>
+<?php _e('text - for the user to input text', 'tribe-events-calendar-pro'); ?>
+</li>
+<li>
+<?php _e('checkbox - for multiple choice', 'tribe-events-calendar-pro'); ?>
+</li>
+<li>
+<?php _e('radio button - to select only one', 'tribe-events-calendar-pro'); ?>
+</li>
+<li>
+<?php _e('dropdown menu - for a dropdown menu', 'tribe-events-calendar-pro'); ?>
+</li>
+</ul>
+</ul>
 </div>
+<fieldset>
+	<legend class="tribe-field-label"><?php _e('Editor "Custom Fields" meta box','tribe-events-calendar-pro'); ?></legend>
+	<div class="tribe-field-wrap">
+		<label><input type="radio" name="disable_metabox_custom_fields" id="disable_metabox_custom_fields" value="show" <?php checked('show',$disable_metabox_custom_fields); ?> /> <?php _e('Show','tribe-events-calendar-pro'); ?></label><br />
+		<label><input type="radio" name="disable_metabox_custom_fields" id="disable_metabox_custom_fields" value="hide" <?php checked('hide',$disable_metabox_custom_fields); ?> /> <?php _e('Hide','tribe-events-calendar-pro'); ?></label>
+		<p class="description"><?php _e('Enabling this option this will not remove custom field data or functionality, just the default meta box editor.','tribe-events-calendar-pro'); ?></p>
+	</div>
+</fieldset>
 <table class='wp-list-table widefat' id="additional-field-table" style=''>
 	<thead><tr><th><?php _e('Field Label','tribe-events-calendar-pro'); ?></th><th><?php _e('Field Type','tribe-events-calendar-pro'); ?></th><th><?php _e('Options (one per line)','tribe-events-calendar-pro'); ?></th><th></th></tr></thead>
 	<tbody>

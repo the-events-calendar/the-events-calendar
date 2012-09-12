@@ -2,7 +2,7 @@
 /*
 Plugin Name: The Events Calendar PRO
 Description: The Events Calendar PRO, a premium add-on to the open source The Events Calendar plugin (required), enables recurring events, custom attributes, venue pages, new widgets and a host of other premium features.
-Version: 2.0.8
+Version: 2.0.9
 Author: Modern Tribe, Inc.
 Author URI: http://tri.be/?ref=ecp-plugin
 Text Domain: tribe-events-calendar-pro
@@ -40,8 +40,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $pluginSlug;
 		public $licenseKey;
 		public static $updateUrl = 'http://tri.be/';
-		const REQUIRED_TEC_VERSION = '2.0.8';
-		const VERSION = '2.0.8';
+		const REQUIRED_TEC_VERSION = '2.0.9';
+		const VERSION = '2.0.9';
 
 	    private function __construct() {
 			$this->pluginDir = trailingslashit( basename( dirname( __FILE__ ) ) );
@@ -93,6 +93,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function init() {
 			TribeEventsCustomMeta::init();
 			TribeEventsRecurrenceMeta::init();
+			$this->displayMetaboxCustomFields();
 		}
 
 
@@ -140,6 +141,58 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( TribeEvents::instance()->pluginPath.'admin-views/recurrence-dialog.php' );
 	      }
 
+	    public function displayMetaboxCustomFields(){
+	    	// 'disable_metabox_custom_fields'
+	    	$show_box = tribe_get_option('disable_metabox_custom_fields');
+	    	if($show_box == 'show') {
+		    	return true;
+		    }
+		    if($show_box == 'hide') {
+		    	remove_post_type_support( TribeEvents::POSTTYPE, 'custom-fields' );
+		    	return false;
+		    }
+		    if(empty($show_box)){
+		    	global $wpdb;
+		    	$meta_keys = $wpdb->get_results("select distinct pm.meta_key from $wpdb->postmeta pm
+										LEFT JOIN $wpdb->posts p ON p.ID = pm.post_id
+										WHERE p.post_type = '" . TribeEvents::POSTTYPE . "'
+										AND pm.meta_key NOT LIKE '_wp_%'
+										AND pm.meta_key NOT IN (
+											'_edit_last',
+											'_edit_lock',
+											'_thumbnail_id',
+											'_EventConference', 
+											'_EventAllDay', 
+											'_EventHideFromUpcoming', 
+											'_EventAuditTrail',
+											'_EventOrigin',
+											'_EventShowMap',
+											'_EventVenueID',
+											'_EventShowMapLink',
+											'_EventCost',
+											'_EventOrganizerID',
+											'_EventRecurrence',
+											'_EventStartDate',
+											'_EventEndDate',
+											'_EventDuration',
+											'_FacebookID')");
+		    	if( empty($meta_keys) ) {
+		    		remove_post_type_support( TribeEvents::POSTTYPE, 'custom-fields' );
+		    		// update_option('disable_metabox_custom_fields','hide');
+		    		$options['disable_metabox_custom_fields'] = 'hide';
+		    		$r = false;
+		    	} else {
+		    		// update_option('disable_metabox_custom_fields','true');
+		    		$options['disable_metabox_custom_fields'] = 'show';
+		    		$r = true;
+		    	}
+
+		    	TribeEvents::setOptions($options);
+		    	return $r;
+		    }
+
+	    }
+
 		public function addVenueAndOrganizerEditor() {
 			add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __( 'Venues','tribe-events-calendar-pro' ), __( 'Venues','tribe-events-calendar-pro' ), 'edit_tribe_venues', 'edit.php?post_type='.TribeEvents::VENUE_POST_TYPE );
 			add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __( 'Organizers','tribe-events-calendar-pro' ), __( 'Organizers','tribe-events-calendar-pro' ), 'edit_tribe_organizers', 'edit.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE );
@@ -153,6 +206,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public function displayEventVenueDropdown( $postId ) {
 			$VenueID = get_post_meta( $postId, '_EventVenueID', true );
+			// override pro default with community on add page
+			if( !$VenueID && class_exists('TribeCommunityEvents') ) {
+				if( TribeCommunityEvents::instance()->isEditPage ) {
+					$VenueID = TribeCommunityEvents::getOption( 'defaultCommunityVenueID' );
+				}
+			}
 			$defaultsEnabled = tribe_get_option( 'defaultValueReplace' );
 			if ( !$VenueID && $defaultsEnabled ) {
 				$VenueID = tribe_get_option( 'eventsDefaultVenueID' );
@@ -174,6 +233,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public function displayEventOrganizerDropdown( $postId ) {
 			$curOrg = get_post_meta( $postId, '_EventOrganizerID', true );
+			// override pro default with community on add page
+			if( !$curOrg && class_exists('TribeCommunityEvents') ) {
+				if( TribeCommunityEvents::instance()->isEditPage ) {
+					$curOrg = TribeCommunityEvents::getOption( 'defaultCommunityOrganizerID' );
+				}
+			}
 			$defaultsEnabled = tribe_get_option( 'defaultValueReplace' );
 			if ( !$curOrg && $defaultsEnabled ) {
 				$curOrg = tribe_get_option( 'eventsDefaultOrganizerID' );
@@ -195,20 +260,46 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @param string $name the name value for the field
 		 */
 		public function saved_venues_dropdown( $current = null, $name = 'venue[VenueID]' ){
-		$venues = TribeEvents::instance()->get_venue_info();
-		if ( $venues ) {
-		echo '<select class="chosen venue-dropdown" name="' . esc_attr( $name ) . '" id="saved_venue">';
-		echo '<option value="0">' . __( 'Use New Venue' ,  'tribe-events-calendar-pro' ) . '</option>';
-		foreach ( $venues as $venue ) {
-		$venue_title = wp_kses( get_the_title( $venue->ID ), array() );
-		echo '<option data-address="' . esc_attr( TribeEvents::instance()->fullAddressString( $venue->ID ) ) . '" value="' . esc_attr( $venue->ID ) .'"';
-		selected( ($current == $venue->ID) );
-		echo '>' . $venue_title . '</option>';
-		}
-		echo '</select>';
-		} else {
-		echo '<p class="nosaved">' . __( 'No saved venues yet.', 'tribe-events-calendar-pro' ) . '</p>';
-		}
+			$my_venue_ids = array();
+			$current_user = wp_get_current_user();
+			$my_venues = false;
+			$my_venue_options = '';
+			if ( 0 != $current_user->ID ) {
+			    $my_venues = TribeEvents::instance()->get_venue_info( null, null, array('post_status' => array('publish', 'draft'), 'author' => $current_user->ID) );
+			    if( ! empty($my_venues)) {
+					foreach($my_venues as $my_venue) {
+						$my_venue_ids[] = $my_venue->ID;
+						$venue_title = wp_kses( get_the_title( $my_venue->ID ), array() );
+						$my_venue_options .= '<option data-address="' . esc_attr( TribeEvents::instance()->fullAddressString( $my_venue->ID ) ) . '" value="' . esc_attr( $my_venue->ID ) .'"';
+						$my_venue_options .= selected( $current, $my_venue->ID, false );
+						$my_venue_options .=  '>' . $venue_title . '</option>';
+					}
+				}
+			}
+			
+			$venues = TribeEvents::instance()->get_venue_info( null, null, array('post_status' => 'publish', 'post__not_in' => $my_venue_ids) );
+			if ( $venues || $my_venues ) {
+				echo '<select class="chosen venue-dropdown" name="' . esc_attr( $name ) . '" id="saved_venue">';
+				echo '<option value="0">' . __( 'Use New Venue' ,  'tribe-events-calendar-pro' ) . '</option>';
+				if( $my_venues ) {
+					echo $venues ? '<optgroup label="' . apply_filters('tribe_events_saved_venues_dropdown_my_optgroup', __('My Venues', 'tribe-events-calendar-pro')) . '">' : '';
+					echo $my_venue_options;
+					echo $venues ? '</optgroup>' : '';
+				}
+				if ( $venues ) {
+					echo $my_venues ? '<optgroup label="' . apply_filters('tribe_events_saved_venues_dropdown_optgroup', __('Available Venues', 'tribe-events-calendar-pro')) . '">' : '';
+					foreach ( $venues as $venue ) {
+						$venue_title = wp_kses( get_the_title( $venue->ID ), array() );
+						echo '<option data-address="' . esc_attr( TribeEvents::instance()->fullAddressString( $venue->ID ) ) . '" value="' . esc_attr( $venue->ID ) .'"';
+						selected( ($current == $venue->ID) );
+						echo '>' . $venue_title . '</option>';
+					}
+					echo $my_venues ? '</optgroup>'	: '';
+				}
+				echo '</select>';
+			} else {
+				echo '<p class="nosaved">' . __( 'No saved venues yet.', 'tribe-events-calendar-pro' ) . '</p>';
+			}
 		}
 
 	    /**
@@ -218,22 +309,48 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	     * @param mixed $current the current saved venue
 	     * @param string $name the name value for the field
 	     */
-			public function saved_organizers_dropdown( $current = null, $name = 'organizer[OrganizerID]' ){
-				$organizers = TribeEvents::instance()->get_organizer_info();
+		public function saved_organizers_dropdown( $current = null, $name = 'organizer[OrganizerID]' ){
+			$my_organizer_ids = array();
+			$current_user = wp_get_current_user();
+			$my_organizers = false;
+			$my_organizers_options = '';
+			if ( 0 != $current_user->ID ) {
+			    $my_organizers = TribeEvents::instance()->get_organizer_info( null, null, array('post_status' => array('publish', 'draft'), 'author' => $current_user->ID) );
+			    if( !empty($my_organizers)) {
+					foreach($my_organizers as $my_organizer) {
+						$my_organizer_ids[] = $my_organizer->ID;
+						$organizer_title = wp_kses( get_the_title( $my_organizer->ID ), array() );
+						$my_organizers_options .= '<option value="' . esc_attr( $my_organizer->ID ) .'"';
+						$my_organizers_options .= selected( $current, $my_organizer->ID, false );
+						$my_organizers_options .=  '>' . $organizer_title . '</option>';
+					}
+				}
+			}
+			
+			$organizers = TribeEvents::instance()->get_organizer_info( null, null, array('post_status' => 'publish', 'post__not_in' => $my_organizer_ids) );
+			if ( $organizers || $my_organizers ) {
+				echo '<select class="chosen organizer-dropdown" name="' . esc_attr( $name ) . '" id="saved_organizer">';
+				echo '<option value="0">' . __( 'Use New Organizer' ,  'tribe-events-calendar-pro' ) . '</option>';
+				if( $my_organizers ) {
+					echo $organizers ? '<optgroup label="' . apply_filters('tribe_events_saved_organizers_dropdown_my_optgroup', __('My Organizers', 'tribe-events-calendar-pro')) . '">' : '';
+					echo $my_organizers_options;
+					echo $organizers ? '</optgroup>' : '';
+				}
 				if ( $organizers ) {
-					echo '<select class="chosen organizer-dropdown" name="' . esc_attr( $name ) . '" id="saved_organizer">';
-					echo '<option value="0">' . __( 'Use New Organizer' ,  'tribe-events-calendar-pro' ) . '</option>';
+					echo $my_organizers ? '<optgroup label="' . apply_filters('tribe_events_saved_organizers_dropdown_optgroup', __('Available Organizers', 'tribe-events-calendar-pro')) . '">' : '';
 					foreach ( $organizers as $organizer ) {
 						$organizer_title = wp_kses( get_the_title( $organizer->ID ), array() );
 						echo '<option value="' . esc_attr( $organizer->ID ) .'"';
 						selected( ($current == $organizer->ID) );
 						echo '>' . $organizer_title . '</option>';
 					}
-					echo '</select>';
-				} else {
-					echo '<p class="nosaved">' . __( 'No saved organizers yet.', 'tribe-events-calendar-pro' ) . '</p>';
+					echo $my_organizers ? '</optgroup>'	: '';
 				}
+				echo '</select>';
+			} else {
+				echo '<p class="nosaved">' . __( 'No saved organizers yet.', 'tribe-events-calendar-pro' ) . '</p>';
 			}
+		}
 
 	    /**
 	     * Add the default settings tab
@@ -252,9 +369,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		public function add_help_tab_getting_started_text() {
 			$ga_query_string = '?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin';
-			$getting_started_text[] = sprintf( __( '%sWelcome to Events Calendar, a full-featured events management system for WordPress. By buying a license you\'ve given us a vote of confidence, will get active support and have hooked up some sweet additional features not found in the free The Events Calendar.%s', 'tribe-events-calendar-pro' ), '<p class="admin-indent">', '</p>' );
-			$getting_started_text[] = sprintf( __( '%sIf you aren\'t familiar with The Events Calendar, it may be wise to check out our %s. It\'ll introduce you to the basics of what the plugin has to offer and will have you creating events in no time. From there, the resources below -- extensive template tag documentation, FAQs, video walkthroughs and more -- will give you a leg up as you dig deeper.%s', 'tribe-events-calendar-pro' ), '<p class="admin-indent">', sprintf( '<a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/' . $ga_query_string . '">%s</a>', __( 'new user primer', 'tribe-events-calendar-pro' ) ), '</p>' );
-			$getting_started_text[] = sprintf( __( '%sOh, wondering what to do with your license key and whether you need it before you can get into event creation? Check out %s on that subject for an answer. %s, if you don\'t have it handy.%s', 'tribe-events-calendar-pro' ), '<p class="admin-indent">', sprintf( '<a href="http://tri.be/events-calendar-pro-license-keys-when-you-need-them-when-you-dont/' . $ga_query_string . '">%s</a>', __( 'our blog post', 'tribe-events-calendar-pro' ) ), sprintf( '<a href="http://tri.be/finding-your-pro-license-key-re-downloading-the-plugin/' . $ga_query_string . '">%s</a>', __( 'Here\'s how you find your license key', 'tribe-events-calendar-pro' ) ), '</p>' );
+			$getting_started_text[] = sprintf( __('If this is your first time using The Events Calendar, you\'re in for a treat. You\'re going to find it super-easy to get up and running with managing your events. Here are some ways to get started:</p><ul><li><strong>Feeling adventurous?</strong> Jump right into it by visiting the Events menu to %sadd your first event%s.</li><li><strong>Want to get the low-down first?</strong> Visit our <a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/' .$ga_query_string .'">new user primer</a>, designed with folk exactly like yourself in mind to help familiarize you with the plugin basics.</li></ul><p>Next, check out resources below, created to help you kick ass.</p>', 'tribe-events-calendar' ), '<a href="' . add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE ), 'post-new.php' ) . '">' , '</a>' );
+			$getting_started_text[] = sprintf( __( '%sOh, wondering what to do with your license key and whether you need it before you can get into event creation? Check out %s on that subject for an answer. %s, if you don\'t have it handy.%s', 'tribe-events-calendar-pro' ), '<p>', sprintf( '<a href="http://tri.be/events-calendar-pro-license-keys-when-you-need-them-when-you-dont/' . $ga_query_string . '">%s</a>', __( 'our blog post', 'tribe-events-calendar-pro' ) ), sprintf( '<a href="http://tri.be/finding-your-pro-license-key-re-downloading-the-plugin/' . $ga_query_string . '">%s</a>', __( 'Here\'s how you find your license key', 'tribe-events-calendar-pro' ) ), '</p>' );
 			$content = implode( $getting_started_text );
 			return $content;
 		}
@@ -375,7 +491,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$content .= 'PRODID:-//' . $blogName . ' - ECPv' . TribeEvents::VERSION . "//NONSGML v1.0//EN\n";
 			$content .= "CALSCALE:GREGORIAN\n";
 			$content .= "METHOD:PUBLISH\n";
-			$content .= 'X-WR-CALNAME:' . $blogName . "\n";
+			$content .= 'X-WR-CALNAME:' . apply_filters( 'tribe_ical_feed_calname', $blogName ) . "\n";
 			$content .= 'X-ORIGINAL-URL:' . $blogHome . "\n";
 			$content .= 'X-WR-CALDESC:Events for ' . $blogName . "\n";
 			if ( $wpTimezoneString ) $content .= 'X-WR-TIMEZONE:' . $wpTimezoneString . "\n";
@@ -393,9 +509,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			if ( $postId === null || !is_numeric( $postId ) ) {
 				$postId = $post->ID;
 			}
+			// protecting for reccuring because the post object will have the start/end date available
+			$start_date = isset($post->EventStartDate) ? strtotime($post->EventStartDate) : strtotime( get_post_meta( $postId, '_EventStartDate', true ) );
+			$end_date = isset($post->EventEndDate) ? 
+				strtotime( $post->EventEndDate . ( get_post_meta( $postId, '_EventAllDay', true ) ? ' + 1 day' : '') ) :
+				strtotime( get_post_meta( $postId, '_EventEndDate', true ) . ( get_post_meta( $postId, '_EventAllDay', true ) ? ' + 1 day' : '') );
 
-			$start_date = strtotime( get_post_meta( $postId, '_EventStartDate', true ) );
-			$end_date = strtotime( get_post_meta( $postId, '_EventEndDate', true ) . ( get_post_meta( $postId, '_EventAllDay', true ) ? ' + 1 day' : '') );
 			$dates = ( get_post_meta( $postId, '_EventAllDay', true ) ) ? date( 'Ymd', $start_date ) . '/' . date( 'Ymd', $end_date ) : date( 'Ymd', $start_date ) . 'T' . date( 'Hi00', $start_date ) . '/' . date( 'Ymd', $end_date ) . 'T' . date( 'Hi00', $end_date );
 			$location = trim( $tribeEvents->fullAddressString( $postId ) );
 			$base_url = 'http://www.google.com/calendar/event';
@@ -411,6 +530,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				'trp' => 'false',
 				'sprop' => 'website:' . home_url(),
 			);
+			$params = apply_filters( 'tribe_google_calendar_parameters', $params );
 			$url = add_query_arg( $params, $base_url );
 			return esc_url( $url );
 		}
@@ -423,10 +543,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @return string
 		 */
 		public function helpTabForumsLink( $content ) {
+			$promo_suffix = '?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin';
 			if ( get_option( 'pue_install_key_events_calendar_pro ' ) )
-				return 'http://tri.be/support/forums/forum/events/events-calendar-pro/?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin';
+				return 'http://tri.be/support/forums/forum/events/events-calendar-pro/' . $promo_suffix;
 			else
-				return $content;
+				return 'http://tri.be/support/forums/' . $promo_suffix;
 		}
 		
 		/**

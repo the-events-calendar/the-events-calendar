@@ -14,13 +14,13 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <span class="back"><a href="<?php echo tribe_get_events_link(); ?>"><?php _e('&laquo; Back to Events', 'tribe-events-calendar-pro'); ?></a></span>								
 <div id="tribe-events-event-meta">
 	<div style='margin: 0 0 10px 0; float: right;'>
-		<?php echo tribe_get_embedded_map(get_the_ID(), '350px', '200px') ?>
+		<?php echo tribe_get_embedded_map(get_the_ID(), '350px', '200px'); ?>
 	</div>
 	<dl class="column location" itemscope itemtype="http://schema.org/Place">
-		<dt class="venue-label venue-label-name"><?php _e('Name:', 'tribe-events-calendar-pro') ?></dt> 
-			<dd itemprop="name" class="venue-meta venue-meta-name"><?php the_title() ?></dd>
+		<dt class="venue-label venue-label-name"><?php _e('Name:', 'tribe-events-calendar-pro'); ?></dt> 
+			<dd itemprop="name" class="venue-meta venue-meta-name"><?php the_title(); ?></dd>
 		<?php if(tribe_get_phone()) : ?>
-		<dt class="venue-label venue-label-phone"><?php _e('Phone:', 'tribe-events-calendar-pro') ?></dt> 
+		<dt class="venue-label venue-label-phone"><?php _e('Phone:', 'tribe-events-calendar-pro'); ?></dt> 
 			<dd itemprop="telephone" class="venue-meta venue-meta-phone"><?php echo tribe_get_phone(); ?></dd>
 		<?php endif; ?>
 		
@@ -28,7 +28,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<dt class="venue-label venue-label-address">
 			<?php _e('Address:', 'tribe-events-calendar-pro') ?><br />
 			<?php if( get_post_meta( get_the_ID(), '_EventShowMapLink', true ) == 'true' ) : ?>
-				<a class="gmap" itemprop="maps" href="<?php echo tribe_get_map_link() ?>" title="<?php _e('Click to view a Google Map', 'tribe-events-calendar-pro'); ?>" target="_blank"><?php _e('Google Map', 'tribe-events-calendar-pro' ); ?></a>
+				<a class="gmap" itemprop="maps" href="<?php echo tribe_get_map_link(); ?>" title="<?php _e('Click to view a Google Map', 'tribe-events-calendar-pro'); ?>" target="_blank"><?php _e('Google Map', 'tribe-events-calendar-pro' ); ?></a>
 			<?php endif; ?>
 		</dt>
 			<dd class="venue-meta venue-meta-address">
@@ -36,8 +36,8 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			</dd>
 		<?php endif; ?>
 		<?php if ( get_the_content() != ''): ?>
-		<dt class="venue-label venue-label-description"><?php _e('Description:', 'tribe-events-calendar-pro') ?></dt>
-		<dd class="venue-meta venue-meta-description"><?php the_content() ?></dd>
+		<dt class="venue-label venue-label-description"><?php _e('Description:', 'tribe-events-calendar-pro'); ?></dt>
+		<dd class="venue-meta venue-meta-description"><?php the_content(); ?></dd>
 		<?php endif ?>
 	</dl>
 </div>
@@ -51,7 +51,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<h2 class='tribe-events-cal-title'>Upcoming Events At This Venue</h2>					
 		<?php foreach( $venueEvents as $post ): 
 			setup_postdata($post);	?>
-			<div id="post-<?php the_ID() ?>" <?php post_class($first ? 'tribe-events-event clearfix first': 'tribe-events-event clearfix' ); $first = false; ?> itemscope itemtype="http://schema.org/Event">
+			<div id="post-<?php the_ID(); ?>" <?php post_class($first ? 'tribe-events-event clearfix first': 'tribe-events-event clearfix' ); $first = false; ?> itemscope itemtype="http://schema.org/Event">
 				<?php if ( tribe_is_new_event_day() ) : ?>
 					<h4 class="event-day"><?php echo tribe_get_start_date( null, false ); ?></h4>
 				<?php endif; ?>
@@ -63,16 +63,16 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 					<table>
 						<?php if (tribe_is_multiday()): ?>
 						<tr>
-							<td class="tribe-events-event-meta-desc"><?php _e('Start:', 'tribe-events-calendar-pro') ?></td>
+							<td class="tribe-events-event-meta-desc"><?php _e('Start:', 'tribe-events-calendar-pro'); ?></td>
 							<td class="tribe-events-event-meta-value"><meta itemprop="startDate" content="<?php echo tribe_get_start_date( null, false, 'Y-m-d' ); ?>" /><?php echo tribe_get_start_date(); ?></td>
 						</tr>
 						<tr>
-							<td class="tribe-events-event-meta-desc"><?php _e('End:', 'tribe-events-calendar-pro') ?></td>
+							<td class="tribe-events-event-meta-desc"><?php _e('End:', 'tribe-events-calendar-pro'); ?></td>
 							<td class="tribe-events-event-meta-value"><meta itemprop="endDate" content="<?php echo tribe_get_end_date( null, false, 'Y-m-d' ); ?>" /><?php echo tribe_get_end_date(); ?></td>
 						</tr>
 						<?php else: ?>
 						<tr>
-							<td class="tribe-events-event-meta-desc"><?php _e('Date:', 'tribe-events-calendar-pro') ?></td>
+							<td class="tribe-events-event-meta-desc"><?php _e('Date:', 'tribe-events-calendar-pro'); ?></td>
 							<td class="tribe-events-event-meta-value"><meta itemprop="startDate" content="<?php echo tribe_get_start_date( null, false, 'Y-m-d' ); ?>" /><?php echo tribe_get_start_date(); ?></td>
 						</tr>
 						<?php endif; ?>
@@ -81,7 +81,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 						if ( !empty( $cost ) ) :
 						?>
 						<tr>
-							<td class="tribe-events-event-meta-desc"><?php _e('Cost:', 'tribe-events-calendar-pro') ?></td>
+							<td class="tribe-events-event-meta-desc"><?php _e('Cost:', 'tribe-events-calendar-pro'); ?></td>
 							<td class="tribe-events-event-meta-value" itemprop="price"><?php echo $cost; ?></td>
 						</tr>
 						<?php endif; ?>

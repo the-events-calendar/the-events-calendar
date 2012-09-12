@@ -61,13 +61,13 @@ jQuery(document).ready(function($) {
 				//submitdelete
 				modal: true,
 				buttons: [{
-					text: "Delete just this occurrence.",
+					text: "Only This Event",
 					click: function() {
 						document.location = link.attr('href') + '&event_start=' + $(this).data('start');
 					}
 				},
 				{
-					text: "Delete all occurrences of this event.",
+					text: "All Events",
 					click: function() {
 						document.location = link.attr('href') + '&deleteAll';
 					}
