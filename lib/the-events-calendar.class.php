@@ -312,6 +312,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->maybeMigrateDatabase();
 			$this->maybeRenameOptions();
 			$this->maybeSetTECVersion();
+			// TribeEventsQuery::deregister();
 		}
 
 		public function maybeMigrateDatabase( ) {
@@ -2577,7 +2578,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					)
 				)
 			);
-			$event_link = new WP_Query($args);
+			// TribeEventsQuery::deregister();
+			// $event_link = new WP_Query($args);
 			// print_r($event_link);
 
 			$results = $wpdb->get_row($eventsQuery, OBJECT);
