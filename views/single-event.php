@@ -29,9 +29,7 @@ apply_filters( 'tribe_events_single_event_before_template', '', get_the_ID() );
 	apply_filters( 'tribe_events_single_event_after_the_meta', '', get_the_ID() );
 
 	// event map
-	apply_filters( 'tribe_events_single_event_before_the_map', '', get_the_ID() );
 	apply_filters( 'tribe_events_single_event_the_map', '', get_the_ID() );
-	apply_filters( 'tribe_events_single_event_after_the_map', '', get_the_ID() );
 
 	// event content
 	apply_filters( 'tribe_events_single_event_before_the_content', '', get_the_ID() );

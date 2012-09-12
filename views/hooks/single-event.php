@@ -167,21 +167,11 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			parent::debug( $filter_name );
 			parent::debug( $filter_name, false );
 		}
-		public function before_the_map( $post_id ){
-			$filter_name = 'tribe_events_single_event_before_the_map';
-			parent::debug( $filter_name );
-			parent::debug( $filter_name, false );
-		}
 		public function the_map( $post_id ){
 			$filter_name = 'tribe_events_single_event_before_the_map';
 			parent::debug( $filter_name );
 			if( tribe_embed_google_map( $post_id ) &&  tribe_address_exists( $post_id ) ) 
 				echo tribe_get_embedded_map();
-			parent::debug( $filter_name, false );
-		}
-		public function after_the_map( $post_id ){
-			$filter_name = 'tribe_events_single_event_before_the_map';
-			parent::debug( $filter_name );
 			parent::debug( $filter_name, false );
 		}
 		public function before_the_content( $post_id ){
