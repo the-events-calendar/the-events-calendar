@@ -182,7 +182,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'widget-list.class.php' );
 			require_once( 'tribe-admin-events-list.class.php' );
 			require_once( 'tribe-date-utils.class.php' );
-			require_once( 'tribe-template-factory.class.php' );
 			require_once( 'tribe-templates.class.php' );
 			require_once( 'tribe-event-api.class.php' );
 			require_once( 'tribe-event-query.class.php' );
