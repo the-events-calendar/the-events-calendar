@@ -11,6 +11,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 	class TribeEvents {
 		const EVENTSERROROPT = '_tribe_events_errors';
 		const OPTIONNAME = 'tribe_events_calendar_options';
+		const OPTIONNAMENETWORK = 'tribe_events_calendar_network_options';
 		const TAXONOMY = 'tribe_events_cat';
 		const POSTTYPE = 'tribe_events';
 		const VENUE_POST_TYPE = 'tribe_venue';
@@ -259,6 +260,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( '_network_admin_menu', array( $this, 'initOptions' ) );
 			add_action( '_admin_menu', array( $this, 'initOptions' ) );
 			add_action( 'tribe_settings_do_tabs', array( $this, 'doSettingTabs' ) );
+			add_action( 'tribe_settings_do_tabs', array( $this, 'doNetworkSettingTab' ), 400 );
 			add_action( 'tribe_settings_content_tab_help', array( $this, 'doHelpTab' ) );
 			// add-on compatibility
 			add_action( 'admin_notices', array( $this, 'checkAddOnCompatibility' ) );
@@ -453,7 +455,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			include_once($this->pluginPath.'admin-views/tribe-options-general.php');
 			include_once($this->pluginPath.'admin-views/tribe-options-templates.php');
-			
+					
 			$tribe_licences_tab_fields = array(
 				'info-start' => array(
 					'type' => 'html',
@@ -472,7 +474,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					'html' => '</div>',
 				),
 			);
-
 			new TribeSettingsTab( 'general', __('General', 'tribe-events-calendar'), $generalTab );
 			new TribeSettingsTab( 'template', __('Template', 'tribe-events-calendar'), $templatesTab );
 			// If none of the addons are activated, do not show the licenses tab.
@@ -481,7 +482,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					'fields' => apply_filters('tribe_license_fields', $tribe_licences_tab_fields) ) );
 			}
 			new TribeSettingsTab( 'help', __('Help', 'tribe-events-calendar'), array('priority' => 60, 'show_save' => false) );
-			
 		}
 
 		public function doHelpTab() {
@@ -1231,7 +1231,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public static function getNetworkOptions() {
 			if ( !isset( self::$networkOptions ) ) {
-				$options = get_site_option( TribeEvents::OPTIONNAME, array() );
+				$options = get_site_option( TribeEvents::OPTIONNAMENETWORK, array() );
 				self::$networkOptions = apply_filters( 'tribe_get_network_options', $options );
 			}
 			return self::$networkOptions;
@@ -1298,10 +1298,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 		
 		public function addNetworkOptionsPage() {
-			include( $this->pluginPath . 'admin-views/tribe-network-options.php' );
-			
 			$tribe_settings = TribeSettings::instance();
 			add_submenu_page('settings.php', $this->pluginName, $this->pluginName, 'manage_network_options', 'tribe-events-calendar', array( $tribe_settings, 'generatePage' ) );
+		}
+		
+		public function doNetworkSettingTab() {
+			include_once($this->pluginPath.'admin-views/tribe-options-network.php');
+
+			new TribeSettingsTab( 'network', __('Network', 'tribe-events-calendar'), $networkTab );
 		}
 
 		public function networkOptionsPageView() {
