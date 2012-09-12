@@ -462,7 +462,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				),
 				'info-box-description' => array(
 					'type' => 'html',
-					'html' => '<p>' . __('For all of Modern Tribe\'s paid Add-ons, the license key you received when completing your purchase is what grants you access to future updates + support. Keep in mind that you do not have to enter your key below for the plugins to work! All functionality is available whether or not a key is present. However, you will not receive prompts for automatic updates without a key in place...and our support team won\'t be able to help you until it is added and current, either.</p><p>Each plugin/add-on has its own unique license key. Simply paste the keys into their appropriate fields on the list below, and give it a moment to validate. When the green expiration date appears alongside a "Valid" message, you\'ll be set. If you\'re seeing red message instead, either telling you the key isn\'t valid or is out of installs, it means your key was not accepted. Visit <a href="http://tri.be">http://tri.be</a>, log in and navigate to <i>Account Central -> Licenses</i> on the tri.be site to see if the key is tied to another site or past its expiration date. For more on automatic updates and using your license key, please <a href="http://tri.be/updating-the-plugin/">see this blog post</a>.</p><p>Not seeing an update but expecting one? In WordPress go to <i>Dashboard -> Updates</i> and click "Check Again".', 'tribe-events-calendar') . '</p>',
+					'html' => '<p>' . __('The license key you received when completing your purchase will grant you access to support and updates. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates, and our support team won\'t be able to help you out unless it is added and current.</p><p>Each plugin/add-on has its own unique license key. Simply paste the key into its appropriate field on the list below, and give it a moment to validate. You know you\'re set when a green expiration date appears alongside a "valid" message.</p><p>If you\'re seeing a red message telling you that your key isn\'t valid or is out of installs, it means that your key was not accepted. Visit <a href="http://tri.be">http://tri.be</a>, log in and navigate to <i>Account Central > Licenses</i> on the tri.be site to see if the key is tied to another site or past its expiration date. For more on automatic updates and using your license key, please see <a href="http://tri.be/updating-the-plugin/">this blog post</a>.</p><p>Not seeing an update but expecting one? In WordPress go to <i>Dashboard > Updates</i> and click "Check Again".', 'tribe-events-calendar') . '</p>',
 				),
 				'info-end' => array(
 					'type' => 'html',
@@ -1783,8 +1783,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( !current_user_can( 'edit_tribe_events' ) )
 				return;
 
-			$_POST['Organizer'] = stripslashes_deep($_POST['organizer']);
-			$_POST['Venue'] = stripslashes_deep($_POST['venue']);
+			$_POST['Organizer'] = isset($_POST['organizer']) ? stripslashes_deep($_POST['organizer']) : null;
+			$_POST['Venue'] = isset($_POST['venue']) ? stripslashes_deep($_POST['venue']) : null;
 
 
 			/**
@@ -2476,6 +2476,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$timestamp = mktime( 0, 0, 0, $dateParts[1], 1, $dateParts[0] );
 			return $monthNames[date( "F", $timestamp )] . " " . $dateParts[0];
 		}
+
+		public function getDateStringShortened( $date ) {
+			$monthNames = $this->monthNames();
+			$dateParts = split( '-', $date );
+			$timestamp = mktime( 0, 0, 0, $dateParts[1], 1, $dateParts[0] );
+			return $monthNames[date( "F", $timestamp )];
+		}
 		/**
 		 * echo the next tab index
 		 * @return void
@@ -2637,7 +2644,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			</tr>
 			<tr class="eventBritePluginPlug">
 				<td colspan="2">
-					<p><?php _e('Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ) ?> <?php printf( __('Check out the <a href="%s">available Add-Ons</a>.', 'tribe-events-calendar' ), TribeEvents::$tribeUrl.'shop/?ref=tec-event' ); ?></p>
+					<p><?php _e('Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ) ?> <?php printf( __('Check out the <a href="%s">available add-ons</a>.', 'tribe-events-calendar' ), TribeEvents::$tribeUrl.'shop/?ref=tec-event' ); ?></p>
 				</td>
 			</tr><?php
 		}
