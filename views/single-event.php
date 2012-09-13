@@ -23,7 +23,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 echo apply_filters( 'tribe_events_single_event_before_template', '', get_the_ID() );
 
 	// event notice
-	echo apply_filters( 'tribe_events_single_event_notices', $notices, $notices, get_the_ID() );
+	echo apply_filters( 'tribe_events_single_event_notices', $notices, get_the_ID() );
 
 	// event meta
 	echo apply_filters( 'tribe_events_single_event_before_the_meta', '', get_the_ID() );
