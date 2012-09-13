@@ -8,8 +8,22 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 if (!class_exists('TribeEventsQuery')) {
 	class TribeEventsQuery {
+
+		function pre_get_posts( $query ) {
+			if ( !is_admin() 
+				&& (
+					  ((isset($_GET['post_type']) && $_GET['post_type'] == TribeEvents::POSTTYPE) || (isset($_GET['tribe_events_cat']) && $_GET['tribe_events_cat'] != '')) 
+					  || ((isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == TribeEvents::POSTTYPE) || (isset($query->query_vars['tribe_events_cat']) && $query->query_vars['tribe_events_cat'] != ''))
+					)
+				)
+			{
+				return apply_filters( 'tribe_events_pre_get_posts', $query );
+			}
+			return $query;
+		}
 	
 		public static function init() {
+			add_filter( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 0 );
 			add_action( 'parse_query', array( __CLASS__, 'setupQuery'), 0 );			
 		}
 		
