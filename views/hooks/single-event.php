@@ -80,9 +80,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		}
 		// Single event meta
 		public function the_meta( $post_id ){
-			$filter_name = 'tribe_events_single_event_the_meta';
-			echo parent::debug( $filter_name );
-
+			ob_start();
 ?>
 <div id="tribe-events-event-meta" itemscope itemtype="http://schema.org/Event">
 	<?php // Event details ?>
@@ -179,7 +177,8 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 	<?php endif; ?>
 </div><!-- #tribe-events-event-meta -->
 <?php
-			echo parent::debug( $filter_name, false );
+			$html = ob_get_clean();
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_the_meta');
 		}
 		public function after_the_meta( $post_id ){
 			$html = '';
