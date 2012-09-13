@@ -45,30 +45,25 @@ if ( !isset( $alt_text ) ) { $alt_text = ''; }
 post_class( $alt_text, $post->ID );
 $class = ob_get_contents();
 ob_end_clean();
-?>
 
-<li <?php echo $class; ?>>
+// start list widget template
+echo apply_filters( 'tribe_events_list_widget_before_template', '', get_the_ID() );
 
-	<div class="when">
-		<?php
-			$space = false;
-			$output = ''; 			
-			echo tribe_get_start_date( $post->ID ); 
-
-         	if( tribe_is_multiday( $post->ID ) ) {
-            	echo '<br/>' . __( 'Ends', 'tribe-events-calendar-pro') . ' ';
-				echo tribe_get_end_date( $post->ID );
-         	}
-
-			if($event->AllDay) {
-				echo ' <small><em>('. __( 'All Day', 'tribe-events-calendar' ) .')</em></small>';
-         	}
-      ?> 
-	</div><!-- .when -->
+	// start single event
+	echo apply_filters( 'tribe_events_list_widget_before_the_event', '', get_the_ID() );
 	
-	<div class="event">
-		<a href="<?php echo get_permalink( $post->ID ); ?>"><?php echo $post->post_title; ?></a>
-	</div><!-- .event -->
+		// event dates
+		echo apply_filters( 'tribe_events_list_widget_before_the_date', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_list_widget_the_date', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_list_widget_after_the_date', '', get_the_ID() );
 
-</li>
-<?php $alt_text = ( empty( $alt_text ) ) ? 'alt' : ''; ?>
+		// event title
+		echo apply_filters( 'tribe_events_list_widget_before_the_title', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_list_widget_the_title', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_list_widget_after_the_title', '', get_the_ID() );
+	
+	// end single event
+	echo apply_filters( 'tribe_events_list_widget_after_the_event', '', get_the_ID() );
+
+// end list widget template
+echo apply_filters( 'tribe_events_list_widget_after_template', '', get_the_ID() );

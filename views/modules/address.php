@@ -20,12 +20,10 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 // start address template
 echo apply_filters( 'tribe_events_address_before_template', '', get_the_ID() );
 
-		// address meta
-		echo apply_filters( 'tribe_events_address_before_the_meta', '', get_the_ID() );
-		echo apply_filters( 'tribe_events_address_the_meta', '', get_the_ID() );
-		echo apply_filters( 'tribe_events_address_after_the_meta', '', get_the_ID() );
-
-	
+	// address meta
+	echo apply_filters( 'tribe_events_address_before_the_meta', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_address_the_meta', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_address_after_the_meta', '', get_the_ID() );
 
 // end address template
 echo apply_filters( 'tribe_events_address_after_template', '', get_the_ID() );
