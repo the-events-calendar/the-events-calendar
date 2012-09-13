@@ -19,17 +19,18 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( !class_exists('Tribe_Events_Address_Template')){
 	class Tribe_Events_Address_Template extends Tribe_Template_Factory {
 		function init(){
-			// start list template
+			// start address template
 			add_filter( 'tribe_events_address_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 	
-			// event meta
+			// address meta
 			add_filter( 'tribe_events_address_before_the_meta', array( __CLASS__, 'before_the_meta' ), 1, 1 );
 			add_filter( 'tribe_events_address_the_meta', array( __CLASS__, 'the_meta' ), 1, 1 );
 			add_filter( 'tribe_events_address_after_the_meta', array( __CLASS__, 'after_the_meta' ), 1, 1 );
 
-			// end list template
+			// end address template
 			add_filter( 'tribe_events_address_after_template', array( __CLASS__, 'after_template' ), 1, 2 );
 		}
+		// Start Address Template
 		public function before_template( $post_id ){
 			$html = '<div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_address_before_template');
@@ -88,6 +89,7 @@ if( !class_exists('Tribe_Events_Address_Template')){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_address_after_the_meta');
 		}
+		// End Address Template
 		public function after_template( $post_id ){
 			$html = '</div><!-- address -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_address_after_template');		

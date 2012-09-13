@@ -45,39 +45,35 @@ $offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on d
 $rows = 1;
 $monthView = tribe_sort_by_month( $eventPosts, $current_date );
 
-// the div tribe-events-widget-nav controls ajax navigation for the calendar widget. Modify with care and do not remove any class names or elements inside that element if you wish to retain ajax functionality.
-?>
+// the div tribe-events-widget-nav controls ajax navigation for the calendar widget. 
+// Modify with care and do not remove any class names or elements inside that element 
+// if you wish to retain ajax functionality.
 
-<div class="tribe-events-widget-nav">
+// start calendar widget template
+echo apply_filters( 'tribe_events_calendar_widget_before_template', '', get_the_ID() );
 
-	<a class="tribe-mini-ajax prev-month" href="#" data-month="<?php echo $tribe_ecp->previousMonth( $current_date ); ?>" title="<?php echo tribe_get_previous_month_text(); ?>">
-    	<span><?php echo tribe_get_previous_month_text(); ?></span>
-  	</a>
-  	<span id="tribe-mini-ajax-month">
-    	<?php echo $tribe_ecp->monthsShort[date( 'M',$date )]; echo date( ' Y',$date ); ?>
-  	</span>
-  	<a class="tribe-mini-ajax next-month" href="#" data-month="<?php echo $tribe_ecp->nextMonth( $current_date ); ?>" title="<?php echo tribe_get_next_month_text(); ?>">
-    	<span><?php echo tribe_get_next_month_text(); ?></span> 
-  	</a>
-  	<img id="ajax-loading-mini" src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" alt="loading..." />
+	// calendar ajax navigation
+	echo apply_filters( 'tribe_events_calendar_widget_before_the_nav', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_calendar_widget_the_nav', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_calendar_widget_after_the_nav', '', get_the_ID() );
 
-</div><!-- .tribe-events-widget-nav -->
- 
-<table class="tribe-events-calendar tribe-events-calendar-widget" id="small">
-
-	<thead>
-		<tr>
-		<?php
+	// start calendar
+	echo apply_filters( 'tribe_events_calendar_widget_before_the_cal', '', get_the_ID() );
+	
+		// calendar days of the week
+		echo apply_filters( 'tribe_events_calendar_widget_before_the_days', '', get_the_ID() );
+		
 			for( $n = $startOfWeek; $n < count( $tribe_ecp->daysOfWeekMin ) + $startOfWeek; $n++ ) {
 				$dayOfWeek = ( $n >= 7 ) ? $n - 7 : $n;
 				echo '<th id="tribe-events-' . strtolower( $tribe_ecp->daysOfWeekMin[$dayOfWeek] ) . '" title="' . $tribe_ecp->daysOfWeek[$dayOfWeek] . '">' . $tribe_ecp->daysOfWeekMin[$dayOfWeek] . '</th>';
-			} ?>
-		</tr>
-	</thead>
+			}
+		
+		echo apply_filters( 'tribe_events_calendar_widget_after_the_days', '', get_the_ID() );
 
-	<tbody>
-		<tr>
-		<?php // skip last month
+		// calendar dates
+		echo apply_filters( 'tribe_events_calendar_widget_before_the_dates', '', get_the_ID() );
+
+			// skip last month
 			for( $i = 1; $i <= $offset; $i++ ) { 
 				echo '<td class="tribe-events-othermonth"></td>';
 			}
@@ -117,16 +113,16 @@ $monthView = tribe_sort_by_month( $eventPosts, $current_date );
 			while( ( $day + $offset ) <= $rows * 7 ) {
 			    echo '<td class="tribe-events-othermonth"></td>';
 			    $day++;
-			} 
-		?>
-		</tr>
-	</tbody>
+			}
+
+		echo apply_filters( 'tribe_events_calendar_widget_after_the_dates', '', get_the_ID() );
 	
-</table><!-- .tribe-events-calendar-widget -->
+	// end calendar
+	echo apply_filters( 'tribe_events_calendar_widget_after_the_cal', '', get_the_ID() );
 
-<a class="tribe-view-all-events" href="<?php echo tribe_get_events_link(); ?>"><?php _e( 'View all &raquo;', 'tribe-events-calendar' ); ?></a>
+// end calendar widget template
+echo apply_filters( 'tribe_events_calendar_widget_after_template', '', get_the_ID() );
 
-<?php
 if ( $old_date ) {
 	$wp_query->query_vars['eventDate'] = $old_date;
 }

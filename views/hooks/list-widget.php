@@ -52,15 +52,17 @@ if( !class_exists('Tribe_Events_List_Widget_Template')){
 			// end list widget template
 			add_filter( 'tribe_events_list_widget_after_template', array( __CLASS__, 'after_template' ), 1, 2 );
 		}
+		// Start List Widget Template
 		public function before_template( $post_id ){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_widget_before_template');
 		}
+		// Start Single Event
 		public function before_the_event( $post_id ){
 			$html = '<li '. $class .'>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_widget_before_the_event');
 		}
-		// Event Date	
+		// Event Dates	
 		public function before_the_date( $post_id ){
 			$html = '<div class="when">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_widget_before_the_date');
@@ -94,6 +96,7 @@ if( !class_exists('Tribe_Events_List_Widget_Template')){
 			$html = '</div><!-- .event -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_widget_after_the_title');
 		}
+		// End Single Event
 		public function after_the_event( $post_id ){
 			$html = '</li>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_widget_after_the_event');
@@ -101,6 +104,7 @@ if( !class_exists('Tribe_Events_List_Widget_Template')){
 		
 		$alt_text = ( empty( $alt_text ) ) ? 'alt' : '';
 		
+		// End List Widget Template
 		public function after_template( $post_id ){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_widget_after_template');		
