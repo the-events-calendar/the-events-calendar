@@ -11,12 +11,11 @@
  * within your theme directory, which will override this file /events/views/single-event.php.
  *
  * @package TribeEventsCalendar
- * @since  1.0
+ * @since  2.1
  * @author Modern Tribe Inc.
  *
  */
 
-// Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 // start single template

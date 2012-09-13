@@ -1,56 +1,31 @@
 <?php
 /**
- * Full Address Template
+ * Address Module Template
  * Render an address. This is used by default in the single event view.
  *
- * You can customize this view by putting a replacement file of the same
- * name (/modules/address.php) in the tribe-events/ directory of your theme.
+ * This view contains the hooks and filters required to create an effective address view.
+ *
+ * You can recreate and ENTIRELY new address view (that does not utilize these hooks and filters)
+ * by doing a template override, and placing a address.php file in a tribe-events/modules/ directory 
+ * within your theme directory, which will override the /views/modules/address.php.
  *
  * @package TribeEventsCalendar
- * @since  1.0
+ * @since  2.1
  * @author Modern Tribe Inc.
  *
  */
 
-// Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-$postId = get_the_ID();
+// start address template
+echo apply_filters( 'tribe_events_address_before_template', '', get_the_ID() );
 
-?>
+		// address meta
+		echo apply_filters( 'tribe_events_address_before_the_meta', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_address_the_meta', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_address_after_the_meta', '', get_the_ID() );
 
-<div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-	<?php $address_out = Array() ?>
-	<?php if( isset( $includeVenueName ) && $includeVenueName && tribe_get_venue( $postId ) ) { ?>
-		<?php $address_out []= '<span itemprop="addressLocality">'. tribe_get_venue( $postId ) .'</span>'; ?>
-	<?php } ?>
 	
-	<?php if( tribe_get_address( $postId ) ) { ?>
-		<?php $address_out []= '<span itemprop="streetAddress">'. tribe_get_address( $postId ) .'</span>'; ?>
-	<?php } ?>
 
-	<?php
-	$cityregion = '';
-	if( tribe_get_city( $postId ) ) {
-		$cityregion .= tribe_get_city( $postId );
-	}
-	if( tribe_get_region( $postId ) ) {
-		if( $cityregion != '' ) $cityregion .= ', ';
-		$cityregion .= tribe_get_region( $postId );
-	}
-	if( $cityregion != '' ) { ?>
-		<?php $address_out []= '<span itemprop="addressRegion">'. $cityregion .'</span>'; ?>
-	<?php } ?>
-
-	<?php if( tribe_get_zip( $postId ) ) { ?>
-		<?php $address_out []= '<span itemprop="postalCode">'. tribe_get_zip( $postId ) .'</span>'; ?>
-	<?php } ?>
-
-	<?php if( tribe_get_country( $postId ) ) { ?>
-		<?php $address_out []= '<span itemprop="addressCountry">'. tribe_get_country( $postId ) .'</span>'; ?>
-	<?php } ?>
-
-	<?php if ( count( $address_out ) > 0 ) : ?>
-	<?php echo implode( ', ', $address_out ); ?>
-	<?php endif; ?>
-</div><!-- address -->
+// end address template
+echo apply_filters( 'tribe_events_address_after_template', '', get_the_ID() );

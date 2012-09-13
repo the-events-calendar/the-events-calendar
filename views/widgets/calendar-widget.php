@@ -1,17 +1,20 @@
 <?php
 /**
  * Calendar Widget Template
+ * The template view for the calendar widget. 
+ *
+ * This view contains the hooks and filters required to create an effective calendar widget view.
  * 
- * You can customize this view by putting a replacement file of the
- * same name (/widgets/calendar-widget.php) in the tribe-events/ directory of your theme.
+ * You can recreate and ENTIRELY new list view (that does not utilize these hooks and filters)
+ * by doing a template override, and placing a calendar-widget.php file in a tribe-events/widgets/ directory 
+ * within your theme directory, which will override the /views/widgets/calendar-widget.php.
  *
  * @package TribeEventsCalendar
- * @since  1.0
+ * @since  2.1
  * @author Modern Tribe Inc.
  *
  */
 
-// Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 $tribe_ecp = TribeEvents::instance();

@@ -1,20 +1,20 @@
 <?php
 /**
- * Grid View Template
- * This file loads the TEC month view, specifically the 
- * month view navigation. The actual rendering if the calendar happens in the 
- * table.php template.
+ * Calendar View Template
+ * This file loads the TEC month or calendar view, specifically the month view navigation.
  *
- * You can customize this view by putting a replacement file of the same name 
- * (calendar.php) in the tribe-events/ directory of your theme.
+ * This view contains the hooks and filters required to create an effective calendar month view.
+ *
+ * You can recreate and ENTIRELY new list view (that does not utilize these hooks and filters)
+ * by doing a template override, and placing a calendar.php file in a tribe-events/ directory 
+ * within your theme directory, which will override the /views/calendar.php.
  *
  * @package TribeEventsCalendar
- * @since  1.0
+ * @since  2.1
  * @author Modern Tribe Inc.
  *
  */
 
-// Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 echo apply_filters( 'tribe_events_calendar_before_template', '', get_the_ID() );

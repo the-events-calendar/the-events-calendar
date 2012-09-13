@@ -1,6 +1,6 @@
 <?php
-
 /**
+ * Single Event Template
  * The abstracted view of a single event.
  * This view contains the hooks and filters required to create an effective single event view.
  *
@@ -187,10 +187,10 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		// Embedded Google map
 		public function the_map( $post_id ){
 			$html = '';
-			if( tribe_embed_google_map( $post_id ) &&  tribe_address_exists( $post_id ) ) 
-				$html = tribe_get_embedded_map();
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_before_the_map');
-		}
+			if(tribe_embed_google_map(get_the_ID()) && tribe_address_exists(get_the_ID()))
+				$html .= tribe_get_embedded_map();
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_the_map');
+		}		
 		// Single event content
 		public function before_the_content( $post_id ){
 			$html = '<div class="entry">';

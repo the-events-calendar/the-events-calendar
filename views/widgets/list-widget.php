@@ -3,15 +3,18 @@
  * Events List Widget Template
  * This is the template for the output of the events list widget. 
  * All the items are turned on and off through the widget admin.
- * There is currently no default styling, which is highly needed.
+ * There is currently no default styling, which is needed.
  *
- * You can customize this view by putting a replacement file of the same name
- * (/widgets/list-widget.php) in the tribe-events/ directory of your theme.
+ * This view contains the hooks and filters required to create an effective events list widget view.
+ *
+ * You can recreate and ENTIRELY new list view (that does not utilize these hooks and filters)
+ * by doing a template override, and placing a list.php file in a tribe-events/widgets/ directory 
+ * within your theme directory, which will override the /views/widgets/list-widget.php.
  *
  * @return string
  *
  * @package TribeEventsCalendar
- * @since  1.0
+ * @since  2.1
  * @author Modern Tribe Inc.
  *
  */
@@ -25,7 +28,6 @@
 // '$event->Cost',
 // '$event->Phone',
 
-// Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 $event = array();

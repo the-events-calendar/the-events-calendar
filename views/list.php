@@ -1,7 +1,7 @@
 <?php
 /**
  * Events List Template
- * The TEC template for a list of events. This includes the Past Events and Upcoming Events views 
+ * The template for a list of events. This includes the Past Events and Upcoming Events views 
  * as well as those same views filtered to a specific category.
  *
  * This view contains the hooks and filters required to create an effective event list view.
@@ -11,12 +11,11 @@
  * within your theme directory, which will override this file /events/views/list.php.
  *
  * @package TribeEventsCalendar
- * @since  1.0
+ * @since  2.1
  * @author Modern Tribe Inc.
  *
  */
 
-// Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 $notices = empty($notices) ? array() : $notices;
