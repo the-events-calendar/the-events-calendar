@@ -65,7 +65,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		public function notices( $notices = array(), $post_id ) {
 			$html = '';
 			if(!empty($notices))	
-				$html .= '<div class="event-notices">' . implode('<br />', $notices) . '</div><!-- .event-notices -->';
+				$html .= '<div class="event-notices">' . implode('<br />', $notices) . '</div>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_notices');
 		}
 		public function before_the_meta( $post_id ){
