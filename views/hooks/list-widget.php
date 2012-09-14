@@ -67,11 +67,10 @@ if( !class_exists('Tribe_Events_List_Widget_Template')){
 			$output = '';
 			
 			$html = tribe_get_start_date( $post->ID );
-			if(tribe_is_multiday($post->ID))
-				$html .= '<br/>'. __( 'Ends', 'tribe-events-calendar-pro') .' ';
-				$html .= tribe_get_end_date( $post->ID );
-			if($event->AllDay)
-				$html .= ' <small><em>('. __( 'All Day', 'tribe-events-calendar' ) .')</em></small>';
+			if(tribe_is_multiday( $post->ID ) || !$event->AllDay)
+            	$html .= ' – <br/>'. tribe_get_end_date($post->ID);
+         	if($event->AllDay)
+				$html .= ' <small><em>('. __('All Day','tribe-events-calendar') .')</em></small>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_widget_the_date');
 		}
 		public function after_the_date( $post_id ){
