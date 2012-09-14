@@ -1,6 +1,6 @@
 <?php
 /**
- * @for Calendar View Template
+ * @for Calendar Template
  * This file contains the hook logic required to create an effective calendar month view.
  *
  * @package TribeEventsCalendar

@@ -1,6 +1,6 @@
 <?php
 /**
- * Calendar View Template
+ * Calendar Template
  * This file loads the TEC month or calendar view, specifically the month view navigation.
  *
  * This view contains the filters required to create an effective calendar month view.
@@ -8,7 +8,7 @@
  * You can recreate an ENTIRELY new calendar view by doing a template override, and placing
  * a calendar.php file in a tribe-events/ directory within your theme directory, which
  * will override the /views/calendar.php. 
- 
+ *
  * You can use any or all filters included in this file or create your own filters in 
  * your functions.php. In order to modify or extend a single filter, please see our
  * readme on templates hooks and filters (TO-DO)

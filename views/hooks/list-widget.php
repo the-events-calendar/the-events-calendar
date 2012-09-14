@@ -1,12 +1,7 @@
 <?php
 /**
- * Events List Widget Template
- * The abstracted view of the events list widget template.
- * This view contains the hooks and filters required to create an effective events list widget view.
- *
- * You can recreate and ENTIRELY new list view (that does not utilize these hooks and filters)
- * by doing a template override, and placing a list.php file in a tribe-events/widgets/ directory 
- * within your theme directory, which will override the /views/widgets/list-widget.php.
+ * @for Events List Widget Template
+ * This file contains the hook logic required to create an effective events list widget view.
  *
  * @return string
  *

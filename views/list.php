@@ -4,11 +4,15 @@
  * The template for a list of events. This includes the Past Events and Upcoming Events views 
  * as well as those same views filtered to a specific category.
  *
- * This view contains the hooks and filters required to create an effective event list view.
+ * This view contains the filters required to create an effective events list view.
  *
- * You can recreate and ENTIRELY new list view (that does not utilize these hooks and filters)
- * by doing a template override, and placing a list.php file in a /tribe-events/ directory 
- * within your theme directory, which will override this file /events/views/list.php.
+ * You can recreate an ENTIRELY new list view by doing a template override, and placing
+ * a list.php file in a tribe-events/ directory within your theme directory, which
+ * will override the /views/list.php.
+ *
+ * You can use any or all filters included in this file or create your own filters in 
+ * your functions.php. In order to modify or extend a single filter, please see our
+ * readme on templates hooks and filters (TO-DO)
  *
  * @package TribeEventsCalendar
  * @since  2.1

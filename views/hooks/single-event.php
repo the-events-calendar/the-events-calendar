@@ -1,12 +1,7 @@
 <?php
 /**
- * Single Event Template
- * The abstracted view of a single event.
- * This view contains the hooks and filters required to create an effective single event view.
- *
- * You can recreate and ENTIRELY new single view (that does not utilize these hooks and filters)
- * by doing a template override, and placing a single-event.php file in a tribe-events/ directory
- * within your theme directory, which will override the /views/single-event.php.
+ * @for Single Event Template
+ * This file contains the hook logic required to create an effective single event view.
  *
  * @package TribeEventsCalendar
  * @since  2.1

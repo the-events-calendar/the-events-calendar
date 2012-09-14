@@ -3,11 +3,15 @@
  * Calendar Widget Template
  * The template view for the calendar widget. 
  *
- * This view contains the hooks and filters required to create an effective calendar widget view.
+ * This view contains the filters required to create an effective calendar widget view.
  * 
- * You can recreate and ENTIRELY new list view (that does not utilize these hooks and filters)
- * by doing a template override, and placing a calendar-widget.php file in a tribe-events/widgets/ directory 
+ * You can recreate an ENTIRELY new calendar widget view by doing a template override,
+ * and placing a calendar-widget.php file in a tribe-events/widgets/ directory 
  * within your theme directory, which will override the /views/widgets/calendar-widget.php.
+ *
+ * You can use any or all filters included in this file or create your own filters in 
+ * your functions.php. In order to modify or extend a single filter, please see our
+ * readme on templates hooks and filters (TO-DO)
  *
  * @package TribeEventsCalendar
  * @since  2.1
