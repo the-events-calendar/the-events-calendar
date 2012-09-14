@@ -41,7 +41,12 @@ echo apply_filters( 'tribe_events_calendar_before_template', '', get_the_ID() );
 	echo apply_filters( 'tribe_events_calendar_after_header', '', get_the_ID() );
 		
 	// See the views/modules/calendar-grid.php template for customization
-	tribe_calendar_grid();
+	// tribe_calendar_grid();
+	// calendar grid
+	echo apply_filters( 'tribe_events_calendar_before_the_grid', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_calendar_the_grid', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_calendar_after_the_grid', '', get_the_ID() );
+
 
 // end calendar template
 echo apply_filters( 'tribe_events_calendar_after_template', '', get_the_ID() );
