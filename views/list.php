@@ -88,7 +88,6 @@ echo apply_filters( 'tribe_events_list_before_template', '', get_the_ID() );
 				echo apply_filters( 'tribe_events_list_the_meta', '', get_the_ID() );
 				echo apply_filters( 'tribe_events_list_after_the_meta', '', get_the_ID() );
 		
-		
 			echo apply_filters( 'tribe_events_list_inside_after_loop', '', get_the_ID() );
 
 		} // end list loop
