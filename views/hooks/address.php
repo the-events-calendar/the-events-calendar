@@ -1,12 +1,7 @@
 <?php
 /**
- * Address Template
- * The abstracted view of the address module template.
- * This view contains the hooks and filters required to create an effective address view.
- *
- * You can recreate and ENTIRELY new address view (that does not utilize these hooks and filters)
- * by doing a template override, and placing a address.php file in a tribe-events/modules/ directory 
- * within your theme directory, which will override the /views/modules/address.php.
+ * @for Address Module Template
+ * This file contains the hook logic required to create an effective address module view.
  *
  * @package TribeEventsCalendar
  * @since  2.1

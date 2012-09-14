@@ -1,12 +1,7 @@
 <?php
 /**
- * Calendar View Template
- * The abstracted view of the calendar month template.
- * This view contains the hooks and filters required to create an effective calendar month view.
- *
- * You can recreate and ENTIRELY new list view (that does not utilize these hooks and filters)
- * by doing a template override, and placing a calendar.php file in a tribe-events/ directory 
- * within your theme directory, which will override the /views/calendar.php.
+ * @for Calendar View Template
+ * This file contains the hook logic required to create an effective calendar month view.
  *
  * @package TribeEventsCalendar
  * @since  2.1
