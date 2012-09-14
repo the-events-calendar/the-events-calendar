@@ -5,7 +5,7 @@
  *
  * This view contains the filters required to create an effective address module view.
  *
- * You can recreate an ENTIRELY new address module view by doing a template override, and placing
+ * You can recreate an ENTIRELY new address module by doing a template override, and placing
  * a address.php file in a tribe-events/modules/ directory within your theme directory, which
  * will override the /views/modules/address.php. 
  *
