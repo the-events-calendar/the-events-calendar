@@ -35,7 +35,6 @@
 // '$event->Cost',
 // '$event->Phone',
 
-// Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 $event = array();
