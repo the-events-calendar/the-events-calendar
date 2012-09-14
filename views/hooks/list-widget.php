@@ -1,12 +1,7 @@
 <?php
 /**
- * Events Pro List Widget Template
- * This is the template for the output of the events list widget. 
- * All the items are turned on and off through the widget admin.
- * There is currently no default styling, which is highly needed.
- *
- * You can customize this view by putting a replacement file of the same name
- * (/widgets/list-widget.php) in the tribe-events/ directory of your theme.
+ * @for Events Pro List Widget Template
+ * This file contains the hook logic required to create an effective events list widget view.
  *
  * When the template is loaded, the following vars are set: $start, $end, $venue, 
  * $address, $city, $state, $province'], $zip, $country, $phone, $cost
@@ -14,7 +9,7 @@
  * @return string
  *
  * @package TribeEventsCalendarPro
- * @since  1.0
+ * @since  2.1
  * @author Modern Tribe Inc.
  *
  */

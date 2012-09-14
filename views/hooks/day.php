@@ -1,10 +1,7 @@
 <?php
 /**
- * Day Grid Template
- * The template for displaying events by day.
- *
- * You can customize this view by putting a replacement file of the same name
- * (day.php) in the tribe-events/ directory of your theme.
+ * @for Day Grid Template
+ * This file contains the hook logic required to create an effective day grid view.
  *
  * @package TribeEventsCalendarPro
  * @since  2.1

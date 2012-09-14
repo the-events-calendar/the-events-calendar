@@ -1,12 +1,9 @@
 <?php
 /**
- * Week Grid Template
- * The template for displaying events by week.
+ * @for Week Grid Template
+ * This file contains the hook logic required to create an effective week grid view.
  *
- * You can customize this view by putting a replacement file of the same name
- * (week.php) in the tribe-events/ directory of your theme.
- *
- * @package TribeEventsCalendar
+ * @package TribeEventsCalendarPro
  * @since  2.1
  * @author Modern Tribe Inc.
  *

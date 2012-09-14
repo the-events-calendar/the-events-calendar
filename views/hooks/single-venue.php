@@ -1,14 +1,10 @@
 <?php
 /**
- * Single Venue Template
- * The template for a venue. By default it displays venue information and lists 
- * events that occur at the specified venue.
- *
- * You can customize this view by putting a replacement file of the same name
- * (single-venue.php) in the tribe-events/ directory of your theme.
+ * @for Single Venue Template
+ * This file contains the hook logic required to create an effective single venue view.
  *
  * @package TribeEventsCalendarPro
- * @since  1.0
+ * @since  2.1
  * @author Modern Tribe Inc.
  *
  */
