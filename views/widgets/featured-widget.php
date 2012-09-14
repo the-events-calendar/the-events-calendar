@@ -49,41 +49,35 @@ ob_start();
 post_class( $alt_text,$post->ID );
 $class = ob_get_contents();
 ob_end_clean();
-?>
 
-<div class="event">
-	<a href="<?php echo get_permalink( $post->ID ) ?>"><?php echo $post->post_title; ?></a>
-</div><!-- .event -->
+// start featured widget template
+echo apply_filters( 'tribe_events_featured_widget_before_template', '', get_the_ID() );
 
-<div class="when">
-	<?php 
-		echo tribe_get_start_date( $post->ID, isset( $start ) ? $start : null ); 
+	// start single event
+	echo apply_filters( 'tribe_events_featured_widget_before_the_event', '', get_the_ID() );
+		
+		// event title
+		echo apply_filters( 'tribe_events_featured_widget_before_the_title', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_featured_widget_the_title', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_featured_widget_after_the_title', '', get_the_ID() );
+		
+		// event dates
+		echo apply_filters( 'tribe_events_featured_widget_before_the_date', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_featured_widget_the_date', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_featured_widget_after_the_date', '', get_the_ID() );
+		
+		// event location
+		echo apply_filters( 'tribe_events_featured_widget_before_the_location', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_featured_widget_the_location', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_featured_widget_after_the_location', '', get_the_ID() );
+		
+		// event content
+		echo apply_filters( 'tribe_events_featured_widget_before_the_content', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_featured_widget_the_content', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_featured_widget_after_the_content', '', get_the_ID() );
+	
+	// end single event
+	echo apply_filters( 'tribe_events_featured_widget_after_the_event', '', get_the_ID() );
 
-		if( $event->AllDay && $start )
-			echo ' <small>('.__( 'All Day','tribe-events-calendar-pro' ).')</small>';
-	?> 
-</div><!-- .when -->
-
-<div class="loc">
-	<?php
-		if ( tribe_get_city() != '' ) {
-			echo tribe_get_city() . ', ';
-		}
-		if ( tribe_get_region() != '' ) {
-			echo tribe_get_region() . ', '; 
-		}
-		if ( tribe_get_country() != '' ) {
-			echo tribe_get_country(); 
-		}
-	?>
-</div><!-- .loc -->
-
-<div class="event_body">
-	<?php
-
-	    $content = apply_filters( 'the_content', strip_shortcodes( $post->post_content ) );
-	    $content = str_replace( ']]>', ']]&gt;', $content );
-	    echo wp_trim_words( $content, apply_filters( 'excerpt_length' ), apply_filters( 'excerpt_more' ) );
-	?>
-</div><!-- .event_body -->
-<?php $alt_text = ( empty( $alt_text ) ) ? 'alt' : ''; ?>
+// end featured widget template
+echo apply_filters( 'tribe_events_featured_widget_after_template', '', get_the_ID() );
