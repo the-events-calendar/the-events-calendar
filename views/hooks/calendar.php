@@ -40,9 +40,9 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			add_filter( 'tribe_events_calendar_after_buttons', array( __CLASS__, 'after_buttons' ), 1, 1 );
 
 			// calendar content
-			add_filter( 'tribe_events_calendar_before_the_content', array( __CLASS__, 'before_the_content' ), 1, 1 );
-			add_filter( 'tribe_events_calendar_the_content', array( __CLASS__, 'the_content' ), 1, 1 );
-			add_filter( 'tribe_events_calendar_after_the_content', array( __CLASS__, 'after_the_content' ), 1, 1 );
+			add_filter( 'tribe_events_calendar_before_the_grid', array( __CLASS__, 'before_the_grid' ), 1, 1 );
+			add_filter( 'tribe_events_calendar_the_grid', array( __CLASS__, 'the_grid' ), 1, 1 );
+			add_filter( 'tribe_events_calendar_after_the_grid', array( __CLASS__, 'after_the_grid' ), 1, 1 );
 
 			// end calendar template
 			apply_filters( 'tribe_events_calendar_after_template', array( __CLASS__, 'after_template' ), 1, 1 );
@@ -120,16 +120,13 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$html = '</span>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_after_buttons');
 		}
-		// Calendar Content
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		// Calendar GRID
+		public function before_the_grid( $post_id ){
+			$html = '';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_the_grid');
+		}
+		public function the_grid( $post_id ){
+			ob_start();
 
 $tribe_ecp = TribeEvents::instance();
 
@@ -201,8 +198,8 @@ $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 					$ppf = ' tribe-events-future';
 				} else { $ppf = false; }
 				
-			    echo "<td class=\"tribe-events-thismonth". $ppf ."\">". display_day_title( $day, $monthView, $date ) ."\n";
-				echo display_day( $day, $monthView );
+			    echo "<td class=\"tribe-events-thismonth". $ppf ."\">". tribe_get_display_day_title( $day, $monthView, $date ) ."\n";
+				tribe_the_display_day( $day, $monthView );
 				echo '</td>';
 			}
 			// skip next month
@@ -217,7 +214,14 @@ $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 </table><!-- .tribe-events-calendar -->
 
 <?php
-		// End Calendar Template
+			$html = ob_get_clean();
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_the_grid');
+		}
+		public function after_the_grid( $post_id ){
+			$html = '';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_after_the_grid');
+		}
+
 		public function after_template( $post_id ){
 			if( function_exists( 'tribe_get_ical_link' ) )
 				$html .= '<a title="' . esc_attr( 'iCal Import', 'tribe-events-calendar' ) . '" class="ical" href="' . tribe_get_ical_link() . '">' . __( 'iCal Import', 'tribe-events-calendar' ) . '</a>';
@@ -228,77 +232,4 @@ $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 		}
 	}
 	Tribe_Events_Calendar_Template::init();
-}
-
-// From what used to be /hooks/calendar-grid.php
-if( !function_exists('display_day_title')) {
-	function display_day_title( $day, $monthView, $date ) {
-		$return = '<div id="daynum_'. $day .'" class="daynum tribe-events-event">';
-		if( function_exists( 'tribe_get_linked_day' ) && count( $monthView[$day] ) > 0 ) {
-			$return .= tribe_get_linked_day( $date, $day ); // premium
-		} else {
-	    	$return .= $day;
-		}
-		$return .= '<div id="tooltip_day_'. $day .'" class="tribe-events-tooltip" style="display:none;">';
-		for( $i = 0; $i < count( $monthView[$day] ); $i++ ) {
-			$post = $monthView[$day][$i];
-			setup_postdata( $post );
-			$return .= '<h5 class="tribe-events-event-title">' . get_the_title() . '</h5>';
-		}
-		$return .= '<span class="tribe-events-arrow"></span>';
-		$return .= '</div>';
-
-		$return .= '</div>';
-		return $return;
-	}
-}
-if( !function_exists('display_day')) {
-	function display_day( $day, $monthView ) {
-		global $post;
-		$output = '';
-		$posts_per_page = tribe_get_option( 'postsPerPage', 10 );
-		for ( $i = 0; $i < count( $monthView[$day] ); $i++ ) {
-			$post = $monthView[$day][$i];
-			setup_postdata( $post );
-			$eventId	= $post->ID.'-'.$day;
-			$start		= tribe_get_start_date( $post->ID, false, 'U' );
-			$end		= tribe_get_end_date( $post->ID, false, 'U' );
-			$cost		= tribe_get_cost( $post->ID );
-			?>
-			<div id="event_<?php echo $eventId; ?>" <?php post_class( 'tribe-events-event tribe-events-real-event' ) ?>>
-				<a href="<?php tribe_event_link(); ?>"><?php the_title(); ?></a>
-				<div id="tooltip_<?php echo $eventId; ?>" class="tribe-events-tooltip" style="display:none;">
-					<h5 class="tribe-events-event-title"><?php the_title() ;?></h5>
-					<div class="tribe-events-event-body">
-						<div class="tribe-events-event-date">
-							<?php if ( !empty( $start ) )	echo date_i18n( get_option( 'date_format', 'F j, Y' ), $start );
-							if ( !tribe_get_event_meta( $post->ID, '_EventAllDay', true ) )
-								echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), $start ); ?>
-							<?php if ( !empty( $end )  && $start !== $end ) {
-								if ( date_i18n( 'Y-m-d', $start ) == date_i18n( 'Y-m-d', $end ) ) {
-									$time_format = get_option( 'time_format', 'g:i a' );
-									if ( !tribe_get_event_meta( $post->ID, '_EventAllDay', true ) )
-										echo " – " . date_i18n( $time_format, $end );
-								} else {
-									echo " – " . date_i18n( get_option( 'date_format', 'F j, Y' ), $end );
-									if ( !tribe_get_event_meta( $post->ID, '_EventAllDay', true ) )
-									 	echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), $end ) . '<br />';
-								}
-							} ?>
-						</div>
-						<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
-							<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75,75 ) );?></div>
-						<?php } ?>
-						<?php echo has_excerpt() ? TribeEvents::truncate( $post->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?>
-
-					</div>
-					<span class="tribe-events-arrow"></span>
-				</div>
-			</div>
-			<?php
-			if( $i < count( $monthView[$day] ) - 1 ) { 
-				echo "<hr />";
-			}
-		}
-	}
 }
