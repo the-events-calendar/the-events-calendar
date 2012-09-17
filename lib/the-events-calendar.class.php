@@ -1282,6 +1282,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			if ( $styleUrl )
 				wp_enqueue_style('tribe-events-calendar-style', $styleUrl);
+			
+			wp_register_style('custom-jquery-styles', $eventsURL . 'smoothness/jquery-ui-1.8.23.custom.css' );
 		}
 
 
