@@ -20,3 +20,28 @@
  */
 
 if ( !defined('ABSPATH') ) { die('-1'); }
+
+/*
+	Mockup: https://central.tri.be/attachments/54643/weekview.1.jpg
+	
+	Template Tags Needed:
+		
+	-Week Nav (like the month nav on calendar view)
+		<-- Previous Week | Month/Week #?/Year Selector | Next Week -->
+		
+	-Week View Button (top, right of calendar/list view)
+	
+	-Tag to output the day dates in the table header
+	
+	-Tag to output the day hours for the grid, including an "All Day" one at the top (see the mockup)
+	
+	I'll need your help in coming up with the best solution for all the timeline stuff
+	
+	(Feel free to let me know if the following would just be default WP tags like the_title, etc)
+	
+	-Event Title Tag
+	-Event Excerpt Tag
+	-Event Time Duration Tag (Just like for calendar view)
+	-Tag For URL To Event
+*/
+?>
