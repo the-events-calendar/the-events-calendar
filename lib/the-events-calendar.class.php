@@ -256,7 +256,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_settings_do_tabs', array( $this, 'doSettingTabs' ) );
 			add_action( 'tribe_settings_content_tab_help', array( $this, 'doHelpTab' ) );
 			// add-on compatibility
-			add_action( 'admin_notices', array( $this, 'checkAddOnCompatibility' ) );
+			add_action( 'admin_notices', array( $this, 'checkAddOnCompatibility' ), 200 );
 			
 			add_action( 'wp_before_admin_bar_render', array( $this, 'addToolbarItems' ), 10 );
 			add_action( 'admin_notices', array( $this, 'activationMessage' ) );
