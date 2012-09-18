@@ -193,5 +193,21 @@ if( class_exists( 'TribeEvents' ) ) {
 		return apply_filters('tribe_is_main_loop', TribeEventsTemplates::$isMainLoop);
 	}
 
+	/**
+	 * Determines if we are in list view.
+	 *
+	 * @return bool
+	 * @since 2.1
+	 */
+	function tribe_is_list_view()  {
+		if ( tribe_is_upcoming() || tribe_is_past() || tribe_is_day() || ( is_single() && tribe_is_showing_all() ) ) {
+			$return = true;
+		} else {
+			$return = false;
+		}
+	
+		return apply_filters( 'tribe_is_list_view', $return );
+	}
+
 }
 ?>
