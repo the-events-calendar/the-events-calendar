@@ -13,7 +13,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 if( !class_exists('Tribe_Events_Single_Event_Template')){
 	class Tribe_Events_Single_Event_Template extends Tribe_Template_Factory {
-		function init(){
+		public static function init(){
 			// start single template
 			add_filter( 'tribe_events_single_event_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 

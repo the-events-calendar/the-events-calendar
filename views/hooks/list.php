@@ -16,7 +16,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 
 		private $first = true;
 
-		function init(){
+		public static function init(){
 			// start list template
 			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 
