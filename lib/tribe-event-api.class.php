@@ -230,6 +230,7 @@ if (!class_exists('TribeEventsAPI')) {
 
 				if( !is_wp_error($venueId) ) {
 					TribeEventsAPI::saveVenueMeta($venueId, $data);
+					do_action( 'tribe_events_venue_created', $venueId, $data );
 					return $venueId;
 				}
 			} else {
