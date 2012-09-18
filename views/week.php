@@ -45,3 +45,47 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	-Tag For URL To Event
 */
 ?>
+
+<div id="tribe-events-content" class="week-grid">
+	
+    <!-- This title is here for ajax loading – do not remove if you want ajax switching between month views -->
+    <title><?php wp_title(); ?></title>
+      	
+	<div id="tribe-events-calendar-header" class="clear fix">
+		
+		<?php // Month & Year Nav ?>
+		<span class="tribe-events-month-nav">
+		
+			<span class="tribe-events-prev-month">
+				<a href="<?php echo tribe_get_previous_month_link(); ?>"> &#x2190; <?php echo tribe_get_previous_month_text(); ?> </a>
+			</span><!-- .tribe-events-prev-month -->
+
+			<?php tribe_month_year_dropdowns( "tribe-events-" ); ?>
+	
+			<span class="tribe-events-next-month">
+				<a href="<?php echo tribe_get_next_month_link(); ?>"> <?php echo tribe_get_next_month_text(); ?> &#x2192; </a>
+               	<img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" class="ajax-loading" id="ajax-loading" alt="" style="display: none" />
+			</span><!-- .tribe-events-next-month -->
+		
+		</span><!-- .tribe-events-month-nav -->
+
+		<?php // View Buttons ?>
+		<span class="tribe-events-calendar-buttons"> 
+			<a class="tribe-events-button-off" href="<?php echo tribe_get_listview_link(); ?>"><?php _e( 'Event List', 'tribe-events-calendar' ); ?></a>
+			<a class="tribe-events-button-on" href="<?php echo tribe_get_gridview_link(); ?>"><?php _e( 'Calendar', 'tribe-events-calendar' ); ?></a>
+		</span><!-- .tribe-events-calendar-buttons -->
+			
+	</div><!-- #tribe-events-calendar-header -->
+	
+	
+	
+	<?php // Our Content ?>
+		
+
+		
+    <?php // iCal Import
+    if( function_exists( 'tribe_get_ical_link' ) ): ?>
+       	<a title="<?php esc_attr_e( 'iCal Import', 'tribe-events-calendar' ); ?>" class="ical" href="<?php echo tribe_get_ical_link(); ?>"><?php _e( 'iCal Import', 'tribe-events-calendar' ); ?></a>
+    <?php endif; ?>
+		
+</div><!-- #tribe-events-content -->
