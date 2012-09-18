@@ -58,6 +58,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/widget-countdown.class.php' );
 			require_once( 'template-tags.php' );
 			require_once( 'lib/tribe-presstrends-events-calendar-pro.php' );
+			require_once ('lib/tribe-geoloc.class.php');
 
 			// Tribe common resources
 			require_once( 'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
