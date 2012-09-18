@@ -18,11 +18,10 @@ class TribeEventsGeoLoc {
 
 	function __construct() {
 		add_action( 'tribe_events_venue_updated', array( $this, 'save_venue_geodata' ), 10, 2 );
+		add_action( 'tribe_events_venue_created', array( $this, 'save_venue_geodata' ), 10, 2 );
 	}
 
 	function save_venue_geodata( $venueId, $data ) {
-
-		$lat = $lng = false;
 
 		$address = trim( $data["Address"] . ' ' . $data["City"] . ' ' . $data["Province"] . ' ' . $data["State"] . ' ' . $data["Zip"] . ' ' . $data["Country"] );
 
@@ -38,17 +37,18 @@ class TribeEventsGeoLoc {
 		if ( is_wp_error( $data ) || !isset( $data["body"] ) )
 			return;
 
+		$data_arr = json_decode( $data["body"] );
+
+		if ( !empty( $data_arr->results[0]->geometry->location->lat ) ) {
+			update_post_meta( $venueId, self::LAT, $data_arr->results[0]->geometry->location->lat );
+		}
+
+		if ( !empty( $data_arr->results[0]->geometry->location->lng ) ) {
+			update_post_meta( $venueId, self::LNG, $data_arr->results[0]->geometry->location->lng );
+		}
+
 		// Saving the aggregated address so we don't need to ping google on every save
 		update_post_meta( $venueId, self::ADDRESS, $address );
-
-		$data_arr = json_decode( $data["body"] );
-		$lat      = $data_arr->results[0]->geometry->location->lat;
-		$lng      = $data_arr->results[0]->geometry->location->lng;
-
-		if ( $lat )
-			update_post_meta( $venueId, self::LAT, $lat );
-		if ( $lng )
-			update_post_meta( $venueId, self::LNG, $lng );
 
 	}
 
