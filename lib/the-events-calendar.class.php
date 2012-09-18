@@ -1284,6 +1284,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				wp_enqueue_style('tribe-events-calendar-style', $styleUrl);
 			
 			wp_register_style('custom-jquery-styles', $eventsURL . 'smoothness/jquery-ui-1.8.23.custom.css' );
+			wp_register_style('select2-css', $eventsURL . 'select2/select2.css' );
+			wp_register_script('select2', $eventsURL . 'select2/select2.min.js', 'jquery' );
 		}
 
 
