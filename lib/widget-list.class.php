@@ -62,7 +62,6 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				echo "<ul class='upcoming'>";
 				foreach( $posts as $post ) : 
 					setup_postdata($post);
-					echo 'template_name:' . $template_name;
 					include $template;
 				endforeach;
 				echo "</ul>";
