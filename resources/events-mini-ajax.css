@@ -1,5 +1,6 @@
 /* = Events Calendar Widget Styles (Sidebar)
    = Modified and new calendar widget code for the ajax version
+   @ Template: list-widget.php
 =============================================*/
 .events_calendar_widget h4.cal-header {
 	margin: 12px 0;
@@ -15,6 +16,7 @@
     height: 22px;
     color: #565656;
     margin-top: 20px;
+    margin-bottom: 6px;
 }
 .tribe-events-widget-nav a {
 	position: absolute; 
