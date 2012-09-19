@@ -378,7 +378,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 
 		public function select_venue_template( $template ) {
-			return ( is_singular( TribeEvents::VENUE_POST_TYPE ) ) ? TribeEventsTemplates::getTemplateHierarchy( 'single-venue' ) : $template;
+			return ( is_singular( TribeEvents::VENUE_POST_TYPE ) ) ? TribeEventsTemplates::getTemplateHierarchy( 'single-venue', '', 'pro', $this->pluginPath ) : $template;
 		}
 
     	public function load_venue_template( $file ) {
