@@ -169,6 +169,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( $this->pluginPath.'public/template-tags/venue.php' );
 			require_once( $this->pluginPath.'public/template-tags/date.php' );
 			require_once( $this->pluginPath.'public/template-tags/link.php' );
+			require_once( $this->pluginPath.'public/template-tags/widgets.php' );
 
 			// Load Advanced Functions
 			require_once( $this->pluginPath.'public/advanced-functions/event.php' );
@@ -2317,9 +2318,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				<div id='eventDetails' class="inside eventForm">
 					<table cellspacing="0" cellpadding="0" id="EventInfo" class="VenueInfo">
 					<?php
-					$venue_meta_box_template = $this->pluginPath . 'admin-views/venue-meta-box.php';
-					$venue_meta_box_template = apply_filters('tribe_events_venue_meta_box_template', $venue_meta_box_template);
-					include( $venue_meta_box_template );
+					$venue_meta_box_template = apply_filters('tribe_events_venue_meta_box_template', $this->pluginPath . 'admin-views/venue-meta-box.php');
+					if( !empty($venue_meta_box_template) )
+						include( $venue_meta_box_template );
 					?>
 					</table>
 				</div>
@@ -2356,9 +2357,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				<div id='eventDetails' class="inside eventForm">
 					<table cellspacing="0" cellpadding="0" id="EventInfo" class="OrganizerInfo">
 					<?php
-					$organizer_meta_box_template = $this->pluginPath . 'admin-views/organizer-meta-box.php';
-					$organizer_meta_box_template = apply_filters('tribe_events_organizer_meta_box_template', $organizer_meta_box_template);
-					include( $organizer_meta_box_template );
+					$organizer_meta_box_template = apply_filters('tribe_events_organizer_meta_box_template', $this->pluginPath . 'admin-views/organizer-meta-box.php');
+					if( !empty($organizer_meta_box_template) )
+						include( $organizer_meta_box_template );
 					?>
 					</table>
 				</div>

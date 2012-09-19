@@ -1,12 +1,7 @@
 <?php
-
 /**
- * The abstracted view of the events list template.
- * This view contains the hooks and filters required to create an effective list view.
- *
- * You can recreate and ENTIRELY new list view (that does not utilize these hooks and filters)
- * by doing a template override, and placing a list.php file in a tribe-events/ directory 
- * within your theme directory, which will override the /views/list.php.
+ * @for Events List Template
+ * This file contains the hook logic required to create an effective event list view.
  *
  * @package TribeEventsCalendar
  * @since  2.1
@@ -21,7 +16,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 
 		private $first = true;
 
-		function init(){
+		public static function init(){
 			// start list template
 			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 
@@ -52,23 +47,23 @@ if( !class_exists('Tribe_Events_List_Template')){
 			add_filter( 'tribe_events_list_inside_after_loop', array( __CLASS__, 'inside_after_loop' ), 1, 1 );
 			add_filter( 'tribe_events_list_after_loop', array( __CLASS__, 'after_loop' ), 1, 1 );
 	
-			// event notice
+			// event notices
 			add_filter( 'tribe_events_list_notices', array( __CLASS__, 'notices' ), 1, 2 );
 
 			// list pagination
 			add_filter( 'tribe_events_list_before_pagination', array( __CLASS__, 'before_pagination' ), 1, 1 );
-			add_filter( 'tribe_events_list_prev_pagination', array( __CLASS__, 'prev_pagination' ), 1, 1 );
-			add_filter( 'tribe_events_list_next_pagination', array( __CLASS__, 'next_pagination' ), 1, 1 );
+			add_filter( 'tribe_events_list_pagination', array( __CLASS__, 'pagination' ), 1, 1 );
 			add_filter( 'tribe_events_list_after_pagination', array( __CLASS__, 'after_pagination' ), 1, 1 );
 
 			// end list template
 			add_filter( 'tribe_events_list_after_template', array( __CLASS__, 'after_template' ), 1, 2 );
 		}
+		// Start List Template
 		public function before_template( $post_id ){
 			$html = '<div id="tribe-events-content" class="upcoming">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_template');
 		}
-		// View buttons
+		// List View Buttons
 		public function the_view_buttons( $post_id ){
 			$html = '';
 			if(!tribe_is_day())
@@ -80,16 +75,16 @@ if( !class_exists('Tribe_Events_List_Template')){
 				$html .= '</div>';			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_view_buttons');
 		}
+		// Start List Loop
 		public function before_loop( $post_id ){
 			$html = '<div id="tribe-events-loop" class="tribe-events-events post-list clearfix">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_loop');
 		}
-		
-		// Start Event
 		public function inside_before_loop( $post_id ){
-			$html = '<div id="post-'. $post_id .'" class="'. implode(" ", get_post_class( 'tribe-events-event clearfix', $post_id )) .'" itemscope itemtype="http://schema.org/Event">';
+			$html = '<div id="post-'. get_the_ID() .'" class="'. implode(" ", get_post_class( 'tribe-events-event clearfix', $post_id )) .'" itemscope itemtype="http://schema.org/Event">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_inside_before_loop');
 		}
+		// Event Start Date
 		public function the_start_date( $post_id ){
 			$html = '';
 			if (tribe_is_new_event_day() && !tribe_is_day())
@@ -100,29 +95,29 @@ if( !class_exists('Tribe_Events_List_Template')){
 			}
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_start_date');
 		}
-		
+		// Event Title
 		public function the_title( $post_id ){
 			$html = '<h2 class="entry-title" itemprop="name"><a href="'. tribe_get_event_link() .'" title="'. the_title_attribute( 'echo=0' ) .'" rel="bookmark">'. get_the_title( $post_id ) .'</a></h2>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_title');
 		}
-		
+		// Event Content
 		public function before_the_content( $post_id ){
 			$html = '<div class="entry-content tribe-events-event-entry" itemprop="description">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_the_content');
 		}
 		public function the_content( $post_id ){
 			$html = '';
-			if (has_excerpt( $post_id ))
+			if (has_excerpt())
 				$html .= get_the_excerpt();
 			else
 				$html .= get_the_content();
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_content');
 		}
 		public function after_the_content( $post_id ){
-			$html = '</div>';
+			$html = '</div><!-- .entry-content -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_the_content');
 		}
-		// Event Details
+		// Event Meta
 		public function before_the_meta( $post_id ){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_the_meta');
@@ -195,7 +190,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 				<?php endif; ?>
 				
 				</table>
-			</div>
+			</div><!-- .tribe-events-event-list-meta -->
 <?php
 			$html = ob_get_clean();
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_meta');
@@ -204,6 +199,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_the_meta');
 		}
+		// End List Loop
 		public function inside_after_loop( $post_id ){
 			$html = '</div><!-- #post -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_inside_after_loop');
@@ -212,52 +208,50 @@ if( !class_exists('Tribe_Events_List_Template')){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_loop');
 		}
-		
-		// Template Notices
+		// Event Notices
 		public function notices( $notices = array(), $post_id ) {
 			$html = '';
 			if(!empty($notices))	
 				$html .= '<div class="event-notices">' . implode('<br />', $notices) . '</div><!-- .event-notices -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_notices');
 		}
-		
-		// Navigation
+		// List Pagination
 		public function before_pagination( $post_id ){
-			$html = '</div>';
+			$html = '</div><!-- #tribe-events-loop -->';
 			$html .= '<div id="tribe-events-nav-below" class="tribe-events-nav clearfix">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_pagination');
 		}
-		
 		public function pagination( $post_id ){
 			// Display Previous Page Navigation
 			$html = '<div class="tribe-events-nav-previous">';
 			if(tribe_is_upcoming() && get_previous_posts_link())
-				$html .= previous_posts_link( '<span>'.__( '&laquo; Previous Events', 'tribe-events-calendar' ).'</span>' );
+				$html .= get_previous_posts_link( '<span>'. __( '&laquo; Previous Events', 'tribe-events-calendar' ) .'</span>' );
 			elseif(tribe_is_upcoming() && !get_previous_posts_link())
 				$html .= '<a href="'. tribe_get_past_link() .'"><span>'. __( '&laquo; Previous Events', 'tribe-events-calendar' ) .'</span></a>';
 			elseif(tribe_is_past() && get_next_posts_link()) 
-				$html .= next_posts_link( '<span>'.__( '&laquo; Previous Events', 'tribe-events-calendar' ).'</span>' );
-			$html .= '</div>';
+				$html .= get_next_posts_link( '<span>'. __( '&laquo; Previous Events', 'tribe-events-calendar' ) .'</span>' );
+			$html .= '</div><!-- .tribe-events-nav-previous -->';
 			// Display Next Page Navigation
 			$html .= '<div class="tribe-events-nav-next">';
 			if(tribe_is_upcoming() && get_next_posts_link())
-				$html .= next_posts_link( '<span>'.__( 'Next Events &raquo;', 'tribe-events-calendar' ).'</span>' );
+				$html .= get_next_posts_link( '<span>'. __( 'Next Events &raquo;', 'tribe-events-calendar' ) .'</span>' );
 			elseif(tribe_is_past() && get_previous_posts_link())
-				$html .= previous_posts_link( '<span>'.__( 'Next Events &raquo;', 'tribe-events-calendar' ).'</span>' );
+				$html .= get_previous_posts_link( '<span>'. __( 'Next Events &raquo;', 'tribe-events-calendar' ) .'</span>' );
 			elseif(tribe_is_past() && !get_previous_posts_link()) 
 				$html .= '<a href="'. tribe_get_upcoming_link() .'"><span>'. __( 'Next Events &raquo;', 'tribe-events-calendar' ) .'</span></a>';
-			$html .= '</div>';
+			$html .= '</div><!-- .tribe-events-nav-next -->';	
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_pagination');
 		}
 		public function after_pagination( $post_id ){
-			$html = '</div>';
+			$html = '</div><!-- #tribe-events-nav-below -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_pagination');
 		}
+		// End List Template
 		public function after_template( $hasPosts = false, $post_id ){
 			$html = '';
 			if (!empty($hasPosts) && function_exists('tribe_get_ical_link')) // iCal Import
-				$html .= '<a title="'. esc_attr( 'iCal Import', 'tribe-events-calendar' ) .'" class="ical" href="'. tribe_get_ical_link() . __( 'iCal Import', 'tribe-events-calendar' ) .'</a>';
-			$html .= '</div>';
+				$html .= '<a title="'. esc_attr( 'iCal Import', 'tribe-events-calendar' ) .'" class="ical" href="'. tribe_get_ical_link() .'">'. __( 'iCal Import', 'tribe-events-calendar' ) .'</a>';
+			$html .= '</div><!-- #tribe-events-content -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_template');		
 		}
 	}

@@ -3,15 +3,22 @@
  * Events List Widget Template
  * This is the template for the output of the events list widget. 
  * All the items are turned on and off through the widget admin.
- * There is currently no default styling, which is highly needed.
+ * There is currently no default styling, which is needed.
  *
- * You can customize this view by putting a replacement file of the same name
- * (/widgets/list-widget.php) in the tribe-events/ directory of your theme.
+ * This view contains the filters required to create an effective events list widget view.
+ *
+ * You can recreate an ENTIRELY new events list widget view by doing a template override,
+ * and placing a list-widget.php file in a tribe-events/widgets/ directory 
+ * within your theme directory, which will override the /views/widgets/list-widget.php.
+ *
+ * You can use any or all filters included in this file or create your own filters in 
+ * your functions.php. In order to modify or extend a single filter, please see our
+ * readme on templates hooks and filters (TO-DO)
  *
  * @return string
  *
  * @package TribeEventsCalendar
- * @since  1.0
+ * @since  2.1
  * @author Modern Tribe Inc.
  *
  */
@@ -25,7 +32,6 @@
 // '$event->Cost',
 // '$event->Phone',
 
-// Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 $event = array();
@@ -43,30 +49,25 @@ if ( !isset( $alt_text ) ) { $alt_text = ''; }
 post_class( $alt_text, $post->ID );
 $class = ob_get_contents();
 ob_end_clean();
-?>
 
-<li <?php echo $class; ?>>
+// start list widget template
+echo apply_filters( 'tribe_events_list_widget_before_template', '', get_the_ID() );
 
-	<div class="when">
-		<?php
-			$space = false;
-			$output = ''; 			
-			echo tribe_get_start_date( $post->ID ); 
-
-         	if( tribe_is_multiday( $post->ID ) ) {
-            	echo '<br/>' . __( 'Ends', 'tribe-events-calendar-pro') . ' ';
-				echo tribe_get_end_date( $post->ID );
-         	}
-
-			if($event->AllDay) {
-				echo ' <small><em>('. __( 'All Day', 'tribe-events-calendar' ) .')</em></small>';
-         	}
-      ?> 
-	</div><!-- .when -->
+	// start single event
+	echo apply_filters( 'tribe_events_list_widget_before_the_event', '', get_the_ID() );
 	
-	<div class="event">
-		<a href="<?php echo get_permalink( $post->ID ); ?>"><?php echo $post->post_title; ?></a>
-	</div><!-- .event -->
+		// event dates
+		echo apply_filters( 'tribe_events_list_widget_before_the_date', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_list_widget_the_date', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_list_widget_after_the_date', '', get_the_ID() );
 
-</li>
-<?php $alt_text = ( empty( $alt_text ) ) ? 'alt' : ''; ?>
+		// event title
+		echo apply_filters( 'tribe_events_list_widget_before_the_title', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_list_widget_the_title', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_list_widget_after_the_title', '', get_the_ID() );
+	
+	// end single event
+	echo apply_filters( 'tribe_events_list_widget_after_the_event', '', get_the_ID() );
+
+// end list widget template
+echo apply_filters( 'tribe_events_list_widget_after_template', '', get_the_ID() );

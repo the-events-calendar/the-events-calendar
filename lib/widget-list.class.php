@@ -26,7 +26,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			return $this->widget_output( $args, $instance );
 		}
 
-		function widget_output( $args, $instance, $template_name='events-list-load-widget-display' ) {
+		function widget_output( $args, $instance, $template_name='list-widget', $subfolder = '', $namespace = '/', $pluginPath = '' ) {
 			global $wp_query, $tribe_ecp, $post;
 			extract( $args, EXTR_SKIP );
 			extract( $instance, EXTR_SKIP );
@@ -43,7 +43,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 
 			if( function_exists( 'tribe_get_events' ) ) {
 				$posts = tribe_get_events( 'eventDisplay=upcoming&posts_per_page=' . $limit .'&eventCat=' . $category );
-				$template = TribeEventsTemplates::getTemplateHierarchy( $template_name );
+				$template = TribeEventsTemplates::getTemplateHierarchy( $template_name, $subfolder, $namespace, $pluginPath );
 			}
 
 			// if no posts, and the don't show if no posts checked, let's bail

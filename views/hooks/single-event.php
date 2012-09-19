@@ -1,12 +1,7 @@
 <?php
-
 /**
- * The abstracted view of a single event.
- * This view contains the hooks and filters required to create an effective single event view.
- *
- * You can recreate and ENTIRELY new single view (that does not utilize these hooks and filters)
- * by doing a template override, and placing a single-event.php file in a tribe-events/ directory
- * within your theme directory, which will override the /views/single-event.php.
+ * @for Single Event Template
+ * This file contains the hook logic required to create an effective single event view.
  *
  * @package TribeEventsCalendar
  * @since  2.1
@@ -18,7 +13,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 if( !class_exists('Tribe_Events_Single_Event_Template')){
 	class Tribe_Events_Single_Event_Template extends Tribe_Template_Factory {
-		function init(){
+		public static function init(){
 			// start single template
 			add_filter( 'tribe_events_single_event_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 
@@ -51,11 +46,12 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			// end single template
 			apply_filters( 'tribe_events_single_event_after_template', array( __CLASS__, 'after_template' ), 1, 1 );
 		}
-		// Back Button
+		// Start Single Template
 		public function before_template( $post_id ){
 			$html = '<span class="back"><a href="' . tribe_get_events_link( $post_id ) . '">' . __('&laquo; Back to Events', 'tribe-events-calendar') . '</a></span>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_before_template');
 		}
+		// Event Title
 		public function before_the_title( $post_id ){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_before_the_title');
@@ -67,18 +63,18 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_after_the_title');
 		}
-		// Template Notices
+		// Event Notices
 		public function notices( $notices = array(), $post_id ) {
 			$html = '';
 			if(!empty($notices))	
 				$html .= '<div class="event-notices">' . implode('<br />', $notices) . '</div>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_notices');
 		}
+		// Event Meta
 		public function before_the_meta( $post_id ){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_before_the_meta');
 		}
-		// Single event meta
 		public function the_meta( $post_id ){
 			ob_start();
 ?>
@@ -184,14 +180,14 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_after_the_meta');
 		}
-		// Embedded Google map
+		// Embedded Google Map
 		public function the_map( $post_id ){
 			$html = '';
-			if( tribe_embed_google_map( $post_id ) &&  tribe_address_exists( $post_id ) ) 
-				$html = tribe_get_embedded_map();
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_before_the_map');
-		}
-		// Single event content
+			if(tribe_embed_google_map(get_the_ID()) && tribe_address_exists(get_the_ID()))
+				$html .= tribe_get_embedded_map();
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_the_map');
+		}		
+		// Event Content
 		public function before_the_content( $post_id ){
 			$html = '<div class="entry">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_before_the_content');
@@ -218,7 +214,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 				$html .= '<a href="' . tribe_get_gcal_link() . '" class="gcal-add" title="' . __('Add to Google Calendar', 'tribe-events-calendar') . '">' . __('+ Google Calendar', 'tribe-events-calendar') . '</a>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_after_the_content');
 		}
-		// Single event navigation
+		// Event Pagination
 		public function before_pagination( $post_id){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_before_pagination');
@@ -231,6 +227,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_after_pagination');
 		}
+		// After Single Template
 		public function after_template( $post_id ){
 			$html = '<div style="clear:both"></div>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_after_template');
