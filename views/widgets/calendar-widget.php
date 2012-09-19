@@ -73,12 +73,7 @@ echo apply_filters( 'tribe_events_calendar_widget_before_template', get_the_ID()
 	
 		// calendar days of the week
 		echo apply_filters( 'tribe_events_calendar_widget_before_the_days', get_the_ID() );
-		
-			for( $n = $startOfWeek; $n < count( $tribe_ecp->daysOfWeekMin ) + $startOfWeek; $n++ ) {
-				$dayOfWeek = ( $n >= 7 ) ? $n - 7 : $n;
-				echo '<th id="tribe-events-' . strtolower( $tribe_ecp->daysOfWeekMin[$dayOfWeek] ) . '" title="' . $tribe_ecp->daysOfWeek[$dayOfWeek] . '">' . $tribe_ecp->daysOfWeekMin[$dayOfWeek] . '</th>';
-			}
-		
+		echo apply_filters( 'tribe_events_calendar_widget_before_the_days', get_the_ID(), $startOfWeek );
 		echo apply_filters( 'tribe_events_calendar_widget_after_the_days', get_the_ID() );
 
 		// calendar dates

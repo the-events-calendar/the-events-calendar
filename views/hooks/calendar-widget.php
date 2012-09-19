@@ -31,6 +31,7 @@ if( !class_exists('Tribe_Events_Calendar_Widget_Template')){
 	
 			// calendar days of the week
 			add_filter( 'tribe_events_calendar_widget_before_the_days', array( __CLASS__, 'before_the_days' ), 1, 1 );
+			add_filter( 'tribe_events_calendar_widget_the_days', array( __CLASS__, 'the_days' ), 1, 2 );
 			add_filter( 'tribe_events_calendar_widget_after_the_days', array( __CLASS__, 'after_the_days' ), 1, 1 );
 
 			// calendar dates
@@ -75,6 +76,15 @@ if( !class_exists('Tribe_Events_Calendar_Widget_Template')){
 		public function before_the_days( $post_id ){
 			$html = '<thead><tr>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_widget_before_the_days');
+		}
+		public function the_days( $post_id, $startOfWeek ) {
+			$tribe_ecp = TribeEvents::instance();
+			$html = '';
+			for( $n = $startOfWeek; $n < count( $tribe_ecp->daysOfWeekMin ) + $startOfWeek; $n++ ) {
+				$dayOfWeek = ( $n >= 7 ) ? $n - 7 : $n;
+				$html .= '<th id="tribe-events-' . strtolower( $tribe_ecp->daysOfWeekMin[$dayOfWeek] ) . '" title="' . $tribe_ecp->daysOfWeek[$dayOfWeek] . '">' . $tribe_ecp->daysOfWeekMin[$dayOfWeek] . '</th>';
+			}
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_widget_the_days');
 		}
 		public function after_the_days( $post_id ){
 			$html = '</tr></thead>';
