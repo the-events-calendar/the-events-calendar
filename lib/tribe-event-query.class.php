@@ -10,16 +10,38 @@ if (!class_exists('TribeEventsQuery')) {
 	class TribeEventsQuery {
 
 		function pre_get_posts( $query ) {
-			if ( !is_admin() 
-				&& (
-					  ((isset($_GET['post_type']) && $_GET['post_type'] == TribeEvents::POSTTYPE) || (isset($_GET['tribe_events_cat']) && $_GET['tribe_events_cat'] != '')) 
-					  || ((isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == TribeEvents::POSTTYPE) || (isset($query->query_vars['tribe_events_cat']) && $query->query_vars['tribe_events_cat'] != ''))
-					)
-				)
-			{
-				return apply_filters( 'tribe_events_pre_get_posts', $query );
-			}
-			return $query;
+
+			// check if any possiblity of this being an event query
+			$query->is_event = ( (isset($_GET['post_type']) && $_GET['post_type'] == TribeEvents::POSTTYPE) 
+				|| (isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == TribeEvents::POSTTYPE) )
+				? true // it was an event query
+				: false;
+
+			// check if any possiblity of this being an event category
+			$query->is_event_category = ( (isset($_GET[TribeEvents::TAXONOMY]) && $_GET[TribeEvents::TAXONOMY] != '')
+				|| (isset($query->query_vars[TribeEvents::TAXONOMY]) && $query->query_vars[TribeEvents::TAXONOMY] != '') ) 
+				? true // it was an event category
+				: false;
+
+			$query->is_event_venue = ( (isset($_GET['post_type']) && $_GET['post_type'] == TribeEvents::VENUE_POST_TYPE) 
+				|| (isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == TribeEvents::VENUE_POST_TYPE) )
+				? true // it was an event venue
+				: false;
+
+			$query->is_event_organizer = ( (isset($_GET['post_type']) && $_GET['post_type'] == TribeEvents::ORGANIZER_POST_TYPE) 
+				|| (isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == TribeEvents::ORGANIZER_POST_TYPE) )
+				? true // it was an event organizer
+				: false;
+
+			$query->is_event_query = $query->is_event
+				|| $query->is_event_category
+				|| $query->is_event_venue
+				|| $query->is_event_organizer
+				? true // this is an event query of some type
+				: false; // move along, this is not the query you are looking for
+
+			// check if is_event_query === true and hook filter
+			return $query->is_event_query ? apply_filters( 'tribe_events_pre_get_posts', $query ) : $query;
 		}
 	
 		public static function init() {
@@ -92,9 +114,39 @@ if (!class_exists('TribeEventsQuery')) {
 			return $query;
 		}
 
-		public static function getEvents($args) {
-			return get_posts($args);
+		public static function getEvents( $args = array() ) {
+
+			$defaults = array(
+				'post_type' => TribeEvents::POSTTYPE,
+				'meta_query' => array(
+					'relation' => 'AND',
+					array(
+						'key' => '_EventStartDate',
+						// 'value' => 
+						'type' => 'DATETIME'
+						)
+					),
+				// 'meta_key' => '_EventStartDate',
+				'orderby' => 'meta_value',
+				'order' => 'ASC',
+				'posts_per_page' => tribe_get_option( 'postsPerPage', 10 )
+			);	
+			$args = wp_parse_args( $args, $defaults);
+
+			$wp_query = new WP_Query( $args );
+			// print_r($wp_query);
+
+			if( ! empty($wp_query->posts) ) {
+				$posts = $wp_query->posts;
+				return $posts;
+			} else {
+				return NULL;
+			}
 		}
+
+		// public static function getEvents($args) {
+		// 	return get_posts($args);
+		// }
 
 		public static function setArgsFromDisplayType($query) { 
         	if( !empty($query->query_vars['eventDisplay']) ) {
