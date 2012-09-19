@@ -51,33 +51,35 @@ $class = ob_get_contents();
 ob_end_clean();
 
 // start featured widget template
-echo apply_filters( 'tribe_events_featured_widget_before_template', '', get_the_ID() );
+echo apply_filters( 'tribe_events_pro_featured_widget_before_template', $post->ID );
 
 	// start single event
-	echo apply_filters( 'tribe_events_featured_widget_before_the_event', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_pro_featured_widget_before_the_event', $post->ID );
 		
 		// event title
-		echo apply_filters( 'tribe_events_featured_widget_before_the_title', '', get_the_ID() );
-		echo apply_filters( 'tribe_events_featured_widget_the_title', '', get_the_ID() );
-		echo apply_filters( 'tribe_events_featured_widget_after_the_title', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_pro_featured_widget_before_the_title', $post->ID );
+		echo apply_filters( 'tribe_events_pro_featured_widget_the_title', $post );
+		echo apply_filters( 'tribe_events_pro_featured_widget_after_the_title', $post->ID );
 		
 		// event dates
-		echo apply_filters( 'tribe_events_featured_widget_before_the_date', '', get_the_ID() );
-		echo apply_filters( 'tribe_events_featured_widget_the_date', '', get_the_ID() );
-		echo apply_filters( 'tribe_events_featured_widget_after_the_date', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_pro_featured_widget_before_the_date', $post->ID );
+		echo apply_filters( 'tribe_events_pro_featured_widget_the_date', $post->ID, $event );
+		echo apply_filters( 'tribe_events_pro_featured_widget_after_the_date', $post->ID );
 		
 		// event location
-		echo apply_filters( 'tribe_events_featured_widget_before_the_location', '', get_the_ID() );
-		echo apply_filters( 'tribe_events_featured_widget_the_location', '', get_the_ID() );
-		echo apply_filters( 'tribe_events_featured_widget_after_the_location', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_pro_featured_widget_before_the_location', $post->ID );
+		echo apply_filters( 'tribe_events_pro_featured_widget_the_location', $post->ID );
+		echo apply_filters( 'tribe_events_pro_featured_widget_after_the_location', $post->ID );
 		
 		// event content
-		echo apply_filters( 'tribe_events_featured_widget_before_the_content', '', get_the_ID() );
-		echo apply_filters( 'tribe_events_featured_widget_the_content', '', get_the_ID() );
-		echo apply_filters( 'tribe_events_featured_widget_after_the_content', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_pro_featured_widget_before_the_content', $post->ID );
+		echo apply_filters( 'tribe_events_pro_featured_widget_the_content', $post->ID );
+		echo apply_filters( 'tribe_events_pro_featured_widget_after_the_content', $post->ID );
 	
 	// end single event
-	echo apply_filters( 'tribe_events_featured_widget_after_the_event', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_pro_featured_widget_after_the_event', $post->ID );
 
 // end featured widget template
-echo apply_filters( 'tribe_events_featured_widget_after_template', '', get_the_ID() );
+echo apply_filters( 'tribe_events_pro_featured_widget_after_template', $post->ID );
+
+$alt_text = ( empty( $alt_text ) ) ? 'alt' : '';
