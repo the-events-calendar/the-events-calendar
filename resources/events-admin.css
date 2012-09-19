@@ -144,6 +144,9 @@ td.tribe_message {padding-bottom: 10px !important;}
 #tribe-help-sidebar {width: 25%; max-width: 200px; margin: 20px 0 0 5%;}
 #tribe-help-plugin-info {border: 1px solid #CCC; padding: 0 12px;}
 
+/* miscellaneous */
+.tribe-admin-box-left {float:left; width: 50%; margin: 20px 0; background-color: #f9f9f9; padding: 0px 20px 15px; border: 1px solid #ccc; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; -o-border-radius: 4px;}
+.tribe-admin-box-right {float:right; width: 38%; margin: 20px 0; background-color: #f9f9f9; padding: 0px 20px 15px; border: 1px solid #ccc; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; -o-border-radius: 4px;}
 
 /* = Help Screen
 =============================================*/
