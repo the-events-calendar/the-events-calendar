@@ -23,7 +23,7 @@ if( !class_exists('Tribe_Events_Calendar_Widget_Template')){
 
 			// calendar ajax navigation
 			add_filter( 'tribe_events_calendar_widget_before_the_nav', array( __CLASS__, 'before_the_nav' ), 1, 1 );
-			add_filter( 'tribe_events_calendar_widget_the_nav', array( __CLASS__, 'the_nav' ), 1, 1 );
+			add_filter( 'tribe_events_calendar_widget_the_nav', array( __CLASS__, 'the_nav' ), 1, 3 );
 			add_filter( 'tribe_events_calendar_widget_after_the_nav', array( __CLASS__, 'after_the_nav' ), 1, 1 );
 
 			// start calendar
@@ -35,6 +35,7 @@ if( !class_exists('Tribe_Events_Calendar_Widget_Template')){
 
 			// calendar dates
 			add_filter( 'tribe_events_calendar_widget_before_the_dates', array( __CLASS__, 'before_the_dates' ), 1, 1 );
+			add_filter( 'tribe_events_calendar_widget_the_dates', array( __CLASS__, 'the_dates' ), 1, 2 );
 			add_filter( 'tribe_events_calendar_widget_after_the_dates', array( __CLASS__, 'after_the_dates' ), 1, 1 );
 	
 			// end calendar
@@ -53,7 +54,8 @@ if( !class_exists('Tribe_Events_Calendar_Widget_Template')){
 			$html = '<div class="tribe-events-widget-nav">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_widget_before_the_nav');
 		}
-		public function the_nav( $post_id ){
+		public function the_nav( $post_id, $current_date, $date ){
+			$tribe_ecp = TribeEvents::instance();
 			$html = '<a class="tribe-mini-ajax prev-month" href="#" data-month="'. $tribe_ecp->previousMonth( $current_date ) .'" title="'. tribe_get_previous_month_text() .'"><span>'. tribe_get_previous_month_text() .'</span></a>';
 			$html .= '<span id="tribe-mini-ajax-month">'. $tribe_ecp->monthsShort[date( 'M',$date )]; date( ' Y',$date ) .'</span>';
 			$html .= '<a class="tribe-mini-ajax next-month" href="#" data-month="'. $tribe_ecp->nextMonth( $current_date ) .'" title="'. tribe_get_next_month_text() .'"><span>'. tribe_get_next_month_text() .'</span></a>';
@@ -82,6 +84,53 @@ if( !class_exists('Tribe_Events_Calendar_Widget_Template')){
 		public function before_the_dates( $post_id ){
 			$html = '<tbody><tr>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_widget_before_the_dates');
+		}
+		public function the_dates( $post_id, $args = array() ){
+			extract( $args, EXTR_SKIP );
+			ob_start();
+			// skip last month
+			for( $i = 1; $i <= $offset; $i++ ) { 
+				echo '<td class="tribe-events-othermonth"></td>';
+			}
+			// output this month
+			for( $day = 1; $day <= date( "t", $date ); $day++ ) {
+			    
+			    if( ( $day + $offset - 1 ) % 7 == 0 && $day != 1 ) {
+			        echo "</tr>\n\t<tr>";
+			        $rows++;
+			    }
+
+				// Var'ng up days, months and years
+				$current_day = date_i18n( 'd' );
+				$current_month = date_i18n( 'm' );
+				$current_year = date_i18n( 'Y' );
+				
+				if ( $current_month == $month && $current_year == $year) {
+					// Past, Present, Future class
+					if ( $current_day == $day ) {
+						$ppf = ' tribe-events-present';
+					} elseif ($current_day > $day) {
+						$ppf = ' tribe-events-past';
+					} elseif ($current_day < $day) {
+						$ppf = ' tribe-events-future';
+					}
+				} elseif ( $current_month > $month && $current_year == $year || $current_year > $year ) {
+					$ppf = ' tribe-events-past';
+				} elseif ( $current_month < $month && $current_year == $year || $current_year < $year ) {
+					$ppf = ' tribe-events-future';
+				} else { $ppf = false; }
+			   
+			    echo "<td class=\"tribe-events-thismonth". $ppf ."\">". tribe_mini_display_day( $day, $monthView ) ."\n";
+				echo "</td>";
+			
+			}
+			// skip next month
+			while( ( $day + $offset ) <= $rows * 7 ) {
+			    echo '<td class="tribe-events-othermonth"></td>';
+			    $day++;
+			}
+			$html = ob_get_clean();
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_widget_the_dates');
 		}
 		public function after_the_dates( $post_id ){
 			$html = '</tr></tbody>';

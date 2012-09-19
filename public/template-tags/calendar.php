@@ -33,7 +33,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_calendar_mini_grid() {
 		set_query_var( 'eventDisplay', 'bydate' );
-		load_template( TribeEventsTemplates::getTemplateHierarchy( 'table-mini' ) );
+		load_template( TribeEventsTemplates::getTemplateHierarchy( 'calendar-widget', 'widgets' ) );
 	}
 
 	/**
