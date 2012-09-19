@@ -69,7 +69,8 @@ class TribeEventsCustomMeta {
 			
 			$events_event_meta_template = TribeEventsPro::instance()->pluginPath . 'admin-views/event-meta.php';
 			$events_event_meta_template = apply_filters('tribe_events_event_meta_template', $events_event_meta_template);
-			include( $events_event_meta_template );
+			if( !empty($events_event_meta_template) )
+				include( $events_event_meta_template );
     }
 
 	/**

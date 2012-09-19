@@ -1,15 +1,25 @@
-/* Stylesheet for all pro-only functionality */
+/**
+ * The Events Calendar Pro Stylesheet
+ * (Some of these styles may override your current theme's styles)
+ *
+ * You can customize this stylesheet by putting a stylesheet of the same name
+ * (events.css) in the events/ directory of your theme.
+ *
+ * @package TribeEventsCalendar
+ * @since  1.0
+ * @author Modern Tribe Inc.
+ *
+ */
  
-/* Related Events */
+/* = Related Events
+=============================================*/
 .related-events-title {
 	color: #666;
 }
- 
 ul.related-events {
 	display: block;
 	margin: 0;
 }
- 
 ul.related-events li {
 	display: block;
 	min-width: 160px;
@@ -18,37 +28,35 @@ ul.related-events li {
 	float: left;
 	list-style-type: none;
 }
- 
 .related-event-date {
 	font-size: .75em;
 	text-transform: uppercase;
 }
  
  
-/* Events Countdown Widget */
-.tribe-countdown-timer span.tribe-countdown-seconds, .tribe-countdown-timer span.format, .tribe-countdown-timer span.tribe-countdown-complete {
+/* = Events Countdown Widget
+=============================================*/
+.tribe-countdown-timer span.tribe-countdown-seconds,
+.tribe-countdown-timer span.format, 
+.tribe-countdown-timer span.tribe-countdown-complete {
 	display: none;
 }
- 
 div.tribe-countdown-timer {
 	text-align: center;
 	line-height: 1.5em;
 	padding-top: 10px;
 }
- 
 div.tribe-countdown-number {
 	float: left;
 	color: #000;
 	font-size: 2.4em;
 }
- 
 span.tribe-countdown-under {
 	font-size: 10px;
 	color: #666;
 	text-transform: uppercase;
 	font-weight: 500;
 }
- 
 div.tribe-countdown-colon {
 	float: left;
 	color: #666;
@@ -58,7 +66,6 @@ div.tribe-countdown-colon {
 div.tribe-countdown-right {
 	float: left;
 }
- 
 div.tribe-countdown-text {
 	clear: both;
 }
