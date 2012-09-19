@@ -225,25 +225,34 @@ if (!class_exists('TribeEventsTemplates')) {
 		 * @return template path
 		 * @author Matt Wiebe
 		 **/
-		public static function getTemplateHierarchy($template, $subfolder = '') {
-			$tribe_ecp = TribeEvents::instance();
+		public static function getTemplateHierarchy($template, $subfolder = '', $namespace = '/', $pluginPath = '') {
 
 			if ( substr($template, -4) != '.php' ) {
 				$template .= '.php';
 			}
 
-			$subfolder = !empty($subfolder) && $subfolder[0] != '/' ? '/' . $subfolder : $subfolder;
+			// allow pluginPath to be set outside of this method
+			$pluginPath = empty($pluginPath) ? TribeEvents::instance()->pluginPath : $pluginPath;
 
-			$subfolder = trailingslashit($subfolder);
+			// ensure that addon plugins look in the right override folder in theme
+			$namespace = !empty($namespace) && $namespace[0] != '/' ? '/' . trailingslashit($namespace) : trailingslashit($namespace);
 
-			if( file_exists($tribe_ecp->pluginPath . 'views/hooks/' . $template))
-				include_once $tribe_ecp->pluginPath . 'views/hooks/' . $template;
+			// setup subfolder options
+			$subfolder = !empty($subfolder) ? trailingslashit($subfolder) : $subfolder;
 
-			if ( $theme_file = locate_template(array('tribe-events' . $subfolder . $template)) ) {
+			if( file_exists($pluginPath . 'views/hooks/' . $template))
+				include_once $pluginPath . 'views/hooks/' . $template;
+
+			if ( $theme_file = locate_template( array('tribe-events' . $namespace . $subfolder . $template ), false, false) ) {
 				$file = $theme_file;
 			} else {
-				$file = $tribe_ecp->pluginPath . 'views' . $subfolder . $template;
+				// protect from concat folder with filename
+				$subfolder = empty($subfolder) ? trailingslashit($subfolder) : $subfolder;
+				$subfolder = $subfolder[0] != '/' ? '/' . $subfolder : $subfolder;
+
+				$file = $pluginPath . 'views' . $subfolder . $template;
 			}
+
 			return apply_filters( 'tribe_events_template_'.$template, $file);
 		}
 	
