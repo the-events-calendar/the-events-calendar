@@ -265,6 +265,56 @@ if( class_exists( 'TribeEvents' ) ) {
 		return apply_filters( 'tribe_get_cost', $cost );
 	}
 	
+	/**
+	 * Get the minimum cost of all events.
+	 *
+	 * @author PaulHughes01
+	 * @since 2.1
+	 * @return int the minimum cost.
+	 */
+	function tribe_get_minimum_cost() {
+		global $wpdb;
+		
+		$costs = $wpdb->get_col( 'SELECT meta_value FROM ' . $wpdb->postmeta . ' WHERE meta_key = \'_EventCost\';');
+		
+		$costs_function = function( $costs ) {
+			return $costs;
+		};
+		
+		$costs = array_map( $costs_function, $costs );
+		
+		$min = min( $costs );
+		if ( $min == '' )
+			$min = 0;
+			
+		return $min;
+	}
+	
+	/**
+	 * Get the maximum cost of all events.
+	 *
+	 * @author PaulHughes01
+	 * @since 2.1
+	 * @return int the maximum cost.
+	 */
+	function tribe_get_maximum_cost() {
+		global $wpdb;
+		
+		$costs = $wpdb->get_col( 'SELECT meta_value FROM ' . $wpdb->postmeta . ' WHERE meta_key = \'_EventCost\';');
+		
+		$costs_function = function( $costs ) {
+			return $costs;
+		};
+		
+		$costs = array_map( $costs_function, $costs );
+		
+		$max = max( $costs );
+		if ( $max == '' )
+			$max = 0;
+			
+		return $max;
+	}
+	
 	/** 
 	 * Event in Category Conditional
 	 * 
