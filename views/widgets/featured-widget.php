@@ -1,12 +1,17 @@
 <?php
 /**
  * Events Pro Featured Widget Template
- * This is the template for the output of the events list widget. 
- * All the items are turned on and off through the widget admin.
- * There is currently no default styling, which is highly needed.
+ * This is the template for the output of the featured widget.
  *
- * You can customize this view by putting a replacement file of the same 
- * name (/widgets/featured-widget.php) in the tribe-events/ directory of your theme.
+ * This view contains the filters required to create an effective featured widget view.
+ *
+ * You can recreate an ENTIRELY new featured list widget view by doing a template override,
+ * and placing a featured-widget.php file in a tribe-events/widgets/ directory 
+ * within your theme directory, which will override the /views/widgets/featured-widget.php.
+ *
+ * You can use any or all filters included in this file or create your own filters in 
+ * your functions.php. In order to modify or extend a single filter, please see our
+ * readme on templates hooks and filters (TO-DO)
  *
  * When the template is loaded, the following vars are set: $start, $end, $venue, 
  * $address, $city, $state, $province'], $zip, $country, $phone, $cost
@@ -18,7 +23,7 @@
  * @author Modern Tribe Inc.
  *
  */
-
+ 
 // Vars set:
 // '$event->AllDay',
 // '$event->StartDate',
@@ -28,7 +33,6 @@
 // '$event->Cost',
 // '$event->Phone',
 
-// Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 $event = array();
@@ -45,41 +49,35 @@ ob_start();
 post_class( $alt_text,$post->ID );
 $class = ob_get_contents();
 ob_end_clean();
-?>
 
-<div class="event">
-	<a href="<?php echo get_permalink( $post->ID ) ?>"><?php echo $post->post_title; ?></a>
-</div><!-- .event -->
+// start featured widget template
+echo apply_filters( 'tribe_events_featured_widget_before_template', '', get_the_ID() );
 
-<div class="when">
-	<?php 
-		echo tribe_get_start_date( $post->ID, isset( $start ) ? $start : null ); 
+	// start single event
+	echo apply_filters( 'tribe_events_featured_widget_before_the_event', '', get_the_ID() );
+		
+		// event title
+		echo apply_filters( 'tribe_events_featured_widget_before_the_title', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_featured_widget_the_title', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_featured_widget_after_the_title', '', get_the_ID() );
+		
+		// event dates
+		echo apply_filters( 'tribe_events_featured_widget_before_the_date', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_featured_widget_the_date', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_featured_widget_after_the_date', '', get_the_ID() );
+		
+		// event location
+		echo apply_filters( 'tribe_events_featured_widget_before_the_location', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_featured_widget_the_location', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_featured_widget_after_the_location', '', get_the_ID() );
+		
+		// event content
+		echo apply_filters( 'tribe_events_featured_widget_before_the_content', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_featured_widget_the_content', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_featured_widget_after_the_content', '', get_the_ID() );
+	
+	// end single event
+	echo apply_filters( 'tribe_events_featured_widget_after_the_event', '', get_the_ID() );
 
-		if( $event->AllDay && $start )
-			echo ' <small>('.__( 'All Day','tribe-events-calendar-pro' ).')</small>';
-	?> 
-</div><!-- .when -->
-
-<div class="loc">
-	<?php
-		if ( tribe_get_city() != '' ) {
-			echo tribe_get_city() . ', ';
-		}
-		if ( tribe_get_region() != '' ) {
-			echo tribe_get_region() . ', '; 
-		}
-		if ( tribe_get_country() != '' ) {
-			echo tribe_get_country(); 
-		}
-	?>
-</div><!-- .loc -->
-
-<div class="event_body">
-	<?php
-
-	    $content = apply_filters( 'the_content', strip_shortcodes( $post->post_content ) );
-	    $content = str_replace( ']]>', ']]&gt;', $content );
-	    echo wp_trim_words( $content, apply_filters( 'excerpt_length' ), apply_filters( 'excerpt_more' ) );
-	?>
-</div><!-- .event_body -->
-<?php $alt_text = ( empty( $alt_text ) ) ? 'alt' : ''; ?>
+// end featured widget template
+echo apply_filters( 'tribe_events_featured_widget_after_template', '', get_the_ID() );

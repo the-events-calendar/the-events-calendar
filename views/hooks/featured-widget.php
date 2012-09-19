@@ -1,12 +1,7 @@
 <?php
 /**
- * Events Pro List Widget Output Template
- * This is the template for the output of the events list widget. 
- * All the items are turned on and off through the widget admin.
- * There is currently no default styling, which is highly needed.
- *
- * You can customize this view by putting a replacement file of the same 
- * name (/widgets/featured-widget.php) in the tribe-events/ directory of your theme.
+ * @for Events Pro Featured Widget Template
+ * This file contains the hook logic required to create an effective featured widget view.
  *
  * When the template is loaded, the following vars are set: $start, $end, $venue, 
  * $address, $city, $state, $province'], $zip, $country, $phone, $cost
@@ -17,7 +12,7 @@
  * @since  1.0
  * @author Modern Tribe Inc.
  *
- */
+ */ 
 
 // Vars set:
 // '$event->AllDay',
@@ -28,58 +23,138 @@
 // '$event->Cost',
 // '$event->Phone',
 
-// Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-$event = array();
-$tribe_ecp = TribeEvents::instance();
-reset( $tribe_ecp->metaTags ); // Move pointer to beginning of array.
-foreach( $tribe_ecp->metaTags as $tag ) {
-	$var_name = str_replace( '_Event', '', $tag );
-	$event[$var_name] = tribe_get_event_meta( $post->ID, $tag, true );
+if( !class_exists('Tribe_Events_Featured_Widget_Template')){
+	class Tribe_Events_Featured_Widget_Template extends Tribe_Template_Factory {
+		public static function init(){
+			// start featured widget template
+			add_filter( 'tribe_events_featured_widget_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
+	
+			// start single event
+			add_filter( 'tribe_events_featured_widget_before_the_event', array( __CLASS__, 'before_the_event' ), 1, 1 );
+	
+			// event dates
+			add_filter( 'tribe_events_featured_widget_before_the_date', array( __CLASS__, 'before_the_date' ), 1, 1 );
+			add_filter( 'tribe_events_featured_widget_the_date', array( __CLASS__, 'the_date' ), 1, 1 );
+			add_filter( 'tribe_events_featured_widget_after_the_date', array( __CLASS__, 'after_the_date' ), 1, 1 );
+
+			// event title
+			add_filter( 'tribe_events_featured_widget_before_the_title', array( __CLASS__, 'before_the_title' ), 1, 1 );
+			add_filter( 'tribe_events_featured_widget_the_title', array( __CLASS__, 'the_title' ), 1, 1 );
+			add_filter( 'tribe_events_featured_widget_after_the_title', array( __CLASS__, 'after_the_title' ), 1, 1 );
+			
+			// event location
+			add_filter( 'tribe_events_featured_widget_before_the_location', array( __CLASS__, 'before_the_location' ), 1, 1 );
+			add_filter( 'tribe_events_featured_widget_the_location', array( __CLASS__, 'the_location' ), 1, 1 );
+			add_filter( 'tribe_events_featured_widget_after_the_location', array( __CLASS__, 'after_the_location' ), 1, 1 );
+			
+			// event content
+			add_filter( 'tribe_events_featured_widget_before_the_location', array( __CLASS__, 'before_the_location' ), 1, 1 );
+			add_filter( 'tribe_events_featured_widget_the_location', array( __CLASS__, 'the_location' ), 1, 1 );
+			add_filter( 'tribe_events_featured_widget_after_the_location', array( __CLASS__, 'after_the_location' ), 1, 1 );
+	
+			// end single event
+			add_filter( 'tribe_events_featured_widget_after_the_event', array( __CLASS__, 'after_the_event' ), 1, 1 );
+
+			// end featured widget template
+			add_filter( 'tribe_events_featured_widget_after_template', array( __CLASS__, 'after_template' ), 1, 2 );
+		}
+		// Start Featured Widget Template
+		public function before_template( $post_id ){
+			$html = '';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_featured_widget_before_template');
+		}
+		// Start Single Event
+		public function before_the_event( $post_id ){
+			$html = '';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_featured_widget_before_the_event');
+		}
+		// Event Title
+		public function before_the_title( $post_id ){
+			$html = '<div class="event">';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_featured_widget_before_the_title');
+		}
+		public function the_title( $post_id ){
+			$html = '<a href="'. get_permalink( $post->ID ) .'">'. $post->post_title .'</a>';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_featured_widget_the_title');
+		}
+		public function after_the_title( $post_id ){
+			$html = '</div><!-- .event -->';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_featured_widget_after_the_title');
+		}
+		// Event Dates	
+		public function before_the_date( $post_id ){
+			$html = '<div class="when">';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_featured_widget_before_the_date');
+		}
+		public function the_date( $post_id ){
+			$html = tribe_get_start_date( $post->ID, isset( $start ) ? $start : null );
+			if($event->AllDay && $start)
+				$html .= ' <small><em>('. __( 'All Day', 'tribe-events-calendar' ) .')</em></small>';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_featured_widget_the_date');
+		}
+		public function after_the_date( $post_id ){
+			$html = '</div><!-- .when -->';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_featured_widget_after_the_date');
+		}
+		// Event Location
+		public function before_the_location( $post_id ){
+			$html = '<div class="loc">';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_featured_widget_before_the_location');
+		}
+		public function the_location( $post_id ){
+			ob_start();
+
+			if ( tribe_get_city() != '' ) {
+				echo tribe_get_city() . ', ';
+			}
+			if ( tribe_get_region() != '' ) {
+				echo tribe_get_region() . ', '; 
+			}
+			if ( tribe_get_country() != '' ) {
+				echo tribe_get_country(); 
+			}			
+		
+			$html = ob_get_clean();
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_featured_widget_the_location');
+		}
+		public function after_the_location( $post_id ){
+			$html = '</div><!-- .loc -->';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_featured_widget_after_the_location');
+		}
+		// Event Content	
+		public function before_the_content( $post_id ){
+			$html = '<div class="event_body">';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_featured_widget_before_the_content');
+		}
+		public function the_content( $post_id ){
+			ob_start();
+			
+			$content = apply_filters( 'the_content', strip_shortcodes( $post->post_content ) );
+	    	$content = str_replace( ']]>', ']]&gt;', $content );
+	    	echo wp_trim_words( $content, apply_filters( 'excerpt_length' ), apply_filters( 'excerpt_more' ) );
+	    	
+	    	$html = ob_get_clean();
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_featured_widget_the_content');
+		}
+		public function after_the_content( $post_id ){
+			$html = '</div><!-- .event_body -->';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_featured_widget_after_the_content');
+		}
+		// End Single Event
+		public function after_the_event( $post_id ){
+			$html = '';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_featured_widget_after_the_event');
+		}
+		
+		$alt_text = ( empty( $alt_text ) ) ? 'alt' : '';
+		
+		// End Featured Widget Template
+		public function after_template( $post_id ){
+			$html = '';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_featured_widget_after_template');		
+		}
+	}
+	Tribe_Events_Featured_Widget_Template::init();
 }
-
-$event = (object) $event; //Easier to work with.
-
-ob_start();
-post_class( $alt_text,$post->ID );
-$class = ob_get_contents();
-ob_end_clean();
-?>
-
-<div class="event">
-	<a href="<?php echo get_permalink( $post->ID ) ?>"><?php echo $post->post_title; ?></a>
-</div><!-- .event -->
-
-<div class="when">
-	<?php 
-		echo tribe_get_start_date( $post->ID, isset( $start ) ? $start : null ); 
-
-		if( $event->AllDay && $start )
-			echo ' <small>('.__( 'All Day','tribe-events-calendar-pro' ).')</small>';
-	?> 
-</div><!-- .when -->
-
-<div class="loc">
-	<?php
-		if ( tribe_get_city() != '' ) {
-			echo tribe_get_city() . ', ';
-		}
-		if ( tribe_get_region() != '' ) {
-			echo tribe_get_region() . ', '; 
-		}
-		if ( tribe_get_country() != '' ) {
-			echo tribe_get_country(); 
-		}
-	?>
-</div><!-- .loc -->
-
-<div class="event_body">
-	<?php
-
-	    $content = apply_filters( 'the_content', strip_shortcodes( $post->post_content ) );
-	    $content = str_replace( ']]>', ']]&gt;', $content );
-	    echo wp_trim_words( $content, apply_filters( 'excerpt_length' ), apply_filters( 'excerpt_more' ) );
-	?>
-</div><!-- .event_body -->
-<?php $alt_text = ( empty( $alt_text ) ) ? 'alt' : ''; ?>
