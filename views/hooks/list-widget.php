@@ -60,24 +60,19 @@ if( !class_exists('Tribe_Events_PRO_List_Widget_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_before_template');
 		}
 		public function before_the_date( $event ){
-			$html = '';
+			$html = '<div class="when">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_before_the_date');
 		}
 		public function the_date( $event, $post_id = null, $start, $end ){
-			$html = '<div class="when">';
-			$html .= tribe_get_start_date( $post_id, $start ); 
-			if ( $end && $event->EndDate != '') {
-					$html .= '<br/>' . __( 'Ends', 'tribe-events-calendar-pro' ) . ' ';
-					$html .= tribe_get_end_date( $post_id );
-			}
-			if($event->AllDay && $start) {
-				$html .= ' <small><em>('.__( 'All Day','tribe-events-calendar-pro' ).')</em></small>';
-			} 
-			$html .= '</div>';
+			$html = tribe_get_start_date( $post_id, $start );
+			if(tribe_is_multiday( $post_id ) || !$event->AllDay)
+            	$html .= ' – <br/>'. tribe_get_end_date($post_id);
+         	if($event->AllDay)
+				$html .= ' <small><em>('. __('All Day','tribe-events-calendar') .')</em></small>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_the_date');
 		}
 		public function after_the_date( $event ){
-			$html = '';
+			$html = '</div><!-- .when -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_after_the_date');
 		}
 		public function before_the_title( $event ){
@@ -85,7 +80,7 @@ if( !class_exists('Tribe_Events_PRO_List_Widget_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_before_the_title');
 		}
 		public function the_title( $post ){
-			$html = '<div class="event"><a href="' . tribe_get_event_link( $post ) . '">' . $post->post_title . '</a></div>';
+			$html = '<div class="event"><a href="' . tribe_get_event_link( $post ) . '">' . $post->post_title . '</a></div><!-- .event -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_the_title');
 		}
 		public function after_the_title( $event ){
@@ -149,7 +144,7 @@ if( !class_exists('Tribe_Events_PRO_List_Widget_Template')){
 				$html .= __( 'Price:', 'tribe-events-calendar-pro' ) . ' ' . tribe_get_cost(); 
 			}
 
-			$html .= '</div>';
+			$html .= '</div><!-- .loc -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_the_content');
 		}
 		public function after_the_content( $event ){
