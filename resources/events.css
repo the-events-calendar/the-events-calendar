@@ -18,7 +18,7 @@
 .tribe-events-calendar, 
 #tribe-events-content .ical, 
 .events-single #content .ical, 
-a.gmap, 
+a.gmap,
 .tribe-events-event-list-meta td, 
 .tribe-events-nav, 
 #tribe-events-event-meta, 
@@ -146,7 +146,7 @@ p.tribe-promo-banner a {
 }
 
 
-/* = Grid View & List View Template Styles
+/* = Calendar View & List View Template Styles
    @ Template: calendar.php & list.php
 =============================================*/
 #tribe-events-content {
@@ -209,7 +209,7 @@ h2.tribe-events-cal-title a:focus {
 }
 
 
-/* = Grid View Template Styles
+/* = Calendar View Template Styles
    @ Template: calendar.php
 =============================================*/
 /* Header */
