@@ -80,7 +80,7 @@ if( !class_exists('Tribe_Events_PRO_List_Widget_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_before_the_title');
 		}
 		public function the_title( $post ){
-			$html = '<div class="event"><a href="' . tribe_get_event_link( $post ) . '">' . $post->post_title . '</a></div>';
+			$html = '<div class="event"><a href="' . tribe_get_event_link( $post ) . '">' . $post->post_title . '</a></div><!-- .event -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_the_title');
 		}
 		public function after_the_title( $event ){
@@ -144,7 +144,7 @@ if( !class_exists('Tribe_Events_PRO_List_Widget_Template')){
 				$html .= __( 'Price:', 'tribe-events-calendar-pro' ) . ' ' . tribe_get_cost(); 
 			}
 
-			$html .= '</div>';
+			$html .= '</div><!-- .loc -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_the_content');
 		}
 		public function after_the_content( $event ){
