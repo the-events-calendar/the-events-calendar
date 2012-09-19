@@ -71,8 +71,8 @@ if( !class_exists('Tribe_Events_List_Template')){
 				$html .= '<span class="tribe-events-calendar-buttons">';
 				$html .= '<a class="tribe-events-button-on" href="'. tribe_get_listview_link() .'">'. __( 'Event List', 'tribe-events-calendar' ) .'</a>';
 				$html .= '<a class="tribe-events-button-off" href="'. tribe_get_gridview_link() .'">'. __( 'Calendar', 'tribe-events-calendar' ) .'</a>';
-				$html .= '</span>';
-				$html .= '</div>';			
+				$html .= '</span><!-- .tribe-events-calendar-buttons -->';
+				$html .= '</div><!-- #tribe-events-calendar-header -->';			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_view_buttons');
 		}
 		// Start List Loop
