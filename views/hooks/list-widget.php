@@ -31,96 +31,135 @@
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-$event = array();
-$tribe_ecp = TribeEvents::instance();
-reset( $tribe_ecp->metaTags ); // Move pointer to beginning of array.
-foreach( $tribe_ecp->metaTags as $tag ) {
-	$var_name = str_replace( '_Event', '', $tag );
-	$event[$var_name] = tribe_get_event_meta( $post->ID, $tag, true );
-}
+if( !class_exists('Tribe_Events_PRO_List_Widget_Template')){
+	class Tribe_Events_PRO_List_Widget_Template extends Tribe_Template_Factory {
+		public static function init(){
+			// start address template
+			add_filter( 'tribe_events_pro_list_widget_before_template', array( __CLASS__, 'before_template' ), 1, 2 );
+	
+			// the date
+			add_filter( 'tribe_events_pro_list_widget_before_the_date', array( __CLASS__, 'before_the_date' ), 1, 1 );
+			add_filter( 'tribe_events_pro_list_widget_the_date', array( __CLASS__, 'the_date' ), 1, 4 );
+			add_filter( 'tribe_events_pro_list_widget_after_the_date', array( __CLASS__, 'after_the_date' ), 1, 1 );
 
-$event = (object) $event; // Easier to work with.
+			// the title
+			add_filter( 'tribe_events_pro_list_widget_before_the_title', array( __CLASS__, 'before_the_title' ), 1, 1 );
+			add_filter( 'tribe_events_pro_list_widget_the_title', array( __CLASS__, 'the_title' ), 1, 1 );
+			add_filter( 'tribe_events_pro_list_widget_after_the_title', array( __CLASS__, 'after_the_title' ), 1, 1 );
 
-ob_start();
-if ( !isset($alt_text) ) { $alt_text = ''; }
-post_class( $alt_text,$post->ID );
-$class = ob_get_contents();
-ob_end_clean();
-?>
-<li <?php echo $class ?>>
+			// the content
+			add_filter( 'tribe_events_pro_list_widget_before_the_content', array( __CLASS__, 'before_the_content' ), 1, 1 );
+			add_filter( 'tribe_events_pro_list_widget_the_content', array( __CLASS__, 'the_content' ), 1, 2 );
+			add_filter( 'tribe_events_pro_list_widget_after_the_content', array( __CLASS__, 'after_the_content' ), 1, 1 );
 
-	<div class="when">
-		<?php
-			$space = false;
-			$output = '';
-			echo tribe_get_start_date( $post->ID, $start ); 
-
+			// end address template
+			add_filter( 'tribe_events_pro_list_widget_after_template', array( __CLASS__, 'after_template' ), 1, 2 );
+		}
+		public function before_template( $event, $class = '' ){
+			$html = '<li ' . $class . '>';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_before_template');
+		}
+		public function before_the_date( $event ){
+			$html = '';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_before_the_date');
+		}
+		public function the_date( $event, $post_id = null, $start, $end ){
+			$html = '<div class="when">';
+			$html .= tribe_get_start_date( $post_id, $start ); 
 			if ( $end && $event->EndDate != '') {
-					echo '<br/>' . __( 'Ends', 'tribe-events-calendar-pro' ) . ' ';
-					echo tribe_get_end_date( $post->ID );
+					$html .= '<br/>' . __( 'Ends', 'tribe-events-calendar-pro' ) . ' ';
+					$html .= tribe_get_end_date( $post_id );
 			}
 			if($event->AllDay && $start) {
-				echo ' <small><em>('.__( 'All Day','tribe-events-calendar-pro' ).')</em></small>';
+				$html .= ' <small><em>('.__( 'All Day','tribe-events-calendar-pro' ).')</em></small>';
 			} 
-		?> 
-	</div><!-- .when -->
-	
-	<div class="event">
-		<a href="<?php echo tribe_get_event_link( $post ) ?>"><?php echo $post->post_title ?></a>
-	</div><!-- .event -->
-	
-	<div class="loc"><?php
-		if ( $venue && tribe_get_venue() != '') {
-			$output .= ( $space ) ? '<br />' : '';
-			$output .= tribe_get_venue(); 
-			$space = true;
+			$html .= '</div>';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_the_date');
 		}
+		public function after_the_date( $event ){
+			$html = '';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_after_the_date');
+		}
+		public function before_the_title( $event ){
+			$html = '';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_before_the_title');
+		}
+		public function the_title( $post ){
+			$html = '<div class="event"><a href="' . tribe_get_event_link( $post ) . '">' . $post->post_title . '</a></div>';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_the_title');
+		}
+		public function after_the_title( $event ){
+			$html = '';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_after_the_title');
+		}
+		public function before_the_content( $event ){
+			$html = '';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_before_the_content');
+		}
+		public function the_content( $event, $args = array() ){
+			extract( $args, EXTR_SKIP );
+			$space = false;
+			$html = '<div class="loc">';
 
-		if ( $address && tribe_get_address() ) {
-			$output .= ( $space ) ? '<br />' : '';
-			$output .= tribe_get_address();
-			$space = true;
-		}
+			if ( $venue && tribe_get_venue() != '') {
+				$html .= ( $space ) ? '<br />' : '';
+				$html .= tribe_get_venue(); 
+				$space = true;
+			}
 
-		if ( $city && tribe_get_city() != '' ) {
-			$output .= ( $space ) ? '<br />' : '';
-			$output .= tribe_get_city() . ', ';
-			$space = true;
-		}
-		if ( $region && tribe_get_region() ) {
-			$output .= ( !$city ) ? '<br />' : '';
-			$space = true;
-			$output .= tribe_get_region();
-		} else {
-			$output = rtrim( $output, ', ' );
-		}
+			if ( $address && tribe_get_address() ) {
+				$html .= ( $space ) ? '<br />' : '';
+				$html .= tribe_get_address();
+				$space = true;
+			}
 
-		if ( $zip && tribe_get_zip() != '' ) {
-			$output .= ( $space ) ? '<br />' : '';
-			$output .= tribe_get_zip();
-			$space = true;
-		}
+			if ( $city && tribe_get_city() != '' ) {
+				$html .= ( $space ) ? '<br />' : '';
+				$html .= tribe_get_city() . ', ';
+				$space = true;
+			}
+			if ( $region && tribe_get_region() ) {
+				$html .= ( !$city ) ? '<br />' : '';
+				$space = true;
+				$html .= tribe_get_region();
+			} else {
+				$html = rtrim( $html, ', ' );
+			}
 
-		if ( $country && tribe_get_country() != '' ) {
-			$output .= ( $space ) ? '<br />' : ' ';
-			$output .= tribe_get_country(); 
-		}
+			if ( $zip && tribe_get_zip() != '' ) {
+				$html .= ( $space ) ? '<br />' : '';
+				$html .= tribe_get_zip();
+				$space = true;
+			}
 
-		if ( $phone && tribe_get_phone() != '' ) {
-			if( $output ) 
-				$output .= '<br/>';
+			if ( $country && tribe_get_country() != '' ) {
+				$html .= ( $space ) ? '<br />' : ' ';
+				$html .= tribe_get_country(); 
+			}
 
-			$output .= tribe_get_phone(); 
-		}
-		if ( $cost && tribe_get_cost() != '' ) {		
-			if( $output ) 
-				$output .= '<br/>';
-			$output .= __( 'Price:', 'tribe-events-calendar-pro' ) . ' ' . tribe_get_cost(); 
-		}
+			if ( $phone && tribe_get_phone() != '' ) {
+				if( $html ) 
+					$html .= '<br/>';
 
-		echo $output;
-	?>
-	</div><!-- .loc -->
-	
-</li>
-<?php $alt_text = ( empty( $alt_text ) ) ? 'alt' : ''; ?>
+				$html .= tribe_get_phone(); 
+			}
+			if ( $cost && tribe_get_cost() != '' ) {		
+				if( $html ) 
+					$html .= '<br/>';
+				$html .= __( 'Price:', 'tribe-events-calendar-pro' ) . ' ' . tribe_get_cost(); 
+			}
+
+			$html .= '</div>';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_the_content');
+		}
+		public function after_the_content( $event ){
+			$html = '';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_after_the_content');
+		}
+		public function after_template( $event ){
+			$html = '</li>';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_after_template');
+		}
+	}
+	Tribe_Events_PRO_List_Widget_Template::init();
+}
