@@ -16,7 +16,7 @@
 /* Calendar Add Buttons */
 a.ical,
 a.gcal-add {
-	color: #fff !important;
+	color: #fff;
 	font-size: 10px;
 	background: #777;
 	padding: 0 6px;
@@ -49,8 +49,8 @@ a.gcal-add {
 
 /* Fixes for rich snippets */
 .event .entry-title {
-	line-height: inherit !important;
-	padding: inherit !important;
+	line-height: inherit;
+	padding: inherit;
 }
 
 .updated-info {
@@ -104,8 +104,8 @@ p.tribe-promo-banner a {
 }
 
 
-/* = ECP Page Template Styles (includes styles for both gridview & list view templates)
-   @ Template: ecp-page-template.php
+/* = Grid View & List View Template Styles
+   @ Template: calendar.php & list.php
 =============================================*/
 #tribe-events-content {
 	position: relative;
@@ -115,9 +115,9 @@ p.tribe-promo-banner a {
 .single #tribe-events-content {
 	font-size: 16px;
 }
-.events-archive .hentry {
-	margin:0;
-	padding: 0 0 15px 0 !important;
+.events-archive.events-list .hentry {
+	margin: 0;
+	padding: 0 0 15px 0;
 }
 
 /* Header */
@@ -136,12 +136,12 @@ h2.tribe-events-cal-title a {
 h2.tribe-events-cal-title a:hover, 
 h2.tribe-events-cal-title a:focus {
 	color: #333;
-	text-decoration: underline !important;
+	text-decoration: underline;
 }
 .tribe-events-calendar-buttons a {
 	background: #999;
 	border-radius: 3px;
-	color: #fff !important;
+	color: #fff;
 	display: block;
 	float: left;
 	font-size: 11px;
@@ -168,7 +168,7 @@ h2.tribe-events-cal-title a:focus {
 
 
 /* = Grid View Template Styles
-   @ Template: gridview.php
+   @ Template: calendar.php
 =============================================*/
 /* Header */
 .grid #tribe-events-calendar-header {
@@ -235,7 +235,8 @@ select.tribe-events-dropdown {
 }
 
 
-/* = List View & Single Venue Template Styles
+/* = List View & Single Venue (Pro Version) Template Styles
+   @ Template: list.php & single-venue.php
 =============================================*/
 /* Loop */
 #tribe-events-loop {
@@ -261,7 +262,7 @@ select.tribe-events-dropdown {
 .events-archive .event-day, 
 .single-tribe_venue .event-day, 
 .venue-events .event-day {
-	margin-top: 18px !important;
+	margin-top: 18px;
 	font-style: italic;
 }
 .events-archive .entry-title a, 
@@ -279,13 +280,13 @@ select.tribe-events-dropdown {
 	font-size: 12px;
 	margin-bottom: 20px;
 }
-.tribe-events-event-list-meta table {border-collapse: collapse; border: 0 !important;}
-.tribe-events-event-list-meta tr { border: 0 !important; }
+.tribe-events-event-list-meta table {border-collapse: collapse; border: 0;}
+.tribe-events-event-list-meta tr { border: 0; }
 .tribe-events-event-list-meta td {
 	vertical-align:top;
-	padding: 0 0 4px 0 !important;
+	padding: 0 0 4px 0;
 	text-align:left;
-	border: 0 !important;
+	border: 0;
 	background-color: white;
 }
 .tribe-events-event-meta-desc {
@@ -295,21 +296,13 @@ select.tribe-events-dropdown {
 }
 
 
-/* = ECP Single Template Styles
-   @ Template: ecp-single-template.php
-=============================================*/
-.singular .tribe-events-event.hentry {
-	padding-top: 1em !important;
-}
-
-
 /* = Single Venue Template Styles (Pro Version)
    @ Template: single-venue.php
 =============================================*/
 .venue-events .tribe-events-event {
 	border-bottom: 1px solid #ddd;
-	padding: 0 0 15px !important;
-	margin: 0 !important;
+	padding: 1em 0 15px;
+	margin: 0;
 }
 .venue-events h2.tribe-events-cal-title {
 	padding-left: 0;
@@ -322,7 +315,7 @@ select.tribe-events-dropdown {
 
 
 /* = Single Event Template Styles
-   @ Template: single.php
+   @ Template: single-event.php
 =============================================*/
 .tribe-events-event .entry img.attachment-post-thumbnail {
 	margin-left: auto;
@@ -349,7 +342,8 @@ select.tribe-events-dropdown {
 }
 
 
-/* = Single Event & Single Venue Template Styles
+/* = Single Event & Single Venue (Pro Version) Template Styles
+   @ Template: single-event.php & single-venue.php
 =============================================*/
 /* Back Button */
 span.back {
@@ -387,12 +381,12 @@ span.back {
 }
 
 
-/* = Calendar Styles (includes styles for both table & table mini view templates)
-   @ Template: table.php & table-mini.php
+/* = Calendar Styles (includes styles for both large & small calendars)
+   @ Template: calendar.php & calendar-widget.php
 =============================================*/
 /* Global Calendar Styles */
 table.tribe-events-calendar {
-	margin: 18px 0 12px !important;
+	margin: 18px 0 12px;
 	clear: both;
 	font-size: 12px;
 	border-collapse: collapse;
@@ -418,11 +412,11 @@ table.tribe-events-calendar,
 	color: #999;
 }
 .tribe-events-calendar td {
-	height: 110px !important;
+	height: 110px;
 	width: 14.28%;
 	color: #114b7d;
 	vertical-align: top;
-	padding: 0 !important;
+	padding: 0;
 	font-size: 12px;
 }
 
@@ -468,16 +462,16 @@ table.tribe-events-calendar,
 	letter-spacing: 1px;
 }
 .tribe-events-calendar td .tribe-events-event {
-	padding: 6px 9px !important;
+	padding: 6px 9px;
 	line-height: 1.2;
 }
 .tribe-events-calendar td a {font-size: 91.7%;}
 .tribe-events-calendar hr {
-	border: 0 none !important;
+	border: 0;
 	display: block;
 	height: 1px;
 	background-color: #e7e7e7;
-	margin: 0 9px !important;
+	margin: 0 9px;
 }
 .tribe-events-calendar .tribe-events-event {
 	position: relative;
@@ -513,7 +507,7 @@ table.tribe-events-calendar,
 
 
 /* = Events Calendar Widget Styles (Sidebar)
-   @ Template: table-mini.php
+   @ Template: calendar-widget.php
 =============================================*/
 .widget #calendar_wrap {
 	width: 100%;
@@ -533,7 +527,7 @@ table.tribe-events-calendar-widget {
 	width: 14.28%;
 }
 .tribe-events-calendar-widget td {
-	height: auto !important;
+	height: auto;
 	text-align: center;
 }
 .tribe-events-calendar-widget td .tribe-events-event {
@@ -570,14 +564,14 @@ table.tribe-events-calendar-widget {
 
 
 /* = Events List Widget Styles (Sidebar)
-   @ Template: events-list-load-widget-display.php
+   @ Template: list-widget.php
 =============================================*/
 .eventsListWidget li, 
 .singular.page li.hentry, 
 .eventsAdvancedListWidget li, 
 .singular.page li.hentry {
-	margin: 6px 0 !important;
-	padding: 0 0 10px 0 !important;
+	margin: 6px 0;
+	padding: 0 0 10px 0;
 }
 
 
@@ -629,5 +623,9 @@ h4.tribe-events-event-day + .post .entry-title {
 
 .events_calendar_widget h4.cal-header {
 	margin: 12px 0 0;
+}
+
+.singular .tribe-events-event.hentry {
+	padding-top: 1em;
 }
 */

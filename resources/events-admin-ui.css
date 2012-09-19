@@ -14,3 +14,7 @@
 .ui-datepicker thead tr th {
 	font-size:10px;
 }
+
+#visibility { 
+	display: none; 
+}
