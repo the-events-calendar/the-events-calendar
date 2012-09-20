@@ -2498,16 +2498,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->tabIndexStart++;
 		}
 
-		public function getEvents( $args = '' ) {
-			$tribe_ecp = TribeEvents::instance();
-			$defaults = array(
-				'posts_per_page' => tribe_get_option( 'postsPerPage', 10 ),
-				'post_type' => TribeEvents::POSTTYPE,
-				'orderby' => 'event_date',
-				'order' => 'ASC'
-			);
-
-			$args = wp_parse_args( $args, $defaults);
+		public function getEvents( $args = array() ) {
 			return TribeEventsQuery::getEvents($args);
 		}
 
