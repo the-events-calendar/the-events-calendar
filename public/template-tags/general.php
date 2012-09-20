@@ -277,11 +277,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		
 		$costs = $wpdb->get_col( 'SELECT meta_value FROM ' . $wpdb->postmeta . ' WHERE meta_key = \'_EventCost\';');
 		
-		$costs_function = function( $costs ) {
-			return $costs;
-		};
-		
-		$costs = array_map( $costs_function, $costs );
+		$costs = array_map( 'tribe_map_cost_array_callback', $costs );
 		
 		$min = min( $costs );
 		if ( $min == '' )
@@ -302,17 +298,23 @@ if( class_exists( 'TribeEvents' ) ) {
 		
 		$costs = $wpdb->get_col( 'SELECT meta_value FROM ' . $wpdb->postmeta . ' WHERE meta_key = \'_EventCost\';');
 		
-		$costs_function = function( $costs ) {
-			return $costs;
-		};
-		
-		$costs = array_map( $costs_function, $costs );
+		$costs = array_map( 'tribe_map_cost_array_callback', $costs );
 		
 		$max = max( $costs );
 		if ( $max == '' )
 			$max = 0;
 			
 		return $max;
+	}
+	
+	/**
+	 * Maps the cost array to make finding the minimum and maximum costs possible.
+	 *
+	 * @param $costs
+	 * @return $costs
+	 */
+	function tribe_map_cost_array_callback( $costs ) {
+		return $costs;
 	}
 	
 	/** 
