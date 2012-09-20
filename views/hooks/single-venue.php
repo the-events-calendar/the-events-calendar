@@ -32,33 +32,33 @@ if( !class_exists('Tribe_Events_Single_Venue_Template')){
 			add_filter( 'tribe_events_single_venue_after_venue', array( __CLASS__, 'after_venue' ), 1, 1 );
 	
 			// start upcoming event loop
-			add_filter( 'tribe_events_single_venue_event_before_loop', array( __CLASS__, 'event_before_loop' ), 1, 1 );
+			add_filter( 'tribe_events_single_venue_event_before_loop', array( __CLASS__, 'event_before_loop' ), 1, 2 );
 	
 			// venue loop title
-			add_filter( 'tribe_events_single_venue_event_loop_title', array( __CLASS__, 'event_loop_title' ), 1, 1 );
+			add_filter( 'tribe_events_single_venue_event_loop_title', array( __CLASS__, 'event_loop_title' ), 1, 2 );
 			
-			add_filter( 'tribe_events_single_venue_event_inside_before_loop', array( __CLASS__, 'event_inside_before_loop' ), 1, 1 );
+			add_filter( 'tribe_events_single_venue_event_inside_before_loop', array( __CLASS__, 'event_inside_before_loop' ), 1, 2);
 			
 			// event start date
-			add_filter( 'tribe_events_single_venue_event_the_start_date', array( __CLASS__, 'event_the_start_date' ), 1, 1 );
+			add_filter( 'tribe_events_single_venue_event_the_start_date', array( __CLASS__, 'event_the_start_date' ), 1, 2 );
 			
 			// event title
-			add_filter( 'tribe_events_single_venue_event_the_title', array( __CLASS__, 'event_the_title' ), 1, 1 );
+			add_filter( 'tribe_events_single_venue_event_the_title', array( __CLASS__, 'event_the_title' ), 1, 2 );
 
 			// event content
-			add_filter( 'tribe_events_single_venue_event_before_the_content', array( __CLASS__, 'event_before_the_content' ), 1, 1 );
-			add_filter( 'tribe_events_single_venue_event_the_content', array( __CLASS__, 'event_the_content' ), 1, 1 );
-			add_filter( 'tribe_events_single_venue_event_after_the_content', array( __CLASS__, 'event_after_the_content' ), 1, 1 );
+			add_filter( 'tribe_events_single_venue_event_before_the_content', array( __CLASS__, 'event_before_the_content' ), 1, 2 );
+			add_filter( 'tribe_events_single_venue_event_the_content', array( __CLASS__, 'event_the_content' ), 1, 2 );
+			add_filter( 'tribe_events_single_venue_event_after_the_content', array( __CLASS__, 'event_after_the_content' ), 1, 2 );
 			
 			// event meta
-			add_filter( 'tribe_events_single_venue_event_before_the_meta', array( __CLASS__, 'event_before_the_meta' ), 1, 1 );
-			add_filter( 'tribe_events_single_venue_event_the_meta', array( __CLASS__, 'event_the_meta' ), 1, 1 );
-			add_filter( 'tribe_events_single_venue_event_after_the_meta', array( __CLASS__, 'event_after_the_meta' ), 1, 1 );
+			add_filter( 'tribe_events_single_venue_event_before_the_meta', array( __CLASS__, 'event_before_the_meta' ), 1, 2 );
+			add_filter( 'tribe_events_single_venue_event_the_meta', array( __CLASS__, 'event_the_meta' ), 1, 2 );
+			add_filter( 'tribe_events_single_venue_event_after_the_meta', array( __CLASS__, 'event_after_the_meta' ), 1, 2 );
 		
-			add_filter( 'tribe_events_single_venue_event_inside_after_loop', array( __CLASS__, 'event_inside_after_loop' ), 1, 1 );
+			add_filter( 'tribe_events_single_venue_event_inside_after_loop', array( __CLASS__, 'event_inside_after_loop' ), 1, 2 );
 			
 			// end upcoming event loop
-			add_filter( 'tribe_events_single_venue_event_after_loop', array( __CLASS__, 'event_after_loop' ), 1, 1 );
+			add_filter( 'tribe_events_single_venue_event_after_loop', array( __CLASS__, 'event_after_loop' ), 1, 2 );
 	
 			// end single venue template
 			add_filter( 'tribe_events_single_venue_after_template', array( __CLASS__, 'after_template' ), 1, 1 );
@@ -128,57 +128,72 @@ if( !class_exists('Tribe_Events_Single_Venue_Template')){
 		// Start Upcoming Event Loop
 		public function event_before_loop( $post_id ){
 			$html = '<div id="tribe-events-loop" class="tribe-events-events post-list clearfix upcoming venue-events">';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_before_loop');
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_event_before_loop');
 		}
 		// Venue Loop Title
 		public function event_loop_title( $post_id ){
 			$html = '<h2 class="tribe-events-cal-title">'. __( 'Upcoming Events At This Venue', 'tribe-events-calendar-pro' ) .'</h2>';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_loop_title');
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_event_loop_title');
 		}
 		
-		public function event_inside_before_loop( $post_id ){
+		public function event_inside_before_loop( $post_id, $event ){
 		 	$first = true;
 		 	$class = $first ? 'tribe-events-event clearfix first': 'tribe-events-event clearfix';
 			$html = '<div id="post-'. $post_id .'" '. get_post_class( $class, $post_id ) . ' itemscope itemtype="http://schema.org/Event">';
 			$first = false; 
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_inside_before_loop');
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_event_inside_before_loop');
 		}
 			
 		// Event Start Date
-		public function event_the_start_date( $post ){
+		public function event_the_start_date( $post_id, $event ){
+			global $post;
+			$post = $event;
+			setup_postdata($post);
 			$html = '';
 			if(tribe_is_new_event_day())
- 				$html .= '<h4 class="event-day">'. tribe_get_start_date( null, false ) .'</h4>';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_the_start_date');
+ 				$html .= '<h4 class="event-day">'. tribe_get_start_date( $post_id, false ) .'</h4>';
+ 			wp_reset_postdata();
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_event_the_start_date');
 		}
 		// Event Title
-		public function event_the_title( $post ){
+		public function event_the_title( $post_id, $event ){
+			global $post;
+			$post = $event;
+			setup_postdata($post);
 			$html = '<h2 class="entry-title" itemprop="name"><a href="'. tribe_get_event_link() .'" title="'. the_title_attribute( 'echo=0' ) .'" rel="bookmark" itemprop="url">'. get_the_title() .'</a></h2>';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_the_title');
+			wp_reset_postdata();
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_event_the_title');
 		}
 		// Event Content
-		public function event_before_the_content( $post ){
+		public function event_before_the_content( $post_id, $event ){
 			$html = '<div class="entry-content tribe-events-event-entry" itemprop="description">';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_before_the_content');
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_event_before_the_content');
 		}
-		public function event_the_content( $post ){
+		public function event_the_content( $post_id, $event ){
+			global $post;
+			$post = $event;
+			setup_postdata($post);
 			$html = '';
 			if (has_excerpt())
 				$html .= get_the_excerpt();
 			else
 				$html .= get_the_content();
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_the_content');
+			wp_reset_postdata();
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_event_the_content');
 		}
-		public function event_after_the_content( $post ){
+		public function event_after_the_content( $post_id, $event ){
 			$html = '</div><!-- .tribe-events-event-entry -->';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_after_the_content');
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_event_after_the_content');
 		}
 		// Event Meta
-		public function event_before_the_meta( $post ){
+		public function event_before_the_meta( $post_id, $event ){
 			$html = '<div class="tribe-events-event-list-meta">';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_before_the_meta');
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_event_before_the_meta');
 		}
-		public function event_the_meta( $post ){
+		public function event_the_meta( $post_id, $event ){
+			global $post;
+			$post = $event;
+			setup_postdata($post);
 			ob_start();
 ?>
 			<table>
@@ -209,22 +224,23 @@ if( !class_exists('Tribe_Events_Single_Venue_Template')){
  			</table>				
 <?php
 			$html = ob_get_clean();
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_the_meta');
+			wp_reset_postdata();
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_event_the_meta');
 		}
-		public function event_after_the_meta( $post ){
+		public function event_after_the_meta( $post_id, $event ){
 			$html = '</div><!-- .tribe-events-event-list-meta -->';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_after_the_meta');
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_event_after_the_meta');
 		}
 		
-		public function event_inside_after_loop( $post ){
+		public function event_inside_after_loop( $post_id, $event ){
 			$html = '</div><!-- #post -->';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_inside_after_loop');
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_event_inside_after_loop');
 		}
 		
 		// End Upcoming Event Loop
 		public function event_after_loop( $post_id ){
 			$html = '</div><!-- #tribe-events-loop -->';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_after_loop');
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_event_after_loop');
 		}	
 		// End Single Venue Template
 		public function after_template( $post_id ){

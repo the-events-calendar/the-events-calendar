@@ -55,25 +55,25 @@ echo apply_filters( 'tribe_events_single_venue_before_template', '', $venue_id )
 
 		foreach( $venueEvents as $event ){ // setup_postdata( $post ); // our venue loop
 
-			echo apply_filters( 'tribe_events_single_venue_event_inside_before_loop', '', $event );
+			echo apply_filters( 'tribe_events_single_venue_event_inside_before_loop', $venue_id, $event );
 			
 				// event start date
-				echo apply_filters( 'tribe_events_single_venue_event_the_start_date', '', $event );
+				echo apply_filters( 'tribe_events_single_venue_event_the_start_date', $venue_id, $event );
 			
 				// event title
-				echo apply_filters( 'tribe_events_single_venue_event_the_title', '', $event );
+				echo apply_filters( 'tribe_events_single_venue_event_the_title', $venue_id, $event );
 
 				// event content
-				echo apply_filters( 'tribe_events_single_venue_event_before_the_content', '', $event );
-				echo apply_filters( 'tribe_events_single_venue_event_the_content', '', $event );
-				echo apply_filters( 'tribe_events_single_venue_event_after_the_content', '', $event );
+				echo apply_filters( 'tribe_events_single_venue_event_before_the_content', $venue_id, $event );
+				echo apply_filters( 'tribe_events_single_venue_event_the_content', $venue_id, $event );
+				echo apply_filters( 'tribe_events_single_venue_event_after_the_content', $venue_id, $event );
 			
 				// event meta
-				echo apply_filters( 'tribe_events_single_venue_event_before_the_meta', '', $event );
-				echo apply_filters( 'tribe_events_single_venue_event_the_meta', '', $event );
-				echo apply_filters( 'tribe_events_single_venue_event_after_the_meta', '', $event );
+				echo apply_filters( 'tribe_events_single_venue_event_before_the_meta', $venue_id, $event );
+				echo apply_filters( 'tribe_events_single_venue_event_the_meta', $venue_id, $event );
+				echo apply_filters( 'tribe_events_single_venue_event_after_the_meta', $venue_id, $event );
 		
-			echo apply_filters( 'tribe_events_single_venue_event_inside_after_loop', '', $event );
+			echo apply_filters( 'tribe_events_single_venue_event_inside_after_loop', $venue_id, $event );
 			
 		}	// end our venue loop					
  	} // end if have other venues
