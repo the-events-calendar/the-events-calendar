@@ -9,44 +9,44 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if (!class_exists('TribeEventsQuery')) {
 	class TribeEventsQuery {
 
-		function pre_get_posts( $query ) {
+		public static function init() {
+			add_filter( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 0 );
+			add_action( 'parse_query', array( __CLASS__, 'setupQuery'), 0 );			
+		}
+
+		public function pre_get_posts( $query ) {
 
 			// check if any possiblity of this being an event query
-			$query->is_event = ( (isset($_GET['post_type']) && $_GET['post_type'] == TribeEvents::POSTTYPE) 
+			$query->tribe_is_event = ( (isset($_GET['post_type']) && $_GET['post_type'] == TribeEvents::POSTTYPE) 
 				|| (isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == TribeEvents::POSTTYPE) )
 				? true // it was an event query
 				: false;
 
 			// check if any possiblity of this being an event category
-			$query->is_event_category = ( (isset($_GET[TribeEvents::TAXONOMY]) && $_GET[TribeEvents::TAXONOMY] != '')
+			$query->tribe_is_event_category = ( (isset($_GET[TribeEvents::TAXONOMY]) && $_GET[TribeEvents::TAXONOMY] != '')
 				|| (isset($query->query_vars[TribeEvents::TAXONOMY]) && $query->query_vars[TribeEvents::TAXONOMY] != '') ) 
 				? true // it was an event category
 				: false;
 
-			$query->is_event_venue = ( (isset($_GET['post_type']) && $_GET['post_type'] == TribeEvents::VENUE_POST_TYPE) 
+			$query->tribe_is_event_venue = ( (isset($_GET['post_type']) && $_GET['post_type'] == TribeEvents::VENUE_POST_TYPE) 
 				|| (isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == TribeEvents::VENUE_POST_TYPE) )
 				? true // it was an event venue
 				: false;
 
-			$query->is_event_organizer = ( (isset($_GET['post_type']) && $_GET['post_type'] == TribeEvents::ORGANIZER_POST_TYPE) 
+			$query->tribe_is_event_organizer = ( (isset($_GET['post_type']) && $_GET['post_type'] == TribeEvents::ORGANIZER_POST_TYPE) 
 				|| (isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == TribeEvents::ORGANIZER_POST_TYPE) )
 				? true // it was an event organizer
 				: false;
 
-			$query->is_event_query = $query->is_event
-				|| $query->is_event_category
-				|| $query->is_event_venue
-				|| $query->is_event_organizer
+			$query->tribe_is_event_query = ( $query->tribe_is_event
+				|| $query->tribe_is_event_category
+				|| $query->tribe_is_event_venue
+				|| $query->tribe_is_event_organizer )
 				? true // this is an event query of some type
 				: false; // move along, this is not the query you are looking for
 
 			// check if is_event_query === true and hook filter
 			return $query->is_event_query ? apply_filters( 'tribe_events_pre_get_posts', $query ) : $query;
-		}
-	
-		public static function init() {
-			add_filter( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 0 );
-			add_action( 'parse_query', array( __CLASS__, 'setupQuery'), 0 );			
 		}
 		
 		// Remove all the filters we've used once we're done with them.
