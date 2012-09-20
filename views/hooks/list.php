@@ -252,6 +252,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			if (!empty($hasPosts) && function_exists('tribe_get_ical_link')) // iCal Import
 				$html .= '<a title="'. esc_attr( 'iCal Import', 'tribe-events-calendar' ) .'" class="ical" href="'. tribe_get_ical_link() .'">'. __( 'iCal Import', 'tribe-events-calendar' ) .'</a>';
 			$html .= '</div><!-- #tribe-events-content -->';
+			$html .= '<div class="tribe-clear"></div>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_template');		
 		}
 	}
