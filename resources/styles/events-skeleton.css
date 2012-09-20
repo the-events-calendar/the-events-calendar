@@ -89,6 +89,7 @@ p.tribe-promo-banner a {
 .clearfix:before, .clearfix:after {content: ""; display: table;}
 .clearfix:after {clear: both;}
 .clearfix {zoom: 1;}
+.tribe-clear {clear: both;}
 .tribe-events-error {display:none;}
 .tribe-events-multi-event-day {color: #0f81bb;}
 
