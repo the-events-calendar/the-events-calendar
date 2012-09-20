@@ -46,7 +46,7 @@ if (!class_exists('TribeEventsQuery')) {
 				: false; // move along, this is not the query you are looking for
 
 			// check if is_event_query === true and hook filter
-			return $query->is_event_query ? apply_filters( 'tribe_events_pre_get_posts', $query ) : $query;
+			return $query->tribe_is_event_query ? apply_filters( 'tribe_events_pre_get_posts', $query ) : $query;
 		}
 		
 		// Remove all the filters we've used once we're done with them.
