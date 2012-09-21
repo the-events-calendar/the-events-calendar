@@ -158,7 +158,8 @@ p.tribe-promo-banner a {
 .single #tribe-events-content {
 	font-size: 16px;
 }
-.events-archive.events-list .hentry {
+.events-archive.events-list .hentry,
+.events-archive.events-gridview .hentry {
 	margin: 0;
 	padding: 0 0 15px 0;
 }
@@ -507,6 +508,10 @@ table.tribe-events-calendar,
 }
 
 /* Large Calendar Specifics */
+.events-archive.events-gridview table .hentry {
+	margin: 0;
+	padding: 6px 9px;
+}
 .tribe-events-calendar th {
 	width: 250px;
 	height: 10px;
