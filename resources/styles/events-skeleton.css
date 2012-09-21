@@ -302,11 +302,14 @@ select.tribe-events-dropdown {
 =============================================*/
 .venue-events .tribe-events-event {
 	border-bottom: 1px solid #ddd;
-	padding: 1em 0 15px;
+	padding: 2.25em 0;
 	margin: 0;
 }
 .venue-events h2.tribe-events-cal-title {
 	padding-left: 0;
+}
+.venue-events .event-day {
+	margin-top: 0;
 }
 .venue-events .entry-title {
 	margin: 15px 0 6px;
