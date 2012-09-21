@@ -289,6 +289,10 @@ select.tribe-events-dropdown {
 	font-size: 13px;
 	clear: both;
 }
+#tribe-events-loop .tribe-events-event {
+	border-bottom: 1px solid #ddd;
+	padding: 2.25em 0;
+}
 .tribe-events-events .tribe-events-event-entry {
 	width: 60%;
 	float: left;
@@ -312,7 +316,7 @@ select.tribe-events-dropdown {
 .single-tribe_venue .event-day, 
 .venue-events .event-day {
 	font-size: 18px;
-	margin-top: 18px;
+	margin-top: 0;
 	font-style: italic;
 }
 .events-archive .entry-title a, 
@@ -508,9 +512,10 @@ table.tribe-events-calendar,
 }
 
 /* Large Calendar Specifics */
-.events-archive.events-gridview table .hentry {
+.events-archive.events-gridview table .tribe-events-event {
 	margin: 0;
 	padding: 6px 9px;
+	border-bottom: 0;
 }
 .tribe-events-calendar th {
 	width: 250px;
