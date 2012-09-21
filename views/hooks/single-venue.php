@@ -139,7 +139,7 @@ if( !class_exists('Tribe_Events_Single_Venue_Template')){
 		public function event_inside_before_loop( $post_id, $event ){
 		 	$first = true;
 		 	$class = $first ? 'tribe-events-event clearfix first': 'tribe-events-event clearfix';
-			$html = '<div id="post-'. $post_id .'" '. get_post_class( $class, $post_id ) . ' itemscope itemtype="http://schema.org/Event">';
+			$html = '<div id="post-'. $post_id .'" class="'. implode(" ", get_post_class( $class, $post_id )) . '" itemscope itemtype="http://schema.org/Event">';
 			$first = false; 
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_event_inside_before_loop');
 		}
