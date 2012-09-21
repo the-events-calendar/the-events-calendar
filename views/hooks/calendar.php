@@ -106,6 +106,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		}
 		// Calendar View Buttons
 		public function the_view_buttons( $post_id ){
+			$html = '';
 			$html .= '<span class="tribe-events-calendar-buttons">';
 			$html .= '<a class="tribe-events-button-on" href="'. tribe_get_listview_link() .'">'. __( 'Event List', 'tribe-events-calendar' ) .'</a>';
 			$html .= '<a class="tribe-events-button-off" href="'. tribe_get_gridview_link() .'">'. __( 'Calendar', 'tribe-events-calendar' ) .'</a>';
