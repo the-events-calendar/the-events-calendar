@@ -108,9 +108,9 @@ if( !class_exists('Tribe_Events_List_Template')){
 		public function the_content( $post_id ){
 			$html = '';
 			if (has_excerpt())
-				$html .= get_the_excerpt();
+				$html .= '<p>'. get_the_excerpt() .'</p>';
 			else
-				$html .= get_the_content();
+				$html .= '<p>'. get_the_content() .'</p>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_content');
 		}
 		public function after_the_content( $post_id ){
