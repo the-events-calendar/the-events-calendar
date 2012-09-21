@@ -88,7 +88,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 		public function the_start_date( $post_id ){
 			$html = '';
 			if (tribe_is_new_event_day() && !tribe_is_day())
-				$html .= '<h4 class="event-day">'. tribe_get_start_date( null, false ) .'</h4>';
+				$html .= '<h4 class="event-day">'. tribe_get_start_date() .'</h4>';
 			if (tribe_is_day() && $this->first) {
 				$this->first = false;
 				$html .= '<h4 class="event-day">'. tribe_event_format_date( strtotime( get_query_var( 'eventDate' ) ), false ) .'</h4>';
