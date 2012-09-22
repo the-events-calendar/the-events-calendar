@@ -293,6 +293,9 @@ select.tribe-events-dropdown {
 	border-bottom: 1px solid #ddd;
 	padding: 2.25em 0;
 }
+#tribe-events-loop .tribe-last {
+	border-bottom: 0;
+}
 .tribe-events-events .tribe-events-event-entry {
 	width: 60%;
 	float: left;
@@ -354,8 +357,6 @@ select.tribe-events-dropdown {
    @ Template: single-venue.php
 =============================================*/
 .venue-events .tribe-events-event {
-	border-bottom: 1px solid #ddd;
-	padding: 2.25em 0;
 	margin: 0;
 }
 .venue-events h2.tribe-events-cal-title {

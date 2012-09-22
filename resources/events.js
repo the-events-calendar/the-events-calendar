@@ -59,5 +59,8 @@ jQuery(document).ready(function($) {
 	$('.tribe-events-prev-month a, .tribe-events-next-month a').pjax('#tribe-events-content', { timeout: 10000, fragment: '#tribe-events-content' }).live('click', function() {
      $('.ajax-loading').show(); 
    });
+   
+   // Add class on list & venue loops
+   $('#tribe-events-loop .tribe-events-event:last').addClass('tribe-last');
 	
 });
