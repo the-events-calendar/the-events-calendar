@@ -89,8 +89,9 @@ if( !class_exists('Tribe_Events_pro_featured_widget_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_featured_widget_before_the_date');
 		}
 		public function the_date( $post_id, $event ){
-			$html = tribe_get_start_date( $post_id, isset( $start ) ? $start : null );
-			if($event->AllDay && $start)
+			$start = isset( $start ) ? $start : null;
+			$html = tribe_get_start_date( $post_id, $start );
+			if($event->AllDay)
 				$html .= ' <small><em>('. __( 'All Day', 'tribe-events-calendar' ) .')</em></small>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_featured_widget_the_date');
 		}
