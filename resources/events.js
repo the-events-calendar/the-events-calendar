@@ -69,11 +69,9 @@ jQuery(document).ready(function($) {
 	// PJAX
 	$('.tribe-events-prev-month a, .tribe-events-next-month a').pjax('#tribe-events-content', { timeout: 10000, fragment: '#tribe-events-content' }).live('click', function() {
 		$('.ajax-loading').show();      
-   	});
-   	
-	$(document).on('pjax:end', function() {
-     	tribe_event_nudge();
-    });
+   	});   	
+	
+        $('body').bind('end.pjax', function() { tribe_event_nudge(); })
    
    	// Add class on list & venue loops
    	$('#tribe-events-loop .tribe-events-event:last').addClass('tribe-last');
