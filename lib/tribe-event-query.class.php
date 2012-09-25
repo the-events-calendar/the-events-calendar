@@ -144,7 +144,7 @@ if (!class_exists('TribeEventsQuery')) {
 				$query->set( 'meta_query', $meta_query );
 
 				// eventCat becomes a standard taxonomy query - will need to deprecate and update views eventually
-				if ( $query->get('eventCat') != '-1' ) {
+				if ( ! in_array( $query->get('eventCat'), array( '', '-1' )) ) {
 					$tax_query[] = array(
 						'taxonomy' => TribeEvents::TAXONOMY, 
 						'field' => is_numeric($query->get('eventCat')) ? 'id' : 'name', 
@@ -175,8 +175,8 @@ if (!class_exists('TribeEventsQuery')) {
 		}
 
 		public function the_posts( $posts ) {
-			global $wp_query;
-			print_r($wp_query->request);
+			// global $wp_query;
+			// print_r($wp_query->request);
 			foreach( $posts as $id => $post ) {
 				$posts[$id]->tribe_is_event = false;
 
