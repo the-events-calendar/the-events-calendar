@@ -292,6 +292,7 @@ select.tribe-events-dropdown {
 #tribe-events-loop .tribe-events-event {
 	border-bottom: 1px solid #ddd;
 	padding: 2.25em 0;
+	overflow: auto;
 }
 #tribe-events-loop .tribe-last {
 	border-bottom: 0;

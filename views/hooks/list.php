@@ -83,15 +83,20 @@ if( !class_exists('Tribe_Events_List_Template')){
 		public function inside_before_loop( $post_id ){
 			
 			// Get our wrapper classes
-			$string = '';
+			$tribe_string_classes = '';
 			$tribe_cat_ids = tribe_get_event_cat_ids( $post_id ); 
 			foreach( $tribe_cat_ids as $tribe_cat_id ) { 
-				$string .= 'tribe-events-category-'. $tribe_cat_id .' '; 
+				$tribe_string_classes .= 'tribe-events-category-'. $tribe_cat_id .' '; 
 			}
-			$tribe_classes_default = 'clearfix tribe-events-event';
+			$tribe_string_wp_classes = '';
+			$allClasses = get_post_class(); 
+			foreach ($allClasses as $class) { 
+				$tribe_string_wp_classes .= $class . ' '; 
+			}
+			$tribe_classes_default = 'clear fix tribe-events-event '. $tribe_string_wp_classes;
 			$tribe_classes_venue = tribe_get_venue_id() ? 'tribe-events-venue-'. tribe_get_venue_id() : '';
 			$tribe_classes_organizer = tribe_get_organizer_id() ? 'tribe-events-organizer-'. tribe_get_organizer_id() : '';
-			$tribe_classes_categories = $string;
+			$tribe_classes_categories = $tribe_string_classes;
 			$class_string = $tribe_classes_default .' '. $tribe_classes_venue .' '. $tribe_classes_organizer .' '. $tribe_classes_categories;
 			
 			$html = '<div id="post-'. get_the_ID() .'" class="'. $class_string .'" itemscope itemtype="http://schema.org/Event">';

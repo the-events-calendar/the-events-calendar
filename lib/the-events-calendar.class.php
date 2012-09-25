@@ -222,7 +222,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		protected function addActions() {
 			add_action( 'init', array( $this, 'init'), 10 );
-			add_action( 'template_redirect', array( $this, 'loadStyle' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'loadScripts' ) );	
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );	
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );		
 			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
@@ -1267,7 +1267,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->initMonthNames();
 		}
 
-		public function loadStyle() {
+		public function loadScripts() {
 
 			$eventsURL = trailingslashit( $this->pluginUrl ) . 'resources/';
 			wp_enqueue_script('tribe-events-pjax', $eventsURL.'jquery.pjax.js', array('jquery') );			

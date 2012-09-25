@@ -317,17 +317,22 @@ if( class_exists( 'TribeEvents' ) ) {
 			$cost		= tribe_get_cost( $post->ID );
 			?>
 			
-			<?php
+			<?php			
 			// Get our wrapper classes
-			$string = '';
+			$tribe_string_classes = '';
 			$tribe_cat_ids = tribe_get_event_cat_ids( $post->ID ); 
 			foreach( $tribe_cat_ids as $tribe_cat_id ) { 
-				$string .= 'tribe-events-category-'. $tribe_cat_id .' '; 
+				$tribe_string_classes .= 'tribe-events-category-'. $tribe_cat_id .' '; 
 			}
-			$tribe_classes_default = 'tribe-events-event tribe-events-real-event';
+			$tribe_string_wp_classes = '';
+			$allClasses = get_post_class(); 
+			foreach ($allClasses as $class) { 
+				$tribe_string_wp_classes .= $class . ' '; 
+			}
+			$tribe_classes_default = 'tribe-events-event tribe-events-real-event'. $tribe_string_wp_classes;
 			$tribe_classes_venue = tribe_get_venue_id() ? 'tribe-events-venue-'. tribe_get_venue_id() : '';
 			$tribe_classes_organizer = tribe_get_organizer_id() ? 'tribe-events-organizer-'. tribe_get_organizer_id() : '';
-			$tribe_classes_categories = $string;
+			$tribe_classes_categories = $tribe_string_classes;
 			$class_string = $tribe_classes_default .' '. $tribe_classes_venue .' '. $tribe_classes_organizer .' '. $tribe_classes_categories;
 			?>
 			
