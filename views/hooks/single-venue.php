@@ -175,9 +175,9 @@ if( !class_exists('Tribe_Events_Single_Venue_Template')){
 			setup_postdata($post);
 			$html = '';
 			if (has_excerpt())
-				$html .= '<p>'. get_the_excerpt() .'</p>';
+				$html .= '<p>'. TribeEvents::truncate($post->post_excerpt) .'</p>';
 			else
-				$html .= '<p>'. get_the_content() .'</p>';
+				$html .= '<p>'. TribeEvents::truncate(get_the_content(), 40) .'</p>';
 			wp_reset_postdata();
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_event_the_content');
 		}
@@ -197,7 +197,7 @@ if( !class_exists('Tribe_Events_Single_Venue_Template')){
 			ob_start();
 ?>
 			<table>
- 				<?php if (tribe_is_multiday()): ?>
+ 				<?php if ( tribe_is_multiday() || !tribe_get_all_day() ) : ?>
 					<tr>
 						<td class="tribe-events-event-meta-desc"><?php _e( 'Start:', 'tribe-events-calendar-pro' ); ?></td>
 						<td class="tribe-events-event-meta-value"><meta itemprop="startDate" content="<?php echo tribe_get_start_date( null, false, 'Y-m-d' ); ?>" /><?php echo tribe_get_start_date(); ?></td>
