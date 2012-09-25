@@ -81,7 +81,20 @@ if( !class_exists('Tribe_Events_List_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_loop');
 		}
 		public function inside_before_loop( $post_id ){
-			$html = '<div id="post-'. get_the_ID() .'" class="'. implode(" ", get_post_class( 'tribe-events-event clearfix', $post_id )) .'" itemscope itemtype="http://schema.org/Event">';
+			
+			// Get our wrapper classes
+			$string = '';
+			$tribe_cat_ids = tribe_get_event_cat_ids( $post_id ); 
+			foreach( $tribe_cat_ids as $tribe_cat_id ) { 
+				$string .= 'tribe-events-category-'. $tribe_cat_id .' '; 
+			}
+			$tribe_classes_default = 'clearfix tribe-events-event';
+			$tribe_classes_venue = tribe_get_venue_id() ? 'tribe-events-venue-'. tribe_get_venue_id() : '';
+			$tribe_classes_organizer = tribe_get_organizer_id() ? 'tribe-events-organizer-'. tribe_get_organizer_id() : '';
+			$tribe_classes_categories = $string;
+			$class_string = $tribe_classes_default .' '. $tribe_classes_venue .' '. $tribe_classes_organizer .' '. $tribe_classes_categories;
+			
+			$html = '<div id="post-'. get_the_ID() .'" class="'. $class_string .'" itemscope itemtype="http://schema.org/Event">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_inside_before_loop');
 		}
 		// Event Start Date
@@ -108,9 +121,9 @@ if( !class_exists('Tribe_Events_List_Template')){
 		public function the_content( $post_id ){
 			$html = '';
 			if (has_excerpt())
-				$html .= '<p>'. get_the_excerpt() .'</p>';
+				$html .= '<p>'. TribeEvents::truncate($post_id->post_excerpt) .'</p>';
 			else
-				$html .= '<p>'. get_the_content() .'</p>';
+				$html .= '<p>'. TribeEvents::truncate(get_the_content(), 80) .'</p>';	
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_content');
 		}
 		public function after_the_content( $post_id ){
