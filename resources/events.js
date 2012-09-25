@@ -71,7 +71,7 @@ jQuery(document).ready(function($) {
 		$('.ajax-loading').show();      
    	});   	
 	
-        $('body').bind('end.pjax', function() { tribe_event_nudge(); })
+        $('body').bind('end.pjax', function() { tribe_event_nudge(); });
    
    	// Add class on list & venue loops
    	$('#tribe-events-loop .tribe-events-event:last').addClass('tribe-last');
