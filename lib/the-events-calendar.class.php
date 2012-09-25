@@ -223,6 +223,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		protected function addActions() {
 			add_action( 'init', array( $this, 'init'), 10 );
 			add_action( 'template_redirect', array( $this, 'loadStyle' ) );
+			// Tim can you integrate this properly, thanks!
+			// global $wp_query;
+			// if ( $wp_query->tribe_is_event_query ) {
+				//add_action( 'wp_enqueue_scripts', array( $this, 'loadStyle' ) );	
+			//}
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );	
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );		
 			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
