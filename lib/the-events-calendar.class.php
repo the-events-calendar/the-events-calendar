@@ -223,11 +223,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		protected function addActions() {
 			add_action( 'init', array( $this, 'init'), 10 );
 			add_action( 'template_redirect', array( $this, 'loadStyle' ) );
-			// Tim can you integrate this properly, thanks!
-			// global $wp_query;
-			// if ( $wp_query->tribe_is_event_query ) {
-				//add_action( 'wp_enqueue_scripts', array( $this, 'loadStyle' ) );	
-			//}
+			add_action( 'wp_enqueue_scripts', array( $this, 'loadStyle' ) );
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );	
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );		
 			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
@@ -1274,27 +1270,22 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function loadStyle() {
-
 			$eventsURL = trailingslashit( $this->pluginUrl ) . 'resources/';
-			wp_enqueue_script('tribe-events-pjax', $eventsURL.'jquery.pjax.js', array('jquery') );			
-			wp_enqueue_script('tribe-events-calendar-script', $eventsURL.'events.js', array('jquery', 'tribe-events-pjax') );
+			wp_enqueue_script('tribe-events-pjax', $eventsURL . 'jquery.pjax.js', array('jquery') );
+			wp_enqueue_script('tribe-events-calendar-script', $eventsURL.'events.js', array('query', 'tribe-events-pjax') );
 			// is there an events.css file in the theme?
-			if ( $user_style = locate_template(array('events/events.css')) ) {
-				$styleUrl = str_replace( get_theme_root(), get_theme_root_uri(), $user_style );
-			}
-			else {
-				$styleUrl = $eventsURL.'events.css';
-			}
+			$event_file = 'events.css';
+			$styleUrl = locate_template( array( 'events/' . $event_file ) ) ?
+				str_replace( get_theme_root(), get_theme_root_uri(), locate_template( array( 'events/' . $event_file ) ) ) : 
+				$eventsURL . $event_file;
 			$styleUrl = apply_filters( 'tribe_events_stylesheet_url', $styleUrl );
-
 			if ( $styleUrl )
 				wp_enqueue_style('tribe-events-calendar-style', $styleUrl);
-			
+				
 			wp_register_style('custom-jquery-styles', $eventsURL . 'smoothness/jquery-ui-1.8.23.custom.css' );
 			wp_register_style('select2-css', $eventsURL . 'select2/select2.css' );
 			wp_register_script('select2', $eventsURL . 'select2/select2.min.js', 'jquery' );
 		}
-
 
 		public function setDate($query) {
 			if ( $query->get('eventDisplay') == 'month' ) {
