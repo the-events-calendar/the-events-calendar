@@ -697,3 +697,13 @@ h4.tribe-events-event-day + .post .entry-title {
 	padding-top: 1em;
 }
 */
+
+#tribe-events-bar{
+	width: 100%;
+	display: block;
+	background: #eeeeee;
+}
+
+#tribe-events-bar #tribe-events-bar-views{
+	float: right;
+}

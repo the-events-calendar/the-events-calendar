@@ -188,6 +188,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-event-api.class.php' );
 			require_once( 'tribe-event-query.class.php' );
 			require_once( 'tribe-view-helpers.class.php' );
+			require_once( 'tribe-events-bar.class.php' );
 			require_once( 'tribe-the-events-calendar-import.class.php' );
 			require_once( 'tribe-debug-bar.class.php' );
 
@@ -218,7 +219,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			
 			if ( !is_admin() )
 				add_filter( 'get_comment_link', array( $this, 'newCommentLink' ), 10, 2 );
+
+			add_filter( 'tribe-events-bar-views',  array($this, 'setup_listview_in_bar'), 1, 1 );
+			add_filter( 'tribe-events-bar-views',  array($this, 'setup_gridview_in_bar'), 5, 1 );
 		}
+
 
 		protected function addActions() {
 			add_action( 'init', array( $this, 'init'), 10 );
@@ -2900,6 +2905,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$termlink = esc_url(trailingslashit(tribe_get_events_link().'tag/'.$term->name));
 			}
 			return $termlink;
+		}
+
+		public function setup_listview_in_bar( $views ) {
+			$views[] = array( 'anchor' => 'List View', 'url' => tribe_get_listview_link() );
+			return $views;
+		}
+
+		public function setup_gridview_in_bar( $views ) {
+			$views[] = array( 'anchor' => 'Calendar', 'url' => tribe_get_gridview_link() );
+			return $views;
 		}
 
 	} // end TribeEvents class
