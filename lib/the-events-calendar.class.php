@@ -223,6 +223,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		protected function addActions() {
 			add_action( 'init', array( $this, 'init'), 10 );
 			add_action( 'template_redirect', array( $this, 'loadStyle' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'loadStyle' ) );
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );	
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );		
 			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
@@ -231,7 +232,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
 			add_action( 'save_post', array( $this, 'publishAssociatedTypes'), 25, 2 );
 			add_action( 'pre_get_posts', array( $this, 'setDate' ));
-			add_action( 'wp', array( $this, 'setDisplay' ));
+			add_action( 'parse_query', array( $this, 'setDisplay' ));
 			add_action( 'tribe_events_post_errors', array( 'TribeEventsPostException', 'displayMessage' ) );
 			add_action( 'tribe_settings_top', array( 'TribeEventsOptionsException', 'displayMessage') );
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
@@ -1087,6 +1088,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					wp_enqueue_script( 'jquery-ecp-plugins', $this->pluginUrl . 'resources/jquery-ecp-plugins.js', array('jquery') );
 					wp_enqueue_style( self::POSTTYPE.'-admin-ui', $this->pluginUrl . 'resources/events-admin-ui.css' );
 					wp_enqueue_script( self::VENUE_POST_TYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js');
+					wp_enqueue_style( self::VENUE_POST_TYPE.'-admin', $this->pluginUrl . 'resources/hide-visibility.css' );
 
 					// hook for other plugins
 					do_action('tribe_venues_enqueue');
@@ -1268,27 +1270,22 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function loadStyle() {
-
 			$eventsURL = trailingslashit( $this->pluginUrl ) . 'resources/';
-			wp_enqueue_script('tribe-events-pjax', $eventsURL.'jquery.pjax.js', array('jquery') );			
-			wp_enqueue_script('tribe-events-calendar-script', $eventsURL.'tribe-events.js', array('jquery', 'tribe-events-pjax') );
+			wp_enqueue_script('tribe-events-pjax', $eventsURL . 'jquery.pjax.js', array('jquery') );
+			wp_enqueue_script('tribe-events-calendar-script', $eventsURL.'events.js', array('query', 'tribe-events-pjax') );
 			// is there an events.css file in the theme?
-			if ( $user_style = locate_template(array('tribe-events/tribe-events.css')) ) {
-				$styleUrl = str_replace( get_theme_root(), get_theme_root_uri(), $user_style );
-			}
-			else {
-				$styleUrl = $eventsURL.'tribe-events.css';
-			}
+			$event_file = 'tribe-events.css';
+			$styleUrl = locate_template( array( 'events/' . $event_file ) ) ?
+				str_replace( get_theme_root(), get_theme_root_uri(), locate_template( array( 'events/' . $event_file ) ) ) : 
+				$eventsURL . $event_file;
 			$styleUrl = apply_filters( 'tribe_events_stylesheet_url', $styleUrl );
-
 			if ( $styleUrl )
 				wp_enqueue_style('tribe-events-calendar-style', $styleUrl);
-			
+				
 			wp_register_style('custom-jquery-styles', $eventsURL . 'smoothness/jquery-ui-1.8.23.custom.css' );
 			wp_register_style('select2-css', $eventsURL . 'select2/select2.css' );
 			wp_register_script('select2', $eventsURL . 'select2/select2.min.js', 'jquery' );
 		}
-
 
 		public function setDate($query) {
 			if ( $query->get('eventDisplay') == 'month' ) {
@@ -2497,15 +2494,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->tabIndexStart++;
 		}
 
-		public function getEvents( $args = '' ) {
-			$tribe_ecp = TribeEvents::instance();
+		public function getEvents( $args = array() ) {
 			$defaults = array(
-				'posts_per_page' => tribe_get_option( 'postsPerPage', 10 ),
-				'post_type' => TribeEvents::POSTTYPE,
 				'orderby' => 'event_date',
 				'order' => 'ASC'
 			);
-
+ 
 			$args = wp_parse_args( $args, $defaults);
 			return TribeEventsQuery::getEvents($args);
 		}
