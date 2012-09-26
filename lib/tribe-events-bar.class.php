@@ -3,7 +3,7 @@ class TribeEventsBar {
 
 	private static $instance;
 
-	// Each row should be a string with the HTML markup for the filter
+	// Each row should be an assosiative array with two fields: caption and html (html is the markup of the field)
 	private $filters = array();
 
 	// Each row should be an assosiative array with two fields: anchor and url.
@@ -29,6 +29,10 @@ class TribeEventsBar {
 
 		if ( $this->should_show() ) {
 
+			add_filter( 'tribe-events-bar-should-show', '__return_false', 9999 );
+
+			$this->load_script();
+
 			$filters = apply_filters( 'tribe-events-bar-filters', $this->filters );
 			$views   = apply_filters( 'tribe-events-bar-views', $this->views );
 
@@ -41,6 +45,24 @@ class TribeEventsBar {
 		return $content;
 	}
 
+	private function load_script() {
+		$tec = TribeEvents::instance();
+		wp_enqueue_script( 'tribe-events-bar', $tec->pluginUrl . 'resources/tribe-events-bar.js', array( 'jquery' ) );
+	}
+
+	public static function print_filters_helper( $filters ) {
+
+		echo "<form name='tribe-events-bar-form' id='tribe-events-bar-form' method='post' action='" . add_query_arg( array() ) . "'>";
+
+		foreach ( $filters as $filter ) {
+			echo $filter['caption'] . ": " . $filter['html'];
+		}
+
+		echo "</form>";
+
+	}
+
+
 	public static function print_views_helper( $views ) {
 
 		$limit = apply_filters( 'tribe-events-bar-views-breakpoint', 5 );
@@ -49,7 +71,7 @@ class TribeEventsBar {
 			$open  = "<ul>";
 			$close = "</ul>";
 
-			$open_el  = "<li><a href='!URL!'>";
+			$open_el  = "<li><a class='tribe-events-bar-view' href='!URL!'>";
 			$close_el = "</a></li>";
 
 		} else {

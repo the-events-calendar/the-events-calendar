@@ -220,8 +220,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( !is_admin() )
 				add_filter( 'get_comment_link', array( $this, 'newCommentLink' ), 10, 2 );
 
+			/* Setup Tribe Events Bar */
 			add_filter( 'tribe-events-bar-views',  array($this, 'setup_listview_in_bar'), 1, 1 );
 			add_filter( 'tribe-events-bar-views',  array($this, 'setup_gridview_in_bar'), 5, 1 );
+
+			add_filter( 'tribe-events-bar-filters',  array($this, 'setup_keyword_search_in_bar'), 1, 1 );
+			/* End Setup Tribe Events Bar */
 		}
 
 
@@ -2915,6 +2919,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function setup_gridview_in_bar( $views ) {
 			$views[] = array( 'anchor' => 'Calendar', 'url' => tribe_get_gridview_link() );
 			return $views;
+		}
+
+		public function setup_keyword_search_in_bar( $filters ) {
+			$filters[] = array( 'caption' => 'Search',
+			                    'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search">' );
+
+			return $filters;
 		}
 
 	} // end TribeEvents class
