@@ -1274,7 +1274,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			wp_enqueue_script('tribe-events-pjax', $eventsURL . 'jquery.pjax.js', array('jquery') );
 			wp_enqueue_script('tribe-events-calendar-script', $eventsURL.'events.js', array('query', 'tribe-events-pjax') );
 			// is there an events.css file in the theme?
-			$event_file = 'events.css';
+			$event_file = 'tribe-events.css';
 			$styleUrl = locate_template( array( 'events/' . $event_file ) ) ?
 				str_replace( get_theme_root(), get_theme_root_uri(), locate_template( array( 'events/' . $event_file ) ) ) : 
 				$eventsURL . $event_file;
