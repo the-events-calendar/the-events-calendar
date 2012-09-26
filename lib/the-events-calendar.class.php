@@ -231,7 +231,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
 			add_action( 'save_post', array( $this, 'publishAssociatedTypes'), 25, 2 );
 			add_action( 'pre_get_posts', array( $this, 'setDate' ));
-			add_action( 'parse_query', array( $this, 'setDisplay' ));
+			add_action( 'wp', array( $this, 'setDisplay' ));
 			add_action( 'tribe_events_post_errors', array( 'TribeEventsPostException', 'displayMessage' ) );
 			add_action( 'tribe_settings_top', array( 'TribeEventsOptionsException', 'displayMessage') );
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
@@ -1087,7 +1087,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					wp_enqueue_script( 'jquery-ecp-plugins', $this->pluginUrl . 'resources/jquery-ecp-plugins.js', array('jquery') );
 					wp_enqueue_style( self::POSTTYPE.'-admin-ui', $this->pluginUrl . 'resources/events-admin-ui.css' );
 					wp_enqueue_script( self::VENUE_POST_TYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js');
-					wp_enqueue_style( self::VENUE_POST_TYPE.'-admin', $this->pluginUrl . 'resources/hide-visibility.css' );
 
 					// hook for other plugins
 					do_action('tribe_venues_enqueue');
@@ -2498,7 +2497,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->tabIndexStart++;
 		}
 
-		public function getEvents( $args = array() ) {
+		public function getEvents( $args = '' ) {
+			$tribe_ecp = TribeEvents::instance();
+			$defaults = array(
+				'posts_per_page' => tribe_get_option( 'postsPerPage', 10 ),
+				'post_type' => TribeEvents::POSTTYPE,
+				'orderby' => 'event_date',
+				'order' => 'ASC'
+			);
+
+			$args = wp_parse_args( $args, $defaults);
 			return TribeEventsQuery::getEvents($args);
 		}
 

@@ -36,9 +36,9 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			if( tribe_get_option('tribeEventsTemplate', 'default') == '' ) {
 				if(is_single() && !tribe_is_showing_all() ) {
-					return TribeEventsTemplates::getTemplateHierarchy('ecp-single-template');
+					return TribeEventsTemplates::getTemplateHierarchy('wrapper-single');
 				} else {
-					return TribeEventsTemplates::getTemplateHierarchy('ecp-page-template');
+					return TribeEventsTemplates::getTemplateHierarchy('wrapper-page');
 				}
 			} else {
 				// we need to ensure that we always enter the loop, whether or not there are any events in the actual query

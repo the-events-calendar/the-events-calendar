@@ -37,10 +37,8 @@ echo apply_filters( 'tribe_events_calendar_before_template', '', get_the_ID() );
 		echo apply_filters( 'tribe_events_calendar_nav', '', get_the_ID() );
 		echo apply_filters( 'tribe_events_calendar_after_nav', '', get_the_ID() );
 
-		// calendar pagination
-		echo apply_filters( 'tribe_events_calendar_before_buttons', '', get_the_ID() );
-		echo apply_filters( 'tribe_events_calendar_buttons', '', get_the_ID() );
-		echo apply_filters( 'tribe_events_calendar_after_buttons', '', get_the_ID() );
+		// list view buttons
+		echo apply_filters( 'tribe_events_calendar_the_view_buttons', '', get_the_ID() );
 			
 	echo apply_filters( 'tribe_events_calendar_after_header', '', get_the_ID() );
 		

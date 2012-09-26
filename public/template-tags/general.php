@@ -105,6 +105,33 @@ if( class_exists( 'TribeEvents' ) ) {
 		$output = date('d-m-Y', $start) != date('d-m-Y', $end);
 		return apply_filters('tribe_is_multiday', $output);
 	}
+	
+	/**
+ 	 * Event Category ID's
+ 	 *
+ 	 * Display the event category ID as a class for events wrapper
+ 	 *
+ 	 * @uses wp_get_object_terms()
+ 	 * @since 2.1
+ 	 */    	
+	function tribe_get_event_cat_ids( $post_id ) {
+
+		if ( isset( $post_id ) ) {
+			$post_id = get_the_ID();
+		}
+		
+		$return_id = array();
+		
+		$tribe_cat_ids = wp_get_object_terms( $post_id, TribeEvents::TAXONOMY );
+		if( !empty( $tribe_cat_ids ) ){
+			if( !is_wp_error( $tribe_cat_ids ) ) {
+				foreach( $tribe_cat_ids as $tribe_cat_id ) {
+					$return_id[] = $tribe_cat_id->term_id;
+				}
+			}
+		}
+		return $return_id;
+	}
 
 	/**
 	 * Event Categories (Display)
