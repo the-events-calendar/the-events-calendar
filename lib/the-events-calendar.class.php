@@ -2922,7 +2922,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function setup_keyword_search_in_bar( $filters ) {
-			$filters[] = array( 'caption' => 'Search',
+			$filters[] = array( 'name'    => 'tribe-bar-search',
+			                    'caption' => 'Search',
 			                    'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search">' );
 
 			return $filters;
