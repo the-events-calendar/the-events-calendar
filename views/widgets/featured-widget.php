@@ -6,7 +6,7 @@
  * This view contains the filters required to create an effective featured widget view.
  *
  * You can recreate an ENTIRELY new featured list widget view by doing a template override,
- * and placing a featured-widget.php file in a tribe-events/widgets/ directory 
+ * and placing a featured-widget.php file in a tribe-events/pro/widgets/ directory 
  * within your theme directory, which will override the /views/widgets/featured-widget.php.
  *
  * You can use any or all filters included in this file or create your own filters in 

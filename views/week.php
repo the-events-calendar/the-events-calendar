@@ -6,7 +6,7 @@
  * This view contains the filters required to create an effective week grid view.
  *
  * You can recreate an ENTIRELY new week grid view by doing a template override, and placing
- * a week.php file in a tribe-events/ directory within your theme directory, which
+ * a week.php file in a tribe-events/pro/ directory within your theme directory, which
  * will override the /views/week.php. 
  *
  * You can use any or all filters included in this file or create your own filters in 

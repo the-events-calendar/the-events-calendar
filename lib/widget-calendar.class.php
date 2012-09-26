@@ -24,8 +24,8 @@ if( !class_exists( 'TribeEventsCalendarWidget') ) {
 
 				$widget_data = array( "ajaxurl" => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
 
-				wp_enqueue_script( 'tribe-events-mini-calendar', TribeEventsPro::instance()->pluginUrl . 'resources/events-mini-ajax.js' );
-				wp_enqueue_style( 'tribe-events-mini-calendar', TribeEventsPro::instance()->pluginUrl . 'resources/events-mini-ajax.css' );
+				wp_enqueue_script( 'tribe-events-mini-calendar', TribeEventsPro::instance()->pluginUrl . 'resources/tribe-events-mini-ajax.js' );
+				wp_enqueue_style( 'tribe-events-mini-calendar', TribeEventsPro::instance()->pluginUrl . 'resources/tribe-events-mini-ajax.css' );
 				wp_localize_script( 'tribe-events-mini-calendar', 'TribeMiniCalendar', $widget_data );
 			}
 		}

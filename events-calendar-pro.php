@@ -406,7 +406,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
     	public function enqueue_styles() {
 			// Enqueue the pro-stylesheet.
-    		$stylesheet_url = $this->pluginUrl . 'resources/events.css';
+    		$stylesheet_url = $this->pluginUrl . 'resources/tribe-events-pro.css';
     		if ( $stylesheet_url ) {
     			wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url );
     		}

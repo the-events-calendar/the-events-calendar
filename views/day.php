@@ -6,7 +6,7 @@
  * This view contains the filters required to create an effective day grid view.
  *
  * You can recreate an ENTIRELY new day grid view by doing a template override, and placing
- * a day.php file in a tribe-events/ directory within your theme directory, which
+ * a day.php file in a tribe-events/pro/ directory within your theme directory, which
  * will override the /views/day.php. 
  *
  * You can use any or all filters included in this file or create your own filters in 
