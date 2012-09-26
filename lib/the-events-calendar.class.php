@@ -2495,6 +2495,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function getEvents( $args = array() ) {
+			$defaults = array(
+				'orderby' => 'event_date',
+				'order' => 'ASC'
+			);
+ 
+			$args = wp_parse_args( $args, $defaults);
 			return TribeEventsQuery::getEvents($args);
 		}
 
