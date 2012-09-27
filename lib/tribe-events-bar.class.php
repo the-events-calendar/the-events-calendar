@@ -58,6 +58,8 @@ class TribeEventsBar {
 			echo $filter['caption'] . ": " . $filter['html'];
 		}
 
+		echo "<input type='submit' name='submit-bar' value='" . __( 'Search', 'tribe-events-calendar' ) . "'/>";
+
 		echo "</form>";
 
 	}

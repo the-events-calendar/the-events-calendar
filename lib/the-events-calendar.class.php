@@ -225,6 +225,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_filter( 'tribe-events-bar-views',  array($this, 'setup_gridview_in_bar'), 5, 1 );
 
 			add_filter( 'tribe-events-bar-filters',  array($this, 'setup_keyword_search_in_bar'), 1, 1 );
+
+			add_filter( 'tribe_events_pre_get_posts', array( $this, 'setup_keyword_search_in_query' ) );
 			/* End Setup Tribe Events Bar */
 		}
 
@@ -2922,11 +2924,27 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function setup_keyword_search_in_bar( $filters ) {
+
+			$value = "";
+			if ( !empty( $_POST['tribe-bar-search'] ) ) {
+				$value = $_POST['tribe-bar-search'];
+			}
+
+
 			$filters[] = array( 'name'    => 'tribe-bar-search',
 			                    'caption' => 'Search',
-			                    'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search">' );
+			                    'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' . esc_attr($value) . '">' );
 
 			return $filters;
+		}
+
+		public function setup_keyword_search_in_query( $query ) {
+
+			if ( !empty( $_POST['tribe-bar-search'] ) ) {
+				$query->query_vars['s'] = $_POST['tribe-bar-search'];
+			}
+
+			return $query;
 		}
 
 	} // end TribeEvents class
