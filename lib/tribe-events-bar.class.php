@@ -54,11 +54,15 @@ class TribeEventsBar {
 
 		echo "<form name='tribe-events-bar-form' id='tribe-events-bar-form' method='post' action='" . add_query_arg( array() ) . "'>";
 
+		echo "<ul>";
+
 		foreach ( $filters as $filter ) {
-			echo $filter['caption'] . ": " . $filter['html'];
+			echo "<li>" . $filter['caption'] . ": " . $filter['html'] . "<li>";
 		}
 
-		echo "<input type='submit' name='submit-bar' value='" . __( 'Search', 'tribe-events-calendar' ) . "'/>";
+		echo "<li><input type='submit' name='submit-bar' value='" . __( 'Search', 'tribe-events-calendar' ) . "'/></li>";
+
+		echo "</ul>";
 
 		echo "</form>";
 
