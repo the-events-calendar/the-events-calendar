@@ -65,6 +65,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			TribeCommonLibraries::register( 'pue-client', '1.2', $this->pluginPath . 'vendor/pue-client/pue-client.php' );
 			TribeCommonLibraries::register( 'advanced-post-manager', '1.0.5', $this->pluginPath . 'vendor/advanced-post-manager/tribe-apm.php' );
 			TribeCommonLibraries::register( 'related-posts', '1.1', $this->pluginPath. 'vendor/tribe-related-posts/tribe-related-posts.php' );
+
+			$tec = TribeEvents::instance();
+			TribeCommonLibraries::register( 'wp-router', '0.3', $tec->pluginPath . 'vendor/wp-router/wp-router.php' );
+
 			//TribeCommonLibraries::register( 'tribe-support', '0.1', $this->pluginPath . 'vendor/tribe-support/tribe-support.class.php' );
 
 			// Next Event Widget
@@ -98,6 +102,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function init() {
 			TribeEventsCustomMeta::init();
 			TribeEventsRecurrenceMeta::init();
+			TribeEventsGeoLoc::instance();
 			$this->displayMetaboxCustomFields();
 		}
 

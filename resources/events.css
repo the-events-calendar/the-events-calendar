@@ -62,3 +62,97 @@ div.tribe-countdown-right {
 div.tribe-countdown-text {
 	clear: both;
 }
+
+#wrapper {
+	width  : 600px;
+	margin : 0 auto;
+}
+
+#data {
+	width          : 100%;
+	padding-top    : 10px;
+	padding-bottom : 10px;
+	margin-bottom  : 10px;
+	text-align     : center;
+	border         : 1px solid #d3d3d3;
+}
+
+#data input[type="text"] {
+	width : 60%;
+}
+
+#location {
+	width : 400px;
+}
+
+#map {
+	width  : 100%;
+	height : 200px;
+
+}
+
+#loading {
+	display           : none;
+	position          : absolute;
+	width             : 600px;
+	height            : 310px;
+	left              : 50%;
+	margin-left       : -300px;
+	background        : rgba(0, 0, 0, 0.6);
+	border-radius     : 10px;
+
+	z-index           : 99;
+
+	webkit-transition : all 1s linear;
+	-moz-transition   : all 1s linear;
+	-o-transition     : all 1s linear;
+	-ms-transition    : all 1s linear;
+	transition        : all 1s linear;
+
+}
+
+#ajax-loading-mini {
+	display : none;
+}
+
+#options {
+	margin-bottom : 30px;
+	display       : none;
+}
+
+#options a {
+	display : block;
+}
+
+#results {
+	width : 100%;
+}
+
+#results div {
+	margin-bottom : 10px;
+}
+
+#results div span {
+	width      : 33.333%;
+	text-align : right;
+	display    : inline-block;
+}
+
+#results div span.heading {
+	font-weight : bold;
+}
+
+#results .found{
+
+	width: 100%;
+	text-align: center;
+	font-size: 13px;
+	font-style: italic;
+}
+
+.timer {
+	text-align : center;
+	width      : 100%;
+	color      : red;
+	margin     : 20px 0;
+}
