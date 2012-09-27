@@ -3,10 +3,11 @@ class TribeEventsBar {
 
 	private static $instance;
 
-	// Each row should be an assosiative array with two fields: caption and html (html is the markup of the field)
+	// Each row should be an assosiative array with three fields: name, caption and html (html is the markup of the field)
 	private $filters = array();
 
-	// Each row should be an assosiative array with two fields: anchor and url.
+	// Each row should be an assosiative array with three fields: displaying, anchor and url.
+	// Displaying is the value of TribeEvents->displaying
 	private $views = array();
 
 	public function __construct() {
@@ -16,7 +17,6 @@ class TribeEventsBar {
 	public function should_show() {
 		global $wp_query;
 		$is_tribe_view = !empty( $wp_query->tribe_is_event_query );
-
 		return apply_filters( 'tribe-events-bar-should-show', $is_tribe_view );
 	}
 
@@ -65,28 +65,39 @@ class TribeEventsBar {
 
 	public static function print_views_helper( $views ) {
 
+		$tec = TribeEvents::instance();
+
 		$limit = apply_filters( 'tribe-events-bar-views-breakpoint', 5 );
 
 		if ( count( $views ) <= $limit ) {
 			$open  = "<ul>";
 			$close = "</ul>";
-
-			$open_el  = "<li><a class='tribe-events-bar-view' href='!URL!'>";
+			$current = 'active';
+			$open_el  = "<li><a class='tribe-events-bar-view !CURRENT!' href='!URL!'>";
 			$close_el = "</a></li>";
 
 		} else {
 
 			$open  = "<select name='tribe-events-bar-view'>";
 			$close = "</select>";
-
-			$open_el  = "<option value='!URL!'>";
+			$current = 'selected';
+			$open_el  = "<option !CURRENT! value='!URL!'>";
 			$close_el = "</option>";
 		}
 
 		echo $open;
 
 		foreach ( $views as $view ) {
-			echo str_replace( '!URL!', esc_url( $view['url'] ), $open_el );
+			$item = str_replace( '!URL!', esc_url( $view['url'] ), $open_el );
+
+			if ( $tec->displaying === $view['displaying'] ) {
+				$item = str_replace( '!CURRENT!', $current, $item );
+			} else {
+				$item = str_replace( '!CURRENT!', '', $item );
+			}
+
+			echo $item;
+
 			echo $view['anchor'];
 			echo $close_el;
 		}

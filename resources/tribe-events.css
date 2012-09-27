@@ -707,3 +707,7 @@ h4.tribe-events-event-day + .post .entry-title {
 #tribe-events-bar #tribe-events-bar-views{
 	float: right;
 }
+
+#tribe-events-bar #tribe-events-bar-views .tribe-events-bar-view.active{
+	font-weight: bold;
+}

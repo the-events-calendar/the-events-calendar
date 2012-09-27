@@ -2912,12 +2912,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function setup_listview_in_bar( $views ) {
-			$views[] = array( 'anchor' => 'List View', 'url' => tribe_get_listview_link() );
+			$views[] = array( 'displaying' => 'upcoming', 'anchor' => 'List View', 'url' => tribe_get_listview_link() );
 			return $views;
 		}
 
 		public function setup_gridview_in_bar( $views ) {
-			$views[] = array( 'anchor' => 'Calendar', 'url' => tribe_get_gridview_link() );
+			$views[] = array( 'displaying' => 'month', 'anchor' => 'Calendar', 'url' => tribe_get_gridview_link() );
 			return $views;
 		}
 
