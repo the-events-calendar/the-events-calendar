@@ -50,7 +50,7 @@ class TribeEventsGeoLoc {
 
 	public function setup_view_for_bar( $views ) {
 		$tec = TribeEvents::instance();
-		$views[] = array( 'anchor' => 'Map', 'url' =>  $tec->getOption( 'eventsSlug', 'events' ) . '/' . $this->rewrite_slug );
+		$views[] = array( 'displaying' => 'map', 'anchor' => 'Map', 'url' =>  $tec->getOption( 'eventsSlug', 'events' ) . '/' . $this->rewrite_slug );
 
 		return $views;
 	}
