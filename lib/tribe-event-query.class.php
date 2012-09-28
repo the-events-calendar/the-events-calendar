@@ -88,7 +88,7 @@ if (!class_exists('TribeEventsQuery')) {
 					$query->set( 'eventDate', $query->get('eventDate') );
 				} else {
 					$query->set( 'hide_upcoming', true );
-					$query->set( 'start_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
+					//$query->set( 'start_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
 					$query->set( 'orderby', 'event_date' );
 					$query->set( 'order', 'ASC' );
 				}

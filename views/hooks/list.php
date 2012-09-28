@@ -93,7 +93,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			foreach ($allClasses as $class) { 
 				$tribe_string_wp_classes .= $class . ' '; 
 			}
-			$tribe_classes_default = 'clear fix tribe-events-event '. $tribe_string_wp_classes;
+			$tribe_classes_default = 'clearfix tribe-events-event '. $tribe_string_wp_classes;
 			$tribe_classes_venue = tribe_get_venue_id() ? 'tribe-events-venue-'. tribe_get_venue_id() : '';
 			$tribe_classes_organizer = tribe_get_organizer_id() ? 'tribe-events-organizer-'. tribe_get_organizer_id() : '';
 			$tribe_classes_categories = $tribe_string_classes;
