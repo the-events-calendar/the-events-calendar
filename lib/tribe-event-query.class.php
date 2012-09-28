@@ -11,9 +11,10 @@ if (!class_exists('TribeEventsQuery')) {
 
 		public static function init() {
 			add_filter( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 0 );
-			add_filter( 'the_posts', array( __CLASS__, 'the_posts'), 0 );
+			// add_filter( 'posts_join', array(__CLASS__, 'posts_join' ), 10, 2 );
+			// add_filter( 'posts_where', array(__CLASS__, 'posts_where'), 10, 2);
 			add_filter( 'posts_orderby', array(__CLASS__, 'posts_orderby'), 10, 2);
-			// add_action( 'parse_query', array( __CLASS__, 'setupQuery'), 0 );			
+			add_filter( 'the_posts', array( __CLASS__, 'the_posts'), 0 );
 		}
 
 		public function pre_get_posts( $query ) {
@@ -94,35 +95,41 @@ if (!class_exists('TribeEventsQuery')) {
 				}
 
 				$meta_query = array( 'relation' => 'AND' );
-				if( $query->get( 'start_date') != '' && $query->get( 'end_date') != '' ){ 
-					$meta_query[] = array(
-						'key'     => '_EventStartDate',
-						'value'   => array(
-							$query->get( 'start_date'),
-							$query->get( 'end_date')),
-						'compare' => 'BETWEEN',
-						'type'    => 'DATETIME'
-					);
-				} else if( $query->get( 'start_date') != ''){
-					$meta_query[] = array(
-						'key' => '_EventStartDate',
-						'value' => $query->get( 'start_date'),
-						'compare' => '>',
-						'type' => 'DATETIME'
-					);
-				} else if( $query->get( 'end_date') != ''){
-					$meta_query[] = array(
-						'key' => '_EventStartDate',
-						'value' => $query->get( 'end_date'),
-						'compare' => '<',
-						'type' => 'DATETIME'
-					);
-				} else {
-					$meta_query[] = array(
-						'key' => '_EventStartDate',
-						'type' => 'DATETIME'
-					);
-				}
+				// if( $query->get( 'start_date') != '' && $query->get( 'end_date') != '' ){ 
+				// 	$meta_query[] = array(
+				// 		'key'     => '_EventStartDate',
+				// 		'value'   => array(
+				// 			$query->get( 'start_date'),
+				// 			$query->get( 'end_date')),
+				// 		'compare' => 'BETWEEN',
+				// 		'type'    => 'DATETIME'
+				// 	);
+				// } else if( $query->get( 'start_date') != ''){
+				// 	$meta_query[] = array(
+				// 		'key' => '_EventStartDate',
+				// 		'value' => $query->get( 'start_date'),
+				// 		'compare' => '>',
+				// 		'type' => 'DATETIME'
+				// 	);
+				// } else if( $query->get( 'end_date') != ''){
+				// 	$meta_query[] = array(
+				// 		'key' => '_EventStartDate',
+				// 		'value' => $query->get( 'end_date'),
+				// 		'compare' => '<',
+				// 		'type' => 'DATETIME'
+				// 	);
+				// } else {
+				// 	$meta_query[] = array(
+				// 		'key' => '_EventStartDate',
+				// 		'type' => 'DATETIME'
+				// 	);
+				// }
+
+				// setup default Event Start join/filter
+				$meta_query[] = array(
+					'key' => '_EventStartDate',
+					'type' => 'DATETIME'
+				);
 
 				// filter by Venue ID
 				if( $query->get('venue') != '' ) {
@@ -175,8 +182,8 @@ if (!class_exists('TribeEventsQuery')) {
 		}
 
 		public function the_posts( $posts ) {
-			// global $wp_query;
-			// print_r($wp_query->request);
+			global $wp_query;
+			print_r($wp_query->request);
 			foreach( $posts as $id => $post ) {
 				$posts[$id]->tribe_is_event = false;
 
@@ -193,10 +200,76 @@ if (!class_exists('TribeEventsQuery')) {
 			return $posts;
 		}
 
+		public static function posts_join( $join_sql, $cur_query ) {
+			global $wpdb;
+
+			if ( $cur_query->tribe_is_event || $cur_query->tribe_is_event_category ) {
+				$join_sql .= " LEFT JOIN {$wpdb->postmeta} as tribe_event_duration ON ( {$wpdb->posts}.ID = tribe_event_duration.post_id AND tribe_event_duration.meta_key = '_EventDuration' ) ";
+			}
+
+			return $join_sql;
+		}
+
+		public static function posts_where( $where_sql, $cur_query ) {
+			global $wpdb;
+
+			// we can't store end date directly because it messes up the distinc clause
+			$end_date = " DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) ";
+
+
+			if( $query->get( 'start_date') != '' && $query->get( 'end_date') != '' ){ 
+				$meta_query[] = array(
+					'key'     => '_EventStartDate',
+					'value'   => array(
+						$query->get( 'start_date'),
+						$query->get( 'end_date')),
+					'compare' => 'BETWEEN',
+					'type'    => 'DATETIME'
+				);
+			} else if( $query->get( 'start_date') != ''){
+				$meta_query[] = array(
+					'key' => '_EventStartDate',
+					'value' => $query->get( 'start_date'),
+					'compare' => '>',
+					'type' => 'DATETIME'
+				);
+			} else if( $query->get( 'end_date') != ''){
+				$meta_query[] = array(
+					'key' => '_EventStartDate',
+					'value' => $query->get( 'end_date'),
+					'compare' => '<',
+					'type' => 'DATETIME'
+				);
+			} else {
+
+			}
+
+
+
+
+			if(!empty($start_date) && !empty($end_date)) {
+				$start_clause = $wpdb->prepare("(eventStart.meta_value >= %s AND eventStart.meta_value <= %s)", $start_date, $end_date);
+				$end_clause = $wpdb->prepare("($endDate >= %s AND eventStart.meta_value <= %s )", $start_date, $end_date);
+				$within_clause = $wpdb->prepare("(eventStart.meta_value < %s AND $endDate >= %s )", $start_date, $end_date);
+				$where .= " AND ($start_clause OR $end_clause OR $within_clause)";
+			} else if(!empty($end_date)) {
+				$start_clause = $wpdb->prepare("$endDate < %s", $end_date);
+				$where .= " AND $start_clause";
+			} else if(!empty($start_date)) {
+			   $end_clause = $wpdb->prepare("eventStart.meta_value > %s", $start_date);
+				$within_clause = $wpdb->prepare("(eventStart.meta_value <= %s AND $endDate >= %s )", $start_date, $start_date);
+			   $where .= " AND ($end_clause OR $within_clause)";
+			}
+
+			return $where_sql;
+		}
+
+
 		public static function posts_orderby( $order_sql, $cur_query ){
+			global $wpdb;
 			if( $cur_query->get( 'orderby' ) == 'event_date' ) {
 				$order_direction = $cur_query->get( 'order' );
-				$order_sql = "DATE(wp_postmeta.meta_value) {$order_direction}, TIME(wp_postmeta.meta_value) {$order_direction}";
+				$order_sql = "DATE({$wpdb->postmeta}.meta_value) {$order_direction}, TIME({$wpdb->postmeta}.meta_value) {$order_direction}";
 			}
 		
 			return $order_sql;
@@ -430,40 +503,40 @@ if (!class_exists('TribeEventsQuery')) {
 		// 	return $query;		
 		// }
 
-		public static function addEventConditions($where, $cur_query) {
-			global $wpdb;
+		// public static function addEventConditions($where, $cur_query) {
+		// 	global $wpdb;
 
-			if ( $cur_query->get('start_date') ) {
-				$start_date = TribeDateUtils::beginningOfDay($cur_query->get('start_date'));
-			}
+		// 	if ( $cur_query->get('start_date') ) {
+		// 		$start_date = TribeDateUtils::beginningOfDay($cur_query->get('start_date'));
+		// 	}
 
-			if ( $cur_query->get('end_date') ) {
-				$end_date = TribeDateUtils::endOfDay(  $cur_query->get('end_date') );
-			}
+		// 	if ( $cur_query->get('end_date') ) {
+		// 		$end_date = TribeDateUtils::endOfDay(  $cur_query->get('end_date') );
+		// 	}
 
-			// we can't store end date directly because it messes up the distinc clause
-			$endDate = " IFNULL(DATE_ADD(CAST(eventStart.meta_value AS DATETIME), INTERVAL eventDuration.meta_value SECOND), eventEnd.meta_value) ";
+		// 	// we can't store end date directly because it messes up the distinc clause
+		// 	$endDate = " IFNULL(DATE_ADD(CAST(eventStart.meta_value AS DATETIME), INTERVAL eventDuration.meta_value SECOND), eventEnd.meta_value) ";
 
-			if(!empty($start_date) && !empty($end_date)) {
-				$start_clause = $wpdb->prepare("(eventStart.meta_value >= %s AND eventStart.meta_value <= %s)", $start_date, $end_date);
-				$end_clause = $wpdb->prepare("($endDate >= %s AND eventStart.meta_value <= %s )", $start_date, $end_date);
-				$within_clause = $wpdb->prepare("(eventStart.meta_value < %s AND $endDate >= %s )", $start_date, $end_date);
-				$where .= " AND ($start_clause OR $end_clause OR $within_clause)";
-			} else if(!empty($end_date)) {
-				$start_clause = $wpdb->prepare("$endDate < %s", $end_date);
-				$where .= " AND $start_clause";
-			} else if(!empty($start_date)) {
-			   $end_clause = $wpdb->prepare("eventStart.meta_value > %s", $start_date);
-				$within_clause = $wpdb->prepare("(eventStart.meta_value <= %s AND $endDate >= %s )", $start_date, $start_date);
-			   $where .= " AND ($end_clause OR $within_clause)";
-			}
+		// 	if(!empty($start_date) && !empty($end_date)) {
+		// 		$start_clause = $wpdb->prepare("(eventStart.meta_value >= %s AND eventStart.meta_value <= %s)", $start_date, $end_date);
+		// 		$end_clause = $wpdb->prepare("($endDate >= %s AND eventStart.meta_value <= %s )", $start_date, $end_date);
+		// 		$within_clause = $wpdb->prepare("(eventStart.meta_value < %s AND $endDate >= %s )", $start_date, $end_date);
+		// 		$where .= " AND ($start_clause OR $end_clause OR $within_clause)";
+		// 	} else if(!empty($end_date)) {
+		// 		$start_clause = $wpdb->prepare("$endDate < %s", $end_date);
+		// 		$where .= " AND $start_clause";
+		// 	} else if(!empty($start_date)) {
+		// 	   $end_clause = $wpdb->prepare("eventStart.meta_value > %s", $start_date);
+		// 		$within_clause = $wpdb->prepare("(eventStart.meta_value <= %s AND $endDate >= %s )", $start_date, $start_date);
+		// 	   $where .= " AND ($end_clause OR $within_clause)";
+		// 	}
 		
-			// if ( $cur_query->get('hide_upcoming') ) {
-			// 	$where .= " AND (hideUpcoming.meta_value != 'yes' OR hideUpcoming.meta_value IS null) ";	
-			// }		
+		// 	// if ( $cur_query->get('hide_upcoming') ) {
+		// 	// 	$where .= " AND (hideUpcoming.meta_value != 'yes' OR hideUpcoming.meta_value IS null) ";	
+		// 	// }		
 
-			return $where;
-		}
+		// 	return $where;
+		// }
 
 		// public static function dateOrderBy($order_sql, $cur_query) {
 		// 	if( $cur_query->get( 'orderby' ) == 'event_date' ) {
