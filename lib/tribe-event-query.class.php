@@ -48,8 +48,8 @@ if (!class_exists('TribeEventsQuery')) {
 
 			if( $query->tribe_is_event_query || $query->tribe_is_event_category) {
 
-				// add_filter( 'posts_join', array(__CLASS__, 'posts_join' ), 10, 2 );
-				// add_filter( 'posts_where', array(__CLASS__, 'posts_where'), 10, 2);
+				add_filter( 'posts_join', array(__CLASS__, 'posts_join' ), 10, 2 );
+				add_filter( 'posts_where', array(__CLASS__, 'posts_where'), 10, 2);
 
 
 				if( !empty($query->query_vars['eventDisplay']) ) {
@@ -185,8 +185,8 @@ if (!class_exists('TribeEventsQuery')) {
 		}
 
 		public function the_posts( $posts ) {
-			// global $wp_query;
-			// print_r($wp_query->request);
+			global $wp_query;
+			print_r($wp_query->request);
 			foreach( $posts as $id => $post ) {
 				$posts[$id]->tribe_is_event = false;
 
@@ -203,76 +203,44 @@ if (!class_exists('TribeEventsQuery')) {
 			return $posts;
 		}
 
-		public static function posts_join( $join_sql, $cur_query ) {
+		public static function posts_join( $join_sql, $query ) {
 			global $wpdb;
 
-			if ( $cur_query->tribe_is_event || $cur_query->tribe_is_event_category ) {
+			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
 				$join_sql .= " LEFT JOIN {$wpdb->postmeta} as tribe_event_duration ON ( {$wpdb->posts}.ID = tribe_event_duration.post_id AND tribe_event_duration.meta_key = '_EventDuration' ) ";
 			}
 
 			return $join_sql;
 		}
 
-		public static function posts_where( $where_sql, $cur_query ) {
-			return $where_sql;
+		public static function posts_where( $where_sql, $query ) {
 			global $wpdb;
 
 			// we can't store end date directly because it messes up the distinc clause
-			$end_date = " DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) ";
+			$duration_filter = " DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) ";
 
-
+			// build where conditionals for events if date range params are set
 			if( $query->get( 'start_date') != '' && $query->get( 'end_date') != '' ){ 
-				$meta_query[] = array(
-					'key'     => '_EventStartDate',
-					'value'   => array(
-						$query->get( 'start_date'),
-						$query->get( 'end_date')),
-					'compare' => 'BETWEEN',
-					'type'    => 'DATETIME'
-				);
+				$start_clause = $wpdb->prepare("({$wpdb->postmeta}.meta_value >= %s AND {$wpdb->postmeta}.meta_value <= %s)", $query->get( 'start_date'), $query->get( 'end_date'));
+				$end_clause = $wpdb->prepare("($duration_filter >= %s AND {$wpdb->postmeta}.meta_value <= %s )", $query->get( 'start_date'), $query->get( 'end_date'));
+				$within_clause = $wpdb->prepare("({$wpdb->postmeta}.meta_value < %s AND $duration_filter >= %s )", $query->get( 'start_date'), $query->get( 'end_date'));
+				$where_sql .= " AND ($start_clause OR $end_clause OR $within_clause)";
 			} else if( $query->get( 'start_date') != ''){
-				$meta_query[] = array(
-					'key' => '_EventStartDate',
-					'value' => $query->get( 'start_date'),
-					'compare' => '>',
-					'type' => 'DATETIME'
-				);
+				$end_clause = $wpdb->prepare("{$wpdb->postmeta}.meta_value > %s", $query->get( 'start_date'));
+				$within_clause = $wpdb->prepare("({$wpdb->postmeta}.meta_value <= %s AND $duration_filter >= %s )", $query->get( 'start_date'), $query->get( 'start_date'));
+				$where_sql .= " AND ($end_clause OR $within_clause)";
 			} else if( $query->get( 'end_date') != ''){
-				$meta_query[] = array(
-					'key' => '_EventStartDate',
-					'value' => $query->get( 'end_date'),
-					'compare' => '<',
-					'type' => 'DATETIME'
-				);
-			} else {
-
-			}
-
-
-
-
-			if(!empty($start_date) && !empty($end_date)) {
-				$start_clause = $wpdb->prepare("(eventStart.meta_value >= %s AND eventStart.meta_value <= %s)", $start_date, $end_date);
-				$end_clause = $wpdb->prepare("($endDate >= %s AND eventStart.meta_value <= %s )", $start_date, $end_date);
-				$within_clause = $wpdb->prepare("(eventStart.meta_value < %s AND $endDate >= %s )", $start_date, $end_date);
-				$where .= " AND ($start_clause OR $end_clause OR $within_clause)";
-			} else if(!empty($end_date)) {
-				$start_clause = $wpdb->prepare("$endDate < %s", $end_date);
-				$where .= " AND $start_clause";
-			} else if(!empty($start_date)) {
-			   $end_clause = $wpdb->prepare("eventStart.meta_value > %s", $start_date);
-				$within_clause = $wpdb->prepare("(eventStart.meta_value <= %s AND $endDate >= %s )", $start_date, $start_date);
-			   $where .= " AND ($end_clause OR $within_clause)";
+				$where_sql .= " AND " . $wpdb->prepare( "$duration_filter < %s", $query->get( 'end_date') );
 			}
 
 			return $where_sql;
 		}
 
 
-		public static function posts_orderby( $order_sql, $cur_query ){
+		public static function posts_orderby( $order_sql, $query ){
 			global $wpdb;
-			if( $cur_query->get( 'orderby' ) == 'event_date' ) {
-				$order_direction = $cur_query->get( 'order' );
+			if( $query->get( 'orderby' ) == 'event_date' ) {
+				$order_direction = $query->get( 'order' );
 				$order_sql = "DATE({$wpdb->postmeta}.meta_value) {$order_direction}, TIME({$wpdb->postmeta}.meta_value) {$order_direction}";
 			}
 		
