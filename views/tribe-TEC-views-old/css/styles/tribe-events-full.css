@@ -3,7 +3,7 @@
  * (Some of these styles may override your current theme's styles)
  *
  * You can customize this stylesheet by putting a stylesheet of the same name
- * (events.css) in the events/ directory of your theme.
+ * (tribe-events.css) in the tribe-events/ directory of your theme.
  *
  * @package TribeEventsCalendar
  * @since  1.0
@@ -18,7 +18,7 @@
 .tribe-events-calendar, 
 #tribe-events-content .ical, 
 .events-single #content .ical, 
-a.gmap,
+a.gmap, 
 .tribe-events-event-list-meta td, 
 .tribe-events-nav, 
 #tribe-events-event-meta, 
@@ -32,7 +32,7 @@ span.back,
 /* Links */
 #tribe-events-content a, 
 #tribe-events-event-meta a {
-	text-decoration: none;
+	text-decoration:none;
 }
 
 /* Important Link Styles */
@@ -147,7 +147,7 @@ p.tribe-promo-banner a {
 }
 
 
-/* = Calendar View & List View Template Styles
+/* = Grid View & List View Template Styles
    @ Template: calendar.php & list.php
 =============================================*/
 #tribe-events-content {
@@ -211,7 +211,7 @@ h2.tribe-events-cal-title a:focus {
 }
 
 
-/* = Calendar View Template Styles
+/* = Grid View Template Styles
    @ Template: calendar.php
 =============================================*/
 /* Header */

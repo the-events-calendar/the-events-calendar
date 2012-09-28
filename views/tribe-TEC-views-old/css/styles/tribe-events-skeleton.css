@@ -1,0 +1,647 @@
+/**
+ * The Events Calendar & Events Calendar Pro Skeleton Stylesheet
+ * (These styles shouldn't override your current theme's styles)
+ *
+ * You can customize this stylesheet by putting a stylesheet of the same name
+ * (tribe-events.css) in the tribe-events/ directory of your theme.
+ *
+ * @package TribeEventsCalendar
+ * @since  1.0
+ * @author Modern Tribe Inc.
+ *
+ */
+
+/* = Global & Miscellaneous Styles
+=============================================*/
+/* Calendar Add Buttons */
+a.ical,
+a.gcal-add {
+	color: #fff;
+	font-size: 10px;
+	background: #777;
+	padding: 0 6px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	float: right;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	text-decoration: none;
+	line-height: 18px;
+	margin-bottom: 21px;	
+}
+.gcal-add {
+	margin-right: 9px;
+}
+
+/* Google Maps */
+#tribe-events-event-meta .gmap, 
+.tribe-events-event-meta-desc .gmap {
+	color: #fff;
+	font-size: 9px;
+	background: #004080;
+	padding: 1px 4px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	white-space: nowrap;
+}
+
+/* Fixes for rich snippets */
+.event .entry-title {
+	line-height: inherit;
+	padding: inherit;
+}
+
+.updated-info {
+	text-indent: -9999px;
+	height: 0;
+}
+
+/* 2011 Theme Extra Calendar Room */
+.events-archive .entry-content, 
+.events-archive .entry-header { width: 98%; }
+.events-archive .tribe-events-event-entry { width: 60%; }
+
+/* Event Notices */
+.event-notices {
+    background: #d9edf7;
+    border: 1px solid #bce8f1;
+    color: #3a87ad;
+    margin: 10px 0 18px;
+    padding: 8px 35px 8px 14px;
+    text-shadow: 0 1px 0 #fff;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+/* Promotional Styles */
+p.tribe-promo-banner {
+	font-size: 12px;
+	color: #999;
+}
+p.tribe-promo-banner a {
+	color: #666;	
+}
+
+/* Miscellaneous */
+.clearfix:before, .clearfix:after {content: ""; display: table;}
+.clearfix:after {clear: both;}
+.clearfix {zoom: 1;}
+.tribe-clear {clear: both;}
+.tribe-events-error {display:none;}
+.tribe-events-multi-event-day {color: #0f81bb;}
+
+/* IE7 Tweaks */
+*+html .events-archive h2.tribe-events-cal-title {
+	padding-bottom: 30px;
+}
+*+html .events-archive .upcoming h2.tribe-events-cal-title {
+	padding-bottom: 0;
+}
+*+html #tribe-events-calendar-header {
+	margin-bottom: 30px;
+}
+
+
+/* = Grid View & List View Template Styles
+   @ Template: calendar.php & list.php
+=============================================*/
+#tribe-events-content {
+	position: relative;
+	margin-bottom: 48px;
+	padding: 1px 20px;
+}
+#tribe-events-content {
+	font-size: 16px;
+}
+.events-archive.events-list .hentry,
+.events-archive.events-gridview .hentry {
+	margin: 0;
+	padding: 0 0 15px 0;
+}
+
+/* Header */
+#tribe-events-calendar-header {
+	position: relative;
+	height: 15px;
+}
+.tribe-events-calendar-buttons {
+	position: absolute;
+	right: 0;
+	top: 6px;
+}
+h2.tribe-events-cal-title a {
+	color: #000;
+}
+h2.tribe-events-cal-title a:hover, 
+h2.tribe-events-cal-title a:focus {
+	color: #333;
+	text-decoration: underline;
+}
+.tribe-events-calendar-buttons a {
+	background: #999;
+	border-radius: 3px;
+	color: #fff;
+	display: block;
+	float: left;
+	font-size: 11px;
+	font-weight: bold;
+	height: 24px;
+	line-height: 24px;
+	margin: 21px 0 24px 10px;
+	padding: 0 9px;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	width: auto;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+.tribe-events-calendar-buttons a.tribe-events-button-on {
+	background: #666;
+}
+.tribe-events-calendar-buttons a.tribe-events-button-off {
+	background: #ddd;
+	color: #444;
+}
+
+
+/* = Grid View Template Styles
+   @ Template: calendar.php
+=============================================*/
+/* Header */
+.grid #tribe-events-calendar-header {
+	height: 50px;
+}
+h2.tribe-events-cal-title {
+	padding-left: 20px;
+	margin-bottom: 0;
+	font-weight: bold;
+	position: relative;
+	z-index: 0;
+}
+.tribe-events-month-nav {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	z-index: 0;
+}
+.tribe-events-prev-month {
+	margin-right: 5px;
+}
+.tribe-events-next-month {
+	margin-left: 5px;
+}
+select.tribe-events-dropdown {
+	width: auto;
+	font-size: 11px;
+	margin: 33px 9px 0 0;
+}
+#tribe-events-events-picker, 
+#tribe-events-picker {
+	display: inline;
+}
+
+
+/* = List View Template Styles
+   @ Template: list.php
+=============================================*/
+#tribe-events-content.upcoming {
+	margin-bottom: 60px;
+}
+
+/* Header */
+.upcoming .tribe-events-calendar-buttons {
+	top: -24px;
+}
+.upcoming h2.tribe-events-cal-title {
+	margin-bottom: 15px;
+}
+
+/* Navigation */
+.events-archive #tribe-events-nav-below {
+	margin: 21px 0;
+}
+.navlink{
+	width: 30%;
+	padding-bottom: 10px;
+}
+#tribe-events-nav-below .tribe-events-nav-previous {
+	float: left;
+}
+#tribe-events-nav-below .tribe-events-nav-next {
+	float: right;
+}
+
+
+/* = List View & Single Venue (Pro Version) Template Styles
+   @ Template: list.php & single-venue.php
+=============================================*/
+/* Loop */
+#tribe-events-loop {
+	font-size: 13px;
+	clear: both;
+}
+#tribe-events-loop .tribe-events-event {
+	border-bottom: 1px solid #ddd;
+	padding: 2.25em 0;
+	overflow: auto;
+}
+#tribe-events-loop .tribe-last {
+	border-bottom: 0;
+}
+.tribe-events-events .tribe-events-event-entry {
+	width: 60%;
+	float: left;
+	padding: 0 5% 0 0;
+}
+.events-archive .tribe-events-event-entry p, 
+.venue-events .tribe-events-event-entry p {
+	margin: 0;
+	line-height: 1.5;
+}
+.single-tribe_venue .upcoming .entry-title, 
+.events-archive .upcoming .entry-title {
+	margin: 15px 0 6px;
+	line-height: 1em;
+	padding: 0;
+}
+.events-archive .event-day, 
+.single-tribe_venue .event-day, 
+.venue-events .event-day {
+	margin-top: 0;
+	font-style: italic;
+}
+.events-archive .entry-title a, 
+.tribe-events-event-meta-desc, 
+.tribe-events-event-day {
+	color: #333;
+}
+
+/* Event Meta Info */
+.tribe-events-events .tribe-events-event-list-meta {
+	float: right;
+	border-left: 1px solid #ccc;
+	padding: 0 0 0 4%;
+	width: 30%;
+	font-size: 12px;
+	margin-bottom: 20px;
+}
+.tribe-events-event-list-meta table {border-collapse: collapse; border: 0;}
+.tribe-events-event-list-meta tr { border: 0; }
+.tribe-events-event-list-meta td {
+	vertical-align:top;
+	padding: 0 0 4px 0;
+	text-align:left;
+	border: 0;
+	background-color: white;
+}
+.tribe-events-event-meta-desc {
+	font-weight: bold;
+	padding-right: 12px;
+	width: 64px;
+}
+
+
+/* = Single Venue Template Styles (Pro Version)
+   @ Template: single-venue.php
+=============================================*/
+.venue-events .tribe-events-event {
+	margin: 0;
+}
+.venue-events h2.tribe-events-cal-title {
+	padding-left: 0;
+}
+.venue-events .event-day {
+	margin-top: 0;
+}
+.venue-events .entry-title {
+	margin: 15px 0 6px;
+	padding: 0;
+	line-height: 1em;
+}
+
+
+/* = Single Event Template Styles
+   @ Template: single-event.php
+=============================================*/
+.tribe-events-event .entry img.attachment-post-thumbnail {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	text-align: center;
+}
+
+/* Eventbrite */
+#eventbrite-embed {
+	width: 100%;
+	min-height: 225px;
+	margin: 24px 0;
+}
+
+/* Navigation */
+.tribe-previous{
+	float:left;
+	clear:both;
+}
+.tribe-next{
+	float:right;
+	text-align:right;
+}
+
+
+/* = Single Event & Single Venue (Pro Version) Template Styles
+   @ Template: single-event.php & single-venue.php
+=============================================*/
+/* Back Button */
+span.back {
+	font-size:12px;
+}
+
+/* Event Meta */
+#tribe-events-event-meta {
+	border-width: 1px 0;
+	border-style: solid;
+	border-color: #bbb;
+	margin: 8px 0 18px 0;
+	padding: 12px 0 2px;
+	overflow: hidden;
+	clear: both;
+	font-size: 12px;
+}
+#tribe-events-event-meta .column {
+	float: left;
+	width: 30%;
+	padding: 0 4% 0 0;
+	text-align: left;
+	margin: 0;
+}
+#tribe-events-event-meta dt {
+	float: left;
+	clear: left;
+	font-weight: bold;
+	width: 70px;
+}
+#tribe-events-event-meta dd {
+	padding: 0;
+	margin-left: 80px;
+	margin-bottom: 10px;
+}
+
+
+/* = Calendar Styles (includes styles for both large & small calendars)
+   @ Template: calendar.php & calendar-widget.php
+=============================================*/
+/* Global Calendar Styles */
+table.tribe-events-calendar {
+	margin: 18px 0 12px;
+	clear: both;
+	font-size: 12px;
+	border-collapse: collapse;
+}
+table.tribe-events-calendar, 
+.tribe-events-calendar td {
+	border: 1px solid #bbb;
+}
+.tribe-events-calendar .daynum, 
+.tribe-events-calendar .daynum a {
+	background-color: #f5f5f5;
+	color: #333;
+	font-size: 11px;
+	font-weight: bold;
+}
+.tribe-events-calendar td.tribe-events-present .daynum, 
+.tribe-events-calendar td.tribe-events-present .daynum > a  {
+	background-color: #666;
+	color: #fff;
+}
+.tribe-events-calendar td.tribe-events-past .daynum, 
+.tribe-events-calendar td.tribe-events-past .daynum > a {
+	color: #999;
+}
+.tribe-events-calendar td {
+	height: 110px;
+	width: 14.28%;
+	color: #114b7d;
+	vertical-align: top;
+	padding: 0;
+	font-size: 12px;
+}
+
+/* Global Tooltips */
+.tribe-events-calendar .tribe-events-tooltip {
+	border: 1px solid #666;
+	position: absolute;
+	z-index: 1001;
+	bottom: 30px;
+	left: 3px;
+	width: 320px;
+	background-color: #f9f9f9;
+	color: #333;
+	line-height: 1.4;
+}
+.tribe-events-tooltip .tribe-events-arrow {
+	width: 19px;
+	height: 11px;
+	display: block;
+	background: url(images/tooltip-arrow.png) no-repeat 0 bottom;
+	position: absolute;
+	bottom: -11px;
+	left: 20px;
+}
+.tribe-events-calendar .tribe-events-right .tribe-events-tooltip {
+	left: auto;
+	right: 3px;
+}
+.tribe-events-right .tribe-events-tooltip .tribe-events-arrow {
+	left: auto;
+	right: 30px;
+}
+
+/* Large Calendar Specifics */
+.events-archive.events-gridview table .tribe-events-event {
+	margin: 0;
+	padding: 6px 9px;
+	border-bottom: 0;
+}
+.tribe-events-calendar th {
+	width: 250px;
+	height: 10px;
+	background-color: #ddd;
+	color: #333;
+	padding: 4px 0;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+.tribe-events-calendar td .tribe-events-event {
+	padding: 6px 9px;
+	line-height: 1.2;
+}
+.tribe-events-calendar td a {font-size: 91.7%;}
+.tribe-events-calendar hr {
+	border: 0;
+	display: block;
+	height: 1px;
+	background-color: #e7e7e7;
+	margin: 0 9px;
+}
+.tribe-events-calendar .tribe-events-event {
+	position: relative;
+	margin: 0;
+}
+.tribe-events-real-event {
+   cursor: pointer;
+}
+
+/* Large Calendar Tooltip Specifics */
+.tribe-events-tooltip .tribe-events-event-title {
+	margin: 0;
+	color: #fff;
+	background-color: #666;
+	font-size: 12px;
+	padding: 0 6px;
+	min-height: 24px;
+	line-height: 24px;
+	letter-spacing: 1px;
+}
+.tribe-events-tooltip .tribe-events-event-body {
+	font-size: 11px;
+	padding: 3px 6px 6px;
+}
+.tribe-events-tooltip .tribe-events-event-date {
+	font-style: italic;
+	margin: 3px 0;
+}
+.tribe-events-tooltip .tribe-events-event-thumb {
+	float: left;
+	padding: 5px;
+}
+
+
+/* = Events Calendar Widget Styles (Sidebar)
+   @ Template: calendar-widget.php
+=============================================*/
+.widget #calendar_wrap {
+	width: 100%;
+}
+table.tribe-events-calendar-widget {
+	width: 100%;
+	table-layout: fixed;
+	margin-top: 0;
+}
+.tribe-view-all-events {
+	float: right;
+}
+.tribe-events-calendar-widget th {
+	font-size: 10px;
+	background-color: #e8e8e8;
+	color: #555;
+	width: 14.28%;
+}
+.tribe-events-calendar-widget td {
+	height: auto;
+	text-align: center;
+}
+.tribe-events-calendar-widget td .tribe-events-event {
+	padding: 6px 0;
+	background-color: #f9f9f9;
+}
+.tribe-events-calendar-widget .daynum, 
+.tribe-events-calendar-widget td a {
+	font-size: 10px;
+}
+.tribe-events-calendar-widget td a.tribe-events-mini-has-event {
+	color: #06c;
+	cursor: default;
+}
+.tribe-events-calendar-widget .tribe-events-tooltip {
+	width: 100px;
+	left: 0;
+	text-align: left;
+	padding: 5px 10px;
+}
+.tribe-events-calendar-widget .tribe-events-right .tribe-events-tooltip {
+	right: 0;
+}
+.tribe-events-calendar-widget .tribe-events-tooltip .tribe-events-arrow {
+	left: 4px;
+}
+.tribe-events-calendar-widget .tribe-events-right .tribe-events-tooltip .tribe-events-arrow {
+	left: auto;
+	right: 3px;
+}
+.tribe-events-calendar-widget h5 a {
+	font-size: 11px;
+}
+
+
+/* = Events List Widget Styles (Sidebar)
+   @ Template: list-widget.php
+=============================================*/
+.eventsListWidget li, 
+.singular.page li.hentry, 
+.eventsAdvancedListWidget li, 
+.singular.page li.hentry {
+	margin: 6px 0;
+	padding: 0 0 10px 0;
+}
+
+
+/* = Deprecated / Not Applicable Anymore
+=============================================*/
+/*
+#tribe-events-nav-above {
+	margin: 5px 0 0;
+}
+
+.events-archive .post {
+	overflow: hidden;
+	margin-bottom: 0;
+}
+
+.tribe-events-event .post {
+	position: relative;
+}
+
+h4.tribe-events-event-day {
+	font-weight: bold;
+	font-size: 18px;
+	margin: 12px 0 -3px;
+	clear: both;
+}
+
+h4.tribe-events-event-day + .post .entry-title {
+	margin-top: 6px;
+}
+
+.view-larger-map {
+	font-size: 13px;
+	text-align: right;
+	margin-bottom: 1em;
+	line-height: 16px;
+}
+
+.previous {
+	float: left;
+	clear: both;
+	background-color: red;
+}
+
+.next {
+	float: right;
+	text-align: right;
+	background-color: yellow;
+}
+
+.events_calendar_widget h4.cal-header {
+	margin: 12px 0 0;
+}
+
+.singular .tribe-events-event.hentry {
+	padding-top: 1em;
+}
+*/
