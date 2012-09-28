@@ -48,6 +48,7 @@ class TribeEventsBar {
 	private function load_script() {
 		$tec = TribeEvents::instance();
 		wp_enqueue_script( 'tribe-events-bar', $tec->pluginUrl . 'resources/tribe-events-bar.js', array( 'jquery' ) );
+		wp_enqueue_script( 'jquery-ui-datepicker' );
 	}
 
 	public static function print_filters_helper( $filters ) {
@@ -57,7 +58,7 @@ class TribeEventsBar {
 		echo "<ul>";
 
 		foreach ( $filters as $filter ) {
-			echo "<li>" . $filter['caption'] . ": " . $filter['html'] . "<li>";
+			echo "<li>" . $filter['caption'] . ": " . $filter['html'] . "</li>";
 		}
 
 		echo "<li><input type='submit' name='submit-bar' value='" . __( 'Search', 'tribe-events-calendar' ) . "'/></li>";
@@ -76,17 +77,17 @@ class TribeEventsBar {
 		$limit = apply_filters( 'tribe-events-bar-views-breakpoint', 5 );
 
 		if ( count( $views ) <= $limit ) {
-			$open  = "<ul>";
-			$close = "</ul>";
-			$current = 'active';
+			$open     = "<ul>";
+			$close    = "</ul>";
+			$current  = 'active';
 			$open_el  = "<li><a class='tribe-events-bar-view !CURRENT!' href='!URL!'>";
 			$close_el = "</a></li>";
 
 		} else {
 
-			$open  = "<select name='tribe-events-bar-view'>";
-			$close = "</select>";
-			$current = 'selected';
+			$open     = "<select name='tribe-events-bar-view'>";
+			$close    = "</select>";
+			$current  = 'selected';
 			$open_el  = "<option !CURRENT! value='!URL!'>";
 			$close_el = "</option>";
 		}

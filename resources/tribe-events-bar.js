@@ -1,5 +1,7 @@
 jQuery( document ).ready( function ( $ ) {
 
+	$( "#tribe-bar-date" ).datepicker();
+
 	$( 'select[name=tribe-events-bar-view]' ).change( function () {
 		var el = $( this );
 		$( 'form#tribe-events-bar-form' ).attr( 'action', el.val() ).submit();
