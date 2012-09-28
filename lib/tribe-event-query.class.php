@@ -11,8 +11,6 @@ if (!class_exists('TribeEventsQuery')) {
 
 		public static function init() {
 			add_filter( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 0 );
-			// add_filter( 'posts_join', array(__CLASS__, 'posts_join' ), 10, 2 );
-			// add_filter( 'posts_where', array(__CLASS__, 'posts_where'), 10, 2);
 			add_filter( 'posts_orderby', array(__CLASS__, 'posts_orderby'), 10, 2);
 			add_filter( 'the_posts', array( __CLASS__, 'the_posts'), 0 );
 		}
@@ -49,6 +47,11 @@ if (!class_exists('TribeEventsQuery')) {
 				: false; // move along, this is not the query you are looking for
 
 			if( $query->tribe_is_event_query || $query->tribe_is_event_category) {
+
+				// add_filter( 'posts_join', array(__CLASS__, 'posts_join' ), 10, 2 );
+				// add_filter( 'posts_where', array(__CLASS__, 'posts_where'), 10, 2);
+
+
 				if( !empty($query->query_vars['eventDisplay']) ) {
 	            	switch ( $query->query_vars['eventDisplay'] ) {
 	               		case 'past': // setup past event display query
@@ -182,8 +185,8 @@ if (!class_exists('TribeEventsQuery')) {
 		}
 
 		public function the_posts( $posts ) {
-			global $wp_query;
-			print_r($wp_query->request);
+			// global $wp_query;
+			// print_r($wp_query->request);
 			foreach( $posts as $id => $post ) {
 				$posts[$id]->tribe_is_event = false;
 
@@ -211,6 +214,7 @@ if (!class_exists('TribeEventsQuery')) {
 		}
 
 		public static function posts_where( $where_sql, $cur_query ) {
+			return $where_sql;
 			global $wpdb;
 
 			// we can't store end date directly because it messes up the distinc clause
