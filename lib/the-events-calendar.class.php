@@ -160,6 +160,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// Exceptions Helper
 			require_once( 'tribe-event-exception.class.php' );
 
+			// Tribe Common Libs Helper
+			// require_once( $this->pluginPath.'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
+
+			// WP Router
+			// TribeCommonLibraries::register( 'wp-router', '0.3.3', $this->pluginPath . 'vendor/wp-router/wp-router.php' );
+
 			// Load Template Tags
 			require_once( $this->pluginPath.'public/template-tags/query.php' );
 			require_once( $this->pluginPath.'public/template-tags/general.php' );
@@ -1409,6 +1415,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$qvars[] = 'end_date';
 			return $qvars;
 		}
+
 		/**
 		 * Adds Event specific rewrite rules.
 		 *

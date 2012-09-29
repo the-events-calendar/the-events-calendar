@@ -10,8 +10,11 @@ if (!class_exists('TribeEventsQuery')) {
 	class TribeEventsQuery {
 
 		public static function init() {
+
+			// if tribe event query add filters
 			add_filter( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 0 );
-			add_filter( 'posts_orderby', array(__CLASS__, 'posts_orderby'), 10, 2);
+
+			// setup returned posts with event fields ( start date, end date, duration etc )
 			add_filter( 'the_posts', array( __CLASS__, 'the_posts'), 0 );
 		}
 
@@ -87,48 +90,23 @@ if (!class_exists('TribeEventsQuery')) {
 							$query->set( 'order', 'ASC' );
 	                  		break;	
 	            	}
-	         	} else if ( is_single() &&  $query->get('eventDate') != '' ) {
-					$query->set( 'start_date', $query->get('eventDate') );
-					$query->set( 'eventDate', $query->get('eventDate') );
+	         	} else if ( is_single() ) {
+	         		if( $query->get('eventDate') != '' ) {
+						$query->set( 'start_date', $query->get('eventDate') );
+						$query->set( 'eventDate', $query->get('eventDate') );
+					}
 				} else {
 					$query->set( 'hide_upcoming', true );
-					//$query->set( 'start_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
+					$query->set( 'start_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
 					$query->set( 'orderby', 'event_date' );
 					$query->set( 'order', 'ASC' );
 				}
 
-				// setup default relation for meta queries
-				// $meta_query = array( 'relation' => 'AND' );
-				$query->set( 'meta_query', array( 'relation' => 'AND' ) );
-
 				// setup default Event Start join/filter
-				// $meta_query[] = array(
-				// 	'key' => '_EventStartDate',
-				// 	'type' => 'DATETIME'
-				// );
-				$query->set( 'meta_query', array( array(
+				$meta_query[] = array(
 					'key' => '_EventStartDate',
 					'type' => 'DATETIME'
-				) ) );
-
-				// filter by Venue ID
-				if( $query->get('venue') != '' ) {
-					$meta_query[] = array(
-						'key' => '_EventVenueID', 
-						'value' => $query->get('venue')
 					);
-				}
-
-				// proprietary metaKeys go to standard meta
-				if( $query->get('metaKey') != '' ) {
-					$meta_query[] = array(
-						'key' => $query->get('metaKey'), 
-						'value' => $query->get('metaValue')
-					);
-				}
-
-				// setup custom meta_queries
-				// $query->set( 'meta_query', $meta_query );
 
 				// eventCat becomes a standard taxonomy query - will need to deprecate and update views eventually
 				if ( ! in_array( $query->get('eventCat'), array( '', '-1' )) ) {
@@ -137,31 +115,66 @@ if (!class_exists('TribeEventsQuery')) {
 						'field' => is_numeric($query->get('eventCat')) ? 'id' : 'name', 
 						'terms' => $query->get('eventCat')
 						);
-					$query->set( 'tax_query', $meta_query );
+					$query->set( 'tax_query', $tax_query );
 
-				}
-		
-				// enable pagination setup
-				if ( $query->get('numResults') != '' ) {
-					$query->set( 'posts_per_page', $query->get('numResults'));
-				} elseif ( $query->get('posts_per_page') == '' ) {
-					$query->set( 'posts_per_page', (int) tribe_get_option( 'postsPerPage', 10 ) );
-				}
-
-				// hide upcoming events from query (only not in admin)
-				if ( !is_admin() && $query->get('hide_upcoming') ) {
-					$hide_upcoming_ids = self::getHideFromUpcomingEvents();
-					if( !empty($hide_upcoming_ids) )
-						$query->set('post__not_in', $hide_upcoming_ids);
 				}
 
 			}
-			print_r($query);
+
+			// filter by Venue ID
+			if( $query->tribe_is_event_query && $query->get('venue') != '' ) {
+				$meta_query[] = array(
+					'key' => '_EventVenueID', 
+					'value' => $query->get('venue')
+					);
+			}
+
+			// proprietary metaKeys go to standard meta
+			if( $query->tribe_is_event_query && $query->get('metaKey') != '' ) {
+				$meta_query[] = array(
+					'key' => $query->get('metaKey'), 
+					'value' => $query->get('metaValue')
+					);
+			}
+
+			// enable pagination setup
+			if ( $query->tribe_is_event_query && $query->get('numResults') != '' ) {
+				$query->set( 'posts_per_page', $query->get('numResults'));
+			} elseif ( $query->get('posts_per_page') == '' ) {
+				$query->set( 'posts_per_page', (int) tribe_get_option( 'postsPerPage', 10 ) );
+			}
+
+			// hide upcoming events from query (only not in admin)
+			if ( $query->tribe_is_event_query && $query->get('hide_upcoming') ) {
+				$hide_upcoming_ids = self::getHideFromUpcomingEvents();
+				if( !empty($hide_upcoming_ids) )
+					$query->set('post__not_in', $hide_upcoming_ids);
+			}
+
+			if( $query->tribe_is_event_query && !empty($meta_query) ) {
+				// setup default relation for meta queries
+				$meta_query['relation'] = 'AND';
+				$query->set( 'meta_query', $meta_query );
+			}
+
+			if( $query->tribe_is_event_query ) {
+				add_filter( 'posts_orderby', array(__CLASS__, 'posts_orderby'), 10, 2);
+			}
+
+			// if is in the admin remove the event date & upcoming filters
+			if( is_admin() && $query->tribe_is_event_query ) {
+				remove_filter( 'posts_join', array(__CLASS__, 'posts_join' ), 10, 2 );
+				remove_filter( 'posts_where', array(__CLASS__, 'posts_where'), 10, 2);
+				$query->set( 'post__not_in', '' );
+			}
+
 			// check if is_event_query === true and hook filter
 			return $query->tribe_is_event_query ? apply_filters( 'tribe_events_pre_get_posts', $query ) : $query;
 		}
 
 		public function the_posts( $posts ) {
+			// global $wp_query;
+			// print_r($wp_query->request);
 			if( !empty($posts) ) {
 				foreach( $posts as $id => $post ) {
 					$posts[$id]->tribe_is_event = false;
@@ -238,7 +251,6 @@ if (!class_exists('TribeEventsQuery')) {
 		}
 
 		public static function getEvents( $args = array() ) {
-
 			$defaults = array(
 				'post_type' => TribeEvents::POSTTYPE,
 				'orderby' => 'event_date',
@@ -247,8 +259,9 @@ if (!class_exists('TribeEventsQuery')) {
 			);	
 			$args = wp_parse_args( $args, $defaults);
 
+			// print_r($args);
+
 			$wp_query = new WP_Query( $args );
-			// print_r($wp_query);
 
 			if( ! empty($wp_query->posts) ) {
 				$posts = $wp_query->posts;
