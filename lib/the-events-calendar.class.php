@@ -161,6 +161,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-event-exception.class.php' );
 
 			// Load Template Tags
+			require_once( $this->pluginPath.'public/template-tags/query.php' );
 			require_once( $this->pluginPath.'public/template-tags/general.php' );
 			require_once( $this->pluginPath.'public/template-tags/calendar.php' );
 			require_once( $this->pluginPath.'public/template-tags/loop.php' );
