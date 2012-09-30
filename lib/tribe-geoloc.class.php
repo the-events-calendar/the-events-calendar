@@ -16,7 +16,6 @@ class TribeEventsGeoLoc {
 	const ADDRESS    = '_VenueGeoAddress';
 	const OPTIONNAME = 'tribe_geoloc_options';
 
-
 	protected static $options;
 	protected $rewrite_slug;
 
@@ -33,6 +32,7 @@ class TribeEventsGeoLoc {
 		add_action( 'wp_ajax_nopriv_geosearch', array( $this, 'ajax_geosearch' ) );
 
 		add_filter( 'tribe-events-bar-views', array( $this, 'setup_view_for_bar' ) );
+		add_filter( 'tribe-events-bar-filters',  array($this, 'setup_geoloc_filter_in_bar'), 1, 1 );
 
 	}
 
@@ -50,9 +50,25 @@ class TribeEventsGeoLoc {
 
 	public function setup_view_for_bar( $views ) {
 		$tec = TribeEvents::instance();
-		$views[] = array( 'displaying' => 'map', 'anchor' => 'Map', 'url' =>  $tec->getOption( 'eventsSlug', 'events' ) . '/' . $this->rewrite_slug );
+		$views[] = array( 'displaying' => 'map',
+		                  'anchor'     => 'Map',
+		                  'url'        => get_home_url( get_current_blog_id(), $tec->getOption( 'eventsSlug', 'events' ) . '/' . $this->rewrite_slug ) );
 
 		return $views;
+	}
+
+	public function setup_geoloc_filter_in_bar( $filters ) {
+
+		$value = "";
+		if ( !empty( $_POST['tribe-bar-geoloc'] ) ) {
+			$value = $_POST['tribe-bar-geoloc'];
+		}
+
+		$filters[] = array( 'name'    => 'tribe-bar-geoloc',
+		                    'caption' => 'Near this location',
+		                    'html'    => '<input type="text" name="tribe-bar-geoloc" id="tribe-bar-geoloc" value="' . esc_attr( $value ) . '">' );
+
+		return $filters;
 	}
 
 	public function add_routes( $router ) {
