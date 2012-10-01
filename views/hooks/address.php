@@ -14,20 +14,20 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( !class_exists('Tribe_Events_Address_Template')){
 	class Tribe_Events_Address_Template extends Tribe_Template_Factory {
 		public static function init(){
-			// start address template
+			// Start address template
 			add_filter( 'tribe_events_address_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 	
-			// address meta
+			// Address meta
 			add_filter( 'tribe_events_address_before_the_meta', array( __CLASS__, 'before_the_meta' ), 1, 1 );
 			add_filter( 'tribe_events_address_the_meta', array( __CLASS__, 'the_meta' ), 1, 1 );
 			add_filter( 'tribe_events_address_after_the_meta', array( __CLASS__, 'after_the_meta' ), 1, 1 );
 
-			// end address template
+			// End address template
 			add_filter( 'tribe_events_address_after_template', array( __CLASS__, 'after_template' ), 1, 2 );
 		}
 		// Start Address Template
 		public function before_template( $post_id ){
-			$html = '<div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">';
+			$html = '<div class="adr">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_address_before_template');
 		}
 		// Address Meta
@@ -38,38 +38,42 @@ if( !class_exists('Tribe_Events_Address_Template')){
 		public function the_meta( $post_id ){
 			ob_start();
 			
-			$postId = get_the_ID();
-			
+			$postId = get_the_ID();	
 			$address_out = Array();
 
+			// Get our venue name
 			if( isset( $includeVenueName ) && $includeVenueName && tribe_get_venue( $postId ) ) {
-				$address_out []= '<span itemprop="addressLocality">'. tribe_get_venue( $postId ) .'</span>';
-			}
-	
-			if( tribe_get_address( $postId ) ) {
-				$address_out []= '<span itemprop="streetAddress">'. tribe_get_address( $postId ) .'</span>';
-			}
-
-			$cityregion = '';
-			if( tribe_get_city( $postId ) ) {
-				$cityregion .= tribe_get_city( $postId );
+				$address_out []= '<span class="fn org">'. tribe_get_venue( $postId ) .'</span>';
 			}
 			
+			// Get our street address
+			if( tribe_get_address( $postId ) ) {
+				$address_out []= '<span class="street-address">'. tribe_get_address( $postId ) .'</span>';
+			}
+			
+			// Get our full region
+			$our_province = tribe_get_event_meta( $postId, '_VenueStateProvince', true );
+			$our_states = TribeEventsViewHelpers::loadStates();
+			$our_full_region = isset( $our_states[$our_province] ) ? $our_states[$our_province] : $our_province;
+			
+			// Get our city
+			if( tribe_get_city( $postId ) ) {
+				$address_out []= '<span class="locality">'. tribe_get_city( $postId ) .'</span>';
+			}
+			
+			// Get our region
 			if( tribe_get_region( $postId ) ) {
-				if( $cityregion != '' ) $cityregion .= ', ';
-				$cityregion .= tribe_get_region( $postId );
-			}
-	
-			if( $cityregion != '' ) {
-				$address_out []= '<span itemprop="addressRegion">'. $cityregion .'</span>';
+				$address_out []= '<abbr class="region tribe-events-abbr" title="'. $our_full_region .'">'. tribe_get_region( $postId ) .'</abbr>';
 			}
 
+			// Get our postal code
 			if( tribe_get_zip( $postId ) ) {
-				$address_out []= '<span itemprop="postalCode">'. tribe_get_zip( $postId ) .'</span>';
+				$address_out []= '<span class="postal-code">'. tribe_get_zip( $postId ) .'</span>';
 			}
 
+			// Get our country
 			if( tribe_get_country( $postId ) ) {
-				$address_out []= '<span itemprop="addressCountry">'. tribe_get_country( $postId ) .'</span>';
+				$address_out []= '<span class="country-name">'. tribe_get_country( $postId ) .'</span>';
 			}
 			
 			// If we have address bits, let's see 'em
@@ -86,7 +90,7 @@ if( !class_exists('Tribe_Events_Address_Template')){
 		}
 		// End Address Template
 		public function after_template( $post_id ){
-			$html = '</div><!-- address -->';
+			$html = '</div><!-- .adr -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_address_after_template');		
 		}
 	}
