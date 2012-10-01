@@ -52,6 +52,8 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	// Add tags (id's, classes, tooltip shit, etc update to micro formats? query bits)
 	// Xbrowser styles for new views and double check with other themes?
 	// Datepicker for week?
+	
+	// Cut into hooks/filters last
 
 */ ?>
 

@@ -53,6 +53,8 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	// Add tags
 	// Xbrowser styles for new views and double check with other themes?	
 	// Hit Tim about doing date picker for both of these?
+	
+	// Cut into hooks/filters last
 
 */ ?>
 
