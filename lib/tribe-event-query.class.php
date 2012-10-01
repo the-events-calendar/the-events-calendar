@@ -9,6 +9,10 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if (!class_exists('TribeEventsQuery')) {
 	class TribeEventsQuery {
 
+		/**
+		 * Initialize The Events Calendar query filters and post processing.
+		 * @return none
+		 */
 		public static function init() {
 
 			// if tribe event query add filters
@@ -18,6 +22,11 @@ if (!class_exists('TribeEventsQuery')) {
 			add_filter( 'the_posts', array( __CLASS__, 'the_posts'), 0 );
 		}
 
+		/**
+		 * Is hooked by init() filter to parse the WP_Query arguments for main and alt queries.
+		 * @param  $query WP_Query args supplied or default
+		 * @return $query (modified)
+		 */
 		public function pre_get_posts( $query ) {
 
 			// check if any possiblity of this being an event query
@@ -166,6 +175,11 @@ if (!class_exists('TribeEventsQuery')) {
 				remove_filter( 'posts_join', array(__CLASS__, 'posts_join' ), 10, 2 );
 				remove_filter( 'posts_where', array(__CLASS__, 'posts_where'), 10, 2);
 				$query->set( 'post__not_in', '' );
+				if( ! isset($query->query['order'])) {
+					$query->set( 'order', 'DESC' );
+				} else {
+					$query->set( 'order', $query->query['order'] );
+				}
 			}
 
 			// check if is_event_query === true and hook filter
