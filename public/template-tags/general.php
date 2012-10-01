@@ -148,7 +148,7 @@ if( class_exists( 'TribeEvents' ) ) {
 
 		$tribe_ecp = TribeEvents::instance();
 
-		$list = apply_filters('tribe_meta_event_cats', get_the_term_list( get_the_ID(), $tribe_ecp->get_event_taxonomy(), '<dt class="category-label">'.$label.'</dt><dd class="category-meta">', $separator, '</dd>' ));
+		$list = apply_filters('tribe_meta_event_cats', get_the_term_list( get_the_ID(), $tribe_ecp->get_event_taxonomy(), '<dt>'.$label.'</dt><dd class="tribe-event-categories">', $separator, '</dd>' ));
 
 		echo $list;
 	}
@@ -167,7 +167,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		if( !$label ) { $label = __('Tags:', 'tribe-events-calendar'); }
 
 		$tribe_ecp = TribeEvents::instance();
-		$list = apply_filters('tribe_meta_event_tags', get_the_term_list( get_the_ID(), 'post_tag', '<dt class="tribe-tag-label">'.$label.'</dt><dd class="tribe-tag-meta">', $separator, '</dd>' ));
+		$list = apply_filters('tribe_meta_event_tags', get_the_term_list( get_the_ID(), 'post_tag', '<dt>'.$label.'</dt><dd class="tribe-event-tags">', $separator, '</dd>' ));
 
 		echo $list;
 	}

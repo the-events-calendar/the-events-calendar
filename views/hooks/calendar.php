@@ -14,40 +14,40 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( !class_exists('Tribe_Events_Calendar_Template')){
 	class Tribe_Events_Calendar_Template extends Tribe_Template_Factory {
 		public static function init(){
-			// start calendar template
+			// Start calendar template
 			add_filter( 'tribe_events_calendar_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 
-			// calendar header
+			// Calendar header
 			add_filter( 'tribe_events_calendar_before_header', array( __CLASS__, 'before_header' ), 1, 1 );
 			add_filter( 'tribe_events_calendar_after_header', array( __CLASS__, 'after_header' ), 1, 1 );
 
-			// calendar title
+			// Calendar title
 			add_filter( 'tribe_events_calendar_before_the_title', array( __CLASS__, 'before_the_title' ), 1, 1 );
 			add_filter( 'tribe_events_calendar_the_title', array( __CLASS__, 'the_title' ), 1, 2 );
 			add_filter( 'tribe_events_calendar_after_the_title', array( __CLASS__, 'after_the_title' ), 1, 1 );
 
-			// calendar navigation
+			// Calendar navigation
 			add_filter( 'tribe_events_calendar_before_nav', array( __CLASS__, 'before_nav' ), 1, 1 );
 			add_filter( 'tribe_events_calendar_nav', array( __CLASS__, 'navigation' ), 1, 2 );
 			add_filter( 'tribe_events_calendar_after_nav', array( __CLASS__, 'after_nav' ), 1, 1 );
 
-			// calendar notices
+			// Calendar notices
 			add_filter( 'tribe_events_calendar_notices', array( __CLASS__, 'notices' ), 1, 2 );
 
-			// calendar view buttons
+			// Calendar view buttons
 			add_filter( 'tribe_events_calendar_the_view_buttons', array( __CLASS__, 'the_view_buttons' ), 1, 1 );
 
-			// calendar content
+			// Calendar content
 			add_filter( 'tribe_events_calendar_before_the_grid', array( __CLASS__, 'before_the_grid' ), 1, 1 );
 			add_filter( 'tribe_events_calendar_the_grid', array( __CLASS__, 'the_grid' ), 1, 1 );
 			add_filter( 'tribe_events_calendar_after_the_grid', array( __CLASS__, 'after_the_grid' ), 1, 1 );
 
-			// end calendar template
-			apply_filters( 'tribe_events_calendar_after_template', array( __CLASS__, 'after_template' ), 1, 1 );
+			// End calendar template
+			add_filter( 'tribe_events_calendar_after_template', array( __CLASS__, 'after_template' ), 1, 1 );
 		}
 		// Start Calendar Template
 		public function before_template( $post_id ){
-			$html = '<div id="tribe-events-content" class="grid">';
+			$html = '<div id="tribe-events-content" class="tribe-events-calendar">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_template');
 		}
 		// Calendar Title
@@ -124,7 +124,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 
 			$tribe_ecp = TribeEvents::instance();
 
-			// in an events cat
+			// In an events cat
 			if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
 				$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );
 				$eventCat = (int) $cat->term_id;
@@ -148,24 +148,24 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 
 			$monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 ?>
-			<table class="tribe-events-calendar" id="big">
+			<table class="tribe-events-calendar">
 				<thead>
 					<tr>
 					<?php
 						for( $n = $startOfWeek; $n < count( $tribe_ecp->daysOfWeek ) + $startOfWeek; $n++ ) {
 							$dayOfWeek = ( $n >= 7 ) ? $n - 7 : $n;
-							echo '<th id="tribe-events-' . strtolower( $tribe_ecp->daysOfWeek[$dayOfWeek] ) . '" abbr="' . $tribe_ecp->daysOfWeek[$dayOfWeek] . '">' . $tribe_ecp->daysOfWeekShort[$dayOfWeek] . '</th>';
+							echo '<th id="tribe-events-' . strtolower( $tribe_ecp->daysOfWeek[$dayOfWeek] ) . '" title="' . $tribe_ecp->daysOfWeek[$dayOfWeek] . '">' . $tribe_ecp->daysOfWeekShort[$dayOfWeek] . '</th>';
 					} ?>
 					</tr>
 				</thead>
 
-				<tbody>
+				<tbody class="hfeed">
 					<tr>
-					<?php // skip last month
+					<?php // Skip last month
 						for( $i = 1; $i <= $offset; $i++ ) { 
 							echo '<td class="tribe-events-othermonth"></td>';
 						}
-						// output this month
+						// Output this month
          				$days_in_month = date( 't', intval($date) );
 						for( $day = 1; $day <= $days_in_month; $day++ ) {
 			    			if( ( $day + $offset - 1 ) % 7 == 0 && $day != 1 ) {
@@ -193,19 +193,23 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 							} elseif ( $current_month < $month && $current_year == $year || $current_year < $year ) {
 								$ppf = ' tribe-events-future';
 							} else { $ppf = false; }
+							
+						// You can find tribe_the_display_day() & tribe_get_display_day_title() in
+						// /public/template-tags/calendar.php
+						// This controls the markup for the days and events on the frontend
 				
 			    			echo "<td class=\"tribe-events-thismonth". $ppf ."\">". tribe_get_display_day_title( $day, $monthView, $date ) ."\n";
 								tribe_the_display_day( $day, $monthView );
 							echo '</td>';
 						}
-						// skip next month
+						// Skip next month
 						while( ( $day + $offset ) <= $rows * 7 ) {
 			    			echo '<td class="tribe-events-othermonth"></td>';
 			    			$day++;
 						}
 					?>
 					</tr>
-				</tbody>
+				</tbody><!-- .hfeed -->
 			</table><!-- .tribe-events-calendar -->
 <?php
 			$html = ob_get_clean();
@@ -215,12 +219,14 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_after_the_grid');
 		}
-
+		// End Calendar Template
 		public function after_template( $post_id ){
+			$html = '';
 			if( function_exists( 'tribe_get_ical_link' ) )
-				$html .= '<a title="' . esc_attr( 'iCal Import', 'tribe-events-calendar' ) . '" class="ical" href="' . tribe_get_ical_link() . '">' . __( 'iCal Import', 'tribe-events-calendar' ) . '</a>';
+				$html .= '<a class="tribe-events-ical" title="'. __( 'iCal Import', 'tribe-events-calendar' ) .'" href="'. tribe_get_ical_link() .'">'. __( 'iCal Import', 'tribe-events-calendar' ) .'</a>';
+				
 			if ( tribe_get_option( 'donate-link', false ) == true )
-				$html = '<p class="tribe-promo-banner">' . apply_filters( 'tribe_promo_banner', sprintf( __( 'Calendar powered by %sThe Events Calendar%s', 'tribe-events-calendar' ), '<a href="http://tri.be/wordpress-events-calendar/">', '</a>' ) ) . '</p>';
+				$html .= '<p class="tribe-events-promo">' . apply_filters( 'tribe_promo_banner', sprintf( __( 'Calendar powered by %sThe Events Calendar%s', 'tribe-events-calendar' ), '<a class="vcard url org fn" href="http://tri.be/wordpress-events-calendar/">', '</a>' ) ) . '</p>';
 			$html .= '</div><!-- #tribe-events-content -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_after_template');
 		}

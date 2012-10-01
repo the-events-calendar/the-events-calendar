@@ -18,31 +18,31 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( !class_exists('Tribe_Events_Calendar_Widget_Template')){
 	class Tribe_Events_Calendar_Widget_Template extends Tribe_Template_Factory {
 		public static function init(){
-			// start calendar widget template
+			// Start calendar widget template
 			add_filter( 'tribe_events_calendar_widget_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 
-			// calendar ajax navigation
+			// Calendar ajax navigation
 			add_filter( 'tribe_events_calendar_widget_before_the_nav', array( __CLASS__, 'before_the_nav' ), 1, 1 );
 			add_filter( 'tribe_events_calendar_widget_the_nav', array( __CLASS__, 'the_nav' ), 1, 1 );
 			add_filter( 'tribe_events_calendar_widget_after_the_nav', array( __CLASS__, 'after_the_nav' ), 1, 1 );
 
-			// start calendar
+			// Start calendar
 			add_filter( 'tribe_events_calendar_widget_before_the_cal', array( __CLASS__, 'before_the_cal' ), 1, 1 );
 	
-			// calendar days of the week
+			// Calendar days of the week
 			add_filter( 'tribe_events_calendar_widget_before_the_days', array( __CLASS__, 'before_the_days' ), 1, 1 );
 			add_filter( 'tribe_events_calendar_widget_the_days', array( __CLASS__, 'the_days' ), 1, 1 );
 			add_filter( 'tribe_events_calendar_widget_after_the_days', array( __CLASS__, 'after_the_days' ), 1, 1 );
 
-			// calendar dates
+			// Calendar dates
 			add_filter( 'tribe_events_calendar_widget_before_the_dates', array( __CLASS__, 'before_the_dates' ), 1, 1 );
 			add_filter( 'tribe_events_calendar_widget_the_dates', array( __CLASS__, 'the_dates' ), 1, 1 );
 			add_filter( 'tribe_events_calendar_widget_after_the_dates', array( __CLASS__, 'after_the_dates' ), 1, 1 );
 	
-			// end calendar
+			// End calendar
 			add_filter( 'tribe_events_calendar_widget_after_the_cal', array( __CLASS__, 'after_the_cal' ), 1, 1 );
 
-			// end calendar widget template
+			// End calendar widget template
 			add_filter( 'tribe_events_calendar_widget_after_template', array( __CLASS__, 'after_template' ), 1, 1 );	
 		}
 		// Start Calendar Widget Template
@@ -72,7 +72,7 @@ if( !class_exists('Tribe_Events_Calendar_Widget_Template')){
 		}
 		// Start Calendar
 		public function before_the_cal(){
-			$html = '<table class="tribe-events-calendar tribe-events-calendar-widget" id="small">';
+			$html = '<table class="tribe-events-calendar">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_widget_before_the_cal');
 		}
 		// Calendar Days of the Week
@@ -96,17 +96,17 @@ if( !class_exists('Tribe_Events_Calendar_Widget_Template')){
 		}
 		// Calendar Dates
 		public function before_the_dates(){
-			$html = '<tbody><tr>';
+			$html = '<tbody class="hfeed"><tr>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_widget_before_the_dates');
 		}
 		public function the_dates( $args = array() ){
 			extract( $args, EXTR_SKIP );
 			ob_start();
-			// skip last month
+			// Skip last month
 			for( $i = 1; $i <= $offset; $i++ ) { 
 				echo '<td class="tribe-events-othermonth"></td>';
 			}
-			// output this month
+			// Output this month
 			for( $day = 1; $day <= date( "t", $date ); $day++ ) {
 			    
 			    if( ( $day + $offset - 1 ) % 7 == 0 && $day != 1 ) {
@@ -134,11 +134,14 @@ if( !class_exists('Tribe_Events_Calendar_Widget_Template')){
 					$ppf = ' tribe-events-future';
 				} else { $ppf = false; }
 			   
+			   	// You can find tribe_mini_display_day() in the /public/template-tags/widgets.php
+			   	// This controls the markup for the days and events on the frontend
+			   
 			    echo "<td class=\"tribe-events-thismonth". $ppf ."\">". tribe_mini_display_day( $day, $monthView ) ."\n";
 				echo "</td>";
 			
 			}
-			// skip next month
+			// Skip next month
 			while( ( $day + $offset ) <= $rows * 7 ) {
 			    echo '<td class="tribe-events-othermonth"></td>';
 			    $day++;
@@ -147,18 +150,18 @@ if( !class_exists('Tribe_Events_Calendar_Widget_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_widget_the_dates');
 		}
 		public function after_the_dates(){
-			$html = '</tr></tbody>';
+			$html = '</tr></tbody><!-- .hfeed -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_widget_after_the_dates');
 		}
 		// End Calendar
 		public function after_the_cal(){
-			$html = '</table><!-- .tribe-events-calendar-widget -->';
+			$html = '</table><!-- .tribe-events-calendar -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_widget_after_the_cal');
 		}
 		// End Calendar Widget Template		
 		public function after_template(){
-			$html = '<a class="tribe-view-all-events" href="'. tribe_get_events_link() .'">'. __( 'View all &raquo;', 'tribe-events-calendar' ) .'</a>';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_widget_after_template');		
+			$html = '<p class="tribe-events-widget-link"><a href="'. tribe_get_events_link() .'" rel="bookmark">'. __( 'View all &raquo;', 'tribe-events-calendar' ) .'</a></p>';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_widget_after_template');
 		}
 	}
 	Tribe_Events_Calendar_Widget_Template::init();
