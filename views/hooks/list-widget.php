@@ -101,7 +101,7 @@ if( !class_exists('Tribe_Events_Pro_List_Widget_Template')){
 		public function the_content( $event, $args = array() ){
 			extract( $args, EXTR_SKIP );
 			$space = false;
-			$html = '<div class="vcard adr location">';
+			$html = '';
 			
 			// Get our venue
 			if ( $venue && tribe_get_venue() != '') {
@@ -153,8 +153,8 @@ if( !class_exists('Tribe_Events_Pro_List_Widget_Template')){
 					$html .= '<br/>';
 				$html .= __( 'Price:', 'tribe-events-calendar-pro' ) . ' ' . tribe_get_cost(); 
 			}
-
-			$html .= '</div><!-- .location -->';
+			
+			$html = !empty( $html ) ? '<div class="vcard adr location">'. $html .'</div><!-- .location -->' : '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_the_content');
 		}
 		public function after_the_content( $event ){
