@@ -23,51 +23,47 @@
  *
  */
 
-// Vars set:
-// '$event->AllDay',
-// '$event->StartDate',
-// '$event->EndDate',
-// '$event->ShowMapLink',
-// '$event->ShowMap',
-// '$event->Cost',
-// '$event->Phone',
-
-if ( !defined('ABSPATH') ) { die('-1'); }
+$the_content_args = array(
+	'start' => $start, 
+	'end' => $end, 
+	'venue' => $venue, 
+	'address' => $address, 
+	'city' => $city, 
+	'region' => $region,
+	'zip' => $zip, 
+	'country' => $country, 
+	'phone' => $phone, 
+	'cost' => $cost
+	);
 
 $event = array();
 $tribe_ecp = TribeEvents::instance();
-reset( $tribe_ecp->metaTags ); // Move pointer to beginning of array
+reset( $tribe_ecp->metaTags ); // Move pointer to beginning of array.
 foreach( $tribe_ecp->metaTags as $tag ) {
 	$var_name = str_replace( '_Event', '', $tag );
 	$event[$var_name] = tribe_get_event_meta( $post->ID, $tag, true );
 }
 
-$event = (object) $event; // Easier to work with
-
+$event = (object) $event; // Easier to work with.
 ob_start();
-if ( !isset( $alt_text ) ) { $alt_text = ''; }
-post_class( $alt_text, $post->ID );
-$class = ob_get_contents();
-ob_end_clean();
+if ( !isset($alt_text) ) { $alt_text = ''; }
+post_class( $alt_text,$post->ID );
+$class = ob_get_clean();
 
-// start list widget template
-echo apply_filters( 'tribe_events_list_widget_before_template', '', get_the_ID() );
-
-	// start single event
-	echo apply_filters( 'tribe_events_list_widget_before_the_event', '', get_the_ID() );
+// Start list widget template
+echo apply_filters( 'tribe_events_list_widget_before_template', $event, $class );
 	
-		// event dates
-		echo apply_filters( 'tribe_events_list_widget_before_the_date', '', get_the_ID() );
-		echo apply_filters( 'tribe_events_list_widget_the_date', '', get_the_ID() );
-		echo apply_filters( 'tribe_events_list_widget_after_the_date', '', get_the_ID() );
+	// Event date
+	echo apply_filters( 'tribe_events_list_widget_before_the_date', $event );
+	echo apply_filters( 'tribe_events_list_widget_the_date', $event, $post->ID, $start, $end );
+	echo apply_filters( 'tribe_events_list_widget_after_the_date', $event );
 
-		// event title
-		echo apply_filters( 'tribe_events_list_widget_before_the_title', '', get_the_ID() );
-		echo apply_filters( 'tribe_events_list_widget_the_title', '', get_the_ID() );
-		echo apply_filters( 'tribe_events_list_widget_after_the_title', '', get_the_ID() );
-	
-	// end single event
-	echo apply_filters( 'tribe_events_list_widget_after_the_event', '', get_the_ID() );
+	// Event title
+	echo apply_filters( 'tribe_events_list_widget_before_the_title', $event );
+	echo apply_filters( 'tribe_events_list_widget_the_title', $post );
+	echo apply_filters( 'tribe_events_list_widget_after_the_title', $event );
 
-// end list widget template
-echo apply_filters( 'tribe_events_list_widget_after_template', '', get_the_ID() );
+// End list widget template
+echo apply_filters( 'tribe_events_list_widget_after_template', $event );
+
+$alt_text = ( empty( $alt_text ) ) ? 'alt' : '';

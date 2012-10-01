@@ -19,9 +19,13 @@
  * @author Modern Tribe Inc.
  *
  */
+ 
+// PLACE IN HEADER: <link rel="profile" href="http://microformats.org/profile/hcalendar">
+// FOR: lists, calendar, single event, week, day, community
 
 if ( !defined('ABSPATH') ) { die('-1'); }
 
+// Our various messages if there are no events for the query
 $notices = empty($notices) ? array() : $notices;
 if ( ! have_posts() ) { // Messages if currently no events
 	$tribe_ecp = TribeEvents::instance();
@@ -30,35 +34,35 @@ if ( ! have_posts() ) { // Messages if currently no events
 	if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
 		$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );
 		if( tribe_is_upcoming() ) {
-			$is_cat_message = sprintf( __( ' listed under %s. Check out past events for this category or view the full calendar.', 'tribe-events-calendar' ), $cat->name );
+			$is_cat_message = sprintf( __( '<p>listed under %s. Check out past events for this category or view the full calendar.</p>', 'tribe-events-calendar' ), $cat->name );
 		} else if( tribe_is_past() ) {
-			$is_cat_message = sprintf( __( ' listed under %s. Check out upcoming events for this category or view the full calendar.', 'tribe-events-calendar' ), $cat->name );
+			$is_cat_message = sprintf( __( '<p>listed under %s. Check out upcoming events for this category or view the full calendar.</p>', 'tribe-events-calendar' ), $cat->name );
 		}
 	}
 
 	if( tribe_is_day() )
-		$notices[] = sprintf( __( 'No events scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), date_i18n( 'F d, Y', strtotime( get_query_var( 'eventDate' ) ) ) );
+		$notices[] = sprintf( __( '<p>No events scheduled for <strong>%s</strong>. Please try another day.</p>', 'tribe-events-calendar' ), date_i18n( 'F d, Y', strtotime( get_query_var( 'eventDate' ) ) ) );
 
 	if( tribe_is_upcoming() ) {
-		$notices[] = __( 'No upcoming events', 'tribe-events-calendar' ) . $is_cat_message;
+		$notices[] = __( '<p>No upcoming events</p>', 'tribe-events-calendar' ) . $is_cat_message;
 	} elseif( tribe_is_past() ) {
-		$notices[] = __( 'No previous events' , 'tribe-events-calendar' ) . $is_cat_message;
+		$notices[] = __( '<p>No previous events</p>' , 'tribe-events-calendar' ) . $is_cat_message;
 	}
 }
 
-// start list template
+// Start list template
 echo apply_filters( 'tribe_events_list_before_template', '', get_the_ID() );
 
-	// list view buttons
+	// List view buttons
 	echo apply_filters( 'tribe_events_list_the_view_buttons', '', get_the_ID() );
 
-	// list notices
+	// List notices
 	echo apply_filters( 'tribe_events_list_notices', $notices, $notices, get_the_ID() );
 	
-	// start list loop
+	// Start list loop
 	echo apply_filters( 'tribe_events_list_before_loop', '', get_the_ID() );
 
-	// does this page have posts?
+	// Does this page have posts?
 	if ( have_posts() ) {
 		
 		$hasPosts = true;
@@ -72,33 +76,33 @@ echo apply_filters( 'tribe_events_list_before_template', '', get_the_ID() );
 
 			echo apply_filters( 'tribe_events_list_inside_before_loop', '', get_the_ID() );
 			
-				// event start date
+				// Event start date
 				echo apply_filters( 'tribe_events_list_the_start_date', '', get_the_ID() );
 			
-				// event title
+				// Event title
 				echo apply_filters( 'tribe_events_list_the_title', '', get_the_ID() );
 
-				// event content
+				// Event content
 				echo apply_filters( 'tribe_events_list_before_the_content', '', get_the_ID() );
 				echo apply_filters( 'tribe_events_list_the_content', '', get_the_ID() );
 				echo apply_filters( 'tribe_events_list_after_the_content', '', get_the_ID() );
 			
-				// event meta
+				// Event meta
 				echo apply_filters( 'tribe_events_list_before_the_meta', '', get_the_ID() );
 				echo apply_filters( 'tribe_events_list_the_meta', '', get_the_ID() );
 				echo apply_filters( 'tribe_events_list_after_the_meta', '', get_the_ID() );
 		
 			echo apply_filters( 'tribe_events_list_inside_after_loop', '', get_the_ID() );
 
-		} // end list loop
-	} // end if list has posts
+		} // End list loop
+	} // End if list has posts
 
 	echo apply_filters( 'tribe_events_list_after_loop', '', get_the_ID() );
 	
-	// list pagination
+	// List pagination
 	echo apply_filters( 'tribe_events_list_before_pagination', '', get_the_ID() );
 	echo apply_filters( 'tribe_events_list_pagination', '', get_the_ID() );
 	echo apply_filters( 'tribe_events_list_after_pagination', '', get_the_ID() );
 
-// end list template
+// End list template
 echo apply_filters( 'tribe_events_list_after_template', $hasPosts, get_the_ID() );
