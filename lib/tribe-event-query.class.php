@@ -11,7 +11,7 @@ if (!class_exists('TribeEventsQuery')) {
 
 		/**
 		 * Initialize The Events Calendar query filters and post processing.
-		 * @return none
+		 * @return null
 		 */
 		public static function init() {
 
@@ -24,8 +24,8 @@ if (!class_exists('TribeEventsQuery')) {
 
 		/**
 		 * Is hooked by init() filter to parse the WP_Query arguments for main and alt queries.
-		 * @param  $query WP_Query args supplied or default
-		 * @return $query (modified)
+		 * @param  object $query WP_Query object args supplied or default
+		 * @return object $query (modified)
 		 */
 		public function pre_get_posts( $query ) {
 
@@ -175,9 +175,12 @@ if (!class_exists('TribeEventsQuery')) {
 				remove_filter( 'posts_join', array(__CLASS__, 'posts_join' ), 10, 2 );
 				remove_filter( 'posts_where', array(__CLASS__, 'posts_where'), 10, 2);
 				$query->set( 'post__not_in', '' );
+
+				// set the default order for posts within admin lists
 				if( ! isset($query->query['order'])) {
 					$query->set( 'order', 'DESC' );
 				} else {
+					// making sure we preserve the order supplied by the query string even if it is overwritten above
 					$query->set( 'order', $query->query['order'] );
 				}
 			}
@@ -186,9 +189,12 @@ if (!class_exists('TribeEventsQuery')) {
 			return $query->tribe_is_event_query ? apply_filters( 'tribe_events_pre_get_posts', $query ) : $query;
 		}
 
+		/**
+		 * Filter all returned event posts & add additional required fields
+		 * @param  array $posts returned via wp_query
+		 * @return array $posts (modified)
+		 */
 		public function the_posts( $posts ) {
-			// global $wp_query;
-			// print_r($wp_query->request);
 			if( !empty($posts) ) {
 				foreach( $posts as $id => $post ) {
 					$posts[$id]->tribe_is_event = false;
@@ -203,10 +209,16 @@ if (!class_exists('TribeEventsQuery')) {
 				}
 			}
 
-			// return modified event posts
+			// return modified event posts with additional fields if added
 			return $posts;
 		}
 
+		/**
+		 * Custom SQL join for event duration meta field
+		 * @param  string $join_sql 
+		 * @param  wp_query $query
+		 * @return string
+		 */
 		public static function posts_join( $join_sql, $query ) {
 			global $wpdb;
 
@@ -218,6 +230,12 @@ if (!class_exists('TribeEventsQuery')) {
 			return $join_sql;
 		}
 
+		/**
+		 * Custom SQL conditional for event duration meta field
+		 * @param  string $where_sql
+		 * @param  wp_query $query
+		 * @return string
+		 */
 		public static function posts_where( $where_sql, $query ) {
 			global $wpdb;
 
@@ -245,7 +263,12 @@ if (!class_exists('TribeEventsQuery')) {
 			return $where_sql;
 		}
 
-
+		/**
+		 * Custom SQL order by statement for Event Start Date result order.
+		 * @param  string $order_sql
+		 * @param  wp_query $query
+		 * @return string
+		 */
 		public static function posts_orderby( $order_sql, $query ){
 			global $wpdb;
 			if( $query->get( 'orderby' ) == 'event_date' ) {
@@ -256,6 +279,10 @@ if (!class_exists('TribeEventsQuery')) {
 			return $order_sql;
 		}
 
+		/**
+		 * Custom SQL to retrieve post_id list of events marked to be hidden from upcoming lists.
+		 * @return array
+		 */
 		public static function getHideFromUpcomingEvents(){
 			global $wpdb;
 
@@ -264,6 +291,11 @@ if (!class_exists('TribeEventsQuery')) {
 			return apply_filters('tribe_events_hide_from_upcoming_ids', $hide_upcoming_ids);
 		}
 
+		/**
+		 * Customized WP_Query wrapper to setup event queries with default arguments.
+		 * @param  array  $args
+		 * @return array
+		 */
 		public static function getEvents( $args = array() ) {
 			$defaults = array(
 				'post_type' => TribeEvents::POSTTYPE,
