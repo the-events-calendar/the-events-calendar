@@ -58,26 +58,26 @@ if ( !isset($alt_text) ) { $alt_text = ''; }
 post_class( $alt_text,$post->ID );
 $class = ob_get_clean();
 
-// start list widget template
+// Start list widget template
 echo apply_filters( 'tribe_events_pro_list_widget_before_template', $event, $class );
 
-	// event date
+	// Event date
 	echo apply_filters( 'tribe_events_pro_list_widget_before_the_date', $event );
 	echo apply_filters( 'tribe_events_pro_list_widget_the_date', $event, $post->ID, $start, $end );
 	echo apply_filters( 'tribe_events_pro_list_widget_after_the_date', $event );
 
-	// event title
+	// Event title
 	echo apply_filters( 'tribe_events_pro_list_widget_before_the_title', $event );
 	echo apply_filters( 'tribe_events_pro_list_widget_the_title', $post );
 	echo apply_filters( 'tribe_events_pro_list_widget_after_the_title', $event );
 
-	// event title
+	// Event content
 	echo apply_filters( 'tribe_events_pro_list_widget_before_the_content', $event );
 	echo apply_filters( 'tribe_events_pro_list_widget_the_content', $event, $the_content_args );
 	echo apply_filters( 'tribe_events_pro_list_widget_after_the_content', $event );
 
-// end list widget template
+// End list widget template
 echo apply_filters( 'tribe_events_pro_list_widget_after_template', $event );
 
-// clean up alt text
+// Clean up alt text
 $alt_text = ( empty( $alt_text ) ) ? 'alt' : '';

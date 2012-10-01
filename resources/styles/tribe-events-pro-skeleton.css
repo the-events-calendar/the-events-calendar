@@ -1,11 +1,11 @@
 /**
- * The Events Calendar Pro Full Stylesheet
- * (Some of these styles may override your current theme's styles)
+ * The Events Calendar Pro Skeleton Stylesheet
+ * (These styles shouldn't override your current theme's styles)
  *
  * You can customize this stylesheet by putting a stylesheet of the same name
  * (tribe-events-pro.css) in the tribe-events/pro/ directory of your theme.
  *
- * @package TribeEventsCalendarPro
+ * @package TribeEventsCalendar
  * @since  1.0
  * @author Modern Tribe Inc.
  *
@@ -97,7 +97,7 @@
 	line-height: 1.5;
 	padding: 0;
 }
-
+ 
  
 /* = Related Events
 =============================================*/

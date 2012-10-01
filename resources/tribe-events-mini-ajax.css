@@ -15,7 +15,7 @@
    = Modified and new calendar widget code for the ajax version
    @ Template: list-widget.php
 =============================================*/
-.events_calendar_widget h4.cal-header {
+.tribe-events-calendar-widget h4.cal-header {
 	margin: 12px 0;
 }
 .tribe-events-widget-nav {

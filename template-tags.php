@@ -96,11 +96,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	function tribe_the_custom_fields( $postId = null ) {
 		$fields = tribe_get_custom_fields( $postId );
-	  	$meta_html = "<dl class='column'>\n";
+	  	$meta_html = "<dl class=\"tribe-events-column\">\n";
 	  	foreach ($fields as $label => $value) {
-			$meta_html .= apply_filters('tribe_the_custom_field',"<dt class=\"tribe-custom-label\">".stripslashes($label).":</dt><dd class=\"tribe-custom-meta\">".stripslashes($value)."</dd>\n",$label,$value);
+			$meta_html .= apply_filters('tribe_the_custom_field',"<dt>".stripslashes($label).":</dt><dd class=\"tribe-events-meta-custom-data\">".stripslashes($value)."</dd>\n",$label,$value);
 		}
-		$meta_html .= "</dl>\n";
+		$meta_html .= "</dl><!-- .tribe-events-column -->\n";
 		echo apply_filters('tribe_the_custom_fields', $meta_html);
 	}
 	

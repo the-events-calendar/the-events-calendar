@@ -11,7 +11,7 @@ if( !class_exists( 'TribeEventsCalendarWidget') ) {
 	class TribeEventsCalendarWidget extends WP_Widget {
 		
 		function TribeEventsCalendarWidget() {
-			$widget_ops = array('classname' => 'events_calendar_widget', 'description' => __( 'A calendar of your events') );
+			$widget_ops = array('classname' => 'tribe-events-calendar-widget', 'description' => __( 'A calendar of your events') );
 			$this->WP_Widget('calendar', __('Events Calendar'), $widget_ops);
 
 			add_action('wp_enqueue_scripts', array($this, 'maybe_load_scripts') );
@@ -36,9 +36,9 @@ if( !class_exists( 'TribeEventsCalendarWidget') ) {
 			$title = apply_filters('widget_title', empty($instance['title']) ? '&nbsp;' : $instance['title']);
 			echo $before_widget;
 			if ( $title ) { echo $before_title . $title . $after_title; }
-			echo '<div id="calendar_wrap">';
+			echo '<div id="tribe-events-calendar-wrap">';
 			tribe_calendar_mini_grid();
-			echo '</div>';
+			echo '</div><!-- #tribe-events-calendar-wrap -->';
 			echo $after_widget;
 		}
 	
@@ -108,7 +108,5 @@ if( !class_exists( 'TribeEventsCalendarWidget') ) {
 		}
 		die();
 	}
-
-
 }
 ?>
