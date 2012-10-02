@@ -65,6 +65,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		protected $taxRewriteSlug = 'event/category';
 		protected $tagRewriteSlug = 'event/tag';
 		protected $monthSlug = 'month';
+		protected $weekSlug = 'week';
 		protected $pastSlug = 'past';
 		protected $upcomingSlug = 'upcoming';
 		protected $postExceptionThrown = false;
@@ -162,9 +163,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			// Tribe Common Libs Helper
 			require_once( $this->pluginPath.'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
-
-			// WP Router
-			TribeCommonLibraries::register( 'wp-router', '0.3.3', $this->pluginPath . 'vendor/wp-router/wp-router.php' );
 
 			// Load Template Tags
 			require_once( $this->pluginPath.'public/template-tags/query.php' );
@@ -303,6 +301,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->taxRewriteSlug = $this->rewriteSlug . '/' . sanitize_title(__( 'category', 'tribe-events-calendar' ));
 			$this->tagRewriteSlug = $this->rewriteSlug . '/' . sanitize_title(__( 'tag', 'tribe-events-calendar' ));
 			$this->monthSlug = sanitize_title(__('month', 'tribe-events-calendar'));
+			$this->weekSlug = sanitize_title(__('week', 'tribe-events-calendar'));
 			$this->upcomingSlug = sanitize_title(__('upcoming', 'tribe-events-calendar'));
 			$this->pastSlug = sanitize_title(__('past', 'tribe-events-calendar'));
 			$this->postTypeArgs['rewrite']['slug'] = sanitize_title($this->rewriteSlugSingular);
@@ -1420,6 +1419,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *
 		 *	events/				=>	/?post_type=tribe_events
 		 *	events/month		=>	/?post_type=tribe_events&eventDisplay=month
+		 *	events/week 		=>  /?post_type=tribe_events&eventDisplay=week
 		 *	events/upcoming		=>	/?post_type=tribe_events&eventDisplay=upcoming
 		 *	events/past			=>	/?post_type=tribe_events&eventDisplay=past
 		 *	events/2008-01/#15	=>	/?post_type=tribe_events&eventDisplay=bydate&eventDate=2008-01-01
@@ -1440,6 +1440,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$baseTag = "(.*)" . $baseTag;
 	
 			$month = $this->monthSlug;
+			$week = $this->weekSlug;
 			$upcoming = $this->upcomingSlug;
 			$past = $this->pastSlug;
 			$newRules = array();
@@ -1453,10 +1454,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$newRules[$base . 'ical'] = 'index.php?post_type=' . self::POSTTYPE . '&ical=1';
 			$newRules[$base . '(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&feed=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . $month] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month';
+			$newRules[$base . $week] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=week';
 			$newRules[$base . $upcoming . '/page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . $upcoming] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
 			$newRules[$base . $past . '/page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . $past] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past';
+			$newRules[$base . '(\d{2})$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=week' .'&eventDate=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . '(\d{4}-\d{2})$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . '(\d{4}-\d{2}-\d{2})$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . 'feed/?$'] = 'index.php?eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
@@ -1468,11 +1471,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// taxonomy rules.
 			$newRules[$baseTax . '([^/]+)/page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&paged=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTax . '([^/]+)/' . $month] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month';
+			$newRules[$baseTax . '([^/]+)/' . $week] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=week';
 			$newRules[$baseTax . '([^/]+)/' . $upcoming . '/page/(\d+)'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTax . '([^/]+)/' . $upcoming] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
 			$newRules[$baseTax . '([^/]+)/' . $past . '/page/(\d+)'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTax . '([^/]+)/' . $past] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past';
 			$newRules[$baseTax . '([^/]+)/(\d{4}-\d{2})$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(3);
+			$newRules[$baseTax . '([^/]+)/(\d{2})$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=week' .'&eventDate=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTax . '([^/]+)/feed/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
 			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=' . $this->getOption('viewOption','month');
 			$newRules[$baseTax . '([^/]+)/ical/?$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&ical=1';
@@ -1482,11 +1487,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// tag rules.
 			$newRules[$baseTag . '([^/]+)/page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&post_tag=' . $wp_rewrite->preg_index(2) . '&paged=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTag . '([^/]+)/' . $month] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month';
+			$newRules[$baseTag . '([^/]+)/' . $week] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=week';
 			$newRules[$baseTag . '([^/]+)/' . $upcoming . '/page/(\d+)'] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTag . '([^/]+)/' . $upcoming] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
 			$newRules[$baseTag . '([^/]+)/' . $past . '/page/(\d+)'] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTag . '([^/]+)/' . $past] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past';
 			$newRules[$baseTag . '([^/]+)/(\d{4}-\d{2})$'] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(3);
+			$newRules[$baseTag . '([^/]+)/(\d{2})$'] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=week' .'&eventDate=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTag . '([^/]+)/feed/?$'] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
 			$newRules[$baseTag . '([^/]+)/?$'] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=' . $this->getOption('viewOption','month');
 			$newRules[$baseTag . '([^/]+)/ical/?$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&post_tag=' . $wp_rewrite->preg_index(2) . '&ical=1';
@@ -1500,6 +1507,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * returns various internal events-related URLs
 		 * @param string $type type of link. See switch statement for types.
 		 * @param string $secondary for $type = month, pass a YYYY-MM string for a specific month's URL
+		 *                          for $type = week, pass a Week # string for a specific week's URL
 		 */
 
 		public function getLink	( $type = 'home', $secondary = false, $term = null ) {
@@ -1530,6 +1538,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						return trailingslashit( esc_url($eventUrl . $secondary) );
 					}
 					return trailingslashit( esc_url($eventUrl . $this->monthSlug) );
+				case 'week':
+					if ( $secondary ) {
+						return trailingslashit( esc_url($eventUrl . $secondary) );
+					}
+					return trailingslashit( esc_url($eventUrl . $this->weekSlug) );
 				case 'upcoming':
 					return trailingslashit( esc_url($eventUrl . $this->upcomingSlug) );
 				case 'past':
@@ -1579,6 +1592,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					if ( $secondary )
 						$month = add_query_arg( array( 'eventDate' => $secondary ), $month );
 					return $month;
+				case 'week':
+					$week = add_query_arg( array( 'eventDisplay' => 'week'), $eventUrl );
+					if ( $secondary )
+						$week = add_query_arg( array( 'eventDate' => $secondary ), $week );
+					return $week;
 				case 'day':
 					$month = add_query_arg( array( 'eventDisplay' => 'day'), $eventUrl );
 					if ( $secondary )
@@ -2414,10 +2432,69 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			} elseif($type == 'organizer') {
 				$post_type = self::ORGANIZER_POST_TYPE;
 			}
+			// TODO update this verification to check all post_status <> 'trash'
 			$results = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->posts} WHERE post_type = %s && post_title = %s && post_status = 'publish'",$post_type,$name));
 			return ($results) ? 0 : 1;
 		}
 
+		/**
+		 * 
+		 * Given a week of the year (WW), returns the YYYY-MM-DD of the first day of the week
+		 * 
+		 * @param  string $week expects string or int 2 of 1-52 (weeks of the year)
+		 * @return string $date (YYYY-MM-DD)
+		 */
+		public function weekToDate( $week ){
+			// TODO get first day of the week to return in YYYY-MM-DD
+			// TODO fix date return format
+			$date = date( "Y-m", strtotime( $week . ' weeks' ));
+			return $date;
+		}
+		/**
+		 * Given a date (YYYY-MM-DD), returns the first day of the next week
+		 *
+		 * @param date
+		 * @return date
+		 */
+		public function nextWeek( $date ) {
+			$dateParts = split( '-', $date );
+			if ( $dateParts[1] == 12 ) {
+				$dateParts[0]++;
+				$dateParts[1] = "01";
+				$dateParts[2] = "01";
+			} else {
+				$dateParts[1]++;
+				$dateParts[2] = "01";
+			}
+			if ( $dateParts[1] < 10 && strlen( $dateParts[1] ) == 1 ) {
+				$dateParts[1] = "0" . $dateParts[1];
+			}
+			$return =	$dateParts[0] . '-' . $dateParts[1];
+			return $return;
+		}
+		/**
+		 * Given a date (YYYY-MM-DD), return the first day of the previous week
+		 *
+		 * @param date
+		 * @return date
+		 */
+		public function previousWeek( $date ) {
+			$dateParts = split( '-', $date );
+			if ( $dateParts[1] == 1 ) {
+				$dateParts[0]--;
+				$dateParts[1] = "12";
+				$dateParts[2] = "01";
+			} else {
+				$dateParts[1]--;
+				$dateParts[2] = "01";
+			}
+			if ( $dateParts[1] < 10 ) {
+				$dateParts[1] = "0" . $dateParts[1];
+			}
+			$return =	$dateParts[0] . '-' . $dateParts[1];
+
+			return $return;
+		}
 		/**
 		 * Given a date (YYYY-MM-DD), returns the first of the next month
 		 *

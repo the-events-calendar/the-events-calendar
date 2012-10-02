@@ -91,6 +91,16 @@ if (!class_exists('TribeEventsQuery')) {
 							$query->set( 'order', 'ASC' );
 							$query->set('posts_per_page', -1); // show ALL month posts
 	                  		break;
+	               		case 'week':
+							$start_date = substr_replace( date_i18n( TribeDateUtils::DBDATEFORMAT ), '01', -2 );
+							$start_date = ( $query->get('eventDate') != '' ) ? $query->get('eventDate') . '-01' : $start_date;
+							$query->set( 'start_date', $start_date );
+							$query->set( 'eventDate', $start_date );
+							$query->set( 'end_date', date( 'Y-m-d', strtotime( TribeEvents::instance()->nextWeek($start_date) ) -(24*3600) ));
+							$query->set( 'orderby', 'event_date' );
+							$query->set( 'order', 'ASC' );
+							$query->set('posts_per_page', -1); // show ALL month posts
+	                  		break;
 	               		case 'upcoming':
 	               		default: // default display query
 							$query->set( 'hide_upcoming', true );
