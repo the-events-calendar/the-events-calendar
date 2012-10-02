@@ -410,7 +410,7 @@ select.tribe-events-dropdown {
 	border-style: solid;
 	border-color: #bbb;
 	margin: 8px 0 18px 0;
-	padding: 12px 0;
+	padding: 12px 0 2px;
 	overflow: hidden;
 	clear: both;
 	font-size: 12px;
