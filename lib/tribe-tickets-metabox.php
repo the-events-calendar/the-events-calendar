@@ -3,12 +3,18 @@
 class TribeEventsTicketsMetabox {
 
 	public static function do_meta_box( $post_id ) {
+		$modules = apply_filters( 'tribe_events_tickets_modules', NULL );
+		if ( empty( $modules ) )
+			return;
+
 		add_meta_box( 'tribetickets', __('Tickets', 'tribe-events-calendar'), array( 'TribeEventsTicketsMetabox',  'do_modules_metaboxes' ), TribeEvents::POSTTYPE, 'normal', 'high' );
 	}
 
 	public static function do_modules_metaboxes( $post_id ) {
 
 		$modules = apply_filters( 'tribe_events_tickets_modules', NULL );
+		if ( empty( $modules ) )
+			return;
 
 		foreach ( $modules as $class => $title ) {
 			if ( class_exists( $class ) ) {
