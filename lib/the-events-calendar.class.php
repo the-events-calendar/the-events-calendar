@@ -161,10 +161,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-event-exception.class.php' );
 
 			// Tribe Common Libs Helper
-			// require_once( $this->pluginPath.'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
+			require_once( $this->pluginPath.'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
 
 			// WP Router
-			// TribeCommonLibraries::register( 'wp-router', '0.3.3', $this->pluginPath . 'vendor/wp-router/wp-router.php' );
+			TribeCommonLibraries::register( 'wp-router', '0.3.3', $this->pluginPath . 'vendor/wp-router/wp-router.php' );
 
 			// Load Template Tags
 			require_once( $this->pluginPath.'public/template-tags/query.php' );
