@@ -57,7 +57,7 @@ class TribeEventsBar {
 
 		foreach ( $filters as $filter ) {
 			echo '<div class="tribe-events-bar-filter-wrap">';
-			echo '<label class="tribe-events-visuallyhidden" for="tribe-bar-'. lcfirst( $filter['caption'] ) .'">'. $filter['caption'] .'</label>';
+			echo '<label class="tribe-events-visuallyhidden" for="' . esc_attr( $filter['name'] ) . '">' . $filter['caption'] . '</label>';
 			echo $filter['html']; 
 			echo '</div>';
 		}
