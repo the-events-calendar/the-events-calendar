@@ -655,6 +655,18 @@ table.tribe-events-calendar-widget {
 /* = Events Navigation Bar
    @ Template: /modules/bar.php
 =============================================*/
+
+/*
+datepicker styles
+chosen for select? chozen for input
+sorts (later for listview, can forget for now Shane says)
+add pagination to top as well for lists.php
+merge in views-hooks? (ask Paul/Tim about merging views-hooks)
+placeholders makethanks issue for Daniel, assign to Tim / add attr myself add to geoloc as well
+
+3 fields basically, make smaller, select kick in at 3
+*/
+
 #tribe-events-bar {
 	width: auto;
 	background-color: #eee;
