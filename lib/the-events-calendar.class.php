@@ -2935,7 +2935,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$filters[] = array( 'name'    => 'tribe-bar-search',
 			                    'caption' => 'Search',
-			                    'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' . esc_attr($value) . '">' );
+			                    'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' . esc_attr($value) . '" placeholder="Search">' );
 
 			return $filters;
 		}
@@ -2951,7 +2951,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$filters[] = array( 'name'    => 'tribe-bar-date',
 			                    'caption' => 'Date',
-			                    'html'    => '<input type="text" name="tribe-bar-date" id="tribe-bar-date" value="' . esc_attr( $value ) . '">' );
+			                    'html'    => '<input type="text" name="tribe-bar-date" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="Date">' );
 
 			return $filters;
 		}
