@@ -657,12 +657,10 @@ table.tribe-events-calendar-widget {
 =============================================*/
 
 /*
-chosen for select
 add pagination to top as well for lists.php
 merge in views-hooks? (ask Paul/Tim about merging views-hooks)
 placeholders js bit
-jquery drop down for mobile / and putting views into select
-
+views into select (chosen)
 */
 
 #tribe-events-bar {
@@ -673,30 +671,40 @@ jquery drop down for mobile / and putting views into select
 	padding: 4px;
 }
 
-#tribe-events-bar-filters,
-#tribe-events-bar-views,
-#tribe-events-bar-form .tribe-events-bar-filter-wrap,
-#tribe-events-bar-views ul,
-#tribe-events-bar-views li {
-	display: inline-block;
-	zoom: 1;
-	*display: inline;
-}
-
 /* Bar Filters */
 #tribe-events-bar-filters {
-	
+	float: left;
+	width: 100%;
+}
+
+#tribe-events-bar-form {
+	padding-right: 42%;
 }
 
 #tribe-events-bar-form .tribe-events-bar-filter-wrap {
-	
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
+	width: 30%;
+	margin: 0 2px;
+}
+
+#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-date {
+	width: 17.5%;
+}
+
+#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-submit {
+	width: 70px;
 }
 
 #tribe-events-bar-form input[type="text"] {
 	padding: 3px;
-	margin: 0 2px;
 	height: 24px;
-	width: 124px;
+	width: 93%;
+}
+
+#tribe-events-bar-form input#tribe-bar-date {
+	width: 100%;
 }
 
 #tribe-events-bar-form input[type="submit"] {
@@ -704,7 +712,7 @@ jquery drop down for mobile / and putting views into select
 	color: #fff;
 	font-size: 11px;
 	font-weight: bold;
-	margin: 0 0 0 3px;
+	margin: 0 0 0 10px;
 	padding: 6px 9px;
 	text-align: center;
 	text-transform: uppercase;
@@ -721,20 +729,96 @@ jquery drop down for mobile / and putting views into select
 	background-color: #ddd;
 }
 
+/* Toggle */
+#tribe-events-bar .tribe-events-bar-toggle {
+	display: none;
+}
+
+#tribe-events-bar .tribe-events-bar-toggle .tribe-triangle {
+	cursor: pointer;
+	content: "";
+	display: block;
+	width: 0;
+	height: 0;
+	border: solid 9px;
+	border-color: #666 transparent transparent transparent;
+	margin: 0 auto;
+	position: relative;
+	top: 10px;
+	display: block;
+}
+
+#tribe-events-bar .tribe-events-bar-toggle.open .tribe-triangle {
+	border-color: transparent transparent #666 transparent;
+	top: 0;
+}
+
+/* Ensure that our filters show at proper width */
+@media screen and (min-width: 781px) {
+	#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-search, 
+	#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-geoloc {
+		display: inline-block !important;
+	}
+}
+
+/* Place filters in a toggle to save bar real estate */
+@media screen and (max-width: 780px) {
+	
+	#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-search, 
+	#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-geoloc {
+		display: none;
+		position: absolute;
+		z-index: 9999;
+		width: 200px;
+	}
+	
+	#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-search {
+		background-color: #eee;
+		border: 1px solid #bbb;
+		border-bottom: 0;
+		padding: 5px 0px 4px 5px;
+		margin: 0 auto;
+	} 
+	#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-geoloc {
+		margin: 41px auto 0;
+		padding: 2px 0px 5px 5px;
+		background-color: #eee;
+		border: 1px solid #bbb;
+		border-top: 0;
+	}
+	
+	#tribe-events-bar .tribe-events-bar-toggle {
+		display: inline-block;
+		padding: 0 6px;
+	}
+	
+	#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-date {
+		width: 25%;
+	}
+	
+}
+
 /* See Date Filter Datepicker styles below */
 
 /* Bar Views */
 #tribe-events-bar-views {
-	float: right;
+	float: left;
+	width: 42%;
+	margin-left: -42%;
 }
 #tribe-events-bar-views ul {
 	list-style-type: none;
 	margin: 0;
-	padding: 5px 0 0 0;
+	padding: 0;
+	text-align: right;
+	line-height: 32px;
 }
 
 #tribe-events-bar-views li {
 	padding: 0 2px;
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
 }
 
 #tribe-events-bar-views li a {
