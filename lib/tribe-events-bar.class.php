@@ -78,11 +78,18 @@ class TribeEventsBar {
 		$limit = apply_filters( 'tribe-events-bar-views-breakpoint', 3 );
 
 		if ( count( $views ) <= $limit ) {
-			$open     = "<ul>";
-			$close    = "</ul>";
-			$current  = 'active';
-			$open_el  = "<li><a class='tribe-events-bar-view !CURRENT!' href='!URL!'>";
-			$close_el = "</a></li>";
+			// Standard list navigation for larger screens
+			$open     	  = "<ul>";
+			$close    	  = "</ul>";
+			$current      = 'active';
+			$open_el  	  = "<li><a class='tribe-events-bar-view !CURRENT!' href='!URL!'>";
+			$close_el 	  = "</a></li>";
+			// Select input for smaller screens
+			$open_sel     = "<select name='tribe-events-bar-view'>";
+			$close_sel    = "</select>";
+			$current_sel  = 'selected';
+			$open_sel_el  = "<option !CURRENT! value='!URL!'>";
+			$close_sel_el = "</option>";
 
 		} else {
 
@@ -92,7 +99,8 @@ class TribeEventsBar {
 			$open_el  = "<option !CURRENT! value='!URL!'>";
 			$close_el = "</option>";
 		}
-
+		
+		// standard list navigation for larger screens or select depending on number of views
 		echo $open;
 
 		foreach ( $views as $view ) {
@@ -111,6 +119,28 @@ class TribeEventsBar {
 		}
 
 		echo $close;
+		
+		// select input for smaller screens
+		echo $open_sel;
+
+		foreach ( $views as $view ) {
+			// select input for smaller screens
+			$item = str_replace( '!URL!', esc_url( $view['url'] ), $open_sel_el );
+
+			if ( $tec->displaying === $view['displaying'] ) {
+				$item = str_replace( '!CURRENT!', $current_sel, $item );
+			} else {
+				$item = str_replace( '!CURRENT!', '', $item );
+			}
+
+			echo $item;
+
+			echo $view['anchor'];
+			echo $close_sel_el;
+		}
+
+		echo $close_sel;
+		
 	}
 
 	/**

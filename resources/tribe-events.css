@@ -674,23 +674,23 @@ views into select (chosen)
 /* Bar Filters */
 #tribe-events-bar-filters {
 	float: left;
-	width: 100%;
+	width: 58%;
 }
 
 #tribe-events-bar-form {
-	padding-right: 42%;
+
 }
 
 #tribe-events-bar-form .tribe-events-bar-filter-wrap {
 	display: inline-block;
 	zoom: 1;
 	*display: inline;
-	width: 30%;
-	margin: 0 2px;
+	width: 28%;
+	margin: 0 .35%;
 }
 
 #tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-date {
-	width: 17.5%;
+	width: 22%;
 }
 
 #tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-submit {
@@ -703,16 +703,12 @@ views into select (chosen)
 	width: 93%;
 }
 
-#tribe-events-bar-form input#tribe-bar-date {
-	width: 100%;
-}
-
 #tribe-events-bar-form input[type="submit"] {
 	background-color: #666;
 	color: #fff;
 	font-size: 11px;
 	font-weight: bold;
-	margin: 0 0 0 10px;
+	margin: 0 0 0 8%;
 	padding: 6px 9px;
 	text-align: center;
 	text-transform: uppercase;
@@ -754,7 +750,7 @@ views into select (chosen)
 }
 
 /* Ensure that our filters show at proper width */
-@media screen and (min-width: 781px) {
+@media screen and (min-width: 639px) {
 	#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-search, 
 	#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-geoloc {
 		display: inline-block !important;
@@ -762,7 +758,7 @@ views into select (chosen)
 }
 
 /* Place filters in a toggle to save bar real estate */
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 638px) {
 	
 	#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-search, 
 	#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-geoloc {
@@ -804,7 +800,6 @@ views into select (chosen)
 #tribe-events-bar-views {
 	float: left;
 	width: 42%;
-	margin-left: -42%;
 }
 #tribe-events-bar-views ul {
 	list-style-type: none;
@@ -843,6 +838,27 @@ views into select (chosen)
 #tribe-events-bar-views li a.active {
 	background-color: #666;
 	color: #fff;
+}
+
+#tribe-events-bar-views select {
+	display: none;
+	float: right;
+}
+
+/* Swap out our view nav to be a select input & make some other real estate adjustments */
+@media screen and (max-width: 845px) {
+	#tribe-events-bar-filters {
+		width: 70%;
+	}
+	#tribe-events-bar-views {
+		width: 30%;
+	}
+	#tribe-events-bar-views ul {
+		display: none;
+	}
+	#tribe-events-bar-views select {
+		display: block;
+	}
 }
 
 
