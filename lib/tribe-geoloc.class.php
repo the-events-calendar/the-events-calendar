@@ -67,7 +67,7 @@ class TribeEventsGeoLoc {
 
 		$filters[] = array( 'name'    => 'tribe-bar-geoloc',
 		                    'caption' => 'Near this location',
-		                    'html'    => '<input type="text" name="tribe-bar-geoloc" id="tribe-bar-geoloc" value="' . esc_attr( $value ) . '">' );
+		                    'html'    => '<input type="text" name="tribe-bar-geoloc" id="tribe-bar-geoloc" value="' . esc_attr( $value ) . '" placeholder="Location">' );
 
 		return $filters;
 	}
