@@ -82,21 +82,21 @@ class TribeEventsBar {
 			$open     	  = "<ul>";
 			$close    	  = "</ul>";
 			$current      = 'active';
-			$open_el  	  = "<li><a class='tribe-events-bar-view !CURRENT!' href='!URL!'>";
+			$open_el  	  = '<li><a class="tribe-events-bar-view !CURRENT!" href="!URL!">';
 			$close_el 	  = "</a></li>";
 			// Select input for smaller screens
-			$open_sel     = "<select name='tribe-events-bar-view'>";
+			$open_sel     = '<select class="chzn-select" name="tribe-events-bar-view">';
 			$close_sel    = "</select>";
 			$current_sel  = 'selected';
-			$open_sel_el  = "<option !CURRENT! value='!URL!'>";
+			$open_sel_el  = '<option !CURRENT! value="!URL!">';
 			$close_sel_el = "</option>";
 
 		} else {
 
-			$open     = "<select name='tribe-events-bar-view'>";
+			$open     = '<select class="chzn-select" name="tribe-events-bar-view">';
 			$close    = "</select>";
 			$current  = 'selected';
-			$open_el  = "<option !CURRENT! value='!URL!'>";
+			$open_el  = '<option !CURRENT! value="!URL!">';
 			$close_el = "</option>";
 		}
 		
