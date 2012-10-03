@@ -22,9 +22,10 @@ class TribeEventsGeoLoc {
 
 	function __construct() {
 
-		$this->rewrite_slug = $this->getOption( 'rewrite_slug', 'map' );
+		$this->rewrite_slug = $this->getOption( 'geoloc_rewrite_slug', 'map' );
 
-		add_action( 'wp_router_generate_routes', array( $this, 'add_routes' ) );
+		add_filter( 'generate_rewrite_rules', array( $this, 'add_routes' ) );
+		add_filter( 'template_include', array( $this, 'load_template' ) );
 
 		add_action( 'tribe_events_venue_updated', array( $this, 'save_venue_geodata' ), 10, 2 );
 		add_action( 'tribe_events_venue_created', array( $this, 'save_venue_geodata' ), 10, 2 );
@@ -33,7 +34,7 @@ class TribeEventsGeoLoc {
 		add_action( 'wp_ajax_nopriv_geosearch', array( $this, 'ajax_geosearch' ) );
 
 		add_filter( 'tribe-events-bar-views', array( $this, 'setup_view_for_bar' ) );
-		add_filter( 'tribe-events-bar-filters',  array($this, 'setup_geoloc_filter_in_bar'), 1, 1 );
+		add_filter( 'tribe-events-bar-filters', array( $this, 'setup_geoloc_filter_in_bar' ), 1, 1 );
 
 	}
 
@@ -50,7 +51,7 @@ class TribeEventsGeoLoc {
 	}
 
 	public function setup_view_for_bar( $views ) {
-		$tec = TribeEvents::instance();
+		$tec     = TribeEvents::instance();
 		$views[] = array( 'displaying' => 'map',
 		                  'anchor'     => 'Map',
 		                  'url'        => get_home_url( get_current_blog_id(), $tec->getOption( 'eventsSlug', 'events' ) . '/' . $this->rewrite_slug ) );
@@ -72,30 +73,47 @@ class TribeEventsGeoLoc {
 		return $filters;
 	}
 
-	public function add_routes( $router ) {
 
+	public function add_routes( $wp_rewrite ) {
 		$tec = TribeEvents::instance();
 
-		// list events
-		$router->add_route( 'geoloc-list-route', array( 'path'            => '^' . $tec->getOption( 'eventsSlug', 'events' ) . '/' . $this->rewrite_slug . '$',
-		                                                'query_vars'      => array( 'eventDisplay' => 'map' ),
-		                                                'page_callback'   => array( $this, 'map_view' ),
-		                                                'access_callback' => true,
-		                                                'title'           => apply_filters( 'tribe_geoloc_page_title', __( 'Geo Search', 'tribe-events-calendar-pro' ) ),
-		                                                'template'        => array( 'page.php',
-		                                                                            dirname( __FILE__ ) . '/page.php' ) ) );
+		$base = trailingslashit( $tec->getOption( 'eventsSlug', 'events' ) );
 
+		$newRules = array();
 
+		$newRules[$base . $this->rewrite_slug] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=map';
+
+		$wp_rewrite->rules = $newRules + $wp_rewrite->rules;
 	}
 
-	public function map_view() {
+	public function load_template( $template ) {
+		global $wp_query;
 
-		add_filter( 'tribe-events-bar-should-show', '__return_true' );
 
+		if ( !empty( $wp_query->query_vars['eventDisplay'] ) && $wp_query->query_vars['eventDisplay'] === 'map' ) {
+
+			add_filter( 'tribe-events-bar-should-show', '__return_true' );
+			add_action( 'tribe_current_events_page_template', array( $this, 'setup_geoloc_template' ), 1 );
+			add_action( 'tribe_get_events_title', array( $this, 'setup_geoloc_title' ), 1 );
+
+			$template = locate_template( tribe_get_option( 'tribeEventsTemplate', 'default' ) == 'default' ? 'page.php' : tribe_get_option( 'tribeEventsTemplate', 'default' ) );
+			if ( $template == '' )
+				$template = get_index_template();
+
+		}
+
+		return $template;
+	}
+
+	public function setup_geoloc_template() {
+		remove_action( 'the_content', array( $this, 'setup_geoloc_template' ) );
 		$this->scripts();
 		$pro = TribeEventsPro::instance();
-		include $pro->pluginPath . 'views/map.php';
+		return $pro->pluginPath . 'views/map.php';
+	}
 
+	public function setup_geoloc_title( $title ) {
+		return __( 'Geolocation search', 'tribe-events-calendar-pro' );
 	}
 
 	function save_venue_geodata( $venueId, $data ) {
@@ -174,7 +192,8 @@ class TribeEventsGeoLoc {
 
 		//First lets create a bounding box so we don't need to calculate distance to really far points
 
-		$geofence_radio = apply_filters( 'tribe_geoloc_standard_geofence', 50 );; //Geofence. Limit the search to a 50km radius from the given point
+		$geofence_radio = apply_filters( 'tribe_geoloc_standard_geofence', 50 );
+		; //Geofence. Limit the search to a 50km radius from the given point
 
 		$maxLat = $lat + rad2deg( $geofence_radio / self::EARTH_RADIO );
 		$minLat = $lat - rad2deg( $geofence_radio / self::EARTH_RADIO );
@@ -237,8 +256,8 @@ class TribeEventsGeoLoc {
 
 		$response = array( 'html' => '', 'markers' => array(), 'success' => true );
 
-		$response['html'] .= "<h2>" . __( 'Nearest places' ) . '</h2>';
-		$response['html'] .= sprintf( __( "<p class='found'>%d events found</p>" ), count( $data ) );
+		$response['html'] .= "<h2>" . __( 'Nearest places', 'tribe-events-calendar-pro' ) . '</h2>';
+		$response['html'] .= sprintf( __( "<p class='found'>%d events found</p>", 'tribe-events-calendar-pro' ), count( $data ) );
 
 
 		if ( count( $data ) > 0 ) {
@@ -251,7 +270,7 @@ class TribeEventsGeoLoc {
 
 		}
 
-		header('Content-type: application/json');
+		header( 'Content-type: application/json' );
 		echo json_encode( $response );
 
 		exit;
@@ -271,7 +290,11 @@ class TribeEventsGeoLoc {
 			$title    = $event->post_title;
 			$link     = get_permalink( $event->ID );
 
-			$markers[] = array( 'lat' => $lat, 'lng' => $lng, 'title' => $title, 'address' => $address, 'link' => $link );
+			$markers[] = array( 'lat'     => $lat,
+			                    'lng'     => $lng,
+			                    'title'   => $title,
+			                    'address' => $address,
+			                    'link'    => $link );
 
 		}
 
