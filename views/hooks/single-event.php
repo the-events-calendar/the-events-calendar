@@ -48,7 +48,8 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		}
 		// Start Single Template
 		public function before_template( $post_id ){
-			$html = '<p class="tribe-events-back"><a href="' . tribe_get_events_link( $post_id ) . '" rel="bookmark">'. __('&laquo; Back to Events', 'tribe-events-calendar') .'</a></p>';
+			$html = '<div id="tribe-events-content" class="tribe-events-single">';
+			$html .= '<p class="tribe-events-back"><a href="' . tribe_get_events_link( $post_id ) . '" rel="bookmark">'. __('&laquo; Back to Events', 'tribe-events-calendar') .'</a></p>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_before_template');
 		}
 		// Event Title
@@ -122,7 +123,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		<?php endif; ?>
 		
 		<dt><?php _e( 'Updated:', 'tribe-events-calendar' ); // Last event updated date ?></dt>
-		<dd class="updated"><abbr class="tribe-events-abbr" title="<?php the_date( 'c' ); ?>"><?php the_date(); ?></abbr></dd>
+		<dd class="updated"><abbr class="tribe-events-abbr" title="<?php the_time( 'c' ); ?>"><?php the_time( 'F j, Y' ); ?></abbr></dd>
 		
 		<?php if ( class_exists( 'TribeEventsRecurrenceMeta' ) && function_exists( 'tribe_get_recurrence_text' ) && tribe_is_recurring_event() ) : // Show info for reoccurring events ?>
 			<dt><?php _e( 'Schedule:', 'tribe-events-calendar' ); ?></dt>
@@ -244,7 +245,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		}
 		// After Single Template
 		public function after_template( $post_id ){
-			$html = '';
+			$html = '</div>!-- #tribe-events-content -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_after_template');
 		}
 	}
