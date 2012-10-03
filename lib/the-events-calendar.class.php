@@ -65,6 +65,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		protected $taxRewriteSlug = 'event/category';
 		protected $tagRewriteSlug = 'event/tag';
 		protected $monthSlug = 'month';
+		protected $weekSlug = 'week';
 		protected $pastSlug = 'past';
 		protected $upcomingSlug = 'upcoming';
 		protected $postExceptionThrown = false;
@@ -160,7 +161,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// Exceptions Helper
 			require_once( 'tribe-event-exception.class.php' );
 
+			// Tribe Common Libs Helper
+			require_once( $this->pluginPath.'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
+
 			// Load Template Tags
+			require_once( $this->pluginPath.'public/template-tags/query.php' );
 			require_once( $this->pluginPath.'public/template-tags/general.php' );
 			require_once( $this->pluginPath.'public/template-tags/calendar.php' );
 			require_once( $this->pluginPath.'public/template-tags/loop.php' );
@@ -296,6 +301,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->taxRewriteSlug = $this->rewriteSlug . '/' . sanitize_title(__( 'category', 'tribe-events-calendar' ));
 			$this->tagRewriteSlug = $this->rewriteSlug . '/' . sanitize_title(__( 'tag', 'tribe-events-calendar' ));
 			$this->monthSlug = sanitize_title(__('month', 'tribe-events-calendar'));
+			$this->weekSlug = sanitize_title(__('week', 'tribe-events-calendar'));
 			$this->upcomingSlug = sanitize_title(__('upcoming', 'tribe-events-calendar'));
 			$this->pastSlug = sanitize_title(__('past', 'tribe-events-calendar'));
 			$this->postTypeArgs['rewrite']['slug'] = sanitize_title($this->rewriteSlugSingular);
@@ -1042,16 +1048,25 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			global $current_screen;
 
+			// setup plugin resources & 3rd party vendor urls
+			$resouces_url = trailingslashit( $this->pluginUrl ) . 'resources/';
+			$vendor_url = trailingslashit( $this->pluginUrl ) . 'vendor/';
+
 			// admin stylesheet - always loaded for a few persistent things (e.g. icon)
-			wp_enqueue_style( self::POSTTYPE.'-admin', $this->pluginUrl . 'resources/events-admin.css' );
+			wp_enqueue_style( self::POSTTYPE . '-admin', $resouces_url . 'events-admin.css' );
 
 			// settings screen
 			if (isset($current_screen->id) && $current_screen->id == 'settings_page_tribe-settings') {
+				
+				// chosen
+				Tribe_Template_Factory::asset_package('chosen');
 
-				wp_enqueue_script( 'tribe-settings', $this->pluginUrl . 'resources/tribe-settings.js', array('jquery'), '', true );
-				wp_enqueue_style( 'chosen-style', $this->pluginUrl . 'resources/chosen.css' );
-				wp_enqueue_script( 'chosen-jquery', $this->pluginUrl . 'resources/chosen.jquery.min.js', array('jquery'), '0.9.5', false );
-				wp_enqueue_script( self::POSTTYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js', array('jquery-ui-datepicker'), '', true );
+				// JS admin
+				Tribe_Template_Factory::asset_package('admin');
+				
+				// JS settings
+				Tribe_Template_Factory::asset_package('settings');
+
 				wp_enqueue_script( 'thickbox' );
 				wp_enqueue_style( 'thickbox' );
 
@@ -1059,54 +1074,53 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				do_action('tribe_settings_enqueue');
 			}
 
-			// post type editiong
-			if ( isset($current_screen->post_type) ) {
+			// events, organizer, or venue editing
+			if ( isset($current_screen->post_type) && in_array( $current_screen->post_type, array(
+				self::POSTTYPE, // events editing
+				self::VENUE_POST_TYPE, // venue editing
+				self::ORGANIZER_POST_TYPE // organizer editing
+			) )){
 
-				if ( $current_screen->post_type == self::POSTTYPE ) { // events editing
+				// chosen
+				Tribe_Template_Factory::asset_package('chosen');
 
-					wp_enqueue_style( 'chosen-style', $this->pluginUrl . 'resources/chosen.css' );
-					wp_enqueue_script( 'chosen-jquery', $this->pluginUrl . 'resources/chosen.jquery.min.js', array('jquery'), '0.9.5', false );
-					wp_enqueue_style( self::POSTTYPE.'-admin-ui', $this->pluginUrl . 'resources/events-admin-ui.css' );
-					wp_enqueue_script( 'jquery-ui-datepicker', $this->pluginUrl . 'resources/ui.datepicker.min.js', array('jquery-ui-core'), '1.7.3', true );
-					wp_enqueue_script( 'jquery-ui-dialog', $this->pluginUrl . 'resources/ui.dialog.min.js', array('jquery-ui-core'), '1.7.3', true );
-					wp_enqueue_script( 'jquery-ecp-plugins', $this->pluginUrl . 'resources/jquery-ecp-plugins.js', array('jquery') );
-					wp_enqueue_script( self::POSTTYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js', array('jquery-ui-datepicker'), '', true );
+				// date picker
+				Tribe_Template_Factory::asset_package('datepicker');
 
-					// calling our own localization because wp_localize_scripts doesn't support arrays or objects for values, which we need.
-					add_action('admin_footer', array($this, 'printLocalizedAdmin') );
+				// dialog
+				Tribe_Template_Factory::asset_package('dialog');
 
-					// hook for other plugins
-					do_action('tribe_events_enqueue');
+				// UI admin
+				Tribe_Template_Factory::asset_package('admin-ui');
 
-				} elseif( $current_screen->post_type == self::VENUE_POST_TYPE) { // venue editing
+				// JS admin
+				Tribe_Template_Factory::asset_package('admin');
 
-					wp_enqueue_style( 'chosen-style', $this->pluginUrl . 'resources/chosen.css' );
-					wp_enqueue_script( 'chosen-jquery', $this->pluginUrl . 'resources/chosen.jquery.min.js', array('jquery'), '0.9.5', false );
-					wp_enqueue_script( 'jquery-ui-datepicker', $this->pluginUrl . 'resources/ui.datepicker.min.js', array('jquery-ui-core'), '1.7.3', true );
-					wp_enqueue_script( 'jquery-ui-dialog', $this->pluginUrl . 'resources/ui.dialog.min.js', array('jquery-ui-core'), '1.7.3', true );
-					wp_enqueue_script( 'jquery-ecp-plugins', $this->pluginUrl . 'resources/jquery-ecp-plugins.js', array('jquery') );
-					wp_enqueue_style( self::POSTTYPE.'-admin-ui', $this->pluginUrl . 'resources/events-admin-ui.css' );
-					wp_enqueue_script( self::VENUE_POST_TYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js');
-					wp_enqueue_style( self::VENUE_POST_TYPE.'-admin', $this->pluginUrl . 'resources/hide-visibility.css' );
+				// ecp placeholders
+				Tribe_Template_Factory::asset_package('ecp-plugins');
 
-					// hook for other plugins
-					do_action('tribe_venues_enqueue');
+				switch ( $current_screen->post_type ) {
+					case self::POSTTYPE :
 
+						add_action('admin_footer', array($this, 'printLocalizedAdmin') );
 
-				} elseif( $current_screen->post_type == self::ORGANIZER_POST_TYPE) { // organizer editing
+						// hook for other plugins
+						do_action('tribe_events_enqueue');
+						break;
+					case self::VENUE_POST_TYPE : 
 
-					wp_enqueue_style( 'chosen-style', $this->pluginUrl . 'resources/chosen.css' );
-					wp_enqueue_script( 'chosen-jquery', $this->pluginUrl . 'resources/chosen.jquery.min.js', array('jquery'), '0.9.5', false );
-					wp_enqueue_script( 'jquery-ui-datepicker', $this->pluginUrl . 'resources/ui.datepicker.min.js', array('jquery-ui-core'), '1.7.3', true );
-					wp_enqueue_script( 'jquery-ui-dialog', $this->pluginUrl . 'resources/ui.dialog.min.js', array('jquery-ui-core'), '1.7.3', true );
-					wp_enqueue_script( 'jquery-ecp-plugins', $this->pluginUrl . 'resources/jquery-ecp-plugins.js', array('jquery') );
-					wp_enqueue_style( self::POSTTYPE.'-admin-ui', $this->pluginUrl . 'resources/events-admin.css' );
-					wp_enqueue_script( self::ORGANIZER_POST_TYPE.'-admin', $this->pluginUrl . 'resources/events-admin.js');
-					wp_enqueue_style( self::ORGANIZER_POST_TYPE.'-admin', $this->pluginUrl . 'resources/hide-visibility.css' );
+						wp_enqueue_style( self::VENUE_POST_TYPE.'-hide-visibility', trailingslashit( $this->pluginUrl ) . 'resources/hide-visibility.css' );
 
-					// hook for other plugins
-					do_action('tribe_organizers_enqueue');
+						// hook for other plugins
+						do_action('tribe_venues_enqueue');
+						break;
+					case self::ORGANIZER_POST_TYPE :
 
+						wp_enqueue_style( self::ORGANIZER_POST_TYPE.'-hide-visibility', trailingslashit( $this->pluginUrl ) . 'resources/hide-visibility.css' );
+
+						// hook for other plugins
+						do_action('tribe_organizers_enqueue');
+						break;
 				}
 			}
 		}
@@ -1269,21 +1283,31 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function loadStyle() {
-			$eventsURL = trailingslashit( $this->pluginUrl ) . 'resources/';
-			wp_enqueue_script('tribe-events-pjax', $eventsURL . 'jquery.pjax.js', array('jquery') );
-			wp_enqueue_script('tribe-events-calendar-script', $eventsURL . 'tribe-events.js', array('jquery', 'tribe-events-pjax') );
-			// is there an events.css file in the theme?
+			
+			// pjax
+			Tribe_Template_Factory::asset_package('pjax');
+
+			// smoothness
+			Tribe_Template_Factory::asset_package('smoothness');
+
+			// Select2
+			Tribe_Template_Factory::asset_package('select2');
+
+			// Tribe Calendar JS
+			Tribe_Template_Factory::asset_package('calendar-script');
+
+			// Tribe Events CSS filename
 			$event_file = 'tribe-events.css';
+
+			// is there an events.css file in the theme?
 			$styleUrl = locate_template( array( 'events/' . $event_file ) ) ?
 				str_replace( get_theme_root(), get_theme_root_uri(), locate_template( array( 'events/' . $event_file ) ) ) : 
-				$eventsURL . $event_file;
+				trailingslashit( $this->pluginUrl ) . 'resources/' . $event_file;
 			$styleUrl = apply_filters( 'tribe_events_stylesheet_url', $styleUrl );
+
+			// load up stylesheet from theme or plugin
 			if ( $styleUrl )
-				wp_enqueue_style('tribe-events-calendar-style', $styleUrl);
-				
-			wp_register_style('custom-jquery-styles', $eventsURL . 'smoothness/jquery-ui-1.8.23.custom.css' );
-			wp_register_style('select2-css', $eventsURL . 'select2/select2.css' );
-			wp_register_script('select2', $eventsURL . 'select2/select2.min.js', 'jquery' );
+				wp_enqueue_style( self::POSTTYPE . '-calendar-style', $styleUrl);
 		}
 
 		public function setDate($query) {
@@ -1407,11 +1431,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$qvars[] = 'end_date';
 			return $qvars;
 		}
+
 		/**
 		 * Adds Event specific rewrite rules.
 		 *
 		 *	events/				=>	/?post_type=tribe_events
 		 *	events/month		=>	/?post_type=tribe_events&eventDisplay=month
+		 *	events/week 		=>  /?post_type=tribe_events&eventDisplay=week
 		 *	events/upcoming		=>	/?post_type=tribe_events&eventDisplay=upcoming
 		 *	events/past			=>	/?post_type=tribe_events&eventDisplay=past
 		 *	events/2008-01/#15	=>	/?post_type=tribe_events&eventDisplay=bydate&eventDate=2008-01-01
@@ -1432,6 +1458,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$baseTag = "(.*)" . $baseTag;
 	
 			$month = $this->monthSlug;
+			$week = $this->weekSlug;
 			$upcoming = $this->upcomingSlug;
 			$past = $this->pastSlug;
 			$newRules = array();
@@ -1445,10 +1472,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$newRules[$base . 'ical'] = 'index.php?post_type=' . self::POSTTYPE . '&ical=1';
 			$newRules[$base . '(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&feed=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . $month] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month';
+			$newRules[$base . $week] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=week';
 			$newRules[$base . $upcoming . '/page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . $upcoming] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
 			$newRules[$base . $past . '/page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . $past] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past';
+			$newRules[$base . '(\d{2})$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=week' .'&eventDate=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . '(\d{4}-\d{2})$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . '(\d{4}-\d{2}-\d{2})$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . 'feed/?$'] = 'index.php?eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
@@ -1460,11 +1489,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// taxonomy rules.
 			$newRules[$baseTax . '([^/]+)/page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&paged=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTax . '([^/]+)/' . $month] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month';
+			$newRules[$baseTax . '([^/]+)/' . $week] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=week';
 			$newRules[$baseTax . '([^/]+)/' . $upcoming . '/page/(\d+)'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTax . '([^/]+)/' . $upcoming] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
 			$newRules[$baseTax . '([^/]+)/' . $past . '/page/(\d+)'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTax . '([^/]+)/' . $past] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past';
 			$newRules[$baseTax . '([^/]+)/(\d{4}-\d{2})$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(3);
+			$newRules[$baseTax . '([^/]+)/(\d{2})$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=week' .'&eventDate=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTax . '([^/]+)/feed/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
 			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=' . $this->getOption('viewOption','month');
 			$newRules[$baseTax . '([^/]+)/ical/?$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&ical=1';
@@ -1474,17 +1505,20 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// tag rules.
 			$newRules[$baseTag . '([^/]+)/page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&post_tag=' . $wp_rewrite->preg_index(2) . '&paged=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTag . '([^/]+)/' . $month] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month';
+			$newRules[$baseTag . '([^/]+)/' . $week] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=week';
 			$newRules[$baseTag . '([^/]+)/' . $upcoming . '/page/(\d+)'] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTag . '([^/]+)/' . $upcoming] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
 			$newRules[$baseTag . '([^/]+)/' . $past . '/page/(\d+)'] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTag . '([^/]+)/' . $past] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past';
 			$newRules[$baseTag . '([^/]+)/(\d{4}-\d{2})$'] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(3);
+			$newRules[$baseTag . '([^/]+)/(\d{2})$'] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=week' .'&eventDate=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTag . '([^/]+)/feed/?$'] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
 			$newRules[$baseTag . '([^/]+)/?$'] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=' . $this->getOption('viewOption','month');
 			$newRules[$baseTag . '([^/]+)/ical/?$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&post_tag=' . $wp_rewrite->preg_index(2) . '&ical=1';
 			$newRules[$baseTag . '([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type=' . self::POSTTYPE . '&post_tag=' . $wp_rewrite->preg_index(2) . '&feed=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTag . '([^/]+)$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&post_tag=' . $wp_rewrite->preg_index(2);
 
+			// TODO apply_filter tribe-rewrite-rules
 			$wp_rewrite->rules = $newRules + $wp_rewrite->rules;
 		}
 
@@ -1492,6 +1526,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * returns various internal events-related URLs
 		 * @param string $type type of link. See switch statement for types.
 		 * @param string $secondary for $type = month, pass a YYYY-MM string for a specific month's URL
+		 *                          for $type = week, pass a Week # string for a specific week's URL
 		 */
 
 		public function getLink	( $type = 'home', $secondary = false, $term = null ) {
@@ -1522,6 +1557,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						return trailingslashit( esc_url($eventUrl . $secondary) );
 					}
 					return trailingslashit( esc_url($eventUrl . $this->monthSlug) );
+				case 'week':
+					if ( $secondary ) {
+						return trailingslashit( esc_url($eventUrl . $secondary) );
+					}
+					return trailingslashit( esc_url($eventUrl . $this->weekSlug) );
 				case 'upcoming':
 					return trailingslashit( esc_url($eventUrl . $this->upcomingSlug) );
 				case 'past':
@@ -1571,6 +1611,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					if ( $secondary )
 						$month = add_query_arg( array( 'eventDate' => $secondary ), $month );
 					return $month;
+				case 'week':
+					$week = add_query_arg( array( 'eventDisplay' => 'week'), $eventUrl );
+					if ( $secondary )
+						$week = add_query_arg( array( 'eventDate' => $secondary ), $week );
+					return $week;
 				case 'day':
 					$month = add_query_arg( array( 'eventDisplay' => 'day'), $eventUrl );
 					if ( $secondary )
@@ -2406,10 +2451,69 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			} elseif($type == 'organizer') {
 				$post_type = self::ORGANIZER_POST_TYPE;
 			}
+			// TODO update this verification to check all post_status <> 'trash'
 			$results = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->posts} WHERE post_type = %s && post_title = %s && post_status = 'publish'",$post_type,$name));
 			return ($results) ? 0 : 1;
 		}
 
+		/**
+		 * 
+		 * Given a week of the year (WW), returns the YYYY-MM-DD of the first day of the week
+		 * 
+		 * @param  string $week expects string or int 2 of 1-52 (weeks of the year)
+		 * @return string $date (YYYY-MM-DD)
+		 */
+		public function weekToDate( $week ){
+			// TODO get first day of the week to return in YYYY-MM-DD
+			// TODO fix date return format
+			$date = date( "Y-m", strtotime( $week . ' weeks' ));
+			return $date;
+		}
+		/**
+		 * Given a date (YYYY-MM-DD), returns the first day of the next week
+		 *
+		 * @param date
+		 * @return date
+		 */
+		public function nextWeek( $date ) {
+			$dateParts = split( '-', $date );
+			if ( $dateParts[1] == 12 ) {
+				$dateParts[0]++;
+				$dateParts[1] = "01";
+				$dateParts[2] = "01";
+			} else {
+				$dateParts[1]++;
+				$dateParts[2] = "01";
+			}
+			if ( $dateParts[1] < 10 && strlen( $dateParts[1] ) == 1 ) {
+				$dateParts[1] = "0" . $dateParts[1];
+			}
+			$return =	$dateParts[0] . '-' . $dateParts[1];
+			return $return;
+		}
+		/**
+		 * Given a date (YYYY-MM-DD), return the first day of the previous week
+		 *
+		 * @param date
+		 * @return date
+		 */
+		public function previousWeek( $date ) {
+			$dateParts = split( '-', $date );
+			if ( $dateParts[1] == 1 ) {
+				$dateParts[0]--;
+				$dateParts[1] = "12";
+				$dateParts[2] = "01";
+			} else {
+				$dateParts[1]--;
+				$dateParts[2] = "01";
+			}
+			if ( $dateParts[1] < 10 ) {
+				$dateParts[1] = "0" . $dateParts[1];
+			}
+			$return =	$dateParts[0] . '-' . $dateParts[1];
+
+			return $return;
+		}
 		/**
 		 * Given a date (YYYY-MM-DD), returns the first of the next month
 		 *

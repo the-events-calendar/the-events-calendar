@@ -106,6 +106,9 @@ if (!class_exists('TribeEventsTemplates')) {
 			} elseif ( tribe_is_upcoming() || tribe_is_past() || tribe_is_day() || (is_single() && tribe_is_showing_all()) ) {
 				// list view
 				$template = TribeEventsTemplates::getTemplateHierarchy('list');
+			} elseif ( tribe_is_week() ) {
+				// week view
+				$template = TribeEventsTemplates::getTemplateHierarchy('week');
 			} else {
 				// calendar view
 				$template = TribeEventsTemplates::getTemplateHierarchy('calendar');
@@ -258,14 +261,15 @@ if (!class_exists('TribeEventsTemplates')) {
 	
 		private static function spoofQuery() {
 			global $wp_query, $withcomments;
-			TribeEventsTemplates::$origPostCount = $wp_query->post_count;
-			TribeEventsTemplates::$origCurrentPost =  $wp_query->current_post;
-			$wp_query->current_post = -1;
-			$wp_query->post_count = 2;		
-			$wp_query->is_page = true; // don't show comments
-			//$wp_query->is_single = false; // don't show comments
-			$wp_query->is_singular = true;
-		
+			if( $wp_query->tribe_is_event_query ){
+				TribeEventsTemplates::$origPostCount = $wp_query->post_count;
+				TribeEventsTemplates::$origCurrentPost =  $wp_query->current_post;
+				$wp_query->current_post = -1;
+				$wp_query->post_count = 2;		
+				$wp_query->is_page = true; // don't show comments
+				//$wp_query->is_single = false; // don't show comments
+				$wp_query->is_singular = true;
+			}
 		}
 	
 		private static function endQuery() {

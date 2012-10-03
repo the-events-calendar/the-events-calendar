@@ -119,6 +119,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_the_grid');
 		}
 		public function the_grid( $post_id ){
+			global $wp_query;
 			ob_start();
 
 			$tribe_ecp = TribeEvents::instance();
@@ -130,8 +131,12 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				$eventPosts = tribe_get_events( array( 'eventCat' => $eventCat, 'time_order' => 'ASC', 'eventDisplay'=>'month' ) );
 			} // not in a cat
 			else {
-				$eventPosts = tribe_get_events( array( 'eventDisplay'=>'month' ) );
+				// $eventPosts = tribe_get_events( array( 'eventDisplay'=>'month' ) );
+				$eventPosts = $wp_query->posts;
 			}
+
+			if(empty($eventPosts))
+				return 'NO EVENTS';
 
 			$daysInMonth = isset( $date ) ? date( 't', $date ) : date( 't' );
 			$startOfWeek = get_option( 'start_of_week', 0 );
