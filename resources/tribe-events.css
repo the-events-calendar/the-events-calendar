@@ -789,7 +789,11 @@ views into select (chosen)
 	}
 	
 	#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-date {
-		width: 25%;
+		width: 30%;
+	}
+	
+	#tribe-events-bar-form input[type="submit"] {
+		margin-left: 4px;
 	}
 	
 }
