@@ -65,7 +65,8 @@ if( !class_exists('Tribe_Events_Pro_Single_Venue_Template')){
 		}
 		// Start Single Venue Template
 		public function before_template( $post_id ){
-			$html = '<p class="tribe-events-back"><a href="' . tribe_get_events_link() . '" rel="bookmark">'. __('&laquo; Back to Events', 'tribe-events-calendar-pro') .'</a></p>';
+			$html = '<div id="tribe-events-content" class="tribe-events-venue">';
+			$html .= '<p class="tribe-events-back"><a href="' . tribe_get_events_link() . '" rel="bookmark">'. __('&laquo; Back to Events', 'tribe-events-calendar-pro') .'</a></p>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_before_template');
 		}
 		// Start Single Venue
@@ -263,7 +264,7 @@ if( !class_exists('Tribe_Events_Pro_Single_Venue_Template')){
 		}	
 		// End Single Venue Template
 		public function after_template( $post_id ){
-			$html = '';
+			$html = '</div><!-- #tribe-events-content -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_after_template');
 		}
 	}
