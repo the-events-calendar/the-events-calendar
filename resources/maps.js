@@ -80,7 +80,6 @@ jQuery( document ).ready( function () {
 
 			for ( var i = 0; i < geocodes.length; i++ ) {
 				jQuery( "<a/>" ).text( geocodes[i].formatted_address ).attr( "href", "#" ).addClass( 'option_link' ).attr( 'data-index', i ).appendTo( "#options #links" );
-				addMarker( geocodes[i] );
 			}
 			centerMap();
 
@@ -98,7 +97,6 @@ jQuery( document ).ready( function () {
 	function processOption( geocode ) {
 
 		deleteMarkers();
-		addMarker( geocode );
 		centerMap();
 
 		var data = {
@@ -111,33 +109,45 @@ jQuery( document ).ready( function () {
 		jQuery.post( GeoLoc.ajaxurl, data, function ( response ) {
 
 			spin_end();
-			jQuery( "#results" ).html( response );
 
-			jQuery( 'html, body' ).animate( {
-				scrollTop:jQuery( "#results" ).offset().top
-			}, 1000 );
+			if ( response.success ) {
+
+				jQuery( "#results" ).html( response.html );
+
+				jQuery.each( response.markers, function ( i, e ) {
+					addMarker( e.lat, e.lng, e.title, e.address, e.link );
+				} );
+
+				centerMap();
+
+				jQuery( 'html, body' ).animate( {
+					scrollTop:jQuery( "#results" ).offset().top
+				}, 1000 );
+			}
 
 		} );
 
 	}
 
 
-	function addMarker( geocode ) {
+	function addMarker( lat, lng, title, address, link ) {
+		var myLatlng = new google.maps.LatLng( lat, lng );
 
 		var marker = new google.maps.Marker( {
+			position: myLatlng,
 			map:map,
-			title:geocode.formatted_address
+			title:title
 		} );
-
-		marker.setPosition( geocode.geometry.location );
-
 
 		var infoWindow = new google.maps.InfoWindow();
 
-		content = "Address: " + geocode.formatted_address + "<br />" +
-			"Kind: " + geocode.types + "<br />" +
-			"Lat: " + geocode.geometry.location.lat() + "<br />" +
-			"Lng: " + geocode.geometry.location.lng();
+		var content_title = title;
+		if ( link ) {
+			content_title = jQuery( '<div/>' ).append( jQuery( "<a/>" ).attr( 'href', link ).text( title ) ).html();
+		}
+
+		var content = "Event: " + content_title + "<br/>" + "Address: " + address;
+
 
 		infoWindow.setContent( content );
 
@@ -146,7 +156,7 @@ jQuery( document ).ready( function () {
 		} );
 
 		markersArray.push( marker );
-		bounds.extend( geocode.geometry.location );
+		bounds.extend( myLatlng );
 
 	}
 

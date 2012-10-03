@@ -234,18 +234,48 @@ class TribeEventsGeoLoc {
 
 		$data = $wpdb->get_results( $sql, OBJECT );
 
-		echo "<h2>Nearest places</h2>";
-		echo sprintf( "<p class='found'>%d events found</p>", count( $data ) );
+
+		$response = array( 'html' => '', 'markers' => array(), 'success' => true );
+
+		$response['html'] .= "<h2>" . __( 'Nearest places' ) . '</h2>';
+		$response['html'] .= sprintf( __( "<p class='found'>%d events found</p>" ), count( $data ) );
+
 
 		if ( count( $data ) > 0 ) {
-
+			ob_start();
 			$pro = TribeEventsPro::instance();
 			include $pro->pluginPath . 'views/map-table.php';
+			$response['html'] .= ob_get_clean();
+
+			$response['markers'] = $this->generate_markers( $data );
 
 		}
 
+		header('Content-type: application/json');
+		echo json_encode( $response );
 
 		exit;
+
+	}
+
+	private function generate_markers( $events ) {
+
+		$markers = array();
+
+		foreach ( $events as $event ) {
+
+			$venue_id = tribe_get_venue_id( $event->ID );
+			$lat      = get_post_meta( $venue_id, self::LAT, true );
+			$lng      = get_post_meta( $venue_id, self::LNG, true );
+			$address  = tribe_get_address( $event->ID );
+			$title    = $event->post_title;
+			$link     = get_permalink( $event->ID );
+
+			$markers[] = array( 'lat' => $lat, 'lng' => $lng, 'title' => $title, 'address' => $address, 'link' => $link );
+
+		}
+
+		return $markers;
 
 	}
 
