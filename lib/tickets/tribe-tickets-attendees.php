@@ -58,7 +58,10 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 	}
 
 	function column_check_in( $item ) {
-		return sprintf( '<a href="#" data-attendee-id="%d" data-provider="%s" class="button-secondary tickets_checkin">%s</a>', esc_attr( $item['attendee_id'] ), esc_attr( $item['provider'] ), __( 'Check in', 'tribe-events-calendar' ) );
+		$checkin =  sprintf( '<a href="#" data-attendee-id="%d" data-provider="%s" class="button-secondary tickets_checkin">%s</a>', esc_attr( $item['attendee_id'] ), esc_attr( $item['provider'] ), __( 'Check in', 'tribe-events-calendar' ) );
+		$uncheckin =  sprintf( '<span class="delete"><a href="#" data-attendee-id="%d" data-provider="%s" class="tickets_uncheckin">%s</a></span>', esc_attr( $item['attendee_id'] ), esc_attr( $item['provider'] ), __( 'Undo Check in', 'tribe-events-calendar' ) );
+
+		return $checkin . $uncheckin;
 	}
 
 	function single_row( $item ) {
@@ -69,7 +72,7 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 		if ( intval( $item["checkedin"] ) === 1 )
 			$checked = ' tickets_checked ';
 
-		echo '<tr class="' . sanitize_html_class( $row_class . $checked ) . '">';
+		echo '<tr class="' . sanitize_html_class( $row_class  ) . $checked . '">';
 		$this->single_row_columns( $item );
 		echo '</tr>';
 	}

@@ -34,7 +34,9 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 		abstract protected function get_attendees( $event_id );
 
-		abstract protected function checkin( $order_id );
+		abstract protected function checkin( $attendee_id );
+
+		abstract protected function uncheckin( $attendee_id );
 
 		abstract function get_ticket( $event_id, $ticket_id );
 
@@ -74,6 +76,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			add_action( 'wp_ajax_tribe-ticket-delete-' . $this->className, array( $this, 'ajax_handler_ticket_delete' ) );
 			add_action( 'wp_ajax_tribe-ticket-edit-' . $this->className, array( $this, 'ajax_handler_ticket_edit' ) );
 			add_action( 'wp_ajax_tribe-ticket-checkin-' . $this->className, array( $this, 'ajax_handler_attendee_checkin' ) );
+			add_action( 'wp_ajax_tribe-ticket-uncheckin-' . $this->className, array( $this, 'ajax_handler_attendee_uncheckin' ) );
 
 			// Attendees list
 			add_filter( 'post_row_actions', array( $this, 'attendees_row_action' ) );
@@ -254,6 +257,21 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 			// Pass the control to the child object
 			$return = $this->checkin( $order_id );
+
+			$this->ajax_ok( $return );
+		}
+
+		public final function ajax_handler_attendee_uncheckin() {
+
+			if ( !isset( $_POST["order_ID"] ) || intval( $_POST["order_ID"] ) == 0 )
+				$this->ajax_error( 'Bad post' );
+			if ( !isset( $_POST["provider"] ) || !$this->module_is_valid( $_POST["provider"] ) )
+				$this->ajax_error( 'Bad module' );
+
+			$order_id = $_POST["order_ID"];
+
+			// Pass the control to the child object
+			$return = $this->uncheckin( $order_id );
 
 			$this->ajax_ok( $return );
 		}

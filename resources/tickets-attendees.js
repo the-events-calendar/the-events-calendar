@@ -44,4 +44,29 @@ jQuery( document ).ready( function ( $ ) {
 		e.preventDefault();
 	} );
 
+
+	$( '.tickets_uncheckin' ).click( function ( e ) {
+
+		var obj = jQuery( this );
+
+		var params = {
+			action:'tribe-ticket-uncheckin-' + obj.attr( 'data-provider' ),
+			provider:obj.attr( 'data-provider' ),
+			order_ID:obj.attr( 'data-attendee-id' )
+		};
+
+		$.post(
+			ajaxurl,
+			params,
+			function ( response ) {
+				if ( response.success ) {
+					obj.parent( 'span' ).parent( 'td' ).parent( 'tr' ).removeClass( 'tickets_checked' );
+				}
+			},
+			'json'
+		);
+
+		e.preventDefault();
+	} );
+
 } );
