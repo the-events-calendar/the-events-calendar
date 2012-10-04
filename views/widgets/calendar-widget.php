@@ -59,35 +59,35 @@ $the_dates_args = array(
 	'year' => $year
 	);
 
-// the div tribe-events-widget-nav controls ajax navigation for the calendar widget. 
+// The div tribe-events-widget-nav controls ajax navigation for the calendar widget. 
 // Modify with care and do not remove any class names or elements inside that element 
 // if you wish to retain ajax functionality.
 
-// start calendar widget template'
+// Start calendar widget template'
 echo apply_filters( 'tribe_events_calendar_widget_before_template', '' );
 
-	// calendar ajax navigation
+	// Calendar ajax navigation
 	echo apply_filters( 'tribe_events_calendar_widget_before_the_nav', '' );
 	echo apply_filters( 'tribe_events_calendar_widget_the_nav', '' );
 	echo apply_filters( 'tribe_events_calendar_widget_after_the_nav', '' );
 
-	// start calendar
+	// Start calendar
 	echo apply_filters( 'tribe_events_calendar_widget_before_the_cal', '' );
 	
-		// calendar days of the week
+		// Calendar days of the week
 		echo apply_filters( 'tribe_events_calendar_widget_before_the_days', '' );
 		echo apply_filters( 'tribe_events_calendar_widget_the_days', '' );
 		echo apply_filters( 'tribe_events_calendar_widget_after_the_days', '' );
 
-		// calendar dates
+		// Calendar dates
 		echo apply_filters( 'tribe_events_calendar_widget_before_the_dates', '' );
 		echo apply_filters( 'tribe_events_calendar_widget_the_dates', $the_dates_args );
 		echo apply_filters( 'tribe_events_calendar_widget_after_the_dates', '' );
 	
-	// end calendar
+	// End calendar
 	echo apply_filters( 'tribe_events_calendar_widget_after_the_cal', '' );
 
-// end calendar widget template
+// End calendar widget template
 echo apply_filters( 'tribe_events_calendar_widget_after_template', '' );
 
 if ( $old_date ) {

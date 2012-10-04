@@ -20,84 +20,68 @@
 // '$event->Cost',
 // '$event->Phone',
 
+// TO-DO: add vevent class to $classes
+
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 if( !class_exists('Tribe_Events_List_Widget_Template')){
 	class Tribe_Events_List_Widget_Template extends Tribe_Template_Factory {
 		public static function init(){
-			// start list widget template
+			// Start list widget template
 			add_filter( 'tribe_events_list_widget_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 	
-			// start single event
-			add_filter( 'tribe_events_list_widget_before_the_event', array( __CLASS__, 'before_the_event' ), 1, 1 );
-	
-			// event dates
+			// Event dates
 			add_filter( 'tribe_events_list_widget_before_the_date', array( __CLASS__, 'before_the_date' ), 1, 1 );
 			add_filter( 'tribe_events_list_widget_the_date', array( __CLASS__, 'the_date' ), 1, 1 );
 			add_filter( 'tribe_events_list_widget_after_the_date', array( __CLASS__, 'after_the_date' ), 1, 1 );
 
-			// event title
+			// Event title
 			add_filter( 'tribe_events_list_widget_before_the_title', array( __CLASS__, 'before_the_title' ), 1, 1 );
 			add_filter( 'tribe_events_list_widget_the_title', array( __CLASS__, 'the_title' ), 1, 1 );
 			add_filter( 'tribe_events_list_widget_after_the_title', array( __CLASS__, 'after_the_title' ), 1, 1 );
-	
-			// end single event
-			add_filter( 'tribe_events_list_widget_after_the_event', array( __CLASS__, 'after_the_event' ), 1, 1 );
 
-			// end list widget template
+			// End list widget template
 			add_filter( 'tribe_events_list_widget_after_template', array( __CLASS__, 'after_template' ), 1, 2 );
 		}
 		// Start List Widget Template
-		public function before_template( $post_id ){
-			$html = '';
+		public function before_template( $event, $class = '' ){
+			$html = '<li '. $class .'>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_widget_before_template');
 		}
-		// Start Single Event
-		public function before_the_event( $post_id ){
-			$html = '<li '. $class .'>';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_widget_before_the_event');
-		}
 		// Event Dates	
-		public function before_the_date( $post_id ){
-			$html = '<div class="when">';
+		public function before_the_date( $event ){
+			$html = '<div class="duration">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_widget_before_the_date');
 		}
 		public function the_date( $event, $post_id = null, $start, $end ){
-			$html = tribe_get_start_date( $post_id, $start );
+			$html = '<abbr class="tribe-events-abbr updated published dtstart" title="'. tribe_get_start_date( $post_id, false, TribeDateUtils::DBDATEFORMAT ) .'">'. tribe_get_start_date( $post_id, $start ) .'</abbr><!-- .dtstart -->';
+			
 			if(tribe_is_multiday( $post_id ) || !$event->AllDay)
-            	$html .= ' – <br/>'. tribe_get_end_date($post_id);
+            	$html .= ' – <br/><abbr class="tribe-events-abbr dtend" title="'. tribe_get_end_date( $post_id, false, TribeDateUtils::DBDATEFORMAT ) .'">'. tribe_get_end_date( $post_id ) .'</abbr><!-- .dtend -->';
          	if($event->AllDay)
 				$html .= ' <small><em>('. __('All Day','tribe-events-calendar') .')</em></small>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_widget_the_date');
 		}
-		public function after_the_date( $post_id ){
-			$html = '</div><!-- .when -->';
+		public function after_the_date( $event ){
+			$html = '</div><!-- .duration -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_widget_after_the_date');
 		}
 		// Event Title
-		public function before_the_title( $post_id ){
-			$html = '<div class="event">';
+		public function before_the_title( $event ){
+			$html = '<p class="entry-title summary>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_widget_before_the_title');
 		}
-		public function the_title( $post_id ){
-			$html = '<a href="'. get_permalink( $post->ID ) .'">'. $post->post_title .'</a>';
+		public function the_title( $post ){
+			$html = '<a href="'. get_permalink( $post ) .'" rel="bookmark">'. $post->post_title .'</a>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_widget_the_title');
 		}
-		public function after_the_title( $post_id ){
-			$html = '</div><!-- .event -->';
+		public function after_the_title( $event ){
+			$html = '</p><!-- .summary -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_widget_after_the_title');
 		}
-		// End Single Event
-		public function after_the_event( $post_id ){
-			$html = '</li>';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_widget_after_the_event');
-		}
-		
-		$alt_text = ( empty( $alt_text ) ) ? 'alt' : '';
-		
 		// End List Widget Template
-		public function after_template( $post_id ){
-			$html = '';
+		public function after_template( $event ){
+			$html = '</li><!-- .vevent -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_widget_after_template');		
 		}
 	}

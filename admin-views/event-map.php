@@ -7,7 +7,7 @@
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 ?>
-<div id="googlemaps" style="height: <?php echo is_numeric($height) ? "{$height}px" : $height ?>; width: <?php echo is_numeric($width) ? "{$width}px" : $width ?>; margin-bottom: 15px;"></div>
+<div id="tribe-events-gmap" style="height: <?php echo is_numeric($height) ? "{$height}px" : $height ?>; width: <?php echo is_numeric($width) ? "{$width}px" : $width ?>; margin-bottom: 15px;"></div><!-- #tribe-events-gmap -->
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
 var event_address;
@@ -19,7 +19,7 @@ function initialize() {
 	    mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 
-	var map = new google.maps.Map(document.getElementById("googlemaps"), myOptions);
+	var map = new google.maps.Map(document.getElementById("tribe-events-gmap"), myOptions);
   
 	var marker = new google.maps.Marker(
 		{

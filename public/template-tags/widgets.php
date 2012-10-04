@@ -11,20 +11,20 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( class_exists( 'TribeEvents' ) ) {
 
 	function tribe_mini_display_day( $day, $monthView ) {
-		$return = '<div id="daynum_'. $day .'" class="daynum tribe-events-event">';
+		$return = '<div id="tribe-events-daynum-'. $day .'">';
 
-		$return .= ( count( $monthView[$day] ) ) ? '<a class="tribe-events-mini-has-event">'. $day .'</a>' : $day;
-		$return .= '<div id="tooltip_day_'. $day .'" class="tribe-events-tooltip" style="display:none;">';
+		$return .= ( count( $monthView[$day] ) ) ? '<a class="tribe-events-day-has-event">'. $day .'</a>' : $day;
+		$return .= '<div id="tribe-events-tooltip-day-'. $day .'" class="tribe-events-tooltip hentry vevent">';
 		for( $i = 0; $i < count( $monthView[$day] ); $i++ ) {
 			$post = $monthView[$day][$i];
 			setup_postdata( $post );
 
-			$return .= '<h5 class="tribe-events-event-title-mini"><a href="'. tribe_get_event_link( $post ) .'">' . $post->post_title . '</a></h5>';
+			$return .= '<h5 class="entry-title summary"><a href="'. tribe_get_event_link( $post ) .'" rel="bookmark">' . $post->post_title . '</a></h5>';
 		}
 		$return .= '<span class="tribe-events-arrow"></span>';
-		$return .= '</div>';
+		$return .= '</div><!-- .tribe-events-tooltip -->';
 
-		$return .= '</div>';
+		$return .= '</div><!-- #tribe-events-daynum-# -->';
 		return $return;
 	}
 
