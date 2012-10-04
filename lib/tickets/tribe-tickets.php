@@ -54,7 +54,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			// instantiated it
 			$this->className = get_class( $this );
 
-			$this->parentPath = trailingslashit( dirname( dirname( __FILE__ ) ) );
+			$this->parentPath = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
 			$this->parentUrl  = trailingslashit( plugins_url( '', $this->parentPath ) );
 
 			// Register all TribeEventsTickets api consumers
