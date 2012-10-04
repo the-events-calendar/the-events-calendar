@@ -1084,6 +1084,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				// chosen
 				Tribe_Template_Factory::asset_package('chosen');
 
+				// smoothness
+				Tribe_Template_Factory::asset_package('smoothness');
+
 				// date picker
 				Tribe_Template_Factory::asset_package('datepicker');
 

@@ -39,8 +39,8 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					wp_enqueue_script( $prefix . '-calendar-script', $resouces_url . 'tribe-events.js', array('jquery', 'tribe-events-pjax') );
 					break;
 				case 'datepicker' : // Vendor: jQuery Datepicker
-					wp_enqueue_style( $prefix . '-ui-datepicker-css', $vendor_url . 'jquery/ui.datepicker.css' );
-					wp_enqueue_script( $prefix . '-ui-datepicker', $vendor_url . 'jquery/ui.datepicker.min.js', array('jquery-ui-core'), '1.7.3', true );
+					wp_enqueue_script( 'jquery-ui-datepicker' );
+					wp_enqueue_style( 'jquery-ui-datepicker' );
 					break;
 				case 'dialog' : // Vendor: jQuery Dialog
 					wp_enqueue_script( $prefix . '-ui-dialog', $vendor_url . 'jquery/ui.dialog.min.js', array('jquery-ui-core'), '1.7.3', true );
