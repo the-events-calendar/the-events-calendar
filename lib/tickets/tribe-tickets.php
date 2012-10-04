@@ -333,15 +333,15 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		public function attendees_row_action( $actions ) {
 			global $post;
 
-			if ( $post->post_type != TribeEvents::POSTTYPE )
-				return null;
+			if ( $post->post_type == TribeEvents::POSTTYPE ) {
 
-			$url = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE,
-										 'page'      => $this->attendees_slug,
-										 'event_id'  => $post->ID ), admin_url( 'edit.php' ) );
 
-			$actions['tickets_attendees'] = sprintf( '<a title="%s" href="%s">%s</a>', __( 'See who purchased tickets to this event', 'tribe-events-calendar' ), esc_url( $url ), __( 'Attendees', 'tribe-events-calendar' ) );
+				$url = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE,
+				                             'page'      => $this->attendees_slug,
+				                             'event_id'  => $post->ID ), admin_url( 'edit.php' ) );
 
+				$actions['tickets_attendees'] = sprintf( '<a title="%s" href="%s">%s</a>', __( 'See who purchased tickets to this event', 'tribe-events-calendar' ), esc_url( $url ), __( 'Attendees', 'tribe-events-calendar' ) );
+			}
 			return $actions;
 		}
 
