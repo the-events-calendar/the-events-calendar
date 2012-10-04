@@ -80,7 +80,7 @@ class TribeEventsBar {
 
 		if ( count( $views ) <= $limit ) {
 			// Standard list navigation for larger screens
-			$open     	  = "<ul>";
+			$open     	  = '<ul class="tribe-events-bar-view-list">';
 			$close    	  = "</ul>";
 			$current      = 'active';
 			$open_el  	  = '<li><a class="tribe-events-bar-view !CURRENT!" href="!URL!">';
@@ -102,6 +102,7 @@ class TribeEventsBar {
 		}
 		
 		// standard list navigation for larger screens or select depending on number of views
+		echo '<h3 class="tribe-events-visuallyhidden">'. __( 'Event Views Navigation', 'tribe-events-calendar' ) .'</h3>';
 		echo $open;
 
 		foreach ( $views as $view ) {

@@ -18,5 +18,7 @@
 	<div id="tribe-events-bar-views">
 		<?php self::print_views_helper( $views ); ?>
 	</div><!-- #tribe-events-bar-filters -->
-
+	
+	<div class="tribe-clear"></div>
+	
 </div><!-- #tribe-events-bar -->

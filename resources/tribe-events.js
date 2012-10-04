@@ -47,7 +47,7 @@ jQuery(document).ready(function($) {
 	});
 	
 	// PJAX for calendar next/prev month links
-    $('.events-gridview #tribe-events-content').delegate('.tribe-events-prev-month a, .tribe-events-next-month a', 'click', function(e) {
+    $('.events-gridview #tribe-events-content').delegate('.tribe-events-nav-prev a, .tribe-events-nav-next a', 'click', function(e) {
     	e.preventDefault();
         $.pjax({ url: $(this).attr('href'), container: '#tribe-events-content', fragment: '#tribe-events-content', timeout: 10000 });
         $('.ajax-loading').show();      
