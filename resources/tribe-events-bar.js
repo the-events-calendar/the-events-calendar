@@ -4,10 +4,10 @@ jQuery( document ).ready( function ( $ ) {
 	$( "#tribe-bar-date" ).datepicker();
 	
 	// Implement placeholder
-	// $( 'input[name*="tribe-bar-"]' ).placeholder();
+	$( 'input[name*="tribe-bar-"]' ).placeholder();
 	
 	// Implement chosen
-	// $( '#tribe-events-bar-views .chzn-select' ).chosen({ disable_search_threshold: 9999 });
+	$( '#tribe-events-bar-views .chzn-select' ).chosen({ disable_search_threshold: 9999 });
 
 	// Implement our views bit
 	$( 'select[name=tribe-events-bar-view]' ).change( function () {
