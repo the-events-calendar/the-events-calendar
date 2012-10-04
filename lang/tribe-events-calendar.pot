@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-06 09:05-0500\n"
-"PO-Revision-Date: 2012-09-06 09:05-0500\n"
+"POT-Creation-Date: 2012-09-11 14:05-0500\n"
+"PO-Revision-Date: 2012-09-11 14:05-0500\n"
 "Last-Translator: Paul Hughes <paul@paulalexanderhughes.com>\n"
 "Language-Team: Modern Tribe, Inc.\n"
 "Language: en_US\n"
@@ -217,42 +217,38 @@ msgstr ""
 msgid "Default view for the Events"
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:63
-msgid "Determines whether the default events view is a calendar or a list."
-msgstr ""
-
-#: ../admin-views/tribe-options-general.php:70
-#: ../admin-views/tribe-options-general.php:76
+#: ../admin-views/tribe-options-general.php:69
+#: ../admin-views/tribe-options-general.php:75
 msgid "Events URL slug"
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:71
+#: ../admin-views/tribe-options-general.php:70
 msgid ""
 "You cannot edit the slug for your events page as you do not have pretty "
 "permalinks enabled. The current URL for your events page is <a href=\" "
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:83
+#: ../admin-views/tribe-options-general.php:82
 #: ../public/template-tags/options.php:20
 msgid "The slug used for building the events URL."
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:83
+#: ../admin-views/tribe-options-general.php:82
 #: ../public/template-tags/options.php:20
 #, php-format
 msgid "Your current Events URL is %s"
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:88
+#: ../admin-views/tribe-options-general.php:87
 #: ../public/template-tags/options.php:43
 msgid "Here is the iCal feed URL for your events:"
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:93
+#: ../admin-views/tribe-options-general.php:92
 msgid "Single Event URL slug"
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:100
+#: ../admin-views/tribe-options-general.php:99
 #: ../public/template-tags/options.php:31
 #, php-format
 msgid ""
@@ -260,83 +256,73 @@ msgid ""
 "ideally be plural, and this singular.<br />Your single Event URL is like: %s"
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:105
-msgid "Number of events to show per page in the loop"
+#: ../admin-views/tribe-options-general.php:104
+msgid "Number of events to show per page"
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:106
-msgid ""
-"This is the number of events displayed per page when returning a list of "
-"events."
-msgstr ""
-
-#: ../admin-views/tribe-options-general.php:113
+#: ../admin-views/tribe-options-general.php:111
 msgid "Show Comments"
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:114
-msgid "Enables commenting on your single event view."
+#: ../admin-views/tribe-options-general.php:112
+msgid "Enable commenting on an event."
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:120
+#: ../admin-views/tribe-options-general.php:118
 msgid "Multiday Event Cutoff"
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:121
-msgid ""
-"For multi-day events, hide the last day from grid view if it ends on or "
-"before this time."
+#: ../admin-views/tribe-options-general.php:119
+msgid "Hide final day from grid view if multi-day event ends before this time."
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:129
+#: ../admin-views/tribe-options-general.php:127
 msgid "Enable Google Maps"
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:130
-msgid ""
-"If you don't have this turned on, your event listings won't have the backend "
-"map preview or frontend embedded map."
+#: ../admin-views/tribe-options-general.php:128
+msgid "Turn on to enable backend map preview and frontend map."
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:137
+#: ../admin-views/tribe-options-general.php:135
 msgid "Google Maps Embed Height"
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:140
+#: ../admin-views/tribe-options-general.php:138
 msgid "Enter a number."
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:146
+#: ../admin-views/tribe-options-general.php:144
 msgid "Google Maps Embed Width"
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:148
+#: ../admin-views/tribe-options-general.php:146
 msgid "Enter a number or %."
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:155
+#: ../admin-views/tribe-options-general.php:153
 msgid "Google Maps Default Zoom Level"
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:156
-msgid "0 = zoomed-out; 21 = zoomed-in."
+#: ../admin-views/tribe-options-general.php:154
+msgid "0 = zoomed out; 21 = zoomed in."
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:164
+#: ../admin-views/tribe-options-general.php:162
 msgid "Send PressTrends Data"
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:165
+#: ../admin-views/tribe-options-general.php:163
 msgid ""
-"Enable this option to help us out and send us analytics regarding your usage "
-"of The Events Calendar."
+"Help us out by sending analytics data about your usage of The Events "
+"Calendar."
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:171
+#: ../admin-views/tribe-options-general.php:169
 msgid "Debug Mode"
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:172
+#: ../admin-views/tribe-options-general.php:170
 #, php-format
 msgid ""
 "Enable this option to log debug information. By default this will log to "
@@ -345,11 +331,11 @@ msgid ""
 "\" tab in the debug output."
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:172
+#: ../admin-views/tribe-options-general.php:170
 msgid "Debug Bar Plugin"
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:182
+#: ../admin-views/tribe-options-general.php:180
 msgid ""
 "Would you like to help us out and send analytics about your usage of The "
 "Events Calendar?"
@@ -427,24 +413,19 @@ msgstr ""
 msgid "Forums"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:108
+#: ../admin-views/tribe-options-help.php:107
 #, php-format
 msgid ""
 "If this is your first time using The Events Calendar, you're in for a treat. "
-"The more adventurous users can jump right into it by finding the \"Events\" "
-"section in the admin menu to the left of this message and getting down to "
-"it. For those who like to dip their toes before diving in full-on, we've got "
-"you covered too. First things first: visit our %s, designed with folks "
-"exactly like yourself in mind and meant to familiarize you with the plugin's "
-"basics. From there, the Resources listed below (meant to help you kick ass, "
-"of course) should keep up the momentum."
+"You're going to find it super-easy to get up and running with managing your "
+"events. Here are some ways to get started:</p><ul><li><strong>Feeling "
+"adventurous?</strong> Jump right into it by visiting the Events menu to "
+"%sadd your first event%s.</li><li><strong>Want to get the low-down first?</"
+"strong> Visit our <a href=\"http://tri.be/support/documentation/events-"
+"calendar-pro-new-user-primer/"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:108
-msgid "new user primer"
-msgstr ""
-
-#: ../admin-views/tribe-options-help.php:111
+#: ../admin-views/tribe-options-help.php:110
 #, php-format
 msgid ""
 "We love all our users and want to help free & PRO customers alike. If you're "
@@ -453,153 +434,155 @@ msgid ""
 "and do what we can to assist users."
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:111
+#: ../admin-views/tribe-options-help.php:110
 msgid "forum for The Events Calendar"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:112
+#, php-format
+msgid ""
+"%sSupport is available for both free and PRO customers. If you're running "
+"the latest version of the Events Calendar and have run into problems, post a "
+"forum thread on our %sWordPress.org support forum%s. We visit the forums a "
+"few times a week and will do what we can to help you.%s"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:113
+#, php-format
+msgid "%sA few things to keep in mind before posting:%s"
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:114
 #, php-format
-msgid "%sA few things to keep in mind before posting:%s"
+msgid ""
+"%sSearch recent threads before posting a new one to check that there isn't "
+"already a discussion about your issue.%s"
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:115
 #, php-format
 msgid ""
-"%sLook through the recent active threads before posting a new one and check "
-"that there isn't already a discussion going on your issue.%s"
+"%sCheck whether the issue is a conflict with another plugin or your theme. "
+"This can be tested easily on a staging site by deactivating other plugins "
+"one-by-one, and reverting to the default Twenty Eleven theme to see if "
+"conflicts can be easily identified. If you find a conflict note it on your "
+"support thread.%s"
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:116
 #, php-format
 msgid ""
-"%sA good way to help us out before posting is to check whether the issue is "
-"a conflict with another plugin or your theme. This can be tested relatively "
-"easily on a staging site by deactivating other plugins one-by-one, and "
-"reverting to the default 2011 theme as needed, to see if conflicts can be "
-"easily identified. If so, please note that when posting your thread.%s"
+"%sSometimes, just resaving your permalinks (under Settings > Permalinks) can "
+"resolve events-related problems on your site. Before creating a new thread "
+"try the out.%s"
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:117
 #, php-format
 msgid ""
-"%sSometimes, just resaving your permalinks (under Settings -> Permalinks) "
-"can resolve events-related problems on your site. It is worth a shot before "
-"creating a new thread.%s"
-msgstr ""
-
-#: ../admin-views/tribe-options-help.php:118
-#, php-format
-msgid ""
-"%sMake sure you're running The Events Calendar, rather than Events Calendar. "
-"They're two separate plugins :)%s"
+"%sWhile we are happy to help with bugs and provide light integration tips "
+"for users of The Events Calendar, on the WordPress.org support forums we're "
+"not able to provide customization tips or assist in integration with 3rd "
+"party plugins.%s"
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:119
 #, php-format
 msgid ""
-"%sWhile our team is happy to help with bugs and provide light integration "
-"tips for users of The Events Calendar, we're not able to provide "
-"customization tips or assist in integrating with 3rd party plugins on the "
-"WordPress.org forums.%s"
+"%sShoot us an email at %s or tweet %s and tell us why. We'll do what we can "
+"to make it right.%s"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:121
-#, php-format
-msgid ""
-"%sShoot us an email to %s or tweet to %s and tell us why. We'll do what we "
-"can to make it right.%s"
-msgstr ""
-
-#: ../admin-views/tribe-options-help.php:121
+#: ../admin-views/tribe-options-help.php:119
 msgid "pro@tri.be"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:121
+#: ../admin-views/tribe-options-help.php:119
 msgid "@moderntribeinc"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:122
+#: ../admin-views/tribe-options-help.php:120
 msgid "More..."
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:129
+#: ../admin-views/tribe-options-help.php:127
 msgid ""
-"Hi! Thank you so much for using the labor of our love. We are Modern Tribe "
-"and we are here to help you kick ass."
+"Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so much "
+"for installing our labor of love!"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:131
+#: ../admin-views/tribe-options-help.php:129
 msgid "Getting Started"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:136
+#: ../admin-views/tribe-options-help.php:134
 msgid "Resources to Help You Kick Ass"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:148
+#: ../admin-views/tribe-options-help.php:146
 msgid "Everyone Needs a Buddy"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:151
+#: ../admin-views/tribe-options-help.php:149
 msgid "Still Not Satisfied?"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:158
+#: ../admin-views/tribe-options-help.php:156
 #: ../lib/the-events-calendar.class.php:289
 #: ../lib/tribe-settings.class.php:129
 msgid "The Events Calendar"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:162
+#: ../admin-views/tribe-options-help.php:160
 msgid "Latest Version:"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:163
+#: ../admin-views/tribe-options-help.php:161
 msgid "Author:"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:163
+#: ../admin-views/tribe-options-help.php:161
 msgid "Modern Tribe Inc"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:164
+#: ../admin-views/tribe-options-help.php:162
 msgid "Requires:"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:164
+#: ../admin-views/tribe-options-help.php:162
 msgid "WordPress "
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:165
+#: ../admin-views/tribe-options-help.php:163
 msgid "Wordpress.org Plugin Page"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:168
+#: ../admin-views/tribe-options-help.php:166
 msgid "Average Rating"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:177
+#: ../admin-views/tribe-options-help.php:175
 msgid "Rating currently unavailable :("
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:183
+#: ../admin-views/tribe-options-help.php:181
 msgid "Give us 5 stars!"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:185
+#: ../admin-views/tribe-options-help.php:183
 msgid "Free Add-Ons"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:191
-#: ../admin-views/tribe-options-help.php:204
+#: ../admin-views/tribe-options-help.php:189
+#: ../admin-views/tribe-options-help.php:202
 msgid "(Coming Soon!)"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:198
+#: ../admin-views/tribe-options-help.php:196
 msgid "Premium Add-Ons"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:211
+#: ../admin-views/tribe-options-help.php:209
 msgid "News and Tutorials"
 msgstr ""
 
@@ -617,20 +600,17 @@ msgstr ""
 
 #: ../admin-views/tribe-options-templates.php:26
 msgid ""
-"Having trouble making the calendar fit in your theme? On this page, rectify "
-"that by selecting what WordPress \"page template\" The Events Calendar will "
-"use to display your event views. The page template controls the usage and "
-"placement of the header, sidebar, main content, footer and any other unique "
-"content blocks your site may be using. The dropdown below includes the "
-"Default Events Template (bundled with the Events framework), Default Page "
-"Template (the theme's default page.php template), and any other page "
-"templates your theme may have shipped with.</p><p>While we do our best to "
-"make sure the plugin plays nicely with as many themes as possible, there "
-"will inevitably be situations where none of the templating options available "
-"below will look 100% perfect. In that situation you may want to check out <a "
-"href=\"http://tri.be/support/documentation/events-calendar-themers-guide/"
-"\">our themer's guide</a> to figure out what templating approach is best for "
-"you."
+"You can apply different page templates to The Events Calendar. Page "
+"templates control the layout of individual pages. The Events Calendar comes "
+"with a Default Events Template. However, you can apply any page template "
+"that is available in your WordPress Theme. If you are having problems "
+"getting your Events Calendar to display correctly, switching the page "
+"template may solve the problem.</p><p>We make every effort to ensure that "
+"the Plugin is compatible with as many Themes as possible but there may be "
+"situations in which none of the below templating options will look 100% "
+"perfect. Check out our <a href=\"http://tri.be/support/documentation/events-"
+"calendar-themers-guide/\">our themer's guide</a> to figure out what approach "
+"is best for you."
 msgstr ""
 
 #: ../admin-views/tribe-options-templates.php:34
@@ -647,13 +627,8 @@ msgstr ""
 
 #: ../admin-views/tribe-options-templates.php:44
 msgid ""
-"Some themes may require that you add extra divs before the calendar list to "
-"help with styling.<br>This is displayed directly after the header."
-msgstr ""
-
-#: ../admin-views/tribe-options-templates.php:44
-#: ../admin-views/tribe-options-templates.php:51
-msgid "You may use (x)HTML."
+"If you are familiar with CSS you can use this box to add extra divs before "
+"the calendar list. Some Themes may require this to help with styling."
 msgstr ""
 
 #: ../admin-views/tribe-options-templates.php:50
@@ -662,8 +637,8 @@ msgstr ""
 
 #: ../admin-views/tribe-options-templates.php:51
 msgid ""
-"Some themes may require that you add extra divs after the calendar list to "
-"help with styling.<br>This is displayed directly above the footer."
+"If you are familiar with CSS you can use this box to add extra divs after "
+"the calendar list. Some Themes may require this to help with styling."
 msgstr ""
 
 #: ../admin-views/venue-meta-box.php:12
@@ -764,24 +739,22 @@ msgstr ""
 
 #: ../lib/the-events-calendar.class.php:463
 msgid ""
-"For all of Modern Tribe's paid Add-ons, the license key you received when "
-"completing your purchase is what grants you access to future updates + "
-"support. Keep in mind that you do not have to enter your key below for the "
-"plugins to work! All functionality is available whether or not a key is "
-"present. However, you will not receive prompts for automatic updates without "
-"a key in place...and our support team won't be able to help you until it is "
-"added and current, either.</p><p>Each plugin/add-on has its own unique "
-"license key. Simply paste the keys into their appropriate fields on the list "
-"below, and give it a moment to validate. When the green expiration date "
-"appears alongside a \"Valid\" message, you'll be set. If you're seeing red "
-"message instead, either telling you the key isn't valid or is out of "
-"installs, it means your key was not accepted. Visit <a href=\"http://tri.be"
-"\">http://tri.be</a>, log in and navigate to <i>Account Central -> Licenses</"
-"i> on the tri.be site to see if the key is tied to another site or past its "
-"expiration date. For more on automatic updates and using your license key, "
-"please <a href=\"http://tri.be/updating-the-plugin/\">see this blog post</a>."
-"</p><p>Not seeing an update but expecting one? In WordPress go to "
-"<i>Dashboard -> Updates</i> and click \"Check Again\"."
+"The license key you received when completing your purchase will grant you "
+"access to support and updates. You do not need to enter the key below for "
+"the plugins to work, but you will need to enter it to get automatic updates, "
+"and our support team won't be able to help you out unless it is added and "
+"current.</p><p>Each plugin/add-on has its own unique license key. Simply "
+"paste the key into its appropriate field on the list below, and give it a "
+"moment to validate. You know you're set when a green expiration date appears "
+"alongside a \"valid\" message.</p><p>If you're seeing a red message telling "
+"you that your key isn't valid or is out of installs, it means that your key "
+"was not accepted. Visit <a href=\"http://tri.be\">http://tri.be</a>, log in "
+"and navigate to <i>Account Central > Licenses</i> on the tri.be site to see "
+"if the key is tied to another site or past its expiration date. For more on "
+"automatic updates and using your license key, please see <a href=\"http://"
+"tri.be/updating-the-plugin/\">this blog post</a>.</p><p>Not seeing an update "
+"but expecting one? In WordPress go to <i>Dashboard > Updates</i> and click "
+"\"Check Again\"."
 msgstr ""
 
 #: ../lib/the-events-calendar.class.php:471
@@ -1175,7 +1148,7 @@ msgstr ""
 
 #: ../lib/the-events-calendar.class.php:2630
 #, php-format
-msgid "Check out the <a href=\"%s\">available Add-Ons</a>."
+msgid "Check out the <a href=\"%s\">available add-ons</a>."
 msgstr ""
 
 #: ../lib/the-events-calendar.class.php:2688
