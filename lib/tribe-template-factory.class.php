@@ -57,6 +57,12 @@ if( !class_exists('Tribe_Template_Factory') ) {
 				case 'ecp-plugins' : 
 					wp_enqueue_script( $prefix . '-ecp-plugins', $resouces_url . 'jquery-ecp-plugins.js', array('jquery') );
 					break;
+				case 'tribe-events-bar' :
+					wp_enqueue_script( $prefix . '-bar', $resouces_url . 'tribe-events-bar.js', array( 'jquery' ) );
+					break;
+				case 'jquery-placeholder' : // Vendor: jQuery Placeholder
+					wp_enqueue_script( $prefix . '-jquery-placeholder', $vendor_url . 'jquery-placeholder/jquery.placeholder.min.js', array( 'jquery' ), '2.0.7', false );
+					break;
 				default :
 					do_action($prefix . '-' . $name);
 					break;

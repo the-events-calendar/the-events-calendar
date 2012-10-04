@@ -32,7 +32,6 @@ class TribeEventsBar {
 			add_filter( 'tribe-events-bar-should-show', '__return_false', 9999 );
 
 			$this->load_script();
-			Tribe_Template_Factory::asset_package('chosen');
 
 			$filters = apply_filters( 'tribe-events-bar-filters', $this->filters );
 			$views   = apply_filters( 'tribe-events-bar-views', $this->views );
@@ -47,9 +46,10 @@ class TribeEventsBar {
 	}
 
 	private function load_script() {
-		$tec = TribeEvents::instance();
-		wp_enqueue_script( 'tribe-events-bar', $tec->pluginUrl . 'resources/tribe-events-bar.js', array( 'jquery' ) );
-		wp_enqueue_script( 'jquery-ui-datepicker' );
+		Tribe_Template_Factory::asset_package( 'tribe-events-bar' );
+		Tribe_Template_Factory::asset_package( 'chosen' );
+		Tribe_Template_Factory::asset_package( 'jquery-placeholder' );
+		Tribe_Template_Factory::asset_package( 'datepicker' );
 	}
 
 	public static function print_filters_helper( $filters ) {
