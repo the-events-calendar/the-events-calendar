@@ -380,6 +380,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 				return;
 
 			$ecp = TribeEvents::instance();
+			
 			wp_enqueue_style( $this->attendees_slug, trailingslashit( $ecp->pluginUrl ) . '/resources/tickets-attendees.css' );
 			wp_enqueue_script( $this->attendees_slug, trailingslashit( $ecp->pluginUrl ) . '/resources/tickets-attendees.js', array( 'jquery' ) );
 		}

@@ -7,7 +7,8 @@ class TribeEventsTicketsMetabox {
 		if ( empty( $modules ) )
 			return;
 
-		add_meta_box( 'tribetickets', __('Tickets', 'tribe-events-calendar'), array( 'TribeEventsTicketsMetabox',  'do_modules_metaboxes' ), TribeEvents::POSTTYPE, 'normal', 'high' );
+		add_meta_box( 'tribetickets', __( 'Tickets', 'tribe-events-calendar' ), array( 'TribeEventsTicketsMetabox',
+		                                                                               'do_modules_metaboxes' ), TribeEvents::POSTTYPE, 'normal', 'high' );
 	}
 
 	public static function do_modules_metaboxes( $post_id ) {
@@ -30,8 +31,8 @@ class TribeEventsTicketsMetabox {
 		if ( ( $hook != 'post-new.php' && $hook != 'post.php' ) || TribeEvents::POSTTYPE != $post->post_type )
 			return;
 
-		wp_enqueue_script( 'events-tickets', plugins_url( 'resources/tickets.js', dirname( __FILE__ ) ) );
-		wp_enqueue_style( 'events-tickets', plugins_url( 'resources/tickets.css', dirname( __FILE__ ) ) );
+		wp_enqueue_script( 'events-tickets', plugins_url( 'resources/tickets.js', dirname( dirname( __FILE__ ) ) ) );
+		wp_enqueue_style( 'events-tickets', plugins_url( 'resources/tickets.css', dirname( dirname( __FILE__ ) ) ) );
 
 		if ( class_exists( 'TribeSpinJS' ) )
 			TribeSpinJS::load();

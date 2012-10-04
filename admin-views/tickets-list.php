@@ -1,4 +1,4 @@
-<table class="eventtable ticket_list">
+<table class="eventtable ticket_list eventForm">
 	<?php
 	$provider = null;
 	$count    = 0;
@@ -34,10 +34,10 @@
 		if ( ( $ticket->provider_class !== $provider ) || $count == 0 ) {
 			?>
 			<td colspan="4" class="titlewrap">
-				<h3><?php echo esc_html( self::$active_modules[$ticket->provider_class] ); ?>
+				<h4 class="tribe_sectionheader"><?php echo esc_html( self::$active_modules[$ticket->provider_class] ); ?>
 					<?php echo $provider_obj->get_event_reports_link( $post_id ); ?><small>&nbsp;|&nbsp;</small>
 					<?php echo sprintf( "<small><a title='See who purchased tickets to this event' href='%s'>Attendees</a></small>", admin_url( sprintf( 'edit.php?post_type=%s&page=%s&event_id=%d', TribeEvents::POSTTYPE, $this->attendees_slug, $post_id ) ) ); ?>
-				</h3>
+				</h4>
 			</td>
 			<?php } ?>
 		<tr>

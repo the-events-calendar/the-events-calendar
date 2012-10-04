@@ -1,10 +1,10 @@
 <div class="wrap">
 	<div id="icon-edit" class="icon32 icon32-tickets-attendees"><br></div>
-	<h2>Attendees</h2>
+	<h2><?php _e("Attendees");?></h2>
 
 	<div id="tribe-filters" class="metabox-holder">
 		<div id="filters-wrap" class="postbox">
-			<h3 title="Click to toggle">Summary</h3>
+			<h3 title="Click to toggle"><?php _e("Summary");?></h3>
 			<table class="eventtable ticket_list">
 				<?php
 				$event_id = isset( $_GET["event_id"] ) ? $_GET["event_id"] : 0;

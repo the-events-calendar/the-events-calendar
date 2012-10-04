@@ -108,6 +108,7 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 			}
 		}
 
+
 		if ( 'uncheck_in' === $this->current_action() ) {
 			if ( isset( $_GET['attendee'] ) ) {
 

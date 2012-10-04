@@ -26,7 +26,7 @@
 	</tr>
 	<tr>
 		<td colspan="2" class="tribe_sectionheader">
-			<a href="#" class="button-secondary" id="ticket_form_toggle">Add new ticket</a>
+			<a href="#" class="button-secondary" id="ticket_form_toggle"><?php _e ('Add new ticket', 'tribe-events-calendar');?></a>
 		</td>
 	</tr>
 	<tr id="ticket_form" class="ticket_form">
