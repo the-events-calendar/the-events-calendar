@@ -29,17 +29,17 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					wp_enqueue_script( $prefix . '-pjax', $vendor_url . 'jquery-pjax/jquery.pjax.js', array('jquery') );
 					break;
 				case 'smoothness' : // Vendor: jQuery Custom Styles
-					wp_register_style( $prefix . '-custom-jquery-styles', $vendor_url . 'jquery/smoothness/jquery-ui-1.8.23.custom.css' );
+					wp_enqueue_style( $prefix . '-custom-jquery-styles', $vendor_url . 'jquery/smoothness/jquery-ui-1.8.23.custom.css' );
 					break;
 				case 'select2' : // Vendor: Select2
-					wp_register_style( $prefix . '-select2-css', $vendor_url . 'select2/select2.css' );
-					wp_register_script( $prefix . '-select2', $vendor_url . 'select2/select2.min.js', 'jquery' );
+					wp_enqueue_style( $prefix . '-select2-css', $vendor_url . 'select2/select2.css' );
+					wp_enqueue_script( $prefix . '-select2', $vendor_url . 'select2/select2.min.js', 'jquery' );
 					break;
 				case 'calendar-script' : // Tribe Events JS
 					wp_enqueue_script( $prefix . '-calendar-script', $resouces_url . 'tribe-events.js', array('jquery', 'tribe-events-pjax') );
 					break;
 				case 'datepicker' : // Vendor: jQuery Datepicker
-					wp_register_style( $prefix . '-ui-datepicker-css', $vendor_url . 'jquery/ui.datepicker.css' );
+					wp_enqueue_style( $prefix . '-ui-datepicker-css', $vendor_url . 'jquery/ui.datepicker.css' );
 					wp_enqueue_script( $prefix . '-ui-datepicker', $vendor_url . 'jquery/ui.datepicker.min.js', array('jquery-ui-core'), '1.7.3', true );
 					break;
 				case 'dialog' : // Vendor: jQuery Dialog
