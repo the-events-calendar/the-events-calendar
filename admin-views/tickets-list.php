@@ -52,7 +52,7 @@
 
 			</td>
 			<td width="40%" valign="top">
-				<small><?php echo esc_html( $ticket->description ); ?></small>
+				<?php echo esc_html( $ticket->description ); ?>
 			</td>
 			<td nowrap="nowrap">
 				<?php
