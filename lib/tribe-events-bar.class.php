@@ -82,21 +82,21 @@ class TribeEventsBar {
 			$open     	  = "<ul>";
 			$close    	  = "</ul>";
 			$current      = 'active';
-			$open_el  	  = "<li><a class='tribe-events-bar-view !CURRENT!' href='!URL!'>";
+			$open_el  	  = '<li><a class="tribe-events-bar-view !CURRENT!" href="!URL!">';
 			$close_el 	  = "</a></li>";
 			// Select input for smaller screens
-			$open_sel     = "<select name='tribe-events-bar-view'>";
+			$open_sel     = '<select class="chzn-select" name="tribe-events-bar-view">';
 			$close_sel    = "</select>";
 			$current_sel  = 'selected';
-			$open_sel_el  = "<option !CURRENT! value='!URL!'>";
+			$open_sel_el  = '<option !CURRENT! value="!URL!">';
 			$close_sel_el = "</option>";
 
 		} else {
 
-			$open     = "<select name='tribe-events-bar-view'>";
+			$open     = '<select class="chzn-select" name="tribe-events-bar-view">';
 			$close    = "</select>";
 			$current  = 'selected';
-			$open_el  = "<option !CURRENT! value='!URL!'>";
+			$open_el  = '<option !CURRENT! value="!URL!">';
 			$close_el = "</option>";
 		}
 		
@@ -120,26 +120,29 @@ class TribeEventsBar {
 
 		echo $close;
 		
-		// select input for smaller screens
-		echo $open_sel;
+		// at smaller sizes we use a media query to hide the view buttons
+		// and move to a select input element, which is why we are using this
+		// second foreach
+		if ( count( $views ) <= $limit ) {
+			echo $open_sel;
 
-		foreach ( $views as $view ) {
-			// select input for smaller screens
-			$item = str_replace( '!URL!', esc_url( $view['url'] ), $open_sel_el );
+			foreach ( $views as $view ) {
+				// select input for smaller screens
+				$item = str_replace( '!URL!', esc_url( $view['url'] ), $open_sel_el );
 
-			if ( $tec->displaying === $view['displaying'] ) {
-				$item = str_replace( '!CURRENT!', $current_sel, $item );
-			} else {
-				$item = str_replace( '!CURRENT!', '', $item );
+				if ( $tec->displaying === $view['displaying'] ) {
+					$item = str_replace( '!CURRENT!', $current_sel, $item );
+				} else {
+					$item = str_replace( '!CURRENT!', '', $item );
+				}
+
+				echo $item;
+
+				echo $view['anchor'];
+				echo $close_sel_el;
 			}
-
-			echo $item;
-
-			echo $view['anchor'];
-			echo $close_sel_el;
+			echo $close_sel;
 		}
-
-		echo $close_sel;
 		
 	}
 
