@@ -30,24 +30,20 @@ if (!class_exists('TribeEventsQuery')) {
 		public function pre_get_posts( $query ) {
 
 			// check if any possiblity of this being an event query
-			$query->tribe_is_event = ( (isset($_GET['post_type']) && $_GET['post_type'] == TribeEvents::POSTTYPE) 
-				|| (isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == TribeEvents::POSTTYPE) )
+			$query->tribe_is_event = ( isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == TribeEvents::POSTTYPE )
 				? true // it was an event query
 				: false;
 
 			// check if any possiblity of this being an event category
-			$query->tribe_is_event_category = ( (isset($_GET[TribeEvents::TAXONOMY]) && $_GET[TribeEvents::TAXONOMY] != '')
-				|| (isset($query->query_vars[TribeEvents::TAXONOMY]) && $query->query_vars[TribeEvents::TAXONOMY] != '') ) 
+			$query->tribe_is_event_category = ( isset($query->query_vars[TribeEvents::TAXONOMY]) && $query->query_vars[TribeEvents::TAXONOMY] != '' ) 
 				? true // it was an event category
 				: false;
 
-			$query->tribe_is_event_venue = ( (isset($_GET['post_type']) && $_GET['post_type'] == TribeEvents::VENUE_POST_TYPE) 
-				|| (isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == TribeEvents::VENUE_POST_TYPE) )
+			$query->tribe_is_event_venue = ( isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == TribeEvents::VENUE_POST_TYPE )
 				? true // it was an event venue
 				: false;
 
-			$query->tribe_is_event_organizer = ( (isset($_GET['post_type']) && $_GET['post_type'] == TribeEvents::ORGANIZER_POST_TYPE) 
-				|| (isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == TribeEvents::ORGANIZER_POST_TYPE) )
+			$query->tribe_is_event_organizer = ( isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == TribeEvents::ORGANIZER_POST_TYPE )
 				? true // it was an event organizer
 				: false;
 
