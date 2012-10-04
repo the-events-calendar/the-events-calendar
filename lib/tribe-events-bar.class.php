@@ -32,6 +32,7 @@ class TribeEventsBar {
 			add_filter( 'tribe-events-bar-should-show', '__return_false', 9999 );
 
 			$this->load_script();
+			Tribe_Template_Factory::asset_package('chosen');
 
 			$filters = apply_filters( 'tribe-events-bar-filters', $this->filters );
 			$views   = apply_filters( 'tribe-events-bar-views', $this->views );
