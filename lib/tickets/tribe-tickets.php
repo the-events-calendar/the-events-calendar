@@ -34,9 +34,9 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 		abstract protected function get_attendees( $event_id );
 
-		abstract protected function checkin( $attendee_id );
+		abstract public function checkin( $attendee_id );
 
-		abstract protected function uncheckin( $attendee_id );
+		abstract public function uncheckin( $attendee_id );
 
 		abstract function get_ticket( $event_id, $ticket_id );
 

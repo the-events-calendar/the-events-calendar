@@ -34,7 +34,7 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 	}
 
 	function column_cb( $item ) {
-		return sprintf( '<input type="checkbox" name="%1$s[]" value="%2$s" />', esc_attr( $this->_args['singular'] ), esc_attr( $item['attendee_id'] . '_' . $item['product_id'] ) );
+		return sprintf( '<input type="checkbox" name="%1$s[]" value="%2$s" />', esc_attr( $this->_args['singular'] ), esc_attr( $item['attendee_id'] . "|" . $item['provider'] ) );
 	}
 
 	function column_order_id( $item ) {
@@ -86,15 +86,43 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 	}
 
 	function get_bulk_actions() {
-		$actions = array( 'check_in' => __( 'Check in', 'tribe-events-calendar' ) );
+		$actions = array( 'check_in' => __( 'Check in', 'tribe-events-calendar' ), 'uncheck_in' => __( 'Undo Check in', 'tribe-events-calendar' ) );
 		return $actions;
 
 	}
 
 
 	function process_bulk_action() {
-		if ( 'check_in' === $this->current_action() )
-			echo __( 'Check in!', 'tribe-events-calendar' );
+		if ( 'check_in' === $this->current_action() ) {
+			if ( isset( $_GET['attendee'] ) ) {
+
+				foreach ( $_GET['attendee'] as $attendee_provider ) {
+					$vars = explode( "|", $attendee_provider );
+					if ( isset( $vars[1] ) ) {
+						$obj = call_user_func( array( $vars[1], 'get_instance' ) );
+						$obj->checkin( $vars[0] );
+					}
+
+				}
+
+			}
+		}
+
+		if ( 'uncheck_in' === $this->current_action() ) {
+			if ( isset( $_GET['attendee'] ) ) {
+
+				foreach ( $_GET['attendee'] as $attendee_provider ) {
+					$vars = explode( "|", $attendee_provider );
+					if ( isset( $vars[1] ) ) {
+						$obj = call_user_func( array( $vars[1], 'get_instance' ) );
+						$obj->uncheckin( $vars[0] );
+					}
+
+				}
+
+			}
+		}
+
 	}
 
 	function prepare_items() {

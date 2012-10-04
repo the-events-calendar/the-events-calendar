@@ -11,8 +11,13 @@
 	display : none;
 }
 
+td.column-check_in{
+	padding-left: 0 !important;
+}
+
 .tickets_checked td.column-check_in{
 	text-decoration: none !important;
+	/*padding-left: 7px !important;*/
 }
 
 a.tickets_uncheckin {

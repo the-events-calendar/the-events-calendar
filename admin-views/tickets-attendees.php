@@ -59,9 +59,9 @@
 	</div>
 
 	<form id="topics-filter" method="get">
-		<?php $attendees_table->search_box( "Search", "s" ); ?>
-		<input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>"/>
-		<input type="hidden" name="post_type" value="topic"/>
+		<input type="hidden" name="page" value="<?php echo $_GET['page'] ?>"/>
+		<input type="hidden" name="event_id" value="<?php echo $_GET['event_id'] ?>"/>
+		<input type="hidden" name="post_type" value="<?php echo TribeEvents::POSTTYPE; ?>"/>
 		<?php $attendees_table->display() ?>
 	</form>
 </div>
