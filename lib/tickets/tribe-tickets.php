@@ -103,6 +103,8 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 				return;
 
 			include $this->parentPath . 'vendor/fpdf/fpdf.php';
+
+
 		}
 
 		public final function generate_attendees_PDF( $tickets_list ) {
@@ -110,6 +112,10 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			$this->load_pdf_libraries();
 
 			$pdf = new FPDF();
+			$ecp = TribeEvents::instance();
+
+			$pdf->AddFont('OpenSans','','opensans.php');
+			$pdf->AddFont('SteelFish','','steelfish.php');
 
 			$pdf->SetTitle('EventTicket');
 			$pdf->SetAuthor('The Events Calendar');
@@ -125,69 +131,78 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 			foreach ( $tickets_list as $ticket ) {
 
-				$ticket = wp_parse_args( $ticket, $defaults );
+				$ticket  = wp_parse_args( $ticket, $defaults );
+				$event   = get_post( $ticket['event_id'] );
 
-				$event = get_post( $ticket['event_id'] );
+				$venue   = tribe_get_venue( $event->ID );
+				$address = tribe_get_address( $event->ID );
+				$zip     = tribe_get_zip( $event->ID );
+				$state   = tribe_get_stateprovince( $event->ID );
 
 				$pdf->AddPage();
 
-				$pdf->SetFont( 'helvetica', '', 15 );
+				$pdf->SetDrawColor( 28, 166, 205 );
+				$pdf->SetFillColor( 28, 166, 205 );
+				$pdf->Rect( 15, 10, 180, 34, 'F' );
 
-				$ecp = TribeEvents::instance();
+				$pdf->SetTextColor( 255 );
 
-				$ticket_image = apply_filters( 'tribe_events_tickets_pdf_base_image', array( 'path' => trailingslashit( $ecp->pluginPath ) . 'resources/ticket.png',
-				                                                                             'x'    => 25,
-				                                                                             'y'    => 10,
-				                                                                             'w'    => 160,
-				                                                                             'h'    => 0,
-				                                                                             'type' => 'PNG' ) );
+				$pdf->SetFont( 'OpenSans', '', 10 );
+				$pdf->SetXY( 30, 15 );
+				$pdf->Write( 5, __( 'EVENT NAME:', 'tribe-events-calendar' ) );
 
-				$pdf->Image( $ticket_image['path'], $ticket_image['x'], $ticket_image['y'], $ticket_image['w'], $ticket_image['h'], $ticket_image['type'] );
+				$pdf->SetFont( 'SteelFish', '', 53 );
+				$pdf->SetXY( 30, 28 );
+				$pdf->Write( 5, strtoupper( $event->post_title ) );
 
-				$pdf->SetXY( 50, 15 );
-				$pdf->Write( 5, $ticket['holder_name'] );
+				$pdf->SetTextColor( 41 );
 
-				$pdf->SetXY( 50, 30 );
-				$pdf->SetFontSize( 22 );
-				$pdf->Write( 5, $event->post_title );
+				$pdf->SetFont( 'OpenSans', '', 10 );
+				$pdf->SetXY( 30, 50 );
+				$pdf->Write( 5, __( 'TICKET HOLDER:', 'tribe-events-calendar' ) );
+				$pdf->SetXY( 104, 50 );
+				$pdf->Write( 5, __( 'LOCATION:', 'tribe-events-calendar' ) );
 
+				$pdf->SetFont( 'SteelFish', '', 30 );
+				$pdf->SetXY( 30, 59 );
+				$pdf->Write( 5, strtoupper( $ticket['holder_name'] ) );
+				$pdf->SetXY( 104, 59 );
+				$pdf->Write( 5, strtoupper( $venue ) );
 
-				$venue = tribe_get_venue( $event->ID );
-				( !empty( $venue ) ) ? $venue : "";
+				$pdf->SetXY( 104, 71 );
+				$pdf->Write( 5, strtoupper( $address ) );
 
-				$pdf->SetXY( 50, 40 );
-				$pdf->SetFontSize( 18 );
-				$pdf->Write( 5, $venue );
+				$pdf->SetXY( 104, 83 );
+				$pdf->Write( 5, strtoupper( $state . ", " . $zip ) );
 
-				$address = tribe_get_address( $event->ID );
-				( !empty( $address ) ) ? $address : "";
+				$pdf->Line( 15, 97, 195, 97 );
 
-				$pdf->SetFont( 'arial', '', 11 );
-				$pdf->SetXY( 50, 50 );
-				$pdf->Write( 5, $address );
+				$pdf->SetFont( 'OpenSans', '', 10 );
+				$pdf->SetXY( 30, 105 );
+				$pdf->Write( 5, __( 'ORDER:', 'tribe-events-calendar' ) );
+				$pdf->SetXY( 80, 105 );
+				$pdf->Write( 5, __( 'TICKET:', 'tribe-events-calendar' ) );
+				$pdf->SetXY( 120, 105 );
+				$pdf->Write( 5, __( 'VERIFICATION:', 'tribe-events-calendar' ) );
 
-				$zip = tribe_get_zip( $event->ID );
-				( !empty( $zip ) ) ? $zip : "";
-
-				$country = tribe_get_country( $event->ID );
-				( !empty( $country ) ) ? $country : "";
-
-				$pdf->SetXY( 50, 55 );
-				$pdf->Write( 5, 'Venue address line 2' );
-
-				$pdf->SetFont( 'times', '', 13 );
-				$pdf->SetXY( 50, 70 );
-				$pdf->Write( 5, 'Order: ' );
-				$pdf->SetFont( 'times', 'B', 13 );
+				$pdf->SetFont( 'SteelFish', '', 53 );
+				$pdf->SetXY( 30, 118 );
 				$pdf->Write( 5, $ticket['order_id'] );
-				$pdf->SetFont( 'times', '', 13 );
-				$pdf->Write( 5, ' Ticket: ' );
-				$pdf->SetFont( 'times', 'B', 13 );
+				$pdf->SetXY( 80, 118 );
 				$pdf->Write( 5, $ticket['ticket_id'] );
-				$pdf->SetFont( 'times', '', 13 );
-				$pdf->Write( 5, ' Verification Code: ' );
-				$pdf->SetFont( 'times', 'B', 13 );
+				$pdf->SetXY( 120, 118 );
 				$pdf->Write( 5, $ticket['security_code'] );
+
+				$pdf->Rect( 15, 135, 180, 15, 'F' );
+
+				$pdf->SetTextColor( 255 );
+
+				$pdf->SetFont( 'OpenSans', '', 10 );
+				$pdf->SetXY( 30, 140 );
+				$pdf->Write( 5, get_bloginfo('name') );
+				$pdf->SetXY( 104, 140 );
+				$pdf->Write( 5, get_home_url() );
+
 
 			}
 
