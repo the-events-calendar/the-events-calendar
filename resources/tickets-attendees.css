@@ -11,8 +11,8 @@
 	display : none;
 }
 
-td.column-check_in{
-	padding-top:15px;
+td{
+	padding-top:15px !important;
 }
 
 .tickets_checked td.column-check_in{

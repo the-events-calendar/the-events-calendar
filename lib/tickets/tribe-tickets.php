@@ -44,7 +44,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 		abstract function do_metabox_advanced_options( $event_id, $ticket_id );
 
-		abstract function front_end_tickets_form();
+		abstract function front_end_tickets_form( $content );
 
 		abstract static function get_instance();
 
