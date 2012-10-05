@@ -22,6 +22,7 @@ if (!class_exists('TribeEventsQuery')) {
 			add_filter( 'the_posts', array( __CLASS__, 'the_posts'), 0 );
 		}
 
+
 		/**
 		 * Is hooked by init() filter to parse the WP_Query arguments for main and alt queries.
 		 * @param  object $query WP_Query object args supplied or default
@@ -130,8 +131,6 @@ if (!class_exists('TribeEventsQuery')) {
 						'field' => is_numeric($query->get('eventCat')) ? 'id' : 'name', 
 						'terms' => $query->get('eventCat')
 						);
-					$query->set( 'tax_query', $tax_query );
-
 				}
 
 			}
@@ -169,7 +168,14 @@ if (!class_exists('TribeEventsQuery')) {
 			if( $query->tribe_is_event_query && !empty($meta_query) ) {
 				// setup default relation for meta queries
 				$meta_query['relation'] = 'AND';
-				$query->set( 'meta_query', $meta_query );
+				$meta_query_combined = array_merge( (array) $meta_query, (array) $query->get( 'meta_query'));
+				$query->set( 'meta_query', $meta_query_combined );
+			}
+
+			if( $query->tribe_is_event_query && !empty($tax_query) ) {
+				// setup default relation for tax queries
+				$tax_query_combined = array_merge( (array) $tax_query, (array) $query->get( 'tax_query'));
+				$query->set( 'tax_query', $tax_query_combined );
 			}
 
 			if( $query->tribe_is_event_query ) {
@@ -210,6 +216,7 @@ if (!class_exists('TribeEventsQuery')) {
 						$posts[$id]->tribe_is_event = true;
 						$posts[$id]->EventStartDate = get_post_meta( $post->ID, '_EventStartDate', true);
 						$posts[$id]->EventDuration = get_post_meta( $post->ID, '_EventDuration', true);
+						// DO NOT USE THIS - end dates are deprecated due to recurrance
 						$posts[$id]->EventEndDate = get_post_meta( $post->ID, '_EventEndDate', true);
 					}
 				}
