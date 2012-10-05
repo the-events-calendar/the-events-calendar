@@ -193,6 +193,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-event-api.class.php' );
 			require_once( 'tribe-event-query.class.php' );
 			require_once( 'tribe-view-helpers.class.php' );
+			require_once( 'tribe-events-bar.class.php' );
 			require_once( 'tribe-the-events-calendar-import.class.php' );
 			require_once( 'tribe-debug-bar.class.php' );
 
@@ -223,7 +224,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			
 			if ( !is_admin() )
 				add_filter( 'get_comment_link', array( $this, 'newCommentLink' ), 10, 2 );
+
+			/* Setup Tribe Events Bar */
+			add_filter( 'tribe-events-bar-views',  array($this, 'setup_listview_in_bar'), 1, 1 );
+			add_filter( 'tribe-events-bar-views',  array($this, 'setup_gridview_in_bar'), 5, 1 );
+
+			add_filter( 'tribe-events-bar-filters', array( $this, 'setup_keyword_search_in_bar' ), 1, 1 );
+			add_filter( 'tribe-events-bar-filters', array( $this, 'setup_date_search_in_bar' ), 5, 1 );
+
+			add_filter( 'tribe_events_pre_get_posts', array( $this, 'setup_keyword_search_in_query' ) );
+			add_filter( 'tribe_events_pre_get_posts', array( $this, 'setup_date_search_in_query' ) );
+			/* End Setup Tribe Events Bar */
 		}
+
 
 		protected function addActions() {
 			add_action( 'init', array( $this, 'init'), 10 );
@@ -3007,6 +3020,73 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 			return $termlink;
 		}
+
+		public function setup_listview_in_bar( $views ) {
+			$views[] = array( 'displaying' => 'upcoming', 'anchor' => 'List View', 'url' => tribe_get_listview_link() );
+			return $views;
+		}
+
+		public function setup_gridview_in_bar( $views ) {
+			$views[] = array( 'displaying' => 'month', 'anchor' => 'Calendar', 'url' => tribe_get_gridview_link() );
+			return $views;
+		}
+
+		public function setup_keyword_search_in_bar( $filters ) {
+
+			$value = "";
+			if ( !empty( $_POST['tribe-bar-search'] ) ) {
+				$value = $_POST['tribe-bar-search'];
+			}
+
+
+			$filters[] = array( 'name'    => 'tribe-bar-search',
+			                    'caption' => 'Search',
+			                    'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' . esc_attr($value) . '" placeholder="Search">' );
+
+			return $filters;
+		}
+
+
+		public function setup_date_search_in_bar( $filters ) {
+
+			$value = "";
+			if ( !empty( $_POST['tribe-bar-date'] ) ) {
+				$value = $_POST['tribe-bar-date'];
+			}
+
+
+			$filters[] = array( 'name'    => 'tribe-bar-date',
+			                    'caption' => 'Date',
+			                    'html'    => '<input type="text" name="tribe-bar-date" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="Date">' );
+
+			return $filters;
+		}
+
+		public function setup_keyword_search_in_query( $query ) {
+
+			if ( !empty( $_POST['tribe-bar-search'] ) ) {
+				$query->query_vars['s'] = $_POST['tribe-bar-search'];
+			}
+
+			return $query;
+		}
+
+		public function setup_date_search_in_query( $query ) {
+
+			if ( !empty( $_POST['tribe-bar-date'] ) ) {
+				$meta_query = array( array( 'key'     => '_EventStartDate',
+				                            'value'   => array( TribeDateUtils::beginningOfDay( $_POST['tribe-bar-date'] ),
+				                                                TribeDateUtils::endOfDay( $_POST['tribe-bar-date'] ) ),
+				                            'compare' => 'BETWEEN',
+				                            'type'    => 'DATETIME' ) );
+				                     
+               
+				$query->set( 'meta_query', $meta_query );
+			}
+
+			return $query;
+		}
+
 
 	} // end TribeEvents class
 
