@@ -53,9 +53,6 @@ if ( ! have_posts() ) { // Messages if currently no events
 // Start list template
 echo apply_filters( 'tribe_events_list_before_template', '', get_the_ID() );
 
-	// List view buttons
-	echo apply_filters( 'tribe_events_list_the_view_buttons', '', get_the_ID() );
-
 	// List notices
 	echo apply_filters( 'tribe_events_list_notices', $notices, $notices, get_the_ID() );
 	

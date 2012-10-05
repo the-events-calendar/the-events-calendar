@@ -19,9 +19,6 @@ if( !class_exists('Tribe_Events_List_Template')){
 		public static function init(){
 			// Start list template
 			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
-
-			// List view buttons
-			add_filter( 'tribe_events_list_the_view_buttons', array( __CLASS__, 'the_view_buttons' ), 1, 1 );
 	
 			// Start list loop
 			add_filter( 'tribe_events_list_before_loop', array( __CLASS__, 'before_loop' ), 1, 1 );
@@ -62,18 +59,6 @@ if( !class_exists('Tribe_Events_List_Template')){
 		public function before_template( $post_id ){
 			$html = '<div id="tribe-events-content" class="tribe-events-list">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_template');
-		}
-		// List View Buttons
-		public function the_view_buttons( $post_id ){
-			$html = '';
-			if(!tribe_is_day())
-				$html .= '<div id="tribe-events-calendar-header" class="clearfix">';
-				$html .= '<span class="tribe-events-calendar-buttons">';
-				$html .= '<a class="tribe-events-button-on" href="'. tribe_get_listview_link() .'">'. __( 'Event List', 'tribe-events-calendar' ) .'</a>';
-				$html .= '<a class="tribe-events-button-off" href="'. tribe_get_gridview_link() .'">'. __( 'Calendar', 'tribe-events-calendar' ) .'</a>';
-				$html .= '</span><!-- .tribe-events-calendar-buttons -->';
-				$html .= '</div><!-- #tribe-events-calendar-header -->';			
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_view_buttons');
 		}
 		// Start List Loop
 		public function before_loop( $post_id ){

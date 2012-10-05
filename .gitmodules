@@ -1,3 +1,6 @@
+[submodule "vendor/jquery-placeholder"]
+	path = vendor/jquery-placeholder
+	url = https://github.com/mathiasbynens/jquery-placeholder.git
 [submodule "vendor/select2"]
 	path = vendor/select2
 	url = git://github.com/ivaynberg/select2.git
