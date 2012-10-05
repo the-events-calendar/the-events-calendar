@@ -42,7 +42,15 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 	}
 
 	function column_order_status( $item ) {
-		return ucwords( $item['order_status'] );
+
+		$icon = "";
+
+		if ( strtolower( $item['order_status'] ) !== 'completed' ) {
+			$tec  = TribeEvents::instance();
+			$icon = sprintf( "<span class='warning'><img src='%s'/></span> ", trailingslashit( $tec->pluginUrl ) . 'resources/warning.png' );
+		}
+
+		return $icon . ucwords( $item['order_status'] );
 	}
 
 	function column_attendee_id( $item ) {
