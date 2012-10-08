@@ -55,3 +55,142 @@ echo apply_filters('tribe_events_day_pagination', '');
 
 // nav, buttons, grid, content, popups
 ?>
+
+<div id="tribe-events-content" class="tribe-events-day-grid">
+	
+    <!-- This title is here for ajax loading – do not remove if you want ajax switching between month views -->
+    <title><?php wp_title(); ?></title>
+      	
+	<div id="tribe-events-calendar-header" class="clearfix">
+		
+		<?php // Month & Year Nav ?>
+		<span class="tribe-events-month-nav">
+		
+			<span class="tribe-events-prev-month">
+				<a href="<?php echo tribe_get_previous_month_link(); ?>"> &#x2190; <?php echo tribe_get_previous_month_text(); ?> </a>
+			</span><!-- .tribe-events-prev-month -->
+
+			<?php tribe_month_year_dropdowns( "tribe-events-" ); ?>
+	
+			<span class="tribe-events-next-month">
+				<a href="<?php echo tribe_get_next_month_link(); ?>"> <?php echo tribe_get_next_month_text(); ?> &#x2192; </a>
+               	<img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" class="ajax-loading" id="ajax-loading" alt="" style="display: none" />
+			</span><!-- .tribe-events-next-month -->
+		
+		</span><!-- .tribe-events-month-nav -->
+
+		<?php // View Buttons ?>
+		<span class="tribe-events-calendar-buttons">
+			<a class="tribe-events-button-off" href="<?php echo tribe_get_listview_link(); ?>"><?php _e( 'Event List', 'tribe-events-calendar' ); ?></a>
+			<a class="tribe-events-button-off" href="<?php echo tribe_get_gridview_link(); ?>"><?php _e( 'Calendar', 'tribe-events-calendar' ); ?></a>
+			<a class="tribe-events-button-on" href=""><?php _e( 'Day View', 'tribe-events-calendar' ); ?></a>
+			<a class="tribe-events-button-off" href=""><?php _e( 'Week View', 'tribe-events-calendar' ); ?></a>
+		</span><!-- .tribe-events-calendar-buttons -->
+			
+	</div><!-- #tribe-events-calendar-header -->
+	
+	
+	<?php // Our Content ?>
+	<table cellspacing="0" cellpadding="0" class="tribe-events-grid">
+	
+		<thead>
+			<tr>
+				<th scope="column">Sunday, September 8th 2012</th>
+			</tr>
+		</thead>
+
+		<tbody class="hfeed">
+			<tr>
+				<td>
+				<h3>All Day</h3>
+				
+				<div class="hentry vevent">
+					<h4 class="entry-title summary"><a href="#" class="url" rel="bookmark">Intro to Spinning</a></h4>
+					<p class="updated published"><abbr class="tribe-events-abbr dtstart" title="2010-09-13">All Day</abbr></p>
+					<p class="location"><a href="" rel="bookmark">Room Name</a></p>
+					<p class="entry-content description">I saw for the first time the earth's shape. I could easily see the shores of continents, islands, great rivers, folds of the terrain, large bodies of water.</p>
+					<ul class="tribe-events-grid-meta">
+						<li><a href="" rel="tag">Category A</a>,</li>
+						<li><a href="" rel="tag">Category B</a></li>
+					</ul>
+				</div><!-- .hentry .vevent -->
+				</td>
+			</tr>
+			
+			<tr>
+				<td>
+				<h3>7:00 AM</h3>
+				
+				<div class="hentry vevent">
+					<h4 class="entry-title summary"><a href="#" class="url" rel="bookmark">Intro to Spinning</a></h4>
+					<p class="updated published">
+						<abbr class="tribe-events-abbr dtstart" title="2010-09-13">7am</abbr>
+						-
+						<abbr class="tribe-events-abbr dtend" title="2010-09-13">9am</abbr>
+					</p>
+					<p class="location"><a href="" rel="bookmark">Room Name</a></p>
+					<p class="entry-content description">I saw for the first time the earth's shape. I could easily see the shores of continents, islands, great rivers, folds of the terrain, large bodies of water.</p>
+					<ul class="tribe-events-grid-meta">
+						<li><a href="" rel="tag">Category A</a>,</li>
+						<li><a href="" rel="tag">Category B</a></li>
+					</ul>
+				</div><!-- .hentry .vevent -->
+				
+				<div class="hentry vevent">
+					<h4 class="entry-title summary"><a href="#" class="url" rel="bookmark">Intro to Spinning</a></h4>
+					<p class="updated published">
+						<abbr class="tribe-events-abbr dtstart" title="2010-09-13">7am</abbr>
+						-
+						<abbr class="tribe-events-abbr dtend" title="2010-09-13">12pm</abbr>
+					</p>
+					<p class="location"><a href="" rel="bookmark">Room Name With a Really Really Really Long Room Name For Testing</a></p>
+					<p class="entry-content description">I saw for the first time the earth's shape. I could easily see the shores of continents, islands, great rivers, folds of the terrain, large bodies of water.</p>
+					<ul class="tribe-events-grid-meta">
+						<li><a href="" rel="tag">Category A</a>,</li>
+						<li><a href="" rel="tag">Category B</a></li>
+					</ul>
+				</div><!-- .hentry .vevent -->
+				</td>
+			</tr>
+			
+			<tr>
+				<td>
+				<h3>11:00 AM</h3>
+				
+				<div class="hentry vevent">
+					<h4 class="entry-title summary"><a href="#" class="url" rel="bookmark">Intro to Spinnin and an example of a really really really long title to demonstrate what this looks like</a></h4>
+					<p class="updated published">
+						<abbr class="tribe-events-abbr dtstart" title="2010-09-13">11am</abbr>
+						-
+						<abbr class="tribe-events-abbr dtend" title="2010-09-13">12pm</abbr>
+					</p>
+					<p class="location"><a href="" rel="bookmark">Room Name</a></p>
+					<p class="entry-content description">I saw for the first time the earth's shape. I could easily see the shores of continents, islands, great rivers, folds of the terrain, large bodies of water.</p>
+					<ul class="tribe-events-grid-meta">
+						<li><a href="" rel="tag">Category A</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a></li>
+					</ul>
+				</div><!-- .hentry .vevent -->
+				</td>
+			</tr>
+		</tbody><!-- .hfeed -->
+		
+	</table><!-- .tribe-events-grid -->
+		
+    <?php // iCal Import
+    if( function_exists( 'tribe_get_ical_link' ) ): ?>
+       	<a class="tribe-events-ical" title="<?php esc_attr_e( 'iCal Import', 'tribe-events-calendar' ); ?>" href="<?php echo tribe_get_ical_link(); ?>"><?php _e( 'iCal Import', 'tribe-events-calendar' ); ?></a>
+    <?php endif; ?>
+		
+</div><!-- #tribe-events-content -->
