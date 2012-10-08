@@ -13,13 +13,13 @@ if( !class_exists( 'TribeEventsAdvancedListWidget' ) ) {
 				
 		function TribeEventsAdvancedListWidget() {
 			/* Widget settings. */
-			$widget_ops = array( 'classname' => 'eventsAdvancedListWidget', 'description' => __( 'A widget that displays the next upcoming x events.', 'tribe-events-calendar-pro' ) );
+			$widget_ops = array( 'classname' => 'tribe-events-adv-list-widget', 'description' => __( 'A widget that displays the next upcoming x events.', 'tribe-events-calendar-pro' ) );
 
 			/* Widget control settings. */
-			$control_ops = array( 'id_base' => 'events-advanced-list-widget' );
+			$control_ops = array( 'id_base' => 'tribe-events-adv-list-widget' );
 
 			/* Create the widget. */
-			$this->WP_Widget( 'events-advanced-list-widget', 'Events List Advanced Widget', $widget_ops, $control_ops );
+			$this->WP_Widget( 'tribe-events-adv-list-widget', 'Events List Advanced Widget', $widget_ops, $control_ops );
 	
 			/* Add function to look for view in premium directory rather than free. */
 			add_filter( 'tribe_events_template_events-advanced-list-load-widget-display.php', array( $this, 'load_premium_view' ) );

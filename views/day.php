@@ -6,7 +6,7 @@
  * This view contains the filters required to create an effective day grid view.
  *
  * You can recreate an ENTIRELY new day grid view by doing a template override, and placing
- * a day.php file in a tribe-events/ directory within your theme directory, which
+ * a day.php file in a tribe-events/pro/ directory within your theme directory, which
  * will override the /views/day.php. 
  *
  * You can use any or all filters included in this file or create your own filters in 
@@ -20,8 +20,6 @@
  */
 
 if ( !defined('ABSPATH') ) { die('-1'); }
-
-echo apply_filters('tribe_events_day_pagination', '');
 
 /*
 	Mockup: https://central.tri.be/attachments/54709/dayview.3.jpg
@@ -47,14 +45,18 @@ echo apply_filters('tribe_events_day_pagination', '');
 	-Event Time Duration Tag (All Day or else 11am-1pm)
 	-Tag For URL To Event
 */
-
-// Basic Markup
-// Think through extensible future
-// Styles?
-// Get hooked up?
-
-// nav, buttons, grid, content, popups
 ?>
+
+<?php /*	
+
+	// Separate skeleton / full styles
+	// Add tags
+	// Xbrowser styles for new views and double check with other themes?	
+	// Hit Tim about doing date picker for both of these?
+	
+	// Cut into hooks/filters last
+
+*/ ?>
 
 <div id="tribe-events-content" class="tribe-events-day-grid">
 	
