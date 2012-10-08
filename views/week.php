@@ -21,6 +21,10 @@
 
 if ( !defined('ABSPATH') ) { die('-1'); }
 
+
+	echo apply_filters('tribe_events_week_pagination', '');
+	echo apply_filters('tribe_events_week_the_grid', '');
+
 /*
 	Mockup: https://central.tri.be/attachments/54643/weekview.1.jpg
 	
@@ -28,7 +32,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		
 	-Week Nav (like the month nav on calendar view)
 		<-- Previous Week | Month/Week #?/Year Selector | Next Week -->
-		
 	-Week View Button (top, right of calendar/list view)
 	
 	-Tag to output the day dates in the table header
@@ -44,4 +47,3 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	-Event Time Duration Tag (Just like for calendar view)
 	-Tag For URL To Event
 */
-?>
