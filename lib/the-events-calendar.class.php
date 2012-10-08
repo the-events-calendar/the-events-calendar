@@ -66,6 +66,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public $tagRewriteSlug = 'event/tag';
 		protected $monthSlug = 'month';
 		public $weekSlug = 'week';
+		public $daySlug = 'day';
+		public $todaySlug = 'today';
 		protected $pastSlug = 'past';
 		protected $upcomingSlug = 'upcoming';
 		protected $postExceptionThrown = false;
@@ -315,6 +317,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->tagRewriteSlug = $this->rewriteSlug . '/' . sanitize_title(__( 'tag', 'tribe-events-calendar' ));
 			$this->monthSlug = sanitize_title(__('month', 'tribe-events-calendar'));
 			$this->weekSlug = sanitize_title(__('week', 'tribe-events-calendar'));
+			$this->daySlug = sanitize_title(__('day', 'tribe-events-calendar'));
+			$this->todaySlug = sanitize_title(__('today', 'tribe-events-calendar'));
 			$this->upcomingSlug = sanitize_title(__('upcoming', 'tribe-events-calendar'));
 			$this->pastSlug = sanitize_title(__('past', 'tribe-events-calendar'));
 			$this->postTypeArgs['rewrite']['slug'] = sanitize_title($this->rewriteSlugSingular);

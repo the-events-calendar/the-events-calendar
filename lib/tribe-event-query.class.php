@@ -68,12 +68,6 @@ if (!class_exists('TribeEventsQuery')) {
 							$query->set( 'orderby', 'event_date' );
 							$query->set( 'order', 'DESC' );
 	                  		break;
-	               		case 'day':
-							$query->set( 'start_date', $query->get('eventDate') );
-							$query->set( 'end_date', $query->get('start_date') );
-							$query->set( 'orderby', 'event_date' );
-							$query->set( 'order', 'ASC' );
-	                  		break;
 	               		case 'all':
 							$query->set( 'orderby', 'event_date' );
 							$query->set( 'order', 'ASC' );
