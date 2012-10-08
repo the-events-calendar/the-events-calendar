@@ -52,19 +52,6 @@ if( class_exists( 'TribeEvents' ) ) {
 		return apply_filters('tribe_is_day', $is_day);
 	}
 
-
-	/**
-	 * Week Loop View Test
-	 *
-	 * @return bool
-	 * @since 2.1
-	 */
-	function tribe_is_week()  {
-		$tribe_ecp = TribeEvents::instance();
-		$is_week = ($tribe_ecp->displaying == 'week') ? true : false;
-		return apply_filters('tribe_is_week', $is_week);
-	}
-
 	/**
 	 * Past Loop View Test
 	 *
