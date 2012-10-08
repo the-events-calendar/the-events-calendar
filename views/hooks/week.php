@@ -58,7 +58,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 
 			ob_start();
 ?>
-			<table class="tribe-events-calendar">
+			<table class="tribe-events-week">
 				<thead>
 					<tr>
 						<th>&nbsp;</th>
@@ -69,7 +69,8 @@ if( !class_exists('Tribe_Events_Week_Template')){
 								trailingslashit( get_site_url() ) . trailingslashit( $tribe_ecp->rewriteSlug ) . trailingslashit( Date('Y-m-d', strtotime($start_of_week . " +$n days") ) ),
 								Date('l jS', strtotime($start_of_week . " +$n days"))
 								);
-					} ?>
+						}
+					?>
 					</tr>
 				</thead>
 
@@ -100,11 +101,14 @@ if( !class_exists('Tribe_Events_Week_Template')){
 			print_r($wp_query->posts);
 			echo '</pre>';
 			$current_week = tribe_get_first_week_day( $wp_query->get('start_date') );
-			// Display Previous Week Navigation
-			$html = '';
-			$html .= '<a href="' . tribe_get_last_week_permalink( $current_week ) . '">Previous Week</a> ';
-			$html .= ' | ' . date('F jS', strtotime($current_week)) . ' - ' . date('jS', strtotime(tribe_get_last_week_day($current_week))) . ' | ';
-			$html .= ' <a href="' . tribe_get_next_week_permalink( $current_week ) . '">Next Week</a> ';
+			// Display Week Navigation
+			$html = sprintf('<a href="%s">%s</a> %s <a href="%s">%s</a>',
+								tribe_get_last_week_permalink( $current_week ),
+								__( 'Previous Week', 'tribe-events-calendar-pro' ),
+								'| ' . date('F jS', strtotime($current_week)) . ' - ' . date('jS', strtotime(tribe_get_last_week_day($current_week))) . ' |',
+								tribe_get_next_week_permalink( $current_week ),
+								__( 'Next Week', 'tribe-events-calendar-pro' )
+								);
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_pagination');
 		}
 		public function after_pagination( $post_id ){

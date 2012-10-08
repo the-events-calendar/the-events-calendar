@@ -397,12 +397,17 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// $baseTag = "(.*)" . $baseTag;
 
 
+			$day = trailingslashit($tec->daySlug);
+			$today = trailingslashit($tec->todaySlug);
 			$week = trailingslashit($tec->weekSlug);
 			$newRules = array();
 			// week permalink rules
 			$newRules[$base . $week . '?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week';
 			$newRules[$base . $week . '(\d{2})/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week' .'&eventDate=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . $week . '(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week' .'&eventDate=' . $wp_rewrite->preg_index(1);
+			// day permalink rules
+			$newRules[$base . $today . '?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day';
+			$newRules[$base . $day . '(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(1);
 			// $newRules[$baseTax . '([^/]+)/' . $week] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week';
 			// $newRules[$baseTax . '([^/]+)/(\d{2})$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week' .'&eventDate=' . $wp_rewrite->preg_index(3);
 			// $newRules[$baseTag . '([^/]+)/' . $week] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week';
@@ -415,15 +420,27 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		public function pre_get_posts( $query ){
 			$pro_query = false;
-			if(isset( $query->query_vars['eventDisplay'] ) && $query->query_vars['eventDisplay'] == 'week'){
+			if(!empty( $query->query_vars['eventDisplay'] )) {
 				$pro_query = true;
-				$week = tribe_get_first_week_day( $query->get('eventDate') );
-				$query->set( 'start_date', $week );
-				$query->set( 'eventDate', $week );
-				$query->set( 'end_date', tribe_get_last_week_day( $week ) );
-				$query->set( 'orderby', 'event_date' );
-				$query->set( 'order', 'ASC' );
-				$query->set( 'posts_per_page', -1 ); // show ALL week posts
+				switch( $query->query_vars['eventDisplay']){
+					case 'week':
+						$week = tribe_get_first_week_day( $query->get('eventDate') );
+						$query->set( 'start_date', $week );
+						$query->set( 'eventDate', $week );
+						$query->set( 'end_date', tribe_get_last_week_day( $week ) );
+						$query->set( 'orderby', 'event_date' );
+						$query->set( 'order', 'ASC' );
+						$query->set( 'posts_per_page', -1 ); // show ALL week posts
+						break;
+					case 'day':
+						$event_date = $query->get('eventDate') != '' ? $query->get('eventDate') : Date('Y-m-d');
+						$query->set( 'start_date', $event_date );
+						$query->set( 'end_date', $event_date );
+						$query->set( 'eventDate', $event_date );
+						$query->set( 'orderby', 'event_date' );
+						$query->set( 'order', 'ASC' );
+						break;
+				}
 			}
 			$query->tribe_is_event_pro_query = $pro_query;
 			return $query->tribe_is_event_pro_query ? apply_filters('tribe_events_pro_pre_get_posts', $query) : $query;

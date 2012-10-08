@@ -20,10 +20,9 @@
  */
 
 if ( !defined('ABSPATH') ) { die('-1'); }
-global $wp_query;
-			echo '<pre>';
-			print_r($wp_query);
-			echo '</pre>';
+
+echo apply_filters('tribe_events_day_pagination', '');
+
 /*
 	Mockup: https://central.tri.be/attachments/54709/dayview.3.jpg
 	
