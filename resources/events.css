@@ -63,35 +63,39 @@ div.tribe-countdown-text {
 	clear: both;
 }
 
-#wrapper {
-	width  : 600px;
+#tribe-geo-wrapper {
+	width  : 100%;
 	margin : 0 auto;
 }
 
-#data {
-	width          : 100%;
-	padding-top    : 10px;
-	padding-bottom : 10px;
-	margin-bottom  : 10px;
-	text-align     : center;
-	border         : 1px solid #d3d3d3;
+#tribe-geo-data {
+	background-color: #EEEEEE;
+	border: 1px solid #BBBBBB;
+	margin-bottom: 10px;
+	padding: 4px;
+	width: auto;
 }
 
-#data input[type="text"] {
-	width : 60%;
+#tribe-geo-data input[type="text"] {
+	width : 300px;
+	height:24px;
+	padding:3px;
 }
 
-#location {
+#tribe-geo-location {
 	width : 400px;
 }
 
-#map {
+#tribe-geo-map {
 	width  : 100%;
-	height : 200px;
+	height : 300px;
 
 }
 
-#loading {
+#tribe-geo-map label { width: auto; display:inline; }
+#tribe-geo-map img { max-width: none; }
+
+#tribe-geo-loading {
 	display           : none;
 	position          : absolute;
 	width             : 600px;
@@ -115,34 +119,34 @@ div.tribe-countdown-text {
 	display : none;
 }
 
-#options {
+#tribe-geo-options {
 	margin-bottom : 30px;
 	display       : none;
 }
 
-#options a {
+#tribe-geo-options a {
 	display : block;
 }
 
-#results {
+#tribe-geo-results {
 	width : 100%;
 }
 
-#results div {
+#tribe-geo-results div {
 	margin-bottom : 10px;
 }
 
-#results div span {
+#tribe-geo-results div span {
 	width      : 33.333%;
 	text-align : right;
 	display    : inline-block;
 }
 
-#results div span.heading {
+#tribe-geo-results div span.heading {
 	font-weight : bold;
 }
 
-#results .found{
+#tribe-geo-results .found{
 
 	width: 100%;
 	text-align: center;

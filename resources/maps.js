@@ -2,7 +2,7 @@ var map, geocoder, geocodes, bounds, markersArray = [], spinner;
 geocoder = new google.maps.Geocoder();
 bounds = new google.maps.LatLngBounds();
 
-jQuery( document ).ready( function () {
+jQuery( document ).ready( function ($) {
 
 	var options = {
 		zoom:5,
@@ -10,20 +10,20 @@ jQuery( document ).ready( function () {
 		mapTypeId:google.maps.MapTypeId.ROADMAP
 	};
 
-	if ( document.getElementById( 'map' ) ) {
-		map = new google.maps.Map( document.getElementById( 'map' ), options );
+	if ( document.getElementById( 'tribe-geo-map' ) ) {
+		map = new google.maps.Map( document.getElementById( 'tribe-geo-map' ), options );
 		bounds = new google.maps.LatLngBounds();
 	}
 
-	jQuery( '#search' ).click( function () {
+	$( '#tribe-geo-search' ).click( function () {
 
 		deleteMarkers();
 
-		jQuery( "#results" ).empty();
+		$( "#tribe-geo-results" ).empty();
 
-		var location = jQuery( '#location' ).val();
-		jQuery( "#options" ).hide();
-		jQuery( "#options #links" ).empty();
+		var location = $( '#tribe-geo-location' ).val();
+		$( "#tribe-geo-options" ).hide();
+		$( "#tribe-geo-options #tribe-geo-links" ).empty();
 
 		spin_start();
 
@@ -31,15 +31,15 @@ jQuery( document ).ready( function () {
 			geocodes = results;
 			if ( geocodes.length > 1 ) {
 				spin_end();
-				jQuery( "#options" ).show();
+				$( "#tribe-geo-options" ).show();
 
 				for ( var i = 0; i < geocodes.length; i++ ) {
-					jQuery( "<a/>" ).text( geocodes[i].formatted_address ).attr( "href", "#" ).addClass( 'option_link' ).attr( 'data-index', i ).appendTo( "#options #links" );
+					$( "<a/>" ).text( geocodes[i].formatted_address ).attr( "href", "#" ).addClass( 'option_link' ).attr( 'data-index', i ).appendTo( "#tribe-geo-options #tribe-geo-links" );
 				}
 				centerMap();
 
-				jQuery( 'html, body' ).animate( {
-					scrollTop:jQuery( "#options" ).offset().top
+				$( 'html, body' ).animate( {
+					scrollTop:$( "#tribe-geo-options" ).offset().top
 				}, 1000 );
 
 			} else {
@@ -50,9 +50,9 @@ jQuery( document ).ready( function () {
 
 	} );
 
-	jQuery( "#options" ).on( 'click', 'a', function () {
+	$( "#tribe-geo-options" ).on( 'click', 'a', function () {
 		spin_start();
-		processOption( geocodes[jQuery( this ).attr( 'data-index' )] );
+		processOption( geocodes[$( this ).attr( 'data-index' )] );
 	} );
 
 	function processGeocoding( location, callback ) {
@@ -89,22 +89,23 @@ jQuery( document ).ready( function () {
 			nonce:GeoLoc.nonce
 		};
 
-		jQuery.post( GeoLoc.ajaxurl, data, function ( response ) {
+		$.post( GeoLoc.ajaxurl, data, function ( response ) {
 
 			spin_end();
 
 			if ( response.success ) {
 
-				jQuery( "#results" ).html( response.html );
+				$( "#tribe-geo-results" ).html( response.html );
 
-				jQuery.each( response.markers, function ( i, e ) {
+				$.each( response.markers, function ( i, e ) {
 					addMarker( e.lat, e.lng, e.title, e.address, e.link );
+					
 				} );
 
 				centerMap();
 
-				jQuery( 'html, body' ).animate( {
-					scrollTop:jQuery( "#results" ).offset().top
+				$( 'html, body' ).animate( {
+					scrollTop:$( "#tribe-geo-results" ).offset().top
 				}, 1000 );
 			}
 
@@ -126,7 +127,7 @@ jQuery( document ).ready( function () {
 
 		var content_title = title;
 		if ( link ) {
-			content_title = jQuery( '<div/>' ).append( jQuery( "<a/>" ).attr( 'href', link ).text( title ) ).html();
+			content_title = $( '<div/>' ).append( $( "<a/>" ).attr( 'href', link ).text( title ) ).html();
 		}
 
 		var content = "Event: " + content_title + "<br/>" + "Address: " + address;
@@ -162,18 +163,18 @@ jQuery( document ).ready( function () {
 	}
 
 	function spin_start() {
-		jQuery( "#loading" ).show();
+		$( "#tribe-geo-loading" ).show();
 
 	}
 
 	function spin_end() {
-		jQuery( "#loading" ).hide();
+		$( "#tribe-geo-loading" ).hide();
 	}
 
 	var tribe_geoloc_auto_submit = false;
-	jQuery( 'form#tribe-events-bar-form' ).bind( 'submit', function () {
+	$( 'form#tribe-events-bar-form' ).bind( 'submit', function () {
 
-		var val = jQuery( '#tribe-bar-geoloc' ).val();
+		var val = $( '#tribe-bar-geoloc' ).val();
 		if ( val !== '' && !tribe_geoloc_auto_submit ) {
 			processGeocoding( val, function ( results, selected_index ) {
 
@@ -181,28 +182,25 @@ jQuery( document ).ready( function () {
 				var lng = results[0].geometry.location.lng();
 
 				if ( lat )
-					jQuery( '#tribe-bar-geoloc-lat' ).val( lat );
+					$( '#tribe-bar-geoloc-lat' ).val( lat );
 
 				if ( lng )
-					jQuery( '#tribe-bar-geoloc-lng' ).val( lng );
+					$( '#tribe-bar-geoloc-lng' ).val( lng );
 
 				tribe_geoloc_auto_submit = true;
-				jQuery( 'form#tribe-events-bar-form' ).submit();
+				$( 'form#tribe-events-bar-form' ).submit();
 
 			} );
 			return false;
 		}
 
 		if ( val === '' ) {
-			jQuery( '#tribe-bar-geoloc-lat' ).val( '' );
-			jQuery( '#tribe-bar-geoloc-lng' ).val( '' );
+			$( '#tribe-bar-geoloc-lat' ).val( '' );
+			$( '#tribe-bar-geoloc-lng' ).val( '' );
 		}
 
 		return true;
 
 	} );
 
-
 } );
-
-
