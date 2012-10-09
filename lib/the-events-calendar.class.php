@@ -3075,9 +3075,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				                                                TribeDateUtils::endOfDay( $_POST['tribe-bar-date'] ) ),
 				                            'compare' => 'BETWEEN',
 				                            'type'    => 'DATETIME' ) );
-				                     
-               
-				$query->set( 'meta_query', $meta_query );
+
+
+				if ( empty( $query->query_vars['meta_query'] ) ) {
+					$query->set( 'meta_query', $meta_query );
+				} else {
+					$query->query_vars['meta_query'][] = $meta_query;
+				}
 			}
 
 			return $query;
