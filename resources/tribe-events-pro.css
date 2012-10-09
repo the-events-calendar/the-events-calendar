@@ -56,19 +56,19 @@ below styles for these two views will need to be added to the /styles/ styleshee
 	font-family: "Helvetica Neue",Arial,Helvetica,"Nimbus Sans L",sans-serif;
 }
 
-.page-id-1049.page .entry-content, 
-.page-id-1049.page .entry-header, 
-.page-id-1051.page .entry-content,
-.page-id-1051.page .entry-header { width: 98%; }
-.page-id-1049.page .tribe-events-event-entry,
-.page-id-1051.page .tribe-events-event-entry { width: 60%; }
-.page-id-1049.page .hentry,
-.page-id-1051.page .hentry {
+.tribe-events-day.page .entry-content, 
+.tribe-events-day.page .entry-header, 
+.tribe-events-week.page .entry-content,
+.tribe-events-week.page .entry-header { width: 98%; }
+.tribe-events-day.page .tribe-events-event-entry,
+.tribe-events-week.page .tribe-events-event-entry { width: 60%; }
+.tribe-events-day.page .hentry,
+.tribe-events-week.page .hentry {
 	margin: 0;
 	padding: 0 0 15px 0;
 }
-.page-id-1049 .tribe-events-event-entry p,
-.page-id-1051 .tribe-events-event-entry p {
+.tribe-events-day .tribe-events-event-entry p,
+.tribe-events-week .tribe-events-event-entry p {
 	margin: 0;
 	font-size: 16px;
 	line-height: 24px;
@@ -86,10 +86,10 @@ table.tribe-events-grid {
 	border-collapse: collapse;
 }
 
-.page-id-1051 table.tribe-events-grid {
+.tribe-events-week table.tribe-events-grid {
 	border: 1px solid #bbb;
 }
-.page-id-1051 .tribe-events-grid td {
+.tribe-events-week .tribe-events-grid td {
 	border: 1px solid #bbb;
 	border-top: 0;
 	border-bottom: 0;
@@ -101,7 +101,7 @@ table.tribe-events-grid {
 	letter-spacing: 1px;
 }
 
-.page-id-1051 .tribe-events-grid th {
+.tribe-events-week .tribe-events-grid th {
 	/*width: 250px;*/
 	width: auto;
 	height: 10px;
@@ -109,7 +109,7 @@ table.tribe-events-grid {
 	text-align: center;
 	text-transform: uppercase;
 }
-.page-id-1051 .tribe-events-grid th a {
+.tribe-events-week .tribe-events-grid th a {
 	color: #333;
 }
 
@@ -122,10 +122,10 @@ table.tribe-events-grid {
    @ Template: day.php
 =============================================*/
 
-.page-id-1049 table.tribe-events-grid {
+.tribe-events-day table.tribe-events-grid {
 	border: 0;
 }
-.page-id-1049 .tribe-events-grid th {
+.tribe-events-day .tribe-events-grid th {
 	text-transform: capitalize;
 	text-align: left;
 	font-size: 21px;
@@ -133,7 +133,7 @@ table.tribe-events-grid {
 
 
 /* the rest */
-.page-id-1049 .tribe-events-grid td {
+.tribe-events-day .tribe-events-grid td {
 	border: 0;
 }
 .tribe-events-grid tbody p {
@@ -145,7 +145,7 @@ table.tribe-events-grid {
 	font-size: 12px;
 	margin-top: 2%;
 }
-.page-id-1049 .tribe-events-grid .hentry.vevent {
+.tribe-events-day .tribe-events-grid .hentry.vevent {
 	background-color: #ddd;
 	padding: 18px;
 	margin: 8px 0;
@@ -205,15 +205,15 @@ table.tribe-events-grid {
 }
 
 /* Week view overall table styles */
-.page-id-1051 .tribe-events-grid {
+.tribe-events-week .tribe-events-grid {
 	table-layout: fixed;
 	width: 100%:
 }
 
-.page-id-1051 thead .tribe-grid-first {
+.tribe-events-week thead .tribe-grid-first {
 	width: 60px;
 }
-.page-id-1051 thead .tribe-grid-today {
+.tribe-events-week thead .tribe-grid-today {
 	
 }
 
