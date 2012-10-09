@@ -44,10 +44,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	-Event Categories Tag (with a comma separator)
 	-Event Time Duration Tag (All Day or else 11am-1pm)
 	-Tag For URL To Event
-*/
-?>
-
-<?php /*	
+	
 
 	// Separate skeleton / full styles
 	// Add tags
@@ -56,17 +53,24 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	
 	// Cut into hooks/filters last
 
-*/ ?>
+*/
 
-<div id="tribe-events-content" class="tribe-events-day-grid">
-	
-    <!-- This title is here for ajax loading – do not remove if you want ajax switching between month views -->
-    <title><?php wp_title(); ?></title>
-    
-	<?php 
+echo apply_filters('tribe_events_day_before_template', '');
 
 	// daily header (navigation)
 	echo apply_filters( 'tribe_events_day_the_header', '');
+
+	echo apply_filters( 'tribe_events_day_before_loop', '');
+
+	if ( have_posts() ) {
+
+		while ( have_posts() ) {
+			the_post();
+			echo apply_filters( 'tribe_events_day_inside_before_loop', '');
+			echo apply_filters( 'tribe_events_day_the_event', '');
+			echo apply_filters( 'tribe_events_day_inside_after_loop', '');
+		}
+	}
 
 	?>
 	
@@ -85,15 +89,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	</div><!-- #tribe-events-header -->	
 	
 	<?php // Our Content ?>
-	<table cellspacing="0" cellpadding="0" class="tribe-events-grid">
-	
-		<thead>
-			<tr>
-				<th scope="column">Sunday, September 8th 2012</th>
-			</tr>
-		</thead>
-
-		<tbody class="hfeed">
 			<tr>
 				<td>
 				<h3>All Day</h3>
@@ -178,13 +173,9 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 				</div><!-- .hentry .vevent -->
 				</td>
 			</tr>
-		</tbody><!-- .hfeed -->
 		
-	</table><!-- .tribe-events-grid -->
 		
-    <?php // iCal Import
-    if( function_exists( 'tribe_get_ical_link' ) ): ?>
-       	<a class="tribe-events-ical" title="<?php esc_attr_e( 'iCal Import', 'tribe-events-calendar' ); ?>" href="<?php echo tribe_get_ical_link(); ?>"><?php _e( 'iCal Import', 'tribe-events-calendar' ); ?></a>
-    <?php endif; ?>
-		
-</div><!-- #tribe-events-content -->
+    <?php
+    echo apply_filters('tribe_events_day_after_loop', '');
+
+echo apply_filters('tribe_events_day_after_template', '');
