@@ -61,16 +61,26 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	
     <!-- This title is here for ajax loading – do not remove if you want ajax switching between month views -->
     <title><?php wp_title(); ?></title>
-      	
-	
-	
-	<?php 
-
-	// weekly header (navigation)
+    
+    <?php 
+    	// weekly header (navigation)
 	echo apply_filters( 'tribe_events_week_the_header', '');
-
 	?>
-	
+    
+    
+    <div id="tribe-events-header">';
+		<h3 class="tribe-events-visuallyhidden"><?php _e( 'Calendar Month Navigation', 'tribe-events-calendar' ); ?></h3>
+		<ul class="tribe-events-sub-nav">
+			<li class="tribe-events-nav-prev">'
+				<a href="<?php tribe_get_previous_month_link(); ?>" rel="pref">&#x2190; <?php tribe_get_previous_month_text(); ?></a>
+			</li><!-- .tribe-events-prev-next -->
+			<li><?php tribe_month_year_dropdowns( "tribe-events-" ); ?></li>
+			<li class="tribe-events-nav-next">
+				<a href="<?php tribe_get_next_month_link(); ?>" rel="next"> <?php tribe_get_next_month_text(); ?> &#x2192;</a>
+				<img src="<?php esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" class="ajax-loading" id="ajax-loading" alt="Loading events" />
+			</li><!-- .tribe-events-nav-next -->
+		</ul><!-- .tribe-events-sub-nav -->
+	</div><!-- #tribe-events-header -->	
 	
 	<?php
 		// Tooltips (see how implemented in calendar.php, /hooks/calendar.php, public/template-tags/calendar.php)
