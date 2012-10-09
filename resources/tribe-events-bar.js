@@ -50,8 +50,10 @@ jQuery( document ).ready( function ( $ ) {
     
     $( document ).bind( {
     	click: function( e ) {
-    		tribeBarToggle.toggleClass( 'open' );
-        	tribeBarToggleEl.toggle();
+		if( $(tribeBarToggle).hasClass( 'open' ) ) {	
+			tribeBarToggle.toggleClass( 'open' );
+			tribeBarToggleEl.toggle();
+		}	
      	}
 	} );
 	tribeBarToggle.bind( 'click', function( e ) { return false } );
