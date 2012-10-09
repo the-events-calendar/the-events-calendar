@@ -55,5 +55,8 @@ jQuery( document ).ready( function ( $ ) {
      	}
 	} );
 	tribeBarToggle.bind( 'click', function( e ) { return false } );
+    $(".tribe-bar-search,.tribe-bar-geoloc").click(function(e) {
+	e.stopPropagation();
+    });	
 
 } );
