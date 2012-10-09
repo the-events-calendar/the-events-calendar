@@ -39,17 +39,17 @@ jQuery(document).ready(function($) {
 	tribe_event_tooltips();
 	
 	// PJAX for calendar date select
-	$('.events-gridview #tribe-events-content').delegate('.tribe-events-events-dropdown', 'change', function() {                
+   	$('#tribe-events-header').delegate('.tribe-events-events-dropdown', 'change', function() {                
 		var baseUrl = $(this).parent().attr('action');		
 		var target_url = baseUrl + $('#tribe-events-events-year').val() + '-' + $('#tribe-events-events-month').val();
         $('.ajax-loading').show(); 
-		$.pjax({ url: target_url, container: '#tribe-events-content', fragment: '#tribe-events-content', timeout: 10000 });
+		$.pjax({ url: target_url, container: '#tribe-events-header', fragment: '#tribe-events-header', timeout: 10000 });
 	});
 	
 	// PJAX for calendar next/prev month links
-    $('.events-gridview #tribe-events-content').delegate('.tribe-events-nav-prev a, .tribe-events-nav-next a', 'click', function(e) {
+    $('#tribe-events-header').delegate('.tribe-events-nav-prev a, .tribe-events-nav-next a', 'click', function(e) {
     	e.preventDefault();
-        $.pjax({ url: $(this).attr('href'), container: '#tribe-events-content', fragment: '#tribe-events-content', timeout: 10000 });
+        $.pjax({ url: $(this).attr('href'), container: '#tribe-events-header', fragment: '#tribe-events-header', timeout: 10000 });
         $('.ajax-loading').show();      
    	});
         
@@ -58,7 +58,7 @@ jQuery(document).ready(function($) {
      	tribe_event_nudge();
     });
    
-   	// Add class on list & venue loops
+   	// Add classes on various loops
    	$('.tribe-events-loop .vevent:last').addClass('tribe-last');
    	$('.events-gridview table.tribe-events-calendar').find('td.tribe-events-thismonth').each(function(index) {
           $(this).children('.vevent').last().addClass('tribe-last');

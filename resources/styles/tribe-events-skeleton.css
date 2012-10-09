@@ -13,6 +13,15 @@
 
 /* = Global & Miscellaneous Styles
 =============================================*/
+/* View Extra Padding */
+.events-archive.events-list .hentry,
+.events-archive.events-gridview .hentry,
+.tribe-events-day.page .hentry,
+.tribe-events-week.page .hentry {
+	margin: 0;
+	padding: 0 0 15px 0;
+}
+
 /* Calendar Add Buttons */
 a.tribe-events-ical,
 a.tribe-events-gcal {
@@ -126,11 +135,6 @@ a.tribe-events-gcal {
 #tribe-events-content {
 	font-size: 16px;
 }
-.events-archive.events-list .hentry,
-.events-archive.events-gridview .hentry {
-	margin: 0;
-	padding: 0 0 15px 0;
-}
 
 /* Header */
 #tribe-events-header {
@@ -144,6 +148,9 @@ h2.tribe-events-page-title a:hover,
 h2.tribe-events-page-title a:focus {
 	color: #333;
 	text-decoration: underline;
+}
+#tribe-events-header #ajax-loading {
+	display: none;
 }
 
 

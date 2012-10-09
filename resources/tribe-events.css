@@ -24,7 +24,9 @@ a.tribe-events-gmap,
 .tribe-events-back, 
 .tribe-events-list-widget .tribe-events-widget-link, 
 .tribe-events-adv-list-widget .tribe-events-widget-link, 
-.tribe-events-gcal {
+.tribe-events-gcal,
+.tribe-events-grid,
+.tribe-events-loop-day {
 	font-family: "Helvetica Neue", Arial, Helvetica, "Nimbus Sans L", sans-serif;
 }
 
@@ -49,6 +51,15 @@ ul.tribe-events-sub-nav a:hover,
 .tribe-events-list-widget .tribe-events-widget-link a:hover, 
 .tribe-events-adv-list-widget .tribe-events-widget-link a:hover {
 	text-decoration: underline;
+}
+
+/* View Extra Padding */
+.events-archive.events-list .hentry,
+.events-archive.events-gridview .hentry,
+.tribe-events-day.page .hentry,
+.tribe-events-week.page .hentry {
+	margin: 0;
+	padding: 0 0 15px 0;
 }
 
 /* Calendar Add Buttons */
@@ -177,11 +188,6 @@ a.tribe-events-gcal {
 #tribe-events-content {
 	font-size: 16px;
 }
-.events-archive.events-list .hentry,
-.events-archive.events-gridview .hentry {
-	margin: 0;
-	padding: 0 0 15px 0;
-}
 
 /* Header */
 #tribe-events-header {
@@ -195,6 +201,9 @@ h2.tribe-events-page-title a:hover,
 h2.tribe-events-page-title a:focus {
 	color: #333;
 	text-decoration: underline;
+}
+#tribe-events-header #ajax-loading {
+	display: none;
 }
 
 
