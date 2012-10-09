@@ -177,8 +177,17 @@
 }
 .tribe-week-allday-row table td .hentry.vevent { 
 	background-color: #ddd; 
-	padding: 6px; 
+	padding: 8px 6px; 
 	margin: 0 4px;
+}
+.tribe-week-allday-row table .hentry.vevent h3.entry-title {
+ 	color: #333;
+ 	font-size: 12px;
+ 	line-height: 1.25;
+ 	padding: 0;
+ 	margin-top: 0;
+ 	text-transform: none;
+ 	letter-spacing: 0;
 }
 .tribe-week-allday-row table .hentry.vevent a {
  	color: #333;
@@ -233,13 +242,22 @@
 	z-index: 800;
 	background-color: rgba(221, 221, 221, .85);
 }
+.tribe-week-grid-event-wrap.hentry.vevent h3.entry-title {
+ 	color: #333;
+ 	font-size: 12px;
+ 	line-height: 1.25;
+ 	padding: 0;
+ 	margin-top: 0;
+ 	text-transform: none;
+ 	letter-spacing: 0;
+}
 .tribe-week-grid-event-wrap.hentry.vevent a {
  	color: #333;
  	font-size: 12px;
  	line-height: 1.25;
  	padding: 0;
 }
-.tribe-week-grid-event-wrap div {
+.tribe-week-grid-event-wrap div[id*="tribe-events-event-"] {
  	height:30px; 
  	background-color: #ddd;
  	background-color: rgba(221, 221, 221, .75);
