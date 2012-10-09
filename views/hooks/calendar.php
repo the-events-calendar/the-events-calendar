@@ -216,7 +216,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		public function after_template( $post_id ){
 			$html = '';
 			if( function_exists( 'tribe_get_ical_link' ) )
-				$html .= '<a class="tribe-events-ical" title="'. __( 'iCal Import', 'tribe-events-calendar' ) .'" href="'. tribe_get_ical_link() .'">'. __( 'iCal Import', 'tribe-events-calendar' ) .'</a>';
+				$html .= '<a class="tribe-events-ical tribe-events-button-grey" title="'. __( 'iCal Import', 'tribe-events-calendar' ) .'" href="'. tribe_get_ical_link() .'">'. __( 'iCal Import', 'tribe-events-calendar' ) .'</a>';
 				
 			if ( tribe_get_option( 'donate-link', false ) == true )
 				$html .= '<p class="tribe-events-promo">' . apply_filters( 'tribe_promo_banner', sprintf( __( 'Calendar powered by %sThe Events Calendar%s', 'tribe-events-calendar' ), '<a class="vcard url org fn" href="http://tri.be/wordpress-events-calendar/">', '</a>' ) ) . '</p>';

@@ -251,7 +251,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 		public function after_template( $hasPosts = false, $post_id ){
 			$html = '';
 			if (!empty($hasPosts) && function_exists('tribe_get_ical_link')) // iCal Import
-				$html .= '<a class="tribe-events-ical" title="'. __( 'iCal Import', 'tribe-events-calendar' ) .'" href="'. tribe_get_ical_link() .'">'. __( 'iCal Import', 'tribe-events-calendar' ) .'</a>';
+				$html .= '<a class="tribe-events-ical tribe-events-button-grey" title="'. __( 'iCal Import', 'tribe-events-calendar' ) .'" href="'. tribe_get_ical_link() .'">'. __( 'iCal Import', 'tribe-events-calendar' ) .'</a>';
 				
 			$html .= '</div><!-- #tribe-events-content -->';
 			$html .= '<div class="tribe-clear"></div>';
