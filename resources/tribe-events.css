@@ -62,6 +62,38 @@ ul.tribe-events-sub-nav a:hover,
 	padding: 0 0 15px 0;
 }
 
+/* Global Main Button Style */
+
+.tribe-events-button-grey {
+	background-color: #666;
+	background-image: none;
+	color: #fff;
+	font-size: 11px;
+	font-weight: bold;	
+	padding: 6px 9px;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	border: 0;
+	line-height: normal;
+	cursor: pointer;
+	box-shadow: none;
+}
+
+.tribe-events-button-grey.tribe-active {
+	background-color: #666;
+	color: #fff;
+}
+
+.tribe-events-button-grey.tribe-inactive, 
+.tribe-events-button-grey.tribe-active:hover {
+	background-color: #ddd;
+	color:#444;
+}
+
 /* Calendar Add Buttons */
 a.tribe-events-ical,
 a.tribe-events-gcal {
