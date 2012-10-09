@@ -10,8 +10,10 @@ jQuery( document ).ready( function () {
 		mapTypeId:google.maps.MapTypeId.ROADMAP
 	};
 
-	map = new google.maps.Map( document.getElementById( 'map' ), options );
-	bounds = new google.maps.LatLngBounds();
+	if ( document.getElementById( 'map' ) ) {
+		map = new google.maps.Map( document.getElementById( 'map' ), options );
+		bounds = new google.maps.LatLngBounds();
+	}
 
 	jQuery( '#search' ).click( function () {
 
@@ -25,7 +27,25 @@ jQuery( document ).ready( function () {
 
 		spin_start();
 
-		processGeocoding( location, processResponse );
+		processGeocoding( location, function ( results, selected_index ) {
+			geocodes = results;
+			if ( geocodes.length > 1 ) {
+				spin_end();
+				jQuery( "#options" ).show();
+
+				for ( var i = 0; i < geocodes.length; i++ ) {
+					jQuery( "<a/>" ).text( geocodes[i].formatted_address ).attr( "href", "#" ).addClass( 'option_link' ).attr( 'data-index', i ).appendTo( "#options #links" );
+				}
+				centerMap();
+
+				jQuery( 'html, body' ).animate( {
+					scrollTop:jQuery( "#options" ).offset().top
+				}, 1000 );
+
+			} else {
+				processOption( geocodes[0] );
+			}
+		} );
 		return false;
 
 	} );
@@ -42,28 +62,13 @@ jQuery( document ).ready( function () {
 		};
 
 		geocoder.geocode( request, function ( results, status ) {
-
-			/*
-			 * Possible statuses:
-			 * OK
-			 * ZERO_RESULTS
-			 * OVER_QUERY_LIMIT
-			 * REQUEST_DENIED
-			 * INVALID_REQUEST
-			 */
-
-			console.log( status );
-
 			if ( status == google.maps.GeocoderStatus.OK ) {
-
 				callback( results );
 				return results;
 			}
 
 			if ( status == google.maps.GeocoderStatus.ZERO_RESULTS ) {
-
 				spin_end();
-
 				return status;
 			}
 
@@ -71,28 +76,6 @@ jQuery( document ).ready( function () {
 		} );
 	}
 
-	function processResponse( results, selected_index ) {
-		geocodes = results;
-
-		if ( geocodes.length > 1 ) {
-			spin_end();
-			jQuery( "#options" ).show();
-
-			for ( var i = 0; i < geocodes.length; i++ ) {
-				jQuery( "<a/>" ).text( geocodes[i].formatted_address ).attr( "href", "#" ).addClass( 'option_link' ).attr( 'data-index', i ).appendTo( "#options #links" );
-			}
-			centerMap();
-
-			jQuery( 'html, body' ).animate( {
-				scrollTop:jQuery( "#options" ).offset().top
-			}, 1000 );
-
-		} else {
-
-			processOption( geocodes[0] );
-
-		}
-	}
 
 	function processOption( geocode ) {
 
@@ -134,7 +117,7 @@ jQuery( document ).ready( function () {
 		var myLatlng = new google.maps.LatLng( lat, lng );
 
 		var marker = new google.maps.Marker( {
-			position: myLatlng,
+			position:myLatlng,
 			map:map,
 			title:title
 		} );
@@ -186,6 +169,39 @@ jQuery( document ).ready( function () {
 	function spin_end() {
 		jQuery( "#loading" ).hide();
 	}
+
+	var tribe_geoloc_auto_submit = false;
+	jQuery( 'form#tribe-events-bar-form' ).bind( 'submit', function () {
+
+		var val = jQuery( '#tribe-bar-geoloc' ).val();
+		if ( val !== '' && !tribe_geoloc_auto_submit ) {
+			processGeocoding( val, function ( results, selected_index ) {
+
+				var lat = results[0].geometry.location.lat();
+				var lng = results[0].geometry.location.lng();
+
+				if ( lat )
+					jQuery( '#tribe-bar-geoloc-lat' ).val( lat );
+
+				if ( lng )
+					jQuery( '#tribe-bar-geoloc-lng' ).val( lng );
+
+				tribe_geoloc_auto_submit = true;
+				jQuery( 'form#tribe-events-bar-form' ).submit();
+
+			} );
+			return false;
+		}
+
+		if ( val === '' ) {
+			jQuery( '#tribe-bar-geoloc-lat' ).val( '' );
+			jQuery( '#tribe-bar-geoloc-lng' ).val( '' );
+		}
+
+		return true;
+
+	} );
+
 
 } );
 

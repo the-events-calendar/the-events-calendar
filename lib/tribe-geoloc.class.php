@@ -35,6 +35,8 @@ class TribeEventsGeoLoc {
 
 		add_filter( 'tribe-events-bar-views', array( $this, 'setup_view_for_bar' ) );
 		add_filter( 'tribe-events-bar-filters', array( $this, 'setup_geoloc_filter_in_bar' ), 1, 1 );
+		add_action( 'tribe-events-bar-enqueue-scripts', array( $this, 'scripts' ) );
+		add_filter( 'tribe_events_pre_get_posts', array( $this, 'setup_geoloc_in_query' ) );
 
 	}
 
@@ -49,6 +51,7 @@ class TribeEventsGeoLoc {
 
 		wp_localize_script( 'tribe-geoloc', 'GeoLoc', $data );
 	}
+
 
 	public function setup_view_for_bar( $views ) {
 		$tec     = TribeEvents::instance();
@@ -66,11 +69,47 @@ class TribeEventsGeoLoc {
 			$value = $_POST['tribe-bar-geoloc'];
 		}
 
+		$lat = "";
+		if ( !empty( $_POST['tribe-bar-geoloc-lat'] ) ) {
+			$lat = $_POST['tribe-bar-geoloc-lat'];
+		}
+
+		$lng = "";
+		if ( !empty( $_POST['tribe-bar-geoloc-lng'] ) ) {
+			$lng = $_POST['tribe-bar-geoloc-lng'];
+		}
+
 		$filters[] = array( 'name'    => 'tribe-bar-geoloc',
 		                    'caption' => 'Near this location',
-		                    'html'    => '<input type="text" name="tribe-bar-geoloc" id="tribe-bar-geoloc" value="' . esc_attr( $value ) . '" placeholder="Location">' );
+		                    'html'    => '<input type="hidden" name="tribe-bar-geoloc-lat" id="tribe-bar-geoloc-lat" value="' . esc_attr( $lat ) . '" /><input type="hidden" name="tribe-bar-geoloc-lng" id="tribe-bar-geoloc-lng" value="' . esc_attr( $lng ) . '" /><input type="text" name="tribe-bar-geoloc" id="tribe-bar-geoloc" value="' . esc_attr( $value ) . '" placeholder="Location">' );
 
 		return $filters;
+	}
+
+	public function setup_geoloc_in_query( $query ) {
+
+		if ( !empty( $_POST['tribe-bar-geoloc-lat'] ) && !empty( $_POST['tribe-bar-geoloc-lng'] ) ) {
+
+			$venues = $this->get_venues_in_geofence( $_POST['tribe-bar-geoloc-lat'], $_POST['tribe-bar-geoloc-lng'] );
+
+			if ( !empty( $venues ) ) {
+
+				$meta_query = array( 'key'     => '_EventVenueID',
+				                     'value'   => $venues,
+				                     'type'    => 'NUMERIC',
+				                     'compare' => 'IN' );
+
+				if ( empty( $query->query_vars['meta_query'] ) ) {
+					$query->set( 'meta_query', array( $meta_query ) );
+				} else {
+					$query->query_vars['meta_query'][] = $meta_query;
+				}
+			}
+		}
+
+
+		return $query;
+
 	}
 
 
@@ -173,6 +212,52 @@ class TribeEventsGeoLoc {
 		return apply_filters( 'tribe_geoloc_get_single_option', $option, $default );
 	}
 
+	function get_venues_in_geofence( $lat, $lng, $geofence_radio = null ) {
+
+		if ( !$geofence_radio ) {
+			$geofence_radio = apply_filters( 'tribe_geoloc_standard_geofence', 50 );
+		}
+
+
+		$maxLat = $lat + rad2deg( $geofence_radio / self::EARTH_RADIO );
+		$minLat = $lat - rad2deg( $geofence_radio / self::EARTH_RADIO );
+		$maxLng = $lng + rad2deg( $geofence_radio / self::EARTH_RADIO / cos( deg2rad( $lat ) ) );
+		$minLng = $lng - rad2deg( $geofence_radio / self::EARTH_RADIO / cos( deg2rad( $lat ) ) );
+
+
+		global $wpdb;
+
+		//FTW!
+
+		$sql = "Select distinct venue_id from (
+		SELECT venue_id,
+		       Max(lat) AS lat,
+		       Max(lng) AS lng
+		FROM   (SELECT post_id AS venue_id,
+		               CASE
+		                 WHEN meta_key = '" . self::LAT . "' THEN meta_value
+		               end     AS LAT,
+		               CASE
+		                 WHEN meta_key = '" . self::LNG . "' THEN meta_value
+		               end     AS LNG
+		        FROM   wp_postmeta
+		        WHERE  meta_key = '" . self::LAT . "'
+		            OR meta_key = '" . self::LNG . "') coords
+		WHERE (lat > $minLat OR lat IS NULL) AND (lat < $maxLat OR lat IS NULL) AND (lng > $minLng OR lng IS NULL) AND (lng < $maxLng OR lng IS NULL)
+		GROUP  BY venue_id
+		HAVING lat IS NOT NULL
+		       AND lng IS NOT NULL
+		       ) query";
+
+		$data = $wpdb->get_results( $sql, ARRAY_A );
+
+		if ( empty( $data ) )
+			return null;
+
+		return wp_list_pluck( $data, 'venue_id' );
+
+	}
+
 	function ajax_geosearch() {
 
 		$action = isset( $_POST["action"] ) ? $_POST["action"] : false;
@@ -180,10 +265,6 @@ class TribeEventsGeoLoc {
 		$lng    = isset( $_POST["lng"] ) ? (float)$_POST["lng"] : false;
 		$nonce  = isset( $_POST["nonce"] ) ? $_POST["nonce"] : false;
 
-		//		if ( !wp_verify_nonce( $nonce, 'geosearch' ) ) {
-		//			echo "-1";
-		//			exit;
-		//		}
 		if ( !$action || !$lat || !$lng ) {
 			echo "-1";
 			exit;
@@ -193,7 +274,7 @@ class TribeEventsGeoLoc {
 		//First lets create a bounding box so we don't need to calculate distance to really far points
 
 		$geofence_radio = apply_filters( 'tribe_geoloc_standard_geofence', 50 );
-		; //Geofence. Limit the search to a 50km radius from the given point
+		//Geofence. Limit the search to a 50km radius from the given point
 
 		$maxLat = $lat + rad2deg( $geofence_radio / self::EARTH_RADIO );
 		$minLat = $lat - rad2deg( $geofence_radio / self::EARTH_RADIO );
