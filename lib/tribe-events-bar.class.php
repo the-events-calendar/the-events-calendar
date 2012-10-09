@@ -80,7 +80,7 @@ class TribeEventsBar {
 
 		$tec = TribeEvents::instance();
 
-		$limit = apply_filters( 'tribe-events-bar-views-breakpoint', 4 );
+		$limit = apply_filters( 'tribe-events-bar-views-breakpoint', 3 );
 
 		if ( count( $views ) <= $limit ) {
 			// Standard list navigation for larger screens
