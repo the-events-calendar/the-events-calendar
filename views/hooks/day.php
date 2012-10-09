@@ -20,9 +20,9 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			add_filter( 'tribe_events_day_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 
 			// List pagination
-			add_filter( 'tribe_events_day_before_pagination', array( __CLASS__, 'before_pagination' ), 1, 1 );
-			add_filter( 'tribe_events_day_pagination', array( __CLASS__, 'pagination' ), 1, 1 );
-			add_filter( 'tribe_events_day_after_pagination', array( __CLASS__, 'after_pagination' ), 1, 1 );
+			add_filter( 'tribe_events_day_before_header', array( __CLASS__, 'before_header' ), 1, 1 );
+			add_filter( 'tribe_events_day_the_header', array( __CLASS__, 'the_header' ), 1, 1 );
+			add_filter( 'tribe_events_day_after_header', array( __CLASS__, 'after_header' ), 1, 1 );
 
 			// Start list loop
 			add_filter( 'tribe_events_day_before_loop', array( __CLASS__, 'before_loop' ), 1, 1 );
@@ -60,31 +60,42 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_day_after_loop');
 		}
 
-		// List Pagination
-		public function before_pagination( $post_id ){
-			$html = '';
+		public function before_header( $post_id ){
+			$html = '<div id="tribe-events-calendar-header" class="clearfix">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_day_before_pagination');
 		}
-		public function pagination( $post_id ){
+		public function the_header( $post_id ){
 			global $wp_query;
 			$tribe_ecp = TribeEvents::instance();
-			echo '<pre>';
-			print_r($wp_query->posts);
-			echo '</pre>';
+
+			ob_start();
+			tribe_month_year_dropdowns( "tribe-events-" );
+			$dropdown = ob_get_clean();
+
+			// echo '<pre>';
+			// print_r($wp_query->posts);
+			// echo '</pre>';
 			$current_day = $wp_query->get('start_date');
 			// Display Day Navigation
 			// <-- Previous Day | Month/Day/Year Selector | Next Day -->
-			$html = sprintf('<a href="%s">%s</a> %s <a href="%s">%s</a>',
+			$html = sprintf('<span class="tribe-events-week-nav"><span class="tribe-events-prev-week"><a href="%s">%s</a></span> %s <span class="tribe-events-next-week"><a href="%s">%s</a><img src="%s" class="ajax-loading" id="ajax-loading" alt="" style="display: none" /></span></span>',
 								trailingslashit( get_site_url() ) . trailingslashit( $tribe_ecp->rewriteSlug ) . trailingslashit( Date('Y-m-d', strtotime($current_day . " -1 day") ) ),
 								__( 'Yesterday', 'tribe-events-calendar-pro' ),
-								'| ' . date('F jS', strtotime($current_day)) . ' |',
+								$dropdown,
 								trailingslashit( get_site_url() ) . trailingslashit( $tribe_ecp->rewriteSlug ) . trailingslashit( Date('Y-m-d', strtotime($current_day . " +1 day") ) ),
-								__( 'Tomorrow', 'tribe-events-calendar-pro' )
+								__( 'Tomorrow', 'tribe-events-calendar-pro' ),
+								esc_url( admin_url( 'images/wpspin_light.gif' ) )
 								);
+
+			// View Buttons
+			ob_start();
+			include_once(TribeEventsTemplates::getTemplateHierarchy( 'buttons', 'modules' ));
+			$html .= ob_get_clean();
+
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_day_pagination');
 		}
-		public function after_pagination( $post_id ){
-			$html = '';
+		public function after_header( $post_id ){
+			$html = '</div>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_day_after_pagination');
 		}
 		// End List Template

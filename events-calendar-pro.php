@@ -70,12 +70,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/widget-featured.class.php');
 
 			add_action( 'init', array( $this, 'init' ), 10 );
+			add_filter( 'body_class', array( $this, 'body_class') );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 			add_action( 'tribe_after_location_details', array( $this, 'add_google_map_preview' ) );
 			add_action( 'tribe_tec_template_chooser', array( $this, 'do_ical_template' ) );
 			add_filter( 'tribe_settings_do_tabs', array( $this, 'add_settings_tabs' ) );
 			add_filter( 'generate_rewrite_rules', array( $this, 'add_routes' ) );
+			add_filter('tribe_events_buttons_the_buttons', array($this, 'add_view_buttons'));
 			add_filter( 'tribe_events_pre_get_posts', array( $this, 'pre_get_posts'));
 			add_filter( 'tribe_current_events_page_template', array( $this, 'select_page_template' ) );
 			add_filter( 'tribe_help_tab_getting_started_text', array( $this, 'add_help_tab_getting_started_text' ) );
@@ -416,6 +418,34 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$newRules[$base . '(\d{4}-\d{2}-\d{2})$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(1);
 
 			$wp_rewrite->rules = $newRules + $wp_rewrite->rules;
+		}
+		public function add_view_buttons( $html ){
+			global $wp_query;
+			$day_class = ($wp_query->tribe_is_day) ? 'tribe-events-button-on' : 'tribe-events-button-off';
+			$week_class = ($wp_query->tribe_is_week) ? 'tribe-events-button-on' : 'tribe-events-button-off';
+			$html .= sprintf('<a class="%s" href="%s">%s</a><a class="%s" href="%s">%s</a>',
+				$day_class,
+				tribe_get_day_permalink(),
+				__( 'Day View', 'tribe-events-calendar' ),
+				$week_class,
+				tribe_get_week_permalink(),
+				__( 'Week View', 'tribe-events-calendar' )
+				);
+			return $html;
+		}
+		public function body_class( $classes ){
+			global $wp_query;
+			if( $wp_query->tribe_is_week ) {
+				$classes[] = ' tribe-events-week';
+				// remove the default gridview class from core
+				$classes = array_diff($classes, array('events-gridview'));
+			}
+			if( $wp_query->tribe_is_day ) {
+				$classes[] = ' tribe-events-day';
+				// remove the default gridview class from core
+				$classes = array_diff($classes, array('events-gridview'));
+			}
+			return $classes;
 		}
 
 		public function pre_get_posts( $query ){

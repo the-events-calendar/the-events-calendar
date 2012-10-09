@@ -422,4 +422,23 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$permalink = get_site_url() . '/' . $tec->rewriteSlug . '/' . $tec->weekSlug . '/' . trailingslashit( $week );
 		return apply_filters('tribe_get_next_week_permalink', $permalink);
 	}
+
+	/**
+	 * 
+	 */
+	function tribe_get_day_permalink( $date = null ){
+		$tec = TribeEvents::instance();
+		$date = is_null($date) ? $tec->todaySlug : date('Y-m-d', strtotime( $date ) );
+		$permalink = get_site_url() . '/' . $tec->rewriteSlug . '/' . trailingslashit( $date );
+		return apply_filters('tribe_get_next_week_permalink', $permalink);
+	}
+	/**
+	 * 
+	 */
+	function tribe_get_week_permalink( $week = null ){
+		$tec = TribeEvents::instance();
+		$week = is_null($week) ? '' : date('Y-m-d', strtotime( $week ) );
+		$permalink = get_site_url() . '/' . $tec->rewriteSlug . '/' . trailingslashit( $tec->weekSlug . '/' . $week );
+		return apply_filters('tribe_get_next_week_permalink', $permalink);
+	}
 }

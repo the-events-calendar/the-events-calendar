@@ -62,25 +62,14 @@ if ( !defined('ABSPATH') ) { die('-1'); }
     <!-- This title is here for ajax loading – do not remove if you want ajax switching between month views -->
     <title><?php wp_title(); ?></title>
       	
-	<div id="tribe-events-calendar-header" class="clearfix">
-		
-		<?php 
+	
+	
+	<?php 
 
-		// weekly navigation
-		echo apply_filters( 'tribe_events_week_pagination', '');
+	// weekly header (navigation)
+	echo apply_filters( 'tribe_events_week_the_header', '');
 
-		?>
-		
-
-		<?php // View Buttons ?>
-		<span class="tribe-events-calendar-buttons">
-			<a class="tribe-events-button-off" href="<?php echo tribe_get_listview_link(); ?>"><?php _e( 'Event List', 'tribe-events-calendar' ); ?></a>
-			<a class="tribe-events-button-off" href="<?php echo tribe_get_gridview_link(); ?>"><?php _e( 'Calendar', 'tribe-events-calendar' ); ?></a>
-			<a class="tribe-events-button-off" href=""><?php _e( 'Day View', 'tribe-events-calendar' ); ?></a>
-			<a class="tribe-events-button-on" href=""><?php _e( 'Week View', 'tribe-events-calendar' ); ?></a>
-		</span><!-- .tribe-events-calendar-buttons -->
-			
-	</div><!-- #tribe-events-calendar-header -->
+	?>
 	
 	
 	<?php

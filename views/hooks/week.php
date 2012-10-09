@@ -20,7 +20,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 
 			// List pagination
 			add_filter( 'tribe_events_week_before_pagination', array( __CLASS__, 'before_pagination' ), 1, 1 );
-			add_filter( 'tribe_events_week_pagination', array( __CLASS__, 'pagination' ), 1, 1 );
+			add_filter( 'tribe_events_week_the_header', array( __CLASS__, 'the_header' ), 1, 1 );
 			add_filter( 'tribe_events_week_after_pagination', array( __CLASS__, 'after_pagination' ), 1, 1 );
 
 			// Start list loop
@@ -90,16 +90,15 @@ if( !class_exists('Tribe_Events_Week_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_after_loop');
 		}
 
-		// List Pagination
-		public function before_pagination( $post_id ){
-			$html = '';
+		public function before_header( $post_id ){
+			$html = '<div id="tribe-events-calendar-header" class="clearfix">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_before_pagination');
 		}
-		public function pagination( $post_id ){
+		public function the_header( $post_id ){
 			global $wp_query;
-			echo '<pre>';
-			print_r($wp_query->posts);
-			echo '</pre>';
+			// echo '<pre>';
+			// print_r($wp_query->posts);
+			// echo '</pre>';
 			$current_week = tribe_get_first_week_day( $wp_query->get('start_date') );
 			ob_start();
 			tribe_month_year_dropdowns( "tribe-events-" );
@@ -114,10 +113,16 @@ if( !class_exists('Tribe_Events_Week_Template')){
 								__( 'Next Week', 'tribe-events-calendar-pro' ),
 								esc_url( admin_url( 'images/wpspin_light.gif' ) )
 								);
+
+			// View Buttons
+			ob_start();
+			include_once(TribeEventsTemplates::getTemplateHierarchy( 'buttons', 'modules' ));
+			$html .= ob_get_clean();
+
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_pagination');
 		}
-		public function after_pagination( $post_id ){
-			$html = '';
+		public function after_header( $post_id ){
+			$html = '</div>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_after_pagination');
 		}
 		// End List Template
