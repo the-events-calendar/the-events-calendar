@@ -420,6 +420,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		public function pre_get_posts( $query ){
 			$pro_query = false;
+			$query->tribe_is_week = false;
+			$query->tribe_is_day = false;
 			if(!empty( $query->query_vars['eventDisplay'] )) {
 				$pro_query = true;
 				switch( $query->query_vars['eventDisplay']){
@@ -431,6 +433,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$query->set( 'orderby', 'event_date' );
 						$query->set( 'order', 'ASC' );
 						$query->set( 'posts_per_page', -1 ); // show ALL week posts
+						$query->tribe_is_week = true;
 						break;
 					case 'day':
 						$event_date = $query->get('eventDate') != '' ? $query->get('eventDate') : Date('Y-m-d');
@@ -439,6 +442,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$query->set( 'eventDate', $event_date );
 						$query->set( 'orderby', 'event_date' );
 						$query->set( 'order', 'ASC' );
+						$query->tribe_is_day = true;
 						break;
 				}
 			}

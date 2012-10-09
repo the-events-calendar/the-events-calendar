@@ -101,13 +101,18 @@ if( !class_exists('Tribe_Events_Week_Template')){
 			print_r($wp_query->posts);
 			echo '</pre>';
 			$current_week = tribe_get_first_week_day( $wp_query->get('start_date') );
+			ob_start();
+			tribe_month_year_dropdowns( "tribe-events-" );
+			$dropdown = ob_get_clean();
+			
 			// Display Week Navigation
-			$html = sprintf('<a href="%s">%s</a> %s <a href="%s">%s</a>',
+			$html = sprintf('<span class="tribe-events-week-nav"><span class="tribe-events-prev-week"><a href="%s">%s</a></span> %s <span class="tribe-events-next-week"><a href="%s">%s</a><img src="%s" class="ajax-loading" id="ajax-loading" alt="" style="display: none" /></span></span>',
 								tribe_get_last_week_permalink( $current_week ),
 								__( 'Previous Week', 'tribe-events-calendar-pro' ),
-								'| ' . date('F jS', strtotime($current_week)) . ' - ' . date('jS', strtotime(tribe_get_last_week_day($current_week))) . ' |',
+								$dropdown,
 								tribe_get_next_week_permalink( $current_week ),
-								__( 'Next Week', 'tribe-events-calendar-pro' )
+								__( 'Next Week', 'tribe-events-calendar-pro' ),
+								esc_url( admin_url( 'images/wpspin_light.gif' ) )
 								);
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_pagination');
 		}

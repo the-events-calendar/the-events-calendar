@@ -64,21 +64,13 @@ if ( !defined('ABSPATH') ) { die('-1'); }
       	
 	<div id="tribe-events-calendar-header" class="clearfix">
 		
-		<?php // Month & Year Nav ?>
-		<span class="tribe-events-month-nav">
-		
-			<span class="tribe-events-prev-month">
-				<a href="<?php echo tribe_get_previous_month_link(); ?>"> &#x2190; <?php echo tribe_get_previous_month_text(); ?> </a>
-			</span><!-- .tribe-events-prev-month -->
+		<?php 
 
-			<?php tribe_month_year_dropdowns( "tribe-events-" ); ?>
-	
-			<span class="tribe-events-next-month">
-				<a href="<?php echo tribe_get_next_month_link(); ?>"> <?php echo tribe_get_next_month_text(); ?> &#x2192; </a>
-               	<img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" class="ajax-loading" id="ajax-loading" alt="" style="display: none" />
-			</span><!-- .tribe-events-next-month -->
+		// weekly navigation
+		echo apply_filters( 'tribe_events_week_pagination', '');
+
+		?>
 		
-		</span><!-- .tribe-events-month-nav -->
 
 		<?php // View Buttons ?>
 		<span class="tribe-events-calendar-buttons">
