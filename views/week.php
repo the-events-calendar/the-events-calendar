@@ -59,10 +59,5 @@ echo apply_filters( 'tribe_events_week_before_template', '');
 	echo apply_filters( 'tribe_events_week_the_header', '');
 
 	echo apply_filters('tribe_events_week_the_grid', '');
-	
-	// iCal Import
-    if( function_exists( 'tribe_get_ical_link' ) ): ?>
-       	<a class="tribe-events-ical" title="<?php esc_attr_e( 'iCal Import', 'tribe-events-calendar' ); ?>" href="<?php echo tribe_get_ical_link(); ?>"><?php _e( 'iCal Import', 'tribe-events-calendar' ); ?></a>
-    <?php endif;
 
 echo apply_filters('tribe_events_week_after_template', '');

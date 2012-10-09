@@ -61,16 +61,18 @@ if( !class_exists('Tribe_Events_Week_Template')){
 			global $wp_query;
 			$tribe_ecp = TribeEvents::instance();
 			$start_of_week = tribe_get_first_week_day( $wp_query->get('start_date'));
+			$week_length = 7; // days of the week
+			$today = Date('Y-m-d',strtotime('today'));
 
 			ob_start();
 ?>
 	<table cellspacing="0" cellpadding="0" class="tribe-events-grid">
 		<thead>
 			<tr>
-				<th scope="col" class="tribe-grid-first"><span>Hours</span></th>
+				<th scope="col" class="tribe-grid-first"><span><?php _e('Hours', 'tribe-events-calendar-pro'); ?></span></th>
 				<?php
-					for( $n = 0; $n < 7; $n++ ) {
-						$header_class = (Date('Y-m-d',strtotime($start_of_week . " +$n days")) == Date('Y-m-d',strtotime('today'))) ? 'tribe-grid-today' : '';
+					for( $n = 0; $n < $week_length; $n++ ) {
+						$header_class = (Date('Y-m-d',strtotime($start_of_week . " +$n days")) == $today) ? 'tribe-week-today' : '';
 						printf('<th title="%s" scope="col" class="%s"><a href="%s" rel="bookmark">%s</a></th>',
 							Date('Y-m-d', strtotime($start_of_week . " +$n days")),
 							$header_class,
@@ -82,22 +84,21 @@ if( !class_exists('Tribe_Events_Week_Template')){
 			</tr>
 		</thead>
 		<tbody>
-		
 			<?php // our dummy row for all day events ?>
 			<tr class="tribe-week-dummy-row" style="height: 72px;">
-				<td></td>
-				<td class="tribe-week-today"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<?php 
+
+				for( $n = 0; $n < $week_length; $n++ ) {
+					$header_class = (Date('Y-m-d',strtotime($start_of_week . " +$n days")) == $today) ? 'tribe-week-today' : '';
+					printf( '<td class="%s"></td>', $header_class );
+				}
+
+				?>
 			</tr><!-- .tribe-week-dummy-row -->
 		
 			<?php // our all day events row ?>
 			<tr class="tribe-week-allday-row">
-				<td class="tribe-week-allday-th"><div style="margin-top: -72px;">All Day</div></td>
+				<td class="tribe-week-allday-th"><div style="margin-top: -72px;"><?php _e('All Day', 'tribe-events-calendar-pro'); ?></div></td>
 				<td colspan="7">
 					<div style="margin-top: -72px;">
 						<table cellpadding="0" cellspacing="0">
@@ -235,11 +236,6 @@ if( !class_exists('Tribe_Events_Week_Template')){
 								esc_url( admin_url( 'images/wpspin_light.gif' ) )
 								);
 
-			// View Buttons
-			ob_start();
-			include_once(TribeEventsTemplates::getTemplateHierarchy( 'buttons', 'modules' ));
-			$html .= ob_get_clean();
-
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_pagination');
 		}
 		public function after_header( $post_id ){
@@ -248,7 +244,17 @@ if( !class_exists('Tribe_Events_Week_Template')){
 		}
 		// End List Template
 		public function after_template( $post_id ){
-			$html = '</div><!-- #tribe-events-content -->';
+			$html = '';
+
+			// iCal import button
+			if( function_exists( 'tribe_get_ical_link' ) ){
+				$html .= sprintf('<a class="tribe-events-ical" title="%s" href="%s">%s</a>',
+					esc_attr( 'iCal Import', 'tribe-events-calendar' ),
+					tribe_get_ical_link(),
+					__( 'iCal Import', 'tribe-events-calendar' )
+					);
+			}
+			$html .= '</div><!-- #tribe-events-content -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_after_template');		
 		}
 	}
