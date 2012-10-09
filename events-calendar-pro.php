@@ -96,6 +96,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_promo_banner', array( $this, 'tribePromoBannerPro' ) );
 			add_filter( 'tribe_help_tab_forums_url', array( $this, 'helpTabForumsLink' ) );
 			add_action( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'addLinksToPluginActions' ) );
+
+			/* Setup Tribe Events Bar */
+			add_filter( 'tribe-events-bar-views', array( $this, 'setup_weekview_in_bar' ), 1, 1 );
+			add_filter( 'tribe-events-bar-views', array( $this, 'setup_dayview_in_bar' ), 5, 1 );
+
 		}
 
 		public function init() {
@@ -732,6 +737,21 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				$links [] = '<a href="' . self::$updateUrl . 'shop/?ref=ecp-plugin">' . $anchor . '</a>';
 			}
 			return $links;
+		}
+
+
+		public function setup_weekview_in_bar( $views ) {
+			$views[] = array( 'displaying' => 'week',
+			                  'anchor'     => __( 'Week View', 'tribe-events-calendar-pro' ),
+			                  'url'        => tribe_get_week_permalink() );
+			return $views;
+		}
+
+		public function setup_dayview_in_bar( $views ) {
+			$views[] = array( 'displaying' => 'day',
+			                  'anchor'     => __( 'Today', 'tribe-events-calendar-pro' ),
+			                  'url'        => tribe_get_day_permalink() );
+			return $views;
 		}
 
 
