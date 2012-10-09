@@ -208,7 +208,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 
 			// iCal import button
 			if( function_exists( 'tribe_get_ical_link' ) ){
-				$html .= sprintf('<a class="tribe-events-ical" title="%s" href="%s">%s</a>',
+				$html .= sprintf('<a class="tribe-events-ical tribe-events-button-grey" title="%s" href="%s">%s</a>',
 					esc_attr( 'iCal Import', 'tribe-events-calendar' ),
 					tribe_get_ical_link(),
 					__( 'iCal Import', 'tribe-events-calendar' )
