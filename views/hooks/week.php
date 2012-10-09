@@ -58,6 +58,15 @@ if( !class_exists('Tribe_Events_Week_Template')){
 		}
 
 		public function the_grid() {
+
+		// Tooltips (see how implemented in calendar.php, /hooks/calendar.php, public/template-tags/calendar.php)
+		// jQuery bits for placing event height/top & all day centering (basically all styles that are hardcoded
+		// in this view need to be done by jQuery)
+		// Think about classes/design for recurring events like in prev/next week, etc, highlight today, etc
+		// Thinking the "th" bookmarks could link to their dayview counterparts
+
+
+
 			global $wp_query;
 			$tribe_ecp = TribeEvents::instance();
 			$start_of_week = tribe_get_first_week_day( $wp_query->get('start_date'));
@@ -98,7 +107,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 		
 			<?php // our all day events row ?>
 			<tr class="tribe-week-allday-row">
-				<td class="tribe-week-allday-th"><div style="margin-top: -72px;"><?php _e('All Day', 'tribe-events-calendar-pro'); ?></div></td>
+				<td class="tribe-week-allday-th"><div style="margin-top: -72px;">All Day</div></td>
 				<td colspan="7">
 					<div style="margin-top: -72px;">
 						<table cellpadding="0" cellspacing="0">
@@ -197,7 +206,8 @@ if( !class_exists('Tribe_Events_Week_Template')){
 		</tbody>
 		
 	</table><!-- .tribe-events-grid -->
-<?php
+		
+    <?php 
 			$html = ob_get_clean();
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_the_grid');
 		}
@@ -225,14 +235,15 @@ if( !class_exists('Tribe_Events_Week_Template')){
 			ob_start();
 			tribe_month_year_dropdowns( "tribe-events-" );
 			$dropdown = ob_get_clean();
-			
+
 			// Display Week Navigation
-			$html = sprintf('<span class="tribe-events-week-nav"><span class="tribe-events-prev-week"><a href="%s">%s</a></span> %s <span class="tribe-events-next-week"><a href="%s">%s</a><img src="%s" class="ajax-loading" id="ajax-loading" alt="" style="display: none" /></span></span>',
+			$html = sprintf('<div id="tribe-events-header"><h3 class="tribe-events-visuallyhidden">%s</h3><ul class="tribe-events-sub-nav"><li class="tribe-events-nav-prev"><a href="%s" rel="pref">%s</a></li><li>%s</li><li class="tribe-events-nav-next"><a href="%s" rel="next">%s</a><img src="%s" class="ajax-loading" id="ajax-loading" alt="Loading events" /></li></ul></div>',
+								__( 'Calendar Month Navigation', 'tribe-events-calendar' ),
 								tribe_get_last_week_permalink( $current_week ),
-								__( 'Previous Week', 'tribe-events-calendar-pro' ),
+								'&#x2190;' . tribe_get_previous_month_text(),
 								$dropdown,
 								tribe_get_next_week_permalink( $current_week ),
-								__( 'Next Week', 'tribe-events-calendar-pro' ),
+								tribe_get_next_month_text()  . '&#x2192;',
 								esc_url( admin_url( 'images/wpspin_light.gif' ) )
 								);
 
