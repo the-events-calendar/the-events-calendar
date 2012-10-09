@@ -96,7 +96,10 @@ if( !class_exists('Tribe_Events_Week_Template')){
 			<?php // our dummy row for all day events ?>
 			<tr class="tribe-week-dummy-row" style="height: 72px;">
 				<?php 
-
+				
+				// For our hours
+				echo '<td></td>';
+				
 				for( $n = 0; $n < $week_length; $n++ ) {
 					$header_class = (Date('Y-m-d',strtotime($start_of_week . " +$n days")) == $today) ? 'tribe-week-today' : '';
 					printf( '<td class="%s"></td>', $header_class );
@@ -238,7 +241,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 
 			// Display Week Navigation
 			$html = sprintf('<div id="tribe-events-header"><h3 class="tribe-events-visuallyhidden">%s</h3><ul class="tribe-events-sub-nav"><li class="tribe-events-nav-prev"><a href="%s" rel="pref">%s</a></li><li>%s</li><li class="tribe-events-nav-next"><a href="%s" rel="next">%s</a><img src="%s" class="ajax-loading" id="ajax-loading" alt="Loading events" /></li></ul></div>',
-								__( 'Calendar Month Navigation', 'tribe-events-calendar' ),
+								__( 'Week Navigation', 'tribe-events-calendar' ),
 								tribe_get_last_week_permalink( $current_week ),
 								'&#x2190;' . tribe_get_previous_month_text(),
 								$dropdown,

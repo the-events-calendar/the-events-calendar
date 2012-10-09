@@ -40,67 +40,85 @@
 }
 
 
-/* = Day Grid & Week Grid Template Styles
-   @ Template: day.php & week.php
+/* = Day Grid Template Styles
+   @ Template: day.php
 =============================================*/
-
-/* can remove b/c of default body classes, but see how integrates
-
-some of this shit below can be removed as was using for WP page templates
-the ".page-id-#" needs to be updated to the correct body class for these two views
-
-below styles for these two views will need to be added to the /styles/ stylesheets once finalized
-	
- */
-.tribe-events-grid {
-	font-family: "Helvetica Neue",Arial,Helvetica,"Nimbus Sans L",sans-serif;
+.tribe-events-day-time-slot {
+	margin-bottom: 3em;
+}
+.tribe-events-day-grid h3 {
+	text-transform: capitalize;
+	text-align: left;
+	font-size: 21px;
+	font-weight: 500;
+	margin: 18px 0 0;
+}
+.tribe-events-loop-day h5 {
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 12px;
+	margin: 1em 0 1.25em;
+	letter-spacing: 0.1em;
+}
+.tribe-events-loop-day .hentry.vevent {
+	background-color: #ddd;
+	padding: 18px;
+	margin: 8px 0;
+	overflow: auto;
+	position: relative;
+}
+.tribe-events-loop-day h4.summary {
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 1em;
+	padding: 0 125px 0 0;
+	margin-bottom: 8px;
+}
+.tribe-events-loop-day h4.summary a {
+	color: #333;
+}
+.tribe-events-loop-day p.published {
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 1em;
+	position: absolute;
+	top: 18px;
+	right: 18px;
+}
+.tribe-events-loop-day .entry-content.description {
+	margin-top: 4px;
+	width: auto;
+	padding: 0;
+}
+.tribe-events-loop-day .tribe-events-day-meta {
+	list-style-type: none;
+	margin: 2px 0 0;
+	line-height: 1.25;
+}
+.tribe-events-loop-day .tribe-events-day-meta li {
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
+	font-size: 12px;
 }
 
-.tribe-events-day.page .entry-content, 
-.tribe-events-day.page .entry-header, 
-.tribe-events-week.page .entry-content,
-.tribe-events-week.page .entry-header { width: 98%; }
-.tribe-events-day.page .tribe-events-event-entry,
-.tribe-events-week.page .tribe-events-event-entry { width: 60%; }
-.tribe-events-day.page .hentry,
-.tribe-events-week.page .hentry {
-	margin: 0;
-	padding: 0 0 15px 0;
-}
-.tribe-events-day .tribe-events-event-entry p,
-.tribe-events-week .tribe-events-event-entry p {
-	margin: 0;
-	font-size: 16px;
-	line-height: 24px;
-}
-.tribe-events-day-grid #tribe-events-calendar-header,
-.tribe-events-week-grid #tribe-events-calendar-header {
-	height: 50px;
-}
 
-
-table.tribe-events-grid {
+/* = Week Grid Template Styles
+   @ Template: week.php
+=============================================*/
+.tribe-events-week table.tribe-events-grid {
 	margin: 18px 0 12px !important;
 	clear: both;
 	font-size: 12px;
 	border-collapse: collapse;
-}
-
-.tribe-events-week table.tribe-events-grid {
 	border: 1px solid #bbb;
 }
 .tribe-events-week .tribe-events-grid td {
 	border: 1px solid #bbb;
 	border-top: 0;
 	border-bottom: 0;
+	padding: 0;
 }
-
-.tribe-events-grid th {
-	color: #333;
-	padding: 4px 0;
-	letter-spacing: 1px;
-}
-
 .tribe-events-week .tribe-events-grid th {
 	/*width: 250px;*/
 	width: auto;
@@ -112,88 +130,6 @@ table.tribe-events-grid {
 .tribe-events-week .tribe-events-grid th a {
 	color: #333;
 }
-
-
-
-
-
-
-/* = Day Grid Template Styles
-   @ Template: day.php
-=============================================*/
-
-.tribe-events-day table.tribe-events-grid {
-	border: 0;
-}
-.tribe-events-day .tribe-events-grid th {
-	text-transform: capitalize;
-	text-align: left;
-	font-size: 21px;
-}
-
-
-/* the rest */
-.tribe-events-day .tribe-events-grid td {
-	border: 0;
-}
-.tribe-events-grid tbody p {
-	margin-bottom: 0;
-}
-.tribe-events-grid h3 {
-	text-transform: uppercase;
-	font-weight: bold;
-	font-size: 12px;
-	margin-top: 2%;
-}
-.tribe-events-day .tribe-events-grid .hentry.vevent {
-	background-color: #ddd;
-	padding: 18px;
-	margin: 8px 0;
-	overflow: auto;
-	position: relative;
-}
-.tribe-events-grid h4.summary {
-	font-size: 18px;
-	font-weight: bold;
-	line-height: 1em;
-	padding: 0 125px 0 0;
-	margin-bottom: 8px;
-}
-.tribe-events-grid h4.summary a {
-	color: #333;
-}
-.tribe-events-grid p.published {
-	font-size: 18px;
-	font-weight: bold;
-	line-height: 1em;
-	position: absolute;
-	top: 18px;
-	right: 18px;
-}
-.tribe-events-grid .entry-content.description {
-	margin-top: 4px;
-	width: auto;
-	padding: 0;
-}
-.tribe-events-grid .tribe-events-grid-meta {
-	list-style-type: none;
-	margin: 4px 0 0;
-}
-.tribe-events-grid .tribe-events-grid-meta li {
-	display: inline-block;
-	zoom: 1;
-	*display: inline;
-}
-
-
-/* = Week Grid Template Styles
-   @ Template: week.php
-=============================================*/
-
-.tribe-events-week-grid .tribe-events-grid td {
-	padding: 0;
-}
-
 .tribe-events-grid .first {
     clip: rect(0 0 0 0);
     height: 1px;
@@ -209,7 +145,6 @@ table.tribe-events-grid {
 	table-layout: fixed;
 	width: 100%:
 }
-
 .tribe-events-week thead .tribe-grid-first {
 	width: 60px;
 }
@@ -228,7 +163,6 @@ table.tribe-events-grid {
 	width: 100%;
 	border: 0;
 }
-
 .tribe-events-week-grid .tribe-week-allday-row table td { 
 	padding: 20px 0;
 	border: 0;
@@ -323,7 +257,6 @@ table.tribe-events-grid {
 .tribe-event-same-time {
  	z-index: 500;
 }
-
 /* Specific Classes */
 .tribe-week-today {
 	background-color: #f9f9f9;

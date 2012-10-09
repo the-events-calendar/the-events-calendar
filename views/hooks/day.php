@@ -52,13 +52,10 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			global $wp_query;
 			ob_start();
 ?>
-	<table cellspacing="0" cellpadding="0" class="tribe-events-grid">
-		<thead>
-			<tr>
-				<th scope="column"><?php echo Date("l, F jS Y", strtotime($wp_query->get('start_date'))); ?></th>
-			</tr>
-		</thead>
-		<tbody class="hfeed">
+	
+		<h3><?php echo Date("l, F jS Y", strtotime($wp_query->get('start_date'))); ?></h3>
+		
+		<div class="tribe-events-loop-day hfeed">
 <?php
 			$html = ob_get_clean();
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_day_before_loop');
@@ -71,16 +68,91 @@ if( !class_exists('Tribe_Events_Day_Template')){
 		public function the_event( $post_id ){
 			ob_start(); 
 ?>
-	<div class="hentry vevent">
-		<h4 class="entry-title summary"><a href="<?php echo get_the_permalink( $post_id ); ?>" class="url" rel="bookmark">Intro to Spinning</a></h4>
-		<p class="updated published"><abbr class="tribe-events-abbr dtstart" title="2010-09-13">All Day</abbr></p>
-		<p class="location"><a href="" rel="bookmark">Room Name</a></p>
-		<p class="entry-content description">I saw for the first time the earth's shape. I could easily see the shores of continents, islands, great rivers, folds of the terrain, large bodies of water.</p>
-		<ul class="tribe-events-grid-meta">
-			<li><a href="" rel="tag">Category A</a>,</li>
-			<li><a href="" rel="tag">Category B</a></li>
-		</ul>
-	</div><!-- .hentry .vevent -->
+		<div class="tribe-events-day-time-slot">
+		
+				<h5>All Day</h5>
+				
+				<div class="hentry vevent">
+					<h4 class="entry-title summary"><a href="#" class="url" rel="bookmark">Intro to Spinning</a></h4>
+					<p class="updated published"><abbr class="tribe-events-abbr dtstart" title="2010-09-13">All Day</abbr></p>
+					<p class="location"><a href="" rel="bookmark">Room Name</a></p>
+					<p class="entry-content description">I saw for the first time the earth's shape. I could easily see the shores of continents, islands, great rivers, folds of the terrain, large bodies of water.</p>
+					<ul class="tribe-events-day-meta">
+						<li><a href="" rel="tag">Category A</a>,</li>
+						<li><a href="" rel="tag">Category B</a></li>
+					</ul>
+				</div><!-- .hentry .vevent -->
+				
+		</div><!-- .tribe-events-day-time-slot -->
+		
+		<div class="tribe-events-day-time-slot">	
+			
+				<h5>7:00 AM</h5>
+				
+				<div class="hentry vevent">
+					<h4 class="entry-title summary"><a href="#" class="url" rel="bookmark">Intro to Spinning</a></h4>
+					<p class="updated published">
+						<abbr class="tribe-events-abbr dtstart" title="2010-09-13">7am</abbr>
+						-
+						<abbr class="tribe-events-abbr dtend" title="2010-09-13">9am</abbr>
+					</p>
+					<p class="location"><a href="" rel="bookmark">Room Name</a></p>
+					<p class="entry-content description">I saw for the first time the earth's shape. I could easily see the shores of continents, islands, great rivers, folds of the terrain, large bodies of water.</p>
+					<ul class="tribe-events-day-meta">
+						<li><a href="" rel="tag">Category A</a>,</li>
+						<li><a href="" rel="tag">Category B</a></li>
+					</ul>
+				</div><!-- .hentry .vevent -->
+				
+				<div class="hentry vevent">
+					<h4 class="entry-title summary"><a href="#" class="url" rel="bookmark">Intro to Spinning</a></h4>
+					<p class="updated published">
+						<abbr class="tribe-events-abbr dtstart" title="2010-09-13">7am</abbr>
+						-
+						<abbr class="tribe-events-abbr dtend" title="2010-09-13">12pm</abbr>
+					</p>
+					<p class="location"><a href="" rel="bookmark">Room Name With a Really Really Really Long Room Name For Testing</a></p>
+					<p class="entry-content description">I saw for the first time the earth's shape. I could easily see the shores of continents, islands, great rivers, folds of the terrain, large bodies of water.</p>
+					<ul class="tribe-events-day-meta">
+						<li><a href="" rel="tag">Category A</a>,</li>
+						<li><a href="" rel="tag">Category B</a></li>
+					</ul>
+				</div><!-- .hentry .vevent -->
+				
+		</div><!-- .tribe-events-day-time-slot -->
+		
+		<div class="tribe-events-day-time-slot">
+		
+				<h5>11:00 AM</h5>
+				
+				<div class="hentry vevent">
+					<h4 class="entry-title summary"><a href="#" class="url" rel="bookmark">Intro to Spinnin and an example of a really really really long title to demonstrate what this looks like</a></h4>
+					<p class="updated published">
+						<abbr class="tribe-events-abbr dtstart" title="2010-09-13">11am</abbr>
+						-
+						<abbr class="tribe-events-abbr dtend" title="2010-09-13">12pm</abbr>
+					</p>
+					<p class="location"><a href="" rel="bookmark">Room Name</a></p>
+					<p class="entry-content description">I saw for the first time the earth's shape. I could easily see the shores of continents, islands, great rivers, folds of the terrain, large bodies of water.</p>
+					<ul class="tribe-events-day-meta">
+						<li><a href="" rel="tag">Category A</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a>,</li>
+						<li><a href="" rel="tag">Category B</a></li>
+					</ul>
+				</div><!-- .hentry .vevent -->
+				
+		</div><!-- .tribe-events-day-time-slot -->
+				
 <?php
 			$html = ob_get_clean();
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_day_the_event');
@@ -92,12 +164,12 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_day_inside_after_loop');
 		}
 		public function after_loop( $post_id ){
-			$html = '</tbody><!-- .hfeed --></table><!-- .tribe-events-grid -->';
+			$html = '</div><!-- .tribe-events-loop-day -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_day_after_loop');
 		}
 
 		public function before_header( $post_id ){
-			$html = '<div id="tribe-events-calendar-header" class="clearfix">';
+			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_day_before_pagination');
 		}
 		public function the_header( $post_id ){
@@ -114,7 +186,8 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			$current_day = $wp_query->get('start_date');
 			// Display Day Navigation
 			// <-- Previous Day | Month/Day/Year Selector | Next Day -->
-			$html = sprintf('<span class="tribe-events-week-nav"><span class="tribe-events-prev-week"><a href="%s">%s</a></span> %s <span class="tribe-events-next-week"><a href="%s">%s</a><img src="%s" class="ajax-loading" id="ajax-loading" alt="" style="display: none" /></span></span>',
+			$html = sprintf('<div id="tribe-events-header"><h3 class="tribe-events-visuallyhidden">%s</h3><ul class="tribe-events-sub-nav"><li class="tribe-events-nav-prev"><a href="%s" rel="pref">%s</a></li><li>%s</li><li class="tribe-events-nav-next"><a href="%s" rel="next">%s</a><img src="%s" class="ajax-loading" id="ajax-loading" alt="Loading events" /></li></ul></div>',
+								__( 'Day Navigation', 'tribe-events-calendar' ),
 								trailingslashit( get_site_url() ) . trailingslashit( $tribe_ecp->rewriteSlug ) . trailingslashit( Date('Y-m-d', strtotime($current_day . " -1 day") ) ),
 								__( 'Yesterday', 'tribe-events-calendar-pro' ),
 								$dropdown,
@@ -126,7 +199,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_day_pagination');
 		}
 		public function after_header( $post_id ){
-			$html = '</div>';
+			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_day_after_pagination');
 		}
 		// End List Template
