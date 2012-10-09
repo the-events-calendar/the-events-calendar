@@ -223,7 +223,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 		}
 
 		public function before_header( $post_id ){
-			$html = '<div id="tribe-events-calendar-header" class="clearfix">';
+			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_before_pagination');
 		}
 		public function the_header( $post_id ){
@@ -250,7 +250,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_pagination');
 		}
 		public function after_header( $post_id ){
-			$html = '</div>';
+			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_after_pagination');
 		}
 		// End List Template

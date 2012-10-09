@@ -74,10 +74,10 @@ echo apply_filters('tribe_events_day_before_template', '');
 
 	?>
 	
-	<div id="tribe-events-header">';
+	<div id="tribe-events-header">
 		<h3 class="tribe-events-visuallyhidden"><?php _e( 'Calendar Month Navigation', 'tribe-events-calendar' ); ?></h3>
 		<ul class="tribe-events-sub-nav">
-			<li class="tribe-events-nav-prev">'
+			<li class="tribe-events-nav-prev">
 				<a href="<?php tribe_get_previous_month_link(); ?>" rel="pref">&#x2190; <?php tribe_get_previous_month_text(); ?></a>
 			</li><!-- .tribe-events-prev-next -->
 			<li><?php tribe_month_year_dropdowns( "tribe-events-" ); ?></li>
