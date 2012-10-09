@@ -3,7 +3,9 @@ geocoder = new google.maps.Geocoder();
 bounds = new google.maps.LatLngBounds();
 
 jQuery( document ).ready( function ($) {
-
+	
+        $( '#tribe-geo-location' ).placeholder();
+	
 	var options = {
 		zoom:5,
 		center:new google.maps.LatLng( 36.77, -119.41 ),
@@ -34,7 +36,7 @@ jQuery( document ).ready( function ($) {
 				$( "#tribe-geo-options" ).show();
 
 				for ( var i = 0; i < geocodes.length; i++ ) {
-					$( "<a/>" ).text( geocodes[i].formatted_address ).attr( "href", "#" ).addClass( 'option_link' ).attr( 'data-index', i ).appendTo( "#tribe-geo-options #tribe-geo-links" );
+					$( "<a/>" ).text( geocodes[i].formatted_address ).attr( "href", "#" ).addClass( 'tribe-geo-option-link' ).attr( 'data-index', i ).appendTo( "#tribe-geo-options #tribe-geo-links" );
 				}
 				centerMap();
 
@@ -50,8 +52,11 @@ jQuery( document ).ready( function ($) {
 
 	} );
 
-	$( "#tribe-geo-options" ).on( 'click', 'a', function () {
+	$( "#tribe-geo-options" ).on( 'click', 'a', function (e) {
 		spin_start();
+		e.preventDefault();
+		$( "#tribe-geo-options a" ).removeClass( 'tribe-option-loaded' );
+		$( this ).addClass( 'tribe-option-loaded' );
 		processOption( geocodes[$( this ).attr( 'data-index' )] );
 	} );
 

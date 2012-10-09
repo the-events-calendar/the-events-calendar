@@ -69,50 +69,110 @@ div.tribe-countdown-text {
 }
 
 #tribe-geo-data {
-	background-color: #EEEEEE;
-	border: 1px solid #BBBBBB;
+	background-color: #eee;
+	border: 1px solid #bbb;
 	margin-bottom: 10px;
 	padding: 4px;
 	width: auto;
 }
 
 #tribe-geo-data input[type="text"] {
+	display:inline-block;
+	vertical-align:middle;
 	width : 300px;
 	height:24px;
 	padding:3px;
+}
+
+#tribe-geo-data input[type="button"] {
+	display:inline-block;
+	vertical-align:middle;
+	margin-left:5px;
 }
 
 #tribe-geo-location {
 	width : 400px;
 }
 
-#tribe-geo-map {
-	width  : 100%;
-	height : 300px;
-
+#tribe-geo-map-wrapper {
+	position:relative;
+	z-index:2;
+	margin-bottom: 10px;
 }
 
-#tribe-geo-map label { width: auto; display:inline; }
-#tribe-geo-map img { max-width: none; }
-
 #tribe-geo-loading {
-	display           : none;
-	position          : absolute;
-	width             : 600px;
-	height            : 310px;
-	left              : 50%;
-	margin-left       : -300px;
-	background        : rgba(0, 0, 0, 0.6);
-	border-radius     : 10px;
+	display:none;
+	position:absolute;
+	width:100%;
+	height:100%;
+	left:0;
+	top:0;
+	background:#fff;
+	background:rgba(255, 255, 255, 0.8);	
+	z-index:4;
+	webkit-transition: all 1s linear;
+	-moz-transition: all 1s linear;
+	-o-transition: all 1s linear;
+	-ms-transition: all 1s linear;
+	transition: all 1s linear;
+}
 
-	z-index           : 99;
+#tribe-geo-loading span {
+	position:absolute;
+	width:32px;
+	height:32px;
+	left:50%;
+	top:50%;
+	margin:-16px 0 0 -16px;
+	background:url(images/tribe-loading.gif) 0 0 no-repeat;
+}
 
-	webkit-transition : all 1s linear;
-	-moz-transition   : all 1s linear;
-	-o-transition     : all 1s linear;
-	-ms-transition    : all 1s linear;
-	transition        : all 1s linear;
+#tribe-geo-map {
+	width:100%;
+	height:400px;
+        position:relative;
+	z-index:3;
+}
 
+#tribe-geo-map label { 
+	width: auto; 
+	display:inline; 
+}
+#tribe-geo-map img { 
+	max-width: none; 
+}
+
+#tribe-geo-links {
+	border-top: 1px solid #eee;
+	border-right: 1px solid #eee;
+	border-left: 1px solid #eee;
+}
+
+.tribe-geo-option-link {
+	display:block;
+	text-decoration:none;
+	color:#444;
+	border-bottom: 1px solid #eee;
+	padding:3px 6px;
+	-webkit-transition: 0.1s ease-in-out; 
+	-moz-transition: 0.1s ease-in-out; 
+	-o-transition: 0.1s ease-in-out; 
+	transition: 0.1s ease-in-out
+}
+
+.tribe-geo-option-link:hover {
+	background: #f5f5f5;
+}
+
+.tribe-geo-option-link:hover, 
+.tribe-geo-option-link:focus {
+	text-decoration:none;
+	
+}
+
+.tribe-option-loaded {
+	background: #666;
+	color:#fff;
 }
 
 #ajax-loading-mini {

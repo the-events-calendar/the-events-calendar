@@ -7,8 +7,10 @@
 		<input type="button" id="tribe-geo-search" name="search" class="tribe-events-button-grey tribe-active" value="<?php _e( 'Search', 'tribe-events-calendar-pro' ); ?>"/>
 
 	</div>
-
-	<div id="tribe-geo-map"></div>
+        <div id="tribe-geo-map-wrapper">
+		<div id="tribe-geo-loading"><span></span></div>
+		<div id="tribe-geo-map"></div>
+	</div>	
 
 	<div id="tribe-geo-options">
 		<h2><?php _e( 'Refine your search:', 'tribe-events-calendar-pro' );?></h2>
