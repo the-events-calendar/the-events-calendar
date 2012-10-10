@@ -1,5 +1,5 @@
 /* Don't forget: this is being loaded on every page. */
-@import url(smoothness/jquery-ui-1.8.23.custom.css);
+/*@import url(smoothness/jquery-ui-1.8.23.custom.css);*/
 
 #ui-datepicker-div {
 	display:none;
@@ -14,7 +14,8 @@
 .ui-datepicker thead tr th {
 	font-size:10px;
 }
-
+/*
 #visibility { 
 	display: none; 
 }
+*/

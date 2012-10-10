@@ -280,22 +280,13 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	function tribe_get_display_day_title( $day, $monthView, $date ){
-		$return = '<div id="daynum_'. $day .'" class="daynum tribe-events-event">';
+		$return = '<div id="tribe-events-daynum-'. $day .'">';
 		if( function_exists( 'tribe_get_linked_day' ) && count( $monthView[$day] ) > 0 ) {
 			$return .= tribe_get_linked_day( $date, $day ); // premium
 		} else {
 	    	$return .= $day;
 		}
-		$return .= '<div id="tooltip_day_'. $day .'" class="tribe-events-tooltip" style="display:none;">';
-		for( $i = 0; $i < count( $monthView[$day] ); $i++ ) {
-			$post = $monthView[$day][$i];
-			setup_postdata( $post );
-			$return .= '<h5 class="tribe-events-event-title">' . get_the_title() . '</h5>';
-		}
-		$return .= '<span class="tribe-events-arrow"></span>';
-		$return .= '</div>';
-
-		$return .= '</div>';
+		$return .= '</div><!-- #tribe-events-daynum-# -->';
 		return $return;
 	}
 
@@ -318,7 +309,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			?>
 			
 			<?php			
-			// Get our wrapper classes
+			// Get our wrapper classes (for event categories, organizer, venue, and defaults)
 			$tribe_string_classes = '';
 			$tribe_cat_ids = tribe_get_event_cat_ids( $post->ID ); 
 			foreach( $tribe_cat_ids as $tribe_cat_id ) { 
@@ -329,22 +320,25 @@ if( class_exists( 'TribeEvents' ) ) {
 			foreach ($allClasses as $class) { 
 				$tribe_string_wp_classes .= $class . ' '; 
 			}
-			$tribe_classes_default = 'tribe-events-event tribe-events-real-event'. $tribe_string_wp_classes;
+			$tribe_classes_default = 'hentry vevent '. $tribe_string_wp_classes;
 			$tribe_classes_venue = tribe_get_venue_id() ? 'tribe-events-venue-'. tribe_get_venue_id() : '';
 			$tribe_classes_organizer = tribe_get_organizer_id() ? 'tribe-events-organizer-'. tribe_get_organizer_id() : '';
 			$tribe_classes_categories = $tribe_string_classes;
 			$class_string = $tribe_classes_default .' '. $tribe_classes_venue .' '. $tribe_classes_organizer .' '. $tribe_classes_categories;
 			?>
 			
-			<div id="event_<?php echo $eventId; ?>" class="<?php echo $class_string; ?>">
-				<a href="<?php tribe_event_link(); ?>"><?php the_title(); ?></a>
-				<div id="tooltip_<?php echo $eventId; ?>" class="tribe-events-tooltip" style="display:none;">
-					<h5 class="tribe-events-event-title"><?php the_title() ;?></h5>
+			<div id="tribe-events-event-<?php echo $eventId; ?>" class="<?php echo $class_string; ?>">
+				<h3 class="entry-title summary"><a href="<?php tribe_event_link(); ?>"><?php the_title(); ?></a></h3>
+				<div id="tribe-events-tooltip-<?php echo $eventId; ?>" class="tribe-events-tooltip">
+					<h4 class="entry-title summary"><?php the_title() ;?></h4>
 					<div class="tribe-events-event-body">
-						<div class="tribe-events-event-date">
+						<div class="duration">
+							<abbr class="tribe-events-abbr updated published dtstart" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $start ); ?>">
 							<?php if ( !empty( $start ) )	echo date_i18n( get_option( 'date_format', 'F j, Y' ), $start );
 							if ( !tribe_get_event_meta( $post->ID, '_EventAllDay', true ) )
 								echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), $start ); ?>
+							</abbr><!-- .dtstart -->
+							<abbr class="tribe-events-abbr dtend" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $end ); ?>">
 							<?php if ( !empty( $end )  && $start !== $end ) {
 								if ( date_i18n( 'Y-m-d', $start ) == date_i18n( 'Y-m-d', $end ) ) {
 									$time_format = get_option( 'time_format', 'g:i a' );
@@ -356,24 +350,23 @@ if( class_exists( 'TribeEvents' ) ) {
 									 	echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), $end ) . '<br />';
 								}
 							} ?>
-						</div>
+							</abbr><!-- .dtend -->
+						</div><!-- .duration -->
+						
 						<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
 							<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75,75 ) );?></div>
 						<?php } ?>
-						<?php echo has_excerpt() ? TribeEvents::truncate( $post->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?>
+						
+						<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $post->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
 
-					</div>
+					</div><!-- .tribe-events-event-body -->
 					<span class="tribe-events-arrow"></span>
-				</div>
-			</div>
+				</div><!-- .tribe-events-tooltip -->
+			</div><!-- #tribe-events-event-# -->
 			<?php
-			if( $i < count( $monthView[$day] ) - 1 ) { 
-				echo "<hr />";
-			}
 		}
 		$html = ob_get_clean();
 		return $html;
 	}
-
 }
 ?>

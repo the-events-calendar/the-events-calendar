@@ -52,7 +52,6 @@ if( class_exists( 'TribeEvents' ) ) {
 		return apply_filters('tribe_is_day', $is_day);
 	}
 
-
 	/**
 	 * Past Loop View Test
 	 *
