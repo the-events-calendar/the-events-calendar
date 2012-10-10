@@ -24,19 +24,19 @@ jQuery(document).ready(function($) {
 			if ($.browser.msie && $.browser.version <= 9) {
          		$(this).find('.tribe-events-tooltip').hide()
       		} else {
-         		$(this).find('.tribe-events-tooltip').fadeOut(200);
+         		$(this).find('.tribe-events-tooltip').stop(true,false).fadeOut(200);
       		}
 		});
 		
 		// small event tooltips for calendar widget
 		$('.tribe-events-calendar-widget .tribe-events-calendar').delegate('div[id*="tribe-events-daynum-"]:has(a)', 'mouseenter', function() {
 			var bottomPad = $(this).outerHeight() + 3;	
-			$(this).find('.tribe-events-tooltip').css('bottom', bottomPad).stop(true,true).fadeIn(100);            
+			$(this).find('.tribe-events-tooltip').css('bottom', bottomPad).stop(true,false).fadeIn(100);            
 		}).delegate('div[id*="tribe-events-daynum-"]:has(a)', 'mouseleave', function() {
 			if ($.browser.msie && $.browser.version <= 9) {
          		$(this).find('.tribe-events-tooltip').hide()
       		} else {
-         		$(this).find('.tribe-events-tooltip').fadeOut(200);
+         		$(this).find('.tribe-events-tooltip').stop(true,false).fadeOut(200);
       		}
 		});
 	}
