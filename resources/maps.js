@@ -37,6 +37,7 @@ jQuery( document ).ready( function ($) {
 
 				for ( var i = 0; i < geocodes.length; i++ ) {
 					$( "<a/>" ).text( geocodes[i].formatted_address ).attr( "href", "#" ).addClass( 'tribe-geo-option-link' ).attr( 'data-index', i ).appendTo( "#tribe-geo-options #tribe-geo-links" );
+					addMarker(geocodes[i].geometry.location.lat(), geocodes[i].geometry.location.lng(), geocodes[i].formatted_address);
 				}
 				centerMap();
 
@@ -85,7 +86,6 @@ jQuery( document ).ready( function ($) {
 	function processOption( geocode ) {
 
 		deleteMarkers();
-		centerMap();
 
 		var data = {
 			lat:geocode.geometry.location.lat(),
@@ -104,10 +104,11 @@ jQuery( document ).ready( function ($) {
 
 				$.each( response.markers, function ( i, e ) {
 					addMarker( e.lat, e.lng, e.title, e.address, e.link );
-					
 				} );
 
-				centerMap();
+				if ( response.markers ) {
+					centerMap();
+				}
 
 				$( 'html, body' ).animate( {
 					scrollTop:$( "#tribe-geo-results" ).offset().top
@@ -135,8 +136,11 @@ jQuery( document ).ready( function ($) {
 			content_title = $( '<div/>' ).append( $( "<a/>" ).attr( 'href', link ).text( title ) ).html();
 		}
 
-		var content = "Event: " + content_title + "<br/>" + "Address: " + address;
+		var content = "Event: " + content_title;
 
+		if ( address ) {
+			content = content + "<br/>" + "Address: " + address;
+		}
 
 		infoWindow.setContent( content );
 

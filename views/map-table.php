@@ -2,7 +2,9 @@
 
 $result_count = count($data);
 $counter = 0;
-foreach($data as $event){ 
+foreach($data as $event){
+global $post;
+$post = $event;
 $counter++;
 ?>
 	<div class="tribe-geo-result-entry<?php if( $result_count == $counter) echo ' tribe-geo-result-last'; ?>">
@@ -20,7 +22,7 @@ $counter++;
 			<h2><a href="<?php echo tribe_get_event_link( $event->ID ) ?>"><?php echo $event->post_title; ?></a></h2>
 			<?php if ( tribe_get_cost( $event->ID ) ) { ?>
 			<div class="tribe-geo-result-cost">
-				<span><?php echo tribe_get_cost( $event->ID ); ?></span>	
+				<span><?php echo tribe_get_cost( $event->ID ); ?></span>
 			</div>		
 			<?php } ?>
 			<div class="tribe-clear"></div>
