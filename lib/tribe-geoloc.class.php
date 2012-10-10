@@ -338,8 +338,12 @@ class TribeEventsGeoLoc {
 		$response = array( 'html' => '', 'markers' => array(), 'success' => true );
 
 		$response['html'] .= "<h2>" . __( 'Nearest places', 'tribe-events-calendar-pro' ) . '</h2>';
-		$response['html'] .= sprintf( __( "<div class='event-notices'>%d events found</div>", 'tribe-events-calendar-pro' ), count( $data ) );
 
+		if ( count( $data ) === 1 ) {
+			$response['html'] .= sprintf( __( "<div class='event-notices'>%d event found</div>", 'tribe-events-calendar-pro' ), count( $data ) );
+		} else {
+			$response['html'] .= sprintf( __( "<div class='event-notices'>%d events found</div>", 'tribe-events-calendar-pro' ), count( $data ) );
+		}
 
 		if ( count( $data ) > 0 ) {
 			ob_start();
