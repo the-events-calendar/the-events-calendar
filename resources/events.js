@@ -26,7 +26,7 @@ jQuery(document).ready(function($) {
 		if ($.browser.msie && $.browser.version <= 9) {
          $(this).find(".tribe-events-tooltip").hide()
       } else {
-         $(this).find(".tribe-events-tooltip").fadeOut(200);
+         $(this).find(".tribe-events-tooltip").stop(true,false).fadeOut(200);
       }
 	});
 	
@@ -41,12 +41,12 @@ jQuery(document).ready(function($) {
 			var bottomPad = $(this).outerHeight() + 3;
 		}
 		
-		$(this).find(".tribe-events-tooltip").css('bottom', bottomPad).fadeIn(300);
+		$(this).find(".tribe-events-tooltip").css('bottom', bottomPad).stop(true,false).fadeIn(300);
 	}).live('mouseleave', function() {
 		if ($.browser.msie && $.browser.version <= 9) {
          $(this).find(".tribe-events-tooltip").hide()
       } else {
-         $(this).find(".tribe-events-tooltip").fadeOut(200);
+         $(this).find(".tribe-events-tooltip").stop(true,false).fadeOut(200);
       }
 	});
 	
@@ -67,5 +67,9 @@ jQuery(document).ready(function($) {
      $(document).pjax('a.tribe-pjax', { timeout: 10000, fragment: '#tribe-events-content', container:  '#tribe-events-content' })
        .bind('pjax:start', function() { $('.ajax-loading').show() })
        .bind('pjax:end',   function() { $('.ajax-loading').hide(); tribe_event_nudge() });
+       
+     if ($.support.pjax) {
+       $.pjax.defaults.scrollTo = false;     
+     }  
 	
 });
