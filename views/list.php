@@ -79,15 +79,20 @@ echo apply_filters( 'tribe_events_list_before_template', '', get_the_ID() );
 				// Event title
 				echo apply_filters( 'tribe_events_list_the_title', '', get_the_ID() );
 
+				// Event cost
+				echo apply_filters( 'tribe_events_list_the_event_cost', '', get_the_ID() );				
+
+				// Event meta
+				echo apply_filters( 'tribe_events_list_before_the_meta', '', get_the_ID() );
+				echo apply_filters( 'tribe_events_list_the_meta', '', get_the_ID() );
+				echo apply_filters( 'tribe_events_list_after_the_meta', '', get_the_ID() );				
+
 				// Event content
 				echo apply_filters( 'tribe_events_list_before_the_content', '', get_the_ID() );
 				echo apply_filters( 'tribe_events_list_the_content', '', get_the_ID() );
 				echo apply_filters( 'tribe_events_list_after_the_content', '', get_the_ID() );
 			
-				// Event meta
-				echo apply_filters( 'tribe_events_list_before_the_meta', '', get_the_ID() );
-				echo apply_filters( 'tribe_events_list_the_meta', '', get_the_ID() );
-				echo apply_filters( 'tribe_events_list_after_the_meta', '', get_the_ID() );
+
 		
 			echo apply_filters( 'tribe_events_list_inside_after_loop', '', get_the_ID() );
 

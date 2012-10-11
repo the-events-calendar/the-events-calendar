@@ -290,6 +290,41 @@ select.tribe-events-dropdown {
 	margin-bottom: 15px;
 }
 
+/* Title */
+.tribe-events-list h2.entry-title {
+	float: left;
+	width: 80%;
+}
+
+/* Cost */
+.tribe-events-list .tribe-events-event-cost {
+	float: right;
+	width: 17%;
+}
+
+.tribe-events-list .tribe-events-event-cost span {
+	font-weight: bold;
+	background: #eee;
+	border: 1px solid #ddd;
+	display: block;
+	padding: 8px 10px;
+	text-align: center;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.tribe-events-list .tribe-events-loop .tribe-events-event-meta {
+	float: none;
+	border: 0;
+	margin: 0 0 15px 0;
+	padding: 0;
+	width: 100%;
+}
+
+.tribe-events-list .tribe-events-loop .tribe-events-event-meta p { 
+	margin: 5px 0 0;
+}
+
 /* Navigation */
 .events-archive .tribe-events-loop-nav {
 	margin: 1.25em 0 .5em;

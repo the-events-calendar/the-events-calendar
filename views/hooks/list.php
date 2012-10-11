@@ -23,12 +23,12 @@ if( !class_exists('Tribe_Events_List_Template')){
 			// Start list loop
 			add_filter( 'tribe_events_list_before_loop', array( __CLASS__, 'before_loop' ), 1, 1 );
 			add_filter( 'tribe_events_list_inside_before_loop', array( __CLASS__, 'inside_before_loop' ), 1, 1 );
-	
-			// Event start date
-			add_filter( 'tribe_events_list_the_start_date', array( __CLASS__, 'the_start_date' ), 1, 1 );
-	
+		
 			// Event title
 			add_filter( 'tribe_events_list_the_title', array( __CLASS__, 'the_title' ), 1, 1 );
+
+			// Event cost
+			add_filter( 'tribe_events_list_the_event_cost', array( __CLASS__, 'the_event_cost' ), 1, 1 );			
 
 			// Event content
 			add_filter( 'tribe_events_list_before_the_content', array( __CLASS__, 'before_the_content' ), 1, 1 );
@@ -87,23 +87,19 @@ if( !class_exists('Tribe_Events_List_Template')){
 			$html = '<div id="post-'. get_the_ID() .'" class="'. $class_string .'">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_inside_before_loop');
 		}
-		// Event Start Date
-		public function the_start_date( $post_id ){
-			$html = '';
-			if (tribe_is_new_event_day() && !tribe_is_day())
-				$html .= '<h3><abbr class="tribe-events-abbr updated published dtstart" title="'. tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ) .'">'. tribe_get_start_date() .'</abbr></h3>';
-				
-			if (tribe_is_day() && $this->first) {
-				$this->first = false;
-				$html .= '<h3><abbr class="tribe-events-abbr updated published dtstart" title="'. tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ) .'">'. tribe_event_format_date( strtotime( get_query_var( 'eventDate' ) ), false ) .'</abbr></h3>';
-			}
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_start_date');
-		}
 		// Event Title
 		public function the_title( $post_id ){
 			$html = '<h2 class="entry-title summary"><a class="url" href="'. tribe_get_event_link() .'" title="'. get_the_title( $post_id ) .'" rel="bookmark">'. get_the_title( $post_id ) .'</a></h2>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_title');
 		}
+		// Event Cost
+		public function the_event_cost ( $post_id ){
+			$html = '';
+			if ( tribe_get_cost() ) { // Get our event cost 
+					$html .= '<div class="tribe-events-event-cost"><span>'. tribe_get_cost() .'</span></div>';
+			}
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_event_cost'); 
+		}		
 		// Event Content
 		public function before_the_content( $post_id ){
 			$html = '<div class="entry-content description">';
@@ -130,65 +126,44 @@ if( !class_exists('Tribe_Events_List_Template')){
 			ob_start();
 ?>
 			<div class="tribe-events-event-meta">
-				<dl>
-				<?php if ( tribe_is_multiday() || !tribe_get_all_day() ) : // Get our event dates ?>
-					
-					<dt><?php _e( 'Start:', 'tribe-events-calendar' ); ?></dt>
-					<dd class="updated published dtstart">
-						<abbr class="tribe-events-abbr" title="<?php echo tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ); ?>"><?php echo tribe_get_start_date(); ?></abbr>	
-					</dd><!-- .dtstart -->
-					
-					<dt><?php _e( 'End:', 'tribe-events-calendar' ); ?></dt>
-					<dd class="dtend">
-						<abbr class="tribe-events-abbr" title="<?php echo tribe_get_end_date( null, false, TribeDateUtils::DBDATEFORMAT ); ?>"><?php echo tribe_get_end_date(); ?></abbr>	
-					</dd><!-- .dtend -->
 
-				<?php else: ?>
-					
-					<dt><?php _e( 'Date:', 'tribe-events-calendar' ); ?></dt>
-					<dd class="updated published dtstart">
-						<abbr class="tribe-events-abbr" title="<?php echo tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ); ?>"><?php echo tribe_get_start_date(); ?></abbr>
-					</dd><!-- .dtstart -->	
-					
-				<?php endif; ?>
-				
-				<?php if ( tribe_get_venue() ) { // Get our venue ?>
-					<dt><?php _e( 'Venue:', 'tribe-events-calendar' ); ?></dt>
-					<dd class="vcard fn org">
-						<?php if( class_exists( 'TribeEventsPro' ) ) :
-							tribe_get_venue_link( $post_id, class_exists( 'TribeEventsPro' ) );
-						else :
-							echo tribe_get_venue( $post_id );
-						endif; ?>
-					</dd><!-- .fn .org -->
+				<?php if ( tribe_is_multiday( $post_id ) || !tribe_get_all_day() ) { ?>
+				<p class="updated published">
+					<span class="dtstart"><?php echo tribe_get_start_date( $post_id, false ); ?></span> <span class="starttime">@ <?php echo tribe_get_start_date( $post_id, false, 'g:i A' ); ?></span>  -  <span class="dtend"><?php echo tribe_get_end_date( $post_id, false ); ?></span>	
+				</p>
+				<?php } else { ?>
+				<p class="updated published">
+					<span class="dtstart"><?php echo tribe_get_start_date( $post_id, false ); ?></span> @ <span class="starttime"><?php echo tribe_get_start_date( $post_id, false, 'g:i A' ); ?></span>	
+				</p>
 				<?php } ?>
-				
+
+
+				<?php if ( tribe_get_venue() || tribe_address_exists( $post_id ) ) { // Get venue or location ?>
+					<p class="vcard fn org">
+						<?php if ( tribe_get_venue() ) { // Get our venue ?>
+								<?php if( class_exists( 'TribeEventsPro' ) ) :
+									tribe_get_venue_link( $post_id, class_exists( 'TribeEventsPro' ). ',' );
+								else :
+									echo ( tribe_get_venue( $post_id ). ',' );
+								endif; ?>	
+						<?php } ?>
+						<?php if ( tribe_address_exists( $post_id ) ) { // Get our event address ?>
+								<?php if( get_post_meta( $post_id, '_EventShowMapLink', true ) == 'true' ) : ?>
+									 <a class="tribe-events-gmap" href="<?php echo tribe_get_map_link(); ?>" title="Click to view this event's Google Map" target="_blank"><?php _e( 'Google Map', 'tribe-events-calendar' ); ?></a>
+								<?php endif; ?>
+							</dt>
+							<span class="location"><?php echo tribe_get_full_address( $post_id ); ?></span>
+						<?php } ?>						
+					</p><!-- .fn .org -->
+				<?php } ?>
+			
 				<?php if ( tribe_get_phone() ) { // Get our event phone number ?>
 					<dt><?php _e( 'Phone:', 'tribe-events-calendar' ); ?></dt>
 					<dd class="vcard tel">
 						<?php echo tribe_get_phone(); ?>
 					</dd><!-- .tel -->
 				<?php } ?>
-				
-				<?php if ( tribe_address_exists( $post_id ) ) { // Get our event address ?>
-					<dt><?php _e( 'Address: ', 'tribe-events-calendar' ); ?><br />
-						<?php if( get_post_meta( $post_id, '_EventShowMapLink', true ) == 'true' ) : ?>
-							 <a class="tribe-events-gmap" href="<?php echo tribe_get_map_link(); ?>" title="Click to view this event's Google Map" target="_blank"><?php _e( 'Google Map', 'tribe-events-calendar' ); ?></a>
-						<?php endif; ?>
-					</dt>
-					<dd class="location">
-						<?php echo tribe_get_full_address( $post_id ); ?>
-					</dd><!-- .location -->
-				<?php } ?>
-				
-				<?php if ( tribe_get_cost() ) { // Get our event cost ?>
-					<dt><?php _e( 'Cost:', 'tribe-events-calendar' ); ?></dt>
-					<dd class="tribe-events-event-cost">
-						<?php echo tribe_get_cost(); ?>
-					</dd><!-- .tribe-events-event-cost -->
-				<?php } ?>
-				
-				</dl>
+								
 			</div><!-- .tribe-events-event-meta -->
 <?php
 			$html = ob_get_clean();
@@ -197,7 +172,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 		public function after_the_meta( $post_id ){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_the_meta');
-		}
+		} 
 		// End List Loop
 		public function inside_after_loop( $post_id ){
 			$html = '</div><!-- .hentry .vevent -->';
