@@ -11,11 +11,13 @@
 
 class TribeEventsGeoLoc {
 
-	const LAT         = '_VenueLat';
-	const LNG         = '_VenueLng';
-	const ADDRESS     = '_VenueGeoAddress';
-	const OPTIONNAME  = 'tribe_geoloc_options';
-	const EARTH_RADIO = 6371; // IN KMS.
+	const LAT                  = '_VenueLat';
+	const LNG                  = '_VenueLng';
+	const ADDRESS              = '_VenueGeoAddress';
+	const OPTIONNAME           = 'tribe_geoloc_options';
+	const ESTIMATION_CACHE_KEY = 'geoloc_center_point_estimation';
+	const EARTH_RADIO          = 6371; // IN KMS.
+
 
 	protected static $options;
 	protected $rewrite_slug;
@@ -48,14 +50,18 @@ class TribeEventsGeoLoc {
 		wp_register_script( 'tribe-geoloc', trailingslashit( TribeEventsPro::instance()->pluginUrl ) . 'resources/maps.js', array( 'gmaps' ) );
 		wp_enqueue_script( 'tribe-geoloc' );
 
-		$data = array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'nonce'   => wp_create_nonce( 'geosearch' ) );
+		$data = array( 'ajaxurl' => admin_url( 'admin-ajax.php' ),
+		               'nonce'   => wp_create_nonce( 'geosearch' ),
+		               'center'  => $this->estimate_center_point() );
 
 		wp_localize_script( 'tribe-geoloc', 'GeoLoc', $data );
+
+
 	}
 
 
 	public function inject_settings( $args, $id ) {
-		
+
 		if ( $id == 'defaults' ) {
 
 
@@ -212,6 +218,8 @@ class TribeEventsGeoLoc {
 
 		// Saving the aggregated address so we don't need to ping google on every save
 		update_post_meta( $venueId, self::ADDRESS, $address );
+
+		delete_transient( self::ESTIMATION_CACHE_KEY );
 
 	}
 
@@ -401,6 +409,41 @@ class TribeEventsGeoLoc {
 		echo json_encode( $response );
 
 		exit;
+
+	}
+
+	private function estimate_center_point() {
+		global $wpdb;
+
+		$data = get_transient( self::ESTIMATION_CACHE_KEY );
+
+		if ( empty( $data ) ) {
+
+			$sql = "SELECT Max(lat) max_lat,
+					       Max(lng) max_lng,
+					       Min(lat) min_lat,
+					       Min(lng) min_lng
+					FROM   (SELECT post_id AS venue_id,
+				               CASE
+				                 WHEN meta_key = '" . self::LAT . "' THEN meta_value
+				               end     AS LAT,
+				               CASE
+				                 WHEN meta_key = '" . self::LNG . "' THEN meta_value
+				               end     AS LNG
+				        FROM   wp_postmeta
+				        WHERE  meta_key = '" . self::LAT . "'
+				            OR meta_key = '" . self::LNG . "') coors
+		";
+
+			$data = $wpdb->get_results( $sql, ARRAY_A );
+
+			if ( !empty( $data ) )
+				$data = array_shift( $data );
+
+			set_transient( self::ESTIMATION_CACHE_KEY, $data, 5000 );
+		}
+
+		return $data;
 
 	}
 

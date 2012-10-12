@@ -8,13 +8,21 @@ jQuery( document ).ready( function ($) {
 	
 	var options = {
 		zoom:5,
-		center:new google.maps.LatLng( 36.77, -119.41 ),
+		center:new google.maps.LatLng( GeoLoc.center.max_lat, GeoLoc.center.max_lng ),
 		mapTypeId:google.maps.MapTypeId.ROADMAP
 	};
 
 	if ( document.getElementById( 'tribe-geo-map' ) ) {
 		map = new google.maps.Map( document.getElementById( 'tribe-geo-map' ), options );
 		bounds = new google.maps.LatLngBounds();
+
+		var minLatlng = new google.maps.LatLng( GeoLoc.center.min_lat, GeoLoc.center.min_lng );
+		bounds.extend( minLatlng );
+
+		var maxLatlng = new google.maps.LatLng( GeoLoc.center.max_lat, GeoLoc.center.max_lng );
+		bounds.extend( maxLatlng );
+
+		centerMap();
 	}
 
 	$( '#tribe-geo-search' ).click( function () {
@@ -164,6 +172,7 @@ jQuery( document ).ready( function ($) {
 	}
 
 	function centerMap() {
+
 		map.fitBounds( bounds );
 		if ( map.getZoom() > 13 ) {
 			map.setZoom( 13 );
