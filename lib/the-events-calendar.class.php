@@ -1318,12 +1318,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			// Tribe Events CSS filename
 			$event_file = 'tribe-events.css';
-			$event_file_option = '';
+			$event_file_option = 'tribe-events-full.css';
 			
 			// What Option was selected
-			if ( tribe_get_option('stylesheetOption') == 'full') {
-				$event_file_option = 'tribe-events-full.css';
-			} else {
+			if ( tribe_get_option('stylesheetOption') == 'skeleton') {
 				$event_file_option = 'tribe-events-skeleton.css';
 			}
 			
