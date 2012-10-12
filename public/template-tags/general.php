@@ -400,12 +400,12 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 
-	function tribe_event_featured_image( $post_id = null ){
+	function tribe_event_featured_image( $post_id = null, $size = 'full' ){
 		if( is_null( $post_id ))
 			$post_id = get_the_ID();
-		$image_src = wp_get_attachment_image_src(get_post_thumbnail_id( $post_id ), 'full');			
+		$image_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), $size );			
 		$html = '';
-		if ( !empty($image_src) ) { // Get our event cost 
+		if ( !empty($image_src) ) {
 			$html .= '<div class="tribe-events-event-image"><a href="'. tribe_get_event_link() .'" title="'. get_the_title( $post_id ) .'"><img src="'.  $image_src[0] .'" title="'. get_the_title( $post_id) .'" /></a></div>';
 		}
 		return $html; 
