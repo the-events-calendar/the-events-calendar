@@ -33,7 +33,7 @@ $counter++;
 			<?php } else { ?>
 			<span class="tribe-geo-result-date"><?php echo tribe_get_start_date( $event->ID, false ) . ' @ ' . tribe_get_start_date( $event->ID, false, 'g:i A' ); ?></span>	
 			<?php } ?>
-			<span class="tribe-geo-result-venue"><?php echo '<strong>[' . round( $event->distance, 2 ) . ']</strong> ' . tribe_get_venue( $event->ID ) . ', ' . tribe_get_full_address( $event->ID ); ?></span>
+			<span class="tribe-geo-result-venue"><?php echo '<strong>[' . tribe_get_distance_with_unit( $event->distance ) . ']</strong> ' . tribe_get_venue( $event->ID ) . ', ' . tribe_get_full_address( $event->ID ); ?></span>
 			<div class="tribe-geo-result-excerpt">
 			<?php 
 			if ( has_excerpt( $event->ID ) )

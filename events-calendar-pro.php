@@ -94,6 +94,15 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_promo_banner', array( $this, 'tribePromoBannerPro' ) );
 			add_filter( 'tribe_help_tab_forums_url', array( $this, 'helpTabForumsLink' ) );
 			add_action( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'addLinksToPluginActions' ) );
+
+			// see function tribe_convert_units( $value, $unit_from, $unit_to )
+			add_filter( 'tribe_convert_kms_to_miles_ratio', function () {
+				return 0.621371;
+			} );
+			add_filter( 'tribe_convert_miles_to_kms_ratio', function () {
+				return 1.60934;
+			} );
+
 		}
 
 		public function init() {

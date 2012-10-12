@@ -38,8 +38,9 @@ class TribeEventsGeoLoc {
 		add_action( 'tribe-events-bar-enqueue-scripts', array( $this, 'scripts' ) );
 		add_filter( 'tribe_events_pre_get_posts', array( $this, 'setup_geoloc_in_query' ) );
 
-	}
+		add_filter( 'tribe_settings_tab_fields', array( $this, 'inject_settings' ), 10, 2 );
 
+	}
 
 	public function scripts() {
 
@@ -50,6 +51,34 @@ class TribeEventsGeoLoc {
 		$data = array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'nonce'   => wp_create_nonce( 'geosearch' ) );
 
 		wp_localize_script( 'tribe-geoloc', 'GeoLoc', $data );
+	}
+
+
+	public function inject_settings( $args, $id ) {
+		
+		if ( $id == 'defaults' ) {
+
+
+			$args['geoloc_default_unit'] = array( 'type'            => 'dropdown',
+			                                      'label'           => __( 'Map view distance unit', 'tribe-events-calendar-pro' ),
+			                                      'validation_type' => 'options',
+			                                      'size'            => 'small',
+			                                      'default'         => 'miles',
+			                                      'options'         => apply_filters( 'tribe_distance_units', array( 'miles' => __( 'Miles', 'tribe-events-calendar-pro' ),
+			                                                                                                         'kms'   => __( 'Kilometers', 'tribe-events-calendar-pro' ) ) ) );
+
+
+			$args['geoloc_default_geofence'] = array( 'type'            => 'text',
+			                                          'label'           => __( 'Map view search distane ratio (GeoFence)', 'tribe-events-calendar-pro' ),
+			                                          'size'            => 'small',
+			                                          'tooltip'         => __( 'Enter a number in the unit selected above.', 'tribe-events-calendar-pro' ),
+			                                          'default'         => '25',
+			                                          'class'           => '',
+			                                          'validation_type' => 'number_or_percent', );
+		}
+
+
+		return $args;
 	}
 
 
@@ -80,7 +109,7 @@ class TribeEventsGeoLoc {
 		}
 
 		$filters[] = array( 'name'    => 'tribe-bar-geoloc',
-		                    'caption' => 'Near this location',
+		                    'caption' => __( 'Near this location', 'tribe-events-calendar-pro' ),
 		                    'html'    => '<input type="hidden" name="tribe-bar-geoloc-lat" id="tribe-bar-geoloc-lat" value="' . esc_attr( $lat ) . '" /><input type="hidden" name="tribe-bar-geoloc-lng" id="tribe-bar-geoloc-lng" value="' . esc_attr( $lng ) . '" /><input type="text" name="tribe-bar-geoloc" id="tribe-bar-geoloc" value="' . esc_attr( $value ) . '" placeholder="Location">' );
 
 		return $filters;
@@ -212,12 +241,25 @@ class TribeEventsGeoLoc {
 		return apply_filters( 'tribe_geoloc_get_single_option', $option, $default );
 	}
 
+	private function get_geofence_defualt_size() {
+
+		$tec = TribeEvents::instance();
+
+		$geofence = $tec->getOption( 'geoloc_default_geofence', 25 );
+		$unit     = $tec->getOption( 'geoloc_default_unit', 'miles' );
+
+		//Our queries need the size always in kms
+		$geofence = tribe_convert_units( $geofence, $unit, 'kms' );
+
+		return apply_filters( 'tribe_geoloc_geofence', $geofence );
+	}
+
 	function get_venues_in_geofence( $lat, $lng, $geofence_radio = null ) {
 
-		if ( !$geofence_radio ) {
-			$geofence_radio = apply_filters( 'tribe_geoloc_standard_geofence', 50 );
-		}
 
+		if ( !$geofence_radio ) {
+			$geofence_radio = $this->get_geofence_defualt_size();
+		}
 
 		$maxLat = $lat + rad2deg( $geofence_radio / self::EARTH_RADIO );
 		$minLat = $lat - rad2deg( $geofence_radio / self::EARTH_RADIO );
@@ -273,8 +315,8 @@ class TribeEventsGeoLoc {
 
 		//First lets create a bounding box so we don't need to calculate distance to really far points
 
-		$geofence_radio = apply_filters( 'tribe_geoloc_standard_geofence', 50 );
-		//Geofence. Limit the search to a 50km radius from the given point
+		$tec            = TribeEvents::instance();
+		$geofence_radio = $this->get_geofence_defualt_size();
 
 		$maxLat = $lat + rad2deg( $geofence_radio / self::EARTH_RADIO );
 		$minLat = $lat - rad2deg( $geofence_radio / self::EARTH_RADIO );

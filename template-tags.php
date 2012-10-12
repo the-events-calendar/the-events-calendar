@@ -349,4 +349,49 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		echo '<p class="tribe-field-indent venue-default-info description">'.sprintf( __('The current default phone is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
 	}
 
+
+	/**
+	 * Returns the formatted and converted distance from the db (always in kms.) to the unit selected
+	 * by the user in the 'defaults' tab of our settings.
+	 *
+	 * @param $distance_in_kms
+	 *
+	 * @return mixed
+	 *
+	 */
+	function tribe_get_distance_with_unit( $distance_in_kms ) {
+
+		$tec = TribeEvents::instance();
+
+		$unit     = $tec->getOption( 'geoloc_default_unit', 'miles' );
+		$distance = round( tribe_convert_units( $distance_in_kms, 'kms', $unit ), 2 );
+
+		return apply_filters( 'tribe_formatted_distance', $distance . ' ' .  $unit );
+	}
+
+
+	/**
+	 *
+	 * Converts units. Uses tribe_convert_$unit_to_$unit_ratio filter to get the ratio.
+	 *
+	 * @param $value
+	 * @param $unit_from
+	 * @param $unit_to
+	 */
+	function tribe_convert_units( $value, $unit_from, $unit_to ) {
+
+		if ( $unit_from === $unit_to )
+			return $value;
+
+		$filter = sprintf( 'tribe_convert_%s_to_%s_ratio', $unit_from, $unit_to );
+		$ratio  = apply_filters( $filter, 0 );
+
+		// if there's not filter for this convertion, let's return the original value
+		if ( empty( $ratio ) )
+			return $value;
+
+		return ( $value * $ratio );
+
+	}
+
 }
