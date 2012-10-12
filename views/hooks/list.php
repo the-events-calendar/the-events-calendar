@@ -103,10 +103,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 		}
 		// Event Details Begin
 		public function before_the_event_details ( $post_id ){
-			$html = '';
-			if ( tribe_get_cost() ) { // Get our event cost 
-					$html .= '<div class="tribe-events-event-details">';
-			}
+			$html = '<div class="tribe-events-event-details">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_the_event_details'); 
 		}							
 		// Event Title
@@ -131,6 +128,11 @@ if( !class_exists('Tribe_Events_List_Template')){
 				<?php if ( tribe_is_multiday( $post_id ) || !tribe_get_all_day() ) { ?>
 				<p class="updated published">
 					<span class="dtstart"><?php echo tribe_get_start_date( $post_id, false ); ?></span> <span class="starttime">@ <?php echo tribe_get_start_date( $post_id, false, 'g:i A' ); ?></span>  -  <span class="dtend"><?php echo tribe_get_end_date( $post_id, false ); ?></span>	
+					<?php if( class_exists( 'TribeEventsPro' ) )  { // should this be a template tag?
+						if ( tribe_is_recurring_event() ) { ?>
+							<?php echo tribe_get_recurrence_text(); ?>
+						 <?php } 
+						} ?>
 				</p>
 				<?php } else { ?>
 				<p class="updated published">
