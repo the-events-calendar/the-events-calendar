@@ -69,7 +69,7 @@ class TribeEventsBar {
 			echo '</div>';
 		}
 
-		echo '<div class="tribe-events-bar-filter-wrap tribe-bar-submit"><input type="submit" name="submit-bar" value="' . __( 'Search', 'tribe-events-calendar' ) . '"/></div>';
+		echo '<div class="tribe-events-bar-filter-wrap tribe-bar-submit"><input class="tribe-events-button-grey" type="submit" name="submit-bar" value="' . __( 'Search', 'tribe-events-calendar' ) . '"/></div>';
 
 		echo '</form><!-- #tribe-events-bar-form -->';
 
@@ -86,11 +86,11 @@ class TribeEventsBar {
 			// Standard list navigation for larger screens
 			$open     = '<ul class="tribe-events-bar-view-list">';
 			$close    = "</ul>";
-			$current  = 'active';
-			$open_el  = '<li><a class="tribe-events-bar-view !CURRENT!" href="!URL!">';
+			$current  = 'tribe-active';
+			$open_el  = '<li><a class="tribe-events-bar-view tribe-events-button-grey !CURRENT!" href="!URL!">';
 			$close_el = "</a></li>";
 			// Select input for smaller screens
-			$open_sel     = '<select class="chzn-select" name="tribe-events-bar-view">';
+			$open_sel     = '<select class="tribe-events-bar-view-select chzn-select" name="tribe-events-bar-view">';
 			$close_sel    = "</select>";
 			$current_sel  = 'selected';
 			$open_sel_el  = '<option !CURRENT! value="!URL!">';
@@ -115,7 +115,7 @@ class TribeEventsBar {
 			if ( $tec->displaying === $view['displaying'] ) {
 				$item = str_replace( '!CURRENT!', $current, $item );
 			} else {
-				$item = str_replace( '!CURRENT!', '', $item );
+				$item = str_replace( '!CURRENT!', 'tribe-inactive', $item );
 			}
 
 			echo $item;

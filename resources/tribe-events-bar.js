@@ -20,6 +20,9 @@ jQuery( document ).ready( function ( $ ) {
 	
 	// Implement chosen
 	$( '#tribe-events-bar-views .chzn-select' ).chosen({ disable_search_threshold: 9999 });
+	
+	// Wrap non-date inputs with a parent container for toggle
+	$('.tribe-events-bar-filter-wrap.tribe-bar-search, .tribe-events-bar-filter-wrap.tribe-bar-geoloc').wrapAll('<div class="tribe-events-toggle-wrap" />');
 
 	// Implement our views bit
 	$( 'select[name=tribe-events-bar-view]' ).change( function () {
@@ -42,7 +45,7 @@ jQuery( document ).ready( function ( $ ) {
 	
 	// Implement simple toggle for filters at smaller size (and close if click outside of toggle area)
 	var tribeBarToggle = $( '#tribe-events-bar .tribe-events-bar-toggle' );
-	var tribeBarToggleEl = $( '.tribe-events-bar-filter-wrap.tribe-bar-search, .tribe-events-bar-filter-wrap.tribe-bar-geoloc' );
+	var tribeBarToggleEl = $( '.tribe-events-toggle-wrap' );
 	tribeBarToggle.click( function () {
 		$( this ).toggleClass( 'open' );
     	tribeBarToggleEl.toggle();
@@ -50,10 +53,15 @@ jQuery( document ).ready( function ( $ ) {
     
     $( document ).bind( {
     	click: function( e ) {
-    		tribeBarToggle.toggleClass( 'open' );
-        	tribeBarToggleEl.toggle();
+		if( $(tribeBarToggle).hasClass( 'open' ) ) {	
+			tribeBarToggle.toggleClass( 'open' );
+			tribeBarToggleEl.toggle();
+		}	
      	}
 	} );
 	tribeBarToggle.bind( 'click', function( e ) { return false } );
+    $( '.tribe-bar-search, .tribe-bar-geoloc' ).click( function( e ) {
+	e.stopPropagation();
+    } );	
 
 } );

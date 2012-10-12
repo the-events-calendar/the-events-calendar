@@ -1318,11 +1318,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			// Tribe Events CSS filename
 			$event_file = 'tribe-events.css';
-
+			$event_file_option = '';
+			
+			// What Option was selected
+			if ( tribe_get_option('stylesheetOption') == 'full') {
+				$event_file_option = 'tribe-events-full.css';
+			} else {
+				$event_file_option = 'tribe-events-skeleton.css';
+			}
+			
 			// is there an events.css file in the theme?
 			$styleUrl = locate_template( array( 'events/' . $event_file ) ) ?
 				str_replace( get_theme_root(), get_theme_root_uri(), locate_template( array( 'events/' . $event_file ) ) ) : 
-				trailingslashit( $this->pluginUrl ) . 'resources/' . $event_file;
+				trailingslashit( $this->pluginUrl ) . 'resources/' . $event_file_option;
 			$styleUrl = apply_filters( 'tribe_events_stylesheet_url', $styleUrl );
 
 			// load up stylesheet from theme or plugin
