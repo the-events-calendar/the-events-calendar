@@ -281,25 +281,59 @@ select.tribe-events-dropdown {
 /* = List View Template Styles
    @ Template: list.php
 =============================================*/
-#tribe-events-content.tribe-events-list {
-	margin-bottom: 60px;
-}
-
-/* Header */
+/* Page Title */
 .tribe-events-list h2.tribe-events-page-title {
 	margin-bottom: 15px;
 }
 
-/* Title */
-.tribe-events-list h2.entry-title {
+
+#tribe-events-content.tribe-events-list {
+	margin-bottom: 60px;
+}
+
+
+/* Image */
+.tribe-events-list .tribe-events-event-image {
 	float: left;
-	width: 80%;
+	width: 30%;
+	margin: 0 3% 3% 0;
+}
+
+.tribe-events-list .tribe-events-event-image img {
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+}
+
+/* Details (Title, Meta, Content) */
+.tribe-events-list .tribe-events-event-image + .tribe-events-event-details {
+	float: left;
+	width: 67%;
+}
+
+.tribe-events-list h2.entry-title {
+	display: inline-block;
+}
+
+/* Meta */
+.tribe-events-list .tribe-events-loop .tribe-events-event-meta {
+	float: none;
+	border: 0;
+	margin: 0 0 15px 0;
+	padding: 0;
+	width: 100%;
+	font-style: italic;
+}
+
+.tribe-events-list .tribe-events-loop .tribe-events-event-meta p { 
+	margin: 5px 0 0;
+	font-size: 13px;
 }
 
 /* Cost */
 .tribe-events-list .tribe-events-event-cost {
 	float: right;
-	width: 17%;
+	margin: 0 0 3% 3%;
 }
 
 .tribe-events-list .tribe-events-event-cost span {
@@ -309,20 +343,16 @@ select.tribe-events-dropdown {
 	display: block;
 	padding: 8px 10px;
 	text-align: center;
+	font-style: normal;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
 
-.tribe-events-list .tribe-events-loop .tribe-events-event-meta {
-	float: none;
-	border: 0;
-	margin: 0 0 15px 0;
-	padding: 0;
-	width: 100%;
-}
+/* Content */
 
-.tribe-events-list .tribe-events-loop .tribe-events-event-meta p { 
-	margin: 5px 0 0;
+.tribe-events-list .tribe-events-loop .entry-content {
+	width: 100%;
+	padding: 0;
 }
 
 /* Navigation */

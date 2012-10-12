@@ -72,28 +72,29 @@ echo apply_filters( 'tribe_events_list_before_template', '', get_the_ID() );
 			$more = false;
 
 			echo apply_filters( 'tribe_events_list_inside_before_loop', '', get_the_ID() );
+							
+				// Event image
+				echo apply_filters( 'tribe_events_list_the_event_image', '', get_the_ID() );
+				
+					// Event details start
+					echo apply_filters( 'tribe_events_list_before_the_event_details', '', get_the_ID() );
+
+					// Event title
+					echo apply_filters( 'tribe_events_list_the_title', '', get_the_ID() );
+
+					// Event meta
+					echo apply_filters( 'tribe_events_list_before_the_meta', '', get_the_ID() );
+					echo apply_filters( 'tribe_events_list_the_meta', '', get_the_ID() );
+					echo apply_filters( 'tribe_events_list_after_the_meta', '', get_the_ID() );
+
+					// Event content
+					echo apply_filters( 'tribe_events_list_before_the_content', '', get_the_ID() );
+					echo apply_filters( 'tribe_events_list_the_content', '', get_the_ID() );
+					echo apply_filters( 'tribe_events_list_after_the_content', '', get_the_ID() );
+
+				// Event details end
+				echo apply_filters( 'tribe_events_list_after_the_event_details', '', get_the_ID() );				
 			
-				// Event start date
-				echo apply_filters( 'tribe_events_list_the_start_date', '', get_the_ID() );
-			
-				// Event title
-				echo apply_filters( 'tribe_events_list_the_title', '', get_the_ID() );
-
-				// Event cost
-				echo apply_filters( 'tribe_events_list_the_event_cost', '', get_the_ID() );				
-
-				// Event meta
-				echo apply_filters( 'tribe_events_list_before_the_meta', '', get_the_ID() );
-				echo apply_filters( 'tribe_events_list_the_meta', '', get_the_ID() );
-				echo apply_filters( 'tribe_events_list_after_the_meta', '', get_the_ID() );				
-
-				// Event content
-				echo apply_filters( 'tribe_events_list_before_the_content', '', get_the_ID() );
-				echo apply_filters( 'tribe_events_list_the_content', '', get_the_ID() );
-				echo apply_filters( 'tribe_events_list_after_the_content', '', get_the_ID() );
-			
-
-		
 			echo apply_filters( 'tribe_events_list_inside_after_loop', '', get_the_ID() );
 
 		} // End list loop
