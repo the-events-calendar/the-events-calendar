@@ -60,7 +60,6 @@ if (!class_exists('TribeEventsQuery')) {
 				add_filter( 'posts_join', array(__CLASS__, 'posts_join' ), 10, 2 );
 				add_filter( 'posts_where', array(__CLASS__, 'posts_where'), 10, 2);
 
-
 				if( !empty($query->query_vars['eventDisplay']) ) {
 	            	switch ( $query->query_vars['eventDisplay'] ) {
 	               		case 'past': // setup past event display query
@@ -101,12 +100,6 @@ if (!class_exists('TribeEventsQuery')) {
 					$query->set( 'orderby', 'event_date' );
 					$query->set( 'order', 'ASC' );
 				}
-
-				// setup default Event Start join/filter
-				$meta_query[] = array(
-					'key' => '_EventStartDate',
-					'type' => 'DATETIME'
-					);
 
 				// eventCat becomes a standard taxonomy query - will need to deprecate and update views eventually
 				if ( ! in_array( $query->get('eventCat'), array( '', '-1' )) ) {
@@ -182,7 +175,14 @@ if (!class_exists('TribeEventsQuery')) {
 			}
 
 			// check if is_event_query === true and hook filter
-			return $query->tribe_is_event_query ? apply_filters( 'tribe_events_pre_get_posts', $query ) : $query;
+			$query->tribe_is_event_query ? apply_filters( 'tribe_events_pre_get_posts', $query ) : $query;
+
+			// setup default Event Start join/filter
+			if ( ( $query->tribe_is_event || $query->tribe_is_event_category ) && empty( $query->query_vars['meta_query'] ) ) {
+				$query->set( 'meta_query', array( array( 'key' => '_EventStartDate', 'type' => 'DATETIME' ) ) );
+			}
+
+			return $query;
 		}
 
 		/**
