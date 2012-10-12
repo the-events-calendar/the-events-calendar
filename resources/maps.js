@@ -2,10 +2,10 @@ var map, geocoder, geocodes, bounds, markersArray = [], spinner;
 geocoder = new google.maps.Geocoder();
 bounds = new google.maps.LatLngBounds();
 
-jQuery( document ).ready( function ($) {
-	
-        $( '#tribe-geo-location' ).placeholder();
-	
+jQuery( document ).ready( function ( $ ) {
+
+	$( '#tribe-geo-location' ).placeholder();
+
 	var options = {
 		zoom:5,
 		center:new google.maps.LatLng( GeoLoc.center.max_lat, GeoLoc.center.max_lng ),
@@ -39,13 +39,14 @@ jQuery( document ).ready( function ($) {
 
 		processGeocoding( location, function ( results, selected_index ) {
 			geocodes = results;
+
 			if ( geocodes.length > 1 ) {
 				spin_end();
 				$( "#tribe-geo-options" ).show();
 
 				for ( var i = 0; i < geocodes.length; i++ ) {
 					$( "<a/>" ).text( geocodes[i].formatted_address ).attr( "href", "#" ).addClass( 'tribe-geo-option-link' ).attr( 'data-index', i ).appendTo( "#tribe-geo-options #tribe-geo-links" );
-					addMarker(geocodes[i].geometry.location.lat(), geocodes[i].geometry.location.lng(), geocodes[i].formatted_address);
+					addMarker( geocodes[i].geometry.location.lat(), geocodes[i].geometry.location.lng(), geocodes[i].formatted_address );
 				}
 				centerMap();
 
@@ -61,7 +62,7 @@ jQuery( document ).ready( function ($) {
 
 	} );
 
-	$( "#tribe-geo-options" ).on( 'click', 'a', function (e) {
+	$( "#tribe-geo-options" ).on( 'click', 'a', function ( e ) {
 		spin_start();
 		e.preventDefault();
 		$( "#tribe-geo-options a" ).removeClass( 'tribe-option-loaded' );
@@ -114,7 +115,9 @@ jQuery( document ).ready( function ($) {
 					addMarker( e.lat, e.lng, e.title, e.address, e.link );
 				} );
 
-				if ( response.markers ) {
+				console.log (response);
+
+				if ( response.markers.length > 0 ) {
 					centerMap();
 				}
 
