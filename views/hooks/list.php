@@ -120,12 +120,16 @@ if( !class_exists('Tribe_Events_List_Template')){
 			ob_start();
 		?>
 			<div class="tribe-events-event-meta">
-
+				<dl>
 			<?php if ( tribe_get_cost() ) { // Get our event cost ?>
 					<div class="tribe-events-event-cost"><span><?php echo tribe_get_cost(); ?></span></div>
 			<?php } ?>
-
-				<?php if ( tribe_is_multiday( $post_id ) || !tribe_get_all_day() ) { ?>
+				<?php if ( !tribe_is_multiday( $post_id ) && !tribe_get_all_day() ) { ?>
+				<p class="updated published">
+					<span class="dtstart"><?php echo tribe_get_start_date( $post_id, false ); ?></span> <span class="starttime">@ <?php echo tribe_get_start_date( $post_id, false, 'g:i A' ); ?></span>
+					<?php echo tribe_event_recurring_info_tooltip(); ?>
+				</p>
+				<?php } elseif ( tribe_is_multiday( $post_id ) || !tribe_get_all_day() ) { ?>
 				<p class="updated published">
 					<span class="dtstart"><?php echo tribe_get_start_date( $post_id, false ); ?></span> <span class="starttime">@ <?php echo tribe_get_start_date( $post_id, false, 'g:i A' ); ?></span>  -  <span class="dtend"><?php echo tribe_get_end_date( $post_id, false ); ?></span>	
 					<?php echo tribe_event_recurring_info_tooltip(); ?>

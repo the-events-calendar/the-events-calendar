@@ -333,31 +333,28 @@ select.tribe-events-dropdown {
 
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring {
 	position: relative;
+	font-style: normal;
+	font-weight: 500;
+	color: rgba(0, 0, 0, .7);
 }
 
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring img {
 	width: 16px;
 	height: 16px;
 	opacity: .7;
-	/* Firefox */
+	position: relative;
+	top: 4px;
 	-moz-transition: all .1s;
-	/* WebKit */
 	-webkit-transition: all .1s;
-	/* Opera */
 	-o-transition: all .1s;
-	/* Standard */
 	transition: all .1s;	
 }
 
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring img:hover {
 	opacity: 1.0;
-		/* Firefox */
 	-moz-transform: rotate(30deg);
-	/* WebKit */
 	-webkit-transform: rotate(30deg);
-	/* Opera */
 	-o-transform: rotate(30deg);
-	/* Standard */
 	transform: rotate(30deg);
 }
 

@@ -427,7 +427,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		$tooltip = '';
 		if( class_exists( 'TribeEventsPro' ) )  { // should this be a template tag?
 			if ( tribe_is_recurring_event() ) { 
-				$tooltip .= '<div class="event-is-recurring"><img src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/recurring-event-icon.png" />';
+				$tooltip .= '<div class="event-is-recurring">[ <img src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/recurring-event-icon.png" /> event ]';
 				$tooltip .= '<div id="tribe-events-tooltip-'. $eventID .'" class="tribe-events-tooltip">';
 					$tooltip .= '<div class="tribe-events-event-body">';
 						$tooltip .= tribe_get_recurrence_text();
