@@ -417,5 +417,26 @@ if( class_exists( 'TribeEvents' ) ) {
 		return apply_filters('tribe_event_featured_image', $featured_image);
 	}
 
+	/**
+	 * show the recurring event info in a tooltip
+	 * @since  3.0
+	 */
+	function tribe_event_recurring_info_tooltip(){
+		global $post;
+		$eventID = $post->ID;
+		$tooltip = '';
+		if( class_exists( 'TribeEventsPro' ) )  { // should this be a template tag?
+			if ( tribe_is_recurring_event() ) { 
+				$tooltip .= '<div class="event-is-recurring">hi';
+				$tooltip .= '<div id="tribe-events-tooltip-'. $eventID .'" class="tribe-events-tooltip">';
+					$tooltip .= tribe_get_recurrence_text();
+				$tooltip .= '</div>';
+				$tooltip .= '<span class="tribe-events-arrow"></span>';
+			$tooltip .= '</div>';		
+		 }
+		}
+		return apply_filters('tribe_event_recurring_info_tooltip', $tooltip);
+	}	
+
 }
 ?>

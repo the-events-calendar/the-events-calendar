@@ -39,6 +39,18 @@ jQuery(document).ready(function($) {
          		$(this).find('.tribe-events-tooltip').stop(true,false).fadeOut(200);
       		}
 		});
+
+		// tooltip for recurring info in list view
+		$('.tribe-events-list .tribe-events-event-meta').delegate('div.event-is-recurring', 'mouseenter', function() {
+			var bottomPad = $(this).outerHeight() + 3;	
+			$(this).find('.tribe-events-tooltip').css('bottom', bottomPad).stop(true,false).fadeIn(100);            
+		}).delegate('div.event-is-recurring', 'mouseleave', function() {
+			if ($.browser.msie && $.browser.version <= 9) {
+         		$(this).find('.tribe-events-tooltip').hide()
+      		} else {
+         		$(this).find('.tribe-events-tooltip').stop(true,false).fadeOut(200);
+      		}
+		});		
 	}
 	
 	tribe_event_tooltips();

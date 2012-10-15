@@ -330,6 +330,9 @@ select.tribe-events-dropdown {
 	font-size: 13px;
 }
 
+.tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring {
+	position: relative;
+}
 /* Cost */
 .tribe-events-list .tribe-events-event-cost {
 	float: right;
@@ -567,7 +570,7 @@ select.tribe-events-dropdown {
 
 /* Global Tooltips */
 .tribe-events-calendar .tribe-events-tooltip,
-.tribe-events-week .tribe-events-tooltip {
+.tribe-events-week .tribe-events-tooltip, .tribe-events-list .tribe-events-tooltip {
 	border: 1px solid #666;
 	position: absolute;
 	z-index: 1001;
@@ -589,7 +592,7 @@ select.tribe-events-dropdown {
 	left: 20px;
 }
 .tribe-events-calendar .tribe-events-right .tribe-events-tooltip,
-.tribe-events-week .tribe-events-right .tribe-events-tooltip {
+.tribe-events-week .tribe-events-right .tribe-events-tooltip, {
 	left: auto;
 	right: 3px;
 }
