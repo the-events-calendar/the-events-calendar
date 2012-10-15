@@ -2617,6 +2617,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function getEvents( $args = array() ) {
 			$defaults = array(
+				'post_type' => TribeEvents::POSTTYPE, // tribe_events by default
 				'orderby' => 'event_date',
 				'order' => 'ASC'
 			);
