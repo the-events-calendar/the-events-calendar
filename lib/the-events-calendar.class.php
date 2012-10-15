@@ -1356,7 +1356,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$this->displaying = 'admin';
 			} else {
 				global $wp_query;
-				$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : 'upcoming';
+				$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : "";
 			}
 		}
 
