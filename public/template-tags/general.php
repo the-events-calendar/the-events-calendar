@@ -421,22 +421,27 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * show the recurring event info in a tooltip
 	 * @since  3.0
 	 */
-	function tribe_event_recurring_info_tooltip(){
-		global $post;
-		$eventID = $post->ID;
+	function tribe_event_recurring_info_tooltip( $post_id = null ){
+		if( is_null( $post_id ))
+			$post_id = get_the_ID();
+		$eventID = $post_id;
 		$tooltip = '';
 		if( class_exists( 'TribeEventsPro' ) )  { // should this be a template tag?
 			if ( tribe_is_recurring_event() ) { 
-				$tooltip .= '<div class="event-is-recurring">[ <img src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/recurring-event-icon.png" /> event ]';
-				$tooltip .= '<div id="tribe-events-tooltip-'. $eventID .'" class="tribe-events-tooltip">';
-					$tooltip .= '<div class="tribe-events-event-body">';
-						$tooltip .= tribe_get_recurrence_text();
-					$tooltip .= '</div>';	
-					$tooltip .= '<span class="tribe-events-arrow"></span>';	
+				$tooltip .= '<span class="recurringinfo">';
+				$tooltip .= '<div class="event-is-recurring">';
+					$tooltip .= '[ <img src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/recurring-event-icon.png" /> event ]';
+					$tooltip .= '<div id="tribe-events-tooltip-'. $eventID .'" class="tribe-events-tooltip">';
+						$tooltip .= '<div class="tribe-events-event-body">';
+							$tooltip .= tribe_get_recurrence_text();
+						$tooltip .= '</div>';	
+						$tooltip .= '<span class="tribe-events-arrow"></span>';	
+					$tooltip .= '</div>';
 				$tooltip .= '</div>';
-			$tooltip .= '</div>';		
+			$tooltip .= '</span>';		
 		 }
 		}
+		return $tooltip;
 		return apply_filters('tribe_event_recurring_info_tooltip', $tooltip);
 	}	
 

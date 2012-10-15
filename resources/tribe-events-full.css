@@ -331,6 +331,9 @@ select.tribe-events-dropdown {
 	font-size: 13px;
 }
 
+.tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
+	display: inline-block;
+} 
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring {
 	position: relative;
 	font-style: normal;
@@ -338,24 +341,20 @@ select.tribe-events-dropdown {
 	color: rgba(0, 0, 0, .7);
 }
 
+.tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring:hover {
+	color: #000;
+}
+
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring img {
 	width: 16px;
 	height: 16px;
 	opacity: .7;
 	position: relative;
-	top: 4px;
-	-moz-transition: all .1s;
-	-webkit-transition: all .1s;
-	-o-transition: all .1s;
-	transition: all .1s;	
+	top: 4px;	
 }
 
-.tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring img:hover {
+.tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring:hover img {
 	opacity: 1.0;
-	-moz-transform: rotate(30deg);
-	-webkit-transform: rotate(30deg);
-	-o-transform: rotate(30deg);
-	transform: rotate(30deg);
 }
 
 /* Cost */
@@ -408,7 +407,6 @@ select.tribe-events-dropdown {
 .single-tribe_venue .tribe-events-loop .vevent {
 	border-bottom: 1px solid #ddd;
 	padding: 2.25em 0;
-	overflow: auto;
 	margin: 0;
 }
 .tribe-events-loop .vevent.tribe-last {

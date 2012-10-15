@@ -90,7 +90,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			$tribe_classes_categories = $tribe_string_classes;
 			$class_string = $tribe_classes_default .' '. $tribe_classes_venue .' '. $tribe_classes_organizer .' '. $tribe_classes_categories;
 			
-			$html = '<div id="post-'. get_the_ID() .'" class="'. $class_string .'">';
+			$html = '<div id="post-'. get_the_ID() .'" class="'. $class_string .' clearfix">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_inside_before_loop');
 		}
 		// Event Image
@@ -120,25 +120,24 @@ if( !class_exists('Tribe_Events_List_Template')){
 			ob_start();
 		?>
 			<div class="tribe-events-event-meta">
-				<dl>
 			<?php if ( tribe_get_cost() ) { // Get our event cost ?>
 					<div class="tribe-events-event-cost"><span><?php echo tribe_get_cost(); ?></span></div>
 			<?php } ?>
 				<?php if ( !tribe_is_multiday( $post_id ) && !tribe_get_all_day() ) { ?>
-				<p class="updated published">
+				<div class="updated published">
 					<span class="dtstart"><?php echo tribe_get_start_date( $post_id, false ); ?></span> <span class="starttime">@ <?php echo tribe_get_start_date( $post_id, false, 'g:i A' ); ?></span>
-					<?php echo tribe_event_recurring_info_tooltip(); ?>
-				</p>
+					&nbsp; <?php echo tribe_event_recurring_info_tooltip(); ?>
+				</div>
 				<?php } elseif ( tribe_is_multiday( $post_id ) || !tribe_get_all_day() ) { ?>
-				<p class="updated published">
-					<span class="dtstart"><?php echo tribe_get_start_date( $post_id, false ); ?></span> <span class="starttime">@ <?php echo tribe_get_start_date( $post_id, false, 'g:i A' ); ?></span>  -  <span class="dtend"><?php echo tribe_get_end_date( $post_id, false ); ?></span>	
-					<?php echo tribe_event_recurring_info_tooltip(); ?>
-				</p>
+				<div class="updated published">
+					<span class="dtstart"><?php echo tribe_get_start_date( $post_id, false ); ?></span> <span class="starttime">@ <?php echo tribe_get_start_date( $post_id, false, 'g:i A' ); ?></span>  -  <span class="dtend"><?php echo tribe_get_end_date( $post_id, false ); ?></span>
+					&nbsp; <?php echo tribe_event_recurring_info_tooltip(); ?>
+				</div>
 				<?php } else { ?>
-				<p class="updated published">
+				<div class="updated published">
 					<span class="dtstart"><?php echo tribe_get_start_date( $post_id, false ); ?></span> @ <span class="starttime"><?php echo tribe_get_start_date( $post_id, false, 'g:i A' ); ?></span>	
-				</p>
-				<?php echo tribe_event_recurring_info_tooltip(); ?>
+					 &nbsp; <?php echo tribe_event_recurring_info_tooltip(); ?>
+				</div>
 				<?php } ?>
 
 
