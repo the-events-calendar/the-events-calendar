@@ -139,8 +139,6 @@ if( !class_exists('Tribe_Events_List_Template')){
 					 &nbsp; <?php echo tribe_event_recurring_info_tooltip(); ?>
 				</div>
 				<?php } ?>
-
-
 				<?php if ( tribe_get_venue() || tribe_address_exists( $post_id ) ) { // Get venue or location ?>
 					<p class="vcard fn org">
 						<?php if ( tribe_get_venue() ) { // Get our venue ?>

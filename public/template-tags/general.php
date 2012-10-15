@@ -420,6 +420,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * show the recurring event info in a tooltip
 	 * @since  3.0
+	 * @param  int $post_id
+	 * @return string
 	 */
 	function tribe_event_recurring_info_tooltip( $post_id = null ){
 		if( is_null( $post_id ))
