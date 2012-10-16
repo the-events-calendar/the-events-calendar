@@ -27,7 +27,7 @@ if( !class_exists('Tribe_Events_Address_Template')){
 		}
 		// Start Address Template
 		public function before_template( $post_id ){
-			$html = '<div class="adr">';
+			$html = '<span class="adr">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_address_before_template');
 		}
 		// Address Meta
@@ -90,7 +90,7 @@ if( !class_exists('Tribe_Events_Address_Template')){
 		}
 		// End Address Template
 		public function after_template( $post_id ){
-			$html = '</div><!-- .adr -->';
+			$html = '</span><!-- .adr -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_address_after_template');		
 		}
 	}

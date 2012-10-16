@@ -399,5 +399,23 @@ if( class_exists( 'TribeEvents' ) ) {
 		return preg_replace( "/^\n+|^[\t\s]*\n+/m", '', $multi_line_string );
 	}
 
+	/**
+	 * return the featured image html to an event (within the loop automatically will get event ID)
+	 * @since  3.0
+	 * @param  int $post_id
+	 * @param  string $size
+	 * @return string
+	 */
+	function tribe_event_featured_image( $post_id = null, $size = 'full' ){
+		if( is_null( $post_id ))
+			$post_id = get_the_ID();
+		$image_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), $size );			
+		$featured_image = '';
+		if ( !empty($image_src) ) {
+			$featured_image .= '<div class="tribe-events-event-image"><a href="'. tribe_get_event_link() .'" title="'. get_the_title( $post_id ) .'"><img src="'.  $image_src[0] .'" title="'. get_the_title( $post_id) .'" /></a></div>';
+		}
+		return apply_filter('tribe_event_featured_image', $featured_image);
+	}
+
 }
 ?>
