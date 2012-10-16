@@ -356,7 +356,6 @@ class TribeEventsGeoLoc {
 			$response['html'] .= ob_get_clean();
 
 			$response['markers'] = $this->generate_markers( $data );
-
 		}
 
 		header( 'Content-type: application/json' );
@@ -373,6 +372,57 @@ class TribeEventsGeoLoc {
 			$posts[$i]->lng      = $this->get_lng_for_event( $posts[$i]->ID );
 			$posts[$i]->distance = $this->get_distance_between_coords( $lat_from, $lng_from, $posts[$i]->lat, $posts[$i]->lng );
 		}
+
+		$this->quickSort($posts);
+
+	}
+
+	// Implementation and benchmark from: http://stackoverflow.com/questions/1462503/sort-array-by-object-property-in-php
+	private function quickSort( &$array ) {
+		$cur           = 1;
+		$stack[1]['l'] = 0;
+		$stack[1]['r'] = count( $array ) - 1;
+
+		do {
+			$l = $stack[$cur]['l'];
+			$r = $stack[$cur]['r'];
+			$cur--;
+
+			do {
+				$i   = $l;
+				$j   = $r;
+				$tmp = $array[(int)( ( $l + $r ) / 2 )];
+
+				do {
+					while ( $array[$i]->distance < $tmp->distance )
+						$i++;
+
+					while ( $tmp->distance < $array[$j]->distance )
+						$j--;
+
+					// swap elements from the two sides
+					if ( $i <= $j ) {
+						$w         = $array[$i];
+						$array[$i] = $array[$j];
+						$array[$j] = $w;
+
+						$i++;
+						$j--;
+					}
+
+				} while ( $i <= $j );
+
+				if ( $i < $r ) {
+					$cur++;
+					$stack[$cur]['l'] = $i;
+					$stack[$cur]['r'] = $r;
+				}
+				$r = $j;
+
+			} while ( $l < $r );
+
+		} while ( $cur != 0 );
+
 
 	}
 
