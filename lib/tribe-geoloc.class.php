@@ -18,7 +18,6 @@ class TribeEventsGeoLoc {
 	const ESTIMATION_CACHE_KEY = 'geoloc_center_point_estimation';
 	const EARTH_RADIO          = 6371; // IN KMS.
 
-
 	protected static $options;
 	protected $rewrite_slug;
 
@@ -122,6 +121,10 @@ class TribeEventsGeoLoc {
 		                    'html'    => '<input type="hidden" name="tribe-bar-geoloc-lat" id="tribe-bar-geoloc-lat" value="' . esc_attr( $lat ) . '" /><input type="hidden" name="tribe-bar-geoloc-lng" id="tribe-bar-geoloc-lng" value="' . esc_attr( $lng ) . '" /><input type="text" name="tribe-bar-geoloc" id="tribe-bar-geoloc" value="' . esc_attr( $value ) . '" placeholder="Location">' );
 
 		return $filters;
+	}
+
+	public function is_geoloc_query() {
+		return ( !empty( $_POST['tribe-bar-geoloc-lat'] ) && !empty( $_POST['tribe-bar-geoloc-lng'] ) );
 	}
 
 	public function setup_geoloc_in_query( $query ) {
@@ -325,7 +328,12 @@ class TribeEventsGeoLoc {
 
 		$data = TribeEventsQuery::getEvents();
 
-		$this->order_posts_by_distance( $data, $lat, $lng );
+		if ( $this->is_geoloc_query() ) {
+			$lat = isset( $_POST['tribe-bar-geoloc-lat'] ) ? $_POST['tribe-bar-geoloc-lat'] : 0;
+			$lng = isset( $_POST['tribe-bar-geoloc-lng'] ) ? $_POST['tribe-bar-geoloc-lng'] : 0;
+
+			$this->order_posts_by_distance( $data, $lat, $lng );
+		}
 
 
 		$response = array( 'html' => '', 'markers' => array(), 'success' => true );
