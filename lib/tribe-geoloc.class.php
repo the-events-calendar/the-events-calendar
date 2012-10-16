@@ -9,28 +9,6 @@
 * Date: 		9 / 18 / 12 12:31 PM
 *-------------------------------------------------------------------------------------*/
 
-class bbpTimer {
-
-	static $timers = array();
-
-	public static function time( $key ) {
-		if ( !isset( bbpTimer::$timers[$key] ) ) {
-			$time = microtime();
-			$time = explode( ' ', $time );
-			$time = $time[1] + $time[0];
-			bbpTimer::$timers[$key] = $time;
-		}else{
-			$time       = microtime();
-			$time       = explode( ' ', $time );
-			$time       = $time[1] + $time[0];
-			$finish     = $time;
-			$total_time = round( ( $finish - bbpTimer::$timers[$key] ), 4 );
-			echo '<div style="display:block;clear:both;">Generated in ' . $total_time . ' seconds.</div>';
-		}
-	}
-
-}
-
 class TribeEventsGeoLoc {
 
 	const LAT                  = '_VenueLat';
@@ -332,8 +310,6 @@ class TribeEventsGeoLoc {
 
 	function ajax_geosearch() {
 
-		bbpTimer::time('ajax');
-
 		$action = isset( $_POST["action"] ) ? $_POST["action"] : false;
 		$lat    = isset( $_POST["lat"] ) ? (float)$_POST["lat"] : false;
 		$lng    = isset( $_POST["lng"] ) ? (float)$_POST["lng"] : false;
@@ -428,10 +404,6 @@ class TribeEventsGeoLoc {
 			$response['markers'] = $this->generate_markers( $data );
 
 		}
-
-		ob_start();
-		bbpTimer::time('ajax');
-		$response['html'] = ob_get_clean() . "<br/><br/>" .$response['html'] ;
 
 		header( 'Content-type: application/json' );
 		echo json_encode( $response );
