@@ -2617,6 +2617,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function getEvents( $args = array() ) {
 			$defaults = array(
+				'post_type' => TribeEvents::POSTTYPE, // tribe_events by default
 				'orderby' => 'event_date',
 				'order' => 'ASC'
 			);
@@ -3059,7 +3060,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$filters[] = array( 'name'    => 'tribe-bar-date',
 			                    'caption' => 'Date',
-			                    'html'    => '<input type="text" name="tribe-bar-date" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="Date">' );
+			                    'html'    => '<input type="text" name="tribe-bar-date" style="position: relative; z-index: 100000;" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="Date">' );
 
 			return $filters;
 		}
