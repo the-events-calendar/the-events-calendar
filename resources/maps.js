@@ -213,11 +213,11 @@ jQuery( document ).ready( function ( $ ) {
 			return false;
 		}
 
-		if ( val === '' ) {
+		if ( val === ''  ) {
 			$( '#tribe-bar-geoloc-lat' ).val( '' );
 			$( '#tribe-bar-geoloc-lng' ).val( '' );
 
-			if (GeoLoc.map_view){
+			if ( GeoLoc.map_view && tribe_events_bar_action != 'change_view' ){
 				//We can show the map even if we don't get a geo query
 				tribe_map_processOption(null);
 				return false;
