@@ -1,4 +1,7 @@
 // Check for width of events bar so can kick in the view filter select input when appropriate
+
+var tribe_events_bar_action;
+
 function eventBarWidth() {
 	var tribeBar = jQuery( '#tribe-events-bar' );
 	var tribeBarWidth = tribeBar.width();
@@ -27,11 +30,13 @@ jQuery( document ).ready( function ( $ ) {
 	// Implement our views bit
 	$( 'select[name=tribe-events-bar-view]' ).change( function () {
 		var el = $( this );
+		tribe_events_bar_action = 'change_view';
 		$( 'form#tribe-events-bar-form' ).attr( 'action', el.val() ).submit();
 	} );
 
 	$( 'a.tribe-events-bar-view' ).on( 'click', function ( e ) {
 		e.preventDefault();
+		tribe_events_bar_action = 'change_view';
 		var el = $( this );
 		$( 'form#tribe-events-bar-form' ).attr( 'action', el.attr( 'href' ) ).submit();
 	} );
