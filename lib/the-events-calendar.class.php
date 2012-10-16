@@ -3060,7 +3060,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$filters[] = array( 'name'    => 'tribe-bar-date',
 			                    'caption' => 'Date',
-			                    'html'    => '<input type="text" name="tribe-bar-date" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="Date">' );
+			                    'html'    => '<input type="text" name="tribe-bar-date" style="position: relative; z-index: 100000;" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="Date">' );
 
 			return $filters;
 		}
