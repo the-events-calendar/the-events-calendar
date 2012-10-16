@@ -320,69 +320,23 @@ class TribeEventsGeoLoc {
 			exit;
 		}
 
+		TribeEventsQuery::init();
 
-		//First lets create a bounding box so we don't need to calculate distance to really far points
+		$venues = $this->get_venues_in_geofence( $lat, $lng );
 
-		$tec            = TribeEvents::instance();
-		$geofence_radio = $this->get_geofence_defualt_size();
+		$data = array();
+		if ( !empty( $venues ) ) {
 
-		$maxLat = $lat + rad2deg( $geofence_radio / self::EARTH_RADIO );
-		$minLat = $lat - rad2deg( $geofence_radio / self::EARTH_RADIO );
-		$maxLng = $lng + rad2deg( $geofence_radio / self::EARTH_RADIO / cos( deg2rad( $lat ) ) );
-		$minLng = $lng - rad2deg( $geofence_radio / self::EARTH_RADIO / cos( deg2rad( $lat ) ) );
+			$args = array( 'meta_query' => array( array( 'key'     => '_EventVenueID',
+			                                             'value'   => $venues,
+			                                             'type'    => 'NUMERIC',
+			                                             'compare' => 'IN' ) ) );
 
-		global $wpdb;
+			$data = TribeEventsQuery::getEvents($args);
 
-		//FTW!
-		$sql = "
-			SELECT p.*,
-			       events_ids_with_distances.distance
-			FROM   wp_posts p
-			       INNER JOIN (SELECT DISTINCT pm.post_id, geolocated_venues.distance AS distance
-		               FROM   wp_postmeta pm
-		                      INNER JOIN (SELECT venues.ID, Max(geolocated.distance) AS distance
-		                          FROM   wp_posts venues
-		                                 INNER JOIN (
-		                                    SELECT post_id, max(lat) AS lat, max(lng) AS lng,
-												((2 * " . self::EARTH_RADIO . " *
-											        ATAN2(
-											          SQRT(
-											            POWER(SIN((RADIANS($lat - max(lat) ))/2), 2) +
-											            COS(RADIANS(max(lat) )) *
-											            COS(RADIANS($lat)) *
-											            POWER(SIN((RADIANS($lng - max(lng) ))/2), 2)
-											          ),
-											          SQRT(1-(
-											            POWER(SIN((RADIANS($lat - max(lat) ))/2), 2) +
-											            COS(RADIANS(max(lat) )) *
-											            COS(RADIANS($lat)) *
-											            POWER(SIN((RADIANS($lng - max(lng) ))/2), 2)
-											          ))
-											        )
-											      )) AS distance
-											    FROM (
-													SELECT post_id, lat AS lat, lng AS lng FROM(
-													  SELECT
-													    post_id,
-													    CASE WHEN meta_key = '" . self::LAT . "' THEN meta_value END AS LAT,
-													    CASE WHEN meta_key = '" . self::LNG . "' THEN meta_value END AS LNG
-													      FROM $wpdb->postmeta
-													      WHERE meta_key = '" . self::LAT . "' OR meta_key = '" . self::LNG . "'
-													) coords
-													WHERE (lat > $minLat OR lat IS NULL) AND (lat < $maxLat OR lat IS NULL) AND (lng > $minLng OR lng IS NULL) AND (lng < $maxLng OR lng IS NULL)
-													) first_cut
-												GROUP BY post_id
-											HAVING lat IS NOT NULL AND lng IS NOT NULL) geolocated
-												ON venues.id = geolocated.post_id
-										GROUP  BY venues.ID) geolocated_venues
-											ON pm.meta_value = geolocated_venues.ID
-									AND pm.meta_key = '_EventVenueID') events_ids_with_distances
-											ON p.id = events_ids_with_distances.post_id
-								ORDER  BY events_ids_with_distances.distance
-								";
+			$this->order_posts_by_distance($data, $lat, $lng);
 
-
-		$data = $wpdb->get_results( $sql, OBJECT );
+		}
 
 
 		$response = array( 'html' => '', 'markers' => array(), 'success' => true );
@@ -410,6 +364,39 @@ class TribeEventsGeoLoc {
 
 		exit;
 
+	}
+
+	private function order_posts_by_distance( &$posts, $lat_from, $lng_from ) {
+
+		for ( $i = 0; $i < count( $posts ); $i++ ) {
+			$posts[$i]->lat      = $this->get_lat_for_event( $posts[$i]->ID );
+			$posts[$i]->lng      = $this->get_lng_for_event( $posts[$i]->ID );
+			$posts[$i]->distance = $this->get_distance_between_coords( $lat_from, $lng_from, $posts[$i]->lat, $posts[$i]->lng );
+		}
+
+	}
+
+	// Implementation of the Haversine Formula
+	public function get_distance_between_coords( $lat_from, $lng_from, $lat_to, $lng_to ) {
+
+		$delta_lat = $lat_to - $lat_from;
+		$delta_lng = $lng_to - $lng_from;
+		$a        = sin( deg2rad( $delta_lat / 2 ) ) * sin( deg2rad( $delta_lat / 2 ) ) + cos( deg2rad( $lat_from ) ) * cos( deg2rad( $lat_to ) ) * sin( deg2rad( $delta_lng / 2 ) ) * sin( deg2rad( $delta_lng / 2 ) );
+		$c        = asin( min( 1, sqrt( $a ) ) );
+		$distance = 2 * self::EARTH_RADIO * $c;
+		$distance = round( $distance, 4 );
+
+		return $distance;
+	}
+
+	public function get_lat_for_event( $event_id ) {
+		$venue = tribe_get_venue_id( $event_id );
+		return get_post_meta( $venue, self::LAT, true );
+	}
+
+	public function get_lng_for_event( $event_id ) {
+		$venue = tribe_get_venue_id( $event_id );
+		return get_post_meta( $venue, self::LNG, true );
 	}
 
 	private function estimate_center_point() {
