@@ -1,6 +1,6 @@
-var map, geocoder, geocodes, bounds, markersArray = [], spinner;
-geocoder = new google.maps.Geocoder();
-bounds = new google.maps.LatLngBounds();
+var map, tribe_map_geocoder, geocodes, tribe_map_bounds, markersArray = [], spinner;
+tribe_map_geocoder = new google.maps.Geocoder();
+tribe_map_bounds = new google.maps.LatLngBounds();
 
 jQuery( document ).ready( function ( $ ) {
 
@@ -14,60 +14,23 @@ jQuery( document ).ready( function ( $ ) {
 
 	if ( document.getElementById( 'tribe-geo-map' ) ) {
 		map = new google.maps.Map( document.getElementById( 'tribe-geo-map' ), options );
-		bounds = new google.maps.LatLngBounds();
+		tribe_map_bounds = new google.maps.LatLngBounds();
 
 		var minLatlng = new google.maps.LatLng( GeoLoc.center.min_lat, GeoLoc.center.min_lng );
-		bounds.extend( minLatlng );
+		tribe_map_bounds.extend( minLatlng );
 
 		var maxLatlng = new google.maps.LatLng( GeoLoc.center.max_lat, GeoLoc.center.max_lng );
-		bounds.extend( maxLatlng );
+		tribe_map_bounds.extend( maxLatlng );
 
 		centerMap();
 	}
-
-	$( '#tribe-geo-search' ).click( function () {
-
-		deleteMarkers();
-
-		$( "#tribe-geo-results" ).empty();
-
-		var location = $( '#tribe-geo-location' ).val();
-		$( "#tribe-geo-options" ).hide();
-		$( "#tribe-geo-options #tribe-geo-links" ).empty();
-
-		spin_start();
-
-		processGeocoding( location, function ( results, selected_index ) {
-			geocodes = results;
-
-			if ( geocodes.length > 1 ) {
-				spin_end();
-				$( "#tribe-geo-options" ).show();
-
-				for ( var i = 0; i < geocodes.length; i++ ) {
-					$( "<a/>" ).text( geocodes[i].formatted_address ).attr( "href", "#" ).addClass( 'tribe-geo-option-link' ).attr( 'data-index', i ).appendTo( "#tribe-geo-options #tribe-geo-links" );
-					addMarker( geocodes[i].geometry.location.lat(), geocodes[i].geometry.location.lng(), geocodes[i].formatted_address );
-				}
-				centerMap();
-
-				$( 'html, body' ).animate( {
-					scrollTop:$( "#tribe-geo-options" ).offset().top
-				}, 1000 );
-
-			} else {
-				processOption( geocodes[0] );
-			}
-		} );
-		return false;
-
-	} );
 
 	$( "#tribe-geo-options" ).on( 'click', 'a', function ( e ) {
 		spin_start();
 		e.preventDefault();
 		$( "#tribe-geo-options a" ).removeClass( 'tribe-option-loaded' );
 		$( this ).addClass( 'tribe-option-loaded' );
-		processOption( geocodes[$( this ).attr( 'data-index' )] );
+		tribe_map_processOption( geocodes[$( this ).attr( 'data-index' )] );
 	} );
 
 	function processGeocoding( location, callback ) {
@@ -76,7 +39,7 @@ jQuery( document ).ready( function ( $ ) {
 			address:location
 		};
 
-		geocoder.geocode( request, function ( results, status ) {
+		tribe_map_geocoder.geocode( request, function ( results, status ) {
 			if ( status == google.maps.GeocoderStatus.OK ) {
 				callback( results );
 				return results;
@@ -92,16 +55,23 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 
-	function processOption( geocode ) {
+	function tribe_map_processOption( geocode ) {
 
 		deleteMarkers();
 
 		var data = {
-			lat:geocode.geometry.location.lat(),
-			lng:geocode.geometry.location.lng(),
 			action:'geosearch',
 			nonce:GeoLoc.nonce
 		};
+
+		$( 'form#tribe_events_filters_form :input' ).each( function () {
+			data[this.name] = $( this ).val();
+		} );
+
+		$( 'form#tribe-events-bar-form :input' ).each( function () {
+			data[this.name] = $( this ).val();
+		} );
+
 
 		$.post( GeoLoc.ajaxurl, data, function ( response ) {
 
@@ -112,10 +82,8 @@ jQuery( document ).ready( function ( $ ) {
 				$( "#tribe-geo-results" ).html( response.html );
 
 				$.each( response.markers, function ( i, e ) {
-					addMarker( e.lat, e.lng, e.title, e.address, e.link );
+					tribe_map_addMarker( e.lat, e.lng, e.title, e.address, e.link );
 				} );
-
-				console.log (response);
 
 				if ( response.markers.length > 0 ) {
 					centerMap();
@@ -129,9 +97,9 @@ jQuery( document ).ready( function ( $ ) {
 		} );
 
 	}
-
-
-	function addMarker( lat, lng, title, address, link ) {
+	
+	
+	function tribe_map_addMarker( lat, lng, title, address, link ) {
 		var myLatlng = new google.maps.LatLng( lat, lng );
 
 		var marker = new google.maps.Marker( {
@@ -160,7 +128,7 @@ jQuery( document ).ready( function ( $ ) {
 		} );
 
 		markersArray.push( marker );
-		bounds.extend( myLatlng );
+		tribe_map_bounds.extend( myLatlng );
 
 	}
 
@@ -170,13 +138,13 @@ jQuery( document ).ready( function ( $ ) {
 				markersArray[i].setMap( null );
 			}
 			markersArray.length = 0;
-			bounds = new google.maps.LatLngBounds();
+			tribe_map_bounds = new google.maps.LatLngBounds();
 		}
 	}
 
 	function centerMap() {
 
-		map.fitBounds( bounds );
+		map.fitBounds( tribe_map_bounds );
 		if ( map.getZoom() > 13 ) {
 			map.setZoom( 13 );
 		}
@@ -185,7 +153,6 @@ jQuery( document ).ready( function ( $ ) {
 
 	function spin_start() {
 		$( "#tribe-geo-loading" ).show();
-
 	}
 
 	function spin_end() {
@@ -196,8 +163,19 @@ jQuery( document ).ready( function ( $ ) {
 	$( 'form#tribe-events-bar-form' ).bind( 'submit', function () {
 
 		var val = $( '#tribe-bar-geoloc' ).val();
+
 		if ( val !== '' && !tribe_geoloc_auto_submit ) {
+
+			if ( GeoLoc.map_view ) {
+				deleteMarkers();
+				$( "#tribe-geo-results" ).empty();
+				$( "#tribe-geo-options" ).hide();
+				$( "#tribe-geo-options #tribe-geo-links" ).empty();
+			}
+
 			processGeocoding( val, function ( results, selected_index ) {
+				geocodes = results;
+				// We're not in the map view. Let's submit.
 
 				var lat = results[0].geometry.location.lat();
 				var lng = results[0].geometry.location.lng();
@@ -208,9 +186,29 @@ jQuery( document ).ready( function ( $ ) {
 				if ( lng )
 					$( '#tribe-bar-geoloc-lng' ).val( lng );
 
-				tribe_geoloc_auto_submit = true;
-				$( 'form#tribe-events-bar-form' ).submit();
+				if ( !GeoLoc.map_view || tribe_events_bar_action == 'change_view' ) {
 
+					tribe_geoloc_auto_submit = true;
+					$( 'form#tribe-events-bar-form' ).submit();
+
+				} else { // We're in the map view. Let's ajaxify the form.
+					if ( geocodes.length > 1 ) {
+						$( "#tribe-geo-options" ).show();
+
+						for ( var i = 0; i < geocodes.length; i++ ) {
+							$( "<a/>" ).text( geocodes[i].formatted_address ).attr( "href", "#" ).addClass( 'tribe-geo-option-link' ).attr( 'data-index', i ).appendTo( "#tribe-geo-options #tribe-geo-links" );
+							tribe_map_addMarker( geocodes[i].geometry.location.lat(), geocodes[i].geometry.location.lng(), geocodes[i].formatted_address );
+						}
+						centerMap();
+
+						$( 'html, body' ).animate( {
+							scrollTop:$( "#tribe-geo-options" ).offset().top
+						}, 1000 );
+
+					} else {
+						tribe_map_processOption( geocodes[0] );
+					}
+				}
 			} );
 			return false;
 		}
@@ -218,6 +216,13 @@ jQuery( document ).ready( function ( $ ) {
 		if ( val === '' ) {
 			$( '#tribe-bar-geoloc-lat' ).val( '' );
 			$( '#tribe-bar-geoloc-lng' ).val( '' );
+
+			if (GeoLoc.map_view){
+				//We can show the map even if we don't get a geo query
+				tribe_map_processOption(null);
+				return false;
+			}
+
 		}
 
 		return true;

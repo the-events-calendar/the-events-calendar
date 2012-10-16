@@ -46,13 +46,16 @@ class TribeEventsGeoLoc {
 
 	public function scripts() {
 
+		$tec = TribeEvents::instance();
+
 		wp_register_script( 'gmaps', 'http://maps.google.com/maps/api/js?sensor=false', array( 'jquery' ) );
 		wp_register_script( 'tribe-geoloc', trailingslashit( TribeEventsPro::instance()->pluginUrl ) . 'resources/maps.js', array( 'gmaps' ) );
 		wp_enqueue_script( 'tribe-geoloc' );
 
-		$data = array( 'ajaxurl' => admin_url( 'admin-ajax.php' ),
-		               'nonce'   => wp_create_nonce( 'geosearch' ),
-		               'center'  => $this->estimate_center_point() );
+		$data = array( 'ajaxurl'  => admin_url( 'admin-ajax.php' ),
+		               'nonce'    => wp_create_nonce( 'geosearch' ),
+		               'center'   => $this->estimate_center_point(),
+		               'map_view' => ( $tec->displaying == 'map' ) ? true : false );
 
 		wp_localize_script( 'tribe-geoloc', 'GeoLoc', $data );
 
@@ -310,33 +313,18 @@ class TribeEventsGeoLoc {
 
 	function ajax_geosearch() {
 
-		$action = isset( $_POST["action"] ) ? $_POST["action"] : false;
-		$lat    = isset( $_POST["lat"] ) ? (float)$_POST["lat"] : false;
-		$lng    = isset( $_POST["lng"] ) ? (float)$_POST["lng"] : false;
 		$nonce  = isset( $_POST["nonce"] ) ? $_POST["nonce"] : false;
 
-		if ( !$action || !$lat || !$lng ) {
+		if ( !wp_verify_nonce( $nonce, 'geosearch' ) ) {
 			echo "-1";
 			exit;
 		}
 
 		TribeEventsQuery::init();
 
-		$venues = $this->get_venues_in_geofence( $lat, $lng );
+		$data = TribeEventsQuery::getEvents();
 
-		$data = array();
-		if ( !empty( $venues ) ) {
-
-			$args = array( 'meta_query' => array( array( 'key'     => '_EventVenueID',
-			                                             'value'   => $venues,
-			                                             'type'    => 'NUMERIC',
-			                                             'compare' => 'IN' ) ) );
-
-			$data = TribeEventsQuery::getEvents($args);
-
-			$this->order_posts_by_distance($data, $lat, $lng);
-
-		}
+		$this->order_posts_by_distance( $data, $lat, $lng );
 
 
 		$response = array( 'html' => '', 'markers' => array(), 'success' => true );
@@ -367,14 +355,17 @@ class TribeEventsGeoLoc {
 
 	private function order_posts_by_distance( &$posts, $lat_from, $lng_from ) {
 
+		// add distances
 		for ( $i = 0; $i < count( $posts ); $i++ ) {
 			$posts[$i]->lat      = $this->get_lat_for_event( $posts[$i]->ID );
 			$posts[$i]->lng      = $this->get_lng_for_event( $posts[$i]->ID );
 			$posts[$i]->distance = $this->get_distance_between_coords( $lat_from, $lng_from, $posts[$i]->lat, $posts[$i]->lng );
 		}
 
-		$this->quickSort($posts);
+		//sort
+		$this->quickSort( $posts );
 
+		//no return, $posts passed by ref
 	}
 
 	// Implementation and benchmark from: http://stackoverflow.com/questions/1462503/sort-array-by-object-property-in-php
@@ -394,13 +385,14 @@ class TribeEventsGeoLoc {
 				$tmp = $array[(int)( ( $l + $r ) / 2 )];
 
 				do {
+					/* Divide... */
 					while ( $array[$i]->distance < $tmp->distance )
 						$i++;
 
 					while ( $tmp->distance < $array[$j]->distance )
 						$j--;
 
-					// swap elements from the two sides
+					/* ...and conquer! */
 					if ( $i <= $j ) {
 						$w         = $array[$i];
 						$array[$i] = $array[$j];
@@ -431,10 +423,10 @@ class TribeEventsGeoLoc {
 
 		$delta_lat = $lat_to - $lat_from;
 		$delta_lng = $lng_to - $lng_from;
-		$a        = sin( deg2rad( $delta_lat / 2 ) ) * sin( deg2rad( $delta_lat / 2 ) ) + cos( deg2rad( $lat_from ) ) * cos( deg2rad( $lat_to ) ) * sin( deg2rad( $delta_lng / 2 ) ) * sin( deg2rad( $delta_lng / 2 ) );
-		$c        = asin( min( 1, sqrt( $a ) ) );
-		$distance = 2 * self::EARTH_RADIO * $c;
-		$distance = round( $distance, 4 );
+		$a         = sin( deg2rad( $delta_lat / 2 ) ) * sin( deg2rad( $delta_lat / 2 ) ) + cos( deg2rad( $lat_from ) ) * cos( deg2rad( $lat_to ) ) * sin( deg2rad( $delta_lng / 2 ) ) * sin( deg2rad( $delta_lng / 2 ) );
+		$c         = asin( min( 1, sqrt( $a ) ) );
+		$distance  = 2 * self::EARTH_RADIO * $c;
+		$distance  = round( $distance, 4 );
 
 		return $distance;
 	}
