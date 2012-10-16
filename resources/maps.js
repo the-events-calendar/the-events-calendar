@@ -30,7 +30,13 @@ jQuery( document ).ready( function ( $ ) {
 		e.preventDefault();
 		$( "#tribe-geo-options a" ).removeClass( 'tribe-option-loaded' );
 		$( this ).addClass( 'tribe-option-loaded' );
-		tribe_map_processOption( geocodes[$( this ).attr( 'data-index' )] );
+
+		$( '#tribe-bar-geoloc-lat' ).val( geocodes[$( this ).attr( 'data-index' )].geometry.location.lat() );
+		$( '#tribe-bar-geoloc-lng' ).val( geocodes[$( this ).attr( 'data-index' )].geometry.location.lng() );
+
+		tribe_map_processOption( null );
+
+
 	} );
 
 	function processGeocoding( location, callback ) {
@@ -56,7 +62,7 @@ jQuery( document ).ready( function ( $ ) {
 
 
 	function tribe_map_processOption( geocode ) {
-
+		spin_start();
 		deleteMarkers();
 
 		var data = {
@@ -94,11 +100,13 @@ jQuery( document ).ready( function ( $ ) {
 				}, 1000 );
 			}
 
+			spin_end();
+
 		} );
 
 	}
-	
-	
+
+
 	function tribe_map_addMarker( lat, lng, title, address, link ) {
 		var myLatlng = new google.maps.LatLng( lat, lng );
 
@@ -162,6 +170,8 @@ jQuery( document ).ready( function ( $ ) {
 	var tribe_geoloc_auto_submit = false;
 	$( 'form#tribe-events-bar-form' ).bind( 'submit', function () {
 
+		spin_start();
+
 		var val = $( '#tribe-bar-geoloc' ).val();
 
 		if ( val !== '' && !tribe_geoloc_auto_submit ) {
@@ -176,6 +186,7 @@ jQuery( document ).ready( function ( $ ) {
 			processGeocoding( val, function ( results, selected_index ) {
 				geocodes = results;
 				// We're not in the map view. Let's submit.
+				spin_end();
 
 				var lat = results[0].geometry.location.lat();
 				var lng = results[0].geometry.location.lng();
@@ -210,21 +221,21 @@ jQuery( document ).ready( function ( $ ) {
 					}
 				}
 			} );
+
 			return false;
 		}
 
-		if ( val === ''  ) {
+		if ( val === '' ) {
 			$( '#tribe-bar-geoloc-lat' ).val( '' );
 			$( '#tribe-bar-geoloc-lng' ).val( '' );
 
-			if ( GeoLoc.map_view && tribe_events_bar_action != 'change_view' ){
+			if ( GeoLoc.map_view && tribe_events_bar_action != 'change_view' ) {
 				//We can show the map even if we don't get a geo query
-				tribe_map_processOption(null);
+				tribe_map_processOption( null );
+				spin_end();
 				return false;
 			}
-
 		}
-
 		return true;
 
 	} );

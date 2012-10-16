@@ -130,18 +130,19 @@ class TribeEventsGeoLoc {
 
 			$venues = $this->get_venues_in_geofence( $_POST['tribe-bar-geoloc-lat'], $_POST['tribe-bar-geoloc-lng'] );
 
-			if ( !empty( $venues ) ) {
+			if ( empty( $venues ) ) {
+				$venues = -1;
+			}
 
-				$meta_query = array( 'key'     => '_EventVenueID',
-				                     'value'   => $venues,
-				                     'type'    => 'NUMERIC',
-				                     'compare' => 'IN' );
+			$meta_query = array( 'key'     => '_EventVenueID',
+			                     'value'   => $venues,
+			                     'type'    => 'NUMERIC',
+			                     'compare' => 'IN' );
 
-				if ( empty( $query->query_vars['meta_query'] ) ) {
-					$query->set( 'meta_query', array( $meta_query ) );
-				} else {
-					$query->query_vars['meta_query'][] = $meta_query;
-				}
+			if ( empty( $query->query_vars['meta_query'] ) ) {
+				$query->set( 'meta_query', array( $meta_query ) );
+			} else {
+				$query->query_vars['meta_query'][] = $meta_query;
 			}
 		}
 
