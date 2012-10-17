@@ -184,7 +184,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( $this->pluginPath.'public/advanced-functions/organizer.php' );
 
 			// Load Deprecated Template Tags
-			require_once( 'template-tags-deprecated.php' );
+			if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
+				require_once( $this->pluginPath.'public/template-tags/deprecated.php' );
+			}
 
 			// Load Classes
 			require_once( 'widget-list.class.php' );
