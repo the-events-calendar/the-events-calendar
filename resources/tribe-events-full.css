@@ -379,6 +379,7 @@ select.tribe-events-dropdown {
 /* = Single Event Template Styles
    @ Template: single-event.php
 =============================================*/
+
 #tribe-events-content .description img.attachment-post-thumbnail {
 	margin-left: auto;
 	margin-right: auto;
@@ -386,6 +387,10 @@ select.tribe-events-dropdown {
 	text-align: center;
 }
 
+.tribe-event-single-section-title, .entry-content .tribe-event-single-section-title {
+	padding: 0 4%;
+	margin: 0 0 2% 0;
+}
 /* Eventbrite */
 #eventbrite-embed {
 	width: 100%;
@@ -413,6 +418,25 @@ select.tribe-events-dropdown {
 	text-align: right;
 }
 
+/* Featured Image */
+
+.single-tribe_events .tribe-event-featured-image {
+	clear: both;
+	text-align: center;
+}
+/* Meta Sections */
+.single-tribe_events .tribe-events-event-meta {
+		background: #eee;
+		border-width: 1px;
+}
+
+/* Map */
+.single-tribe_events .tribe-event-venue-map {
+	width: 63%;
+	margin-right: 4%;
+	float: right;
+}
+
 
 /* = Single Event & Single Venue (Pro Version) Template Styles
    @ Template: single-event.php & single-venue.php
@@ -429,19 +453,19 @@ select.tribe-events-dropdown {
 	border-style: solid;
 	border-color: #bbb;
 	margin: 8px 0 18px 0;
-	padding: 12px 0 2px;
+	padding: 2% 0;
 	overflow: hidden;
 	font-size: 12px;
+
 }
-.tribe-events-event-meta .tribe-events-column {
+.tribe-events-event-meta .tribe-events-column, .tribe-events-event-meta .column {
 	float: left;
-	width: 30%;
-	padding: 0 4% 0 0;
+	width: 25%;
+	padding: 0 4%;
 	text-align: left;
 	margin: 0;
 }
 .tribe-events-event-meta dt {
-	float: left;
 	clear: left;
 	font-weight: bold;
 	width: 70px;
@@ -449,7 +473,6 @@ select.tribe-events-dropdown {
 #tribe-events-content .tribe-events-event-meta dd,
 #tribe-events-content .tribe-events-event-meta dd.entry-content {
 	padding: 0;
-	margin-left: 80px;
 	margin-bottom: 10px;
 	line-height: 1.5;
 }

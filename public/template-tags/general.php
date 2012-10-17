@@ -421,15 +421,15 @@ if( class_exists( 'TribeEvents' ) ) {
 		if (is_null( $post_id ))
 			$post_id = get_the_ID();
 			$schedule = '';
-			 if ( tribe_is_multiday( $post_id ) ) { // multi-date event 
-				$schedule .= '<h2><span class="dtstart">'. tribe_get_start_date() .'</span> - <span class="dtend">'. tribe_get_end_date() .'</span></h2>';
-			 } elseif ( tribe_get_all_day( $post_id ) ) {  // all day event
-				$schedule .= '<h2><span class="dtstart">'. tribe_get_start_date() .'</span></h2>';
+			if ( tribe_is_multiday( $post_id ) ) { // multi-date event 
+				$schedule .= '<span class="dtstart">'. tribe_get_start_date() .'</span> - <span class="dtend">'. tribe_get_end_date() .'</span>';
+			} elseif ( tribe_get_all_day( $post_id ) ) {  // all day event
+				$schedule .= '<span class="dtstart">'. tribe_get_start_date() .'</span>';
 			} else { // single day event
 					if ( tribe_get_start_date( $post_id, false, 'g:i A' ) == tribe_get_end_date( $post_id, false, 'g:i A' ) ) { // Same start/end time 
-						$schedule .= '<h2><span class="dtstart">'. tribe_get_start_date($post_id, false) .'</span> @ <span class="starttime">'. tribe_get_start_date( $post_id, false, 'g:i A' ) .'</span></h2>';
+						$schedule .= '<span class="dtstart">'. tribe_get_start_date($post_id, false) .'</span> @ <span class="starttime">'. tribe_get_start_date( $post_id, false, 'g:i A' ) .'</span>';
 					 } else {  // defined start/end time
-					  $schedule .= '<h2><span class="dtstart">'. tribe_get_start_date( $post_id, false ) .'</span> | <span class="starttime">'. tribe_get_start_date( $post_id, false, 'g:i A' ) .' - <span class="starttime">'. tribe_get_end_date( $post_id, false, 'g:i A' ) .'</h2>';	
+					  $schedule .= '<span class="dtstart">'. tribe_get_start_date( $post_id, false ) .'</span> | <span class="starttime">'. tribe_get_start_date( $post_id, false, 'g:i A' ) .' - <span class="starttime">'. tribe_get_end_date( $post_id, false, 'g:i A' ) .'';	
 					 } 					
 			}			 
 			return $schedule;
