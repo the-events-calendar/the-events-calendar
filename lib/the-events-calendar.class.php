@@ -25,7 +25,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'public' => true,
 			'rewrite' => array('slug' => 'event', 'with_front' => false),
 			'menu_position' => 6,
-			'supports' => array('title','editor','excerpt','author','thumbnail', 'custom-fields'),
+			'supports' => array('title','editor','excerpt','author','thumbnail', 'custom-fields', 'comments'),
 			'taxonomies' => array('post_tag'),
 			'capability_type' => array('tribe_event', 'tribe_events'),
 			'map_meta_cap' => true
