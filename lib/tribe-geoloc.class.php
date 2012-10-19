@@ -297,7 +297,7 @@ class TribeEventsGeoLoc {
 		               CASE
 		                 WHEN meta_key = '" . self::LNG . "' THEN meta_value
 		               end     AS LNG
-		        FROM   wp_postmeta
+		        FROM   $wpdb->postmeta
 		        WHERE  meta_key = '" . self::LAT . "'
 		            OR meta_key = '" . self::LNG . "') coords
 		WHERE (lat > $minLat OR lat IS NULL) AND (lat < $maxLat OR lat IS NULL) AND (lng > $minLng OR lng IS NULL) AND (lng < $maxLng OR lng IS NULL)
@@ -468,7 +468,7 @@ class TribeEventsGeoLoc {
 				               CASE
 				                 WHEN meta_key = '" . self::LNG . "' THEN meta_value
 				               end     AS LNG
-				        FROM   wp_postmeta
+				        FROM   $wpdb->postmeta
 				        WHERE  meta_key = '" . self::LAT . "'
 				            OR meta_key = '" . self::LNG . "') coors
 		";
@@ -480,7 +480,7 @@ class TribeEventsGeoLoc {
 
 			set_transient( self::ESTIMATION_CACHE_KEY, $data, 5000 );
 		}
-
+		
 		return $data;
 
 	}
