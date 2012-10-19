@@ -11,7 +11,7 @@ class TribeEventsBar {
 	private $views = array();
 
 	public function __construct() {
-		add_filter( 'tribe_events_before_html', array( $this, 'show' ), 1 );
+		add_filter( 'tribe_events_before_html', array( $this, 'show' ), 5 );
 		add_filter( 'wp_enqueue_scripts', array( $this, 'load_script' ) );
 	}
 
