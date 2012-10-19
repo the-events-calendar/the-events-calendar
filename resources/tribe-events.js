@@ -41,7 +41,7 @@ jQuery(document).ready(function($) {
 		});
 
 		// tooltip for recurring info in list view
-		$('.tribe-events-list .tribe-events-event-meta').delegate('div.event-is-recurring', 'mouseenter', function() {
+		$('.tribe-events-list .tribe-events-event-meta, .tribe-events-single').delegate('div.event-is-recurring', 'mouseenter', function() {
 			var bottomPad = $(this).outerHeight() + 12;	
 			$(this).find('.tribe-events-tooltip').css('bottom', bottomPad).stop(true,false).fadeIn(100);            
 		}).delegate('div.event-is-recurring', 'mouseleave', function() {

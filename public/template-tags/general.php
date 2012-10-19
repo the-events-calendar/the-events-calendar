@@ -435,7 +435,7 @@ if( class_exists( 'TribeEvents' ) ) {
 				$tooltip .= '<span class="recurringinfo">';
 				$tooltip .= '<div class="event-is-recurring">';
 					$tooltip .= '[ <img src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/recurring-event-icon.png" /> event ]';
-					$tooltip .= '<div id="tribe-events-tooltip-'. $eventID .'" class="tribe-events-tooltip">';
+					$tooltip .= '<div id="tribe-events-tooltip-'. $eventID .'" class="tribe-events-tooltip recurring-info-tooltip">';
 						$tooltip .= '<div class="tribe-events-event-body">';
 							$tooltip .= tribe_get_recurrence_text();
 						$tooltip .= '</div>';	
@@ -447,8 +447,14 @@ if( class_exists( 'TribeEvents' ) ) {
 		}
 		return $tooltip;
 		return apply_filters('tribe_event_recurring_info_tooltip', $tooltip);
-	}	
+	}
 
+	/** 
+	 * return the details of the start/end date/time
+	 * @since  3.0
+	 * @param  int $post_id
+	 * @return string
+	 */
 	function tribe_event_schedule_details( $post_id = null){
 		if (is_null( $post_id ))
 			$post_id = get_the_ID();
@@ -467,5 +473,6 @@ if( class_exists( 'TribeEvents' ) ) {
 			return $schedule;
 			return apply_filters('tribe_event_schedule_details', $schedule);
 	}
+		
 }
 ?>
