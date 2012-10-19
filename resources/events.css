@@ -261,6 +261,11 @@ div.tribe-countdown-text {
 	width:68%;	
 }
 
+.tribe-geo-result-data.tribe-geo-no-thumb {
+	float:none;
+	width:100%;
+}
+
 .tribe-geo-result-date {
 	display:block;
 	font-size: 16px;

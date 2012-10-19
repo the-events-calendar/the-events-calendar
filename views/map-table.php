@@ -6,11 +6,13 @@ foreach ( $data as $event ) {
 	global $post;
 	$post = $event;
 	$counter++;
+	$noThumb = true;
 	?>
 <div class="tribe-geo-result-entry<?php if ( $result_count == $counter )
 	echo ' tribe-geo-result-last'; ?>">
 	<?php
 	if ( has_post_thumbnail( $event->ID ) ) {
+		$noThumb = false;
 		$result_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), 'medium' );
 		?>
 		<div class="tribe-geo-result-thumb">
@@ -19,7 +21,7 @@ foreach ( $data as $event ) {
 			</a>
 		</div>
 		<?php } ?>
-	<div class="tribe-geo-result-data">
+	<div class="tribe-geo-result-data<?php if( $noThumb ) echo ' tribe-geo-no-thumb'; ?>">
 		<h2><a href="<?php echo tribe_get_event_link( $event->ID ) ?>"><?php echo $event->post_title; ?></a></h2>
 		<?php if ( tribe_get_cost( $event->ID ) ) { ?>
 		<div class="tribe-geo-result-cost">
