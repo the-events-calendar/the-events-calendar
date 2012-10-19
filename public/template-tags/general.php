@@ -417,23 +417,62 @@ if( class_exists( 'TribeEvents' ) ) {
 		return apply_filter('tribe_event_featured_image', $featured_image);
 	}
 
-	function tribe_event_schedule_details( $post_id = null){
-	if (is_null( $post_id ))
-		$post_id = get_the_ID();
-		$schedule = '';
-		 if ( tribe_is_multiday( $post_id ) ) { // multi-date event 
-			$schedule .= '<span class="dtstart">'. tribe_get_start_date() .'</span> - <span class="dtend">'. tribe_get_end_date() .'</span>';
-		 } elseif ( tribe_get_all_day( $post_id ) ) {  // all day event
-			$schedule .= '<span class="dtstart">'. tribe_get_start_date() .'</span>';
-		} else { // single day event
-				if ( tribe_get_start_date( $post_id, false, 'g:i A' ) == tribe_get_end_date( $post_id, false, 'g:i A' ) ) { // Same start/end time 
-					$schedule .= '<span class="dtstart">'. tribe_get_start_date($post_id, false) .'</span> @ <span class="starttime">'. tribe_get_start_date( $post_id, false, 'g:i A' ) .'</span>';
-				 } else {  // defined start/end time
-				  $schedule .= '<span class="dtstart">'. tribe_get_start_date( $post_id, false ) .'</span> | <span class="starttime">'. tribe_get_start_date( $post_id, false, 'g:i A' ) .' - <span class="starttime">'. tribe_get_end_date( $post_id, false, 'g:i A' ) .'</span>';	
-				 } 					
-		}			 
-		return $schedule;
-		return apply_filters('tribe_event_schedule_details', $schedule);
+	/**
+	 * show the recurring event info in a tooltip
+	 * 
+	 * return the details of the start/end date/time
+	 * @since  3.0
+	 * @param  int $post_id
+	 * @return string
+	 */
+	function tribe_event_recurring_info_tooltip( $post_id = null ){
+		if( is_null( $post_id ))
+			$post_id = get_the_ID();
+		$eventID = $post_id;
+		$tooltip = '';
+		if( class_exists( 'TribeEventsPro' ) )  { // should this be a template tag?
+			if ( tribe_is_recurring_event() ) { 
+				$tooltip .= '<span class="recurringinfo">';
+				$tooltip .= '<div class="event-is-recurring">';
+					$tooltip .= '[ <img src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/recurring-event-icon.png" /> event ]';
+					$tooltip .= '<div id="tribe-events-tooltip-'. $eventID .'" class="tribe-events-tooltip">';
+						$tooltip .= '<div class="tribe-events-event-body">';
+							$tooltip .= tribe_get_recurrence_text();
+						$tooltip .= '</div>';	
+						$tooltip .= '<span class="tribe-events-arrow"></span>';	
+					$tooltip .= '</div>';
+				$tooltip .= '</div>';
+			$tooltip .= '</span>';		
+		 }
+		}
+		return $tooltip;
+		return apply_filters('tribe_event_recurring_info_tooltip', $tooltip);
 	}
+
+	/** 
+	 * return the details of the start/end date/time
+	 * @since  3.0
+	 * @param  int $post_id
+	 * @return string
+	 */
+	function tribe_event_schedule_details( $post_id = null){
+		if (is_null( $post_id ))
+			$post_id = get_the_ID();
+			$schedule = '';
+			 if ( tribe_is_multiday( $post_id ) ) { // multi-date event 
+				$schedule .= '<span class="dtstart">'. tribe_get_start_date() .'</span> - <span class="dtend">'. tribe_get_end_date() .'</span>';
+			 } elseif ( tribe_get_all_day( $post_id ) ) {  // all day event
+				$schedule .= '<span class="dtstart">'. tribe_get_start_date() .'</span>';
+			} else { // single day event
+					if ( tribe_get_start_date( $post_id, false, 'g:i A' ) == tribe_get_end_date( $post_id, false, 'g:i A' ) ) { // Same start/end time 
+						$schedule .= '<span class="dtstart">'. tribe_get_start_date($post_id, false) .'</span> @ <span class="starttime">'. tribe_get_start_date( $post_id, false, 'g:i A' ) .'</span>';
+					 } else {  // defined start/end time
+					  $schedule .= '<span class="dtstart">'. tribe_get_start_date( $post_id, false ) .'</span> | <span class="starttime">'. tribe_get_start_date( $post_id, false, 'g:i A' ) .' - <span class="starttime">'. tribe_get_end_date( $post_id, false, 'g:i A' ) .'</span>';	
+					 } 					
+			}			 
+			return $schedule;
+			return apply_filters('tribe_event_schedule_details', $schedule);
+	}
+		
 }
 ?>
