@@ -297,7 +297,7 @@ class TribeEventsGeoLoc {
 		               CASE
 		                 WHEN meta_key = '" . self::LNG . "' THEN meta_value
 		               end     AS LNG
-		        FROM   wp_postmeta
+		        FROM   $wpdb->postmeta
 		        WHERE  meta_key = '" . self::LAT . "'
 		            OR meta_key = '" . self::LNG . "') coords
 		WHERE (lat > $minLat OR lat IS NULL) AND (lat < $maxLat OR lat IS NULL) AND (lng > $minLng OR lng IS NULL) AND (lng < $maxLng OR lng IS NULL)
@@ -324,29 +324,45 @@ class TribeEventsGeoLoc {
 			exit;
 		}
 
+		$paged = !empty( $_POST["paged"] ) ? $_POST["paged"] : 1;
+
 		TribeEventsQuery::init();
 
-		$data = TribeEventsQuery::getEvents();
+		$defaults = array( 'post_type'      => TribeEvents::POSTTYPE,
+		                   'orderby'        => 'event_date',
+		                   'order'          => 'ASC',
+		                   'posts_per_page' => tribe_get_option( 'postsPerPage', 10 ),
+		                   'paged'          => $paged );
 
-		if ( $this->is_geoloc_query() ) {
+		$query = new WP_Query( $defaults );
+
+		if ( $this->is_geoloc_query() && $query->found_posts > 0 ) {
 			$lat = isset( $_POST['tribe-bar-geoloc-lat'] ) ? $_POST['tribe-bar-geoloc-lat'] : 0;
 			$lng = isset( $_POST['tribe-bar-geoloc-lng'] ) ? $_POST['tribe-bar-geoloc-lng'] : 0;
 
-			$this->order_posts_by_distance( $data, $lat, $lng );
+			$this->order_posts_by_distance( $query->posts, $lat, $lng );
 		}
 
 
-		$response = array( 'html' => '', 'markers' => array(), 'success' => true );
+		$response = array( 'html' => '', 'markers' => array(), 'success' => true, 'max_pages' => $query->max_num_pages );
 
 		$response['html'] .= "<h2>" . __( 'Nearest places', 'tribe-events-calendar-pro' ) . '</h2>';
 
-		if ( count( $data ) === 1 ) {
-			$response['html'] .= sprintf( __( "<div class='event-notices'>%d event found</div>", 'tribe-events-calendar-pro' ), count( $data ) );
+
+
+		if ( $query->found_posts === 1 ) {
+			$response['html'] .= sprintf( __( "<div class='event-notices'>%d event found</div>", 'tribe-events-calendar-pro' ), $query->found_posts );
 		} else {
-			$response['html'] .= sprintf( __( "<div class='event-notices'>%d events found</div>", 'tribe-events-calendar-pro' ), count( $data ) );
+			$extra = "";
+			if ( $query->max_num_pages > 1 ) {
+				$extra = sprintf( __( " / %d in this page", 'tribe-events-calendar-pro' ), $query->post_count );
+			}
+
+			$response['html'] .= sprintf( __( "<div class='event-notices'>%d events found%s</div>", 'tribe-events-calendar-pro' ), $query->found_posts, $extra );
 		}
 
-		if ( count( $data ) > 0 ) {
+		if ( $query->found_posts > 0 ) {
+			$data = $query->posts;
 			ob_start();
 			$pro = TribeEventsPro::instance();
 			include $pro->pluginPath . 'views/map-table.php';
@@ -468,7 +484,7 @@ class TribeEventsGeoLoc {
 				               CASE
 				                 WHEN meta_key = '" . self::LNG . "' THEN meta_value
 				               end     AS LNG
-				        FROM   wp_postmeta
+				        FROM   $wpdb->postmeta
 				        WHERE  meta_key = '" . self::LAT . "'
 				            OR meta_key = '" . self::LNG . "') coors
 		";
@@ -480,7 +496,7 @@ class TribeEventsGeoLoc {
 
 			set_transient( self::ESTIMATION_CACHE_KEY, $data, 5000 );
 		}
-
+		
 		return $data;
 
 	}
