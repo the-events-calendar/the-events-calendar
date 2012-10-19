@@ -57,5 +57,7 @@ foreach ( $data as $event ) {
 	</div>
 </div>
 <?php }
-echo "<a href='#' id='tribe_map_paged_prev' class='tribe_map_paged'>" . __("<< Previous"). "</a>";
-echo "<a href='#' id='tribe_map_paged_next' class='tribe_map_paged'>" . __("Next >>"). "</a>";
+echo "<div class='tribe-events-loop-nav'>";
+echo "<a href='#' id='tribe_map_paged_prev' class='tribe_map_paged'>" . __("<< Previous Events"). "</a>";
+echo "<a href='#' id='tribe_map_paged_next' class='tribe_map_paged'>" . __("Next Events >>"). "</a>";
+echo "</div>";

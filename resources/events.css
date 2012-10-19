@@ -72,7 +72,6 @@ div.tribe-countdown-text {
 #tribe-geo-wrapper {
 	width  : 100%;
 	margin : 0 auto;	
-	font-family: "Helvetica Neue", Arial, Helvetica, "Nimbus Sans L", sans-serif;
 }
 
 #tribe-geo-data {
@@ -306,6 +305,24 @@ div.tribe-countdown-text {
 	text-align:center;
 }
 
+/* tribe geo location pagination */
+
+#tribe-geo-results .tribe-events-loop-nav {
+	overflow:hidden;
+}
+
+#tribe-geo-results #tribe_map_paged_prev {
+	float:left;
+}
+
+#tribe-geo-results #tribe_map_paged_next {
+	float:right;
+}
+
+.tribe_map_paged{
+	display: none;
+}
+
 #ajax-loading-mini {
 	display : none;
 }
@@ -317,6 +334,4 @@ div.tribe-countdown-text {
 	margin     : 20px 0;
 }
 
-.tribe_map_paged{
-	display: none;
-}
+
