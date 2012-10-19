@@ -123,22 +123,9 @@ if( !class_exists('Tribe_Events_List_Template')){
 			<?php if ( tribe_get_cost() ) { // Get our event cost ?>
 					<div class="tribe-events-event-cost"><span><?php echo tribe_get_cost(); ?></span></div>
 			<?php } ?>
-				<?php if ( !tribe_is_multiday( $post_id ) && !tribe_get_all_day() ) { ?>
 				<div class="updated published">
-					<span class="dtstart"><?php echo tribe_get_start_date( $post_id, false ); ?></span> <span class="starttime">@ <?php echo tribe_get_start_date( $post_id, false, 'g:i A' ); ?></span>
-					&nbsp; <?php echo tribe_event_recurring_info_tooltip(); ?>
-				</div>
-				<?php } elseif ( tribe_is_multiday( $post_id ) || !tribe_get_all_day() ) { ?>
-				<div class="updated published">
-					<span class="dtstart"><?php echo tribe_get_start_date( $post_id, false ); ?></span> <span class="starttime">@ <?php echo tribe_get_start_date( $post_id, false, 'g:i A' ); ?></span>  -  <span class="dtend"><?php echo tribe_get_end_date( $post_id, false ); ?></span>
-					&nbsp; <?php echo tribe_event_recurring_info_tooltip(); ?>
-				</div>
-				<?php } else { ?>
-				<div class="updated published">
-					<span class="dtstart"><?php echo tribe_get_start_date( $post_id, false ); ?></span> @ <span class="starttime"><?php echo tribe_get_start_date( $post_id, false, 'g:i A' ); ?></span>	
-					 &nbsp; <?php echo tribe_event_recurring_info_tooltip(); ?>
-				</div>
-				<?php } ?>
+						<?php echo tribe_event_schedule_details(), '&nbsp; &nbsp;', tribe_event_recurring_info_tooltip(); ?>
+				</div>	
 				<?php if ( tribe_get_venue() || tribe_address_exists( $post_id ) ) { // Get venue or location ?>
 					<p class="vcard fn org">
 						<?php if ( tribe_get_venue() ) { // Get our venue ?>
