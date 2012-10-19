@@ -26,15 +26,13 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <?php get_header(); ?>
 	<?php tribe_events_before_html(); ?>
 	
-		<div id="tribe-events-content" class="tribe-events-single">
-			<?php the_post(); global $post; ?>
-				<div id="post-<?php the_ID(); ?>" <?php post_class('hentry vevent'); ?>>
-					<h2 class="entry-title summary"><?php the_title(); ?></h2>
-					<?php include( tribe_get_current_template() ); ?>
-					<?php edit_post_link( __( 'Edit', 'tribe-events-calendar' ), '<span class="edit-link">', '</span>' ); ?>
-				</div><!-- .hentry .vevent -->
-			<?php if( tribe_get_option( 'showComments','no' ) == 'yes' ) { comments_template(); } ?>
-		</div><!-- #tribe-events-content -->
+		<?php the_post(); global $post; ?>
+			<div id="post-<?php the_ID(); ?>" <?php post_class('hentry vevent'); ?>>
+				<h2 class="entry-title summary"><?php the_title(); ?></h2>
+				<?php include( tribe_get_current_template() ); ?>
+				<?php edit_post_link( __( 'Edit', 'tribe-events-calendar' ), '<span class="edit-link">', '</span>' ); ?>
+			</div><!-- .hentry .vevent -->
+		<?php if( tribe_get_option( 'showComments','no' ) == 'yes' ) { comments_template(); } ?>
 		
 		<?php get_sidebar(); ?>
 		
