@@ -108,10 +108,7 @@ jQuery( document ).ready( function ( $ ) {
 				if ( response.markers.length > 0 ) {
 					centerMap();
 				}
-
-				$( 'html, body' ).animate( {
-					scrollTop:$( "#tribe-geo-results" ).offset().top
-				}, 1000 );
+				
 			}
 
 			spin_end();
@@ -237,10 +234,7 @@ jQuery( document ).ready( function ( $ ) {
 							tribe_map_addMarker( geocodes[i].geometry.location.lat(), geocodes[i].geometry.location.lng(), geocodes[i].formatted_address );
 						}
 						centerMap();
-
-						$( 'html, body' ).animate( {
-							scrollTop:$( "#tribe-geo-options" ).offset().top
-						}, 1000 );
+						
 
 					} else {
 						tribe_map_processOption( geocodes[0] );
