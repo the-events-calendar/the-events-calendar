@@ -316,3 +316,7 @@ div.tribe-countdown-text {
 	color      : red;
 	margin     : 20px 0;
 }
+
+.tribe_map_paged{
+	display: none;
+}
