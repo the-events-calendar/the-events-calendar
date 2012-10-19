@@ -70,7 +70,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/widget-featured.class.php');
 
 			add_action( 'init', array( $this, 'init' ), 10 );
-			add_filter( 'body_class', array( $this, 'body_class') );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 			add_action( 'tribe_after_location_details', array( $this, 'add_google_map_preview' ) );
@@ -79,6 +78,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'generate_rewrite_rules', array( $this, 'add_routes' ) );
 			add_filter('tribe_events_buttons_the_buttons', array($this, 'add_view_buttons'));
 			add_filter( 'tribe_events_pre_get_posts', array( $this, 'pre_get_posts'));
+			add_filter( 'body_class', array( $this, 'body_class') );
 			add_filter( 'tribe_current_events_page_template', array( $this, 'select_page_template' ) );
 			add_filter( 'tribe_help_tab_getting_started_text', array( $this, 'add_help_tab_getting_started_text' ) );
 			add_filter( 'tribe_help_tab_enb_content', array( $this, 'add_help_tab_enb_text' ) );
@@ -440,15 +440,17 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 		public function body_class( $classes ){
 			global $wp_query;
-			if( $wp_query->tribe_is_week ) {
-				$classes[] = ' tribe-events-week';
-				// remove the default gridview class from core
-				$classes = array_diff($classes, array('events-gridview'));
-			}
-			if( $wp_query->tribe_is_day ) {
-				$classes[] = ' tribe-events-day';
-				// remove the default gridview class from core
-				$classes = array_diff($classes, array('events-gridview'));
+			if( $wp_query->tribe_is_event_query ) {
+				if( $wp_query->tribe_is_week ) {
+					$classes[] = ' tribe-events-week';
+					// remove the default gridview class from core
+					$classes = array_diff($classes, array('events-gridview'));
+				}
+				if( $wp_query->tribe_is_day ) {
+					$classes[] = ' tribe-events-day';
+					// remove the default gridview class from core
+					$classes = array_diff($classes, array('events-gridview'));
+				}
 			}
 			return $classes;
 		}
@@ -493,7 +495,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function select_page_template( $template ) {
 			// venue view
 			if( is_singular( TribeEvents::VENUE_POST_TYPE ) ) {
-				$template = TribeEventsTemplates::getTemplateHierarchy( 'single-venue' );
+				// $template = TribeEventsTemplates::getTemplateHierarchy( 'single-venue' );
+				$template = TribeEventsTemplates::getTemplateHierarchy( 'list' );
 			}
 			// week view
 			if( tribe_is_week() ) {

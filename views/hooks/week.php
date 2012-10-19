@@ -72,9 +72,99 @@ if( !class_exists('Tribe_Events_Week_Template')){
 			$start_of_week = tribe_get_first_week_day( $wp_query->get('start_date'));
 			$week_length = 7; // days of the week
 			$today = Date('Y-m-d',strtotime('today'));
+			$events->all_day = array();
+			$events->daily = array();
+			$events->hours = array();
+			foreach($wp_query->posts as $event){
+				if( $event->tribe_is_allday ){
+					$events->all_day[] = $event;
+				} else {
+					$hour = Date('G',strtotime($event->EventStartDate));
+					if( ! in_array( $hour, $events->hours ) ) {
+						$events->hours[] = $hour;
+					}
+					$events->daily[] = $event;
+				}
+			}
+
+			// ensure that our hourly increments are in order regardless of how they were put in
+			sort($events->hours);
 
 			ob_start();
 ?>
+<div class="tribe-week-wrapper">
+	<div class="tribe-grid-allday">
+		<div scope="col" class="column tribe-grid-first"><span><?php _e('Hours', 'tribe-events-calendar-pro'); ?></span></div>
+		<?php
+			for( $n = 0; $n < $week_length; $n++ ) {
+				$day = Date('Y-m-d', strtotime($start_of_week . " +$n days"));
+				$header_class = ($day == $today) ? 'tribe-week-today' : '';
+				printf('<div title="%s" scope="col" class="column %s"><a href="%s" rel="bookmark">%s</a></div>',
+					$day,
+					$header_class,
+					trailingslashit( get_site_url() ) . trailingslashit( $tribe_ecp->rewriteSlug ) . trailingslashit( Date('Y-m-d', strtotime($start_of_week . " +$n days") ) ),
+					Date('l jS', strtotime($start_of_week . " +$n days"))
+					);
+			}
+		?>
+	</div>
+	<div class="tribe-grid-allday">
+		<div scope="col" class="column tribe-grid-first"><span><?php _e('All Day', 'tribe-events-calendar-pro'); ?></span></div>
+		<?php
+			for( $n = 0; $n < $week_length; $n++ ) {
+				$day = Date('Y-m-d', strtotime($start_of_week . " +$n days"));
+				$header_class = ($day == $today) ? 'tribe-week-today' : '';
+				printf('<div title="%s" scope="col" class="column %s">',
+					Date('Y-m-d', strtotime($start_of_week . " +$n days")),
+					$header_class
+					);
+
+				foreach( $events->all_day as $event ){
+					if( Date('Y-m-d',strtotime($event->EventStartDate)) == $day ){
+						printf('<div class="hentry vevent"><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3></div>',
+							get_permalink( $event->ID ),
+							$event->post_title
+							);
+					}
+				}
+
+				echo '</div>';
+			}
+		?>
+	</div>
+	<div class="tribe-grid-daily">
+		<div class="column tribe-week-grid-hours">
+			<?php 
+
+			foreach( $events->hours as $hour ) {
+				printf( '<div>%s</div>', Date('gA',mktime($hour)) );
+			}
+
+			?>
+		</div>
+		<?php
+			for( $n = 0; $n < $week_length; $n++ ) {
+				$day = Date('Y-m-d', strtotime($start_of_week . " +$n days"));
+				$header_class = ($day == $today) ? 'tribe-week-today' : '';
+				printf('<div title="%s" scope="col" class="column %s">',
+					Date('Y-m-d', strtotime($start_of_week . " +$n days")),
+					$header_class
+					);
+
+				foreach( $events->daily as $event ){
+					if( Date('Y-m-d',strtotime($event->EventStartDate)) == $day ){
+						printf('<div class="hentry vevent"><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3></div>',
+							get_permalink( $event->ID ),
+							$event->post_title
+							);
+					}
+				}
+
+				echo '</div>';
+			}
+		?>
+	</div>
+</div>
 	<table cellspacing="0" cellpadding="0" class="tribe-events-grid">
 		<thead>
 			<tr>
