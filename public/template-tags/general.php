@@ -417,10 +417,9 @@ if( class_exists( 'TribeEvents' ) ) {
 		return apply_filters('tribe_event_featured_image', $featured_image);
 	}
 
-
 	/**
 	 * show the recurring event info in a tooltip
-	/** 
+	 * 
 	 * return the details of the start/end date/time
 	 * @since  3.0
 	 * @param  int $post_id
