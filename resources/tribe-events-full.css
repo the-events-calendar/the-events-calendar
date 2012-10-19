@@ -502,7 +502,7 @@ select.tribe-events-dropdown {
 
 /* Global Tooltips */
 .tribe-events-calendar .tribe-events-tooltip,
-.tribe-events-week .tribe-events-tooltip {
+.tribe-events-week .tribe-events-tooltip, .recurring-info-tooltip {
 	border: 1px solid #666;
 	position: absolute;
 	z-index: 1001;
@@ -524,13 +524,47 @@ select.tribe-events-dropdown {
 	left: 20px;
 }
 .tribe-events-calendar .tribe-events-right .tribe-events-tooltip,
-.tribe-events-week .tribe-events-right .tribe-events-tooltip {
+.tribe-events-week .tribe-events-right .tribe-events-tooltip, .recurring-info-tooltip {
 	left: auto;
 	right: 3px;
 }
 .tribe-events-right .tribe-events-tooltip .tribe-events-arrow {
 	left: auto;
 	right: 30px;
+}
+
+/* recurring info tooltip */
+.recurringinfo {
+	display: inline-block;
+	position: relative;
+} 
+.event-is-recurring {
+	position: relative;
+	font-style: normal;
+	font-weight: 500;
+	color: rgba(0, 0, 0, .7);
+}
+
+.event-is-recurring:hover {
+	color: #000;
+}
+
+.event-is-recurring img {
+	width: 16px;
+	height: 16px;
+	opacity: .7;
+	position: relative;
+	top: 4px;	
+	box-shadow: none !important;
+}
+.event-is-recurring:hover img {
+	opacity: 1.0;
+}
+
+.recurring-info-tooltip.tribe-events-tooltip {
+	left: -20px;
+	width: auto;
+	max-width: 320px;
 }
 
 /* Large Calendar Specifics */
