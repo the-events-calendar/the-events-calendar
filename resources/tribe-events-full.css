@@ -379,6 +379,11 @@ select.tribe-events-dropdown {
 /* = Single Event Template Styles
    @ Template: single-event.php
 =============================================*/
+.tribe-events-default-template .entry-title {
+	padding: 0 20px;
+	font-size: 1.6em;
+	margin-bottom: 30px;
+}
 
 #tribe-events-content .description img.attachment-post-thumbnail {
 	margin-left: auto;
@@ -418,8 +423,24 @@ select.tribe-events-dropdown {
 	text-align: right;
 }
 
-/* Featured Image */
+/* Date/Time */
+.single-tribe_events .tribe-event-schedule-details {
+	margin: 30px 0 10px 0;
+}
 
+.single-tribe_events .tribe-event-schedule-details h2 {
+	margin: 0;
+	float: left;
+	margin: 0 20px 20px 0;
+}
+
+/* Cal Links */
+.single-tribe_events .tribe-event-schedule-details .tribe-event-cal-links { 
+float: right;
+margin: 10px 0 0;
+}
+
+/* Featured Image */
 .single-tribe_events .tribe-event-featured-image {
 	clear: both;
 	text-align: center;
@@ -437,6 +458,11 @@ select.tribe-events-dropdown {
 	float: right;
 }
 
+.single-tribe_events #tribe-events-gmap {
+	border: 5px solid #bbb;
+	border-radius: 3px;
+}
+
 
 /* = Single Event & Single Venue (Pro Version) Template Styles
    @ Template: single-event.php & single-venue.php
@@ -452,7 +478,7 @@ select.tribe-events-dropdown {
 	border-width: 1px 0;
 	border-style: solid;
 	border-color: #bbb;
-	margin: 8px 0 18px 0;
+	margin: 28px 0;
 	padding: 2% 0;
 	overflow: hidden;
 	font-size: 12px;
