@@ -435,7 +435,7 @@ if( class_exists( 'TribeEvents' ) ) {
 				$tooltip .= '<span class="recurringinfo">';
 				$tooltip .= '<div class="event-is-recurring">';
 					$tooltip .= '[ <img src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/recurring-event-icon.png" /> event ]';
-					$tooltip .= '<div id="tribe-events-tooltip-'. $eventID .'" class="tribe-events-tooltip">';
+					$tooltip .= '<div id="tribe-events-tooltip-'. $eventID .'" class="tribe-events-tooltip recurring-info-tooltip">';
 						$tooltip .= '<div class="tribe-events-event-body">';
 							$tooltip .= tribe_get_recurrence_text();
 						$tooltip .= '</div>';	
