@@ -340,6 +340,11 @@ table.tribe-events-grid {
 	width: 100%;
 	table-layout: fixed;
 	margin-top: 0;
+	border-collapse: collapse;
+}
+.tribe-events-calendar-widget .tribe-events-calendar, 
+.tribe-events-calendar-widget .tribe-events-calendar td {
+	border: 1px solid #bbb;
 }
 .tribe-view-all-events {
 	float: right;
