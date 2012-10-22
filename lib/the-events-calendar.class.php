@@ -43,6 +43,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'public' => true,
 			'rewrite' => false,
 			'show_ui' => true,
+			'show_in_nav_menus' => false,
 			'show_in_menu' => 0,
 			'menu_position' => 6,
 			'supports' => array(''),
