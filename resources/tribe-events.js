@@ -30,7 +30,7 @@ jQuery(document).ready(function($) {
 		
 		// small event tooltips for calendar widget
 		$('.tribe-events-calendar-widget .tribe-events-calendar').delegate('div[id*="tribe-events-daynum-"]:has(a)', 'mouseenter', function() {
-			var bottomPad = $(this).outerHeight() + 3;	
+			var bottomPad = $(this).outerHeight() - 6;	
 			$(this).find('.tribe-events-tooltip').css('bottom', bottomPad).stop(true,false).fadeIn(100);            
 		}).delegate('div[id*="tribe-events-daynum-"]:has(a)', 'mouseleave', function() {
 			if ($.browser.msie && $.browser.version <= 9) {
