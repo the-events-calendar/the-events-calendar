@@ -24,10 +24,11 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 ?>
 
 <?php get_header(); ?>
+<div id="tribe-events-pg-template">
 	<?php tribe_events_before_html(); ?>
-	
+
 		<?php the_post(); global $post; ?>
-			<div id="post-<?php the_ID(); ?>" <?php post_class('hentry vevent tribe-events-default-template'); ?>>
+			<div id="post-<?php the_ID(); ?>" <?php post_class('hentry vevent tribe-events-default-single'); ?>>
 				<h2 class="entry-title summary"><?php the_title(); ?></h2>
 				<?php include( tribe_get_current_template() ); ?>
 				<?php edit_post_link( __( 'Edit', 'tribe-events-calendar' ), '<span class="edit-link">', '</span>' ); ?>
@@ -37,4 +38,5 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<?php get_sidebar(); ?>
 		
 	<?php tribe_events_after_html(); ?>
+</div> <!-- #tribe-events-pg-template -->	
 <?php get_footer(); ?>

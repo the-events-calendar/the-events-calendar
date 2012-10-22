@@ -124,7 +124,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			ob_start();
 	?>
 	<div class="tribe-events-event-meta">
-		<h2 class="tribe-event-single-section-title"><?php _e( 'Details', 'tribe-events-calendar' ); ?></h2>
+		<h3 class="tribe-event-single-section-title"><?php _e( 'Details', 'tribe-events-calendar' ); ?></h3>
 		<dl class="tribe-events-column">
 			<dt><?php _e( 'Event:', 'tribe-events-calendar' ); ?></dt>
 			<dd class="summary"><?php the_title(); ?></dd>

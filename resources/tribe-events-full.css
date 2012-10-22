@@ -379,10 +379,13 @@ select.tribe-events-dropdown {
 /* = Single Event Template Styles
    @ Template: single-event.php
 =============================================*/
-.tribe-events-default-template .entry-title {
-	padding: 0 20px;
+.tribe-events-default-single .entry-title {
 	font-size: 1.6em;
 	margin-bottom: 30px;
+}
+
+.tribe-events-default-single #tribe-events-content {
+	padding: 0;
 }
 
 #tribe-events-content .description img.attachment-post-thumbnail {
@@ -392,6 +395,9 @@ select.tribe-events-dropdown {
 	text-align: center;
 }
 
+h3.tribe-event-single-section-title {
+	font-size: 1.3em;
+}
 .tribe-event-single-section-title, .entry-content .tribe-event-single-section-title {
 	padding: 0 4%;
 	margin: 0 0 2% 0;
