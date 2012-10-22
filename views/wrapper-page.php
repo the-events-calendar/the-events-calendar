@@ -24,10 +24,16 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 ?>
 
 <?php get_header(); ?>
-	<?php tribe_events_before_html(); ?>
-		
-		<h2 class="tribe-events-page-title"><?php tribe_events_title(); ?></h2>
-		<?php include(tribe_get_current_template()); ?>
+
+	<div id="tribe-events-pg-template">
 	
-	<?php tribe_events_after_html(); ?>
+		<?php tribe_events_before_html(); ?>
+		
+			<h2 class="tribe-events-page-title"><?php tribe_events_title(); ?></h2>
+			<?php include(tribe_get_current_template()); ?>
+	
+		<?php tribe_events_after_html(); ?>
+	
+	</div><!-- #tribe-events-pg-template -->
+	
 <?php get_footer(); ?>
