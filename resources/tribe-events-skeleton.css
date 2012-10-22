@@ -98,6 +98,11 @@ a.tribe-events-gcal {
 .events-archive .entry-content, 
 .events-archive .entry-header { width: 98%; }
 
+/* Tribe Events Page Template Bits */
+#tribe-events-pg-template {
+	padding: 4%;
+}
+
 /* Event Notices */
 .event-notices {
     background: #d9edf7;
