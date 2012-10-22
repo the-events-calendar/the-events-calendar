@@ -103,6 +103,11 @@ a.tribe-events-gcal {
 	padding: 4%;
 }
 
+/* Remove "Edit" Link from unneeded templates */
+.events-archive span.edit-link {
+	display: none;
+}
+
 /* Event Notices */
 .event-notices {
     background: #d9edf7;
