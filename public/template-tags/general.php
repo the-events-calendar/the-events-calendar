@@ -23,7 +23,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_option($optionName, $default = '')  {
 		$tribe_ecp = TribeEvents::instance();
-		return $tribe_ecp->getOption($optionName, $default);
+		return apply_filters('tribe_get_option', $tribe_ecp->getOption($optionName, $default));
 	}
 
 	/**
@@ -105,6 +105,33 @@ if( class_exists( 'TribeEvents' ) ) {
 		$output = date('d-m-Y', $start) != date('d-m-Y', $end);
 		return apply_filters('tribe_is_multiday', $output);
 	}
+	
+	/**
+ 	 * Event Category ID's
+ 	 *
+ 	 * Display the event category ID as a class for events wrapper
+ 	 *
+ 	 * @uses wp_get_object_terms()
+ 	 * @since 2.1
+ 	 */    	
+	function tribe_get_event_cat_ids( $post_id ) {
+
+		if ( isset( $post_id ) ) {
+			$post_id = get_the_ID();
+		}
+		
+		$return_id = array();
+		
+		$tribe_cat_ids = wp_get_object_terms( $post_id, TribeEvents::TAXONOMY );
+		if( !empty( $tribe_cat_ids ) ){
+			if( !is_wp_error( $tribe_cat_ids ) ) {
+				foreach( $tribe_cat_ids as $tribe_cat_id ) {
+					$return_id[] = $tribe_cat_id->term_id;
+				}
+			}
+		}
+		return $return_id;
+	}
 
 	/**
 	 * Event Categories (Display)
@@ -121,7 +148,7 @@ if( class_exists( 'TribeEvents' ) ) {
 
 		$tribe_ecp = TribeEvents::instance();
 
-		$list = apply_filters('tribe_meta_event_cats', get_the_term_list( get_the_ID(), $tribe_ecp->get_event_taxonomy(), '<dt class="category-label">'.$label.'</dt><dd class="category-meta">', $separator, '</dd>' ));
+		$list = apply_filters('tribe_meta_event_cats', get_the_term_list( get_the_ID(), $tribe_ecp->get_event_taxonomy(), '<dt>'.$label.'</dt><dd class="tribe-event-categories">', $separator, '</dd>' ));
 
 		echo $list;
 	}
@@ -140,7 +167,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		if( !$label ) { $label = __('Tags:', 'tribe-events-calendar'); }
 
 		$tribe_ecp = TribeEvents::instance();
-		$list = apply_filters('tribe_meta_event_tags', get_the_term_list( get_the_ID(), 'post_tag', '<dt class="tribe-tag-label">'.$label.'</dt><dd class="tribe-tag-meta">', $separator, '</dd>' ));
+		$list = apply_filters('tribe_meta_event_tags', get_the_term_list( get_the_ID(), 'post_tag', '<dt>'.$label.'</dt><dd class="tribe-event-tags">', $separator, '</dd>' ));
 
 		echo $list;
 	}
@@ -233,10 +260,10 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Event Cost
 	 *
 	 * If EventBrite plugin is active
-	 * - If the event is registered in eventbrite, and has one ticket. Return the cost of that ticket.
-	 * - If the event is registered in eventbrite, and there are many tickets, return "Varies"
-	 *   - If the event is not registered in eventbrite, and there is meta, return that.
-	 *   - If the event is not registered in eventbrite, and there is no meta, return ""
+	 * - If the event is registered in Eventbrite, and has one ticket. Return the cost of that ticket.
+	 * - If the event is registered in Eventbrite, and there are many tickets, return "Varies"
+	 *   - If the event is not registered in Eventbrite, and there is meta, return that.
+	 *   - If the event is not registered in Eventbrite, and there is no meta, return ""
 	 *
 	 * @param int $postId (optional)
 	 * @return string Cost of the event.
@@ -263,6 +290,58 @@ if( class_exists( 'TribeEvents' ) ) {
 		}
 
 		return apply_filters( 'tribe_get_cost', $cost );
+	}
+	
+	/**
+	 * Get the minimum cost of all events.
+	 *
+	 * @author PaulHughes01
+	 * @since 2.1
+	 * @return int the minimum cost.
+	 */
+	function tribe_get_minimum_cost() {
+		global $wpdb;
+		
+		$costs = $wpdb->get_col( 'SELECT meta_value FROM ' . $wpdb->postmeta . ' WHERE meta_key = \'_EventCost\';');
+		
+		$costs = array_map( 'tribe_map_cost_array_callback', $costs );
+		
+		$min = min( $costs );
+		if ( $min == '' )
+			$min = 0;
+			
+		return $min;
+	}
+	
+	/**
+	 * Get the maximum cost of all events.
+	 *
+	 * @author PaulHughes01
+	 * @since 2.1
+	 * @return int the maximum cost.
+	 */
+	function tribe_get_maximum_cost() {
+		global $wpdb;
+		
+		$costs = $wpdb->get_col( 'SELECT meta_value FROM ' . $wpdb->postmeta . ' WHERE meta_key = \'_EventCost\';');
+		
+		$costs = array_map( 'tribe_map_cost_array_callback', $costs );
+		
+		$max = max( $costs );
+		if ( $max == '' )
+			$max = 0;
+			
+		return $max;
+	}
+	
+	/**
+	 * Maps the cost array to make finding the minimum and maximum costs possible.
+	 *
+	 * @param $costs
+	 * @return $costs
+	 */
+	function tribe_map_cost_array_callback( $costs ) {
+		return $costs;
 	}
 	
 	/** 
@@ -320,5 +399,80 @@ if( class_exists( 'TribeEvents' ) ) {
 		return preg_replace( "/^\n+|^[\t\s]*\n+/m", '', $multi_line_string );
 	}
 
+	/**
+	 * return the featured image html to an event (within the loop automatically will get event ID)
+	 * @since  3.0
+	 * @param  int $post_id
+	 * @param  string $size
+	 * @return string
+	 */
+	function tribe_event_featured_image( $post_id = null, $size = 'full' ){
+		if( is_null( $post_id ))
+			$post_id = get_the_ID();
+		$image_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), $size );			
+		$featured_image = '';
+		if ( !empty($image_src) ) {
+			$featured_image .= '<div class="tribe-events-event-image"><a href="'. tribe_get_event_link() .'" title="'. get_the_title( $post_id ) .'"><img src="'.  $image_src[0] .'" title="'. get_the_title( $post_id) .'" /></a></div>';
+		}
+		return apply_filter('tribe_event_featured_image', $featured_image);
+	}
+
+	/**
+	 * show the recurring event info in a tooltip
+	 * 
+	 * return the details of the start/end date/time
+	 * @since  3.0
+	 * @param  int $post_id
+	 * @return string
+	 */
+	function tribe_event_recurring_info_tooltip( $post_id = null ){
+		if( is_null( $post_id ))
+			$post_id = get_the_ID();
+		$eventID = $post_id;
+		$tooltip = '';
+		if( class_exists( 'TribeEventsPro' ) )  { // should this be a template tag?
+			if ( tribe_is_recurring_event() ) { 
+				$tooltip .= '<span class="recurringinfo">';
+				$tooltip .= '<div class="event-is-recurring">';
+					$tooltip .= '[ <img src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/recurring-event-icon.png" /> event ]';
+					$tooltip .= '<div id="tribe-events-tooltip-'. $eventID .'" class="tribe-events-tooltip recurring-info-tooltip">';
+						$tooltip .= '<div class="tribe-events-event-body">';
+							$tooltip .= tribe_get_recurrence_text();
+						$tooltip .= '</div>';	
+						$tooltip .= '<span class="tribe-events-arrow"></span>';	
+					$tooltip .= '</div>';
+				$tooltip .= '</div>';
+			$tooltip .= '</span>';		
+		 }
+		}
+		return $tooltip;
+		return apply_filters('tribe_event_recurring_info_tooltip', $tooltip);
+	}
+
+	/** 
+	 * return the details of the start/end date/time
+	 * @since  3.0
+	 * @param  int $post_id
+	 * @return string
+	 */
+	function tribe_event_schedule_details( $post_id = null){
+		if (is_null( $post_id ))
+			$post_id = get_the_ID();
+			$schedule = '';
+			 if ( tribe_is_multiday( $post_id ) ) { // multi-date event 
+				$schedule .= '<span class="dtstart">'. tribe_get_start_date() .'</span> - <span class="dtend">'. tribe_get_end_date() .'</span>';
+			 } elseif ( tribe_get_all_day( $post_id ) ) {  // all day event
+				$schedule .= '<span class="dtstart">'. tribe_get_start_date() .'</span>';
+			} else { // single day event
+					if ( tribe_get_start_date( $post_id, false, 'g:i A' ) == tribe_get_end_date( $post_id, false, 'g:i A' ) ) { // Same start/end time 
+						$schedule .= '<span class="dtstart">'. tribe_get_start_date($post_id, false) .'</span> @ <span class="starttime">'. tribe_get_start_date( $post_id, false, 'g:i A' ) .'</span>';
+					 } else {  // defined start/end time
+					  $schedule .= '<span class="dtstart">'. tribe_get_start_date( $post_id, false ) .'</span> | <span class="starttime">'. tribe_get_start_date( $post_id, false, 'g:i A' ) .' - <span class="starttime">'. tribe_get_end_date( $post_id, false, 'g:i A' ) .'</span>';	
+					 } 					
+			}			 
+			return $schedule;
+			return apply_filters('tribe_event_schedule_details', $schedule);
+	}
+		
 }
 ?>

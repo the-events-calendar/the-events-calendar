@@ -31,10 +31,11 @@ if( class_exists( 'TribeEvents' ) ) {
 				$retval = true;
 			}
 			$tribe_ecp->currentPostTimestamp = $postTimestamp;
-			return $retval;
+			$return = $retval;
 		} else {
-			return true;
+			$return = true;
 		}
+		return apply_filters('tribe_is_new_event_day', $return);
 	}
 
 	/**
@@ -47,9 +48,9 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_is_day()  {
 		$tribe_ecp = TribeEvents::instance();
-		return ($tribe_ecp->displaying == 'day') ? true : false;
+		$is_day = ($tribe_ecp->displaying == 'day') ? true : false;
+		return apply_filters('tribe_is_day', $is_day);
 	}
-
 
 	/**
 	 * Past Loop View Test
@@ -61,7 +62,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_is_past()  {
 		$tribe_ecp = TribeEvents::instance();
-		return ($tribe_ecp->displaying == 'past') ? true : false;
+		$is_past = ($tribe_ecp->displaying == 'past') ? true : false;
+		return apply_filters('tribe_is_past', $is_past);
 	}
 
 	/**
@@ -74,7 +76,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_is_upcoming()  {
 		$tribe_ecp = TribeEvents::instance();
-		return ($tribe_ecp->displaying == 'upcoming') ? true : false;
+		$tribe_is_upcoming = ($tribe_ecp->displaying == 'upcoming') ? true : false;
+		return apply_filters('tribe_is_past', $tribe_is_upcoming);
 	}
 	
 	/**
@@ -87,7 +90,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_is_showing_all()  {
 		$tribe_ecp = TribeEvents::instance();
-		return ($tribe_ecp->displaying == 'all') ? true : false;		
+		$tribe_is_showing_all = ($tribe_ecp->displaying == 'all') ? true : false;
+		return apply_filters('tribe_is_showing_all', $tribe_is_showing_all);
 	}
 
 	/**
@@ -100,7 +104,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_is_by_date() {
 		$tribe_ecp = TribeEvents::instance();
-		return ( $tribe_ecp->displaying == 'bydate' ) ? true : false;
+		$tribe_is_by_date = ( $tribe_ecp->displaying == 'bydate' ) ? true : false;
+		return apply_filters('tribe_is_by_date', $tribe_is_by_date);
 	}
 
 	/**
@@ -112,7 +117,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */ 
 	function tribe_events_title( $depth = true )  {
-		echo tribe_get_events_title( $depth );
+		echo apply_filters('tribe_events_title', tribe_get_events_title( $depth ));
 	}
 	
 	/**
@@ -143,6 +148,8 @@ if( class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
+		$title = Tribe_Template_Factory::debug( 'tribe_get_events_title' ) . $title . Tribe_Template_Factory::debug( '/tribe_get_events_title', false );
+		
 		return apply_filters('tribe_get_events_title', $title);
 	}
 
@@ -157,7 +164,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_upcoming_link()  {
 		$tribe_ecp = TribeEvents::instance();
 		$output = $tribe_ecp->getLink('upcoming');
-		return $output;
+		return apply_filters('tribe_get_upcoming_link', $output);
 	}
 	
 	/**
@@ -171,7 +178,34 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_past_link()  {
 		$tribe_ecp = TribeEvents::instance();
 		$output = $tribe_ecp->getLink('past');
-		return $output;
+		return apply_filters('tribe_get_past_link', $output);
+	}
+
+
+	/**
+	 * Determines if we are in the main Loop (home/archives/tags)
+	 *
+	 * @return bool
+	 * @since 2.1
+	 */
+	function tribe_is_in_main_loop()  {
+		return apply_filters('tribe_is_main_loop', TribeEventsTemplates::$isMainLoop);
+	}
+
+	/**
+	 * Determines if we are in list view.
+	 *
+	 * @return bool
+	 * @since 2.1
+	 */
+	function tribe_is_list_view()  {
+		if ( tribe_is_upcoming() || tribe_is_past() || tribe_is_day() || ( is_single() && tribe_is_showing_all() ) ) {
+			$return = true;
+		} else {
+			$return = false;
+		}
+	
+		return apply_filters( 'tribe_is_list_view', $return );
 	}
 
 }

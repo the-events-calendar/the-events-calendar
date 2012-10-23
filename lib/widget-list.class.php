@@ -13,20 +13,20 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				
 		function TribeEventsListWidget() {
 			/* Widget settings. */
-			$widget_ops = array( 'classname' => 'eventsListWidget', 'description' => __( 'A widget that displays the next upcoming x events.', 'tribe-events-calendar' ) );
+			$widget_ops = array( 'classname' => 'tribe-events-list-widget', 'description' => __( 'A widget that displays the next upcoming x events.', 'tribe-events-calendar' ) );
 
 			/* Widget control settings. */
-			$control_ops = array( 'id_base' => 'events-list-widget' );
+			$control_ops = array( 'id_base' => 'tribe-events-list-widget' );
 
 			/* Create the widget. */
-			$this->WP_Widget( 'events-list-widget', 'Events List Widget', $widget_ops, $control_ops );
+			$this->WP_Widget( 'tribe-events-list-widget', 'Events List Widget', $widget_ops, $control_ops );
 		}
 
 		function widget( $args, $instance ) {
 			return $this->widget_output( $args, $instance );
 		}
 
-		function widget_output( $args, $instance, $template_name='events-list-load-widget-display' ) {
+		function widget_output( $args, $instance, $template_name='list-widget', $subfolder = 'widgets', $namespace = '/', $pluginPath = '' ) {
 			global $wp_query, $tribe_ecp, $post;
 			extract( $args, EXTR_SKIP );
 			extract( $instance, EXTR_SKIP );
@@ -43,7 +43,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 
 			if( function_exists( 'tribe_get_events' ) ) {
 				$posts = tribe_get_events( 'eventDisplay=upcoming&posts_per_page=' . $limit .'&eventCat=' . $category );
-				$template = TribeEventsTemplates::getTemplateHierarchy( $template_name );
+				$template = TribeEventsTemplates::getTemplateHierarchy( $template_name, $subfolder, $namespace, $pluginPath );
 			}
 
 			// if no posts, and the don't show if no posts checked, let's bail
@@ -59,18 +59,18 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 								
 			if ( $posts ) {
 				/* Display list of events. */
-				echo "<ul class='upcoming'>";
+				echo '<ol class="hfeed">';
 				foreach( $posts as $post ) : 
 					setup_postdata($post);
 					include $template;
 				endforeach;
-				echo "</ul>";
+				echo "</ol><!-- .hfeed -->";
 
 				/* Display link to all events */
-				echo '<div class="dig-in"><a href="' . $event_url . '">' . __('View All Events', 'tribe-events-calendar' ) . '</a></div>';
+				echo '<p class="tribe-events-widget-link"><a href="' . $event_url . '" rel="bookmark">' . __('View All Events', 'tribe-events-calendar' ) . '</a></p>';
 			} 
 			else {
-				_e('There are no upcoming events at this time.', 'tribe-events-calendar');
+				_e('<p>There are no upcoming events at this time.</p>', 'tribe-events-calendar');
 			}
 
 			/* After widget (defined by themes). */

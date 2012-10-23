@@ -1,0 +1,8 @@
+The Events Calendar
+
+Below is a list of plugins that we're aware are incompatible with The Events Calendar and/or Events Calendar PRO as of launch time:
+
+* TubePress, by Eric Hough (v 2.4.4 and earlier)
+* WPtouch Pro, by Brave New Code (all versions)
+
+While we work to ensure our plugin will play nicely with others out there, it is inevitable that there will be certain irreconcilable conflicts. We'll do our best to iron these out in the future, particularly for widely-used plugins. If you happen to reach out the dev behind a conflicting plugin and he or she notices something our code is doing wrong which could be causing this conflict ("wrong" meaning "against WordPress best practices"), please let us know.

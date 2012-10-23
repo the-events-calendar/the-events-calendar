@@ -40,7 +40,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_embedded_map( $postId = null, $width = '', $height = '', $force_load = false )  {
 		$postId = TribeEvents::postIdHelper( $postId );
 		if ( !tribe_is_venue( $postId ) && !tribe_is_event( $postId ) ) {
-			return false;
+			return apply_filters('tribe_get_embedded_map', false);
 		}
 
 		$postId = tribe_is_venue( $postId ) ? $postId : tribe_get_venue_id( $postId );
@@ -67,9 +67,9 @@ if( class_exists( 'TribeEvents' ) ) {
 			include(TribeEvents::instance()->pluginPath.'admin-views/event-map.php');
 			$google_map = ob_get_contents();
 			ob_get_clean();
-			return $google_map;
+			return apply_filters('tribe_get_embedded_map', $google_map);
 		}
-		else return '';
+		else return apply_filters('tribe_get_embedded_map', '');
 	}
 
 	/**
@@ -86,7 +86,8 @@ if( class_exists( 'TribeEvents' ) ) {
 			return 0;
 			
 		$postId = TribeEvents::postIdHelper( $postId );
-		return get_post_meta( get_the_ID(), '_EventShowMap', 1) == 1;
+		$output = get_post_meta( $postId, '_EventShowMap', 1) == 1;
+		return apply_filters('tribe_embed_google_map', $output);
 	}
 
 	/**
@@ -99,7 +100,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_show_google_map_link($postId = null) {
-		return get_post_meta( get_the_ID(), '_EventShowMapLink', 1) == 1;
+		$output = get_post_meta( get_the_ID(), '_EventShowMapLink', 1) == 1;
+		return apply_filters('tribe_show_google_map_link', $output);
 	}
 
 }

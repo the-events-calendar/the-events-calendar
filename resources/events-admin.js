@@ -341,26 +341,34 @@ jQuery(document).ready(function($) {
 	}
 
 	if( maybeDisplayPressTrendsDialogue() ) {
-			$('#presstrends-dialog').dialog({
-				modal: true,
-				buttons: [{
-						text:"Send data",
-						click: function() { 
-							$('[name="presstrends_action"]').val(1);
-							$(this).dialog("close"); 							
-							$('[name="sendPressTrendsData"]').prop("checked", true);
-							$('#tribeSaveSettings').click();
-						}
-				}, {
-						text:"Do not send data",
-						click: function() { 
-							$('[name="presstrends_action"]').val(0);
-							$(this).dialog("close"); 
-							$('[name="sendPressTrendsData"]').prop("checked", false);
-						}
-				}]
-			});
-			
-		}
-	
+		$('#presstrends-dialog').dialog({
+			modal: true,
+			buttons: [{
+				text:"Send data",
+				click: function() { 
+					$('[name="presstrends_action"]').val(1);
+					$(this).dialog("close"); 							
+					$('[name="sendPressTrendsData"]').prop("checked", true);
+					$('#tribeSaveSettings').click();
+				}
+			}, {
+				text:"Do not send data",
+				click: function() { 
+					$('[name="presstrends_action"]').val(0);
+					$(this).dialog("close"); 
+					$('[name="sendPressTrendsData"]').prop("checked", false);
+				}
+			}]
+		});	
+	}
+});
+
+/**
+ * Re-initialize chosen on widgets when moved
+ * credits: http://www.johngadbois.com/adding-your-own-callbacks-to-wordpress-ajax-requests/
+ */
+jQuery(document).ajaxSuccess(function(e, xhr, settings) {
+	if(settings.data.search('action=save-widget') != -1) {
+		jQuery("#widgets-right .chosen").chosen();
+	}
 });

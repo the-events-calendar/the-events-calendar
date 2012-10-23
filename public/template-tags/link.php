@@ -19,7 +19,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_day_link($date) {
 		$tribe_ecp = TribeEvents::instance();
-		return $tribe_ecp->getLink('day', $date);		
+		return apply_filters('tribe_get_day_link', $tribe_ecp->getLink('day', $date));
 	}
 	
 	/**
@@ -28,12 +28,14 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Displays a link to the previous post by start date for the given event
 	 *
 	 * @param string $anchor link text. Use %title% to place the post title in your string.
-	 * @since 2.0
+	 * @since 2.1
 	 */
-	function tribe_previous_event_link( $anchor = false )  {
+	function tribe_the_prev_event_link( $anchor = false ){
+		echo apply_filters('tribe_the_prev_event_link', tribe_get_prev_event_link( $anchor ));
+	}
+	function tribe_get_prev_event_link( $anchor = false ){
 		global $post;
-		$tribe_ecp = TribeEvents::instance();
-		echo $tribe_ecp->get_event_link($post,'previous',$anchor);
+		return apply_filters('tribe_get_next_event_link', TribeEvents::instance()->get_event_link($post,'previous',$anchor));
 	}
 
 	/**
@@ -42,12 +44,14 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Display a link to the next post by start date for the given event
 	 *
 	 * @param string $anchor link text. Use %title% to place the post title in your string.
-	 * @since 2.0
+	 * @since 2.1
 	 */
-	function tribe_next_event_link( $anchor = false )  {
+	function tribe_the_next_event_link( $anchor = false ){
+		echo apply_filters('tribe_the_next_event_link', tribe_get_next_event_link( $anchor ));
+	}
+	function tribe_get_next_event_link( $anchor = false ){
 		global $post;
-		$tribe_ecp = TribeEvents::instance();
-		echo $tribe_ecp->get_event_link($post, 'next',$anchor);
+		return apply_filters('tribe_get_next_event_link', TribeEvents::instance()->get_event_link($post,'next',$anchor));
 	}
 
 	/**
@@ -61,7 +65,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_events_link()  {
 		$tribe_ecp = TribeEvents::instance();
 		$output = $tribe_ecp->getLink('home');
-		return $output;
+		return apply_filters('tribe_get_events_link', $output);
 	}
 
 	/**
@@ -76,7 +80,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_gridview_link($term = null)  {
 		$tribe_ecp = TribeEvents::instance();
 		$output = $tribe_ecp->getLink('month', false, $term);
-		return $output;
+		return apply_filters('tribe_get_gridview_link', $output);
 	}
 
 	/**
@@ -91,7 +95,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_listview_link($term = null)  {
 		$tribe_ecp = TribeEvents::instance();
 		$output = $tribe_ecp->getLink('upcoming', false, $term);
-		return $output;
+		return apply_filters('tribe_get_listview_link', $output);
 	}
 	
 	/**
@@ -105,7 +109,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_listview_past_link()  {
 		$tribe_ecp = TribeEvents::instance();
 		$output = $tribe_ecp->getLink('past');
-		return $output;
+		return apply_filters('tribe_get_listview_past_link', $output);
 	}
 
 	/**
@@ -118,7 +122,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_event_link($post = null) {
 		// pass in whole post object to retain start date
-		echo tribe_get_event_link($post);
+		echo apply_filters('tribe_event_link', tribe_get_event_link($post));
 	}	
 
 	/**
