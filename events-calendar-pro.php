@@ -2,7 +2,7 @@
 /*
 Plugin Name: The Events Calendar PRO
 Description: The Events Calendar PRO, a premium add-on to the open source The Events Calendar plugin (required), enables recurring events, custom attributes, venue pages, new widgets and a host of other premium features.
-Version: 2.1-alpha
+Version: 2.0.10
 Author: Modern Tribe, Inc.
 Author URI: http://tri.be/?ref=ecp-plugin
 Text Domain: tribe-events-calendar-pro
@@ -212,6 +212,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public function displayEventVenueDropdown( $postId ) {
 			$VenueID = get_post_meta( $postId, '_EventVenueID', true );
+			// override pro default with community on add page
+			if( !$VenueID && class_exists('TribeCommunityEvents') ) {
+				if( TribeCommunityEvents::instance()->isEditPage ) {
+					$VenueID = TribeCommunityEvents::getOption( 'defaultCommunityVenueID' );
+				}
+			}
 			$defaultsEnabled = tribe_get_option( 'defaultValueReplace' );
 			if ( !$VenueID && $defaultsEnabled ) {
 				$VenueID = tribe_get_option( 'eventsDefaultVenueID' );
@@ -233,6 +239,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public function displayEventOrganizerDropdown( $postId ) {
 			$curOrg = get_post_meta( $postId, '_EventOrganizerID', true );
+			// override pro default with community on add page
+			if( !$curOrg && class_exists('TribeCommunityEvents') ) {
+				if( TribeCommunityEvents::instance()->isEditPage ) {
+					$curOrg = TribeCommunityEvents::getOption( 'defaultCommunityOrganizerID' );
+				}
+			}
 			$defaultsEnabled = tribe_get_option( 'defaultValueReplace' );
 			if ( !$curOrg && $defaultsEnabled ) {
 				$curOrg = tribe_get_option( 'eventsDefaultOrganizerID' );
