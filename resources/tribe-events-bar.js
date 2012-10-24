@@ -7,9 +7,9 @@ function eventBarWidth() {
 	var tribeBarWidth = tribeBar.width();
 	
 	if ( tribeBarWidth > 643 ) {
-		tribeBar.removeClass( 'tribe-show-select' ).addClass( 'tribe-hide-select' );
+		tribeBar.removeClass( 'tribe-bar-mini' ).addClass( 'tribe-bar-full' );
 	} else {
-		tribeBar.removeClass( 'tribe-hide-select' ).addClass( 'tribe-show-select' );
+		tribeBar.removeClass( 'tribe-bar-full' ).addClass( 'tribe-bar-mini' );
 	}
 }
 

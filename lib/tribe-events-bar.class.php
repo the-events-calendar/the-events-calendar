@@ -11,7 +11,7 @@ class TribeEventsBar {
 	private $views = array();
 
 	public function __construct() {
-		add_filter( 'the_content', array( $this, 'show' ), 1 );
+		add_filter( 'tribe_events_before_html', array( $this, 'show' ), 5 );
 		add_filter( 'wp_enqueue_scripts', array( $this, 'load_script' ) );
 	}
 
@@ -37,8 +37,9 @@ class TribeEventsBar {
 
 			$tec = TribeEvents::instance();
 
+			ob_start();
 			include $tec->pluginPath . "views/modules/bar.php";
-
+			$content = ob_get_clean() . $content;
 		}
 
 		return $content;
