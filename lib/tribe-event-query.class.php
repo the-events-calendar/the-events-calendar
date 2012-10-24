@@ -198,6 +198,7 @@ if (!class_exists('TribeEventsQuery')) {
 					// is event add required fields
 					if( tribe_is_event( $post->ID) ) {
 						$posts[$id]->tribe_is_event = true;
+						$posts[$id]->tribe_is_allday = tribe_get_event_meta( $post->ID, '_EventAllDay' ) ? true : false;
 						$posts[$id]->EventStartDate = get_post_meta( $post->ID, '_EventStartDate', true);
 						$posts[$id]->EventDuration = get_post_meta( $post->ID, '_EventDuration', true);
 						// DO NOT USE THIS - end dates are deprecated due to recurrance
