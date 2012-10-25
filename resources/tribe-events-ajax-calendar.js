@@ -31,7 +31,7 @@ jQuery( document ).ready( function ( $ ) {
 			function ( response ) {
 				$( "#ajax-loading" ).hide();
 				if ( response !== '' ) {
-					$( '.tribe-events-calendar' ).html( response );
+					$( '#tribe-events-content.tribe-events-calendar' ).html( response );
 				}
 			}
 		);
