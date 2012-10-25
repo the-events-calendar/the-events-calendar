@@ -3,18 +3,26 @@
 
 jQuery( document ).ready( function ( $ ) {
 
-	// handler for tribe events calendar ajax call. jquery 1.4 minimum
-
 	$( '.tribe-events-calendar .tribe-events-nav a' ).live( 'click', function ( e ) {
-
-		$( '.ajax-loading' ).show();
 
 		e.preventDefault();
 		var month_target = $( this ).attr( "data-month" );
+		tribe_events_calendar_ajax_post( month_target );
+	} );
+
+	$( '.tribe-events-calendar select.tribe-events-events-dropdown' ).live( 'change', function ( e ) {
+
+		var date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();
+		tribe_events_calendar_ajax_post( date );
+	} );
+
+	function tribe_events_calendar_ajax_post( date ) {
+
+		$( '.ajax-loading' ).show();
 
 		var params = {
 			action:'tribe_calendar',
-			eventDate:month_target
+			eventDate:date
 		};
 
 		$.post(
@@ -22,32 +30,11 @@ jQuery( document ).ready( function ( $ ) {
 			params,
 			function ( response ) {
 				$( "#ajax-loading" ).hide();
-				console.log( response );
+				if ( response !== '' ) {
+					$( '.tribe-events-calendar' ).html( response );
+				}
 			}
 		);
+	}
 
-
-	} );
 } );
-
-
-
-/*
-
-var month_target = $( this ).attr( "data-month" );
-		var params = {
-			action:'calendar-mini',
-			eventDate:month_target
-		};
-		$( "#tribe-mini-ajax-month" ).hide();
-		$( "#ajax-loading-mini" ).show();
-		$.post(
-			TribeMiniCalendar.ajaxurl,
-			params,
-			function ( response ) {
-				$( "#ajax-loading-mini" ).hide();
-				$( "#tribe-mini-ajax-month" ).show();
-				$( "#calendar_wrap" ).html( response );
-			}
-		);
-*/
