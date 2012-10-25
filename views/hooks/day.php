@@ -42,6 +42,12 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			// This title is here for ajax loading – do not remove if you want ajax switching between month views
 			ob_start(); ?>
 			<div id="tribe-events-content" class="tribe-events-day-grid">
+				<!--
+					@Tim
+					I noticed when using the navigation that the url seems to get updated, but not the events or
+					or events page date. Looks like maybe the ajax is busted, b/c when I refresh on a given dates page,
+					then the title updated to the correct day date.
+				-->
 				<title><?php wp_title(); ?></title>
 			<?php
 			$html = ob_get_clean();
@@ -70,83 +76,55 @@ if( !class_exists('Tribe_Events_Day_Template')){
 ?>
 		<div class="tribe-events-day-time-slot">
 		
-				<h5>All Day</h5>
+				<!--
+					@Tim
+					Couple things here:
+					
+					First
+					The wrapper for each set of events within a given hour is '<div class="tribe-events-day-time-slot">'.
+					So if an hour has multiple events, they all just go inside that hours .tribe-events-day-time-slot
+					wrapper and each event is wrapped in a '<div class="hentry event">. Figured this was pretty clear, but
+					just in case.
+					
+					Second
+					I believe the only other thing besides categories for each event is
+					properly spitting out events in groupings of start time, starting with all
+					day. I put the following bit for the hour header section in the hopes
+					it would help :)
+				-->
+				<?php // Our hour header
+				if ( tribe_get_start_date() !== tribe_get_end_date() ) { // Start & end date ?>
+					<h5><?php echo tribe_get_start_date( null, false, 'ga ' ); ?></h5>
+				<?php } else { // If all day event, show only start date ?>
+					<h5><?php _e( 'All Day', 'tribe-events-calendar' ); ?></h5>
+				<?php } ?>
 				
 				<div class="hentry vevent">
-					<h4 class="entry-title summary"><a href="#" class="url" rel="bookmark">Intro to Spinning</a></h4>
-					<p class="updated published"><abbr class="tribe-events-abbr dtstart" title="2010-09-13">All Day</abbr></p>
-					<p class="location"><a href="" rel="bookmark">Room Name</a></p>
-					<p class="entry-content description">I saw for the first time the earth's shape. I could easily see the shores of continents, islands, great rivers, folds of the terrain, large bodies of water.</p>
+					<h4 class="entry-title summary"><a href="#" class="url" rel="bookmark"><?php the_title(); ?></a></h4>
+					
+					<?php if ( tribe_get_start_date() !== tribe_get_end_date() ) { // Start & end date ?>
+						<p class="updated published">
+							<abbr class="tribe-events-abbr dtstart" title="<?php echo tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ); ?>"><?php echo tribe_get_start_date( null, false, 'ga ' ) . '- '; ?></abbr>
+							<abbr class="tribe-events-abbr dtend" title="<?php echo tribe_get_end_date( null, false, TribeDateUtils::DBDATEFORMAT ); ?>"><?php echo tribe_get_end_date( null, false, 'ga' ); ?></abbr>
+						</p>
+					<?php } else { // If all day event, show only start date ?>
+						<p class="updated published"><abbr class="tribe-events-abbr dtstart" title="<?php echo tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ); ?>"><?php _e( 'All Day', 'tribe-events-calendar' ); ?></abbr></p>
+					<?php } ?>
+					
+					<?php if( tribe_get_venue() ) { // Venue ?>
+					<p class="location vcard fn org"><a href="#" rel="bookmark"><?php tribe_get_venue_link( get_the_ID(), class_exists( 'TribeEventsPro' ) ); ?></a></p>
+					<?php } ?>
+					
+					<p class="entry-content description"><?php echo get_the_excerpt(); ?></p>
+					<!--
+						@Tim
+						Need to output the categories for the event below with the following markup.
+						I was going to do this with get_terms() as we don't currently have a template
+						tag to spit out something like this, but then figured we probably need a tag
+						for something like this, and that you should probably just handle it.
+					-->
 					<ul class="tribe-events-day-meta">
 						<li><a href="" rel="tag">Category A</a>,</li>
-						<li><a href="" rel="tag">Category B</a></li>
-					</ul>
-				</div><!-- .hentry .vevent -->
-				
-		</div><!-- .tribe-events-day-time-slot -->
-		
-		<div class="tribe-events-day-time-slot">	
-			
-				<h5>7:00 AM</h5>
-				
-				<div class="hentry vevent">
-					<h4 class="entry-title summary"><a href="#" class="url" rel="bookmark">Intro to Spinning</a></h4>
-					<p class="updated published">
-						<abbr class="tribe-events-abbr dtstart" title="2010-09-13">7am</abbr>
-						-
-						<abbr class="tribe-events-abbr dtend" title="2010-09-13">9am</abbr>
-					</p>
-					<p class="location"><a href="" rel="bookmark">Room Name</a></p>
-					<p class="entry-content description">I saw for the first time the earth's shape. I could easily see the shores of continents, islands, great rivers, folds of the terrain, large bodies of water.</p>
-					<ul class="tribe-events-day-meta">
-						<li><a href="" rel="tag">Category A</a>,</li>
-						<li><a href="" rel="tag">Category B</a></li>
-					</ul>
-				</div><!-- .hentry .vevent -->
-				
-				<div class="hentry vevent">
-					<h4 class="entry-title summary"><a href="#" class="url" rel="bookmark">Intro to Spinning</a></h4>
-					<p class="updated published">
-						<abbr class="tribe-events-abbr dtstart" title="2010-09-13">7am</abbr>
-						-
-						<abbr class="tribe-events-abbr dtend" title="2010-09-13">12pm</abbr>
-					</p>
-					<p class="location"><a href="" rel="bookmark">Room Name With a Really Really Really Long Room Name For Testing</a></p>
-					<p class="entry-content description">I saw for the first time the earth's shape. I could easily see the shores of continents, islands, great rivers, folds of the terrain, large bodies of water.</p>
-					<ul class="tribe-events-day-meta">
-						<li><a href="" rel="tag">Category A</a>,</li>
-						<li><a href="" rel="tag">Category B</a></li>
-					</ul>
-				</div><!-- .hentry .vevent -->
-				
-		</div><!-- .tribe-events-day-time-slot -->
-		
-		<div class="tribe-events-day-time-slot">
-		
-				<h5>11:00 AM</h5>
-				
-				<div class="hentry vevent">
-					<h4 class="entry-title summary"><a href="#" class="url" rel="bookmark">Intro to Spinnin and an example of a really really really long title to demonstrate what this looks like</a></h4>
-					<p class="updated published">
-						<abbr class="tribe-events-abbr dtstart" title="2010-09-13">11am</abbr>
-						-
-						<abbr class="tribe-events-abbr dtend" title="2010-09-13">12pm</abbr>
-					</p>
-					<p class="location"><a href="" rel="bookmark">Room Name</a></p>
-					<p class="entry-content description">I saw for the first time the earth's shape. I could easily see the shores of continents, islands, great rivers, folds of the terrain, large bodies of water.</p>
-					<ul class="tribe-events-day-meta">
-						<li><a href="" rel="tag">Category A</a>,</li>
-						<li><a href="" rel="tag">Category B</a>,</li>
-						<li><a href="" rel="tag">Category B</a>,</li>
-						<li><a href="" rel="tag">Category B</a>,</li>
-						<li><a href="" rel="tag">Category B</a>,</li>
-						<li><a href="" rel="tag">Category B</a>,</li>
-						<li><a href="" rel="tag">Category B</a>,</li>
-						<li><a href="" rel="tag">Category B</a>,</li>
-						<li><a href="" rel="tag">Category B</a>,</li>
-						<li><a href="" rel="tag">Category B</a>,</li>
-						<li><a href="" rel="tag">Category B</a>,</li>
-						<li><a href="" rel="tag">Category B</a>,</li>
 						<li><a href="" rel="tag">Category B</a></li>
 					</ul>
 				</div><!-- .hentry .vevent -->
@@ -179,14 +157,21 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			ob_start();
 			tribe_month_year_dropdowns( "tribe-events-" );
 			$dropdown = ob_get_clean();
-
+?>
+			<!--
+				@Tim
+				We need to implement the date picker here and for week view. I was going to attempt it, 
+				but with everything that I think needs to be adjusted, we could save time with the crunch we 
+				are in by having you implement as this ajax nav seems busted anyway.
+			-->
+<?php
 			// echo '<pre>';
 			// print_r($wp_query->posts);
 			// echo '</pre>';
 			$current_day = $wp_query->get('start_date');
 			// Display Day Navigation
 			// <-- Previous Day | Month/Day/Year Selector | Next Day -->
-			$html = sprintf('<div id="tribe-events-header"><h3 class="tribe-events-visuallyhidden">%s</h3><ul class="tribe-events-sub-nav"><li class="tribe-events-nav-prev"><a href="%s" rel="pref">%s</a></li><li>%s</li><li class="tribe-events-nav-next"><a href="%s" rel="next">%s</a><img src="%s" class="ajax-loading" id="ajax-loading" alt="Loading events" /></li></ul></div>',
+			$html = sprintf('<div id="tribe-events-header"><h3 class="tribe-events-visuallyhidden">%s</h3><ul class="tribe-events-sub-nav"><li class="tribe-events-nav-prev"><a href="%s" rel="prev">&#x2190; %s</a></li><li>%s</li><li class="tribe-events-nav-next"><a href="%s" rel="next">%s &#x2192;</a><img src="%s" class="ajax-loading" id="ajax-loading" alt="Loading events" /></li></ul></div>',
 								__( 'Day Navigation', 'tribe-events-calendar' ),
 								trailingslashit( get_site_url() ) . trailingslashit( $tribe_ecp->rewriteSlug ) . trailingslashit( Date('Y-m-d', strtotime($current_day . " -1 day") ) ),
 								__( 'Yesterday', 'tribe-events-calendar-pro' ),
