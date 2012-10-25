@@ -54,20 +54,20 @@ jQuery(document).ready(function($) {
 	
 	tribe_event_tooltips();
 	
-	// PJAX for calendar date select
-   	$('#tribe-events-header').delegate('.tribe-events-events-dropdown', 'change', function() {                
-		var baseUrl = $(this).parent().attr('action');		
-		var target_url = baseUrl + $('#tribe-events-events-year').val() + '-' + $('#tribe-events-events-month').val();
-        $('.ajax-loading').show(); 
-		$.pjax({ url: target_url, container: '#tribe-events-header', fragment: '#tribe-events-header', timeout: 10000 });
-	});
-	
-	// PJAX for calendar next/prev month links
-    $('#tribe-events-header').delegate('.tribe-events-nav-prev a, .tribe-events-nav-next a', 'click', function(e) {
-    	e.preventDefault();
-        $.pjax({ url: $(this).attr('href'), container: '#tribe-events-header', fragment: '#tribe-events-header', timeout: 10000 });
-        $('.ajax-loading').show();      
-   	});
+//	// PJAX for calendar date select
+//   	$('#tribe-events-header').delegate('.tribe-events-events-dropdown', 'change', function() {
+//		var baseUrl = $(this).parent().attr('action');
+//		var target_url = baseUrl + $('#tribe-events-events-year').val() + '-' + $('#tribe-events-events-month').val();
+//        $('.ajax-loading').show();
+//		$.pjax({ url: target_url, container: '#tribe-events-header', fragment: '#tribe-events-header', timeout: 10000 });
+//	});
+//
+//	// PJAX for calendar next/prev month links
+//    $('#tribe-events-header').delegate('.tribe-events-nav-prev a, .tribe-events-nav-next a', 'click', function(e) {
+//    	e.preventDefault();
+//        $.pjax({ url: $(this).attr('href'), container: '#tribe-events-header', fragment: '#tribe-events-header', timeout: 10000 });
+//        $('.ajax-loading').show();
+//   	});
         
     // Bind "tribe-events-right" class to last three days of calendar after ajax
     $('body').bind('end.pjax', function() { 

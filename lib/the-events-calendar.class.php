@@ -291,6 +291,52 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'plugin_action_links_' . trailingslashit( $this->pluginDir ) . 'the-events-calendar.php', array( $this, 'addLinksToPluginActions' ) );
 			add_action( 'admin_menu', array( $this, 'addHelpAdminMenuItem' ), 50 );
 			add_action( 'comment_form', array( $this, 'addHiddenRecurringField' ) );
+
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_for_ajax_calendar' ) );
+
+//			add_action( 'wp_ajax_calendar', array( $this, 'calendar_ajax_call' ) );
+//			add_action( 'wp_ajax_nopriv_calendar', array( $this, 'calendar_ajax_call' ) );
+//			add_action( 'pre_get_posts', array( $this, 'calendar_ajax_call_set_date', 9 ) );
+
+		}
+
+		function enqueue_for_ajax_calendar() {
+			if ( $this->displaying === 'month' ) {
+				Tribe_Template_Factory::asset_package( 'ajax-calendar' );
+			}
+		}
+
+		function calendar_ajax_call_set_date( $query ) {
+			if ( defined( "DOING_AJAX" ) && DOING_AJAX && isset( $_POST["eventDate"] ) && isset( $_POST["action"] ) && $_POST["action"] == "calendar-mini" ) {
+				global $wp_query;
+				$date                              = $_POST["eventDate"] . '-01';
+				$query->query_vars['eventDate']    = $date;
+				$wp_query->query_vars['eventDate'] = $date;
+
+				$query->query_vars['suppress_filters'] = false;
+
+				add_filter( 'parse_tribe_event_query', array( 'TribeEventsQuery', 'setupQueryArgs' ) );
+				add_filter( 'parse_tribe_event_query', array( 'TribeEventsQuery', 'setArgsFromDisplayType' ) );
+
+				apply_filters( 'parse_tribe_event_query', $query );
+
+				add_filter( 'posts_join', array( 'TribeEventsQuery', 'setupJoins' ), 10, 2 );
+				add_filter( 'posts_where', array( 'TribeEventsQuery', 'addEventConditions' ), 10, 2 );
+				add_filter( 'posts_fields', array( 'TribeEventsQuery', 'setupFields' ) );
+				add_filter( 'posts_groupby', array( 'TribeEventsQuery', 'addStartDateToGroupBy' ) );
+				add_filter( 'posts_orderby', array( 'TribeEventsQuery', 'dateOrderBy' ), 10, 2 );
+			}
+
+			return $query;
+		}
+
+		function calendar_ajax_call() {
+			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
+				$date = $_POST["eventDate"];
+				header( "Content-Type: text/html" );
+				tribe_calendar_mini_grid( $date );
+			}
+			die();
 		}
 
 		public static function ecpActive( $version = '2.0.7' ) {
