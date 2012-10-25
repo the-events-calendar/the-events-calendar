@@ -295,9 +295,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_for_ajax_calendar' ) );
 
-//			add_action( 'wp_ajax_calendar', array( $this, 'calendar_ajax_call' ) );
-//			add_action( 'wp_ajax_nopriv_calendar', array( $this, 'calendar_ajax_call' ) );
-//			add_action( 'pre_get_posts', array( $this, 'calendar_ajax_call_set_date', 9 ) );
+			add_action( 'wp_ajax_tribe_calendar', array( $this, 'calendar_ajax_call' ) );
+			add_action( 'wp_ajax_nopriv_tribe_calendar', array( $this, 'calendar_ajax_call' ) );
+			//add_action( 'pre_get_posts', array( $this, 'calendar_ajax_call_set_date' ), 9, 1 );
 
 		}
 
@@ -332,11 +332,26 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		function calendar_ajax_call() {
+
+			$ret = array( 'success' => false, 'html' => '' );
+			header( 'Content-type: application/json' );
+
 			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
 				$date = $_POST["eventDate"];
-				header( "Content-Type: text/html" );
-				tribe_calendar_mini_grid( $date );
+
+				ob_start();
+
+				echo apply_filters( 'tribe_events_before_html', stripslashes( tribe_get_option( 'tribeEventsBeforeHTML' ) ) );
+				include TribeEventsTemplates::getTemplateHierarchy('calendar');
+				echo apply_filters( 'tribe_events_after_html', stripslashes( tribe_get_option( 'tribeEventsAfterHTML' ) ) );
+
+				$ret['success'] = true;
+				$ret['html']    = ob_get_clean();
+
 			}
+
+
+			echo json_encode( $ret );
 			die();
 		}
 
