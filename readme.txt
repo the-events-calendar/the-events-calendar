@@ -182,6 +182,7 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 * Croatian (free & PRO) from Marko Manojlovic
 * Finnish (free & PRO) from Petri Kajander
 * Catalan (free & PRO) from Fran Rosa
+* Ukrainian (free only) from Alexey Fedorov
 
 
 
@@ -205,7 +206,15 @@ Our Premium Plugins:
 
 == Changelog ==
 
-=2.0.9 = 
+= 2.0.10 =
+
+**Small features, UX and Content Tweaks:**
+
+* Incorporated new Ukrainian translation files (free only), courtesy of Alexey Fedorov
+
+**Bug Fixes:**
+
+= 2.0.9 = 
 
 **Small features, UX and Content Tweaks:**
 
