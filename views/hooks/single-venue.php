@@ -128,7 +128,7 @@ if( !class_exists('Tribe_Events_Pro_Single_Venue_Template')){
 		}
 		// Start Upcoming Event Loop
 		public function event_before_loop( $post_id ){
-			$html = '<div class="tribe-events-loop hfeed">';
+			$html = '<div class="tribe-events-loop hfeed vcalendar">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_event_before_loop');
 		}
 		// Venue Loop Title

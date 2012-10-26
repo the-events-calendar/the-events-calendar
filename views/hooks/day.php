@@ -64,7 +64,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 	
 		<h3><?php echo Date("l, F jS Y", strtotime($wp_query->get('start_date'))); ?></h3>
 		
-		<div class="tribe-events-loop-day hfeed">
+		<div class="tribe-events-loop-day hfeed vcalendar">
 <?php
 			$html = ob_get_clean();
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_day_before_loop');

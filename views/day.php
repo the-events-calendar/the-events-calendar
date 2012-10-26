@@ -21,40 +21,6 @@
 
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-/*
-	Mockup: https://central.tri.be/attachments/54709/dayview.3.jpg
-	
-	Template Tags Needed:
-		
-	-Day Nav (like the month nav on calendar view)
-		<-- Previous Day | Month/Day/Year Selector | Next Day -->
-		
-	-Day View Button (top, right of calendar/list view)
-	
-	-Tag to output the day date in the container header (not gonna use a table for this view I don't think)
-	
-	-Tag to output the hours that have events starting at that hour within the day grid, as like a section header, basically what
-	we did for Conference, including an All Day section header (see the mockup)
-	
-	(Feel free to let me know if the following would just be default WP tags like the_title, etc)
-	
-	-Event Title Tag
-	-Event Excerpt Tag
-	-Event Venue Name Tag
-	-Event Categories Tag (with a comma separator)
-	-Event Time Duration Tag (All Day or else 11am-1pm)
-	-Tag For URL To Event
-	
-
-	// Separate skeleton / full styles
-	// Add tags
-	// Xbrowser styles for new views and double check with other themes?	
-	// Hit Tim about doing date picker for both of these?
-	
-	// Cut into hooks/filters last
-
-*/
-
 echo apply_filters('tribe_events_day_before_template', '');
 
 	// daily header (navigation)
