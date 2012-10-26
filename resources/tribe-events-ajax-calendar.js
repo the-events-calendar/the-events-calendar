@@ -5,14 +5,22 @@ jQuery( document ).ready( function ( $ ) {
 
 	var hasPushstate = !!(window.history && history.pushState);
 	
-	if( hasPushstate ) {
-	
-		window.onpopstate = function(event) {	
+	if( hasPushstate ) {	
 
-			var tribe_nopop = false;
-			var pop_date = event.state.date;		
-			tribe_events_calendar_ajax_post( pop_date, null, tribe_nopop );
-		};
+		var popped = ('state' in window.history), initialURL = location.href;
+		
+		$(window).bind('popstate', function(event) {
+			
+			var initialPop = !popped && location.href == initialURL;
+			popped = true;
+			if ( initialPop ) return;
+			
+			if( event.state ) {
+				var tribe_nopop = false;
+				var pop_date = event.state.date;				
+				tribe_events_calendar_ajax_post( pop_date, null, tribe_nopop );
+			}
+		} );	
 
 		$( '.tribe-events-calendar .tribe-events-nav a' ).live( 'click', function ( e ) {
 
