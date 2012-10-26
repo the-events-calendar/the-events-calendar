@@ -19,9 +19,6 @@
  * @author Modern Tribe Inc.
  *
  */
- 
-// PLACE IN HEADER: <link rel="profile" href="http://microformats.org/profile/hcalendar">
-// FOR: lists, calendar, single event, week, day, community
 
 if ( !defined('ABSPATH') ) { die('-1'); }
 

@@ -59,7 +59,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 								
 			if ( $posts ) {
 				/* Display list of events. */
-				echo '<ol class="hfeed">';
+				echo '<ol class="hfeed vcalendar">';
 				foreach( $posts as $post ) : 
 					setup_postdata($post);
 					include $template;
