@@ -386,7 +386,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Week Loop View Test
 	 *
 	 * @return bool
-	 * @since 2.1
+	 * @since 3.0
 	 */
 	function tribe_is_week()  {
 		$tribe_ecp = TribeEvents::instance();
@@ -395,36 +395,58 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	}
 
 	/**
-	 * By Week Navigation
+	 * Display Week Navigation
+	 *
+	 * @param string $week
+	 * @since 3.0
 	 */
-	function tribe_display_by_week_navigation( $week = null ){
-		if( is_null($week) ){
-			$week = date("Y-m-d", strtotime('now'));
-		}
-		echo date('Y-m-d', strtotime( tribe_get_first_week_day( $week ) . ' -1 day'));
-		echo '<br />';
-		echo tribe_get_last_week_day( $week );
-
-	}
+	// REMOVE IF FOUND UNNEEDED
+	// function tribe_display_by_week_navigation( $week = null ){
+	// 	if( is_null($week) ){
+	// 		$week = date("Y-m-d", strtotime('now'));
+	// 	}
+	// 	echo date('Y-m-d', strtotime( tribe_get_first_week_day( $week ) . ' -1 day'));
+	// 	echo '<br />';
+	// 	echo tribe_get_last_week_day( $week );
+	// }
 
 	/**
-	 * 
+	 * Get last week permalink by provided date (7 days offset)
+	 *
+	 * @uses tribe_get_week_permalink
+	 * @param string $week
+	 * @param bool $is_current
+	 * @return string $permalink
+	 * @since 3.0
 	 */
 	function tribe_get_last_week_permalink( $week, $is_current = true ) {
 		$tec = TribeEvents::instance();
 		$week = ($is_current) ? date('Y-m-d', strtotime( $week . ' -7 days') ): $week;
-		$permalink = get_site_url() . '/' . $tec->rewriteSlug . '/' . $tec->weekSlug . '/' . trailingslashit( $week );
-		return apply_filters('tribe_get_last_week_permalink', $permalink);
-	}
-	function tribe_get_next_week_permalink( $week, $is_current = true ) {
-		$tec = TribeEvents::instance();
-		$week = ($is_current) ? date('Y-m-d', strtotime( $week . ' +7 days') ): $week;
-		$permalink = get_site_url() . '/' . $tec->rewriteSlug . '/' . $tec->weekSlug . '/' . trailingslashit( $week );
-		return apply_filters('tribe_get_next_week_permalink', $permalink);
+		return apply_filters('tribe_get_last_week_permalink', tribe_get_week_permalink( $week ) );
 	}
 
 	/**
+	 * Get next week permalink by provided date (7 days offset)
+	 *
+	 * @uses tribe_get_week_permalink
+	 * @param string $week
+	 * @param bool $is_current
+	 * @return string $permalink
+	 * @since 3.0
+	 */
+	function tribe_get_next_week_permalink( $week, $is_current = true ) {
+		$tec = TribeEvents::instance();
+		$week = ($is_current) ? date('Y-m-d', strtotime( $week . ' +7 days') ): $week;
+		return apply_filters('tribe_get_next_week_permalink', tribe_get_week_permalink( $week ) );
+	}
+
+	/**
+	 * Get day permalink by provided date
+	 * Note: default if null returns TribeEvents::instance()->todaySlug
 	 * 
+	 * @param string $week
+	 * @return string $permalink
+	 * @since 3.0
 	 */
 	function tribe_get_day_permalink( $date = null ){
 		$tec = TribeEvents::instance();
@@ -433,7 +455,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		return apply_filters('tribe_get_next_week_permalink', $permalink);
 	}
 	/**
+	 * Get week permalink
 	 * 
+	 * @param string $week
+	 * @return string $permalink
+	 * @since 3.0
 	 */
 	function tribe_get_week_permalink( $week = null ){
 		$tec = TribeEvents::instance();

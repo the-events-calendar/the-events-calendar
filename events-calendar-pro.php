@@ -474,8 +474,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						break;
 					case 'day':
 						$event_date = $query->get('eventDate') != '' ? $query->get('eventDate') : Date('Y-m-d');
-						$query->set( 'start_date', $event_date );
-						$query->set( 'end_date', $event_date );
+						$query->set( 'start_date', tribe_event_beginning_of_day( $event_date ) );
+						$query->set( 'end_date', tribe_event_end_of_day( $event_date ) );
 						$query->set( 'eventDate', $event_date );
 						$query->set( 'orderby', 'event_date' );
 						$query->set( 'order', 'ASC' );

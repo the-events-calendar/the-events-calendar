@@ -66,9 +66,9 @@ echo apply_filters('tribe_events_day_before_template', '');
 
 		while ( have_posts() ) {
 			the_post();
-			echo apply_filters( 'tribe_events_day_inside_before_loop', '');
-			echo apply_filters( 'tribe_events_day_the_event', '');
-			echo apply_filters( 'tribe_events_day_inside_after_loop', '');
+			echo apply_filters( 'tribe_events_day_inside_before_loop', '', get_the_ID());
+			echo apply_filters( 'tribe_events_day_the_event', '', get_the_ID());
+			echo apply_filters( 'tribe_events_day_inside_after_loop', '', get_the_ID());
 		}
 	}
 

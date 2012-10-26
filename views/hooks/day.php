@@ -15,6 +15,9 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( !class_exists('Tribe_Events_Day_Template')){
 	class Tribe_Events_Day_Template extends Tribe_Template_Factory {
 
+		static $timeslots = array();
+		static $loop_increment = 0;
+
 		public static function init(){
 			// Start list template
 			add_filter( 'tribe_events_day_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
@@ -72,35 +75,35 @@ if( !class_exists('Tribe_Events_Day_Template')){
 		}
 
 		public function the_event( $post_id ){
+			global $wp_query, $post;
+
+			$html = '';
+
+			// setup the "start time" for the event header
+			$start_time = ( $post->tribe_is_allday ) ? 
+				__( 'All Day', 'tribe-events-calendar' ) :
+				tribe_get_start_date( null, false, 'ga ' );
+
+			// determine if we want to open up a new time block
+			if( ! in_array( $start_time, self::$timeslots ) ) {
+
+				self::$timeslots[] = $start_time;	
+
+				// close out any prior opened time blocks
+				$html .= ( self::$loop_increment > 0 ) ? '</div>' : '';
+
+				// open new time block
+				$html .= '<div class="tribe-events-day-time-slot">';
+
+				// time vs all day header
+				$html .= sprintf( '<h5>%s</h5>', $start_time );
+
+			}
+
 			ob_start(); 
-?>
-		<div class="tribe-events-day-time-slot">
-		
-				<!--
-					@Tim
-					Couple things here:
-					
-					First
-					The wrapper for each set of events within a given hour is '<div class="tribe-events-day-time-slot">'.
-					So if an hour has multiple events, they all just go inside that hours .tribe-events-day-time-slot
-					wrapper and each event is wrapped in a '<div class="hentry event">. Figured this was pretty clear, but
-					just in case.
-					
-					Second
-					I believe the only other thing besides categories for each event is
-					properly spitting out events in groupings of start time, starting with all
-					day. I put the following bit for the hour header section in the hopes
-					it would help :)
-				-->
-				<?php // Our hour header
-				if ( tribe_get_start_date() !== tribe_get_end_date() ) { // Start & end date ?>
-					<h5><?php echo tribe_get_start_date( null, false, 'ga ' ); ?></h5>
-				<?php } else { // If all day event, show only start date ?>
-					<h5><?php _e( 'All Day', 'tribe-events-calendar' ); ?></h5>
-				<?php } ?>
-				
+?>				
 				<div class="hentry vevent">
-					<h4 class="entry-title summary"><a href="#" class="url" rel="bookmark"><?php the_title(); ?></a></h4>
+					<h4 class="entry-title summary"><a href="<?php the_permalink(); ?>" class="url" rel="bookmark"><?php the_title(); ?></a></h4>
 					
 					<?php if ( tribe_get_start_date() !== tribe_get_end_date() ) { // Start & end date ?>
 						<p class="updated published">
@@ -116,23 +119,26 @@ if( !class_exists('Tribe_Events_Day_Template')){
 					<?php } ?>
 					
 					<p class="entry-content description"><?php echo get_the_excerpt(); ?></p>
-					<!--
-						@Tim
-						Need to output the categories for the event below with the following markup.
-						I was going to do this with get_terms() as we don't currently have a template
-						tag to spit out something like this, but then figured we probably need a tag
-						for something like this, and that you should probably just handle it.
-					-->
-					<ul class="tribe-events-day-meta">
-						<li><a href="" rel="tag">Category A</a>,</li>
-						<li><a href="" rel="tag">Category B</a></li>
-					</ul>
+
+<?php 
+/*
+						TODO: @Ryan 
+						See my note https://central.tri.be/issues/18055#note-4 we really should be using 
+						tribe_meta_event_cats() instead of a new tag...
+ */
+?>
+				<?php tribe_meta_event_cats(); ?>
 				</div><!-- .hentry .vevent -->
 				
-		</div><!-- .tribe-events-day-time-slot -->
-				
 <?php
-			$html = ob_get_clean();
+			$html .= ob_get_clean();
+
+			// close out the last time block
+			$html .= ( count($wp_query->posts) == self::$loop_increment ) ? '</div>' : '';
+
+			// internal increment to keep track of position within the loop
+			self::$loop_increment++;
+
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_day_the_event');
 		}
 
@@ -165,18 +171,15 @@ if( !class_exists('Tribe_Events_Day_Template')){
 				are in by having you implement as this ajax nav seems busted anyway.
 			-->
 <?php
-			// echo '<pre>';
-			// print_r($wp_query->posts);
-			// echo '</pre>';
 			$current_day = $wp_query->get('start_date');
 			// Display Day Navigation
 			// <-- Previous Day | Month/Day/Year Selector | Next Day -->
 			$html = sprintf('<div id="tribe-events-header"><h3 class="tribe-events-visuallyhidden">%s</h3><ul class="tribe-events-sub-nav"><li class="tribe-events-nav-prev"><a href="%s" rel="prev">&#x2190; %s</a></li><li>%s</li><li class="tribe-events-nav-next"><a href="%s" rel="next">%s &#x2192;</a><img src="%s" class="ajax-loading" id="ajax-loading" alt="Loading events" /></li></ul></div>',
 								__( 'Day Navigation', 'tribe-events-calendar' ),
-								trailingslashit( get_site_url() ) . trailingslashit( $tribe_ecp->rewriteSlug ) . trailingslashit( Date('Y-m-d', strtotime($current_day . " -1 day") ) ),
+								tribe_get_day_permalink( Date('Y-m-d', strtotime($current_day . " -1 day") ) ),
 								__( 'Yesterday', 'tribe-events-calendar-pro' ),
 								$dropdown,
-								trailingslashit( get_site_url() ) . trailingslashit( $tribe_ecp->rewriteSlug ) . trailingslashit( Date('Y-m-d', strtotime($current_day . " +1 day") ) ),
+								tribe_get_day_permalink( Date('Y-m-d', strtotime($current_day . " +1 day") ) ),
 								__( 'Tomorrow', 'tribe-events-calendar-pro' ),
 								esc_url( admin_url( 'images/wpspin_light.gif' ) )
 								);
