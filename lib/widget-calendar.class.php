@@ -74,41 +74,33 @@ if( !class_exists( 'TribeEventsCalendarWidget') ) {
 	// AJAX functionality for the mini calendar
 	add_action( 'wp_ajax_calendar-mini', 'tribe_calendar_mini_ajax_call' );
 	add_action( 'wp_ajax_nopriv_calendar-mini', 'tribe_calendar_mini_ajax_call' );
-	add_action( 'pre_get_posts', 'tribe_calendar_mini_ajax_call_set_date', 9 );
 
-	function tribe_calendar_mini_ajax_call_set_date( $query ) {
-		if ( defined( "DOING_AJAX" ) && DOING_AJAX && isset( $_POST["eventDate"] ) && isset( $_POST["action"] ) && $_POST["action"] == "calendar-mini" ) {
-			global $wp_query;
-			$date                              = $_POST["eventDate"] . '-01';
-			$query->query_vars['eventDate']    = $date;
-			$wp_query->query_vars['eventDate'] = $date;
 
-			$query->query_vars['suppress_filters'] = false;
-
-			add_filter( 'parse_tribe_event_query', array( 'TribeEventsQuery', 'setupQueryArgs' ) );
-			add_filter( 'parse_tribe_event_query', array( 'TribeEventsQuery', 'setArgsFromDisplayType' ) );
-
-			apply_filters( 'parse_tribe_event_query', $query );
-
-			add_filter( 'posts_join', array( 'TribeEventsQuery', 'setupJoins' ), 10, 2 );
-			add_filter( 'posts_where', array( 'TribeEventsQuery', 'addEventConditions' ), 10, 2 );
-			add_filter( 'posts_fields', array( 'TribeEventsQuery', 'setupFields' ) );
-			add_filter( 'posts_groupby', array( 'TribeEventsQuery', 'addStartDateToGroupBy' ) );
-			add_filter( 'posts_orderby', array( 'TribeEventsQuery', 'dateOrderBy' ), 10, 2 );
+	function tribe_calendar_mini_ajax_set_date( $query ) {
+		if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
+			$query->set( 'eventDate', $_POST["eventDate"] . '-01' );
 		}
-
 		return $query;
 	}
 
 	function tribe_calendar_mini_ajax_call() {
 		if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
-			$date = $_POST["eventDate"];
-			header( "Content-Type: text/html" );
-			tribe_calendar_mini_grid( $date );
+
+			add_action( 'pre_get_posts', 'tribe_calendar_mini_ajax_set_date', -10 );
+
+			$args  = array( 'eventDisplay' => 'month', 'post_type' => TribeEvents::POSTTYPE );
+			$query = new WP_Query( $args );
+
+			remove_action( 'pre_get_posts', 'tribe_calendar_mini_ajax_set_date', -10 );
+
+			global $wp_query, $post;
+			$wp_query = $query;
+			if ( have_posts() )
+				the_post();
+
+			tribe_calendar_mini_grid( );
 		}
 		die();
 	}
 
-
 }
-?>
