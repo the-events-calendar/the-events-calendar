@@ -62,6 +62,11 @@ echo apply_filters('tribe_events_day_before_template', '');
 
 	echo apply_filters( 'tribe_events_day_before_loop', '');
 
+	// global $wp_query;
+	// echo '<pre>';
+	// print_r($wp_query->query_vars);
+	// print_r($wp_query->request);
+	// echo '</pre>';
 	if ( have_posts() ) {
 
 		while ( have_posts() ) {
