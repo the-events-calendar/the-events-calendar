@@ -247,3 +247,4 @@ if ( !$.support.pjax ) {
 }
 
 })(jQuery);
+
