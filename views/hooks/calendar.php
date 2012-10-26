@@ -71,7 +71,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		}
 		// Calendar Header
 		public function before_header( $post_id ){
-			$html = '<div id="tribe-events-header">';
+			$html = '<div id="tribe-events-header" data-title="' . wp_title( '&raquo;', false ) . '">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_header');
 		}
 		// Calendar Navigation
