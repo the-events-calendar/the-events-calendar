@@ -2,9 +2,10 @@ jQuery(document).ready(function($) {
 
 	function tribe_event_nudge() {		
 		// prepare calendar for popups
-		$('table.tribe-events-calendar tbody tr, table.tribe-events-grid tr.tribe-week-events-row').each(function() {
+		$('table.tribe-events-calendar tbody tr, table.tribe-events-grid tr.tribe-week-events-row, .tribe-events-week .tribe-grid-content-wrap').each(function() {
 			// add a class of "tribe-events-right" to last 3 days of week so tooltips stay onscreen. To be replaced by php.
 			$(this).find('td:gt(3)').addClass('tribe-events-right');
+			$(this).find('.column:gt(3)').addClass('tribe-events-right');
 		});
 	}
 	
