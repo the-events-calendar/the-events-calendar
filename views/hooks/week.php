@@ -9,9 +9,6 @@
  *
  */
  
- // Left: all-days, special cases, populate events for special cases 
- // JS / Tooltips
- 
  /*
  	@Samuel
  	Raw Wireframe: https://central.tri.be/attachments/54643/weekview.1.jpg
@@ -299,7 +296,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 			for( $n = 0; $n < $week_length; $n++ ) {
 				$day = Date('Y-m-d', strtotime($start_of_week . " +$n days"));
 				$header_class = ($day == $today) ? 'tribe-week-today' : '';
-				printf('<div title="%s" class="column hfeed %s">',
+				printf('<div title="%s" class="column hfeed vcalendar %s">',
 					Date('Y-m-d', strtotime($start_of_week . " +$n days")),
 					$header_class
 					);
