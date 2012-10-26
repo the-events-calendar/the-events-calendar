@@ -6,9 +6,8 @@ jQuery( document ).ready( function ( $ ) {
 	window.onpopstate = function(event) {	
 		
 		var tribe_pop = false;
-		var pop_date = event.state.date;
-		var pop_target = event.state.target;
-		tribe_events_calendar_ajax_post( pop_date, pop_target, tribe_pop );
+		var pop_date = event.state.date;		
+		tribe_events_calendar_ajax_post( pop_date, null, tribe_pop );
 	};
 
 	$( '.tribe-events-calendar .tribe-events-nav a' ).live( 'click', function ( e ) {
@@ -47,8 +46,7 @@ jQuery( document ).ready( function ( $ ) {
 					$( '#tribe-events-content.tribe-events-calendar' ).html( response );
 					if( tribe_pop ) {
 						history.pushState({
-							"date": date, 
-							"target": href_target
+							"date": date
 						}, null, href_target);
 					}
 				}
