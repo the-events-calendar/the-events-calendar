@@ -9,6 +9,10 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if (!class_exists('TribeEventsQuery')) {
 	class TribeEventsQuery {
 
+		function __construct(){
+			add_action('tribe_events_init_pre_get_posts', array(__CLASS__,'init'));
+		}
+
 		/**
 		 * Initialize The Events Calendar query filters and post processing.
 		 * @return null
@@ -160,18 +164,21 @@ if (!class_exists('TribeEventsQuery')) {
 			}
 
 			// if is in the admin remove the event date & upcoming filters
-			if( is_admin() && $query->tribe_is_event_query ) {
-				remove_filter( 'posts_join', array(__CLASS__, 'posts_join' ), 10, 2 );
-				remove_filter( 'posts_where', array(__CLASS__, 'posts_where'), 10, 2);
-				$query->set( 'post__not_in', '' );
+			// protect against stripping front end AJAX calls if logged in
+			if( is_admin() && $query->tribe_is_event_query &&
+				( ! defined( 'DOING_AJAX' ) || ( defined( 'DOING_AJAX' ) && ! DOING_AJAX ) ) ) {
+					
+					remove_filter( 'posts_join', array(__CLASS__, 'posts_join' ), 10, 2 );
+					remove_filter( 'posts_where', array(__CLASS__, 'posts_where'), 10, 2);
+					$query->set( 'post__not_in', '' );
 
-				// set the default order for posts within admin lists
-				if( ! isset($query->query['order'])) {
-					$query->set( 'order', 'DESC' );
-				} else {
-					// making sure we preserve the order supplied by the query string even if it is overwritten above
-					$query->set( 'order', $query->query['order'] );
-				}
+					// set the default order for posts within admin lists
+					if( ! isset($query->query['order'])) {
+						$query->set( 'order', 'DESC' );
+					} else {
+						// making sure we preserve the order supplied by the query string even if it is overwritten above
+						$query->set( 'order', $query->query['order'] );
+					}
 			}
 
 			// check if is_event_query === true and hook filter
