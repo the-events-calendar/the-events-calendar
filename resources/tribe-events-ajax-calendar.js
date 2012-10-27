@@ -3,17 +3,26 @@
 
 jQuery( document ).ready( function ( $ ) {
 
-	var hasPushstate = window.history && window.history.pushState && window.history.replaceState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);
+	// we'll determine if the browser supports pushstate and drop those that say they do but do it badly ;)
+	
+	var hasPushstate = window.history && window.history.pushState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);
 	
 	if( hasPushstate ) {	
-
+		
+		// let's fix any browser that fires popstate on first load incorrectly
+		
 		var popped = ('state' in window.history), initialURL = location.href;
 		
 		$(window).bind('popstate', function(event) {
 			
 			var initialPop = !popped && location.href == initialURL;
 			popped = true;
+			
+			// if it was an inital load, let's get out of here
+			
 			if ( initialPop ) return;
+			
+			// this really is popstate, let's fire the ajax but not overwrite our history
 			
 			if( event.state ) {
 				var tribe_nopop = false;
@@ -56,8 +65,12 @@ jQuery( document ).ready( function ( $ ) {
 					$( "#ajax-loading" ).hide();
 					if ( response !== '' ) {
 						$( '#tribe-events-content.tribe-events-calendar' ).html( response );
+						
 						var page_title = $(response).find("#tribe-events-header").attr('data-title');	
 						$(document).attr('title', page_title);
+						
+						// let's write our history for this ajax request and save the date for popstate requests to use only if not a popstate request itself
+						
 						if( tribe_nopop ) {
 							history.pushState({
 								"date": date
@@ -67,7 +80,9 @@ jQuery( document ).ready( function ( $ ) {
 				}
 			);
 		}
-	} else {	
+	} else {
+		// here we can write all our code for non pushstate browsers
+		
 		$( '.tribe-events-calendar select.tribe-events-events-dropdown' ).live( 'change', function ( e ) {			
 			
 			var baseUrl = $(this).parent().attr('action');
