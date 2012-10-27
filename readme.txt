@@ -174,7 +174,8 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 * Norwegian (free & PRO) from "Terje With Lunndal"
 * Hebrew (free & PRO) from Sagi Shrieber
 * Japanese (free only) from Matthew Meyer
-* French (free & PRO) from Arno Faure
+* French (PRO) from Arno Faure
+* French (free) from Fanny HŽraud
 * Lithuanian (free only) from Vincent G from Host1Free
 * Czech (free & PRO) from Petr Bastan
 * Serbian (free & PRO) from Marko Manojlovic
@@ -211,6 +212,7 @@ Our Premium Plugins:
 **Small features, UX and Content Tweaks:**
 
 * Incorporated new Ukrainian translation files (free only), courtesy of Alexey Fedorov
+* Incorporated new French translation files (free only), courtesy of Fanny HŽraud
 
 **Bug Fixes:**
 

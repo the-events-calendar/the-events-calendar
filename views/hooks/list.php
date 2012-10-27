@@ -62,7 +62,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 		}
 		// Start List Loop
 		public function before_loop( $post_id ){
-			$html = '<div class="tribe-events-loop hfeed">';
+			$html = '<div class="tribe-events-loop hfeed vcalendar">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_loop');
 		}
 		public function inside_before_loop( $post_id ){

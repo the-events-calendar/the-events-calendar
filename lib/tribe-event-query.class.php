@@ -298,7 +298,7 @@ if (!class_exists('TribeEventsQuery')) {
 		 * @param  array  $args
 		 * @return array
 		 */
-		public static function getEvents( $args = array() ) {
+		public static function getEvents( $args = array(), $full = false ) {
 			$defaults = array(
 				'post_type' => TribeEvents::POSTTYPE,
 				'orderby' => 'event_date',
@@ -312,8 +312,12 @@ if (!class_exists('TribeEventsQuery')) {
 			$wp_query = new WP_Query( $args );
 
 			if( ! empty($wp_query->posts) ) {
-				$posts = $wp_query->posts;
-				return $posts;
+				if ( $full ) {
+					return $wp_query;
+				} else {
+					$posts = $wp_query->posts;
+					return $posts;
+				}
 			} else {
 				return NULL;
 			}

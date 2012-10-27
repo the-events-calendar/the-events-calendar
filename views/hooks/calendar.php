@@ -154,7 +154,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 					</tr>
 				</thead>
 
-				<tbody class="hfeed">
+				<tbody class="hfeed vcalendar">
 					<tr>
 					<?php // Skip last month
 						for( $i = 1; $i <= $offset; $i++ ) { 

@@ -20,8 +20,6 @@
 // '$event->Cost',
 // '$event->Phone',
 
-// TO-DO: add vevent class to $classes
-
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 if( !class_exists('Tribe_Events_List_Widget_Template')){
