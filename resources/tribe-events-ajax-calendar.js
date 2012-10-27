@@ -3,7 +3,7 @@
 
 jQuery( document ).ready( function ( $ ) {
 
-	var hasPushstate = !!(window.history && history.pushState);
+	var hasPushstate = window.history && window.history.pushState && window.history.replaceState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);
 	
 	if( hasPushstate ) {	
 
@@ -67,14 +67,9 @@ jQuery( document ).ready( function ( $ ) {
 				}
 			);
 		}
-	} else {
-		$( '.tribe-events-calendar .tribe-events-nav a' ).live( 'click', function ( e ) {
-			$( '.ajax-loading' ).show();
-		} );
-		
-		$( '.tribe-events-calendar select.tribe-events-events-dropdown' ).live( 'change', function ( e ) {
+	} else {	
+		$( '.tribe-events-calendar select.tribe-events-events-dropdown' ).live( 'change', function ( e ) {			
 			
-			$( '.ajax-loading' ).show();
 			var baseUrl = $(this).parent().attr('action');
 			var date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();		
 			var href_target = baseUrl + date + '/';		
