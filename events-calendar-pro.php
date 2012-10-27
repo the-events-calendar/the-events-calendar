@@ -107,37 +107,27 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'wp_ajax_nopriv_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
 		}
 
-
-		function ajax_set_date_day( $query ) {
-			if ( isset( $_POST['action'] ) && $_POST['action'] == 'tribe_event_day' && 
-				 isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
-				$query->set( 'eventDate', $_POST["eventDate"] );
-				$query->query_vars['eventDisplay'] = 'day';
-			}
-			return $query;
-		}
+		/**
+		 * AJAX handler for tribe_event_day (dayview navigation)
+		 * This loads up the day view shard with all the appropriate events for the day
+		 * 
+		 * @return string $html
+		 */
 		function wp_ajax_tribe_event_day(){
 			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
-				
-				// add_action( 'pre_get_posts', array( $this, 'ajax_set_date_day' ), -10 );
 				
 				TribeEventsQuery::init();
 				add_filter( 'tribe_events_pre_get_posts', array( $this, 'pre_get_posts' ) );
 
-				$args  = array(
-					'post_type' => TribeEvents::POSTTYPE,
+				$args = array(
+					'post_status' => array( 'publish', 'private', 'future' ),
 					'eventDate' => $_POST["eventDate"],
 					'eventDisplay' => 'day'
 					);
-				// $query = new WP_Query( $args );
 				$query = TribeEventsQuery::getEvents( $args, true );
-
-				// remove_action( 'pre_get_posts', array( $this, 'ajax_set_date_day' ), -10 );
 
 				global $wp_query, $post;
 				$wp_query = $query;
-				// $args = array_merge( $wp_query->query_vars, $args );
-				// query_posts( $args );
 
 				if ( have_posts() )
 					the_post();
@@ -514,6 +504,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$query->set( 'orderby', 'event_date' );
 						$query->set( 'order', 'ASC' );
 						$query->set( 'posts_per_page', -1 ); // show ALL week posts
+						$query->set( 'hide_upcoming', false );
 						$query->tribe_is_week = true;
 						break;
 					case 'day':
@@ -523,6 +514,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$query->set( 'eventDate', $event_date );
 						$query->set( 'orderby', 'event_date' );
 						$query->set( 'order', 'ASC' );
+						$query->set( 'posts_per_page', -1 ); // show ALL day posts
+						$query->set( 'hide_upcoming', false );
 						$query->tribe_is_day = true;
 						break;
 				}
