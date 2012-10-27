@@ -15,12 +15,19 @@ if( !class_exists( 'TribeEventsCalendarWidget') ) {
 			$this->WP_Widget('calendar', __('Events Calendar'), $widget_ops);
 
 			add_action('wp_enqueue_scripts', array($this, 'maybe_load_scripts') );
-
+			add_action('the_widget', array($this, 'force_load_scripts') );
+		
 		}
 
-		function maybe_load_scripts() {
+		public function force_load_scripts( $widget ) {
+			if ( $widget === __CLASS__ ) {
+				$this->maybe_load_scripts( true );
+			}
+		}
 
-			if ( is_active_widget( false, false, $this->id_base ) ) {
+		function maybe_load_scripts( $force = false ) {
+
+			if ( $force || is_active_widget( false, false, $this->id_base ) ) {
 
 				$widget_data = array( "ajaxurl" => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
 
