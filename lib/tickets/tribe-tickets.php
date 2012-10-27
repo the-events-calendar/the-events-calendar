@@ -92,6 +92,13 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			if ( self::$done_metabox )
 				return;
 
+			$startMinuteOptions   = TribeEventsViewHelpers::getMinuteOptions( null );
+			$endMinuteOptions     = TribeEventsViewHelpers::getMinuteOptions( null );
+			$startHourOptions     = TribeEventsViewHelpers::getHourOptions( null, true );
+			$endHourOptions       = TribeEventsViewHelpers::getHourOptions( null, false );
+			$startMeridianOptions = TribeEventsViewHelpers::getMeridianOptions( null, true );
+			$endMeridianOptions   = TribeEventsViewHelpers::getMeridianOptions( null );
+
 			$tickets = self::get_event_tickets( $post_id );
 			include $this->parentPath . 'admin-views/tickets-meta-box.php';
 			self::$done_metabox = true;
@@ -245,6 +252,16 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			} else {
 				//remove non-money characters
 				$ticket->price = preg_replace( '/[^0-9\.]/Uis', '', $ticket->price );
+			}
+
+			if ( !empty( $data['ticket_start_date'] ) ) {
+				$meridian           = !empty( $data['ticket_start_meridian'] ) ? " " . $data['ticket_start_meridian'] : "";
+				$ticket->start_date = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime( $data['ticket_start_date'] . " " . $data['ticket_start_hour'] . ":" . $data['ticket_start_minute'] . ":00" . $meridian ) );
+			}
+
+			if ( !empty( $data['ticket_end_date'] ) ) {
+				$meridian         = !empty( $data['ticket_end_meridian'] ) ? " " . $data['ticket_end_meridian'] : "";
+				$ticket->end_date = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime( $data['ticket_end_date'] . " " . $data['ticket_end_hour'] . ":" . $data['ticket_end_minute'] . ":00" . $meridian ) );
 			}
 
 			$ticket->provider_class = $this->className;

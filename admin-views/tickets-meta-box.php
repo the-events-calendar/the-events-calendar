@@ -1,8 +1,8 @@
 <?php
 // Don't load directly
-	if ( !defined( 'ABSPATH' ) ) {
-		die( '-1' );
-	}
+if ( !defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 ?>
 
 <table id="event_tickets" class="eventtable">
@@ -26,7 +26,8 @@
 	</tr>
 	<tr>
 		<td colspan="2" class="tribe_sectionheader">
-			<a href="#" class="button-secondary" id="ticket_form_toggle"><?php _e ('Add new ticket', 'tribe-events-calendar');?></a>
+			<a href="#" class="button-secondary"
+			   id="ticket_form_toggle"><?php _e( 'Add new ticket', 'tribe-events-calendar' );?></a>
 		</td>
 	</tr>
 	<tr id="ticket_form" class="ticket_form">
@@ -70,9 +71,58 @@
 						for="ticket_price"><?php _e( 'Price:', 'tribe-events-calendar' ); ?></label>
 					</td>
 					<td>
-						<input type='text' id='ticket_price' name='ticket_price' class="ticket_field" size='5'
+						<input type='text' id='ticket_price' name='ticket_price' class="ticket_field" size='7'
 						       value=''/>
 						<small>(0 or empty for free tickets)</small>
+					</td>
+				</tr>
+
+				<tr class="ticket">
+					<td><label
+						for="ticket_price"><?php _e( 'Start sale:', 'tribe-events-calendar' ); ?></label>
+					</td>
+					<td>
+						<input autocomplete="off" type="text" class="ticket_field" size='7' name="ticket_start_date"
+						       id="ticket_start_date" value="">
+						<span class='timeofdayoptions'>
+							<?php _e( '@', 'tribe-events-calendar' ); ?>
+							<select name='ticket_start_hour' id='ticket_start_hour' class="ticket_field">
+								<?php echo $startHourOptions; ?>
+							</select>
+							<select name='ticket_start_minute' id='ticket_start_minute' class="ticket_field">
+								<?php echo $startMinuteOptions; ?>
+							</select>
+							<?php if ( !strstr( get_option( 'time_format', TribeDateUtils::TIMEFORMAT ), 'H' ) ) : ?>
+							<select name='ticket_start_meridian' id='ticket_start_meridian' class="ticket_field">
+								<?php echo $startMeridianOptions; ?>
+							</select>
+							<?php endif; ?>
+						</span>
+					</td>
+				</tr>
+
+				<tr class="ticket">
+					<td><label
+						for="ticket_price"><?php _e( 'End sale:', 'tribe-events-calendar' ); ?></label>
+					</td>
+					<td>
+						<input autocomplete="off" type="text" class="ticket_field" size='7' name="ticket_end_date"
+						       id="ticket_end_date" value="">
+
+						<span class='timeofdayoptions'>
+							<?php _e( '@', 'tribe-events-calendar' ); ?>
+							<select name='ticket_end_hour' id='ticket_end_hour' class="ticket_field">
+								<?php echo $endHourOptions; ?>
+							</select>
+							<select name='ticket_end_minute' id='ticket_end_minute' class="ticket_field">
+								<?php echo $endMinuteOptions; ?>
+							</select>
+							<?php if ( !strstr( get_option( 'time_format', TribeDateUtils::TIMEFORMAT ), 'H' ) ) : ?>
+							<select name='ticket_end_meridian' id='ticket_end_meridian' class="ticket_field">
+								<?php echo $endMeridianOptions; ?>
+							</select>
+							<?php endif; ?>
+						</span>
 					</td>
 				</tr>
 

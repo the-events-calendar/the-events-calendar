@@ -43,5 +43,15 @@ if ( !class_exists( 'TribeEventsTicketObject' ) ) {
 		 */
 		public $qty_sold;
 
+		/**
+		 * @var
+		 */
+		public $start_date;
+
+		/**
+		 * @var
+		 */
+		public $end_date;
+
 	}
 }
