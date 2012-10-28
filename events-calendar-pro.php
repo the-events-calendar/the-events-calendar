@@ -49,6 +49,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$this->pluginUrl = WP_PLUGIN_URL.'/'.$this->pluginDir;
 			$this->pluginSlug = 'events-calendar-pro';
 
+			require_once( 'lib/tribe-pro-template-factory.class.php' );
 			require_once( 'lib/tribe-date-series-rules.class.php' );
 			require_once( 'lib/tribe-ecp-custom-meta.class.php' );
 			require_once( 'lib/tribe-events-recurrence-meta.class.php' );
@@ -101,6 +102,39 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_weekview_in_bar' ), 1, 1 );
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_dayview_in_bar' ), 5, 1 );
 
+			/* AJAX for loading day view */
+			add_action( 'wp_ajax_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
+			add_action( 'wp_ajax_nopriv_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
+		}
+
+		/**
+		 * AJAX handler for tribe_event_day (dayview navigation)
+		 * This loads up the day view shard with all the appropriate events for the day
+		 * 
+		 * @return string $html
+		 */
+		function wp_ajax_tribe_event_day(){
+			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
+				
+				TribeEventsQuery::init();
+				add_filter( 'tribe_events_pre_get_posts', array( $this, 'pre_get_posts' ) );
+
+				$args = array(
+					'post_status' => array( 'publish', 'private', 'future' ),
+					'eventDate' => $_POST["eventDate"],
+					'eventDisplay' => 'day'
+					);
+				$query = TribeEventsQuery::getEvents( $args, true );
+
+				global $wp_query, $post;
+				$wp_query = $query;
+
+				if ( have_posts() )
+					the_post();
+
+				load_template( TribeEventsTemplates::getTemplateHierarchy( 'day', '', 'pro', $this->pluginPath ) );
+			}
+			die();
 		}
 
 		public function init() {
@@ -470,15 +504,18 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$query->set( 'orderby', 'event_date' );
 						$query->set( 'order', 'ASC' );
 						$query->set( 'posts_per_page', -1 ); // show ALL week posts
+						$query->set( 'hide_upcoming', false );
 						$query->tribe_is_week = true;
 						break;
 					case 'day':
 						$event_date = $query->get('eventDate') != '' ? $query->get('eventDate') : Date('Y-m-d');
-						$query->set( 'start_date', $event_date );
-						$query->set( 'end_date', $event_date );
+						$query->set( 'start_date', tribe_event_beginning_of_day( $event_date ) );
+						$query->set( 'end_date', tribe_event_end_of_day( $event_date ) );
 						$query->set( 'eventDate', $event_date );
 						$query->set( 'orderby', 'event_date' );
 						$query->set( 'order', 'ASC' );
+						$query->set( 'posts_per_page', -1 ); // show ALL day posts
+						$query->set( 'hide_upcoming', false );
 						$query->tribe_is_day = true;
 						break;
 				}
@@ -533,11 +570,17 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	    }
 
     	public function enqueue_styles() {
+
+    		$tec = TribeEvents::instance();
+
 			// Enqueue the pro-stylesheet.
     		$stylesheet_url = $this->pluginUrl . 'resources/tribe-events-pro.css';
     		if ( $stylesheet_url ) {
     			wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url );
     		}
+    		if ( $tec->displaying === 'day' ) {
+				Tribe_PRO_Template_Factory::asset_package( 'ajax-dayview' );
+			}
     	}
 
 		public function iCalFeed( $post = null, $eventCatSlug = null, $eventDate = null ) {
