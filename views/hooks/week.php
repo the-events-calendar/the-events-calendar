@@ -10,13 +10,6 @@
  */
  
  /*
-	spans on allday
-	split up events that span a day?
-	ask Tim about ghost divs? multi days?
-	xbrowser & fluid?
-*/
- 
- /*
  	@Samuel
  	Raw Wireframe: https://central.tri.be/attachments/54643/weekview.1.jpg
  	JS Notes
@@ -342,10 +335,8 @@ if( !class_exists('Tribe_Events_Week_Template')){
 								<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
 									<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75,75 ) );?></div>
 								<?php } ?>
-								
-								<?php //if( has_excerpt() ) { ?>
-									<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $$event->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
-								<?php //} ?>
+						
+								<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $$event->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
 
 							</div><!-- .tribe-events-event-body -->
 							<span class="tribe-events-arrow"></span>
@@ -403,6 +394,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 		}
 					
 		var $week_events = $(".tribe-grid-body .tribe-grid-content-wrap .column > div[id*='tribe-events-event-']");
+		var grid_height = $(".tribe-week-grid-inner-wrap").height();
 		
 		$week_events.hide();
 		
@@ -421,18 +413,26 @@ if( !class_exists('Tribe_Events_Week_Template')){
 			
 			// let's find it's offset from top of main grid container
 			
-			var event_position = 
+			var event_position_top = 
 				$event_target.offset().top -
 				$event_target.parent().offset().top - 
 				$event_target.parent().scrollTop();
 			
 			// now let's add the events minutes to the offset (relies on grid block being 60px, 1px per minute, nice)
 			
-			event_position = parseInt(Math.round(event_position)) + parseInt(event_min);
+			event_position_top = parseInt(Math.round(event_position_top)) + parseInt(event_min);
+			
+			// now let's see if we've exceeding space because this event runs into next day
+			
+			var free_space = grid_height - event_length - event_position_top;
+			
+			if(free_space < 0) {
+				event_length = event_length + free_space - 14;
+			}
 			
 			// ok we have all our values, let's set length and position from top for our event and show it.
 
-			$this.css({"height":event_length + "px","top":event_position + "px"}).show();		
+			$this.css({"height":event_length + "px","top":event_position_top + "px"}).show();			
 		});
 		
 		// now that we have set our events up correctly let's deal with our overlaps
