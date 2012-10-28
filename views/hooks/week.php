@@ -386,8 +386,8 @@ if( !class_exists('Tribe_Events_Week_Template')){
 						
 						// we've got an overlap
 						
-						$this.css({"left":"0","width":"75%"});
-						$target.css({"right":"0","width":"75%"});
+						$this.css({"left":"0","width":"60%"});
+						$target.css({"right":"0","width":"60%"});
 					}
 				}
 			});			
@@ -435,6 +435,12 @@ if( !class_exists('Tribe_Events_Week_Template')){
 		var all_day_height = $(".tribe-grid-allday .tribe-grid-content-wrap").height();
 		
 		$(".tribe-grid-allday .column").height(all_day_height);
+		
+		// let's set the height of the other columns for week days to be as tall as the main container
+		
+		var week_day_height = $(".tribe-grid-body").height();
+		
+		$(".tribe-grid-body .tribe-grid-content-wrap .column").height(week_day_height);
 		
 	});
 </script>

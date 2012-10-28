@@ -113,9 +113,7 @@
 	font-size: 12px;
 	width: 100%;
 	position: relative;
-	margin: 0 auto 10px;
-	padding-top: 40px;
-	overflow: hidden;
+	margin: 20px auto 10px;
 }
 
 /* grid header */
@@ -140,6 +138,12 @@
 	overflow: visible;
 	border-left: 1px solid #bbb;
 	border-right: 1px solid #bbb;
+}
+
+.tribe-week-grid-hours {
+	background-color: #fff;
+	position: relative;
+	z-index: 20;
 }
 
 .tribe-events-grid .column.first,
@@ -179,8 +183,6 @@
 }
 
 .tribe-grid-body .tribe-grid-content-wrap .column {
-	margin-bottom: -99999px;
-	padding-bottom: 99999px;
 	position: relative;
 }
 
@@ -218,6 +220,11 @@
 	padding:4px;
 	margin:0;
 }
+
+/*
+add classes tooltip instead of inline pixel
+spans on allday
+*/
 
 .tribe-grid-allday .hentry.vevent > div { 
 	padding: 8px 6px; 
@@ -318,7 +325,6 @@ div[id*="tribe-events-tooltip-"] {
 .tribe-week-grid-inner-wrap {
 	position: absolute;
 	width: 100%;
-	left: 40px;
 }
 .tribe-week-grid-block {
 	height: 60px !important;
