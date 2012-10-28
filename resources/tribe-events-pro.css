@@ -209,23 +209,35 @@
 	border-right: 1px solid #bbb;
 }
 .tribe-grid-allday .column {
-	min-height: 60px;
+	min-height: 60px;	
 }
 .tribe-grid-allday .column.first {
 	top: 12px;
 }
-.tribe-grid-allday .hentry.vevent { 
+.tribe-grid-allday .hentry.vevent { 	
+	padding:4px;
+	margin:0;
+}
+
+.tribe-grid-allday .hentry.vevent > div { 
+	padding: 8px 6px; 
+	width:100%;
 	background-color: #e6e6e6;
 	background-color: rgba(221, 221, 221, .75);
-	padding: 8px 6px; 
-	margin: 4px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	border:1px solid #ccc;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 	cursor: pointer;
 }
-.tribe-grid-allday .hentry.vevent:hover { 
+
+.tribe-grid-allday .hentry.vevent > div:hover { 
 	background-color: #e2e2e2;
 	background-color: rgba(221, 221, 221, .85);
 }
-
 
 /* Actual Event Styles */
 .tribe-grid-body .hentry.vevent {
@@ -290,7 +302,9 @@ div[id*="tribe-events-tooltip-"] {
 	left: 40px;
 }
 .tribe-week-grid-block {
-	height: 60px;
+	height: 60px !important;
+	padding:0 !important;
+	margin:0 !important;
 }
 .tribe-week-grid-block div {
 	height: 30px; 

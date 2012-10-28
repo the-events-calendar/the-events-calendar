@@ -173,7 +173,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 							$day_span_length = $days_between > ($week_length - $n) ? ($week_length - $n) : $days_between;
 							$span_class = 'tribe-dayspan' . $day_span_length;
 						}
-						printf('<div id="tribe-events-event-'. $event->ID .'" class="%s"><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3>',
+						printf('<div id="tribe-events-event-'. $event->ID .'" class="%s" data-hour="all-day"><div><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3>',
 							'hentry vevent ' . $span_class,
 							get_permalink( $event->ID ),
 							$event->post_title
@@ -229,7 +229,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 							<span class="tribe-events-arrow"></span>
 						</div><!-- .tribe-events-tooltip -->
 						<?php
-						echo '</div>';
+						echo '</div></div>';
 						
 					}
 				}
@@ -358,38 +358,6 @@ if( !class_exists('Tribe_Events_Week_Template')){
 	
 </div><!-- .tribe-events-grid -->
 
-<!--    
-    [ID] => 135
-    [post_author] => 1
-    [post_date] => 2012-10-27 16:00:12
-    [post_date_gmt] => 2012-10-28 00:00:12
-    [post_content] => Let's light this fire one more time, Mike, and witness this great nation at its best.
-    [post_title] => Let's light this fire one more time, Mike, and witness this great nation at its best.
-    [post_excerpt] => 
-    [post_status] => publish
-    [comment_status] => open
-    [ping_status] => open
-    [post_password] => 
-    [post_name] => lets-light-this-fire-one-more-time-mike-and-witness-this-great-nation-at-its-best
-    [to_ping] => 
-    [pinged] => 
-    [post_modified] => 2012-10-27 16:00:21
-    [post_modified_gmt] => 2012-10-28 00:00:21
-    [post_content_filtered] => 
-    [post_parent] => 0
-    [guid] => http://dev.faction23.com/?post_type=tribe_events&#038;p=135
-    [menu_order] => 0
-    [post_type] => tribe_events
-    [post_mime_type] => 
-    [comment_count] => 0
-    [tribe_is_event] => 1
-    [tribe_is_allday] => 
-    [EventStartDate] => 2012-10-26 20:00:00
-    [EventDuration] => 12600
-    [EventEndDate] => 2012-10-26 23:30:00
-    [filter] => raw
--->
-
 <script>
 	jQuery(document).ready(function($){
 					
@@ -415,26 +383,34 @@ if( !class_exists('Tribe_Events_Week_Template')){
 			});			
 		}
 					
-		var $week_events = $(".tribe-grid-body .tribe-grid-content-wrap .column > div");
+		var $week_events = $(".tribe-grid-content-wrap .column > div[id*='tribe-events-event-']");
 		
 		$week_events.hide();
 		
 		$week_events.each(function() {
-			var $this = $(this);
-			var event_length = $this.attr("duration") - 14;
+			var $this = $(this);			
 			var event_hour = $this.attr("data-hour");
-			var event_min = $this.attr("data-min");
-			var $event_target = $('.tribe-week-grid-block[data-hour="' + event_hour + '"]');
-			var event_position = 
-				$event_target.offset().top -
-				$event_target.parent().offset().top - 
-				$event_target.parent().scrollTop();
-			event_position = parseInt(Math.round(event_position)) + parseInt(event_min);
-			
-			$this.css({"height":event_length + "px","top":event_position + "px"}).show();
+			if(event_hour == 'all-day') {
+				$this.show();
+			} else {
+				var event_length = $this.attr("duration") - 14;	
+				var event_min = $this.attr("data-min");
+				var $event_target = $('.tribe-week-grid-block[data-hour="' + event_hour + '"]');
+				var event_position = 
+					$event_target.offset().top -
+					$event_target.parent().offset().top - 
+					$event_target.parent().scrollTop();
+				event_position = parseInt(Math.round(event_position)) + parseInt(event_min);
+
+				$this.css({"height":event_length + "px","top":event_position + "px"}).show();
+			}
 		});
 		
 		tribe_find_overlapped_events($week_events);
+		
+		var all_day_height = $(".tribe-grid-allday .tribe-grid-content-wrap").height();
+		
+		$(".tribe-grid-allday .column").height(all_day_height);
 		
 	});
 </script>
