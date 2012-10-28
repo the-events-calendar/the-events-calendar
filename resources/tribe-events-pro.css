@@ -239,6 +239,26 @@
 	background-color: rgba(221, 221, 221, .85);
 }
 
+.tribe-grid-allday .hentry.vevent.tribe-dayspan2 > div {
+	width:200%;
+	padding:8px 12px 8px 6px;
+}
+.tribe-grid-allday .hentry.vevent.tribe-dayspan3 > div {
+	width:300%;
+}
+.tribe-grid-allday .hentry.vevent.tribe-dayspan4 > div {
+	width:400%;
+}
+.tribe-grid-allday .hentry.vevent.tribe-dayspan5 > div {
+	width:500%;
+}
+.tribe-grid-allday .hentry.vevent.tribe-dayspan6 > div {
+	width:600%;
+}
+.tribe-grid-allday .hentry.vevent.tribe-dayspan7 > div {
+	width:700%;
+}
+
 /* Actual Event Styles */
 .tribe-grid-body .hentry.vevent {
  	width: 100%;
