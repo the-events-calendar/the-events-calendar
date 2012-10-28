@@ -251,29 +251,13 @@ if( !class_exists('Tribe_Events_Week_Template')){
 	<?php // Grid "Rows" ?>
 	<div class="tribe-week-grid-outer-wrap">
 		<div class="tribe-week-grid-inner-wrap">
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
-			<div class="tribe-week-grid-block"><div></div></div>
+			<?php 
+			// sam messing aboot
+			for( $grid_blocks = $events->hours['start']; $grid_blocks <= $events->hours['end']; $grid_blocks++ ) {
+				printf( '<div class="tribe-week-grid-block" data-hour="%s"><div></div></div>', Date('G',mktime($grid_blocks)) );
+			}
+
+			?>			
 		</div><!-- .tribe-week-grid-inner-wrap -->
 	</div><!-- .tribe-week-grid-outer-wrap -->
 	
@@ -302,12 +286,11 @@ if( !class_exists('Tribe_Events_Week_Template')){
 				printf('<div title="%s" class="column hfeed %s">',
 					Date('Y-m-d', strtotime($start_of_week . " +$n days")),
 					$header_class
-					);
-
+					);				
 				foreach( $events->daily as $event ){
 					if( Date('Y-m-d',strtotime($event->EventStartDate)) == $day ){
 						$duration = ($event->EventDuration / 60);
-						echo '<div id="tribe-events-event-'. $event->ID .'" duration="'. $duration .'">';
+						echo '<div id="tribe-events-event-'. $event->ID .'" duration="'. $duration .'" data-hour="' . Date('G',strtotime($event->EventStartDate)) . '" data-min="' . Date('i',strtotime($event->EventStartDate)) . '">';
 						printf('<div class="hentry vevent"><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3></div>',
 							get_permalink( $event->ID ),
 							$event->post_title
@@ -361,6 +344,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 
 							</div><!-- .tribe-events-event-body -->
 							<span class="tribe-events-arrow"></span>
+							<div style="display:none"><?php print_r($event); ?></div>
 						</div><!-- .tribe-events-tooltip -->
 						<?php
 						
@@ -376,6 +360,60 @@ if( !class_exists('Tribe_Events_Week_Template')){
 	</div><!-- .tribe-grid-body -->
 	
 </div><!-- .tribe-events-grid -->
+
+<!--    
+    [ID] => 135
+    [post_author] => 1
+    [post_date] => 2012-10-27 16:00:12
+    [post_date_gmt] => 2012-10-28 00:00:12
+    [post_content] => Let's light this fire one more time, Mike, and witness this great nation at its best.
+    [post_title] => Let's light this fire one more time, Mike, and witness this great nation at its best.
+    [post_excerpt] => 
+    [post_status] => publish
+    [comment_status] => open
+    [ping_status] => open
+    [post_password] => 
+    [post_name] => lets-light-this-fire-one-more-time-mike-and-witness-this-great-nation-at-its-best
+    [to_ping] => 
+    [pinged] => 
+    [post_modified] => 2012-10-27 16:00:21
+    [post_modified_gmt] => 2012-10-28 00:00:21
+    [post_content_filtered] => 
+    [post_parent] => 0
+    [guid] => http://dev.faction23.com/?post_type=tribe_events&#038;p=135
+    [menu_order] => 0
+    [post_type] => tribe_events
+    [post_mime_type] => 
+    [comment_count] => 0
+    [tribe_is_event] => 1
+    [tribe_is_allday] => 
+    [EventStartDate] => 2012-10-26 20:00:00
+    [EventDuration] => 12600
+    [EventEndDate] => 2012-10-26 23:30:00
+    [filter] => raw
+-->
+
+<script>
+	jQuery(document).ready(function($){
+		
+		var $week_events = $(".tribe-grid-body .tribe-grid-content-wrap .column > div");
+		
+		$week_events.hide();
+		
+		$week_events.each(function() {
+			var event_length = $(this).attr("duration") - 11;
+			var event_hour = $(this).attr("data-hour");
+			var event_min = $(this).attr("data-min");
+			var event_position = 
+				$('.tribe-week-grid-block[data-hour="' + event_hour + '"]').offset().top -
+				$('.tribe-week-grid-block[data-hour="' + event_hour + '"]').parent().offset().top - 
+				$('.tribe-week-grid-block[data-hour="' + event_hour + '"]').parent().scrollTop();
+			event_position = parseInt(Math.round(event_position)) + parseInt(event_min);
+			
+			$(this).css({"height":event_length + "px","top":event_position + "px"}).show();
+		});
+	});
+</script>
 		
     <?php 
 			$html = ob_get_clean();
