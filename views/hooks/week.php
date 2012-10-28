@@ -395,23 +395,50 @@ if( !class_exists('Tribe_Events_Week_Template')){
 
 <script>
 	jQuery(document).ready(function($){
-		
+					
+		function tribe_find_overlapped_events($week_events) {
+			
+			var overlayed = [];	    
+
+			$week_events.each(function() {
+				var $this = $(this);
+				var $target = $(this).next();
+				if($target.length){
+					var tAxis = $target.offset();
+					var t_x = [tAxis.left, tAxis.left + $target.outerWidth()];
+					var t_y = [tAxis.top, tAxis.top + $target.outerHeight()];			    
+					var thisPos = $this.offset();
+					var i_x = [thisPos.left, thisPos.left + $this.outerWidth()]
+					var i_y = [thisPos.top, thisPos.top + $this.outerHeight()];
+
+					if ( t_x[0] < i_x[1] && t_x[1] > i_x[0] && t_y[0] < i_y[1] && t_y[1] > i_y[0]) {
+						$target.css({"right":"1%","width":"75%"});
+					}
+				}
+
+			});			
+		}
+					
 		var $week_events = $(".tribe-grid-body .tribe-grid-content-wrap .column > div");
 		
 		$week_events.hide();
 		
 		$week_events.each(function() {
-			var event_length = $(this).attr("duration") - 11;
+			var event_length = $(this).attr("duration") - 12;
 			var event_hour = $(this).attr("data-hour");
 			var event_min = $(this).attr("data-min");
+			var $event_target = $('.tribe-week-grid-block[data-hour="' + event_hour + '"]');
 			var event_position = 
-				$('.tribe-week-grid-block[data-hour="' + event_hour + '"]').offset().top -
-				$('.tribe-week-grid-block[data-hour="' + event_hour + '"]').parent().offset().top - 
-				$('.tribe-week-grid-block[data-hour="' + event_hour + '"]').parent().scrollTop();
+				$event_target.offset().top -
+				$event_target.parent().offset().top - 
+				$event_target.parent().scrollTop();
 			event_position = parseInt(Math.round(event_position)) + parseInt(event_min);
 			
 			$(this).css({"height":event_length + "px","top":event_position + "px"}).show();
 		});
+		
+		tribe_find_overlapped_events($week_events);
+		
 	});
 </script>
 		

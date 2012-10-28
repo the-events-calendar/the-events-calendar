@@ -233,11 +233,10 @@
  	padding: 0;
  	overflow: hidden;
 }
-.tribe-grid-body div[id*="tribe-events-event-"] {
- 	height:30px; 
+.tribe-grid-body div[id*="tribe-events-event-"] { 	
  	background-color: #e6e6e6;
  	background-color: rgba(221, 221, 221, .75);
- 	
+ 	right:0;
  	font-weight: bold; 
  	margin: 4px 4px 0; 
 	line-height: 1.25; 
@@ -245,6 +244,10 @@
  	cursor: pointer;
  	position: absolute;
  	z-index: 500;
+	border:1px solid #ccc;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 }
 .tribe-grid-body div[id*="tribe-events-event-"]:hover {
 	z-index: 800;
