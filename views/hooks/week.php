@@ -422,7 +422,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 			
 			event_position_top = parseInt(Math.round(event_position_top)) + parseInt(event_min);
 			
-			// now let's see if we've excedding space because this event runs into next day
+			// now let's see if we've exceeding space because this event runs into next day
 			
 			var free_space = grid_height - event_length - event_position_top;
 			
