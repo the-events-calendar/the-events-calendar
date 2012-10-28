@@ -396,9 +396,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 <script>
 	jQuery(document).ready(function($){
 					
-		function tribe_find_overlapped_events($week_events) {
-			
-			var overlayed = [];	    
+		function tribe_find_overlapped_events($week_events) {			    
 
 			$week_events.each(function() {
 				var $this = $(this);
@@ -412,7 +410,8 @@ if( !class_exists('Tribe_Events_Week_Template')){
 					var i_y = [thisPos.top, thisPos.top + $this.outerHeight()];
 
 					if ( t_x[0] < i_x[1] && t_x[1] > i_x[0] && t_y[0] < i_y[1] && t_y[1] > i_y[0]) {
-						$target.css({"right":"1%","width":"75%"});
+						$this.css({"left":"0","width":"75%"});
+						$target.css({"right":"0","width":"75%"});
 					}
 				}
 
@@ -424,9 +423,10 @@ if( !class_exists('Tribe_Events_Week_Template')){
 		$week_events.hide();
 		
 		$week_events.each(function() {
-			var event_length = $(this).attr("duration") - 12;
-			var event_hour = $(this).attr("data-hour");
-			var event_min = $(this).attr("data-min");
+			var $this = $(this);
+			var event_length = $this.attr("duration") - 14;
+			var event_hour = $this.attr("data-hour");
+			var event_min = $this.attr("data-min");
 			var $event_target = $('.tribe-week-grid-block[data-hour="' + event_hour + '"]');
 			var event_position = 
 				$event_target.offset().top -
@@ -434,7 +434,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 				$event_target.parent().scrollTop();
 			event_position = parseInt(Math.round(event_position)) + parseInt(event_min);
 			
-			$(this).css({"height":event_length + "px","top":event_position + "px"}).show();
+			$this.css({"height":event_length + "px","top":event_position + "px"}).show();
 		});
 		
 		tribe_find_overlapped_events($week_events);
