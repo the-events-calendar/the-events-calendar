@@ -10,6 +10,13 @@
  */
  
  /*
+	spans on allday
+	split up events that span a day?
+	ask Tim about ghost divs? multi days?
+	xbrowser & fluid?
+*/
+ 
+ /*
  	@Samuel
  	Raw Wireframe: https://central.tri.be/attachments/54643/weekview.1.jpg
  	JS Notes
@@ -335,8 +342,10 @@ if( !class_exists('Tribe_Events_Week_Template')){
 								<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
 									<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75,75 ) );?></div>
 								<?php } ?>
-						
-								<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $$event->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
+								
+								<?php //if( has_excerpt() ) { ?>
+									<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $$event->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
+								<?php //} ?>
 
 							</div><!-- .tribe-events-event-body -->
 							<span class="tribe-events-arrow"></span>
@@ -423,7 +432,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 			
 			// ok we have all our values, let's set length and position from top for our event and show it.
 
-			$this.css({"height":event_length + "px","top":event_position + "px"}).show();			
+			$this.css({"height":event_length + "px","top":event_position + "px"}).show();		
 		});
 		
 		// now that we have set our events up correctly let's deal with our overlaps

@@ -221,11 +221,6 @@
 	margin:0;
 }
 
-/*
-add classes tooltip instead of inline pixel
-spans on allday
-*/
-
 .tribe-grid-allday .hentry.vevent > div { 
 	padding: 8px 6px; 
 	width:100%;
@@ -293,23 +288,8 @@ spans on allday
 }
 
 /* Tooltip */
-div[id*="tribe-events-tooltip-"] {
+.tribe-events-grid div[id*="tribe-events-tooltip-"] {
 	text-align: left;
-}
-	
-	
-/* Overlapping Events */
-/* Same Time Events */
-.tribe-event-overlapping,					 
-.tribe-event-same-time {
- 	z-index: 600;
- 	right: 0; 
- 	left: auto;
-}
-.tribe-event-overlapping ~ .tribe-event-overlapping,
-.tribe-event-same-time ~ .tribe-event-same-time {
- 	right: 0; 
- 	left: auto;
 }
 
 /* Specific Classes */
