@@ -242,8 +242,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 	
 	<!--
 		@Tim
-		I know there is a prettier "loopier" way to do this :) We basically need a
-		.tribe-week-grid-block for each hour.
+		@comment: Sam here. I made this a loop. I need that data-hour value for my js. I know it pretty well clones the next loop below. if you can make this prettier/more efficient in php please do so. (sure you can)
 	-->
 	<?php // Grid "Rows" ?>
 	<div class="tribe-week-grid-outer-wrap">

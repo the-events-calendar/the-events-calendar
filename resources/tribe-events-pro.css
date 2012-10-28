@@ -240,8 +240,7 @@
 }
 
 .tribe-grid-allday .hentry.vevent.tribe-dayspan2 > div {
-	width:200%;
-	padding:8px 12px 8px 6px;
+	width:200%;	
 }
 .tribe-grid-allday .hentry.vevent.tribe-dayspan3 > div {
 	width:300%;
