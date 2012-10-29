@@ -163,17 +163,22 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 						// Output this month
          				$days_in_month = date( 't', intval($date) );
 						for( $day = 1; $day <= $days_in_month; $day++ ) {
-			    			if( ( $day + $offset - 1 ) % 7 == 0 && $day != 1 ) {
+
+							$column = $day - ( 7 * ( $rows - 1 ) );
+
+							if( ( $day + $offset - 1 ) % 7 == 0 && $day != 1 ) {
 			        			echo "</tr>\n\t<tr>";
 			        			$rows++;
 			    			}
-			
-							// Var'ng up days, months and years
+
+														// Var'ng up days, months and years
 							$current_day = date_i18n( 'd' );
 							$current_month = date_i18n( 'm' );
 							$current_year = date_i18n( 'Y' );
             				$date = "$year-$month-$day";
-				
+
+							$ppf = '';
+
 							if ( $current_month == $month && $current_year == $year) {
 								// Past, Present, Future class
 								if ( $current_day == $day ) {
@@ -187,7 +192,13 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 								$ppf = ' tribe-events-past';
 							} elseif ( $current_month < $month && $current_year == $year || $current_year < $year ) {
 								$ppf = ' tribe-events-future';
-							} else { $ppf = false; }
+							}
+
+							if ( ( $column % 5 == 0 ) || ( $column % 6 == 0 ) || ( $column % 7 == 0 ) ) {
+								$ppf .= ' tribe-events-right';
+							}
+
+
 							
 						// You can find tribe_the_display_day() & tribe_get_display_day_title() in
 						// /public/template-tags/calendar.php

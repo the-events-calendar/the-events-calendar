@@ -1,17 +1,6 @@
 jQuery(document).ready(function($) {
 
-	function tribe_event_nudge() {		
-		// prepare calendar for popups
-		$('table.tribe-events-calendar tbody tr, table.tribe-events-grid tr.tribe-week-events-row, .tribe-events-week .tribe-grid-content-wrap').each(function() {
-			// add a class of "tribe-events-right" to last 3 days of week so tooltips stay onscreen. To be replaced by php.
-			$(this).find('td:gt(3)').addClass('tribe-events-right');
-			$(this).find('.column:gt(3)').addClass('tribe-events-right');
-		});
-	}
-	
-	tribe_event_nudge();
-
-	function tribe_event_tooltips() { 
+	function tribe_event_tooltips() {
 		// large event tooltips for main calendar & tooltips for week view
 		$('.events-gridview .tribe-events-calendar, .tribe-events-week .tribe-events-grid').delegate('div[id*="tribe-events-event-"]', 'mouseenter', function() {
 			// Check if on week view or calendar view
@@ -70,11 +59,7 @@ jQuery(document).ready(function($) {
 //        $('.ajax-loading').show();
 //   	});
         
-    // Bind "tribe-events-right" class to last three days of calendar after ajax
-    $('body').bind('end.pjax', function() { 
-     	tribe_event_nudge();
-    });
-   
+
    	// Add classes on various loops
    	$('.tribe-events-loop .vevent:last').addClass('tribe-last');
    	$('.events-gridview table.tribe-events-calendar').find('td.tribe-events-thismonth').each(function(index) {
