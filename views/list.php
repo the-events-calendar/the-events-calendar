@@ -19,9 +19,6 @@
  * @author Modern Tribe Inc.
  *
  */
- 
-// PLACE IN HEADER: <link rel="profile" href="http://microformats.org/profile/hcalendar">
-// FOR: lists, calendar, single event, week, day, community
 
 if ( !defined('ABSPATH') ) { die('-1'); }
 
@@ -58,6 +55,8 @@ echo apply_filters( 'tribe_events_list_before_template', '', get_the_ID() );
 	
 	// Start list loop
 	echo apply_filters( 'tribe_events_list_before_loop', '', get_the_ID() );
+
+	$hasPosts = false;
 
 	// Does this page have posts?
 	if ( have_posts() ) {
