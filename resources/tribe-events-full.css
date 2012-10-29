@@ -447,8 +447,8 @@ h3.tribe-event-single-section-title {
 
 /* Cal Links */
 .single-tribe_events .tribe-event-schedule-details .tribe-event-cal-links { 
-float: right;
-margin: 10px 0 0;
+float: left;
+margin: 5px 0 0;
 }
 
 /* Featured Image */
@@ -623,8 +623,7 @@ margin: 10px 0 0;
 
 .recurring-info-tooltip.tribe-events-tooltip {
 	left: -20px;
-	width: auto;
-	max-width: 320px;
+	width: 200px;
 }
 
 /* Large Calendar Specifics */
