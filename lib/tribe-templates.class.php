@@ -144,7 +144,7 @@ if (!class_exists('TribeEventsTemplates')) {
 		public static function load_ecp_title_into_page_template($title, $post_id) {
 			global $post;
 
-			if ( !is_single() && (isset($post->ID) && $post->ID == $post_id) ) 
+			if ( !is_single() ) 
 				return tribe_get_events_title();
 
 			// if the helper class for single event template hasn't been loaded fix that
