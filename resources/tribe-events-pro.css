@@ -109,7 +109,7 @@
 
 /* grid structure */
 .tribe-events-grid {
-	border-bottom: 1px solid #bbb;
+	border: 1px solid #bbb;
 	font-size: 12px;
 	width: 100%;
 	position: relative;
@@ -118,7 +118,7 @@
 
 /* grid header */
 .tribe-grid-header {
-	border: 1px solid #bbb;
+	border-bottom: 1px solid #bbb;
 	background-color: #ddd;
 }
 
@@ -136,8 +136,6 @@
 /* columns & structure */
 .tribe-grid-body {
 	overflow: visible;
-	border-left: 1px solid #bbb;
-	border-right: 1px solid #bbb;
 }
 
 .tribe-week-grid-hours {
@@ -207,8 +205,6 @@
 /* All day */
 .tribe-grid-allday {
 	position: relative;
-	border-left: 1px solid #bbb;
-	border-right: 1px solid #bbb;
 }
 .tribe-grid-allday .column {
 	min-height: 60px;	
@@ -276,7 +272,7 @@
  	cursor: pointer;
  	position: absolute;
  	z-index: 500;
-	border:1px solid #ccc;
+	border: 1px solid #ccc;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
