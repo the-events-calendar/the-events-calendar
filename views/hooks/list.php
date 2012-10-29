@@ -123,7 +123,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			<?php if ( tribe_get_cost() ) { // Get our event cost ?>
 					<div class="tribe-events-event-cost"><span><?php echo tribe_get_cost(); ?></span></div>
 			<?php } ?>
-				<div class="updated published">
+				<div class="updated published time-details">
 						<?php echo tribe_event_schedule_details(), '&nbsp; &nbsp;', tribe_event_recurring_info_tooltip(); ?>
 				</div>	
 				<?php if ( tribe_get_venue() || tribe_address_exists( $post_id ) ) { // Get venue or location ?>
@@ -160,7 +160,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 		public function the_content( $post_id ){
 			$html = '';
 			if (has_excerpt())
-				$html .= '<p>'. TribeEvents::truncate($post_id->post_excerpt) .'</p>';
+				$html .= '<p>'. get_the_excerpt() .'</p>';
 			else
 				$html .= '<p>'. TribeEvents::truncate(get_the_content(), 80) .'</p>';	
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_content');

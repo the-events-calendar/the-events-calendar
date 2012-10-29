@@ -328,11 +328,18 @@ select.tribe-events-dropdown {
 	padding: 0;
 	width: 100%;
 	font-style: italic;
+	line-height: 1.4;
 	overflow: visible;
 }
 
+.tribe-events-event-meta .time-details {
+	font-size: 14px;
+	font-style: normal;
+	font-weight: bold;
+}
+
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta p { 
-	margin: 5px 0 0;
+	margin: 10px 0 0;
 	font-size: 13px;
 }
 
@@ -430,7 +437,7 @@ select.tribe-events-dropdown {
 }
 .single-tribe_venue .tribe-events-list .entry-title, 
 .events-archive .tribe-events-list .entry-title {
-	margin: 15px 0 6px;
+	margin: 15px 0 10px;
 	font-size: 18px;
 	font-weight:bold;
 	line-height: 1em;
@@ -660,7 +667,7 @@ select.tribe-events-dropdown {
 
 .recurring-info-tooltip.tribe-events-tooltip {
 	left: -20px;
-	width: auto;
+	width: 200px;
 	max-width: 320px;
 }
 
