@@ -473,6 +473,14 @@ if( class_exists( 'TribeEvents' ) ) {
 			return $schedule;
 			return apply_filters('tribe_event_schedule_details', $schedule);
 	}
+
+	function tribe_get_days_between( $start_date, $end_date ){
+
+		$start_date = new DateTime( $start_date );
+		$end_date = new DateTime( $end_date );
+		$interval = $start_date->diff($end_date);
+
+		return $interval->days;
+	}
 		
 }
-?>

@@ -62,7 +62,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 		}
 		// Start List Loop
 		public function before_loop( $post_id ){
-			$html = '<div class="tribe-events-loop hfeed">';
+			$html = '<div class="tribe-events-loop hfeed vcalendar">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_loop');
 		}
 		public function inside_before_loop( $post_id ){
@@ -112,7 +112,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 		public function the_content( $post_id ){
 			$html = '';
 			if (has_excerpt())
-				$html .= '<p>'. TribeEvents::truncate($post_id->post_excerpt) .'</p>';
+				$html .= '<p>'. get_the_excerpt() .'</p>';
 			else
 				$html .= '<p>'. TribeEvents::truncate(get_the_content(), 80) .'</p>';	
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_content');

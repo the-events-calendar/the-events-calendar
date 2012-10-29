@@ -96,7 +96,7 @@ if( !class_exists('Tribe_Events_Calendar_Widget_Template')){
 		}
 		// Calendar Dates
 		public function before_the_dates(){
-			$html = '<tbody class="hfeed"><tr>';
+			$html = '<tbody class="hfeed vcalendar"><tr>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_widget_before_the_dates');
 		}
 		public function the_dates( $args = array() ){

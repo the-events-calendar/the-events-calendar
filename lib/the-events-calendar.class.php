@@ -44,6 +44,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'public' => true,
 			'rewrite' => false,
 			'show_ui' => true,
+			'show_in_nav_menus' => false,
 			'show_in_menu' => 0,
 			'menu_position' => 6,
 			'supports' => array(''),
@@ -332,7 +333,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			//If the custom post type's rewrite rules have not been generated yet, flush them. (This can happen on reactivations.)
 			if(is_array(get_option('rewrite_rules')) && !array_key_exists($this->rewriteSlugSingular.'/[^/]+/([^/]+)/?$',get_option('rewrite_rules'))) {
-				$this->flushRewriteRules();
+				TribeEvents::flushRewriteRules();
 			}
 			self::debug(sprintf(__('Initializing Tribe Events on %s','tribe-events-calendar'),date('M, jS \a\t h:m:s a')));
 			$this->maybeMigrateDatabase();
@@ -1439,7 +1440,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *
 		 * @link http://codex.wordpress.org/Custom_Queries#Permalinks_for_Custom_Archives
 		 */
-		public function flushRewriteRules() {
+		public static function flushRewriteRules() {
+
 			global $wp_rewrite;
 			$wp_rewrite->flush_rules();
 			// in case this was called too early, let's get it in the end.
@@ -1477,6 +1479,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( '' == get_option('permalink_structure') ) {
 
 			}
+
+			$this->rewriteSlug         = sanitize_title( $this->getOption( 'eventsSlug', 'events' ) );
+			$this->rewriteSlugSingular = sanitize_title( $this->getOption( 'singleEventSlug', 'event' ) );
+			$this->taxRewriteSlug      = $this->rewriteSlug . '/' . sanitize_title( __( 'category', 'tribe-events-calendar' ) );
+			$this->tagRewriteSlug      = $this->rewriteSlug . '/' . sanitize_title( __( 'tag', 'tribe-events-calendar' ) );
+
 
 			$base = trailingslashit( $this->rewriteSlug );
 			$baseSingle = trailingslashit( $this->rewriteSlugSingular );
@@ -1656,7 +1664,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				case 'single':
 					global $post;
 					$p = $secondary ? $secondary : $post;
-					$link = trailingslashit(get_permalink($p));
+					$link = get_permalink($p);
 					return $link;
 				case 'all':
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
@@ -1765,7 +1773,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function on_deactivate( ) {
-			$this->flushRewriteRules();
+			TribeEvents::flushRewriteRules();
 		}
 
 		/**
