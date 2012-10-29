@@ -9,6 +9,13 @@
  *
  */
  
+  /*
+	spans on allday
+	split up events that span a day?
+	ask Tim about ghost divs? multi days?
+	xbrowser & fluid?
+*/
+ 
  /*
  	@Samuel
  	Raw Wireframe: https://central.tri.be/attachments/54643/weekview.1.jpg
@@ -223,6 +230,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 									<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75,75 ) );?></div>
 								<?php } ?>
 						
+								<?php //conditional ? ?>
 								<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $$event->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
 
 							</div><!-- .tribe-events-event-body -->
@@ -336,6 +344,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 									<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75,75 ) );?></div>
 								<?php } ?>
 						
+								<?php //conditional ?>
 								<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $$event->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
 
 							</div><!-- .tribe-events-event-body -->
