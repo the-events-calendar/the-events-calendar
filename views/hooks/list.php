@@ -107,9 +107,9 @@ if( !class_exists('Tribe_Events_List_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_the_event_details'); 
 		}							
 		// Event Title
-		public function the_title( $title, $post_id ){
-			$title = '<h2 class="entry-title summary">'. $title .'</a></h2>';
-			return apply_filters('tribe_template_factory_debug', $title, 'tribe_events_list_the_title');
+		public function the_title( $post_id ){
+			$html = '<h2 class="entry-title summary"><a class="url" href="'. tribe_get_event_link() .'" title="'. get_the_title( $post_id ) .'" rel="bookmark">'. get_the_title( $post_id ) .'</a></h2>';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_title');
 		}
 		// Event Meta
 		public function before_the_meta( $post_id ){
