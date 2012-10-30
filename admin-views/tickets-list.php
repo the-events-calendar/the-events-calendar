@@ -22,7 +22,7 @@
 		if ( $ticket->admin_link ) {
 			$controls[] = sprintf( "<span><a href='%s'>Edit in %s</a></span>", esc_url( $ticket->admin_link ), self::$active_modules[$ticket->provider_class] );
 		}
-		if ( $ticket->frontend_link && get_post_status( get_the_ID() ) == 'publish' ) {
+		if ( $ticket->frontend_link && get_post_status( $post_id ) == 'publish' ) {
 			$controls[] = sprintf( "<span><a href='%s'>View</a></span>", esc_url( $ticket->frontend_link ) );
 		}
 
