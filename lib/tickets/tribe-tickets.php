@@ -180,7 +180,12 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 				$pdf->Write( 5, strtoupper( $address ) );
 
 				$pdf->SetXY( 104, 83 );
-				$pdf->Write( 5, strtoupper( $state . ", " . $zip ) );
+
+				$sep = '';
+				if ( !empty( $state ) && !empty( $zip ) )
+					$sep = ", ";
+
+				$pdf->Write( 5, strtoupper( $state . $sep . $zip ) );
 
 				$pdf->Line( 15, 97, 195, 97 );
 
