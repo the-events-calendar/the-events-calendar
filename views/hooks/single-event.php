@@ -78,13 +78,6 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			ob_start();
 
 			// Single event content ?>
-			<div class="entry-content description">
-				<?php // Event image
-				if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
-					<div class="tribe-event-featured-image">
-						<?php the_post_thumbnail('full'); ?>
-					</div>	
-				<?php } ?>
 				<div class="tribe-event-schedule-details clearfix">
 					<h2><?php echo tribe_event_schedule_details(), '&nbsp;&nbsp;', tribe_event_recurring_info_tooltip(); ?></h2>
 					<?php // iCal/gCal links
@@ -100,7 +93,14 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 							}  
 						echo '</div>';
 						}	?>
-				</div>	 
+				</div>			
+			<div class="entry-content description">
+				<?php // Event image
+				if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
+					<div class="tribe-event-featured-image">
+						<?php the_post_thumbnail('full'); ?>
+					</div>	
+				<?php } ?>	 
 
 				<?php // Event content
 				the_content(); ?>

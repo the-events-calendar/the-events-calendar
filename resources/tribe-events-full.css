@@ -414,6 +414,10 @@ h3.tribe-event-single-section-title {
 	margin: 24px 0;
 }
 
+.eventbrite-ticket-embed {
+	margin: 0 0 30px 0;
+}
+
 /* Navigation */
 #tribe-events-content .tribe-events-loop-nav ul {
 	list-style-type: none;
@@ -448,13 +452,14 @@ h3.tribe-event-single-section-title {
 /* Cal Links */
 .single-tribe_events .tribe-event-schedule-details .tribe-event-cal-links { 
 float: left;
-margin: 5px 0 0;
+margin: 0;
 }
 
 /* Featured Image */
 .single-tribe_events .tribe-event-featured-image {
 	clear: both;
 	text-align: center;
+	margin-bottom: 30px;
 }
 /* Meta Sections */
 .single-tribe_events .tribe-events-event-meta {
@@ -489,7 +494,7 @@ margin: 5px 0 0;
 	border-width: 1px 0;
 	border-style: solid;
 	border-color: #bbb;
-	margin: 28px 0;
+	margin: 30px 0;
 	padding: 2% 0;
 	overflow: hidden;
 	font-size: 12px;
