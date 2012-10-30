@@ -84,7 +84,7 @@ if ( !defined( 'ABSPATH' ) ) {
 					<td>
 						<input autocomplete="off" type="text" class="ticket_field" size='7' name="ticket_start_date"
 						       id="ticket_start_date" value="">
-						<span class='timeofdayoptions'>
+						<span class=''>
 							<?php _e( '@', 'tribe-events-calendar' ); ?>
 							<select name='ticket_start_hour' id='ticket_start_hour' class="ticket_field">
 								<?php echo $startHourOptions; ?>
@@ -109,7 +109,7 @@ if ( !defined( 'ABSPATH' ) ) {
 						<input autocomplete="off" type="text" class="ticket_field" size='7' name="ticket_end_date"
 						       id="ticket_end_date" value="">
 
-						<span class='timeofdayoptions'>
+						<span class=''>
 							<?php _e( '@', 'tribe-events-calendar' ); ?>
 							<select name='ticket_end_hour' id='ticket_end_hour' class="ticket_field">
 								<?php echo $endHourOptions; ?>
