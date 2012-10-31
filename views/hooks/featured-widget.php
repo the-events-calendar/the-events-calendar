@@ -25,39 +25,39 @@
 
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-if( !class_exists('Tribe_Events_pro_featured_widget_Template')){
-	class Tribe_Events_pro_featured_widget_Template extends Tribe_Template_Factory {
+if( !class_exists('Tribe_Events_Pro_featured_widget_Template')){
+	class Tribe_Events_Pro_featured_widget_Template extends Tribe_Template_Factory {
 		public static function init(){
-			// start featured widget template
+			// Start featured widget template
 			add_filter( 'tribe_events_pro_featured_widget_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 	
-			// start single event
+			// Start single event
 			add_filter( 'tribe_events_pro_featured_widget_before_the_event', array( __CLASS__, 'before_the_event' ), 1, 1 );
 	
-			// event dates
+			// Event dates
 			add_filter( 'tribe_events_pro_featured_widget_before_the_date', array( __CLASS__, 'before_the_date' ), 1, 1 );
 			add_filter( 'tribe_events_pro_featured_widget_the_date', array( __CLASS__, 'the_date' ), 1, 2 );
 			add_filter( 'tribe_events_pro_featured_widget_after_the_date', array( __CLASS__, 'after_the_date' ), 1, 1 );
 
-			// event title
+			// Event title
 			add_filter( 'tribe_events_pro_featured_widget_before_the_title', array( __CLASS__, 'before_the_title' ), 1, 1 );
 			add_filter( 'tribe_events_pro_featured_widget_the_title', array( __CLASS__, 'the_title' ), 1, 1 );
 			add_filter( 'tribe_events_pro_featured_widget_after_the_title', array( __CLASS__, 'after_the_title' ), 1, 1 );
 			
-			// event location
+			// Event location
 			add_filter( 'tribe_events_pro_featured_widget_before_the_location', array( __CLASS__, 'before_the_location' ), 1, 1 );
 			add_filter( 'tribe_events_pro_featured_widget_the_location', array( __CLASS__, 'the_location' ), 1, 1 );
 			add_filter( 'tribe_events_pro_featured_widget_after_the_location', array( __CLASS__, 'after_the_location' ), 1, 1 );
 			
-			// event content
+			// Event content
 			add_filter( 'tribe_events_pro_featured_widget_before_the_location', array( __CLASS__, 'before_the_location' ), 1, 1 );
 			add_filter( 'tribe_events_pro_featured_widget_the_location', array( __CLASS__, 'the_location' ), 1, 1 );
 			add_filter( 'tribe_events_pro_featured_widget_after_the_location', array( __CLASS__, 'after_the_location' ), 1, 1 );
 	
-			// end single event
+			// End single event
 			add_filter( 'tribe_events_pro_featured_widget_after_the_event', array( __CLASS__, 'after_the_event' ), 1, 1 );
 
-			// end featured widget template
+			// End featured widget template
 			add_filter( 'tribe_events_pro_featured_widget_after_template', array( __CLASS__, 'after_template' ), 1, 2 );
 		}
 		// Start Featured Widget Template
@@ -89,8 +89,9 @@ if( !class_exists('Tribe_Events_pro_featured_widget_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_featured_widget_before_the_date');
 		}
 		public function the_date( $post_id, $event ){
-			$html = tribe_get_start_date( $post_id, isset( $start ) ? $start : null );
-			if($event->AllDay && $start)
+			$start = isset( $start ) ? $start : null;
+			$html = tribe_get_start_date( $post_id, $start );
+			if($event->AllDay)
 				$html .= ' <small><em>('. __( 'All Day', 'tribe-events-calendar' ) .')</em></small>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_featured_widget_the_date');
 		}
@@ -154,5 +155,5 @@ if( !class_exists('Tribe_Events_pro_featured_widget_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_featured_widget_after_template');		
 		}
 	}
-	Tribe_Events_pro_featured_widget_Template::init();
+	Tribe_Events_Pro_featured_widget_Template::init();
 }
