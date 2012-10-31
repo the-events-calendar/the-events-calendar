@@ -458,7 +458,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_event_schedule_details( $post_id = null){
 		if (is_null( $post_id ))
 			$post_id = get_the_ID();
-			$schedule = '';
+			$schedule = '<div class="tribe-event-schedule-details">';
 			 if ( tribe_is_multiday( $post_id ) ) { // multi-date event 
 				$schedule .= '<span class="dtstart">'. tribe_get_start_date() .'</span> - <span class="dtend">'. tribe_get_end_date() .'</span>';
 			 } elseif ( tribe_get_all_day( $post_id ) ) {  // all day event
@@ -469,7 +469,8 @@ if( class_exists( 'TribeEvents' ) ) {
 					 } else {  // defined start/end time
 					  $schedule .= '<span class="dtstart">'. tribe_get_start_date( $post_id, false ) .'</span> | <span class="starttime">'. tribe_get_start_date( $post_id, false, 'g:i A' ) .' - <span class="starttime">'. tribe_get_end_date( $post_id, false, 'g:i A' ) .'</span>';	
 					 } 					
-			}			 
+			}
+			$schedule .= '</div>';			 
 			return $schedule;
 			return apply_filters('tribe_event_schedule_details', $schedule);
 	}
