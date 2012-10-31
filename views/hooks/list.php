@@ -114,17 +114,17 @@ if( !class_exists('Tribe_Events_List_Template')){
 		// Event Meta
 		public function before_the_meta( $post_id ){
 			$html = '';
+			if ( tribe_get_cost() ) { // Get our event cost 
+				$html .=	'<div class="tribe-events-event-cost"><span>'. tribe_get_cost() .'</span></div>';
+			 } 		
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_the_meta');
 		}
 		public function the_meta( $post_id ){
 			ob_start();
 		?>
 			<div class="tribe-events-event-meta">
-			<?php if ( tribe_get_cost() ) { // Get our event cost ?>
-					<div class="tribe-events-event-cost"><span><?php echo tribe_get_cost(); ?></span></div>
-			<?php } ?>
 				<div class="updated published time-details">
-						<?php echo tribe_event_schedule_details(), '&nbsp; &nbsp;', tribe_event_recurring_info_tooltip(); ?>
+						<?php echo tribe_event_schedule_details(), tribe_event_recurring_info_tooltip(); ?>
 				</div>	
 				<?php if ( tribe_get_venue() || tribe_address_exists( $post_id ) ) { // Get venue or location ?>
 					<p class="vcard fn org">

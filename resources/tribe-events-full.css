@@ -296,12 +296,17 @@ select.tribe-events-dropdown {
 	margin-bottom: 60px;
 }
 
+.tribe-events-list .tribe-events-event-details .entry-title, .events-archive .tribe-events-list .tribe-events-event-details .entry-title {
+margin: 0 0 15px 0;
+float: left;
+width: 70%;
+}
 
 /* Image */
 .tribe-events-list .tribe-events-event-image {
 	float: left;
 	width: 30%;
-	margin: 0 3% 3% 0;
+	margin: 0 3% 0 0;
 }
 
 .tribe-events-list .tribe-events-event-image img {
@@ -316,9 +321,7 @@ select.tribe-events-dropdown {
 	width: 67%;
 }
 
-.tribe-events-list h2.entry-title {
-	display: inline-block;
-}
+
 
 /* Meta */
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta {
@@ -327,19 +330,21 @@ select.tribe-events-dropdown {
 	margin: 0 0 15px 0;
 	padding: 0;
 	width: 100%;
-	font-style: italic;
 	line-height: 1.4;
+	font-weight: normal;
 	overflow: visible;
 }
 
-.tribe-events-event-meta .time-details {
+.tribe-events-event-meta .tribe-event-schedule-details {
 	font-size: 14px;
 	font-style: normal;
 	font-weight: bold;
+	display: inline;
+	margin-right: 10px;
 }
 
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta p { 
-	margin: 10px 0 0;
+	margin: 15px 0 0;
 	font-size: 13px;
 }
 
@@ -372,7 +377,7 @@ select.tribe-events-dropdown {
 /* Cost */
 .tribe-events-list .tribe-events-event-cost {
 	float: right;
-	margin: 0 0 3% 3%;
+	margin: 0 0 0 3%;
 }
 
 .tribe-events-list .tribe-events-event-cost span {
@@ -418,7 +423,7 @@ select.tribe-events-dropdown {
 .events-archive .tribe-events-loop .vevent,
 .single-tribe_venue .tribe-events-loop .vevent {
 	border-bottom: 1px solid #ddd;
-	padding: 2.25em 0;
+	padding: 3.5em 0;
 	margin: 0;
 }
 .tribe-events-loop .vevent.tribe-last {
@@ -464,6 +469,7 @@ select.tribe-events-dropdown {
 	width: 30%;
 	font-size: 12px;
 	margin: 0 0 1.75em;
+	clear: both;
 }
 .tribe-events-loop .tribe-events-event-meta dl {
 	margin: 0;
