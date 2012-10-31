@@ -532,8 +532,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function select_page_template( $template ) {
 			// venue view
 			if( is_singular( TribeEvents::VENUE_POST_TYPE ) ) {
-				// $template = TribeEventsTemplates::getTemplateHierarchy( 'single-venue' );
-				$template = TribeEventsTemplates::getTemplateHierarchy( 'list' );
+				$template = TribeEventsTemplates::getTemplateHierarchy( 'single-venue' );
+				// $template = TribeEventsTemplates::getTemplateHierarchy( 'list' );
 			}
 			// week view
 			if( tribe_is_week() ) {

@@ -42,12 +42,11 @@ echo apply_filters( 'tribe_events_single_venue_before_template', '', $venue_id )
 	echo apply_filters( 'tribe_events_single_venue_after_venue', '', $venue_id );
 	
 	// upcoming event list
-	do_action( 'tribe_events_single_venue_upcoming_events' );
- 	
- // 	// Reset the post and id to the venue post before comments template shows up.
- // 	$post = get_post($venue_id); 
- // 	global $id;
-	// $id = $venue_id;
+	echo apply_filters( 'tribe_events_single_venue_upcoming_events', '', $venue_id );
 	
 // End single venue template
 echo apply_filters( 'tribe_events_single_venue_after_template', '', $venue_id );
+
+
+
+
