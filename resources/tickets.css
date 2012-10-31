@@ -39,3 +39,7 @@ p.ticket_name {
 	font-size   : 13px;
 	font-weight : bold;
 }
+
+.ticket_form p.description {
+	display : inline;
+}

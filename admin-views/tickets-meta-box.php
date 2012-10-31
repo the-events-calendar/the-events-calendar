@@ -34,7 +34,7 @@ if ( !defined( 'ABSPATH' ) ) {
 		<td colspan="2" class="tribe_sectionheader">
 			<table id="ticket_form_table" class="eventtable ticket_form">
 				<tr>
-					<td width="40%"><label
+					<td width="20%"><label
 						for="ticket_provider"><?php _e( 'Sell using:', 'tribe-events-calendar' ); ?></label></td>
 					<td>
 						<?php
@@ -73,7 +73,7 @@ if ( !defined( 'ABSPATH' ) ) {
 					<td>
 						<input type='text' id='ticket_price' name='ticket_price' class="ticket_field" size='7'
 						       value=''/>
-						<small>(0 or empty for free tickets)</small>
+						<p class="description">(0 or empty for free tickets)</p>
 					</td>
 				</tr>
 
