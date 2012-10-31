@@ -30,35 +30,37 @@ if( !class_exists('Tribe_Events_Pro_Single_Venue_Template')){
 
 			// End single venue
 			add_filter( 'tribe_events_single_venue_after_venue', array( __CLASS__, 'after_venue' ), 1, 1 );
+
+			add_aciton('tribe_events_single_venue_upcoming_events', array(__CLASS__, 'upcoming_events'));
 	
 			// Start upcoming event loop
-			add_filter( 'tribe_events_single_venue_event_before_loop', array( __CLASS__, 'event_before_loop' ), 1, 2 );
+			// add_filter( 'tribe_events_single_venue_event_before_loop', array( __CLASS__, 'event_before_loop' ), 1, 2 );
 	
 			// Venue loop title
-			add_filter( 'tribe_events_single_venue_event_loop_title', array( __CLASS__, 'event_loop_title' ), 1, 2 );
+			// add_filter( 'tribe_events_single_venue_event_loop_title', array( __CLASS__, 'event_loop_title' ), 1, 2 );
 			
-			add_filter( 'tribe_events_single_venue_event_inside_before_loop', array( __CLASS__, 'event_inside_before_loop' ), 1, 2);
+			// add_filter( 'tribe_events_single_venue_event_inside_before_loop', array( __CLASS__, 'event_inside_before_loop' ), 1, 2);
 			
 			// Event start date
-			add_filter( 'tribe_events_single_venue_event_the_start_date', array( __CLASS__, 'event_the_start_date' ), 1, 2 );
+			// add_filter( 'tribe_events_single_venue_event_the_start_date', array( __CLASS__, 'event_the_start_date' ), 1, 2 );
 			
 			// Event title
-			add_filter( 'tribe_events_single_venue_event_the_title', array( __CLASS__, 'event_the_title' ), 1, 2 );
+			// add_filter( 'tribe_events_single_venue_event_the_title', array( __CLASS__, 'event_the_title' ), 1, 2 );
 
 			// Event content
-			add_filter( 'tribe_events_single_venue_event_before_the_content', array( __CLASS__, 'event_before_the_content' ), 1, 2 );
-			add_filter( 'tribe_events_single_venue_event_the_content', array( __CLASS__, 'event_the_content' ), 1, 2 );
-			add_filter( 'tribe_events_single_venue_event_after_the_content', array( __CLASS__, 'event_after_the_content' ), 1, 2 );
+			// add_filter( 'tribe_events_single_venue_event_before_the_content', array( __CLASS__, 'event_before_the_content' ), 1, 2 );
+			// add_filter( 'tribe_events_single_venue_event_the_content', array( __CLASS__, 'event_the_content' ), 1, 2 );
+			// add_filter( 'tribe_events_single_venue_event_after_the_content', array( __CLASS__, 'event_after_the_content' ), 1, 2 );
 			
 			// Event meta
-			add_filter( 'tribe_events_single_venue_event_before_the_meta', array( __CLASS__, 'event_before_the_meta' ), 1, 2 );
-			add_filter( 'tribe_events_single_venue_event_the_meta', array( __CLASS__, 'event_the_meta' ), 1, 2 );
-			add_filter( 'tribe_events_single_venue_event_after_the_meta', array( __CLASS__, 'event_after_the_meta' ), 1, 2 );
+			// add_filter( 'tribe_events_single_venue_event_before_the_meta', array( __CLASS__, 'event_before_the_meta' ), 1, 2 );
+			// add_filter( 'tribe_events_single_venue_event_the_meta', array( __CLASS__, 'event_the_meta' ), 1, 2 );
+			// add_filter( 'tribe_events_single_venue_event_after_the_meta', array( __CLASS__, 'event_after_the_meta' ), 1, 2 );
 		
-			add_filter( 'tribe_events_single_venue_event_inside_after_loop', array( __CLASS__, 'event_inside_after_loop' ), 1, 2 );
+			// add_filter( 'tribe_events_single_venue_event_inside_after_loop', array( __CLASS__, 'event_inside_after_loop' ), 1, 2 );
 			
 			// End upcoming event loop
-			add_filter( 'tribe_events_single_venue_event_after_loop', array( __CLASS__, 'event_after_loop' ), 1, 2 );
+			// add_filter( 'tribe_events_single_venue_event_after_loop', array( __CLASS__, 'event_after_loop' ), 1, 2 );
 	
 			// End single venue template
 			add_filter( 'tribe_events_single_venue_after_template', array( __CLASS__, 'after_template' ), 1, 1 );
@@ -126,6 +128,15 @@ if( !class_exists('Tribe_Events_Pro_Single_Venue_Template')){
 			$html = '</div><!-- .tribe-events-event-meta -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_after_venue');
 		}
+
+		public function upcoming_events(){
+			tribe_include_view_list();
+		}
+
+
+
+
+
 		// Start Upcoming Event Loop
 		public function event_before_loop( $post_id ){
 			$html = '<div class="tribe-events-loop hfeed vcalendar">';
