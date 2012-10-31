@@ -482,5 +482,9 @@ if( class_exists( 'TribeEvents' ) ) {
 
 		return $interval->days;
 	}
+
+	function tribe_include_view_list(){
+		include apply_filters( 'tribe_include_view_list', TribeEventsTemplates::getTemplateHierarchy('list') );
+	}
 		
 }
