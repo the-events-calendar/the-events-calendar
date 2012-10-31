@@ -344,14 +344,6 @@ width: 70%;
 	overflow: visible;
 }
 
-.tribe-events-event-meta .tribe-event-schedule-details {
-	font-size: 14px;
-	font-style: normal;
-	font-weight: bold;
-	display: inline;
-	margin-right: 10px;
-}
-
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta p { 
 	margin: 15px 0 0;
 	font-size: 13px;
