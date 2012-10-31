@@ -484,8 +484,27 @@ if( class_exists( 'TribeEvents' ) ) {
 		return $interval->days;
 	}
 
-	function tribe_include_view_list(){
+	function tribe_include_view_list( $args = null ){
+		global $wp_query;
+
+		// hijack the main query to load the events via provided $args
+		if( !is_null($args) ) {
+			$reset_q = $wp_query;
+			$wp_query = TribeEventsQuery::getEvents( $args, true );
+		}
+
+		// get the list view template
+		ob_start();
 		include apply_filters( 'tribe_include_view_list', TribeEventsTemplates::getTemplateHierarchy('list') );
+		$list_view_html = ob_get_clean();
+
+		// fix the error of our ways
+		if( !is_null($args) ) {
+			$wp_query = $reset_q;
+		}
+
+		// return the parsed template
+		return $list_view_html;
 	}
 		
 }
