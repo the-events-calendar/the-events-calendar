@@ -44,44 +44,45 @@ echo apply_filters( 'tribe_events_single_venue_before_template', '', $venue_id )
 	// Start upcoming event loop
 	echo apply_filters( 'tribe_events_single_venue_event_before_loop', '', $venue_id );
 	
-	
-	$venueEvents = tribe_get_events( array( 'venue'=>$venue_id, 'eventDisplay' => 'upcoming', 'posts_per_page' => -1 ) ); 
- 	global $post; 
+	tribe_include_view_list();
+
+	// $venueEvents = tribe_get_events( array( 'venue'=>$venue_id, 'eventDisplay' => 'upcoming', 'posts_per_page' => -1 ) ); 
+ // 	global $post; 
  	
- 	if( sizeof( $venueEvents ) > 0 ) { // If we have other venues
+ // 	if( sizeof( $venueEvents ) > 0 ) { // If we have other venues
 		
-		// Venue loop title
-		echo apply_filters( 'tribe_events_single_venue_event_loop_title', '', $venue_id );
+	// 	// Venue loop title
+	// 	echo apply_filters( 'tribe_events_single_venue_event_loop_title', '', $venue_id );
 
-		foreach( $venueEvents as $event ){ // Setup_postdata( $post ); // Our venue loop
+	// 	foreach( $venueEvents as $event ){ // Setup_postdata( $post ); // Our venue loop
 
-			echo apply_filters( 'tribe_events_single_venue_event_inside_before_loop', $venue_id, $event );
+	// 		echo apply_filters( 'tribe_events_single_venue_event_inside_before_loop', $venue_id, $event );
 			
-				// Event start date
-				echo apply_filters( 'tribe_events_single_venue_event_the_start_date', $venue_id, $event );
+	// 			// Event start date
+	// 			echo apply_filters( 'tribe_events_single_venue_event_the_start_date', $venue_id, $event );
 			
-				// Event title
-				echo apply_filters( 'tribe_events_single_venue_event_the_title', $venue_id, $event );
+	// 			// Event title
+	// 			echo apply_filters( 'tribe_events_single_venue_event_the_title', $venue_id, $event );
 
-				// Event content
-				echo apply_filters( 'tribe_events_single_venue_event_before_the_content', $venue_id, $event );
-				echo apply_filters( 'tribe_events_single_venue_event_the_content', $venue_id, $event );
-				echo apply_filters( 'tribe_events_single_venue_event_after_the_content', $venue_id, $event );
+	// 			// Event content
+	// 			echo apply_filters( 'tribe_events_single_venue_event_before_the_content', $venue_id, $event );
+	// 			echo apply_filters( 'tribe_events_single_venue_event_the_content', $venue_id, $event );
+	// 			echo apply_filters( 'tribe_events_single_venue_event_after_the_content', $venue_id, $event );
 			
-				// Event meta
-				echo apply_filters( 'tribe_events_single_venue_event_before_the_meta', $venue_id, $event );
-				echo apply_filters( 'tribe_events_single_venue_event_the_meta', $venue_id, $event );
-				echo apply_filters( 'tribe_events_single_venue_event_after_the_meta', $venue_id, $event );
+	// 			// Event meta
+	// 			echo apply_filters( 'tribe_events_single_venue_event_before_the_meta', $venue_id, $event );
+	// 			echo apply_filters( 'tribe_events_single_venue_event_the_meta', $venue_id, $event );
+	// 			echo apply_filters( 'tribe_events_single_venue_event_after_the_meta', $venue_id, $event );
 		
-			echo apply_filters( 'tribe_events_single_venue_event_inside_after_loop', $venue_id, $event );
+	// 		echo apply_filters( 'tribe_events_single_venue_event_inside_after_loop', $venue_id, $event );
 			
-		}	// End our venue loop					
- 	} // End if have other venues
+	// 	}	// End our venue loop					
+ // 	} // End if have other venues
  	
- 	// Reset the post and id to the venue post before comments template shows up.
- 	$post = get_post($venue_id); 
- 	global $id;
-	$id = $venue_id;
+ // 	// Reset the post and id to the venue post before comments template shows up.
+ // 	$post = get_post($venue_id); 
+ // 	global $id;
+	// $id = $venue_id;
 	
 	// End upcoming event loop
 	echo apply_filters( 'tribe_events_single_venue_event_after_loop', '', $venue_id );

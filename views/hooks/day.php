@@ -160,9 +160,6 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			global $wp_query;
 			$tribe_ecp = TribeEvents::instance();
 
-			ob_start();
-			tribe_month_year_dropdowns( "tribe-events-" );
-			$dropdown = ob_get_clean();
 ?>
 			<!--
 				@Tim
@@ -176,12 +173,11 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			$tomorrow = Date('Y-m-d', strtotime($current_day . " +1 day") );
 			// Display Day Navigation
 			// <-- Previous Day | Month/Day/Year Selector | Next Day -->
-			$html = sprintf('<div id="tribe-events-header"><h3 class="tribe-events-visuallyhidden">%s</h3><ul class="tribe-events-sub-nav"><li class="tribe-events-nav prev"><a href="%s" data-day="%s" rel="prev">&#x2190; %s</a></li><li>%s</li><li class="tribe-events-nav next"><a href="%s" data-day="%s" rel="next">%s &#x2192;</a><img src="%s" class="ajax-loading" id="ajax-loading" alt="Loading events" /></li></ul></div>',
+			$html = sprintf('<div id="tribe-events-header"><h3 class="tribe-events-visuallyhidden">%s</h3><ul class="tribe-events-sub-nav"><li class="tribe-events-nav prev"><a href="%s" data-day="%s" rel="prev">&#x2190; %s</a></li><li class="tribe-events-nav next"><a href="%s" data-day="%s" rel="next">%s &#x2192;</a><img src="%s" class="ajax-loading" id="ajax-loading" alt="Loading events" /></li></ul></div>',
 								__( 'Day Navigation', 'tribe-events-calendar' ),
 								tribe_get_day_permalink( $yesterday ),
 								$yesterday,
 								__( 'Yesterday', 'tribe-events-calendar-pro' ),
-								$dropdown,
 								tribe_get_day_permalink( $tomorrow ),
 								$tomorrow,
 								__( 'Tomorrow', 'tribe-events-calendar-pro' ),
