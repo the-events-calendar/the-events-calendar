@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: The Events Calendar 2.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-01-09 11:28-0800\n"
-"PO-Revision-Date: 2012-01-24 13:53+0100\n"
-"Last-Translator: Arno <arnofaure@gmail.com>\n"
+"PO-Revision-Date: 2012-10-17 12:08-0500\n"
+"Last-Translator: Fanny Héraud <fanny@dites-vert.com>\n"
 "Language-Team: Cecile <cecile@greek-paris.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +33,7 @@ msgstr "Vous avez changé les règles de récurrence de l'événement. Si vous l
 
 #: ../admin-views/events-meta-box.php:31
 msgid "All day event?"
-msgstr "Evénement qui dure toute la journée ? "
+msgstr "Événement qui dure toute la journée ? "
 
 #: ../admin-views/events-meta-box.php:35
 msgid "Start Date / Time:"
@@ -55,7 +55,7 @@ msgstr "Date/heure de fin :"
 
 #: ../admin-views/events-meta-box.php:78
 msgid "Event Location Details"
-msgstr "Coordonnées du lieu de l'Evénement :"
+msgstr "Coordonnées du lieu de l'événement :"
 
 #: ../admin-views/events-meta-box.php:84
 msgid "Show Google Maps Link:"
@@ -71,7 +71,7 @@ msgstr "Coordonnées de l'organisateur "
 
 #: ../admin-views/events-meta-box.php:109
 msgid "Event Cost"
-msgstr "Prix de l'entrée de l'événement "
+msgstr "Prix d'entrée de l'événement "
 
 #: ../admin-views/events-meta-box.php:112
 msgid "Cost:"
@@ -97,7 +97,7 @@ msgstr "Si vous rencontrez des problèmes avec ces options, visitez le <a href=\
 
 #: ../admin-views/events-options.php:54
 msgid "Here is the iCal feed URL for your events: "
-msgstr "Voici le flux RSS iCal de vos Evénements "
+msgstr "Voici le flux RSS iCal de vos événements :"
 
 #: ../admin-views/events-options.php:60
 msgid "Settings"
@@ -201,7 +201,7 @@ msgstr "Préférences du Thème"
 #: ../admin-views/events-options.php:169
 #: ../admin-views/events-options.php:171
 msgid "Events Template"
-msgstr "Template pour vos Evénements"
+msgstr "Template pour vos événements"
 
 #: ../admin-views/events-options.php:173
 msgid "Default Events Template"
@@ -261,15 +261,15 @@ msgstr "Téléphone : "
 
 #: ../admin-views/organizer-meta-box.php:21
 msgid "Website:"
-msgstr "Site internet : "
+msgstr "Site Web : "
 
 #: ../admin-views/organizer-meta-box.php:25
 msgid "Email:"
-msgstr "Email:"
+msgstr "Courriel :"
 
 #: ../admin-views/recurrence-dialog.php:11
 msgid "Which events do you wish to update?"
-msgstr "Quels Evénements voulez-vous mettre à jour ? "
+msgstr "Quels événements voulez-vous mettre à jour ? "
 
 #: ../admin-views/recurrence-dialog.php:14
 msgid "Select your desired action"
@@ -360,26 +360,26 @@ msgstr "Désolé, The Events Calendar nécessite PHP %s ou une version plus réc
 
 #: ../lib/the-events-calendar.class.php:447
 msgid "Upcoming Events"
-msgstr "Evénement à venir "
+msgstr "Événements à venir "
 
 #: ../lib/the-events-calendar.class.php:449
 msgid "Past Events"
-msgstr "Evénements passés"
+msgstr "Événements passés"
 
 #: ../lib/the-events-calendar.class.php:453
 #: ../lib/the-events-calendar.class.php:459
 #, php-format
 msgid "Events for %s"
-msgstr "Evénements pour %s"
+msgstr "Événements pour %s"
 
 #: ../lib/the-events-calendar.class.php:455
 msgid "Events this month"
-msgstr "Evénements du mois"
+msgstr "Événements du mois"
 
 #: ../lib/the-events-calendar.class.php:465
 #, php-format
 msgid "Events at %s"
-msgstr "Evénements à %s"
+msgstr "Événements à %s"
 
 #: ../lib/the-events-calendar.class.php:477
 msgid "No description has been entered for this event."
@@ -387,7 +387,7 @@ msgstr "Aucune description n'a été rentrée pour cet événement. "
 
 #: ../lib/the-events-calendar.class.php:583
 msgid "Events"
-msgstr "Evénements"
+msgstr "Événements"
 
 #: ../lib/the-events-calendar.class.php:584
 msgid "Event"
@@ -409,7 +409,7 @@ msgstr "Editer l'événement "
 
 #: ../lib/the-events-calendar.class.php:588
 msgid "New Event"
-msgstr "Nouvel Evénement "
+msgstr "Nouvel événement "
 
 #: ../lib/the-events-calendar.class.php:589
 msgid "View Event"
@@ -421,11 +421,11 @@ msgstr "Rechercher des événements "
 
 #: ../lib/the-events-calendar.class.php:591
 msgid "No events found"
-msgstr "Aucun Evénement "
+msgstr "Aucun événement "
 
 #: ../lib/the-events-calendar.class.php:592
 msgid "No events found in Trash"
-msgstr "Aucun Evénement dans la Poubelle "
+msgstr "Aucun événement dans la corbeille "
 
 #: ../lib/the-events-calendar.class.php:596
 msgid "Venues"
@@ -523,24 +523,24 @@ msgstr "Catégorie parente : "
 
 #: ../lib/the-events-calendar.class.php:628
 msgid "Edit Event Category"
-msgstr "Editer la Catégorie de l'Evénement "
+msgstr "Éditer la catégorie de l'événement "
 
 #: ../lib/the-events-calendar.class.php:629
 msgid "Update Event Category"
-msgstr "Mettre à jour la Catégories de l'Evénement "
+msgstr "Mettre à jour la catégories de l'événement "
 
 #: ../lib/the-events-calendar.class.php:630
 msgid "Add New Event Category"
-msgstr "Nouvelle Catégorie d'Evénement "
+msgstr "Nouvelle catégorie d'événement "
 
 #: ../lib/the-events-calendar.class.php:631
 msgid "New Event Category Name"
-msgstr "Nouveau nom de la Catégorie d'Evénement "
+msgstr "Nouveau nom de la catégorie d'événement "
 
 #: ../lib/the-events-calendar.class.php:641
 #, php-format
 msgid "Event updated. <a href=\"%s\">View event</a>"
-msgstr "Evénement mise à jour. <a href=\"%s\">Voir</a> "
+msgstr "Événement mis à jour. <a href=\"%s\">Voir</a> "
 
 #: ../lib/the-events-calendar.class.php:642
 #: ../lib/the-events-calendar.class.php:659
@@ -556,7 +556,7 @@ msgstr "Champ Personnalisé effacé. "
 
 #: ../lib/the-events-calendar.class.php:644
 msgid "Event updated."
-msgstr "Evénement mis à jour."
+msgstr "Événement mis à jour."
 
 #: ../lib/the-events-calendar.class.php:646
 #, php-format
@@ -566,21 +566,21 @@ msgstr "Evénement restauré à la dernière révision depuis %s"
 #: ../lib/the-events-calendar.class.php:647
 #, php-format
 msgid "Event published. <a href=\"%s\">View event</a>"
-msgstr "Evénement publié. <a href=\"%s\">Voir</a> "
+msgstr "Événement publié. <a href=\"%s\">Voir</a> "
 
 #: ../lib/the-events-calendar.class.php:648
 msgid "Event saved."
-msgstr "Evénement enregistré"
+msgstr "Événement enregistré"
 
 #: ../lib/the-events-calendar.class.php:649
 #, php-format
 msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
-msgstr "Evénement enregistré. <a href=\"%s\">Aperçu</a> "
+msgstr "Événement enregistré. <a href=\"%s\">Aperçu</a> "
 
 #: ../lib/the-events-calendar.class.php:650
 #, php-format
 msgid "Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview event</a>"
-msgstr "Evénement programmé pour le : <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Aperçu</a> "
+msgstr "Événement programmé pour le : <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Aperçu</a> "
 
 #: ../lib/the-events-calendar.class.php:652
 #: ../lib/the-events-calendar.class.php:669
@@ -716,7 +716,7 @@ msgstr "Fonctionnalité supplémentaire "
 #: ../lib/the-events-calendar.class.php:2054
 #: ../lib/the-events-calendar.class.php:2060
 msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
-msgstr "Vous cherchez d'autres fonctionnalités comme les evénement récurrents, les meta personnalisés, community events, vente de billets et encore plus ? "
+msgstr "Vous cherchez d'autres fonctionnalités comme les événements récurrents, meta personnalisés, community events, vente de billets et encore plus ? "
 
 #: ../lib/the-events-calendar.class.php:2054
 #: ../lib/the-events-calendar.class.php:2061
@@ -2048,7 +2048,7 @@ msgstr "Pas d'événements précédents"
 #: ../views/list.php:146
 #: ../views/list.php:148
 msgid "&laquo; Previous Events"
-msgstr "&laquo; Evénements précédents "
+msgstr "&laquo; Événements précédents "
 
 #: ../views/list.php:155
 #: ../views/list.php:157
@@ -2099,24 +2099,31 @@ msgstr "Tout voir &raquo;"
 
 #~ msgid "Ends"
 #~ msgstr "Se termine"
+
 #~ msgid "Use Saved Venue:"
 #~ msgstr "Utiliser un lieu enregistré : "
+
 #~ msgid "Use Saved Organizer:"
 #~ msgstr "Utiliser un organisateur déjà enregistré "
+
 #~ msgid "Use Pretty URLs"
 #~ msgstr "Utiliser des Prettys URLS"
+
 #~ msgid ""
 #~ "Although unlikely, pretty URLs (ie, http://site/events/upcoming) may "
 #~ "interfere with custom themes or plugins."
 #~ msgstr ""
 #~ "Cependant faites attention car les prettys URLs (ex: http://site/events/"
 #~ "upcoming) peuvent causer des conflits avec certains thèmes ou plugins. "
+
 #~ msgid "Use New Venue"
 #~ msgstr "Utiliser un nouveau lieu"
+
 #~ msgid "No saved venues yet."
 #~ msgstr "Pas encore de lieu enregistré"
+
 #~ msgid "Use New Organizer"
 #~ msgstr "Nouvel organisateur"
+
 #~ msgid "No saved organizers yet."
 #~ msgstr "Aucun organisateur enregistré encore."
-
