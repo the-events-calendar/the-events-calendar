@@ -21,8 +21,8 @@
  */
 
 if ( !defined('ABSPATH') ) { die('-1'); }
-?>
-				<?php // Check if event has passed
+
+	// Check if event has passed
 	$notices = empty($notices) ? array() : $notices; 
 	$gmt_offset = (get_option('gmt_offset') >= '0' ) ? ' +' . get_option('gmt_offset') : " " . get_option('gmt_offset');
  	$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
