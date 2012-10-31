@@ -31,7 +31,8 @@ if( !class_exists('Tribe_Events_Pro_Single_Venue_Template')){
 			// End single venue
 			add_filter( 'tribe_events_single_venue_after_venue', array( __CLASS__, 'after_venue' ), 1, 1 );
 
-			// load up the event list
+			// load up the event list & title
+			add_filter( 'tribe_get_events_title', array(__CLASS__, 'upcoming_events_title'));
 			add_filter( 'tribe_events_single_venue_upcoming_events', array( __CLASS__, 'upcoming_events' ), 1, 1 );
 	
 			// End single venue template
@@ -103,16 +104,20 @@ if( !class_exists('Tribe_Events_Pro_Single_Venue_Template')){
 
 		// Event List View
 		public function upcoming_events( $venue_id ){
-			$html = sprintf( '<h3>%s <span>%s</span></h3>'),
-				__('Upcoming avents at', 'tribe-events-calendar-pro'),
-				get_the_title( $venue_id )
-				);
 			$args = array( 
 				'venue' => $venue_id,
 				'eventDisplay' => 'upcoming',
 				'posts_per_page' => -1 );
-			$html .= tribe_include_view_list( $args );
+			$html = tribe_include_view_list( $args );
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_upcoming_events');
+		}
+
+		public function upcoming_events_title(){
+			$html = sprintf( '<h3>%s <span>%s</span></h3>'),
+				__('Upcoming avents at', 'tribe-events-calendar-pro'),
+				get_the_title( get_the_ID() )
+				);
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_get_events_title');
 		}
 
 		// End Single Venue Template
