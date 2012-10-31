@@ -307,6 +307,8 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			if ( $return ) {
 				$tickets = $this->get_event_tickets( $post_id );
 				$return  = $this->get_ticket_list_markup( $tickets );
+
+				$return = $this->notice( __( 'Your ticket has been saved.', 'tribe-events-calendar' ) ) . $return;
 			}
 
 			$this->ajax_ok( $return );
@@ -359,6 +361,8 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			if ( $return ) {
 				$tickets = $this->get_event_tickets( $post_id );
 				$return  = $this->get_ticket_list_markup( $tickets );
+
+				$return = $this->notice( __( 'Your ticket has been deleted.', 'tribe-events-calendar' ) ) . $return;
 			}
 
 			$this->ajax_ok( $return );
@@ -384,6 +388,10 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			$return["advanced_fields"] = $extra;
 
 			$this->ajax_ok( $return );
+		}
+
+		protected function notice( $msg ) {
+			return sprintf( '<div class="wrap"><div class="updated"><p>%s</p></div></div>', $msg );
 		}
 
 		protected final function ajax_error( $message = "" ) {
