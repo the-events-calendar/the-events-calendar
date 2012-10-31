@@ -123,11 +123,11 @@ if( !class_exists('Tribe_Events_List_Template')){
 			ob_start();
 		?>
 			<div class="tribe-events-event-meta">
-				<div class="updated published time-details">
+				<h3 class="updated published time-details">
 						<?php echo tribe_event_schedule_details(), tribe_event_recurring_info_tooltip(); ?>
-				</div>	
+				</h3>	
 				<?php if ( tribe_get_venue() || tribe_address_exists( $post_id ) ) { // Get venue or location ?>
-					<p class="vcard fn org">
+					<h3 class="vcard fn org">
 						<?php if ( tribe_get_venue() ) { // Get our venue ?>
 								<?php if( class_exists( 'TribeEventsPro' ) ) :
 									echo tribe_get_venue_link( $post_id ). ', ';
@@ -141,7 +141,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 								<?php endif; ?>
 							<span class="location"><?php echo tribe_get_full_address( $post_id ); ?></span>
 						<?php } ?>						
-					</p><!-- .fn .org -->
+					</h3><!-- .fn .org -->
 				<?php } ?>								
 			</div><!-- .tribe-events-event-meta -->
 <?php
