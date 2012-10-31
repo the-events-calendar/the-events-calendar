@@ -137,6 +137,15 @@ a.tribe-events-gcal {
 	height: 0;
 }
 
+/* Event Schedule Detail Styling */
+.tribe-event-schedule-details {
+	font-size: 14px;
+	font-style: normal;
+	font-weight: bold;
+	display: inline;
+	margin-right: 10px;
+}
+
 /* 2011 Theme Extra Calendar Room */
 .events-archive .entry-content, 
 .events-archive .entry-header { width: 98%; }
