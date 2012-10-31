@@ -158,9 +158,18 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 				$pdf->SetXY( 30, 15 );
 				$pdf->Write( 5, __( 'EVENT NAME:', 'tribe-events-calendar' ) );
 
-				$pdf->SetFont( 'SteelFish', '', 53 );
 				$pdf->SetXY( 30, 28 );
-				$pdf->Write( 5, strtoupper( $event->post_title ) );
+				$pdf->SetFont( 'SteelFish', '', 53 );
+
+				$title = strtoupper( utf8_decode( $event->post_title ) );
+				$size  = 53;
+
+				while ( $pdf->GetStringWidth( $title ) > 151 ) {
+					$size--;
+					$pdf->SetFontSize( $size );
+				}
+
+				$pdf->Write( 5, $title );
 
 				$pdf->SetTextColor( 41 );
 
@@ -174,10 +183,24 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 				$pdf->SetXY( 30, 59 );
 				$pdf->Write( 5, strtoupper( $ticket['holder_name'] ) );
 				$pdf->SetXY( 104, 59 );
-				$pdf->Write( 5, strtoupper( $venue ) );
+
+				$venue = strtoupper( utf8_decode( $venue ) );
+				$size  = 30;
+				while ( $pdf->GetStringWidth( $venue ) > 70 ) {
+					$size--;
+					$pdf->SetFontSize( $size );
+				}
+				$pdf->Write( 5, $venue );
 
 				$pdf->SetXY( 104, 71 );
-				$pdf->Write( 5, strtoupper( $address ) );
+
+				$address = strtoupper( utf8_decode( $address ) );
+				$size  = 30;
+				while ( $pdf->GetStringWidth( $address ) > 70 ) {
+					$size--;
+					$pdf->SetFontSize( $size );
+				}
+				$pdf->Write( 5, $address );
 
 				$pdf->SetXY( 104, 83 );
 
@@ -185,7 +208,13 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 				if ( !empty( $state ) && !empty( $zip ) )
 					$sep = ", ";
 
-				$pdf->Write( 5, strtoupper( $state . $sep . $zip ) );
+				$address2 = strtoupper( $state . $sep . $zip );
+				$size = 30;
+				while ( $pdf->GetStringWidth( $address2 ) > 70 ) {
+					$size--;
+					$pdf->SetFontSize( $size );
+				}
+				$pdf->Write( 5, $address2 );
 
 				$pdf->Line( 15, 97, 195, 97 );
 
