@@ -1,10 +1,10 @@
 <div class="wrap">
 	<div id="icon-edit" class="icon32 icon32-tickets-attendees"><br></div>
-	<h2><?php _e("Attendees");?></h2>
+	<h2><?php _e( "Attendees" );?></h2>
 
 	<div id="tribe-filters" class="metabox-holder">
 		<div id="filters-wrap" class="postbox">
-			<h3 title="Click to toggle"><?php _e("Summary");?></h3>
+			<h3 title="Click to toggle"><?php _e( "Summary" );?></h3>
 			<table class="eventtable ticket_list">
 				<?php
 				$event_id = isset( $_GET["event_id"] ) ? $_GET["event_id"] : 0;
@@ -16,12 +16,11 @@
 				foreach ( $tickets as $ticket ) {
 
 					$provider     = $ticket->provider_class;
-					$provider_obj = call_user_func( array( $provider,
-					                                       'get_instance' ) );
+					$provider_obj = call_user_func( array( $provider, 'get_instance' ) );
 
 					if ( ( $ticket->provider_class !== $provider ) || $count == 0 ) {
 						?>
-						<td colspan="3" >
+						<td colspan="3">
 							<h4><?php echo esc_html( self::$active_modules[$ticket->provider_class] ); ?></h4>
 						</td>
 						<?php } ?>
@@ -32,24 +31,17 @@
 								?></p>
 
 						</td>
-						<td nowrap="nowrap">
+						<td valign="top">
+							<?php echo  woocommerce_price( $ticket->price ); ?>
+						</td>
+						<td valign="top" nowrap="nowrap">
 							<?php
-							if ( $ticket->stock ) {
-								?>
-								<i>Stock: <?php echo esc_html( $ticket->stock ); ?></i>
-								<?php
-							}
+							$stock = !empty ( $ticket->stock ) ? $ticket->stock : 0;
+							$sold  = !empty ( $ticket->qty_sold ) ? $ticket->qty_sold : 0;
+							echo sprintf( __( "Sold %d of %d", 'tribe-events-calendar' ), $sold, $sold + $stock );
 							?>
 						</td>
-						<td nowrap="nowrap">
-							<?php
-							if ( $ticket->qty_sold ) {
-								?>
-								<i>Sold: <?php echo esc_html( $ticket->qty_sold ); ?></i>
-								<?php
-							}
-							?>
-						</td>
+
 					</tr>
 					<?php
 					$count++;

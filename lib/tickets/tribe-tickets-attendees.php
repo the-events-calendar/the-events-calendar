@@ -19,10 +19,10 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 
 	function get_columns() {
 		$columns = array( 'cb'            => '<input type="checkbox" />',
-		                  'attendee_id'   => __( 'Ticket #', 'tribe-events-calendar' ),
 		                  'order_id'      => __( 'Order #', 'tribe-events-calendar' ),
 		                  'order_status'  => __( 'Order Status', 'tribe-events-calendar' ),
 		                  'ticket'        => __( 'Ticket', 'tribe-events-calendar' ),
+		                  'attendee_id'   => __( 'Ticket #', 'tribe-events-calendar' ),
 		                  'security'      => __( 'Security Code', 'tribe-events-calendar' ),
 		                  'check_in'      => __( 'Check in', 'tribe-events-calendar' ) );
 		return $columns;

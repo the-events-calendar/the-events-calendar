@@ -7,8 +7,8 @@ jQuery( document ).ready( function ( $ ) {
 		$( 'td.column-security' ).each( function ( i, e ) {
 			var attendeeobj = jQuery( e );
 			var attendee = attendeeobj.text().toLowerCase();
-			var orderid = attendeeobj.prev( 'td' ).prev( 'td' ).prev( 'td' ).children( 'a' ).text();
-			var ticketid = attendeeobj.prev( 'td' ).prev( 'td' ).prev( 'td' ).prev( 'td' ).text();
+			var orderid = attendeeobj.prev( 'td' ).prev( 'td' ).prev( 'td' ).prev( 'td' ).children( 'a' ).text();
+			var ticketid = attendeeobj.prev( 'td' ).text();
 
 			if ( attendee.indexOf( search ) === 0 || orderid.indexOf( search ) === 0 || ticketid.indexOf( search ) === 0 ) {
 				attendeeobj.parent( 'tr' ).show();
