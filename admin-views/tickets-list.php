@@ -5,7 +5,7 @@
 	global $post;
 	if ( $post ) {
 		$post_id = get_the_ID();
-	}else{
+	} else {
 		$post_id = $_POST["post_ID"];
 	}
 
@@ -13,8 +13,7 @@
 
 		$controls     = array();
 		$provider     = $ticket->provider_class;
-		$provider_obj = call_user_func( array( $provider,
-		                                       'get_instance' ) );
+		$provider_obj = call_user_func( array( $provider, 'get_instance' ) );
 
 
 		$controls[] = sprintf( "<span><a href='#' attr-provider='%s' attr-ticket-id='%s' id='ticket_edit_%s' class='ticket_edit'>Edit</a></span>", $ticket->provider_class, $ticket->ID, $ticket->ID );
@@ -35,13 +34,14 @@
 			?>
 			<td colspan="4" class="titlewrap">
 				<h4 class="tribe_sectionheader"><?php echo esc_html( self::$active_modules[$ticket->provider_class] ); ?>
-					<?php echo $provider_obj->get_event_reports_link( $post_id ); ?><small>&nbsp;|&nbsp;</small>
-					<?php echo sprintf( "<small><a title='See who purchased tickets to this event' href='%s'>Attendees</a></small>", admin_url( sprintf( 'edit.php?post_type=%s&page=%s&event_id=%d', TribeEvents::POSTTYPE, $this->attendees_slug, $post_id ) ) ); ?>
+						<?php echo $provider_obj->get_event_reports_link( $post_id ); ?>
+					<small>&nbsp;|&nbsp;</small>
+					<?php echo sprintf( "<small><a title='See who purchased tickets to this event' href='%s'>%s</a></small>", admin_url( sprintf( 'edit.php?post_type=%s&page=%s&event_id=%d', TribeEvents::POSTTYPE, $this->attendees_slug, $post_id ) ), __( "Attendees", 'tribe-events-calendar' ) ); ?>
 				</h4>
 			</td>
 			<?php } ?>
 		<tr>
-			<td width="40%">
+			<td>
 				<p class="ticket_name"><?php
 					echo sprintf( "<a href='#' attr-provider='%s' attr-ticket-id='%s' class='ticket_edit'>%s</a></span>", $ticket->provider_class, $ticket->ID, esc_html( $ticket->name ) );
 					?></p>
@@ -51,26 +51,19 @@
 				</div>
 
 			</td>
+			<td valign="top">
+				<?php echo  woocommerce_price( $ticket->price ); ?>
+			</td>
+
+			<td nowrap="nowrap">
+				<?php
+				$stock = !empty ( $ticket->stock ) ? $ticket->stock : 0;
+				$sold  = !empty ( $ticket->qty_sold ) ? $ticket->qty_sold : 0;
+				echo sprintf( __( "Sold %d of %d", 'tribe-events-calendar' ), $sold, $sold + $stock );
+				?>
+			</td>
 			<td width="40%" valign="top">
 				<?php echo esc_html( $ticket->description ); ?>
-			</td>
-			<td nowrap="nowrap">
-				<?php
-				if ( $ticket->stock ) {
-					?>
-					<i>Stock: <?php echo esc_html( $ticket->stock ); ?></i>
-					<?php
-				}
-				?>
-			</td>
-			<td nowrap="nowrap">
-				<?php
-				if ( $ticket->qty_sold ) {
-					?>
-					<i>Sold: <?php echo esc_html( $ticket->qty_sold ); ?></i>
-					<?php
-				}
-				?>
 			</td>
 		</tr>
 		<?php
