@@ -6,7 +6,16 @@ jQuery( document ).ready( function ( $ ) {
 		changeMonth:true,
 		changeYear:true,
 		numberOfMonths:3,
-		showButtonPanel:true
+		showButtonPanel:true,
+		onSelect:function ( dateText, inst ) {
+			var the_date = $.datepicker.parseDate( 'yy-mm-dd', dateText );
+			if ( inst.id === "ticket_start_date" ) {
+				$( "#ticket_end_date" ).datepicker( 'option', 'minDate', the_date )
+			} else {
+				$( "#ticket_start_date" ).datepicker( 'option', 'maxDate', the_date )
+
+			}
+		}
 	};
 
 	$( "#ticket_start_date" ).datepicker( datepickerOpts );
