@@ -58,6 +58,8 @@ jQuery( document ).ready( function ( $ ) {
 
 	/* "Add a ticket" link action */
 	$( 'a#ticket_form_toggle' ).click( function ( e ) {
+		$( 'h4.ticket_form_title_edit' ).hide();
+		$( 'h4.ticket_form_title_add' ).show();
 		$( this ).hide();
 		ticket_clear_form();
 		$( '#ticket_form' ).show();
@@ -146,6 +148,10 @@ jQuery( document ).ready( function ( $ ) {
 	$( '.ticket_edit' ).live( 'click', function ( e ) {
 
 		e.preventDefault();
+
+		$( 'h4.ticket_form_title_edit' ).show();
+		$( 'h4.ticket_form_title_add' ).hide();
+
 
 		tickets_start_spin();
 

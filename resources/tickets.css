@@ -43,3 +43,7 @@ p.ticket_name {
 .ticket_form p.description {
 	display : inline;
 }
+
+.ticket_form h4.ticket_form_title_edit {
+	display : none;
+}

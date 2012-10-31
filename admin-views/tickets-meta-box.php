@@ -33,6 +33,14 @@ if ( !defined( 'ABSPATH' ) ) {
 	<tr id="ticket_form" class="ticket_form">
 		<td colspan="2" class="tribe_sectionheader">
 			<table id="ticket_form_table" class="eventtable ticket_form">
+
+				<tr>
+					<td colspan="2">
+						<h4 class="ticket_form_title_add"><?php _e( 'Add new ticket', 'tribe-events-calendar' ); ?></h4>
+						<h4 class="ticket_form_title_edit"><?php _e( 'Edit ticket', 'tribe-events-calendar' ); ?></h4>
+					</td>
+				</tr>
+
 				<tr>
 					<td width="20%"><label
 						for="ticket_provider"><?php _e( 'Sell using:', 'tribe-events-calendar' ); ?></label></td>
