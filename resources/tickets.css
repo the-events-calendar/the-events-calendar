@@ -34,3 +34,8 @@
 	font-size      : 11px;
 	text-transform : none;
 }
+
+p.ticket_name {
+	font-size   : 13px;
+	font-weight : bold;
+}
