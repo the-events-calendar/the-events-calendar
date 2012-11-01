@@ -323,7 +323,11 @@ if (!class_exists('TribeEventsQuery')) {
 					return $posts;
 				}
 			} else {
-				return NULL;
+				if ( $full ) {
+					return $wp_query;
+				} else {
+					return array();
+				}
 			}
 		}
 	}
