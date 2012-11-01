@@ -114,6 +114,11 @@ if (!class_exists('TribeEventsQuery')) {
 						);
 				}
 
+				$meta_query[] = array(
+					'key' => '_EventStartDate',
+					'type' => 'DATETIME'
+					);
+
 			}
 
 			// filter by Venue ID
@@ -186,9 +191,9 @@ if (!class_exists('TribeEventsQuery')) {
 			$query->tribe_is_event_query ? apply_filters( 'tribe_events_pre_get_posts', $query ) : $query;
 
 			// setup default Event Start join/filter
-			if ( ( $query->tribe_is_event || $query->tribe_is_event_category ) && empty( $query->query_vars['meta_query'] ) ) {
-				$query->set( 'meta_query', array( array( 'key' => '_EventStartDate', 'type' => 'DATETIME' ) ) );
-			}
+			// if ( ( $query->tribe_is_event || $query->tribe_is_event_category ) && empty( $query->query_vars['meta_query'] ) ) {
+			// 	$query->set( 'meta_query', array( array( 'key' => '_EventStartDate', 'type' => 'DATETIME' ) ) );
+			// }
 
 			return $query;
 		}
