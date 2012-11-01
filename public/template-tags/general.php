@@ -523,7 +523,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		global $wp_query;
 
 		// hijack the main query to load the events via provided $args
-		if( !is_null($args) ) {
+		if( !is_null($args) || ! $wp_query->tribe_is_event || ! $wp_query->tribe_is_event_category ) {
 			$reset_q = $wp_query;
 			$wp_query = TribeEventsQuery::getEvents( $args, true );
 		}
