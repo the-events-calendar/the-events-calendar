@@ -238,7 +238,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_filter( 'tribe-events-bar-filters', array( $this, 'setup_date_search_in_bar' ), 5, 1 );
 
 			add_filter( 'tribe_events_pre_get_posts', array( $this, 'setup_keyword_search_in_query' ) );
-			add_filter( 'tribe_events_pre_get_posts', array( $this, 'setup_date_search_in_query' ) );
+			add_filter( 'tribe_events_pre_get_posts', array( $this, 'setup_date_search_in_query' ), 11 );
 			/* End Setup Tribe Events Bar */
 		}
 
@@ -3144,15 +3144,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function setup_date_search_in_query( $query ) {
 
 			if ( !empty( $_POST['tribe-bar-date'] ) ) {
-				$meta_query = array( array( 'key'     => '_EventStartDate',
+				$meta_query = array( 'key'     => '_EventStartDate',
 				                            'value'   => array( TribeDateUtils::beginningOfDay( $_POST['tribe-bar-date'] ),
 				                                                TribeDateUtils::endOfDay( $_POST['tribe-bar-date'] ) ),
 				                            'compare' => 'BETWEEN',
-				                            'type'    => 'DATETIME' ) );
-
+				                            'type'    => 'DATETIME' );
 
 				if ( empty( $query->query_vars['meta_query'] ) ) {
-					$query->set( 'meta_query', $meta_query );
+					$query->set( 'meta_query', array($meta_query) );
 				} else {
 					$query->query_vars['meta_query'][] = $meta_query;
 				}
