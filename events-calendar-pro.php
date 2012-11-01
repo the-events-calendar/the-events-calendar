@@ -102,12 +102,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'addLinksToPluginActions' ) );
 
 			// see function tribe_convert_units( $value, $unit_from, $unit_to )
-			add_filter( 'tribe_convert_kms_to_miles_ratio', function () {
-				return 0.621371;
-			} );
-			add_filter( 'tribe_convert_miles_to_kms_ratio', function () {
-				return 1.60934;
-			} );
+			add_filter( 'tribe_convert_kms_to_miles_ratio', array( $this, 'kms_to_miles_ratio' ) );
+			add_filter( 'tribe_convert_miles_to_kms_ratio', array( $this, 'miles_to_kms_ratio' ) );
 
 			/* Setup Tribe Events Bar */
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_weekview_in_bar' ), 1, 1 );
@@ -848,6 +844,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			return $value;
 		}
 
+		function kms_to_miles_ratio() {
+			return 0.621371;
+		}
+
+		function miles_to_kms_ratio() {
+			return 1.60934;
+		}
+
 
 		/* Static Methods */
 		public static function instance() {
@@ -857,6 +861,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 			return self::$instance;
 		}
+
+
 
 	} // end Class
 
