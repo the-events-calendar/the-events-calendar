@@ -34,8 +34,6 @@ class TribeEventsTicketsMetabox {
 		wp_enqueue_script( 'events-tickets', plugins_url( 'resources/tickets.js', dirname( dirname( __FILE__ ) ) ) );
 		wp_enqueue_style( 'events-tickets', plugins_url( 'resources/tickets.css', dirname( dirname( __FILE__ ) ) ) );
 
-		if ( class_exists( 'TribeSpinJS' ) )
-			TribeSpinJS::load();
 
 	}
 

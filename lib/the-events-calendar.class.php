@@ -156,9 +156,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *Load all the required library files.
 		 **/
 		protected function loadLibraries() {
-			// Load spin.js class early so any class can use it
-			require_once ('tribe-spin-js.php');
-
 			// Exceptions Helper
 			require_once( 'tribe-event-exception.class.php' );
 
