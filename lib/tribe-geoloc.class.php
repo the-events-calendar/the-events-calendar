@@ -47,11 +47,13 @@ class TribeEventsGeoLoc {
 
 		$tec = TribeEvents::instance();
 
-		wp_register_script( 'gmaps', 'http://maps.google.com/maps/api/js?sensor=false', array( 'jquery' ) );
+		$http = is_ssl() ? 'https' : 'http';
+
+		wp_register_script( 'gmaps', $http . '://maps.google.com/maps/api/js?sensor=false', array( 'jquery' ) );
 		wp_register_script( 'tribe-geoloc', trailingslashit( TribeEventsPro::instance()->pluginUrl ) . 'resources/maps.js', array( 'gmaps' ) );
 		wp_enqueue_script( 'tribe-geoloc' );
 
-		$data = array( 'ajaxurl'  => admin_url( 'admin-ajax.php' ),
+		$data = array( 'ajaxurl'  => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
 		               'nonce'    => wp_create_nonce( 'geosearch' ),
 		               'center'   => $this->estimate_center_point(),
 		               'map_view' => ( $tec->displaying == 'map' ) ? true : false );
