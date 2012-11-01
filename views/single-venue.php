@@ -30,6 +30,7 @@ echo apply_filters( 'tribe_events_single_venue_before_template', '', $venue_id )
 	// Start single venue
 	echo apply_filters( 'tribe_events_single_venue_before_venue', '', $venue_id );
 	
+
 		// Venue map
 		echo apply_filters( 'tribe_events_single_venue_map', '', $venue_id );
 		
