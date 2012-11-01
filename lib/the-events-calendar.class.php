@@ -1211,7 +1211,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param string $default default value
 		 * @return mixed results of option query
 		 */
-		public function getOption($optionName, $default = '') {
+		public static function getOption($optionName, $default = '') {
 			if( !$optionName )
 				return null;
 
@@ -1224,7 +1224,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$option = $default;
 			}
 
-			return apply_filters( 'tribe_get_single_option', $option, $default );
+			return apply_filters( 'tribe_get_single_option', $option, $default, $optionName );
 		}
 
 		/**
