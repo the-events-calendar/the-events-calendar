@@ -83,12 +83,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_current_events_page_template', array( $this, 'select_page_template' ) );
 			add_filter( 'tribe_help_tab_getting_started_text', array( $this, 'add_help_tab_getting_started_text' ) );
 			add_filter( 'tribe_help_tab_enb_content', array( $this, 'add_help_tab_enb_text' ) );
-			add_filter( 'tribe_events_template_single-venue.php', array( $this, 'load_venue_template' ) );
+			// add_filter( 'tribe_events_template_single-venue.php', array( $this, 'load_venue_template' ) );
 			add_action( 'widgets_init', array( $this, 'pro_widgets_init' ), 100 );
 			add_action( 'wp_loaded', array( $this, 'allow_cpt_search' ) );
 			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
 			add_filter( 'get_delete_post_link', array( $this, 'adjust_date_on_recurring_event_trash_link' ), 10, 2 );
 			add_action( 'admin_footer', array( $this, 'addDeleteDialogForRecurringEvents' ) );
+			add_filter( 'tribe_get_events_title', array( $this, 'reset_page_title'));
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
 			add_action( 'tribe_venue_table_top', array( $this, 'displayEventVenueDropdown' ) );
@@ -108,6 +109,22 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'wp_ajax_nopriv_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
 		}
 
+
+		function reset_page_title( $content ){
+			global $wp_query;
+
+			// week view title
+			if( tribe_is_week() ) {
+				$reset_title = sprintf( __('Week starting %s', 'tribe-events-calendar-pro'),
+					Date("l, F jS Y", strtotime(tribe_get_first_week_day($wp_query->get('start_date'))))
+					);
+			}
+			// day view title
+			if( tribe_is_day() ) {
+				$reset_title = Date("l, F jS Y", strtotime($wp_query->get('start_date')));
+			}
+			return isset($reset_title) ? apply_filters( 'tribe_template_factory_debug', $reset_title, 'tribe_get_events_title' ) : $content;
+		}
 
 		/**
 		 * AJAX handler for tribe_event_day (dayview navigation)
@@ -134,7 +151,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				if ( have_posts() )
 					the_post();
 
-				load_template( TribeEventsTemplates::getTemplateHierarchy( 'day', '', 'pro', $this->pluginPath ) );
+				TribeEventsTemplates::getTemplateHierarchy( 'day', '', 'pro', $this->pluginPath );
+
+				load_template( TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
 			}
 			die();
 		}
@@ -534,8 +553,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function select_page_template( $template ) {
 			// venue view
 			if( is_singular( TribeEvents::VENUE_POST_TYPE ) ) {
-				$template = TribeEventsTemplates::getTemplateHierarchy( 'single-venue' );
-				// $template = TribeEventsTemplates::getTemplateHierarchy( 'list' );
+				$template = TribeEventsTemplates::getTemplateHierarchy( 'single-venue','','pro', $this->pluginPath );
 			}
 			// week view
 			if( tribe_is_week() ) {
@@ -544,12 +562,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// day view
 			if( tribe_is_day() ) {
 				$template = TribeEventsTemplates::getTemplateHierarchy('day','','pro', $this->pluginPath);
+				$template = TribeEventsTemplates::getTemplateHierarchy('list');
 			}
 			return $template;
 		}
 
     	public function load_venue_template( $file ) {
-    		return ( file_exists( $file ) ) ? $file : $this->pluginPath . 'views/single-venue.php';
+    		return TribeEventsTemplates::getTemplateHierarchy( 'single-venue','','pro', $this->pluginPath );
 	    }
 
     	public function add_google_map_preview( $postId ) {
