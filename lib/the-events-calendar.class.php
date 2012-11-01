@@ -3062,7 +3062,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function setup_date_search_in_bar( $filters ) {
 
+			global $wp_query;
+
 			$value = "";
+
+			if ( !empty( $wp_query->query_vars['eventDisplay'] ) && $wp_query->query_vars['eventDisplay'] === 'day' ) {
+				$value = date( TribeDateUtils::DBDATEFORMAT, strtotime( $wp_query->query_vars['eventDate'] ) );
+			}
+
 			if ( !empty( $_POST['tribe-bar-date'] ) ) {
 				$value = $_POST['tribe-bar-date'];
 			}
