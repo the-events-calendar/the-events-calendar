@@ -143,6 +143,10 @@ a.tribe-events-gcal {
 	margin-right: 10px;
 }
 
+.date-divider {
+	padding: 0 10px;
+}
+
 /* 2011 Theme Extra Calendar Room */
 .events-archive .entry-content, 
 .events-archive .entry-header { width: 98%; }
