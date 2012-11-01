@@ -29,6 +29,7 @@ jQuery(document).ready(function($) {
 	
    	// Add classes on various loops
    	$('.tribe-events-loop .vevent:last').addClass('tribe-last');
+   	$('.tribe-events-day-time-slot').find('.vevent:last').addClass('tribe-last');
    	$('.events-gridview table.tribe-events-calendar').find('td.tribe-events-thismonth').each(function(index) {
           $(this).children('.vevent').last().addClass('tribe-last');
     });
