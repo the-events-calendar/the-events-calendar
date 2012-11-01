@@ -141,7 +141,9 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 				$ticket  = wp_parse_args( $ticket, $defaults );
 				$event   = get_post( $ticket['event_id'] );
 
-				$venue   = tribe_get_venue( $event->ID );
+				$venue_id = tribe_get_venue_id( $event->ID );
+				$venue    = ( !empty( $venue_id ) ) ? get_post( $venue_id )->post_title : '';
+
 				$address = tribe_get_address( $event->ID );
 				$zip     = tribe_get_zip( $event->ID );
 				$state   = tribe_get_stateprovince( $event->ID );
@@ -180,10 +182,18 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 				$pdf->Write( 5, __( 'LOCATION:', 'tribe-events-calendar' ) );
 
 				$pdf->SetFont( 'SteelFish', '', 30 );
-				$pdf->SetXY( 30, 59 );
-				$pdf->Write( 5, strtoupper( $ticket['holder_name'] ) );
-				$pdf->SetXY( 104, 59 );
 
+				$pdf->SetXY( 30, 59 );
+				$holder = strtoupper( utf8_decode( $ticket['holder_name'] ) );
+				$size  = 30;
+				while ( $pdf->GetStringWidth( $holder ) > 70 ) {
+					$size--;
+					$pdf->SetFontSize( $size );
+				}
+				$pdf->Write( 5, $holder );
+
+
+				$pdf->SetXY( 104, 59 );
 				$venue = strtoupper( utf8_decode( $venue ) );
 				$size  = 30;
 				while ( $pdf->GetStringWidth( $venue ) > 70 ) {
