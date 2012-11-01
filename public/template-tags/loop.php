@@ -148,9 +148,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
-		$title = Tribe_Template_Factory::debug( 'tribe_get_events_title' ) . $title . Tribe_Template_Factory::debug( '/tribe_get_events_title', false );
-		
-		return apply_filters('tribe_get_events_title', $title);
+		return apply_filters('tribe_template_factory_debug', apply_filters('tribe_get_events_title', $title), 'tribe_get_events_title');
 	}
 
 	/**

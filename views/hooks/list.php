@@ -90,13 +90,13 @@ if( !class_exists('Tribe_Events_List_Template')){
 		// Event Start Date
 		public function the_start_date( $post_id ){
 			$html = '';
-			if (tribe_is_new_event_day() && !tribe_is_day())
+			if ( tribe_is_new_event_day() && !tribe_is_day())
 				$html .= '<h3><abbr class="tribe-events-abbr updated published dtstart" title="'. tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ) .'">'. tribe_get_start_date() .'</abbr></h3>';
 				
-			if (tribe_is_day() && $this->first) {
-				$this->first = false;
-				$html .= '<h3><abbr class="tribe-events-abbr updated published dtstart" title="'. tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ) .'">'. tribe_event_format_date( strtotime( get_query_var( 'eventDate' ) ), false ) .'</abbr></h3>';
-			}
+			// if ( tribe_is_day() && self::$first ) {
+			// 	self::$first = false;
+			// 	$html .= '<h3><abbr class="tribe-events-abbr updated published dtstart" title="'. tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ) .'">'. tribe_event_format_date( strtotime( get_query_var( 'eventDate' ) ), false ) .'</abbr></h3>';
+			// }
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_start_date');
 		}
 		// Event Title
