@@ -35,7 +35,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'rewrite' => array('slug'=>'venue', 'with_front' => false),
 			'show_ui' => true,
 			'show_in_menu' => 0,
-			'supports' => array('title', 'editor'),
+			'supports' => array('title', 'editor', 'thumbnail'),
 			'capability_type' => array('tribe_venue', 'tribe_venues'),
 			'map_meta_cap' => true,
 			'exclude_from_search' => true

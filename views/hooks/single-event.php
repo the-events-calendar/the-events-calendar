@@ -200,7 +200,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 
 			// Single event content ?>
 			<div class="entry-content description">
-				<?php echo tribe_event_recurring_info_tooltip(); ?>
+				
 				<?php // Event image
 				if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) {
 					the_post_thumbnail();
