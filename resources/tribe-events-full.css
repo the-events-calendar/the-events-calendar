@@ -54,8 +54,6 @@ ul.tribe-events-sub-nav a:hover,
 }
 
 /* View Extra Padding */
-.events-archive.events-list .hentry,
-.events-archive.events-gridview .hentry,
 .tribe-events-day.page .hentry,
 .tribe-events-week.page .hentry {
 	margin: 0;
@@ -316,6 +314,7 @@ width: 70%;
 
 .tribe-events-list .tribe-events-event-details h2, .tribe-events-list .tribe-events-event-details h3 {
 	margin: 0 0 2% 0;
+	padding: 0;
 	line-height: 1.2;
 }
 
@@ -324,7 +323,8 @@ width: 70%;
 }
 
 .tribe-events-list .tribe-events-event-details h3, .tribe-events-list .tribe-events-event-details address.event-address  {
-	font-size: 1em;
+	font-size: 1.2em;
+	margin: 0 0 1% 0;
 }
 
 .tribe-events-event-details address.event-address {
@@ -449,12 +449,7 @@ width: 70%;
 .tribe-events-loop {
 	clear: both;
 }
-.events-archive .tribe-events-loop .vevent,
-.single-tribe_venue .tribe-events-loop .vevent {
-	border-bottom: 1px solid #ddd;
-	padding: 3.5em 0;
-	margin: 0;
-}
+
 .tribe-events-loop .vevent.tribe-last {
 	border-bottom: 0;
 }
