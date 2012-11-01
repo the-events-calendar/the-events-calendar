@@ -101,11 +101,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			/* Setup Tribe Events Bar */
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_weekview_in_bar' ), 1, 1 );
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_dayview_in_bar' ), 5, 1 );
+			add_filter( 'tribe-events-bar-date-search-default-value', array( $this, 'maybe_setup_date_in_bar' ) );
 
 			/* AJAX for loading day view */
 			add_action( 'wp_ajax_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
 			add_action( 'wp_ajax_nopriv_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
 		}
+
 
 		/**
 		 * AJAX handler for tribe_event_day (dayview navigation)
@@ -798,6 +800,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			                  'anchor'     => __( 'Today', 'tribe-events-calendar-pro' ),
 			                  'url'        => tribe_get_day_permalink() );
 			return $views;
+		}
+
+		function maybe_setup_date_in_bar( $value ) {
+			global $wp_query;
+			if ( !empty( $wp_query->query_vars['eventDisplay'] ) && $wp_query->query_vars['eventDisplay'] === 'day' ) {
+				$value = date( TribeDateUtils::DBDATEFORMAT, strtotime( $wp_query->query_vars['eventDate'] ) );
+			}
+			return $value;
 		}
 
 
