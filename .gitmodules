@@ -1,3 +1,0 @@
-[submodule "vendor/spin.js"]
-	path = vendor/spin.js
-	url = https://github.com/fgnass/spin.js.git

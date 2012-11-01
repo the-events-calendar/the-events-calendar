@@ -32,6 +32,7 @@ if ( !defined( 'ABSPATH' ) ) {
 	</tr>
 	<tr id="ticket_form" class="ticket_form">
 		<td colspan="2" class="tribe_sectionheader">
+			<div id="tribe-loading"><span></span></div>
 			<table id="ticket_form_table" class="eventtable ticket_form">
 
 				<tr>

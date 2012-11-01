@@ -179,3 +179,30 @@ td.tribe_message {padding-bottom: 10px !important;}
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {float: none !important; text-align: center;}
 .ui-button-text-only .ui-button-text {padding: .4em 1em;}
 .ui-button .ui-button-text {display: block; line-height: 1.4;}
+
+#tribe-loading {
+	display           : none;
+	position          : absolute;
+	width             : 100%;
+	height            : 100%;
+	left              : 0;
+	top               : 0;
+	background        : #fff;
+	background        : rgba(255, 255, 255, 0.8);
+	z-index           : 4;
+	webkit-transition : all 1s linear;
+	-moz-transition   : all 1s linear;
+	-o-transition     : all 1s linear;
+	-ms-transition    : all 1s linear;
+	transition        : all 1s linear;
+}
+
+#tribe-loading span {
+	position   : absolute;
+	width      : 32px;
+	height     : 32px;
+	left       : 50%;
+	top        : 50%;
+	margin     : -16px 0 0 -16px;
+	background : url(images/tribe-loading.gif) 0 0 no-repeat;
+}

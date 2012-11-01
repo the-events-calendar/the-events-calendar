@@ -21,29 +21,6 @@ jQuery( document ).ready( function ( $ ) {
 	$( "#ticket_start_date" ).datepicker( datepickerOpts );
 	$( "#ticket_end_date" ).datepicker( datepickerOpts );
 
-	var tickets_spinner_opts = {
-		lines:13, // The number of lines to draw
-		length:7, // The length of each line
-		width:4, // The line thickness
-		radius:10, // The radius of the inner circle
-		rotate:0, // The rotation offset
-		color:'#000', // #rgb or #rrggbb
-		speed:1, // Rounds per second
-		trail:60, // Afterglow percentage
-		shadow:false, // Whether to render a shadow
-		hwaccel:false, // Whether to use hardware acceleration
-		className:'spinner', // The CSS class to assign to the spinner
-		zIndex:2e9, // The z-index (defaults to 2000000000)
-		top:'auto', // Top position relative to parent in px
-		left:'auto' // Left position relative to parent in px
-	};
-
-	var tickets_spinner = null;
-	if ( typeof Spinner === 'function' ) {
-		tickets_spinner = new Spinner( tickets_spinner_opts );
-	}
-
-
 	/* Show the advanced metabox for the selected provider and hide the others on selection change */
 	$( 'input[name=ticket_provider]:radio' ).change( function () {
 		$( 'tr.ticket_advanced' ).hide();
@@ -244,12 +221,12 @@ jQuery( document ).ready( function ( $ ) {
 
 	function tickets_start_spin() {
 		jQuery( '#event_tickets' ).css( 'opacity', '0.5' );
-		tickets_spinner.spin( document.getElementById( 'event_tickets' ) );
+		jQuery( "#tribe-loading" ).show();
 	}
 
 	function tickets_stop_spin() {
 		jQuery( '#event_tickets' ).css( 'opacity', '1' );
-		tickets_spinner.stop();
+		jQuery( "#tribe-loading" ).hide();
 	}
 
 
