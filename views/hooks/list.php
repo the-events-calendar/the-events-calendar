@@ -141,7 +141,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 								<?php if( get_post_meta( $post_id, '_EventShowMapLink', true ) == 'true' ) : ?>
 									 <a class="tribe-events-gmap" href="<?php echo tribe_get_map_link(); ?>" title="Click to view this event's Google Map" target="_blank"><?php _e( 'Google Map', 'tribe-events-calendar' ); ?></a>
 								<?php endif; ?>
-							<span class="location"><?php echo tribe_get_full_address( $post_id ); ?></span>
+							<address class="event-address"><?php echo tribe_get_full_address( $post_id ); ?></address>
 						<?php } ?>						
 					</h3><!-- .fn .org -->
 				<?php } ?>								

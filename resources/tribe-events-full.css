@@ -139,7 +139,6 @@ a.tribe-events-gcal {
 
 /* Event Schedule Detail Styling */
 .tribe-event-schedule-details {
-	font-size: 14px;
 	font-style: normal;
 	font-weight: bold;
 	display: inline;
@@ -232,7 +231,6 @@ a.tribe-events-gcal {
 	padding: 1px 20px;
 }
 #tribe-events-content {
-	font-size: 16px;
 }
 
 /* Header */
@@ -295,7 +293,6 @@ select.tribe-events-dropdown {
 /* = List View Template Styles
    @ Template: list.php
 =============================================*/
-/* Page Title */
 .tribe-events-list h2.tribe-events-page-title {
 	margin-bottom: 15px;
 }
@@ -305,10 +302,33 @@ select.tribe-events-dropdown {
 	margin-bottom: 60px;
 }
 
+.tribe-events-list .vevent {
+	border-bottom: 1px solid #ddd;
+	padding: 2.25em 0;
+	overflow: auto;
+	margin: 0;
+}
+
 .tribe-events-list .tribe-events-event-details .entry-title, .events-archive .tribe-events-list .tribe-events-event-details .entry-title {
-margin: 0 0 15px 0;
 float: left;
 width: 70%;
+}
+
+.tribe-events-list .tribe-events-event-details h2, .tribe-events-list .tribe-events-event-details h3 {
+	margin: 0 0 2% 0;
+	line-height: 1.2;
+}
+
+.tribe-events-list .tribe-events-event-details h2 {
+	font-size: 1.4em;
+}
+
+.tribe-events-list .tribe-events-event-details h3, .tribe-events-list .tribe-events-event-details address.event-address  {
+	font-size: 1em;
+}
+
+.tribe-events-event-details address.event-address {
+	font-style: normal;
 }
 
 /* Image */
@@ -328,30 +348,33 @@ width: 70%;
 .tribe-events-list .tribe-events-event-image + .tribe-events-event-details {
 	float: left;
 	width: 67%;
+	position: relative;
 }
 
 
-
 /* Meta */
-.tribe-events-list .tribe-events-loop .tribe-events-event-meta {
+.tribe-events-loop .tribe-events-event-meta {
 	float: none;
+	clear: both;
 	border: 0;
 	margin: 0 0 15px 0;
 	padding: 0;
-	width: 100%;
 	line-height: 1.4;
 	font-weight: normal;
 	overflow: visible;
 }
 
-.tribe-events-list .tribe-events-loop .tribe-events-event-meta p { 
-	margin: 15px 0 0;
-	font-size: 13px;
+.tribe-events-loop .fn, .tribe-events-loop .vard {
+	float: none;
 }
 
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
 	display: inline-block;
 } 
+
+.tribe-events-event-meta address.event-address {
+	display: inline;
+}
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring {
 	position: relative;
 	font-style: normal;
@@ -377,8 +400,11 @@ width: 70%;
 
 /* Cost */
 .tribe-events-list .tribe-events-event-cost {
-	float: right;
-	margin: 0 0 0 3%;
+	position: absolute;
+	right: 1px;
+	margin: 0;
+	width: 25%;
+	word-wrap: break-word;
 }
 
 .tribe-events-list .tribe-events-event-cost span {
@@ -386,10 +412,9 @@ width: 70%;
 	background: #eee;
 	border: 1px solid #ddd;
 	display: block;
-	padding: 8px 10px;
+	padding: 4% 5%;
 	text-align: center;
 	font-style: normal;
-	white-space: nowrap;
 	text-overflow: ellipsis;
 }
 
@@ -398,6 +423,10 @@ width: 70%;
 .tribe-events-list .tribe-events-loop .entry-content {
 	width: 100%;
 	padding: 0;
+}
+
+.tribe-events-list .tribe-events-loop .entry-content p {
+	margin: 0;
 }
 
 /* Navigation */
@@ -418,7 +447,6 @@ width: 70%;
 =============================================*/
 /* Loop */
 .tribe-events-loop {
-	font-size: 13px;
 	clear: both;
 }
 .events-archive .tribe-events-loop .vevent,
@@ -438,11 +466,9 @@ width: 70%;
 .events-archive .entry-content p, 
 .single-tribe_venue .tribe-events-loop .entry-content p {
 	margin: 0;
-	font-size: 16px;
 	line-height: 24px;
 }
-.single-tribe_venue .tribe-events-list .entry-title, 
-.events-archive .tribe-events-list .entry-title {
+.single-tribe_venue .tribe-events-list .entry-title {
 	margin: 15px 0 10px;
 	font-size: 18px;
 	font-weight:bold;
@@ -460,31 +486,6 @@ width: 70%;
 .tribe-events-event-day {
 	color: #333;
 }
-
-/* Event Meta Info */
-.tribe-events-loop .tribe-events-event-meta {
-	float: right;
-	border: 0;
-	border-left: 1px solid #ccc;
-	padding: 0 0 0 4%;
-	width: 30%;
-	font-size: 12px;
-	margin: 0 0 1.75em;
-	clear: both;
-}
-.tribe-events-loop .tribe-events-event-meta dl {
-	margin: 0;
-}
-.tribe-events-loop .tribe-events-event-meta dt {
-	font-weight: bold;
-	padding-right: 12px;
-	width: auto;
-}
-.tribe-events-loop .tribe-events-event-meta dd {
-	margin-bottom: .25em;
-	margin-left: 6.5em;
-}
-
 
 /* = Single Event Template Styles
    @ Template: single-event.php

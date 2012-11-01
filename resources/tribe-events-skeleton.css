@@ -14,8 +14,6 @@
 /* = Global & Miscellaneous Styles
 =============================================*/
 /* View Extra Padding */
-.events-archive.events-list .hentry,
-.events-archive.events-gridview .hentry,
 .tribe-events-day.page .hentry,
 .tribe-events-week.page .hentry {
 	margin: 0;
@@ -256,11 +254,22 @@ select.tribe-events-dropdown {
 	margin-bottom: 60px;
 }
 
+.tribe-events-list .vevent {
+	border-bottom: 1px solid #ddd;
+	padding: 2.25em 0;
+	overflow: auto;
+	margin: 0;
+}
+
 .tribe-events-list .tribe-events-event-details .entry-title, .events-archive .tribe-events-list .tribe-events-event-details .entry-title {
 float: left;
 width: 70%;
 }
 
+.tribe-events-list .tribe-events-event-details h2, .tribe-events-list .tribe-events-event-details h3 {
+	margin: 0 0 4% 0;
+	line-height: 1.2;
+}
 /* Image */
 .tribe-events-list .tribe-events-event-image {
 	float: left;
@@ -282,26 +291,29 @@ width: 70%;
 }
 
 
-
 /* Meta */
 .tribe-events-loop .tribe-events-event-meta {
 	float: none;
+	clear: both;
 	border: 0;
 	margin: 0 0 15px 0;
-	padding: 0 16% 0 0;
+	padding: 0;
 	line-height: 1.4;
 	font-weight: normal;
 	overflow: visible;
 }
 
-.tribe-events-list .tribe-events-loop .tribe-events-event-meta p { 
-	margin: 15px 0 0;
-	font-size: 13px;
+.tribe-events-loop .fn, .tribe-events-loop .vard {
+	float: none;
 }
 
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
 	display: inline-block;
 } 
+
+.tribe-events-event-meta address.event-address {
+	display: inline;
+}
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring {
 	position: relative;
 	font-style: normal;
@@ -329,7 +341,9 @@ width: 70%;
 .tribe-events-list .tribe-events-event-cost {
 	position: absolute;
 	right: 1px;
-	margin: 0 0 0 3%;
+	margin: 0;
+	width: 25%;
+	word-wrap: break-word;
 }
 
 .tribe-events-list .tribe-events-event-cost span {
@@ -337,10 +351,9 @@ width: 70%;
 	background: #eee;
 	border: 1px solid #ddd;
 	display: block;
-	padding: 8px 10px;
+	padding: 4% 5%;
 	text-align: center;
 	font-style: normal;
-	white-space: nowrap;
 	text-overflow: ellipsis;
 }
 
@@ -350,21 +363,14 @@ width: 70%;
 =============================================*/
 /* Loop */
 .tribe-events-loop {
-	font-size: 13px;
 	clear: both;
 }
-.events-archive .tribe-events-loop .vevent,
-.single-tribe_venue .tribe-events-loop .vevent {
-	border-bottom: 1px solid #ddd;
-	padding: 2.25em 0;
-	overflow: auto;
-	margin: 0;
-}
+
 .tribe-events-loop .vevent.tribe-last {
 	border-bottom: 0;
 }
 .tribe-events-loop .entry-content {
-
+	clear: both;
 }
 .events-archive .entry-content p, 
 .single-tribe_venue .tribe-events-loop .entry-content p {
