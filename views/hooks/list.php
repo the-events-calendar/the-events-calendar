@@ -106,6 +106,9 @@ if( !class_exists('Tribe_Events_List_Template')){
 		// Event Details Begin
 		public function before_the_event_details ( $post_id ){
 			$html = '<div class="tribe-events-event-details">';
+			if ( tribe_get_cost() ) { // Get our event cost 
+				$html .=	'<div class="tribe-events-event-cost"><span>'. tribe_get_cost() .'</span></div>';
+			 } 				
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_the_event_details'); 
 		}							
 		// Event Title
@@ -115,10 +118,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 		}
 		// Event Meta
 		public function before_the_meta( $post_id ){
-			$html = '';
-			if ( tribe_get_cost() ) { // Get our event cost 
-				$html .=	'<div class="tribe-events-event-cost"><span>'. tribe_get_cost() .'</span></div>';
-			 } 		
+			$html = '';	
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_the_meta');
 		}
 		public function the_meta( $post_id ){
