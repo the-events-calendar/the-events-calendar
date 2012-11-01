@@ -47,8 +47,12 @@
 	text-transform: uppercase;
 	font-weight: bold;
 	font-size: 14px;
-	margin: 5em 0 1.5em;
-	letter-spacing: 0.1em;
+	margin: 2.5em 0 0;
+	background-color: #eee;
+	padding: 6px 10px;
+}
+.tribe-events-day .tribe-events-day-time-slot .vevent {
+	margin-left: 5%;
 }
 
 
