@@ -147,6 +147,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 				$address = tribe_get_address( $event->ID );
 				$zip     = tribe_get_zip( $event->ID );
 				$state   = tribe_get_stateprovince( $event->ID );
+				$city    = tribe_get_city( $event->ID );
 
 				$pdf->AddPage();
 
@@ -214,11 +215,10 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 				$pdf->SetXY( 104, 83 );
 
-				$sep = '';
-				if ( !empty( $state ) && !empty( $zip ) )
-					$sep = ", ";
+				$address2 = array($city, $state, $zip);
+				$address2 = join(', ', $address2);
+				$address2 = strtoupper( utf8_decode( $address2 ) );
 
-				$address2 = strtoupper( $state . $sep . $zip );
 				$size = 30;
 				while ( $pdf->GetStringWidth( $address2 ) > 70 ) {
 					$size--;
