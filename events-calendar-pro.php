@@ -607,13 +607,20 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
     		$tec = TribeEvents::instance();
 
 			// Enqueue the pro-stylesheet.
-    		$stylesheet_url = $this->pluginUrl . 'resources/tribe-events-pro.css';
+    		$stylesheet_url = $this->pluginUrl . 'resources/tribe-events-pro-full.css';
+    		
     		if ( $stylesheet_url ) {
-    			wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url );
+    			if ( tribe_get_option('stylesheetOption') == 'skeleton') {
+					$stylesheet_url = $this->pluginUrl . 'tribe-events-pro-skeleton.css';
+					wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url );
+				} else {
+					wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url );	
+				}
     		}
+    		
     		if ( $tec->displaying === 'day' ) {
 				Tribe_PRO_Template_Factory::asset_package( 'ajax-dayview' );
-			}
+			}		
     	}
 
 		public function iCalFeed( $post = null, $eventCatSlug = null, $eventDate = null ) {
