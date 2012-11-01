@@ -105,14 +105,14 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 
 		// Event List View
 		public static function upcoming_events( $venue_id ) {
+			global $post;
 			$args = array(
-				'venue' => $venue_id,
-				'eventDisplay' => 'upcoming',
-				'posts_per_page' => -1 );
+				'venue' => $post->ID,
+				'eventDisplay' => 'upcoming' );
 
 			$html = sprintf( '<h3 class="tribe-events-upcoming">%s <span>%s</span></h3> %s',
 				__( 'Upcoming events at', 'tribe-events-calendar-pro' ),
-				get_the_title( $venue_id ),
+				$post->post_title,
 				tribe_include_view_list( $args )
 				);
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_upcoming_events' );
