@@ -49,6 +49,7 @@ if ( ! have_posts() ) { // Messages if currently no events
 	}
 }
 
+
 // Start list template
 echo apply_filters( 'tribe_events_list_before_template', '', $the_post_id );
 
