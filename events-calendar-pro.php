@@ -607,7 +607,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
     		
     		if ( $stylesheet_url ) {
     			if ( tribe_get_option('stylesheetOption') == 'skeleton') {
-					$stylesheet_url = $this->pluginUrl . 'tribe-events-pro-skeleton.css';
+					$stylesheet_url = $this->pluginUrl . 'resources/tribe-events-pro-skeleton.css';
 					wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url );
 				} else {
 					wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url );	
