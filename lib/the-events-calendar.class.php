@@ -988,7 +988,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function getTagRewriteSlug() {
 			$slug = $this->getRewriteSlug() . '/' . sanitize_title( __( 'tag', 'tribe-events-calendar' ) );
-			return apply_filters( 'tribe_events_category_rewrite_slug', $slug );
+			return apply_filters( 'tribe_events_tag_rewrite_slug', $slug );
 		}
 		
 		public function getVenuePostTypeArgs() {
