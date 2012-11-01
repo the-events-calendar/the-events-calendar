@@ -114,6 +114,11 @@ if (!class_exists('TribeEventsQuery')) {
 						);
 				}
 
+				$meta_query[] = array(
+					'key' => '_EventStartDate',
+					'type' => 'DATETIME'
+					);
+
 			}
 
 			// filter by Venue ID
@@ -314,6 +319,8 @@ if (!class_exists('TribeEventsQuery')) {
 			// print_r($args);
 
 			$wp_query = new WP_Query( $args );
+
+			// print_r($wp_query->request);
 
 			if( ! empty($wp_query->posts) ) {
 				if ( $full ) {

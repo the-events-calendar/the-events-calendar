@@ -98,7 +98,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 		public function the_event_image( $post_id ){
 			$html ='';
 			if ( tribe_event_featured_image() ) {
-				$html .= tribe_event_featured_image();
+				$html .= tribe_event_featured_image(null, 'large');
 			}
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_event_image');
 

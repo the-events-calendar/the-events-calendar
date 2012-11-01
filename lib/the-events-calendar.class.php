@@ -238,7 +238,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_filter( 'tribe-events-bar-filters', array( $this, 'setup_date_search_in_bar' ), 5, 1 );
 
 			add_filter( 'tribe_events_pre_get_posts', array( $this, 'setup_keyword_search_in_query' ) );
-			add_filter( 'tribe_events_pre_get_posts', array( $this, 'setup_date_search_in_query' ) );
+			add_filter( 'tribe_events_pre_get_posts', array( $this, 'setup_date_search_in_query' ), 11 );
 			/* End Setup Tribe Events Bar */
 		}
 
@@ -353,10 +353,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function init() {
 			$this->loadTextDomain();
 			$this->pluginName = __( 'The Events Calendar', 'tribe-events-calendar' );
-			$this->rewriteSlug = sanitize_title($this->getOption('eventsSlug', 'events'));
-			$this->rewriteSlugSingular = sanitize_title($this->getOption('singleEventSlug', 'event'));
-			$this->taxRewriteSlug = $this->rewriteSlug . '/' . sanitize_title(__( 'category', 'tribe-events-calendar' ));
-			$this->tagRewriteSlug = $this->rewriteSlug . '/' . sanitize_title(__( 'tag', 'tribe-events-calendar' ));
+			$this->rewriteSlug         = $this->getRewriteSlug();
+			$this->rewriteSlugSingular = $this->getRewriteSlugSingular();
+			$this->taxRewriteSlug      = $this->getTaxRewriteSlug();
+			$this->tagRewriteSlug      = $this->getTagRewriteSlug();
 			$this->monthSlug = sanitize_title(__('month', 'tribe-events-calendar'));
 			$this->weekSlug = sanitize_title(__('week', 'tribe-events-calendar'));
 			$this->daySlug = sanitize_title(__('day', 'tribe-events-calendar'));
@@ -972,6 +972,24 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 
 		}
+
+		public function getRewriteSlug() {
+			return sanitize_title( $this->getOption( 'eventsSlug', 'events' ) );
+		}
+
+		public function getRewriteSlugSingular() {
+			return sanitize_title( $this->getOption( 'singleEventSlug', 'event' ) );
+		}
+
+		public function getTaxRewriteSlug() {
+			$slug = $this->getRewriteSlug() . '/' . sanitize_title( __( 'category', 'tribe-events-calendar' ) );
+			return apply_filters( 'tribe_events_category_rewrite_slug', $slug );
+		}
+
+		public function getTagRewriteSlug() {
+			$slug = $this->getRewriteSlug() . '/' . sanitize_title( __( 'tag', 'tribe-events-calendar' ) );
+			return apply_filters( 'tribe_events_tag_rewrite_slug', $slug );
+		}
 		
 		public function getVenuePostTypeArgs() {
 			return $this->postVenueTypeArgs;
@@ -1519,10 +1537,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			}
 
-			$this->rewriteSlug         = sanitize_title( $this->getOption( 'eventsSlug', 'events' ) );
-			$this->rewriteSlugSingular = sanitize_title( $this->getOption( 'singleEventSlug', 'event' ) );
-			$this->taxRewriteSlug      = $this->rewriteSlug . '/' . sanitize_title( __( 'category', 'tribe-events-calendar' ) );
-			$this->tagRewriteSlug      = $this->rewriteSlug . '/' . sanitize_title( __( 'tag', 'tribe-events-calendar' ) );
+			$this->rewriteSlug         = $this->getRewriteSlug();
+			$this->rewriteSlugSingular = $this->getRewriteSlugSingular();
+			$this->taxRewriteSlug      = $this->getTaxRewriteSlug();
+			$this->tagRewriteSlug      = $this->getTagRewriteSlug();
 
 
 			$base = trailingslashit( $this->rewriteSlug );
@@ -3126,15 +3144,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function setup_date_search_in_query( $query ) {
 
 			if ( !empty( $_POST['tribe-bar-date'] ) ) {
-				$meta_query = array( array( 'key'     => '_EventStartDate',
+				$meta_query = array( 'key'     => '_EventStartDate',
 				                            'value'   => array( TribeDateUtils::beginningOfDay( $_POST['tribe-bar-date'] ),
 				                                                TribeDateUtils::endOfDay( $_POST['tribe-bar-date'] ) ),
 				                            'compare' => 'BETWEEN',
-				                            'type'    => 'DATETIME' ) );
-
+				                            'type'    => 'DATETIME' );
 
 				if ( empty( $query->query_vars['meta_query'] ) ) {
-					$query->set( 'meta_query', $meta_query );
+					$query->set( 'meta_query', array($meta_query) );
 				} else {
 					$query->query_vars['meta_query'][] = $meta_query;
 				}
