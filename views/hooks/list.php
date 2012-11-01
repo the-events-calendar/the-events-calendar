@@ -93,6 +93,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			$html = '<div id="post-'. get_the_ID() .'" class="'. $class_string .' clearfix">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_inside_before_loop');
 		}
+
 		// Event Image
 		public function the_event_image( $post_id ){
 			$html ='';
@@ -100,6 +101,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 				$html .= tribe_event_featured_image();
 			}
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_event_image');
+
 		}
 		// Event Details Begin
 		public function before_the_event_details ( $post_id ){

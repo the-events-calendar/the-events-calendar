@@ -714,5 +714,21 @@ if ( class_exists( 'TribeEvents' ) ) {
 			tribe_the_display_day( $day, $monthView );
 		}
 	}
+	if ( !function_exists( 'tribe_meta_event_cats' ) ) {
+		function tribe_meta_event_cats( $label = null, $separator = null ) {
+			_deprecated_function( __FUNCTION__, '3.0', 'tribe_get_event_categories( $post_id, $args )' );
+			$args = array(
+				'before' => '<dd class="tribe-event-categories">',
+				'sep' => ', ',
+				'after' => '</dd>',
+				'label' => __( 'Category', 'tribe-events-calendar' ),
+				'label_before' => '<dt>',
+				'label_after' => '</dt>',
+				'wrap_before' => '',
+				'wrap_after' => ''
+			);
+			echo apply_filters( 'tribe_meta_event_cats', tribe_get_event_categories( get_the_ID(), $args ) );
+		}
+	}
 
 }
