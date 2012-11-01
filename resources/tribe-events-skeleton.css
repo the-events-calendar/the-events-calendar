@@ -254,7 +254,7 @@ select.tribe-events-dropdown {
 	margin-bottom: 60px;
 }
 
-.tribe-events-list .vevent {
+.tribe-events-list .vevent.hentry {
 	border-bottom: 1px solid #ddd;
 	padding: 2.25em 0;
 	overflow: auto;
