@@ -43,7 +43,7 @@ if( !class_exists( 'TribeEventsCalendarWidget') ) {
 			$title = apply_filters('widget_title', empty($instance['title']) ? '&nbsp;' : $instance['title']);
 			echo $before_widget;
 			if ( $title ) { echo $before_title . $title . $after_title; }
-			echo '<div id="calendar_wrap">';
+			echo '<div id="tribe-events-calendar-wrap">';
 			tribe_calendar_mini_grid();
 			echo '</div>';
 			echo $after_widget;
