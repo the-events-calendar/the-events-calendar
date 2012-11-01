@@ -1,11 +1,11 @@
 /**
- * The Events Calendar Pro Full Stylesheet
- * (Some of these styles may override your current theme's styles)
+ * The Events Calendar Pro Skeleton Stylesheet
+ * (These styles shouldn't override your current theme's styles)
  *
  * You can customize this stylesheet by putting a stylesheet of the same name
  * (tribe-events-pro.css) in the tribe-events/pro/ directory of your theme.
  *
- * @package TribeEventsCalendarPro
+ * @package TribeEventsCalendar
  * @since  1.0
  * @author Modern Tribe Inc.
  *
@@ -43,63 +43,14 @@
 /* = Day Grid Template Styles
    @ Template: day.php
 =============================================*/
-.tribe-events-day-time-slot {
-	margin-bottom: 3em;
-}
-.tribe-events-day-grid h3 {
-	text-transform: capitalize;
-	text-align: left;
-	font-size: 21px;
-	font-weight: 500;
-	margin: 18px 0 0;
-}
-.tribe-events-loop-day h5 {
+.tribe-events-day .tribe-events-day-time-slot h5 {
 	text-transform: uppercase;
 	font-weight: bold;
-	font-size: 12px;
-	margin: 1em 0 1.25em;
-	letter-spacing: 0.1em;
+	font-size: 14px;
+	margin: 2.5em 0 0;
 }
-.tribe-events-loop-day .hentry.vevent {
-	background-color: #ddd;
-	padding: 18px;
-	margin: 8px 0;
-	overflow: auto;
-	position: relative;
-}
-.tribe-events-loop-day h4.summary {
-	font-size: 18px;
-	font-weight: bold;
-	line-height: 1em;
-	padding: 0 125px 0 0;
-	margin-bottom: 8px;
-}
-.tribe-events-loop-day h4.summary a {
-	color: #333;
-}
-.tribe-events-loop-day p.published {
-	font-size: 18px;
-	font-weight: bold;
-	line-height: 1em;
-	position: absolute;
-	top: 18px;
-	right: 18px;
-}
-.tribe-events-loop-day .entry-content.description {
-	margin-top: 4px;
-	width: auto;
-	padding: 0;
-}
-.tribe-events-loop-day .tribe-events-day-meta {
-	list-style-type: none;
-	margin: 2px 0 0;
-	line-height: 1.25;
-}
-.tribe-events-loop-day .tribe-events-day-meta li {
-	display: inline-block;
-	zoom: 1;
-	*display: inline;
-	font-size: 12px;
+.tribe-events-day .tribe-events-day-time-slot .vevent {
+	margin-left: 5%;
 }
 
 
