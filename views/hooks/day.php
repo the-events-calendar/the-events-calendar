@@ -127,7 +127,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 						tribe_meta_event_cats() instead of a new tag...
  */
 ?>
-				<?php tribe_meta_event_cats(); ?>
+				<?php tribe_get_event_categories( $post_id, array('echo'=>true) ); ?>
 				</div><!-- .hentry .vevent -->
 				
 <?php
