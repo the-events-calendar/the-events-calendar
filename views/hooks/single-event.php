@@ -59,6 +59,7 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 		public function the_title( $title, $post_id ) {
 			$title = '<h2 class="entry-title summary">'. $title .'</a></h2>';
 			return apply_filters( 'tribe_template_factory_debug', $title, 'tribe_events_single_event_the_title' );
+
 		}
 		public function after_the_title( $post_id ) {
 			$html = '';
@@ -99,6 +100,7 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 			} ?>
 				</div>
 			<div class="entry-content description">
+
 				<?php // Event image
 			if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
 					<div class="tribe-event-featured-image">
@@ -333,7 +335,3 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 		}
 		Tribe_Events_Single_Event_Template::init();
 	}
-
-
-
-	

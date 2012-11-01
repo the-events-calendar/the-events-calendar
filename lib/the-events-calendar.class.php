@@ -35,7 +35,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'rewrite' => array('slug'=>'venue', 'with_front' => false),
 			'show_ui' => true,
 			'show_in_menu' => 0,
-			'supports' => array('title', 'editor'),
+			'supports' => array('title', 'editor', 'thumbnail'),
 			'capability_type' => array('tribe_venue', 'tribe_venues'),
 			'map_meta_cap' => true,
 			'exclude_from_search' => true
@@ -292,6 +292,45 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'plugin_action_links_' . trailingslashit( $this->pluginDir ) . 'the-events-calendar.php', array( $this, 'addLinksToPluginActions' ) );
 			add_action( 'admin_menu', array( $this, 'addHelpAdminMenuItem' ), 50 );
 			add_action( 'comment_form', array( $this, 'addHiddenRecurringField' ) );
+
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_for_ajax_calendar' ) );
+
+			add_action( 'wp_ajax_tribe_calendar', array( $this, 'calendar_ajax_call' ) );
+			add_action( 'wp_ajax_nopriv_tribe_calendar', array( $this, 'calendar_ajax_call' ) );
+
+		}
+
+		function enqueue_for_ajax_calendar() {
+			if ( $this->displaying === 'month' ) {
+				Tribe_Template_Factory::asset_package( 'ajax-calendar' );
+			}
+		}
+
+		function calendar_ajax_call_set_date( $query ) {
+			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
+				$query->set( 'eventDate', $_POST["eventDate"] . '-01' );
+			}
+			return $query;
+		}
+
+		function calendar_ajax_call() {
+			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
+
+				add_action( 'pre_get_posts', array( $this, 'calendar_ajax_call_set_date' ), -10 );
+
+				$args  = array( 'eventDisplay' => 'month', 'post_type' => TribeEvents::POSTTYPE );
+				$query = new WP_Query( $args );
+
+				remove_action( 'pre_get_posts', array( $this, 'calendar_ajax_call_set_date' ), -10 );
+
+				global $wp_query, $post;
+				$wp_query = $query;
+				if ( have_posts() )
+					the_post();
+
+				load_template( TribeEventsTemplates::getTemplateHierarchy( 'calendar' ) );
+			}
+			die();
 		}
 
 		public static function ecpActive( $version = '2.0.7' ) {
@@ -314,10 +353,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function init() {
 			$this->loadTextDomain();
 			$this->pluginName = __( 'The Events Calendar', 'tribe-events-calendar' );
-			$this->rewriteSlug = sanitize_title($this->getOption('eventsSlug', 'events'));
-			$this->rewriteSlugSingular = sanitize_title($this->getOption('singleEventSlug', 'event'));
-			$this->taxRewriteSlug = $this->rewriteSlug . '/' . sanitize_title(__( 'category', 'tribe-events-calendar' ));
-			$this->tagRewriteSlug = $this->rewriteSlug . '/' . sanitize_title(__( 'tag', 'tribe-events-calendar' ));
+			$this->rewriteSlug         = $this->getRewriteSlug();
+			$this->rewriteSlugSingular = $this->getRewriteSlugSingular();
+			$this->taxRewriteSlug      = $this->getTaxRewriteSlug();
+			$this->tagRewriteSlug      = $this->getTagRewriteSlug();
 			$this->monthSlug = sanitize_title(__('month', 'tribe-events-calendar'));
 			$this->weekSlug = sanitize_title(__('week', 'tribe-events-calendar'));
 			$this->daySlug = sanitize_title(__('day', 'tribe-events-calendar'));
@@ -933,6 +972,24 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 
 		}
+
+		public function getRewriteSlug() {
+			return sanitize_title( $this->getOption( 'eventsSlug', 'events' ) );
+		}
+
+		public function getRewriteSlugSingular() {
+			return sanitize_title( $this->getOption( 'singleEventSlug', 'event' ) );
+		}
+
+		public function getTaxRewriteSlug() {
+			$slug = $this->getRewriteSlug() . '/' . sanitize_title( __( 'category', 'tribe-events-calendar' ) );
+			return apply_filters( 'tribe_events_category_rewrite_slug', $slug );
+		}
+
+		public function getTagRewriteSlug() {
+			$slug = $this->getRewriteSlug() . '/' . sanitize_title( __( 'tag', 'tribe-events-calendar' ) );
+			return apply_filters( 'tribe_events_tag_rewrite_slug', $slug );
+		}
 		
 		public function getVenuePostTypeArgs() {
 			return $this->postVenueTypeArgs;
@@ -1211,7 +1268,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param string $default default value
 		 * @return mixed results of option query
 		 */
-		public function getOption($optionName, $default = '') {
+		public static function getOption($optionName, $default = '') {
 			if( !$optionName )
 				return null;
 
@@ -1224,7 +1281,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$option = $default;
 			}
 
-			return apply_filters( 'tribe_get_single_option', $option, $default );
+			return apply_filters( 'tribe_get_single_option', $option, $default, $optionName );
 		}
 
 		/**
@@ -1480,10 +1537,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			}
 
-			$this->rewriteSlug         = sanitize_title( $this->getOption( 'eventsSlug', 'events' ) );
-			$this->rewriteSlugSingular = sanitize_title( $this->getOption( 'singleEventSlug', 'event' ) );
-			$this->taxRewriteSlug      = $this->rewriteSlug . '/' . sanitize_title( __( 'category', 'tribe-events-calendar' ) );
-			$this->tagRewriteSlug      = $this->rewriteSlug . '/' . sanitize_title( __( 'tag', 'tribe-events-calendar' ) );
+			$this->rewriteSlug         = $this->getRewriteSlug();
+			$this->rewriteSlugSingular = $this->getRewriteSlugSingular();
+			$this->taxRewriteSlug      = $this->getTaxRewriteSlug();
+			$this->tagRewriteSlug      = $this->getTagRewriteSlug();
 
 
 			$base = trailingslashit( $this->rewriteSlug );
@@ -3062,11 +3119,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function setup_date_search_in_bar( $filters ) {
 
-			$value = "";
+			$value = apply_filters( 'tribe-events-bar-date-search-default-value', '' );
+
 			if ( !empty( $_POST['tribe-bar-date'] ) ) {
 				$value = $_POST['tribe-bar-date'];
 			}
-
 
 			$filters[] = array( 'name'    => 'tribe-bar-date',
 			                    'caption' => 'Date',

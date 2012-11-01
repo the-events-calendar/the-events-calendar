@@ -15,8 +15,13 @@ function eventBarWidth() {
 
 jQuery( document ).ready( function ( $ ) {
 
+	var tribe_var_datepickerOpts = {
+		dateFormat:'yy-mm-dd',
+		showAnim:'fadeIn'
+	};
+
 	// Implement our datepicker
-	$( '#tribe-bar-date' ).datepicker();
+	$( '#tribe-bar-date' ).datepicker( tribe_var_datepickerOpts );
 	
 	// Implement placeholder
 	$( 'input[name*="tribe-bar-"]' ).placeholder();
