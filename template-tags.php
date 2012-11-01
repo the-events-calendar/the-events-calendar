@@ -96,11 +96,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	function tribe_the_custom_fields( $postId = null ) {
 		$fields = tribe_get_custom_fields( $postId );
-	  	$meta_html = "<dl class='column'>\n";
+	  	$meta_html = "<dl class=\"tribe-events-column\">\n";
 	  	foreach ($fields as $label => $value) {
-			$meta_html .= apply_filters('tribe_the_custom_field',"<dt class=\"tribe-custom-label\">".stripslashes($label).":</dt><dd class=\"tribe-custom-meta\">".stripslashes($value)."</dd>\n",$label,$value);
+			$meta_html .= apply_filters('tribe_the_custom_field',"<dt>".stripslashes($label).":</dt><dd class=\"tribe-events-meta-custom-data\">".stripslashes($value)."</dd>\n",$label,$value);
 		}
-		$meta_html .= "</dl>\n";
+		$meta_html .= "</dl><!-- .tribe-events-column -->\n";
 		echo apply_filters('tribe_the_custom_fields', $meta_html);
 	}
 	
@@ -349,7 +349,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		echo '<p class="tribe-field-indent venue-default-info description">'.sprintf( __('The current default phone is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
 	}
 
-
 	/**
 	 * Returns the formatted and converted distance from the db (always in kms.) to the unit selected
 	 * by the user in the 'defaults' tab of our settings.
@@ -392,6 +391,125 @@ if( class_exists( 'TribeEventsPro' ) ) {
 
 		return ( $value * $ratio );
 
+	}
+
+	/**
+	 * Get the first day of the week from a provided date
+	 *
+	 * @param string|int $date_or_int A given date or week # (week # assumes current year)
+	 * @param bool $by_date determines how to parse the date vs week provided
+	 * @param int $first_day sets start of the week (offset) respectively, accepts 0-6
+	 * @return DateTime
+	 */
+	function tribe_get_first_week_day( $date_or_int = null, $by_date = true ) {
+		$offset = 7 - get_option( 'start_of_week', 0 );
+		if( is_null($date_or_int) ){
+			$date = new DateTime('now');
+		} else {
+			$date = ( $by_date ) ? new DateTime($date_or_int) : strtotime( $date_or_int . ' weeks');
+		}
+		// Clone to avoid altering the original date
+		$r = clone $date;
+		$r->modify(-(($date->format('w') + $offset) % 7) . 'days');
+		return apply_filters('tribe_get_first_week_day', $r->format('Y-m-d'));
+	}
+
+	/**
+	 * Get the last day of the week from a provided date
+	 *
+	 * @param string|int $date_or_int A given date or week # (week # assumes current year)
+	 * @param bool $by_date determines how to parse the date vs week provided
+	 * @param int $first_day sets start of the week (offset) respectively, accepts 0-6
+	 * @return DateTime
+	 */
+	function tribe_get_last_week_day( $date_or_int, $by_date = true ) {
+		return apply_filters('tribe_get_last_week_day', date('Y-m-d', strtotime( tribe_get_first_week_day( $date_or_int, $by_date ) . ' +6 days' )));
+	}
+
+	/**
+	 * Week Loop View Test
+	 *
+	 * @return bool
+	 * @since 3.0
+	 */
+	function tribe_is_week()  {
+		$tribe_ecp = TribeEvents::instance();
+		$is_week = ($tribe_ecp->displaying == 'week') ? true : false;
+		return apply_filters('tribe_is_week', $is_week);
+	}
+
+	/**
+	 * Display Week Navigation
+	 *
+	 * @param string $week
+	 * @since 3.0
+	 */
+	// REMOVE IF FOUND UNNEEDED
+	// function tribe_display_by_week_navigation( $week = null ){
+	// 	if( is_null($week) ){
+	// 		$week = date("Y-m-d", strtotime('now'));
+	// 	}
+	// 	echo date('Y-m-d', strtotime( tribe_get_first_week_day( $week ) . ' -1 day'));
+	// 	echo '<br />';
+	// 	echo tribe_get_last_week_day( $week );
+	// }
+
+	/**
+	 * Get last week permalink by provided date (7 days offset)
+	 *
+	 * @uses tribe_get_week_permalink
+	 * @param string $week
+	 * @param bool $is_current
+	 * @return string $permalink
+	 * @since 3.0
+	 */
+	function tribe_get_last_week_permalink( $week, $is_current = true ) {
+		$tec = TribeEvents::instance();
+		$week = ($is_current) ? date('Y-m-d', strtotime( $week . ' -7 days') ): $week;
+		return apply_filters('tribe_get_last_week_permalink', tribe_get_week_permalink( $week ) );
+	}
+
+	/**
+	 * Get next week permalink by provided date (7 days offset)
+	 *
+	 * @uses tribe_get_week_permalink
+	 * @param string $week
+	 * @param bool $is_current
+	 * @return string $permalink
+	 * @since 3.0
+	 */
+	function tribe_get_next_week_permalink( $week, $is_current = true ) {
+		$tec = TribeEvents::instance();
+		$week = ($is_current) ? date('Y-m-d', strtotime( $week . ' +7 days') ): $week;
+		return apply_filters('tribe_get_next_week_permalink', tribe_get_week_permalink( $week ) );
+	}
+
+	/**
+	 * Get day permalink by provided date
+	 * Note: default if null returns TribeEvents::instance()->todaySlug
+	 * 
+	 * @param string $week
+	 * @return string $permalink
+	 * @since 3.0
+	 */
+	function tribe_get_day_permalink( $date = null ){
+		$tec = TribeEvents::instance();
+		$date = is_null($date) ? $tec->todaySlug : date('Y-m-d', strtotime( $date ) );
+		$permalink = get_site_url() . '/' . $tec->rewriteSlug . '/' . trailingslashit( $date );
+		return apply_filters('tribe_get_next_week_permalink', $permalink);
+	}
+	/**
+	 * Get week permalink
+	 * 
+	 * @param string $week
+	 * @return string $permalink
+	 * @since 3.0
+	 */
+	function tribe_get_week_permalink( $week = null ){
+		$tec = TribeEvents::instance();
+		$week = is_null($week) ? '' : date('Y-m-d', strtotime( $week ) );
+		$permalink = get_site_url() . '/' . $tec->rewriteSlug . '/' . trailingslashit( $tec->weekSlug . '/' . $week );
+		return apply_filters('tribe_get_next_week_permalink', $permalink);
 	}
 
 }

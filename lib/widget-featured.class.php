@@ -79,12 +79,12 @@ if( !class_exists( 'TribeEventsFeatureWidget') ) {
 		}
 
 		function load_premium_view($file) {
-                        if ( !file_exists($file) ) {
-                                $file = TribeEventsPro::instance()->pluginPath . 'views/widget-featured-display.php';
-                        }
+            if ( !file_exists($file) ) {
+                $file = TribeEventsTemplates::getTemplateHierarchy('featured-widget','widgets','pro', TribeEventsPro::instance()->pluginPath);
+            }
 
-                        return $file;
-                }
+            return $file;
+        }
 	}
 
 	/* Add function to the widgets_ hook. */

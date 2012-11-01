@@ -11,7 +11,7 @@ class TribeEventsCustomMeta {
 	public static function init() {
 		add_action( 'wp_ajax_remove_option', array(__CLASS__, 'remove_meta_field') );
 		add_action( 'tribe_settings_after_content_tab_additional-fields', array( __CLASS__, 'event_meta_options' ) );
-  	add_action( 'tribe_events_details_table_bottom', array(__CLASS__, 'single_event_meta') );
+		add_action( 'tribe_events_details_table_bottom', array(__CLASS__, 'single_event_meta') );
 		add_action( 'tribe_community_events_details_table_bottom', array(__CLASS__, 'single_event_meta') );
 		add_action( 'tribe_events_update_meta', array(__CLASS__, 'save_single_event_meta') );
 		add_filter( 'tribe_settings_validate_tab_additional-fields', array( __CLASS__, 'force_save_meta' ) );	
@@ -69,7 +69,8 @@ class TribeEventsCustomMeta {
 			
 			$events_event_meta_template = TribeEventsPro::instance()->pluginPath . 'admin-views/event-meta.php';
 			$events_event_meta_template = apply_filters('tribe_events_event_meta_template', $events_event_meta_template);
-			include( $events_event_meta_template );
+			if( !empty($events_event_meta_template) )
+				include( $events_event_meta_template );
     }
 
 	/**
