@@ -164,7 +164,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
          				$days_in_month = date( 't', intval($date) );
 						for( $day = 1; $day <= $days_in_month; $day++ ) {
 
-							$column = $day - ( 7 * ( $rows - 1 ) );
+							$column = $day + $offset - 1 - ( 7 * ( $rows - 1 ) ) ;
 
 							if( ( $day + $offset - 1 ) % 7 == 0 && $day != 1 ) {
 			        			echo "</tr>\n\t<tr>";
@@ -193,8 +193,9 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 							} elseif ( $current_month < $month && $current_year == $year || $current_year < $year ) {
 								$ppf = ' tribe-events-future';
 							}
+							
 
-							if ( ( $column % 5 == 0 ) || ( $column % 6 == 0 ) || ( $column % 7 == 0 ) ) {
+							if ( ( $column % 4 == 0 ) || ( $column % 5 == 0 ) || ( $column % 6 == 0 ) ) {
 								$ppf .= ' tribe-events-right';
 							}
 
@@ -205,7 +206,8 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 						// This controls the markup for the days and events on the frontend
 				
 			    			echo "<td class=\"tribe-events-thismonth". $ppf ."\">". tribe_get_display_day_title( $day, $monthView, $date ) ."\n";
-								tribe_the_display_day( $day, $monthView );
+
+							tribe_the_display_day( $day, $monthView );
 							echo '</td>';
 						}
 						// Skip next month
