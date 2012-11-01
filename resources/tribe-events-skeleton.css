@@ -183,8 +183,8 @@ a.tribe-events-gcal {
 	margin-bottom: 48px;
 	padding: 1px 20px;
 }
-#tribe-events-content {
-	font-size: 16px;
+#tribe-events-content.tribe-events-list {
+	padding: 0;
 }
 
 /* Header */
