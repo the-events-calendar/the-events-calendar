@@ -1,10 +1,9 @@
 jQuery(document).ready(function($) {
 
-
 	function tribe_event_tooltips() {
-		// large event tooltips for main calendar & tooltips for week view
-		$('.events-gridview .tribe-events-calendar, .tribe-events-week .tribe-events-grid').delegate('div[id*="tribe-events-event-"]', 'mouseenter', function() {
-			// Check if on week view or calendar view
+		// Global tooltips
+		$('.tribe-events-calendar, .tribe-events-grid, .tribe-events-list .tribe-events-event-meta, .tribe-events-single').delegate('div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', 'mouseenter', function() {
+			// Week View Tooltips
 			if( $('body').hasClass('tribe-events-week') ) {
 				var bottomPad = $(this).outerHeight() + 5;
 			} else if( $('body').hasClass('events-gridview') ) { // Cal View Tooltips
@@ -19,11 +18,11 @@ jQuery(document).ready(function($) {
 			$(this).find('.tribe-events-tooltip').css('bottom', bottomPad).show();
 		}).delegate('div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', 'mouseleave', function() {
 			if ($.browser.msie && $.browser.version <= 9) {
-         		$(this).find('.tribe-events-tooltip').hide()
-      		} else {
-         		$(this).find('.tribe-events-tooltip').stop(true,false).fadeOut(200);
-      		}
-		});		
+				$(this).find('.tribe-events-tooltip').hide()
+			} else {
+				$(this).find('.tribe-events-tooltip').stop(true,false).fadeOut(200);
+			}
+		});
 	}
 	
 	tribe_event_tooltips();
