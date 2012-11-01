@@ -131,10 +131,8 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 			ob_start();
 ?>
 	<div class="tribe-events-event-meta">
-		<h3 class="tribe-event-single-section-title"><?php _e( 'Details', 'tribe-events-calendar' ); ?></h3>
-		<dl class="tribe-events-column">
-			<dt><?php _e( 'Event:', 'tribe-events-calendar' ); ?></dt>
-			<dd class="summary"><?php the_title(); ?></dd>
+		<dl class="tribe-events-meta-column">
+			<h3 class="tribe-event-single-section-title"><?php _e( 'Details', 'tribe-events-calendar' ); ?></h3>			
 
 			<?php if ( tribe_get_start_date() !== tribe_get_end_date() ) { // Start & end date ?>
 				<dt><?php _e( 'Start:', 'tribe-events-calendar' ); ?></dt>
@@ -164,10 +162,10 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 	         	</dd>
 			<?php endif; ?>
 
-		</dl><!-- .tribe-events-column -->
+		</dl><!-- .tribe-events-meta-column -->
 
 		<?php // Location ?>
-		<dl class="tribe-events-column location">
+		<dl class="tribe-events-meta-column location">
 
 		<?php // SECOND COLUMN
 			if ( tribe_get_custom_fields( get_the_ID() ) && tribe_embed_google_map( get_the_ID() )) {  // if no map AND no custom fields, display nothing here 
@@ -177,7 +175,7 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 				( empty($tribe_event_custom_fields ) && !tribe_embed_google_map( get_the_ID() ) ) //if there's no custom field and and mpa
 			) { // display venue here  ?>
 			<?php if ( tribe_get_venue() ) : // Venue info ?>
-				<dt><?php _e( 'Venue:', 'tribe-events-calendar' ); ?></dt>
+			<h3 class="tribe-event-single-section-title"><?php _e( 'Venue', 'tribe-events-calendar' ); ?></h3>
 				<dd class="vcard fn org">
 					<?php if ( class_exists( 'TribeEventsPro' ) ): // If pro, show venue w/ link ?>
 						<?php tribe_get_venue_link( get_the_ID(), class_exists( 'TribeEventsPro' ) ); ?>
@@ -205,10 +203,10 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 	<?php } ?>
 		<?php if ( tribe_embed_google_map( get_the_ID() ) || tribe_get_custom_fields( get_the_ID() ) ) : ?>
 				<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) ) : // Organizer URL ?>
-				<dt><?php _e( 'Organizer:', 'tribe-events-calendar' ); ?></dt>
+				<h3 class="tribe-event-single-section-title"><?php _e( 'Organizer:', 'tribe-events-calendar' ); ?></h3>
 				<dd class="vcard author fn org"><?php echo tribe_get_organizer_link(); ?></dd>
 	      <?php elseif ( tribe_get_organizer() ): // Organizer name ?>
-				<dt><?php _e( 'Organizer:', 'tribe-events-calendar' ); ?></dt>
+				<h3 class="tribe-event-single-section-title"><?php _e( 'Organizer:', 'tribe-events-calendar' ); ?></h3>
 				<dd class="vcard author fn org"><?php echo tribe_get_organizer(); ?></dd>
 			<?php endif; ?>
 
@@ -225,18 +223,21 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 			<dt><?php _e( 'Updated:', 'tribe-events-calendar' ); // Last event updated date ?></dt>
 			<dd class="updated"><abbr class="tribe-events-abbr" title="<?php the_time( 'c' ); ?>"><?php the_time( 'F j, Y' ); ?></abbr></dd>
 		<?php endif; ?>
-		</dl><!-- .tribe-events-column -->
+		</dl><!-- .tribe-events-meta-column -->
 
 	   	<?php // THIRD COLUMN
 
-				if ( function_exists( 'tribe_the_custom_fields' ) && tribe_get_custom_fields( get_the_ID() ) ) { // If there are custom event fields
-					tribe_the_custom_fields( get_the_ID() );
-				} elseif ( tribe_embed_google_map( get_the_ID() ) && tribe_address_exists( get_the_ID() ) ) { ?>
-					<dl class="tribe-events-column venue-map">
+				if ( function_exists( 'tribe_the_custom_fields' ) && tribe_get_custom_fields( get_the_ID() ) ) { // If there are custom event fields ?>
+					<dl class="tribe-events-meta-column">
+						<h3 class="tribe-event-single-section-title"><?php _e( 'Other', 'tribe-events-calendar' ); ?></h3>
+						<?php echo tribe_the_custom_fields( get_the_ID() ); ?>
+					</dl>	
+				<?php } elseif ( tribe_embed_google_map( get_the_ID() ) && tribe_address_exists( get_the_ID() ) ) { ?>
+					<dl class="tribe-events-meta-column venue-map">
 						<?php echo tribe_get_embedded_map(); ?>
 					</dl>
 		<?php } else { ?>
-					<dl class="tribe-events-column">
+					<dl class="tribe-events-meta-column">
 						<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) ) : // Organizer URL ?>
 							<dt><?php _e( 'Organizer:', 'tribe-events-calendar' ); ?></dt>
 							<dd class="vcard author fn org"><?php echo tribe_get_organizer_link(); ?></dd>
@@ -257,15 +258,14 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 
 						<dt><?php _e( 'Updated:', 'tribe-events-calendar' ); // Last event updated date ?></dt>
 						<dd class="updated"><abbr class="tribe-events-abbr" title="<?php the_time( 'c' ); ?>"><?php the_time( 'F j, Y' ); ?></abbr></dd>
-				</dl><!-- .tribe-events-column -->
+				</dl><!-- .tribe-events-meta-column -->
 		<?php } ?>
 		</div><!-- .tribe-events-event-meta -->
 	<?php if ( tribe_embed_google_map( get_the_ID() ) && tribe_address_exists( get_the_ID() ) && tribe_get_custom_fields( get_the_ID() ) ) : // If there's a venue map, show this seperate section ?>
 				<div class="tribe-event-single-section tribe-events-event-meta">
-					<h3 class="tribe-event-single-section-title"><?php _e( 'Venue', 'tribe-events-calendar' ); ?></h3>
-					<dl class="tribe-events-column">
+					<dl class="tribe-events-meta-column">
+						<h3 class="tribe-event-single-section-title"><?php _e( 'Venue', 'tribe-events-calendar' ); ?></h3>
 						<?php if ( tribe_get_venue() ) : // Venue info ?>
-									<dt><?php _e( 'Venue:', 'tribe-events-calendar' ); ?></dt>
 									<dd class="vcard fn org">
 										<?php if ( class_exists( 'TribeEventsPro' ) ): // If pro, show venue w/ link ?>
 											<?php tribe_get_venue_link( get_the_ID(), class_exists( 'TribeEventsPro' ) ); ?>
