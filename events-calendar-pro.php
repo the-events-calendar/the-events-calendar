@@ -149,7 +149,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				if ( have_posts() )
 					the_post();
 
-				load_template( TribeEventsTemplates::getTemplateHierarchy( 'day', '', 'pro', $this->pluginPath ) );
+				TribeEventsTemplates::getTemplateHierarchy( 'day', '', 'pro', $this->pluginPath );
+
+				load_template( TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
 			}
 			die();
 		}
