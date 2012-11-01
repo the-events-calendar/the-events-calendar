@@ -261,7 +261,7 @@ select.tribe-events-dropdown {
 	margin: 0;
 }
 
-.tribe-events-list .tribe-events-event-details .entry-title, .events-archive .tribe-events-list .tribe-events-event-details .entry-title {
+.tribe-events-list .tribe-events-event-details .tribe-events-event-cost + .entry-title, .events-archive .tribe-events-list .tribe-events-event-details .tribe-events-event-cost + .entry-title {
 float: left;
 width: 70%;
 }
