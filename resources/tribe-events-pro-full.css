@@ -11,34 +11,6 @@
  *
  */
  
-/* = Single Venue Template Styles (Pro Version)
-   @ Template: single-venue.php
-=============================================*/
-.tribe-events-venue .tribe-events-map-wrap {
-	margin: 0 0 10px 0; 
-	float: right;
-}
-
-/* Events Loop */
-.tribe-events-loop .tribe-events-loop .vevent {
-	margin: 0;
-}
-.tribe-events-loop h2.tribe-events-page-title {
-	padding-left: 0;
-}
-.tribe-events-loop .published {
-	margin-top: 0;
-}
-.tribe-events-loop .entry-title {
-	color: #333; 
-	text-decoration: none; 
-	font-size: 18px;
-	margin: 15px 0 6px;
-	padding: 0;
-	line-height: 1em;
-	font-weight: bold;
-}
-
 
 /* = Day Grid Template Styles
    @ Template: day.php
@@ -267,9 +239,36 @@
 	border-top: 1px solid #ddd;
 }
 
-/* = Single Venue Template Styles
+/* = Single Venue Template Styles (Pro Version)
    @ Template: single-venue.php
 =============================================*/
+.single-tribe_venue  .tribe_venue h2.entry-title {
+	font-size: 1.6em;
+}
+.tribe-events-venue-meta {
+	padding: 2% 0 4% 0;
+}
+.tribe-events-venue .tribe-events-map-wrap {
+	margin: 0 0 30px 30px;
+	float: right;
+	width: 50%;
+	background: #EEE;
+	padding: 5px;
+	border: 1px solid #DDD;
+	border-radius: 3px;
+}
+
+.tribe-events-venue h3.tribe-events-upcoming {
+	font-size: 1.3em;
+}
+
+.tribe-events-venue .tribe-events-map-wrap #tribe-events-gmap {
+	height: 0 !important;
+	padding-top: 50%;
+	width: 100% !important;
+	margin: 0 !important;
+}
+
 #tribe-events-content.tribe-events-venue {
 	padding: 0;
 }
@@ -279,16 +278,19 @@
 }
 
 .tribe-events-venue address.venue-address {
-	margin:0 0 2% 0;
+	margin: 0 0 3% 0;
+	font-style: normal;
+	font-weight: bold;
 }
 .tribe-events-venue address.venue-address span {
 	display: block;
-	margin: 0 0 1% 0;
+	margin: 0 0 5px 0;
+	line-height: 1;
 }
 
 .tribe-events-venue .venue-description p {
 	line-height: 1.3;
-	margin: 0 0 2% 0;
+	margin: 0 0 3% 0;
 }
 
 /* = Events Calendar Widget Styles (Sidebar)
