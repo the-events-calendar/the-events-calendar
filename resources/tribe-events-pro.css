@@ -432,3 +432,224 @@ div.tribe-countdown-right {
 div.tribe-countdown-text {
 	clear: both;
 }
+
+/* tribe geolocation map area */
+
+#tribe-geo-map-wrapper {
+	position      : relative;
+	z-index       : 2;
+	margin-bottom : 20px;
+	border        : 1px solid #ddd;
+	padding       : 2px;
+	background    : #eee;
+}
+
+#tribe-geo-loading {
+	display           : none;
+	position          : absolute;
+	width             : 100%;
+	height            : 100%;
+	left              : 0;
+	top               : 0;
+	background        : #fff;
+	background        : rgba(255, 255, 255, 0.8);
+	z-index           : 4;
+	webkit-transition : all 1s linear;
+	-moz-transition   : all 1s linear;
+	-o-transition     : all 1s linear;
+	-ms-transition    : all 1s linear;
+	transition        : all 1s linear;
+}
+
+#tribe-geo-loading span {
+	position   : absolute;
+	width      : 32px;
+	height     : 32px;
+	left       : 50%;
+	top        : 50%;
+	margin     : -16px 0 0 -16px;
+	background : url(images/tribe-loading.gif) 0 0 no-repeat;
+}
+
+#tribe-geo-map {
+	width    : 100%;
+	height   : 400px;
+	position : relative;
+	z-index  : 3;
+}
+
+#tribe-geo-map label {
+	width   : auto;
+	display : inline;
+}
+
+#tribe-geo-map img {
+	max-width : none;
+}
+
+/* tribe geo location option links (displayed when multiple locations found) */
+
+#tribe-geo-results h2,
+#tribe-geo-options h2 {
+	color       : #222;
+	font-size   : 18px;
+	font-weight : bold;
+	line-height : 1em;
+	margin      : 0 0 6px;
+	padding     : 0;
+}
+
+#tribe-geo-results h2 a,
+#tribe-geo-options h2 a {
+	color : #222;
+}
+
+#tribe-geo-links {
+	margin-top   : 20px;
+	border-top   : 1px solid #eee;
+	border-right : 1px solid #eee;
+	border-left  : 1px solid #eee;
+}
+
+#tribe-geo-options {
+	display       : none;
+	margin-bottom : 20px;
+}
+
+.tribe-geo-option-link {
+	display            : block;
+	text-decoration    : none;
+	color              : #444;
+	border-bottom      : 1px solid #eee;
+	padding            : 3px 6px;
+	-webkit-transition : 0.1s ease-in-out;
+	-moz-transition    : 0.1s ease-in-out;
+	-o-transition      : 0.1s ease-in-out;
+	transition         : 0.1s ease-in-out
+}
+
+.tribe-geo-option-link:hover {
+	background : #f5f5f5;
+}
+
+.tribe-geo-option-link:hover,
+.tribe-geo-option-link:focus {
+	text-decoration : none;
+}
+
+.tribe-option-loaded,
+.tribe-geo-option-link.tribe-option-loaded:hover {
+	background : #666;
+	color      : #fff;
+}
+
+/* tribe geo location results list formatting */
+
+#tribe-geo-results .event-notices {
+	text-align : center;
+	margin     : 2.25em 0 0 0;
+}
+
+.tribe-geo-result-entry {
+	position      : relative;
+	overflow      : auto;
+	border-bottom : 1px solid #ddd;
+	padding       : 2.25em 0;
+}
+
+.tribe-geo-result-last {
+	border-bottom  : none;
+	padding-bottom : none;
+}
+
+.tribe-geo-result-thumb {
+	float        : left;
+	width        : 30%;
+	margin-right : 2%;
+}
+
+.tribe-geo-result-thumb a {
+	display            : block;
+	border             : 1px solid #ddd;
+	padding            : 2px;
+	background         : #eee;
+	-webkit-transition : 0.1s ease-in-out;
+	-moz-transition    : 0.1s ease-in-out;
+	-o-transition      : 0.1s ease-in-out;
+	transition         : 0.1s ease-in-out
+}
+
+.tribe-geo-result-thumb a:hover {
+	border     : 1px solid #ccc;
+	background : #ddd;
+}
+
+.tribe-geo-result-thumb a img {
+	max-width : 100%;
+	width     : 100%;
+	display   : block;
+}
+
+.tribe-geo-result-data {
+	float : right;
+	width : 68%;
+}
+
+.tribe-geo-result-date {
+	display        : block;
+	font-size      : 16px;
+	font-style     : italic;
+	margin         : 10px 0 0 0;
+	text-transform : none;
+}
+
+.tribe-geo-result-venue {
+	display   : block;
+	margin    : 10px 0 0 0;
+	font-size : 16px;
+}
+
+.tribe-geo-result-excerpt {
+	margin : 10px 0 0 0;
+}
+
+.tribe-geo-result-entry .tribe-geo-result-excerpt p {
+	font-size : 14px;
+}
+
+.tribe-geo-result-entry h2 {
+	float : left;
+	width : 80%;
+}
+
+.tribe-geo-result-cost {
+	width : 18%;
+	float : right;
+}
+
+.tribe-geo-result-cost span {
+	display       : block;
+	font-weight   : bold;
+	padding       : 8px 10px;
+	border        : 1px solid #ddd;
+	background    : #eee;
+	overflow      : hidden;
+	white-space   : nowrap;
+	text-overflow : ellipsis;
+	text-align    : center;
+}
+
+#ajax-loading-mini {
+	display : none;
+}
+
+.timer {
+	text-align : center;
+	width      : 100%;
+	color      : red;
+	margin     : 20px 0;
+}
+
+.tribe_map_paged {
+	display : none;
+}
