@@ -20,10 +20,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 			add_filter( 'tribe_events_single_venue_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 
 			// Start single venue
-			add_filter( 'tribe_events_single_venue_before_venue', array( __CLASS__, 'before_venue' ), 1, 1 );
-
-			// Venue featured image
-			add_filter( 'tribe_events_single_venue_image', array( __CLASS__, 'the_venue_image' ), 1, 1 );			
+			add_filter( 'tribe_events_single_venue_before_venue', array( __CLASS__, 'before_venue' ), 1, 1 );		
 
 			// Venue map
 			add_filter( 'tribe_events_single_venue_map', array( __CLASS__, 'the_map' ), 1, 1 );
@@ -49,16 +46,8 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 		}
 		// Start Single Venue
 		public static function before_venue( $post_id ) {
-			$html = '<div class="tribe-events-event-meta">';
+			$html = '<div class="tribe-events-venue-meta">';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_before_venue' );
-		}
-		// Venue Image
-		public function the_venue_image( $post_id ){
-			$html ='';
-			if ( tribe_event_featured_image() ) {
-				$html .= tribe_event_featured_image();
-			}
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_image');
 		}		
 		// Venue Map
 		public static function the_map( $post_id ) {
