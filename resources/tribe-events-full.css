@@ -324,11 +324,15 @@ width: 70%;
 
 .tribe-events-list .tribe-events-event-details h2 {
 	font-size: 1.4em;
+	text-transform: none;
+	letter-spacing: 0;
 }
 
 .tribe-events-list .tribe-events-event-details h3 {
 	font-size: 1.2em;
 	margin: 0 0 1% 0;
+	text-transform: none;
+	letter-spacing: 0;	
 }
 
 .tribe-events-event-details address.event-address {
