@@ -184,9 +184,9 @@ a.tribe-events-gcal {
 }
 
 /* Miscellaneous Helper Classes */
-.clearfix:before, .clearfix:after {content: ""; display: table;}
-.clearfix:after {clear: both;}
-.clearfix {zoom: 1;}
+.clearfix:before, .tribe-clearfix:before, .clearfix:after, .tribe-clearfix:after {content: ""; display: table;}
+.clearfix:after, .tribe-clearfix:after {clear: both;}
+.clearfix, .tribe-clearfix {zoom: 1;}
 .tribe-clear {clear: both;}
 .tribe-events-visuallyhidden {
 	border: 0;
