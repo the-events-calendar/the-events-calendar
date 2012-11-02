@@ -131,7 +131,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 					if ( !empty( $post->distance ) ) { ?>
 						<strong>[<?php echo tribe_get_distance_with_unit( $post->distance ); ?>]</strong>
 					<?php } ?>
-					<?php echo tribe_event_schedule_details(), tribe_event_recurring_info_tooltip(); ?>
+					<?php echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); ?>
 				</h3>
 				<?php if ( tribe_get_venue() || tribe_address_exists( $post_id ) ) { // Get venue or location ?>
 					<h3 class="vcard fn org">
