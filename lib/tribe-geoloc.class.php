@@ -322,7 +322,7 @@ class TribeEventsGeoLoc {
 
 	function ajax_geosearch() {
 
-		$nonce  = isset( $_POST["nonce"] ) ? $_POST["nonce"] : false;
+		$nonce = isset( $_POST["nonce"] ) ? $_POST["nonce"] : false;
 
 		if ( !wp_verify_nonce( $nonce, 'geosearch' ) ) {
 			echo "-1";
@@ -337,7 +337,8 @@ class TribeEventsGeoLoc {
 		                   'orderby'        => 'event_date',
 		                   'order'          => 'ASC',
 		                   'posts_per_page' => tribe_get_option( 'postsPerPage', 10 ),
-		                   'paged'          => $paged );
+		                   'paged'          => $paged,
+		                   'post_status'    => array( 'publish' ) );
 
 		$query = new WP_Query( $defaults );
 
@@ -349,10 +350,12 @@ class TribeEventsGeoLoc {
 		}
 
 
-		$response = array( 'html' => '', 'markers' => array(), 'success' => true, 'max_pages' => $query->max_num_pages );
+		$response = array( 'html'      => '',
+		                   'markers'   => array(),
+		                   'success'   => true,
+		                   'max_pages' => $query->max_num_pages );
 
 		$response['html'] .= "<h2>" . __( 'Nearest places', 'tribe-events-calendar-pro' ) . '</h2>';
-
 
 
 		if ( $query->found_posts === 1 ) {
@@ -368,13 +371,13 @@ class TribeEventsGeoLoc {
 
 		if ( $query->found_posts > 0 ) {
 			global $wp_query, $post;
-			$data = $query->posts;
-			$post = $query->posts[0];
+			$data     = $query->posts;
+			$post     = $query->posts[0];
 			$wp_query = $query;
 			ob_start();
 
 			echo '<div id="tribe-geo-results">';
-			include apply_filters( 'tribe_include_view_list', TribeEventsTemplates::getTemplateHierarchy('list') );
+			include apply_filters( 'tribe_include_view_list', TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
 			echo '</div>';
 			$response['html'] .= ob_get_clean();
 
@@ -507,7 +510,7 @@ class TribeEventsGeoLoc {
 
 			set_transient( self::ESTIMATION_CACHE_KEY, $data, 5000 );
 		}
-		
+
 		return $data;
 
 	}
