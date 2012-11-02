@@ -41,11 +41,11 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			// End map template
 			add_filter( 'tribe_events_map_after_template', array( __CLASS__, 'after_template' ), 1, 1 );
 			
-			remove_filter( 'tribe_events_filter_view_before_template', array( __CLASS__, 'beginSidebar' ) );
-			remove_filter( 'tribe_events_filter_view_filters', array( __CLASS__, 'displayFilters' ) );
-			remove_filter( 'tribe_events_filter_view_before_filters', array( __CLASS__, 'formTag' ) );
-			remove_filter( 'tribe_events_filter_view_after_filters', array( __CLASS__, 'endFormTag' ) );
-			remove_filter( 'tribe_events_filter_view_after_template', array( __CLASS__, 'endSidebar' ) );
+			remove_filter( 'tribe_events_filter_view_before_template', array( __CLASS__, 'beginSidebar' ), 20 );
+			remove_filter( 'tribe_events_filter_view_filters', array( __CLASS__, 'displayFilters' ), 20 );
+			remove_filter( 'tribe_events_filter_view_before_filters', array( __CLASS__, 'formTag' ), 20 );
+			remove_filter( 'tribe_events_filter_view_after_filters', array( __CLASS__, 'endFormTag' ), 20 );
+			remove_filter( 'tribe_events_filter_view_after_template', array( __CLASS__, 'endSidebar' ), 20 );
 			
 		}
 		// Start Map Template
