@@ -464,7 +464,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param  int $post_id
 	 * @return string
 	 */
-	function tribe_event_recurring_info_tooltip( $post_id = null ){
+	function tribe_events_event_recurring_info_tooltip( $post_id = null ){
 		if( is_null( $post_id ))
 			$post_id = get_the_ID();
 		$eventID = $post_id;
@@ -485,7 +485,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		 }
 		}
 		return $tooltip;
-		return apply_filters('tribe_event_recurring_info_tooltip', $tooltip);
+		return apply_filters('tribe_events_event_recurring_info_tooltip', $tooltip);
 	}
 
 	/** 
