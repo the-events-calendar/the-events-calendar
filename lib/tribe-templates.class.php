@@ -36,9 +36,9 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			if( tribe_get_option('tribeEventsTemplate', 'default') == '' ) {
 				if(is_single() && !tribe_is_showing_all() ) {
-					return TribeEventsTemplates::getTemplateHierarchy('ecp-single-template');
+					return TribeEventsTemplates::getTemplateHierarchy('wrapper-single');
 				} else {
-					return TribeEventsTemplates::getTemplateHierarchy('ecp-page-template');
+					return TribeEventsTemplates::getTemplateHierarchy('wrapper-page');
 				}
 			} else {
 				// we need to ensure that we always enter the loop, whether or not there are any events in the actual query
@@ -99,20 +99,16 @@ if (!class_exists('TribeEventsTemplates')) {
 				if ( tribe_is_upcoming() || tribe_is_past() )
 					$template = TribeEventsTemplates::getTemplateHierarchy('list');
 				else
-					$template = TribeEventsTemplates::getTemplateHierarchy('gridview');
-			}
-			// single event
-			if ( is_single() && !tribe_is_showing_all() ) {
-				$template = TribeEventsTemplates::getTemplateHierarchy('single');
-			}
-			// list view
-			elseif ( tribe_is_upcoming() || tribe_is_past() || tribe_is_day() || (is_single() && tribe_is_showing_all()) ) {
+					$template = TribeEventsTemplates::getTemplateHierarchy('calendar');
+			} if ( is_single() && !tribe_is_showing_all() ) {
+				// single event
+				$template = TribeEventsTemplates::getTemplateHierarchy('single-event');
+			} elseif ( tribe_is_upcoming() || tribe_is_past() || (is_single() && tribe_is_showing_all()) ) {
+				// list view
 				$template = TribeEventsTemplates::getTemplateHierarchy('list');
-			}
-			// grid view
-			else 
-			{
-				$template = TribeEventsTemplates::getTemplateHierarchy('gridview');
+			} else {
+				// calendar view
+				$template = TribeEventsTemplates::getTemplateHierarchy('calendar');
 			}
 
          return apply_filters('tribe_current_events_page_template', $template);
@@ -125,6 +121,12 @@ if (!class_exists('TribeEventsTemplates')) {
 		
 			// restore the query so that our page template can do a normal loop
 			self::restoreQuery();
+
+			$notices = array();
+			$gmt_offset = (get_option('gmt_offset') >= '0' ) ? ' +' . get_option('gmt_offset') : " " . get_option('gmt_offset');
+			$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
+			if (strtotime( tribe_get_end_date(get_the_ID(), false, 'Y-m-d G:i') . $gmt_offset ) <= time() ) 
+				$notices[] = __('This event has passed.', 'tribe-events-calendar');
 		
 			ob_start();
 			echo apply_filters( 'tribe_events_before_html', stripslashes( tribe_get_option( 'tribeEventsBeforeHTML' ) ) );
@@ -139,9 +141,21 @@ if (!class_exists('TribeEventsTemplates')) {
 			return $contents;
 		} 
 	
-		public static function load_ecp_title_into_page_template($title, $id) {
+		public static function load_ecp_title_into_page_template($title, $post_id) {
 			global $post;
-			return ( !is_single() && (isset($post->ID) && $post->ID == $id) ) ? tribe_get_events_title() : $title;
+
+			if ( !is_single() ) 
+				return tribe_get_events_title();
+
+			// if the helper class for single event template hasn't been loaded fix that
+			if( !class_exists('Tribe_Events_Single_Event_Template') )
+				TribeEventsTemplates::getTemplateHierarchy('single-event');
+
+			// single event title
+			$before_title = apply_filters( 'tribe_events_single_event_before_the_title', '', $post_id );
+			$the_title = apply_filters( 'tribe_events_single_event_the_title', $title, $title, $post_id );
+			$after_title = apply_filters( 'tribe_events_single_event_after_the_title', '', $post_id );
+			return $before_title . $the_title . $after_title;
 		}
 	
 		public static function load_ecp_comments_page_template($template) {
@@ -211,24 +225,40 @@ if (!class_exists('TribeEventsTemplates')) {
 		 * @return template path
 		 * @author Matt Wiebe
 		 **/
-		public static function getTemplateHierarchy($template) {
-			$tribe_ecp = TribeEvents::instance();
+		public static function getTemplateHierarchy($template, $subfolder = '', $namespace = '/', $pluginPath = '') {
 
 			if ( substr($template, -4) != '.php' ) {
 				$template .= '.php';
 			}
 
-			if ( $theme_file = locate_template(array('events/'.$template)) ) {
+			// allow pluginPath to be set outside of this method
+			$pluginPath = empty($pluginPath) ? TribeEvents::instance()->pluginPath : $pluginPath;
+
+			// ensure that addon plugins look in the right override folder in theme
+			$namespace = !empty($namespace) && $namespace[0] != '/' ? '/' . trailingslashit($namespace) : trailingslashit($namespace);
+
+			// setup subfolder options
+			$subfolder = !empty($subfolder) ? trailingslashit($subfolder) : $subfolder;
+
+			if( file_exists($pluginPath . 'views/hooks/' . $template))
+				include_once $pluginPath . 'views/hooks/' . $template;
+
+			if ( $theme_file = locate_template( array('tribe-events' . $namespace . $subfolder . $template ), false, false) ) {
 				$file = $theme_file;
+			} else {
+				// protect from concat folder with filename
+				$subfolder = empty($subfolder) ? trailingslashit($subfolder) : $subfolder;
+				$subfolder = $subfolder[0] != '/' ? '/' . $subfolder : $subfolder;
+
+				$file = $pluginPath . 'views' . $subfolder . $template;
 			}
-			else {
-				$file = $tribe_ecp->pluginPath . 'views/' . $template;
-			}
+
 			return apply_filters( 'tribe_events_template_'.$template, $file);
 		}
 	
 		private static function spoofQuery() {
 			global $wp_query, $withcomments;
+
 			TribeEventsTemplates::$origPostCount = $wp_query->post_count;
 			TribeEventsTemplates::$origCurrentPost =  $wp_query->current_post;
 			$wp_query->current_post = -1;
@@ -236,7 +266,45 @@ if (!class_exists('TribeEventsTemplates')) {
 			$wp_query->is_page = true; // don't show comments
 			//$wp_query->is_single = false; // don't show comments
 			$wp_query->is_singular = true;
-		
+
+			if ( empty ( $wp_query->posts ) ) {
+
+				global $post;
+
+				$spoofed_post = array( "ID"                    => 1,
+				                       "post_author"           => 1,
+				                       "post_date"             => '1900-10-02 00:00:00',
+				                       "post_date_gmt"         => '1900-10-02 00:00:00',
+				                       "post_content"          => '',
+				                       "post_title"            => '',
+				                       "post_excerpt"          => '',
+				                       "post_status"           => 'publish',
+				                       "comment_status"        => 'closed',
+				                       "ping_status"           => 'closed',
+				                       "post_password"         => '',
+				                       "post_name"             => 'post',
+				                       "to_ping"               => '',
+				                       "pinged"                => '',
+				                       "post_modified"         => '1900-10-02 00:00:00',
+				                       "post_modified_gmt"     => '1900-10-02 00:00:00',
+				                       "post_content_filtered" => '',
+				                       "post_parent"           => 0,
+				                       "guid"                  => '',
+				                       "menu_order"            => 0,
+				                       "post_type"             => 'tribe_events',
+				                       "post_mime_type"        => '',
+				                       "comment_count"         => 0,
+				                       "EventStartDate"        => '1900-10-02 00:00:00',
+				                       "EventEndDate"          => '1900-10-02 00:00:00',
+				                       "filter"                => 'raw' );
+
+				$post = (object)$spoofed_post;
+
+				$wp_query->post    = $post;
+				$wp_query->posts[] = $post;
+				$wp_query->posts[] = $post;
+
+			}
 		}
 	
 		private static function endQuery() {

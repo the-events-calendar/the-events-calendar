@@ -64,6 +64,13 @@ $generalTab = array(
 			'options' => array( 'month' => 'Calendar', 'upcoming' => 'Event List' ),
 			'validation_type' => 'options',
 		),
+		'stylesheetOption' => array(
+			'type' => 'radio',
+			'label' => __( 'Default stylesheet for the Events', 'tribe-events-calendar' ),
+			'default' => 'full',
+			'options' => array( 'full' => 'Full Stylesheet (These styles will most likely override some of your current theme styles on events templates)', 'skeleton' => 'Skeleton Stylesheet (These styles shouldn\'t override your current theme styles)' ),
+			'validation_type' => 'options',
+		),
 		'unprettyPermalinksUrl' => array(
 			'type' => 'html',
 			'label' => __( 'Events URL slug', 'tribe-events-calendar' ),

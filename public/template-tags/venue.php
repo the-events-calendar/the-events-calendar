@@ -267,6 +267,20 @@ if( class_exists( 'TribeEvents' ) ) {
 		$output = esc_html(tribe_get_event_meta( $postId, '_VenuePhone', true ));
 		return apply_filters('tribe_get_phone', $output);
 	}
+	
+	/**
+	 * Get all the venues
+	 *
+	 * @author PaulHughes01
+	 * @since 2.1
+	 * @param bool $only_with_upcoming Only return venues with upcoming events attached to them.
+	 * @return array An array of venue post objects.
+	 */
+	function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1 ) {
+		$venues = get_posts( array( 'post_type' => TribeEvents::VENUE_POST_TYPE, 'posts_per_page' => $posts_per_page ) );
+		
+		return $venues;
+	}
 
 }
 ?>

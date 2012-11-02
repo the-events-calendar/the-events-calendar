@@ -341,28 +341,26 @@ jQuery(document).ready(function($) {
 	}
 
 	if( maybeDisplayPressTrendsDialogue() ) {
-			$('#presstrends-dialog').dialog({
-				modal: true,
-				buttons: [{
-						text:"Send data",
-						click: function() { 
-							$('[name="presstrends_action"]').val(1);
-							$(this).dialog("close"); 							
-							$('[name="sendPressTrendsData"]').prop("checked", true);
-							$('#tribeSaveSettings').click();
-						}
-				}, {
-						text:"Do not send data",
-						click: function() { 
-							$('[name="presstrends_action"]').val(0);
-							$(this).dialog("close"); 
-							$('[name="sendPressTrendsData"]').prop("checked", false);
-						}
-				}]
-			});
-			
-		}
-	
+		$('#presstrends-dialog').dialog({
+			modal: true,
+			buttons: [{
+				text:"Send data",
+				click: function() { 
+					$('[name="presstrends_action"]').val(1);
+					$(this).dialog("close"); 							
+					$('[name="sendPressTrendsData"]').prop("checked", true);
+					$('#tribeSaveSettings').click();
+				}
+			}, {
+				text:"Do not send data",
+				click: function() { 
+					$('[name="presstrends_action"]').val(0);
+					$(this).dialog("close"); 
+					$('[name="sendPressTrendsData"]').prop("checked", false);
+				}
+			}]
+		});	
+	}
 });
 
 /**

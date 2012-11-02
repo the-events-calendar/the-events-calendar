@@ -67,7 +67,7 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 			$this->id = apply_filters( 'tribe_settings_tab_id', $id );
 			$this->name = apply_filters( 'tribe_settings_tab_name', $name );
 			foreach ( $this->defaults as $key => $value ) {
-				$this->{$key} = apply_filters( 'tribe_settings_tab_'.$key, $$key );
+				$this->{$key} = apply_filters( 'tribe_settings_tab_'.$key, $$key, $id );
 			}
 
 
