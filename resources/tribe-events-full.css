@@ -489,10 +489,6 @@ width: 70%;
 /* = Single Event Template Styles
    @ Template: single-event.php
 =============================================*/
-.tribe-events-default-single .entry-title {
-	font-size: 1.6em;
-	margin-bottom: 30px;
-}
 
 .tribe-events-default-single #tribe-events-content {
 	padding: 0;
@@ -506,12 +502,15 @@ width: 70%;
 }
 
 h3.tribe-event-single-section-title {
-	font-size: 1.3em;
 }
 .tribe-event-single-section-title, .entry-content .tribe-event-single-section-title {
-	padding: 0 4%;
-	margin: 0 0 2% 0;
+	margin: 20px 0 10px;
+	font-size: 1.2em;
 }
+.tribe-events-meta-column + .tribe-event-single-section-title {
+	margin-top: 0;
+}
+
 /* Eventbrite */
 #eventbrite-embed {
 	width: 100%;
@@ -568,21 +567,78 @@ margin: 0;
 }
 /* Meta Sections */
 .single-tribe_events .tribe-events-event-meta {
-		background: #eee;
+		background: #fafafa;
 		border-width: 1px;
+		border-color: #eee;
 }
 
 /* Map */
 .single-tribe_events .tribe-event-venue-map {
-	width: 63%;
+	width: 60%;
 	margin-right: 4%;
 	float: right;
+	background: #eee;
+	padding: 5px;
+	border: 1px solid #ddd;
+	border-radius:  3px;
 }
 
 .single-tribe_events #tribe-events-gmap {
-	border: 5px solid #bbb;
-	border-radius: 3px;
+	height: 0 !important;
+	padding-top: 50%;
+	width: 100% !important;
+	margin: 0 !important;
 }
+
+.single-tribe_events .tribe-events-meta-column #tribe-events-gmap {
+	height: 0 !important;
+	padding-top: 100%;
+	width: 100% !important;
+	margin-top: 50px;
+}
+
+.single-tribe_events .tribe-events-meta-column .tribe-event-venue-map {
+	width: 94%;
+	float: none;
+	margin-right: 0;
+}
+
+/* Event Meta */
+.tribe-events-event-meta {
+	border-width: 1px 0;
+	border-style: solid;
+	border-color: #bbb;
+	margin: 30px 0;
+	padding: 2% 0;
+	overflow: hidden;
+	font-size: 12px;
+
+}
+.tribe-events-event-meta .tribe-events-meta-column, .tribe-events-event-meta .column {
+	float: left;
+	width: 25%;
+	padding: 0 4%;
+	text-align: left;
+	margin: 0;
+}
+.tribe-events-event-meta dt {
+	clear: left;
+	font-weight: bold;
+}
+
+#tribe-events-content .tribe-events-event-meta dd,
+#tribe-events-content .tribe-events-event-meta dd.entry-content {
+	padding: 0;
+	margin-bottom: 10px;
+	line-height: 1.5;
+}
+
+/* Content */
+.single-tribe_events .entry-content.description {
+	width: auto;
+	padding: 0;
+}
+
 
 /* = Calendar Styles (includes styles for both large & small calendars)
    @ Template: calendar.php & calendar-widget.php

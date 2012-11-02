@@ -83,7 +83,7 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 			ob_start();
 
 			// Single event content ?>
-				<div class="tribe-event-schedule clearfix">
+				<div class="tribe-event-schedule tribe-clearfix">
 					<h2><?php echo tribe_event_schedule_details(), '&nbsp;&nbsp;', tribe_event_recurring_info_tooltip(); ?></h2>
 					<?php // iCal/gCal links
 			if ( function_exists( 'tribe_get_single_ical_link' ) || function_exists( 'tribe_get_gcal_link' ) ) { ?>
@@ -234,7 +234,9 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 					</dl>	
 				<?php } elseif ( tribe_embed_google_map( get_the_ID() ) && tribe_address_exists( get_the_ID() ) ) { ?>
 					<dl class="tribe-events-meta-column venue-map">
-						<?php echo tribe_get_embedded_map(); ?>
+						<div class="tribe-event-venue-map">
+							<?php echo tribe_get_embedded_map(); ?>
+						</div>	
 					</dl>
 		<?php } else { ?>
 					<dl class="tribe-events-meta-column">
@@ -306,6 +308,7 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 				if ( function_exists( 'tribe_get_ticket_form' ) && tribe_get_ticket_form() ) {
 					$html .= tribe_get_ticket_form();
 				}
+				$html .= tribe_related_posts( false, 3, false, false, true, 'tribe_events' );
 				return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_event_after_the_meta' );
 			}
 

@@ -498,8 +498,17 @@ margin: 0;
 }
 
 .single-tribe_events #tribe-events-gmap {
-	border: 5px solid #bbb;
-	border-radius: 3px;
+	height: 0 !important;
+	padding-top: 50%;
+	width: 100% !important;
+	margin: 0 !important;
+}
+
+.single-tribe_events .tribe-events-meta-column #tribe-events-gmap {
+	height: 0 !important;
+	padding-top: 100%;
+	width: 100% !important;
+	margin-top: 50px;
 }
 
 /* Event Meta */
