@@ -452,11 +452,6 @@ div.tribe-countdown-text {
 	padding     : 0;
 }
 
-#tribe-geo-results h2 a,
-#tribe-geo-options h2 a {
-	color : #222;
-}
-
 #tribe-geo-links {
 	margin-top   : 20px;
 	border-top   : 1px solid #eee;
@@ -496,104 +491,16 @@ div.tribe-countdown-text {
 	color      : #fff;
 }
 
-/* tribe geo location results list formatting */
-
-#tribe-geo-results .event-notices {
-	text-align : center;
-	margin     : 2.25em 0 0 0;
-}
-
-.tribe-geo-result-entry {
-	position      : relative;
-	overflow      : auto;
-	border-bottom : 1px solid #ddd;
-	padding       : 2.25em 0;
-}
-
-.tribe-geo-result-last {
-	border-bottom  : none;
-	padding-bottom : none;
-}
-
-.tribe-geo-result-thumb {
-	float        : left;
-	width        : 30%;
-	margin-right : 2%;
-}
-
-.tribe-geo-result-thumb a {
-	display            : block;
-	border             : 1px solid #ddd;
-	padding            : 2px;
-	background         : #eee;
-	-webkit-transition : 0.1s ease-in-out;
-	-moz-transition    : 0.1s ease-in-out;
-	-o-transition      : 0.1s ease-in-out;
-	transition         : 0.1s ease-in-out
-}
-
-.tribe-geo-result-thumb a:hover {
-	border     : 1px solid #ccc;
-	background : #ddd;
-}
-
-.tribe-geo-result-thumb a img {
-	max-width : 100%;
-	width     : 100%;
-	display   : block;
-}
-
-.tribe-geo-result-data {
-	float : right;
-	width : 68%;
-}
-
-.tribe-geo-result-date {
-	display        : block;
-	font-size      : 16px;
-	font-style     : italic;
-	margin         : 10px 0 0 0;
-	text-transform : none;
-}
-
-.tribe-geo-result-venue {
-	display   : block;
-	margin    : 10px 0 0 0;
-	font-size : 16px;
-}
-
-.tribe-geo-result-excerpt {
-	margin : 10px 0 0 0;
-}
-
-.tribe-geo-result-entry .tribe-geo-result-excerpt p {
-	font-size : 14px;
-}
-
-.tribe-geo-result-entry h2 {
-	float : left;
-	width : 80%;
-}
-
-.tribe-geo-result-cost {
-	width : 18%;
-	float : right;
-}
-
-.tribe-geo-result-cost span {
-	display       : block;
-	font-weight   : bold;
-	padding       : 8px 10px;
-	border        : 1px solid #ddd;
-	background    : #eee;
-	overflow      : hidden;
-	white-space   : nowrap;
-	text-overflow : ellipsis;
-	text-align    : center;
-}
-
 #ajax-loading-mini {
 	display : none;
+}
+
+#tribe_map_paged_prev {
+	float:left;
+}
+
+#tribe_map_paged_next {
+	float:right;
 }
 
 .timer {
@@ -601,6 +508,15 @@ div.tribe-countdown-text {
 	width      : 100%;
 	color      : red;
 	margin     : 20px 0;
+}
+
+#tribe-geo-results #tribe_events_filters_wrapper {
+	display:none;
+}
+
+#tribe-geo-results #tribe-events-content {
+	float:none;
+	width:100%;
 }
 
 .tribe_map_paged {
