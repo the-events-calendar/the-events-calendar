@@ -347,6 +347,29 @@ ul.related-events li {
 	text-transform: uppercase;
 }
  
+.tribe-events-single ul.tribe-related-posts {
+	margin-right: -4%;
+	border: none;
+} 
+.tribe-events-single ul.tribe-related-posts li {
+	float: left; 
+	width: 29.333333%;
+	margin: 0 4% 2% 0;
+	padding: 0;
+	border: none;
+}
+
+.tribe-events-single ul.tribe-related-posts .tribe-related-posts-thumbnail {
+	margin-bottom: 4%;
+}
+
+.tribe-events-single ul.tribe-related-posts .tribe-related-posts-title {
+	margin-bottom: 4%;
+}
+
+.tribe-events-single ul.tribe-related-posts hr {
+	display: none;
+} 
  
 /* = Events Countdown Widget
 =============================================*/
