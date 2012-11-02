@@ -192,6 +192,9 @@ class TribeEventsGeoLoc {
 		remove_action( 'the_content', array( $this, 'setup_geoloc_template' ) );
 		$this->scripts();
 		$pro = TribeEventsPro::instance();
+
+		include $pro->pluginPath . 'views/hooks/map.php';
+
 		return $pro->pluginPath . 'views/map.php';
 	}
 
@@ -364,10 +367,14 @@ class TribeEventsGeoLoc {
 		}
 
 		if ( $query->found_posts > 0 ) {
+			global $wp_query, $post;
 			$data = $query->posts;
+			$post = $query->posts[0];
+			$wp_query = $query;
 			ob_start();
-			$pro = TribeEventsPro::instance();
-			include $pro->pluginPath . 'views/map-table.php';
+
+			include apply_filters( 'tribe_include_view_list', TribeEventsTemplates::getTemplateHierarchy('list') );
+
 			$response['html'] .= ob_get_clean();
 
 			$response['markers'] = $this->generate_markers( $data );

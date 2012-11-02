@@ -21,8 +21,8 @@
 
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-// Start map template
-echo apply_filters( 'tribe_events_map_before_template', '', get_the_ID() );
+	// Start map template
+	echo apply_filters( 'tribe_events_map_before_template', '', get_the_ID() );
 
 	// Map
 	echo apply_filters( 'tribe_events_map_before_the_map', '', get_the_ID() );
@@ -34,27 +34,29 @@ echo apply_filters( 'tribe_events_map_before_template', '', get_the_ID() );
 	echo apply_filters( 'tribe_events_map_the_options', '', get_the_ID() );
 	echo apply_filters( 'tribe_events_map_after_the_options', '', get_the_ID() );
 	
-	// Results
+//	// Results
 	echo apply_filters( 'tribe_events_map_before_the_results', '', get_the_ID() );
-	
-		$result_count = count( $data );
-		$counter      = 0;
-		foreach ( $data as $event ) {
-			global $post;
-			$post = $event;
-			$counter++;
-			$noThumb = true;
-	
-			echo apply_filters( 'tribe_events_map_the_results', '', get_the_ID() );
-			
-			// Pagination
-			echo apply_filters( 'tribe_events_map_before_pagination', '', get_the_ID() );
-			echo apply_filters( 'tribe_events_map_pagination', '', get_the_ID() );
-			echo apply_filters( 'tribe_events_map_after_pagination', '', get_the_ID() );
-	
-		}
-	
+//
+//		$result_count = count( $data );
+//		$counter      = 0;
+//		foreach ( $data as $event ) {
+//			global $post;
+//			$post = $event;
+//			$counter++;
+//			$noThumb = true;
+//
+//			echo apply_filters( 'tribe_events_map_the_results', '', get_the_ID() );
+//
+//			// Pagination
+//			echo apply_filters( 'tribe_events_map_before_pagination', '', get_the_ID() );
+//			echo apply_filters( 'tribe_events_map_pagination', '', get_the_ID() );
+//			echo apply_filters( 'tribe_events_map_after_pagination', '', get_the_ID() );
+//
+//		}
+//
 	echo apply_filters( 'tribe_events_map_after_the_results', '', get_the_ID() );
 
 // End map template
 echo apply_filters( 'tribe_events_map_after_template', '', get_the_ID() );
+
+Tribe_Events_Map_Template::init();

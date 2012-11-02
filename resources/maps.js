@@ -86,7 +86,7 @@ jQuery( document ).ready( function ( $ ) {
 
 			spin_end();
 
-			if ( response.success ) {
+				if ( response.success ) {
 
 				$( "#tribe-geo-results" ).html( response.html );
 
