@@ -247,4 +247,3 @@ if ( !$.support.pjax ) {
 }
 
 })(jQuery);
-

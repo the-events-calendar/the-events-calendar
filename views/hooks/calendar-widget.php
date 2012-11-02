@@ -100,6 +100,8 @@ if( !class_exists('Tribe_Events_Calendar_Widget_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_widget_before_the_dates');
 		}
 		public function the_dates( $args = array() ){
+
+
 			extract( $args, EXTR_SKIP );
 			ob_start();
 			// Skip last month

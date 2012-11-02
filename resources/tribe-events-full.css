@@ -54,8 +54,6 @@ ul.tribe-events-sub-nav a:hover,
 }
 
 /* View Extra Padding */
-.events-archive.events-list .hentry,
-.events-archive.events-gridview .hentry,
 .tribe-events-day.page .hentry,
 .tribe-events-week.page .hentry {
 	margin: 0;
@@ -135,6 +133,18 @@ a.tribe-events-gcal {
 .updated-info {
 	text-indent: -9999px;
 	height: 0;
+}
+
+/* Event Schedule Detail Styling */
+.tribe-event-schedule-details {
+	font-style: normal;
+	font-weight: bold;
+	display: inline;
+	margin-right: 10px;
+}
+
+.date-divider {
+	padding: 0 10px;
 }
 
 /* 2011 Theme Extra Calendar Room */
@@ -222,8 +232,8 @@ a.tribe-events-gcal {
 	margin-bottom: 48px;
 	padding: 1px 20px;
 }
-#tribe-events-content {
-	font-size: 16px;
+#tribe-events-content.tribe-events-list {
+	padding: 0;
 }
 
 /* Header */
@@ -286,13 +296,147 @@ select.tribe-events-dropdown {
 /* = List View Template Styles
    @ Template: list.php
 =============================================*/
+.tribe-events-list h2.tribe-events-page-title {
+	margin-bottom: 15px;
+}
+
+
 #tribe-events-content.tribe-events-list {
 	margin-bottom: 60px;
 }
 
-/* Header */
-.tribe-events-list h2.tribe-events-page-title {
-	margin-bottom: 15px;
+.tribe-events-list .vevent.hentry {
+	border-bottom: 1px solid #ddd;
+	padding: 2.25em 0;
+	overflow: auto;
+	margin: 0;
+}
+
+.tribe-events-list .tribe-events-event-details .tribe-events-event-cost + .entry-title, .events-archive .tribe-events-list .tribe-events-event-details .tribe-events-event-cost + .entry-title {
+float: left;
+width: 70%;
+}
+
+.tribe-events-list .tribe-events-event-details h2, .tribe-events-list .tribe-events-event-details h3 {
+	margin: 0 0 2% 0;
+	padding: 0;
+	line-height: 1.2;
+}
+
+.tribe-events-list .tribe-events-event-details h2 {
+	font-size: 1.4em;
+	text-transform: none;
+	letter-spacing: 0;
+}
+
+.tribe-events-list .tribe-events-event-details h3 {
+	font-size: 1.2em;
+	margin: 0 0 1% 0;
+	text-transform: none;
+	letter-spacing: 0;	
+}
+
+.tribe-events-event-details address.event-address {
+	font-style: normal;
+}
+
+/* Image */
+.tribe-events-list .tribe-events-event-image {
+	float: left;
+	width: 30%;
+	margin: 0 3% 0 0;
+}
+
+.tribe-events-event-image img {
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+}
+
+/* Details (Title, Meta, Content) */
+.tribe-events-list .tribe-events-event-image + .tribe-events-event-details {
+	float: left;
+	width: 67%;
+	position: relative;
+}
+
+
+/* Meta */
+.tribe-events-loop .tribe-events-event-meta {
+	float: none;
+	clear: both;
+	border: 0;
+	margin: 0 0 15px 0;
+	padding: 0;
+	line-height: 1.4;
+	font-weight: normal;
+	overflow: visible;
+}
+
+.tribe-events-loop .fn, .tribe-events-loop .vard {
+	float: none;
+}
+
+.tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
+	display: inline-block;
+} 
+
+.tribe-events-event-meta address.event-address {
+	display: inline;
+}
+.tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring {
+	position: relative;
+	font-style: normal;
+	font-weight: 500;
+	color: rgba(0, 0, 0, .7);
+}
+
+.tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring:hover {
+	color: #000;
+}
+
+.tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring img {
+	width: 16px;
+	height: 16px;
+	opacity: .7;
+	position: relative;
+	top: 4px;	
+}
+
+.tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring:hover img {
+	opacity: 1.0;
+}
+
+/* Cost */
+.tribe-events-list .tribe-events-event-cost {
+	position: absolute;
+	right: 1px;
+	margin: 0;
+	width: 70px;
+	word-wrap: break-word;
+}
+
+.tribe-events-list .tribe-events-event-cost span {
+	font-weight: bold;
+	background: #eee;
+	border: 1px solid #ddd;
+	display: block;
+	padding: 5px 10px;
+	text-align: center;
+	line-height: 1.3;
+	font-style: normal;
+	text-overflow: ellipsis;
+}
+
+/* Content */
+
+.tribe-events-list .tribe-events-loop .entry-content {
+	width: 100%;
+	padding: 0;
+}
+
+.tribe-events-list .tribe-events-loop .entry-content p {
+	margin: 0;
 }
 
 /* Navigation */
@@ -313,16 +457,9 @@ select.tribe-events-dropdown {
 =============================================*/
 /* Loop */
 .tribe-events-loop {
-	font-size: 13px;
 	clear: both;
 }
-.events-archive .tribe-events-loop .vevent,
-.single-tribe_venue .tribe-events-loop .vevent {
-	border-bottom: 1px solid #ddd;
-	padding: 2.25em 0;
-	overflow: auto;
-	margin: 0;
-}
+
 .tribe-events-loop .vevent.tribe-last {
 	border-bottom: 0;
 }
@@ -334,17 +471,9 @@ select.tribe-events-dropdown {
 .events-archive .entry-content p, 
 .single-tribe_venue .tribe-events-loop .entry-content p {
 	margin: 0;
-	font-size: 16px;
 	line-height: 24px;
 }
-.single-tribe_venue .tribe-events-list .entry-title, 
-.events-archive .tribe-events-list .entry-title {
-	margin: 15px 0 6px;
-	font-size: 18px;
-	font-weight:bold;
-	line-height: 1em;
-	padding: 0;
-}
+
 .events-archive h3 .published, 
 .single-tribe_venue  h3 .published {
 	font-size: 18px;
@@ -356,30 +485,6 @@ select.tribe-events-dropdown {
 .tribe-events-event-day {
 	color: #333;
 }
-
-/* Event Meta Info */
-.tribe-events-loop .tribe-events-event-meta {
-	float: right;
-	border: 0;
-	border-left: 1px solid #ccc;
-	padding: 0 0 0 4%;
-	width: 30%;
-	font-size: 12px;
-	margin: 0 0 1.75em;
-}
-.tribe-events-loop .tribe-events-event-meta dl {
-	margin: 0;
-}
-.tribe-events-loop .tribe-events-event-meta dt {
-	font-weight: bold;
-	padding-right: 12px;
-	width: auto;
-}
-.tribe-events-loop .tribe-events-event-meta dd {
-	margin-bottom: .25em;
-	margin-left: 6.5em;
-}
-
 
 /* = Single Event Template Styles
    @ Template: single-event.php
@@ -454,7 +559,6 @@ select.tribe-events-dropdown {
 #tribe-events-content .tribe-events-event-meta dd,
 #tribe-events-content .tribe-events-event-meta dd.entry-content {
 	padding: 0;
-	margin-left: 80px;
 	margin-bottom: 10px;
 	line-height: 1.5;
 }
@@ -538,6 +642,7 @@ select.tribe-events-dropdown {
 	right: 30px;
 }
 
+
 /* recurring info tooltip */
 .recurringinfo {
 	display: inline-block;
@@ -568,7 +673,7 @@ select.tribe-events-dropdown {
 
 .recurring-info-tooltip.tribe-events-tooltip {
 	left: -20px;
-	width: auto;
+	width: 200px;
 	max-width: 320px;
 }
 

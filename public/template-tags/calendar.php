@@ -77,7 +77,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		}
 
 
-		foreach ( $results as $event ) {
+		foreach ( (array)$results as $event ) {
 			$post = $event;
 
 			$started = false;

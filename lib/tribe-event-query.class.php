@@ -114,6 +114,11 @@ if (!class_exists('TribeEventsQuery')) {
 						);
 				}
 
+				$meta_query[] = array(
+					'key' => '_EventStartDate',
+					'type' => 'DATETIME'
+					);
+
 			}
 
 			// filter by Venue ID
@@ -163,22 +168,23 @@ if (!class_exists('TribeEventsQuery')) {
 				add_filter( 'posts_orderby', array(__CLASS__, 'posts_orderby'), 10, 2);
 			}
 
-			// if is in the admin remove the event date & upcoming filters
-			// protect against stripping front end AJAX calls if logged in
-			if( is_admin() && $query->tribe_is_event_query &&
-				( ! defined( 'DOING_AJAX' ) || ( defined( 'DOING_AJAX' ) && ! DOING_AJAX ) ) ) {
-					
-					remove_filter( 'posts_join', array(__CLASS__, 'posts_join' ), 10, 2 );
-					remove_filter( 'posts_where', array(__CLASS__, 'posts_where'), 10, 2);
+			// if is in the admin remove the event date & upcoming filters, unless is an ajax call
+			if ( is_admin() && $query->tribe_is_event_query ) {
+				if ( ( !defined( 'DOING_AJAX' ) ) || ( defined( 'DOING_AJAX' ) && !( DOING_AJAX ) ) ) {
+
+
+					remove_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 10, 2 );
+					remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
 					$query->set( 'post__not_in', '' );
 
 					// set the default order for posts within admin lists
-					if( ! isset($query->query['order'])) {
+					if ( !isset( $query->query['order'] ) ) {
 						$query->set( 'order', 'DESC' );
 					} else {
 						// making sure we preserve the order supplied by the query string even if it is overwritten above
 						$query->set( 'order', $query->query['order'] );
 					}
+				}
 			}
 
 			// check if is_event_query === true and hook filter
@@ -314,6 +320,8 @@ if (!class_exists('TribeEventsQuery')) {
 
 			$wp_query = new WP_Query( $args );
 
+			// print_r($wp_query->request);
+
 			if( ! empty($wp_query->posts) ) {
 				if ( $full ) {
 					return $wp_query;
@@ -322,7 +330,11 @@ if (!class_exists('TribeEventsQuery')) {
 					return $posts;
 				}
 			} else {
-				return NULL;
+				if ( $full ) {
+					return $wp_query;
+				} else {
+					return array();
+				}
 			}
 		}
 	}

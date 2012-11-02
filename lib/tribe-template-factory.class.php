@@ -33,7 +33,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					break;
 				case 'select2' : // Vendor: Select2
 					wp_enqueue_style( $prefix . '-select2-css', $vendor_url . 'select2/select2.css' );
-					wp_enqueue_script( $prefix . '-select2', $vendor_url . 'select2/select2.min.js', 'jquery' );
+					wp_enqueue_script( $prefix . '-select2', $vendor_url . 'select2/select2.js', 'jquery' );
 					break;
 				case 'calendar-script' : // Tribe Events JS
 					wp_enqueue_script( $prefix . '-calendar-script', $resouces_url . 'tribe-events.js', array('jquery', 'tribe-events-pjax') );
@@ -63,6 +63,12 @@ if( !class_exists('Tribe_Template_Factory') ) {
 				case 'jquery-placeholder' : // Vendor: jQuery Placeholder
 					wp_enqueue_script( $prefix . '-jquery-placeholder', $vendor_url . 'jquery-placeholder/jquery.placeholder.min.js', array( 'jquery' ), '2.0.7', false );
 					break;
+				case 'ajax-calendar':
+					$ajax_data = array( "ajaxurl"   => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
+					wp_enqueue_script( 'tribe-events-calendar', $resouces_url . 'tribe-events-ajax-calendar.js' );
+					wp_localize_script( 'tribe-events-calendar', 'TribeCalendar', $ajax_data );
+					break;
+
 				default :
 					do_action($prefix . '-' . $name);
 					break;

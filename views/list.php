@@ -22,6 +22,8 @@
 
 if ( !defined('ABSPATH') ) { die('-1'); }
 
+$the_post_id = ( have_posts() ) ? get_the_ID() : null;
+
 // Our various messages if there are no events for the query
 $notices = empty($notices) ? array() : $notices;
 if ( ! have_posts() ) { // Messages if currently no events
@@ -47,14 +49,15 @@ if ( ! have_posts() ) { // Messages if currently no events
 	}
 }
 
+
 // Start list template
-echo apply_filters( 'tribe_events_list_before_template', '', get_the_ID() );
+echo apply_filters( 'tribe_events_list_before_template', '', $the_post_id );
 
 	// List notices
-	echo apply_filters( 'tribe_events_list_notices', $notices, $notices, get_the_ID() );
+	echo apply_filters( 'tribe_events_list_notices', $notices, $notices, $the_post_id );
 	
 	// Start list loop
-	echo apply_filters( 'tribe_events_list_before_loop', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_list_before_loop', '', $the_post_id );
 
 	$hasPosts = false;
 
@@ -71,34 +74,41 @@ echo apply_filters( 'tribe_events_list_before_template', '', get_the_ID() );
 			$more = false;
 
 			echo apply_filters( 'tribe_events_list_inside_before_loop', '', get_the_ID() );
-			
-				// Event start date
-				echo apply_filters( 'tribe_events_list_the_start_date', '', get_the_ID() );
-			
-				// Event title
-				echo apply_filters( 'tribe_events_list_the_title', '', get_the_ID() );
+							
+				// Event image
+				echo apply_filters( 'tribe_events_list_the_event_image', '', get_the_ID() );
+				
+					// Event details start
+					echo apply_filters( 'tribe_events_list_before_the_event_details', '', get_the_ID() );
 
-				// Event content
-				echo apply_filters( 'tribe_events_list_before_the_content', '', get_the_ID() );
-				echo apply_filters( 'tribe_events_list_the_content', '', get_the_ID() );
-				echo apply_filters( 'tribe_events_list_after_the_content', '', get_the_ID() );
+					// Event title
+					echo apply_filters( 'tribe_events_list_the_title', '', get_the_ID() );
+
+					// Event meta
+					echo apply_filters( 'tribe_events_list_before_the_meta', '', get_the_ID() );
+					echo apply_filters( 'tribe_events_list_the_meta', '', get_the_ID() );
+					echo apply_filters( 'tribe_events_list_after_the_meta', '', get_the_ID() );
+
+					// Event content
+					echo apply_filters( 'tribe_events_list_before_the_content', '', get_the_ID() );
+					echo apply_filters( 'tribe_events_list_the_content', '', get_the_ID() );
+					echo apply_filters( 'tribe_events_list_after_the_content', '', get_the_ID() );
+
+				// Event details end
+				echo apply_filters( 'tribe_events_list_after_the_event_details', '', get_the_ID() );				
 			
-				// Event meta
-				echo apply_filters( 'tribe_events_list_before_the_meta', '', get_the_ID() );
-				echo apply_filters( 'tribe_events_list_the_meta', '', get_the_ID() );
-				echo apply_filters( 'tribe_events_list_after_the_meta', '', get_the_ID() );
-		
 			echo apply_filters( 'tribe_events_list_inside_after_loop', '', get_the_ID() );
+
 
 		} // End list loop
 	} // End if list has posts
 
-	echo apply_filters( 'tribe_events_list_after_loop', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_list_after_loop', '', $the_post_id );
 	
 	// List pagination
-	echo apply_filters( 'tribe_events_list_before_pagination', '', get_the_ID() );
-	echo apply_filters( 'tribe_events_list_pagination', '', get_the_ID() );
-	echo apply_filters( 'tribe_events_list_after_pagination', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_list_before_pagination', '', $the_post_id );
+	echo apply_filters( 'tribe_events_list_pagination', '', $the_post_id );
+	echo apply_filters( 'tribe_events_list_after_pagination', '', $the_post_id );
 
 // End list template
-echo apply_filters( 'tribe_events_list_after_template', $hasPosts, get_the_ID() );
+echo apply_filters( 'tribe_events_list_after_template', $hasPosts, $the_post_id );
