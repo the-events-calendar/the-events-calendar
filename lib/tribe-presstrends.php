@@ -9,47 +9,52 @@ function presstrends_plugin_tribe_events_calendar() {
 	// Start of Metrics
 	global $wpdb;
 	$data = get_transient( 'presstrends_data_tribe-events-calendar' );
-	if (!$data || $data == ''){
+	if ( !$data || $data == '' ) {
 		$api_base = 'http://api.presstrends.io/index.php/api/pluginsites/update/auth/';
-		$url = $api_base . $auth . '/api/' . $api_key . '/';
-		$data = array();
-		$count_posts = wp_count_posts();
-		$count_pages = wp_count_posts('page');
+		$url      = $api_base . $auth . '/api/' . $api_key . '/';
+
+		$count_posts    = wp_count_posts();
+		$count_pages    = wp_count_posts( 'page' );
 		$comments_count = wp_count_comments();
-		$theme_data = get_theme_data(get_stylesheet_directory() . '/style.css');
-		$plugin_count = count(get_option('active_plugins'));
-		$all_plugins = get_plugins();
-		$plugin_name = null;
-		$plugin_name = '&';
-		foreach($all_plugins as $plugin_file => $plugin_info) {
-			$plugin_name .= $plugin_info['Name'];
-			$plugin_name .= '&';
+
+		// wp_get_theme was introduced in 3.4, for compatibility with older versions, let's do a workaround for now.
+		if ( function_exists( 'wp_get_theme' ) ) {
+			$theme_data = wp_get_theme();
+			$theme_name = urlencode( $theme_data->Name );
+		} else {
+			$theme_data = get_theme_data( get_stylesheet_directory() . '/style.css' );
+			$theme_name = $theme_data['Name'];
 		}
-		// This line has been edited from the default PressTrends code. Make sure to keep it edited with any future changes.
-		$plugin_data = get_plugin_data( trailingslashit( dirname( dirname ( __FILE__ ) ) ) . 'the-events-calendar.php' );
-		$plugin_version = $plugin_data['Version'];
-		$posts_with_comments = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}posts WHERE post_type='post' AND comment_count > 0");
-		$comments_to_posts = number_format(($posts_with_comments / $count_posts->publish) * 100, 0, '.', '');
-		$pingback_result = $wpdb->get_var('SELECT COUNT(comment_ID) FROM '.$wpdb->comments.' WHERE comment_type = "pingback"');
-		$data['url'] = stripslashes(str_replace(array('http://', '/', ':' ), '', site_url()));
-		$data['posts'] = $count_posts->publish;
-		$data['pages'] = $count_pages->publish;
-		$data['comments'] = $comments_count->total_comments;
-		$data['approved'] = $comments_count->approved;
-		$data['spam'] = $comments_count->spam;
-		$data['pingbacks'] = $pingback_result;
-		$data['post_conversion'] = $comments_to_posts;
-		$data['theme_version'] = $plugin_version;
-		$data['theme_name'] = urlencode($theme_data['Name']);
-		$data['site_name'] = str_replace( ' ', '', get_bloginfo( 'name' ));
-		$data['plugins'] = $plugin_count;
-		$data['plugin'] = urlencode($plugin_name);
-		$data['wpversion'] = get_bloginfo('version');
+
+		$plugin_name = '&';
+		foreach ( get_plugins() as $plugin_info ) {
+			$plugin_name .= $plugin_info['Name'] . '&';
+		}
+		// CHANGE __FILE__ PATH IF LOCATED OUTSIDE MAIN PLUGIN FILE
+		$plugin_data         = get_plugin_data( __FILE__ );
+		$posts_with_comments = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts WHERE post_type='post' AND comment_count > 0" );
+		$data                = array(
+			'url'             => stripslashes( str_replace( array( 'http://', '/', ':' ), '', site_url() ) ),
+			'posts'           => $count_posts->publish,
+			'pages'           => $count_pages->publish,
+			'comments'        => $comments_count->total_comments,
+			'approved'        => $comments_count->approved,
+			'spam'            => $comments_count->spam,
+			'pingbacks'       => $wpdb->get_var( "SELECT COUNT(comment_ID) FROM $wpdb->comments WHERE comment_type = 'pingback'" ),
+			'post_conversion' => ( $count_posts->publish > 0 && $posts_with_comments > 0 ) ? number_format( ( $posts_with_comments / $count_posts->publish ) * 100, 0, '.', '' ) : 0,
+			'theme_version'   => $plugin_data['Version'],
+			'theme_name'      => $theme_name,
+			'site_name'       => str_replace( ' ', '', get_bloginfo( 'name' ) ),
+			'plugins'         => count( get_option( 'active_plugins' ) ),
+			'plugin'          => urlencode( $plugin_name ),
+			'wpversion'       => get_bloginfo( 'version' ),
+		);
+
 		foreach ( $data as $k => $v ) {
 			$url .= $k . '/' . $v . '/';
 		}
-		$response = wp_remote_get( $url );
-		set_transient('presstrends_data_tribe-events-calendar', $data, 60*60*24);
+		wp_remote_get( $url );
+		set_transient( 'presstrends_data_tribe-events-calendar', $data, 60 * 60 * 24 );
 	}
 }
 

@@ -9,6 +9,10 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if (!class_exists('TribeEventsQuery')) {
 	class TribeEventsQuery {
 
+		function __construct(){
+			add_action('tribe_events_init_pre_get_posts', array(__CLASS__,'init'));
+		}
+
 		/**
 		 * Initialize The Events Calendar query filters and post processing.
 		 * @return null
@@ -110,6 +114,11 @@ if (!class_exists('TribeEventsQuery')) {
 						);
 				}
 
+				$meta_query[] = array(
+					'key' => '_EventStartDate',
+					'type' => 'DATETIME'
+					);
+
 			}
 
 			// filter by Venue ID
@@ -159,18 +168,22 @@ if (!class_exists('TribeEventsQuery')) {
 				add_filter( 'posts_orderby', array(__CLASS__, 'posts_orderby'), 10, 2);
 			}
 
-			// if is in the admin remove the event date & upcoming filters
-			if( is_admin() && $query->tribe_is_event_query ) {
-				remove_filter( 'posts_join', array(__CLASS__, 'posts_join' ), 10, 2 );
-				remove_filter( 'posts_where', array(__CLASS__, 'posts_where'), 10, 2);
-				$query->set( 'post__not_in', '' );
+			// if is in the admin remove the event date & upcoming filters, unless is an ajax call
+			if ( is_admin() && $query->tribe_is_event_query ) {
+				if ( ( !defined( 'DOING_AJAX' ) ) || ( defined( 'DOING_AJAX' ) && !( DOING_AJAX ) ) ) {
 
-				// set the default order for posts within admin lists
-				if( ! isset($query->query['order'])) {
-					$query->set( 'order', 'DESC' );
-				} else {
-					// making sure we preserve the order supplied by the query string even if it is overwritten above
-					$query->set( 'order', $query->query['order'] );
+
+					remove_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 10, 2 );
+					remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
+					$query->set( 'post__not_in', '' );
+
+					// set the default order for posts within admin lists
+					if ( !isset( $query->query['order'] ) ) {
+						$query->set( 'order', 'DESC' );
+					} else {
+						// making sure we preserve the order supplied by the query string even if it is overwritten above
+						$query->set( 'order', $query->query['order'] );
+					}
 				}
 			}
 
@@ -198,6 +211,7 @@ if (!class_exists('TribeEventsQuery')) {
 					// is event add required fields
 					if( tribe_is_event( $post->ID) ) {
 						$posts[$id]->tribe_is_event = true;
+						$posts[$id]->tribe_is_allday = tribe_get_event_meta( $post->ID, '_EventAllDay' ) ? true : false;
 						$posts[$id]->EventStartDate = get_post_meta( $post->ID, '_EventStartDate', true);
 						$posts[$id]->EventDuration = get_post_meta( $post->ID, '_EventDuration', true);
 						// DO NOT USE THIS - end dates are deprecated due to recurrance
@@ -293,7 +307,7 @@ if (!class_exists('TribeEventsQuery')) {
 		 * @param  array  $args
 		 * @return array
 		 */
-		public static function getEvents( $args = array() ) {
+		public static function getEvents( $args = array(), $full = false ) {
 			$defaults = array(
 				'post_type' => TribeEvents::POSTTYPE,
 				'orderby' => 'event_date',
@@ -306,11 +320,21 @@ if (!class_exists('TribeEventsQuery')) {
 
 			$wp_query = new WP_Query( $args );
 
+			// print_r($wp_query->request);
+
 			if( ! empty($wp_query->posts) ) {
-				$posts = $wp_query->posts;
-				return $posts;
+				if ( $full ) {
+					return $wp_query;
+				} else {
+					$posts = $wp_query->posts;
+					return $posts;
+				}
 			} else {
-				return NULL;
+				if ( $full ) {
+					return $wp_query;
+				} else {
+					return array();
+				}
 			}
 		}
 	}

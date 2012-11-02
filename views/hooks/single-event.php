@@ -58,6 +58,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_before_the_title');
 		}
 		public function the_title( $title, $post_id ){
+			$title = '<h2 class="entry-title summary">'. $title .'</a></h2>';
 			return apply_filters('tribe_template_factory_debug', $title, 'tribe_events_single_event_the_title');
 		}
 		public function after_the_title( $post_id ){

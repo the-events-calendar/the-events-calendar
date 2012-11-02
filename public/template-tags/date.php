@@ -105,5 +105,20 @@ if( class_exists( 'TribeEvents' ) ) {
 		return str_replace( array_keys($tribe_ecp->monthNames( $shortMonthNames )), $tribe_ecp->monthNames( $shortMonthNames ), $date);
 	}
 
+	function tribe_event_beginning_of_day( $date = null, $format = 'Y-m-d H:i:s' ){
+		if( is_null($date) || empty($date) ) {
+			return apply_filters( 'tribe_event_beginning_of_day', Date($format) );
+		} else {
+			return apply_filters( 'tribe_event_beginning_of_day', Date($format, strtotime($date)) );
+		}
+	}
+	function tribe_event_end_of_day( $date = null, $format = 'Y-m-d H:i:s' ){
+		if( is_null($date) || empty($date) ) {
+			return apply_filters( 'tribe_event_end_of_day', Date($format, strtotime('tomorrow') - 1 ) );
+		} else {
+			return apply_filters( 'tribe_event_end_of_day', Date($format, strtotime($date . ' +1 day') - 1 ) );
+		}
+	}
+
 }
 ?>

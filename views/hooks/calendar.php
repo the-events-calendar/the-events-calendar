@@ -71,7 +71,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		}
 		// Calendar Header
 		public function before_header( $post_id ){
-			$html = '<div id="tribe-events-header">';
+			$html = '<div id="tribe-events-header" data-title="' . wp_title( '&raquo;', false ) . '">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_header');
 		}
 		// Calendar Navigation
@@ -81,8 +81,10 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_nav');
 		}
 		public function navigation( $post_id ){
-			$html = '<li class="tribe-events-nav-prev">';
-			$html .= '<a href="' . tribe_get_previous_month_link() . '" rel="prev">&#x2190; '. tribe_get_previous_month_text() .' </a>';
+			$tribe_ecp = TribeEvents::instance();
+
+			$html = '<li class="tribe-events-nav">';
+			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() )  .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&#x2190; '. tribe_get_previous_month_text() .' </a>';
 			$html .= '</li><!-- .tribe-events-prev-next -->';
 			
 			$html .= '<li>';
@@ -91,8 +93,8 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$html .= ob_get_clean();
 			$html .= '</li>';
 	
-			$html .= '<li class="tribe-events-nav-next">';
-			$html .= '<a href="' . tribe_get_next_month_link() . '" rel="next"> '. tribe_get_next_month_text() .' &#x2192;</a>';
+			$html .= '<li class="tribe-events-nav">';
+			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() )  .'" href="' . tribe_get_next_month_link() . '" rel="next"> '. tribe_get_next_month_text() .' &#x2192;</a>';
 			$html .= '<img src="' . esc_url( admin_url( 'images/wpspin_light.gif' ) ) . '" class="ajax-loading" id="ajax-loading" alt="Loading events" />';
 			$html .= '</li><!-- .tribe-events-nav-next -->';
 			
@@ -152,7 +154,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 					</tr>
 				</thead>
 
-				<tbody class="hfeed">
+				<tbody class="hfeed vcalendar">
 					<tr>
 					<?php // Skip last month
 						for( $i = 1; $i <= $offset; $i++ ) { 
@@ -161,17 +163,22 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 						// Output this month
          				$days_in_month = date( 't', intval($date) );
 						for( $day = 1; $day <= $days_in_month; $day++ ) {
-			    			if( ( $day + $offset - 1 ) % 7 == 0 && $day != 1 ) {
+
+							$column = $day + $offset - 1 - ( 7 * ( $rows - 1 ) ) ;
+
+							if( ( $day + $offset - 1 ) % 7 == 0 && $day != 1 ) {
 			        			echo "</tr>\n\t<tr>";
 			        			$rows++;
 			    			}
-			
-							// Var'ng up days, months and years
+
+														// Var'ng up days, months and years
 							$current_day = date_i18n( 'd' );
 							$current_month = date_i18n( 'm' );
 							$current_year = date_i18n( 'Y' );
             				$date = "$year-$month-$day";
-				
+
+							$ppf = '';
+
 							if ( $current_month == $month && $current_year == $year) {
 								// Past, Present, Future class
 								if ( $current_day == $day ) {
@@ -185,14 +192,22 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 								$ppf = ' tribe-events-past';
 							} elseif ( $current_month < $month && $current_year == $year || $current_year < $year ) {
 								$ppf = ' tribe-events-future';
-							} else { $ppf = false; }
+							}
+							
+
+							if ( ( $column % 4 == 0 ) || ( $column % 5 == 0 ) || ( $column % 6 == 0 ) ) {
+								$ppf .= ' tribe-events-right';
+							}
+
+
 							
 						// You can find tribe_the_display_day() & tribe_get_display_day_title() in
 						// /public/template-tags/calendar.php
 						// This controls the markup for the days and events on the frontend
 				
 			    			echo "<td class=\"tribe-events-thismonth". $ppf ."\">". tribe_get_display_day_title( $day, $monthView, $date ) ."\n";
-								tribe_the_display_day( $day, $monthView );
+
+							tribe_the_display_day( $day, $monthView );
 							echo '</td>';
 						}
 						// Skip next month

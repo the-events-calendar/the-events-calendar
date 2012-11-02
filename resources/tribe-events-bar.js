@@ -7,16 +7,21 @@ function eventBarWidth() {
 	var tribeBarWidth = tribeBar.width();
 	
 	if ( tribeBarWidth > 643 ) {
-		tribeBar.removeClass( 'tribe-show-select' ).addClass( 'tribe-hide-select' );
+		tribeBar.removeClass( 'tribe-bar-mini' ).addClass( 'tribe-bar-full' );
 	} else {
-		tribeBar.removeClass( 'tribe-hide-select' ).addClass( 'tribe-show-select' );
+		tribeBar.removeClass( 'tribe-bar-full' ).addClass( 'tribe-bar-mini' );
 	}
 }
 
 jQuery( document ).ready( function ( $ ) {
 
+	var tribe_var_datepickerOpts = {
+		dateFormat:'yy-mm-dd',
+		showAnim:'fadeIn'
+	};
+
 	// Implement our datepicker
-	$( '#tribe-bar-date' ).datepicker();
+	$( '#tribe-bar-date' ).datepicker( tribe_var_datepickerOpts );
 	
 	// Implement placeholder
 	$( 'input[name*="tribe-bar-"]' ).placeholder();
