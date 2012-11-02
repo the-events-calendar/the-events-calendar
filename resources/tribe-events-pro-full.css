@@ -452,11 +452,6 @@ div.tribe-countdown-text {
 	padding     : 0;
 }
 
-#tribe-geo-results h2 a,
-#tribe-geo-options h2 a {
-	color : #222;
-}
-
 #tribe-geo-links {
 	margin-top   : 20px;
 	border-top   : 1px solid #eee;
@@ -498,6 +493,14 @@ div.tribe-countdown-text {
 
 #ajax-loading-mini {
 	display : none;
+}
+
+#tribe_map_paged_prev {
+	float:left;
+}
+
+#tribe_map_paged_next {
+	float:right;
 }
 
 .timer {
