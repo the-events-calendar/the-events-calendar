@@ -346,12 +346,17 @@ ul.related-events li {
 	font-size: .75em;
 	text-transform: uppercase;
 }
+
+h3.tribe-events-related-events-title {
+	margin-bottom: 4%;
+}
  
-.tribe-events-single ul.tribe-related-posts {
+.tribe-events-single ul.tribe-related-events {
 	margin-right: -4%;
 	border: none;
+	margin-bottom: 8%;
 } 
-.tribe-events-single ul.tribe-related-posts li {
+.tribe-events-single ul.tribe-related-events li {
 	float: left; 
 	width: 29.333333%;
 	margin: 0 4% 2% 0;
@@ -359,17 +364,13 @@ ul.related-events li {
 	border: none;
 }
 
-.tribe-events-single ul.tribe-related-posts .tribe-related-posts-thumbnail {
+.tribe-events-single ul.tribe-related-events .tribe-related-events-thumbnail {
 	margin-bottom: 4%;
 }
 
-.tribe-events-single ul.tribe-related-posts .tribe-related-posts-title {
+.tribe-events-single ul.tribe-related-events .tribe-related-events-title {
 	margin-bottom: 4%;
 }
-
-.tribe-events-single ul.tribe-related-posts hr {
-	display: none;
-} 
  
 /* = Events Countdown Widget
 =============================================*/
