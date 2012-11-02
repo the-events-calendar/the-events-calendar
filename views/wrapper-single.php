@@ -36,7 +36,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<?php if( tribe_get_option( 'showComments','no' ) == 'yes' ) { comments_template(); } ?>
 		
 		
-		<!-- <?php get_sidebar(); ?>  remove comment to display sidebar -->
+		<?php /* get_sidebar(); */ ?> 
 		
 	<?php tribe_events_after_html(); ?>
 </div> <!-- #tribe-events-pg-template -->	

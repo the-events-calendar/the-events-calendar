@@ -308,8 +308,9 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 				if ( function_exists( 'tribe_get_ticket_form' ) && tribe_get_ticket_form() ) {
 					$html .= tribe_get_ticket_form();
 				}
-				$html .= tribe_single_related_events();
-
+				if ( class_exists( 'TribeEventsPro' ) ): // If pro, show venue w/ link 
+						$html .= tribe_single_related_events();
+				endif; 
 				return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_event_after_the_meta' );
 			}
 
