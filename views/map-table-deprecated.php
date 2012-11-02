@@ -42,7 +42,7 @@ foreach ( $data as $event ) {
 				<?php
 			if ( $this->is_geoloc_query() ) {
 				?>
-				<strong>[<?php echo tribe_get_distance_with_unit( $event->distance ); ?>]</strong>
+
 				<?php
 			}
 			?>

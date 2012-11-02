@@ -21,6 +21,8 @@ class TribeEventsGeoLoc {
 	protected static $options;
 	protected $rewrite_slug;
 
+	public static $distance_cache = array();
+
 	function __construct() {
 
 		$this->rewrite_slug = $this->getOption( 'geoloc_rewrite_slug', 'map' );
@@ -372,6 +374,7 @@ class TribeEventsGeoLoc {
 			$post = $query->posts[0];
 			$wp_query = $query;
 			ob_start();
+
 			echo '<div id="tribe-geo-results">';
 			include apply_filters( 'tribe_include_view_list', TribeEventsTemplates::getTemplateHierarchy('list') );
 			echo '</div>';
@@ -387,6 +390,7 @@ class TribeEventsGeoLoc {
 
 	}
 
+
 	private function order_posts_by_distance( &$posts, $lat_from, $lng_from ) {
 
 		// add distances
@@ -394,6 +398,8 @@ class TribeEventsGeoLoc {
 			$posts[$i]->lat      = $this->get_lat_for_event( $posts[$i]->ID );
 			$posts[$i]->lng      = $this->get_lng_for_event( $posts[$i]->ID );
 			$posts[$i]->distance = $this->get_distance_between_coords( $lat_from, $lng_from, $posts[$i]->lat, $posts[$i]->lng );
+
+			self::$distance_cache[$posts[$i]->ID] = $posts[$i]->distance;
 		}
 
 		//sort
