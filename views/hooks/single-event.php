@@ -84,7 +84,7 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 
 			// Single event content ?>
 				<div class="tribe-event-schedule tribe-clearfix">
-					<h2><?php echo tribe_event_schedule_details(), '&nbsp;&nbsp;', tribe_event_recurring_info_tooltip(); ?></h2>
+					<h2><?php echo tribe_events_event_schedule_details(), '&nbsp;&nbsp;', tribe_events_event_recurring_info_tooltip(); ?></h2>
 					<?php // iCal/gCal links
 			if ( function_exists( 'tribe_get_single_ical_link' ) || function_exists( 'tribe_get_gcal_link' ) ) { ?>
 							<div class="tribe-event-cal-links">
