@@ -308,7 +308,8 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 				if ( function_exists( 'tribe_get_ticket_form' ) && tribe_get_ticket_form() ) {
 					$html .= tribe_get_ticket_form();
 				}
-				$html .= tribe_related_posts( false, 3, false, false, true, 'tribe_events' );
+				$html .= tribe_single_related_events();
+
 				return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_event_after_the_meta' );
 			}
 
