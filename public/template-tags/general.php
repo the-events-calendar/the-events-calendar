@@ -340,7 +340,9 @@ if( class_exists( 'TribeEvents' ) ) {
 		$costs = $wpdb->get_col( 'SELECT meta_value FROM ' . $wpdb->postmeta . ' WHERE meta_key = \'_EventCost\';');
 		
 		$costs = array_map( 'tribe_map_cost_array_callback', $costs );
-		
+		if ( empty( $costs ) )
+			$costs = array( '0' );
+			
 		$min = min( $costs );
 		if ( $min == '' )
 			$min = 0;
@@ -361,6 +363,8 @@ if( class_exists( 'TribeEvents' ) ) {
 		$costs = $wpdb->get_col( 'SELECT meta_value FROM ' . $wpdb->postmeta . ' WHERE meta_key = \'_EventCost\';');
 		
 		$costs = array_map( 'tribe_map_cost_array_callback', $costs );
+		if ( empty( $costs ) )
+			$costs = array( '0' );
 		
 		$max = max( $costs );
 		if ( $max == '' )

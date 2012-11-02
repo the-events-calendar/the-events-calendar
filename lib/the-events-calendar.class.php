@@ -294,6 +294,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'comment_form', array( $this, 'addHiddenRecurringField' ) );
 
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_for_ajax_calendar' ) );
+			
+			add_action( 'wpmu_new_blog', array( $this, 'maybeAssignMuDefaultOptions' ), 10, 1 );
 
 			add_action( 'wp_ajax_tribe_calendar', array( $this, 'calendar_ajax_call' ) );
 			add_action( 'wp_ajax_nopriv_tribe_calendar', array( $this, 'calendar_ajax_call' ) );
@@ -429,7 +431,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$this->setOption('latest_ecp_version', self::VERSION);
 			}
 		}
-
+		
+		public function maybeAssignMuDefaultOptions( $blog_id ) {
+			if ( is_multisite() && isset( $blog_id ) && file_exists( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' ) ) {
+				require_once( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' );
+				
+				if ( isset( $tribe_events_mu_defaults ) && is_array( $tribe_events_mu_defaults ) ) {
+					add_blog_option( $blog_id, self::OPTIONNAME, $tribe_events_mu_defaults );
+				} 
+			}
+		}
 
 		/**
 		 * Check add-ons to make sure they are supported by currently running TEC version.

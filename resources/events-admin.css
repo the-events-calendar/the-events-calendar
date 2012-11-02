@@ -144,6 +144,16 @@ td.tribe_message {padding-bottom: 10px !important;}
 #tribe-help-sidebar {width: 25%; max-width: 200px; margin: 20px 0 0 5%;}
 #tribe-help-plugin-info {border: 1px solid #CCC; padding: 0 12px;}
 
+/* miscellaneous */
+.tribe-admin-box-left {float:left; width: 20%; margin: 20px 0; background-color: #f9f9f9; padding: 0px 20px 15px; border: 1px solid #ccc; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; -o-border-radius: 4px;}
+.tribe-admin-box-right {float:right; width: 68%; margin: 20px 0; background-color: #f9f9f9; padding: 0px 20px 15px; border: 1px solid #ccc; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; -o-border-radius: 4px;}
+.ajax-loader {float:right; margin: 10px;}
+.tribe-arrangeable-item { border: 1px solid lightGrey; -moz-border-radius: 6px; border-radius: 6px; }
+.tribe-arrangeable-item .ui-state-default { border:none; }
+.tribe-arrangeable-item-top { padding: 6px; }
+.tribe-arrangeable-item-top:hover { cursor: move; }
+.tribe-arrangeable-action { float:right; }
+.tribe-arrangeable-child { display:none; padding: 5px; border-top: 1px solid lightGrey; background-color: #f9f9f9 }
 
 /* = Help Screen
 =============================================*/

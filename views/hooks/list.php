@@ -118,7 +118,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 		}
 		// Event Meta
 		public function before_the_meta( $post_id ){
-			$html = '';	
+			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_the_meta');
 		}
 		public function the_meta( $post_id ){
@@ -126,8 +126,13 @@ if( !class_exists('Tribe_Events_List_Template')){
 		?>
 			<div class="tribe-events-event-meta">
 				<h3 class="updated published time-details">
-						<?php echo tribe_event_schedule_details(), tribe_event_recurring_info_tooltip(); ?>
-				</h3>	
+					<?php
+					global $post;
+					if ( !empty( $post->distance ) ) { ?>
+						<strong>[<?php echo tribe_get_distance_with_unit( $post->distance ); ?>]</strong>
+					<?php } ?>
+					<?php echo tribe_event_schedule_details(), tribe_event_recurring_info_tooltip(); ?>
+				</h3>
 				<?php if ( tribe_get_venue() || tribe_address_exists( $post_id ) ) { // Get venue or location ?>
 					<h3 class="vcard fn org">
 						<?php if ( tribe_get_venue() ) { // Get our venue ?>
