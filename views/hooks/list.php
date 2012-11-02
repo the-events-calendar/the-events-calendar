@@ -126,11 +126,13 @@ if( !class_exists('Tribe_Events_List_Template')){
 		?>
 			<div class="tribe-events-event-meta">
 				<h3 class="updated published time-details">
-					<?php if ( class_exists( 'TribeEventsGeoLoc' ) && !empty( TribeEventsGeoLoc::$distance_cache ) && !empty( TribeEventsGeoLoc::$distance_cache[get_the_ID()] ) ) { ?>
-						<strong>[<?php echo tribe_get_distance_with_unit( TribeEventsGeoLoc::$distance_cache[get_the_ID()] ); ?>]</strong>
+					<?php
+					global $post;
+					if ( !empty( $post->distance ) ) { ?>
+						<strong>[<?php echo tribe_get_distance_with_unit( $post->distance ); ?>]</strong>
 					<?php } ?>
 					<?php echo tribe_event_schedule_details(), tribe_event_recurring_info_tooltip(); ?>
-				</h3>	
+				</h3>
 				<?php if ( tribe_get_venue() || tribe_address_exists( $post_id ) ) { // Get venue or location ?>
 					<h3 class="vcard fn org">
 						<?php if ( tribe_get_venue() ) { // Get our venue ?>
