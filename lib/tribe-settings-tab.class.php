@@ -72,7 +72,9 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 
 
 			// run actions & filters
-			add_filter( 'tribe_settings_all_tabs', array( $this, 'addAllTabs' ) );
+			if ( !$network_admin ) {
+				add_filter( 'tribe_settings_all_tabs', array( $this, 'addAllTabs' ) );
+			}
 			add_filter( 'tribe_settings_tabs', array( $this, 'addTab' ), $priority );
 
 		}

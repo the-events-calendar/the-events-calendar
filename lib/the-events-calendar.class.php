@@ -558,8 +558,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			new TribeSettingsTab( 'template', __('Template', 'tribe-events-calendar'), $templatesTab );
 			// If none of the addons are activated, do not show the licenses tab.
 			if ( class_exists( 'TribeEventsPro' ) || class_exists( 'Event_Tickets_PRO' ) || class_exists( 'TribeCommunityEvents' ) || class_exists( 'Tribe_FB_Importer' ) ) {
-				new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar'), array('priority' => '40',
-					'fields' => apply_filters('tribe_license_fields', $tribe_licences_tab_fields) ) );
+				if ( is_multisite() ) {
+					new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar'), array('priority' => '40', 'network_admin' => true,
+						'fields' => apply_filters('tribe_license_fields', $tribe_licences_tab_fields) ) );
+				} else {
+					new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar'), array('priority' => '40',
+						'fields' => apply_filters('tribe_license_fields', $tribe_licences_tab_fields) ) );
+				}
 			}
 			new TribeSettingsTab( 'help', __('Help', 'tribe-events-calendar'), array('priority' => 60, 'show_save' => false) );
 		}

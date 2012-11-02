@@ -142,6 +142,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 
 			// run actions & filters
 			add_action( 'admin_menu', array( $this, 'addPage' ) );
+			add_action( 'network_admin_menu', array( $this, 'addNetworkPage' ) );
 			add_action( 'admin_init', array( $this, 'initTabs' ) );
 			add_action( 'tribe_settings_below_tabs', array( $this, 'displayErrors' ) );
 			add_action( 'tribe_settings_below_tabs', array( $this, 'displaySuccess' ) );
@@ -157,6 +158,17 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 */
 		public function addPage() {
 			$this->admin_page = add_submenu_page( 'edit.php?post_type=' . TribeEvents::POSTTYPE, __( 'The Events Calendar Settings', 'tribe-events-calendar'), __('Settings', 'tribe-events-calendar'), $this->requiredCap, $this->adminSlug, array( $this, 'generatePage' ) );
+		}
+		
+		/**
+		 * create the network options page
+		 *
+		 * @since 2.1
+		 * @author PaulHughes01
+		 * @return void
+		 */
+		public function addNetworkPage() {
+			$this->admin_page = add_submenu_page( 'settings.php', __( 'The Events Calendar Settings', 'tribe-events-calendar'), __('Events Settings', 'tribe-events-calendar'), $this->requiredCap, $this->adminSlug, array( $this, 'generatePage' ) );
 		}
 
 		/**
