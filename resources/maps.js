@@ -85,8 +85,8 @@ jQuery( document ).ready( function ( $ ) {
 		$.post( GeoLoc.ajaxurl, data, function ( response ) {
 
 			spin_end();
-
-				if ( response.success ) {
+			console.log(response);
+			if ( response.success ) {
 
 				$( "#tribe-geo-results" ).html( response.html );
 

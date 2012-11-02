@@ -47,10 +47,10 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 //
 //			echo apply_filters( 'tribe_events_map_the_results', '', get_the_ID() );
 //
-//			// Pagination
-//			echo apply_filters( 'tribe_events_map_before_pagination', '', get_the_ID() );
-//			echo apply_filters( 'tribe_events_map_pagination', '', get_the_ID() );
-//			echo apply_filters( 'tribe_events_map_after_pagination', '', get_the_ID() );
+//	  // Pagination
+		echo apply_filters( 'tribe_events_map_before_pagination', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_map_pagination', '', get_the_ID() );
+		echo apply_filters( 'tribe_events_map_after_pagination', '', get_the_ID() );
 //
 //		}
 //

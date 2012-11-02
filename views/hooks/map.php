@@ -33,9 +33,9 @@ if( !class_exists('Tribe_Events_Map_Template')){
 //			add_filter( 'tribe_events_map_the_results', array( __CLASS__, 'the_results' ), 1, 1 );
 //
 //			// Pagination
-//			add_filter( 'tribe_events_map_before_pagination', array( __CLASS__, 'before_pagination' ), 1, 1 );
-//			add_filter( 'tribe_events_map_pagination', array( __CLASS__, 'pagination' ), 1, 1 );
-//			add_filter( 'tribe_events_map_after_pagination', array( __CLASS__, 'after_pagination' ), 1, 1 );
+			add_filter( 'tribe_events_map_before_pagination', array( __CLASS__, 'before_pagination' ), 1, 1 );
+			add_filter( 'tribe_events_map_pagination', array( __CLASS__, 'pagination' ), 1, 1 );
+			add_filter( 'tribe_events_map_after_pagination', array( __CLASS__, 'after_pagination' ), 1, 1 );
 
 			add_filter( 'tribe_events_map_after_the_results', array( __CLASS__, 'after_the_results' ), 1, 1 );
 
