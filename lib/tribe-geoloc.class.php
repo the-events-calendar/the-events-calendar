@@ -372,9 +372,9 @@ class TribeEventsGeoLoc {
 			$post = $query->posts[0];
 			$wp_query = $query;
 			ob_start();
-
+			echo '<div id="tribe-geo-results">';
 			include apply_filters( 'tribe_include_view_list', TribeEventsTemplates::getTemplateHierarchy('list') );
-
+			echo '</div>';
 			$response['html'] .= ob_get_clean();
 
 			$response['markers'] = $this->generate_markers( $data );
