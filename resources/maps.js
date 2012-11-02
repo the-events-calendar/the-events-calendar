@@ -85,7 +85,7 @@ jQuery( document ).ready( function ( $ ) {
 		$.post( GeoLoc.ajaxurl, data, function ( response ) {
 
 			spin_end();
-
+			console.log(response);
 			if ( response.success ) {
 
 				$( "#tribe-geo-results" ).html( response.html );
@@ -117,13 +117,13 @@ jQuery( document ).ready( function ( $ ) {
 
 	}
 
-	$( '#tribe-geo-results' ).on( 'click', 'a#tribe_map_paged_next', function ( e ) {
+	$( '.tribe-events-loop-nav' ).on( 'click', 'a#tribe_map_paged_next', function ( e ) {
 		e.preventDefault();
 		tribe_map_paged++;
 		tribe_map_processOption( null );
 	} );
 
-	$( '#tribe-geo-results' ).on( 'click', 'a#tribe_map_paged_prev', function ( e ) {
+	$( '.tribe-events-loop-nav' ).on( 'click', 'a#tribe_map_paged_prev', function ( e ) {
 		e.preventDefault();
 		tribe_map_paged--;
 		tribe_map_processOption( null );
