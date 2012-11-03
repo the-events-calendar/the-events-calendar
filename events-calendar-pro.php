@@ -39,6 +39,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $pluginUrl;
 		public $pluginSlug;
 		public $licenseKey;
+		public $weekSlug = 'week';
+		public $daySlug = 'day';
+		public $todaySlug = 'today';
 		public static $updateUrl = 'http://tri.be/';
 		const REQUIRED_TEC_VERSION = '2.1';
 		const VERSION = '2.1';
@@ -48,6 +51,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$this->pluginPath = trailingslashit( dirname( __FILE__ ) );
 			$this->pluginUrl = WP_PLUGIN_URL.'/'.$this->pluginDir;
 			$this->pluginSlug = 'events-calendar-pro';
+
+			$this->weekSlug = sanitize_title(__('week', 'tribe-events-calendar-pro'));
+			$this->daySlug = sanitize_title(__('day', 'tribe-events-calendar-pro'));
+			$this->todaySlug = sanitize_title(__('today', 'tribe-events-calendar-pro'));
+
 
 			require_once( 'lib/tribe-pro-template-factory.class.php' );
 			require_once( 'lib/tribe-date-series-rules.class.php' );
@@ -101,6 +109,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_help_tab_forums_url', array( $this, 'helpTabForumsLink' ) );
 			add_action( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'addLinksToPluginActions' ) );
 
+			add_filter( 'tribe_events_before_html', array( $this, 'events_before_html' ), 10 );
+
 			// see function tribe_convert_units( $value, $unit_from, $unit_to )
 			add_filter( 'tribe_convert_kms_to_miles_ratio', array( $this, 'kms_to_miles_ratio' ) );
 			add_filter( 'tribe_convert_miles_to_kms_ratio', array( $this, 'miles_to_kms_ratio' ) );
@@ -115,6 +125,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'wp_ajax_nopriv_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
 		}
 
+		function events_before_html(){
+			global $wp_query;
+			if( $wp_query->tribe_is_event_venue || $wp_query->tribe_is_event_organizer ) {
+				add_filter( 'tribe-events-bar-should-show', '__return_false');
+			}
+		}
 
 		function reset_page_title( $content ){
 			global $wp_query;
@@ -467,9 +483,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// $baseTag = "(.*)" . $baseTag;
 
 
-			$day = trailingslashit($tec->daySlug);
-			$today = trailingslashit($tec->todaySlug);
-			$week = trailingslashit($tec->weekSlug);
+			$day = trailingslashit($this->daySlug);
+			$today = trailingslashit($this->todaySlug);
+			$week = trailingslashit($this->weekSlug);
 			$newRules = array();
 			// week permalink rules
 			$newRules[$base . $week . '?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week';
@@ -562,6 +578,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// venue view
 			if( is_singular( TribeEvents::VENUE_POST_TYPE ) ) {
 				$template = TribeEventsTemplates::getTemplateHierarchy( 'single-venue','','pro', $this->pluginPath );
+			}
+			// organizer view
+			if( is_singular( TribeEvents::ORGANIZER_POST_TYPE ) ) {
+				$template = TribeEventsTemplates::getTemplateHierarchy( 'single-organizer','','pro', $this->pluginPath );
 			}
 			// week view
 			if( tribe_is_week() ) {
