@@ -53,9 +53,8 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_before_the_title');
 		}
-		public function the_title( $title, $post_id ){
-			// This title is here for ajax loading – do not remove if you want ajax switching between month views
-			$html = '<title>' . wp_title( '&raquo;', false ) . '</title>';
+		public function the_title( $title, $post_id ){			
+			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_the_title');
 		}
 		public function after_the_title( $post_id ){
@@ -71,7 +70,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		}
 		// Calendar Header
 		public function before_header( $post_id ){
-			$html = '<div id="tribe-events-header" data-title="' . wp_title( '&raquo;', false ) . '">';
+			$html = '<div id="tribe-events-header" data-title="' . wp_title( '&raquo;', false ) . '" data-date="'. date( 'Y-m', strtotime( tribe_get_month_view_date() ) ) .'">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_header');
 		}
 		// Calendar Navigation
@@ -129,9 +128,6 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				// $eventPosts = tribe_get_events( array( 'eventDisplay'=>'month' ) );
 				$eventPosts = $wp_query->posts;
 			}
-
-			if(empty($eventPosts))
-				return 'NO EVENTS';
 
 			$daysInMonth = isset( $date ) ? date( 't', $date ) : date( 't' );
 			$startOfWeek = get_option( 'start_of_week', 0 );

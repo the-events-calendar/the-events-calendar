@@ -105,7 +105,12 @@ if( class_exists( 'TribeEvents' ) ) {
 						$started = false;
 					}
 				}
-				
+
+				// see spoofQuery in lib/tribe-templates.class.php
+				if ( $event->guid === '_tribe_empty_event' ) {
+					$started = false;
+				}
+
 				if ( $started ) {
 					$monthView[$i][] = $event;
 				}
