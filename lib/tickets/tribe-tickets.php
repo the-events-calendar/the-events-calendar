@@ -215,8 +215,9 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 				$pdf->SetXY( 104, 83 );
 
-				$address2 = array($city, $state, $zip);
-				$address2 = join(', ', $address2);
+				$address2 = array( $city, $state, $zip );
+				$address2 = array_filter( $address2 );
+				$address2 = join( ', ', $address2 );
 				$address2 = strtoupper( utf8_decode( $address2 ) );
 
 				$size = 30;
