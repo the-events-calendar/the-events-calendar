@@ -68,8 +68,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_events( $args = '' )  {
-		$tribe_ecp = TribeEvents::instance();
-		return apply_filters('tribe_get_events', $tribe_ecp->getEvents( $args ));
+		return apply_filters( 'tribe_get_events', TribeEventsQuery::getEvents( $args ) );
 	}
 
 	/**
