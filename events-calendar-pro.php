@@ -125,11 +125,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'wp_ajax_nopriv_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
 		}
 
-		function events_before_html(){
+		function events_before_html( $html ) {
 			global $wp_query;
-			if( $wp_query->tribe_is_event_venue || $wp_query->tribe_is_event_organizer ) {
-				add_filter( 'tribe-events-bar-should-show', '__return_false');
+			if ( $wp_query->tribe_is_event_venue || $wp_query->tribe_is_event_organizer ) {
+				add_filter( 'tribe-events-bar-should-show', '__return_false' );
 			}
+			return $html;
 		}
 
 		function reset_page_title( $content ){
