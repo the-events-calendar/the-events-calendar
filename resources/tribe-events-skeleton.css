@@ -62,7 +62,9 @@ a.tribe-events-gcal {
 	float: right;
 	text-decoration: none;
 	line-height: 18px;
-	margin-bottom: 21px;	
+	margin-bottom: 21px;
+	position: relative;
+	top: 5px;	
 }
 .tribe-events-gcal {
 	margin-right: 9px;
@@ -411,6 +413,11 @@ width: 70%;
 .single-tribe_events #tribe-events-content {
 	padding: 0;
 }
+.single-tribe_events .tribe-event-schedule .tribe-divider {
+	margin-right: 10px;
+}
+
+.single-tribe_events .tribe-event-schedule
 
 #tribe-events-content .description img.attachment-post-thumbnail {
 	margin-left: auto;
@@ -422,7 +429,7 @@ width: 70%;
 h3.tribe-event-single-section-title {
 }
 .tribe-event-single-section-title, .entry-content .tribe-event-single-section-title {
-	margin: 20px 0 10px;
+	margin: 0px 0 10px;
 	font-size: 1.2em;
 }
 .tribe-events-meta-column + .tribe-event-single-section-title {
@@ -485,15 +492,13 @@ margin: 0;
 }
 /* Meta Sections */
 .single-tribe_events .tribe-events-event-meta {
-		background: #fafafa;
-		border-width: 1px;
-		border-color: #eee;
+		margin-right: -4%;
+		width: 100%;
 }
 
 /* Map */
 .single-tribe_events .tribe-event-venue-map {
 	width: 63%;
-	margin-right: 4%;
 	float: right;
 }
 
@@ -517,21 +522,23 @@ margin: 0;
 
 /* Event Meta */
 .tribe-events-event-meta {
-	border-width: 1px 0;
-	border-style: solid;
-	border-color: #bbb;
-	margin: 30px 0;
-	padding: 2% 0;
+	border-bottom: 1px solid #bbb;
+	margin: 0 0 30px 0;
+	padding: 0 0 30px 0;
 	overflow: hidden;
 	font-size: 12px;
-
 }
+
+.tribe-events-event-meta:first-child {
+	border-top: 1px solid #bbb;
+}
+
 .tribe-events-event-meta .tribe-events-meta-column, .tribe-events-event-meta .column {
 	float: left;
-	width: 25%;
-	padding: 0 4%;
+	width: 29.3333%;
+	padding: 0;
 	text-align: left;
-	margin: 0;
+	margin: 0 4% 0 0;
 }
 .tribe-events-event-meta dt {
 	clear: left;

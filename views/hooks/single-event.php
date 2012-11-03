@@ -83,7 +83,8 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 
 			// Single event content ?>
 				<div class="tribe-event-schedule tribe-clearfix">
-					<h2><?php echo tribe_events_event_schedule_details(), '&nbsp;&nbsp;', tribe_events_event_recurring_info_tooltip(); ?></h2>
+					<h2><?php echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); ?><?php 	if ( tribe_get_cost() ) :  echo '<span class="tribe-divider">|</span>'. tribe_get_cost() .''; endif; ?></h2>
+				
 					<?php // iCal/gCal links
 			if ( function_exists( 'tribe_get_single_ical_link' ) || function_exists( 'tribe_get_gcal_link' ) ) { ?>
 							<div class="tribe-event-cal-links">
@@ -100,12 +101,12 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 				</div>
 			<div class="entry-content description">
 
-				<?php // Event image
+				<?php /*
 			if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
 					<div class="tribe-event-featured-image">
 						<?php the_post_thumbnail( 'full' ); ?>
 					</div>
-				<?php } ?>
+				<?php } */ ?>
 
 				<?php // Event content
 			the_content(); ?>
@@ -143,13 +144,6 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 				<dt><?php _e( 'Date:', 'tribe-events-calendar' ); ?></dt>
 				<dd class="published dtstart"><abbr class="tribe-events-abbr" title="<?php echo tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ); ?>"><?php echo tribe_get_start_date(); ?></abbr></dd>
 			<?php } ?>
-
-			<?php if ( tribe_get_cost() ) : // Cost ?>
-				<dt><?php _e( 'Cost:', 'tribe-events-calendar' ); ?></dt>
-				<dd class="tribe-events-event-cost"><?php echo tribe_get_cost(); ?></dd>
-			<?php endif; ?>
-
-			<?php tribe_meta_event_cats(); // Event categories ?>
 
 			<?php if ( class_exists( 'TribeEventsRecurrenceMeta' ) && function_exists( 'tribe_get_recurrence_text' ) && tribe_is_recurring_event() ) : // Show info for reoccurring events ?>
 				<dt><?php _e( 'Schedule:', 'tribe-events-calendar' ); ?></dt>
