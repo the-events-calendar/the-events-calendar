@@ -46,12 +46,12 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_organizer_Template' ) ) {
 		}
 		// Start Single organizer
 		public static function before_organizer( $post_id ) {
-			$html = '<div class="tribe-events-organizer-meta">';
+			$html = '<div class="tribe-events-organizer-meta tribe-clearfix">';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_before_organizer' );
 		}
 		// organizer Map
 		public static function featured_image( $post_id ) {
-			$html = '';
+			$html = '';		
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_featured_image' );
 		}
 		// organizer Meta
@@ -73,6 +73,11 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_organizer_Template' ) ) {
 	 				<span class="vcard email"><a href="mailto:<?php echo tribe_get_organizer_email(); ?>"><?php echo tribe_get_organizer_email(); ?></a></span>
 	 			<?php endif; ?>
  			</address>
+			<?php if ( get_the_content() != '' ): // Venue content ?>
+				<div class="organizer-description">	
+					<?php the_content(); ?>
+				</div>	
+ 			<?php endif ?> 			
 
 <?php
 			$html = ob_get_clean();
