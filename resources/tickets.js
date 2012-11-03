@@ -7,6 +7,9 @@ jQuery( document ).ready( function ( $ ) {
 		changeYear:true,
 		numberOfMonths:3,
 		showButtonPanel:true,
+		onChange:function () {
+			alert( 'lala' );
+		},
 		onSelect:function ( dateText, inst ) {
 			var the_date = $.datepicker.parseDate( 'yy-mm-dd', dateText );
 			if ( inst.id === "ticket_start_date" ) {
@@ -152,37 +155,41 @@ jQuery( document ).ready( function ( $ ) {
 				$( '#ticket_start_date' ).val( response.data.start_date.substring( 0, 10 ) );
 				$( '#ticket_end_date' ).val( response.data.end_date.substring( 0, 10 ) );
 
-				var start_hour = response.data.start_date.substring( 11, 13 );
-				var start_meridian = 'am';
-				if ( parseInt( start_hour ) > 12 ) {
-					start_meridian = 'pm';
-					start_hour = parseInt( start_hour ) - 12;
-					start_hour = ("0" + start_hour).slice( -2 );
-				}
-				if ( parseInt( start_hour ) === 12 ) {
-					start_meridian = 'pm';
-				}
+				if ( response.data.start_date ) {
+					var start_hour = response.data.start_date.substring( 11, 13 );
+					var start_meridian = 'am';
+					if ( parseInt( start_hour ) > 12 ) {
+						start_meridian = 'pm';
+						start_hour = parseInt( start_hour ) - 12;
+						start_hour = ("0" + start_hour).slice( -2 );
+					}
+					if ( parseInt( start_hour ) === 12 ) {
+						start_meridian = 'pm';
+					}
 
-				$( '#ticket_start_hour' ).val( start_hour );
-				$( '#ticket_start_meridian' ).val( start_meridian );
-
-				var end_hour = response.data.end_date.substring( 11, 13 );
-				var end_meridian = 'am';
-				if ( parseInt( end_hour ) > 12 ) {
-					end_meridian = 'pm';
-					end_hour = parseInt( end_hour ) - 12;
-					end_hour = ("0" + end_hour).slice( -2 );
-				}
-				if ( parseInt( end_hour ) === 12 ) {
-					end_meridian = 'pm';
+					$( '#ticket_start_hour' ).val( start_hour );
+					$( '#ticket_start_meridian' ).val( start_meridian );
 				}
 
-				$( '#ticket_end_hour' ).val( end_hour );
-				$( '#ticket_end_meridian' ).val( end_meridian );
+				if ( response.data.end_date ) {
 
-				$( '#ticket_start_minute' ).val( response.data.start_date.substring( 14, 16 ) );
-				$( '#ticket_end_minute' ).val( response.data.end_date.substring( 14, 16 ) );
+					var end_hour = response.data.end_date.substring( 11, 13 );
+					var end_meridian = 'am';
+					if ( parseInt( end_hour ) > 12 ) {
+						end_meridian = 'pm';
+						end_hour = parseInt( end_hour ) - 12;
+						end_hour = ("0" + end_hour).slice( -2 );
+					}
+					if ( parseInt( end_hour ) === 12 ) {
+						end_meridian = 'pm';
+					}
 
+					$( '#ticket_end_hour' ).val( end_hour );
+					$( '#ticket_end_meridian' ).val( end_meridian );
+
+					$( '#ticket_start_minute' ).val( response.data.start_date.substring( 14, 16 ) );
+					$( '#ticket_end_minute' ).val( response.data.end_date.substring( 14, 16 ) );
+				}
 
 				$( 'tr.ticket_advanced_' + response.data.provider_class ).remove();
 				$( 'tr.ticket.bottom' ).before( response.data.advanced_fields );

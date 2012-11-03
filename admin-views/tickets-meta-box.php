@@ -132,6 +132,7 @@ if ( !defined( 'ABSPATH' ) ) {
 							</select>
 							<?php endif; ?>
 						</span>
+						<br/><p class="description"><?php _e("When will ticket sales occur? If you don't set a start/end date for sales, tickets will be available from now until the event ends.",'tribe-events-calendar');?></p>
 					</td>
 				</tr>
 
