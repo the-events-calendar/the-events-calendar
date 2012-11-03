@@ -431,8 +431,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @since 3.0
 	 */
 	function tribe_is_week()  {
-		$tribe_ecp = TribeEvents::instance();
-		$is_week = ($tribe_ecp->displaying == 'week') ? true : false;
+		$is_week = (TribeEvents::instance()->displaying == 'week') ? true : false;
 		return apply_filters('tribe_is_week', $is_week);
 	}
 
@@ -462,7 +461,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @since 3.0
 	 */
 	function tribe_get_last_week_permalink( $week, $is_current = true ) {
-		$tec = TribeEvents::instance();
 		$week = ($is_current) ? date('Y-m-d', strtotime( $week . ' -7 days') ): $week;
 		return apply_filters('tribe_get_last_week_permalink', tribe_get_week_permalink( $week ) );
 	}
@@ -477,7 +475,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @since 3.0
 	 */
 	function tribe_get_next_week_permalink( $week, $is_current = true ) {
-		$tec = TribeEvents::instance();
 		$week = ($is_current) ? date('Y-m-d', strtotime( $week . ' +7 days') ): $week;
 		return apply_filters('tribe_get_next_week_permalink', tribe_get_week_permalink( $week ) );
 	}
@@ -492,7 +489,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	function tribe_get_day_permalink( $date = null ){
 		$tec = TribeEvents::instance();
-		$date = is_null($date) ? $tec->todaySlug : date('Y-m-d', strtotime( $date ) );
+		$date = is_null($date) ? TribeEventsPro::instance()->todaySlug : date('Y-m-d', strtotime( $date ) );
 		$permalink = get_site_url() . '/' . $tec->rewriteSlug . '/' . trailingslashit( $date );
 		return apply_filters('tribe_get_next_week_permalink', $permalink);
 	}
@@ -506,7 +503,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	function tribe_get_week_permalink( $week = null ){
 		$tec = TribeEvents::instance();
 		$week = is_null($week) ? '' : date('Y-m-d', strtotime( $week ) );
-		$permalink = get_site_url() . '/' . $tec->rewriteSlug . '/' . trailingslashit( $tec->weekSlug . '/' . $week );
+		$permalink = get_site_url() . '/' . $tec->rewriteSlug . '/' . trailingslashit( TribeEventsPro::instance()->weekSlug . '/' . $week );
 		return apply_filters('tribe_get_next_week_permalink', $permalink);
 	}
 
