@@ -48,6 +48,14 @@ jQuery( document ).ready( function ( $ ) {
 			var href_target = baseUrl + date + '/';		
 			tribe_events_calendar_ajax_post( date, href_target, tribe_nopop );
 		} );
+		
+		$( 'form#tribe_events_filters_form' ).bind( 'submit', function (e) {
+			e.preventDefault();
+			var same_date = $('#tribe-events-header').attr('data-date');
+			var same_page = $(location).attr('href');
+			var tribe_nopop = false;
+			tribe_events_calendar_ajax_post( same_date, same_page, tribe_nopop );
+		} );			
 
 		function tribe_events_calendar_ajax_post( date, href_target, tribe_nopop ) {
 
@@ -58,24 +66,21 @@ jQuery( document ).ready( function ( $ ) {
 				eventDate:date
 			};
 			
-			if( $('#tribe_events_filters_form').length ) {
-			
-//				var $test = ["2","4","6"]
-//				params['tribe_events_filter_dayofweek[]'] = $test;			
-
+			if( $('#tribe_events_filters_form').length ) {				
+				
 				var $checked = [];		
-				var $counter = 0;
+				var $counter = 0;			
 
 				$( 'form#tribe_events_filters_form :input:checked' ).each( function () {
-					var $this = $( this );
+					var $this = $( this );					
 					var $the_type = $this.attr('name');
 					var $the_type_checked = $('input[name="' + $the_type + '"]:checked');
 					if( $the_type_checked.length > 1 ) {
 						$counter++;
 						$checked.push($this.val());
 						if( $counter === $the_type_checked.length ) {
-							params[this.name.slice(0,-2)] = JSON.stringify($checked);
-							console.log(JSON.stringify($checked));
+							var arr = $.map($checked, function (value, key) { return value; });
+							params[this.name] = arr;							
 							$counter = 0;
 							$checked.length = 0;
 						}
@@ -84,26 +89,14 @@ jQuery( document ).ready( function ( $ ) {
 						params[this.name] = $this.val();
 					}				
 				} );			
-
-
-
-//				var $checked_filters = $( 'form#tribe_events_filters_form :input:checked' ).serializeArray();
-//				params[this.name] = $checked_filters;
-//				console.log($checked_filters);
-//				$.each($checked_filters, function () {
-//					console.log($(this));
-//
-//					params[this.name] = [this.value];
-//
-//				} );
-			
 			}
 
 
 
 			$( 'form#tribe-events-bar-form :input' ).each( function () {
-				if( $( this ).val() ) {
-					params[this.name] = $( this ).val();
+				var $this = $( this );
+				if( $this.val() ) {
+					params[this.name] = $this.val();
 				}
 			} );
 
@@ -116,8 +109,9 @@ jQuery( document ).ready( function ( $ ) {
 						var $the_content = $( response ).contents();
 						$( '#tribe-events-content.tribe-events-calendar' ).html( $the_content );
 						
-						var page_title = $the_content.find("#tribe-events-header").attr('data-title');	
-						$(document).attr('title', page_title);
+						var page_title = $the_content.filter("#tribe-events-header").attr('data-title');	
+						
+						$(document).attr('title', page_title);						
 						
 						// let's write our history for this ajax request and save the date for popstate requests to use only if not a popstate request itself
 						
