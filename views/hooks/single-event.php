@@ -144,7 +144,10 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 				<dt><?php _e( 'Date:', 'tribe-events-calendar' ); ?></dt>
 				<dd class="published dtstart"><abbr class="tribe-events-abbr" title="<?php echo tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ); ?>"><?php echo tribe_get_start_date(); ?></abbr></dd>
 			<?php } ?>
-
+		<?php if ( tribe_get_cost() ) : // Cost ?>
+			<dt><?php _e( 'Cost:', 'tribe-events-calendar' ); ?></dt>
+			<dd class="tribe-events-event-cost"><?php echo tribe_get_cost(); ?></dd>
+		<?php endif; ?>			
 			<?php if ( class_exists( 'TribeEventsRecurrenceMeta' ) && function_exists( 'tribe_get_recurrence_text' ) && tribe_is_recurring_event() ) : // Show info for reoccurring events ?>
 				<dt><?php _e( 'Schedule:', 'tribe-events-calendar' ); ?></dt>
 	         	<dd class="tribe-events-event-meta-recurrence">

@@ -490,15 +490,16 @@ width: 70%;
    @ Template: single-event.php
 =============================================*/
 
-.single-tribe_events #tribe-events-content {
+.single-tribe_events #tribe-events-content, .single-tribe_events #tribe-events-pg-template {
 	padding: 0;
 }
 .single-tribe_events .tribe-event-schedule .tribe-divider {
 	margin-right: 10px;
 }
 
-.single-tribe_events .tribe-event-schedule
-
+.single-tribe_events h2.entry-title {
+	font-size: 1.7em;
+}
 #tribe-events-content .description img.attachment-post-thumbnail {
 	margin-left: auto;
 	margin-right: auto;
@@ -579,9 +580,13 @@ margin: 0;
 
 /* Map */
 .single-tribe_events .tribe-event-venue-map {
-	width: 63%;
-	margin-right: 4%;
+	width: 58%;
+	margin: 2% 4% 2% 0;
 	float: right;
+	padding: 5px;
+	background: #eee;
+	border: 1px solid #ddd;
+	border-radius: 3px;
 }
 
 .single-tribe_events #tribe-events-gmap {

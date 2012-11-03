@@ -63,8 +63,6 @@ a.tribe-events-gcal {
 	text-decoration: none;
 	line-height: 18px;
 	margin-bottom: 21px;
-	position: relative;
-	top: 5px;	
 }
 .tribe-events-gcal {
 	margin-right: 9px;
@@ -556,6 +554,7 @@ margin: 0;
 .single-tribe_events .entry-content.description {
 	width: auto;
 	padding: 0;
+	margin-bottom: 30PX;
 }
 
 
