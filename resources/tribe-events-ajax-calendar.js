@@ -48,6 +48,14 @@ jQuery( document ).ready( function ( $ ) {
 			var href_target = baseUrl + date + '/';		
 			tribe_events_calendar_ajax_post( date, href_target, tribe_nopop );
 		} );
+		
+		$( 'form#tribe_events_filters_form' ).bind( 'submit', function (e) {
+			e.preventDefault();
+			var same_date = $('#tribe-events-header').attr('data-date');
+			var same_page = $(location).attr('href');
+			var tribe_nopop = false;
+			tribe_events_calendar_ajax_post( same_date, same_page, tribe_nopop );
+		} );			
 
 		function tribe_events_calendar_ajax_post( date, href_target, tribe_nopop ) {
 
@@ -57,6 +65,40 @@ jQuery( document ).ready( function ( $ ) {
 				action:'tribe_calendar',
 				eventDate:date
 			};
+			
+			if( $('#tribe_events_filters_form').length ) {				
+				
+				var $checked = [];		
+				var $counter = 0;			
+
+				$( 'form#tribe_events_filters_form :input:checked' ).each( function () {
+					var $this = $( this );					
+					var $the_type = $this.attr('name');
+					var $the_type_checked = $('input[name="' + $the_type + '"]:checked');
+					if( $the_type_checked.length > 1 ) {
+						$counter++;
+						$checked.push($this.val());
+						if( $counter === $the_type_checked.length ) {
+							var arr = $.map($checked, function (value, key) { return value; });
+							params[this.name] = arr;							
+							$counter = 0;
+							$checked.length = 0;
+						}
+					}			
+					else if( $the_type_checked.length == 1 ) {
+						params[this.name] = $this.val();
+					}				
+				} );			
+			}
+
+
+
+			$( 'form#tribe-events-bar-form :input' ).each( function () {
+				var $this = $( this );
+				if( $this.val() ) {
+					params[this.name] = $this.val();
+				}
+			} );
 
 			$.post(
 				TribeCalendar.ajaxurl,
@@ -64,10 +106,12 @@ jQuery( document ).ready( function ( $ ) {
 				function ( response ) {
 					$( "#ajax-loading" ).hide();
 					if ( response !== '' ) {
-						$( '#tribe-events-content.tribe-events-calendar' ).html( response );
+						var $the_content = $( response ).contents();
+						$( '#tribe-events-content.tribe-events-calendar' ).html( $the_content );
 						
-						var page_title = $(response).find("#tribe-events-header").attr('data-title');	
-						$(document).attr('title', page_title);
+						var page_title = $the_content.filter("#tribe-events-header").attr('data-title');	
+						
+						$(document).attr('title', page_title);						
 						
 						// let's write our history for this ajax request and save the date for popstate requests to use only if not a popstate request itself
 						

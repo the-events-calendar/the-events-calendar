@@ -3,13 +3,8 @@
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-if( class_exists( 'TribeEventsQuery' ) ) {
+if( class_exists( 'TribeEvents' ) ) {
 
-	function tribe_is_event() {
-		global $wp_query; 
-		$tribe_is_event = !empty( $wp_query->tribe_is_event );
-		return apply_filters( 'tribe_query_is_event', $tribe_is_event ); 
-	}
 	function tribe_is_event_category() {
 		global $wp_query; 
 		$tribe_is_event_category = !empty( $wp_query->tribe_is_event );
