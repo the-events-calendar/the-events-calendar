@@ -26,7 +26,7 @@ if (!class_exists('TribeEventsTemplates')) {
          do_action('tribe_tec_template_chooser', $template);
   
 			// no non-events need apply
-			if ( get_query_var( 'post_type' ) != TribeEvents::POSTTYPE && ! is_tax( TribeEvents::TAXONOMY ) && get_query_var( 'post_type' ) != TribeEvents::VENUE_POST_TYPE ) {
+			if ( ! in_array( get_query_var( 'post_type' ), array( TribeEvents::POSTTYPE, TribeEvents::VENUE_POST_TYPE, TribeEvents::ORGANIZER_POST_TYPE ) ) && ! is_tax( TribeEvents::TAXONOMY ) ) {
 				return $template;
 			}
 			
@@ -285,17 +285,17 @@ if (!class_exists('TribeEventsTemplates')) {
 				                       "post_name"             => 'post',
 				                       "to_ping"               => '',
 				                       "pinged"                => '',
-				                       "post_modified"         => '1900-10-02 00:00:00',
-				                       "post_modified_gmt"     => '1900-10-02 00:00:00',
+				                       "post_modified"         => '1000-01-01 00:00:00',
+				                       "post_modified_gmt"     => '1000-01-01 00:00:00',
 				                       "post_content_filtered" => '',
 				                       "post_parent"           => 0,
-				                       "guid"                  => '',
+				                       "guid"                  => '_tribe_empty_event',
 				                       "menu_order"            => 0,
 				                       "post_type"             => 'tribe_events',
 				                       "post_mime_type"        => '',
 				                       "comment_count"         => 0,
-				                       "EventStartDate"        => '1900-10-02 00:00:00',
-				                       "EventEndDate"          => '1900-10-02 00:00:00',
+				                       "EventStartDate"        => '1000-01-01 00:00:00',
+				                       "EventEndDate"          => '1000-01-01 00:00:00',
 				                       "filter"                => 'raw' );
 
 				$post = (object)$spoofed_post;

@@ -103,7 +103,24 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			<dd class="tribe-events-event-cost"><?php echo tribe_get_cost(); ?></dd>
 		<?php endif; ?>
 		
-		<?php tribe_meta_event_cats(); // Event categories ?>
+		<?php 
+
+		$args = array(
+				'before' => '<dd class="tribe-event-categories">',
+				'sep' => ', ',
+				'after' => '</dd>',
+				'label' => __( 'Category', 'tribe-events-calendar' ),
+				'label_before' => '<dt>',
+				'label_after' => '</dt>',
+				'wrap_before' => '',
+				'wrap_after' => ''
+			);
+		// Event categories 
+		echo tribe_get_event_categories( $post_id, $args );
+
+		// tribe_meta_event_cats(); 
+
+		?>
 		
 		<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) ) : // Organizer URL ?>
 			<dt><?php _e( 'Organizer:', 'tribe-events-calendar' ); ?></dt>
