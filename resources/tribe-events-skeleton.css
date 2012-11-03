@@ -408,7 +408,7 @@ width: 70%;
    @ Template: single-event.php
 =============================================*/
 
-.tribe-events-default-single #tribe-events-content {
+.single-tribe_events #tribe-events-content {
 	padding: 0;
 }
 
