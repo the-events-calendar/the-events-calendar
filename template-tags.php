@@ -520,15 +520,16 @@ if( class_exists( 'TribeEventsPro' ) ) {
 				
 					$thumb = get_the_post_thumbnail( $post->ID, 'large' );
 					if ( $thumb ) { echo '<div class="tribe-related-events-thumbnail"><a href="'. get_permalink( $post->ID ) .'">'. $thumb .'</a></div>'; }
-				
-				echo '<div class="tribe-related-events-title"><a href="'. get_permalink( $post->ID ) .'">'. get_the_title( $post->ID ) .'</a></div>';
+					echo '<div class="tribe-related-event-info">';
+						echo '<div class="tribe-related-events-title"><a href="'. get_permalink( $post->ID ) .'">'. get_the_title( $post->ID ) .'</a></div>';
 
-				if ( class_exists( 'TribeEvents' ) && $post->post_type == TribeEvents::POSTTYPE && function_exists( 'tribe_events_event_schedule_details' ) ) {
-					echo tribe_events_event_schedule_details( $post->ID );
-				}
-				if ( class_exists( 'TribeEvents' ) && $post->post_type == TribeEvents::POSTTYPE && function_exists( 'tribe_events_event_recurring_info_tooltip' ) ) {
-					echo tribe_events_event_recurring_info_tooltip( $post->ID );
-				}				
+						if ( class_exists( 'TribeEvents' ) && $post->post_type == TribeEvents::POSTTYPE && function_exists( 'tribe_events_event_schedule_details' ) ) {
+							echo tribe_events_event_schedule_details( $post->ID );
+						}
+						if ( class_exists( 'TribeEvents' ) && $post->post_type == TribeEvents::POSTTYPE && function_exists( 'tribe_events_event_recurring_info_tooltip' ) ) {
+							echo tribe_events_event_recurring_info_tooltip( $post->ID );
+						}
+					echo '</div>';				
 				echo '</li>';
 			}
 			echo '</ul>';
