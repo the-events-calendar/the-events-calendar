@@ -42,12 +42,11 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_organizer_Template' ) ) {
 		// Start Single organizer Template
 		public static function before_template( $post_id ) {
 			$html = '<div id="tribe-events-content" class="tribe-events-organizer">';
-			$html .= '<p class="tribe-events-back"><a href="' . tribe_get_events_link() . '" rel="bookmark">'. __( '&laquo; Back to Events', 'tribe-events-calendar-pro' ) .'</a></p>';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_before_template' );
 		}
 		// Start Single organizer
 		public static function before_organizer( $post_id ) {
-			$html = '<div class="tribe-events-event-meta">';
+			$html = '<div class="tribe-events-organizer-meta">';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_before_organizer' );
 		}
 		// organizer Map
@@ -57,7 +56,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_organizer_Template' ) ) {
 		}
 		// organizer Meta
 		public static function before_the_meta( $post_id ) {
-			$html = '<dl class="tribe-events-column">';
+			$html = '';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_before_the_meta' );
 		}
 		public static function the_meta( $post_id ) {
@@ -86,12 +85,12 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_organizer_Template' ) ) {
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_the_meta' );
 		}
 		public static function after_the_meta( $post_id ) {
-			$html = '</dl><!-- .tribe-events-column -->';
+			$html = '';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_after_the_meta' );
 		}
 		// End Single organizer
 		public static function after_organizer( $post_id ) {
-			$html = '</div><!-- .tribe-events-event-meta -->';
+			$html = '</div><!-- .tribe-events-organizer-meta -->';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_after_organizer' );
 		}
 
