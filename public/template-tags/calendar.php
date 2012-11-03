@@ -106,10 +106,11 @@ if( class_exists( 'TribeEvents' ) ) {
 					}
 				}
 
-				if ( strtotime( $endYear . "-" . $endMonth . "-" . $endDay ) < $curDate ) {
+				// see spoofQuery in lib/tribe-templates.class.php
+				if ( $event->guid === '_tribe_empty_event' ) {
 					$started = false;
 				}
-				
+
 				if ( $started ) {
 					$monthView[$i][] = $event;
 				}
