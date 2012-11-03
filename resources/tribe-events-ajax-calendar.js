@@ -113,7 +113,7 @@ jQuery( document ).ready( function ( $ ) {
 				function ( response ) {
 					$( "#ajax-loading" ).hide();
 					if ( response !== '' ) {
-						var $the_content = response.contents();
+						var $the_content = $( response ).contents();
 						$( '#tribe-events-content.tribe-events-calendar' ).html( $the_content );
 						
 						var page_title = $the_content.find("#tribe-events-header").attr('data-title');	
