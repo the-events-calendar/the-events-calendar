@@ -47,7 +47,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'show_in_nav_menus' => false,
 			'show_in_menu' => 0,
 			'menu_position' => 6,
-			'supports' => array(''),
+			'supports' => array('title', 'editor', 'thumbnail'),
 			'capability_type' => array('tribe_organizer', 'tribe_organizers'),
 			'map_meta_cap' => true,
 			'exclude_from_search' => true
