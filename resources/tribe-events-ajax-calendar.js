@@ -57,6 +57,55 @@ jQuery( document ).ready( function ( $ ) {
 				action:'tribe_calendar',
 				eventDate:date
 			};
+			
+			if( $('#tribe_events_filters_form').length ) {
+			
+//				var $test = ["2","4","6"]
+//				params['tribe_events_filter_dayofweek[]'] = $test;			
+
+				var $checked = [];		
+				var $counter = 0;
+
+				$( 'form#tribe_events_filters_form :input:checked' ).each( function () {
+					var $this = $( this );
+					var $the_type = $this.attr('name');
+					var $the_type_checked = $('input[name="' + $the_type + '"]:checked');
+					if( $the_type_checked.length > 1 ) {
+						$counter++;
+						$checked.push($this.val());
+						if( $counter === $the_type_checked.length ) {
+							params[this.name] = JSON.stringify($checked);
+							console.log(JSON.stringify($checked));
+							$counter = 0;
+							$checked.length = 0;
+						}
+					}			
+					else if( $the_type_checked.length == 1 ) {
+						params[this.name] = $this.val();
+					}				
+				} );			
+
+
+
+//				var $checked_filters = $( 'form#tribe_events_filters_form :input:checked' ).serializeArray();
+//				params[this.name] = $checked_filters;
+//				console.log($checked_filters);
+//				$.each($checked_filters, function () {
+//					console.log($(this));
+//
+//					params[this.name] = [this.value];
+//
+//				} );
+			
+			}
+
+
+
+			$( 'form#tribe-events-bar-form :input' ).each( function () {
+				if( $( this ).val() ) {
+					params[this.name] = $( this ).val();
+				}
+			} );
 
 			$.post(
 				TribeCalendar.ajaxurl,
