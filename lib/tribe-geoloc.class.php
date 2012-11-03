@@ -21,6 +21,8 @@ class TribeEventsGeoLoc {
 	protected static $options;
 	protected $rewrite_slug;
 
+	private $selected_geofence;
+
 	function __construct() {
 
 		$this->rewrite_slug = $this->getOption( 'geoloc_rewrite_slug', 'map' );
@@ -39,8 +41,43 @@ class TribeEventsGeoLoc {
 		add_action( 'tribe-events-bar-enqueue-scripts', array( $this, 'scripts' ) );
 		add_filter( 'tribe_events_pre_get_posts', array( $this, 'setup_geoloc_in_query' ) );
 
+		add_action( 'tribe_events_filters_create_filters', array( $this, 'setup_geoloc_filter_in_filters' ), 1 );
+
 		add_filter( 'tribe_settings_tab_fields', array( $this, 'inject_settings' ), 10, 2 );
 
+	}
+
+	public function setup_geoloc_filter_in_filters() {
+
+		$distances = apply_filters( 'geoloc-values-for-filters', array( '5'    => '5 miles',
+		                                                                '10'   => '10 miles',
+		                                                                '25'   => '25 miles',
+		                                                                '50'   => '50 miles',
+		                                                                '100'  => '100 miles',
+		                                                                '250'  => '250 miles' ) );
+
+		$geoloc_filter_array = array( 'name'   => __( 'Distance', 'tribe-events-calendar-pro' ),
+		                              'slug'   => 'geofence',
+		                              'values' => $distances,
+		                              'type'   => 'select' );
+
+		$geoloc_filter_array['title'] = isset( $current_filters[$geoloc_filter_array['slug']]['title'] ) ? $current_filters[$geoloc_filter_array['slug']]['title'] : $geoloc_filter_array['name'];
+
+		$geoloc_filter_array['admin_form'] = sprintf( __( 'Title: %s', 'tribe-events-filter-view' ), '<input type="text" name="title" value="' . $geoloc_filter_array['title'] . '">' );
+
+		$geoloc_filter = new TribeEventsFilter( $geoloc_filter_array['name'], $geoloc_filter_array['slug'], $geoloc_filter_array['values'], $geoloc_filter_array['type'], $geoloc_filter_array['admin_form'], $geoloc_filter_array['title'] );
+
+		if ( isset( $geoloc_filter->currentValue ) ) {
+			$this->selected_geofence = $geoloc_filter->currentValue;
+			add_filter( 'geoloc_default_geofence', array( $this, 'setup_geofence_in_query' ) );
+		}
+	}
+
+	public function setup_geofence_in_query( $distance ) {
+		if ( !empty( $this->selected_geofence ) ) {
+			$distance = $this->selected_geofence;
+		}
+		return $distance;
 	}
 
 	public function scripts() {

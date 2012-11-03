@@ -53,11 +53,10 @@ jQuery( document ).ready( function ( $ ) {
 				function ( response ) {
 					$( "#ajax-loading" ).hide();
 					if ( response !== '' ) {
-						$( '#tribe-events-content.tribe-events-list' ).replaceWith( response );
-								
-						var $title_data = $(response).find( "#tribe-events-header" );		
-						var page_title = $title_data.attr( 'data-title' );
-						var page_header = $title_data.attr( 'data-header' );
+						$( '#tribe-events-content.tribe-events-list' ).replaceWith( response );								
+							
+						var page_title = $(response).find( "#tribe-events-header" ).attr( 'data-title' );
+						var page_header = $(response).find( "#tribe-events-header" ).attr( 'data-header' );					
 						
 						$( document ).attr( 'title', page_title );
 						$( "h2.tribe-events-page-title" ).text( page_header );
