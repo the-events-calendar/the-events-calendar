@@ -219,9 +219,6 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 				<dt><?php _e( 'Email:', 'tribe-events-calendar' ); ?></dt>
 				<dd class="vcard email"><a href="mailto:<?php echo tribe_get_organizer_email(); ?>"><?php echo tribe_get_organizer_email(); ?></a></dd>
 			<?php endif; ?>
-
-			<dt><?php _e( 'Updated:', 'tribe-events-calendar' ); // Last event updated date ?></dt>
-			<dd class="updated"><abbr class="tribe-events-abbr" title="<?php the_time( 'c' ); ?>"><?php the_time( 'F j, Y' ); ?></abbr></dd>
 		<?php endif; ?>
 		</dl><!-- .tribe-events-meta-column -->
 
@@ -241,10 +238,10 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 		<?php } else { ?>
 					<dl class="tribe-events-meta-column">
 						<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) ) : // Organizer URL ?>
-							<dt><?php _e( 'Organizer:', 'tribe-events-calendar' ); ?></dt>
+							<h3 class="tribe-event-single-section-title"><?php _e( 'Organizer:', 'tribe-events-calendar' ); ?></h3>
 							<dd class="vcard author fn org"><?php echo tribe_get_organizer_link(); ?></dd>
 				      <?php elseif ( tribe_get_organizer() ): // Organizer name ?>
-							<dt><?php _e( 'Organizer:', 'tribe-events-calendar' ); ?></dt>
+							<h3 class="tribe-event-single-section-title"><?php _e( 'Organizer:', 'tribe-events-calendar' ); ?></h3>
 							<dd class="vcard author fn org"><?php echo tribe_get_organizer(); ?></dd>
 						<?php endif; ?>
 
@@ -257,9 +254,6 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 							<dt><?php _e( 'Email:', 'tribe-events-calendar' ); ?></dt>
 							<dd class="vcard email"><a href="mailto:<?php echo tribe_get_organizer_email(); ?>"><?php echo tribe_get_organizer_email(); ?></a></dd>
 						<?php endif; ?>
-
-						<dt><?php _e( 'Updated:', 'tribe-events-calendar' ); // Last event updated date ?></dt>
-						<dd class="updated"><abbr class="tribe-events-abbr" title="<?php the_time( 'c' ); ?>"><?php the_time( 'F j, Y' ); ?></abbr></dd>
 				</dl><!-- .tribe-events-meta-column -->
 		<?php } ?>
 		</div><!-- .tribe-events-event-meta -->

@@ -503,7 +503,11 @@ margin: 0;
 	width: 100% !important;
 	margin: 0 !important;
 }
-
+.single-tribe_events .tribe-events-meta-column .tribe-event-venue-map {
+	float: none;
+	margin: 0;
+	width: 100%;
+}
 .single-tribe_events .tribe-events-meta-column #tribe-events-gmap {
 	height: 0 !important;
 	padding-top: 100%;
