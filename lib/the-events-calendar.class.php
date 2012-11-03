@@ -315,10 +315,17 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		function calendar_ajax_call() {
 			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
 
+				if (class_exists('TribeEventsFilterView')){
+					TribeEventsFilterView::instance()->createFilters( null, true );
+
+				}
+
+				TribeEventsQuery::init();
+
 				add_action( 'pre_get_posts', array( $this, 'calendar_ajax_call_set_date' ), -10 );
 
 				$args  = array( 'eventDisplay' => 'month', 'post_type' => TribeEvents::POSTTYPE );
-				$query = new WP_Query( $args );
+				$query =  TribeEventsQuery::getEvents( $args, true);
 
 				remove_action( 'pre_get_posts', array( $this, 'calendar_ajax_call_set_date' ), -10 );
 
