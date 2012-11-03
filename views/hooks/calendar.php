@@ -53,9 +53,8 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_before_the_title');
 		}
-		public function the_title( $title, $post_id ){
-			// This title is here for ajax loading – do not remove if you want ajax switching between month views
-			$html = '<title>' . wp_title( '&raquo;', false ) . '</title>';
+		public function the_title( $title, $post_id ){			
+			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_the_title');
 		}
 		public function after_the_title( $post_id ){

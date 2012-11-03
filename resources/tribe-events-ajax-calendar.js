@@ -74,7 +74,7 @@ jQuery( document ).ready( function ( $ ) {
 						$counter++;
 						$checked.push($this.val());
 						if( $counter === $the_type_checked.length ) {
-							params[this.name] = JSON.stringify($checked);
+							params[this.name.slice(0,-2)] = JSON.stringify($checked);
 							console.log(JSON.stringify($checked));
 							$counter = 0;
 							$checked.length = 0;
