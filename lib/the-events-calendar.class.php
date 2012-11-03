@@ -32,7 +32,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		);
 		protected $postVenueTypeArgs = array(
 			'public' => true,
-			'rewrite' => array('slug'=>'venue', 'with_front' => false),
+			'rewrite' => array('slug' => 'venue', 'with_front' => false),
 			'show_ui' => true,
 			'show_in_menu' => 0,
 			'supports' => array('title', 'editor', 'thumbnail'),
@@ -42,12 +42,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		);
 		protected $postOrganizerTypeArgs = array(
 			'public' => true,
-			'rewrite' => false,
+			'rewrite' => array('slug' => 'organizer', 'with_front' => false),
 			'show_ui' => true,
 			'show_in_nav_menus' => false,
 			'show_in_menu' => 0,
 			'menu_position' => 6,
-			'supports' => array(''),
+			'supports' => array('title', 'editor', 'thumbnail'),
 			'capability_type' => array('tribe_organizer', 'tribe_organizers'),
 			'map_meta_cap' => true,
 			'exclude_from_search' => true
@@ -66,9 +66,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public $taxRewriteSlug = 'event/category';
 		public $tagRewriteSlug = 'event/tag';
 		protected $monthSlug = 'month';
-		public $weekSlug = 'week';
-		public $daySlug = 'day';
-		public $todaySlug = 'today';
 		protected $pastSlug = 'past';
 		protected $upcomingSlug = 'upcoming';
 		protected $postExceptionThrown = false;
@@ -360,9 +357,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->taxRewriteSlug      = $this->getTaxRewriteSlug();
 			$this->tagRewriteSlug      = $this->getTagRewriteSlug();
 			$this->monthSlug = sanitize_title(__('month', 'tribe-events-calendar'));
-			$this->weekSlug = sanitize_title(__('week', 'tribe-events-calendar'));
-			$this->daySlug = sanitize_title(__('day', 'tribe-events-calendar'));
-			$this->todaySlug = sanitize_title(__('today', 'tribe-events-calendar'));
 			$this->upcomingSlug = sanitize_title(__('upcoming', 'tribe-events-calendar'));
 			$this->pastSlug = sanitize_title(__('past', 'tribe-events-calendar'));
 			$this->postTypeArgs['rewrite']['slug'] = sanitize_title($this->rewriteSlugSingular);
@@ -957,9 +951,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function registerPostType() {
 			$this->generatePostTypeLabels();
-			register_post_type(self::POSTTYPE, $this->postTypeArgs);
-			register_post_type(self::VENUE_POST_TYPE, $this->postVenueTypeArgs);
-			register_post_type(self::ORGANIZER_POST_TYPE, $this->postOrganizerTypeArgs);
+			register_post_type(self::POSTTYPE, apply_filters( 'tribe_events_register_event_type_args', $this->postTypeArgs) );
+			register_post_type(self::VENUE_POST_TYPE, apply_filters( 'tribe_events_register_venue_type_args', $this->postVenueTypeArgs) );
+			register_post_type(self::ORGANIZER_POST_TYPE, apply_filters( 'tribe_events_register_organizer_type_args', $this->postOrganizerTypeArgs) );
 
 			$this->addCapabilities();
 			         

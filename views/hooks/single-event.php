@@ -72,7 +72,6 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 				$html .= '<div class="event-notices">' . implode( '<br />', $notices ) . '</div>';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_event_notices' );
 		}
-
 		// Event Content
 		public function before_the_content( $post_id ) {
 			$html = '';

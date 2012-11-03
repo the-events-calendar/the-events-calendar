@@ -49,13 +49,18 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_events_calendar_ajax_post( date, href_target, tribe_nopop );
 		} );
 		
-		$( 'form#tribe_events_filters_form' ).bind( 'submit', function (e) {
-			e.preventDefault();
-			var same_date = $('#tribe-events-header').attr('data-date');
-			var same_page = $(location).attr('href');
-			var tribe_nopop = false;
-			tribe_events_calendar_ajax_post( same_date, same_page, tribe_nopop );
-		} );			
+		// if advanced filters active intercept submit
+		
+		if( $('#tribe_events_filters_form').length ) {				
+			$( 'form#tribe_events_filters_form' ).bind( 'submit', function (e) {
+				e.preventDefault();
+				var same_date = $('#tribe-events-header').attr('data-date');
+				var same_page = $(location).attr('href');
+				var tribe_nopop = false;
+				tribe_events_calendar_ajax_post( same_date, same_page, tribe_nopop );
+			} );	
+		}
+			
 
 		function tribe_events_calendar_ajax_post( date, href_target, tribe_nopop ) {
 
@@ -66,32 +71,53 @@ jQuery( document ).ready( function ( $ ) {
 				eventDate:date
 			};
 			
-			if( $('#tribe_events_filters_form').length ) {				
+			// check if advanced filters plugin is active
+			
+			if( $('#tribe_events_filters_form').length ) {
 				
-				var $checked = [];		
-				var $counter = 0;			
+				// get selected form fields and create array
 
-				$( 'form#tribe_events_filters_form :input:checked' ).each( function () {
-					var $this = $( this );					
-					var $the_type = $this.attr('name');
-					var $the_type_checked = $('input[name="' + $the_type + '"]:checked');
-					if( $the_type_checked.length > 1 ) {
-						$counter++;
-						$checked.push($this.val());
-						if( $counter === $the_type_checked.length ) {
-							var arr = $.map($checked, function (value, key) { return value; });
-							params[this.name] = arr;							
-							$counter = 0;
-							$checked.length = 0;
+				var filter_array = $('form#tribe_events_filters_form').serializeArray();
+				
+				var fixed_array = [];
+				var counts = {};
+				var multiple_filters = {};
+				
+				// test for multiples of same name
+				
+				$.each(filter_array, function(index, value) {					
+					if (counts[value.name]){
+						counts[value.name] += 1;
+					} else {
+						counts[value.name] = 1;
+					}
+				});
+				
+				// modify array
+				
+				$.each(filter_array, function(index, value) {
+					if (multiple_filters[value.name] || counts[value.name] > 1){ 
+						if (!multiple_filters[value.name]) {
+							multiple_filters[value.name] = 0;
 						}
-					}			
-					else if( $the_type_checked.length == 1 ) {
-						params[this.name] = $this.val();
-					}				
-				} );			
+						multiple_filters[value.name] += 1;
+						fixed_array.push({
+							name: value.name + "_" + multiple_filters[value.name], 
+							value: value.value
+							});
+					} else {
+						fixed_array.push({
+							name: value.name, 
+							value: value.value
+							});
+					}
+				});			
+				
+				// merge with existing params
+
+				params = $.param(fixed_array) + '&' + $.param(params);
+				
 			}
-
-
 
 			$( 'form#tribe-events-bar-form :input' ).each( function () {
 				var $this = $( this );
