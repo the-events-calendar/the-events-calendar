@@ -74,7 +74,7 @@ jQuery( document ).ready( function ( $ ) {
 						$counter++;
 						$checked.push($this.val());
 						if( $counter === $the_type_checked.length ) {
-							params[this.name] = JSON.stringify($checked);
+							params[this.name.slice(0,-2)] = JSON.stringify($checked);
 							console.log(JSON.stringify($checked));
 							$counter = 0;
 							$checked.length = 0;
@@ -113,9 +113,10 @@ jQuery( document ).ready( function ( $ ) {
 				function ( response ) {
 					$( "#ajax-loading" ).hide();
 					if ( response !== '' ) {
-						$( '#tribe-events-content.tribe-events-calendar' ).html( response );
+						var $the_content = $( response ).contents();
+						$( '#tribe-events-content.tribe-events-calendar' ).html( $the_content );
 						
-						var page_title = $(response).find("#tribe-events-header").attr('data-title');	
+						var page_title = $the_content.find("#tribe-events-header").attr('data-title');	
 						$(document).attr('title', page_title);
 						
 						// let's write our history for this ajax request and save the date for popstate requests to use only if not a popstate request itself
