@@ -129,9 +129,6 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				$eventPosts = $wp_query->posts;
 			}
 
-			if(empty($eventPosts))
-				return 'NO EVENTS';
-
 			$daysInMonth = isset( $date ) ? date( 't', $date ) : date( 't' );
 			$startOfWeek = get_option( 'start_of_week', 0 );
 			list( $year, $month ) = split( '-', $tribe_ecp->date );
