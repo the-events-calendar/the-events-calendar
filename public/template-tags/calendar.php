@@ -105,6 +105,10 @@ if( class_exists( 'TribeEvents' ) ) {
 						$started = false;
 					}
 				}
+
+				if ( strtotime( $endYear . "-" . $endMonth . "-" . $endDay ) < $curDate ) {
+					$started = false;
+				}
 				
 				if ( $started ) {
 					$monthView[$i][] = $event;
