@@ -49,6 +49,31 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_events_calendar_ajax_post( date, href_target, tribe_nopop );
 		} );
 		
+		// event bar datepicker monitoring 
+		
+		$('#tribe-bar-date').bind( 'change', function (e) {
+			
+			// they changed the datepicker in event bar, lets trigger ajax
+			
+			var daypicker_date = $(this).val();
+			var date = $('#tribe-events-header').attr('data-date');
+			var href_target = $(location).attr('href');
+			var tribe_nopop = false;			
+				
+			if ( daypicker_date !=  date) {
+					
+				// it's a different month, let's overwrite the vars and initiate pushstate
+					
+				date = daypicker_date.slice(0, -3);					
+				var base_url = $('#tribe-events-events-picker').attr('action');					
+				href_target = base_url + date + '/';	
+				tribe_nopop = true;
+			}			
+			
+			tribe_events_calendar_ajax_post( date, href_target, tribe_nopop );
+			
+		} );
+		
 		// events bar intercept submit
 		
 		$( 'form#tribe-events-bar-form' ).bind( 'submit', function (e) {
