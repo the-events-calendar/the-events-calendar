@@ -317,14 +317,15 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 				if (class_exists('TribeEventsFilterView')){
 					TribeEventsFilterView::instance()->createFilters( null, true );
-
 				}
 
 				TribeEventsQuery::init();
 
 				add_action( 'pre_get_posts', array( $this, 'calendar_ajax_call_set_date' ), -10 );
 
-				$args  = array( 'eventDisplay' => 'month', 'post_type' => TribeEvents::POSTTYPE );
+				$args = array( 'eventDisplay' => 'month',
+				               'post_type'    => TribeEvents::POSTTYPE,
+				               'post_status'  => 'publish' );
 				$query =  TribeEventsQuery::getEvents( $args, true);
 
 				remove_action( 'pre_get_posts', array( $this, 'calendar_ajax_call_set_date' ), -10 );
