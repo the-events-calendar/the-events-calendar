@@ -723,6 +723,9 @@ width: 70%;
 #tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-submit {
 	width: 70px;
 }
+#tribe-events-bar-form input {
+	margin-bottom: 0;
+}
 #tribe-events-bar-form input[type="text"] {
 	padding: 3px;
 	height: 24px;
@@ -731,6 +734,12 @@ width: 70%;
 #tribe-events-bar-form input[type="submit"] {
 	cursor: pointer;
 	box-shadow: none;
+	color: #fff;
+	font-size: 11px;
+	line-height: normal;
+}
+#tribe-events-bar-form input[type="submit"]:hover {
+	color: #666;
 }
 
 /* Filters Toggle Styles */
