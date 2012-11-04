@@ -49,11 +49,44 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_events_calendar_ajax_post( date, href_target, tribe_nopop );
 		} );
 		
+		// events bar intercept submit
+		
+		$( 'form#tribe-events-bar-form' ).bind( 'submit', function (e) {
+			
+			e.preventDefault();
+			
+			// in calendar view we have to test if they are switching month and extract month for call for eventDate param plus create url for pushstate
+			
+			var date = $('#tribe-events-header').attr('data-date');
+			var href_target = $(location).attr('href');
+			var tribe_nopop = false;
+			
+			if($('#tribe-bar-date').val().length) {
+				
+				// they picked a date in event bar daypicker, let's process and test
+				
+				var daypicker_date = $('#tribe-bar-date').val().slice(0, -3);
+				
+				if ( daypicker_date !=  date) {
+					
+					// it's a different month, let's overwrite the vars and initiate pushstate
+					
+					var base_url = $('#tribe-events-events-picker').attr('action');
+					date = daypicker_date;
+					href_target = base_url + date + '/';	
+					tribe_nopop = true;
+				}
+				
+			}
+			
+			tribe_events_calendar_ajax_post( date, href_target, tribe_nopop );
+		} );
+		
 		// if advanced filters active intercept submit
 		
 		if( $('#tribe_events_filters_form').length ) {				
 			$( 'form#tribe_events_filters_form' ).bind( 'submit', function (e) {
-				e.preventDefault();
+				e.preventDefault();				
 				var same_date = $('#tribe-events-header').attr('data-date');
 				var same_page = $(location).attr('href');
 				var tribe_nopop = false;
@@ -70,6 +103,15 @@ jQuery( document ).ready( function ( $ ) {
 				action:'tribe_calendar',
 				eventDate:date
 			};
+			
+			// add any set values from event bar to params
+			
+			$( 'form#tribe-events-bar-form :input' ).each( function () {
+				var $this = $( this );			
+				if( $this.val().length ) {					
+					params[$this.attr('name')] = $this.val();
+				}
+			} );
 			
 			// check if advanced filters plugin is active
 			
@@ -113,18 +155,11 @@ jQuery( document ).ready( function ( $ ) {
 					}
 				});			
 				
-				// merge with existing params
+				// merge filter params with existing params
 
 				params = $.param(fixed_array) + '&' + $.param(params);
 				
-			}
-
-			$( 'form#tribe-events-bar-form :input' ).each( function () {
-				var $this = $( this );
-				if( $this.val() ) {
-					params[this.name] = $this.val();
-				}
-			} );
+			}			
 
 			$.post(
 				TribeCalendar.ajaxurl,
