@@ -121,6 +121,8 @@ if( !class_exists('Tribe_Events_Calendar_Widget_Template')){
 				$current_month = date_i18n( 'm' );
 				$current_year = date_i18n( 'Y' );
 				
+				$column = $day + $offset - 1 - ( 7 * ( $rows - 1 ) ) ;
+				
 				if ( $current_month == $month && $current_year == $year) {
 					// Past, Present, Future class
 					if ( $current_day == $day ) {
@@ -135,6 +137,10 @@ if( !class_exists('Tribe_Events_Calendar_Widget_Template')){
 				} elseif ( $current_month < $month && $current_year == $year || $current_year < $year ) {
 					$ppf = ' tribe-events-future';
 				} else { $ppf = false; }
+				
+				if ( ( $column % 4 == 0 ) || ( $column % 5 == 0 ) || ( $column % 6 == 0 ) ) {
+					$ppf .= ' tribe-events-right';
+				}
 			   
 			   	// You can find tribe_mini_display_day() in the /public/template-tags/widgets.php
 			   	// This controls the markup for the days and events on the frontend

@@ -611,7 +611,8 @@ width: 70%;
 
 /* Global Tooltips */
 .tribe-events-calendar .tribe-events-tooltip,
-.tribe-events-week .tribe-events-tooltip, .recurring-info-tooltip {
+.tribe-events-week .tribe-events-tooltip, 
+.recurring-info-tooltip {
 	border: 1px solid #666;
 	position: absolute;
 	z-index: 1001;
@@ -633,7 +634,8 @@ width: 70%;
 	left: 20px;
 }
 .tribe-events-calendar .tribe-events-right .tribe-events-tooltip,
-.tribe-events-week .tribe-events-right .tribe-events-tooltip, .recurring-info-tooltip {
+.tribe-events-week .tribe-events-right .tribe-events-tooltip,
+.recurring-info-tooltip {
 	left: auto;
 	right: 3px;
 }
