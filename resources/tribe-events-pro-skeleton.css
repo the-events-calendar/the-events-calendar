@@ -312,6 +312,7 @@
 	left: 0;
 	text-align: left;
 	padding: 5px 10px;
+	margin-bottom: 1.625em;
 }
 .tribe-events-calendar-widget .tribe-events-tooltip .tribe-events-arrow {
 	left: 4px;
