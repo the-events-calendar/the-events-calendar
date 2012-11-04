@@ -79,33 +79,37 @@ jQuery( document ).ready( function ( $ ) {
 		
 		$( 'form#tribe-events-bar-form' ).bind( 'submit', function (e) {
 			
-			e.preventDefault();
+			if(tribe_events_bar_action != 'change_view' ) {				
 			
-			// in calendar view we have to test if they are switching month and extract month for call for eventDate param plus create url for pushstate
+				e.preventDefault();
 			
-			var date = $('#tribe-events-header').attr('data-date');
-			var href_target = $(location).attr('href');
-			var tribe_nopop = false;
+				// in calendar view we have to test if they are switching month and extract month for call for eventDate param plus create url for pushstate
 			
-			if($('#tribe-bar-date').val().length) {
+				var date = $('#tribe-events-header').attr('data-date');
+				var href_target = $(location).attr('href');
+				var tribe_nopop = false;
+			
+				if($('#tribe-bar-date').val().length) {
 				
-				// they picked a date in event bar daypicker, let's process and test
+					// they picked a date in event bar daypicker, let's process and test
 				
-				var daypicker_date = $('#tribe-bar-date').val().slice(0, -3);
+					var daypicker_date = $('#tribe-bar-date').val().slice(0, -3);
 				
-				if ( daypicker_date !=  date) {
+					if ( daypicker_date !=  date) {
 					
-					// it's a different month, let's overwrite the vars and initiate pushstate
+						// it's a different month, let's overwrite the vars and initiate pushstate
 					
-					var base_url = $('#tribe-events-events-picker').attr('action');
-					date = daypicker_date;
-					href_target = base_url + date + '/';	
-					tribe_nopop = true;
+						var base_url = $('#tribe-events-events-picker').attr('action');
+						date = daypicker_date;
+						href_target = base_url + date + '/';	
+						tribe_nopop = true;
+					}
+				
 				}
-				
-			}
 			
-			tribe_events_calendar_ajax_post( date, href_target, tribe_nopop );
+				tribe_events_calendar_ajax_post( date, href_target, tribe_nopop );
+			
+			}
 		} );
 		
 		// if advanced filters active intercept submit
