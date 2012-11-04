@@ -106,7 +106,10 @@ if (!class_exists('TribeEventsAPI')) {
 			if (isset($data["Venue"])) {
 				$data['EventVenueID'] = TribeEventsAPI::saveEventVenue($data["Venue"], $event, $post_status);
 			}
-			
+
+			$cost = ( isset( $data['EventCost'] ) ) ? $data['EventCost'] : '';
+			$data['EventCost'] = $cost;
+
 			$tribe_ecp->do_action('tribe_events_event_save', $event_id);
 
 			//update meta fields
