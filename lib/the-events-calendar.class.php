@@ -280,7 +280,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_settings_do_tabs', array( $this, 'doSettingTabs' ) );
 			add_action( 'tribe_settings_content_tab_help', array( $this, 'doHelpTab' ) );
 			// add-on compatibility
-			add_action( 'admin_notices', array( $this, 'checkAddOnCompatibility' ) );
+			if ( is_multisite() )
+				add_action( 'network_admin_notices', array( $this, 'checkAddOnCompatibility' ) );
+			else
+				add_action( 'admin_notices', array( $this, 'checkAddOnCompatibility' ) );
 			
 			add_action( 'wp_before_admin_bar_render', array( $this, 'addToolbarItems' ), 10 );
 			add_action( 'admin_notices', array( $this, 'activationMessage' ) );
