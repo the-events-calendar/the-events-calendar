@@ -62,7 +62,8 @@ a.tribe-events-gcal {
 	float: right;
 	text-decoration: none;
 	line-height: 18px;
-	margin-bottom: 21px;	
+	margin-bottom: 21px;
+	color: #fff;	
 }
 .tribe-events-gcal {
 	margin-right: 9px;
@@ -596,7 +597,7 @@ width: 70%;
 }
 
 /* Large Calendar Specifics */
-.events-archive.events-gridview table .vevent {
+.events-archive.events-gridview #tribe-events-content table .vevent {
 	margin: 0 5%;
 	padding: 6px 8px;
 	border-bottom: 1px solid #e7e7e7;
@@ -624,7 +625,7 @@ width: 70%;
 	position: relative;
 	margin: 0;
 }
-.tribe-events-calendar div[id*="tribe-events-event-"] h3.entry-title {
+#tribe-events-content .tribe-events-calendar div[id*="tribe-events-event-"] h3.entry-title {
 	line-height: 1.5;
 	font-size: 91.7%;
 	font-weight: normal;
@@ -638,7 +639,7 @@ width: 70%;
 }
 
 /* Large Calendar Tooltip Specifics */
-.tribe-events-tooltip h4.entry-title {
+#tribe-events-content .tribe-events-tooltip h4.entry-title {
 	margin: 0;
 	color: #fff;
 	background-color: #666;
