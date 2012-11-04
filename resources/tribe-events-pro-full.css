@@ -398,6 +398,12 @@ div.tribe-countdown-text {
 
 /* tribe geolocation map area */
 
+.tribe-events-filter-view #tribe-geo-wrapper {
+	 width:72%; 
+	 float:right; 
+	 padding:1px 0;
+}
+
 #tribe-geo-map-wrapper {
 	position      : relative;
 	z-index       : 2;
