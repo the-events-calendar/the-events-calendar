@@ -142,6 +142,11 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		
 		<dt><?php _e( 'Updated:', 'tribe-events-calendar' ); // Last event updated date ?></dt>
 		<dd class="updated"><abbr class="tribe-events-abbr" title="<?php the_time( 'c' ); ?>"><?php the_time( 'F j, Y' ); ?></abbr></dd>
+
+		<?php if ( tribe_get_event_website_link() ) : // Organizer email ?>
+			<dt><?php _e( 'Website:', 'tribe-events-calendar' ); // Last event updated date ?></dt>
+			<dd class="website"><?php echo tribe_get_event_website_link(); ?></dd>
+		<?php endif; ?>
 		
 		<?php if ( class_exists( 'TribeEventsRecurrenceMeta' ) && function_exists( 'tribe_get_recurrence_text' ) && tribe_is_recurring_event() ) : // Show info for reoccurring events ?>
 			<dt><?php _e( 'Schedule:', 'tribe-events-calendar' ); ?></dt>

@@ -90,6 +90,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'_EventShowMapLink',
 			'_EventShowMap',
 			'_EventCost',
+			'_EventURL',
 			'_EventOrganizerID',
 			'_EventPhone',
 			'_EventHideFromUpcoming',
