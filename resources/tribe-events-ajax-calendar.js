@@ -56,15 +56,16 @@ jQuery( document ).ready( function ( $ ) {
 			// they changed the datepicker in event bar, lets trigger ajax
 			
 			var daypicker_date = $(this).val();
+			var year_month = daypicker_date.slice(0, -3);
 			var date = $('#tribe-events-header').attr('data-date');
 			var href_target = $(location).attr('href');
 			var tribe_nopop = false;			
 				
-			if ( daypicker_date !=  date) {
+			if ( year_month !=  date) {
 					
 				// it's a different month, let's overwrite the vars and initiate pushstate
 					
-				date = daypicker_date.slice(0, -3);					
+				date = year_month;					
 				var base_url = $('#tribe-events-events-picker').attr('action');					
 				href_target = base_url + date + '/';	
 				tribe_nopop = true;
