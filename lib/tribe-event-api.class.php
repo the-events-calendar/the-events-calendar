@@ -109,6 +109,9 @@ if (!class_exists('TribeEventsAPI')) {
 			
 			$tribe_ecp->do_action('tribe_events_event_save', $event_id);
 
+			$cost              = ( isset( $data['EventCost'] ) ) ? $data['EventCost'] : '';
+			$data['EventCost'] = $cost;
+
 			//update meta fields
 			foreach ( $tribe_ecp->metaTags as $tag ) {
 				$htmlElement = ltrim( $tag, '_' );
