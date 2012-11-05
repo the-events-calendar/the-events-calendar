@@ -234,6 +234,11 @@ h2.tribe-events-page-title {
 	position: relative;
 	z-index: 0;
 }
+
+.events-list h2.tribe-events-page-title {
+	padding-left: 0;
+}
+
 h2.tribe-events-page-title a {
 	color: #000;
 }
