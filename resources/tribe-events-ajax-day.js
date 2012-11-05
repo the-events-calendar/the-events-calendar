@@ -9,6 +9,10 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	tribe_day_add_classes();
+	
+	function tribe_update_daypicker(date){
+		$("#tribe-bar-date").datepicker("setDate",date); 		 
+	}
 
 
 	// we'll determine if the browser supports pushstate and drop those that say they do but do it badly ;)
@@ -47,6 +51,7 @@ jQuery( document ).ready( function ( $ ) {
 			var tribe_nopop = true;
 			var day_target = $( this ).attr( "data-day" );
 			var href_target = $( this ).attr( "href" );
+			tribe_update_daypicker(day_target);
 			tribe_events_calendar_ajax_post( day_target, href_target, tribe_nopop );
 		} );
 		
@@ -91,6 +96,7 @@ jQuery( document ).ready( function ( $ ) {
 						date = daypicker_date;
 						href_target = base_url + date + '/';
 						tribe_nopop = true;
+						tribe_update_daypicker(date);
 					}
 
 				}
