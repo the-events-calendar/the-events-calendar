@@ -62,7 +62,7 @@ a.tribe-events-gcal {
 	float: right;
 	text-decoration: none;
 	line-height: 18px;
-	margin-bottom: 21px;
+	margin-bottom: 0;
 	color: #fff;	
 }
 .tribe-events-gcal {
@@ -466,19 +466,21 @@ h3.tribe-event-single-section-title {
 
 /* Date/Time */
 .single-tribe_events .tribe-event-schedule {
-	margin: 20px 0 0 0;
+	margin: 20px 0 0;
 }
 
 .single-tribe_events .tribe-event-schedule h2 {
 	margin: 0;
-	float: left;
+	display: inline-block;
 	margin: 0 20px 20px 0;
+	vertical-align: middle;
 }
 
 /* Cal Links */
 .single-tribe_events .tribe-event-cal-links { 
-float: left;
-margin: 0;
+display: inline-block;
+margin: 0 0 20px 0;
+vertical-align: middle;
 }
 
 /* Featured Image */
