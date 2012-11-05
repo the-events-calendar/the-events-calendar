@@ -9,8 +9,8 @@ jQuery( document ).ready( function ( $ ) {
 	$( '#tribe-geo-location' ).placeholder();
 
 	var options = {
-		zoom:5,
-		center:new google.maps.LatLng( GeoLoc.center.max_lat, GeoLoc.center.max_lng ),
+		zoom     :5,
+		center   :new google.maps.LatLng( GeoLoc.center.max_lat, GeoLoc.center.max_lng ),
 		mapTypeId:google.maps.MapTypeId.ROADMAP
 	};
 
@@ -67,25 +67,73 @@ jQuery( document ).ready( function ( $ ) {
 		spin_start();
 		deleteMarkers();
 
-		var data = {
+		var params = {
 			action:'geosearch',
-			nonce:GeoLoc.nonce,
-			paged:tribe_map_paged
+			nonce :GeoLoc.nonce,
+			paged :tribe_map_paged
 		};
 
-		$( 'form#tribe_events_filters_form :input' ).each( function () {
-			data[this.name] = $( this ).val();
-		} );
 
 		$( 'form#tribe-events-bar-form :input' ).each( function () {
-			data[this.name] = $( this ).val();
+			var $this = $( this );
+			if ( $this.val().length ) {
+				params[$this.attr( 'name' )] = $this.val();
+			}
 		} );
 
+		// check if advanced filters plugin is active
 
-		$.post( GeoLoc.ajaxurl, data, function ( response ) {
+		if ( $( '#tribe_events_filters_form' ).length ) {
+
+			// get selected form fields and create array
+
+			var filter_array = $( 'form#tribe_events_filters_form' ).serializeArray();
+
+			var fixed_array = [];
+			var counts = {};
+			var multiple_filters = {};
+
+			// test for multiples of same name
+
+			$.each( filter_array, function ( index, value ) {
+				if ( counts[value.name] ) {
+					counts[value.name] += 1;
+				} else {
+					counts[value.name] = 1;
+				}
+			} );
+
+			// modify array
+
+			$.each( filter_array, function ( index, value ) {
+				if ( multiple_filters[value.name] || counts[value.name] > 1 ) {
+					if ( !multiple_filters[value.name] ) {
+						multiple_filters[value.name] = 0;
+					}
+					multiple_filters[value.name] += 1;
+					fixed_array.push( {
+						name :value.name + "_" + multiple_filters[value.name],
+						value:value.value
+					} );
+				} else {
+					fixed_array.push( {
+						name :value.name,
+						value:value.value
+					} );
+				}
+			} );
+
+			// merge filter params with existing params
+
+			params = $.param( fixed_array ) + '&' + $.param( params );
+
+		}
+
+
+		$.post( GeoLoc.ajaxurl, params, function ( response ) {
 
 			spin_end();
-			console.log(response);
+			console.log( response );
 			if ( response.success ) {
 
 				$( "#tribe-geo-results" ).html( response.html );
@@ -108,7 +156,7 @@ jQuery( document ).ready( function ( $ ) {
 				if ( response.markers.length > 0 ) {
 					centerMap();
 				}
-				
+
 			}
 
 			spin_end();
@@ -130,13 +178,20 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 
+	if ( $( '#tribe_events_filters_form' ).length ) {
+		$( 'form#tribe_events_filters_form' ).bind( 'submit', function ( e ) {
+			e.preventDefault();
+			tribe_map_processOption( null );
+		} );
+	}
+
 	function tribe_map_addMarker( lat, lng, title, address, link ) {
 		var myLatlng = new google.maps.LatLng( lat, lng );
 
 		var marker = new google.maps.Marker( {
 			position:myLatlng,
-			map:map,
-			title:title
+			map     :map,
+			title   :title
 		} );
 
 		var infoWindow = new google.maps.InfoWindow();
@@ -234,7 +289,7 @@ jQuery( document ).ready( function ( $ ) {
 							tribe_map_addMarker( geocodes[i].geometry.location.lat(), geocodes[i].geometry.location.lng(), geocodes[i].formatted_address );
 						}
 						centerMap();
-						
+
 
 					} else {
 						tribe_map_processOption( geocodes[0] );

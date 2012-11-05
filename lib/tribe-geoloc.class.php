@@ -366,6 +366,10 @@ class TribeEventsGeoLoc {
 			exit;
 		}
 
+		if ( class_exists( 'TribeEventsFilterView' ) ) {
+			TribeEventsFilterView::instance()->createFilters( null, true );
+		}
+
 		$paged = !empty( $_POST["paged"] ) ? $_POST["paged"] : 1;
 
 		TribeEventsQuery::init();

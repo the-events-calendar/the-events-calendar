@@ -1,6 +1,16 @@
 
 jQuery( document ).ready( function ( $ ) {
 
+	function tribe_day_add_classes() {
+		// Add Some Classes
+		if ( $( '.tribe-events-day-time-slot' ).length ) {
+			$( '.tribe-events-day-time-slot' ).find( '.vevent:last' ).addClass( 'tribe-last' );
+		}
+	}
+
+	tribe_day_add_classes();
+
+
 	// we'll determine if the browser supports pushstate and drop those that say they do but do it badly ;)
 	
 	var hasPushstate = window.history && window.history.pushState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);
@@ -68,6 +78,7 @@ jQuery( document ).ready( function ( $ ) {
 								"date": date
 							}, page_title, href_target);
 						}
+						tribe_day_add_classes();
 					}
 				}
 			);
