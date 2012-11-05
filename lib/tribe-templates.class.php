@@ -231,6 +231,9 @@ if (!class_exists('TribeEventsTemplates')) {
 				$template .= '.php';
 			}
 
+			// setup the meta definitions
+			require_once( TribeEvents::instance()->pluginPath . 'public/advanced-functions/meta.php' );
+
 			// allow pluginPath to be set outside of this method
 			$pluginPath = empty($pluginPath) ? TribeEvents::instance()->pluginPath : $pluginPath;
 

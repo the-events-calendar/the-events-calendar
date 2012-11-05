@@ -90,6 +90,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'_EventShowMapLink',
 			'_EventShowMap',
 			'_EventCost',
+			'_EventURL',
 			'_EventOrganizerID',
 			'_EventPhone',
 			'_EventHideFromUpcoming',
@@ -175,6 +176,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( $this->pluginPath.'public/template-tags/date.php' );
 			require_once( $this->pluginPath.'public/template-tags/link.php' );
 			require_once( $this->pluginPath.'public/template-tags/widgets.php' );
+			require_once( $this->pluginPath.'public/template-tags/meta.php' );
 
 			// Load Advanced Functions
 			require_once( $this->pluginPath.'public/advanced-functions/event.php' );
@@ -187,6 +189,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 
 			// Load Classes
+			require_once( 'tribe-meta-factory.class.php' );
 			require_once( 'widget-list.class.php' );
 			require_once( 'tribe-admin-events-list.class.php' );
 			require_once( 'tribe-date-utils.class.php' );
