@@ -224,23 +224,21 @@ a.tribe-events-gcal {
 	margin-bottom: 30px;
 }
 
-
-/* = Calendar View & List View Template Styles
-   @ Template: calendar.php & list.php
-=============================================*/
-#tribe-events-content {
+/* General Template Headers */
+h2.tribe-events-page-title {
+	padding-left: 20px;
+	margin-bottom: 0;
+	font-size: 21px;
+	font-weight: bold;
+	color: #000;
 	position: relative;
-	margin-bottom: 48px;
-	padding: 1px 20px;
-}
-#tribe-events-content.tribe-events-list {
-	padding: 0;
+	z-index: 0;
 }
 
-/* Header */
-#tribe-events-header {
-	
+.events-list h2.tribe-events-page-title {
+	padding-left: 0;
 }
+
 h2.tribe-events-page-title a {
 	color: #000;
 }
@@ -253,20 +251,7 @@ h2.tribe-events-page-title a:focus {
 	display: none;
 }
 
-
-/* = Calendar View Template Styles
-   @ Template: calendar.php
-=============================================*/
-/* Header */
-h2.tribe-events-page-title {
-	padding-left: 20px;
-	margin-bottom: 0;
-	font-size: 21px;
-	font-weight: bold;
-	color: #000;
-	position: relative;
-	z-index: 0;
-}
+/* General Template Header Nav */
 #tribe-events-content ul.tribe-events-sub-nav {
 	list-style-type: none;
 	margin: 0;
@@ -294,13 +279,25 @@ select.tribe-events-dropdown {
 }
 
 
+/* = Calendar View & List View Template Styles
+   @ Template: calendar.php & list.php
+=============================================*/
+#tribe-events-content {
+	position: relative;
+	margin-bottom: 48px;
+	padding: 1px 20px;
+}
+#tribe-events-content.tribe-events-list {
+	padding: 0;
+}
+
+
 /* = List View Template Styles
    @ Template: list.php
 =============================================*/
 .tribe-events-list h2.tribe-events-page-title {
 	margin-bottom: 15px;
 }
-
 
 #tribe-events-content.tribe-events-list {
 	margin-bottom: 60px;
@@ -686,7 +683,7 @@ width: 70%;
 	padding: 6px 8px;
 	border-bottom: 1px solid #e7e7e7;
 }
-.events-archive.events-gridview table .tribe-last {
+.events-archive.events-gridview #tribe-events-content table .tribe-last {
 	border-bottom: 0;
 }
 .tribe-events-calendar th {
