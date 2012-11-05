@@ -87,16 +87,14 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 <div class="tribe-events-event-meta">
 	
 	<dl class="tribe-events-column">
-
-
 		<?php
 
+		// a preview of things to come
 		// alt method if return is desired
 		// tribe_get_the_event_meta();
-		tribe_display_the_event_meta();
+		// tribe_display_the_event_meta();
 
 		?>
-	
 		<dt><?php _e( 'Event:', 'tribe-events-calendar' ); ?></dt>
 		<dd class="summary"><?php the_title(); ?></dd>
 		

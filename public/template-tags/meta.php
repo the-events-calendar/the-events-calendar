@@ -93,7 +93,8 @@ if ( !function_exists( 'tribe_get_meta' ) ) {
 		$meta = Tribe_Meta_Factory::get_args( $meta_id );
 
 		// internal check for hiding items in the meta
-		if( $is_the_meta && ! $meta['show_on_meta'] ){
+		// if( $is_the_meta && ! $meta['show_on_meta'] ){
+		if( ! $meta['show_on_meta'] ){
 			return false;
 		}
 
@@ -116,7 +117,7 @@ if ( !function_exists( 'tribe_get_meta' ) ) {
 }
 
 if( !function_exists('tribe_set_the_meta_visibility')) {
-	function tribe_set_the_meta_visibility( $meta_id, $type = 'meta', $status = true ){
+	function tribe_set_the_meta_visibility( $meta_id, $status = true, $type = 'meta' ){
 		Tribe_Meta_Factory::set_visibility( $meta_id, $type, $status );
 	}
 }
