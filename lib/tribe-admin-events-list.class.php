@@ -19,6 +19,7 @@ if (!class_exists('TribeEventsAdminList')) {
 				add_filter( 'posts_join',		array( __CLASS__, 'events_search_join' ) );
 				add_filter( 'posts_where',		array( __CLASS__, 'events_search_where' ) );
 				add_filter( 'posts_orderby',  array( __CLASS__, 'events_search_orderby' ) );
+				add_filter( 'posts_groupby', array( __CLASS__, 'events_search_groupby' ) );
 				add_filter( 'posts_fields',	array( __CLASS__, 'events_search_fields' ) );
 				add_filter( 'post_limits',		array( __CLASS__, 'events_search_limits' ) );
 				add_filter( 'manage_' . TribeEvents::POSTTYPE . '_posts_columns', array(__CLASS__, 'column_headers'));
@@ -132,6 +133,15 @@ if (!class_exists('TribeEventsAdminList')) {
 				$orderby_sql = $endDateSQL . $order . ', eventStart.meta_value ' . $order;
 
 			return $orderby_sql;
+		}
+		
+		public static function events_search_groupby( $groupby_sql ) {
+			if ( get_query_var( 'post_type' ) != TribeEvents::POSTTYPE ) {
+               return $groupby_sql;
+        	}
+        	$groupby_sql = "";
+           
+        	return $groupby_sql;
 		}
 
 		/**
