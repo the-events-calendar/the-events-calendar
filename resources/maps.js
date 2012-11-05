@@ -180,8 +180,10 @@ jQuery( document ).ready( function ( $ ) {
 
 	if ( $( '#tribe_events_filters_form' ).length ) {
 		$( 'form#tribe_events_filters_form' ).bind( 'submit', function ( e ) {
-			e.preventDefault();
-			tribe_map_processOption( null );
+			if ( tribe_events_bar_action != 'change_view' ) {
+				e.preventDefault();
+				tribe_map_processOption( null );
+			}
 		} );
 	}
 
