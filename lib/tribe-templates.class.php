@@ -96,18 +96,23 @@ if (!class_exists('TribeEventsTemplates')) {
          $template = '';
 
 			if ( is_tax( TribeEvents::TAXONOMY) ) {
-				if ( tribe_is_upcoming() || tribe_is_past() )
+				if ( tribe_is_upcoming() || tribe_is_past() ){
+					Tribe_Template_Factory::asset_package( 'ajax-list' );
 					$template = TribeEventsTemplates::getTemplateHierarchy('list');
-				else
+				}else{
+					Tribe_Template_Factory::asset_package( 'ajax-calendar' );
 					$template = TribeEventsTemplates::getTemplateHierarchy('calendar');
+				}
 			} if ( is_single() && !tribe_is_showing_all() ) {
 				// single event
 				$template = TribeEventsTemplates::getTemplateHierarchy('single-event');
 			} elseif ( tribe_is_upcoming() || tribe_is_past() || (is_single() && tribe_is_showing_all()) ) {
 				// list view
+				Tribe_Template_Factory::asset_package( 'ajax-list' );
 				$template = TribeEventsTemplates::getTemplateHierarchy('list');
 			} else {
 				// calendar view
+				Tribe_Template_Factory::asset_package( 'ajax-calendar' );
 				$template = TribeEventsTemplates::getTemplateHierarchy('calendar');
 			}
 
