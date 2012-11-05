@@ -137,9 +137,11 @@ a.tribe-events-gcal {
 }
 
 /* Event Schedule Detail Styling */
-.tribe-events-event-schedule-details {
+.tribe-event-schedule h2 {
 	font-style: normal;
 	font-weight: bold;
+}
+.tribe-events-event-schedule-details {
 	display: inline;
 	margin-right: 10px;
 }
@@ -508,7 +510,8 @@ h3.tribe-event-single-section-title {
 }
 .tribe-event-single-section-title, .entry-content .tribe-event-single-section-title {
 	margin: 20px 0 10px;
-	font-size: 1.2em;
+	font-size: 1.4em;
+	font-weight: bold;
 }
 .tribe-events-meta-column + .tribe-event-single-section-title {
 	margin-top: 0;
@@ -552,6 +555,7 @@ h3.tribe-event-single-section-title {
 
 .single-tribe_events .tribe-event-schedule h2 {
 	margin: 0;
+	line-height: 1;
 	float: left;
 	margin: 0 20px 20px 0;
 }
