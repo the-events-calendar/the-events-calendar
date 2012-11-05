@@ -167,7 +167,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			        			$rows++;
 			    			}
 
-														// Var'ng up days, months and years
+							// Var'ng up days, months and years
 							$current_day = date_i18n( 'd' );
 							$current_month = date_i18n( 'm' );
 							$current_year = date_i18n( 'Y' );
