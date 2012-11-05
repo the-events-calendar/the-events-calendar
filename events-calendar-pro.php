@@ -157,7 +157,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		function wp_ajax_tribe_event_day(){
 			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
-				
+
+				if ( class_exists( 'TribeEventsFilterView' ) ) {
+					TribeEventsFilterView::instance()->createFilters( null, true );
+				}
+
 				TribeEventsQuery::init();
 				add_filter( 'tribe_events_pre_get_posts', array( $this, 'pre_get_posts' ) );
 
