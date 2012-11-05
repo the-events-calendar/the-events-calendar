@@ -310,7 +310,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			$eventId	= $post->ID.'-'.$day;
 			$start		= tribe_get_start_date( $post->ID, false, 'U' );
 			$end		= tribe_get_end_date( $post->ID, false, 'U' );
-			$cost		= tribe_get_cost( $post->ID );
+			$cost		= tribe_get_cost( $post->ID );			
 			?>
 			
 			<?php			
