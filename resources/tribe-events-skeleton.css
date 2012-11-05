@@ -175,22 +175,13 @@ a.tribe-events-gcal {
 	margin-bottom: 30px;
 }
 
-
-/* = Grid View & List View Template Styles
-   @ Template: calendar.php & list.php
-=============================================*/
-#tribe-events-content {
+/* General Template Headers */
+h2.tribe-events-page-title {
+	padding-left: 20px;
+	margin-bottom: 0;
+	font-weight: bold;
 	position: relative;
-	margin-bottom: 48px;
-	padding: 1px 20px;
-}
-#tribe-events-content.tribe-events-list {
-	padding: 0;
-}
-
-/* Header */
-#tribe-events-header {
-	
+	z-index: 0;
 }
 h2.tribe-events-page-title a {
 	color: #000;
@@ -204,18 +195,7 @@ h2.tribe-events-page-title a:focus {
 	display: none;
 }
 
-
-/* = Grid View Template Styles
-   @ Template: calendar.php
-=============================================*/
-/* Header */
-h2.tribe-events-page-title {
-	padding-left: 20px;
-	margin-bottom: 0;
-	font-weight: bold;
-	position: relative;
-	z-index: 0;
-}
+/* General Template Header Nav */
 #tribe-events-content ul.tribe-events-sub-nav {
 	list-style-type: none;
 	margin: 0;
@@ -240,6 +220,19 @@ select.tribe-events-dropdown {
 #tribe-events-events-picker, 
 #tribe-events-picker {
 	display: inline;
+}
+
+
+/* = Grid View & List View Template Styles
+   @ Template: calendar.php & list.php
+=============================================*/
+#tribe-events-content {
+	position: relative;
+	margin-bottom: 48px;
+	padding: 1px 20px;
+}
+#tribe-events-content.tribe-events-list {
+	padding: 0;
 }
 
 
@@ -602,7 +595,7 @@ width: 70%;
 	padding: 6px 8px;
 	border-bottom: 1px solid #e7e7e7;
 }
-.events-archive.events-gridview table .tribe-last {
+.events-archive.events-gridview #tribe-events-content table .tribe-last {
 	border-bottom: 0;
 }
 .tribe-events-calendar th {
@@ -708,7 +701,12 @@ width: 70%;
 /* Bar Filters */
 #tribe-events-bar-filters {
 	float: left;
-	width: 58%;
+	/*width: 58%;*/
+	width: 75%;
+	padding-right: 1%;
+}
+#tribe-events-bar-form {
+	position: relative;
 }
 #tribe-events-bar-form .tribe-events-bar-filter-wrap {
 	display: inline-block;
@@ -719,12 +717,17 @@ width: 70%;
 }
 #tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-date {
 	width: 22%;
+	margin-left: 1.5%;
+	position: absolute;
+	right: 0;
+	top: 0;
 }
 #tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-submit {
 	width: 70px;
 }
 #tribe-events-bar-form input {
 	margin-bottom: 0;
+	font-size: 15px;
 }
 #tribe-events-bar-form input[type="text"] {
 	padding: 3px;
@@ -742,31 +745,55 @@ width: 70%;
 	color: #666;
 }
 
+/* Placeholder Bits */
+input[name*="tribe-bar-"]::-webkit-input-placeholder {
+	color: #888;
+	font-size: 15px;
+}
+input:-moz-placeholder {
+	color: #888;
+	font-size: 15px;
+}
+.placeholder {
+	color: #888;
+	font-size: 15px;	
+}
+
 /* Filters Toggle Styles */
 #tribe-events-bar .tribe-events-bar-toggle {
 	display: none;
+	cursor: pointer;
+	height: 32px;
+	line-height: 32px;
+}
+#tribe-events-bar .tribe-events-bar-toggle span {
+	display: inline-block;
+	padding-left: 5px;
+	font-size: 14px;
+	text-transform: uppercase;
 }
 #tribe-events-bar .tribe-events-bar-toggle .tribe-triangle {
-	cursor: pointer;
 	content: "";
-	display: block;
 	width: 0;
 	height: 0;
-	border: solid 9px;
+	border: solid 6px;
 	border-color: #666 transparent transparent transparent;
 	margin: 0 auto;
 	position: relative;
-	top: 10px;
+	top: 4px;
+	padding: 0;
 }
 #tribe-events-bar .tribe-events-bar-toggle.open .tribe-triangle {
 	border-color: transparent transparent #666 transparent;
-	top: 0;
+	top: auto;
+	bottom: 3px;
 }
 
 /* Bar Views */
 #tribe-events-bar-views {
 	float: left;
-	width: 42%;
+	/*width: 42%;*/
+	width: 24%;
 }
 #tribe-events-bar-views ul.tribe-events-bar-view-list {
 	list-style-type: none;
@@ -822,7 +849,8 @@ width: 70%;
 /* Swap out our view nav to be a select input & make some other real estate adjustments */
 @media screen and (max-width: 845px) {
 	#tribe-events-bar-filters {
-		width: 70%;
+		/*width: 70%;*/
+		width: 69%;
 	}
 	#tribe-events-bar-views {
 		width: 30%;
@@ -870,7 +898,8 @@ width: 70%;
 	padding: 4px;
 }
 .tribe-bar-mini #tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-search,
-.tribe-bar-mini #tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-geoloc {
+.tribe-bar-mini #tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-geoloc,
+.tribe-bar-mini #tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-submit {
 	width: 100%;
 } 
 .tribe-bar-mini #tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-geoloc {
@@ -890,11 +919,26 @@ width: 70%;
 	width: 91%;
 }
 .tribe-bar-mini #tribe-events-bar-form input[type="submit"] {
-	margin-left: 6px;
+	margin-top: 4px;
+	text-align: center;
+	width: 100%;
 }
 
 /* Place filters in a toggle to save bar real estate */
 @media screen and (max-width: 675px) {
+	#tribe-events-bar-form {
+		padding-right: 108px;
+	}
+	#tribe-events-bar-filters {
+		/*width: 75%;*/
+		width: 100%;
+		padding-right: 0;
+	}
+	#tribe-events-bar-views {
+		/*width: 23%;*/
+		width: 108px;
+		margin-left: -108px;
+	}
 	#tribe-events-bar-form .tribe-events-toggle-wrap {
 		display: none;
 		position: absolute;
@@ -905,7 +949,8 @@ width: 70%;
 		padding: 4px;
 	}
 	#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-search,
-	#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-geoloc {
+	#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-geoloc,
+	#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-submit {
 		width: 100%;
 	} 
 	#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-geoloc {
@@ -920,12 +965,16 @@ width: 70%;
 	}
 	#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-date {
 		width: 30%;
+		right: 102px;
+		padding-right: 4px;
 	}
 	#tribe-events-bar-form input[type="text"] {
 		width: 91%;
 	}
 	#tribe-events-bar-form input[type="submit"] {
-		margin-left: 6px;
+		margin-top: 4px;
+		text-align: center;
+		width: 100%;
 	}
 	#tribe-events-bar-views .chzn-container {
 		width: 100px !important;

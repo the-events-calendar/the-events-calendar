@@ -15,6 +15,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 	class Tribe_Events_List_Template extends Tribe_Template_Factory {
 
 		private $first = true;
+		static $loop_increment = 0;
 
 		public static function init(){
 			// Start list template
@@ -72,7 +73,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_loop');
 		}
 		public function inside_before_loop( $post_id ){
-			
+			global $wp_query;
 			// Get our wrapper classes (for event categories, organizer, venue, and defaults)
 			$tribe_string_classes = '';
 			$tribe_cat_ids = tribe_get_event_cat_ids( $post_id ); 
@@ -89,6 +90,11 @@ if( !class_exists('Tribe_Events_List_Template')){
 			$tribe_classes_organizer = tribe_get_organizer_id() ? 'tribe-events-organizer-'. tribe_get_organizer_id() : '';
 			$tribe_classes_categories = $tribe_string_classes;
 			$class_string = $tribe_classes_default .' '. $tribe_classes_venue .' '. $tribe_classes_organizer .' '. $tribe_classes_categories;
+
+			// added last class for css
+			if( self::$loop_increment == count($wp_query->posts)-1 ){
+				$class_string .= ' tribe-last';
+			}
 			
 			$html = '<div id="post-'. get_the_ID() .'" class="'. $class_string .' clearfix">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_inside_before_loop');
@@ -184,6 +190,10 @@ if( !class_exists('Tribe_Events_List_Template')){
 
 		// End List Loop
 		public function inside_after_loop( $post_id ){
+
+			// internal increment to keep track of position within the loop
+			self::$loop_increment++;
+
 			$html = '</div><!-- .hentry .vevent -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_inside_after_loop');
 		}

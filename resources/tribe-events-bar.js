@@ -30,7 +30,8 @@ jQuery( document ).ready( function ( $ ) {
 	$( '#tribe-events-bar-views .chzn-select' ).chosen( { disable_search_threshold:9999 } );
 
 	// Wrap non-date inputs with a parent container for toggle
-	$( '.tribe-events-bar-filter-wrap.tribe-bar-search, .tribe-events-bar-filter-wrap.tribe-bar-geoloc' ).wrapAll( '<div class="tribe-events-toggle-wrap" />' );
+
+	$('.tribe-events-bar-filter-wrap.tribe-bar-search, .tribe-events-bar-filter-wrap.tribe-bar-geoloc, .tribe-events-bar-filter-wrap.tribe-bar-submit').wrapAll('<div class="tribe-events-toggle-wrap" />');
 
 	// Implement our views bit
 	$( 'select[name=tribe-events-bar-view]' ).change( function () {

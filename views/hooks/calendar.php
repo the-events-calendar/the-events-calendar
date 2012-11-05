@@ -189,17 +189,14 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 							} elseif ( $current_month < $month && $current_year == $year || $current_year < $year ) {
 								$ppf = ' tribe-events-future';
 							}
-							
 
 							if ( ( $column % 4 == 0 ) || ( $column % 5 == 0 ) || ( $column % 6 == 0 ) ) {
 								$ppf .= ' tribe-events-right';
 							}
-
-
 							
-						// You can find tribe_the_display_day() & tribe_get_display_day_title() in
-						// /public/template-tags/calendar.php
-						// This controls the markup for the days and events on the frontend
+							// You can find tribe_the_display_day() & tribe_get_display_day_title() in
+							// /public/template-tags/calendar.php
+							// This controls the markup for the days and events on the frontend
 				
 			    			echo "<td class=\"tribe-events-thismonth". $ppf ."\">". tribe_get_display_day_title( $day, $monthView, $date ) ."\n";
 
