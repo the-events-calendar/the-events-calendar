@@ -144,14 +144,15 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param  object|int $event
 	 * @return $html
 	 */
-	function tribe_get_event_website_link( $event = null ){
+	function tribe_get_event_website_link( $event = null, $label = null ){
 		$post_id = is_object($event) && isset($event->tribe_is_event) && $event->tribe_is_event ? $event->ID : $event;
 		$post_id = !empty($post_id) ? $post_id : get_the_ID();
 		$link = tribe_get_event_meta( $post_id, '_EventURL', true );
+		$label = is_null($label) ? $link : $label;
 		$html = empty($link) ? '' : sprintf('<a href="%s" target="%s">%s</a>',
 			$link,
 			apply_filters('tribe_get_event_website_link_target', 'self'),
-			apply_filters('tribe_get_event_website_link_label', $link)
+			apply_filters('tribe_get_event_website_link_label', $label)
 			);
 		return apply_filters('tribe_get_event_website_link', $html );
 	}

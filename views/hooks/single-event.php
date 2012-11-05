@@ -133,12 +133,20 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 
 		?>
 		
-		<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) ) : // Organizer URL ?>
+
+		<?php if ( tribe_get_organizer() ): // Organizer info ?>
 			<dt><?php _e( 'Organizer:', 'tribe-events-calendar' ); ?></dt>
-			<dd class="vcard author fn org"><?php echo tribe_get_organizer_link(); ?></dd>
-      	<?php elseif ( tribe_get_organizer() ): // Organizer name ?>
-			<dt><?php _e( 'Organizer:', 'tribe-events-calendar' ); ?></dt>
-			<dd class="vcard author fn org"><?php echo tribe_get_organizer(); ?></dd>
+			<dd class="vcard author fn org">
+				<?php if( class_exists( 'TribeEventsPro' ) ): // If pro, show organizer w/ link ?>
+					<?php echo tribe_get_organizer_permalink( get_the_ID() ); ?>
+				<?php else : ?>
+					<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) ) : // Organizer URL ?>
+						<?php echo tribe_get_organizer_link(); ?>
+					<?php else : ?>
+						<?php echo tribe_get_organizer(); ?>
+					<?php endif; ?>
+				<?php endif; ?>
+			</dd>
 		<?php endif; ?>
 		
 		<?php if ( tribe_get_organizer_phone() ) : // Organizer phone ?>
@@ -180,7 +188,11 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 				<?php if( class_exists( 'TribeEventsPro' ) ): // If pro, show venue w/ link ?>
 					<?php tribe_get_venue_link( get_the_ID(), class_exists( 'TribeEventsPro' ) ); ?>
 				<?php else: // Otherwise show venue name ?>
-					<?php echo tribe_get_venue( get_the_ID() ); ?>
+					<?php if ( tribe_get_venue_website_link() ) : // Venue website ?>
+						<?php echo tribe_get_venue_website_link( get_the_ID(), tribe_get_venue( get_the_ID() ) ); ?>
+		 			<?php else : ?>
+						<?php echo tribe_get_venue( get_the_ID() ); ?>
+					<?php endif; ?>
 				<?php endif; ?>
 			</dd>
 		<?php endif; ?>
