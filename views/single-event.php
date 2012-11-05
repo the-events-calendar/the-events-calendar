@@ -62,6 +62,8 @@ echo apply_filters( 'tribe_events_single_event_before_template', '', get_the_ID(
 	echo apply_filters( 'tribe_events_single_event_before_pagination', '', get_the_ID() );
 	echo apply_filters( 'tribe_events_single_event_pagination', '', get_the_ID() );
 	echo apply_filters( 'tribe_events_single_event_after_pagination', '', get_the_ID() );
+
+	echo apply_filters( 'tribe_events_single_event_the_comments', '', get_the_ID() );
 	
 // End single template
 echo apply_filters( 'tribe_events_single_event_after_template', '', get_the_ID() );
