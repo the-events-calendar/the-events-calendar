@@ -27,10 +27,5 @@ jQuery(document).ready(function($) {
 		}
 		tribe_event_tooltips();
 	}
-	
-   	// Add Some Classes
-   	if ( $('.tribe-events-day-time-slot').length ) {
-   		$('.tribe-events-day-time-slot').find('.vevent:last').addClass('tribe-last');
-    }
-	
+
 });
