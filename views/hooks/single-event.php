@@ -157,6 +157,11 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 	         		<?php endif; ?>
 	         	</dd>
 			<?php endif; ?>
+			<?php $origin_to_display = apply_filters( 'tribe_events_display_event_origin', '', get_the_ID() );
+				if ( $origin_to_display != '' ) { ?>
+				<dt><?php _e( 'Origin:', 'tribe-events-calendar-pro' ); ?></dt>
+				<dd class="published event-origin"><?php echo $origin_to_display; ?></dd>
+			<?php } ?>
 
 		</dl><!-- .tribe-events-meta-column -->
 
