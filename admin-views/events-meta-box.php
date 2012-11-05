@@ -103,6 +103,22 @@ if ( !defined('ABSPATH') ) { die('-1'); }
          <?php do_action('tribe_organizer_table_top', $postId) ?>
 			<?php include( $this->pluginPath . 'admin-views/organizer-meta-box.php' ); ?>
 	</table>
+
+	<table id="event_url" class="eventtable">
+		<tr>
+			<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event URL', 'tribe-events-calendar'); ?></h4></td>
+		</tr>
+		<tr>
+			<td><?php _e('URL:','tribe-events-calendar'); ?></td>
+			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventURL' name='EventURL' size='50' value='<?php echo (isset($_EventURL)) ? esc_attr($_EventURL) : ''; ?>' /></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><small><?php _e('Leave blank to hide the field.', 'tribe-events-calendar'); ?></small></td>
+		</tr>
+      <?php $this->do_action('tribe_events_url_table', $postId, true) ?>
+	</table>
+
     <?php $this->do_action('tribe_events_details_table_bottom', $postId, true) ?>
 
 	<?php if ( !class_exists("TribeEventsTickets") ||  !TribeEventsTickets::$active || class_exists( 'Event_Tickets_PRO') || get_post_meta( get_the_ID(), '_EventOrigin', true ) === 'community-events' ){ ?>

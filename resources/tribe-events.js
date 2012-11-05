@@ -29,12 +29,8 @@ jQuery(document).ready(function($) {
 	}
 	
    	// Add Some Classes
-   	if ( $('.tribe-events-loop').length || $('.tribe-events-day-time-slot').length || $('.events-gridview').length ) {
-   		$('.tribe-events-loop .vevent:last').addClass('tribe-last');
+   	if ( $('.tribe-events-day-time-slot').length ) {
    		$('.tribe-events-day-time-slot').find('.vevent:last').addClass('tribe-last');
-   		$('.events-gridview table.tribe-events-calendar').find('td.tribe-events-thismonth').each(function(index) {
-          	$(this).children('.vevent').last().addClass('tribe-last');
-    	});
     }
 	
 });

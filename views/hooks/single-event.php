@@ -14,6 +14,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( !class_exists('Tribe_Events_Single_Event_Template')){
 	class Tribe_Events_Single_Event_Template extends Tribe_Template_Factory {
 		public static function init(){
+
 			// Start single template
 			add_filter( 'tribe_events_single_event_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 
@@ -79,10 +80,22 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		}
 		public function the_meta( $post_id ){
 			ob_start();
+
+			
+
 ?>
 <div class="tribe-events-event-meta">
 	
 	<dl class="tribe-events-column">
+
+
+		<?php
+
+		// alt method if return is desired
+		// tribe_get_the_event_meta();
+		tribe_display_the_event_meta();
+
+		?>
 	
 		<dt><?php _e( 'Event:', 'tribe-events-calendar' ); ?></dt>
 		<dd class="summary"><?php the_title(); ?></dd>
@@ -142,6 +155,11 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		
 		<dt><?php _e( 'Updated:', 'tribe-events-calendar' ); // Last event updated date ?></dt>
 		<dd class="updated"><abbr class="tribe-events-abbr" title="<?php the_time( 'c' ); ?>"><?php the_time( 'F j, Y' ); ?></abbr></dd>
+
+		<?php if ( tribe_get_event_website_link() ) : // Organizer email ?>
+			<dt><?php _e( 'Website:', 'tribe-events-calendar' ); // Last event updated date ?></dt>
+			<dd class="website"><?php echo tribe_get_event_website_link(); ?></dd>
+		<?php endif; ?>
 		
 		<?php if ( class_exists( 'TribeEventsRecurrenceMeta' ) && function_exists( 'tribe_get_recurrence_text' ) && tribe_is_recurring_event() ) : // Show info for reoccurring events ?>
 			<dt><?php _e( 'Schedule:', 'tribe-events-calendar' ); ?></dt>

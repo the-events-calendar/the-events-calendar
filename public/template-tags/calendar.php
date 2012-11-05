@@ -330,6 +330,12 @@ if( class_exists( 'TribeEvents' ) ) {
 			$tribe_classes_organizer = tribe_get_organizer_id() ? 'tribe-events-organizer-'. tribe_get_organizer_id() : '';
 			$tribe_classes_categories = $tribe_string_classes;
 			$class_string = $tribe_classes_default .' '. $tribe_classes_venue .' '. $tribe_classes_organizer .' '. $tribe_classes_categories;
+
+			// added last class for css
+			if( $i+1 == count( $monthView[$day] ) ){
+				$class_string .= ' tribe-last';
+			}
+
 			?>
 			
 			<div id="tribe-events-event-<?php echo $eventId; ?>" class="<?php echo $class_string; ?>">

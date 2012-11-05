@@ -90,6 +90,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'_EventShowMapLink',
 			'_EventShowMap',
 			'_EventCost',
+			'_EventURL',
 			'_EventOrganizerID',
 			'_EventPhone',
 			'_EventHideFromUpcoming',
@@ -175,6 +176,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( $this->pluginPath.'public/template-tags/date.php' );
 			require_once( $this->pluginPath.'public/template-tags/link.php' );
 			require_once( $this->pluginPath.'public/template-tags/widgets.php' );
+			require_once( $this->pluginPath.'public/template-tags/meta.php' );
 
 			// Load Advanced Functions
 			require_once( $this->pluginPath.'public/advanced-functions/event.php' );
@@ -187,6 +189,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 
 			// Load Classes
+			require_once( 'tribe-meta-factory.class.php' );
 			require_once( 'widget-list.class.php' );
 			require_once( 'tribe-admin-events-list.class.php' );
 			require_once( 'tribe-date-utils.class.php' );
@@ -280,7 +283,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_settings_do_tabs', array( $this, 'doSettingTabs' ) );
 			add_action( 'tribe_settings_content_tab_help', array( $this, 'doHelpTab' ) );
 			// add-on compatibility
-			add_action( 'admin_notices', array( $this, 'checkAddOnCompatibility' ) );
+			if ( is_multisite() )
+				add_action( 'network_admin_notices', array( $this, 'checkAddOnCompatibility' ) );
+			else
+				add_action( 'admin_notices', array( $this, 'checkAddOnCompatibility' ) );
 			
 			add_action( 'wp_before_admin_bar_render', array( $this, 'addToolbarItems' ), 10 );
 			add_action( 'admin_notices', array( $this, 'activationMessage' ) );
