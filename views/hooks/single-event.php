@@ -14,6 +14,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( !class_exists('Tribe_Events_Single_Event_Template')){
 	class Tribe_Events_Single_Event_Template extends Tribe_Template_Factory {
 		public static function init(){
+
 			// Start single template
 			add_filter( 'tribe_events_single_event_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 
@@ -79,10 +80,22 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		}
 		public function the_meta( $post_id ){
 			ob_start();
+
+			
+
 ?>
 <div class="tribe-events-event-meta">
 	
 	<dl class="tribe-events-column">
+
+
+		<?php
+
+		// alt method if return is desired
+		// tribe_get_the_event_meta();
+		tribe_display_the_event_meta();
+
+		?>
 	
 		<dt><?php _e( 'Event:', 'tribe-events-calendar' ); ?></dt>
 		<dd class="summary"><?php the_title(); ?></dd>
