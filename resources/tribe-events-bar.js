@@ -50,20 +50,16 @@ jQuery( document ).ready( function ( $ ) {
 
 	function tribe_events_bar_change_view( url ) {
 		tribe_events_bar_action = 'change_view';
-		//$( 'form#tribe-events-bar-form' ).attr( 'action', url ).submit();
 
-		var action = url;
-		$.ajax( {
-			url    :action,
-			type   :'POST',
-			data   :$( 'form#tribe-events-bar-form, form#tribe_events_filters_form' ).serialize(),
-			success:function () {
-				window.location.replace( action );
-			}
-		} );
-		return false;
-
-
+		if ( $( '#tribe_events_filters_form' ).length ) {
+			$( 'form#tribe-events-bar-form :input' ).each( function () {
+				var $this = $( this );
+				$( '#tribe_events_filters_form' ).append( $this );
+			} );
+			$( '#tribe_events_filters_form' ).attr( 'action', url ).submit();
+		} else {
+			$( 'form#tribe-events-bar-form' ).attr( 'action', url ).submit();
+		}
 	}
 
 
