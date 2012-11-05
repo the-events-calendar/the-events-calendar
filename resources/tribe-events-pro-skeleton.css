@@ -361,10 +361,10 @@ h3.tribe-events-related-events-title {
 }
  
 .tribe-events-single ul.tribe-related-events {
-	margin-right: -4%;
+	margin: 0 -4% 8% 0;
 	border: none;
-	margin-bottom: 8%;
 } 
+
 .tribe-events-single ul.tribe-related-events li {
 	float: left; 
 	width: 29.333333%;
