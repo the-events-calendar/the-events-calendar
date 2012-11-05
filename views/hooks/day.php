@@ -16,7 +16,6 @@ if( !class_exists('Tribe_Events_Day_Template')){
 	class Tribe_Events_Day_Template extends Tribe_Template_Factory {
 
 		static $timeslots = array();
-		static $loop_increment = 0;
 
 		public static function init(){
 
@@ -88,7 +87,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 				self::$timeslots[] = $start_time;	
 
 				// close out any prior opened time blocks
-				$html .= ( self::$loop_increment > 0 ) ? '</div>' : '';
+				$html .= ( Tribe_Events_List_Template::$loop_increment > 0 ) ? '</div>' : '';
 
 				// open new time block & time vs all day header
 				$html .= sprintf( '<div class="tribe-events-day-time-slot"><h5>%s</h5>', $start_time );
@@ -101,10 +100,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			global $wp_query;
 
 			// close out the last time block
-			$html = ( self::$loop_increment == count($wp_query->posts)-1 ) ? '</div>' : '';
-
-			// internal increment to keep track of position within the loop
-			self::$loop_increment++;
+			$html = ( Tribe_Events_List_Template::$loop_increment == count($wp_query->posts)-1 ) ? '</div>' : '';
 
 			return apply_filters('tribe_template_factory_debug', $pass_through . $html, 'tribe_events_day_inside_after_loop');
 		}
