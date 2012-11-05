@@ -33,20 +33,6 @@ if( !class_exists('Tribe_Events_Day_Template')){
 
 		// Start List Template
 		public function before_template( $pass_through ){
-			// This title is here for ajax loading – do not remove if you want ajax switching between month views
-			/*
-			ob_start(); ?>
-			<div id="tribe-events-content" class="tribe-events-day-grid">
-				<!--
-					@Tim
-					I noticed when using the navigation that the url seems to get updated, but not the events or
-					or events page date. Looks like maybe the ajax is busted, b/c when I refresh on a given dates page,
-					then the title updated to the correct day date.
-				-->
-				<title><?php wp_title(); ?></title>
-			<?php
-			$html = ob_get_clean();
-			 */
 			global $wp_query;
 			$tribe_ecp = TribeEvents::instance();
 
