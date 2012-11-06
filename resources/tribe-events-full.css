@@ -136,6 +136,16 @@ a.tribe-events-gcal {
 	height: 0;
 }
 
+/* Featured Images */
+.tribe-events-event-image {
+	margin: 0 0 2% 0;
+}
+
+.tribe-events-event-image img {
+	max-width: 100%;
+	height: auto;
+}
+
 /* Event Schedule Detail Styling */
 .tribe-events-event-schedule-details {
 	font-style: normal;
@@ -345,10 +355,8 @@ width: 70%;
 	margin: 0 3% 0 0;
 }
 
-.tribe-events-event-image img {
+.tribe-events-list .tribe-events-event-image img {
 	width: 100%;
-	max-width: 100%;
-	height: auto;
 }
 
 /* Details (Title, Meta, Content) */
