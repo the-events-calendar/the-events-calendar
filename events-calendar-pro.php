@@ -125,11 +125,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'wp_ajax_nopriv_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
 		}
 
-		function events_before_html(){
+		function events_before_html( $html ) {
 			global $wp_query;
-			if( $wp_query->tribe_is_event_venue || $wp_query->tribe_is_event_organizer ) {
-				add_filter( 'tribe-events-bar-should-show', '__return_false');
+			if ( $wp_query->tribe_is_event_venue || $wp_query->tribe_is_event_organizer ) {
+				add_filter( 'tribe-events-bar-should-show', '__return_false' );
 			}
+			return $html;
 		}
 
 		function reset_page_title( $content ){
@@ -156,7 +157,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		function wp_ajax_tribe_event_day(){
 			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
-				
+
+				if ( class_exists( 'TribeEventsFilterView' ) ) {
+					TribeEventsFilterView::instance()->createFilters( null, true );
+				}
+
 				TribeEventsQuery::init();
 				add_filter( 'tribe_events_pre_get_posts', array( $this, 'pre_get_posts' ) );
 

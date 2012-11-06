@@ -24,6 +24,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_organizer_Template' ) ) {
 
 			// organizer map
 			add_filter( 'tribe_events_single_organizer_featured_image', array( __CLASS__, 'featured_image' ), 1, 1 );
+			add_filter( 'tribe_events_single_organizer_the_title', array( __CLASS__, 'the_title' ), 1, 1 );
 
 			// organizer meta
 			add_filter( 'tribe_events_single_organizer_before_the_meta', array( __CLASS__, 'before_the_meta' ), 1, 1 );
@@ -49,10 +50,18 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_organizer_Template' ) ) {
 			$html = '<div class="tribe-events-organizer-meta tribe-clearfix">';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_before_organizer' );
 		}
-		// organizer Map
-		public static function featured_image( $post_id ) {
-			$html = '';		
-			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_featured_image' );
+
+		public static function featured_image( $post_id ){
+			$html = '';
+			if ( tribe_event_featured_image() ) {
+				$html .= tribe_event_featured_image(null, 'full');
+			}			
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_organizer_featured_image');
+		}
+
+		public static function the_title( $post_id ){
+			$html = the_title('<h2 class="entry-title summary">','</h2>', false);
+			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_the_title' );
 		}
 		// organizer Meta
 		public static function before_the_meta( $post_id ) {
@@ -78,7 +87,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_organizer_Template' ) ) {
 					<?php the_content(); ?>
 				</div>	
  			<?php endif ?> 			
-
 <?php
 			$html = ob_get_clean();
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_the_meta' );
