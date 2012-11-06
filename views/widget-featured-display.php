@@ -44,7 +44,7 @@ ob_end_clean();
 	<?php 
 		echo tribe_get_start_date( $post->ID, isset($start) ? $start : null ); 
 
-		if($event->AllDay && $start)
+		if($event->AllDay && isset($start) && $start)
 			echo ' <small>('.__('All Day','tribe-events-calendar-pro').')</small>';
 	?> 
 </div>
