@@ -32,6 +32,8 @@ echo apply_filters( 'tribe_events_single_organizer_before_template', '', $organi
 	
 		// organizer featured image
 		echo apply_filters( 'tribe_events_single_organizer_featured_image', '', $organizer_id );
+
+		echo apply_filters( 'tribe_events_single_organizer_the_title', '', $organizer_id );
 		
 		// organizer meta
 		echo apply_filters( 'tribe_events_single_organizer_before_the_meta', '', $organizer_id );

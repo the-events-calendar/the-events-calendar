@@ -23,6 +23,8 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 echo apply_filters( 'tribe_events_week_before_template', '');
 
+	echo apply_filters( 'tribe_events_week_the_title', '');
+
     // weekly header (navigation)
 	echo apply_filters( 'tribe_events_week_the_header', '');
 

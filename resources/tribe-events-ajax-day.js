@@ -133,7 +133,7 @@ jQuery( document ).ready( function ( $ ) {
 
 			$( 'form#tribe-events-bar-form :input' ).each( function () {
 				var $this = $( this );
-				if( $this.val().length ) {
+				if( $this.val().length && $this.attr('name') != 'tribe-bar-date' ) {
 					params[$this.attr('name')] = $this.val();
 				}
 			} );
@@ -173,10 +173,12 @@ jQuery( document ).ready( function ( $ ) {
 							value: value.value
 							});
 					} else {
-						fixed_array.push({
-							name: value.name,
-							value: value.value
+						if( value.value != '' ) {
+							fixed_array.push({
+								name: value.name,
+								value: value.value
 							});
+						}
 					}
 				});
 
