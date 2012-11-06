@@ -85,6 +85,11 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
  				</dd>
  			<?php endif; ?>
 
+			<?php if ( tribe_get_venue_website_link() ) : // Venue website ?>
+				<dt><?php echo __( 'Website:', 'tribe-events-calendar-pro' ); ?></dt>
+ 				<dd class="vcard website"><?php echo tribe_get_venue_website_link(); ?></dd>
+ 			<?php endif; ?>
+
 			<?php if ( get_the_content() != '' ): // Venue content ?>
 				<dt><?php echo __( 'Description:', 'tribe-events-calendar-pro' ); ?></dt>
 				<dd class="entry-content"><?php the_content(); ?></dd>
