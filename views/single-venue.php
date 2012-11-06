@@ -61,7 +61,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 				</div> <!-- End tribe-events-event-entry -->
 				<div class="tribe-events-event-list-meta">
 					<table>
-						<?php if (tribe_is_multiday()): ?>
+						<?php if (tribe_is_multiday() || tribe_get_all_day() != 'yes'): ?>
 						<tr>
 							<td class="tribe-events-event-meta-desc"><?php _e('Start:', 'tribe-events-calendar-pro'); ?></td>
 							<td class="tribe-events-event-meta-value"><meta itemprop="startDate" content="<?php echo tribe_get_start_date( null, false, 'Y-m-d' ); ?>" /><?php echo tribe_get_start_date(); ?></td>
