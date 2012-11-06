@@ -46,6 +46,22 @@ if( class_exists( 'Tribe_Meta_Factory' ) ) {
 			}
 			return apply_filters('tribe_event_meta_event_date', $html );
 		}
+
+		function event_category(){
+			$post_id = get_the_ID();
+			$args = array(
+				'before' => '<dd class="tribe-event-categories">',
+				'sep' => ', ',
+				'after' => '</dd>',
+				'label' => __( 'Category', 'tribe-events-calendar' ),
+				'label_before' => '<dt>',
+				'label_after' => '</dt>',
+				'wrap_before' => '',
+				'wrap_after' => ''
+			);
+			// Event categories 
+			return apply_filters('tribe_event_meta_event_category', tribe_get_event_categories( $post_id, $args ));
+		}
 	}
 
 	tribe_register_meta_group( 'tribe_event_details', array(
@@ -82,7 +98,21 @@ if( class_exists( 'Tribe_Meta_Factory' ) ) {
 			),
 		'label' => __( 'Cost:', 'tribe-events-calendar' ),
 		'callback' => 'tribe_get_cost',
+		'group' => 'tribe_event_details',
+		'show_on_meta' => true
+		));
+
+	tribe_register_meta( 'tribe_event_category', array(
+		'filter_callback' => array('Tribe_Register_Meta', 'event_category'),
 		'group' => 'tribe_event_details'
+		));
+
+	tribe_register_meta( 'tribe_list_venue_name_address',array(
+		'filter_callback' => array('Tribe_Register_Meta', 'event_category')
+		));
+	tribe_register_meta( 'tribe_event_distance',array(
+		'filter_callback' => array('Tribe_Register_Meta', 'event_category'),
+		'show_on_meta' => false
 		));
 
 }

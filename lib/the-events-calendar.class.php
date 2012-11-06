@@ -106,7 +106,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'_VenueState',
 			'_VenueProvince',
 			'_VenueZip',
-			'_VenuePhone'
+			'_VenuePhone',
+			'_VenueURL'
 		);
 
 		public $organizerTags = array(
