@@ -55,11 +55,6 @@ echo apply_filters( 'tribe_events_single_event_before_template', '', $event_id )
 	echo apply_filters( 'tribe_events_single_event_before_the_meta', '', $event_id );
 	echo apply_filters( 'tribe_events_single_event_the_meta', '', $event_id );
 	echo apply_filters( 'tribe_events_single_event_after_the_meta', '', $event_id );
-
-	// Event meta
-	echo apply_filters( 'tribe_events_single_event_before_the_meta', '', get_the_ID() );
-	echo apply_filters( 'tribe_events_single_event_the_meta', '', get_the_ID() );
-	echo apply_filters( 'tribe_events_single_event_after_the_meta', '', get_the_ID() );	
 		
 	// Event pagination
 	echo apply_filters( 'tribe_events_single_event_before_pagination', '', $event_id );
