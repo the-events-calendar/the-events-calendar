@@ -16,11 +16,19 @@ if ( !defined( 'ABSPATH' ) ) { die( '-1' ); }
 if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 	class Tribe_Events_Pro_Single_Venue_Template extends Tribe_Template_Factory {
 		public static function init() {
+			
+			// Remove the title from the list view
+			add_filter( 'tribe_events_list_the_title', '__return_null', 2, 1 );
+
 			// Start single venue template
 			add_filter( 'tribe_events_single_venue_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 
 			// Start single venue
 			add_filter( 'tribe_events_single_venue_before_venue', array( __CLASS__, 'before_venue' ), 1, 1 );		
+
+			add_filter( 'tribe_events_single_venue_featured_image', array( __CLASS__, 'featured_image' ), 1, 1 );
+
+			add_filter( 'tribe_events_single_venue_the_title', array( __CLASS__, 'the_title' ), 1, 1 );
 
 			// Venue map
 			add_filter( 'tribe_events_single_venue_map', array( __CLASS__, 'the_map' ), 1, 1 );
@@ -44,6 +52,17 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 			$html = '<div id="tribe-events-content" class="tribe-events-venue">';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_before_template' );
 		}
+
+		public static function featured_image( $post_id ){
+			$html = 'Featured Image displays here';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_featured_image');
+		}
+
+		public static function the_title( $post_id ){
+			$html = the_title('<h2 class="entry-title summary">','</h2>', false);
+			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_the_title' );
+		}
+
 		// Start Single Venue
 		public static function before_venue( $post_id ) {
 			$html = '<div class="tribe-events-venue-meta">';
@@ -74,6 +93,9 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 						<span class="venue-location"><?php echo tribe_get_city( get_the_ID() ); ?> <?php echo tribe_get_stateprovince( get_the_ID() ); ?> <?php echo tribe_get_country( get_the_ID() ); ?></span>
 						<?php if ( tribe_get_phone() ) : // Venue phone ?>
  							<span class="venue-phone"><?php echo tribe_get_phone(); ?></span>
+ 						<?php endif; ?>	
+ 						<?php if ( tribe_get_venue_website_link() ) : // Venue website ?>
+ 							<span class="vcard website"><?php echo tribe_get_venue_website_link(); ?></span>
  						<?php endif; ?>		
 					</address>
  			<?php endif; ?>
