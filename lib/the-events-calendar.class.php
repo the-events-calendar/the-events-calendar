@@ -106,7 +106,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'_VenueState',
 			'_VenueProvince',
 			'_VenueZip',
-			'_VenuePhone'
+			'_VenuePhone',
+			'_VenueURL'
 		);
 
 		public $organizerTags = array(
@@ -3142,6 +3143,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/* VIEWS AJAX CALLS */
 
 		function list_ajax_call() {
+
+			add_action( 'pre_get_posts', array( $this, 'list_ajax_call_set_date' ), -10 );
+
 			if ( class_exists( 'TribeEventsFilterView' ) ) {
 				TribeEventsFilterView::instance()->createFilters( null, true );
 			}
@@ -3157,15 +3161,45 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$query = TribeEventsQuery::getEvents( $args, true );
 
+			$response = array( 'html'      => '',
+			                   'success'   => true,
+			                   'max_pages' => $query->max_num_pages );
+
+
+			remove_action( 'pre_get_posts', array( $this, 'list_ajax_call_set_date' ), -10 );
+
 			global $wp_query, $post;
 			$wp_query = $query;
 			if ( !empty( $query->posts ) ) {
 				$post = $query->posts[0];
 			}
 
+			add_filter( 'tribe_events_list_pagination', array( __CLASS__, 'clear_module_pagination' ), 10 );
+
+			$response['html'] .= sprintf( '<input type="hidden" id="tribe-events-list-title" value="%s">', tribe_get_events_title() );
+
+			ob_start();
 			load_template( TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
+			$response['html'] .= ob_get_clean();
+
+			header( 'Content-type: application/json' );
+			echo json_encode( $response );
 
 			die();
+		}
+
+		public static function clear_module_pagination( $html ) {
+			$html = '<a href="#" id="tribe_paged_prev" class="tribe_paged">' . __( '<< Previous Events' ) . '</a>';
+			$html .= '<a href="#" id="tribe_paged_next" class="tribe_paged">' . __( 'Next Events >>' ) . '</a>';
+			return $html;
+
+		}
+
+		function list_ajax_call_set_date( $query ) {
+			if ( isset( $_POST["tribe-bar-date"] ) && $_POST["tribe-bar-date"] ) {
+				$query->set( 'eventDisplay', 'all' );
+			}
+			return $query;
 		}
 
 		function calendar_ajax_call() {

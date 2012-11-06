@@ -1,9 +1,9 @@
 jQuery(document).ready(function($) {
 
 	// Global Tooltips
-	if( $('.tribe-events-calendar').length || $('.tribe-events-grid').length || $('.tribe-events-list .tribe-events-event-meta').length || $('.tribe-events-single').length ) {
+	if( $('.tribe-events-calendar').length || $('.tribe-events-grid').length || $('.tribe-events-list').length || $('.tribe-events-single').length ) {
 		function tribe_event_tooltips() {
-			$('.tribe-events-calendar, .tribe-events-grid, .tribe-events-list .tribe-events-event-meta, .tribe-events-single').delegate('div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', 'mouseenter', function() {
+			$('.tribe-events-calendar, .tribe-events-grid, .tribe-events-list, .tribe-events-single').delegate('div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', 'mouseenter', function() {
 				// Week View Tooltips
 				if( $('body').hasClass('tribe-events-week') ) {
 					var bottomPad = $(this).outerHeight() + 5;

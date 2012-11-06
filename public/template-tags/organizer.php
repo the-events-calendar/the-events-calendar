@@ -126,5 +126,14 @@ if( class_exists( 'TribeEvents' ) ) {
 		return apply_filters( 'tribe_get_organizer_phone', $output );
 	}
 
+	function tribe_get_organizer_permalink( $post_id = null ){
+		$post_id = TribeEvents::postIdHelper( $post_id );
+		$organizer_id = tribe_get_organizer_id( $post_id );
+		$link = sprintf('<a href="%s">%s</a>',
+			get_permalink( $organizer_id ),
+			get_the_title( $organizer_id )
+			);
+		return apply_filters('tribe_get_organizer_permalink', $link, $post_id, $organizer_id );
+	}
+
 }
-?>

@@ -43,7 +43,7 @@ jQuery( document ).ready( function ( $ ) {
 		$( '.tribe-events-calendar select.tribe-events-events-dropdown' ).live( 'change', function ( e ) {
 
 			var tribe_nopop = true;
-			var baseUrl = $(this).parent().attr('action');
+			var baseUrl = $('#tribe-events-events-picker').attr('action');
 			var date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();
 			var href_target = baseUrl + date + '/';
 			tribe_events_calendar_ajax_post( date, href_target, tribe_nopop );
