@@ -16,11 +16,18 @@ if ( !defined( 'ABSPATH' ) ) { die( '-1' ); }
 if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 	class Tribe_Events_Pro_Single_Venue_Template extends Tribe_Template_Factory {
 		public static function init() {
+
+			remove_filter( 'tribe_events_list_the_title', array( 'Tribe_Events_List_Template', 'the_title' ), 20 );
+
 			// Start single venue template
 			add_filter( 'tribe_events_single_venue_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 
 			// Start single venue
 			add_filter( 'tribe_events_single_venue_before_venue', array( __CLASS__, 'before_venue' ), 1, 1 );
+
+			add_filter( 'tribe_events_single_venue_featured_image', array( __CLASS__, 'featured_image' ), 1, 1 );
+
+			add_filter( 'tribe_events_single_venue_the_title', array( __CLASS__, 'the_title' ), 1, 1 );
 
 			// Venue map
 			add_filter( 'tribe_events_single_venue_map', array( __CLASS__, 'the_map' ), 1, 1 );
@@ -45,6 +52,17 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 			$html .= '<p class="tribe-events-back"><a href="' . tribe_get_events_link() . '" rel="bookmark">'. __( '&laquo; Back to Events', 'tribe-events-calendar-pro' ) .'</a></p>';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_before_template' );
 		}
+
+		public static function featured_image( $post_id ){
+			$html = 'Featured Image displays here';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_featured_image');
+		}
+
+		public static function the_title( $post_id ){
+			$html = the_title('<h2 class="entry-title summary">','</h2>', false);
+			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_the_title' );
+		}
+
 		// Start Single Venue
 		public static function before_venue( $post_id ) {
 			$html = '<div class="tribe-events-event-meta">';
