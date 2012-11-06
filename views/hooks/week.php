@@ -60,6 +60,8 @@ if( !class_exists('Tribe_Events_Week_Template')){
 			// Start list template
 			add_filter( 'tribe_events_week_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 
+			add_filter( 'tribe_events_week_the_title', array( __CLASS__, 'the_title' ), 1, 1 );
+
 			// List pagination
 			add_filter( 'tribe_events_week_before_pagination', array( __CLASS__, 'before_pagination' ), 1, 1 );
 			add_filter( 'tribe_events_week_the_header', array( __CLASS__, 'the_header' ), 1, 1 );
@@ -79,7 +81,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 			add_filter( 'tribe_events_week_after_template', array( __CLASS__, 'after_template' ), 1, 2 );
 		}
 		// Start List Template
-		public function before_template( $post_id ){
+		public static function before_template( $post_id ){
 			ob_start();
 			// This title is here for ajax loading – do not remove if you want ajax switching between month views
 			?>
@@ -89,17 +91,25 @@ if( !class_exists('Tribe_Events_Week_Template')){
 			$html = ob_get_clean();
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_before_template');
 		}
+
+		public static function the_title(){
+			$html = sprintf( '<h2 class="tribe-events-page-title">%s</h2>',
+				tribe_get_events_title()
+				);
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_the_title');
+		}
+
 		// Start List Loop
-		public function before_loop( $post_id ){
+		public static function before_loop( $post_id ){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_before_loop');
 		}
-		public function inside_before_loop( $post_id ){
+		public static function inside_before_loop( $post_id ){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_inside_before_loop');
 		}
 
-		public function the_grid() {
+		public static function the_grid() {
 
 			global $wp_query;
 			$tribe_ecp = TribeEvents::instance();
@@ -469,20 +479,20 @@ if( !class_exists('Tribe_Events_Week_Template')){
 		}
 
 		// End List Loop
-		public function inside_after_loop( $post_id ){
+		public static function inside_after_loop( $post_id ){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_inside_after_loop');
 		}
-		public function after_loop( $post_id ){
+		public static function after_loop( $post_id ){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_after_loop');
 		}
 
-		public function before_header( $post_id ){
+		public static function before_header( $post_id ){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_before_pagination');
 		}
-		public function the_header( $post_id ){
+		public static function the_header( $post_id ){
 			global $wp_query;
 			// echo '<pre>';
 			// print_r($wp_query->posts);
@@ -505,12 +515,12 @@ if( !class_exists('Tribe_Events_Week_Template')){
 
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_pagination');
 		}
-		public function after_header( $post_id ){
+		public static function after_header( $post_id ){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_after_pagination');
 		}
 		// End List Template
-		public function after_template( $post_id ){
+		public static function after_template( $post_id ){
 			$html = '';
 
 			// iCal import button

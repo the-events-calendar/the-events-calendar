@@ -32,7 +32,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 		}
 
 		// Start List Template
-		public function before_template( $pass_through ){
+		public static function before_template( $pass_through ){
 			global $wp_query;
 			$tribe_ecp = TribeEvents::instance();
 
@@ -58,7 +58,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			return apply_filters('tribe_template_factory_debug', $pass_through . $html, 'tribe_events_day_before_template');
 		}
 
-		public function inside_before_loop( $pass_through ){
+		public static function inside_before_loop( $pass_through ){
 			global $post;
 
 			$html = '';
@@ -83,7 +83,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			return apply_filters('tribe_template_factory_debug', $html . $pass_through, 'tribe_events_day_inside_before_loop');
 		}
 
-		public function inside_after_loop( $pass_through ){
+		public static function inside_after_loop( $pass_through ){
 			global $wp_query;
 
 			// close out the last time block
