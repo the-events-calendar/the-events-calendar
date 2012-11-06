@@ -269,15 +269,19 @@
    @ Template: single-organizer.php
 =============================================*/
 
-.tribe-events-organizer-meta {
-	padding: 2% 0 4% 0;
-}
-
 #tribe-events-content.tribe-events-organizer {
 	padding: 0;
 }
 
-.tribe-events-venue .tribe-events-organizer-meta {
+.single-tribe_organizer  .tribe_organizer h2.entry-title {
+	margin: 0 0 2% 0;
+}
+
+.tribe-events-organizer-meta {
+	padding: 0 0 4% 0;
+}
+
+.tribe-events-organizer .tribe-events-event-meta {
 	border: 0;
 }
 
@@ -285,7 +289,10 @@
 	margin: 0 3% 3% 0;
 	width: 17%;
 	float: left;
+	font-style: normal;
+	font-weight: bold;
 	word-wrap: break-word;
+
 }
 .tribe-events-organizer address.organizer-address span {
 	display: block;
@@ -297,8 +304,8 @@
 	float: right;
 	width: 80%;
 }
+
 .tribe-events-organizer .organizer-description p {
-	line-height: 1.3;
 	margin: 0 0 3% 0;
 }
 /* = Events Calendar Widget Styles (Sidebar)

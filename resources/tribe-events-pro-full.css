@@ -277,9 +277,10 @@
 
 .single-tribe_organizer  .tribe_organizer h2.entry-title {
 	font-size: 1.6em;
+	margin: 0 0 2% 0;
 }
 .tribe-events-organizer-meta {
-	padding: 2% 0 4% 0;
+	padding: 0 0 4% 0;
 }
 
 .tribe-events-organizer h3.tribe-events-upcoming {
