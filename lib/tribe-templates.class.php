@@ -76,7 +76,7 @@ if (!class_exists('TribeEventsTemplates')) {
 	
 		public static function setup_ecp_template($query) {
 			if( self::is_main_loop($query) && self::$throughHead) {
-				add_filter('the_title', array(__CLASS__, 'load_ecp_title_into_page_template'), 10, 2 );		
+				// add_filter('the_title', array(__CLASS__, 'load_ecp_title_into_page_template'), 10, 2 );		
 				add_filter('the_content', array(__CLASS__, 'load_ecp_into_page_template') );		
 				add_filter('comments_template', array(__CLASS__, 'load_ecp_comments_page_template') );
 				remove_action( 'loop_start', array(__CLASS__, 'setup_ecp_template') );
@@ -324,7 +324,7 @@ if (!class_exists('TribeEventsTemplates')) {
 	
 		private static function restoreQuery() {
 			global $wp_query;
-			remove_filter('the_title', array(__CLASS__, 'load_ecp_title_into_page_template') );			
+			// remove_filter('the_title', array(__CLASS__, 'load_ecp_title_into_page_template') );			
 			$wp_query->current_post = TribeEventsTemplates::$origCurrentPost;
 			$wp_query->post_count = TribeEventsTemplates::$origPostCount;
 			$wp_query->rewind_posts();

@@ -28,7 +28,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	
 		<?php the_post(); global $post; ?>
 			<div id="post-<?php the_ID(); ?>" <?php post_class('hentry vevent'); ?>>
-				<h2 class="entry-title summary"><?php the_title(); ?></h2>
 				<?php include( tribe_get_current_template() ); ?>
 				<?php edit_post_link( __( 'Edit', 'tribe-events-calendar' ), '<span class="edit-link">', '</span>' ); ?>
 			</div><!-- .hentry .vevent -->
