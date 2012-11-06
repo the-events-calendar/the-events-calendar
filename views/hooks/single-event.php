@@ -56,11 +56,9 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		}
 		public static function featured_image( $post_id ){
 			$html = '';
-			if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
-				<div class="tribe-event-featured-image">
-					<?php the_post_thumbnail( 'full' ); ?>
-				</div>
-			<?php } 
+			if ( tribe_event_featured_image() ) {
+				$html .= tribe_event_featured_image(null, 'full');
+			}
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_featured_image');
 		}
 		// Event Title
