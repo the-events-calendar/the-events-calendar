@@ -102,6 +102,7 @@ a.tribe-events-gcal {
 /* Featured Images */
 .tribe-events-event-image {
 	margin: 0 0 2% 0;
+	text-align: center;
 }
 
 .tribe-events-event-image img {
