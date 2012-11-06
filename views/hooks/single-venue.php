@@ -54,7 +54,10 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 		}
 
 		public static function featured_image( $post_id ){
-			$html = 'Featured Image displays here';
+			$html = '';
+			if ( tribe_event_featured_image() ) {
+				$html .= tribe_event_featured_image(null, 'full');
+			} 
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_featured_image');
 		}
 
