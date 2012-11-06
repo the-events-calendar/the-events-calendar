@@ -244,9 +244,10 @@
 =============================================*/
 .single-tribe_venue  .tribe_venue h2.entry-title {
 	font-size: 1.6em;
+	margin: 0 0 2% 0;
 }
 .tribe-events-venue-meta {
-	padding: 2% 0 4% 0;
+	padding: 0 0 4% 0;
 }
 .tribe-events-venue .tribe-events-map-wrap {
 	margin: 0 0 30px 30px;
