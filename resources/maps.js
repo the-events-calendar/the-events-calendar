@@ -133,7 +133,6 @@ jQuery( document ).ready( function ( $ ) {
 		$.post( GeoLoc.ajaxurl, params, function ( response ) {
 
 			spin_end();
-			console.log( response );
 			if ( response.success ) {
 
 				$( "#tribe-geo-results" ).html( response.html );
