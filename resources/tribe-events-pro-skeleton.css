@@ -377,7 +377,6 @@
 /* = Related Events
 =============================================*/
 .related-events-title {
-	color: #666;
 }
 ul.related-events {
 	display: block;
@@ -395,7 +394,42 @@ ul.related-events li {
 	font-size: .75em;
 	text-transform: uppercase;
 }
+
+h3.tribe-events-related-events-title {
+	margin-bottom: 4%;
+}
  
+.tribe-events-single ul.tribe-related-events {
+	margin: 0 -4% 8% 0;
+	border: none;
+} 
+
+.tribe-events-single ul.tribe-related-events li {
+	float: left; 
+	width: 29.333333%;
+	margin: 0 4% 2% 0;
+	padding: 0;
+	border: none;
+	list-style: none;
+}
+
+.tribe-events-single ul.tribe-related-events li .date-divider {
+	padding: 0 5px;
+}
+
+.tribe-events-single ul.tribe-related-events .tribe-related-events-thumbnail {
+	margin-bottom: 4%;
+}
+
+.tribe-events-single ul.tribe-related-events .tribe-related-events-thumbnail img {
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+}
+
+.tribe-events-single ul.tribe-related-events .tribe-related-events-title {
+	margin-bottom: 4%;
+}
  
 /* = Events Countdown Widget
 =============================================*/
