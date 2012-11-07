@@ -138,7 +138,7 @@ a.tribe-events-gcal {
 
 /* Featured Images */
 .tribe-events-event-image {
-	margin: 0 0 2% 0;
+	margin: 0 0 20px 0;
 	text-align: center;
 }
 
@@ -499,9 +499,11 @@ width: 70%;
    @ Template: single-event.php
 =============================================*/
 
-.single-tribe_events h2.entry-title {
+.single-tribe_events h2.entry-title, .single-tribe_events #content h2.entry-title {
 	font-size: 1.7em;
 	line-height: 1;
+	margin: 0;
+	padding: 0;
 }
 #tribe-events-content .description img.attachment-post-thumbnail {
 	margin-left: auto;
@@ -562,6 +564,7 @@ h3.tribe-event-single-section-title {
 
 
 .single-tribe_events .tribe-event-schedule h2 {
+	font-size: 1.2em;
 	display: inline-block;
 	margin: 0 0 20px 0;
 	padding: 0;

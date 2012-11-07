@@ -24,6 +24,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 ?>
 
 <?php get_header(); ?>
+<div id="tribe-events-pg-template">
 	<?php tribe_events_before_html(); ?>
 
 		<?php the_post(); global $post; ?>
@@ -37,4 +38,5 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<?php /* get_sidebar(); */ ?> 
 		
 	<?php tribe_events_after_html(); ?>
+</div> <!-- #tribe-events-pg-template -->	
 <?php get_footer(); ?>

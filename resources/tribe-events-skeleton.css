@@ -101,7 +101,7 @@ a.tribe-events-gcal {
 
 /* Featured Images */
 .tribe-events-event-image {
-	margin: 0 0 2% 0;
+	margin: 0 0 20px 0;
 	text-align: center;
 }
 
@@ -380,6 +380,8 @@ width: 70%;
 }
 .tribe-events-loop .entry-content {
 	clear: both;
+	width: 100%;
+	padding: 0;
 }
 .events-archive .entry-content p, 
 .single-tribe_venue .tribe-events-loop .entry-content p {
@@ -432,8 +434,6 @@ width: 70%;
 	text-align: center;
 }
 
-h3.tribe-event-single-section-title {
-}
 .tribe-event-single-section-title, .entry-content .tribe-event-single-section-title {
 	margin: 0px 0 10px;
 	font-size: 1.2em;
