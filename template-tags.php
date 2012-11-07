@@ -507,4 +507,30 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		return apply_filters('tribe_get_next_week_permalink', $permalink);
 	}
 
+	function tribe_single_related_events( $tag = false, $count = 3, $blog = false, $only_display_related = true, $post_type = 'tribe_events' ) {		
+		$posts = tribe_get_related_posts( $tag, $count, $blog, $only_display_related, $post_type );
+		if ( is_array( $posts ) && !empty( $posts ) ) {
+			echo '<h3 class="tribe-events-related-events-title">'.  __( 'Related Events', 'tribe-events-calendar-pro' ) .'</h3>';
+			echo '<ul class="tribe-related-events tribe-clearfix">';
+			foreach ( $posts as $post ) {
+				echo '<li>';
+				
+					$thumb = get_the_post_thumbnail( $post->ID, 'large' );
+					if ( $thumb ) { echo '<div class="tribe-related-events-thumbnail"><a href="'. get_permalink( $post->ID ) .'">'. $thumb .'</a></div>'; }
+					echo '<div class="tribe-related-event-info">';
+						echo '<div class="tribe-related-events-title"><a href="'. get_permalink( $post->ID ) .'">'. get_the_title( $post->ID ) .'</a></div>';
+
+						if ( class_exists( 'TribeEvents' ) && $post->post_type == TribeEvents::POSTTYPE && function_exists( 'tribe_events_event_schedule_details' ) ) {
+							echo tribe_events_event_schedule_details( $post->ID );
+						}
+						if ( class_exists( 'TribeEvents' ) && $post->post_type == TribeEvents::POSTTYPE && function_exists( 'tribe_events_event_recurring_info_tooltip' ) ) {
+							echo tribe_events_event_recurring_info_tooltip( $post->ID );
+						}
+					echo '</div>';				
+				echo '</li>';
+			}
+			echo '</ul>';
+		}
+	}	
+
 }
