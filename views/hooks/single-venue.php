@@ -24,7 +24,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 			add_filter( 'tribe_events_single_venue_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 
 			// Start single venue
-			add_filter( 'tribe_events_single_venue_before_venue', array( __CLASS__, 'before_venue' ), 1, 1 );
+			add_filter( 'tribe_events_single_venue_before_venue', array( __CLASS__, 'before_venue' ), 1, 1 );		
 
 			add_filter( 'tribe_events_single_venue_featured_image', array( __CLASS__, 'featured_image' ), 1, 1 );
 
@@ -50,12 +50,14 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 		// Start Single Venue Template
 		public static function before_template( $post_id ) {
 			$html = '<div id="tribe-events-content" class="tribe-events-venue">';
-			$html .= '<p class="tribe-events-back"><a href="' . tribe_get_events_link() . '" rel="bookmark">'. __( '&laquo; Back to Events', 'tribe-events-calendar-pro' ) .'</a></p>';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_before_template' );
 		}
 
 		public static function featured_image( $post_id ){
-			$html = 'Featured Image displays here';
+			$html = '';
+			if ( tribe_event_featured_image() ) {
+				$html .= tribe_event_featured_image(null, 'full');
+			} 
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_featured_image');
 		}
 
@@ -66,9 +68,9 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 
 		// Start Single Venue
 		public static function before_venue( $post_id ) {
-			$html = '<div class="tribe-events-event-meta">';
+			$html = '<div class="tribe-events-venue-meta">';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_before_venue' );
-		}
+		}		
 		// Venue Map
 		public static function the_map( $post_id ) {
 			$html = '<div class="tribe-events-map-wrap">';
@@ -78,47 +80,39 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 		}
 		// Venue Meta
 		public static function before_the_meta( $post_id ) {
-			$html = '<dl class="tribe-events-column">';
+			$html = '';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_before_the_meta' );
 		}
 		public static function the_meta( $post_id ) {
 			ob_start();
 ?>
 
-			<dt><?php echo __( 'Name:', 'tribe-events-calendar-pro' ); ?></dt>
-			<dd class="vcard fn org"><?php the_title(); ?></dd>
-
-			<?php if ( tribe_get_phone() ) : // Venue phone ?>
-				<dt><?php echo __( 'Phone:', 'tribe-events-calendar-pro' ); ?></dt>
- 				<dd class="vcard tel"><?php echo tribe_get_phone(); ?></dd>
- 			<?php endif; ?>
-
 			<?php if ( tribe_address_exists( get_the_ID() ) ) : // Venue address ?>
-				<dt><?php echo __( 'Address:', 'tribe-events-calendar-pro' ); ?><br />
 					<?php if ( get_post_meta( get_the_ID(), '_EventShowMapLink', true ) == 'true' ) : ?>
 					<a class="tribe-events-gmap" href="<?php echo tribe_get_map_link(); ?>" title="<?php _e( 'Click to view a Google Map', 'tribe-events-calendar-pro' ); ?>" target="_blank"><?php _e( 'Google Map', 'tribe-events-calendar' ); ?></a>
 					<?php endif; ?>
-				</dt>
- 				<dd>
-					<?php echo tribe_get_full_address( get_the_ID() ); ?>
- 				</dd>
+ 					<address class="venue-address">
+						<span><?php echo tribe_get_address( get_the_ID() ); ?></span>
+						<span class="venue-location"><?php echo tribe_get_city( get_the_ID() ); ?> <?php echo tribe_get_stateprovince( get_the_ID() ); ?> <?php echo tribe_get_country( get_the_ID() ); ?></span>
+						<?php if ( tribe_get_phone() ) : // Venue phone ?>
+ 							<span class="venue-phone"><?php echo tribe_get_phone(); ?></span>
+ 						<?php endif; ?>	
+ 						<?php if ( tribe_get_venue_website_link() ) : // Venue website ?>
+ 							<span class="vcard website"><?php echo tribe_get_venue_website_link(); ?></span>
+ 						<?php endif; ?>		
+					</address>
  			<?php endif; ?>
-
-			<?php if ( tribe_get_venue_website_link() ) : // Venue website ?>
-				<dt><?php echo __( 'Website:', 'tribe-events-calendar-pro' ); ?></dt>
- 				<dd class="vcard website"><?php echo tribe_get_venue_website_link(); ?></dd>
- 			<?php endif; ?>
-
 			<?php if ( get_the_content() != '' ): // Venue content ?>
-				<dt><?php echo __( 'Description:', 'tribe-events-calendar-pro' ); ?></dt>
-				<dd class="entry-content"><?php the_content(); ?></dd>
+				<div class="venue-description">	
+					<?php the_content(); ?>
+				</div>	
  			<?php endif ?>
 <?php
 			$html = ob_get_clean();
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_the_meta' );
 		}
 		public static function after_the_meta( $post_id ) {
-			$html = '</dl><!-- .tribe-events-column -->';
+			$html = '';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_after_the_meta' );
 		}
 		// End Single Venue
