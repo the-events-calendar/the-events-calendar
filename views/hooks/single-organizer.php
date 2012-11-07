@@ -24,6 +24,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_organizer_Template' ) ) {
 
 			// organizer map
 			add_filter( 'tribe_events_single_organizer_featured_image', array( __CLASS__, 'featured_image' ), 1, 1 );
+			add_filter( 'tribe_events_single_organizer_the_title', array( __CLASS__, 'the_title' ), 1, 1 );
 
 			// organizer meta
 			add_filter( 'tribe_events_single_organizer_before_the_meta', array( __CLASS__, 'before_the_meta' ), 1, 1 );
@@ -50,10 +51,14 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_organizer_Template' ) ) {
 			$html = '<div class="tribe-events-event-meta">';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_before_organizer' );
 		}
-		// organizer Map
-		public static function featured_image( $post_id ) {
-			$html = '';
-			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_featured_image' );
+		public static function featured_image( $post_id ){
+			$html = 'Featured Image displays here';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_organizer_featured_image');
+		}
+
+		public static function the_title( $post_id ){
+			$html = the_title('<h2 class="entry-title summary">','</h2>', false);
+			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_the_title' );
 		}
 		// organizer Meta
 		public static function before_the_meta( $post_id ) {
@@ -72,11 +77,11 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_organizer_Template' ) ) {
  				<dd class="vcard tel"><?php echo tribe_get_organizer_phone(); ?></dd>
  			<?php endif; ?>
  			<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) ) : // organizer phone ?>
-				<dt><?php echo __( 'Email:', 'tribe-events-calendar-pro' ); ?></dt>
+				<dt><?php echo __( 'Website:', 'tribe-events-calendar-pro' ); ?></dt>
  				<dd class="vcard author fn org"><?php echo tribe_get_organizer_link(); ?></dd>
  			<?php endif; ?>
- 			<?php if ( tribe_get_phone() ) : // organizer phone ?>
-				<dt><?php echo __( 'Website:', 'tribe-events-calendar-pro' ); ?></dt>
+ 			<?php if ( tribe_get_organizer_email() ) : // organizer phone ?>
+				<dt><?php echo __( 'Email:', 'tribe-events-calendar-pro' ); ?></dt>
  				<dd class="vcard email"><a href="mailto:<?php echo tribe_get_organizer_email(); ?>"><?php echo tribe_get_organizer_email(); ?></a></dd>
  			<?php endif; ?>
 

@@ -11,7 +11,7 @@ if( !class_exists( 'TribeEventsCalendarWidget') ) {
 	class TribeEventsCalendarWidget extends WP_Widget {
 		
 		function TribeEventsCalendarWidget() {
-			$widget_ops = array('classname' => 'events_calendar_widget', 'description' => __( 'A calendar of your events') );
+			$widget_ops = array('classname' => 'tribe-events-calendar-widget', 'description' => __( 'A calendar of your events') );
 			$this->WP_Widget('calendar', __('Events Calendar'), $widget_ops);
 
 			add_action('wp_enqueue_scripts', array($this, 'maybe_load_scripts') );
