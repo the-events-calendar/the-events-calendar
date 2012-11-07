@@ -607,7 +607,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function addDateToRecurringEvents($permalink, $post) {
-			if( function_exists('tribe_is_recurring_event') && $post->post_type == self::POSTTYPE && tribe_is_recurring_event($post->ID) && !is_search()) {
+
+			if(  function_exists('tribe_is_recurring_event') && $post->post_type == self::POSTTYPE && tribe_is_recurring_event($post->ID) && !is_search()) {
 				if( is_admin() && (!isset($post->EventStartDate) || !$post->EventStartDate) ) {
 					if( isset($_REQUEST['eventDate'] ) ) {
 						$post->EventStartDate = $_REQUEST['eventDate'];
@@ -1592,7 +1593,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				case 'all':
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );					
 					$eventUrl = add_query_arg('eventDisplay', 'all', get_permalink() );
-					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );															
+					add_filter( 'post_type_link', array( $this, 'addDateToRecurringEvents' ), 10, 2 );
 					return $eventUrl;
 				default:
 					return $eventUrl;
