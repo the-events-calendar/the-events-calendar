@@ -111,10 +111,10 @@ if ( !defined( 'ABSPATH' ) ) {
 				</tr>
 
 				<tr class="ticket">
-					<td><label
+					<td valign="top"><label
 						for="ticket_price"><?php _e( 'End sale:', 'tribe-events-calendar' ); ?></label>
 					</td>
-					<td>
+					<td valign="top">
 						<input autocomplete="off" type="text" class="ticket_field" size='7' name="ticket_end_date"
 						       id="ticket_end_date" value="">
 
