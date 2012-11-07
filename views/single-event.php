@@ -62,7 +62,7 @@ echo apply_filters( 'tribe_events_single_event_before_template', '', $event_id )
 	// Event pagination
 	echo apply_filters( 'tribe_events_single_event_before_pagination', '', $event_id );
 	echo apply_filters( 'tribe_events_single_event_pagination', '', $event_id );
-	echo apply_filters( 'tribe_events_single_event_after_pagination', '', $$event_id );
+	echo apply_filters( 'tribe_events_single_event_after_pagination', '', $event_id );
 
 // End single template
 echo apply_filters( 'tribe_events_single_event_after_template', '', $event_id );

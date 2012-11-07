@@ -148,23 +148,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 					<?php } ?>
 					<?php echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); ?>
 				</h3>
-				<?php if ( tribe_get_venue() || tribe_address_exists( $post_id ) ) { // Get venue or location ?>
-					<h3 class="vcard fn org">
-						<?php if ( tribe_get_venue() ) { // Get our venue ?>
-								<?php if( class_exists( 'TribeEventsPro' ) ) :
-									echo tribe_get_venue_link( $post_id ). ', ';
-								else :
-									echo ( tribe_get_venue( $post_id ). ',' );
-								endif; ?>	
-						<?php } ?>
-						<?php if ( tribe_address_exists( $post_id ) ) { // Get our event address ?>
-								<?php if( get_post_meta( $post_id, '_EventShowMapLink', true ) == 'true' ) : ?>
-									 <a class="tribe-events-gmap" href="<?php echo tribe_get_map_link(); ?>" title="Click to view this event's Google Map" target="_blank"><?php _e( 'Google Map', 'tribe-events-calendar' ); ?></a>
-								<?php endif; ?>
-							<address class="event-address"><?php echo tribe_get_full_address( $post_id ); ?></address>
-						<?php } ?>						
-					</h3><!-- .fn .org -->
-				<?php } ?>								
+				<?php tribe_display_meta( 'tribe_list_venue_name_address' ); ?>
 			</div><!-- .tribe-events-event-meta -->
 <?php
 			$html = ob_get_clean();
