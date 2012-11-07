@@ -544,6 +544,7 @@ p.tribe-promo-banner a {
 /* Tickets */
 .tribe-events-tickets td {
 	vertical-align : middle;
+	height: 35px;
 }
 
 .tribe-events-tickets .tickets_description {
