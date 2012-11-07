@@ -146,8 +146,6 @@ jQuery( document ).ready( function ( $ ) {
 				function ( response ) {
 					$( "#ajax-loading" ).hide();
 
-					console.log(response);
-
 					if ( response.success ) {
 
 						$( '#tribe-events-list-view' ).html( response.html );
@@ -162,10 +160,6 @@ jQuery( document ).ready( function ( $ ) {
 						} else {
 							$( 'a#tribe_paged_prev' ).hide();
 						}
-
-						var page_title = $( 'tribe-events-list-title' ).val();
-						$(document).attr('title', page_title);
-						$( "h2.tribe-events-page-title" ).text( page_title );
 
 						if ( tribe_nopop ) {
 							history.pushState( {
