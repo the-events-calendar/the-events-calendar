@@ -242,7 +242,7 @@
 /* = Single Venue Template Styles (Pro Version)
    @ Template: single-venue.php
 =============================================*/
-.single-tribe_venue  .tribe_venue h2.entry-title {
+.single-tribe_venue  .tribe_venue h2.entry-title, .single-tribe_venue  #content .tribe_venue h2.entry-title {
 	font-size: 1.6em;
 	margin: 0 0 2% 0;
 }
