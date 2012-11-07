@@ -13,6 +13,11 @@
 
 /* = Global & Miscellaneous Styles
 =============================================*/
+
+.tribe-events-back {
+	margin: 0 0 20px 0;
+}
+
 /* View Extra Padding */
 .tribe-events-day.page .hentry,
 .tribe-events-week.page .hentry {
