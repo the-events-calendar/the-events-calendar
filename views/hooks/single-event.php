@@ -93,7 +93,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 
 			// Single event content ?>
 				<div class="tribe-event-schedule tribe-clearfix">
-					<h2><?php echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); ?><?php 	if ( tribe_get_cost() ) :  echo '<span class="tribe-divider">|</span>'. tribe_get_cost() .''; endif; ?></h2>
+					<h2><?php echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); ?><?php 	if ( tribe_get_cost() ) :  echo '<span class="tribe-divider">|</span><span class="tribe-event-cost">'. tribe_get_cost() .'</span>'; endif; ?></h2>
 				
 					<?php // iCal/gCal links
 			if ( function_exists( 'tribe_get_single_ical_link' ) || function_exists( 'tribe_get_gcal_link' ) ) { ?>

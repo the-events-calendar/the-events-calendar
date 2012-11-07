@@ -430,7 +430,13 @@ width: 70%;
 	margin-right: 10px;
 }
 
-.single-tribe_events .tribe-event-schedule
+.single-tribe_events .tribe-event-schedule .recurringinfo {
+	margin-right: 10px;
+}
+
+.single-tribe_events .tribe-event-schedule .tribe-event-cost {
+	margin-right: 10px;
+}
 
 #tribe-events-content .description img.attachment-post-thumbnail {
 	margin-left: auto;
