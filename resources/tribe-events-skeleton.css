@@ -256,7 +256,7 @@ select.tribe-events-dropdown {
    @ Template: list.php
 =============================================*/
 .tribe-events-list h2.tribe-events-page-title {
-	margin-bottom: 15px;
+	margin-bottom: 0px;
 }
 
 
