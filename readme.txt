@@ -50,7 +50,7 @@ We've created a collection of premium add-ons that let you take your Events Cale
 *<a href="http://tri.be/wordpress-eventbrite-tickets/">Eventbrite Tickets</a> to sell tickets for your event</li>
 *<a href="http://tri.be/wordpress-community-events/">Community Events</a> to let your website users create their own events
 *<a href="http://tri.be/facebook-events/">Facebook Events</a> to integrate with Facebook
-*<a href="http://tri.be/shop/wootickets/">WooTickets</a> to sell tickets directly from event listings with WooCommerce
+*<a href="http://tri.be/wordpress-wootickets/">WooTickets</a> to sell tickets directly from event listings with WooCommerce
 
 We offer <a href="ttp://wordpress.org/tags/the-events-calendar">basic support via the WordPress.org support forums </a> so feel free to ask a question if you're having a problem with implementation or bugs. 
 
