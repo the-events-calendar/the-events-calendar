@@ -45,9 +45,28 @@ ob_end_clean();
 			$output = '';
 			echo tribe_get_start_date( $post->ID ); 
 			
+			if( $end && $event->EndDate != '' ) {
+			
+				// If multi day
+				if( tribe_is_multiday( $post->ID ) ) {
+					echo ' – <br/>'. tribe_get_end_date($post->ID); // show full day/time
+				} elseif( $event->AllDay ) { // If all day
+					echo ' – <br/>'. tribe_get_end_date($post->ID, 'g:i a'); // show time date
+				} else { // If regular
+					echo ' – <br/>'. tribe_get_end_date($post->ID); // show full day/time
+				}
+			
+			}
+			
+			/*
 			if( ( tribe_is_multiday( $post->ID ) || !$event->AllDay ) && ( $end && $event->EndDate != '' ) ) {
             	echo ' – <br/>'. tribe_get_end_date($post->ID);
          	}
+         	*/
+         	
+         	// only show if end date selected
+         	// if multi day we show full start/end date
+         	// if all day we show full start date / end time date
 
 			if( $event->AllDay ) {
 				echo ' <small><em>('.__('All Day','tribe-events-calendar').')</em></small>';
