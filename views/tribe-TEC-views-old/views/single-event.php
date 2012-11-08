@@ -20,12 +20,13 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <?php // Back button ?>
 <span class="back"><a href="<?php echo tribe_get_events_link(); ?>"><?php _e( '&laquo; Back to Events', 'tribe-events-calendar' ); ?></a></span>
 				
-<?php // Check if event has passed 
+<?php // Check if event has passed
+	$notices = empty($notices) ? array() : $notices; 
 	$gmt_offset = (get_option('gmt_offset') >= '0' ) ? ' +' . get_option('gmt_offset') : " " . get_option('gmt_offset');
  	$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
  	if ( strtotime( tribe_get_end_date( get_the_ID(), false, 'Y-m-d G:i' ) . $gmt_offset ) <= time() ) { ?>
  		<div class="event-passed">
- 			<?php _e( 'This event has passed.', 'tribe-events-calendar' ); ?>
+ 			<?php $notices[] = __('This event has passed.', 'tribe-events-calendar'); ?>
  		</div>
 <?php } ?>
 	

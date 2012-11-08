@@ -44,6 +44,8 @@ if (!class_exists('TribeEventsTemplates')) {
 				// we need to ensure that we always enter the loop, whether or not there are any events in the actual query
 				self::spoofQuery();
 				add_filter( 'wp_title', array(__CLASS__, 'remove_default_title'), 1);
+				add_action( 'tribe_events_filter_the_page_title', array( __CLASS__, 'remove_title_from_page' ) );
+				add_filter( 'the_title', array( __CLASS__, 'remove_title_filter' ), 2 );
 				add_action( 'loop_start', array(__CLASS__, 'setup_ecp_template'));
 			
 				$template = locate_template( tribe_get_option('tribeEventsTemplate', 'default') == 'default' ? 'page.php' : tribe_get_option('tribeEventsTemplate', 'default') );
@@ -73,8 +75,19 @@ if (!class_exists('TribeEventsTemplates')) {
 		public static function remove_default_title($title) {
 			return '';
 		}
+		
+		// Get rid of the repeating title if the page template is not the default events template.
+		public function remove_title_from_page() {
+			add_filter( 'the_title', array( __CLASS__, 'remove_default_title' ), 1 );
+		}
+		
+		public function remove_title_filter( $title ) {
+			remove_filter( 'the_title', array( __CLASS__, 'remove_default_title' ), 1 );
+			return $title;
+		}
 	
 		public static function setup_ecp_template($query) {
+			do_action( 'tribe_events_filter_the_page_title' );
 			if( self::is_main_loop($query) && self::$throughHead) {
 				// add_filter('the_title', array(__CLASS__, 'load_ecp_title_into_page_template'), 10, 2 );		
 				add_filter('the_content', array(__CLASS__, 'load_ecp_into_page_template') );		

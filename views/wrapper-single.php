@@ -24,8 +24,9 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 ?>
 
 <?php get_header(); ?>
+<div id="tribe-events-pg-template">
 	<?php tribe_events_before_html(); ?>
-	
+
 		<?php the_post(); global $post; ?>
 			<div id="post-<?php the_ID(); ?>" <?php post_class('hentry vevent'); ?>>
 				<?php include( tribe_get_current_template() ); ?>
@@ -33,7 +34,9 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			</div><!-- .hentry .vevent -->
 		<?php if( tribe_get_option( 'showComments','no' ) == 'yes' ) { comments_template(); } ?>
 		
-		<?php get_sidebar(); ?>
+		
+		<?php /* get_sidebar(); */ ?> 
 		
 	<?php tribe_events_after_html(); ?>
+</div> <!-- #tribe-events-pg-template -->	
 <?php get_footer(); ?>
