@@ -51,8 +51,6 @@ ob_end_clean();
 					echo ' – <br/>'. tribe_get_end_date($post->ID);
 				} elseif ( tribe_get_all_day( $post->ID ) != 'yes' && !tribe_is_multiday( $post->ID ) ) {
 					echo ' – <br/>'. tribe_get_end_date($post->ID, 'g:i a');
-				} else {
-					echo ' – <br/>'. tribe_get_end_date($post->ID); // show full day/time
 				}
 			}
 
