@@ -223,7 +223,6 @@ Our Premium Plugins:
 
 * Tested fully against the new WordPress Twenty Twelve theme and cleared up aesthetic issues where needed.
 * Removed "Organizer" and "Venue" panels from the Appearance -> Menus screen (core only).
-* Fixed a Javascript issue that occurred when modifying an event that has already been broken out of a recurrence pattern (PRO only). 
 * Fixed a bug where the option to show/hide an event's end date in the Events Advanced List Widget did not work (PRO only).
 * There was previously no modal window when trashing individual instances of a recurring event; that is no more.
 * Cleaned up event query filters to prevent conflicts.
