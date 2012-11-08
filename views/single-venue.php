@@ -34,6 +34,7 @@ echo apply_filters( 'tribe_events_single_venue_before_template', '', $venue_id )
 
 		echo apply_filters( 'tribe_events_single_venue_the_title', '', $venue_id );
 	
+
 		// Venue map
 		echo apply_filters( 'tribe_events_single_venue_map', '', $venue_id );
 		

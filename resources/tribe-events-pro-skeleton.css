@@ -11,14 +11,6 @@
  *
  */
  
-/* = Single Venue Template Styles (Pro Version)
-   @ Template: single-venue.php
-=============================================*/
-.single-tribe_venue .tribe-events-map-wrap {
-	margin: 0 0 10px 0; 
-	float: right;
-}
-
 /* Events Loop */
 .tribe-events-loop .tribe-events-loop .vevent {
 	margin: 0;
@@ -265,6 +257,97 @@
 	border-top: 1px solid #ddd;
 }
 
+/* = Single Organizer Template Styles (Pro Version)
+   @ Template: single-organizer.php
+=============================================*/
+
+#tribe-events-content.tribe-events-organizer {
+	padding: 0;
+}
+
+.single-tribe_organizer  .tribe_organizer h2.entry-title {
+	margin: 0 0 2% 0;
+}
+
+<<<<<<< HEAD
+/* = Single Venue Template Styles (Pro Version)
+   @ Template: single-venue.php
+=============================================*/
+.single-tribe_venue  .tribe_venue h2.entry-title, .single-tribe_venue  #content .tribe_venue h2.entry-title {
+	margin: 0 0 2% 0;
+}
+.tribe-events-venue-meta {
+	padding: 0 0 4% 0;
+}
+.tribe-events-venue .tribe-events-map-wrap {
+	margin: 0 0 30px 30px;
+	float: right;
+	width: 50%;
+}
+
+.tribe-events-venue h3.tribe-events-upcoming {
+	font-size: 1.3em;
+}
+
+.tribe-events-venue .tribe-events-map-wrap #tribe-events-gmap {
+	height: 0 !important;
+	padding-top: 50%;
+	width: 100% !important;
+	margin: 0 !important;
+}
+
+#tribe-events-content.tribe-events-venue {
+	padding: 0;
+}
+
+.tribe-events-venue .tribe-events-event-meta {
+	border: 0;
+}
+
+.tribe-events-venue address.venue-address {
+	margin: 0 0 3% 0;
+}
+.tribe-events-venue address.venue-address span {
+	display: block;
+	margin: 0 0 5px 0;
+	line-height: 1;	
+}
+
+.tribe-events-venue .venue-description p {
+	margin: 0 0 3% 0;
+}
+
+.tribe-events-organizer-meta {
+	padding: 0 0 4% 0;
+}
+
+.tribe-events-organizer .tribe-events-event-meta {
+	border: 0;
+}
+
+.tribe-events-organizer address.organizer-address {
+	margin: 0 3% 3% 0;
+	width: 17%;
+	float: left;
+	font-style: normal;
+	font-weight: bold;
+	word-wrap: break-word;
+
+}
+.tribe-events-organizer address.organizer-address span {
+	display: block;
+	margin: 0 0 5px 0;
+	line-height: 1;
+}
+
+.tribe-events-organizer .organizer-description {
+	float: right;
+	width: 80%;
+}
+
+.tribe-events-organizer .organizer-description p {
+	margin: 0 0 3% 0;
+}
 
 /* = Events Calendar Widget Styles (Sidebar)
    @ Template: calendar-widget.php
@@ -338,7 +421,6 @@
 /* = Related Events
 =============================================*/
 .related-events-title {
-	color: #666;
 }
 ul.related-events {
 	display: block;
@@ -356,7 +438,42 @@ ul.related-events li {
 	font-size: .75em;
 	text-transform: uppercase;
 }
+
+h3.tribe-events-related-events-title {
+	margin-bottom: 4%;
+}
  
+.tribe-events-single ul.tribe-related-events {
+	margin: 0 -4% 8% 0;
+	border: none;
+} 
+
+.tribe-events-single ul.tribe-related-events li {
+	float: left; 
+	width: 29.333333%;
+	margin: 0 4% 2% 0;
+	padding: 0;
+	border: none;
+	list-style: none;
+}
+
+.tribe-events-single ul.tribe-related-events li .date-divider {
+	padding: 0 5px;
+}
+
+.tribe-events-single ul.tribe-related-events .tribe-related-events-thumbnail {
+	margin-bottom: 4%;
+}
+
+.tribe-events-single ul.tribe-related-events .tribe-related-events-thumbnail img {
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+}
+
+.tribe-events-single ul.tribe-related-events .tribe-related-events-title {
+	margin-bottom: 4%;
+}
  
 /* = Events Countdown Widget
 =============================================*/
