@@ -50,14 +50,16 @@ We've created a collection of premium add-ons that let you take your Events Cale
 *<a href="http://tri.be/wordpress-eventbrite-tickets/">Eventbrite Tickets</a> to sell tickets for your event</li>
 *<a href="http://tri.be/wordpress-community-events/">Community Events</a> to let your website users create their own events
 *<a href="http://tri.be/facebook-events/">Facebook Events</a> to integrate with Facebook
-
-Coming soon: manage your large events with the <a href="http://tri.be/shop/conference-manager/">Conference manager</a>.
+*<a href="http://tri.be/shop/wootickets/">WooTickets</a> to sell tickets directly from event listings with WooCommerce
 
 We offer <a href="ttp://wordpress.org/tags/the-events-calendar">basic support via the WordPress.org support forums </a> so feel free to ask a question if you're having a problem with implementation or bugs. 
 
 The <a href="http://tri.be/support/forums/?ref=tec-readme">Modern Tribe PRO support forums</a> are available for you to read. You won't, however, be able to post a message in any forums beyond Pre-Sale Questions unless you have purchase a PRO license.
 
+Are you a PRO user looking to renew an expired license? While we're still putting the finishing touches on our renewal functionality, we can provide you with a coupon in the interim that entitles you to a 30% discount on a new license (the same amount you'd be paying to renew your existing one). Send us an email to pro@tri.be referencing your license key # and the date it expired so we can get you sorted. 
+
 Note: If you are upgrading from a pre-2.0 version of The Events Calendar, please back up your data before upgrading! 
+
 
 == Screenshots ==
 
