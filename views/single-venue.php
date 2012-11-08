@@ -48,7 +48,8 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	$first = true;
 	?>					
 	<?php if( sizeof($venueEvents) > 0 ): ?>
-		<h2 class='tribe-events-cal-title'>Upcoming Events At This Venue</h2>					
+		<h2 class='tribe-events-cal-title'>Upcoming Events At This Venue</h2>
+		<div id="tribe-events-content" class="events-archive">					
 		<?php foreach( $venueEvents as $post ): 
 			setup_postdata($post);	?>
 			<div id="post-<?php the_ID(); ?>" <?php post_class($first ? 'tribe-events-event clearfix first': 'tribe-events-event clearfix' ); $first = false; ?> itemscope itemtype="http://schema.org/Event">
@@ -94,4 +95,5 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	$post = get_post($venue_id); 
 	global $id;
 	$id = $venue_id;?>
+</div>
 </div>
