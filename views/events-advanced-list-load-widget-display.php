@@ -44,8 +44,8 @@ ob_end_clean();
 			$space = false;
 			$output = '';
 			echo tribe_get_start_date( $post->ID ); 
-
-         	if( tribe_is_multiday( $post->ID ) || !$event->AllDay ) {
+			
+			if( ( tribe_is_multiday( $post->ID ) || !$event->AllDay ) && ( $end && $event->EndDate != '' ) ) {
             	echo ' – <br/>'. tribe_get_end_date($post->ID);
          	}
 
