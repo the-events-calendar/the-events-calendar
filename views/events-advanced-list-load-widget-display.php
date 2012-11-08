@@ -46,14 +46,14 @@ ob_end_clean();
 			echo tribe_get_start_date( $post->ID ); 
 			
 			if( $end && $event->EndDate != '' ) {
-			
-				// If multi day
-				if( !tribe_is_multiday( $post->ID ) && $event->AllDay ) { // If all day
-					echo ' – <br/>'. tribe_get_end_date($post->ID, 'g:i a'); // show time date
-				} else { // If regular
+				if( tribe_get_all_day( $post->ID ) != 'yes' || ( tribe_get_all_day( $post->ID ) == 'yes' &&
+					tribe_is_multiday( $post->ID ) ) ) { 
+					echo ' – <br/>'. tribe_get_end_date($post->ID);
+				} elseif ( tribe_get_all_day( $post->ID ) != 'yes' && !tribe_is_multiday( $post->ID ) ) {
+					echo ' – <br/>'. tribe_get_end_date($post->ID, 'g:i a');
+				} else {
 					echo ' – <br/>'. tribe_get_end_date($post->ID); // show full day/time
 				}
-			
 			}
 
 			if( $event->AllDay ) {
