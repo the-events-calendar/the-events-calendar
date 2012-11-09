@@ -20,6 +20,9 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 			// Remove the title from the list view
 			add_filter( 'tribe_events_list_the_title', '__return_null', 2, 1 );
 
+			// disable venue info from showing on list module (since it's duplicate of this view)
+			tribe_set_the_meta_visibility( 'tribe_list_venue_name_address', false );
+
 			// Start single venue template
 			add_filter( 'tribe_events_single_venue_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 

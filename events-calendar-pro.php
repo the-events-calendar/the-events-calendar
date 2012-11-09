@@ -43,6 +43,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $daySlug = 'day';
 		public $todaySlug = 'today';
 		public static $updateUrl = 'http://tri.be/';
+		private static $beta_mode = true; // set to true to enable beta mode
 		const REQUIRED_TEC_VERSION = '2.1';
 		const VERSION = '2.1';
 
@@ -67,7 +68,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/widget-countdown.class.php' );
 			require_once( 'template-tags.php' );
 			require_once( 'lib/tribe-presstrends-events-calendar-pro.php' );
-			require_once ('lib/tribe-geoloc.class.php');
+			require_once( 'lib/tribe-geoloc.class.php' );
+
+			// If the beta test class exists, include it.
+			if ( !empty( self::$beta_mode ) ) {
+				require_once( 'lib/tribe-beta-test.class.php' );
+				TribeBetaTester::init( 'the-events-calendar' );
+			}
 
 			// Tribe common resources
 			require_once( 'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
@@ -152,7 +159,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		/**
 		 * AJAX handler for tribe_event_day (dayview navigation)
 		 * This loads up the day view shard with all the appropriate events for the day
-		 * 
+		 *
 		 * @return string $html
 		 */
 		function wp_ajax_tribe_event_day(){
@@ -258,9 +265,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 											'_edit_last',
 											'_edit_lock',
 											'_thumbnail_id',
-											'_EventConference', 
-											'_EventAllDay', 
-											'_EventHideFromUpcoming', 
+											'_EventConference',
+											'_EventAllDay',
+											'_EventHideFromUpcoming',
 											'_EventAuditTrail',
 											'_EventOrigin',
 											'_EventShowMap',
@@ -362,7 +369,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					}
 				}
 			}
-			
+
 			$venues = TribeEvents::instance()->get_venue_info( null, null, array('post_status' => 'publish', 'post__not_in' => $my_venue_ids) );
 			if ( $venues || $my_venues ) {
 				echo '<select class="chosen venue-dropdown" name="' . esc_attr( $name ) . '" id="saved_venue">';
@@ -413,7 +420,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					}
 				}
 			}
-			
+
 			$organizers = TribeEvents::instance()->get_organizer_info( null, null, array('post_status' => 'publish', 'post__not_in' => $my_organizer_ids) );
 			if ( $organizers || $my_organizers ) {
 				echo '<select class="chosen organizer-dropdown" name="' . esc_attr( $name ) . '" id="saved_organizer">';
@@ -629,19 +636,19 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			// Enqueue the pro-stylesheet.
     		$stylesheet_url = $this->pluginUrl . 'resources/tribe-events-pro-full.css';
-    		
+
     		if ( $stylesheet_url ) {
     			if ( tribe_get_option('stylesheetOption') == 'skeleton') {
 					$stylesheet_url = $this->pluginUrl . 'resources/tribe-events-pro-skeleton.css';
 					wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url );
 				} else {
-					wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url );	
+					wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url );
 				}
     		}
-    		
+
     		if ( $tec->displaying === 'day' ) {
 				Tribe_PRO_Template_Factory::asset_package( 'ajax-dayview' );
-			}		
+			}
     	}
 
 		public function iCalFeed( $post = null, $eventCatSlug = null, $eventDate = null ) {
@@ -736,7 +743,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 			// protecting for reccuring because the post object will have the start/end date available
 			$start_date = isset($post->EventStartDate) ? strtotime($post->EventStartDate) : strtotime( get_post_meta( $postId, '_EventStartDate', true ) );
-			$end_date = isset($post->EventEndDate) ? 
+			$end_date = isset($post->EventEndDate) ?
 				strtotime( $post->EventEndDate . ( get_post_meta( $postId, '_EventAllDay', true ) ? ' + 1 day' : '') ) :
 				strtotime( get_post_meta( $postId, '_EventEndDate', true ) . ( get_post_meta( $postId, '_EventAllDay', true ) ? ' + 1 day' : '') );
 
@@ -759,7 +766,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$url = add_query_arg( $params, $base_url );
 			return esc_url( $url );
 		}
-		
+
 		/**
 		 * Return the forums link as it should appear in the help tab.
 		 *
@@ -774,7 +781,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			else
 				return 'http://tri.be/support/forums/' . $promo_suffix;
 		}
-		
+
 		/**
 		 * Return additional action for the plugin on the plugins page.
 		 *
