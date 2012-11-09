@@ -3161,9 +3161,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$query = TribeEventsQuery::getEvents( $args, true );
 
+
 			$response = array( 'html'      => '',
 			                   'success'   => true,
-			                   'max_pages' => $query->max_num_pages );
+			                   'max_pages' => $query->max_num_pages
+			                    );
 
 
 			remove_action( 'pre_get_posts', array( $this, 'list_ajax_call_set_date' ), -10 );
@@ -3175,8 +3177,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 
 			add_filter( 'tribe_events_list_pagination', array( __CLASS__, 'clear_module_pagination' ), 10 );
-
-			$response['html'] .= sprintf( '<input type="hidden" id="tribe-events-list-title" value="%s">', tribe_get_events_title() );
 
 			ob_start();
 			load_template( TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
