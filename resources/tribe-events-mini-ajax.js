@@ -18,7 +18,7 @@ jQuery(document).ready(function($) {
         $('#ajax-loading-mini').hide();
         $('#tribe-mini-ajax-month').show();
         $('#tribe-events-calendar-wrap').html( response );
-        $.tribe_event_nudge();
+        tribe_event_tooltips();
       }
       );
   });
