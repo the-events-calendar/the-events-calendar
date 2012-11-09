@@ -1,11 +1,11 @@
 === The Events Calendar ===
 
-Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, mzaweb, codearachnid, ryancurban, barryhughes, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, mzaweb, codearachnid, ryancurban, leahkoerper, barryhughes, peterchester, reid.peifer, shane.pearlman
 Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar, recurring, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.3
-Tested up to: 3.4.1
-Stable tag: 2.0.9
+Tested up to: 3.4.2
+Stable tag: 2.0.10
 
 == Description ==
 
@@ -50,7 +50,7 @@ We've created a collection of premium add-ons that let you take your Events Cale
 *<a href="http://tri.be/wordpress-eventbrite-tickets/">Eventbrite Tickets</a> to sell tickets for your event</li>
 *<a href="http://tri.be/wordpress-community-events/">Community Events</a> to let your website users create their own events
 *<a href="http://tri.be/facebook-events/">Facebook Events</a> to integrate with Facebook
-*<a href="http://tri.be/shop/wootickets/">WooTickets</a> to sell tickets directly from event listings with WooCommerce
+*<a href="http://tri.be/wordpress-wootickets/">WooTickets</a> to sell tickets directly from event listings with WooCommerce
 
 We offer <a href="ttp://wordpress.org/tags/the-events-calendar">basic support via the WordPress.org support forums </a> so feel free to ask a question if you're having a problem with implementation or bugs. 
 
@@ -149,6 +149,7 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 * <a href="http://profiles.wordpress.org/users/jonahcoyote">Jonah West</a>
 * <a href="http://profiles.wordpress.org/users/barryhughes">Barry Hughes</a>
 * <a href="http://profiles.wordpress.org/users/ryancurban">Ryan Urban</a>
+* <a href="http://profiles.wordpress.org/users/leahkoerper">Leah Koerper</a>
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
 * <a href="http://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
@@ -204,8 +205,8 @@ Our Premium Plugins:
 * <a href="http://tri.be/shop/wordpress-eventbrite-tickets/?ref=tec-readme" target="_blank">The Events Calendar: Eventbrite Tickets</a>
 * <a href="http://tri.be/shop/wordpress-community-events/?ref=tec-readme" target="_blank">The Events Calendar: Community Events</a>
 * <a href="http://tri.be/facebook-events/?ref=tec-readme" target="_blank">The Events Calendar: Facebook Events</a>
+* <a href="http://tri.be/shop/wootickets/?ref=tec-readme" target="_blank">The Events Calendar: WooTickets</a>
 * <a href="http://tri.be/shop/conference-manager/?ref=tec-readme" target="_blank">The Events Calendar: Conference Manager (coming later in 2012)</a>
-* <a href="http://tri.be/shop/wootickets/?ref=tec-readme" target="_blank">The Events Calendar: WooTickets (coming later in 2012)</a>
 
 == Changelog ==
 
@@ -213,10 +214,25 @@ Our Premium Plugins:
 
 **Small features, UX and Content Tweaks:**
 
-* Incorporated new Ukrainian translation files (free only), courtesy of Alexey Fedorov
-* Incorporated new French translation files (free only), courtesy of Fanny HŽraud
+* Incorporated new Ukrainian translation files (free only), courtesy of Alexey Fedorov.
+* Incorporated new French translation files (free only), courtesy of Fanny HŽraud.
+* Improved the events.js to avoid animation build up.
+
 
 **Bug Fixes:**
+
+* Tested fully against the new WordPress Twenty Twelve theme and cleared up aesthetic issues where needed.
+* Removed "Organizer" and "Venue" panels from the Appearance -> Menus screen (core only).
+* Fixed a bug where the option to show/hide an event's end date in the Events Advanced List Widget did not work (PRO only).
+* There was previously no modal window when trashing individual instances of a recurring event; that is no more.
+* Cleaned up event query filters to prevent conflicts.
+* Event-specific settings no longer revert to default upon updating the plugin.
+* Rewrite rules are no longer one step behind (meaning you won't need to flush permalinks as often). 
+* Warnings/notices no longer litter the page in instances where no upcoming events are scheduled. 
+* Default permalinks are no longer malformed.
+* Removed a PressTrends-generated notice that appeared upon activation. 
+* Removed remaining sp_ functions. 
+* Fixed an issue where default permalinks caused multiple errors when viewing a recurring event and venue page (PRO only). 
 
 = 2.0.9 = 
 

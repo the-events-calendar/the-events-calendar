@@ -303,6 +303,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->pastSlug = sanitize_title(__('past', 'tribe-events-calendar'));
 			$this->postTypeArgs['rewrite']['slug'] = sanitize_title($this->rewriteSlugSingular);
 			$this->postVenueTypeArgs['rewrite']['slug'] = sanitize_title(__( 'venue', 'tribe-events-calendar' ));
+			$this->postVenueTypeArgs['show_in_nav_menus'] = class_exists( 'TribeEventsPro' ) ? true : false;			
 			$this->currentDay = '';
 			$this->errors = '';
 			TribeEventsQuery::init();
