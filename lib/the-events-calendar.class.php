@@ -3150,6 +3150,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				TribeEventsFilterView::instance()->createFilters( null, true );
 			}
 
+
 			TribeEventsQuery::init();
 
 			$paged = ( !empty( $_POST['paged'] ) ) ? intval( $_POST['paged'] ) : 1;
@@ -3160,12 +3161,24 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			               'paged'        => $paged );
 
 			$query = TribeEventsQuery::getEvents( $args, true );
+			$hash = $query->query_vars;
+
+			$hash['paged']      = null;
+			$hash['start_date'] = null;
+			$hash_str           = md5( maybe_serialize( $hash ) );
+
+			if ( !empty( $_POST['hash'] ) && $hash_str !== $_POST['hash'] ) {
+				$paged         = 1;
+				$args['paged'] = 1;
+				$query         = TribeEventsQuery::getEvents( $args, true );
+			}
 
 
 			$response = array( 'html'      => '',
 			                   'success'   => true,
-			                   'max_pages' => $query->max_num_pages
-			                    );
+			                   'max_pages' => $query->max_num_pages,
+			                   'hash'      => $hash_str,
+			                   'paged'     => $paged );
 
 
 			remove_action( 'pre_get_posts', array( $this, 'list_ajax_call_set_date' ), -10 );
@@ -3177,6 +3190,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 
 			add_filter( 'tribe_events_list_pagination', array( __CLASS__, 'clear_module_pagination' ), 10 );
+
+			$tribe_ecp = TribeEvents::instance();
+			$tribe_ecp->displaying = 'upcoming';
 
 			ob_start();
 			load_template( TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
