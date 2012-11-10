@@ -94,13 +94,14 @@ if ( !class_exists('TribeBetaTester') ) {
 			));
 		}
 
-		private function mail_link() {
+		private function collect_system_data() {
 
 			$data = array();
 
 			// SYSTEM DETAILS
 			include ABSPATH . WPINC . '/version.php';
-			$system_key = __('System Details');
+			$system_key = 'system';
+			//$system_key = __('System Details');
 			$data[$system_key] = array();
 			$data[$system_key]['WordPress Version'] = $wp_version;
 			$data[$system_key]['PHP Version'] = phpversion();
@@ -111,9 +112,10 @@ if ( !class_exists('TribeBetaTester') ) {
 
 			// THEME
 			$theme = wp_get_theme();
-			$theme_key = __('Theme: ').$theme->get('Name').' '.$theme->get('Version');
+			$theme_key = 'theme';
+			//$theme_key = __('Theme: ').$theme->get('Name').' '.$theme->get('Version');
 			$data[$theme_key] = array();
-			$keys = array('Description','Author','Author URI');
+			$keys = array('Name','Version','Author','Author URI');
 			foreach ( $keys as $key ) {
 				$theme_meta = $theme->get($key);
 				if ( !empty( $theme_meta ) ) {
@@ -124,22 +126,21 @@ if ( !class_exists('TribeBetaTester') ) {
 			// PLUGINS
 			include_once ( ABSPATH . '/wp-admin/includes/plugin.php' );
 			$plugins = array(
-				'Plugin' => get_plugins(),
-				'MU Plugin' => get_mu_plugins(),
-				'Dropin' => get_dropins(),
+				'plugin' => get_plugins(),
+				'muplugin' => get_mu_plugins(),
+				'dropin' => get_dropins(),
 			);
 
 			foreach ( $plugins as $plugin_group => $plugin_list ) {
 				foreach ( $plugin_list as $k => $v) {
-					if ( $plugin_group != 'Plugin' || is_plugin_active( $k ) || ( is_multisite() && is_plugin_active_for_network( $k ) ) ) {
-						$plugin_key = "{$plugin_group}: {$v['Name']} {$v['Version']}";
-						$data[$plugin_key] = array();
-						$keys = array('Author','Author URI','PluginURI');
-						foreach ( $keys as $key ) {
-							if ( !empty( $v[$key] ) ) {
-								$data[$plugin_key][$key] = $v[$key];
-							}
+					if ( $plugin_group != 'plugin' || is_plugin_active( $k ) || ( is_multisite() && is_plugin_active_for_network( $k ) ) ) {
+
+						$plugin_key = $plugin_group;
+						if ( !is_array($data[$plugin_key]) ) {
+							$data[$plugin_key] = array();
 						}
+
+						$data[$plugin_key][] = "{$v['Name']} {$v['Version']}";
 
 						if ( isset(self::$plugin['slug']) && strpos( $k, self::$plugin['slug'] ) ) {
 							self::$plugin = $v;
@@ -149,6 +150,13 @@ if ( !class_exists('TribeBetaTester') ) {
 					}
 				}
 			}
+
+			return $data;
+		}
+
+		private function mail_link() {
+
+			$data = $this->collect_system_data();
 
 			if ( isset( self::$plugin['Version'] ) ) {
 				$subject = sprintf( __('Beta Test Feedback for %s %s'), self::$plugin['Name'], self::$plugin['Version']);
@@ -161,14 +169,22 @@ if ( !class_exists('TribeBetaTester') ) {
 				if ( is_array( $v ) ) {
 					$body .= "\n======= $k =======\n";
 					foreach ( $v as $subk => $subv ) {
-						$body .= "$subk : $subv\n";
+						if ( is_numeric( $subk ) ) {
+							$body .= "$subv\n";
+						} else {
+							$body .= "$subk : $subv\n";
+						}
 					}
 				} else {
 					$body .= "$k : $v\n";
 				}
 			}
 			$body = rawurlencode( $body );
-			return sprintf( 'mailto:%s?subject=%s&body=%s', self::$email, $subject, $body );
+
+			//$body = 'data:text/text;base64,'.base64_encode( $body );
+			$link = sprintf( 'mailto:%s?subject=%s&body=%s', self::$email, $subject, $body );
+			$link = substr( $link, 0, 2048 );
+			return $link;
 		}
 
 		/********** SINGLETON FUNCTIONS **********/
