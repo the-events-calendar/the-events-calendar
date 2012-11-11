@@ -13,6 +13,10 @@ jQuery( document ).ready( function ( $ ) {
 
 	var hasPushstate = window.history && window.history.pushState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);
 	var do_string = false;
+	var tribe_nopop = true;	
+	var has_string = '';	
+	var href_target = '';
+	var date = '';
 
 		if( hasPushstate ) {
 
@@ -32,30 +36,39 @@ jQuery( document ).ready( function ( $ ) {
 				// this really is popstate, let's fire the ajax but not overwrite our history
 
 				if( event.state ) {
-					var tribe_nopop = false;
-					var pop_date = event.state.date;
-					tribe_events_calendar_ajax_post( pop_date, null, tribe_nopop );
+					tribe_nopop = false;
+					date = event.state.date;
+					tribe_events_calendar_ajax_post( date, null, tribe_nopop );
 				}
 			} );
 
 		}
 
 		$( '.tribe-events-calendar .tribe-events-nav a' ).live( 'click', function ( e ) {
+			has_string = window.location.search;
 			if( hasPushstate ) {
 				e.preventDefault();
-				var tribe_nopop = true;
-				var month_target = $( this ).attr( "data-month" );
-				var href_target = $( this ).attr( "href" );
-				tribe_events_calendar_ajax_post( month_target, href_target, tribe_nopop );
+				do_string = false;
+				if( has_string.length ) {
+					do_string = true;
+					tribe_nopop = false;
+				} else {
+					do_string = true;
+					tribe_nopop = false;
+				}
+				
+				date = $( this ).attr( "data-month" );
+				href_target = $( this ).attr( "href" );
+				tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );
 			}
 		} );
 
 		$( '.tribe-events-calendar select.tribe-events-events-dropdown' ).live( 'change', function ( e ) {
 
-			var tribe_nopop = true;
+			tribe_nopop = true;
 			var baseUrl = $('#tribe-events-events-picker').attr('action');
-			var date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();
-			var href_target = baseUrl + date + '/';
+			date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();
+			href_target = baseUrl + date + '/';
 			if( hasPushstate ) {
 				tribe_events_calendar_ajax_post( date, href_target, tribe_nopop );
 			} else {
@@ -71,9 +84,9 @@ jQuery( document ).ready( function ( $ ) {
 
 			var daypicker_date = $(this).val();
 			var year_month = daypicker_date.slice(0, -3);
-			var date = $('#tribe-events-header').attr('data-date');
-			var href_target = $(location).attr('href');
-			var tribe_nopop = false;
+			date = $('#tribe-events-header').attr('data-date');
+			href_target = $(location).attr('href');
+			tribe_nopop = false;
 
 			if ( year_month !=  date) {
 
@@ -99,9 +112,9 @@ jQuery( document ).ready( function ( $ ) {
 
 				// in calendar view we have to test if they are switching month and extract month for call for eventDate param plus create url for pushstate
 
-				var date = $('#tribe-events-header').attr('data-date');
-				var href_target = $(location).attr('href');
-				var tribe_nopop = false;
+				date = $('#tribe-events-header').attr('data-date');
+				href_target = $(location).attr('href');
+				tribe_nopop = false;
 
 				if($('#tribe-bar-date').val().length) {
 
@@ -132,11 +145,11 @@ jQuery( document ).ready( function ( $ ) {
 			$( 'form#tribe_events_filters_form' ).bind( 'submit', function ( e ) {
 				if ( tribe_events_bar_action != 'change_view' ) {
 					e.preventDefault();
-					var same_date = $( '#tribe-events-header' ).attr( 'data-date' );					
-					var same_page = tribe_get_path( $( location ).attr( 'href' ) );
-					var tribe_nopop = false;
-					var do_string = true;
-					tribe_events_calendar_ajax_post( same_date, same_page, tribe_nopop, do_string );
+					date = $( '#tribe-events-header' ).attr( 'data-date' );					
+					href_target = tribe_get_path( $( location ).attr( 'href' ) );
+					tribe_nopop = false;
+					do_string = true;
+					tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );
 				}
 			} );
 		}
@@ -167,6 +180,9 @@ jQuery( document ).ready( function ( $ ) {
 				// get selected form fields and create array
 
 				var filter_array = $('form#tribe_events_filters_form').serializeArray();
+				
+				var filter_array2 = $('form#tribe_events_filters_form').serialize();
+				console.log(filter_array2);
 
 				var fixed_array = [];
 				var counts = {};
