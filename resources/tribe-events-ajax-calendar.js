@@ -12,6 +12,11 @@ jQuery( document ).ready( function ( $ ) {
 	// we'll determine if the browser supports pushstate and drop those that say they do but do it badly ;)
 
 	var hasPushstate = window.history && window.history.pushState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);
+	
+	// we'll set up our other vars
+	
+	var base_url = $('#tribe-events-events-picker').attr('action');
+	var cur_url = tribe_get_path( $( location ).attr( 'href' ) );
 	var do_string = false;
 	var tribe_nopop = true;	
 	var has_string = '';	
@@ -65,10 +70,9 @@ jQuery( document ).ready( function ( $ ) {
 
 		$( '.tribe-events-calendar select.tribe-events-events-dropdown' ).live( 'change', function ( e ) {
 
-			tribe_nopop = true;
-			var baseUrl = $('#tribe-events-events-picker').attr('action');
+			tribe_nopop = true;			
 			date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();
-			href_target = baseUrl + date + '/';
+			href_target = base_url + date + '/';
 			if( hasPushstate ) {
 				tribe_events_calendar_ajax_post( date, href_target, tribe_nopop );
 			} else {
@@ -85,15 +89,14 @@ jQuery( document ).ready( function ( $ ) {
 			var daypicker_date = $(this).val();
 			var year_month = daypicker_date.slice(0, -3);
 			date = $('#tribe-events-header').attr('data-date');
-			href_target = $(location).attr('href');
+			href_target = cur_url;
 			tribe_nopop = false;
 
 			if ( year_month !=  date) {
 
 				// it's a different month, let's overwrite the vars and initiate pushstate
 
-				date = year_month;
-				var base_url = $('#tribe-events-events-picker').attr('action');
+				date = year_month;				
 				href_target = base_url + date + '/';
 				tribe_nopop = true;
 			}
@@ -113,7 +116,7 @@ jQuery( document ).ready( function ( $ ) {
 				// in calendar view we have to test if they are switching month and extract month for call for eventDate param plus create url for pushstate
 
 				date = $('#tribe-events-header').attr('data-date');
-				href_target = $(location).attr('href');
+				href_target = cur_url;
 				tribe_nopop = false;
 
 				if($('#tribe-bar-date').val().length) {
@@ -146,7 +149,7 @@ jQuery( document ).ready( function ( $ ) {
 				if ( tribe_events_bar_action != 'change_view' ) {
 					e.preventDefault();
 					date = $( '#tribe-events-header' ).attr( 'data-date' );					
-					href_target = tribe_get_path( $( location ).attr( 'href' ) );
+					href_target = cur_url;
 					tribe_nopop = false;
 					do_string = true;
 					tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );
@@ -224,16 +227,5 @@ jQuery( document ).ready( function ( $ ) {
 				}
 			}
 		}
-//	} else {
-//		// here we can write all our code for non pushstate browsers
-//
-//		$( '.tribe-events-calendar select.tribe-events-events-dropdown' ).live( 'change', function ( e ) {
-//
-//			var baseUrl = $(this).parent().attr('action');
-//			var date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();
-//			var href_target = baseUrl + date + '/';
-//			window.location = href_target;
-//		} );
-//	}
 
 } );
