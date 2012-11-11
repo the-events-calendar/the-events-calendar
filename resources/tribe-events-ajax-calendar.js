@@ -36,195 +36,193 @@ jQuery( document ).ready( function ( $ ) {
 	var daypicker_date = '';
 	var year_month = '';
 
-		if( hasPushstate ) {
+	if( hasPushstate ) {
 
-			// let's fix any browser that fires popstate on first load incorrectly
+		// let's fix any browser that fires popstate on first load incorrectly
 
-			var popped = ('state' in window.history), initialURL = location.href;
+		var popped = ('state' in window.history), initialURL = location.href;
 
-			$(window).bind('popstate', function(event) {
+		$(window).bind('popstate', function(event) {
 
-				var initialPop = !popped && location.href == initialURL;
-				popped = true;
+			var initialPop = !popped && location.href == initialURL;
+			popped = true;
 
-				// if it was an inital load, let's get out of here
+			// if it was an inital load, let's get out of here
 
-				if ( initialPop ) return;
+			if ( initialPop ) return;
 
-				// this really is popstate, let's fire the ajax but not overwrite our history
+			// this really is popstate, let's fire the ajax but not overwrite our history
 
-				if( event.state ) {
-					tribe_nopop = false;
-					date = event.state.date;
-					tribe_events_calendar_ajax_post( date, null, tribe_nopop );
-				}
-			} );
+			if( event.state ) {
+				tribe_nopop = false;
+				date = event.state.date;
+				tribe_events_calendar_ajax_post( date, null, tribe_nopop );
+			}
+		} );
+	}
+
+	$( '.tribe-events-calendar .tribe-events-nav a' ).live( 'click', function ( e ) {
+		e.preventDefault();
+		tribe_string_setup();
+		date = $( this ).attr( "data-month" );
+		href_target = $( this ).attr( "href" );
+		tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );			
+	} );
+
+	$( '.tribe-events-calendar select.tribe-events-events-dropdown' ).live( 'change', function ( e ) {
+		e.preventDefault();
+		tribe_string_setup();		
+		date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();
+		href_target = base_url + date + '/';			
+		tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );			
+	} );
+
+	// event bar datepicker monitoring 
+
+	$('#tribe-bar-date').bind( 'change', function (e) {		
+
+		// they changed the datepicker in event bar, lets trigger ajax
+
+		daypicker_date = $(this).val();
+		year_month = daypicker_date.slice(0, -3);
+		date = $('#tribe-events-header').attr('data-date');
+		href_target = cur_url;			
+
+		if ( year_month !=  date) {
+
+			// it's a different month, let's overwrite the vars and initiate pushstate
+
+			date = year_month;				
+			href_target = base_url + date + '/';				
 		}
 
-		$( '.tribe-events-calendar .tribe-events-nav a' ).live( 'click', function ( e ) {
-			e.preventDefault();
-			tribe_string_setup();
-			date = $( this ).attr( "data-month" );
-			href_target = $( this ).attr( "href" );
-			tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );			
-		} );
+		tribe_nopop = false;
+		do_string = true;
 
-		$( '.tribe-events-calendar select.tribe-events-events-dropdown' ).live( 'change', function ( e ) {
-			e.preventDefault();
-			tribe_string_setup();		
-			date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();
-			href_target = base_url + date + '/';			
-			tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );			
-		} );
+		tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );
 
-		// event bar datepicker monitoring 
+	} );
 
-		$('#tribe-bar-date').bind( 'change', function (e) {		
+	// events bar intercept submit
 
-			// they changed the datepicker in event bar, lets trigger ajax
+	$( 'form#tribe-events-bar-form' ).bind( 'submit', function (e) {
 
-			daypicker_date = $(this).val();
-			year_month = daypicker_date.slice(0, -3);
+		if(tribe_events_bar_action != 'change_view' ) {
+
+			e.preventDefault();				
+
+			// in calendar view we have to test if they are switching month and extract month for call for eventDate param plus create url for pushstate
+
 			date = $('#tribe-events-header').attr('data-date');
-			href_target = cur_url;			
+			href_target = cur_url;
 
-			if ( year_month !=  date) {
 
-				// it's a different month, let's overwrite the vars and initiate pushstate
+			if($('#tribe-bar-date').val().length) {
 
-				date = year_month;				
-				href_target = base_url + date + '/';				
+				// they picked a date in event bar daypicker, let's process and test
+
+				daypicker_date = $('#tribe-bar-date').val().slice(0, -3);
+
+				if ( daypicker_date !=  date) {
+
+					// it's a different month, let's overwrite the vars and initiate pushstate
+
+					date = daypicker_date;
+					href_target = base_url + date + '/';						
+				}
+
 			}
-			
+
 			tribe_nopop = false;
 			do_string = true;
 
 			tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );
 
-		} );
+		}
+	} );
 
-		// events bar intercept submit
+	// if advanced filters active intercept submit
 
-		$( 'form#tribe-events-bar-form' ).bind( 'submit', function (e) {
-
-			if(tribe_events_bar_action != 'change_view' ) {
-
-				e.preventDefault();				
-
-				// in calendar view we have to test if they are switching month and extract month for call for eventDate param plus create url for pushstate
-
-				date = $('#tribe-events-header').attr('data-date');
+	if( $('#tribe_events_filters_form').length ) {
+		$( 'form#tribe_events_filters_form' ).bind( 'submit', function ( e ) {
+			if ( tribe_events_bar_action != 'change_view' ) {
+				e.preventDefault();
+				date = $( '#tribe-events-header' ).attr( 'data-date' );					
 				href_target = cur_url;
-				
-
-				if($('#tribe-bar-date').val().length) {
-
-					// they picked a date in event bar daypicker, let's process and test
-
-					daypicker_date = $('#tribe-bar-date').val().slice(0, -3);
-
-					if ( daypicker_date !=  date) {
-
-						// it's a different month, let's overwrite the vars and initiate pushstate
-						
-						date = daypicker_date;
-						href_target = base_url + date + '/';						
-					}
-
-				}
-				
 				tribe_nopop = false;
 				do_string = true;
-
 				tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );
+			}
+		} );
+	}
 
+
+	function tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string ) {
+
+		$( '.ajax-loading' ).show();
+
+		var params = {
+			action:'tribe_calendar',
+			eventDate:date
+		};
+
+		// add any set values from event bar to params
+
+		$( 'form#tribe-events-bar-form :input' ).each( function () {
+			var $this = $( this );
+			if( $this.val().length ) {
+				params[$this.attr('name')] = $this.val();
 			}
 		} );
 
-		// if advanced filters active intercept submit
+		// check if advanced filters plugin is active
 
 		if( $('#tribe_events_filters_form').length ) {
-			$( 'form#tribe_events_filters_form' ).bind( 'submit', function ( e ) {
-				if ( tribe_events_bar_action != 'change_view' ) {
-					e.preventDefault();
-					date = $( '#tribe-events-header' ).attr( 'data-date' );					
-					href_target = cur_url;
-					tribe_nopop = false;
-					do_string = true;
-					tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );
-				}
-			} );
-		}
 
+			// serialize any set values and add to params
 
-		function tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string ) {
+			var filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();				
+			params = filter_params + '&' + $.param(params);
+		} 
 
-			$( '.ajax-loading' ).show();
+		if( hasPushstate ) {
 
-			var params = {
-				action:'tribe_calendar',
-				eventDate:date
-			};
+			$.post(
+				TribeCalendar.ajaxurl,
+				params,
+				function ( response ) {
+					$( "#ajax-loading" ).hide();
+					if ( response !== '' ) {
+						var $the_content = $( response ).contents();
+						$( '#tribe-events-content.tribe-events-calendar' ).html( $the_content );
 
-			// add any set values from event bar to params
+						var page_title = $the_content.filter("#tribe-events-header").attr('data-title');
 
-			$( 'form#tribe-events-bar-form :input' ).each( function () {
-				var $this = $( this );
-				if( $this.val().length ) {
-					params[$this.attr('name')] = $this.val();
-				}
-			} );
+						$(document).attr('title', page_title);
 
-			// check if advanced filters plugin is active
+						if( do_string ) {
+							href_target = href_target + '?' + params;								
+							history.pushState({
+							"date": date
+							}, page_title, href_target);															
+						}						
 
-			if( $('#tribe_events_filters_form').length ) {
-
-				// serialize any set values and add to params
-				
-				var filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();				
-				params = filter_params + '&' + $.param(params);
-			} 
-			
-			if( hasPushstate ) {
-
-				$.post(
-					TribeCalendar.ajaxurl,
-					params,
-					function ( response ) {
-						$( "#ajax-loading" ).hide();
-						if ( response !== '' ) {
-							var $the_content = $( response ).contents();
-							$( '#tribe-events-content.tribe-events-calendar' ).html( $the_content );
-
-							var page_title = $the_content.filter("#tribe-events-header").attr('data-title');
-
-							$(document).attr('title', page_title);
-
-							if( do_string ) {
-								href_target = href_target + '?' + params;								
-								history.pushState({
+						if( tribe_nopop ) {																
+							history.pushState({
 								"date": date
-								}, page_title, href_target);															
-							}
-
-							// let's write our history for this ajax request and save the date for popstate requests to use only if not a popstate request itself
-
-							if( tribe_nopop ) {																
-								history.pushState({
-									"date": date
-								}, page_title, href_target);
-							}
+							}, page_title, href_target);
 						}
 					}
-				);
-					
-			} else {
-				
-				if( do_string ) {
-					href_target = href_target + '?' + params;					
-					window.location = href_target;											
 				}
+			);
+
+		} else {
+
+			if( do_string ) {
+				href_target = href_target + '?' + params;					
+				window.location = href_target;											
 			}
 		}
+	}
 
 } );
