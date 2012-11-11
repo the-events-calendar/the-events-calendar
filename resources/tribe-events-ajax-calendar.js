@@ -33,6 +33,8 @@ jQuery( document ).ready( function ( $ ) {
 	var has_string = '';	
 	var href_target = '';
 	var date = '';
+	var daypicker_date = '';
+	var year_month = '';
 
 		if( hasPushstate ) {
 
@@ -77,26 +79,27 @@ jQuery( document ).ready( function ( $ ) {
 
 		// event bar datepicker monitoring 
 
-		$('#tribe-bar-date').bind( 'change', function (e) {
+		$('#tribe-bar-date').bind( 'change', function (e) {		
 
 			// they changed the datepicker in event bar, lets trigger ajax
 
-			var daypicker_date = $(this).val();
-			var year_month = daypicker_date.slice(0, -3);
+			daypicker_date = $(this).val();
+			year_month = daypicker_date.slice(0, -3);
 			date = $('#tribe-events-header').attr('data-date');
-			href_target = cur_url;
-			tribe_nopop = false;
+			href_target = cur_url;			
 
 			if ( year_month !=  date) {
 
 				// it's a different month, let's overwrite the vars and initiate pushstate
 
 				date = year_month;				
-				href_target = base_url + date + '/';
-				tribe_nopop = true;
+				href_target = base_url + date + '/';				
 			}
+			
+			tribe_nopop = false;
+			do_string = true;
 
-			tribe_events_calendar_ajax_post( date, href_target, tribe_nopop );
+			tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );
 
 		} );
 
@@ -106,33 +109,34 @@ jQuery( document ).ready( function ( $ ) {
 
 			if(tribe_events_bar_action != 'change_view' ) {
 
-				e.preventDefault();
+				e.preventDefault();				
 
 				// in calendar view we have to test if they are switching month and extract month for call for eventDate param plus create url for pushstate
 
 				date = $('#tribe-events-header').attr('data-date');
 				href_target = cur_url;
-				tribe_nopop = false;
+				
 
 				if($('#tribe-bar-date').val().length) {
 
 					// they picked a date in event bar daypicker, let's process and test
 
-					var daypicker_date = $('#tribe-bar-date').val().slice(0, -3);
+					daypicker_date = $('#tribe-bar-date').val().slice(0, -3);
 
 					if ( daypicker_date !=  date) {
 
 						// it's a different month, let's overwrite the vars and initiate pushstate
-
-						var base_url = $('#tribe-events-events-picker').attr('action');
+						
 						date = daypicker_date;
-						href_target = base_url + date + '/';
-						tribe_nopop = true;
+						href_target = base_url + date + '/';						
 					}
 
 				}
+				
+				tribe_nopop = false;
+				do_string = true;
 
-				tribe_events_calendar_ajax_post( date, href_target, tribe_nopop );
+				tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );
 
 			}
 		} );
