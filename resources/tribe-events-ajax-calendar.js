@@ -6,6 +6,7 @@ jQuery( document ).ready( function ( $ ) {
 	// we'll determine if the browser supports pushstate and drop those that say they do but do it badly ;)
 
 	var hasPushstate = window.history && window.history.pushState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);
+	var do_string = false;
 
 		if( hasPushstate ) {
 
@@ -128,13 +129,14 @@ jQuery( document ).ready( function ( $ ) {
 					var same_date = $( '#tribe-events-header' ).attr( 'data-date' );
 					var same_page = $( location ).attr( 'href' );
 					var tribe_nopop = false;
-					tribe_events_calendar_ajax_post( same_date, same_page, tribe_nopop );
+					var do_string = true;
+					tribe_events_calendar_ajax_post( same_date, same_page, tribe_nopop, do_string );
 				}
 			} );
 		}
 
 
-		function tribe_events_calendar_ajax_post( date, href_target, tribe_nopop ) {
+		function tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string ) {
 
 			$( '.ajax-loading' ).show();
 
@@ -197,32 +199,51 @@ jQuery( document ).ready( function ( $ ) {
 				// merge filter params with existing params
 
 				params = $.param(fixed_array) + '&' + $.param(params);
+				
+				
 
-			}
+			} 
+			
+			if( hasPushstate ) {
 
-			$.post(
-				TribeCalendar.ajaxurl,
-				params,
-				function ( response ) {
-					$( "#ajax-loading" ).hide();
-					if ( response !== '' ) {
-						var $the_content = $( response ).contents();
-						$( '#tribe-events-content.tribe-events-calendar' ).html( $the_content );
+				$.post(
+					TribeCalendar.ajaxurl,
+					params,
+					function ( response ) {
+						$( "#ajax-loading" ).hide();
+						if ( response !== '' ) {
+							var $the_content = $( response ).contents();
+							$( '#tribe-events-content.tribe-events-calendar' ).html( $the_content );
 
-						var page_title = $the_content.filter("#tribe-events-header").attr('data-title');
+							var page_title = $the_content.filter("#tribe-events-header").attr('data-title');
 
-						$(document).attr('title', page_title);
+							$(document).attr('title', page_title);
 
-						// let's write our history for this ajax request and save the date for popstate requests to use only if not a popstate request itself
-
-						if( tribe_nopop && hasPushstate ) {
-							history.pushState({
+							if( do_string ) {
+								href_target = href_target + '?' + params;								
+								history.pushState({
 								"date": date
-							}, page_title, href_target);
+								}, page_title, href_target);															
+							}
+
+							// let's write our history for this ajax request and save the date for popstate requests to use only if not a popstate request itself
+
+							if( tribe_nopop ) {																
+								history.pushState({
+									"date": date
+								}, page_title, href_target);
+							}
 						}
 					}
+				);
+					
+			} else {
+				
+				if( do_string ) {
+					href_target = href_target + '?' + params;					
+					window.location = href_target;											
 				}
-			);
+			}
 		}
 //	} else {
 //		// here we can write all our code for non pushstate browsers
