@@ -8,6 +8,17 @@ jQuery( document ).ready( function ( $ ) {
 	function tribe_get_path( url ) {
 		return url.split("?")[0];
 	}
+	
+	function tribe_string_setup() {
+		has_string = window.location.search;			
+		if( has_string.length ) {
+			do_string = true;
+			tribe_nopop = false;
+		} else {
+			do_string = false;
+			tribe_nopop = true;
+		}
+	}
 
 	// we'll determine if the browser supports pushstate and drop those that say they do but do it badly ;)
 
@@ -46,38 +57,22 @@ jQuery( document ).ready( function ( $ ) {
 					tribe_events_calendar_ajax_post( date, null, tribe_nopop );
 				}
 			} );
-
 		}
 
 		$( '.tribe-events-calendar .tribe-events-nav a' ).live( 'click', function ( e ) {
-			has_string = window.location.search;
-			if( hasPushstate ) {
-				e.preventDefault();
-				do_string = false;
-				if( has_string.length ) {
-					do_string = true;
-					tribe_nopop = false;
-				} else {
-					do_string = true;
-					tribe_nopop = false;
-				}
-				
-				date = $( this ).attr( "data-month" );
-				href_target = $( this ).attr( "href" );
-				tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );
-			}
+			e.preventDefault();
+			tribe_string_setup();
+			date = $( this ).attr( "data-month" );
+			href_target = $( this ).attr( "href" );
+			tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );			
 		} );
 
 		$( '.tribe-events-calendar select.tribe-events-events-dropdown' ).live( 'change', function ( e ) {
-
-			tribe_nopop = true;			
+			e.preventDefault();
+			tribe_string_setup();		
 			date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();
-			href_target = base_url + date + '/';
-			if( hasPushstate ) {
-				tribe_events_calendar_ajax_post( date, href_target, tribe_nopop );
-			} else {
-				window.location = href_target;
-			}
+			href_target = base_url + date + '/';			
+			tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );			
 		} );
 
 		// event bar datepicker monitoring 
