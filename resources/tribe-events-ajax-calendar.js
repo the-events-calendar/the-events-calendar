@@ -1,6 +1,3 @@
-//alert( TribeCalendar.ajaxurl );
-
-
 jQuery( document ).ready( function ( $ ) {
 	
 	// functions
@@ -35,6 +32,8 @@ jQuery( document ).ready( function ( $ ) {
 	var date = '';
 	var daypicker_date = '';
 	var year_month = '';
+	var counter = 0;
+	var filter_params = '';
 
 	if( hasPushstate ) {
 
@@ -168,11 +167,12 @@ jQuery( document ).ready( function ( $ ) {
 
 		// add any set values from event bar to params
 
-		$( 'form#tribe-events-bar-form :input' ).each( function () {
+		$( 'form#tribe-events-bar-form :input[value!=""]' ).each( function () {
 			var $this = $( this );
 			if( $this.val().length ) {
 				params[$this.attr('name')] = $this.val();
 			}
+			counter++;
 		} );
 
 		// check if advanced filters plugin is active
@@ -181,9 +181,14 @@ jQuery( document ).ready( function ( $ ) {
 
 			// serialize any set values and add to params
 
-			var filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();				
+			filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();				
 			params = filter_params + '&' + $.param(params);
 		} 
+		
+		if ( counter > 0 || filter_params.length ) {
+			tribe_nopop = false;
+			do_string = true;
+		}
 
 		if( hasPushstate ) {
 
@@ -215,14 +220,15 @@ jQuery( document ).ready( function ( $ ) {
 					}
 				}
 			);
-
+				
 		} else {
-
+			
 			if( do_string ) {
-				href_target = href_target + '?' + params;					
-				window.location = href_target;											
+				href_target = href_target + '?' + params;													
 			}
+			
+			window.location = href_target;			
 		}
 	}
-
+	
 } );
