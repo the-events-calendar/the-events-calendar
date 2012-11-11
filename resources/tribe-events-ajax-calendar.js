@@ -2,6 +2,12 @@
 
 
 jQuery( document ).ready( function ( $ ) {
+	
+	// functions
+	
+	function tribe_get_path( url ) {
+		return url.split("?")[0];
+	}
 
 	// we'll determine if the browser supports pushstate and drop those that say they do but do it badly ;)
 
@@ -126,8 +132,8 @@ jQuery( document ).ready( function ( $ ) {
 			$( 'form#tribe_events_filters_form' ).bind( 'submit', function ( e ) {
 				if ( tribe_events_bar_action != 'change_view' ) {
 					e.preventDefault();
-					var same_date = $( '#tribe-events-header' ).attr( 'data-date' );
-					var same_page = $( location ).attr( 'href' );
+					var same_date = $( '#tribe-events-header' ).attr( 'data-date' );					
+					var same_page = tribe_get_path( $( location ).attr( 'href' ) );
 					var tribe_nopop = false;
 					var do_string = true;
 					tribe_events_calendar_ajax_post( same_date, same_page, tribe_nopop, do_string );
@@ -179,20 +185,22 @@ jQuery( document ).ready( function ( $ ) {
 				// modify array
 
 				$.each(filter_array, function(index, value) {
-					if (multiple_filters[value.name] || counts[value.name] > 1){
-						if (!multiple_filters[value.name]) {
-							multiple_filters[value.name] = 0;
+					if( value.value.length ) {
+						if (multiple_filters[value.name] || counts[value.name] > 1){
+							if (!multiple_filters[value.name]) {
+								multiple_filters[value.name] = 0;
+							}
+							multiple_filters[value.name] += 1;
+							fixed_array.push({
+								name: value.name + "_" + multiple_filters[value.name],
+								value: value.value
+								});
+						} else {
+							fixed_array.push({
+								name: value.name,
+								value: value.value
+								});
 						}
-						multiple_filters[value.name] += 1;
-						fixed_array.push({
-							name: value.name + "_" + multiple_filters[value.name],
-							value: value.value
-							});
-					} else {
-						fixed_array.push({
-							name: value.name,
-							value: value.value
-							});
 					}
 				});
 
