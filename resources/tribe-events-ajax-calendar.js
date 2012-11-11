@@ -177,55 +177,10 @@ jQuery( document ).ready( function ( $ ) {
 
 			if( $('#tribe_events_filters_form').length ) {
 
-				// get selected form fields and create array
-
-				var filter_array = $('form#tribe_events_filters_form').serializeArray();
+				// serialize any set values and add to params
 				
-				var filter_array2 = $('form#tribe_events_filters_form').serialize();
-				console.log(filter_array2);
-
-				var fixed_array = [];
-				var counts = {};
-				var multiple_filters = {};
-
-				// test for multiples of same name
-
-				$.each(filter_array, function(index, value) {
-					if (counts[value.name]){
-						counts[value.name] += 1;
-					} else {
-						counts[value.name] = 1;
-					}
-				});
-
-				// modify array
-
-				$.each(filter_array, function(index, value) {
-					if( value.value.length ) {
-						if (multiple_filters[value.name] || counts[value.name] > 1){
-							if (!multiple_filters[value.name]) {
-								multiple_filters[value.name] = 0;
-							}
-							multiple_filters[value.name] += 1;
-							fixed_array.push({
-								name: value.name + "_" + multiple_filters[value.name],
-								value: value.value
-								});
-						} else {
-							fixed_array.push({
-								name: value.name,
-								value: value.value
-								});
-						}
-					}
-				});
-
-				// merge filter params with existing params
-
-				params = $.param(fixed_array) + '&' + $.param(params);
-				
-				
-
+				var filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();				
+				params = filter_params + '&' + $.param(params);
 			} 
 			
 			if( hasPushstate ) {
