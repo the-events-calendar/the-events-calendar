@@ -44,10 +44,14 @@ ob_end_clean();
 			$space = false;
 			$output = '';
 			echo tribe_get_start_date( $post->ID ); 
-
-         	if( tribe_is_multiday( $post->ID ) || !$event->AllDay ) {
-            	echo ' – <br/>'. tribe_get_end_date($post->ID);
-         	}
+			
+			if( $end && $event->EndDate != '' ) {
+				if ( ( tribe_get_all_day( $post->ID ) != 'yes' && tribe_is_multiday( $post->ID ) ) || ( tribe_get_all_day( $post->ID ) == 'yes' && tribe_is_multiday( $post->ID ) ) ) { 
+					echo ' – <br/>'. tribe_get_end_date($post->ID);
+				} elseif ( tribe_get_all_day( $post->ID ) != 'yes' && !tribe_is_multiday( $post->ID ) ) {
+					echo ' – <br/>'. tribe_get_end_date($post->ID, false, 'g:i a');
+				}
+			}
 
 			if( $event->AllDay ) {
 				echo ' <small><em>('.__('All Day','tribe-events-calendar').')</em></small>';
