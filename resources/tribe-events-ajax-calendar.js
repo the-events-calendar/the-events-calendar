@@ -33,6 +33,7 @@ jQuery( document ).ready( function ( $ ) {
 	var daypicker_date = '';
 	var year_month = '';
 	var counter = 0;
+	var event_bar_params = '';	
 	var filter_params = '';
 
 	if( hasPushstate ) {
@@ -163,17 +164,25 @@ jQuery( document ).ready( function ( $ ) {
 		var params = {
 			action:'tribe_calendar',
 			eventDate:date
-		};
+		};	
 
-		// add any set values from event bar to params
+		// add any set values from event bar to params. i want to use first method but due to ie bug we are stuck with second
+		
+//		event_bar_params = $('form#tribe-events-bar-form :input[value!=""]').serialize();
+//		
+//		if ( event_bar_params.length ) {
+//			params = params + '&' + event_bar_params;			
+//		}	
 
 		$( 'form#tribe-events-bar-form :input[value!=""]' ).each( function () {
 			var $this = $( this );
-			if( $this.val().length ) {
+			if( $this.val().length && $this.attr('name') != 'submit-bar' ) {
 				params[$this.attr('name')] = $this.val();
-			}
-			counter++;
+				counter++;
+			}			
 		} );
+		
+		params = $.param(params);
 
 		// check if advanced filters plugin is active
 
@@ -182,13 +191,15 @@ jQuery( document ).ready( function ( $ ) {
 			// serialize any set values and add to params
 
 			filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();				
-			params = filter_params + '&' + $.param(params);
+			params = params + '&' + filter_params;
 		} 
 		
 		if ( counter > 0 || filter_params.length ) {
 			tribe_nopop = false;
 			do_string = true;
 		}
+		
+		
 
 		if( hasPushstate ) {
 
