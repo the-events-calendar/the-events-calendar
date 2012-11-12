@@ -159,7 +159,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *Load all the required library files.
 		 **/
 		protected function loadLibraries() {
-
 			// Exceptions Helper
 			require_once( 'tribe-event-exception.class.php' );
 
@@ -207,6 +206,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if (!defined("TRIBE_HIDE_UPSELL") || TRIBE_HIDE_UPSELL !== true ){
 				require_once( 'tribe-app-shop.class.php' );
 			}
+
+			// Tickets
+			require_once( 'tickets/tribe-ticket-object.php' );
+			require_once( 'tickets/tribe-tickets.php' );
+			require_once( 'tickets/tribe-tickets-metabox.php' );
 
 		}
 
@@ -336,6 +340,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->pastSlug = sanitize_title(__('past', 'tribe-events-calendar'));
 			$this->postTypeArgs['rewrite']['slug'] = sanitize_title($this->rewriteSlugSingular);
 			$this->postVenueTypeArgs['rewrite']['slug'] = sanitize_title(__( 'venue', 'tribe-events-calendar' ));
+			$this->postVenueTypeArgs['show_in_nav_menus'] = class_exists( 'TribeEventsPro' ) ? true : false;			
 			$this->currentDay = '';
 			$this->errors = '';
 			TribeEventsQuery::init();
@@ -521,7 +526,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			new TribeSettingsTab( 'general', __('General', 'tribe-events-calendar'), $generalTab );
 			new TribeSettingsTab( 'template', __('Template', 'tribe-events-calendar'), $templatesTab );
 			// If none of the addons are activated, do not show the licenses tab.
-			if ( class_exists( 'TribeEventsPro' ) || class_exists( 'Event_Tickets_PRO' ) || class_exists( 'TribeCommunityEvents' ) || class_exists( 'Tribe_FB_Importer' ) ) {
+			if ( class_exists( 'TribeEventsPro' ) || class_exists( 'Event_Tickets_PRO' ) || class_exists( 'TribeCommunityEvents' ) || class_exists( 'Tribe_FB_Importer' )  ) {
 				new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar'), array('priority' => '40',
 					'fields' => apply_filters('tribe_license_fields', $tribe_licences_tab_fields) ) );
 			}
@@ -649,8 +654,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			return $title;
 		}
 
+
 		public function addDateToRecurringEvents($permalink, $post) {
-			if( function_exists('tribe_is_recurring_event') && $post->post_type == self::POSTTYPE && tribe_is_recurring_event($post->ID) && !is_search()) {
+			if(  function_exists('tribe_is_recurring_event') && $post->post_type == self::POSTTYPE && tribe_is_recurring_event($post->ID) && !is_search()) {
 				if( is_admin() && (!isset($post->EventStartDate) || !$post->EventStartDate) ) {
 					if( isset($_REQUEST['eventDate'] ) ) {
 						$post->EventStartDate = $_REQUEST['eventDate'];
@@ -1706,7 +1712,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				case 'all':
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
 					$eventUrl = add_query_arg('eventDisplay', 'all', get_permalink() );
-					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
+					add_filter( 'post_type_link', array( $this, 'addDateToRecurringEvents' ), 10, 2 );
 					return $eventUrl;
 				default:
 					return $eventUrl;
