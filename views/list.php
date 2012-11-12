@@ -111,6 +111,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		</div> <!-- End post -->
 	<?php endwhile;// posts ?>
 	<?php else :?>
+		<div class="tribe-events-no-entry">
 		<?php 
 			$tribe_ecp = TribeEvents::instance();
 			if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
@@ -134,7 +135,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<?php _e('No previous events' , 'tribe-events-calendar');
 			echo !empty($is_cat_message) ? $is_cat_message : "."; ?>
 		<?php } ?>
-		
+		</div>
 	<?php endif; ?>
 
 

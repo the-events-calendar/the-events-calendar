@@ -91,7 +91,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <?php if( tribe_embed_google_map( get_the_ID() ) ) : ?>
 <?php if( tribe_address_exists( get_the_ID() ) ) { echo tribe_get_embedded_map(); } ?>
 <?php endif; ?>
-<div class="entry">
+<div class="entry-content">
 	<?php
 	if ( function_exists('has_post_thumbnail') && has_post_thumbnail() ) {?>
 		<?php the_post_thumbnail(); ?>

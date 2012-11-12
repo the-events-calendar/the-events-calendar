@@ -11,28 +11,26 @@
 if ( !defined('ABSPATH') ) { die('-1'); }
 $tribe_ecp = TribeEvents::instance();
 ?>	
-	<div id="tribe-events-content" class="grid">
-      <!-- This title is here for ajax loading - do not remove if you wish to use ajax switching between month views -->
-      <title><?php wp_title(); ?></title>
+	<div id="tribe-events-content" class="grid" data-title="<?php wp_title(); ?>">
 		<div id='tribe-events-calendar-header' class="clearfix">
 			<span class='tribe-events-month-nav'>
 				<span class='tribe-events-prev-month'>
-					<a href='<?php echo tribe_get_previous_month_link(); ?>'>
+					<a href='<?php echo tribe_get_previous_month_link(); ?>' class="tribe-pjax">
 					&#x2190; <?php echo tribe_get_previous_month_text(); ?>
 					</a>
 				</span>
 
 				<?php tribe_month_year_dropdowns( "tribe-events-" ); ?>
-	
+
 				<span class='tribe-events-next-month'>
-					<a href='<?php echo tribe_get_next_month_link(); ?>'>				
+					<a href='<?php echo tribe_get_next_month_link(); ?>' class="tribe-pjax">
 					<?php echo tribe_get_next_month_text(); ?> &#x2192; 
 					</a>
                <img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" class="ajax-loading" id="ajax-loading" alt="" style='display: none'/>
 				</span>
 			</span>
 
-			<span class='tribe-events-calendar-buttons'> 
+			<span class='tribe-events-calendar-buttons'>
 				<a class='tribe-events-button-off' href='<?php echo tribe_get_listview_link(); ?>'><?php _e('Event List', 'tribe-events-calendar'); ?></a>
 				<a class='tribe-events-button-on' href='<?php echo tribe_get_gridview_link(); ?>'><?php _e('Calendar', 'tribe-events-calendar'); ?></a>
 			</span>

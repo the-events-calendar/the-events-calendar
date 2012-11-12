@@ -131,7 +131,11 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_event_link($event = null) {
-		return trailingslashit( apply_filters( 'tribe_get_event_link', TribeEvents::instance()->getLink('single', $event), $event ) );
+		if ( '' == get_option('permalink_structure') ) {
+			return apply_filters( 'tribe_get_event_link', TribeEvents::instance()->getLink('single', $event), $event );
+		} else {
+			return trailingslashit( apply_filters( 'tribe_get_event_link', TribeEvents::instance()->getLink('single', $event), $event ) );
+		}
 	}
 
 }

@@ -236,6 +236,45 @@ if (!class_exists('TribeEventsTemplates')) {
 			$wp_query->is_page = true; // don't show comments
 			//$wp_query->is_single = false; // don't show comments
 			$wp_query->is_singular = true;
+
+			if ( empty ( $wp_query->posts ) ) {
+
+				global $post;
+
+				$spoofed_post = array( "ID"                    => 1,
+				                       "post_author"           => 1,
+				                       "post_date"             => '1900-10-02 00:00:00',
+				                       "post_date_gmt"         => '1900-10-02 00:00:00',
+				                       "post_content"          => '',
+				                       "post_title"            => '',
+				                       "post_excerpt"          => '',
+				                       "post_status"           => 'publish',
+				                       "comment_status"        => 'closed',
+				                       "ping_status"           => 'closed',
+				                       "post_password"         => '',
+				                       "post_name"             => 'post',
+				                       "to_ping"               => '',
+				                       "pinged"                => '',
+				                       "post_modified"         => '1900-10-02 00:00:00',
+				                       "post_modified_gmt"     => '1900-10-02 00:00:00',
+				                       "post_content_filtered" => '',
+				                       "post_parent"           => 0,
+				                       "guid"                  => '',
+				                       "menu_order"            => 0,
+				                       "post_type"             => 'tribe_events',
+				                       "post_mime_type"        => '',
+				                       "comment_count"         => 0,
+				                       "EventStartDate"        => '1900-10-02 00:00:00',
+				                       "EventEndDate"          => '1900-10-02 00:00:00',
+				                       "filter"                => 'raw' );
+
+				$post = (object)$spoofed_post;
+
+				$wp_query->post    = $post;
+				$wp_query->posts[] = $post;
+				$wp_query->posts[] = $post;
+
+			}
 		
 		}
 	

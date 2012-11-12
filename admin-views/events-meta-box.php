@@ -84,7 +84,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<tr id="google_map_link_toggle">
 				<td><?php _e('Show Google Maps Link:','tribe-events-calendar'); ?></td>
 				<td>					
-					<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="EventShowMapLink" value="1" <?php checked((get_post_status($postId) == 'auto-draft') ? true : get_post_meta( $postId, '_EventShowMapLink', true )); ?> />
+					<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="EventShowMapLink" value="1" <?php checked((get_post_status($postId) == 'auto-draft') ? false : get_post_meta( $postId, '_EventShowMapLink', true )); ?> />
 				</td>
 			</tr>
 			<?php if( tribe_get_option('embedGoogleMaps') ) : ?>
@@ -104,8 +104,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<?php include( $this->pluginPath . 'admin-views/organizer-meta-box.php' ); ?>
 	</table>
     <?php $this->do_action('tribe_events_details_table_bottom', $postId, true) ?>
-
-	<?php if ( !class_exists("TribeEventsTickets") ||  !TribeEventsTickets::$active || class_exists( 'Event_Tickets_PRO') || get_post_meta( get_the_ID(), '_EventOrigin', true ) === 'community-events' ){ ?>
+	<?php if ( !TribeEventsTickets::$active || class_exists( 'Event_Tickets_PRO' ) || ( get_post_meta( get_the_ID(), '_EventOrigin', true ) === 'community-events' ) ) { ?>
 	<table id="event_cost" class="eventtable">
 		<tr>
 			<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event Cost', 'tribe-events-calendar'); ?></h4></td>
