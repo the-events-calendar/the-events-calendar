@@ -307,6 +307,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'wp_ajax_tribe_calendar', array( $this, 'calendar_ajax_call' ) );
 			add_action( 'wp_ajax_nopriv_tribe_calendar', array( $this, 'calendar_ajax_call' ) );
 			add_action( 'wp_ajax_tribe_list', array( $this, 'list_ajax_call' ) );
+			add_action( 'tribe_events_pre_get_posts', array( $this, 'set_tribe_paged' ) );
 			add_action( 'wp_ajax_nopriv_tribe_list', array( $this, 'list_ajax_call' ) );
 
 		}
@@ -3146,6 +3147,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			return $query;
 		}
 
+		function set_tribe_paged( $query ) {
+			if ( !empty( $_REQUEST['tribe_paged'] ) ) {
+				$query->query_vars['paged'] = $_REQUEST['tribe_paged'];
+			}
+		}
+
 		/* VIEWS AJAX CALLS */
 
 		function list_ajax_call() {
@@ -3164,7 +3171,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$args = array( 'eventDisplay'       => 'list',
 			               'post_type'          => TribeEvents::POSTTYPE,
 			               'post_status'        => 'publish',
-			               'tribe_paged'        => $tribe_paged );
+			               'paged'              => $tribe_paged );
 
 			$query = TribeEventsQuery::getEvents( $args, true );
 			$hash = $query->query_vars;
