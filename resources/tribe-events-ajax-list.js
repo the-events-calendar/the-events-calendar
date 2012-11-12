@@ -8,9 +8,8 @@ jQuery( document ).ready( function ( $ ) {
 
 	// we'll determine if the browser supports pushstate and drop those that say they do but do it badly ;)
 
-	var hasPushstate = window.history && window.history.pushState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);
+	var hasPushstate = window.history && window.history.pushState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);	
 	
-	var base_url = $('#tribe-events-events-picker').attr('action');
 	var cur_url = tribe_get_path( $( location ).attr( 'href' ) );
 	var tribe_do_string = false;
 	var tribe_pushstate = true;	
@@ -75,6 +74,15 @@ jQuery( document ).ready( function ( $ ) {
 				}
 			} );
 		}
+		
+		// event bar datepicker monitoring 
+
+		$('#tribe-bar-date').bind( 'change', function (e) {		
+
+			e.preventDefault();					
+			tribe_events_list_ajax_post( cur_url );
+
+		} );
 
 		$( 'form#tribe-events-bar-form' ).bind( 'submit', function ( e ) {
 
