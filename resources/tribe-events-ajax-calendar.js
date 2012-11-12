@@ -6,16 +6,16 @@ jQuery( document ).ready( function ( $ ) {
 		return url.split("?")[0];
 	}
 
-	// we'll determine if the browser supports pushstate and drop those that say they do but do it badly ;)
+	// determine if the browser supports pushstate and drop those that say they do but do it badly ;)
 
 	var hasPushstate = window.history && window.history.pushState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);
 	
-	// we'll set up our other vars
+	// our other vars
 	
 	var base_url = $('#tribe-events-events-picker').attr('action');
 	var cur_url = tribe_get_path( $( location ).attr( 'href' ) );
-	var do_string = false;
-	var tribe_nopop = true;	
+	var tribe_do_string = false;
+	var tribe_pushstate = true;	
 	var tribe_popping = false;	
 	var href_target = '';
 	var date = '';
@@ -28,7 +28,7 @@ jQuery( document ).ready( function ( $ ) {
 
 	if( hasPushstate ) {
 
-		// let's fix any browser that fires popstate on first load incorrectly
+		// fix any browser that fires popstate on first load incorrectly
 
 		var popped = ('state' in window.history), initialURL = location.href;
 
@@ -37,19 +37,19 @@ jQuery( document ).ready( function ( $ ) {
 			var initialPop = !popped && location.href == initialURL;
 			popped = true;
 
-			// if it was an inital load, let's get out of here
+			// if it was an inital load, get out of here
 
 			if ( initialPop ) return;
 
-			// this really is popstate, let's fire the ajax but not overwrite our history
+			// this really is popstate: fire the ajax, send the stored params from the browser, don't overwrite the history
 
 			if( event.state ) {					
 				date = event.state.date;
-				do_string = false;
-				tribe_nopop = false;	
+				tribe_do_string = false;
+				tribe_pushstate = false;	
 				tribe_popping = true;
 				params = event.state.params;
-				tribe_events_calendar_ajax_post( date, '', tribe_nopop, do_string, tribe_popping, params );
+				tribe_events_calendar_ajax_post( date, '', tribe_pushstate, tribe_do_string, tribe_popping, params );
 			}
 		} );
 	}
@@ -72,7 +72,7 @@ jQuery( document ).ready( function ( $ ) {
 
 	$('#tribe-bar-date').bind( 'change', function (e) {		
 
-		// they changed the datepicker in event bar, lets trigger ajax
+		// they changed the datepicker in event bar, trigger ajax
 
 		daypicker_date = $(this).val();
 		year_month = daypicker_date.slice(0, -3);
@@ -81,16 +81,16 @@ jQuery( document ).ready( function ( $ ) {
 
 		if ( year_month !=  date) {
 
-			// it's a different month, let's overwrite the vars and initiate pushstate
+			// it's a different month, overwrite the vars and initiate pushstate
 
 			date = year_month;				
 			href_target = base_url + date + '/';				
 		}
 
-		tribe_nopop = false;
-		do_string = true;
+		tribe_pushstate = false;
+		tribe_do_string = true;
 
-		tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );
+		tribe_events_calendar_ajax_post( date, href_target, tribe_pushstate, tribe_do_string );
 
 	} );
 
@@ -143,7 +143,7 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 
-	function tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string, tribe_popping, params ) {
+	function tribe_events_calendar_ajax_post( date, href_target, tribe_pushstate, tribe_do_string, tribe_popping, params ) {
 
 		$( '.ajax-loading' ).show();
 		
@@ -178,8 +178,8 @@ jQuery( document ).ready( function ( $ ) {
 
 
 			if ( counter > 0 || filter_params.length ) {
-				tribe_nopop = false;
-				do_string = true;				
+				tribe_pushstate = false;
+				tribe_do_string = true;				
 			}
 		} 
 
@@ -198,7 +198,7 @@ jQuery( document ).ready( function ( $ ) {
 
 						$(document).attr('title', page_title);
 
-						if( do_string ) {
+						if( tribe_do_string ) {
 							href_target = href_target + '?' + params;								
 							history.pushState({
 								"date": date,
@@ -206,7 +206,7 @@ jQuery( document ).ready( function ( $ ) {
 							}, page_title, href_target);															
 						}						
 
-						if( tribe_nopop ) {																
+						if( tribe_pushstate ) {																
 							history.pushState({
 								"date": date,
 								"params": params
@@ -218,7 +218,7 @@ jQuery( document ).ready( function ( $ ) {
 				
 		} else {
 			
-			if( do_string ) {
+			if( tribe_do_string ) {
 				href_target = href_target + '?' + params;													
 			}
 			
