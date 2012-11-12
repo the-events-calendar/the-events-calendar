@@ -3120,7 +3120,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function setup_keyword_search_in_query( $query ) {
 
-			if ( !empty( $_REQUEST['tribe-bar-search'] ) ) {
+			if ( !empty( $_REQUEST['tribe-bar-search'] ) && in_array( TribeEvents::POSTTYPE, (array)$query->query_vars['post_type'] ) ) {
 				$query->query_vars['s'] = $_REQUEST['tribe-bar-search'];
 			}
 
