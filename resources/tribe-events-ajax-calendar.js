@@ -27,12 +27,14 @@ jQuery( document ).ready( function ( $ ) {
 	var cur_url = tribe_get_path( $( location ).attr( 'href' ) );
 	var do_string = false;
 	var tribe_nopop = true;	
+	var tribe_popping = false;
 	var has_string = '';	
 	var href_target = '';
 	var date = '';
 	var daypicker_date = '';
 	var year_month = '';
 	var counter = 0;
+	var params = '';
 	var event_bar_params = '';	
 	var filter_params = '';
 
@@ -53,10 +55,13 @@ jQuery( document ).ready( function ( $ ) {
 
 			// this really is popstate, let's fire the ajax but not overwrite our history
 
-			if( event.state ) {
-				tribe_nopop = false;
+			if( event.state ) {					
 				date = event.state.date;
-				tribe_events_calendar_ajax_post( date, null, tribe_nopop );
+				do_string = false;
+				tribe_nopop = false;	
+				tribe_popping = true;
+				params = event.state.params;
+				tribe_events_calendar_ajax_post( date, '', tribe_nopop, do_string, tribe_popping, params );
 			}
 		} );
 	}
@@ -157,49 +162,45 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 
-	function tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string ) {
+	function tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string, tribe_popping, params ) {
 
 		$( '.ajax-loading' ).show();
-
-		var params = {
-			action:'tribe_calendar',
-			eventDate:date
-		};	
-
-		// add any set values from event bar to params. i want to use first method but due to ie bug we are stuck with second
 		
-//		event_bar_params = $('form#tribe-events-bar-form :input[value!=""]').serialize();
-//		
-//		if ( event_bar_params.length ) {
-//			params = params + '&' + event_bar_params;			
-//		}	
+		if( !tribe_popping ) {
 
-		$( 'form#tribe-events-bar-form :input[value!=""]' ).each( function () {
-			var $this = $( this );
-			if( $this.val().length && $this.attr('name') != 'submit-bar' ) {
-				params[$this.attr('name')] = $this.val();
-				counter++;
-			}			
-		} );
-		
-		params = $.param(params);
+			params = {
+				action:'tribe_calendar',
+				eventDate:date
+			};	
 
-		// check if advanced filters plugin is active
+			// add any set values from event bar to params. i want to use first method but due to ie bug we are stuck with second	
 
-		if( $('#tribe_events_filters_form').length ) {
+			$( 'form#tribe-events-bar-form :input[value!=""]' ).each( function () {
+				var $this = $( this );
+				if( $this.val().length && $this.attr('name') != 'submit-bar' ) {
+					params[$this.attr('name')] = $this.val();
+					counter++;
+				}			
+			} );
 
-			// serialize any set values and add to params
+			params = $.param(params);
 
-			filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();				
-			params = params + '&' + filter_params;
+			// check if advanced filters plugin is active
+
+			if( $('#tribe_events_filters_form').length ) {
+
+				// serialize any set values and add to params
+
+				filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();				
+				params = params + '&' + filter_params;
+			} 
+
+
+			if ( counter > 0 || filter_params.length ) {
+				tribe_nopop = false;
+				do_string = true;				
+			}
 		} 
-		
-		if ( counter > 0 || filter_params.length ) {
-			tribe_nopop = false;
-			do_string = true;
-		}
-		
-		
 
 		if( hasPushstate ) {
 
@@ -219,13 +220,15 @@ jQuery( document ).ready( function ( $ ) {
 						if( do_string ) {
 							href_target = href_target + '?' + params;								
 							history.pushState({
-							"date": date
+								"date": date,
+								"params": params
 							}, page_title, href_target);															
 						}						
 
 						if( tribe_nopop ) {																
 							history.pushState({
-								"date": date
+								"date": date,
+								"params": params
 							}, page_title, href_target);
 						}
 					}
