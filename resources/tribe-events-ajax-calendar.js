@@ -5,17 +5,6 @@ jQuery( document ).ready( function ( $ ) {
 	function tribe_get_path( url ) {
 		return url.split("?")[0];
 	}
-	
-	function tribe_string_setup() {
-		has_string = window.location.search;			
-		if( has_string.length ) {
-			do_string = true;
-			tribe_nopop = false;
-		} else {
-			do_string = false;
-			tribe_nopop = true;
-		}
-	}
 
 	// we'll determine if the browser supports pushstate and drop those that say they do but do it badly ;)
 
@@ -27,8 +16,7 @@ jQuery( document ).ready( function ( $ ) {
 	var cur_url = tribe_get_path( $( location ).attr( 'href' ) );
 	var do_string = false;
 	var tribe_nopop = true;	
-	var tribe_popping = false;
-	var has_string = '';	
+	var tribe_popping = false;	
 	var href_target = '';
 	var date = '';
 	var daypicker_date = '';
@@ -67,19 +55,17 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	$( '.tribe-events-calendar .tribe-events-nav a' ).live( 'click', function ( e ) {
-		e.preventDefault();
-		tribe_string_setup();
+		e.preventDefault();		
 		date = $( this ).attr( "data-month" );
 		href_target = $( this ).attr( "href" );
-		tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );			
+		tribe_events_calendar_ajax_post( date, href_target );			
 	} );
 
 	$( '.tribe-events-calendar select.tribe-events-events-dropdown' ).live( 'change', function ( e ) {
-		e.preventDefault();
-		tribe_string_setup();		
+		e.preventDefault();			
 		date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();
 		href_target = base_url + date + '/';			
-		tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );			
+		tribe_events_calendar_ajax_post( date, href_target );			
 	} );
 
 	// event bar datepicker monitoring 
@@ -138,10 +124,7 @@ jQuery( document ).ready( function ( $ ) {
 
 			}
 
-			tribe_nopop = false;
-			do_string = true;
-
-			tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );
+			tribe_events_calendar_ajax_post( date, href_target );
 
 		}
 	} );
@@ -153,10 +136,8 @@ jQuery( document ).ready( function ( $ ) {
 			if ( tribe_events_bar_action != 'change_view' ) {
 				e.preventDefault();
 				date = $( '#tribe-events-header' ).attr( 'data-date' );					
-				href_target = cur_url;
-				tribe_nopop = false;
-				do_string = true;
-				tribe_events_calendar_ajax_post( date, href_target, tribe_nopop, do_string );
+				href_target = cur_url;				
+				tribe_events_calendar_ajax_post( date, href_target );
 			}
 		} );
 	}
@@ -173,7 +154,7 @@ jQuery( document ).ready( function ( $ ) {
 				eventDate:date
 			};	
 
-			// add any set values from event bar to params. i want to use first method but due to ie bug we are stuck with second	
+			// add any set values from event bar to params. want to use serialize but due to ie bug we are stuck with second	
 
 			$( 'form#tribe-events-bar-form :input[value!=""]' ).each( function () {
 				var $this = $( this );
