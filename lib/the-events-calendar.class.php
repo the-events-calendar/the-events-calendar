@@ -3151,6 +3151,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( !empty( $_REQUEST['tribe_paged'] ) ) {
 				$query->query_vars['paged'] = $_REQUEST['tribe_paged'];
 			}
+
+			return $query;
 		}
 
 		/* VIEWS AJAX CALLS */
