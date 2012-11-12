@@ -95,9 +95,9 @@ jQuery( document ).ready( function ( $ ) {
 			if( !tribe_popping ) {
 
 				params = {
-					action:'tribe_list',
-					paged :tribe_list_paged,
-					hash  :$( '#tribe-events-list-hash' ).val()
+					action     :'tribe_list',
+					tribe_paged:tribe_list_paged,
+					hash       :$( '#tribe-events-list-hash' ).val()
 				};
 
 				// add any set values from event bar to params. want to use serialize but due to ie bug we are stuck with second	

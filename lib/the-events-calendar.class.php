@@ -3159,12 +3159,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			TribeEventsQuery::init();
 
-			$paged = ( !empty( $_POST['paged'] ) ) ? intval( $_POST['paged'] ) : 1;
+			$tribe_paged = ( !empty( $_POST['tribe_paged'] ) ) ? intval( $_POST['tribe_paged'] ) : 1;
 
-			$args = array( 'eventDisplay' => 'list',
-			               'post_type'    => TribeEvents::POSTTYPE,
-			               'post_status'  => 'publish',
-			               'paged'        => $paged );
+			$args = array( 'eventDisplay'       => 'list',
+			               'post_type'          => TribeEvents::POSTTYPE,
+			               'post_status'        => 'publish',
+			               'tribe_paged'        => $tribe_paged );
 
 			$query = TribeEventsQuery::getEvents( $args, true );
 			$hash = $query->query_vars;
@@ -3174,17 +3174,17 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$hash_str           = md5( maybe_serialize( $hash ) );
 
 			if ( !empty( $_POST['hash'] ) && $hash_str !== $_POST['hash'] ) {
-				$paged         = 1;
+				$tribe_paged   = 1;
 				$args['paged'] = 1;
 				$query         = TribeEventsQuery::getEvents( $args, true );
 			}
 
 
-			$response = array( 'html'      => '',
-			                   'success'   => true,
-			                   'max_pages' => $query->max_num_pages,
-			                   'hash'      => $hash_str,
-			                   'tribe_paged'     => $paged );
+			$response = array( 'html'            => '',
+			                   'success'         => true,
+			                   'max_pages'       => $query->max_num_pages,
+			                   'hash'            => $hash_str,
+			                   'tribe_paged'     => $tribe_paged );
 
 
 			remove_action( 'pre_get_posts', array( $this, 'list_ajax_call_set_date' ), -10 );
