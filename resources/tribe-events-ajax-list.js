@@ -80,7 +80,8 @@ jQuery( document ).ready( function ( $ ) {
 
 			var params = {
 				action:'tribe_list',
-				paged:tribe_list_paged
+				paged :tribe_list_paged,
+				hash  :$( '#tribe-events-list-hash' ).val()
 			};
 
 			// add any set values from event bar to params
@@ -147,6 +148,10 @@ jQuery( document ).ready( function ( $ ) {
 					$( "#ajax-loading" ).hide();
 
 					if ( response.success ) {
+
+						tribe_list_paged = response.paged;
+
+						$( '#tribe-events-list-hash' ).val( response.hash );
 
 						$( '#tribe-events-list-view' ).html( response.html );
 
