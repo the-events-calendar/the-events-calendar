@@ -139,7 +139,7 @@ jQuery( document ).ready( function ( $ ) {
 
 						if ( response.success ) {
 
-							tribe_list_paged = response.paged;
+							tribe_list_paged = response.tribe_paged;
 
 							$( '#tribe-events-list-hash' ).val( response.hash );
 

@@ -3184,7 +3184,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			                   'success'   => true,
 			                   'max_pages' => $query->max_num_pages,
 			                   'hash'      => $hash_str,
-			                   'paged'     => $paged );
+			                   'tribe_paged'     => $paged );
 
 
 			remove_action( 'pre_get_posts', array( $this, 'list_ajax_call_set_date' ), -10 );
