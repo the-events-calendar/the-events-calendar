@@ -287,9 +287,21 @@ float: left;
 width: 70%;
 }
 
-.tribe-events-list .tribe-events-event-details h2, .tribe-events-list .tribe-events-event-details h3 {
-	margin: 0 0 4% 0;
+.tribe-events-list .tribe-events-event-details h2 .tribe-events-list .tribe-events-event-details h3 {
+	padding: 0;
 	line-height: 1.2;
+}
+
+.tribe-events-list .tribe-events-event-details h2 {
+	margin: 0 0 2% 0;
+	text-transform: none;
+	letter-spacing: 0;
+}
+
+.tribe-events-list .tribe-events-event-details h3 {
+	margin: 0 0 1% 0;
+	text-transform: none;
+	letter-spacing: 0;	
 }
 /* Image */
 .tribe-events-list .tribe-events-event-image {

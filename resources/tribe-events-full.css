@@ -338,13 +338,13 @@ float: left;
 width: 70%;
 }
 
-.tribe-events-list .tribe-events-event-details h2, .tribe-events-list .tribe-events-event-details h3 {
-	margin: 0 0 2% 0;
+.tribe-events-list .tribe-events-event-details h2 .tribe-events-list .tribe-events-event-details h3 {
 	padding: 0;
 	line-height: 1.2;
 }
 
 .tribe-events-list .tribe-events-event-details h2 {
+	margin: 0 0 2% 0;
 	font-size: 1.4em;
 	text-transform: none;
 	letter-spacing: 0;
