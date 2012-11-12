@@ -136,7 +136,7 @@ if ( !class_exists('TribeBetaTester') ) {
 					if ( $plugin_group != 'plugin' || is_plugin_active( $k ) || ( is_multisite() && is_plugin_active_for_network( $k ) ) ) {
 
 						$plugin_key = $plugin_group;
-						if ( !is_array($data[$plugin_key]) ) {
+						if ( isset( $data[$plugin_key] ) && !is_array( $data[$plugin_key] ) ) {
 							$data[$plugin_key] = array();
 						}
 
