@@ -1,0 +1,28 @@
+.icon32-tickets-attendees {
+	background-image : url(images/attendees-screen-icon.png) !important;
+}
+
+.tickets_checked td {
+	opacity         : 0.7;
+	text-decoration : line-through;
+}
+
+.tickets_checked a.tickets_checkin {
+	display : none;
+}
+
+.tickets_checked td.column-check_in{
+	text-decoration: none !important;
+}
+
+a.tickets_uncheckin {
+	display : none;
+}
+
+.tickets_checked a.tickets_uncheckin {
+	display : block;
+}
+
+.column-attendee_id, .column-order_id {
+	width : 60px;
+}

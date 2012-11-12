@@ -26,7 +26,9 @@ if ( !class_exists( 'Tribe_Events_Pro_List_View_Template' ) ) {
 		}
 
 		public static function before_template() {
-			$html = '<div id="tribe-events-list-view">';
+			$html = '<input type="hidden" id="tribe-events-list-hash" value="">';
+
+			$html .= '<div id="tribe-events-list-view">';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_list_view_before_template' );
 		}
 
@@ -49,7 +51,7 @@ if ( !class_exists( 'Tribe_Events_Pro_List_View_Template' ) ) {
 			if ( $wp_query->query_vars['paged'] > 1 ) {
 				$html .= '<a href="#" id="tribe_paged_prev" class="tribe_paged">' . __( '<< Previous Events' ) . '</a>';
 			}
-			if ( $wp_query->max_num_pages > $wp_query->query_vars['paged'] ) {
+			if ( $wp_query->max_num_pages > ( $wp_query->query_vars['paged'] + 1 ) ) {
 				$html .= '<a href="#" id="tribe_paged_next" class="tribe_paged">' . __( 'Next Events >>' ) . '</a>';
 			}
 			return $html;
