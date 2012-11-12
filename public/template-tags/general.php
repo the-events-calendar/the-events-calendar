@@ -495,7 +495,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_events_event_schedule_details( $post_id = null ) {
 		if ( is_null( $post_id ) )
 			$post_id = get_the_ID();
-	
+
 		$format = '';
 		/* If the event happens this year, no need to show the year, unless it ends on another year (multi-day) */
 		if ( tribe_get_start_date( $post_id, false, 'Y' ) === date( 'Y' ) && tribe_get_end_date( $post_id, false, 'Y' ) === date( 'Y' ) ) {
