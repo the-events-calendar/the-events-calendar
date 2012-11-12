@@ -43,13 +43,12 @@ jQuery( document ).ready( function ( $ ) {
 
 			// this really is popstate: fire the ajax, send the stored params from the browser, don't overwrite the history
 
-			if( event.state ) {					
-				date = event.state.date;
+			if( event.state ) {			
 				tribe_do_string = false;
 				tribe_pushstate = false;	
 				tribe_popping = true;
 				params = event.state.params;
-				tribe_events_calendar_ajax_post( date, '', tribe_pushstate, tribe_do_string, tribe_popping, params );
+				tribe_events_calendar_ajax_post( '', '', tribe_pushstate, tribe_do_string, tribe_popping, params );
 			}
 		} );
 	}
