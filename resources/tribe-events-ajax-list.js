@@ -90,9 +90,11 @@ jQuery( document ).ready( function ( $ ) {
 
 			$( '.ajax-loading' ).show();
 			
+			
+			
 			if( !tribe_popping ) {
 
-				var params = {
+				params = {
 					action:'tribe_list',
 					paged :tribe_list_paged,
 					hash  :$( '#tribe-events-list-hash' ).val()
@@ -124,8 +126,7 @@ jQuery( document ).ready( function ( $ ) {
 				if ( counter > 0 || filter_params.length ) {
 					tribe_pushstate = false;
 					tribe_do_string = true;				
-				}
-			
+				}			
 			}
 			
 			if( hasPushstate ) {
@@ -159,20 +160,14 @@ jQuery( document ).ready( function ( $ ) {
 								href_target = href_target + '?' + params;								
 								history.pushState({									
 									"params": params
-								}, page_title, href_target);															
+								}, '', href_target);															
 							}						
 
 							if( tribe_pushstate ) {																
 								history.pushState({									
 									"params": params
-								}, page_title, href_target);
-							}
-
-							if ( tribe_pushstate ) {
-								history.pushState( {
-									"page":tribe_list_paged
-								}, '', href_target );
-							}
+								}, '', href_target);
+							}							
 						}
 					}
 				);
@@ -181,6 +176,8 @@ jQuery( document ).ready( function ( $ ) {
 				if( tribe_do_string ) {
 					href_target = href_target + '?' + params;													
 				}
+				
+				alert(href_target);
 
 				window.location = href_target;			
 			}
