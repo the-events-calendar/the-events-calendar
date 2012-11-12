@@ -141,18 +141,18 @@ class TribeEventsGeoLoc {
 	public function setup_geoloc_filter_in_bar( $filters ) {
 
 		$value = "";
-		if ( !empty( $_POST['tribe-bar-geoloc'] ) ) {
-			$value = $_POST['tribe-bar-geoloc'];
+		if ( !empty( $_REQUEST['tribe-bar-geoloc'] ) ) {
+			$value = $_REQUEST['tribe-bar-geoloc'];
 		}
 
 		$lat = "";
-		if ( !empty( $_POST['tribe-bar-geoloc-lat'] ) ) {
-			$lat = $_POST['tribe-bar-geoloc-lat'];
+		if ( !empty( $_REQUEST['tribe-bar-geoloc-lat'] ) ) {
+			$lat = $_REQUEST['tribe-bar-geoloc-lat'];
 		}
 
 		$lng = "";
-		if ( !empty( $_POST['tribe-bar-geoloc-lng'] ) ) {
-			$lng = $_POST['tribe-bar-geoloc-lng'];
+		if ( !empty( $_REQUEST['tribe-bar-geoloc-lng'] ) ) {
+			$lng = $_REQUEST['tribe-bar-geoloc-lng'];
 		}
 
 		$filters[] = array( 'name'    => 'tribe-bar-geoloc',
@@ -163,14 +163,14 @@ class TribeEventsGeoLoc {
 	}
 
 	public function is_geoloc_query() {
-		return ( !empty( $_POST['tribe-bar-geoloc-lat'] ) && !empty( $_POST['tribe-bar-geoloc-lng'] ) );
+		return ( !empty( $_REQUEST['tribe-bar-geoloc-lat'] ) && !empty( $_REQUEST['tribe-bar-geoloc-lng'] ) );
 	}
 
 	public function setup_geoloc_in_query( $query ) {
 
-		if ( !empty( $_POST['tribe-bar-geoloc-lat'] ) && !empty( $_POST['tribe-bar-geoloc-lng'] ) ) {
+		if ( !empty( $_REQUEST['tribe-bar-geoloc-lat'] ) && !empty( $_REQUEST['tribe-bar-geoloc-lng'] ) ) {
 
-			$venues = $this->get_venues_in_geofence( $_POST['tribe-bar-geoloc-lat'], $_POST['tribe-bar-geoloc-lng'] );
+			$venues = $this->get_venues_in_geofence( $_REQUEST['tribe-bar-geoloc-lat'], $_REQUEST['tribe-bar-geoloc-lng'] );
 
 			if ( empty( $venues ) ) {
 				$venues = -1;
