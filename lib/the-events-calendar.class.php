@@ -1019,7 +1019,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				'add_new_item' => __('Add New Organizer', 'tribe-events-calendar'),
 				'edit_item' => __('Edit Organizer', 'tribe-events-calendar'),
 				'new_item' => __('New Organizer', 'tribe-events-calendar'),
-				'view_item' => __('View Venue', 'tribe-events-calendar'),
+				'view_item' => __('View Organizer', 'tribe-events-calendar'),
 				'search_items' => __('Search Organizers', 'tribe-events-calendar'),
 				'not_found' => __('No organizer found', 'tribe-events-calendar'),
 				'not_found_in_trash' => __('No organizers found in Trash', 'tribe-events-calendar')
