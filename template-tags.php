@@ -8,7 +8,15 @@
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-if( class_exists( 'TribeEventsPro' ) ) {	
+if( class_exists( 'TribeEventsPro' ) ) {
+
+	if ( !function_exists( 'tribe_get_mapview_link' ) ) {
+		function tribe_get_mapview_link() {
+			$tec = TribeEvents::instance();
+			$geo = TribeEventsGeoLoc::instance();
+			return get_home_url( get_current_blog_id(), $tec->getOption( 'eventsSlug', 'events' ) . '/' . $geo->rewrite_slug );
+		}
+	}
 
 	/**
 	 * Event Recurrence

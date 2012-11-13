@@ -19,7 +19,7 @@ class TribeEventsGeoLoc {
 	const EARTH_RADIO          = 6371; // IN KMS.
 
 	protected static $options;
-	protected $rewrite_slug;
+	public $rewrite_slug;
 
 	private $selected_geofence;
 
@@ -128,13 +128,8 @@ class TribeEventsGeoLoc {
 		return $args;
 	}
 
-
 	public function setup_view_for_bar( $views ) {
-		$tec     = TribeEvents::instance();
-		$views[] = array( 'displaying' => 'map',
-		                  'anchor'     => 'Map',
-		                  'url'        => get_home_url( get_current_blog_id(), $tec->getOption( 'eventsSlug', 'events' ) . '/' . $this->rewrite_slug ) );
-
+		$views[] = array( 'displaying' => 'map', 'anchor'=> 'Map', 'url' => tribe_get_mapview_link() );
 		return $views;
 	}
 

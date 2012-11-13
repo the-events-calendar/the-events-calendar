@@ -1,7 +1,7 @@
 		<tr class="recurrence-row">
 			<td><?php _e('Recurrence:','tribe-events-calendar-pro'); ?></td>
 			<td>
-				<input type="hidden" name="is_recurring" value="<?php echo $recType && $recType != "None" ? "true" : "false" ?>" />
+				<input type="hidden" name="is_recurring" value="<?php echo (isset($recType) && $recType != "None") ? "true" : "false" ?>" />
 				<input type="hidden" name="recurrence_action" value="" />
 				<select name="recurrence[type]">
 					<option data-plural="" value="None" <?php selected($recType, "None") ?>><?php _e('Never','tribe-events-calendar-pro'); ?></option>

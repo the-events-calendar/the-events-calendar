@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-11 14:03-0500\n"
-"PO-Revision-Date: 2012-09-11 14:03-0500\n"
+"POT-Creation-Date: 2012-11-08 16:33-0500\n"
+"PO-Revision-Date: 2012-11-08 16:40-0500\n"
 "Last-Translator: Paul Hughes <paul@paulalexanderhughes.com>\n"
 "Language-Team: Modern Tribe, Inc.\n"
 "Language: en_US\n"
@@ -16,6 +16,7 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ./\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../events-calendar-pro.php:197
@@ -26,55 +27,55 @@ msgstr ""
 msgid "Organizers"
 msgstr ""
 
-#: ../events-calendar-pro.php:216
+#: ../events-calendar-pro.php:222
 msgid "Use Saved Venue:"
 msgstr ""
 
-#: ../events-calendar-pro.php:237
+#: ../events-calendar-pro.php:249
 msgid "Use Saved Organizer:"
 msgstr ""
 
-#: ../events-calendar-pro.php:271
+#: ../events-calendar-pro.php:283
 msgid "Use New Venue"
 msgstr ""
 
-#: ../events-calendar-pro.php:273
+#: ../events-calendar-pro.php:285
 msgid "My Venues"
 msgstr ""
 
-#: ../events-calendar-pro.php:278
+#: ../events-calendar-pro.php:290
 msgid "Available Venues"
 msgstr ""
 
-#: ../events-calendar-pro.php:289 ../admin-views/tribe-options-defaults.php:70
+#: ../events-calendar-pro.php:301 ../admin-views/tribe-options-defaults.php:70
 msgid "No saved venues yet."
 msgstr ""
 
-#: ../events-calendar-pro.php:321
+#: ../events-calendar-pro.php:333
 msgid "Use New Organizer"
 msgstr ""
 
-#: ../events-calendar-pro.php:323
+#: ../events-calendar-pro.php:335
 msgid "My Organizers"
 msgstr ""
 
-#: ../events-calendar-pro.php:328
+#: ../events-calendar-pro.php:340
 msgid "Available Organizers"
 msgstr ""
 
-#: ../events-calendar-pro.php:339 ../admin-views/tribe-options-defaults.php:57
+#: ../events-calendar-pro.php:351 ../admin-views/tribe-options-defaults.php:57
 msgid "No saved organizers yet."
 msgstr ""
 
-#: ../events-calendar-pro.php:352
+#: ../events-calendar-pro.php:364
 msgid "Defaults"
 msgstr ""
 
-#: ../events-calendar-pro.php:354 ../admin-views/event-meta-options.php:2
+#: ../events-calendar-pro.php:366 ../admin-views/event-meta-options.php:2
 msgid "Additional Fields"
 msgstr ""
 
-#: ../events-calendar-pro.php:360
+#: ../events-calendar-pro.php:372
 #, php-format
 msgid ""
 "If this is your first time using The Events Calendar, you're in for a treat. "
@@ -86,7 +87,7 @@ msgid ""
 "calendar-pro-new-user-primer/"
 msgstr ""
 
-#: ../events-calendar-pro.php:361
+#: ../events-calendar-pro.php:373
 #, php-format
 msgid ""
 "%sOh, wondering what to do with your license key and whether you need it "
@@ -94,15 +95,15 @@ msgid ""
 "answer. %s, if you don't have it handy.%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:361
+#: ../events-calendar-pro.php:373
 msgid "our blog post"
 msgstr ""
 
-#: ../events-calendar-pro.php:361
+#: ../events-calendar-pro.php:373
 msgid "Here's how you find your license key"
 msgstr ""
 
-#: ../events-calendar-pro.php:368
+#: ../events-calendar-pro.php:380
 #, php-format
 msgid ""
 "%sOne of the advantages of being a PRO user is that you have access to our "
@@ -111,12 +112,12 @@ msgid ""
 "dev team in to address directly.%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:369
+#: ../events-calendar-pro.php:381
 #, php-format
 msgid "%sSome things to consider before posting on the forum:%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:370
+#: ../events-calendar-pro.php:382
 #, php-format
 msgid ""
 "%sLook through existing threads before posting a new one and check that "
@@ -125,7 +126,7 @@ msgid ""
 "indeed already is present.%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:371
+#: ../events-calendar-pro.php:383
 #, php-format
 msgid ""
 "%sA good way to help us out before posting is to check whether the issue is "
@@ -135,7 +136,7 @@ msgid ""
 "easily identified. If so, please note that when posting your thread.%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:372
+#: ../events-calendar-pro.php:384
 #, php-format
 msgid ""
 "%sSometimes, just resaving your permalinks (under Settings -> Permalinks) "
@@ -143,7 +144,7 @@ msgid ""
 "creating a new thread.%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:373
+#: ../events-calendar-pro.php:385
 #, php-format
 msgid ""
 "%sWhile we won't build your site for you and can't guarantee The Events "
@@ -153,32 +154,32 @@ msgid ""
 "the community can see what you've been working on.%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:373
+#: ../events-calendar-pro.php:385
 msgid "Showcase thread"
 msgstr ""
 
-#: ../events-calendar-pro.php:550
+#: ../events-calendar-pro.php:562
 msgid "Settings"
 msgstr ""
 
-#: ../events-calendar-pro.php:595
+#: ../events-calendar-pro.php:607
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar PRO%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:604
+#: ../events-calendar-pro.php:616
 msgid "Support"
 msgstr ""
 
-#: ../events-calendar-pro.php:606
+#: ../events-calendar-pro.php:618
 msgid "View All Add-Ons"
 msgstr ""
 
-#: ../events-calendar-pro.php:646
+#: ../events-calendar-pro.php:658
 msgid "The Events Calendar"
 msgstr ""
 
-#: ../events-calendar-pro.php:647
+#: ../events-calendar-pro.php:659
 #, php-format
 msgid ""
 "To begin using Events Calendar PRO, please install the latest version of <a "
@@ -443,60 +444,42 @@ msgid "dropdown menu - for a dropdown menu"
 msgstr ""
 
 #: ../admin-views/event-meta-options.php:31
-msgid "Editor \"Custom Fields\" meta box"
-msgstr ""
-
-#: ../admin-views/event-meta-options.php:33
-msgid "Show"
-msgstr ""
-
-#: ../admin-views/event-meta-options.php:34
-msgid "Hide"
-msgstr ""
-
-#: ../admin-views/event-meta-options.php:35
-msgid ""
-"Enabling this option this will not remove custom field data or "
-"functionality, just the default meta box editor."
-msgstr ""
-
-#: ../admin-views/event-meta-options.php:39
 msgid "Field Label"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:39
+#: ../admin-views/event-meta-options.php:31
 msgid "Field Type"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:39
+#: ../admin-views/event-meta-options.php:31
 msgid "Options (one per line)"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:47
+#: ../admin-views/event-meta-options.php:39
 msgid "Text"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:48
+#: ../admin-views/event-meta-options.php:40
 msgid "Radio"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:49
+#: ../admin-views/event-meta-options.php:41
 msgid "Checkbox"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:50
+#: ../admin-views/event-meta-options.php:42
 msgid "Dropdown"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:56
+#: ../admin-views/event-meta-options.php:48
 msgid "Add another"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:58
+#: ../admin-views/event-meta-options.php:50
 msgid "Remove"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:66
+#: ../admin-views/event-meta-options.php:58
 #, php-format
 msgid ""
 "Enter the field label as you want it to appear (this will be the label in "
@@ -508,11 +491,29 @@ msgid ""
 "with a %s."
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:66
+#: ../admin-views/event-meta-options.php:58
 msgid "video tutorial that will walk you through the process"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:74
+#: ../admin-views/event-meta-options.php:60
+msgid "Editor \"Custom Fields\" meta box"
+msgstr ""
+
+#: ../admin-views/event-meta-options.php:62
+msgid "Show"
+msgstr ""
+
+#: ../admin-views/event-meta-options.php:63
+msgid "Hide"
+msgstr ""
+
+#: ../admin-views/event-meta-options.php:64
+msgid ""
+"Enabling this option this will not remove custom field data or "
+"functionality, just the default meta box editor."
+msgstr ""
+
+#: ../admin-views/event-meta-options.php:73
 msgid ""
 "Are you sure you wish to remove this field and its data from all events? "
 "Once you click OK this cannot be undone."
@@ -1230,47 +1231,47 @@ msgstr ""
 msgid "A valid license key is required for support and updates."
 msgstr ""
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:174
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:177
 #, php-format
 msgid "License Key for %s"
 msgstr ""
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:175
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:178
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:238
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:241
 msgid "License key(s) updated."
 msgstr ""
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:275
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:278
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:277
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:280
 msgid "Sorry, this key is expired."
 msgstr ""
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:279
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:282
 msgid "Sorry, this key is out of installs."
 msgstr ""
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:281
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:284
 msgid "Sorry, this key is not valid."
 msgstr ""
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:284
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:287
 #, php-format
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:288
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:291
 msgid ""
 "Hmmm... something's wrong with this validator. Please contact <a href="
 "\"http://tri.be/support\">support.</a>"
 msgstr ""
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:316
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:319
 msgid "[X]"
 msgstr ""
 
@@ -1302,12 +1303,12 @@ msgstr ""
 msgid "Send a support request for this site."
 msgstr ""
 
-#: ../views/events-advanced-list-load-widget-display.php:53
+#: ../views/events-advanced-list-load-widget-display.php:57
 #: ../views/widget-featured-display.php:48
 msgid "All Day"
 msgstr ""
 
-#: ../views/events-advanced-list-load-widget-display.php:106
+#: ../views/events-advanced-list-load-widget-display.php:110
 msgid "Price:"
 msgstr ""
 
@@ -1339,18 +1340,18 @@ msgstr ""
 msgid "Description:"
 msgstr ""
 
-#: ../views/single-venue.php:66
+#: ../views/single-venue.php:67
 msgid "Start:"
 msgstr ""
 
-#: ../views/single-venue.php:70
+#: ../views/single-venue.php:71
 msgid "End:"
 msgstr ""
 
-#: ../views/single-venue.php:75
+#: ../views/single-venue.php:76
 msgid "Date:"
 msgstr ""
 
-#: ../views/single-venue.php:84
+#: ../views/single-venue.php:85
 msgid "Cost:"
 msgstr ""
