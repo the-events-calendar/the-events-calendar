@@ -62,6 +62,48 @@ if( class_exists( 'Tribe_Meta_Factory' ) ) {
 			// Event categories 
 			return apply_filters('tribe_event_meta_event_category', tribe_get_event_categories( $post_id, $args ));
 		}
+
+		function event_venue(){
+			$html = null;
+			$gmap = null;
+			$location = null;
+			$venue = null;
+			$post_id = get_the_ID();
+
+			// Get venue or location
+			if( tribe_get_venue() || tribe_address_exists( $post_id ) ) { 
+
+				// Get the venue
+				if ( tribe_get_venue() ) {
+					$venue_name = tribe_get_venue( $post_id );
+					$venue = class_exists( 'TribeEventsPro' ) ? sprintf('<a href="%s">%s</a>',
+						tribe_get_venue_link( $post_id, false ),
+						$venue_name
+						) : $venue_name;
+				}
+
+				// if venue is provided make sure we add the separator
+				$sep = !empty($venue) ? ', ' : '';
+
+				// Get the event address
+				if ( tribe_address_exists( $post_id ) ) {
+					$gmap = ( get_post_meta( $post_id, '_EventShowMapLink', true ) == 'true' ) ? '<a class="tribe-events-gmap" href="' . tribe_get_map_link() . '" title="' . __('Click to view this event\'s Google Map', 'tribe-events-calendar') . '" target="_blank">'. __( 'Google Map', 'tribe-events-calendar' ) . '</a>' : '';
+					$location = sprintf('%s%s <address class="event-address">%s</address>', 
+						$sep,
+						$gmap,
+						tribe_get_full_address( $post_id ) 
+						);
+				}
+
+				$html = sprintf( '<h3 class="vcard fn org">%s%s</h3>',
+					$venue,
+					$location
+					);
+												
+			}
+
+			return apply_filters('tribe_event_meta_event_category', $html, $post_id, $venue, $gmap, $location );
+		}
 	}
 
 	tribe_register_meta_group( 'tribe_event_details', array(
@@ -108,7 +150,7 @@ if( class_exists( 'Tribe_Meta_Factory' ) ) {
 		));
 
 	tribe_register_meta( 'tribe_list_venue_name_address',array(
-		'filter_callback' => array('Tribe_Register_Meta', 'event_category')
+		'filter_callback' => array('Tribe_Register_Meta', 'event_venue')
 		));
 	tribe_register_meta( 'tribe_event_distance',array(
 		'filter_callback' => array('Tribe_Register_Meta', 'event_category'),
