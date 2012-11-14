@@ -497,17 +497,17 @@ if( class_exists( 'TribeEvents' ) ) {
 			$post_id = get_the_ID();
 
 		$format = '';
-		/* If the event happens this year, no need to show the year */
-		if ( tribe_get_start_date( $post_id, false, 'Y' ) == date( 'Y' ) ) {
+		/* If the event happens this year, no need to show the year, unless it ends on another year (multi-day) */
+		if ( tribe_get_start_date( $post_id, false, 'Y' ) === date( 'Y' ) && tribe_get_end_date( $post_id, false, 'Y' ) === date( 'Y' ) ) {
 			$format = 'F j';
 		}
-
 
 		$schedule = '<div class="tribe-events-event-schedule-details">';
 		if ( tribe_is_multiday( $post_id ) ) { // multi-date event
 
 			$format2ndday = $format;
-			if ( tribe_get_all_day( $post_id ) ) {
+			//If it's all day and the end date is in the same month, just show the day.
+			if ( tribe_get_all_day( $post_id ) && tribe_get_end_date( $post_id, false, 'm' ) === tribe_get_start_date( $post_id, false, 'm' ) ) {
 				$format2ndday = 'j';
 			}
 			$schedule .= '<span class="date-start">' . tribe_get_start_date($post_id, true, $format) . '</span> - <span class="date-end">' . tribe_get_end_date($post_id, true, $format2ndday) . '</span>';
