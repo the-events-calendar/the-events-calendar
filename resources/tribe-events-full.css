@@ -248,17 +248,12 @@ a.tribe-events-gcal {
 
 /* General Template Headers */
 h2.tribe-events-page-title {
-	padding-left: 20px;
-	margin-bottom: 0;
+	margin-bottom: 2.5%;
 	font-size: 21px;
 	font-weight: bold;
 	color: #000;
 	position: relative;
 	z-index: 0;
-}
-
-.events-list h2.tribe-events-page-title {
-	padding-left: 0;
 }
 
 /* don't float on filter view */
