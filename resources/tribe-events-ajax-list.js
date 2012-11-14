@@ -18,8 +18,10 @@ jQuery( document ).ready( function ( $ ) {
 	var daypicker_date = '';	
 	var counter = 0;
 	var params = '';
+	var url_params = '';
 	var event_bar_params = '';	
 	var filter_params = '';
+	var hash_string = '';
 
 	if( hasPushstate ) {
 
@@ -43,7 +45,8 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_pushstate = false;	
 				tribe_popping = true;
 				params = event.state.params;
-				tribe_events_list_ajax_post( '', tribe_pushstate, tribe_do_string, tribe_popping, params );				
+				url_params = event.state.url_params;
+				tribe_events_list_ajax_post( '', tribe_pushstate, tribe_do_string, tribe_popping, params, url_params );				
 			}
 		} );
 		
@@ -94,31 +97,42 @@ jQuery( document ).ready( function ( $ ) {
 		} );
 
 
-		function tribe_events_list_ajax_post( href_target, tribe_pushstate, tribe_do_string, tribe_popping, params ) {
+		function tribe_events_list_ajax_post( href_target, tribe_pushstate, tribe_do_string, tribe_popping, params, url_params ) {
 
 			$( '.ajax-loading' ).show();
 			
 			
 			
 			if( !tribe_popping ) {
+				
+				hash_string = $( '#tribe-events-list-hash' ).val();
 
 				params = {
 					action     :'tribe_list',
-					tribe_paged:tribe_list_paged,
-					hash       :$( '#tribe-events-list-hash' ).val()
+					tribe_paged:tribe_list_paged					
 				};
-
-				// add any set values from event bar to params. want to use serialize but due to ie bug we are stuck with second	
+				
+				url_params = {
+					action     :'tribe_list',
+					tribe_paged:tribe_list_paged					
+				};							
+				
+				if( hash_string.length ) {
+					params['hash'] = hash_string;
+				}				
+				
+				// add any set values from event bar to params. want to use serialize but due to ie bug we are stuck with second
 
 				$( 'form#tribe-events-bar-form :input[value!=""]' ).each( function () {
 					var $this = $( this );
 					if( $this.val().length && $this.attr('name') != 'submit-bar' ) {
 						params[$this.attr('name')] = $this.val();
-						counter++;
+						url_params[$this.attr('name')] = $this.val();						
 					}			
 				} );
-
+				
 				params = $.param(params);
+				url_params = $.param(url_params);
 
 				// check if advanced filters plugin is active
 
@@ -129,8 +143,9 @@ jQuery( document ).ready( function ( $ ) {
 					filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();
 					if( filter_params.length ) {
 						params = params + '&' + filter_params;
+						url_params = url_params + '&' + filter_params;
 					}					
-				} 
+				} 			
 				
 				tribe_pushstate = false;
 				tribe_do_string = true;				
@@ -165,15 +180,17 @@ jQuery( document ).ready( function ( $ ) {
 							}
 							
 							if( tribe_do_string ) {
-								href_target = href_target + '?' + params;								
+								href_target = href_target + '?' + url_params;								
 								history.pushState({									
-									"params": params
+									"params": params,
+									"url_params": url_params
 								}, '', href_target);															
 							}						
 
 							if( tribe_pushstate ) {																
 								history.pushState({									
-									"params": params
+									"params": params,
+									"url_params": url_params
 								}, '', href_target);
 							}							
 						}
@@ -182,7 +199,7 @@ jQuery( document ).ready( function ( $ ) {
 			} else {
 			
 				if( tribe_do_string ) {
-					href_target = href_target + '?' + params;													
+					href_target = href_target + '?' + url_params;													
 				}
 				window.location = href_target;			
 			}
