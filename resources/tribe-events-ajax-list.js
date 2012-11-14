@@ -126,15 +126,15 @@ jQuery( document ).ready( function ( $ ) {
 
 					// serialize any set values and add to params
 
-					filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();				
-					params = params + '&' + filter_params;
+					filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();
+					if( filter_params.length ) {
+						params = params + '&' + filter_params;
+					}					
 				} 
-
-
-				if ( counter > 0 || filter_params.length ) {
-					tribe_pushstate = false;
-					tribe_do_string = true;				
-				}			
+				
+				tribe_pushstate = false;
+				tribe_do_string = true;				
+							
 			}
 			
 			if( hasPushstate ) {
@@ -184,9 +184,6 @@ jQuery( document ).ready( function ( $ ) {
 				if( tribe_do_string ) {
 					href_target = href_target + '?' + params;													
 				}
-				
-				alert(href_target);
-
 				window.location = href_target;			
 			}
 		} 

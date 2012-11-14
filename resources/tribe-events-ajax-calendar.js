@@ -172,7 +172,9 @@ jQuery( document ).ready( function ( $ ) {
 				// serialize any set values and add to params
 
 				filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();				
-				params = params + '&' + filter_params;
+				if( filter_params.length ) {
+					params = params + '&' + filter_params;
+				}
 			} 
 
 
