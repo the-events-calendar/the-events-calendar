@@ -28,7 +28,7 @@ class TribeEventsGeoLoc {
 		$this->rewrite_slug = $this->getOption( 'geoloc_rewrite_slug', 'map' );
 
 		add_filter( 'generate_rewrite_rules', array( $this, 'add_routes' ) );
-		add_filter( 'template_include', array( $this, 'load_template' ) );
+		add_filter( 'tribe_current_events_page_template', array( $this, 'load_template' ) );
 
 		add_action( 'tribe_events_venue_updated', array( $this, 'save_venue_geodata' ), 10, 2 );
 		add_action( 'tribe_events_venue_created', array( $this, 'save_venue_geodata' ), 10, 2 );
@@ -208,12 +208,11 @@ class TribeEventsGeoLoc {
 		if ( !empty( $wp_query->query_vars['eventDisplay'] ) && $wp_query->query_vars['eventDisplay'] === 'map' ) {
 
 			add_filter( 'tribe-events-bar-should-show', '__return_true' );
-			add_action( 'tribe_current_events_page_template', array( $this, 'setup_geoloc_template' ), 1 );
+			//add_action( 'tribe_current_events_page_template', array( $this, 'setup_geoloc_template' ), 1 );
 			add_action( 'tribe_get_events_title', array( $this, 'setup_geoloc_title' ), 1 );
 
-			$template = locate_template( tribe_get_option( 'tribeEventsTemplate', 'default' ) == 'default' ? 'page.php' : tribe_get_option( 'tribeEventsTemplate', 'default' ) );
-			if ( $template == '' )
-				$template = get_index_template();
+			$pro      = TribeEventsPro::instance();
+			$template = TribeEventsTemplates::getTemplateHierarchy( 'map', '', 'pro', $pro->pluginPath );
 
 		}
 
