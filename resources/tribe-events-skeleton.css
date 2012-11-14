@@ -283,11 +283,17 @@ select.tribe-events-dropdown {
 
 .tribe-events-list .vevent.hentry {
 	border-bottom: 1px solid #ddd;
-	padding: 2.25em 0;
+	padding: 0 0 2.25em 0;
+	margin: 0 0 2.25em 0;
 	overflow: auto;
-	margin: 0;
 }
 
+
+.tribe-events-list .vevent.hentry.tribe-last {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
 .tribe-events-list .tribe-events-event-details .tribe-events-event-cost + .entry-title, .events-archive .tribe-events-list .tribe-events-event-details .tribe-events-event-cost + .entry-title {
 float: left;
 width: 70%;
@@ -300,6 +306,7 @@ width: 70%;
 
 .tribe-events-list .tribe-events-event-details h2 {
 	margin: 0 0 2% 0;
+	padding: 0;
 	text-transform: none;
 	letter-spacing: 0;
 }
