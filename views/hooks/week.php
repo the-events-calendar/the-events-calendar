@@ -57,6 +57,9 @@ if( !class_exists('Tribe_Events_Week_Template')){
 	class Tribe_Events_Week_Template extends Tribe_Template_Factory {
 
 		public static function init(){
+			// enqueue needed styles
+			wp_enqueue_script('tribe-events-pro-week', trailingslashit( TribeEventsPro::instance()->pluginUrl ) . 'resources/tribe-events-week.js', array('jquery'), false, false);
+
 			// Start list template
 			add_filter( 'tribe_events_week_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 
