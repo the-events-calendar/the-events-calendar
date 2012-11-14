@@ -822,7 +822,6 @@ vertical-align: middle;
 /* Bar Filters */
 #tribe-events-bar-filters {
 	float: left;
-	/*width: 58%;*/
 	width: 75%;
 	padding-right: 1%;
 }
@@ -913,7 +912,6 @@ input:-moz-placeholder {
 /* Bar Views */
 #tribe-events-bar-views {
 	float: left;
-	/*width: 42%;*/
 	width: 24%;
 }
 #tribe-events-bar-views ul.tribe-events-bar-view-list {
@@ -929,9 +927,18 @@ input:-moz-placeholder {
 	zoom: 1;
 	*display: inline;
 }
+
+/* Tweak our event bar buttons */
+#tribe-events-bar-filters .tribe-bar-submit input.tribe-events-button-grey,
 #tribe-events-bar-views .tribe-events-bar-view-list li a.tribe-events-button-grey:hover {
+	background: none;
 	background-color: #666;
 	color: #fff;
+	border: 0;
+}
+#tribe-events-bar-filters .tribe-bar-submit input.tribe-events-button-grey:hover {
+	background-color: #ddd;
+	color:#444;
 }
 
 /* Chosen Style Tweaks */
@@ -970,7 +977,6 @@ input:-moz-placeholder {
 /* Swap out our view nav to be a select input & make some other real estate adjustments */
 @media screen and (max-width: 845px) {
 	#tribe-events-bar-filters {
-		/*width: 70%;*/
 		width: 69%;
 	}
 	#tribe-events-bar-views {
@@ -1051,7 +1057,6 @@ input:-moz-placeholder {
 		padding-right: 108px;
 	}
 	#tribe-events-bar-filters {
-		/*width: 75%;*/
 		width: 100%;
 		padding-right: 0;
 	}
