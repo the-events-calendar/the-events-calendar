@@ -101,7 +101,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			$class_string = $tribe_classes_default .' '. $tribe_classes_venue .' '. $tribe_classes_organizer .' '. $tribe_classes_categories;
 			
 			// added first class for css
-			if( self::$loop_increment == 0 ){
+			if( ( self::$loop_increment == 0 ) && ( self::$loop_increment != count($wp_query->posts)-1 ) && !tribe_is_day() ){
 				$class_string .= ' tribe-first';
 			}
 			
