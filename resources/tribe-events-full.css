@@ -179,7 +179,6 @@ a.tribe-events-gcal {
 	padding: 0;
 }
 
-
 /* Remove "Edit" Link from unneeded templates */
 .events-archive span.edit-link {
 	display: none;
@@ -334,9 +333,15 @@ select.tribe-events-dropdown {
 
 .tribe-events-list .vevent.hentry {
 	border-bottom: 1px solid #ddd;
-	padding: 2.25em 0;
+	padding: 0 0 2.25em 0;
+	margin: 0 0 2.25em 0;
 	overflow: auto;
+}
+
+.tribe-events-list .vevent.hentry.tribe-last {
+	padding: 0;
 	margin: 0;
+	border: none;
 }
 
 .tribe-events-list .tribe-events-event-details .tribe-events-event-cost + .entry-title, .events-archive .tribe-events-list .tribe-events-event-details .tribe-events-event-cost + .entry-title {
@@ -351,6 +356,7 @@ width: 70%;
 
 .tribe-events-list .tribe-events-event-details h2 {
 	margin: 0 0 2% 0;
+	padding: 0;
 	font-size: 1.4em;
 	text-transform: none;
 	letter-spacing: 0;
@@ -908,7 +914,6 @@ h3.tribe-event-single-section-title {
 /* Bar Filters */
 #tribe-events-bar-filters {
 	float: left;
-	/*width: 58%;*/
 	width: 75%;
 	padding-right: 1%;
 }
@@ -999,7 +1004,6 @@ input:-moz-placeholder {
 /* Bar Views */
 #tribe-events-bar-views {
 	float: left;
-	/*width: 42%;*/
 	width: 24%;
 }
 #tribe-events-bar-views ul.tribe-events-bar-view-list {
@@ -1015,9 +1019,18 @@ input:-moz-placeholder {
 	zoom: 1;
 	*display: inline;
 }
+
+/* Tweak our event bar buttons */
+#tribe-events-bar-filters .tribe-bar-submit input.tribe-events-button-grey,
 #tribe-events-bar-views .tribe-events-bar-view-list li a.tribe-events-button-grey:hover {
+	background: none;
 	background-color: #666;
 	color: #fff;
+	border: 0;
+}
+#tribe-events-bar-filters .tribe-bar-submit input.tribe-events-button-grey:hover {
+	background-color: #ddd;
+	color:#444;
 }
 
 /* Chosen Style Tweaks */
@@ -1056,7 +1069,6 @@ input:-moz-placeholder {
 /* Swap out our view nav to be a select input & make some other real estate adjustments */
 @media screen and (max-width: 845px) {
 	#tribe-events-bar-filters {
-		/*width: 70%;*/
 		width: 69%;
 	}
 	#tribe-events-bar-views {
@@ -1137,12 +1149,10 @@ input:-moz-placeholder {
 		padding-right: 108px;
 	}
 	#tribe-events-bar-filters {
-		/*width: 75%;*/
 		width: 100%;
 		padding-right: 0;
 	}
 	#tribe-events-bar-views {
-		/*width: 23%;*/
 		width: 108px;
 		margin-left: -108px;
 	}
