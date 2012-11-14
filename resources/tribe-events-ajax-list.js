@@ -2,6 +2,10 @@ var tribe_list_paged = 1;
 
 jQuery( document ).ready( function ( $ ) {
 	
+	function tribe_get_url_param(name) {
+		return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+	}
+	
 	function tribe_get_path( url ) {
 		return url.split("?")[0];
 	}
@@ -11,6 +15,7 @@ jQuery( document ).ready( function ( $ ) {
 	var hasPushstate = window.history && window.history.pushState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);	
 	
 	var cur_url = tribe_get_path( $( location ).attr( 'href' ) );
+	var is_paged = tribe_get_url_param('tribe_paged');
 	var tribe_do_string = false;
 	var tribe_pushstate = true;	
 	var tribe_popping = false;	
@@ -21,7 +26,11 @@ jQuery( document ).ready( function ( $ ) {
 	var url_params = '';
 	var event_bar_params = '';	
 	var filter_params = '';
-	var hash_string = '';
+	var hash_string = '';	
+	
+	if( is_paged ) {
+		tribe_list_paged = is_paged;
+	}
 
 	if( hasPushstate ) {
 
@@ -46,6 +55,7 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_popping = true;
 				params = event.state.params;
 				url_params = event.state.url_params;
+				console.log(url_params);
 				tribe_events_list_ajax_post( '', tribe_pushstate, tribe_do_string, tribe_popping, params, url_params );				
 			}
 		} );
