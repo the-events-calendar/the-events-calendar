@@ -124,7 +124,10 @@ if (!class_exists('TribeEventsTemplates')) {
 				$template = TribeEventsTemplates::getTemplateHierarchy('list-view');
 			} else {
 				// calendar view
-				$template = TribeEventsTemplates::getTemplateHierarchy('calendar');
+				$tec = TribeEvents::instance();
+				if ( $tec->displaying == 'month' ) {
+					$template = TribeEventsTemplates::getTemplateHierarchy( 'calendar' );
+				}
 			}
 
          return apply_filters('tribe_current_events_page_template', $template);
