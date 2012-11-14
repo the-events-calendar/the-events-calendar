@@ -14,6 +14,9 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( !class_exists('Tribe_Events_Calendar_Template')){
 	class Tribe_Events_Calendar_Template extends Tribe_Template_Factory {
 		public static function init(){
+
+			Tribe_Template_Factory::asset_package( 'ajax-calendar' );
+
 			// Start calendar template
 			add_filter( 'tribe_events_calendar_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 
