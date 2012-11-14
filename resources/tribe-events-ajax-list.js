@@ -39,7 +39,6 @@ jQuery( document ).ready( function ( $ ) {
 		var popped = ('state' in window.history), initialURL = location.href;
 
 		$(window).bind('popstate', function(event) {
-
 			var initialPop = !popped && location.href == initialURL;
 			popped = true;
 
@@ -55,7 +54,6 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_popping = true;
 				params = event.state.params;
 				url_params = event.state.url_params;
-				console.log(url_params);
 				tribe_events_list_ajax_post( '', tribe_pushstate, tribe_do_string, tribe_popping, params, url_params );				
 			}
 		} );

@@ -57,14 +57,18 @@ jQuery( document ).ready( function ( $ ) {
 		e.preventDefault();		
 		date = $( this ).attr( "data-month" );
 		href_target = $( this ).attr( "href" );
-		tribe_events_calendar_ajax_post( date, href_target );			
+		tribe_pushstate = true;
+		tribe_do_string = false;	
+		tribe_events_calendar_ajax_post( date, href_target, tribe_pushstate, tribe_do_string );			
 	} );
 
 	$( '.tribe-events-calendar select.tribe-events-events-dropdown' ).live( 'change', function ( e ) {
 		e.preventDefault();			
 		date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();
-		href_target = base_url + date + '/';			
-		tribe_events_calendar_ajax_post( date, href_target );			
+		href_target = base_url + date + '/';		
+		tribe_pushstate = true;
+		tribe_do_string = false;
+		tribe_events_calendar_ajax_post( date, href_target, tribe_pushstate, tribe_do_string );			
 	} );
 
 	// event bar datepicker monitoring 
@@ -139,7 +143,7 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_events_calendar_ajax_post( date, href_target );
 			}
 		} );
-	}
+	}	
 
 
 	function tribe_events_calendar_ajax_post( date, href_target, tribe_pushstate, tribe_do_string, tribe_popping, params ) {
@@ -175,9 +179,8 @@ jQuery( document ).ready( function ( $ ) {
 				if( filter_params.length ) {
 					params = params + '&' + filter_params;
 				}
-			} 
-
-
+			}
+			
 			if ( counter > 0 || filter_params.length ) {
 				tribe_pushstate = false;
 				tribe_do_string = true;				
@@ -198,8 +201,9 @@ jQuery( document ).ready( function ( $ ) {
 						var page_title = $the_content.filter("#tribe-events-header").attr('data-title');
 
 						$(document).attr('title', page_title);
-
+						
 						if( tribe_do_string ) {
+							console.log('string');
 							href_target = href_target + '?' + params;								
 							history.pushState({
 								"date": date,
@@ -207,7 +211,8 @@ jQuery( document ).ready( function ( $ ) {
 							}, page_title, href_target);															
 						}						
 
-						if( tribe_pushstate ) {																
+						if( tribe_pushstate ) {	
+							console.log('push');
 							history.pushState({
 								"date": date,
 								"params": params
