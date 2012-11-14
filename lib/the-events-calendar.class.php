@@ -3220,8 +3220,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public static function clear_module_pagination( $html ) {
-			$html = '<a href="#" id="tribe_paged_prev" class="tribe_paged">' . __( '<< Previous Events' ) . '</a>';
-			$html .= '<a href="#" id="tribe_paged_next" class="tribe_paged">' . __( 'Next Events >>' ) . '</a>';
+			$html = '<li class="tribe-nav-previous"><a href="#" id="tribe_paged_prev" class="tribe_paged">' . __( '<< Previous Events' ) . '</a></li>';
+			$html .= '<li class="tribe-nav-next"><a href="#" id="tribe_paged_next" class="tribe_paged">' . __( 'Next Events >>' ) . '</a></li>';
 			return $html;
 
 		}
