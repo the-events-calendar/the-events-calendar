@@ -3149,6 +3149,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		function set_tribe_paged( $query ) {
 			if ( !empty( $_REQUEST['tribe_paged'] ) ) {
+				add_filter( 'redirect_canonical', '__return_false' );
 				$query->query_vars['paged'] = $_REQUEST['tribe_paged'];
 			}
 
