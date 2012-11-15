@@ -36,7 +36,7 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_date = $( this ).attr( "data-month" );
 		tribe_href_target = $( this ).attr( "href" );
 		tribe_pushstate = true;
-		tribe_do_string = false;	
+		tribe_do_string = false;		
 		tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );			
 	} );
 
@@ -164,9 +164,7 @@ jQuery( document ).ready( function ( $ ) {
 				if( tribe_filter_params.length ) {
 					tribe_params = tribe_params + '&' + tribe_filter_params;
 				}
-			}
-			
-			console.log(tribe_pushstate);
+			}			
 			
 			if ( tribe_push_counter > 0 || tribe_filter_params.length ) {
 				tribe_pushstate = false;
@@ -213,7 +211,7 @@ jQuery( document ).ready( function ( $ ) {
 			
 			if( tribe_do_string ) {
 				tribe_href_target = tribe_href_target + '?' + tribe_params;													
-			}
+			}			
 			
 			window.location = tribe_href_target;			
 		}
