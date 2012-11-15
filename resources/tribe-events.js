@@ -11,7 +11,7 @@ function tribe_get_url_params() {
 }
 
 function tribe_event_tooltips() {
-	jQuery( '.tribe-events-calendar, .tribe-events-grid, .tribe-events-list, .tribe-events-single' ).delegate( 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', 'mouseenter',function () {
+	jQuery( 'body' ).delegate( 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', 'mouseenter',function () {
 		// Week View Tooltips
 		if ( jQuery( 'body' ).hasClass( 'tribe-events-week' ) ) {
 			var bottomPad = jQuery( this ).outerHeight() + 5;
@@ -19,7 +19,8 @@ function tribe_event_tooltips() {
 			var bottomPad = jQuery( this ).find( 'a' ).outerHeight() + 18;
 		} else if ( jQuery( 'body' ).is( '.single-tribe_events, .events-list' ) ) { // Single/List View Recurring Tooltips
 			var bottomPad = jQuery( this ).outerHeight() + 12;
-		}
+		}	
+		
 		// Widget Tooltips
 		if ( jQuery( this ).parents( '.tribe-events-calendar-widget' ).length ) {
 			var bottomPad = jQuery( this ).outerHeight() - 6;
@@ -44,7 +45,7 @@ var tribe_href_target, tribe_date, tribe_daypicker_date, tribe_year_month, tribe
 jQuery( document ).ready( function ( $ ) {
 
 	// Global Tooltips
-	if ( $( '.tribe-events-calendar' ).length || $( '.tribe-events-grid' ).length || $( '.tribe-events-list' ).length || $( '.tribe-events-single' ).length ) {
+	if ( $( '.tribe-events-calendar' ).length || $( '.tribe-events-grid' ).length || $( '.tribe-events-list' ).length || $( '.tribe-events-single' ).length || $( 'tribe-geo-wrapper' ).length ) {
 		tribe_event_tooltips();
 	}
 
