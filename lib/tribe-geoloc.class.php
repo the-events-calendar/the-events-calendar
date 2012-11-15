@@ -353,13 +353,6 @@ class TribeEventsGeoLoc {
 
 	function ajax_geosearch() {
 
-		$nonce = isset( $_POST["nonce"] ) ? $_POST["nonce"] : FALSE;
-
-		if ( !wp_verify_nonce( $nonce, 'geosearch' ) ) {
-			echo "-1";
-			exit;
-		}
-
 		if ( class_exists( 'TribeEventsFilterView' ) ) {
 			TribeEventsFilterView::instance()->createFilters( null, true );
 		}
