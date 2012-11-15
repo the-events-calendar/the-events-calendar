@@ -6,15 +6,22 @@ var tribe_map_paged = 1;
 
 jQuery( document ).ready( function ( $ ) {	
 
-	$( '#tribe-geo-location' ).placeholder();
+	$( '#tribe-geo-location' ).placeholder();	
 	
-	var tribe_is_paged = tribe_get_url_param('tribe_paged');		
-	
-	if( tribe_is_paged ) {
-		tribe_map_paged = tribe_is_paged;
+	if( GeoLoc.map_view ) {
+		
+		var tribe_is_paged = tribe_get_url_param('tribe_paged');
+		if( tribe_is_paged ) {
+			tribe_map_paged = tribe_is_paged;
+		}		
+		$( 'body' ).addClass( 'events-list' );
+		tribe_event_tooltips();
 	}
 	
-	if( GeoLoc.map_view && tribe_get_url_params() ) {
+	
+	
+	if( GeoLoc.map_view && tribe_get_url_params() ) {	
+		
 		tribe_do_string = false;
 		tribe_pushstate = false;	
 		tribe_popping = true;		
@@ -162,7 +169,8 @@ jQuery( document ).ready( function ( $ ) {
 				spin_end();
 				if ( response.success ) {
 
-					$( "#tribe-geo-results" ).html( response.html );
+					$( "#tribe-geo-results" ).html( response.html );					
+					$( "#tribe-events-content" ).parent().removeAttr('id').find('.tribe-events-page-title').remove();				
 
 					if ( response.max_pages > tribe_map_paged ) {
 						$( 'a#tribe_map_paged_next' ).show();
@@ -349,7 +357,11 @@ jQuery( document ).ready( function ( $ ) {
 
 
 					} else {
-						tribe_map_processOption( geocodes[0], tribe_cur_url );
+						if( tribe_has_pushstate ) {					
+							tribe_map_processOption( geocodes[0], tribe_cur_url );
+						} else {
+							tribe_reload_old_browser();
+						}						
 					}
 				}
 			} );
@@ -363,7 +375,11 @@ jQuery( document ).ready( function ( $ ) {
 
 			if ( GeoLoc.map_view && tribe_events_bar_action != 'change_view' ) {
 				//We can show the map even if we don't get a geo query
-				tribe_map_processOption( null, tribe_cur_url );
+				if( tribe_has_pushstate ) {					
+					tribe_map_processOption( null, tribe_cur_url );
+				} else {
+					tribe_reload_old_browser();
+				}	
 				spin_end();
 				return false;
 			}
