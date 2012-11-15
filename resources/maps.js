@@ -85,7 +85,7 @@ jQuery( document ).ready( function ( $ ) {
 		
 		tribe_do_string = false;
 		tribe_pushstate = false;	
-		tribe_popping = true;
+		tribe_popping = false;
 
 		tribe_map_processOption( null, '', tribe_pushstate, tribe_do_string, tribe_popping );
 
