@@ -58,7 +58,7 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_daypicker_date = $(this).val();
 		tribe_year_month = tribe_daypicker_date.slice(0, -3);
 		tribe_date = $('#tribe-events-header').attr('data-date');
-		tribe_href_target = tribe_cur_url;			
+		tribe_href_target = tribe_get_path( jQuery( location ).attr( 'href' ) );					
 
 		if ( tribe_year_month !=  tribe_date) {
 
@@ -86,7 +86,7 @@ jQuery( document ).ready( function ( $ ) {
 			// in calendar view we have to test if they are switching month and extract month for call for eventDate param plus create url for pushstate
 
 			tribe_date = $('#tribe-events-header').attr('data-date');
-			tribe_href_target = tribe_cur_url;
+			tribe_href_target = tribe_get_path( jQuery( location ).attr( 'href' ) );
 
 
 			if($('#tribe-bar-date').val().length) {
@@ -104,8 +104,11 @@ jQuery( document ).ready( function ( $ ) {
 				}
 
 			}
+			
+			tribe_pushstate = false;
+			tribe_do_string = true;
 
-			tribe_events_calendar_ajax_post( tribe_date, tribe_href_target );
+			tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
 
 		}
 	} );
@@ -117,8 +120,10 @@ jQuery( document ).ready( function ( $ ) {
 			if ( tribe_events_bar_action != 'change_view' ) {
 				e.preventDefault();
 				tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
-				tribe_href_target = tribe_cur_url;				
-				tribe_events_calendar_ajax_post( tribe_date, tribe_href_target );
+				tribe_href_target = tribe_get_path( jQuery( location ).attr( 'href' ) );	
+				tribe_pushstate = false;
+				tribe_do_string = true;
+				tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
 			}
 		} );
 	}	
@@ -129,6 +134,8 @@ jQuery( document ).ready( function ( $ ) {
 		$( '.ajax-loading' ).show();
 		
 		if( !tribe_popping ) {
+			
+			
 
 			tribe_params = {
 				action:'tribe_calendar',
@@ -159,10 +166,14 @@ jQuery( document ).ready( function ( $ ) {
 				}
 			}
 			
+			console.log(tribe_pushstate);
+			
 			if ( tribe_push_counter > 0 || tribe_filter_params.length ) {
 				tribe_pushstate = false;
 				tribe_do_string = true;				
 			}
+			
+			
 		} 
 
 		if( tribe_has_pushstate ) {
