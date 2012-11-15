@@ -4,10 +4,45 @@ tribe_map_bounds = new google.maps.LatLngBounds();
 
 var tribe_map_paged = 1;
 
-jQuery( document ).ready( function ( $ ) {
+jQuery( document ).ready( function ( $ ) {	
 
 	$( '#tribe-geo-location' ).placeholder();
+	
+	if( GeoLoc.map_view && tribe_get_url_params() && tribe_has_pushstate ) {
+		tribe_do_string = false;
+		tribe_pushstate = false;	
+		tribe_popping = true;
+		tribe_initial_load = true;
+		tribe_map_processOption( null, '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_get_url_params(), tribe_initial_load );		
+	}	
+	
+	if( tribe_has_pushstate && GeoLoc.map_view ) {
 
+		// fix any browser that fires popstate on first load incorrectly
+
+		var popped = ('state' in window.history), initialURL = location.href;
+
+		$(window).bind('popstate', function(event) {
+
+			var initialPop = !popped && location.href == initialURL;
+			popped = true;
+
+			// if it was an inital load, get out of here
+
+			if ( initialPop ) return;
+
+			// this really is popstate: fire the ajax, send the stored params from the browser, don't overwrite the history
+
+			if( event.state ) {			
+				tribe_do_string = false;
+				tribe_pushstate = false;	
+				tribe_popping = true;
+				tribe_params = event.state.tribe_params;				
+				tribe_map_processOption( null, '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params );
+			}
+		} );
+	}
+	
 	var options = {
 		zoom     :5,
 		center   :new google.maps.LatLng( GeoLoc.center.max_lat, GeoLoc.center.max_lng ),
@@ -63,117 +98,118 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 
-	function tribe_map_processOption( geocode ) {
+	function tribe_map_processOption( geocode, tribe_href_target, tribe_pushstate, tribe_do_string, tribe_popping, tribe_params, tribe_initial_load ) {
 		spin_start();
 		deleteMarkers();
+		
+		if( !tribe_popping ) {
 
-		var params = {
-			action:'geosearch',
-			nonce :GeoLoc.nonce,
-			paged :tribe_map_paged
-		};
+			tribe_params = {
+				action:'geosearch',
+				nonce :GeoLoc.nonce,
+				paged :tribe_map_paged
+			};
 
 
-		$( 'form#tribe-events-bar-form :input' ).each( function () {
-			var $this = $( this );
-			if ( $this.val().length ) {
-				params[$this.attr( 'name' )] = $this.val();
+			// add any set values from event bar to params. want to use serialize but due to ie bug we are stuck with second	
+
+			$( 'form#tribe-events-bar-form :input[value!=""]' ).each( function () {
+				var $this = $( this );
+				if( $this.val().length && $this.attr('name') != 'submit-bar' ) {
+					tribe_params[$this.attr('name')] = $this.val();
+					tribe_push_counter++;
+				}			
+			} );
+
+			tribe_params = $.param(tribe_params);
+
+			// check if advanced filters plugin is active
+
+			if( $('#tribe_events_filters_form').length ) {
+
+				// serialize any set values and add to params
+
+				tribe_filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();				
+				if( tribe_filter_params.length ) {
+					tribe_params = tribe_params + '&' + tribe_filter_params;
+				}
 			}
-		} );
-
-		// check if advanced filters plugin is active
-
-		if ( $( '#tribe_events_filters_form' ).length ) {
-
-			// get selected form fields and create array
-
-			var filter_array = $( 'form#tribe_events_filters_form' ).serializeArray();
-
-			var fixed_array = [];
-			var counts = {};
-			var multiple_filters = {};
-
-			// test for multiples of same name
-
-			$.each( filter_array, function ( index, value ) {
-				if ( counts[value.name] ) {
-					counts[value.name] += 1;
-				} else {
-					counts[value.name] = 1;
-				}
-			} );
-
-			// modify array
-
-			$.each( filter_array, function ( index, value ) {
-				if ( multiple_filters[value.name] || counts[value.name] > 1 ) {
-					if ( !multiple_filters[value.name] ) {
-						multiple_filters[value.name] = 0;
-					}
-					multiple_filters[value.name] += 1;
-					fixed_array.push( {
-						name :value.name + "_" + multiple_filters[value.name],
-						value:value.value
-					} );
-				} else {
-					fixed_array.push( {
-						name :value.name,
-						value:value.value
-					} );
-				}
-			} );
-
-			// merge filter params with existing params
-
-			params = $.param( fixed_array ) + '&' + $.param( params );
-
+			
+			tribe_pushstate = false;
+			tribe_do_string = true;			
+		
 		}
+		
+		if( tribe_has_pushstate ) {
 
+			$.post( GeoLoc.ajaxurl, tribe_params, function ( response ) {
 
-		$.post( GeoLoc.ajaxurl, params, function ( response ) {
+				spin_end();
+				if ( response.success ) {
 
-			spin_end();
-			if ( response.success ) {
+					$( "#tribe-geo-results" ).html( response.html );
 
-				$( "#tribe-geo-results" ).html( response.html );
+					if ( response.max_pages > tribe_map_paged ) {
+						$( 'a#tribe_map_paged_next' ).show();
+					} else {
+						$( 'a#tribe_map_paged_next' ).hide();
+					}
+					if ( tribe_map_paged > 1 ) {
+						$( 'a#tribe_map_paged_prev' ).show();
+					} else {
+						$( 'a#tribe_map_paged_prev' ).hide();
+					}
 
-				if ( response.max_pages > tribe_map_paged ) {
-					$( 'a#tribe_map_paged_next' ).show();
-				} else {
-					$( 'a#tribe_map_paged_next' ).hide();
+					$.each( response.markers, function ( i, e ) {
+						tribe_map_addMarker( e.lat, e.lng, e.title, e.address, e.link );
+					} );
+
+					if( tribe_do_string ) {							
+						tribe_href_target = tribe_href_target + '?' + tribe_params;								
+						history.pushState({							
+							"tribe_params": tribe_params
+						}, '', tribe_href_target);															
+					}						
+
+					if( tribe_pushstate ) {								
+						history.pushState({							
+							"tribe_params": tribe_params
+						}, '', tribe_href_target);
+					}
+
+					if ( response.markers.length > 0 ) {
+						centerMap();
+					}
+
 				}
-				if ( tribe_map_paged > 1 ) {
-					$( 'a#tribe_map_paged_prev' ).show();
-				} else {
-					$( 'a#tribe_map_paged_prev' ).hide();
+
+				spin_end();
+
+			} );
+			
+		} else {
+			
+			if( !tribe_initial_load ) {
+			
+				if( tribe_do_string ) {
+					tribe_href_target = tribe_href_target + '?' + tribe_params;													
 				}
 
-				$.each( response.markers, function ( i, e ) {
-					tribe_map_addMarker( e.lat, e.lng, e.title, e.address, e.link );
-				} );
-
-				if ( response.markers.length > 0 ) {
-					centerMap();
-				}
-
+				window.location = tribe_href_target;	
 			}
-
-			spin_end();
-
-		} );
-
+		}
 	}
 
 	$( '.tribe-events-loop-nav' ).on( 'click', 'a#tribe_map_paged_next', function ( e ) {
 		e.preventDefault();
 		tribe_map_paged++;
-		tribe_map_processOption( null );
+		tribe_map_processOption( null, tribe_cur_url );
 	} );
 
 	$( '.tribe-events-loop-nav' ).on( 'click', 'a#tribe_map_paged_prev', function ( e ) {
 		e.preventDefault();
 		tribe_map_paged--;
-		tribe_map_processOption( null );
+		tribe_map_processOption( null, tribe_cur_url );
 	} );
 
 
@@ -181,7 +217,7 @@ jQuery( document ).ready( function ( $ ) {
 		$( 'form#tribe_events_filters_form' ).bind( 'submit', function ( e ) {
 			if ( tribe_events_bar_action != 'change_view' ) {
 				e.preventDefault();
-				tribe_map_processOption( null );
+				tribe_map_processOption( null, tribe_cur_url );
 			}
 		} );
 	}
@@ -293,7 +329,7 @@ jQuery( document ).ready( function ( $ ) {
 
 
 					} else {
-						tribe_map_processOption( geocodes[0] );
+						tribe_map_processOption( geocodes[0], tribe_cur_url );
 					}
 				}
 			} );
@@ -307,7 +343,7 @@ jQuery( document ).ready( function ( $ ) {
 
 			if ( GeoLoc.map_view && tribe_events_bar_action != 'change_view' ) {
 				//We can show the map even if we don't get a geo query
-				tribe_map_processOption( null );
+				tribe_map_processOption( null, tribe_cur_url );
 				spin_end();
 				return false;
 			}
