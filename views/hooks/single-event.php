@@ -256,7 +256,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 					</dl>
 		<?php } else { ?>
 					<dl class="tribe-events-meta-column">
-						<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) ) : // Organizer URL ?>
+						<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) && tribe_get_organizer() ) : // Organizer URL ?>
 							<h3 class="tribe-event-single-section-title"><?php _e( 'Organizer:', 'tribe-events-calendar' ); ?></h3>
 							<dd class="vcard author fn org"><?php echo tribe_get_organizer_link(); ?></dd>
 				      <?php elseif ( tribe_get_organizer() ): // Organizer name ?>
