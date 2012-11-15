@@ -31,7 +31,7 @@ jQuery( document ).ready( function ( $ ) {
 		} );
 	}
 
-	$( '.tribe-events-calendar .tribe-events-nav a' ).live( 'click', function ( e ) {
+	$( '.tribe-events-calendar .tribe-events-sub-nav a' ).live( 'click', function ( e ) {
 		e.preventDefault();		
 		tribe_date = $( this ).attr( "data-month" );
 		tribe_href_target = $( this ).attr( "href" );
