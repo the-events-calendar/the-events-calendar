@@ -42,6 +42,8 @@ var tribe_year_month = '';
 var tribe_push_counter = 0;
 var tribe_params = '';		
 var tribe_filter_params = '';
+var tribe_url_params = '';	
+var tribe_hash_string = '';
 
 jQuery( document ).ready( function ( $ ) {
 

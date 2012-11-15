@@ -4,7 +4,7 @@ jQuery( document ).ready( function ( $ ) {
 	
 	var tribe_base_url = $('#tribe-events-events-picker').attr('action');	
 
-	if( tribe_has_pushstate ) {
+	if( tribe_has_pushstate && !GeoLoc['map_view'] ) {
 
 		// fix any browser that fires popstate on first load incorrectly
 
