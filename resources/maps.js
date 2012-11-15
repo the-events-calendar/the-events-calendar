@@ -8,6 +8,12 @@ jQuery( document ).ready( function ( $ ) {
 
 	$( '#tribe-geo-location' ).placeholder();
 	
+	var tribe_is_paged = tribe_get_url_param('tribe_paged');		
+	
+	if( tribe_is_paged ) {
+		tribe_map_paged = tribe_is_paged;
+	}
+	
 	if( GeoLoc.map_view && tribe_get_url_params() ) {
 		tribe_do_string = false;
 		tribe_pushstate = false;	
@@ -69,8 +75,12 @@ jQuery( document ).ready( function ( $ ) {
 
 		$( '#tribe-bar-geoloc-lat' ).val( geocodes[$( this ).attr( 'data-index' )].geometry.location.lat() );
 		$( '#tribe-bar-geoloc-lng' ).val( geocodes[$( this ).attr( 'data-index' )].geometry.location.lng() );
+		
+		tribe_do_string = false;
+		tribe_pushstate = false;	
+		tribe_popping = true;
 
-		tribe_map_processOption( null );
+		tribe_map_processOption( null, '', tribe_pushstate, tribe_do_string, tribe_popping );
 
 
 	} );
@@ -99,7 +109,7 @@ jQuery( document ).ready( function ( $ ) {
 	function tribe_generate_map_params() {
 		tribe_params = {
 			action:'geosearch',				
-			paged :tribe_map_paged
+			tribe_paged :tribe_map_paged
 		};
 
 
@@ -200,8 +210,8 @@ jQuery( document ).ready( function ( $ ) {
 
 	$( '.tribe-events-loop-nav' ).on( 'click', 'a#tribe_map_paged_next', function ( e ) {
 		e.preventDefault();
+		tribe_map_paged++;
 		if( tribe_has_pushstate ) {			
-			tribe_map_paged++;
 			tribe_map_processOption( null, tribe_cur_url );
 		} else {			
 			tribe_reload_old_browser();	
@@ -210,8 +220,8 @@ jQuery( document ).ready( function ( $ ) {
 
 	$( '.tribe-events-loop-nav' ).on( 'click', 'a#tribe_map_paged_prev', function ( e ) {
 		e.preventDefault();
+		tribe_map_paged--;
 		if( tribe_has_pushstate ) {			
-			tribe_map_paged--;
 			tribe_map_processOption( null, tribe_cur_url );
 		} else {
 			tribe_reload_old_browser();
