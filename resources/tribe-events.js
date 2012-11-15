@@ -6,6 +6,10 @@ function tribe_get_url_param(tribe_param_name) {
 	return decodeURIComponent((new RegExp('[?|&]' + tribe_param_name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
 }
 
+function tribe_get_url_params() {
+	return location.search.substr(1);
+}
+
 function tribe_event_tooltips() {
 	jQuery( '.tribe-events-calendar, .tribe-events-grid, .tribe-events-list, .tribe-events-single' ).delegate( 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', 'mouseenter',function () {
 		// Week View Tooltips
@@ -32,7 +36,7 @@ function tribe_event_tooltips() {
 
 var tribe_has_pushstate = window.history && window.history.pushState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);
 var tribe_cur_url = tribe_get_path( jQuery( location ).attr( 'href' ) );
-var tribe_do_string, tribe_popping = false;
+var tribe_do_string, tribe_popping, tribe_initial_load = false;
 var tribe_pushstate = true;	
 var tribe_push_counter = 0;
 var tribe_href_target, tribe_date, tribe_daypicker_date, tribe_year_month, tribe_params, tribe_filter_params, tribe_url_params, tribe_hash_string = '';

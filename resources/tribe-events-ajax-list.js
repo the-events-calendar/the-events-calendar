@@ -9,7 +9,7 @@ jQuery( document ).ready( function ( $ ) {
 	}
 	
 
-	if( tribe_has_pushstate && !GeoLoc['map_view'] ) {
+	if( tribe_has_pushstate && !GeoLoc.map_view ) {
 
 		// let's fix any browser that fires popstate on first load incorrectly
 
