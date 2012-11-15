@@ -173,7 +173,6 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 
 		<?php // Location ?>
 		<dl class="tribe-events-meta-column location">
-
 		<?php // SECOND COLUMN
 			if ( $tribe_event_custom_fields && tribe_embed_google_map( get_the_ID() )) {  // if no map AND no custom fields, display nothing here 
 				// display nothing
@@ -215,7 +214,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			<?php endif; ?>			
 	<?php } ?>
 		<?php if ( tribe_embed_google_map( get_the_ID() ) || $tribe_event_custom_fields ) : ?>
-				<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) ) : // Organizer URL ?>
+				<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) && tribe_get_organizer() ) : // Organizer URL ?>
 				<h3 class="tribe-event-single-section-title"><?php _e( 'Organizer:', 'tribe-events-calendar' ); ?></h3>
 				<dd class="vcard author fn org"><?php echo tribe_get_organizer_link(); ?></dd>
 	      	<?php elseif ( tribe_get_organizer() ): // Organizer name ?>
@@ -234,13 +233,14 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			<?php endif; ?>
 		<?php endif; ?>
 		<?php if ( class_exists( 'TribeEventsPro' ) ): // If pro, check for organizer website ?>
+			<?php if ( tribe_get_organizer_website_link() ) : // Organizer website ?>
 				<dt><?php _e( 'Website:', 'tribe-events-calendar' ) ?></dt>
 				<dd class="vcard url">
 					<?php echo tribe_get_organizer_website_link(); ?>
 				</dd>	
+			<?php endif; ?>	
 		<?php endif; ?>				
 		</dl><!-- .tribe-events-meta-column -->
-
 	   	<?php // THIRD COLUMN
 
 				if ( $tribe_event_custom_fields ) { // If there are custom event fields ?>
@@ -256,7 +256,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 					</dl>
 		<?php } else { ?>
 					<dl class="tribe-events-meta-column">
-						<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) ) : // Organizer URL ?>
+						<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) && tribe_get_organizer() ) : // Organizer URL ?>
 							<h3 class="tribe-event-single-section-title"><?php _e( 'Organizer:', 'tribe-events-calendar' ); ?></h3>
 							<dd class="vcard author fn org"><?php echo tribe_get_organizer_link(); ?></dd>
 				      <?php elseif ( tribe_get_organizer() ): // Organizer name ?>
