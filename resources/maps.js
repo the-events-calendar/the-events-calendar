@@ -92,26 +92,7 @@ jQuery( document ).ready( function ( $ ) {
 
 	} );
 
-	function processGeocoding( location, callback ) {
-
-		var request = {
-			address:location
-		};
-
-		tribe_map_geocoder.geocode( request, function ( results, status ) {
-			if ( status == google.maps.GeocoderStatus.OK ) {
-				callback( results );
-				return results;
-			}
-
-			if ( status == google.maps.GeocoderStatus.ZERO_RESULTS ) {
-				spin_end();
-				return status;
-			}
-
-			return status;
-		} );
-	}
+	
 	
 	function tribe_generate_map_params() {
 		tribe_params = {
@@ -326,7 +307,7 @@ jQuery( document ).ready( function ( $ ) {
 				$( "#tribe-geo-options #tribe-geo-links" ).empty();
 			}
 
-			processGeocoding( val, function ( results, selected_index ) {
+			tribe_process_geocoding( val, function ( results, selected_index ) {
 				geocodes = results;
 				// We're not in the map view. Let's submit.
 				spin_end();
@@ -340,12 +321,12 @@ jQuery( document ).ready( function ( $ ) {
 				if ( lng )
 					$( '#tribe-bar-geoloc-lng' ).val( lng );
 
-				if ( !GeoLoc.map_view || tribe_events_bar_action == 'change_view' ) {
+				if ( tribe_events_bar_action == 'change_view' ) {
 
 					tribe_geoloc_auto_submit = true;
 					$( 'form#tribe-events-bar-form' ).submit();
 
-				} else { // We're in the map view. Let's ajaxify the form.
+				} else if ( GeoLoc.map_view ) { // We're in the map view. Let's ajaxify the form.
 					if ( geocodes.length > 1 ) {
 						$( "#tribe-geo-options" ).show();
 
