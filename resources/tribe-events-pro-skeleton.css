@@ -269,7 +269,6 @@
 	margin: 0 0 2% 0;
 }
 
-<<<<<<< HEAD
 /* = Single Venue Template Styles (Pro Version)
    @ Template: single-venue.php
 =============================================*/
@@ -287,6 +286,7 @@
 
 .tribe-events-venue h3.tribe-events-upcoming {
 	font-size: 1.3em;
+	margin-bottom: 30px;
 }
 
 .tribe-events-venue .tribe-events-map-wrap #tribe-events-gmap {
@@ -327,7 +327,7 @@
 
 .tribe-events-organizer address.organizer-address {
 	margin: 0 3% 3% 0;
-	width: 17%;
+	width: 25%;
 	float: left;
 	font-style: normal;
 	font-weight: bold;
@@ -336,17 +336,21 @@
 }
 .tribe-events-organizer address.organizer-address span {
 	display: block;
-	margin: 0 0 5px 0;
+	margin: 0 0 10px 0;
 	line-height: 1;
 }
 
 .tribe-events-organizer .organizer-description {
 	float: right;
-	width: 80%;
+	width: 72%;
 }
 
 .tribe-events-organizer .organizer-description p {
 	margin: 0 0 3% 0;
+}
+
+.tribe-events-organizer h3.tribe-events-upcoming {
+	margin-bottom: 30px;
 }
 
 /* = Events Calendar Widget Styles (Sidebar)

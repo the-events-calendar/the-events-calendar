@@ -20,7 +20,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 		public static function init(){
 
 			// override list methods
-			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'before_template'), 20, 1);
+			add_filter( 'tribe_events_list_the_title', array( __CLASS__, 'the_title'), 20, 1);
 			add_filter( 'tribe_events_list_inside_before_loop', array( __CLASS__, 'inside_before_loop'), 20, 1);
 			add_filter( 'tribe_events_list_inside_after_loop', array( __CLASS__, 'inside_after_loop' ), 20, 1 );
 
@@ -32,7 +32,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 		}
 
 		// Start List Template
-		public static function before_template( $pass_through ){
+		public static function the_title( $pass_through ){
 			global $wp_query;
 			$tribe_ecp = TribeEvents::instance();
 
@@ -55,7 +55,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 								__( 'Tomorrow', 'tribe-events-calendar-pro' ),
 								esc_url( admin_url( 'images/wpspin_light.gif' ) )
 								);
-			return apply_filters('tribe_template_factory_debug', $pass_through . $html, 'tribe_events_day_before_template');
+			return apply_filters('tribe_template_factory_debug', $pass_through . $html, 'tribe_events_day_the_title');
 		}
 
 		public static function inside_before_loop( $pass_through ){
