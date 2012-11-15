@@ -14,7 +14,7 @@ jQuery( document ).ready( function ( $ ) {
 		$("#tribe-bar-date").datepicker("setDate",tribe_date); 		 
 	}
 	
-	if( tribe_has_pushstate ) {	
+	if( tribe_has_pushstate && !GeoLoc.map_view ) {	
 		
 		// let's fix any browser that fires popstate on first load incorrectly
 		
