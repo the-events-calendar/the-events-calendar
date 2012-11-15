@@ -31,6 +31,17 @@ function tribe_event_tooltips() {
 }
 
 var tribe_has_pushstate = window.history && window.history.pushState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);
+var tribe_cur_url = tribe_get_path( jQuery( location ).attr( 'href' ) );
+var tribe_do_string = false;
+var tribe_pushstate = true;	
+var tribe_popping = false;	
+var tribe_href_target = '';
+var tribe_date = '';
+var tribe_daypicker_date = '';
+var tribe_year_month = '';
+var tribe_push_counter = 0;
+var tribe_params = '';		
+var tribe_filter_params = '';
 
 jQuery( document ).ready( function ( $ ) {
 

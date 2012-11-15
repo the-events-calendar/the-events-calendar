@@ -19,6 +19,7 @@ jQuery( document ).ready( function ( $ ) {
 	if( is_paged ) {
 		tribe_list_paged = is_paged;
 	}
+	
 
 	if( tribe_has_pushstate ) {
 
