@@ -357,7 +357,7 @@ class TribeEventsGeoLoc {
 			TribeEventsFilterView::instance()->createFilters( null, true );
 		}
 
-		$paged = !empty( $_POST["paged"] ) ? $_POST["paged"] : 1;
+		$tribe_paged = !empty( $_POST["tribe_paged"] ) ? $_POST["tribe_paged"] : 1;
 
 		TribeEventsQuery::init();
 
@@ -365,7 +365,7 @@ class TribeEventsGeoLoc {
 		                   'orderby'        => 'event_date',
 		                   'order'          => 'ASC',
 		                   'posts_per_page' => tribe_get_option( 'postsPerPage', 10 ),
-		                   'paged'          => $paged,
+		                   'paged'          => $tribe_paged,
 		                   'post_status'    => array( 'publish' ) );
 
 		$query = new WP_Query( $defaults );
