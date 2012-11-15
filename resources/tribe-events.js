@@ -1,3 +1,11 @@
+function tribe_get_path( url ) {
+	return url.split("?")[0];
+}
+	
+function tribe_get_url_param(name) {
+	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+}
+
 function tribe_event_tooltips() {
 	jQuery( '.tribe-events-calendar, .tribe-events-grid, .tribe-events-list, .tribe-events-single' ).delegate( 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', 'mouseenter',function () {
 		// Week View Tooltips
@@ -21,6 +29,8 @@ function tribe_event_tooltips() {
 			}
 		} );
 }
+
+var tribe_has_pushstate = window.history && window.history.pushState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);
 
 jQuery( document ).ready( function ( $ ) {
 

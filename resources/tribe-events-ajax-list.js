@@ -1,18 +1,6 @@
 var tribe_list_paged = 1;
 
-jQuery( document ).ready( function ( $ ) {
-	
-	function tribe_get_url_param(name) {
-		return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
-	}
-	
-	function tribe_get_path( url ) {
-		return url.split("?")[0];
-	}
-
-	// we'll determine if the browser supports pushstate and drop those that say they do but do it badly ;)
-
-	var hasPushstate = window.history && window.history.pushState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);	
+jQuery( document ).ready( function ( $ ) {	
 	
 	var cur_url = tribe_get_path( $( location ).attr( 'href' ) );
 	var is_paged = tribe_get_url_param('tribe_paged');
@@ -32,7 +20,7 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_list_paged = is_paged;
 	}
 
-	if( hasPushstate ) {
+	if( tribe_has_pushstate ) {
 
 		// let's fix any browser that fires popstate on first load incorrectly
 
@@ -160,7 +148,7 @@ jQuery( document ).ready( function ( $ ) {
 							
 			}
 			
-			if( hasPushstate ) {
+			if( tribe_has_pushstate ) {
 
 				$.post(
 					TribeList.ajaxurl,

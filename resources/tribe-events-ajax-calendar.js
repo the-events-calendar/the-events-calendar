@@ -1,16 +1,6 @@
 jQuery( document ).ready( function ( $ ) {
-	
-	// functions
-	
-	function tribe_get_path( url ) {
-		return url.split("?")[0];
-	}
 
-	// determine if the browser supports pushstate and drop those that say they do but do it badly ;)
-
-	var hasPushstate = window.history && window.history.pushState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);
-	
-	// our other vars
+	// our vars
 	
 	var base_url = $('#tribe-events-events-picker').attr('action');
 	var cur_url = tribe_get_path( $( location ).attr( 'href' ) );
@@ -21,12 +11,12 @@ jQuery( document ).ready( function ( $ ) {
 	var date = '';
 	var daypicker_date = '';
 	var year_month = '';
-	var counter = 0;
+	var push_counter = 0;
 	var params = '';
 	var event_bar_params = '';	
 	var filter_params = '';
 
-	if( hasPushstate ) {
+	if( tribe_has_pushstate ) {
 
 		// fix any browser that fires popstate on first load incorrectly
 
@@ -163,7 +153,7 @@ jQuery( document ).ready( function ( $ ) {
 				var $this = $( this );
 				if( $this.val().length && $this.attr('name') != 'submit-bar' ) {
 					params[$this.attr('name')] = $this.val();
-					counter++;
+					push_counter++;
 				}			
 			} );
 
@@ -181,13 +171,13 @@ jQuery( document ).ready( function ( $ ) {
 				}
 			}
 			
-			if ( counter > 0 || filter_params.length ) {
+			if ( push_counter > 0 || filter_params.length ) {
 				tribe_pushstate = false;
 				tribe_do_string = true;				
 			}
 		} 
 
-		if( hasPushstate ) {
+		if( tribe_has_pushstate ) {
 
 			$.post(
 				TribeCalendar.ajaxurl,
@@ -202,8 +192,7 @@ jQuery( document ).ready( function ( $ ) {
 
 						$(document).attr('title', page_title);
 						
-						if( tribe_do_string ) {
-							console.log('string');
+						if( tribe_do_string ) {							
 							href_target = href_target + '?' + params;								
 							history.pushState({
 								"date": date,
@@ -211,8 +200,7 @@ jQuery( document ).ready( function ( $ ) {
 							}, page_title, href_target);															
 						}						
 
-						if( tribe_pushstate ) {	
-							console.log('push');
+						if( tribe_pushstate ) {								
 							history.pushState({
 								"date": date,
 								"params": params
