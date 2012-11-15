@@ -329,7 +329,7 @@ select.tribe-events-dropdown {
 .tribe-events-list .vevent.hentry {
 	border-bottom: 1px solid #ddd;
 	padding: 2.25em 0;
-	overflow: auto;
+	margin: 0;
 }
 
 .tribe-events-list .vevent.hentry.tribe-first {
