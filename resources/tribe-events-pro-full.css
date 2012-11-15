@@ -281,7 +281,7 @@
 	line-height: 1.4;
 }
 .tribe-events-venue address.venue-address {
-	margin: 0 0 3% 0;
+	margin: 0;
 	font-style: normal;
 	font-weight: bold;
 }
@@ -289,6 +289,9 @@
 	display: block;
 	margin: 5px 0;
 	line-height: 1;
+}
+.tribe-events-venue .venue-description {
+	margin: 3% 0 0;
 }
 
 .tribe-events-venue .venue-description p {
@@ -307,6 +310,7 @@
 .single-tribe_organizer  .tribe_organizer h2.entry-title {
 	font-size: 1.6em;
 	margin: 0 0 2% 0;
+	padding: 0;
 }
 .tribe-events-organizer-meta {
 	padding: 0 0 4% 0;
@@ -322,7 +326,7 @@
 }
 
 .tribe-events-organizer address.organizer-address {
-	margin: 0 3% 3% 0;
+	margin: 0 3% 0 0;
 	width: 25%;
 	float: left;
 	font-style: normal;
