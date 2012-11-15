@@ -2,8 +2,8 @@ function tribe_get_path( url ) {
 	return url.split("?")[0];
 }
 	
-function tribe_get_url_param(name) {
-	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+function tribe_get_url_param(tribe_param_name) {
+	return decodeURIComponent((new RegExp('[?|&]' + tribe_param_name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
 }
 
 function tribe_event_tooltips() {
@@ -32,18 +32,10 @@ function tribe_event_tooltips() {
 
 var tribe_has_pushstate = window.history && window.history.pushState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);
 var tribe_cur_url = tribe_get_path( jQuery( location ).attr( 'href' ) );
-var tribe_do_string = false;
+var tribe_do_string, tribe_popping = false;
 var tribe_pushstate = true;	
-var tribe_popping = false;	
-var tribe_href_target = '';
-var tribe_date = '';
-var tribe_daypicker_date = '';
-var tribe_year_month = '';
 var tribe_push_counter = 0;
-var tribe_params = '';		
-var tribe_filter_params = '';
-var tribe_url_params = '';	
-var tribe_hash_string = '';
+var tribe_href_target, tribe_date, tribe_daypicker_date, tribe_year_month, tribe_params, tribe_filter_params, tribe_url_params, tribe_hash_string = '';
 
 jQuery( document ).ready( function ( $ ) {
 
