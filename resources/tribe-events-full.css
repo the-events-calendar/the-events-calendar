@@ -174,11 +174,6 @@ a.tribe-events-gcal {
 	padding: 4%;
 }
 
-/* 2011 Theme Padding Override */
-.singular #tribe-events-pg-template .hentry {
-	padding: 0;
-}
-
 /* Remove "Edit" Link from unneeded templates */
 .events-archive span.edit-link {
 	display: none;
@@ -350,12 +345,14 @@ width: 70%;
 	margin: 0 0 2% 0;
 	padding: 0;
 	font-size: 1.4em;
+	line-height: 1.4em;
 	text-transform: none;
 	letter-spacing: 0;
 }
 
 .tribe-events-list .tribe-events-event-details h3 {
 	font-size: 1.2em;
+	line-height: 1.2;
 	margin: 0 0 1% 0;
 	text-transform: none;
 	letter-spacing: 0;	
