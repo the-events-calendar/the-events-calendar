@@ -129,7 +129,7 @@ jQuery( document ).ready( function ( $ ) {
 	}
 	
 	function tribe_reload_old_browser() {
-		tribe_params = tribe_generate_map_params();
+		tribe_params = tribe_generate_map_params();		
 		tribe_href_target = tribe_cur_url + '?' + tribe_params;
 		window.location = tribe_href_target;
 	}
