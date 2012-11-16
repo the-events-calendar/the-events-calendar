@@ -16,6 +16,9 @@ if( !class_exists('Tribe_PRO_Template_Factory') ) {
 			$vendor_url = trailingslashit( $tec_pro->pluginUrl ) . 'vendor/';
 
 			switch( $name ) {
+				case 'isotope' : 
+					wp_enqueue_script( 'tribe-events-calendar', $vendor_url . 'isotope/jquery.isotope.min.js' );
+					break;
 				case 'ajax-dayview':
 					$ajax_data = array( "ajaxurl"   => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
 					                    'post_type' => TribeEvents::POSTTYPE );
