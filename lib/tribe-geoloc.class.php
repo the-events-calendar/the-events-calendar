@@ -136,18 +136,18 @@ class TribeEventsGeoLoc {
 	public function setup_geoloc_filter_in_bar( $filters ) {
 
 		$value = "";
-		if ( !empty( $_POST['tribe-bar-geoloc'] ) ) {
-			$value = $_POST['tribe-bar-geoloc'];
+		if ( !empty( $_REQUEST['tribe-bar-geoloc'] ) ) {
+			$value = $_REQUEST['tribe-bar-geoloc'];
 		}
 
 		$lat = "";
-		if ( !empty( $_POST['tribe-bar-geoloc-lat'] ) ) {
-			$lat = $_POST['tribe-bar-geoloc-lat'];
+		if ( !empty( $_REQUEST['tribe-bar-geoloc-lat'] ) ) {
+			$lat = $_REQUEST['tribe-bar-geoloc-lat'];
 		}
 
 		$lng = "";
-		if ( !empty( $_POST['tribe-bar-geoloc-lng'] ) ) {
-			$lng = $_POST['tribe-bar-geoloc-lng'];
+		if ( !empty( $_REQUEST['tribe-bar-geoloc-lng'] ) ) {
+			$lng = $_REQUEST['tribe-bar-geoloc-lng'];
 		}
 
 		$filters[] = array( 'name'    => 'tribe-bar-geoloc',
@@ -158,14 +158,14 @@ class TribeEventsGeoLoc {
 	}
 
 	public function is_geoloc_query() {
-		return ( !empty( $_POST['tribe-bar-geoloc-lat'] ) && !empty( $_POST['tribe-bar-geoloc-lng'] ) );
+		return ( !empty( $_REQUEST['tribe-bar-geoloc-lat'] ) && !empty( $_REQUEST['tribe-bar-geoloc-lng'] ) );
 	}
 
 	public function setup_geoloc_in_query( $query ) {
 
-		if ( !empty( $_POST['tribe-bar-geoloc-lat'] ) && !empty( $_POST['tribe-bar-geoloc-lng'] ) ) {
+		if ( !empty( $_REQUEST['tribe-bar-geoloc-lat'] ) && !empty( $_REQUEST['tribe-bar-geoloc-lng'] ) ) {
 
-			$venues = $this->get_venues_in_geofence( $_POST['tribe-bar-geoloc-lat'], $_POST['tribe-bar-geoloc-lng'] );
+			$venues = $this->get_venues_in_geofence( $_REQUEST['tribe-bar-geoloc-lat'], $_REQUEST['tribe-bar-geoloc-lng'] );
 
 			if ( empty( $venues ) ) {
 				$venues = -1;
@@ -353,18 +353,11 @@ class TribeEventsGeoLoc {
 
 	function ajax_geosearch() {
 
-		$nonce = isset( $_POST["nonce"] ) ? $_POST["nonce"] : FALSE;
-
-		if ( !wp_verify_nonce( $nonce, 'geosearch' ) ) {
-			echo "-1";
-			exit;
-		}
-
 		if ( class_exists( 'TribeEventsFilterView' ) ) {
 			TribeEventsFilterView::instance()->createFilters( null, true );
 		}
 
-		$paged = !empty( $_POST["paged"] ) ? $_POST["paged"] : 1;
+		$tribe_paged = !empty( $_POST["tribe_paged"] ) ? $_POST["tribe_paged"] : 1;
 
 		TribeEventsQuery::init();
 
@@ -372,7 +365,7 @@ class TribeEventsGeoLoc {
 		                   'orderby'        => 'event_date',
 		                   'order'          => 'ASC',
 		                   'posts_per_page' => tribe_get_option( 'postsPerPage', 10 ),
-		                   'paged'          => $paged,
+		                   'paged'          => $tribe_paged,
 		                   'post_status'    => array( 'publish' ) );
 
 		$query = new WP_Query( $defaults );

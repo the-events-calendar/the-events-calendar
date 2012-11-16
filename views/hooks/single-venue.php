@@ -77,9 +77,12 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 		}		
 		// Venue Map
 		public static function the_map( $post_id ) {
+			$html = '';
+			if ( tribe_address_exists( get_the_ID() ) ) {
 			$html = '<div class="tribe-events-map-wrap">';
 			$html .= tribe_get_embedded_map( get_the_ID(), '350px', '200px' );
 			$html .= '</div><!-- .tribe-events-map-wrap -->';
+			}	
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_map' );
 		}
 		// Venue Meta

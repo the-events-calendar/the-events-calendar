@@ -81,7 +81,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_organizer_Template' ) ) {
 	 				<span class="vcard tel"><?php echo tribe_get_organizer_phone(); ?></span>
 	 			<?php endif; ?>
 	 			<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) ) : // organizer website ?>
-	 				<span class="vcard author fn org"><?php echo tribe_get_organizer_link(); ?></span>
+	 				<span class="vcard author fn org"><?php echo tribe_get_organizer_website_link( $post_id, __('Website', 'tribe-events-calendar-pro') ); ?></span>
 	 			<?php endif; ?>
 	 			<?php if ( tribe_get_organizer_email() ) : // organizer email ?>
 	 				<span class="vcard email"><a href="mailto:<?php echo tribe_get_organizer_email(); ?>"><?php echo tribe_get_organizer_email(); ?></a></span>
