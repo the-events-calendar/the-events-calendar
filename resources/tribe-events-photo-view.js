@@ -1,0 +1,1 @@
+// tribe-events-photo-view.js

@@ -19,8 +19,9 @@ if( !class_exists('Tribe_Events_Day_Template')){
 
 		public static function init(){
 
-			wp_enqueue_script('isotope', get_template_directory_uri() . '/js/jquery.isotope.min.js', array( 'jquery' ), false , true);
-			wp_enqueue_style('photo-view', get_template_directory_uri() . '/css/photo-view.css', array(), '0.1', 'screen');
+			Tribe_PRO_Template_Factory::asset_package('isotope');
+			wp_enqueue_script('tribe-events-pro-photo', trailingslashit( $tec_pro->pluginUrl ) . 'resources/' .  'tribe-events-photo-view.js', array('jquery'));
+			
 
 			// override list methods
 			add_filter( 'tribe_events_list_before_loop', array( __CLASS__, 'before_loop'), 20, 1);
