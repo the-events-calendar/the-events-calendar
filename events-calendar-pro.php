@@ -41,6 +41,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $licenseKey;
 		public $weekSlug = 'week';
 		public $daySlug = 'day';
+		public $photoSlug = 'photo';
 		public $todaySlug = 'today';
 		public static $updateUrl = 'http://tri.be/';
 		private static $beta_mode = true; // set to true to enable beta mode
@@ -54,6 +55,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$this->pluginSlug = 'events-calendar-pro';
 
 			$this->weekSlug = sanitize_title(__('week', 'tribe-events-calendar-pro'));
+			$this->photoSlug = sanitize_title(__('photo', 'tribe-events-calendar-pro'));
 			$this->daySlug = sanitize_title(__('day', 'tribe-events-calendar-pro'));
 			$this->todaySlug = sanitize_title(__('today', 'tribe-events-calendar-pro'));
 
@@ -506,7 +508,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// $baseTag = trailingslashit( $tec->tagRewriteSlug );
 			// $baseTag = "(.*)" . $baseTag;
 
-
+			$photo = trailingslashit($this->photoSlug);
 			$day = trailingslashit($this->daySlug);
 			$today = trailingslashit($this->todaySlug);
 			$week = trailingslashit($this->weekSlug);
@@ -515,6 +517,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$newRules[$base . $week . '?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week';
 			$newRules[$base . $week . '(\d{2})/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week' .'&eventDate=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . $week . '(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week' .'&eventDate=' . $wp_rewrite->preg_index(1);
+			// photo permalink rules
+			$newRules[$base . $photo . '?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=photo';
+			$newRules[$base . $photo . '(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=photo' .'&eventDate=' . $wp_rewrite->preg_index(1);
 			// day permalink rules
 			$newRules[$base . $today . '?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day';
 			$newRules[$base . $day . '(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(1);
@@ -549,6 +554,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					// remove the default gridview class from core
 					$classes = array_diff($classes, array('events-gridview'));
 				}
+				if( $wp_query->tribe_is_photo ) {
+					$classes[] = ' tribe-events-photo';
+					// remove the default gridview class from core
+					$classes = array_diff($classes, array('events-gridview'));
+				}
 				if( $wp_query->tribe_is_day ) {
 					$classes[] = ' tribe-events-day';
 					// remove the default gridview class from core
@@ -562,6 +572,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$pro_query = false;
 			$query->tribe_is_week = false;
 			$query->tribe_is_day = false;
+			$query->tribe_is_photo = false;
 			if(!empty( $query->query_vars['eventDisplay'] )) {
 				$pro_query = true;
 				switch( $query->query_vars['eventDisplay']){
@@ -586,6 +597,15 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$query->set( 'posts_per_page', -1 ); // show ALL day posts
 						$query->set( 'hide_upcoming', false );
 						$query->tribe_is_day = true;
+						break;
+					case 'photo':
+						$event_date = $query->get('eventDate') != '' ? $query->get('eventDate') : Date('Y-m-d');
+						$query->set( 'start_date', tribe_event_beginning_of_day( $event_date ) );
+						$query->set( 'eventDate', $event_date );
+						$query->set( 'orderby', 'event_date' );
+						$query->set( 'order', 'ASC' );
+						$query->set( 'hide_upcoming', false );
+						$query->tribe_is_photo = true;
 						break;
 				}
 			}
@@ -614,6 +634,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// day view
 			if( tribe_is_day() ) {
 				$template = TribeEventsTemplates::getTemplateHierarchy('day','','pro', $this->pluginPath);
+				$template = TribeEventsTemplates::getTemplateHierarchy('list');
+			}
+			// photo view
+			if( tribe_is_photo() ){
+				$template = TribeEventsTemplates::getTemplateHierarchy('photo','','pro', $this->pluginPath);
 				$template = TribeEventsTemplates::getTemplateHierarchy('list');
 			}
 			return $template;
