@@ -415,18 +415,6 @@ width: 70%;
 	color: #000;
 }
 
-.tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring img {
-	width: 16px;
-	height: 16px;
-	opacity: .7;
-	position: relative;
-	top: 4px;	
-}
-
-.tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring:hover img {
-	opacity: 1.0;
-}
-
 /* Cost */
 .tribe-events-list .tribe-events-event-cost {
 	position: absolute;
@@ -777,7 +765,8 @@ h3.tribe-event-single-section-title {
 	height: 16px;
 	opacity: .7;
 	position: relative;
-	top: 4px;	
+	top: 4px;
+	display: inline;	
 	box-shadow: none !important;
 }
 .event-is-recurring:hover img {

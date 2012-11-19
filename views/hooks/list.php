@@ -110,7 +110,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 				$class_string .= ' tribe-last';
 			}
 			
-			$html = '<div id="post-'. get_the_ID() .'" class="'. $class_string .' clearfix">';
+			$html = '<div id="post-'. get_the_ID() .'" class="'. $class_string .' tribe-clearfix">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_inside_before_loop');
 		}
 
