@@ -81,76 +81,37 @@ jQuery( document ).ready( function ( $ ) {
 
 		if( tribe_events_bar_action != 'change_view' ) {
 
-			e.preventDefault();
-			
-			var map_val = $( '#tribe-bar-geoloc' ).val();
-			
-			if( map_val.length ) {
-				tribe_process_geocoding( map_val, function ( tribe_geoloc_results ) {
-					
-					var tribe_geoloc_lat = tribe_geoloc_results[0].geometry.location.lat();
-					var tribe_geoloc_lng = tribe_geoloc_results[0].geometry.location.lng();
-					if ( lat )
-						$( '#tribe-bar-geoloc-lat' ).val( tribe_geoloc_lat );
+			e.preventDefault();			
 
-					if ( lng )
-						$( '#tribe-bar-geoloc-lng' ).val( tribe_geoloc_lng );
-							// in calendar view we have to test if they are switching month and extract month for call for eventDate param plus create url for pushstate
+			// in calendar view we have to test if they are switching month and extract month for call for eventDate param plus create url for pushstate
 
-					tribe_date = $('#tribe-events-header').attr('data-date');
-					tribe_href_target = tribe_get_path( jQuery( location ).attr( 'href' ) );
+			tribe_date = $('#tribe-events-header').attr('data-date');
+			tribe_href_target = tribe_get_path( jQuery( location ).attr( 'href' ) );
 
 
-					if($('#tribe-bar-date').val().length) {
+			if($('#tribe-bar-date').val().length) {
 
-						// they picked a date in event bar daypicker, let's process and test
+				// they picked a date in event bar daypicker, let's process and test
 
-						tribe_daypicker_date = $('#tribe-bar-date').val().slice(0, -3);
+				tribe_daypicker_date = $('#tribe-bar-date').val().slice(0, -3);
 
-						if ( tribe_daypicker_date !=  tribe_date) {
+				if ( tribe_daypicker_date !=  tribe_date) {
 
-							// it's a different month, let's overwrite the vars and initiate pushstate
+					// it's a different month, let's overwrite the vars and initiate pushstate
 
-							tribe_date = tribe_daypicker_date;
-							tribe_href_target = tribe_base_url + tribe_date + '/';						
-						}
-
-					}
-
-					tribe_pushstate = false;
-					tribe_do_string = true;
-
-					tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
-				});
-			} else {
-
-				// in calendar view we have to test if they are switching month and extract month for call for eventDate param plus create url for pushstate
-
-				tribe_date = $('#tribe-events-header').attr('data-date');
-				tribe_href_target = tribe_get_path( jQuery( location ).attr( 'href' ) );
-
-
-				if($('#tribe-bar-date').val().length) {
-
-					// they picked a date in event bar daypicker, let's process and test
-
-					tribe_daypicker_date = $('#tribe-bar-date').val().slice(0, -3);
-
-					if ( tribe_daypicker_date !=  tribe_date) {
-
-						// it's a different month, let's overwrite the vars and initiate pushstate
-
-						tribe_date = tribe_daypicker_date;
-						tribe_href_target = tribe_base_url + tribe_date + '/';						
-					}
-
+					tribe_date = tribe_daypicker_date;
+					tribe_href_target = tribe_base_url + tribe_date + '/';						
 				}
 
-				tribe_pushstate = false;
-				tribe_do_string = true;
-
-				tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
 			}
+
+			tribe_pushstate = false;
+			tribe_do_string = true;
+			
+			
+			tribe_pre_ajax_location_test( function() { 
+				tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
+			});		
 		}
 	} );
 
