@@ -10,7 +10,7 @@ function tribe_get_url_params() {
 	return location.search.substr(1);
 }
 
-function tribe_pre_ajax_location_test( tribe_ajax_callback ) {	
+function tribe_pre_ajax_tests( tribe_ajax_callback ) {	
 	
 	var tribe_location_input = jQuery( '#tribe-bar-geoloc' );	
 	if( tribe_location_input.length ) {			
