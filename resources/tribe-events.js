@@ -10,27 +10,6 @@ function tribe_get_url_params() {
 	return location.search.substr(1);
 }
 
-function tribe_process_geocoding( location, callback ) {
-
-	var request = {
-		address:location
-	};
-
-	tribe_map_geocoder.geocode( request, function ( results, status ) {
-		if ( status == google.maps.GeocoderStatus.OK ) {
-			callback( results );
-			return results;
-		}
-
-		if ( status == google.maps.GeocoderStatus.ZERO_RESULTS ) {
-			spin_end();
-			return status;
-		}
-
-		return status;
-	} );
-}
-
 function tribe_event_tooltips() {
 	jQuery( 'body' ).delegate( 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', 'mouseenter',function () {
 		// Week View Tooltips

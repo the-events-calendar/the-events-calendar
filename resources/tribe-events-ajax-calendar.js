@@ -86,15 +86,15 @@ jQuery( document ).ready( function ( $ ) {
 			var map_val = $( '#tribe-bar-geoloc' ).val();
 			
 			if( map_val.length ) {
-				tribe_process_geocoding( map_val, function ( results ) {
-					console.log(results[0].geometry.location.lat());
-					var lat = results[0].geometry.location.lat();
-					var lng = results[0].geometry.location.lng();
+				tribe_process_geocoding( map_val, function ( tribe_geoloc_results ) {
+					
+					var tribe_geoloc_lat = tribe_geoloc_results[0].geometry.location.lat();
+					var tribe_geoloc_lng = tribe_geoloc_results[0].geometry.location.lng();
 					if ( lat )
-						$( '#tribe-bar-geoloc-lat' ).val( lat );
+						$( '#tribe-bar-geoloc-lat' ).val( tribe_geoloc_lat );
 
 					if ( lng )
-						$( '#tribe-bar-geoloc-lng' ).val( lng );
+						$( '#tribe-bar-geoloc-lng' ).val( tribe_geoloc_lng );
 							// in calendar view we have to test if they are switching month and extract month for call for eventDate param plus create url for pushstate
 
 					tribe_date = $('#tribe-events-header').attr('data-date');
