@@ -257,6 +257,121 @@
 	border-top: 1px solid #ddd;
 }
 
+/* = Photo View Template Styles 
+   @ Template: photo.php
+=============================================*/
+
+/********** Masonry Layout **********/
+
+/* CSS3 Transitions */
+
+#tribe-events-content.tribe-events-list {
+	padding: 1px 0 !important;
+}
+
+.isotope,
+.isotope .isotope-item {
+  -webkit-transition-duration: 0.2s;
+     -moz-transition-duration: 0.2s;
+      -ms-transition-duration: 0.2s;
+       -o-transition-duration: 0.2s;
+          transition-duration: 0.2s;
+}
+
+#tribe-events-photo-events {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+      -ms-transition-property: height, width;
+       -o-transition-property: height, width;
+          transition-property: height, width;
+}
+
+#tribe-events-photo-events .isotope-item {
+  -webkit-transition-property: -webkit-transform, opacity;
+     -moz-transition-property:    -moz-transform, opacity;
+      -ms-transition-property:     -ms-transform, opacity;
+       -o-transition-property:         top, left, opacity;
+          transition-property:         transform, opacity;
+}
+
+
+#tribe-events-photo-events {
+	margin-right: -4%;
+}
+
+#tribe-events-photo-events .vevent.tribe-events-photo-event {
+	float: left; 
+	width: 29.333333%;
+	margin: 0 4% 30px 0;
+	padding: 0;
+	border: 0;
+}
+/* Tile Styling */
+
+.tribe-events-photo-event {
+
+	padding: 0;
+	position: relative;	
+}
+
+.tribe-events-photo-event  {
+	padding: 0;
+}
+
+
+.tribe-events-list .tribe-events-photo-event .tribe-events-event-details {
+	float: none;
+	width: 100%;
+	padding: 0;
+}
+
+.tribe-events-list .tribe-events-photo-event .tribe-events-event-image + .tribe-events-event-details {
+	padding: 8% 0 0;
+}
+
+.tribe-events-loop .tribe-events-photo-event .entry-content {
+	float: none;
+	margin-top: 10px;
+}
+.tribe-events-list .tribe-events-loop .tribe-events-photo-event .tribe-events-event-meta {
+	margin: 0;
+}
+
+.tribe-events-list #tribe-events-photo-events .tribe-events-event-details h2 {
+	font-size: 1.2em;
+	line-height: 1.2;
+	margin-bottom: 5px;
+}
+.tribe-events-list #tribe-events-photo-events .tribe-events-event-details .tribe-events-event-cost + .entry-title {
+	float: none;
+	width: 100%;
+}
+
+.tribe-events-photo-event .entry-title a {
+	color: #1982D1;
+	-webkit-transition: .2s ease-in;
+  -moz-transition: .2s ease-in;
+  -o-transition: .2s ease-in;
+  transition: .2s ease-in;	
+}
+
+.tribe-events-photo-event .tribe-events-event-image {
+	float: none;
+	margin: 0;
+	width: 100%;
+}
+
+.tribe-events-photo-event .vcard, .tribe-events-photo-event .tribe-events-event-cost {
+	display: none !important;
+}
+.tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring img {
+	display: inline;
+}
+
+.tribe-events-photo-event  .date-divider {
+	padding: 0 5px;
+}
+
 /* = Single Organizer Template Styles (Pro Version)
    @ Template: single-organizer.php
 =============================================*/
