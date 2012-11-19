@@ -356,18 +356,6 @@ width: 70%;
 	color: #000;
 }
 
-.tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring img {
-	width: 16px;
-	height: 16px;
-	opacity: .7;
-	position: relative;
-	top: 4px;	
-}
-
-.tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring:hover img {
-	opacity: 1.0;
-}
-
 /* Cost */
 .tribe-events-list .tribe-events-event-cost {
 	position: absolute;
@@ -691,6 +679,7 @@ vertical-align: middle;
 	height: 16px;
 	opacity: .7;
 	position: relative;
+	display: inline;
 	top: 4px;	
 	box-shadow: none !important;
 }
