@@ -68,8 +68,8 @@ class TribeEventsGeoLoc {
 		$geoloc_filter = new TribeEventsFilter( $geoloc_filter_array['name'], $geoloc_filter_array['slug'], $geoloc_filter_array['values'], $geoloc_filter_array['type'], $geoloc_filter_array['admin_form'], $geoloc_filter_array['title'] );
 
 		if ( isset( $geoloc_filter->currentValue ) ) {
-			$this->selected_geofence = $geoloc_filter->currentValue;
-			add_filter( 'geoloc_default_geofence', array( $this, 'setup_geofence_in_query' ) );
+			$this->selected_geofence = tribe_convert_units( $geoloc_filter->currentValue, 'miles', 'kms' );
+			add_filter( 'tribe_geoloc_geofence', array( $this, 'setup_geofence_in_query' ) );
 		}
 	}
 
@@ -354,7 +354,8 @@ class TribeEventsGeoLoc {
 	function ajax_geosearch() {
 
 		if ( class_exists( 'TribeEventsFilterView' ) ) {
-			TribeEventsFilterView::instance()->createFilters( null, true );
+			//TribeEventsFilterView::instance()->createFilters( null, true );
+			$this->setup_geoloc_filter_in_filters();
 		}
 
 		$tribe_paged = !empty( $_POST["tribe_paged"] ) ? $_POST["tribe_paged"] : 1;
