@@ -444,6 +444,17 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	}
 
 	/**
+	 * Week Loop View Test
+	 *
+	 * @return bool
+	 * @since 3.0
+	 */
+	function tribe_is_photo()  {
+		$is_photo = (TribeEvents::instance()->displaying == 'photo') ? true : false;
+		return apply_filters('tribe_is_photo', $is_photo);
+	}
+
+	/**
 	 * Display Week Navigation
 	 *
 	 * @param string $week
