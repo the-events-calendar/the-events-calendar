@@ -138,7 +138,7 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_pushstate = true;
 			tribe_do_string = false;
 
-			if ( tribe_push_counter > 0 || tribe_filter_params.length ) {
+			if ( tribe_push_counter > 0 || tribe_filter_params != '' ) {
 				tribe_pushstate = false;
 				tribe_do_string = true;				
 			}
