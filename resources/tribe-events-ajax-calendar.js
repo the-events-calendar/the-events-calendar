@@ -67,9 +67,7 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_date = $('#tribe-events-header').attr('data-date');
 		tribe_href_target = tribe_get_path( jQuery( location ).attr( 'href' ) );					
 
-		if ( tribe_year_month !=  tribe_date) {
-
-			// it's a different month, overwrite the vars and initiate pushstate
+		if ( tribe_year_month !=  tribe_date && tribe_daypicker_date != '' ) {			
 
 			tribe_date = tribe_year_month;				
 			tribe_href_target = tribe_base_url + tribe_date + '/';				
