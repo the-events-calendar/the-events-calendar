@@ -80,22 +80,7 @@ var tribe_pushstate = true;
 var tribe_push_counter = 0;
 var tribe_href_target, tribe_date, tribe_daypicker_date, tribe_year_month, tribe_params, tribe_filter_params, tribe_url_params, tribe_hash_string, tribe_ajax_callback = '';
 
-jQuery( document ).ready( function ( $ ) {
-
-	var tribe_map_val = jQuery( '#tribe-bar-geoloc' ).val();
-	var geofence_filter = jQuery( "#tribe_events_filter_item_geofence" );
-	var geo_lat_long = $( '#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng' );
-	
-	if( tribe_map_val.length ) {
-		if( geofence_filter.length )
-			geofence_filter.show();
-	} else {
-		if( geofence_filter.length ) 
-			geofence_filter.hide();
-		if( geo_lat_long.length )
-			geo_lat_long.val( '' );		
-	}
-	
+jQuery( document ).ready( function ( $ ) {	
 
 	// Global Tooltips
 	if ( $( '.tribe-events-calendar' ).length || $( '.tribe-events-grid' ).length || $( '.tribe-events-list' ).length || $( '.tribe-events-single' ).length || $( 'tribe-geo-wrapper' ).length ) {
