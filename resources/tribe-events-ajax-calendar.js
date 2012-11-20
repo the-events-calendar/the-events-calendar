@@ -3,6 +3,9 @@ jQuery( document ).ready( function ( $ ) {
 	// our vars
 	
 	var tribe_base_url = $('#tribe-events-events-picker').attr('action');	
+	
+	if( typeof GeoLoc === 'undefined' ) 
+		var GeoLoc = {"map_view":""};
 
 	if( tribe_has_pushstate && !GeoLoc.map_view ) {
 

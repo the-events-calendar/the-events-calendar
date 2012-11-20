@@ -7,7 +7,9 @@ jQuery( document ).ready( function ( $ ) {
 	if( tribe_is_paged ) {
 		tribe_list_paged = tribe_is_paged;
 	}
-	
+
+	if( typeof GeoLoc === 'undefined' ) 
+		var GeoLoc = {"map_view":""};	
 
 	if( tribe_has_pushstate && !GeoLoc.map_view ) {
 
