@@ -47,7 +47,9 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_date = $( this ).attr( "data-day" );
 		tribe_href_target = $( this ).attr( "href" );
 		tribe_update_daypicker(tribe_date);
-		tribe_events_calendar_ajax_post( tribe_date, tribe_href_target );
+		tribe_pre_ajax_tests( function() { 
+			tribe_events_calendar_ajax_post( tribe_date, tribe_href_target );
+		});
 	} );
 
 	// event bar datepicker monitoring 
@@ -58,8 +60,10 @@ jQuery( document ).ready( function ( $ ) {
 
 		tribe_date = $(this).val();			
 		var base_url = $('.tribe-events-nav-next a').attr('href').slice(0, -11);			
-		tribe_href_target = base_url + tribe_date + '/';		
-		tribe_events_calendar_ajax_post( tribe_date, tribe_href_target );		
+		tribe_href_target = base_url + tribe_date + '/';
+		tribe_pre_ajax_tests( function() { 
+			tribe_events_calendar_ajax_post( tribe_date, tribe_href_target );		
+		});
 
 	} );
 
@@ -72,7 +76,9 @@ jQuery( document ).ready( function ( $ ) {
 			e.preventDefault();
 			tribe_date = $('#tribe-events-header').attr('data-date');
 			tribe_cur_url = tribe_get_path( $( location ).attr( 'href' ) );	
-			tribe_events_calendar_ajax_post( tribe_date, tribe_cur_url );
+			tribe_pre_ajax_tests( function() { 
+				tribe_events_calendar_ajax_post( tribe_date, tribe_cur_url );
+			});
 
 		}
 	} );
@@ -84,8 +90,10 @@ jQuery( document ).ready( function ( $ ) {
 			if ( tribe_events_bar_action != 'change_view' ) {
 				e.preventDefault();
 				tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );	
-				tribe_cur_url = tribe_get_path( $( location ).attr( 'href' ) );				
-				tribe_events_calendar_ajax_post( tribe_date, tribe_cur_url );				
+				tribe_cur_url = tribe_get_path( $( location ).attr( 'href' ) );	
+				tribe_pre_ajax_tests( function() { 
+					tribe_events_calendar_ajax_post( tribe_date, tribe_cur_url );	
+				});
 			}
 		} );
 	}
@@ -130,7 +138,7 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_pushstate = true;
 			tribe_do_string = false;
 
-			if ( tribe_push_counter > 0 || tribe_filter_params.length ) {
+			if ( tribe_push_counter > 0 || tribe_filter_params != '' ) {
 				tribe_pushstate = false;
 				tribe_do_string = true;				
 			}
