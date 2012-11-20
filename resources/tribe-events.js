@@ -13,9 +13,9 @@ function tribe_get_url_params() {
 function tribe_pre_ajax_tests( tribe_ajax_callback ) {		
 	
 	if( jQuery( '#tribe-bar-geoloc' ).length ) {			
-		tribe_map_val = jQuery( '#tribe-bar-geoloc' ).val();		
-		if( tribe_map_val.length ) {
-			
+		var tribe_map_val = jQuery( '#tribe-bar-geoloc' ).val();
+		var geofence_filter = jQuery( "#tribe_events_filter_item_geofence" );
+		if( tribe_map_val.length ) {	
 			tribe_process_geocoding( tribe_map_val, function ( tribe_geoloc_results ) {
 
 				var tribe_geoloc_lat = tribe_geoloc_results[0].geometry.location.lat();
@@ -27,12 +27,16 @@ function tribe_pre_ajax_tests( tribe_ajax_callback ) {
 					jQuery( '#tribe-bar-geoloc-lng' ).val( tribe_geoloc_lng );
 				
 				if ( tribe_ajax_callback && typeof( tribe_ajax_callback ) === "function" ) {  
+					if( geofence_filter.length )
+						geofence_filter.show();
 					tribe_ajax_callback();  
 				}				
 			});
-		} else {
+		} else {			
 			jQuery( '#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng' ).val( '' );			
-			if ( tribe_ajax_callback && typeof( tribe_ajax_callback ) === "function" ) {  
+			if ( tribe_ajax_callback && typeof( tribe_ajax_callback ) === "function" ) { 
+				if( geofence_filter.length )
+					geofence_filter.hide();
 				tribe_ajax_callback();  
 			}			
 		}
@@ -77,6 +81,21 @@ var tribe_push_counter = 0;
 var tribe_href_target, tribe_date, tribe_daypicker_date, tribe_year_month, tribe_params, tribe_filter_params, tribe_url_params, tribe_hash_string, tribe_ajax_callback = '';
 
 jQuery( document ).ready( function ( $ ) {
+
+	var tribe_map_val = jQuery( '#tribe-bar-geoloc' ).val();
+	var geofence_filter = jQuery( "#tribe_events_filter_item_geofence" );
+	var geo_lat_long = $( '#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng' );
+	
+	if( tribe_map_val.length ) {
+		if( geofence_filter.length )
+			geofence_filter.show();
+	} else {
+		if( geofence_filter.length ) 
+			geofence_filter.hide();
+		if( geo_lat_long.length )
+			geo_lat_long.val( '' );		
+	}
+	
 
 	// Global Tooltips
 	if ( $( '.tribe-events-calendar' ).length || $( '.tribe-events-grid' ).length || $( '.tribe-events-list' ).length || $( '.tribe-events-single' ).length || $( 'tribe-geo-wrapper' ).length ) {
