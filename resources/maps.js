@@ -331,6 +331,7 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	function centerMap() {
+
 		map.fitBounds( tribe_map_bounds );
 		if ( map.getZoom() > 13 ) {
 			map.setZoom( 13 );
