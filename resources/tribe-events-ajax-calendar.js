@@ -173,7 +173,7 @@ jQuery( document ).ready( function ( $ ) {
 				}
 			}			
 			
-			if ( tribe_push_counter > 0 || tribe_filter_params.length ) {
+			if ( tribe_push_counter > 0 || tribe_filter_params != '' ) {
 				tribe_pushstate = false;
 				tribe_do_string = true;				
 			}
