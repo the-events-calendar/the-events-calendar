@@ -313,9 +313,10 @@ jQuery( document ).ready( function ( $ ) {
 	function spin_end() {
 		$( "#tribe-geo-loading" ).hide();
 	}
+	if ( GeoLoc.map_view ) {
 
 	var tribe_geoloc_auto_submit = false;
-	$( 'form#tribe-events-bar-form' ).bind( 'submit', function () {
+	$( 'form#tribe-events-bar-form' ).bind( 'submit', function () {		
 		tribe_map_paged = 1;
 		spin_start();
 
@@ -391,5 +392,6 @@ jQuery( document ).ready( function ( $ ) {
 		return true;
 
 	} );
+	}
 
 } );
