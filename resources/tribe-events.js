@@ -28,8 +28,7 @@ function tribe_pre_ajax_tests( tribe_ajax_callback ) {
 				
 				if ( tribe_ajax_callback && typeof( tribe_ajax_callback ) === "function" ) {  
 					tribe_ajax_callback();  
-				}
-				console.log('yes');
+				}				
 			});
 		} else {
 			jQuery( '#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng' ).val( '' );			

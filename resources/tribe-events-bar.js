@@ -50,7 +50,12 @@ jQuery( document ).ready( function ( $ ) {
 
 	function tribe_events_bar_change_view( url ) {
 		tribe_events_bar_action = 'change_view';
-
+		if( $( '#tribe-bar-geoloc' ).length ) {			
+			tribe_map_val = jQuery( '#tribe-bar-geoloc' ).val();		
+			if( !tribe_map_val.length ) {
+				$( '#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng' ).val( '' );
+			}
+		}
 		if ( $( '#tribe_events_filters_form' ).length ) {
 			$( 'form#tribe-events-bar-form :input' ).each( function () {
 				var $this = $( this );
