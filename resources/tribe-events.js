@@ -10,10 +10,9 @@ function tribe_get_url_params() {
 	return location.search.substr(1);
 }
 
-function tribe_pre_ajax_tests( tribe_ajax_callback ) {	
+function tribe_pre_ajax_tests( tribe_ajax_callback ) {		
 	
-	var tribe_location_input = jQuery( '#tribe-bar-geoloc' );	
-	if( tribe_location_input.length ) {			
+	if( jQuery( '#tribe-bar-geoloc' ).length ) {			
 		tribe_map_val = jQuery( '#tribe-bar-geoloc' ).val();		
 		if( tribe_map_val.length ) {
 			
@@ -30,6 +29,7 @@ function tribe_pre_ajax_tests( tribe_ajax_callback ) {
 				if ( tribe_ajax_callback && typeof( tribe_ajax_callback ) === "function" ) {  
 					tribe_ajax_callback();  
 				}
+				console.log('yes');
 			});
 		} else {
 			jQuery( '#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng' ).val( '' );			
