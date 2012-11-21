@@ -66,6 +66,7 @@ jQuery( document ).ready( function ( $ ) {
 			$( 'form#tribe_events_filters_form' ).bind( 'submit', function ( e ) {
 				if ( tribe_events_bar_action != 'change_view' ) {
 					e.preventDefault();	
+					tribe_list_paged = 1;
 					tribe_pre_ajax_tests( function() {
 						tribe_events_list_ajax_post( tribe_cur_url );
 					});
@@ -78,6 +79,7 @@ jQuery( document ).ready( function ( $ ) {
 		$('#tribe-bar-date').bind( 'change', function (e) {		
 
 			e.preventDefault();
+			tribe_list_paged = 1;
 			tribe_pre_ajax_tests( function() {
 				tribe_events_list_ajax_post( tribe_cur_url );
 			});
@@ -88,6 +90,7 @@ jQuery( document ).ready( function ( $ ) {
 
 			if ( tribe_events_bar_action != 'change_view' ) {
 				e.preventDefault();
+				tribe_list_paged = 1;
 				tribe_pre_ajax_tests( function() {
 					tribe_events_list_ajax_post( tribe_cur_url );
 				});
