@@ -420,6 +420,9 @@ h3.tribe-events-related-events-title {
 /* = Events Calendar Widget Styles (Sidebar)
    @ Template: calendar-widget.php
 =============================================*/
+.tribe-events-calendar-widget {
+	max-width: 250px;
+}
 .tribe-events-calendar-widget #tribe-events-calendar-wrap {
 	width: 100%;
 }
