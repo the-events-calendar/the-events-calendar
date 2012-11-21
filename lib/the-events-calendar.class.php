@@ -1906,7 +1906,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function get_google_maps_args() {
 
-			$locationMetaSuffixes = array( 'address', 'city', 'state', 'province', 'zip', 'country' );
+			$locationMetaSuffixes = array( 'address', 'city', 'region', 'zip', 'country' );
 			$toUrlEncode = "";
 			$languageCode = substr( get_bloginfo( 'language' ), 0, 2 );
 			foreach( $locationMetaSuffixes as $val ) {
@@ -1932,7 +1932,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$postId = $post->ID;
 			}
 
-			$locationMetaSuffixes = array( 'address', 'city', 'state', 'province', 'zip', 'country' );
+			$locationMetaSuffixes = array( 'address', 'city', 'region', 'zip', 'country' );
 			$toUrlEncode = "";
 			foreach( $locationMetaSuffixes as $val ) {
 				$metaVal = call_user_func('tribe_get_'.$val, $postId);
