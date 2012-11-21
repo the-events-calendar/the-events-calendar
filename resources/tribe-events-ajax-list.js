@@ -33,7 +33,9 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_popping = true;
 				tribe_params = event.state.tribe_params;
 				tribe_url_params = event.state.tribe_url_params;
-				tribe_events_list_ajax_post( '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params, tribe_url_params );				
+				tribe_pre_ajax_tests( function() {
+					tribe_events_list_ajax_post( '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params, tribe_url_params );	
+				});
 			}
 		} );
 		

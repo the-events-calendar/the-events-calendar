@@ -13,8 +13,7 @@ function tribe_get_url_params() {
 function tribe_pre_ajax_tests( tribe_ajax_callback ) {		
 	
 	if( jQuery( '#tribe-bar-geoloc' ).length ) {			
-		var tribe_map_val = jQuery( '#tribe-bar-geoloc' ).val();
-		var geofence_filter = jQuery( "#tribe_events_filter_item_geofence" );
+		var tribe_map_val = jQuery( '#tribe-bar-geoloc' ).val();		
 		if( tribe_map_val.length ) {	
 			tribe_process_geocoding( tribe_map_val, function ( tribe_geoloc_results ) {
 
@@ -27,16 +26,16 @@ function tribe_pre_ajax_tests( tribe_ajax_callback ) {
 					jQuery( '#tribe-bar-geoloc-lng' ).val( tribe_geoloc_lng );
 				
 				if ( tribe_ajax_callback && typeof( tribe_ajax_callback ) === "function" ) {  
-					if( geofence_filter.length )
-						geofence_filter.show();
+					if( jQuery( "#tribe_events_filter_item_geofence" ).length )
+						jQuery( "#tribe_events_filter_item_geofence" ).show();
 					tribe_ajax_callback();  
 				}				
 			});
 		} else {			
 			jQuery( '#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng' ).val( '' );			
 			if ( tribe_ajax_callback && typeof( tribe_ajax_callback ) === "function" ) { 
-				if( geofence_filter.length )
-					geofence_filter.hide();
+				if( jQuery( "#tribe_events_filter_item_geofence" ).length )
+					jQuery( "#tribe_events_filter_item_geofence" ).hide();
 				tribe_ajax_callback();  
 			}			
 		}
