@@ -16,6 +16,8 @@ if( !class_exists('Tribe_Events_List_Template')){
 
 		private $first = true;
 		static $loop_increment = 0;
+		static $prev_event_month = null;
+		static $prev_event_year = null;
 
 		public static function init(){
 			// Start list template
@@ -109,9 +111,27 @@ if( !class_exists('Tribe_Events_List_Template')){
 			if( self::$loop_increment == count($wp_query->posts)-1 ){
 				$class_string .= ' tribe-last';
 			}
-			
-			$html = '<div id="post-'. get_the_ID() .'" class="'. $class_string .' tribe-clearfix">';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_inside_before_loop');
+
+
+			/* Month and year separators */
+
+			$show_separators = apply_filters( 'tribe_events_list_show_separators', true );
+
+			if ( $show_separators ) {
+				if ( self::$prev_event_year && self::$prev_event_year != tribe_get_start_date( $post_id, false, 'Y' ) ) {
+					echo sprintf( "<span class='tribe_list_separator_year'>%s</span>", tribe_get_start_date( $post_id, false, 'Y' ) );
+				}
+
+				if ( self::$prev_event_month && self::$prev_event_month != tribe_get_start_date( $post_id, false, 'm' ) ) {
+					echo sprintf( "<span class='tribe_list_separator_month'>%s</span>", tribe_get_start_date( $post_id, false, 'M' ) );
+				}
+
+				self::$prev_event_year  = tribe_get_start_date( $post_id, false, 'Y' );
+				self::$prev_event_month = tribe_get_start_date( $post_id, false, 'm' );
+			}
+
+			$html = '<div id="post-' . get_the_ID() . '" class="' . $class_string . ' tribe-clearfix">';
+			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_list_inside_before_loop' );
 		}
 
 		// Event Image
