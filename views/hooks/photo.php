@@ -22,7 +22,8 @@ if( !class_exists('Tribe_Events_Day_Template')){
 
 			Tribe_PRO_Template_Factory::asset_package('isotope');
 			wp_enqueue_script('tribe-events-pro-photo', trailingslashit( TribeEventsPro::instance()->pluginUrl ) . 'resources/' .  'tribe-events-photo-view.js', array('jquery'));
-			
+
+			add_filter( 'tribe_events_list_show_separators', '__return_false' );
 
 			// override list methods
 			add_filter( 'tribe_events_list_before_loop', array( __CLASS__, 'before_loop'), 20, 1);
