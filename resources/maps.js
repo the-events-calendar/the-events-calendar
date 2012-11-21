@@ -291,6 +291,7 @@ jQuery( document ).ready( function ( $ ) {
 		$( 'form#tribe_events_filters_form' ).bind( 'submit', function ( e ) {
 			if ( tribe_events_bar_action != 'change_view' ) {
 				e.preventDefault();
+				tribe_map_paged = 1;
 				if( tribe_has_pushstate ) {	
 					tribe_pre_ajax_tests( function() { 						
 						tribe_map_processOption( null, tribe_cur_url );
@@ -306,7 +307,7 @@ jQuery( document ).ready( function ( $ ) {
 	
 	if ( GeoLoc.map_view ) {
 		$('#tribe-bar-date').bind( 'change', function (e) {		
-
+			tribe_map_paged = 1;
 			if( tribe_has_pushstate ) {	
 				tribe_pre_ajax_tests( function() { 				
 					tribe_map_processOption( null, tribe_cur_url );
