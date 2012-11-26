@@ -518,7 +518,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			if ( tribe_get_start_date( $post_id, false, 'g:i A' ) === tribe_get_end_date( $post_id, false, 'g:i A' ) ) { // Same start/end time
 				$schedule .= '<span class="date-start">' . tribe_get_start_date( $post_id, false, $format ) . '</span> @ <span class="start-time">' . tribe_get_start_date( $post_id, false, 'g:i A' ) . '</span>';
 			} else { // defined start/end time
-				$schedule .= '<span class="date-start">' . tribe_get_start_date( $post_id, false, $format ) . '</span> <span class="date-divider">|</span> <span class="start-time">' . tribe_get_start_date( $post_id, false, 'g:i A' ) . ' - <span class="start-time">' . tribe_get_end_date( $post_id, false, 'g:i A' ) . '</span>';
+				$schedule .= '<span class="date-start">' . tribe_get_start_date( $post_id, false, $format ) . '</span> <span class="date-divider">|</span> <span class="start-time">' . tribe_get_start_date( $post_id, false, 'g:i A' ) . '</span> - <span class="start-time">' . tribe_get_end_date( $post_id, false, 'g:i A' ) . '</span>';
 			}
 		}
 
