@@ -545,15 +545,6 @@ vertical-align: middle;
 	margin-top: 50px;
 }
 
-/* Event Meta */
-.tribe-events-event-meta {
-	border-bottom: 1px solid #bbb;
-	margin: 0 0 30px 0;
-	padding: 0 0 30px 0;
-	overflow: hidden;
-	font-size: 12px;
-}
-
 .tribe-events-event-meta:first-child {
 	border-top: 1px solid #bbb;
 }

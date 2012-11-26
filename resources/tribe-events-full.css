@@ -634,14 +634,7 @@ h3.tribe-event-single-section-title {
 
 /* Event Meta */
 .tribe-events-event-meta {
-	border-width: 1px 0;
-	border-style: solid;
-	border-color: #bbb;
-	margin: 30px 0;
-	padding: 2% 0;
-	overflow: hidden;
 	font-size: 12px;
-
 }
 .tribe-events-event-meta .tribe-events-meta-column, .tribe-events-event-meta .column {
 	float: left;
