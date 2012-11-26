@@ -946,7 +946,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			register_taxonomy( self::TAXONOMY, self::POSTTYPE, array(
 				'hierarchical' => true,
 				'update_count_callback' => '',
-				'rewrite' => array( 'slug'=> $this->taxRewriteSlug, 'with_front' => false ),
+				'rewrite' => array( 'slug'=> $this->taxRewriteSlug, 'with_front' => false, 'hierarchical' => true ),
 				'public' => true,
 				'show_ui' => true,
 				'labels' => $this->taxonomyLabels,
@@ -1711,7 +1711,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$base = trailingslashit( $this->rewriteSlug );
 			$baseSingle = trailingslashit( $this->rewriteSlugSingular );
 			$baseTax = trailingslashit( $this->taxRewriteSlug );
-			$baseTax = "(.*)" . $baseTax;
+			$baseTax = "(.*)" . $baseTax . "(?:[^/]+/)*";
 			$baseTag = trailingslashit( $this->tagRewriteSlug );
 			$baseTag = "(.*)" . $baseTag;
 	
@@ -1749,10 +1749,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$newRules[$baseTax . '([^/]+)/' . $past] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past';
 			$newRules[$baseTax . '([^/]+)/(\d{4}-\d{2})$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTax . '([^/]+)/feed/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
-			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=' . $this->getOption('viewOption','month');
 			$newRules[$baseTax . '([^/]+)/ical/?$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&ical=1';
 			$newRules[$baseTax . '([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type=' . self::POSTTYPE . '&tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&feed=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTax . '([^/]+)$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&tribe_events_cat=' . $wp_rewrite->preg_index(2);
+			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=' . $this->getOption('viewOption','month');
 
 			// tag rules.
 			$newRules[$baseTag . '([^/]+)/page/(\d+)'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&post_tag=' . $wp_rewrite->preg_index(2) . '&paged=' . $wp_rewrite->preg_index(3);
