@@ -339,6 +339,9 @@ if( class_exists( 'TribeEvents' ) ) {
 		$costs = $wpdb->get_col( 'SELECT meta_value FROM ' . $wpdb->postmeta . ' WHERE meta_key = \'_EventCost\';');
 		
 		$costs = array_map( 'tribe_map_cost_array_callback', $costs );
+		foreach ( $costs as $index => $value ) {
+			$costs[$index] = preg_replace( '/^[^\d]+(\d+.*)$/', '$1', $value );
+		}
 		if ( empty( $costs ) )
 			$costs = array( '0' );
 			
@@ -362,6 +365,10 @@ if( class_exists( 'TribeEvents' ) ) {
 		$costs = $wpdb->get_col( 'SELECT meta_value FROM ' . $wpdb->postmeta . ' WHERE meta_key = \'_EventCost\';');
 		
 		$costs = array_map( 'tribe_map_cost_array_callback', $costs );
+		foreach ( $costs as $index => $value ) {
+			$costs[$index] = preg_replace( '/^[^\d]+(\d+.*)$/', '$1', $value );
+		}
+		
 		if ( empty( $costs ) )
 			$costs = array( '0' );
 		
