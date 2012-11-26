@@ -459,6 +459,26 @@ width: 70%;
 	float: right;
 }
 
+/* Date Seperators */
+.tribe_list_separator_year{
+	display: block;
+	text-align: center;
+	font-size: 38px;
+	color: #ccc;
+	padding: 1em 2.25em 0 1em;
+	font-weight: bold;
+}
+
+.tribe_list_separator_month {
+	display: block;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 14px;
+	margin: 2.5em 0 0;
+	background-color: #EEE;
+	padding: 6px 10px;
+}
+
 
 /* = List View & Single Venue (Pro Version) Template Styles
    @ Template: list.php & single-venue.php
