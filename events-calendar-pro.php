@@ -44,7 +44,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $photoSlug = 'photo';
 		public $todaySlug = 'today';
 		public static $updateUrl = 'http://tri.be/';
-		private static $beta_mode = true; // set to true to enable beta mode
 		const REQUIRED_TEC_VERSION = '3.0';
 		const VERSION = '3.0';
 
@@ -71,12 +70,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'template-tags.php' );
 			require_once( 'lib/tribe-presstrends-events-calendar-pro.php' );
 			require_once( 'lib/tribe-geoloc.class.php' );
-
-			// If the beta test class exists, include it.
-			if ( !empty( self::$beta_mode ) ) {
-				require_once( 'lib/tribe-beta-test.class.php' );
-				TribeBetaTester::init( 'the-events-calendar' );
-			}
 
 			// Tribe common resources
 			require_once( 'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
@@ -109,10 +102,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'get_delete_post_link', array( $this, 'adjust_date_on_recurring_event_trash_link' ), 10, 2 );
 			add_action( 'admin_footer', array( $this, 'addDeleteDialogForRecurringEvents' ) );
 			add_filter( 'tribe_get_events_title', array( $this, 'reset_page_title'));
-			// Load organizer and venue editors
-			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
-			add_action( 'tribe_venue_table_top', array( $this, 'displayEventVenueDropdown' ) );
-			add_action( 'tribe_organizer_table_top', array( $this, 'displayEventOrganizerDropdown' ) );
+			
 			add_action( 'tribe_helper_activation_complete', array( $this, 'helpersLoaded' ) );
 			add_filter( 'tribe_promo_banner', array( $this, 'tribePromoBannerPro' ) );
 			add_filter( 'tribe_help_tab_forums_url', array( $this, 'helpTabForumsLink' ) );
@@ -298,167 +288,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		    }
 
 	    }
-
-		public function addVenueAndOrganizerEditor() {
-			add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __( 'Venues','tribe-events-calendar-pro' ), __( 'Venues','tribe-events-calendar-pro' ), 'edit_tribe_venues', 'edit.php?post_type='.TribeEvents::VENUE_POST_TYPE );
-			add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __( 'Organizers','tribe-events-calendar-pro' ), __( 'Organizers','tribe-events-calendar-pro' ), 'edit_tribe_organizers', 'edit.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE );
-		}
-
-		/**
-		 * displays the saved venue dropdown in the event metabox
-		 *
-		 * @param int $postID the event ID for which to create the dropdown
-		 * @return void
-		 */
-		public function displayEventVenueDropdown( $postId ) {
-			$VenueID = get_post_meta( $postId, '_EventVenueID', true );
-			// override pro default with community on add page
-			if( !$VenueID && class_exists('TribeCommunityEvents') ) {
-				if( TribeCommunityEvents::instance()->isEditPage ) {
-					$VenueID = TribeCommunityEvents::getOption( 'defaultCommunityVenueID' );
-				}
-			}
-			$defaultsEnabled = tribe_get_option( 'defaultValueReplace' );
-			if ( !$VenueID && $defaultsEnabled ) {
-				$VenueID = tribe_get_option( 'eventsDefaultVenueID' );
-			}
-			$VenueID = apply_filters( 'tribe_display_event_venue_dropdown_id', $VenueID );
-			?>
-			<tr class="">
-				<td style="width:170px"><?php _e( 'Use Saved Venue:','tribe-events-calendar-pro' ); ?></td>
-				<td><?php $this->saved_venues_dropdown( $VenueID ); ?></td>
-			</tr>
-			<?php
-		}
-
-		/**
-		 * displays the saved organizer dropdown in the event metabox
-		 *
-		 * @param int $postID the event ID for which to create the dropdown
-		 * @return void
-		 */
-		public function displayEventOrganizerDropdown( $postId ) {
-			$curOrg = get_post_meta( $postId, '_EventOrganizerID', true );
-			// override pro default with community on add page
-			if( !$curOrg && class_exists('TribeCommunityEvents') ) {
-				if( TribeCommunityEvents::instance()->isEditPage ) {
-					$curOrg = TribeCommunityEvents::getOption( 'defaultCommunityOrganizerID' );
-				}
-			}
-			$defaultsEnabled = tribe_get_option( 'defaultValueReplace' );
-			if ( !$curOrg && $defaultsEnabled ) {
-				$curOrg = tribe_get_option( 'eventsDefaultOrganizerID' );
-			}
-			$curOrg = apply_filters( 'tribe_display_event_organizer_dropdown_id', $curOrg );
-			?>
-			<tr class="" >
-				<td style="width:170px"><?php _e( 'Use Saved Organizer:', 'tribe-events-calendar-pro' ); ?></td>
-				<td><?php $this->saved_organizers_dropdown( $curOrg ); ?></td>
-			</tr>
-			<?php
-		}
-
-		/**
-		 * helper function for displaying the saved venue dropdown
-		 *
-		 * @since 2.0
-		 * @param mixed $current the current saved venue
-		 * @param string $name the name value for the field
-		 */
-		public function saved_venues_dropdown( $current = null, $name = 'venue[VenueID]' ){
-			$my_venue_ids = array();
-			$current_user = wp_get_current_user();
-			$my_venues = false;
-			$my_venue_options = '';
-			if ( 0 != $current_user->ID ) {
-			    $my_venues = TribeEvents::instance()->get_venue_info( null, null, array('post_status' => array('publish', 'draft'), 'author' => $current_user->ID) );
-
-				if ( !empty( $my_venues ) ) {
-					foreach ( $my_venues as $my_venue ) {
-						$my_venue_ids[] = $my_venue->ID;
-						$venue_title    = wp_kses( get_the_title( $my_venue->ID ), array() );
-						$my_venue_options .= '<option data-address="' . esc_attr( TribeEvents::instance()->fullAddressString( $my_venue->ID ) ) . '" value="' . esc_attr( $my_venue->ID ) . '"';
-						$my_venue_options .= selected( $current, $my_venue->ID, false );
-						$my_venue_options .= '>' . $venue_title . '</option>';
-					}
-				}
-			}
-
-			$venues = TribeEvents::instance()->get_venue_info( null, null, array('post_status' => 'publish', 'post__not_in' => $my_venue_ids) );
-			if ( $venues || $my_venues ) {
-				echo '<select class="chosen venue-dropdown" name="' . esc_attr( $name ) . '" id="saved_venue">';
-				echo '<option value="0">' . __( 'Use New Venue' ,  'tribe-events-calendar-pro' ) . '</option>';
-				if( $my_venues ) {
-					echo $venues ? '<optgroup label="' . apply_filters('tribe_events_saved_venues_dropdown_my_optgroup', __('My Venues', 'tribe-events-calendar-pro')) . '">' : '';
-					echo $my_venue_options;
-					echo $venues ? '</optgroup>' : '';
-				}
-				if ( $venues ) {
-					echo $my_venues ? '<optgroup label="' . apply_filters('tribe_events_saved_venues_dropdown_optgroup', __('Available Venues', 'tribe-events-calendar-pro')) . '">' : '';
-					foreach ( $venues as $venue ) {
-						$venue_title = wp_kses( get_the_title( $venue->ID ), array() );
-						echo '<option data-address="' . esc_attr( TribeEvents::instance()->fullAddressString( $venue->ID ) ) . '" value="' . esc_attr( $venue->ID ) .'"';
-						selected( ($current == $venue->ID) );
-						echo '>' . $venue_title . '</option>';
-					}
-					echo $my_venues ? '</optgroup>'	: '';
-				}
-				echo '</select>';
-			} else {
-				echo '<p class="nosaved">' . __( 'No saved venues yet.', 'tribe-events-calendar-pro' ) . '</p>';
-			}
-		}
-
-	    /**
-	     * helper function for displaying the saved organizer dropdown
-	     *
-	     * @since 2.0
-	     * @param mixed $current the current saved venue
-	     * @param string $name the name value for the field
-	     */
-		public function saved_organizers_dropdown( $current = null, $name = 'organizer[OrganizerID]' ){
-			$my_organizer_ids = array();
-			$current_user = wp_get_current_user();
-			$my_organizers = false;
-			$my_organizers_options = '';
-			if ( 0 != $current_user->ID ) {
-			    $my_organizers = TribeEvents::instance()->get_organizer_info( null, null, array('post_status' => array('publish', 'draft'), 'author' => $current_user->ID) );
-
-				if ( !empty( $my_organizers ) ) {
-					foreach ( $my_organizers as $my_organizer ) {
-						$my_organizer_ids[] = $my_organizer->ID;
-						$organizer_title    = wp_kses( get_the_title( $my_organizer->ID ), array() );
-						$my_organizers_options .= '<option value="' . esc_attr( $my_organizer->ID ) . '"';
-						$my_organizers_options .= selected( $current, $my_organizer->ID, false );
-						$my_organizers_options .= '>' . $organizer_title . '</option>';
-					}
-				}
-			}
-
-			$organizers = TribeEvents::instance()->get_organizer_info( null, null, array('post_status' => 'publish', 'post__not_in' => $my_organizer_ids) );
-			if ( $organizers || $my_organizers ) {
-				echo '<select class="chosen organizer-dropdown" name="' . esc_attr( $name ) . '" id="saved_organizer">';
-				echo '<option value="0">' . __( 'Use New Organizer' ,  'tribe-events-calendar-pro' ) . '</option>';
-				if( $my_organizers ) {
-					echo $organizers ? '<optgroup label="' . apply_filters('tribe_events_saved_organizers_dropdown_my_optgroup', __('My Organizers', 'tribe-events-calendar-pro')) . '">' : '';
-					echo $my_organizers_options;
-					echo $organizers ? '</optgroup>' : '';
-				}
-				if ( $organizers ) {
-					echo $my_organizers ? '<optgroup label="' . apply_filters('tribe_events_saved_organizers_dropdown_optgroup', __('Available Organizers', 'tribe-events-calendar-pro')) . '">' : '';
-					foreach ( $organizers as $organizer ) {
-						$organizer_title = wp_kses( get_the_title( $organizer->ID ), array() );
-						echo '<option value="' . esc_attr( $organizer->ID ) .'"';
-						selected( ($current == $organizer->ID) );
-						echo '>' . $organizer_title . '</option>';
-					}
-					echo $my_organizers ? '</optgroup>'	: '';
-				}
-				echo '</select>';
-			} else {
-				echo '<p class="nosaved">' . __( 'No saved organizers yet.', 'tribe-events-calendar-pro' ) . '</p>';
-			}
-		}
 
 	    /**
 	     * Add the default settings tab

@@ -358,7 +358,7 @@ class TribeEventsGeoLoc {
 	function ajax_geosearch() {
 
 		if ( class_exists( 'TribeEventsFilterView' ) ) {
-			//TribeEventsFilterView::instance()->createFilters( null, true );
+			TribeEventsFilterView::instance()->createFilters( null, true );
 			$this->setup_geoloc_filter_in_filters();
 		}
 

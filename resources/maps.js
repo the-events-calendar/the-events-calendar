@@ -27,9 +27,75 @@ function tribe_process_geocoding( location, callback ) {
 	} );
 }
 
-jQuery( document ).ready( function ( $ ) {	
+jQuery( document ).ready( function ( $ ) {
+
+	function tribe_test_location() {
+		
+		if( $( '#tribe-bar-geoloc' ).length ) {
+			var tribe_map_val = $( '#tribe-bar-geoloc' ).val();
+			if( tribe_map_val.length ) {
+				if( $( "#tribe_events_filter_item_geofence" ).length )
+					$( "#tribe_events_filter_item_geofence" ).show();
+			} else {
+				if( $( "#tribe_events_filter_item_geofence" ).length ) 
+					$( "#tribe_events_filter_item_geofence" ).hide();
+				if( $( '#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng' ).length )
+					$( '#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng' ).val( '' );		
+			}
+		}
+	}
+
+	tribe_test_location();	
 
 	$( '#tribe-geo-location' ).placeholder();	
+	
+	if( tribe_has_pushstate && GeoLoc.map_view ) {
+
+		// fix any browser that fires popstate on first load incorrectly
+
+		var popped = ('state' in window.history), initialURL = location.href;
+
+		$(window).bind('popstate', function(event) {
+
+			var initialPop = !popped && location.href == initialURL;
+			popped = true;
+
+			// if it was an inital load, get out of here
+
+			if ( initialPop ) return;
+
+			// this really is popstate: fire the ajax, send the stored params from the browser, don't overwrite the history
+
+			if( event.state ) {			
+				tribe_do_string = false;
+				tribe_pushstate = false;	
+				tribe_popping = true;
+				tribe_params = event.state.tribe_params;
+				tribe_pre_ajax_tests( function() { 				
+					tribe_map_processOption( null, '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params );
+				});
+			}
+		} );
+	}
+	
+	var options = {
+		zoom     :5,
+		center   :new google.maps.LatLng( GeoLoc.center.max_lat, GeoLoc.center.max_lng ),
+		mapTypeId:google.maps.MapTypeId.ROADMAP
+	};
+
+	if ( document.getElementById( 'tribe-geo-map' ) ) {
+		map = new google.maps.Map( document.getElementById( 'tribe-geo-map' ), options );
+		tribe_map_bounds = new google.maps.LatLngBounds();
+
+		var minLatlng = new google.maps.LatLng( GeoLoc.center.min_lat, GeoLoc.center.min_lng );
+		tribe_map_bounds.extend( minLatlng );
+
+		var maxLatlng = new google.maps.LatLng( GeoLoc.center.max_lat, GeoLoc.center.max_lng );
+		tribe_map_bounds.extend( maxLatlng );
+
+		centerMap();
+	}
 	
 	if( GeoLoc.map_view ) {
 		
@@ -58,54 +124,8 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_popping = false;
 		tribe_initial_load = true;
 		tribe_pre_ajax_tests( function() { 
-			tribe_map_processOption( null, '', tribe_pushstate, tribe_do_string, tribe_popping, '', tribe_initial_load );
+			tribe_map_processOption( null, '', tribe_pushstate, tribe_do_string, tribe_popping, '', tribe_initial_load );			
 		});
-	}	
-	
-	if( tribe_has_pushstate && GeoLoc.map_view ) {
-
-		// fix any browser that fires popstate on first load incorrectly
-
-		var popped = ('state' in window.history), initialURL = location.href;
-
-		$(window).bind('popstate', function(event) {
-
-			var initialPop = !popped && location.href == initialURL;
-			popped = true;
-
-			// if it was an inital load, get out of here
-
-			if ( initialPop ) return;
-
-			// this really is popstate: fire the ajax, send the stored params from the browser, don't overwrite the history
-
-			if( event.state ) {			
-				tribe_do_string = false;
-				tribe_pushstate = false;	
-				tribe_popping = true;
-				tribe_params = event.state.tribe_params;				
-				tribe_map_processOption( null, '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params );
-			}
-		} );
-	}
-	
-	var options = {
-		zoom     :5,
-		center   :new google.maps.LatLng( GeoLoc.center.max_lat, GeoLoc.center.max_lng ),
-		mapTypeId:google.maps.MapTypeId.ROADMAP
-	};
-
-	if ( document.getElementById( 'tribe-geo-map' ) ) {
-		map = new google.maps.Map( document.getElementById( 'tribe-geo-map' ), options );
-		tribe_map_bounds = new google.maps.LatLngBounds();
-
-		var minLatlng = new google.maps.LatLng( GeoLoc.center.min_lat, GeoLoc.center.min_lng );
-		tribe_map_bounds.extend( minLatlng );
-
-		var maxLatlng = new google.maps.LatLng( GeoLoc.center.max_lat, GeoLoc.center.max_lng );
-		tribe_map_bounds.extend( maxLatlng );
-
-		centerMap();
 	}
 
 	$( "#tribe-geo-options" ).on( 'click', 'a', function ( e ) {
@@ -113,16 +133,22 @@ jQuery( document ).ready( function ( $ ) {
 		e.preventDefault();
 		$( "#tribe-geo-options a" ).removeClass( 'tribe-option-loaded' );
 		$( this ).addClass( 'tribe-option-loaded' );
-
-		$( '#tribe-bar-geoloc-lat' ).val( geocodes[$( this ).attr( 'data-index' )].geometry.location.lat() );
-		$( '#tribe-bar-geoloc-lng' ).val( geocodes[$( this ).attr( 'data-index' )].geometry.location.lng() );
 		
-		tribe_do_string = false;
-		tribe_pushstate = false;	
-		tribe_popping = false;
-
-		tribe_map_processOption( null, '', tribe_pushstate, tribe_do_string, tribe_popping );
-
+		$( '#tribe-bar-geoloc' ).val( $( this ).text() );
+		$( '#tribe-bar-geoloc-lat' ).val( geocodes[$( this ).attr( 'data-index' )].geometry.location.lat() );
+		$( '#tribe-bar-geoloc-lng' ).val( geocodes[$( this ).attr( 'data-index' )].geometry.location.lng() );		
+		
+		
+		if( tribe_has_pushstate ) {
+			tribe_pre_ajax_tests( function() { 			
+				tribe_map_processOption( null, '' );
+				$( "#tribe-geo-options" ).hide();
+			});
+		} else {			
+			tribe_pre_ajax_tests( function() { 
+				tribe_reload_old_browser();
+			});
+		}
 
 	} );
 
@@ -230,38 +256,50 @@ jQuery( document ).ready( function ( $ ) {
 			} );			
 		
 	}
+	
+	if ( GeoLoc.map_view ) {
+		
+		$( '.tribe-events-loop-nav' ).on( 'click', 'a#tribe_map_paged_next', function ( e ) {
+			e.preventDefault();
+			tribe_map_paged++;
+			if( tribe_has_pushstate ) {
+				tribe_pre_ajax_tests( function() { 			
+					tribe_map_processOption( null, tribe_cur_url );
+				});
+			} else {			
+				tribe_pre_ajax_tests( function() { 
+					tribe_reload_old_browser();
+				});
+			}
+		} );
 
-	$( '.tribe-events-loop-nav' ).on( 'click', 'a#tribe_map_paged_next', function ( e ) {
-		e.preventDefault();
-		tribe_map_paged++;
-		if( tribe_has_pushstate ) {			
-			tribe_map_processOption( null, tribe_cur_url );
-		} else {			
-			tribe_reload_old_browser();	
-		}
-	} );
-
-	$( '.tribe-events-loop-nav' ).on( 'click', 'a#tribe_map_paged_prev', function ( e ) {
-		e.preventDefault();
-		tribe_map_paged--;
-		if( tribe_has_pushstate ) {			
-			tribe_map_processOption( null, tribe_cur_url );
-		} else {
-			tribe_reload_old_browser();
-		}
-	} );
-
+		$( '.tribe-events-loop-nav' ).on( 'click', 'a#tribe_map_paged_prev', function ( e ) {
+			e.preventDefault();
+			tribe_map_paged--;
+			if( tribe_has_pushstate ) {			
+				tribe_pre_ajax_tests( function() { 			
+					tribe_map_processOption( null, tribe_cur_url );
+				});
+			} else {
+				tribe_pre_ajax_tests( function() { 
+					tribe_reload_old_browser();
+				});
+			}
+		} );
+		
+	}
 
 	if ( GeoLoc.map_view  && $( '#tribe_events_filters_form' ).length ) {
 		$( 'form#tribe_events_filters_form' ).bind( 'submit', function ( e ) {
 			if ( tribe_events_bar_action != 'change_view' ) {
 				e.preventDefault();
+				tribe_map_paged = 1;
 				if( tribe_has_pushstate ) {	
-					tribe_pre_ajax_tests( function() { 
+					tribe_pre_ajax_tests( function() { 						
 						tribe_map_processOption( null, tribe_cur_url );
 					});
 				} else {
-					tribe_pre_ajax_tests( function() { 
+					tribe_pre_ajax_tests( function() { 						
 						tribe_reload_old_browser();
 					});
 				}
@@ -271,7 +309,7 @@ jQuery( document ).ready( function ( $ ) {
 	
 	if ( GeoLoc.map_view ) {
 		$('#tribe-bar-date').bind( 'change', function (e) {		
-
+			tribe_map_paged = 1;
 			if( tribe_has_pushstate ) {	
 				tribe_pre_ajax_tests( function() { 				
 					tribe_map_processOption( null, tribe_cur_url );
@@ -349,7 +387,7 @@ jQuery( document ).ready( function ( $ ) {
 	if ( GeoLoc.map_view ) {
 	
 		$( 'form#tribe-events-bar-form' ).bind( 'submit', function () {	
-			if ( tribe_events_bar_action != 'change_view' ) {
+			if ( tribe_events_bar_action != 'change_view' ) {				
 				tribe_map_paged = 1;
 				spin_start();
 
@@ -383,13 +421,15 @@ jQuery( document ).ready( function ( $ ) {
 								$( "<a/>" ).text( geocodes[i].formatted_address ).attr( "href", "#" ).addClass( 'tribe-geo-option-link' ).attr( 'data-index', i ).appendTo( "#tribe-geo-options #tribe-geo-links" );
 								tribe_map_addMarker( geocodes[i].geometry.location.lat(), geocodes[i].geometry.location.lng(), geocodes[i].formatted_address );
 							}
+							tribe_test_location();	
 							centerMap();
 
 
 						} else {
-							if( tribe_has_pushstate ) {					
+							if( tribe_has_pushstate ) {	
+								tribe_test_location();	
 								tribe_map_processOption( geocodes[0], tribe_cur_url );
-							} else {
+							} else {								
 								tribe_reload_old_browser();
 							}						
 						}
@@ -402,17 +442,17 @@ jQuery( document ).ready( function ( $ ) {
 				if ( val === '' ) {
 					$( '#tribe-bar-geoloc-lat' ).val( '' );
 					$( '#tribe-bar-geoloc-lng' ).val( '' );
-
-					if ( GeoLoc.map_view ) {
-						//We can show the map even if we don't get a geo query
-						if( tribe_has_pushstate ) {					
-							tribe_map_processOption( null, tribe_cur_url );
-						} else {
-							tribe_reload_old_browser();
-						}	
-						spin_end();
-						return false;
-					}
+					$("#tribe-geo-options").hide();
+					//We can show the map even if we don't get a geo query
+					if( tribe_has_pushstate ) {	
+						tribe_test_location();	
+						tribe_map_processOption( null, tribe_cur_url );
+					} else {
+						tribe_reload_old_browser();
+					}	
+					spin_end();
+					return false;
+					
 				}
 				return true;
 			}
