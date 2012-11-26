@@ -38,9 +38,6 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			add_filter( 'tribe_events_single_event_the_meta', array( __CLASS__, 'the_meta' ), 1, 1 );
 			add_filter( 'tribe_events_single_event_after_the_meta', array( __CLASS__, 'after_the_meta' ), 1, 1 );
 
-			// Event comments
-			add_filter( 'tribe_events_single_event_the_comments', array( __CLASS__, 'the_comments' ), 1, 1 );
-
 			// Event pagination
 			add_filter( 'tribe_events_single_event_before_pagination', array( __CLASS__, 'before_pagination' ), 1, 1 );
 			add_filter( 'tribe_events_single_event_pagination', array( __CLASS__, 'pagination' ), 1, 1 );
@@ -369,11 +366,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		public static function after_pagination( $post_id ) {
 			$html = '</ul></div><!-- .tribe-events-loop-nav -->';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_event_after_pagination' );
-		}
-		public static function the_comments( $post_id ) {
-			$html = comments_template();
-			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_event_the_comments' );
-		}		
+		}	
 		// After Single Template
 		public static function after_template( $post_id ){
 			$html = '</div>!-- #tribe-events-content -->';
