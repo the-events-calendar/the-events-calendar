@@ -133,7 +133,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			endif; 	
 			ob_start();
 ?>
-	<div class="tribe-events-event-meta">
+	<div class="tribe-events-event-meta tribe-clearfix">
 		<dl class="tribe-events-meta-column">
 			<h3 class="tribe-event-single-section-title"><?php _e( 'Details', 'tribe-events-calendar' ); ?></h3>			
 
@@ -294,7 +294,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		<?php } ?>
 		</div><!-- .tribe-events-event-meta -->
 	<?php if ( tribe_embed_google_map( get_the_ID() ) && tribe_address_exists( get_the_ID() ) && $tribe_event_custom_fields ) : // If there's a venue map, show this seperate section ?>
-				<div class="tribe-event-single-section tribe-events-event-meta">
+				<div class="tribe-event-single-section tribe-events-event-meta tribe-clearfix">
 					<dl class="tribe-events-meta-column">
 						<h3 class="tribe-event-single-section-title"><?php _e( 'Venue', 'tribe-events-calendar' ); ?></h3>
 						<?php if ( tribe_get_venue() ) : // Venue info ?>

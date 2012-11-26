@@ -517,8 +517,8 @@ vertical-align: middle;
 }
 /* Meta Sections */
 .single-tribe_events .tribe-events-event-meta {
-		margin-right: -4%;
 		width: 100%;
+		margin: 30px -4% 30px 0;
 }
 
 /* Map */

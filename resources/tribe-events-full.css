@@ -599,8 +599,8 @@ h3.tribe-event-single-section-title {
 /* Meta Sections */
 .single-tribe_events .tribe-events-event-meta {
 		background: #fafafa;
-		border-width: 1px;
-		border-color: #eee;
+		border: 1px solid #eee;
+		margin: 30px 0;
 }
 
 /* Map */
