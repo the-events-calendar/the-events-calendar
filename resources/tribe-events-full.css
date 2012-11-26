@@ -777,9 +777,8 @@ h3.tribe-event-single-section-title {
 	width: 16px;
 	height: 16px;
 	opacity: .7;
-	position: relative;
-	top: 4px;
-	display: inline;	
+	display: inline;
+	vertical-align: middle;	
 	box-shadow: none !important;
 }
 .event-is-recurring:hover img {
