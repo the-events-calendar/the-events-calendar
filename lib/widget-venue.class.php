@@ -27,7 +27,9 @@ if( !class_exists( 'TribeVenueWidget') ) {
 				echo '<div class="tribe_venue-widget-wrapper">';
 				// Display the venue information.
 				echo '<div class="tribe_venue-widget-venue">';
-				echo '<div class="tribe_venue-widget-venue-name">' . tribe_get_venue($venue_ID) . '</div>';
+				echo '<div class="tribe_venue-widget-venue-name">';
+				tribe_get_venue_link($venue_ID);
+				echo '</div>';
 				if (has_post_thumbnail($venue_ID)) {
 					echo '<div class="tribe_venue-widget-thumbnail">' . get_the_post_thumbnail($venue_ID, 'related-event-thumbnail' ) . '</div>';
 				}
@@ -38,9 +40,11 @@ if( !class_exists( 'TribeVenueWidget') ) {
 					$zip = tribe_get_zip($venue_ID);
 					$country = tribe_get_country($venue_ID);
 					echo '<div class="tribe_venue-widget-address">';
+					echo '<p>';
 					echo $address . '<br />';
 					echo $city . ', ' . $region . ' ' . $zip .'<br />';
 					echo $country;
+					echo '</p>';
 					echo '</div>';
 				}
 				echo '</div>';

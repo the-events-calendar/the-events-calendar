@@ -690,3 +690,10 @@ div.tribe-countdown-text {
 .tribe_map_paged {
 	display : none;
 }
+
+
+/* = Events Venue Widget
+=============================================*/
+.tribe_venue-widget-venue-name a {
+	font-weight: bold;
+}
