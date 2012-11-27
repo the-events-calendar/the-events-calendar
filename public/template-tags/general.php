@@ -565,5 +565,16 @@ if( class_exists( 'TribeEvents' ) ) {
 		// return the parsed template
 		return $list_view_html;
 	}
+
+	function tribe_events_the_notices( $echo = true ){
+		$notices = TribeEvents::getNotices();
+		$html = !empty($notices) ? '<div class="tribe-event-notices"><ul><li>' . implode('</li><li>', $notices ) . '</li></ul></div>' : '';
+		$the_notices = apply_filters('tribe_events_the_notices', $html, $notices );
+		if( $echo ) {
+			echo $the_notices;
+		} else {
+			return $the_notices;
+		}
+	}
 		
 }

@@ -22,23 +22,13 @@
 
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-	// Check if event has passed
-	$notices = empty($notices) ? array() : $notices; 
-	$gmt_offset = (get_option('gmt_offset') >= '0' ) ? ' +' . get_option('gmt_offset') : " " . get_option('gmt_offset');
- 	$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
- 	if ( strtotime( tribe_get_end_date( get_the_ID(), false, 'Y-m-d G:i' ) . $gmt_offset ) <= time() ) { ?>
- 		<div class="event-passed">
- 			<?php $notices[] = __('This event has passed.', 'tribe-events-calendar'); ?>
- 		</div>
-<?php } 
-
 $event_id = get_the_ID();
 
 // Start single template
 echo apply_filters( 'tribe_events_single_event_before_template', '', $event_id );
 
 	// Event notice
-	echo apply_filters( 'tribe_events_single_event_notices', $notices, $event_id );
+	echo apply_filters( 'tribe_events_single_event_notices', $event_id );
 
 	echo apply_filters( 'tribe_events_single_event_featured_image', '', $event_id );
 

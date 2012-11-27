@@ -141,11 +141,12 @@ if (!class_exists('TribeEventsTemplates')) {
 			// restore the query so that our page template can do a normal loop
 			self::restoreQuery();
 
-			$notices = array();
+			// $notices = array();
 			$gmt_offset = (get_option('gmt_offset') >= '0' ) ? ' +' . get_option('gmt_offset') : " " . get_option('gmt_offset');
 			$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
 			if (strtotime( tribe_get_end_date(get_the_ID(), false, 'Y-m-d G:i') . $gmt_offset ) <= time() ) 
-				$notices[] = __('This event has passed.', 'tribe-events-calendar');
+				TribeEvents::setNotice( __('This event has passed.', 'tribe-events-calendar') );
+				// $notices[] = __('This event has passed.', 'tribe-events-calendar');
 		
 			ob_start();
 			echo apply_filters( 'tribe_events_before_html', stripslashes( tribe_get_option( 'tribeEventsBeforeHTML' ) ) );

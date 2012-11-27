@@ -15,6 +15,13 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 	class Tribe_Events_Single_Event_Template extends Tribe_Template_Factory {
 		public static function init(){
 
+			// Check if event has passed
+			$gmt_offset = (get_option('gmt_offset') >= '0' ) ? ' +' . get_option('gmt_offset') : " " . get_option('gmt_offset');
+		 	$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
+		 	if ( strtotime( tribe_get_end_date( get_the_ID(), false, 'Y-m-d G:i' ) . $gmt_offset ) <= time() ) { 
+		 		TribeEvents::setNotice( __('This event has passed.', 'tribe-events-calendar') );
+		 	} 
+
 			// Start single template
 			add_filter( 'tribe_events_single_event_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 
@@ -26,7 +33,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			add_filter( 'tribe_events_single_event_after_the_title', array( __CLASS__, 'after_the_title' ), 1, 1 );
 
 			// Event notices
-			add_filter( 'tribe_events_single_event_notices', array( __CLASS__, 'notices' ), 1, 2 );
+			add_filter( 'tribe_events_single_event_notices', array( __CLASS__, 'notices' ), 1, 1 );
 
 			// Event content
 			add_filter( 'tribe_events_single_event_before_the_content', array( __CLASS__, 'before_the_content' ), 1, 1 );
@@ -73,10 +80,8 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_after_the_title');
 		}
 		// Event Notices
-		public static function notices( $notices = array(), $post_id ) {
-			$html = '';
-			if(!empty($notices))	
-				$html .= '<div class="event-notices">' . implode('<br />', $notices) . '</div>';
+		public static function notices( $post_id ) {
+			$html = tribe_events_the_notices(false);
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_notices');
 		}
 		// Event Content

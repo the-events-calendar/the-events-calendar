@@ -21,6 +21,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		const INFO_API_URL = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
+		protected $notices = array();
+
 		protected $postTypeArgs = array(
 			'public' => true,
 			'rewrite' => array('slug' => 'event', 'with_front' => false),
@@ -644,6 +646,17 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					error_log($this->pluginName." $format: ".print_r($data,true));
 				}
 			}
+		}
+
+		/**
+		 * 
+		 */
+		public static function setNotice( $notice ){
+			self::instance()->notices[] = $notice;
+			return true;
+		}
+		public static function getNotices(){
+			return self::instance()->notices;
 		}
 
 		public function get_event_taxonomy() {

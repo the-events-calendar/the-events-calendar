@@ -180,7 +180,7 @@ a.tribe-events-gcal {
 }
 
 /* Event Notices */
-.event-notices {
+.tribe-event-notices {
     background: #d9edf7;
     border: 1px solid #bce8f1;
     color: #3a87ad;
@@ -190,6 +190,11 @@ a.tribe-events-gcal {
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
+}
+.tribe-event-notices ul {
+	margin:0;
+	padding:0;
+	list-style: none;
 }
 
 /* Promotional Styles */
@@ -342,7 +347,7 @@ width: 70%;
 }
 
 .tribe-events-list .tribe-events-event-details h2 {
-	margin: 0 0 2% 0;
+	margin: 0 0 10px 0;
 	padding: 0;
 	font-size: 1.4em;
 	line-height: 1.4em;
@@ -353,7 +358,7 @@ width: 70%;
 .tribe-events-list .tribe-events-event-details h3 {
 	font-size: 1.2em;
 	line-height: 1.2;
-	margin: 0 0 1% 0;
+	margin: 0 0 7px 0;
 	text-transform: none;
 	letter-spacing: 0;	
 }
