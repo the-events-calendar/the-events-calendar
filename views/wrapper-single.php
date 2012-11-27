@@ -38,5 +38,5 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<?php /* get_sidebar(); */ ?> 
 		
 	<?php tribe_events_after_html(); ?>
-</div> <!-- #tribe-events-pg-template -->	
+</div> <!-- #tribe-events-pg-template -->
 <?php get_footer(); ?>

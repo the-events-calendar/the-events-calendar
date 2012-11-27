@@ -151,13 +151,20 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_event_website_link( $event = null, $label = null ){
 		$post_id = is_object($event) && isset($event->tribe_is_event) && $event->tribe_is_event ? $event->ID : $event;
 		$post_id = !empty($post_id) ? $post_id : get_the_ID();
-		$link = tribe_get_event_meta( $post_id, '_EventURL', true );
-		$label = is_null($label) ? $link : $label;
-		$html = empty($link) ? '' : sprintf('<a href="%s" target="%s">%s</a>',
-			$link,
-			apply_filters('tribe_get_event_website_link_target', 'self'),
-			apply_filters('tribe_get_event_website_link_label', $label)
-			);
+		$url = tribe_get_event_meta( $post_id, '_EventURL', true );
+		if( !empty($url) ) {
+			$label = is_null($label) ? $url : $label;
+			$parseUrl = parse_url($url);
+			if (empty($parseUrl['scheme'])) 
+				$url = "http://$url";
+			$html = sprintf('<a href="%s" target="%s">%s</a>',
+				$url,
+				apply_filters('tribe_get_event_website_link_target', 'self'),
+				apply_filters('tribe_get_event_website_link_label', $label)
+				);
+		} else {
+			$html = '';
+		}
 		return apply_filters('tribe_get_event_website_link', $html );
 	}
 

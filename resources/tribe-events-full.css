@@ -479,6 +479,9 @@ width: 70%;
 	padding: 6px 10px;
 }
 
+.tribe_list_separator_month + .vevent.hentry.tribe-first {
+	padding-top: 2.25em;
+}
 
 /* = List View & Single Venue (Pro Version) Template Styles
    @ Template: list.php & single-venue.php

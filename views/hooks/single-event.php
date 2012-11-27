@@ -14,7 +14,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( !class_exists('Tribe_Events_Single_Event_Template')){
 	class Tribe_Events_Single_Event_Template extends Tribe_Template_Factory {
 		public static function init(){
-			add_filter( 'tribe_events_single_event_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
+
 			// Start single template
 			add_filter( 'tribe_events_single_event_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 
@@ -44,13 +44,12 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			add_filter( 'tribe_events_single_event_after_pagination', array( __CLASS__, 'after_pagination' ), 1, 1 );
 
 			// End single template
-			apply_filters( 'tribe_events_single_event_after_template', array( __CLASS__, 'after_template' ), 1, 1 );
+			add_filter( 'tribe_events_single_event_after_template', array( __CLASS__, 'after_template' ), 1, 1 );
 		}
 		// Start Single Template
 		public static function before_template( $post_id ){
 			$html = '<div id="tribe-events-content" class="tribe-events-single">';
-						$html .= '<p class="tribe-events-back"><a href="' . tribe_get_events_link() . '" rel="bookmark">'. __( '&laquo; Back to Events', 'tribe-events-calendar-pro' ) .'</a></p>';
-
+			$html .= '<p class="tribe-events-back"><a href="' . tribe_get_events_link() . '" rel="bookmark">'. __( '&laquo; Back to Events', 'tribe-events-calendar-pro' ) .'</a></p>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_before_template');
 		}
 		public static function featured_image( $post_id ){
@@ -89,13 +88,13 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			ob_start();
 
 			// Single event content ?>
-				<div class="tribe-event-schedule tribe-clearfix">
-					<h2><?php echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); ?><?php 	if ( tribe_get_cost() ) :  echo '<span class="tribe-divider">|</span><span class="tribe-event-cost">'. tribe_get_cost() .'</span>'; endif; ?></h2>
+			<div class="tribe-event-schedule tribe-clearfix">
+				<h2><?php echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); ?><?php 	if ( tribe_get_cost() ) :  echo '<span class="tribe-divider">|</span><span class="tribe-event-cost">'. tribe_get_cost() .'</span>'; endif; ?></h2>
 				
-					<?php // iCal/gCal links
-			if ( function_exists( 'tribe_get_single_ical_link' ) || function_exists( 'tribe_get_gcal_link' ) ) { ?>
-							<div class="tribe-event-cal-links">
-							<?php // iCal link
+				<?php // iCal/gCal links
+				if ( function_exists( 'tribe_get_single_ical_link' ) || function_exists( 'tribe_get_gcal_link' ) ) { ?>
+					<div class="tribe-event-cal-links">
+				<?php // iCal link
 				if ( function_exists( 'tribe_get_single_ical_link' ) ) {
 					echo '<a class="tribe-events-ical tribe-events-button-grey" href="' . tribe_get_single_ical_link() . '">' . __( 'iCal Import', 'tribe-events-calendar' ) . '</a>';
 				}
@@ -103,15 +102,17 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 				if ( function_exists( 'tribe_get_gcal_link' ) ) {
 					echo  '<a class="tribe-events-gcal tribe-events-button-grey" href="' . tribe_get_gcal_link() . '" title="' . __( 'Add to Google Calendar', 'tribe-events-calendar' ) . '">' . __( '+ Google Calendar', 'tribe-events-calendar' ) . '</a>';
 				}
-				echo '</div>';
-			} ?>
-				</div>
+					echo '</div><!-- .tribe-event-cal-links -->';
+				} ?>
+			</div>
+			
 			<div class="entry-content description">
 
 				<?php // Event content
-			the_content(); ?>
+				the_content(); ?>
 
 			</div><!-- .description -->
+
 			<?php
 			$html = ob_get_clean();
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_the_content');
@@ -377,7 +378,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		}	
 		// After Single Template
 		public static function after_template( $post_id ){
-			$html = '</div>!-- #tribe-events-content -->';
+			$html = '</div><!-- #tribe-events-content -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_after_template');
 		}
 	}
