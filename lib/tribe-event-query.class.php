@@ -31,7 +31,7 @@ if (!class_exists('TribeEventsQuery')) {
 			add_filter( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 0 );
 
 			// setup returned posts with event fields ( start date, end date, duration etc )
-			// add_filter( 'the_posts', array( __CLASS__, 'the_posts'), 0 );
+			add_filter( 'the_posts', array( __CLASS__, 'the_posts'), 0 );
 		}
 
 
@@ -82,8 +82,8 @@ if (!class_exists('TribeEventsQuery')) {
 
 				add_filter( 'posts_join', array(__CLASS__, 'posts_join' ), 10, 2 );
 				add_filter( 'posts_where', array(__CLASS__, 'posts_where'), 10, 2);
-				// add_filter( 'posts_fields',	array( __CLASS__, 'posts_fields' ) );
-				// add_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct'));
+				add_filter( 'posts_fields',	array( __CLASS__, 'posts_fields' ) );
+				add_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct'));
 				add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ) );
 
 				if( !empty($query->query_vars['eventDisplay']) ) {
@@ -203,8 +203,8 @@ if (!class_exists('TribeEventsQuery')) {
 
 					remove_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 10, 2 );
 					remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
-					// remove_filter( 'posts_fields',	array( __CLASS__, 'posts_fields' ) );
-					// remove_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct'));
+					remove_filter( 'posts_fields',	array( __CLASS__, 'posts_fields' ) );
+					remove_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct'));
 					remove_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ) );
 					$query->set( 'post__not_in', '' );
 
