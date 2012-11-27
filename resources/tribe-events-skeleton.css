@@ -508,6 +508,10 @@ width: 70%;
 	margin: 2.5em 0 0;
 }
 
+.tribe_list_separator_month + .vevent.hentry.tribe-first {
+	padding-top: 2.25em;
+}
+
 /* Date/Time */
 .single-tribe_events .tribe-event-schedule {
 	margin: 20px 0 0;
