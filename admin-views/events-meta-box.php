@@ -17,14 +17,17 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <?php $this->do_action('tribe_events_post_errors', $postId, true) ?>
 
 </div>
-<div id='eventDetails' class="inside eventForm bubble">
+<div id='eventDetails' class="inside eventForm">
    <?php $this->do_action('tribe_events_detail_top', $postId, true) ?>
 	<?php wp_nonce_field( TribeEvents::POSTTYPE, 'ecp_nonce' ); ?>
 	<?php do_action('tribe_events_eventform_top', $postId); ?>
 	<table cellspacing="0" cellpadding="0" id="EventInfo">
 		<tr>
-			<td colspan="2" class="tribe_sectionheader"><h4 class="event-time"><?php _e('Event Time &amp; Date', 'tribe-events-calendar'); ?></h4></td>
+			<td colspan="2" class="tribe_sectionheader"><div class="tribe_sectionheader" style="padding: 6px 6px 0 0; font-size: 11px; margin: 0 10px;"><h4><?php _e('Event Time &amp; Date', 'tribe-events-calendar'); ?></h4></div></td>
 		</tr>
+		<tr>
+		<td colspan="2">
+		<table class="eventtable">
 		<tr id="recurrence-changed-row">
 			<td colspan='2'><?php _e("You have changed the recurrence rules of this event.  Saving the event will update all future events.  If you did not mean to change all events, then please refresh the page.", 'tribe-events-calendar') ?></td>
 		</tr>
@@ -75,6 +78,9 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			</td>
 		</tr>
 		<?php $this->do_action('tribe_events_date_display', $postId, true) ?>
+	</table>
+	</td>
+	</tr>
 	</table>
 	<div class="tribe_sectionheader" style="padding: 6px 6px 0 0; font-size: 11px; margin: 0 10px;"><h4><?php _e('Event Location Details', 'tribe-events-calendar'); ?></h4></div>
 	<div style="float: left;">

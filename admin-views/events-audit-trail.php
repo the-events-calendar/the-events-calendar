@@ -35,20 +35,25 @@ if( is_admin() ){
 	}
 	
 	?>
-	<div id='eventDetails' class="inside eventForm bubble">
+	<div id='eventDetails' class="inside eventForm">
 		<table cellspacing="0" cellpadding="0" id="EventInfo">
 			<tr>
-				<td colspan="2" class="tribe_sectionheader"><h4 class="event-time"><?php _e('Auditing Information', 'tribe-events-calendar'); ?></h4></td>
+				<td colspan="2" class="tribe_sectionheader"><div class="tribe_sectionheader" style="padding: 6px 6px 0 0; font-size: 11px; margin: 0 10px;"><h4><?php _e('Auditing Information', 'tribe-events-calendar'); ?></h4></div></td>
 			</tr>
 			<tr>
-				<td width="10%"><?php _e('Created by:', 'tribe-events-calendar'); ?></td>
+			<td colspan="2">
+			<table class="eventtable">
+			<tr>
+				<td width="25%"><?php _e('Created by:', 'tribe-events-calendar'); ?></td>
 				<td><?php echo get_post_meta($post->ID, $post_type.'Origin', true); ?></td>
 			</tr>
 			<tr>
 				<td valign="top"><?php _e('Audit Trail:', 'tribe-events-calendar'); ?></td>
 				<td><?php echo $audit_trail_display; ?></td>
 			</tr>
-	
+			</table>
+			</td>
+			</tr>
 		</table>
 	</div>
 <?php } ?>
