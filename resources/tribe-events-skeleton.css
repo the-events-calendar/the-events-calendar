@@ -292,14 +292,14 @@ width: 70%;
 }
 
 .tribe-events-list .tribe-events-event-details h2 {
-	margin: 0 0 2% 0;
+	margin: 0 0 10px 0;
 	padding: 0;
 	text-transform: none;
 	letter-spacing: 0;
 }
 
 .tribe-events-list .tribe-events-event-details h3 {
-	margin: 0 0 1% 0;
+	margin: 0 0 7px 0;
 	text-transform: none;
 	letter-spacing: 0;	
 }
