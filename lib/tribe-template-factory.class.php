@@ -68,6 +68,13 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					wp_enqueue_script( 'tribe-events-calendar', $resouces_url . 'tribe-events-ajax-calendar.js' );
 					wp_localize_script( 'tribe-events-calendar', 'TribeCalendar', $ajax_data );
 					break;
+				case 'ajax-list':
+					$tribe_paged = ( !empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 0;
+					$ajax_data = array( "ajaxurl"     => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
+					                    'tribe_paged' => $tribe_paged );
+					wp_enqueue_script( 'tribe-events-list', $resouces_url . 'tribe-events-ajax-list.js' );
+					wp_localize_script( 'tribe-events-list', 'TribeList', $ajax_data );
+					break;
 
 				default :
 					do_action($prefix . '-' . $name);

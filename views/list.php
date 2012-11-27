@@ -53,9 +53,12 @@ if ( ! have_posts() ) { // Messages if currently no events
 // Start list template
 echo apply_filters( 'tribe_events_list_before_template', '', $the_post_id );
 
+	
+	echo apply_filters( 'tribe_events_list_the_title', '', $the_post_id );
+
 	// List notices
 	echo apply_filters( 'tribe_events_list_notices', $notices, $notices, $the_post_id );
-	
+
 	// Start list loop
 	echo apply_filters( 'tribe_events_list_before_loop', '', $the_post_id );
 
@@ -82,7 +85,7 @@ echo apply_filters( 'tribe_events_list_before_template', '', $the_post_id );
 					echo apply_filters( 'tribe_events_list_before_the_event_details', '', get_the_ID() );
 
 					// Event title
-					echo apply_filters( 'tribe_events_list_the_title', '', get_the_ID() );
+					echo apply_filters( 'tribe_events_list_the_event_title', '', get_the_ID() );
 
 					// Event meta
 					echo apply_filters( 'tribe_events_list_before_the_meta', '', get_the_ID() );

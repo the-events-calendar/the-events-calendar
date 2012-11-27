@@ -135,7 +135,37 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_event_link($event = null) {
-		return trailingslashit( apply_filters( 'tribe_get_event_link', TribeEvents::instance()->getLink('single', $event), $event ) );
+		if ( '' == get_option('permalink_structure') ) {
+			return apply_filters( 'tribe_get_event_link', TribeEvents::instance()->getLink('single', $event), $event );
+		} else {
+			return trailingslashit( apply_filters( 'tribe_get_event_link', TribeEvents::instance()->getLink('single', $event), $event ) );
+		}
+	}
+
+	/**
+	 * Event Website Link (more info)
+	 * 
+	 * @param  object|int $event
+	 * @return $html
+	 */
+	function tribe_get_event_website_link( $event = null, $label = null ){
+		$post_id = is_object($event) && isset($event->tribe_is_event) && $event->tribe_is_event ? $event->ID : $event;
+		$post_id = !empty($post_id) ? $post_id : get_the_ID();
+		$url = tribe_get_event_meta( $post_id, '_EventURL', true );
+		if( !empty($url) ) {
+			$label = is_null($label) ? $url : $label;
+			$parseUrl = parse_url($url);
+			if (empty($parseUrl['scheme'])) 
+				$url = "http://$url";
+			$html = sprintf('<a href="%s" target="%s">%s</a>',
+				$url,
+				apply_filters('tribe_get_event_website_link_target', 'self'),
+				apply_filters('tribe_get_event_website_link_label', $label)
+				);
+		} else {
+			$html = '';
+		}
+		return apply_filters('tribe_get_event_website_link', $html );
 	}
 
 }

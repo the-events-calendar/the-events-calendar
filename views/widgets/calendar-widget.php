@@ -49,11 +49,19 @@ list( $year, $month ) = split( '-', tribe_get_month_view_date() );
 $date = mktime( 12, 0, 0, $month, 1, $year ); // 1st day of month as unix stamp
 $rawOffset = date( "w", $date ) - get_option( 'start_of_week', 0 );
 
+$args = array( 'eventDisplay'=> 'month' );
+if ( isset( $_POST["eventDate"] ) ) {
+	$args['eventDate'] = $_POST["eventDate"] . '-01';
+}
+$events =  tribe_get_events( $args );
+
+
+
 // setup args for filter: tribe_events_calendar_widget_the_dates
 $the_dates_args = array(
 	'offset' => ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset, // month begins on day x
 	'rows' => 1,
-	'monthView' => tribe_sort_by_month( tribe_get_events( array( 'eventDisplay'=>'month' ) ), tribe_get_month_view_date() ),
+	'monthView' => tribe_sort_by_month($events, tribe_get_month_view_date() ),
 	'date' => $date,
 	'month' => $month,
 	'year' => $year

@@ -21,7 +21,6 @@
  */
 
 if ( !defined('ABSPATH') ) { die('-1'); }
-if ( !defined('ABSPATH') ) { die('-1'); }
 
 	// Check if event has passed
 	$notices = empty($notices) ? array() : $notices; 
@@ -33,29 +32,34 @@ if ( !defined('ABSPATH') ) { die('-1'); }
  		</div>
 <?php } 
 
+$event_id = get_the_ID();
+
 // Start single template
-echo apply_filters( 'tribe_events_single_event_before_template', '', get_the_ID() );
+echo apply_filters( 'tribe_events_single_event_before_template', '', $event_id );
 
 	// Event notice
-	echo apply_filters( 'tribe_events_single_event_notices', $notices, get_the_ID() );
+	echo apply_filters( 'tribe_events_single_event_notices', $notices, $event_id );
 
-	// Event meta
-	echo apply_filters( 'tribe_events_single_event_before_the_meta', '', get_the_ID() );
-	echo apply_filters( 'tribe_events_single_event_the_meta', '', get_the_ID() );
-	echo apply_filters( 'tribe_events_single_event_after_the_meta', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_single_event_featured_image', '', $event_id );
 
-	// Event map
-	echo apply_filters( 'tribe_events_single_event_the_map', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_single_event_before_the_title', '', $event_id );
+	echo apply_filters( 'tribe_events_single_event_the_title', '', $event_id );
+	echo apply_filters( 'tribe_events_single_event_after_the_title', '', $event_id );
 
 	// Event content
-	echo apply_filters( 'tribe_events_single_event_before_the_content', '', get_the_ID() );
-	echo apply_filters( 'tribe_events_single_event_the_content', '', get_the_ID() );
-	echo apply_filters( 'tribe_events_single_event_after_the_content', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_single_event_before_the_content', '', $event_id );
+	echo apply_filters( 'tribe_events_single_event_the_content', '', $event_id );
+	echo apply_filters( 'tribe_events_single_event_after_the_content', '', $event_id );	
 
+	// Event meta
+	echo apply_filters( 'tribe_events_single_event_before_the_meta', '', $event_id );
+	echo apply_filters( 'tribe_events_single_event_the_meta', '', $event_id );
+	echo apply_filters( 'tribe_events_single_event_after_the_meta', '', $event_id );
+		
 	// Event pagination
-	echo apply_filters( 'tribe_events_single_event_before_pagination', '', get_the_ID() );
-	echo apply_filters( 'tribe_events_single_event_pagination', '', get_the_ID() );
-	echo apply_filters( 'tribe_events_single_event_after_pagination', '', get_the_ID() );
-
+	echo apply_filters( 'tribe_events_single_event_before_pagination', '', $event_id );
+	echo apply_filters( 'tribe_events_single_event_pagination', '', $event_id );
+	echo apply_filters( 'tribe_events_single_event_after_pagination', '', $event_id );
+	
 // End single template
-echo apply_filters( 'tribe_events_single_event_after_template', '', get_the_ID() );
+echo apply_filters( 'tribe_events_single_event_after_template', '', $event_id );

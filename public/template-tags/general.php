@@ -84,8 +84,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_events( $args = '' )  {
-		$tribe_ecp = TribeEvents::instance();
-		return apply_filters('tribe_get_events', $tribe_ecp->getEvents( $args ));
+		return apply_filters( 'tribe_get_events', TribeEventsQuery::getEvents( $args ) );
 	}
 
 	/**
@@ -356,7 +355,12 @@ if( class_exists( 'TribeEvents' ) ) {
 		$costs = $wpdb->get_col( 'SELECT meta_value FROM ' . $wpdb->postmeta . ' WHERE meta_key = \'_EventCost\';');
 		
 		$costs = array_map( 'tribe_map_cost_array_callback', $costs );
-		
+		foreach ( $costs as $index => $value ) {
+			$costs[$index] = preg_replace( '/^[^\d]+(\d+.*)$/', '$1', $value );
+		}
+		if ( empty( $costs ) )
+			$costs = array( '0' );
+			
 		$min = min( $costs );
 		if ( $min == '' )
 			$min = 0;
@@ -377,6 +381,12 @@ if( class_exists( 'TribeEvents' ) ) {
 		$costs = $wpdb->get_col( 'SELECT meta_value FROM ' . $wpdb->postmeta . ' WHERE meta_key = \'_EventCost\';');
 		
 		$costs = array_map( 'tribe_map_cost_array_callback', $costs );
+		foreach ( $costs as $index => $value ) {
+			$costs[$index] = preg_replace( '/^[^\d]+(\d+.*)$/', '$1', $value );
+		}
+		
+		if ( empty( $costs ) )
+			$costs = array( '0' );
 		
 		$max = max( $costs );
 		if ( $max == '' )
@@ -476,19 +486,18 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param  int $post_id
 	 * @return string
 	 */
-	function tribe_event_recurring_info_tooltip( $post_id = null ){
+	function tribe_events_event_recurring_info_tooltip( $post_id = null ){
 		if( is_null( $post_id ))
 			$post_id = get_the_ID();
-		$eventID = $post_id;
 		$tooltip = '';
 		if( class_exists( 'TribeEventsPro' ) )  { // should this be a template tag?
-			if ( tribe_is_recurring_event() ) { 
+			if ( tribe_is_recurring_event( $post_id ) ) { 
 				$tooltip .= '<span class="recurringinfo">';
 				$tooltip .= '<div class="event-is-recurring">';
-					$tooltip .= '[ <img src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/recurring-event-icon.png" /> event ]';
-					$tooltip .= '<div id="tribe-events-tooltip-'. $eventID .'" class="tribe-events-tooltip recurring-info-tooltip">';
+					$tooltip .= '( <img src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/recurring-event-icon.png" /> event )';
+					$tooltip .= '<div id="tribe-events-tooltip-'. $post_id .'" class="tribe-events-tooltip recurring-info-tooltip">';
 						$tooltip .= '<div class="tribe-events-event-body">';
-							$tooltip .= tribe_get_recurrence_text();
+							$tooltip .= tribe_get_recurrence_text( $post_id );
 						$tooltip .= '</div>';	
 						$tooltip .= '<span class="tribe-events-arrow"></span>';	
 					$tooltip .= '</div>';
@@ -497,7 +506,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		 }
 		}
 		return $tooltip;
-		return apply_filters('tribe_event_recurring_info_tooltip', $tooltip);
+		return apply_filters('tribe_events_event_recurring_info_tooltip', $tooltip);
 	}
 
 	/** 
@@ -506,24 +515,39 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param  int $post_id
 	 * @return string
 	 */
-	function tribe_event_schedule_details( $post_id = null){
-		if (is_null( $post_id ))
+	function tribe_events_event_schedule_details( $post_id = null ) {
+		if ( is_null( $post_id ) )
 			$post_id = get_the_ID();
-			$schedule = '<div class="tribe-event-schedule-details">';
-			 if ( tribe_is_multiday( $post_id ) ) { // multi-date event 
-				$schedule .= '<span class="date-start">'. tribe_get_start_date() .'</span> - <span class="date-end">'. tribe_get_end_date() .'</span>';
-			 } elseif ( tribe_get_all_day( $post_id ) ) {  // all day event
-				$schedule .= '<span class="date-start">'. tribe_get_start_date() .'</span>';
-			} else { // single day event
-					if ( tribe_get_start_date( $post_id, false, 'g:i A' ) == tribe_get_end_date( $post_id, false, 'g:i A' ) ) { // Same start/end time 
-						$schedule .= '<span class="date-start">'. tribe_get_start_date($post_id, false) .'</span> @ <span class="start-time">'. tribe_get_start_date( $post_id, false, 'g:i A' ) .'</span>';
-					 } else {  // defined start/end time
-					  $schedule .= '<span class="date-start">'. tribe_get_start_date( $post_id, false ) .'</span> <span class="date-divider">|</span> <span class="start-time">'. tribe_get_start_date( $post_id, false, 'g:i A' ) .' - <span class="start-time">'. tribe_get_end_date( $post_id, false, 'g:i A' ) .'</span>';	
-					 } 					
+
+		$format = '';
+		/* If the event happens this year, no need to show the year, unless it ends on another year (multi-day) */
+		if ( tribe_get_start_date( $post_id, false, 'Y' ) === date( 'Y' ) && tribe_get_end_date( $post_id, false, 'Y' ) === date( 'Y' ) ) {
+			$format = 'F j';
+		}
+
+		$schedule = '<div class="tribe-events-event-schedule-details">';
+		if ( tribe_is_multiday( $post_id ) ) { // multi-date event
+
+			$format2ndday = $format;
+			//If it's all day and the end date is in the same month, just show the day.
+			if ( tribe_get_all_day( $post_id ) && tribe_get_end_date( $post_id, false, 'm' ) === tribe_get_start_date( $post_id, false, 'm' ) ) {
+				$format2ndday = 'j';
 			}
-			$schedule .= '</div>';			 
-			return $schedule;
-			return apply_filters('tribe_event_schedule_details', $schedule);
+			$schedule .= '<span class="date-start">' . tribe_get_start_date($post_id, true, $format) . '</span> - <span class="date-end">' . tribe_get_end_date($post_id, true, $format2ndday) . '</span>';
+
+		} elseif ( tribe_get_all_day( $post_id ) ) { // all day event
+			$schedule .= '<span class="date-start">' . tribe_get_start_date($post_id, true, $format) . '</span>';
+		} else { // single day event
+			if ( tribe_get_start_date( $post_id, false, 'g:i A' ) === tribe_get_end_date( $post_id, false, 'g:i A' ) ) { // Same start/end time
+				$schedule .= '<span class="date-start">' . tribe_get_start_date( $post_id, false, $format ) . '</span> @ <span class="start-time">' . tribe_get_start_date( $post_id, false, 'g:i A' ) . '</span>';
+			} else { // defined start/end time
+				$schedule .= '<span class="date-start">' . tribe_get_start_date( $post_id, false, $format ) . '</span> <span class="date-divider">|</span> <span class="start-time">' . tribe_get_start_date( $post_id, false, 'g:i A' ) . '</span> - <span class="start-time">' . tribe_get_end_date( $post_id, false, 'g:i A' ) . '</span>';
+			}
+		}
+
+		$schedule .= '</div>';
+
+		return apply_filters( 'tribe_events_event_schedule_details', $schedule );
 	}
 
 	function tribe_get_days_between( $start_date, $end_date ){

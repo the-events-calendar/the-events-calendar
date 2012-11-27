@@ -26,16 +26,16 @@ if( !class_exists('Tribe_Events_Address_Template')){
 			add_filter( 'tribe_events_address_after_template', array( __CLASS__, 'after_template' ), 1, 2 );
 		}
 		// Start Address Template
-		public function before_template( $post_id ){
+		public static function before_template( $post_id ){
 			$html = '<span class="adr">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_address_before_template');
 		}
 		// Address Meta
-		public function before_the_meta( $post_id ){
+		public static function before_the_meta( $post_id ){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_address_before_the_meta');
 		}
-		public function the_meta( $post_id ){
+		public static function the_meta( $post_id ){
 			ob_start();
 			
 			$postId = get_the_ID();	
@@ -84,12 +84,12 @@ if( !class_exists('Tribe_Events_Address_Template')){
 			$html = ob_get_clean();
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_address_the_meta');
 		}
-		public function after_the_meta( $post_id ){
+		public static function after_the_meta( $post_id ){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_address_after_the_meta');
 		}
 		// End Address Template
-		public function after_template( $post_id ){
+		public static function after_template( $post_id ){
 			$html = '</span><!-- .adr -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_address_after_template');		
 		}

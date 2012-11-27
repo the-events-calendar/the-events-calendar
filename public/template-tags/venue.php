@@ -282,5 +282,24 @@ if( class_exists( 'TribeEvents' ) ) {
 		return $venues;
 	}
 
+
+	function tribe_get_venue_website_link( $post_id = null, $label = null ){
+		$post_id = tribe_get_venue_id( $post_id );
+		$url = tribe_get_event_meta( $post_id, '_VenueURL', true );
+		if( !empty($url) ) {
+			$label = is_null($label) ? $url : $label;
+			$parseUrl = parse_url($url);
+			if (empty($parseUrl['scheme'])) 
+				$url = "http://$url";
+			$html = sprintf('<a href="%s" target="%s">%s</a>',
+				$url,
+				apply_filters('tribe_get_venue_website_link_target', 'self'),
+				apply_filters('tribe_get_venue_website_link_label', $label)
+				);
+		} else {
+			$html = '';
+		}
+		return apply_filters('tribe_get_venue_website_link', $html );
+	}
+
 }
-?>

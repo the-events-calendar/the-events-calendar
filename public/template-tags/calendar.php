@@ -33,7 +33,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_calendar_mini_grid() {
 		set_query_var( 'eventDisplay', 'bydate' );
-		load_template( TribeEventsTemplates::getTemplateHierarchy( 'calendar-widget', 'widgets' ) );
+		load_template( TribeEventsTemplates::getTemplateHierarchy( 'calendar-widget', 'widgets' ), false );
 	}
 
 	/**
@@ -105,7 +105,12 @@ if( class_exists( 'TribeEvents' ) ) {
 						$started = false;
 					}
 				}
-				
+
+				// see spoofQuery in lib/tribe-templates.class.php
+				if ( $event->guid === '_tribe_empty_event' ) {
+					$started = false;
+				}
+
 				if ( $started ) {
 					$monthView[$i][] = $event;
 				}
@@ -305,7 +310,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			$eventId	= $post->ID.'-'.$day;
 			$start		= tribe_get_start_date( $post->ID, false, 'U' );
 			$end		= tribe_get_end_date( $post->ID, false, 'U' );
-			$cost		= tribe_get_cost( $post->ID );
+			$cost		= tribe_get_cost( $post->ID );			
 			?>
 			
 			<?php			
@@ -325,6 +330,12 @@ if( class_exists( 'TribeEvents' ) ) {
 			$tribe_classes_organizer = tribe_get_organizer_id() ? 'tribe-events-organizer-'. tribe_get_organizer_id() : '';
 			$tribe_classes_categories = $tribe_string_classes;
 			$class_string = $tribe_classes_default .' '. $tribe_classes_venue .' '. $tribe_classes_organizer .' '. $tribe_classes_categories;
+
+			// added last class for css
+			if( $i+1 == count( $monthView[$day] ) ){
+				$class_string .= ' tribe-last';
+			}
+
 			?>
 			
 			<div id="tribe-events-event-<?php echo $eventId; ?>" class="<?php echo $class_string; ?>">

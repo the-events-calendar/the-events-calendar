@@ -2,7 +2,7 @@
 /*
 Plugin Name: The Events Calendar
 Description: The Events Calendar is a fully featured event management system with multiple views, 3rd party integrations, and a slew of premium add-ons.
-Version: 2.1-alpha
+Version: 3.0-alpha
 Author: Modern Tribe, Inc.
 Author URI: http://tri.be?ref=tec-plugin
 Text Domain: tribe-events-calendar

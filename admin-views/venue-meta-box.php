@@ -81,6 +81,10 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<td><?php _e('Phone:','tribe-events-calendar'); ?></td>
 	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventPhone' name='venue[Phone]' size='14' value='<?php if( isset($_VenuePhone) ) echo esc_attr($_VenuePhone); ?>' /></td>
 </tr>
+<tr class="venue">
+	<td><?php _e('Website:','tribe-events-calendar'); ?></td>
+	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventWebsite' name='venue[URL]' size='14' value='<?php if( isset($_VenueURL) ) echo esc_attr($_VenueURL); ?>' /></td>
+</tr>
 
 <script type="text/javascript">
 	jQuery('[name=venue\\[Venue\\]]').blur(function(){
