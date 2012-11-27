@@ -11,6 +11,11 @@ if (!class_exists('TribeEventsQuery')) {
 
 		public static $start_date;
 		public static $end_date;
+		public static $is_event;
+		public static $is_event_category;
+		public static $is_event_venue;
+		public static $is_event_organizer;
+		public static $is_event_query;
 
 		function __construct(){
 			add_action('tribe_events_init_pre_get_posts', array(__CLASS__,'init'));
@@ -62,6 +67,13 @@ if (!class_exists('TribeEventsQuery')) {
 				|| $query->tribe_is_event_organizer )
 				? true // this is an event query of some type
 				: false; // move along, this is not the query you are looking for
+
+			// setup static const to preserve query type through hooks
+			self::$is_event = $query->tribe_is_event;
+			self::$is_event_category = $query->tribe_is_event_category;
+			self::$is_event_venue = $query->tribe_is_event_venue;
+			self::$is_event_organizer = $query->tribe_is_event_organizer;
+			self::$is_event_query = $query->tribe_is_event_query;
 
 			if( $query->tribe_is_event || $query->tribe_is_event_category) {
 
@@ -246,25 +258,25 @@ if (!class_exists('TribeEventsQuery')) {
 		}
 
 		public static function posts_groupby( $groupby_sql ) {
-			if ( get_query_var( 'post_type' ) != TribeEvents::POSTTYPE ) {
+			if ( self::$is_event_query ) {
+				return apply_filters('tribe_events_query_posts_groupby','');
+			} else {
                return $groupby_sql;
         	}
-        	$groupby_sql = "";
-           
-        	return $groupby_sql;
 		}
 
-		public static function posts_distinct($distinct) {
+		public static function posts_distinct( $distinct ) {
 			return "DISTINCT";
 		}
 
 		public static function posts_fields( $fields ) {
-			if ( get_query_var('post_type') != TribeEvents::POSTTYPE ) {
-				return $fields;
-			}
-			global $wpdb;
-			$fields .= ", {$wpdb->postmeta}.meta_value as EventStartDate, tribe_event_duration.meta_value as EventDuration, DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) as EventEndDate ";
-			return $fields;
+			if ( self::$is_event_query ) {
+				global $wpdb;
+				$fields .= ", {$wpdb->postmeta}.meta_value as EventStartDate, tribe_event_duration.meta_value as EventDuration, DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) as EventEndDate ";
+				return apply_filters('tribe_events_query_posts_fields',$fields);
+			} else {
+               return $fields;
+        	}
 		}
 
 		/**
