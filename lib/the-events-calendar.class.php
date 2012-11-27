@@ -1549,7 +1549,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 			if ( update_site_option( TribeEvents::OPTIONNAMENETWORK, $options ) ) {
 				self::$networkOptions = apply_filters( 'tribe_get_network_options', $options );
-				if ( self::$networkOptions['eventsSlug'] != '' ) {
+				if ( isset( self::$networkOptions['eventsSlug'] ) && self::$networkOptions['eventsSlug'] != '' ) {
 					$this->flushRewriteRules();
 				}
 			} else {
