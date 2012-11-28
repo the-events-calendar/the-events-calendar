@@ -306,7 +306,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		ob_start();
 		for ( $i = 0; $i < count( $monthView[$day] ); $i++ ) {
 			$post = $monthView[$day][$i];
-			//setup_postdata( $post );
+			setup_postdata( $post );
 			$eventId	= $post->ID.'-'.$day;
 			$start		= tribe_get_start_date( $post->ID, false, 'U' );
 			$end		= tribe_get_end_date( $post->ID, false, 'U' );
@@ -339,7 +339,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			?>
 			
 			<div id="tribe-events-event-<?php echo $eventId; ?>" class="<?php echo $class_string; ?>">
-				<h3 class="entry-title summary"><a href="<?php tribe_event_link($post->ID); ?>"><?php echo $post->post_title; ?></a></h3>
+				<h3 class="entry-title summary"><a href="<?php tribe_event_link(); ?>"><?php echo $post->post_title; ?></a></h3>
 				<div id="tribe-events-tooltip-<?php echo $eventId; ?>" class="tribe-events-tooltip">
 					<h4 class="entry-title summary"><?php the_title() ;?></h4>
 					<div class="tribe-events-event-body">
