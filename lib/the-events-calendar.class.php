@@ -958,8 +958,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			register_post_type(self::VENUE_POST_TYPE, apply_filters( 'tribe_events_register_venue_type_args', $this->postVenueTypeArgs) );
 			register_post_type(self::ORGANIZER_POST_TYPE, apply_filters( 'tribe_events_register_organizer_type_args', $this->postOrganizerTypeArgs) );
 
-			$this->addCapabilities();
-			         
+
+			if ( is_admin() && ( !define( 'DOING_AJAX' ) || !DOING_AJAX ) )
+				$this->addCapabilities();
+
 			register_taxonomy( self::TAXONOMY, self::POSTTYPE, array(
 				'hierarchical' => true,
 				'update_count_callback' => '',
