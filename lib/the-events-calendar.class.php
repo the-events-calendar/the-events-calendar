@@ -144,7 +144,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->pluginDir = trailingslashit( basename( $this->pluginPath ) );
 			$this->pluginUrl = plugins_url().'/'.$this->pluginDir;
 			if (self::supportedVersion('wordpress') && self::supportedVersion('php')) {
-				register_deactivation_hook( __FILE__, array( $this, 'on_deactivate' ) );
+
+				if ( is_admin() && ( !defined( 'DOING_AJAX' ) || !DOING_AJAX ) ) {
+					register_deactivation_hook( __FILE__, array( $this, 'on_deactivate' ) );
+				}
+
 				$this->addFilters();
 				$this->addActions();
 				$this->loadLibraries();
