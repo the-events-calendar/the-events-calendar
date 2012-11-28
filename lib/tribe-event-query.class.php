@@ -241,7 +241,7 @@ if (!class_exists('TribeEventsQuery')) {
 					$posts[$id]->tribe_is_recurrance = false;
 
 					// is event add required fields
-					if( tribe_is_event( $post->ID) ) {
+					if( tribe_is_event( $post ) ) {
 						$posts[$id]->tribe_is_event = true;
 						$posts[$id]->tribe_is_allday = tribe_get_event_meta( $post->ID, '_EventAllDay' ) ? true : false;
 						$posts[$id]->EventStartDate = get_post_meta( $post->ID, '_EventStartDate', true);

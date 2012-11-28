@@ -2867,12 +2867,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			return TribeEventsQuery::getEvents($args);
 		}
 
-		public function isEvent( $postId = null ) {
-			if ( $postId === null || ! is_numeric( $postId ) ) {
+		public function isEvent( $event ) {
+			if ( $event === null || ( ! is_numeric( $event ) && !is_object( $event ) ) ) {
 				global $post;
-				$postId = $post->ID;
+				$eventId = $post->ID;
 			}
-			if ( get_post_field('post_type', $postId) == self::POSTTYPE ) {
+			if ( is_numeric( $event ) ) {
+				if ( get_post_type('post_type', $event) == self::POSTTYPE )
+				return true;
+			} elseif ( is_object( $event ) ) {
+				if ( get_post_type('post_type', $event->ID) == self::POSTTYPE )
 				return true;
 			}
 			return false;
