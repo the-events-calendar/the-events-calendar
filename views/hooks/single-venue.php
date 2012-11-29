@@ -135,9 +135,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 				'venue' => $post->ID,
 				'eventDisplay' => 'upcoming' );
 
-			$html = sprintf( '<h3 class="tribe-events-upcoming">%s <span>%s</span></h3> %s',
-				__( 'Upcoming events at', 'tribe-events-calendar-pro' ),
-				$post->post_title,
+			$html = sprintf( 
 				tribe_include_view_list( $args )
 				);
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_upcoming_events' );
