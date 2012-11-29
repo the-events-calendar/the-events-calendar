@@ -137,7 +137,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		
 		$return_id = array();
 		
-		$tribe_cat_ids = wp_get_object_terms( $post_id, TribeEvents::TAXONOMY );
+		$tribe_cat_ids = get_the_terms( $post_id, TribeEvents::TAXONOMY );
 		if( !empty( $tribe_cat_ids ) ){
 			if( !is_wp_error( $tribe_cat_ids ) ) {
 				foreach( $tribe_cat_ids as $tribe_cat_id ) {
@@ -580,6 +580,17 @@ if( class_exists( 'TribeEvents' ) ) {
 
 		// return the parsed template
 		return $list_view_html;
+	}
+
+	function tribe_events_the_notices( $echo = true ){
+		$notices = TribeEvents::getNotices();
+		$html = !empty($notices) ? '<div class="tribe-event-notices"><ul><li>' . implode('</li><li>', $notices ) . '</li></ul></div>' : '';
+		$the_notices = apply_filters('tribe_events_the_notices', $html, $notices );
+		if( $echo ) {
+			echo $the_notices;
+		} else {
+			return $the_notices;
+		}
 	}
 		
 }
