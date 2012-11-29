@@ -80,9 +80,15 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_organizer_Template' ) ) {
 				<?php if ( tribe_get_organizer_phone() ) : // organizer phone ?>
 	 				<span class="vcard tel"><?php echo tribe_get_organizer_phone(); ?></span>
 	 			<?php endif; ?>
-	 			<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) ) : // organizer website ?>
-	 				<span class="vcard author fn org"><?php echo tribe_get_organizer_website_link( $post_id, __('Website', 'tribe-events-calendar-pro') ); ?></span>
+	 			<?php if ( tribe_get_organizer_phone() && tribe_get_organizer_link( get_the_ID(), false, false )  ) : // organizer phone ?>
+	 				<span class="tribe-divider">|</span>
 	 			<?php endif; ?>
+	 			<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) ) : // organizer website ?>
+	 				<span class="vcard author fn org"><?php echo tribe_get_organizer_website_link( $post_id ); ?></span>
+	 			<?php endif; ?>
+	 			<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) &&  tribe_get_organizer_email() ) : // organizer phone ?>
+	 				<span class="tribe-divider">|</span>
+	 			<?php endif; ?>	 			
 	 			<?php if ( tribe_get_organizer_email() ) : // organizer email ?>
 	 				<span class="vcard email"><a href="mailto:<?php echo tribe_get_organizer_email(); ?>"><?php echo tribe_get_organizer_email(); ?></a></span>
 	 			<?php endif; ?>
@@ -113,9 +119,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_organizer_Template' ) ) {
 				'organizer' => $post->ID,
 				'eventDisplay' => 'upcoming' );
 
-			$html = sprintf( '<h3 class="tribe-events-upcoming">%s <span>%s</span></h3> %s',
-				__( 'Upcoming events organized by', 'tribe-events-calendar-pro' ),
-				$post->post_title,
+			$html = sprintf( 
 				tribe_include_view_list( $args )
 				);
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_upcoming_events' );

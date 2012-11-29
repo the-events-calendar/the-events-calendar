@@ -312,42 +312,32 @@
 	margin: 0 0 2% 0;
 	padding: 0;
 }
-.tribe-events-organizer-meta {
-	padding: 0 0 4% 0;
-}
-
-.tribe-events-organizer h3.tribe-events-upcoming {
-	font-size: 1.3em;
-	margin-bottom: 30px;
-}
 
 .tribe-events-organizer .tribe-events-event-meta {
 	border: 0;
 }
 
 .tribe-events-organizer address.organizer-address {
-	margin: 0 3% 0 0;
-	width: 25%;
-	float: left;
 	font-style: normal;
 	font-weight: bold;
 	word-wrap: break-word;
-
 }
+
 .tribe-events-organizer address.organizer-address span {
-	display: block;
-	margin: 0 0 10px 0;
 	line-height: 1;
 }
 
 .tribe-events-organizer .organizer-description {
-	float: right;
-	width: 72%;
+	margin-top: 20px;
 }
 
 .tribe-events-organizer .organizer-description p {
 	line-height: 1.3;
-	margin: 0 0 3% 0;
+	margin: 0 0 10px 0;
+}
+
+.tribe-events-organizer .tribe-divider {
+	color: #999;
 }
 
 /* = Related Events
