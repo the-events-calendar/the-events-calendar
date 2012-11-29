@@ -244,9 +244,6 @@
    @ Template: single-venue.php
 =============================================*/
 
-.tribe-events-venue-meta {
-	padding: 0 0 4% 0;
-}
 .tribe-events-venue .tribe-events-map-wrap {
 	margin: 5px 0 30px 30px;
 	float: right;
@@ -279,7 +276,7 @@
 .tribe-events-venue-meta h2.entry-title {
 	font-size: 1.4em;
 	line-height: 1.4;
-	display: inline-block;
+	display: inline;
 	margin: 0;
 	padding: 0;
 }
