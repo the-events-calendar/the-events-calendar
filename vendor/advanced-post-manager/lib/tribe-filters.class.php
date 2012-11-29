@@ -472,7 +472,7 @@ class Tribe_Filters {
 	protected function maybe_active_meta($key, $filter) {
 		$val = $this->val_pre . $key;
 		$is =  $this->is_pre . $key;
-		if ( isset($_POST[$val]) && isset($_POST[$is]) && ! empty($_POST[$val]) ) {
+		if ( isset( $_POST[$val] ) && isset( $_POST[$is] ) && ( $_POST[$val] !== '' ) ) {
 			return array('value' => $_POST[$val], 'query_option' => $_POST[$is] );
 		}
 		return false;

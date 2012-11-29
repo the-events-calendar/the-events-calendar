@@ -136,6 +136,9 @@ class Tribe_Columns {
 				if ( empty($name) ) {
 					continue;
 				}
+				if ( strstr( $name, 'img alt="Comments"' ) !== false ) {
+					$name = __( 'Comments' );
+				}
 				echo '<option value="'.$key.'">'.$name.'</option>';
 			}
 		?></select>
