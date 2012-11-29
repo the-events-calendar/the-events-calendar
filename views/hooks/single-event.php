@@ -177,7 +177,11 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 				   'wrap_before' => '<dd class="tribe-events-event-categories">',
 				   'wrap_after' => '</dd>'
 				));
-			endif; ?>	
+			endif; ?>
+			<?php if ( tribe_get_event_website_link() != '' ) { ?>
+				<dt><?php _e( 'Website:', 'tribe-events-calendar-pro' ); ?></dt>
+				<dd class="published event-url"><?php echo tribe_get_event_website_link( get_the_ID() ); ?></dd>
+			<?php } ?>	
 			<?php $origin_to_display = apply_filters( 'tribe_events_display_event_origin', '', get_the_ID() );
 				if ( $origin_to_display != '' ) { ?>
 				<dt><?php _e( 'Origin:', 'tribe-events-calendar-pro' ); ?></dt>
