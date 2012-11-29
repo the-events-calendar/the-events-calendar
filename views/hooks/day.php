@@ -29,6 +29,9 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			remove_filter( 'tribe_events_list_pagination', array( 'Tribe_Events_List_Template', 'pagination' ), 20 );
 			remove_filter( 'tribe_events_list_after_pagination', array( 'Tribe_Events_List_Template', 'after_pagination' ), 20 );
 
+			// remove month/year separators
+			add_filter( 'tribe_events_list_show_separators', '__return_false' );
+			
 		}
 
 		// Start List Template
