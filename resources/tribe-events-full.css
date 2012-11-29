@@ -932,6 +932,9 @@ h3.tribe-event-single-section-title {
 	right: 0;
 	top: 0;
 }
+#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-date input {
+	z-index: 99000 !important;
+}
 #tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-submit {
 	width: 70px;
 }
