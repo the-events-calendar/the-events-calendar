@@ -596,7 +596,7 @@ vertical-align: middle;
 #tribe-events-content .tribe-events-event-meta dd,
 #tribe-events-content .tribe-events-event-meta dd.entry-content {
 	padding: 0;
-	margin-bottom: 10px;
+	margin: 0 0 10px 000;
 	line-height: 1.5;
 }
 
