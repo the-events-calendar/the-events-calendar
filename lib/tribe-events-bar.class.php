@@ -49,7 +49,7 @@ class TribeEventsBar {
 		if ( $this->should_show() ) {
 
 			Tribe_Template_Factory::asset_package( 'tribe-events-bar' );
-			Tribe_Template_Factory::asset_package( 'chosen' );
+			Tribe_Template_Factory::asset_package( 'select2' );
 			Tribe_Template_Factory::asset_package( 'jquery-placeholder' );
 			Tribe_Template_Factory::asset_package( 'datepicker' );
 
