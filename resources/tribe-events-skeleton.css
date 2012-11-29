@@ -517,6 +517,11 @@ width: 70%;
 	padding-top: 2.25em;
 }
 
+.tribe-events-list .vevent.hentry.tribe-event-end-month {
+	border-bottom: 0;
+	padding-bottom: 0;
+}
+
 /* Date/Time */
 .single-tribe_events .tribe-event-schedule {
 	margin: 20px 0 0;
