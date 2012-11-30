@@ -20,6 +20,31 @@ if( !class_exists('Tribe_Events_List_Template')){
 		static $prev_event_year = null;
 
 		public static function init(){
+
+
+			// Our various messages if there are no events for the query
+			if ( ! have_posts() ) { // Messages if currently no events
+				$tribe_ecp = TribeEvents::instance();
+				$is_cat_message = '';
+				if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
+					$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );
+					if( tribe_is_upcoming() ) {
+						$is_cat_message = sprintf( __( 'listed under %s. Check out past events for this category or view the full calendar.', 'tribe-events-calendar' ), $cat->name );
+					} else if( tribe_is_past() ) {
+						$is_cat_message = sprintf( __( 'listed under %s. Check out upcoming events for this category or view the full calendar.', 'tribe-events-calendar' ), $cat->name );
+					}
+				}
+				if( tribe_is_day() ) {
+					TribeEvents::setNotice( sprintf( __( '<p>No events scheduled for <strong>%s</strong>. Please try another day.</p>', 'tribe-events-calendar' ), date_i18n( 'F d, Y', strtotime( get_query_var( 'eventDate' ) ) ) ) );
+				} elseif( tribe_is_upcoming() ) {
+					TribeEvents::setNotice( __('No upcoming events ', 'tribe-events-calendar') . $is_cat_message );
+				} elseif( tribe_is_past() ) {
+					TribeEvents::setNotice( __('No previous events ', 'tribe-events-calendar') . $is_cat_message );
+				}
+			}
+
+
+
 			// Start list template
 			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 	
@@ -57,7 +82,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			add_filter( 'tribe_events_list_after_loop', array( __CLASS__, 'after_loop' ), 1, 1 );
 	
 			// Event notices
-			add_filter( 'tribe_events_list_notices', array( __CLASS__, 'notices' ), 1, 2 );
+			add_filter( 'tribe_events_list_notices', array( __CLASS__, 'notices' ), 1, 1 );
 
 			// List pagination
 			add_filter( 'tribe_events_list_before_pagination', array( __CLASS__, 'before_pagination' ), 1, 1 );
@@ -220,10 +245,8 @@ if( !class_exists('Tribe_Events_List_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_loop');
 		}
 		// Event Notices
-		public static function notices( $notices = array(), $post_id ) {
-			$html = '';
-			if(!empty($notices))	
-				$html .= '<div class="event-notices">' . implode('<br />', $notices) . '</div><!-- .event-notices -->';
+		public static function notices( $post_id ) {
+			$html = tribe_events_the_notices(false);
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_notices');
 		}
 		// List Pagination

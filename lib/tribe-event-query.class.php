@@ -157,6 +157,14 @@ if (!class_exists('TribeEventsQuery')) {
 					);
 			}
 
+			// filter by Organizer ID
+			if( $query->tribe_is_event_query && $query->get('organizer') != '' ) {
+				$meta_query[] = array(
+					'key' => '_EventOrganizerID',
+					'value' => $query->get('organizer')
+					);
+			}
+
 			// proprietary metaKeys go to standard meta
 			if( $query->tribe_is_event_query && $query->get('metaKey') != '' ) {
 				$meta_query[] = array(
