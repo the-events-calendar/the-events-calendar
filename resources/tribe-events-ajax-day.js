@@ -5,6 +5,7 @@ jQuery( document ).ready( function ( $ ) {
 		// Add Some Classes
 		if ( $( '.tribe-events-day-time-slot' ).length ) {
 			$( '.tribe-events-day-time-slot' ).find( '.vevent:last' ).addClass( 'tribe-last' );
+			$( '.tribe-events-day-time-slot:first' ).find( '.vevent:first' ).removeClass( 'tribe-first' );
 		}
 	}
 
