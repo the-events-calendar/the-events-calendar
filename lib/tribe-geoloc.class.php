@@ -409,6 +409,8 @@ class TribeEventsGeoLoc {
 			$wp_query = $query;
 			ob_start();
 
+			add_filter( 'tribe_events_list_show_separators', "__return_false" );
+
 			echo '<div id="tribe-geo-results">';
 			include apply_filters( 'tribe_include_view_list', TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
 			echo '</div>';
