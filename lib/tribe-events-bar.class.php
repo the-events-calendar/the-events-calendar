@@ -88,7 +88,7 @@ class TribeEventsBar {
 			$open     = '<ul class="tribe-events-bar-view-list">';
 			$close    = "</ul>";
 			$current  = 'tribe-active';
-			$open_el  = '<li><a class="tribe-events-bar-view tribe-events-button-grey !CURRENT!" href="!URL!">';
+			$open_el  = '<li><a class="tribe-events-bar-view tribe-events-button-grey tribe-icon-!VIEW! !CURRENT-ACTIVE!" href="!URL!">';
 			$close_el = "</a></li>";
 			// Select input for smaller screens
 			$open_sel     = '<select class="tribe-events-bar-view-select tribe-select2" name="tribe-events-bar-view">';
@@ -112,11 +112,11 @@ class TribeEventsBar {
 
 		foreach ( $views as $view ) {
 			$item = str_replace( '!URL!', esc_url( $view['url'] ), $open_el );
-
+			$item = str_replace( '!VIEW!', $view['displaying'], $item );
 			if ( $tec->displaying === $view['displaying'] ) {
-				$item = str_replace( '!CURRENT!', $current, $item );
+				$item = str_replace( '!CURRENT-ACTIVE!', $current, $item );
 			} else {
-				$item = str_replace( '!CURRENT!', 'tribe-inactive', $item );
+				$item = str_replace( '!CURRENT-ACTIVE!', 'tribe-inactive', $item );
 			}
 
 			echo $item;
