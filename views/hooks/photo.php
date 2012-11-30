@@ -34,7 +34,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 
 		public static function before_loop( $pass_through ){
 			$html = '<div class="tribe-events-loop hfeed" id="tribe-events-photo-events">';
-			return apply_filters('tribe_template_factory_debug', $pass_through . $html, 'tribe_events_photo_before_loop');
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_photo_before_loop');
 		}
 
 		public static function inside_before_loop( $pass_through ){
