@@ -72,7 +72,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 
 		// Start Single Venue
 		public static function before_venue( $post_id ) {
-			$html = '<div class="tribe-events-venue-meta">';
+			$html = '<div class="tribe-events-venue-meta tribe-clearfix">';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_before_venue' );
 		}		
 		// Venue Map
