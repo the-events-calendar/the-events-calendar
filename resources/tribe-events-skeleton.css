@@ -43,6 +43,7 @@
 	line-height: normal;
 	cursor: pointer;
 	box-shadow: none;
+	text-decoration: none;
 }
 
 .tribe-events-button-grey.tribe-active {
