@@ -517,6 +517,11 @@ width: 70%;
 	padding-top: 2.25em;
 }
 
+.tribe-events-list .vevent.hentry.tribe-event-end-month {
+	border-bottom: 0;
+	padding-bottom: 0;
+}
+
 /* Date/Time */
 .single-tribe_events .tribe-event-schedule {
 	margin: 20px 0 0;
@@ -591,7 +596,7 @@ vertical-align: middle;
 #tribe-events-content .tribe-events-event-meta dd,
 #tribe-events-content .tribe-events-event-meta dd.entry-content {
 	padding: 0;
-	margin-bottom: 10px;
+	margin: 0 0 10px 000;
 	line-height: 1.5;
 }
 
@@ -842,6 +847,9 @@ vertical-align: middle;
 	right: 0;
 	top: 0;
 }
+#tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-date input {
+	z-index: 99000 !important;
+}
 #tribe-events-bar-form .tribe-events-bar-filter-wrap.tribe-bar-submit {
 	width: 70px;
 }
@@ -941,30 +949,27 @@ input:-moz-placeholder {
 	color:#444;
 }
 
-/* Chosen Style Tweaks */
+/* Select2 Style Tweaks */
 #tribe-events-bar-views select,
-#tribe-events-bar-views .chzn-container {
+#tribe-events-bar-views .tribe-select2 {
 	float: right;
 }
 #tribe-events-bar-views .tribe-events-bar-view-select,
-#tribe-events-bar-views .tribe-events-bar-view-select ~ .chzn-container {
+#tribe-events-bar-views .tribe-events-bar-view-select ~ .tribe-select2 {
 	display: none;
 }
-#tribe-events-bar-views .chzn-container {
+#tribe-events-bar-views .tribe-select2 {
 	width: 100% !important;
 	padding-top: 3px;
-}
-#tribe-events-bar-views .chzn-drop {
-	width: 99.5% !important;
 }
 
 /* Special JS for width of event bar */
 .tribe-bar-full #tribe-events-bar-views .tribe-events-bar-view-select,
-.tribe-bar-full #tribe-events-bar-views .tribe-events-bar-view-select ~ .chzn-container {
+.tribe-bar-full #tribe-events-bar-views .tribe-events-bar-view-select ~ .tribe-select2 {
 	display: none;
 }
 .tribe-bar-mini #tribe-events-bar-views .tribe-events-bar-view-select,
-.tribe-bar-mini #tribe-events-bar-views .tribe-events-bar-view-select ~ .chzn-container {
+.tribe-bar-mini #tribe-events-bar-views .tribe-events-bar-view-select ~ .tribe-select2 {
 	display: block;
 }
 .tribe-bar-full #tribe-events-bar-views ul.tribe-events-bar-view-list {
@@ -986,7 +991,7 @@ input:-moz-placeholder {
 		display: none;
 	}
 	#tribe-events-bar-views .tribe-events-bar-view-select,
-	#tribe-events-bar-views .tribe-events-bar-view-select ~ .chzn-container {
+	#tribe-events-bar-views .tribe-events-bar-view-select ~ .tribe-select2 {
 		display: block;
 	}
 }
@@ -1000,11 +1005,11 @@ input:-moz-placeholder {
 
 /* Special JS for width of event bar */
 .tribe-bar-full #tribe-events-bar-views .tribe-events-bar-view-select,
-.tribe-bar-full #tribe-events-bar-views .tribe-events-bar-view-select ~ .chzn-container {
+.tribe-bar-full #tribe-events-bar-views .tribe-events-bar-view-select ~ .tribe-select2 {
 	display: none;
 }
 .tribe-bar-mini #tribe-events-bar-views .tribe-events-bar-view-select,
-.tribe-bar-mini #tribe-events-bar-views .tribe-events-bar-view-select ~ .chzn-container {
+.tribe-bar-mini #tribe-events-bar-views .tribe-events-bar-view-select ~ .tribe-select2 {
 	display: block;
 }
 .tribe-bar-full #tribe-events-bar-views ul.tribe-events-bar-view-list {
@@ -1061,7 +1066,6 @@ input:-moz-placeholder {
 		padding-right: 0;
 	}
 	#tribe-events-bar-views {
-		/*width: 23%;*/
 		width: 108px;
 		margin-left: -108px;
 	}
@@ -1102,10 +1106,7 @@ input:-moz-placeholder {
 		text-align: center;
 		width: 100%;
 	}
-	#tribe-events-bar-views .chzn-container {
+	#tribe-events-bar-views .tribe-select2 {
 		width: 100px !important;
-	}
-	#tribe-events-bar-views .chzn-drop {
-		width: 98px !important;
 	}	
 }

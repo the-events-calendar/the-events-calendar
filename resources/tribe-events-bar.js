@@ -27,7 +27,10 @@ jQuery( document ).ready( function ( $ ) {
 	$( 'input[name*="tribe-bar-"]' ).placeholder();
 
 	// Implement chosen
-	$( '#tribe-events-bar-views .chzn-select' ).chosen( { disable_search_threshold:9999 } );
+	$( '#tribe-events-bar-views .tribe-select2' ).select2({
+    	placeholder: "Views",
+    	minimumResultsForSearch: 9999
+    });
 
 	// Wrap non-date inputs with a parent container for toggle
 
