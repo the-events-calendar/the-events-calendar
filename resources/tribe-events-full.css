@@ -1030,19 +1030,28 @@ input:-moz-placeholder {
 
 /* View Icons */
 .tribe-select2-results span[class^="tribe-icon-"],
-.tribe-select2 span[class^="tribe-icon-"] {
+.tribe-select2 span[class^="tribe-icon-"],
+.tribe-events-bar-view-list a[class*="tribe-icon-"] {
 	padding-left: 24px;
 	background-repeat: no-repeat;
 	background-position: 0 50%;
 	color: #000;
 }
+
 .tribe-select2-results .tribe-icon-list,
-.tribe-select2 .tribe-icon-list {
+.tribe-select2 .tribe-icon-list,
+.tribe-events-bar-view-list a.tribe-icon-upcoming {
 	background-image: url(images/events-bar/icon-list.png);
 	background-size: 15px 10px;
 }
+.tribe-events-bar-view-list a.tribe-icon-upcoming,
+.tribe-events-bar-view-list a.tribe-icon-month {
+	padding-left: 30px;
+	background-position: 10px 50%;
+}
 .tribe-select2-results .tribe-icon-month,
-.tribe-select2 .tribe-icon-month {
+.tribe-select2 .tribe-icon-month,
+.tribe-events-bar-view-list a.tribe-icon-month {
 	background-image: url(images/events-bar/icon-month.png);
 	background-size: 15px 16px;
 }
