@@ -111,8 +111,10 @@ class TribeEventsBar {
 		echo $open;
 
 		foreach ( $views as $view ) {
+
 			$item = str_replace( '!URL!', esc_url( $view['url'] ), $open_el );
 			$item = str_replace( '!VIEW!', $view['displaying'], $item );
+
 			if ( $tec->displaying === $view['displaying'] ) {
 				$item = str_replace( '!CURRENT-ACTIVE!', $current, $item );
 			} else {
