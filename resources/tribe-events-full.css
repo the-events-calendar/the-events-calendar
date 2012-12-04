@@ -641,7 +641,7 @@ h3.tribe-event-single-section-title {
 /* Map */
 .single-tribe_events .tribe-event-venue-map {
 	width: 58%;
-	margin: 2% 4% 2% 0;
+	margin: 20px 4% 2% 0;
 	float: right;
 	padding: 5px;
 	background: #eee;
@@ -657,7 +657,7 @@ h3.tribe-event-single-section-title {
 }
 .single-tribe_events .tribe-events-meta-column .tribe-event-venue-map {
 	float: none;
-	margin: 0;
+	margin: 20px 0 0;
 	width: 100%;
 }
 .single-tribe_events .tribe-events-meta-column #tribe-events-gmap {
