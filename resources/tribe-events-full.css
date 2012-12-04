@@ -678,6 +678,11 @@ h3.tribe-event-single-section-title {
 	text-align: left;
 	margin: 0 0 20px 0;
 }
+
+.single-tribe_events  .tribe-events-event-meta dl {
+	margin: 0;
+}
+
 .tribe-events-event-meta dt {
 	clear: left;
 	font-weight: bold;

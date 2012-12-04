@@ -590,6 +590,10 @@ vertical-align: middle;
 	text-align: left;
 	margin: 0 4% 0 0;
 }
+.single-tribe_events  .tribe-events-event-meta dl {
+	margin: 0;
+}
+
 .tribe-events-event-meta dt {
 	clear: left;
 	font-weight: bold;
