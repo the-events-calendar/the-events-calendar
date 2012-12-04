@@ -77,7 +77,7 @@ if (!class_exists('TribeEventsAdminList')) {
 				return $fields;
 			}
 			global $wpdb;
-			$fields .= ", eventStart.meta_value as EventStartDate, IFNULL(DATE_ADD(CAST(eventStart.meta_value AS DATETIME), INTERVAL eventDuration.meta_value SECOND), eventEnd.meta_value) as EventEndDate ";
+			$fields .= ", {$wpdb->postmeta}.meta_value as EventStartDate, IFNULL(DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL eventDuration.meta_value SECOND), eventEnd.meta_value) as EventEndDate ";
 			return $fields;
 		}
 		/**
@@ -91,7 +91,6 @@ if (!class_exists('TribeEventsAdminList')) {
 			if ( get_query_var('post_type') != TribeEvents::POSTTYPE ) {
 				return $join;
 			}
-			$join .= " LEFT JOIN {$wpdb->postmeta} as eventStart ON( {$wpdb->posts}.ID = eventStart.post_id AND eventStart.meta_key = '_EventStartDate') ";
 			$join .= " LEFT JOIN {$wpdb->postmeta} as eventDuration ON( {$wpdb->posts}.ID = eventDuration.post_id AND eventDuration.meta_key = '_EventDuration') ";
 			$join .= " LEFT JOIN {$wpdb->postmeta} as eventEnd ON( {$wpdb->posts}.ID = eventEnd.post_id AND eventEnd.meta_key = '_EventEndDate') ";
 			return $join;
