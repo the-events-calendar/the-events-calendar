@@ -362,8 +362,8 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_event_before_pagination' );
 		}
 		public static function pagination( $post_id ) {
-			$html = '<li class="tribe-nav-previous">' . tribe_get_prev_event_link() . '</li>';
-			$html .= '<li class="tribe-nav-next">' . tribe_get_next_event_link() . '</li>';
+			$html = '<li class="tribe-nav-previous">' . tribe_get_prev_event_link( '&laquo; %title%' ) . '</li>';
+			$html .= '<li class="tribe-nav-next">' . tribe_get_next_event_link( '%title% &raquo;' ) . '</li>';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_event_pagination' );
 		}
 		public static function after_pagination( $post_id ) {
