@@ -7,6 +7,8 @@ if ( $displayPressTrendsDialogue == false ) {
 	tribe_update_option( 'displayedPressTrendsDialogue', true );
 }
 
+$tec = TribeEvents::instance();
+
 $generalTab = array(
 	'priority' => 10,
 	'fields' => apply_filters( 'tribe_general_settings_tab_fields', array(
@@ -74,7 +76,7 @@ $generalTab = array(
 		'unprettyPermalinksUrl' => array(
 			'type' => 'html',
 			'label' => __( 'Events URL slug', 'tribe-events-calendar' ),
-			'html' => '<p class="tribe-field-indent tribe-field-description description">' . __( 'You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href=" ' . TribeEvents::getLink( 'home' ) . '">' . TribeEvents::getLink( 'home ' ) . '</a>. In order to edit the slug here, enable pretty permalinks.', 'tribe-events-calendar' ) . '</p>',
+			'html' => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href="%s">%s</a>. In order to edit the slug here, enable pretty permalinks.','tribe-events-calendar') , $tec->getLink( 'home' ), $tec->getLink( 'home ' ) ) .'</p>',
 			'conditional' => ('' == get_option( 'permalink_structure' ) ),
 		),
 		'eventsSlug' => array(

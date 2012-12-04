@@ -43,6 +43,7 @@
 	line-height: normal;
 	cursor: pointer;
 	box-shadow: none;
+	text-decoration: none;
 }
 
 .tribe-events-button-grey.tribe-active {
@@ -291,7 +292,7 @@ float: left;
 width: 70%;
 }
 
-.tribe-events-list .tribe-events-event-details h2 .tribe-events-list .tribe-events-event-details h3 {
+.tribe-events-list .tribe-events-event-details h2, .tribe-events-list .tribe-events-event-details h3 {
 	padding: 0;
 	line-height: 1.2;
 }
@@ -485,6 +486,7 @@ width: 70%;
 	width: 30%;
 	padding-bottom: 10px;
 	margin: 0;
+	list-style: none;
 }
 .tribe-events-loop-nav .tribe-nav-previous {
 	float: left;
