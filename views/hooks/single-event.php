@@ -178,12 +178,8 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 				   'wrap_after' => '</dd>'
 				));
 			endif; ?>
-			<?php if ( tribe_meta_event_tags() ): // Tags
-				$label = __('Event Tags:', 'tribe-events-calendar');
-				tribe_meta_event_tags($label, ', ');
-			endif; ?>	
-
-
+	
+			<?php tribe_meta_event_tags(__('Event Tags:', 'tribe-events-calendar')); ?>
 
 			<?php if ( tribe_get_event_website_link() != '' ) { ?>
 				<dt><?php _e( 'Website:', 'tribe-events-calendar-pro' ); ?></dt>
