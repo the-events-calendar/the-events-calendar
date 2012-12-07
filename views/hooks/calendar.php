@@ -221,7 +221,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 
 			    			if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
 								$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );
-								$args['eventCat'] => (int) $cat->term_id;
+								$args['eventCat'] = (int) $cat->term_id;
 							}
 
 			    			$daily_events = TribeEvents::getEvents( $args );
