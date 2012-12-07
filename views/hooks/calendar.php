@@ -124,15 +124,15 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$tribe_ecp = TribeEvents::instance();
 
 			// In an events cat
-			if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
-				$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );
-				$eventCat = (int) $cat->term_id;
+			// if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
+			// 	$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );
+			// 	$eventCat = (int) $cat->term_id;
 				// $eventPosts = tribe_get_events( array( 'eventCat' => $eventCat, 'time_order' => 'ASC', 'eventDisplay'=>'month' ) );
-			} // not in a cat
-			else {
+			// } // not in a cat
+			// else {
 				// $eventPosts = tribe_get_events( array( 'eventDisplay'=>'month' ) );
 				// $eventPosts = $wp_query->posts;
-			}
+			// }
 
 			$daysInMonth = isset( $date ) ? date( 't', $date ) : date( 't' );
 			$startOfWeek = get_option( 'start_of_week', 0 );
@@ -218,10 +218,13 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			    				'posts_per_page' => -1,
 			    				'eventDisplay' => 'day'
 			    				);
+
+			    			if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
+								$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );
+								$args['eventCat'] => (int) $cat->term_id;
+							}
+
 			    			$daily_events = TribeEvents::getEvents( $args );
-			    			// print_r($daily_events);
-
-
 
 							foreach( $daily_events as $post ) {
 								setup_postdata( $post );
