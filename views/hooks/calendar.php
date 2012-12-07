@@ -127,11 +127,11 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
 				$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );
 				$eventCat = (int) $cat->term_id;
-				$eventPosts = tribe_get_events( array( 'eventCat' => $eventCat, 'time_order' => 'ASC', 'eventDisplay'=>'month' ) );
+				// $eventPosts = tribe_get_events( array( 'eventCat' => $eventCat, 'time_order' => 'ASC', 'eventDisplay'=>'month' ) );
 			} // not in a cat
 			else {
 				// $eventPosts = tribe_get_events( array( 'eventDisplay'=>'month' ) );
-				$eventPosts = $wp_query->posts;
+				// $eventPosts = $wp_query->posts;
 			}
 
 			$daysInMonth = isset( $date ) ? date( 't', $date ) : date( 't' );
@@ -142,7 +142,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
 			$rows = 1;
 
-			$monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
+			// $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 ?>
 			<table class="tribe-events-calendar">
 				<thead>
@@ -251,7 +251,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 								$class_string = $tribe_classes_default .' '. $tribe_classes_venue .' '. $tribe_classes_organizer .' '. $tribe_classes_categories;
 
 								// added last class for css
-								if( $i+1 == count( $monthView[$day] ) ){
+								if( $i+1 == count( $daily_events ) ){
 									$class_string .= ' tribe-last';
 								}
 
