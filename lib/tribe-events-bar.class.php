@@ -94,7 +94,7 @@ class TribeEventsBar {
 			$open_sel     = '<select class="tribe-events-bar-view-select tribe-select2" name="tribe-events-bar-view">';
 			$close_sel    = "</select>";
 			$current_sel  = 'selected';
-			$open_sel_el  = '<option !CURRENT! value="!URL!">';
+			$open_sel_el  = '<option !CURRENT-ACTIVE! value="!URL!">';
 			$close_sel_el = "</option>";
 
 		} else {
@@ -102,7 +102,7 @@ class TribeEventsBar {
 			$open     = '<select class="tribe-select2" name="tribe-events-bar-view">';
 			$close    = "</select>";
 			$current  = 'selected';
-			$open_el  = '<option !CURRENT! value="!URL!">';
+			$open_el  = '<option !CURRENT-ACTIVE! value="!URL!">';
 			$close_el = "</option>";
 		}
 
