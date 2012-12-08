@@ -3285,17 +3285,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 
-		public function setup_date_search_in_bar( $filters ) {
-
-			$value = apply_filters( 'tribe-events-bar-date-search-default-value', '' );
-
-			if ( !empty( $_REQUEST['tribe-bar-date'] ) ) {
-				$value = $_REQUEST['tribe-bar-date'];
-			}
+		public function setup_date_search_in_bar( $filters ) {			
 
 			$filters[] = array( 'name'    => 'tribe-bar-date',
 			                    'caption' => 'Date',
-			                    'html'    => '<input type="text" name="tribe-bar-date" style="position: relative; z-index: 100000;" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="Date">' );
+			                    'html'    => '<input type="text" name="tribe-bar-date" style="position: relative; z-index: 100000;" id="tribe-bar-date" value="" placeholder="Date">' );
 
 			return $filters;
 		}
