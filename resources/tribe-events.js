@@ -93,6 +93,22 @@ try {
 	t_fail && (tribe_storage = false);
 } catch(e) {}
 
+// tribe function for resetting forms
+
+jQuery.fn.tribeClearForm = function() {
+	return this.each(function() {
+		var type = this.type, tag = this.tagName.toLowerCase();
+		if (tag == 'form')
+			return jQuery(':input',this).tribeClearForm();
+		if (type == 'text' || type == 'password' || tag == 'textarea')
+			this.value = '';
+		else if (type == 'checkbox' || type == 'radio')
+			this.checked = false;
+		else if (tag == 'select')
+			this.selectedIndex = -1;		
+	});
+};
+
 // tribe global vars, sorry, we need em
 
 var tribe_has_pushstate = window.history && window.history.pushState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);
