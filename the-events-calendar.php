@@ -33,4 +33,6 @@ TribeEvents::instance();
 
 require_once( dirname(__FILE__) . '/lib/tribe-presstrends.php' );
 
-register_deactivation_hook( __FILE__, array( 'TribeEvents', 'resetActivationMessage' ) );
+if ( is_admin() && ( !defined( 'DOING_AJAX' ) || !DOING_AJAX ) ) {
+	register_deactivation_hook( __FILE__, array( 'TribeEvents', 'resetActivationMessage' ) );
+}
