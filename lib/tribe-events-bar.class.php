@@ -61,7 +61,7 @@ class TribeEventsBar {
 
 		echo '<form id="tribe-events-bar-form" name="tribe-events-bar-form" method="post" action="' . add_query_arg( array() ) . '">';
 
-		echo '<div class="tribe-events-bar-toggle"><span class="tribe-triangle"></span><span>Filters</span></div>';
+		echo '<div class="tribe-events-bar-toggle">' . __( 'Event Search', 'tribe-events-calendar' ) . '</div>';
 
 		foreach ( $filters as $filter ) {
 			echo '<div class="tribe-events-bar-filter-wrap ' . esc_attr( $filter['name'] ) . '">';
@@ -81,7 +81,7 @@ class TribeEventsBar {
 
 		$tec = TribeEvents::instance();
 
-		$limit = apply_filters( 'tribe-events-bar-views-breakpoint', 3 );
+		$limit = apply_filters( 'tribe-events-bar-views-breakpoint', 1 );
 
 		if ( count( $views ) <= $limit ) {
 			// Standard list navigation for larger screens
