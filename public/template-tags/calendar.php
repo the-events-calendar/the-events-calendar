@@ -326,8 +326,8 @@ if( class_exists( 'TribeEvents' ) ) {
 				$tribe_string_wp_classes .= $class . ' '; 
 			}
 			$tribe_classes_default = 'hentry vevent '. $tribe_string_wp_classes;
-			$tribe_classes_venue = tribe_get_venue_id() ? 'tribe-events-venue-'. tribe_get_venue_id() : '';
-			$tribe_classes_organizer = tribe_get_organizer_id() ? 'tribe-events-organizer-'. tribe_get_organizer_id() : '';
+			$tribe_classes_venue = tribe_get_venue_id($post->ID) ? 'tribe-events-venue-'. tribe_get_venue_id($post->ID) : '';
+			$tribe_classes_organizer = tribe_get_organizer_id($post->ID) ? 'tribe-events-organizer-'. tribe_get_organizer_id($post->ID) : '';
 			$tribe_classes_categories = $tribe_string_classes;
 			$class_string = $tribe_classes_default .' '. $tribe_classes_venue .' '. $tribe_classes_organizer .' '. $tribe_classes_categories;
 
@@ -339,7 +339,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			?>
 			
 			<div id="tribe-events-event-<?php echo $eventId; ?>" class="<?php echo $class_string; ?>">
-				<h3 class="entry-title summary"><a href="<?php tribe_event_link(); ?>"><?php the_title(); ?></a></h3>
+				<h3 class="entry-title summary"><a href="<?php tribe_event_link(); ?>"><?php echo $post->post_title; ?></a></h3>
 				<div id="tribe-events-tooltip-<?php echo $eventId; ?>" class="tribe-events-tooltip">
 					<h4 class="entry-title summary"><?php the_title() ;?></h4>
 					<div class="tribe-events-event-body">
@@ -365,10 +365,10 @@ if( class_exists( 'TribeEvents' ) ) {
 						</div><!-- .duration -->
 						
 						<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
-							<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75,75 ) );?></div>
+							<div class="tribe-events-event-thumb"><?php echo get_the_post_thumbnail( $post->ID, array( 75,75 ) );?></div>
 						<?php } ?>
 						
-						<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $post->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
+						<p class="entry-summary description"><?php echo has_excerpt($post->ID) ? TribeEvents::truncate( $post->post_excerpt ) : TribeEvents::truncate( $post->post_content, 30 ); ?></p>
 
 					</div><!-- .tribe-events-event-body -->
 					<span class="tribe-events-arrow"></span>
