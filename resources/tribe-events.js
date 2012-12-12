@@ -1,14 +1,22 @@
+// tribe function to get full url with no query vars
+
 function tribe_get_path( url ) {
 	return url.split("?")[0];
 }
+
+// tribe function to get specific query var from url
 	
 function tribe_get_url_param(tribe_param_name) {
 	return decodeURIComponent((new RegExp('[?|&]' + tribe_param_name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
 }
 
+// tribe function to get all query vars from url
+
 function tribe_get_url_params() {
 	return location.search.substr(1);
 }
+
+// tribe shared ajax tests
 
 function tribe_pre_ajax_tests( tribe_ajax_callback ) {		
 	
@@ -47,6 +55,8 @@ function tribe_pre_ajax_tests( tribe_ajax_callback ) {
 	}
 }
 
+// tribe tooltips
+
 function tribe_event_tooltips() {
 	jQuery( 'body' ).delegate( 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', 'mouseenter',function () {
 		// Week View Tooltips
@@ -71,6 +81,35 @@ function tribe_event_tooltips() {
 			}
 		} );
 }
+
+// tribe local storage functions
+
+var tribe_storage, t_fail, t_uid;
+try {
+	t_uid = new Date;
+	(tribe_storage = window.localStorage).setItem(t_uid, t_uid);
+	t_fail = tribe_storage.getItem(t_uid) != t_uid;
+	tribe_storage.removeItem(t_uid);
+	t_fail && (tribe_storage = false);
+} catch(e) {}
+
+// tribe function for resetting forms
+
+jQuery.fn.tribeClearForm = function() {
+	return this.each(function() {
+		var type = this.type, tag = this.tagName.toLowerCase();
+		if (tag == 'form')
+			return jQuery(':input',this).tribeClearForm();
+		if (type == 'text' || type == 'password' || tag == 'textarea')
+			this.value = '';
+		else if (type == 'checkbox' || type == 'radio')
+			this.checked = false;
+		else if (tag == 'select')
+			this.selectedIndex = -1;		
+	});
+};
+
+// tribe global vars, sorry, we need em
 
 var tribe_has_pushstate = window.history && window.history.pushState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);
 var tribe_cur_url = tribe_get_path( jQuery( location ).attr( 'href' ) );

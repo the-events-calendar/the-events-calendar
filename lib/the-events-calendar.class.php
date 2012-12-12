@@ -144,7 +144,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->pluginDir = trailingslashit( basename( $this->pluginPath ) );
 			$this->pluginUrl = plugins_url().'/'.$this->pluginDir;
 			if (self::supportedVersion('wordpress') && self::supportedVersion('php')) {
-				register_deactivation_hook( __FILE__, array( $this, 'on_deactivate' ) );
+
+				if ( is_admin() && ( !defined( 'DOING_AJAX' ) || !DOING_AJAX ) ) {
+					register_deactivation_hook( __FILE__, array( $this, 'on_deactivate' ) );
+				}
+
 				$this->addFilters();
 				$this->addActions();
 				$this->loadLibraries();
@@ -954,8 +958,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			register_post_type(self::VENUE_POST_TYPE, apply_filters( 'tribe_events_register_venue_type_args', $this->postVenueTypeArgs) );
 			register_post_type(self::ORGANIZER_POST_TYPE, apply_filters( 'tribe_events_register_organizer_type_args', $this->postOrganizerTypeArgs) );
 
-			$this->addCapabilities();
-			         
+
+			if ( is_admin() && ( !defined( 'DOING_AJAX' ) || !DOING_AJAX ) )
+				$this->addCapabilities();
+
 			register_taxonomy( self::TAXONOMY, self::POSTTYPE, array(
 				'hierarchical' => true,
 				'update_count_callback' => '',
@@ -2861,12 +2867,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			return TribeEventsQuery::getEvents($args);
 		}
 
-		public function isEvent( $postId = null ) {
-			if ( $postId === null || ! is_numeric( $postId ) ) {
+		public function isEvent( $event ) {
+			if ( $event === null || ( ! is_numeric( $event ) && !is_object( $event ) ) ) {
 				global $post;
-				$postId = $post->ID;
+				$event = $post->ID;
 			}
-			if ( get_post_field('post_type', $postId) == self::POSTTYPE ) {
+			if ( is_numeric( $event ) ) {
+				if ( get_post_type($event) == self::POSTTYPE )
+				return true;
+			} elseif ( is_object( $event ) ) {
+				if ( get_post_type($event->ID) == self::POSTTYPE )
 				return true;
 			}
 			return false;
@@ -3285,17 +3295,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 
-		public function setup_date_search_in_bar( $filters ) {
-
-			$value = apply_filters( 'tribe-events-bar-date-search-default-value', '' );
-
-			if ( !empty( $_REQUEST['tribe-bar-date'] ) ) {
-				$value = $_REQUEST['tribe-bar-date'];
-			}
+		public function setup_date_search_in_bar( $filters ) {			
 
 			$filters[] = array( 'name'    => 'tribe-bar-date',
 			                    'caption' => 'Date',
-			                    'html'    => '<input type="text" name="tribe-bar-date" style="position: relative; z-index: 100000;" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="Date">' );
+			                    'html'    => '<input type="text" name="tribe-bar-date" style="position: relative; z-index: 100000;" id="tribe-bar-date" value="" placeholder="Date">' );
 
 			return $filters;
 		}
