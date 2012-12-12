@@ -251,10 +251,10 @@ if (!class_exists('TribeEventsQuery')) {
 					// is event add required fields
 					if( tribe_is_event( $post ) ) {
 						$posts[$id]->tribe_is_event = true;
-						$posts[$id]->tribe_is_allday = tribe_get_event_meta( $post->ID, '_EventAllDay' ) ? true : false;
-						$posts[$id]->EventStartDate = get_post_meta( $post->ID, '_EventStartDate', true);
-						$posts[$id]->EventDuration = get_post_meta( $post->ID, '_EventDuration', true);
-						$posts[$id]->EventEndDate = get_post_meta( $post->ID, '_EventEndDate', true);
+						$posts[$id]->tribe_is_allday = tribe_get_event_meta( $post, '_EventAllDay' ) ? true : false;
+						$posts[$id]->EventStartDate = get_post_meta( $post, '_EventStartDate', true);
+						$posts[$id]->EventDuration = get_post_meta( $post, '_EventDuration', true);
+						$posts[$id]->EventEndDate = get_post_meta( $post, '_EventEndDate', true);
 					}
 				}
 			}
