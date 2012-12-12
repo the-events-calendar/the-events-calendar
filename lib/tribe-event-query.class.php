@@ -88,6 +88,9 @@ if (!class_exists('TribeEventsQuery')) {
 
 				if( !empty($query->query_vars['eventDisplay']) ) {
 	            	switch ( $query->query_vars['eventDisplay'] ) {
+	            		case 'custom':
+	            			// if set this allows for a custom query to not be burdened with these settings
+	            			break;
 	               		case 'past': // setup past event display query
 							$query->set( 'end_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
 							$query->set( 'orderby', 'event_date' );

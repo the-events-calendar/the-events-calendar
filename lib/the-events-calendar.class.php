@@ -2876,7 +2876,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				if ( get_post_type($event) == self::POSTTYPE )
 				return true;
 			} elseif ( is_object( $event ) ) {
-				if ( get_post_type($event) == self::POSTTYPE )
+				if ( get_post_type('post_type', $event->ID) == self::POSTTYPE )
 				return true;
 			}
 			return false;

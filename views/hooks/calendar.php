@@ -134,6 +134,8 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				// $eventPosts = $wp_query->posts;
 			// }
 
+			// get all upcoming ids to hide so we're not querying 31 times
+			$hide_upcoming_ids = TribeEventsQuery::getHideFromUpcomingEvents();
 			$daysInMonth = isset( $date ) ? date( 't', $date ) : date( 't' );
 			$startOfWeek = get_option( 'start_of_week', 0 );
 			list( $year, $month ) = split( '-', $tribe_ecp->date );
@@ -215,8 +217,14 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			    				'eventDate' => $date,
 			    				'start_date' => tribe_event_beginning_of_day( $date ),
 			    				'end_date' => tribe_event_end_of_day( $date ),
-			    				'posts_per_page' => -1,
-			    				'eventDisplay' => 'day'
+			    				// setup our own custom hide upcoming
+			    				'post__not_in' => $hide_upcoming_ids, 
+			    				'hide_upcoming' => false,
+			    				'posts_per_page' => 3,
+			    				'orderby' => 'event_date',
+								'order' => 'ASC',
+			    				'eventDisplay' => 'custom',
+			    				'no_found_rows' => true
 			    				);
 
 			    			if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
@@ -227,8 +235,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			    			$daily_events = TribeEvents::getEvents( $args );
 
 							foreach( $daily_events as $post ) {
-								setup_postdata( $post );
-								echo $post->post_name . '<br />';
+								// setup_postdata( $post );
 								$eventId	= $post->ID.'-'.$day;
 								$start		= tribe_get_start_date( $post->ID, false, 'U' );
 								$end		= tribe_get_end_date( $post->ID, false, 'U' );
@@ -261,9 +268,9 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 								?>
 								
 								<div id="tribe-events-event-<?php echo $eventId; ?>" class="<?php echo $class_string; ?>">
-									<h3 class="entry-title summary"><a href="<?php tribe_event_link(); ?>"><?php the_title(); ?></a></h3>
+									<h3 class="entry-title summary"><a href="<?php tribe_event_link( $post ); ?>"><?php echo $post->post_title; ?></a></h3>
 									<div id="tribe-events-tooltip-<?php echo $eventId; ?>" class="tribe-events-tooltip">
-										<h4 class="entry-title summary"><?php the_title() ;?></h4>
+										<h4 class="entry-title summary"><?php echo $post->post_title;?></h4>
 										<div class="tribe-events-event-body">
 											<div class="duration">
 												<abbr class="tribe-events-abbr updated published dtstart" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $start ); ?>">
