@@ -2,11 +2,6 @@ jQuery(document).ready(function($) {
 
 	// Admin Google Maps Preview
 	$('#event_venue input, #event_venue select').change(function() {
-		if($('#EventShowMap').prop('checked')) {
-			$('#tribe-events-gmap').parent().show();
-		} else {
-			$('#tribe-events-gmap').parent().hide();
-		}
 
 		var selectedOption = $('#saved_venue option:selected');
 		if(selectedOption.val() == 0) {

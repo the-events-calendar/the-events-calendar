@@ -85,7 +85,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'init', array( $this, 'init' ), 10 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-			add_action( 'tribe_after_location_details', array( $this, 'add_google_map_preview' ) );
 			add_action( 'tribe_tec_template_chooser', array( $this, 'do_ical_template' ) );
 			add_filter( 'tribe_settings_do_tabs', array( $this, 'add_settings_tabs' ) );
 			add_filter( 'generate_rewrite_rules', array( $this, 'add_routes' ) );
@@ -476,21 +475,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
     	public function load_venue_template( $file ) {
     		return TribeEventsTemplates::getTemplateHierarchy( 'single-venue','','pro', $this->pluginPath );
 	    }
-
-    	public function add_google_map_preview( $postId ) {
-	    	if ( tribe_get_option( 'embedGoogleMaps' ) ) {
-	            // && tribe_embed_google_map($postId )
-	    		$display = tribe_embed_google_map( $postId ) ? 'block' : 'none';
-	    		?>
-	    		<div style="float:right; display:<?php echo $display ?>;">
-	    			<?php echo tribe_get_embedded_map( $postId, 200, 200, true ); ?>
-	    		</div>
-	    		<?php
-	    	}
-	    	?>
-	    	<div style="clear:both"></div>
-	    	<?php
-    	}
 
 	    public function admin_enqueue_scripts() {
 	    	wp_enqueue_script( TribeEvents::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.js', array( 'jquery-ui-datepicker' ), '', true );
