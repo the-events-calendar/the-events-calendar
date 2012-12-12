@@ -2868,16 +2868,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function isEvent( $event ) {
-			if ( $event === null || ( ! is_numeric( $event ) && !is_object( $event ) ) ) {
-				global $post;
-				$event = $post->ID;
-			}
-			if ( is_numeric( $event ) ) {
-				if ( get_post_type($event) == self::POSTTYPE )
-				return true;
-			} elseif ( is_object( $event ) ) {
-				if ( get_post_type('post_type', $event->ID) == self::POSTTYPE )
-				return true;
+			if ( is_numeric( $event ) || is_object( $event ) || $event === null ) {
+				if ( get_post_type( $event ) == self::POSTTYPE ) 
+					return true;
 			}
 			return false;
 		}
@@ -3042,6 +3035,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public static function postIdHelper( $postId = null ) {
 			if ( $postId != null && is_numeric( $postId ) > 0 ) {
 				return (int) $postId;
+			} elseif( is_object($postId) && !empty($postId->ID)) {
+				return (int) $postId->ID;
 			} else {
 				global $post;
 				if ( is_object($post) ){

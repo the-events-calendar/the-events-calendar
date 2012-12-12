@@ -31,7 +31,7 @@ if (!class_exists('TribeEventsQuery')) {
 			add_filter( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 0 );
 
 			// setup returned posts with event fields ( start date, end date, duration etc )
-			add_filter( 'the_posts', array( __CLASS__, 'the_posts'), 0 );
+			// add_filter( 'the_posts', array( __CLASS__, 'the_posts'), 0 );
 		}
 
 
