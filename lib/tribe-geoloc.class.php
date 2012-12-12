@@ -36,7 +36,7 @@ class TribeEventsGeoLoc {
 		add_action( 'wp_ajax_geosearch', array( $this, 'ajax_geosearch' ) );
 		add_action( 'wp_ajax_nopriv_geosearch', array( $this, 'ajax_geosearch' ) );
 
-		add_filter( 'tribe-events-bar-views', array( $this, 'setup_view_for_bar' ) );
+		add_filter( 'tribe-events-bar-views', array( $this, 'setup_view_for_bar' ), 25, 1 );
 		add_filter( 'tribe-events-bar-filters', array( $this, 'setup_geoloc_filter_in_bar' ), 1, 1 );
 		add_action( 'tribe-events-bar-enqueue-scripts', array( $this, 'scripts' ) );
 		add_filter( 'tribe_events_pre_get_posts', array( $this, 'setup_geoloc_in_query' ) );
@@ -408,6 +408,8 @@ class TribeEventsGeoLoc {
 			$post     = $query->posts[0];
 			$wp_query = $query;
 			ob_start();
+
+			add_filter( 'tribe_events_list_show_separators', "__return_false" );
 
 			echo '<div id="tribe-geo-results">';
 			include apply_filters( 'tribe_include_view_list', TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
