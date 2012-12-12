@@ -83,7 +83,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	</tr>
 	</table>
 	<div class="tribe_sectionheader" style="padding: 6px 6px 0 0; font-size: 11px; margin: 0 10px;"><h4><?php _e('Event Location Details', 'tribe-events-calendar'); ?></h4></div>
-	<div style="float: left;">
 		<table id="event_venue" class="eventtable">
          <?php do_action('tribe_venue_table_top', $postId) ?>
 			<?php include( $this->pluginPath . 'admin-views/venue-meta-box.php' ); ?>
@@ -100,7 +99,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 				</tr>
 			<?php endif; ?>
 		</table>
-	</div>
    <?php do_action('tribe_after_location_details', $postId); ?>
 	<table id="event_organizer" class="eventtable">
 			<tr>
