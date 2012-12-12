@@ -526,6 +526,19 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		return apply_filters('tribe_get_next_week_permalink', $permalink);
 	}
 
+
+	/**
+	 * Get photo permalink by provided date
+
+	 * @return string $permalink
+	 * @since 3.0
+	 */
+	function tribe_get_photo_permalink() {
+		$tec       = TribeEvents::instance();
+		$permalink = get_site_url() . '/' . $tec->rewriteSlug . '/' . trailingslashit( TribeEventsPro::instance()->photoSlug . '/' );
+		return apply_filters( 'tribe_get_photo_view_permalink', $permalink );
+	}
+
 	function tribe_single_related_events( $tag = false, $count = 3, $blog = false, $only_display_related = true, $post_type = 'tribe_events' ) {		
 		$posts = tribe_get_related_posts( $tag, $count, $blog, $only_display_related, $post_type );
 		if ( is_array( $posts ) && !empty( $posts ) ) {

@@ -117,11 +117,19 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			/* Setup Tribe Events Bar */
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_weekview_in_bar' ), 10, 1 );
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_dayview_in_bar' ), 15, 1 );
+			add_filter( 'tribe-events-bar-views', array( $this, 'setup_photoview_in_bar' ), 30, 1 );
+
 			add_filter( 'tribe-events-bar-date-search-default-value', array( $this, 'maybe_setup_date_in_bar' ) );
 
 			/* AJAX for loading day view */
 			add_action( 'wp_ajax_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
 			add_action( 'wp_ajax_nopriv_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
+
+			/* AJAX for loading photo view */
+
+			add_action( 'wp_ajax_tribe_photo', array( $this, 'wp_ajax_tribe_photo' ) );
+			add_action( 'wp_ajax_nopriv_tribe_photo', array( $this, 'wp_ajax_tribe_photo' ) );
+
 		}
 
 		function events_before_html( $html ) {
@@ -146,6 +154,78 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				$reset_title = Date("l, F jS Y", strtotime($wp_query->get('start_date')));
 			}
 			return isset($reset_title) ? apply_filters( 'tribe_template_factory_debug', $reset_title, 'tribe_get_events_title' ) : $content;
+		}
+
+
+		/**
+		 * AJAX handler for tribe_event_photo (Photo view)		 *
+		 */
+
+		function wp_ajax_tribe_photo() {
+
+			$tec = TribeEvents::instance();
+
+			add_action( 'pre_get_posts', array( $tec, 'list_ajax_call_set_date' ), -10 );
+
+			if ( class_exists( 'TribeEventsFilterView' ) ) {
+				TribeEventsFilterView::instance()->createFilters( null, true );
+			}
+
+
+			TribeEventsQuery::init();
+
+			$tribe_paged = ( !empty( $_POST['tribe_paged'] ) ) ? intval( $_POST['tribe_paged'] ) : 1;
+
+			$args = array( 'eventDisplay'       => 'list',
+			               'post_type'          => TribeEvents::POSTTYPE,
+			               'post_status'        => 'publish',
+			               'paged'              => $tribe_paged );
+
+			$query = TribeEventsQuery::getEvents( $args, true );
+			$hash  = $query->query_vars;
+
+			$hash['paged']      = null;
+			$hash['start_date'] = null;
+			$hash_str           = md5( maybe_serialize( $hash ) );
+
+			if ( !empty( $_POST['hash'] ) && $hash_str !== $_POST['hash'] ) {
+				$tribe_paged   = 1;
+				$args['paged'] = 1;
+				$query         = TribeEventsQuery::getEvents( $args, true );
+			}
+
+
+			$response = array( 'html'            => '',
+			                   'success'         => true,
+			                   'max_pages'       => $query->max_num_pages,
+			                   'hash'            => $hash_str,
+			                   'tribe_paged'     => $tribe_paged );
+
+
+			remove_action( 'pre_get_posts', array( $tec, 'list_ajax_call_set_date' ), -10 );
+
+			global $wp_query, $post;
+			$wp_query = $query;
+			if ( !empty( $query->posts ) ) {
+				$post = $query->posts[0];
+			}
+
+			add_filter( 'tribe_events_list_pagination', array( 'TribeEvents', 'clear_module_pagination' ), 10 );
+
+			$tec->displaying = 'photo';
+
+			ob_start();
+
+			$template = TribeEventsTemplates::getTemplateHierarchy('list');
+
+			load_template( $template );
+
+			$response['html'] .= ob_get_clean();
+
+			header( 'Content-type: application/json' );
+			echo json_encode( $response );
+
+			die();
 		}
 
 		/**
@@ -731,6 +811,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$views[] = array( 'displaying' => 'day',
 			                  'anchor'     => __( 'Day', 'tribe-events-calendar-pro' ),
 			                  'url'        => tribe_get_day_permalink() );
+			return $views;
+		}
+
+		public function setup_photoview_in_bar( $views ) {
+			$views[] = array( 'displaying' => 'photo',
+			                  'anchor'     => __( 'Photo', 'tribe-events-calendar-pro' ),
+			                  'url'        => tribe_get_photo_permalink() );
 			return $views;
 		}
 
