@@ -124,7 +124,35 @@ jQuery( document ).ready( function ( $ ) {
 	// if advanced filters active intercept submit
 
 	if( $('#tribe_events_filters_form').length ) {
-		$( 'form#tribe_events_filters_form' ).bind( 'submit', function ( e ) {
+		
+		var $form = $('#tribe_events_filters_form');
+		
+		if( $form.hasClass('tribe-filter-live') ) {
+			$( "#tribe_events_filters_form .ui-slider" ).on( "slidechange", function() {
+				if( !$form.hasClass('tribe-reset-on') ){
+					tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
+					tribe_href_target = tribe_get_path( jQuery( location ).attr( 'href' ) );	
+					tribe_pushstate = false;
+					tribe_do_string = true;
+					tribe_pre_ajax_tests( function() { 
+						tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
+					});
+				}			
+			} );
+			$("#tribe_events_filters_form").on("change", "input, select", function(){
+				if( !$form.hasClass('tribe-reset-on') ){
+					tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
+					tribe_href_target = tribe_get_path( jQuery( location ).attr( 'href' ) );	
+					tribe_pushstate = false;
+					tribe_do_string = true;
+					tribe_pre_ajax_tests( function() { 
+						tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
+					});
+				}
+			});			
+		}		
+		
+		$form.bind( 'submit', function ( e ) {
 			if ( tribe_events_bar_action != 'change_view' ) {
 				e.preventDefault();
 				tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
