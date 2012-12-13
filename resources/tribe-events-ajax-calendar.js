@@ -85,7 +85,7 @@ jQuery( document ).ready( function ( $ ) {
 
 	// events bar intercept submit
 
-	$( 'form#tribe-events-bar-form' ).bind( 'submit', function (e) {
+	$( 'form#tribe-bar-form' ).bind( 'submit', function (e) {
 
 		if( tribe_events_bar_action != 'change_view' ) {
 
@@ -154,7 +154,7 @@ jQuery( document ).ready( function ( $ ) {
 
 			// add any set values from event bar to params. want to use serialize but due to ie bug we are stuck with second	
 
-			$( 'form#tribe-events-bar-form :input[value!=""]' ).each( function () {
+			$( 'form#tribe-bar-form :input[value!=""]' ).each( function () {
 				var $this = $( this );
 				if( $this.val().length && $this.attr('name') != 'submit-bar' ) {
 					tribe_params[$this.attr('name')] = $this.val();

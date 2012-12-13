@@ -24,7 +24,7 @@ jQuery( document ).ready( function ( $ ) {
 	$( '#tribe-bar-date' ).datepicker( tribe_var_datepickerOpts );
 	
 	// Add some classes
-	if( $( '.tribe-events-bar-drop-settings' ).length ) {
+	if( $( '.tribe-bar-drop-settings' ).length ) {
 		$( '#tribe-events-bar' ).addClass( 'tribe-has-settings' );
 	}
 
@@ -35,7 +35,7 @@ jQuery( document ).ready( function ( $ ) {
 	function format( view ) {
     	return '<span class="tribe-icon-' + view.text.toLowerCase() + '">' + view.text + '</span>';
    	}
-	$( '#tribe-events-bar-views .tribe-select2' ).select2({
+	$( '#tribe-bar-views .tribe-select2' ).select2({
     	placeholder: "Views",
     	dropdownCssClass: 'tribe-select2-results',
     	minimumResultsForSearch: 9999,
@@ -43,17 +43,20 @@ jQuery( document ).ready( function ( $ ) {
         formatSelection: format
     });
 
-	// Wrap non-date inputs with a parent container for toggle
-	$('.tribe-events-bar-filter-wrap.tribe-bar-search, .tribe-events-bar-filter-wrap.tribe-bar-geoloc, .tribe-events-bar-filter-wrap.tribe-bar-submit').wrapAll('<div class="tribe-events-toggle-wrap" />');
+	// Wrap date inputs with a parent container
+	$('label[for="tribe-bar-date"], input[name="tribe-bar-date"]').wrapAll('<div id="tribe-bar-dates" />');
+	   
+	// Add our date bits outside of our filter container
+	$( '#tribe-bar-filters' ).after( $('#tribe-bar-dates') );
 
 	// Implement our views bit
-	$( 'select[name=tribe-events-bar-view]' ).change( function () {
+	$( 'select[name=tribe-bar-view]' ).change( function () {
 		var el = $( this );
 		tribe_events_bar_action = 'change_view';
 		tribe_events_bar_change_view( el.val() );
 	} );
 
-	$( 'a.tribe-events-bar-view' ).on( 'click', function ( e ) {
+	$( 'a.tribe-bar-view' ).on( 'click', function ( e ) {
 		e.preventDefault();
 
 		var el = $( this );
@@ -70,13 +73,13 @@ jQuery( document ).ready( function ( $ ) {
 			}
 		}
 		if ( $( '#tribe_events_filters_form' ).length ) {
-			$( 'form#tribe-events-bar-form :input' ).each( function () {
+			$( 'form#tribe-bar-form :input' ).each( function () {
 				var $this = $( this );
 				$( '#tribe_events_filters_form' ).append( $this );
 			} );
 			$( '#tribe_events_filters_form' ).attr( 'action', url ).submit();
 		} else {
-			$( 'form#tribe-events-bar-form' ).attr( 'action', url ).submit();
+			$( 'form#tribe-bar-form' ).attr( 'action', url ).submit();
 		}
 	}
 
@@ -89,21 +92,21 @@ jQuery( document ).ready( function ( $ ) {
 
 	// Implement simple toggle for filters at smaller size (and close if click outside of toggle area)
 	
-	//var tribeBarToggle = $( '#tribe-events-bar .tribe-events-bar-toggle' );
+	//var tribeBarToggle = $( '#tribe-events-bar .tribe-bar-toggle' );
 	//var tribeBarToggleEl = $( '.tribe-events-toggle-wrap' );
 	
-	var tribeDropToggle = $( '#tribe-events-bar .tribe-bar-settings' );
-	var tribeDropToggleEl = $( '.tribe-bar-settings ~ div' );
+	var tribeDropToggle = $( '#tribe-events-bar [class^="tribe-bar-button-"]' );
+	var tribeDropToggleEl = tribeDropToggle.next( '.tribe-bar-drop-content' );
 	
 	tribeDropToggle.click( function () {
-		$( '.tribe-events-bar-drop-settings' ).toggleClass( 'open' );
+		tribeDropToggle.toggleClass( 'open' );
 		tribeDropToggleEl.toggle();
 	} );
 
 	$( document ).bind( {
 		click:function ( e ) {
-			if ( $( '.tribe-events-bar-drop-settings' ).hasClass( 'open' ) ) {
-				$( '.tribe-events-bar-drop-settings' ).toggleClass( 'open' );
+			if ( tribeDropToggle.hasClass( 'open' ) ) {
+				tribeDropToggle.toggleClass( 'open' );
 				tribeDropToggleEl.toggle();
 			}
 		}
@@ -111,23 +114,8 @@ jQuery( document ).ready( function ( $ ) {
 	tribeDropToggle.bind( 'click', function ( e ) {
 		return false
 	} );
-	$( '.tribe-bar-settings ~ div' ).click( function ( e ) {
+	tribeDropToggleEl.click( function ( e ) {
 		e.stopPropagation();
 	} );
-	/* Old
-	$( '.tribe-bar-search, .tribe-bar-geoloc, .tribe-bar-settings ~ div' ).click( function ( e ) {
-		e.stopPropagation();
-	} );
-	*/
-	
-	
-	var tribeBarToggle = $( '#tribe-events-bar .tribe-events-bar-toggle' );
-	var tribeBarToggleEl = $( '.tribe-events-toggle-wrap' );
-	
-	tribeBarToggle.mouseenter(function(){
-    	tribeBarToggleEl.show();
-    }).mouseleave(function(){
-    	tribeBarToggleEl.hide();
-    });
 
 } );
