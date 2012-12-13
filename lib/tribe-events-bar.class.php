@@ -71,7 +71,25 @@ class TribeEventsBar {
 		}
 
 		echo '<div class="tribe-events-bar-filter-wrap tribe-bar-submit"><input class="tribe-events-button-grey" type="submit" name="submit-bar" value="' . __( 'Search', 'tribe-events-calendar' ) . '"/></div>';
-
+		
+		
+		// show user front-end settings only if ECP is active
+		if ( class_exists( 'TribeEventsPro' ) ) {
+			
+			echo '<div class="tribe-events-bar-drop-settings">';
+			echo '<div class="tribe-bar-settings">'. __( '<span class="tribe-hide-text">User Settings</span>', 'tribe-events-calendar' ) .'</div>';
+			
+			echo '<div>';
+			echo '<h5>' . __( 'Event Settings', 'tribe-events-calendar' ) . '</h5>';
+			echo '<label for="tribeUserSettings">';
+			echo '<input type="checkbox" name="tribeUserSettings" value="0">'. __( 'Show all Occurances of Recurring Events<br /><span>Uncheck to hide all but the next iteration</span>', 'tribe-events-calendar' );
+			echo '</label>';
+			echo '<button type="button" name="settingsUpdate" class="tribe-events-button-grey">' . __( 'Update', 'tribe-events-calendar' ) . '</button>';
+			echo '</div>';
+			echo '</div>';
+			
+		}
+		
 		echo '</form><!-- #tribe-events-bar-form -->';
 
 	}

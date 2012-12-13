@@ -88,7 +88,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$tribe_ecp = TribeEvents::instance();
 
 			$html = '<li class="tribe-events-nav-prev">';
-			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() )  .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&#x2190; '. tribe_get_previous_month_text() .' </a>';
+			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&#x2190; '. tribe_get_previous_month_text() .' </a>';
 			$html .= '</li><!-- .tribe-events-prev-next -->';
 			
 			$html .= '<li>';
@@ -98,7 +98,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$html .= '</li>';
 	
 			$html .= '<li class="tribe-events-nav-next">';
-			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() )  .'" href="' . tribe_get_next_month_link() . '" rel="next"> '. tribe_get_next_month_text() .' &#x2192;</a>';
+			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() . '" rel="next"> '. tribe_get_next_month_text() .' &#x2192;</a>';
 			$html .= '<img src="' . esc_url( admin_url( 'images/wpspin_light.gif' ) ) . '" class="ajax-loading" id="ajax-loading" alt="Loading events" />';
 			$html .= '</li><!-- .tribe-events-nav-next -->';
 			

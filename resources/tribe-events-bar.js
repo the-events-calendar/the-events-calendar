@@ -22,11 +22,16 @@ jQuery( document ).ready( function ( $ ) {
 
 	// Implement our datepicker
 	$( '#tribe-bar-date' ).datepicker( tribe_var_datepickerOpts );
+	
+	// Add some classes
+	if( $( '.tribe-events-bar-drop-settings' ).length ) {
+		$( '#tribe-events-bar' ).addClass( 'tribe-has-settings' );
+	}
 
 	// Implement placeholder
 	$( 'input[name*="tribe-bar-"]' ).placeholder();
 
-	// Implement chosen
+	// Implement select2
 	function format( view ) {
     	return '<span class="tribe-icon-' + view.text.toLowerCase() + '">' + view.text + '</span>';
    	}
@@ -39,7 +44,6 @@ jQuery( document ).ready( function ( $ ) {
     });
 
 	// Wrap non-date inputs with a parent container for toggle
-
 	$('.tribe-events-bar-filter-wrap.tribe-bar-search, .tribe-events-bar-filter-wrap.tribe-bar-geoloc, .tribe-events-bar-filter-wrap.tribe-bar-submit').wrapAll('<div class="tribe-events-toggle-wrap" />');
 
 	// Implement our views bit
@@ -84,26 +88,46 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	// Implement simple toggle for filters at smaller size (and close if click outside of toggle area)
-	var tribeBarToggle = $( '#tribe-events-bar .tribe-events-bar-toggle' );
-	var tribeBarToggleEl = $( '.tribe-events-toggle-wrap' );
-	tribeBarToggle.click( function () {
-		$( this ).toggleClass( 'open' );
-		tribeBarToggleEl.toggle();
+	
+	//var tribeBarToggle = $( '#tribe-events-bar .tribe-events-bar-toggle' );
+	//var tribeBarToggleEl = $( '.tribe-events-toggle-wrap' );
+	
+	var tribeDropToggle = $( '#tribe-events-bar .tribe-bar-settings' );
+	var tribeDropToggleEl = $( '.tribe-bar-settings ~ div' );
+	
+	tribeDropToggle.click( function () {
+		$( '.tribe-events-bar-drop-settings' ).toggleClass( 'open' );
+		tribeDropToggleEl.toggle();
 	} );
 
 	$( document ).bind( {
 		click:function ( e ) {
-			if ( $( tribeBarToggle ).hasClass( 'open' ) ) {
-				tribeBarToggle.toggleClass( 'open' );
-				tribeBarToggleEl.toggle();
+			if ( $( '.tribe-events-bar-drop-settings' ).hasClass( 'open' ) ) {
+				$( '.tribe-events-bar-drop-settings' ).toggleClass( 'open' );
+				tribeDropToggleEl.toggle();
 			}
 		}
 	} );
-	tribeBarToggle.bind( 'click', function ( e ) {
+	tribeDropToggle.bind( 'click', function ( e ) {
 		return false
 	} );
-	$( '.tribe-bar-search, .tribe-bar-geoloc' ).click( function ( e ) {
+	$( '.tribe-bar-settings ~ div' ).click( function ( e ) {
 		e.stopPropagation();
 	} );
+	/* Old
+	$( '.tribe-bar-search, .tribe-bar-geoloc, .tribe-bar-settings ~ div' ).click( function ( e ) {
+		e.stopPropagation();
+	} );
+	*/
+	
+	
+	var tribeBarToggle = $( '#tribe-events-bar .tribe-events-bar-toggle' );
+	var tribeBarToggleEl = $( '.tribe-events-toggle-wrap' );
+	
+	tribeBarToggle.mouseenter(function(){
+    	tribeBarToggleEl.show();
+    }).mouseleave(function(){
+    	tribeBarToggleEl.hide();
+    });
 
 } );
