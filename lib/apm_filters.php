@@ -97,6 +97,12 @@ class Tribe_Recur_Filter {
 			'value' => $this->not_recur,
 			'compare' => $compare
 		);
+
+		if ( 'NOT LIKE' == $compare ) {
+			$meta_query[]           = array( 'key' => '_EventRecurrence', 'value' => '', 'compare' => '!=' );
+			$meta_query['relation'] = 'AND';
+		}
+
 		$wp_query->set('meta_query', $meta_query);
 	}
 	
