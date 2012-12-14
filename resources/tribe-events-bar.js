@@ -1,5 +1,13 @@
 // Check for width of events bar so can kick in the view filter select input when appropriate
 
+// What's left:
+	// Add month selects
+	// Style up search button shit
+	// Samuel JS
+	// TEst on themes, etc
+	// figure out how to keep left side shit on the left and proper width
+	// test without pro
+
 var tribe_events_bar_action;
 
 function eventBarWidth() {
@@ -24,8 +32,11 @@ jQuery( document ).ready( function ( $ ) {
 	$( '#tribe-bar-date' ).datepicker( tribe_var_datepickerOpts );
 	
 	// Add some classes
-	if( $( '.tribe-bar-drop-settings' ).length ) {
+	if( $( '.tribe-bar-settings' ).length ) {
 		$( '#tribe-events-bar' ).addClass( 'tribe-has-settings' );
+	}
+	if ( $( '#tribe-events-bar .hasDatepicker' ).length ) {
+		$( '#tribe-events-bar' ).addClass( 'tribe-has-datpicker' );
 	}
 
 	// Implement placeholder
@@ -83,7 +94,6 @@ jQuery( document ).ready( function ( $ ) {
 		}
 	}
 
-
 	// Implement our function to check on our event bar width
 	eventBarWidth();
 	$( window ).resize( function () {
@@ -91,26 +101,15 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	// Implement simple toggle for filters at smaller size (and close if click outside of toggle area)
-	
-	//var tribeBarToggle = $( '#tribe-events-bar .tribe-bar-toggle' );
-	//var tribeBarToggleEl = $( '.tribe-events-toggle-wrap' );
-	
 	var tribeDropToggle = $( '#tribe-events-bar [class^="tribe-bar-button-"]' );
 	var tribeDropToggleEl = tribeDropToggle.next( '.tribe-bar-drop-content' );
 	
 	tribeDropToggle.click( function () {
-		tribeDropToggle.toggleClass( 'open' );
-		tribeDropToggleEl.toggle();
+		$( this ).toggleClass( 'open' );
+		$( this ).next( '.tribe-bar-drop-content' ).toggle();
 	} );
 
-	$( document ).bind( {
-		click:function ( e ) {
-			if ( tribeDropToggle.hasClass( 'open' ) ) {
-				tribeDropToggle.toggleClass( 'open' );
-				tribeDropToggleEl.toggle();
-			}
-		}
-	} );
+	
 	tribeDropToggle.bind( 'click', function ( e ) {
 		return false
 	} );

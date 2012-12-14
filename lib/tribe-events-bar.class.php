@@ -59,24 +59,18 @@ class TribeEventsBar {
 
 	public static function print_filters_helper( $filters ) {
 
-		//echo '<form id="tribe-events-bar-form" name="tribe-events-bar-form" method="post" action="' . add_query_arg( array() ) . '">';
-
-		echo '<div class="tribe-bar-button-search">' . __( 'Event Search', 'tribe-events-calendar' ) . '</div>';
+		echo '<div class="tribe-bar-button-search">' . __( '<span class="tribe-bar-btn-small"><span>Event </span>Search</span>', 'tribe-events-calendar' ) . '</div>';
 		
 		echo '<div class="tribe-bar-drop-content">';
 
 		foreach ( $filters as $filter ) {
-			//echo '<div class="tribe-events-bar-filter-wrap ' . esc_attr( $filter['name'] ) . '">';
 			echo '<label class="tribe-events-visuallyhidden" for="' . esc_attr( $filter['name'] ) . '">' . $filter['caption'] . '</label>';
 			echo $filter['html'];
-			//echo '</div>';
 		}
 
 		echo '<input class="tribe-events-button-grey" type="submit" name="submit-bar" value="' . __( 'Search', 'tribe-events-calendar' ) . '"/>';
 		
 		echo '</div><!-- .tribe-bar-drop-content -->';
-		
-		//echo '</form><!-- #tribe-events-bar-form -->';
 
 	}
 
