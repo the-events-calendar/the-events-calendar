@@ -61,14 +61,14 @@ $generalTab = array(
 		),
 		'viewOption' => array(
 			'type' => 'radio',
-			'label' => __( 'Default view for the Events', 'tribe-events-calendar' ),
+			'label' => __( 'Default view for the events', 'tribe-events-calendar' ),
 			'default' => 'month',
 			'options' => array( 'month' => 'Calendar', 'upcoming' => 'Event List' ),
 			'validation_type' => 'options',
 		),
 		'stylesheetOption' => array(
 			'type' => 'radio',
-			'label' => __( 'Default stylesheet for the Events', 'tribe-events-calendar' ),
+			'label' => __( 'Default stylesheet for the events', 'tribe-events-calendar' ),
 			'default' => 'full',
 			'options' => array( 'full' => 'Full Stylesheet (These styles will most likely override some of your current theme styles on events templates)', 'skeleton' => 'Skeleton Stylesheet (These styles shouldn\'t override your current theme styles)' ),
 			'validation_type' => 'options',
@@ -76,7 +76,7 @@ $generalTab = array(
 		'unprettyPermalinksUrl' => array(
 			'type' => 'html',
 			'label' => __( 'Events URL slug', 'tribe-events-calendar' ),
-			'html' => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href="%s">%s</a>. In order to edit the slug here, enable pretty permalinks.','tribe-events-calendar') , $tec->getLink( 'home' ), $tec->getLink( 'home ' ) ) .'</p>',
+			'html' => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href="%s">%s</a>. In order to edit the slug here, <a href="'. trailingslashit( get_admin_url() ) .'options-permalink.php">enable pretty permalinks</a>.','tribe-events-calendar') , $tec->getLink( 'home' ), $tec->getLink( 'home ' ) ) .'</p>',
 			'conditional' => ('' == get_option( 'permalink_structure' ) ),
 		),
 		'eventsSlug' => array(
@@ -98,7 +98,7 @@ $generalTab = array(
 		),
 		'singleEventSlug' => array(
 			'type' => 'text',
-			'label' => __( 'Single Event URL slug', 'tribe-events-calendar' ),
+			'label' => __( 'Single event URL slug', 'tribe-events-calendar' ),
 			'default' => 'event',
 			'validation_type' => 'slug',
 			'conditional' => ( '' != get_option( 'permalink_structure' ) ),
@@ -166,6 +166,13 @@ $generalTab = array(
 			'class' => 'google-embed-field',
 			'validation_type' => 'number_or_percent',
 		 ),
+		'showEventsInMainLoop' => array(
+			'type' => 'checkbox_bool',
+			'label' => __( 'Show Events In Main Loop?', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Shows events in the main loop with other posts.' ),
+			'default' => false,
+			'validation_type' => 'boolean',
+		),
 		'sendPressTrendsData' => array(
 			'type' => 'checkbox_bool',
 			'label' => __( 'Send PressTrends Data', 'tribe-events-calendar' ),
