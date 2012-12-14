@@ -32,9 +32,7 @@ jQuery( document ).ready( function ( $ ) {
 	if ( $( '#tribe-events-bar .hasDatepicker' ).length ) {
 		$( '#tribe-events-bar' ).addClass( 'tribe-has-datepicker' );
 	}
-	if ( $( '.tribe-events-calendar' ).length ) {
-		$( '.tribe-events-calendar' ).addClass( 'tribe-nav-alt' );
-	}
+	$( '#tribe-events-content' ).addClass( 'tribe-nav-alt' );
 
 	// Implement placeholder
 	$( 'input[name*="tribe-bar-"]' ).placeholder();
