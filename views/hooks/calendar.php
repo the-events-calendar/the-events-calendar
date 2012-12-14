@@ -144,16 +144,6 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$rawOffset = date( 'w', $date ) - $startOfWeek;
 			$offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
 			$rows = 1;
-			$count_args = array(
-				'hide_upcoming_ids' => $hide_upcoming_ids,
-				'start_date' => date('Y-m-d', $date) . ' 00:00:00',
-				'end_date' => date('Y-m-t', $date) . ' 23:59:59'
-				);
-			$event_daily_counts = TribeEventsQuery::getEventCounts( $count_args );
-			// print_r($event_daily_counts);
-
-			// $event_daily_counts['2012-12-01'] = 15;
-
 			// $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 ?>
 			<table class="tribe-events-calendar">
@@ -230,11 +220,11 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			    				// setup our own custom hide upcoming
 			    				'post__not_in' => $hide_upcoming_ids, 
 			    				'hide_upcoming' => false,
-			    				// 'posts_per_page' => $posts_per_page_limit,
+			    				'posts_per_page' => $posts_per_page_limit,
 			    				'orderby' => 'event_date',
 								'order' => 'ASC',
-			    				'eventDisplay' => 'custom',
-			    				'no_found_rows' => true
+			    				'eventDisplay' => 'custom'
+			    				// 'no_found_rows' => true
 			    				);
 
 			    			if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
@@ -243,7 +233,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 							}
 
 			    			$daily_events = TribeEventsQuery::getEvents( $args, true );
-			    			// echo $daily_events->request;
+			    			// print_r( $daily_events);
 							foreach( $daily_events->posts as $post ) {
 								// setup_postdata( $post );
 								$eventId	= $post->ID.'-'.$day;
@@ -318,14 +308,14 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 
 							}
 
-							if( !empty($event_daily_counts[$date]) ) {
-								$remaining_not_shown = $event_daily_counts[$date]; // - $posts_per_page_limit;
-								if( $remaining_not_shown > 0 ) {
-									printf( '<div><a href="%s">View %d More Events</a></div>',
-										tribe_get_day_link( $date ),
-										$remaining_not_shown
-										);
-								}
+							$remaining_not_shown = !empty($daily_events->found_posts) && $daily_events->found_posts > 0 ? 
+								$daily_events->found_posts - $posts_per_page_limit : 
+								0;
+							if( (int) $remaining_not_shown > 0 ) {
+								printf( '<div><a href="%s">View %d More Events</a></div>',
+									tribe_get_day_link( $date ),
+									$remaining_not_shown
+									);
 							}
 								
 
