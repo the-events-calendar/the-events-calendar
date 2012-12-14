@@ -1109,7 +1109,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 #tribe-bar-filters {
 	float: left;
 	width: 100%;
-	padding-right: 365px;
+	padding-right: 332px;
 }
 #tribe-bar-filters input {
 	display: inline-block;
@@ -1118,12 +1118,13 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	vertical-align: middle;
 }
 #tribe-bar-filters input[type="text"] {
-	width: 34%;
+	width: 33%;
 }
 #tribe-bar-dates {
 	float: left;
 	width: 178px;
-	margin-left: -272px;
+	margin-left: -289px;
+	margin-top: 3px;
 }
 #tribe-bar-dates input {
 	z-index: 99000 !important;
@@ -1143,6 +1144,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 .tribe-has-datepicker #tribe-bar-dates {
 	width: 125px;
 	margin-left: -272px;
+	margin-top: 0;
 }
 /* Our month view date selects */
 
@@ -1186,8 +1188,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 /* Views ----------------------------------- */
 #tribe-bar-views {
 	float: left;
-	width: 142px;
-	margin-left: -142px;
+	width: 108px;
+	margin-left: -108px;
 	margin-top: 3px;
 }
 #tribe-bar-views .tribe-bar-view-list {
@@ -1225,8 +1227,27 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	background: #ddd;
 	color: #000;
 }
+#tribe-bar-views .select2-container .select2-choice div {
+	width: 18px;
+}
+#tribe-bar-views .select2-container .select2-choice span {
+	margin-right: 18px;
+}
+#tribe-bar-views .select2-container .select2-choice span span {
+	margin-right: 0;
+}
 
-/* Views Select When Have Settings */
+/* Views Select When Have Settings
+
+take care of flash of content
+ */
+.tribe-has-settings #tribe-bar-dates {
+	margin-left: -323px;
+}
+.tribe-has-settings #tribe-bar-views {
+	width: 142px;
+	margin-left: -142px;
+}
 .tribe-has-settings #tribe-bar-views .select2-container .select2-choice {
 	-webkit-border-bottom-right-radius: 0;
 	-moz-border-bottom-right-radius: 0;
@@ -1243,14 +1264,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	background-image: none;
 	filter: none;
 	border-left: 0;
-	width: 18px;
 }
-.tribe-has-settings #tribe-bar-views .select2-container .select2-choice span {
-	margin-right: 18px;
-}
-.tribe-has-settings #tribe-bar-views .select2-container .select2-choice span span {
-	margin-right: 0;
-}
+
 
 /* Settings */
 #tribe-events-bar .tribe-bar-settings {
@@ -1344,14 +1359,14 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 /* Mini Bar styles adjust event search button */
-@media screen and (max-width: 525px) {
+@media screen and (max-width: 555px) {
 	#tribe-bar-filters .tribe-bar-button-search .tribe-bar-btn-small span {
 		display: none;
 	}
 }
 
 /* Mini Bar styles for when browser window starts hitting mobile */
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 515px) {
 	.tribe-bar-settings .tribe-bar-drop-content,
 	.tribe-bar-mini #tribe-bar-filters .tribe-bar-drop-content {
 		top: 65px;

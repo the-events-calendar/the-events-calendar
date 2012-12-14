@@ -57,7 +57,9 @@ jQuery( document ).ready( function ( $ ) {
 	// Append our month view selects to date wrapper in bar
 	if ( $( '.tribe-events-calendar' ).length ) {
 		$( '#tribe-bar-dates' ).append( $('.tribe-events-calendar #tribe-events-events-picker') );
-		$( '#tribe-bar-date' ).datepicker( 'destroy' );
+		$( '.tribe-events-events-dropdown' ).unwrap();
+		$( '#tribe-bar-date' ).remove();
+		$( '#tribe-events-bar' ).removeClass( 'tribe-has-datepicker' );
 	}
 
 	// Implement our views bit
