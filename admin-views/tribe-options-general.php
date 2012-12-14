@@ -61,14 +61,14 @@ $generalTab = array(
 		),
 		'viewOption' => array(
 			'type' => 'radio',
-			'label' => __( 'Default view for the Events', 'tribe-events-calendar' ),
+			'label' => __( 'Default view for the events', 'tribe-events-calendar' ),
 			'default' => 'month',
 			'options' => array( 'month' => 'Calendar', 'upcoming' => 'Event List' ),
 			'validation_type' => 'options',
 		),
 		'stylesheetOption' => array(
 			'type' => 'radio',
-			'label' => __( 'Default stylesheet for the Events', 'tribe-events-calendar' ),
+			'label' => __( 'Default stylesheet for the events', 'tribe-events-calendar' ),
 			'default' => 'full',
 			'options' => array( 'full' => 'Full Stylesheet (These styles will most likely override some of your current theme styles on events templates)', 'skeleton' => 'Skeleton Stylesheet (These styles shouldn\'t override your current theme styles)' ),
 			'validation_type' => 'options',
@@ -98,7 +98,7 @@ $generalTab = array(
 		),
 		'singleEventSlug' => array(
 			'type' => 'text',
-			'label' => __( 'Single Event URL slug', 'tribe-events-calendar' ),
+			'label' => __( 'Single event URL slug', 'tribe-events-calendar' ),
 			'default' => 'event',
 			'validation_type' => 'slug',
 			'conditional' => ( '' != get_option( 'permalink_structure' ) ),
