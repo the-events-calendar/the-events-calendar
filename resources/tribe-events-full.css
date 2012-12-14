@@ -1148,6 +1148,9 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 .tribe-has-datepicker #tribe-bar-dates {
 	margin-top: 0; 
 }
+.events-gridview #tribe-bar-date {
+	display: none;
+}
 
 
 
