@@ -20,7 +20,9 @@ jQuery( document ).ready( function ( $ ) {
 	};
 
 	// Implement our datepicker
-	$( '#tribe-bar-date' ).datepicker( tribe_var_datepickerOpts );
+	if ( !$( '.tribe-events-calendar' ).length ) {
+		$( '#tribe-bar-date' ).datepicker( tribe_var_datepickerOpts );
+	}
 	
 	// Add some classes
 	if( $( '.tribe-bar-settings' ).length ) {
@@ -57,7 +59,7 @@ jQuery( document ).ready( function ( $ ) {
 	// Append our month view selects to date wrapper in bar
 	if ( $( '.tribe-events-calendar' ).length ) {
 		$( '#tribe-bar-dates' ).append( $('.tribe-events-calendar #tribe-events-events-picker') );
-		$( '#tribe-bar-date' ).datepicker( 'destroy' );
+		$( '#tribe-bar-date' ).remove();
 	}
 
 	// Implement our views bit
@@ -91,7 +93,7 @@ jQuery( document ).ready( function ( $ ) {
 		
 		$set_inputs.each( function () {
 			var $this = $( this );
-			if( $this.val().length && $this.attr('name') != 'submit-bar' && $this.attr('name') != 'tribe-bar-view' ) {				
+			if( $this.val().length && $this.attr('name') != 'submit-bar' && $this.attr('name') != 'tribe-bar-view' && $this.attr('name') != 'EventJumpToMonth' && $this.attr('name') != 'EventJumpToYear' ) {				
 				cv_url_params[$this.attr('name')] = $this.val();						
 			}			
 		} );
