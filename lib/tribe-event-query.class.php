@@ -41,7 +41,14 @@ if (!class_exists('TribeEventsQuery')) {
 		 * @return object $query (modified)
 		 */
 		public function pre_get_posts( $query ) {
-			$types = ( !empty( $query->query_vars['post_type'] ) ? (array)$query->query_vars['post_type'] : array() );
+			$query->query_vars['post_type'] = (array) $query->query_vars['post_type'];
+			
+			global $wp_the_query;
+			if ( $query === $wp_the_query && tribe_get_option( 'showEventsInMainLoop', false ) ) {
+				$query->query_vars['post_type'][] = TribeEvents::POSTTYPE;
+			}
+		
+			$types = ( !empty( $query->query_vars['post_type'] ) ? $query->query_vars['post_type'] : array() );
 
 			// check if any possiblity of this being an event query
 			$query->tribe_is_event = ( in_array( TribeEvents::POSTTYPE, $types ) )
