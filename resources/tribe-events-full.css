@@ -1141,10 +1141,12 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 .tribe-has-datepicker #tribe-bar-filters {
 	padding-right: 300px;
 }
-.tribe-has-datepicker #tribe-bar-dates {
+.tribe-has-datepicker.tribe-has-settings #tribe-bar-dates {
 	width: 125px;
 	margin-left: -272px;
-	margin-top: 0;
+}
+.tribe-has-datepicker #tribe-bar-dates {
+	margin-top: 0; 
 }
 
 
@@ -1390,7 +1392,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 		display: inline;
 	}
 	#tribe-bar-dates,
-	.tribe-has-settings #tribe-bar-dates {
+	.tribe-has-settings #tribe-bar-dates,
+	.tribe-has-datepicker.tribe-has-settings #tribe-bar-dates {
 		position: absolute;
 		margin-left: 0;
 		width: 100%;
