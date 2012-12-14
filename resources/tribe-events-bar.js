@@ -82,7 +82,7 @@ jQuery( document ).ready( function ( $ ) {
 		
 		$set_inputs.each( function () {
 			var $this = $( this );
-			if( $this.val().length && $this.attr('name') != 'submit-bar' ) {				
+			if( $this.val().length && $this.attr('name') != 'submit-bar' && $this.attr('name') != 'tribe-bar-view' ) {				
 				cv_url_params[$this.attr('name')] = $this.val();						
 			}			
 		} );
