@@ -247,9 +247,13 @@ select.tribe-events-dropdown {
 	font-size: 11px;
 	margin: 33px 9px 0 0;
 }
+
 #tribe-events-events-picker, 
 #tribe-events-picker {
 	display: inline;
+}
+#tribe-events-events-picker {
+	display: none;
 }
 
 
