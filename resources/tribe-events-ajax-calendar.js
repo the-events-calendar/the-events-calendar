@@ -67,32 +67,7 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_pre_ajax_tests( function() { 
 			tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );	
 		});
-	} );
-
-	// event bar datepicker monitoring 
-
-	$('#tribe-bar-date').bind( 'change', function (e) {		
-
-		// they changed the datepicker in event bar, trigger ajax
-
-		tribe_daypicker_date = $(this).val();
-		tribe_year_month = tribe_daypicker_date.slice(0, -3);
-		tribe_date = $('#tribe-events-header').attr('data-date');
-		tribe_href_target = tribe_get_path( jQuery( location ).attr( 'href' ) );					
-
-		if ( tribe_year_month !=  tribe_date && tribe_daypicker_date != '' ) {			
-
-			tribe_date = tribe_year_month;				
-			tribe_href_target = tribe_base_url + tribe_date + '/';				
-		}
-
-		tribe_pushstate = false;
-		tribe_do_string = true;
-		tribe_pre_ajax_tests( function() { 
-			tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
-		});
-
-	} );
+	} );	
 
 	// events bar intercept submit
 
@@ -102,26 +77,8 @@ jQuery( document ).ready( function ( $ ) {
 
 			e.preventDefault();			
 
-			// in calendar view we have to test if they are switching month and extract month for call for eventDate param plus create url for pushstate
-
 			tribe_date = $('#tribe-events-header').attr('data-date');
-			tribe_href_target = tribe_get_path( jQuery( location ).attr( 'href' ) );
-
-			if($('#tribe-bar-date').val().length) {
-
-				// they picked a date in event bar daypicker, let's process and test
-
-				tribe_daypicker_date = $('#tribe-bar-date').val().slice(0, -3);
-
-				if ( tribe_daypicker_date !=  tribe_date) {
-
-					// it's a different month, let's overwrite the vars and initiate pushstate
-
-					tribe_date = tribe_daypicker_date;
-					tribe_href_target = tribe_base_url + tribe_date + '/';						
-				}
-
-			}
+			tribe_href_target = tribe_get_path( jQuery( location ).attr( 'href' ) );		
 
 			tribe_pushstate = false;
 			tribe_do_string = true;			
@@ -195,7 +152,7 @@ jQuery( document ).ready( function ( $ ) {
 
 			$( 'form#tribe-bar-form :input[value!=""]' ).each( function () {
 				var $this = $( this );
-				if( $this.val().length && $this.attr('name') != 'submit-bar' ) {
+				if( $this.val().length  && $this.attr('name') != 'submit-bar' && $this.attr('name') != 'tribe-bar-view' && $this.attr('name') != 'EventJumpToMonth' && $this.attr('name') != 'EventJumpToYear' ) {
 					tribe_params[$this.attr('name')] = $this.val();
 					tribe_push_counter++;
 				}			
@@ -235,6 +192,13 @@ jQuery( document ).ready( function ( $ ) {
 						$( '#tribe-events-content.tribe-events-calendar' ).html( $the_content );
 
 						var page_title = $the_content.filter("#tribe-events-header").attr('data-title');
+						var $date_picker = $the_content.find("#tribe-events-events-picker").contents();
+						
+						$( '#tribe-bar-dates' ).contents().remove();
+						$( '#tribe-bar-dates' ).append( $date_picker );
+						$( '.tribe-events-events-dropdown' ).select2({
+							minimumResultsForSearch: 9999
+						});				
 
 						$(document).attr('title', page_title);
 						
