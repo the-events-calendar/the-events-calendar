@@ -76,7 +76,7 @@ $generalTab = array(
 		'unprettyPermalinksUrl' => array(
 			'type' => 'html',
 			'label' => __( 'Events URL slug', 'tribe-events-calendar' ),
-			'html' => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href="%s">%s</a>. In order to edit the slug here, enable pretty permalinks.','tribe-events-calendar') , $tec->getLink( 'home' ), $tec->getLink( 'home ' ) ) .'</p>',
+			'html' => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href="%s">%s</a>. In order to edit the slug here, <a href="'. trailingslashit( get_admin_url() ) .'options-permalink.php">enable pretty permalinks</a>.','tribe-events-calendar') , $tec->getLink( 'home' ), $tec->getLink( 'home ' ) ) .'</p>',
 			'conditional' => ('' == get_option( 'permalink_structure' ) ),
 		),
 		'eventsSlug' => array(
