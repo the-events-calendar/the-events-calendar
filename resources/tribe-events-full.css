@@ -1146,7 +1146,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	margin-left: -272px;
 	margin-top: 0;
 }
-/* Our month view date selects */
 
 
 
@@ -1237,10 +1236,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	margin-right: 0;
 }
 
-/* Views Select When Have Settings
-
-take care of flash of content
- */
+/* Views Select When Have Settings */
 .tribe-has-settings #tribe-bar-dates {
 	margin-left: -323px;
 }
@@ -1344,6 +1340,15 @@ take care of flash of content
 
 
 /* Mini Bar styles for when parent container too narrow */
+.tribe-bar-mini {
+	height: 42px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.tribe-bar-mini.tribe-has-datepicker {
+	height: auto;
+}
 .tribe-bar-mini #tribe-bar-filters {
 	padding-right: 285px;
 }
@@ -1367,6 +1372,9 @@ take care of flash of content
 
 /* Mini Bar styles for when browser window starts hitting mobile */
 @media screen and (max-width: 515px) {
+	.tribe-bar-mini {
+		height: 71px;
+	}
 	.tribe-bar-settings .tribe-bar-drop-content,
 	.tribe-bar-mini #tribe-bar-filters .tribe-bar-drop-content {
 		top: 65px;
@@ -1381,7 +1389,8 @@ take care of flash of content
 	#tribe-bar-filters .tribe-bar-button-search .tribe-bar-btn-small span {
 		display: inline;
 	}
-	#tribe-bar-dates {
+	#tribe-bar-dates,
+	.tribe-has-settings #tribe-bar-dates {
 		position: absolute;
 		margin-left: 0;
 		width: 100%;
@@ -1392,7 +1401,6 @@ take care of flash of content
 }
 
 /* Events Bar Icons */
-/* View Icons */
 .tribe-select2-results span[class^="tribe-icon-"],
 .tribe-select2 span[class^="tribe-icon-"],
 .tribe-bar-view-list a[class*="tribe-icon-"] {
