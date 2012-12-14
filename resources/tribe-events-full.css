@@ -250,8 +250,8 @@ a.tribe-events-gcal {
 /* General Template Headers */
 h2.tribe-events-page-title {
 	margin-bottom: 2.5%;
-	font-size: 21px;
-	font-weight: bold;
+	font-size: 24px;
+	font-weight: normal;
 	color: #000;
 	position: relative;
 	z-index: 0;
@@ -285,6 +285,7 @@ h2.tribe-events-page-title a:focus {
 	zoom: 1;
 	*display: inline;
 	margin: 0;
+	vertical-align: middle;
 }
 #tribe-events-content ul.tribe-events-sub-nav li.tribe-events-nav-prev {
 	margin-right: 5px;
@@ -301,6 +302,23 @@ select.tribe-events-dropdown {
 #tribe-events-picker {
 	display: inline;
 }
+/* Adjust our Header Nav When Have Events Bar ------------------------------- */
+.tribe-nav-alt h2.tribe-events-page-title {
+	margin-bottom: 2.5%;
+	text-align: center;
+}
+.tribe-nav-alt ul.tribe-events-sub-nav {
+
+}
+.tribe-nav-alt ul.tribe-events-sub-nav li.tribe-events-nav-prev {
+	float: left;
+}
+.tribe-nav-alt ul.tribe-events-sub-nav li.tribe-events-nav-next {
+	float: right;
+}
+
+
+
 
 
 /* = Calendar View & List View Template Styles
@@ -1104,7 +1122,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 #tribe-bar-dates {
 	float: left;
-	width: 125px;
+	width: 178px;
 	margin-left: -272px;
 }
 #tribe-bar-dates input {
@@ -1114,11 +1132,21 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 /* Conditional Date Widths If Has Datepicker / Default is Selects */
 .tribe-has-datepicker #tribe-bar-filters {
+	padding-right: 365px;
+}
+.tribe-has-datepicker #tribe-bar-filters input[type="text"] {
+	width: 34%;
+} 
+.tribe-has-datepicker #tribe-bar-filters {
 	padding-right: 300px;
 }
 .tribe-has-datepicker #tribe-bar-dates {
 	width: 125px;
+	margin-left: -272px;
 }
+/* Our month view date selects */
+
+
 
 #tribe-bar-form input {
 	font-size: 15px;
@@ -1199,7 +1227,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 /* Views Select When Have Settings */
-.tribe-has-settings .select2-container .select2-choice {
+.tribe-has-settings #tribe-bar-views .select2-container .select2-choice {
 	-webkit-border-bottom-right-radius: 0;
 	-moz-border-bottom-right-radius: 0;
 	border-bottom-right-radius: 0;
@@ -1207,7 +1235,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	-moz-border-top-right-radius: 0;
 	border-top-right-radius: 0;
 }
-.tribe-has-settings .select2-container .select2-choice div {
+.tribe-has-settings #tribe-bar-views .select2-container .select2-choice div {
 	-webkit-border-radius: 0;
 	-moz-border-radius: 0;
 	border-radius: 0;
@@ -1217,10 +1245,10 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	border-left: 0;
 	width: 18px;
 }
-.tribe-has-settings .select2-container .select2-choice span {
+.tribe-has-settings #tribe-bar-views .select2-container .select2-choice span {
 	margin-right: 18px;
 }
-.tribe-has-settings .select2-container .select2-choice span span {
+.tribe-has-settings #tribe-bar-views .select2-container .select2-choice span span {
 	margin-right: 0;
 }
 

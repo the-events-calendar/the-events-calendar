@@ -125,8 +125,6 @@ jQuery( document ).ready( function ( $ ) {
 	/* Let's hide the widget calendar if we find more than one instance */
 	$(".tribe-events-calendar-widget").not(":eq(0)").hide();
 
-
-
 	// Global Tooltips
 	if ( $( '.tribe-events-calendar' ).length || $( '.tribe-events-grid' ).length || $( '.tribe-events-list' ).length || $( '.tribe-events-single' ).length || $( 'tribe-geo-wrapper' ).length ) {
 		tribe_event_tooltips();

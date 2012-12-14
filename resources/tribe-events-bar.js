@@ -27,7 +27,10 @@ jQuery( document ).ready( function ( $ ) {
 		$( '#tribe-events-bar' ).addClass( 'tribe-has-settings' );
 	}
 	if ( $( '#tribe-events-bar .hasDatepicker' ).length ) {
-		$( '#tribe-events-bar' ).addClass( 'tribe-has-datpicker' );
+		$( '#tribe-events-bar' ).addClass( 'tribe-has-datepicker' );
+	}
+	if ( $( '.tribe-events-calendar' ).length ) {
+		$( '.tribe-events-calendar' ).addClass( 'tribe-nav-alt' );
 	}
 
 	// Implement placeholder
@@ -50,6 +53,12 @@ jQuery( document ).ready( function ( $ ) {
 	   
 	// Add our date bits outside of our filter container
 	$( '#tribe-bar-filters' ).after( $('#tribe-bar-dates') );
+	
+	// Append our month view selects to date wrapper in bar
+	if ( $( '.tribe-events-calendar' ).length ) {
+		$( '#tribe-bar-dates' ).append( $('.tribe-events-calendar #tribe-events-events-picker') );
+		$( '#tribe-bar-date' ).datepicker( 'destroy' );
+	}
 
 	// Implement our views bit
 	$( 'select[name=tribe-bar-view]' ).change( function () {

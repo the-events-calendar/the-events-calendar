@@ -1,5 +1,16 @@
 jQuery( document ).ready( function ( $ ) {
 
+	// Add select2 to our month/year selects
+	/*
+		@Samuel
+		This needs to get hooked up for ajax changes in the view :) 
+	*/
+	if($('.tribe-events-calendar').length) {
+		$( '.tribe-events-events-dropdown' ).select2({
+    		minimumResultsForSearch: 9999
+    	});
+    }
+
 	// our vars
 	
 	var tribe_base_url = $('#tribe-events-events-picker').attr('action');	
