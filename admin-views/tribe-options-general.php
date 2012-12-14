@@ -166,6 +166,13 @@ $generalTab = array(
 			'class' => 'google-embed-field',
 			'validation_type' => 'number_or_percent',
 		 ),
+		'showEventsInMainLoop' => array(
+			'type' => 'checkbox_bool',
+			'label' => __( 'Show Events In Main Loop?', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Shows events in the main loop with other posts.' ),
+			'default' => false,
+			'validation_type' => 'boolean',
+		),
 		'sendPressTrendsData' => array(
 			'type' => 'checkbox_bool',
 			'label' => __( 'Send PressTrends Data', 'tribe-events-calendar' ),

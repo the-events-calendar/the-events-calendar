@@ -58,21 +58,44 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	function tribe_events_bar_change_view( url ) {
+		
 		tribe_events_bar_action = 'change_view';
+		
+		var cv_url_params = {};		
+		var $set_inputs = $( 'form#tribe-events-bar-form :input[value!=""]' );		
+		
 		if( $( '#tribe-bar-geoloc' ).length ) {			
 			tribe_map_val = jQuery( '#tribe-bar-geoloc' ).val();		
 			if( !tribe_map_val.length ) {
 				$( '#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng' ).val( '' );
 			}
 		}
+		
+		$set_inputs.each( function () {
+			var $this = $( this );
+			if( $this.val().length && $this.attr('name') != 'submit-bar' ) {				
+				cv_url_params[$this.attr('name')] = $this.val();						
+			}			
+		} );
+		
+		cv_url_params = $.param(cv_url_params);
+		
 		if ( $( '#tribe_events_filters_form' ).length ) {
-			$( 'form#tribe-events-bar-form :input' ).each( function () {
-				var $this = $( this );
-				$( '#tribe_events_filters_form' ).append( $this );
-			} );
-			$( '#tribe_events_filters_form' ).attr( 'action', url ).submit();
+			
+			cv_filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();	
+			
+			if( cv_filter_params.length ) {				
+				cv_url_params = cv_url_params + '&' + cv_filter_params;
+			}	
+			if( cv_url_params.length ) {
+				url = url + '?' + cv_url_params;
+			}			
+			window.location.href = url;
 		} else {
-			$( 'form#tribe-events-bar-form' ).attr( 'action', url ).submit();
+			if( cv_url_params.length ) {
+				url = url + '?' + cv_url_params;
+			}			
+			window.location.href = url;
 		}
 	}
 
