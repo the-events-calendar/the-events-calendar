@@ -58,7 +58,7 @@ jQuery( document ).ready( function ( $ ) {
 		});
 	} );
 
-	$( '.tribe-events-calendar select.tribe-events-events-dropdown' ).live( 'change', function ( e ) {
+	$( '#tribe-bar-dates select' ).live( 'change', function ( e ) {
 		e.preventDefault();			
 		tribe_date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();
 		tribe_href_target = tribe_base_url + tribe_date + '/';		
