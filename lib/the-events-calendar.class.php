@@ -1143,6 +1143,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function displayEventVenueDropdown( $postId ) {
+			$current_screen = get_current_screen();
 			$VenueID = get_post_meta( $postId, '_EventVenueID', true );
 			// override pro default with community on add page
 			if( !$VenueID && class_exists('TribeCommunityEvents') ) {
@@ -1151,7 +1152,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 			}
 			$defaultsEnabled = tribe_get_option( 'defaultValueReplace' );
-			if ( !$VenueID && $defaultsEnabled ) {
+			if ( $current_screen->action == 'add' && !$VenueID && $defaultsEnabled ) {
 				$VenueID = tribe_get_option( 'eventsDefaultVenueID' );
 			}
 			$VenueID = apply_filters( 'tribe_display_event_venue_dropdown_id', $VenueID );
@@ -1171,6 +1172,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function displayEventOrganizerDropdown( $postId ) {
+			$current_screen = get_current_screen();
 			$curOrg = get_post_meta( $postId, '_EventOrganizerID', true );
 			// override pro default with community on add page
 			if( !$curOrg && class_exists('TribeCommunityEvents') ) {
@@ -1179,10 +1181,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 			}
 			$defaultsEnabled = tribe_get_option( 'defaultValueReplace' );
-			if ( !$curOrg && $defaultsEnabled ) {
+			if ( $current_screen->action == 'add' && !$curOrg && $defaultsEnabled ) {
 				$curOrg = tribe_get_option( 'eventsDefaultOrganizerID' );
 			}
 			$curOrg = apply_filters( 'tribe_display_event_organizer_dropdown_id', $curOrg );
+
 			?>
 			<tr class="" >
 				<td style="width:170px"><?php _e( 'Use Saved Organizer:', 'tribe-events-calendar-pro' ); ?></td>
