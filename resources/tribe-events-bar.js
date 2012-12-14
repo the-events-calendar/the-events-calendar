@@ -20,7 +20,10 @@ jQuery( document ).ready( function ( $ ) {
 	};
 
 	// Implement our datepicker
-	$( '#tribe-bar-date' ).datepicker( tribe_var_datepickerOpts );
+	//$( '#tribe-bar-date' ).datepicker( tribe_var_datepickerOpts );
+	if ( !$( '.tribe-events-calendar' ).length ) {
+		$( '#tribe-bar-date' ).datepicker( tribe_var_datepickerOpts );
+	}
 	
 	// Add some classes
 	if( $( '.tribe-bar-settings' ).length ) {
@@ -93,7 +96,7 @@ jQuery( document ).ready( function ( $ ) {
 		
 		$set_inputs.each( function () {
 			var $this = $( this );
-			if( $this.val().length && $this.attr('name') != 'submit-bar' && $this.attr('name') != 'tribe-bar-view' ) {				
+			if( $this.val().length && $this.attr('name') != 'submit-bar' && $this.attr('name') != 'tribe-bar-view' && $this.attr('name') != 'EventJumpToMonth' && $this.attr('name') != 'EventJumpToYear' ) {				
 				cv_url_params[$this.attr('name')] = $this.val();						
 			}			
 		} );
@@ -126,19 +129,24 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	// Implement simple toggle for filters at smaller size (and close if click outside of toggle area)
-	var tribeDropToggle = $( '#tribe-events-bar [class^="tribe-bar-button-"]' );
-	var tribeDropToggleEl = tribeDropToggle.next( '.tribe-bar-drop-content' );
+	var $tribeDropToggle = $( '#tribe-events-bar [class^="tribe-bar-button-"]' );
+	var $tribeDropToggleEl = $tribeDropToggle.next( '.tribe-bar-drop-content' );
 	
-	tribeDropToggle.click( function () {
-		$( this ).toggleClass( 'open' );
-		$( this ).next( '.tribe-bar-drop-content' ).toggle();
-	} );
-
-	
-	tribeDropToggle.bind( 'click', function ( e ) {
+	$tribeDropToggle.click( function () {
+		var $this = $(this);
+		$this.toggleClass( 'open' );
+		$this.next( '.tribe-bar-drop-content' ).toggle();
 		return false
 	} );
-	tribeDropToggleEl.click( function ( e ) {
+	
+	$(document).click(function(){
+		if( $tribeDropToggle.hasClass('open') ) {			
+			$tribeDropToggle.removeClass( 'open' );
+			$tribeDropToggle.next( '.tribe-bar-drop-content' ).hide();
+		}
+	});	
+	
+	$tribeDropToggleEl.click( function ( e ) {
 		e.stopPropagation();
 	} );
 
