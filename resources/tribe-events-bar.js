@@ -124,19 +124,24 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	// Implement simple toggle for filters at smaller size (and close if click outside of toggle area)
-	var tribeDropToggle = $( '#tribe-events-bar [class^="tribe-bar-button-"]' );
-	var tribeDropToggleEl = tribeDropToggle.next( '.tribe-bar-drop-content' );
+	var $tribeDropToggle = $( '#tribe-events-bar [class^="tribe-bar-button-"]' );
+	var $tribeDropToggleEl = $tribeDropToggle.next( '.tribe-bar-drop-content' );
 	
-	tribeDropToggle.click( function () {
-		$( this ).toggleClass( 'open' );
-		$( this ).next( '.tribe-bar-drop-content' ).toggle();
-	} );
-
-	
-	tribeDropToggle.bind( 'click', function ( e ) {
+	$tribeDropToggle.click( function () {
+		var $this = $(this);
+		$this.toggleClass( 'open' );
+		$this.next( '.tribe-bar-drop-content' ).toggle();
 		return false
 	} );
-	tribeDropToggleEl.click( function ( e ) {
+	
+	$(document).click(function(){
+		if( $tribeDropToggle.hasClass('open') ) {			
+			$tribeDropToggle.removeClass( 'open' );
+			$tribeDropToggle.next( '.tribe-bar-drop-content' ).hide();
+		}
+	});	
+	
+	$tribeDropToggleEl.click( function ( e ) {
 		e.stopPropagation();
 	} );
 
