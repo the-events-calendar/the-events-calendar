@@ -42,8 +42,10 @@ function tribe_pre_ajax_tests( tribe_ajax_callback ) {
 		} else {			
 			jQuery( '#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng' ).val( '' );			
 			if ( tribe_ajax_callback && typeof( tribe_ajax_callback ) === "function" ) { 
-				if( jQuery( "#tribe_events_filter_item_geofence" ).length )
-					jQuery( "#tribe_events_filter_item_geofence" ).hide();
+				if( jQuery( "#tribe_events_filter_item_geofence" ).length ) {
+					jQuery('#tribe_events_filter_item_geofence input').prop('checked', false);			
+					jQuery( "#tribe_events_filter_item_geofence" ).hide().find('select').prop('selectedIndex',0);
+				}
 				tribe_ajax_callback();  
 			}			
 		}
