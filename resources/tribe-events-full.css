@@ -298,9 +298,14 @@ select.tribe-events-dropdown {
 	font-size: 11px;
 	margin: 33px 9px 0 0;
 }
+
 #tribe-events-events-picker, 
 #tribe-events-picker {
 	display: inline;
+}
+
+#tribe-events-events-picker {
+	display: none;
 }
 /* Adjust our Header Nav When Have Events Bar ------------------------------- */
 .tribe-nav-alt h2.tribe-events-page-title {
