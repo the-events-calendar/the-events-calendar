@@ -222,6 +222,11 @@ a.tribe-events-gcal {
     position: absolute;
     width: 1px;
 }
+.tribe-hide-text {
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
 .tribe-events-error {display:none;}
 .tribe-events-multi-event-day {color: #0f81bb;}
 #tribe-events-content .tribe-events-abbr {border-bottom: 0; cursor: default;}
@@ -298,16 +303,14 @@ select.tribe-events-dropdown {
 	font-size: 11px;
 	margin: 33px 9px 0 0;
 }
-
 #tribe-events-events-picker, 
 #tribe-events-picker {
 	display: inline;
 }
-
 #tribe-events-events-picker {
 	display: none;
 }
-/* Adjust our Header Nav When Have Events Bar ------------------------------- */
+/* Adjust our Header Nav When Have Events Bar */
 .tribe-nav-alt h2.tribe-events-page-title {
 	margin-bottom: 5px;
 	text-align: center;
@@ -326,18 +329,6 @@ select.tribe-events-dropdown {
 .tribe-nav-alt ul.tribe-events-sub-nav li.tribe-events-nav-next {
 	float: right;
 }
-
-/*
-	change cal title to month
-	update month / view header shit
-	
-	Samuel persist ajax/js shit for month especially
-	Guys settings
-*/
-
-
-
-
 
 /* = Calendar View & List View Template Styles
    @ Template: calendar.php & list.php
@@ -946,39 +937,7 @@ h3.tribe-event-single-section-title {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* = Events Navigation Bar -----------------------------------
+/* = Events Navigation Bar
    @ Template: /modules/bar.php
 =============================================*/
 #tribe-events-bar {
@@ -997,7 +956,7 @@ h3.tribe-event-single-section-title {
 	position: relative;
 }
 
-/* Globals ----------------------------------- */
+/* Globals */
 
 /* Special Buttons */
 #tribe-events-bar [class^="tribe-bar-button-"] {	
@@ -1053,7 +1012,6 @@ h3.tribe-event-single-section-title {
 #tribe-events-bar [class^="tribe-bar-button-"].open:after {
 	background-position: -18px 1px;
 }
-
 
 /* Dropdown Content */
 .tribe-bar-settings .tribe-bar-drop-content,
@@ -1120,10 +1078,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	color:#444;
 }
 
-
-
-
-/* Filters ----------------------------------- */
+/* Filters */
 #tribe-bar-filters {
 	float: left;
 	width: 100%;
@@ -1174,8 +1129,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	display: none;
 }
 
-
-
 #tribe-bar-form input {
 	font-size: 15px;
 	margin: 0 4px 0 0;
@@ -1189,12 +1142,10 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	margin-right: 0;
 }
 
-
 /* Filters Button & Dropdown Content */
 #tribe-bar-filters .tribe-bar-button-search {
 	display: none;
 	margin-top: 3px;
-	/*padding: 2px 10px 0 20px;*/
 }
 #tribe-bar-filters .tribe-bar-button-search .tribe-bar-btn-small {
 	background-image: url(images/events-bar/icon-search.png);
@@ -1208,10 +1159,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	margin-left: 0;
 }
 
-
-
-
-/* Views ----------------------------------- */
+/* Views */
 #tribe-bar-views {
 	float: left;
 	width: 108px;
@@ -1289,14 +1237,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	border-left: 0;
 }
 
-
 /* Settings */
 #tribe-events-bar .tribe-bar-settings {
-	overflow: hidden;
-}
-.tribe-hide-text { /* put this up top */
-	text-indent: 100%;
-	white-space: nowrap;
 	overflow: hidden;
 }
 #tribe-events-bar .tribe-bar-button-settings span {
@@ -1314,7 +1256,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	width: 100%;
 }
 
-
 /* Filters Button & Dropdown Content */
 #tribe-events-bar .tribe-bar-button-settings {
 	border-left-color: transparent;
@@ -1330,8 +1271,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	padding: 10px 12px 4px;
 }
 
-
-/* Bar Width Adjustments ----------------------------------- */
+/* Bar Width Adjustments */
 .tribe-bar-full #tribe-bar-views .tribe-bar-view-select,
 .tribe-bar-full #tribe-bar-views .tribe-bar-view-select ~ .tribe-select2 {
 	display: none;
@@ -1364,7 +1304,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 		display: inline !important;
 	}
 }
-
 
 /* Mini Bar styles for when parent container too narrow */
 .tribe-bar-mini {
