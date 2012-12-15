@@ -256,11 +256,15 @@ if (!class_exists('TribeEventsQuery')) {
 			if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) || !is_admin() ) {
 				if( !empty($posts) ) {
 					foreach( $posts as $id => $post ) {
+
 						$posts[$id]->tribe_is_event = false;
 						$posts[$id]->tribe_is_recurrance = false;
 
 						// is event add required fields
 						if( tribe_is_event( $post ) ) {
+							if ( is_object( $post ) )
+								$post = $post->ID;
+
 							$posts[$id]->tribe_is_event = true;
 							$posts[$id]->tribe_is_allday = tribe_get_event_meta( $post, '_EventAllDay' ) ? true : false;
 							$posts[$id]->EventStartDate = get_post_meta( $post, '_EventStartDate', true);
@@ -384,7 +388,7 @@ if (!class_exists('TribeEventsQuery')) {
 		/**
 		 * Customized WP_Query wrapper to setup event queries with default arguments.
 		 * @param  array  $args
-		 * @return array
+		 * @return array | WP_Query
 		 */
 		public static function getEvents( $args = array(), $full = false ) {
 			$defaults = array(
