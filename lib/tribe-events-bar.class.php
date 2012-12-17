@@ -59,20 +59,18 @@ class TribeEventsBar {
 
 	public static function print_filters_helper( $filters ) {
 
-		echo '<form id="tribe-events-bar-form" name="tribe-events-bar-form" method="post" action="' . add_query_arg( array() ) . '">';
-
-		echo '<div class="tribe-events-bar-toggle"><span class="tribe-triangle"></span><span>Filters</span></div>';
+		echo '<div class="tribe-bar-button-search">' . __( '<span class="tribe-bar-btn-small"><span>Event </span>Search</span>', 'tribe-events-calendar' ) . '</div>';
+		
+		echo '<div class="tribe-bar-drop-content">';
 
 		foreach ( $filters as $filter ) {
-			echo '<div class="tribe-events-bar-filter-wrap ' . esc_attr( $filter['name'] ) . '">';
 			echo '<label class="tribe-events-visuallyhidden" for="' . esc_attr( $filter['name'] ) . '">' . $filter['caption'] . '</label>';
 			echo $filter['html'];
-			echo '</div>';
 		}
 
-		echo '<div class="tribe-events-bar-filter-wrap tribe-bar-submit"><input class="tribe-events-button-grey" type="submit" name="submit-bar" value="' . __( 'Search', 'tribe-events-calendar' ) . '"/></div>';
-
-		echo '</form><!-- #tribe-events-bar-form -->';
+		echo '<input class="tribe-events-button-grey" type="submit" name="submit-bar" value="' . __( 'Search', 'tribe-events-calendar' ) . '"/>';
+		
+		echo '</div><!-- .tribe-bar-drop-content -->';
 
 	}
 
@@ -81,17 +79,17 @@ class TribeEventsBar {
 
 		$tec = TribeEvents::instance();
 
-		$limit = apply_filters( 'tribe-events-bar-views-breakpoint', 3 );
+		$limit = apply_filters( 'tribe-events-bar-views-breakpoint', 1 );
 
 		if ( count( $views ) <= $limit ) {
 			// Standard list navigation for larger screens
-			$open     = '<ul class="tribe-events-bar-view-list">';
+			$open     = '<ul class="tribe-bar-view-list">';
 			$close    = "</ul>";
 			$current  = 'tribe-active';
-			$open_el  = '<li><a class="tribe-events-bar-view tribe-events-button-grey tribe-icon-!VIEW! !CURRENT-ACTIVE!" href="!URL!">';
+			$open_el  = '<li><a class="tribe-bar-view tribe-events-button-grey tribe-icon-!VIEW! !CURRENT-ACTIVE!" href="!URL!">';
 			$close_el = "</a></li>";
 			// Select input for smaller screens
-			$open_sel     = '<select class="tribe-events-bar-view-select tribe-select2" name="tribe-events-bar-view">';
+			$open_sel     = '<select class="tribe-bar-view-select tribe-select2" name="tribe-events-bar-view">';
 			$close_sel    = "</select>";
 			$current_sel  = 'selected';
 			$open_sel_el  = '<option !CURRENT-ACTIVE! value="!URL!">';
@@ -99,7 +97,7 @@ class TribeEventsBar {
 
 		} else {
 
-			$open     = '<select class="tribe-select2" name="tribe-events-bar-view">';
+			$open     = '<select class="tribe-select2" name="tribe-bar-view">';
 			$close    = "</select>";
 			$current  = 'selected';
 			$open_el  = '<option !CURRENT-ACTIVE! value="!URL!">';
@@ -151,6 +149,23 @@ class TribeEventsBar {
 				echo $close_sel_el;
 			}
 			echo $close_sel;
+		}
+		
+		// show user front-end settings only if ECP is active
+		if ( class_exists( 'TribeEventsPro' ) ) {
+			
+			echo '<div class="tribe-bar-settings">';
+			echo '<div class="tribe-bar-button-settings">'. __( '<span class="tribe-hide-text">User Settings</span>', 'tribe-events-calendar' ) .'</div>';
+			
+			echo '<div class="tribe-bar-drop-content">';
+			echo '<h5>' . __( 'Event Settings', 'tribe-events-calendar' ) . '</h5>';
+			echo '<label for="tribeUserSettings">';
+			echo '<input type="checkbox" name="tribeUserSettings" value="0">'. __( 'Show all Occurances of Recurring Events<br /><span>Uncheck to hide all but the next iteration</span>', 'tribe-events-calendar' );
+			echo '</label>';
+			echo '<button type="button" name="settingsUpdate" class="tribe-events-button-grey">' . __( 'Update', 'tribe-events-calendar' ) . '</button>';
+			echo '</div><!-- .tribe-bar-drop-content -->';
+			echo '</div><!-- .tribe-bar-drop-content -->';
+			
 		}
 
 	}
