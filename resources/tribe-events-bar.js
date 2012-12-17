@@ -12,6 +12,8 @@ function eventBarWidth() {
 	}
 	if ( tribeBarWidth < 470 ) {
 		tribeBar.addClass( 'tribe-bar-mini-parent' );
+	} else {
+		tribeBar.removeClass( 'tribe-bar-mini-parent' );
 	}
 }
 
@@ -23,8 +25,7 @@ jQuery( document ).ready( function ( $ ) {
 	};
 
 	// Implement our datepicker
-	//$( '#tribe-bar-date' ).datepicker( tribe_var_datepickerOpts );
-	if ( !$( '.tribe-events-calendar' ).length ) {
+	if ( !$( '.events-gridview' ).length ) {
 		$( '#tribe-bar-date' ).datepicker( tribe_var_datepickerOpts );
 	}
 	
@@ -59,7 +60,7 @@ jQuery( document ).ready( function ( $ ) {
 	$( '#tribe-bar-filters' ).after( $('#tribe-bar-dates') );
 	
 	// Append our month view selects to date wrapper in bar
-	if ( $( '.tribe-events-calendar' ).length ) {
+	if ( $( '.events-gridview' ).length ) {
 		$( '#tribe-bar-dates' ).append( $('.tribe-events-calendar #tribe-events-events-picker').contents() );		
 		$( '#tribe-bar-date' ).remove();
 		$( '#tribe-events-bar' ).removeClass( 'tribe-has-datepicker' );

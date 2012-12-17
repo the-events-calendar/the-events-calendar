@@ -1308,7 +1308,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	}
 }
 
-/* Mini Bar styles for when parent container too narrow */
+/* Mini Bar styles for when parent container gets less than 643px wide */
 .tribe-bar-mini {
 	height: 42px;
 	-moz-box-sizing: border-box;
@@ -1332,84 +1332,38 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	text-align: center;
 }
 
-
-
-
-
-/* Mini Bar parent container styles */
+/* Mini Bar styles for when browser window starts hitting mobile or small parent container */
 .tribe-bar-mini-parent {
-		height: 71px;
-	}
-	.tribe-bar-mini-parent .tribe-bar-settings .tribe-bar-drop-content,
-	.tribe-bar-mini-parent #tribe-bar-filters .tribe-bar-drop-content {
-		top: 65px;
-	}
-	.tribe-bar-mini-parent #tribe-bar-filters {
-		margin-top: 32px;
-		padding-right: 148px;
-	}
-	.tribe-bar-mini-parent #tribe-bar-filters .tribe-bar-button-search {
-		width: 128px;
-		text-align: left;
-	}
-	.tribe-bar-mini-parent #tribe-bar-filters .tribe-bar-button-search .tribe-bar-btn-small span {
-		display: inline;
-	}
-	.tribe-bar-mini-parent #tribe-bar-dates,
-	.tribe-bar-mini-parent.tribe-has-settings #tribe-bar-dates,
-	.tribe-bar-mini-parent.tribe-has-datepicker.tribe-has-settings #tribe-bar-dates {
-		position: absolute;
-		margin-left: 0;
-		width: 100%;
-	}
-	.tribe-bar-mini-parent #tribe-bar-views {
-		margin-top: 35px;
-	}
+	height: 71px;
+}
+.tribe-bar-mini-parent .tribe-bar-settings .tribe-bar-drop-content,
+.tribe-bar-mini-parent #tribe-bar-filters .tribe-bar-drop-content {
+	top: 65px;
+}
+.tribe-bar-mini-parent #tribe-bar-filters {
+	margin-top: 32px;
+	padding-right: 148px;
+}
+.tribe-bar-mini-parent #tribe-bar-filters .tribe-bar-button-search {
+	width: 128px;
+	text-align: left;
+}
+.tribe-bar-mini-parent #tribe-bar-filters .tribe-bar-button-search .tribe-bar-btn-small span {
+	display: inline;
+}
+.tribe-bar-mini-parent #tribe-bar-dates,
+.tribe-bar-mini-parent.tribe-has-settings #tribe-bar-dates,
+.tribe-bar-mini-parent.tribe-has-datepicker.tribe-has-settings #tribe-bar-dates {
+	position: absolute;
+	margin-left: 0;
+	width: 100%;
+}
+.tribe-bar-mini-parent #tribe-bar-views {
+	margin-top: 35px;
+}
 	
 .tribe-bar-mini-parent #tribe-bar-filters .tribe-bar-button-search .tribe-bar-btn-small span {
-		display: none;
-	}
-
-
-
-
-/* Mini Bar styles adjust event search button */
-@media screen and (max-width: 555px) {
-	#tribe-bar-filters .tribe-bar-button-search .tribe-bar-btn-small span {
-		display: none;
-	}
-}
-
-/* Mini Bar styles for when browser window starts hitting mobile */
-@media screen and (max-width: 515px) {
-	.tribe-bar-mini {
-		height: 71px;
-	}
-	.tribe-bar-settings .tribe-bar-drop-content,
-	.tribe-bar-mini #tribe-bar-filters .tribe-bar-drop-content {
-		top: 65px;
-	}
-	#tribe-bar-filters {
-		margin-top: 32px;
-		padding-right: 148px;
-	}
-	.tribe-bar-mini #tribe-bar-filters .tribe-bar-button-search {
-		width: 128px;
-		text-align: left;
-	}
-	#tribe-bar-filters .tribe-bar-button-search .tribe-bar-btn-small span {
-		display: inline;
-	}
-	#tribe-bar-dates,
-	.tribe-has-settings #tribe-bar-dates,
-	.tribe-has-datepicker.tribe-has-settings #tribe-bar-dates {
-		position: absolute;
-		margin-left: 0;
-		width: 100%;
-	}
-	#tribe-bar-views {
-		margin-top: 35px;
-	}
+	display: none;
 }
 
 /* Events Bar Icons */
