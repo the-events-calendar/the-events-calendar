@@ -51,7 +51,7 @@ $generalTab = array(
 		),
 		'donate-link' => array(
 			'type' => 'checkbox_bool',
-			'label' => __( 'Show Events Calendar Link', 'tribe-events-calendar' ),
+			'label' => __( 'Show The Events Calendar Link', 'tribe-events-calendar' ),
 			'default' => false,
 			'validation_type' => 'boolean',
 		),
