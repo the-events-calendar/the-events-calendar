@@ -4,11 +4,14 @@ var tribe_events_bar_action;
 function eventBarWidth() {
 	var tribeBar = jQuery( '#tribe-events-bar' );
 	var tribeBarWidth = tribeBar.width();
-
+	
 	if ( tribeBarWidth > 643 ) {
-		tribeBar.removeClass( 'tribe-bar-mini' ).addClass( 'tribe-bar-full' );
+		tribeBar.removeClass( 'tribe-bar-mini tribe-bar-mini-parent' ).addClass( 'tribe-bar-full' );
 	} else {
 		tribeBar.removeClass( 'tribe-bar-full' ).addClass( 'tribe-bar-mini' );
+	}
+	if ( tribeBarWidth < 470 ) {
+		tribeBar.addClass( 'tribe-bar-mini-parent' );
 	}
 }
 

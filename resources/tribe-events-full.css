@@ -1332,6 +1332,47 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	text-align: center;
 }
 
+
+
+
+
+/* Mini Bar parent container styles */
+.tribe-bar-mini-parent {
+		height: 71px;
+	}
+	.tribe-bar-mini-parent .tribe-bar-settings .tribe-bar-drop-content,
+	.tribe-bar-mini-parent #tribe-bar-filters .tribe-bar-drop-content {
+		top: 65px;
+	}
+	.tribe-bar-mini-parent #tribe-bar-filters {
+		margin-top: 32px;
+		padding-right: 148px;
+	}
+	.tribe-bar-mini-parent #tribe-bar-filters .tribe-bar-button-search {
+		width: 128px;
+		text-align: left;
+	}
+	.tribe-bar-mini-parent #tribe-bar-filters .tribe-bar-button-search .tribe-bar-btn-small span {
+		display: inline;
+	}
+	.tribe-bar-mini-parent #tribe-bar-dates,
+	.tribe-bar-mini-parent.tribe-has-settings #tribe-bar-dates,
+	.tribe-bar-mini-parent.tribe-has-datepicker.tribe-has-settings #tribe-bar-dates {
+		position: absolute;
+		margin-left: 0;
+		width: 100%;
+	}
+	.tribe-bar-mini-parent #tribe-bar-views {
+		margin-top: 35px;
+	}
+	
+.tribe-bar-mini-parent #tribe-bar-filters .tribe-bar-button-search .tribe-bar-btn-small span {
+		display: none;
+	}
+
+
+
+
 /* Mini Bar styles adjust event search button */
 @media screen and (max-width: 555px) {
 	#tribe-bar-filters .tribe-bar-button-search .tribe-bar-btn-small span {
@@ -1354,6 +1395,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	}
 	.tribe-bar-mini #tribe-bar-filters .tribe-bar-button-search {
 		width: 128px;
+		text-align: left;
 	}
 	#tribe-bar-filters .tribe-bar-button-search .tribe-bar-btn-small span {
 		display: inline;
