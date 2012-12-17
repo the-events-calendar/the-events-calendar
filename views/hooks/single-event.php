@@ -215,13 +215,12 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 					<?php endif; ?>
 
 					<?php if ( tribe_address_exists( get_the_ID() ) ) : // Venue address ?>
-						<dt><?php _e( 'Address:', 'tribe-events-calendar' ) ?><br />
+						<dt><?php _e( 'Address:', 'tribe-events-calendar' ) ?></dt>
+						<dd class="location">
+							<?php echo tribe_get_full_address( get_the_ID() ); ?>
 							<?php if ( tribe_show_google_map_link( get_the_ID() ) ) : // Google map ?>
 								<a class="tribe-events-gmap" href="<?php echo tribe_get_map_link(); ?>" title="<?php _e( 'Click to view a Google Map', 'tribe-events-calendar' ); ?>" target="_blank"><?php _e( 'Google Map', 'tribe-events-calendar' ); ?></a>
 							<?php endif; ?>
-						</dt>
-						<dd class="location">
-							<?php echo tribe_get_full_address( get_the_ID() ); ?>
 						</dd>
 					<?php endif; ?>
 
@@ -317,13 +316,12 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 						<?php endif; ?>
 
 						<?php if ( tribe_address_exists( get_the_ID() ) ) : // Venue address ?>
-							<dt><?php _e( 'Address:', 'tribe-events-calendar' ) ?><br />
-								<?php if ( tribe_show_google_map_link( get_the_ID() ) ) : // Google map ?>
-								<a class="tribe-events-gmap" href="<?php echo tribe_get_map_link(); ?>" title="<?php _e( 'Click to view a Google Map', 'tribe-events-calendar' ); ?>" target="_blank"><?php _e( 'Google Map', 'tribe-events-calendar' ); ?></a>
-								<?php endif; ?>
-							</dt>
+							<dt><?php _e( 'Address:', 'tribe-events-calendar' ) ?></dt>
 							<dd class="location">
 								<?php echo tribe_get_full_address( get_the_ID() ); ?>
+								<?php if ( tribe_show_google_map_link( get_the_ID() ) ) : // Google map ?>
+								<a class="tribe-events-gmap" href="<?php echo tribe_get_map_link(); ?>" title="<?php _e( 'Click to view a Google Map', 'tribe-events-calendar' ); ?>" target="_blank"><?php _e( 'Google Map', 'tribe-events-calendar' ); ?></a>
+								<?php endif; ?>								
 							</dd>
 						<?php endif; ?>
 						<?php if ( tribe_get_venue_website_link() ) : // Venue website ?>

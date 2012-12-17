@@ -722,6 +722,9 @@ h3.tribe-event-single-section-title {
 	line-height: 1.5;
 }
 
+#tribe-events-content .tribe-events-event-meta dd span.adr {
+	display: block;
+}
 /* Content */
 .single-tribe_events .entry-content.description {
 	width: auto;
