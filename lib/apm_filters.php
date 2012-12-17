@@ -4,6 +4,7 @@ class ECP_APM_Filters {
 	public function __construct() {
 		add_action( 'init', array($this, 'ecp_filters') );
 		add_action( 'tribe_cpt_filters_after_init', array($this, 'default_columns') );
+		add_filter( 'tribe_query_options', array( $this, 'query_options_for_date' ), 10, 3 );
 	}
 	
 	public function default_columns($apm) {
@@ -31,7 +32,7 @@ class ECP_APM_Filters {
 				'name' => __('Start Date', 'tribe-events-calendar-pro'),
 				'meta' => '_EventStartDate',
 				'cast' => 'DATETIME',
-				'disable' => 'columns'
+				'disable' => 'columns',
 			),
 			'ecp_cost' => array(
 				'name' => __('Event Cost', 'tribe-events-calendar-pro'),
@@ -64,6 +65,14 @@ class ECP_APM_Filters {
 		$ecp_apm = tribe_setup_apm( TribeEvents::POSTTYPE, $filter_args );
 		$ecp_apm->do_metaboxes = false;
 		$ecp_apm->add_taxonomies = false;
+	}
+
+	function query_options_for_date( $options, $key, $filter ) {
+		if ( 'ecp_start' == $key ) {
+			$options = array( 'gte' => '>=', 'lte' => '<=' );
+		}
+		
+		return $options;
 	}
 	
 }
