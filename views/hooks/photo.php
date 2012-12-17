@@ -19,9 +19,8 @@ if( !class_exists('Tribe_Events_Day_Template')){
 		static $timeslots = array();
 
 		public static function init(){
-
-			Tribe_PRO_Template_Factory::asset_package('isotope');
-			wp_enqueue_script('tribe-events-pro-photo', trailingslashit( TribeEventsPro::instance()->pluginUrl ) . 'resources/' .  'tribe-events-photo-view.js', array('jquery'));
+			
+			Tribe_PRO_Template_Factory::asset_package('ajax-photoview');			
 
 			add_filter( 'tribe_events_list_show_separators', '__return_false' );
 
