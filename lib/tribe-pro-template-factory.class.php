@@ -20,7 +20,7 @@ if( !class_exists('Tribe_PRO_Template_Factory') ) {
 					$tribe_paged = ( !empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 0;
 					$ajax_data = array( "ajaxurl"     => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
 					                    'tribe_paged' => $tribe_paged );
-					wp_enqueue_script( 'tribe-events-pro-isotope', $vendor_url . 'isotope/jquery.isotope.min.js' );	
+					wp_enqueue_script( 'tribe-events-pro-isotope', $vendor_url . 'isotope/jquery.isotope.min.js', array(), NULL );	
 					wp_enqueue_script('tribe-events-pro-photo', $resouces_url . 'tribe-events-photo-view.js', array('jquery'));
 					wp_localize_script( 'tribe-events-pro-photo', 'TribePhoto', $ajax_data );
 					break;					
