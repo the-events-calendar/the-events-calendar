@@ -30,8 +30,6 @@ if (!class_exists('TribeEventsQuery')) {
 			// if tribe event query add filters
 			add_filter( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 0 );
 
-			// setup returned posts with event fields ( start date, end date, duration etc )
-			add_filter( 'the_posts', array( __CLASS__, 'the_posts'), 0 );
 		}
 
 
@@ -245,40 +243,6 @@ if (!class_exists('TribeEventsQuery')) {
 			}
 
 			return $query;
-		}
-
-		/**
-		 * Filter all returned event posts & add additional required fields
-		 * @param  array $posts returned via wp_query
-		 * @return array $posts (modified)
-		 */
-		public function the_posts( $posts ) {
-			if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) || !is_admin() ) {
-				if( !empty($posts) ) {
-					foreach( $posts as $id => $post ) {
-
-						$posts[$id]->tribe_is_event = false;
-						$posts[$id]->tribe_is_recurrance = false;
-
-						// is event add required fields
-						if( tribe_is_event( $post ) ) {
-							if ( is_object( $post ) )
-								$post = $post->ID;
-
-							$posts[$id]->tribe_is_event = true;
-							$posts[$id]->tribe_is_allday = tribe_get_event_meta( $post, '_EventAllDay' ) ? true : false;
-							$posts[$id]->EventStartDate = get_post_meta( $post, '_EventStartDate', true);
-							$posts[$id]->EventDuration = get_post_meta( $post, '_EventDuration', true);
-							$posts[$id]->EventEndDate = get_post_meta( $post, '_EventEndDate', true);
-						}
-					}
-				}
-			}
-
-			// print_r(self::$start_date);
-
-			// return modified event posts with additional fields if added
-			return $posts;
 		}
 
 		public static function posts_groupby( $groupby_sql ) {
