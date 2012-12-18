@@ -181,7 +181,7 @@ jQuery( document ).ready( function ( $ ) {
 
 							$( '#tribe-events-list-hash' ).val( response.hash );
 
-							$( '#tribe-events-photo-events' ).empty().html( response.html );
+							$( '#tribe-events-content' ).replaceWith( response.html );
 
 							if ( response.max_pages > tribe_list_paged ) {
 								$( 'a#tribe_paged_next' ).show();
