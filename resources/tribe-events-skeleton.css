@@ -684,6 +684,21 @@ vertical-align: middle;
 	vertical-align: top;
 	padding: 0;
 	font-size: 12px;
+	position: relative;
+}
+.tribe-events-calendar div.viewmore {
+	background-color: #f5f5f5;
+	color: #999;
+	font-size: 11px;
+	font-weight: bold;
+	text-align: center;
+	bottom:0;
+	position: absolute;
+	padding: 2px 0;	
+	width:100%;
+}
+.tribe-events-calendar div.viewmore > a{
+	color: #999;
 }
 
 /* Global Tooltips */

@@ -349,6 +349,64 @@ if (!class_exists('TribeEventsQuery')) {
 			return apply_filters('tribe_events_hide_from_upcoming_ids', $hide_upcoming_ids);
 		}
 
+
+
+		public static function getEventCounts( $args = array() ){
+			global $wpdb;
+			$date = date( 'Y-m-d' );
+			$defaults = array(
+				'post_type' => TribeEvents::POSTTYPE,
+				'start_date' => tribe_event_beginning_of_day( $date ),
+				'end_date' => tribe_event_end_of_day( $date ),
+				'display_type' => 'daily',
+				'hide_upcoming_ids' => null
+			);
+			$args = wp_parse_args( $args, $defaults);
+ 
+			$counts = array();
+			switch( $args['display_type'] ){
+				case 'daily':
+				default :
+					$output_date_format = '%Y-%m-%d'; // date formatting
+					$query = (object) array(
+						'tribe_is_event' => true,
+						'start_date' => $args['start_date'],
+						'end_date' => $args['end_date'],
+						'order' => 'ASC',
+						'orderby' => 'event_date'
+						);
+					$raw_counts = $wpdb->get_results( sprintf( "SELECT COUNT( DISTINCT $wpdb->posts.ID ) as event_count, DATE_FORMAT( $wpdb->postmeta.meta_value, '%s') as by_date
+						FROM $wpdb->posts 
+						INNER JOIN $wpdb->postmeta ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id )
+						LEFT JOIN $wpdb->postmeta as tribe_event_duration ON ( $wpdb->posts.ID = tribe_event_duration.post_id AND tribe_event_duration.meta_key = '_EventDuration' )
+						WHERE 1 = 1
+						%s
+						AND post_type = '%s'
+						AND ( $wpdb->posts.post_status = 'publish' OR $wpdb->posts.post_status = 'private' )
+						AND ( $wpdb->postmeta.meta_key = '_EventStartDate' )
+						%s 
+						GROUP By DATE_FORMAT( $wpdb->postmeta.meta_value, '%s')
+						%s;",
+						$output_date_format, // output date
+						!empty($args['hide_upcoming_ids']) ? "AND $wpdb->posts.ID NOT IN ( " . implode(',', $args['hide_upcoming_ids'] ) . " )" : '', // hide upcoming ids
+						$args['post_type'],
+						self::posts_where('',$query), // date conditional
+						$output_date_format, // group by date
+						' ORDER BY ' . self::posts_orderby('',$query)
+						
+						));
+					// echo $wpdb->last_query;
+					foreach( $raw_counts as $record ){
+						$counts[ $record->by_date ] = $record->event_count;
+					}
+					break;
+			}
+			// echo '<pre>';
+			// print_r($counts);
+			// echo '</pre>';
+			return $counts;
+		}
+
 		/**
 		 * Customized WP_Query wrapper to setup event queries with default arguments.
 		 * @param  array  $args
