@@ -85,7 +85,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'init', array( $this, 'init' ), 10 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-			add_action( 'tribe_after_location_details', array( $this, 'add_google_map_preview' ) );
 			add_action( 'tribe_tec_template_chooser', array( $this, 'do_ical_template' ) );
 			add_filter( 'tribe_settings_do_tabs', array( $this, 'add_settings_tabs' ) );
 			add_filter( 'generate_rewrite_rules', array( $this, 'add_routes' ) );
@@ -386,7 +385,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		public function add_help_tab_getting_started_text() {
 			$ga_query_string = '?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin';
-			$getting_started_text[] = sprintf( __( '%sWelcome to Events Calendar, a full-featured events management system for WordPress. By buying a license you\'ve given us a vote of confidence, will get active support and have hooked up some sweet additional features not found in the free The Events Calendar.%s', 'tribe-events-calendar-pro' ), '<p class="admin-indent">', '</p>' );
+			$getting_started_text[] = sprintf( __( '%sWelcome to The Events Calendar, a full-featured events management system for WordPress. By buying a license you\'ve given us a vote of confidence, will get active support and have hooked up some sweet additional features not found in the free The Events Calendar.%s', 'tribe-events-calendar-pro' ), '<p class="admin-indent">', '</p>' );
 			$getting_started_text[] = sprintf( __( '%sIf you aren\'t familiar with The Events Calendar, it may be wise to check out our %s. It\'ll introduce you to the basics of what the plugin has to offer and will have you creating events in no time. From there, the resources below -- extensive template tag documentation, FAQs, video walkthroughs and more -- will give you a leg up as you dig deeper.%s', 'tribe-events-calendar-pro' ), '<p class="admin-indent">', sprintf( '<a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/' . $ga_query_string . '">%s</a>', __( 'new user primer', 'tribe-events-calendar-pro' ) ), '</p>' );
 			$getting_started_text[] = sprintf( __( '%sOh, wondering what to do with your license key and whether you need it before you can get into event creation? Check out %s on that subject for an answer. %s, if you don\'t have it handy.%s', 'tribe-events-calendar-pro' ), '<p class="admin-indent">', sprintf( '<a href="http://tri.be/events-calendar-pro-license-keys-when-you-need-them-when-you-dont/' . $ga_query_string . '">%s</a>', __( 'our blog post', 'tribe-events-calendar-pro' ) ), sprintf( '<a href="http://tri.be/finding-your-pro-license-key-re-downloading-the-plugin/' . $ga_query_string . '">%s</a>', __( 'Here\'s how you find your license key', 'tribe-events-calendar-pro' ) ), '</p>' );
 			$content = implode( $getting_started_text );
@@ -556,21 +555,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
     	public function load_venue_template( $file ) {
     		return TribeEventsTemplates::getTemplateHierarchy( 'single-venue','','pro', $this->pluginPath );
 	    }
-
-    	public function add_google_map_preview( $postId ) {
-	    	if ( tribe_get_option( 'embedGoogleMaps' ) ) {
-	            // && tribe_embed_google_map($postId )
-	    		$display = tribe_embed_google_map( $postId ) ? 'block' : 'none';
-	    		?>
-	    		<div style="float:right; display:<?php echo $display ?>;">
-	    			<?php echo tribe_get_embedded_map( $postId, 200, 200, true ); ?>
-	    		</div>
-	    		<?php
-	    	}
-	    	?>
-	    	<div style="clear:both"></div>
-	    	<?php
-    	}
 
 	    public function admin_enqueue_scripts() {
 	    	wp_enqueue_script( TribeEvents::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.js', array( 'jquery-ui-datepicker' ), '', true );
