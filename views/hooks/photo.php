@@ -25,14 +25,23 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			add_filter( 'tribe_events_list_show_separators', '__return_false' );
 
 			// override list methods
+			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'before_template' ), 20, 1);
 			add_filter( 'tribe_events_list_before_loop', array( __CLASS__, 'before_loop'), 20, 1);
 			add_filter( 'tribe_events_list_inside_before_loop', array( __CLASS__, 'inside_before_loop'), 20, 1);
 			add_filter( 'tribe_events_list_the_content', array( __CLASS__, 'the_content'), 20, 1);
+			add_filter( 'tribe_events_list_after_template', array( __CLASS__, 'after_template' ), 20, 1 );
+			add_filter( 'tribe_events_list_pagination', array( __CLASS__, 'clear_module_pagination' ), 20, 10 );
 
+		}
+		
+		public static function before_template() {
+			$html = '<input type="hidden" id="tribe-events-list-hash" value="" />';				
+			$html .= '<div id="tribe-events-content" class="tribe-events-list tribe-nav-alt">';
+			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_photo_before_template' );
 		}
 
 		public static function before_loop( $pass_through ){
-			$html = '<div class="tribe-events-loop hfeed" id="tribe-events-photo-events">';
+			$html = '<div class="tribe-events-loop hfeed tribe-clearfix" id="tribe-events-photo-events">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_photo_before_loop');
 		}
 
@@ -65,6 +74,24 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			else
 				$html .= '<p>'. TribeEvents::truncate(get_the_content(), 20) .'</p>';	
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_photo_the_content');
+		}
+		
+		// End Single Venue Template
+		public static function after_template() {
+			$html = '</div>';
+			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_photo_after_template' );
+		}
+
+		public static function clear_module_pagination( $html ) {
+			global $wp_query;
+			$html = "";
+			if ( $wp_query->query_vars['paged'] > 1 ) {
+				$html .= '<li class="tribe-nav-previous"><a href="#" id="tribe_paged_prev" class="tribe_paged">' . __( '<< Previous Events' ) . '</a></li>';
+			}
+			if ( $wp_query->max_num_pages > ( $wp_query->query_vars['paged'] + 1 ) ) {
+				$html .= '<li class="tribe-nav-next"><a href="#" id="tribe_paged_next" class="tribe_paged">' . __( 'Next Events >>' ) . '</a></li>';
+			}
+			return $html;
 		}
 
 	}
