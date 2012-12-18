@@ -45,13 +45,14 @@ jQuery( document ).ready( function ( $ ) {
 	function format( view ) {
     	return '<span class="tribe-icon-' + view.text.toLowerCase() + '">' + view.text + '</span>';
    	}
+	
 	$( '#tribe-bar-views .tribe-select2' ).select2({
-    	placeholder: "Views",
-    	dropdownCssClass: 'tribe-select2-results',
-    	minimumResultsForSearch: 9999,
-    	formatResult: format,
-        formatSelection: format
-    });
+		placeholder: "Views",
+		dropdownCssClass: 'tribe-select2-results',
+		minimumResultsForSearch: 9999,
+		formatResult: format,
+		formatSelection: format
+	});
 
 	// Wrap date inputs with a parent container
 	$('label[for="tribe-bar-date"], input[name="tribe-bar-date"]').wrapAll('<div id="tribe-bar-dates" />');
@@ -97,7 +98,7 @@ jQuery( document ).ready( function ( $ ) {
 		
 		$set_inputs.each( function () {
 			var $this = $( this );
-			if( $this.val().length && $this.attr('name') != 'submit-bar' && $this.attr('name') != 'tribe-bar-view' && $this.attr('name') != 'EventJumpToMonth' && $this.attr('name') != 'EventJumpToYear' ) {				
+			if( $this.val().length && $this.attr('name') != 'submit-bar' && $this.attr('name') != 'tribe-bar-view' && $this.attr('name') != 'EventJumpToMonth' && $this.attr('name') != 'EventJumpToYear' && $this.attr('name') != 'tribeUserSettings' ) {				
 				cv_url_params[$this.attr('name')] = $this.val();						
 			}			
 		} );
