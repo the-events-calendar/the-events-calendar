@@ -679,7 +679,8 @@ div.tribe-countdown-text {
 	background    : #eee;
 }
 
-#tribe-geo-loading {
+#tribe-geo-loading,
+#tribe-photo-loading {
 	display           : none;
 	position          : absolute;
 	width             : 100%;
@@ -696,7 +697,8 @@ div.tribe-countdown-text {
 	transition        : all 1s linear;
 }
 
-#tribe-geo-loading span {
+#tribe-geo-loading span,
+#tribe-photo-loading span {
 	position   : absolute;
 	width      : 32px;
 	height     : 32px;
@@ -704,6 +706,16 @@ div.tribe-countdown-text {
 	top        : 50%;
 	margin     : -16px 0 0 -16px;
 	background : url(images/tribe-loading.gif) 0 0 no-repeat;
+}
+
+#tribe-photo-loading {
+	display:block;
+	background : #fff;
+	background : rgba(255, 255, 255, 0.9);
+}
+
+#tribe-photo-loading span {
+	top:200px;
 }
 
 #tribe-geo-map {

@@ -31,6 +31,8 @@ jQuery( document ).ready( function ( $ ) {
 		});
 	}).smartresize();
 	
+	$("#tribe-bar-dates").remove();	
+	
 	var tribe_is_paged = tribe_get_url_param('tribe_paged');		
 	
 	if( tribe_is_paged ) {
@@ -68,8 +70,7 @@ jQuery( document ).ready( function ( $ ) {
 			}
 		} );
 		
-	}
-
+	}	
 
 		// events bar intercept submit
 
@@ -127,9 +128,7 @@ jQuery( document ).ready( function ( $ ) {
 
 		function tribe_events_list_ajax_post( tribe_href_target, tribe_pushstate, tribe_do_string, tribe_popping, tribe_params, tribe_url_params ) {
 
-			$( '.ajax-loading' ).show();
-			
-			
+			$('#tribe-events-photo-events').prepend('<div id="tribe-photo-loading"><span></span></div>');			
 			
 			if( !tribe_popping ) {			
 				
