@@ -408,7 +408,7 @@ if (!class_exists('TribeEventsQuery')) {
 					$interval = $start_date->diff( $end_date );
 					$days = $interval->format( '%a' );
 					$date = $start_date;
-					for ( $i = 0; $i < $days; $i++ ) {
+					for ( $i = 0; $i <= $days; $i++ ) {
 						$count = 0;
 						foreach( $raw_counts as $record ) {
 							$record_start = $record->EventStartDate;
