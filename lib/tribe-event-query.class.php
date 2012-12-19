@@ -388,7 +388,6 @@ if (!class_exists('TribeEventsQuery')) {
 							OR ($wpdb->postmeta.meta_value <= '%s' AND DATE_ADD(CAST( $wpdb->postmeta.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) >= '%s')
 							OR ( $wpdb->postmeta.meta_value >= '%s' AND  $wpdb->postmeta.meta_value <= '%s')
 						)
-						GROUP By ID
 						%s;",
 						$output_date_format,
 						$output_date_format,
