@@ -86,7 +86,7 @@ class Tribe_Recur_Filter {
 		'is' => 'Yes',
 		'not' => 'No'
 	);
-	protected $not_recur = 'a:12:{s:4:"type";s:4:"None"';
+	protected $not_recur = 'a:12:{s:4:"type";s:4:"None";s:8:"end-type";s:2:"On";s:3:"end";s:0:"";s:9:"end-count";s:1:"1";s:11:"custom-type";s:5:"Daily";s:15:"custom-interval";s:0:"";s:16:"custom-type-text";s:0:"";s:21:"occurrence-count-text";s:0:"";s:19:"custom-month-number";s:5:"First";s:16:"custom-month-day";s:1:"1";s:24:"custom-year-month-number";s:1:"1";s:21:"custom-year-month-day";s:1:"1";}';
 	
 	public function __construct() {
 		$type = $this->type;
@@ -96,25 +96,20 @@ class Tribe_Recur_Filter {
 	}
 	
 	public function parse_query($wp_query, $active) {
-		if ( ! isset($active[$this->key]) ) {
+		if ( !isset( $active[$this->key] ) ) {
 			return;
 		}
-		$compare = ( 'is' === $active[$this->key] ) ? 'NOT LIKE' : 'LIKE';
-		$meta_query = (array) $wp_query->get('meta_query');
-		$meta_query[] = array(
-			'key' => '_EventRecurrence',
-			'value' => $this->not_recur,
-			'compare' => $compare
-		);
-
-		if ( 'NOT LIKE' == $compare ) {
-			$meta_query[]           = array( 'key' => '_EventRecurrence', 'value' => '', 'compare' => '!=' );
-			$meta_query['relation'] = 'AND';
-		}
+		$compare      = ( 'is' === $active[$this->key] ) ? 'NOT IN' : 'IN';
+		$meta_query   = (array)$wp_query->get( 'meta_query' );
+		$meta_query[] = array( 'key'     => '_EventRecurrence',
+		                       'value'   => array( $this->not_recur, '' ),
+		                       'compare' => $compare );
 
 		$wp_query->set('meta_query', $meta_query);
+
+
 	}
-	
+
 	public function maybe_set_active($return, $key, $filter) {
 		if ( isset($_POST[$key]) && ! empty($_POST[$key])) {
 			return $_POST[$key];

@@ -1,38 +1,36 @@
 var tribe_list_paged = 1;
 
 jQuery( document ).ready( function ( $ ) {
-
+	
 	var container = $('#tribe-events-photo-events');
 	var containerWidth = container.width();
-			  if ( containerWidth < 643 ) {
-        	container.addClass('photo-two-col');
-        } else {
-        	container.removeClass('photo-two-col');
-        }	
-		$(window).load(function(){ 
-	    container.imagesLoaded( function(){    
-				container.isotope({
-					containerStyle: {
-						position: 'relative', 
-						overflow: 'visible'
-					},
-					resizable: false // disable normal resizing
-				});
-			});	
-		}); 
+  if ( containerWidth < 643 ) {
+  	container.addClass('photo-two-col');
+  } else {
+  	container.removeClass('photo-two-col');
+  }	
+	$(window).load(function(){ 
+    container.imagesLoaded( function(){    
+			container.isotope({
+				containerStyle: {
+					position: 'relative', 
+					overflow: 'visible'
+				},
+				resizable: false // disable normal resizing
+			});
+		});	
+	}); 
 
 	// update columnWidth on window resize
-    $(window).resize(function() {
-    	var containerWidth = container.width();
-        if ( containerWidth < 643 ) {
-        	container.addClass('photo-two-col');
-        } else {
-        	container.removeClass('photo-two-col');
-        }
-       container.isotope('reLayout');
-    });
-
-	$("#tribe-bar-dates").remove();	
+  $(window).resize(function() {
+  	var containerWidth = container.width();
+      if ( containerWidth < 643 ) {
+      	container.addClass('photo-two-col');
+      } else {
+      	container.removeClass('photo-two-col');
+      }
+     container.isotope('reLayout');
+  });
 	
 	var tribe_is_paged = tribe_get_url_param('tribe_paged');		
 	
@@ -104,25 +102,28 @@ jQuery( document ).ready( function ( $ ) {
 		}
 		
 		// event bar datepicker monitoring 
-
-		$('#tribe-bar-date').bind( 'change', function (e) {		
-
-			e.preventDefault();
-			tribe_list_paged = 1;
-			tribe_pre_ajax_tests( function() {
-				tribe_events_list_ajax_post( tribe_cur_url );
-			});
-
-		} );
-
-		$( 'form#tribe-bar-form' ).bind( 'submit', function ( e ) {
-
+		
+		function tribe_events_bar_photoajax_actions(e) {
 			if ( tribe_events_bar_action != 'change_view' ) {
 				e.preventDefault();
 				tribe_list_paged = 1;
 				tribe_pre_ajax_tests( function() {
 					tribe_events_list_ajax_post( tribe_cur_url );
 				});
+			}
+		}
+
+		$('#tribe-bar-date').bind( 'change', function (e) {		
+			tribe_events_bar_photoajax_actions(e)
+		} );
+		
+		$( '.tribe-bar-settings button[name="settingsUpdate"]' ).bind( 'click', function (e) {		
+			tribe_events_bar_photoajax_actions(e)	
+		} );
+		
+		$( 'form#tribe-bar-form' ).bind( 'submit', function ( e ) {
+			if ( tribe_events_bar_action != 'change_view' ) {
+				tribe_events_bar_photoajax_actions(e)
 			}
 		} );
 
@@ -153,10 +154,17 @@ jQuery( document ).ready( function ( $ ) {
 
 				$( 'form#tribe-bar-form :input[value!=""]' ).each( function () {
 					var $this = $( this );
-					if( $this.val().length  && $this.attr('name') != 'submit-bar' && $this.attr('name') != 'tribe-bar-view' && $this.attr('name') != 'EventJumpToMonth' && $this.attr('name') != 'EventJumpToYear' ) {
-						tribe_params[$this.attr('name')] = $this.val();
-						tribe_url_params[$this.attr('name')] = $this.val();						
-					}			
+					if( $this.val().length && !$this.hasClass('tribe-no-param') ) {
+						if( $this.is(':checkbox') ) {
+							if( $this.is(':checked') ) {
+								tribe_params[$this.attr('name')] = $this.val();
+								tribe_url_params[$this.attr('name')] = $this.val();	
+							}
+						} else {
+							tribe_params[$this.attr('name')] = $this.val();
+							tribe_url_params[$this.attr('name')] = $this.val();	
+						}					
+					}								
 				} );
 				
 				tribe_params = $.param(tribe_params);
