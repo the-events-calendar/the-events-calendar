@@ -1,36 +1,37 @@
 var tribe_list_paged = 1;
 
 jQuery( document ).ready( function ( $ ) {
-	
-	var $container = $('#tribe-events-photo-events');
-	$(window).load(function(){ 
-		$container.isotope({
-			containerStyle: {
-				position: 'relative', 
-				overflow: 'visible'
-			},
-			resizable: false, // disable normal resizing
-			// set columnWidth to a percentage of container width
-			masonry: {
-				columnWidth: $container.width() / 3
-			}
-		});
-	}); 
 
- 
+	var container = $('#tribe-events-photo-events');
+	var containerWidth = container.width();
+			  if ( containerWidth < 643 ) {
+        	container.addClass('photo-two-col');
+        } else {
+        	container.removeClass('photo-two-col');
+        }	
+		$(window).load(function(){ 
+	    container.imagesLoaded( function(){    
+				container.isotope({
+					containerStyle: {
+						position: 'relative', 
+						overflow: 'visible'
+					},
+					resizable: false // disable normal resizing
+				});
+			});	
+		}); 
+
 	// update columnWidth on window resize
-	$(window).smartresize(function(){
-		$container.isotope({
-			containerStyle: {
-				position: 'relative', 
-				overflow: 'visible'
-			},
-			masonry: {
-				columnWidth: $container.width() / 3
-			}
-		});
-	}).smartresize();
-	
+    $(window).resize(function() {
+    	var containerWidth = container.width();
+        if ( containerWidth < 643 ) {
+        	container.addClass('photo-two-col');
+        } else {
+        	container.removeClass('photo-two-col');
+        }
+       container.isotope('reLayout');
+    });
+
 	$("#tribe-bar-dates").remove();	
 	
 	var tribe_is_paged = tribe_get_url_param('tribe_paged');		
