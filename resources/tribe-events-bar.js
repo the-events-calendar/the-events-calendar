@@ -98,7 +98,7 @@ jQuery( document ).ready( function ( $ ) {
 		
 		$set_inputs.each( function () {
 			var $this = $( this );
-			if( $this.val().length && $this.attr('name') != 'submit-bar' && $this.attr('name') != 'tribe-bar-view' && $this.attr('name') != 'EventJumpToMonth' && $this.attr('name') != 'EventJumpToYear' && $this.attr('name') != 'tribeUserSettings' ) {				
+			if( $this.val().length && $this.attr('name') != 'submit-bar' && $this.attr('name') != 'tribe-bar-view' && $this.attr('name') != 'EventJumpToMonth' && $this.attr('name') != 'EventJumpToYear' && $this.attr('name') ) {				
 				cv_url_params[$this.attr('name')] = $this.val();						
 			}			
 		} );
