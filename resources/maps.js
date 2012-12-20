@@ -163,11 +163,17 @@ jQuery( document ).ready( function ( $ ) {
 
 		// add any set values from event bar to params. want to use serialize but due to ie bug we are stuck with second	
 
-		$( 'form#tribe-events-bar-form :input[value!=""]' ).each( function () {
+		$( 'form#tribe-bar-form :input[value!=""]' ).each( function () {
 			var $this = $( this );
-			if( $this.val().length && $this.attr('name') != 'submit-bar' ) {
-				tribe_params[$this.attr('name')] = $this.val();					
-			}			
+			if( $this.val().length && !$this.hasClass('tribe-no-param') ) {
+				if( $this.is(':checkbox') ) {
+					if( $this.is(':checked') ) {
+						tribe_params[$this.attr('name')] = $this.val();	
+					}
+				} else {
+					tribe_params[$this.attr('name')] = $this.val();	
+				}					
+			}						
 		} );
 
 		tribe_params = $.param(tribe_params);
@@ -288,41 +294,41 @@ jQuery( document ).ready( function ( $ ) {
 		} );
 		
 	}
-
-	if ( GeoLoc.map_view  && $( '#tribe_events_filters_form' ).length ) {
-		$( 'form#tribe_events_filters_form' ).bind( 'submit', function ( e ) {
-			if ( tribe_events_bar_action != 'change_view' ) {
-				e.preventDefault();
-				tribe_map_paged = 1;
-				if( tribe_has_pushstate ) {	
-					tribe_pre_ajax_tests( function() { 						
-						tribe_map_processOption( null, tribe_cur_url );
-					});
-				} else {
-					tribe_pre_ajax_tests( function() { 						
-						tribe_reload_old_browser();
-					});
-				}
-			}
-		} );
-	}
 	
-	if ( GeoLoc.map_view ) {
-		$('#tribe-bar-date').bind( 'change', function (e) {		
+	function tribe_events_bar_mapajax_actions(e) {
+		if ( tribe_events_bar_action != 'change_view' ) {
+			e.preventDefault();
 			tribe_map_paged = 1;
 			if( tribe_has_pushstate ) {	
-				tribe_pre_ajax_tests( function() { 				
+				tribe_pre_ajax_tests( function() { 						
 					tribe_map_processOption( null, tribe_cur_url );
 				});
 			} else {
-				tribe_pre_ajax_tests( function() { 
+				tribe_pre_ajax_tests( function() { 						
 					tribe_reload_old_browser();
 				});
 			}
 
-		} );
+		}
+	}
+
+	if ( GeoLoc.map_view  && $( 'form#tribe-bar-form' ).length ) {
+		
+		
+//		$( 'form#tribe-bar-form' ).bind( 'submit', function ( e ) {
+//			tribe_events_bar_mapajax_actions(e);	
+//		} );
+//		
+		$( '.tribe-bar-settings button[name="settingsUpdate"]' ).bind( 'click', function (e) {		
+			tribe_events_bar_mapajax_actions(e);		
+		} );		
 	}
 	
+	if( GeoLoc.map_view  && $('#tribe_events_filters_form').length ) {
+		$( 'form#tribe_events_filters_form' ).bind( 'submit', function ( e ) {			
+			tribe_events_bar_mapajax_actions(e);			
+		} );
+	}
 	
 
 	function tribe_map_addMarker( lat, lng, title, address, link ) {
@@ -386,7 +392,7 @@ jQuery( document ).ready( function ( $ ) {
 	}
 	if ( GeoLoc.map_view ) {
 	
-		$( 'form#tribe-events-bar-form' ).bind( 'submit', function () {	
+		$( 'form#tribe-bar-form' ).bind( 'submit', function () {	
 			if ( tribe_events_bar_action != 'change_view' ) {				
 				tribe_map_paged = 1;
 				spin_start();
