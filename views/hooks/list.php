@@ -148,7 +148,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 				}
 
 				if ( self::$prev_event_month != tribe_get_start_date( $post_id, false, 'm' ) ) {
-					echo sprintf( "<span class='tribe_list_separator_month'>%s</span>", tribe_get_start_date( $post_id, false, 'M' ) );
+					echo sprintf( "<span class='tribe_list_separator_month'>%s</span>", tribe_get_start_date( $post_id, false, 'F' ) );
 				}
 
 				self::$prev_event_year  = tribe_get_start_date( $post_id, false, 'Y' );
