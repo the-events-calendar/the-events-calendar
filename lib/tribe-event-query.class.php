@@ -30,8 +30,6 @@ if (!class_exists('TribeEventsQuery')) {
 			// if tribe event query add filters
 			add_filter( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 0 );
 
-			// setup returned posts with event fields ( start date, end date, duration etc )
-			add_filter( 'the_posts', array( __CLASS__, 'the_posts'), 0 );
 		}
 
 
@@ -247,40 +245,6 @@ if (!class_exists('TribeEventsQuery')) {
 			return $query;
 		}
 
-		/**
-		 * Filter all returned event posts & add additional required fields
-		 * @param  array $posts returned via wp_query
-		 * @return array $posts (modified)
-		 */
-		public function the_posts( $posts ) {
-			if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) || !is_admin() ) {
-				if( !empty($posts) ) {
-					foreach( $posts as $id => $post ) {
-
-						$posts[$id]->tribe_is_event = false;
-						$posts[$id]->tribe_is_recurrance = false;
-
-						// is event add required fields
-						if( tribe_is_event( $post ) ) {
-							if ( is_object( $post ) )
-								$post = $post->ID;
-
-							$posts[$id]->tribe_is_event = true;
-							$posts[$id]->tribe_is_allday = tribe_get_event_meta( $post, '_EventAllDay' ) ? true : false;
-							$posts[$id]->EventStartDate = get_post_meta( $post, '_EventStartDate', true);
-							$posts[$id]->EventDuration = get_post_meta( $post, '_EventDuration', true);
-							$posts[$id]->EventEndDate = get_post_meta( $post, '_EventEndDate', true);
-						}
-					}
-				}
-			}
-
-			// print_r(self::$start_date);
-
-			// return modified event posts with additional fields if added
-			return $posts;
-		}
-
 		public static function posts_groupby( $groupby_sql ) {
 			if ( self::$is_event_query ) {
 				return apply_filters('tribe_events_query_posts_groupby','');
@@ -383,6 +347,85 @@ if (!class_exists('TribeEventsQuery')) {
 			// custom sql to get ids of posts that hide_upcoming_ids
 			$hide_upcoming_ids = $wpdb->get_col("SELECT {$wpdb->postmeta}.post_id FROM {$wpdb->postmeta} WHERE {$wpdb->postmeta}.meta_key = '_EventHideFromUpcoming' AND {$wpdb->postmeta}.meta_value = 'yes'");
 			return apply_filters('tribe_events_hide_from_upcoming_ids', $hide_upcoming_ids);
+		}
+
+
+
+		public static function getEventCounts( $args = array() ){
+			global $wpdb;
+			$date = date( 'Y-m-d' );
+			$defaults = array(
+				'post_type' => TribeEvents::POSTTYPE,
+				'start_date' => tribe_event_beginning_of_day( $date ),
+				'end_date' => tribe_event_end_of_day( $date ),
+				'display_type' => 'daily',
+				'hide_upcoming_ids' => null
+			);
+			$args = wp_parse_args( $args, $defaults);
+ 
+			$counts = array();
+			switch( $args['display_type'] ){
+				case 'daily':
+				default :
+					$output_date_format = '%Y-%m-%d';
+					$query = (object) array(
+						'tribe_is_event' => true,
+						'start_date' => $args['start_date'],
+						'end_date' => $args['end_date'],
+						'order' => 'ASC',
+						'orderby' => 'event_date'
+						);
+					$raw_counts = $wpdb->get_results( sprintf( "SELECT $wpdb->posts.id as ID, DATE_FORMAT( $wpdb->postmeta.meta_value, '%s') as EventStartDate, DATE_FORMAT( DATE_ADD(CAST($wpdb->postmeta.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND), '%s') as EventEndDate
+						FROM $wpdb->posts 
+						INNER JOIN $wpdb->postmeta ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id )
+						LEFT JOIN $wpdb->postmeta as tribe_event_duration ON ( $wpdb->posts.ID = tribe_event_duration.post_id AND tribe_event_duration.meta_key = '_EventDuration' )
+						WHERE 1 = 1
+						%s
+						AND post_type = '%s'
+						AND ( $wpdb->posts.post_status = 'publish' OR $wpdb->posts.post_status = 'private' )
+						AND ( $wpdb->postmeta.meta_key = '_EventStartDate' )
+						AND ( ($wpdb->postmeta.meta_value >= '%s' AND  $wpdb->postmeta.meta_value <= '%s') 
+							OR ($wpdb->postmeta.meta_value <= '%s' AND DATE_ADD(CAST( $wpdb->postmeta.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) >= '%s')
+							OR ( $wpdb->postmeta.meta_value >= '%s' AND  $wpdb->postmeta.meta_value <= '%s')
+						)
+						%s;",
+						$output_date_format,
+						$output_date_format,
+						!empty($args['hide_upcoming_ids']) ? "AND $wpdb->posts.ID NOT IN ( " . implode(',', $args['hide_upcoming_ids'] ) . " )" : '', // hide upcoming ids
+						$args['post_type'],
+						$args['start_date'],
+						$args['end_date'],
+						$args['start_date'],
+						$args['start_date'],
+						$args['start_date'],
+						$args['end_date'],
+						' ORDER BY ' . self::posts_orderby('',$query)
+						
+						));
+					// echo $wpdb->last_query;
+					$start_date = new DateTime( $args['start_date'] );
+					$end_date = new DateTime( $args['end_date'] );
+					$interval = $start_date->diff( $end_date );
+					$days = $interval->format( '%a' );
+					$date = $start_date;
+					for ( $i = 0; $i <= $days; $i++ ) {
+						$count = 0;
+						foreach( $raw_counts as $record ) {
+							$record_start = $record->EventStartDate;
+							$record_end = $record->EventEndDate;
+							if ( $record_start <= $date->format( 'Y-m-d' ) && $record_end >= $date->format( 'Y-m-d' ) ) {
+								$count++;
+							}
+						}
+						$counts[ $date->format( 'Y-m-d' ) ] = $count;
+						$date = $date->add( new DateInterval( 'P1D' ) );
+					}
+					break;
+			}
+			// echo '<pre>';
+			//print_r($counts);
+			// echo '</pre>';
+			return $counts;
 		}
 
 		/**

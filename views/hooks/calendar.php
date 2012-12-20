@@ -58,7 +58,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		}
 		public static function the_title( $title, $post_id ){			
 			$html = sprintf( '<h2 class="tribe-events-page-title">%s</h2>',
-				tribe_get_events_title()
+				date( "F Y", strtotime( tribe_get_month_view_date() ))
 				);
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_the_title');
 		}
@@ -88,7 +88,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$tribe_ecp = TribeEvents::instance();
 
 			$html = '<li class="tribe-events-nav-prev">';
-			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() )  .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&#x2190; '. tribe_get_previous_month_text() .' </a>';
+			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&#x2190; '. tribe_get_previous_month_text() .' </a>';
 			$html .= '</li><!-- .tribe-events-prev-next -->';
 			
 			$html .= '<li>';
@@ -98,7 +98,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$html .= '</li>';
 	
 			$html .= '<li class="tribe-events-nav-next">';
-			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() )  .'" href="' . tribe_get_next_month_link() . '" rel="next"> '. tribe_get_next_month_text() .' &#x2192;</a>';
+			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() . '" rel="next"> '. tribe_get_next_month_text() .' &#x2192;</a>';
 			$html .= '<img src="' . esc_url( admin_url( 'images/wpspin_light.gif' ) ) . '" class="ajax-loading" id="ajax-loading" alt="Loading events" />';
 			$html .= '</li><!-- .tribe-events-nav-next -->';
 			
@@ -144,6 +144,13 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$rawOffset = date( 'w', $date ) - $startOfWeek;
 			$offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
 			$rows = 1;
+			$count_args = array(
+				'hide_upcoming_ids' => $hide_upcoming_ids,
+				'start_date' => date('Y-m-d', $date) . ' 00:00:00',
+				'end_date' => date('Y-m-t', $date) . ' 23:59:59'
+				);
+			$event_daily_counts = TribeEventsQuery::getEventCounts( $count_args );
+			// print_r($event_daily_counts);
 			// $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 ?>
 			<table class="tribe-events-calendar">
@@ -223,8 +230,8 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			    				'posts_per_page' => $posts_per_page_limit,
 			    				'orderby' => 'event_date',
 								'order' => 'ASC',
-			    				'eventDisplay' => 'custom'
-			    				// 'no_found_rows' => true
+			    				'eventDisplay' => 'custom',
+			    				'no_found_rows' => true
 			    				);
 
 			    			if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
@@ -235,10 +242,11 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			    			$daily_events = TribeEventsQuery::getEvents( $args, true );
 			    			// print_r( $daily_events);
 							foreach( $daily_events->posts as $post ) {
+
 								// setup_postdata( $post );
 								$eventId	= $post->ID.'-'.$day;
-								$start		= tribe_get_start_date( $post->ID, false, 'U' );
-								$end		= tribe_get_end_date( $post->ID, false, 'U' );
+								$start		= tribe_get_start_date( $post, false, 'U' );
+								$end		= tribe_get_end_date( $post, false, 'U' );
 								$cost		= tribe_get_cost( $post->ID );			
 								?>
 								
@@ -308,13 +316,13 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 
 							}
 
-							$remaining_not_shown = !empty($daily_events->found_posts) && $daily_events->found_posts > 0 ? 
-								$daily_events->found_posts - $posts_per_page_limit : 
-								0;
-							if( (int) $remaining_not_shown > 0 ) {
-								printf( '<div class="vevent"><a href="%s">View %d More Events</a></div>',
+							// $remaining_not_shown = !empty($daily_events->found_posts) && $daily_events->found_posts > 0 ? 
+							// 	$daily_events->found_posts - $posts_per_page_limit : 
+							// 	0;
+							if( !empty($event_daily_counts[$date]) && (int) $event_daily_counts[$date] > $posts_per_page_limit ) {
+								printf( '<div class="viewmore"><a href="%s">View %d More Events</a></div>',
 									tribe_get_day_link( $date ),
-									$remaining_not_shown
+									$event_daily_counts[$date]
 									);
 							}
 								

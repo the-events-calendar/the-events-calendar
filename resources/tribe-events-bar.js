@@ -1,15 +1,19 @@
 // Check for width of events bar so can kick in the view filter select input when appropriate
-
 var tribe_events_bar_action;
 
 function eventBarWidth() {
 	var tribeBar = jQuery( '#tribe-events-bar' );
 	var tribeBarWidth = tribeBar.width();
-
+	
 	if ( tribeBarWidth > 643 ) {
-		tribeBar.removeClass( 'tribe-bar-mini' ).addClass( 'tribe-bar-full' );
+		tribeBar.removeClass( 'tribe-bar-mini tribe-bar-mini-parent' ).addClass( 'tribe-bar-full' );
 	} else {
 		tribeBar.removeClass( 'tribe-bar-full' ).addClass( 'tribe-bar-mini' );
+	}
+	if ( tribeBarWidth < 470 ) {
+		tribeBar.addClass( 'tribe-bar-mini-parent' );
+	} else {
+		tribeBar.removeClass( 'tribe-bar-mini-parent' );
 	}
 }
 
@@ -21,35 +25,56 @@ jQuery( document ).ready( function ( $ ) {
 	};
 
 	// Implement our datepicker
-	$( '#tribe-bar-date' ).datepicker( tribe_var_datepickerOpts );
+	if ( !$( '.events-gridview' ).length ) {
+		$( '#tribe-bar-date' ).datepicker( tribe_var_datepickerOpts );
+	}
+	
+	// Add some classes
+	if( $( '.tribe-bar-settings' ).length ) {
+		$( '#tribe-events-bar' ).addClass( 'tribe-has-settings' );
+	}
+	if ( $( '#tribe-events-bar .hasDatepicker' ).length ) {
+		$( '#tribe-events-bar' ).addClass( 'tribe-has-datepicker' );
+	}
+	$( '#tribe-events-content' ).addClass( 'tribe-nav-alt' );
 
 	// Implement placeholder
 	$( 'input[name*="tribe-bar-"]' ).placeholder();
 
-	// Implement chosen
+	// Implement select2
 	function format( view ) {
     	return '<span class="tribe-icon-' + view.text.toLowerCase() + '">' + view.text + '</span>';
    	}
-	$( '#tribe-events-bar-views .tribe-select2' ).select2({
-    	placeholder: "Views",
-    	dropdownCssClass: 'tribe-select2-results',
-    	minimumResultsForSearch: 9999,
-    	formatResult: format,
-        formatSelection: format
-    });
+	
+	$( '#tribe-bar-views .tribe-select2' ).select2({
+		placeholder: "Views",
+		dropdownCssClass: 'tribe-select2-results',
+		minimumResultsForSearch: 9999,
+		formatResult: format,
+		formatSelection: format
+	});
 
-	// Wrap non-date inputs with a parent container for toggle
-
-	$('.tribe-events-bar-filter-wrap.tribe-bar-search, .tribe-events-bar-filter-wrap.tribe-bar-geoloc, .tribe-events-bar-filter-wrap.tribe-bar-submit').wrapAll('<div class="tribe-events-toggle-wrap" />');
+	// Wrap date inputs with a parent container
+	$('label[for="tribe-bar-date"], input[name="tribe-bar-date"]').wrapAll('<div id="tribe-bar-dates" />');
+	   
+	// Add our date bits outside of our filter container
+	$( '#tribe-bar-filters' ).after( $('#tribe-bar-dates') );
+	
+	// Append our month view selects to date wrapper in bar
+	if ( $( '.events-gridview' ).length ) {
+		$( '#tribe-bar-dates' ).append( $('.tribe-events-calendar #tribe-events-events-picker').contents() );		
+		$( '#tribe-bar-date' ).remove();
+		$( '#tribe-events-bar' ).removeClass( 'tribe-has-datepicker' );
+	}
 
 	// Implement our views bit
-	$( 'select[name=tribe-events-bar-view]' ).change( function () {
+	$( 'select[name=tribe-bar-view]' ).change( function () {
 		var el = $( this );
 		tribe_events_bar_action = 'change_view';
 		tribe_events_bar_change_view( el.val() );
 	} );
 
-	$( 'a.tribe-events-bar-view' ).on( 'click', function ( e ) {
+	$( 'a.tribe-bar-view' ).on( 'click', function ( e ) {
 		e.preventDefault();
 
 		var el = $( this );
@@ -62,7 +87,7 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_events_bar_action = 'change_view';
 		
 		var cv_url_params = {};		
-		var $set_inputs = $( 'form#tribe-events-bar-form :input[value!=""]' );		
+		var $set_inputs = $( 'form#tribe-bar-form :input[value!=""]' );		
 		
 		if( $( '#tribe-bar-geoloc' ).length ) {			
 			tribe_map_val = jQuery( '#tribe-bar-geoloc' ).val();		
@@ -73,7 +98,7 @@ jQuery( document ).ready( function ( $ ) {
 		
 		$set_inputs.each( function () {
 			var $this = $( this );
-			if( $this.val().length && $this.attr('name') != 'submit-bar' ) {				
+			if( $this.val().length && $this.attr('name') != 'submit-bar' && $this.attr('name') != 'tribe-bar-view' && $this.attr('name') != 'EventJumpToMonth' && $this.attr('name') != 'EventJumpToYear' && $this.attr('name') != 'tribeUserSettings' ) {				
 				cv_url_params[$this.attr('name')] = $this.val();						
 			}			
 		} );
@@ -99,7 +124,6 @@ jQuery( document ).ready( function ( $ ) {
 		}
 	}
 
-
 	// Implement our function to check on our event bar width
 	eventBarWidth();
 	$( window ).resize( function () {
@@ -107,25 +131,24 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	// Implement simple toggle for filters at smaller size (and close if click outside of toggle area)
-	var tribeBarToggle = $( '#tribe-events-bar .tribe-events-bar-toggle' );
-	var tribeBarToggleEl = $( '.tribe-events-toggle-wrap' );
-	tribeBarToggle.click( function () {
-		$( this ).toggleClass( 'open' );
-		tribeBarToggleEl.toggle();
-	} );
-
-	$( document ).bind( {
-		click:function ( e ) {
-			if ( $( tribeBarToggle ).hasClass( 'open' ) ) {
-				tribeBarToggle.toggleClass( 'open' );
-				tribeBarToggleEl.toggle();
-			}
-		}
-	} );
-	tribeBarToggle.bind( 'click', function ( e ) {
+	var $tribeDropToggle = $( '#tribe-events-bar [class^="tribe-bar-button-"]' );
+	var $tribeDropToggleEl = $tribeDropToggle.next( '.tribe-bar-drop-content' );
+	
+	$tribeDropToggle.click( function () {
+		var $this = $(this);
+		$this.toggleClass( 'open' );
+		$this.next( '.tribe-bar-drop-content' ).toggle();
 		return false
 	} );
-	$( '.tribe-bar-search, .tribe-bar-geoloc' ).click( function ( e ) {
+	
+	$(document).click(function(){
+		if( $tribeDropToggle.hasClass('open') ) {			
+			$tribeDropToggle.removeClass( 'open' );
+			$tribeDropToggle.next( '.tribe-bar-drop-content' ).hide();
+		}
+	});	
+	
+	$tribeDropToggleEl.click( function ( e ) {
 		e.stopPropagation();
 	} );
 
