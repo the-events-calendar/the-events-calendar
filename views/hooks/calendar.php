@@ -312,7 +312,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 								$daily_events->found_posts - $posts_per_page_limit : 
 								0;
 							if( (int) $remaining_not_shown > 0 ) {
-								printf( '<div><a href="%s">View %d More Events</a></div>',
+								printf( '<div class="vevent"><a href="%s">View %d More Events</a></div>',
 									tribe_get_day_link( $date ),
 									$remaining_not_shown
 									);
