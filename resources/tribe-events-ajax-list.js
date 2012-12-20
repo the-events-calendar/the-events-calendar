@@ -74,20 +74,9 @@ jQuery( document ).ready( function ( $ ) {
 			} );
 		}
 		
-		// event bar datepicker monitoring 
-
-		$('#tribe-bar-date').bind( 'change', function (e) {		
-
-			e.preventDefault();
-			tribe_list_paged = 1;
-			tribe_pre_ajax_tests( function() {
-				tribe_events_list_ajax_post( tribe_cur_url );
-			});
-
-		} );
-
-		$( 'form#tribe-bar-form' ).bind( 'submit', function ( e ) {
-
+		// event bar monitoring 
+		
+		function tribe_events_bar_listajax_actions(e) {
 			if ( tribe_events_bar_action != 'change_view' ) {
 				e.preventDefault();
 				tribe_list_paged = 1;
@@ -95,6 +84,18 @@ jQuery( document ).ready( function ( $ ) {
 					tribe_events_list_ajax_post( tribe_cur_url );
 				});
 			}
+		}
+
+		$('#tribe-bar-date').bind( 'change', function (e) {		
+			tribe_events_bar_listajax_actions(e);
+		} );
+
+		$( 'form#tribe-bar-form' ).bind( 'submit', function ( e ) {
+			tribe_events_bar_listajax_actions(e);
+		} );
+		
+		$( '.tribe-bar-settings button[name="settingsUpdate"]' ).bind( 'click', function (e) {		
+			tribe_events_bar_listajax_actions(e);		
 		} );
 
 
@@ -124,12 +125,19 @@ jQuery( document ).ready( function ( $ ) {
 				
 				// add any set values from event bar to params. want to use serialize but due to ie bug we are stuck with second
 
-				$( 'form#tribe-bar-form :input[value!=""]' ).each( function () {
+				$( 'form#tribe-bar-form :input[value!=""]' ).each( function () {					
 					var $this = $( this );
-					if( $this.val().length && $this.attr('name') != 'submit-bar' ) {
-						tribe_params[$this.attr('name')] = $this.val();
-						tribe_url_params[$this.attr('name')] = $this.val();						
-					}			
+					if( $this.val().length && !$this.hasClass('tribe-no-param') ) {
+						if( $this.is(':checkbox') ) {
+							if( $this.is(':checked') ) {
+								tribe_params[$this.attr('name')] = $this.val();
+								tribe_url_params[$this.attr('name')] = $this.val();
+							}
+						} else {
+							tribe_params[$this.attr('name')] = $this.val();
+							tribe_url_params[$this.attr('name')] = $this.val();
+						}					
+					}								
 				} );
 				
 				tribe_params = $.param(tribe_params);
