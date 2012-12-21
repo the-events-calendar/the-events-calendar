@@ -655,9 +655,20 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * 
 		 */
-		public static function setNotice( $notice ){
-			self::instance()->notices[] = $notice;
+		public static function setNotice( $key, $notice ){
+			self::instance()->notices[ $key ] = $notice;
 			return true;
+		}
+		public static function isNotice( $key ) {
+			return !empty( self::instance()->notices[ $key ] ) ? true : false ;
+		}
+		public static function removeNotice( $key ){
+			if ( self::isNotice($key)) {
+				unset( self::instance()->notices[ $key ] );
+				return true;
+			} else {
+				return false;
+			}
 		}
 		public static function getNotices(){
 			return self::instance()->notices;

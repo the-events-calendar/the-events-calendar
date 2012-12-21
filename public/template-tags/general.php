@@ -552,6 +552,9 @@ if( class_exists( 'TribeEvents' ) ) {
 			$wp_query = TribeEventsQuery::getEvents( $args, true );
 		}
 
+		// single-event notices are jumping in on this init when loading as a module
+		TribeEvents::removeNotice( 'event-past' );
+
 		// get the list view template
 		ob_start();
 		include apply_filters( 'tribe_include_view_list', TribeEventsTemplates::getTemplateHierarchy('list') );

@@ -21,7 +21,6 @@ if( !class_exists('Tribe_Events_List_Template')){
 
 		public static function init(){
 
-
 			// Our various messages if there are no events for the query
 			if ( ! have_posts() ) { // Messages if currently no events
 				$tribe_ecp = TribeEvents::instance();
@@ -35,15 +34,13 @@ if( !class_exists('Tribe_Events_List_Template')){
 					}
 				}
 				if( tribe_is_day() ) {
-					TribeEvents::setNotice( sprintf( __( '<p>No events scheduled for <strong>%s</strong>. Please try another day.</p>', 'tribe-events-calendar' ), date_i18n( 'F d, Y', strtotime( get_query_var( 'eventDate' ) ) ) ) );
+					TribeEvents::setNotice( 'events-not-found', sprintf( __( '<p>No events scheduled for <strong>%s</strong>. Please try another day.</p>', 'tribe-events-calendar' ), date_i18n( 'F d, Y', strtotime( get_query_var( 'eventDate' ) ) ) ) );
 				} elseif( tribe_is_upcoming() ) {
-					TribeEvents::setNotice( __('No upcoming events ', 'tribe-events-calendar') . $is_cat_message );
+					TribeEvents::setNotice( 'events-not-found', __('No upcoming events ', 'tribe-events-calendar') . $is_cat_message );
 				} elseif( tribe_is_past() ) {
-					TribeEvents::setNotice( __('No previous events ', 'tribe-events-calendar') . $is_cat_message );
+					TribeEvents::setNotice( 'events-past-not-found', __('No previous events ', 'tribe-events-calendar') . $is_cat_message );
 				}
 			}
-
-
 
 			// Start list template
 			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
