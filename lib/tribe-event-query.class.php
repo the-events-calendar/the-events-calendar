@@ -435,8 +435,7 @@ if (!class_exists('TribeEventsQuery')) {
 					// echo $wpdb->last_query;
 					$start_date = new DateTime( $args['start_date'] );
 					$end_date = new DateTime( $args['end_date'] );
-					$interval = $start_date->diff( $end_date );
-					$days = $interval->format( '%a' );
+					$days = self::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
 					$date = $start_date;
 					for ( $i = 0; $i <= $days; $i++ ) {
 						$count = 0;
@@ -456,6 +455,17 @@ if (!class_exists('TribeEventsQuery')) {
 			//print_r($counts);
 			// echo '</pre>';
 			return $counts;
+		}
+		
+		protected function dateDiff( $date1, $date2 ) {
+			$current = $date1;
+			$datetime2 = date_create( $date2 );
+			$count = 0;
+			while(date_create($current) < $datetime2){ 
+       			$current = gmdate("Y-m-d", strtotime("+1 day", strtotime($current))); 
+       			$count++; 
+   			} 
+    		return $count;
 		}
 
 		/**
