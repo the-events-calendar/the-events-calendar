@@ -36,7 +36,6 @@ jQuery( document ).ready( function ( $ ) {
 	if ( $( '#tribe-events-bar .hasDatepicker' ).length ) {
 		$( '#tribe-events-bar' ).addClass( 'tribe-has-datepicker' );
 	}
-	$( '#tribe-events-content' ).addClass( 'tribe-nav-alt' );
 
 	// Implement placeholder
 	$( 'input[name*="tribe-bar-"]' ).placeholder();

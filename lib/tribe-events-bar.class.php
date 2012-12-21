@@ -184,4 +184,4 @@ class TribeEventsBar {
 
 }
 
-TribeEventsBar::instance();
+//TribeEventsBar::instance();

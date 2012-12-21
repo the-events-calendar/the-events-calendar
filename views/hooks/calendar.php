@@ -91,11 +91,11 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&#x2190; '. tribe_get_previous_month_text() .' </a>';
 			$html .= '</li><!-- .tribe-events-prev-next -->';
 			
-			$html .= '<li>';
+			$html .= '<li class="tribe-events-nav-date">';
 			ob_start();
 			tribe_month_year_dropdowns( "tribe-events-" );
 			$html .= ob_get_clean();
-			$html .= '</li>';
+			$html .= '</li><!-- .tribe-events-nav-date -->';
 	
 			$html .= '<li class="tribe-events-nav-next">';
 			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() . '" rel="next"> '. tribe_get_next_month_text() .' &#x2192;</a>';
