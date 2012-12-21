@@ -239,7 +239,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 *
 		 * @return string $html
 		 */
-		function wp_ajax_tribe_event_week(){
+		function wp_ajax_tribe_week(){
 			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
 
 				if ( class_exists( 'TribeEventsFilterView' ) ) {
@@ -262,7 +262,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				if ( have_posts() )
 					the_post();
 				
-				load_template( TribeEventsTemplates::getTemplateHierarchy( 'week' ) );
+				load_template( TribeEventsTemplates::getTemplateHierarchy( 'week', '', 'pro', $this->pluginPath ) );
 			}
 			die();
 

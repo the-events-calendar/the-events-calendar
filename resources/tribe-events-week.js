@@ -1,6 +1,4 @@
-jQuery(document).ready(function($){
-		
-	// a function to find overlapping events. Manipulate css to adjust display. Extend selectors to do more fancy stuff with multiples.
+jQuery(document).ready(function($){	
 					
 	function tribe_find_overlapped_events($week_events) {			    
 
@@ -34,66 +32,292 @@ jQuery(document).ready(function($){
 			}
 		});			
 	}
+	
+	function tribe_display_week_view() {	
 					
-	var $week_events = $(".tribe-grid-body .tribe-grid-content-wrap .column > div[id*='tribe-events-event-']");
-	var grid_height = $(".tribe-week-grid-inner-wrap").height();
-		
-	$week_events.hide();
-		
-	$week_events.each(function() {
-			
-		// let's iterate through each event in the main grid and set their length plus position in time.
-			
-		var $this = $(this);			
-		var event_hour = $this.attr("data-hour");			
-		var event_length = $this.attr("duration") - 14;	
-		var event_min = $this.attr("data-min");
-			
-		// $event_target is our grid block with the same data-hour value as our event.
-			
-		var $event_target = $('.tribe-week-grid-block[data-hour="' + event_hour + '"]');
-			
-		// let's find it's offset from top of main grid container
-			
-		var event_position_top = 
-		$event_target.offset().top -
-		$event_target.parent().offset().top - 
-		$event_target.parent().scrollTop();
-			
-		// now let's add the events minutes to the offset (relies on grid block being 60px, 1px per minute, nice)
-			
-		event_position_top = parseInt(Math.round(event_position_top)) + parseInt(event_min);
-			
-		// now let's see if we've exceeding space because this event runs into next day
-			
-		var free_space = grid_height - event_length - event_position_top;
-			
-		if(free_space < 0) {
-			event_length = event_length + free_space - 14;
-		}
-			
-		// ok we have all our values, let's set length and position from top for our event and show it.
+		var $week_events = $(".tribe-grid-body .tribe-grid-content-wrap .column > div[id*='tribe-events-event-']");
+		var grid_height = $(".tribe-week-grid-inner-wrap").height();
 
-		$this.css({
-			"height":event_length + "px",
-			"top":event_position_top + "px"
-			}).show();			
-	});
+		$week_events.hide();
+
+		$week_events.each(function() {
+
+			// let's iterate through each event in the main grid and set their length plus position in time.
+
+			var $this = $(this);			
+			var event_hour = $this.attr("data-hour");			
+			var event_length = $this.attr("duration") - 14;	
+			var event_min = $this.attr("data-min");
+
+			// $event_target is our grid block with the same data-hour value as our event.
+
+			var $event_target = $('.tribe-week-grid-block[data-hour="' + event_hour + '"]');
+
+			// let's find it's offset from top of main grid container
+
+			var event_position_top = 
+			$event_target.offset().top -
+			$event_target.parent().offset().top - 
+			$event_target.parent().scrollTop();
+
+			// now let's add the events minutes to the offset (relies on grid block being 60px, 1px per minute, nice)
+
+			event_position_top = parseInt(Math.round(event_position_top)) + parseInt(event_min);
+
+			// now let's see if we've exceeding space because this event runs into next day
+
+			var free_space = grid_height - event_length - event_position_top;
+
+			if(free_space < 0) {
+				event_length = event_length + free_space - 14;
+			}
+
+			// ok we have all our values, let's set length and position from top for our event and show it.
+
+			$this.css({
+				"height":event_length + "px",
+				"top":event_position_top + "px"
+				}).show();			
+		});
+
+		// now that we have set our events up correctly let's deal with our overlaps
+
+		tribe_find_overlapped_events($week_events);
+
+		// let's set the height of the allday columns to the height of the tallest
+
+		var all_day_height = $(".tribe-grid-allday .tribe-grid-content-wrap").height();
+
+		$(".tribe-grid-allday .column").height(all_day_height);
+
+		// let's set the height of the other columns for week days to be as tall as the main container
+
+		var week_day_height = $(".tribe-grid-body").height();
+
+		$(".tribe-grid-body .tribe-grid-content-wrap .column").height(week_day_height);
+	
+	}
+	
+	tribe_display_week_view();
+	
+	if( typeof GeoLoc === 'undefined' ) 
+		var GeoLoc = {"map_view":""};
+
+	if( tribe_has_pushstate && !GeoLoc.map_view ) {
+
+		// fix any browser that fires popstate on first load incorrectly
+
+		var popped = ('state' in window.history), initialURL = location.href;
+
+		$(window).bind('popstate', function(event) {
+
+			var initialPop = !popped && location.href == initialURL;
+			popped = true;
+
+			// if it was an inital load, get out of here
+
+			if ( initialPop ) return;
+
+			// this really is popstate: fire the ajax, send the stored params from the browser, don't overwrite the history
+
+			if( event.state ) {			
+				tribe_do_string = false;
+				tribe_pushstate = false;	
+				tribe_popping = true;
+				tribe_params = event.state.tribe_params;
+				tribe_pre_ajax_tests( function() {
+					tribe_events_week_ajax_post( '', '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params );
+				});
+			}
+		} );
+	}
+
+	$( '.tribe-events-week-grid .tribe-events-sub-nav a' ).live( 'click', function ( e ) {
+		e.preventDefault();		
+		tribe_date = $( this ).attr( "data-week" );
+		tribe_href_target = $( this ).attr( "href" );
+		tribe_pushstate = true;
+		tribe_do_string = false;
+		tribe_pre_ajax_tests( function() { 		
+			tribe_events_week_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );	
+		});
+	} );
+
+	$( '#tribe-bar-dates select' ).live( 'change', function ( e ) {
+		e.preventDefault();			
+		tribe_date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();
+		tribe_href_target = tribe_base_url + tribe_date + '/';		
+		tribe_pushstate = true;
+		tribe_do_string = false;
+		tribe_pre_ajax_tests( function() { 
+			tribe_events_week_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );	
+		});
+	} );	
+
+	// events bar intercept submit
+	
+	function tribe_events_bar_weekajax_actions(e) {
+		if( tribe_events_bar_action != 'change_view' ) {
+
+			e.preventDefault();			
+
+			tribe_date = $('#tribe-events-header').attr('data-date');
+			tribe_href_target = tribe_get_path( jQuery( location ).attr( 'href' ) );		
+
+			tribe_pushstate = false;
+			tribe_do_string = true;			
+			
+			tribe_pre_ajax_tests( function() { 
+				tribe_events_week_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
+			});		
+		}
+	}
+
+	$( 'form#tribe-bar-form' ).bind( 'submit', function (e) {
+		tribe_events_bar_weekajax_actions(e);
+	} );
+	
+	$( '.tribe-bar-settings button[name="settingsUpdate"]' ).bind( 'click', function (e) {		
+		tribe_events_bar_weekajax_actions(e);		
+	} );
+
+	// if advanced filters active intercept submit
+
+	if( $('#tribe_events_filters_form').length ) {
 		
-	// now that we have set our events up correctly let's deal with our overlaps
+		var $form = $('#tribe_events_filters_form');
 		
-	tribe_find_overlapped_events($week_events);
+		if( $('body').hasClass('tribe-filter-live') ) {
+			$( "#tribe_events_filters_form .ui-slider" ).on( "slidechange", function() {
+				if( !$form.hasClass('tribe-reset-on') ){
+					tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
+					tribe_href_target = tribe_get_path( jQuery( location ).attr( 'href' ) );	
+					tribe_pushstate = false;
+					tribe_do_string = true;
+					tribe_pre_ajax_tests( function() { 
+						tribe_events_week_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
+					});
+				}			
+			} );
+			$("#tribe_events_filters_form").on("change", "input, select", function(){
+				if( !$form.hasClass('tribe-reset-on') ){
+					tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
+					tribe_href_target = tribe_get_path( jQuery( location ).attr( 'href' ) );	
+					tribe_pushstate = false;
+					tribe_do_string = true;
+					tribe_pre_ajax_tests( function() { 
+						tribe_events_week_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
+					});
+				}
+			});			
+		}		
 		
-	// let's set the height of the allday columns to the height of the tallest
+		$form.bind( 'submit', function ( e ) {
+			if ( tribe_events_bar_action != 'change_view' ) {
+				e.preventDefault();
+				tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
+				tribe_href_target = tribe_get_path( jQuery( location ).attr( 'href' ) );	
+				tribe_pushstate = false;
+				tribe_do_string = true;
+				tribe_pre_ajax_tests( function() { 
+					tribe_events_week_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
+				});
+			}
+		} );
+	}	
+
+
+	function tribe_events_week_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string, tribe_popping, tribe_params ) {
+
+		$( '.ajax-loading' ).show();
 		
-	var all_day_height = $(".tribe-grid-allday .tribe-grid-content-wrap").height();
-		
-	$(".tribe-grid-allday .column").height(all_day_height);
-		
-	// let's set the height of the other columns for week days to be as tall as the main container
-		
-	var week_day_height = $(".tribe-grid-body").height();
-		
-	$(".tribe-grid-body .tribe-grid-content-wrap .column").height(week_day_height);
+		if( !tribe_popping ) {
+			
+			
+
+			tribe_params = {
+				action:'tribe_week',
+				eventDate:tribe_date
+			};	
+
+			// add any set values from event bar to params. want to use serialize but due to ie bug we are stuck with second	
+
+			$( 'form#tribe-bar-form :input[value!=""]' ).each( function () {
+				var $this = $( this );
+				if( $this.val().length && !$this.hasClass('tribe-no-param') ) {
+					if( $this.is(':checkbox') ) {
+						if( $this.is(':checked') ) {
+							tribe_params[$this.attr('name')] = $this.val();
+							tribe_push_counter++;
+						}
+					} else {
+						tribe_params[$this.attr('name')] = $this.val();
+						tribe_push_counter++;
+					}					
+				}			
+			} );
+
+			tribe_params = $.param(tribe_params);
+
+			// check if advanced filters plugin is active
+
+			if( $('#tribe_events_filters_form').length ) {
+
+				// serialize any set values and add to params
+
+				tribe_filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();				
+				if( tribe_filter_params.length ) {
+					tribe_params = tribe_params + '&' + tribe_filter_params;
+				}
+			}			
+			
+			if ( tribe_push_counter > 0 || tribe_filter_params != '' ) {
+				tribe_pushstate = false;
+				tribe_do_string = true;				
+			}
+			
+			
+		} 
+
+		if( tribe_has_pushstate ) {
+
+			$.post(
+				TribeWeek.ajaxurl,
+				tribe_params,
+				function ( response ) {
+					$( "#ajax-loading" ).hide();
+					if ( response !== '' ) {
+						var $the_content = $( response ).contents();
+						$( '#tribe-events-content.tribe-events-week-grid' ).html( $the_content );
+
+						tribe_display_week_view();
+						
+						if( tribe_do_string ) {							
+							tribe_href_target = tribe_href_target + '?' + tribe_params;								
+							history.pushState({
+								"tribe_date": tribe_date,
+								"tribe_params": tribe_params
+							}, '', tribe_href_target);															
+						}						
+
+						if( tribe_pushstate ) {								
+							history.pushState({
+								"tribe_date": tribe_date,
+								"tribe_params": tribe_params
+							}, '', tribe_href_target);
+						}
+					}
+				}
+			);
+				
+		} else {
+			
+			if( tribe_do_string ) {
+				tribe_href_target = tribe_href_target + '?' + tribe_params;													
+			}			
+			
+			window.location = tribe_href_target;			
+		}
+	}
 		
 });
