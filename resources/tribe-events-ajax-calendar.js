@@ -70,9 +70,8 @@ jQuery( document ).ready( function ( $ ) {
 	} );	
 
 	// events bar intercept submit
-
-	$( 'form#tribe-bar-form' ).bind( 'submit', function (e) {
-
+	
+	function tribe_events_bar_calajax_actions(e) {
 		if( tribe_events_bar_action != 'change_view' ) {
 
 			e.preventDefault();			
@@ -87,6 +86,14 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
 			});		
 		}
+	}
+
+	$( 'form#tribe-bar-form' ).bind( 'submit', function (e) {
+		tribe_events_bar_calajax_actions(e);
+	} );
+	
+	$( '.tribe-bar-settings button[name="settingsUpdate"]' ).bind( 'click', function (e) {		
+		tribe_events_bar_calajax_actions(e);		
 	} );
 
 	// if advanced filters active intercept submit
@@ -152,9 +159,16 @@ jQuery( document ).ready( function ( $ ) {
 
 			$( 'form#tribe-bar-form :input[value!=""]' ).each( function () {
 				var $this = $( this );
-				if( $this.val().length  && $this.attr('name') != 'submit-bar' && $this.attr('name') != 'tribe-bar-view' && $this.attr('name') != 'EventJumpToMonth' && $this.attr('name') != 'EventJumpToYear' ) {
-					tribe_params[$this.attr('name')] = $this.val();
-					tribe_push_counter++;
+				if( $this.val().length && !$this.hasClass('tribe-no-param') ) {
+					if( $this.is(':checkbox') ) {
+						if( $this.is(':checked') ) {
+							tribe_params[$this.attr('name')] = $this.val();
+							tribe_push_counter++;
+						}
+					} else {
+						tribe_params[$this.attr('name')] = $this.val();
+						tribe_push_counter++;
+					}					
 				}			
 			} );
 

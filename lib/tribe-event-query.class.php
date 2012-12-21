@@ -89,7 +89,7 @@ if (!class_exists('TribeEventsQuery')) {
 				add_filter( 'posts_where', array(__CLASS__, 'posts_where'), 10, 2);
 				add_filter( 'posts_fields',	array( __CLASS__, 'posts_fields' ) );
 				add_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct'));
-				add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ) );
+				add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ), 10, 2 );
 
 				if( !empty($query->query_vars['eventDisplay']) ) {
 	            	switch ( $query->query_vars['eventDisplay'] ) {
@@ -245,9 +245,39 @@ if (!class_exists('TribeEventsQuery')) {
 			return $query;
 		}
 
-		public static function posts_groupby( $groupby_sql ) {
+		/**
+		 * Filter all returned event posts & add additional required fields
+		 * @param  array $posts returned via wp_query
+		 * @return array $posts (modified)
+		 */
+		public function the_posts( $posts ) {
+			if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) || !is_admin() ) {
+				if( !empty($posts) ) {
+					foreach( $posts as $id => $post ) {
+						$posts[$id]->tribe_is_event = false;
+						$posts[$id]->tribe_is_recurrance = false;
+
+						// is event add required fields
+						if( tribe_is_event( $post ) ) {
+							$posts[$id]->tribe_is_event = true;
+							$posts[$id]->tribe_is_allday = tribe_get_event_meta( $post->ID, '_EventAllDay' ) ? true : false;
+							$posts[$id]->EventStartDate = get_post_meta( $post->ID, '_EventStartDate', true);
+							$posts[$id]->EventDuration = get_post_meta( $post->ID, '_EventDuration', true);
+							$posts[$id]->EventEndDate = get_post_meta( $post->ID, '_EventEndDate', true);
+						}
+					}
+				}
+			}
+
+			// print_r(self::$start_date);
+
+			// return modified event posts with additional fields if added
+			return $posts;
+		}
+
+		public static function posts_groupby( $groupby_sql, $query ) {
 			if ( self::$is_event_query ) {
-				return apply_filters('tribe_events_query_posts_groupby','');
+				return apply_filters('tribe_events_query_posts_groupby','', $query);
 			} else {
                return $groupby_sql;
         	}
