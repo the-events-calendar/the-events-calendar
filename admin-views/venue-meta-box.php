@@ -31,7 +31,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			$defaultCountry = tribe_get_option('defaultCountry');
 			if (isset($_VenueCountry) && $_VenueCountry) {
 				$current = $_VenueCountry;
-			} elseif (isset($defaultCountry[1]) && tribe_get_option('defaultValueReplace')) {
+			} elseif (isset($defaultCountry[1]) && class_exists( 'TribeEventsPro' ) && tribe_get_option('defaultValueReplace')) {
 				$current = $defaultCountry[1];
 			} else {
 				$current = null;
