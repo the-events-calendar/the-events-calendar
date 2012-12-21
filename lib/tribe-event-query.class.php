@@ -43,8 +43,8 @@ if (!class_exists('TribeEventsQuery')) {
 		public function pre_get_posts( $query ) {
 			
 			global $wp_the_query;
-			if ( $query === $wp_the_query && tribe_get_option( 'showEventsInMainLoop', false ) && !in_array( TribeEvents::POSTTYPE, $query->query_vars['post_type'] ) ) {
-				$query->query_vars['post_type'] = (array) $query->query_vars['post_type'];
+			if ( $query === $wp_the_query && tribe_get_option( 'showEventsInMainLoop', false ) ) {
+				$query->query_vars['post_type'] = isset( $query->query_vars['post_type'] ) ? (array) $query->query_vars['post_type'] : array();
 				$query->query_vars['post_type'][] = TribeEvents::POSTTYPE;
 			}
 		
