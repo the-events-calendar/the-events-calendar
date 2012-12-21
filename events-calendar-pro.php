@@ -128,7 +128,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			add_action( 'wp_ajax_tribe_photo', array( $this, 'wp_ajax_tribe_photo' ) );
 			add_action( 'wp_ajax_nopriv_tribe_photo', array( $this, 'wp_ajax_tribe_photo' ) );
-
+			
+			add_filter( 'tribe_events_pre_get_posts' , array( $this, 'setup_hide_recurrence_in_query' ) );
 		}
 
 		function events_before_html( $html ) {
@@ -662,6 +663,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$content .= 'END:VCALENDAR';
 			echo $content;
 			exit;
+		}
+				
+		public function setup_hide_recurrence_in_query( $query ) {
+			if ( !empty( $_REQUEST['tribeHideRecurrence'] ) && $_REQUEST['tribeHideRecurrence'] == '1' ) {
+				$query->query_vars['tribeHideRecurrence'] = $_REQUEST['tribeHideRecurrence'];
+			}
+
+			return $query;
 		}
 
 		public function googleCalendarLink( $postId = null ) {
