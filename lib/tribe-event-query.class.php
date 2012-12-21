@@ -435,19 +435,19 @@ if (!class_exists('TribeEventsQuery')) {
 					// echo $wpdb->last_query;
 					$start_date = new DateTime( $args['start_date'] );
 					$end_date = new DateTime( $args['end_date'] );
+					$date = $start_date;	
 					$days = self::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
-					$date = $start_date;
-					for ( $i = 0; $i <= $days; $i++ ) {
+					for ( $i = 0, $date = $start_date; $i <= $days; $i++, $date->modify( '+1 day' ) ) {
+						$formatted_date = $date->format( 'Y-m-d' );
 						$count = 0;
 						foreach( $raw_counts as $record ) {
 							$record_start = $record->EventStartDate;
 							$record_end = $record->EventEndDate;
-							if ( $record_start <= $date->format( 'Y-m-d' ) && $record_end >= $date->format( 'Y-m-d' ) ) {
+							if ( $record_start <= $formatted_date && $record_end >= $formatted_date ) {
 								$count++;
 							}
 						}
-						$counts[ $date->format( 'Y-m-d' ) ] = $count;
-						$date = $date->modify( '+1 day' );
+						$counts[ $formatted_date ] = $count;
 					}
 					break;
 			}
