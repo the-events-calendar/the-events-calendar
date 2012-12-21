@@ -120,7 +120,7 @@ class TribeEventsGeoLoc {
 
 
 			$args['geoloc_default_geofence'] = array( 'type'            => 'text',
-			                                          'label'           => __( 'Map view search distane ratio (GeoFence)', 'tribe-events-calendar-pro' ),
+			                                          'label'           => __( 'Map view search distance ratio (GeoFence)', 'tribe-events-calendar-pro' ),
 			                                          'size'            => 'small',
 			                                          'tooltip'         => __( 'Enter a number in the unit selected above.', 'tribe-events-calendar-pro' ),
 			                                          'default'         => '25',
