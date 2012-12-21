@@ -3045,6 +3045,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public static function postIdHelper( $postId = null ) {
 			if ( $postId != null && is_numeric( $postId ) > 0 ) {
 				return (int) $postId;
+			} elseif( is_object($postId) && !empty($postId->ID)) {
+				return (int) $postId->ID;
 			} else {
 				global $post;
 				if ( is_object($post) ){
@@ -3328,7 +3330,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				if ( empty( $query->query_vars['meta_query'] ) ) {
 					$query->set( 'meta_query', array( $meta_query ) );
 				} else {
-					$query->query_vars['meta_query'][] = $meta_query;
+					$key = array_search( array('key' => '_EventStartDate', 'type' => 'DATETIME'), $query->query_vars['meta_query'] );
+					if ( is_int( $key ) )
+						$query->query_vars['meta_query'][$key] = $meta_query;
+					else
+						$query->query_vars['meta_query'][] = $meta_query;
 				}
 			}
 

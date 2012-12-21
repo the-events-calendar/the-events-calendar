@@ -218,7 +218,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_event_meta( $postId = null, $meta = false, $single = true ){
-		$postId = TribeEvents::postIdHelper( $postId );
+		//$postId = TribeEvents::postIdHelper( $postId );
 		$tribe_ecp = TribeEvents::instance();
 		$output = $tribe_ecp->getEventMeta( $postId, $meta, $single );
 		return apply_filters('tribe_get_event_meta', $output);
