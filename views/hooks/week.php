@@ -408,12 +408,12 @@ if( !class_exists('Tribe_Events_Week_Template')){
 			$current_week = tribe_get_first_week_day( $wp_query->get('start_date') );
 
 			// Display Week Navigation
-			$html = sprintf('<div id="tribe-events-header"><h3 class="tribe-events-visuallyhidden">%s</h3><ul class="tribe-events-sub-nav"><li class="tribe-events-nav-prev"><a href="%s" rel="prev">%s</a></li><li class="tribe-events-nav-next"><a href="%s" rel="next">%s</a><img src="%s" class="ajax-loading" id="ajax-loading" alt="Loading events" /></li></ul></div>',
+			$html = sprintf('<div id="tribe-events-header"><h3 class="tribe-events-visuallyhidden">%1$s</h3><ul class="tribe-events-sub-nav"><li class="tribe-events-nav-prev"><a data-week="%3$s" href="%2$s" rel="prev">&#x2190; %3$s</a></li><li class="tribe-events-nav-next"><a data-week="%5$s" href="%4$s" rel="next">%5$s &#x2192;</a><img src="%6$s" class="ajax-loading" id="ajax-loading" alt="Loading events" /></li></ul></div>',
 								__( 'Week Navigation', 'tribe-events-calendar' ),
 								tribe_get_last_week_permalink( $current_week ),
-								'&#x2190;' . tribe_get_previous_month_text(),
+								date('Y-m-d', strtotime( $current_week . ' -7 days') ),
 								tribe_get_next_week_permalink( $current_week ),
-								tribe_get_next_month_text()  . '&#x2192;',
+								date('Y-m-d', strtotime( $current_week . ' +7 days') ),
 								esc_url( admin_url( 'images/wpspin_light.gif' ) )
 								);
 
