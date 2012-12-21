@@ -4,13 +4,13 @@ jQuery( document ).ready( function ( $ ) {
 	
 	var container = $('#tribe-events-photo-events');
 	var containerWidth = container.width();
-  if ( containerWidth < 643 ) {
-  	container.addClass('photo-two-col');
-  } else {
-  	container.removeClass('photo-two-col');
-  }	
+	if ( containerWidth < 643 ) {
+		container.addClass('photo-two-col');
+	} else {
+		container.removeClass('photo-two-col');
+	}	
 	$(window).load(function(){ 
-    container.imagesLoaded( function(){    
+		container.imagesLoaded( function(){    
 			container.isotope({
 				containerStyle: {
 					position: 'relative', 
@@ -22,15 +22,15 @@ jQuery( document ).ready( function ( $ ) {
 	}); 
 
 	// update columnWidth on window resize
-  $(window).resize(function() {
-  	var containerWidth = container.width();
-      if ( containerWidth < 643 ) {
-      	container.addClass('photo-two-col');
-      } else {
-      	container.removeClass('photo-two-col');
-      }
-     container.isotope('reLayout');
-  });
+	$(window).resize(function() {
+		var containerWidth = container.width();		
+		if ( containerWidth < 643 ) {
+			container.addClass('photo-two-col');
+		} else {
+			container.removeClass('photo-two-col');
+		}
+		container.isotope('reLayout');
+	});
 	
 	var tribe_is_paged = tribe_get_url_param('tribe_paged');		
 	
