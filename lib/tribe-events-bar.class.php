@@ -159,8 +159,8 @@ class TribeEventsBar {
 			
 			echo '<div class="tribe-bar-drop-content">';
 			echo '<h5>' . __( 'Event Settings', 'tribe-events-calendar' ) . '</h5>';
-			echo '<label for="tribeUserSettings">';
-			echo '<input type="checkbox" name="tribeUserSettings" value="1">'. __( 'Show all Occurances of Recurring Events<br /><span>Uncheck to hide all but the next iteration</span>', 'tribe-events-calendar' );
+			echo '<label for="tribeHideRecurrence">';
+			echo '<input type="checkbox" name="tribeHideRecurrence" value="1" ' . checked( $_REQUEST['tribeHideRecurrence'], '1', false ) . '>'. __( 'Show all Occurances of Recurring Events<br /><span>Uncheck to hide all but the next iteration</span>', 'tribe-events-calendar' );
 			echo '</label>';
 			echo '<button type="button" name="settingsUpdate" class="tribe-events-button-grey">' . __( 'Update', 'tribe-events-calendar' ) . '</button>';
 			echo '</div><!-- .tribe-bar-drop-content -->';

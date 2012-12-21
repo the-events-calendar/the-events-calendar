@@ -91,7 +91,7 @@ if (!class_exists('TribeEventsQuery')) {
 				add_filter( 'posts_where', array(__CLASS__, 'posts_where'), 10, 2);
 				add_filter( 'posts_fields',	array( __CLASS__, 'posts_fields' ) );
 				add_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct'));
-				add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ) );
+				add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ), 10, 2 );
 
 				if( !empty($query->query_vars['eventDisplay']) ) {
 	            	switch ( $query->query_vars['eventDisplay'] ) {
@@ -274,9 +274,9 @@ if (!class_exists('TribeEventsQuery')) {
 			return $posts;
 		}
 
-		public static function posts_groupby( $groupby_sql ) {
+		public static function posts_groupby( $groupby_sql, $query ) {
 			if ( self::$is_event_query ) {
-				return apply_filters('tribe_events_query_posts_groupby','');
+				return apply_filters('tribe_events_query_posts_groupby','', $query);
 			} else {
                return $groupby_sql;
         	}
