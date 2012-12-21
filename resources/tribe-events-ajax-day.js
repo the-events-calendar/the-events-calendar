@@ -7,6 +7,7 @@ jQuery( document ).ready( function ( $ ) {
 			$( '.tribe-events-day-time-slot' ).find( '.vevent:last' ).addClass( 'tribe-last' );
 			$( '.tribe-events-day-time-slot:first' ).find( '.vevent:first' ).removeClass( 'tribe-first' );
 		}
+		$('#tribe-bar-date').addClass('tribe-no-param');
 	}
 
 	tribe_day_add_classes();
@@ -56,6 +57,28 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	// event bar datepicker monitoring 
+	
+	function tribe_events_bar_dayajax_actions(e) {
+		if(tribe_events_bar_action != 'change_view' ) {
+
+			e.preventDefault();
+			tribe_date = $('#tribe-events-header').attr('data-date');
+			tribe_cur_url = tribe_get_path( $( location ).attr( 'href' ) );	
+			tribe_pre_ajax_tests( function() { 
+				tribe_events_calendar_ajax_post( tribe_date, tribe_cur_url );
+			});
+
+		}
+	}
+
+	$( 'form#tribe-bar-form' ).bind( 'submit', function ( e ) {
+		tribe_events_bar_dayajax_actions(e);
+	} );
+
+	$( '.tribe-bar-settings button[name="settingsUpdate"]' ).bind( 'click', function (e) {		
+		tribe_events_bar_dayajax_actions(e);	
+	} );
+
 
 	$('#tribe-bar-date').bind( 'change', function (e) {
 
@@ -68,22 +91,6 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_events_calendar_ajax_post( tribe_date, tribe_href_target );		
 		});
 
-	} );
-
-	// events bar intercept submit
-
-	$( 'form#tribe-bar-form' ).bind( 'submit', function (e) {
-
-		if(tribe_events_bar_action != 'change_view' ) {
-
-			e.preventDefault();
-			tribe_date = $('#tribe-events-header').attr('data-date');
-			tribe_cur_url = tribe_get_path( $( location ).attr( 'href' ) );	
-			tribe_pre_ajax_tests( function() { 
-				tribe_events_calendar_ajax_post( tribe_date, tribe_cur_url );
-			});
-
-		}
 	} );
 
 	// if advanced filters active intercept submit
@@ -118,10 +125,17 @@ jQuery( document ).ready( function ( $ ) {
 
 			$( 'form#tribe-bar-form :input[value!=""]' ).each( function () {
 				var $this = $( this );
-				if( $this.val().length && $this.attr('name') != 'submit-bar' && $this.attr('name') != 'tribe-bar-date' ) {
-					tribe_params[$this.attr('name')] = $this.val();
-					tribe_push_counter++;
-				}			
+				if( $this.val().length && !$this.hasClass('tribe-no-param') ) {
+					if( $this.is(':checkbox') ) {
+						if( $this.is(':checked') ) {
+							tribe_params[$this.attr('name')] = $this.val();
+							tribe_push_counter++;
+						}
+					} else {
+						tribe_params[$this.attr('name')] = $this.val();
+						tribe_push_counter++;
+					}					
+				}							
 			} );
 
 			tribe_params = $.param(tribe_params);

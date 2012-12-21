@@ -25,6 +25,8 @@ class TribeEventsRecurrenceMeta {
     // recurrance events don't have standard edit links - so we need to make sure they work right
     add_filter( 'edit_post_link', array( __CLASS__, 'edit_post_link'));
     add_action( 'wp_before_admin_bar_render', array( __CLASS__, 'admin_bar_render'));
+    
+    	add_filter( 'tribe_events_query_posts_groupby', array( __CLASS__, 'addGroupBy' ), 10, 2 );
 	}
 
 	
@@ -632,5 +634,21 @@ class TribeEventsRecurrenceMeta {
 			case "Last": return -1;
 		   default: return null;
 		}
+	}
+	
+	/**
+	 * Adds the Group By that hides future occurences of recurring events if setting is set to.
+	 *
+	 * @since 3.0
+	 * @author PaulHughes
+	 *
+	 * @param string $group_by The current group by clause.
+	 * @return string The new group by clause.
+	 */
+	public function addGroupBy( $group_by, $query ) {
+		if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] == 1 ) {
+			$group_by .= ' ID';
+		}
+		return $group_by;
 	}
 }

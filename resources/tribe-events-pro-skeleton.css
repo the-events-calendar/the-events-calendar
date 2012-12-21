@@ -306,6 +306,11 @@
 	padding: 0;
 	border: 0;
 }
+
+#tribe-events-photo-events.photo-two-col .vevent.tribe-events-photo-event {
+	width: 46%;
+}
+
 /* Tile Styling */
 
 .tribe-events-photo-event {
