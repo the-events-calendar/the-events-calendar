@@ -124,16 +124,19 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$tribe_ecp = TribeEvents::instance();
 
 			// In an events cat
-			if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
-				$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );
-				$eventCat = (int) $cat->term_id;
-				$eventPosts = tribe_get_events( array( 'eventCat' => $eventCat, 'time_order' => 'ASC', 'eventDisplay'=>'month' ) );
-			} // not in a cat
-			else {
+			// if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
+			// 	$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );
+			// 	$eventCat = (int) $cat->term_id;
+				// $eventPosts = tribe_get_events( array( 'eventCat' => $eventCat, 'time_order' => 'ASC', 'eventDisplay'=>'month' ) );
+			// } // not in a cat
+			// else {
 				// $eventPosts = tribe_get_events( array( 'eventDisplay'=>'month' ) );
-				$eventPosts = $wp_query->posts;
-			}
+				// $eventPosts = $wp_query->posts;
+			// }
 
+			// get all upcoming ids to hide so we're not querying 31 times
+			$hide_upcoming_ids = TribeEventsQuery::getHideFromUpcomingEvents();
+			$posts_per_page_limit = 3;
 			$daysInMonth = isset( $date ) ? date( 't', $date ) : date( 't' );
 			$startOfWeek = get_option( 'start_of_week', 0 );
 			list( $year, $month ) = split( '-', $tribe_ecp->date );
@@ -141,8 +144,14 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$rawOffset = date( 'w', $date ) - $startOfWeek;
 			$offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
 			$rows = 1;
-
-			$monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
+			$count_args = array(
+				'hide_upcoming_ids' => $hide_upcoming_ids,
+				'start_date' => date('Y-m-d', $date) . ' 00:00:00',
+				'end_date' => date('Y-m-t', $date) . ' 23:59:59'
+				);
+			$event_daily_counts = TribeEventsQuery::getEventCounts( $count_args );
+			// print_r($event_daily_counts);
+			// $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 ?>
 			<table class="tribe-events-calendar">
 				<thead>
@@ -176,7 +185,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 							$current_day = date_i18n( 'd' );
 							$current_month = date_i18n( 'm' );
 							$current_year = date_i18n( 'Y' );
-            				$date = "$year-$month-$day";
+            				$date = date( 'Y-m-d', strtotime("$year-$month-$day"));
 
 							$ppf = '';
 
@@ -203,9 +212,123 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 							// /public/template-tags/calendar.php
 							// This controls the markup for the days and events on the frontend
 				
-			    			echo "<td class=\"tribe-events-thismonth". $ppf ."\">". tribe_get_display_day_title( $day, $monthView, $date ) ."\n";
+			    			echo "<td class=\"tribe-events-thismonth". $ppf ."\">"."\n"; //. tribe_get_display_day_title( $day, $monthView, $date ) ."\n";
+			    			printf( '<div id="%s"><a href="%s">%s</a></div>',
+			    				'tribe-events-daynum-' . $day,
+			    				'/' . TribeEvents::getOption( 'eventsSlug', 'events' ) . '/' . date( 'Y-m-d', strtotime( $date )),
+			    				$day
+			    				);
 
-							tribe_the_display_day( $day, $monthView );
+
+			    			$args = array(
+			    				'eventDate' => $date,
+			    				'start_date' => tribe_event_beginning_of_day( $date ),
+			    				'end_date' => tribe_event_end_of_day( $date ),
+			    				// setup our own custom hide upcoming
+			    				'post__not_in' => $hide_upcoming_ids, 
+			    				'hide_upcoming' => false,
+			    				'posts_per_page' => $posts_per_page_limit,
+			    				'orderby' => 'event_date',
+								'order' => 'ASC',
+			    				'eventDisplay' => 'custom',
+			    				'no_found_rows' => true
+			    				);
+
+			    			if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
+								$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );
+								$args['eventCat'] = (int) $cat->term_id;
+							}
+
+			    			$daily_events = TribeEventsQuery::getEvents( $args, true );
+			    			// print_r( $daily_events);
+							foreach( $daily_events->posts as $post ) {
+
+								// setup_postdata( $post );
+								$eventId	= $post->ID.'-'.$day;
+								$start		= tribe_get_start_date( $post, false, 'U' );
+								$end		= tribe_get_end_date( $post, false, 'U' );
+								$cost		= tribe_get_cost( $post->ID );			
+								?>
+								
+								<?php			
+								// Get our wrapper classes (for event categories, organizer, venue, and defaults)
+								$tribe_string_classes = '';
+								$tribe_cat_ids = tribe_get_event_cat_ids( $post->ID ); 
+								foreach( $tribe_cat_ids as $tribe_cat_id ) { 
+									$tribe_string_classes .= 'tribe-events-category-'. $tribe_cat_id .' '; 
+								}
+								$tribe_string_wp_classes = '';
+								$allClasses = get_post_class(); 
+								foreach ($allClasses as $class) { 
+									$tribe_string_wp_classes .= $class . ' '; 
+								}
+								$tribe_classes_default = 'hentry vevent '. $tribe_string_wp_classes;
+								$tribe_classes_venue = tribe_get_venue_id() ? 'tribe-events-venue-'. tribe_get_venue_id() : '';
+								$tribe_classes_organizer = tribe_get_organizer_id() ? 'tribe-events-organizer-'. tribe_get_organizer_id() : '';
+								$tribe_classes_categories = $tribe_string_classes;
+								$class_string = $tribe_classes_default .' '. $tribe_classes_venue .' '. $tribe_classes_organizer .' '. $tribe_classes_categories;
+
+								// added last class for css
+								if( $i+1 == count( $daily_events ) ){
+									$class_string .= ' tribe-last';
+								}
+
+								?>
+								
+								<div id="tribe-events-event-<?php echo $eventId; ?>" class="<?php echo $class_string; ?>">
+									<h3 class="entry-title summary"><a href="<?php tribe_event_link( $post ); ?>"><?php echo $post->post_title; ?></a></h3>
+									<div id="tribe-events-tooltip-<?php echo $eventId; ?>" class="tribe-events-tooltip">
+										<h4 class="entry-title summary"><?php echo $post->post_title;?></h4>
+										<div class="tribe-events-event-body">
+											<div class="duration">
+												<abbr class="tribe-events-abbr updated published dtstart" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $start ); ?>">
+												<?php if ( !empty( $start ) )	echo date_i18n( get_option( 'date_format', 'F j, Y' ), $start );
+												if ( !tribe_get_event_meta( $post->ID, '_EventAllDay', true ) )
+													echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), $start ); ?>
+												</abbr><!-- .dtstart -->
+												<abbr class="tribe-events-abbr dtend" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $end ); ?>">
+												<?php if ( !empty( $end )  && $start !== $end ) {
+													if ( date_i18n( 'Y-m-d', $start ) == date_i18n( 'Y-m-d', $end ) ) {
+														$time_format = get_option( 'time_format', 'g:i a' );
+														if ( !tribe_get_event_meta( $post->ID, '_EventAllDay', true ) )
+															echo " – " . date_i18n( $time_format, $end );
+													} else {
+														echo " – " . date_i18n( get_option( 'date_format', 'F j, Y' ), $end );
+														if ( !tribe_get_event_meta( $post->ID, '_EventAllDay', true ) )
+														 	echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), $end ) . '<br />';
+													}
+												} ?>
+												</abbr><!-- .dtend -->
+											</div><!-- .duration -->
+											
+											<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
+												<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75,75 ) );?></div>
+											<?php } ?>
+											
+											<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $post->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
+
+										</div><!-- .tribe-events-event-body -->
+										<span class="tribe-events-arrow"></span>
+									</div><!-- .tribe-events-tooltip -->
+								</div><!-- #tribe-events-event-# -->
+								<?php
+
+
+							}
+
+							// $remaining_not_shown = !empty($daily_events->found_posts) && $daily_events->found_posts > 0 ? 
+							// 	$daily_events->found_posts - $posts_per_page_limit : 
+							// 	0;
+							if( !empty($event_daily_counts[$date]) && (int) $event_daily_counts[$date] > $posts_per_page_limit ) {
+								printf( '<div class="viewmore vevent"><a href="%s">View %d More Events &raquo;</a></div>',
+									tribe_get_day_link( $date ),
+									$event_daily_counts[$date]
+									);
+							}
+								
+
+			    			// echo $date;
+							// tribe_the_display_day( $day, $daily_events );
 							echo '</td>';
 						}
 						// Skip next month

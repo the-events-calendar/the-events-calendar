@@ -68,7 +68,7 @@ class TribeEventsBar {
 			echo $filter['html'];
 		}
 
-		echo '<input class="tribe-events-button-grey" type="submit" name="submit-bar" value="' . __( 'Search', 'tribe-events-calendar' ) . '"/>';
+		echo '<input class="tribe-events-button-grey tribe-no-param" type="submit" name="submit-bar" value="' . __( 'Search', 'tribe-events-calendar' ) . '"/>';
 		
 		echo '</div><!-- .tribe-bar-drop-content -->';
 
@@ -89,7 +89,7 @@ class TribeEventsBar {
 			$open_el  = '<li><a class="tribe-bar-view tribe-events-button-grey tribe-icon-!VIEW! !CURRENT-ACTIVE!" href="!URL!">';
 			$close_el = "</a></li>";
 			// Select input for smaller screens
-			$open_sel     = '<select class="tribe-bar-view-select tribe-select2" name="tribe-events-bar-view">';
+			$open_sel     = '<select class="tribe-bar-view-select tribe-select2 tribe-no-param" name="tribe-events-bar-view">';
 			$close_sel    = "</select>";
 			$current_sel  = 'selected';
 			$open_sel_el  = '<option !CURRENT-ACTIVE! value="!URL!">';
@@ -97,7 +97,7 @@ class TribeEventsBar {
 
 		} else {
 
-			$open     = '<select class="tribe-select2" name="tribe-bar-view">';
+			$open     = '<select class="tribe-select2 tribe-no-param" name="tribe-bar-view">';
 			$close    = "</select>";
 			$current  = 'selected';
 			$open_el  = '<option !CURRENT-ACTIVE! value="!URL!">';
@@ -159,8 +159,8 @@ class TribeEventsBar {
 			
 			echo '<div class="tribe-bar-drop-content">';
 			echo '<h5>' . __( 'Event Settings', 'tribe-events-calendar' ) . '</h5>';
-			echo '<label for="tribeUserSettings">';
-			echo '<input type="checkbox" name="tribeUserSettings" value="0">'. __( 'Show all Occurances of Recurring Events<br /><span>Uncheck to hide all but the next iteration</span>', 'tribe-events-calendar' );
+			echo '<label for="tribeHideRecurrence">';
+			echo '<input type="checkbox" name="tribeHideRecurrence" value="1" ' . checked( $_REQUEST['tribeHideRecurrence'], '1', false ) . '>'. __( 'Show all Occurances of Recurring Events<br /><span>Uncheck to hide all but the next iteration</span>', 'tribe-events-calendar' );
 			echo '</label>';
 			echo '<button type="button" name="settingsUpdate" class="tribe-events-button-grey">' . __( 'Update', 'tribe-events-calendar' ) . '</button>';
 			echo '</div><!-- .tribe-bar-drop-content -->';

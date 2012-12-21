@@ -760,6 +760,9 @@ h3.tribe-event-single-section-title {
 	padding: 0;
 	font-size: 12px;
 }
+.vevent.viewmore {
+	font-weight:bold;
+}
 
 /* Global Tooltips */
 .tribe-events-calendar .tribe-events-tooltip,

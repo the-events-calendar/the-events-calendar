@@ -97,8 +97,14 @@ jQuery( document ).ready( function ( $ ) {
 		
 		$set_inputs.each( function () {
 			var $this = $( this );
-			if( $this.val().length && $this.attr('name') != 'submit-bar' && $this.attr('name') != 'tribe-bar-view' && $this.attr('name') != 'EventJumpToMonth' && $this.attr('name') != 'EventJumpToYear' && $this.attr('name') != 'tribeUserSettings' ) {				
-				cv_url_params[$this.attr('name')] = $this.val();						
+			if( $this.val().length && !$this.hasClass('tribe-no-param') ) {	
+				if( $this.is(':checkbox') ) {
+					if( $this.is(':checked') ) {
+						cv_url_params[$this.attr('name')] = $this.val();	
+					}
+				} else {
+					cv_url_params[$this.attr('name')] = $this.val();	
+				}
 			}			
 		} );
 		

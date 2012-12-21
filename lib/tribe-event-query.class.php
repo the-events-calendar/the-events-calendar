@@ -30,8 +30,6 @@ if (!class_exists('TribeEventsQuery')) {
 			// if tribe event query add filters
 			add_filter( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 0 );
 
-			// setup returned posts with event fields ( start date, end date, duration etc )
-			add_filter( 'the_posts', array( __CLASS__, 'the_posts'), 0 );
 		}
 
 
@@ -43,8 +41,8 @@ if (!class_exists('TribeEventsQuery')) {
 		public function pre_get_posts( $query ) {
 			
 			global $wp_the_query;
-			if ( $query === $wp_the_query && tribe_get_option( 'showEventsInMainLoop', false ) && !in_array( TribeEvents::POSTTYPE, $query->query_vars['post_type'] ) ) {
-				$query->query_vars['post_type'] = (array) $query->query_vars['post_type'];
+			if ( $query === $wp_the_query && tribe_get_option( 'showEventsInMainLoop', false ) ) {
+				$query->query_vars['post_type'] = isset( $query->query_vars['post_type'] ) ? (array) $query->query_vars['post_type'] : array();
 				$query->query_vars['post_type'][] = TribeEvents::POSTTYPE;
 			}
 		
@@ -91,10 +89,13 @@ if (!class_exists('TribeEventsQuery')) {
 				add_filter( 'posts_where', array(__CLASS__, 'posts_where'), 10, 2);
 				add_filter( 'posts_fields',	array( __CLASS__, 'posts_fields' ) );
 				add_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct'));
-				add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ) );
+				add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ), 10, 2 );
 
 				if( !empty($query->query_vars['eventDisplay']) ) {
 	            	switch ( $query->query_vars['eventDisplay'] ) {
+	            		case 'custom':
+	            			// if set this allows for a custom query to not be burdened with these settings
+	            			break;
 	               		case 'past': // setup past event display query
 							$query->set( 'end_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
 							$query->set( 'orderby', 'event_date' );
@@ -274,9 +275,9 @@ if (!class_exists('TribeEventsQuery')) {
 			return $posts;
 		}
 
-		public static function posts_groupby( $groupby_sql ) {
+		public static function posts_groupby( $groupby_sql, $query ) {
 			if ( self::$is_event_query ) {
-				return apply_filters('tribe_events_query_posts_groupby','');
+				return apply_filters('tribe_events_query_posts_groupby','', $query);
 			} else {
                return $groupby_sql;
         	}
@@ -325,21 +326,24 @@ if (!class_exists('TribeEventsQuery')) {
 			// if it's a true event query then we to setup where conditions
 			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
 
+				$start_date = !empty($query->start_date) ? $query->start_date : $query->get( 'start_date');
+				$end_date = !empty($query->end_date) ? $query->end_date : $query->get( 'end_date');
+
 				// we can't store end date directly because it messes up the distinc clause
 				$duration_filter = " DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) ";
 
 				// build where conditionals for events if date range params are set
-				if( $query->get( 'start_date') != '' && $query->get( 'end_date') != '' ){
-					$start_clause = $wpdb->prepare("({$wpdb->postmeta}.meta_value >= %s AND {$wpdb->postmeta}.meta_value <= %s)", $query->get( 'start_date'), $query->get( 'end_date'));
-					$end_clause = $wpdb->prepare("($duration_filter >= %s AND {$wpdb->postmeta}.meta_value <= %s )", $query->get( 'start_date'), $query->get( 'end_date'));
-					$within_clause = $wpdb->prepare("({$wpdb->postmeta}.meta_value < %s AND $duration_filter >= %s )", $query->get( 'start_date'), $query->get( 'end_date'));
+				if( $start_date != '' && $end_date != '' ){
+					$start_clause = $wpdb->prepare("({$wpdb->postmeta}.meta_value >= %s AND {$wpdb->postmeta}.meta_value <= %s)", $start_date, $end_date);
+					$end_clause = $wpdb->prepare("($duration_filter >= %s AND {$wpdb->postmeta}.meta_value <= %s )", $start_date, $end_date);
+					$within_clause = $wpdb->prepare("({$wpdb->postmeta}.meta_value < %s AND $duration_filter >= %s )", $start_date, $end_date);
 					$where_sql .= " AND ($start_clause OR $end_clause OR $within_clause)";
-				} else if( $query->get( 'start_date') != ''){
-					$end_clause = $wpdb->prepare("{$wpdb->postmeta}.meta_value > %s", $query->get( 'start_date'));
-					$within_clause = $wpdb->prepare("({$wpdb->postmeta}.meta_value <= %s AND $duration_filter >= %s )", $query->get( 'start_date'), $query->get( 'start_date'));
+				} else if( $start_date != ''){
+					$end_clause = $wpdb->prepare("{$wpdb->postmeta}.meta_value > %s", $start_date);
+					$within_clause = $wpdb->prepare("({$wpdb->postmeta}.meta_value <= %s AND $duration_filter >= %s )", $start_date, $start_date);
 					$where_sql .= " AND ($end_clause OR $within_clause)";
-				} else if( $query->get( 'end_date') != ''){
-					$where_sql .= " AND " . $wpdb->prepare( "$duration_filter < %s", $query->get( 'end_date') );
+				} else if( $end_date != ''){
+					$where_sql .= " AND " . $wpdb->prepare( "$duration_filter < %s", $end_date );
 				}
 			}
 
@@ -354,9 +358,10 @@ if (!class_exists('TribeEventsQuery')) {
 		 */
 		public static function posts_orderby( $order_sql, $query ){
 			global $wpdb;
-			if( $query->get( 'orderby' ) == 'event_date' ) {
-				$order_direction = $query->get( 'order' );
-				$order_sql = "DATE({$wpdb->postmeta}.meta_value) {$order_direction}, TIME({$wpdb->postmeta}.meta_value) {$order_direction}";
+			$order = !empty($query->order) ? $query->order : $query->get( 'order' );
+			$orderby = !empty($query->orderby) ? $query->orderby : $query->get( 'orderby' );
+			if( $orderby == 'event_date' ) {
+				$order_sql = "DATE({$wpdb->postmeta}.meta_value) {$order}, TIME({$wpdb->postmeta}.meta_value) {$order}";
 			}
 
 			return $order_sql;
@@ -374,10 +379,99 @@ if (!class_exists('TribeEventsQuery')) {
 			return apply_filters('tribe_events_hide_from_upcoming_ids', $hide_upcoming_ids);
 		}
 
+
+
+		public static function getEventCounts( $args = array() ){
+			global $wpdb;
+			$date = date( 'Y-m-d' );
+			$defaults = array(
+				'post_type' => TribeEvents::POSTTYPE,
+				'start_date' => tribe_event_beginning_of_day( $date ),
+				'end_date' => tribe_event_end_of_day( $date ),
+				'display_type' => 'daily',
+				'hide_upcoming_ids' => null
+			);
+			$args = wp_parse_args( $args, $defaults);
+ 
+			$counts = array();
+			switch( $args['display_type'] ){
+				case 'daily':
+				default :
+					$output_date_format = '%Y-%m-%d';
+					$query = (object) array(
+						'tribe_is_event' => true,
+						'start_date' => $args['start_date'],
+						'end_date' => $args['end_date'],
+						'order' => 'ASC',
+						'orderby' => 'event_date'
+						);
+					$raw_counts = $wpdb->get_results( sprintf( "SELECT $wpdb->posts.id as ID, DATE_FORMAT( $wpdb->postmeta.meta_value, '%s') as EventStartDate, DATE_FORMAT( DATE_ADD(CAST($wpdb->postmeta.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND), '%s') as EventEndDate
+						FROM $wpdb->posts 
+						INNER JOIN $wpdb->postmeta ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id )
+						LEFT JOIN $wpdb->postmeta as tribe_event_duration ON ( $wpdb->posts.ID = tribe_event_duration.post_id AND tribe_event_duration.meta_key = '_EventDuration' )
+						WHERE 1 = 1
+						%s
+						AND post_type = '%s'
+						AND ( $wpdb->posts.post_status = 'publish' OR $wpdb->posts.post_status = 'private' )
+						AND ( $wpdb->postmeta.meta_key = '_EventStartDate' )
+						AND ( ($wpdb->postmeta.meta_value >= '%s' AND  $wpdb->postmeta.meta_value <= '%s') 
+							OR ($wpdb->postmeta.meta_value <= '%s' AND DATE_ADD(CAST( $wpdb->postmeta.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) >= '%s')
+							OR ( $wpdb->postmeta.meta_value >= '%s' AND  $wpdb->postmeta.meta_value <= '%s')
+						)
+						%s;",
+						$output_date_format,
+						$output_date_format,
+						!empty($args['hide_upcoming_ids']) ? "AND $wpdb->posts.ID NOT IN ( " . implode(',', $args['hide_upcoming_ids'] ) . " )" : '', // hide upcoming ids
+						$args['post_type'],
+						$args['start_date'],
+						$args['end_date'],
+						$args['start_date'],
+						$args['start_date'],
+						$args['start_date'],
+						$args['end_date'],
+						' ORDER BY ' . self::posts_orderby('',$query)
+						
+						));
+					// echo $wpdb->last_query;
+					$start_date = new DateTime( $args['start_date'] );
+					$end_date = new DateTime( $args['end_date'] );
+					$date = $start_date;	
+					$days = self::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
+					for ( $i = 0, $date = $start_date; $i <= $days; $i++, $date->modify( '+1 day' ) ) {
+						$formatted_date = $date->format( 'Y-m-d' );
+						$count = 0;
+						foreach( $raw_counts as $record ) {
+							$record_start = $record->EventStartDate;
+							$record_end = $record->EventEndDate;
+							if ( $record_start <= $formatted_date && $record_end >= $formatted_date ) {
+								$count++;
+							}
+						}
+						$counts[ $formatted_date ] = $count;
+					}
+					break;
+			}
+			// echo '<pre>';
+			//print_r($counts);
+			// echo '</pre>';
+			return $counts;
+		}
+		
+		protected function dateDiff( $date1, $date2 ) {
+			$current = $date1;
+			$datetime2 = date_create( $date2 );
+			$count = 0;
+			while(date_create($current) < $datetime2){ 
+       			$current = gmdate("Y-m-d", strtotime("+1 day", strtotime($current))); 
+       			$count++; 
+   			} 
+    		return $count;
+		}
+
 		/**
 		 * Customized WP_Query wrapper to setup event queries with default arguments.
 		 * @param  array  $args
-		 * @return array
+		 * @return array | WP_Query
 		 */
 		public static function getEvents( $args = array(), $full = false ) {
 			$defaults = array(

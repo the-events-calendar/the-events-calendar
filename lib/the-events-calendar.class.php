@@ -1151,7 +1151,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$VenueID = TribeCommunityEvents::getOption( 'defaultCommunityVenueID' );
 				}
 			}
-			$defaultsEnabled = tribe_get_option( 'defaultValueReplace' );
+			$defaultsEnabled = class_exists( 'TribeEventsPro' ) ? tribe_get_option( 'defaultValueReplace' ) : false;
 			if ( $current_screen->action == 'add' && !$VenueID && $defaultsEnabled ) {
 				$VenueID = tribe_get_option( 'eventsDefaultVenueID' );
 			}
@@ -1180,7 +1180,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$curOrg = TribeCommunityEvents::getOption( 'defaultCommunityOrganizerID' );
 				}
 			}
-			$defaultsEnabled = tribe_get_option( 'defaultValueReplace' );
+			$defaultsEnabled = class_exists( 'TribeEventsPro' ) ? tribe_get_option( 'defaultValueReplace' ) : false;
 			if ( $current_screen->action == 'add' && !$curOrg && $defaultsEnabled ) {
 				$curOrg = tribe_get_option( 'eventsDefaultOrganizerID' );
 			}
@@ -2060,7 +2060,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * This is mainly for templates.
 		 */
 		public function getEventMeta( $id, $meta, $single = true ){
-			$use_def_if_empty = tribe_get_option('defaultValueReplace');
+			$use_def_if_empty = class_exists( 'TribeEventsPro' ) ? tribe_get_option( 'defaultValueReplace' ) : false;
 			if($use_def_if_empty){
 				$cleaned_tag = str_replace('_Event','',$meta);
 				$default = tribe_get_option('eventsDefault'.$cleaned_tag);
@@ -2484,7 +2484,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						if( isset($_POST['Event'.$cleaned_tag]) ){
 							$$tag = stripslashes_deep($_POST['Event'.$cleaned_tag]);
 						}else{
-							$$tag = ( $this->defaultValueReplaceEnabled() ) ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
+							$$tag = ( class_exists( 'TribeEventsPro' ) && $this->defaultValueReplaceEnabled() ) ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
 						}
 					}
 				}
@@ -2522,7 +2522,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 					if ($cleaned_tag != 'Cost') {
 
-						$$var_name = ( $this->defaultValueReplaceEnabled() ) ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
+						$$var_name = ( class_exists( 'TribeEventsPro' ) && $this->defaultValueReplaceEnabled() ) ? tribe_get_option('eventsDefault'.$cleaned_tag) : "";
 					}
 
 					if( isset($_POST['venue'][$cleaned_tag]) )
@@ -3045,6 +3045,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public static function postIdHelper( $postId = null ) {
 			if ( $postId != null && is_numeric( $postId ) > 0 ) {
 				return (int) $postId;
+			} elseif( is_object($postId) && !empty($postId->ID)) {
+				return (int) $postId->ID;
 			} else {
 				global $post;
 				if ( is_object($post) ){
@@ -3328,7 +3330,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				if ( empty( $query->query_vars['meta_query'] ) ) {
 					$query->set( 'meta_query', array( $meta_query ) );
 				} else {
-					$query->query_vars['meta_query'][] = $meta_query;
+					$key = array_search( array('key' => '_EventStartDate', 'type' => 'DATETIME'), $query->query_vars['meta_query'] );
+					if ( is_int( $key ) )
+						$query->query_vars['meta_query'][$key] = $meta_query;
+					else
+						$query->query_vars['meta_query'][] = $meta_query;
 				}
 			}
 
