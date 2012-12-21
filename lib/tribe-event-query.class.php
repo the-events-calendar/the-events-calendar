@@ -447,7 +447,7 @@ if (!class_exists('TribeEventsQuery')) {
 							}
 						}
 						$counts[ $date->format( 'Y-m-d' ) ] = $count;
-						$date = $date->add( new DateInterval( 'P1D' ) );
+						$date = $date->modify( '+1 day' );
 					}
 					break;
 			}
