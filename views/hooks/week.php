@@ -88,8 +88,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 			ob_start();
 			// This title is here for ajax loading – do not remove if you want ajax switching between month views
 			?>
-			<div id="tribe-events-content" class="tribe-events-week-grid">
-				<title><?php wp_title(); ?></title>
+			<div id="tribe-events-content" class="tribe-events-week-grid">				
 			<?php
 			$html = ob_get_clean();
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_before_template');
