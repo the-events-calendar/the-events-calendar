@@ -254,12 +254,13 @@ a.tribe-events-gcal {
 
 /* General Template Headers */
 h2.tribe-events-page-title {
-	margin-bottom: 2.5%;
 	font-size: 24px;
 	font-weight: normal;
 	color: #000;
 	position: relative;
 	z-index: 0;
+	margin-bottom: 5px;
+	text-align: center;
 }
 
 /* don't float on filter view */
@@ -278,12 +279,17 @@ h2.tribe-events-page-title a:focus {
 }
 #tribe-events-header #ajax-loading {
 	display: none;
+	position: absolute;
+	left: 50%;
+	margin-left: -8px;
 }
 
 /* General Template Header Nav */
 #tribe-events-content ul.tribe-events-sub-nav {
 	list-style-type: none;
 	margin: 0;
+	overflow: hidden;
+	text-align: center;
 }
 #tribe-events-content ul.tribe-events-sub-nav li {
 	display: inline-block;
@@ -294,9 +300,14 @@ h2.tribe-events-page-title a:focus {
 }
 #tribe-events-content ul.tribe-events-sub-nav li.tribe-events-nav-prev {
 	margin-right: 5px;
+	float: left;
 }
 #tribe-events-content ul.tribe-events-sub-nav li.tribe-events-nav-next {
 	margin-left: 5px;
+	float: right;
+}
+#tribe-events-content li.tribe-events-nav-date {
+	padding-top: 16px;
 }
 select.tribe-events-dropdown {
 	width: auto;
@@ -307,28 +318,7 @@ select.tribe-events-dropdown {
 #tribe-events-picker {
 	display: inline;
 }
-#tribe-events-events-picker {
-	display: none;
-}
-/* Adjust our Header Nav When Have Events Bar */
-.tribe-nav-alt h2.tribe-events-page-title {
-	margin-bottom: 5px;
-	text-align: center;
-}
-.tribe-nav-alt #tribe-events-header #ajax-loading {
-	position: absolute;
-	left: 50%;
-	margin-left: -8px;
-}
-.tribe-nav-alt ul.tribe-events-sub-nav {
-	overflow: hidden;
-}
-.tribe-nav-alt ul.tribe-events-sub-nav li.tribe-events-nav-prev {
-	float: left;
-}
-.tribe-nav-alt ul.tribe-events-sub-nav li.tribe-events-nav-next {
-	float: right;
-}
+
 
 /* = Calendar View & List View Template Styles
    @ Template: calendar.php & list.php

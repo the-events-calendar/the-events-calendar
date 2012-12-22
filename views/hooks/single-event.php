@@ -19,7 +19,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			$gmt_offset = (get_option('gmt_offset') >= '0' ) ? ' +' . get_option('gmt_offset') : " " . get_option('gmt_offset');
 		 	$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
 		 	if ( strtotime( tribe_get_end_date( get_the_ID(), false, 'Y-m-d G:i' ) . $gmt_offset ) <= time() ) { 
-		 		TribeEvents::setNotice( __('This event has passed.', 'tribe-events-calendar') );
+		 		TribeEvents::setNotice( 'event-past', __('This event has passed.', 'tribe-events-calendar') );
 		 	} 
 
 			// Start single template
@@ -295,7 +295,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		</div>	
 									
 		</div><!-- .tribe-events-event-meta -->
-	<?php if ( tribe_embed_google_map( get_the_ID() ) && tribe_address_exists( get_the_ID() ) && ( $tribe_event_custom_fields || tribe_has_organizer() ) ) : // If there's a venue map, show this seperate section ?>
+	<?php if ( tribe_embed_google_map( get_the_ID() ) && tribe_address_exists( get_the_ID() ) && ( $tribe_event_custom_fields || tribe_has_organizer() ) ) : // If there's a venue map and custom fields, show venue details in this seperate section ?>
 				<div class="tribe-event-single-section tribe-events-event-meta tribe-clearfix">
 					<div class="tribe-events-meta-column">
 						<dl>
