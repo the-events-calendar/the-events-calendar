@@ -129,6 +129,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'wp_ajax_tribe_photo', array( $this, 'wp_ajax_tribe_photo' ) );
 			add_action( 'wp_ajax_nopriv_tribe_photo', array( $this, 'wp_ajax_tribe_photo' ) );
 			
+			/* AJAX for loading week view */
+
+			add_action( 'wp_ajax_tribe_week', array( $this, 'wp_ajax_tribe_week' ) );
+			add_action( 'wp_ajax_nopriv_tribe_week', array( $this, 'wp_ajax_tribe_week' ) );
+			
 			add_filter( 'tribe_events_pre_get_posts' , array( $this, 'setup_hide_recurrence_in_query' ) );
 		}
 
@@ -226,6 +231,41 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			echo json_encode( $response );
 
 			die();
+		}
+		
+		/**
+		 * AJAX handler for tribe_event_week (weekview navigation)
+		 * This loads up the week view shard with all the appropriate events for the week
+		 *
+		 * @return string $html
+		 */
+		function wp_ajax_tribe_week(){
+			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
+
+				if ( class_exists( 'TribeEventsFilterView' ) ) {
+					TribeEventsFilterView::instance()->createFilters( null, true );
+				}
+
+				TribeEventsQuery::init();
+				add_filter( 'tribe_events_pre_get_posts', array( $this, 'pre_get_posts' ) );
+
+				$args = array(
+					'post_status' => array( 'publish', 'private', 'future' ),
+					'eventDate' => $_POST["eventDate"],
+					'eventDisplay' => 'week'
+					);
+				$query = TribeEventsQuery::getEvents( $args, true );
+
+				global $wp_query, $post;
+				$wp_query = $query;
+
+				if ( have_posts() )
+					the_post();
+				
+				load_template( TribeEventsTemplates::getTemplateHierarchy( 'week', '', 'pro', $this->pluginPath ) );
+			}
+			die();
+
 		}
 
 		/**

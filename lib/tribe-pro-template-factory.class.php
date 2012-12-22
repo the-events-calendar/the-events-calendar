@@ -16,6 +16,12 @@ if( !class_exists('Tribe_PRO_Template_Factory') ) {
 			$vendor_url = trailingslashit( $tec_pro->pluginUrl ) . 'vendor/';
 
 			switch( $name ) {
+				case 'ajax-weekview' :					
+					$ajax_data = array( "ajaxurl"     => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
+					                    'post_type' => TribeEvents::POSTTYPE );					
+					wp_enqueue_script('tribe-events-pro-week', $resouces_url . 'tribe-events-week.js', array('jquery'), false, false);
+					wp_localize_script( 'tribe-events-pro-week', 'TribeWeek', $ajax_data );
+					break;					
 				case 'ajax-photoview' :				
 					$tribe_paged = ( !empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 0;
 					$ajax_data = array( "ajaxurl"     => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
