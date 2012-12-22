@@ -3332,7 +3332,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function setup_date_search_in_query( $query ) {			
 
 			if ( !empty( $_REQUEST['tribe-bar-date'] ) ) {
-				if( $_REQUEST['action'] == 'tribe_list' ) {
+				if( $_REQUEST['action'] == 'tribe_list' || $_REQUEST['action'] == 'tribe_photo' ) {
 					$query->set( 'start_date', TribeDateUtils::beginningOfDay( $_REQUEST['tribe-bar-date'] ) );					
 				} else {
 					$meta_query = array( 'key'     => '_EventStartDate',
