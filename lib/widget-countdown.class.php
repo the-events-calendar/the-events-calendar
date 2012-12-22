@@ -45,7 +45,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 				'complete' => 'Hooray!',
 			);
 			$instance = wp_parse_args( (array) $instance, $defaults);
-			$events = get_posts( array( 'post_type' => TribeEvents::POSTTYPE, 'orderby' => 'title', 'nopaging' => true ) );
+			$events = tribe_get_events( array( 'eventDisplay' => 'upcoming', 'posts_per_page' => '-1' ) );
 			include( TribeEventsPro::instance()->pluginPath . 'admin-views/widget-admin-countdown.php' );
 		}
  
@@ -90,7 +90,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 			// Get the event start date.
 			$startdate = tribe_get_start_date($event_ID, false, 'Y-m-d H:i:s');
 			// Get the number of seconds remaining until the date in question.
-			$seconds = strtotime( $startdate) - strtotime( 'now' );
+			$seconds = strtotime( $startdate ) - current_time( 'timestamp' );
 			if ( $seconds > 0 ) {
 				$ret = $this->generate_countdown_output( $seconds, $complete, $hourformat, $event_ID );
 			}
@@ -102,12 +102,12 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 			$link = tribe_get_event_link($event_ID);
 			$event = get_post($event_ID);
 			return '
+			<div class="tribe-countdown-text">'.__('Counting down to: ', 'tribe-events-calendar-pro').'<br /><a href="' .esc_url($link) . '">' . esc_attr($event->post_title) . '</a></div>
 			<div class="tribe-countdown-timer">
 				<span class="tribe-countdown-seconds">'.$seconds.'</span>
 				<span class="tribe-countdown-format">'.$hourformat.'</span>
 				<span class="tribe-countdown-complete">'.$complete.'</span>
-			</div>
-			<div class="tribe-countdown-text">'.__('Until', 'tribe-events-calendar-pro').' <a href="' .esc_url($link) . '">' . esc_attr($event->post_title) . '</a></div>';
+			</div>';
 		}
  
 	}
