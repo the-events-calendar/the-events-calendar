@@ -57,7 +57,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @todo support $postId for recurring events.
 	 * @since 2.0
 	 */
-	function tribe_get_end_date( $postId = null, $displayTime = 'true', $dateFormat = '' )  {
+	function tribe_get_end_date( $postId = null, $displayTime = true, $dateFormat = '' )  {
 		$postId = TribeEvents::postIdHelper( $postId );
 		if (!$postId || ( function_exists('tribe_is_recurring_event') && tribe_is_recurring_event( $postId ) ) ) {
 			global $post;
