@@ -3329,23 +3329,27 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			return $query;
 		}
 
-		public function setup_date_search_in_query( $query ) {
+		public function setup_date_search_in_query( $query ) {			
 
 			if ( !empty( $_REQUEST['tribe-bar-date'] ) ) {
-				$meta_query = array( 'key'     => '_EventStartDate',
-				                     'value'   => array( TribeDateUtils::beginningOfDay( $_REQUEST['tribe-bar-date'] ),
-				                                         TribeDateUtils::endOfDay( $_REQUEST['tribe-bar-date'] ) ),
-				                     'compare' => 'BETWEEN',
-				                     'type'    => 'DATETIME' );
-
-				if ( empty( $query->query_vars['meta_query'] ) ) {
-					$query->set( 'meta_query', array( $meta_query ) );
+				if( $_REQUEST['action'] == 'tribe_list' ) {
+					$query->set( 'start_date', TribeDateUtils::beginningOfDay( $_REQUEST['tribe-bar-date'] ) );					
 				} else {
-					$key = array_search( array('key' => '_EventStartDate', 'type' => 'DATETIME'), $query->query_vars['meta_query'] );
-					if ( is_int( $key ) )
-						$query->query_vars['meta_query'][$key] = $meta_query;
-					else
-						$query->query_vars['meta_query'][] = $meta_query;
+					$meta_query = array( 'key'     => '_EventStartDate',
+							     'value'   => array( TribeDateUtils::beginningOfDay( $_REQUEST['tribe-bar-date'] ),
+										 TribeDateUtils::endOfDay( $_REQUEST['tribe-bar-date'] ) ),
+							     'compare' => 'BETWEEN',
+							     'type'    => 'DATETIME' );
+
+					if ( empty( $query->query_vars['meta_query'] ) ) {
+						$query->set( 'meta_query', array( $meta_query ) );
+					} else {
+						$key = array_search( array('key' => '_EventStartDate', 'type' => 'DATETIME'), $query->query_vars['meta_query'] );
+						if ( is_int( $key ) )
+							$query->query_vars['meta_query'][$key] = $meta_query;
+						else
+							$query->query_vars['meta_query'][] = $meta_query;
+					}
 				}
 			}
 
