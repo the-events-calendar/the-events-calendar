@@ -17,15 +17,16 @@ function eventBarWidth() {
 	}
 }
 
+
 jQuery( document ).ready( function ( $ ) {
 
 	var tribe_var_datepickerOpts = {
 		dateFormat: 'yy-mm-dd',
-		showAnim: 'fadeIn'
+		showAnim: 'fadeIn'		
 	};
 
 	// Implement our datepicker
-	if ( !$( '.events-gridview' ).length ) {
+	if ( !$( '.tribe-events-week-grid' ).length ) {
 		$( '#tribe-bar-date' ).datepicker( tribe_var_datepickerOpts );
 	}
 	
