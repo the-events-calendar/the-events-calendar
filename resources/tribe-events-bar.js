@@ -70,19 +70,21 @@ jQuery( document ).ready( function ( $ ) {
 	// Implement our views bit
 	$( 'select[name=tribe-bar-view]' ).change( function () {
 		var el = $( this );
-		tribe_events_bar_action = 'change_view';
-		tribe_events_bar_change_view( el.val() );
+		var url = el.val()
+		var name = $( 'select[name=tribe-bar-view] option[value="' + url + '"]' ).attr('data-view');		
+		tribe_events_bar_action = 'change_view';		
+		tribe_events_bar_change_view( url, name );
 	} );
 
 	$( 'a.tribe-bar-view' ).on( 'click', function ( e ) {
 		e.preventDefault();
-
 		var el = $( this );
-		tribe_events_bar_change_view( el.attr( 'href' ) );
+		var name = el.attr('data-view');		
+		tribe_events_bar_change_view( el.attr( 'href' ), name );
 
 	} );
 
-	function tribe_events_bar_change_view( url ) {
+	function tribe_events_bar_change_view( url, name ) {
 		
 		tribe_events_bar_action = 'change_view';
 		
@@ -104,7 +106,11 @@ jQuery( document ).ready( function ( $ ) {
 						cv_url_params[$this.attr('name')] = $this.val();	
 					}
 				} else {
-					cv_url_params[$this.attr('name')] = $this.val();	
+					if( name === 'month' && $this.attr('name') === 'tribe-bar-date' ) {
+						cv_url_params['eventDate'] = $this.val().slice(0,-3);						
+					} else {
+						cv_url_params[$this.attr('name')] = $this.val();
+					}						
 				}
 			}			
 		} );

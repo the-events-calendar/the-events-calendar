@@ -100,7 +100,7 @@ class TribeEventsBar {
 			$open     = '<select class="tribe-select2 tribe-no-param" name="tribe-bar-view">';
 			$close    = "</select>";
 			$current  = 'selected';
-			$open_el  = '<option !CURRENT-ACTIVE! value="!URL!">';
+			$open_el  = '<option !CURRENT-ACTIVE! value="!URL!" data-view="!JSKEY!">';
 			$close_el = "</option>";
 		}
 
@@ -112,6 +112,7 @@ class TribeEventsBar {
 
 			$item = str_replace( '!URL!', esc_url( $view['url'] ), $open_el );
 			$item = str_replace( '!VIEW!', $view['displaying'], $item );
+			$item = str_replace( '!JSKEY!', $view['displaying'], $item );
 
 			if ( $tec->displaying === $view['displaying'] ) {
 				$item = str_replace( '!CURRENT-ACTIVE!', $current, $item );
