@@ -17,15 +17,16 @@ function eventBarWidth() {
 	}
 }
 
+
 jQuery( document ).ready( function ( $ ) {
 
 	var tribe_var_datepickerOpts = {
 		dateFormat: 'yy-mm-dd',
-		showAnim: 'fadeIn'
+		showAnim: 'fadeIn'		
 	};
 
 	// Implement our datepicker
-	if ( !$( '.events-gridview' ).length ) {
+	if ( !$( '.tribe-events-week-grid' ).length ) {
 		$( '#tribe-bar-date' ).datepicker( tribe_var_datepickerOpts );
 	}
 	
@@ -36,7 +37,6 @@ jQuery( document ).ready( function ( $ ) {
 	if ( $( '#tribe-events-bar .hasDatepicker' ).length ) {
 		$( '#tribe-events-bar' ).addClass( 'tribe-has-datepicker' );
 	}
-	$( '#tribe-events-content' ).addClass( 'tribe-nav-alt' );
 
 	// Implement placeholder
 	$( 'input[name*="tribe-bar-"]' ).placeholder();
