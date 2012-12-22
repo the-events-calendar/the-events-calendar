@@ -34,7 +34,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 			$instance['title'] = strip_tags( $new_instance['title'] );
 			$instance['event_ID'] = $new_instance['event_ID'];
 			$instance['show_seconds'] = ( isset( $new_instance['show_seconds'] ) ? 1 : 0 );
-			$instance['complete'] = $new_instance['complete'];
+			$instance['complete'] = $new_instance['complete'] == '' ? $old_instance['complete'] : $new_instance['complete'];
 			return $instance;
 		}
  
