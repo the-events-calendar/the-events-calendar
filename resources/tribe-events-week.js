@@ -197,7 +197,11 @@ jQuery(document).ready(function($){
 	
 	$( '.tribe-bar-settings button[name="settingsUpdate"]' ).bind( 'click', function (e) {	
 		tribe_picker = false;
-		tribe_events_bar_weekajax_actions(e, tribe_picker);		
+		tribe_events_bar_weekajax_actions(e, tribe_picker);	
+		$( '#tribe-events-bar [class^="tribe-bar-button-"]' )
+			.removeClass( 'open' )
+			.next( '.tribe-bar-drop-content' )
+			.hide();
 	} );
 	
 	$('#tribe-bar-date').bind( 'change', function (e) {
