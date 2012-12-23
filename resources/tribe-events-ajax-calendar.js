@@ -93,7 +93,11 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 	
 	$( '.tribe-bar-settings button[name="settingsUpdate"]' ).bind( 'click', function (e) {		
-		tribe_events_bar_calajax_actions(e);		
+		tribe_events_bar_calajax_actions(e);
+		$( '#tribe-events-bar [class^="tribe-bar-button-"]' )
+			.removeClass( 'open' )
+			.next( '.tribe-bar-drop-content' )
+			.hide();
 	} );
 
 	// if advanced filters active intercept submit

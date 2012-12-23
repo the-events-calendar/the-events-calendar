@@ -176,7 +176,7 @@ jQuery( document ).ready( function ( $ ) {
 	$(document).click(function(){
 		if( $tribeDropToggle.hasClass('open') ) {			
 			$tribeDropToggle.removeClass( 'open' );
-			$tribeDropToggle.next( '.tribe-bar-drop-content' ).hide();
+			$tribeDropToggleEl.hide();
 		}
 	});	
 	
