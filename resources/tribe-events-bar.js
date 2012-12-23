@@ -95,6 +95,9 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_map_val = jQuery( '#tribe-bar-geoloc' ).val();		
 			if( !tribe_map_val.length ) {
 				$( '#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng' ).val( '' );
+			} else {
+				if( name === 'map' )
+					cv_url_params['action'] = 'geosearch';	
 			}
 		}
 		
@@ -106,8 +109,25 @@ jQuery( document ).ready( function ( $ ) {
 						cv_url_params[$this.attr('name')] = $this.val();	
 					}
 				} else {
-					if( name === 'month' && $this.attr('name') === 'tribe-bar-date' ) {
-						cv_url_params['eventDate'] = $this.val().slice(0,-3);						
+					if( $this.attr('name') === 'tribe-bar-date' ) {
+						switch( name ) {
+							case 'month':
+								cv_url_params['eventDate'] = $this.val().slice(0,-3);	
+								break;
+							case 'upcoming':
+								cv_url_params['action'] = 'tribe_list';	
+								cv_url_params['tribe-bar-date'] = $this.val();								
+								break;
+							case 'photo':
+								cv_url_params['action'] = 'tribe_photo';	
+								cv_url_params['tribe-bar-date'] = $this.val();								
+								break;
+							case 'week':
+								cv_url_params['eventDate'] = $this.val();							
+								break;
+							default:
+								cv_url_params['tribe-bar-date'] = $this.val();	
+						}
 					} else {
 						cv_url_params[$this.attr('name')] = $this.val();
 					}						

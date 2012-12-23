@@ -3311,11 +3311,17 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 
-		public function setup_date_search_in_bar( $filters ) {			
+		public function setup_date_search_in_bar( $filters ) {	
+			
+			$value = apply_filters( 'tribe-events-bar-date-search-default-value', '' );
+
+			if ( !empty( $_REQUEST['tribe-bar-date'] ) ) {
+				$value = $_REQUEST['tribe-bar-date'];
+			}
 
 			$filters[] = array( 'name'    => 'tribe-bar-date',
 			                    'caption' => 'Date',
-			                    'html'    => '<input type="text" name="tribe-bar-date" style="position: relative; z-index: 100000;" id="tribe-bar-date" value="" placeholder="Date">' );
+			                    'html'    => '<input type="text" name="tribe-bar-date" style="position: relative; z-index: 100000;" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="Date">' );
 
 			return $filters;
 		}
@@ -3332,7 +3338,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function setup_date_search_in_query( $query ) {			
 
 			if ( !empty( $_REQUEST['tribe-bar-date'] ) ) {
-				if( $_REQUEST['action'] == 'tribe_list' || $_REQUEST['action'] == 'tribe_photo' ) {
+				if( $_REQUEST['action'] == 'tribe_list' || $_REQUEST['action'] == 'tribe_photo' || $_REQUEST['action'] == 'geosearch' ) {
 					$query->set( 'start_date', TribeDateUtils::beginningOfDay( $_REQUEST['tribe-bar-date'] ) );					
 				} else {
 					$meta_query = array( 'key'     => '_EventStartDate',
