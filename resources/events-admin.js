@@ -105,7 +105,10 @@ jQuery(document).ready(function($) {
 		
 		savedVenue.change(function() {
 			if ( $(this).val() == '0' ) {
-				venueFields.fadeIn()
+				venueFields.fadeIn();
+				$("#EventCountry").val(0).trigger("liszt:updated");
+				$("#StateProvinceSelect").val(0).trigger("liszt:updated");
+				tribeShowHideCorrectStateProvinceInput('');
 					//.find("input, select").val('').removeAttr('checked');
 			}
 			else {
