@@ -220,7 +220,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			    				);
 
 
-			    			$args = array(
+			    			$args = wp_parse_args(array(
 			    				'eventDate' => $date,
 			    				'start_date' => tribe_event_beginning_of_day( $date ),
 			    				'end_date' => tribe_event_end_of_day( $date ),
@@ -232,7 +232,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 								'order' => 'ASC',
 			    				'eventDisplay' => 'custom',
 			    				'no_found_rows' => true
-			    				);
+			    				), $wp_query->query);
 
 			    			if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
 								$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );
