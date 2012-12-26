@@ -153,6 +153,12 @@ if( !class_exists('Tribe_Events_Pro_List_Widget_Template')){
 					$html .= '<br/>';
 				$html .= __( 'Price:', 'tribe-events-calendar-pro' ) . ' ' . tribe_get_cost(); 
 			}
+			// Get our organizer
+			if ( $organizer && tribe_get_organizer() != '') {
+				$html .= ( $space ) ? '<br />' : '';
+				$html .= '<span>'. tribe_get_venue() .'</span>'; 
+				$space = true;
+			}
 			
 			$html = !empty( $html ) ? '<div class="vcard adr location">'. $html .'</div><!-- .location -->' : '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_the_content');
