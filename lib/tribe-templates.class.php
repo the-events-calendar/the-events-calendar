@@ -275,6 +275,11 @@ if (!class_exists('TribeEventsTemplates')) {
 
 				$file = $pluginPath . 'views' . $subfolder . $template;
 			}
+			
+			$tec = TribeEvents::instance();
+			if ( in_array( $tec->displaying, tribe_get_option( 'hideViews', array() ) ) ) {
+				$file = get_404_template();
+			}
 
 			return apply_filters( 'tribe_events_template_'.$template, $file);
 		}

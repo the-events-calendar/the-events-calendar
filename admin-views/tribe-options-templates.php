@@ -10,6 +10,14 @@ foreach ( array_keys( $templates ) as $template ) {
 	$template_options[$templates[$template]] = $template;
 }
 
+remove_filter( 'tribe-events-bar-views', array( TribeEvents::instance(), 'remove_hidden_views' ), 9999, 1 );
+$views = apply_filters( 'tribe-events-bar-views', array() );
+
+$views_options = array();
+foreach( $views as $view ) {
+	$views_options[$view['displaying']] = $view['anchor'];
+}
+
 $templatesTab = array(
 	'priority' => 20,
 	'fields' => array(
@@ -38,6 +46,14 @@ $templatesTab = array(
 			'default' => 'default',
 			'options' => $template_options,
 		),
+		'hideViews' => array(
+            'type' => 'checkbox_list',
+            'label' => __( 'Hide the following views on your site:', 'tribe-events-calendar' ),
+            'default' => false,
+            'options' => $views_options,
+            'validation_type' => 'options_multi',
+            'can_be_empty' => true,
+        ),
 		'tribeEventsBeforeHTML' => array(
 			'type' => 'textarea',
 		 	'label' => __( 'Add HTML before calendar', 'tribe-events-calendar' ),

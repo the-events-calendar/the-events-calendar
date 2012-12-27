@@ -248,6 +248,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			add_filter( 'tribe_events_pre_get_posts', array( $this, 'setup_keyword_search_in_query' ) );
 			add_filter( 'tribe_events_pre_get_posts', array( $this, 'setup_date_search_in_query' ), 11 );
+			
+			add_filter( 'tribe-events-bar-views', array( $this, 'remove_hidden_views' ), 9999, 1 );
 			/* End Setup Tribe Events Bar */
 		}
 
@@ -3324,6 +3326,28 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			                    'html'    => '<input type="text" name="tribe-bar-date" style="position: relative; z-index:10000" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="Date"><input type="hidden" name="tribe-date-storage" id="tribe-date-storage" value="' . esc_attr( $value ) . '" class="tribe-no-param" />' );
 
 			return $filters;
+		}
+		
+		/**
+		 * Removes views that have been selected in the Template Settings as hidden from the view array.
+		 *
+		 * @since 3.0
+		 * @author PaulHughes01
+		 *
+		 * @param array $views The current views array.
+		 * @return array The new views array.
+		 */
+		public function remove_hidden_views( $views ) {
+			$hidden_views = tribe_get_option( 'hideViews', array() );
+			
+			foreach ( $hidden_views as $hidden_view ) {
+				foreach( $views as $index => $view ) {
+					if ( $view['displaying'] == $hidden_view )
+						unset( $views[$index] );
+				}
+			}
+			
+			return $views;
 		}
 
 		public function setup_keyword_search_in_query( $query ) {
