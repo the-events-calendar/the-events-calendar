@@ -34,6 +34,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				'start' => TRUE,
 				'end' => TRUE,
 				'venue' => 0,
+				'organizer' => 0,
 				'address' => '',
 				'city' => '',
 				'region' => '',
