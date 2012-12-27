@@ -1,7 +1,7 @@
 /* = Events Icon
 =============================================*/
-.events-cal #icon-edit {background:url(images/events-screen-icon.png) no-repeat 6px 3px;}
-#adminmenu #menu-posts-tribe_events div.wp-menu-image {background:url(images/menu.png) no-repeat 0 -32px;}
+.events-cal #icon-edit {background:url(images/events-screen-icon.png) no-repeat 6px 3px; background-size: 23px 25px;}
+#adminmenu #menu-posts-tribe_events div.wp-menu-image {background:url(images/menu.png) no-repeat 0 -32px; background-size: 29px 64px;}
 #adminmenu #menu-posts-tribe_events:hover div.wp-menu-image, #adminmenu #menu-posts-tribe_events.wp-has-current-submenu div.wp-menu-image {background-position:0 0;}
 
 /* = Shared CSS Elements

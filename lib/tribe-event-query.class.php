@@ -140,13 +140,12 @@ if (!class_exists('TribeEventsQuery')) {
 					$query->set( 'order', 'ASC' );
 					self::$start_date = $query->get( 'start_date' );
 				}
-
 				// eventCat becomes a standard taxonomy query - will need to deprecate and update views eventually
-				if ( ! in_array( $query->get('eventCat'), array( '', '-1' )) ) {
+				if ( ! in_array( $query->get(TribeEvents::TAXONOMY), array( '', '-1' )) ) {
 					$tax_query[] = array(
 						'taxonomy' => TribeEvents::TAXONOMY,
-						'field' => is_numeric($query->get('eventCat')) ? 'id' : 'name',
-						'terms' => $query->get('eventCat')
+						'field' => is_numeric($query->get(TribeEvents::TAXONOMY)) ? 'id' : 'slug',
+						'terms' => $query->get(TribeEvents::TAXONOMY)
 						);
 				}
 

@@ -286,7 +286,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			TribeEventsTemplates::$origCurrentPost =  $wp_query->current_post;
 			$wp_query->current_post = -1;
 			$wp_query->post_count = 2;		
-			$wp_query->is_page = true; // don't show comments
+			//$wp_query->is_page = true; // don't show comments
 			//$wp_query->is_single = false; // don't show comments
 			$wp_query->is_singular = true;
 
