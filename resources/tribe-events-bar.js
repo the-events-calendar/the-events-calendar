@@ -63,7 +63,7 @@ jQuery( document ).ready( function ( $ ) {
 	// Append our month view selects to date wrapper in bar
 	if ( $( '.events-gridview' ).length ) {
 		$( '#tribe-bar-dates' ).append( $('.tribe-events-calendar #tribe-events-events-picker').contents() );		
-		$( '#tribe-bar-date' ).remove();
+		$( '#tribe-bar-date' ).hide();
 		$( '#tribe-events-bar' ).removeClass( 'tribe-has-datepicker' );
 	}
 
@@ -108,10 +108,11 @@ jQuery( document ).ready( function ( $ ) {
 					if( $this.is(':checked') ) {
 						cv_url_params[$this.attr('name')] = $this.val();	
 					}
-				} else {
+				} else {					
 					if( $this.attr('name') === 'tribe-bar-date' ) {
 						switch( name ) {
 							case 'month':
+								cv_url_params['action'] = 'tribe_calendar';	
 								cv_url_params['eventDate'] = $this.val().slice(0,-3);	
 								break;
 							case 'upcoming':
@@ -123,7 +124,16 @@ jQuery( document ).ready( function ( $ ) {
 								cv_url_params['tribe-bar-date'] = $this.val();								
 								break;
 							case 'week':
-								cv_url_params['eventDate'] = $this.val();							
+								cv_url_params['action'] = 'tribe_week';
+								cv_url_params['eventDate'] = $this.val().slice(0,-3);							
+								break;
+							case 'map':
+								cv_url_params['action'] = 'geosearch';	
+								cv_url_params['tribe-bar-date'] = $this.val();	
+								break;
+							case 'day':
+								cv_url_params['action'] = 'tribe_event_day';	
+								cv_url_params['tribe-bar-date'] = $this.val();	
 								break;
 							default:
 								cv_url_params['tribe-bar-date'] = $this.val();	

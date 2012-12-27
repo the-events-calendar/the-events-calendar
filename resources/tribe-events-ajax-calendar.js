@@ -212,7 +212,7 @@ jQuery( document ).ready( function ( $ ) {
 						var page_title = $the_content.filter("#tribe-events-header").attr('data-title');
 						var $date_picker = $the_content.find("#tribe-events-events-picker").contents();
 						
-						$( '#tribe-bar-dates' ).contents().remove();
+						$( '#tribe-bar-dates' ).contents().not('#tribe-bar-date, #tribe-date-storage').remove();
 						$( '#tribe-bar-dates' ).append( $date_picker );
 						$( '.tribe-events-events-dropdown' ).select2({
 							minimumResultsForSearch: 9999
