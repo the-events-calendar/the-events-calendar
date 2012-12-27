@@ -2751,7 +2751,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return date
 		 */
 		public function nextWeek( $date ) {
-			$dateParts = split( '-', $date );
+			$dateParts = explode( '-', $date );
 			if ( $dateParts[1] == 12 ) {
 				$dateParts[0]++;
 				$dateParts[1] = "01";
@@ -2773,7 +2773,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return date
 		 */
 		public function previousWeek( $date ) {
-			$dateParts = split( '-', $date );
+			$dateParts = explode( '-', $date );
 			if ( $dateParts[1] == 1 ) {
 				$dateParts[0]--;
 				$dateParts[1] = "12";
@@ -2796,7 +2796,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return date
 		 */
 		public function nextMonth( $date ) {
-			$dateParts = split( '-', $date );
+			$dateParts = explode( '-', $date );
 			if ( $dateParts[1] == 12 ) {
 				$dateParts[0]++;
 				$dateParts[1] = "01";
@@ -2818,7 +2818,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return date
 		 */
 		public function previousMonth( $date ) {
-			$dateParts = split( '-', $date );
+			$dateParts = explode( '-', $date );
 			if ( $dateParts[1] == 1 ) {
 				$dateParts[0]--;
 				$dateParts[1] = "12";
@@ -2852,14 +2852,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function getDateString( $date ) {
 			$monthNames = $this->monthNames();
-			$dateParts = split( '-', $date );
+			$dateParts = explode( '-', $date );
 			$timestamp = mktime( 0, 0, 0, $dateParts[1], 1, $dateParts[0] );
 			return $monthNames[date( "F", $timestamp )] . " " . $dateParts[0];
 		}
 
 		public function getDateStringShortened( $date ) {
 			$monthNames = $this->monthNames();
-			$dateParts = split( '-', $date );
+			$dateParts = explode( '-', $date );
 			$timestamp = mktime( 0, 0, 0, $dateParts[1], 1, $dateParts[0] );
 			return $monthNames[date( "F", $timestamp )];
 		}

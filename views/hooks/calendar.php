@@ -139,7 +139,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$posts_per_page_limit = 3;
 			$daysInMonth = isset( $date ) ? date( 't', $date ) : date( 't' );
 			$startOfWeek = get_option( 'start_of_week', 0 );
-			list( $year, $month ) = split( '-', $tribe_ecp->date );
+			list( $year, $month ) = explode( '-', $tribe_ecp->date );
 			$date = mktime( 12, 0, 0, $month, 1, $year ); // 1st day of month as unix stamp
 			$rawOffset = date( 'w', $date ) - $startOfWeek;
 			$offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
