@@ -120,7 +120,5 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 	/* Function that registers widget. */
 	function events_list_load_widgets() {
 		register_widget( 'TribeEventsListWidget' );
-		// load text domain after class registration
-		load_plugin_textdomain( 'tribe-events-calendar', false, basename(dirname(dirname(__FILE__))) . '/lang/');
 	}
 }
