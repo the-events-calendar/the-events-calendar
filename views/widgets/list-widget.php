@@ -41,7 +41,8 @@ $the_content_args = array(
 	'zip' => $zip, 
 	'country' => $country, 
 	'phone' => $phone, 
-	'cost' => $cost
+	'cost' => $cost,
+	'organizer' => $organizer
 	);
 
 $event = array();
