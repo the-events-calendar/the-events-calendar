@@ -174,7 +174,7 @@ jQuery( document ).ready( function ( $ ) {
 						$( "#ajax-loading" ).hide();
 
 						if ( response.success ) {
-
+							
 							tribe_list_paged = response.tribe_paged;
 
 							$( '#tribe-events-list-hash' ).val( response.hash );

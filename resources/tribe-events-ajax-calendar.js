@@ -216,8 +216,8 @@ jQuery( document ).ready( function ( $ ) {
 						$( '#tribe-bar-dates' ).append( $date_picker );
 						$( '.tribe-events-events-dropdown' ).select2({
 							minimumResultsForSearch: 9999
-						});				
-
+						});	
+						
 						$(document).attr('title', page_title);
 						
 						if( tribe_do_string ) {							
