@@ -1713,6 +1713,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$qvars[] = 'ical';
 			$qvars[] = 'start_date';
 			$qvars[] = 'end_date';
+			$qvars[] = TribeEvents::TAXONOMY;
 			return $qvars;
 		}
 
