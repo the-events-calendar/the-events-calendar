@@ -118,7 +118,11 @@ jQuery( document ).ready( function ( $ ) {
 		} );
 		
 		$( '.tribe-bar-settings button[name="settingsUpdate"]' ).bind( 'click', function (e) {		
-			tribe_events_bar_photoajax_actions(e)	
+			tribe_events_bar_photoajax_actions(e);
+			$( '#tribe-events-bar [class^="tribe-bar-button-"]' )
+				.removeClass( 'open' )
+				.next( '.tribe-bar-drop-content' )
+				.hide();
 		} );
 		
 		$( 'form#tribe-bar-form' ).bind( 'submit', function ( e ) {

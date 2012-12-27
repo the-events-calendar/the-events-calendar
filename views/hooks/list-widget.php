@@ -67,12 +67,12 @@ if( !class_exists('Tribe_Events_Pro_List_Widget_Template')){
 			$html = '<div class="duration">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_before_the_date');
 		}
-		public static function the_date( $event, $post_id = null, $start, $end ){
+		public static function the_date( $event, $post_id = null, $start = true, $end = true ){
 			$html = '<abbr class="tribe-events-abbr updated published dtstart" title="'. tribe_get_start_date( $post_id, false, TribeDateUtils::DBDATEFORMAT ) .'">'. tribe_get_start_date( $post_id, $start ) .'</abbr><!-- .dtstart -->';
 			
-			if(tribe_is_multiday( $post_id ) || !$event->AllDay)
-            	$html .= ' – <br/><abbr class="tribe-events-abbr dtend" title="'. tribe_get_end_date( $post_id, false, TribeDateUtils::DBDATEFORMAT ) .'">'. tribe_get_end_date( $post_id ) .'</abbr><!-- .dtend -->';
-         	if($event->AllDay)
+			if(tribe_is_multiday( $post_id ) || ($end && !$event->AllDay))
+				$html .= ' &ndash; <br/><abbr class="tribe-events-abbr dtend" title="'. tribe_get_end_date( $post_id, false, TribeDateUtils::DBDATEFORMAT ) .'">'. tribe_get_end_date( $post_id, $end ) .'</abbr><!-- .dtend -->';
+			if($event->AllDay)
 				$html .= ' <small><em>('. __('All Day','tribe-events-calendar') .')</em></small>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_the_date');
 		}
@@ -152,6 +152,12 @@ if( !class_exists('Tribe_Events_Pro_List_Widget_Template')){
 				if( $html ) 
 					$html .= '<br/>';
 				$html .= __( 'Price:', 'tribe-events-calendar-pro' ) . ' ' . tribe_get_cost(); 
+			}
+			// Get our organizer
+			if ( $organizer && tribe_get_organizer() != '') {
+				$html .= ( $space ) ? '<br />' : '';
+				$html .= '<span>'. tribe_get_venue() .'</span>'; 
+				$space = true;
 			}
 			
 			$html = !empty( $html ) ? '<div class="vcard adr location">'. $html .'</div><!-- .location -->' : '';
