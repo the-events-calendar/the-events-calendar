@@ -131,6 +131,14 @@ $generalTab = array(
 			'default' => '12:00',
 			'options' => array( '12:00' => '12:00 am', '12:30' => '12:30 am', '01:00' => '01:00 am', '01:30' => '01:30 am', '02:00' => '02:00 am', '02:30' => '02:30 am', '03:00' => '03:00 am', '03:30' => '03:30 am', '04:00' => '04:00 am', '04:30' => '04:30 am', '05:00' => '05:00 am', '05:30' => '05:30 am', '06:00' => '06:00 am', '06:30' => '06:30 am', '07:00' => '07:00 am', '07:30' => '07:30 am', '08:00' => '08:00 am', '08:30' => '08:30 am', '09:00' => '09:00 am', '09:30' => '09:30 am', '10:00' => '10:00 am', '10:30' => '10:30 am', '11:00' => '11:00 am', '11:30' => '11:30 am' ),
 		),
+		'defaultCurrencySymbol' => array(
+			'type' => 'text',
+			'label' => __( 'Default Currency Symbol', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Set the default currency symbol for event costs. Note: This only affects future events.', 'tribe-events-calendar' ),
+			'validation_type' => 'textarea',
+			'size' => 'small',
+			'default' => '$',
+		),
 		'embedGoogleMaps' => array(
 			'type' => 'checkbox_bool',
 			'label' => __( 'Enable Google Maps', 'tribe-events-calendar' ),
