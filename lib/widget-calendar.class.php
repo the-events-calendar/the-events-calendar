@@ -74,8 +74,6 @@ if( !class_exists( 'TribeEventsCalendarWidget') ) {
 	/* Function that registers widget. */
 	function events_calendar_load_widgets() {
 		register_widget( 'TribeEventsCalendarWidget' );
-		// load text domain after class registration
-		load_plugin_textdomain( 'tribe-events-calendar-pro', false, basename(dirname(dirname(__FILE__))) . '/lang/');
 	}
 
 	// AJAX functionality for the mini calendar
