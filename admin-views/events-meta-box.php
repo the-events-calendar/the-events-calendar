@@ -130,6 +130,10 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event Cost', 'tribe-events-calendar'); ?></h4></td>
 		</tr>
 		<tr>
+			<td><?php _e('Currency Symbol:','tribe-events-calendar'); ?></td>
+			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventCurrencySymbol' name='EventCurrencySymbol' size='2' value='<?php echo (isset($_EventCurrencySymbol)) ? esc_attr($_EventCurrencySymbol) : tribe_get_option( 'defaultCurrencySymbol', '$' ); ?>' /></td>
+		</tr>
+		<tr>
 			<td><?php _e('Cost:','tribe-events-calendar'); ?></td>
 			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventCost' name='EventCost' size='6' value='<?php echo (isset($_EventCost)) ? esc_attr($_EventCost) : ''; ?>' /></td>
 		</tr>
