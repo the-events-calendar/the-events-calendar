@@ -131,14 +131,10 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		function venue_address( $meta_id ){
 			global $tribe_meta_factory;
 
-			$address = tribe_address_exists( get_the_ID() ) ? tribe_get_full_address( get_the_ID() ) : '';
+			$address = tribe_address_exists( get_the_ID() ) ? '<address class="event-address">' . tribe_get_full_address( get_the_ID() ) . '</address>' : '';
 
 			// Google map link
-			$gmap_link = tribe_show_google_map_link( get_the_ID() ) ? sprintf('<a class="tribe-events-gmap" href="%s" title="%s" target="_blank">%s</a>', 
-				tribe_get_map_link(),
-				__( 'Click to view a Google Map', 'tribe-events-calendar' ),
-				__( 'Google Map', 'tribe-events-calendar' )
-				) : '' ;
+			$gmap_link = tribe_show_google_map_link( get_the_ID() ) ? self::gmap_link() : '' ;
 
 			$venue_address = empty( $address ) ? '' :  Tribe_Meta_Factory::template(
 				$tribe_meta_factory->meta[$meta_id]['label'],
