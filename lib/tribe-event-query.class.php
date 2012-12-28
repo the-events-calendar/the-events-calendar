@@ -456,7 +456,7 @@ if (!class_exists('TribeEventsQuery')) {
 			return $counts;
 		}
 		
-		protected function dateDiff( $date1, $date2 ) {
+		public static function dateDiff( $date1, $date2 ) {
 			$current = $date1;
 			$datetime2 = date_create( $date2 );
 			$count = 0;
