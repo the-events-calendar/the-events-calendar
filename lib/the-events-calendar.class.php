@@ -1350,12 +1350,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				// hook for other plugins
 				do_action('tribe_settings_enqueue');
 			}
+
+			if ( $current_screen->id == 'widgets' )
+				Tribe_Template_Factory::asset_package( 'chosen' );
+
 			// events, organizer, or venue editing
 			if ( ( isset($current_screen->post_type) && in_array( $current_screen->post_type, array(
 				self::POSTTYPE, // events editing
 				self::VENUE_POST_TYPE, // venue editing
 				self::ORGANIZER_POST_TYPE // organizer editing
-			) )) || $current_screen->id == 'widgets' ){
+			) ))  ){
 
 				// chosen
 				Tribe_Template_Factory::asset_package('chosen');
