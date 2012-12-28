@@ -234,7 +234,11 @@ if (!class_exists('TribeEventsQuery')) {
 			}
 
 			// check if is_event_query === true and hook filter
-			$query->tribe_is_event_query ? apply_filters( 'tribe_events_pre_get_posts', $query ) : $query;
+			if( $query->tribe_is_event_query ) {
+				// fixing is_home param
+				$query->is_home = !empty($query->query_vars['is_home']) ? $query->query_vars['is_home'] : false;
+				apply_filters( 'tribe_events_pre_get_posts', $query );
+			}
 
 			// setup default Event Start join/filter
 			if ( ( $query->tribe_is_event || $query->tribe_is_event_category ) && empty( $query->query_vars['meta_query'] ) ) {

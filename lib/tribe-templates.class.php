@@ -30,10 +30,6 @@ if (!class_exists('TribeEventsTemplates')) {
 				return $template;
 			}
 			
-			//is_home fixer
-			global $wp_query;
-			$wp_query->is_home = false;
-
 			if( tribe_get_option('tribeEventsTemplate', 'default') == '' ) {
 				if(is_single() && !tribe_is_showing_all() ) {
 					return TribeEventsTemplates::getTemplateHierarchy('wrapper-single');
