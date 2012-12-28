@@ -122,25 +122,18 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			ob_start();
 
 			$tribe_ecp = TribeEvents::instance();
-
-			// In an events cat
-			// if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
-			// 	$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );
-			// 	$eventCat = (int) $cat->term_id;
-				// $eventPosts = tribe_get_events( array( 'eventCat' => $eventCat, 'time_order' => 'ASC', 'eventDisplay'=>'month' ) );
-			// } // not in a cat
-			// else {
-				// $eventPosts = tribe_get_events( array( 'eventDisplay'=>'month' ) );
-				// $eventPosts = $wp_query->posts;
-			// }
+			$tribe_ecp->date = tribe_get_month_view_date();
 
 			// get all upcoming ids to hide so we're not querying 31 times
 			$hide_upcoming_ids = TribeEventsQuery::getHideFromUpcomingEvents();
+
+			list( $year, $month ) = explode( '-', $tribe_ecp->date );
+			$date = mktime( 12, 0, 0, $month, 1, $year ); // 1st day of month as unix stamp
+
+
 			$posts_per_page_limit = 3;
 			$daysInMonth = isset( $date ) ? date( 't', $date ) : date( 't' );
 			$startOfWeek = get_option( 'start_of_week', 0 );
-			list( $year, $month ) = split( '-', $tribe_ecp->date );
-			$date = mktime( 12, 0, 0, $month, 1, $year ); // 1st day of month as unix stamp
 			$rawOffset = date( 'w', $date ) - $startOfWeek;
 			$offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
 			$rows = 1;

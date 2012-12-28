@@ -149,7 +149,7 @@ if ( !class_exists('TribeField') ) {
 				} elseif ( in_array($this->type, $this->valid_field_types) ) {
 
 					// the specified type exists, run the appropriate method
-					$field = call_user_method($this->type, $this);
+					$field = call_user_func( array( $this, $this->type ) );
 
 					// filter the output
 					$field = apply_filters( 'tribe_field_output_'.$this->type, $field, $this->id, $this );

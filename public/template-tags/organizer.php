@@ -21,6 +21,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_organizer_id( $postId = null)  {
 		$postId = TribeEvents::postIdHelper( $postId );
+		$organizer_id = null;
 		if (is_numeric($postId) && $postId > 0) {
 			$tribe_ecp = TribeEvents::instance();
 			// check if $postId is an organizer id
