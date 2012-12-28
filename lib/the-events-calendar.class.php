@@ -3488,34 +3488,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					TribeEventsFilterView::instance()->createFilters( null, true );
 				}
 
-				TribeEventsQuery::init();
-
-				add_action( 'pre_get_posts', array( $this, 'calendar_ajax_call_set_date' ), -10 );
-
-				$args  = array( 'eventDisplay' => 'month',
-				                'post_type'    => TribeEvents::POSTTYPE,
-				                'post_status'  => 'publish' );
-				$query = TribeEventsQuery::getEvents( $args, true );
-
-				remove_action( 'pre_get_posts', array( $this, 'calendar_ajax_call_set_date' ), -10 );
-
-				global $wp_query, $post;
-				$wp_query = $query;
-				if ( have_posts() )
-					the_post();
-
 				load_template( TribeEventsTemplates::getTemplateHierarchy( 'calendar' ) );
 			}
 			die();
 		}
 
 
-		function calendar_ajax_call_set_date( $query ) {
-			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
-				$query->set( 'eventDate', $_POST["eventDate"] . '-01' );
-			}
-			return $query;
-		}
 
 
 	} // end TribeEvents class
