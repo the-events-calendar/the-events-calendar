@@ -1,5 +1,7 @@
 <?php
 /**
+ *
+ *
  * @for Week Grid Template
  * This file contains the hook logic required to create an effective week grid view.
  *
@@ -8,28 +10,28 @@
  * @author Modern Tribe Inc.
  *
  */
- 
-  /*
+
+/*
 	spans on allday
 	split up events that span a day?
 	ask Tim about ghost divs? multi days?
 	xbrowser & fluid?
 */
- 
- /*
+
+/*
  	@Samuel
  	Raw Wireframe: https://central.tri.be/attachments/54643/weekview.1.jpg
  	JS Notes
- 	
+
  	All Day
  	You'll want to set up a bunch of events to get the different scenarios. Basically we need
  	the js to utilize the tribe-dayspan# class and then make that all day event span the proper
  	amount of days. Though this could happen with CSS, but don't think it can b/c of fluid.
  	Lastly on this, I've set a min-height on all-day columns of 60px, but you'll need to make sure
  	that all the columns keep the height of the tallest day "column".
- 	
+
  	Regular Events
- 	Regular events have several things going on. 
+ 	Regular events have several things going on.
  	First: obviously based on the duration class for each event, each needs to get properly
  		   positioned vertically in it's column.
  	Second: we have two special cases where some events will have Same Time and/or other will
@@ -38,7 +40,7 @@
  			a bit (something like this: width: 80%; I've already setup the following: right: 0; left: auto;)
  			and the events still overlap to save column real-estate.
  			For Overlapping events, same exact thing really.
- 			
+
  	Third: tooltips. We are needing to implement onclick due to the nature of Same Time/Overlapping. And we have to
  		   be careful about overflow: hidden as it cuts of the tooltip. So, the title/content of the events we see
  		   in the grid should never overflow the grey bgd container, which for now has a height of 30px. So if you could
@@ -46,19 +48,19 @@
  		   .tribe-grid-body .hentry.vevent as well that would be aweomse–I already set overflow: hidden on it.
  		   So I did add the tribe-nudge-right bit or whatever, and have the tooltip markup below, if you could implement
  		   the onclick I'd appreciate it :)
- 			
+
  	Let me know if you have questions! Thanks Samuel!
- 			
+
  */
 
-if ( !defined('ABSPATH') ) { die('-1'); }
+if ( !defined( 'ABSPATH' ) ) { die( '-1' ); }
 
-if( !class_exists('Tribe_Events_Week_Template')){
+if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 	class Tribe_Events_Week_Template extends Tribe_Template_Factory {
 
-		public static function init(){
+		public static function init() {
 			// enqueue needed styles
-			Tribe_PRO_Template_Factory::asset_package('ajax-weekview');		
+			Tribe_PRO_Template_Factory::asset_package( 'ajax-weekview' );
 
 			// Start list template
 			add_filter( 'tribe_events_week_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
@@ -75,62 +77,70 @@ if( !class_exists('Tribe_Events_Week_Template')){
 			add_filter( 'tribe_events_week_inside_before_loop', array( __CLASS__, 'inside_before_loop' ), 1, 1 );
 
 			add_filter( 'tribe_events_week_the_grid', array( __CLASS__, 'the_grid' ), 1, 1 );
-	
+
 			// End list loop
 			add_filter( 'tribe_events_week_inside_after_loop', array( __CLASS__, 'inside_after_loop' ), 1, 1 );
 			add_filter( 'tribe_events_week_after_loop', array( __CLASS__, 'after_loop' ), 1, 1 );
-	
-				// End list template
+
+			// End list template
 			add_filter( 'tribe_events_week_after_template', array( __CLASS__, 'after_template' ), 1, 2 );
 		}
 		// Start List Template
-		public static function before_template( $post_id ){
+		public static function before_template( $post_id ) {
 			ob_start();
 			// This title is here for ajax loading – do not remove if you want ajax switching between month views
-			?>
-			<div id="tribe-events-content" class="tribe-events-week-grid">				
+?>
+			<div id="tribe-events-content" class="tribe-events-week-grid">
 			<?php
 			$html = ob_get_clean();
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_before_template');
+			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_before_template' );
 		}
 
-		public static function the_title(){
+		public static function the_title() {
+			global $wp_query;
+
+			// because we can't trust tribe_get_events_title will be set when run via AJAX
+			$title = sprintf( __( 'Week starting %s', 'tribe-events-calendar-pro' ),
+				date( "l, F jS Y", strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) )
+			);
+
 			$html = sprintf( '<h2 class="tribe-events-page-title">%s</h2>',
-				tribe_get_events_title()
-				);
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_the_title');
+				$title
+			);
+
+			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_the_title' );
 		}
 
 		// Start List Loop
-		public static function before_loop( $post_id ){
+		public static function before_loop( $post_id ) {
 			$html = '';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_before_loop');
+			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_before_loop' );
 		}
-		public static function inside_before_loop( $post_id ){
+		public static function inside_before_loop( $post_id ) {
 			$html = '';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_inside_before_loop');
+			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_inside_before_loop' );
 		}
 
 		public static function the_grid() {
 
 			global $wp_query;
 			$tribe_ecp = TribeEvents::instance();
-			$start_of_week = tribe_get_first_week_day( $wp_query->get('start_date'));
+			$start_of_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
 			$week_length = 7; // days of the week
-			$today = Date('Y-m-d',strtotime('today'));
+			$today = date( 'Y-m-d', strtotime( 'today' ) );
 			$events->all_day = array();
 			$events->daily = array();
-			$events->hours = array('start'=>null,'end'=>null);
-			foreach($wp_query->posts as $event){
-				if( $event->tribe_is_allday ){
+			$events->hours = array( 'start'=>null, 'end'=>null );
+			foreach ( $wp_query->posts as $event ) {
+				if ( $event->tribe_is_allday ) {
 					$events->all_day[] = $event;
 				} else {
-					$start_hour = Date('G',strtotime($event->EventStartDate));
-					$end_hour = Date('G',strtotime($event->EventEndDate));
-					if( is_null($events->hours['start']) || $start_hour < $events->hours['start'] ) {
+					$start_hour = date( 'G', strtotime( $event->EventStartDate ) );
+					$end_hour = date( 'G', strtotime( $event->EventEndDate ) );
+					if ( is_null( $events->hours['start'] ) || $start_hour < $events->hours['start'] ) {
 						$events->hours['start'] = $start_hour;
 					}
-					if( is_null($events->hours['end']) || $end_hour > $events->hours['end'] ){
+					if ( is_null( $events->hours['end'] ) || $end_hour > $events->hours['end'] ) {
 						$events->hours['end'] = $end_hour;
 					}
 					$events->daily[] = $event;
@@ -143,73 +153,73 @@ if( !class_exists('Tribe_Events_Week_Template')){
 
 	<?php // Header "Row" ?>
 	<div class="tribe-grid-header clearfix">
-	
+
 		<div class="column first">
-			<span class="tribe-events-visuallyhidden"><?php _e('Hours', 'tribe-events-calendar-pro'); ?></span>
+			<span class="tribe-events-visuallyhidden"><?php _e( 'Hours', 'tribe-events-calendar-pro' ); ?></span>
 		</div>
-		
+
 		<div class="tribe-grid-content-wrap">
-		
+
 			<?php
-			for( $n = 0; $n < $week_length; $n++ ) {
-				$day = Date('Y-m-d', strtotime($start_of_week . " +$n days"));
-				$header_class = ($day == $today) ? 'tribe-week-today' : '';
-				printf('<div title="%s" class="column %s"><a href="%s" rel="bookmark">%s</a></div><!-- header column -->',
+			for ( $n = 0; $n < $week_length; $n++ ) {
+				$day = date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) );
+				$header_class = ( $day == $today ) ? 'tribe-week-today' : '';
+				printf( '<div title="%s" class="column %s"><a href="%s" rel="bookmark">%s</a></div><!-- header column -->',
 					$day,
 					$header_class,
-					trailingslashit( get_site_url() ) . trailingslashit( $tribe_ecp->rewriteSlug ) . trailingslashit( Date('Y-m-d', strtotime($start_of_week . " +$n days") ) ),
-					Date('D jS', strtotime($start_of_week . " +$n days"))
-					);
+					trailingslashit( get_site_url() ) . trailingslashit( $tribe_ecp->rewriteSlug ) . trailingslashit( date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) ) ),
+					date( 'D jS', strtotime( $start_of_week . " +$n days" ) )
+				);
 			} ?>
-		
+
 		</div><!-- .tribe-grid-content-wrap -->
-		
+
 	</div><!-- .tribe-grid-header -->
-	
+
 	<?php // All Day "Row" ?>
 	<div class="tribe-grid-allday clearfix">
-	
-		<div class="column first"><?php _e('All Day', 'tribe-events-calendar-pro'); ?></div>
-		
+
+		<div class="column first"><?php _e( 'All Day', 'tribe-events-calendar-pro' ); ?></div>
+
 		<div class="tribe-grid-content-wrap">
-		
+
 			<?php
 			$placeholder = 0;
-			for( $n = 0; $n < $week_length; $n++ ) {
-				$day = Date('Y-m-d', strtotime($start_of_week . " +$n days"));
-				$header_class = ($day == $today) ? 'tribe-week-today' : '';
-				printf('<div title="%s" class="column %s">', Date('Y-m-d', strtotime($start_of_week . " +$n days")), $header_class);
-				if( $placeholder > 0 ) {
-					for( $placeholder_i = 0; $placeholder_i <= $placeholder; $placeholder_i++ ) {
+			for ( $n = 0; $n < $week_length; $n++ ) {
+				$day = date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) );
+				$header_class = ( $day == $today ) ? 'tribe-week-today' : '';
+				printf( '<div title="%s" class="column %s">', date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) ), $header_class );
+				if ( $placeholder > 0 ) {
+					for ( $placeholder_i = 0; $placeholder_i <= $placeholder; $placeholder_i++ ) {
 						echo '<div class="tribe-event-placeholder">placeholder</div>';
 					}
 				}
-				foreach( $events->all_day as $event ){
-					if( Date('Y-m-d',strtotime($event->EventStartDate)) == $day ){
+				foreach ( $events->all_day as $event ) {
+					if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) == $day ) {
 						$span_class = '';
-						$days_between = tribe_get_days_between($event->EventStartDate, $event->EventEndDate);
-						if($days_between > 0) {
-							$day_span_length = $days_between > ($week_length - $n) ? ($week_length - $n) : $days_between;
+						$days_between = tribe_get_days_between( $event->EventStartDate, $event->EventEndDate );
+						if ( $days_between > 0 ) {
+							$day_span_length = $days_between > ( $week_length - $n ) ? ( $week_length - $n ) : $days_between;
 							$span_class = 'tribe-dayspan' . $day_span_length;
 						}
-						printf('<div id="tribe-events-event-'. $event->ID .'" class="%s" data-hour="all-day"><div><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3>',
+						printf( '<div id="tribe-events-event-'. $event->ID .'" class="%s" data-hour="all-day"><div><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3>',
 							'hentry vevent ' . $span_class,
 							get_permalink( $event->ID ),
 							$event->post_title
 						); ?>
-						
+
 						<div id="tribe-events-tooltip-<?php echo $event->ID; ?>" class="tribe-events-tooltip">
 							<h4 class="entry-title summary"><?php echo $event->post_title; ?></h4>
 							<div class="tribe-events-event-body">
 								<div class="duration">
 									<?php
-									/*
+						/*
 									@Tim
 									@Comment: this is what actually needs to get implemented, I was having trouble
 										   	  with getting the right bits in same for grid events as well, see below.
 										   	  And if you could make sure all the tooltip content tags are correct,
 										   	  I'd appreciate it!
-										 
+
 										<abbr class="tribe-events-abbr updated published dtstart" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $start ); ?>">
 							<?php if ( !empty( $start ) )	echo date_i18n( get_option( 'date_format', 'F j, Y' ), $start );
 							if ( !tribe_get_event_meta( $post->ID, '_EventAllDay', true ) )
@@ -228,7 +238,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 								}
 							} ?>
 							</abbr><!-- .dtend -->
-							
+
 							*/ ?>
 									<abbr class="tribe-events-abbr updated published dtstart" title="Our Start Date">
 										Our Start Date
@@ -237,11 +247,11 @@ if( !class_exists('Tribe_Events_Week_Template')){
 										– Our End Date
 									</abbr><!-- .dtend -->
 								</div><!-- .duration -->
-						
+
 								<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
-									<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75,75 ) );?></div>
+									<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75, 75 ) );?></div>
 								<?php } ?>
-						
+
 								<?php //conditional ? ?>
 								<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $$event->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
 
@@ -250,16 +260,16 @@ if( !class_exists('Tribe_Events_Week_Template')){
 						</div><!-- .tribe-events-tooltip -->
 						<?php
 						echo '</div></div>';
-						
+
 					}
 				}
 				echo '</div><!-- allday column -->';
 			} ?>
-		
+
 		</div><!-- .tribe-grid-content-wrap -->
-		
+
 	</div><!-- .tribe-grid-allday -->
-	
+
 	<!--
 		@Tim
 		@comment: Sam here. I made this a loop. I need that data-hour value for my js. I know it pretty well clones the next loop below. if you can make this prettier/more efficient in php please do so. (sure you can)
@@ -267,63 +277,63 @@ if( !class_exists('Tribe_Events_Week_Template')){
 	<?php // Grid "Rows" ?>
 	<div class="tribe-week-grid-outer-wrap">
 		<div class="tribe-week-grid-inner-wrap">
-			<?php 
+			<?php
 			// sam messing aboot
-			for( $grid_blocks = $events->hours['start']; $grid_blocks <= $events->hours['end']; $grid_blocks++ ) {
-				printf( '<div class="tribe-week-grid-block" data-hour="%s"><div></div></div>', Date('G',mktime($grid_blocks)) );
+			for ( $grid_blocks = $events->hours['start']; $grid_blocks <= $events->hours['end']; $grid_blocks++ ) {
+				printf( '<div class="tribe-week-grid-block" data-hour="%s"><div></div></div>', date( 'G', mktime( $grid_blocks ) ) );
 			}
 
-			?>			
+?>
 		</div><!-- .tribe-week-grid-inner-wrap -->
 	</div><!-- .tribe-week-grid-outer-wrap -->
-	
+
 	<?php // Content / Events "Rows" ?>
 	<!-- Days of the week & hours & events -->
 	<div class="tribe-grid-body clearfix">
-	
+
 		<?php // Hours ?>
 		<div class="column tribe-week-grid-hours">
-			<?php 
+			<?php
 
-			for( $hour = $events->hours['start']; $hour <= $events->hours['end']; $hour++ ) {
-				printf( '<div>%s</div>', Date('gA',mktime($hour)) );
+			for ( $hour = $events->hours['start']; $hour <= $events->hours['end']; $hour++ ) {
+				printf( '<div>%s</div>', date( 'gA', mktime( $hour ) ) );
 			}
 
-			?>
+?>
 		</div><!-- tribe-week-grid-hours -->
-		
+
 		<?php // Content ?>
 		<div class="tribe-grid-content-wrap">
-		
+
 			<?php // Our day columns?
-			for( $n = 0; $n < $week_length; $n++ ) {
-				$day = Date('Y-m-d', strtotime($start_of_week . " +$n days"));
-				$header_class = ($day == $today) ? 'tribe-week-today' : '';
-				printf('<div title="%s" class="column hfeed vcalendar %s">',
-					Date('Y-m-d', strtotime($start_of_week . " +$n days")),
+			for ( $n = 0; $n < $week_length; $n++ ) {
+				$day = date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) );
+				$header_class = ( $day == $today ) ? 'tribe-week-today' : '';
+				printf( '<div title="%s" class="column hfeed vcalendar %s">',
+					date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) ),
 					$header_class
-					);				
-				foreach( $events->daily as $event ){
-					if( Date('Y-m-d',strtotime($event->EventStartDate)) == $day ){
-						$duration = ($event->EventDuration / 60);
-						echo '<div id="tribe-events-event-'. $event->ID .'" duration="'. $duration .'" data-hour="' . Date('G',strtotime($event->EventStartDate)) . '" data-min="' . Date('i',strtotime($event->EventStartDate)) . '">';
-						printf('<div class="hentry vevent"><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3></div>',
+				);
+				foreach ( $events->daily as $event ) {
+					if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) == $day ) {
+						$duration = ( $event->EventDuration / 60 );
+						echo '<div id="tribe-events-event-'. $event->ID .'" duration="'. $duration .'" data-hour="' . date( 'G', strtotime( $event->EventStartDate ) ) . '" data-min="' . date( 'i', strtotime( $event->EventStartDate ) ) . '">';
+						printf( '<div class="hentry vevent"><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3></div>',
 							get_permalink( $event->ID ),
 							$event->post_title
-							); ?>
-							
+						); ?>
+
 						<div id="tribe-events-tooltip-<?php echo $event->ID; ?>" class="tribe-events-tooltip">
 							<h4 class="entry-title summary"><?php echo $event->post_title; ?></h4>
 							<div class="tribe-events-event-body">
 								<div class="duration">
 									<?php
-									/*
+						/*
 									@Tim
 									@Comment: this is what actually needs to get implemented, I was having trouble
 										   	  with getting the right bits in same for grid events as well, see below.
 										   	  And if you could make sure all the tooltip content tags are correct,
 										   	  I'd appreciate it!
-										 
+
 										<abbr class="tribe-events-abbr updated published dtstart" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $start ); ?>">
 							<?php if ( !empty( $start ) )	echo date_i18n( get_option( 'date_format', 'F j, Y' ), $start );
 							if ( !tribe_get_event_meta( $post->ID, '_EventAllDay', true ) )
@@ -342,7 +352,7 @@ if( !class_exists('Tribe_Events_Week_Template')){
 								}
 							} ?>
 							</abbr><!-- .dtend -->
-							
+
 							*/ ?>
 									<abbr class="tribe-events-abbr updated published dtstart" title="Our Start Date">
 										Our Start Date
@@ -351,94 +361,94 @@ if( !class_exists('Tribe_Events_Week_Template')){
 										– Our End Date
 									</abbr><!-- .dtend -->
 								</div><!-- .duration -->
-						
+
 								<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
-									<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75,75 ) );?></div>
+									<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75, 75 ) );?></div>
 								<?php } ?>
-						
+
 								<?php //conditional ?>
 								<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $$event->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
 
 							</div><!-- .tribe-events-event-body -->
 							<span class="tribe-events-arrow"></span>
-							<div style="display:none"><?php print_r($event); ?></div>
+							<div style="display:none"><?php print_r( $event ); ?></div>
 						</div><!-- .tribe-events-tooltip -->
 						<?php
-						
-						
+
+
 						echo '</div><!-- #tribe-events-event-'. $event->ID .' -->';
 					}
 				}
 				echo '</div>';
 			} ?>
-		
+
 		</div><!-- .tribe-grid-content-wrap -->
-	
+
 	</div><!-- .tribe-grid-body -->
-	
+
 </div><!-- .tribe-events-grid -->
 
 
-		
-    <?php 
+
+    <?php
 			$html = ob_get_clean();
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_the_grid');
+			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_the_grid' );
 		}
 
 		// End List Loop
-		public static function inside_after_loop( $post_id ){
+		public static function inside_after_loop( $post_id ) {
 			$html = '';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_inside_after_loop');
+			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_inside_after_loop' );
 		}
-		public static function after_loop( $post_id ){
+		public static function after_loop( $post_id ) {
 			$html = '';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_after_loop');
+			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_after_loop' );
 		}
 
-		public static function before_header( $post_id ){
+		public static function before_header( $post_id ) {
 			$html = '';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_before_pagination');
+			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_before_pagination' );
 		}
-		public static function the_header( $post_id ){
+		public static function the_header( $post_id ) {
 			global $wp_query;
 			// echo '<pre>';
 			// print_r($wp_query->posts);
 			// echo '</pre>';
-			$current_week = tribe_get_first_week_day( $wp_query->get('start_date') );
+			$current_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
 
 			// Display Week Navigation
-			$html = sprintf('<div id="tribe-events-header" data-date="%7$s"><h3 class="tribe-events-visuallyhidden">%1$s</h3><ul class="tribe-events-sub-nav"><li class="tribe-events-nav-prev"><a data-week="%3$s" href="%2$s" rel="prev">&#x2190; %8$s</a></li><li class="tribe-events-nav-next"><a data-week="%5$s" href="%4$s" rel="next">%9$s &#x2192;</a><img src="%6$s" class="ajax-loading" id="ajax-loading" alt="Loading events" /></li></ul></div>',
-								__( 'Week Navigation', 'tribe-events-calendar' ),
-								tribe_get_last_week_permalink( $current_week ),
-								date('Y-m-d', strtotime( $current_week . ' -7 days') ),
-								tribe_get_next_week_permalink( $current_week ),
-								date('Y-m-d', strtotime( $current_week . ' +7 days') ),
-								esc_url( admin_url( 'images/wpspin_light.gif' ) ),
-								$current_week,
-								__( 'Prev Week', 'tribe-events-calendar' ),
-								__( 'Next Week', 'tribe-events-calendar' )
-								);
+			$html = sprintf( '<div id="tribe-events-header" data-date="%7$s"><h3 class="tribe-events-visuallyhidden">%1$s</h3><ul class="tribe-events-sub-nav"><li class="tribe-events-nav-prev"><a data-week="%3$s" href="%2$s" rel="prev">&#x2190; %8$s</a></li><li class="tribe-events-nav-next"><a data-week="%5$s" href="%4$s" rel="next">%9$s &#x2192;</a><img src="%6$s" class="ajax-loading" id="ajax-loading" alt="Loading events" /></li></ul></div>',
+				__( 'Week Navigation', 'tribe-events-calendar' ),
+				tribe_get_last_week_permalink( $current_week ),
+				date( 'Y-m-d', strtotime( $current_week . ' -7 days' ) ),
+				tribe_get_next_week_permalink( $current_week ),
+				date( 'Y-m-d', strtotime( $current_week . ' +7 days' ) ),
+				esc_url( admin_url( 'images/wpspin_light.gif' ) ),
+				$current_week,
+				__( 'Prev Week', 'tribe-events-calendar' ),
+				__( 'Next Week', 'tribe-events-calendar' )
+			);
 
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_pagination');
+			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_pagination' );
 		}
-		public static function after_header( $post_id ){
+		public static function after_header( $post_id ) {
 			$html = '';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_after_pagination');
+			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_after_pagination' );
 		}
 		// End List Template
-		public static function after_template( $post_id ){
+		public static function after_template( $post_id ) {
 			$html = '';
 
 			// iCal import button
-			if( function_exists( 'tribe_get_ical_link' ) ){
-				$html .= sprintf('<a class="tribe-events-ical tribe-events-button-grey" title="%s" href="%s">%s</a>',
+			if ( function_exists( 'tribe_get_ical_link' ) ) {
+				$html .= sprintf( '<a class="tribe-events-ical tribe-events-button-grey" title="%s" href="%s">%s</a>',
 					esc_attr( 'iCal Import', 'tribe-events-calendar' ),
 					tribe_get_ical_link(),
 					__( 'iCal Import', 'tribe-events-calendar' )
-					);
+				);
 			}
 			$html .= '</div><!-- #tribe-events-content -->';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_after_template');		
+			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_after_template' );
 		}
 	}
 	Tribe_Events_Week_Template::init();

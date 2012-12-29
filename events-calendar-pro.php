@@ -248,6 +248,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 				TribeEventsQuery::init();
 				add_filter( 'tribe_events_pre_get_posts', array( $this, 'pre_get_posts' ) );
+				add_filter( 'tribe_get_events_title', array( $this, 'reset_page_title'));
 
 				$args = array(
 					'post_status' => array( 'publish', 'private', 'future' ),

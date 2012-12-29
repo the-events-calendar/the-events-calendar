@@ -17,6 +17,8 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 	class Tribe_Events_Pro_Single_Venue_Template extends Tribe_Template_Factory {
 		public static function init() {
 
+			add_action('tribe_get_meta_group', array(__CLASS__,'customize_meta'), 10, 2);
+
 			// Remove the title from the list view
 			add_filter( 'tribe_events_list_the_title', '__return_null', 2, 1 );
 
@@ -90,8 +92,11 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 			$html = '';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_before_the_meta' );
 		}
-		public static function the_meta( $post_id ) {
-			
+
+		public static function customize_meta( $meta_id, $is_the_meta ){
+
+			echo $meta_id;
+
 			// setup the template for the meta group
 			tribe_set_the_meta_template( 'tribe_event_venue', array('wrap' => array(
 					'before'=>'',
@@ -107,14 +112,22 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 
 			// remove the title for the group & meta items
 			tribe_set_meta_label('tribe_event_venue', '', 'meta_group');
-			tribe_set_meta_label('tribe_event_venue_address', '');
-			tribe_set_meta_label('tribe_event_venue_phone', '');
-			tribe_set_meta_label('tribe_event_venue_website', '');
+			tribe_set_meta_label( array( 
+				'tribe_event_venue_address' => '',
+				'tribe_event_venue_phone' => '',
+				'tribe_event_venue_website' => ''
+				));
 
 			// set meta item priorities
-			tribe_set_meta_priority( 'tribe_event_venue_address', 10 );
-			tribe_set_meta_priority( 'tribe_event_venue_phone', 20 );
-			tribe_set_meta_priority( 'tribe_event_venue_website', 30 );
+			tribe_set_meta_priority( array( 
+				'tribe_event_venue_address' => 10,
+				'tribe_event_venue_phone' => 20,
+				'tribe_event_venue_website' => 30
+				));
+
+			do_action('tribe_events_pro_single_venue_template_customize_meta');
+		}
+		public static function the_meta( $post_id ) {
 
 			$html = sprintf('%s%s%s',
 					( get_post_meta( get_the_ID(), '_EventShowMapLink', true ) == 'true' ) ? tribe_get_meta('tribe_event_venue_gmap_link'): '',
