@@ -3433,7 +3433,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		function list_ajax_call_set_date( $query ) {
 			if ( isset( $_POST["tribe-bar-date"] ) && $_POST["tribe-bar-date"] ) {
-				$query->set( 'eventDisplay', 'all' );
+				$query->set( 'eventDisplay', 'upcoming' );
 			}
 			return $query;
 		}
