@@ -91,6 +91,11 @@ if (!class_exists('TribeEventsQuery')) {
 				add_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct'));
 				add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ), 10, 2 );
 
+				// if a user selects a date in the event bar we want it to persist as long as possible
+				if ( !empty( $_REQUEST['tribe-bar-date'] ) ) {
+					$query->set( 'eventDate', $_REQUEST['tribe-bar-date']);
+				}
+
 				if( !empty($query->query_vars['eventDisplay']) ) {
 	            	switch ( $query->query_vars['eventDisplay'] ) {
 	            		case 'custom':
@@ -120,13 +125,17 @@ if (!class_exists('TribeEventsQuery')) {
 	                  		break;
 	               		case 'upcoming':
 	               		default: // default display query
+	               			$start_date = date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
+							$start_date = ( $query->get('eventDate') != '' ) ? $query->get('eventDate') . '-01' : $start_date;
 							$query->set( 'hide_upcoming', true );
-							$query->set( 'start_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
+							$query->set( 'start_date', $start_date );
 							$query->set( 'orderby', 'event_date' );
 							$query->set( 'order', 'ASC' );
 							self::$start_date = $query->get( 'start_date' );
 	                  		break;
 	            	}
+				} else if ( !empty( $_REQUEST['tribe-bar-search'] ) ) {
+					$query->query_vars['s'] = $_REQUEST['tribe-bar-search'];
 	         	} else if ( is_single() ) {
 	         		if( $query->get('eventDate') != '' ) {
 						$query->set( 'start_date', $query->get('eventDate') );
