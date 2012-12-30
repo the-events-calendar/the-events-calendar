@@ -45,6 +45,8 @@ if ( !function_exists( 'tribe_register_meta' ) ) {
 if( !function_exists('tribe_get_meta_group')){
 	function tribe_get_meta_group( $meta_group_id, $is_the_meta = false ){
 
+		do_action('tribe_get_meta_group', $meta_group_id, $is_the_meta );
+
 		$type = 'meta_group';
 
 		// die silently if the requested meta group is not registered
@@ -85,6 +87,8 @@ if( !function_exists('tribe_get_meta_group')){
 }
 if ( !function_exists( 'tribe_get_meta' ) ) {
 	function tribe_get_meta( $meta_id, $is_the_meta = false ) {
+
+		do_action('tribe_get_meta', $meta_id, $is_the_meta );
 
 		// die silently if the requested meta item is not registered
 		if( ! Tribe_Meta_Factory::check_exists( $meta_id ) )
@@ -137,27 +141,39 @@ if(!function_exists('tribe_set_the_meta_template')){
 
 if(!function_exists('tribe_set_meta_priority')){
 	function tribe_set_meta_priority( $meta_id, $priority = 100, $type = 'meta' ){
-		global $tribe_meta_factory;
+		if( is_array( $meta_id) ) {
+			foreach( $meta_id as $id => $priority) {
+				tribe_set_meta_priority( $id, $priority, $type );
+			}
+		} else {
+			global $tribe_meta_factory;
 
-		// die silently if the requested meta group is not registered
-		if( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) )
-			return false;
+			// die silently if the requested meta group is not registered
+			if( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) )
+				return false;
 
-		if( !empty( $priority ) ){
-			$tribe_meta_factory->{$type}[$meta_id]['priority'] = $priority;
+			if( !empty( $priority ) ){
+				$tribe_meta_factory->{$type}[$meta_id]['priority'] = $priority;
+			}
 		}
 	}
 }
 
 if(!function_exists('tribe_set_meta_label')){
 	function tribe_set_meta_label( $meta_id, $label = '', $type = 'meta' ){
-		global $tribe_meta_factory;
+		if( is_array( $meta_id) ) {
+			foreach( $meta_id as $id => $label) {
+				tribe_set_meta_label( $id, $label, $type );
+			}
+		} else {
+			global $tribe_meta_factory;
 
-		// die silently if the requested meta group is not registered
-		if( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) )
-			return false;
+			// die silently if the requested meta group is not registered
+			if( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) )
+				return false;
 
-		$tribe_meta_factory->{$type}[$meta_id]['label'] = $label;
+			$tribe_meta_factory->{$type}[$meta_id]['label'] = $label;
+		}
 	}
 }
 
