@@ -128,7 +128,7 @@ jQuery(document).ready(function($){
 
 	if( tribe_has_pushstate && !GeoLoc.map_view ) {
 		
-		var initial_url = document.URL;
+//		var initial_url = document.URL;
 
 		// fix any browser that fires popstate on first load incorrectly
 
@@ -154,7 +154,7 @@ jQuery(document).ready(function($){
 					tribe_events_week_ajax_post( '', '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params );
 				});
 			} else {
-				window.location = initial_url;
+//				window.location = initial_url;
 			}
 		} );
 	}
