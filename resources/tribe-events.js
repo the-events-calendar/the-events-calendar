@@ -113,7 +113,7 @@ jQuery.fn.tribeClearForm = function() {
 
 // tribe global vars, sorry, we need em
 
-var tribe_has_pushstate = window.history && window.history.pushState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);
+var tribe_has_pushstate = !!(window.history && history.pushState);
 var tribe_cur_url = tribe_get_path( jQuery( location ).attr( 'href' ) );
 var tribe_do_string, tribe_popping, tribe_initial_load = false;
 var tribe_pushstate = true;	
