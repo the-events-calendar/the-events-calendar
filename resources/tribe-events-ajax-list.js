@@ -17,7 +17,7 @@ jQuery( document ).ready( function ( $ ) {
 
 		// let's fix any browser that fires popstate on first load incorrectly
 
-		var popped = ('state' in window.history), initialURL = location.href;
+		var popped = ('state' in window.history && window.history.state !== null), initialURL = location.href;		
 
 		$(window).bind('popstate', function(event) {
 			var initialPop = !popped && location.href == initialURL;
@@ -39,7 +39,7 @@ jQuery( document ).ready( function ( $ ) {
 					tribe_events_list_ajax_post( '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params, tribe_url_params );	
 				});
 			} else {
-//				window.location = initial_url;
+				window.location = initialURL;
 			}
 		} );
 		
