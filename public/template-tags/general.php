@@ -547,13 +547,14 @@ if( class_exists( 'TribeEvents' ) ) {
 		return apply_filters( 'tribe_events_event_schedule_details', $schedule );
 	}
 
-	function tribe_get_days_between( $start_date, $end_date ){
+	function tribe_get_days_between( $start_date, $end_date ) {
 
 		$start_date = new DateTime( $start_date );
-		$end_date = new DateTime( $end_date );
-		$interval = $start_date->diff($end_date);
+		$end_date   = new DateTime( $end_date );
+//      This doesn't work on php 5.2
+//		$interval = $start_date->diff($end_date);
 
-		return $interval->days;
+		return TribeEventsQuery::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
 	}
 
 	function tribe_include_view_list( $args = null ){

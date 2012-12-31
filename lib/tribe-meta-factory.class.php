@@ -33,6 +33,7 @@ if( !class_exists('Tribe_Meta_Factory') ) {
 					'meta_before'=>'<div class="tribe-meta-value">',
 					'meta_after'=>'</div>'
 					),
+				'classes_for' => array(),
 				'register_type' => 'meta',
 				'register_overwrite' => false,
 				'register_callback' => null,

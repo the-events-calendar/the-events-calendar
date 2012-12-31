@@ -30,10 +30,6 @@ if (!class_exists('TribeEventsTemplates')) {
 				return $template;
 			}
 			
-			//is_home fixer
-			global $wp_query;
-			$wp_query->is_home = false;
-
 			if( tribe_get_option('tribeEventsTemplate', 'default') == '' ) {
 				if(is_single() && !tribe_is_showing_all() ) {
 					return TribeEventsTemplates::getTemplateHierarchy('wrapper-single');
@@ -274,6 +270,11 @@ if (!class_exists('TribeEventsTemplates')) {
 				$subfolder = $subfolder[0] != '/' ? '/' . $subfolder : $subfolder;
 
 				$file = $pluginPath . 'views' . $subfolder . $template;
+			}
+			
+			$tec = TribeEvents::instance();
+			if ( in_array( $tec->displaying, tribe_get_option( 'hideViews', array() ) ) ) {
+				$file = get_404_template();
 			}
 
 			return apply_filters( 'tribe_events_template_'.$template, $file);

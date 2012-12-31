@@ -184,16 +184,17 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @return string Date currently queried
 	 * @since 2.0
 	 */
-	function tribe_get_month_view_date()  {
+	function tribe_get_month_view_date() {
 		global $wp_query;
 
-		if ( isset ( $wp_query->query_vars['eventDate'] ) ) { 
-			$date = $wp_query->query_vars['eventDate'] . "-01";
-		} else {
-			$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
+		$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
+		if ( isset( $_REQUEST["eventDate"] ) && $_REQUEST["eventDate"] ) {
+			$date = $_REQUEST["eventDate"] . '-01';
+		} else if ( !empty( $wp_query->query_vars['eventDate'] ) ) {
+			$date = $wp_query->query_vars['eventDate'];
 		}
-		
-		return apply_filters('tribe_get_month_view_date', $date);
+
+		return apply_filters( 'tribe_get_month_view_date', $date );
 	}
 
 	/**

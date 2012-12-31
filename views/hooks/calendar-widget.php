@@ -58,7 +58,7 @@ if( !class_exists('Tribe_Events_Calendar_Widget_Template')){
 		public static function the_nav(){
 			$tribe_ecp = TribeEvents::instance();
 			$current_date = tribe_get_month_view_date();
-			list( $year, $month ) = split( '-', $current_date );
+			list( $year, $month ) = explode( '-', $current_date );
 			$date = mktime( 12, 0, 0, $month, 1, $year ); // 1st day of month as unix stamp
 			$html = '<a class="tribe-mini-ajax prev-month" href="#" data-month="'. $tribe_ecp->previousMonth( $current_date ) .'" title="'. tribe_get_previous_month_text() .'"><span>'. tribe_get_previous_month_text() .'</span></a>';
 			$html .= '<span id="tribe-mini-ajax-month">'. $tribe_ecp->monthsShort[date( 'M',$date )] . date( ' Y',$date ) .'</span>';

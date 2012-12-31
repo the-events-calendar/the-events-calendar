@@ -101,7 +101,7 @@ if ( !class_exists( 'TribeValidate' ) ) {
 						$this->result->valid = true;
 						return $this->result;
 					} else {
-						call_user_method( $this->type, $this ); // run the validation
+						call_user_func( array( $this, $this->type ) ); // run the validation
 					}
 				} else {
 					// invalid validation type set, validation fails
