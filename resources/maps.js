@@ -55,7 +55,7 @@ jQuery( document ).ready( function ( $ ) {
 
 		// fix any browser that fires popstate on first load incorrectly
 
-		var popped = ('state' in window.history), initialURL = location.href;
+		var popped = ('state' in window.history && window.history.state !== null), initialURL = location.href;	
 
 		$(window).bind('popstate', function(event) {
 
@@ -77,7 +77,7 @@ jQuery( document ).ready( function ( $ ) {
 					tribe_map_processOption( null, '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params );
 				});
 			} else {
-//				window.location = initial_url;
+				window.location = initialURL;
 			}
 		} );
 	}
