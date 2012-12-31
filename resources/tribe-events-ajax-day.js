@@ -6,8 +6,7 @@ jQuery( document ).ready( function ( $ ) {
 		if ( $( '.tribe-events-day-time-slot' ).length ) {
 			$( '.tribe-events-day-time-slot' ).find( '.vevent:last' ).addClass( 'tribe-last' );
 			$( '.tribe-events-day-time-slot:first' ).find( '.vevent:first' ).removeClass( 'tribe-first' );
-		}
-		$('#tribe-bar-date').addClass('tribe-no-param');
+		}		
 	}
 
 	tribe_day_add_classes();
