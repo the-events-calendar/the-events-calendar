@@ -50,6 +50,8 @@ jQuery( document ).ready( function ( $ ) {
 	$( '#tribe-geo-location' ).placeholder();	
 	
 	if( tribe_has_pushstate && GeoLoc.map_view ) {
+		
+		var initial_url = document.URL;
 
 		// fix any browser that fires popstate on first load incorrectly
 
@@ -74,6 +76,8 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_pre_ajax_tests( function() { 				
 					tribe_map_processOption( null, '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params );
 				});
+			} else {
+				window.location = initial_url;
 			}
 		} );
 	}
