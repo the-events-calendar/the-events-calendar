@@ -126,20 +126,18 @@ jQuery(document).ready(function($){
 	if( typeof GeoLoc === 'undefined' ) 
 		var GeoLoc = {"map_view":""};
 
-	if( tribe_has_pushstate && !GeoLoc.map_view ) {
-		
-//		var initial_url = document.URL;
+	if( tribe_has_pushstate && !GeoLoc.map_view ) {		
 
-		// fix any browser that fires popstate on first load incorrectly
+		// fix any browser that fires popstate on first load incorrectly	
 
-		var popped = ('state' in window.history), initialURL = location.href;
+		var popped = ('state' in window.history && window.history.state !== null), initialURL = location.href;		
 
 		$(window).bind('popstate', function(event) {
 
 			var initialPop = !popped && location.href == initialURL;
 			popped = true;
 
-			// if it was an inital load, get out of here
+			// if it was an inital load, get out of here			
 
 			if ( initialPop ) return;
 
@@ -153,8 +151,8 @@ jQuery(document).ready(function($){
 				tribe_pre_ajax_tests( function() {
 					tribe_events_week_ajax_post( '', '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params );
 				});
-			} else {
-//				window.location = initial_url;
+			} else {				
+				window.location = initialURL;
 			}
 		} );
 	}
