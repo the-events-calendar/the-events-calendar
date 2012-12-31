@@ -161,6 +161,7 @@ jQuery(document).ready(function($){
 		tribe_href_target = $( this ).attr( "href" );
 		tribe_pushstate = true;
 		tribe_do_string = false;
+		$('#tribe-bar-date').val(tribe_date);
 		tribe_pre_ajax_tests( function() { 		
 			tribe_events_week_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );	
 		});
