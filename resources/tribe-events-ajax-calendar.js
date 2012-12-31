@@ -216,7 +216,8 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_params,
 				function ( response ) {
 					$( "#ajax-loading" ).hide();
-					tribe_storage.setItem( 'tribe_initial_load', 'false' );
+					if( tribe_storage )
+						tribe_storage.setItem( 'tribe_initial_load', 'false' );
 					if ( response !== '' ) {
 						var $the_content = $( response ).contents();
 						$( '#tribe-events-content.tribe-events-calendar' ).html( $the_content );

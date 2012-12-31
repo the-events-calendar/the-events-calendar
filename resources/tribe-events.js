@@ -16,6 +16,14 @@ function tribe_get_url_params() {
 	return location.search.substr(1);
 }
 
+function tribe_parse_query_string( string ) {    
+    var map   = {};
+    string.replace(/([^&=]+)=?([^&]*)(?:&+|$)/g, function(match, key, value) {
+        (map[key] = map[key] || []).push(value);
+    });
+    return map;
+}
+
 // tribe shared ajax tests
 
 function tribe_pre_ajax_tests( tribe_ajax_callback ) {		
