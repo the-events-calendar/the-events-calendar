@@ -245,9 +245,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			add_filter( 'tribe-events-bar-filters', array( $this, 'setup_keyword_search_in_bar' ), 1, 1 );
 			add_filter( 'tribe-events-bar-filters', array( $this, 'setup_date_search_in_bar' ), 5, 1 );
-
-			add_filter( 'tribe_events_pre_get_posts', array( $this, 'setup_keyword_search_in_query' ) );
-			add_filter( 'tribe_events_pre_get_posts', array( $this, 'setup_date_search_in_query' ), 11 );
 			
 			add_filter( 'tribe-events-bar-views', array( $this, 'remove_hidden_views' ), 9999, 1 );
 			/* End Setup Tribe Events Bar */
@@ -1350,12 +1347,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				// hook for other plugins
 				do_action('tribe_settings_enqueue');
 			}
+
+			if ( $current_screen->id == 'widgets' )
+				Tribe_Template_Factory::asset_package( 'chosen' );
+
 			// events, organizer, or venue editing
 			if ( ( isset($current_screen->post_type) && in_array( $current_screen->post_type, array(
 				self::POSTTYPE, // events editing
 				self::VENUE_POST_TYPE, // venue editing
 				self::ORGANIZER_POST_TYPE // organizer editing
-			) )) || $current_screen->id == 'widgets' ){
+			) ))  ){
 
 				// chosen
 				Tribe_Template_Factory::asset_package('chosen');
@@ -3323,7 +3324,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$filters[] = array( 'name'    => 'tribe-bar-date',
 			                    'caption' => 'Date',
-			                    'html'    => '<input type="text" name="tribe-bar-date" style="position: relative; z-index:10000" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="Date"><input type="hidden" name="tribe-date-storage" id="tribe-date-storage" value="' . esc_attr( $value ) . '" class="tribe-no-param" />' );
+			                    'html'    => '<input type="text" name="tribe-bar-date" style="position: relative; z-index:10000" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="Date">' );
 
 			return $filters;
 		}
@@ -3348,50 +3349,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 			
 			return $views;
-		}
-
-		public function setup_keyword_search_in_query( $query ) {
-
-			if ( !empty( $_REQUEST['tribe-bar-search'] ) && in_array( TribeEvents::POSTTYPE, (array)$query->query_vars['post_type'] ) ) {
-				$query->query_vars['s'] = $_REQUEST['tribe-bar-search'];
-			}
-
-			return $query;
-		}
-
-		public function setup_date_search_in_query( $query ) {			
-
-			if ( !empty( $_REQUEST['tribe-bar-date'] ) ) {
-				
-				$action = '';
-				if( isset( $_REQUEST['action'] ) )
-					$action = $_REQUEST['action'];
-				
-				if( $action == 'tribe_list' || $action == 'tribe_photo' || $action == 'geosearch' ) {
-					
-					$query->set( 'start_date', TribeDateUtils::beginningOfDay( $_REQUEST['tribe-bar-date'] ) );	
-					
-				} else {
-					
-					$meta_query = array( 'key'     => '_EventStartDate',
-							     'value'   => array( TribeDateUtils::beginningOfDay( $_REQUEST['tribe-bar-date'] ),
-										 TribeDateUtils::endOfDay( $_REQUEST['tribe-bar-date'] ) ),
-							     'compare' => 'BETWEEN',
-							     'type'    => 'DATETIME' );
-
-					if ( empty( $query->query_vars['meta_query'] ) ) {
-						$query->set( 'meta_query', array( $meta_query ) );
-					} else {
-						$key = array_search( array('key' => '_EventStartDate', 'type' => 'DATETIME'), $query->query_vars['meta_query'] );
-						if ( is_int( $key ) )
-							$query->query_vars['meta_query'][$key] = $meta_query;
-						else
-							$query->query_vars['meta_query'][] = $meta_query;
-					}
-				}
-			}
-
-			return $query;
 		}
 
 		function set_tribe_paged( $query ) {
@@ -3476,7 +3433,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		function list_ajax_call_set_date( $query ) {
 			if ( isset( $_POST["tribe-bar-date"] ) && $_POST["tribe-bar-date"] ) {
-				$query->set( 'eventDisplay', 'all' );
+				$query->set( 'eventDisplay', 'upcoming' );
 			}
 			return $query;
 		}

@@ -1,15 +1,22 @@
 jQuery( document ).ready( function ( $ ) {
 
 	// Add select2 to our month/year selects
-	/*
-		@Samuel
-		This needs to get hooked up for ajax changes in the view :) 
-	*/
+	
 	if($('.tribe-events-calendar').length) {
 		$( '.tribe-events-events-dropdown' ).select2({
-    		minimumResultsForSearch: 9999
-    	});
-    }
+			minimumResultsForSearch: 9999
+		});
+	}
+	
+	function tribe_get_if_day_is_set(){
+		var dp_day = '';
+		if( $('#tribe-bar-date').length ) {
+			var dp_date = $('#tribe-bar-date').val();
+			if( dp_date.length )
+				dp_day = dp_date.slice(-3);
+		}
+		return dp_day;
+	}
 
 	// our vars
 	
@@ -19,6 +26,8 @@ jQuery( document ).ready( function ( $ ) {
 		var GeoLoc = {"map_view":""};
 
 	if( tribe_has_pushstate && !GeoLoc.map_view ) {
+		
+		var initial_url = document.URL;
 
 		// fix any browser that fires popstate on first load incorrectly
 
@@ -43,13 +52,27 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_pre_ajax_tests( function() {
 					tribe_events_calendar_ajax_post( '', '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params );
 				});
+			} else {
+//				window.location = initial_url;
 			}
 		} );
+		
+//		tribe_date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();	
+//		
+//		if( tribe_get_url_params() ) {
+//			history.pushState({
+//				"tribe_date": tribe_date,
+//				"tribe_params": tribe_get_url_params()
+//			}, page_title, tribe_href_target);
+//		} else {
+//			
+//		}
 	}
 
 	$( '.tribe-events-calendar .tribe-events-sub-nav a' ).live( 'click', function ( e ) {
 		e.preventDefault();		
 		tribe_date = $( this ).attr( "data-month" );
+		$( '#tribe-bar-date' ).val(tribe_date + tribe_get_if_day_is_set());
 		tribe_href_target = $( this ).attr( "href" );
 		tribe_pushstate = true;
 		tribe_do_string = false;
@@ -60,7 +83,8 @@ jQuery( document ).ready( function ( $ ) {
 
 	$( '#tribe-bar-dates select' ).live( 'change', function ( e ) {
 		e.preventDefault();			
-		tribe_date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();
+		tribe_date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();		
+		$( '#tribe-bar-date' ).val(tribe_date + tribe_get_if_day_is_set());
 		tribe_href_target = tribe_base_url + tribe_date + '/';		
 		tribe_pushstate = true;
 		tribe_do_string = false;
@@ -150,14 +174,14 @@ jQuery( document ).ready( function ( $ ) {
 
 		$( '.ajax-loading' ).show();
 		
-		if( !tribe_popping ) {
-			
-			
+		if( !tribe_popping ) {		
 
 			tribe_params = {
 				action:'tribe_calendar',
 				eventDate:tribe_date
-			};	
+			};
+			
+			tribe_url_params = {};
 
 			// add any set values from event bar to params. want to use serialize but due to ie bug we are stuck with second	
 
@@ -167,16 +191,19 @@ jQuery( document ).ready( function ( $ ) {
 					if( $this.is(':checkbox') ) {
 						if( $this.is(':checked') ) {
 							tribe_params[$this.attr('name')] = $this.val();
+							tribe_url_params[$this.attr('name')] = $this.val();
 							tribe_push_counter++;
 						}
 					} else {
 						tribe_params[$this.attr('name')] = $this.val();
+						tribe_url_params[$this.attr('name')] = $this.val();
 						tribe_push_counter++;
 					}					
 				}			
 			} );
 
 			tribe_params = $.param(tribe_params);
+			tribe_url_params = $.param(tribe_url_params);
 
 			// check if advanced filters plugin is active
 
@@ -187,6 +214,7 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();				
 				if( tribe_filter_params.length ) {
 					tribe_params = tribe_params + '&' + tribe_filter_params;
+					tribe_url_params = tribe_url_params + '&' + tribe_filter_params;
 				}
 			}			
 			
@@ -221,7 +249,7 @@ jQuery( document ).ready( function ( $ ) {
 						$(document).attr('title', page_title);
 						
 						if( tribe_do_string ) {							
-							tribe_href_target = tribe_href_target + '?' + tribe_params;								
+							tribe_href_target = tribe_href_target + '?' + tribe_url_params;								
 							history.pushState({
 								"tribe_date": tribe_date,
 								"tribe_params": tribe_params
@@ -241,7 +269,7 @@ jQuery( document ).ready( function ( $ ) {
 		} else {
 			
 			if( tribe_do_string ) {
-				tribe_href_target = tribe_href_target + '?' + tribe_params;													
+				tribe_href_target = tribe_href_target + '?' + tribe_url_params;													
 			}			
 			
 			window.location = tribe_href_target;			

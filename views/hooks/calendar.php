@@ -122,11 +122,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			ob_start();
 
 			$tribe_ecp = TribeEvents::instance();
-			if ( isset( $_REQUEST["eventDate"] ) && $_REQUEST["eventDate"] ) {
-				$tribe_ecp->date = $_REQUEST["eventDate"] . '-01';
-			} else if ( !empty( $wp_query->query_vars['eventDate'] ) ) {
-				$tribe_ecp->date = $wp_query->query_vars['eventDate'];
-			}
+			$tribe_ecp->date = tribe_get_month_view_date();
 
 			// get all upcoming ids to hide so we're not querying 31 times
 			$hide_upcoming_ids = TribeEventsQuery::getHideFromUpcomingEvents();

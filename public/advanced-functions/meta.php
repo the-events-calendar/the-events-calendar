@@ -131,14 +131,10 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		function venue_address( $meta_id ){
 			global $tribe_meta_factory;
 
-			$address = tribe_address_exists( get_the_ID() ) ? tribe_get_full_address( get_the_ID() ) : '';
+			$address = tribe_address_exists( get_the_ID() ) ? '<address class="event-address">' . tribe_get_full_address( get_the_ID() ) . '</address>' : '';
 
 			// Google map link
-			$gmap_link = tribe_show_google_map_link( get_the_ID() ) ? sprintf('<a class="tribe-events-gmap" href="%s" title="%s" target="_blank">%s</a>', 
-				tribe_get_map_link(),
-				__( 'Click to view a Google Map', 'tribe-events-calendar' ),
-				__( 'Google Map', 'tribe-events-calendar' )
-				) : '' ;
+			$gmap_link = tribe_show_google_map_link( get_the_ID() ) ? self::gmap_link() : '' ;
 
 			$venue_address = empty( $address ) ? '' :  Tribe_Meta_Factory::template(
 				$tribe_meta_factory->meta[$meta_id]['label'],
@@ -171,7 +167,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 
 				// Get the event address
 				if ( tribe_address_exists( $post_id ) ) {
-					$gmap = ( get_post_meta( $post_id, '_EventShowMapLink', true ) == 'true' ) ? '<a class="tribe-events-gmap" href="' . tribe_get_map_link() . '" title="' . __( 'Click to view this event\'s Google Map', 'tribe-events-calendar' ) . '" target="_blank">'. __( 'Google Map', 'tribe-events-calendar' ) . '</a>' : '';
+					$gmap = ( get_post_meta( $post_id, '_EventShowMapLink', true ) == 'true' ) ? self::gmap_link() : '';
 					$location = sprintf( '%s%s <address class="event-address">%s</address>',
 						$sep,
 						$gmap,
@@ -208,6 +204,15 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 				$custom_fields,
 				$tribe_meta_factory->meta[$meta_id]['wrap'] );
 			return apply_filters( 'tribe_event_meta_custom_meta', $custom_meta);
+		}
+
+		function gmap_link() {
+			$link = sprintf('<a class="tribe-events-gmap" href="%s" title="%s" target="_blank">%s</a>',
+				tribe_get_map_link(),
+				__( 'Click to view a Google Map', 'tribe-events-calendar' ),
+				__( 'Google Map', 'tribe-events-calendar' )
+				);
+			return apply_filters( 'tribe_event_meta_gmap_link', $link);
 		}
 
 	}
@@ -547,7 +552,6 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			'callback' => array( 'Tribe_Register_Meta', 'the_title' )
 		) );
 	tribe_register_meta( 'tribe_event_distance', array(
-			'priority' => 10,
 			'filter_callback' => array( 'Tribe_Register_Meta', 'event_category' ),
 			'show_on_meta' => false
 		) );
@@ -602,5 +606,16 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			'group' => 'tribe_event_group_custom_meta'
 		) );
 
-
+	tribe_register_meta( 'tribe_event_venue_gmap_link', array(
+			'wrap' => array(
+				'before'=>'',
+				'after'=>'',
+				'label_before'=>'',
+				'label_after'=>'',
+				'meta_before'=>'',
+				'meta_after'=>''
+			),
+			'label' => '',
+			'filter_callback' => array( 'Tribe_Register_Meta', 'gmap_link' ),
+		));
 }
