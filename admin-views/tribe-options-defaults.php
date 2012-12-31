@@ -32,7 +32,7 @@ $defaultsTab = array(
 		),
 		'info-box-title' => array(
 			'type' => 'html',
-			'html' => '<h2>' . __('Customize Defaults', 'tribe-events-calendar-pro') . '</h2>',
+			'html' => '<h2>' . __('Custom Defaults', 'tribe-events-calendar-pro') . '</h2>',
 		),
 		'info-box-description' => array(
 			'type' => 'html',
@@ -48,6 +48,14 @@ $defaultsTab = array(
 			'default' => false,
 			'validation_type' => 'boolean',
 		),
+		'eventsDefaultOrganizerHelperTitle' => array(
+			'type' => 'html',
+			'html' => '<h3>' . __('Default Organizer', 'tribe-events-calendar-pro') . '</h3>',
+		),
+		'eventsDefaultOrganizerHelperText' => array(
+			'type' => 'html',
+			'html' => '<p class="description">' . __('You can use this setting to set a default organizer to use with your events.', 'tribe-events-calendar-pro') . '</p>',
+		),
 		'eventsDefaultOrganizerID' => array(
 			'type' => 'dropdown_chosen',
 			'label' => __('Default Organizer','tribe-events-calendar-pro'),
@@ -61,6 +69,14 @@ $defaultsTab = array(
 			'type' => 'html',
 			'display_callback' => 'tribe_display_saved_organizer',
 		),
+		'eventsDefaultVenueHelperTitle' => array(
+			'type' => 'html',
+			'html' => '<h3>' . __('Default Venue', 'tribe-events-calendar-pro') . '</h3>',
+		),
+		'eventsDefaultVenueHelperText' => array(
+			'type' => 'html',
+			'html' => '<p class="description">' . __('You can use this setting to set a default venue to use with your events.', 'tribe-events-calendar-pro') . '</p>',
+		),
 		'eventsDefaultVenueID' => array(
 			'type' => 'dropdown_chosen',
 			'label' => __('Default Venue','tribe-events-calendar-pro'),
@@ -73,6 +89,14 @@ $defaultsTab = array(
 		'current-default-venue' => array(
 			'type' => 'html',
 			'display_callback' => 'tribe_display_saved_venue',
+		),
+		'eventsDefaultAddressHelperTitle' => array(
+			'type' => 'html',
+			'html' => '<h3>' . __('Default Address', 'tribe-events-calendar-pro') . '</h3>',
+		),
+		'eventsDefaultAddressHelperText' => array(
+			'type' => 'html',
+			'html' => '<p class="description">' . __('You can use this setting to set specific, individual defaults for any new Venue you create (these will not be used for your default venue).', 'tribe-events-calendar-pro') . '</p>',
 		),
 		'eventsDefaultAddress' => array(
 			'type' => 'text',
