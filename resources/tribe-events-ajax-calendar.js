@@ -25,22 +25,18 @@ jQuery( document ).ready( function ( $ ) {
 	if( typeof GeoLoc === 'undefined' ) 
 		var GeoLoc = {"map_view":""};
 
-	if( tribe_has_pushstate && !GeoLoc.map_view ) {		
-
-		// fix any browser that fires popstate on first load incorrectly
-
-		var popped = ('state' in window.history && window.history.state !== null), initialURL = location.href;		
-
+	if( tribe_has_pushstate && !GeoLoc.map_view ) {	
+		
+		var initial_url = location.href;
+		
+		if( tribe_storage )
+			tribe_storage.setItem( 'tribe_initial_load', 'true' );	
+		
 		$(window).bind('popstate', function(event) {
-
-			var initialPop = !popped && location.href == initialURL;
-			popped = true;
-
-			// if it was an inital load, get out of here
-
-			if ( initialPop ) return;
-
-			// this really is popstate: fire the ajax, send the stored params from the browser, don't overwrite the history
+		
+		var initial_load = '';
+		if( tribe_storage )
+			initial_load = tribe_storage.getItem( 'tribe_initial_load' );	
 
 			if( event.state ) {			
 				tribe_do_string = false;
@@ -50,21 +46,10 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_pre_ajax_tests( function() {
 					tribe_events_calendar_ajax_post( '', '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params );
 				});
-			} else {
-				window.location = initialURL;
+			} else if( tribe_storage && initial_load !== 'true' ){				
+				window.location = initial_url;
 			}
 		} );
-		
-//		tribe_date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();	
-//		
-//		if( tribe_get_url_params() ) {
-//			history.pushState({
-//				"tribe_date": tribe_date,
-//				"tribe_params": tribe_get_url_params()
-//			}, page_title, tribe_href_target);
-//		} else {
-//			
-//		}
 	}
 
 	$( '.tribe-events-calendar .tribe-events-sub-nav a' ).live( 'click', function ( e ) {
@@ -231,6 +216,7 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_params,
 				function ( response ) {
 					$( "#ajax-loading" ).hide();
+					tribe_storage.setItem( 'tribe_initial_load', 'false' );
 					if ( response !== '' ) {
 						var $the_content = $( response ).contents();
 						$( '#tribe-events-content.tribe-events-calendar' ).html( $the_content );
