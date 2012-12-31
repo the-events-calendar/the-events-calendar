@@ -53,7 +53,7 @@ jQuery( document ).ready( function ( $ ) {
 					tribe_events_calendar_ajax_post( '', '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params );
 				});
 			} else {
-				window.location = initial_url;
+//				window.location = initial_url;
 			}
 		} );
 		
