@@ -240,7 +240,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 								$eventId	= $post->ID.'-'.$day;
 								$start		= tribe_get_start_date( $post, false, 'U' );
 								$end		= tribe_get_end_date( $post, false, 'U' );
-								$cost		= tribe_get_cost( $post->ID );			
+								$cost		= tribe_get_cost( $post->ID, true);			
 								?>
 								
 								<?php			
