@@ -80,7 +80,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 		// Venue Map
 		public static function the_map( $post_id ) {
 			$html = '';
-			if ( tribe_address_exists( get_the_ID() ) ) {
+			if ( tribe_address_exists( get_the_ID() ) && tribe_embed_google_map( get_the_ID() ) && tribe_get_option( 'embedGoogleMaps' ) ) {
 			$html = '<div class="tribe-events-map-wrap">';
 			$html .= tribe_get_embedded_map( get_the_ID(), '350px', '200px' );
 			$html .= '</div><!-- .tribe-events-map-wrap -->';
