@@ -43,7 +43,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					wp_enqueue_style( 'jquery-ui-datepicker' );
 					break;
 				case 'dialog' : // Vendor: jQuery Dialog
-					wp_enqueue_script( $prefix . '-ui-dialog', $vendor_url . 'jquery/ui.dialog.min.js', array('jquery-ui-core'), '1.7.3', true );
+					wp_enqueue_script( 'jquery-ui-dialog' );
 					break;
 				case 'admin-ui' : // Tribe Events 
 					wp_enqueue_style( $prefix . '-admin-ui', $resouces_url . 'events-admin.css' );
