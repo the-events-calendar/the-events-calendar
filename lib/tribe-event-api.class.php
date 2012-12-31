@@ -83,8 +83,8 @@ if (!class_exists('TribeEventsAPI')) {
 				$data['EventEndDate'] = $data['EventStartDate'];
 			}
 		
-			if( !isset( $data['Venue']['EventShowMapLink'] ) ) update_post_meta( $event_id, '_EventShowMapLink', 'false' );
-			if( !isset( $data['Venue']['EventShowMap'] ) ) update_post_meta( $event_id, '_EventShowMap', 'false' );
+			update_post_meta( $event_id, '_EventShowMapLink', isset( $data['venue']['EventShowMapLink'] ) );
+			update_post_meta( $event_id, '_EventShowMap', isset( $data['venue']['EventShowMap'] ) );
 
 			if(isset($data['post_status'])){
 				$post_status = $data['post_status'];
