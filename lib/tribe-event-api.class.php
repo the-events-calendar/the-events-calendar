@@ -83,8 +83,8 @@ if (!class_exists('TribeEventsAPI')) {
 				$data['EventEndDate'] = $data['EventStartDate'];
 			}
 		
-			if( !isset( $data['EventShowMapLink'] ) ) update_post_meta( $event_id, '_EventShowMapLink', 'false' );
-			if( !isset( $data['EventShowMap'] ) ) update_post_meta( $event_id, '_EventShowMap', 'false' );
+			update_post_meta( $event_id, '_EventShowMapLink', isset( $data['venue']['EventShowMapLink'] ) );
+			update_post_meta( $event_id, '_EventShowMap', isset( $data['venue']['EventShowMap'] ) );
 
 			if(isset($data['post_status'])){
 				$post_status = $data['post_status'];
@@ -287,6 +287,11 @@ if (!class_exists('TribeEventsAPI')) {
 					$data['StateProvince'] = $data['Province'];					
 				}
 			}
+
+			update_post_meta($venueId, '_EventShowMapLink', isset($data['EventShowMapLink']));
+			update_post_meta($venueId, '_EventShowMap', isset($data['EventShowMap']));
+			unset($data['EventShowMapLink']);
+			unset($data['EventShowMap']);
 
 			foreach ($data as $key => $var) {
 				update_post_meta($venueId, '_Venue'.$key, $var);

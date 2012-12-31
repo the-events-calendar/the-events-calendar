@@ -88,15 +88,17 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 <tr id="google_map_link_toggle">
 	<td><?php _e('Show Google Maps Link:','tribe-events-calendar'); ?></td>
-	<td>					
-		<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="EventShowMapLink" value="1" <?php checked((get_post_status($postId) == 'auto-draft') ? false : get_post_meta( $postId, '_EventShowMapLink', true )); ?> />
+	<td>
+		<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="venue[EventShowMapLink]" value="1" <?php checked((get_post_status($postId) == 'auto-draft') ? false : get_post_meta( $postId, '_EventShowMapLink', true )); ?> />
 	</td>
 </tr>
 
 <?php if( tribe_get_option('embedGoogleMaps') ) : ?>
 <tr id="google_map_toggle">
 	<td><?php _e('Show Google Map:','tribe-events-calendar'); ?></td>
-	<td><input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="EventShowMap" value="1" <?php checked(tribe_embed_google_map($postId)); ?> /></td>
+	<td>
+		<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="venue[EventShowMap]" value="1" <?php checked(tribe_embed_google_map($postId)); ?> />
+	</td>
 </tr>
 <?php endif; ?>
 
