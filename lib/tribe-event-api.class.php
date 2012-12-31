@@ -287,6 +287,7 @@ if (!class_exists('TribeEventsAPI')) {
 					$data['StateProvince'] = $data['Province'];					
 				}
 			}
+
 			foreach ($data as $key => $var) {
 				update_post_meta($venueId, '_Venue'.$key, $var);
 			}		
