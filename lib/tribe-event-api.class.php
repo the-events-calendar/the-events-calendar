@@ -288,6 +288,11 @@ if (!class_exists('TribeEventsAPI')) {
 				}
 			}
 
+			update_post_meta($venueId, '_EventShowMapLink', isset($data['EventShowMapLink']));
+			update_post_meta($venueId, '_EventShowMap', isset($data['EventShowMap']));
+			unset($data['EventShowMapLink']);
+			unset($data['EventShowMap']);
+
 			foreach ($data as $key => $var) {
 				update_post_meta($venueId, '_Venue'.$key, $var);
 			}		
