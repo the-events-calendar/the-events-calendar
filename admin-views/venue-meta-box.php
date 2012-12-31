@@ -88,15 +88,25 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 <tr id="google_map_link_toggle">
 	<td><?php _e('Show Google Maps Link:','tribe-events-calendar'); ?></td>
-	<td>					
-		<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="EventShowMapLink" value="1" <?php checked((get_post_status($postId) == 'auto-draft') ? false : get_post_meta( $postId, '_EventShowMapLink', true )); ?> />
+	<td>
+		<?php if ($post->post_type != TribeEvents::VENUE_POST_TYPE) { ?>			
+			<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="Venue[EventShowMapLink]" value="1" <?php checked((get_post_status($postId) == 'auto-draft') ? false : get_post_meta( $postId, '_EventShowMapLink', true )); ?> />
+		<?php } else { ?>
+			<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="Venue[EventShowMapLink]" value="1" <?php checked((get_post_status($postId) == 'auto-draft') ? false : get_post_meta( $postId, '_VenueShowMapLink', true )); ?> />
+		<?php } ?>
 	</td>
 </tr>
 
 <?php if( tribe_get_option('embedGoogleMaps') ) : ?>
 <tr id="google_map_toggle">
 	<td><?php _e('Show Google Map:','tribe-events-calendar'); ?></td>
-	<td><input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="EventShowMap" value="1" <?php checked(tribe_embed_google_map($postId)); ?> /></td>
+	<td>
+		<?php if ($post->post_type != TribeEvents::VENUE_POST_TYPE) { ?>			
+			<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="Venue[EventShowMap]" value="1" <?php checked(tribe_embed_google_map($postId)); ?> />
+		<?php } else { ?>
+			<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="Venue[EventShowMap]" value="1" <?php checked(tribe_embed_google_map($postId)); ?> />
+		<?php } ?>
+	</td>
 </tr>
 <?php endif; ?>
 
