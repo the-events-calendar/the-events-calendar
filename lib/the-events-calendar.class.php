@@ -512,7 +512,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function doSettingTabs() {
 
 			include_once($this->pluginPath.'admin-views/tribe-options-general.php');
-			include_once($this->pluginPath.'admin-views/tribe-options-templates.php');
+			include_once($this->pluginPath.'admin-views/tribe-options-display.php');
 			
 			$tribe_licences_tab_fields = array(
 				'info-start' => array(
@@ -531,10 +531,15 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					'type' => 'html',
 					'html' => '</div>',
 				),
+				'tribe-form-content-start' => array(
+					'type' => 'html',
+					'html' => '<div class="tribe-settings-form-wrap">',
+				),
+				/* TO-DO: add closing div to license tab */
 			);
 
 			new TribeSettingsTab( 'general', __('General', 'tribe-events-calendar'), $generalTab );
-			new TribeSettingsTab( 'template', __('Template', 'tribe-events-calendar'), $templatesTab );
+			new TribeSettingsTab( 'display', __('Display', 'tribe-events-calendar'), $displayTab );
 			// If none of the addons are activated, do not show the licenses tab.
 			if ( class_exists( 'TribeEventsPro' ) || class_exists( 'Event_Tickets_PRO' ) || class_exists( 'TribeCommunityEvents' ) || class_exists( 'Tribe_FB_Importer' )  ) {
 				new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar'), array('priority' => '40',

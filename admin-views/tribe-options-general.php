@@ -59,19 +59,9 @@ $generalTab = array(
 			'type' => 'html',
 			'html' => '</div>',
 		),
-		'viewOption' => array(
-			'type' => 'radio',
-			'label' => __( 'Default view for the events', 'tribe-events-calendar' ),
-			'default' => 'month',
-			'options' => array( 'month' => 'Calendar', 'upcoming' => 'Event List' ),
-			'validation_type' => 'options',
-		),
-		'stylesheetOption' => array(
-			'type' => 'radio',
-			'label' => __( 'Default stylesheet for the events', 'tribe-events-calendar' ),
-			'default' => 'full',
-			'options' => array( 'full' => 'Full Stylesheet (These styles will most likely override some of your current theme styles on events templates)', 'skeleton' => 'Skeleton Stylesheet (These styles shouldn\'t override your current theme styles)' ),
-			'validation_type' => 'options',
+		'tribe-form-content-start' => array(
+			'type' => 'html',
+			'html' => '<div class="tribe-settings-form-wrap">',
 		),
 		'unprettyPermalinksUrl' => array(
 			'type' => 'html',
@@ -88,7 +78,7 @@ $generalTab = array(
 		 ),
 		'current-events-slug' => array(
 			'type' => 'html',
-			'html' => '<p class="tribe-field-indent tribe-field-description description">' . __( 'The slug used for building the events URL.', 'tribe-events-calendar' ) . sprintf( __( 'Your current Events URL is %s', 'tribe-events-calendar' ), '<code><a href="'.tribe_get_events_link() . '">' . tribe_get_events_link() . '</a></code>' ) . '</p>',
+			'html' => '<p class="tribe-field-indent tribe-field-description description">' . __( 'The slug used for building the events URL.', 'tribe-events-calendar' ) . sprintf( __( 'Your current Events URL is: %s', 'tribe-events-calendar' ), '<code><a href="'.tribe_get_events_link() . '">' . tribe_get_events_link() . '</a></code>' ) . '</p>',
 			'conditional' => ( '' != get_option( 'permalink_structure' ) ),
 		),
 		'ical-info' => array(
@@ -105,46 +95,17 @@ $generalTab = array(
 		 ),
 		'current-single-event-slug' => array(
 			'type' => 'html',
-			'html' => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'You <strong>cannot</strong> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: %s', 'tribe-events-calendar' ), '<code>' . trailingslashit( home_url() ) . tribe_get_option( 'singleEventSlug', 'event' ) . '/single-post-name/' . '</code>' ) . '</p>',
+			'html' => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'You <strong>cannot</strong> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is: %s', 'tribe-events-calendar' ), '<code>' . trailingslashit( home_url() ) . tribe_get_option( 'singleEventSlug', 'event' ) . '/single-post-name/' . '</code>' ) . '</p>',
 			'conditional' => ( '' != get_option( 'permalink_structure' ) ),
-		),
-		'postsPerPage' => array(
-			'type' => 'text',
-			'label' => __( 'Number of events to show per page', 'tribe-events-calendar' ),
-			'size' => 'small',
-			'default' => get_option( 'posts_per_page' ),
-			'validation_type' => 'positive_int',
-		 ),
-		'showComments' => array(
-			'type' => 'checkbox_bool',
-			'label' => __( 'Show Comments', 'tribe-events-calendar' ),
-			'tooltip' => __( 'Enable commenting on an event.', 'tribe-events-calendar' ),
-			'default' => false,
-			'validation_type' => 'boolean',
 		),
 		'multiDayCutoff' => array(
 			'type' => 'dropdown',
 		 	'label' => __( 'Multiday Event Cutoff', 'tribe-events-calendar' ),
-			'tooltip' => __( 'Hide final day from grid view if multi-day event ends before this time.', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Hide final day from the month and week templates if a multi-day event ends before this time.', 'tribe-events-calendar' ),
 			'validation_type' => 'options',
 			'size' => 'small',
 			'default' => '12:00',
 			'options' => array( '12:00' => '12:00 am', '12:30' => '12:30 am', '01:00' => '01:00 am', '01:30' => '01:30 am', '02:00' => '02:00 am', '02:30' => '02:30 am', '03:00' => '03:00 am', '03:30' => '03:30 am', '04:00' => '04:00 am', '04:30' => '04:30 am', '05:00' => '05:00 am', '05:30' => '05:30 am', '06:00' => '06:00 am', '06:30' => '06:30 am', '07:00' => '07:00 am', '07:30' => '07:30 am', '08:00' => '08:00 am', '08:30' => '08:30 am', '09:00' => '09:00 am', '09:30' => '09:30 am', '10:00' => '10:00 am', '10:30' => '10:30 am', '11:00' => '11:00 am', '11:30' => '11:30 am' ),
-		),
-		'embedGoogleMaps' => array(
-			'type' => 'checkbox_bool',
-			'label' => __( 'Enable Google Maps', 'tribe-events-calendar' ),
-			'tooltip' => __( 'Check to enable maps for events and venues in the frontend.', 'tribe-events-calendar' ),
-			'default' => true,
-			'class' => 'google-embed-size',
-			'validation_type' => 'boolean',
-		),
-		'showEventsInMainLoop' => array(
-			'type' => 'checkbox_bool',
-			'label' => __( 'Show Events In Main Loop?', 'tribe-events-calendar' ),
-			'tooltip' => __( 'Shows events in the main loop with other posts.' ),
-			'default' => false,
-			'validation_type' => 'boolean',
 		),
 		'sendPressTrendsData' => array(
 			'type' => 'checkbox_bool',
@@ -167,6 +128,10 @@ $generalTab = array(
 		'pressTrendsDialogue' => array(
 			'type' => 'html',
 			'html' => '<div id="presstrends-dialog" title="Send PressTrends Data" style="display: none;">' . __('Would you like to help us out and send analytics about your usage of The Events Calendar?','tribe-events-calendar') .'<br/></div>',
+		),
+		'tribe-form-content-end' => array(
+			'type' => 'html',
+			'html' => '</div>',
 		),
 	)
 ) 

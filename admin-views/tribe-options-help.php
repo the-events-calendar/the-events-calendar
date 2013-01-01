@@ -133,6 +133,8 @@ $more_text = __('More...', 'tribe-events-calendar');
 
 		<?php echo( apply_filters( 'tribe_help_tab_getting_started_content', $getting_started_text ) ); ?>
 	</div>
+	
+	<div class="tribe-settings-form-wrap">
 
 	<h3><?php _e('Resources to Help You Kick Ass', 'tribe-events-calendar'); ?></h3>
 
@@ -151,6 +153,9 @@ $more_text = __('More...', 'tribe-events-calendar');
 
 	<h3><?php _e('Still Not Satisfied?', 'tribe-events-calendar'); ?></h3>
 	<?php echo( apply_filters( 'tribe_help_tab_sns_content', $sns_text ) ); ?>
+	
+	</div>
+	
 </div>
 
 
