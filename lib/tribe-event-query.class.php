@@ -96,6 +96,11 @@ if (!class_exists('TribeEventsQuery')) {
 					$query->set( 'eventDate', $_REQUEST['tribe-bar-date']);
 				}
 
+				// if a user provides a search term we want to use that in the search params
+				if ( !empty( $_REQUEST['tribe-bar-search'] ) ) {
+					$query->query_vars['s'] = $_REQUEST['tribe-bar-search'];
+				}
+
 				if( !empty($query->query_vars['eventDisplay']) ) {
 	            	switch ( $query->query_vars['eventDisplay'] ) {
 	            		case 'custom':
@@ -134,8 +139,6 @@ if (!class_exists('TribeEventsQuery')) {
 							self::$start_date = $query->get( 'start_date' );
 	                  		break;
 	            	}
-				} else if ( !empty( $_REQUEST['tribe-bar-search'] ) ) {
-					$query->query_vars['s'] = $_REQUEST['tribe-bar-search'];
 	         	} else if ( is_single() ) {
 	         		if( $query->get('eventDate') != '' ) {
 						$query->set( 'start_date', $query->get('eventDate') );
