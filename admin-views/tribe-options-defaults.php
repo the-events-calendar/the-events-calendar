@@ -32,7 +32,7 @@ $defaultsTab = array(
 		),
 		'info-box-title' => array(
 			'type' => 'html',
-			'html' => '<h2>' . __('Custom Defaults', 'tribe-events-calendar-pro') . '</h2>',
+			'html' => '<h2>' . __('Default Content', 'tribe-events-calendar-pro') . '</h2>',
 		),
 		'info-box-description' => array(
 			'type' => 'html',
@@ -42,6 +42,10 @@ $defaultsTab = array(
 			'type' => 'html',
 			'html' => '</div>',
 		),
+		'tribe-form-content-start' => array(
+			'type' => 'html',
+			'html' => '<div class="tribe-settings-form-wrap">',
+		),
 		'defaultValueReplace' => array(
 			'type' => 'checkbox_bool',
 			'label' => __('Automatically replace empty fields with default values','tribe-events-calendar-pro'),
@@ -50,7 +54,7 @@ $defaultsTab = array(
 		),
 		'eventsDefaultOrganizerHelperTitle' => array(
 			'type' => 'html',
-			'html' => '<h3>' . __('Default Organizer', 'tribe-events-calendar-pro') . '</h3>',
+			'html' => '<h3>' . __('Organizer', 'tribe-events-calendar-pro') . '</h3>',
 		),
 		'eventsDefaultOrganizerHelperText' => array(
 			'type' => 'html',
@@ -71,7 +75,7 @@ $defaultsTab = array(
 		),
 		'eventsDefaultVenueHelperTitle' => array(
 			'type' => 'html',
-			'html' => '<h3>' . __('Default Venue', 'tribe-events-calendar-pro') . '</h3>',
+			'html' => '<h3>' . __('Venue', 'tribe-events-calendar-pro') . '</h3>',
 		),
 		'eventsDefaultVenueHelperText' => array(
 			'type' => 'html',
@@ -92,7 +96,7 @@ $defaultsTab = array(
 		),
 		'eventsDefaultAddressHelperTitle' => array(
 			'type' => 'html',
-			'html' => '<h3>' . __('Default Address', 'tribe-events-calendar-pro') . '</h3>',
+			'html' => '<h3>' . __('Address', 'tribe-events-calendar-pro') . '</h3>',
 		),
 		'eventsDefaultAddressHelperText' => array(
 			'type' => 'html',
@@ -196,6 +200,10 @@ $defaultsTab = array(
 			'validation_type' => 'country_list',
 			'tooltip' => __('One country per line in the following format: <br>US, United States <br> UK, United Kingdom. <br> (Replaces the default list.)', 'tribe-events-calendar-pro'),
 			'can_be_empty' => true,
+		),
+		'tribe-form-content-end' => array(
+			'type' => 'html',
+			'html' => '</div>',
 		),
 	)
 );

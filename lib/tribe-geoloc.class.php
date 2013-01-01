@@ -107,7 +107,7 @@ class TribeEventsGeoLoc {
 
 	public function inject_settings( $args, $id ) {
 
-		if ( $id == 'defaults' ) {
+		if ( $id == 'display' ) {
 
 
 			$args['geoloc_default_unit'] = array( 'type'            => 'dropdown',
