@@ -126,22 +126,19 @@ jQuery(document).ready(function($){
 	if( typeof GeoLoc === 'undefined' ) 
 		var GeoLoc = {"map_view":""};
 
-	if( tribe_has_pushstate && !GeoLoc.map_view ) {
+	if( tribe_has_pushstate && !GeoLoc.map_view ) {		
 
-		// fix any browser that fires popstate on first load incorrectly
-
-		var popped = ('state' in window.history), initialURL = location.href;
+		var initial_url = location.href;
+		
+		if( tribe_storage )
+			tribe_storage.setItem( 'tribe_initial_load', 'true' );	
 
 		$(window).bind('popstate', function(event) {
 
-			var initialPop = !popped && location.href == initialURL;
-			popped = true;
-
-			// if it was an inital load, get out of here
-
-			if ( initialPop ) return;
-
-			// this really is popstate: fire the ajax, send the stored params from the browser, don't overwrite the history
+			var initial_load = '';
+			
+			if( tribe_storage )
+				initial_load = tribe_storage.getItem( 'tribe_initial_load' );	
 
 			if( event.state ) {			
 				tribe_do_string = false;
@@ -151,6 +148,8 @@ jQuery(document).ready(function($){
 				tribe_pre_ajax_tests( function() {
 					tribe_events_week_ajax_post( '', '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params );
 				});
+			} else if( tribe_storage && initial_load !== 'true' ){				
+				window.location = initial_url;
 			}
 		} );
 	}
@@ -161,6 +160,7 @@ jQuery(document).ready(function($){
 		tribe_href_target = $( this ).attr( "href" );
 		tribe_pushstate = true;
 		tribe_do_string = false;
+		$('#tribe-bar-date').val(tribe_date);
 		tribe_pre_ajax_tests( function() { 		
 			tribe_events_week_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );	
 		});
@@ -316,6 +316,8 @@ jQuery(document).ready(function($){
 				tribe_params,
 				function ( response ) {
 					$( "#ajax-loading" ).hide();
+					if( tribe_storage )
+							tribe_storage.setItem( 'tribe_initial_load', 'false' );
 					if ( response !== '' ) {
 						var $the_content = $( response ).contents();
 						$( '#tribe-events-content.tribe-events-week-grid' ).html( $the_content );

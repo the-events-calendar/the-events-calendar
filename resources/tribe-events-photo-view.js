@@ -42,20 +42,18 @@ jQuery( document ).ready( function ( $ ) {
 		var GeoLoc = {"map_view":""};	
 
 	if( tribe_has_pushstate && !GeoLoc.map_view ) {
-
-		// let's fix any browser that fires popstate on first load incorrectly
-
-		var popped = ('state' in window.history), initialURL = location.href;
+		
+		var initial_url = location.href;
+		
+		if( tribe_storage )
+			tribe_storage.setItem( 'tribe_initial_load', 'true' );	
 
 		$(window).bind('popstate', function(event) {
-			var initialPop = !popped && location.href == initialURL;
-			popped = true;
-
-			// if it was an inital load, let's get out of here
-
-			if ( initialPop ) return;
-
-			// this really is popstate, let's fire the ajax but not overwrite our history
+			
+			var initial_load = '';
+			
+			if( tribe_storage )
+				initial_load = tribe_storage.getItem( 'tribe_initial_load' );	
 
 			if( event.state ) {				
 				tribe_do_string = false;
@@ -66,6 +64,8 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_pre_ajax_tests( function() {
 					tribe_events_list_ajax_post( '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params, tribe_url_params );	
 				});
+			} else if( tribe_storage && initial_load !== 'true' ){				
+				window.location = initial_url;
 			}
 		} );
 		
@@ -199,7 +199,8 @@ jQuery( document ).ready( function ( $ ) {
 					tribe_params,
 					function ( response ) {
 						$( "#ajax-loading" ).hide();
-
+						if( tribe_storage )
+							tribe_storage.setItem( 'tribe_initial_load', 'false' );
 						if ( response.success ) {
 
 							tribe_list_paged = response.tribe_paged;

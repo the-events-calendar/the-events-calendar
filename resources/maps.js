@@ -50,21 +50,18 @@ jQuery( document ).ready( function ( $ ) {
 	$( '#tribe-geo-location' ).placeholder();	
 	
 	if( tribe_has_pushstate && GeoLoc.map_view ) {
-
-		// fix any browser that fires popstate on first load incorrectly
-
-		var popped = ('state' in window.history), initialURL = location.href;
+		
+		var initial_url = location.href;
+		
+		if( tribe_storage )
+			tribe_storage.setItem( 'tribe_initial_load', 'true' );	
 
 		$(window).bind('popstate', function(event) {
 
-			var initialPop = !popped && location.href == initialURL;
-			popped = true;
-
-			// if it was an inital load, get out of here
-
-			if ( initialPop ) return;
-
-			// this really is popstate: fire the ajax, send the stored params from the browser, don't overwrite the history
+			var initial_load = '';
+			
+			if( tribe_storage )
+				initial_load = tribe_storage.getItem( 'tribe_initial_load' );	
 
 			if( event.state ) {			
 				tribe_do_string = false;
@@ -74,6 +71,8 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_pre_ajax_tests( function() { 				
 					tribe_map_processOption( null, '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params );
 				});
+			} else if( tribe_storage && initial_load !== 'true' ){				
+				window.location = initial_url;
 			}
 		} );
 	}
@@ -109,13 +108,19 @@ jQuery( document ).ready( function ( $ ) {
 	
 	
 	
-	if( GeoLoc.map_view && tribe_get_url_params() ) {	
+	if( GeoLoc.map_view && tribe_get_url_params() ) {
 		
+		var tribe_in_params = tribe_get_url_params();
+		if ( tribe_in_params.toLowerCase().indexOf("geosearch") >= 0 ) {} else
+			tribe_in_params += '&action=geosearch';
+		if ( tribe_in_params.toLowerCase().indexOf("tribe_paged") >= 0 ) {} else
+			tribe_in_params += '&tribe_paged=1';
+					
 		tribe_do_string = false;
 		tribe_pushstate = false;	
 		tribe_popping = true;	
 		tribe_pre_ajax_tests( function() { 
-			tribe_map_processOption( null, '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_get_url_params() );	
+			tribe_map_processOption( null, '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_in_params );	
 		});
 	} else if( GeoLoc.map_view ){
 		
@@ -215,6 +220,9 @@ jQuery( document ).ready( function ( $ ) {
 
 				spin_end();
 				if ( response.success ) {
+					
+					if( tribe_storage )
+						tribe_storage.setItem( 'tribe_initial_load', 'false' );
 
 					$( "#tribe-geo-results" ).html( response.html );					
 					$( "#tribe-events-content" ).parent().removeAttr('id').find('.tribe-events-page-title').remove();				
