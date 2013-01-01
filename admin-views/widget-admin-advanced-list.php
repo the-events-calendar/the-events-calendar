@@ -33,6 +33,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 					"start" => __('Start Date & Time', 'tribe-events-calendar-pro') .'<small><br/>'.__('(Widget will always show start date)', 'tribe-events-calendar-pro').'</small>',
 					"end" => __("End Date & Time", 'tribe-events-calendar-pro'),
 					"venue" => __("Venue", 'tribe-events-calendar-pro'),
+					"organizer" => __("Organizer", 'tribe-events-calendar-pro'),
 					"address" => __("Address", 'tribe-events-calendar-pro'),
 					"city" => __("City", 'tribe-events-calendar-pro'),
 					"region" => __("State (US) Or Province (Int)", 'tribe-events-calendar-pro'),
