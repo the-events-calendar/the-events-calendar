@@ -109,6 +109,12 @@ if( !class_exists('Tribe_Events_Pro_List_Widget_Template')){
 				$html .= '<span class="fn org">'. tribe_get_venue() .'</span>'; 
 				$space = true;
 			}
+			// Get our organizer
+			if ( $organizer && tribe_get_organizer() != '') {
+				$html .= ( $space ) ? '<br />' : '';
+				$html .= '<span>'. tribe_get_organizer() .'</span>'; 
+				$space = true;
+			}
 			// Get our address
 			if ( $address && tribe_get_address() ) {
 				$html .= ( $space ) ? '<br />' : '';
@@ -152,12 +158,6 @@ if( !class_exists('Tribe_Events_Pro_List_Widget_Template')){
 				if( $html ) 
 					$html .= '<br/>';
 				$html .= __( 'Price:', 'tribe-events-calendar-pro' ) . ' ' . tribe_get_cost(); 
-			}
-			// Get our organizer
-			if ( $organizer && tribe_get_organizer() != '') {
-				$html .= ( $space ) ? '<br />' : '';
-				$html .= '<span>'. tribe_get_venue() .'</span>'; 
-				$space = true;
 			}
 			
 			$html = !empty( $html ) ? '<div class="vcard adr location">'. $html .'</div><!-- .location -->' : '';
