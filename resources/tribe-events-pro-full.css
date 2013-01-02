@@ -274,13 +274,13 @@
 }
 
 #tribe-events-photo-events {
-	margin-right: -4%;
+	margin-right: -4.024%;
 }
 
 #tribe-events-photo-events .vevent.tribe-events-photo-event {
 	float: left; 
-	width: 29.333333%;
-	margin: 0 4% 30px 0;
+	width: 29.3333%;
+	margin: 0 4.024% 30px 0;
 	padding: 0;
 	border: 1px solid #eee;
 	-webkit-box-sizing: border-box;
@@ -289,7 +289,7 @@
 }
 
 #tribe-events-photo-events.photo-two-col .vevent.tribe-events-photo-event {
-	width: 46%;
+	width: 45.9%;
 }
 /* Tile Styling */
 
