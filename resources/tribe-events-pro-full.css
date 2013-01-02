@@ -138,22 +138,21 @@
 	top: 12px;
 }
 .tribe-grid-allday .hentry.vevent { 	
-	padding:4px;
-	margin:0;
+	padding: 4px;
+	margin: 0;
 }
 
 .tribe-grid-allday .hentry.vevent > div { 
 	padding: 8px 6px; 
-	width:100%;
+	width: 100%;
 	background-color: #e6e6e6;
 	background-color: rgba(221, 221, 221, .75);
-	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	border:1px solid #ccc;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
+	border: 1px solid #ccc;
 	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+			border-radius: 3px;
 	cursor: pointer;
 }
 
@@ -163,22 +162,22 @@
 }
 
 .tribe-grid-allday .hentry.vevent.tribe-dayspan2 > div {
-	width:200%;	
+	width: 200%;	
 }
 .tribe-grid-allday .hentry.vevent.tribe-dayspan3 > div {
-	width:300%;
+	width: 300%;
 }
 .tribe-grid-allday .hentry.vevent.tribe-dayspan4 > div {
-	width:400%;
+	width: 400%;
 }
 .tribe-grid-allday .hentry.vevent.tribe-dayspan5 > div {
-	width:500%;
+	width: 500%;
 }
 .tribe-grid-allday .hentry.vevent.tribe-dayspan6 > div {
-	width:600%;
+	width: 600%;
 }
 .tribe-grid-allday .hentry.vevent.tribe-dayspan7 > div {
-	width:700%;
+	width: 700%;
 }
 
 /* Actual Event Styles */
@@ -199,8 +198,7 @@
  	z-index: 500;
 	border: 1px solid #ccc;
 	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+			border-radius: 3px;
 }
 .tribe-grid-body div[id*="tribe-events-event-"]:hover {
 	z-index: 800;
@@ -229,8 +227,8 @@
 }
 .tribe-week-grid-block {
 	height: 60px !important;
-	padding:0 !important;
-	margin:0 !important;
+	padding: 0 !important;
+	margin: 0 !important;
 }
 .tribe-week-grid-block div {
 	height: 30px; 
@@ -253,29 +251,27 @@
 
 .isotope,
 .isotope .isotope-item {
-  -webkit-transition-duration: 0.2s;
-     -moz-transition-duration: 0.2s;
-      -ms-transition-duration: 0.2s;
-       -o-transition-duration: 0.2s;
-          transition-duration: 0.2s;
+	-webkit-transition-duration: 0.2s;
+       -moz-transition-duration: 0.2s;
+        -ms-transition-duration: 0.2s;
+         -o-transition-duration: 0.2s;
+          	transition-duration: 0.2s;
 }
 
 #tribe-events-photo-events {
-  -webkit-transition-property: height, width;
-     -moz-transition-property: height, width;
-      -ms-transition-property: height, width;
-       -o-transition-property: height, width;
-          transition-property: height, width;
+	-webkit-transition-property: height, width;
+       -moz-transition-property: height, width;
+        -ms-transition-property: height, width;
+         -o-transition-property: height, width;
+          	transition-property: height, width;
 }
 
 #tribe-events-photo-events .isotope-item {
 	-webkit-transition: .2s ease-in;
-  -moz-transition: .2s ease-in;
-  -o-transition: .2s ease-in;
-  transition: .2s ease-in;
-
+  	   -moz-transition: .2s ease-in;
+         -o-transition: .2s ease-in;
+  			transition: .2s ease-in;
 }
-
 
 #tribe-events-photo-events {
 	margin-right: -4%;
@@ -287,10 +283,9 @@
 	margin: 0 4% 30px 0;
 	padding: 0;
 	border: 1px solid #eee;
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
-
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
 }
 
 #tribe-events-photo-events.photo-two-col .vevent.tribe-events-photo-event {
@@ -299,13 +294,12 @@
 /* Tile Styling */
 
 .tribe-events-photo-event {
-
 	padding: 0;
 	position: relative;
 	-webkit-transition: .1s ease-in;
-  -moz-transition: .1s ease-in;
-  -o-transition: .1s ease-in;
-  transition: .1s ease-in;	
+  	   -moz-transition: .1s ease-in;
+  	     -o-transition: .1s ease-in;
+  			transition: .1s ease-in;	
 }
 
 .tribe-events-photo-event  {
@@ -314,10 +308,8 @@
 }
 .tribe-events-photo-event:hover {
 	background: #fff;
-	box-shadow: rgba(0,0,0, 0.1) 0px 0px 10px;
-  -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 10px;
-  -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 10px;
-
+	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 10px;
+			box-shadow: rgba(0,0,0, 0.1) 0px 0px 10px;
 }
 
 .tribe-events-list .tribe-events-photo-event .tribe-events-event-details {
@@ -346,9 +338,9 @@
 .tribe-events-photo-event .entry-title a {
 	color: #1982D1;
 	-webkit-transition: .2s ease-in;
-  -moz-transition: .2s ease-in;
-  -o-transition: .2s ease-in;
-  transition: .2s ease-in;	
+  	   -moz-transition: .2s ease-in;
+  	     -o-transition: .2s ease-in;
+  			transition: .2s ease-in;	
 }
 
 .tribe-events-photo-event .tribe-events-event-image {
@@ -379,7 +371,8 @@
 	background: #EEE;
 	padding: 5px;
 	border: 1px solid #DDD;
-	border-radius: 3px;
+	-webkit-border-radius: 3px;
+			border-radius: 3px;
 }
 
 .tribe-events-venue h3.tribe-events-upcoming {
@@ -511,10 +504,11 @@ h3.tribe-events-related-events-title {
 	font-size: .9em;
 	background: #fafafa;
 	border: 1px solid #eee;
-	border-radius: 3px;
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
+	-webkit-border-radius: 3px;
+			border-radius: 3px;
 	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
 }
 
 .tribe-events-single ul.tribe-related-events li .date-divider {
@@ -669,156 +663,155 @@ div.tribe-countdown-text {
 /* tribe geolocation map area */
 
 .tribe-events-filter-view #tribe-geo-wrapper {
-	 width:72%; 
-	 float:right; 
-	 padding:1px 0;
+	 width: 72%; 
+	 float: right; 
+	 padding: 1px 0;
 }
 
 #tribe-geo-map-wrapper {
-	position      : relative;
-	z-index       : 2;
-	margin-bottom : 20px;
-	border        : 1px solid #ddd;
-	padding       : 2px;
-	background    : #eee;
+	position: relative;
+	z-index: 2;
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
+	padding: 2px;
+	background: #eee;
 }
 
 #tribe-geo-loading,
 #tribe-photo-loading {
-	display           : none;
-	position          : absolute;
-	width             : 100%;
-	height            : 100%;
-	left              : 0;
-	top               : 0;
-	background        : #fff;
-	background        : rgba(255, 255, 255, 0.2);
-	z-index           : 4;
-	webkit-transition : all 1s linear;
-	-moz-transition   : all 1s linear;
-	-o-transition     : all 1s linear;
-	-ms-transition    : all 1s linear;
-	transition        : all 1s linear;
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background: #fff;
+	background: rgba(255, 255, 255, 0.2);
+	z-index: 4;
+	webkit-transition: all 1s linear;
+	-moz-transition: all 1s linear;
+	-o-transition: all 1s linear;
+	-ms-transition: all 1s linear;
+	transition: all 1s linear;
 }
 
 #tribe-geo-loading span,
 #tribe-photo-loading span {
-	position   : absolute;
-	width      : 32px;
-	height     : 32px;
-	left       : 50%;
-	top        : 50%;
-	margin     : -16px 0 0 -16px;
-	background : url(images/tribe-loading.gif) 0 0 no-repeat;
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	left: 50%;
+	top: 50%;
+	margin: -16px 0 0 -16px;
+	background: url(images/tribe-loading.gif) 0 0 no-repeat;
 }
 
 #tribe-photo-loading {
-	display:block;
-	background : #fff;
-	background : rgba(255, 255, 255, 0.9);
+	display: block;
+	background: #fff;
+	background: rgba(255, 255, 255, 0.9);
 }
 
 #tribe-photo-loading span {
-	top:200px;
+	top: 200px;
 }
 
 #tribe-geo-map {
-	width    : 100%;
-	height   : 400px;
-	position : relative;
-	z-index  : 3;
+	width: 100%;
+	height: 400px;
+	position: relative;
+	z-index: 3;
 }
 
 #tribe-geo-map label {
-	width   : auto;
-	display : inline;
+	width: auto;
+	display: inline;
 }
 
 #tribe-geo-map img {
-	max-width : none;
+	max-width: none;
 }
 
 /* tribe geo location option links (displayed when multiple locations found) */
-
 #tribe-geo-results h2,
 #tribe-geo-options h2 {
-	color       : #222;
-	font-size   : 18px;
-	font-weight : bold;
-	line-height : 1em;
-	margin      : 0 0 6px;
-	padding     : 0;
+	color: #222;
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 1em;
+	margin: 0 0 6px;
+	padding: 0;
 }
 
 #tribe-geo-links {
-	margin-top   : 20px;
-	border-top   : 1px solid #eee;
-	border-right : 1px solid #eee;
-	border-left  : 1px solid #eee;
+	margin-top: 20px;
+	border-top: 1px solid #eee;
+	border-right: 1px solid #eee;
+	border-left: 1px solid #eee;
 }
 
 #tribe-geo-options {
-	display       : none;
-	margin-bottom : 20px;
+	display: none;
+	margin-bottom: 20px;
 }
 
 .tribe-geo-option-link {
-	display            : block;
-	text-decoration    : none;
-	color              : #444;
-	border-bottom      : 1px solid #eee;
-	padding            : 3px 6px;
-	-webkit-transition : 0.1s ease-in-out;
-	-moz-transition    : 0.1s ease-in-out;
-	-o-transition      : 0.1s ease-in-out;
-	transition         : 0.1s ease-in-out
+	display: block;
+	text-decoration: none;
+	color: #444;
+	border-bottom: 1px solid #eee;
+	padding: 3px 6px;
+	-webkit-transition: 0.1s ease-in-out;
+	   -moz-transition: 0.1s ease-in-out;
+	     -o-transition: 0.1s ease-in-out;
+			transition: 0.1s ease-in-out
 }
 
 .tribe-geo-option-link:hover {
-	background : #f5f5f5;
+	background: #f5f5f5;
 }
 
 .tribe-geo-option-link:hover,
 .tribe-geo-option-link:focus {
-	text-decoration : none;
+	text-decoration: none;
 }
 
 .tribe-option-loaded,
 .tribe-geo-option-link.tribe-option-loaded:hover {
-	background : #666;
-	color      : #fff;
+	background: #666;
+	color: #fff;
 }
 
 #ajax-loading-mini {
-	display : none;
+	display: none;
 }
 
 #tribe_map_paged_prev {
-	float:left;
+	float: left;
 }
 
 #tribe_map_paged_next {
-	float:right;
+	float: right;
 }
 
 .timer {
-	text-align : center;
-	width      : 100%;
-	color      : red;
-	margin     : 20px 0;
+	text-align: center;
+	width: 100%;
+	color: red;
+	margin: 20px 0;
 }
 
 #tribe-geo-results #tribe_events_filters_wrapper {
-	display:none;
+	display: none;
 }
 
 #tribe-geo-results #tribe-events-content {
-	float:none;
-	width:100%;
+	float: none;
+	width: 100%;
 }
 
 .tribe_map_paged {
-	display : none;
+	display: none;
 }
 
 
