@@ -234,7 +234,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 
 			    			$daily_events = TribeEventsQuery::getEvents( $args, true );
 			    			// print_r( $daily_events);
-							foreach( $daily_events->posts as $post ) {
+							foreach( $daily_events->posts as $post_int => $post ) {
 
 								// setup_postdata( $post );
 								$eventId	= $post->ID.'-'.$day;
@@ -262,7 +262,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 								$class_string = $tribe_classes_default .' '. $tribe_classes_venue .' '. $tribe_classes_organizer .' '. $tribe_classes_categories;
 
 								// added last class for css
-								if( $i+1 == count( $daily_events ) ){
+								if( $post_int+1 == count( $daily_events->posts ) ){
 									$class_string .= ' tribe-last';
 								}
 

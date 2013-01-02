@@ -484,9 +484,10 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 				'after'=>'',
 				'label_before'=>'<dt>',
 				'label_after'=>'</dt>',
-				'meta_before'=>'<dd class="vcard tel">',
+				'meta_before'=>'<dd class="%s">',
 				'meta_after'=>'</dd>'
 			),
+			'classes' => array('meta_before'=> array( 'vcard', 'tel') ),
 			'label' => __( 'Phone:', 'tribe-events-calendar' ),
 			'priority' => 20,
 			'callback' => 'tribe_get_organizer_phone',
