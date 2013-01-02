@@ -17,7 +17,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 	class Tribe_Events_Pro_Single_Venue_Template extends Tribe_Template_Factory {
 		public static function init() {
 
-			add_action('tribe_get_meta_group', array(__CLASS__,'customize_meta'), 10, 2);
+			/*add_action('tribe_get_meta_group', array(__CLASS__,'customize_meta'), 10, 2);*/
 
 			// Remove the title from the list view
 			add_filter( 'tribe_events_list_the_title', '__return_null', 2, 1 );
@@ -93,7 +93,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_before_the_meta' );
 		}
 
-		public static function customize_meta( $meta_id, $is_the_meta ){
+/*		public static function customize_meta( $meta_id, $is_the_meta ){
 
 			echo $meta_id;
 
@@ -126,19 +126,22 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 				));
 
 			do_action('tribe_events_pro_single_venue_template_customize_meta');
-		}
+		}*/
 		public static function the_meta( $post_id ) {
 
-			$html = sprintf('%s%s%s',
+			/* $html = sprintf('%s%s%s',
 					( get_post_meta( get_the_ID(), '_EventShowMapLink', true ) == 'true' ) ? tribe_get_meta('tribe_event_venue_gmap_link'): '',
 					( tribe_address_exists( get_the_ID() ) ) ? tribe_get_meta_group( 'tribe_event_venue' ) : '',
 					( get_the_content() != '' ) ? '<div class="venue-description">' . get_the_content() . '</div>' : ''
 					);
-
+			*/
 			ob_start();
 ?>
 
 			<?php if ( tribe_address_exists( get_the_ID() ) ) : // Venue address ?>
+				<?php if ( get_post_meta( get_the_ID(), '_EventShowMapLink', true ) == 'true' ) : ?>
+					<a class="tribe-events-gmap" href="<?php echo tribe_get_map_link(); ?>" title="<?php _e( 'Click to view a Google Map', 'tribe-events-calendar-pro' ); ?>" target="_blank"><?php _e( 'Google Map', 'tribe-events-calendar' ); ?></a>
+				<?php endif; ?>
  					<address class="venue-address">
 						<span><?php echo tribe_get_address( get_the_ID() ); ?></span>
 						<span class="venue-location"><?php echo tribe_get_city( get_the_ID() ); ?> <?php echo tribe_get_stateprovince( get_the_ID() ); ?> <?php echo tribe_get_country( get_the_ID() ); ?></span>
@@ -150,8 +153,13 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
  						<?php endif; ?>		
 					</address>
  			<?php endif; ?>
+			<?php if ( get_the_content() != '' ): // Venue content ?>
+				<div class="venue-description">	
+					<?php the_content(); ?>
+				</div>	
+ 			<?php endif ?> 			
 <?php
-			$html .= ob_get_clean();
+			$html = ob_get_clean();
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_the_meta' );
 		}
 		public static function after_the_meta( $post_id ) {
