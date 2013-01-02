@@ -78,7 +78,7 @@ $generalTab = array(
 		 ),
 		'current-events-slug' => array(
 			'type' => 'html',
-			'html' => '<p class="tribe-field-indent tribe-field-description description">' . __( 'The slug used for building the events URL.', 'tribe-events-calendar' ) . sprintf( __( 'Your current Events URL is: %s', 'tribe-events-calendar' ), '<code><a href="'.tribe_get_events_link() . '">' . tribe_get_events_link() . '</a></code>' ) . '</p>',
+			'html' => '<p class="tribe-field-indent tribe-field-description description">' . __( 'The slug used for building the events URL.', 'tribe-events-calendar' ) . sprintf( __( 'Your current events URL is: %s', 'tribe-events-calendar' ), '<code><a href="'.tribe_get_events_link() . '">' . tribe_get_events_link() . '</a></code>' ) . '</p>',
 			'conditional' => ( '' != get_option( 'permalink_structure' ) ),
 		),
 		'ical-info' => array(
