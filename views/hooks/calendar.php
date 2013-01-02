@@ -130,7 +130,6 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			list( $year, $month ) = explode( '-', $tribe_ecp->date );
 			$date = mktime( 12, 0, 0, $month, 1, $year ); // 1st day of month as unix stamp
 
-
 			$posts_per_page_limit = 3;
 			$daysInMonth = isset( $date ) ? date( 't', $date ) : date( 't' );
 			$startOfWeek = get_option( 'start_of_week', 0 );
@@ -212,7 +211,6 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			    				$day
 			    				);
 
-
 			    			$args = wp_parse_args(array(
 			    				'eventDate' => $date,
 			    				'start_date' => tribe_event_beginning_of_day( $date ),
@@ -261,8 +259,8 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 								$tribe_classes_categories = $tribe_string_classes;
 								$class_string = $tribe_classes_default .' '. $tribe_classes_venue .' '. $tribe_classes_organizer .' '. $tribe_classes_categories;
 
-								// added last class for css
-								if( $i+1 == count( $daily_events ) ){
+								// add last class for css
+								if( $i+1 == count( $daily_events ) ) {
 									$class_string .= ' tribe-last';
 								}
 

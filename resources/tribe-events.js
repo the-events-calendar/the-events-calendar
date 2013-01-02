@@ -138,7 +138,7 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_event_tooltips();
 	}
 
-	//remove border  on list view event before month divider
+	//remove border on list view event before month divider
 	if (  $( '.tribe-events-list' ).length ) {
 		$('.tribe_list_separator_month').prev('.vevent').addClass('tribe-event-end-month');
 	}
