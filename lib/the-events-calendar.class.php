@@ -1569,8 +1569,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function loadStyle() {
 			
-			// pjax
-			Tribe_Template_Factory::asset_package('pjax');
+			// jquery-resize
+			Tribe_Template_Factory::asset_package('jquery-resize');
 
 			// smoothness
 			Tribe_Template_Factory::asset_package('smoothness');
