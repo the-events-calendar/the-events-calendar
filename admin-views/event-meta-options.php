@@ -25,7 +25,7 @@
 			<td>
 				<select name="custom-field-type[]" data-name-template='custom-field-type' data-count='<?php echo $count ?>'>
 					<option value="text" <?php selected(isset($customField['type']) && $customField['type'] == 'textarea') ?>><?php _e('Text','tribe-events-calendar-pro'); ?></option>
-					<option value="url" <?php selected(isset($customField['type']) && $customField['type'] == 'textarea') ?>><?php _e('URL','tribe-events-calendar-pro'); ?></option>
+					<option value="url" <?php selected(isset($customField['type']) && $customField['type'] == 'url') ?>><?php _e('Custom URL','tribe-events-calendar-pro'); ?></option>
 					<option value="radio" <?php selected(isset($customField['type']) && $customField['type'] == 'radio') ?>><?php _e('Radio','tribe-events-calendar-pro'); ?></option>
 					<option value="checkbox" <?php selected(isset($customField['type']) && $customField['type'] == 'checkbox') ?>><?php _e('Checkbox','tribe-events-calendar-pro'); ?></option>
 					<option value="dropdown" <?php selected(isset($customField['type']) && $customField['type'] == 'dropdown') ?>><?php _e('Dropdown','tribe-events-calendar-pro'); ?></option>
