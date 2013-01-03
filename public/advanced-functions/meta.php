@@ -198,11 +198,14 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 
 		function custom_meta( $meta_id ){
 			global $tribe_meta_factory;
-			$custom_fields = tribe_the_custom_fields( get_the_ID(), false );
-			$custom_meta = empty( $custom_fields ) ? '' :  Tribe_Meta_Factory::template(
-				$tribe_meta_factory->meta[$meta_id]['label'],
-				$custom_fields,
+			$fields = tribe_get_custom_fields( get_the_ID() );
+			$custom_meta = '';
+		  	foreach ($fields as $label => $value) {
+				$custom_meta .= Tribe_Meta_Factory::template(
+				$label,
+				$value,
 				$tribe_meta_factory->meta[$meta_id]['wrap'] );
+			}
 			return apply_filters( 'tribe_event_meta_custom_meta', $custom_meta);
 		}
 
@@ -595,10 +598,10 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			'wrap' => array(
 				'before'=>'',
 				'after'=>'',
-				'label_before'=>'',
-				'label_after'=>'',
-				'meta_before'=>'',
-				'meta_after'=>''
+				'label_before'=>'<dt>',
+				'label_after'=>'</dt>',
+				'meta_before'=>'<dd>',
+				'meta_after'=>'</dd>'
 			),
 			'label' => '',
 			'priority' => 10,
