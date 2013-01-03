@@ -86,6 +86,17 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		if (is_array($customFields)) {
 			foreach ($customFields as $field) {
 				$meta = str_replace('|', ', ', get_post_meta($postId, $field['name'], true));
+				if( $field['type'] == 'url' && !empty($meta) ) {
+					$url_label = $meta;
+					$parseUrl = parse_url($meta);
+					if (empty($parseUrl['scheme'])) 
+						$meta = "http://$meta";
+					$meta = sprintf('<a href="%s" target="%s">%s</a>',
+						$meta,
+						apply_filters('tribe_get_event_website_link_target', 'self'),
+						apply_filters('tribe_get_event_website_link_label', $url_label)
+						);
+				}
 				if ( $meta ) {
 					$data[esc_html($field['label'])] = $meta; // $meta has been through wp_kses - links are allowed
 				}
