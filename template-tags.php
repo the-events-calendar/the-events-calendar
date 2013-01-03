@@ -86,6 +86,17 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		if (is_array($customFields)) {
 			foreach ($customFields as $field) {
 				$meta = str_replace('|', ', ', get_post_meta($postId, $field['name'], true));
+				if( $field['type'] == 'url' && !empty($meta) ) {
+					$url_label = $meta;
+					$parseUrl = parse_url($meta);
+					if (empty($parseUrl['scheme'])) 
+						$meta = "http://$meta";
+					$meta = sprintf('<a href="%s" target="%s">%s</a>',
+						$meta,
+						apply_filters('tribe_get_event_website_link_target', 'self'),
+						apply_filters('tribe_get_event_website_link_label', $url_label)
+						);
+				}
 				if ( $meta ) {
 					$data[esc_html($field['label'])] = $meta; // $meta has been through wp_kses - links are allowed
 				}
@@ -104,24 +115,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	function tribe_the_custom_fields( $postId = null, $echo = true ) {
 		$fields = tribe_get_custom_fields( $postId );
+		$meta_html = '';
 	  	foreach ($fields as $label => $value) {
-		$url = $value;
-		if( !empty($url) ) {
-			$url_label = $value;
-			if( !empty( $url )) {
-				$parseUrl = parse_url($url);
-				if (empty($parseUrl['scheme'])) 
-					$url = "http://$url";
-			}
-			$html = sprintf('<a href="%s" target="%s">%s</a>',
-				$url,
-				apply_filters('tribe_get_event_website_link_target', 'self'),
-				apply_filters('tribe_get_event_website_link_label', $url_label)
-				);
-		} else {
-			$html = '';
-		}	  		
-			$meta_html = apply_filters('tribe_the_custom_field',"<dt>".stripslashes($label).":</dt><dd class=\"tribe-events-meta-custom-data\">".$html."</dd>\n",$label,$value);
+			$meta_html .= apply_filters('tribe_the_custom_field', sprintf('<dt>%s</dt><dd class="tribe-events-meta-custom-data">%s</dd>', $label, $value ),
+				$label, 
+				$value);
 		}
 		$meta_html = apply_filters('tribe_the_custom_fields', $meta_html);
 		if( $echo ) {
