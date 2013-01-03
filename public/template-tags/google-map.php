@@ -86,7 +86,11 @@ if( class_exists( 'TribeEvents' ) ) {
 			return 0;
 			
 		$postId = TribeEvents::postIdHelper( $postId );
-		$output = get_post_meta( $postId, '_EventShowMap', 1) == 1;
+		if( tribe_get_option('embedGoogleMaps') ) {
+			$output = get_post_meta( $postId, '_EventShowMap', 1) == 1;
+		} else {
+			return 0;
+		}	
 		return apply_filters('tribe_embed_google_map', $output);
 	}
 
