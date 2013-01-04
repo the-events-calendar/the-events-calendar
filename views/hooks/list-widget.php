@@ -129,9 +129,9 @@ if( !class_exists('Tribe_Events_Pro_List_Widget_Template')){
 			}
 			// Get our region
 			if ( $region && tribe_get_region() ) {
-				$html .= ( !$city ) ? '<br />' : '';
-				$space = true;
+				$html .= ( $space && !$city ) ? '<br />' : '';
 				$html .= '<span class="region">'. tribe_get_region() .'</span>';
+				$space = true;
 			} else {
 				$html = rtrim( $html, ', ' );
 			}
@@ -144,7 +144,8 @@ if( !class_exists('Tribe_Events_Pro_List_Widget_Template')){
 			// Get our country
 			if ( $country && tribe_get_country() != '' ) {
 				$html .= ( $space ) ? '<br />' : ' ';
-				$html .= '<span class="country-name">'. tribe_get_country() .'</span>'; 
+				$html .= '<span class="country-name">'. tribe_get_country() .'</span>';
+				$space = true;
 			}
 			// Get our phone
 			if ( $phone && tribe_get_phone() != '' ) {
