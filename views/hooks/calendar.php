@@ -98,8 +98,8 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$html .= '</li><!-- .tribe-events-nav-date -->';
 	
 			$html .= '<li class="tribe-events-nav-next">';
-			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() . '" rel="next"> '. tribe_get_next_month_text() .' &#x2192;</a>';
-			$html .= '<img src="' . esc_url( admin_url( 'images/wpspin_light.gif' ) ) . '" class="ajax-loading" id="ajax-loading" alt="Loading events" />';
+			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() .'" rel="next"> '. tribe_get_next_month_text() .' &#x2192;</a>';
+			$html .= '<span class="tribe-spinner-medium" id="ajax-loading"><span class="tribe-events-visuallyhidden">Loading Events</span></span>';
 			$html .= '</li><!-- .tribe-events-nav-next -->';
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_nav');

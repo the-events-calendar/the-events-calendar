@@ -188,6 +188,24 @@ a.tribe-events-gcal {
     width: 1px;
 }
 
+/* Tribe Spinner */
+/* Tribe Spinner */
+[class^="tribe-spinner-"] {
+	background: url(images/tribe-loading.gif) 0 0 no-repeat;
+}
+.tribe-spinner {
+	width: 32px;
+	height: 32px;
+	-webkit-background-size: 32px 32px;
+			background-size: 32px 32px;
+}
+.tribe-spinner-small {
+	width: 16px;
+	height: 16px;
+	-webkit-background-size: 16px 16px;
+			background-size: 16px 16px;
+}
+
 /* IE7 Tweaks */
 *+html .events-archive h2.tribe-events-page-title {
 	padding-bottom: 30px;
@@ -1322,6 +1340,9 @@ only screen and (-moz-min-device-pixel-ratio: 2),
 only screen and (-o-min-device-pixel-ratio: 2/1),
 only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (min-device-pixel-ratio: 2) {
+	[class^="tribe-spinner"] {
+		background-image: url(images/tribe-loading@2x.gif);
+	}
 	.tribe-events-tooltip .tribe-events-arrow {
 		background-image: url(images/tooltip-arrow@2x.png);
 	}

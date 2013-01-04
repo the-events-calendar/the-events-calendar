@@ -93,11 +93,17 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	</td>
 </tr>
 
-<?php if( tribe_get_option('embedGoogleMaps') ) : ?>
+<?php /* TIM */ if( tribe_get_option('embedGoogleMaps') ) :
+	 if( empty( $postId ) ) { 
+	 	$checked = true; 
+	 } else {
+	 	$checked = ( tribe_embed_google_map( $postId ) ) ? true : false;
+	 }
+?>
 <tr id="google_map_toggle">
 	<td><?php _e('Show Google Map:','tribe-events-calendar'); ?></td>
 	<td>
-		<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="venue[EventShowMap]" value="1" <?php checked(tribe_embed_google_map($postId)); ?> />
+		<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="venue[EventShowMap]" value="1" <?php checked( $checked ); ?> />
 	</td>
 </tr>
 <?php endif; ?>
