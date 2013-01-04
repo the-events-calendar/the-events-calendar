@@ -257,7 +257,7 @@ jQuery(document).ready(function($){
 
 	function tribe_events_week_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string, tribe_popping, tribe_params ) {
 
-		$( '.ajax-loading' ).show();
+		$( '#ajax-loading' ).show();
 		
 		if( !tribe_popping ) {
 			

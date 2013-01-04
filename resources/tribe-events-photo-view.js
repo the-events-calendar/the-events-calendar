@@ -134,7 +134,7 @@ jQuery( document ).ready( function ( $ ) {
 
 		function tribe_events_list_ajax_post( tribe_href_target, tribe_pushstate, tribe_do_string, tribe_popping, tribe_params, tribe_url_params ) {
 
-			$('#tribe-events-photo-events').prepend('<div id="tribe-photo-loading"><span></span></div>');			
+			$('#tribe-events-photo-events').prepend('<div id="tribe-photo-loading"><span class="tribe-spinner"></span></div>');			
 			
 			if( !tribe_popping ) {			
 				

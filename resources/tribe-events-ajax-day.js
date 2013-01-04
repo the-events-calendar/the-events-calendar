@@ -114,7 +114,7 @@ jQuery( document ).ready( function ( $ ) {
 
 		tribe_push_counter = 0;
 
-		$( '.ajax-loading' ).show();	
+		$( '#ajax-loading' ).show();	
 
 		if( !tribe_popping ) {
 
