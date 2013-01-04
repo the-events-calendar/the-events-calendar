@@ -86,19 +86,9 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventWebsite' name='venue[URL]' size='14' value='<?php if( isset($_VenueURL) ) echo esc_attr($_VenueURL); ?>' /></td>
 </tr>
 
-<tr id="google_map_link_toggle">
-	<td><?php _e('Show Google Maps Link:','tribe-events-calendar'); ?></td>
-	<td>
-		<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="venue[EventShowMapLink]" value="1" <?php checked((get_post_status($postId) == 'auto-draft') ? false : get_post_meta( $postId, '_EventShowMapLink', true )); ?> />
-	</td>
-</tr>
-
-<?php /* TIM */ if( tribe_get_option('embedGoogleMaps') ) :
-	 if( empty( $postId ) ) { 
-	 	$checked = true; 
-	 } else {
-	 	$checked = ( tribe_embed_google_map( $postId ) ) ? true : false;
-	 }
+<?php if( tribe_get_option('embedGoogleMaps') ) :
+	$current_screen = get_current_screen();
+	$checked = ( tribe_embed_google_map( $postId ) || $current_screen->action == 'add' ) ? true : false;
 ?>
 <tr id="google_map_toggle">
 	<td><?php _e('Show Google Map:','tribe-events-calendar'); ?></td>
@@ -107,6 +97,13 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	</td>
 </tr>
 <?php endif; ?>
+
+<tr id="google_map_link_toggle">
+	<td><?php _e('Show Google Maps Link:','tribe-events-calendar'); ?></td>
+	<td>
+		<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="venue[EventShowMapLink]" value="1" <?php checked((get_post_status($postId) == 'auto-draft') ? false : get_post_meta( $postId, '_EventShowMapLink', true )); ?> />
+	</td>
+</tr>
 
 <script type="text/javascript">
 	jQuery('[name=venue\\[Venue\\]]').blur(function(){

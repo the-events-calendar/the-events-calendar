@@ -68,7 +68,7 @@ $displayTab = array(
 		'hideViews' => array(
             'type' => 'checkbox_list',
             'label' => __( 'Event Layouts', 'tribe-events-calendar' ),
-            'default' => false,
+            'default' => array( 'list', 'month' ),
             'options' => $views_options,
             'validation_type' => 'options_multi',
             'can_be_empty' => true,
@@ -79,7 +79,7 @@ $displayTab = array(
 			'validation_type' => 'options',
 			'size' => 'large',
 			'default' => 'month',
-			'options' => array( 'upcoming' => 'Event List', 'month' => 'Calendar' ),
+			'options' => $views_options
 		),
 		'tribeEventsBeforeHTML' => array(
 			'type' => 'textarea',
