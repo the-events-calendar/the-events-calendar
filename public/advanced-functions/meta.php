@@ -243,7 +243,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 				'after'=>'',
 				'label_before'=>'<dt>',
 				'label_after'=>'</dt>',
-				'meta_before'=>'<dd class="tribe-events-event-cost">',
+				'meta_before'=>'<dd class="tribe-events-date">',
 				'meta_after'=>'</dd>'
 			),
 			'group' => 'tribe_event_details',
