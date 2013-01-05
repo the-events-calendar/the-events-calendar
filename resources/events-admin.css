@@ -1,7 +1,7 @@
 /* = Events Icon
 =============================================*/
-.events-cal #icon-edit {background:url(images/events-screen-icon.png) no-repeat 6px 3px; background-size: 23px 25px;}
-#adminmenu #menu-posts-tribe_events div.wp-menu-image {background:url(images/menu.png) no-repeat 0 -32px; background-size: 29px 64px;}
+.events-cal #icon-edit {background:url(images/events-screen-icon.png) no-repeat 6px 3px; -webkit-background-size: 23px 25px; background-size: 23px 25px;}
+#adminmenu #menu-posts-tribe_events div.wp-menu-image {background:url(images/menu.png) no-repeat 0 -32px; -webkit-background-size: 29px 64px; background-size: 29px 64px;}
 #adminmenu #menu-posts-tribe_events:hover div.wp-menu-image, #adminmenu #menu-posts-tribe_events.wp-has-current-submenu div.wp-menu-image {background-position:0 0;}
 
 /* = Shared CSS Elements
@@ -97,7 +97,7 @@ td.tribe_message {padding-bottom: 10px !important;}
 .tribe-settings-form fieldset {padding: 10px 0; display: inline-block; clear: both;}
 .tribe-settings-form fieldset.google-embed-field {margin: 10px 25px;}
 .tribe-settings-form legend {width: 220px; margin-right: 20px; float: left; font-weight: bold;}
-.tribe-settings-form .tribe-field-wrap {float: left; max-width: 750px;}
+.tribe-settings-form .tribe-field-wrap {float: left; max-width: 500px;}
 .tribe-settings-form .tribe-field-radio label, .tribe-settings-form .tribe-field-checkbox_list label {display: block; margin: 5px 0;}
 .tribe-settings-form .tribe-field-radio label input, .tribe-settings-form .tribe-field-checkbox_list label input {margin-right: 5px;}
 .tribe-settings-form .tribe-settings-form-wrap fieldset,
@@ -117,7 +117,7 @@ td.tribe_message {padding-bottom: 10px !important;}
 
 /* Modern Tribe box */
 #modern-tribe-info {margin: 20px 0; background-color: #f9f9f9; padding: 8px 20px 12px; border: 1px solid #ccc; border-rarius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; -o-border-radius: 4px;}
-#modern-tribe-info img {margin: 10px 0; }
+#modern-tribe-info img {margin: 10px 0; width: 250px; height: 18px;}
 
 /* sizes */
 .tribe-field-textarea.tribe-size-small textarea {width: 180px; height: 60px;}
@@ -224,4 +224,24 @@ td.tribe_message {padding-bottom: 10px !important;}
 	top        : 50%;
 	margin     : -16px 0 0 -16px;
 	background : url(images/tribe-loading.gif) 0 0 no-repeat;
+	-webkit-background-size: 32px 32px;
+			background-size: 32px 32px;
+}
+
+/* = Admin Retina Bits
+=============================================*/
+@media 
+only screen and (-moz-min-device-pixel-ratio: 2),
+only screen and (-o-min-device-pixel-ratio: 2/1),
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (min-device-pixel-ratio: 2) {
+	.events-cal #icon-edit {
+		background-image: url(images/events-screen-icon@2x.png);
+	}
+	#adminmenu #menu-posts-tribe_events div.wp-menu-image {
+		background-image: url(images/menu@2x.png);
+	}
+	#tribe-loading span {
+		background-image: url(images/tribe-loading@2x.gif);
+	}
 }

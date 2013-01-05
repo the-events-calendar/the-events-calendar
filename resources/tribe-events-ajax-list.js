@@ -113,7 +113,7 @@ jQuery( document ).ready( function ( $ ) {
 
 		function tribe_events_list_ajax_post( tribe_href_target, tribe_pushstate, tribe_do_string, tribe_popping, tribe_params, tribe_url_params ) {
 
-			$( '.ajax-loading' ).show();
+			$( '#ajax-loading' ).show();
 			
 			
 			

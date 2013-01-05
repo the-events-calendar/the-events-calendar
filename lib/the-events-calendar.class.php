@@ -1569,8 +1569,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function loadStyle() {
 			
-			// pjax
-			Tribe_Template_Factory::asset_package('pjax');
+			// jquery-resize
+			Tribe_Template_Factory::asset_package('jquery-resize');
 
 			// smoothness
 			Tribe_Template_Factory::asset_package('smoothness');
@@ -1809,8 +1809,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$newRules[$baseTag . '([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type=' . self::POSTTYPE . '&tag=' . $wp_rewrite->preg_index(2) . '&feed=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTag . '([^/]+)/?$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&tag=' . $wp_rewrite->preg_index(2);
 
-			// TODO apply_filter tribe-rewrite-rules
-			$wp_rewrite->rules = $newRules + $wp_rewrite->rules;
+			$wp_rewrite->rules = apply_filters('tribe_events_rewrite_rules', $newRules + $wp_rewrite->rules, $newRules);
 		}
 
 		/**
@@ -3428,6 +3427,18 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			die();
 		}
+
+		public static function array_insert( $source_array, $insert_array, $position, $replace_amount = 0 ) { 
+			array_splice( $source_array, $position, $replace_amount, $insert_array ); 
+			return $source_array; 
+		}
+		public static function array_insert_after_key( $source_array, $insert_array, $key ) { 
+			$position = array_search( $key, array_keys( $source_array ) ) + 1;
+			$modified_array = array_slice($source_array, 0, $position, true) +
+	            $insert_array +
+	            array_slice($source_array, $position, NULL, true);
+			return $modified_array;
+		} 
 
 		public static function clear_module_pagination( $html ) {
 			$html = '<li class="tribe-nav-previous"><a href="#" id="tribe_paged_prev" class="tribe_paged">' . __( '<< Previous Events' ) . '</a></li>';
