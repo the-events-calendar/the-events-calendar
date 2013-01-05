@@ -194,7 +194,10 @@ $generalTab = array(
 			'type' => 'html',
 			'html' => '<div id="presstrends-dialog" title="Send PressTrends Data" style="display: none;">' . __('Would you like to help us out and send analytics about your usage of The Events Calendar?','tribe-events-calendar') .'<br/></div>',
 		),
-		/* Close Div */
+		'tribe-form-content-end' => array(
+			'type' => 'html',
+			'html' => '</div>',
+		),
 	)
 ) 
 );
