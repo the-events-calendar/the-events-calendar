@@ -144,9 +144,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			// Venue Logic
 			// When there is no map or no map + no custom fields, 
 			// show the venue info up top 
-			if ( ! tribe_embed_google_map( get_the_ID() ) && 
-					 tribe_address_exists( get_the_ID() ) || 
-					 (! tribe_embed_google_map( get_the_ID() ) && empty($tribe_event_custom_fields)) ) {
+			if ( ! tribe_embed_google_map( get_the_ID() ) ) {
 
 				// Venue Details
 				$html .= tribe_get_meta_group( 'tribe_event_venue' );
