@@ -3429,6 +3429,18 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			die();
 		}
 
+		public static function array_insert( $source_array, $insert_array, $position, $replace_amount = 0 ) { 
+			array_splice( $source_array, $position, $replace_amount, $insert_array ); 
+			return $source_array; 
+		}
+		public static function array_insert_after_key( $source_array, $insert_array, $key ) { 
+			$position = array_search( $key, array_keys( $source_array ) ) + 1;
+			$modified_array = array_slice($source_array, 0, $position, true) +
+	            $insert_array +
+	            array_slice($source_array, $position, NULL, true);
+			return $modified_array;
+		} 
+
 		public static function clear_module_pagination( $html ) {
 			$html = '<li class="tribe-nav-previous"><a href="#" id="tribe_paged_prev" class="tribe_paged">' . __( '<< Previous Events' ) . '</a></li>';
 			$html .= '<li class="tribe-nav-next"><a href="#" id="tribe_paged_next" class="tribe_paged">' . __( 'Next Events >>' ) . '</a></li>';
