@@ -93,6 +93,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 					tribe_get_organizer( $post_id ); // Otherwise show organizer name
 			// wrap the name with a link if PRO is active
 			if( ! empty( $name ) && class_exists( 'TribeEventsPro' ) ){
+				echo $name;
 				$name = '<a href="'.$name.'">'.tribe_get_organizer($post_id).'</a>';
 			}
 			$organizer_name = empty( $name ) ? '' :  Tribe_Meta_Factory::template(
@@ -345,9 +346,9 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		) );
 
 	/**
-	 * Register Meta: Organizer Name (author)
+	 * Register Meta: Venue Name
 	 *
-	 * @group tribe_event_organizer
+	 * @group tribe_event_venue
 	 */
 	tribe_register_meta( 'tribe_event_venue_name', array(
 			'wrap' => $tribe_events_default_meta_templates,
