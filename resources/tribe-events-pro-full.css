@@ -316,6 +316,7 @@
 	float: none;
 	width: 84%;
 	padding: 8%;
+	word-wrap: break-word;
 }
 .tribe-events-loop .tribe-events-photo-event .entry-content {
 	float: none;
