@@ -133,51 +133,62 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		}
 		public static function the_meta( $post_id ){
 			
+			$skeleton_view = apply_filters('tribe_events_single_event_the_meta_skeleton', false ) ;
+
 			// If pro, show venue w/ link 
 			$tribe_event_custom_fields = ( class_exists( 'TribeEventsPro' ) && function_exists( 'tribe_the_custom_fields' ) ) ? tribe_get_custom_fields( get_the_ID() ) : '' ;
 
 			$html = '<div class="tribe-events-event-meta tribe-clearfix">';
 
-			// Event Details
-			$html .= tribe_get_meta_group( 'tribe_event_details' );
-		
-			// Venue Logic
-			// When there is no map or no map + no custom fields, 
-			// show the venue info up top 
-			if ( ! tribe_embed_google_map( get_the_ID() ) && 
-					 tribe_address_exists( get_the_ID() ) || 
-					 (! tribe_embed_google_map( get_the_ID() ) && empty($tribe_event_custom_fields)) ) {
+			// show skeleton view 
+			if( $skeleton_view ) {
 
-				// Venue Details
-				$html .= tribe_get_meta_group( 'tribe_event_venue' );
+				// show all visible meta_groups in skeleton view 
+				$html .= tribe_get_the_event_meta();
 
-			} // End Venue
-
-			// Organizer Details
-			if ( tribe_has_organizer() ) {
-				$html .= tribe_get_meta_group( 'tribe_event_organizer' );
-			} // End Organizer
+			} else {
+				// Event Details
+				$html .= tribe_get_meta_group( 'tribe_event_details' );
 			
-			// Event Custom Fields
-			if ( $tribe_event_custom_fields ) { 
-				$html .= tribe_get_meta_group('tribe_event_group_custom_meta');
-			} // End Custom Fields
+				// Venue Logic
+				// When there is no map or no map + no custom fields, 
+				// show the venue info up top 
+				if ( ! tribe_embed_google_map( get_the_ID() ) && 
+						 tribe_address_exists( get_the_ID() ) || 
+						 (! tribe_embed_google_map( get_the_ID() ) && empty($tribe_event_custom_fields)) ) {
 
-			if ( tribe_embed_google_map( get_the_ID() ) && 
-				 tribe_address_exists( get_the_ID() ) && 
-				 empty($tribe_event_custom_fields) && 
-				 !tribe_has_organizer() ) { 
+					// Venue Details
+					$html .= tribe_get_meta_group( 'tribe_event_venue' );
 
-				$html .= sprintf('%s<div class="tribe-events-meta-column">%s</div>',
-					tribe_get_meta_group( 'tribe_event_venue' ),
-					tribe_get_meta('tribe_venue_map')
-					);
+				} // End Venue
 
-			} 
+				// Organizer Details
+				if ( tribe_has_organizer() ) {
+					$html .= tribe_get_meta_group( 'tribe_event_organizer' );
+				} // End Organizer
+				
+				// Event Custom Fields
+				if ( $tribe_event_custom_fields ) { 
+					$html .= tribe_get_meta_group('tribe_event_group_custom_meta');
+				} // End Custom Fields
+
+				if ( tribe_embed_google_map( get_the_ID() ) && 
+					 tribe_address_exists( get_the_ID() ) && 
+					 empty($tribe_event_custom_fields) && 
+					 !tribe_has_organizer() ) { 
+
+					$html .= sprintf('%s<div class="tribe-events-meta-column">%s</div>',
+						tribe_get_meta_group( 'tribe_event_venue' ),
+						tribe_get_meta('tribe_venue_map')
+						);
+
+				} 
+			}
 
 			$html .= '</div><!-- .tribe-events-event-meta -->';
 
-			if ( tribe_embed_google_map( get_the_ID() ) && 
+			if ( !$skeleton_view &&
+				 tribe_embed_google_map( get_the_ID() ) && 
 				 tribe_address_exists( get_the_ID() ) && 
 				 ( $tribe_event_custom_fields || tribe_has_organizer() ) ) {
 				 // If there's a venue map and custom fields or organizer, show venue details in this seperate section 
