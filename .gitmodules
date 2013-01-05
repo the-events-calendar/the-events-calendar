@@ -4,9 +4,9 @@
 [submodule "vendor/select2"]
 	path = vendor/select2
 	url = git://github.com/ivaynberg/select2.git
-[submodule "vendor/jquery-pjax"]
-	path = vendor/jquery-pjax
-	url = git://github.com/defunkt/jquery-pjax.git
 [submodule "vendor/chosen"]
 	path = vendor/chosen
 	url = git://github.com/harvesthq/chosen.git
+[submodule "vendor/jquery-resize"]
+	path = vendor/jquery-resize
+	url = git://github.com/cowboy/jquery-resize.git

@@ -36,9 +36,8 @@
 	text-align: center;
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
-	border-radius: 3px;
+			border-radius: 3px;
 	border: 0;
 	line-height: normal;
 	cursor: pointer;
@@ -82,9 +81,8 @@ a.tribe-events-gcal {
 	font-size: 9px;
 	background: #004080;
 	padding: 1px 4px;
-	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
-	border-radius: 3px;
+			border-radius: 3px;
 	white-space: nowrap;
 }
 
@@ -139,8 +137,7 @@ a.tribe-events-gcal {
     padding: 8px 35px 8px 14px;
     text-shadow: 0 1px 0 #fff;
     -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+    		border-radius: 4px;
 }
 .tribe-event-notices ul {
 	margin:0;
@@ -189,6 +186,24 @@ a.tribe-events-gcal {
     padding: 0;
     position: absolute;
     width: 1px;
+}
+
+/* Tribe Spinner */
+/* Tribe Spinner */
+[class^="tribe-spinner-"] {
+	background: url(images/tribe-loading.gif) 0 0 no-repeat;
+}
+.tribe-spinner {
+	width: 32px;
+	height: 32px;
+	-webkit-background-size: 32px 32px;
+			background-size: 32px 32px;
+}
+.tribe-spinner-small {
+	width: 16px;
+	height: 16px;
+	-webkit-background-size: 16px 16px;
+			background-size: 16px 16px;
 }
 
 /* IE7 Tweaks */
@@ -300,14 +315,13 @@ select.tribe-events-dropdown {
 	margin: 0;
 }
 
-
 .tribe-events-list .vevent.hentry.tribe-first {
 	padding-top: 0;
 }
 
 .tribe-events-list .tribe-events-event-details .tribe-events-event-cost + .entry-title, .events-archive .tribe-events-list .tribe-events-event-details .tribe-events-event-cost + .entry-title {
-float: left;
-width: 65%;
+	float: left;
+	width: 65%;
 }
 
 .tribe-events-list .tribe-events-event-details h2, .tribe-events-list .tribe-events-event-details h3 {
@@ -556,9 +570,9 @@ width: 65%;
 
 /* Cal Links */
 .single-tribe_events .tribe-event-cal-links { 
-display: inline-block;
-margin: 0 0 20px 0;
-vertical-align: middle;
+	display: inline-block;
+	margin: 0 0 20px 0;
+	vertical-align: middle;
 }
 
 /* Featured Image */
@@ -569,8 +583,8 @@ vertical-align: middle;
 }
 /* Meta Sections */
 .single-tribe_events .tribe-events-event-meta {
-		width: 100%;
-		margin: 30px -4% 30px 0;
+	width: 100%;
+	margin: 30px -4% 30px 0;
 }
 
 /* Map */
@@ -692,10 +706,12 @@ vertical-align: middle;
 	display: none;
 }
 .tribe-events-tooltip .tribe-events-arrow {
-	width: 19px;
+	width: 18px;
 	height: 11px;
 	display: block;
 	background: url(images/tooltip-arrow.png) no-repeat 0 bottom;
+	-webkit-background-size: 18px 11px;
+    		background-size: 18px 11px;
 	position: absolute;
 	bottom: -11px;
 	left: 20px;
@@ -853,9 +869,9 @@ vertical-align: middle;
 	margin-bottom: 30px;
 }
 #tribe-events-bar * {
-	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
 }
 #tribe-bar-form {
 	position: relative;
@@ -868,17 +884,16 @@ vertical-align: middle;
 	background-color: #fff;
 	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eee), color-stop(0.5, white));
 	background-image: -webkit-linear-gradient(center bottom, #eee 0%, white 50%);
-	background-image: -moz-linear-gradient(center bottom, #eee 0%, white 50%);
-	background-image: -o-linear-gradient(bottom, #eee 0%, #fff 50%);
-	background-image: -ms-linear-gradient(top, #eee 0%, #fff 50%);
+	background-image:    -moz-linear-gradient(center bottom, #eee 0%, white 50%);
+	background-image: 	  -ms-linear-gradient(top, #eee 0%, #fff 50%);
+	background-image: 	   -o-linear-gradient(bottom, #eee 0%, #fff 50%);
+	background-image: 		  linear-gradient(top, #eee 0%, #fff 50%);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#eeeeee', endColorstr = '#ffffff', GradientType = 0);
-	background-image: linear-gradient(top, #eee 0%, #fff 50%);
 	-webkit-border-radius:4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-	-moz-background-clip: padding;
+			border-radius: 4px;
 	-webkit-background-clip: padding-box;
-	background-clip: padding-box;
+	   -moz-background-clip: padding;
+			background-clip: padding-box;
 	border: 1px solid #aaa;
 	display: block;
 	line-height: 26px;
@@ -897,22 +912,21 @@ vertical-align: middle;
 	width: 12px;
 	height: 100%;
 	background: url('../vendor/select2/select2.png') no-repeat 0 1px;
-	background-size: 60px 40px;
+	-webkit-background-size: 60px 40px;
+    		background-size: 60px 40px;
 }
 #tribe-events-bar [class^="tribe-bar-button-"].open {
 	border: 1px solid #aaa;
 	-webkit-box-shadow: 0 1px 0 #fff inset;
-	-moz-box-shadow: 0 1px 0 #fff inset;
-	-o-box-shadow: 0 1px 0 #fff inset;
-	box-shadow: 0 1px 0 #fff inset;
+			box-shadow: 0 1px 0 #fff inset;
 	background-color: #eee;
 	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, white), color-stop(0.5, #eee));
 	background-image: -webkit-linear-gradient(center bottom, white 0%, #eee 50%);
-	background-image: -moz-linear-gradient(center bottom, white 0%, #eee 50%);
-	background-image: -o-linear-gradient(bottom, white 0%, #eee 50%);
-	background-image: -ms-linear-gradient(top, #fff 0%, #eee 50%);
+	background-image:    -moz-linear-gradient(center bottom, white 0%, #eee 50%);
+	background-image:     -ms-linear-gradient(top, #fff 0%, #eee 50%);
+	background-image:      -o-linear-gradient(bottom, white 0%, #eee 50%);
+	background-image: 		  linear-gradient(top, #fff 0%, #eee 50%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=0 );
-	background-image: linear-gradient(top, #fff 0%, #eee 50%);
 }
 #tribe-events-bar [class^="tribe-bar-button-"].open:after {
 	background-position: -18px 1px;
@@ -1056,7 +1070,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	background-image: url(images/events-bar/icon-search.png);
 	background-repeat: no-repeat;
 	background-position: 2px 50%;
-	background-size: 14px 14px;
+	-webkit-background-size: 14px 14px;
+    		background-size: 14px 14px;
 	padding-left: 20px;
 }
 .tribe-bar-mini #tribe-bar-filters .tribe-bar-drop-content {
@@ -1126,16 +1141,13 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 .tribe-has-settings #tribe-bar-views .select2-container .select2-choice {
 	-webkit-border-bottom-right-radius: 0;
-	-moz-border-bottom-right-radius: 0;
-	border-bottom-right-radius: 0;
+			border-bottom-right-radius: 0;
 	-webkit-border-top-right-radius: 0;
-	-moz-border-top-right-radius: 0;
-	border-top-right-radius: 0;
+			border-top-right-radius: 0;
 }
 .tribe-has-settings #tribe-bar-views .select2-container .select2-choice div {
 	-webkit-border-radius: 0;
-	-moz-border-radius: 0;
-	border-radius: 0;
+			border-radius: 0;
 	background: transparent;
 	background-image: none;
 	filter: none;
@@ -1150,7 +1162,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	background-image: url(images/events-bar/icon-gear.png);
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
-	background-size: 14px 14px;
+	-webkit-background-size: 14px 14px;
+    		background-size: 14px 14px;
 	height: 100%;
 	float: left;
 	width: 14px;
@@ -1165,8 +1178,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 #tribe-events-bar .tribe-bar-button-settings {
 	border-left-color: transparent;
 	-webkit-border-radius: 0 4px 4px 0;
-	-moz-border-radius: 0 4px 4px 0;
-	border-radius: 0 4px 4px 0;
+			border-radius: 0 4px 4px 0;
 	float: left;
 	margin-left: -1px;
 }
@@ -1213,9 +1225,9 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 /* Mini Bar styles for when parent container gets less than 643px wide */
 .tribe-bar-mini {
 	height: 42px;
-	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
 }
 .tribe-bar-mini.tribe-has-datepicker {
 	height: auto;
@@ -1275,13 +1287,13 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	padding-left: 24px;
 	background-repeat: no-repeat;
 	background-position: 0 50%;
-	color: #000;
 }
 .tribe-select2-results .tribe-icon-list,
 .tribe-select2 .tribe-icon-list,
 .tribe-bar-view-list a.tribe-icon-upcoming {
 	background-image: url(images/events-bar/icon-list.png);
-	background-size: 15px 10px;
+	-webkit-background-size: 15px 10px;
+    		background-size: 15px 10px;
 }
 .tribe-bar-view-list a.tribe-icon-upcoming,
 .tribe-bar-view-list a.tribe-icon-month {
@@ -1292,35 +1304,47 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 .tribe-select2 .tribe-icon-month,
 .tribe-bar-view-list a.tribe-icon-month {
 	background-image: url(images/events-bar/icon-month.png);
-	background-size: 15px 16px;
+	-webkit-background-size: 15px 16px;
+    		background-size: 15px 16px;
 }
 .tribe-select2-results .tribe-icon-week,
 .tribe-select2 .tribe-icon-week {
 	background-image: url(images/events-bar/icon-week.png);
-	background-size: 15px 16px;
+	-webkit-background-size: 15px 16px;
+    		background-size: 15px 16px;
 }
 .tribe-select2-results .tribe-icon-day,
 .tribe-select2 .tribe-icon-day {
 	background-image: url(images/events-bar/icon-day.png);
-	background-size: 15px 16px;
+	-webkit-background-size: 15px 16px;
+    		background-size: 15px 16px;
 }
 .tribe-select2-results .tribe-icon-photo,
 .tribe-select2 .tribe-icon-photo {
 	background-image: url(images/events-bar/icon-photo.png);
-	background-size: 15px 14px;
+	-webkit-background-size: 15px 14px;
+    		background-size: 15px 14px;
 }
 .tribe-select2-results span.tribe-icon-map,
 .tribe-select2 span.tribe-icon-map {
 	background-image: url(images/events-bar/icon-map.png);
-	background-size: 12px 16px;
+	-webkit-background-size: 12px 16px;
+    		background-size: 12px 16px;
 	background-position: 2px 50%;
 }
 
+/* Events Retina Bits */
 @media 
 only screen and (-moz-min-device-pixel-ratio: 2),
 only screen and (-o-min-device-pixel-ratio: 2/1),
 only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (min-device-pixel-ratio: 2) {
+	[class^="tribe-spinner"] {
+		background-image: url(images/tribe-loading@2x.gif);
+	}
+	.tribe-events-tooltip .tribe-events-arrow {
+		background-image: url(images/tooltip-arrow@2x.png);
+	}
 	#tribe-bar-filters .tribe-bar-button-search .tribe-bar-btn-small {
 		background-image: url(images/events-bar/icon-search@2x.png);
 	}

@@ -57,7 +57,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_the_title');
 		}
 		public static function the_title(){			
-			$html = sprintf( '<h2 class="tribe-events-page-title">%s</h2>',
+			$html = sprintf( '<h2 class="tribe-events-page-title">'. __( 'Events For ', 'tribe-events-calendar' ) .'%s</h2>',
 				date( "F Y", strtotime( tribe_get_month_view_date() ))
 				);
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_the_title');
@@ -98,8 +98,8 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$html .= '</li><!-- .tribe-events-nav-date -->';
 	
 			$html .= '<li class="tribe-events-nav-next">';
-			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() . '" rel="next"> '. tribe_get_next_month_text() .' &#x2192;</a>';
-			$html .= '<img src="' . esc_url( admin_url( 'images/wpspin_light.gif' ) ) . '" class="ajax-loading" id="ajax-loading" alt="Loading events" />';
+			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() .'" rel="next"> '. tribe_get_next_month_text() .' &#x2192;</a>';
+			$html .= '<span class="tribe-spinner-medium" id="ajax-loading"><span class="tribe-events-visuallyhidden">Loading Events</span></span>';
 			$html .= '</li><!-- .tribe-events-nav-next -->';
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_nav');
@@ -234,7 +234,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 
 			    			$daily_events = TribeEventsQuery::getEvents( $args, true );
 			    			// print_r( $daily_events);
-							foreach( $daily_events->posts as $post ) {
+							foreach( $daily_events->posts as $post_int => $post ) {
 
 								// setup_postdata( $post );
 								$eventId	= $post->ID.'-'.$day;
@@ -262,7 +262,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 								$class_string = $tribe_classes_default .' '. $tribe_classes_venue .' '. $tribe_classes_organizer .' '. $tribe_classes_categories;
 
 								// added last class for css
-								if( $i+1 == count( $daily_events ) ){
+								if( $post_int+1 == count( $daily_events->posts ) ){
 									$class_string .= ' tribe-last';
 								}
 

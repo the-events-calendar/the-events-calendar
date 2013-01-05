@@ -16,6 +16,14 @@ function tribe_get_url_params() {
 	return location.search.substr(1);
 }
 
+function tribe_parse_query_string( string ) {    
+    var map   = {};
+    string.replace(/([^&=]+)=?([^&]*)(?:&+|$)/g, function(match, key, value) {
+        (map[key] = map[key] || []).push(value);
+    });
+    return map;
+}
+
 // tribe shared ajax tests
 
 function tribe_pre_ajax_tests( tribe_ajax_callback ) {		
@@ -113,7 +121,7 @@ jQuery.fn.tribeClearForm = function() {
 
 // tribe global vars, sorry, we need em
 
-var tribe_has_pushstate = window.history && window.history.pushState && !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/);
+var tribe_has_pushstate = !!(window.history && history.pushState);
 var tribe_cur_url = tribe_get_path( jQuery( location ).attr( 'href' ) );
 var tribe_do_string, tribe_popping, tribe_initial_load = false;
 var tribe_pushstate = true;	
@@ -130,7 +138,7 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_event_tooltips();
 	}
 
-	//remove border  on list view event before month divider
+	//remove border on list view event before month divider
 	if (  $( '.tribe-events-list' ).length ) {
 		$('.tribe_list_separator_month').prev('.vevent').addClass('tribe-event-end-month');
 	}

@@ -86,18 +86,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<table id="event_venue" class="eventtable">
          <?php do_action('tribe_venue_table_top', $postId) ?>
 			<?php include( $this->pluginPath . 'admin-views/venue-meta-box.php' ); ?>
-			<tr id="google_map_link_toggle">
-				<td><?php _e('Show Google Maps Link:','tribe-events-calendar'); ?></td>
-				<td>					
-					<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="EventShowMapLink" value="1" <?php checked((get_post_status($postId) == 'auto-draft') ? false : get_post_meta( $postId, '_EventShowMapLink', true )); ?> />
-				</td>
-			</tr>
-			<?php if( tribe_get_option('embedGoogleMaps') ) : ?>
-				<tr id="google_map_toggle">
-					<td><?php _e('Show Google Map:','tribe-events-calendar'); ?></td>
-					<td><input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="EventShowMap" value="1" <?php checked(tribe_embed_google_map($postId)); ?> /></td>
-				</tr>
-			<?php endif; ?>
 		</table>
    <?php do_action('tribe_after_location_details', $postId); ?>
 	<table id="event_organizer" class="eventtable">

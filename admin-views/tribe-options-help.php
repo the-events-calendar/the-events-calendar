@@ -125,7 +125,7 @@ $more_text = __('More...', 'tribe-events-calendar');
 
 <div id="tribe-help-general">
 	<div id="modern-tribe-info">
-		<img src="<?php echo plugins_url('resources/images/modern-tribe.png', dirname(__FILE__)) ?>" alt="Modern Tribe Inc." title="Modern Tribe Inc.">
+		<img src="<?php echo plugins_url('resources/images/modern-tribe@2x.png', dirname(__FILE__)) ?>" alt="Modern Tribe Inc." title="Modern Tribe Inc.">
 
 		<p><?php _e('Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so much for installing our labor of love!', 'tribe-events-calendar'); ?></p>
 
@@ -133,6 +133,8 @@ $more_text = __('More...', 'tribe-events-calendar');
 
 		<?php echo( apply_filters( 'tribe_help_tab_getting_started_content', $getting_started_text ) ); ?>
 	</div>
+	
+	<div class="tribe-settings-form-wrap">
 
 	<h3><?php _e('Resources to Help You Kick Ass', 'tribe-events-calendar'); ?></h3>
 
@@ -151,6 +153,9 @@ $more_text = __('More...', 'tribe-events-calendar');
 
 	<h3><?php _e('Still Not Satisfied?', 'tribe-events-calendar'); ?></h3>
 	<?php echo( apply_filters( 'tribe_help_tab_sns_content', $sns_text ) ); ?>
+	
+	</div>
+	
 </div>
 
 

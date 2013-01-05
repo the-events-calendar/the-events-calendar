@@ -132,7 +132,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_events_title( $depth = true )  {
 		$tribe_ecp = TribeEvents::instance();
 
-		$title = __('Calendar of Events', 'tribe-events-calendar');
+		$title = __('Upcoming Events', 'tribe-events-calendar');
 
 		if ( tribe_is_upcoming() ) {
 			$title = __('Upcoming Events', 'tribe-events-calendar');

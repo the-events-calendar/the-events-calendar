@@ -382,6 +382,22 @@ jQuery(document).ready(function($) {
 			.addClass('current');
 	}
 	
+	// Default Layout Settings
+	// shows / hides proper views that are to be used on front-end
+	if( $('#tribe-field-hideViews').length ) {
+		$('#tribe-field-hideViews').live('change', 'input:checkbox', function () {	
+			$('select[name="viewOption"] option').each(function(i,val) {
+				option_val = $(this).val();
+				if( $('#tribe-field-hideViews input[value=' + option_val + ']').is(":checked") ) { 
+					$(this).show();
+				} else { 
+					$(this).hide();
+				}
+    		});
+    		$('select[name="viewOption"]').trigger("liszt:updated");
+    	});
+    }
+	
 });
 
 /**
