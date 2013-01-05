@@ -158,7 +158,7 @@ if( !class_exists('Tribe_Events_Pro_List_Widget_Template')){
 			if ( $cost && tribe_get_cost() != '' ) {		
 				if( $html ) 
 					$html .= '<br/>';
-				$html .= __( 'Price:', 'tribe-events-calendar-pro' ) . ' ' . tribe_get_cost(); 
+				$html .= __( 'Price:', 'tribe-events-calendar-pro' ) . ' ' . tribe_get_cost( null, true ); 
 			}
 			
 			$html = !empty( $html ) ? '<div class="vcard adr location">'. $html .'</div><!-- .location -->' : '';
