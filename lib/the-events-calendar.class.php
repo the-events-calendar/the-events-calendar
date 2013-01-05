@@ -1159,7 +1159,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function displayEventVenueDropdown( $postId ) {
-			$current_screen = get_current_screen();
 			$VenueID = get_post_meta( $postId, '_EventVenueID', true );
 			// override pro default with community on add page
 			if( !$VenueID && class_exists('TribeCommunityEvents') ) {
@@ -1168,7 +1167,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 			}
 			$defaultsEnabled = class_exists( 'TribeEventsPro' ) ? tribe_get_option( 'defaultValueReplace' ) : false;
-			if ( $current_screen->action == 'add' && !$VenueID && $defaultsEnabled ) {
+			if ( !$VenueID && $defaultsEnabled && ( ( is_admin() && get_current_screen()->action == 'add' ) || !is_admin() ) ) {
 				$VenueID = tribe_get_option( 'eventsDefaultVenueID' );
 			}
 			$VenueID = apply_filters( 'tribe_display_event_venue_dropdown_id', $VenueID );
@@ -1188,7 +1187,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function displayEventOrganizerDropdown( $postId ) {
-			$current_screen = get_current_screen();
 			$curOrg = get_post_meta( $postId, '_EventOrganizerID', true );
 			// override pro default with community on add page
 			if( !$curOrg && class_exists('TribeCommunityEvents') ) {
@@ -1197,7 +1195,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 			}
 			$defaultsEnabled = class_exists( 'TribeEventsPro' ) ? tribe_get_option( 'defaultValueReplace' ) : false;
-			if ( $current_screen->action == 'add' && !$curOrg && $defaultsEnabled ) {
+			if ( !$curOrg && $defaultsEnabled && ( ( is_admin() && get_current_screen()->action == 'add' ) || !is_admin() ) ) {
 				$curOrg = tribe_get_option( 'eventsDefaultOrganizerID' );
 			}
 			$curOrg = apply_filters( 'tribe_display_event_organizer_dropdown_id', $curOrg );
