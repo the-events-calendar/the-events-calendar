@@ -86,8 +86,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventWebsite' name='venue[URL]' size='14' value='<?php if( isset($_VenueURL) ) echo esc_attr($_VenueURL); ?>' /></td>
 </tr>
 
-<?php 
-
+<?php
 $google_map_toggle = false;
 $google_map_link_toggle = false;
 
@@ -101,7 +100,6 @@ if( tribe_get_option('embedGoogleMaps') ) :
 	</td>
 </tr>
 <?php 
-
 endif; 
 
 $google_map_link_toggle = ( get_post_status($postId) == 'auto-draft' && $google_map_toggle ) ? true : get_post_meta( $postId, '_EventShowMapLink', true );
