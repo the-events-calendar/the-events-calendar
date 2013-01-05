@@ -52,10 +52,10 @@ if( !class_exists('Tribe_Events_Day_Template')){
 								__( 'Day Navigation', 'tribe-events-calendar' ),
 								tribe_get_day_permalink( $yesterday ),
 								$yesterday,
-								__( 'Yesterday', 'tribe-events-calendar-pro' ),
+								__( 'Prev Day', 'tribe-events-calendar-pro' ),
 								tribe_get_day_permalink( $tomorrow ),
 								$tomorrow,
-								__( 'Tomorrow', 'tribe-events-calendar-pro' )
+								__( 'Next Day', 'tribe-events-calendar-pro' )
 								);
 			return apply_filters('tribe_template_factory_debug', $pass_through . $html, 'tribe_events_day_the_title');
 		}
