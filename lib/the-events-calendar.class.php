@@ -89,6 +89,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'_EventVenueID',
 			'_EventShowMapLink',
 			'_EventShowMap',
+			'_EventCurrencySymbol',
 			'_EventCost',
 			'_EventURL',
 			'_EventOrganizerID',

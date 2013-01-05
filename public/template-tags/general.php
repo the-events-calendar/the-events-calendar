@@ -305,7 +305,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param int $postId (optional)
 	 * @return string Cost of the event.
 	 */
-	function tribe_get_cost( $postId = null)  {
+	function tribe_get_cost( $postId = null, $withCurrencySymbol = false)  {
 		$tribe_ecp = TribeEvents::instance();
 		$postId = TribeEvents::postIdHelper( $postId );
 		if( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
@@ -324,6 +324,16 @@ if( class_exists( 'TribeEvents' ) ) {
 			$cost = __( "Free", 'tribe-events-calendar' );
 		}else{
 			$cost = esc_html($cost);
+		}
+		
+		if ( $withCurrencySymbol && is_numeric( $cost ) ) {
+			$currency = tribe_get_event_meta( $postId, '_EventCurrencySymbol', true );
+			
+			if ( !$currency ) {
+				$currency = tribe_get_option( 'defaultCurrencySymbol', '$' );
+			}
+			
+			$cost = $currency . $cost;
 		}
 
 		return apply_filters( 'tribe_get_cost', $cost );

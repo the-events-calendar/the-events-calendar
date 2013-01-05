@@ -164,6 +164,14 @@ $generalTab = array(
 			'type' => 'html',
 			'html' => '<p class="description">' . __( 'These include miscellaneous settings.', 'tribe-events-calendar-pro' ) . '</p>',
 		),
+		'defaultCurrencySymbol' => array(
+			'type' => 'text',
+			'label' => __( 'Default Currency Symbol', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Set the default currency symbol for event costs. Note: This only affects future events.', 'tribe-events-calendar' ),
+			'validation_type' => 'textarea',
+			'size' => 'small',
+			'default' => '$',
+		),
 		'sendPressTrendsData' => array(
 			'type' => 'checkbox_bool',
 			'label' => __( 'Send PressTrends Data', 'tribe-events-calendar' ),
