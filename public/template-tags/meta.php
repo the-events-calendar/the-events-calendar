@@ -80,7 +80,7 @@ if( !function_exists('tribe_get_meta_group')){
 
 		$value = empty($value) ? $group_html : $value;
 
-		$html = !empty($group_html) ? Tribe_Meta_Factory::template( $meta_group['label'], $value, $meta_group['wrap'] ) : '';
+		$html = !empty($group_html) ? Tribe_Meta_Factory::template( $meta_group['label'], $value, $meta_group_id, 'meta_group' ) : '';
 		
 		return apply_filters('tribe_get_meta_group', $html, $meta_group_id );
 	}
@@ -114,7 +114,8 @@ if ( !function_exists( 'tribe_get_meta' ) ) {
 
 		$value = empty($value) ? $meta['meta_value'] : $value;
 
-		$html = !empty($value) ? Tribe_Meta_Factory::template( $meta['label'], $value, $meta['wrap'] ) : '';
+		// if we have a value let's build the html template
+		$html = !empty($value) ? Tribe_Meta_Factory::template( $meta['label'], $value, $meta_id ) : '';
 
 		return apply_filters('tribe_get_meta', $html, $meta_id );
 	}
@@ -182,7 +183,7 @@ if( !function_exists('tribe_get_the_event_meta')) {
 		$html = '';
 		foreach( Tribe_Meta_Factory::get_order() as $meta_groups ){
 			foreach( $meta_groups as $meta_group_id ){
-				$html = tribe_get_meta_group( $meta_group_id, true );
+				$html .= tribe_get_meta_group( $meta_group_id, true );
 			}
 		}
 

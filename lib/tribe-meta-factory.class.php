@@ -33,7 +33,7 @@ if( !class_exists('Tribe_Meta_Factory') ) {
 					'meta_before'=>'<div class="tribe-meta-value">',
 					'meta_after'=>'</div>'
 					),
-				'classes_for' => array(),
+				'classes' => array(),
 				'register_type' => 'meta',
 				'register_overwrite' => false,
 				'register_callback' => null,
@@ -122,16 +122,33 @@ if( !class_exists('Tribe_Meta_Factory') ) {
 			}
 		}
 
-		public static function template( $label, $meta, $template ) {
-			$defaults = array(
-				'before'=>'<div>',
-				'after'=>'</div>',
-				'label_before'=>'<label>',
-				'label_after'=>'</label>',
-				'meta_before'=>'<div>',
-				'meta_after'=>'</div>'
-				);
-			$template = wp_parse_args($template, $defaults);
+		public static function embed_classes( $template, $classes = array() ){
+			if( !empty($classes) && is_array($classes)){
+
+				// loop through the available class to template associations
+				foreach($classes as $key => $class_list){
+					if( !empty($class_list) && 
+						!empty($template[$key]) &&
+						( strpos( $template[$key], '%s') !== false || strpos( $template[$key], '%d') !== false ) ){
+						
+						// if we're passed an array lets implode it
+						$class_list = is_array( $class_list ) ? implode(' ', $class_list) : $class_list;
+
+						// process the template string with all classes
+						$template[$key] = vsprintf( $template[$key], $class_list );
+
+					}
+				}
+			}
+
+			return $template;
+		}
+
+		public static function template( $label, $meta, $meta_id, $type = 'meta' ) {
+			global $tribe_meta_factory;
+			$template = self::embed_classes( 
+				$tribe_meta_factory->{$type}[$meta_id]['wrap'], 
+				$tribe_meta_factory->{$type}[$meta_id]['classes'] );
 			$html = sprintf('%s%s%s%s',
 				$template['before'],
 				!empty($label) ? $template['label_before'] . $label . $template['label_after'] : '',
