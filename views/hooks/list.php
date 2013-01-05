@@ -21,6 +21,26 @@ if( !class_exists('Tribe_Events_List_Template')){
 
 		public static function init(){
 
+			// customize meta items
+			tribe_set_the_meta_template( 'tribe_event_venue_name', array(
+				'before'=>'',
+				'after'=>'',
+				'label_before'=>'',
+				'label_after'=>'',
+				'meta_before'=>'<span class="%s">',
+				'meta_after'=>'</span>'
+			));
+			tribe_set_meta_label( 'tribe_event_venue_address', '' );
+			tribe_set_the_meta_template( 'tribe_event_venue_address', array(
+				'before'=>'',
+				'after'=>'',
+				'label_before'=>'',
+				'label_after'=>'',
+				'meta_before'=>'',
+				'meta_after'=>''
+			));
+			tribe_set_the_meta_visibility( 'tribe_event_venue_gmap_link', false );
+
 			// Our various messages if there are no events for the query
 			if ( ! have_posts() ) { // Messages if currently no events
 				$tribe_ecp = TribeEvents::instance();
@@ -88,6 +108,8 @@ if( !class_exists('Tribe_Events_List_Template')){
 
 			// End list template
 			add_filter( 'tribe_events_list_after_template', array( __CLASS__, 'after_template' ), 1, 2 );
+
+			do_action('tribe_events_list_template_init');
 		}
 		// Start List Template
 		public static function before_template( $post_id ){
@@ -199,10 +221,10 @@ if( !class_exists('Tribe_Events_List_Template')){
 
 				// venue display info
 				tribe_display_meta( 'tribe_event_venue_name' );
-				// $venue_address = tribe_get_meta('tribe_event_venue_address');
-				// if( !empty($venue_address)){
-				// 	echo ', ' . $venue_address;
-				// }
+				$venue_address = tribe_get_meta('tribe_event_venue_address');
+				if( !empty($venue_address)){
+					echo ', ' . $venue_address;
+				}
 
 				?>
 			</div><!-- .tribe-events-event-meta -->
