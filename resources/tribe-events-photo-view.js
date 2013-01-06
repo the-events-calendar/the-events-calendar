@@ -22,8 +22,9 @@ jQuery( document ).ready( function ( $ ) {
 	}); 
 
 	// update columnWidth on window resize
-	$(window).resize(function() {
-		var containerWidth = container.width();		
+	container.resize(function() {		
+		var containerWidth = container.width();	
+		console.log(containerWidth);
 		if ( containerWidth < 643 ) {
 			container.addClass('photo-two-col');
 		} else {
