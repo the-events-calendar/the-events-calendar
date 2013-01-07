@@ -16,8 +16,10 @@ jQuery( document ).ready( function ( $ ) {
 		var initial_url = location.href;
 		var current_params = {};
 		
-		if( tribe_storage )
-			tribe_storage.setItem( 'tribe_initial_load', 'true' );		
+		if( tribe_storage ) {
+			tribe_storage.setItem( 'tribe_initial_load', 'true' );	
+			tribe_storage.setItem( 'tribe_current_post_count', '' );	
+		}			
 
 		$(window).bind('popstate', function(event) {			
 		
@@ -181,8 +183,10 @@ jQuery( document ).ready( function ( $ ) {
 					function ( response ) {
 						$( "#ajax-loading" ).hide();
 						
-						if( tribe_storage )
+						if( tribe_storage ) {
 							tribe_storage.setItem( 'tribe_initial_load', 'false' );
+							tribe_storage.setItem( 'tribe_current_post_count', response.total_count );
+						}							
 						
 						if ( response.success ) {
 							
