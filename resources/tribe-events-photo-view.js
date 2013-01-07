@@ -1,14 +1,15 @@
 var tribe_list_paged = 1;
 
 
-function tribe_setup_isotope( container ) {
+function tribe_setup_isotope( $container ) {
 	
 	if( jQuery().isotope ) {
 		
 		var tribe_not_initial_resize = false;
+		var tribe_last_width, container_width = 0;
 		
-		container.imagesLoaded( function(){    
-			container.isotope({
+		$container.imagesLoaded( function(){    
+			$container.isotope({
 				containerStyle: {
 					position: 'relative', 
 					overflow: 'visible'
@@ -17,18 +18,19 @@ function tribe_setup_isotope( container ) {
 			});
 		});
 
-		container.resize(function() {		
-			var containerWidth = container.width();			
-			if ( containerWidth < 643 ) {
-				container.addClass('photo-two-col');
+		$container.resize(function() {		
+			container_width = $container.width();			
+			if ( container_width < 643 ) {
+				$container.addClass('photo-two-col');
 			} else {
-				container.removeClass('photo-two-col');
+				$container.removeClass('photo-two-col');
 			}
 			
-			if( tribe_not_initial_resize )
-				container.isotope('reLayout');
+			if( tribe_not_initial_resize && container_width !== tribe_last_width )
+				$container.isotope('reLayout');
 			
 			tribe_not_initial_resize = true;
+			tribe_last_width = container_width;
 		});
 	
 	}
