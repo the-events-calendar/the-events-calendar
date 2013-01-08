@@ -164,6 +164,13 @@ $generalTab = array(
 			'type' => 'html',
 			'html' => '<p class="description">' . __( 'These include miscellaneous settings.', 'tribe-events-calendar-pro' ) . '</p>',
 		),
+		'liveFiltersUpdate' => array(
+			'type' => 'checkbox_bool',
+			'label' => __( 'Live Update Ajax', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Enable live updating for AJAX requests on the front-end.' , 'tribe-events-calendar' ),
+			'default' => false,
+			'validation_type' => 'boolean',
+		),
 		'defaultCurrencySymbol' => array(
 			'type' => 'text',
 			'label' => __( 'Default Currency Symbol', 'tribe-events-calendar' ),

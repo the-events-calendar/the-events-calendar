@@ -777,6 +777,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function body_class( $c ) {
 			if ( get_query_var('post_type') == self::POSTTYPE ) {
+				if ( !is_admin() && tribe_get_option( 'liveFiltersUpdate', false ) )
+					$c[] = 'tribe-filter-live';
 				if (! is_single() ) {
 					if ( (tribe_is_upcoming() || tribe_is_past()) ) {
 						$c[] = 'events-list';
