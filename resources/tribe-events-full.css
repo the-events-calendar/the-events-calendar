@@ -238,26 +238,17 @@ a.tribe-events-gcal {
 }
 
 /* Tribe Spinner */
-[class^="tribe-spinner"] {
-	background: url(images/tribe-loading.gif) 0 0 no-repeat;
-}
 .tribe-spinner {
 	width: 32px;
 	height: 32px;
-	-webkit-background-size: 32px 32px;
-			background-size: 32px 32px;
 }
 .tribe-spinner-medium {
 	width: 24px;
 	height: 24px;
-	-webkit-background-size: 24px 24px;
-			background-size: 24px 24px;
 }
 .tribe-spinner-small {
 	width: 16px;
 	height: 16px;
-	-webkit-background-size: 16px 16px;
-			background-size: 16px 16px;
 }
 
 /* IE7 Tweaks */
@@ -338,7 +329,6 @@ select.tribe-events-dropdown {
 	display: inline;
 }
 
-
 /* = Calendar View & List View Template Styles
    @ Template: calendar.php & list.php
 =============================================*/
@@ -350,7 +340,6 @@ select.tribe-events-dropdown {
 #tribe-events-content.tribe-events-list {
 	padding: 0;
 }
-
 
 /* = List View Template Styles
    @ Template: list.php
@@ -479,7 +468,6 @@ select.tribe-events-dropdown {
 }
 
 /* Content */
-
 .tribe-events-list .tribe-events-loop .entry-content {
 	width: 100%;
 	padding: 0;
@@ -639,7 +627,6 @@ h3.tribe-event-single-section-title {
 .single-tribe_events .tribe-event-schedule .tribe-event-cost {
 	margin-right: 10px;
 }
-
 
 .single-tribe_events .tribe-event-schedule h2 {
 	font-size: 1.2em;
@@ -820,7 +807,6 @@ h3.tribe-event-single-section-title {
 	right: 30px;
 }
 
-
 /* recurring info tooltip */
 .recurringinfo {
 	display: inline-block;
@@ -927,7 +913,6 @@ h3.tribe-event-single-section-title {
 	line-height: 1.5;
 }
 
-
 /* = Events List Widget Styles (Sidebar)
    @ Template: list-widget.php
 =============================================*/
@@ -953,7 +938,6 @@ h3.tribe-event-single-section-title {
 	font-size: 100%;
 }
 
-
 /* = Events Navigation Bar
    @ Template: /modules/bar.php
 =============================================*/
@@ -974,7 +958,6 @@ h3.tribe-event-single-section-title {
 }
 
 /* Globals */
-
 /* Special Buttons & Selects */
 #tribe-events-bar .select2-container .select2-choice,
 #tribe-events-bar [class^="tribe-bar-button-"] {
@@ -1448,9 +1431,6 @@ only screen and (-moz-min-device-pixel-ratio: 2),
 only screen and (-o-min-device-pixel-ratio: 2/1),
 only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (min-device-pixel-ratio: 2) {
-	[class^="tribe-spinner"] {
-		background-image: url(images/tribe-loading@2x.gif);
-	}
 	.tribe-events-tooltip .tribe-events-arrow {
 		background-image: url(images/tooltip-arrow@2x.png);
 	}
