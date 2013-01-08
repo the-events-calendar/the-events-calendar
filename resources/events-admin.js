@@ -384,11 +384,11 @@ jQuery(document).ready(function($) {
 	
 	// Default Layout Settings
 	// shows / hides proper views that are to be used on front-end
-	if( $('#tribe-field-hideViews').length ) {
-		$('#tribe-field-hideViews').live('change', 'input:checkbox', function () {	
+	if( $('#tribe-field-tribeEnableViews').length ) {
+		$('#tribe-field-tribeEnableViews').live('change', 'input:checkbox', function () {	
 			$('select[name="viewOption"] option').each(function(i,val) {
 				option_val = $(this).val();
-				if( $('#tribe-field-hideViews input[value=' + option_val + ']').is(":checked") ) { 
+				if( $('#tribe-field-tribeEnableViews input[value=' + option_val + ']').is(":checked") ) { 
 					$(this).show();
 				} else { 
 					$(this).hide();
