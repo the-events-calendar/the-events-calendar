@@ -113,11 +113,8 @@ if( class_exists( 'TribeEvents' ) ) {
  	 * @uses wp_get_object_terms()
  	 * @since 2.1
  	 */    	
-	function tribe_get_event_cat_ids( $post_id ) {
-
-		if ( isset( $post_id ) ) {
-			$post_id = get_the_ID();
-		}
+	function tribe_get_event_cat_ids( $post_id = 0 ) {
+		$post_id = TribeEvents::postIdHelper($post_id);
 		
 		$return_id = array();
 		
