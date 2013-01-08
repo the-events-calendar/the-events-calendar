@@ -100,11 +100,11 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			global $wp_query;
 
 			// because we can't trust tribe_get_events_title will be set when run via AJAX
-			$title = sprintf( __( 'Week starting %s', 'tribe-events-calendar-pro' ),
+			$title = sprintf( __( 'week starting %s', 'tribe-events-calendar-pro' ),
 				date( "l, F jS Y", strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) )
 			);
 
-			$html = sprintf( '<h2 class="tribe-events-page-title">%s</h2>',
+			$html = sprintf( '<h2 class="tribe-events-page-title">'. __( 'Events for ', 'tribe-events-calendar' ) .'%s</h2>',
 				$title
 			);
 
