@@ -50,6 +50,8 @@ if (!class_exists('TribeEventsTemplates')) {
 				// remove singular body class if sidebar-page.php
 				if( $template == get_stylesheet_directory() . '/sidebar-page.php' ) {
 					add_filter( 'body_class', array( __CLASS__, 'remove_singular_body_class' ) );
+				} else {
+					add_filter( 'body_class', array( __CLASS__, 'add_singular_body_class' ) );
 				}
 				return $template;
 			}			
@@ -63,6 +65,17 @@ if (!class_exists('TribeEventsTemplates')) {
 			}
             return $c;
         }
+
+		/**
+		 * Add the "singular" body class
+		 *
+		 * @param array $c
+		 * @return array
+		 */
+		public function add_singular_body_class( $c ) {
+			$c[] = 'singular';
+			return $c;
+		}
 
 		public static function wpHeadFinished() {
 			self::$throughHead = true;
@@ -290,7 +303,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			$wp_query->post_count = max($wp_query->post_count, 2);
 			//$wp_query->is_page = true; // don't show comments
 			//$wp_query->is_single = false; // don't show comments
-			$wp_query->is_singular = true;
+			//$wp_query->is_singular = true;
 
 			if ( empty ( $wp_query->posts ) ) {
 
