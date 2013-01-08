@@ -978,13 +978,11 @@ h3.tribe-event-single-section-title {
 /* Special Buttons */
 #tribe-events-bar [class^="tribe-bar-button-"] {	
 	background-color: #fff;
-	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eee), color-stop(0.5, white));
-	background-image: -webkit-linear-gradient(center bottom, #eee 0%, white 50%);
-	background-image:    -moz-linear-gradient(center bottom, #eee 0%, white 50%);
-	background-image: 	  -ms-linear-gradient(top, #eee 0%, #fff 50%);
-	background-image:      -o-linear-gradient(bottom, #eee 0%, #fff 50%);
-	background-image: 		  linear-gradient(top, #eee 0%, #fff 50%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#eeeeee', endColorstr = '#ffffff', GradientType = 0);
+	background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEwMCAxMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxsaW5lYXJHcmFkaWVudCBpZD0iaGF0MCIgZ3JhZGllbnRVbml0cz0ib2JqZWN0Qm91bmRpbmdCb3giIHgxPSI1MCUiIHkxPSIxMDAlIiB4Mj0iNTAlIiB5Mj0iLTEuNDIxMDg1NDcxNTIwMmUtMTQlIj4KPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VkZWRlZCIgc3RvcC1vcGFjaXR5PSIxIi8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgIDwvbGluZWFyR3JhZGllbnQ+Cgo8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0idXJsKCNoYXQwKSIgLz4KPC9zdmc+);
+background-image: -moz-linear-gradient(bottom, #ededed 0%, #fff 100%);
+background-image: -o-linear-gradient(bottom, #ededed 0%, #fff 100%);
+background-image: -webkit-linear-gradient(bottom, #ededed 0%, #fff 100%);
+background-image: linear-gradient(bottom, #ededed 0%, #fff 100%);
 	-webkit-border-radius:4px;
 			border-radius: 4px;
 	-webkit-background-clip: padding-box;
