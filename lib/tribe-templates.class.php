@@ -243,15 +243,17 @@ if (!class_exists('TribeEventsTemplates')) {
 		 **/
 		public static function getTemplateHierarchy($template, $subfolder = '', $namespace = '/', $pluginPath = '') {
 
+			$tec = TribeEvents::instance();
+
 			if ( substr($template, -4) != '.php' ) {
 				$template .= '.php';
 			}
 
 			// setup the meta definitions
-			require_once( TribeEvents::instance()->pluginPath . 'public/advanced-functions/meta.php' );
+			require_once( $tec->pluginPath . 'public/advanced-functions/meta.php' );
 
 			// allow pluginPath to be set outside of this method
-			$pluginPath = empty($pluginPath) ? TribeEvents::instance()->pluginPath : $pluginPath;
+			$pluginPath = empty($pluginPath) ? $tec->pluginPath : $pluginPath;
 
 			// ensure that addon plugins look in the right override folder in theme
 			$namespace = !empty($namespace) && $namespace[0] != '/' ? '/' . trailingslashit($namespace) : trailingslashit($namespace);
@@ -272,8 +274,7 @@ if (!class_exists('TribeEventsTemplates')) {
 				$file = $pluginPath . 'views' . $subfolder . $template;
 			}
 			
-			$tec = TribeEvents::instance();
-			if ( in_array( $tec->displaying, tribe_get_option( 'hideViews', array() ) ) ) {
+			if ( ! in_array( $tec->displaying, tribe_get_option( 'tribeEnableViews', array() ) ) ) {
 				$file = get_404_template();
 			}
 

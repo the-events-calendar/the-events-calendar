@@ -1620,7 +1620,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$this->displaying = 'admin';
 			} else {
 				global $wp_query;
-				$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : "";
+				$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : tribe_get_option( 'viewOption', 'upcoming');
 			}
 		}
 
@@ -3333,7 +3333,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 		
 		/**
-		 * Removes views that have been selected in the Template Settings as hidden from the view array.
+		 * Removes views that have been deselected in the Template Settings as hidden from the view array.
 		 *
 		 * @since 3.0
 		 * @author PaulHughes01
@@ -3342,15 +3342,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return array The new views array.
 		 */
 		public function remove_hidden_views( $views ) {
-			$hidden_views = tribe_get_option( 'hideViews', array() );
-			
-			foreach ( $hidden_views as $hidden_view ) {
-				foreach( $views as $index => $view ) {
-					if ( $view['displaying'] == $hidden_view )
-						unset( $views[$index] );
+			$enable_views = tribe_get_option( 'tribeEnableViews', array() );
+			foreach( $views as $index => $view ) {
+				if( !in_array( $view['displaying'], $enable_views)) {
+					unset( $views[$index] );
 				}
 			}
-			
 			return $views;
 		}
 
