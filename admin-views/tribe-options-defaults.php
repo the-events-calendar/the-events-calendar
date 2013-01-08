@@ -12,7 +12,7 @@ if ( is_array($organizers) && !empty($organizers) ) {
 $venues = TribeEvents::instance()->get_venue_info();
 $venue_options = array();
 if ( is_array($venues) && !empty($venues) ) {
-	$venue_options[0] = __('Use New Venue/No Default', 'tribe-events-calendar-pro');
+	$venue_options[0] = __('No Default', 'tribe-events-calendar-pro');
 	foreach ($venues as $venue) {
 		$venue_options[$venue->ID] = $venue->post_title;
 	}

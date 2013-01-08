@@ -53,7 +53,7 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_the_map');
 		}
 		public static function the_map( $post_id ){
-			$html = '<div id="tribe-geo-loading"><span></span></div>';
+			$html = '<div id="tribe-geo-loading"><span class="tribe-spinner"></span></div>';
 			$html .= '<div id="tribe-geo-map"></div>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_the_map');
 		}

@@ -698,12 +698,9 @@ div.tribe-countdown-text {
 #tribe-geo-loading span,
 #tribe-photo-loading span {
 	position: absolute;
-	width: 32px;
-	height: 32px;
 	left: 50%;
 	top: 50%;
 	margin: -16px 0 0 -16px;
-	background: url(images/tribe-loading.gif) 0 0 no-repeat;
 }
 
 #tribe-photo-loading {
