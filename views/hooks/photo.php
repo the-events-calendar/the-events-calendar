@@ -42,6 +42,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 
 		public static function before_loop( $pass_through ){
 			$html = '<div class="tribe-events-loop hfeed tribe-clearfix" id="tribe-events-photo-events">';
+			$html .='<div id="tribe-photo-loading"><img id="ajax-loading" class="tribe-spinner" src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" /></div>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_photo_before_loop');
 		}
 

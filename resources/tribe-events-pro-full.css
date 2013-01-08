@@ -27,11 +27,9 @@
 	margin-left: 5%;
 }
 
-
 /* = Week Grid Template Styles
    @ Template: week.php
 =============================================*/
-
 /* grid structure */
 .tribe-events-grid {
 	border: 1px solid #bbb;
@@ -56,7 +54,6 @@
 .tribe-grid-header .column a {
 	color: #333;
 }
-
 
 /* columns & structure */
 .tribe-grid-body {
@@ -125,7 +122,6 @@
  	line-height: 1.25;
  	padding: 0;
 }
-
 
 /* All day */
 .tribe-grid-allday {
@@ -240,7 +236,6 @@
 /* = Photo View Template Styles 
    @ Template: photo.php
 =============================================*/
-
 /********** Masonry Layout **********/
 
 /* CSS3 Transitions */
@@ -292,7 +287,6 @@
 	width: 45.9%;
 }
 /* Tile Styling */
-
 .tribe-events-photo-event {
 	padding: 0;
 	position: relative;
@@ -361,10 +355,159 @@
 	padding: 0 5px;
 }
 
+/* Photo loading */
+#tribe-photo-loading {
+	background: #fff;
+	background: rgba(255, 255, 255, 0.9);
+}
+#tribe-photo-loading span {
+	top: 200px;
+}
+
+/* = Map View Template Styles 
+   @ Template: map.php
+=============================================*/
+/* tribe geolocation map area */
+.tribe-events-filter-view #tribe-geo-wrapper {
+	 width: 72%; 
+	 float: right; 
+	 padding: 1px 0;
+}
+
+#tribe-geo-map-wrapper {
+	position: relative;
+	z-index: 2;
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
+	padding: 2px;
+	background: #eee;
+}
+
+#tribe-geo-map {
+	width: 100%;
+	height: 400px;
+	position: relative;
+	z-index: 3;
+}
+
+#tribe-geo-map label {
+	width: auto;
+	display: inline;
+}
+
+#tribe-geo-map img {
+	max-width: none;
+}
+
+/* tribe geo location option links (displayed when multiple locations found) */
+#tribe-geo-results h2,
+#tribe-geo-options h2 {
+	color: #222;
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 1em;
+	margin: 0 0 6px;
+	padding: 0;
+}
+
+#tribe-geo-links {
+	margin-top: 20px;
+	border-top: 1px solid #eee;
+	border-right: 1px solid #eee;
+	border-left: 1px solid #eee;
+}
+
+#tribe-geo-options {
+	display: none;
+	margin-bottom: 20px;
+}
+
+.tribe-geo-option-link {
+	display: block;
+	text-decoration: none;
+	color: #444;
+	border-bottom: 1px solid #eee;
+	padding: 3px 6px;
+	-webkit-transition: 0.1s ease-in-out;
+	   -moz-transition: 0.1s ease-in-out;
+	     -o-transition: 0.1s ease-in-out;
+			transition: 0.1s ease-in-out
+}
+
+.tribe-geo-option-link:hover {
+	background: #f5f5f5;
+}
+
+.tribe-geo-option-link:hover,
+.tribe-geo-option-link:focus {
+	text-decoration: none;
+}
+
+.tribe-option-loaded,
+.tribe-geo-option-link.tribe-option-loaded:hover {
+	background: #666;
+	color: #fff;
+}
+
+#tribe_map_paged_prev {
+	float: left;
+}
+
+#tribe_map_paged_next {
+	float: right;
+}
+
+.timer {
+	text-align: center;
+	width: 100%;
+	color: red;
+	margin: 20px 0;
+}
+
+#tribe-geo-results #tribe_events_filters_wrapper {
+	display: none;
+}
+
+#tribe-geo-results #tribe-events-content {
+	float: none;
+	width: 100%;
+}
+
+.tribe_map_paged {
+	display: none;
+}
+
+/* = View Loading / Pagination Styles 
+   @ Template: map.php & photo.php
+=============================================*/
+#tribe-geo-loading,
+#tribe-photo-loading {
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background: #fff;
+	background: rgba(255, 255, 255, 0.2);
+	z-index: 4;
+	webkit-transition: all 1s linear;
+	-moz-transition: all 1s linear;
+	-o-transition: all 1s linear;
+	-ms-transition: all 1s linear;
+	transition: all 1s linear;
+}
+#tribe-geo-loading img,
+#tribe-photo-loading img {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin: -16px 0 0 -16px;
+}
+
 /* = Single Venue Template Styles (Pro Version)
    @ Template: single-venue.php
 =============================================*/
-
 .tribe-events-venue .tribe-events-map-wrap {
 	margin: 5px 0 30px 30px;
 	float: right;
@@ -424,7 +567,6 @@
 /* = Single Organizer Template Styles (Pro Version)
    @ Template: single-organizer.php
 =============================================*/
-
 #tribe-events-content.tribe-events-organizer {
 	padding: 0;
 }
@@ -463,6 +605,7 @@
 }
 
 /* = Related Events
+   @ Template: single-event.php
 =============================================*/
 .related-events-title {
 	color: #666;
@@ -600,7 +743,9 @@ h3.tribe-events-related-events-title {
 .tribe-events-widget-link {
 	margin-top: 8px;
 }
-
+#ajax-loading-mini {
+	display: none;
+}
  
 /* = Related Events
 =============================================*/
@@ -623,7 +768,6 @@ ul.related-events li {
 	font-size: .75em;
 	text-transform: uppercase;
 }
- 
  
 /* = Events Countdown Widget
 =============================================*/
@@ -660,158 +804,6 @@ div.tribe-countdown-right {
 div.tribe-countdown-text {
 	clear: both;
 }
-
-/* tribe geolocation map area */
-
-.tribe-events-filter-view #tribe-geo-wrapper {
-	 width: 72%; 
-	 float: right; 
-	 padding: 1px 0;
-}
-
-#tribe-geo-map-wrapper {
-	position: relative;
-	z-index: 2;
-	margin-bottom: 20px;
-	border: 1px solid #ddd;
-	padding: 2px;
-	background: #eee;
-}
-
-#tribe-geo-loading,
-#tribe-photo-loading {
-	display: none;
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	left: 0;
-	top: 0;
-	background: #fff;
-	background: rgba(255, 255, 255, 0.2);
-	z-index: 4;
-	webkit-transition: all 1s linear;
-	-moz-transition: all 1s linear;
-	-o-transition: all 1s linear;
-	-ms-transition: all 1s linear;
-	transition: all 1s linear;
-}
-
-#tribe-geo-loading span,
-#tribe-photo-loading span {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	margin: -16px 0 0 -16px;
-}
-
-#tribe-photo-loading {
-	display: block;
-	background: #fff;
-	background: rgba(255, 255, 255, 0.9);
-}
-
-#tribe-photo-loading span {
-	top: 200px;
-}
-
-#tribe-geo-map {
-	width: 100%;
-	height: 400px;
-	position: relative;
-	z-index: 3;
-}
-
-#tribe-geo-map label {
-	width: auto;
-	display: inline;
-}
-
-#tribe-geo-map img {
-	max-width: none;
-}
-
-/* tribe geo location option links (displayed when multiple locations found) */
-#tribe-geo-results h2,
-#tribe-geo-options h2 {
-	color: #222;
-	font-size: 18px;
-	font-weight: bold;
-	line-height: 1em;
-	margin: 0 0 6px;
-	padding: 0;
-}
-
-#tribe-geo-links {
-	margin-top: 20px;
-	border-top: 1px solid #eee;
-	border-right: 1px solid #eee;
-	border-left: 1px solid #eee;
-}
-
-#tribe-geo-options {
-	display: none;
-	margin-bottom: 20px;
-}
-
-.tribe-geo-option-link {
-	display: block;
-	text-decoration: none;
-	color: #444;
-	border-bottom: 1px solid #eee;
-	padding: 3px 6px;
-	-webkit-transition: 0.1s ease-in-out;
-	   -moz-transition: 0.1s ease-in-out;
-	     -o-transition: 0.1s ease-in-out;
-			transition: 0.1s ease-in-out
-}
-
-.tribe-geo-option-link:hover {
-	background: #f5f5f5;
-}
-
-.tribe-geo-option-link:hover,
-.tribe-geo-option-link:focus {
-	text-decoration: none;
-}
-
-.tribe-option-loaded,
-.tribe-geo-option-link.tribe-option-loaded:hover {
-	background: #666;
-	color: #fff;
-}
-
-#ajax-loading-mini {
-	display: none;
-}
-
-#tribe_map_paged_prev {
-	float: left;
-}
-
-#tribe_map_paged_next {
-	float: right;
-}
-
-.timer {
-	text-align: center;
-	width: 100%;
-	color: red;
-	margin: 20px 0;
-}
-
-#tribe-geo-results #tribe_events_filters_wrapper {
-	display: none;
-}
-
-#tribe-geo-results #tribe-events-content {
-	float: none;
-	width: 100%;
-}
-
-.tribe_map_paged {
-	display: none;
-}
-
 
 /* = Events Venue Widget
 =============================================*/

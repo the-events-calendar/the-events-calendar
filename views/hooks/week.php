@@ -375,7 +375,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			$current_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
 
 			// Display Week Navigation
-			$html = sprintf( '<div id="tribe-events-header" data-date="%6$s"><h3 class="tribe-events-visuallyhidden">%1$s</h3><ul class="tribe-events-sub-nav"><li class="tribe-events-nav-prev"><a data-week="%3$s" href="%2$s" rel="prev">&larr; %7$s</a></li><li class="tribe-events-nav-next"><a data-week="%5$s" href="%4$s" rel="next">%8$s &rarr;</a><span class="tribe-spinner-medium" id="ajax-loading"><span class="tribe-events-visuallyhidden">Loading Events</span></span></li></ul></div>',
+			$html = sprintf( '<div id="tribe-events-header" data-date="%6$s"><h3 class="tribe-events-visuallyhidden">%1$s</h3><ul class="tribe-events-sub-nav"><li class="tribe-events-nav-prev"><a data-week="%3$s" href="%2$s" rel="prev">&larr; %7$s</a></li><li class="tribe-events-nav-next"><a data-week="%5$s" href="%4$s" rel="next">%8$s &rarr;</a><img id="ajax-loading" class="tribe-spinner-medium" src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" /></li></ul></div>',
 				__( 'Week Navigation', 'tribe-events-calendar' ),
 				tribe_get_last_week_permalink( $current_week ),
 				date( 'Y-m-d', strtotime( $current_week . ' -7 days' ) ),
