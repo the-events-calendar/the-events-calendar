@@ -156,7 +156,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 			// day view title
 			if( tribe_is_day() ) {
-				$reset_title = Date("l, F jS Y", strtotime($wp_query->get('start_date')));
+				$reset_title = __( 'Events for', 'tribe-events-calendar-pro' ) . ' ' .Date("l, F jS Y", strtotime($wp_query->get('start_date')));
 			}
 			return isset($reset_title) ? apply_filters( 'tribe_template_factory_debug', $reset_title, 'tribe_get_events_title' ) : $content;
 		}
