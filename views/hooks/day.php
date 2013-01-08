@@ -89,7 +89,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			global $wp_query;
 
 			// close out the last time block
-			$html = ( Tribe_Events_List_Template::$loop_increment == count($wp_query->posts)-1 ) ? '</div>' : '';
+			$html = ( Tribe_Events_List_Template::$loop_increment == count($wp_query->posts) ) ? '</div>' : '';
 
 			return apply_filters('tribe_template_factory_debug', $pass_through . $html, 'tribe_events_day_inside_after_loop');
 		}
