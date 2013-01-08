@@ -63,12 +63,12 @@ $displayTab = array(
 			'validation_type' => 'options',
 			'size' => 'large',
 			'default' => 'default',
-			'options' => $template_options,
+			'options' => $template_options
 		),
-		'hideViews' => array(
+		'tribeEnableViews' => array(
             'type' => 'checkbox_list',
             'label' => __( 'Event Layouts', 'tribe-events-calendar' ),
-            'default' => array( 'upcoming, month' ),
+            'default' => array_keys($views_options),
             'options' => $views_options,
             'validation_type' => 'options_multi',
             'can_be_empty' => true,

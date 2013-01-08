@@ -94,7 +94,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 
 			// Single event content ?>
 			<div class="tribe-event-schedule tribe-clearfix">
-				<h2><?php echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); ?><?php 	if ( tribe_get_cost() ) :  echo '<span class="tribe-divider">|</span><span class="tribe-event-cost">'. tribe_get_cost() .'</span>'; endif; ?></h2>
+				<h2><?php echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); ?><?php 	if ( tribe_get_cost() ) :  echo '<span class="tribe-divider">|</span><span class="tribe-event-cost">'. tribe_get_cost( null, true ) .'</span>'; endif; ?></h2>
 				
 				<?php // iCal/gCal links
 				if ( function_exists( 'tribe_get_single_ical_link' ) || function_exists( 'tribe_get_gcal_link' ) ) { ?>
@@ -133,62 +133,49 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		}
 		public static function the_meta( $post_id ){
 			
-			$skeleton_view = apply_filters('tribe_events_single_event_the_meta_skeleton', false ) ;
-
 			// If pro, show venue w/ link 
 			$tribe_event_custom_fields = ( class_exists( 'TribeEventsPro' ) && function_exists( 'tribe_the_custom_fields' ) ) ? tribe_get_custom_fields( get_the_ID() ) : '' ;
 
 			$html = '<div class="tribe-events-event-meta tribe-clearfix">';
 
-			// show skeleton view 
-			if( $skeleton_view ) {
+			// Event Details
+			$html .= tribe_get_meta_group( 'tribe_event_details' );
+		
+			// Venue Logic
+			// When there is no map or no map + no custom fields, 
+			// show the venue info up top 
+			if ( ! tribe_embed_google_map( get_the_ID() ) ) {
 
-				// show all visible meta_groups in skeleton view 
-				$html .= tribe_get_the_event_meta();
+				// Venue Details
+				$html .= tribe_get_meta_group( 'tribe_event_venue' );
 
-			} else {
-				// Event Details
-				$html .= tribe_get_meta_group( 'tribe_event_details' );
+			} // End Venue
+
+			// Organizer Details
+			if ( tribe_has_organizer() ) {
+				$html .= tribe_get_meta_group( 'tribe_event_organizer' );
+			} // End Organizer
 			
-				// Venue Logic
-				// When there is no map or no map + no custom fields, 
-				// show the venue info up top 
-				if ( ! tribe_embed_google_map( get_the_ID() ) && 
-						 tribe_address_exists( get_the_ID() ) || 
-						 (! tribe_embed_google_map( get_the_ID() ) && empty($tribe_event_custom_fields)) ) {
+			// Event Custom Fields
+			if ( $tribe_event_custom_fields ) { 
+				$html .= tribe_get_meta_group('tribe_event_group_custom_meta');
+			} // End Custom Fields
 
-					// Venue Details
-					$html .= tribe_get_meta_group( 'tribe_event_venue' );
+			if ( tribe_embed_google_map( get_the_ID() ) && 
+				 tribe_address_exists( get_the_ID() ) && 
+				 empty($tribe_event_custom_fields) && 
+				 !tribe_has_organizer() ) { 
 
-				} // End Venue
+				$html .= sprintf('%s<div class="tribe-events-meta-column">%s</div>',
+					tribe_get_meta_group( 'tribe_event_venue' ),
+					tribe_get_meta('tribe_venue_map')
+					);
 
-				// Organizer Details
-				if ( tribe_has_organizer() ) {
-					$html .= tribe_get_meta_group( 'tribe_event_organizer' );
-				} // End Organizer
-				
-				// Event Custom Fields
-				if ( $tribe_event_custom_fields ) { 
-					$html .= tribe_get_meta_group('tribe_event_group_custom_meta');
-				} // End Custom Fields
-
-				if ( tribe_embed_google_map( get_the_ID() ) && 
-					 tribe_address_exists( get_the_ID() ) && 
-					 empty($tribe_event_custom_fields) && 
-					 !tribe_has_organizer() ) { 
-
-					$html .= sprintf('%s<div class="tribe-events-meta-column">%s</div>',
-						tribe_get_meta_group( 'tribe_event_venue' ),
-						tribe_get_meta('tribe_venue_map')
-						);
-
-				} 
-			}
+			} 
 
 			$html .= '</div><!-- .tribe-events-event-meta -->';
 
-			if ( !$skeleton_view &&
-				 tribe_embed_google_map( get_the_ID() ) && 
+			if ( tribe_embed_google_map( get_the_ID() ) && 
 				 tribe_address_exists( get_the_ID() ) && 
 				 ( $tribe_event_custom_fields || tribe_has_organizer() ) ) {
 				 // If there's a venue map and custom fields or organizer, show venue details in this seperate section 

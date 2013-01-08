@@ -240,7 +240,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 								$eventId	= $post->ID.'-'.$day;
 								$start		= tribe_get_start_date( $post, false, 'U' );
 								$end		= tribe_get_end_date( $post, false, 'U' );
-								$cost		= tribe_get_cost( $post->ID );			
+								$cost		= tribe_get_cost( $post->ID, true);			
 								?>
 								
 								<?php			
@@ -294,8 +294,8 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 												</abbr><!-- .dtend -->
 											</div><!-- .duration -->
 											
-											<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
-												<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75,75 ) );?></div>
+											<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail($post->ID) ) { ?>
+												<div class="tribe-events-event-thumb"><?php echo get_the_post_thumbnail( $post->ID, array( 75,75 ) );?></div>
 											<?php } ?>
 											
 											<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $post->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>

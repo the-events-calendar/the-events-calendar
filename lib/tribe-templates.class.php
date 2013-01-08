@@ -50,6 +50,8 @@ if (!class_exists('TribeEventsTemplates')) {
 				// remove singular body class if sidebar-page.php
 				if( $template == get_stylesheet_directory() . '/sidebar-page.php' ) {
 					add_filter( 'body_class', array( __CLASS__, 'remove_singular_body_class' ) );
+				} else {
+					add_filter( 'body_class', array( __CLASS__, 'add_singular_body_class' ) );
 				}
 				return $template;
 			}			
@@ -63,6 +65,17 @@ if (!class_exists('TribeEventsTemplates')) {
 			}
             return $c;
         }
+
+		/**
+		 * Add the "singular" body class
+		 *
+		 * @param array $c
+		 * @return array
+		 */
+		public function add_singular_body_class( $c ) {
+			$c[] = 'singular';
+			return $c;
+		}
 
 		public static function wpHeadFinished() {
 			self::$throughHead = true;
@@ -243,15 +256,17 @@ if (!class_exists('TribeEventsTemplates')) {
 		 **/
 		public static function getTemplateHierarchy($template, $subfolder = '', $namespace = '/', $pluginPath = '') {
 
+			$tec = TribeEvents::instance();
+
 			if ( substr($template, -4) != '.php' ) {
 				$template .= '.php';
 			}
 
 			// setup the meta definitions
-			require_once( TribeEvents::instance()->pluginPath . 'public/advanced-functions/meta.php' );
+			require_once( $tec->pluginPath . 'public/advanced-functions/meta.php' );
 
 			// allow pluginPath to be set outside of this method
-			$pluginPath = empty($pluginPath) ? TribeEvents::instance()->pluginPath : $pluginPath;
+			$pluginPath = empty($pluginPath) ? $tec->pluginPath : $pluginPath;
 
 			// ensure that addon plugins look in the right override folder in theme
 			$namespace = !empty($namespace) && $namespace[0] != '/' ? '/' . trailingslashit($namespace) : trailingslashit($namespace);
@@ -272,8 +287,7 @@ if (!class_exists('TribeEventsTemplates')) {
 				$file = $pluginPath . 'views' . $subfolder . $template;
 			}
 			
-			$tec = TribeEvents::instance();
-			if ( in_array( $tec->displaying, tribe_get_option( 'hideViews', array() ) ) ) {
+			if ( ! in_array( $tec->displaying, tribe_get_option( 'tribeEnableViews', array() ) ) ) {
 				$file = get_404_template();
 			}
 
@@ -289,7 +303,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			$wp_query->post_count = max($wp_query->post_count, 2);
 			//$wp_query->is_page = true; // don't show comments
 			//$wp_query->is_single = false; // don't show comments
-			$wp_query->is_singular = true;
+			//$wp_query->is_singular = true;
 
 			if ( empty ( $wp_query->posts ) ) {
 

@@ -89,6 +89,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'_EventVenueID',
 			'_EventShowMapLink',
 			'_EventShowMap',
+			'_EventCurrencySymbol',
 			'_EventCost',
 			'_EventURL',
 			'_EventOrganizerID',
@@ -776,6 +777,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function body_class( $c ) {
 			if ( get_query_var('post_type') == self::POSTTYPE ) {
+				if ( !is_admin() && tribe_get_option( 'liveFiltersUpdate', false ) )
+					$c[] = 'tribe-filter-live';
 				if (! is_single() ) {
 					if ( (tribe_is_upcoming() || tribe_is_past()) ) {
 						$c[] = 'events-list';
@@ -1158,7 +1161,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function displayEventVenueDropdown( $postId ) {
-			$current_screen = get_current_screen();
 			$VenueID = get_post_meta( $postId, '_EventVenueID', true );
 			// override pro default with community on add page
 			if( !$VenueID && class_exists('TribeCommunityEvents') ) {
@@ -1167,7 +1169,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 			}
 			$defaultsEnabled = class_exists( 'TribeEventsPro' ) ? tribe_get_option( 'defaultValueReplace' ) : false;
-			if ( $current_screen->action == 'add' && !$VenueID && $defaultsEnabled ) {
+			if ( !$postId && !$VenueID && $defaultsEnabled && ( ( is_admin() && get_current_screen()->action == 'add' ) || !is_admin() ) ) {
 				$VenueID = tribe_get_option( 'eventsDefaultVenueID' );
 			}
 			$VenueID = apply_filters( 'tribe_display_event_venue_dropdown_id', $VenueID );
@@ -1187,7 +1189,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function displayEventOrganizerDropdown( $postId ) {
-			$current_screen = get_current_screen();
 			$curOrg = get_post_meta( $postId, '_EventOrganizerID', true );
 			// override pro default with community on add page
 			if( !$curOrg && class_exists('TribeCommunityEvents') ) {
@@ -1196,7 +1197,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 			}
 			$defaultsEnabled = class_exists( 'TribeEventsPro' ) ? tribe_get_option( 'defaultValueReplace' ) : false;
-			if ( $current_screen->action == 'add' && !$curOrg && $defaultsEnabled ) {
+			if ( !$postId && !$curOrg && $defaultsEnabled && ( ( is_admin() && get_current_screen()->action == 'add' ) || !is_admin() ) ) {
 				$curOrg = tribe_get_option( 'eventsDefaultOrganizerID' );
 			}
 			$curOrg = apply_filters( 'tribe_display_event_organizer_dropdown_id', $curOrg );
@@ -1621,7 +1622,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$this->displaying = 'admin';
 			} else {
 				global $wp_query;
-				$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : "";
+				$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : tribe_get_option( 'viewOption', 'upcoming');
 			}
 		}
 
@@ -3334,7 +3335,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 		
 		/**
-		 * Removes views that have been selected in the Template Settings as hidden from the view array.
+		 * Removes views that have been deselected in the Template Settings as hidden from the view array.
 		 *
 		 * @since 3.0
 		 * @author PaulHughes01
@@ -3343,15 +3344,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return array The new views array.
 		 */
 		public function remove_hidden_views( $views ) {
-			$hidden_views = tribe_get_option( 'hideViews', array() );
-			
-			foreach ( $hidden_views as $hidden_view ) {
-				foreach( $views as $index => $view ) {
-					if ( $view['displaying'] == $hidden_view )
-						unset( $views[$index] );
+			$enable_views = tribe_get_option( 'tribeEnableViews', array() );
+			foreach( $views as $index => $view ) {
+				if( !in_array( $view['displaying'], $enable_views)) {
+					unset( $views[$index] );
 				}
 			}
-			
 			return $views;
 		}
 
@@ -3402,7 +3400,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			                   'success'         => true,
 			                   'max_pages'       => $query->max_num_pages,
 			                   'hash'            => $hash_str,
-			                   'tribe_paged'     => $tribe_paged );
+			                   'tribe_paged'     => $tribe_paged,
+			                   'total_count'	 => $query->found_posts );
 
 
 			remove_action( 'pre_get_posts', array( $this, 'list_ajax_call_set_date' ), -10 );

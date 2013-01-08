@@ -56,7 +56,12 @@ if( !class_exists('Tribe_Events_List_Template')){
 				if( tribe_is_day() ) {
 					TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No events scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), date_i18n( 'F d, Y', strtotime( get_query_var( 'eventDate' ) ) ) ) );
 				} elseif( tribe_is_upcoming() ) {
-					TribeEvents::setNotice( 'events-not-found', __('No upcoming events ', 'tribe-events-calendar') . $is_cat_message );
+					$date = date('Y-m-d', strtotime($tribe_ecp->date));
+					if ( $date == date('Y-m-d') ) {
+						TribeEvents::setNotice( 'events-not-found', __('No upcoming events ', 'tribe-events-calendar') . $is_cat_message );
+					} else {
+						TribeEvents::setNotice( 'events-not-found', __('No matching events ', 'tribe-events-calendar') . $is_cat_message );
+					}
 				} elseif( tribe_is_past() ) {
 					TribeEvents::setNotice( 'events-past-not-found', __('No previous events ', 'tribe-events-calendar') . $is_cat_message );
 				}
@@ -191,7 +196,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 		public static function before_the_event_details ( $post_id ){
 			$html = '<div class="tribe-events-event-details">';
 			if ( tribe_get_cost() ) { // Get our event cost 
-				$html .=	'<div class="tribe-events-event-cost"><span>'. tribe_get_cost() .'</span></div>';
+				$html .=	'<div class="tribe-events-event-cost"><span>'. tribe_get_cost( null, true ) .'</span></div>';
 			 } 				
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_the_event_details'); 
 		}							

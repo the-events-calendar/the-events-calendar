@@ -1055,6 +1055,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 #tribe-bar-form input[type="text"] {
 	padding: 3px;
 	height: 32px;
+	line-height: 1;
 }
 #tribe-bar-form input[type="submit"] {
 	width: 70px;

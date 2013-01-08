@@ -68,28 +68,27 @@ function tribe_pre_ajax_tests( tribe_ajax_callback ) {
 // tribe tooltips
 
 function tribe_event_tooltips() {
-	jQuery( 'body' ).delegate( 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', 'mouseenter',function () {
-		// Week View Tooltips
+	
+	jQuery( 'body' ).on( 'mouseenter', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring',function () {
+		
+		var bottomPad = '';
 		if ( jQuery( 'body' ).hasClass( 'tribe-events-week' ) ) {
-			var bottomPad = jQuery( this ).outerHeight() + 5;
+			bottomPad = jQuery( this ).outerHeight() + 5;
 		} else if ( jQuery( 'body' ).hasClass( 'events-gridview' ) ) { // Cal View Tooltips
-			var bottomPad = jQuery( this ).find( 'a' ).outerHeight() + 18;
+			bottomPad = jQuery( this ).find( 'a' ).outerHeight() + 18;
 		} else if ( jQuery( 'body' ).is( '.single-tribe_events, .events-list' ) ) { // Single/List View Recurring Tooltips
-			var bottomPad = jQuery( this ).outerHeight() + 12;
+			bottomPad = jQuery( this ).outerHeight() + 12;
 		}	
 		
 		// Widget Tooltips
 		if ( jQuery( this ).parents( '.tribe-events-calendar-widget' ).length ) {
-			var bottomPad = jQuery( this ).outerHeight() - 6;
+			bottomPad = jQuery( this ).outerHeight() - 6;
 		}
 		jQuery( this ).find( '.tribe-events-tooltip' ).css( 'bottom', bottomPad ).show();
-	} ).delegate( 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', 'mouseleave', function () {
-			if ( jQuery.browser.msie && jQuery.browser.version <= 9 ) {
-				jQuery( this ).find( '.tribe-events-tooltip' ).hide()
-			} else {
-				jQuery( this ).find( '.tribe-events-tooltip' ).stop( true, false ).fadeOut( 200 );
-			}
-		} );
+		
+	} ).on( 'mouseleave', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', function () {
+		jQuery( this ).find( '.tribe-events-tooltip' ).stop( true, false ).fadeOut( 200 );			
+	} );
 }
 
 // tribe local storage functions

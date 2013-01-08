@@ -17,8 +17,6 @@ jQuery( document ).ready( function ( $ ) {
 		}
 		return dp_day;
 	}
-
-	// our vars
 	
 	var tribe_base_url = $('#tribe-events-events-picker').attr('action');	
 	
@@ -52,7 +50,7 @@ jQuery( document ).ready( function ( $ ) {
 		} );
 	}
 
-	$( '.tribe-events-calendar .tribe-events-sub-nav a' ).live( 'click', function ( e ) {
+	$( '#tribe-events-content' ).on( 'click', '.tribe-events-sub-nav a', function ( e ) {
 		e.preventDefault();		
 		tribe_date = $( this ).attr( "data-month" );
 		$( '#tribe-bar-date' ).val(tribe_date + tribe_get_if_day_is_set());
@@ -64,7 +62,7 @@ jQuery( document ).ready( function ( $ ) {
 		});
 	} );
 
-	$( '#tribe-bar-dates select' ).live( 'change', function ( e ) {
+	$( '#tribe-events-bar' ).on( 'change', '#tribe-bar-dates select', function ( e ) {
 		e.preventDefault();			
 		tribe_date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();		
 		$( '#tribe-bar-date' ).val(tribe_date + tribe_get_if_day_is_set());
@@ -95,11 +93,11 @@ jQuery( document ).ready( function ( $ ) {
 		}
 	}
 
-	$( 'form#tribe-bar-form' ).bind( 'submit', function (e) {
+	$( 'form#tribe-bar-form' ).on( 'submit', function (e) {
 		tribe_events_bar_calajax_actions(e);
 	} );
 	
-	$( '.tribe-bar-settings button[name="settingsUpdate"]' ).bind( 'click', function (e) {		
+	$( '.tribe-bar-settings button[name="settingsUpdate"]' ).on( 'click', function (e) {		
 		tribe_events_bar_calajax_actions(e);
 		$( '#tribe-events-bar [class^="tribe-bar-button-"]' )
 			.removeClass( 'open' )
@@ -113,7 +111,7 @@ jQuery( document ).ready( function ( $ ) {
 		
 		var $form = $('#tribe_events_filters_form');
 		
-		if( $form.hasClass('tribe-filter-live') ) {
+		if( $('body').hasClass('tribe-filter-live') ) {
 			$( "#tribe_events_filters_form .ui-slider" ).on( "slidechange", function() {
 				if( !$form.hasClass('tribe-reset-on') ){
 					tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
@@ -138,7 +136,7 @@ jQuery( document ).ready( function ( $ ) {
 			});			
 		}		
 		
-		$form.bind( 'submit', function ( e ) {
+		$form.on( 'submit', function ( e ) {
 			if ( tribe_events_bar_action != 'change_view' ) {
 				e.preventDefault();
 				tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
