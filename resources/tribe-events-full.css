@@ -983,8 +983,8 @@ h3.tribe-event-single-section-title {
 	background-image:    -moz-linear-gradient(center bottom, #eee 0%, white 50%);
 	background-image: 	  -ms-linear-gradient(top, #eee 0%, #fff 50%);
 	background-image:      -o-linear-gradient(bottom, #eee 0%, #fff 50%);
-	background-image: 		  linear-gradient(top, #eee 0%, #fff 50%);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#eeeeee', endColorstr = '#ffffff', GradientType = 0);
+	background-image: 		  linear-gradient(top, #eee 0%, #fff 50%);
 	-webkit-border-radius:4px;
 			border-radius: 4px;
 	-webkit-background-clip: padding-box;
@@ -1021,8 +1021,8 @@ h3.tribe-event-single-section-title {
 	background-image:    -moz-linear-gradient(center bottom, white 0%, #eee 50%);
 	background-image: 	  -ms-linear-gradient(top, #fff 0%, #eee 50%);
 	background-image:      -o-linear-gradient(bottom, white 0%, #eee 50%);
-	background-image: 		  linear-gradient(top, #fff 0%, #eee 50%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=0 );
+	background-image: 		  linear-gradient(top, #fff 0%, #eee 50%);
 }
 #tribe-events-bar [class^="tribe-bar-button-"].open:after {
 	background-position: -18px 1px;
@@ -1211,12 +1211,13 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	padding: 0;
 }
 .tribe-select2-results .select2-results .select2-result-label {
-	padding: 4px 8px;
-	color: #000;
+	padding: 6px 8px;
+	color: #444;
+	line-height: 14px;
 }
 .tribe-select2-results .select2-results .select2-highlighted {
 	background: #ddd;
-	color: #000;
+	color: #444;
 }
 #tribe-bar-views .select2-container .select2-choice div {
 	width: 18px;
@@ -1384,6 +1385,10 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	padding-left: 24px;
 	background-repeat: no-repeat;
 	background-position: 0 50%;
+}
+.tribe-select2-results span[class^="tribe-icon-"] {
+	min-height: 16px;
+	display: inline-block;
 }
 .tribe-select2-results .tribe-icon-list,
 .tribe-select2 .tribe-icon-list,
