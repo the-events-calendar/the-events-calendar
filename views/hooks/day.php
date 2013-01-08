@@ -45,7 +45,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 
 			// Display Day Navigation
 			// <-- Previous Day Next Day -->
-			$html = sprintf('<div id="tribe-events-header" data-date="%s" data-title="%s" data-header="%s"><h3 class="tribe-events-visuallyhidden">%s</h3><ul class="tribe-events-sub-nav"><li class="tribe-events-nav-prev"><a href="%s" data-day="%s" rel="prev">&#x2190; %s</a></li><li class="tribe-events-nav-next"><a href="%s" data-day="%s" rel="next">%s &#x2192;</a><span class="tribe-spinner-medium" id="ajax-loading"><span class="tribe-events-visuallyhidden">Loading Events</span></span></li></ul></div>',
+			$html = sprintf('<div id="tribe-events-header" data-date="%s" data-title="%s" data-header="%s"><h3 class="tribe-events-visuallyhidden">%s</h3><ul class="tribe-events-sub-nav"><li class="tribe-events-nav-prev"><a href="%s" data-day="%s" rel="prev">&larr; %s</a></li><li class="tribe-events-nav-next"><a href="%s" data-day="%s" rel="next">%s &rarr;</a><span class="tribe-spinner-medium" id="ajax-loading"><span class="tribe-events-visuallyhidden">Loading Events</span></span></li></ul></div>',
 								Date('Y-m-d', strtotime($current_day) ),
 								wp_title( '&raquo;', false ),
 								Date("l, F jS Y", strtotime($wp_query->get('start_date'))),

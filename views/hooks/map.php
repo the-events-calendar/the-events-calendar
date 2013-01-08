@@ -86,8 +86,8 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_pagination');
 		}
 		public static function pagination( $post_id ){
-			$html = '<a href="#" id="tribe_map_paged_prev" class="tribe_map_paged">'. __('<< Previous Events') .'</a>';
-			$html .= '<a href="#" id="tribe_map_paged_next" class="tribe_map_paged">'. __('Next Events >>') .'</a>';
+			$html = '<a href="#" id="tribe_map_paged_prev" class="tribe_map_paged">'. __('&larr; Previous Events') .'</a>';
+			$html .= '<a href="#" id="tribe_map_paged_next" class="tribe_map_paged">'. __('Next Events &rarr;') .'</a>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_pagination');
 		}
 		public static function after_pagination( $post_id ){
