@@ -293,6 +293,28 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			return apply_filters( 'tribe_events_template_'.$template, $file);
 		}
+
+		public static function locate_stylesheet( $stylesheets, $fallback = FALSE ) {
+			if ( !is_array($stylesheets) ) {
+				$stylesheets = array( $stylesheets );
+			}
+			if ( empty( $stylesheets ) ) {
+				return $fallback;
+			}
+			foreach ( $stylesheets as $filename ) {
+				if ( file_exists(STYLESHEETPATH . '/' . $filename)) {
+					$located = trailingslashit(get_stylesheet_directory_uri()).$filename;
+					break;
+				} else if ( file_exists(TEMPLATEPATH . '/' . $filename) ) {
+					$located = trailingslashit(get_template_directory_uri()).$filename;
+					break;
+				}
+			}
+			if ( empty( $located ) ) {
+				return $fallback;
+			}
+			return $located;
+		}
 	
 		private static function spoofQuery() {
 			global $wp_query, $withcomments;

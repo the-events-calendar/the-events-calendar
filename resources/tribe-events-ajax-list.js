@@ -25,24 +25,26 @@ jQuery( document ).ready( function ( $ ) {
 		
 		var initial_load = '';
 		if( tribe_storage )
-			initial_load = tribe_storage.getItem( 'tribe_initial_load' );			
+			initial_load = tribe_storage.getItem( 'tribe_initial_load' );	
 
-			if( event.state ) {				
+			var state = event.originalEvent.state;
+
+			if( state ) {				
 				tribe_do_string = false;
 				tribe_pushstate = false;	
 				tribe_popping = true;
-				tribe_params = event.state.tribe_params;
-				tribe_url_params = event.state.tribe_url_params;
+				tribe_params = state.tribe_params;
+				tribe_url_params = state.tribe_url_params;
 				tribe_pre_ajax_tests( function() {
 					tribe_events_list_ajax_post( '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params, tribe_url_params );	
 				});
 				
-				current_params = tribe_parse_query_string( tribe_url_params );				
-				$.each(current_params, function(key,value) {
-					if( key !== 'action' ) {						
-						$('[name^="' + decodeURI(key) + '"]').val(value);						
-					}					
-				});
+//				current_params = tribe_parse_query_string( tribe_url_params );				
+//				$.each(current_params, function(key,value) {
+//					if( key !== 'action' ) {						
+//						$('[name^="' + decodeURI(key) + '"]').val(value);						
+//					}					
+//				});
 				
 			} else if( tribe_storage && initial_load !== 'true' ) {
 				window.location = initial_url;
