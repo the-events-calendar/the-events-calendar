@@ -1,31 +1,30 @@
 // Check for width of events bar so can kick in the view filter select input when appropriate
 var tribe_events_bar_action;
 
-function eventBarWidth() {
-	var tribeBar = jQuery( '#tribe-events-bar' );
-	var tribeBarWidth = tribeBar.width();
-	
-	if ( tribeBarWidth > 643 ) {
-		tribeBar.removeClass( 'tribe-bar-mini tribe-bar-mini-parent' ).addClass( 'tribe-bar-full' );
-	} else {
-		tribeBar.removeClass( 'tribe-bar-full' ).addClass( 'tribe-bar-mini' );
-	}
-	if ( tribeBarWidth < 470 ) {
-		tribeBar.addClass( 'tribe-bar-mini-parent' );
-	} else {
-		tribeBar.removeClass( 'tribe-bar-mini-parent' );
-	}
-}
-
-
 jQuery( document ).ready( function ( $ ) {
 
+	// Check width of events bar
+	$( '#tribe-events-bar' ).resize(function() {
+		var tribeBar = $( '#tribe-events-bar' );
+		var tribeBarWidth = tribeBar.width();
+	
+		if ( tribeBarWidth > 643 ) {
+			tribeBar.removeClass( 'tribe-bar-mini tribe-bar-mini-parent' ).addClass( 'tribe-bar-full' );
+		} else {
+			tribeBar.removeClass( 'tribe-bar-full' ).addClass( 'tribe-bar-mini' );
+		}
+		if ( tribeBarWidth < 470 ) {
+			tribeBar.addClass( 'tribe-bar-mini-parent' );
+		} else {
+			tribeBar.removeClass( 'tribe-bar-mini-parent' );
+		}
+	});
+
+	// Implement our datepicker
 	var tribe_var_datepickerOpts = {
 		dateFormat: 'yy-mm-dd',
 		showAnim: 'fadeIn'		
 	};
-
-	// Implement our datepicker
 	if ( !$( '.tribe-events-week-grid' ).length ) {
 		$( '#tribe-bar-date' ).datepicker( tribe_var_datepickerOpts );
 	}
@@ -165,12 +164,6 @@ jQuery( document ).ready( function ( $ ) {
 			window.location.href = url;
 		}
 	}
-
-	// Implement our function to check on our event bar width
-	eventBarWidth();
-	$( window ).resize( function () {
-		eventBarWidth();
-	} );
 
 	// Implement simple toggle for filters at smaller size (and close if click outside of toggle area)
 	var $tribeDropToggle = $( '#tribe-events-bar [class^="tribe-bar-button-"]' );

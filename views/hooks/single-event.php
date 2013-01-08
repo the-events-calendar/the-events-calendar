@@ -56,7 +56,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		// Start Single Template
 		public static function before_template( $post_id ){
 			$html = '<div id="tribe-events-content" class="tribe-events-single">';
-			$html .= '<p class="tribe-events-back"><a href="' . tribe_get_events_link() . '" rel="bookmark">'. __( '&laquo; Back to Events', 'tribe-events-calendar-pro' ) .'</a></p>';
+			$html .= '<p class="tribe-events-back"><a href="' . tribe_get_events_link() . '" rel="bookmark">'. __( '&#8701; Back to Events', 'tribe-events-calendar-pro' ) .'</a></p>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_before_template');
 		}
 		public static function featured_image( $post_id ){
@@ -209,8 +209,8 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_event_before_pagination' );
 		}
 		public static function pagination( $post_id ) {
-			$html = '<li class="tribe-nav-previous">' . tribe_get_prev_event_link( '&laquo; %title%' ) . '</li>';
-			$html .= '<li class="tribe-nav-next">' . tribe_get_next_event_link( '%title% &raquo;' ) . '</li>';
+			$html = '<li class="tribe-nav-previous">' . tribe_get_prev_event_link( '&larr; %title%' ) . '</li>';
+			$html .= '<li class="tribe-nav-next">' . tribe_get_next_event_link( '%title% &rarr;' ) . '</li>';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_event_pagination' );
 		}
 		public static function after_pagination( $post_id ) {

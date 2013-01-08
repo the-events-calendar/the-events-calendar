@@ -272,20 +272,20 @@ if( !class_exists('Tribe_Events_List_Template')){
 			// Display Previous Page Navigation
 			$html = '<li class="tribe-nav-previous">';
 			if(tribe_is_upcoming() && get_previous_posts_link())
-				$html .= get_previous_posts_link( __( '&laquo; Previous Events', 'tribe-events-calendar' ) );
+				$html .= get_previous_posts_link( __( '&larr; Previous Events', 'tribe-events-calendar' ) );
 			elseif(tribe_is_upcoming() && !get_previous_posts_link())
-				$html .= '<a href="'. tribe_get_past_link() .'" rel="prev">'. __( '&laquo; Previous Events', 'tribe-events-calendar' ) .'</a>';
+				$html .= '<a href="'. tribe_get_past_link() .'" rel="prev">'. __( '&larr; Previous Events', 'tribe-events-calendar' ) .'</a>';
 			elseif(tribe_is_past() && get_next_posts_link()) 
-				$html .= get_next_posts_link( __( '&laquo; Previous Events', 'tribe-events-calendar' ) );
+				$html .= get_next_posts_link( __( '&larr; Previous Events', 'tribe-events-calendar' ) );
 			$html .= '</li><!-- .tribe-nav-previous -->';
 			// Display Next Page Navigation
 			$html .= '<li class="tribe-nav-next">';
 			if(tribe_is_upcoming() && get_next_posts_link())
-				$html .= get_next_posts_link( __( 'Next Events &raquo;', 'tribe-events-calendar' ) );
+				$html .= get_next_posts_link( __( 'Next Events &rarr;', 'tribe-events-calendar' ) );
 			elseif(tribe_is_past() && get_previous_posts_link())
-				$html .= get_previous_posts_link( __( 'Next Events &raquo;', 'tribe-events-calendar' ) );
+				$html .= get_previous_posts_link( __( 'Next Events &rarr;', 'tribe-events-calendar' ) );
 			elseif(tribe_is_past() && !get_previous_posts_link()) 
-				$html .= '<a href="'. tribe_get_upcoming_link() .'" rel="next">'. __( 'Next Events &raquo;', 'tribe-events-calendar' ) .'</a>';
+				$html .= '<a href="'. tribe_get_upcoming_link() .'" rel="next">'. __( 'Next Events &rarr;', 'tribe-events-calendar' ) .'</a>';
 			$html .= '</li><!-- .tribe-nav-next -->';	
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_pagination');
 		}
