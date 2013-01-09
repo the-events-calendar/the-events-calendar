@@ -105,7 +105,7 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_map_paged = tribe_is_paged;
 		}		
 		$( 'body' ).addClass( 'events-list' );
-		tribe_event_tooltips();
+		tribe_ev.fn.tooltips();
 	}
 	
 	
