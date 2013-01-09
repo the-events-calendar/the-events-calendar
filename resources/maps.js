@@ -226,7 +226,16 @@ jQuery( document ).ready( function ( $ ) {
 					if( tribe_storage ) {
 						tribe_storage.setItem( 'tribe_initial_load', 'false' );
 						tribe_storage.setItem( 'tribe_current_post_count', response.total_count );
-					}				
+					}	
+					
+					tribe_ev.data.ajax_response = {
+						'type':'tribe_events_ajax',
+						'post_count':parseInt(response.total_count),
+						'view':'map',
+						'max_pages':response.max_pages,
+						'page':tribe_map_paged,
+						'timestamp':new Date().getTime()
+					};
 
 					$( "#tribe-geo-results" ).html( response.html );					
 					$( "#tribe-events-content" ).parent().removeAttr('id').find('.tribe-events-page-title').remove();				
