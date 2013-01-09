@@ -20,9 +20,16 @@ if ( !class_exists( 'Tribe_Events_Pro_List_View_Template' ) ) {
 
 		public static function init() {
 			add_filter( 'tribe_events_list_view_before_template', array( __CLASS__, 'before_template' ), 1 );
+			
+			add_filter( 'tribe_events_list_header_nav', array( __CLASS__, 'header_navigation' ), 1, 1 );
+			
 			add_filter( 'tribe_events_list_view_events', array( __CLASS__, 'upcoming_events' ), 1 );
+			
+			//add_filter( 'tribe_events_list_pagination', array( __CLASS__, 'clear_module_pagination' ), 10 );
+			
+			add_filter( 'tribe_events_list_footer_nav', array( __CLASS__, 'footer_navigation' ), 1, 1 );
+					
 			add_filter( 'tribe_events_list_view_after_template', array( __CLASS__, 'after_template' ), 1 );
-			add_filter( 'tribe_events_list_pagination', array( __CLASS__, 'clear_module_pagination' ), 10 );
 		}
 
 		public static function before_template() {

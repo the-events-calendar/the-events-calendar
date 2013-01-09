@@ -52,6 +52,16 @@ if( !class_exists('Tribe_Events_List_Template')){
 	
 			// Page Title
 			add_filter( 'tribe_events_list_the_title', array( __CLASS__, 'the_title' ), 1, 1 );
+			
+			// List header
+			add_filter( 'tribe_events_list_before_header', array( __CLASS__, 'before_header' ), 1, 1 );
+			
+			// Navigation
+			add_filter( 'tribe_events_list_before_header_nav', array( __CLASS__, 'before_header_nav' ), 1, 1 );
+			add_filter( 'tribe_events_list_header_nav', array( __CLASS__, 'header_navigation' ), 1, 1 );
+			add_filter( 'tribe_events_list_after_header_nav', array( __CLASS__, 'after_header_nav' ), 1, 1 );
+			
+			add_filter( 'tribe_events_list_after_header', array( __CLASS__, 'after_header' ), 1, 1 );
 
 			// Start list loop
 			add_filter( 'tribe_events_list_before_loop', array( __CLASS__, 'before_loop' ), 1, 1 );
@@ -87,9 +97,20 @@ if( !class_exists('Tribe_Events_List_Template')){
 			add_filter( 'tribe_events_list_notices', array( __CLASS__, 'notices' ), 1, 1 );
 
 			// List pagination
+			/*
 			add_filter( 'tribe_events_list_before_pagination', array( __CLASS__, 'before_pagination' ), 1, 1 );
 			add_filter( 'tribe_events_list_pagination', array( __CLASS__, 'pagination' ), 1, 1 );
 			add_filter( 'tribe_events_list_after_pagination', array( __CLASS__, 'after_pagination' ), 1, 1 );
+			*/
+			// List footer
+			add_filter( 'tribe_events_list_before_footer', array( __CLASS__, 'before_footer' ), 1, 1 );
+			
+			// Navigation
+			add_filter( 'tribe_events_list_before_footer_nav', array( __CLASS__, 'before_footer_nav' ), 1, 1 );
+			add_filter( 'tribe_events_list_footer_nav', array( __CLASS__, 'footer_navigation' ), 1, 1 );
+			add_filter( 'tribe_events_list_after_footer_nav', array( __CLASS__, 'after_footer_nav' ), 1, 1 );
+			
+			add_filter( 'tribe_events_list_after_footer', array( __CLASS__, 'after_footer' ), 1, 1 );
 
 			// End list template
 			add_filter( 'tribe_events_list_after_template', array( __CLASS__, 'after_template' ), 1, 2 );
@@ -104,6 +125,53 @@ if( !class_exists('Tribe_Events_List_Template')){
 				tribe_get_events_title()
 				);
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_title');
+		}
+		// List Header
+		public static function before_header( $post_id ){
+			$html = '<div id="tribe-events-header" data-title="' . wp_title( '&raquo;', false ) . '">';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_header');
+		}
+		// List Navigation
+		public static function before_header_nav( $post_id ){
+			$html = '<h3 class="tribe-events-visuallyhidden">'. __( 'Events List Navigation', 'tribe-events-calendar' ) .'</h3>';
+			$html .= '<ul class="tribe-events-sub-nav">';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_header_nav');
+		}
+		public static function header_navigation( $post_id ){
+			$tribe_ecp = TribeEvents::instance();
+			
+			// Display Previous Page Navigation
+			$html = '<li class="tribe-nav-previous">';
+			if(tribe_is_upcoming() && get_previous_posts_link())
+				$html .= get_previous_posts_link( __( '&larr; Previous Events', 'tribe-events-calendar' ) );
+			elseif(tribe_is_upcoming() && !get_previous_posts_link())
+				$html .= '<a href="'. tribe_get_past_link() .'" rel="prev">'. __( '&larr; Previous Events', 'tribe-events-calendar' ) .'</a>';
+			elseif(tribe_is_past() && get_next_posts_link()) 
+				$html .= get_next_posts_link( __( '&larr; Previous Events', 'tribe-events-calendar' ) );
+			$html .= '</li><!-- .tribe-nav-previous -->';
+			
+			// Display Next Page Navigation
+			$html .= '<li class="tribe-nav-next">';
+			if(tribe_is_upcoming() && get_next_posts_link())
+				$html .= get_next_posts_link( __( 'Next Events &rarr;', 'tribe-events-calendar' ) );
+			elseif(tribe_is_past() && get_previous_posts_link())
+				$html .= get_previous_posts_link( __( 'Next Events &rarr;', 'tribe-events-calendar' ) );
+			elseif(tribe_is_past() && !get_previous_posts_link()) 
+				$html .= '<a href="'. tribe_get_upcoming_link() .'" rel="next">'. __( 'Next Events &rarr;', 'tribe-events-calendar' ) .'</a>';
+			
+			// Loading spinner
+			$html .= '<img id="ajax-loading" class="tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
+			$html .= '</li><!-- .tribe-nav-next -->';
+			
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_header_nav');
+		}
+		public static function after_header_nav( $post_id ){
+			$html = '</ul><!-- .tribe-events-sub-nav -->';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_header_nav');
+		}
+		public static function after_header( $post_id ){
+			$html = '</div><!-- #tribe-events-header -->';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_header');
 		}
 		// Start List Loop
 		public static function before_loop( $post_id ){
@@ -138,7 +206,6 @@ if( !class_exists('Tribe_Events_List_Template')){
 			if( self::$loop_increment == count($wp_query->posts)-1 ){
 				$class_string .= ' tribe-last';
 			}
-
 
 			/* Month and year separators */
 
@@ -200,16 +267,8 @@ if( !class_exists('Tribe_Events_List_Template')){
 					<?php } ?>
 					<?php echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); ?>
 				</h3>
-				<?php 
-
-				// venue display info
-				tribe_display_meta( 'tribe_event_venue_name' );
-				// $venue_address = tribe_get_meta('tribe_event_venue_address');
-				// if( !empty($venue_address)){
-				// 	echo ', ' . $venue_address;
-				// }
-
-				?>
+				<?php // venue display info
+				tribe_display_meta( 'tribe_event_venue_name' ); ?>
 			</div><!-- .tribe-events-event-meta -->
 <?php
 			$html = ob_get_clean();
@@ -251,16 +310,17 @@ if( !class_exists('Tribe_Events_List_Template')){
 			$html = '</div><!-- .hentry .vevent -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_inside_after_loop');
 		}
-		public static function after_loop( $post_id ){
-			$html = '';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_loop');
-		}
 		// Event Notices
 		public static function notices( $post_id ) {
 			$html = tribe_events_the_notices(false);
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_notices');
 		}
+		public static function after_loop( $post_id ){
+			$html = '</div><!-- .tribe-events-loop -->';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_loop');
+		}
 		// List Pagination
+		/*
 		public static function before_pagination( $post_id ){
 			$html = '</div><!-- .tribe-events-loop -->';
 			$html .= '<div class="tribe-events-loop-nav">';
@@ -292,6 +352,54 @@ if( !class_exists('Tribe_Events_List_Template')){
 		public static function after_pagination( $post_id ){
 			$html = '</ul></div><!-- .tribe-events-loop-nav -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_pagination');
+		}
+		*/
+		// List Footer
+		public static function before_footer( $post_id ){
+			$html = '<div id="tribe-events-header" data-title="' . wp_title( '&raquo;', false ) . '">';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_footer');
+		}
+		// List Navigation
+		public static function before_footer_nav( $post_id ){
+			$html = '<h3 class="tribe-events-visuallyhidden">'. __( 'Events List Navigation', 'tribe-events-calendar' ) .'</h3>';
+			$html .= '<ul class="tribe-events-sub-nav">';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_footer_nav');
+		}
+		public static function footer_navigation( $post_id ){
+			$tribe_ecp = TribeEvents::instance();
+			
+			// Display Previous Page Navigation
+			$html = '<li class="tribe-nav-previous">';
+			if(tribe_is_upcoming() && get_previous_posts_link())
+				$html .= get_previous_posts_link( __( '&larr; Previous Events', 'tribe-events-calendar' ) );
+			elseif(tribe_is_upcoming() && !get_previous_posts_link())
+				$html .= '<a href="'. tribe_get_past_link() .'" rel="prev">'. __( '&larr; Previous Events', 'tribe-events-calendar' ) .'</a>';
+			elseif(tribe_is_past() && get_next_posts_link()) 
+				$html .= get_next_posts_link( __( '&larr; Previous Events', 'tribe-events-calendar' ) );
+			$html .= '</li><!-- .tribe-nav-previous -->';
+			
+			// Display Next Page Navigation
+			$html .= '<li class="tribe-nav-next">';
+			if(tribe_is_upcoming() && get_next_posts_link())
+				$html .= get_next_posts_link( __( 'Next Events &rarr;', 'tribe-events-calendar' ) );
+			elseif(tribe_is_past() && get_previous_posts_link())
+				$html .= get_previous_posts_link( __( 'Next Events &rarr;', 'tribe-events-calendar' ) );
+			elseif(tribe_is_past() && !get_previous_posts_link()) 
+				$html .= '<a href="'. tribe_get_upcoming_link() .'" rel="next">'. __( 'Next Events &rarr;', 'tribe-events-calendar' ) .'</a>';
+			
+			// Loading spinner
+			$html .= '<img id="ajax-loading" class="tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
+			$html .= '</li><!-- .tribe-nav-next -->';
+			
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_footer_nav');
+		}
+		public static function after_footer_nav( $post_id ){
+			$html = '</ul><!-- .tribe-events-sub-nav -->';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_footer_nav');
+		}
+		public static function after_footer( $post_id ){
+			$html = '</div><!-- #tribe-events-footer -->';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_footer');
 		}
 		// End List Template
 		public static function after_template( $hasPosts = false, $post_id ){

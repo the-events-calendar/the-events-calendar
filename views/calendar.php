@@ -35,10 +35,10 @@ echo apply_filters( 'tribe_events_calendar_before_template', '' );
 	// Calendar header
     echo apply_filters( 'tribe_events_calendar_before_header', '');
 
-    	// Calendar dropdown navigation
-    	echo apply_filters( 'tribe_events_calendar_before_nav', '');
-		echo apply_filters( 'tribe_events_calendar_nav', '');
-		echo apply_filters( 'tribe_events_calendar_after_nav', '');
+    	// Navigation
+    	echo apply_filters( 'tribe_events_calendar_before_header_nav', '');
+		echo apply_filters( 'tribe_events_calendar_header_nav', '');
+		echo apply_filters( 'tribe_events_calendar_after_header_nav', '');
 
 	echo apply_filters( 'tribe_events_calendar_after_header', '');
 		
@@ -46,6 +46,16 @@ echo apply_filters( 'tribe_events_calendar_before_template', '' );
 	echo apply_filters( 'tribe_events_calendar_before_the_grid', '');
 	echo apply_filters( 'tribe_events_calendar_the_grid', '');
 	echo apply_filters( 'tribe_events_calendar_after_the_grid', '');
+	
+	// Calendar footer
+    echo apply_filters( 'tribe_events_calendar_before_footer', '');
+
+    	// Navigation
+    	echo apply_filters( 'tribe_events_calendar_before_footer_nav', '');
+		echo apply_filters( 'tribe_events_calendar_footer_nav', '');
+		echo apply_filters( 'tribe_events_calendar_after_footer_nav', '');
+
+	echo apply_filters( 'tribe_events_calendar_after_footer', '');
 
 // End calendar template
 echo apply_filters( 'tribe_events_calendar_after_template', '');
