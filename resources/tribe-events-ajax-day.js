@@ -29,11 +29,13 @@ jQuery( document ).ready( function ( $ ) {
 			if( tribe_storage )
 				initial_load = tribe_storage.getItem( 'tribe_initial_load' );	
 			
-			if( event.state ) {
+			var state = event.originalEvent.state;
+			
+			if( state ) {
 				tribe_do_string = false;
 				tribe_pushstate = false;	
 				tribe_popping = true;
-				tribe_params = event.state.tribe_params;
+				tribe_params = state.tribe_params;
 				tribe_pre_ajax_tests( function() {				
 					tribe_events_calendar_ajax_post( tribe_date, '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params );
 				});
