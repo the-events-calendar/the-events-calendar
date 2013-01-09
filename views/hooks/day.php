@@ -44,7 +44,6 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			$tomorrow = Date('Y-m-d', strtotime($current_day . " +1 day") );
 
 			// Display Day Navigation
-			// <-- Previous Day Next Day -->
 			$html = sprintf('<div id="tribe-events-header" data-date="%s" data-title="%s" data-header="%s"><h3 class="tribe-events-visuallyhidden">%s</h3><ul class="tribe-events-sub-nav"><li class="tribe-events-nav-prev"><a href="%s" data-day="%s" rel="prev">&larr; %s</a></li><li class="tribe-events-nav-next"><a href="%s" data-day="%s" rel="next">%s &rarr;</a><img id="ajax-loading" class="tribe-spinner-medium" src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" /></li></ul></div>',
 								Date('Y-m-d', strtotime($current_day) ),
 								wp_title( '&raquo;', false ),
