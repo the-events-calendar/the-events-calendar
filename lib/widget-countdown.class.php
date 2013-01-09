@@ -22,17 +22,19 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 			wp_enqueue_script( 'tribe_countdown_widget', TribeEventsPro::instance()->pluginUrl .'resources/widget-countdown.js', array( 'jquery' ), false, true );
 			// Get the timer data.
 			$complete = '<div class="tribe-countdown-number">' . $complete . '</div>';
-			$eventdate = $this->get_output($event_ID, $complete, $show_seconds);
+			$event_countdown_date = $this->get_output($event_ID, $complete, $show_seconds, $event_date);
 			echo $before_widget;
 			if ( !empty( $title ) ) echo $before_title.$title.$after_title;
-			if ( !empty( $eventdate ) ) echo $eventdate;
+			if ( !empty( $event_countdown_date ) ) echo $event_countdown_date;
 			echo $after_widget;
 		}
  
 		function update( $new_instance, $old_instance ) {
 			$instance = $old_instance;
 			$instance['title'] = strip_tags( $new_instance['title'] );
-			$instance['event_ID'] = $new_instance['event_ID'];
+			$event_data = explode( '|', $new_instance['event'] );
+			$instance['event_date'] = $event_data[1];
+			$instance['event_ID'] = $event_data[0];
 			$instance['show_seconds'] = ( isset( $new_instance['show_seconds'] ) ? 1 : 0 );
 			$instance['complete'] = $new_instance['complete'] == '' ? $old_instance['complete'] : $new_instance['complete'];
 			return $instance;
@@ -50,7 +52,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 			include( TribeEventsPro::instance()->pluginPath . 'admin-views/widget-admin-countdown.php' );
 		}
  
-		function get_output($event_ID, $complete, $show_seconds) {
+		function get_output($event_ID, $complete, $show_seconds, $event_date = null ) {
 			$ret = $complete;
 			if ($show_seconds) {
 				$hourformat = '
@@ -89,19 +91,21 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 				</div>';
 			}
 			// Get the event start date.
-			$startdate = tribe_get_start_date($event_ID, false, 'Y-m-d H:i:s');
+			$startdate = $event_date;
 			// Get the number of seconds remaining until the date in question.
 			$seconds = strtotime( $startdate ) - current_time( 'timestamp' );
 			if ( $seconds > 0 ) {
-				$ret = $this->generate_countdown_output( $seconds, $complete, $hourformat, $event_ID );
+				$ret = $this->generate_countdown_output( $seconds, $complete, $hourformat, $event_ID, $event_date );
 			}
 			return $ret;
 		}
  
 		// Generate the hidden information to be passed to jQuery.
-		function generate_countdown_output( $seconds, $complete, $hourformat, $event_ID ) {
-			$link = tribe_get_event_link($event_ID);
-			$event = get_post($event_ID);
+		function generate_countdown_output( $seconds, $complete, $hourformat, $event_ID, $event_date = null ) {
+			$event = get_post( $event_ID );
+			if ( !is_null( $event_date ) )
+				$event->EventStartDate = $event_date;
+			$link = tribe_is_recurring_event( $event ) ? TribeEvents::addDateToRecurringEvents( tribe_get_event_link($event_ID), $event ) : tribe_get_event_link($event_ID) ;
 			return '
 			<div class="tribe-countdown-text">'.__('Counting down to: ', 'tribe-events-calendar-pro').'<br /><a href="' .esc_url($link) . '">' . esc_attr($event->post_title) . '</a></div>
 			<div class="tribe-countdown-timer">
