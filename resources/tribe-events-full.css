@@ -19,7 +19,6 @@
 
 /* Specify Font Family */
 #tribe-events-header, 
-.tribe-events-calendar, 
 #tribe-events-content .tribe-events-ical, 
 .events-single #tribe-events-content .tribe-events-ical, 
 a.tribe-events-gmap, 
@@ -239,26 +238,17 @@ a.tribe-events-gcal {
 }
 
 /* Tribe Spinner */
-[class^="tribe-spinner"] {
-	background: url(images/tribe-loading.gif) 0 0 no-repeat;
-}
 .tribe-spinner {
 	width: 32px;
 	height: 32px;
-	-webkit-background-size: 32px 32px;
-			background-size: 32px 32px;
 }
 .tribe-spinner-medium {
 	width: 24px;
 	height: 24px;
-	-webkit-background-size: 24px 24px;
-			background-size: 24px 24px;
 }
 .tribe-spinner-small {
 	width: 16px;
 	height: 16px;
-	-webkit-background-size: 16px 16px;
-			background-size: 16px 16px;
 }
 
 /* IE7 Tweaks */
@@ -339,7 +329,6 @@ select.tribe-events-dropdown {
 	display: inline;
 }
 
-
 /* = Calendar View & List View Template Styles
    @ Template: calendar.php & list.php
 =============================================*/
@@ -351,7 +340,6 @@ select.tribe-events-dropdown {
 #tribe-events-content.tribe-events-list {
 	padding: 0;
 }
-
 
 /* = List View Template Styles
    @ Template: list.php
@@ -480,7 +468,6 @@ select.tribe-events-dropdown {
 }
 
 /* Content */
-
 .tribe-events-list .tribe-events-loop .entry-content {
 	width: 100%;
 	padding: 0;
@@ -640,7 +627,6 @@ h3.tribe-event-single-section-title {
 .single-tribe_events .tribe-event-schedule .tribe-event-cost {
 	margin-right: 10px;
 }
-
 
 .single-tribe_events .tribe-event-schedule h2 {
 	font-size: 1.2em;
@@ -821,7 +807,6 @@ h3.tribe-event-single-section-title {
 	right: 30px;
 }
 
-
 /* recurring info tooltip */
 .recurringinfo {
 	display: inline-block;
@@ -928,7 +913,6 @@ h3.tribe-event-single-section-title {
 	line-height: 1.5;
 }
 
-
 /* = Events List Widget Styles (Sidebar)
    @ Template: list-widget.php
 =============================================*/
@@ -954,7 +938,6 @@ h3.tribe-event-single-section-title {
 	font-size: 100%;
 }
 
-
 /* = Events Navigation Bar
    @ Template: /modules/bar.php
 =============================================*/
@@ -975,17 +958,24 @@ h3.tribe-event-single-section-title {
 }
 
 /* Globals */
+/* Special Buttons & Selects */
+#tribe-events-bar .select2-container .select2-choice,
+#tribe-events-bar [class^="tribe-bar-button-"] {
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=0 );
+}
+#tribe-events-bar .select2-dropdown-open .select2-choice,
+#tribe-events-bar [class^="tribe-bar-button-"].open {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#eeeeee', endColorstr = '#ffffff', GradientType = 0);
+}
 
-/* Special Buttons */
 #tribe-events-bar [class^="tribe-bar-button-"] {	
 	background-color: #fff;
 	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eee), color-stop(0.5, white));
 	background-image: -webkit-linear-gradient(center bottom, #eee 0%, white 50%);
 	background-image:    -moz-linear-gradient(center bottom, #eee 0%, white 50%);
-	background-image: 	  -ms-linear-gradient(top, #eee 0%, #fff 50%);
+	background-image: 	  -ms-linear-gradient(bottom, #eee 0%, #fff 50%);
 	background-image:      -o-linear-gradient(bottom, #eee 0%, #fff 50%);
-	background-image: 		  linear-gradient(top, #eee 0%, #fff 50%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#eeeeee', endColorstr = '#ffffff', GradientType = 0);
+	background-image: 		  linear-gradient(bottom, #eee 0%, #fff 50%);
 	-webkit-border-radius:4px;
 			border-radius: 4px;
 	-webkit-background-clip: padding-box;
@@ -1020,10 +1010,9 @@ h3.tribe-event-single-section-title {
 	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, white), color-stop(0.5, #eee));
 	background-image: -webkit-linear-gradient(center bottom, white 0%, #eee 50%);
 	background-image:    -moz-linear-gradient(center bottom, white 0%, #eee 50%);
-	background-image: 	  -ms-linear-gradient(top, #fff 0%, #eee 50%);
+	background-image: 	  -ms-linear-gradient(bottom, #fff 0%, #eee 50%);
 	background-image:      -o-linear-gradient(bottom, white 0%, #eee 50%);
-	background-image: 		  linear-gradient(top, #fff 0%, #eee 50%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=0 );
+	background-image: 		  linear-gradient(bottom, #fff 0%, #eee 50%);
 }
 #tribe-events-bar [class^="tribe-bar-button-"].open:after {
 	background-position: -18px 1px;
@@ -1212,12 +1201,13 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	padding: 0;
 }
 .tribe-select2-results .select2-results .select2-result-label {
-	padding: 4px 8px;
-	color: #000;
+	padding: 6px 8px;
+	color: #444;
+	line-height: 14px;
 }
 .tribe-select2-results .select2-results .select2-highlighted {
 	background: #ddd;
-	color: #000;
+	color: #444;
 }
 #tribe-bar-views .select2-container .select2-choice div {
 	width: 18px;
@@ -1386,6 +1376,10 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	background-repeat: no-repeat;
 	background-position: 0 50%;
 }
+.tribe-select2-results span[class^="tribe-icon-"] {
+	min-height: 16px;
+	display: inline-block;
+}
 .tribe-select2-results .tribe-icon-list,
 .tribe-select2 .tribe-icon-list,
 .tribe-bar-view-list a.tribe-icon-upcoming {
@@ -1437,9 +1431,6 @@ only screen and (-moz-min-device-pixel-ratio: 2),
 only screen and (-o-min-device-pixel-ratio: 2/1),
 only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (min-device-pixel-ratio: 2) {
-	[class^="tribe-spinner"] {
-		background-image: url(images/tribe-loading@2x.gif);
-	}
 	.tribe-events-tooltip .tribe-events-arrow {
 		background-image: url(images/tooltip-arrow@2x.png);
 	}

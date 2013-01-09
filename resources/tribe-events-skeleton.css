@@ -13,7 +13,6 @@
 
 /* = Global & Miscellaneous Styles
 =============================================*/
-
 .tribe-events-back {
 	margin: 0 0 20px 0;
 }
@@ -189,21 +188,17 @@ a.tribe-events-gcal {
 }
 
 /* Tribe Spinner */
-/* Tribe Spinner */
-[class^="tribe-spinner-"] {
-	background: url(images/tribe-loading.gif) 0 0 no-repeat;
-}
 .tribe-spinner {
 	width: 32px;
 	height: 32px;
-	-webkit-background-size: 32px 32px;
-			background-size: 32px 32px;
+}
+.tribe-spinner-medium {
+	width: 24px;
+	height: 24px;
 }
 .tribe-spinner-small {
 	width: 16px;
 	height: 16px;
-	-webkit-background-size: 16px 16px;
-			background-size: 16px 16px;
 }
 
 /* IE7 Tweaks */
@@ -283,7 +278,6 @@ select.tribe-events-dropdown {
 	display: inline;
 }
 
-
 /* = Grid View & List View Template Styles
    @ Template: calendar.php & list.php
 =============================================*/
@@ -296,14 +290,12 @@ select.tribe-events-dropdown {
 	padding: 0;
 }
 
-
 /* = List View Template Styles
    @ Template: list.php
 =============================================*/
 .tribe-events-list h2.tribe-events-page-title {
 	margin-bottom: 15px;
 }
-
 
 #tribe-events-content.tribe-events-list {
 	margin-bottom: 60px;
@@ -358,7 +350,6 @@ select.tribe-events-dropdown {
 	width: 67%;
 	position: relative;
 }
-
 
 /* Meta */
 .tribe-events-loop .tribe-events-event-meta {
@@ -415,7 +406,6 @@ select.tribe-events-dropdown {
 	text-overflow: ellipsis;
 }
 
-
 /* = List View & Single Venue (Pro Version) Template Styles
    @ Template: list.php & single-venue.php
 =============================================*/
@@ -462,11 +452,9 @@ select.tribe-events-dropdown {
 	margin-left: 6.5em;
 }
 
-
 /* = Single Event Template Styles
    @ Template: single-event.php
 =============================================*/
-
 .single-tribe_events #tribe-events-content {
 	padding: 0;
 }
@@ -648,7 +636,6 @@ select.tribe-events-dropdown {
 	padding: 0;
 	margin-bottom: 30PX;
 }
-
 
 /* = Calendar Styles (includes styles for both large & small calendars)
    @ Template: calendar.php & calendar-widget.php
@@ -833,7 +820,6 @@ select.tribe-events-dropdown {
 	line-height: 1.5;
 }
 
-
 /* = Events List Widget Styles (Sidebar)
    @ Template: list-widget.php
 =============================================*/
@@ -857,7 +843,6 @@ select.tribe-events-dropdown {
 	font-size: 100%;
 }
 
-
 /* = Events Navigation Bar
    @ Template: /modules/bar.php
 =============================================*/
@@ -878,22 +863,29 @@ select.tribe-events-dropdown {
 }
 
 /* Globals */
+/* Special Buttons & Selects */
+#tribe-events-bar .select2-container .select2-choice,
+#tribe-events-bar [class^="tribe-bar-button-"] {
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=0 );
+}
+#tribe-events-bar .select2-dropdown-open .select2-choice,
+#tribe-events-bar [class^="tribe-bar-button-"].open {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#eeeeee', endColorstr = '#ffffff', GradientType = 0);
+}
 
-/* Special Buttons */
 #tribe-events-bar [class^="tribe-bar-button-"] {	
 	background-color: #fff;
 	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eee), color-stop(0.5, white));
 	background-image: -webkit-linear-gradient(center bottom, #eee 0%, white 50%);
 	background-image:    -moz-linear-gradient(center bottom, #eee 0%, white 50%);
-	background-image: 	  -ms-linear-gradient(top, #eee 0%, #fff 50%);
-	background-image: 	   -o-linear-gradient(bottom, #eee 0%, #fff 50%);
-	background-image: 		  linear-gradient(top, #eee 0%, #fff 50%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#eeeeee', endColorstr = '#ffffff', GradientType = 0);
+	background-image: 	  -ms-linear-gradient(bottom, #eee 0%, #fff 50%);
+	background-image:      -o-linear-gradient(bottom, #eee 0%, #fff 50%);
+	background-image: 		  linear-gradient(bottom, #eee 0%, #fff 50%);
 	-webkit-border-radius:4px;
 			border-radius: 4px;
 	-webkit-background-clip: padding-box;
 	   -moz-background-clip: padding;
-			background-clip: padding-box;
+		    background-clip: padding-box;
 	border: 1px solid #aaa;
 	display: block;
 	line-height: 26px;
@@ -923,10 +915,9 @@ select.tribe-events-dropdown {
 	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, white), color-stop(0.5, #eee));
 	background-image: -webkit-linear-gradient(center bottom, white 0%, #eee 50%);
 	background-image:    -moz-linear-gradient(center bottom, white 0%, #eee 50%);
-	background-image:     -ms-linear-gradient(top, #fff 0%, #eee 50%);
+	background-image: 	  -ms-linear-gradient(bottom, #fff 0%, #eee 50%);
 	background-image:      -o-linear-gradient(bottom, white 0%, #eee 50%);
-	background-image: 		  linear-gradient(top, #fff 0%, #eee 50%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=0 );
+	background-image: 		  linear-gradient(bottom, #fff 0%, #eee 50%);
 }
 #tribe-events-bar [class^="tribe-bar-button-"].open:after {
 	background-position: -18px 1px;
@@ -1115,12 +1106,13 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	padding: 0;
 }
 .tribe-select2-results .select2-results .select2-result-label {
-	padding: 4px 8px;
-	color: #000;
+	padding: 6px 8px;
+	color: #444;
+	line-height: 14px;
 }
 .tribe-select2-results .select2-results .select2-highlighted {
 	background: #ddd;
-	color: #000;
+	color: #444;
 }
 #tribe-bar-views .select2-container .select2-choice div {
 	width: 18px;
@@ -1289,6 +1281,10 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	background-repeat: no-repeat;
 	background-position: 0 50%;
 }
+.tribe-select2-results span[class^="tribe-icon-"] {
+	min-height: 16px;
+	display: inline-block;
+}
 .tribe-select2-results .tribe-icon-list,
 .tribe-select2 .tribe-icon-list,
 .tribe-bar-view-list a.tribe-icon-upcoming {
@@ -1340,9 +1336,6 @@ only screen and (-moz-min-device-pixel-ratio: 2),
 only screen and (-o-min-device-pixel-ratio: 2/1),
 only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (min-device-pixel-ratio: 2) {
-	[class^="tribe-spinner"] {
-		background-image: url(images/tribe-loading@2x.gif);
-	}
 	.tribe-events-tooltip .tribe-events-arrow {
 		background-image: url(images/tooltip-arrow@2x.png);
 	}
