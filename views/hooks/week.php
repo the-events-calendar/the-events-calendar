@@ -11,48 +11,6 @@
  *
  */
 
-/*
-	spans on allday
-	split up events that span a day?
-	ask Tim about ghost divs? multi days?
-	xbrowser & fluid?
-*/
-
-/*
- 	@Samuel
- 	Raw Wireframe: https://central.tri.be/attachments/54643/weekview.1.jpg
- 	JS Notes
-
- 	All Day
- 	You'll want to set up a bunch of events to get the different scenarios. Basically we need
- 	the js to utilize the tribe-dayspan# class and then make that all day event span the proper
- 	amount of days. Though this could happen with CSS, but don't think it can b/c of fluid.
- 	Lastly on this, I've set a min-height on all-day columns of 60px, but you'll need to make sure
- 	that all the columns keep the height of the tallest day "column".
-
- 	Regular Events
- 	Regular events have several things going on.
- 	First: obviously based on the duration class for each event, each needs to get properly
- 		   positioned vertically in it's column.
- 	Second: we have two special cases where some events will have Same Time and/or other will
- 			be Overlapping events. For Same Time events, ignore the mockup and go with how the
- 			Overlapping events do it, where each consecutive Same Time event gets it's width decreased
- 			a bit (something like this: width: 80%; I've already setup the following: right: 0; left: auto;)
- 			and the events still overlap to save column real-estate.
- 			For Overlapping events, same exact thing really.
-
- 	Third: tooltips. We are needing to implement onclick due to the nature of Same Time/Overlapping. And we have to
- 		   be careful about overflow: hidden as it cuts of the tooltip. So, the title/content of the events we see
- 		   in the grid should never overflow the grey bgd container, which for now has a height of 30px. So if you could
- 		   use jquery to set the height of the events container used to position the parent wrapper on:
- 		   .tribe-grid-body .hentry.vevent as well that would be aweomse–I already set overflow: hidden on it.
- 		   So I did add the tribe-nudge-right bit or whatever, and have the tooltip markup below, if you could implement
- 		   the onclick I'd appreciate it :)
-
- 	Let me know if you have questions! Thanks Samuel!
-
- */
-
 if ( !defined( 'ABSPATH' ) ) { die( '-1' ); }
 
 if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
@@ -100,11 +58,11 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			global $wp_query;
 
 			// because we can't trust tribe_get_events_title will be set when run via AJAX
-			$title = sprintf( __( 'Week starting %s', 'tribe-events-calendar-pro' ),
+			$title = sprintf( __( 'week starting %s', 'tribe-events-calendar-pro' ),
 				date( "l, F jS Y", strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) )
 			);
 
-			$html = sprintf( '<h2 class="tribe-events-page-title">%s</h2>',
+			$html = sprintf( '<h2 class="tribe-events-page-title">'. __( 'Events for ', 'tribe-events-calendar' ) .'%s</h2>',
 				$title
 			);
 
@@ -417,7 +375,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			$current_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
 
 			// Display Week Navigation
-			$html = sprintf( '<div id="tribe-events-header" data-date="%6$s"><h3 class="tribe-events-visuallyhidden">%1$s</h3><ul class="tribe-events-sub-nav"><li class="tribe-events-nav-prev"><a data-week="%3$s" href="%2$s" rel="prev">&#x2190; %7$s</a></li><li class="tribe-events-nav-next"><a data-week="%5$s" href="%4$s" rel="next">%8$s &#x2192;</a><span class="tribe-spinner-medium" id="ajax-loading"><span class="tribe-events-visuallyhidden">Loading Events</span></span></li></ul></div>',
+			$html = sprintf( '<div id="tribe-events-header" data-date="%6$s"><h3 class="tribe-events-visuallyhidden">%1$s</h3><ul class="tribe-events-sub-nav"><li class="tribe-events-nav-prev"><a data-week="%3$s" href="%2$s" rel="prev">&larr; %7$s</a></li><li class="tribe-events-nav-next"><a data-week="%5$s" href="%4$s" rel="next">%8$s &rarr;</a><img id="ajax-loading" class="tribe-spinner-medium" src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" /></li></ul></div>',
 				__( 'Week Navigation', 'tribe-events-calendar' ),
 				tribe_get_last_week_permalink( $current_week ),
 				date( 'Y-m-d', strtotime( $current_week . ' -7 days' ) ),

@@ -221,8 +221,10 @@ jQuery( document ).ready( function ( $ ) {
 				spin_end();
 				if ( response.success ) {
 					
-					if( tribe_storage )
+					if( tribe_storage ) {
 						tribe_storage.setItem( 'tribe_initial_load', 'false' );
+						tribe_storage.setItem( 'tribe_current_post_count', response.total_count );
+					}				
 
 					$( "#tribe-geo-results" ).html( response.html );					
 					$( "#tribe-events-content" ).parent().removeAttr('id').find('.tribe-events-page-title').remove();				

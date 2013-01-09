@@ -185,7 +185,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 			// day view title
 			if( tribe_is_day() ) {
-				$reset_title = Date("l, F jS Y", strtotime($wp_query->get('start_date')));
+				$reset_title = __( 'Events for', 'tribe-events-calendar-pro' ) . ' ' .Date("l, F jS Y", strtotime($wp_query->get('start_date')));
 			}
 			return isset($reset_title) ? apply_filters( 'tribe_template_factory_debug', $reset_title, 'tribe_get_events_title' ) : $content;
 		}
@@ -324,9 +324,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				global $wp_query, $post;
 				$wp_query = $query;
 
-				if ( have_posts() )
-					the_post();
+				if ( have_posts() ) {
+					the_post(); // TODO: why is this here?
+					rewind_posts(); // so we don't skip the first post when rendering
+				}
 
+				add_filter( 'tribe_is_day', '__return_true' ); // simplest way to declare that this is a day view
 				TribeEventsTemplates::getTemplateHierarchy( 'day', '', 'pro', $this->pluginPath );
 
 				load_template( TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
@@ -631,26 +634,27 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	    	wp_enqueue_script( TribeEvents::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.js', array( 'jquery-ui-datepicker' ), '', true );
 	    }
 
-    	public function enqueue_styles() {
-
-    		$tec = TribeEvents::instance();
+		public function enqueue_styles() {
 
 			// Enqueue the pro-stylesheet.
-    		$stylesheet_url = $this->pluginUrl . 'resources/tribe-events-pro-full.css';
+			if ( tribe_get_option('stylesheetOption') == 'skeleton') {
+				$stylesheet_url = $this->pluginUrl . 'resources/tribe-events-pro-skeleton.css';
+			} else {
+				$stylesheet_url = $this->pluginUrl . 'resources/tribe-events-pro-full.css';
+			}
+			$stylesheet_url = TribeEventsTemplates::locate_stylesheet('tribe-events/pro/tribe-events-pro.css', $stylesheet_url);
+			$stylesheet_url = apply_filters( 'tribe_events_pro_stylesheet_url', $stylesheet_url );
+			if ( $stylesheet_url ) {
+				wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url );
+			} else {
+				wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url );
+			}
 
-    		if ( $stylesheet_url ) {
-    			if ( tribe_get_option('stylesheetOption') == 'skeleton') {
-					$stylesheet_url = $this->pluginUrl . 'resources/tribe-events-pro-skeleton.css';
-					wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url );
-				} else {
-					wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url );
-				}
-    		}
-
-    		if ( $tec->displaying === 'day' ) {
+			$tec = TribeEvents::instance();
+			if ( $tec->displaying === 'day' ) {
 				Tribe_PRO_Template_Factory::asset_package( 'ajax-dayview' );
 			}
-    	}
+		}
 
 		public function iCalFeed( $post = null, $eventCatSlug = null, $eventDate = null ) {
 

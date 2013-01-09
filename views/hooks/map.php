@@ -53,7 +53,7 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_the_map');
 		}
 		public static function the_map( $post_id ){
-			$html = '<div id="tribe-geo-loading"><span class="tribe-spinner"></span></div>';
+			$html = '<div id="tribe-geo-loading"><img id="ajax-loading" class="tribe-spinner" src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" /></div>';
 			$html .= '<div id="tribe-geo-map"></div>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_the_map');
 		}
@@ -86,8 +86,8 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_pagination');
 		}
 		public static function pagination( $post_id ){
-			$html = '<a href="#" id="tribe_map_paged_prev" class="tribe_map_paged">'. __('<< Previous Events') .'</a>';
-			$html .= '<a href="#" id="tribe_map_paged_next" class="tribe_map_paged">'. __('Next Events >>') .'</a>';
+			$html = '<a href="#" id="tribe_map_paged_prev" class="tribe_map_paged">'. __('&larr; Previous Events') .'</a>';
+			$html .= '<a href="#" id="tribe_map_paged_next" class="tribe_map_paged">'. __('Next Events &rarr;') .'</a>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_pagination');
 		}
 		public static function after_pagination( $post_id ){

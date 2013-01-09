@@ -390,10 +390,11 @@ class TribeEventsGeoLoc {
 		}
 
 
-		$response = array( 'html'      => '',
-		                   'markers'   => array(),
-		                   'success'   => TRUE,
-		                   'max_pages' => $query->max_num_pages );
+		$response = array( 'html'        => '',
+		                   'markers'     => array(),
+		                   'success'     => TRUE,
+		                   'max_pages'   => $query->max_num_pages,
+		                   'total_count' => $query->found_posts );
 
 		$response['html'] .= "<h2>" . __( 'Nearest places', 'tribe-events-calendar-pro' ) . '</h2>';
 
