@@ -59,32 +59,6 @@ function tribe_pre_ajax_tests( tribe_ajax_callback ) {
 	}
 }
 
-// tribe tooltips
-
-function tribe_event_tooltips() {
-	
-	jQuery( 'body' ).on( 'mouseenter', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring',function () {
-		
-		var bottomPad = '';
-		if ( jQuery( 'body' ).hasClass( 'tribe-events-week' ) ) {
-			bottomPad = jQuery( this ).outerHeight() + 5;
-		} else if ( jQuery( 'body' ).hasClass( 'events-gridview' ) ) { // Cal View Tooltips
-			bottomPad = jQuery( this ).find( 'a' ).outerHeight() + 18;
-		} else if ( jQuery( 'body' ).is( '.single-tribe_events, .events-list' ) ) { // Single/List View Recurring Tooltips
-			bottomPad = jQuery( this ).outerHeight() + 12;
-		}	
-		
-		// Widget Tooltips
-		if ( jQuery( this ).parents( '.tribe-events-calendar-widget' ).length ) {
-			bottomPad = jQuery( this ).outerHeight() - 6;
-		}
-		jQuery( this ).find( '.tribe-events-tooltip' ).css( 'bottom', bottomPad ).show();
-		
-	} ).on( 'mouseleave', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', function () {
-		jQuery( this ).find( '.tribe-events-tooltip' ).stop( true, false ).fadeOut( 200 );			
-	} );
-}
-
 // tribe local storage
 
 var tribe_storage, t_fail, t_uid;
@@ -112,7 +86,7 @@ jQuery.fn.tribeClearForm = function() {
 	});
 };
 
-// tribe global vars, sorry, we need em
+// tribe global, sorry, we need them for some ping pong
 
 tribe_ev = {};
 
@@ -228,7 +202,7 @@ jQuery( document ).ready( function ( $ ) {
 
 	// Global Tooltips
 	if ( $( '.tribe-events-calendar' ).length || $( '.tribe-events-grid' ).length || $( '.tribe-events-list' ).length || $( '.tribe-events-single' ).length || $( 'tribe-geo-wrapper' ).length ) {
-		tribe_event_tooltips();
+		tribe_ev.fn.tooltips();
 	}
 
 	//remove border on list view event before month divider
