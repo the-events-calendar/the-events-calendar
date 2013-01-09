@@ -129,14 +129,22 @@ if( !function_exists('tribe_set_the_meta_visibility')) {
 
 if(!function_exists('tribe_set_the_meta_template')){
 	function tribe_set_the_meta_template( $meta_id, $template = array(), $type = 'meta' ){
-		global $tribe_meta_factory;
-		// die silently if the requested meta group is not registered
-		if( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) )
-			return false;
+		if( is_array( $meta_id) ) {
+			foreach( $meta_id as $id ) {
+				tribe_set_the_meta_template( $id, $template, $type );
+			}
+		} else {
+			global $tribe_meta_factory;
 
-		if( !empty( $template ) ){
-			$tribe_meta_factory->{$type}[$meta_id]['wrap'] = $template;
+			// die silently if the requested meta group is not registered
+			if( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) )
+				return false;
+
+			if( !empty( $template ) ){
+				$tribe_meta_factory->{$type}[$meta_id]['wrap'] = $template;
+			}
 		}
+		
 	}
 }
 
@@ -156,6 +164,24 @@ if(!function_exists('tribe_set_meta_priority')){
 			if( !empty( $priority ) ){
 				$tribe_meta_factory->{$type}[$meta_id]['priority'] = $priority;
 			}
+		}
+	}
+}
+
+if(!function_exists('tribe_set_meta_value')){
+	function tribe_set_meta_value( $meta_id, $value, $value_type = 'meta_value', $type = 'meta' ){
+		if( is_array( $meta_id) ) {
+			foreach( $meta_id as $id => $priority) {
+				tribe_set_meta_priority( $id, $priority, $type );
+			}
+		} else {
+			global $tribe_meta_factory;
+
+			// die silently if the requested meta group is not registered
+			if( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) )
+				return false;
+
+			$tribe_meta_factory->{$type}[$meta_id][$value_type] = $value;
 		}
 	}
 }

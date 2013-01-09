@@ -26,14 +26,17 @@ if( !class_exists('Tribe_Meta_Factory') ) {
 			global $tribe_meta_factory;
 			$defaults = array(
 				'wrap' => array(
-					'before'=>'<div class="tribe-meta">',
+					'before'=>'<div class="%s">',
 					'after'=>'</div>',
 					'label_before'=>'<label>',
 					'label_after'=>'</label>',
-					'meta_before'=>'<div class="tribe-meta-value">',
+					'meta_before'=>'<div class="%s">',
 					'meta_after'=>'</div>'
 					),
-				'classes' => array(),
+				'classes' => array(
+					'before' => array('tribe-meta'),
+					'meta_before' => array('tribe-meta-value')
+					),
 				'register_type' => 'meta',
 				'register_overwrite' => false,
 				'register_callback' => null,
