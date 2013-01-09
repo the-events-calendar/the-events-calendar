@@ -14,7 +14,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <?php 
 foreach ($events as $event )
 	{ ?>
-	<option value="<?php echo $event->ID; ?>" <?php selected( $event->ID == $instance['event_ID'] ) ?>> <?php echo $event->post_title ?> </option>
+	<option value="<?php echo $event->ID; ?>" <?php selected( $event->ID == $instance['event_ID'] ) ?>><?php echo $event->post_title ?> - <?php echo date_format( new DateTime( $event->EventStartDate ), 'm/j/Y' ); ?></option>
 <?php } ?>
 </select>
 </p>
