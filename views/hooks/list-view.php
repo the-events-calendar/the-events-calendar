@@ -73,8 +73,6 @@ if ( !class_exists( 'Tribe_Events_Pro_List_View_Template' ) ) {
 			// Display Next Page Navigation
 			if ( $wp_query->max_num_pages > ( $wp_query->query_vars['paged'] + 1 ) ) {
 				$html .= '<li class="tribe-nav-next"><a href="#" class="tribe_paged">' . __( 'Next Events &rarr;' ) . '</a>';
-				// Loading spinner
-				$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
 				$html .= '</li><!-- .tribe-nav-next -->';
 			}
 			return $html;

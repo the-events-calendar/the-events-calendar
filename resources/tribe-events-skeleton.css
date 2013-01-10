@@ -269,8 +269,7 @@ h2.tribe-events-page-title a:focus {
 	float: right;
 	text-align: right;
 }
-#tribe-events-header .tribe-ajax-loading,
-#tribe-events-footer .tribe-ajax-loading {
+#tribe-events-header .tribe-ajax-loading {
 	display: none;
 	position: absolute;
 	left: 50%;
