@@ -3430,13 +3430,31 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			array_splice( $source_array, $position, $replace_amount, $insert_array ); 
 			return $source_array; 
 		}
-		public static function array_insert_after_key( $source_array, $insert_array, $key ) { 
-			$position = array_search( $key, array_keys( $source_array ) ) + 1;
-			$modified_array = array_slice($source_array, 0, $position, true) +
-	            $insert_array +
-	            array_slice($source_array, $position, NULL, true);
-			return $modified_array;
+		public static function array_insert_after_key( $key, $source_array, $insert_array ) { 
+			return self::array_insert_by_key( $key, $source_array, $insert_array );
+		}
+		public static function array_insert_before_key( $key, $source_array, $insert_array ) { 
+			return self::array_insert_by_key( $key, $source_array, $insert_array, -1 );
 		} 
+		public static function array_insert_by_key( $key, $source_array, $insert_array, $direction = 1 ){
+			$position = array_search( $key, array_keys( $source_array ) ) + $direction;
+
+			// setup the return with the source array
+			$modified_array = $source_array;
+
+			if( count($source_array) < $position && $position != 0 ) {
+				// push one or more elements onto the end of array
+				array_push( $modified_array, $insert_array );
+			} else if ( $position < 0 ){
+				// prepend one or more elements to the beginning of an array
+				array_unshift( $modified_array, $insert_array );
+			} else {
+				$modified_array = array_slice($source_array, 0, $position, true) +
+		            $insert_array +
+		            array_slice($source_array, $position, NULL, true);
+			}
+			return $modified_array;
+		}
 
 		public static function clear_module_pagination( $html ) {
 			$html = '<li class="tribe-nav-previous"><a href="#" id="tribe_paged_prev" class="tribe_paged">' . __( '<< Previous Events' ) . '</a></li>';
