@@ -31,6 +31,7 @@ if( !class_exists('Tribe_Meta_Factory') ) {
 					'label_before'=>'<label>',
 					'label_after'=>'</label>',
 					'meta_before'=>'<div class="%s">',
+					'meta_separator' => '',
 					'meta_after'=>'</div>'
 					),
 				'classes' => array(
@@ -47,6 +48,9 @@ if( !class_exists('Tribe_Meta_Factory') ) {
 				'show_on_meta' => true, // bool for automatically displaying meta within "the meta area" of a specific display
 				'priority' => 100
 				);
+			// before we merge args and defaults lets play nice with the template
+			if( !empty($args['wrap']))
+				$defaults['wrap'] = wp_parse_args($args['wrap'], $defaults['wrap']);
 			$args = wp_parse_args($args, $defaults);
 
 			// setup default meta ids placeholder for meta_group registration

@@ -61,10 +61,17 @@ if( !function_exists('tribe_get_meta_group')){
 		if( $is_the_meta && ! $meta_group['show_on_meta'] ){
 			return false;
 		}
-
+		$meta_pos_int = 0;
+		$total_meta_items = tribe_count_hierarchical( $meta_ids );
 		foreach( $meta_ids as $meta_id_group ) {
 			foreach( $meta_id_group as $meta_id ){
+				$meta_pos_int++;
 				$group_html .= tribe_get_meta( $meta_id, $is_the_meta );
+				// if we should have a meta divider let's show it!
+				if( !empty($group_html) && $meta_pos_int < $total_meta_items ) {
+					$group_html .= $meta_group['wrap']['meta_separator'];
+				}
+				
 			}
 		}
 
@@ -118,6 +125,41 @@ if ( !function_exists( 'tribe_get_meta' ) ) {
 		$html = !empty($value) ? Tribe_Meta_Factory::template( $meta['label'], $value, $meta_id ) : '';
 
 		return apply_filters('tribe_get_meta', $html, $meta_id );
+	}
+}
+
+if( !function_exists('tribe_get_meta_arg')){
+	function tribe_get_meta_arg( $meta_id, $arg_key, $type = 'meta' ){
+
+		// die silently if the requested meta group is not registered
+		if( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) )
+			return false;
+
+		$args = Tribe_Meta_Factory::get_args( $meta_id, $type );
+
+		// check if the arg exists
+		if( isset($args[$arg_key])){
+			return $args[$arg_key];
+		} else {
+			return false;
+		}
+	}
+}
+
+if( !function_exists('tribe_get_meta_template_part')){
+	function tribe_get_meta_template_part( $meta_id, $template_key, $type = 'meta'){
+
+		// die silently if the requested meta group is not registered
+		if( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) )
+			return false;
+
+		$template = tribe_get_meta_arg( $meta_id, 'wrap', $type );
+
+		if( isset($template[ $template_key ])) {
+			return $template[ $template_key ];
+		} else {
+			return false;
+		}
 	}
 }
 
