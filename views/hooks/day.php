@@ -79,6 +79,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 		public static function header_navigation( $html ){
 			$tribe_ecp = TribeEvents::instance();
 			global $wp_query;
+			$current_day = $wp_query->get('start_date');
 
 			$yesterday = Date('Y-m-d', strtotime($current_day . " -1 day") );
 			$tomorrow = Date('Y-m-d', strtotime($current_day . " +1 day") );

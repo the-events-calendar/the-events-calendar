@@ -409,11 +409,11 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	function spin_start() {
-		$( ".tribe-ajax-loading" ).show();
+		$( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').show();
 	}
 
 	function spin_end() {
-		$( ".tribe-ajax-loading" ).hide();
+		$( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').hide();
 	}
 	if ( GeoLoc.map_view ) {
 	
