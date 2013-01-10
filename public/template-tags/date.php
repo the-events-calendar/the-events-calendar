@@ -22,22 +22,22 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @todo support $postId for recurring events.
 	 * @since 2.0
 	 */
-	function tribe_get_start_date( $postId = null, $displayTime = true, $dateFormat = '' )  {
-		$postId = TribeEvents::postIdHelper( $postId );
-		if (!$postId || ( function_exists('tribe_is_recurring_event') && tribe_is_recurring_event( $postId ) ) ) {
+	function tribe_get_start_date( $event = null, $displayTime = true, $dateFormat = '' )  {
+		if ( is_null( $event ) ) {
 			global $post;
-		} else {
-			$post = get_post($postId);
+			$event = $post;
 		}
+		if ( is_numeric( $event ) )
+			$event = get_post( $event );
 
-		if( tribe_get_all_day( $postId ) )
+		if( tribe_get_all_day( $event ) )
 			 $displayTime = false;
 
-		if( empty($post->EventStartDate) && is_object( $post ) )
-			$post->EventStartDate = tribe_get_event_meta( $postId, '_EventStartDate', true );
+		if( empty($event->EventStartDate) && is_object( $event ) )
+			$event->EventStartDate = tribe_get_event_meta( $event->ID, '_EventStartDate', true );
 
-		if( isset($post->EventStartDate) ){
-			$date = strtotime( $post->EventStartDate );
+		if( isset($event->EventStartDate) ){
+			$date = strtotime( $event->EventStartDate );
 		}else{
 			return; // '&mdash;';
 		}
@@ -57,22 +57,22 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @todo support $postId for recurring events.
 	 * @since 2.0
 	 */
-	function tribe_get_end_date( $postId = null, $displayTime = true, $dateFormat = '' )  {
-		$postId = TribeEvents::postIdHelper( $postId );
-		if (!$postId || ( function_exists('tribe_is_recurring_event') && tribe_is_recurring_event( $postId ) ) ) {
+	function tribe_get_end_date( $event = null, $displayTime = true, $dateFormat = '' )  {
+		if ( is_null( $event ) ) {
 			global $post;
-		} else {
-			$post = get_post($postId);
+			$event = $post;
 		}
+		if ( is_numeric( $event ) )
+			$event = get_post( $event );
 	
-		if( tribe_get_all_day( $postId ) )
+		if( tribe_get_all_day( $event ) )
 			 $displayTime = false;
 
-		if( empty($post->EventEndDate) )
-			$post->EventEndDate = tribe_get_event_meta( $postId, '_EventEndDate', true );
+		if( empty($event->EventEndDate) )
+			$event->EventEndDate = tribe_get_event_meta( $event->ID, '_EventEndDate', true );
 
-		if( isset($post->EventEndDate) ){
-			$date = strtotime( $post->EventEndDate );
+		if( isset($event->EventEndDate) ){
+			$date = strtotime( $event->EventEndDate );
 		}else{
 			return; // '&mdash;';
 		}
