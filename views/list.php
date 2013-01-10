@@ -33,14 +33,14 @@ echo apply_filters( 'tribe_events_list_before_template', '', $the_post_id );
 	echo apply_filters( 'tribe_events_list_notices', $the_post_id );
 	
 	// List header
-    echo apply_filters( 'tribe_events_list_before_header', '');
+    echo apply_filters( 'tribe_events_list_before_header', '', $the_post_id );
 
     	// Navigation
-    	echo apply_filters( 'tribe_events_list_before_header_nav', '');
-		echo apply_filters( 'tribe_events_list_header_nav', '');
-		echo apply_filters( 'tribe_events_list_after_header_nav', '');
+    	echo apply_filters( 'tribe_events_list_before_header_nav', '', $the_post_id );
+		echo apply_filters( 'tribe_events_list_header_nav', '', $the_post_id );
+		echo apply_filters( 'tribe_events_list_after_header_nav', '', $the_post_id );
 
-	echo apply_filters( 'tribe_events_list_after_header', '');
+	echo apply_filters( 'tribe_events_list_after_header', '', $the_post_id );
 
 	// Start list loop
 	echo apply_filters( 'tribe_events_list_before_loop', '', $the_post_id );
@@ -92,14 +92,14 @@ echo apply_filters( 'tribe_events_list_before_template', '', $the_post_id );
 	echo apply_filters( 'tribe_events_list_after_loop', '', $the_post_id );
 	
 	// List footer
-    echo apply_filters( 'tribe_events_list_before_footer', '');
+    echo apply_filters( 'tribe_events_list_before_footer', '', $the_post_id );
 
     	// Navigation
     	echo apply_filters( 'tribe_events_list_before_footer_nav', '', $the_post_id );
 		echo apply_filters( 'tribe_events_list_footer_nav', '', $the_post_id );
 		echo apply_filters( 'tribe_events_list_after_footer_nav', '', $the_post_id );
 
-	echo apply_filters( 'tribe_events_list_after_footer', '');
+	echo apply_filters( 'tribe_events_list_after_footer', '', $the_post_id );
 	
 	// List pagination
 	/*
