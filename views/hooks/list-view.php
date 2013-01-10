@@ -39,6 +39,8 @@ if ( !class_exists( 'Tribe_Events_Pro_List_View_Template' ) ) {
 			$tribe_ecp = TribeEvents::instance();
 			global $wp_query;
 			
+			$html = '';
+			
 			// Display Previous Page Navigation
 			if ( $wp_query->query_vars['paged'] > 1 ) {
 				$html .= '<li class="tribe-nav-previous"><a href="#" class="tribe_paged">' . __( '&larr; Previous Events' ) . '</a></li>';
@@ -64,6 +66,8 @@ if ( !class_exists( 'Tribe_Events_Pro_List_View_Template' ) ) {
 		public static function footer_navigation( $html ){
 			$tribe_ecp = TribeEvents::instance();
 			global $wp_query;
+			
+			$html = '';
 			
 			// Display Previous Page Navigation
 			if ( $wp_query->query_vars['paged'] > 1 ) {
