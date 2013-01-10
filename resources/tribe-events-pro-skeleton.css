@@ -651,6 +651,10 @@
 	border: 0;
 }
 
+.tribe-events-organizer .tribe-events-organizer-meta {
+	margin-bottom: 40px;
+}
+
 .tribe-events-organizer address.organizer-address {
 	font-style: normal;
 	font-weight: bold;
