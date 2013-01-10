@@ -21,7 +21,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 			$title = apply_filters( 'widget_title', $title );
 			wp_enqueue_script( 'tribe_countdown_widget', TribeEventsPro::instance()->pluginUrl .'resources/widget-countdown.js', array( 'jquery' ), false, true );
 			// Get the timer data.
-			$complete = '<div class="tribe-countdown-number">' . $complete . '</div>';
+			$complete = '<h3 class="tribe-countdown-complete">' . $complete . '</h3>';
 			$event_countdown_date = $this->get_output($event_ID, $complete, $show_seconds, $event_date);
 			echo $before_widget;
 			if ( !empty( $title ) ) echo $before_title.$title.$after_title;
@@ -57,7 +57,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 			$ret = $complete;
 			if ($show_seconds) {
 				$hourformat = '
-				<div class="tribe-countdown-timer">
+				<div class="tribe-countdown-timer tribe-clearfix">
 					<div class="tribe-countdown-days tribe-countdown-number">DD<br />
 						<span class="tribe-countdown-under">'.__('days', 'tribe-events-calendar-pro').'</span>
 					</div>
@@ -92,7 +92,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 				</div>';
 			}
 			// Get the event start date.
-			$startdate = $event_date;
+			$startdate = tribe_is_recurring_event( $event_ID ) ? $event_date . ' ' . tribe_get_start_date( $event_ID, false, TribeDateUtils::DBTIMEFORMAT ) : tribe_get_start_date( $event_ID, false, TribeDateUtils::DBDATETIMEFORMAT );
 			// Get the number of seconds remaining until the date in question.
 			$seconds = strtotime( $startdate ) - current_time( 'timestamp' );
 			if ( $seconds > 0 ) {
@@ -112,7 +112,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 			<div class="tribe-countdown-timer">
 				<span class="tribe-countdown-seconds">'.$seconds.'</span>
 				<span class="tribe-countdown-format">'.$hourformat.'</span>
-				<span class="tribe-countdown-complete">'.$complete.'</span>
+				'.$complete.'
 			</div>';
 		}
  
