@@ -254,34 +254,15 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 
 			$html = '<div class="tribe-events-event-meta tribe-clearfix">';
 
-			// Event Details
-			$html .= tribe_get_meta_group( 'tribe_event_details' );
-		
-			// Venue Logic
-			// When there is no map or no map + no custom fields, 
-			// show the venue info up top 
 			if ( $skeleton_mode ) {
-
-				// Venue Details
-				$html .= tribe_get_meta_group( 'tribe_event_venue' );
 
 				// show all visible meta_groups in skeleton view
 				$html .= tribe_get_the_event_meta();
 
 			} else {
-			if ( tribe_has_organizer() ) {
-				$html .= tribe_get_meta_group( 'tribe_event_organizer' );
-			} // End Organizer
-			
-			// Event Custom Fields
-			if ( $tribe_event_custom_fields ) { 
-				$html .= tribe_get_meta_group('tribe_event_group_custom_meta');
-			} // End Custom Fields
 
 				// Event Details
-				 tribe_address_exists( get_the_ID() ) && 
 				$html .= tribe_get_meta_group( 'tribe_event_details' );
-				 !tribe_has_organizer() ) { 
 
 				// When there is no map show the venue info up top
 				if ( ! $group_venue && ! tribe_embed_google_map( $event_id ) ) {
@@ -310,8 +291,6 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 			$html .= '</div><!-- .tribe-events-event-meta -->';
 
 			if ( ! $skeleton_mode && $group_venue ) {
-				 tribe_address_exists( get_the_ID() ) && 
-				 ( $tribe_event_custom_fields || tribe_has_organizer() ) ) {
 				// If there's a venue map and custom fields or organizer, show venue details in this seperate section
 
 				$html .= apply_filters( 'tribe_events_single_event_the_meta_venue_row', sprintf( '<div class="tribe-event-single-section tribe-events-event-meta tribe-clearfix">%s%s</div>',
