@@ -369,7 +369,13 @@ if( class_exists( 'TribeEvents' ) ) {
 							<div class="tribe-events-event-thumb"><?php echo get_the_post_thumbnail( $post->ID, array( 75,75 ) );?></div>
 						<?php } ?>
 						
-						<p class="entry-summary description"><?php echo has_excerpt($post->ID) ? TribeEvents::truncate( $post->post_excerpt ) : TribeEvents::truncate( $post->post_content, 30 ); ?></p>
+						<p class="entry-summary description">
+						<?php if( has_excerpt( $post->ID ) ) {
+							echo TribeEvents::truncate( $post->post_excerpt, 30 );
+						} else {
+							echo TribeEvents::truncate( $post->post_content, 30 );
+						} ?>
+						</p><!-- .entry-summary -->
 
 					</div><!-- .tribe-events-event-body -->
 					<span class="tribe-events-arrow"></span>

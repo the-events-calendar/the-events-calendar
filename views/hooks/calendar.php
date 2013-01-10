@@ -313,15 +313,19 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 												<div class="tribe-events-event-thumb"><?php echo get_the_post_thumbnail( $post->ID, array( 75,75 ) );?></div>
 											<?php } ?>
 											
-											<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $post->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
+											<p class="entry-summary description">
+											<?php if( has_excerpt( $post->ID ) ) {
+												echo TribeEvents::truncate( $post->post_excerpt, 30 );
+											} else {
+												echo TribeEvents::truncate( $post->post_content, 30 );
+											} ?>
+											</p><!-- .entry-summary -->
 
 										</div><!-- .tribe-events-event-body -->
 										<span class="tribe-events-arrow"></span>
 									</div><!-- .tribe-events-tooltip -->
 								</div><!-- #tribe-events-event-# -->
 								<?php
-
-
 							}
 
 							// $remaining_not_shown = !empty($daily_events->found_posts) && $daily_events->found_posts > 0 ? 
@@ -333,7 +337,6 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 									$event_daily_counts[$date]
 									);
 							}
-								
 
 			    			// echo $date;
 							// tribe_the_display_day( $day, $daily_events );
