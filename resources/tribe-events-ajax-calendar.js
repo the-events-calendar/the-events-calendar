@@ -219,7 +219,15 @@ jQuery( document ).ready( function ( $ ) {
 					if( tribe_storage )
 						tribe_storage.setItem( 'tribe_initial_load', 'false' );
 					if ( response !== '' ) {
+						
+						tribe_ev.data.ajax_response = {
+							'type':'tribe_events_ajax',
+							'view':'month',
+							'timestamp':new Date().getTime()
+						};
+						
 						var $the_content = $( response ).contents();
+						
 						$( '#tribe-events-content.tribe-events-calendar' ).html( $the_content );
 
 						var page_title = $the_content.filter("#tribe-events-header").attr('data-title');
