@@ -56,7 +56,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 			$ret = $complete;
 			if ($show_seconds) {
 				$hourformat = '
-				<div class="tribe-countdown-timer">
+				<div class="tribe-countdown-timer tribe-clearfix">
 					<div class="tribe-countdown-days tribe-countdown-number">DD<br />
 						<span class="tribe-countdown-under">'.__('days', 'tribe-events-calendar-pro').'</span>
 					</div>
