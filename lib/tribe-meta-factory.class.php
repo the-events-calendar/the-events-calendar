@@ -50,7 +50,7 @@ if( !class_exists('Tribe_Meta_Factory') ) {
 				);
 			// before we merge args and defaults lets play nice with the template
 			if( !empty($args['wrap']))
-				$defaults['wrap'] = wp_parse_args($args['wrap'], $defaults['wrap']);
+				$args['wrap'] = wp_parse_args($args['wrap'], $defaults['wrap']);
 			$args = wp_parse_args($args, $defaults);
 
 			// setup default meta ids placeholder for meta_group registration

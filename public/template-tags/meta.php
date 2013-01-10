@@ -183,7 +183,7 @@ if(!function_exists('tribe_set_the_meta_template')){
 				return false;
 
 			if( !empty( $template ) ){
-				$_tribe_meta_factory->{$type}[$meta_id]['wrap'] = $template;
+				$_tribe_meta_factory->{$type}[$meta_id]['wrap'] = wp_parse_args($template, $_tribe_meta_factory->{$type}[$meta_id]['wrap']);
 			}
 		}
 		

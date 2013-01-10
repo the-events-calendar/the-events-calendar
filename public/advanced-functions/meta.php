@@ -132,6 +132,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 
 			// Google map link
 			$gmap_link = tribe_show_google_map_link( get_the_ID() ) ? self::gmap_link() : '' ;
+			$gmap_link = apply_filters( 'tribe_event_meta_venue_address_gmap', $gmap_link );
 
 			$venue_address = empty( $address ) ? '' :  Tribe_Meta_Factory::template(
 				$_tribe_meta_factory->meta[$meta_id]['label'],

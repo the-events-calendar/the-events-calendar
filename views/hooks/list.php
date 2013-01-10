@@ -290,10 +290,15 @@ if( !class_exists('Tribe_Events_List_Template')){
 					<?php echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); ?>
 				</h3>
 				<?php // venue display info
-				tribe_display_meta( 'tribe_event_venue_name' ); ?>
+
+				$venue_name = tribe_get_meta( 'tribe_event_venue_name' );
 				$venue_address = tribe_get_meta('tribe_event_venue_address');
+
+				echo $venue_name;
 				if( !empty($venue_address)){
-					echo ', ' . $venue_address;
+					if( !empty($venue_name))
+						echo ', ';
+					echo $venue_address;
 				}
 
 				?>
