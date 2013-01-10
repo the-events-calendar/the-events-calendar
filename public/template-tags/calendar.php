@@ -145,13 +145,15 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param string $prefix A prefix to add to the ID of the calendar elements.  This allows you to reuse the calendar on the same page.
 	 * @since 2.0
 	 */
-	function tribe_month_year_dropdowns( $prefix = '' )  {
+	function tribe_month_year_dropdowns( $prefix = '', $date = null )  {
 		global $wp_query;
-
-		if ( isset ( $wp_query->query_vars['eventDate'] ) ) { 
-			$date = $wp_query->query_vars['eventDate'];
-		} else {
-			$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
+		
+		if ( !$date ) {
+			if ( isset ( $wp_query->query_vars['eventDate'] ) ) { 
+				$date = $wp_query->query_vars['eventDate'];
+			} else {
+				$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
+			}
 		}
 		$monthOptions = apply_filters('tribe_month_year_dropdowns_monthOptions', TribeEventsViewHelpers::getMonthOptions( $date ));
 		$yearOptions = apply_filters('tribe_month_year_dropdowns_yearOptions', TribeEventsViewHelpers::getYearOptions( $date ));

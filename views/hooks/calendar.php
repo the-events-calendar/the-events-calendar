@@ -105,7 +105,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			// Display Date Navigation
 			$html .= '<li class="tribe-events-nav-date">';
 			ob_start();
-			tribe_month_year_dropdowns( "tribe-events-" );
+			tribe_month_year_dropdowns( "tribe-events-", tribe_get_month_view_date() );
 			$html .= ob_get_clean();
 			$html .= '</li><!-- .tribe-events-nav-date -->';
 			
