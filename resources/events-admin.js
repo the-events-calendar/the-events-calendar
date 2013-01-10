@@ -80,7 +80,7 @@ jQuery(document).ready(function($) {
 	
 	function validRecDays() {
 		if( $('[name="recurrence[custom-interval]"]').val() != parseInt($('[name="recurrence[custom-interval]"]').val()) && 
-			$('[name="recurrence[type]"] option:selected"').val() == "Custom")
+			$('[name="recurrence[type]"] option:selected').val() == "Custom")
 		{
 			return false;
 		}
@@ -99,7 +99,7 @@ jQuery(document).ready(function($) {
 	
 	function validRecEnd() {
 		if($('[name="recurrence[type]"]').val() != "None" && 
-			$('[name="recurrence[end-type]"] option:selected"').val() == "On")
+			$('[name="recurrence[end-type]"] option:selected').val() == "On")
 		{
 			return $('[name="recurrence[end]"]').val() && 
 			!$('[name="recurrence[end]"]').hasClass('placeholder');
