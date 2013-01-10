@@ -143,7 +143,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			$events->daily = array();
 			$events->hours = array( 'start'=>null, 'end'=>null );
 			foreach ( $wp_query->posts as $event ) {
-				if ( $event->tribe_is_allday ) {
+				if ( !empty($event->tribe_is_allday) && $event->tribe_is_allday ) {
 					$events->all_day[] = $event;
 				} else {
 					$start_hour = date( 'G', strtotime( $event->EventStartDate ) );
@@ -329,9 +329,9 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 											if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
 												echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventStartDate ) ); ?>
 									</abbr><!-- .dtstart -->
-									<abbr class="tribe-events-abbr dtend" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $event->EventEndDate ); ?>">
+									<abbr class="tribe-events-abbr dtend" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), strtotime($event->EventEndDate) ); ?>">
 										<?php if ( !empty( $event->EventEndDate ) && $event->EventStartDate !== $event->EventEndDate ) {
-											if ( date_i18n( 'Y-m-d', $event->EventStartDate ) == date_i18n( 'Y-m-d', $event->EventEndDate ) ) {
+											if ( date_i18n( 'Y-m-d', strtotime($event->EventStartDate) ) == date_i18n( 'Y-m-d', strtotime($event->EventEndDate) ) ) {
 												$time_format = get_option( 'time_format', 'g:i a' );
 												if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
 													echo " – " . date_i18n( $time_format, strtotime( $event->EventEndDate ) );
