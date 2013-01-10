@@ -134,14 +134,14 @@ if(!function_exists('tribe_set_the_meta_template')){
 				tribe_set_the_meta_template( $id, $template, $type );
 			}
 		} else {
-			global $tribe_meta_factory;
+			global $_tribe_meta_factory;
 
 			// die silently if the requested meta group is not registered
 			if( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) )
 				return false;
 
 			if( !empty( $template ) ){
-				$tribe_meta_factory->{$type}[$meta_id]['wrap'] = $template;
+				$_tribe_meta_factory->{$type}[$meta_id]['wrap'] = $template;
 			}
 		}
 		
@@ -155,14 +155,14 @@ if(!function_exists('tribe_set_meta_priority')){
 				tribe_set_meta_priority( $id, $priority, $type );
 			}
 		} else {
-			global $tribe_meta_factory;
+			global $_tribe_meta_factory;
 
 			// die silently if the requested meta group is not registered
 			if( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) )
 				return false;
 
 			if( !empty( $priority ) ){
-				$tribe_meta_factory->{$type}[$meta_id]['priority'] = $priority;
+				$_tribe_meta_factory->{$type}[$meta_id]['priority'] = $priority;
 			}
 		}
 	}
@@ -175,13 +175,13 @@ if(!function_exists('tribe_set_meta_value')){
 				tribe_set_meta_priority( $id, $priority, $type );
 			}
 		} else {
-			global $tribe_meta_factory;
+			global $_tribe_meta_factory;
 
 			// die silently if the requested meta group is not registered
 			if( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) )
 				return false;
 
-			$tribe_meta_factory->{$type}[$meta_id][$value_type] = $value;
+			$_tribe_meta_factory->{$type}[$meta_id][$value_type] = $value;
 		}
 	}
 }
@@ -193,13 +193,13 @@ if(!function_exists('tribe_set_meta_label')){
 				tribe_set_meta_label( $id, $label, $type );
 			}
 		} else {
-			global $tribe_meta_factory;
+			global $_tribe_meta_factory;
 
 			// die silently if the requested meta group is not registered
 			if( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) )
 				return false;
 
-			$tribe_meta_factory->{$type}[$meta_id]['label'] = $label;
+			$_tribe_meta_factory->{$type}[$meta_id]['label'] = $label;
 		}
 	}
 }

@@ -70,7 +70,7 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 			tribe_set_the_meta_template( $meta_group_template_keys, $meta_group_templates, 'meta_group');
 
 			// provide for meta actions before loading the template
-			do_action('tribe_events_single_event_meta_init', $meta_templates, $meta_template_keys, $meta_group_templates, $meta_group_template_keys );
+			do_action('tribe_events_single_event_meta_init', $meta_template_keys, $meta_templates, $meta_group_template_keys, $meta_group_templates );
 
 			// Check if event has passed
 			$gmt_offset = ( get_option( 'gmt_offset' ) >= '0' ) ? ' +' . get_option( 'gmt_offset' ) : " " . get_option( 'gmt_offset' );
@@ -191,12 +191,12 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 		public static function the_meta( $post_id ) {
 
 			$event_id = get_the_ID();
-			$skeleton_view = apply_filters( 'tribe_events_single_event_the_meta_skeleton', false, $event_id ) ;
+			$skeleton_mode = apply_filters( 'tribe_events_single_event_the_meta_skeleton', false, $event_id ) ;
 			$group_venue = apply_filters( 'tribe_events_single_event_the_meta_group_venue', false, $event_id );
 
 			$html = '<div class="tribe-events-event-meta tribe-clearfix">';
 
-			if ( $skeleton_view ) {
+			if ( $skeleton_mode ) {
 
 				// show all visible meta_groups in skeleton view
 				$html .= tribe_get_the_event_meta();
@@ -226,13 +226,13 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 					$html .= tribe_get_meta_group( 'tribe_event_organizer' );
 				}
 
-			}
+				$html .= apply_filters( 'tribe_events_single_event_the_meta_addon', '', $event_id );
 
-			$html .= apply_filters( 'tribe_events_single_event_the_meta_addon', '', $event_id );
+			}
 
 			$html .= '</div><!-- .tribe-events-event-meta -->';
 
-			if ( $group_venue ) {
+			if ( ! $skeleton_mode && $group_venue ) {
 				// If there's a venue map and custom fields or organizer, show venue details in this seperate section
 
 				$html .= apply_filters( 'tribe_events_single_event_the_meta_venue_row', sprintf( '<div class="tribe-event-single-section tribe-events-event-meta tribe-clearfix">%s%s</div>',

@@ -40,11 +40,11 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		}
 
 		function event_category( $meta_id ) {
-			global $tribe_meta_factory;
+			global $_tribe_meta_factory;
 			$post_id = get_the_ID();
 
 			// setup classes in the template
-			$template = Tribe_Meta_Factory::embed_classes( $tribe_meta_factory->meta[$meta_id]['wrap'], $tribe_meta_factory->meta[$meta_id]['classes'] );
+			$template = Tribe_Meta_Factory::embed_classes( $_tribe_meta_factory->meta[$meta_id]['wrap'], $_tribe_meta_factory->meta[$meta_id]['classes'] );
 
 			$args = array(
 				'before' => '',
@@ -61,53 +61,53 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		}
 
 		function event_tag( $meta_id ) {
-			global $tribe_meta_factory;
-			return apply_filters( 'tribe_event_meta_event_tag', tribe_meta_event_tags( $tribe_meta_factory->meta[$meta_id]['label'], ', ', false ) );
+			global $_tribe_meta_factory;
+			return apply_filters( 'tribe_event_meta_event_tag', tribe_meta_event_tags( $_tribe_meta_factory->meta[$meta_id]['label'], ', ', false ) );
 		}
 
 		function event_website( $meta_id ){
-			global $tribe_meta_factory;
+			global $_tribe_meta_factory;
 			$link = tribe_get_event_website_link();
 			$website_link = empty( $link ) ? '' :  Tribe_Meta_Factory::template(
-				$tribe_meta_factory->meta[$meta_id]['label'],
+				$_tribe_meta_factory->meta[$meta_id]['label'],
 				$link,
 				$meta_id );
 			return apply_filters( 'tribe_event_meta_event_website', $website_link );
 		}
 		
 		function event_origin( $meta_id ) {
-			global $tribe_meta_factory;
+			global $_tribe_meta_factory;
 			$origin_to_display = apply_filters( 'tribe_events_display_event_origin', '', get_the_ID() );
 			$origin = empty( $link ) ? '' :  Tribe_Meta_Factory::template(
-				$tribe_meta_factory->meta[$meta_id]['label'],
+				$_tribe_meta_factory->meta[$meta_id]['label'],
 				$origin_to_display,
 				$meta_id );
 			return apply_filters( 'tribe_event_meta_event_orgin', $origin );
 		}
 
 		function organizer_name( $meta_id ){
-			global $tribe_meta_factory;
+			global $_tribe_meta_factory;
 			$post_id = get_the_ID();
 			$name = tribe_get_organizer( $post_id );
 			$organizer_name = empty( $name ) ? '' :  Tribe_Meta_Factory::template(
-				$tribe_meta_factory->meta[$meta_id]['label'],
+				$_tribe_meta_factory->meta[$meta_id]['label'],
 				$name,
 				$meta_id );
 			return apply_filters( 'tribe_event_meta_organizer_name', $organizer_name, $meta_id );
 		}
 
 		function organizer_email( $meta_id ){
-			global $tribe_meta_factory;
+			global $_tribe_meta_factory;
 			$email = tribe_get_organizer_email();
 			$organizer_email = empty( $email ) ? '' :  Tribe_Meta_Factory::template(
-				$tribe_meta_factory->meta[$meta_id]['label'],
+				$_tribe_meta_factory->meta[$meta_id]['label'],
 				'<a href="mailto:' . $email . '">' . $email . '</a>',
 				$meta_id );
 			return apply_filters( 'tribe_event_meta_organizer_email', $organizer_email );
 		}
 
 		function venue_name( $meta_id ){
-			global $tribe_meta_factory;
+			global $_tribe_meta_factory;
 			$post_id = get_the_ID();
 			$name = class_exists( 'TribeEventsPro' ) ? // If pro, show venue w/ link
 					tribe_get_venue_link( $post_id, false ) :
@@ -119,14 +119,14 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			}
 
 			$venue_name = empty( $name ) ? '' :  Tribe_Meta_Factory::template(
-				$tribe_meta_factory->meta[$meta_id]['label'],
+				$_tribe_meta_factory->meta[$meta_id]['label'],
 				$name,
 				$meta_id );
 			return apply_filters( 'tribe_event_meta_venue_name', $venue_name );
 		}
 
 		function venue_address( $meta_id ){
-			global $tribe_meta_factory;
+			global $_tribe_meta_factory;
 
 			$address = tribe_address_exists( get_the_ID() ) ? '<address class="event-address">' . tribe_get_full_address( get_the_ID() ) . '</address>' : '';
 
@@ -134,18 +134,18 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			$gmap_link = tribe_show_google_map_link( get_the_ID() ) ? self::gmap_link() : '' ;
 
 			$venue_address = empty( $address ) ? '' :  Tribe_Meta_Factory::template(
-				$tribe_meta_factory->meta[$meta_id]['label'],
+				$_tribe_meta_factory->meta[$meta_id]['label'],
 				$address . $gmap_link,
 				$meta_id );
 			return apply_filters( 'tribe_event_meta_venue_address', $venue_address );
 		}
 
 		function venue_map( $meta_id ){
-			global $tribe_meta_factory;
+			global $_tribe_meta_factory;
 			$post_id = get_the_ID();
 			$map = tribe_get_embedded_map( $post_id );
 			$venue_map = empty( $map ) ? '' :  Tribe_Meta_Factory::template(
-				$tribe_meta_factory->meta[$meta_id]['label'],
+				$_tribe_meta_factory->meta[$meta_id]['label'],
 				$map,
 				$meta_id );
 			return apply_filters( 'tribe_event_meta_venue_map', $venue_map );
@@ -170,7 +170,6 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			'classes' => array(
 				'before'=>array('tribe-events-meta-group'),
 				'label_before'=>array('tribe-event-single-section-title'))
-			// 'wrap' => $tribe_events_default_meta_group_templates
 		) );
 
 	/**
@@ -179,7 +178,6 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_details
 	 */
 	tribe_register_meta( 'tribe_event_date', array(
-			// 'wrap' => $tribe_events_default_meta_templates,
 			'classes' => array( 'meta_before' => array('tribe-events-date')),
 			'group' => 'tribe_event_details',
 			'priority' => 10,
@@ -192,7 +190,6 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_details
 	 */
 	tribe_register_meta( 'tribe_event_cost', array(
-			// 'wrap' => $tribe_events_default_meta_templates,
 			'classes' => array( 'meta_before' => array('tribe-events-event-cost') ),
 			'label' => __( 'Cost:', 'tribe-events-calendar' ),
 			'priority' => 20,
@@ -207,7 +204,6 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_details
 	 */
 	tribe_register_meta( 'tribe_event_category', array(
-			// 'wrap' => $tribe_events_default_meta_templates,
 			'classes' => array( 'meta_before' => array( 'tribe-events-event-categories')),
 			'filter_callback' => array( 'Tribe_Register_Meta', 'event_category' ),
 			'priority' => 30,
@@ -232,7 +228,6 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_details
 	 */
 	tribe_register_meta( 'tribe_event_website', array(
-			// 'wrap' => $tribe_events_default_meta_templates,
 			'classes' => array( 'meta_before' => array('published', 'event-url')),
 			'label' => __( 'Website:', 'tribe-events-calendar' ),
 			'filter_callback' => array('Tribe_Register_Meta', 'event_website'),
@@ -246,7 +241,6 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_details
 	 */
 	tribe_register_meta( 'tribe_event_origin', array(
-			// 'wrap' => $tribe_events_default_meta_templates,
 			'classes' => array('meta_before'=>array('published','event-origin')),
 			'label' => __( 'Origin:', 'tribe-events-calendar' ),
 			'filter_callback' => array( 'Tribe_Register_Meta', 'event_origin' ),
@@ -262,7 +256,6 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			'classes' => array(
 				'before'=>array('tribe-events-meta-group'),
 				'label_before'=>array('tribe-event-single-section-title'))
-			// 'wrap' => $tribe_events_default_meta_group_templates
 		) );
 
 	/**
@@ -271,7 +264,6 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_venue
 	 */
 	tribe_register_meta( 'tribe_event_venue_name', array(
-			// 'wrap' => $tribe_events_default_meta_templates,
 			'classes' => array('meta_before'=> array('vcard','fn','org')),
 			'label' => '',
 			'priority' => 10,
@@ -285,7 +277,6 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_venue
 	 */
 	tribe_register_meta( 'tribe_event_venue_phone', array(
-			// 'wrap' => $tribe_events_default_meta_templates,
 			'classes' => array('meta_before'=>array('vcard','tel')),
 			'label' => __( 'Phone:', 'tribe-events-calendar' ),
 			'priority' => 20,
@@ -299,7 +290,6 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_venue
 	 */
 	tribe_register_meta( 'tribe_event_venue_address', array(
-			// 'wrap' => $tribe_events_default_meta_templates,
 			'classes' => array('meta_before' =>array('location')),
 			'priority' => 30,
 			'label' => __( 'Address:', 'tribe-events-calendar' ),
@@ -313,7 +303,6 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_venue
 	 */
 	tribe_register_meta( 'tribe_event_venue_website', array(
-			// 'wrap' => $tribe_events_default_meta_templates,
 			'classes' => array('meta_before'=>array('vcard','url')),
 			'label' => __( 'Website:', 'tribe-events-calendar' ),
 			'priority' => 40,
@@ -329,7 +318,6 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			'classes' => array(
 				'before'=>array('tribe-events-meta-group'),
 				'label_before'=>array('tribe-event-single-section-title'))
-			// 'wrap' => $tribe_events_default_meta_group_templates
 		) );
 
 	/**
@@ -338,7 +326,6 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_organizer
 	 */
 	tribe_register_meta( 'tribe_event_organizer_name', array(
-			// 'wrap' => $tribe_events_default_meta_templates,
 			'classes'=>array('meta_before'=>array('vcard','author','fn','org')),
 			'label' => '',
 			'priority' => 10,
@@ -352,7 +339,6 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_organizer
 	 */
 	tribe_register_meta( 'tribe_event_organizer_phone', array(
-			// 'wrap' => $tribe_events_default_meta_templates,
 			'classes' => array('meta_before'=> array( 'vcard', 'tel') ),
 			'label' => __( 'Phone:', 'tribe-events-calendar' ),
 			'priority' => 20,
@@ -366,7 +352,6 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_organizer
 	 */
 	tribe_register_meta( 'tribe_event_organizer_email', array(
-			// 'wrap' => $tribe_events_default_meta_templates,
 			'classes'=> array('meta_before'=>array('vcard','email')),
 			'label' => __( 'Email:', 'tribe-events-calendar' ),
 			'priority' => 30,
@@ -380,7 +365,6 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_organizer
 	 */
 	tribe_register_meta( 'tribe_event_organizer_website', array(
-			// 'wrap' => $tribe_events_default_meta_templates,
 			'classes' => array('meta_before'=>array('vcard','url')),
 			'label' => __( 'Website:', 'tribe-events-calendar' ),
 			'priority' => 40,
@@ -394,7 +378,6 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group none specified
 	 */
 	tribe_register_meta( 'tribe_event_title', array(
-			// 'wrap' => $tribe_events_default_meta_templates,
 			'classes'=>array('meta_before'=>array('summary')),
 			'label' => __( 'Event:', 'tribe-events-calendar' ),
 			'callback' => array( 'Tribe_Register_Meta', 'the_title' )
