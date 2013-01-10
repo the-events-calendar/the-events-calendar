@@ -114,9 +114,13 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 		}
 		public static function the_meta( $post_id ) {
 
+			$content = get_the_content();
+			$content = apply_filters('the_content', $content);
+			$content = str_replace(']]>', ']]&gt;', $content);
+
 			$html = sprintf('%s%s',
 				tribe_get_meta_group( 'tribe_event_organizer' ),
-				( get_the_content() != '' ) ? '<div class="organizer-description">' . get_the_content() . '</div>' : ''
+				!empty($content) ? '<div class="venue-description">' . $content . '</div>' : ''
 				);
 
 /*
