@@ -30,11 +30,13 @@ echo apply_filters( 'tribe_events_single_venue_before_template', '', $venue_id )
 	// Start single venue
 	echo apply_filters( 'tribe_events_single_venue_before_venue', '', $venue_id );
 
+		// Venue featured image
 		echo apply_filters( 'tribe_events_single_venue_featured_image', '', $venue_id );
 		
 		// Venue map
 		echo apply_filters( 'tribe_events_single_venue_map', '', $venue_id );
 
+		// Venue title
 		echo apply_filters( 'tribe_events_single_venue_the_title', '', $venue_id );
 	
 		// Venue meta
@@ -44,14 +46,9 @@ echo apply_filters( 'tribe_events_single_venue_before_template', '', $venue_id )
 
 	// End single venue
 	echo apply_filters( 'tribe_events_single_venue_after_venue', '', $venue_id );
-
 	
-	// upcoming event list
+	// Upcoming event list
 	echo apply_filters( 'tribe_events_single_venue_upcoming_events', '', $venue_id );
 	
 // End single venue template
 echo apply_filters( 'tribe_events_single_venue_after_template', '', $venue_id );
-
-
-
-

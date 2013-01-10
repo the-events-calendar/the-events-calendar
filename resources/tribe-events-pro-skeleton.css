@@ -53,7 +53,7 @@
 	font-size: 12px;
 	width: 100%;
 	position: relative;
-	margin: 18px auto 10px;
+	margin: 18px auto;
 }
 
 /* grid header */
@@ -271,11 +271,12 @@
 }
 
 #tribe-events-photo-events {
+	margin: 18px -4% 18px 0;
 	-webkit-transition-property: height, width;
        -moz-transition-property: height, width;
         -ms-transition-property: height, width;
          -o-transition-property: height, width;
-            transition-property: height, width;
+          	transition-property: height, width;
 }
 
 #tribe-events-photo-events .isotope-item {
@@ -284,10 +285,6 @@
         -ms-transition-property:     -ms-transform, opacity;
          -o-transition-property:         top, left, opacity;
           	transition-property:         transform, opacity;
-}
-
-#tribe-events-photo-events {
-	margin-right: -4%;
 }
 
 #tribe-events-photo-events .vevent.tribe-events-photo-event {
@@ -365,15 +362,6 @@
 
 .tribe-events-photo-event  .date-divider {
 	padding: 0 5px;
-}
-
-/* Photo loading */
-#tribe-photo-loading {
-	background: #fff;
-	background: rgba(255, 255, 255, 0.9);
-}
-#tribe-photo-loading span {
-	top: 200px;
 }
 
 /* = Map View Template Styles 
@@ -569,8 +557,8 @@
 /* = View Loading / Pagination Styles 
    @ Template: map.php & photo.php
 =============================================*/
-#tribe-geo-loading,
-#tribe-photo-loading {
+#tribe-geo-loading/*,
+#tribe-photo-loading*/ {
 	display: none;
 	position: absolute;
 	width: 100%;
@@ -586,8 +574,8 @@
 	-ms-transition: all 1s linear;
 	transition: all 1s linear;
 }
-#tribe-geo-loading img,
-#tribe-photo-loading img {
+#tribe-geo-loading img/*,
+#tribe-photo-loading img*/ {
 	position: absolute;
 	left: 50%;
 	top: 50%;
