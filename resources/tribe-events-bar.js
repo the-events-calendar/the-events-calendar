@@ -4,7 +4,7 @@ var tribe_events_bar_action;
 jQuery( document ).ready( function ( $ ) {
 
 	// Check width of events bar
-	$( '#tribe-events-bar' ).resize(function() {
+	function eventsBarWidth() {
 		var tribeBar = $( '#tribe-events-bar' );
 		var tribeBarWidth = tribeBar.width();
 	
@@ -17,7 +17,12 @@ jQuery( document ).ready( function ( $ ) {
 			tribeBar.addClass( 'tribe-bar-mini-parent' );
 		} else {
 			tribeBar.removeClass( 'tribe-bar-mini-parent' );
-		}
+	}
+	
+	eventsBarWidth();
+
+	$( '#tribe-events-bar' ).resize(function() { 
+		eventsBarWidth();
 	});
 
 	// Implement our datepicker
@@ -44,7 +49,6 @@ jQuery( document ).ready( function ( $ ) {
 	function format( view ) {
     	return '<span class="tribe-icon-' + view.text.toLowerCase() + '">' + view.text + '</span>';
    	}
-	
 	$( '#tribe-bar-views .tribe-select2' ).select2({
 		placeholder: "Views",
 		dropdownCssClass: 'tribe-select2-results',
@@ -187,4 +191,4 @@ jQuery( document ).ready( function ( $ ) {
 		e.stopPropagation();
 	} );
 
-} );
+});

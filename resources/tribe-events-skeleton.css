@@ -1033,13 +1033,18 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 #tribe-bar-dates {
 	float: left;
-	width: 182px;
-	margin-left: -294px;
+	width: 185px;
+	margin-left: -297px;
 	margin-top: 3px;
+	text-align: right;
 }
 #tribe-bar-dates input {
 	z-index: 99000 !important;
 	width: 100%;
+	text-align: left;
+}
+#tribe-bar-dates .tribe-events-events-dropdown {
+	text-align: left;
 }
 
 #tribe-bar-dates #s2id_tribe-events-events-month {
@@ -1154,7 +1159,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 /* Views Select When Have Settings */
 .tribe-has-settings #tribe-bar-dates {
-	margin-left: -328px;
+	margin-left: -331px;
 }
 .tribe-has-settings #tribe-bar-views {
 	width: 142px;
@@ -1292,6 +1297,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	position: absolute;
 	margin-left: 0;
 	width: 100%;
+	text-align: center;
 }
 .tribe-bar-mini-parent #tribe-bar-views {
 	margin-top: 35px;
