@@ -55,13 +55,6 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			add_filter( 'tribe_events_single_event_before_the_meta', array( __CLASS__, 'before_the_meta' ), 1, 1 );
 			add_filter( 'tribe_events_single_event_the_meta', array( __CLASS__, 'the_meta' ), 1, 1 );
 			add_filter( 'tribe_events_single_event_after_the_meta', array( __CLASS__, 'after_the_meta' ), 1, 1 );
-
-			// Event pagination
-			/*
-			add_filter( 'tribe_events_single_event_before_pagination', array( __CLASS__, 'before_pagination' ), 1, 1 );
-			add_filter( 'tribe_events_single_event_pagination', array( __CLASS__, 'pagination' ), 1, 1 );
-			add_filter( 'tribe_events_single_event_after_pagination', array( __CLASS__, 'after_pagination' ), 1, 1 );
-			*/
 			
 			// Event footer
 			add_filter( 'tribe_events_single_event_before_footer', array( __CLASS__, 'before_footer' ), 1, 1 );
@@ -257,25 +250,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 				$html .= ob_get_clean();
 			endif; 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_after_the_meta');
-		}	
-		// Event Pagination
-		/*
-		public static function before_pagination( $post_id ) {
-			$html = '<div class="tribe-events-loop-nav">';
-			$html .= '<h3 class="tribe-visuallyhidden">'. __( 'Event navigation', 'tribe-events-calendar' ) .'</h3>';
-			$html .= '<ul class="tribe-clearfix">';
-			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_event_before_pagination' );
 		}
-		public static function pagination( $post_id ) {
-			$html = '<li class="tribe-nav-previous">' . tribe_get_prev_event_link( '&larr; %title%' ) . '</li>';
-			$html .= '<li class="tribe-nav-next">' . tribe_get_next_event_link( '%title% &rarr;' ) . '</li>';
-			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_event_pagination' );
-		}
-		public static function after_pagination( $post_id ) {
-			$html = '</ul></div><!-- .tribe-events-loop-nav -->';
-			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_event_after_pagination' );
-		}	
-		*/
 		// Event Footer
 		public static function before_footer( $post_id ){
 			$html = '<div id="tribe-events-footer">';
