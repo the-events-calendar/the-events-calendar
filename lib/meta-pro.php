@@ -8,18 +8,18 @@ if ( ! class_exists( 'Tribe_Register_Meta_Pro' ) ) {
 	class Tribe_Register_Meta_Pro {
 
 		function organizer_name( $html, $meta_id ){
-			global $tribe_meta_factory;
+			global $_tribe_meta_factory;
 			$post_id = get_the_ID();
 			$name = tribe_get_organizer_link( $post_id, true, false );
 			$html = empty( $name ) ? $html :  Tribe_Meta_Factory::template(
-				$tribe_meta_factory->meta[$meta_id]['label'],
+				$_tribe_meta_factory->meta[$meta_id]['label'],
 				$name,
 				$meta_id );
 			return apply_filters( 'tribe_event_pro_meta_organizer_name', $html, $meta_id );
 		}
 
 		function custom_meta( $meta_id ){
-			global $tribe_meta_factory;
+			global $_tribe_meta_factory;
 			$fields = tribe_get_custom_fields( get_the_ID() );
 			$custom_meta = '';
 		  	foreach ($fields as $label => $value) {
@@ -40,7 +40,6 @@ if ( ! class_exists( 'Tribe_Register_Meta_Pro' ) ) {
 			'classes' => array(
 				'before'=>array('tribe-events-meta-group'),
 				'label_before'=>array('tribe-event-single-section-title'))
-			// 'wrap' => $tribe_events_default_meta_group_templates
 		) );
 
 	/**
@@ -49,7 +48,6 @@ if ( ! class_exists( 'Tribe_Register_Meta_Pro' ) ) {
 	 * @group tribe_event_custom_meta
 	 */
 	tribe_register_meta( 'tribe_event_custom_meta', array(
-			// 'wrap' => $tribe_events_default_meta_templates,
 			'label' => '',
 			'priority' => 10,
 			'filter_callback' => array( 'Tribe_Register_Meta_Pro', 'custom_meta' ),

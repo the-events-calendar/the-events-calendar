@@ -115,6 +115,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_events_single_event_meta_group_template_keys', array( $this, 'single_event_meta_group_template_keys'), 10);
 			add_filter( 'tribe_events_single_event_meta_template_keys', array( $this, 'single_event_meta_template_keys'), 10);
 			add_filter( 'tribe_event_meta_organizer_name', array('Tribe_Register_Meta_Pro','organizer_name'), 10, 2);
+			add_filter( 'tribe_events_single_event_the_meta_group_venue', array( $this, 'single_event_the_meta_group_venue'), 10, 2);
 			// add_action( 'tribe_events_single_event_meta_init', array( $this, 'single_event_meta_init'), 10, 4);
 
 			// see function tribe_convert_units( $value, $unit_from, $unit_to )
@@ -160,6 +161,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		function single_event_meta_group_template_keys( $keys ){
 			$keys[] = 'tribe_event_group_custom_meta';
 			return $keys;
+		}
+
+		function single_event_the_meta_group_venue( $status, $event_id ){
+
+			return $status;
 		}
 
 		// function single_event_meta_init( $meta_templates, $meta_template_keys, $meta_group_templates, $meta_group_template_keys ){
