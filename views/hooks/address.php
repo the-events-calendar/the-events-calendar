@@ -47,9 +47,7 @@ if( !class_exists('Tribe_Events_Address_Template')){
 			}
 			
 			// Get our street address
-			if( tribe_get_address( $postId ) ) {
-				if(count($address_out))
-					$address_out []='<span class="delimiter">,</span> ';
+			if( tribe_get_address( $postId ) ) {					
 				$address_out []= ' <span class="street-address">'. tribe_get_address( $postId ) .'</span>';
 			}
 			
@@ -61,13 +59,13 @@ if( !class_exists('Tribe_Events_Address_Template')){
 			// Get our city
 			if( tribe_get_city( $postId ) ) {
 				$address_out []= ' <span class="locality">'. tribe_get_city( $postId ) .'</span>';
+				$address_out []='<span class="delimiter">,</span> ';
 			}
 			
 			// Get our region
 			if( tribe_get_region( $postId ) ) {
 				if(count($address_out))
-					$address_out []='<span class="delimiter">,</span> ';
-				$address_out []= ' <abbr class="region tribe-events-abbr" title="'. $our_full_region .'">'. tribe_get_region( $postId ) .'</abbr>';
+					$address_out []= ' <abbr class="region tribe-events-abbr" title="'. $our_full_region .'">'. tribe_get_region( $postId ) .'</abbr>';
 			}
 
 			// Get our postal code
@@ -78,7 +76,6 @@ if( !class_exists('Tribe_Events_Address_Template')){
 			// Get our country
 			if( tribe_get_country( $postId ) ) {
 				if(count($address_out))
-					$address_out []='<span class="delimiter">,</span> ';
 				$address_out []= ' <span class="country-name">'. tribe_get_country( $postId ) .'</span>';
 			}
 			
