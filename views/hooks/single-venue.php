@@ -143,7 +143,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 				tribe_get_meta_group( 'tribe_event_venue' ),
 				( get_the_content() != '' ) ? '<div class="venue-description">' . get_the_content() . '</div>' : ''
 				);
-			
+			/*
 			ob_start();
 ?>
 
@@ -169,6 +169,8 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
  			<?php endif ?> 			
 <?php
 			$html .= ob_get_clean();
+
+			*/
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_the_meta' );
 		}
 		public static function after_the_meta( $post_id ) {
