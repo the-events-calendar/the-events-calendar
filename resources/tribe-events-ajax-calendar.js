@@ -74,7 +74,12 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_pre_ajax_tests( function() { 
 			tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );	
 		});
-	} );	
+	} );
+
+
+	$( '#tribe-events-content' ).on( 'click', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a', function ( e ) {
+		$('html, body').animate( {scrollTop:$('#tribe-events-content').offset().top - 120}, {duration: 0});
+	});
 
 	// events bar intercept submit
 	
