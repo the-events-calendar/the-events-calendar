@@ -54,7 +54,7 @@
 				var unique_id = 'tribe-countdown-' + Math.floor( Math.random()*99999 );
 				var seconds = $(value).find( 'span.tribe-countdown-seconds' ).text();
 				var format = $(value).find( 'span.tribe-countdown-format' ).html();
-				var complete = $(value).find( 'h3.tribe-countdown-complete' ).text();
+				var complete = $( 'h3.tribe-countdown-complete' ).show();
  
 				// Wrap the timer in a span with a unique id so we can refer to it
 				// in the timer update code.
