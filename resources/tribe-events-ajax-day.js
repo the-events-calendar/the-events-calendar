@@ -46,7 +46,7 @@ jQuery( document ).ready( function ( $ ) {
 		
 	}	
 
-	$( '#tribe-events-content .tribe-events-sub-nav a' ).live( 'click', function ( e ) {
+	$( '#tribe-events-content' ).on( 'click', '.tribe-nav-previous a, .tribe-nav-next a', function ( e ) {
 		e.preventDefault();			
 		tribe_date = $( this ).attr( "data-day" );
 		tribe_href_target = $( this ).attr( "href" );
@@ -55,6 +55,8 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_events_calendar_ajax_post( tribe_date, tribe_href_target );
 		});
 	} );
+	
+	tribe_ev.fn.snap( '#tribe-events-content', '#tribe-events-content', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );
 
 	// event bar datepicker monitoring 
 	

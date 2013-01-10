@@ -159,16 +159,8 @@ jQuery( document ).ready( function ( $ ) {
 
 	} );
 	
-	$( '#tribe-geo-wrapper' ).on( 'click', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a', function ( e ) {
-		$('html, body').animate( {
-			scrollTop:$('#tribe-geo-wrapper').offset().top - 120
-			}, {
-			duration: 0
-		});
-	});
-
-	
-	
+	tribe_ev.fn.snap( '#tribe-geo-wrapper', '#tribe-geo-wrapper', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );
+		
 	function tribe_generate_map_params() {
 		tribe_params = {
 			action:'geosearch',				

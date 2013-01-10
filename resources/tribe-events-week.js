@@ -210,6 +210,8 @@ jQuery(document).ready(function($){
 		tribe_picker = true;
 		tribe_events_bar_weekajax_actions(e, tribe_picker);
 	} );
+	
+	tribe_ev.fn.snap( '#tribe-events-content', '#tribe-events-content', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );
 
 	// if advanced filters active intercept submit
 
