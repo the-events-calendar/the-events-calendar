@@ -255,7 +255,13 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 									<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75, 75 ) );?></div>
 								<?php } ?>
 
-								<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $event->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
+								<p class="entry-summary description">
+								<?php if( has_excerpt( $event->ID ) ) {
+									echo TribeEvents::truncate( $event->post_excerpt, 30 );
+								} else {
+									echo TribeEvents::truncate( $event->post_content, 30 );
+								} ?>
+								</p><!-- .entry-summary -->
 
 							</div><!-- .tribe-events-event-body -->
 							<span class="tribe-events-arrow"></span>
@@ -349,14 +355,19 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 									<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75, 75 ) );?></div>
 								<?php } ?>
 
-								<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $event->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
+								<p class="entry-summary description">
+								<?php if( has_excerpt( $event->ID ) ) {
+									echo TribeEvents::truncate( $event->post_excerpt, 30 );
+								} else {
+									echo TribeEvents::truncate( $event->post_content, 30 );
+								} ?>
+								</p><!-- .entry-summary -->
 
 							</div><!-- .tribe-events-event-body -->
 							<span class="tribe-events-arrow"></span>
 							<div style="display:none"><?php print_r( $event ); ?></div>
 						</div><!-- .tribe-events-tooltip -->
 						<?php
-
 
 						echo '</div><!-- #tribe-events-event-'. $event->ID .' -->';
 					}
