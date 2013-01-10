@@ -285,9 +285,7 @@ h2.tribe-events-page-title a:focus {
 }
 
 /* General Template Header/Footer Nav */
-#tribe-events-header {
-	margin-bottom: 18px;
-}
+#tribe-events-header,
 #tribe-events-footer {
 	margin-bottom: 18px;
 }

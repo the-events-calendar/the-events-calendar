@@ -328,7 +328,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 							// 	$daily_events->found_posts - $posts_per_page_limit : 
 							// 	0;
 							if( !empty($event_daily_counts[$date]) && (int) $event_daily_counts[$date] > $posts_per_page_limit ) {
-								printf( '<div class="viewmore vevent"><a href="%s">View %d More Events &raquo;</a></div>',
+								printf( '<div class="viewmore vevent"><a href="%s">View All %d &raquo;</a></div>',
 									tribe_get_day_link( $date ),
 									$event_daily_counts[$date]
 									);

@@ -263,7 +263,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			if ( !is_array( $args ) ) {
 				$args = array();
 				$passed = func_get_args();
-				$backwards_map = array( 'subfolder', 'namespace', 'pluginpath' );
+				$backwards_map = array( 'subfolder', 'namespace', 'plugin_path' );
 				if ( count( $passed > 1 ) ) {
 					for ( $i = 1 ; $i < count($passed) ; $i++ ) {
 						$args[$backwards_map[$i-1]] = $passed[$i];
