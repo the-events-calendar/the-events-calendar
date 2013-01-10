@@ -22,11 +22,11 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			add_filter( 'tribe_events_list_show_separators', '__return_false' );
 
 			// Override list methods
-			add_filter( 'tribe_events_list_inside_before_loop', array( __CLASS__, 'inside_before_loop'), 20, 1);
-			add_filter( 'tribe_events_list_inside_after_loop', array( __CLASS__, 'inside_after_loop' ), 20, 1 );
 			add_filter( 'tribe_events_list_before_header', array( __CLASS__, 'before_header' ), 1, 1 );
 			add_filter( 'tribe_events_list_before_header_nav', array( __CLASS__, 'before_header_nav' ), 1, 1 );
 			add_filter( 'tribe_events_list_header_nav', array( __CLASS__, 'header_navigation' ), 1, 1 );
+			add_filter( 'tribe_events_list_inside_before_loop', array( __CLASS__, 'inside_before_loop'), 20, 1);
+			add_filter( 'tribe_events_list_inside_after_loop', array( __CLASS__, 'inside_after_loop' ), 20, 1 );
 			add_filter( 'tribe_events_list_before_footer', array( __CLASS__, 'before_footer' ), 1, 1 );
 			add_filter( 'tribe_events_list_before_footer_nav', array( __CLASS__, 'before_footer_nav' ), 1, 1 );
 			add_filter( 'tribe_events_list_footer_nav', array( __CLASS__, 'footer_navigation' ), 20, 1 );
@@ -46,8 +46,8 @@ if( !class_exists('Tribe_Events_Day_Template')){
 		public static function header_navigation( $html ){
 			$tribe_ecp = TribeEvents::instance();
 			global $wp_query;
+			
 			$current_day = $wp_query->get('start_date');
-
 			$yesterday = Date('Y-m-d', strtotime($current_day . " -1 day") );
 			$tomorrow = Date('Y-m-d', strtotime($current_day . " +1 day") );
 			
@@ -108,8 +108,8 @@ if( !class_exists('Tribe_Events_Day_Template')){
 		public static function footer_navigation( $html ){
 			$tribe_ecp = TribeEvents::instance();
 			global $wp_query;
+			
 			$current_day = $wp_query->get('start_date');
-
 			$yesterday = Date('Y-m-d', strtotime($current_day . " -1 day") );
 			$tomorrow = Date('Y-m-d', strtotime($current_day . " +1 day") );
 			
