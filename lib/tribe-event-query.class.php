@@ -124,9 +124,13 @@ if (!class_exists('TribeEventsQuery')) {
 							$query->set( 'start_date', $start_date );
 							$query->set( 'eventDate', $start_date );
 							$query->set( 'end_date', date( 'Y-m-d', strtotime( TribeEvents::instance()->nextMonth($start_date) ) -(24*3600) ));
-							$query->set( 'orderby', 'event_date' );
-							$query->set( 'order', 'ASC' );
-							$query->set('posts_per_page', -1); // show ALL month posts
+							if ( $query->is_main_query() ) {
+								$query->set('posts_per_page', 1); // we're going to do this day-by-day later, so limit or order necessary for this
+							} else {
+								$query->set( 'orderby', 'event_date' );
+								$query->set( 'order', 'ASC' );
+								$query->set('posts_per_page', -1); // get all events for the month
+							}
 							self::$start_date = $query->get( 'start_date' );
 	               			self::$end_date = $query->get( 'end_date' );
 	                  		break;
