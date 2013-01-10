@@ -882,6 +882,7 @@ select.tribe-events-dropdown {
 =============================================*/
 #tribe-events-bar {
 	width: auto;
+	min-width: 220px;
 	background-color: #eee;
 	border: 1px solid #bbb;
 	padding: 4px;
