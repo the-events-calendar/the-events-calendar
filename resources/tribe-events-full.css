@@ -895,7 +895,10 @@ h3.tribe-event-single-section-title {
 }
 .tribe-events-tooltip .tribe-events-event-thumb {
 	float: left;
-	padding: 5px;
+	padding: 5px 5px 5px 0;
+}
+.tribe-events-tooltip .tribe-events-event-thumb img {
+	box-shadow: none;
 }
 .tribe-events-tooltip p.entry-summary {
 	padding: 0;
