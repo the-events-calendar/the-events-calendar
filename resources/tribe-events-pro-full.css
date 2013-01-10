@@ -569,6 +569,7 @@
 
 .tribe-events-organizer address.organizer-address span {
 	line-height: 1;
+	white-space: pre;
 }
 
 .tribe-events-organizer .organizer-description {
@@ -582,6 +583,7 @@
 
 .tribe-events-organizer .tribe-divider {
 	color: #999;
+	margin: 0 10px;
 }
 
 /* = Related Events
