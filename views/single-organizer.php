@@ -30,12 +30,13 @@ echo apply_filters( 'tribe_events_single_organizer_before_template', '', $organi
 	// Start single organizer
 	echo apply_filters( 'tribe_events_single_organizer_before_organizer', '', $organizer_id );
 	
-		// organizer featured image
+		// Organizer featured image
 		echo apply_filters( 'tribe_events_single_organizer_featured_image', '', $organizer_id );
 
+		// Organizer title
 		echo apply_filters( 'tribe_events_single_organizer_the_title', '', $organizer_id );
 		
-		// organizer meta
+		// Organizer meta
 		echo apply_filters( 'tribe_events_single_organizer_before_the_meta', '', $organizer_id );
 		echo apply_filters( 'tribe_events_single_organizer_the_meta', '', $organizer_id );
 		echo apply_filters( 'tribe_events_single_organizer_after_the_meta', '', $organizer_id );
@@ -43,12 +44,8 @@ echo apply_filters( 'tribe_events_single_organizer_before_template', '', $organi
 	// End single organizer
 	echo apply_filters( 'tribe_events_single_organizer_after_organizer', '', $organizer_id );
 	
-	// upcoming event list
+	// Upcoming event list
 	echo apply_filters( 'tribe_events_single_organizer_upcoming_events', '', $organizer_id );
 	
 // End single organizer template
 echo apply_filters( 'tribe_events_single_organizer_after_template', '', $organizer_id );
-
-
-
-

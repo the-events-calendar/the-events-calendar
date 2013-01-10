@@ -114,7 +114,7 @@ jQuery( document ).ready( function ( $ ) {
 
 		tribe_push_counter = 0;
 
-		$( '#ajax-loading' ).show();	
+		$( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').show();	
 
 		if( !tribe_popping ) {
 
@@ -169,7 +169,7 @@ jQuery( document ).ready( function ( $ ) {
 				TribeCalendar.ajaxurl,
 				tribe_params,
 				function ( response ) {
-					$( "#ajax-loading" ).hide();
+					$( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').hide();
 					if( tribe_storage )
 						tribe_storage.setItem( 'tribe_initial_load', 'false' );
 					if ( response !== '' ) {

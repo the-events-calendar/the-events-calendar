@@ -257,11 +257,9 @@ jQuery(document).ready(function($){
 
 	function tribe_events_week_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string, tribe_popping, tribe_params ) {
 
-		$( '#ajax-loading' ).show();
+		$( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').show();
 		
 		if( !tribe_popping ) {
-			
-			
 
 			tribe_params = {
 				action:'tribe_week',
@@ -315,7 +313,7 @@ jQuery(document).ready(function($){
 				TribeWeek.ajaxurl,
 				tribe_params,
 				function ( response ) {
-					$( "#ajax-loading" ).hide();
+					$( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').hide();
 					if( tribe_storage )
 							tribe_storage.setItem( 'tribe_initial_load', 'false' );
 					if ( response !== '' ) {

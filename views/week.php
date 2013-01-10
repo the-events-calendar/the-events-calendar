@@ -21,13 +21,39 @@
 
 if ( !defined('ABSPATH') ) { die('-1'); }
 
+// Start week template
 echo apply_filters( 'tribe_events_week_before_template', '');
 
+	// Week title
 	echo apply_filters( 'tribe_events_week_the_title', '');
 
-    // weekly header (navigation)
+    // Week navigation
+    /*
 	echo apply_filters( 'tribe_events_week_the_header', '');
+	*/
+	
+	// Week header
+    echo apply_filters( 'tribe_events_week_before_header', '');
 
+    	// Navigation
+    	echo apply_filters( 'tribe_events_week_before_header_nav', '');
+		echo apply_filters( 'tribe_events_week_header_nav', '');
+		echo apply_filters( 'tribe_events_week_after_header_nav', '');
+
+	echo apply_filters( 'tribe_events_week_after_header', '');
+
+	// Week grid
 	echo apply_filters( 'tribe_events_week_the_grid', '');
+	
+	// Week footer
+    echo apply_filters( 'tribe_events_week_before_footer', '');
 
+    	// Navigation
+    	echo apply_filters( 'tribe_events_week_before_footer_nav', '');
+		echo apply_filters( 'tribe_events_week_footer_nav', '');
+		echo apply_filters( 'tribe_events_week_after_footer_nav', '');
+
+	echo apply_filters( 'tribe_events_week_after_footer', '');
+
+// End week template
 echo apply_filters( 'tribe_events_week_after_template', '');
