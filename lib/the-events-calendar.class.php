@@ -3437,7 +3437,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			return self::array_insert_by_key( $key, $source_array, $insert_array );
 		}
 		public static function array_insert_before_key( $key, $source_array, $insert_array ) { 
-			return self::array_insert_by_key( $key, $source_array, $insert_array, -1 );
+			return self::array_insert_by_key( $key, $source_array, $insert_array, 0 );
 		} 
 		public static function array_insert_by_key( $key, $source_array, $insert_array, $direction = 1 ){
 			$position = array_search( $key, array_keys( $source_array ) ) + $direction;
