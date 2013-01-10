@@ -126,6 +126,7 @@ if (!class_exists('TribeEventsQuery')) {
 							$query->set( 'end_date', date( 'Y-m-d', strtotime( TribeEvents::instance()->nextMonth($start_date) ) -(24*3600) ));
 							if ( $query->is_main_query() ) {
 								$query->set('posts_per_page', 1); // we're going to do this day-by-day later, so limit or order necessary for this
+								$query->set('no_found_rows', TRUE );
 							} else {
 								$query->set( 'orderby', 'event_date' );
 								$query->set( 'order', 'ASC' );
