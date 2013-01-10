@@ -52,7 +52,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			$tomorrow = Date('Y-m-d', strtotime($current_day . " +1 day") );
 			
 			// Display Previous Page Navigation
-			$html .= '<li class="tribe-nav-previous"><a href="'. tribe_get_day_permalink( $yesterday ) .'" data-day="'. $yesterday .'" rel="prev">&larr; '. __( 'Prev Day', 'tribe-events-calendar-pro' ) .'</a></li>';
+			$html .= '<li class="tribe-nav-previous"><a href="'. tribe_get_day_permalink( $yesterday ) .'" data-day="'. $yesterday .'" rel="prev">&larr; '. __( 'Previous Day', 'tribe-events-calendar-pro' ) .'</a></li>';
 			
 			// Display Next Page Navigation
 			$html .= '<li class="tribe-nav-next"><a href="'. tribe_get_day_permalink( $tomorrow ) .'" data-day="'. $tomorrow .'" rel="next">'. __( 'Next Day', 'tribe-events-calendar-pro' ) .' &rarr;</a>';
@@ -97,10 +97,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			return apply_filters('tribe_template_factory_debug', $pass_through . $html, 'tribe_events_day_inside_after_loop');
 		}
 		// Day Footer
-		public static function before_footer( $html ){
-			global $wp_query;
-			$current_day = $wp_query->get('start_date');
-			
+		public static function before_footer( $html ){			
 			$html = '<div id="tribe-events-footer">';
 		}
 		// Day Navigation
@@ -111,6 +108,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 		public static function footer_navigation( $html ){
 			$tribe_ecp = TribeEvents::instance();
 			global $wp_query;
+			$current_day = $wp_query->get('start_date');
 
 			$yesterday = Date('Y-m-d', strtotime($current_day . " -1 day") );
 			$tomorrow = Date('Y-m-d', strtotime($current_day . " +1 day") );
@@ -120,8 +118,6 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			
 			// Display Next Page Navigation
 			$html .= '<li class="tribe-nav-next"><a href="'. tribe_get_day_permalink( $tomorrow ) .'" data-day="'. $tomorrow .'" rel="next">'. __( 'Next Day', 'tribe-events-calendar-pro' ) .' &rarr;</a>';
-			// Loading spinner
-			$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
 			$html .= '</li><!-- .tribe-nav-next -->';
 			
 			return $html;
