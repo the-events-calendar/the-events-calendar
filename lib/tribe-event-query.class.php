@@ -225,7 +225,7 @@ if (!class_exists('TribeEventsQuery')) {
 
 			// if is in the admin remove the event date & upcoming filters, unless is an ajax call
 			global $current_screen;
-			if ( is_admin() && $query->tribe_is_event_query && $current_screen->id == 'edit-' . TribeEvents::POSTTYPE ) {
+			if ( is_admin() && $query->tribe_is_event_query && !empty($current_screen->id) && $current_screen->id == 'edit-' . TribeEvents::POSTTYPE ) {
 				if ( ( !defined( 'DOING_AJAX' ) ) || ( defined( 'DOING_AJAX' ) && !( DOING_AJAX ) ) ) {
 
 					remove_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 10, 2 );
