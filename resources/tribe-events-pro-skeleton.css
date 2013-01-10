@@ -806,7 +806,7 @@ h3.tribe-events-related-events-title {
 =============================================*/
 .tribe-countdown-timer span.tribe-countdown-seconds,
 .tribe-countdown-timer span.format, 
-.tribe-countdown-timer span.tribe-countdown-complete {
+.tribe-countdown-timer h3.tribe-countdown-complete {
 	display: none;
 }
 div.tribe-countdown-timer {
@@ -836,4 +836,5 @@ div.tribe-countdown-right {
 }
 div.tribe-countdown-text {
 	clear: both;
+	margin: 0 0 10px 0;
 }
