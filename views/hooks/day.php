@@ -53,6 +53,8 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			$yesterday = Date('Y-m-d', strtotime($current_day . " -1 day") );
 			$tomorrow = Date('Y-m-d', strtotime($current_day . " +1 day") );
 			
+			$html = '';
+			
 			// Display Previous Page Navigation
 			$html .= '<li class="tribe-nav-previous"><a href="'. tribe_get_day_permalink( $yesterday ) .'" data-day="'. $yesterday .'" rel="prev">&larr; '. __( 'Previous Day', 'tribe-events-calendar-pro' ) .'</a></li>';
 			
@@ -116,6 +118,8 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			$current_day = $wp_query->get('start_date');
 			$yesterday = Date('Y-m-d', strtotime($current_day . " -1 day") );
 			$tomorrow = Date('Y-m-d', strtotime($current_day . " +1 day") );
+			
+			$html = '';
 			
 			// Display Previous Page Navigation
 			$html .= '<li class="tribe-nav-previous"><a href="'. tribe_get_day_permalink( $yesterday ) .'" data-day="'. $yesterday .'" rel="prev">&larr; '. __( 'Previous Day', 'tribe-events-calendar-pro' ) .'</a></li>';
