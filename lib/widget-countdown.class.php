@@ -112,7 +112,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 			<div class="tribe-countdown-timer">
 				<span class="tribe-countdown-seconds">'.$seconds.'</span>
 				<span class="tribe-countdown-format">'.$hourformat.'</span>
-				<h3 class="tribe-countdown-complete">'.$complete.'</h3>
+				'.$complete.'
 			</div>';
 		}
  
