@@ -22,19 +22,17 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @todo support $postId for recurring events.
 	 * @since 2.0
 	 */
-	function tribe_get_start_date( $postId = null, $displayTime = true, $dateFormat = '' )  {
-		$postId = TribeEvents::postIdHelper( $postId );
-		if (!$postId || ( function_exists('tribe_is_recurring_event') && tribe_is_recurring_event( $postId ) ) ) {
-			global $post;
-		} else {
-			$post = get_post($postId);
-		}
+	function tribe_get_start_date( $post = null, $displayTime = true, $dateFormat = '' )  {
+		if ( is_null( $post ) )
+			$post = get_the_ID();
+		if ( is_numeric( $post ) )
+			$post = get_post( $post );
 
-		if( tribe_get_all_day( $postId ) )
+		if( tribe_get_all_day( $post ) )
 			 $displayTime = false;
 
 		if( empty($post->EventStartDate) && is_object( $post ) )
-			$post->EventStartDate = tribe_get_event_meta( $postId, '_EventStartDate', true );
+			$post->EventStartDate = tribe_get_event_meta( $post, '_EventStartDate', true );
 
 		if( isset($post->EventStartDate) ){
 			$date = strtotime( $post->EventStartDate );
@@ -57,19 +55,17 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @todo support $postId for recurring events.
 	 * @since 2.0
 	 */
-	function tribe_get_end_date( $postId = null, $displayTime = true, $dateFormat = '' )  {
-		$postId = TribeEvents::postIdHelper( $postId );
-		if (!$postId || ( function_exists('tribe_is_recurring_event') && tribe_is_recurring_event( $postId ) ) ) {
-			global $post;
-		} else {
-			$post = get_post($postId);
-		}
+	function tribe_get_end_date( $post = null, $displayTime = true, $dateFormat = '' )  {
+		if ( is_null( $post ) )
+			$post = get_the_ID();
+		if ( is_numeric( $post ) )
+			$post = get_post( $post );
 	
-		if( tribe_get_all_day( $postId ) )
+		if( tribe_get_all_day( $post ) )
 			 $displayTime = false;
 
 		if( empty($post->EventEndDate) )
-			$post->EventEndDate = tribe_get_event_meta( $postId, '_EventEndDate', true );
+			$post->EventEndDate = tribe_get_event_meta( $post, '_EventEndDate', true );
 
 		if( isset($post->EventEndDate) ){
 			$date = strtotime( $post->EventEndDate );

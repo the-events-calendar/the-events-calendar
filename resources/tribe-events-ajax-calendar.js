@@ -155,7 +155,7 @@ jQuery( document ).ready( function ( $ ) {
 
 	function tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string, tribe_popping, tribe_params ) {
 
-		$( '#ajax-loading' ).show();
+		$( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').show();
 		
 		if( !tribe_popping ) {		
 
@@ -215,11 +215,19 @@ jQuery( document ).ready( function ( $ ) {
 				TribeCalendar.ajaxurl,
 				tribe_params,
 				function ( response ) {
-					$( "#ajax-loading" ).hide();
+					$( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').hide();
 					if( tribe_storage )
 						tribe_storage.setItem( 'tribe_initial_load', 'false' );
 					if ( response !== '' ) {
+						
+						tribe_ev.data.ajax_response = {
+							'type':'tribe_events_ajax',
+							'view':'month',
+							'timestamp':new Date().getTime()
+						};
+						
 						var $the_content = $( response ).contents();
+						
 						$( '#tribe-events-content.tribe-events-calendar' ).html( $the_content );
 
 						var page_title = $the_content.filter("#tribe-events-header").attr('data-title');

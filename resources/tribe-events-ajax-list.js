@@ -1,19 +1,16 @@
-var tribe_list_paged = 1;
-
-jQuery( document ).ready( function ( $ ) {	
+jQuery( document ).ready( function ( $ ) {
 	
 	var tribe_is_paged = tribe_get_url_param('tribe_paged');		
 	
 	if( tribe_is_paged ) {
-		tribe_list_paged = tribe_is_paged;
+		tribe_ev.state.paged = tribe_is_paged;
 	} 
 
 	if( typeof GeoLoc === 'undefined' ) 
 		var GeoLoc = {"map_view":""};	
 
-	if( tribe_has_pushstate && !GeoLoc.map_view ) {
+	if( tribe_ev.tests.pushstate && !GeoLoc.map_view ) {		
 		
-		var initial_url = location.href;
 		var current_params = {};
 		
 		if( tribe_storage ) {
@@ -47,26 +44,26 @@ jQuery( document ).ready( function ( $ ) {
 //				});
 				
 			} else if( tribe_storage && initial_load !== 'true' ) {
-				window.location = initial_url;
+				window.location = tribe_global.tribe_cur_url;
 			}
 		} );
 		
 	}
 
-
 		// events bar intercept submit
 
-		$( '#tribe-events-list-view' ).on( 'click', 'a#tribe_paged_next', function ( e ) {
+		$( '#tribe-events-list-view' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
 			e.preventDefault();
-			tribe_list_paged++;	
+			tribe_ev.state.paged++;
+			alert(tribe_ev.state.paged);
 			tribe_pre_ajax_tests( function() { 
 				tribe_events_list_ajax_post( tribe_cur_url );
 			});
 		} );
 
-		$( '#tribe-events-list-view' ).on( 'click', 'a#tribe_paged_prev', function ( e ) {
+		$( '#tribe-events-list-view' ).on( 'click', 'li.tribe-nav-previous a', function ( e ) {
 			e.preventDefault();
-			tribe_list_paged--;
+			tribe_ev.state.paged--;
 			tribe_pre_ajax_tests( function() {
 				tribe_events_list_ajax_post( tribe_cur_url );
 			});
@@ -78,7 +75,7 @@ jQuery( document ).ready( function ( $ ) {
 			$( 'form#tribe_events_filters_form' ).bind( 'submit', function ( e ) {
 				if ( tribe_events_bar_action != 'change_view' ) {
 					e.preventDefault();	
-					tribe_list_paged = 1;
+					tribe_ev.state.paged = 1;
 					tribe_pre_ajax_tests( function() {
 						tribe_events_list_ajax_post( tribe_cur_url );
 					});
@@ -91,7 +88,7 @@ jQuery( document ).ready( function ( $ ) {
 		function tribe_events_bar_listajax_actions(e) {
 			if ( tribe_events_bar_action != 'change_view' ) {
 				e.preventDefault();
-				tribe_list_paged = 1;
+				tribe_ev.state.paged = 1;
 				tribe_pre_ajax_tests( function() {
 					tribe_events_list_ajax_post( tribe_cur_url );
 				});
@@ -114,12 +111,9 @@ jQuery( document ).ready( function ( $ ) {
 				.hide();
 		} );
 
-
 		function tribe_events_list_ajax_post( tribe_href_target, tribe_pushstate, tribe_do_string, tribe_popping, tribe_params, tribe_url_params ) {
 
-			$( '#ajax-loading' ).show();
-			
-			
+			$( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').show();
 			
 			if( !tribe_popping ) {
 				
@@ -127,12 +121,12 @@ jQuery( document ).ready( function ( $ ) {
 
 				tribe_params = {
 					action     :'tribe_list',
-					tribe_paged:tribe_list_paged					
+					tribe_paged:tribe_ev.state.paged					
 				};
 				
 				tribe_url_params = {
 					action     :'tribe_list',
-					tribe_paged:tribe_list_paged					
+					tribe_paged:tribe_ev.state.paged					
 				};							
 				
 				if( tribe_hash_string.length ) {
@@ -177,13 +171,13 @@ jQuery( document ).ready( function ( $ ) {
 							
 			}
 			
-			if( tribe_has_pushstate ) {
+			if( tribe_ev.tests.pushstate ) {
 
 				$.post(
 					TribeList.ajaxurl,
 					tribe_params,
 					function ( response ) {
-						$( "#ajax-loading" ).hide();
+						$( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').hide();
 						
 						if( tribe_storage ) {
 							tribe_storage.setItem( 'tribe_initial_load', 'false' );
@@ -192,21 +186,29 @@ jQuery( document ).ready( function ( $ ) {
 						
 						if ( response.success ) {
 							
-							tribe_list_paged = response.tribe_paged;
+							tribe_ev.state.paged = response.tribe_paged;							
+							
+							tribe_ev.data.ajax_response = {
+								'type':'tribe_events_ajax',
+								'post_count':parseInt(response.total_count),
+								'view':'list',
+								'max_pages':response.max_pages,
+								'page':response.tribe_paged,
+								'timestamp':new Date().getTime()
+							};							
 
 							$( '#tribe-events-list-hash' ).val( response.hash );
-
 							$( '#tribe-events-list-view' ).html( response.html );
 
-							if ( response.max_pages > tribe_list_paged ) {
-								$( 'a#tribe_paged_next' ).show();
+							if ( response.max_pages > tribe_ev.state.paged ) {
+								$( 'li.tribe-nav-next a' ).show();
 							} else {
-								$( 'a#tribe_paged_next' ).hide();
+								$( 'li.tribe-nav-next a' ).hide();
 							}
-							if ( tribe_list_paged > 1 ) {
-								$( 'a#tribe_paged_prev' ).show();
+							if ( tribe_ev.state.paged > 1 ) {
+								$( 'li.tribe-nav-previous a' ).show();
 							} else {
-								$( 'a#tribe_paged_prev' ).hide();
+								$( 'li.tribe-nav-previous a' ).hide();
 							}
 							
 							if( tribe_do_string ) {
