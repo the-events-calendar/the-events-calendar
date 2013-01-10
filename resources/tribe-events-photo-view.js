@@ -66,13 +66,15 @@ jQuery( document ).ready( function ( $ ) {
 			
 			if( tribe_storage )
 				initial_load = tribe_storage.getItem( 'tribe_initial_load' );	
+			
+			var state = event.originalEvent.state;
 
-			if( event.state ) {				
+			if( state ) {				
 				tribe_do_string = false;
 				tribe_pushstate = false;	
 				tribe_popping = true;
-				tribe_params = event.state.tribe_params;
-				tribe_url_params = event.state.tribe_url_params;
+				tribe_params = state.tribe_params;
+				tribe_url_params = state.tribe_url_params;
 				tribe_pre_ajax_tests( function() {
 					tribe_events_list_ajax_post( '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params, tribe_url_params );	
 				});
@@ -85,13 +87,13 @@ jQuery( document ).ready( function ( $ ) {
 
 		// events bar intercept submit
 
-		$( 'body' ).on( 'click', 'a#tribe_paged_next', function ( e ) {
+		$( 'body' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
 			e.preventDefault();
 			tribe_list_paged++;	
 			tribe_pre_ajax_tests( function() { 
 				tribe_events_list_ajax_post( tribe_cur_url );
 			});
-		} ).on( 'click', 'a#tribe_paged_prev', function ( e ) {
+		} ).on( 'click', 'li.tribe-nav-previous a', function ( e ) {
 			e.preventDefault();
 			tribe_list_paged--;
 			tribe_pre_ajax_tests( function() {
@@ -146,7 +148,7 @@ jQuery( document ).ready( function ( $ ) {
 
 		function tribe_events_list_ajax_post( tribe_href_target, tribe_pushstate, tribe_do_string, tribe_popping, tribe_params, tribe_url_params ) {
 
-			$('#tribe-photo-loading').show();			
+			$( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').show();
 			
 			if( !tribe_popping ) {			
 				
@@ -210,7 +212,7 @@ jQuery( document ).ready( function ( $ ) {
 					TribePhoto.ajaxurl,
 					tribe_params,
 					function ( response ) {
-						$( "#ajax-loading" ).hide();
+						$( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').hide();
 						if( tribe_storage )
 							tribe_storage.setItem( 'tribe_initial_load', 'false' );
 						if ( response.success ) {
@@ -223,14 +225,14 @@ jQuery( document ).ready( function ( $ ) {
 							$( '#tribe-events-content' ).prev('#tribe-events-list-hash').remove();																		
 
 							if ( response.max_pages > tribe_list_paged ) {
-								$( 'a#tribe_paged_next' ).show();
+								$( 'li.tribe-nav-next a' ).show();
 							} else {
-								$( 'a#tribe_paged_next' ).hide();
+								$( 'li.tribe-nav-next a' ).hide();
 							}
 							if ( tribe_list_paged > 1 ) {
-								$( 'a#tribe_paged_prev' ).show();
+								$( 'li.tribe-nav-previous a' ).show();
 							} else {
-								$( 'a#tribe_paged_prev' ).hide();
+								$( 'li.tribe-nav-previous a' ).hide();
 							}
 							
 							if( tribe_do_string ) {

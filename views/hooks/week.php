@@ -20,30 +20,52 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			// enqueue needed styles
 			Tribe_PRO_Template_Factory::asset_package( 'ajax-weekview' );
 
-			// Start list template
+			// Start week template
 			add_filter( 'tribe_events_week_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 
 			add_filter( 'tribe_events_week_the_title', array( __CLASS__, 'the_title' ), 1, 1 );
 
-			// List pagination
+			// Week pagination
+			/*
 			add_filter( 'tribe_events_week_before_pagination', array( __CLASS__, 'before_pagination' ), 1, 1 );
 			add_filter( 'tribe_events_week_the_header', array( __CLASS__, 'the_header' ), 1, 1 );
 			add_filter( 'tribe_events_week_after_pagination', array( __CLASS__, 'after_pagination' ), 1, 1 );
+			*/
+			
+			// Week header
+			add_filter( 'tribe_events_week_before_header', array( __CLASS__, 'before_header' ), 1, 1 );
+			
+			// Navigation
+			add_filter( 'tribe_events_week_before_header_nav', array( __CLASS__, 'before_header_nav' ), 1, 1 );
+			add_filter( 'tribe_events_week_header_nav', array( __CLASS__, 'header_navigation' ), 1, 1 );
+			add_filter( 'tribe_events_week_after_header_nav', array( __CLASS__, 'after_header_nav' ), 1, 1 );
+			
+			add_filter( 'tribe_events_week_after_header', array( __CLASS__, 'after_header' ), 1, 1 );
 
-			// Start list loop
+			// Start week loop
 			add_filter( 'tribe_events_week_before_loop', array( __CLASS__, 'before_loop' ), 1, 1 );
 			add_filter( 'tribe_events_week_inside_before_loop', array( __CLASS__, 'inside_before_loop' ), 1, 1 );
 
 			add_filter( 'tribe_events_week_the_grid', array( __CLASS__, 'the_grid' ), 1, 1 );
 
-			// End list loop
+			// End week loop
 			add_filter( 'tribe_events_week_inside_after_loop', array( __CLASS__, 'inside_after_loop' ), 1, 1 );
 			add_filter( 'tribe_events_week_after_loop', array( __CLASS__, 'after_loop' ), 1, 1 );
+			
+			// Week footer
+			add_filter( 'tribe_events_week_before_footer', array( __CLASS__, 'before_footer' ), 1, 1 );
+			
+			// Navigation
+			add_filter( 'tribe_events_week_before_footer_nav', array( __CLASS__, 'before_footer_nav' ), 1, 1 );
+			add_filter( 'tribe_events_week_footer_nav', array( __CLASS__, 'footer_navigation' ), 1, 1 );
+			add_filter( 'tribe_events_week_after_footer_nav', array( __CLASS__, 'after_footer_nav' ), 1, 1 );
+			
+			add_filter( 'tribe_events_week_after_footer', array( __CLASS__, 'after_footer' ), 1, 1 );
 
-			// End list template
+			// End week template
 			add_filter( 'tribe_events_week_after_template', array( __CLASS__, 'after_template' ), 1, 2 );
 		}
-		// Start List Template
+		// Start Week Template
 		public static function before_template( $post_id ) {
 			ob_start();
 			// This title is here for ajax loading – do not remove if you want ajax switching between month views
@@ -53,7 +75,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			$html = ob_get_clean();
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_before_template' );
 		}
-
+		// Week Title
 		public static function the_title() {
 			global $wp_query;
 
@@ -62,14 +84,52 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 				date( "l, F jS Y", strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) )
 			);
 
-			$html = sprintf( '<h2 class="tribe-events-page-title">'. __( 'Events for ', 'tribe-events-calendar' ) .'%s</h2>',
+			$html = sprintf( '<h2 class="tribe-events-page-title">'. __( 'Events for ', 'tribe-events-calendar-pro' ) .'%s</h2>',
 				$title
 			);
 
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_the_title' );
 		}
+		// Week Header
+		public static function before_header( $post_id ){
+			global $wp_query;
+			$current_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
+		
+			$html = '<div id="tribe-events-header" data-title="' . wp_title( '&raquo;', false ) . '" data-date="'. $current_week .'">';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_before_header');
+		}
+		// Week Navigation
+		public static function before_header_nav( $post_id ){
+			$html = '<h3 class="tribe-events-visuallyhidden">'. __( 'Week Navigation', 'tribe-events-calendar-pro' ) .'</h3>';
+			$html .= '<ul class="tribe-events-sub-nav">';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_before_header_nav');
+		}
+		public static function header_navigation( $post_id ){
+			$tribe_ecp = TribeEvents::instance();
+			global $wp_query;
+			$current_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
 
-		// Start List Loop
+			// Display Previous Page Navigation
+			$html = '<li class="tribe-nav-previous"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' -7 days' ) ) .'" href="'. tribe_get_last_week_permalink( $current_week ) .'" rel="prev">&larr; '. __( 'Previous Week', 'tribe-events-calendar-pro' ) .'</a></li><!-- .tribe-nav-previous -->';
+			
+			// Display Next Page Navigation
+			$html .= '<li class="tribe-nav-next"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' +7 days' ) ) .'" href="'. tribe_get_next_week_permalink( $current_week ) .'" rel="next">'. __( 'Next Week', 'tribe-events-calendar-pro' ) .' &rarr;</a>';
+			
+			// Loading spinner
+			$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
+			$html .= '</li><!-- .tribe-nav-next -->';
+			
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_header_nav');
+		}
+		public static function after_header_nav( $post_id ){
+			$html = '</ul><!-- .tribe-events-sub-nav -->';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_after_header_nav');
+		}
+		public static function after_header( $post_id ){
+			$html = '</div><!-- #tribe-events-header -->';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_after_header');
+		}		
+		// Start Week Loop
 		public static function before_loop( $post_id ) {
 			$html = '';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_before_loop' );
@@ -78,7 +138,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			$html = '';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_inside_before_loop' );
 		}
-
+		// Week Grid
 		public static function the_grid() {
 
 			global $wp_query;
@@ -170,39 +230,24 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 							<h4 class="entry-title summary"><?php echo $event->post_title; ?></h4>
 							<div class="tribe-events-event-body">
 								<div class="duration">
-									<?php
-						/*
-									@Tim
-									@Comment: this is what actually needs to get implemented, I was having trouble
-										   	  with getting the right bits in same for grid events as well, see below.
-										   	  And if you could make sure all the tooltip content tags are correct,
-										   	  I'd appreciate it!
-
-										<abbr class="tribe-events-abbr updated published dtstart" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $start ); ?>">
-							<?php if ( !empty( $start ) )	echo date_i18n( get_option( 'date_format', 'F j, Y' ), $start );
-							if ( !tribe_get_event_meta( $post->ID, '_EventAllDay', true ) )
-								echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), $start ); ?>
-							</abbr><!-- .dtstart -->
-							<abbr class="tribe-events-abbr dtend" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $end ); ?>">
-							<?php if ( !empty( $end )  && $start !== $end ) {
-								if ( date_i18n( 'Y-m-d', $start ) == date_i18n( 'Y-m-d', $end ) ) {
-									$time_format = get_option( 'time_format', 'g:i a' );
-									if ( !tribe_get_event_meta( $post->ID, '_EventAllDay', true ) )
-										echo " – " . date_i18n( $time_format, $end );
-								} else {
-									echo " – " . date_i18n( get_option( 'date_format', 'F j, Y' ), $end );
-									if ( !tribe_get_event_meta( $post->ID, '_EventAllDay', true ) )
-									 	echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), $end ) . '<br />';
-								}
-							} ?>
-							</abbr><!-- .dtend -->
-
-							*/ ?>
-									<abbr class="tribe-events-abbr updated published dtstart" title="Our Start Date">
-										Our Start Date
+									<abbr class="tribe-events-abbr updated published dtstart" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), strtotime( $event->EventStartDate ) ); ?>">
+										<?php if ( !empty( $event->EventStartDate ) )	
+											echo date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventStartDate ) );
+											if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+												echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventStartDate ) ); ?>
 									</abbr><!-- .dtstart -->
-									<abbr class="tribe-events-abbr dtend" title="Our End Date">
-										– Our End Date
+									<abbr class="tribe-events-abbr dtend" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), strtotime( $event->EventEndDate ) ); ?>">
+										<?php if ( !empty( $event->EventEndDate ) && $event->EventStartDate !== $event->EventEndDate ) {
+											if ( date_i18n( 'Y-m-d', $event->EventStartDate ) == date_i18n( 'Y-m-d', $event->EventEndDate ) ) {
+												$time_format = get_option( 'time_format', 'g:i a' );
+												if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+													echo " – " . date_i18n( $time_format, strtotime( $event->EventEndDate ) );
+												} else {
+													echo " – " . date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventEndDate ) );
+													if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+									 					echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventEndDate ) ) . '<br />';
+												}
+											} ?>
 									</abbr><!-- .dtend -->
 								</div><!-- .duration -->
 
@@ -210,8 +255,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 									<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75, 75 ) );?></div>
 								<?php } ?>
 
-								<?php //conditional ? ?>
-								<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $$event->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
+								<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $event->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
 
 							</div><!-- .tribe-events-event-body -->
 							<span class="tribe-events-arrow"></span>
@@ -228,10 +272,6 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 
 	</div><!-- .tribe-grid-allday -->
 
-	<!--
-		@Tim
-		@comment: Sam here. I made this a loop. I need that data-hour value for my js. I know it pretty well clones the next loop below. if you can make this prettier/more efficient in php please do so. (sure you can)
-	-->
 	<?php // Grid "Rows" ?>
 	<div class="tribe-week-grid-outer-wrap">
 		<div class="tribe-week-grid-inner-wrap">
@@ -284,39 +324,24 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 							<h4 class="entry-title summary"><?php echo $event->post_title; ?></h4>
 							<div class="tribe-events-event-body">
 								<div class="duration">
-									<?php
-						/*
-									@Tim
-									@Comment: this is what actually needs to get implemented, I was having trouble
-										   	  with getting the right bits in same for grid events as well, see below.
-										   	  And if you could make sure all the tooltip content tags are correct,
-										   	  I'd appreciate it!
-
-										<abbr class="tribe-events-abbr updated published dtstart" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $start ); ?>">
-							<?php if ( !empty( $start ) )	echo date_i18n( get_option( 'date_format', 'F j, Y' ), $start );
-							if ( !tribe_get_event_meta( $post->ID, '_EventAllDay', true ) )
-								echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), $start ); ?>
-							</abbr><!-- .dtstart -->
-							<abbr class="tribe-events-abbr dtend" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $end ); ?>">
-							<?php if ( !empty( $end )  && $start !== $end ) {
-								if ( date_i18n( 'Y-m-d', $start ) == date_i18n( 'Y-m-d', $end ) ) {
-									$time_format = get_option( 'time_format', 'g:i a' );
-									if ( !tribe_get_event_meta( $post->ID, '_EventAllDay', true ) )
-										echo " – " . date_i18n( $time_format, $end );
-								} else {
-									echo " – " . date_i18n( get_option( 'date_format', 'F j, Y' ), $end );
-									if ( !tribe_get_event_meta( $post->ID, '_EventAllDay', true ) )
-									 	echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), $end ) . '<br />';
-								}
-							} ?>
-							</abbr><!-- .dtend -->
-
-							*/ ?>
-									<abbr class="tribe-events-abbr updated published dtstart" title="Our Start Date">
-										Our Start Date
+									<abbr class="tribe-events-abbr updated published dtstart" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), strtotime( $event->EventStartDate ) ); ?>">
+										<?php if ( !empty( $event->EventStartDate ) )	
+											echo date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventStartDate ) );
+											if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+												echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventStartDate ) ); ?>
 									</abbr><!-- .dtstart -->
-									<abbr class="tribe-events-abbr dtend" title="Our End Date">
-										– Our End Date
+									<abbr class="tribe-events-abbr dtend" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $event->EventEndDate ); ?>">
+										<?php if ( !empty( $event->EventEndDate ) && $event->EventStartDate !== $event->EventEndDate ) {
+											if ( date_i18n( 'Y-m-d', $event->EventStartDate ) == date_i18n( 'Y-m-d', $event->EventEndDate ) ) {
+												$time_format = get_option( 'time_format', 'g:i a' );
+												if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+													echo " – " . date_i18n( $time_format, strtotime( $event->EventEndDate ) );
+												} else {
+													echo " – " . date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventEndDate ) );
+													if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+									 					echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventEndDate ) ) . '<br />';
+												}
+											} ?>
 									</abbr><!-- .dtend -->
 								</div><!-- .duration -->
 
@@ -324,8 +349,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 									<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75, 75 ) );?></div>
 								<?php } ?>
 
-								<?php //conditional ?>
-								<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $$event->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
+								<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $event->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
 
 							</div><!-- .tribe-events-event-body -->
 							<span class="tribe-events-arrow"></span>
@@ -346,14 +370,12 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 
 </div><!-- .tribe-events-grid -->
 
-
-
     <?php
 			$html = ob_get_clean();
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_the_grid' );
 		}
 
-		// End List Loop
+		// End Week Loop
 		public static function inside_after_loop( $post_id ) {
 			$html = '';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_inside_after_loop' );
@@ -362,16 +384,14 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			$html = '';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_after_loop' );
 		}
-
+		// Week Navigation
+		/*
 		public static function before_header( $post_id ) {
 			$html = '';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_before_pagination' );
 		}
 		public static function the_header( $post_id ) {
 			global $wp_query;
-			// echo '<pre>';
-			// print_r($wp_query->posts);
-			// echo '</pre>';
 			$current_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
 
 			// Display Week Navigation
@@ -392,7 +412,47 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			$html = '';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_after_pagination' );
 		}
-		// End List Template
+		*/
+		// Week Footer
+		public static function before_footer( $post_id ){
+			global $wp_query;
+			$current_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
+		
+			$html = '<div id="tribe-events-footer">';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_before_footer');
+		}
+		// Week Navigation
+		public static function before_footer_nav( $post_id ){
+			$html = '<h3 class="tribe-events-visuallyhidden">'. __( 'Week Navigation', 'tribe-events-calendar-pro' ) .'</h3>';
+			$html .= '<ul class="tribe-events-sub-nav">';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_before_footer_nav');
+		}
+		public static function footer_navigation( $post_id ){
+			$tribe_ecp = TribeEvents::instance();
+			global $wp_query;
+			$current_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
+
+			// Display Previous Page Navigation
+			$html = '<li class="tribe-nav-previous"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' -7 days' ) ) .'" href="'. tribe_get_last_week_permalink( $current_week ) .'" rel="prev">&larr; '. __( 'Prev Week', 'tribe-events-calendar-pro' ) .'</a></li><!-- .tribe-nav-previous -->';
+			
+			// Display Next Page Navigation
+			$html .= '<li class="tribe-nav-next"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' +7 days' ) ) .'" href="'. tribe_get_next_week_permalink( $current_week ) .'" rel="next">'. __( 'Next Week', 'tribe-events-calendar-pro' ) .' &rarr;</a>';
+			
+			// Loading spinner
+			$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
+			$html .= '</li><!-- .tribe-nav-next -->';
+			
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_footer_nav');
+		}
+		public static function after_footer_nav( $post_id ){
+			$html = '</ul><!-- .tribe-events-sub-nav -->';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_after_footer_nav');
+		}
+		public static function after_footer( $post_id ){
+			$html = '</div><!-- #tribe-events-footer -->';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_after_footer');
+		}
+		// End Week Template
 		public static function after_template( $post_id ) {
 			$html = '';
 

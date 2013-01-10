@@ -30,9 +30,9 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 
 			// Start single venue
 			add_filter( 'tribe_events_single_venue_before_venue', array( __CLASS__, 'before_venue' ), 1, 1 );		
-
+			// Venue Featued Image
 			add_filter( 'tribe_events_single_venue_featured_image', array( __CLASS__, 'featured_image' ), 1, 1 );
-
+			// Venue Title
 			add_filter( 'tribe_events_single_venue_the_title', array( __CLASS__, 'the_title' ), 1, 1 );
 
 			// Venue map
@@ -58,7 +58,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 						$html .= '<p class="tribe-events-back"><a href="' . tribe_get_events_link() . '" rel="bookmark">'. __( '&larr; Back to Events', 'tribe-events-calendar-pro' ) .'</a></p>';			
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_before_template' );
 		}
-
+		// Venue Featued Image
 		public static function featured_image( $post_id ){
 			$html = '';
 			if ( tribe_event_featured_image() ) {
@@ -66,12 +66,11 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 			} 
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_venue_featured_image');
 		}
-
+		// Venue Title
 		public static function the_title( $post_id ){
 			$html = the_title('<h2 class="entry-title summary">','</h2>', false);
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_the_title' );
 		}
-
 		// Start Single Venue
 		public static function before_venue( $post_id ) {
 			$html = '<div class="tribe-events-venue-meta tribe-clearfix">';
@@ -171,7 +170,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 			$html = '</div><!-- .tribe-events-event-meta -->';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_after_venue' );
 		}
-
 		// Event List View
 		public static function upcoming_events( $venue_id ) {
 			global $post;
@@ -184,7 +182,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 				);
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_upcoming_events' );
 		}
-
 		// End Single Venue Template
 		public static function after_template( $post_id ) {
 			$html = '</div><!-- #tribe-events-content -->';

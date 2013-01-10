@@ -109,20 +109,8 @@ class TribeEventsGeoLoc {
 
 		if ( $id == 'general' ) {
 
-			// we want to inject the map unit into the map section directly after default geofence distance 
-			$args = TribeEvents::array_insert_after_key( $args, array( 
-				'geoloc_default_unit' => array( 
-					'type'            => 'dropdown',
-					'label'           => __( 'Map view distance unit', 'tribe-events-calendar-pro' ),
-					'validation_type' => 'options',
-					'size'            => 'small',
-					'default'         => 'miles',
-					'options'         => apply_filters( 'tribe_distance_units', array( 'miles' => __( 'Miles', 'tribe-events-calendar-pro' ),
-																						'kms'   => __( 'Kilometers', 'tribe-events-calendar-pro' ) ) ) ) ),
-				'embedGoogleMaps');
-
-			// we want to inject the map default distance into the map section directly after "enable Google Maps" 
-			$args = TribeEvents::array_insert_after_key( $args, array( 
+			// we want to inject the map default distance and unit into the map section directly after "enable Google Maps" 
+			$args = TribeEvents::array_insert_after_key( 'embedGoogleMaps', $args, array( 
 				'geoloc_default_geofence' => array( 
 					'type'            => 'text',
 					'label'           => __( 'Map view search distance ratio (GeoFence)', 'tribe-events-calendar-pro' ),
@@ -130,8 +118,16 @@ class TribeEventsGeoLoc {
 					'tooltip'         => __( 'Enter a number in the unit selected above.', 'tribe-events-calendar-pro' ),
 					'default'         => '25',
 					'class'           => '',
-					'validation_type' => 'number_or_percent' ) ),
-				'embedGoogleMaps');
+					'validation_type' => 'number_or_percent' ),
+				'geoloc_default_unit' => array( 
+					'type'            => 'dropdown',
+					'label'           => __( 'Map view distance unit', 'tribe-events-calendar-pro' ),
+					'validation_type' => 'options',
+					'size'            => 'small',
+					'default'         => 'miles',
+					'options'         => apply_filters( 'tribe_distance_units', array( 'miles' => __( 'Miles', 'tribe-events-calendar-pro' ),
+																						'kms'   => __( 'Kilometers', 'tribe-events-calendar-pro' ) ) ) ) ) 
+				);
 
 		}
 
