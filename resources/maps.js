@@ -286,7 +286,7 @@ jQuery( document ).ready( function ( $ ) {
 	
 	if ( GeoLoc.map_view ) {
 		
-		$( '.tribe-events-loop-nav' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
+		$( '#tribe-geo-wrapper' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
 			e.preventDefault();
 			tribe_map_paged++;
 			if( tribe_has_pushstate ) {
@@ -300,7 +300,7 @@ jQuery( document ).ready( function ( $ ) {
 			}
 		} );
 
-		$( '.tribe-events-loop-nav' ).on( 'click', 'li.tribe-nav-previous a', function ( e ) {
+		$( '#tribe-geo-wrapper' ).on( 'click', 'li.tribe-nav-previous a', function ( e ) {
 			e.preventDefault();
 			tribe_map_paged--;
 			if( tribe_has_pushstate ) {			
@@ -409,11 +409,11 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	function spin_start() {
-		$( "#tribe-geo-loading" ).show();
+		$( ".tribe-ajax-loading" ).show();
 	}
 
 	function spin_end() {
-		$( "#tribe-geo-loading" ).hide();
+		$( ".tribe-ajax-loading" ).hide();
 	}
 	if ( GeoLoc.map_view ) {
 	
