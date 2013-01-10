@@ -37,11 +37,13 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			$current_day = $wp_query->get('start_date');
 			
 			$html = '<div id="tribe-events-header" data-date="'. Date('Y-m-d', strtotime($current_day) ) .'" data-title="'. wp_title( '&raquo;', false ) .'" data-header="'. Date("l, F jS Y", strtotime($wp_query->get('start_date'))) .'">';
+			return $html;
 		}
 		// Day Navigation
 		public static function before_header_nav( $html ){
 			$html = '<h3 class="tribe-events-visuallyhidden">'. __( 'Day Navigation', 'tribe-events-calendar-pro' ) .'</h3>';
 			$html .= '<ul class="tribe-events-sub-nav">';
+			return $html;
 		}
 		public static function header_navigation( $html ){
 			$tribe_ecp = TribeEvents::instance();
@@ -50,6 +52,8 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			$current_day = $wp_query->get('start_date');
 			$yesterday = Date('Y-m-d', strtotime($current_day . " -1 day") );
 			$tomorrow = Date('Y-m-d', strtotime($current_day . " +1 day") );
+			
+			$html = '';
 			
 			// Display Previous Page Navigation
 			$html .= '<li class="tribe-nav-previous"><a href="'. tribe_get_day_permalink( $yesterday ) .'" data-day="'. $yesterday .'" rel="prev">&larr; '. __( 'Previous Day', 'tribe-events-calendar-pro' ) .'</a></li>';
@@ -99,11 +103,13 @@ if( !class_exists('Tribe_Events_Day_Template')){
 		// Day Footer
 		public static function before_footer( $html ){			
 			$html = '<div id="tribe-events-footer">';
+			return $html;
 		}
 		// Day Navigation
 		public static function before_footer_nav( $html ){
 			$html = '<h3 class="tribe-events-visuallyhidden">'. __( 'Day Navigation', 'tribe-events-calendar-pro' ) .'</h3>';
 			$html .= '<ul class="tribe-events-sub-nav">';
+			return $html;
 		}
 		public static function footer_navigation( $html ){
 			$tribe_ecp = TribeEvents::instance();
@@ -112,6 +118,8 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			$current_day = $wp_query->get('start_date');
 			$yesterday = Date('Y-m-d', strtotime($current_day . " -1 day") );
 			$tomorrow = Date('Y-m-d', strtotime($current_day . " +1 day") );
+			
+			$html = '';
 			
 			// Display Previous Page Navigation
 			$html .= '<li class="tribe-nav-previous"><a href="'. tribe_get_day_permalink( $yesterday ) .'" data-day="'. $yesterday .'" rel="prev">&larr; '. __( 'Previous Day', 'tribe-events-calendar-pro' ) .'</a></li>';
