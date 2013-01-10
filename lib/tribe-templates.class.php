@@ -251,10 +251,39 @@ if (!class_exists('TribeEventsTemplates')) {
 		 * directory in a theme and the views/ directory in the plugin
 		 *
 		 * @param string $template template file to search for
+		 * @param array $args additional arguments to affect the template path
+		 *  - subfolder
+		 *  - namespace
+		 *  - plugin_path
+		 *  - disable_view_check - bypass the check to see if the view is enabled
 		 * @return template path
 		 * @author Matt Wiebe
 		 **/
-		public static function getTemplateHierarchy($template, $subfolder = '', $namespace = '/', $pluginPath = '') {
+		public static function getTemplateHierarchy( $template, $args = array() ) {
+			if ( !is_array( $args ) ) {
+				$args = array();
+				$passed = func_get_args();
+				$backwards_map = array( 'subfolder', 'namespace', 'pluginpath' );
+				if ( count( $passed > 1 ) ) {
+					for ( $i = 1 ; $i < count($passed) ; $i++ ) {
+						$args[$backwards_map[$i-1]] = $passed[$i];
+					}
+				}
+			}
+
+			$args = wp_parse_args( $args, array(
+				'subfolder' => '',
+				'namespace' => '/',
+				'plugin_path' => '',
+				'disable_view_check' => FALSE,
+			));
+			/**
+			 * @var string $subfolder
+			 * @var string $namespace
+			 * @var string $pluginpath
+			 * @var bool $disable_view_check
+			 */
+			extract($args);
 
 			$tec = TribeEvents::instance();
 
@@ -266,7 +295,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			require_once( $tec->pluginPath . 'public/advanced-functions/meta.php' );
 
 			// allow pluginPath to be set outside of this method
-			$pluginPath = empty($pluginPath) ? $tec->pluginPath : $pluginPath;
+			$plugin_path = empty($plugin_path) ? $tec->pluginPath : $plugin_path;
 
 			// ensure that addon plugins look in the right override folder in theme
 			$namespace = !empty($namespace) && $namespace[0] != '/' ? '/' . trailingslashit($namespace) : trailingslashit($namespace);
@@ -274,20 +303,20 @@ if (!class_exists('TribeEventsTemplates')) {
 			// setup subfolder options
 			$subfolder = !empty($subfolder) ? trailingslashit($subfolder) : $subfolder;
 
-			if( file_exists($pluginPath . 'views/hooks/' . $template))
-				include_once $pluginPath . 'views/hooks/' . $template;
+			if( file_exists($plugin_path . 'views/hooks/' . $template))
+				include_once $plugin_path . 'views/hooks/' . $template;
 
-			if ( $theme_file = locate_template( array('tribe-events' . $namespace . $subfolder . $template ), false, false) ) {
+			if ( $theme_file = locate_template( array('tribe-events' . $namespace . $subfolder . $template ), FALSE, FALSE) ) {
 				$file = $theme_file;
 			} else {
 				// protect from concat folder with filename
 				$subfolder = empty($subfolder) ? trailingslashit($subfolder) : $subfolder;
 				$subfolder = $subfolder[0] != '/' ? '/' . $subfolder : $subfolder;
 
-				$file = $pluginPath . 'views' . $subfolder . $template;
+				$file = $plugin_path . 'views' . $subfolder . $template;
 			}
 			
-			if ( ! in_array( $tec->displaying, tribe_get_option( 'tribeEnableViews', array() ) ) ) {
+			if ( !$disable_view_check && ! in_array( $tec->displaying, tribe_get_option( 'tribeEnableViews', array() ) ) ) {
 				$file = get_404_template();
 			}
 
