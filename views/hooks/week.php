@@ -143,7 +143,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			$events->daily = array();
 			$events->hours = array( 'start'=>null, 'end'=>null );
 			foreach ( $wp_query->posts as $event ) {
-				if ( !empty($event->tribe_is_allday) && $event->tribe_is_allday ) {
+				if (  tribe_get_event_meta( $event->ID, '_EventAllDay' ) ) {
 					$events->all_day[] = $event;
 				} else {
 					$start_hour = date( 'G', strtotime( $event->EventStartDate ) );
