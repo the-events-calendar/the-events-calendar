@@ -154,7 +154,7 @@ if( !class_exists('Tribe_Events_Map_Template')){
 		*/
 		// Map Footer
 		public static function before_footer( $post_id ){
-			$html = '<div id="tribe-events-footer" data-title="' . wp_title( '&raquo;', false ) . '">';
+			$html = '<div id="tribe-events-footer">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_footer');
 		}
 		// Map Navigation

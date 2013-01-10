@@ -133,7 +133,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			global $wp_query;
 			$current_day = $wp_query->get('start_date');
 			
-			$html = '<div id="tribe-events-footer" data-date="'. Date('Y-m-d', strtotime($current_day) ) .'" data-title="'. wp_title( '&raquo;', false ) .'" data-header="'. Date("l, F jS Y", strtotime($wp_query->get('start_date'))) .'">';
+			$html = '<div id="tribe-events-footer">';
 		}
 		// Day Navigation
 		public static function before_footer_nav( $html ){
