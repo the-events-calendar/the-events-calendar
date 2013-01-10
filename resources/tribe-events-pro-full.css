@@ -410,6 +410,10 @@
 	margin-bottom: 20px;
 }
 
+#tribe-geo-results #tribe-events-content {
+	margin-top:20px;
+}
+
 .tribe-geo-option-link {
 	display: block;
 	text-decoration: none;

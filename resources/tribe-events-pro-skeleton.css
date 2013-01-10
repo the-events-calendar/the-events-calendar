@@ -393,6 +393,10 @@
 	max-width: none;
 }
 
+#tribe-geo-results #tribe-events-content {
+	margin-top:20px;
+}
+
 /* tribe geo location option links (displayed when multiple locations found) */
 #tribe-geo-results h2,
 #tribe-geo-options h2 {
