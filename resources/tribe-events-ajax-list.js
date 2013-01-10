@@ -68,10 +68,8 @@ jQuery( document ).ready( function ( $ ) {
 			});
 		} );
 		
-		$( '#tribe-events-list-view' ).on( 'click', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a', function ( e ) {
-			$('html, body').animate( {scrollTop:$('#tribe-events-list-view').offset().top - 120}, {duration: 0});
-		});
-
+		tribe_ev.fn.snap( '#tribe-events-list-view', '#tribe-events-list-view', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );
+		
 		// if advanced filters active intercept submit
 
 		if ( $( '#tribe_events_filters_form' ).length ) {
