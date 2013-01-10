@@ -17,10 +17,9 @@ jQuery( document ).ready( function ( $ ) {
 			tribeBar.addClass( 'tribe-bar-mini-parent' );
 		} else {
 			tribeBar.removeClass( 'tribe-bar-mini-parent' );
+		}
 	}
-	
 	eventsBarWidth();
-
 	$( '#tribe-events-bar' ).resize(function() { 
 		eventsBarWidth();
 	});
