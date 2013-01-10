@@ -511,7 +511,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_events_event_schedule_details( $post = null ) {
 		if ( is_null( $post ) )
-			$post = get_the_ID();
+			global $post;
 		if ( is_numeric( $post ) )
 			$post = get_post( $post );
 			

@@ -24,7 +24,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_start_date( $post = null, $displayTime = true, $dateFormat = '' )  {
 		if ( is_null( $post ) )
-			$post = get_the_ID();
+			global $post;
 		if ( is_numeric( $post ) )
 			$post = get_post( $post );
 
@@ -57,7 +57,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_end_date( $post = null, $displayTime = true, $dateFormat = '' )  {
 		if ( is_null( $post ) )
-			$post = get_the_ID();
+			global $post;
 		if ( is_numeric( $post ) )
 			$post = get_post( $post );
 	
