@@ -114,7 +114,11 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 		}
 		public static function the_meta( $post_id ) {
 
-			$html = tribe_get_meta_group( 'tribe_event_organizer' );
+			$html = sprintf('%s%s',
+				tribe_get_meta_group( 'tribe_event_organizer' ),
+				( get_the_content() != '' ) ? '<div class="organizer-description">' . get_the_content() . '</div>' : ''
+				);
+
 /*
 			ob_start();
 ?>

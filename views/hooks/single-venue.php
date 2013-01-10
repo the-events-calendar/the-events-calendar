@@ -23,10 +23,23 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 					'after'=>'',
 					'label_before'=>'',
 					'label_after'=>'',
-					'meta_before'=>'',
-					'meta_after'=>''
+					'meta_before'=>'<address class="venue-address">',
+					'meta_after'=>'</address>'
 				), 'meta_group');
-			
+			// setup the template for the meta items
+			tribe_set_the_meta_template( array(
+					'tribe_event_venue_address',
+					'tribe_event_venue_phone',
+					'tribe_event_venue_website'
+				), array(
+					'before'=>'',
+					'after'=>'',
+					'label_before'=>'',
+					'label_after'=>'',
+					'meta_before'=>'<span class="%s">',
+					'meta_after'=>'</span>'
+				));
+
 			// turn off the venue name in the group
 			tribe_set_the_meta_visibility( 'tribe_event_venue_name', false);
 
@@ -44,6 +57,8 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 				'tribe_event_venue_phone' => 20,
 				'tribe_event_venue_website' => 30
 				));
+
+			add_filter('tribe_event_meta_venue_address_gmap', '__return_null', 10);
 
 			// disable venue info from showing on list module (since it's duplicate of this view)
 			tribe_set_the_meta_visibility( 'tribe_list_venue_name_address', false );
@@ -123,12 +138,12 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 
 		public static function the_meta( $post_id ) {
 
-			/* $html = sprintf('%s%s%s',
-					( get_post_meta( get_the_ID(), '_EventShowMapLink', true ) == 'true' ) ? tribe_get_meta('tribe_event_venue_gmap_link'): '',
-					( tribe_address_exists( get_the_ID() ) ) ? tribe_get_meta_group( 'tribe_event_venue' ) : '',
-					( get_the_content() != '' ) ? '<div class="venue-description">' . get_the_content() . '</div>' : ''
-					);
-			*/
+			$html = sprintf('%s%s%s',
+				( get_post_meta( get_the_ID(), '_EventShowMapLink', true ) == 'true' ) ? tribe_get_meta('tribe_event_venue_gmap_link'): '',
+				tribe_get_meta_group( 'tribe_event_venue' ),
+				( get_the_content() != '' ) ? '<div class="venue-description">' . get_the_content() . '</div>' : ''
+				);
+			
 			ob_start();
 ?>
 
@@ -153,7 +168,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 				</div>	
  			<?php endif ?> 			
 <?php
-			$html = ob_get_clean();
+			$html .= ob_get_clean();
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_the_meta' );
 		}
 		public static function after_the_meta( $post_id ) {
@@ -167,6 +182,10 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 		}
 		// Event List View
 		public static function upcoming_events( $venue_id ) {
+
+			// turn off the venue group
+			tribe_set_the_meta_visibility( 'tribe_event_venue', false, 'meta_group');
+
 			global $post;
 			$args = array(
 				'venue' => $post->ID,
@@ -175,6 +194,9 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 			$html = sprintf( 
 				tribe_include_view_list( $args )
 				);
+
+			// housekeeping: turn on the venue meta group before we leave
+			tribe_set_the_meta_visibility( 'tribe_event_venue', true, 'meta_group');
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_upcoming_events' );
 		}
 		// End Single Venue Template
