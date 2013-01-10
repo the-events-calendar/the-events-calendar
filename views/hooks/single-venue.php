@@ -17,13 +17,42 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 	class Tribe_Events_Pro_Single_Venue_Template extends Tribe_Template_Factory {
 		public static function init() {
 
-			/*add_action('tribe_get_meta_group', array(__CLASS__,'customize_meta'), 10, 2);*/
+			// setup the template for the meta group
+			tribe_set_the_meta_template( 'tribe_event_venue', array(
+					'before'=>'',
+					'after'=>'',
+					'label_before'=>'',
+					'label_after'=>'',
+					'meta_before'=>'',
+					'meta_after'=>''
+				), 'meta_group');
+			
+			// turn off the venue name in the group
+			tribe_set_the_meta_visibility( 'tribe_event_venue_name', false);
 
-			// Remove the title from the list view
-			add_filter( 'tribe_events_list_the_title', '__return_null', 2, 1 );
+			// remove the title for the group & meta items
+			tribe_set_meta_label('tribe_event_venue', '', 'meta_group');
+			tribe_set_meta_label( array( 
+				'tribe_event_venue_address' => '',
+				'tribe_event_venue_phone' => '',
+				'tribe_event_venue_website' => ''
+				));
+
+			// set meta item priorities
+			tribe_set_meta_priority( array( 
+				'tribe_event_venue_address' => 10,
+				'tribe_event_venue_phone' => 20,
+				'tribe_event_venue_website' => 30
+				));
 
 			// disable venue info from showing on list module (since it's duplicate of this view)
 			tribe_set_the_meta_visibility( 'tribe_list_venue_name_address', false );
+
+			// provide for meta actions before loading the template
+			do_action('tribe_events_pro_single_venue_meta_init' );
+
+			// Remove the title from the list view
+			add_filter( 'tribe_events_list_the_title', '__return_null', 2, 1 );
 
 			// Start single venue template
 			add_filter( 'tribe_events_single_venue_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
@@ -92,40 +121,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_venue_before_the_meta' );
 		}
 
-/*		public static function customize_meta( $meta_id, $is_the_meta ){
-
-			echo $meta_id;
-
-			// setup the template for the meta group
-			tribe_set_the_meta_template( 'tribe_event_venue', array('wrap' => array(
-					'before'=>'',
-					'after'=>'',
-					'label_before'=>'',
-					'label_after'=>'',
-					'meta_before'=>'',
-					'meta_after'=>''
-				)));
-			
-			// turn off the venue name in the group
-			tribe_set_the_meta_visibility( 'tribe_event_venue_name', false);
-
-			// remove the title for the group & meta items
-			tribe_set_meta_label('tribe_event_venue', '', 'meta_group');
-			tribe_set_meta_label( array( 
-				'tribe_event_venue_address' => '',
-				'tribe_event_venue_phone' => '',
-				'tribe_event_venue_website' => ''
-				));
-
-			// set meta item priorities
-			tribe_set_meta_priority( array( 
-				'tribe_event_venue_address' => 10,
-				'tribe_event_venue_phone' => 20,
-				'tribe_event_venue_website' => 30
-				));
-
-			do_action('tribe_events_pro_single_venue_template_customize_meta');
-		}*/
 		public static function the_meta( $post_id ) {
 
 			/* $html = sprintf('%s%s%s',
