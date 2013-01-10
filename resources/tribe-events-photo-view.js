@@ -87,13 +87,13 @@ jQuery( document ).ready( function ( $ ) {
 
 		// events bar intercept submit
 
-		$( 'body' ).on( 'click', 'a#tribe_paged_next', function ( e ) {
+		$( 'body' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
 			e.preventDefault();
 			tribe_list_paged++;	
 			tribe_pre_ajax_tests( function() { 
 				tribe_events_list_ajax_post( tribe_cur_url );
 			});
-		} ).on( 'click', 'a#tribe_paged_prev', function ( e ) {
+		} ).on( 'click', 'li.tribe-nav-previous a', function ( e ) {
 			e.preventDefault();
 			tribe_list_paged--;
 			tribe_pre_ajax_tests( function() {
@@ -225,14 +225,14 @@ jQuery( document ).ready( function ( $ ) {
 							$( '#tribe-events-content' ).prev('#tribe-events-list-hash').remove();																		
 
 							if ( response.max_pages > tribe_list_paged ) {
-								$( 'a#tribe_paged_next' ).show();
+								$( 'li.tribe-nav-next a' ).show();
 							} else {
-								$( 'a#tribe_paged_next' ).hide();
+								$( 'li.tribe-nav-next a' ).hide();
 							}
 							if ( tribe_list_paged > 1 ) {
-								$( 'a#tribe_paged_prev' ).show();
+								$( 'li.tribe-nav-previous a' ).show();
 							} else {
-								$( 'a#tribe_paged_prev' ).hide();
+								$( 'li.tribe-nav-previous a' ).hide();
 							}
 							
 							if( tribe_do_string ) {

@@ -241,14 +241,14 @@ jQuery( document ).ready( function ( $ ) {
 					$( "#tribe-events-content" ).parent().removeAttr('id').find('.tribe-events-page-title').remove();				
 
 					if ( response.max_pages > tribe_map_paged ) {
-						$( 'a#tribe_map_paged_next' ).show();
+						$( 'li.tribe-nav-next a' ).show();
 					} else {
-						$( 'a#tribe_map_paged_next' ).hide();
+						$( 'li.tribe-nav-next a' ).hide();
 					}
 					if ( tribe_map_paged > 1 ) {
-						$( 'a#tribe_map_paged_prev' ).show();
+						$( 'li.tribe-nav-previous a' ).show();
 					} else {
-						$( 'a#tribe_map_paged_prev' ).hide();
+						$( 'li.tribe-nav-previous a' ).hide();
 					}
 
 					$.each( response.markers, function ( i, e ) {
@@ -286,7 +286,7 @@ jQuery( document ).ready( function ( $ ) {
 	
 	if ( GeoLoc.map_view ) {
 		
-		$( '.tribe-events-loop-nav' ).on( 'click', 'a#tribe_map_paged_next', function ( e ) {
+		$( '.tribe-events-loop-nav' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
 			e.preventDefault();
 			tribe_map_paged++;
 			if( tribe_has_pushstate ) {
@@ -300,7 +300,7 @@ jQuery( document ).ready( function ( $ ) {
 			}
 		} );
 
-		$( '.tribe-events-loop-nav' ).on( 'click', 'a#tribe_map_paged_prev', function ( e ) {
+		$( '.tribe-events-loop-nav' ).on( 'click', 'li.tribe-nav-previous a', function ( e ) {
 			e.preventDefault();
 			tribe_map_paged--;
 			if( tribe_has_pushstate ) {			
