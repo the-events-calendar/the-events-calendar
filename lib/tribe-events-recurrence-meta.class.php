@@ -43,9 +43,12 @@ class TribeEventsRecurrenceMeta {
 		global $post, $wp_admin_bar;
 		if( !is_admin() &&  tribe_is_recurring_event( $post )) {
 			$edit_link = $wp_admin_bar->get_node('edit');
-			$edit_link->href = $edit_link->href . '&eventDate=' . TribeDateUtils::dateOnly($post->EventStartDate);
-			$wp_admin_bar->remove_menu('edit');
-			$wp_admin_bar->add_node($edit_link);
+			// becuase on some pages we actually don't have the edit option
+			if( !empty($edit_link->href)) {
+				$edit_link->href = $edit_link->href . '&eventDate=' . TribeDateUtils::dateOnly($post->EventStartDate);
+				$wp_admin_bar->remove_menu('edit');
+				$wp_admin_bar->add_node($edit_link);
+			}
 		}
 	}
 

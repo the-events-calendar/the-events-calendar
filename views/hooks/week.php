@@ -24,13 +24,6 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			add_filter( 'tribe_events_week_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 
 			add_filter( 'tribe_events_week_the_title', array( __CLASS__, 'the_title' ), 1, 1 );
-
-			// Week pagination
-			/*
-			add_filter( 'tribe_events_week_before_pagination', array( __CLASS__, 'before_pagination' ), 1, 1 );
-			add_filter( 'tribe_events_week_the_header', array( __CLASS__, 'the_header' ), 1, 1 );
-			add_filter( 'tribe_events_week_after_pagination', array( __CLASS__, 'after_pagination' ), 1, 1 );
-			*/
 			
 			// Week header
 			add_filter( 'tribe_events_week_before_header', array( __CLASS__, 'before_header' ), 1, 1 );
@@ -255,7 +248,13 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 									<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75, 75 ) );?></div>
 								<?php } ?>
 
-								<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $event->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
+								<p class="entry-summary description">
+								<?php if( has_excerpt( $event->ID ) ) {
+									echo TribeEvents::truncate( $event->post_excerpt, 30 );
+								} else {
+									echo TribeEvents::truncate( $event->post_content, 30 );
+								} ?>
+								</p><!-- .entry-summary -->
 
 							</div><!-- .tribe-events-event-body -->
 							<span class="tribe-events-arrow"></span>
@@ -349,14 +348,19 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 									<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75, 75 ) );?></div>
 								<?php } ?>
 
-								<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $event->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
+								<p class="entry-summary description">
+								<?php if( has_excerpt( $event->ID ) ) {
+									echo TribeEvents::truncate( $event->post_excerpt, 30 );
+								} else {
+									echo TribeEvents::truncate( $event->post_content, 30 );
+								} ?>
+								</p><!-- .entry-summary -->
 
 							</div><!-- .tribe-events-event-body -->
 							<span class="tribe-events-arrow"></span>
 							<div style="display:none"><?php print_r( $event ); ?></div>
 						</div><!-- .tribe-events-tooltip -->
 						<?php
-
 
 						echo '</div><!-- #tribe-events-event-'. $event->ID .' -->';
 					}
@@ -384,35 +388,6 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			$html = '';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_after_loop' );
 		}
-		// Week Navigation
-		/*
-		public static function before_header( $post_id ) {
-			$html = '';
-			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_before_pagination' );
-		}
-		public static function the_header( $post_id ) {
-			global $wp_query;
-			$current_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
-
-			// Display Week Navigation
-			$html = sprintf( '<div id="tribe-events-header" data-date="%6$s"><h3 class="tribe-events-visuallyhidden">%1$s</h3><ul class="tribe-events-sub-nav"><li class="tribe-events-nav-prev"><a data-week="%3$s" href="%2$s" rel="prev">&larr; %7$s</a></li><li class="tribe-events-nav-next"><a data-week="%5$s" href="%4$s" rel="next">%8$s &rarr;</a><img id="ajax-loading" class="tribe-spinner-medium" src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" /></li></ul></div>',
-				__( 'Week Navigation', 'tribe-events-calendar' ),
-				tribe_get_last_week_permalink( $current_week ),
-				date( 'Y-m-d', strtotime( $current_week . ' -7 days' ) ),
-				tribe_get_next_week_permalink( $current_week ),
-				date( 'Y-m-d', strtotime( $current_week . ' +7 days' ) ),
-				$current_week,
-				__( 'Prev Week', 'tribe-events-calendar' ),
-				__( 'Next Week', 'tribe-events-calendar' )
-			);
-
-			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_pagination' );
-		}
-		public static function after_header( $post_id ) {
-			$html = '';
-			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_after_pagination' );
-		}
-		*/
 		// Week Footer
 		public static function before_footer( $post_id ){
 			global $wp_query;
@@ -437,9 +412,6 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			
 			// Display Next Page Navigation
 			$html .= '<li class="tribe-nav-next"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' +7 days' ) ) .'" href="'. tribe_get_next_week_permalink( $current_week ) .'" rel="next">'. __( 'Next Week', 'tribe-events-calendar-pro' ) .' &rarr;</a>';
-			
-			// Loading spinner
-			$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
 			$html .= '</li><!-- .tribe-nav-next -->';
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_footer_nav');

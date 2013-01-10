@@ -557,9 +557,9 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$permalink = get_site_url() . '/' . $tec->rewriteSlug . '/' . trailingslashit( TribeEventsPro::instance()->photoSlug . '/' );
 		return apply_filters( 'tribe_get_photo_view_permalink', $permalink );
 	}
-
-	function tribe_single_related_events( $tag = false, $count = 3, $blog = false, $only_display_related = true, $post_type = 'tribe_events' ) {		
-		$posts = tribe_get_related_posts( $tag, $count, $blog, $only_display_related, $post_type );
+	
+	function tribe_single_related_events( $tag = false, $category = false, $count = 3, $blog = false, $only_display_related = true, $post_type = TribeEvents::POSTTYPE ) {		
+		$posts = tribe_get_related_posts( $tag, $category, $count, $blog, $only_display_related, $post_type );
 		if ( is_array( $posts ) && !empty( $posts ) ) {
 			echo '<h3 class="tribe-events-related-events-title">'.  __( 'Related Events', 'tribe-events-calendar-pro' ) .'</h3>';
 			echo '<ul class="tribe-related-events tribe-clearfix">';

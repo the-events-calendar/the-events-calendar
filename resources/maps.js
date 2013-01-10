@@ -28,7 +28,7 @@ function tribe_process_geocoding( location, callback ) {
 }
 
 jQuery( document ).ready( function ( $ ) {
-
+	
 	function tribe_test_location() {
 		
 		if( $( '#tribe-bar-geoloc' ).length ) {
@@ -158,9 +158,9 @@ jQuery( document ).ready( function ( $ ) {
 		}
 
 	} );
-
 	
-	
+	tribe_ev.fn.snap( '#tribe-geo-wrapper', '#tribe-geo-wrapper', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );
+		
 	function tribe_generate_map_params() {
 		tribe_params = {
 			action:'geosearch',				
@@ -238,7 +238,8 @@ jQuery( document ).ready( function ( $ ) {
 					};
 
 					$( "#tribe-geo-results" ).html( response.html );					
-					$( "#tribe-events-content" ).parent().removeAttr('id').find('.tribe-events-page-title').remove();				
+					$( "#tribe-events-content" ).parent().removeAttr('id').find('.tribe-events-page-title').remove();	
+					$( "#tribe-geo-results #tribe-events-header, #tribe-geo-results #tribe-events-footer" ).remove();	
 
 					if ( response.max_pages > tribe_map_paged ) {
 						$( 'li.tribe-nav-next a' ).show();
@@ -286,7 +287,7 @@ jQuery( document ).ready( function ( $ ) {
 	
 	if ( GeoLoc.map_view ) {
 		
-		$( '.tribe-events-loop-nav' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
+		$( '#tribe-geo-wrapper' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
 			e.preventDefault();
 			tribe_map_paged++;
 			if( tribe_has_pushstate ) {
@@ -300,7 +301,7 @@ jQuery( document ).ready( function ( $ ) {
 			}
 		} );
 
-		$( '.tribe-events-loop-nav' ).on( 'click', 'li.tribe-nav-previous a', function ( e ) {
+		$( '#tribe-geo-wrapper' ).on( 'click', 'li.tribe-nav-previous a', function ( e ) {
 			e.preventDefault();
 			tribe_map_paged--;
 			if( tribe_has_pushstate ) {			
@@ -409,11 +410,11 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	function spin_start() {
-		$( "#tribe-geo-loading" ).show();
+		$( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').show();
 	}
 
 	function spin_end() {
-		$( "#tribe-geo-loading" ).hide();
+		$( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').hide();
 	}
 	if ( GeoLoc.map_view ) {
 	

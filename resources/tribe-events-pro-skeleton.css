@@ -393,6 +393,10 @@
 	max-width: none;
 }
 
+#tribe-geo-results #tribe-events-content {
+	margin-top:20px;
+}
+
 /* tribe geo location option links (displayed when multiple locations found) */
 #tribe-geo-results h2,
 #tribe-geo-options h2 {
@@ -834,19 +838,21 @@ h3.tribe-events-related-events-title {
 }
 div.tribe-countdown-timer {
 	text-align: center;
-	line-height: 1.5em;
 	padding-top: 10px;
+	line-height: 1;
 }
 div.tribe-countdown-number {
 	float: left;
 	color: #000;
-	font-size: 2.4em;
+	font-size: 32px;
 }
 span.tribe-countdown-under {
 	font-size: 10px;
 	color: #666;
 	text-transform: uppercase;
 	font-weight: 500;
+	position: relative;
+	top: -10px;
 }
 div.tribe-countdown-colon {
 	float: left;
@@ -859,5 +865,4 @@ div.tribe-countdown-right {
 }
 div.tribe-countdown-text {
 	clear: both;
-	margin: 0 0 10px 0;
 }
