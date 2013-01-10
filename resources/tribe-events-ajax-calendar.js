@@ -76,11 +76,8 @@ jQuery( document ).ready( function ( $ ) {
 		});
 	} );
 
-
-	$( '#tribe-events-content' ).on( 'click', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a', function ( e ) {
-		$('html, body').animate( {scrollTop:$('#tribe-events-content').offset().top - 120}, {duration: 0});
-	});
-
+	tribe_ev.fn.snap( '#tribe-events-content', '#tribe-events-content', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );
+	
 	// events bar intercept submit
 	
 	function tribe_events_bar_calajax_actions(e) {

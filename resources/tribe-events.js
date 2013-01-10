@@ -167,6 +167,11 @@ tribe_ev.fn = {
 		} ).on( 'mouseleave', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', function () {
 			jQuery( this ).find( '.tribe-events-tooltip' ).stop( true, false ).fadeOut( 200 );			
 		} );
+	},
+	snap: function tribe_snap_to_top( container, trigger_parent, trigger ) {		
+		jQuery( trigger_parent ).on( 'click', trigger, function ( e ) {
+			jQuery('html, body').animate( {scrollTop:jQuery( container ).offset().top - 120}, {duration: 0});
+		});
 	}
 }
 
