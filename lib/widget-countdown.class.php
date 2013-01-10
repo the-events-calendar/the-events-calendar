@@ -21,7 +21,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 			$title = apply_filters( 'widget_title', $title );
 			wp_enqueue_script( 'tribe_countdown_widget', TribeEventsPro::instance()->pluginUrl .'resources/widget-countdown.js', array( 'jquery' ), false, true );
 			// Get the timer data.
-			$complete = '<div class="tribe-countdown-number">' . $complete . '</div>';
+			$complete = '<h3 class="tribe-countdown-complete">' . $complete . '</h3>';
 			$event_countdown_date = $this->get_output($event_ID, $complete, $show_seconds, $event_date);
 			echo $before_widget;
 			if ( !empty( $title ) ) echo $before_title.$title.$after_title;
@@ -111,7 +111,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 			<div class="tribe-countdown-timer">
 				<span class="tribe-countdown-seconds">'.$seconds.'</span>
 				<span class="tribe-countdown-format">'.$hourformat.'</span>
-				<span class="tribe-countdown-complete">'.$complete.'</span>
+				<h3 class="tribe-countdown-complete">'.$complete.'</h3>
 			</div>';
 		}
  
