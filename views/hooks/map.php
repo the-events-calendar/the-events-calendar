@@ -41,13 +41,6 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			add_filter( 'tribe_events_map_after_header_nav', array( __CLASS__, 'after_header_nav' ), 1, 1 );
 			
 			add_filter( 'tribe_events_map_after_header', array( __CLASS__, 'after_header' ), 1, 1 );
-
-			// Pagination
-			/*
-			add_filter( 'tribe_events_map_before_pagination', array( __CLASS__, 'before_pagination' ), 1, 1 );
-			add_filter( 'tribe_events_map_pagination', array( __CLASS__, 'pagination' ), 1, 1 );
-			add_filter( 'tribe_events_map_after_pagination', array( __CLASS__, 'after_pagination' ), 1, 1 );
-			*/
 			
 			// Map footer
 			add_filter( 'tribe_events_map_before_footer', array( __CLASS__, 'before_footer' ), 1, 1 );
@@ -134,23 +127,7 @@ if( !class_exists('Tribe_Events_Map_Template')){
 		public static function before_the_results( $post_id ){
 			$html = '<div id="tribe-geo-results">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_the_results');
-		}	
-		// Pagination
-		/*
-		public static function before_pagination( $post_id ){
-			$html = '<div class="tribe-events-loop-nav">';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_pagination');
 		}
-		public static function pagination( $post_id ){
-			$html = '<a href="#" id="tribe_map_paged_prev" class="tribe_map_paged">'. __('&larr; Previous Events') .'</a>';
-			$html .= '<a href="#" id="tribe_map_paged_next" class="tribe_map_paged">'. __('Next Events &rarr;') .'</a>';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_pagination');
-		}
-		public static function after_pagination( $post_id ){
-			$html = '</div>';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_after_pagination');
-		}
-		*/
 		// Map Footer
 		public static function before_footer( $post_id ){
 			$html = '<div id="tribe-events-footer">';
@@ -171,9 +148,6 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			// Display Next Page Navigation
 			$html .= '<li class="tribe-nav-next">';
 			$html .= '<a href="#" class="tribe_map_paged">'. __('Next Events &rarr;') .'</a>';
-			
-			// Loading spinner
-			$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
 			$html .= '</li><!-- .tribe-nav-next -->';
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_footer_nav');

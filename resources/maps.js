@@ -28,7 +28,7 @@ function tribe_process_geocoding( location, callback ) {
 }
 
 jQuery( document ).ready( function ( $ ) {
-
+	
 	function tribe_test_location() {
 		
 		if( $( '#tribe-bar-geoloc' ).length ) {
@@ -238,7 +238,8 @@ jQuery( document ).ready( function ( $ ) {
 					};
 
 					$( "#tribe-geo-results" ).html( response.html );					
-					$( "#tribe-events-content" ).parent().removeAttr('id').find('.tribe-events-page-title').remove();				
+					$( "#tribe-events-content" ).parent().removeAttr('id').find('.tribe-events-page-title').remove();	
+					$( "#tribe-geo-results #tribe-events-header, #tribe-geo-results #tribe-events-footer" ).remove();	
 
 					if ( response.max_pages > tribe_map_paged ) {
 						$( 'li.tribe-nav-next a' ).show();
