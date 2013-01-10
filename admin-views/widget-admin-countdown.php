@@ -10,11 +10,11 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'tribe-events-calendar-pro'); ?></label>
 <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr(strip_tags($instance['title'])); ?>" /></p>
 <p><label for="<?php echo $this->get_field_id( 'event_ID' ); ?>"><?php _e('Event:','tribe-events-calendar-pro');?>
-<select class="chosen events-dropdown" id="<?php echo $this->get_field_id('event'); ?>" name="<?php echo $this->get_field_name('event'); ?>" value="<?php echo $instance['event']; ?>" >
+<select class="chosen events-dropdown" id="<?php echo $this->get_field_id('event'); ?>" name="<?php echo $this->get_field_name('event'); ?>" >
 <?php 
 foreach ($events as $event )
 	{ ?>
-	<option value="<?php echo $event->ID; ?>|<?php echo $event->EventStartDate; ?>" <?php selected( $event->ID . '|' . $event->EventStartDate == $instance['event_ID'] . '|' . $instance['event_date'] ) ?>><?php echo $event->post_title ?> - <?php echo date_format( new DateTime( $event->EventStartDate ), 'm/j/Y' ); ?></option>
+	<option value="<?php echo $event->ID; ?>|<?php echo date_format( new DateTime( $event->EventStartDate ), TribeDateUtils::DBDATEFORMAT ); ?>" <?php selected( $event->ID . '|' . date_format( new DateTime( $event->EventStartDate ), TribeDateUtils::DBDATEFORMAT ) == $instance['event_ID'] . '|' . $instance['event_date'] ) ?>><?php echo $event->post_title ?> - <?php echo date_format( new DateTime( $event->EventStartDate ), 'm/j/Y' ); ?></option>
 <?php } ?>
 </select>
 </p>
