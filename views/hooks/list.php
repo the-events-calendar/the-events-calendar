@@ -356,7 +356,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 		*/
 		// List Footer
 		public static function before_footer( $post_id ){
-			$html = '<div id="tribe-events-footer" data-title="' . wp_title( '&raquo;', false ) . '">';
+			$html = '<div id="tribe-events-footer">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_footer');
 		}
 		// List Navigation

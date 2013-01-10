@@ -278,7 +278,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		*/
 		// Event Footer
 		public static function before_footer( $post_id ){
-			$html = '<div id="tribe-events-footer" data-title="' . wp_title( '&raquo;', false ) . '">';
+			$html = '<div id="tribe-events-footer">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_before_footer');
 		}
 		// Event Navigation
