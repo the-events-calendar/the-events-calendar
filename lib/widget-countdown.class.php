@@ -108,7 +108,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 				$event->EventStartDate = $event_date;
 			$link = tribe_is_recurring_event( $event ) ? TribeEvents::addDateToRecurringEvents( tribe_get_event_link($event_ID), $event ) : tribe_get_event_link($event_ID) ;
 			return '
-			<div class="tribe-countdown-text">'.__('Counting down to: ', 'tribe-events-calendar-pro').'<br /><a href="' .esc_url($link) . '">' . esc_attr($event->post_title) . '</a></div>
+			<div class="tribe-countdown-text"><a href="' .esc_url($link) . '">' . esc_attr($event->post_title) . '</a></div>
 			<div class="tribe-countdown-timer">
 				<span class="tribe-countdown-seconds">'.$seconds.'</span>
 				<span class="tribe-countdown-format">'.$hourformat.'</span>
