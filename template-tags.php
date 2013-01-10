@@ -572,7 +572,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 						echo '<div class="tribe-related-events-title"><a href="'. get_permalink( $post->ID ) .'">'. get_the_title( $post->ID ) .'</a></div>';
 
 						if ( class_exists( 'TribeEvents' ) && $post->post_type == TribeEvents::POSTTYPE && function_exists( 'tribe_events_event_schedule_details' ) ) {
-							echo tribe_events_event_schedule_details( $post->ID );
+							echo tribe_events_event_schedule_details( $post );
 						}
 						if ( class_exists( 'TribeEvents' ) && $post->post_type == TribeEvents::POSTTYPE && function_exists( 'tribe_events_event_recurring_info_tooltip' ) ) {
 							echo tribe_events_event_recurring_info_tooltip( $post->ID );
