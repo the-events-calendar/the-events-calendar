@@ -44,6 +44,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 			$defaults = array(
 				'title' => '',
 				'event_ID' => null,
+				'event_date' => null,
 				'show_seconds' => true,
 				'complete' => 'Hooray!',
 			);
