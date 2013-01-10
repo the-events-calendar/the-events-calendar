@@ -561,6 +561,10 @@
 	border: 0;
 }
 
+.tribe-events-organizer .tribe-events-organizer-meta {
+	margin-bottom: 40px;
+}
+
 .tribe-events-organizer address.organizer-address {
 	font-style: normal;
 	font-weight: bold;
@@ -569,6 +573,7 @@
 
 .tribe-events-organizer address.organizer-address span {
 	line-height: 1;
+	white-space: pre;
 }
 
 .tribe-events-organizer .organizer-description {
@@ -582,6 +587,7 @@
 
 .tribe-events-organizer .tribe-divider {
 	color: #999;
+	margin: 0 10px;
 }
 
 /* = Related Events
