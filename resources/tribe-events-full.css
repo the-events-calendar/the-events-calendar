@@ -285,6 +285,10 @@ h2.tribe-events-page-title a:focus {
 }
 
 /* General Template Header/Footer Nav */
+#tribe-events-header,
+#tribe-events-footer {
+	margin-bottom: 18px;
+}
 #tribe-events-header .tribe-events-sub-nav,
 #tribe-events-footer .tribe-events-sub-nav {
 	list-style-type: none;
@@ -318,9 +322,6 @@ h2.tribe-events-page-title a:focus {
 	position: absolute;
 	left: 50%;
 	margin-left: -8px;
-}
-#tribe-events-footer {
-	margin-bottom: 18px;
 }
 /* List & Map & Day Nav Tweaks */
 .events-list #tribe-events-footer,
@@ -722,7 +723,7 @@ h3.tribe-event-single-section-title {
 =============================================*/
 /* Global Calendar Styles */
 #tribe-events-content table.tribe-events-calendar {
-	margin: 18px 0;
+	margin: 0 0 18px;
 	clear: both;
 	font-size: 12px;
 	border-collapse: collapse;
@@ -1089,13 +1090,18 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 #tribe-bar-dates {
 	float: left;
-	width: 182px;
-	margin-left: -294px;
+	width: 185px;
+	margin-left: -297px;
 	margin-top: 3px;
+	text-align: right;
 }
 #tribe-bar-dates input {
 	z-index: 99000 !important;
 	width: 100%;
+	text-align: left;
+}
+#tribe-bar-dates .tribe-events-events-dropdown {
+	text-align: left;
 }
 
 #tribe-bar-dates #s2id_tribe-events-events-month {
@@ -1210,7 +1216,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 /* Views Select When Have Settings */
 .tribe-has-settings #tribe-bar-dates {
-	margin-left: -328px;
+	margin-left: -331px;
 }
 .tribe-has-settings #tribe-bar-views {
 	width: 142px;
@@ -1348,6 +1354,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	position: absolute;
 	margin-left: 0;
 	width: 100%;
+	text-align: center;
 }
 .tribe-bar-mini-parent #tribe-bar-views {
 	margin-top: 35px;

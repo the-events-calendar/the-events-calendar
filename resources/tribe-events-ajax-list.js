@@ -54,8 +54,7 @@ jQuery( document ).ready( function ( $ ) {
 
 		$( '#tribe-events-list-view' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
 			e.preventDefault();
-			tribe_ev.state.paged++;
-			alert(tribe_ev.state.paged);
+			tribe_ev.state.paged++;			
 			tribe_pre_ajax_tests( function() { 
 				tribe_events_list_ajax_post( tribe_cur_url );
 			});
@@ -68,6 +67,10 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_events_list_ajax_post( tribe_cur_url );
 			});
 		} );
+		
+		$( '#tribe-events-list-view' ).on( 'click', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a', function ( e ) {
+			$('html, body').animate( {scrollTop:$('#tribe-events-list-view').offset().top - 120}, {duration: 0});
+		});
 
 		// if advanced filters active intercept submit
 
