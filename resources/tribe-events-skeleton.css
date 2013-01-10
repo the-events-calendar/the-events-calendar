@@ -423,6 +423,7 @@ select.tribe-events-dropdown {
 
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
 	display: inline-block;
+	white-space: pre;
 } 
 
 .tribe-events-event-meta address.event-address {
