@@ -239,14 +239,17 @@ a.tribe-events-gcal {
 .tribe-spinner {
 	width: 32px;
 	height: 32px;
+	margin-left: -16px;
 }
 .tribe-spinner-medium {
 	width: 24px;
 	height: 24px;
+	margin-left: -12px;
 }
 .tribe-spinner-small {
 	width: 16px;
 	height: 16px;
+	margin-left: -8px;
 }
 
 /* IE7 Tweaks */
@@ -316,12 +319,10 @@ h2.tribe-events-page-title a:focus {
 	float: right;
 	text-align: right;
 }
-#tribe-events-header .tribe-ajax-loading,
-#tribe-events-footer .tribe-ajax-loading {
+#tribe-events-header .tribe-ajax-loading {
 	display: none;
 	position: absolute;
 	left: 50%;
-	margin-left: -8px;
 }
 /* List & Map & Day Nav Tweaks */
 .events-list #tribe-events-footer,
@@ -895,7 +896,10 @@ h3.tribe-event-single-section-title {
 }
 .tribe-events-tooltip .tribe-events-event-thumb {
 	float: left;
-	padding: 5px;
+	padding: 5px 5px 5px 0;
+}
+.tribe-events-tooltip .tribe-events-event-thumb img {
+	box-shadow: none;
 }
 .tribe-events-tooltip p.entry-summary {
 	padding: 0;

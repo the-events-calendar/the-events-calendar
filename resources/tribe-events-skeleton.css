@@ -191,14 +191,17 @@ a.tribe-events-gcal {
 .tribe-spinner {
 	width: 32px;
 	height: 32px;
+	margin-left: -16px;
 }
 .tribe-spinner-medium {
 	width: 24px;
 	height: 24px;
+	margin-left: -12px;
 }
 .tribe-spinner-small {
 	width: 16px;
 	height: 16px;
+	margin-left: -8px;
 }
 
 /* IE7 Tweaks */
@@ -269,12 +272,10 @@ h2.tribe-events-page-title a:focus {
 	float: right;
 	text-align: right;
 }
-#tribe-events-header .tribe-ajax-loading,
-#tribe-events-footer .tribe-ajax-loading {
+#tribe-events-header .tribe-ajax-loading {
 	display: none;
 	position: absolute;
 	left: 50%;
-	margin-left: -8px;
 }
 #tribe-events-footer {
 	margin-bottom: 18px;
@@ -422,6 +423,7 @@ select.tribe-events-dropdown {
 
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
 	display: inline-block;
+	white-space: pre;
 } 
 
 .tribe-events-event-meta address.event-address {
@@ -844,7 +846,7 @@ select.tribe-events-dropdown {
 }
 .tribe-events-tooltip .tribe-events-event-thumb {
 	float: left;
-	padding: 5px;
+	padding: 5px 5px 5px 0;
 }
 .tribe-events-tooltip p.entry-summary {
 	padding: 0;
