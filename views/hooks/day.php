@@ -69,7 +69,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			$html = '';
 
 			// setup the "start time" for the event header
-			$start_time = ( $post->tribe_is_allday ) ? 
+			$start_time = !empty( $post->tribe_is_allday ) && $post->tribe_is_allday ? 
 				__( 'All Day', 'tribe-events-calendar' ) :
 				tribe_get_start_date( null, false, 'ga ' );
 
