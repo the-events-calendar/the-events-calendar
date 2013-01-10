@@ -98,7 +98,7 @@ if( !class_exists('Tribe_Events_Map_Template')){
 		}
 		// Map Header
 		public static function before_header( $post_id ){
-			$html = '<div id="tribe-events-header" data-title="' . wp_title( '&raquo;', false ) . '">';
+			$html = '<div id="tribe-events-header">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_header');
 		}
 		// Map Navigation
