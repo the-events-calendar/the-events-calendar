@@ -1,9 +1,3 @@
-// tribe function to get specific query var from url
-	
-function tribe_get_url_param(tribe_param_name) {
-	return decodeURIComponent((new RegExp('[?|&]' + tribe_param_name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
-}
-
 // tribe function to get all query vars from url
 
 function tribe_get_url_params() {
@@ -90,7 +84,10 @@ tribe_ev.fn = {
 	},
 	get_url_param: function( tribe_param_name ) {
 		return decodeURIComponent((new RegExp('[?|&]' + tribe_param_name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
-	}, 	 
+	}, 
+	in_params: function( params, term ) {
+		return params.toLowerCase().indexOf( term );
+	},
 	parse_string: function( string ) {    
 		var map   = {};
 		string.replace(/([^&=]+)=?([^&]*)(?:&+|$)/g, function(match, key, value) {
@@ -174,6 +171,7 @@ tribe_ev.tests = {
 }
 
 tribe_ev.data = {
+	params:tribe_ev.fn.get_params(),
 	cur_url:tribe_ev.fn.url_path( document.URL ),
 	ajax_response:{}		
 }
