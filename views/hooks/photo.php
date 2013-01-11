@@ -52,9 +52,7 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 			
 			// Display Next Page Navigation
 			if ( $wp_query->max_num_pages > ( $wp_query->query_vars['paged'] + 1 ) ) {
-				$html .= '<li class="tribe-nav-next"><a href="#" class="tribe_paged">' . __( 'Next Events &rarr;' ) . '</a>';
-				// Loading spinner
-				$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
+				$html .= '<li class="tribe-nav-next"><a href="#" class="tribe_paged">' . __( 'Next Events &rarr;' ) . '</a>';			
 				$html .= '</li><!-- .tribe-nav-next -->';
 			}
 			return $html;
@@ -116,7 +114,9 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 		}
 		// End Photo Template
 		public static function after_template() {
-			$html = '</div>';
+			$tribe_ecp = TribeEvents::instance();
+			$html = '<img class="tribe-ajax-loading tribe-spinner photo-loader" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
+			$html .= '</div>';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_photo_after_template' );
 		}
 	}
