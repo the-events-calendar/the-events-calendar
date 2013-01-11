@@ -110,19 +110,19 @@ jQuery( document ).ready( function ( $ ) {
 	
 	
 	
-	if( GeoLoc.map_view && tribe_get_url_params() ) {
+	if( GeoLoc.map_view && tribe_ev.data.params ) {
 		
-		var tribe_in_params = tribe_get_url_params();
-		if ( tribe_in_params.toLowerCase().indexOf("geosearch") >= 0 ) {} else
-			tribe_in_params += '&action=geosearch';
-		if ( tribe_in_params.toLowerCase().indexOf("tribe_paged") >= 0 ) {} else
-			tribe_in_params += '&tribe_paged=1';
+		var tp = tribe_ev.data.params;
+		if ( tribe_ev.fn.in_params( tp, "geosearch" ) >= 0 ) {} else
+			tp += '&action=geosearch';
+		if ( tribe_ev.fn.in_params( tp, "tribe_paged" ) >= 0 ) {} else
+			tp += '&tribe_paged=1';
 					
 		tribe_do_string = false;
 		tribe_pushstate = false;	
 		tribe_popping = true;	
 		tribe_pre_ajax_tests( function() { 
-			tribe_map_processOption( null, '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_in_params );	
+			tribe_map_processOption( null, '', tribe_pushstate, tribe_do_string, tribe_popping, tp );	
 		});
 	} else if( GeoLoc.map_view ){
 		
