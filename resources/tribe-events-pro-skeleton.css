@@ -54,6 +54,14 @@
 	width: 100%;
 	position: relative;
 	margin: 18px auto;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
+}
+.tribe-events-grid * {
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
 }
 
 /* grid header */
@@ -113,8 +121,9 @@
 	display: inline-block;
 	zoom: 1;
 	*display: inline;
+	float: left;
 	vertical-align: top;
-	width: 13.5%;
+	width: 14.3437%;
 	text-align: center;
 	border-left: 1px solid #bbb;
 }
@@ -148,11 +157,17 @@
 	min-height: 60px;	
 }
 .tribe-grid-allday .column.first {
-	top: 12px;
+	top: 0;
+}
+.tribe-grid-allday .column.first span {
+	position: absolute;
+	top: 50%;
+	margin-top: -12px;
 }
 .tribe-grid-allday .hentry.vevent { 	
 	padding:4px;
 	margin:0;
+	position: relative;
 }
 
 .tribe-grid-allday .hentry.vevent > div { 

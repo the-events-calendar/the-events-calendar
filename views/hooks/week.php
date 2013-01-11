@@ -190,16 +190,17 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 	<?php // All Day "Row" ?>
 	<div class="tribe-grid-allday clearfix">
 
-		<div class="column first"><?php _e( 'All Day', 'tribe-events-calendar-pro' ); ?></div>
+		<div class="column first"><?php _e( '<span>All Day</span>', 'tribe-events-calendar-pro' ); ?></div>
 
 		<div class="tribe-grid-content-wrap">
 
 			<?php
-			$placeholder = 0;
+			$placeholder = 0;			
 			for ( $n = 0; $n < $week_length; $n++ ) {
 				$day = date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) );
-				$header_class = ( $day == $today ) ? 'tribe-week-today' : '';
-				printf( '<div title="%s" class="column %s">', date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) ), $header_class );
+				$header_class = ( $day == $today ) ? ' tribe-week-today' : '';
+				$right_align = ( $n != 0 && ( ( $n % 4 == 0 ) || ( $n % 5 == 0 ) || ( $n % 6 == 0 ) ) ) ? ' tribe-events-right' : '';
+				printf( '<div title="%s" class="column%s%s">', date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) ), $header_class, $right_align );
 				if ( $placeholder > 0 ) {
 					for ( $placeholder_i = 0; $placeholder_i <= $placeholder; $placeholder_i++ ) {
 						echo '<div class="tribe-event-placeholder">placeholder</div>';
@@ -261,7 +262,6 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 						</div><!-- .tribe-events-tooltip -->
 						<?php
 						echo '</div></div>';
-
 					}
 				}
 				echo '</div><!-- allday column -->';
@@ -274,8 +274,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 	<?php // Grid "Rows" ?>
 	<div class="tribe-week-grid-outer-wrap">
 		<div class="tribe-week-grid-inner-wrap">
-			<?php
-			// sam messing aboot
+			<?php	
 			for ( $grid_blocks = $events->hours['start']; $grid_blocks <= $events->hours['end']; $grid_blocks++ ) {
 				printf( '<div class="tribe-week-grid-block" data-hour="%s"><div></div></div>', date( 'G', mktime( $grid_blocks ) ) );
 			}
@@ -291,7 +290,6 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 		<?php // Hours ?>
 		<div class="column tribe-week-grid-hours">
 			<?php
-
 			for ( $hour = $events->hours['start']; $hour <= $events->hours['end']; $hour++ ) {
 				printf( '<div>%s</div>', date( 'gA', mktime( $hour ) ) );
 			}
@@ -305,10 +303,12 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			<?php // Our day columns?
 			for ( $n = 0; $n < $week_length; $n++ ) {
 				$day = date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) );
-				$header_class = ( $day == $today ) ? 'tribe-week-today' : '';
-				printf( '<div title="%s" class="column hfeed vcalendar %s">',
+				$header_class = ( $day == $today ) ? ' tribe-week-today' : '';
+				$right_align = ( $n != 0 && ( ( $n % 4 == 0 ) || ( $n % 5 == 0 ) || ( $n % 6 == 0 ) ) ) ? ' tribe-events-right' : '';
+				printf( '<div title="%s" class="column hfeed vcalendar%s%s">',
 					date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) ),
-					$header_class
+					$header_class,
+					$right_align
 				);
 				foreach ( $events->daily as $event ) {
 					if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) == $day ) {
