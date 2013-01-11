@@ -70,7 +70,7 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_pushstate = false;	
 				tribe_popping = true;
 				tribe_params = state.tribe_params;
-				tribe_pre_ajax_tests( function() { 				
+				tribe_ev.fn.pre_ajax( function() { 				
 					tribe_map_processOption( null, '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params );
 				});
 			} else if( tribe_storage && initial_load !== 'true' ){				
@@ -121,7 +121,7 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_do_string = false;
 		tribe_pushstate = false;	
 		tribe_popping = true;	
-		tribe_pre_ajax_tests( function() { 
+		tribe_ev.fn.pre_ajax( function() { 
 			tribe_map_processOption( null, '', tribe_pushstate, tribe_do_string, tribe_popping, tp );	
 		});
 	} else if( GeoLoc.map_view ){
@@ -130,7 +130,7 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_pushstate = false;	
 		tribe_popping = false;
 		tribe_initial_load = true;
-		tribe_pre_ajax_tests( function() { 
+		tribe_ev.fn.pre_ajax( function() { 
 			tribe_map_processOption( null, '', tribe_pushstate, tribe_do_string, tribe_popping, '', tribe_initial_load );			
 		});
 	}
@@ -147,12 +147,12 @@ jQuery( document ).ready( function ( $ ) {
 		
 		
 		if( tribe_has_pushstate ) {
-			tribe_pre_ajax_tests( function() { 			
+			tribe_ev.fn.pre_ajax( function() { 			
 				tribe_map_processOption( null, '' );
 				$( "#tribe-geo-options" ).hide();
 			});
 		} else {			
-			tribe_pre_ajax_tests( function() { 
+			tribe_ev.fn.pre_ajax( function() { 
 				tribe_reload_old_browser();
 			});
 		}
@@ -291,11 +291,11 @@ jQuery( document ).ready( function ( $ ) {
 			e.preventDefault();
 			tribe_map_paged++;
 			if( tribe_has_pushstate ) {
-				tribe_pre_ajax_tests( function() { 			
+				tribe_ev.fn.pre_ajax( function() { 			
 					tribe_map_processOption( null, tribe_ev.data.cur_url );
 				});
 			} else {			
-				tribe_pre_ajax_tests( function() { 
+				tribe_ev.fn.pre_ajax( function() { 
 					tribe_reload_old_browser();
 				});
 			}
@@ -305,11 +305,11 @@ jQuery( document ).ready( function ( $ ) {
 			e.preventDefault();
 			tribe_map_paged--;
 			if( tribe_has_pushstate ) {			
-				tribe_pre_ajax_tests( function() { 			
+				tribe_ev.fn.pre_ajax( function() { 			
 					tribe_map_processOption( null, tribe_ev.data.cur_url );
 				});
 			} else {
-				tribe_pre_ajax_tests( function() { 
+				tribe_ev.fn.pre_ajax( function() { 
 					tribe_reload_old_browser();
 				});
 			}
@@ -322,11 +322,11 @@ jQuery( document ).ready( function ( $ ) {
 			e.preventDefault();
 			tribe_map_paged = 1;
 			if( tribe_has_pushstate ) {	
-				tribe_pre_ajax_tests( function() { 						
+				tribe_ev.fn.pre_ajax( function() { 						
 					tribe_map_processOption( null, tribe_ev.data.cur_url );
 				});
 			} else {
-				tribe_pre_ajax_tests( function() { 						
+				tribe_ev.fn.pre_ajax( function() { 						
 					tribe_reload_old_browser();
 				});
 			}

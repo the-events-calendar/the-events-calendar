@@ -36,7 +36,7 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_pushstate = false;	
 				tribe_popping = true;
 				tribe_params = state.tribe_params;
-				tribe_pre_ajax_tests( function() {				
+				tribe_ev.fn.pre_ajax( function() {				
 					tribe_events_calendar_ajax_post( tribe_date, '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params );
 				});
 			} else if( tribe_storage && initial_load !== 'true' ){				
@@ -51,7 +51,7 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_date = $( this ).attr( "data-day" );
 		tribe_href_target = $( this ).attr( "href" );
 		tribe_update_daypicker(tribe_date);
-		tribe_pre_ajax_tests( function() { 
+		tribe_ev.fn.pre_ajax( function() { 
 			tribe_events_calendar_ajax_post( tribe_date, tribe_href_target );
 		});
 	} );
@@ -65,7 +65,7 @@ jQuery( document ).ready( function ( $ ) {
 
 			e.preventDefault();
 			tribe_date = $('#tribe-events-header').attr('data-date');			
-			tribe_pre_ajax_tests( function() { 
+			tribe_ev.fn.pre_ajax( function() { 
 				tribe_events_calendar_ajax_post( tribe_date, tribe_ev.data.cur_url );
 			});
 
@@ -92,7 +92,7 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_date = $(this).val();			
 		var base_url = $('.tribe-events-nav-next a').attr('href').slice(0, -11);			
 		tribe_href_target = base_url + tribe_date + '/';
-		tribe_pre_ajax_tests( function() { 
+		tribe_ev.fn.pre_ajax( function() { 
 			tribe_events_calendar_ajax_post( tribe_date, tribe_href_target );		
 		});
 
@@ -105,7 +105,7 @@ jQuery( document ).ready( function ( $ ) {
 			if ( tribe_events_bar_action != 'change_view' ) {
 				e.preventDefault();
 				tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
-				tribe_pre_ajax_tests( function() { 
+				tribe_ev.fn.pre_ajax( function() { 
 					tribe_events_calendar_ajax_post( tribe_date, tribe_ev.data.cur_url );	
 				});
 			}
