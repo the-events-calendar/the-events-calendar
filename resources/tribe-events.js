@@ -84,6 +84,46 @@ tribe_ev.fn = {
 			}
 		}
 	},
+	set_form: function(){
+		jQuery('body').addClass('tribe-reset-on');
+		
+		if( jQuery('#tribe_events_filters_form').length ) {
+			var $form = jQuery('#tribe_events_filters_form');
+			
+
+			$form.tribe_clear_form();
+
+			if( $form.find('.select2-container').length ) {
+				$( '#tribe_events_filters_form .select2-container' ).select2("val", {});				
+			}
+
+			if( $form.find('.ui-slider').length ) {
+				$( '#tribe_events_filters_form .ui-slider' ).each( function() {
+					var s_id = $(this).attr('id');
+					var $this = $('#' + s_id);
+					var $input = $this.prev();
+					var $display = $input.prev();
+					var settings = $this.slider( "option" );
+
+					$this.slider("values", 0, settings.min);
+					$this.slider("values", 1, settings.max);
+					$display.text( settings.min + " - " + settings.max ); 
+					$input.val('');				
+				});
+			}
+
+			$form.find('input[type=submit]').trigger('click');			
+		}
+		
+		current_params = tribe_parse_query_string( tribe_url_params );				
+				$.each(current_params, function(key,value) {
+					if( key !== 'action' ) {						
+						$('[name^="' + decodeURI(key) + '"]').val(value);						
+					}					
+				});
+				
+		jQuery('body').removeClass('tribe-reset-on');
+	},
 	snap: function( container, trigger_parent, trigger ) {		
 		jQuery( trigger_parent ).on( 'click', trigger, function ( e ) {
 			jQuery('html, body').animate( {scrollTop:jQuery( container ).offset().top - 120}, {duration: 0});
@@ -137,7 +177,9 @@ tribe_ev.state = {
 	do_string:false,
 	popping:false,
 	pushstate:true,
-	initial_load:false,
+	initial_load:true,
+	params:{},
+	url_params:{},
 	paged:1
 }
 
