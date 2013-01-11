@@ -87,13 +87,14 @@ jQuery( document ).ready( function ( $ ) {
 	if( tribe_ev.tests.live_ajax() ) {
 
 		$('#tribe-bar-date').on( 'change', function (e) {
-			tribe_date = $(this).val();			
-			var base_url = $('.tribe-nav-next a').attr('href').slice(0, -11);			
-			tribe_href_target = base_url + tribe_date + '/';
-			tribe_ev.fn.pre_ajax( function() { 
-				tribe_events_calendar_ajax_post( tribe_date, tribe_href_target );		
-			});
-
+			if( !$('body').hasClass('tribe-reset-on') ) {
+				tribe_date = $(this).val();			
+				var base_url = $('.tribe-nav-next a').attr('href').slice(0, -11);			
+				tribe_href_target = base_url + tribe_date + '/';
+				tribe_ev.fn.pre_ajax( function() { 
+					tribe_events_calendar_ajax_post( tribe_date, tribe_href_target );		
+				});
+			}
 		} );
 
 	}
@@ -114,7 +115,7 @@ jQuery( document ).ready( function ( $ ) {
 		
 		if( tribe_ev.tests.live_ajax() ) {
 			$( "#tribe_events_filters_form .ui-slider" ).on( "slidechange", function() {
-				if( !$form.hasClass('tribe-reset-on') ){
+				if( !$('body').hasClass('tribe-reset-on') ){
 					tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
 					tribe_ev.fn.pre_ajax( function() { 
 						tribe_events_calendar_ajax_post( tribe_date, tribe_ev.data.cur_url );	
@@ -122,7 +123,7 @@ jQuery( document ).ready( function ( $ ) {
 				}			
 			} );
 			$("#tribe_events_filters_form").on("change", "input, select", function(){
-				if( !$form.hasClass('tribe-reset-on') ){
+				if( !$('body').hasClass('tribe-reset-on') ){
 					tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
 					tribe_ev.fn.pre_ajax( function() { 
 						tribe_events_calendar_ajax_post( tribe_date, tribe_ev.data.cur_url );	

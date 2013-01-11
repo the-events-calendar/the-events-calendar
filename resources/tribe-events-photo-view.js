@@ -125,7 +125,7 @@ jQuery( document ).ready( function ( $ ) {
 			
 			if( tribe_ev.tests.live_ajax() ) {
 				$( "#tribe_events_filters_form .ui-slider" ).on( "slidechange", function() {
-					if( !$form.hasClass('tribe-reset-on') ){						
+					if( !$('body').hasClass('tribe-reset-on') ){						
 						tribe_list_paged = 1;
 						tribe_ev.fn.pre_ajax( function() {
 							tribe_events_list_ajax_post( tribe_ev.data.cur_url );
@@ -133,7 +133,7 @@ jQuery( document ).ready( function ( $ ) {
 					}			
 				} );
 				$("#tribe_events_filters_form").on("change", "input, select", function(){
-					if( !$form.hasClass('tribe-reset-on') ){						
+					if( !$('body').hasClass('tribe-reset-on') ){						
 						tribe_list_paged = 1;
 						tribe_ev.fn.pre_ajax( function() {
 							tribe_events_list_ajax_post( tribe_ev.data.cur_url );
@@ -157,8 +157,9 @@ jQuery( document ).ready( function ( $ ) {
 		}
 
 		if( tribe_ev.tests.live_ajax() ) {
-			$('#tribe-bar-date').on( 'change', function (e) {		
-				tribe_events_bar_photoajax_actions(e)
+			$('#tribe-bar-date').on( 'change', function (e) {
+				if( !$('body').hasClass('tribe-reset-on') )
+					tribe_events_bar_photoajax_actions(e)
 			} );
 		}
 				

@@ -245,8 +245,10 @@ jQuery(document).ready(function($){
 
 	if( tribe_ev.tests.live_ajax() ) {
 		$('#tribe-bar-date').on( 'change', function (e) {
-			tribe_picker = true;
-			tribe_events_bar_weekajax_actions(e, tribe_picker);
+			if( !$('body').hasClass('tribe-reset-on') ) {
+				tribe_picker = true;
+				tribe_events_bar_weekajax_actions(e, tribe_picker);
+			}			
 		} );
 	}	
 	
@@ -260,7 +262,7 @@ jQuery(document).ready(function($){
 		
 		if( tribe_ev.tests.live_ajax() ) {
 			$( "#tribe_events_filters_form .ui-slider" ).on( "slidechange", function() {
-				if( !$form.hasClass('tribe-reset-on') ){
+				if( !$('body').hasClass('tribe-reset-on') ){
 					tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
 					tribe_href_target = tribe_ev.data.cur_url;
 					tribe_pushstate = false;
@@ -271,7 +273,7 @@ jQuery(document).ready(function($){
 				}			
 			} );
 			$("#tribe_events_filters_form").on("change", "input, select", function(){
-				if( !$form.hasClass('tribe-reset-on') ){
+				if( !$('body').hasClass('tribe-reset-on') ){
 					tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
 					tribe_href_target = tribe_ev.data.cur_url;
 					tribe_pushstate = false;
