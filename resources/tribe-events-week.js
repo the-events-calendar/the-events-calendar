@@ -206,7 +206,7 @@ jQuery(document).ready(function($){
 			.hide();
 	} );
 
-	if( tribe_ev.tests.live_ajax ) {
+	if( tribe_ev.tests.live_ajax() ) {
 		$('#tribe-bar-date').on( 'change', function (e) {
 			tribe_picker = true;
 			tribe_events_bar_weekajax_actions(e, tribe_picker);
@@ -221,7 +221,7 @@ jQuery(document).ready(function($){
 		
 		var $form = $('#tribe_events_filters_form');
 		
-		if( tribe_ev.tests.live_ajax ) {
+		if( tribe_ev.tests.live_ajax() ) {
 			$( "#tribe_events_filters_form .ui-slider" ).on( "slidechange", function() {
 				if( !$form.hasClass('tribe-reset-on') ){
 					tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
