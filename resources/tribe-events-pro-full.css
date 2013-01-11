@@ -105,7 +105,7 @@
 	*display: inline;
 	float: left;
 	vertical-align: top;
-	width: 14.3437%;
+	width: 14%;
 	text-align: center;
 	border-left: 1px solid #bbb;
 }
@@ -123,6 +123,7 @@
 	text-transform: none;
 	letter-spacing: 0;
 	text-align: left;
+	overflow: hidden;
 }
 .tribe-events-grid .hentry.vevent a {
  	color: #333;
@@ -144,6 +145,7 @@
 .tribe-grid-allday .column.first span {
 	position: absolute;
 	top: 50%;
+	left: 0;
 	margin-top: -12px;
 }
 .tribe-grid-allday .hentry.vevent { 	
