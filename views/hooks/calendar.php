@@ -162,6 +162,13 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$count_args['end_date'] = date('Y-m-t', $date) . ' 23:59:59';
 			$count_args['hide_upcoming_ids'] = $hide_upcoming_ids;
 			$event_daily_counts = TribeEventsQuery::getEventCounts( $count_args );
+
+			$tribe_bar_args = array();
+			foreach ( $_REQUEST as $key => $value ) {
+				if ( $value && strpos($key, 'tribe-bar-') === 0 && $key != 'tribe-bar-date' ) {
+					$tribe_bar_args[$key] = $value;
+				}
+			}
 			// print_r($event_daily_counts);
 			// $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 ?>
@@ -336,8 +343,12 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 							// 	$daily_events->found_posts - $posts_per_page_limit : 
 							// 	0;
 							if( !empty($event_daily_counts[$date]) && (int) $event_daily_counts[$date] > $posts_per_page_limit ) {
+								$day_link = tribe_get_day_link($date);
+								if ( !empty($tribe_bar_args) ) {
+									$day_link = add_query_arg($tribe_bar_args, $day_link);
+								}
 								printf( '<div class="viewmore vevent"><a href="%s">View All %d &raquo;</a></div>',
-									tribe_get_day_link( $date ),
+									$day_link,
 									$event_daily_counts[$date]
 									);
 							}
