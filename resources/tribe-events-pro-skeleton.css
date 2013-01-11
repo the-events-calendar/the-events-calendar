@@ -132,22 +132,42 @@
 	position: relative;
 }
 
+/* Global Week Event Styles */
 .tribe-events-grid .hentry.vevent h3.entry-title {
 	color: #333;
 	font-size: 12px;
 	line-height: 1.25;
-	padding: 0;
+	padding: 4px 6px;
 	margin: 0;
 	text-transform: none;
 	letter-spacing: 0;
 	text-align: left;
 	overflow: hidden;
+	height: 100%;
 }
 .tribe-events-grid .hentry.vevent a {
  	color: #333;
  	font-size: 12px;
  	line-height: 1.25;
  	padding: 0;
+ 	display: block;
+	width: 100%;
+	height: 100%;
+}
+.tribe-grid-allday .hentry.vevent > div,
+.tribe-grid-body div[id*="tribe-events-event-"] .hentry.vevent { 
+	width: 100%;
+	background-color: #e6e6e6;
+	background-color: rgba(221, 221, 221, .75);
+	border: 1px solid #ccc;
+	-webkit-border-radius: 3px;
+			border-radius: 3px;
+	cursor: pointer;
+}
+.tribe-grid-allday .hentry.vevent > div:hover,
+.tribe-grid-body div[id*="tribe-events-event-"] .hentry.vevent:hover {
+	background-color: #e2e2e2;
+	background-color: rgba(221, 221, 221, .85);
 }
 
 /* All day */
@@ -166,29 +186,16 @@
 	left: 0;
 	margin-top: -12px;
 }
-.tribe-grid-allday .hentry.vevent { 	
-	padding:4px;
+.tribe-grid-allday .hentry.vevent {
 	margin:0;
 	position: relative;
+	padding: 4px;
 }
-
-.tribe-grid-allday .hentry.vevent > div { 
-	padding: 8px 6px; 
-	width:100%;
-	background-color: #e6e6e6;
-	background-color: rgba(221, 221, 221, .75);
-	-webkit-box-sizing: border-box;
-	   -moz-box-sizing: border-box;
-			box-sizing: border-box;
-	border:1px solid #ccc;
-	-webkit-border-radius: 3px;
-			border-radius: 3px;
-	cursor: pointer;
+.tribe-grid-allday .hentry.vevent ~ .hentry.vevent { 	
+	padding: 0 4px 4px;
 }
-
-.tribe-grid-allday .hentry.vevent > div:hover { 
-	background-color: #e2e2e2;
-	background-color: rgba(221, 221, 221, .85);
+.tribe-grid-allday .hentry.vevent h3.entry-title {
+	padding: 8px 6px;
 }
 
 .tribe-grid-allday .hentry.vevent.tribe-dayspan2 > div {
@@ -213,27 +220,19 @@
 /* Actual Event Styles */
 .tribe-grid-body .hentry.vevent {
  	width: 100%;
- 	padding: 0;
+ 	height: 100%;
  	overflow: hidden;
 }
-.tribe-grid-body div[id*="tribe-events-event-"] { 	
- 	background-color: #e6e6e6;
- 	background-color: rgba(221, 221, 221, .75); 	
+.tribe-grid-body div[id*="tribe-events-event-"] { 		
  	font-weight: bold; 
- 	margin: 4px 4px 0; 
 	line-height: 1.25; 
- 	padding: 4% 5% 0;
- 	cursor: pointer;
  	position: absolute;
  	z-index: 500;
-	border: 1px solid #ccc;
-	-webkit-border-radius: 3px;
-			border-radius: 3px;
+ 	width: 100%;
+ 	padding: 4px;
 }
 .tribe-grid-body div[id*="tribe-events-event-"]:hover {
-	z-index: 800;
-	background-color: #e2e2e2;
-	background-color: rgba(221, 221, 221, .85);
+ 	z-index: 800;
 }
 
 /* Tooltip */

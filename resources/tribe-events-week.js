@@ -23,38 +23,38 @@ jQuery(document).ready(function($){
 	}
 	
 	
-	function tribe_set_allday_spaning_events_width() {	
+	function tribe_set_allday_spanning_events_width() {	
 	
 		// Set vars
-		var ad = $('.tribe-grid-allday');
-		var ad_e = $('.tribe-grid-allday .vevent');
+		var $ad = $('.tribe-grid-allday');
+		var $ad_e = $('.tribe-grid-allday .vevent');
 		var ad_c_w = $('.tribe-grid-allday .vevent').not('[class^="tribe-dayspan"]').width();
 		
 		// Set width
 		//X paddings * 4 + X borders
-		if( ad_e.hasClass('tribe-dayspan2') ) {
-			ad.find('.tribe-dayspan2').children('div').css('width', ad_c_w * 2 + (2 * 4 + 1) + 'px');
+		if( $ad_e.hasClass('tribe-dayspan2') ) {
+			$ad.find('.tribe-dayspan2').children('div').css('width', ad_c_w * 2 + (2 * 4 + 1) + 'px');
 		} 
-		if( ad_e.hasClass('tribe-dayspan3') ) {
-			ad.find('.tribe-dayspan3').children('div').css('width', ad_c_w * 3 + (4 * 4 + 2) + 'px');
+		if( $ad_e.hasClass('tribe-dayspan3') ) {
+			$ad.find('.tribe-dayspan3').children('div').css('width', ad_c_w * 3 + (4 * 4 + 2) + 'px');
 		}
-		if( ad_e.hasClass('tribe-dayspan4') ) {
-			ad.find('.tribe-dayspan4').children('div').css('width', ad_c_w * 4 + (6 * 4 + 3) + 'px');
+		if( $ad_e.hasClass('tribe-dayspan4') ) {
+			$ad.find('.tribe-dayspan4').children('div').css('width', ad_c_w * 4 + (6 * 4 + 3) + 'px');
 		}
-		if( ad_e.hasClass('tribe-dayspan5') ) {
-			ad.find('.tribe-dayspan5').children('div').css('width', ad_c_w * 5 + (8 * 4 + 4) + 'px');
+		if( $ad_e.hasClass('tribe-dayspan5') ) {
+			$ad.find('.tribe-dayspan5').children('div').css('width', ad_c_w * 5 + (8 * 4 + 4) + 'px');
 		}
-		if( ad_e.hasClass('tribe-dayspan6') ) {
-			ad.find('.tribe-dayspan6').children('div').css('width', ad_c_w * 6 + (10 * 4 + 5) + 'px');
+		if( $ad_e.hasClass('tribe-dayspan6') ) {
+			$ad.find('.tribe-dayspan6').children('div').css('width', ad_c_w * 6 + (10 * 4 + 5) + 'px');
 		} 
-		if( ad_e.hasClass('tribe-dayspan7') ) {
-			ad.find('.tribe-dayspan7').children('div').css('width', ad_c_w * 7 + (12 * 4 + 6) + 'px');
+		if( $ad_e.hasClass('tribe-dayspan7') ) {
+			$ad.find('.tribe-dayspan7').children('div').css('width', ad_c_w * 7 + (12 * 4 + 6) + 'px');
 		}
 					
 	}
-	tribe_set_allday_spaning_events_width();
+	tribe_set_allday_spanning_events_width();
 	$('.tribe-grid-allday').resize(function() { 
-		tribe_set_allday_spaning_events_width();
+		tribe_set_allday_spanning_events_width();
 	});
 	
 				
@@ -104,7 +104,7 @@ jQuery(document).ready(function($){
 
 			var $this = $(this);			
 			var event_hour = $this.attr("data-hour");			
-			var event_length = $this.attr("duration") - 14;	
+			var event_length = $this.attr("duration");	
 			var event_min = $this.attr("data-min");
 
 			// $event_target is our grid block with the same data-hour value as our event.
@@ -130,12 +130,14 @@ jQuery(document).ready(function($){
 				event_length = event_length + free_space - 14;
 			}
 
-			// ok we have all our values, let's set length and position from top for our event and show it.
+			// ok we have all our values, let's set length and position from top for our event and show it. And let's also set length for the event anchor so the entire event length is clickable.
 
 			$this.css({
 				"height":event_length + "px",
 				"top":event_position_top + "px"
-				}).show();			
+				}).show().find('a').css({
+					"height":event_length - 16 + "px"
+				});			
 		});
 
 		// now that we have set our events up correctly let's deal with our overlaps
@@ -362,6 +364,10 @@ jQuery(document).ready(function($){
 						$( '#tribe-events-content.tribe-events-week-grid' ).replaceWith( response );
 
 						tribe_display_week_view();
+						tribe_set_allday_spanning_events_width();
+						$('.tribe-grid-allday').resize(function() { 
+							tribe_set_allday_spanning_events_width();
+						});
 						
 						if( tribe_do_string ) {							
 							tribe_href_target = tribe_href_target + '?' + tribe_params;								
