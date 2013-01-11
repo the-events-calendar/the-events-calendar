@@ -350,10 +350,29 @@ jQuery( document ).ready( function ( $ ) {
 		} );		
 	}
 	
-	if( GeoLoc.map_view  && $('#tribe_events_filters_form').length ) {
-		$( 'form#tribe_events_filters_form' ).bind( 'submit', function ( e ) {			
-			tribe_events_bar_mapajax_actions(e);			
-		} );
+	if( GeoLoc.map_view  && $('#tribe_events_filters_form').length ) {		
+		
+		var $form = $('#tribe_events_filters_form');
+		
+		$form.on( 'submit', function ( e ) {
+			if ( tribe_events_bar_action != 'change_view' ) {
+				tribe_events_bar_mapajax_actions(e);		
+			}
+		} );		
+		
+		if( tribe_ev.tests.live_ajax() ) {			
+			$( "#tribe_events_filters_form .ui-slider" ).on( "slidechange", function(e) {
+				if( !$form.hasClass('tribe-reset-on') ){
+					tribe_events_bar_mapajax_actions(e);	
+					alert('change')
+				}			
+			} );
+			$("#tribe_events_filters_form").on("change", "input, select", function(e){
+				if( !$form.hasClass('tribe-reset-on') ){
+					tribe_events_bar_mapajax_actions(e);		
+				}
+			});			
+		}
 	}
 	
 
