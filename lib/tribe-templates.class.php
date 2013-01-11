@@ -316,7 +316,7 @@ if (!class_exists('TribeEventsTemplates')) {
 				$file = $plugin_path . 'views' . $subfolder . $template;
 			}
 			
-			if ( !$disable_view_check && ! in_array( $tec->displaying, tribe_get_option( 'tribeEnableViews', array() ) ) ) {
+			if ( !$disable_view_check && in_array( $tec->displaying, tribe_events_disabled_views() ) ) {
 				$file = get_404_template();
 			}
 

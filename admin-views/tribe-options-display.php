@@ -10,8 +10,7 @@ foreach ( array_keys( $templates ) as $template ) {
 	$template_options[$templates[$template]] = $template;
 }
 
-remove_filter( 'tribe-events-bar-views', array( TribeEvents::instance(), 'remove_hidden_views' ), 9999, 1 );
-$views = apply_filters( 'tribe-events-bar-views', array() );
+$views = apply_filters( 'tribe-events-bar-views', array(), FALSE );
 
 $views_options = array();
 foreach( $views as $view ) {

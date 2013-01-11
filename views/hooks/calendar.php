@@ -157,6 +157,10 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				'start_date' => date('Y-m-d', $date) . ' 00:00:00',
 				'end_date' => date('Y-m-t', $date) . ' 23:59:59'
 				);
+			$count_args = $wp_query->query;
+			$count_args['start_date'] = date('Y-m-d', $date) . ' 00:00:00';
+			$count_args['end_date'] = date('Y-m-t', $date) . ' 23:59:59';
+			$count_args['hide_upcoming_ids'] = $hide_upcoming_ids;
 			$event_daily_counts = TribeEventsQuery::getEventCounts( $count_args );
 			// print_r($event_daily_counts);
 			// $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );

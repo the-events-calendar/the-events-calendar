@@ -420,50 +420,38 @@ if (!class_exists('TribeEventsQuery')) {
 				'hide_upcoming_ids' => null
 			);
 			$args = wp_parse_args( $args, $defaults);
+			$args['posts_per_page'] = -1;
+			$args['fields'] = 'ids';
+			$post_id_query = new WP_Query();
+			$post_ids = $post_id_query->query($args);
+			if ( empty($post_ids) ) {
+				return array();
+			}
  
 			$counts = array();
 			switch( $args['display_type'] ){
 				case 'daily':
 				default :
 					$output_date_format = '%Y-%m-%d';
-					$query = (object) array(
-						'tribe_is_event' => true,
-						'start_date' => $args['start_date'],
-						'end_date' => $args['end_date'],
-						'order' => 'ASC',
-						'orderby' => 'event_date'
-						);
-					$raw_counts = $wpdb->get_results( sprintf( "SELECT $wpdb->posts.id as ID, DATE_FORMAT( $wpdb->postmeta.meta_value, '%s') as EventStartDate, DATE_FORMAT( DATE_ADD(CAST($wpdb->postmeta.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND), '%s') as EventEndDate
-						FROM $wpdb->posts 
-						INNER JOIN $wpdb->postmeta ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id )
-						LEFT JOIN $wpdb->postmeta as tribe_event_duration ON ( $wpdb->posts.ID = tribe_event_duration.post_id AND tribe_event_duration.meta_key = '_EventDuration' )
-						WHERE 1 = 1
-						%s
-						AND post_type = '%s'
-						AND ( $wpdb->posts.post_status = 'publish' OR $wpdb->posts.post_status = 'private' )
-						AND ( $wpdb->postmeta.meta_key = '_EventStartDate' )
-						AND ( ($wpdb->postmeta.meta_value >= '%s' AND  $wpdb->postmeta.meta_value <= '%s') 
-							OR ($wpdb->postmeta.meta_value <= '%s' AND DATE_ADD(CAST( $wpdb->postmeta.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) >= '%s')
-							OR ( $wpdb->postmeta.meta_value >= '%s' AND  $wpdb->postmeta.meta_value <= '%s')
+					$raw_counts = $wpdb->get_results( sprintf( "SELECT tribe_event_start.post_id as ID, DATE_FORMAT( tribe_event_start.meta_value, '%1\$s') as EventStartDate, DATE_FORMAT( DATE_ADD(CAST(tribe_event_start.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND), '%2\$s') as EventEndDate
+						FROM $wpdb->postmeta AS tribe_event_start
+						LEFT JOIN $wpdb->postmeta as tribe_event_duration ON ( tribe_event_start.post_id = tribe_event_duration.post_id AND tribe_event_duration.meta_key = '_EventDuration' )
+						WHERE tribe_event_start.meta_key = '_EventStartDate'
+						AND tribe_event_start.post_id IN ( %5\$s )
+						AND ( (tribe_event_start.meta_value >= '%3\$s' AND  tribe_event_start.meta_value <= '%4\$s')
+							OR (tribe_event_start.meta_value <= '%3\$s' AND DATE_ADD(CAST( tribe_event_start.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) >= '%3\$s')
+							OR ( tribe_event_start.meta_value >= '%3\$s' AND  tribe_event_start.meta_value <= '%4\$s')
 						)
-						%s;",
+						ORDER BY DATE(tribe_event_start.meta_value) ASC, TIME(tribe_event_start.meta_value) ASC;",
 						$output_date_format,
 						$output_date_format,
-						!empty($args['hide_upcoming_ids']) ? "AND $wpdb->posts.ID NOT IN ( " . implode(',', $args['hide_upcoming_ids'] ) . " )" : '', // hide upcoming ids
-						$args['post_type'],
 						$args['start_date'],
 						$args['end_date'],
-						$args['start_date'],
-						$args['start_date'],
-						$args['start_date'],
-						$args['end_date'],
-						' ORDER BY ' . self::posts_orderby('',$query)
-						
+						implode(',', array_map('intval', $post_ids))
 						));
 					// echo $wpdb->last_query;
 					$start_date = new DateTime( $args['start_date'] );
 					$end_date = new DateTime( $args['end_date'] );
-					$date = $start_date;	
 					$days = self::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
 					for ( $i = 0, $date = $start_date; $i <= $days; $i++, $date->modify( '+1 day' ) ) {
 						$formatted_date = $date->format( 'Y-m-d' );

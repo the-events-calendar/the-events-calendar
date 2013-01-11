@@ -247,7 +247,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_filter( 'tribe-events-bar-filters', array( $this, 'setup_keyword_search_in_bar' ), 1, 1 );
 			add_filter( 'tribe-events-bar-filters', array( $this, 'setup_date_search_in_bar' ), 5, 1 );
 			
-			add_filter( 'tribe-events-bar-views', array( $this, 'remove_hidden_views' ), 9999, 1 );
+			add_filter( 'tribe-events-bar-views', array( $this, 'remove_hidden_views' ), 9999, 2 );
 			/* End Setup Tribe Events Bar */
 		}
 
@@ -3345,11 +3345,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param array $views The current views array.
 		 * @return array The new views array.
 		 */
-		public function remove_hidden_views( $views ) {
-			$enable_views = tribe_get_option( 'tribeEnableViews', array() );
-			foreach( $views as $index => $view ) {
-				if( !in_array( $view['displaying'], $enable_views)) {
-					unset( $views[$index] );
+		public function remove_hidden_views( $views, $visible = TRUE ) {
+			if ( $visible ) {
+				$enable_views = tribe_get_option( 'tribeEnableViews', array() );
+				foreach( $views as $index => $view ) {
+					if( !in_array( $view['displaying'], $enable_views)) {
+						unset( $views[$index] );
+					}
 				}
 			}
 			return $views;

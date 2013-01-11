@@ -600,5 +600,25 @@ if( class_exists( 'TribeEvents' ) ) {
 			return $the_notices;
 		}
 	}
+
+	function tribe_events_enabled_views() {
+		return tribe_get_option('tribeEnableViews', array());
+	}
+
+	function tribe_events_disabled_views() {
+		static $disabled = NULL;
+		if ( isset($disabled) ) {
+			return $disabled;
+		}
+		$views = apply_filters( 'tribe-events-bar-views', array(), FALSE );
+		$enabled = tribe_events_enabled_views();
+		$disabled = array();
+		foreach ( $views as $view ) {
+			if ( !in_array($view['displaying'], $enabled) ) {
+				$disabled[] = $view['displaying'];
+			}
+		}
+		return $disabled;
+	}
 		
 }
