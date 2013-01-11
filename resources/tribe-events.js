@@ -118,7 +118,13 @@ tribe_ev.fn = {
 }
 
 tribe_ev.tests = {
-	pushstate:!!(window.history && history.pushState)
+	pushstate:!!(window.history && history.pushState),
+	live_ajax: function() {
+		if( jQuery('body').hasClass('tribe-filter-live') )
+			return true;
+		else 
+			return false;
+	}
 }
 
 tribe_ev.data = {
