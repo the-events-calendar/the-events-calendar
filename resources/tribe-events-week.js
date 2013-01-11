@@ -22,7 +22,42 @@ jQuery(document).ready(function($){
 		return [true];
 	}
 	
+	
+	function tribe_set_allday_spaning_events_width() {	
+	
+		// Set vars
+		var ad = $('.tribe-grid-allday');
+		var ad_e = $('.tribe-grid-allday .vevent');
+		var ad_c_w = $('.tribe-grid-allday .vevent').not('[class^="tribe-dayspan"]').width();
+		
+		// Set width
+		//X paddings * 4 + X borders
+		if( ad_e.hasClass('tribe-dayspan2') ) {
+			ad.find('.tribe-dayspan2').children('div').css('width', ad_c_w * 2 + (2 * 4 + 1) + 'px');
+		} 
+		if( ad_e.hasClass('tribe-dayspan3') ) {
+			ad.find('.tribe-dayspan3').children('div').css('width', ad_c_w * 3 + (4 * 4 + 2) + 'px');
+		}
+		if( ad_e.hasClass('tribe-dayspan4') ) {
+			ad.find('.tribe-dayspan4').children('div').css('width', ad_c_w * 4 + (6 * 4 + 3) + 'px');
+		}
+		if( ad_e.hasClass('tribe-dayspan5') ) {
+			ad.find('.tribe-dayspan5').children('div').css('width', ad_c_w * 5 + (8 * 4 + 4) + 'px');
+		}
+		if( ad_e.hasClass('tribe-dayspan6') ) {
+			ad.find('.tribe-dayspan6').children('div').css('width', ad_c_w * 6 + (10 * 4 + 5) + 'px');
+		} 
+		if( ad_e.hasClass('tribe-dayspan7') ) {
+			ad.find('.tribe-dayspan7').children('div').css('width', ad_c_w * 7 + (12 * 4 + 6) + 'px');
+		}
 					
+	}
+	tribe_set_allday_spaning_events_width();
+	$('.tribe-grid-allday').resize(function() { 
+		tribe_set_allday_spaning_events_width();
+	});
+	
+				
 	function tribe_find_overlapped_events($week_events) {			    
 
 		$week_events.each(function() {
