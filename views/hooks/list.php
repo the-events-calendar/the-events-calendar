@@ -289,7 +289,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 				$venue_address = tribe_get_meta('tribe_event_venue_address');
 
 				if( !empty($venue_name) )
-					printf('<h3>%s%s%s</h3>',
+					printf('<h3 class="tribe-venue-details">%s%s%s</h3>',
 						$venue_name,
 						!empty($venue_address) && !empty($venue_name) ? ', ' : '',
 						!empty($venue_address) ? $venue_address : ''
