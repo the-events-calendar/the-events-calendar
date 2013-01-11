@@ -171,6 +171,13 @@ $generalTab = array(
 			'default' => false,
 			'validation_type' => 'boolean',
 		),
+		'hideSubsequentRecurrencesDefault' => array(
+			'type' => 'checkbox_bool',
+			'label' => __( 'Hide Subsequent Occurences', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Set the frontend setting for hiding subsequent occurrences of recurring events.', 'tribe-events-calendar' ),
+			'default' => false,
+			'validation_type' => 'boolean',
+		),
 		'defaultCurrencySymbol' => array(
 			'type' => 'text',
 			'label' => __( 'Default Currency Symbol', 'tribe-events-calendar' ),
