@@ -1575,36 +1575,38 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function loadStyle() {
+			if ( tribe_is_event_query() ||  tribe_is_event_organizer() || tribe_is_event_venue() ) {
+
+				// jquery-resize
+				Tribe_Template_Factory::asset_package('jquery-resize');
+
+				// smoothness
+				Tribe_Template_Factory::asset_package('smoothness');
+
+				// Select2
+				Tribe_Template_Factory::asset_package('select2');
+
+				// Tribe Calendar JS
+				Tribe_Template_Factory::asset_package('calendar-script');
+
+				// Tribe Events CSS filename
+				$event_file = 'tribe-events.css';
+				$event_file_option = 'tribe-events-full.css';
 			
-			// jquery-resize
-			Tribe_Template_Factory::asset_package('jquery-resize');
+				// What Option was selected
+				if ( tribe_get_option('stylesheetOption') == 'skeleton') {
+					$event_file_option = 'tribe-events-skeleton.css';
+				}
 
-			// smoothness
-			Tribe_Template_Factory::asset_package('smoothness');
+				$styleUrl = trailingslashit( $this->pluginUrl ) . 'resources/' . $event_file_option;
+				// is there a tribe-events.css file in the theme?
+				$styleUrl = TribeEventsTemplates::locate_stylesheet('tribe-events/'.$event_file, $styleUrl);
+				$styleUrl = apply_filters( 'tribe_events_stylesheet_url', $styleUrl );
 
-			// Select2
-			Tribe_Template_Factory::asset_package('select2');
-
-			// Tribe Calendar JS
-			Tribe_Template_Factory::asset_package('calendar-script');
-
-			// Tribe Events CSS filename
-			$event_file = 'tribe-events.css';
-			$event_file_option = 'tribe-events-full.css';
-			
-			// What Option was selected
-			if ( tribe_get_option('stylesheetOption') == 'skeleton') {
-				$event_file_option = 'tribe-events-skeleton.css';
+				// load up stylesheet from theme or plugin
+				if ( $styleUrl )
+					wp_enqueue_style( self::POSTTYPE . '-calendar-style', $styleUrl);
 			}
-
-			$styleUrl = trailingslashit( $this->pluginUrl ) . 'resources/' . $event_file_option;
-			// is there a tribe-events.css file in the theme?
-			$styleUrl = TribeEventsTemplates::locate_stylesheet('tribe-events/'.$event_file, $styleUrl);
-			$styleUrl = apply_filters( 'tribe_events_stylesheet_url', $styleUrl );
-
-			// load up stylesheet from theme or plugin
-			if ( $styleUrl )
-				wp_enqueue_style( self::POSTTYPE . '-calendar-style', $styleUrl);
 		}
 
 		public function setDate($query) {
