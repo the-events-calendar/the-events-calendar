@@ -1,6 +1,6 @@
 jQuery( document ).ready( function ( $ ) {
 	
-	var tribe_is_paged = tribe_get_url_param('tribe_paged');		
+	var tribe_is_paged = tribe_ev.fn.get_url_param('tribe_paged');		
 	
 	if( tribe_is_paged ) {
 		tribe_ev.state.paged = tribe_is_paged;
@@ -32,7 +32,7 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_popping = true;
 				tribe_params = state.tribe_params;
 				tribe_url_params = state.tribe_url_params;
-				tribe_pre_ajax_tests( function() {
+				tribe_ev.fn.pre_ajax( function() {
 					tribe_events_list_ajax_post( '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params, tribe_url_params );	
 				});
 				
@@ -44,7 +44,7 @@ jQuery( document ).ready( function ( $ ) {
 //				});
 				
 			} else if( tribe_storage && initial_load !== 'true' ) {
-				window.location = tribe_global.tribe_cur_url;
+				window.location = tribe_ev.data.cur_url;
 			}
 		} );
 		
@@ -55,16 +55,16 @@ jQuery( document ).ready( function ( $ ) {
 		$( '#tribe-events-list-view' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
 			e.preventDefault();
 			tribe_ev.state.paged++;			
-			tribe_pre_ajax_tests( function() { 
-				tribe_events_list_ajax_post( tribe_cur_url );
+			tribe_ev.fn.pre_ajax( function() { 
+				tribe_events_list_ajax_post( tribe_ev.data.cur_url );
 			});
 		} );
 
 		$( '#tribe-events-list-view' ).on( 'click', 'li.tribe-nav-previous a', function ( e ) {
 			e.preventDefault();
 			tribe_ev.state.paged--;
-			tribe_pre_ajax_tests( function() {
-				tribe_events_list_ajax_post( tribe_cur_url );
+			tribe_ev.fn.pre_ajax( function() {
+				tribe_events_list_ajax_post( tribe_ev.data.cur_url );
 			});
 		} );
 		
@@ -77,8 +77,8 @@ jQuery( document ).ready( function ( $ ) {
 				if ( tribe_events_bar_action != 'change_view' ) {
 					e.preventDefault();	
 					tribe_ev.state.paged = 1;
-					tribe_pre_ajax_tests( function() {
-						tribe_events_list_ajax_post( tribe_cur_url );
+					tribe_ev.fn.pre_ajax( function() {
+						tribe_events_list_ajax_post( tribe_ev.data.cur_url );
 					});
 				}
 			} );
@@ -90,8 +90,8 @@ jQuery( document ).ready( function ( $ ) {
 			if ( tribe_events_bar_action != 'change_view' ) {
 				e.preventDefault();
 				tribe_ev.state.paged = 1;
-				tribe_pre_ajax_tests( function() {
-					tribe_events_list_ajax_post( tribe_cur_url );
+				tribe_ev.fn.pre_ajax( function() {
+					tribe_events_list_ajax_post( tribe_ev.data.cur_url );
 				});
 			}
 		}
