@@ -51,7 +51,7 @@ jQuery( document ).ready( function ( $ ) {
 		container.addClass('photo-two-col');
 	} 
 	
-	var tribe_is_paged = tribe_get_url_param('tribe_paged');		
+	var tribe_is_paged = tribe_ev.fn.get_url_param('tribe_paged');		
 	
 	if( tribe_is_paged ) {
 		tribe_list_paged = tribe_is_paged;
@@ -98,13 +98,13 @@ jQuery( document ).ready( function ( $ ) {
 			e.preventDefault();
 			tribe_list_paged++;	
 			tribe_pre_ajax_tests( function() { 
-				tribe_events_list_ajax_post( tribe_cur_url );
+				tribe_events_list_ajax_post( tribe_ev.data.cur_url );
 			});
 		} ).on( 'click', 'li.tribe-nav-previous a', function ( e ) {
 			e.preventDefault();
 			tribe_list_paged--;
 			tribe_pre_ajax_tests( function() {
-				tribe_events_list_ajax_post( tribe_cur_url );
+				tribe_events_list_ajax_post( tribe_ev.data.cur_url );
 			});
 		} );
 
@@ -116,7 +116,7 @@ jQuery( document ).ready( function ( $ ) {
 					e.preventDefault();	
 					tribe_list_paged = 1;
 					tribe_pre_ajax_tests( function() {
-						tribe_events_list_ajax_post( tribe_cur_url );
+						tribe_events_list_ajax_post( tribe_ev.data.cur_url );
 					});
 				}
 			} );
@@ -129,7 +129,7 @@ jQuery( document ).ready( function ( $ ) {
 				e.preventDefault();
 				tribe_list_paged = 1;
 				tribe_pre_ajax_tests( function() {
-					tribe_events_list_ajax_post( tribe_cur_url );
+					tribe_events_list_ajax_post( tribe_ev.data.cur_url );
 				});
 			}
 		}

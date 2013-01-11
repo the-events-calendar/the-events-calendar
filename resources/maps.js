@@ -56,7 +56,7 @@ jQuery( document ).ready( function ( $ ) {
 		if( tribe_storage )
 			tribe_storage.setItem( 'tribe_initial_load', 'true' );	
 
-		$(window).bind('popstate', function(event) {
+		$(window).on('popstate', function(event) {
 
 			var initial_load = '';
 			
@@ -100,7 +100,7 @@ jQuery( document ).ready( function ( $ ) {
 	
 	if( GeoLoc.map_view ) {
 		
-		var tribe_is_paged = tribe_get_url_param('tribe_paged');
+		var tribe_is_paged = tribe_ev.fn.get_url_param('tribe_paged');
 		if( tribe_is_paged ) {
 			tribe_map_paged = tribe_is_paged;
 		}		
@@ -201,7 +201,7 @@ jQuery( document ).ready( function ( $ ) {
 	
 	function tribe_reload_old_browser() {
 		tribe_params = tribe_generate_map_params();		
-		tribe_href_target = tribe_cur_url + '?' + tribe_params;
+		tribe_href_target = tribe_ev.data.cur_url + '?' + tribe_params;
 		window.location = tribe_href_target;
 	}
 
@@ -292,7 +292,7 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_map_paged++;
 			if( tribe_has_pushstate ) {
 				tribe_pre_ajax_tests( function() { 			
-					tribe_map_processOption( null, tribe_cur_url );
+					tribe_map_processOption( null, tribe_ev.data.cur_url );
 				});
 			} else {			
 				tribe_pre_ajax_tests( function() { 
@@ -306,7 +306,7 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_map_paged--;
 			if( tribe_has_pushstate ) {			
 				tribe_pre_ajax_tests( function() { 			
-					tribe_map_processOption( null, tribe_cur_url );
+					tribe_map_processOption( null, tribe_ev.data.cur_url );
 				});
 			} else {
 				tribe_pre_ajax_tests( function() { 
@@ -323,7 +323,7 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_map_paged = 1;
 			if( tribe_has_pushstate ) {	
 				tribe_pre_ajax_tests( function() { 						
-					tribe_map_processOption( null, tribe_cur_url );
+					tribe_map_processOption( null, tribe_ev.data.cur_url );
 				});
 			} else {
 				tribe_pre_ajax_tests( function() { 						
@@ -460,7 +460,7 @@ jQuery( document ).ready( function ( $ ) {
 						} else {
 							if( tribe_has_pushstate ) {	
 								tribe_test_location();	
-								tribe_map_processOption( geocodes[0], tribe_cur_url );
+								tribe_map_processOption( geocodes[0], tribe_ev.data.cur_url );
 							} else {								
 								tribe_reload_old_browser();
 							}						
@@ -478,7 +478,7 @@ jQuery( document ).ready( function ( $ ) {
 					//We can show the map even if we don't get a geo query
 					if( tribe_has_pushstate ) {	
 						tribe_test_location();	
-						tribe_map_processOption( null, tribe_cur_url );
+						tribe_map_processOption( null, tribe_ev.data.cur_url );
 					} else {
 						tribe_reload_old_browser();
 					}	
