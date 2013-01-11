@@ -335,12 +335,7 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	if ( GeoLoc.map_view  && $( 'form#tribe-bar-form' ).length ) {
-		
-		
-//		$( 'form#tribe-bar-form' ).bind( 'submit', function ( e ) {
-//			tribe_events_bar_mapajax_actions(e);	
-//		} );
-//		
+
 		$( '.tribe-bar-settings button[name="settingsUpdate"]' ).bind( 'click', function (e) {		
 			tribe_events_bar_mapajax_actions(e);
 			$( '#tribe-events-bar [class^="tribe-bar-button-"]' )
@@ -362,13 +357,13 @@ jQuery( document ).ready( function ( $ ) {
 		
 		if( tribe_ev.tests.live_ajax() ) {			
 			$( "#tribe_events_filters_form .ui-slider" ).on( "slidechange", function(e) {
-				if( !$form.hasClass('tribe-reset-on') ){
+				if( !$('body').hasClass('tribe-reset-on') ){
 					tribe_events_bar_mapajax_actions(e);	
 					alert('change')
 				}			
 			} );
 			$("#tribe_events_filters_form").on("change", "input, select", function(e){
-				if( !$form.hasClass('tribe-reset-on') ){
+				if( !$('body').hasClass('tribe-reset-on') ){
 					tribe_events_bar_mapajax_actions(e);		
 				}
 			});			
