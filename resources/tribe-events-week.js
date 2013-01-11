@@ -156,7 +156,7 @@ jQuery(document).ready(function($){
 		} );
 	}
 
-	$( '.tribe-events-week-grid .tribe-events-sub-nav a' ).live( 'click', function ( e ) {
+	$( '#tribe-events-content' ).on( 'click', '.tribe-events-sub-nav a', function ( e ) {
 		e.preventDefault();		
 		tribe_date = $( this ).attr( "data-week" );
 		tribe_href_target = $( this ).attr( "href" );
