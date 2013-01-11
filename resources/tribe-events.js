@@ -84,16 +84,13 @@ jQuery.fn.tribeClearForm = function() {
 
 tribe_ev = {};
 
-tribe_ev.fn = {
-	url_path: function( url ) {
-		return url.split("?")[0];
+tribe_ev.fn = {	
+	get_params: function() {
+		return location.search.substr(1);
 	},
 	get_url_param: function( tribe_param_name ) {
 		return decodeURIComponent((new RegExp('[?|&]' + tribe_param_name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
-	}, 
-	get_params: function() {
-		return location.search.substr(1);
-	}, 
+	}, 	 
 	parse_string: function( string ) {    
 		var map   = {};
 		string.replace(/([^&=]+)=?([^&]*)(?:&+|$)/g, function(match, key, value) {
@@ -139,6 +136,11 @@ tribe_ev.fn = {
 			}
 		}
 	},
+	snap: function( container, trigger_parent, trigger ) {		
+		jQuery( trigger_parent ).on( 'click', trigger, function ( e ) {
+			jQuery('html, body').animate( {scrollTop:jQuery( container ).offset().top - 120}, {duration: 0});
+		});
+	},
 	tooltips: function() {
 		
 		jQuery( 'body' ).on( 'mouseenter', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring',function () {
@@ -162,11 +164,9 @@ tribe_ev.fn = {
 			jQuery( this ).find( '.tribe-events-tooltip' ).stop( true, false ).fadeOut( 200 );			
 		} );
 	},
-	snap: function( container, trigger_parent, trigger ) {		
-		jQuery( trigger_parent ).on( 'click', trigger, function ( e ) {
-			jQuery('html, body').animate( {scrollTop:jQuery( container ).offset().top - 120}, {duration: 0});
-		});
-	}
+	url_path: function( url ) {
+		return url.split("?")[0];
+	}	
 }
 
 tribe_ev.tests = {
@@ -187,7 +187,6 @@ tribe_ev.state = {
 }
 
 var tribe_has_pushstate = !!(window.history && history.pushState);
-var tribe_cur_url = tribe_get_path( jQuery( location ).attr( 'href' ) );
 var tribe_do_string, tribe_popping, tribe_initial_load = false;
 var tribe_pushstate = true;	
 var tribe_push_counter = 0;
