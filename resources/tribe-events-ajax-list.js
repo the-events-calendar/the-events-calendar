@@ -73,7 +73,10 @@ jQuery( document ).ready( function ( $ ) {
 		// if advanced filters active intercept submit
 
 		if ( $( '#tribe_events_filters_form' ).length ) {
-			$( 'form#tribe_events_filters_form' ).bind( 'submit', function ( e ) {
+			
+			var $form = $('#tribe_events_filters_form');
+			
+			$form.on( 'submit', function ( e ) {
 				if ( tribe_events_bar_action != 'change_view' ) {
 					e.preventDefault();	
 					tribe_ev.state.paged = 1;
@@ -82,6 +85,25 @@ jQuery( document ).ready( function ( $ ) {
 					});
 				}
 			} );
+			
+			if( tribe_ev.tests.live_ajax() ) {
+				$( "#tribe_events_filters_form .ui-slider" ).on( "slidechange", function() {
+					if( !$form.hasClass('tribe-reset-on') ){
+						tribe_ev.state.paged = 1;
+						tribe_ev.fn.pre_ajax( function() {
+							tribe_events_list_ajax_post( tribe_ev.data.cur_url );
+						});
+					}			
+				} );
+				$("#tribe_events_filters_form").on("change", "input, select", function(){
+					if( !$form.hasClass('tribe-reset-on') ){
+						tribe_ev.state.paged = 1;
+						tribe_ev.fn.pre_ajax( function() {
+							tribe_events_list_ajax_post( tribe_ev.data.cur_url );
+						});
+					}
+				});			
+			}	
 		}
 		
 		// event bar monitoring 
@@ -95,16 +117,18 @@ jQuery( document ).ready( function ( $ ) {
 				});
 			}
 		}
+		
+		if( tribe_ev.tests.live_ajax() ) {
+			$('#tribe-bar-date').on( 'change', function (e) {		
+				tribe_events_bar_listajax_actions(e);
+			} );
+		}
 
-		$('#tribe-bar-date').bind( 'change', function (e) {		
-			tribe_events_bar_listajax_actions(e);
-		} );
-
-		$( 'form#tribe-bar-form' ).bind( 'submit', function ( e ) {
+		$( 'form#tribe-bar-form' ).on( 'submit', function (e) {
 			tribe_events_bar_listajax_actions(e);
 		} );
 		
-		$( '.tribe-bar-settings button[name="settingsUpdate"]' ).bind( 'click', function (e) {		
+		$( '.tribe-bar-settings button[name="settingsUpdate"]' ).on( 'click', function (e) {		
 			tribe_events_bar_listajax_actions(e);	
 			$( '#tribe-events-bar [class^="tribe-bar-button-"]' )
 				.removeClass( 'open' )

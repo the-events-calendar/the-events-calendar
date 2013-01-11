@@ -30,7 +30,7 @@ jQuery( document ).ready( function ( $ ) {
 		if( tribe_storage )
 			tribe_storage.setItem( 'tribe_initial_load', 'true' );	
 		
-		$(window).bind('popstate', function(event) {
+		$(window).on('popstate', function(event) {
 		
 		var initial_load = '';
 		if( tribe_storage )
@@ -62,7 +62,7 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_ev.fn.pre_ajax( function() { 		
 			tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );	
 		});
-	} );
+	} );	
 
 	$( '#tribe-events-bar' ).on( 'change', '#tribe-bar-dates select', function ( e ) {
 		e.preventDefault();			
@@ -74,7 +74,7 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_ev.fn.pre_ajax( function() { 
 			tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );	
 		});
-	} );
+	} );	
 
 	tribe_ev.fn.snap( '#tribe-events-content', '#tribe-events-content', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );
 	
@@ -115,7 +115,7 @@ jQuery( document ).ready( function ( $ ) {
 		
 		var $form = $('#tribe_events_filters_form');
 		
-		if( $('body').hasClass('tribe-filter-live') ) {
+		if( tribe_ev.tests.live_ajax() ) {
 			$( "#tribe_events_filters_form .ui-slider" ).on( "slidechange", function() {
 				if( !$form.hasClass('tribe-reset-on') ){
 					tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
