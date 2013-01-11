@@ -1,9 +1,3 @@
-// tribe function to get full url with no query vars
-
-function tribe_get_path( url ) {
-	return url.split("?")[0];
-}
-
 // tribe function to get specific query var from url
 	
 function tribe_get_url_param(tribe_param_name) {
@@ -91,23 +85,23 @@ jQuery.fn.tribeClearForm = function() {
 tribe_ev = {};
 
 tribe_ev.fn = {
-	url_path: function tribe_get_path( url ) {
+	url_path: function( url ) {
 		return url.split("?")[0];
 	},
-	get_url_param: function tribe_get_url_param(tribe_param_name) {
+	get_url_param: function( tribe_param_name ) {
 		return decodeURIComponent((new RegExp('[?|&]' + tribe_param_name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
 	}, 
-	get_params: function tribe_get_url_params() {
+	get_params: function() {
 		return location.search.substr(1);
 	}, 
-	parse_string: function tribe_parse_query_string( string ) {    
+	parse_string: function( string ) {    
 		var map   = {};
 		string.replace(/([^&=]+)=?([^&]*)(?:&+|$)/g, function(match, key, value) {
 			(map[key] = map[key] || []).push(value);
 		});
 		return map;
 	},
-	pre_ajax: function tribe_pre_ajax_tests( tribe_ajax_callback ) {		
+	pre_ajax: function( tribe_ajax_callback ) {		
 		
 		if( jQuery( '#tribe-bar-geoloc' ).length ) {			
 			var tribe_map_val = jQuery( '#tribe-bar-geoloc' ).val();		
@@ -145,7 +139,7 @@ tribe_ev.fn = {
 			}
 		}
 	},
-	tooltips: function tribe_event_tooltips() {
+	tooltips: function() {
 		
 		jQuery( 'body' ).on( 'mouseenter', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring',function () {
 			
@@ -168,7 +162,7 @@ tribe_ev.fn = {
 			jQuery( this ).find( '.tribe-events-tooltip' ).stop( true, false ).fadeOut( 200 );			
 		} );
 	},
-	snap: function tribe_snap_to_top( container, trigger_parent, trigger ) {		
+	snap: function( container, trigger_parent, trigger ) {		
 		jQuery( trigger_parent ).on( 'click', trigger, function ( e ) {
 			jQuery('html, body').animate( {scrollTop:jQuery( container ).offset().top - 120}, {duration: 0});
 		});
