@@ -126,7 +126,7 @@ jQuery(document).ready(function($){
 	if( typeof GeoLoc === 'undefined' ) 
 		var GeoLoc = {"map_view":""};
 
-	if( tribe_has_pushstate && !GeoLoc.map_view ) {		
+	if( tribe_ev.tests.pushstate && !GeoLoc.map_view ) {		
 
 		var initial_url = location.href;
 		
@@ -311,7 +311,7 @@ jQuery(document).ready(function($){
 			
 		} 
 
-		if( tribe_has_pushstate ) {
+		if( tribe_ev.tests.pushstate ) {
 
 			$.post(
 				TribeWeek.ajaxurl,

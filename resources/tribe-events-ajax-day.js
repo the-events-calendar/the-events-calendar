@@ -15,7 +15,7 @@ jQuery( document ).ready( function ( $ ) {
 		$("#tribe-bar-date").datepicker("setDate",tribe_date); 		 
 	}
 	
-	if( tribe_has_pushstate && !GeoLoc.map_view ) {	
+	if( tribe_ev.tests.pushstate && !GeoLoc.map_view ) {	
 		
 		var initial_url = location.href;
 		
@@ -165,7 +165,7 @@ jQuery( document ).ready( function ( $ ) {
 			}
 		} 	
 
-		if( tribe_has_pushstate ) {
+		if( tribe_ev.tests.pushstate ) {
 
 			$.post(
 				TribeCalendar.ajaxurl,
