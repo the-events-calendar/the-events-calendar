@@ -138,7 +138,7 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_events_bar_photoajax_actions(e)
 		} );
 				
-		$( '#tribe-bar-form' ).on( 'click', '.tribe-bar-settings button[name="settingsUpdate"]', function (e) {		
+		$( '.tribe-bar-settings button[name="settingsUpdate"]' ).on( 'click', function (e) {		
 			tribe_events_bar_photoajax_actions(e);
 			$( '#tribe-events-bar [class^="tribe-bar-button-"]' )
 				.removeClass( 'open' )
@@ -274,10 +274,3 @@ jQuery( document ).ready( function ( $ ) {
 		} 	
 		
 });
-
-(function($) {
-	$(window).load(function(){
-//		$('.photo-loader').remove();
-//		$('#tribe-events-photo-events').animate({"opacity":"1"}, {duration: 600});
-	});
-})(jQuery);
