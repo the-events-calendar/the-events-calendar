@@ -43,7 +43,7 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_pushstate = false;	
 				tribe_popping = true;
 				tribe_params = state.tribe_params;
-				tribe_pre_ajax_tests( function() {
+				tribe_ev.fn.pre_ajax( function() {
 					tribe_events_calendar_ajax_post( '', '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params );
 				});
 			} else if( tribe_storage && initial_load !== 'true' ){				
@@ -59,7 +59,7 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_href_target = $( this ).attr( "href" );
 		tribe_pushstate = true;
 		tribe_do_string = false;
-		tribe_pre_ajax_tests( function() { 		
+		tribe_ev.fn.pre_ajax( function() { 		
 			tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );	
 		});
 	} );
@@ -71,7 +71,7 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_href_target = tribe_base_url + tribe_date + '/';		
 		tribe_pushstate = true;
 		tribe_do_string = false;
-		tribe_pre_ajax_tests( function() { 
+		tribe_ev.fn.pre_ajax( function() { 
 			tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );	
 		});
 	} );
@@ -91,7 +91,7 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_pushstate = false;
 			tribe_do_string = true;			
 			
-			tribe_pre_ajax_tests( function() { 
+			tribe_ev.fn.pre_ajax( function() { 
 				tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
 			});		
 		}
@@ -122,7 +122,7 @@ jQuery( document ).ready( function ( $ ) {
 					tribe_href_target = tribe_ev.data.cur_url;
 					tribe_pushstate = false;
 					tribe_do_string = true;
-					tribe_pre_ajax_tests( function() { 
+					tribe_ev.fn.pre_ajax( function() { 
 						tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
 					});
 				}			
@@ -133,7 +133,7 @@ jQuery( document ).ready( function ( $ ) {
 					tribe_href_target = tribe_ev.data.cur_url;
 					tribe_pushstate = false;
 					tribe_do_string = true;
-					tribe_pre_ajax_tests( function() { 
+					tribe_ev.fn.pre_ajax( function() { 
 						tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
 					});
 				}
@@ -147,7 +147,7 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_href_target = tribe_ev.data.cur_url;
 				tribe_pushstate = false;
 				tribe_do_string = true;
-				tribe_pre_ajax_tests( function() { 
+				tribe_ev.fn.pre_ajax( function() { 
 					tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
 				});
 			}
