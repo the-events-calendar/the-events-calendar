@@ -126,7 +126,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public $monthsFull;
 		public $monthsShort;
 
-		/* Static Singleton Factory Method */
+		/**
+		 * Static Singleton Factory Method
+		 * @return TribeEvents
+		 */
 		public static function instance() {
 			if (!isset(self::$instance)) {
 				$className = __CLASS__;
