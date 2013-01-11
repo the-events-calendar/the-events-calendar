@@ -65,7 +65,7 @@ jQuery( document ).ready( function ( $ ) {
 
 			e.preventDefault();
 			tribe_date = $('#tribe-events-header').attr('data-date');
-			tribe_cur_url = tribe_get_path( $( location ).attr( 'href' ) );	
+			tribe_cur_url = tribe_ev.data.cur_url;
 			tribe_pre_ajax_tests( function() { 
 				tribe_events_calendar_ajax_post( tribe_date, tribe_cur_url );
 			});
@@ -106,7 +106,7 @@ jQuery( document ).ready( function ( $ ) {
 			if ( tribe_events_bar_action != 'change_view' ) {
 				e.preventDefault();
 				tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );	
-				tribe_cur_url = tribe_get_path( $( location ).attr( 'href' ) );	
+				tribe_cur_url = tribe_ev.data.cur_url;
 				tribe_pre_ajax_tests( function() { 
 					tribe_events_calendar_ajax_post( tribe_date, tribe_cur_url );	
 				});
