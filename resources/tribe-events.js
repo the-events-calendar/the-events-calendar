@@ -9,13 +9,13 @@ try {
 	t_fail && (tribe_storage = false);
 } catch(e) {}
 
-// tribe function for resetting forms
+// jquery functions
 
-jQuery.fn.tribeClearForm = function() {
+jQuery.fn.tribe_clear_form = function() {
 	return this.each(function() {
 		var type = this.type, tag = this.tagName.toLowerCase();
 		if (tag == 'form')
-			return jQuery(':input',this).tribeClearForm();
+			return jQuery(':input',this).tribe_clear_form();
 		if (type == 'text' || type == 'password' || tag == 'textarea')
 			this.value = '';
 		else if (type == 'checkbox' || type == 'radio')
@@ -25,11 +25,11 @@ jQuery.fn.tribeClearForm = function() {
 	});
 };
 
-// tribe global, sorry, we need them for some ping pong
+// tribe global, we need them for some ping pong
 
 tribe_ev = {};
 
-tribe_ev.fn = {	
+tribe_ev.fn = {		
 	get_params: function() {
 		return location.search.substr(1);
 	},
@@ -135,7 +135,6 @@ tribe_ev.state = {
 	paged:1
 }
 
-var tribe_has_pushstate = !!(window.history && history.pushState);
 var tribe_do_string, tribe_popping, tribe_initial_load = false;
 var tribe_pushstate = true;	
 var tribe_push_counter = 0;
