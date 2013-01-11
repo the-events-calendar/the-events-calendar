@@ -254,7 +254,8 @@
 }
 
 #tribe-events-photo-events {
-	margin: 18px -4.024% 18px 0;
+	opacity:0;
+	margin: 18px -4.5% 18px 0;
 	-webkit-transition-property: height, width;
        -moz-transition-property: height, width;
         -ms-transition-property: height, width;
@@ -271,7 +272,7 @@
 
 #tribe-events-photo-events .vevent.tribe-events-photo-event {
 	float: left; 
-	width: 29.333%;
+	width: 29.2%;
 	margin: 0 4% 30px 0;
 	padding: 0;
 	border: 1px solid #eee;
@@ -283,6 +284,17 @@
 #tribe-events-photo-events.photo-two-col .vevent.tribe-events-photo-event {
 	width: 45.9%;
 }
+
+#tribe-events-photo-events.photo-hidden {
+	opacity:0 !important;
+}
+
+.photo-loader {
+	position:absolute;
+	top:200px;
+	left:50%;	
+}
+
 /* Tile Styling */
 .tribe-events-photo-event {
 	padding: 0;
