@@ -27,6 +27,8 @@ class TribeEventsRecurrenceMeta {
     add_action( 'wp_before_admin_bar_render', array( __CLASS__, 'admin_bar_render'));
     
     	add_filter( 'tribe_events_query_posts_groupby', array( __CLASS__, 'addGroupBy' ), 10, 2 );
+	
+		add_filter( 'tribe_settings_tab_fields', array( __CLASS__, 'inject_settings' ), 10, 2 );
 	}
 
 	
@@ -64,7 +66,7 @@ class TribeEventsRecurrenceMeta {
       global $post;
       $event = $the_post ? $the_post : $post;
 
-      if(tribe_is_recurring_event($post->ID)) {
+      if(tribe_is_recurring_event($event->ID)) {
          $events = TribeEvents::instance();
 			if( '' == get_option('permalink_structure') || false == $events->getOption('useRewriteRules',true) )
             return esc_url(add_query_arg('eventDate', TribeDateUtils::dateOnly( $event->EventStartDate ), get_permalink($event->ID) ));
@@ -654,4 +656,34 @@ class TribeEventsRecurrenceMeta {
 		}
 		return $group_by;
 	}
+	
+	/**
+	 * Adds setting for hiding subsequent occurrences by default.
+	 *
+	 * @since 3.0
+	 * @author PaulHughes
+	 *
+	 * @return void
+	 */
+	public function inject_settings( $args, $id ) {
+
+		if ( $id == 'general' ) {
+
+			// we want to inject the map default distance and unit into the map section directly after "enable Google Maps" 
+			$args = TribeEvents::array_insert_after_key( 'liveFiltersUpdate', $args, array( 
+				'hideSubsequentRecurrencesDefault' => array(
+				'type' => 'checkbox_bool',
+				'label' => __( 'Hide Subsequent Occurences', 'tribe-events-calendar' ),
+				'tooltip' => __( 'Set the frontend setting for hiding subsequent occurrences of recurring events.', 'tribe-events-calendar' ),
+				'default' => false,
+				'validation_type' => 'boolean',
+				), ) 
+			);
+
+		}
+
+
+		return $args;
+	}
+	
 }
