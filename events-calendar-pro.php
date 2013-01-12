@@ -512,6 +512,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// day permalink rules
 			$newRules[$base . $today . '?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day';
 			$newRules[$base . $day . '(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(1);
+			$newRules[$base . $day . '(\d{4}-\d{2}-\d{2})/ical/?$' ] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(1) . '&ical=1';
 			// $newRules[$baseTax . '([^/]+)/' . $week] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week';
 			// $newRules[$baseTax . '([^/]+)/(\d{2})$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week' .'&eventDate=' . $wp_rewrite->preg_index(3);
 			// $newRules[$baseTag . '([^/]+)/' . $week] = 'index.php?post_tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week';
