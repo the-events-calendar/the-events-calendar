@@ -29,13 +29,28 @@ jQuery.fn.tribe_clear_form = function() {
 
 tribe_ev = {};
 
-tribe_ev.fn = {		
+tribe_ev.fn = {	
+	get_day: function() {
+		var dp_day = '';
+		if( jQuery('#tribe-bar-date').length ) {
+			var dp_date = jQuery('#tribe-bar-date').val();
+			if( dp_date.length )
+				dp_day = dp_date.slice(-3);
+		}
+		return dp_day;
+	},	
 	get_params: function() {
 		return location.search.substr(1);
 	},
 	get_url_param: function( tribe_param_name ) {
 		return decodeURIComponent((new RegExp('[?|&]' + tribe_param_name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
 	}, 
+	hide_settings: function(){
+		jQuery( '#tribe-events-bar [class^="tribe-bar-button-"]' )
+			.removeClass( 'open' )
+			.next( '.tribe-bar-drop-content' )
+			.hide();
+	},
 	in_params: function( params, term ) {
 		return params.toLowerCase().indexOf( term );
 	},
@@ -186,6 +201,12 @@ tribe_ev.fn = {
 			jQuery('html, body').animate( {scrollTop:jQuery( container ).offset().top - 120}, {duration: 0});
 		});
 	},
+	spin_hide: function() {
+		jQuery( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').hide();
+	},
+	spin_show: function() {
+		jQuery( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').show();
+	},
 	tooltips: function() {
 		
 		jQuery( 'body' ).on( 'mouseenter', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring',function () {
@@ -208,6 +229,12 @@ tribe_ev.fn = {
 		} ).on( 'mouseleave', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', function () {
 			jQuery( this ).find( '.tribe-events-tooltip' ).stop( true, false ).fadeOut( 200 );			
 		} );
+	},
+	update_picker: function( date ){
+		if( jQuery().datepicker && jQuery("#tribe-bar-date").length )
+			jQuery("#tribe-bar-date").datepicker("setDate", date );
+		else if( jQuery("#tribe-bar-date").length )
+			jQuery("#tribe-bar-date").val( date );
 	},
 	url_path: function( url ) {
 		return url.split("?")[0];
@@ -237,19 +264,22 @@ tribe_ev.tests = {
 }
 
 tribe_ev.data = {
-	params:tribe_ev.fn.get_params(),
+	ajax_response:{},
 	cur_url:tribe_ev.fn.url_path( document.URL ),
-	ajax_response:{}		
+	initial_url:tribe_ev.fn.url_path( document.URL ),
+	params:tribe_ev.fn.get_params()		
 }
 
 tribe_ev.state = {
+	date:'',
 	do_string:false,
+	initial_load:true,
+	paged:1,
+	params:{},
 	popping:false,
 	pushstate:true,
-	initial_load:true,
-	params:{},
-	url_params:{},
-	paged:1
+	pushcount:0,
+	url_params:{}	
 }
 
 var tribe_do_string, tribe_popping, tribe_initial_load = false;

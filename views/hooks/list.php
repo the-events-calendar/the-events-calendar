@@ -85,7 +85,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 
 			// Start list loop
 			add_filter( 'tribe_events_list_before_loop', array( __CLASS__, 'before_loop' ), 1, 2 );
-			add_filter( 'tribe_events_list_inside_before_loop', array( __CLASS__, 'inside_before_loop' ), 1, 2 );
+			add_filter( 'tribe_events_list_inside_before_loop', array( __CLASS__, 'inside_before_loop' ), 1, 3 );
 		
 			// Event featured image
 			add_filter( 'tribe_events_list_the_event_image', array( __CLASS__, 'the_event_image' ), 1, 2 );
@@ -194,7 +194,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			$html = '<div class="tribe-events-loop hfeed">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_loop');
 		}
-		public static function inside_before_loop( $content, $post_id ){
+		public static function inside_before_loop( $content, $post_id, $post ){
 			global $wp_query;
 			// Get our wrapper classes (for event categories, organizer, venue, and defaults)
 			$tribe_string_classes = '';
@@ -228,16 +228,16 @@ if( !class_exists('Tribe_Events_List_Template')){
 			$show_separators = apply_filters( 'tribe_events_list_show_separators', true );
 
 			if ( $show_separators ) {
-				if ( tribe_get_start_date( $post_id, false, 'Y' ) != date( 'Y' ) && self::$prev_event_year != tribe_get_start_date( $post_id, false, 'Y' ) ) {
-					echo sprintf( "<span class='tribe_list_separator_year'>%s</span>", tribe_get_start_date( $post_id, false, 'Y' ) );
+				if ( tribe_get_start_date( $post_id, false, 'Y' ) != date( 'Y' ) && self::$prev_event_year != tribe_get_start_date( $post, false, 'Y' ) ) {
+					echo sprintf( "<span class='tribe_list_separator_year'>%s</span>", tribe_get_start_date( $post, false, 'Y' ) );
 				}
 
-				if ( self::$prev_event_month != tribe_get_start_date( $post_id, false, 'm' ) ) {
-					echo sprintf( "<span class='tribe_list_separator_month'>%s</span>", tribe_get_start_date( $post_id, false, 'F' ) );
+				if ( self::$prev_event_month != tribe_get_start_date( $post, false, 'm' ) ) {
+					echo sprintf( "<span class='tribe_list_separator_month'>%s</span>", tribe_get_start_date( $post, false, 'F' ) );
 				}
 
-				self::$prev_event_year  = tribe_get_start_date( $post_id, false, 'Y' );
-				self::$prev_event_month = tribe_get_start_date( $post_id, false, 'm' );
+				self::$prev_event_year  = tribe_get_start_date( $post, false, 'Y' );
+				self::$prev_event_month = tribe_get_start_date( $post, false, 'm' );
 			}
 
 			$html = '<div id="post-' . get_the_ID() . '" class="' . $class_string . ' tribe-clearfix">';

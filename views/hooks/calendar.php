@@ -158,6 +158,10 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				'end_date' => date('Y-m-t', $date) . ' 23:59:59'
 				);
 			$count_args = $wp_query->query;
+			if ( empty($count_args) ) { // this will likely be empty on Ajax calls
+				$count_args['post_type'] = TribeEvents::POSTTYPE;
+				$count_args['eventDisplay'] = 'month';
+			}
 			$count_args['start_date'] = date('Y-m-d', $date) . ' 00:00:00';
 			$count_args['end_date'] = date('Y-m-t', $date) . ' 23:59:59';
 			$count_args['hide_upcoming_ids'] = $hide_upcoming_ids;
