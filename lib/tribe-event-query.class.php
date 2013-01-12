@@ -16,7 +16,6 @@ if (!class_exists('TribeEventsQuery')) {
 		public static $is_event_venue;
 		public static $is_event_organizer;
 		public static $is_event_query;
-		private static $recurring = FALSE; // whether to include recurring events in queries
 
 		function __construct(){
 			add_action('tribe_events_init_pre_get_posts', array(__CLASS__,'init'));
@@ -30,8 +29,13 @@ if (!class_exists('TribeEventsQuery')) {
 
 			// if tribe event query add filters
 			add_filter( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 0 );
-			self::$recurring = apply_filters( 'tribe_enable_recurring_event_queries', self::$recurring );
 
+			if ( is_admin() ) {
+				require_once('tribe-recurring-event-cleanup.php');
+				$cleanup = new TribeRecurringEventCleanup();
+				$cleanup->toggle_recurring_events();
+				unset($cleanup);
+			}
 		}
 
 
@@ -239,9 +243,7 @@ if (!class_exists('TribeEventsQuery')) {
 					remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
 					remove_filter( 'posts_fields',	array( __CLASS__, 'posts_fields' ) );
 					remove_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct'));
-					if ( self::$recurring ) {
-						remove_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ) );
-					}
+					remove_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ) );
 					$query->set( 'post__not_in', '' );
 
 					// set the default order for posts within admin lists
@@ -297,11 +299,7 @@ if (!class_exists('TribeEventsQuery')) {
 		public static function posts_groupby( $groupby_sql, $query ) {
 			global $wpdb;
 			if ( self::$is_event_query ) {
-				if ( self::$recurring ) {
-					return apply_filters('tribe_events_query_posts_groupby','', $query);
-				} else {
-					return apply_filters('tribe_events_query_posts_groupby', " {$wpdb->posts}.ID", $query );
-				}
+				return apply_filters('tribe_events_query_posts_groupby','', $query);
 			} else {
 				return $groupby_sql;
 			}
@@ -314,11 +312,7 @@ if (!class_exists('TribeEventsQuery')) {
 		public static function posts_fields( $fields, $query ) {
 			if ( self::$is_event_query ) {
 				global $wpdb;
-				if ( self::$recurring ) {
-					$fields .= ", {$wpdb->postmeta}.meta_value as EventStartDate, tribe_event_duration.meta_value as EventDuration, DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) as EventEndDate ";
-				} else {
-					$fields .= ", MIN({$wpdb->postmeta}.meta_value) as EventStartDate, tribe_event_duration.meta_value as EventDuration, DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) as EventEndDate ";
-				}
+				$fields .= ", {$wpdb->postmeta}.meta_value as EventStartDate, tribe_event_duration.meta_value as EventDuration, DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) as EventEndDate ";
 				return apply_filters('tribe_events_query_posts_fields',$fields);
 			} else {
                return $fields;

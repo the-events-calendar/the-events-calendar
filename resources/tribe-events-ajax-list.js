@@ -7,16 +7,14 @@ jQuery( document ).ready( function ( $ ) {
 	} 
 
 	if( tribe_ev.tests.pushstate && !tribe_ev.tests.map_view() ) {	
+		
+		var params = 'action=tribe_list&tribe_paged=' + tribe_ev.state.paged;
 
-		if( !tribe_ev.data.params.length ) {
-			tribe_ev.data.params = { 
-				action     :'tribe_list',
-				tribe_paged:tribe_ev.state.paged					
-			}
-		}
+		if( tribe_ev.data.params.length ) 
+			params = params + '&' + tribe_ev.data.params;		
 		
 		history.replaceState({									
-			"tribe_params": tribe_ev.data.params,
+			"tribe_params": params,
 			"tribe_url_params": tribe_ev.data.params
 		}, '', location.href);		
 
@@ -125,15 +123,12 @@ jQuery( document ).ready( function ( $ ) {
 	$( '.tribe-bar-settings button[name="settingsUpdate"]' ).on( 'click', function (e) {	
 		tribe_ev.state.popping = false;
 		tribe_events_bar_listajax_actions(e);			
-		$( '#tribe-events-bar [class^="tribe-bar-button-"]' )
-			.removeClass( 'open' )
-			.next( '.tribe-bar-drop-content' )
-			.hide();
+		tribe_ev.fn.hide_settings();
 	} );
 
 	function tribe_events_list_ajax_post() {			
 
-		$( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').show();
+		tribe_ev.fn.spin_show();
 
 		if( !tribe_ev.state.popping ) {
 
@@ -191,8 +186,8 @@ jQuery( document ).ready( function ( $ ) {
 				TribeList.ajaxurl,
 				tribe_ev.state.params,
 				function ( response ) {
-					$( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').hide();
-
+					
+					tribe_ev.fn.spin_hide();
 					tribe_ev.state.initial_load = false;											
 
 					if ( response.success ) {
