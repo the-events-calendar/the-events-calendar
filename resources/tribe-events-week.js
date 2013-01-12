@@ -23,24 +23,6 @@ jQuery(document).ready(function($){
 	}
 	
 	
-	function tribe_set_grid_colum_width() {	
-
-		// Set vars
-		var $wg_c = $('.tribe-grid-content-wrap').find('div.column');
-		var wg_w = $('.tribe-grid-content-wrap').width();
-		var wg_wt = wg_w;
-		var wg_cw = ((wg_wt / 7) / wg_wt) * 100;
-		
-		// Set grid column widths
-		$wg_c.css('width', wg_cw + '%').css('background-color','red');
- 					
-	}
-	tribe_set_grid_colum_width();
-	$('.tribe-grid-content-wrap').resize(function() { 
-		tribe_set_grid_colum_width();
-	});
-	
-	
 	function tribe_set_allday_spanning_events_width() {	
 	
 		// Set vars
@@ -57,9 +39,6 @@ jQuery(document).ready(function($){
  					
 	}
 	tribe_set_allday_spanning_events_width();
-	$('.tribe-grid-allday').resize(function() { 
-		tribe_set_allday_spanning_events_width();
-	});
 	
 				
 	function tribe_find_overlapped_events($week_events) {			    
@@ -161,8 +140,15 @@ jQuery(document).ready(function($){
 		$(".tribe-grid-body .tribe-grid-content-wrap .column").height(week_day_height);
 	
 	}
-	
 	tribe_display_week_view();
+	
+	$('.tribe-events-grid').resize(function() {
+		tribe_set_allday_spanning_events_width();
+		tribe_display_week_view();
+	});
+	
+	// Little splash of style
+	$("div[id*='tribe-events-event-']").hide().fadeIn('slow');
 	
 	if( typeof GeoLoc === 'undefined' ) 
 		var GeoLoc = {"map_view":""};
@@ -371,16 +357,16 @@ jQuery(document).ready(function($){
 					if ( response !== '' ) {						
 						
 						$( '#tribe-events-content.tribe-events-week-grid' ).replaceWith( response );
-
-						tribe_display_week_view();
+						
 						tribe_set_allday_spanning_events_width();
-						$('.tribe-grid-allday').resize(function() { 
+						tribe_display_week_view();
+						
+						$('.tribe-events-grid').resize(function() {
 							tribe_set_allday_spanning_events_width();
+							tribe_display_week_view();
 						});
-						tribe_set_grid_colum_width();
-						$('.tribe-grid-content-wrap').resize(function() { 
-							tribe_set_grid_colum_width();
-						});
+						
+						$("div[id*='tribe-events-event-']").hide().fadeIn('slow');
 						
 						if( tribe_do_string ) {							
 							tribe_href_target = tribe_href_target + '?' + tribe_params;								
