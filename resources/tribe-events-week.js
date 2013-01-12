@@ -1,6 +1,7 @@
 jQuery(document).ready(function($){	
 	
 	$( '#tribe-events-bar' ).addClass( 'tribe-has-datepicker' );
+	tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );		
 	
 	var tribe_var_datepickerOpts = {
 		dateFormat: 'yy-mm-dd',
@@ -83,7 +84,7 @@ jQuery(document).ready(function($){
 
 		$week_events.each(function() {
 
-			// let's iterate through each event in the main grid and set their length plus position in time.
+			// iterate through each event in the main grid and set their length plus position in time.
 
 			var $this = $(this);			
 			var event_hour = $this.attr("data-hour");			
@@ -94,18 +95,18 @@ jQuery(document).ready(function($){
 
 			var $event_target = $('.tribe-week-grid-block[data-hour="' + event_hour + '"]');
 
-			// let's find it's offset from top of main grid container
+			// find it's offset from top of main grid container
 
 			var event_position_top = 
 			$event_target.offset().top -
 			$event_target.parent().offset().top - 
 			$event_target.parent().scrollTop();
 
-			// now let's add the events minutes to the offset (relies on grid block being 60px, 1px per minute, nice)
+			// add the events minutes to the offset (relies on grid block being 60px, 1px per minute, nice)
 
 			event_position_top = parseInt(Math.round(event_position_top)) + parseInt(event_min);
 
-			// now let's see if we've exceeding space because this event runs into next day
+			// test if we've exceeded space because this event runs into next day
 
 			var free_space = grid_height - event_length - event_position_top;
 
@@ -113,7 +114,7 @@ jQuery(document).ready(function($){
 				event_length = event_length + free_space - 14;
 			}
 
-			// ok we have all our values, let's set length and position from top for our event and show it. And let's also set length for the event anchor so the entire event length is clickable.
+			// set length and position from top for our event and show it. Also set length for the event anchor so the entire event is clickable.
 
 			$this.css({
 				"height":event_length + "px",
@@ -123,23 +124,23 @@ jQuery(document).ready(function($){
 				});			
 		});
 
-		// now that we have set our events up correctly let's deal with our overlaps
+		// deal with our overlaps
 
 		tribe_find_overlapped_events($week_events);
 		
-		// let's set the height of the header columns to the height of the tallest
+		// set the height of the header columns to the height of the tallest
 
 		var header_column_height = $(".tribe-grid-header .tribe-grid-content-wrap").height();
 
 		$(".tribe-grid-header .column").height(header_column_height);
 
-		// let's set the height of the allday columns to the height of the tallest
+		// set the height of the allday columns to the height of the tallest
 
 		var all_day_height = $(".tribe-grid-allday .tribe-grid-content-wrap").height();
 
 		$(".tribe-grid-allday .column").height(all_day_height);
 
-		// let's set the height of the other columns for week days to be as tall as the main container
+		// set the height of the other columns for week days to be as tall as the main container
 
 		var week_day_height = $(".tribe-grid-body").height();
 
@@ -155,103 +156,89 @@ jQuery(document).ready(function($){
 	});
 	
 	// Little splash of style
-	$("div[id*='tribe-events-event-']").hide().fadeIn('slow');
 	
-	if( typeof GeoLoc === 'undefined' ) 
-		var GeoLoc = {"map_view":""};
+	$("div[id*='tribe-events-event-']").hide().fadeIn('slow');	
 
-	if( tribe_ev.tests.pushstate && !GeoLoc.map_view ) {		
+	if( tribe_ev.tests.pushstate && !tribe_ev.tests.map_view() ) {	
 
-		var initial_url = location.href;
+		var params = 'action=tribe_week&eventDate=' + tribe_ev.state.date;
+
+		if( tribe_ev.data.params.length ) 
+			params = params + '&' + tribe_ev.data.params;		
 		
-		if( tribe_storage )
-			tribe_storage.setItem( 'tribe_initial_load', 'true' );	
+		history.replaceState({									
+			"tribe_params": params
+		}, '', location.href);		
 
-		$(window).on('popstate', function(event) {
+		$(window).on('popstate', function(event) {			
 
-			var initial_load = '';
-			
-			if( tribe_storage )
-				initial_load = tribe_storage.getItem( 'tribe_initial_load' );	
-			
 			var state = event.originalEvent.state;
 
-			if( state ) {			
-				tribe_do_string = false;
-				tribe_pushstate = false;	
-				tribe_popping = true;
-				tribe_params = state.tribe_params;
+			if( state ) {				
+				tribe_ev.state.do_string = false;
+				tribe_ev.state.pushstate = false;	
+				tribe_ev.state.popping = true;
+				tribe_ev.state.params = state.tribe_params;
 				tribe_ev.fn.pre_ajax( function() {
-					tribe_events_week_ajax_post( '', '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params );
+					tribe_events_week_ajax_post();	
 				});
-			} else if( tribe_storage && initial_load !== 'true' ){				
-				window.location = initial_url;
-			}
+				
+				tribe_ev.fn.set_form( tribe_ev.state.params );				
+			} 
 		} );
 	}
 
 	$( 'body' ).on( 'click', '.tribe-events-sub-nav a', function ( e ) {
-		e.preventDefault();		
-		tribe_date = $( this ).attr( "data-week" );
-		tribe_href_target = $( this ).attr( "href" );
-		tribe_pushstate = true;
-		tribe_do_string = false;
-		$('#tribe-bar-date').val(tribe_date);
+		e.preventDefault();
+		var $this = $(this);
+		tribe_ev.state.popping = false;
+		tribe_ev.state.date = $this.attr( "data-week" );
+		tribe_ev.data.cur_url = $this.attr( "href" );
+		tribe_ev.fn.update_picker( tribe_ev.state.date );
 		tribe_ev.fn.pre_ajax( function() { 		
-			tribe_events_week_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );	
+			tribe_events_week_ajax_post();	
 		});
 	} );
-
-	// events bar intercept submit
 	
-	var tribe_picker = false;
+	var picker = false;
 	
-	function tribe_events_bar_weekajax_actions(e) {
+	function tribe_events_bar_weekajax_actions(e, picker) {
 		if( tribe_events_bar_action != 'change_view' ) {
 
-			e.preventDefault();			
+			e.preventDefault();	
+			tribe_ev.state.popping = false;
 			if ( tribe_picker )
-				tribe_date = $('#tribe-bar-date').val();
+				tribe_ev.state.date = $('#tribe-bar-date').val();
 			else
-				tribe_date = $('#tribe-events-header').attr('data-date');
-			
-			tribe_href_target = tribe_ev.data.cur_url;	
-
-			tribe_pushstate = false;
-			tribe_do_string = true;			
+				tribe_ev.state.date = $('#tribe-events-header').attr('data-date');			
 			
 			tribe_ev.fn.pre_ajax( function() { 
-				tribe_events_week_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
+				tribe_events_week_ajax_post();
 			});		
 		}
 	}	
 
 	$( 'form#tribe-bar-form' ).on( 'submit', function (e) {
-		tribe_picker = false;
-		tribe_events_bar_weekajax_actions(e, tribe_picker);
+		picker = false;
+		tribe_events_bar_weekajax_actions(e, picker);
 	} );
 	
 	$( '.tribe-bar-settings button[name="settingsUpdate"]' ).on( 'click', function (e) {	
-		tribe_picker = false;
+		picker = false;
 		tribe_events_bar_weekajax_actions(e, tribe_picker);	
-		$( '#tribe-events-bar [class^="tribe-bar-button-"]' )
-			.removeClass( 'open' )
-			.next( '.tribe-bar-drop-content' )
-			.hide();
+		tribe_ev.fn.hide_settings();
 	} );
 
 	if( tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate ) {
 		$('#tribe-bar-date').on( 'change', function (e) {
-			if( !$('body').hasClass('tribe-reset-on') ) {
-				tribe_picker = true;
+			if( !tribe_ev.tests.reset_on() ) {
+				picker = true;
 				tribe_events_bar_weekajax_actions(e, tribe_picker);
 			}			
 		} );
 	}	
 	
-	tribe_ev.fn.snap( '#tribe-events-content', '#tribe-events-content', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );
-
-	// if advanced filters active intercept submit
+	tribe_ev.fn.snap( '#tribe-events-content', 'body', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );
 
 	if( $('#tribe_events_filters_form').length ) {
 		
@@ -261,57 +248,44 @@ jQuery(document).ready(function($){
 			
 			$form.find('input[type="submit"]').remove();
 			
+			function tribe_week_filter_submit() {
+				tribe_ev.state.popping = false;
+				tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );					
+				tribe_ev.fn.pre_ajax( function() { 
+					tribe_events_week_ajax_post();	
+				});
+			}
+			
 			$( "#tribe_events_filters_form" ).on( "slidechange", ".ui-slider", function() {
-				if( !$('body').hasClass('tribe-reset-on') ){
-					tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
-					tribe_href_target = tribe_ev.data.cur_url;
-					tribe_pushstate = false;
-					tribe_do_string = true;
-					tribe_ev.fn.pre_ajax( function() { 
-						tribe_events_week_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
-					});
-				}			
+				if( !tribe_ev.tests.reset_on() )
+					tribe_week_filter_submit();							
 			} );
 			$("#tribe_events_filters_form").on("change", "input, select", function(){
-				if( !$('body').hasClass('tribe-reset-on') ){
-					tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
-					tribe_href_target = tribe_ev.data.cur_url;
-					tribe_pushstate = false;
-					tribe_do_string = true;
-					tribe_ev.fn.pre_ajax( function() { 
-						tribe_events_week_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
-					});
-				}
+				if( !tribe_ev.tests.reset_on() )
+					tribe_week_filter_submit();				
 			});			
 		}		
 		
 		$form.on( 'submit', function ( e ) {
 			if ( tribe_events_bar_action != 'change_view' ) {
 				e.preventDefault();
-				tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
-				tribe_href_target = tribe_ev.data.cur_url;
-				tribe_pushstate = false;
-				tribe_do_string = true;
-				tribe_ev.fn.pre_ajax( function() { 
-					tribe_events_week_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
-				});
+				tribe_week_filter_submit();
 			}
 		} );
 	}	
 
 
-	function tribe_events_week_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string, tribe_popping, tribe_params ) {
+	function tribe_events_week_ajax_post() {
 
-		$( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').show();
+		tribe_ev.fn.spin_show();
+		tribe_ev.state.pushcount = 0;
 		
-		if( !tribe_popping ) {
+		if( !tribe_ev.state.popping ) {
 
-			tribe_params = {
+			tribe_ev.state.params = {
 				action:'tribe_week',
-				eventDate:tribe_date
-			};	
-
-			// add any set values from event bar to params. want to use serialize but due to ie bug we are stuck with second	
+				eventDate:tribe_ev.state.date
+			};
 
 			$( 'form#tribe-bar-form :input[value!=""]' ).each( function () {
 				var $this = $( this );
@@ -319,34 +293,33 @@ jQuery(document).ready(function($){
 					if( $this.attr('name') !== 'tribe-bar-date' ) {
 						if( $this.is(':checkbox') ) {
 							if( $this.is(':checked') ) {
-								tribe_params[$this.attr('name')] = $this.val();
-								tribe_push_counter++;
+								tribe_ev.state.params[$this.attr('name')] = $this.val();
+								tribe_ev.state.pushcount++;
 							}
 						} else {
-							tribe_params[$this.attr('name')] = $this.val();
-							tribe_push_counter++;
+							tribe_ev.state.params[$this.attr('name')] = $this.val();
+							tribe_ev.state.pushcount++;
 						}	
 					}
 				}			
 			} );
 
-			tribe_params = $.param(tribe_params);
-
-			// check if advanced filters plugin is active
+			tribe_ev.state.params = $.param(tribe_ev.state.params);
 
 			if( $('#tribe_events_filters_form').length ) {
 
-				// serialize any set values and add to params
-
-				tribe_filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();				
+				var tribe_filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();				
 				if( tribe_filter_params.length ) {
-					tribe_params = tribe_params + '&' + tribe_filter_params;
+					tribe_ev.state.params = tribe_ev.state.params + '&' + tribe_filter_params;
 				}
-			}			
+			}
+
+			tribe_ev.state.pushstate = true;
+			tribe_ev.state.do_string = false;
 			
-			if ( tribe_push_counter > 0 || tribe_filter_params != '' ) {
-				tribe_pushstate = false;
-				tribe_do_string = true;				
+			if ( tribe_ev.state.pushcount > 0 || tribe_filter_params != '' ) {
+				tribe_ev.state.pushstate = false;
+				tribe_ev.state.do_string = true;				
 			}
 			
 			
@@ -356,11 +329,11 @@ jQuery(document).ready(function($){
 
 			$.post(
 				TribeWeek.ajaxurl,
-				tribe_params,
+				tribe_ev.state.params,
 				function ( response ) {
-					$( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').hide();
-					if( tribe_storage )
-							tribe_storage.setItem( 'tribe_initial_load', 'false' );
+					
+					tribe_ev.fn.spin_hide();
+					
 					if ( response !== '' ) {						
 						
 						$( '#tribe-events-content.tribe-events-week-grid' ).replaceWith( response );
@@ -376,32 +349,28 @@ jQuery(document).ready(function($){
 						
 						$("div[id*='tribe-events-event-']").hide().fadeIn('slow');
 						
-						if( tribe_do_string ) {							
-							tribe_href_target = tribe_href_target + '?' + tribe_params;								
+						if( tribe_ev.state.do_string ) {													
 							history.pushState({
 								"tribe_date": tribe_date,
-								"tribe_params": tribe_params
-							}, '', tribe_href_target);															
+								"tribe_params": tribe_ev.state.params
+							}, '', tribe_ev.data.cur_url + '?' + tribe_ev.state.params);															
 						}						
 
-						if( tribe_pushstate ) {								
+						if( tribe_ev.state.pushstate ) {								
 							history.pushState({
 								"tribe_date": tribe_date,
-								"tribe_params": tribe_params
-							}, '', tribe_href_target);
+								"tribe_params": tribe_ev.state.params
+							}, '', tribe_ev.data.cur_url);
 						}
 					}
 				}
 			);
 				
-		} else {
-			
-			if( tribe_do_string ) {
-				tribe_href_target = tribe_href_target + '?' + tribe_params;													
-			}			
-			
-			window.location = tribe_href_target;			
+		} else {			
+			if( tribe_ev.state.do_string )
+				window.location = tribe_ev.data.cur_url + '?' + tribe_ev.state.params;													
+			else 		
+				window.location = tribe_ev.data.cur_url;			
 		}
-	}
-		
+	}		
 });

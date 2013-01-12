@@ -13,10 +13,6 @@ jQuery( document ).ready( function ( $ ) {
 
 	tribe_day_add_classes();
 	
-	function tribe_update_daypicker(){
-		$("#tribe-bar-date").datepicker("setDate", tribe_ev.state.date ); 		 
-	}	
-	
 	if( tribe_ev.tests.pushstate && !tribe_ev.tests.map_view() ) {	
 		
 		var params = 'action=tribe_event_day&eventDate=' + tribe_ev.state.date;
@@ -53,7 +49,7 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_ev.state.popping = false;
 		tribe_ev.state.date = $this.attr( "data-day" );
 		tribe_ev.data.cur_url = $this.attr( "href" );
-		tribe_update_daypicker( tribe_ev.state.date );
+		tribe_ev.fn.update_picker( tribe_ev.state.date );
 		tribe_ev.fn.pre_ajax( function() { 
 			tribe_events_calendar_ajax_post();
 		});
@@ -101,14 +97,18 @@ jQuery( document ).ready( function ( $ ) {
 		
 		var $form = $('#tribe_events_filters_form');
 		
+		function tribe_day_filter_submit() {
+			tribe_ev.state.popping = false;
+			tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );					
+			tribe_ev.fn.pre_ajax( function() { 
+				tribe_events_calendar_ajax_post();	
+			});
+		}
+		
 		$form.on( 'submit', function ( e ) {
 			if ( tribe_events_bar_action != 'change_view' ) {
 				e.preventDefault();
-				tribe_ev.state.popping = false;
-				tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );					
-				tribe_ev.fn.pre_ajax( function() { 
-					tribe_events_calendar_ajax_post();	
-				});
+				tribe_day_filter_submit();
 			}
 		} );		
 		
@@ -118,20 +118,12 @@ jQuery( document ).ready( function ( $ ) {
 			
 			$( "#tribe_events_filters_form" ).on( "slidechange", ".ui-slider", function() {
 				if( !tribe_ev.tests.reset_on() ){
-					tribe_ev.state.popping = false;
-					tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );					
-					tribe_ev.fn.pre_ajax( function() { 
-						tribe_events_calendar_ajax_post();	
-					});
+					tribe_day_filter_submit();
 				}			
 			} );
 			$("#tribe_events_filters_form").on("change", "input, select", function(){
 				if( !tribe_ev.tests.reset_on() ){
-					tribe_ev.state.popping = false;
-					tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );					
-					tribe_ev.fn.pre_ajax( function() { 
-						tribe_events_calendar_ajax_post();	
-					});
+					tribe_day_filter_submit();
 				}
 			});			
 		}	

@@ -113,16 +113,21 @@ jQuery( document ).ready( function ( $ ) {
 	// if advanced filters active intercept submit
 
 	if ( $( '#tribe_events_filters_form' ).length ) {
-		var $form = $('#tribe_events_filters_form');		
+		
+		var $form = $('#tribe_events_filters_form');	
+		
+		function tribe_photo_filter_submit() {
+			tribe_ev.state.paged = 1;
+			tribe_ev.state.popping = false;
+			tribe_ev.fn.pre_ajax( function() {
+				tribe_events_list_ajax_post();
+			});
+		}
 
 		$form.on( 'submit', function ( e ) {
 			if ( tribe_events_bar_action != 'change_view' ) {
 				e.preventDefault();	
-				tribe_ev.state.paged = 1;
-				tribe_ev.state.popping = false;
-				tribe_ev.fn.pre_ajax( function() {
-					tribe_events_list_ajax_post();
-				});
+				tribe_photo_filter_submit();
 			}
 		} );
 
@@ -132,20 +137,12 @@ jQuery( document ).ready( function ( $ ) {
 
 			$( "#tribe_events_filters_form" ).on( "slidechange", ".ui-slider", function() {
 				if( !tribe_ev.tests.reset_on() ){						
-					tribe_ev.state.paged = 1;
-					tribe_ev.state.popping = false;
-					tribe_ev.fn.pre_ajax( function() {
-						tribe_events_list_ajax_post();
-					});
+					tribe_photo_filter_submit();
 				}			
 			} );
 			$("#tribe_events_filters_form").on("change", "input, select", function(){
 				if( !tribe_ev.tests.reset_on() ){						
-					tribe_ev.state.paged = 1;
-					tribe_ev.state.popping = false;
-					tribe_ev.fn.pre_ajax( function() {
-						tribe_events_list_ajax_post();
-					});
+					tribe_photo_filter_submit();
 				}
 			});			
 		}
@@ -249,7 +246,8 @@ jQuery( document ).ready( function ( $ ) {
 					
 					if ( response.success ) {					
 						
-						tribe_ev.state.paged = response.tribe_paged;							
+						tribe_ev.state.paged = response.tribe_paged;
+						tribe_ev.state.initial_load = false;	
 
 						tribe_ev.data.ajax_response = {
 							'type':'tribe_events_ajax',
