@@ -16,6 +16,45 @@ if ( !defined( 'ABSPATH' ) ) { die( '-1' ); }
 if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 	class Tribe_Events_Pro_Single_Organizer_Template extends Tribe_Template_Factory {
 		public static function init() {
+
+			// setup the template for the meta group
+			tribe_set_the_meta_template( 'tribe_event_organizer', array(
+					'before'=>'',
+					'after'=>'',
+					'label_before'=>'',
+					'label_after'=>'',
+					'meta_before'=>'<address class="organizer-address">',
+					'meta_after'=>'</address>',
+					'meta_separator' => '<span class="tribe-divider">|</span>'
+				), 'meta_group');
+
+			// setup the template for the meta items
+			tribe_set_the_meta_template( array(
+					'tribe_event_organizer_phone',
+					'tribe_event_organizer_email',
+					'tribe_event_organizer_website'
+				), array(
+					'before'=>'',
+					'after'=>'',
+					'label_before'=>'',
+					'label_after'=>'',
+					'meta_before'=>'<span class="%s">',
+					'meta_after'=>'</span>'
+				));
+
+			// remove the title for the group & meta items
+			tribe_set_meta_label('tribe_event_organizer', '', 'meta_group');
+			tribe_set_meta_label( array( 
+				'tribe_event_organizer_phone' => '',
+				'tribe_event_organizer_email' => '',
+				'tribe_event_organizer_website' => ''
+				));
+
+			// turn off the venue name in the group
+			tribe_set_the_meta_visibility( 'tribe_event_organizer_name', false);
+
+			// provide for meta actions before loading the template
+			do_action('tribe_events_pro_single_organizer_meta_init' );
 						
 			// Remove the title from the list view
 			add_filter( 'tribe_events_list_the_title', '__return_null', 2, 1 );
@@ -74,6 +113,17 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_before_the_meta' );
 		}
 		public static function the_meta( $post_id ) {
+
+			$content = get_the_content();
+			$content = apply_filters('the_content', $content);
+			$content = str_replace(']]>', ']]&gt;', $content);
+
+			$html = sprintf('%s%s',
+				tribe_get_meta_group( 'tribe_event_organizer' ),
+				!empty($content) ? '<div class="venue-description">' . $content . '</div>' : ''
+				);
+
+/*
 			ob_start();
 ?>
 			<address class="organizer-address">
@@ -100,6 +150,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
  			<?php endif ?> 			
 <?php
 			$html = ob_get_clean();
+			*/
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_the_meta' );
 		}
 		public static function after_the_meta( $post_id ) {

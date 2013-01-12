@@ -70,6 +70,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'template-tags.php' );
 			require_once( 'lib/tribe-presstrends-events-calendar-pro.php' );
 			require_once( 'lib/tribe-geoloc.class.php' );
+			require_once( 'lib/meta-pro.php' );
 
 			// Tribe common resources
 			require_once( 'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
@@ -110,6 +111,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			add_filter( 'tribe_events_before_html', array( $this, 'events_before_html' ), 10 );
 
+			// add custom fields to "the_meta" on single event template
+			add_filter( 'tribe_events_single_event_the_meta_addon', array($this,'single_event_the_meta_addon'), 10, 2);
+			add_filter( 'tribe_events_single_event_meta_group_template_keys', array( $this, 'single_event_meta_group_template_keys'), 10);
+			add_filter( 'tribe_events_single_event_meta_template_keys', array( $this, 'single_event_meta_template_keys'), 10);
+			add_filter( 'tribe_event_meta_organizer_name', array('Tribe_Register_Meta_Pro','organizer_name'), 10, 2);
+			add_filter( 'tribe_events_single_event_the_meta_group_venue', array( $this, 'single_event_the_meta_group_venue'), 10, 2);
+			// add_action( 'tribe_events_single_event_meta_init', array( $this, 'single_event_meta_init'), 10, 4);
+
 			// see function tribe_convert_units( $value, $unit_from, $unit_to )
 			add_filter( 'tribe_convert_kms_to_miles_ratio', array( $this, 'kms_to_miles_ratio' ) );
 			add_filter( 'tribe_convert_miles_to_kms_ratio', array( $this, 'miles_to_kms_ratio' ) );
@@ -137,6 +146,32 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			
 			add_filter( 'tribe_events_pre_get_posts' , array( $this, 'setup_hide_recurrence_in_query' ) );
 		}
+		function single_event_the_meta_addon( $html, $event_id){
+			
+			// add custom meta if it's available
+			$html .= tribe_get_meta_group('tribe_event_group_custom_meta');
+
+			return $html;
+		}
+
+		function single_event_meta_template_keys( $keys ){
+			$keys[] = 'tribe_event_custom_meta';
+			return $keys;
+		}
+
+		function single_event_meta_group_template_keys( $keys ){
+			$keys[] = 'tribe_event_group_custom_meta';
+			return $keys;
+		}
+
+		function single_event_the_meta_group_venue( $status, $event_id ){
+
+			return $status;
+		}
+
+		// function single_event_meta_init( $meta_templates, $meta_template_keys, $meta_group_templates, $meta_group_template_keys ){
+		// 	if( !empty($))
+		// }
 
 		function events_before_html( $html ) {
 			global $wp_query;

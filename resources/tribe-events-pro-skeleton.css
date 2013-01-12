@@ -629,9 +629,7 @@
 /* = Single Venue Template Styles (Pro Version)
    @ Template: single-venue.php
 =============================================*/
-.single-tribe_venue  .tribe_venue h2.entry-title, .single-tribe_venue  #content .tribe_venue h2.entry-title {
-	margin: 0;
-	padding: 0;
+.single-tribe_venue  .tribe_venue .tribe-events-venue-meta h2.entry-title {
 	display: inline;
 }
 .tribe-events-venue .tribe-events-map-wrap {
@@ -656,6 +654,13 @@
 	padding: 0;
 }
 
+
+.tribe-events-venue .tribe-events-venue-meta {
+	margin: 0 0 30px 0;
+	padding: 0 0 30px 0;
+	border-bottom: 1px solid #ddd;
+}
+
 .tribe-events-venue .tribe-events-event-meta {
 	border: 0;
 }
@@ -664,10 +669,17 @@
 	margin: 0;
 }
 .tribe-events-venue address.venue-address span {
-	display: block;
 	margin: 5px 0;
 	line-height: 1;	
 }
+
+.tribe-events-venue address.venue-address,
+.tribe-events-venue address.venue-address span.street-address,
+.tribe-events-venue address.venue-address span.tel,
+.tribe-events-venue address.venue-address span.url {
+	display: block;
+}
+
 .tribe-events-venue .venue-description {
 	margin: 3% 0 0;
 }
@@ -683,6 +695,12 @@
 	border: 0;
 }
 
+.tribe-events-organizer .tribe-events-organizer-meta {
+	margin-bottom: 30px;
+	padding-bottom: 30px;
+	border-bottom: 1px solid #ddd;
+}
+
 .tribe-events-organizer address.organizer-address {
 	font-style: normal;
 	font-weight: bold;
@@ -691,6 +709,11 @@
 }
 .tribe-events-organizer address.organizer-address span {
 	line-height: 1;
+	white-space: pre;
+}
+
+.tribe-events-organizer .tribe-divider {
+	margin: 0 10px;
 }
 
 .tribe-events-organizer .organizer-description {
