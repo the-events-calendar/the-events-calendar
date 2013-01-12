@@ -230,6 +230,12 @@ tribe_ev.fn = {
 			jQuery( this ).find( '.tribe-events-tooltip' ).stop( true, false ).fadeOut( 200 );			
 		} );
 	},
+	update_picker: function( date ){
+		if( jQuery().datepicker && jQuery("#tribe-bar-date").length )
+			jQuery("#tribe-bar-date").datepicker("setDate", date );
+		else if( jQuery("#tribe-bar-date").length )
+			jQuery("#tribe-bar-date").val( date );
+	},
 	url_path: function( url ) {
 		return url.split("?")[0];
 	}	
