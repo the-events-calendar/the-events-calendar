@@ -601,8 +601,12 @@ if( class_exists( 'TribeEvents' ) ) {
 		}
 	}
 
-	function tribe_events_enabled_views() {
-		return tribe_get_option('tribeEnableViews', array());
+	function tribe_events_enabled_views( $views ) {
+		$enabled_views_defaults = array();
+		foreach ( $views as $view ) {
+			$enabled_views_defaults[] = $view['displaying'];
+		}
+		return tribe_get_option( 'tribeEnableViews', $enabled_views_defaults );
 	}
 
 	function tribe_events_disabled_views() {
@@ -611,7 +615,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			return $disabled;
 		}
 		$views = apply_filters( 'tribe-events-bar-views', array(), FALSE );
-		$enabled = tribe_events_enabled_views();
+		$enabled = tribe_events_enabled_views( $views );
 		$disabled = array();
 		foreach ( $views as $view ) {
 			if ( !in_array($view['displaying'], $enabled) ) {
