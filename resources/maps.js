@@ -343,7 +343,7 @@ jQuery( document ).ready( function ( $ ) {
 				.next( '.tribe-bar-drop-content' )
 				.hide();
 		} );		
-	}
+	}	
 	
 	if( GeoLoc.map_view  && $('#tribe_events_filters_form').length ) {		
 		

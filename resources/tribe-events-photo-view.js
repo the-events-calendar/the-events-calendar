@@ -1,6 +1,15 @@
-var tribe_list_paged = 1;
-
 jQuery( document ).ready( function ( $ ) {	
+	
+	var tribe_is_paged = tribe_ev.fn.get_url_param('tribe_paged');		
+	
+	if( tribe_is_paged ) {
+		tribe_ev.state.paged = tribe_is_paged;
+	} 
+	
+	function tribe_show_loader(){		
+		$('.photo-loader').show();
+		$('#tribe-events-photo-events').addClass("photo-hidden");
+	}
 	
 	function tribe_hide_loader(){		
 		$('.photo-loader').hide();
@@ -11,7 +20,8 @@ jQuery( document ).ready( function ( $ ) {
 		if( jQuery().isotope ) {
 
 			var tribe_not_initial_resize = false;
-			var tribe_last_width, container_width = 0;
+			var tribe_last_width = 0;
+			var container_width = 0;
 
 			$container.imagesLoaded( function(){    
 				$container.isotope({
@@ -38,267 +48,256 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_last_width = container_width;
 			});
 
+		} else {
+			$('#tribe-events-photo-events').removeClass("photo-hidden").css("opacity", "1");
 		}
 	}
 
 	$('#tribe-events-header .tribe-ajax-loading').clone().addClass("photo-loader").appendTo('#tribe-events-content');
 	
-	var container = $('#tribe-events-photo-events');	
+	var $container = $('#tribe-events-photo-events');	
 	
-	tribe_setup_isotope( container );	
+	tribe_setup_isotope( $container );	
 	
-	if ( container.width() < 643 ) {
-		container.addClass('photo-two-col');
-	} 
-	
-	var tribe_is_paged = tribe_ev.fn.get_url_param('tribe_paged');		
-	
-	if( tribe_is_paged ) {
-		tribe_list_paged = tribe_is_paged;
+	if ( $container.width() < 643 ) {
+		$container.addClass('photo-two-col');
 	} 
 
-	if( typeof GeoLoc === 'undefined' ) 
-		var GeoLoc = {"map_view":""};	
-
-	if( tribe_ev.tests.pushstate && !GeoLoc.map_view ) {
+	if( tribe_ev.tests.pushstate && !tribe_ev.tests.map_view() ) {	
 		
-		var initial_url = location.href;
-		
-		if( tribe_storage )
-			tribe_storage.setItem( 'tribe_initial_load', 'true' );	
+		var params = 'action=tribe_photo&tribe_paged=' + tribe_ev.state.paged;
 
-		$(window).on('popstate', function(event) {
-			
-			var initial_load = '';
-			
-			if( tribe_storage )
-				initial_load = tribe_storage.getItem( 'tribe_initial_load' );	
-			
+		if( tribe_ev.data.params.length ) 
+			params = params + '&' + tribe_ev.data.params;		
+		
+		history.replaceState({									
+			"tribe_params": params,
+			"tribe_url_params": tribe_ev.data.params
+		}, '', location.href);		
+
+		$(window).on('popstate', function(event) {			
+
 			var state = event.originalEvent.state;
 
 			if( state ) {				
-				tribe_do_string = false;
-				tribe_pushstate = false;	
-				tribe_popping = true;
-				tribe_params = state.tribe_params;
-				tribe_url_params = state.tribe_url_params;
+				tribe_ev.state.do_string = false;
+				tribe_ev.state.pushstate = false;	
+				tribe_ev.state.popping = true;
+				tribe_ev.state.params = state.tribe_params;
+				tribe_ev.state.url_params = state.tribe_url_params;
 				tribe_ev.fn.pre_ajax( function() {
-					tribe_events_list_ajax_post( '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params, tribe_url_params );	
+					tribe_events_list_ajax_post();	
 				});
-			} else if( tribe_storage && initial_load !== 'true' ){				
-				window.location = initial_url;
-			}
-		} );
+				
+				tribe_ev.fn.set_form( tribe_ev.state.params );				
+			} 
+		} );		
+	}
+
+	$( 'body' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
+		e.preventDefault();
+		tribe_ev.state.paged++;	
+		tribe_ev.state.popping = false;
+		tribe_ev.fn.pre_ajax( function() { 
+			tribe_events_list_ajax_post();
+		});
+	} ).on( 'click', 'li.tribe-nav-previous a', function ( e ) {
+		e.preventDefault();
+		tribe_ev.state.paged--;
+		tribe_ev.state.popping = false;
+		tribe_ev.fn.pre_ajax( function() {
+			tribe_events_list_ajax_post();
+		});
+	} );
+
+	// if advanced filters active intercept submit
+
+	if ( $( '#tribe_events_filters_form' ).length ) {
 		
-	}	
-
-		// events bar intercept submit
-
-		$( 'body' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
-			e.preventDefault();
-			tribe_list_paged++;	
-			tribe_ev.fn.pre_ajax( function() { 
-				tribe_events_list_ajax_post( tribe_ev.data.cur_url );
-			});
-		} ).on( 'click', 'li.tribe-nav-previous a', function ( e ) {
-			e.preventDefault();
-			tribe_list_paged--;
+		var $form = $('#tribe_events_filters_form');	
+		
+		function tribe_photo_filter_submit() {
+			tribe_ev.state.paged = 1;
+			tribe_ev.state.popping = false;
 			tribe_ev.fn.pre_ajax( function() {
-				tribe_events_list_ajax_post( tribe_ev.data.cur_url );
+				tribe_events_list_ajax_post();
 			});
-		} );
-
-		// if advanced filters active intercept submit
-
-		if ( $( '#tribe_events_filters_form' ).length ) {
-			var $form = $('#tribe_events_filters_form');		
-			
-			$form.on( 'submit', function ( e ) {
-				if ( tribe_events_bar_action != 'change_view' ) {
-					e.preventDefault();	
-					tribe_list_paged = 1;
-					tribe_ev.fn.pre_ajax( function() {
-						tribe_events_list_ajax_post( tribe_ev.data.cur_url );
-					});
-				}
-			} );
-			
-			if( tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate ) {
-				
-				$form.find('input[type="submit"]').remove();
-				
-				$( "#tribe_events_filters_form" ).on( "slidechange", ".ui-slider", function() {
-					if( !$('body').hasClass('tribe-reset-on') ){						
-						tribe_list_paged = 1;
-						tribe_ev.fn.pre_ajax( function() {
-							tribe_events_list_ajax_post( tribe_ev.data.cur_url );
-						});
-					}			
-				} );
-				$("#tribe_events_filters_form").on("change", "input, select", function(){
-					if( !$('body').hasClass('tribe-reset-on') ){						
-						tribe_list_paged = 1;
-						tribe_ev.fn.pre_ajax( function() {
-							tribe_events_list_ajax_post( tribe_ev.data.cur_url );
-						});
-					}
-				});			
-			}
-			
 		}
-		
-		// event bar datepicker monitoring 
-		
-		function tribe_events_bar_photoajax_actions(e) {
+
+		$form.on( 'submit', function ( e ) {
 			if ( tribe_events_bar_action != 'change_view' ) {
-				e.preventDefault();
-				tribe_list_paged = 1;
-				tribe_ev.fn.pre_ajax( function() {
-					tribe_events_list_ajax_post( tribe_ev.data.cur_url );
-				});
+				e.preventDefault();	
+				tribe_photo_filter_submit();
 			}
-		}
+		} );
 
 		if( tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate ) {
-			$('#tribe-bar-date').on( 'change', function (e) {
-				if( !$('body').hasClass('tribe-reset-on') )
-					tribe_events_bar_photoajax_actions(e)
+
+			$form.find('input[type="submit"]').remove();
+
+			$( "#tribe_events_filters_form" ).on( "slidechange", ".ui-slider", function() {
+				if( !tribe_ev.tests.reset_on() ){						
+					tribe_photo_filter_submit();
+				}			
 			} );
-		}
-				
-		$( '.tribe-bar-settings button[name="settingsUpdate"]' ).on( 'click', function (e) {		
-			tribe_events_bar_photoajax_actions(e);
-			$( '#tribe-events-bar [class^="tribe-bar-button-"]' )
-				.removeClass( 'open' )
-				.next( '.tribe-bar-drop-content' )
-				.hide();
-		} );
-		
-		$( '#tribe-bar-form' ).on( 'submit', function ( e ) {
-			if ( tribe_events_bar_action != 'change_view' ) {
-				tribe_events_bar_photoajax_actions(e)
-			}
-		} );
-		
-		tribe_ev.fn.snap( '#tribe-events-content', '#tribe-events-content', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );
-
-
-		function tribe_events_list_ajax_post( tribe_href_target, tribe_pushstate, tribe_do_string, tribe_popping, tribe_params, tribe_url_params ) {
-
-			$('.photo-loader').show();
-			$('#tribe-events-photo-events').addClass("photo-hidden");
-			
-			if( !tribe_popping ) {			
-				
-				tribe_hash_string = $( '#tribe-events-list-hash' ).val();
-
-				tribe_params = {
-					action     :'tribe_photo',
-					tribe_paged:tribe_list_paged					
-				};
-				
-				tribe_url_params = {
-					action     :'tribe_photo',
-					tribe_paged:tribe_list_paged					
-				};							
-				
-				if( tribe_hash_string.length ) {
-					tribe_params['hash'] = tribe_hash_string;
-				}				
-				
-				// add any set values from event bar to params. want to use serialize but due to ie bug we are stuck with second
-
-				$( 'form#tribe-bar-form :input[value!=""]' ).each( function () {
-					var $this = $( this );
-					if( $this.val().length && !$this.hasClass('tribe-no-param') ) {
-						if( $this.is(':checkbox') ) {
-							if( $this.is(':checked') ) {
-								tribe_params[$this.attr('name')] = $this.val();
-								tribe_url_params[$this.attr('name')] = $this.val();	
-							}
-						} else {
-							tribe_params[$this.attr('name')] = $this.val();
-							tribe_url_params[$this.attr('name')] = $this.val();	
-						}					
-					}								
-				} );
-				
-				tribe_params = $.param(tribe_params);
-				tribe_url_params = $.param(tribe_url_params);
-
-				// check if advanced filters plugin is active
-
-				if( $('#tribe_events_filters_form').length ) {
-
-					// serialize any set values and add to params
-
-					tribe_filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();
-					if( tribe_filter_params.length ) {
-						tribe_params = tribe_params + '&' + tribe_filter_params;
-						tribe_url_params = tribe_url_params + '&' + tribe_filter_params;
-					}					
-				} 			
-				
-				tribe_pushstate = false;
-				tribe_do_string = true;				
-							
-			}
-			
-			if( tribe_ev.tests.pushstate ) {
-
-				$.post(
-					TribePhoto.ajaxurl,
-					tribe_params,
-					function ( response ) {
-						$( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').hide();
-						if( tribe_storage )
-							tribe_storage.setItem( 'tribe_initial_load', 'false' );
-						if ( response.success ) {
-
-							tribe_list_paged = response.tribe_paged;
-
-							$( '#tribe-events-list-hash' ).val( response.hash );						
-
-							$( '#tribe-events-content' ).replaceWith( response.html );
-							$( '#tribe-events-content' ).prev('#tribe-events-list-hash').remove();																		
-
-							if ( response.max_pages > tribe_list_paged ) {
-								$( 'li.tribe-nav-next a' ).show();
-							} else {
-								$( 'li.tribe-nav-next a' ).hide();
-							}
-							if ( tribe_list_paged > 1 ) {
-								$( 'li.tribe-nav-previous a' ).show();
-							} else {
-								$( 'li.tribe-nav-previous a' ).hide();
-							}
-							
-							if( tribe_do_string ) {
-								tribe_href_target = tribe_href_target + '?' + tribe_url_params;								
-								history.pushState({									
-									"tribe_params": tribe_params,
-									"tribe_url_params": tribe_url_params
-								}, '', tribe_href_target);															
-							}						
-
-							if( tribe_pushstate ) {																
-								history.pushState({									
-									"tribe_params": tribe_params,
-									"tribe_url_params": tribe_url_params
-								}, '', tribe_href_target);
-							}
-
-							tribe_setup_isotope( $('#tribe-events-photo-events') );	
-						}
-					}
-				);
-			} else {
-			
-				if( tribe_do_string ) {
-					tribe_href_target = tribe_href_target + '?' + tribe_url_params;													
+			$("#tribe_events_filters_form").on("change", "input, select", function(){
+				if( !tribe_ev.tests.reset_on() ){						
+					tribe_photo_filter_submit();
 				}
-				window.location = tribe_href_target;			
+			});			
+		}
+
+	}
+
+	// event bar datepicker monitoring 
+
+	function tribe_events_bar_photoajax_actions(e) {
+		if ( tribe_events_bar_action != 'change_view' ) {
+			e.preventDefault();
+			tribe_ev.state.paged = 1;
+			tribe_ev.state.popping = false;
+			tribe_ev.fn.pre_ajax( function() {
+				tribe_events_list_ajax_post();
+			});
+		}
+	}
+
+	if( tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate ) {
+		$('#tribe-bar-date').on( 'change', function (e) {
+			if( !tribe_ev.tests.reset_on() )
+				tribe_events_bar_photoajax_actions(e)
+		} );
+	}
+
+	$( '.tribe-bar-settings button[name="settingsUpdate"]' ).on( 'click', function (e) {		
+		tribe_events_bar_photoajax_actions(e);
+		tribe_ev.fn.hide_settings();
+	} );
+
+	$( '#tribe-bar-form' ).on( 'submit', function ( e ) {
+		if ( tribe_events_bar_action != 'change_view' ) {
+			tribe_events_bar_photoajax_actions(e)
+		}
+	} );
+
+	tribe_ev.fn.snap( '#tribe-events-content', '#tribe-events-content', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );
+
+
+	function tribe_events_list_ajax_post() {
+
+		tribe_show_loader();
+
+		if( !tribe_ev.state.popping ) {			
+
+			var tribe_hash_string = $( '#tribe-events-list-hash' ).val();
+
+			tribe_ev.state.params = {
+				action     :'tribe_photo',
+				tribe_paged:tribe_ev.state.paged				
+			};
+
+			tribe_ev.state.url_params = {
+				action     :'tribe_photo',
+				tribe_paged:tribe_ev.state.paged				
+			};							
+
+			if( tribe_hash_string.length ) {
+				tribe_ev.state.params['hash'] = tribe_hash_string;
 			}
-		} 	
+			
+			$( 'form#tribe-bar-form :input[value!=""]' ).each( function () {
+				var $this = $( this );
+				if( $this.val().length && !$this.hasClass('tribe-no-param') ) {
+					if( $this.is(':checkbox') ) {
+						if( $this.is(':checked') ) {
+							tribe_ev.state.params[$this.attr('name')] = $this.val();
+							tribe_ev.state.url_params[$this.attr('name')] = $this.val();	
+						}
+					} else {
+						tribe_ev.state.params[$this.attr('name')] = $this.val();
+						tribe_ev.state.url_params[$this.attr('name')] = $this.val();	
+					}					
+				}								
+			} );
+
+			tribe_ev.state.params = $.param(tribe_ev.state.params);
+			tribe_ev.state.url_params = $.param(tribe_ev.state.url_params);
+
+			if( $('#tribe_events_filters_form').length ) {
+
+				tribe_filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();
+				if( tribe_filter_params.length ) {
+					tribe_ev.state.params = tribe_ev.state.params + '&' + tribe_filter_params;
+					tribe_ev.state.url_params = tribe_ev.state.url_params + '&' + tribe_filter_params;
+				}					
+			} 			
+
+			tribe_ev.state.pushstate = false;
+			tribe_ev.state.do_string = true;				
+
+		}
+
+		if( tribe_ev.tests.pushstate ) {
+
+			$.post(
+				TribePhoto.ajaxurl,
+				tribe_ev.state.params,
+				function ( response ) {
+					
+					if ( response.success ) {					
+						
+						tribe_ev.state.paged = response.tribe_paged;
+						tribe_ev.state.initial_load = false;	
+
+						tribe_ev.data.ajax_response = {
+							'type':'tribe_events_ajax',
+							'view':'photo',
+							'max_pages':response.max_pages,
+							'page':response.tribe_paged,
+							'timestamp':new Date().getTime()
+						};
+
+						$( '#tribe-events-list-hash' ).val( response.hash );						
+
+						$( '#tribe-events-content' ).replaceWith( response.html );
+						$( '#tribe-events-content' ).prev('#tribe-events-list-hash').remove();																		
+
+						if ( response.max_pages > tribe_ev.state.paged ) {
+							$( 'li.tribe-nav-next a' ).show();
+						} else {
+							$( 'li.tribe-nav-next a' ).hide();
+						}
+						if ( tribe_ev.state.paged > 1 ) {
+							$( 'li.tribe-nav-previous a' ).show();
+						} else {
+							$( 'li.tribe-nav-previous a' ).hide();
+						}
+
+						if( tribe_ev.state.do_string ) {														
+							history.pushState({									
+								"tribe_params": tribe_ev.state.params,
+								"tribe_url_params": tribe_ev.state.url_params
+							}, '', tribe_ev.data.cur_url + '?' + tribe_ev.state.url_params);															
+						}						
+
+						if( tribe_ev.state.pushstate ) {																
+							history.pushState({									
+								"tribe_params": tribe_ev.state.params,
+								"tribe_url_params": tribe_ev.state.url_params
+							}, '', tribe_ev.data.cur_url);
+						}
+
+						tribe_setup_isotope( $('#tribe-events-photo-events') );	
+					}
+				}
+			);
+		} else {
+
+			if( tribe_ev.state.do_string )
+				window.location = tribe_ev.data.cur_url + '?' + tribe_ev.state.url_params;													
+			else
+				window.location = tribe_ev.data.cur_url;			
+		}
+	} 	
 		
 });
