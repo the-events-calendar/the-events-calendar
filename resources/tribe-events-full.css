@@ -843,6 +843,12 @@ h3.tribe-event-single-section-title {
 .events-archive.events-gridview #tribe-events-content table .tribe-last {
 	border-bottom: 0;
 }
+.tribe-viewmore {
+	margin: 0 5%;
+	padding: 6px 8px;
+	font-weight: bold;
+	line-height: 1;
+}
 .tribe-events-calendar th {
 	width: 250px;
 	height: 10px;
