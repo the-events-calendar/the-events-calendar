@@ -15,8 +15,8 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 				$html = Tribe_Meta_Factory::template(
 					__( 'Start:', 'tribe-events-calendar' ),
 					sprintf( '<abbr class="tribe-events-abbr" title="%s">%s</abbr>',
-						tribe_get_end_date( null, false, TribeDateUtils::DBDATEFORMAT ),
-						tribe_get_end_date()
+						tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ),
+						tribe_get_start_date()
 					),
 					$meta_id );
 				$html .= Tribe_Meta_Factory::template(
