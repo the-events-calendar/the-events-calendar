@@ -111,7 +111,7 @@ jQuery( document ).ready( function ( $ ) {
 		// if advanced filters active intercept submit
 
 		if ( $( '#tribe_events_filters_form' ).length ) {
-			var $form = $('#tribe_events_filters_form');
+			var $form = $('#tribe_events_filters_form');		
 			
 			$form.on( 'submit', function ( e ) {
 				if ( tribe_events_bar_action != 'change_view' ) {
@@ -123,8 +123,11 @@ jQuery( document ).ready( function ( $ ) {
 				}
 			} );
 			
-			if( tribe_ev.tests.live_ajax() ) {
-				$( "#tribe_events_filters_form .ui-slider" ).on( "slidechange", function() {
+			if( tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate ) {
+				
+				$form.find('input[type="submit"]').remove();
+				
+				$( "#tribe_events_filters_form" ).on( "slidechange", ".ui-slider", function() {
 					if( !$('body').hasClass('tribe-reset-on') ){						
 						tribe_list_paged = 1;
 						tribe_ev.fn.pre_ajax( function() {
@@ -156,7 +159,7 @@ jQuery( document ).ready( function ( $ ) {
 			}
 		}
 
-		if( tribe_ev.tests.live_ajax() ) {
+		if( tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate ) {
 			$('#tribe-bar-date').on( 'change', function (e) {
 				if( !$('body').hasClass('tribe-reset-on') )
 					tribe_events_bar_photoajax_actions(e)

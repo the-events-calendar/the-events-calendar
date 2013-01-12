@@ -355,8 +355,11 @@ jQuery( document ).ready( function ( $ ) {
 			}
 		} );		
 		
-		if( tribe_ev.tests.live_ajax() ) {			
-			$( "#tribe_events_filters_form .ui-slider" ).on( "slidechange", function(e) {
+		if( tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate ) {
+			
+			$form.find('input[type="submit"]').remove();
+			
+			$( "#tribe_events_filters_form" ).on( "slidechange", ".ui-slider", function() {
 				if( !$('body').hasClass('tribe-reset-on') ){
 					tribe_events_bar_mapajax_actions(e);	
 					alert('change')

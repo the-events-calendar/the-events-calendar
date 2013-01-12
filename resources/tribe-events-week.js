@@ -243,7 +243,7 @@ jQuery(document).ready(function($){
 			.hide();
 	} );
 
-	if( tribe_ev.tests.live_ajax() ) {
+	if( tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate ) {
 		$('#tribe-bar-date').on( 'change', function (e) {
 			if( !$('body').hasClass('tribe-reset-on') ) {
 				tribe_picker = true;
@@ -260,8 +260,11 @@ jQuery(document).ready(function($){
 		
 		var $form = $('#tribe_events_filters_form');
 		
-		if( tribe_ev.tests.live_ajax() ) {
-			$( "#tribe_events_filters_form .ui-slider" ).on( "slidechange", function() {
+		if( tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate ) {
+			
+			$form.find('input[type="submit"]').remove();
+			
+			$( "#tribe_events_filters_form" ).on( "slidechange", ".ui-slider", function() {
 				if( !$('body').hasClass('tribe-reset-on') ){
 					tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
 					tribe_href_target = tribe_ev.data.cur_url;
