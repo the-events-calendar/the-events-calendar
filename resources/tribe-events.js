@@ -21,7 +21,7 @@ jQuery.fn.tribe_clear_form = function() {
 		else if (type == 'checkbox' || type == 'radio')
 			this.checked = false;
 		else if (tag == 'select')
-			this.selectedIndex = -1;		
+			this.selectedIndex = 0;		
 	});
 };
 
@@ -84,23 +84,31 @@ tribe_ev.fn = {
 			}
 		}
 	},
-	set_form: function(){
+	set_form: function( params ){
 		jQuery('body').addClass('tribe-reset-on');
 		
+		var has_sliders = false;
+		var has_select2 = false;
+		
 		if( jQuery('#tribe_events_filters_form').length ) {
-			var $form = jQuery('#tribe_events_filters_form');
-			
+			var $form = jQuery('#tribe_events_filters_form');			
 
 			$form.tribe_clear_form();
 
 			if( $form.find('.select2-container').length ) {
-				$( '#tribe_events_filters_form .select2-container' ).select2("val", {});				
+				
+				has_select2 = true;
+				
+				jQuery( '#tribe_events_filters_form .select2-container' ).select2("val", {});				
 			}
 
 			if( $form.find('.ui-slider').length ) {
-				$( '#tribe_events_filters_form .ui-slider' ).each( function() {
-					var s_id = $(this).attr('id');
-					var $this = $('#' + s_id);
+				
+				has_sliders = true;
+				
+				jQuery( '#tribe_events_filters_form .ui-slider' ).each( function() {
+					var s_id = jQuery(this).attr('id');
+					var $this = jQuery('#' + s_id);
 					var $input = $this.prev();
 					var $display = $input.prev();
 					var settings = $this.slider( "option" );
@@ -110,17 +118,38 @@ tribe_ev.fn = {
 					$display.text( settings.min + " - " + settings.max ); 
 					$input.val('');				
 				});
-			}
-
-			$form.find('input[type=submit]').trigger('click');			
+			}			
 		}
 		
-		current_params = tribe_parse_query_string( tribe_url_params );				
-				$.each(current_params, function(key,value) {
-					if( key !== 'action' ) {						
-						$('[name^="' + decodeURI(key) + '"]').val(value);						
-					}					
-				});
+		if( jQuery('#tribe-bar-form').length ) {			
+			jQuery('#tribe-bar-form').tribe_clear_form();
+		}
+		
+		params = tribe_ev.fn.parse_string( params );	
+		
+		jQuery.each( params, function(key,value) {
+			if( key !== 'action' ) {						
+				jQuery('[name^="' + decodeURI(key) + '"]').val(value);						
+			}					
+		});
+	
+		if( has_sliders ) {			
+			jQuery( '#tribe_events_filters_form .ui-slider' ).each( function() {
+				var s_id = jQuery(this).attr('id');
+				var $this = jQuery('#' + s_id);
+				var $input = $this.prev();				
+				var range = $input.val().split('-');
+				
+				if( range[0] !== '' ) {									
+					var $display = $input.prev();
+					
+					$this.slider("values", 0, range[0]);
+					$this.slider("values", 1, range[1]);
+					$display.text( range[0] + " - " + range[1] ); 				
+					$this.slider('refresh');
+				}				
+			});
+		}
 				
 		jQuery('body').removeClass('tribe-reset-on');
 	},
