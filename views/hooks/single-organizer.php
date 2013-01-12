@@ -129,7 +129,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 
 			$html = sprintf('%s%s',
 				tribe_get_meta_group( 'tribe_event_organizer' ),
-				!empty($content) ? '<div class="venue-description">' . $content . '</div>' : ''
+				!empty($content) ? '<div class="tribe-organizer-description tribe-content">' . $content . '</div>' : ''
 				);
 
 /*
