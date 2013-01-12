@@ -3351,8 +3351,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return array The new views array.
 		 */
 		public function remove_hidden_views( $views, $visible = TRUE ) {
+			$enable_views_defaults = array();
+			foreach ( $views as $view ) {
+				$enable_views_defaults[] = $view['displaying'];
+			}
 			if ( $visible ) {
-				$enable_views = tribe_get_option( 'tribeEnableViews', array() );
+				$enable_views = tribe_get_option( 'tribeEnableViews', $enable_views_defaults );
 				foreach( $views as $index => $view ) {
 					if( !in_array( $view['displaying'], $enable_views)) {
 						unset( $views[$index] );

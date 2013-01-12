@@ -347,7 +347,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 								if ( !empty($tribe_bar_args) ) {
 									$day_link = add_query_arg($tribe_bar_args, $day_link);
 								}
-								printf( '<div class="viewmore vevent"><a href="%s">View All %d &raquo;</a></div>',
+								printf( '<div class="tribe-viewmore"><a href="%s">View All %d &raquo;</a></div>',
 									$day_link,
 									$event_daily_counts[$date]
 									);
