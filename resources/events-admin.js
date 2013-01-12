@@ -74,7 +74,7 @@ jQuery(document).ready(function($) {
 	
 	function resetSubmitButton() {
 		$('#publishing-action .button-primary-disabled').removeClass('button-primary-disabled');
-		$('#publishing-action #ajax-loading').css('visibility', 'hidden');
+		$('#publishing-action .spinner').hide();
 		
 	}
 	
@@ -95,6 +95,10 @@ jQuery(document).ready(function($) {
 			$('#rec-days-error').show();
 			resetSubmitButton();
 		}
+	});
+	
+	$('.ui-dialog-titlebar .ui-dialog-titlebar-close').live('click', function() {
+		resetSubmitButton();
 	});
 	
 	function validRecEnd() {
