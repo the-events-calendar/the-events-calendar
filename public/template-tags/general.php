@@ -620,5 +620,14 @@ if( class_exists( 'TribeEvents' ) ) {
 		}
 		return $disabled;
 	}
+
+	function tribe_count_hierarchical_keys( $value, $key, $increment ){
+		$increment++;
+	}
+	function tribe_count_hierarchical( array $walk ) {
+		$counter = 0;
+		array_walk_recursive( $walk, 'tribe_count_hierarchical_keys', &$counter);
+		return $counter;
+	}
 		
 }
