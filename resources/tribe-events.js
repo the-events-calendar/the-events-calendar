@@ -125,11 +125,25 @@ tribe_ev.fn = {
 			jQuery('#tribe-bar-form').tribe_clear_form();
 		}
 		
-		params = tribe_ev.fn.parse_string( params );	
+		params = tribe_ev.fn.parse_string( params );			
 		
-		jQuery.each( params, function(key,value) {
-			if( key !== 'action' ) {						
-				jQuery('[name^="' + decodeURI(key) + '"]').val(value);						
+		jQuery.each( params, function( key,value ) {
+			if( key !== 'action' ) {	
+				var name = decodeURI( key );				
+				if( value.length === 1 ) {					
+					jQuery('[name^="' + name + '"]').val( value );						
+				} else {										
+					for ( var i = 0; i < value.length; i++ ) {
+						
+						var $target = jQuery('[name="' + name + '"][value="' + value[i] + '"]');						
+						if ( $target.is(':checkbox, :radio') ) {							
+							$target.prop("checked", true);							
+						} else {
+							jQuery('select[name="' + name + '"] option[value="' + value[i] + '"]').attr('selected',true);							
+						}			
+						
+					}
+				}						
 			}					
 		});
 	
@@ -149,6 +163,14 @@ tribe_ev.fn = {
 					$this.slider('refresh');
 				}				
 			});
+		}
+		
+		if( has_select2 ) {			
+			jQuery( '#tribe_events_filters_form .select2-container' ).each( function() {
+				var s2_id = jQuery(this).attr('id');
+				var $this = jQuery('#' + s2_id);
+				$this.next().trigger("change");
+			});			
 		}
 				
 		jQuery('body').removeClass('tribe-reset-on');
