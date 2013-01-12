@@ -23,6 +23,24 @@ jQuery(document).ready(function($){
 	}
 	
 	
+	function tribe_set_grid_colum_width() {	
+
+		// Set vars
+		var $wg_c = $('.tribe-grid-content-wrap').find('div.column');
+		var wg_w = $('.tribe-grid-content-wrap').width();
+		var wg_wt = wg_w;
+		var wg_cw = ((wg_wt / 7) / wg_wt) * 100;
+		
+		// Set grid column widths
+		$wg_c.css('width', wg_cw + '%').css('background-color','red');
+ 					
+	}
+	tribe_set_grid_colum_width();
+	$('.tribe-grid-content-wrap').resize(function() { 
+		tribe_set_grid_colum_width();
+	});
+	
+	
 	function tribe_set_allday_spanning_events_width() {	
 	
 		// Set vars
@@ -30,27 +48,13 @@ jQuery(document).ready(function($){
 		var $ad_e = $('.tribe-grid-allday .vevent');
 		var ad_c_w = $('.tribe-grid-allday .vevent').not('[class^="tribe-dayspan"]').width();
 		
-		// Set width
-		//X paddings * 4 + X borders
-		if( $ad_e.hasClass('tribe-dayspan2') ) {
-			$ad.find('.tribe-dayspan2').children('div').css('width', ad_c_w * 2 + (2 * 4 + 1) + 'px');
-		} 
-		if( $ad_e.hasClass('tribe-dayspan3') ) {
-			$ad.find('.tribe-dayspan3').children('div').css('width', ad_c_w * 3 + (4 * 4 + 2) + 'px');
-		}
-		if( $ad_e.hasClass('tribe-dayspan4') ) {
-			$ad.find('.tribe-dayspan4').children('div').css('width', ad_c_w * 4 + (6 * 4 + 3) + 'px');
-		}
-		if( $ad_e.hasClass('tribe-dayspan5') ) {
-			$ad.find('.tribe-dayspan5').children('div').css('width', ad_c_w * 5 + (8 * 4 + 4) + 'px');
-		}
-		if( $ad_e.hasClass('tribe-dayspan6') ) {
-			$ad.find('.tribe-dayspan6').children('div').css('width', ad_c_w * 6 + (10 * 4 + 5) + 'px');
-		} 
-		if( $ad_e.hasClass('tribe-dayspan7') ) {
-			$ad.find('.tribe-dayspan7').children('div').css('width', ad_c_w * 7 + (12 * 4 + 6) + 'px');
-		}
-					
+		// Loop through the span #'s and set width
+		for (var i=2; i<8; i++) {
+ 			if( $ad_e.hasClass('tribe-dayspan' + i) ) {
+				$ad.find('.tribe-dayspan' + i).children('div').css('width', ad_c_w *i+((i*2-2)*4+(i-1))+'px');
+			} 
+   		}
+ 					
 	}
 	tribe_set_allday_spanning_events_width();
 	$('.tribe-grid-allday').resize(function() { 
@@ -372,6 +376,10 @@ jQuery(document).ready(function($){
 						tribe_set_allday_spanning_events_width();
 						$('.tribe-grid-allday').resize(function() { 
 							tribe_set_allday_spanning_events_width();
+						});
+						tribe_set_grid_colum_width();
+						$('.tribe-grid-content-wrap').resize(function() { 
+							tribe_set_grid_colum_width();
 						});
 						
 						if( tribe_do_string ) {							
