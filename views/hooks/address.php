@@ -36,7 +36,7 @@ if( !class_exists('Tribe_Events_Address_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_address_before_the_meta');
 		}
 		public static function the_meta( $post_id ){
-			ob_start();
+			// ob_start();
 			
 			$postId = get_the_ID();	
 			$address_out = Array();
@@ -47,8 +47,8 @@ if( !class_exists('Tribe_Events_Address_Template')){
 			}
 			
 			// Get our street address
-			if( tribe_get_address( $postId ) ) {
-				$address_out []= '<span class="street-address">'. tribe_get_address( $postId ) .'</span>';
+			if( tribe_get_address( $postId ) ) {					
+				$address_out []= ' <span class="street-address">'. tribe_get_address( $postId ) .'</span>';
 			}
 			
 			// Get our full region
@@ -58,30 +58,28 @@ if( !class_exists('Tribe_Events_Address_Template')){
 			
 			// Get our city
 			if( tribe_get_city( $postId ) ) {
-				$address_out []= '<span class="locality">'. tribe_get_city( $postId ) .'</span>';
+				$address_out []= ' <span class="locality">'. tribe_get_city( $postId ) .'</span>';
+				$address_out []='<span class="delimiter">,</span> ';
 			}
 			
 			// Get our region
 			if( tribe_get_region( $postId ) ) {
-				$address_out []= '<abbr class="region tribe-events-abbr" title="'. $our_full_region .'">'. tribe_get_region( $postId ) .'</abbr>';
+				if(count($address_out))
+					$address_out []= ' <abbr class="region tribe-events-abbr" title="'. $our_full_region .'">'. tribe_get_region( $postId ) .'</abbr>';
 			}
 
 			// Get our postal code
 			if( tribe_get_zip( $postId ) ) {
-				$address_out []= '<span class="postal-code">'. tribe_get_zip( $postId ) .'</span>';
+				$address_out []= ' <span class="postal-code">'. tribe_get_zip( $postId ) .'</span>';
 			}
 
 			// Get our country
 			if( tribe_get_country( $postId ) ) {
-				$address_out []= '<span class="country-name">'. tribe_get_country( $postId ) .'</span>';
+				if(count($address_out))
+				$address_out []= ' <span class="country-name">'. tribe_get_country( $postId ) .'</span>';
 			}
 			
-			// If we have address bits, let's see 'em
-			if ( count( $address_out ) > 0 ) {
-				echo implode( ', ', $address_out );
-			}		
-
-			$html = ob_get_clean();
+			$html = implode( '', $address_out );
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_address_the_meta');
 		}
 		public static function after_the_meta( $post_id ){

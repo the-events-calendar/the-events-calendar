@@ -90,22 +90,18 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
 	 * @param bool $full_link If true displays full html links around organizers name, if false returns just the link without displaying it
-	 * @param bool $display If true, echo the link, otherwise return
+	 * @param bool $echo If true, echo the link, otherwise return
 	 * @return string Organizer Name and Url
 	 * @since 2.0
 	 */
-	function tribe_get_organizer_link( $postId = null, $full_link = true, $display = true ) {
+	function tribe_get_organizer_link( $postId = null, $full_link = true, $echo = true ) {
 		$postId = TribeEvents::postIdHelper( $postId );
 		if ( class_exists( 'TribeEventsPro' ) ) {
 			$url = esc_url( get_permalink( tribe_get_organizer_id( $postId ) ) );
-			if( $display && $url != '' ) {
-				$organizer_name = tribe_get_organizer($postId);
-				$link = '<a href="'.$url.'">'.$organizer_name.'</a>';
-			} else {
-				$link = $url;
-			}
-			$link = apply_filters( 'tribe_get_organizer_link', $link, $postId, $display, $url );
-			if ( $display ) {
+			$name = tribe_get_organizer($postId);
+			$link = !empty($url) && !empty($name) ? '<a href="'.$url.'">'.$name.'</a>' : false;
+			$link = apply_filters( 'tribe_get_organizer_link', $link, $postId, $echo, $url, $name );
+			if ( $echo ) {
 				echo $link;
 			} else {
 				return $link;
