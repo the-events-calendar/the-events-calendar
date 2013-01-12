@@ -524,7 +524,10 @@ if( class_exists( 'TribeEvents' ) ) {
 			$event->EventEndDate = tribe_get_end_date( $event );
 
 		$format = '';
-		if ( get_option('date_format') == 'F j, Y') {
+		$timeFormat = get_option('time_format'); 	
+
+		// If the WordPress date setting matches DATEONLYFORMAT, make the string more readable
+		if ( get_option('date_format') == TribeDateUtils::DATEONLYFORMAT) {
 			/* If the event happens this year, no need to show the year, unless it ends on another year (multi-day) */
 			if ( tribe_get_start_date( $event, false, 'Y' ) === date( 'Y' ) && tribe_get_end_date( $event, false, 'Y' ) === date( 'Y' ) ) {
 				$format = 'F j';
@@ -532,31 +535,28 @@ if( class_exists( 'TribeEvents' ) ) {
 		}	
 
 		$schedule = '<div class="tribe-events-event-schedule-details">';
-		if ( get_option('date_format') == 'F j, Y') {
 	
-			if ( tribe_is_multiday( $event ) ) { // multi-date event
+		if ( tribe_is_multiday( $event ) ) { // multi-date event
 
-				$format2ndday = $format;
+			$format2ndday = $format;
+
+			// If the WordPress date setting matches DATEONLYFORMAT, make the string more readable
+			if ( get_option('date_format') == TribeDateUtils::DATEONLYFORMAT ) {
 				//If it's all day and the end date is in the same month and year, just show the day.
 				if ( tribe_get_all_day( $event ) && tribe_get_end_date( $event, false, 'm' ) === tribe_get_start_date( $event, false, 'm' ) && tribe_get_end_date( $event, false, 'Y' ) === date( 'Y' ) ) {
 					$format2ndday = 'j';
-				}		
-				$schedule .= '<span class="date-start">' . tribe_get_start_date($event, true, $format) . '</span> - <span class="date-end">' . tribe_get_end_date($event, true, $format2ndday) . '</span>';
-
-			} elseif ( tribe_get_all_day( $event ) ) { // all day event
-				$schedule .= '<span class="date-start">' . tribe_get_start_date($event, true, $format) . '</span>';
-			} else { // single day event
-				if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) { // Same start/end time
-					$schedule .= '<span class="date-start">' . tribe_get_start_date( $event, false, $format ) . '</span> @ <span class="start-time">' . tribe_get_start_date( $event, false, 'g:i A' ) . '</span>';
-				} else { // defined start/end time
-					$schedule .= '<span class="date-start">' . tribe_get_start_date( $event, false, $format ) . '</span> <span class="date-divider">|</span> <span class="start-time">' . tribe_get_start_date( $event, false, 'g:i A' ) . '</span> - <span class="start-time">' . tribe_get_end_date( $event, false, 'g:i A' ) . '</span>';
 				}
-			}
-		} else {
-			if ( tribe_is_multiday( $event ) ) { // multi-date event	
-				$schedule .= '<span class="date-start">' . tribe_get_start_date($event, true, $format) . '</span> - <span class="date-end">' . tribe_get_end_date($event, true, $format) . '</span>';			
-			} else {
-			$schedule .= '<span class="date-start">' . tribe_get_start_date( $event, false, $format ) . '</span> <span class="date-divider">|</span> <span class="start-time">' . tribe_get_start_date( $event, false, 'g:i A' ) . '</span> - <span class="start-time">' . tribe_get_end_date( $event, false, 'g:i A' ) . '</span>';
+			}		
+
+			$schedule .= '<span class="date-start">' . tribe_get_start_date($event, true, $format) . '</span> - <span class="date-end">' . tribe_get_end_date($event, true, $format2ndday) . '</span>';
+
+		} elseif ( tribe_get_all_day( $event ) ) { // all day event
+			$schedule .= '<span class="date-start">' . tribe_get_start_date($event, true, $format) . '</span>';
+		} else { // single day event
+			if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) { // Same start/end time
+				$schedule .= '<span class="date-start">' . tribe_get_start_date( $event, false, $format ) . '</span> @ <span class="start-time">' . tribe_get_start_date( $event, false, $timeFormat ) . '</span>';
+			} else { // defined start/end time
+				$schedule .= '<span class="date-start">' . tribe_get_start_date( $event, false, $format ) . '</span> <span class="date-divider">|</span> <span class="start-time">' . tribe_get_start_date( $event, false, $timeFormat ) . '</span> - <span class="end-time">' . tribe_get_end_date( $event, false, $timeFormat ) . '</span>';
 			}
 		}
 
