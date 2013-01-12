@@ -129,19 +129,25 @@ tribe_ev.fn = {
 		
 		jQuery.each( params, function( key,value ) {
 			if( key !== 'action' ) {	
-				var name = decodeURI( key );				
-				if( value.length === 1 ) {					
-					jQuery('[name^="' + name + '"]').val( value );						
+				var name = decodeURI( key );	
+				var $target = '';
+				if( value.length === 1 ) {						
+					if ( jQuery('[name="' + name + '"]').is('input[type="text"], input[type="hidden"]') ) {
+						jQuery('[name="' + name + '"]').val( value );	
+					} else if( jQuery('[name="' + name + '"][value="' + value + '"]').is(':checkbox, :radio')) {
+						jQuery('[name="' + name + '"][value="' + value + '"]').prop("checked", true);	
+					} else if( jQuery('[name="' + name + '"]').is('select') ) {
+						jQuery('select[name="' + name + '"] option[value="' + value + '"]').attr('selected',true);
+						console.log('select[name="' + name + '"] option[value="' + value + '"]')
+					}										
 				} else {										
-					for ( var i = 0; i < value.length; i++ ) {
-						
-						var $target = jQuery('[name="' + name + '"][value="' + value[i] + '"]');						
+					for ( var i = 0; i < value.length; i++ ) {						
+						$target = jQuery('[name="' + name + '"][value="' + value[i] + '"]');						
 						if ( $target.is(':checkbox, :radio') ) {							
 							$target.prop("checked", true);							
 						} else {
 							jQuery('select[name="' + name + '"] option[value="' + value[i] + '"]').attr('selected',true);							
-						}			
-						
+						}						
 					}
 				}						
 			}					
@@ -208,12 +214,24 @@ tribe_ev.fn = {
 	}	
 }
 
-tribe_ev.tests = {
-	pushstate:!!(window.history && history.pushState),
+tribe_ev.tests = {	
 	live_ajax: function() {
 		if( jQuery('body').hasClass('tribe-filter-live') )
 			return true;
 		else 
+			return false;
+	},
+	map_view: function(){
+		if( typeof GeoLoc !== 'undefined' && GeoLoc.map_view ) 
+			return true;		
+		else
+			return false;		
+	},
+	pushstate:!!(window.history && history.pushState),
+	reset_on: function(){
+		if( jQuery('body').hasClass('tribe-reset-on') )
+			return true;
+		else
 			return false;
 	}
 }
@@ -238,7 +256,6 @@ var tribe_do_string, tribe_popping, tribe_initial_load = false;
 var tribe_pushstate = true;	
 var tribe_push_counter = 0;
 var tribe_href_target, tribe_date, tribe_daypicker_date, tribe_year_month, tribe_params, tribe_filter_params, tribe_url_params, tribe_hash_string, tribe_ajax_callback = '';
-var tribe_ajax_response_object = {};
 
 jQuery( document ).ready( function ( $ ) {	
 

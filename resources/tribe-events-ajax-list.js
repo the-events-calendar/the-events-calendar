@@ -6,10 +6,7 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_ev.state.paged = tribe_is_paged;
 	} 
 
-	if( typeof GeoLoc === 'undefined' ) 
-		var GeoLoc = {"map_view":""};	
-
-	if( tribe_ev.tests.pushstate && !GeoLoc.map_view ) {	
+	if( tribe_ev.tests.pushstate && !tribe_ev.tests.map_view() ) {	
 
 		if( !tribe_ev.data.params.length ) {
 			tribe_ev.data.params = { 
@@ -34,39 +31,31 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_ev.state.params = state.tribe_params;
 				tribe_ev.state.url_params = state.tribe_url_params;
 				tribe_ev.fn.pre_ajax( function() {
-					tribe_events_list_ajax_post(  );	
+					tribe_events_list_ajax_post();	
 				});
 				
-				tribe_ev.fn.set_form( tribe_ev.state.params );
-				
-			} else if( !tribe_ev.state.initial_load ) {
-				window.location = tribe_ev.data.cur_url;
-			}
-		} );
-		
+				tribe_ev.fn.set_form( tribe_ev.state.params );				
+			} 
+		} );		
 	}
-
-	// events bar intercept submit
 
 	$( '#tribe-events-list-view' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
 		e.preventDefault();
 		tribe_ev.state.paged++;				
 		tribe_ev.state.popping = false;
 		tribe_ev.fn.pre_ajax( function() { 
-			tribe_events_list_ajax_post( tribe_ev.data.cur_url );
+			tribe_events_list_ajax_post();
 		});
 	} ).on( 'click', 'li.tribe-nav-previous a', function ( e ) {
 		e.preventDefault();
 		tribe_ev.state.paged--;
 		tribe_ev.state.popping = false;
 		tribe_ev.fn.pre_ajax( function() {
-			tribe_events_list_ajax_post( tribe_ev.data.cur_url );
+			tribe_events_list_ajax_post();
 		});
 	} );
 
-	tribe_ev.fn.snap( '#tribe-events-list-view', '#tribe-events-list-view', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );
-
-	// if advanced filters active intercept submit
+	tribe_ev.fn.snap( '#tribe-events-list-view', '#tribe-events-list-view', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );	
 
 	if ( $( '#tribe_events_filters_form' ).length ) {
 
@@ -78,7 +67,7 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_ev.state.popping = false;
 				tribe_ev.state.paged = 1;
 				tribe_ev.fn.pre_ajax( function() {
-					tribe_events_list_ajax_post( tribe_ev.data.cur_url );
+					tribe_events_list_ajax_post();
 				});
 			}
 		} );
@@ -88,27 +77,25 @@ jQuery( document ).ready( function ( $ ) {
 			$form.find('input[type="submit"]').remove();
 
 			$( "#tribe_events_filters_form" ).on( "slidechange", ".ui-slider", function() {
-				if( !$('body').hasClass('tribe-reset-on') ){
+				if( !tribe_ev.tests.reset_on() ){
 					tribe_ev.state.paged = 1;
 					tribe_ev.state.popping = false;
 					tribe_ev.fn.pre_ajax( function() {
-						tribe_events_list_ajax_post( tribe_ev.data.cur_url );
+						tribe_events_list_ajax_post();
 					});
 				}			
 			} );
 			$("#tribe_events_filters_form").on("change", "input, select", function(){
-				if( !$('body').hasClass('tribe-reset-on') ){
+				if( !tribe_ev.tests.reset_on() ){
 					tribe_ev.state.paged = 1;
 					tribe_ev.state.popping = false;
 					tribe_ev.fn.pre_ajax( function() {
-						tribe_events_list_ajax_post( tribe_ev.data.cur_url );
+						tribe_events_list_ajax_post();
 					});
 				}
 			});			
 		}	
 	}
-
-	// event bar monitoring 
 
 	function tribe_events_bar_listajax_actions(e) {
 		if ( tribe_events_bar_action != 'change_view' ) {
@@ -116,14 +103,14 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_ev.state.paged = 1;
 			tribe_ev.state.popping = false;
 			tribe_ev.fn.pre_ajax( function() {
-				tribe_events_list_ajax_post( tribe_ev.data.cur_url );
+				tribe_events_list_ajax_post();
 			});
 		}
 	}
 
 	if( tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate ) {
 		$('#tribe-bar-date').on( 'change', function (e) {	
-			if( !$('body').hasClass('tribe-reset-on') ) {
+			if( !tribe_ev.tests.reset_on() ) {
 				tribe_ev.state.popping = false;
 				tribe_events_bar_listajax_actions(e);
 			}
@@ -144,7 +131,7 @@ jQuery( document ).ready( function ( $ ) {
 			.hide();
 	} );
 
-	function tribe_events_list_ajax_post( tribe_href_target, tribe_pushstate, tribe_do_string, tribe_popping, tribe_params, tribe_url_params ) {			
+	function tribe_events_list_ajax_post() {			
 
 		$( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').show();
 
@@ -164,9 +151,7 @@ jQuery( document ).ready( function ( $ ) {
 
 			if( tribe_hash_string.length ) {
 				tribe_ev.state.params['hash'] = tribe_hash_string;
-			}				
-
-			// add any set values from event bar to params. want to use serialize but due to ie bug we are stuck with second
+			}
 
 			$( 'form#tribe-bar-form :input[value!=""]' ).each( function () {					
 				var $this = $( this );
@@ -186,11 +171,7 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_ev.state.params = $.param(tribe_ev.state.params);
 			tribe_ev.state.url_params = $.param(tribe_ev.state.url_params);
 
-			// check if advanced filters plugin is active
-
 			if( $('#tribe_events_filters_form').length ) {
-
-				// serialize any set values and add to params
 
 				var tribe_filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();
 				if( tribe_filter_params.length ) {
@@ -241,30 +222,27 @@ jQuery( document ).ready( function ( $ ) {
 							$( 'li.tribe-nav-previous a' ).hide();
 						}
 
-						if( tribe_ev.state.do_string ) {
-							tribe_href_target = tribe_href_target + '?' + tribe_ev.state.url_params;								
+						if( tribe_ev.state.do_string ) {															
 							history.pushState({									
 								"tribe_params": tribe_ev.state.params,
 								"tribe_url_params": tribe_ev.state.url_params
-							}, '', tribe_href_target);															
+							}, '', tribe_ev.data.cur_url + '?' + tribe_ev.state.url_params);															
 						}						
 
 						if( tribe_ev.state.pushstate ) {																
 							history.pushState({									
 								"tribe_params": tribe_ev.state.params,
 								"tribe_url_params": tribe_ev.state.url_params
-							}, '', tribe_href_target);
+							}, '', tribe_ev.data.cur_url);
 						}							
 					}
 				}
 			);
 		} else {
-
-			if( tribe_ev.state.do_string ) {
-				tribe_href_target = tribe_href_target + '?' + tribe_ev.state.url_params;													
-			}
-			window.location = tribe_href_target;			
+			if( tribe_ev.state.do_string ) 
+				window.location = tribe_ev.data.cur_url + '?' + tribe_ev.state.url_params;													
+			else
+				window.location = tribe_ev.data.cur_url;			
 		}
-	} 
-		
+	} 		
 } );
