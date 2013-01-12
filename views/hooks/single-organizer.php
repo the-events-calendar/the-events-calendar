@@ -58,6 +58,9 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 						
 			// Remove the title from the list view
 			add_filter( 'tribe_events_list_the_title', '__return_null', 2, 1 );
+
+			// Remove the comments template
+			add_filter('comments_template', array(__CLASS__, 'remove_comments_template') );
 			
 			// Start single organizer template
 			add_filter( 'tribe_events_single_organizer_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
@@ -83,6 +86,12 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 			// End single organizer template
 			add_filter( 'tribe_events_single_organizer_after_template', array( __CLASS__, 'after_template' ), 1, 1 );
 		}
+
+		public static function remove_comments_template($template) {
+			remove_filter('comments_template', array(__CLASS__, 'remove_comments_template') );
+			return TribeEvents::instance()->pluginPath . 'admin-views/no-comments.php';
+		}
+
 		// Start Single organizer Template
 		public static function before_template( $post_id ) {
 			$html = '<div id="tribe-events-content" class="tribe-events-organizer">';
