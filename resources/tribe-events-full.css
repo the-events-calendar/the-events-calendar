@@ -77,7 +77,8 @@ ul.tribe-events-sub-nav a:hover,
 	border: 0;
 	line-height: normal;
 	cursor: pointer;
-	box-shadow: none;
+	-webkit-box-shadow: none;
+			box-shadow: none;
 	text-decoration: none;
 }
 
@@ -186,7 +187,7 @@ a.tribe-events-gcal {
     -webkit-border-radius: 4px;
     	    border-radius: 4px;
 }
-.tribe-event-notices ul {
+div.tribe-event-notices > ul, div.tribe-event-notices > ul > li {
 	margin:0;
 	padding:0;
 	list-style: none;
@@ -323,6 +324,8 @@ h2.tribe-events-page-title a:focus {
 	display: none;
 	position: absolute;
 	left: 50%;
+	-webkit-box-shadow: none;
+			box-shadow: none;
 }
 /* List & Map & Day Nav Tweaks */
 .events-list #tribe-events-footer,
@@ -899,7 +902,8 @@ h3.tribe-event-single-section-title {
 	padding: 5px 5px 5px 0;
 }
 .tribe-events-tooltip .tribe-events-event-thumb img {
-	box-shadow: none;
+	-webkit-box-shadow: none;
+			box-shadow: none;
 }
 .tribe-events-tooltip p.entry-summary {
 	padding: 0;
@@ -937,6 +941,7 @@ h3.tribe-event-single-section-title {
 =============================================*/
 #tribe-events-bar {
 	width: auto;
+	min-width: 220px;
 	background-color: #eee;
 	border: 1px solid #bbb;
 	padding: 4px;
@@ -1066,7 +1071,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	color: #fff;
 	border: 0;
 	cursor: pointer;
-	box-shadow: none;
+	-webkit-box-shadow: none;
+			box-shadow: none;
 	font-weight: bold;
 	font-size: 11px;
 	line-height: normal;

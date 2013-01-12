@@ -23,14 +23,14 @@ jQuery( document ).ready( function ( $ ) {
 	if( typeof GeoLoc === 'undefined' ) 
 		var GeoLoc = {"map_view":""};
 
-	if( tribe_has_pushstate && !GeoLoc.map_view ) {	
+	if( tribe_ev.tests.pushstate && !GeoLoc.map_view ) {	
 		
 		var initial_url = location.href;
 		
 		if( tribe_storage )
 			tribe_storage.setItem( 'tribe_initial_load', 'true' );	
 		
-		$(window).bind('popstate', function(event) {
+		$(window).on('popstate', function(event) {
 		
 		var initial_load = '';
 		if( tribe_storage )
@@ -43,7 +43,7 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_pushstate = false;	
 				tribe_popping = true;
 				tribe_params = state.tribe_params;
-				tribe_pre_ajax_tests( function() {
+				tribe_ev.fn.pre_ajax( function() {
 					tribe_events_calendar_ajax_post( '', '', tribe_pushstate, tribe_do_string, tribe_popping, tribe_params );
 				});
 			} else if( tribe_storage && initial_load !== 'true' ){				
@@ -59,10 +59,10 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_href_target = $( this ).attr( "href" );
 		tribe_pushstate = true;
 		tribe_do_string = false;
-		tribe_pre_ajax_tests( function() { 		
+		tribe_ev.fn.pre_ajax( function() { 		
 			tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );	
 		});
-	} );
+	} );	
 
 	$( '#tribe-events-bar' ).on( 'change', '#tribe-bar-dates select', function ( e ) {
 		e.preventDefault();			
@@ -71,10 +71,10 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_href_target = tribe_base_url + tribe_date + '/';		
 		tribe_pushstate = true;
 		tribe_do_string = false;
-		tribe_pre_ajax_tests( function() { 
+		tribe_ev.fn.pre_ajax( function() { 
 			tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );	
 		});
-	} );
+	} );	
 
 	tribe_ev.fn.snap( '#tribe-events-content', '#tribe-events-content', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );
 	
@@ -86,12 +86,12 @@ jQuery( document ).ready( function ( $ ) {
 			e.preventDefault();			
 
 			tribe_date = $('#tribe-events-header').attr('data-date');
-			tribe_href_target = tribe_get_path( jQuery( location ).attr( 'href' ) );		
+			tribe_href_target = tribe_ev.data.cur_url;		
 
 			tribe_pushstate = false;
 			tribe_do_string = true;			
 			
-			tribe_pre_ajax_tests( function() { 
+			tribe_ev.fn.pre_ajax( function() { 
 				tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
 			});		
 		}
@@ -115,25 +115,28 @@ jQuery( document ).ready( function ( $ ) {
 		
 		var $form = $('#tribe_events_filters_form');
 		
-		if( $('body').hasClass('tribe-filter-live') ) {
-			$( "#tribe_events_filters_form .ui-slider" ).on( "slidechange", function() {
-				if( !$form.hasClass('tribe-reset-on') ){
+		if( tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate ) {
+			
+			$form.find('input[type="submit"]').remove();
+			
+			$( "#tribe_events_filters_form" ).on( "slidechange", ".ui-slider", function() {
+				if( !$('body').hasClass('tribe-reset-on') ){
 					tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
-					tribe_href_target = tribe_get_path( jQuery( location ).attr( 'href' ) );	
+					tribe_href_target = tribe_ev.data.cur_url;
 					tribe_pushstate = false;
 					tribe_do_string = true;
-					tribe_pre_ajax_tests( function() { 
+					tribe_ev.fn.pre_ajax( function() { 
 						tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
 					});
 				}			
 			} );
 			$("#tribe_events_filters_form").on("change", "input, select", function(){
-				if( !$form.hasClass('tribe-reset-on') ){
+				if( !$('body').hasClass('tribe-reset-on') ){
 					tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
-					tribe_href_target = tribe_get_path( jQuery( location ).attr( 'href' ) );	
+					tribe_href_target = tribe_ev.data.cur_url;
 					tribe_pushstate = false;
 					tribe_do_string = true;
-					tribe_pre_ajax_tests( function() { 
+					tribe_ev.fn.pre_ajax( function() { 
 						tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
 					});
 				}
@@ -144,10 +147,10 @@ jQuery( document ).ready( function ( $ ) {
 			if ( tribe_events_bar_action != 'change_view' ) {
 				e.preventDefault();
 				tribe_date = $( '#tribe-events-header' ).attr( 'data-date' );					
-				tribe_href_target = tribe_get_path( jQuery( location ).attr( 'href' ) );	
+				tribe_href_target = tribe_ev.data.cur_url;
 				tribe_pushstate = false;
 				tribe_do_string = true;
-				tribe_pre_ajax_tests( function() { 
+				tribe_ev.fn.pre_ajax( function() { 
 					tribe_events_calendar_ajax_post( tribe_date, tribe_href_target, tribe_pushstate, tribe_do_string );
 				});
 			}
@@ -211,7 +214,7 @@ jQuery( document ).ready( function ( $ ) {
 			
 		} 
 
-		if( tribe_has_pushstate ) {
+		if( tribe_ev.tests.pushstate ) {
 
 			$.post(
 				TribeCalendar.ajaxurl,

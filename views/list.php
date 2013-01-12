@@ -58,7 +58,6 @@ echo apply_filters( 'tribe_events_list_before_template', '', $the_post_id );
 			the_post();
 			global $more; 
 			$more = false;
-
 			echo apply_filters( 'tribe_events_list_inside_before_loop', '', get_the_ID() );
 							
 				// Event image
