@@ -126,6 +126,12 @@ jQuery(document).ready(function($){
 		// now that we have set our events up correctly let's deal with our overlaps
 
 		tribe_find_overlapped_events($week_events);
+		
+		// let's set the height of the header columns to the height of the tallest
+
+		var header_column_height = $(".tribe-grid-header .tribe-grid-content-wrap").height();
+
+		$(".tribe-grid-header .column").height(header_column_height);
 
 		// let's set the height of the allday columns to the height of the tallest
 
@@ -144,6 +150,7 @@ jQuery(document).ready(function($){
 	
 	$('.tribe-events-grid').resize(function() {
 		tribe_set_allday_spanning_events_width();
+		$('.tribe-grid-content-wrap .column').css('height','auto');
 		tribe_display_week_view();
 	});
 	
@@ -363,6 +370,7 @@ jQuery(document).ready(function($){
 						
 						$('.tribe-events-grid').resize(function() {
 							tribe_set_allday_spanning_events_width();
+							$('.tribe-grid-content-wrap .column').css('height','auto');
 							tribe_display_week_view();
 						});
 						
