@@ -338,6 +338,7 @@ jQuery(document).ready(function($){
 				function ( response ) {
 					
 					tribe_ev.fn.spin_hide();
+					tribe_ev.state.initial_load = false;
 					
 					if ( response !== '' ) {						
 						
