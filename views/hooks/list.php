@@ -291,7 +291,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 				printf('<h3 class="tribe-venue-details">%s%s%s</h3>',
 					'|'.$venue_name.'|',
 					!empty($venue_name) && !empty($venue_address) ? ', ' : '',
-					!empty($venue_address) ? $venue_address : ''
+					!empty($venue_address) ? '|'.$venue_address.'|' : ''
 				);
 
 				?>
