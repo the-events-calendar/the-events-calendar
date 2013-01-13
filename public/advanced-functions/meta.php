@@ -116,7 +116,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 
 			// wrap the name with a link if PRO is active
 			if( !empty( $name_check ) && !empty( $name ) && class_exists( 'TribeEventsPro' ) ){
-				$name = '<a href="'.$name.'">'.$name_check.'</a>';
+				$name = '<a href="'.$name.'">'.tribe_get_venue($post_id).'</a>';
 			}
 
 			$venue_name = empty( $name ) ? '' :  Tribe_Meta_Factory::template(
