@@ -109,13 +109,14 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		function venue_name( $meta_id ){
 			global $_tribe_meta_factory;
 			$post_id = get_the_ID();
+			$name_check = tribe_get_venue($post_id);
 			$name = class_exists( 'TribeEventsPro' ) ? // If pro, show venue w/ link
 					tribe_get_venue_link( $post_id, false ) :
 					tribe_get_venue( $post_id ); // Otherwise show venue name
 
 			// wrap the name with a link if PRO is active
-			if( ! empty( $name ) && class_exists( 'TribeEventsPro' ) ){
-				$name = '<a href="'.$name.'">'.tribe_get_venue($post_id).'</a>';
+			if( !empty( $name_check ) && !empty( $name ) && class_exists( 'TribeEventsPro' ) ){
+				$name = '<a href="'.$name.'">'.$name_check.'</a>';
 			}
 
 			$venue_name = empty( $name ) ? '' :  Tribe_Meta_Factory::template(
@@ -128,13 +129,13 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		function venue_address( $meta_id ){
 			global $_tribe_meta_factory;
 
-			$address = tribe_address_exists( get_the_ID() ) ? '<address class="event-address">' . tribe_get_full_address( get_the_ID() ) . '</address>' : '';
+			$address = tribe_address_exists( get_the_ID() ) ? '<address class="event-address">' . tribe_get_full_address( get_the_ID() ). '</address>' : '';
 
 			// Google map link
 			$gmap_link = tribe_show_google_map_link( get_the_ID() ) ? self::gmap_link() : '' ;
 			$gmap_link = apply_filters( 'tribe_event_meta_venue_address_gmap', $gmap_link );
 
-			$venue_address = empty( $address ) ? '' :  Tribe_Meta_Factory::template(
+			$venue_address = empty( $address ) ? '' : Tribe_Meta_Factory::template(
 				$_tribe_meta_factory->meta[$meta_id]['label'],
 				$address . $gmap_link,
 				$meta_id );
