@@ -5,6 +5,9 @@ jQuery( document ).ready( function ( $ ) {
 	if( tribe_is_paged ) {
 		tribe_ev.state.paged = tribe_is_paged;
 	} 
+	
+	if ( tribe_ev.state.paged == 1 )
+		$( 'li.tribe-nav-previous a' ).hide();
 
 	if( tribe_ev.tests.pushstate && !tribe_ev.tests.map_view() ) {	
 		

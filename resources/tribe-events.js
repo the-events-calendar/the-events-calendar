@@ -230,6 +230,12 @@ tribe_ev.fn = {
 			jQuery( this ).find( '.tribe-events-tooltip' ).stop( true, false ).fadeOut( 200 );			
 		} );
 	},
+	update_picker: function( date ){
+		if( jQuery().datepicker && jQuery("#tribe-bar-date").length )
+			jQuery("#tribe-bar-date").datepicker("setDate", date );
+		else if( jQuery("#tribe-bar-date").length )
+			jQuery("#tribe-bar-date").val( date );
+	},
 	url_path: function( url ) {
 		return url.split("?")[0];
 	}	
@@ -275,11 +281,6 @@ tribe_ev.state = {
 	pushcount:0,
 	url_params:{}	
 }
-
-var tribe_do_string, tribe_popping, tribe_initial_load = false;
-var tribe_pushstate = true;	
-var tribe_push_counter = 0;
-var tribe_href_target, tribe_date, tribe_daypicker_date, tribe_year_month, tribe_params, tribe_filter_params, tribe_url_params, tribe_hash_string, tribe_ajax_callback = '';
 
 jQuery( document ).ready( function ( $ ) {	
 

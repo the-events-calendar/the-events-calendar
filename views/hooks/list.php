@@ -228,11 +228,11 @@ if( !class_exists('Tribe_Events_List_Template')){
 			$show_separators = apply_filters( 'tribe_events_list_show_separators', true );
 
 			if ( $show_separators ) {
-				if ( tribe_get_start_date( $post_id, false, 'Y' ) != date( 'Y' ) && self::$prev_event_year != tribe_get_start_date( $post, false, 'Y' ) ) {
+				if ( ( tribe_get_start_date( $post_id, false, 'Y' ) != date( 'Y' ) && self::$prev_event_year != tribe_get_start_date( $post, false, 'Y' ) ) || ( tribe_get_start_date( $post_id, false, 'Y' ) == date( 'Y' ) && self::$prev_event_year != null && self::$prev_event_year != tribe_get_start_date( $post, false, 'Y' ) ) ) {
 					echo sprintf( "<span class='tribe_list_separator_year'>%s</span>", tribe_get_start_date( $post, false, 'Y' ) );
 				}
 
-				if ( self::$prev_event_month != tribe_get_start_date( $post, false, 'm' ) ) {
+				if ( self::$prev_event_month != tribe_get_start_date( $post, false, 'm' ) || ( self::$prev_event_month == tribe_get_start_date( $post, false, 'm' ) && self::$prev_event_year != tribe_get_start_date( $post_id, false, 'Y' ) ) ) {
 					echo sprintf( "<span class='tribe_list_separator_month'>%s</span>", tribe_get_start_date( $post, false, 'F' ) );
 				}
 
@@ -287,7 +287,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 
 				$venue_name = tribe_get_meta( 'tribe_event_venue_name' );
 				$venue_address = tribe_get_meta('tribe_event_venue_address');
-
+				
 				if( !empty($venue_name) )
 					printf('<h3 class="tribe-venue-details">%s%s%s</h3>',
 						$venue_name,
@@ -307,7 +307,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 		}			
 		// Event Content
 		public static function before_the_content( $content, $post_id ){
-			$html = '<div class="entry-content description">';
+			$html = '<div class="tribe-list-event-description tribe-content">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_the_content');
 		}
 		public static function the_content( $content, $post_id ){
@@ -319,7 +319,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_content');
 		}
 		public static function after_the_content( $content, $post_id ){
-			$html = '</div><!-- .entry-content -->';
+			$html = '</div><!-- .tribe-list-event-description -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_the_content');
 		}		
 		// Event Details End
