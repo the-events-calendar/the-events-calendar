@@ -17,7 +17,14 @@ class TribeEventsBar {
 
 	public function should_show() {
 		global $wp_query;
-		$is_tribe_view = !empty( $wp_query->tribe_is_event_query );
+		$active_views = apply_filters( 'tribe-events-bar-views', array() );
+		
+		$view_slugs = array();
+		foreach ( $active_views as $view ) {
+			$view_slugs[] = $view['displaying'];
+		}
+		
+		$is_tribe_view = ( !empty( $wp_query->tribe_is_event_query ) && in_array( TribeEvents::instance()->displaying, $view_slugs ) );
 		return apply_filters( 'tribe-events-bar-should-show', $is_tribe_view );
 	}
 
