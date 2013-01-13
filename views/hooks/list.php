@@ -279,7 +279,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 					<?php
 					global $post;
 					if ( !empty( $post->distance ) ) { ?>
-						<strong>[<?php echo tribe_get_distance_with_unit( $post->distance ); ?>]</strong>
+						<strong><?php echo '['. tribe_get_distance_with_unit( $post->distance ) .']'; ?></strong>
 					<?php } ?>
 					<?php echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); ?>
 				</h3>
@@ -288,12 +288,11 @@ if( !class_exists('Tribe_Events_List_Template')){
 				$venue_name = tribe_get_meta( 'tribe_event_venue_name' );
 				$venue_address = tribe_get_meta('tribe_event_venue_address');
 				
-				if( !empty($venue_name) )
-					printf('<h3 class="tribe-venue-details">%s%s%s</h3>',
-						$venue_name,
-						!empty($venue_address) && !empty($venue_name) ? ', ' : '',
-						!empty($venue_address) ? $venue_address : ''
-						);
+				printf('<h3 class="tribe-venue-details">%s%s%s</h3>',
+					$venue_name,
+					( !empty( $venue_name ) && !empty( $venue_address ) ) ? ', ' : '',
+					( !empty( $venue_address ) ) ? $venue_address : ''
+				);
 
 				?>
 			</div><!-- .tribe-events-event-meta -->
