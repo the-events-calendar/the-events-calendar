@@ -282,11 +282,6 @@ tribe_ev.state = {
 	url_params:{}	
 }
 
-var tribe_do_string, tribe_popping, tribe_initial_load = false;
-var tribe_pushstate = true;	
-var tribe_push_counter = 0;
-var tribe_href_target, tribe_date, tribe_daypicker_date, tribe_year_month, tribe_params, tribe_filter_params, tribe_url_params, tribe_hash_string, tribe_ajax_callback = '';
-
 jQuery( document ).ready( function ( $ ) {	
 
 	/* Let's hide the widget calendar if we find more than one instance */
