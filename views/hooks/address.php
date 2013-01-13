@@ -40,11 +40,6 @@ if( !class_exists('Tribe_Events_Address_Template')){
 			
 			$postId = get_the_ID();	
 			$address_out = Array();
-
-			// Get our venue name
-			if( isset( $includeVenueName ) && $includeVenueName && tribe_get_venue( $postId ) ) {
-				$address_out []= '<span class="fn org">'. tribe_get_venue( $postId ) .'</span>';
-			}
 			
 			// Get our street address
 			if( tribe_get_address( $postId ) ) {					
