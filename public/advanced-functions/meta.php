@@ -109,20 +109,12 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		function venue_name( $meta_id ){
 			global $_tribe_meta_factory;
 			$post_id = get_the_ID();
-			$name = class_exists( 'TribeEventsPro' ) ? // If pro, show venue w/ link
-					tribe_get_venue_link( $post_id, false ) :
-					tribe_get_venue( $post_id ); // Otherwise show venue name
-
-			// wrap the name with a link if PRO is active
-			if( ! empty( $name ) && class_exists( 'TribeEventsPro' ) ){
-				$name = '<a href="'.$name.'">'.tribe_get_venue($post_id).'</a>';
-			}
-
+			$name = tribe_get_venue( $post_id );
 			$venue_name = empty( $name ) ? '' :  Tribe_Meta_Factory::template(
 				$_tribe_meta_factory->meta[$meta_id]['label'],
 				$name,
 				$meta_id );
-			return apply_filters( 'tribe_event_meta_venue_name', $venue_name );
+			return apply_filters( 'tribe_event_meta_venue_name', $venue_name, $meta_id );
 		}
 
 		function venue_address( $meta_id ){
