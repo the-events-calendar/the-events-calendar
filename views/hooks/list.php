@@ -228,11 +228,11 @@ if( !class_exists('Tribe_Events_List_Template')){
 			$show_separators = apply_filters( 'tribe_events_list_show_separators', true );
 
 			if ( $show_separators ) {
-				if ( tribe_get_start_date( $post_id, false, 'Y' ) != date( 'Y' ) && self::$prev_event_year != tribe_get_start_date( $post, false, 'Y' ) ) {
+				if ( ( tribe_get_start_date( $post_id, false, 'Y' ) != date( 'Y' ) && self::$prev_event_year != tribe_get_start_date( $post, false, 'Y' ) ) || ( tribe_get_start_date( $post_id, false, 'Y' ) == date( 'Y' ) && self::$prev_event_year != null && self::$prev_event_year != tribe_get_start_date( $post, false, 'Y' ) ) ) {
 					echo sprintf( "<span class='tribe_list_separator_year'>%s</span>", tribe_get_start_date( $post, false, 'Y' ) );
 				}
 
-				if ( self::$prev_event_month != tribe_get_start_date( $post, false, 'm' ) ) {
+				if ( self::$prev_event_month != tribe_get_start_date( $post, false, 'm' ) || ( self::$prev_event_month == tribe_get_start_date( $post, false, 'm' ) && self::$prev_event_year != tribe_get_start_date( $post_id, false, 'Y' ) ) ) {
 					echo sprintf( "<span class='tribe_list_separator_month'>%s</span>", tribe_get_start_date( $post, false, 'F' ) );
 				}
 
