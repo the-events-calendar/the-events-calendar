@@ -127,14 +127,12 @@ jQuery( document ).ready( function ( $ ) {
 			}	
 			if( cv_url_params.length ) {
 				url = url + '?' + cv_url_params;
-			}	
-			alert(url)
+			}			
 			window.location.href = url;
 		} else {
 			if( cv_url_params.length ) {
 				url = url + '?' + cv_url_params;
-			}
-			alert(url)			
+			}					
 			window.location.href = url;
 		}
 	}
