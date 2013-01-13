@@ -162,7 +162,7 @@ class TribeEventsBar {
 			echo '<div class="tribe-bar-drop-content">';
 			echo '<h5>' . __( 'Event Settings', 'tribe-events-calendar' ) . '</h5>';
 			echo '<label for="tribeHideRecurrence">';
-			echo '<input type="checkbox" name="tribeHideRecurrence" value="1" ' . checked( $hide_recurrence, 1, false ) . '>'. __( 'Hide subsequent occurences of events<br /><span>Check to hide all but the next iteration</span>', 'tribe-events-calendar' );
+			echo '<input type="checkbox" name="tribeHideRecurrence" value="1" ' . checked( $hide_recurrence, 1, false ) . '>'. __( 'Hide subsequent occurences of events in lists<br /><span>Check to hide all but the next iteration</span>', 'tribe-events-calendar' );
 			echo '</label>';
 			echo '<button type="button" name="settingsUpdate" class="tribe-events-button-grey">' . __( 'Update', 'tribe-events-calendar' ) . '</button>';
 			echo '</div><!-- .tribe-bar-drop-content -->';
