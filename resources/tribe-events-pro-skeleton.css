@@ -381,8 +381,8 @@
 	width: 100%;
 }
 
-.tribe-events-photo-event .vcard, .tribe-events-photo-event .tribe-events-event-cost {
-	display: none !important;
+.tribe-events-photo-event .tribe-events-event-cost {
+	display: none;
 }
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring img {
 	display: inline;
