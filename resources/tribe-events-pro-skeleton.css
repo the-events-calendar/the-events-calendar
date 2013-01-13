@@ -680,10 +680,10 @@
 	display: block;
 }
 
-.tribe-events-venue .venue-description {
+.tribe-events-venue .tribe-venue-description {
 	margin: 3% 0 0;
 }
-.tribe-events-venue .venue-description p {
+#tribe-events-pg-template .tribe-events-venue .tribe-venue-description p {
 	margin: 0 0 3% 0;
 }
 
@@ -716,11 +716,11 @@
 	margin: 0 10px;
 }
 
-.tribe-events-organizer .organizer-description {
+.tribe-events-organizer .tribe-organizer-description {
 	margin-top: 20px;
 }
 
-.tribe-events-organizer .organizer-description p {
+#tribe-events-pg-template .tribe-events-organizer .organizer-description p {
 	margin: 0 0 10px 0;
 }
 

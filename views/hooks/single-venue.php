@@ -154,7 +154,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 			$html = sprintf('%s%s%s',
 				( get_post_meta( get_the_ID(), '_EventShowMapLink', true ) == 'true' ) ? tribe_get_meta('tribe_event_venue_gmap_link'): '',
 				tribe_get_meta_group( 'tribe_event_venue' ),
-				!empty($content) ? '<div class="venue-description">' . $content . '</div>' : ''
+				!empty($content) ? '<div class="tribe-venue-description tribe-content">' . $content . '</div>' : ''
 				);
 			/*
 			ob_start();
