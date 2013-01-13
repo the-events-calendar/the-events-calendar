@@ -382,7 +382,7 @@
 }
 
 .tribe-events-photo-event .tribe-events-event-cost {
-	display: none !important;
+	display: none;
 }
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring img {
 	display: inline;

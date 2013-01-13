@@ -29,7 +29,7 @@ jQuery( document ).ready( function ( $ ) {
 						position: 'relative', 
 						overflow: 'visible'
 					}
-				}, tribe_hide_loader );
+				}, tribe_hide_loader() );
 			});
 
 			$container.resize(function() {		
