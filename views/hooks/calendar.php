@@ -236,11 +236,15 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 							// This controls the markup for the days and events on the frontend
 				
 			    			echo "<td class=\"tribe-events-thismonth". $ppf ."\">"."\n"; //. tribe_get_display_day_title( $day, $monthView, $date ) ."\n";
-			    			printf( '<div id="%s"><a href="%s">%s</a></div>',
-			    				'tribe-events-daynum-' . $day,
-			    				'/' . TribeEvents::getOption( 'eventsSlug', 'events' ) . '/' . date( 'Y-m-d', strtotime( $date )),
-			    				$day
-			    				);
+			    			
+			    			echo '<div id="tribe-events-daynum-' . $day .'">';
+			    			// If PRO enabled have links for days
+			    			if ( class_exists( 'TribeEventsPro' ) ) {
+			    				echo '<a href="/'. TribeEvents::getOption( 'eventsSlug', 'events' ) . '/' . date( 'Y-m-d', strtotime( $date )) .'">'. $day .'</a>';
+			    			} else {
+			    				echo $day;
+			    			}
+			    			echo '</div>';
 
 
 			    			$args = wp_parse_args(array(
