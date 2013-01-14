@@ -653,11 +653,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 			$stylesheet_url = TribeEventsTemplates::locate_stylesheet('tribe-events/pro/tribe-events-pro.css', $stylesheet_url);
 			$stylesheet_url = apply_filters( 'tribe_events_pro_stylesheet_url', $stylesheet_url );
-			if ( $stylesheet_url ) {
-				wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url );
-			} else {
-				wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url );
-			}
+			if ( $stylesheet_url )
+				wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url, array( TribeEvents::POSTTYPE . '-calendar-style' ) );
 
 			$tec = TribeEvents::instance();
 			if ( $tec->displaying === 'day' ) {

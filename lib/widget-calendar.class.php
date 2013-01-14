@@ -44,12 +44,10 @@ if( !class_exists( 'TribeEventsCalendarWidget') ) {
 				}
 				$stylesheet_url = TribeEventsTemplates::locate_stylesheet('tribe-events/pro/tribe-events-pro.css', $stylesheet_url);
 				$stylesheet_url = apply_filters( 'tribe_events_pro_stylesheet_url', $stylesheet_url );
-				if ( $stylesheet_url ) {
+
+				if ( $stylesheet_url )
 					wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url, array( TribeEvents::POSTTYPE . '-calendar-style' ) );
-				} else {
-					wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url, array( TribeEvents::POSTTYPE . '-calendar-style' ) );
-				}				
-			
+
 				wp_enqueue_script( 'tribe-events-mini-calendar', TribeEventsPro::instance()->pluginUrl . 'resources/tribe-events-mini-ajax.js' );
 				wp_enqueue_style( 'tribe-events-mini-calendar', TribeEventsPro::instance()->pluginUrl . 'resources/tribe-events-mini-ajax.css' );
 				wp_localize_script( 'tribe-events-mini-calendar', 'TribeMiniCalendar', $widget_data );
