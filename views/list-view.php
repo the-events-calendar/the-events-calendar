@@ -1,7 +1,7 @@
 <?php
 /**
  * List view wrapper
-
+ *
  * You can recreate an ENTIRELY new list view by doing a template override, and placing
  * a list-view.php file in a tribe-events directory within your theme directory, which
  * will override the /views/list-view.php.

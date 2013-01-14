@@ -10,8 +10,7 @@ foreach ( array_keys( $templates ) as $template ) {
 	$template_options[$templates[$template]] = $template;
 }
 
-remove_filter( 'tribe-events-bar-views', array( TribeEvents::instance(), 'remove_hidden_views' ), 9999, 1 );
-$views = apply_filters( 'tribe-events-bar-views', array() );
+$views = apply_filters( 'tribe-events-bar-views', array(), FALSE );
 
 $views_options = array();
 foreach( $views as $view ) {
@@ -31,7 +30,7 @@ $displayTab = array(
 		),
 		'info-box-description' => array(
 			'type' => 'html',
-			'html' => '<p>' . __('You can apply different page templates to The Events Calendar. Page templates control the layout of individual pages. The Events Calendar comes with a Default Events Template. However, you can apply any page template that is available in your WordPress Theme. If you are having problems getting your Events Calendar to display correctly, switching the page template may solve the problem.</p><p>We make every effort to ensure that the Plugin is compatible with as many Themes as possible but there may be situations in which none of the below templating options will look 100% perfect. Check out our <a href="http://tri.be/support/documentation/events-calendar-themers-guide/">our themer\'s guide</a> to figure out what approach is best for you.', 'tribe-events-calendar') . '</p>',
+			'html' => '<p>' . __('Use the options below to apply different page templates to The Events Calendar, which control the layout and appearance of event content on the frontend. The Events Calendar comes with its own Default Events Template, and if your WordPress theme has its own page templates, they\'ll also be available for use in the dropdown below.</p><p>If you aren\'t satisfied with how the calendar looks upon installation, try switching to a different page template and refreshing the frontend to see if the new template integrates better. While we strive to ensure The Events Calendar is flexible enough to integrate smoothly out of the box with as many themes as possible, there are going to be situations where no template is 100% perfect. In these situations we encourage you to check out <a href="http://tri.be/support/documentation/events-calendar-themers-guide/">our themer\'s guide</a> to find what steps can be taken to get the layout where you want it to be.', 'tribe-events-calendar') . '</p>',
 		),
 		'info-end' => array(
 			'type' => 'html',

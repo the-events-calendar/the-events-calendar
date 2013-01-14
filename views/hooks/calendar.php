@@ -28,10 +28,10 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			// Calendar header
 			add_filter( 'tribe_events_calendar_before_header', array( __CLASS__, 'before_header' ), 1, 1 );
 			
-			// Calendar navigation
-			add_filter( 'tribe_events_calendar_before_nav', array( __CLASS__, 'before_nav' ), 1, 1 );
-			add_filter( 'tribe_events_calendar_nav', array( __CLASS__, 'navigation' ), 1, 1 );
-			add_filter( 'tribe_events_calendar_after_nav', array( __CLASS__, 'after_nav' ), 1, 1 );
+			// Navigation
+			add_filter( 'tribe_events_calendar_before_header_nav', array( __CLASS__, 'before_header_nav' ), 1, 1 );
+			add_filter( 'tribe_events_calendar_header_nav', array( __CLASS__, 'header_navigation' ), 1, 1 );
+			add_filter( 'tribe_events_calendar_after_header_nav', array( __CLASS__, 'after_header_nav' ), 1, 1 );
 			
 			add_filter( 'tribe_events_calendar_after_header', array( __CLASS__, 'after_header' ), 1, 1 );
 
@@ -42,6 +42,16 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			add_filter( 'tribe_events_calendar_before_the_grid', array( __CLASS__, 'before_the_grid' ), 1, 1 );
 			add_filter( 'tribe_events_calendar_the_grid', array( __CLASS__, 'the_grid' ), 1, 1 );
 			add_filter( 'tribe_events_calendar_after_the_grid', array( __CLASS__, 'after_the_grid' ), 1, 1 );
+			
+			// Calendar footer
+			add_filter( 'tribe_events_calendar_before_footer', array( __CLASS__, 'before_footer' ), 1, 1 );
+			
+			// Navigation
+			add_filter( 'tribe_events_calendar_before_footer_nav', array( __CLASS__, 'before_footer_nav' ), 1, 1 );
+			add_filter( 'tribe_events_calendar_footer_nav', array( __CLASS__, 'footer_navigation' ), 1, 1 );
+			add_filter( 'tribe_events_calendar_after_footer_nav', array( __CLASS__, 'after_footer_nav' ), 1, 1 );
+			
+			add_filter( 'tribe_events_calendar_after_footer', array( __CLASS__, 'after_footer' ), 1, 1 );
 
 			// End calendar template
 			add_filter( 'tribe_events_calendar_after_template', array( __CLASS__, 'after_template' ), 1, 1 );
@@ -79,34 +89,39 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_header');
 		}
 		// Calendar Navigation
-		public static function before_nav(){
+		public static function before_header_nav(){
 			$html = '<h3 class="tribe-events-visuallyhidden">'. __( 'Calendar Month Navigation', 'tribe-events-calendar' ) .'</h3>';
 			$html .= '<ul class="tribe-events-sub-nav">';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_nav');
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_header_nav');
 		}
-		public static function navigation(){
+		public static function header_navigation(){
 			$tribe_ecp = TribeEvents::instance();
 
-			$html = '<li class="tribe-events-nav-prev">';
+			// Display Previous Page Navigation
+			$html = '<li class="tribe-nav-previous">';
 			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&larr; '. tribe_get_previous_month_text() .' </a>';
-			$html .= '</li><!-- .tribe-events-prev-next -->';
+			$html .= '</li><!-- .tribe-nav-previous -->';
 			
+			// Display Date Navigation
 			$html .= '<li class="tribe-events-nav-date">';
 			ob_start();
-			tribe_month_year_dropdowns( "tribe-events-" );
+			tribe_month_year_dropdowns( "tribe-events-", tribe_get_month_view_date() );
 			$html .= ob_get_clean();
 			$html .= '</li><!-- .tribe-events-nav-date -->';
-	
-			$html .= '<li class="tribe-events-nav-next">';
-			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() .'" rel="next"> '. tribe_get_next_month_text() .' &rarr;</a>';
-			$html .= '<img id="ajax-loading" class="tribe-spinner-medium" src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
-			$html .= '</li><!-- .tribe-events-nav-next -->';
 			
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_nav');
+			// Display Next Page Navigation
+			$html .= '<li class="tribe-nav-next">';
+			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() .'" rel="next"> '. tribe_get_next_month_text() .' &rarr;</a>';
+			
+			// Loading spinner
+			$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
+			$html .= '</li><!-- .tribe-nav-next -->';
+			
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_header_nav');
 		}
-		public static function after_nav(){
+		public static function after_header_nav(){
 			$html = '</ul><!-- .tribe-events-sub-nav -->';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_after_nav');
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_after_header_nav');
 		}
 		public static function after_header(){
 			$html = '</div><!-- #tribe-events-header -->';
@@ -142,7 +157,22 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				'start_date' => date('Y-m-d', $date) . ' 00:00:00',
 				'end_date' => date('Y-m-t', $date) . ' 23:59:59'
 				);
+			$count_args = $wp_query->query;
+			if ( empty($count_args) ) { // this will likely be empty on Ajax calls
+				$count_args['post_type'] = TribeEvents::POSTTYPE;
+				$count_args['eventDisplay'] = 'month';
+			}
+			$count_args['start_date'] = date('Y-m-d', $date) . ' 00:00:00';
+			$count_args['end_date'] = date('Y-m-t', $date) . ' 23:59:59';
+			$count_args['hide_upcoming_ids'] = $hide_upcoming_ids;
 			$event_daily_counts = TribeEventsQuery::getEventCounts( $count_args );
+
+			$tribe_bar_args = array();
+			foreach ( $_REQUEST as $key => $value ) {
+				if ( $value && strpos($key, 'tribe-bar-') === 0 && $key != 'tribe-bar-date' ) {
+					$tribe_bar_args[$key] = $value;
+				}
+			}
 			// print_r($event_daily_counts);
 			// $monthView = tribe_sort_by_month( $eventPosts, $tribe_ecp->date );
 ?>
@@ -206,12 +236,19 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 							// This controls the markup for the days and events on the frontend
 				
 			    			echo "<td class=\"tribe-events-thismonth". $ppf ."\">"."\n"; //. tribe_get_display_day_title( $day, $monthView, $date ) ."\n";
-			    			printf( '<div id="%s"><a href="%s">%s</a></div>',
-			    				'tribe-events-daynum-' . $day,
-			    				'/' . TribeEvents::getOption( 'eventsSlug', 'events' ) . '/' . date( 'Y-m-d', strtotime( $date )),
-			    				$day
-			    				);
-
+			    			
+			    			echo '<div id="tribe-events-daynum-' . $day .'">';
+			    			// If PRO enabled have links for days
+			    			if ( class_exists( 'TribeEventsPro' ) ) {
+			    				$day_link = tribe_get_day_link($date);
+								printf( '<a href="%s">%s</a>',
+									$day_link,
+									$day
+								);
+			    			} else {
+			    				echo $day;
+			    			}
+			    			echo '</div>';
 
 			    			$args = wp_parse_args(array(
 			    				'eventDate' => $date,
@@ -298,27 +335,34 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 												<div class="tribe-events-event-thumb"><?php echo get_the_post_thumbnail( $post->ID, array( 75,75 ) );?></div>
 											<?php } ?>
 											
-											<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $post->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
+											<p class="entry-summary description">
+											<?php if( has_excerpt( $post->ID ) ) {
+												echo TribeEvents::truncate( $post->post_excerpt, 30 );
+											} else {
+												echo TribeEvents::truncate( $post->post_content, 30 );
+											} ?>
+											</p><!-- .entry-summary -->
 
 										</div><!-- .tribe-events-event-body -->
 										<span class="tribe-events-arrow"></span>
 									</div><!-- .tribe-events-tooltip -->
 								</div><!-- #tribe-events-event-# -->
 								<?php
-
-
 							}
 
 							// $remaining_not_shown = !empty($daily_events->found_posts) && $daily_events->found_posts > 0 ? 
 							// 	$daily_events->found_posts - $posts_per_page_limit : 
 							// 	0;
 							if( !empty($event_daily_counts[$date]) && (int) $event_daily_counts[$date] > $posts_per_page_limit ) {
-								printf( '<div class="viewmore vevent"><a href="%s">View %d More Events &raquo;</a></div>',
-									tribe_get_day_link( $date ),
+								$day_link = tribe_get_day_link($date);
+								if ( !empty($tribe_bar_args) ) {
+									$day_link = add_query_arg($tribe_bar_args, $day_link);
+								}
+								printf( '<div class="tribe-viewmore"><a href="%s">View All %d &raquo;</a></div>',
+									$day_link,
 									$event_daily_counts[$date]
 									);
 							}
-								
 
 			    			// echo $date;
 							// tribe_the_display_day( $day, $daily_events );
@@ -340,6 +384,40 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		public static function after_the_grid(){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_after_the_grid');
+		}
+		// Calendar Footer
+		public static function before_footer(){
+			$html = '<div id="tribe-events-footer">';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_footer');
+		}
+		// Calendar Navigation
+		public static function before_footer_nav(){
+			$html = '<h3 class="tribe-events-visuallyhidden">'. __( 'Calendar Month Navigation', 'tribe-events-calendar' ) .'</h3>';
+			$html .= '<ul class="tribe-events-sub-nav">';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_footer_nav');
+		}
+		public static function footer_navigation(){
+			$tribe_ecp = TribeEvents::instance();
+
+			// Display Previous Page Navigation
+			$html = '<li class="tribe-nav-previous">';
+			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&larr; '. tribe_get_previous_month_text() .' </a>';
+			$html .= '</li><!-- .tribe-nav-previous -->';
+			
+			// Display Next Page Navigation
+			$html .= '<li class="tribe-nav-next">';
+			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() .'" rel="next"> '. tribe_get_next_month_text() .' &rarr;</a>';
+			$html .= '</li><!-- .tribe-nav-next -->';
+			
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_footer_nav');
+		}
+		public static function after_footer_nav(){
+			$html = '</ul><!-- .tribe-events-sub-nav -->';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_after_footer_nav');
+		}
+		public static function after_footer(){
+			$html = '</div><!-- #tribe-events-footer -->';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_after_footer');
 		}
 		// End Calendar Template
 		public static function after_template(){

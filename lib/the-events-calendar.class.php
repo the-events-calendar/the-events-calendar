@@ -126,7 +126,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public $monthsFull;
 		public $monthsShort;
 
-		/* Static Singleton Factory Method */
+		/**
+		 * Static Singleton Factory Method
+		 * @return TribeEvents
+		 */
 		public static function instance() {
 			if (!isset(self::$instance)) {
 				$className = __CLASS__;
@@ -247,7 +250,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_filter( 'tribe-events-bar-filters', array( $this, 'setup_keyword_search_in_bar' ), 1, 1 );
 			add_filter( 'tribe-events-bar-filters', array( $this, 'setup_date_search_in_bar' ), 5, 1 );
 			
-			add_filter( 'tribe-events-bar-views', array( $this, 'remove_hidden_views' ), 9999, 1 );
+			add_filter( 'tribe-events-bar-views', array( $this, 'remove_hidden_views' ), 9999, 2 );
 			/* End Setup Tribe Events Bar */
 		}
 
@@ -536,7 +539,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					'type' => 'html',
 					'html' => '<div class="tribe-settings-form-wrap">',
 				),
-				/* TO-DO: add closing div to license tab */
+				'tribe-form-content-end' => array(
+					'type' => 'html',
+					'html' => '</div>',
+				)
 			);
 
 			new TribeSettingsTab( 'general', __('General', 'tribe-events-calendar'), $generalTab );
@@ -1569,36 +1575,38 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function loadStyle() {
+			if ( tribe_is_event_query() ||  tribe_is_event_organizer() || tribe_is_event_venue() ) {
+
+				// jquery-resize
+				Tribe_Template_Factory::asset_package('jquery-resize');
+
+				// smoothness
+				Tribe_Template_Factory::asset_package('smoothness');
+
+				// Select2
+				Tribe_Template_Factory::asset_package('select2');
+
+				// Tribe Calendar JS
+				Tribe_Template_Factory::asset_package('calendar-script');
+
+				// Tribe Events CSS filename
+				$event_file = 'tribe-events.css';
+				$event_file_option = 'tribe-events-full.css';
 			
-			// jquery-resize
-			Tribe_Template_Factory::asset_package('jquery-resize');
+				// What Option was selected
+				if ( tribe_get_option('stylesheetOption') == 'skeleton') {
+					$event_file_option = 'tribe-events-skeleton.css';
+				}
 
-			// smoothness
-			Tribe_Template_Factory::asset_package('smoothness');
+				$styleUrl = trailingslashit( $this->pluginUrl ) . 'resources/' . $event_file_option;
+				// is there a tribe-events.css file in the theme?
+				$styleUrl = TribeEventsTemplates::locate_stylesheet('tribe-events/'.$event_file, $styleUrl);
+				$styleUrl = apply_filters( 'tribe_events_stylesheet_url', $styleUrl );
 
-			// Select2
-			Tribe_Template_Factory::asset_package('select2');
-
-			// Tribe Calendar JS
-			Tribe_Template_Factory::asset_package('calendar-script');
-
-			// Tribe Events CSS filename
-			$event_file = 'tribe-events.css';
-			$event_file_option = 'tribe-events-full.css';
-			
-			// What Option was selected
-			if ( tribe_get_option('stylesheetOption') == 'skeleton') {
-				$event_file_option = 'tribe-events-skeleton.css';
+				// load up stylesheet from theme or plugin
+				if ( $styleUrl )
+					wp_enqueue_style( self::POSTTYPE . '-calendar-style', $styleUrl);
 			}
-
-			$styleUrl = trailingslashit( $this->pluginUrl ) . 'resources/' . $event_file_option;
-			// is there a tribe-events.css file in the theme?
-			$styleUrl = TribeEventsTemplates::locate_stylesheet('tribe-events/'.$event_file, $styleUrl);
-			$styleUrl = apply_filters( 'tribe_events_stylesheet_url', $styleUrl );
-
-			// load up stylesheet from theme or plugin
-			if ( $styleUrl )
-				wp_enqueue_style( self::POSTTYPE . '-calendar-style', $styleUrl);
 		}
 
 		public function setDate($query) {
@@ -1622,6 +1630,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			} else {
 				global $wp_query;
 				$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : tribe_get_option( 'viewOption', 'upcoming');
+				if ( is_single() )
+					$this->displaying = 'single-event';
 			}
 		}
 
@@ -3350,11 +3360,17 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param array $views The current views array.
 		 * @return array The new views array.
 		 */
-		public function remove_hidden_views( $views ) {
-			$enable_views = tribe_get_option( 'tribeEnableViews', array() );
-			foreach( $views as $index => $view ) {
-				if( !in_array( $view['displaying'], $enable_views)) {
-					unset( $views[$index] );
+		public function remove_hidden_views( $views, $visible = TRUE ) {
+			$enable_views_defaults = array();
+			foreach ( $views as $view ) {
+				$enable_views_defaults[] = $view['displaying'];
+			}
+			if ( $visible ) {
+				$enable_views = tribe_get_option( 'tribeEnableViews', $enable_views_defaults );
+				foreach( $views as $index => $view ) {
+					if( !in_array( $view['displaying'], $enable_views)) {
+						unset( $views[$index] );
+					}
 				}
 			}
 			return $views;
@@ -3438,13 +3454,31 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			array_splice( $source_array, $position, $replace_amount, $insert_array ); 
 			return $source_array; 
 		}
-		public static function array_insert_after_key( $source_array, $insert_array, $key ) { 
-			$position = array_search( $key, array_keys( $source_array ) ) + 1;
-			$modified_array = array_slice($source_array, 0, $position, true) +
-	            $insert_array +
-	            array_slice($source_array, $position, NULL, true);
-			return $modified_array;
+		public static function array_insert_after_key( $key, $source_array, $insert_array ) { 
+			return self::array_insert_by_key( $key, $source_array, $insert_array );
+		}
+		public static function array_insert_before_key( $key, $source_array, $insert_array ) { 
+			return self::array_insert_by_key( $key, $source_array, $insert_array, 0 );
 		} 
+		public static function array_insert_by_key( $key, $source_array, $insert_array, $direction = 1 ){
+			$position = array_search( $key, array_keys( $source_array ) ) + $direction;
+
+			// setup the return with the source array
+			$modified_array = $source_array;
+
+			if( count($source_array) < $position && $position != 0 ) {
+				// push one or more elements onto the end of array
+				array_push( $modified_array, $insert_array );
+			} else if ( $position < 0 ){
+				// prepend one or more elements to the beginning of an array
+				array_unshift( $modified_array, $insert_array );
+			} else {
+				$modified_array = array_slice($source_array, 0, $position, true) +
+		            $insert_array +
+		            array_slice($source_array, $position, NULL, true);
+			}
+			return $modified_array;
+		}
 
 		public static function clear_module_pagination( $html ) {
 			$html = '<li class="tribe-nav-previous"><a href="#" id="tribe_paged_prev" class="tribe_paged">' . __( '<< Previous Events' ) . '</a></li>';

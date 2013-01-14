@@ -13,6 +13,8 @@
 
 /* = Global & Miscellaneous Styles
 =============================================*/
+
+
 .tribe-events-back {
 	margin: 0 0 20px 0;
 }
@@ -40,7 +42,8 @@
 	border: 0;
 	line-height: normal;
 	cursor: pointer;
-	box-shadow: none;
+	-webkit-box-shadow: none;
+			box-shadow: none;
 	text-decoration: none;
 }
 
@@ -138,7 +141,7 @@ a.tribe-events-gcal {
     -webkit-border-radius: 4px;
     		border-radius: 4px;
 }
-.tribe-event-notices ul {
+div.tribe-event-notices > ul, div.tribe-event-notices > ul > li {
 	margin:0;
 	padding:0;
 	list-style: none;
@@ -191,14 +194,17 @@ a.tribe-events-gcal {
 .tribe-spinner {
 	width: 32px;
 	height: 32px;
+	margin-left: -16px;
 }
 .tribe-spinner-medium {
 	width: 24px;
 	height: 24px;
+	margin-left: -12px;
 }
 .tribe-spinner-small {
 	width: 16px;
 	height: 16px;
+	margin-left: -8px;
 }
 
 /* IE7 Tweaks */
@@ -236,11 +242,64 @@ h2.tribe-events-page-title a:focus {
 	color: #333;
 	text-decoration: underline;
 }
-#tribe-events-header #ajax-loading {
+
+/* General Template Header/Footer Nav */
+#tribe-events-header,
+#tribe-events-footer {
+	margin-bottom: 18px;
+}
+#tribe-events-header .tribe-events-sub-nav,
+#tribe-events-footer .tribe-events-sub-nav {
+	list-style-type: none;
+	margin: 0;
+	overflow: hidden;
+	text-align: center;
+}
+#tribe-events-header .tribe-events-sub-nav li,
+#tribe-events-footer .tribe-events-sub-nav li {
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
+	margin: 0;
+	vertical-align: middle;
+}
+#tribe-events-header .tribe-events-sub-nav .tribe-nav-previous,
+#tribe-events-footer .tribe-events-sub-nav .tribe-nav-previous {
+	margin-right: 5px;
+	float: left;
+	text-align: left;
+}
+#tribe-events-header .tribe-events-sub-nav .tribe-nav-next,
+#tribe-events-footer .tribe-events-sub-nav .tribe-nav-next {
+	margin-left: 5px;
+	float: right;
+	text-align: right;
+}
+#tribe-events-header .tribe-ajax-loading {
 	display: none;
 	position: absolute;
 	left: 50%;
-	margin-left: -8px;
+	-webkit-box-shadow: none;
+			box-shadow: none;
+}
+#tribe-events-footer {
+	margin-bottom: 18px;
+}
+/* List & Map & Day Nav Tweaks */
+.events-list #tribe-events-footer,
+.tribe-events-day #tribe-events-footer,
+#tribe-geo-wrapper #tribe-events-footer {
+	margin: 1.25em 0 18px;
+}
+/* Single Event & Map View Nav Tweaks */
+.single-tribe_events #tribe-events-header,
+#tribe-geo-wrapper #tribe-events-header {
+	margin: 24px 0 14px;
+}
+.single-tribe_events #tribe-events-header li,
+.single-tribe_events #tribe-events-footer li {
+	width: 48%;
+	padding-bottom: 10px;
 }
 
 /* General Template Header Nav */
@@ -369,6 +428,7 @@ select.tribe-events-dropdown {
 
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
 	display: inline-block;
+	white-space: pre;
 } 
 
 .tribe-events-event-meta address.event-address {
@@ -417,15 +477,10 @@ select.tribe-events-dropdown {
 .tribe-events-loop .vevent.tribe-last {
 	border-bottom: 0;
 }
-.tribe-events-loop .entry-content {
+.tribe-events-list .tribe-events-loop .tribe-content {
 	clear: both;
 	width: 100%;
 	padding: 0;
-}
-.events-archive .entry-content p, 
-.single-tribe_venue .tribe-events-loop .entry-content p {
-	margin: 0;
-	line-height: 1.5;
 }
 
 .events-archive h3 .published, 
@@ -470,18 +525,18 @@ select.tribe-events-dropdown {
 	margin-right: 10px;
 }
 
-#tribe-events-content .description img.attachment-post-thumbnail {
+#tribe-events-content .tribe-single-event-description img.attachment-post-thumbnail {
 	margin-left: auto;
 	margin-right: auto;
 	display: block;
 	text-align: center;
 }
 
-.tribe-event-single-section-title, .entry-content .tribe-event-single-section-title {
+.tribe-events-meta-group .tribe-event-single-section-title {
 	margin: 0px 0 10px;
 	font-size: 1.2em;
 }
-.tribe-events-meta-column + .tribe-event-single-section-title {
+.tribe-events-meta-group + .tribe-event-single-section-title {
 	margin-top: 0;
 }
 
@@ -494,27 +549,6 @@ select.tribe-events-dropdown {
 
 .eventbrite-ticket-embed {
 	margin: 0 0 30px 0;
-}
-
-/* Navigation */
-#tribe-events-content .tribe-events-loop-nav ul {
-	list-style-type: none;
-	margin-left: 0;
-}
-#tribe-events-content .tribe-events-loop-nav .tribe-nav-previous,
-#tribe-events-content .tribe-events-loop-nav .tribe-nav-next {
-	width: 30%;
-	padding-bottom: 10px;
-	margin: 0;
-	list-style: none;
-}
-.tribe-events-loop-nav .tribe-nav-previous {
-	float: left;
-	clear: both;
-}
-.tribe-events-loop-nav .tribe-nav-next {
-	float: right;
-	text-align: right;
 }
 
 /* Date Seperators */
@@ -587,12 +621,12 @@ select.tribe-events-dropdown {
 	width: 100% !important;
 	margin: 0 !important;
 }
-.single-tribe_events .tribe-events-meta-column .tribe-event-venue-map {
+.single-tribe_events .tribe-events-meta-group .tribe-event-venue-map {
 	float: none;
 	margin: 0;
 	width: 100%;
 }
-.single-tribe_events .tribe-events-meta-column #tribe-events-gmap {
+.single-tribe_events .tribe-events-meta-group #tribe-events-gmap {
 	height: 0 !important;
 	padding-top: 100%;
 	width: 100% !important;
@@ -603,7 +637,7 @@ select.tribe-events-dropdown {
 	border-top: 1px solid #bbb;
 }
 
-.tribe-events-event-meta .tribe-events-meta-column, .tribe-events-event-meta .column {
+.tribe-events-event-meta .tribe-events-meta-group, .tribe-events-event-meta .column {
 	float: left;
 	width: 29.3333%;
 	padding: 0;
@@ -619,10 +653,9 @@ select.tribe-events-dropdown {
 	font-weight: bold;
 }
 
-#tribe-events-content .tribe-events-event-meta dd,
-#tribe-events-content .tribe-events-event-meta dd.entry-content {
+.single-tribe_events #tribe-events-content .tribe-events-event-meta dd {
 	padding: 0;
-	margin: 0 0 10px 000;
+	margin: 0 0 10px;
 	line-height: 1.5;
 }
 
@@ -631,10 +664,10 @@ select.tribe-events-dropdown {
 }
 
 /* Content */
-.single-tribe_events .entry-content.description {
+.single-tribe_events .tribe-single-event-description {
 	width: auto;
 	padding: 0;
-	margin-bottom: 30PX;
+	margin-bottom: 30px;
 }
 
 /* = Calendar Styles (includes styles for both large & small calendars)
@@ -642,7 +675,7 @@ select.tribe-events-dropdown {
 =============================================*/
 /* Global Calendar Styles */
 #tribe-events-content table.tribe-events-calendar {
-	margin: 18px 0 12px;
+	margin: 0 0 18px;
 	clear: both;
 	font-size: 12px;
 	border-collapse: collapse;
@@ -756,6 +789,12 @@ select.tribe-events-dropdown {
 .events-archive.events-gridview #tribe-events-content table .tribe-last {
 	border-bottom: 0;
 }
+.tribe-viewmore {
+	margin: 0 5%;
+	padding: 6px 8px;
+	font-weight: bold;
+	line-height: 1;
+}
 .tribe-events-calendar th {
 	width: 250px;
 	height: 10px;
@@ -812,7 +851,7 @@ select.tribe-events-dropdown {
 }
 .tribe-events-tooltip .tribe-events-event-thumb {
 	float: left;
-	padding: 5px;
+	padding: 5px 5px 5px 0;
 }
 .tribe-events-tooltip p.entry-summary {
 	padding: 0;
@@ -848,6 +887,7 @@ select.tribe-events-dropdown {
 =============================================*/
 #tribe-events-bar {
 	width: auto;
+	min-width: 220px;
 	background-color: #eee;
 	border: 1px solid #bbb;
 	padding: 4px;
@@ -977,7 +1017,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	color: #fff;
 	border: 0;
 	cursor: pointer;
-	box-shadow: none;
+	-webkit-box-shadow: none;
+			box-shadow: none;
 	font-weight: bold;
 	font-size: 11px;
 	line-height: normal;
@@ -1005,13 +1046,18 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 #tribe-bar-dates {
 	float: left;
-	width: 182px;
-	margin-left: -294px;
+	width: 185px;
+	margin-left: -297px;
 	margin-top: 3px;
+	text-align: right;
 }
 #tribe-bar-dates input {
 	z-index: 99000 !important;
 	width: 100%;
+	text-align: left;
+}
+#tribe-bar-dates .tribe-events-events-dropdown {
+	text-align: left;
 }
 
 #tribe-bar-dates #s2id_tribe-events-events-month {
@@ -1126,7 +1172,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 /* Views Select When Have Settings */
 .tribe-has-settings #tribe-bar-dates {
-	margin-left: -328px;
+	margin-left: -331px;
 }
 .tribe-has-settings #tribe-bar-views {
 	width: 142px;
@@ -1264,6 +1310,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	position: absolute;
 	margin-left: 0;
 	width: 100%;
+	text-align: center;
 }
 .tribe-bar-mini-parent #tribe-bar-views {
 	margin-top: 35px;

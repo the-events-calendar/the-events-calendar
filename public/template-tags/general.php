@@ -509,33 +509,54 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param  int $post_id
 	 * @return string
 	 */
-	function tribe_events_event_schedule_details( $post_id = null ) {
-		if ( is_null( $post_id ) )
-			$post_id = get_the_ID();
+	function tribe_events_event_schedule_details( $event = null ) {
+		if ( is_null( $event ) ) {
+			global $post;
+			$event = $post;
+		}
+		if ( is_numeric( $event ) )
+			$event = get_post( $event );
+			
+		if ( !isset( $event->EventStartDate ) )
+			$event->EventStartDate = tribe_get_start_date( $event );
+		
+		if ( !isset( $event->EventEndDate ) )
+			$event->EventEndDate = tribe_get_end_date( $event );
 
 		$format = '';
-		/* If the event happens this year, no need to show the year, unless it ends on another year (multi-day) */
-		if ( tribe_get_start_date( $post_id, false, 'Y' ) === date( 'Y' ) && tribe_get_end_date( $post_id, false, 'Y' ) === date( 'Y' ) ) {
-			$format = 'F j';
-		}
+		$timeFormat = get_option('time_format'); 	
+
+		// If the WordPress date setting matches DATEONLYFORMAT, make the string more readable
+		if ( get_option('date_format') == TribeDateUtils::DATEONLYFORMAT) {
+			/* If the event happens this year, no need to show the year, unless it ends on another year (multi-day) */
+			if ( tribe_get_start_date( $event, false, 'Y' ) === date( 'Y' ) && tribe_get_end_date( $event, false, 'Y' ) === date( 'Y' ) ) {
+				$format = 'F j';
+			}
+		}	
 
 		$schedule = '<div class="tribe-events-event-schedule-details">';
-		if ( tribe_is_multiday( $post_id ) ) { // multi-date event
+	
+		if ( tribe_is_multiday( $event ) ) { // multi-date event
 
 			$format2ndday = $format;
-			//If it's all day and the end date is in the same month, just show the day.
-			if ( tribe_get_all_day( $post_id ) && tribe_get_end_date( $post_id, false, 'm' ) === tribe_get_start_date( $post_id, false, 'm' ) ) {
-				$format2ndday = 'j';
-			}
-			$schedule .= '<span class="date-start">' . tribe_get_start_date($post_id, true, $format) . '</span> - <span class="date-end">' . tribe_get_end_date($post_id, true, $format2ndday) . '</span>';
 
-		} elseif ( tribe_get_all_day( $post_id ) ) { // all day event
-			$schedule .= '<span class="date-start">' . tribe_get_start_date($post_id, true, $format) . '</span>';
+			// If the WordPress date setting matches DATEONLYFORMAT, make the string more readable
+			if ( get_option('date_format') == TribeDateUtils::DATEONLYFORMAT ) {
+				//If it's all day and the end date is in the same month and year, just show the day.
+				if ( tribe_get_all_day( $event ) && tribe_get_end_date( $event, false, 'm' ) === tribe_get_start_date( $event, false, 'm' ) && tribe_get_end_date( $event, false, 'Y' ) === date( 'Y' ) ) {
+					$format2ndday = 'j';
+				}
+			}		
+
+			$schedule .= '<span class="date-start">' . tribe_get_start_date($event, true, $format) . '</span> - <span class="date-end">' . tribe_get_end_date($event, true, $format2ndday) . '</span>';
+
+		} elseif ( tribe_get_all_day( $event ) ) { // all day event
+			$schedule .= '<span class="date-start">' . tribe_get_start_date($event, true, $format) . '</span>';
 		} else { // single day event
-			if ( tribe_get_start_date( $post_id, false, 'g:i A' ) === tribe_get_end_date( $post_id, false, 'g:i A' ) ) { // Same start/end time
-				$schedule .= '<span class="date-start">' . tribe_get_start_date( $post_id, false, $format ) . '</span> @ <span class="start-time">' . tribe_get_start_date( $post_id, false, 'g:i A' ) . '</span>';
+			if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) { // Same start/end time
+				$schedule .= '<span class="date-start">' . tribe_get_start_date( $event, false, $format ) . '</span> @ <span class="start-time">' . tribe_get_start_date( $event, false, $timeFormat ) . '</span>';
 			} else { // defined start/end time
-				$schedule .= '<span class="date-start">' . tribe_get_start_date( $post_id, false, $format ) . '</span> <span class="date-divider">|</span> <span class="start-time">' . tribe_get_start_date( $post_id, false, 'g:i A' ) . '</span> - <span class="start-time">' . tribe_get_end_date( $post_id, false, 'g:i A' ) . '</span>';
+				$schedule .= '<span class="date-start">' . tribe_get_start_date( $event, false, $format ) . '</span> <span class="date-divider">|</span> <span class="start-time">' . tribe_get_start_date( $event, false, $timeFormat ) . '</span> - <span class="end-time">' . tribe_get_end_date( $event, false, $timeFormat ) . '</span>';
 			}
 		}
 
@@ -589,6 +610,39 @@ if( class_exists( 'TribeEvents' ) ) {
 		} else {
 			return $the_notices;
 		}
+	}
+
+	function tribe_events_enabled_views( $views ) {
+		$enabled_views_defaults = array();
+		foreach ( $views as $view ) {
+			$enabled_views_defaults[] = $view['displaying'];
+		}
+		return tribe_get_option( 'tribeEnableViews', $enabled_views_defaults );
+	}
+
+	function tribe_events_disabled_views() {
+		static $disabled = NULL;
+		if ( isset($disabled) ) {
+			return $disabled;
+		}
+		$views = apply_filters( 'tribe-events-bar-views', array(), FALSE );
+		$enabled = tribe_events_enabled_views( $views );
+		$disabled = array();
+		foreach ( $views as $view ) {
+			if ( !in_array($view['displaying'], $enabled) ) {
+				$disabled[] = $view['displaying'];
+			}
+		}
+		return $disabled;
+	}
+
+	function tribe_count_hierarchical_keys( $value, $key, $increment ){
+		$increment++;
+	}
+	function tribe_count_hierarchical( array $walk ) {
+		$counter = 0;
+		array_walk_recursive( $walk, 'tribe_count_hierarchical_keys', &$counter);
+		return $counter;
 	}
 		
 }

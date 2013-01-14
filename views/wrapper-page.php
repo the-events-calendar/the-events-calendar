@@ -21,6 +21,12 @@
  */
 
 if ( !defined('ABSPATH') ) { die('-1'); }
+
+// Make sure 404 is never returned in the title.
+global $wp_query;
+status_header( 200 );
+$wp_query->is_404=false;
+
 ?>
 
 <?php get_header(); ?>
