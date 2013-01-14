@@ -361,9 +361,14 @@ if (!class_exists('TribeEventsQuery')) {
 					$within_clause = $wpdb->prepare("({$wpdb->postmeta}.meta_value < %s AND $duration_filter >= %s )", $start_date, $end_date);
 					$where_sql .= " AND ($start_clause OR $end_clause OR $within_clause)";
 				} else if( $start_date != ''){
-					$end_clause = $wpdb->prepare("{$wpdb->postmeta}.meta_value > %s", $start_date);
+					$start_clause = $wpdb->prepare("{$wpdb->postmeta}.meta_value >= %s", $start_date);
 					$within_clause = $wpdb->prepare("({$wpdb->postmeta}.meta_value <= %s AND $duration_filter >= %s )", $start_date, $start_date);
-					$where_sql .= " AND ($end_clause OR $within_clause)";
+					$where_sql .= " AND ($start_clause OR $within_clause)";
+					if ( $query->is_singular() && $query->get('eventDate') ) {
+						$tomorrow = date('Y-m-d', strtotime($query->get('eventDate').' +1 day'));
+						$tomorrow_clause = $wpdb->prepare("{$wpdb->postmeta}.meta_value < %s", $tomorrow);
+						$where_sql .= " AND $tomorrow_clause";
+					}
 				} else if( $end_date != ''){
 					$where_sql .= " AND " . $wpdb->prepare( "$duration_filter < %s", $end_date );
 				}
