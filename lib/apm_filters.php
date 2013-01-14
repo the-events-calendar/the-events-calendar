@@ -28,15 +28,14 @@ class ECP_APM_Filters {
 				'custom_type' => 'ecp_organizer_filter',
 				'sortable' => 'true'
 			),
-			'ecp_start' => array(
-				'name' => __('Start Date', 'tribe-events-calendar-pro'),
-				'meta' => '_EventStartDate',
-				'cast' => 'DATETIME',
-				'disable' => 'columns',
-			),
 			'ecp_start_date' => array(
-				'name' => __('Start Date (new)', 'tribe-events-calendar-pro'),
-				'custom_type' => 'start_date',
+				'name' => __('Start Date', 'tribe-events-calendar-pro'),
+				'custom_type' => 'custom_date',
+				'disable' => 'columns'
+			),
+			'ecp_end_date' => array(
+				'name' => __('End Date', 'tribe-events-calendar-pro'),
+				'custom_type' => 'custom_date',
 				'disable' => 'columns'
 			),
 			'ecp_cost' => array(
@@ -84,12 +83,10 @@ class ECP_APM_Filters {
 new ECP_APM_Filters;
 
 
-class TribeStartDateFilter {
+class TribeDateFilter {
 
-	protected $key    = 'ecp_start_date';
-	protected $type   = 'start_date';
-	protected $is_key = 'is_start_date';
-	protected $active;
+	protected $active = array();
+	protected $type   = 'custom_date';
 
 	private $query_search_options = array( 'is'  => 'Is',
 	                                       'not' => 'Is Not',
@@ -105,28 +102,32 @@ class TribeStartDateFilter {
 	}
 
 	public function form_row( $return, $key, $value, $filter ) {
-		
 		$value  = (array)$value;
-		$value  = wp_parse_args( $value, array( 'is' => '', 'value' => '' ) );
-		$return = tribe_select_field( $this->is_key, $this->query_search_options, $value['is'] );
-		$return .= sprintf( '<input name="%s" value="%s" type="text" class="date tribe-datepicker" />', $this->key, esc_attr( $value['value'] ) );
+		$value  = wp_parse_args( $value, array( 'is' => '', 'value' => '', 'is_date_field' => true ) );
+		$return = tribe_select_field( 'is_' . $key, $this->query_search_options, $value['is'] );
+		$return .= sprintf( '<input name="%s" value="%s" type="text" class="date tribe-datepicker" />', $key, esc_attr( $value['value'] ) );
 		return $return;
 	}
 
 	public function maybe_set_active( $return, $key, $filter ) {
-		if ( isset( $_POST[$this->key] ) && !empty( $_POST[$this->key] ) && isset( $_POST[$this->is_key] ) && !empty( $_POST[$this->is_key] ) ) {
-			return array( 'value' => $_POST[$this->key], 'is' => $_POST[$this->is_key] );
+		if ( isset( $_POST[$key] ) && !empty( $_POST[$key] ) && isset( $_POST['is_' . $key] ) && !empty( $_POST['is_' . $key] ) ) {
+			return array( 'value' => $_POST[$key], 'is' => $_POST['is_' . $key], 'is_date_field' => true );
 		}
 		return $return;
 	}
 
 	public function parse_query( $wp_query_current, $active ) {
-		if ( !isset( $active[$this->key] ) )
+		if ( empty( $active ) )
 			return;
 
 		global $wp_query;
 
-		$this->active = $active[$this->key];
+		foreach ( $active as $key => $field ) {
+			if ( isset( $field['is_date_field'] ) )
+				$this->active[$key] = $field;
+
+		}
+
 		add_filter( 'posts_where', array( $this, 'where' ), 10, 2 );
 
 	}
@@ -136,22 +137,35 @@ class TribeStartDateFilter {
 		// run once
 		remove_filter( 'posts_where', array( $this, 'where' ), 10, 2 );
 
-		$value = $this->active['value'];
+		foreach ( $this->active as $key => $active ) {
 
-		switch ( $this->active['is'] ) {
-			case "is":
-				$where .= $wpdb->prepare( " AND wp_postmeta.meta_value BETWEEN %s AND %s ", TribeDateUtils::beginningOfDay( $value ), TribeDateUtils::endOfDay( $value ) );
-				break;
-			case "not":
-				$where .= $wpdb->prepare( " AND wp_postmeta.meta_value NOT BETWEEN %s AND %s ", TribeDateUtils::beginningOfDay( $value ), TribeDateUtils::endOfDay( $value ) );
-				break;
-			case "gte":
-				$where .= $wpdb->prepare( " AND wp_postmeta.meta_value >= %s ", TribeDateUtils::beginningOfDay( $value ) );
-				break;
-			case "lte":
-				$where .= $wpdb->prepare( " AND wp_postmeta.meta_value <= %s ", TribeDateUtils::endOfDay( $value ) );
-				break;
+			$field = '';
 
+			if ( $key === 'ecp_start_date' )
+				$field = "$wpdb->postmeta.meta_value";
+			if ( $key === 'ecp_end_date' )
+				$field = "IFNULL(DATE_ADD(CAST(wp_postmeta.meta_value AS DATETIME), INTERVAL eventDuration.meta_value SECOND), eventEnd.meta_value)";
+
+			if ( empty( $field ) )
+				continue;
+
+			$value = $active['value'];
+
+			switch ( $active['is'] ) {
+				case "is":
+					$where .= $wpdb->prepare( " AND $field BETWEEN %s AND %s ", TribeDateUtils::beginningOfDay( $value ), TribeDateUtils::endOfDay( $value ) );
+					break;
+				case "not":
+					$where .= $wpdb->prepare( " AND $field NOT BETWEEN %s AND %s ", TribeDateUtils::beginningOfDay( $value ), TribeDateUtils::endOfDay( $value ) );
+					break;
+				case "gte":
+					$where .= $wpdb->prepare( " AND $field >= %s ", TribeDateUtils::beginningOfDay( $value ) );
+					break;
+				case "lte":
+					$where .= $wpdb->prepare( " AND $field <= %s ", TribeDateUtils::endOfDay( $value ) );
+					break;
+
+			}
 		}
 
 
@@ -161,7 +175,7 @@ class TribeStartDateFilter {
 
 }
 
-new TribeStartDateFilter;
+new TribeDateFilter;
 
 class Tribe_Recur_Filter {
 	protected $key = 'ecp_recur';
