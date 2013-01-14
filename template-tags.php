@@ -448,7 +448,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @return DateTime
 	 */
 	function tribe_get_last_week_day( $date_or_int, $by_date = true ) {
-		return apply_filters('tribe_get_last_week_day', date('Y-m-d', strtotime( tribe_get_first_week_day( $date_or_int, $by_date ) . ' +6 days' )));
+		return apply_filters('tribe_get_last_week_day', date('Y-m-d', strtotime( tribe_get_first_week_day( $date_or_int, $by_date ) . ' +7 days' )));
 	}
 
 	/**

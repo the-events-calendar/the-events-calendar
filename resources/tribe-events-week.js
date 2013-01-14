@@ -1,5 +1,11 @@
 jQuery(document).ready(function($){	
 	
+	$( '.tribe-event-placeholder' ).each(function(){
+		id = $(this).attr("data-event-id");
+		height = $('#tribe-events-event-' + id ).height();
+		$(this).height( height );
+	});
+
 	$( '#tribe-events-bar' ).addClass( 'tribe-has-datepicker' );
 	tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );		
 	var base_url = $('#tribe-events-header .tribe-nav-next a').attr('href').slice(0, -11);	
