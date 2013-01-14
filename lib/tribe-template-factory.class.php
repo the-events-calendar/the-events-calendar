@@ -92,7 +92,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 
 					// load up stylesheet from theme or plugin
 					if ( $styleUrl )
-						wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-style', $styleUrl, array( 'tribe_events_pro_stylesheet' ) );
+						wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-style', $styleUrl );
 					break;
 				default :
 					do_action($prefix . '-' . $name);
