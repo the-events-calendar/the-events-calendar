@@ -31,6 +31,7 @@ if( !class_exists( 'TribeEventsCalendarWidget') ) {
 				
 				// Enqueue Core
 				Tribe_Template_Factory::asset_package('events-css');
+				Tribe_Template_Factory::asset_package('calendar-script');
 
 				$widget_data = array( "ajaxurl" => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
 				
