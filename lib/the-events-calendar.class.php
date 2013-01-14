@@ -2304,7 +2304,15 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			//That would be bad.
 			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 
-			if( !isset($_POST['post_title']) || !$_POST['post_title'] ) { $_POST['post_title'] = "Unnamed Venue"; }
+
+			if ( !isset( $_POST['post_title'] ) || !$_POST['post_title'] ) {
+				if ( !empty( $post->post_title ) ) {
+					$_POST['post_title'] = $post->post_title;
+				} else {
+					$_POST['post_title'] = "Unnamed Venue";
+				}
+			}
+
 			$_POST['venue']['Venue'] = $_POST['post_title'];
 			$data = stripslashes_deep($_POST['venue']);
 			$venue_id = TribeEventsAPI::updateVenue($postID, $data);
