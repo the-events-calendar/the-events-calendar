@@ -187,7 +187,9 @@ jQuery( document ).ready( function ( $ ) {
 
 			// serialize any set values and add to params
 
-			tribe_filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();				
+			tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
+			var tribe_filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();
+			tribe_ev.fn.disable_inputs( '#tribe_events_filters_form', 'input, select' );				
 			if( tribe_filter_params.length ) {
 				tribe_ev.state.params = tribe_ev.state.params + '&' + tribe_filter_params;
 			}
@@ -215,6 +217,8 @@ jQuery( document ).ready( function ( $ ) {
 			$.post( GeoLoc.ajaxurl, tribe_ev.state.params, function ( response ) {
 
 				spin_end();
+				tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
+				
 				if ( response.success ) {
 					
 					tribe_ev.state.initial_load = false;
@@ -343,21 +347,36 @@ jQuery( document ).ready( function ( $ ) {
 			if ( tribe_events_bar_action != 'change_view' ) {
 				tribe_events_bar_mapajax_actions(e);		
 			}
-		} );		
+		} );
+
+		function run_filtered_map_ajax() {
+			tribe_ev.fn.disable_inputs( '#tribe_events_filters_form', 'input, select' );
+			tribe_ev.state.paged = 1;
+			tribe_ev.state.popping = false;
+			if( tribe_ev.tests.pushstate ) {	
+				tribe_ev.fn.pre_ajax( function() { 						
+					tribe_map_processOption( null );
+				});
+			} else {
+				tribe_ev.fn.pre_ajax( function() { 						
+					tribe_reload_old_browser();
+				});
+			}
+		}
 		
 		if( tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate ) {
 			
 			$form.find('input[type="submit"]').remove();
 			
-			$( "#tribe_events_filters_form" ).on( "slidechange", ".ui-slider", function(e) {
-				if( !tribe_ev.tests.reset_on() ){
-					tribe_events_bar_mapajax_actions(e);					
-				}			
+			$form.on( "slidechange", ".ui-slider", function() {
+				tribe_ev.fn.setup_ajax_timer( function() {
+					run_filtered_map_ajax();	
+				} );				
 			} );
-			$("#tribe_events_filters_form").on("change", "input, select", function(e){
-				if( !tribe_ev.tests.reset_on() ){
-					tribe_events_bar_mapajax_actions(e);		
-				}
+			$form.on("change", "input, select", function(){
+				tribe_ev.fn.setup_ajax_timer( function() {
+					run_filtered_map_ajax();	
+				} );
 			});			
 		}
 	}

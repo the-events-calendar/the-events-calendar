@@ -154,7 +154,7 @@ class TribeEventsRecurrenceMeta {
 				$post = self::cloneEvent( $_POST );
 
 				// remove past occurrences of new event
-				self::removePastOccurrences( $post );
+				self::removePastOccurrences( $post, $_POST['EventStartDate'] );
 				// actual event end time potentially needs to be adjusted up
 				self::adjustEndDate( $post );
 
