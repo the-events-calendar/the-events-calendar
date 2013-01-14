@@ -36,9 +36,23 @@ tribe_ev = {};
 tribe_ev.fn = {	
 	disable_inputs: function( parent, type ) {
 		jQuery( parent ).find( type ).prop('disabled', true);
+		if( jQuery( parent ).find('.select2-container').length ) {			
+			jQuery( parent ).find('.select2-container').each( function() {
+				var s2_id = jQuery(this).attr('id');
+				var $this = jQuery('#' + s2_id);
+				$this.select2("disable");
+			});			
+		}
 	},
 	enable_inputs: function( parent, type ) {
 		jQuery( parent ).find( type ).prop('disabled', false);
+		if( jQuery( parent ).find('.select2-container').length ) {			
+			jQuery( parent ).find('.select2-container').each( function() {
+				var s2_id = jQuery(this).attr('id');
+				var $this = jQuery('#' + s2_id);
+				$this.select2("enable");
+			});			
+		}
 	},
 	get_day: function() {
 		var dp_day = '';
