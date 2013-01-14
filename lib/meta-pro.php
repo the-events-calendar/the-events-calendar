@@ -7,6 +7,18 @@ if ( ! class_exists( 'Tribe_Register_Meta_Pro' ) ) {
 
 	class Tribe_Register_Meta_Pro {
 
+		function venue_name( $html, $meta_id ){
+			global $_tribe_meta_factory;
+			$post_id = get_the_ID();
+			$name = tribe_get_venue($post_id);
+			$link = !empty($name) ? '<a href="'.tribe_get_venue_link( $post_id, false ) .'">'.$name.'</a>' : '';
+			$html = empty( $link ) ? $html :  Tribe_Meta_Factory::template(
+				$_tribe_meta_factory->meta[$meta_id]['label'],
+				$link,
+				$meta_id );
+			return apply_filters( 'tribe_event_pro_meta_venue_name', $html, $meta_id );
+		}
+
 		function organizer_name( $html, $meta_id ){
 			global $_tribe_meta_factory;
 			$post_id = get_the_ID();
