@@ -75,7 +75,25 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					wp_enqueue_script( 'tribe-events-list', $resouces_url . 'tribe-events-ajax-list.js' );
 					wp_localize_script( 'tribe-events-list', 'TribeList', $ajax_data );
 					break;
+				case 'events-css':
+					// Tribe Events CSS filename
+					$event_file = 'tribe-events.css';
+					$event_file_option = 'tribe-events-full.css';
+			
+					// What Option was selected
+					if ( tribe_get_option('stylesheetOption') == 'skeleton') {
+						$event_file_option = 'tribe-events-skeleton.css';
+					}
 
+					$styleUrl = trailingslashit( $tec->pluginUrl ) . 'resources/' . $event_file_option;
+					// is there a tribe-events.css file in the theme?
+					$styleUrl = TribeEventsTemplates::locate_stylesheet('tribe-events/'.$event_file, $styleUrl);
+					$styleUrl = apply_filters( 'tribe_events_stylesheet_url', $styleUrl );
+
+					// load up stylesheet from theme or plugin
+					if ( $styleUrl )
+						wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-style', $styleUrl, array( 'tribe_events_pro_stylesheet' ) );
+					break;
 				default :
 					do_action($prefix . '-' . $name);
 					break;
