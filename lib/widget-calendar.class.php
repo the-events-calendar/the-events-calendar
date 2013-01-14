@@ -28,12 +28,32 @@ if( !class_exists( 'TribeEventsCalendarWidget') ) {
 		function maybe_load_scripts( $force = false ) {
 
 			if ( $force || is_active_widget( false, false, $this->id_base ) ) {
+				
+				// Enqueue Core
+				Tribe_Template_Factory::asset_package('events-css');
 
 				$widget_data = array( "ajaxurl" => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
-
+				
+				$ecp = TribeEventsPro::instance();
+				
+				// Enqueue the pro-stylesheet.
+				if ( tribe_get_option('stylesheetOption') == 'skeleton') {
+					$stylesheet_url = $ecp->pluginUrl . 'resources/tribe-events-pro-skeleton.css';
+				} else {
+					$stylesheet_url = $ecp->pluginUrl . 'resources/tribe-events-pro-full.css';
+				}
+				$stylesheet_url = TribeEventsTemplates::locate_stylesheet('tribe-events/pro/tribe-events-pro.css', $stylesheet_url);
+				$stylesheet_url = apply_filters( 'tribe_events_pro_stylesheet_url', $stylesheet_url );
+				if ( $stylesheet_url ) {
+					wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url, array( TribeEvents::POSTTYPE . '-calendar-style' ) );
+				} else {
+					wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url, array( TribeEvents::POSTTYPE . '-calendar-style' ) );
+				}				
+			
 				wp_enqueue_script( 'tribe-events-mini-calendar', TribeEventsPro::instance()->pluginUrl . 'resources/tribe-events-mini-ajax.js' );
 				wp_enqueue_style( 'tribe-events-mini-calendar', TribeEventsPro::instance()->pluginUrl . 'resources/tribe-events-mini-ajax.css' );
 				wp_localize_script( 'tribe-events-mini-calendar', 'TribeMiniCalendar', $widget_data );
+			
 			}
 		}
 
