@@ -61,7 +61,7 @@ if ( ! class_exists( 'Tribe_Register_Meta_Pro' ) ) {
 	 */
 	tribe_register_meta( 'tribe_event_custom_meta', array(
 			'label' => '',
-			'priority' => 10,
+			'priority' => 60,
 			'filter_callback' => array( 'Tribe_Register_Meta_Pro', 'custom_meta' ),
 			'group' => 'tribe_event_group_custom_meta'
 		) );

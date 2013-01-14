@@ -529,7 +529,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$tec = TribeEvents::instance();
 		$date = is_null($date) ? TribeEventsPro::instance()->todaySlug : date('Y-m-d', strtotime( $date ) );
 		$permalink = get_site_url() . '/' . $tec->rewriteSlug . '/' . trailingslashit( $date );
-		return apply_filters('tribe_get_next_week_permalink', $permalink);
+		return apply_filters('tribe_get_day_permalink', $permalink);
 	}
 	/**
 	 * Get week permalink
@@ -542,13 +542,12 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$tec = TribeEvents::instance();
 		$week = is_null($week) ? '' : date('Y-m-d', strtotime( $week ) );
 		$permalink = get_site_url() . '/' . $tec->rewriteSlug . '/' . trailingslashit( TribeEventsPro::instance()->weekSlug . '/' . $week );
-		return apply_filters('tribe_get_next_week_permalink', $permalink);
+		return apply_filters('tribe_get_week_permalink', $permalink);
 	}
 
 
 	/**
 	 * Get photo permalink by provided date
-
 	 * @return string $permalink
 	 * @since 3.0
 	 */

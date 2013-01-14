@@ -770,28 +770,6 @@ h3.tribe-events-related-events-title {
 	display: none;
 }
  
-/* = Related Events
-=============================================*/
-.related-events-title {
-	color: #666;
-}
-ul.related-events {
-	display: block;
-	margin: 0;
-}
-ul.related-events li {
-	display: block;
-	min-width: 160px;
-	vertical-align: text-bottom;
-	position: relative;
-	float: left;
-	list-style-type: none;
-}
-.related-event-date {
-	font-size: .75em;
-	text-transform: uppercase;
-}
- 
 /* = Events Countdown Widget
 =============================================*/
 .tribe-countdown-timer span.tribe-countdown-seconds,
