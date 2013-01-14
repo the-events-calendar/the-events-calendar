@@ -9,6 +9,10 @@ try {
 	t_fail && (tribe_storage = false);
 } catch(e) {}
 
+// live ajax timer 
+
+var tribe_ajax_timer;
+
 // jquery functions
 
 jQuery.fn.tribe_clear_form = function() {
@@ -30,6 +34,12 @@ jQuery.fn.tribe_clear_form = function() {
 tribe_ev = {};
 
 tribe_ev.fn = {	
+	disable_inputs: function( parent, type ) {
+		jQuery( parent ).find( type ).prop('disabled', true);
+	},
+	enable_inputs: function( parent, type ) {
+		jQuery( parent ).find( type ).prop('disabled', false);
+	},
 	get_day: function() {
 		var dp_day = '';
 		if( jQuery('#tribe-bar-date').length ) {
@@ -196,6 +206,14 @@ tribe_ev.fn = {
 				
 		jQuery('body').removeClass('tribe-reset-on');
 	},
+	setup_ajax_timer: function( callback ) {
+		clearTimeout( tribe_ajax_timer );
+		if( !tribe_ev.tests.reset_on() ){					
+			tribe_ajax_timer = setTimeout(function(){  
+				callback(); 
+			}, 500);
+		}
+	},
 	snap: function( container, trigger_parent, trigger ) {		
 		jQuery( trigger_parent ).on( 'click', trigger, function ( e ) {
 			jQuery('html, body').animate( {scrollTop:jQuery( container ).offset().top - 120}, {duration: 0});
@@ -271,6 +289,7 @@ tribe_ev.data = {
 }
 
 tribe_ev.state = {
+	ajax_running:false,
 	date:'',
 	do_string:false,
 	initial_load:true,
