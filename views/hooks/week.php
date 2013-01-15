@@ -223,7 +223,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 								// echo tribe_get_days_between( $event->EventStartDate, $event->EventEndDate );
 								if ( $days_between > 0 ) {
 									$day_span_length = $days_between > ( $week_length - $n ) ? ( $week_length - $n ) : $days_between;
-									$span_class = 'tribe-dayspan' . ($day_span_length + 1);
+									$span_class = 'tribe-dayspan' . $day_span_length;
 								}
 								printf( '<div id="tribe-events-event-'. $event->ID .'" class="%s" data-hour="all-day"><div><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3>',
 									'hentry vevent ' . $span_class,

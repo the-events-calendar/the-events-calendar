@@ -45,7 +45,7 @@ jQuery(document).ready(function($){
 		var ad_c_w = $('.tribe-grid-allday .vevent').not('[class^="tribe-dayspan"]').width();
 		
 		// Loop through the span #'s and set width
-		for (var i=2; i<8; i++) {
+		for (var i=1; i<8; i++) {
  			if( $ad_e.hasClass('tribe-dayspan' + i) ) {
 				$ad.find('.tribe-dayspan' + i).children('div').css('width', ad_c_w *i+((i*2-2)*4+(i-1))+'px');
 			} 
