@@ -25,7 +25,9 @@ jQuery(document).ready(function($){
 	}
 	
 	function tribe_go_to_8() {		
-		$('.tribe-week-grid-wrapper').scrollTop(480);
+		$('.tribe-week-grid-wrapper').slimScroll({
+			height: '500px'
+		}).scrollTop(480);
 	}
 	
 	tribe_go_to_8();
