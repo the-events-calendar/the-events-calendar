@@ -110,12 +110,14 @@
 .tribe-week-grid-hours div {
 	height: 60px;
 	position: relative;
-	bottom: 1px;
 	text-transform: uppercase;
 	font-weight: bold;
 	font-size: 10px;
 	line-height: 1.25;
 	text-align: center;
+}
+.tribe-week-grid-hours div ~ div {
+	bottom: 6px;
 }
 
 .tribe-grid-content-wrap {
@@ -183,6 +185,8 @@ div[id*='tribe-events-event-'] {
 /* All day */
 .tribe-grid-allday {
 	position: relative;
+	background-color: #f9f9f9;
+	border-bottom: 1px solid #bbb;
 }
 .tribe-grid-allday .column {
 	min-height: 60px;	
