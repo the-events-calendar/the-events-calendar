@@ -41,13 +41,13 @@ jQuery(document).ready(function($){
 	
 		// Set vars
 		var $ad = $('.tribe-grid-allday');
-		var $ad_e = $('.tribe-grid-allday .vevent');
-		var ad_c_w = $('.tribe-grid-allday .vevent').not('[class^="tribe-dayspan"]').width();
+		var $ad_e = $ad.find('.vevent');
+		var ad_c_w = parseInt($('.tribe-grid-content-wrap .column').width()) - 8;
 		
 		// Loop through the span #'s and set width
 		for (var i=1; i<8; i++) {
  			if( $ad_e.hasClass('tribe-dayspan' + i) ) {
-				$ad.find('.tribe-dayspan' + i).children('div').css('width', ad_c_w *i+((i*2-2)*4+(i-1))+'px');
+				$ad.find('.tribe-dayspan' + i).children('div').css('width', ad_c_w*i+((i*2-2)*4+(i-1))+'px');
 			} 
    		}
  					
