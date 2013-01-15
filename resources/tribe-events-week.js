@@ -45,10 +45,16 @@ jQuery(document).ready(function($){
 		var ad_c_w = parseInt($('.tribe-grid-content-wrap .column').width()) - 8;
 		
 		// Loop through the span #'s and set width
-		for (var i=1; i<8; i++) {
- 			if( $ad_e.hasClass('tribe-dayspan' + i) ) {
-				$ad.find('.tribe-dayspan' + i).children('div').css('width', ad_c_w*i+((i*2-2)*4+(i-1))+'px');
-			} 
+		for (var i=1; i<9; i++) {
+			
+			if( $ad_e.hasClass('tribe-dayspan' + i) && i <= 7 ) {
+				p = i;
+			} else if( $ad_e.hasClass('tribe-dayspan' + i) && i > 7 ) {
+				p = 7;
+			}
+ 			
+			$ad.find('.tribe-dayspan' + i).children('div').css('width', ad_c_w*p+((p*2-2)*4+(p-1))+'px');
+			
    		}
  					
 	}
