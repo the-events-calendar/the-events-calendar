@@ -267,9 +267,9 @@ tribe_ev.fn = {
 					$tip.css( 'bottom', bottomPad ).show();					
 				} else {
 					if( $parent.hasClass('tribe-events-right') ){					
-						$tip.css( {'right':cwidth + 20, 'bottom':'auto', 'top':toffset} ).show();
+						$tip.addClass('.tribe-tooltip-right').css( {'right':cwidth + 20, 'bottom':'auto', 'top':toffset} ).show();
 					} else {
-						$tip.css( {'left':cwidth + 20, 'bottom':'auto', 'top':toffset} ).show();
+						$tip.addClass('.tribe-tooltip-left').css( {'left':cwidth + 20, 'bottom':'auto', 'top':toffset} ).show();
 					}
 				}
 								
