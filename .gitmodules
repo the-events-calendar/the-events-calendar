@@ -13,3 +13,6 @@
 [submodule "vendor/isotope"]
 	path = vendor/isotope
 	url = git://github.com/desandro/isotope.git
+[submodule "vendor/jquery-slimscroll"]
+	path = vendor/jquery-slimscroll
+	url = git://github.com/rochal/jQuery-slimScroll.git
