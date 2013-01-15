@@ -307,7 +307,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 				// for ( $hour = $events->hours['start']; $hour <= $events->hours['end']; $hour++ ) {
 				for ( $hour = 0; $hour <= 23; $hour++ ) {
 					 // if( strpos(get_option('time_format'), 'g') !== false ) {
-							printf( '<div>%s</div>', date( 'gA', mktime( $hour ) ) );
+							printf( '<div class="time-row-%1$s">%1$s</div>', date( 'gA', mktime( $hour ) ) );
 						// } else {
 							// printf( '<div>%s</div>', date( 'H', mktime( $hour ) ) );
 						// }	

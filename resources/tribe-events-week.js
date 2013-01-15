@@ -24,12 +24,13 @@ jQuery(document).ready(function($){
 		return [true];
 	}
 	
-	function tribe_go_to_8() {		
+	function tribe_go_to_8() {
+		var $start = $('.time-row-8AM');
 		$('.tribe-week-grid-wrapper').slimScroll({
 			height: '500px',
 			railVisible: true,
 			alwaysVisible: true,
-			scrollTo: '480px'
+			start: $start
 		});
 	}
 	
