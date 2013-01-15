@@ -219,7 +219,8 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 							} else {
 								$all_day_span_ids[] = $event->ID;
 								$span_class = '';
-								$days_between = tribe_get_days_between( $event->EventStartDate, $event->EventEndDate );
+								$start_date_compare = strtotime($start_of_week) < strtotime($event->EventStartDate) ? $event->EventStartDate : $start_of_week;
+								$days_between = tribe_get_days_between( $start_date_compare, $event->EventEndDate );
 								// echo tribe_get_days_between( $event->EventStartDate, $event->EventEndDate );
 								if ( $days_between > 0 ) {
 									$day_span_length = $days_between > ( $week_length - $n ) ? ( $week_length - $n ) : $days_between + 1; // we add an extra day between to account for proper $n day reference
