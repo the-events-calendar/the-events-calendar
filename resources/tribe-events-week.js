@@ -91,7 +91,7 @@ jQuery(document).ready(function($){
 				//var c_w = parseInt($('.tribe-grid-content-wrap .column').width());
 				//var o_p = c_w / # overlapping events starting at same time + '%';
 
-				if ( t_x[0] < i_x[1] && t_x[1] > i_x[0] && t_y[0] < i_y[1] && t_y[1] > i_y[0]) {
+				if ( t_x[0] < i_x[1] && t_x[1] > i_x[0] && t_y[0] < i_y[1] && t_y[1] > i_y[0] ) {
 						
 					// we've got an overlap
 						
