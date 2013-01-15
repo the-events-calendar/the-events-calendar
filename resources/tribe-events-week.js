@@ -47,7 +47,7 @@ jQuery(document).ready(function($){
 	
 	tribe_set_allday_placeholder_height();
 	
-	function tribe_set_allday_spanning_events_width() {	
+	function tribe_set_allday_spanning_events_width() {
 	
 		// Set vars
 		var $ad = $('.tribe-grid-allday');
@@ -87,11 +87,11 @@ jQuery(document).ready(function($){
 						
 					$this.css({
 						"left":"0",
-						"width":"60%"
+						"width":"65%"
 					});
 					$target.css({
 						"right":"0",
-						"width":"60%"
+						"width":"65%"
 					});
 				}
 			}
