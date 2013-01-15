@@ -213,7 +213,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 						if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) <= $day && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) >= $day ) {
 							// check if the event has already been shown - if so then dump in a span placeholder
 							if( in_array( $event->ID, $all_day_span_ids)){
-								printf( '<div class="tribe-event-placeholder hentry vevent" data-event-id="%s">&nbsp;</div>',
+								printf( '<div class="tribe-event-placeholder" data-event-id="%s">&nbsp;</div>',
 									$event->ID
 									);
 							} else {
