@@ -245,7 +245,34 @@ tribe_ev.fn = {
 			
 			var bottomPad = '';
 			if ( jQuery( 'body' ).hasClass( 'tribe-events-week' ) ) {
-				bottomPad = jQuery( this ).outerHeight() + 5;
+				var $this = jQuery( this );	
+				var $tip = $this.find( '.tribe-events-tooltip' );
+				var $parent = $this.parent();
+				var cwidth = $this.width();
+				var theight = $tip.height();
+				var scroll = jQuery('.tribe-week-grid-wrapper').scrollTop();
+				var poffset = $this.position();
+				var ptop = Math.ceil(poffset.top);
+				var toffset = scroll - ptop;
+				bottomPad = $this.outerHeight() + 12;
+				
+				if (toffset > 0) {
+					toffset = toffset + 5;
+				} else {
+					toffset = 5;
+				}
+				
+				console.log('toffset: ' + toffset);
+				if( $this.parents('.tribe-grid-allday').length ) {
+					$tip.css( 'bottom', bottomPad ).show();					
+				} else {
+					if( $parent.hasClass('tribe-events-right') ){					
+						$tip.css( {'right':cwidth + 20, 'bottom':'auto', 'top':toffset} ).show();
+					} else {
+						$tip.css( {'left':cwidth + 20, 'bottom':'auto', 'top':toffset} ).show();
+					}
+				}
+								
 			} else if ( jQuery( 'body' ).hasClass( 'events-gridview' ) ) { // Cal View Tooltips
 				bottomPad = jQuery( this ).find( 'a' ).outerHeight() + 18;
 			} else if ( jQuery( 'body' ).is( '.single-tribe_events, .events-list' ) ) { // Single/List View Recurring Tooltips
@@ -256,7 +283,9 @@ tribe_ev.fn = {
 			if ( jQuery( this ).parents( '.tribe-events-calendar-widget' ).length ) {
 				bottomPad = jQuery( this ).outerHeight() - 6;
 			}
-			jQuery( this ).find( '.tribe-events-tooltip' ).css( 'bottom', bottomPad ).show();
+			if ( !jQuery( 'body' ).hasClass( 'tribe-events-week' ) ) {
+				jQuery( this ).find( '.tribe-events-tooltip' ).css( 'bottom', bottomPad ).show();
+			}
 			
 		} ).on( 'mouseleave', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', function () {
 			jQuery( this ).find( '.tribe-events-tooltip' ).stop( true, false ).fadeOut( 200 );			

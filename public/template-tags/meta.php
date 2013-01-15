@@ -213,8 +213,8 @@ if(!function_exists('tribe_set_meta_priority')){
 if(!function_exists('tribe_set_meta_value')){
 	function tribe_set_meta_value( $meta_id, $value, $value_type = 'meta_value', $type = 'meta' ){
 		if( is_array( $meta_id) ) {
-			foreach( $meta_id as $id => $priority) {
-				tribe_set_meta_priority( $id, $priority, $type );
+			foreach( $meta_id as $id) {
+				tribe_set_meta_value( $id, $value, $value_type, $type );
 			}
 		} else {
 			global $_tribe_meta_factory;
