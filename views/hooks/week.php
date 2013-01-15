@@ -222,7 +222,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 								$days_between = tribe_get_days_between( $event->EventStartDate, $event->EventEndDate );
 								// echo tribe_get_days_between( $event->EventStartDate, $event->EventEndDate );
 								if ( $days_between > 0 ) {
-									$day_span_length = $days_between > ( $week_length - $n ) ? ( $week_length - $n ) : $days_between;
+									$day_span_length = $days_between > ( $week_length - $n ) ? ( $week_length - $n ) : $days_between + 1; // we add an extra day between to account for proper $n day reference
 									$span_class = 'tribe-dayspan' . $day_span_length;
 								}
 								printf( '<div id="tribe-events-event-'. $event->ID .'" class="%s" data-hour="all-day"><div><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3>',
