@@ -187,45 +187,170 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 
 	</div><!-- .tribe-grid-header -->
 
-	<?php // All Day "Row" ?>
-	<div class="tribe-grid-allday clearfix">
+	<?php // All Day "Row" ?>	
+		
+		<div class="tribe-grid-allday clearfix">
 
-		<div class="column first"><?php _e( '<span>All Day</span>', 'tribe-events-calendar-pro' ); ?></div>
+			<div class="column first"><?php _e( '<span>All Day</span>', 'tribe-events-calendar-pro' ); ?></div>
 
-		<div class="tribe-grid-content-wrap">
+			<div class="tribe-grid-content-wrap">
 
-			<?php
-			$placeholder = 0;
-			$all_day_span_ids = array();
-			for ( $n = 0; $n < $week_length; $n++ ) {
-				$day = date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) );
-				$header_class = ( $day == $today ) ? ' tribe-week-today' : '';
-				$right_align = ( $n != 0 && ( ( $n % 4 == 0 ) || ( $n % 5 == 0 ) || ( $n % 6 == 0 ) ) ) ? ' tribe-events-right' : '';
-				printf( '<div title="%s" class="column%s%s">', date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) ), $header_class, $right_align );
-				// if ( $placeholder > 0 ) {
-				// 	for ( $placeholder_i = 0; $placeholder_i <= $placeholder; $placeholder_i++ ) {
-				// 		echo '<div class="tribe-event-placeholder">placeholder</div>';
-				// 	}
-				// }
-				foreach ( $events->all_day as $event ) {
-					// if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) == $day ) {
-					if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) <= $day && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) >= $day ) {
-						// check if the event has already been shown - if so then dump in a span placeholder
-						if( in_array( $event->ID, $all_day_span_ids)){
-							printf( '<div class="tribe-event-placeholder hentry vevent" data-event-id="%s">&nbsp;</div>',
-								$event->ID
-								);
-						} else {
-							$all_day_span_ids[] = $event->ID;
-							$span_class = '';
-							$days_between = tribe_get_days_between( $event->EventStartDate, $event->EventEndDate );
-							// echo tribe_get_days_between( $event->EventStartDate, $event->EventEndDate );
-							if ( $days_between > 0 ) {
-								$day_span_length = $days_between > ( $week_length - $n ) ? ( $week_length - $n ) : $days_between;
-								$span_class = 'tribe-dayspan' . ($day_span_length + 1);
+				<?php
+				$placeholder = 0;
+				$all_day_span_ids = array();
+				for ( $n = 0; $n < $week_length; $n++ ) {
+					$day = date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) );
+					$header_class = ( $day == $today ) ? ' tribe-week-today' : '';
+					$right_align = ( $n != 0 && ( ( $n % 4 == 0 ) || ( $n % 5 == 0 ) || ( $n % 6 == 0 ) ) ) ? ' tribe-events-right' : '';
+					printf( '<div title="%s" class="column%s%s">', date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) ), $header_class, $right_align );
+					// if ( $placeholder > 0 ) {
+					// 	for ( $placeholder_i = 0; $placeholder_i <= $placeholder; $placeholder_i++ ) {
+					// 		echo '<div class="tribe-event-placeholder">placeholder</div>';
+					// 	}
+					// }
+					foreach ( $events->all_day as $event ) {
+						// if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) == $day ) {
+						if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) <= $day && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) >= $day ) {
+							// check if the event has already been shown - if so then dump in a span placeholder
+							if( in_array( $event->ID, $all_day_span_ids)){
+								printf( '<div class="tribe-event-placeholder hentry vevent" data-event-id="%s">&nbsp;</div>',
+									$event->ID
+									);
+							} else {
+								$all_day_span_ids[] = $event->ID;
+								$span_class = '';
+								$days_between = tribe_get_days_between( $event->EventStartDate, $event->EventEndDate );
+								// echo tribe_get_days_between( $event->EventStartDate, $event->EventEndDate );
+								if ( $days_between > 0 ) {
+									$day_span_length = $days_between > ( $week_length - $n ) ? ( $week_length - $n ) : $days_between;
+									$span_class = 'tribe-dayspan' . ($day_span_length + 1);
+								}
+								printf( '<div id="tribe-events-event-'. $event->ID .'" class="%s" data-hour="all-day"><div><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3>',
+									'hentry vevent ' . $span_class,
+									get_permalink( $event->ID ),
+									$event->post_title
+								); ?>
+
+								<div id="tribe-events-tooltip-<?php echo $event->ID; ?>" class="tribe-events-tooltip">
+									<h4 class="entry-title summary"><?php echo $event->post_title; ?></h4>
+									<div class="tribe-events-event-body">
+										<div class="duration">
+											<abbr class="tribe-events-abbr updated published dtstart" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), strtotime( $event->EventStartDate ) ); ?>">
+												<?php if ( !empty( $event->EventStartDate ) )	
+													echo date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventStartDate ) );
+													if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+														echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventStartDate ) ); ?>
+											</abbr><!-- .dtstart -->
+											<abbr class="tribe-events-abbr dtend" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), strtotime( $event->EventEndDate ) ); ?>">
+												<?php if ( !empty( $event->EventEndDate ) && $event->EventStartDate !== $event->EventEndDate ) {
+													if ( date_i18n( 'Y-m-d', strtotime($event->EventStartDate) ) == date_i18n( 'Y-m-d', strtotime($event->EventEndDate) ) ) {
+														$time_format = get_option( 'time_format', 'g:i a' );
+														if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+															echo " – " . date_i18n( $time_format, strtotime( $event->EventEndDate ) );
+														} else {
+															echo " – " . date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventEndDate ) );
+															if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+																echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventEndDate ) ) . '<br />';
+														}
+													} ?>
+											</abbr><!-- .dtend -->
+										</div><!-- .duration -->
+
+										<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
+											<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75, 75 ) );?></div>
+										<?php } ?>
+
+										<p class="entry-summary description">
+										<?php if( has_excerpt( $event->ID ) ) {
+											echo TribeEvents::truncate( $event->post_excerpt, 30 );
+										} else {
+											echo TribeEvents::truncate( $event->post_content, 30 );
+										} ?>
+										</p><!-- .entry-summary -->
+
+									</div><!-- .tribe-events-event-body -->
+									<span class="tribe-events-arrow"></span>
+								</div><!-- .tribe-events-tooltip -->
+								<?php
+								echo '</div></div>';
 							}
-							printf( '<div id="tribe-events-event-'. $event->ID .'" class="%s" data-hour="all-day"><div><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3>',
-								'hentry vevent ' . $span_class,
+						}
+					}
+					echo '</div><!-- allday column -->';
+				} ?>
+
+			</div><!-- .tribe-grid-content-wrap -->
+
+		</div><!-- .tribe-grid-allday -->
+<div class="tribe-week-grid-wrapper">
+		<?php // Grid "Rows" ?>
+		<div class="tribe-week-grid-outer-wrap tribe-clearfix">
+			<div class="tribe-week-grid-inner-wrap">
+				<?php	
+				for ( $hour = 0; $hour <= 23; $hour++ ) {
+					echo '<div class="tribe-week-grid-block" data-hour="' . $hour . '"><div></div></div>';
+				}
+
+	?>
+			</div><!-- .tribe-week-grid-inner-wrap -->
+		</div><!-- .tribe-week-grid-outer-wrap -->
+
+		<?php // Content / Events "Rows" ?>
+		<!-- Days of the week & hours & events -->
+		<div class="tribe-grid-body clearfix">
+
+			<?php // Hours ?>
+			<div class="column tribe-week-grid-hours">
+				<?php
+				// for ( $hour = $events->hours['start']; $hour <= $events->hours['end']; $hour++ ) {
+				for ( $hour = 0; $hour <= 23; $hour++ ) {
+					 // if( strpos(get_option('time_format'), 'g') !== false ) {
+							printf( '<div>%s</div>', date( 'gA', mktime( $hour ) ) );
+						// } else {
+							// printf( '<div>%s</div>', date( 'H', mktime( $hour ) ) );
+						// }	
+				}
+
+	?>
+			</div><!-- tribe-week-grid-hours -->
+			<?php // Content ?>
+			<div class="tribe-grid-content-wrap">
+
+				<?php // Our day columns?
+				$daily_span_ids = array();
+				for ( $n = 0; $n < $week_length; $n++ ) {
+					$day = date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) );
+					$header_class = ( $day == $today ) ? ' tribe-week-today' : '';
+					$right_align = ( $n != 0 && ( ( $n % 4 == 0 ) || ( $n % 5 == 0 ) || ( $n % 6 == 0 ) ) ) ? ' tribe-events-right' : '';
+					printf( '<div title="%s" class="column hfeed vcalendar%s%s">',
+						date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) ),
+						$header_class,
+						$right_align
+					);
+					foreach ( $events->daily as $event ) {
+						// if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) == $day ) {
+						if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) <= $day && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) >= $day ) {
+							$days_between = tribe_get_days_between( $event->EventStartDate, $event->EventEndDate );
+							if( $days_between > 0 ) {
+								$offset = 0;
+								$daily_mins = 1440;
+								if( in_array( $event->ID, $daily_span_ids) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) == $day ){
+									$offset = ( $daily_mins * $days_between ); // if the event is longer than a day we want to account for that with an offset
+									$duration = ( $event->EventDuration / 60 ) - $offset;
+								} else if( in_array( $event->ID, $daily_span_ids) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) > $day ){
+									$offset = ( $daily_mins * $days_between ); // if the event is longer than a day we want to account for that with an offset
+									$duration = $daily_mins;
+								} else {
+									$daily_span_ids[] = $event->ID;
+									$offset = ( $daily_mins * $days_between ); // if the event is longer than a day we want to account for that with an offset
+									$duration = ( $event->EventDuration / 60 ) - $offset;
+								}
+								// $duration = ( $event->EventDuration / 60 ) - $offset;
+							} else {
+								$duration = ( $event->EventDuration / 60 );
+							}
+							echo '<div id="tribe-events-event-'. $event->ID .'" duration="'. $duration .'" data-hour="' . date( 'G', strtotime( $event->EventStartDate ) ) . '" data-min="' . date( 'i', strtotime( $event->EventStartDate ) ) . '">';
+							printf( '<div class="hentry vevent"><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3></div>',
 								get_permalink( $event->ID ),
 								$event->post_title
 							); ?>
@@ -240,7 +365,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 												if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
 													echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventStartDate ) ); ?>
 										</abbr><!-- .dtstart -->
-										<abbr class="tribe-events-abbr dtend" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), strtotime( $event->EventEndDate ) ); ?>">
+										<abbr class="tribe-events-abbr dtend" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), strtotime($event->EventEndDate) ); ?>">
 											<?php if ( !empty( $event->EventEndDate ) && $event->EventStartDate !== $event->EventEndDate ) {
 												if ( date_i18n( 'Y-m-d', strtotime($event->EventStartDate) ) == date_i18n( 'Y-m-d', strtotime($event->EventEndDate) ) ) {
 													$time_format = get_option( 'time_format', 'g:i a' );
@@ -249,7 +374,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 													} else {
 														echo " – " . date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventEndDate ) );
 														if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
-										 					echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventEndDate ) ) . '<br />';
+															echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventEndDate ) ) . '<br />';
 													}
 												} ?>
 										</abbr><!-- .dtend -->
@@ -269,143 +394,21 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 
 								</div><!-- .tribe-events-event-body -->
 								<span class="tribe-events-arrow"></span>
+								<div style="display:none"><?php print_r( $event ); ?></div>
 							</div><!-- .tribe-events-tooltip -->
 							<?php
-							echo '</div></div>';
+
+							echo '</div><!-- #tribe-events-event-'. $event->ID .' -->';
 						}
 					}
-				}
-				echo '</div><!-- allday column -->';
-			} ?>
+					echo '</div>';
+				} ?>
 
-		</div><!-- .tribe-grid-content-wrap -->
+			</div><!-- .tribe-grid-content-wrap -->
 
-	</div><!-- .tribe-grid-allday -->
-
-	<?php // Grid "Rows" ?>
-	<div class="tribe-week-grid-outer-wrap">
-		<div class="tribe-week-grid-inner-wrap">
-			<?php	
-			for ( $grid_blocks = $events->hours['start']; $grid_blocks <= $events->hours['end']; $grid_blocks++ ) {
-				printf( '<div class="tribe-week-grid-block" data-hour="%s"><div></div></div>', date( 'G', mktime( $grid_blocks ) ) );
-			}
-
-?>
-		</div><!-- .tribe-week-grid-inner-wrap -->
-	</div><!-- .tribe-week-grid-outer-wrap -->
-
-	<?php // Content / Events "Rows" ?>
-	<!-- Days of the week & hours & events -->
-	<div class="tribe-grid-body clearfix">
-
-		<?php // Hours ?>
-		<div class="column tribe-week-grid-hours">
-			<?php
-			// for ( $hour = $events->hours['start']; $hour <= $events->hours['end']; $hour++ ) {
-			for ( $hour = 0; $hour <= 23; $hour++ ) {
-				 // if( strpos(get_option('time_format'), 'g') !== false ) {
-						printf( '<div>%s</div>', date( 'gA', mktime( $hour ) ) );
-					// } else {
-						// printf( '<div>%s</div>', date( 'H', mktime( $hour ) ) );
-					// }	
-			}
-
-?>
-		</div><!-- tribe-week-grid-hours -->
-		<?php // Content ?>
-		<div class="tribe-grid-content-wrap">
-
-			<?php // Our day columns?
-			$daily_span_ids = array();
-			for ( $n = 0; $n < $week_length; $n++ ) {
-				$day = date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) );
-				$header_class = ( $day == $today ) ? ' tribe-week-today' : '';
-				$right_align = ( $n != 0 && ( ( $n % 4 == 0 ) || ( $n % 5 == 0 ) || ( $n % 6 == 0 ) ) ) ? ' tribe-events-right' : '';
-				printf( '<div title="%s" class="column hfeed vcalendar%s%s">',
-					date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) ),
-					$header_class,
-					$right_align
-				);
-				foreach ( $events->daily as $event ) {
-					// if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) == $day ) {
-					if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) <= $day && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) >= $day ) {
-						$days_between = tribe_get_days_between( $event->EventStartDate, $event->EventEndDate );
-						if( $days_between > 0 ) {
-							$offset = 0;
-							$daily_mins = 1440;
-							if( in_array( $event->ID, $daily_span_ids) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) == $day ){
-								$offset = ( $daily_mins * $days_between ); // if the event is longer than a day we want to account for that with an offset
-								$duration = ( $event->EventDuration / 60 ) - $offset;
-							} else if( in_array( $event->ID, $daily_span_ids) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) > $day ){
-								$offset = ( $daily_mins * $days_between ); // if the event is longer than a day we want to account for that with an offset
-								$duration = $daily_mins;
-							} else {
-								$daily_span_ids[] = $event->ID;
-								$offset = ( $daily_mins * $days_between ); // if the event is longer than a day we want to account for that with an offset
-								$duration = ( $event->EventDuration / 60 ) - $offset;
-							}
-							// $duration = ( $event->EventDuration / 60 ) - $offset;
-						} else {
-							$duration = ( $event->EventDuration / 60 );
-						}
-						echo '<div id="tribe-events-event-'. $event->ID .'" duration="'. $duration .'" data-hour="' . date( 'G', strtotime( $event->EventStartDate ) ) . '" data-min="' . date( 'i', strtotime( $event->EventStartDate ) ) . '">';
-						printf( '<div class="hentry vevent"><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3></div>',
-							get_permalink( $event->ID ),
-							$event->post_title
-						); ?>
-
-						<div id="tribe-events-tooltip-<?php echo $event->ID; ?>" class="tribe-events-tooltip">
-							<h4 class="entry-title summary"><?php echo $event->post_title; ?></h4>
-							<div class="tribe-events-event-body">
-								<div class="duration">
-									<abbr class="tribe-events-abbr updated published dtstart" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), strtotime( $event->EventStartDate ) ); ?>">
-										<?php if ( !empty( $event->EventStartDate ) )	
-											echo date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventStartDate ) );
-											if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
-												echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventStartDate ) ); ?>
-									</abbr><!-- .dtstart -->
-									<abbr class="tribe-events-abbr dtend" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), strtotime($event->EventEndDate) ); ?>">
-										<?php if ( !empty( $event->EventEndDate ) && $event->EventStartDate !== $event->EventEndDate ) {
-											if ( date_i18n( 'Y-m-d', strtotime($event->EventStartDate) ) == date_i18n( 'Y-m-d', strtotime($event->EventEndDate) ) ) {
-												$time_format = get_option( 'time_format', 'g:i a' );
-												if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
-													echo " – " . date_i18n( $time_format, strtotime( $event->EventEndDate ) );
-												} else {
-													echo " – " . date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventEndDate ) );
-													if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
-									 					echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventEndDate ) ) . '<br />';
-												}
-											} ?>
-									</abbr><!-- .dtend -->
-								</div><!-- .duration -->
-
-								<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
-									<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75, 75 ) );?></div>
-								<?php } ?>
-
-								<p class="entry-summary description">
-								<?php if( has_excerpt( $event->ID ) ) {
-									echo TribeEvents::truncate( $event->post_excerpt, 30 );
-								} else {
-									echo TribeEvents::truncate( $event->post_content, 30 );
-								} ?>
-								</p><!-- .entry-summary -->
-
-							</div><!-- .tribe-events-event-body -->
-							<span class="tribe-events-arrow"></span>
-							<div style="display:none"><?php print_r( $event ); ?></div>
-						</div><!-- .tribe-events-tooltip -->
-						<?php
-
-						echo '</div><!-- #tribe-events-event-'. $event->ID .' -->';
-					}
-				}
-				echo '</div>';
-			} ?>
-
-		</div><!-- .tribe-grid-content-wrap -->
-
-	</div><!-- .tribe-grid-body -->
+		</div><!-- .tribe-grid-body -->
+	
+	</div><!-- .tribe-week-grid-wrapper -->
 
 </div><!-- .tribe-events-grid -->
 

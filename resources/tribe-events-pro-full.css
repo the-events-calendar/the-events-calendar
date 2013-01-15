@@ -63,8 +63,16 @@
 }
 
 /* columns & structure */
+
+.tribe-week-grid-wrapper {
+	height:500px;
+	overflow-y:scroll;	
+	position:relative;
+}
+
 .tribe-grid-body {
 	overflow: visible;
+	position:relative;
 }
 
 .tribe-week-grid-hours {
@@ -85,7 +93,7 @@
 .tribe-week-grid-hours div {
 	height: 60px;
 	position: relative;
-	bottom: 6px;
+	bottom: 1px;
 	text-transform: uppercase;
 	font-weight: bold;
 	font-size: 10px;
