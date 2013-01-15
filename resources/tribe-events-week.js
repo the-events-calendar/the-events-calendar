@@ -93,6 +93,7 @@ jQuery(document).ready(function($){
 						"right":"0",
 						"width":"65%"
 					});
+					
 				}
 			}
 		});			
@@ -140,9 +141,9 @@ jQuery(document).ready(function($){
 			$this.css({
 				"height":event_length + "px",
 				"top":event_position_top + "px"
-				}).find('a').css({
-					"height":event_length - 16 + "px"
-				});			
+			}).find('a').css({
+				"height":event_length - 16 + "px"
+			});			
 		});
 		
 		// Fade our events in upon js load
