@@ -95,24 +95,25 @@ jQuery( document ).ready( function ( $ ) {
 			
 			$form.find('input[type="submit"]').remove();
 			
-			function run_filtered_month_ajax() {				
+			function run_filtered_month_ajax() {
+				tribe_ev.fn.disable_inputs( '#tribe_events_filters_form', 'input, select' );
 				tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );	
 				tribe_ev.data.cur_url = tribe_ev.data.initial_url;
 				tribe_ev.state.popping = false;
 				tribe_ev.fn.pre_ajax( function() { 
 					tribe_events_calendar_ajax_post();
 				});				
-			}
+			}			
 			
-			$( "#tribe_events_filters_form" ).on( "slidechange", ".ui-slider", function() {
-				if( !tribe_ev.tests.reset_on() ){
-					run_filtered_month_ajax();
-				}
+			$form.on( "slidechange", ".ui-slider", function() {				
+				tribe_ev.fn.setup_ajax_timer( function() {
+					run_filtered_month_ajax() 
+				} );				
 			} );
-			$("#tribe_events_filters_form").on("change", "input, select", function(){
-				if( !tribe_ev.tests.reset_on() ){
-					run_filtered_month_ajax();
-				}
+			$form.on("change", "input, select", function(){				
+				tribe_ev.fn.setup_ajax_timer( function() {
+					run_filtered_month_ajax() 
+				} );	
 			});			
 		}		
 		
@@ -165,8 +166,9 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_ev.state.url_params = $.param(tribe_ev.state.url_params);
 
 			if( $('#tribe_events_filters_form').length ) {
-
-				var tribe_filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();				
+				tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
+				var tribe_filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();
+				tribe_ev.fn.disable_inputs( '#tribe_events_filters_form', 'input, select' );				
 				if( tribe_filter_params.length ) {
 					tribe_ev.state.params = tribe_ev.state.params + '&' + tribe_filter_params;
 					tribe_ev.state.url_params = tribe_ev.state.url_params + '&' + tribe_filter_params;
@@ -193,6 +195,7 @@ jQuery( document ).ready( function ( $ ) {
 					
 					tribe_ev.fn.spin_hide();
 					tribe_ev.state.initial_load = false;	
+					tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
 					
 					if ( response !== '' ) {
 						

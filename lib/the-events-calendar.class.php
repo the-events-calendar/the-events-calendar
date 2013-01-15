@@ -1588,24 +1588,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 				// Tribe Calendar JS
 				Tribe_Template_Factory::asset_package('calendar-script');
-
-				// Tribe Events CSS filename
-				$event_file = 'tribe-events.css';
-				$event_file_option = 'tribe-events-full.css';
-			
-				// What Option was selected
-				if ( tribe_get_option('stylesheetOption') == 'skeleton') {
-					$event_file_option = 'tribe-events-skeleton.css';
-				}
-
-				$styleUrl = trailingslashit( $this->pluginUrl ) . 'resources/' . $event_file_option;
-				// is there a tribe-events.css file in the theme?
-				$styleUrl = TribeEventsTemplates::locate_stylesheet('tribe-events/'.$event_file, $styleUrl);
-				$styleUrl = apply_filters( 'tribe_events_stylesheet_url', $styleUrl );
-
-				// load up stylesheet from theme or plugin
-				if ( $styleUrl )
-					wp_enqueue_style( self::POSTTYPE . '-calendar-style', $styleUrl);
+				
+				Tribe_Template_Factory::asset_package('events-css');
 			}
 		}
 
@@ -2240,10 +2224,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				return;
 			}
 				
-				//echo '$postID='.$postID;
-				
-				global $wpdb;
-				
+
 				if( isset( $post->post_status ) && $post->post_status == 'publish' ){
 				
 					//get venue and organizer and publish them
@@ -2259,15 +2240,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						}
 						
 						
-						$venue_post = array(
-							'ID' => $venue_id, 
-							'post_status' => 'publish',
-						);
-						
-						//wp_update_post( $venue_post );
-						$sql = "UPDATE $wpdb->posts SET post_status = 'publish' WHERE ID = '".intval($venue_id)."' AND post_type = '".TribeEvents::VENUE_POST_TYPE."' AND post_status != 'publish'";
-						$wpdb->query($sql);
-						
+						$venue_post = get_post($venue_id);
+						if ( !empty($venue_post) && $venue_post->post_status != 'publish' ) {
+							$venue_post->post_status = 'publish';
+							wp_update_post($venue_post);
+						}
+
 					}
 	
 					if( isset($pm['_EventOrganizerID']) && $pm['_EventOrganizerID'] ){
@@ -2277,16 +2255,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						}else{
 							$org_id = $pm['_EventOrganizerID'];
 						}
-						
 
-						$org_post = array(
-							'ID' => $org_id, 
-							'post_status' => 'publish',
-						);
+						$org_post = get_post($org_id);
+						if ( !empty($org_post) && $org_post->post_status != 'publish' ) {
+							$org_post->post_status = 'publish';
+							wp_update_post($org_post);
+						}
 
-						//wp_update_post( $org_post );
-						$sql = "UPDATE $wpdb->posts SET post_status = 'publish' WHERE ID = '".intval($org_id)."' AND post_type = '".TribeEvents::ORGANIZER_POST_TYPE."' AND post_status != 'publish'";
-						$wpdb->query($sql);
 					}
 				}
 				
@@ -2314,7 +2289,15 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			//That would be bad.
 			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 
-			if( !isset($_POST['post_title']) || !$_POST['post_title'] ) { $_POST['post_title'] = "Unnamed Venue"; }
+
+			if ( !isset( $_POST['post_title'] ) || !$_POST['post_title'] ) {
+				if ( !empty( $post->post_title ) ) {
+					$_POST['post_title'] = $post->post_title;
+				} else {
+					$_POST['post_title'] = "Unnamed Venue";
+				}
+			}
+
 			$_POST['venue']['Venue'] = $_POST['post_title'];
 			$data = stripslashes_deep($_POST['venue']);
 			$venue_id = TribeEventsAPI::updateVenue($postID, $data);

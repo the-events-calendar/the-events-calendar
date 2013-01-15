@@ -240,12 +240,15 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			    			echo '<div id="tribe-events-daynum-' . $day .'">';
 			    			// If PRO enabled have links for days
 			    			if ( class_exists( 'TribeEventsPro' ) ) {
-			    				echo '<a href="/'. TribeEvents::getOption( 'eventsSlug', 'events' ) . '/' . date( 'Y-m-d', strtotime( $date )) .'">'. $day .'</a>';
+			    				$day_link = tribe_get_day_link($date);
+								printf( '<a href="%s">%s</a>',
+									$day_link,
+									$day
+								);
 			    			} else {
 			    				echo $day;
 			    			}
 			    			echo '</div>';
-
 
 			    			$args = wp_parse_args(array(
 			    				'eventDate' => $date,
