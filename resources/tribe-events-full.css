@@ -229,11 +229,6 @@ a.tribe-events-gcal {
 .events-archive .entry-content, 
 .events-archive .entry-header { width: 98%; }
 
-/* Tribe Events Page Template Bits */
-#tribe-events-pg-template {
-	padding: 4%;
-}
-
 /* Remove "Edit" Link from unneeded templates */
 .events-archive span.edit-link {
 	display: none;
@@ -426,7 +421,7 @@ select.tribe-events-dropdown {
 #tribe-events-content {
 	position: relative;
 	margin-bottom: 48px;
-	padding: 1px 20px;
+	padding: 2px 0;
 }
 #tribe-events-content.tribe-events-list {
 	padding: 0;
