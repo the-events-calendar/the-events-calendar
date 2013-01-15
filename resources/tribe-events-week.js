@@ -147,7 +147,7 @@ jQuery(document).ready(function($){
 		
 		// Fade our events in upon js load
 	
-		$("div[id*='tribe-events-event-']").css('visibility','visible').hide().delay(700).fadeIn(450);
+		$("div[id^='tribe-events-event-']").css({'visibility':'visible','opacity':'0'}).delay(700).animate({"opacity":"1"}, {duration: 500});		
 
 		// deal with our overlaps
 
