@@ -396,10 +396,9 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 										echo TribeEvents::truncate( $event->post_content, 30 );
 									} ?>
 									</p><!-- .entry-summary -->
-
+									
+									<span class="tribe-events-arrow"></span>
 								</div><!-- .tribe-events-event-body -->
-								<span class="tribe-events-arrow"></span>
-								<div style="display:none"><?php print_r( $event ); ?></div>
 							</div><!-- .tribe-events-tooltip -->
 							<?php
 

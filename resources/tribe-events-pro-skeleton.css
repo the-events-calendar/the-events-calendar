@@ -255,12 +255,16 @@
 .tribe-events-grid div[id*="tribe-events-tooltip-"] {
 	text-align: left;
 }
+.tribe-grid-body .tribe-events-tooltip .tribe-events-event-body {
+	position: relative;
+}
 .tribe-grid-body .tribe-events-tooltip .tribe-events-arrow {
 	width: 11px;
 	height: 18px;
 	background-position: -33px 0;
-	bottom: 6px;
+	bottom: auto;
 	left: -11px;
+	top: 6px;
 }
 .tribe-grid-body .tribe-events-right .tribe-events-tooltip .tribe-events-arrow {
 	left: auto;
