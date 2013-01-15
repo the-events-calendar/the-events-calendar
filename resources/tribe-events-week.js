@@ -26,7 +26,9 @@ jQuery(document).ready(function($){
 	
 	function tribe_go_to_8() {		
 		$('.tribe-week-grid-wrapper').slimScroll({
-			height: '500px'
+			height: '500px',
+			railVisible: true,
+			alwaysVisible: true
 		}).scrollTop(480);
 	}
 	

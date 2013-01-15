@@ -120,6 +120,10 @@
 	bottom: 6px;
 }
 
+.tribe-events-grid  .slimScrollBar{
+	z-index:1000
+}
+
 .tribe-grid-content-wrap {
 	width: 100%;
 	float: left;

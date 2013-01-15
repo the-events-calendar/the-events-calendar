@@ -70,6 +70,10 @@
 	position:relative;
 }
 
+.tribe-events-grid  .slimScrollBar{
+	z-index:1000
+}
+
 .tribe-grid-body {
 	overflow: visible;
 	position:relative;
