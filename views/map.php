@@ -21,51 +21,53 @@
 
 if ( !defined('ABSPATH') ) { die('-1'); }
 
+	$the_post_id = ( have_posts() ) ? get_the_ID() : null;
+
 	// Start map template
-	echo apply_filters( 'tribe_events_map_before_template', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_map_before_template', '', $the_post_id );
 
 	// Map
-	echo apply_filters( 'tribe_events_map_before_the_map', '', get_the_ID() );
-	echo apply_filters( 'tribe_events_map_the_map', '', get_the_ID() );
-	echo apply_filters( 'tribe_events_map_after_the_map', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_map_before_the_map', '', $the_post_id );
+	echo apply_filters( 'tribe_events_map_the_map', '', $the_post_id );
+	echo apply_filters( 'tribe_events_map_after_the_map', '', $the_post_id );
 	
 	// Options
-	echo apply_filters( 'tribe_events_map_before_the_options', '', get_the_ID() );
-	echo apply_filters( 'tribe_events_map_the_options', '', get_the_ID() );
-	echo apply_filters( 'tribe_events_map_after_the_options', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_map_before_the_options', '', $the_post_id );
+	echo apply_filters( 'tribe_events_map_the_options', '', $the_post_id );
+	echo apply_filters( 'tribe_events_map_after_the_options', '', $the_post_id );
 	
 	// Map header
-    echo apply_filters( 'tribe_events_map_before_header', '', get_the_ID() );
+    echo apply_filters( 'tribe_events_map_before_header', '', $the_post_id );
 
     	// Navigation
-    	echo apply_filters( 'tribe_events_map_before_header_nav', '', get_the_ID() );
-		echo apply_filters( 'tribe_events_map_header_nav', '', get_the_ID() );
-		echo apply_filters( 'tribe_events_map_after_header_nav', '', get_the_ID() );
+    	echo apply_filters( 'tribe_events_map_before_header_nav', '', $the_post_id );
+		echo apply_filters( 'tribe_events_map_header_nav', '', $the_post_id );
+		echo apply_filters( 'tribe_events_map_after_header_nav', '', $the_post_id );
 
-	echo apply_filters( 'tribe_events_map_after_header', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_map_after_header', '', $the_post_id );
 	
 	// Results
-	echo apply_filters( 'tribe_events_map_before_the_results', '', get_the_ID() );
-	echo apply_filters( 'tribe_events_map_after_the_results', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_map_before_the_results', '', $the_post_id );
+	echo apply_filters( 'tribe_events_map_after_the_results', '', $the_post_id );
 	
 	// Pagination
 	/*
-	echo apply_filters( 'tribe_events_map_before_pagination', '', get_the_ID() );
-	echo apply_filters( 'tribe_events_map_pagination', '', get_the_ID() );
-	echo apply_filters( 'tribe_events_map_after_pagination', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_map_before_pagination', '', $the_post_id );
+	echo apply_filters( 'tribe_events_map_pagination', '', $the_post_id );
+	echo apply_filters( 'tribe_events_map_after_pagination', '', $the_post_id );
 	*/
 	
 	// Map footer
-    echo apply_filters( 'tribe_events_map_before_footer', '', get_the_ID() );
+    echo apply_filters( 'tribe_events_map_before_footer', '', $the_post_id );
 
     	// Navigation
-    	echo apply_filters( 'tribe_events_map_before_footer_nav', '', get_the_ID() );
-		echo apply_filters( 'tribe_events_map_footer_nav', '', get_the_ID() );
-		echo apply_filters( 'tribe_events_map_after_footer_nav', '', get_the_ID() );
+    	echo apply_filters( 'tribe_events_map_before_footer_nav', '', $the_post_id );
+		echo apply_filters( 'tribe_events_map_footer_nav', '', $the_post_id );
+		echo apply_filters( 'tribe_events_map_after_footer_nav', '', $the_post_id );
 
-	echo apply_filters( 'tribe_events_map_after_footer', '', get_the_ID() );
+	echo apply_filters( 'tribe_events_map_after_footer', '', $the_post_id );
 
 // End map template
-echo apply_filters( 'tribe_events_map_after_template', '', get_the_ID() );
+echo apply_filters( 'tribe_events_map_after_template', '', $the_post_id );
 
 Tribe_Events_Map_Template::init();
