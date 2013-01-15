@@ -78,16 +78,14 @@ jQuery(document).ready(function($){
 				var t_x = [tAxis.left, tAxis.left + $target.outerWidth()];
 				var t_y = [tAxis.top, tAxis.top + $target.outerHeight()];			    
 				var thisPos = $this.offset();
-				var i_x = [thisPos.left, thisPos.left + $this.outerWidth()]
+				var i_x = [thisPos.left, thisPos.left + $this.outerWidth()];
 				var i_y = [thisPos.top, thisPos.top + $this.outerHeight()];
-				
-				
-				// For each overlapping event that starts at same time evenly space left
-				
-				// For overlapping event that starts later on, start flush left
 				
 				// Need to deal with case where overlapping event is sandwiched between
 				// 2 overlapping events and is being pushed left
+				
+				// For each overlapping event that starts at same time evenly space left
+				// For overlapping event that starts later on, start flush left
 				
 				//var o_w = 100 / # overlapping events starting at same time + '%';
 				//var c_w = parseInt($('.tribe-grid-content-wrap .column').width());
