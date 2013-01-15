@@ -1,4 +1,4 @@
-jQuery(document).ready(function($){	
+jQuery(document).ready(function($){
 
 	$( '#tribe-events-bar' ).addClass( 'tribe-has-datepicker' );
 	tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );		
@@ -35,7 +35,7 @@ jQuery(document).ready(function($){
 		// Loop through placeholders and make sure height matches corresponding real event
 		$('.tribe-event-placeholder').each(function(){
 			id = $(this).attr("data-event-id");
-			height = $('#tribe-events-event-' + id ).outerHeight();
+			height = parseInt($('#tribe-events-event-' + id ).outerHeight()) - 4;
 			$(this).height( height );
 		});
 		
@@ -99,8 +99,6 @@ jQuery(document).ready(function($){
 		var $week_events = $(".tribe-grid-body .tribe-grid-content-wrap .column > div[id*='tribe-events-event-']");
 		var grid_height = $(".tribe-week-grid-inner-wrap").height();
 
-		$week_events.hide();
-
 		$week_events.each(function() {
 
 			// iterate through each event in the main grid and set their length plus position in time.
@@ -138,10 +136,14 @@ jQuery(document).ready(function($){
 			$this.css({
 				"height":event_length + "px",
 				"top":event_position_top + "px"
-				}).show().find('a').css({
+				}).find('a').css({
 					"height":event_length - 16 + "px"
 				});			
 		});
+		
+		// Fade our events in upon js load
+	
+		$("div[id*='tribe-events-event-']").css('visibility','visible').hide().delay(700).fadeIn(450);
 
 		// deal with our overlaps
 
@@ -175,10 +177,6 @@ jQuery(document).ready(function($){
 		$('.tribe-grid-content-wrap .column').css('height','auto');
 		tribe_display_week_view();
 	});
-	
-	// Little splash of style
-	
-	$("div[id*='tribe-events-event-']").hide().fadeIn('slow');	
 
 	if( tribe_ev.tests.pushstate && !tribe_ev.tests.map_view() ) {	
 

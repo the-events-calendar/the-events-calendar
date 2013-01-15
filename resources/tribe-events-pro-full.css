@@ -123,6 +123,9 @@
 }
 
 /* Global Week Event Styles */
+div[id*='tribe-events-event-'] {
+	visibility: hidden;
+}
 .tribe-events-grid .hentry.vevent h3.entry-title {
 	color: #333;
 	font-size: 12px;
