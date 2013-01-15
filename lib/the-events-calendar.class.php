@@ -2224,10 +2224,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				return;
 			}
 				
-				//echo '$postID='.$postID;
-				
-				global $wpdb;
-				
+
 				if( isset( $post->post_status ) && $post->post_status == 'publish' ){
 				
 					//get venue and organizer and publish them
@@ -2243,15 +2240,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						}
 						
 						
-						$venue_post = array(
-							'ID' => $venue_id, 
-							'post_status' => 'publish',
-						);
-						
-						//wp_update_post( $venue_post );
-						$sql = "UPDATE $wpdb->posts SET post_status = 'publish' WHERE ID = '".intval($venue_id)."' AND post_type = '".TribeEvents::VENUE_POST_TYPE."' AND post_status != 'publish'";
-						$wpdb->query($sql);
-						
+						$venue_post = get_post($venue_id);
+						if ( !empty($venue_post) && $venue_post->post_status != 'publish' ) {
+							$venue_post->post_status = 'publish';
+							wp_update_post($venue_post);
+						}
+
 					}
 	
 					if( isset($pm['_EventOrganizerID']) && $pm['_EventOrganizerID'] ){
@@ -2261,16 +2255,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						}else{
 							$org_id = $pm['_EventOrganizerID'];
 						}
-						
 
-						$org_post = array(
-							'ID' => $org_id, 
-							'post_status' => 'publish',
-						);
+						$org_post = get_post($org_id);
+						if ( !empty($org_post) && $org_post->post_status != 'publish' ) {
+							$org_post->post_status = 'publish';
+							wp_update_post($org_post);
+						}
 
-						//wp_update_post( $org_post );
-						$sql = "UPDATE $wpdb->posts SET post_status = 'publish' WHERE ID = '".intval($org_id)."' AND post_type = '".TribeEvents::ORGANIZER_POST_TYPE."' AND post_status != 'publish'";
-						$wpdb->query($sql);
 					}
 				}
 				
