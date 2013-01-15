@@ -30,6 +30,12 @@ jQuery(document).ready(function($){
 		return [true];
 	}
 	
+	function tribe_go_to_8() {		
+		$('.tribe-week-grid-wrapper').scrollTop(480);
+	}
+	
+	tribe_go_to_8();
+	
 	
 	function tribe_set_allday_spanning_events_width() {	
 	
@@ -364,6 +370,8 @@ jQuery(document).ready(function($){
 							$('.tribe-grid-content-wrap .column').css('height','auto');
 							tribe_display_week_view();
 						});
+						
+						tribe_go_to_8();
 						
 						$("div[id*='tribe-events-event-']").hide().fadeIn('slow');
 						
