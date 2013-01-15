@@ -143,8 +143,10 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			$events->daily = array();
 			$events->hours = array( 'start'=>null, 'end'=>null );
 			foreach ( $wp_query->posts as $event ) {
+				$start_date_compare = strtotime($start_of_week) < strtotime($event->EventStartDate) ? $event->EventStartDate : $start_of_week;
+				$event->days_between = tribe_get_days_between( $start_date_compare, $event->EventEndDate );
 				if (  tribe_get_event_meta( $event->ID, '_EventAllDay' ) ) {
-					$events->all_day[] = $event;
+					$events->all_day[ $event->days_between . '-' . $event->ID ] = $event;
 				} else {
 					$start_hour = date( 'G', strtotime( $event->EventStartDate ) );
 					$end_hour = date( 'G', strtotime( $event->EventEndDate ) );
@@ -157,6 +159,8 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 					$events->daily[] = $event;
 				}
 			}
+
+			krsort( $events->all_day );
 
 			ob_start();
 ?>
@@ -219,11 +223,8 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 							} else {
 								$all_day_span_ids[] = $event->ID;
 								$span_class = '';
-								$start_date_compare = strtotime($start_of_week) < strtotime($event->EventStartDate) ? $event->EventStartDate : $start_of_week;
-								$days_between = tribe_get_days_between( $start_date_compare, $event->EventEndDate );
-								// echo tribe_get_days_between( $event->EventStartDate, $event->EventEndDate );
-								if ( $days_between > 0 ) {
-									$day_span_length = $days_between >= ( $week_length - $n ) ? ( $week_length - $n ) : $days_between + 1; // we add an extra day between to account for proper $n day reference
+								if ( $event->days_between > 0 ) {
+									$day_span_length = $event->days_between >= ( $week_length - $n ) ? ( $week_length - $n ) : $event->days_between + 1; // we add an extra day between to account for proper $n day reference
 									$span_class = 'tribe-dayspan' . $day_span_length;
 								}
 								printf( '<div id="tribe-events-event-'. $event->ID .'" class="%s" data-hour="all-day"><div><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3>',
@@ -330,8 +331,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 					);
 					foreach ( $events->daily as $event ) {
 						if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) <= $day && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) >= $day ) {
-							$days_between = tribe_get_days_between( $event->EventStartDate, $event->EventEndDate );
-							if( $days_between > 0 ) {
+							if( $event->days_between > 0 ) {
 								$daily_mins = 1440;
 								$data_hour = 0;
 								$data_min = 0;
