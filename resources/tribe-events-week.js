@@ -80,18 +80,30 @@ jQuery(document).ready(function($){
 				var thisPos = $this.offset();
 				var i_x = [thisPos.left, thisPos.left + $this.outerWidth()]
 				var i_y = [thisPos.top, thisPos.top + $this.outerHeight()];
+				
+				
+				// For each overlapping event that starts at same time evenly space left
+				
+				// For overlapping event that starts later on, start flush left
+				
+				// Need to deal with case where overlapping event is sandwiched between
+				// 2 overlapping events and is being pushed left
+				
+				//var o_w = 100 / # overlapping events starting at same time + '%';
+				//var c_w = parseInt($('.tribe-grid-content-wrap .column').width());
+				//var o_p = c_w / # overlapping events starting at same time + '%';
 
 				if ( t_x[0] < i_x[1] && t_x[1] > i_x[0] && t_y[0] < i_y[1] && t_y[1] > i_y[0]) {
 						
 					// we've got an overlap
 						
 					$this.css({
-						"left":"0",
-						"width":"65%"
+						"left":"0", // o_p
+						"width":"65%" // o_w
 					});
 					$target.css({
-						"right":"0",
-						"width":"65%"
+						"right":"0", // o_p
+						"width":"65%" // o_w
 					});
 					
 				}
