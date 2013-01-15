@@ -37,7 +37,7 @@ jQuery(document).ready(function($){
 		// Loop through placeholders and make sure height matches corresponding real event
 		$('.tribe-event-placeholder').each(function(){
 			id = $(this).attr("data-event-id");
-			height = parseInt($('#tribe-events-event-' + id ).outerHeight()) - 4;
+			height = parseInt($('#tribe-events-event-' + id ).outerHeight());
 			$(this).height( height );
 		});
 		

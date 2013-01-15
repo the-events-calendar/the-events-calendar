@@ -116,9 +116,6 @@
 	line-height: 1.25;
 	text-align: center;
 }
-.tribe-week-grid-hours div ~ div {
-	bottom: 6px;
-}
 
 .tribe-grid-content-wrap {
 	width: 100%;
@@ -205,7 +202,8 @@ div[id*='tribe-events-event-'] {
 	position: relative;
 	padding: 4px;
 }
-.tribe-grid-allday .hentry.vevent ~ .hentry.vevent { 	
+.tribe-grid-allday .hentry.vevent ~ .hentry.vevent,
+.tribe-grid-allday .tribe-event-placeholder ~ .hentry.vevent { 	
 	padding: 0 4px 4px;
 }
 .tribe-grid-allday .hentry.vevent h3.entry-title {
