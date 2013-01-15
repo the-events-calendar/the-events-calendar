@@ -28,8 +28,9 @@ jQuery(document).ready(function($){
 		$('.tribe-week-grid-wrapper').slimScroll({
 			height: '500px',
 			railVisible: true,
-			alwaysVisible: true
-		}).scrollTop(480);
+			alwaysVisible: true,
+			scrollTo: '480px'
+		});
 	}
 	
 	tribe_go_to_8();
