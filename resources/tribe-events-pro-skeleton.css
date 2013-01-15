@@ -121,7 +121,7 @@
 }
 
 .tribe-events-grid  .slimScrollBar{
-	z-index:1000
+	z-index:1000 !important
 }
 
 .tribe-grid-content-wrap {
