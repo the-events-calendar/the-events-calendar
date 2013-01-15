@@ -723,10 +723,12 @@ select.tribe-events-dropdown {
 .tribe-events-tooltip .tribe-events-arrow {
 	width: 18px;
 	height: 11px;
+	background-image: url(images/tribe-tooltips.png);
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	-webkit-background-size: 44px 19px;
+    		background-size: 44px 19px;
 	display: block;
-	background: url(images/tooltip-arrow.png) no-repeat 0 bottom;
-	-webkit-background-size: 18px 11px;
-    		background-size: 18px 11px;
 	position: absolute;
 	bottom: -11px;
 	left: 20px;
@@ -1379,7 +1381,7 @@ only screen and (-o-min-device-pixel-ratio: 2/1),
 only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (min-device-pixel-ratio: 2) {
 	.tribe-events-tooltip .tribe-events-arrow {
-		background-image: url(images/tooltip-arrow@2x.png);
+		background-image: url(images/tribe-tooltips@2x.png);
 	}
 	#tribe-bar-filters .tribe-bar-button-search .tribe-bar-btn-small {
 		background-image: url(images/events-bar/icon-search@2x.png);
