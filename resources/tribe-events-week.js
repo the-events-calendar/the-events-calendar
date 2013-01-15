@@ -2,7 +2,7 @@ jQuery(document).ready(function($){
 	
 	$( '.tribe-event-placeholder' ).each(function(){
 		id = $(this).attr("data-event-id");
-		height = $('#tribe-events-event-' + id ).height();
+		height = $('#tribe-events-event-' + id ).outerHeight();
 		$(this).height( height );
 	});
 
