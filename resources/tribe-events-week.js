@@ -1,10 +1,4 @@
 jQuery(document).ready(function($){	
-	
-	$( '.tribe-event-placeholder' ).each(function(){
-		id = $(this).attr("data-event-id");
-		height = $('#tribe-events-event-' + id ).outerHeight();
-		$(this).height( height );
-	});
 
 	$( '#tribe-events-bar' ).addClass( 'tribe-has-datepicker' );
 	tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );		
@@ -36,6 +30,18 @@ jQuery(document).ready(function($){
 	
 	tribe_go_to_8();
 	
+	function tribe_set_allday_placeholder_height() {
+		
+		// Loop through placeholders and make sure height matches corresponding real event
+		$('.tribe-event-placeholder').each(function(){
+			id = $(this).attr("data-event-id");
+			height = $('#tribe-events-event-' + id ).outerHeight();
+			$(this).height( height );
+		});
+		
+	}
+	
+	tribe_set_allday_placeholder_height();
 	
 	function tribe_set_allday_spanning_events_width() {	
 	
@@ -160,9 +166,11 @@ jQuery(document).ready(function($){
 		$(".tribe-grid-body .tribe-grid-content-wrap .column").height(week_day_height);
 	
 	}
+	
 	tribe_display_week_view();
 	
 	$('.tribe-events-grid').resize(function() {
+		tribe_set_allday_placeholder_height();
 		tribe_set_allday_spanning_events_width();
 		$('.tribe-grid-content-wrap .column').css('height','auto');
 		tribe_display_week_view();
@@ -362,10 +370,12 @@ jQuery(document).ready(function($){
 						
 						$( '#tribe-events-content.tribe-events-week-grid' ).replaceWith( response );
 						
+						tribe_set_allday_placeholder_height();
 						tribe_set_allday_spanning_events_width();
 						tribe_display_week_view();
 						
 						$('.tribe-events-grid').resize(function() {
+							tribe_set_allday_placeholder_height();
 							tribe_set_allday_spanning_events_width();
 							$('.tribe-grid-content-wrap .column').css('height','auto');
 							tribe_display_week_view();
