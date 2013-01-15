@@ -238,6 +238,18 @@
 .tribe-events-grid div[id*="tribe-events-tooltip-"] {
 	text-align: left;
 }
+.tribe-grid-body .tribe-events-tooltip .tribe-events-arrow {
+	width: 11px;
+	height: 18px;
+	background-position: -33px 0;
+	bottom: 6px;
+	left: -11px;
+}
+.tribe-grid-body .tribe-events-right .tribe-events-tooltip .tribe-events-arrow {
+	left: auto;
+	right: -11px;
+	background-position: -20px 0;
+}
 
 /* Specific Classes */
 .tribe-week-today {
