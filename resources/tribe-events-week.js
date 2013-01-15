@@ -159,7 +159,7 @@ jQuery(document).ready(function($){
 
 		var all_day_height = $(".tribe-grid-allday .tribe-grid-content-wrap").height();
 
-		$(".tribe-grid-allday .column").height(all_day_height + 4);
+		$(".tribe-grid-allday .column").height(all_day_height);
 
 		// set the height of the other columns for week days to be as tall as the main container
 
