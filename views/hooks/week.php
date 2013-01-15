@@ -328,28 +328,32 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 						$right_align
 					);
 					foreach ( $events->daily as $event ) {
-						// if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) == $day ) {
 						if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) <= $day && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) >= $day ) {
 							$days_between = tribe_get_days_between( $event->EventStartDate, $event->EventEndDate );
 							if( $days_between > 0 ) {
-								$offset = 0;
 								$daily_mins = 1440;
+								$data_hour = 0;
+								$data_min = 0;
 								if( in_array( $event->ID, $daily_span_ids) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) == $day ){
-									$offset = ( $daily_mins * $days_between ); // if the event is longer than a day we want to account for that with an offset
-									$duration = ( $event->EventDuration / 60 ) - $offset;
+									// if the event is longer than a day we want to account for that with an offset for the ending time
+									$duration = abs( (strtotime($day) - strtotime( $event->EventEndDate ) ) / 60 );
 								} else if( in_array( $event->ID, $daily_span_ids) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) > $day ){
-									$offset = ( $daily_mins * $days_between ); // if the event is longer than a day we want to account for that with an offset
+									// if there is a day in between start/end we just want to fill the spacer with the total mins in the day.
 									$duration = $daily_mins;
 								} else {
 									$daily_span_ids[] = $event->ID;
-									$offset = ( $daily_mins * $days_between ); // if the event is longer than a day we want to account for that with an offset
-									$duration = ( $event->EventDuration / 60 ) - $offset;
+									// if the event is longer than a day we want to account for that with an offset
+									$duration = $daily_mins - abs( (strtotime($day) - strtotime( $event->EventStartDate ) ) / 60 );
+									$data_hour = date( 'G', strtotime( $event->EventStartDate ) );
+									$data_min = date( 'i', strtotime( $event->EventStartDate ) );
 								}
-								// $duration = ( $event->EventDuration / 60 ) - $offset;
 							} else {
+								// for a default event continue as everything is normal
 								$duration = ( $event->EventDuration / 60 );
+								$data_hour = date( 'G', strtotime( $event->EventStartDate ) );
+								$data_min = date( 'i', strtotime( $event->EventStartDate ) );
 							}
-							echo '<div id="tribe-events-event-'. $event->ID .'" duration="'. $duration .'" data-hour="' . date( 'G', strtotime( $event->EventStartDate ) ) . '" data-min="' . date( 'i', strtotime( $event->EventStartDate ) ) . '">';
+							echo '<div id="tribe-events-event-'. $event->ID .'" duration="'. round( $duration ) .'" data-hour="' . $data_hour . '" data-min="' . $data_min . '">';
 							printf( '<div class="hentry vevent"><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3></div>',
 								get_permalink( $event->ID ),
 								$event->post_title
