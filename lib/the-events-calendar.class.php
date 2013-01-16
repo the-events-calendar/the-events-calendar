@@ -127,6 +127,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public $daysOfWeekMin;
 		public $monthsFull;
 		public $monthsShort;
+		
+		public static $tribeEventsMuDefaults;
 
 		/**
 		 * Static Singleton Factory Method
@@ -221,7 +223,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tickets/tribe-ticket-object.php' );
 			require_once( 'tickets/tribe-tickets.php' );
 			require_once( 'tickets/tribe-tickets-metabox.php' );
-
+	
+			// Load multisite defaults
+			if ( is_multisite() && file_exists( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' ) ) {
+				require_once( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' );
+				if ( isset( $tribe_events_mu_defaults ) && is_array( $tribe_events_mu_defaults ) ) {
+					self::$tribeEventsMuDefaults = $tribe_events_mu_defaults;
+				}
+			}
 		}
 
 		protected function addFilters() {
@@ -314,8 +323,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'plugin_action_links_' . trailingslashit( $this->pluginDir ) . 'the-events-calendar.php', array( $this, 'addLinksToPluginActions' ) );
 			add_action( 'admin_menu', array( $this, 'addHelpAdminMenuItem' ), 50 );
 			add_action( 'comment_form', array( $this, 'addHiddenRecurringField' ) );
-
-			add_action( 'wpmu_new_blog', array( $this, 'maybeAssignMuDefaultOptions' ), 10, 1 );
 
 			/* VIEWS AJAX CALLS */
 			add_action( 'wp_ajax_tribe_calendar', array( $this, 'calendar_ajax_call' ) );
@@ -427,16 +434,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				
 				$this->setOption('previous_ecp_versions', $previous_versions);
 				$this->setOption('latest_ecp_version', self::VERSION);
-			}
-		}
-		
-		public function maybeAssignMuDefaultOptions( $blog_id ) {
-			if ( is_multisite() && isset( $blog_id ) && file_exists( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' ) ) {
-				require_once( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' );
-				
-				if ( isset( $tribe_events_mu_defaults ) && is_array( $tribe_events_mu_defaults ) ) {
-					add_blog_option( $blog_id, self::OPTIONNAME, $tribe_events_mu_defaults );
-				} 
 			}
 		}
 
@@ -1501,13 +1498,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			if( !isset( self::$options ) )
 				self::getOptions();
-
+			
+			$option = $default;
 			if ( isset( self::$options[$optionName] ) ) {
 				$option = self::$options[$optionName];
-			} else {
-				$option = $default;
+			} elseif ( is_multisite() && file_exists( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' ) && isset( self::$tribeEventsMuDefaults ) && is_array( self::$tribeEventsMuDefaults ) && in_array( $optionName, array_keys( self::$tribeEventsMuDefaults ) ) ) {
+				$option = self::$tribeEventsMuDefaults[$optionName];
 			}
-
+			
 			return apply_filters( 'tribe_get_single_option', $option, $default, $optionName );
 		}
 
