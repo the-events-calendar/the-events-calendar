@@ -31,7 +31,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			$defaultCountry = tribe_get_option('defaultCountry');
 			if (isset($_VenueCountry) && $_VenueCountry) {
 				$current = $_VenueCountry;
-			} elseif (isset($defaultCountry[1]) && tribe_get_option('defaultValueReplace')) {
+			} elseif (isset($defaultCountry[1]) && class_exists( 'TribeEventsPro' ) && tribe_get_option('defaultValueReplace')) {
 				$current = $defaultCountry[1];
 			} else {
 				$current = null;
@@ -84,6 +84,31 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <tr class="venue">
 	<td><?php _e('Website:','tribe-events-calendar'); ?></td>
 	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventWebsite' name='venue[URL]' size='14' value='<?php if( isset($_VenueURL) ) echo esc_attr($_VenueURL); ?>' /></td>
+</tr>
+
+<?php
+$google_map_toggle = false;
+$google_map_link_toggle = false;
+
+if( tribe_get_option('embedGoogleMaps') ) :
+	$google_map_toggle = ( tribe_embed_google_map( $postId ) || get_post_status($postId) == 'auto-draft' ) ? true : false;
+?>
+<tr id="google_map_toggle">
+	<td><?php _e('Show Google Map:','tribe-events-calendar'); ?></td>
+	<td>
+		<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="venue[EventShowMap]" value="1" <?php checked( $google_map_toggle ); ?> />
+	</td>
+</tr>
+<?php 
+endif; 
+
+$google_map_link_toggle = ( get_post_status($postId) == 'auto-draft' && $google_map_toggle ) ? true : get_post_meta( $postId, '_EventShowMapLink', true );
+?>
+<tr id="google_map_link_toggle">
+	<td><?php _e('Show Google Maps Link:','tribe-events-calendar'); ?></td>
+	<td>
+		<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="venue[EventShowMapLink]" value="1" <?php checked( $google_map_link_toggle ); ?> />
+	</td>
 </tr>
 
 <script type="text/javascript">

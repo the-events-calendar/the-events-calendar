@@ -24,40 +24,23 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 $the_post_id = ( have_posts() ) ? get_the_ID() : null;
 
-// Our various messages if there are no events for the query
-$notices = empty($notices) ? array() : $notices;
-if ( ! have_posts() ) { // Messages if currently no events
-	$tribe_ecp = TribeEvents::instance();
-	$is_cat_message = '';
-
-	if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
-		$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );
-		if( tribe_is_upcoming() ) {
-			$is_cat_message = sprintf( __( '<p>listed under %s. Check out past events for this category or view the full calendar.</p>', 'tribe-events-calendar' ), $cat->name );
-		} else if( tribe_is_past() ) {
-			$is_cat_message = sprintf( __( '<p>listed under %s. Check out upcoming events for this category or view the full calendar.</p>', 'tribe-events-calendar' ), $cat->name );
-		}
-	}
-
-	if( tribe_is_day() )
-		$notices[] = sprintf( __( '<p>No events scheduled for <strong>%s</strong>. Please try another day.</p>', 'tribe-events-calendar' ), date_i18n( 'F d, Y', strtotime( get_query_var( 'eventDate' ) ) ) );
-
-	if( tribe_is_upcoming() ) {
-		$notices[] = __( '<p>No upcoming events</p>', 'tribe-events-calendar' ) . $is_cat_message;
-	} elseif( tribe_is_past() ) {
-		$notices[] = __( '<p>No previous events</p>' , 'tribe-events-calendar' ) . $is_cat_message;
-	}
-}
-
-
 // Start list template
 echo apply_filters( 'tribe_events_list_before_template', '', $the_post_id );
-
 	
 	echo apply_filters( 'tribe_events_list_the_title', '', $the_post_id );
 
 	// List notices
-	echo apply_filters( 'tribe_events_list_notices', $notices, $notices, $the_post_id );
+	echo apply_filters( 'tribe_events_list_notices', $the_post_id );
+	
+	// List header
+    echo apply_filters( 'tribe_events_list_before_header', '', $the_post_id );
+
+    	// Navigation
+    	echo apply_filters( 'tribe_events_list_before_header_nav', '', $the_post_id );
+		echo apply_filters( 'tribe_events_list_header_nav', '', $the_post_id );
+		echo apply_filters( 'tribe_events_list_after_header_nav', '', $the_post_id );
+
+	echo apply_filters( 'tribe_events_list_after_header', '', $the_post_id );
 
 	// Start list loop
 	echo apply_filters( 'tribe_events_list_before_loop', '', $the_post_id );
@@ -73,34 +56,33 @@ echo apply_filters( 'tribe_events_list_before_template', '', $the_post_id );
 		while ( have_posts() ) {
 			
 			the_post();
-			global $more; 
+			global $more, $post; 
 			$more = false;
-
-			echo apply_filters( 'tribe_events_list_inside_before_loop', '', get_the_ID() );
+			echo apply_filters( 'tribe_events_list_inside_before_loop', '', get_the_ID(), $post );
 							
 				// Event image
-				echo apply_filters( 'tribe_events_list_the_event_image', '', get_the_ID() );
+				echo apply_filters( 'tribe_events_list_the_event_image', '', get_the_ID(), $post );
 				
 					// Event details start
-					echo apply_filters( 'tribe_events_list_before_the_event_details', '', get_the_ID() );
+					echo apply_filters( 'tribe_events_list_before_the_event_details', '', get_the_ID(), $post );
 
 					// Event title
-					echo apply_filters( 'tribe_events_list_the_event_title', '', get_the_ID() );
+					echo apply_filters( 'tribe_events_list_the_event_title', '', get_the_ID(), $post );
 
 					// Event meta
-					echo apply_filters( 'tribe_events_list_before_the_meta', '', get_the_ID() );
-					echo apply_filters( 'tribe_events_list_the_meta', '', get_the_ID() );
-					echo apply_filters( 'tribe_events_list_after_the_meta', '', get_the_ID() );
+					echo apply_filters( 'tribe_events_list_before_the_meta', '', get_the_ID(), $post );
+					echo apply_filters( 'tribe_events_list_the_meta', '', get_the_ID(), $post );
+					echo apply_filters( 'tribe_events_list_after_the_meta', '', get_the_ID(), $post );
 
 					// Event content
-					echo apply_filters( 'tribe_events_list_before_the_content', '', get_the_ID() );
-					echo apply_filters( 'tribe_events_list_the_content', '', get_the_ID() );
-					echo apply_filters( 'tribe_events_list_after_the_content', '', get_the_ID() );
+					echo apply_filters( 'tribe_events_list_before_the_content', '', get_the_ID(), $post );
+					echo apply_filters( 'tribe_events_list_the_content', '', get_the_ID(), $post );
+					echo apply_filters( 'tribe_events_list_after_the_content', '', get_the_ID(), $post );
 
 				// Event details end
-				echo apply_filters( 'tribe_events_list_after_the_event_details', '', get_the_ID() );				
+				echo apply_filters( 'tribe_events_list_after_the_event_details', '', get_the_ID(), $post );				
 			
-			echo apply_filters( 'tribe_events_list_inside_after_loop', '', get_the_ID() );
+			echo apply_filters( 'tribe_events_list_inside_after_loop', '', get_the_ID(), $post );
 
 
 		} // End list loop
@@ -108,10 +90,22 @@ echo apply_filters( 'tribe_events_list_before_template', '', $the_post_id );
 
 	echo apply_filters( 'tribe_events_list_after_loop', '', $the_post_id );
 	
+	// List footer
+    echo apply_filters( 'tribe_events_list_before_footer', '', $the_post_id );
+
+    	// Navigation
+    	echo apply_filters( 'tribe_events_list_before_footer_nav', '', $the_post_id );
+		echo apply_filters( 'tribe_events_list_footer_nav', '', $the_post_id );
+		echo apply_filters( 'tribe_events_list_after_footer_nav', '', $the_post_id );
+
+	echo apply_filters( 'tribe_events_list_after_footer', '', $the_post_id );
+	
 	// List pagination
+	/*
 	echo apply_filters( 'tribe_events_list_before_pagination', '', $the_post_id );
 	echo apply_filters( 'tribe_events_list_pagination', '', $the_post_id );
 	echo apply_filters( 'tribe_events_list_after_pagination', '', $the_post_id );
+	*/
 
 // End list template
 echo apply_filters( 'tribe_events_list_after_template', $hasPosts, $the_post_id );

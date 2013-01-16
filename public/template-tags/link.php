@@ -154,9 +154,11 @@ if( class_exists( 'TribeEvents' ) ) {
 		$url = tribe_get_event_meta( $post_id, '_EventURL', true );
 		if( !empty($url) ) {
 			$label = is_null($label) ? $url : $label;
-			$parseUrl = parse_url($url);
-			if (empty($parseUrl['scheme'])) 
-				$url = "http://$url";
+			if( !empty( $url )) {
+				$parseUrl = parse_url($url);
+				if (empty($parseUrl['scheme'])) 
+					$url = "http://$url";
+			}
 			$html = sprintf('<a href="%s" target="%s">%s</a>',
 				$url,
 				apply_filters('tribe_get_event_website_link_target', 'self'),

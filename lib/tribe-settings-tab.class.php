@@ -50,7 +50,7 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 		 */
 		public function __construct( $id, $name, $args = array() ) {
 
-			// seetup the defaults
+			// setup the defaults
 			$this->defaults = array(
 				'fields' => array(),
 				'priority' => 50,

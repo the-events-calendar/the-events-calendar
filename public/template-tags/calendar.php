@@ -145,13 +145,15 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param string $prefix A prefix to add to the ID of the calendar elements.  This allows you to reuse the calendar on the same page.
 	 * @since 2.0
 	 */
-	function tribe_month_year_dropdowns( $prefix = '' )  {
+	function tribe_month_year_dropdowns( $prefix = '', $date = null )  {
 		global $wp_query;
-
-		if ( isset ( $wp_query->query_vars['eventDate'] ) ) { 
-			$date = $wp_query->query_vars['eventDate'];
-		} else {
-			$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
+		
+		if ( !$date ) {
+			if ( isset ( $wp_query->query_vars['eventDate'] ) ) { 
+				$date = $wp_query->query_vars['eventDate'];
+			} else {
+				$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
+			}
 		}
 		$monthOptions = apply_filters('tribe_month_year_dropdowns_monthOptions', TribeEventsViewHelpers::getMonthOptions( $date ));
 		$yearOptions = apply_filters('tribe_month_year_dropdowns_yearOptions', TribeEventsViewHelpers::getYearOptions( $date ));
@@ -184,16 +186,17 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @return string Date currently queried
 	 * @since 2.0
 	 */
-	function tribe_get_month_view_date()  {
+	function tribe_get_month_view_date() {
 		global $wp_query;
 
-		if ( isset ( $wp_query->query_vars['eventDate'] ) ) { 
-			$date = $wp_query->query_vars['eventDate'] . "-01";
-		} else {
-			$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
+		$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
+		if ( isset( $_REQUEST["eventDate"] ) && $_REQUEST["eventDate"] ) {
+			$date = $_REQUEST["eventDate"] . '-01';
+		} else if ( !empty( $wp_query->query_vars['eventDate'] ) ) {
+			$date = $wp_query->query_vars['eventDate'];
 		}
-		
-		return apply_filters('tribe_get_month_view_date', $date);
+
+		return apply_filters( 'tribe_get_month_view_date', $date );
 	}
 
 	/**
@@ -310,7 +313,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			$eventId	= $post->ID.'-'.$day;
 			$start		= tribe_get_start_date( $post->ID, false, 'U' );
 			$end		= tribe_get_end_date( $post->ID, false, 'U' );
-			$cost		= tribe_get_cost( $post->ID );			
+			$cost		= tribe_get_cost( $post->ID, true );			
 			?>
 			
 			<?php			
@@ -326,8 +329,8 @@ if( class_exists( 'TribeEvents' ) ) {
 				$tribe_string_wp_classes .= $class . ' '; 
 			}
 			$tribe_classes_default = 'hentry vevent '. $tribe_string_wp_classes;
-			$tribe_classes_venue = tribe_get_venue_id() ? 'tribe-events-venue-'. tribe_get_venue_id() : '';
-			$tribe_classes_organizer = tribe_get_organizer_id() ? 'tribe-events-organizer-'. tribe_get_organizer_id() : '';
+			$tribe_classes_venue = tribe_get_venue_id($post->ID) ? 'tribe-events-venue-'. tribe_get_venue_id($post->ID) : '';
+			$tribe_classes_organizer = tribe_get_organizer_id($post->ID) ? 'tribe-events-organizer-'. tribe_get_organizer_id($post->ID) : '';
 			$tribe_classes_categories = $tribe_string_classes;
 			$class_string = $tribe_classes_default .' '. $tribe_classes_venue .' '. $tribe_classes_organizer .' '. $tribe_classes_categories;
 
@@ -339,7 +342,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			?>
 			
 			<div id="tribe-events-event-<?php echo $eventId; ?>" class="<?php echo $class_string; ?>">
-				<h3 class="entry-title summary"><a href="<?php tribe_event_link(); ?>"><?php the_title(); ?></a></h3>
+				<h3 class="entry-title summary"><a href="<?php tribe_event_link(); ?>"><?php echo $post->post_title; ?></a></h3>
 				<div id="tribe-events-tooltip-<?php echo $eventId; ?>" class="tribe-events-tooltip">
 					<h4 class="entry-title summary"><?php the_title() ;?></h4>
 					<div class="tribe-events-event-body">
@@ -365,10 +368,16 @@ if( class_exists( 'TribeEvents' ) ) {
 						</div><!-- .duration -->
 						
 						<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
-							<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75,75 ) );?></div>
+							<div class="tribe-events-event-thumb"><?php echo get_the_post_thumbnail( $post->ID, array( 75,75 ) );?></div>
 						<?php } ?>
 						
-						<p class="entry-summary description"><?php echo has_excerpt() ? TribeEvents::truncate( $post->post_excerpt ) : TribeEvents::truncate( get_the_content(), 30 ); ?></p>
+						<p class="entry-summary description">
+						<?php if( has_excerpt( $post->ID ) ) {
+							echo TribeEvents::truncate( $post->post_excerpt, 30 );
+						} else {
+							echo TribeEvents::truncate( $post->post_content, 30 );
+						} ?>
+						</p><!-- .entry-summary -->
 
 					</div><!-- .tribe-events-event-body -->
 					<span class="tribe-events-arrow"></span>

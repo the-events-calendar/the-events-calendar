@@ -104,12 +104,15 @@ $resources[] = array(
 );
 $resources = (array) apply_filters( 'tribe_help_tab_resources', $resources );
 
-$getting_started_text = sprintf( __('If this is your first time using The Events Calendar, you\'re in for a treat. You\'re going to find it super-easy to get up and running with managing your events. Here are some ways to get started:</p><ul><li><strong>Feeling adventurous?</strong> Jump right into it by visiting the Events menu to %sadd your first event%s.</li><li><strong>Want to get the low-down first?</strong> Visit our <a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/' .$ga_query_string .'">new user primer</a>, designed with folk exactly like yourself in mind to help familiarize you with the plugin basics.</li></ul><p>Next, check out resources below, created to help you kick ass.</p>', 'tribe-events-calendar' ), '<a href="' . add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE ), 'post-new.php' ) . '">' , '</a>' );
+$getting_started_text = sprintf( __('If this is your first time using The Events Calendar,you\'re in for a treat. You\'re going to find it super-easy to get up and running with managing your events. Here are some ways to get started:</p><ul><li><strong>Feeling adventurous?</strong> Jump right into it by visiting the Events menu to <a href="%s">add your first event</a>.</li><li><strong>Want to get the low-down first?</strong> Visit our <a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/%s">new user primer</a>, designed with folk exactly like yourself in mind to help familiarize you with the plugin basics.</li></ul><p>Next, check out resources below, created to help you kick ass.</p>', 'tribe-events-calendar' ),  add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE ), 'post-new.php' ), $ga_query_string );
+
+
+
 $getting_started_text = apply_filters( 'tribe_help_tab_getting_started_text', $getting_started_text );
 
 $enb_text[] = sprintf( __('We love all our users and want to help free & PRO customers alike. If you\'re running the latest version of The Events Calendar and are having problems, post a thread the %s at WordPress.org. We hit the forum a few times a week and do what we can to assist users.', 'tribe-events-calendar'), sprintf( '<a href="http://wordpress.org/tags/the-events-calendar/' .$ga_query_string .'&forum_id=10">%s</a>', __('forum for The Events Calendar', 'tribe-events-calendar') ) );
 
-$enb_text[] = sprintf( __('%sSupport is available for both free and PRO customers. If you\'re running the latest version of the Events Calendar and have run into problems, post a forum thread on our %sWordPress.org support forum%s. We visit the forums a few times a week and will do what we can to help you.%s', 'tribe-events-calendar'), '<p class="admin-indent">', '<a href="http://wordpress.org/support/plugin/the-events-calendar">', '</a>', '</p>' );
+$enb_text[] = sprintf( __('%sSupport is available for both free and PRO customers. If you\'re running the latest version of The Events Calendar and have run into problems, post a forum thread on our %sWordPress.org support forum%s. We visit the forums a few times a week and will do what we can to help you.%s', 'tribe-events-calendar'), '<p class="admin-indent">', '<a href="http://wordpress.org/support/plugin/the-events-calendar">', '</a>', '</p>' );
 $enb_text[] = sprintf( __('%sA few things to keep in mind before posting:%s', 'tribe-events-calendar'), '<p class="admin-indent">', '</p><ul class="admin-list">' );
 $enb_text[] = sprintf( __('%sSearch recent threads before posting a new one to check that there isn\'t already a discussion about your issue.%s', 'tribe-events-calendar'), '<li>', '</li>' );
 $enb_text[] = sprintf( __('%sCheck whether the issue is a conflict with another plugin or your theme. This can be tested easily on a staging site by deactivating other plugins one-by-one, and reverting to the default Twenty Eleven theme to see if conflicts can be easily identified. If you find a conflict note it on your support thread.%s', 'tribe-events-calendar'), '<li>', '</li>' );
@@ -122,7 +125,7 @@ $more_text = __('More...', 'tribe-events-calendar');
 
 <div id="tribe-help-general">
 	<div id="modern-tribe-info">
-		<img src="<?php echo plugins_url('resources/images/modern-tribe.png', dirname(__FILE__)) ?>" alt="Modern Tribe Inc." title="Modern Tribe Inc.">
+		<img src="<?php echo plugins_url('resources/images/modern-tribe@2x.png', dirname(__FILE__)) ?>" alt="Modern Tribe Inc." title="Modern Tribe Inc.">
 
 		<p><?php _e('Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so much for installing our labor of love!', 'tribe-events-calendar'); ?></p>
 
@@ -130,6 +133,8 @@ $more_text = __('More...', 'tribe-events-calendar');
 
 		<?php echo( apply_filters( 'tribe_help_tab_getting_started_content', $getting_started_text ) ); ?>
 	</div>
+	
+	<div class="tribe-settings-form-wrap">
 
 	<h3><?php _e('Resources to Help You Kick Ass', 'tribe-events-calendar'); ?></h3>
 
@@ -148,6 +153,9 @@ $more_text = __('More...', 'tribe-events-calendar');
 
 	<h3><?php _e('Still Not Satisfied?', 'tribe-events-calendar'); ?></h3>
 	<?php echo( apply_filters( 'tribe_help_tab_sns_content', $sns_text ) ); ?>
+	
+	</div>
+	
 </div>
 
 

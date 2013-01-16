@@ -30,10 +30,6 @@ if (!class_exists('TribeEventsTemplates')) {
 				return $template;
 			}
 			
-			//is_home fixer
-			global $wp_query;
-			$wp_query->is_home = false;
-
 			if( tribe_get_option('tribeEventsTemplate', 'default') == '' ) {
 				if(is_single() && !tribe_is_showing_all() ) {
 					return TribeEventsTemplates::getTemplateHierarchy('wrapper-single');
@@ -54,6 +50,8 @@ if (!class_exists('TribeEventsTemplates')) {
 				// remove singular body class if sidebar-page.php
 				if( $template == get_stylesheet_directory() . '/sidebar-page.php' ) {
 					add_filter( 'body_class', array( __CLASS__, 'remove_singular_body_class' ) );
+				} else {
+					add_filter( 'body_class', array( __CLASS__, 'add_singular_body_class' ) );
 				}
 				return $template;
 			}			
@@ -67,6 +65,17 @@ if (!class_exists('TribeEventsTemplates')) {
 			}
             return $c;
         }
+
+		/**
+		 * Add the "singular" body class
+		 *
+		 * @param array $c
+		 * @return array
+		 */
+		public function add_singular_body_class( $c ) {
+			$c[] = 'singular';
+			return $c;
+		}
 
 		public static function wpHeadFinished() {
 			self::$throughHead = true;
@@ -142,10 +151,10 @@ if (!class_exists('TribeEventsTemplates')) {
 			self::restoreQuery();
 
 			// $notices = array();
-			$gmt_offset = (get_option('gmt_offset') >= '0' ) ? ' +' . get_option('gmt_offset') : " " . get_option('gmt_offset');
-			$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
-			if (strtotime( tribe_get_end_date(get_the_ID(), false, 'Y-m-d G:i') . $gmt_offset ) <= time() ) 
-				TribeEvents::setNotice( __('This event has passed.', 'tribe-events-calendar') );
+			// $gmt_offset = (get_option('gmt_offset') >= '0' ) ? ' +' . get_option('gmt_offset') : " " . get_option('gmt_offset');
+			// $gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
+			// if (strtotime( tribe_get_end_date(get_the_ID(), false, 'Y-m-d G:i') . $gmt_offset ) <= time() ) 
+			// 	TribeEvents::setNotice( __('This event has passed.', 'tribe-events-calendar') );
 				// $notices[] = __('This event has passed.', 'tribe-events-calendar');
 		
 			ob_start();
@@ -242,20 +251,51 @@ if (!class_exists('TribeEventsTemplates')) {
 		 * directory in a theme and the views/ directory in the plugin
 		 *
 		 * @param string $template template file to search for
+		 * @param array $args additional arguments to affect the template path
+		 *  - subfolder
+		 *  - namespace
+		 *  - plugin_path
+		 *  - disable_view_check - bypass the check to see if the view is enabled
 		 * @return template path
 		 * @author Matt Wiebe
 		 **/
-		public static function getTemplateHierarchy($template, $subfolder = '', $namespace = '/', $pluginPath = '') {
+		public static function getTemplateHierarchy( $template, $args = array() ) {
+			if ( !is_array( $args ) ) {
+				$args = array();
+				$passed = func_get_args();
+				$backwards_map = array( 'subfolder', 'namespace', 'plugin_path' );
+				if ( count( $passed > 1 ) ) {
+					for ( $i = 1 ; $i < count($passed) ; $i++ ) {
+						$args[$backwards_map[$i-1]] = $passed[$i];
+					}
+				}
+			}
+
+			$args = wp_parse_args( $args, array(
+				'subfolder' => '',
+				'namespace' => '/',
+				'plugin_path' => '',
+				'disable_view_check' => FALSE,
+			));
+			/**
+			 * @var string $subfolder
+			 * @var string $namespace
+			 * @var string $pluginpath
+			 * @var bool $disable_view_check
+			 */
+			extract($args);
+
+			$tec = TribeEvents::instance();
 
 			if ( substr($template, -4) != '.php' ) {
 				$template .= '.php';
 			}
 
 			// setup the meta definitions
-			require_once( TribeEvents::instance()->pluginPath . 'public/advanced-functions/meta.php' );
+			require_once( $tec->pluginPath . 'public/advanced-functions/meta.php' );
 
 			// allow pluginPath to be set outside of this method
-			$pluginPath = empty($pluginPath) ? TribeEvents::instance()->pluginPath : $pluginPath;
+			$plugin_path = empty($plugin_path) ? $tec->pluginPath : $plugin_path;
 
 			// ensure that addon plugins look in the right override folder in theme
 			$namespace = !empty($namespace) && $namespace[0] != '/' ? '/' . trailingslashit($namespace) : trailingslashit($namespace);
@@ -263,20 +303,46 @@ if (!class_exists('TribeEventsTemplates')) {
 			// setup subfolder options
 			$subfolder = !empty($subfolder) ? trailingslashit($subfolder) : $subfolder;
 
-			if( file_exists($pluginPath . 'views/hooks/' . $template))
-				include_once $pluginPath . 'views/hooks/' . $template;
+			if( file_exists($plugin_path . 'views/hooks/' . $template))
+				include_once $plugin_path . 'views/hooks/' . $template;
 
-			if ( $theme_file = locate_template( array('tribe-events' . $namespace . $subfolder . $template ), false, false) ) {
+			if ( $theme_file = locate_template( array('tribe-events' . $namespace . $subfolder . $template ), FALSE, FALSE) ) {
 				$file = $theme_file;
 			} else {
 				// protect from concat folder with filename
 				$subfolder = empty($subfolder) ? trailingslashit($subfolder) : $subfolder;
 				$subfolder = $subfolder[0] != '/' ? '/' . $subfolder : $subfolder;
 
-				$file = $pluginPath . 'views' . $subfolder . $template;
+				$file = $plugin_path . 'views' . $subfolder . $template;
+			}
+			
+			if ( !$disable_view_check && in_array( $tec->displaying, tribe_events_disabled_views() ) ) {
+				$file = get_404_template();
 			}
 
 			return apply_filters( 'tribe_events_template_'.$template, $file);
+		}
+
+		public static function locate_stylesheet( $stylesheets, $fallback = FALSE ) {
+			if ( !is_array($stylesheets) ) {
+				$stylesheets = array( $stylesheets );
+			}
+			if ( empty( $stylesheets ) ) {
+				return $fallback;
+			}
+			foreach ( $stylesheets as $filename ) {
+				if ( file_exists(STYLESHEETPATH . '/' . $filename)) {
+					$located = trailingslashit(get_stylesheet_directory_uri()).$filename;
+					break;
+				} else if ( file_exists(TEMPLATEPATH . '/' . $filename) ) {
+					$located = trailingslashit(get_template_directory_uri()).$filename;
+					break;
+				}
+			}
+			if ( empty( $located ) ) {
+				return $fallback;
+			}
+			return $located;
 		}
 	
 		private static function spoofQuery() {
@@ -285,10 +351,10 @@ if (!class_exists('TribeEventsTemplates')) {
 			TribeEventsTemplates::$origPostCount = $wp_query->post_count;
 			TribeEventsTemplates::$origCurrentPost =  $wp_query->current_post;
 			$wp_query->current_post = -1;
-			$wp_query->post_count = 2;		
-			$wp_query->is_page = true; // don't show comments
+			$wp_query->post_count = max($wp_query->post_count, 2);
+			//$wp_query->is_page = true; // don't show comments
 			//$wp_query->is_single = false; // don't show comments
-			$wp_query->is_singular = true;
+			//$wp_query->is_singular = true;
 
 			if ( empty ( $wp_query->posts ) ) {
 

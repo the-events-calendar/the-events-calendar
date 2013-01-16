@@ -20,11 +20,8 @@ if (!class_exists('TribeEventsAPI')) {
 		 * Create a new event
 		 */
 		public static function createEvent($args) {
-			$defaults = array(
-				'post_type' => TribeEvents::POSTTYPE
-			);			
 
-			$args = wp_parse_args( $args, $defaults);
+			$args['post_type'] = TribeEvents::POSTTYPE;
 			$eventId = wp_insert_post($args, true);	
 
 			if( !is_wp_error($eventId) ) {
@@ -38,9 +35,12 @@ if (!class_exists('TribeEventsAPI')) {
 		 */
 		public static function updateEvent( $eventId, $args ) {
 			$args['ID'] = $eventId;
-		
-			if(wp_update_post($args)) {
-				TribeEventsAPI::saveEventMeta($eventId, $args, get_post( $eventId ) );
+
+			if ( !in_array( TribeEvents::POSTTYPE, (array)$args['post_type'] ) )
+				return false;
+
+			if ( wp_update_post( $args ) ) {
+				TribeEventsAPI::saveEventMeta( $eventId, $args, get_post( $eventId ) );
 			}
 
 			return $eventId;
@@ -83,8 +83,8 @@ if (!class_exists('TribeEventsAPI')) {
 				$data['EventEndDate'] = $data['EventStartDate'];
 			}
 		
-			if( !isset( $data['EventShowMapLink'] ) ) update_post_meta( $event_id, '_EventShowMapLink', 'false' );
-			if( !isset( $data['EventShowMap'] ) ) update_post_meta( $event_id, '_EventShowMap', 'false' );
+			update_post_meta( $event_id, '_EventShowMapLink', isset( $data['venue']['EventShowMapLink'] ) );
+			update_post_meta( $event_id, '_EventShowMap', isset( $data['venue']['EventShowMap'] ) );
 
 			if(isset($data['post_status'])){
 				$post_status = $data['post_status'];
@@ -287,6 +287,12 @@ if (!class_exists('TribeEventsAPI')) {
 					$data['StateProvince'] = $data['Province'];					
 				}
 			}
+
+			update_post_meta($venueId, '_EventShowMapLink', isset($data['EventShowMapLink']));
+			update_post_meta($venueId, '_EventShowMap', isset($data['EventShowMap']));
+			unset($data['EventShowMapLink']);
+			unset($data['EventShowMap']);
+
 			foreach ($data as $key => $var) {
 				update_post_meta($venueId, '_Venue'.$key, $var);
 			}		

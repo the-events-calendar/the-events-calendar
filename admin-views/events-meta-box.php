@@ -83,24 +83,10 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	</tr>
 	</table>
 	<div class="tribe_sectionheader" style="padding: 6px 6px 0 0; font-size: 11px; margin: 0 10px;"><h4><?php _e('Event Location Details', 'tribe-events-calendar'); ?></h4></div>
-	<div style="float: left;">
 		<table id="event_venue" class="eventtable">
          <?php do_action('tribe_venue_table_top', $postId) ?>
 			<?php include( $this->pluginPath . 'admin-views/venue-meta-box.php' ); ?>
-			<tr id="google_map_link_toggle">
-				<td><?php _e('Show Google Maps Link:','tribe-events-calendar'); ?></td>
-				<td>					
-					<input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMapLink" name="EventShowMapLink" value="1" <?php checked((get_post_status($postId) == 'auto-draft') ? false : get_post_meta( $postId, '_EventShowMapLink', true )); ?> />
-				</td>
-			</tr>
-			<?php if( tribe_get_option('embedGoogleMaps') ) : ?>
-				<tr id="google_map_toggle">
-					<td><?php _e('Show Google Map:','tribe-events-calendar'); ?></td>
-					<td><input tabindex="<?php $this->tabIndex(); ?>" type="checkbox" id="EventShowMap" name="EventShowMap" value="1" <?php checked(tribe_embed_google_map($postId)); ?> /></td>
-				</tr>
-			<?php endif; ?>
 		</table>
-	</div>
    <?php do_action('tribe_after_location_details', $postId); ?>
 	<table id="event_organizer" class="eventtable">
 			<tr>
@@ -130,6 +116,10 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<table id="event_cost" class="eventtable">
 		<tr>
 			<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event Cost', 'tribe-events-calendar'); ?></h4></td>
+		</tr>
+		<tr>
+			<td><?php _e('Currency Symbol:','tribe-events-calendar'); ?></td>
+			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventCurrencySymbol' name='EventCurrencySymbol' size='2' value='<?php echo (isset($_EventCurrencySymbol)) ? esc_attr($_EventCurrencySymbol) : tribe_get_option( 'defaultCurrencySymbol', '$' ); ?>' /></td>
 		</tr>
 		<tr>
 			<td><?php _e('Cost:','tribe-events-calendar'); ?></td>

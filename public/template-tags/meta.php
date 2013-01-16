@@ -45,6 +45,8 @@ if ( !function_exists( 'tribe_register_meta' ) ) {
 if( !function_exists('tribe_get_meta_group')){
 	function tribe_get_meta_group( $meta_group_id, $is_the_meta = false ){
 
+		do_action('tribe_get_meta_group', $meta_group_id, $is_the_meta );
+
 		$type = 'meta_group';
 
 		// die silently if the requested meta group is not registered
@@ -59,10 +61,17 @@ if( !function_exists('tribe_get_meta_group')){
 		if( $is_the_meta && ! $meta_group['show_on_meta'] ){
 			return false;
 		}
-
+		$meta_pos_int = 0;
+		$total_meta_items = tribe_count_hierarchical( $meta_ids );
 		foreach( $meta_ids as $meta_id_group ) {
 			foreach( $meta_id_group as $meta_id ){
+				$meta_pos_int++;
 				$group_html .= tribe_get_meta( $meta_id, $is_the_meta );
+				// if we should have a meta divider let's show it!
+				if( !empty($group_html) && $meta_pos_int < $total_meta_items ) {
+					$group_html .= $meta_group['wrap']['meta_separator'];
+				}
+				
 			}
 		}
 
@@ -78,13 +87,15 @@ if( !function_exists('tribe_get_meta_group')){
 
 		$value = empty($value) ? $group_html : $value;
 
-		$html = !empty($group_html) ? Tribe_Meta_Factory::template( $meta_group['label'], $value, $meta_group['wrap'] ) : '';
+		$html = !empty($group_html) ? Tribe_Meta_Factory::template( $meta_group['label'], $value, $meta_group_id, 'meta_group' ) : '';
 		
 		return apply_filters('tribe_get_meta_group', $html, $meta_group_id );
 	}
 }
 if ( !function_exists( 'tribe_get_meta' ) ) {
 	function tribe_get_meta( $meta_id, $is_the_meta = false ) {
+
+		do_action('tribe_get_meta', $meta_id, $is_the_meta );
 
 		// die silently if the requested meta item is not registered
 		if( ! Tribe_Meta_Factory::check_exists( $meta_id ) )
@@ -110,9 +121,45 @@ if ( !function_exists( 'tribe_get_meta' ) ) {
 
 		$value = empty($value) ? $meta['meta_value'] : $value;
 
-		$html = !empty($value) ? Tribe_Meta_Factory::template( $meta['label'], $value, $meta['wrap'] ) : '';
+		// if we have a value let's build the html template
+		$html = !empty($value) ? Tribe_Meta_Factory::template( $meta['label'], $value, $meta_id ) : '';
 
 		return apply_filters('tribe_get_meta', $html, $meta_id );
+	}
+}
+
+if( !function_exists('tribe_get_meta_arg')){
+	function tribe_get_meta_arg( $meta_id, $arg_key, $type = 'meta' ){
+
+		// die silently if the requested meta group is not registered
+		if( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) )
+			return false;
+
+		$args = Tribe_Meta_Factory::get_args( $meta_id, $type );
+
+		// check if the arg exists
+		if( isset($args[$arg_key])){
+			return $args[$arg_key];
+		} else {
+			return false;
+		}
+	}
+}
+
+if( !function_exists('tribe_get_meta_template_part')){
+	function tribe_get_meta_template_part( $meta_id, $template_key, $type = 'meta'){
+
+		// die silently if the requested meta group is not registered
+		if( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) )
+			return false;
+
+		$template = tribe_get_meta_arg( $meta_id, 'wrap', $type );
+
+		if( isset($template[ $template_key ])) {
+			return $template[ $template_key ];
+		} else {
+			return false;
+		}
 	}
 }
 
@@ -124,13 +171,77 @@ if( !function_exists('tribe_set_the_meta_visibility')) {
 
 if(!function_exists('tribe_set_the_meta_template')){
 	function tribe_set_the_meta_template( $meta_id, $template = array(), $type = 'meta' ){
-		global $tribe_meta_factory;
-		// die silently if the requested meta group is not registered
-		if( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) )
-			return false;
+		if( is_array( $meta_id) ) {
+			foreach( $meta_id as $id ) {
+				tribe_set_the_meta_template( $id, $template, $type );
+			}
+		} else {
+			global $_tribe_meta_factory;
 
-		if( !empty( $template ) ){
-			$tribe_meta_factory->{$type}[$meta_id]['wrap'] = $template;
+			// die silently if the requested meta group is not registered
+			if( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) )
+				return false;
+
+			if( !empty( $template ) ){
+				$_tribe_meta_factory->{$type}[$meta_id]['wrap'] = wp_parse_args($template, $_tribe_meta_factory->{$type}[$meta_id]['wrap']);
+			}
+		}
+		
+	}
+}
+
+if(!function_exists('tribe_set_meta_priority')){
+	function tribe_set_meta_priority( $meta_id, $priority = 100, $type = 'meta' ){
+		if( is_array( $meta_id) ) {
+			foreach( $meta_id as $id => $priority) {
+				tribe_set_meta_priority( $id, $priority, $type );
+			}
+		} else {
+			global $_tribe_meta_factory;
+
+			// die silently if the requested meta group is not registered
+			if( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) )
+				return false;
+
+			if( !empty( $priority ) ){
+				$_tribe_meta_factory->{$type}[$meta_id]['priority'] = $priority;
+			}
+		}
+	}
+}
+
+if(!function_exists('tribe_set_meta_value')){
+	function tribe_set_meta_value( $meta_id, $value, $value_type = 'meta_value', $type = 'meta' ){
+		if( is_array( $meta_id) ) {
+			foreach( $meta_id as $id) {
+				tribe_set_meta_value( $id, $value, $value_type, $type );
+			}
+		} else {
+			global $_tribe_meta_factory;
+
+			// die silently if the requested meta group is not registered
+			if( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) )
+				return false;
+
+			$_tribe_meta_factory->{$type}[$meta_id][$value_type] = $value;
+		}
+	}
+}
+
+if(!function_exists('tribe_set_meta_label')){
+	function tribe_set_meta_label( $meta_id, $label = '', $type = 'meta' ){
+		if( is_array( $meta_id) ) {
+			foreach( $meta_id as $id => $label) {
+				tribe_set_meta_label( $id, $label, $type );
+			}
+		} else {
+			global $_tribe_meta_factory;
+
+			// die silently if the requested meta group is not registered
+			if( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) )
+				return false;
+
+			$_tribe_meta_factory->{$type}[$meta_id]['label'] = $label;
 		}
 	}
 }
@@ -140,7 +251,7 @@ if( !function_exists('tribe_get_the_event_meta')) {
 		$html = '';
 		foreach( Tribe_Meta_Factory::get_order() as $meta_groups ){
 			foreach( $meta_groups as $meta_group_id ){
-				$html = tribe_get_meta_group( $meta_group_id, true );
+				$html .= tribe_get_meta_group( $meta_group_id, true );
 			}
 		}
 

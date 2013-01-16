@@ -45,7 +45,7 @@ $current_date = tribe_get_month_view_date();
 // is daysInMonth still used?
 $daysInMonth = isset( $date ) ? date( 't', $date ) : date( 't' );
 
-list( $year, $month ) = split( '-', tribe_get_month_view_date() );
+list( $year, $month ) = explode( '-', tribe_get_month_view_date() );
 $date = mktime( 12, 0, 0, $month, 1, $year ); // 1st day of month as unix stamp
 $rawOffset = date( "w", $date ) - get_option( 'start_of_week', 0 );
 

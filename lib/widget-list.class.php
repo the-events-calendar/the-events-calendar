@@ -29,6 +29,22 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 		function widget_output( $args, $instance, $template_name='list-widget', $subfolder = 'widgets', $namespace = '/', $pluginPath = '' ) {
 			global $wp_query, $tribe_ecp, $post;
 			extract( $args, EXTR_SKIP );
+			// The view expects all these $instance variables, which may not be set without pro
+			$instance = wp_parse_args($instance, array(
+				'start' => TRUE,
+				'end' => TRUE,
+				'venue' => 0,
+				'organizer' => 0,
+				'address' => '',
+				'city' => '',
+				'region' => '',
+				'zip' => '',
+				'country' => '',
+				'phone' => '',
+				'cost' => '',
+				'limit' => 5,
+				'title' => '',
+			));
 			extract( $instance, EXTR_SKIP );
 			// extracting $instance provides $title, $limit
 			$title = apply_filters('widget_title', $title );
@@ -104,7 +120,5 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 	/* Function that registers widget. */
 	function events_list_load_widgets() {
 		register_widget( 'TribeEventsListWidget' );
-		// load text domain after class registration
-		load_plugin_textdomain( 'tribe-events-calendar', false, basename(dirname(dirname(__FILE__))) . '/lang/');
 	}
 }
