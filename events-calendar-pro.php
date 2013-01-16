@@ -640,7 +640,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	    }
 
 	    public function admin_enqueue_scripts() {
-	    	wp_enqueue_script( TribeEvents::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.js', array( 'jquery-ui-datepicker' ), '', true );
+	    	wp_enqueue_script( TribeEvents::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.js', array( 'jquery-ui-datepicker' ), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ), true );
 	    }
 
 		public function enqueue_styles() {
