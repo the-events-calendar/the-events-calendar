@@ -14,7 +14,7 @@ jQuery(document).ready(function($) {
 	$("body").on('mouseenter', 'table.tribe-events-calendar:not(.tribe-events-calendar-widget) .tribe-events-event:not(.daynum)', function() {
 		var bottomPad = $(this).find('a').outerHeight() + 18;	
 		$(this).find(".tribe-events-tooltip").css('bottom', bottomPad).show();
-	}).on('mouseleave', function() {
+	}).on('mouseleave', 'table.tribe-events-calendar:not(.tribe-events-calendar-widget) .tribe-events-event:not(.daynum)', function() {
 		$(this).find(".tribe-events-tooltip").stop(true,false).fadeOut(200);		
 	});
 	
@@ -22,7 +22,7 @@ jQuery(document).ready(function($) {
 	$("body").on('mouseenter', 'table.tribe-events-calendar-widget .tribe-events-event:has(a)', function() {		
 		var bottomPad = $(this).outerHeight() + 3;		
 		$(this).find(".tribe-events-tooltip").css('bottom', bottomPad).stop(true,false).fadeIn(300);
-	}).on('mouseleave', function() {
+	}).on('mouseleave', 'table.tribe-events-calendar-widget .tribe-events-event:has(a)', function() {
 		$(this).find(".tribe-events-tooltip").stop(true,false).fadeOut(200);		
 	});
 	
