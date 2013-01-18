@@ -225,11 +225,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tickets/tribe-tickets-metabox.php' );
 	
 			// Load multisite defaults
-			if ( is_multisite() && file_exists( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' ) ) {
-				require_once( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' );
-				if ( isset( $tribe_events_mu_defaults ) && is_array( $tribe_events_mu_defaults ) ) {
-					self::$tribeEventsMuDefaults = $tribe_events_mu_defaults;
-				}
+			if ( is_multisite() ) {
+				$tribe_events_mu_defaults = array();
+				if ( file_exists( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' ) )
+					require_once( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' );
+				self::$tribeEventsMuDefaults = apply_filters( 'tribe_events_mu_defaults', $tribe_events_mu_defaults );
 			}
 		}
 
@@ -1502,7 +1502,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$option = $default;
 			if ( isset( self::$options[$optionName] ) ) {
 				$option = self::$options[$optionName];
-			} elseif ( is_multisite() && file_exists( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' ) && isset( self::$tribeEventsMuDefaults ) && is_array( self::$tribeEventsMuDefaults ) && in_array( $optionName, array_keys( self::$tribeEventsMuDefaults ) ) ) {
+			} elseif ( is_multisite() && isset( self::$tribeEventsMuDefaults ) && is_array( self::$tribeEventsMuDefaults ) && in_array( $optionName, array_keys( self::$tribeEventsMuDefaults ) ) ) {
 				$option = self::$tribeEventsMuDefaults[$optionName];
 			}
 			
