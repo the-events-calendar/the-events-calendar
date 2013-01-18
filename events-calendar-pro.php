@@ -65,7 +65,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/tribe-events-recurrence-meta.class.php' );
 			require_once( 'lib/tribe-recurrence.class.php' );
 			require_once( 'lib/widget-venue.class.php' );
+			require_once( 'lib/tribe-mini-calendar.class.php' );
 			require_once( 'lib/widget-countdown.class.php' );
+			require_once( 'lib/widget-calendar.class.php' );
+
 			require_once( 'template-tags.php' );
 			require_once( 'lib/tribe-presstrends-events-calendar-pro.php' );
 			require_once( 'lib/tribe-geoloc.class.php' );
@@ -346,6 +349,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		public function init() {
+			TribeEventsMiniCalendar::instance();
 			TribeEventsCustomMeta::init();
 			TribeEventsRecurrenceMeta::init();
 			TribeEventsGeoLoc::instance();
@@ -824,6 +828,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/widget-advanced-list.class.php' );
 			unregister_widget( 'TribeEventsListWidget' );
 			register_widget( 'TribeEventsAdvancedListWidget' );
+			register_widget( 'TribeEventsMiniCalendarWidget' );
 			add_filter( 'tribe_apm_textdomain', array( __CLASS__, 'apm_textdomain' ) );
 			// load text domain after class registration
 			load_plugin_textdomain( 'tribe-events-calendar-pro', false, basename( dirname( dirname( __FILE__ ) ) ) . '/lang/' );

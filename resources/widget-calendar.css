@@ -1,0 +1,247 @@
+/* tall mode css */
+
+.tribe-mini-calendar-wrapper {
+	width : 300px;	
+}
+
+.tribe-mini-calendar-title {
+	font-size : 32px;
+	font-weight:bold;
+	line-height:38px;
+	letter-spacing: 0;
+	padding-bottom:8px;
+	margin-bottom:20px;
+	border-bottom:5px solid #ccc;
+	width:300px;
+}
+
+/* calendar css */
+
+.tribe-mini-calendar {
+	border-collapse: collapse;
+	margin-left: -1px;
+}
+
+.tribe-mini-calendar td {
+	height         : 28px;
+	width          : 42px;
+	text-align     : center;
+	vertical-align : middle;
+	border         : 1px solid #fff;	
+	background     : #f3f3f3;
+}
+
+.tribe-mini-calendar td.thismonth {
+	background : #cccccc;
+}
+
+.tribe-mini-calendar td.thismonth.today, 
+.tribe-mini-calendar td.thismonth.has-events.today {
+	background : #4f4f4f;
+} 
+
+.tribe-mini-calendar td.thismonth > div {
+	display:none;
+}
+
+.tribe-mini-calendar td.thismonth.has-events > div {
+	display:block;
+}
+
+.tribe-mini-calendar td.thismonth.has-events a {
+	color   : #ffffff;
+	font-weight:bold;
+	display : block;
+}
+
+.tribe-mini-calendar td.thismonth.has-events a:hover {
+	text-decoration : none;
+}
+
+.tribe-mini-calendar td.thismonth.has-events:hover {
+	background : #4f4f4f;
+}
+
+.tribe-mini-calendar td.thismonth.has-events {
+	background : #6fb7ff;
+	font-size  : 16px;
+}
+
+.tribe-mini-calendar-nav {
+	text-align     : center;
+	vertical-align : middle;	
+	border         : 1px solid #ffffff;
+	background     : #f3f3f3;
+}
+
+.tribe-mini-calendar-nav div {
+	position:relative;
+}
+
+.tribe-mini-calendar-nav span {
+	font-weight:bold;
+	margin:0 20px;
+	display:inline-block;
+	color:#999;
+}
+
+.tribe-mini-calendar-nav span.active {
+	visibility:hidden;
+}
+
+.tribe-mini-calendar-nav .tribe-mini-calendar-nav-link {
+	display:inline-block;
+	color:#999;
+}
+
+.tribe-mini-calendar-nav .tribe-mini-calendar-nav-link:hover {
+	color:#6fb7ff;
+}
+
+.tribe-mini-calendar-nav #ajax-loading-mini {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -8px 0 0 -8px;
+	display: none;
+}
+
+/* event list css */
+
+.tribe-mini-calendar-event {
+	overflow:hidden;
+	width:300px;
+	padding-bottom : 5px;
+	margin-bottom  : 5px;
+	border-bottom  : 1px dotted #2f2f2f;
+}
+
+.tribe-mini-calendar-right .tribe-mini-calendar-event:last-child {
+	border:0;
+}
+
+.tribe-mini-calendar-event.first {
+	margin-top:10px;
+}
+
+.tribe-mini-calendar-event .list-date {
+	float : left;
+	overflow:hidden;
+	font-weight:bold;
+	margin: 10px 0;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	width:30px;
+	text-align:center;
+}
+
+.tribe-mini-calendar-event .list-info {
+	width:260px; 
+	margin: 10px 0;
+	float:right;
+}
+
+.tribe-mini-calendar-event.first .list-date {
+	width:65px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.tribe-mini-calendar-event.first .list-info {
+	width:225px; 	
+}
+
+.tribe-mini-calendar-event .list-date .list-dayname {
+	display : none;
+}
+
+.tribe-mini-calendar-event .list-date .list-daynumber {
+	background : #6fb7ff;
+	color      : #ffffff;
+	font-size  : 15px;
+	width      : 30px;
+	height     : 25px;
+	line-height: 25px;
+	display    : block;
+	text-align : center;
+}
+
+.tribe-mini-calendar-event.first .list-date .list-dayname {
+	background : #1182fa;
+	color      : #6fb7ff;
+	font-size  : 11px;
+	width      : 65px;
+	height     : 20px;
+	line-height: 20px;
+	display    : block;
+	text-align : center;
+}
+
+.tribe-mini-calendar-event.first .list-date .list-daynumber {
+	background : #6fb7ff;
+	color      : #ffffff;
+	font-size  : 28px;
+	width      : 65px;
+	height     : 45px;
+	line-height: 40px;
+	display    : block;
+	text-align : center;
+}
+
+.tribe-mini-calendar-event .list-info h2 {	
+	font-size : 14px;
+	font-weight:bold;
+	line-height:18px;
+}
+
+.tribe-mini-calendar-event.first .list-info h2 {	
+	font-size : 18px;	
+	line-height:20px;
+}
+
+.tribe-mini-calendar-event .list-info h2 a {
+	/*color     : #2f2f2f;*/
+}
+
+.tribe-mini-calendar-event .list-info h2 a:hover {
+	/*color     : #1182fa;*/
+}
+
+.tribe-mini-calendar-event .list-info p {
+	margin:5px 0;
+	display:none;
+}
+
+.tribe-mini-calendar-event.first .list-info p {
+	display:block;
+}
+
+.tribe-mini-calendar-event .list-info span a {
+	font-size: 11px;
+}
+
+/* wide mode css */
+
+.tribe-mini-calendar-title.layout-wide {
+	width:620px;
+}
+
+.tribe-mini-calendar-wrapper.layout-wide {
+	position:relative;
+	width:620px;
+	overflow:hidden;	
+}
+
+.tribe-mini-calendar-wrapper.layout-wide .tribe-mini-calendar-event.first,
+.tribe-mini-calendar-wrapper.layout-wide .tribe-mini-calendar-event.last {
+	border:0;
+}
+
+.tribe-mini-calendar-wrapper.layout-wide .tribe-mini-calendar-right {
+	position:absolute;
+	top:20px; 
+	right:0;
+	width:300px;
+}
