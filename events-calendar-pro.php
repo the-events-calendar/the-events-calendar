@@ -64,7 +64,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/tribe-ecp-custom-meta.class.php' );
 			require_once( 'lib/tribe-events-recurrence-meta.class.php' );
 			require_once( 'lib/tribe-recurrence.class.php' );
-			require_once( 'lib/widget-calendar.class.php' );
 			require_once( 'lib/widget-venue.class.php' );
 			require_once( 'lib/widget-countdown.class.php' );
 			require_once( 'template-tags.php' );
