@@ -501,21 +501,43 @@ class TribeEventsRecurrenceMeta {
 	}
 	
 	/**
-	 * Convert the event recurrence meta into a human readable string
- 	 * @param array $postId The recurring event
-	 * @return The human readable string
-	 */			
-	public static function recurrenceToText( $postId = null ) {
-		$text = "";
-		$custom_text = "";
-		$occurrence_text = "";
-		
+	 * Get the recurrence pattern in text format by post id.
+	 * @param int $postId The post id.
+	 * @return sting The human readable string.
+	 */
+	public function recurrenceToTextByPost( $postId = null ) {
 		if( $postId == null ) {
 			global $post;
 			$postId = $post->ID;
 		}
 		
-		extract(TribeEventsRecurrenceMeta::getRecurrenceMeta($postId));
+		$recurrence_rules = TribeEventsRecurrenceMeta::getRecurrenceMeta($postId);
+		$start_date = TribeEvents::getRealStartDate( $postId );
+		
+		$output_text = self::recurrenceToText( $recurrence_rules, $start_date );
+		
+		return $output_text;
+	}
+	
+	/**
+	 * Convert the event recurrence meta into a human readable string
+ 	 * @param array $postId The recurring event
+	 * @return The human readable string
+	 */			
+	public static function recurrenceToText( $recurrence_rules = array(), $start_date ) {
+		$text = "";
+		$custom_text = "";
+		$occurrence_text = "";
+		$recType = '';
+		$recEndCount = '';
+		$recCustomType = '';
+		$recCustomInterval = null;
+		$recCustomMonthNumber = null;
+		$recCustomYearMonthNumber = null;
+		$recCustomYearFilter = '';
+		$recCustomYearMonth = '';
+		$recCustomYearMonthDay = '';
+		extract( $recurrence_rules );
 		
 		if ($recType == "Every Day") {
 			$text = __("Every day", 'tribe-events-calendar-pro'); 
@@ -556,7 +578,7 @@ class TribeEventsRecurrenceMeta {
 				
 				$customYearNumber = $recCustomYearMonthNumber != -1 ? TribeDateUtils::numberToOrdinal($recCustomYearMonthNumber) : __("last", 'tribe-events-calendar-pro');
 				
-				$day = $recCustomYearFilter ? $customYearNumber : TribeDateUtils::numberToOrdinal( date('j', strtotime( TribeEvents::getRealStartDate( $postId ) ) ) );
+				$day = $recCustomYearFilter ? $customYearNumber : TribeDateUtils::numberToOrdinal( date('j', strtotime( $start_date ) ) );
 				$of_week = $recCustomYearFilter ? self::daysToText($recCustomYearMonthDay) : "";
 				$months = self::monthsToText($recCustomYearMonth);
 				$custom_text = sprintf(__(" on the %s %s of %s", 'tribe-events-calendar-pro'), $day, $of_week, $months);				

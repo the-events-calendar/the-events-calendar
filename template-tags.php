@@ -49,7 +49,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		function tribe_get_recurrence_text( $postId = null )  {
 			$postId = TribeEvents::postIdHelper( $postId );
 			$tribe_ecp = TribeEvents::instance();
-		  	return apply_filters( 'tribe_get_recurrence_text', TribeEventsRecurrenceMeta::recurrenceToText( $postId ) );
+		  	return apply_filters( 'tribe_get_recurrence_text', TribeEventsRecurrenceMeta::recurrenceToTextByPost( $postId ) );
 		}
 	}
 
