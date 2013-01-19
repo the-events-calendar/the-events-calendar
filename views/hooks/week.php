@@ -131,22 +131,94 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			$html = '';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_inside_before_loop' );
 		}
+
 		// Week Grid
 		public static function the_grid() {
 
 			global $wp_query;
 			$tribe_ecp = TribeEvents::instance();
 			$start_of_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
+
+			// convert the start of the week into a timestamp
+			$start_of_weektime = strtotime( $start_of_week );
+
 			$week_length = 7; // days of the week
 			$today = date( 'Y-m-d', strtotime( 'today' ) );
-			$events->all_day = array();
-			$events->daily = array();
-			$events->hours = array( 'start'=>null, 'end'=>null );
-			foreach ( $wp_query->posts as $event ) {
-				$start_date_compare = strtotime($start_of_week) < strtotime($event->EventStartDate) ? $event->EventStartDate : $start_of_week;
+			$events = (object) array( 'all_day' => array(), 'daily' => array(), 'hours' => array( 'start'=>null, 'end'=>null ) );
+			$all_day_events = array();
+
+			// get it started off with at least 1 row
+			$all_day_events[] = array_fill(1, $week_length, null);
+
+			// loop through all found events
+			foreach ( $wp_query->posts as $event_id => $event ) {
+				
+				// convert the start date of the event into a timestamp
+				$event_start_time = strtotime($event->EventStartDate);
+
+				// if the event start time is greater than the start time of the week then we use the event date otherwise use the beginning of the week date
+				$start_date_compare = $start_of_weektime < $event_start_time ? $event->EventStartDate : $start_of_week;
+
+				// convert the starting event or week date into day of the week
+				$event_start_day_of_week = date('w', strtotime($start_date_compare) );
+
+				// determine the number of days between the starting date and the end of the event
 				$event->days_between = tribe_get_days_between( $start_date_compare, $event->EventEndDate );
+
+				// make sure that our days between don't extend past the end of the week
+				$event->days_between = $event->days_between >= $week_length - $event_start_day_of_week ? ( $week_length - $event_start_day_of_week ) : (int) $event->days_between;
+
+				// if this is an all day event
 				if (  tribe_get_event_meta( $event->ID, '_EventAllDay' ) ) {
-					$events->all_day[ $event->days_between . '-' . $event->ID ] = $event;
+
+					// let's build our hashtable for add day events
+					foreach( $all_day_events as $hash_id => $days) {
+
+						// set bool for if we should inset the event id on the current hash row
+						$insert_current_row = false;
+
+						// loop through the columns of this hash row
+						for( $n = $event_start_day_of_week; $n <= $event_start_day_of_week + $event->days_between; $n++){
+
+							// check for hash collision and setup bool for going to the next row if we can't fit it on this row
+							if( ! empty($all_day_events[$hash_id][$n]) ) {
+								$insert_current_row = true;
+								break;
+							} else {
+								$insert_current_row = false;
+							}
+						}
+						// if we should actually insert a new row vs going to the next row 
+						if( $insert_current_row && count($all_day_events) == $hash_id + 1 ){
+
+							// create a new row and fill with week day columns
+							$all_day_events[] = array_fill(1, $week_length, null);
+
+							// change the row id to the last row
+							$hash_id = count($all_day_events) -1;
+
+						} else if( $insert_current_row ) {
+
+							// nullify the hash id
+							$hash_id = null;
+						}
+
+						// if we still have a hash id then fill the row with the event id
+						if( ! is_null($hash_id) ) {
+
+							// loop through each week day we want the event to be inserted
+							for( $n = $event_start_day_of_week; $n <= $event_start_day_of_week + $event->days_between; $n++){
+
+								// add the event id into the week day column
+								$all_day_events[$hash_id][$n] = $event->ID;
+							}
+
+							// break the hashtable since we have successfully added the event into a row
+							break;
+						}
+					}
+					
+					$events->all_day[ $event->ID ] = $event;
 				} else {
 					$start_hour = date( 'G', strtotime( $event->EventStartDate ) );
 					$end_hour = date( 'G', strtotime( $event->EventEndDate ) );
@@ -159,8 +231,6 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 					$events->daily[] = $event;
 				}
 			}
-
-			krsort( $events->all_day );
 
 			ob_start();
 ?>
@@ -200,33 +270,34 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			<div class="tribe-grid-content-wrap">
 
 				<?php
-				$placeholder = 0;
+				$placeholder_html = '<div class="tribe-event-placeholder hentry vevent" data-event-id="%s">&nbsp;</div>';
 				$all_day_span_ids = array();
-				for ( $n = 0; $n < $week_length; $n++ ) {
+				for ( $n = 1; $n <= $week_length; $n++ ) {
 					$day = date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) );
 					$header_class = ( $day == $today ) ? ' tribe-week-today' : '';
-					$right_align = ( $n != 0 && ( ( $n % 4 == 0 ) || ( $n % 5 == 0 ) || ( $n % 6 == 0 ) ) ) ? ' tribe-events-right' : '';
-					printf( '<div title="%s" class="column%s%s">', date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) ), $header_class, $right_align );
-					// if ( $placeholder > 0 ) {
-					// 	for ( $placeholder_i = 0; $placeholder_i <= $placeholder; $placeholder_i++ ) {
-					// 		echo '<div class="tribe-event-placeholder">placeholder</div>';
-					// 	}
-					// }
-					foreach ( $events->all_day as $event ) {
-						// if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) == $day ) {
-						if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) <= $day && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) >= $day ) {
+					// $right_align = ( $n != 0 && ( ( $n % 4 == 0 ) || ( $n % 5 == 0 ) || ( $n % 6 == 0 ) ) ) ? ' tribe-events-right' : '';
+					$right_align = '';
+					printf( '<div title="%s" class="column%s%s">', 
+						date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) ), 
+						$header_class, 
+						$right_align );
+
+					foreach( $all_day_events as $all_day_cols ) {
+						$event_id = $all_day_cols[ $n ];
+						if( is_null( $event_id ) ){
+							printf( $placeholder_html, 0 );
+						} else {
+							$event = $events->all_day[ $event_id ];
+
 							// check if the event has already been shown - if so then dump in a span placeholder
 							if( in_array( $event->ID, $all_day_span_ids)){
-								printf( '<div class="tribe-event-placeholder" data-event-id="%s">&nbsp;</div>',
+								printf( $placeholder_html,
 									$event->ID
 									);
 							} else {
 								$all_day_span_ids[] = $event->ID;
-								$span_class = '';
-								if ( $event->days_between > 0 ) {
-									$day_span_length = $event->days_between >= ( $week_length - $n ) ? ( $week_length - $n ) : $event->days_between + 1; // we add an extra day between to account for proper $n day reference
-									$span_class = 'tribe-dayspan' . $day_span_length;
-								}
+								$day_span_length = $event->days_between + 1; // we need to adjust on behalf of weekly span scripts
+								$span_class = $day_span_length > 0  ?'tribe-dayspan' . $day_span_length : '';
 								printf( '<div id="tribe-events-event-'. $event->ID .'" class="%s" data-hour="all-day"><div><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3>',
 									'hentry vevent ' . $span_class,
 									get_permalink( $event->ID ),
@@ -276,8 +347,10 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 								<?php
 								echo '</div></div>';
 							}
+
 						}
 					}
+					
 					echo '</div><!-- allday column -->';
 				} ?>
 
@@ -329,6 +402,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 						$header_class,
 						$right_align
 					);
+					$prior_event_date = (object) array('EventStartDate'=>null,'EventEndDate'=>null);
 					foreach ( $events->daily as $event ) {
 						if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) <= $day && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) >= $day ) {
 							if( $event->days_between > 0 ) {
@@ -354,8 +428,18 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 								$data_hour = date( 'G', strtotime( $event->EventStartDate ) );
 								$data_min = date( 'i', strtotime( $event->EventStartDate ) );
 							}
-							echo '<div id="tribe-events-event-'. $event->ID .'" duration="'. round( $duration ) .'" data-hour="' . $data_hour . '" data-min="' . $data_min . '">';
-							printf( '<div class="hentry vevent"><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3></div>',
+							if( strtotime($prior_event_date->EventStartDate) < strtotime($event->EventStartDate) ){
+								$container_classes = 'tribe-event-overlap ';
+							} else {
+								$container_classes = '';
+							}
+							// echo '<div id="tribe-events-event-'. $event->ID .'" duration="'. round( $duration ) .'" data-hour="' . $data_hour . '" data-min="' . $data_min . '">';
+							printf( '<div id="tribe-events-event-%s" duration="%s" data-hour="%s" data-min="%s" class="%s"><div class="hentry vevent"><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3></div>',
+								$event->ID,
+								round( $duration ),
+								$data_hour,
+								$data_min,
+								$container_classes,
 								get_permalink( $event->ID ),
 								$event->post_title
 							); ?>
@@ -403,6 +487,9 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 							<?php
 
 							echo '</div><!-- #tribe-events-event-'. $event->ID .' -->';
+
+							$prior_event_date->EventStartDate = $event->EventStartDate;
+							$prior_event_date->EventStartDate = $event->EventStartDate;
 						}
 					}
 					echo '</div>';
