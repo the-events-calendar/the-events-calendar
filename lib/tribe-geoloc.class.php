@@ -169,14 +169,18 @@ class TribeEventsGeoLoc {
 	}
 
 	public function setup_geoloc_in_query( $query ) {
-
+		$force = false;
 		if ( !empty( $_REQUEST['tribe-bar-geoloc-lat'] ) && !empty( $_REQUEST['tribe-bar-geoloc-lng'] ) ) {
-
+			$force  = true;
 			$venues = $this->get_venues_in_geofence( $_REQUEST['tribe-bar-geoloc-lat'], $_REQUEST['tribe-bar-geoloc-lng'] );
+		} else if ( TribeEvents::instance()->displaying == 'map' || ( !empty( $query->query_vars['eventDisplay'] ) && $query->query_vars['eventDisplay'] == 'map' ) ) {
+			$force  = true;
+			$venues = $this->get_venues_in_geofence( 1, 1, 70000 );
+		}
 
-			if ( empty( $venues ) ) {
+		if ( $force ) {
+			if ( empty( $venues ) )
 				$venues = -1;
-			}
 
 			$meta_query = array( 'key'     => '_EventVenueID',
 			                     'value'   => $venues,
@@ -189,7 +193,6 @@ class TribeEventsGeoLoc {
 				$query->query_vars['meta_query'][] = $meta_query;
 			}
 		}
-
 
 		return $query;
 
@@ -374,9 +377,11 @@ class TribeEventsGeoLoc {
 		                   'order'          => 'ASC',
 		                   'posts_per_page' => tribe_get_option( 'postsPerPage', 10 ),
 		                   'paged'          => $tribe_paged,
-		                   'post_status'    => array( 'publish' ) );
+		                   'post_status'    => array( 'publish' ),
+		                   'eventDisplay'   => 'map' );
 
-		$query = new WP_Query( $defaults );
+		$query = TribeEventsQuery::getEvents( $defaults, true );
+
 
 		if ( $this->is_geoloc_query() && $query->found_posts > 0 ) {
 			$lat = isset( $_POST['tribe-bar-geoloc-lat'] ) ? $_POST['tribe-bar-geoloc-lat'] : 0;
