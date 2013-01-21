@@ -214,6 +214,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-the-events-calendar-import.class.php' );
 			require_once( 'tribe-debug-bar.class.php' );
 
+			// caching
+			require_once( 'tribe-events-cache.class.php' );
+
 			// App Shop
 			if (!defined("TRIBE_HIDE_UPSELL") || TRIBE_HIDE_UPSELL !== true ){
 				require_once( 'tribe-app-shop.class.php' );
@@ -287,6 +290,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( "trash_" . TribeEvents::ORGANIZER_POST_TYPE, array($this, 'cleanupPostOrganizers'));
 			add_action( "wp_ajax_tribe_event_validation", array($this,'ajax_form_validate') );
 			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
+			add_action( 'plugins_loaded', array('TribeEventsCacheListener', 'instance') );
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
 			add_action( 'tribe_venue_table_top', array( $this, 'displayEventVenueDropdown' ) );
