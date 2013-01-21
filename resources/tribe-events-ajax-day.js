@@ -146,7 +146,7 @@ jQuery( document ).ready( function ( $ ) {
 				action     :'tribe_event_day'					
 			};
 
-			$( 'form#tribe-bar-form :input[value!=""]' ).each( function () {
+			$( 'form#tribe-bar-form input[value!=""]' ).each( function () {
 				var $this = $( this );
 				if( $this.val().length && !$this.hasClass('tribe-no-param') ) {
 					if( $this.is(':checkbox') ) {
@@ -170,7 +170,7 @@ jQuery( document ).ready( function ( $ ) {
 			if( $('#tribe_events_filters_form').length ) {
 
 				tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
-				var tribe_filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();
+				var tribe_filter_params = $('form#tribe_events_filters_form input[value!=""]').serialize();
 				tribe_ev.fn.disable_inputs( '#tribe_events_filters_form', 'input, select' );					
 				if( tribe_filter_params.length ) {
 					tribe_ev.state.params = tribe_ev.state.params + '&' + tribe_filter_params;
@@ -206,10 +206,12 @@ jQuery( document ).ready( function ( $ ) {
 							'timestamp':new Date().getTime()
 						};
 						
-						$( '#tribe-events-content.tribe-events-list' ).replaceWith( response );								
+						var $the_content = $.parseHTML(response);
+						
+						$( '#tribe-events-content.tribe-events-list' ).replaceWith( $the_content );								
 
-						var page_title = $(response).find( "#tribe-events-header" ).attr( 'data-title' );
-						var page_header = $(response).find( "#tribe-events-header" ).attr( 'data-header' );					
+						var page_title = $( $the_content ).find( "#tribe-events-header" ).attr( 'data-title' );
+						var page_header = $( $the_content ).find( "#tribe-events-header" ).attr( 'data-header' );					
 
 						$( document ).attr( 'title', page_title );
 						$( "h2.tribe-events-page-title" ).text( page_header );						
