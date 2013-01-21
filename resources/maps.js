@@ -283,6 +283,14 @@ jQuery( document ).ready( function ( $ ) {
 	
 	if ( GeoLoc.map_view ) {
 		
+		var center;
+		
+		$("#tribe-geo-map-wrapper").resize(function() {
+			center = map.getCenter();
+			google.maps.event.trigger(map, "resize");
+			map.setCenter(center);			
+		});		
+		
 		$( '#tribe-geo-wrapper' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
 			e.preventDefault();
 			tribe_ev.state.paged++;
