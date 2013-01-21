@@ -19,7 +19,7 @@ class TribeEventsCache {
 	 * @return bool
 	 */
 	public function set( $id, $value, $expiration = 0, $expiration_trigger = '' ) {
-		return set_transient( $this->get_id($id, $expiration_trigger), $value, $expiration );
+		return wp_cache_set( $this->get_id($id, $expiration_trigger), $value, 'tribe-events', $expiration );
 	}
 
 	/**
@@ -29,7 +29,7 @@ class TribeEventsCache {
 	 * @return mixed
 	 */
 	public function get( $id, $expiration_trigger = '' ) {
-		return get_transient( $this->get_id($id, $expiration_trigger) );
+		return wp_cache_get( $this->get_id($id, $expiration_trigger), 'tribe-events' );
 	}
 
 	/**
@@ -39,7 +39,7 @@ class TribeEventsCache {
 	 * @return bool
 	 */
 	public function delete( $id, $expiration_trigger = '' ) {
-		return delete_transient( $this->get_id($id, $expiration_trigger) );
+		return wp_cache_delete( $this->get_id($id, $expiration_trigger), 'tribe-events' );
 	}
 
 	/**
