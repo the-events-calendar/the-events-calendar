@@ -176,8 +176,7 @@ tribe_ev.fn = {
 					} else if( jQuery('[name="' + name + '"][value="' + value + '"]').is(':checkbox, :radio')) {
 						jQuery('[name="' + name + '"][value="' + value + '"]').prop("checked", true);	
 					} else if( jQuery('[name="' + name + '"]').is('select') ) {
-						jQuery('select[name="' + name + '"] option[value="' + value + '"]').attr('selected',true);
-						console.log('select[name="' + name + '"] option[value="' + value + '"]')
+						jQuery('select[name="' + name + '"] option[value="' + value + '"]').attr('selected',true);						
 					}										
 				} else {										
 					for ( var i = 0; i < value.length; i++ ) {						
