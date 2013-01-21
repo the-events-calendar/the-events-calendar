@@ -4,8 +4,8 @@ Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, mzaweb, codea
 Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar, recurring, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.3
-Tested up to: 3.4.2
-Stable tag: 2.0.10
+Tested up to: 3.5
+Stable tag: 2.0.11
 
 == Description ==
 
@@ -209,6 +209,18 @@ Our Premium Plugins:
 * <a href="http://tri.be/shop/conference-manager/?ref=tec-readme" target="_blank">The Events Calendar: Conference Manager (coming later in 2012)</a>
 
 == Changelog ==
+
+= 2.0.11 =
+
+**Small features, UX and Content Tweaks:**
+
+(none)
+
+**Bug Fixes:**
+
+* Fixed a bug where the calendar (and in some cases the entire site) broke with the release of jQuery 1.9
+* Fixed an issue in the Default Twenty Eleven theme where embedded maps looked broken on the Default Page Template
+
 
 = 2.0.10 =
 
