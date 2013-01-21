@@ -213,7 +213,13 @@
 .tribe-grid-allday .hentry.vevent h3.entry-title {
 	padding: 8px 6px;
 }
-
+/* truncated all day titles */
+.tribe-grid-allday .hentry.vevent h3.entry-title a.url{
+	display:inline-block; 
+	overflow:hidden; 
+	text-overflow: ellipsis; 
+	white-space:nowrap;
+}
 .tribe-grid-allday .hentry.vevent.tribe-dayspan2 > div {
 	width:200%;	
 }
