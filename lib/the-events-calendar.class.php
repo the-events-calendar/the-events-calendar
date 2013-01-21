@@ -11,6 +11,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 	class TribeEvents {
 		const EVENTSERROROPT = '_tribe_events_errors';
 		const OPTIONNAME = 'tribe_events_calendar_options';
+		const OPTIONNAMENETWORK = 'tribe_events_calendar_network_options';
 		const TAXONOMY = 'tribe_events_cat';
 		const POSTTYPE = 'tribe_events';
 		const VENUE_POST_TYPE = 'tribe_venue';
@@ -71,6 +72,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		protected $postExceptionThrown = false;
 		protected $optionsExceptionThrown = false;
 		protected static $options;
+		protected static $networkOptions;
 		public $displaying;
 		public $pluginDir;
 		public $pluginPath;
@@ -125,6 +127,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public $daysOfWeekMin;
 		public $monthsFull;
 		public $monthsShort;
+		
+		public static $tribeEventsMuDefaults;
 
 		/**
 		 * Static Singleton Factory Method
@@ -222,7 +226,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tickets/tribe-ticket-object.php' );
 			require_once( 'tickets/tribe-tickets.php' );
 			require_once( 'tickets/tribe-tickets-metabox.php' );
-
+	
+			// Load multisite defaults
+			if ( is_multisite() ) {
+				$tribe_events_mu_defaults = array();
+				if ( file_exists( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' ) )
+					require_once( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' );
+				self::$tribeEventsMuDefaults = apply_filters( 'tribe_events_mu_defaults', $tribe_events_mu_defaults );
+			}
 		}
 
 		protected function addFilters() {
@@ -298,8 +309,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				add_action( 'tribe_events_cost_table', array($this, 'maybeShowMetaUpsell'));
 			}
 			// option pages
+			add_action( '_network_admin_menu', array( $this, 'initOptions' ) );
 			add_action( '_admin_menu', array( $this, 'initOptions' ) );
 			add_action( 'tribe_settings_do_tabs', array( $this, 'doSettingTabs' ) );
+			add_action( 'tribe_settings_do_tabs', array( $this, 'doNetworkSettingTab' ), 400 );
 			add_action( 'tribe_settings_content_tab_help', array( $this, 'doHelpTab' ) );
 			// add-on compatibility
 			if ( is_multisite() )
@@ -315,8 +328,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'admin_menu', array( $this, 'addHelpAdminMenuItem' ), 50 );
 			add_action( 'comment_form', array( $this, 'addHiddenRecurringField' ) );
 
-			add_action( 'wpmu_new_blog', array( $this, 'maybeAssignMuDefaultOptions' ), 10, 1 );
-
 			/* VIEWS AJAX CALLS */
 			add_action( 'wp_ajax_tribe_calendar', array( $this, 'calendar_ajax_call' ) );
 			add_action( 'wp_ajax_nopriv_tribe_calendar', array( $this, 'calendar_ajax_call' ) );
@@ -324,6 +335,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_events_pre_get_posts', array( $this, 'set_tribe_paged' ) );
 			add_action( 'wp_ajax_nopriv_tribe_list', array( $this, 'list_ajax_call' ) );
 
+		}
+
+		function enqueue_for_ajax_calendar() {
+			if ( $this->displaying === 'month' ) {
+				Tribe_Template_Factory::asset_package( 'ajax-calendar' );
+			}
 		}
 
 		public static function ecpActive( $version = '2.0.7' ) {
@@ -423,16 +440,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$this->setOption('latest_ecp_version', self::VERSION);
 			}
 		}
-		
-		public function maybeAssignMuDefaultOptions( $blog_id ) {
-			if ( is_multisite() && isset( $blog_id ) && file_exists( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' ) ) {
-				require_once( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' );
-				
-				if ( isset( $tribe_events_mu_defaults ) && is_array( $tribe_events_mu_defaults ) ) {
-					add_blog_option( $blog_id, self::OPTIONNAME, $tribe_events_mu_defaults );
-				} 
-			}
-		}
 
 		/**
 		 * Check add-ons to make sure they are supported by currently running TEC version.
@@ -522,6 +529,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			include_once($this->pluginPath.'admin-views/tribe-options-general.php');
 			include_once($this->pluginPath.'admin-views/tribe-options-display.php');
 			
+			$showNetworkTabs = $this->getNetworkOption( 'showSettingsTabs', false );
+			
 			$tribe_licences_tab_fields = array(
 				'info-start' => array(
 					'type' => 'html',
@@ -548,16 +557,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					'html' => '</div>',
 				)
 			);
-
 			new TribeSettingsTab( 'general', __('General', 'tribe-events-calendar'), $generalTab );
 			new TribeSettingsTab( 'display', __('Display', 'tribe-events-calendar'), $displayTab );
 			// If none of the addons are activated, do not show the licenses tab.
-			if ( class_exists( 'TribeEventsPro' ) || class_exists( 'Event_Tickets_PRO' ) || class_exists( 'TribeCommunityEvents' ) || class_exists( 'Tribe_FB_Importer' )  ) {
-				new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar'), array('priority' => '40',
-					'fields' => apply_filters('tribe_license_fields', $tribe_licences_tab_fields) ) );
+			if ( class_exists( 'TribeEventsPro' ) || class_exists( 'Event_Tickets_PRO' ) || class_exists( 'TribeCommunityEvents' ) || class_exists( 'Tribe_FB_Importer' ) ) {
+				if ( is_multisite() ) {
+					new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar'), array('priority' => '40', 'network_admin' => true,
+						'fields' => apply_filters('tribe_license_fields', $tribe_licences_tab_fields) ) );
+				} else {
+					new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar'), array('priority' => '40',
+						'fields' => apply_filters('tribe_license_fields', $tribe_licences_tab_fields) ) );
+				}
 			}
 			new TribeSettingsTab( 'help', __('Help', 'tribe-events-calendar'), array('priority' => 60, 'show_save' => false) );
-			
 		}
 
 		public function doHelpTab() {
@@ -1490,13 +1502,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			if( !isset( self::$options ) )
 				self::getOptions();
-
+			
+			$option = $default;
 			if ( isset( self::$options[$optionName] ) ) {
 				$option = self::$options[$optionName];
-			} else {
-				$option = $default;
+			} elseif ( is_multisite() && isset( self::$tribeEventsMuDefaults ) && is_array( self::$tribeEventsMuDefaults ) && in_array( $optionName, array_keys( self::$tribeEventsMuDefaults ) ) ) {
+				$option = self::$tribeEventsMuDefaults[$optionName];
 			}
-
+			
 			return apply_filters( 'tribe_get_single_option', $option, $default, $optionName );
 		}
 
@@ -1533,7 +1546,96 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$options = self::getOptions();
 			$this->setOptions( wp_parse_args( $newOption, $options ) );
 		}
+		
+		/**
+		 * Get all network options for the Events Calendar
+		 *
+		 * @return array of options
+		 */
+		public static function getNetworkOptions() {
+			if ( !isset( self::$networkOptions ) ) {
+				$options = get_site_option( TribeEvents::OPTIONNAMENETWORK, array() );
+				self::$networkOptions = apply_filters( 'tribe_get_network_options', $options );
+			}
+			return self::$networkOptions;
+		}
 
+		/**
+		 * Get value for a specific network option
+		 *
+		 * @param string $optionName name of option
+		 * @param string $default default value
+		 * @return mixed results of option query
+		 */
+		public function getNetworkOption($optionName, $default = '') {
+			if( !$optionName )
+				return null;
+
+			if( !isset( self::$networkOptions ) )
+				self::getNetworkOptions();
+
+			if ( isset( self::$networkOptions[$optionName] ) ) {
+				$option = self::$networkOptions[$optionName];
+			} else {
+				$option = $default;
+			}
+
+			return apply_filters( 'tribe_get_single_network_option', $option, $default );
+		}
+
+		/**
+		 * Saves the network options for the plugin
+		 *
+		 * @param array $options formatted the same as from getOptions()
+		 * @return void
+		 */
+		public function setNetworkOptions($options, $apply_filters=true) {
+			if (!is_array($options)) {
+				return;
+			}
+			if ( $apply_filters == true ) {
+				$options = apply_filters( 'tribe-events-save-network-options', $options );
+			}
+			if ( update_site_option( TribeEvents::OPTIONNAMENETWORK, $options ) ) {
+				self::$networkOptions = apply_filters( 'tribe_get_network_options', $options );
+				if ( isset( self::$networkOptions['eventsSlug'] ) && self::$networkOptions['eventsSlug'] != '' ) {
+					$this->flushRewriteRules();
+				}
+			} else {
+				self::$networkOptions = self::getNetworkOptions();
+			}
+		}
+		
+		/**
+		 * Saves the network option.
+		 *
+		 * @param string $name The name of the tribe network option.
+		 * @param mixed $value The value of the option you're setting.
+		 * @return void
+		 */
+		public function setNetworkOption($name, $value) {
+			$newOption = array();
+			$newOption[$name] = $value;
+			$options = self::getNetworkOptions();
+			$this->setNetworkOptions( wp_parse_args( $newOption, $options ) );
+		}
+		
+		public function addNetworkOptionsPage() {
+			$tribe_settings = TribeSettings::instance();
+			add_submenu_page('settings.php', $this->pluginName, $this->pluginName, 'manage_network_options', 'tribe-events-calendar', array( $tribe_settings, 'generatePage' ) );
+		}
+		
+		public function doNetworkSettingTab() {
+			include_once($this->pluginPath.'admin-views/tribe-options-network.php');
+
+			new TribeSettingsTab( 'network', __('Network', 'tribe-events-calendar'), $networkTab );
+		}
+
+		public function networkOptionsPageView() {
+			// every visit to ECP Settings = flush rules.
+			$this->flushRewriteRules();
+		}
+		
 		// clean up trashed venues
 		public function cleanupPostVenues($postId) {
 			$this->removeDeletedPostTypeAssociation('_EventVenueID', $postId);
