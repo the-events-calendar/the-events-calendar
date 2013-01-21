@@ -1,11 +1,11 @@
 jQuery(document).ready(function($){
 
-	$( '.tribe-event-overlap').each(function(){
-		$(this).css({
-			'margin-left' : '15px',
-			'right' : ''
-		});
-	});
+//	$( '.tribe-event-overlap').each(function(){
+//		$(this).css({
+//			'margin-left' : '15px',
+//			'right' : ''
+//		});
+//	});
 
 	$( '#tribe-events-bar' ).addClass( 'tribe-has-datepicker' );
 	tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );		
