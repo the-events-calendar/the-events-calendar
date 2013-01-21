@@ -1,5 +1,12 @@
 jQuery(document).ready(function($){
 
+	$( '.tribe-event-overlap').each(function(){
+		$(this).css({
+			'margin-left' : '15px',
+			'right' : ''
+		});
+	});
+
 	$( '#tribe-events-bar' ).addClass( 'tribe-has-datepicker' );
 	tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );		
 	var base_url = $('#tribe-events-header .tribe-nav-next a').attr('href').slice(0, -11);	
@@ -37,13 +44,8 @@ jQuery(document).ready(function($){
 	tribe_go_to_8();
 	
 	function tribe_set_allday_placeholder_height() {
-		
-		// Loop through placeholders and make sure height matches corresponding real event
-		$('.tribe-event-placeholder').each(function(){
-			id = $(this).attr("data-event-id");
-			height = parseInt($('#tribe-events-event-' + id ).outerHeight());
-			$(this).height( height );
-		});
+		height = $('.tribe-grid-allday .hentry').first().height( );
+		$('.tribe-event-placeholder').height( height );
 		
 	}
 	
@@ -351,7 +353,8 @@ jQuery(document).ready(function($){
 			if( $('#tribe_events_filters_form').length ) {
 
 				tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
-				var tribe_filter_params = $('form#tribe_events_filters_form input[value!=""]').serialize();
+				tribe_ev.fn.disable_empty( '#tribe_events_filters_form', 'select');
+				var tribe_filter_params = $('form#tribe_events_filters_form input[value!=""], form#tribe_events_filters_form select').serialize();
 				tribe_ev.fn.disable_inputs( '#tribe_events_filters_form', 'input, select' );				
 				if( tribe_filter_params.length ) {
 					tribe_ev.state.params = tribe_ev.state.params + '&' + tribe_filter_params;
