@@ -347,7 +347,10 @@ class Tribe_Columns {
 				// Cause infinite loops get boring after a while
 				remove_filter( 'manage_'.$this->post_type.'_posts_columns', array($this, 'column_headers'));
 				$this->load_list_table();
-				$headers = WP_Posts_List_Table::get_columns();
+
+				$list = new WP_Posts_List_Table();
+				$headers = $list->get_columns();
+
 				add_filter( 'manage_'.$this->post_type.'_posts_columns', array($this, 'column_headers'));
 			}
 			foreach ( $this->columns as $key => $value ) {
