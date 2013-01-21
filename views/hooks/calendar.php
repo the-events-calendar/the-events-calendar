@@ -20,6 +20,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		private static $event_daily_counts = array();
 		private static $posts_per_page_limit = 3;
 		private static $tribe_bar_args = array();
+		private static $cache_expiration = 3600;
 
 		public static function init(){
 
@@ -269,7 +270,16 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$count_args['start_date'] = date('Y-m-d', $date) . ' 00:00:00';
 			$count_args['end_date'] = date('Y-m-t', $date) . ' 23:59:59';
 			$count_args['hide_upcoming_ids'] = self::$hide_upcoming_ids;
-			return TribeEventsQuery::getEventCounts( $count_args );
+
+			$cache = new TribeEventsCache();
+			$cache_key = 'daily_counts_'.serialize($count_args);
+			$found = $cache->get( $cache_key, 'save_post' );
+			if ( $found && is_array($found) ) {
+				return $found;
+			}
+			$result = TribeEventsQuery::getEventCounts( $count_args );
+			$cache->set( $cache_key, $result, self::$cache_expiration, 'save_post' );
+			return $result;
 		}
 
 		private static function grid_head( $startOfWeek ) {
@@ -466,7 +476,16 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				$args['eventCat'] = (int) $cat->term_id;
 			}
 
-			return TribeEventsQuery::getEvents( $args, TRUE );
+			$cache = new TribeEventsCache();
+			$cache_key = 'daily_events_'.serialize($args);
+			$found = $cache->get($cache_key, 'save_post');
+			if ( $found && is_a($found, 'WP_Query') ) {
+				return $found;
+			}
+
+			$result = TribeEventsQuery::getEvents( $args, TRUE );
+			$cache->set($cache_key, $result, self::$cache_expiration, 'save_post');
+			return $result;
 		}
 	}
 	Tribe_Events_Calendar_Template::init();
