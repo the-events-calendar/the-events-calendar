@@ -247,28 +247,54 @@ tribe_ev.fn = {
 				var $this = jQuery( this );	
 				var $tip = $this.find( '.tribe-events-tooltip' );
 				var $parent = $this.parent();
-				var cwidth = $this.width();
+				var $container = $parent.parent();
+				var pwidth = Math.ceil($container.width());
+				var cwidth = Math.ceil($this.width());
+				var twidth = Math.ceil($tip.outerWidth());
 				var theight = $tip.height();
 				var scroll = jQuery('.tribe-week-grid-wrapper').scrollTop();
-				var poffset = $this.position();
+				var coffset = $parent.position();	
+				var poffset = $this.position();				
 				var ptop = Math.ceil(poffset.top);
 				var toffset = scroll - ptop;
-				bottomPad = $this.outerHeight() + 12;
+				var wcheck = '';
+				bottomPad = $this.outerHeight() + 12;			
 				
 				if (toffset > 0) {
 					toffset = toffset + 5;
 				} else {
 					toffset = 5;
-				}
+				}				
 				
-				console.log('toffset: ' + toffset);
 				if( $this.parents('.tribe-grid-allday').length ) {
 					$tip.css( 'bottom', bottomPad ).show();					
 				} else {
-					if( $parent.hasClass('tribe-events-right') ){					
-						$tip.addClass('.tribe-tooltip-right').css( {'right':cwidth + 20, 'bottom':'auto', 'top':toffset} ).show();
+					if( $parent.hasClass('tribe-events-right') ){	
+						if( !$tip.hasClass('hovered') ) {
+							$tip.attr('data-ow', twidth).addClass('hovered');							
+						}
+						wcheck = Math.ceil(coffset.left) - 20;
+						if( twidth >= wcheck ) 
+							twidth = wcheck;
+						else if( $tip.attr('data-ow') > wcheck )
+							twidth = wcheck;
+						else
+							twidth = $tip.attr('data-ow');
+						
+						$tip.addClass('.tribe-tooltip-right').css( {'right':cwidth + 20, 'bottom':'auto', 'top':toffset, 'width': twidth + 'px'} ).show();
 					} else {
-						$tip.addClass('.tribe-tooltip-left').css( {'left':cwidth + 20, 'bottom':'auto', 'top':toffset} ).show();
+						if( !$tip.hasClass('hovered') ) {
+							$tip.attr('data-ow', twidth).addClass('hovered');							
+						}
+						wcheck = pwidth - cwidth - Math.ceil(coffset.left);
+						if( twidth >= wcheck ) 
+							twidth = wcheck;
+						else if( $tip.attr('data-ow') > wcheck )
+							twidth = wcheck;
+						else
+							twidth = $tip.attr('data-ow');
+						
+						$tip.addClass('.tribe-tooltip-left').css( {'left':cwidth + 20, 'bottom':'auto', 'top':toffset, 'width': twidth + 'px'} ).show();
 					}
 				}
 								
