@@ -44,8 +44,15 @@ tribe_ev.fn = {
 			});			
 		}
 	},
-	enable_inputs: function( parent, type ) {
-		jQuery( parent ).find( type ).prop('disabled', false);
+	disable_empty: function( parent, type ) {
+		jQuery( parent ).find( type ).each(function(){ 
+			if ( jQuery(this).val() === '' ){ 
+				jQuery(this).prop('disabled', true); 
+			} 
+		});			
+	},
+	enable_inputs: function( parent, type ) {		
+		jQuery( parent ).find( type ).prop('disabled', false);		
 		if( jQuery( parent ).find('.select2-container').length ) {			
 			jQuery( parent ).find('.select2-container').each( function() {
 				var s2_id = jQuery(this).attr('id');
