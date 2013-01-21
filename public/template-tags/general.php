@@ -40,6 +40,22 @@ if( class_exists( 'TribeEvents' ) ) {
 		$tribe_ecp = TribeEvents::instance();
 		return $tribe_ecp->setOption($optionName, $value);
 	}
+	
+	/**
+	 * Get Network Options
+	 *
+	 * Retrieve specific key from options array, optionally provide a default return value
+	 *
+	 * @param string $optionName Name of the option to retrieve.
+	 * @param string $default Value to return if no such option is found.
+	 * @return mixed Value of the option if found.
+	 * @todo Abstract this function out of template tags or otherwise secure it from other namespace conflicts.
+	 * @since 2.0
+	 */
+	function tribe_get_network_option($optionName, $default = '')  {
+		$tribe_ecp = TribeEvents::instance();
+		return $tribe_ecp->getNetworkOption($optionName, $default);
+	}
 
 	/**
 	 * Event Type Test

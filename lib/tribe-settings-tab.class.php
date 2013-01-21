@@ -56,11 +56,12 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 				'priority' => 50,
 				'show_save' => true,
 				'display_callback' => false,
+				'network_admin' => false,
 			);
 
 			// parse args with defaults and extract them
-			$args = wp_parse_args( $args, $this->defaults );
-			extract( $args );
+			$this->args = wp_parse_args( $args, $this->defaults );
+			extract( $this->args );
 
 			// set each instance variable and filter
 			$this->id = apply_filters( 'tribe_settings_tab_id', $id );
@@ -71,6 +72,9 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 
 
 			// run actions & filters
+			if ( !$network_admin ) {
+				add_filter( 'tribe_settings_all_tabs', array( $this, 'addAllTabs' ) );
+			}
 			add_filter( 'tribe_settings_tabs', array( $this, 'addTab' ), $priority );
 
 		}
@@ -86,14 +90,31 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 		 * @return array $tabs the filtered tabs
 		 */
 		public function addTab( $tabs ) {
-			if ( isset( $this->fields ) || has_action( 'tribe_settings_content_tab_' . $this->id ) ) {
-				$tabs[$this->id] = $this->name;
-				add_filter( 'tribe_settings_fields', array( $this, 'addFields' ) );
-				add_filter( 'tribe_settings_no_save_tabs', array( $this, 'showSaveTab' ) );
-				add_filter( 'tribe_settings_content_tab_'.$this->id, array( $this, 'doContent' ) );
+			$hideSettingsTabs = TribeEvents::getNetworkOption( 'hideSettingsTabs', array( ) );
+			if ( ( isset( $this->fields ) || has_action( 'tribe_settings_content_tab_' . $this->id ) ) && ( empty( $hideSettingsTabs ) || !in_array( $this->id, $hideSettingsTabs ) ) ) {
+				if ( ( is_network_admin() && $this->args['network_admin'] ) || ( !is_network_admin() && !$this->args['network_admin'] ) ) {
+					$tabs[$this->id] = $this->name;
+					add_filter( 'tribe_settings_fields', array( $this, 'addFields' ) );
+					add_filter( 'tribe_settings_no_save_tabs', array( $this, 'showSaveTab' ) );
+					add_filter( 'tribe_settings_content_tab_'.$this->id, array( $this, 'doContent' ) );
+				}
 			}
 			return $tabs;
 		}
+		
+		/**
+		 * Adds this tab to the list of total tabs, even if it is not displayed.
+		 *
+		 * @since 2.1
+		 * @author PaulHughes01
+		 * @param array $allTabs All the tabs from TribeSettings.
+		 * @return array $allTabs All the tabs.
+		 */
+		public function addAllTabs( $allTabs ) {
+			$allTabs[$this->id] = $this->name;
+			return $allTabs;
+		}
+		 
 
 		/**
 		 * filters the fields array from TribeSettings
@@ -148,23 +169,34 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 						// if we just saved [or attempted to], get the value that was inputed
 						$value = $sent_data[$key];
 					} else {
+						if ( is_network_admin() )
+							$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : TribeEvents::OPTIONNAMENETWORK;
+						if ( !is_network_admin() )
+							$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : TribeEvents::OPTIONNAME;
 						// get the field's parent_option in order to later get the field's value
-						$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : TribeEvents::OPTIONNAME;
 						$parent_option = apply_filters( 'tribe_settings_do_content_parent_option', $parent_option, $key );
 						$default = ( isset( $field['default'] ) ) ? $field['default'] : null;
 						$default = apply_filters( 'tribe_settings_field_default', $default, $field );
 
 						if ( !$parent_option ) {
 							// no parent option, get the straight up value
-							$value = get_option( $key, $default );
+							if ( is_network_admin() )
+								$value = get_site_option( $key, $default );
+							else
+								$value = get_option( $key, $default );
 						} else {
 							// there's a parent option
 							if ( $parent_option == TribeEvents::OPTIONNAME ) {
 								// get the options from TribeEvents if we're getting the main array
 								$value = TribeEvents::getOption( $key, $default );
+							} elseif ( $parent_option == TribeEvents::OPTIONNAMENETWORK ) {
+								$value = TribeEvents::getNetworkOption( $key, $default );
 							} else {
 								// else, get the parent option normally
-								$options = (array) get_option( $parent_option );
+								if ( is_network_admin() )
+									$options = (array) get_site_option( $parent_option );
+								else
+									$options = (array) get_option( $parent_option );
 								$value = ( isset( $options[$key] ) ) ? $options[$key] : $default;
 							}
 						}
