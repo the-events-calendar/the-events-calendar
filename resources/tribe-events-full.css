@@ -520,6 +520,7 @@ select.tribe-events-dropdown {
 
 .tribe-events-event-meta address.event-address {
 	display: inline;
+	font-style: normal;
 }
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring {
 	position: relative;
