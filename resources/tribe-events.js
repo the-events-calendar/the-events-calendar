@@ -256,40 +256,40 @@ tribe_ev.fn = {
 		
 		jQuery( 'body' ).on( 'mouseenter', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring',function () {
 			
-			var bottomPad = '';
-			if ( jQuery( 'body' ).hasClass( 'tribe-events-week' ) ) {				
-				
-				var $this = jQuery( this );	
-				var $wrapper = jQuery('.tribe-week-grid-wrapper');
-				var $tip = $this.find( '.tribe-events-tooltip' );
-				var $parent = $this.parent();
-				var $container = $parent.parent();
-				
-				var pwidth = Math.ceil($container.width());
-				var cwidth = Math.ceil($this.width());
-				var twidth = Math.ceil($tip.outerWidth());				
-				var gheight = $wrapper.height();
-				
-				var scroll = $wrapper.scrollTop();
-				var coffset = $parent.position();	
-				var poffset = $this.position();				
-				var ptop = Math.ceil(poffset.top);
-				var toffset = scroll - ptop;
-				
-				var wcheck;
-				var theight;
-				var available;
-				var cssmap = {};
-				
-				bottomPad = $this.outerHeight() + 12;								
-				
-				if( $this.parents('.tribe-grid-allday').length ) {
-					$tip.css( 'bottom', bottomPad ).show();					
-				} else {						
+			var bottomPad = 0;
+			var $this = jQuery( this );
+			
+			if ( jQuery( 'body' ).hasClass( 'tribe-events-week' ) ) {			
+
+				if( !$this.parents('.tribe-grid-allday').length ) {				
+					
+					var $wrapper = jQuery('.tribe-week-grid-wrapper');
+					var $tip = $this.find( '.tribe-events-tooltip' );
+					var $parent = $this.parent();
+					var $container = $parent.parent();
+
+					var pwidth = Math.ceil($container.width());
+					var cwidth = Math.ceil($this.width());
+					var twidth = Math.ceil($tip.outerWidth());				
+					var gheight = $wrapper.height();
+
+					var scroll = $wrapper.scrollTop();
+					var coffset = $parent.position();	
+					var poffset = $this.position();				
+					var ptop = Math.ceil(poffset.top);
+					var toffset = scroll - ptop;
+					
+					var isright = $parent.hasClass('tribe-events-right');
+					var wcheck;
+					var theight;
+					var available;
+					var cssmap = {};
+
 					if( !$tip.hasClass('hovered') ) {
 						$tip.attr('data-ow', twidth).addClass('hovered');							
 					}
-					if( $parent.hasClass('tribe-events-right') )
+
+					if( isright )
 						wcheck = Math.ceil(coffset.left) - 20;
 					else 
 						wcheck = pwidth - cwidth - Math.ceil(coffset.left);											
@@ -300,17 +300,17 @@ tribe_ev.fn = {
 						twidth = wcheck;
 					else
 						twidth = $tip.attr('data-ow');
-					
-					if( $parent.hasClass('tribe-events-right') )
+
+					if( isright )
 						cssmap = { "right":cwidth + 20, "bottom":"auto", "width": twidth + "px"};
 					else 
 						cssmap = { "left" :cwidth + 20, "bottom":"auto", "width": twidth + "px"};
-					
+
 					$tip.css( cssmap );
 
 					theight = $tip.height();
 
-					if (toffset >= 0) {
+					if ( toffset >= 0 ) {
 						toffset = toffset + 5;
 					} else {
 						available = toffset + gheight;
@@ -320,21 +320,23 @@ tribe_ev.fn = {
 							toffset = 5;
 					}	
 
-					$tip.css("top", toffset).show();					 
+					$tip.css( "top", toffset ).show();	
+				
 				}
+				
 								
 			} else if ( jQuery( 'body' ).hasClass( 'events-gridview' ) ) { // Cal View Tooltips
-				bottomPad = jQuery( this ).find( 'a' ).outerHeight() + 18;
+				bottomPad = $this.find( 'a' ).outerHeight() + 18;
 			} else if ( jQuery( 'body' ).is( '.single-tribe_events, .events-list' ) ) { // Single/List View Recurring Tooltips
-				bottomPad = jQuery( this ).outerHeight() + 12;
+				bottomPad = $this.outerHeight() + 12;
 			}	
 			
 			// Widget Tooltips
-			if ( jQuery( this ).parents( '.tribe-events-calendar-widget' ).length ) {
-				bottomPad = jQuery( this ).outerHeight() - 6;
+			if ( $this.parents( '.tribe-events-calendar-widget' ).length ) {
+				bottomPad = $this.outerHeight() - 6;
 			}
 			if ( !jQuery( 'body' ).hasClass( 'tribe-events-week' ) ) {
-				jQuery( this ).find( '.tribe-events-tooltip' ).css( 'bottom', bottomPad ).show();
+				$this.find( '.tribe-events-tooltip' ).css( 'bottom', bottomPad ).show();
 			}
 			
 		} ).on( 'mouseleave', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', function () {
