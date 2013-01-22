@@ -130,6 +130,13 @@ tribe_ev.fn = {
 			}
 		}
 	},
+	serialize: function( form, type ) {
+		tribe_ev.fn.enable_inputs( form, type );
+		tribe_ev.fn.disable_empty( form, type );
+		var params = jQuery( form ).serialize();
+		tribe_ev.fn.disable_inputs( form, type );	
+		return params;
+	},
 	set_form: function( params ){
 		jQuery('body').addClass('tribe-reset-on');
 		

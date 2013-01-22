@@ -91,7 +91,7 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_events_bar_action = 'change_view';
 		
 		var cv_url_params = {};		
-		var $set_inputs = $( 'form#tribe-bar-form input[value!=""]' );		
+		var $set_inputs = $( '#tribe-bar-form input' );		
 		
 		if( $( '#tribe-bar-geoloc' ).length ) {			
 			tribe_map_val = jQuery( '#tribe-bar-geoloc' ).val();		
@@ -120,19 +120,21 @@ jQuery( document ).ready( function ( $ ) {
 		
 		if ( $( '#tribe_events_filters_form' ).length ) {
 			
-			cv_filter_params = $('form#tribe_events_filters_form input[value!=""]').serialize();	
+			cv_filter_params = tribe_ev.fn.serialize( '#tribe_events_filters_form', 'input, select' );			
 			
-			if( cv_filter_params.length ) {				
-				cv_url_params = cv_url_params + '&' + cv_filter_params;
-			}	
-			if( cv_url_params.length ) {
-				url = url + '?' + cv_url_params;
-			}			
+			if( cv_url_params.length && cv_filter_params.length ) 				
+				cv_url_params = cv_url_params + '&' + cv_filter_params;	
+			else if( cv_filter_params.length )
+				cv_url_params = cv_filter_params;	
+			
+			if( cv_url_params.length ) 
+				url = url + '?' + cv_url_params;	
+			
 			window.location.href = url;
 		} else {
-			if( cv_url_params.length ) {
-				url = url + '?' + cv_url_params;
-			}					
+			if( cv_url_params.length ) 
+				url = url + '?' + cv_url_params;	
+			
 			window.location.href = url;
 		}
 	}
