@@ -7,12 +7,14 @@
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 ?>
+<?php if ( empty($hide_organizer_title) ): ?>
 <tr class="organizer">
 	<td><?php _e('Organizer Name:','tribe-events-calendar'); ?></td>
 	<td>
 		<input tabindex="<?php $this->tabIndex(); ?>" type='text' name='organizer[Organizer]' size='25'  value='<?php echo isset($_OrganizerOrganizer) ? esc_attr($_OrganizerOrganizer) : ""; ?>' />
 	</td>
 </tr>
+<?php endif; ?>
 <tr class="organizer">
 	<td><?php _e('Phone:','tribe-events-calendar'); ?></td>
 	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='OrganizerPhone' name='organizer[Phone]' size='25' value='<?php echo isset($_OrganizerPhone) ? esc_attr($_OrganizerPhone) : ""; ?>' /></td>
