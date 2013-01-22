@@ -206,7 +206,7 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_ev.state.params['hash'] = tribe_hash_string;
 			}
 			
-			$( 'form#tribe-bar-form input[value!=""]' ).each( function () {
+			$( 'form#tribe-bar-form input' ).each( function () {
 				var $this = $( this );
 				if( $this.val().length && !$this.hasClass('tribe-no-param') ) {
 					if( $this.is(':checkbox') ) {

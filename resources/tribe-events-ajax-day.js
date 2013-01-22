@@ -146,7 +146,7 @@ jQuery( document ).ready( function ( $ ) {
 				action     :'tribe_event_day'					
 			};
 
-			$( 'form#tribe-bar-form input[value!=""]' ).each( function () {
+			$( 'form#tribe-bar-form input' ).each( function () {
 				var $this = $( this );
 				if( $this.val().length && !$this.hasClass('tribe-no-param') ) {
 					if( $this.is(':checkbox') ) {
