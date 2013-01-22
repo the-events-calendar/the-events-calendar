@@ -44,7 +44,7 @@ jQuery(document).ready(function($){
 	tribe_go_to_8();
 	
 	function tribe_set_allday_placeholder_height() {
-		height = $('.tribe-grid-allday .hentry').first().height( );
+		height = $('.tribe-grid-allday .hentry').first().height();
 		$('.tribe-event-placeholder').height( height );
 		
 	}
