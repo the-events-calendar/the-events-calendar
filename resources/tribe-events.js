@@ -250,28 +250,30 @@ tribe_ev.fn = {
 		jQuery( 'body' ).on( 'mouseenter', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring',function () {
 			
 			var bottomPad = '';
-			if ( jQuery( 'body' ).hasClass( 'tribe-events-week' ) ) {
+			if ( jQuery( 'body' ).hasClass( 'tribe-events-week' ) ) {				
+				
 				var $this = jQuery( this );	
+				var $wrapper = jQuery('.tribe-week-grid-wrapper');
 				var $tip = $this.find( '.tribe-events-tooltip' );
 				var $parent = $this.parent();
 				var $container = $parent.parent();
+				
 				var pwidth = Math.ceil($container.width());
 				var cwidth = Math.ceil($this.width());
-				var twidth = Math.ceil($tip.outerWidth());
-				var theight = $tip.height();
-				var scroll = jQuery('.tribe-week-grid-wrapper').scrollTop();
+				var twidth = Math.ceil($tip.outerWidth());				
+				var gheight = $wrapper.height();
+				
+				var scroll = $wrapper.scrollTop();
 				var coffset = $parent.position();	
 				var poffset = $this.position();				
 				var ptop = Math.ceil(poffset.top);
 				var toffset = scroll - ptop;
-				var wcheck = '';
-				bottomPad = $this.outerHeight() + 12;			
 				
-				if (toffset > 0) {
-					toffset = toffset + 5;
-				} else {
-					toffset = 5;
-				}				
+				var wcheck;
+				var theight;
+				var available;
+				
+				bottomPad = $this.outerHeight() + 12;								
 				
 				if( $this.parents('.tribe-grid-allday').length ) {
 					$tip.css( 'bottom', bottomPad ).show();					
@@ -288,7 +290,21 @@ tribe_ev.fn = {
 						else
 							twidth = $tip.attr('data-ow');
 						
-						$tip.addClass('.tribe-tooltip-right').css( {'right':cwidth + 20, 'bottom':'auto', 'top':toffset, 'width': twidth + 'px'} ).show();
+						$tip.addClass('.tribe-tooltip-right').css( {'right':cwidth + 20, 'bottom':'auto', 'width': twidth + 'px'} );
+						
+						theight = $tip.height();
+						
+						if (toffset >= 0) {
+							toffset = toffset + 5;
+						} else {
+							available = toffset + gheight;
+							if( theight > available )
+								toffset = available - theight - 8;
+							else 
+								toffset = 5;
+						}	
+						
+						$tip.css("top", toffset).show();
 					} else {
 						if( !$tip.hasClass('hovered') ) {
 							$tip.attr('data-ow', twidth).addClass('hovered');							
@@ -301,7 +317,21 @@ tribe_ev.fn = {
 						else
 							twidth = $tip.attr('data-ow');
 						
-						$tip.addClass('.tribe-tooltip-left').css( {'left':cwidth + 20, 'bottom':'auto', 'top':toffset, 'width': twidth + 'px'} ).show();
+						$tip.addClass('.tribe-tooltip-left').css( {'left':cwidth + 20, 'bottom':'auto', 'width': twidth + 'px'} ).show().hide();
+						
+						theight = $tip.height();
+						
+						if (toffset >= 0) {
+							toffset = toffset + 5;
+						} else {
+							available = toffset + gheight;
+							if( theight > available )
+								toffset = available - theight - 8;
+							else 
+								toffset = 5;
+						}	
+						
+						$tip.css("top", toffset).show();
 					}
 				}
 								
