@@ -279,67 +279,48 @@ tribe_ev.fn = {
 				var wcheck;
 				var theight;
 				var available;
+				var cssmap = {};
 				
 				bottomPad = $this.outerHeight() + 12;								
 				
 				if( $this.parents('.tribe-grid-allday').length ) {
 					$tip.css( 'bottom', bottomPad ).show();					
-				} else {
-					if( $parent.hasClass('tribe-events-right') ){	
-						if( !$tip.hasClass('hovered') ) {
-							$tip.attr('data-ow', twidth).addClass('hovered');							
-						}
-						wcheck = Math.ceil(coffset.left) - 20;
-						if( twidth >= wcheck ) 
-							twidth = wcheck;
-						else if( $tip.attr('data-ow') > wcheck )
-							twidth = wcheck;
-						else
-							twidth = $tip.attr('data-ow');
-						
-						$tip.addClass('.tribe-tooltip-right').css( {'right':cwidth + 20, 'bottom':'auto', 'width': twidth + 'px'} );
-						
-						theight = $tip.height();
-						
-						if (toffset >= 0) {
-							toffset = toffset + 5;
-						} else {
-							available = toffset + gheight;
-							if( theight > available )
-								toffset = available - theight - 8;
-							else 
-								toffset = 5;
-						}	
-						
-						$tip.css("top", toffset).show();
-					} else {
-						if( !$tip.hasClass('hovered') ) {
-							$tip.attr('data-ow', twidth).addClass('hovered');							
-						}
-						wcheck = pwidth - cwidth - Math.ceil(coffset.left);
-						if( twidth >= wcheck ) 
-							twidth = wcheck;
-						else if( $tip.attr('data-ow') > wcheck )
-							twidth = wcheck;
-						else
-							twidth = $tip.attr('data-ow');
-						
-						$tip.addClass('.tribe-tooltip-left').css( {'left':cwidth + 20, 'bottom':'auto', 'width': twidth + 'px'} ).show().hide();
-						
-						theight = $tip.height();
-						
-						if (toffset >= 0) {
-							toffset = toffset + 5;
-						} else {
-							available = toffset + gheight;
-							if( theight > available )
-								toffset = available - theight - 8;
-							else 
-								toffset = 5;
-						}	
-						
-						$tip.css("top", toffset).show();
+				} else {						
+					if( !$tip.hasClass('hovered') ) {
+						$tip.attr('data-ow', twidth).addClass('hovered');							
 					}
+					if( $parent.hasClass('tribe-events-right') )
+						wcheck = Math.ceil(coffset.left) - 20;
+					else 
+						wcheck = pwidth - cwidth - Math.ceil(coffset.left);											
+
+					if( twidth >= wcheck ) 
+						twidth = wcheck;
+					else if( $tip.attr('data-ow') > wcheck )
+						twidth = wcheck;
+					else
+						twidth = $tip.attr('data-ow');
+					
+					if( $parent.hasClass('tribe-events-right') )
+						cssmap = { "right":cwidth + 20, "bottom":"auto", "width": twidth + "px"};
+					else 
+						cssmap = { "left" :cwidth + 20, "bottom":"auto", "width": twidth + "px"};
+					
+					$tip.css( cssmap );
+
+					theight = $tip.height();
+
+					if (toffset >= 0) {
+						toffset = toffset + 5;
+					} else {
+						available = toffset + gheight;
+						if( theight > available )
+							toffset = available - theight - 8;
+						else 
+							toffset = 5;
+					}	
+
+					$tip.css("top", toffset).show();					 
 				}
 								
 			} else if ( jQuery( 'body' ).hasClass( 'events-gridview' ) ) { // Cal View Tooltips
