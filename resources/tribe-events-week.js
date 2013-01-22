@@ -351,14 +351,13 @@ jQuery(document).ready(function($){
 			tribe_ev.state.url_params = $.param(tribe_ev.state.url_params);
 
 			if( $('#tribe_events_filters_form').length ) {
-
-				tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
-				tribe_ev.fn.disable_empty( '#tribe_events_filters_form', 'select');
-				var tribe_filter_params = $('form#tribe_events_filters_form input[value!=""], form#tribe_events_filters_form select').serialize();
-				tribe_ev.fn.disable_inputs( '#tribe_events_filters_form', 'input, select' );				
-				if( tribe_filter_params.length ) {
+				var tribe_filter_params = tribe_ev.fn.serialize( '#tribe_events_filters_form', 'input, select' );		
+				if( tribe_filter_params.length ) {					
 					tribe_ev.state.params = tribe_ev.state.params + '&' + tribe_filter_params;
-					tribe_ev.state.url_params = tribe_ev.state.url_params + '&' + tribe_filter_params;
+					if( tribe_ev.state.url_params.length )
+						tribe_ev.state.url_params = tribe_ev.state.url_params + '&' + tribe_filter_params;
+					else
+						tribe_ev.state.url_params = tribe_filter_params;
 				}
 			}
 

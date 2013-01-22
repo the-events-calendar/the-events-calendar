@@ -161,10 +161,7 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_ev.state.params = {
 			action:'geosearch',				
 			tribe_paged :tribe_ev.state.paged
-		};
-
-
-		// add any set values from event bar to params. want to use serialize but due to ie bug we are stuck with second	
+		};	
 
 		$( 'form#tribe-bar-form input' ).each( function () {
 			var $this = $( this );
@@ -181,19 +178,11 @@ jQuery( document ).ready( function ( $ ) {
 
 		tribe_ev.state.params = $.param(tribe_ev.state.params);
 
-		// check if advanced filters plugin is active
-
 		if( $('#tribe_events_filters_form').length ) {
-
-			// serialize any set values and add to params
-
-			tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
-			tribe_ev.fn.disable_empty( '#tribe_events_filters_form', 'select');
-			var tribe_filter_params = $('form#tribe_events_filters_form input[value!=""], form#tribe_events_filters_form select').serialize();
-			tribe_ev.fn.disable_inputs( '#tribe_events_filters_form', 'input, select' );				
-			if( tribe_filter_params.length ) {
-				tribe_ev.state.params = tribe_ev.state.params + '&' + tribe_filter_params;
-			}
+			
+			var tribe_filter_params = tribe_ev.fn.serialize( '#tribe_events_filters_form', 'input, select' );		
+			if( tribe_filter_params.length )
+				tribe_ev.state.params = tribe_ev.state.params + '&' + tribe_filter_params;			
 		}
 	}
 	
