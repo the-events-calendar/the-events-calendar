@@ -57,7 +57,7 @@ $displayTab = array(
 		),
         'tribeEventsTemplate' => array(
 			'type' => 'dropdown_chosen',
-		 	'label' => __( 'Events Template', 'tribe-events-calendar' ),
+		 	'label' => __( 'Events template', 'tribe-events-calendar' ),
 			'tooltip' => __( 'Choose a page template to control the look and feel of your various events templates.', 'tribe-events-calendar' ),
 			'validation_type' => 'options',
 			'size' => 'large',
@@ -66,7 +66,7 @@ $displayTab = array(
 		),
 		'tribeEnableViews' => array(
             'type' => 'checkbox_list',
-            'label' => __( 'Event Layouts', 'tribe-events-calendar' ),
+            'label' => __( 'Event layouts', 'tribe-events-calendar' ),
             'default' => array_keys($views_options),
             'options' => $views_options,
             'validation_type' => 'options_multi',
@@ -74,7 +74,7 @@ $displayTab = array(
         ),
         'viewOption' => array(
 			'type' => 'dropdown_chosen',
-		 	'label' => __( 'Default Layout', 'tribe-events-calendar' ),
+		 	'label' => __( 'Default layout', 'tribe-events-calendar' ),
 			'validation_type' => 'options',
 			'size' => 'large',
 			'default' => 'month',

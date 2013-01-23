@@ -28,11 +28,11 @@ $generalTab = array(
 		),
 		'view-calendar-link' => array(
 			'type' => 'html',
-			'html' => '<p>' . __('Where\'s my calendar?', 'tribe-events-calendar') . '<br /><a href="' . TribeEvents::getLink() . '">' . __( 'Right here', 'tribe-events-calendar' ) . '</a>.</p>',
+			'html' => '<p>' . __('Where\'s my calendar?', 'tribe-events-calendar') . ' <a href="' . TribeEvents::getLink() . '">' . __( 'Right here', 'tribe-events-calendar' ) . '</a>.</p>',
 		),
 		'upsell-info' => array(
 			'type' => 'html',
-			'html' => '<p>' . __( 'Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ) . '<br><a href="' . self::$tribeUrl . 'shop/?utm_source=generaltab&utm_medium=promolink&utm_campaign=plugin'.'">' . __( 'Check out the available Add-Ons', 'tribe-events-calendar' ) . '</a>.</p>',
+			'html' => '<p>' . __( 'Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ) . ' <a href="' . self::$tribeUrl . 'shop/?utm_source=generaltab&utm_medium=promolink&utm_campaign=plugin'.'">' . __( 'Check out the available add-ons', 'tribe-events-calendar' ) . '</a>.</p>',
 			'conditional' => ( !defined( 'TRIBE_HIDE_UPSELL' ) || !TRIBE_HIDE_UPSELL ),
 		),
 		'donate-link-heading' => array(
@@ -51,7 +51,7 @@ $generalTab = array(
 		),
 		'donate-link' => array(
 			'type' => 'checkbox_bool',
-			'label' => __( 'Show The Events Calendar Link', 'tribe-events-calendar' ),
+			'label' => __( 'Show The Events Calendar link', 'tribe-events-calendar' ),
 			'default' => false,
 			'validation_type' => 'boolean',
 		),
@@ -73,22 +73,22 @@ $generalTab = array(
 		),
 		'postsPerPage' => array(
 			'type' => 'text',
-			'label' => __( 'Number of events to show per page.', 'tribe-events-calendar' ),
+			'label' => __( 'Number of events to show per page', 'tribe-events-calendar' ),
 			'size' => 'small',
 			'default' => get_option( 'posts_per_page' ),
 			'validation_type' => 'positive_int',
 		 ),
 		'showComments' => array(
 			'type' => 'checkbox_bool',
-			'label' => __( 'Show Comments', 'tribe-events-calendar' ),
+			'label' => __( 'Show comments', 'tribe-events-calendar' ),
 			'tooltip' => __( 'Enable commenting on an event.', 'tribe-events-calendar' ),
 			'default' => false,
 			'validation_type' => 'boolean',
 		),
 		'showEventsInMainLoop' => array(
 			'type' => 'checkbox_bool',
-			'label' => __( 'Show Events In Main Loop?', 'tribe-events-calendar' ),
-			'tooltip' => __( 'Shows events in the main loop with other posts.' ),
+			'label' => __( 'Show events in main loop?', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Shows events in the main loop with other posts. When this box is checked, events will also continue to appear on the default events page.' ),
 			'default' => false,
 			'validation_type' => 'boolean',
 		),
@@ -129,7 +129,7 @@ $generalTab = array(
 		),
 		'multiDayCutoff' => array(
 			'type' => 'dropdown',
-		 	'label' => __( 'Multiday Event Cutoff', 'tribe-events-calendar' ),
+		 	'label' => __( 'Multiday event cutoff', 'tribe-events-calendar' ),
 			'validation_type' => 'options',
 			'size' => 'small',
 			'default' => '12:00',
@@ -146,11 +146,12 @@ $generalTab = array(
 		),
 		'tribeEventsDisplayHelperText' => array(
 			'type' => 'html',
-			'html' => '<p class="description">' . __( 'These include settings that will control the front-end styles and various functionality in your events templates.', 'tribe-events-calendar-pro' ) . '</p>',
+			'html' => '<p class="description">' . __( 'These include settings that will control various aspects of the Google maps on the front-end.
+			', 'tribe-events-calendar-pro' ) . '</p>',
 		),
 		'embedGoogleMaps' => array(
 			'type' => 'checkbox_bool',
-			'label' => __( 'Enable Google Maps', 'tribe-events-calendar' ),
+			'label' => __( 'Enable Google maps', 'tribe-events-calendar' ),
 			'tooltip' => __( 'Check to enable maps for events and venues in the front-end.', 'tribe-events-calendar' ),
 			'default' => true,
 			'class' => 'google-embed-size',
@@ -166,22 +167,22 @@ $generalTab = array(
 		),
 		'liveFiltersUpdate' => array(
 			'type' => 'checkbox_bool',
-			'label' => __( 'Live Update Ajax', 'tribe-events-calendar' ),
+			'label' => __( 'Live update AJAX', 'tribe-events-calendar' ),
 			'tooltip' => __( 'Enable live updating for AJAX requests on the front-end.' , 'tribe-events-calendar' ),
 			'default' => false,
 			'validation_type' => 'boolean',
 		),
 		'defaultCurrencySymbol' => array(
 			'type' => 'text',
-			'label' => __( 'Default Currency Symbol', 'tribe-events-calendar' ),
-			'tooltip' => __( 'Set the default currency symbol for event costs. Note: This only affects future events.', 'tribe-events-calendar' ),
+			'label' => __( 'Default currency symbol', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively.', 'tribe-events-calendar' ),
 			'validation_type' => 'textarea',
 			'size' => 'small',
 			'default' => '$',
 		),
 		'sendPressTrendsData' => array(
 			'type' => 'checkbox_bool',
-			'label' => __( 'Send PressTrends Data', 'tribe-events-calendar' ),
+			'label' => __( 'Send PressTrends data', 'tribe-events-calendar' ),
 			'default' => false,
 			'validation_type' => 'boolean',
 		),
@@ -192,7 +193,7 @@ $generalTab = array(
 		),
 		'debugEvents' => array(
 			'type' => 'checkbox_bool',
-			'label' => __( 'Debug Mode', 'tribe-events-calendar' ),
+			'label' => __( 'Debug mode', 'tribe-events-calendar' ),
 			'default' => false,
 			'validation_type' => 'boolean',
 		),
