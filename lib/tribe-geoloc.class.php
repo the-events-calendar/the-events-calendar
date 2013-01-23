@@ -115,7 +115,7 @@ class TribeEventsGeoLoc {
 					'type'            => 'text',
 					'label'           => __( 'Map view search distance ratio (GeoFence)', 'tribe-events-calendar-pro' ),
 					'size'            => 'small',
-					'tooltip'         => __( 'Enter a number in the unit selected above.', 'tribe-events-calendar-pro' ),
+					'tooltip'         => __( 'Enter a number to limit how far a geographic area the geosearch covers.', 'tribe-events-calendar-pro' ),
 					'default'         => '25',
 					'class'           => '',
 					'validation_type' => 'number_or_percent' ),
