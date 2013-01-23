@@ -74,7 +74,7 @@ $defaultsTab = array(
 		),
 		'eventsDefaultOrganizerID' => array(
 			'type' => 'dropdown_chosen',
-			'label' => __('Default Organizer','tribe-events-calendar-pro'),
+			'label' => __('Default organizer','tribe-events-calendar-pro'),
 			'default' => false,
 			'validation_type' => 'options',
 			'options' => $organizer_options,
@@ -95,7 +95,7 @@ $defaultsTab = array(
 		),
 		'eventsDefaultVenueID' => array(
 			'type' => 'dropdown_chosen',
-			'label' => __('Default Venue','tribe-events-calendar-pro'),
+			'label' => __('Default venue','tribe-events-calendar-pro'),
 			'default' => false,
 			'validation_type' => 'options',
 			'options' => $venue_options,
@@ -116,7 +116,7 @@ $defaultsTab = array(
 		),
 		'eventsDefaultAddress' => array(
 			'type' => 'text',
-			'label' => __('Default Address','tribe-events-calendar-pro'),
+			'label' => __('Default address','tribe-events-calendar-pro'),
 			'default' => false,
 			'class' => 'venue-default-info',
 			'validation_type' => 'address',
@@ -129,7 +129,7 @@ $defaultsTab = array(
 		),
 		'eventsDefaultCity' => array(
 			'type' => 'text',
-			'label' => __('Default City','tribe-events-calendar-pro'),
+			'label' => __('Default city','tribe-events-calendar-pro'),
 			'default' => false,
 			'class' => 'venue-default-info',
 			'validation_type' => 'city_or_province',
@@ -142,7 +142,7 @@ $defaultsTab = array(
 		),
 		'eventsDefaultState' => array(
 			'type' => 'dropdown_chosen',
-			'label' => __('Default State','tribe-events-calendar-pro'),
+			'label' => __('Default state','tribe-events-calendar-pro'),
 			'default' => false,
 			'class' => 'venue-default-info',
 			'validation_type' => 'options',
@@ -155,7 +155,7 @@ $defaultsTab = array(
 		),
 		'eventsDefaultProvince' => array(
 			'type' => 'text',
-			'label' => __('Default Province','tribe-events-calendar-pro'),
+			'label' => __('Default province','tribe-events-calendar-pro'),
 			'default' => false,
 			'class' => 'venue-default-info',
 			'validation_type' => 'city_or_province',
@@ -168,7 +168,7 @@ $defaultsTab = array(
 		),
 		'eventsDefaultZip' => array(
 			'type' => 'text',
-			'label' => __('Default Postal Code/Zip Code','tribe-events-calendar-pro'),
+			'label' => __('Default postal code/zip code','tribe-events-calendar-pro'),
 			'default' => false,
 			'class' => 'venue-default-info',
 			'validation_type' => 'address', // allows for letters, numbers, dashses and spaces only
@@ -181,7 +181,7 @@ $defaultsTab = array(
 		),
 		'defaultCountry' => array(
 			'type' => 'dropdown_chosen',
-			'label' => __('Default Country','tribe-events-calendar-pro'),
+			'label' => __('Default country','tribe-events-calendar-pro'),
 			'default' => false,
 			'class' => 'venue-default-info',
 			'validation_type' => 'options_with_label',
@@ -194,7 +194,7 @@ $defaultsTab = array(
 		),
 		'eventsDefaultPhone' => array(
 			'type' => 'text',
-			'label' => __('Default Phone','tribe-events-calendar-pro'),
+			'label' => __('Default phone','tribe-events-calendar-pro'),
 			'default' => false,
 			'class' => 'venue-default-info',
 			'validation_type' => 'phone',

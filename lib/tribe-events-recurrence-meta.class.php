@@ -695,7 +695,7 @@ class TribeEventsRecurrenceMeta {
 			$args = TribeEvents::array_insert_after_key( 'liveFiltersUpdate', $args, array( 
 				'hideSubsequentRecurrencesDefault' => array(
 				'type' => 'checkbox_bool',
-				'label' => __( 'Hide Subsequent Occurences', 'tribe-events-calendar' ),
+				'label' => __( 'Hide subsequent occurences', 'tribe-events-calendar' ),
 				'tooltip' => __( 'Set the frontend setting for hiding subsequent occurrences of recurring events.', 'tribe-events-calendar' ),
 				'default' => false,
 				'validation_type' => 'boolean',

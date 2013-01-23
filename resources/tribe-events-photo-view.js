@@ -206,7 +206,7 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_ev.state.params['hash'] = tribe_hash_string;
 			}
 			
-			$( 'form#tribe-bar-form :input[value!=""]' ).each( function () {
+			$( 'form#tribe-bar-form input' ).each( function () {
 				var $this = $( this );
 				if( $this.val().length && !$this.hasClass('tribe-no-param') ) {
 					if( $this.is(':checkbox') ) {
@@ -225,14 +225,14 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_ev.state.url_params = $.param(tribe_ev.state.url_params);
 
 			if( $('#tribe_events_filters_form').length ) {
-
-				tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
-				var tribe_filter_params = $('form#tribe_events_filters_form :input[value!=""]').serialize();
-				tribe_ev.fn.disable_inputs( '#tribe_events_filters_form', 'input, select' );	
-				if( tribe_filter_params.length ) {
+				var tribe_filter_params = tribe_ev.fn.serialize( '#tribe_events_filters_form', 'input, select' );		
+				if( tribe_filter_params.length ) {					
 					tribe_ev.state.params = tribe_ev.state.params + '&' + tribe_filter_params;
-					tribe_ev.state.url_params = tribe_ev.state.url_params + '&' + tribe_filter_params;
-				}					
+					if( tribe_ev.state.url_params.length )
+						tribe_ev.state.url_params = tribe_ev.state.url_params + '&' + tribe_filter_params;
+					else
+						tribe_ev.state.url_params = tribe_filter_params;
+				}				
 			} 			
 
 			tribe_ev.state.pushstate = false;
