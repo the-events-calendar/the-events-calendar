@@ -80,21 +80,6 @@
 	margin: 0 0 20px 0;
 }
 
-/* Specify Font Family */
-#tribe-events-header, 
-#tribe-events-footer,
-#tribe-events-content .tribe-events-ical, 
-.events-single #tribe-events-content .tribe-events-ical, 
-a.tribe-events-gmap, 
-.tribe-events-event-meta, 
-.tribe-events-back, 
-.tribe-events-list-widget .tribe-events-widget-link, 
-.tribe-events-adv-list-widget .tribe-events-widget-link, 
-.tribe-events-gcal,
-.tribe-events-grid,
-.tribe-events-loop-day {
-	font-family: "Helvetica Neue", Arial, Helvetica, "Nimbus Sans L", sans-serif;
-}
 
 /* Links */
 #tribe-events-content a, 
