@@ -259,12 +259,13 @@ tribe_ev.fn = {
 			var bottomPad = 0;
 			var $this = jQuery( this );
 			
-			if ( jQuery( 'body' ).hasClass( 'tribe-events-week' ) ) {			
+			if ( jQuery( 'body' ).hasClass( 'tribe-events-week' ) ) {	
+				
+				var $tip = $this.find( '.tribe-events-tooltip' );
 
 				if( !$this.parents('.tribe-grid-allday').length ) {				
 					
-					var $wrapper = jQuery('.tribe-week-grid-wrapper');
-					var $tip = $this.find( '.tribe-events-tooltip' );
+					var $wrapper = jQuery('.tribe-week-grid-wrapper');					
 					var $parent = $this.parent();
 					var $container = $parent.parent();
 
@@ -322,6 +323,9 @@ tribe_ev.fn = {
 
 					$tip.css( "top", toffset ).show();	
 				
+				} else {
+					bottomPad = $this.outerHeight() + 6;
+					$tip.css( 'bottom', bottomPad ).show();	
 				}
 				
 								
