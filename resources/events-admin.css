@@ -145,6 +145,9 @@ td.tribe_message {padding-bottom: 10px !important;}
 /* additional fields */
 #additional-field-table {margin-bottom: 20px;}
 
+/* display tab */
+#tribe-field-viewOption p.description { color: red; font-style: italic; }
+
 /* help tab */
 #tribe-help-general, #tribe-help-sidebar {float: left;}
 #tribe-help-general {width: 70%;}

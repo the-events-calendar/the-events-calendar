@@ -57,7 +57,7 @@ if ( !class_exists('TribeField') ) {
 		 */
 		public function __construct($id, $field, $value = null) {
 
-			// seetup the defaults
+			// setup the defaults
 			$this->defaults = array(
 				'type' => 'html',
 				'name' => $id,

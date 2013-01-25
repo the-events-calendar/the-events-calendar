@@ -67,10 +67,10 @@ $displayTab = array(
 		'tribeEnableViews' => array(
             'type' => 'checkbox_list',
             'label' => __( 'Event layouts', 'tribe-events-calendar' ),
+            'tooltip' => __( 'You must select at least one view.', 'tribe-events-calendar' ),
             'default' => array_keys($views_options),
             'options' => $views_options,
-            'validation_type' => 'options_multi',
-            'can_be_empty' => true,
+            'validation_type' => 'options_multi'
         ),
         'viewOption' => array(
 			'type' => 'dropdown_chosen',

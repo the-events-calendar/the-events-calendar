@@ -897,7 +897,9 @@ select.tribe-events-dropdown {
 }
 #tribe-bar-form {
 	position: relative;
+	margin: 0;
 }
+form#tribe-bar-form > div { margin-bottom: 0 }
 
 /* Globals */
 /* Special Buttons & Selects */
