@@ -117,24 +117,29 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			$html .= '<ul class="tribe-events-sub-nav">';
 			return $html;
 		}
-		public static function footer_navigation( $html ){
-			$tribe_ecp = TribeEvents::instance();
+		public static function footer_navigation( $pass_through ){
 			global $wp_query;
-			
-			$current_day = $wp_query->get('start_date');
-			$yesterday = Date('Y-m-d', strtotime($current_day . " -1 day") );
-			$tomorrow = Date('Y-m-d', strtotime($current_day . " +1 day") );
-			
+			$tribe_ecp = TribeEvents::instance();
 			$html = '';
+			if( $wp_query->found_posts > 0 ) {
+
 			
-			// Display Previous Page Navigation
-			$html .= '<li class="tribe-nav-previous"><a href="'. tribe_get_day_permalink( $yesterday ) .'" data-day="'. $yesterday .'" rel="prev">&larr; '. __( 'Previous Day', 'tribe-events-calendar-pro' ) .'</a></li>';
+				$current_day = $wp_query->get('start_date');
+				$yesterday = Date('Y-m-d', strtotime($current_day . " -1 day") );
+				$tomorrow = Date('Y-m-d', strtotime($current_day . " +1 day") );
+				
+				
+				
+				// Display Previous Page Navigation
+				$html .= '<li class="tribe-nav-previous"><a href="'. tribe_get_day_permalink( $yesterday ) .'" data-day="'. $yesterday .'" rel="prev">&larr; '. __( 'Previous Day', 'tribe-events-calendar-pro' ) .'</a></li>';
+				
+				// Display Next Page Navigation
+				$html .= '<li class="tribe-nav-next"><a href="'. tribe_get_day_permalink( $tomorrow ) .'" data-day="'. $tomorrow .'" rel="next">'. __( 'Next Day', 'tribe-events-calendar-pro' ) .' &rarr;</a>';
+				$html .= '</li><!-- .tribe-nav-next -->';
+
+			}
 			
-			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next"><a href="'. tribe_get_day_permalink( $tomorrow ) .'" data-day="'. $tomorrow .'" rel="next">'. __( 'Next Day', 'tribe-events-calendar-pro' ) .' &rarr;</a>';
-			$html .= '</li><!-- .tribe-nav-next -->';
-			
-			return $html;
+			return apply_filters('tribe_template_factory_debug',  $html, 'tribe_events_day_footer_navigation');
 		}
 	}
 	Tribe_Events_Day_Template::init();

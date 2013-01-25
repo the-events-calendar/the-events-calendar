@@ -43,15 +43,11 @@ jQuery(document).ready(function($){
 	
 	tribe_go_to_8();
 	
-	function tribe_set_allday_placeholder_height() {
-		// This doesn't work
-		//height = $('.tribe-grid-allday .hentry').first().height();
-		//$('.tribe-event-placeholder').height( height );
-		
+	function tribe_set_allday_placeholder_height() {		
 		// Loop through placeholders and make sure height matches corresponding real event
 		$('.tribe-event-placeholder').each(function(){
 			id = $(this).attr("data-event-id");
-			height = parseInt($('#tribe-events-event-' + id ).outerHeight());
+			height = parseInt($('#tribe-events-event-' + id ).height());
 			$(this).height( height );
 		});
 	}
