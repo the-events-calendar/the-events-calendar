@@ -434,8 +434,12 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-list .tribe-events-event-details .tribe-events-event-cost + .entry-title, .events-archive .tribe-events-list .tribe-events-event-details .tribe-events-event-cost + .entry-title {
-	float: left;
-	width: 65%;
+	float: none;
+	padding-right: 90px;
+}
+
+.tribe-events-list .tribe-events-event-details .tribe-events-event-cost + .entry-title + .tribe-events-event-meta .time-details {
+	padding-right: 90px;
 }
 
 .tribe-events-list .tribe-events-event-details h2, .tribe-events-list .tribe-events-event-details h3 {
