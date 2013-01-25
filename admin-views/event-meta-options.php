@@ -8,7 +8,7 @@
 		<li><?php _e('a field type. These are:', 'tribe-events-calendar-pro'); ?></li>
 		<ul class="admin-list">
 			<li><?php _e('text - for the user to input text', 'tribe-events-calendar-pro'); ?></li>
-			<li><?php _e('URL - for the user to input a url', 'tribe-events-calendar-pro'); ?></li>
+			<li><?php _e('URL - for the user to input a URL', 'tribe-events-calendar-pro'); ?></li>
 			<li><?php _e('checkbox - for multiple choice', 'tribe-events-calendar-pro'); ?></li>
 			<li><?php _e('radio button - to select only one', 'tribe-events-calendar-pro'); ?></li>
 			<li><?php _e('dropdown menu - for a dropdown menu', 'tribe-events-calendar-pro'); ?></li>
@@ -44,7 +44,7 @@
 	</tbody>
 </table>
 
-<p><?php printf( __('Enter the field label as you want it to appear (this will be the label in the same way “Start Date,” “Organizer,” etc appear in the event details box on the frontend). Select whether the field will be a text field; url field; radio buttons; checkboxes; or a dropdown. All of these with the exception of text and url allow for multiple options to be included, which you can add — one per-line — in the right-hand column. If you feel flummoxed, we\'ve got you covered with a %s.','tribe-events-calendar-pro'), '<a href="http://tri.be/pro-adding-custom-events-attributes/ ">'.__('video tutorial that will walk you through the process', 'tribe-events-calendar-pro').'</a>') ?></p>
+<p><?php printf( __('Enter the field label as you want it to appear (this will be the label in the same way “Start Date,” “Organizer,” etc appear in the event details box on the frontend). Select whether the field will be a text field; URL field; radio buttons; checkboxes; or a dropdown. All of these with the exception of text and URL allow for multiple options to be included, which you can add — one per-line — in the right-hand column. If you feel flummoxed, we\'ve got you covered with a %s.','tribe-events-calendar-pro'), '<a href="http://tri.be/pro-adding-custom-events-attributes/ ">'.__('video tutorial that will walk you through the process', 'tribe-events-calendar-pro').'</a>') ?></p>
 <fieldset>
 	<legend class="tribe-field-label"><?php _e('Editor "Custom Fields" meta box','tribe-events-calendar-pro'); ?></legend>
 	<div class="tribe-field-wrap">
