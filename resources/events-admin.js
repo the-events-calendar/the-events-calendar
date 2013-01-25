@@ -386,6 +386,7 @@ jQuery(document).ready(function($) {
 	// shows / hides proper views that are to be used on front-end
 	if( $('#tribe-field-tribeEnableViews').length ) {
 		$('#tribe-field-tribeEnableViews').on('change', 'input:checkbox', function () {
+			reset_val = false;
 			if( jQuery('[name="tribeEnableViews[]"]:checked').size() < 1 ) {
 				$(this).attr('checked',true);
 				// notify the user about requiring at least one checked
@@ -396,10 +397,17 @@ jQuery(document).ready(function($) {
 				if( $('#tribe-field-tribeEnableViews input[value=' + option_val + ']').is(":checked") ) { 
 					$(this).prop('disabled',false);
 				} else { 
-					$(this).prop('selected',false);
+					$(this).removeAttr('selected');
 					$(this).prop('disabled', true);
 				}
     		});
+    		views = new Array();
+    		$('[name="tribeEnableViews[]"]:checked').each(function(){
+    			views.push( $(this).val() );
+    		});
+			if( typeof $('select[name="viewOption"] option:selected').first().val() == 'undefined' || ! $.inArray( $('select[name="viewOption"] option:selected').first().val(), views ) ) {
+				$('select[name="viewOption"] option').not(':disabled').first().attr('selected','selected');
+	    	}
     		$('select[name="viewOption"]').trigger("liszt:updated");
     	});
     }
