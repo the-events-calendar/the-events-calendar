@@ -211,14 +211,17 @@
 	padding: 0 4px 4px;
 }
 .tribe-grid-allday .hentry.vevent h3.entry-title {
-	padding: 8px 6px;
+	padding: 0;
 }
 /* truncated all day titles */
-.tribe-grid-allday .hentry.vevent h3.entry-title a.url{
-	display:inline-block; 
-	overflow:hidden; 
+.tribe-grid-allday .hentry.vevent h3.entry-title a.url {
+	padding: 8px 6px;
+	display: inline-block; 
+	overflow: hidden; 
 	text-overflow: ellipsis; 
-	white-space:nowrap;
+	white-space: nowrap;
+	position: relative;
+	z-index: 1;
 }
 .tribe-grid-allday .hentry.vevent.tribe-dayspan2 > div {
 	width:200%;	
