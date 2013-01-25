@@ -275,8 +275,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 				for ( $n = 1; $n <= $week_length; $n++ ) {
 					$day = date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) );
 					$header_class = ( $day == $today ) ? ' tribe-week-today' : '';
-					// $right_align = ( $n != 0 && ( ( $n % 4 == 0 ) || ( $n % 5 == 0 ) || ( $n % 6 == 0 ) ) ) ? ' tribe-events-right' : '';
-					$right_align = '';
+					$right_align = ( $n != 0 && ( ( $n % 4 == 0 ) || ( $n % 5 == 0 ) || ( $n % 6 == 0 ) ) ) ? ' tribe-events-right' : '';
 					printf( '<div title="%s" class="column%s%s">', 
 						date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) ), 
 						$header_class, 
