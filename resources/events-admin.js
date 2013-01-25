@@ -382,23 +382,17 @@ jQuery(document).ready(function($) {
 			.addClass('current');
 	}
 	
-	// Default Layout Settings	
+	// Default Layout Settings
 	// shows / hides proper views that are to be used on front-end
 	if( $('#tribe-field-tribeEnableViews').length ) {
 		$('#tribe-field-tribeEnableViews').live('change', 'input:checkbox', function () {	
 			$('select[name="viewOption"] option').each(function(i,val) {
 				option_val = $(this).val();
-				
-				if( !$('#tribe-field-tribeEnableViews input[value=' + option_val + ']').is(":checked") && $('select[name="viewOption"]').chosen().val() == option_val ) {
-					$('select[name="viewOption"]').val('').trigger("liszt:updated");
-					$('#tribe-field-viewOption .tribe-field-wrap .description').remove();
-					$('#tribe-field-viewOption .tribe-field-wrap').append('<p class="description">Please update your default event layout.</p>');
-				}
-				
 				if( $('#tribe-field-tribeEnableViews input[value=' + option_val + ']').is(":checked") ) { 
-					$(this).show();
+					$(this).prop('disabled',false);
 				} else { 
-					$(this).hide();
+					$(this).prop('selected',false);
+					$(this).prop('disabled', true);
 				}
     		});
     		$('select[name="viewOption"]').trigger("liszt:updated");
