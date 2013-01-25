@@ -146,12 +146,12 @@ $generalTab = array(
 		),
 		'tribeEventsDisplayHelperText' => array(
 			'type' => 'html',
-			'html' => '<p class="description">' . __( 'These include settings that will control various aspects of the Google maps on the front-end.
+			'html' => '<p class="description">' . __( 'These include settings that will control various aspects of the Google Maps on the front-end.
 			', 'tribe-events-calendar-pro' ) . '</p>',
 		),
 		'embedGoogleMaps' => array(
 			'type' => 'checkbox_bool',
-			'label' => __( 'Enable Google maps', 'tribe-events-calendar' ),
+			'label' => __( 'Enable Google Maps', 'tribe-events-calendar' ),
 			'tooltip' => __( 'Check to enable maps for events and venues in the front-end.', 'tribe-events-calendar' ),
 			'default' => true,
 			'class' => 'google-embed-size',
