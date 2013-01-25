@@ -385,7 +385,12 @@ jQuery(document).ready(function($) {
 	// Default Layout Settings
 	// shows / hides proper views that are to be used on front-end
 	if( $('#tribe-field-tribeEnableViews').length ) {
-		$('#tribe-field-tribeEnableViews').live('change', 'input:checkbox', function () {	
+		$('#tribe-field-tribeEnableViews').on('change', 'input:checkbox', function () {
+			if( jQuery('[name="tribeEnableViews[]"]:checked').size() < 1 ) {
+				$(this).attr('checked',true);
+				// notify the user about requiring at least one checked
+				alert( 'requires at least one checked');
+			}
 			$('select[name="viewOption"] option').each(function(i,val) {
 				option_val = $(this).val();
 				if( $('#tribe-field-tribeEnableViews input[value=' + option_val + ']').is(":checked") ) { 
