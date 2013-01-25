@@ -388,8 +388,9 @@ jQuery(document).ready(function($) {
 		$('#tribe-field-tribeEnableViews').on('change', 'input:checkbox', function () {
 			if( jQuery('[name="tribeEnableViews[]"]:checked').size() < 1 ) {
 				$(this).attr('checked',true);
-				// notify the user about requiring at least one checked
-				alert( 'requires at least one checked');
+				$('#tribe-field-tribeEnableViews .tribe-field-wrap p.description').css('color', 'red');
+			} else {
+				$('#tribe-field-tribeEnableViews .tribe-field-wrap p.description').removeAttr('style');
 			}
 			$('select[name="viewOption"] option').each(function(i,val) {
 				option_val = $(this).val();
