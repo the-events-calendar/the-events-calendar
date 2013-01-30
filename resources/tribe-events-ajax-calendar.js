@@ -2,7 +2,10 @@ jQuery( document ).ready( function ( $ ) {
 	
 	var base_url = $('#tribe-events-header .tribe-nav-next a').attr('href').slice(0, -8);
 	
-	if($('.tribe-events-calendar').length) {
+	var has_bar = false;
+	
+	if($('.tribe-events-calendar').length && $('#tribe-events-bar').length ) {
+		has_bar = true;
 		$( '.tribe-events-events-dropdown' ).select2({
 			minimumResultsForSearch: 9999
 		});
@@ -49,7 +52,7 @@ jQuery( document ).ready( function ( $ ) {
 		});
 	} );	
 
-	$( '#tribe-events-bar' ).on( 'change', '#tribe-bar-dates select', function ( e ) {
+	function tribe_monitor_selects(e) {
 		e.preventDefault();				
 		tribe_ev.state.date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();	
 		$( '#tribe-bar-date' ).val(tribe_ev.state.date + tribe_ev.fn.get_day());		
@@ -58,7 +61,17 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_ev.fn.pre_ajax( function() { 
 			tribe_events_calendar_ajax_post();	
 		});
-	} );	
+	}
+	
+	if( has_bar ){
+		$( '#tribe-events-bar' ).on( 'change', '#tribe-bar-dates select', function ( e ) {
+			tribe_monitor_selects(e);
+		} );
+	} else {
+		$( 'body' ).on( 'change', '#tribe-events-events-picker select', function ( e ) {
+			tribe_monitor_selects(e);
+		} );	
+	}
 
 	tribe_ev.fn.snap( '#tribe-events-content', '#tribe-events-content', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );
 	
@@ -216,13 +229,16 @@ jQuery( document ).ready( function ( $ ) {
 						$( '#tribe-events-content.tribe-events-calendar' ).html( $the_content );
 
 						var page_title = $the_content.filter("#tribe-events-header").attr('data-title');
-						var $date_picker = $the_content.find("#tribe-events-events-picker").contents();
 						
-						$( '#tribe-bar-dates' ).contents().not('#tribe-bar-date, #tribe-date-storage').remove();
-						$( '#tribe-bar-dates' ).append( $date_picker );
-						$( '.tribe-events-events-dropdown' ).select2({
-							minimumResultsForSearch: 9999
-						});	
+						if( has_bar ){
+							var $date_picker = $the_content.find("#tribe-events-events-picker").contents();
+						
+							$( '#tribe-bar-dates' ).contents().not('#tribe-bar-date, #tribe-date-storage').remove();
+							$( '#tribe-bar-dates' ).append( $date_picker );
+							$( '.tribe-events-events-dropdown' ).select2({
+								minimumResultsForSearch: 9999
+							});
+						}
 						
 						$(document).attr('title', page_title);
 						
