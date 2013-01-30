@@ -206,7 +206,12 @@ jQuery( document ).ready( function ( $ ) {
 							'timestamp':new Date().getTime()
 						};
 						
-						var $the_content = $( $.parseHTML(response) ).contents();
+						var $the_content;
+						
+						if ($.isFunction(jQuery.parseHTML))
+							$the_content = $( $.parseHTML(response) ).contents();							
+						else
+							$the_content = $( response ).contents();						
 						
 						$( '#tribe-events-content.tribe-events-calendar' ).html( $the_content );
 
