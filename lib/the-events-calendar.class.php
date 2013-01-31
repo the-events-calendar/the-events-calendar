@@ -314,6 +314,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_settings_do_tabs', array( $this, 'doSettingTabs' ) );
 			add_action( 'tribe_settings_do_tabs', array( $this, 'doNetworkSettingTab' ), 400 );
 			add_action( 'tribe_settings_content_tab_help', array( $this, 'doHelpTab' ) );
+			add_action( 'tribe_settings_validate_tab_network', array( $this, 'saveAllTabsHidden' ) );
 			// add-on compatibility
 			if ( is_multisite() )
 				add_action( 'network_admin_notices', array( $this, 'checkAddOnCompatibility' ) );
@@ -1629,6 +1630,20 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			include_once($this->pluginPath.'admin-views/tribe-options-network.php');
 
 			new TribeSettingsTab( 'network', __('Network', 'tribe-events-calendar'), $networkTab );
+		}
+		
+		public function saveAllTabsHidden() {
+			$all_tabs_keys = array_keys( apply_filters( 'tribe_settings_all_tabs', array() ) );
+			
+			$network_options = (array) get_site_option( self::OPTIONNAMENETWORK );
+						
+			if ( $_POST['hideSettingsTabs'] == $all_tabs_keys ) {
+				$network_options['allSettingsTabsHidden'] = '1';
+			} else {
+				$network_options['allSettingsTabsHidden'] = '0';
+			}
+			
+			$this->setNetworkOptions( $network_options );
 		}
 
 		public function networkOptionsPageView() {
