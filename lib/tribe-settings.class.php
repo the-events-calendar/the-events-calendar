@@ -112,7 +112,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
-		 * @return void
+		 * @return TribeSettings
 		 */
 		public static function instance() {
 			if ( !isset( self::$instance ) ) {
