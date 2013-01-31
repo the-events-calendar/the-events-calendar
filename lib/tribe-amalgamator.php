@@ -66,6 +66,8 @@ class Tribe_Amalgamator {
 					'content' => $post->post_content,
 					'_VenueAddress' => get_post_meta($id, '_VenueAddress', TRUE),
 					'_VenueCity' => get_post_meta($id, '_VenueCity', TRUE),
+					'_VenueProvince' => get_post_meta($id, '_VenueProvince', TRUE),
+					'_VenueState' => get_post_meta($id, '_VenueState', TRUE),
 					'_VenueCountry' => get_post_meta($id, '_VenueCountry', TRUE),
 					'_VenueZip' => get_post_meta($id, '_VenueZip', TRUE),
 					'_VenuePhone' => get_post_meta($id, '_VenuePhone', TRUE),
