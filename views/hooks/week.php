@@ -329,7 +329,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 										</div><!-- .duration -->
 
 										<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
-											<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75, 75 ) );?></div>
+											<div class="tribe-events-event-thumb "><?php echo get_the_post_thumbnail( $event->ID, array( 75, 75 ) );?></div>
 										<?php } ?>
 
 										<p class="entry-summary description">
@@ -469,7 +469,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 									</div><!-- .duration -->
 
 									<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
-										<div class="tribe-events-event-thumb"><?php the_post_thumbnail( array( 75, 75 ) );?></div>
+										<div class="tribe-events-event-thumb"><?php echo get_the_post_thumbnail( $event->ID, array( 75, 75 ) );?></div>
 									<?php } ?>
 
 									<p class="entry-summary description">
