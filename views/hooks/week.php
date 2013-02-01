@@ -328,7 +328,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 											</abbr><!-- .dtend -->
 										</div><!-- .duration -->
 
-										<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
+										<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) { ?>
 											<div class="tribe-events-event-thumb "><?php echo get_the_post_thumbnail( $event->ID, array( 75, 75 ) );?></div>
 										<?php } ?>
 
@@ -468,7 +468,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 										</abbr><!-- .dtend -->
 									</div><!-- .duration -->
 
-									<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail() ) { ?>
+									<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) { ?>
 										<div class="tribe-events-event-thumb"><?php echo get_the_post_thumbnail( $event->ID, array( 75, 75 ) );?></div>
 									<?php } ?>
 
