@@ -165,7 +165,7 @@ jQuery(document).ready(function($){
 		
 		// Fade our events in upon js load
 	
-		$("div[id^='tribe-events-event-']").css({'visibility':'visible','opacity':'0'}).delay(500).animate({"opacity":"1"}, {duration: 500});		
+		$("div[id^='tribe-events-event-']").css({'visibility':'visible','opacity':'0'}).delay(500).animate({"opacity":"1"}, {duration: 250});		
 
 		// deal with our overlaps
 
@@ -403,7 +403,7 @@ jQuery(document).ready(function($){
 						
 						tribe_go_to_8();
 						
-						$("div[id*='tribe-events-event-']").hide().fadeIn('slow');
+						$("div[id*='tribe-events-event-']").hide().fadeIn('fast');
 						
 						if( tribe_ev.state.do_string ) {													
 							history.pushState({
