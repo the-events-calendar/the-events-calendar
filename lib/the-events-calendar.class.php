@@ -3522,11 +3522,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			remove_action( 'pre_get_posts', array( $this, 'list_ajax_call_set_date' ), -10 );
 
-			global $wp_query, $post;
+			global $wp_query, $post, $paged;
 			$wp_query = $query;
 			if ( !empty( $query->posts ) ) {
 				$post = $query->posts[0];
 			}
+			
+			$paged = $tribe_paged;
 
 			add_filter( 'tribe_events_list_pagination', array( __CLASS__, 'clear_module_pagination' ), 10 );
 
