@@ -354,19 +354,19 @@ h2.tribe-events-page-title a:focus {
 #tribe-events-header .tribe-events-sub-nav .tribe-nav-previous,
 #tribe-events-footer .tribe-events-sub-nav .tribe-nav-previous {
 	margin-right: 5px;
-	float: left;
 }
 #tribe-events-header .tribe-events-sub-nav .tribe-nav-next,
 #tribe-events-footer .tribe-events-sub-nav .tribe-nav-next {
 	margin-left: 5px;
-	float: right;
 }
 #tribe-events-header .tribe-events-sub-nav .tribe-nav-left,
 #tribe-events-footer .tribe-events-sub-nav .tribe-nav-left {
+	float: left;
 	text-align: left;
 }
 #tribe-events-header .tribe-events-sub-nav .tribe-nav-right,
 #tribe-events-footer .tribe-events-sub-nav .tribe-nav-right {
+	float: right;
 	text-align: right;
 }
 
