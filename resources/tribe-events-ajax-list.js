@@ -1,10 +1,17 @@
 jQuery( document ).ready( function ( $ ) {
 	
-	var tribe_is_paged = tribe_ev.fn.get_url_param('tribe_paged');		
+	var tribe_is_paged = tribe_ev.fn.get_url_param('tribe_paged');	
+	var tribe_display = tribe_ev.fn.get_url_param('tribe_event_display');	
 	
 	if( tribe_is_paged ) {
 		tribe_ev.state.paged = tribe_is_paged;
-	} 	
+	} 
+
+	if( tribe_display ) {
+		tribe_ev.state.view = tribe_display;
+	} else {
+		tribe_ev.state.view = 'list';
+	}
 
 	if( tribe_ev.tests.pushstate && !tribe_ev.tests.map_view() ) {	
 		
@@ -39,6 +46,12 @@ jQuery( document ).ready( function ( $ ) {
 
 	$( '#tribe-events-list-view' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
 		e.preventDefault();
+		
+		if( $(this).parent().is('.past') )
+			tribe_ev.state.view = 'past';
+		else
+			tribe_ev.state.view = 'list';
+		
 		tribe_ev.state.paged++;				
 		tribe_ev.state.popping = false;
 		tribe_ev.fn.pre_ajax( function() { 
@@ -46,6 +59,12 @@ jQuery( document ).ready( function ( $ ) {
 		});
 	} ).on( 'click', 'li.tribe-nav-previous a', function ( e ) {
 		e.preventDefault();
+		
+		if( $(this).parent().is('.past') )
+			tribe_ev.state.view = 'past';
+		else
+			tribe_ev.state.view = 'list';
+		
 		tribe_ev.state.paged--;
 		tribe_ev.state.popping = false;
 		tribe_ev.fn.pre_ajax( function() {
@@ -64,6 +83,7 @@ jQuery( document ).ready( function ( $ ) {
 				e.preventDefault();
 				tribe_ev.state.popping = false;
 				tribe_ev.state.paged = 1;
+				tribe_ev.state.view = 'list';
 				tribe_ev.fn.pre_ajax( function() {
 					tribe_events_list_ajax_post();
 				});
@@ -77,6 +97,7 @@ jQuery( document ).ready( function ( $ ) {
 			function run_filtered_list_ajax() {	
 				tribe_ev.fn.disable_inputs( '#tribe_events_filters_form', 'input, select' );
 				tribe_ev.state.paged = 1;
+				tribe_ev.state.view = 'list';
 				tribe_ev.state.popping = false;
 				tribe_ev.fn.pre_ajax( function() {
 					tribe_events_list_ajax_post();
@@ -100,6 +121,7 @@ jQuery( document ).ready( function ( $ ) {
 		if ( tribe_events_bar_action != 'change_view' ) {
 			e.preventDefault();
 			tribe_ev.state.paged = 1;
+			tribe_ev.state.view = 'list';
 			tribe_ev.state.popping = false;
 			tribe_ev.fn.pre_ajax( function() {
 				tribe_events_list_ajax_post();
@@ -137,12 +159,14 @@ jQuery( document ).ready( function ( $ ) {
 
 			tribe_ev.state.params = {
 				action     :'tribe_list',
-				tribe_paged:tribe_ev.state.paged
+				tribe_paged:tribe_ev.state.paged,
+				tribe_event_display: tribe_ev.state.view
 			};
 
 			tribe_ev.state.url_params = {
 				action     :'tribe_list',
-				tribe_paged:tribe_ev.state.paged					
+				tribe_paged:tribe_ev.state.paged,
+				tribe_event_display: tribe_ev.state.view					
 			};							
 
 			if( tribe_hash_string.length ) {

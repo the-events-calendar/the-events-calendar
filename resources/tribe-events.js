@@ -397,7 +397,8 @@ tribe_ev.state = {
 	popping:false,
 	pushstate:true,
 	pushcount:0,
-	url_params:{}	
+	url_params:{},
+	view:''
 }
 
 jQuery( document ).ready( function ( $ ) {	
