@@ -4,14 +4,11 @@ jQuery( document ).ready( function ( $ ) {
 	
 	if( tribe_is_paged ) {
 		tribe_ev.state.paged = tribe_is_paged;
-	} 
-	
-	if ( tribe_ev.state.paged == 1 )
-		$( 'li.tribe-nav-previous a' ).hide();
+	} 	
 
 	if( tribe_ev.tests.pushstate && !tribe_ev.tests.map_view() ) {	
 		
-		var params = 'action=tribe_list&tribe_paged=' + tribe_ev.state.paged;
+		var params = 'action=tribe_list&eventDisplay=past&tribe_paged=' + tribe_ev.state.paged;
 
 		if( tribe_ev.data.params.length ) 
 			params = params + '&' + tribe_ev.data.params;		
@@ -140,7 +137,7 @@ jQuery( document ).ready( function ( $ ) {
 
 			tribe_ev.state.params = {
 				action     :'tribe_list',
-				tribe_paged:tribe_ev.state.paged					
+				tribe_paged:tribe_ev.state.paged
 			};
 
 			tribe_ev.state.url_params = {
