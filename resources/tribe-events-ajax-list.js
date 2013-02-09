@@ -242,18 +242,7 @@ jQuery( document ).ready( function ( $ ) {
 
 						$( '#tribe-events-list-hash' ).val( response.hash );
 						$( '#tribe-events-list-view' ).html( response.html );
-
-						if ( response.max_pages > tribe_ev.state.paged ) {
-							$( 'li.tribe-nav-next a' ).show();
-						} else {
-							$( 'li.tribe-nav-next a' ).hide();
-						}
-						if ( tribe_ev.state.paged > 1 ) {
-							$( 'li.tribe-nav-previous a' ).show();
-						} else {
-							$( 'li.tribe-nav-previous a' ).hide();
-						}
-
+						
 						if( tribe_ev.state.do_string ) {															
 							history.pushState({									
 								"tribe_params": tribe_ev.state.params,
