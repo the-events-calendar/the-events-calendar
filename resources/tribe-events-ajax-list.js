@@ -47,7 +47,7 @@ jQuery( document ).ready( function ( $ ) {
 	$( '#tribe-events-list-view' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
 		e.preventDefault();
 		
-		if( $(this).parent().is('.past') )
+		if( $(this).parent().is('.tribe-past') )
 			tribe_ev.state.view = 'past';
 		else
 			tribe_ev.state.view = 'list';
@@ -60,7 +60,7 @@ jQuery( document ).ready( function ( $ ) {
 	} ).on( 'click', 'li.tribe-nav-previous a', function ( e ) {
 		e.preventDefault();
 		
-		if( $(this).parent().is('.past') )
+		if( $(this).parent().is('.tribe-past') )
 			tribe_ev.state.view = 'past';
 		else
 			tribe_ev.state.view = 'list';
