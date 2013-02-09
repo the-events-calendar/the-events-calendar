@@ -3493,6 +3493,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			               'post_type'          => TribeEvents::POSTTYPE,
 			               'post_status'        => 'publish',
 			               'paged'              => $tribe_paged );
+			               
+			if ( isset( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ) {
+				$args['eventDisplay'] = 'past';
+			}
 
 			$query = TribeEventsQuery::getEvents( $args, true );
 			$hash = $query->query_vars;
