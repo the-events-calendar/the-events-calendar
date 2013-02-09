@@ -8,7 +8,7 @@ jQuery( document ).ready( function ( $ ) {
 
 	if( tribe_ev.tests.pushstate && !tribe_ev.tests.map_view() ) {	
 		
-		var params = 'action=tribe_list&eventDisplay=past&tribe_paged=' + tribe_ev.state.paged;
+		var params = 'action=tribe_list&tribe_paged=' + tribe_ev.state.paged;
 
 		if( tribe_ev.data.params.length ) 
 			params = params + '&' + tribe_ev.data.params;		
