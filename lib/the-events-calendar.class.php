@@ -3533,7 +3533,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_filter( 'tribe_events_list_pagination', array( __CLASS__, 'clear_module_pagination' ), 10 );
 
 			$tribe_ecp = TribeEvents::instance();
-			$tribe_ecp->displaying = 'upcoming';
+			if ( $query->query_vars['eventDisplay'] == 'list' ) {
+				$tribe_ecp->displaying = 'upcoming';
+			} elseif ( $query->query_vars['eventDisplay'] == 'past' ) {
+				$tribe_ecp->displaying = 'past';
+			}
 
 			ob_start();
 			load_template( TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
