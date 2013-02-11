@@ -1720,6 +1720,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			} else {
 				global $wp_query;
 				$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : tribe_get_option( 'viewOption', 'upcoming');
+				if ( $this->displaying == 'past' ) {
+					add_filter( 'tribe-events-bar-should-show', '__return_true' );
+				}
 				if ( is_single() )
 					$this->displaying = 'single-event';
 			}
