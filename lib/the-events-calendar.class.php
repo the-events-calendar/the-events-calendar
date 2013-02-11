@@ -3538,11 +3538,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			} elseif ( $query->query_vars['eventDisplay'] == 'past' ) {
 				$tribe_ecp->displaying = 'past';
 			}
-
+			
+			$old_request = $_SERVER;
+			$_SERVER['REQUEST_URI'] = $this->rewriteSlug . '/' . 'past/';
 			ob_start();
 			load_template( TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
 			$response['html'] .= ob_get_clean();
-
+			$_SERVER = $old_request;
 			header( 'Content-type: application/json' );
 			echo json_encode( $response );
 
