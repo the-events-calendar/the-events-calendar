@@ -175,7 +175,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			}
 			// RIGHT NAVIGATION
 			if( tribe_is_past() ) {
-				if( get_previous_posts_link() ) {
+				if( get_query_var( 'paged' ) > 1 ) {
 					$html .= '<li class="tribe-nav-previous tribe-nav-right tribe-past">';
 					$html .= '<a href="' . remove_query_arg( 'paged', previous_posts( null, false) ) . '">' . __( 'Next Events', 'tribe-events-calendar' ) . ' &rarr;</a>';
 				} elseif( !get_previous_posts_link() ) {
