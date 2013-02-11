@@ -3540,7 +3540,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 			
 			$old_request = $_SERVER;
-			$_SERVER['REQUEST_URI'] = $this->rewriteSlug . '/' . 'past/';
+			if( tribe_is_past() )
+				$_SERVER['REQUEST_URI'] = $this->rewriteSlug . '/' . 'past/';
+			else
+				$_SERVER['REQUEST_URI'] = $this->rewriteSlug . '/' . 'upcoming/';
 			ob_start();
 			load_template( TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
 			$response['html'] .= ob_get_clean();
