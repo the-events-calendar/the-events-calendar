@@ -57,8 +57,6 @@ jQuery( document ).ready( function ( $ ) {
 		
 		tribe_ev.state.paged++;	
 		
-		console.log(tribe_ev.state.paged);
-		
 		tribe_ev.state.popping = false;
 		tribe_ev.fn.pre_ajax( function() { 
 			tribe_events_list_ajax_post();
@@ -176,8 +174,7 @@ jQuery( document ).ready( function ( $ ) {
 
 			tribe_ev.state.url_params = {
 				action     :'tribe_list',
-				tribe_paged:tribe_ev.state.paged,
-				tribe_event_display: tribe_ev.state.view					
+				tribe_paged:tribe_ev.state.paged				
 			};							
 
 			if( tribe_hash_string.length ) {
@@ -229,9 +226,7 @@ jQuery( document ).ready( function ( $ ) {
 					tribe_ev.state.initial_load = false;
 					tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
 
-					if ( response.success ) {
-
-												
+					if ( response.success ) {												
 
 						tribe_ev.data.ajax_response = {
 							'type':'tribe_events_ajax',
