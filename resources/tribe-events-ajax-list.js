@@ -49,7 +49,7 @@ jQuery( document ).ready( function ( $ ) {
 		
 		if( $(this).parent().is('.tribe-past') ) {
 			tribe_ev.state.view = 'past';
-			tribe_ev.data.cur_url = $(this).attr('href');
+			tribe_ev.data.cur_url = tribe_ev.fn.url_path($(this).attr('href'));
 		} else {
 			tribe_ev.state.view = 'list';
 			tribe_ev.data.cur_url = tribe_ev.data.initial_url;
@@ -66,7 +66,7 @@ jQuery( document ).ready( function ( $ ) {
 		
 		if( $(this).parent().is('.tribe-past') ) {
 			tribe_ev.state.view = 'past';
-			tribe_ev.data.cur_url = $(this).attr('href');
+			tribe_ev.data.cur_url = tribe_ev.fn.url_path($(this).attr('href'));
 		} else {
 			tribe_ev.state.view = 'list';
 			tribe_ev.data.cur_url = tribe_ev.data.initial_url;
@@ -233,7 +233,7 @@ jQuery( document ).ready( function ( $ ) {
 							'post_count':parseInt(response.total_count),
 							'view':'list',
 							'max_pages':response.max_pages,
-							'page':response.tribe_paged,
+							'page':tribe_ev.state.paged,
 							'timestamp':new Date().getTime()
 						};							
 
