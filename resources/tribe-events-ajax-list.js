@@ -57,6 +57,8 @@ jQuery( document ).ready( function ( $ ) {
 		
 		tribe_ev.state.paged++;	
 		
+		console.log(tribe_ev.state.paged);
+		
 		tribe_ev.state.popping = false;
 		tribe_ev.fn.pre_ajax( function() { 
 			tribe_events_list_ajax_post();
@@ -229,7 +231,7 @@ jQuery( document ).ready( function ( $ ) {
 
 					if ( response.success ) {
 
-						tribe_ev.state.paged = response.tribe_paged;							
+												
 
 						tribe_ev.data.ajax_response = {
 							'type':'tribe_events_ajax',
