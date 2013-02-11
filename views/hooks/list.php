@@ -160,7 +160,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			if( tribe_is_past() ) {
 				$html = '<li class="tribe-nav-next tribe-nav-left tribe-past">';
 				if( get_next_posts_link() ) {
-					$html .= '<a href="' . next_posts( null, false) . '">&larr; Previous Events</a>';
+					$html .= '<a href="' . remove_query_arg( 'paged', next_posts( null, false) ) . '">&larr; Previous Events</a>';
 				}
 				$html .= '</li><!-- .tribe-nav-previous -->';
 			} elseif ( tribe_is_upcoming() ) {
