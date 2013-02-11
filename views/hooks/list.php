@@ -160,7 +160,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			if( tribe_is_past() ) {
 				$html = '<li class="tribe-nav-next tribe-nav-left tribe-past">';
 				if( get_next_posts_link() ) {
-					$html .= '<a href="' . remove_query_arg( 'paged', next_posts( null, false) ) . '">&larr; Previous Events</a>';
+					$html .= '<a href="' . remove_query_arg( 'paged', next_posts( null, false) ) . '">&larr; ' . __( 'Previous Events', 'tribe-events-calendar' ) . '</a>';
 				}
 				$html .= '</li><!-- .tribe-nav-previous -->';
 			} elseif ( tribe_is_upcoming() ) {
@@ -177,7 +177,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			if( tribe_is_past() ) {
 				if( get_previous_posts_link() ) {
 					$html .= '<li class="tribe-nav-previous tribe-nav-right tribe-past">';
-					$html .= get_previous_posts_link( __( 'Next Events &rarr;', 'tribe-events-calendar' ) );
+					$html .= '<a href="' . remove_query_arg( 'paged', previous_posts( null, false) ) . '">' . __( 'Next Events', 'tribe-events-calendar' ) . ' &rarr;</a>';
 				} elseif( !get_previous_posts_link() ) {
 					$html .= '<li class="tribe-nav-previous tribe-nav-right">';
 					$html .= '<a href="'. tribe_get_upcoming_link() .'" rel="next">'. __( 'Next Events &rarr;', 'tribe-events-calendar' ) .'</a>';
