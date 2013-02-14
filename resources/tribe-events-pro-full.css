@@ -69,7 +69,7 @@
 	position:relative;
 }
 
-.tribe-events-grid  .slimScrollBar{
+.tribe-events-grid .slimScrollBar {
 	z-index:1000 !important
 }
 
@@ -149,6 +149,7 @@
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
+	outline: none;
 }
 .tribe-grid-allday .hentry.vevent > div,
 .tribe-grid-body div[id*="tribe-events-event-"] .hentry.vevent { 
