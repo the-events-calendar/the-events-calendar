@@ -48,7 +48,7 @@ class TribeEventsGeoLoc {
 	}
 
 	public function setup_geoloc_filter_in_filters() {
-		$current_filters = get_option( 'tribe_events_filters_current_active_filters', array() );
+		$current_filters = get_option( 'tribe_events_filters_current_active_filters', TribeEventsFilterView::instance()->getDefaultFilters() );
 
 		$distances = apply_filters( 'geoloc-values-for-filters', array( '5'    => '5 miles',
 		                                                                '10'   => '10 miles',
