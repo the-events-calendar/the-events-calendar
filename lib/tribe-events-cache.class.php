@@ -94,9 +94,21 @@ class TribeEventsCacheListener {
 	}
 
 	private function add_hooks() {
-		add_action( 'save_post', array( $this, 'save_post' ), 0, 0 );
+		add_action( 'save_post', array( $this, 'save_post' ), 0, 2 );
 	}
 
+	public function save_post( $post_id, $post ) {
+		if ( in_array($post->post_type, TribeEvents::getPostTypes()) ) {
+			$this->cache->set_last_occurrence( 'save_post' );
+		}
+	}
+
+	/**
+	 * For any hook that doesn't need any additional filtering
+	 * 
+	 * @param $method
+	 * @param $args
+	 */
 	public function __call( $method, $args ) {
 		$this->cache->set_last_occurrence( $method );
 	}

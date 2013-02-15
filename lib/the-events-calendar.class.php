@@ -1633,6 +1633,17 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			new TribeSettingsTab( 'network', __('Network', 'tribe-events-calendar'), $networkTab );
 		}
+
+		/**
+		 * @return array The post types associated with this plugin
+		 */
+		public static function getPostTypes() {
+			return apply_filters( 'tribe_events_post_types', array(
+				self::POSTTYPE,
+				self::ORGANIZER_POST_TYPE,
+				self::VENUE_POST_TYPE,
+			));
+		}
 		
 		public function saveAllTabsHidden() {
 			$all_tabs_keys = array_keys( apply_filters( 'tribe_settings_all_tabs', array() ) );
