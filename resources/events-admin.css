@@ -75,6 +75,8 @@ td.tribe_message {padding-bottom: 10px !important;}
 #rec-end-error { color: red; }
 #rec-days-error { color: red; }
 .rec-error { display:none; }
+#recurrence-pattern-description { font-style: italic; }
+.recurrence-pattern-description-row { display: none; }
 
 /* = Upgrade Screen
 =============================================*/
