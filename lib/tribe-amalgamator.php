@@ -45,7 +45,16 @@ class Tribe_Amalgamator {
 					'_OrganizerEmail' => get_post_meta($id, '_OrganizerEmail', TRUE),
 				);
 				$hash = md5(serialize($data));
-				$buckets[$hash][] = $id;
+				if ( !isset($buckets[$hash]) ) {
+					$buckets[$hash] = array();
+				}
+				// prioritize organizers with an eventbrite id
+				$eventbrite = get_post_meta( $id, '_OrganizerEventBriteID', TRUE );
+				if ( empty($eventbrite) ) {
+					array_push($buckets[$hash], $id);
+				} else {
+					array_unshift($buckets[$hash], $id);
+				}
 			}
 		}
 		foreach ( $buckets as $organizer_ids ) {
@@ -74,7 +83,16 @@ class Tribe_Amalgamator {
 					'_VenueURL' => get_post_meta($id, '_VenueURL', TRUE),
 				);
 				$hash = md5(serialize($data));
-				$buckets[$hash][] = $id;
+				if ( !isset($buckets[$hash]) ) {
+					$buckets[$hash] = array();
+				}
+				// prioritize venues with an eventbrite id
+				$eventbrite = get_post_meta( $id, '_VenueEventBriteId', TRUE );
+				if ( empty($eventbrite) ) {
+					array_push($buckets[$hash], $id);
+				} else {
+					array_unshift($buckets[$hash], $id);
+				}
 			}
 		}
 		foreach ( $buckets as $venue_ids ) {
