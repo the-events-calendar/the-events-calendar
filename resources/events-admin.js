@@ -222,7 +222,7 @@ jQuery(document).ready(function($) {
 			if ( rec_end_type == 'After' ) {
 				recurrence_text += ' and repeats ' + rec_type.toLowerCase() + ' for ' + rec_end_count + ' ' + $('#occurence-count-text').text();
 			} else if ( rec_end_type == 'On' && rec_end != '' ) {
-				recurrence_text += ' and repeats until ' + rec_end;
+				recurrence_text += ' and repeats ' + rec_type.toLowerCase() + ' until ' + rec_end;
 			}
 			recurrence_text += '.';
 		} else {
@@ -306,6 +306,10 @@ jQuery(document).ready(function($) {
 			} else {
 				recurrence_text += ' on ' + final_date_start.getFullYear() + '-' + ( final_date_start.getMonth() + 1 ) + '-' + final_date_start.getDate() + ' and ends on ' + final_date_end.getFullYear() + '-' + ( final_date_end.getMonth() + 1 ) + '-' + final_date_end.getDate() + '.';
 			}
+		}
+		
+		if ( rec_type == 'None' ) {
+			$('.recurrence-pattern-description-row').hide();
 		}
 		
 		// Update the text.
