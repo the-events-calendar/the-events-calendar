@@ -61,6 +61,15 @@ tribe_ev.fn = {
 			});			
 		}
 	},
+	get_category: function() {
+		if( tribe_ev.fn.is_category() ) {	
+			var class_name = jQuery('body').attr('class');
+			var matches = class_name.match(/\bevents-category-[^\s]+\b/);		
+			return matches[0].substring(16);
+		} else {
+			return '';
+		}		
+	},
 	get_day: function() {
 		var dp_day = '';
 		if( jQuery('#tribe-bar-date').length ) {
@@ -84,6 +93,12 @@ tribe_ev.fn = {
 	},
 	in_params: function( params, term ) {
 		return params.toLowerCase().indexOf( term );
+	},
+	is_category: function() {
+		if( jQuery( 'body' ).hasClass( 'tax-tribe_events_cat' ) ) 
+			return true;
+		else
+			return false;
 	},
 	parse_string: function( string ) {    
 		var map   = {};
@@ -389,6 +404,7 @@ tribe_ev.data = {
 
 tribe_ev.state = {
 	ajax_running:false,
+	category:'',
 	date:'',
 	do_string:false,
 	initial_load:true,
@@ -402,6 +418,8 @@ tribe_ev.state = {
 }
 
 jQuery( document ).ready( function ( $ ) {	
+	
+	tribe_ev.state.category = tribe_ev.fn.get_category();
 
 	/* Let's hide the widget calendar if we find more than one instance */
 	$(".tribe-events-calendar-widget").not(":eq(0)").hide();
