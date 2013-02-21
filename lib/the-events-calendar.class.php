@@ -213,6 +213,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-events-bar.class.php' );
 			require_once( 'tribe-the-events-calendar-import.class.php' );
 			require_once( 'tribe-debug-bar.class.php' );
+			require_once( 'tribe-amalgamator.php' );
 
 			// caching
 			require_once( 'tribe-events-cache.class.php' );
@@ -314,6 +315,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_settings_do_tabs', array( $this, 'doSettingTabs' ) );
 			add_action( 'tribe_settings_do_tabs', array( $this, 'doNetworkSettingTab' ), 400 );
 			add_action( 'tribe_settings_content_tab_help', array( $this, 'doHelpTab' ) );
+			add_action( 'tribe_settings_validate_tab_network', array( $this, 'saveAllTabsHidden' ) );
+			add_action( 'load-tribe_events_page_tribe-events-calendar', array( 'Tribe_Amalgamator', 'listen_for_migration_button' ), 10, 0 );
 			// add-on compatibility
 			if ( is_multisite() )
 				add_action( 'network_admin_notices', array( $this, 'checkAddOnCompatibility' ) );
@@ -1629,6 +1632,31 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			include_once($this->pluginPath.'admin-views/tribe-options-network.php');
 
 			new TribeSettingsTab( 'network', __('Network', 'tribe-events-calendar'), $networkTab );
+		}
+
+		/**
+		 * @return array The post types associated with this plugin
+		 */
+		public static function getPostTypes() {
+			return apply_filters( 'tribe_events_post_types', array(
+				self::POSTTYPE,
+				self::ORGANIZER_POST_TYPE,
+				self::VENUE_POST_TYPE,
+			));
+		}
+		
+		public function saveAllTabsHidden() {
+			$all_tabs_keys = array_keys( apply_filters( 'tribe_settings_all_tabs', array() ) );
+			
+			$network_options = (array) get_site_option( self::OPTIONNAMENETWORK );
+						
+			if ( $_POST['hideSettingsTabs'] == $all_tabs_keys ) {
+				$network_options['allSettingsTabsHidden'] = '1';
+			} else {
+				$network_options['allSettingsTabsHidden'] = '0';
+			}
+			
+			$this->setNetworkOptions( $network_options );
 		}
 
 		public function networkOptionsPageView() {

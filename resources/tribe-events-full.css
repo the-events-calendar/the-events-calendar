@@ -1213,6 +1213,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 #tribe-bar-form input[type="submit"] {
 	width: 70px;
+	padding: 6px 9px;
 	margin-right: 0;
 }
 

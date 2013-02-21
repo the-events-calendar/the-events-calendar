@@ -504,7 +504,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			if ( tribe_is_recurring_event( $post_id ) ) { 
 				$tooltip .= '<span class="recurringinfo">';
 				$tooltip .= '<div class="event-is-recurring">';
-					$tooltip .= '( <img src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/recurring-event-icon.png" /> event )';
+					$tooltip .= '(&nbsp;<img src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/recurring-event-icon.png" />&nbsp;event&nbsp;)';
 					$tooltip .= '<div id="tribe-events-tooltip-'. $post_id .'" class="tribe-events-tooltip recurring-info-tooltip">';
 						$tooltip .= '<div class="tribe-events-event-body">';
 							$tooltip .= tribe_get_recurrence_text( $post_id );
@@ -652,13 +652,15 @@ if( class_exists( 'TribeEvents' ) ) {
 		return $disabled;
 	}
 
-	function tribe_count_hierarchical_keys( $value, $key, $increment ){
-		$increment++;
+	function tribe_count_hierarchical_keys( $value, $key ){
+		global $tribe_count_hierarchical_increment;
+		$tribe_count_hierarchical_increment++;
 	}
 	function tribe_count_hierarchical( array $walk ) {
-		$counter = 0;
-		array_walk_recursive( $walk, 'tribe_count_hierarchical_keys', $counter);
-		return $counter;
+		global $tribe_count_hierarchical_increment;
+		$tribe_count_hierarchical_increment = 0;
+		array_walk_recursive( $walk, 'tribe_count_hierarchical_keys' );
+		return $tribe_count_hierarchical_increment;
 	}
 		
 }

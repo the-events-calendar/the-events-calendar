@@ -202,6 +202,11 @@ $generalTab = array(
 			'html' => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the %s and look for the "Tribe" tab in the debug output.', 'tribe-events-calendar' ), '<a href="http://wordpress.org/extend/plugins/debug-bar/" target="_blank">' . __( 'Debug Bar Plugin', 'tribe-events-calendar' ).'</a>' ) . '</p>',
 			'conditional' => ( '' != get_option( 'permalink_structure' ) ),
 		),
+		'amalgamateDuplicates' => array(
+			'type' => 'html',
+			'html' => '<fieldset class="tribe-field tribe-field-html"><legend>'.__('Duplicate Venues &amp; Organizers', 'tribe-events-calendar').'</legend><p class="tribe-field-indent description">'.__('You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers.', 'tribe-events-calendar').'</p><p class="tribe-field-indent">'.Tribe_Amalgamator::migration_button(__('Merge Duplicates', 'tribe-events-calendar')).'</p></fieldset>',
+			'conditional' => ( $tec->getOption('organizer_venue_amalgamation', 0) < 1 ),
+		),
 		'maybeDisplayPressTrendsDialogue' => array(
 			'type' => 'html',
 			'html' => '<input type="hidden" name="maybeDisplayPressTrendsDialogue" value="' . $displayPressTrendsDialogueValue . '"></input>',

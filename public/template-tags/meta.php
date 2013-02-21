@@ -66,11 +66,13 @@ if( !function_exists('tribe_get_meta_group')){
 		foreach( $meta_ids as $meta_id_group ) {
 			foreach( $meta_id_group as $meta_id ){
 				$meta_pos_int++;
-				$group_html .= tribe_get_meta( $meta_id, $is_the_meta );
-				// if we should have a meta divider let's show it!
-				if( !empty($group_html) && $meta_pos_int < $total_meta_items ) {
+
+				// if we should have a meta divider let's add it!
+				if( !empty($group_html) && $meta_pos_int <= $total_meta_items ) {
 					$group_html .= $meta_group['wrap']['meta_separator'];
 				}
+
+				$group_html .= tribe_get_meta( $meta_id, $is_the_meta );
 				
 			}
 		}
