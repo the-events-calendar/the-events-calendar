@@ -60,7 +60,7 @@ jQuery( document ).ready( function ( $ ) {
 	$('label[for="tribe-bar-date"], input[name="tribe-bar-date"]').wrapAll('<div id="tribe-bar-dates" />');
 	   
 	// Add our date bits outside of our filter container
-	$( '#tribe-bar-filters' ).after( $('#tribe-bar-dates') );
+	$( '#tribe-bar-filters' ).before( $('#tribe-bar-dates') );
 	
 	// Append our month view selects to date wrapper in bar
 	if ( $( '.events-gridview' ).length ) {
