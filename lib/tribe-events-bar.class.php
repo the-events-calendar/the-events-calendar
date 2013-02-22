@@ -68,17 +68,16 @@ class TribeEventsBar {
 
 		echo '<div class="tribe-bar-button-search">' . __( '<span class="tribe-bar-btn-small"><span>Event </span>Search</span>', 'tribe-events-calendar' ) . '</div>';
 		
-		echo '<div class="tribe-bar-drop-content">';
 
 		foreach ( $filters as $filter ) {
-			echo '<label class="label-' . esc_attr( $filter['name'] ) . '" for="' . esc_attr( $filter['name'] ) . '">' . $filter['caption'] . '</label>';
-			echo $filter['html'];
+			echo '<div class="' . esc_attr( $filter['name'] ) . '-filter">';
+				echo '<label class="label-' . esc_attr( $filter['name'] ) . '" for="' . esc_attr( $filter['name'] ) . '">' . $filter['caption'] . '</label>';
+				echo $filter['html'];
+			echo '</div>';
 		}
-
-		echo '<input class="tribe-events-button-grey tribe-no-param" type="submit" name="submit-bar" value="' . __( 'Search', 'tribe-events-calendar' ) . '"/>';
-		
-		echo '</div><!-- .tribe-bar-drop-content -->';
-
+		echo '<div class="tribe-bar-submit">';
+			echo '<input class="tribe-events-button-grey tribe-no-param" type="submit" name="submit-bar" value="' . __( 'Search', 'tribe-events-calendar' ) . '"/>';
+		echo '</div>';
 	}
 
 
@@ -116,7 +115,6 @@ class TribeEventsBar {
 		echo $open;
 
 		foreach ( $views as $view ) {
-
 			$item = str_replace( '!URL!', esc_url( $view['url'] ), $open_el );
 			$item = str_replace( '!VIEW!', $view['displaying'], $item );
 			$item = str_replace( '!JSKEY!', $view['displaying'], $item );
