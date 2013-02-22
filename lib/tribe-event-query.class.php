@@ -206,7 +206,7 @@ if (!class_exists('TribeEventsQuery')) {
 			// enable pagination setup
 			if ( $query->tribe_is_event_query && $query->get('numResults') != '' ) {
 				$query->set( 'posts_per_page', $query->get('numResults'));
-			} elseif ( $query->get('posts_per_page') == '' ) {
+			} elseif ( $query->tribe_is_event_query && $query->get('posts_per_page') == '' ) {
 				$query->set( 'posts_per_page', (int) tribe_get_option( 'postsPerPage', 10 ) );
 			}
 
