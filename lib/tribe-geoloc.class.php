@@ -203,11 +203,17 @@ class TribeEventsGeoLoc {
 		$tec = TribeEvents::instance();
 
 		$base = trailingslashit( $tec->getOption( 'eventsSlug', 'events' ) );
-
+		$baseTax = trailingslashit( $tec->taxRewriteSlug );
+		$baseTax = "(.*)" . $baseTax . "(?:[^/]+/)*";
+		$baseTag = trailingslashit( $tec->tagRewriteSlug );
+		$baseTag = "(.*)" . $baseTag;
+		
 		$newRules = array();
 
 		$newRules[$base . $this->rewrite_slug] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=map';
-
+		$newRules[$baseTax . '([^/]+)/' . $this->rewrite_slug . '/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=map';
+		$newRules[$baseTag . '([^/]+)/' . $this->rewrite_slug . '/?$'] = 'index.php?tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=map';
+		
 		$wp_rewrite->rules = $newRules + $wp_rewrite->rules;
 	}
 
