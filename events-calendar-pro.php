@@ -90,7 +90,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 			add_action( 'tribe_tec_template_chooser', array( $this, 'do_ical_template' ) );
 			add_filter( 'tribe_settings_do_tabs', array( $this, 'add_settings_tabs' ) );
-			add_filter( 'generate_rewrite_rules', array( $this, 'add_routes' ), 9 );
+			add_filter( 'generate_rewrite_rules', array( $this, 'add_routes' ), 11 );
 			add_filter('tribe_events_buttons_the_buttons', array($this, 'add_view_buttons'));
 			add_filter( 'tribe_events_pre_get_posts', array( $this, 'pre_get_posts'));
 			add_filter( 'tribe_enable_recurring_event_queries', '__return_true', 10, 1 );
@@ -532,8 +532,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$newRules[$baseTag . '([^/]+)/' . $today . '/?$'] = 'index.php?tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day';
 			$newRules[$baseTag . '([^/]+)/' . $day . '/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(3);
 			$newRules[$baseTag . '([^/]+)/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(3);
-
-
 
 			$wp_rewrite->rules = $newRules + $wp_rewrite->rules;
 		}
