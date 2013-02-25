@@ -359,7 +359,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		public function helpersLoaded() {
 			require_once( 'lib/apm_filters.php' );
-			new PluginUpdateEngineChecker( self::$updateUrl, $this->pluginSlug, array(), plugin_basename( __FILE__ ) );
+			if ( apply_filters( 'tribe_enable_pue', TRUE, $this->pluginSlug ) ) {
+				new PluginUpdateEngineChecker( self::$updateUrl, $this->pluginSlug, array(), plugin_basename( __FILE__ ) );
+			}
 		}
 
 		public function do_ical_template( $template ) {
