@@ -1650,7 +1650,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			
 			$network_options = (array) get_site_option( self::OPTIONNAMENETWORK );
 						
-			if ( $_POST['hideSettingsTabs'] == $all_tabs_keys ) {
+			if ( isset( $_POST['hideSettingsTabs'] ) && $_POST['hideSettingsTabs'] == $all_tabs_keys ) {
 				$network_options['allSettingsTabsHidden'] = '1';
 			} else {
 				$network_options['allSettingsTabsHidden'] = '0';
