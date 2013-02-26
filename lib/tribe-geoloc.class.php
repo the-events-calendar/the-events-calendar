@@ -48,7 +48,7 @@ class TribeEventsGeoLoc {
 	}
 
 	public function setup_geoloc_filter_in_filters() {
-		$current_filters = get_option( 'tribe_events_filters_current_active_filters', array() );
+		$current_filters = get_option( 'tribe_events_filters_current_active_filters', TribeEventsFilterView::instance()->getDefaultFilters() );
 
 		$distances = apply_filters( 'geoloc-values-for-filters', array( '5'    => '5 miles',
 		                                                                '10'   => '10 miles',
@@ -396,9 +396,6 @@ class TribeEventsGeoLoc {
 		                   'success'     => TRUE,
 		                   'max_pages'   => $query->max_num_pages,
 		                   'total_count' => $query->found_posts );
-
-		$response['html'] .= "<h2>" . __( 'Nearest places', 'tribe-events-calendar-pro' ) . '</h2>';
-
 
 		if ( $query->found_posts === 1 ) {
 			$response['html'] .= sprintf( __( "<div class='event-notices'>%d event found</div>", 'tribe-events-calendar-pro' ), $query->found_posts );

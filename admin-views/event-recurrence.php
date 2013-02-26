@@ -1,6 +1,7 @@
 		<tr class="recurrence-row">
 			<td><?php _e('Recurrence:','tribe-events-calendar-pro'); ?></td>
 			<td>
+				<?php _e('This event recurs ', 'tribe-events-calendar-pro'); ?>
 				<input type="hidden" name="is_recurring" value="<?php echo (isset($recType) && $recType != "None") ? "true" : "false" ?>" />
 				<input type="hidden" name="recurrence_action" value="" />
 				<select name="recurrence[type]">
@@ -12,7 +13,7 @@
 					<option data-single="event" data-plural="events" value="Custom" <?php selected($recType, "Custom") ?>><?php _e('Custom','tribe-events-calendar-pro'); ?></option>
 				</select>
 				<span id="recurrence-end" style="display: <?php echo !$recType || $recType == "None" ? "none" : "inline" ?>">
-					<?php _e('* End','tribe-events-calendar-pro'); ?>
+					<?php _e('and will end *','tribe-events-calendar-pro'); ?>
 					<select name="recurrence[end-type]">
 						<option value="On" <?php selected($recEndType, "None") ?>><?php _e('On','tribe-events-calendar-pro'); ?></option>
 						<option value="After" <?php selected($recEndType, "After") ?>><?php _e('After','tribe-events-calendar-pro'); ?></option>
@@ -128,3 +129,10 @@
 				</div>
 			</td>
 		</tr>
+		<tr class="recurrence-pattern-description-row" id="recurrence_pattern_description_row">
+		<td>
+		<?php _e('Description:', 'tribe-events-calendar-pro' ); ?>
+		</td>
+		<td>
+		<span id="recurrence-pattern-description"></span>
+		</td>
