@@ -397,9 +397,6 @@ class TribeEventsGeoLoc {
 		                   'max_pages'   => $query->max_num_pages,
 		                   'total_count' => $query->found_posts );
 
-		$response['html'] .= "<h2>" . __( 'Nearest places', 'tribe-events-calendar-pro' ) . '</h2>';
-
-
 		if ( $query->found_posts === 1 ) {
 			$response['html'] .= sprintf( __( "<div class='event-notices'>%d event found</div>", 'tribe-events-calendar-pro' ), $query->found_posts );
 		} else {
