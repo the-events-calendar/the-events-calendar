@@ -996,9 +996,7 @@ select.tribe-events-dropdown {
 #tribe-events-bar {
 	width: auto;
 	min-width: 220px;
-	background-color: #eee;
-	border: 1px solid #bbb;
-	padding: 4px;
+	background-color: #f5f5f5;
 	margin-bottom: 30px;
 }
 #tribe-events-bar * {
@@ -1014,13 +1012,22 @@ form#tribe-bar-form > div { margin-bottom: 0 }
 
 /* Globals */
 /* Special Buttons & Selects */
-#tribe-events-bar .select2-container .select2-choice,
-#tribe-events-bar [class^="tribe-bar-button-"] {
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=0 );
+#tribe-events-bar #tribe-bar-dates .select2-container .select2-choice {
+	background: none;
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	padding: 0;
+	width: auto !important;
+	border-radius: 0;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
 }
-#tribe-events-bar .select2-dropdown-open .select2-choice,
-#tribe-events-bar [class^="tribe-bar-button-"].open {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#eeeeee', endColorstr = '#ffffff', GradientType = 0);
+#tribe-events-bar #tribe-bar-dates .select2-container .select2-choice div {
+	display: none;
+}
+#tribe-events-bar #tribe-bar-dates .select2-container .select2-choice span {
+	margin-right: 0;
 }
 
 #tribe-events-bar [class^="tribe-bar-button-"] {	
@@ -1091,31 +1098,22 @@ form#tribe-bar-form > div { margin-bottom: 0 }
 	font-weight: bold;
 	color: #666;
 }
-#tribe-events-bar .tribe-bar-drop-content label {
-	display: block;
-	padding-left: 15px;
-	text-indent: -18px;
-	line-height: 1.5;
-	margin-bottom: 16px;
-	margin: 10px 0 14px;
-}
-#tribe-events-bar .tribe-bar-drop-content label span {
-	font-style: italic;
-	font-size: 11px;
-}
 
 /* Placeholder Bits */
 input[name*="tribe-bar-"]::-webkit-input-placeholder {
-	color: #888;
-	font-size: 15px;
+   color:  #5f5f5f;
+   font-weight: normal;
+   font-style: italic;
 }
 input[name*="tribe-bar-"]:-moz-placeholder {
-	color: #888;
-	font-size: 15px;
+   color:  #5f5f5f;
+   font-weight: normal;
+   font-style: italic;
 }
 .placeholder {
-	color: #888;
-	font-size: 15px;	
+   color:  #5f5f5f;
+   font-weight: normal;
+   font-style: italic;	
 }
 
 /* Button Styles */
@@ -1140,10 +1138,20 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 /* Filters */
+
+#tribe-bar-form label {
+	display: block;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+.tribe-bar-mini #tribe-bar-form label {
+	margin-bottom: 0;
+}
+
 #tribe-bar-filters {
 	float: left;
-	width: 100%;
-	padding-right: 336px;
 }
 #tribe-bar-filters input {
 	display: inline-block;
@@ -1151,16 +1159,53 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	*display: inline;
 	vertical-align: middle;
 }
-#tribe-bar-filters input[type="text"] {
-	width: 33%;
-}
+
 #tribe-bar-dates {
 	float: left;
-	width: 185px;
-	margin-left: -297px;
-	margin-top: 3px;
-	text-align: right;
+	width: 16.66667%;
+	padding: 15px;
 }
+.tribe-bar-mini #tribe-bar-dates {
+	padding: 10px;
+}
+
+.events-gridview #tribe-bar-form label.label-tribe-bar-date {
+	display: none;
+}
+#tribe-bar-dates .select2-choice {
+	border-bottom: 1px dashed #b9b9b9;
+}
+.tribe-bar-search-filter {
+	float: left;
+	width: 25%;
+	padding: 15px;
+}
+
+.tribe-bar-mini .tribe-bar-search-filter {
+	padding: 10px;
+	width: 22.5%;
+}
+
+.tribe-bar-geoloc-filter {
+	float: left;
+	width: 25%;
+	padding: 15px;
+}
+.tribe-bar-mini .tribe-bar-geoloc-filter {
+	width: 22.5%;
+	padding: 10px;
+}
+
+.tribe-bar-submit {
+	float: left;
+	width: 16.66667%;
+	padding: 15px;
+}
+
+.tribe-bar-mini .tribe-bar-submit {
+	padding: 10px;
+}
+
 #tribe-bar-dates input {
 	z-index: 99000 !important;
 	width: 100%;
@@ -1171,16 +1216,17 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 #tribe-bar-dates #s2id_tribe-events-events-month {
-	width: 110px !important;
+	width: auto;
+}
+.select2-drop.tribe-select2-results-dates {
+	width: auto !important;
 }
 
 /* Conditional Date Widths If Has Datepicker / Default is Selects */
 .tribe-has-datepicker #tribe-bar-filters {
 	padding-right: 365px;
 }
-.tribe-has-datepicker #tribe-bar-filters input[type="text"] {
-	width: 34%;
-} 
+ 
 .tribe-has-datepicker #tribe-bar-filters {
 	padding-right: 300px;
 }
@@ -1200,18 +1246,30 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	margin: 0 4px 0 0;
 }
 #tribe-bar-form input[type="text"] {
-	padding: 3px;
-	height: 32px;
+	width: 100%;
+	padding: 0 0 5px 0;
+	background: 0;
+	border: none;
+	border-bottom: 1px dashed #b9b9b9;
 	line-height: 1;
+	height: auto;
+	font-weight: bold;
+	border-radius: 0;	
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+#tribe-bar-form input[type=text]:focus {
+	outline: none;
 }
 #tribe-bar-form input[type="submit"] {
-	width: 70px;
+	width: 100%;
 	padding: 6px 9px;
 	margin-right: 0;
 }
 
 /* Filters Button & Dropdown Content */
-#tribe-bar-filters .tribe-bar-button-search {
+#tribe-bar-form .tribe-bar-button-search {
 	display: none;
 	margin-top: 3px;
 }
@@ -1231,9 +1289,13 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 /* Views */
 #tribe-bar-views {
 	float: left;
-	width: 108px;
-	margin-left: -108px;
-	margin-top: 3px;
+	width: 16.66667%;
+	padding: 15px;
+}
+
+.tribe-bar-mini #tribe-bar-views {
+	padding: 10px;
+	width: 21.66667%;
 }
 #tribe-bar-views .tribe-bar-view-list {
 	list-style-type: none;
@@ -1255,7 +1317,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	display: none;
 }
 #tribe-bar-views .tribe-select2 {
-	width: 108px !important;
+	width: 100% !important;
 	float: left;
 }
 .tribe-select2-results .select2-results {
@@ -1282,13 +1344,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 /* Views Select When Have Settings */
-.tribe-has-settings #tribe-bar-dates {
-	margin-left: -331px;
-}
-.tribe-has-settings #tribe-bar-views {
-	width: 142px;
-	margin-left: -142px;
-}
+
 .tribe-has-settings #tribe-bar-views .select2-container .select2-choice {
 	-webkit-border-bottom-right-radius: 0;
 			border-bottom-right-radius: 0;
@@ -1374,7 +1430,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 /* Mini Bar styles for when parent container gets less than 643px wide */
 .tribe-bar-mini {
-	height: 42px;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
