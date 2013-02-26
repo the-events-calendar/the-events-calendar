@@ -7,7 +7,8 @@ jQuery( document ).ready( function ( $ ) {
 	if($('.tribe-events-calendar').length && $('#tribe-events-bar').length ) {
 		has_bar = true;
 		$( '.tribe-events-events-dropdown' ).select2({
-			minimumResultsForSearch: 9999
+			minimumResultsForSearch: 9999,
+			dropdownCssClass: 'tribe-select2-results-dates'
 		});
 	}
 
@@ -236,7 +237,8 @@ jQuery( document ).ready( function ( $ ) {
 							$( '#tribe-bar-dates' ).contents().not('#tribe-bar-date, #tribe-date-storage').remove();
 							$( '#tribe-bar-dates' ).append( $date_picker );
 							$( '.tribe-events-events-dropdown' ).select2({
-								minimumResultsForSearch: 9999
+								minimumResultsForSearch: 9999,
+								dropdownCssClass: 'tribe-select2-results-dates'
 							});
 						}
 						
