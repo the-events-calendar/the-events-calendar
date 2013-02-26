@@ -88,6 +88,8 @@ jQuery( document ).ready( function ( $ ) {
 
 	function tribe_events_bar_change_view( url, name ) {
 		
+		starting_delim = url.indexOf('?') != -1 ? '&' : '?';
+
 		tribe_events_bar_action = 'change_view';
 		
 		var cv_url_params = {};		
@@ -128,12 +130,12 @@ jQuery( document ).ready( function ( $ ) {
 				cv_url_params = cv_filter_params;	
 			
 			if( cv_url_params.length ) 
-				url = url + '?' + cv_url_params;	
+				url += starting_delim + cv_url_params;	
 			
 			window.location.href = url;
 		} else {
 			if( cv_url_params.length ) 
-				url = url + '?' + cv_url_params;	
+				url += starting_delim + cv_url_params;	
 			
 			window.location.href = url;
 		}
