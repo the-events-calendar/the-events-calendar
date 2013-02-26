@@ -50,7 +50,7 @@ jQuery( document ).ready( function ( $ ) {
    	}
 	$( '#tribe-bar-views .tribe-select2' ).select2({
 		placeholder: "Views",
-		dropdownCssClass: 'tribe-select2-results',
+		dropdownCssClass: 'tribe-select2-results-views',
 		minimumResultsForSearch: 9999,
 		formatResult: format,
 		formatSelection: format
