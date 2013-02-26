@@ -158,7 +158,7 @@ class TribeEventsGeoLoc {
 		}
 
 		$filters[] = array( 'name'    => 'tribe-bar-geoloc',
-		                    'caption' => __( 'Near this location', 'tribe-events-calendar-pro' ),
+		                    'caption' => __( 'Near', 'tribe-events-calendar-pro' ),
 		                    'html'    => '<input type="hidden" name="tribe-bar-geoloc-lat" id="tribe-bar-geoloc-lat" value="' . esc_attr( $lat ) . '" /><input type="hidden" name="tribe-bar-geoloc-lng" id="tribe-bar-geoloc-lng" value="' . esc_attr( $lng ) . '" /><input type="text" name="tribe-bar-geoloc" id="tribe-bar-geoloc" value="' . esc_attr( $value ) . '" placeholder="Location">' );
 
 		return $filters;
