@@ -157,7 +157,7 @@ class TribeEventsBar {
 			echo $close_sel;
 		}
 		
-		// show user front-end settings only if ECP is active
+/*		// show user front-end settings only if ECP is active
 		if ( class_exists( 'TribeEventsPro' ) ) {
 			$hide_recurrence = isset( $_REQUEST['tribeHideRecurrence'] ) ? $_REQUEST['tribeHideRecurrence'] : tribe_get_option( 'hideSubsequentRecurrencesDefault', false );
 			
@@ -173,7 +173,7 @@ class TribeEventsBar {
 			echo '</div><!-- .tribe-bar-drop-content -->';
 			echo '</div><!-- .tribe-bar-drop-content -->';
 			
-		}
+		}*/
 
 	}
 
