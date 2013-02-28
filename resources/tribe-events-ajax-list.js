@@ -182,7 +182,7 @@ jQuery( document ).ready( function ( $ ) {
 			}
 			
 			if( tribe_ev.state.category ) {
-				tribe_ev.state.params['tribe_events_cat'] = tribe_ev.state.category;
+				tribe_ev.state.params['tribe_eventcategory'] = tribe_ev.state.category;
 			}			
 
 			$( 'form#tribe-bar-form input' ).each( function () {					
