@@ -121,28 +121,28 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			$pdf = new FPDF();
 			$ecp = TribeEvents::instance();
 
-			$pdf->AddFont('OpenSans','','opensans.php');
-			$pdf->AddFont('SteelFish','','steelfish.php');
+			$pdf->AddFont( 'OpenSans', '', 'opensans.php' );
+			$pdf->AddFont( 'SteelFish', '', 'steelfish.php' );
 
-			$pdf->SetTitle('EventTicket');
-			$pdf->SetAuthor('The Events Calendar');
-			$pdf->SetCreator('The Events Calendar');
+			$pdf->SetTitle( 'EventTicket' );
+			$pdf->SetAuthor( 'The Events Calendar' );
+			$pdf->SetCreator( 'The Events Calendar' );
 
 			$defaults = array( 'event_id'      => 0,
-			                   'ticket_name'   => '',
-			                   'holder_name'   => '',
-			                   'order_id'      => '',
-			                   'ticket_id'     => '',
-			                   'security_code' => ''
+							   'ticket_name'   => '',
+							   'holder_name'   => '',
+							   'order_id'      => '',
+							   'ticket_id'     => '',
+							   'security_code' => ''
 			);
 
 			foreach ( $tickets_list as $ticket ) {
 
-				$ticket  = wp_parse_args( $ticket, $defaults );
-				$event   = get_post( $ticket['event_id'] );
+				$ticket = wp_parse_args( $ticket, $defaults );
+				$event  = get_post( $ticket['event_id'] );
 
 				$venue_id = tribe_get_venue_id( $event->ID );
-				$venue    = ( !empty( $venue_id ) ) ? get_post( $venue_id )->post_title : '';
+				$venue    = ( ! empty( $venue_id ) ) ? get_post( $venue_id )->post_title : '';
 
 				$address = tribe_get_address( $event->ID );
 				$zip     = tribe_get_zip( $event->ID );
@@ -168,7 +168,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 				$size  = 53;
 
 				while ( $pdf->GetStringWidth( $title ) > 151 ) {
-					$size--;
+					$size --;
 					$pdf->SetFontSize( $size );
 				}
 
@@ -186,9 +186,9 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 				$pdf->SetXY( 30, 59 );
 				$holder = strtoupper( utf8_decode( $ticket['holder_name'] ) );
-				$size  = 30;
+				$size   = 30;
 				while ( $pdf->GetStringWidth( $holder ) > 70 ) {
-					$size--;
+					$size --;
 					$pdf->SetFontSize( $size );
 				}
 				$pdf->Write( 5, $holder );
@@ -198,7 +198,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 				$venue = strtoupper( utf8_decode( $venue ) );
 				$size  = 30;
 				while ( $pdf->GetStringWidth( $venue ) > 70 ) {
-					$size--;
+					$size --;
 					$pdf->SetFontSize( $size );
 				}
 				$pdf->Write( 5, $venue );
@@ -206,9 +206,9 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 				$pdf->SetXY( 104, 71 );
 
 				$address = strtoupper( utf8_decode( $address ) );
-				$size  = 30;
+				$size    = 30;
 				while ( $pdf->GetStringWidth( $address ) > 70 ) {
-					$size--;
+					$size --;
 					$pdf->SetFontSize( $size );
 				}
 				$pdf->Write( 5, $address );
@@ -222,7 +222,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 				$size = 30;
 				while ( $pdf->GetStringWidth( $address2 ) > 70 ) {
-					$size--;
+					$size --;
 					$pdf->SetFontSize( $size );
 				}
 				$pdf->Write( 5, $address2 );
@@ -251,7 +251,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 				$pdf->SetFont( 'OpenSans', '', 10 );
 				$pdf->SetXY( 30, 140 );
-				$pdf->Write( 5, get_bloginfo('name') );
+				$pdf->Write( 5, get_bloginfo( 'name' ) );
 				$pdf->SetXY( 104, 140 );
 				$pdf->Write( 5, get_home_url() );
 
@@ -283,7 +283,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			$data    = wp_parse_args( $_POST["formdata"] );
 			$post_id = $_POST["post_ID"];
 
-			if ( !isset( $data["ticket_provider"] ) || !$this->module_is_valid( $data["ticket_provider"] ) ) $this->ajax_error( 'Bad module' );
+			if ( ! isset( $data["ticket_provider"] ) || ! $this->module_is_valid( $data["ticket_provider"] ) ) $this->ajax_error( 'Bad module' );
 
 			$ticket = new TribeEventsTicketObject();
 
@@ -299,13 +299,13 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 				$ticket->price = preg_replace( '/[^0-9\.]/Uis', '', $ticket->price );
 			}
 
-			if ( !empty( $data['ticket_start_date'] ) ) {
-				$meridian           = !empty( $data['ticket_start_meridian'] ) ? " " . $data['ticket_start_meridian'] : "";
+			if ( ! empty( $data['ticket_start_date'] ) ) {
+				$meridian           = ! empty( $data['ticket_start_meridian'] ) ? " " . $data['ticket_start_meridian'] : "";
 				$ticket->start_date = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime( $data['ticket_start_date'] . " " . $data['ticket_start_hour'] . ":" . $data['ticket_start_minute'] . ":00" . $meridian ) );
 			}
 
-			if ( !empty( $data['ticket_end_date'] ) ) {
-				$meridian         = !empty( $data['ticket_end_meridian'] ) ? " " . $data['ticket_end_meridian'] : "";
+			if ( ! empty( $data['ticket_end_date'] ) ) {
+				$meridian         = ! empty( $data['ticket_end_meridian'] ) ? " " . $data['ticket_end_meridian'] : "";
 				$ticket->end_date = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime( $data['ticket_end_date'] . " " . $data['ticket_end_hour'] . ":" . $data['ticket_end_minute'] . ":00" . $meridian ) );
 			}
 
@@ -342,9 +342,9 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 		public final function ajax_handler_attendee_uncheckin() {
 
-			if ( !isset( $_POST["order_ID"] ) || intval( $_POST["order_ID"] ) == 0 )
+			if ( ! isset( $_POST["order_ID"] ) || intval( $_POST["order_ID"] ) == 0 )
 				$this->ajax_error( 'Bad post' );
-			if ( !isset( $_POST["provider"] ) || !$this->module_is_valid( $_POST["provider"] ) )
+			if ( ! isset( $_POST["provider"] ) || ! $this->module_is_valid( $_POST["provider"] ) )
 				$this->ajax_error( 'Bad module' );
 
 			$order_id = $_POST["order_ID"];
@@ -419,7 +419,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 				$return = get_object_vars( $data );
 			} elseif ( is_array( $data ) || is_string( $data ) ) {
 				$return = $data;
-			} elseif ( is_bool( $data ) && !$data ) {
+			} elseif ( is_bool( $data ) && ! $data ) {
 				$this->ajax_error( "Something went wrong" );
 			}
 
@@ -440,8 +440,8 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 
 				$url = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE,
-				                             'page'      => $this->attendees_slug,
-				                             'event_id'  => $post->ID ), admin_url( 'edit.php' ) );
+											 'page'      => $this->attendees_slug,
+											 'event_id'  => $post->ID ), admin_url( 'edit.php' ) );
 
 				$actions['tickets_attendees'] = sprintf( '<a title="%s" href="%s">%s</a>', __( 'See who purchased tickets to this event', 'tribe-events-calendar' ), esc_url( $url ), __( 'Attendees', 'tribe-events-calendar' ) );
 			}
@@ -465,7 +465,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 				return;
 
 			$ecp = TribeEvents::instance();
-			
+
 			wp_enqueue_style( $this->attendees_slug, trailingslashit( $ecp->pluginUrl ) . '/resources/tickets-attendees.css' );
 			wp_enqueue_script( $this->attendees_slug, trailingslashit( $ecp->pluginUrl ) . '/resources/tickets-attendees.js', array( 'jquery' ) );
 		}
@@ -483,7 +483,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			$attendees = array();
 
 			foreach ( self::$active_modules as $class=> $module ) {
-				$obj = call_user_func( array( $class, 'get_instance' ) );
+				$obj       = call_user_func( array( $class, 'get_instance' ) );
 				$attendees = array_merge( $attendees, $obj->get_attendees( $event_id ) );
 			}
 
@@ -527,7 +527,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			$tickets = array();
 
 			foreach ( self::$active_modules as $class=> $module ) {
-				$obj = call_user_func( array( $class, 'get_instance' ) );
+				$obj     = call_user_func( array( $class, 'get_instance' ) );
 				$tickets = array_merge( $tickets, $obj->get_tickets( $event_id ) );
 			}
 
@@ -536,7 +536,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 		public function getTemplateHierarchy( $template ) {
 
-			if ( substr( $template, -4 ) != '.php' ) {
+			if ( substr( $template, - 4 ) != '.php' ) {
 				$template .= '.php';
 			}
 
