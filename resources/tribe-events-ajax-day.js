@@ -93,43 +93,10 @@ jQuery( document ).ready( function ( $ ) {
 		} );
 
 	}
-
-	if( $('#tribe_events_filters_form').length ) {
-		
-		var $form = $('#tribe_events_filters_form');
-		
-		function tribe_day_filter_submit() {
-			tribe_ev.fn.disable_inputs( '#tribe_events_filters_form', 'input, select' );
-			tribe_ev.state.popping = false;
-			tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );					
-			tribe_ev.fn.pre_ajax( function() { 
-				tribe_events_calendar_ajax_post();	
-			});
-		}
-		
-		$form.on( 'submit', function ( e ) {
-			if ( tribe_events_bar_action != 'change_view' ) {
-				e.preventDefault();
-				tribe_day_filter_submit();
-			}
-		} );		
-		
-		if( tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate ) {
-			
-			$form.find('input[type="submit"]').remove();
-			
-			$form.on( "slidechange", ".ui-slider", function() {
-				tribe_ev.fn.setup_ajax_timer( function() {
-					tribe_day_filter_submit();
-				} );			
-			} );
-			$form.on("change", "input, select", function(){
-				tribe_ev.fn.setup_ajax_timer( function() {
-					tribe_day_filter_submit();
-				} );	
-			});			
-		}	
-	}
+	
+	$(tribe_ev.events).on("tribe_ev_runAjax", function() {
+		tribe_events_calendar_ajax_post();		
+	});
 
 	function tribe_events_calendar_ajax_post() {
 
@@ -168,27 +135,20 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_ev.state.params = $.param(tribe_ev.state.params);
 			tribe_ev.state.url_params = $.param(tribe_ev.state.url_params);
 
-			if( $('#tribe_events_filters_form').length ) {				
-				var tribe_filter_params = tribe_ev.fn.serialize( '#tribe_events_filters_form', 'input, select' );		
-				if( tribe_filter_params.length ) {					
-					tribe_ev.state.params = tribe_ev.state.params + '&' + tribe_filter_params;
-					if( tribe_ev.state.url_params.length )
-						tribe_ev.state.url_params = tribe_ev.state.url_params + '&' + tribe_filter_params;
-					else
-						tribe_ev.state.url_params = tribe_filter_params;
-				}
-			}
+			$(tribe_ev.events).trigger('tribe_ev_collectParams');		
 
 			tribe_ev.state.pushstate = true;
 			tribe_ev.state.do_string = false;
 
-			if ( tribe_ev.state.pushcount > 0 || tribe_filter_params != '' ) {
+			if ( tribe_ev.state.pushcount > 0 || tribe_ev.state.filters ) {
 				tribe_ev.state.pushstate = false;
 				tribe_ev.state.do_string = true;				
 			}
 		} 	
 
 		if( tribe_ev.tests.pushstate ) {
+			
+			$(tribe_ev.events).trigger('tribe_ev_ajaxStart');
 
 			$.post(
 				TribeCalendar.ajaxurl,
@@ -200,6 +160,8 @@ jQuery( document ).ready( function ( $ ) {
 					tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
 					
 					if ( response !== '' ) {
+						
+						$(tribe_ev.events).trigger('tribe_ev_ajaxSuccess');
 						
 						tribe_ev.data.ajax_response = {
 							'type':'tribe_events_ajax',
