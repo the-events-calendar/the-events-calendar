@@ -371,7 +371,7 @@ tribe_ev.fn = {
 	url_path: function( url ) {
 		return url.split("?")[0];
 	}	
-}
+};
 
 tribe_ev.tests = {	
 	live_ajax: function() {
@@ -393,14 +393,14 @@ tribe_ev.tests = {
 		else
 			return false;
 	}
-}
+};
 
 tribe_ev.data = {
 	ajax_response:{},
 	cur_url:tribe_ev.fn.url_path( document.URL ),
 	initial_url:tribe_ev.fn.url_path( document.URL ),
 	params:tribe_ev.fn.get_params()		
-}
+};
 
 tribe_ev.state = {
 	ajax_running:false,
@@ -415,7 +415,7 @@ tribe_ev.state = {
 	pushcount:0,
 	url_params:{},
 	view:''
-}
+};
 
 jQuery( document ).ready( function ( $ ) {	
 	

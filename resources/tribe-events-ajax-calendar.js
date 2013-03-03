@@ -1,6 +1,7 @@
 jQuery( document ).ready( function ( $ ) {
 	
 	var base_url = $('#tribe-events-header .tribe-nav-next a').attr('href').slice(0, -8);
+	tribe_ev.state.view = 'month';
 	
 	var has_bar = false;
 	
