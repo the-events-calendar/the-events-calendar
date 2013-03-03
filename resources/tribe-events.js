@@ -402,11 +402,14 @@ tribe_ev.data = {
 	params:tribe_ev.fn.get_params()		
 };
 
+tribe_ev.events = {};
+
 tribe_ev.state = {
 	ajax_running:false,
 	category:'',
 	date:'',
 	do_string:false,
+	filters:false,
 	initial_load:true,
 	paged:1,
 	params:{},

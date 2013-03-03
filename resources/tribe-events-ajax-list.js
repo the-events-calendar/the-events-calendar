@@ -81,50 +81,7 @@ jQuery( document ).ready( function ( $ ) {
 		});
 	} );
 
-	tribe_ev.fn.snap( '#tribe-events-list-view', '#tribe-events-list-view', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );	
-
-	if ( $( '#tribe_events_filters_form' ).length ) {
-
-		var $form = $('#tribe_events_filters_form');
-
-		$form.on( 'submit', function ( e ) {
-			if ( tribe_events_bar_action != 'change_view' ) {
-				e.preventDefault();
-				tribe_ev.state.popping = false;
-				tribe_ev.state.paged = 1;
-				tribe_ev.state.view = 'list';
-				tribe_ev.fn.pre_ajax( function() {
-					tribe_events_list_ajax_post();
-				});
-			}
-		} );
-
-		if( tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate ) {
-
-			$form.find('input[type="submit"]').remove();
-			
-			function run_filtered_list_ajax() {	
-				tribe_ev.fn.disable_inputs( '#tribe_events_filters_form', 'input, select' );
-				tribe_ev.state.paged = 1;
-				tribe_ev.state.view = 'list';
-				tribe_ev.state.popping = false;
-				tribe_ev.fn.pre_ajax( function() {
-					tribe_events_list_ajax_post();
-				});				
-			}
-
-			$form.on( "slidechange", ".ui-slider", function() {
-				tribe_ev.fn.setup_ajax_timer( function() {
-					run_filtered_list_ajax() 
-				} );				
-			} );
-			$form.on("change", "input, select", function(){
-				tribe_ev.fn.setup_ajax_timer( function() {
-					run_filtered_list_ajax() 
-				} );	
-			});			
-		}	
-	}
+	tribe_ev.fn.snap( '#tribe-events-list-view', '#tribe-events-list-view', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );		
 
 	function tribe_events_bar_listajax_actions(e) {
 		if ( tribe_events_bar_action != 'change_view' ) {
@@ -157,6 +114,10 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_events_bar_listajax_actions(e);			
 		tribe_ev.fn.hide_settings();
 	} );
+	
+	$(tribe_ev.events).on("tribe_ev_runAjax", function() {
+		tribe_events_list_ajax_post();		
+	});
 
 	function tribe_events_list_ajax_post() {			
 
@@ -202,17 +163,8 @@ jQuery( document ).ready( function ( $ ) {
 
 			tribe_ev.state.params = $.param(tribe_ev.state.params);
 			tribe_ev.state.url_params = $.param(tribe_ev.state.url_params);
-
-			if( $('#tribe_events_filters_form').length ) {
-				var tribe_filter_params = tribe_ev.fn.serialize( '#tribe_events_filters_form', 'input, select' );		
-				if( tribe_filter_params.length ) {					
-					tribe_ev.state.params = tribe_ev.state.params + '&' + tribe_filter_params;
-					if( tribe_ev.state.url_params.length )
-						tribe_ev.state.url_params = tribe_ev.state.url_params + '&' + tribe_filter_params;
-					else
-						tribe_ev.state.url_params = tribe_filter_params;
-				}				
-			} 			
+			
+			$(tribe_ev.events).trigger('tribe_ev_collectParams');
 
 			tribe_ev.state.pushstate = false;
 			tribe_ev.state.do_string = true;				
@@ -220,6 +172,8 @@ jQuery( document ).ready( function ( $ ) {
 		}
 
 		if( tribe_ev.tests.pushstate ) {
+			
+			$(tribe_ev.events).trigger('tribe_ev_ajaxStart');
 
 			$.post(
 				TribeList.ajaxurl,
@@ -230,7 +184,9 @@ jQuery( document ).ready( function ( $ ) {
 					tribe_ev.state.initial_load = false;
 					tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
 
-					if ( response.success ) {												
+					if ( response.success ) {
+						
+						$(tribe_ev.events).trigger('tribe_ev_ajaxSuccess');
 
 						tribe_ev.data.ajax_response = {
 							'type':'tribe_events_ajax',
