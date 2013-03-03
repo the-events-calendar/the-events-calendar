@@ -1,8 +1,9 @@
-
 jQuery( document ).ready( function ( $ ) {
 	
 	var base_url = $('#tribe-events-header .tribe-nav-next a').attr('href').slice(0, -11);	
-	tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );		
+	tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );
+	
+	tribe_ev.state.view = 'day';
 
 	function tribe_day_add_classes() {		
 		if ( $( '.tribe-events-day-time-slot' ).length ) {

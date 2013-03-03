@@ -7,6 +7,8 @@ jQuery(document).ready(function($){
 //		});
 //	});
 
+	tribe_ev.state.view = 'week';
+
 	$( '#tribe-events-bar' ).addClass( 'tribe-has-datepicker' );
 	tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );		
 	var base_url = $('#tribe-events-header .tribe-nav-next a').attr('href').slice(0, -11);	

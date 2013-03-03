@@ -27,6 +27,8 @@ function tribe_process_geocoding( location, callback ) {
 
 jQuery( document ).ready( function ( $ ) {
 	
+	tribe_ev.state.view = 'map';
+	
 	function tribe_test_location() {
 		
 		if( $( '#tribe-bar-geoloc' ).length ) {

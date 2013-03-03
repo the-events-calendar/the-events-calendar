@@ -1,6 +1,8 @@
 jQuery( document ).ready( function ( $ ) {	
 	
-	var tribe_is_paged = tribe_ev.fn.get_url_param('tribe_paged');		
+	var tribe_is_paged = tribe_ev.fn.get_url_param('tribe_paged');	
+	
+	tribe_ev.state.view = 'photo';
 	
 	if( tribe_is_paged ) {
 		tribe_ev.state.paged = tribe_is_paged;
