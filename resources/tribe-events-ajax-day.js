@@ -156,11 +156,11 @@ jQuery( document ).ready( function ( $ ) {
 						var $the_content;
 						
 						if ($.isFunction(jQuery.parseHTML))
-							$the_content = $( $.parseHTML(response) ).contents();							
+							$the_content = $( $.parseHTML(response) ).contents();										
 						else
 							$the_content = $( response ).contents();						
 						
-						$( '#tribe-events-content.tribe-events-list' ).replaceWith( $the_content );								
+						$( '#tribe-events-content.tribe-events-list' ).html( $the_content );								
 
 						var page_title = $( $the_content ).find( "#tribe-events-header" ).attr( 'data-title' );
 						var page_header = $( $the_content ).find( "#tribe-events-header" ).attr( 'data-header' );					
