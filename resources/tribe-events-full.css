@@ -996,8 +996,8 @@ select.tribe-events-dropdown {
 #tribe-events-bar {
 	width: auto;
 	min-width: 220px;
-	background-color: #f5f5f5;
 	margin-bottom: 30px;
+	height: 72px;
 }
 #tribe-events-bar * {
 	-webkit-box-sizing: border-box;
@@ -1008,7 +1008,11 @@ select.tribe-events-dropdown {
 	position: relative;
 	margin: 0;
 }
-form#tribe-bar-form > div { margin-bottom: 0 }
+form#tribe-bar-form > div { 
+	margin-bottom: 0; 	
+	background-color: #f5f5f5;
+	height: 72px;
+}
 
 /* Globals */
 /* Special Buttons & Selects */
@@ -1160,7 +1164,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	vertical-align: middle;
 }
 
-#tribe-bar-dates {
+.tribe-bar-date-filter{
 	float: left;
 	width: 16.66667%;
 	padding: 15px;
@@ -1202,6 +1206,22 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	padding: 15px;
 }
 
+.tribe-bar-submit input[type=submit] {
+	width: 100%;
+	padding: 10px;
+	background-image: none;
+	background: #666;
+	color: #fff;
+	border: none;
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+}
+
+.tribe-bar-submit input[type=submit]:hover {
+	background: #999;
+	color: #fff;
+}
 .tribe-bar-mini .tribe-bar-submit {
 	padding: 10px;
 }
@@ -1229,10 +1249,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
  
 .tribe-has-datepicker #tribe-bar-filters {
 	padding-right: 300px;
-}
-.tribe-has-datepicker.tribe-has-settings #tribe-bar-dates {
-	width: 125px;
-	margin-left: -272px;
 }
 .tribe-has-datepicker #tribe-bar-dates {
 	margin-top: 0; 
@@ -1262,11 +1278,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 #tribe-bar-form input[type=text]:focus {
 	outline: none;
 }
-#tribe-bar-form input[type="submit"] {
-	width: 100%;
-	padding: 6px 9px;
-	margin-right: 0;
-}
 
 /* Filters Button & Dropdown Content */
 #tribe-bar-form .tribe-bar-button-search {
@@ -1291,6 +1302,36 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	float: left;
 	width: 16.66667%;
 	padding: 15px;
+}
+
+form#tribe-bar-form #tribe-bar-views {
+	background: #dadada;
+	border-left: 5px solid #fff;
+}
+
+#tribe-bar-views .select2-container .select2-choice {
+	background: none;
+	filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
+	border: none;
+	padding: 0;
+}
+#tribe-bar-views .select2-dropdown-open .select2-choice {
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+.tribe-select2-results-views {
+	padding: 15px;
+	box-sizing: content-box;
+	margin-left: -15px;
+}
+.tribe-select2-results-views.select2-drop {
+	background: #DBDBDB;
+	border: none;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
 }
 
 .tribe-bar-mini #tribe-bar-views {
@@ -1320,6 +1361,14 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	width: 100% !important;
 	float: left;
 }
+
+.tribe-select2-results-views .select2-results {
+	margin: 0;
+	padding: 0;
+}
+.tribe-select2-results-views .select2-results .select2-result-label {
+	padding: 4px 0;
+}
 .tribe-select2-results .select2-results {
 	margin: 4px 0;
 	padding: 0;
@@ -1334,7 +1383,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	color: #444;
 }
 #tribe-bar-views .select2-container .select2-choice div {
-	width: 18px;
+	display: none;
 }
 #tribe-bar-views .select2-container .select2-choice span {
 	margin-right: 18px;
@@ -1487,18 +1536,18 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 /* Events Bar Icons */
-.tribe-select2-results span[class^="tribe-icon-"],
+.tribe-select2-results-views span[class^="tribe-icon-"],
 .tribe-select2 span[class^="tribe-icon-"],
 .tribe-bar-view-list a[class*="tribe-icon-"] {
 	padding-left: 24px;
 	background-repeat: no-repeat;
 	background-position: 0 50%;
 }
-.tribe-select2-results span[class^="tribe-icon-"] {
+.tribe-select2-results-views span[class^="tribe-icon-"] {
 	min-height: 16px;
 	display: inline-block;
 }
-.tribe-select2-results .tribe-icon-list,
+.tribe-select2-results-views .tribe-icon-list,
 .tribe-select2 .tribe-icon-list,
 .tribe-bar-view-list a.tribe-icon-upcoming {
 	background-image: url(images/events-bar/icon-list.png);
@@ -1510,32 +1559,32 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	padding-left: 30px;
 	background-position: 10px 50%;
 }
-.tribe-select2-results .tribe-icon-month,
+.tribe-select2-results-views .tribe-icon-month,
 .tribe-select2 .tribe-icon-month,
 .tribe-bar-view-list a.tribe-icon-month {
 	background-image: url(images/events-bar/icon-month.png);
 	-webkit-background-size: 15px 16px;
     		background-size: 15px 16px;
 }
-.tribe-select2-results .tribe-icon-week,
+.tribe-select2-results-views .tribe-icon-week,
 .tribe-select2 .tribe-icon-week {
 	background-image: url(images/events-bar/icon-week.png);
 	-webkit-background-size: 15px 16px;
     		background-size: 15px 16px;
 }
-.tribe-select2-results .tribe-icon-day,
+.tribe-select2-results-views .tribe-icon-day,
 .tribe-select2 .tribe-icon-day {
 	background-image: url(images/events-bar/icon-day.png);
 	-webkit-background-size: 15px 16px;
     		background-size: 15px 16px;
 }
-.tribe-select2-results .tribe-icon-photo,
+.tribe-select2-results-views .tribe-icon-photo,
 .tribe-select2 .tribe-icon-photo {
 	background-image: url(images/events-bar/icon-photo.png);
 	-webkit-background-size: 15px 14px;
     		background-size: 15px 14px;
 }
-.tribe-select2-results span.tribe-icon-map,
+.tribe-select2-results-views span.tribe-icon-map,
 .tribe-select2 span.tribe-icon-map {
 	background-image: url(images/events-bar/icon-map.png);
 	-webkit-background-size: 12px 16px;
