@@ -10,19 +10,28 @@ jQuery( document ).ready( function ( $ ) {
 		onChange:function () {
 			alert( 'lala' );
 		},
-		onSelect:function ( dateText, inst ) {
-			var the_date = $.datepicker.parseDate( 'yy-mm-dd', dateText );
-			if ( inst.id === "ticket_start_date" ) {
-				$( "#ticket_end_date" ).datepicker( 'option', 'minDate', the_date )
+		onSelect:function (dateText, inst) {
+			var the_date = $.datepicker.parseDate('yy-mm-dd', dateText);
+			if (inst.id === "ticket_start_date") {
+				$("#ticket_end_date").datepicker('option', 'minDate', the_date)
 			} else {
-				$( "#ticket_start_date" ).datepicker( 'option', 'maxDate', the_date )
+				$("#ticket_start_date").datepicker('option', 'maxDate', the_date)
 
 			}
 		}
 	};
 
-	$( "#ticket_start_date" ).datepicker( datepickerOpts );
-	$( "#ticket_end_date" ).datepicker( datepickerOpts );
+
+	$("#ticket_start_date").datepicker(datepickerOpts).keyup(function (e) {
+		if (e.keyCode == 8 || e.keyCode == 46) {
+			$.datepicker._clearDate(this);
+		}
+	});
+	$("#ticket_end_date").datepicker(datepickerOpts).keyup(function (e) {
+		if (e.keyCode == 8 || e.keyCode == 46) {
+			$.datepicker._clearDate(this);
+		}
+	});
 
 	/* Show the advanced metabox for the selected provider and hide the others on selection change */
 	$( 'input[name=ticket_provider]:radio' ).change( function () {
