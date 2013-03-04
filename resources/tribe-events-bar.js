@@ -85,6 +85,29 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_events_bar_change_view( el.attr( 'href' ), name );
 
 	} );
+	
+	$(tribe_ev.events).on("tribe_ev_scrapeBar", function() {
+		$( 'form#tribe-bar-form input' ).each( function () {
+			var $this = $( this );
+			if( $this.val().length && !$this.hasClass('tribe-no-param') ) {
+				if( $this.is(':checkbox') ) {
+					if( $this.is(':checked') ) {
+						tribe_ev.state.params[$this.attr('name')] = $this.val();
+						if( tribe_ev.state.view !== 'map' )
+							tribe_ev.state.url_params[$this.attr('name')] = $this.val();
+						if( tribe_ev.state.view === 'month' || tribe_ev.state.view === 'day' || tribe_ev.state.view === 'week' )
+							tribe_ev.state.pushcount++;
+					}
+				} else {
+					tribe_ev.state.params[$this.attr('name')] = $this.val();
+					if( tribe_ev.state.view !== 'map' )
+						tribe_ev.state.url_params[$this.attr('name')] = $this.val();
+					if( tribe_ev.state.view === 'month' || tribe_ev.state.view === 'day' || tribe_ev.state.view === 'week' )
+						tribe_ev.state.pushcount++;
+				}					
+			}			
+		} );	
+	});
 
 	function tribe_events_bar_change_view( url, name ) {
 		

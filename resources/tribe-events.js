@@ -15,21 +15,32 @@ var tribe_ajax_timer;
 
 // jquery functions
 
-jQuery.fn.tribe_clear_form = function() {
-	return this.each(function() {
-		var type = this.type, tag = this.tagName.toLowerCase();
-		if (tag == 'form')
-			return jQuery(':input',this).tribe_clear_form();
-		if (type == 'text' || type == 'password' || tag == 'textarea')
-			this.value = '';
-		else if (type == 'checkbox' || type == 'radio')
-			this.checked = false;
-		else if (tag == 'select')
-			this.selectedIndex = 0;		
+(function($) {
+	$.fn.extend({
+		triggerAll: function(events) {
+			var el = $(this);
+			for (var evt in events.split(' ')) {
+				el.trigger(evt);
+			}
+			return el;
+		}
 	});
-};
+	$.fn.tribe_clear_form = function() {
+		return this.each(function() {
+			var type = this.type, tag = this.tagName.toLowerCase();
+			if (tag == 'form')
+				return jQuery(':input', this).tribe_clear_form();
+			if (type == 'text' || type == 'password' || tag == 'textarea')
+				this.value = '';
+			else if (type == 'checkbox' || type == 'radio')
+				this.checked = false;
+			else if (tag == 'select')
+				this.selectedIndex = 0;
+		});
+	};
+})(jQuery);
 
-// tribe global, we need them for some ping pong
+// tribe events object
 
 tribe_ev = {};
 

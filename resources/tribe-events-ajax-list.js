@@ -146,20 +146,7 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_ev.state.params['tribe_eventcategory'] = tribe_ev.state.category;
 			}			
 
-			$( 'form#tribe-bar-form input' ).each( function () {					
-				var $this = $( this );
-				if( $this.val().length && !$this.hasClass('tribe-no-param') ) {
-					if( $this.is(':checkbox') ) {
-						if( $this.is(':checked') ) {
-							tribe_ev.state.params[$this.attr('name')] = $this.val();
-							tribe_ev.state.url_params[$this.attr('name')] = $this.val();
-						}
-					} else {
-						tribe_ev.state.params[$this.attr('name')] = $this.val();
-						tribe_ev.state.url_params[$this.attr('name')] = $this.val();
-					}					
-				}								
-			} );
+			$(tribe_ev.events).trigger('tribe_ev_scrapeBar');
 
 			tribe_ev.state.params = $.param(tribe_ev.state.params);
 			tribe_ev.state.url_params = $.param(tribe_ev.state.url_params);
@@ -173,7 +160,7 @@ jQuery( document ).ready( function ( $ ) {
 
 		if( tribe_ev.tests.pushstate ) {
 			
-			$(tribe_ev.events).trigger('tribe_ev_ajaxStart');
+			$(tribe_ev.events).triggerAll('tribe_ev_ajaxStart tribe_ev_listView_AjaxStart');					
 
 			$.post(
 				TribeList.ajaxurl,
@@ -184,9 +171,9 @@ jQuery( document ).ready( function ( $ ) {
 					tribe_ev.state.initial_load = false;
 					tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
 
-					if ( response.success ) {
+					if ( response.success ) {						
 						
-						$(tribe_ev.events).trigger('tribe_ev_ajaxSuccess');
+						$(tribe_ev.events).triggerAll('tribe_ev_ajaxSuccess tribe_ev_listView_AjaxSuccess');
 
 						tribe_ev.data.ajax_response = {
 							'type':'tribe_events_ajax',
