@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, mzaweb, codearachnid, ryancurban, leahkoerper, barryhughes, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codearachnid, ryancurban, leahkoerper, barryhughes, peterchester, reid.peifer, shane.pearlman
 Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar, recurring, event, venue, eventbrite, registration, tickets, ticketing, eventbright, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.3
@@ -23,7 +23,6 @@ Just getting started? Check out our <a href="http://tri.be/new-user-primers/?ref
 * Upcoming Events Widget
 * Compatibility with Twenty Eleven and Twenty Ten Themes (month and list view)
 * Extensive template tags for customization
-* Multisite Compatible 
 * Google Maps Integration
 * Calendar Month view with tooltips
 * Includes support for venue, cost, address, start and end time, google maps link
@@ -144,7 +143,7 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 
 * <a href="http://profiles.wordpress.org/users/paulhughes01">Paul Hughes</a>
 * <a href="http://profiles.wordpress.org/users/roblagatta">Rob La Gatta</a>
-* <a href="http://profiles.wordpress.org/users/mzaweb">Daniel Dvorkin</a>
+* <a href="http://profiles.wordpress.org/users/MZAWeb">Daniel Dvorkin</a>
 * <a href="http://profiles.wordpress.org/users/codearachnid">Timothy Wood</a>
 * <a href="http://profiles.wordpress.org/users/jonahcoyote">Jonah West</a>
 * <a href="http://profiles.wordpress.org/users/barryhughes">Barry Hughes</a>
