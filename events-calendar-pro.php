@@ -130,7 +130,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_weekview_in_bar' ), 10, 1 );
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_dayview_in_bar' ), 15, 1 );
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_photoview_in_bar' ), 30, 1 );
-
+			add_filter( 'tribe_events_ugly_link', array( $this, 'ugly_link' ), 10, 3);
 			add_filter( 'tribe-events-bar-date-search-default-value', array( $this, 'maybe_setup_date_in_bar' ) );
 
 			/* AJAX for loading day view */
@@ -359,7 +359,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		public function helpersLoaded() {
 			require_once( 'lib/apm_filters.php' );
-			new PluginUpdateEngineChecker( self::$updateUrl, $this->pluginSlug, array(), plugin_basename( __FILE__ ) );
+			if ( apply_filters( 'tribe_enable_pue', TRUE, $this->pluginSlug ) ) {
+				new PluginUpdateEngineChecker( self::$updateUrl, $this->pluginSlug, array(), plugin_basename( __FILE__ ) );
+			}
 		}
 
 		public function do_ical_template( $template ) {
@@ -887,6 +889,29 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			return $links;
 		}
 
+		public function ugly_link( $eventUrl, $type, $secondary ){
+			switch( $type ) {
+				case 'day':
+				case 'week':
+					$eventUrl = add_query_arg('post_type', TribeEvents::POSTTYPE, home_url() );
+					// if we're on an Event Cat, show the cat link, except for home.
+					if ( $type !== 'home' && is_tax( TribeEvents::TAXONOMY ) ) {
+						$eventUrl = add_query_arg( TribeEvents::TAXONOMY, get_query_var('term'), $eventUrl );
+					}
+					$eventUrl = add_query_arg( array( 'eventDisplay' => $type ), $eventUrl );
+					if ( $secondary )
+						$eventUrl = add_query_arg( array( 'eventDate' => $secondary ), $eventUrl );
+					break;
+				case 'photo':
+				case 'map':
+					$eventUrl = add_query_arg( array( 'eventDisplay' => $type ), $eventUrl );
+					break;
+				default:
+					break;
+			}
+
+			return apply_filters( 'tribe_events_pro_ugly_link', $eventUrl, $type, $secondary );
+		}
 
 		public function setup_weekview_in_bar( $views ) {
 			$views[] = array( 'displaying' => 'week',
