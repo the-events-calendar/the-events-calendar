@@ -1431,6 +1431,30 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	display: none;
 }
 
+table.tribe-events-tickets .tickets_price {
+	font-style: italic;
+	color: #000;
+	font-weight: bold;
+}
+
+table.tribe-events-tickets {
+	border-bottom: 1px solid #DDD;
+	margin: 0 0 1.625em;
+	width: 100%;
+}
+
+table.tribe-events-tickets td {
+	border-top: 1px solid #DDD;
+	padding: 6px 10px 6px 0;
+}
+
+h2.tribe-events-tickets-title {
+	color: black;
+	font-weight: bold;
+	margin: 0 0 .8125em;
+}
+
+
 /* Events Bar Icons */
 .tribe-select2-results span[class^="tribe-icon-"],
 .tribe-select2 span[class^="tribe-icon-"],
