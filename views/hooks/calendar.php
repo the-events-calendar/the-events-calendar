@@ -26,6 +26,11 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 
 			Tribe_Template_Factory::asset_package( 'ajax-calendar' );
 
+			global $wp_query;
+			if ($wp_query->tribe_is_event && !empty($wp_query->query_vars['s']) && empty($wp_query->posts) ){
+				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There are no events for %s.', 'tribe-events-calendar' ), $wp_query->query_vars['s'] ) );
+			}		
+
 			// Start calendar template
 			add_filter( 'tribe_events_calendar_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
 
@@ -86,10 +91,8 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_after_the_title');
 		}
 		// Notices
-		public static function notices(){
-			$html = '';
-			if(!empty($notices))	
-				$html .= '<div class="event-notices">' . implode('<br />', $notices) . '</div>';
+		public static function notices( $post_id ){
+			$html = tribe_events_the_notices(false);
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_notices');
 		}
 		// Calendar Header
