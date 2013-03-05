@@ -57,9 +57,14 @@
 
 			<td nowrap="nowrap">
 				<?php
-				$stock = !empty ( $ticket->stock ) ? $ticket->stock : 0;
-				$sold  = !empty ( $ticket->qty_sold ) ? $ticket->qty_sold : 0;
-				echo sprintf( __( "Sold %d of %d", 'tribe-events-calendar' ), $sold, $sold + $stock );
+				$stock = $ticket->stock;
+				$sold  = ! empty ( $ticket->qty_sold ) ? $ticket->qty_sold : 0;
+
+				if ( empty( $stock ) && $stock !== 0 ) {
+					echo sprintf( __( "Sold %d", 'tribe-events-calendar' ), $sold );
+				} else {
+					echo sprintf( __( "Sold %d of %d", 'tribe-events-calendar' ), $sold, $sold + $stock );
+				}
 				?>
 			</td>
 			<td width="40%" valign="top">
