@@ -311,7 +311,7 @@ if (!class_exists('TribeEventsQuery')) {
 		}
 
 		public static function posts_fields( $fields, $query ) {
-			if ( self::$is_event_query ) {
+			if ( self::$is_event ) {
 				global $wpdb;
 				$fields .= ", {$wpdb->postmeta}.meta_value as EventStartDate, tribe_event_duration.meta_value as EventDuration, DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) as EventEndDate ";
 				return apply_filters('tribe_events_query_posts_fields',$fields);
