@@ -143,7 +143,7 @@ jQuery( document ).ready( function ( $ ) {
 			}
 			
 			if( tribe_ev.state.category ) {
-				tribe_ev.state.params['tribe_eventcategory'] = tribe_ev.state.category;
+				tribe_ev.state.params['tribe_event_category'] = tribe_ev.state.category;
 			}			
 
 			$(tribe_ev.events).trigger('tribe_ev_scrapeBar');

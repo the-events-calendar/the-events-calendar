@@ -3528,8 +3528,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( isset( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ) {
 				$args['eventDisplay'] = 'past';
 			}
+			
+			if ( isset( $_POST['tribe_event_category'] ) ) {
+				$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
+			}
 
 			$query = TribeEventsQuery::getEvents( $args, true );
+
 			$hash = $query->query_vars;
 
 			$hash['paged']      = null;

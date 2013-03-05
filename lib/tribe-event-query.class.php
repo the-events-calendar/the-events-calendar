@@ -168,7 +168,8 @@ if (!class_exists('TribeEventsQuery')) {
 					$tax_query[] = array(
 						'taxonomy' => TribeEvents::TAXONOMY,
 						'field' => is_numeric($query->get(TribeEvents::TAXONOMY)) ? 'id' : 'slug',
-						'terms' => $query->get(TribeEvents::TAXONOMY)
+						'terms' => $query->get(TribeEvents::TAXONOMY),
+						'include_children' => false,
 						);
 				}
 
@@ -262,7 +263,7 @@ if (!class_exists('TribeEventsQuery')) {
 				$query->is_home = !empty($query->query_vars['is_home']) ? $query->query_vars['is_home'] : false;
 				apply_filters( 'tribe_events_pre_get_posts', $query );
 			}
-
+			
 			return $query;
 		}
 
