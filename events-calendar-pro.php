@@ -662,10 +662,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function enqueue_styles() {
 
 			// Enqueue the pro-stylesheet.
-			if ( tribe_get_option('stylesheetOption') == 'skeleton') {
+			if ( tribe_get_option('stylesheetOption') == 'skeleton' ) {
 				$stylesheet_url = $this->pluginUrl . 'resources/tribe-events-pro-skeleton.css';
-			} else {
+			} elseif ( tribe_get_option('stylesheetOption') == 'full' ) {
 				$stylesheet_url = $this->pluginUrl . 'resources/tribe-events-pro-full.css';
+			} else {
+				$stylesheet_url = $this->pluginUrl . 'resources/tribe-events-pro-theme.css';
 			}
 			$stylesheet_url = TribeEventsTemplates::locate_stylesheet('tribe-events/pro/tribe-events-pro.css', $stylesheet_url);
 			$stylesheet_url = apply_filters( 'tribe_events_pro_stylesheet_url', $stylesheet_url );
