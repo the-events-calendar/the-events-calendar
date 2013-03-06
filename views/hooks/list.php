@@ -186,7 +186,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			} elseif ( tribe_is_upcoming() ) {
 				$html .= '<li class="tribe-nav-next tribe-nav-right">';
 				if( get_next_posts_link() ) 
-					$html .= get_next_posts_link( __( 'Next Events &rarr;', 'tribe-events-calendar' ) );
+					$html .= '<a href="'. tribe_get_upcoming_link() .'" rel="next">'. __( 'Next Events &rarr;', 'tribe-events-calendar' ) .'</a>';
 				$html .= '</li><!-- .tribe-nav-previous -->';
 			}
 			
@@ -405,7 +405,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			} elseif ( tribe_is_upcoming() ) {
 				$html .= '<li class="tribe-nav-next tribe-nav-right">';
 				if( get_next_posts_link() ) 
-					$html .= get_next_posts_link( __( 'Next Events &rarr;', 'tribe-events-calendar' ) );
+					$html .= '<a href="'. tribe_get_upcoming_link() .'" rel="next">'. __( 'Next Events &rarr;', 'tribe-events-calendar' ) .'</a>';
 				$html .= '</li><!-- .tribe-nav-previous -->';
 			}
 			
