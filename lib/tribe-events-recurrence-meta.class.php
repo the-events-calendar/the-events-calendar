@@ -92,8 +92,8 @@ class TribeEventsRecurrenceMeta {
 		}
 
 		if( TribeEventsRecurrenceMeta::isRecurrenceValid( $event_id, $recurrence_meta ) ) {
-			update_post_meta($event_id, '_EventRecurrence', $recurrence_meta);				
-			TribeEventsRecurrenceMeta::saveEvents($event_id);
+			$updated = update_post_meta($event_id, '_EventRecurrence', $recurrence_meta);				
+			TribeEventsRecurrenceMeta::saveEvents($event_id, $updated);
 		}
 	}
 
@@ -435,7 +435,7 @@ class TribeEventsRecurrenceMeta {
  	 * @param array $postId The event that is being saved 
 	 * @return void
 	 */		
-	public static function saveEvents( $postId) {
+	public static function saveEvents( $postId, $updated = true ) {
 		extract(TribeEventsRecurrenceMeta::getRecurrenceMeta($postId));
 		$rules = TribeEventsRecurrenceMeta::getSeriesRules($postId);
 
@@ -445,7 +445,9 @@ class TribeEventsRecurrenceMeta {
 		$duration = $eventEnd - $recStart;
 
 		$recEnd = $recEndType == "On" ? strtotime(TribeDateUtils::endOfDay($recEnd)) : $recEndCount - 1; // subtract one because event is first occurrence
-
+		
+		$old_start_dates = get_post_meta( $postId, '_EventStartDate' );
+		
 		// different update types
 		delete_post_meta($postId, '_EventStartDate');
 		delete_post_meta($postId, '_EventEndDate');
@@ -457,8 +459,8 @@ class TribeEventsRecurrenceMeta {
 		add_post_meta($postId,'_EventDuration', $duration);
 
 		if ( $recType != "None") {
-			$recurrence = new TribeRecurrence($recStart, $recEnd, $rules, $recEndType == "After");
-			$dates = (array) $recurrence->getDates();
+			$recurrence = new TribeRecurrence($recStart, $recEnd, $rules, $recEndType == "After", get_post( $postId ) );
+			$dates = (array) $recurrence->getDates( $updated, $old_start_dates );
 
 			// add meta for all dates in recurrence
 			foreach($dates as $date) {
