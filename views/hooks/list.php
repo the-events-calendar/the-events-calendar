@@ -155,6 +155,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 		}
 		public static function header_navigation( $content, $post_id ){
 			$tribe_ecp = TribeEvents::instance();
+			$html = '';
 			
 			// LEFT NAVIGATION
 			if( tribe_is_past() ) {
@@ -373,6 +374,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 		}
 		public static function footer_navigation( $content, $post_id ){
 			$tribe_ecp = TribeEvents::instance();
+			$html = '';
 			
 			// LEFT NAVIGATION
 			if( tribe_is_past() ) {
