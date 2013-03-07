@@ -661,19 +661,30 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		public function enqueue_styles() {
 
-			// Enqueue the pro-stylesheet.
-			if ( tribe_get_option('stylesheetOption') == 'skeleton' ) {
-				$stylesheet_url = $this->pluginUrl . 'resources/tribe-events-pro-skeleton.css';
-			} elseif ( tribe_get_option('stylesheetOption') == 'full' ) {
-				$stylesheet_url = $this->pluginUrl . 'resources/tribe-events-pro-full.css';
-			} else {
-				$stylesheet_url = $this->pluginUrl . 'resources/tribe-events-pro-theme.css';
-			}
-			$stylesheet_url = TribeEventsTemplates::locate_stylesheet('tribe-events/pro/tribe-events-pro.css', $stylesheet_url);
-			$stylesheet_url = apply_filters( 'tribe_events_pro_stylesheet_url', $stylesheet_url );
-			if ( $stylesheet_url )
-				wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url, array( TribeEvents::POSTTYPE . '-calendar-style' ) );
+			// Tribe Events CSS filename
+			$event_file = 'tribe-events-pro.css';
+			$stylesheet_option = tribe_get_option( 'stylesheetOption' );
 
+			// What Option was selected
+			switch( $stylesheet_option ) {
+				case 'skeleton':
+				case 'full':
+					$event_file_option = 'tribe-events-pro-'. $stylesheet_option .'.css';
+					break;
+				default:
+					$event_file_option = 'tribe-events-pro-theme.css';
+					break;
+			}
+					
+			// Is there a pro override file in the theme?
+			$styleUrl = trailingslashit( $this->pluginUrl ) . 'resources/' . $event_file_option;
+			$styleUrl = TribeEventsTemplates::locate_stylesheet( 'tribe-events/pro/'. $event_file, $styleUrl );
+			$styleUrl = apply_filters( 'tribe_events_pro_stylesheet_url', $styleUrl );
+
+			// Load up stylesheet from theme or plugin
+			if ( $styleUrl )
+				wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-pro-style', $styleUrl );
+			
 			$tec = TribeEvents::instance();
 			if ( $tec->displaying === 'day' ) {
 				Tribe_PRO_Template_Factory::asset_package( 'ajax-dayview' );
