@@ -442,6 +442,8 @@ if (!class_exists('TribeEventsQuery')) {
 			switch( $args['display_type'] ){
 				case 'daily':
 				default :
+					global $wp_query;
+					
 					$output_date_format = '%Y-%m-%d';
 					$raw_counts = $wpdb->get_results( sprintf( "SELECT tribe_event_start.post_id as ID, DATE_FORMAT( tribe_event_start.meta_value, '%1\$s') as EventStartDate, DATE_FORMAT( DATE_ADD(CAST(tribe_event_start.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND), '%2\$s') as EventEndDate
 						FROM $wpdb->postmeta AS tribe_event_start
@@ -463,6 +465,12 @@ if (!class_exists('TribeEventsQuery')) {
 					$start_date = new DateTime( $args['start_date'] );
 					$end_date = new DateTime( $args['end_date'] );
 					$days = self::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
+					$term_id = isset( $wp_query->query_vars[TribeEvents::TAXONOMY] ) ? $wp_query->query_vars[TribeEvents::TAXONOMY] : null;
+					if ( is_int( $term_id ) ) {
+						$term = get_term_by( 'id', $term_id, TribeEvents::TAXONOMY );		
+					} elseif ( is_string( $term_id ) ) {
+						$term = get_term_by( 'slug', $term_id, TribeEvents::TAXONOMY );
+					}
 					for ( $i = 0, $date = $start_date; $i <= $days; $i++, $date->modify( '+1 day' ) ) {
 						$formatted_date = $date->format( 'Y-m-d' );
 						$count = 0;
@@ -470,6 +478,12 @@ if (!class_exists('TribeEventsQuery')) {
 							$record_start = $record->EventStartDate;
 							$record_end = $record->EventEndDate;
 							if ( $record_start <= $formatted_date && $record_end >= $formatted_date ) {
+								if ( isset( $term->term_id ) ) {
+									$record_terms = get_the_terms( $record->ID, TribeEvents::TAXONOMY );
+									if ( !$record_terms || ( $record_terms && !in_array( $term, $record_terms ) ) ) {
+										$count--;
+									}
+								}
 								$count++;
 							}
 						}

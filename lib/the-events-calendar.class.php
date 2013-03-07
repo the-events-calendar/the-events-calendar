@@ -3630,7 +3630,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		function calendar_ajax_call() {
 			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
-
+				global $wp_query;
+				
+				if ( isset( $_POST['tribe_event_category'] ) ) {
+					$wp_query->set( TribeEvents::TAXONOMY, $_POST['tribe_event_category'] );
+				}
+				
 				if ( class_exists( 'TribeEventsFilterView' ) ) {
 					TribeEventsFilterView::instance()->createFilters( null, true );
 				}

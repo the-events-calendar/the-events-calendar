@@ -209,8 +209,11 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_previous_month_link()  {
 		global $wp_query;
+		$term = null;
 		$tribe_ecp = TribeEvents::instance();
-		$output = $tribe_ecp->getLink( 'month', $tribe_ecp->previousMonth( tribe_get_month_view_date() ));
+		if ( isset( $wp_query->query_vars[TribeEvents::TAXONOMY] ) )
+			$term = $wp_query->query_vars[TribeEvents::TAXONOMY];
+		$output = $tribe_ecp->getLink( 'month', $tribe_ecp->previousMonth( tribe_get_month_view_date() ), $term );
 		return apply_filters('tribe_get_previous_month_link', $output);
 	}
 	
@@ -237,8 +240,12 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_next_month_link()  {
+		global $wp_query;
+		$term = null;
 		$tribe_ecp = TribeEvents::instance();
-		$output = $tribe_ecp->getLink( 'month', $tribe_ecp->nextMonth(tribe_get_month_view_date() ));
+		if ( isset( $wp_query->query_vars[TribeEvents::TAXONOMY] ) )
+			$term = $wp_query->query_vars[TribeEvents::TAXONOMY];
+		$output = $tribe_ecp->getLink( 'month', $tribe_ecp->nextMonth(tribe_get_month_view_date() ), $term );
 		return apply_filters('tribe_get_next_month_link', $output);
 	}
 
