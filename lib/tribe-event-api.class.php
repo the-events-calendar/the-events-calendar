@@ -82,6 +82,8 @@ if (!class_exists('TribeEventsAPI')) {
 			if ( $startTimestamp > $endTimestamp ) {
 				$data['EventEndDate'] = $data['EventStartDate'];
 			}
+			
+			$old_data['EventStartDate'] = get_post_meta( $event_id, '_EventStartDate', true );
 		
 			update_post_meta( $event_id, '_EventShowMapLink', isset( $data['venue']['EventShowMapLink'] ) );
 			update_post_meta( $event_id, '_EventShowMap', isset( $data['venue']['EventShowMap'] ) );
@@ -121,8 +123,10 @@ if (!class_exists('TribeEventsAPI')) {
 				if ( isset( $data[$htmlElement] ) && $tag != TribeEvents::EVENTSERROROPT ) {
 					if ( is_string($data[$htmlElement]) )
 						$data[$htmlElement] = filter_var($data[$htmlElement], FILTER_SANITIZE_STRING);
-
-					update_post_meta( $event_id, $tag, $data[$htmlElement] );
+					if ( isset( $old_data[$htmlElement] ) )
+						update_post_meta( $event_id, $tag, $data[$htmlElement], $old_data[$htmlElement] );
+					else
+						update_post_meta( $event_id, $tag, $data[$htmlElement] );
 				}
 			}
 
