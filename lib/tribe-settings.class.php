@@ -185,18 +185,20 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		public function initTabs() {
 			if ( isset( $_GET['page'] ) && $_GET['page'] == $this->adminSlug ) {
 				do_action( 'tribe_settings_do_tabs' ); // this is the hook to use to add new tabs
-				if ( is_network_admin() )
-					$this->defaultTab = apply_filters( 'tribe_settings_default_tab_network', 'network' );
-					$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->defaultTab );
-					$this->url = apply_filters( 'tribe_settings_url', add_query_arg( array( 'page' => $this->adminSlug, 'tab' => $this->currentTab ), network_admin_url( 'settings.php' ) ) );
-				if( !is_network_admin() ) {
-					$this->defaultTab = apply_filters( 'tribe_settings_default_tab', 'general' );
-					$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->defaultTab );
-					$this->url = apply_filters( 'tribe_settings_url', add_query_arg( array( 'page' => $this->adminSlug, 'tab' => $this->currentTab ), add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE ), admin_url( 'edit.php' ) ) ) );
-				}
 				$this->tabs = (array) apply_filters( 'tribe_settings_tabs', array() );
 				$this->allTabs = (array) apply_filters( 'tribe_settings_all_tabs', array() );
 				$this->noSaveTabs = (array) apply_filters( 'tribe_settings_no_save_tabs', array() );
+				if ( is_network_admin() ) {
+					$this->defaultTab = apply_filters( 'tribe_settings_default_tab_network', 'network' );
+					$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->defaultTab );
+					$this->url = apply_filters( 'tribe_settings_url', add_query_arg( array( 'page' => $this->adminSlug, 'tab' => $this->currentTab ), network_admin_url( 'settings.php' ) ) );
+				}
+				if( !is_network_admin() ) {
+					$tabs_keys = array_keys( $this->tabs );
+					$this->defaultTab = in_array( apply_filters( 'tribe_settings_default_tab', 'general' ), $tabs_keys ) ? apply_filters( 'tribe_settings_default_tab', 'general' ) : $tabs_keys[0];
+					$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->defaultTab );
+					$this->url = apply_filters( 'tribe_settings_url', add_query_arg( array( 'page' => $this->adminSlug, 'tab' => $this->currentTab ), add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE ), admin_url( 'edit.php' ) ) ) );
+				}
 				$this->fields_for_save = (array) apply_filters( 'tribe_settings_fields', array() );
 				do_action( 'tribe_settings_after_do_tabs' );
 				$this->fields = (array) apply_filters( 'tribe_settings_fields', array() );

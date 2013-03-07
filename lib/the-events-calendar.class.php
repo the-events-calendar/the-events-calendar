@@ -1650,7 +1650,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			
 			$network_options = (array) get_site_option( self::OPTIONNAMENETWORK );
 						
-			if ( $_POST['hideSettingsTabs'] == $all_tabs_keys ) {
+			if ( isset( $_POST['hideSettingsTabs'] ) && $_POST['hideSettingsTabs'] == $all_tabs_keys ) {
 				$network_options['allSettingsTabsHidden'] = '1';
 			} else {
 				$network_options['allSettingsTabsHidden'] = '0';
@@ -2014,7 +2014,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
-		protected function uglyLink( $type = 'home', $secondary = false ) {
+		public function uglyLink( $type = 'home', $secondary = false ) {
 
 			$eventUrl = add_query_arg('post_type', self::POSTTYPE, home_url() );
 
@@ -2024,49 +2024,43 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 
 			switch( $type ) {
-
-				case 'home':
-					return $eventUrl;
-				case 'month':
-					$month = add_query_arg( array( 'eventDisplay' => 'month'), $eventUrl );
-					if ( $secondary )
-						$month = add_query_arg( array( 'eventDate' => $secondary ), $month );
-					return $month;
-				case 'week':
-					$week = add_query_arg( array( 'eventDisplay' => 'week'), $eventUrl );
-					if ( $secondary )
-						$week = add_query_arg( array( 'eventDate' => $secondary ), $week );
-					return $week;
 				case 'day':
-					$month = add_query_arg( array( 'eventDisplay' => 'day'), $eventUrl );
+				case 'week':
+				case 'month':
+					$eventUrl = add_query_arg( array( 'eventDisplay' => $type ), $eventUrl );
 					if ( $secondary )
-						$month = add_query_arg( array( 'eventDate' => $secondary ), $month );
-					return $month;
-				case 'upcoming':
-					return add_query_arg( array( 'eventDisplay' => 'upcoming'), $eventUrl );
+						$eventUrl = add_query_arg( array( 'eventDate' => $secondary ), $eventUrl );
+					break;
 				case 'past':
-					return add_query_arg( array( 'eventDisplay' => 'past'), $eventUrl );
+				case 'upcoming':
+					$eventUrl = add_query_arg( array( 'eventDisplay' => $type ), $eventUrl );
+					break;
 				case 'dropdown':
 					$dropdown = add_query_arg( array( 'eventDisplay' => 'month', 'eventDate' => ' '), $eventUrl );
-					return rtrim($dropdown); // tricksy
+					$eventUrl = rtrim($dropdown); // tricksy
+					break;
 				case 'ical':
 					if ( $secondary == 'single' ) {
 						return add_query_arg('ical', '1', get_permalink() );
 					}
-					return home_url() . '/?ical';
+					$eventUrl = home_url() . '/?ical';
+					break;
 				case 'single':
 					global $post;
 					$p = $secondary ? $secondary : $post;
-					$link = get_permalink($p);
-					return $link;
+					$eventUrl = get_permalink($p);
+					break;
 				case 'all':
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
 					$eventUrl = add_query_arg('eventDisplay', 'all', get_permalink() );
 					add_filter( 'post_type_link', array( $this, 'addDateToRecurringEvents' ), 10, 2 );
-					return $eventUrl;
+					break;
+				case 'home':
 				default:
-					return $eventUrl;
+					break;
 			}
+
+			return apply_filters( 'tribe_events_ugly_link', $eventUrl, $type, $secondary );
 		}
 
 		/**
