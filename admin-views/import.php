@@ -47,7 +47,7 @@ require_once 'header.php';
 	    <?php
 		// Check that we can upload to the server
 		if ( !is_writable( $importer_instance->pluginPath ) ) {
-		    echo "<br />" . sprintf( __( 'Please ensure the following directory is <a href="%s">writable by WordPress</a>: %s' ),
+		    echo "<br />" . sprintf( __( 'Please ensure the following directory is <a href="%s">writable by WordPress</a>: %s', 'tribe-events-importer' ),
 						'http://codex.wordpress.org/Changing_File_Permissions#Permission_Scheme_for_WordPress',
 						'<code>' . $importer_instance->pluginPath . '</code>' ) . "<br />";
 		} else {
