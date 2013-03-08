@@ -693,12 +693,12 @@ class TribeEventsRecurrenceMeta {
 
 		if ( $id == 'general' ) {
 
-			// we want to inject the map default distance and unit into the map section directly after "enable Google Maps" 
+			// we want to inject the hiding subsequent occurrences into the general section directly after "Live update AJAX" 
 			$args = TribeEvents::array_insert_after_key( 'liveFiltersUpdate', $args, array( 
 				'hideSubsequentRecurrencesDefault' => array(
 				'type' => 'checkbox_bool',
-				'label' => __( 'Hide subsequent occurences', 'tribe-events-calendar' ),
-				'tooltip' => __( 'Set the frontend setting for hiding subsequent occurrences of recurring events.', 'tribe-events-calendar' ),
+				'label' => __( 'Recurring event instances', 'tribe-events-calendar' ),
+				'tooltip' => __( 'Show only the first instance of each recurring event.', 'tribe-events-calendar' ),
 				'default' => false,
 				'validation_type' => 'boolean',
 				), ) 

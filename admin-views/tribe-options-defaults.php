@@ -50,10 +50,6 @@ $defaultsTab = array(
 			'type' => 'html',
 			'html' => '<h3>' . __('Options', 'tribe-events-calendar-pro') . '</h3>',
 		),
-		'eventsDefaultOptionsHelperText' => array(
-			'type' => 'html',
-			'html' => '<p class="description">' . __('Various options to control aspects of your default content', 'tribe-events-calendar-pro') . '</p>',
-		),
 		'defaultValueReplace' => array(
 			'type' => 'checkbox_bool',
 			'label' => __('Automatically replace empty fields with default values','tribe-events-calendar-pro'),
@@ -67,10 +63,6 @@ $defaultsTab = array(
 		'eventsDefaultOrganizerHelperTitle' => array(
 			'type' => 'html',
 			'html' => '<h3>' . __('Organizer', 'tribe-events-calendar-pro') . '</h3>',
-		),
-		'eventsDefaultOrganizerHelperText' => array(
-			'type' => 'html',
-			'html' => '<p class="description">' . __('You can use this setting to set a default organizer to use with your events.', 'tribe-events-calendar-pro') . '</p>',
 		),
 		'eventsDefaultOrganizerID' => array(
 			'type' => 'dropdown_chosen',
@@ -88,10 +80,6 @@ $defaultsTab = array(
 		'eventsDefaultVenueHelperTitle' => array(
 			'type' => 'html',
 			'html' => '<h3>' . __('Venue', 'tribe-events-calendar-pro') . '</h3>',
-		),
-		'eventsDefaultVenueHelperText' => array(
-			'type' => 'html',
-			'html' => '<p class="description">' . __('You can use this setting to set a default venue to use with your events.', 'tribe-events-calendar-pro') . '</p>',
 		),
 		'eventsDefaultVenueID' => array(
 			'type' => 'dropdown_chosen',
