@@ -31,8 +31,6 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			extract( $args, EXTR_SKIP );
 			// The view expects all these $instance variables, which may not be set without pro
 			$instance = wp_parse_args($instance, array(
-				'start' => TRUE,
-				'end' => TRUE,
 				'venue' => 0,
 				'organizer' => 0,
 				'address' => '',
