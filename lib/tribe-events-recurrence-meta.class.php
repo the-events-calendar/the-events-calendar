@@ -9,6 +9,7 @@ class TribeEventsRecurrenceMeta {
 	const UPDATE_TYPE_ALL = 1;
 	const UPDATE_TYPE_FUTURE = 2;
 	const UPDATE_TYPE_SINGLE = 3;
+
 	
 	public static function init() {
 		add_action( 'tribe_events_update_meta', array( __CLASS__, 'updateRecurrenceMeta' ), 1, 3 );
@@ -29,6 +30,8 @@ class TribeEventsRecurrenceMeta {
     	add_filter( 'tribe_events_query_posts_groupby', array( __CLASS__, 'addGroupBy' ), 10, 2 );
 	
 		add_filter( 'tribe_settings_tab_fields', array( __CLASS__, 'inject_settings' ), 10, 2 );
+	
+		add_action( 'admin_notices', array( __CLASS__, 'displayErrors' ), 10 );
 	}
 
 	
@@ -461,10 +464,14 @@ class TribeEventsRecurrenceMeta {
 		if ( $recType != "None") {
 			$recurrence = new TribeRecurrence($recStart, $recEnd, $rules, $recEndType == "After", get_post( $postId ) );
 			$dates = (array) $recurrence->getDates( $updated, $old_start_dates );
-
-			// add meta for all dates in recurrence
-			foreach($dates as $date) {
-				add_post_meta($postId,'_EventStartDate', date(DateSeriesRules::DATE_FORMAT, $date));
+			
+			if ( count( $dates ) > 199 ) {
+				add_filter( 'redirect_post_location', array( __CLASS__, 'tooManyRecurrencesError' ) );
+			} else {
+				// add meta for all dates in recurrence
+				foreach($dates as $date) {
+					add_post_meta($postId,'_EventStartDate', date(DateSeriesRules::DATE_FORMAT, $date));
+				}
 			}
 		}
 	}
@@ -708,6 +715,37 @@ class TribeEventsRecurrenceMeta {
 
 
 		return $args;
+	}
+	
+	/**
+	 * Responsible for the display of recurrence-related errors.
+	 *
+	 * @since 3.0
+	 * @author PaulHughes01
+	 *
+	 * @return void
+	 */
+	public function displayErrors() {
+		if ( isset( $_GET['tribe_recurrence_error'] ) && is_numeric( $_GET['tribe_recurrence_error'] ) ) {
+			$all_messages = self::errorMessages();
+			$error_messages = apply_filters( 'tribe_events_recurrence_error_messages', array( $all_messages[$_GET['tribe_recurrence_error']] ) );
+			echo '<div class="error">';
+			foreach ( $error_messages as $message ) {
+				echo '<p>' . $message . '</p>';
+			}
+			echo '</div>';
+		}
+	}
+	
+	public function tooManyRecurrencesError( $location ) {
+		return add_query_arg( 'tribe_recurrence_error', 0, $location );
+	}
+	
+	public function errorMessages() {
+		$error_messages = array( 
+			0 => __( 'Your recurrence pattern would create greater than 200 occurrences. Please change the patter to have fewer recurrences.', 'tribe-events-calendar-pro' ),
+		);
+		return $error_messages;
 	}
 	
 }
