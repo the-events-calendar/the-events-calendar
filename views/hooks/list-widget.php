@@ -70,10 +70,15 @@ if( !class_exists('Tribe_Events_Pro_List_Widget_Template')){
 		public static function the_date( $event, $post_id = null, $start = true, $end = true ){
 			$html = '<abbr class="tribe-events-abbr updated published dtstart" title="'. tribe_get_start_date( $post_id, false, TribeDateUtils::DBDATEFORMAT ) .'">'. tribe_get_start_date( $post_id, $start ) .'</abbr><!-- .dtstart -->';
 			
-			if(tribe_is_multiday( $post_id ) || ($end && !$event->AllDay))
+			if( !tribe_is_multiday( $post_id ) && !tribe_get_all_day( $post_id ) ) {
+				$html .= ' &ndash; <br/><abbr class="tribe-events-abbr dtend" title="'. tribe_get_end_date( $post_id, false, TribeDateUtils::DBDATEFORMAT ) .'">'. tribe_get_end_date( $post_id, false, 'g:i a' ) .'</abbr><!-- .dtend -->';
+			} elseif( !tribe_get_all_day( $post_id ) || ( tribe_is_multiday( $post_id ) && tribe_get_all_day( $post_id ) ) ) {
 				$html .= ' &ndash; <br/><abbr class="tribe-events-abbr dtend" title="'. tribe_get_end_date( $post_id, false, TribeDateUtils::DBDATEFORMAT ) .'">'. tribe_get_end_date( $post_id, $end ) .'</abbr><!-- .dtend -->';
-			if($event->AllDay)
+			}
+
+			if( tribe_get_all_day( $post_id ) )
 				$html .= ' <small><em>('. __('All Day','tribe-events-calendar') .')</em></small>';
+			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_list_widget_the_date');
 		}
 		public static function after_the_date( $event ){

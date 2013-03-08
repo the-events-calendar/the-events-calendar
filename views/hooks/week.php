@@ -296,9 +296,22 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 							} else {
 								$all_day_span_ids[] = $event->ID;
 								$day_span_length = $event->days_between + 1; // we need to adjust on behalf of weekly span scripts
-								$span_class = $day_span_length > 0  ?'tribe-dayspan' . $day_span_length : '';
+								$span_class = $day_span_length > 0 ? 'tribe-dayspan' . $day_span_length : '';
+								// Get our wrapper classes (for event categories, organizer, venue, and defaults)
+								$classes = array( 'hentry', 'vevent', $span_class, 'type-tribe_events', 'post-' . $event->ID, 'tribe-clearfix' );
+								$tribe_cat_ids = tribe_get_event_cat_ids( $event->ID );
+								foreach( $tribe_cat_ids as $tribe_cat_id ) {
+									$classes[] = 'tribe-events-category-'. $tribe_cat_id;
+								}
+								if ( $venue_id = tribe_get_venue_id( $event->ID ) ) {
+									$classes[] = 'tribe-events-venue-'.$venue_id;
+								}
+								if ( $organizer_id = tribe_get_organizer_id( $event->ID ) ) {
+									$classes[] = 'tribe-events-organizer-'.$organizer_id;
+								}
+								$class_string = implode(' ', $classes);
 								printf( '<div id="tribe-events-event-'. $event->ID .'" class="%s" data-hour="all-day"><div><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3>',
-									'hentry vevent ' . $span_class,
+									$class_string,
 									get_permalink( $event->ID ),
 									$event->post_title
 								); ?>
@@ -427,18 +440,29 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 								$data_hour = date( 'G', strtotime( $event->EventStartDate ) );
 								$data_min = date( 'i', strtotime( $event->EventStartDate ) );
 							}
-							if( strtotime($prior_event_date->EventStartDate) < strtotime($event->EventStartDate) ){
-								$container_classes = 'tribe-event-overlap ';
-							} else {
-								$container_classes = '';
+							// Get our wrapper classes (for event categories, organizer, venue, and defaults)
+							$classes = array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $event->ID, 'tribe-clearfix' );
+							$tribe_cat_ids = tribe_get_event_cat_ids( $event->ID );
+							foreach( $tribe_cat_ids as $tribe_cat_id ) {
+								$classes[] = 'tribe-events-category-'. $tribe_cat_id;
 							}
+							if ( $venue_id = tribe_get_venue_id( $event->ID ) ) {
+								$classes[] = 'tribe-events-venue-'.$venue_id;
+							}
+							if ( $organizer_id = tribe_get_organizer_id( $event->ID ) ) {
+								$classes[] = 'tribe-events-organizer-'.$organizer_id;
+							}
+							if( strtotime( $prior_event_date->EventStartDate ) < strtotime( $event->EventStartDate ) ) {
+								$classes[] = 'tribe-event-overlap';
+							}
+							$class_string = implode(' ', $classes);
 							// echo '<div id="tribe-events-event-'. $event->ID .'" duration="'. round( $duration ) .'" data-hour="' . $data_hour . '" data-min="' . $data_min . '">';
 							printf( '<div id="tribe-events-event-%s" duration="%s" data-hour="%s" data-min="%s" class="%s"><div class="hentry vevent"><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3></div>',
 								$event->ID,
 								round( $duration ),
 								$data_hour,
 								$data_min,
-								$container_classes,
+								$class_string,
 								get_permalink( $event->ID ),
 								$event->post_title
 							); ?>

@@ -113,9 +113,9 @@ class TribeEventsGeoLoc {
 			$args = TribeEvents::array_insert_after_key( 'embedGoogleMaps', $args, array( 
 				'geoloc_default_geofence' => array( 
 					'type'            => 'text',
-					'label'           => __( 'Map view search distance ratio (GeoFence)', 'tribe-events-calendar-pro' ),
+					'label'           => __( 'Map view search distance limit', 'tribe-events-calendar-pro' ),
 					'size'            => 'small',
-					'tooltip'         => __( 'Enter a number to limit how far a geographic area the geosearch covers.', 'tribe-events-calendar-pro' ),
+					'tooltip'         => __( 'Set the distance that the location search covers (find events within X distance units of location search input).', 'tribe-events-calendar-pro' ),
 					'default'         => '25',
 					'class'           => '',
 					'validation_type' => 'number_or_percent' ),
