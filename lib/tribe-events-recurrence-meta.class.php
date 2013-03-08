@@ -465,7 +465,8 @@ class TribeEventsRecurrenceMeta {
 			$recurrence = new TribeRecurrence($recStart, $recEnd, $rules, $recEndType == "After", get_post( $postId ) );
 			$dates = (array) $recurrence->getDates( $updated, $old_start_dates );
 			
-			if ( count( $dates ) > 199 ) {
+			$max_recurrences = apply_filters( 'tribe_events_max_recurrences', 199 );
+			if ( count( $dates ) > $max_recurrences ) {
 				add_filter( 'redirect_post_location', array( __CLASS__, 'tooManyRecurrencesError' ) );
 			} else {
 				// add meta for all dates in recurrence
@@ -742,8 +743,9 @@ class TribeEventsRecurrenceMeta {
 	}
 	
 	public function errorMessages() {
+		$max_recurrences = apply_filters( 'tribe_events_max_recurrences', 199 );
 		$error_messages = array( 
-			0 => __( 'Your recurrence pattern would create greater than 200 occurrences. Please change the patter to have fewer recurrences.', 'tribe-events-calendar-pro' ),
+			0 => __( 'Your recurrence pattern would create greater than ' . ( $max_recurrences + 1 ) . ' occurrences. Please change the patter to have fewer recurrences.', 'tribe-events-calendar-pro' ),
 		);
 		return $error_messages;
 	}
