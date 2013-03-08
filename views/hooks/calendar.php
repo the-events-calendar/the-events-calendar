@@ -348,16 +348,15 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		private static function single_event_classes( $post ) {
 
 			// Get our wrapper classes (for event categories, organizer, venue, and defaults)
-			$classes = array('hentry', 'vevent');
+			$classes = array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $post->ID );
 			$tribe_cat_ids = tribe_get_event_cat_ids( $post->ID );
 			foreach( $tribe_cat_ids as $tribe_cat_id ) {
 				$classes[] = 'tribe-events-category-'. $tribe_cat_id;
 			}
-			$classes = array_merge($classes, get_post_class('', $post->ID));
-			if ( $venue_id = tribe_get_venue_id($post->ID) ) {
+			if ( $venue_id = tribe_get_venue_id( $post->ID ) ) {
 				$classes[] = 'tribe-events-venue-'.$venue_id;
 			}
-			if ( $organizer_id = tribe_get_organizer_id($post->ID) ) {
+			if ( $organizer_id = tribe_get_organizer_id( $post->ID ) ) {
 				$classes[] = 'tribe-events-organizer-'.$organizer_id;
 			}
 			return $classes;
