@@ -245,7 +245,15 @@ class TribeEventsGeoLoc {
 
 	function save_venue_geodata( $venueId, $data ) {
 
-		$address = trim( $data["Address"] . ' ' . $data["City"] . ' ' . $data["Province"] . ' ' . $data["State"] . ' ' . $data["Zip"] . ' ' . $data["Country"] );
+
+		$_address  = ( ! empty( $data["Address"] ) )  ? $data["Address"]  : '';
+		$_city     = ( ! empty( $data["City"] ) )     ? $data["City"]     : '';
+		$_province = ( ! empty( $data["Province"] ) ) ? $data["Province"] : '';
+		$_state    = ( ! empty( $data["State"] ) )    ? $data["State"]    : '';
+		$_zip      = ( ! empty( $data["Zip"] ) )      ? $data["Zip"]      : '';
+		$_country  = ( ! empty( $data["Country"] ) )  ? $data["Country"]  : '';
+
+		$address = trim( $_address . ' ' . $_city . ' ' . $_province . ' ' . $_state . ' ' . $_zip . ' ' . $_country );
 
 		if ( empty( $address ) )
 			return;
