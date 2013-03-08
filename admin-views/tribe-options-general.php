@@ -163,6 +163,23 @@ $generalTab = array(
 			'class' => 'google-embed-size',
 			'validation_type' => 'boolean',
 		),
+		'embedGoogleMaps' => array(
+			'type' => 'checkbox_bool',
+			'label' => __( 'Enable Google Maps', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Check to enable maps for events and venues in the frontend.', 'tribe-events-calendar' ),
+			'default' => true,
+			'class' => 'google-embed-size',
+			'validation_type' => 'boolean',
+		),
+		'embedGoogleMapsZoom' => array(
+			'type' => 'text',
+			'label' => __( 'Google Maps Default Zoom Level', 'tribe-events-calendar' ),
+			'tooltip' => __( '0 = zoomed out; 21 = zoomed in.', 'tribe_events_calendar' ),
+			'size' => 'small',
+			'default' => 10,
+			'class' => 'google-embed-field',
+			'validation_type' => 'number_or_percent',
+		),
 		'tribeEventsMiscellaneousTitle' => array(
 			'type' => 'html',
 			'html' => '<h3>' . __( 'Miscellaneous Settings', 'tribe-events-calendar-pro' ) . '</h3>',

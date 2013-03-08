@@ -97,7 +97,6 @@ td.tribe_message {padding-bottom: 10px !important;}
 =============================================*/
 .tribe-settings-form { max-width: 1000px; }
 .tribe-settings-form fieldset {padding: 10px 0; display: inline-block; clear: both;}
-.tribe-settings-form fieldset.google-embed-field {margin: 10px 25px;}
 .tribe-settings-form legend {width: 220px; margin-right: 20px; float: left; font-weight: bold;}
 .tribe-settings-form .tribe-field-wrap {float: left; max-width: 500px;}
 .tribe-settings-form .tribe-field-radio label, .tribe-settings-form .tribe-field-checkbox_list label {display: block; margin: 5px 0;}
