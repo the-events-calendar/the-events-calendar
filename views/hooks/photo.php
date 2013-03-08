@@ -65,23 +65,22 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 		}
 		public static function inside_before_loop( $pass_through ){
 			$post_id = get_the_ID();
+			
 			// Get our wrapper classes (for event categories, organizer, venue, and defaults)
-			$tribe_string_classes = '';
-			$tribe_cat_ids = tribe_get_event_cat_ids( $post_id ); 
-			foreach( $tribe_cat_ids as $tribe_cat_id ) { 
-				$tribe_string_classes .= 'tribe-events-category-'. $tribe_cat_id .' '; 
+			$classes = array( 'hentry', 'vevent', 'type-tribe_events', 'tribe-events-photo-event', 'post-' . $post_id, 'tribe-clearfix' );
+			$tribe_cat_ids = tribe_get_event_cat_ids( $post_id );
+			foreach( $tribe_cat_ids as $tribe_cat_id ) {
+				$classes[] = 'tribe-events-category-'. $tribe_cat_id;
 			}
-			$tribe_string_wp_classes = '';
-			$allClasses = get_post_class(); 
-			foreach ($allClasses as $class) { 
-				$tribe_string_wp_classes .= $class . ' '; 
+			if ( $venue_id = tribe_get_venue_id( $post_id ) ) {
+				$classes[] = 'tribe-events-venue-'.$venue_id;
 			}
-			$tribe_classes_default = 'hentry vevent '. $tribe_string_wp_classes;
-			$tribe_classes_venue = tribe_get_venue_id() ? 'tribe-events-venue-'. tribe_get_venue_id() : '';
-			$tribe_classes_organizer = tribe_get_organizer_id() ? 'tribe-events-organizer-'. tribe_get_organizer_id() : '';
-			$tribe_classes_categories = $tribe_string_classes;
-			$class_string = $tribe_classes_default .' '. $tribe_classes_venue .' '. $tribe_classes_organizer .' '. $tribe_classes_categories;		
-			$html = '<div id="post-'. $post_id .'" class="'. $class_string .' tribe-events-photo-event tribe-clearfix">';
+			if ( $organizer_id = tribe_get_organizer_id( $post_id ) ) {
+				$classes[] = 'tribe-events-organizer-'.$organizer_id;
+			}
+			$class_string = implode(' ', $classes);
+
+			$html = '<div id="post-'. $post_id .'" class="'. $class_string .'">';
 			return apply_filters('tribe_template_factory_debug', $html , 'tribe_events_day_inside_before_loop');
 		}
 		// Photo Content
