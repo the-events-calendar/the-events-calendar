@@ -554,10 +554,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				'tribe-form-content-start' => array(
 					'type' => 'html',
 					'html' => '<div class="tribe-settings-form-wrap">',
-				),
-				'tribe-form-content-end' => array(
-					'type' => 'html',
-					'html' => '</div>',
 				)
 			);
 			new TribeSettingsTab( 'general', __('General', 'tribe-events-calendar'), $generalTab );
