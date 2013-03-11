@@ -106,9 +106,9 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @return string URL
 	 * @since 2.0
 	 */
-	function tribe_get_listview_past_link()  {
+	function tribe_get_listview_past_link($term = null)  {
 		$tribe_ecp = TribeEvents::instance();
-		$output = $tribe_ecp->getLink('past');
+		$output = $tribe_ecp->getLink('past', false, $term);
 		return apply_filters('tribe_get_listview_past_link', $output);
 	}
 
