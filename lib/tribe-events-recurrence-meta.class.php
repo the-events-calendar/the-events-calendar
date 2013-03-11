@@ -738,10 +738,27 @@ class TribeEventsRecurrenceMeta {
 		}
 	}
 	
+	/**
+	 * Returns the Add the Too Many Recurrences error query arg in the redirect location.
+	 *
+	 * @since 3.0
+	 * @author PaulHughes01
+	 *
+	 * @param string $location The current location to redirect to.
+	 * @return string The new location.
+	 */
 	public function tooManyRecurrencesError( $location ) {
 		return add_query_arg( 'tribe_recurrence_error', 0, $location );
 	}
 	
+	/**
+	 * Returns an array of possible error messages.
+	 *
+	 * @since 3.0
+	 * @author PaulHughes01
+	 *
+	 * @return array The array of possible error messages.
+	 */
 	public function errorMessages() {
 		$max_recurrences = apply_filters( 'tribe_events_max_recurrences', 199 );
 		$error_messages = array( 
