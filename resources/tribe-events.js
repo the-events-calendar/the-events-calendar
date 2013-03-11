@@ -111,6 +111,11 @@ tribe_ev.fn = {
 		else
 			return false;
 	},
+	make_slug: function( string ) {		
+		var string_h = string.replace(/\s/g,'-');
+		var slug = string_h.replace(/[^a-zA-Z0-9\-]/g,'');
+		return slug.toLowerCase();
+	},
 	parse_string: function( string ) {    
 		var map   = {};
 		string.replace(/([^&=]+)=?([^&]*)(?:&+|$)/g, function(match, key, value) {
