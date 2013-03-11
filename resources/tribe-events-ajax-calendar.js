@@ -81,7 +81,7 @@ jQuery( document ).ready( function ( $ ) {
 	function tribe_events_bar_calajax_actions(e) {
 		if( tribe_events_bar_action != 'change_view' ) {
 			e.preventDefault();	
-			tribe_ev.state.date = $('#tribe-events-header').attr('data-date');
+			tribe_ev.state.date = $('#tribe-events-header').attr('data-date');			
 			tribe_ev.data.cur_url = tribe_ev.data.initial_url;
 			tribe_ev.state.popping = false;
 			tribe_ev.fn.pre_ajax( function() { 
@@ -99,12 +99,12 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_ev.fn.hide_settings();
 	} );
 
-	$(tribe_ev.events).on("tribe_ev_runAjax", function() {
+	$(tribe_ev.events).on("tribe_ev_runAjax", function() {		
 		tribe_events_calendar_ajax_post();		
 	});
 
 
-	function tribe_events_calendar_ajax_post() {
+	function tribe_events_calendar_ajax_post() {	
 
 		tribe_ev.fn.spin_show();
 		tribe_ev.state.pushcount = 0;
