@@ -32,6 +32,8 @@ class TribeEventsRecurrenceMeta {
 		add_filter( 'tribe_settings_tab_fields', array( __CLASS__, 'inject_settings' ), 10, 2 );
 	
 		add_action( 'admin_notices', array( __CLASS__, 'displayErrors' ), 10 );
+	
+		add_action( 'save_post', array( __CLASS__, 'checkRecurrenceAmount' ), 10, 1 );
 	}
 
 	
@@ -765,6 +767,41 @@ class TribeEventsRecurrenceMeta {
 			0 => __( 'Your recurrence pattern would create greater than ' . ( $max_recurrences + 1 ) . ' occurrences. Please change the patter to have fewer recurrences.', 'tribe-events-calendar-pro' ),
 		);
 		return $error_messages;
+	}
+	
+	/**
+	 * Checks the recurrence amount and adds a filter to display an errir if it is not correct.
+	 * 
+	 * @since 3.0
+	 * @author PaulHughes01
+	 * 
+	 * @param int $post_id The post id.
+	 * @return void
+	 */
+	public function checkRecurrenceAmount( $post_id ) {
+		if ( did_action( 'tribe_events_update_meta' ) == 0 && get_post_type( $post_id ) == TribeEvents::POSTTYPE && get_post_meta( $post_id, '_EventRecurrence' ) ) {
+			extract(TribeEventsRecurrenceMeta::getRecurrenceMeta($post_id));
+			$rules = TribeEventsRecurrenceMeta::getSeriesRules($post_id);
+
+			// use the recurrence start meta if necessary because we can't guarantee which order the start date will come back in
+			$recStart = strtotime(get_post_meta($post_id, '_EventStartDate', true));
+			$eventEnd = strtotime(get_post_meta($post_id, '_EventEndDate', true));
+			$duration = $eventEnd - $recStart;
+
+			$recEnd = $recEndType == "On" ? strtotime(TribeDateUtils::endOfDay($recEnd)) : $recEndCount - 1; // subtract one because event is first occurrence
+		
+			$old_start_dates = get_post_meta( $post_id, '_EventStartDate' );
+		
+			if ( $recType != "None") {
+				$recurrence = new TribeRecurrence($recStart, $recEnd, $rules, $recEndType == "After", get_post( $post_id ) );
+				$dates = (array) $recurrence->getDates( true, $old_start_dates );
+			
+				$max_recurrences = apply_filters( 'tribe_events_max_recurrences', 199 );
+				if ( count( $dates ) > $max_recurrences ) {
+					add_filter( 'redirect_post_location', array( __CLASS__, 'tooManyRecurrencesError' ) );
+				}
+			}
+		}
 	}
 	
 }
