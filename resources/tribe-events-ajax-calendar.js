@@ -45,8 +45,11 @@ jQuery( document ).ready( function ( $ ) {
 		e.preventDefault();
 		var $this = $(this);
 		tribe_ev.state.date = $this.attr( "data-month" );
-		$( '#tribe-bar-date' ).val(tribe_ev.state.date + tribe_ev.fn.get_day());			
-		tribe_ev.data.cur_url = $this.attr( "href" );
+		$( '#tribe-bar-date' ).val(tribe_ev.state.date + tribe_ev.fn.get_day());
+		if( tribe_ev.state.filter_cats )
+			tribe_ev.data.cur_url = $('#tribe-events-header').attr( 'data-baseurl' );
+		else
+			tribe_ev.data.cur_url = $this.attr( "href" );
 		tribe_ev.state.popping = false;
 		tribe_ev.fn.pre_ajax( function() { 		
 			tribe_events_calendar_ajax_post();	
@@ -56,8 +59,11 @@ jQuery( document ).ready( function ( $ ) {
 	function tribe_monitor_selects(e) {
 		e.preventDefault();				
 		tribe_ev.state.date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();	
-		$( '#tribe-bar-date' ).val(tribe_ev.state.date + tribe_ev.fn.get_day());		
-		tribe_ev.data.cur_url = base_url + tribe_ev.state.date + '/';		
+		$( '#tribe-bar-date' ).val(tribe_ev.state.date + tribe_ev.fn.get_day());
+		if( tribe_ev.state.filter_cats )
+			tribe_ev.data.cur_url = $('#tribe-events-header').attr( 'data-baseurl' ) + tribe_ev.state.date + '/';	
+		else
+			tribe_ev.data.cur_url = base_url + tribe_ev.state.date + '/';		
 		tribe_ev.state.popping = false;
 		tribe_ev.fn.pre_ajax( function() { 
 			tribe_events_calendar_ajax_post();	
@@ -81,8 +87,11 @@ jQuery( document ).ready( function ( $ ) {
 	function tribe_events_bar_calajax_actions(e) {
 		if( tribe_events_bar_action != 'change_view' ) {
 			e.preventDefault();	
-			tribe_ev.state.date = $('#tribe-events-header').attr('data-date');			
-			tribe_ev.data.cur_url = tribe_ev.data.initial_url;
+			tribe_ev.state.date = $('#tribe-events-header').attr('data-date');
+			if( tribe_ev.state.filter_cats )
+				tribe_ev.data.cur_url = $('#tribe-events-header').attr( 'data-baseurl' ) + tribe_ev.state.date + '/';	
+			else
+				tribe_ev.data.cur_url = tribe_ev.data.initial_url;			
 			tribe_ev.state.popping = false;
 			tribe_ev.fn.pre_ajax( function() { 
 				tribe_events_calendar_ajax_post();
@@ -140,7 +149,7 @@ jQuery( document ).ready( function ( $ ) {
 			
 		} 
 
-		if( tribe_ev.tests.pushstate ) {
+		if( tribe_ev.tests.pushstate && !tribe_ev.state.filter_cats ) {
 			
 			$(tribe_ev.events).triggerAll('tribe_ev_ajaxStart tribe_ev_monthView_AjaxStart');					
 

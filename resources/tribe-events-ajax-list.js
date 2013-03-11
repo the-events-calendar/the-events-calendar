@@ -122,6 +122,9 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_ev.fn.spin_show();
 
 		if( !tribe_ev.state.popping ) {
+			
+			if( tribe_ev.state.filter_cats )
+				tribe_ev.data.cur_url = $('#tribe-events-header').attr( 'data-baseurl' );
 
 			var tribe_hash_string = $( '#tribe-events-list-hash' ).val();
 			
@@ -156,7 +159,7 @@ jQuery( document ).ready( function ( $ ) {
 
 		}
 
-		if( tribe_ev.tests.pushstate ) {
+		if( tribe_ev.tests.pushstate && !tribe_ev.state.filter_cats ) {
 			
 			$(tribe_ev.events).triggerAll('tribe_ev_ajaxStart tribe_ev_listView_AjaxStart');					
 

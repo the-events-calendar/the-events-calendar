@@ -145,6 +145,9 @@ jQuery( document ).ready( function ( $ ) {
 		
 		if ( $( '#tribe_events_filters_form' ).length ) {
 			
+			if( tribe_ev.state.filter_cats )
+				$('#tribe_events_filter_item_eventcategory option:selected, #tribe_events_filter_item_eventcategory input:checked').remove();				
+			
 			cv_filter_params = tribe_ev.fn.serialize( '#tribe_events_filters_form', 'input, select' );			
 			
 			if( cv_url_params.length && cv_filter_params.length ) 				
