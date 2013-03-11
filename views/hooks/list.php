@@ -144,7 +144,13 @@ if( !class_exists('Tribe_Events_List_Template')){
 		}
 		// List Header
 		public static function before_header( $content, $post_id ){
-			$html = '<div id="tribe-events-header" data-title="' . wp_title( '&raquo;', false ) . '">';
+			if ( tribe_is_upcoming() ) {
+				$html = '<div id="tribe-events-header" data-title="' . wp_title( '&raquo;', false ) . '" data-baseurl="' . tribe_get_listview_link( false ) . '">';
+			} elseif( tribe_is_past() ) {
+				$html = '<div id="tribe-events-header" data-title="' . wp_title( '&raquo;', false ) . '" data-baseurl="' . tribe_get_listview_past_link( false ) . '">';
+			} else {
+				$html = '<div id="tribe-events-header" data-title="' . wp_title( '&raquo;', false ) . '">';
+			}
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_header');
 		}
 		// List Navigation
