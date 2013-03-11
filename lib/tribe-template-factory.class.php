@@ -98,8 +98,12 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					$styleUrl = apply_filters( 'tribe_events_stylesheet_url', $styleUrl );
 
 					// Load up stylesheet from theme or plugin
-					if ( $styleUrl )
+					if( $styleUrl && $stylesheet_option == 'tribe' ) {
+						wp_enqueue_style( 'full-calendar-style', trailingslashit( $tec->pluginUrl ) . 'resources/tribe-events-full.css' );
 						wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-style', $styleUrl );
+					} else {
+						wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-style', $styleUrl );
+					}
 					break;
 				default :
 					do_action($prefix . '-' . $name);
