@@ -764,7 +764,7 @@ class TribeEventsRecurrenceMeta {
 	public function errorMessages() {
 		$max_recurrences = apply_filters( 'tribe_events_max_recurrences', 199 );
 		$error_messages = array( 
-			0 => __( 'Your recurrence pattern would create greater than ' . ( $max_recurrences + 1 ) . ' occurrences. Please change the patter to have fewer recurrences.', 'tribe-events-calendar-pro' ),
+			0 => __( 'Your recurrence pattern would create greater than ' . ( $max_recurrences + 1 ) . ' occurrences. Please change the pattern to have fewer recurrences.', 'tribe-events-calendar-pro' ),
 		);
 		return $error_messages;
 	}
@@ -794,7 +794,7 @@ class TribeEventsRecurrenceMeta {
 		
 			if ( $recType != "None") {
 				$recurrence = new TribeRecurrence($recStart, $recEnd, $rules, $recEndType == "After", get_post( $post_id ) );
-				$dates = (array) $recurrence->getDates( true, $old_start_dates );
+				$dates = (array) $recurrence->getDates( false, $old_start_dates );
 			
 				$max_recurrences = apply_filters( 'tribe_events_max_recurrences', 199 );
 				if ( count( $dates ) > $max_recurrences ) {
