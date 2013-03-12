@@ -1,6 +1,8 @@
 jQuery( document ).ready( function ( $ ) {	
 	
-	var tribe_is_paged = tribe_ev.fn.get_url_param('tribe_paged');		
+	var tribe_is_paged = tribe_ev.fn.get_url_param('tribe_paged');	
+	
+	tribe_ev.state.view = 'photo';
 	
 	if( tribe_is_paged ) {
 		tribe_ev.state.paged = tribe_is_paged;
@@ -110,46 +112,6 @@ jQuery( document ).ready( function ( $ ) {
 		});
 	} );
 
-	// if advanced filters active intercept submit
-
-	if ( $( '#tribe_events_filters_form' ).length ) {
-		
-		var $form = $('#tribe_events_filters_form');	
-		
-		function tribe_photo_filter_submit() {
-			tribe_ev.fn.disable_inputs( '#tribe_events_filters_form', 'input, select' );
-			tribe_ev.state.paged = 1;
-			tribe_ev.state.popping = false;
-			tribe_ev.fn.pre_ajax( function() {
-				tribe_events_list_ajax_post();
-			});
-		}
-
-		$form.on( 'submit', function ( e ) {
-			if ( tribe_events_bar_action != 'change_view' ) {
-				e.preventDefault();	
-				tribe_photo_filter_submit();
-			}
-		} );
-
-		if( tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate ) {
-
-			$form.find('input[type="submit"]').remove();
-
-			$form.on( "slidechange", ".ui-slider", function() {
-				tribe_ev.fn.setup_ajax_timer( function() {
-					tribe_photo_filter_submit();
-				} );			
-			} );
-			$form.on("change", "input, select", function(){
-				tribe_ev.fn.setup_ajax_timer( function() {
-					tribe_photo_filter_submit();
-				} );
-			});			
-		}
-
-	}
-
 	// event bar datepicker monitoring 
 
 	function tribe_events_bar_photoajax_actions(e) {
@@ -182,7 +144,10 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	tribe_ev.fn.snap( '#tribe-events-content', '#tribe-events-content', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );
-
+	
+	$(tribe_ev.events).on("tribe_ev_runAjax", function() {
+		tribe_events_list_ajax_post();		
+	});
 
 	function tribe_events_list_ajax_post() {
 
@@ -206,34 +171,12 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_ev.state.params['hash'] = tribe_hash_string;
 			}
 			
-			$( 'form#tribe-bar-form input' ).each( function () {
-				var $this = $( this );
-				if( $this.val().length && !$this.hasClass('tribe-no-param') ) {
-					if( $this.is(':checkbox') ) {
-						if( $this.is(':checked') ) {
-							tribe_ev.state.params[$this.attr('name')] = $this.val();
-							tribe_ev.state.url_params[$this.attr('name')] = $this.val();	
-						}
-					} else {
-						tribe_ev.state.params[$this.attr('name')] = $this.val();
-						tribe_ev.state.url_params[$this.attr('name')] = $this.val();	
-					}					
-				}								
-			} );
+			$(tribe_ev.events).trigger('tribe_ev_scrapeBar');
 
 			tribe_ev.state.params = $.param(tribe_ev.state.params);
 			tribe_ev.state.url_params = $.param(tribe_ev.state.url_params);
 
-			if( $('#tribe_events_filters_form').length ) {
-				var tribe_filter_params = tribe_ev.fn.serialize( '#tribe_events_filters_form', 'input, select' );		
-				if( tribe_filter_params.length ) {					
-					tribe_ev.state.params = tribe_ev.state.params + '&' + tribe_filter_params;
-					if( tribe_ev.state.url_params.length )
-						tribe_ev.state.url_params = tribe_ev.state.url_params + '&' + tribe_filter_params;
-					else
-						tribe_ev.state.url_params = tribe_filter_params;
-				}				
-			} 			
+			$(tribe_ev.events).trigger('tribe_ev_collectParams');			
 
 			tribe_ev.state.pushstate = false;
 			tribe_ev.state.do_string = true;				
@@ -241,6 +184,8 @@ jQuery( document ).ready( function ( $ ) {
 		}
 
 		if( tribe_ev.tests.pushstate ) {
+			
+			$(tribe_ev.events).triggerAll('tribe_ev_ajaxStart tribe_ev_photoView_AjaxStart');					
 
 			$.post(
 				TribePhoto.ajaxurl,
@@ -252,6 +197,8 @@ jQuery( document ).ready( function ( $ ) {
 					tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
 					
 					if ( response.success ) {						
+						
+						$(tribe_ev.events).triggerAll('tribe_ev_ajaxSuccess tribe_ev_photoView_AjaxSuccess');
 
 						tribe_ev.data.ajax_response = {
 							'type':'tribe_events_ajax',
