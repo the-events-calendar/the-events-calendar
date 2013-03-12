@@ -18,17 +18,39 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		private static $current_month;
 		private static $current_year;
 		private static $event_daily_counts = array();
+		private static $first_day_of_month = null;
 		private static $posts_per_page_limit = 3;
 		private static $tribe_bar_args = array();
 		private static $cache_expiration = 3600;
 
 		public static function init(){
+			global $wp_query;
 
 			Tribe_Template_Factory::asset_package( 'ajax-calendar' );
 
-			global $wp_query;
-			if ($wp_query->tribe_is_event && !empty($wp_query->query_vars['s']) && empty($wp_query->posts) ){
-				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There are no events for %s.', 'tribe-events-calendar' ), $wp_query->query_vars['s'] ) );
+			$tribe_ecp = TribeEvents::instance();
+			$tribe_ecp->date = tribe_get_month_view_date();
+
+			// get all upcoming ids to hide so we're not querying 31 times
+			self::$hide_upcoming_ids = TribeEventsQuery::getHideFromUpcomingEvents();
+
+			list( $year, $month ) = explode( '-', $tribe_ecp->date );
+			$date = mktime( 12, 0, 0, $month, 1, $year ); // 1st day of month as unix stamp
+			self::$first_day_of_month = $date;
+
+			// let's find out how many events are happening each day and share
+			self::$event_daily_counts = self::get_daily_counts($date);
+			$total_counts = array_unique(self::$event_daily_counts);
+
+			// setup a search term for query or via ajax
+			if( !empty( $wp_query->query_vars['s'] )){
+				$search_term = $wp_query->query_vars['s'];
+			} else if( !empty($_POST['tribe-bar-search'])) {
+				$search_term = $_POST['tribe-bar-search'];
+			}
+
+			if( count($total_counts) < 2 && !empty($search_term)) {
+				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There are no events for %s.', 'tribe-events-calendar' ), $search_term ) );
 			}		
 
 			// Start calendar template
@@ -147,22 +169,14 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		public static function the_grid(){
 			ob_start();
 
-			$tribe_ecp = TribeEvents::instance();
-			$tribe_ecp->date = tribe_get_month_view_date();
-
-			// get all upcoming ids to hide so we're not querying 31 times
-			self::$hide_upcoming_ids = TribeEventsQuery::getHideFromUpcomingEvents();
-
-			list( $year, $month ) = explode( '-', $tribe_ecp->date );
-			$date = mktime( 12, 0, 0, $month, 1, $year ); // 1st day of month as unix stamp
-
+			$date = self::$first_day_of_month;
+			$year = date( 'Y', $date );
+			$month = date( 'm', $date );
 
 			$startOfWeek = get_option( 'start_of_week', 0 );
 			$rawOffset = date( 'w', $date ) - $startOfWeek;
 			$offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
 			$rows = 1;
-
-			self::$event_daily_counts = self::get_daily_counts($date);
 
 			if ( empty(self::$tribe_bar_args) ) {
 				foreach ( $_REQUEST as $key => $value ) {
@@ -269,6 +283,8 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			if ( empty($count_args) ) { // this will likely be empty on Ajax calls
 				$count_args['post_type'] = TribeEvents::POSTTYPE;
 				$count_args['eventDisplay'] = 'month';
+				if( !empty($_POST['tribe-bar-search']))
+					$count_args['s'] = $_POST['tribe-bar-search'];
 			}
 			$count_args['start_date'] = date('Y-m-d', $date) . ' 00:00:00';
 			$count_args['end_date'] = date('Y-m-t', $date) . ' 23:59:59';

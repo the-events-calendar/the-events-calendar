@@ -3608,6 +3608,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					TribeEventsFilterView::instance()->createFilters( null, true );
 				}
 
+				TribeEventsQuery::init();
+
 				load_template( TribeEventsTemplates::getTemplateHierarchy( 'calendar' ) );
 			}
 			die();
