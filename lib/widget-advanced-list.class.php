@@ -35,8 +35,6 @@ if( !class_exists( 'TribeEventsAdvancedListWidget' ) ) {
 
 				/* Process remaining options. */
 				/* Strip tags (if needed) and update the widget settings. */
-				$instance['start'] = $new_instance['start'];
-				$instance['end'] = $new_instance['end'];
 				$instance['venue'] = $new_instance['venue'];
 				$instance['country'] = $new_instance['country'];
 				$instance['address'] = $new_instance['address'];
@@ -52,7 +50,7 @@ if( !class_exists( 'TribeEventsAdvancedListWidget' ) ) {
 	
 		function form( $instance ) {				
 			/* Set up default widget settings. */
-			$defaults = array( 'title' => 'Upcoming Events', 'limit' => '5', 'no_upcoming_events' => false, 'start' => true, 'end' => false, 'venue' => false, 'country' => true, 'address' => false, 'city' => true, 'region' => true, 'zip' => false, 'phone' => false, 'cost' => false,'category' => false, 'organizer' => false);
+			$defaults = array( 'title' => 'Upcoming Events', 'limit' => '5', 'no_upcoming_events' => false, 'venue' => false, 'country' => true, 'address' => false, 'city' => true, 'region' => true, 'zip' => false, 'phone' => false, 'cost' => false,'category' => false, 'organizer' => false);
 			$instance = wp_parse_args( (array) $instance, $defaults );
 			include( TribeEventsPro::instance()->pluginPath . 'admin-views/widget-admin-advanced-list.php' );
 		}

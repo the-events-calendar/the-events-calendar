@@ -14,6 +14,9 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		function tribe_get_mapview_link() {
 			$tec = TribeEvents::instance();
 			$geo = TribeEventsGeoLoc::instance();
+			if( '' == get_option('permalink_structure') ) {
+				return esc_url($tec->uglyLink('map'));
+			}
 			return get_home_url( get_current_blog_id(), $tec->getOption( 'eventsSlug', 'events' ) . '/' . $geo->rewrite_slug );
 		}
 	}
@@ -528,6 +531,9 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	function tribe_get_day_permalink( $date = null ){
 		$tec = TribeEvents::instance();
 		$date = is_null($date) ? TribeEventsPro::instance()->todaySlug : date('Y-m-d', strtotime( $date ) );
+		if( '' == get_option('permalink_structure') ) {
+			return esc_url($tec->uglyLink('day', $date));
+		}
 		$permalink = get_site_url() . '/' . $tec->rewriteSlug . '/' . trailingslashit( $date );
 		return apply_filters('tribe_get_day_permalink', $permalink);
 	}
@@ -541,6 +547,9 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	function tribe_get_week_permalink( $week = null ){
 		$tec = TribeEvents::instance();
 		$week = is_null($week) ? '' : date('Y-m-d', strtotime( $week ) );
+		if( '' == get_option('permalink_structure') ) {
+			return esc_url($tec->uglyLink('week', $week));
+		}
 		$permalink = get_site_url() . '/' . $tec->rewriteSlug . '/' . trailingslashit( TribeEventsPro::instance()->weekSlug . '/' . $week );
 		return apply_filters('tribe_get_week_permalink', $permalink);
 	}
@@ -553,6 +562,9 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	function tribe_get_photo_permalink() {
 		$tec       = TribeEvents::instance();
+		if( '' == get_option('permalink_structure') ) {
+			return esc_url($tec->uglyLink('photo'));
+		}
 		$permalink = get_site_url() . '/' . $tec->rewriteSlug . '/' . trailingslashit( TribeEventsPro::instance()->photoSlug . '/' );
 		return apply_filters( 'tribe_get_photo_view_permalink', $permalink );
 	}

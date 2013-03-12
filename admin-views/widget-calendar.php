@@ -1,8 +1,14 @@
 <p>
-	<label for="<?php echo $this->get_field_id( 'count' ); ?>"># of events to show in the list:
+	<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:','tribe-events-calendar-pro' ); ?>
+		<input type="text" class="widefat" name="<?php echo $this->get_field_name( 'title' ); ?>" id="<?php echo $this->get_field_id( 'title' ); ?>" value="<?php echo esc_attr( strip_tags( $instance['title'] ) ); ?>" />
+	</label>
+</p>
+
+<p>
+	<label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php _e( '# of events to show in the list:', 'tribe-events-calendar-pro' ); ?>
 		<input type="text" class="widefat" name="<?php echo $this->get_field_name( 'count' ); ?>"
 		       id="<?php echo $this->get_field_id( 'count' ); ?>"
-		       value="<?php echo esc_attr( $instance['count'] ); ?>"/>
+		       value="<?php echo esc_attr( strip_tags( $instance['count'] ) ); ?>"/>
 	</label>
 </p>
 

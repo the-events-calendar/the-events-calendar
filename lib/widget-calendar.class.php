@@ -23,13 +23,15 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-
+		
 		echo $args['before_widget'];
-
-		$defaults = array( 'layout' => "tall", 'count' => 5, 'filters' => null, 'operand' => 'OR' );
+		
+		$defaults = array( 'title' => 'Events Calendar', 'layout' => "tall", 'count' => 5, 'filters' => null, 'operand' => 'OR' );
 		$instance = wp_parse_args( (array)$instance, $defaults );
 
 		$tax_query = TribeEventsMiniCalendar::instance()->get_tax_query_from_widget_options( json_decode( $instance['filters'] ), $instance['operand'] );
+
+		echo ( $instance['title'] ) ? $args['before_title'] . $instance['title'] . $args['after_title'] : '';
 
 		$instance['tax_query'] = $tax_query;
 
@@ -41,6 +43,7 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 
 	function update( $new_instance, $old_instance ) {
 		$instance            = $old_instance;
+		$instance['title']   = strip_tags( $new_instance['title'] );
 		$instance['layout']  = strip_tags( $new_instance['layout'] );
 		$instance['count']   = intval( strip_tags( $new_instance['count'] ) );
 		$instance['operand'] = strip_tags( $new_instance['operand'] );
@@ -50,9 +53,8 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 	}
 
 	function form( $instance ) {
-
-		$defaults = array( 'layout' => "tall", 'count' => 5, 'operand' => 'OR', 'filters' => null );
-		$instance = wp_parse_args( (array)$instance, $defaults );
+		$defaults = array( 'title' => 'Events Calendar', 'layout' => "tall", 'count' => 5, 'operand' => 'OR', 'filters' => null );
+		$instance = wp_parse_args( (array) $instance, $defaults );
 
 		$taxonomies = get_object_taxonomies( TribeEvents::POSTTYPE, 'objects' );
 		$taxonomies = array_reverse( $taxonomies );
