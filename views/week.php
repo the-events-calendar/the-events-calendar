@@ -31,7 +31,9 @@ echo apply_filters( 'tribe_events_week_before_template', '');
     /*
 	echo apply_filters( 'tribe_events_week_the_header', '');
 	*/
-	
+	// Week Notices 
+	echo apply_filters( 'tribe_events_week_notices', '');
+
 	// Week header
     echo apply_filters( 'tribe_events_week_before_header', '');
 
@@ -41,6 +43,7 @@ echo apply_filters( 'tribe_events_week_before_template', '');
 		echo apply_filters( 'tribe_events_week_after_header_nav', '');
 
 	echo apply_filters( 'tribe_events_week_after_header', '');
+
 
 	// Week grid
 	echo apply_filters( 'tribe_events_week_the_grid', '');

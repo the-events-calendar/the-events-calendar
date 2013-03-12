@@ -17,6 +17,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 	class Tribe_Events_Week_Template extends Tribe_Template_Factory {
 
 		public static function init() {
+			global $wp_query;
 			// enqueue needed styles
 			Tribe_PRO_Template_Factory::asset_package( 'ajax-weekview' );
 
@@ -25,6 +26,9 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 
 			add_filter( 'tribe_events_week_the_title', array( __CLASS__, 'the_title' ), 1, 1 );
 			
+			// Week notices
+			add_filter( 'tribe_events_week_notices', array( __CLASS__, 'notices' ), 1, 1 );
+
 			// Week header
 			add_filter( 'tribe_events_week_before_header', array( __CLASS__, 'before_header' ), 1, 1 );
 			
@@ -57,6 +61,16 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 
 			// End week template
 			add_filter( 'tribe_events_week_after_template', array( __CLASS__, 'after_template' ), 1, 2 );
+
+			if( !empty( $wp_query->query_vars['s'] )){
+				$search_term = $wp_query->query_vars['s'];
+			} else if( !empty($_POST['tribe-bar-search'])) {
+				$search_term = $_POST['tribe-bar-search'];
+			}
+
+			if( !empty($search_term)) {
+				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There are no events for %s this week. Try searching another week.', 'tribe-events-calendar' ), $search_term ) );
+			}				
 		}
 		// Start Week Template
 		public static function before_template( $post_id ) {
@@ -82,7 +96,12 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			);
 
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_the_title' );
-		}
+		}	
+		// Notices
+		public static function notices( $post_id ){
+			$html = tribe_events_the_notices(false);
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_notices');
+		}			
 		// Week Header
 		public static function before_header( $post_id ){
 			global $wp_query;
@@ -121,7 +140,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 		public static function after_header( $post_id ){
 			$html = '</div><!-- #tribe-events-header -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_after_header');
-		}		
+		}				
 		// Start Week Loop
 		public static function before_loop( $post_id ) {
 			$html = '';
