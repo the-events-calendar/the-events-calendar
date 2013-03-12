@@ -41,8 +41,26 @@ if( !class_exists('Tribe_Events_List_Template')){
 			));
 			tribe_set_the_meta_visibility( 'tribe_event_venue_gmap_link', false );
 
+			global $wp_query;
+
+			// Look for a search query
+			if( !empty( $wp_query->query_vars['s'] )){
+				$search_term = $wp_query->query_vars['s'];
+			} else if( !empty($_POST['tribe-bar-search'])) {
+				$search_term = $_POST['tribe-bar-search'];
+			}
+
+			// Search term based notices
+			if( !empty($search_term)) {
+				if( tribe_is_day() ) {
+					TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There are no events for %s on this day. Try searching another day.', 'tribe-events-calendar' ), $search_term ) );
+				} else {
+					TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There are were no events found for %s.', 'tribe-events-calendar' ), $search_term ) );					
+				}
+			}
+
 			// Our various messages if there are no events for the query
-			if ( ! have_posts() ) { // Messages if currently no events
+			elseif ( empty($search_term) && empty( $wp_query->query_vars['s'] ) && !have_posts() ) { // Messages if currently no events, and no search term
 				$tribe_ecp = TribeEvents::instance();
 				$is_cat_message = '';
 				if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
@@ -53,7 +71,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 						$is_cat_message = sprintf( __( 'listed under %s. Check out upcoming events for this category or view the full calendar.', 'tribe-events-calendar' ), $cat->name );
 					}
 				}
-				if( tribe_is_day() ) {
+				if( tribe_is_day() ) {						
 					TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No events scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), date_i18n( 'F d, Y', strtotime( get_query_var( 'eventDate' ) ) ) ) );
 				} elseif( tribe_is_upcoming() ) {
 					$date = date('Y-m-d', strtotime($tribe_ecp->date));
