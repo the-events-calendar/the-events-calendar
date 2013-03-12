@@ -8,12 +8,14 @@ class TribeRecurrence {
 	private $end;
 	private $series_rules;
 	private $by_occurrence_count;
+	private $event;
 
-	public function  __construct($start_date, $end, $series_rules, $by_occurrence_count = false) {
+	public function  __construct($start_date, $end, $series_rules, $by_occurrence_count = false, $event = null) {
 		$this->start_date = $start_date;
 		$this->end = $end;
 		$this->series_rules = $series_rules;
 		$this->by_occurrence_count = $by_occurrence_count;
+		$this->event = $event;
 	}
 
 	/**
@@ -21,7 +23,7 @@ class TribeRecurrence {
 	 *
 	 * @return An array of all dates in the series
 	 */
-	public function getDates() {
+	public function getDates( $all_events = true, $old_start_dates = null ) {
 		if( $this->series_rules ) {
 			$dates = array();
 			$cur_date = $this->start_date;
@@ -45,6 +47,19 @@ class TribeRecurrence {
 				}
 			}
 
+			if ( !$all_events && $old_start_dates && $this->event ) {
+				$existing_dates = array();
+				foreach ( $old_start_dates as $index => $date ) {
+					$date_obj = date_create( $date );
+					$existing_dates[] = $date_obj->format( 'U' );
+				}
+				foreach ( $dates as $index => $date ) {
+					if ( !in_array( $date, $existing_dates ) ) {
+						unset( $dates[$index] );
+					}
+				}
+			}
+			
 			return $dates;
 		}
 	}

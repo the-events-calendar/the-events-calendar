@@ -9,6 +9,7 @@ class TribeEventsRecurrenceMeta {
 	const UPDATE_TYPE_ALL = 1;
 	const UPDATE_TYPE_FUTURE = 2;
 	const UPDATE_TYPE_SINGLE = 3;
+
 	
 	public static function init() {
 		add_action( 'tribe_events_update_meta', array( __CLASS__, 'updateRecurrenceMeta' ), 1, 3 );
@@ -29,6 +30,10 @@ class TribeEventsRecurrenceMeta {
     	add_filter( 'tribe_events_query_posts_groupby', array( __CLASS__, 'addGroupBy' ), 10, 2 );
 	
 		add_filter( 'tribe_settings_tab_fields', array( __CLASS__, 'inject_settings' ), 10, 2 );
+	
+		add_action( 'admin_notices', array( __CLASS__, 'displayErrors' ), 10 );
+	
+		add_action( 'save_post', array( __CLASS__, 'checkRecurrenceAmount' ), 10, 1 );
 	}
 
 	
@@ -92,8 +97,8 @@ class TribeEventsRecurrenceMeta {
 		}
 
 		if( TribeEventsRecurrenceMeta::isRecurrenceValid( $event_id, $recurrence_meta ) ) {
-			update_post_meta($event_id, '_EventRecurrence', $recurrence_meta);				
-			TribeEventsRecurrenceMeta::saveEvents($event_id);
+			$updated = update_post_meta($event_id, '_EventRecurrence', $recurrence_meta);				
+			TribeEventsRecurrenceMeta::saveEvents($event_id, $updated);
 		}
 	}
 
@@ -435,7 +440,7 @@ class TribeEventsRecurrenceMeta {
  	 * @param array $postId The event that is being saved 
 	 * @return void
 	 */		
-	public static function saveEvents( $postId) {
+	public static function saveEvents( $postId, $updated = true ) {
 		extract(TribeEventsRecurrenceMeta::getRecurrenceMeta($postId));
 		$rules = TribeEventsRecurrenceMeta::getSeriesRules($postId);
 
@@ -445,7 +450,9 @@ class TribeEventsRecurrenceMeta {
 		$duration = $eventEnd - $recStart;
 
 		$recEnd = $recEndType == "On" ? strtotime(TribeDateUtils::endOfDay($recEnd)) : $recEndCount - 1; // subtract one because event is first occurrence
-
+		
+		$old_start_dates = get_post_meta( $postId, '_EventStartDate' );
+		
 		// different update types
 		delete_post_meta($postId, '_EventStartDate');
 		delete_post_meta($postId, '_EventEndDate');
@@ -457,12 +464,17 @@ class TribeEventsRecurrenceMeta {
 		add_post_meta($postId,'_EventDuration', $duration);
 
 		if ( $recType != "None") {
-			$recurrence = new TribeRecurrence($recStart, $recEnd, $rules, $recEndType == "After");
-			$dates = (array) $recurrence->getDates();
-
-			// add meta for all dates in recurrence
-			foreach($dates as $date) {
-				add_post_meta($postId,'_EventStartDate', date(DateSeriesRules::DATE_FORMAT, $date));
+			$recurrence = new TribeRecurrence($recStart, $recEnd, $rules, $recEndType == "After", get_post( $postId ) );
+			$dates = (array) $recurrence->getDates( $updated, $old_start_dates );
+			
+			$max_recurrences = apply_filters( 'tribe_events_max_recurrences', 199 );
+			if ( count( $dates ) > $max_recurrences ) {
+				add_filter( 'redirect_post_location', array( __CLASS__, 'tooManyRecurrencesError' ) );
+			} else {
+				// add meta for all dates in recurrence
+				foreach($dates as $date) {
+					add_post_meta($postId,'_EventStartDate', date(DateSeriesRules::DATE_FORMAT, $date));
+				}
 			}
 		}
 	}
@@ -691,12 +703,12 @@ class TribeEventsRecurrenceMeta {
 
 		if ( $id == 'general' ) {
 
-			// we want to inject the map default distance and unit into the map section directly after "enable Google Maps" 
+			// we want to inject the hiding subsequent occurrences into the general section directly after "Live update AJAX" 
 			$args = TribeEvents::array_insert_after_key( 'liveFiltersUpdate', $args, array( 
 				'hideSubsequentRecurrencesDefault' => array(
 				'type' => 'checkbox_bool',
-				'label' => __( 'Hide subsequent occurences', 'tribe-events-calendar' ),
-				'tooltip' => __( 'Set the frontend setting for hiding subsequent occurrences of recurring events.', 'tribe-events-calendar' ),
+				'label' => __( 'Recurring event instances', 'tribe-events-calendar' ),
+				'tooltip' => __( 'Show only the first instance of each recurring event.', 'tribe-events-calendar' ),
 				'default' => false,
 				'validation_type' => 'boolean',
 				), ) 
@@ -706,6 +718,90 @@ class TribeEventsRecurrenceMeta {
 
 
 		return $args;
+	}
+	
+	/**
+	 * Responsible for the display of recurrence-related errors.
+	 *
+	 * @since 3.0
+	 * @author PaulHughes01
+	 *
+	 * @return void
+	 */
+	public function displayErrors() {
+		if ( isset( $_GET['tribe_recurrence_error'] ) && is_numeric( $_GET['tribe_recurrence_error'] ) ) {
+			$all_messages = self::errorMessages();
+			$error_messages = apply_filters( 'tribe_events_recurrence_error_messages', array( $all_messages[$_GET['tribe_recurrence_error']] ) );
+			echo '<div class="error">';
+			foreach ( $error_messages as $message ) {
+				echo '<p>' . $message . '</p>';
+			}
+			echo '</div>';
+		}
+	}
+	
+	/**
+	 * Returns the Add the Too Many Recurrences error query arg in the redirect location.
+	 *
+	 * @since 3.0
+	 * @author PaulHughes01
+	 *
+	 * @param string $location The current location to redirect to.
+	 * @return string The new location.
+	 */
+	public function tooManyRecurrencesError( $location ) {
+		return add_query_arg( 'tribe_recurrence_error', 0, $location );
+	}
+	
+	/**
+	 * Returns an array of possible error messages.
+	 *
+	 * @since 3.0
+	 * @author PaulHughes01
+	 *
+	 * @return array The array of possible error messages.
+	 */
+	public function errorMessages() {
+		$max_recurrences = apply_filters( 'tribe_events_max_recurrences', 199 );
+		$error_messages = array( 
+			0 => __( 'Your recurrence pattern would create greater than ' . ( $max_recurrences + 1 ) . ' occurrences. Please change the pattern to have fewer recurrences.', 'tribe-events-calendar-pro' ),
+		);
+		return $error_messages;
+	}
+	
+	/**
+	 * Checks the recurrence amount and adds a filter to display an errir if it is not correct.
+	 * 
+	 * @since 3.0
+	 * @author PaulHughes01
+	 * 
+	 * @param int $post_id The post id.
+	 * @return void
+	 */
+	public function checkRecurrenceAmount( $post_id ) {
+		if ( did_action( 'tribe_events_update_meta' ) == 0 && get_post_type( $post_id ) == TribeEvents::POSTTYPE && get_post_meta( $post_id, '_EventRecurrence' ) ) {
+			extract(TribeEventsRecurrenceMeta::getRecurrenceMeta($post_id));
+			$rules = TribeEventsRecurrenceMeta::getSeriesRules($post_id);
+
+			// use the recurrence start meta if necessary because we can't guarantee which order the start date will come back in
+			$recStart = strtotime(get_post_meta($post_id, '_EventStartDate', true));
+			$eventEnd = strtotime(get_post_meta($post_id, '_EventEndDate', true));
+			$duration = $eventEnd - $recStart;
+
+			$recEnd = $recEndType == "On" ? strtotime(TribeDateUtils::endOfDay($recEnd)) : $recEndCount - 1; // subtract one because event is first occurrence
+		
+			$old_start_dates = get_post_meta( $post_id, '_EventStartDate' );
+		
+			if ( $recType != "None") {
+				$recurrence = new TribeRecurrence($recStart, $recEnd, $rules, $recEndType == "After", get_post( $post_id ) );
+				$dates = (array) $recurrence->getDates( false, $old_start_dates );
+			
+				$max_recurrences = apply_filters( 'tribe_events_max_recurrences', 199 );
+				if ( count( $dates ) > $max_recurrences ) {
+					add_filter( 'redirect_post_location', array( __CLASS__, 'tooManyRecurrencesError' ) );
+				}
+			}
+		}
 	}
 	
 }

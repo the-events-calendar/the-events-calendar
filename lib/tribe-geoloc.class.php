@@ -113,9 +113,9 @@ class TribeEventsGeoLoc {
 			$args = TribeEvents::array_insert_after_key( 'embedGoogleMaps', $args, array( 
 				'geoloc_default_geofence' => array( 
 					'type'            => 'text',
-					'label'           => __( 'Map view search distance ratio (GeoFence)', 'tribe-events-calendar-pro' ),
+					'label'           => __( 'Map view search distance limit', 'tribe-events-calendar-pro' ),
 					'size'            => 'small',
-					'tooltip'         => __( 'Enter a number to limit how far a geographic area the geosearch covers.', 'tribe-events-calendar-pro' ),
+					'tooltip'         => __( 'Set the distance that the location search covers (find events within X distance units of location search input).', 'tribe-events-calendar-pro' ),
 					'default'         => '25',
 					'class'           => '',
 					'validation_type' => 'number_or_percent' ),
@@ -251,7 +251,15 @@ class TribeEventsGeoLoc {
 
 	function save_venue_geodata( $venueId, $data ) {
 
-		$address = trim( $data["Address"] . ' ' . $data["City"] . ' ' . $data["Province"] . ' ' . $data["State"] . ' ' . $data["Zip"] . ' ' . $data["Country"] );
+
+		$_address  = ( ! empty( $data["Address"] ) )  ? $data["Address"]  : '';
+		$_city     = ( ! empty( $data["City"] ) )     ? $data["City"]     : '';
+		$_province = ( ! empty( $data["Province"] ) ) ? $data["Province"] : '';
+		$_state    = ( ! empty( $data["State"] ) )    ? $data["State"]    : '';
+		$_zip      = ( ! empty( $data["Zip"] ) )      ? $data["Zip"]      : '';
+		$_country  = ( ! empty( $data["Country"] ) )  ? $data["Country"]  : '';
+
+		$address = trim( $_address . ' ' . $_city . ' ' . $_province . ' ' . $_state . ' ' . $_zip . ' ' . $_country );
 
 		if ( empty( $address ) )
 			return;
@@ -402,9 +410,6 @@ class TribeEventsGeoLoc {
 		                   'success'     => TRUE,
 		                   'max_pages'   => $query->max_num_pages,
 		                   'total_count' => $query->found_posts );
-
-		$response['html'] .= "<h2>" . __( 'Nearest places', 'tribe-events-calendar-pro' ) . '</h2>';
-
 
 		if ( $query->found_posts === 1 ) {
 			$response['html'] .= sprintf( __( "<div class='event-notices'>%d event found</div>", 'tribe-events-calendar-pro' ), $query->found_posts );

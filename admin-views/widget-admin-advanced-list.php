@@ -30,8 +30,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <p><?php _e( 'Display:', 'tribe-events-calendar-pro' ); ?><br />
 
 <?php $displayoptions = array (
-					"start" => __('Start Date & Time', 'tribe-events-calendar-pro') .'<small><br/>'.__('(Widget will always show start date)', 'tribe-events-calendar-pro').'</small>',
-					"end" => __("End Date & Time", 'tribe-events-calendar-pro'),
 					"venue" => __("Venue", 'tribe-events-calendar-pro'),
 					"organizer" => __("Organizer", 'tribe-events-calendar-pro'),
 					"address" => __("Address", 'tribe-events-calendar-pro'),
