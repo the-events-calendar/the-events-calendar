@@ -24,8 +24,6 @@
  */
 
 $the_content_args = array(
-	'start' => $start, 
-	'end' => $end, 
 	'venue' => $venue, 
 	'address' => $address, 
 	'city' => $city, 
@@ -56,7 +54,7 @@ echo apply_filters( 'tribe_events_list_widget_before_template', $event, $class )
 	
 	// Event date
 	echo apply_filters( 'tribe_events_list_widget_before_the_date', $event );
-	echo apply_filters( 'tribe_events_list_widget_the_date', $event, $post->ID, $start, $end );
+	echo apply_filters( 'tribe_events_list_widget_the_date', $event, $post->ID );
 	echo apply_filters( 'tribe_events_list_widget_after_the_date', $event );
 
 	// Event title

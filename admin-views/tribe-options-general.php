@@ -41,7 +41,7 @@ $generalTab = array(
 		),
 		'donate-link-info' => array(
 			'type' => 'html',
-			'html' => '<p>' . __( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar' ).'<br><a href="' . plugins_url( 'resources/images/donate-link-screenshot.jpg', dirname( __FILE__ ) ).'" class="thickbox">' . __( 'See an example of the link', 'tribe-events-calendar' ) . '</a>.</p>',
+			'html' => '<p>' . __( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar' ).'<br><a href="' . plugins_url( 'resources/images/donate-link-screenshot.jpg', dirname( __FILE__ ) ).'" class="thickbox">' . __( 'See an example of the link', 'tribe-events-calendar' ) . '</a>.</p>',
 			'conditional' => !class_exists( 'TribeEventsPro' ),
 		),
 		'donate-link-pro-info' => array(
@@ -65,11 +65,7 @@ $generalTab = array(
 		),
 		'tribeEventsDisplayThemeTitle' => array(
 			'type' => 'html',
-			'html' => '<h3>' . __( 'General Theme Settings', 'tribe-events-calendar-pro' ) . '</h3>',
-		),
-		'tribeEventsDisplayThemeHelperText' => array(
-			'type' => 'html',
-			'html' => '<p class="description">' . __( 'These include general settings that will control various theme settings for your events templates.', 'tribe-events-calendar-pro' ) . '</p>',
+			'html' => '<h3>' . __( 'General Settings', 'tribe-events-calendar-pro' ) . '</h3>',
 		),
 		'postsPerPage' => array(
 			'type' => 'text',
@@ -81,14 +77,14 @@ $generalTab = array(
 		'showComments' => array(
 			'type' => 'checkbox_bool',
 			'label' => __( 'Show comments', 'tribe-events-calendar' ),
-			'tooltip' => __( 'Enable commenting on an event.', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Enable comments on event pages.', 'tribe-events-calendar' ),
 			'default' => false,
 			'validation_type' => 'boolean',
 		),
 		'showEventsInMainLoop' => array(
 			'type' => 'checkbox_bool',
-			'label' => __( 'Show events in main loop?', 'tribe-events-calendar' ),
-			'tooltip' => __( 'Shows events in the main loop with other posts. When this box is checked, events will also continue to appear on the default events page.' ),
+			'label' => __( 'Include events as posts in the main blog loop?', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Show events with the site\'s other posts. When this box is checked, events will also continue to appear on the default events page.' ),
 			'default' => false,
 			'validation_type' => 'boolean',
 		),
@@ -137,38 +133,13 @@ $generalTab = array(
 		),
 		'multiDayCutoffHelper' => array(
 			'type' => 'html',
-			'html' => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'Hide final day from the month and week templates if a multi-day event ends before this time.', 'tribe-events-calendar' ) ) . '</p>',
+			'html' => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'Hide last day of event from the month and week views if a multi-day event ends before this time.', 'tribe-events-calendar' ) ) . '</p>',
 			'conditional' => ( '' != get_option( 'permalink_structure' ) ),
-		),
-		'tribeEventsDisplayTitle' => array(
-			'type' => 'html',
-			'html' => '<h3>' . __( 'Map Settings', 'tribe-events-calendar-pro' ) . '</h3>',
-		),
-		'tribeEventsDisplayHelperText' => array(
-			'type' => 'html',
-			'html' => '<p class="description">' . __( 'These include settings that will control various aspects of the Google Maps on the front-end.
-			', 'tribe-events-calendar-pro' ) . '</p>',
-		),
-		'embedGoogleMaps' => array(
-			'type' => 'checkbox_bool',
-			'label' => __( 'Enable Google Maps', 'tribe-events-calendar' ),
-			'tooltip' => __( 'Check to enable maps for events and venues in the front-end.', 'tribe-events-calendar' ),
-			'default' => true,
-			'class' => 'google-embed-size',
-			'validation_type' => 'boolean',
-		),
-		'tribeEventsMiscellaneousTitle' => array(
-			'type' => 'html',
-			'html' => '<h3>' . __( 'Miscellaneous Settings', 'tribe-events-calendar-pro' ) . '</h3>',
-		),
-		'tribeEventsMiscellaneousHelperText' => array(
-			'type' => 'html',
-			'html' => '<p class="description">' . __( 'These include miscellaneous settings.', 'tribe-events-calendar-pro' ) . '</p>',
 		),
 		'liveFiltersUpdate' => array(
 			'type' => 'checkbox_bool',
 			'label' => __( 'Live update AJAX', 'tribe-events-calendar' ),
-			'tooltip' => __( 'Enable live updating for AJAX requests on the front-end.' , 'tribe-events-calendar' ),
+			'tooltip' => __( 'Enable live updating for AJAX requests on the frontend.' , 'tribe-events-calendar' ),
 			'default' => false,
 			'validation_type' => 'boolean',
 		),
@@ -179,6 +150,44 @@ $generalTab = array(
 			'validation_type' => 'textarea',
 			'size' => 'small',
 			'default' => '$',
+		),
+		'tribeEventsDisplayTitle' => array(
+			'type' => 'html',
+			'html' => '<h3>' . __( 'Map Settings', 'tribe-events-calendar-pro' ) . '</h3>',
+		),
+		'embedGoogleMaps' => array(
+			'type' => 'checkbox_bool',
+			'label' => __( 'Enable Google Maps', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Check to enable maps for events and venues in the frontend.', 'tribe-events-calendar' ),
+			'default' => true,
+			'class' => 'google-embed-size',
+			'validation_type' => 'boolean',
+		),
+		'embedGoogleMaps' => array(
+			'type' => 'checkbox_bool',
+			'label' => __( 'Enable Google Maps', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Check to enable maps for events and venues in the frontend.', 'tribe-events-calendar' ),
+			'default' => true,
+			'class' => 'google-embed-size',
+			'validation_type' => 'boolean',
+		),
+		'embedGoogleMapsZoom' => array(
+			'type' => 'text',
+			'label' => __( 'Google Maps Default Zoom Level', 'tribe-events-calendar' ),
+			'tooltip' => __( '0 = zoomed out; 21 = zoomed in.', 'tribe_events_calendar' ),
+			'size' => 'small',
+			'default' => 10,
+			'class' => 'google-embed-field',
+			'validation_type' => 'number_or_percent',
+		),
+		'tribeEventsMiscellaneousTitle' => array(
+			'type' => 'html',
+			'html' => '<h3>' . __( 'Miscellaneous Settings', 'tribe-events-calendar-pro' ) . '</h3>',
+		),
+		'amalgamateDuplicates' => array(
+			'type' => 'html',
+			'html' => '<fieldset class="tribe-field tribe-field-html"><legend>'.__('Duplicate Venues &amp; Organizers', 'tribe-events-calendar').'</legend><p class="tribe-field-indent description">'.__('You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers.', 'tribe-events-calendar').'</p><p class="tribe-field-indent">'.Tribe_Amalgamator::migration_button(__('Merge Duplicates', 'tribe-events-calendar')).'</p></fieldset>',
+			'conditional' => ( $tec->getOption('organizer_venue_amalgamation', 0) < 1 ),
 		),
 		'sendPressTrendsData' => array(
 			'type' => 'checkbox_bool',
@@ -202,11 +211,6 @@ $generalTab = array(
 			'html' => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the %s and look for the "Tribe" tab in the debug output.', 'tribe-events-calendar' ), '<a href="http://wordpress.org/extend/plugins/debug-bar/" target="_blank">' . __( 'Debug Bar Plugin', 'tribe-events-calendar' ).'</a>' ) . '</p>',
 			'conditional' => ( '' != get_option( 'permalink_structure' ) ),
 		),
-		'amalgamateDuplicates' => array(
-			'type' => 'html',
-			'html' => '<fieldset class="tribe-field tribe-field-html"><legend>'.__('Duplicate Venues &amp; Organizers', 'tribe-events-calendar').'</legend><p class="tribe-field-indent description">'.__('You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers.', 'tribe-events-calendar').'</p><p class="tribe-field-indent">'.Tribe_Amalgamator::migration_button(__('Merge Duplicates', 'tribe-events-calendar')).'</p></fieldset>',
-			'conditional' => ( $tec->getOption('organizer_venue_amalgamation', 0) < 1 ),
-		),
 		'maybeDisplayPressTrendsDialogue' => array(
 			'type' => 'html',
 			'html' => '<input type="hidden" name="maybeDisplayPressTrendsDialogue" value="' . $displayPressTrendsDialogueValue . '"></input>',
@@ -222,3 +226,4 @@ $generalTab = array(
 	)
 ) 
 );
+

@@ -82,7 +82,7 @@ if (!class_exists('TribeEventsQuery')) {
 			self::$is_event_organizer = $query->tribe_is_event_organizer;
 			self::$is_event_query = $query->tribe_is_event_query;
 			
-			if ( $query === $wp_the_query && $query->is_main_query() && tribe_get_option( 'showEventsInMainLoop', false ) && !is_page() && !is_admin() && !is_single() && !is_singular() && ( is_home() || is_archive() || is_category() || is_tax() ) ) {
+			if ( $query === $wp_the_query && $query->is_main_query() && tribe_get_option( 'showEventsInMainLoop', false ) && !is_page() && !is_admin() && !is_single() && !is_singular() && ( ( is_home() && !$query->tribe_is_event_query ) || is_archive() || is_category() || is_tax() ) ) {
 				$query->query_vars['post_type'] = isset( $query->query_vars['post_type'] ) ? (array) $query->query_vars['post_type'] : array( 'post' );
 				$query->query_vars['post_type'][] = TribeEvents::POSTTYPE;
 			}

@@ -554,10 +554,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				'tribe-form-content-start' => array(
 					'type' => 'html',
 					'html' => '<div class="tribe-settings-form-wrap">',
-				),
-				'tribe-form-content-end' => array(
-					'type' => 'html',
-					'html' => '</div>',
 				)
 			);
 			new TribeSettingsTab( 'general', __('General', 'tribe-events-calendar'), $generalTab );
@@ -1194,7 +1190,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 			}
 			$defaultsEnabled = class_exists( 'TribeEventsPro' ) ? tribe_get_option( 'defaultValueReplace' ) : false;
-			if ( !$postId && !$VenueID && $defaultsEnabled && ( ( is_admin() && get_current_screen()->action == 'add' ) || !is_admin() ) ) {
+			if ( (!$postId || get_post_status($postId) == 'auto-draft') && !$VenueID && $defaultsEnabled && ( ( is_admin() && get_current_screen()->action == 'add' ) || !is_admin() ) ) {
 				$VenueID = tribe_get_option( 'eventsDefaultVenueID' );
 			}
 			$VenueID = apply_filters( 'tribe_display_event_venue_dropdown_id', $VenueID );
@@ -1222,7 +1218,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 			}
 			$defaultsEnabled = class_exists( 'TribeEventsPro' ) ? tribe_get_option( 'defaultValueReplace' ) : false;
-			if ( !$postId && !$curOrg && $defaultsEnabled && ( ( is_admin() && get_current_screen()->action == 'add' ) || !is_admin() ) ) {
+			if ( (!$postId || get_post_status($postId) == 'auto-draft') && !$curOrg && $defaultsEnabled && ( ( is_admin() && get_current_screen()->action == 'add' ) || !is_admin() ) ) {
 				$curOrg = tribe_get_option( 'eventsDefaultOrganizerID' );
 			}
 			$curOrg = apply_filters( 'tribe_display_event_organizer_dropdown_id', $curOrg );
@@ -3639,6 +3635,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				if ( class_exists( 'TribeEventsFilterView' ) ) {
 					TribeEventsFilterView::instance()->createFilters( null, true );
 				}
+
+				TribeEventsQuery::init();
 
 				load_template( TribeEventsTemplates::getTemplateHierarchy( 'calendar' ) );
 			}
