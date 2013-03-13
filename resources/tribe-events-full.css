@@ -2,8 +2,8 @@
  * The Events Calendar Full Stylesheet
  * (Some of these styles may override your current theme's styles)
  *
- * You can customize this stylesheet by putting a stylesheet of the same name
- * (tribe-events.css) in the tribe-events/ directory of your theme.
+ * You can customize this stylesheet by putting a stylesheet with the name
+ * tribe-events.css in the tribe-events/ directory of your theme.
  *
  * @package TribeEventsCalendar
  * @since  1.0
@@ -314,7 +314,7 @@ h2.tribe-events-page-title {
 	color: #000;
 	position: relative;
 	z-index: 0;
-	margin-bottom: 5px;
+	margin-bottom: .5em;
 	text-align: center;
 }
 /* don't float on filter view */
@@ -334,13 +334,14 @@ h2.tribe-events-page-title a:focus {
 /* General Template Header/Footer Nav */
 #tribe-events-header,
 #tribe-events-footer {
-	margin-bottom: 18px;
+	margin-bottom: .5em;
 }
 #tribe-events-header .tribe-events-sub-nav,
 #tribe-events-footer .tribe-events-sub-nav {
 	list-style-type: none;
 	margin: 0;
 	overflow: hidden;
+	line-height: normal;
 	text-align: center;
 }
 #tribe-events-header .tribe-events-sub-nav li,
@@ -369,6 +370,9 @@ h2.tribe-events-page-title a:focus {
 	left: 50%;
 	-webkit-box-shadow: none;
 			box-shadow: none;
+}
+#tribe-events-footer {
+	margin-bottom: 1em;
 }
 /* List & Map & Day Nav Tweaks */
 .events-list #tribe-events-footer,
@@ -773,7 +777,7 @@ select.tribe-events-dropdown {
 =============================================*/
 /* Global Calendar Styles */
 #tribe-events-content table.tribe-events-calendar {
-	margin: 0 0 18px;
+	margin: 0 0 .6em;
 	clear: both;
 	font-size: 12px;
 	border-collapse: collapse;
@@ -803,7 +807,7 @@ select.tribe-events-dropdown {
 	width: 14.28%;
 	color: #114b7d;
 	vertical-align: top;
-	padding: 0;
+	padding: 0 0 .5em;
 	font-size: 12px;
 }
 .vevent.viewmore {

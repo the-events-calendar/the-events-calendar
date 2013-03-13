@@ -155,10 +155,10 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 			$tribe_ecp = TribeEvents::instance();
 
 			// Display Previous Page Navigation
-			$html = '<li class="tribe-nav-previous">' . tribe_get_prev_event_link( '&larr; %title%' ) . '</li>';
+			$html = '<li class="tribe-nav-previous">' . tribe_get_prev_event_link( '&laquo; %title%' ) . '</li>';
 			
 			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next">' . tribe_get_next_event_link( '%title% &rarr;' );
+			$html .= '<li class="tribe-nav-next">' . tribe_get_next_event_link( '%title% &raquo;' );
 			
 			// Loading spinner
 			$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
@@ -323,10 +323,10 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 			$tribe_ecp = TribeEvents::instance();
 
 			// Display Previous Page Navigation
-			$html = '<li class="tribe-nav-previous">'. tribe_get_prev_event_link( '&larr; %title%' ) .'</li>';
+			$html = '<li class="tribe-nav-previous">'. tribe_get_prev_event_link( '&laquo; %title%' ) .'</li>';
 			
 			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next">'. tribe_get_next_event_link( '%title% &rarr;' ) .'</li><!-- .tribe-nav-next -->';
+			$html .= '<li class="tribe-nav-next">'. tribe_get_next_event_link( '%title% &raquo;' ) .'</li><!-- .tribe-nav-next -->';
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_footer_nav');
 		}

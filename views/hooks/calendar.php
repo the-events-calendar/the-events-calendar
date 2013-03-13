@@ -108,7 +108,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 
 			// Display Previous Page Navigation
 			$html = '<li class="tribe-nav-previous">';
-			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&larr; '. tribe_get_previous_month_text() .' </a>';
+			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&laquo; '. tribe_get_previous_month_text() .' </a>';
 			$html .= '</li><!-- .tribe-nav-previous -->';
 			
 			// Display Date Navigation
@@ -120,7 +120,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			
 			// Display Next Page Navigation
 			$html .= '<li class="tribe-nav-next">';
-			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() .'" rel="next"> '. tribe_get_next_month_text() .' &rarr;</a>';
+			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() .'" rel="next"> '. tribe_get_next_month_text() .' &raquo;</a>';
 			
 			// Loading spinner
 			$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
@@ -230,12 +230,12 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 
 			// Display Previous Page Navigation
 			$html = '<li class="tribe-nav-previous">';
-			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&larr; '. tribe_get_previous_month_text() .' </a>';
+			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&laquo; '. tribe_get_previous_month_text() .' </a>';
 			$html .= '</li><!-- .tribe-nav-previous -->';
 			
 			// Display Next Page Navigation
 			$html .= '<li class="tribe-nav-next">';
-			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() .'" rel="next"> '. tribe_get_next_month_text() .' &rarr;</a>';
+			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() .'" rel="next"> '. tribe_get_next_month_text() .' &raquo;</a>';
 			$html .= '</li><!-- .tribe-nav-next -->';
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_footer_nav');
@@ -400,13 +400,15 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 						<div class="tribe-events-event-thumb"><?php echo get_the_post_thumbnail( $post->ID, array( 75,75 ) );?></div>
 						<?php } ?>
 
+						<?php if( has_excerpt( $post->ID ) || $post->post_content ) { ?>
 						<p class="entry-summary description">
-							<?php if( has_excerpt( $post->ID ) ) {
+						<?php if( has_excerpt( $post->ID ) ) {
 							echo $tribe_ecp->truncate( $post->post_excerpt, 30 );
 						} else {
 							echo $tribe_ecp->truncate( $post->post_content, 30 );
 						} ?>
 						</p><!-- .entry-summary -->
+						<?php } ?>
 
 					</div><!-- .tribe-events-event-body -->
 					<span class="tribe-events-arrow"></span>
