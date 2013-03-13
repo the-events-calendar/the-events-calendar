@@ -30,7 +30,9 @@ jQuery( document ).ready( function ( $ ) {
 		showAnim: 'fadeIn'		
 	};
 	if ( !$( '.tribe-events-week-grid' ).length ) {
-		$( '#tribe-bar-date' ).datepicker( tribe_var_datepickerOpts );
+		var tribeBarDate = $('#tribe-bar-date').bootstrapDatepicker().on('changeDate', function() {
+		  tribeBarDate.hide();
+		}).data('datepicker');
 	}
 	
 	// Add some classes

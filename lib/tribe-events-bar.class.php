@@ -58,7 +58,7 @@ class TribeEventsBar {
 			Tribe_Template_Factory::asset_package( 'tribe-events-bar' );
 			Tribe_Template_Factory::asset_package( 'select2' );
 			Tribe_Template_Factory::asset_package( 'jquery-placeholder' );
-			Tribe_Template_Factory::asset_package( 'datepicker' );
+			Tribe_Template_Factory::asset_package( 'bootstrap-datepicker' );
 
 			do_action( 'tribe-events-bar-enqueue-scripts' );
 		}
