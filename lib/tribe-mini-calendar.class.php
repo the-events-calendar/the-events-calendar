@@ -130,7 +130,8 @@ class TribeEventsMiniCalendar {
 		$wp_query->query_vars['eventDisplay']   = $args['eventDisplay'];
 		$wp_query->query_vars['posts_per_page'] = $args['count'];
 
-		echo apply_filters( 'tribe_events_calendar_widget_title', "<h3 class='tribe-mini-calendar-title widget-title layout-" . esc_attr( $args['layout'] ) . "'>" . __( 'Events Calendar', 'tribe-events-calendar-pro' ) . "</h3>", $args );
+		// Commenting out title as we are allowing users to specify in widget
+		//echo apply_filters( 'tribe_events_calendar_widget_title', "<h3 class='tribe-mini-calendar-title widget-title layout-" . esc_attr( $args['layout'] ) . "'>" . __( 'Events Calendar', 'tribe-events-calendar-pro' ) . "</h3>", $args );
 
 		echo "<div class='tribe-mini-calendar-wrapper layout-" . esc_attr( $args['layout'] ) . "'>";
 

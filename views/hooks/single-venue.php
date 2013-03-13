@@ -152,7 +152,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 			$content = str_replace(']]>', ']]&gt;', $content);
 
 			$html = sprintf('%s%s%s',
-				( get_post_meta( get_the_ID(), '_EventShowMapLink', true ) == 'true' ) ? tribe_get_meta('tribe_event_venue_gmap_link'): '',
+				( get_post_meta( get_the_ID(), '_VenueShowMapLink', true ) !== 'false' ) ? tribe_get_meta('tribe_event_venue_gmap_link'): '',
 				tribe_get_meta_group( 'tribe_event_venue' ),
 				!empty($content) ? '<div class="tribe-venue-description tribe-content">' . $content . '</div>' : ''
 				);

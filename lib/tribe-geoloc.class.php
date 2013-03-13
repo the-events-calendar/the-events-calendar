@@ -113,9 +113,9 @@ class TribeEventsGeoLoc {
 			$args = TribeEvents::array_insert_after_key( 'embedGoogleMaps', $args, array( 
 				'geoloc_default_geofence' => array( 
 					'type'            => 'text',
-					'label'           => __( 'Map view search distance ratio (GeoFence)', 'tribe-events-calendar-pro' ),
+					'label'           => __( 'Map view search distance limit', 'tribe-events-calendar-pro' ),
 					'size'            => 'small',
-					'tooltip'         => __( 'Enter a number to limit how far a geographic area the geosearch covers.', 'tribe-events-calendar-pro' ),
+					'tooltip'         => __( 'Set the distance that the location search covers (find events within X distance units of location search input).', 'tribe-events-calendar-pro' ),
 					'default'         => '25',
 					'class'           => '',
 					'validation_type' => 'number_or_percent' ),
@@ -203,11 +203,17 @@ class TribeEventsGeoLoc {
 		$tec = TribeEvents::instance();
 
 		$base = trailingslashit( $tec->getOption( 'eventsSlug', 'events' ) );
-
+		$baseTax = trailingslashit( $tec->taxRewriteSlug );
+		$baseTax = "(.*)" . $baseTax . "(?:[^/]+/)*";
+		$baseTag = trailingslashit( $tec->tagRewriteSlug );
+		$baseTag = "(.*)" . $baseTag;
+		
 		$newRules = array();
 
 		$newRules[$base . $this->rewrite_slug] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=map';
-
+		$newRules[$baseTax . '([^/]+)/' . $this->rewrite_slug . '/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=map';
+		$newRules[$baseTag . '([^/]+)/' . $this->rewrite_slug . '/?$'] = 'index.php?tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=map';
+		
 		$wp_rewrite->rules = $newRules + $wp_rewrite->rules;
 	}
 
@@ -245,7 +251,15 @@ class TribeEventsGeoLoc {
 
 	function save_venue_geodata( $venueId, $data ) {
 
-		$address = trim( $data["Address"] . ' ' . $data["City"] . ' ' . $data["Province"] . ' ' . $data["State"] . ' ' . $data["Zip"] . ' ' . $data["Country"] );
+
+		$_address  = ( ! empty( $data["Address"] ) )  ? $data["Address"]  : '';
+		$_city     = ( ! empty( $data["City"] ) )     ? $data["City"]     : '';
+		$_province = ( ! empty( $data["Province"] ) ) ? $data["Province"] : '';
+		$_state    = ( ! empty( $data["State"] ) )    ? $data["State"]    : '';
+		$_zip      = ( ! empty( $data["Zip"] ) )      ? $data["Zip"]      : '';
+		$_country  = ( ! empty( $data["Country"] ) )  ? $data["Country"]  : '';
+
+		$address = trim( $_address . ' ' . $_city . ' ' . $_province . ' ' . $_state . ' ' . $_zip . ' ' . $_country );
 
 		if ( empty( $address ) )
 			return;
