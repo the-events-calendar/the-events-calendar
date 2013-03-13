@@ -2,8 +2,8 @@
  * The Events Calendar Pro Skeleton Stylesheet
  * (These styles shouldn't override your current theme's styles)
  *
- * You can customize this stylesheet by putting a stylesheet of the same name
- * (tribe-events-pro.css) in the tribe-events/pro/ directory of your theme.
+ * You can customize this stylesheet by putting a stylesheet with the name
+ * tribe-events-pro.css in the tribe-events/pro/ directory of your theme.
  *
  * @package TribeEventsCalendar
  * @since  1.0
@@ -50,7 +50,7 @@
 .tribe-events-grid {
 	width: 100%;
 	position: relative;
-	margin: 18px auto;
+	margin: 0 auto .6em;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
