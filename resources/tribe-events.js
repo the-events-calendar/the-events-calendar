@@ -15,21 +15,32 @@ var tribe_ajax_timer;
 
 // jquery functions
 
-jQuery.fn.tribe_clear_form = function() {
-	return this.each(function() {
-		var type = this.type, tag = this.tagName.toLowerCase();
-		if (tag == 'form')
-			return jQuery(':input',this).tribe_clear_form();
-		if (type == 'text' || type == 'password' || tag == 'textarea')
-			this.value = '';
-		else if (type == 'checkbox' || type == 'radio')
-			this.checked = false;
-		else if (tag == 'select')
-			this.selectedIndex = 0;		
+(function($) {
+	$.fn.extend({
+		triggerAll: function(events) {
+			var el = $(this);
+			for (var evt in events.split(' ')) {
+				el.trigger(evt);
+			}
+			return el;
+		}
 	});
-};
+	$.fn.tribe_clear_form = function() {
+		return this.each(function() {
+			var type = this.type, tag = this.tagName.toLowerCase();
+			if (tag == 'form')
+				return jQuery(':input', this).tribe_clear_form();
+			if (type == 'text' || type == 'password' || tag == 'textarea')
+				this.value = '';
+			else if (type == 'checkbox' || type == 'radio')
+				this.checked = false;
+			else if (tag == 'select')
+				this.selectedIndex = 0;
+		});
+	};
+})(jQuery);
 
-// tribe global, we need them for some ping pong
+// tribe events object
 
 tribe_ev = {};
 
@@ -61,6 +72,15 @@ tribe_ev.fn = {
 			});			
 		}
 	},
+	get_category: function() {
+		if( tribe_ev.fn.is_category() ) {	
+			var class_name = jQuery('body').attr('class');
+			var matches = class_name.match(/\bevents-category-[^\s]+\b/);		
+			return matches[0].substring(16);
+		} else {
+			return '';
+		}		
+	},
 	get_day: function() {
 		var dp_day = '';
 		if( jQuery('#tribe-bar-date').length ) {
@@ -84,6 +104,17 @@ tribe_ev.fn = {
 	},
 	in_params: function( params, term ) {
 		return params.toLowerCase().indexOf( term );
+	},
+	is_category: function() {
+		if( jQuery( 'body' ).hasClass( 'tax-tribe_events_cat' ) ) 
+			return true;
+		else
+			return false;
+	},
+	make_slug: function( string ) {		
+		var string_h = string.replace(/\s/g,'-');
+		var slug = string_h.replace(/[^a-zA-Z0-9\-]/g,'');
+		return slug.toLowerCase();
 	},
 	parse_string: function( string ) {    
 		var map   = {};
@@ -356,7 +387,7 @@ tribe_ev.fn = {
 	url_path: function( url ) {
 		return url.split("?")[0];
 	}	
-}
+};
 
 tribe_ev.tests = {	
 	live_ajax: function() {
@@ -378,29 +409,37 @@ tribe_ev.tests = {
 		else
 			return false;
 	}
-}
+};
 
 tribe_ev.data = {
 	ajax_response:{},
 	cur_url:tribe_ev.fn.url_path( document.URL ),
 	initial_url:tribe_ev.fn.url_path( document.URL ),
 	params:tribe_ev.fn.get_params()		
-}
+};
+
+tribe_ev.events = {};
 
 tribe_ev.state = {
 	ajax_running:false,
+	category:'',
 	date:'',
 	do_string:false,
+	filters:false,	
+	filter_cats:false,
 	initial_load:true,
 	paged:1,
 	params:{},
 	popping:false,
 	pushstate:true,
 	pushcount:0,
-	url_params:{}	
-}
+	url_params:{},
+	view:''
+};
 
 jQuery( document ).ready( function ( $ ) {	
+	
+	tribe_ev.state.category = tribe_ev.fn.get_category();
 
 	/* Let's hide the widget calendar if we find more than one instance */
 	$(".tribe-events-calendar-widget").not(":eq(0)").hide();

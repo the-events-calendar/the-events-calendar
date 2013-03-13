@@ -58,11 +58,11 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_end_date( $event = null, $displayTime = true, $dateFormat = '' )  {
-		if ( is_null( $event ) ) {
+		if( is_null( $event ) ) {
 			global $post;
 			$event = $post;
 		}
-		if ( is_numeric( $event ) )
+		if( is_numeric( $event ) )
 			$event = get_post( $event );
 	
 		if( tribe_get_all_day( $event ) )
@@ -73,11 +73,11 @@ if( class_exists( 'TribeEvents' ) ) {
 
 		if( isset($event->EventEndDate) ){
 			$date = strtotime( $event->EventEndDate );
-		}else{
+		} else{
 			return; // '&mdash;';
 		}
 
-		return tribe_event_format_date($date, $displayTime, $dateFormat );
+		return tribe_event_format_date( $date, $displayTime, $dateFormat );
 	}
 
 	/**

@@ -249,6 +249,33 @@ jQuery(document).ready(function($) {
 		}
 	});	
 	
+	$('.wp-admin.events-cal .submitdelete').click(function(e) {
+
+		var link = $(this);
+
+		if ( isExistingRecurringEvent() ) {
+			e.preventDefault();
+
+			$('#deletion-dialog').dialog({
+				//submitdelete
+				modal: true,
+				buttons: [{
+					text: "Only This Event",
+					click: function() {
+						document.location = link.attr('href') + '&event_start=' + $(this).data('start');
+					}
+				},
+				{
+					text: "All Events",
+					click: function() {
+						document.location = link.attr('href') + '&deleteAll';
+					}
+				}]
+			});
+		}
+
+	});
+	
 	function setupSubmitButton() {
 		//publishing-action		
 	}

@@ -75,7 +75,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Google Map Embed Test
 	 *
-	 * Check if embed google map is enabled for this event.
+	 * Check if embed google map is enabled for this event (or venue ).
 	 *
      * @param int $postId Id of the post, if none specified, current post is used
 	 * @return bool True if google map option is set to embed the map
@@ -86,11 +86,16 @@ if( class_exists( 'TribeEvents' ) ) {
 			return 1;
 			
 		$postId = TribeEvents::postIdHelper( $postId );
-		if( tribe_get_option('embedGoogleMaps') ) {
-			$output = get_post_meta( $postId, '_EventShowMap', 1) == 1;
+		$post_type = get_post_type( $postId );
+		if ( tribe_get_option('embedGoogleMaps') ) {
+			if ( $post_type == TribeEvents::POSTTYPE ) {
+				$output = get_post_meta( $postId, '_EventShowMap', 1) == 1;
+			} elseif ( $post_type == TribeEvents::VENUE_POST_TYPE ) {
+				$output = get_post_meta( $postId, '_VenueShowMap', 1) !== 'false' ? 1 : 0;
+			}
 		} else {
 			return 0;
-		}	
+		}
 		return apply_filters('tribe_embed_google_map', $output);
 	}
 

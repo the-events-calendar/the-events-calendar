@@ -82,6 +82,8 @@ if (!class_exists('TribeEventsAPI')) {
 			if ( $startTimestamp > $endTimestamp ) {
 				$data['EventEndDate'] = $data['EventStartDate'];
 			}
+			
+			$old_data['EventStartDate'] = get_post_meta( $event_id, '_EventStartDate', true );
 		
 			update_post_meta( $event_id, '_EventShowMapLink', isset( $data['venue']['EventShowMapLink'] ) );
 			update_post_meta( $event_id, '_EventShowMap', isset( $data['venue']['EventShowMap'] ) );
@@ -121,8 +123,10 @@ if (!class_exists('TribeEventsAPI')) {
 				if ( isset( $data[$htmlElement] ) && $tag != TribeEvents::EVENTSERROROPT ) {
 					if ( is_string($data[$htmlElement]) )
 						$data[$htmlElement] = filter_var($data[$htmlElement], FILTER_SANITIZE_STRING);
-
-					update_post_meta( $event_id, $tag, $data[$htmlElement] );
+					if ( isset( $old_data[$htmlElement] ) )
+						update_post_meta( $event_id, $tag, $data[$htmlElement], $old_data[$htmlElement] );
+					else
+						update_post_meta( $event_id, $tag, $data[$htmlElement] );
 				}
 			}
 
@@ -154,6 +158,10 @@ if (!class_exists('TribeEventsAPI')) {
 					// Only an ID was passed and we should do nothing.
 					return $data['VenueID'];
 				} else {
+					$show_map = get_post_meta( $data['VenueID'], '_VenueShowMap', true );
+					$show_map_link = get_post_meta( $data['VenueID'], '_VenueShowMapLink', true );
+					$data['ShowMap'] = $show_map ? $show_map : 'false';
+					$data['ShowMapLink'] = $show_map_link ? $show_map_link : 'false';
 					return TribeEventsAPI::updateVenue($data['VenueID'], $data);
 				}
 			} else {
@@ -261,6 +269,8 @@ if (!class_exists('TribeEventsAPI')) {
 		 */
 		public static function updateVenue($venueId, $data) {
 			wp_update_post( array('post_title' => $data['Venue'], 'ID'=>$venueId ));		
+			$data['ShowMap'] = isset( $data['ShowMap'] ) ? $data['ShowMap'] : 'false';
+			$data['ShowMapLink'] = isset( $data['ShowMapLink'] ) ? $data['ShowMapLink'] : 'false';
 			TribeEventsAPI::saveVenueMeta($venueId, $data);
 
 			do_action( 'tribe_events_venue_updated', $venueId, $data );

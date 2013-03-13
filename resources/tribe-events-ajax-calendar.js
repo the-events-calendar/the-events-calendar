@@ -1,6 +1,7 @@
 jQuery( document ).ready( function ( $ ) {
 	
 	var base_url = $('#tribe-events-header .tribe-nav-next a').attr('href').slice(0, -8);
+	tribe_ev.state.view = 'month';
 	
 	var has_bar = false;
 	
@@ -45,8 +46,11 @@ jQuery( document ).ready( function ( $ ) {
 		e.preventDefault();
 		var $this = $(this);
 		tribe_ev.state.date = $this.attr( "data-month" );
-		$( '#tribe-bar-date' ).val(tribe_ev.state.date + tribe_ev.fn.get_day());			
-		tribe_ev.data.cur_url = $this.attr( "href" );
+		$( '#tribe-bar-date' ).val(tribe_ev.state.date + tribe_ev.fn.get_day());
+		if( tribe_ev.state.filter_cats )
+			tribe_ev.data.cur_url = $('#tribe-events-header').attr( 'data-baseurl' );
+		else
+			tribe_ev.data.cur_url = $this.attr( "href" );
 		tribe_ev.state.popping = false;
 		tribe_ev.fn.pre_ajax( function() { 		
 			tribe_events_calendar_ajax_post();	
@@ -56,8 +60,11 @@ jQuery( document ).ready( function ( $ ) {
 	function tribe_monitor_selects(e) {
 		e.preventDefault();				
 		tribe_ev.state.date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();	
-		$( '#tribe-bar-date' ).val(tribe_ev.state.date + tribe_ev.fn.get_day());		
-		tribe_ev.data.cur_url = base_url + tribe_ev.state.date + '/';		
+		$( '#tribe-bar-date' ).val(tribe_ev.state.date + tribe_ev.fn.get_day());
+		if( tribe_ev.state.filter_cats )
+			tribe_ev.data.cur_url = $('#tribe-events-header').attr( 'data-baseurl' ) + tribe_ev.state.date + '/';	
+		else
+			tribe_ev.data.cur_url = base_url + tribe_ev.state.date + '/';		
 		tribe_ev.state.popping = false;
 		tribe_ev.fn.pre_ajax( function() { 
 			tribe_events_calendar_ajax_post();	
@@ -82,7 +89,10 @@ jQuery( document ).ready( function ( $ ) {
 		if( tribe_events_bar_action != 'change_view' ) {
 			e.preventDefault();	
 			tribe_ev.state.date = $('#tribe-events-header').attr('data-date');
-			tribe_ev.data.cur_url = tribe_ev.data.initial_url;
+			if( tribe_ev.state.filter_cats )
+				tribe_ev.data.cur_url = $('#tribe-events-header').attr( 'data-baseurl' ) + tribe_ev.state.date + '/';	
+			else
+				tribe_ev.data.cur_url = tribe_ev.data.initial_url;			
 			tribe_ev.state.popping = false;
 			tribe_ev.fn.pre_ajax( function() { 
 				tribe_events_calendar_ajax_post();
@@ -99,53 +109,12 @@ jQuery( document ).ready( function ( $ ) {
 		tribe_ev.fn.hide_settings();
 	} );
 
-	// if advanced filters active intercept submit
-
-	if( $('#tribe_events_filters_form').length ) {
-		
-		var $form = $('#tribe_events_filters_form');
-		
-		if( tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate ) {
-			
-			$form.find('input[type="submit"]').remove();
-			
-			function run_filtered_month_ajax() {
-				tribe_ev.fn.disable_inputs( '#tribe_events_filters_form', 'input, select' );
-				tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );	
-				tribe_ev.data.cur_url = tribe_ev.data.initial_url;
-				tribe_ev.state.popping = false;
-				tribe_ev.fn.pre_ajax( function() { 
-					tribe_events_calendar_ajax_post();
-				});				
-			}			
-			
-			$form.on( "slidechange", ".ui-slider", function() {				
-				tribe_ev.fn.setup_ajax_timer( function() {
-					run_filtered_month_ajax() 
-				} );				
-			} );
-			$form.on("change", "input, select", function(){				
-				tribe_ev.fn.setup_ajax_timer( function() {
-					run_filtered_month_ajax() 
-				} );	
-			});			
-		}		
-		
-		$form.on( 'submit', function ( e ) {
-			if ( tribe_events_bar_action != 'change_view' ) {
-				e.preventDefault();
-				tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );	
-				tribe_ev.data.cur_url = tribe_ev.data.initial_url;
-				tribe_ev.state.popping = false;
-				tribe_ev.fn.pre_ajax( function() { 
-					tribe_events_calendar_ajax_post();
-				});	
-			}
-		} );
-	}	
+	$(tribe_ev.events).on("tribe_ev_runAjax", function() {		
+		tribe_events_calendar_ajax_post();		
+	});
 
 
-	function tribe_events_calendar_ajax_post() {
+	function tribe_events_calendar_ajax_post() {	
 
 		tribe_ev.fn.spin_show();
 		tribe_ev.state.pushcount = 0;
@@ -157,40 +126,20 @@ jQuery( document ).ready( function ( $ ) {
 				eventDate:tribe_ev.state.date
 			};
 			
+			if( tribe_ev.state.category ) {
+				tribe_ev.state.params['tribe_event_category'] = tribe_ev.state.category;
+			}
+			
 			tribe_ev.state.url_params = {};
 
-			$( 'form#tribe-bar-form input' ).each( function () {
-				var $this = $( this );
-				if( $this.val().length && !$this.hasClass('tribe-no-param') ) {
-					if( $this.is(':checkbox') ) {
-						if( $this.is(':checked') ) {
-							tribe_ev.state.params[$this.attr('name')] = $this.val();
-							tribe_ev.state.url_params[$this.attr('name')] = $this.val();
-							tribe_ev.state.pushcount++;
-						}
-					} else {
-						tribe_ev.state.params[$this.attr('name')] = $this.val();
-						tribe_ev.state.url_params[$this.attr('name')] = $this.val();
-						tribe_ev.state.pushcount++;
-					}					
-				}			
-			} );
+			$(tribe_ev.events).trigger('tribe_ev_scrapeBar');
 
 			tribe_ev.state.params = $.param(tribe_ev.state.params);
 			tribe_ev.state.url_params = $.param(tribe_ev.state.url_params);
-
-			if( $('#tribe_events_filters_form').length ) {
-				var tribe_filter_params = tribe_ev.fn.serialize( '#tribe_events_filters_form', 'input, select' );		
-				if( tribe_filter_params.length ) {					
-					tribe_ev.state.params = tribe_ev.state.params + '&' + tribe_filter_params;
-					if( tribe_ev.state.url_params.length )
-						tribe_ev.state.url_params = tribe_ev.state.url_params + '&' + tribe_filter_params;
-					else
-						tribe_ev.state.url_params = tribe_filter_params;
-				}
-			}			
 			
-			if ( tribe_ev.state.pushcount > 0 || tribe_filter_params != '' ) {
+			$(tribe_ev.events).trigger('tribe_ev_collectParams');
+			
+			if ( tribe_ev.state.pushcount > 0 || tribe_ev.state.filters ) {
 				tribe_ev.state.do_string = true;
 				tribe_ev.state.pushstate = false;			
 			} else {
@@ -201,7 +150,9 @@ jQuery( document ).ready( function ( $ ) {
 			
 		} 
 
-		if( tribe_ev.tests.pushstate ) {
+		if( tribe_ev.tests.pushstate && !tribe_ev.state.filter_cats ) {
+			
+			$(tribe_ev.events).triggerAll('tribe_ev_ajaxStart tribe_ev_monthView_AjaxStart');					
 
 			$.post(
 				TribeCalendar.ajaxurl,
@@ -212,7 +163,9 @@ jQuery( document ).ready( function ( $ ) {
 					tribe_ev.state.initial_load = false;	
 					tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
 					
-					if ( response !== '' ) {
+					if ( response !== '' ) {						
+						
+						$(tribe_ev.events).triggerAll('tribe_ev_ajaxSuccess tribe_ev_monthView_AjaxSuccess');
 						
 						tribe_ev.data.ajax_response = {
 							'type':'tribe_events_ajax',
