@@ -14,11 +14,10 @@
 	
 	<form id="tribe-bar-form" class="tribe-clearfix" name="tribe-bar-form" method="post" action="<?php echo add_query_arg( array() ); ?>">
 	
-		<div id="tribe-bar-filters">
 			<?php self::print_filters_helper( $filters ); ?>
-		</div><!-- #tribe-bar-filters -->
 		
 		<div id="tribe-bar-views">
+			<label for="tribe-bar-view"><?php echo __( 'View As', 'tribe-events-calendar' ); ?></label>
 			<?php self::print_views_helper( $views ); ?>
 		</div><!-- #tribe-bar-filters -->
 		

@@ -484,7 +484,7 @@ if (!class_exists('TribeEventsViewHelpers')) {
 		 */
 		public static function getMonthOptions($date = "") {
 			$tribe_ecp = TribeEvents::instance();
-			$months = $tribe_ecp->monthNames();
+			$months = $tribe_ecp->monthNames( true );
 			$options = '';
 			if (empty($date)) {
 				$month = ( date_i18n('j') == date_i18n('t') ) ? date('F', time() + 86400) : date_i18n('F');

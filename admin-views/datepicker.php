@@ -8,7 +8,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 ?>
 <form action="<?php echo tribe_get_dropdown_link_prefix(); ?>" method="get" id="<?php echo $prefix; ?>events-picker">
-	<label for="<?php echo $prefix; ?>events-month" style="display: none;">Events Month</label>
+	<label for="<?php echo $prefix; ?>events-month">Events In</label>
 	<select id='<?php echo $prefix; ?>events-month' name='EventJumpToMonth' class='<?php echo $prefix; ?>events-dropdown tribe-no-param'>
 		<?php echo $monthOptions; ?>
 	</select>
