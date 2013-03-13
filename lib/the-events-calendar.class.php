@@ -3458,6 +3458,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			if ( tribe_is_month() ) {
 				$caption = __('Events In', 'tribe-events-calendar');
+			} elseif ( tribe_is_upcoming() ) {
+				$caption = __('Events From', 'tribe-events-calendar');
 			}
 
 			$caption = apply_filters( 'tribe_bar_datepicker_caption', $caption );
