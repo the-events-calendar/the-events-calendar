@@ -1173,9 +1173,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	padding: 10px;
 }
 
-.events-gridview #tribe-bar-form label.label-tribe-bar-date {
-	display: none;
-}
 #tribe-bar-dates .select2-choice {
 	border-bottom: 1px dashed #b9b9b9;
 }
@@ -1252,9 +1249,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 .tribe-has-datepicker #tribe-bar-dates {
 	margin-top: 0; 
-}
-.events-gridview #tribe-bar-date {
-	display: none;
 }
 
 #tribe-bar-form input {
