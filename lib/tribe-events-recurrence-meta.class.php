@@ -33,7 +33,7 @@ class TribeEventsRecurrenceMeta {
 	
 		add_action( 'admin_notices', array( __CLASS__, 'displayErrors' ), 10 );
 	
-		add_action( 'save_post', array( __CLASS__, 'checkRecurrenceAmount' ), 10, 1 );
+		add_action( 'save_post', array( __CLASS__, 'checkRecurrenceAmount' ), 16, 1 );
 	}
 
 	
@@ -779,7 +779,7 @@ class TribeEventsRecurrenceMeta {
 	 * @return void
 	 */
 	public function checkRecurrenceAmount( $post_id ) {
-		if ( did_action( 'tribe_events_update_meta' ) == 0 && get_post_type( $post_id ) == TribeEvents::POSTTYPE && get_post_meta( $post_id, '_EventRecurrence' ) ) {
+		if ( get_post_type( $post_id ) == TribeEvents::POSTTYPE && get_post_meta( $post_id, '_EventRecurrence' ) ) {
 			extract(TribeEventsRecurrenceMeta::getRecurrenceMeta($post_id));
 			$rules = TribeEventsRecurrenceMeta::getSeriesRules($post_id);
 
@@ -794,7 +794,7 @@ class TribeEventsRecurrenceMeta {
 		
 			if ( $recType != "None") {
 				$recurrence = new TribeRecurrence($recStart, $recEnd, $rules, $recEndType == "After", get_post( $post_id ) );
-				$dates = (array) $recurrence->getDates( false, $old_start_dates );
+				$dates = (array) $recurrence->getDates( true, $old_start_dates );
 			
 				$max_recurrences = apply_filters( 'tribe_events_max_recurrences', 199 );
 				if ( count( $dates ) > $max_recurrences ) {
