@@ -25,16 +25,28 @@ jQuery( document ).ready( function ( $ ) {
 	});
 
 	// Implement our datepicker
-	var tribe_var_datepickerOpts = {
+	var tribe_var_list_datepickerOpts = {
 		dateFormat: 'yy-mm-dd',
-		showAnim: 'fadeIn'		
+		showAnim: 'fadeIn'
 	};
-	if ( !$( '.tribe-events-week-grid' ).length ) {
+	if ( !$( '.events-gridview' ).length ) {
+		var tribeBarDate = $('#tribe-bar-date').bootstrapDatepicker().on('changeDate', function() {
+		  tribeBarDate.hide();
+		}).data('datepicker');
+		alert('not grid view');
+	}
+		// Append our month view selects to date wrapper in bar
+	if ( $( '.events-gridview' ).length ) {
+		var tribe_var_grid_datepickerOpts = {
+			dateFormat: 'yy-mm-dd',
+			showAnim: 'fadeIn',
+			viewMode: 'months'
+		};
 		var tribeBarDate = $('#tribe-bar-date').bootstrapDatepicker().on('changeDate', function() {
 		  tribeBarDate.hide();
 		}).data('datepicker');
 	}
-	
+
 	// Add some classes
 	if( $( '.tribe-bar-settings' ).length ) {
 		$( '#tribe-events-bar' ).addClass( 'tribe-has-settings' );
@@ -64,12 +76,7 @@ jQuery( document ).ready( function ( $ ) {
 	// Add our date bits outside of our filter container
 	$( '#tribe-bar-filters' ).before( $('#tribe-bar-dates') );
 	
-	// Append our month view selects to date wrapper in bar
-	if ( $( '.events-gridview' ).length ) {
-		$( '#tribe-bar-dates' ).append( $('.tribe-events-calendar #tribe-events-events-picker').contents() );		
-		$( '#tribe-bar-date' ).hide();
-		$( '#tribe-events-bar' ).removeClass( 'tribe-has-datepicker' );
-	}
+
 
 	// Implement our views bit
 	$( 'select[name=tribe-bar-view]' ).change( function () {
