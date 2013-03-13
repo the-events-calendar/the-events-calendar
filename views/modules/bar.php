@@ -17,9 +17,7 @@
 
 	<form id="tribe-bar-form" class="tribe-clearfix" name="tribe-bar-form" method="post" action="<?php echo add_query_arg( array() ); ?>">
 
-		<div id="tribe-bar-filters">
 			<?php do_action( 'tribe-events-bar-show-filters', $filters ); ?>
-		</div><!-- #tribe-bar-filters -->
 
 		<div id="tribe-bar-views">
 			<?php do_action( 'tribe-events-bar-show-views', $views ); ?>

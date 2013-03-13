@@ -125,7 +125,6 @@ class TribeEventsBar {
 	public static function print_filters_helper( $filters ) {
 
 		echo '<div class="tribe-bar-button-search">' . __( '<span class="tribe-bar-btn-small"><span>Event </span>Search</span>', 'tribe-events-calendar' ) . '</div>';
-
 		foreach ( $filters as $filter ) {
 			echo '<div class="' . esc_attr( $filter['name'] ) . '-filter">';
 				echo '<label class="label-' . esc_attr( $filter['name'] ) . '" for="' . esc_attr( $filter['name'] ) . '">' . $filter['caption'] . '</label>';
@@ -133,7 +132,7 @@ class TribeEventsBar {
 			echo '</div>';
 		}
 		echo '<div class="tribe-bar-submit">';
-			echo '<input class="tribe-events-button-grey tribe-no-param" type="submit" name="submit-bar" value="' . __( 'Search', 'tribe-events-calendar' ) . '"/>';
+			echo '<input class="tribe-events-button-grey tribe-no-param" type="submit" name="submit-bar" value="' . __( 'Find Events', 'tribe-events-calendar' ) . '"/>';
 		echo '</div>';
 	}
 
@@ -152,9 +151,11 @@ class TribeEventsBar {
 
 		$limit = apply_filters( 'tribe-events-bar-views-breakpoint', 0 );
 
+		$open 		= '<label>View As</label>';
+
 		if ( count( $views ) <= $limit ) {
 			// Standard list navigation for larger screens
-			$open     = '<ul class="tribe-bar-view-list">';
+			$open    .= '<ul class="tribe-bar-view-list">';
 			$close    = "</ul>";
 			$current  = 'tribe-active';
 			$open_el  = '<li><a class="tribe-bar-view tribe-events-button-grey tribe-icon-!VIEW! !CURRENT-ACTIVE!" href="!URL!">';
@@ -167,8 +168,7 @@ class TribeEventsBar {
 			$close_sel_el = "</option>";
 
 		} else {
-
-			$open     = '<select class="tribe-select2 tribe-no-param" name="tribe-bar-view">';
+			$open    .= '<select class="tribe-select2 tribe-no-param" name="tribe-bar-view">';
 			$close    = "</select>";
 			$current  = 'selected';
 			$open_el  = '<option !CURRENT-ACTIVE! value="!URL!" data-view="!JSKEY!">';

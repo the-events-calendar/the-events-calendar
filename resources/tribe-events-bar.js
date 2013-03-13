@@ -80,7 +80,6 @@ jQuery( document ).ready( function ( $ ) {
 	$( '#tribe-bar-filters' ).before( $('#tribe-bar-dates') );
 
 
-
 	// Implement our views bit
 	$( 'select[name=tribe-bar-view]' ).change( function () {
 		var el = $( this );
