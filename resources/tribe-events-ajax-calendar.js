@@ -230,18 +230,7 @@ jQuery( document ).ready( function ( $ ) {
 						$( '#tribe-events-content.tribe-events-calendar' ).html( $the_content );
 
 						var page_title = $the_content.filter("#tribe-events-header").attr('data-title');
-						
-						if( has_bar ){
-							var $date_picker = $the_content.find("#tribe-events-events-picker").contents();
-						
-							$( '#tribe-bar-dates' ).contents().not('#tribe-bar-date, #tribe-date-storage').remove();
-							$( '#tribe-bar-dates' ).append( $date_picker );
-							$( '.tribe-events-events-dropdown' ).select2({
-								minimumResultsForSearch: 9999,
-								dropdownCssClass: 'tribe-select2-results-dates'
-							});
-						}
-						
+												
 						$(document).attr('title', page_title);
 						
 						if( tribe_ev.state.do_string ) {							
