@@ -44,7 +44,8 @@ if( !class_exists('Tribe_Events_Address_Template')){
 			// Get our street address
 			if( tribe_get_address( $postId ) ) {					
 				$address_out []= '<span class="street-address">'. tribe_get_address( $postId ) .'</span>';
-				$address_out []='<span class="delimiter">,</span> ';
+				if( ! tribe_is_venue() )
+					$address_out []= '<span class="delimiter">,</span> ';
 			}
 			
 			// Get our full region
@@ -55,7 +56,7 @@ if( !class_exists('Tribe_Events_Address_Template')){
 			// Get our city
 			if( tribe_get_city( $postId ) ) {
 				$address_out []= ' <span class="locality">'. tribe_get_city( $postId ) .'</span>';
-				$address_out []='<span class="delimiter">,</span> ';
+				$address_out []= '<span class="delimiter">,</span> ';
 			}
 			
 			// Get our region

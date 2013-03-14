@@ -74,6 +74,13 @@ $generalTab = array(
 			'default' => get_option( 'posts_per_page' ),
 			'validation_type' => 'positive_int',
 		 ),
+		'liveFiltersUpdate' => array(
+			'type' => 'checkbox_bool',
+			'label' => __( 'Live update AJAX', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Enable live updating for AJAX requests on the frontend.' , 'tribe-events-calendar' ),
+			'default' => true,
+			'validation_type' => 'boolean',
+		),
 		'showComments' => array(
 			'type' => 'checkbox_bool',
 			'label' => __( 'Show comments', 'tribe-events-calendar' ),
@@ -135,13 +142,6 @@ $generalTab = array(
 			'type' => 'html',
 			'html' => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'Hide last day of event from the month and week views if a multi-day event ends before this time.', 'tribe-events-calendar' ) ) . '</p>',
 			'conditional' => ( '' != get_option( 'permalink_structure' ) ),
-		),
-		'liveFiltersUpdate' => array(
-			'type' => 'checkbox_bool',
-			'label' => __( 'Live update AJAX', 'tribe-events-calendar' ),
-			'tooltip' => __( 'Enable live updating for AJAX requests on the frontend.' , 'tribe-events-calendar' ),
-			'default' => false,
-			'validation_type' => 'boolean',
 		),
 		'defaultCurrencySymbol' => array(
 			'type' => 'text',
