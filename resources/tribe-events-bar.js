@@ -73,6 +73,19 @@ jQuery( document ).ready( function ( $ ) {
 		formatSelection: format
 	});
 
+	$('#tribe-bar-form').on('click', '#tribe-bar-views', function(e) {
+		var $this = $(this);
+		$this.toggleClass( 'tribe-bar-views-open' );
+
+		setTimeout(function(){
+			if ( $this.is( '.tribe-bar-view-open' ) ) {
+				$( '#tribe-bar-views .tribe-select2' ).select2('close');
+			} else {
+				$( '#tribe-bar-views .tribe-select2' ).select2('open');
+			}
+		}, 250);
+	});
+
 	// Wrap date inputs with a parent container
 	$('label[for="tribe-bar-date"], input[name="tribe-bar-date"]').wrapAll('<div id="tribe-bar-dates" />');
 

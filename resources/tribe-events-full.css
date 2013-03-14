@@ -1316,6 +1316,9 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	width: 16.66667%;
 	padding: 15px;
 }
+#tribe-bar-views:hover {
+	cursor:pointer;
+}
 
 form#tribe-bar-form #tribe-bar-views {
 	background: #dadada;
