@@ -18,13 +18,15 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 	}
 
 	function get_columns() {
-		$columns = array( 'cb'            => '<input type="checkbox" />',
-		                  'order_id'      => __( 'Order #', 'tribe-events-calendar' ),
-		                  'order_status'  => __( 'Order Status', 'tribe-events-calendar' ),
-		                  'ticket'        => __( 'Ticket', 'tribe-events-calendar' ),
-		                  'attendee_id'   => __( 'Ticket #', 'tribe-events-calendar' ),
-		                  'security'      => __( 'Security Code', 'tribe-events-calendar' ),
-		                  'check_in'      => __( 'Check in', 'tribe-events-calendar' ) );
+		$columns = array( 'cb'             => '<input type="checkbox" />',
+						  'order_id'       => __( 'Order #', 'tribe-events-calendar' ),
+						  'order_status'   => __( 'Order Status', 'tribe-events-calendar' ),
+						  'name'           => __( 'Purcharser name', 'tribe-events-calendar' ),
+						  'email'          => __( 'Purcharser email', 'tribe-events-calendar' ),
+						  'ticket'         => __( 'Ticket type', 'tribe-events-calendar' ),
+						  'attendee_id'    => __( 'Ticket #', 'tribe-events-calendar' ),
+						  'security'       => __( 'Security Code', 'tribe-events-calendar' ),
+						  'check_in'       => __( 'Check in', 'tribe-events-calendar' ) );
 		return $columns;
 	}
 
@@ -39,6 +41,14 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 
 	function column_order_id( $item ) {
 		return sprintf( '<a class="row-title" href="%s">%s</a>', esc_url( get_edit_post_link( $item['order_id'], true ) ), esc_html( $item['order_id'] ) );
+	}
+
+	function column_name( $item ){
+		return $item['name'];
+	}
+
+	function column_email( $item ) {
+		return $item['email'];
 	}
 
 	function column_order_status( $item ) {
