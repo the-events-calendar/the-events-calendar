@@ -19,9 +19,7 @@
 
 			<?php do_action( 'tribe-events-bar-show-filters', $filters ); ?>
 
-		<div id="tribe-bar-views">
 			<?php do_action( 'tribe-events-bar-show-views', $views ); ?>
-		</div><!-- #tribe-bar-filters -->
 
 	</form><!-- #tribe-bar-form -->
 

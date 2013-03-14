@@ -151,6 +151,9 @@ class TribeEventsBar {
 
 		$limit = apply_filters( 'tribe-events-bar-views-breakpoint', 0 );
 
+		$open_wrap = '<div id="tribe-bar-views">';
+		$open_inner_wrap = '<div class="tribe-bar-views-inner">';
+
 		$open 		= '<label>View As</label>';
 
 		if ( count( $views ) <= $limit ) {
@@ -174,6 +177,12 @@ class TribeEventsBar {
 			$open_el  = '<option !CURRENT-ACTIVE! value="!URL!" data-view="!JSKEY!">';
 			$close_el = "</option>";
 		}
+
+		$close_inner_wrap = '</div></div>'; // close .tribe-bar-views-inner
+		$close_wrap = '</div>'; // close #tribe-bar-views
+
+		echo $open_wrap;
+		echo $open_inner_wrap;
 
 		// standard list navigation for larger screens or select depending on number of views
 		echo '<h3 class="tribe-events-visuallyhidden">' . __( 'Event Views Navigation', 'tribe-events-calendar' ) . '</h3>';
@@ -220,6 +229,7 @@ class TribeEventsBar {
 				echo $close_sel_el;
 			}
 			echo $close_sel;
+
 		}
 		
 	// show user front-end settings only if ECP is active
@@ -240,7 +250,9 @@ class TribeEventsBar {
 			echo '</div><!-- .tribe-bar-drop-content -->';
 			
 		}
-
+		
+			echo $close_inner_wrap;
+			echo $close_wrap;
 	}
 
 	/**
