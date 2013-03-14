@@ -74,16 +74,17 @@ jQuery( document ).ready( function ( $ ) {
 	});
 
 	$('#tribe-bar-form').on('click', '#tribe-bar-views', function(e) {
+		e.stopPropagation();
 		var $this = $(this);
-		$this.toggleClass( 'tribe-bar-views-open' );
+		$this.toggleClass( 'tribe-bar-views-closed' );
+		if ( !$this.is( '.tribe-bar-views-closed' ) )
+			$( '#tribe-bar-views .tribe-select2' ).select2('close');
+		else
+			$( '#tribe-bar-views .tribe-select2' ).select2('open');
+	});
 
-		setTimeout(function(){
-			if ( $this.is( '.tribe-bar-view-open' ) ) {
-				$( '#tribe-bar-views .tribe-select2' ).select2('close');
-			} else {
-				$( '#tribe-bar-views .tribe-select2' ).select2('open');
-			}
-		}, 250);
+	$('body').on('click', function() {
+		$( '#tribe-bar-views' ).removeClass( 'tribe-bar-views-closed' );
 	});
 
 	// Wrap date inputs with a parent container
