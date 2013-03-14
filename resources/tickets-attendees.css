@@ -11,8 +11,8 @@
 	display : none;
 }
 
-.tickets_checked td.column-check_in{
-	text-decoration: none !important;
+.tickets_checked td.column-check_in {
+	text-decoration : none !important;
 }
 
 a.tickets_uncheckin {
@@ -25,4 +25,25 @@ a.tickets_uncheckin {
 
 .column-attendee_id, .column-order_id {
 	width : 60px;
+}
+
+.ticket_list h4 {
+	font-size : 16px;
+}
+
+.ticket_list tr td {
+	font-size   : 15px;
+	line-height : 24px;
+}
+
+.ticket_list tr td .totals {
+	background  : #ACA000;
+	color       : #fff;
+	font-weight : bold;
+	font-size   : 20px;
+	text-align  : center;
+	width       : 75%;
+	height      : 100px;
+	padding-top : 40px;
+	line-height : 30px;
 }

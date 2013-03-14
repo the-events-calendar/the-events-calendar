@@ -481,17 +481,30 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 		final static public function get_event_attendees( $event_id ) {
 			$attendees = array();
-
 			foreach ( self::$active_modules as $class=> $module ) {
 				$obj       = call_user_func( array( $class, 'get_instance' ) );
 				$attendees = array_merge( $attendees, $obj->get_attendees( $event_id ) );
 			}
-
 			return $attendees;
 		}
 
+		final static public function get_event_checkedin_attendees_count( $event_id ) {
 
-		// endA ttendees
+			$checkedin = TribeEventsTickets::get_event_attendees( $event_id );
+
+			return array_reduce( $checkedin, array( "TribeEventsTickets", "_checkedin_attendees_array_filter" ), 0 );
+
+		}
+
+		private static function _checkedin_attendees_array_filter( $result, $item ) {
+			if ( ! empty( $item['checkedin'] ) )
+				return $result + 1;
+
+			return $result;
+		}
+
+
+		// end Attendees
 
 		// start Helpers
 
