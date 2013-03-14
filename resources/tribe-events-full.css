@@ -1029,6 +1029,23 @@ form#tribe-bar-form > div {
 	padding: 15px;
 }
 
+.datepicker.dropdown-menu td {
+	line-height: 20px;
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+}
+
+.datepicker.dropdown-menu td.active.active {
+	background: transparent;
+	background: #666666;
+	color: #fff;
+}
+
+.datepicker.dropdown-menu td.active.active:hover {
+	background: #dadada;
+}
+
 /* Globals */
 /* Special Buttons & Selects */
 #tribe-events-bar #tribe-bar-dates .select2-container .select2-choice {
