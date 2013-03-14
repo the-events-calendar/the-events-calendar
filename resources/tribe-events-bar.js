@@ -5,7 +5,7 @@ jQuery( document ).ready( function ( $ ) {
 
 	// Check width of events bar
 	function eventsBarWidth() {
-		var tribeBar = $( '#tribe-events-bar' );
+		var tribeBar = $( '#tribe-bar-form' );
 		var tribeBarWidth = tribeBar.width();
 
 		if ( tribeBarWidth > 643 ) {
@@ -20,13 +20,14 @@ jQuery( document ).ready( function ( $ ) {
 		}
 	}
 	eventsBarWidth();
-	$( '#tribe-events-bar' ).resize(function() {
+	$( '#tribe-bar-form' ).resize(function() {
 		eventsBarWidth();
 	});
 
+if ( !$( '.tribe-events-week-grid' ).length ) {
 	if ( !$( '.events-gridview' ).length ) {
 
-		// Implement our datepicker
+		// setup list view datepicker
 		var tribe_var_datepickerOpts = {
 			format: 'yyyy-mm-dd',
 			showAnim: 'fadeIn'
@@ -36,7 +37,7 @@ jQuery( document ).ready( function ( $ ) {
 		  tribeBarDate.hide();
 		}).data('datepicker');
 	}
-		// Append our month view selects to date wrapper in bar
+		// setup month view datepicker
 	if ( $( '.events-gridview' ).length ) {
 		var tribe_var_datepickerOpts = {
 			format: 'mm-yyyy',
@@ -49,6 +50,7 @@ jQuery( document ).ready( function ( $ ) {
 		}).data('datepicker');
 
 	}
+}	
 
 	// Add some classes
 	if( $( '.tribe-bar-settings' ).length ) {
@@ -65,19 +67,34 @@ jQuery( document ).ready( function ( $ ) {
 	function format( view ) {
     	return '<span class="tribe-icon-' + view.text.toLowerCase() + '">' + view.text + '</span>';
    	}
-	$( '#tribe-bar-views .tribe-select2' ).select2({
-		placeholder: "Views",
-		dropdownCssClass: 'tribe-select2-results-views',
-		minimumResultsForSearch: 9999,
-		formatResult: format,
-		formatSelection: format
-	});
+
+
+   	// trying to add a unique class to the select2 dropdown if the tribe bar is mini
+   if ( $( '#tribe-bar-form' ).is( '.tribe-bar-mini' ) ) {
+   		select2_opts =  {
+				placeholder: "Views",
+				dropdownCssClass: "tribe-select2-results-views tribe-bar-mini-select2-results",
+				minimumResultsForSearch: 9999,
+				formatResult: format,
+				formatSelection: format
+   		}
+   } else {
+   		select2_opts = {
+				placeholder: "Views",
+				dropdownCssClass: "tribe-select2-results-views",
+				minimumResultsForSearch: 9999,
+				formatResult: format,
+				formatSelection: format
+			}
+   }
+	  	
+	$( '#tribe-bar-views .tribe-select2' ).select2( select2_opts );
 
 	$('#tribe-bar-form').on('click', '#tribe-bar-views', function(e) {
 		e.stopPropagation();
 		var $this = $(this);
-		$this.toggleClass( 'tribe-bar-views-closed' );
-		if ( !$this.is( '.tribe-bar-views-closed' ) )
+		$this.toggleClass( 'tribe-bar-views-open' );
+		if ( !$this.is( '.tribe-bar-views-open' ) )
 			$( '#tribe-bar-views .tribe-select2' ).select2('close');
 		else
 			$( '#tribe-bar-views .tribe-select2' ).select2('open');

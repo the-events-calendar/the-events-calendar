@@ -1006,7 +1006,7 @@ select.tribe-events-dropdown {
 	width: auto;
 	min-width: 220px;
 	margin-bottom: 30px;
-	height: 72px;
+	height: auto;
 }
 #tribe-events-bar * {
 	-webkit-box-sizing: border-box;
@@ -1016,34 +1016,18 @@ select.tribe-events-dropdown {
 #tribe-bar-form {
 	position: relative;
 	margin: 0;
+	width: 100%;
 }
 form#tribe-bar-form > div { 
 	margin-bottom: 0; 	
 	background-color: #f5f5f5;
 	height: 72px;
+	padding: 15px;
 }
 
 .tribe-bar-date-filter {
 	float: left;
 	width: 16.66667%;
-	padding: 15px;
-}
-
-.datepicker.dropdown-menu td {
-	line-height: 20px;
-	border-radius: 0;
-	-moz-border-radius: 0;
-	-webkit-border-radius: 0;
-}
-
-.datepicker.dropdown-menu td.active.active {
-	background: transparent;
-	background: #666666;
-	color: #fff;
-}
-
-.datepicker.dropdown-menu td.active.active:hover {
-	background: #dadada;
 }
 
 /* Globals */
@@ -1185,8 +1169,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	font-weight: bold;
 	margin-bottom: 5px;
 }
-.tribe-bar-mini #tribe-bar-form label {
-	margin-bottom: 0;
+#tribe-bar-form.tribe-bar-mini label {
 }
 
 #tribe-bar-filters {
@@ -1202,10 +1185,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 .tribe-bar-date-filter{
 	float: left;
 	width: 16.66667%;
-	padding: 15px;
 }
-
-
 
 #tribe-bar-dates .select2-choice {
 	border-bottom: 1px dashed #b9b9b9;
@@ -1213,7 +1193,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 .tribe-bar-search-filter {
 	float: left;
 	width: 25%;
-	padding: 15px;
 }
 
 .tribe-bar-mini .tribe-bar-search-filter {
@@ -1224,17 +1203,14 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 .tribe-bar-geoloc-filter {
 	float: left;
 	width: 25%;
-	padding: 15px;
 }
 .tribe-bar-mini .tribe-bar-geoloc-filter {
 	width: 22.5%;
-	padding: 10px;
 }
 
 .tribe-bar-submit {
 	float: left;
 	width: 16.66667%;
-	padding: 15px;
 }
 
 #tribe-bar-form .tribe-bar-submit input[type=submit] {
@@ -1273,18 +1249,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 .select2-drop.tribe-select2-results-dates {
 	width: auto !important;
-}
-
-/* Conditional Date Widths If Has Datepicker / Default is Selects */
-.tribe-has-datepicker #tribe-bar-filters {
-	padding-right: 365px;
-}
- 
-.tribe-has-datepicker #tribe-bar-filters {
-	padding-right: 300px;
-}
-.tribe-has-datepicker #tribe-bar-dates {
-	margin-top: 0; 
 }
 
 #tribe-bar-form input {
@@ -1328,18 +1292,28 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 /* Views */
-#tribe-bar-views {
+form#tribe-bar-form #tribe-bar-views {
 	float: left;
 	width: 16.66667%;
-	padding: 15px;
+	padding: 0 0 0 5px;
+	background: transparent;
 }
-#tribe-bar-views:hover {
+#tribe-bar-views:hover, 
+#tribe-bar-views label:hover {
 	cursor:pointer;
 }
 
-form#tribe-bar-form #tribe-bar-views {
-	background: #dadada;
-	border-left: 5px solid #fff;
+.tribe-bar-views-inner {
+	padding: 15px 0;
+	background: #E0E0E0;
+}
+
+.tribe-bar-views-inner label {
+	padding: 0 15px;
+}
+
+.tribe-bar-views-inner .select2-container {
+	padding: 0 15px;
 }
 
 #tribe-bar-views .select2-container .select2-choice {
@@ -1354,11 +1328,6 @@ form#tribe-bar-form #tribe-bar-views {
 	-webkit-box-shadow: none;
 }
 
-.tribe-select2-results-views {
-	padding: 15px;
-	box-sizing: content-box;
-	margin-left: -15px;
-}
 .tribe-select2-results-views.select2-drop {
 	background: #DBDBDB;
 	border: none;
@@ -1367,10 +1336,36 @@ form#tribe-bar-form #tribe-bar-views {
 	-webkit-box-shadow: none;
 }
 
-.tribe-bar-mini #tribe-bar-views {
-	padding: 10px;
-	width: 21.66667%;
+.tribe-select2-results-views.select2-drop .select2-results li {
+	padding: 0 15px;
 }
+
+.tribe-select2-results-views.select2-drop .select2-results .select2-highlighted {
+	background: #CACACA;
+	color: inherit;
+}
+
+form#tribe-bar-form.tribe-bar-mini #tribe-bar-views {
+	width: 16.66667%;
+}
+
+.tribe-bar-mini .tribe-bar-views-inner {
+	padding: 10px 0;
+}
+
+.tribe-bar-mini .tribe-bar-views-inner label {
+	padding: 0 10px;
+}
+
+.tribe-bar-mini .tribe-bar-views-inner .select2-container {
+	padding: 0 10px;
+}
+
+.tribe-bar-mini-select2-results.tribe-select2-results-views.select2-drop .select2-results li {
+	padding: 0 10px;
+	font-size: 12px;
+}
+
 #tribe-bar-views .tribe-bar-view-list {
 	list-style-type: none;
 	margin: 0;
@@ -1394,7 +1389,11 @@ form#tribe-bar-form #tribe-bar-views {
 	width: 100% !important;
 	float: left;
 }
-
+#tribe-bar-views .select2-container-active .select2-choice,
+#tribe-bar-views .select2-container-active .select2-choices {
+	outline: none;
+	box-shadow: none;
+}
 .tribe-select2-results-views .select2-results {
 	margin: 0;
 	padding: 0;
@@ -1423,6 +1422,27 @@ form#tribe-bar-form #tribe-bar-views {
 }
 #tribe-bar-views .select2-container .select2-choice span span {
 	margin-right: 0;
+}
+
+/* Mini Tribe Bar */
+form#tribe-bar-form.tribe-bar-mini > div {
+	padding: 10px;
+	height: 64px;
+}
+#tribe-bar-form.tribe-bar-mini * {
+	font-size: 12px;
+}
+#tribe-bar-form.tribe-bar-mini label {
+	font-size: 11px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.tribe-bar-mini #tribe-bar-views {
+	width: 16.66667%;
+}
+.tribe-bar-mini .tribe-bar-submit {
+	width: 21.66667%;
 }
 
 /* Views Select When Have Settings */
