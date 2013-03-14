@@ -47,3 +47,8 @@ a.tickets_uncheckin {
 	padding-top : 40px;
 	line-height : 30px;
 }
+
+.wp-pointer-arrow {
+	right : 50px !important;
+	left  : auto !important;
+}

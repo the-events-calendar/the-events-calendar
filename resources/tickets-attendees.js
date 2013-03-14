@@ -1,5 +1,19 @@
 jQuery( document ).ready( function ( $ ) {
 
+
+	if ( AttendeesPointer ) {
+		options = $.extend( AttendeesPointer.options, {
+			close:function () {
+				$.post( ajaxurl, {
+					pointer:AttendeesPointer.pointer_id,
+					action :'dismiss-wp-pointer'
+				} );
+			}
+		} );
+
+		$( AttendeesPointer.target ).pointer( options ).pointer( 'open' );
+	}
+
 	$( '#filter_attendee' ).on( 'keyup paste', function () {
 
 		var search = jQuery( this ).val().toLowerCase();

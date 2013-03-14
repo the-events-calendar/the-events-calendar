@@ -459,13 +459,14 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			$this->attendees_page = add_submenu_page( null, 'Attendee list', 'Attendee list', 'edit_posts', $this->attendees_slug, array( $this, 'attendees_page_inside' ) );
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'attendees_page_load_css_js' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'attendees_page_load_pointers' ) );
 			add_action( "load-$this->attendees_page", array( $this, "attendees_page_screen_setup" ) );
+
 
 			self::$done_attendees_admin_page = true;
 		}
 
 		public function attendees_page_load_css_js( $hook ) {
-
 			if ( $hook != $this->attendees_page )
 				return;
 
@@ -473,6 +474,35 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 			wp_enqueue_style( $this->attendees_slug, trailingslashit( $ecp->pluginUrl ) . '/resources/tickets-attendees.css' );
 			wp_enqueue_script( $this->attendees_slug, trailingslashit( $ecp->pluginUrl ) . '/resources/tickets-attendees.js', array( 'jquery' ) );
+		}
+
+		public function attendees_page_load_pointers( $hook ) {
+			if ( $hook != $this->attendees_page )
+				return;
+
+
+			$dismissed = explode( ',', (string) get_user_meta( get_current_user_id(), 'dismissed_wp_pointers', true ) );
+			$pointer   = null;
+
+
+			if ( version_compare( get_bloginfo( 'version' ), '3.3', '>' ) && ! in_array( 'attendees_filters', $dismissed ) ) {
+				$pointer = array(
+					'pointer_id' => 'attendees_filters',
+					'target'     => '#screen-options-link-wrap',
+					'options'    => array(
+						'content'  => sprintf( '<h3> %s </h3> <p> %s </p>',
+							__( 'Columns', 'tribe-events-calendar' ),
+							__( 'You can use Screen Options to select which columns you want to see, both in the table below, and for the CVS export.', 'tribe-events-calendar' )
+						),
+						'position' => array( 'edge' => 'top', 'align' => 'center' )
+					)
+				);
+				wp_enqueue_script( 'wp-pointer' );
+				wp_enqueue_style( 'wp-pointer' );
+			}
+
+			wp_localize_script( $this->attendees_slug, 'AttendeesPointer', $pointer );
+
 		}
 
 		public function attendees_page_screen_setup() {
