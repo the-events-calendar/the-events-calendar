@@ -3458,7 +3458,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			if ( tribe_is_month() ) {
 				$caption = __('Events In', 'tribe-events-calendar');
-			} elseif ( tribe_is_upcoming() ) {
+			} elseif ( tribe_is_upcoming() || tribe_is_past() ) {
 				$caption = __('Events From', 'tribe-events-calendar');
 			}
 
