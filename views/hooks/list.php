@@ -86,28 +86,22 @@ if( !class_exists('Tribe_Events_List_Template')){
 			// Start list loop
 			add_filter( 'tribe_events_list_before_loop', array( __CLASS__, 'before_loop' ), 1, 2 );
 			add_filter( 'tribe_events_list_inside_before_loop', array( __CLASS__, 'inside_before_loop' ), 1, 3 );
-		
-			// Event featured image
-			add_filter( 'tribe_events_list_the_event_image', array( __CLASS__, 'the_event_image' ), 1, 2 );
-
-			// Event details start
-			add_filter( 'tribe_events_list_before_the_event_details', array( __CLASS__, 'before_the_event_details' ), 1, 2 );
 
 			// Event title
 			add_filter( 'tribe_events_list_the_event_title', array( __CLASS__, 'the_event_title' ), 1, 2 );
 
-			// Event content
-			add_filter( 'tribe_events_list_before_the_content', array( __CLASS__, 'before_the_content' ), 1, 2 );
-			add_filter( 'tribe_events_list_the_content', array( __CLASS__, 'the_content' ), 1, 2 );
-			add_filter( 'tribe_events_list_after_the_content', array( __CLASS__, 'after_the_content' ), 1, 2 );
-	
 			// Event meta
 			add_filter( 'tribe_events_list_before_the_meta', array( __CLASS__, 'before_the_meta' ), 1, 2 );
 			add_filter( 'tribe_events_list_the_meta', array( __CLASS__, 'the_meta' ), 1, 2 );
 			add_filter( 'tribe_events_list_after_the_meta', array( __CLASS__, 'after_the_meta' ), 1, 2 );
 
-			// Event details end
-			add_filter( 'tribe_events_list_after_the_event_details', array( __CLASS__, 'after_the_event_details' ), 1, 2 );			
+			// Event featured image
+			add_filter( 'tribe_events_list_the_event_image', array( __CLASS__, 'the_event_image' ), 1, 2 );
+
+			// Event content
+			add_filter( 'tribe_events_list_before_the_content', array( __CLASS__, 'before_the_content' ), 1, 2 );
+			add_filter( 'tribe_events_list_the_content', array( __CLASS__, 'the_content' ), 1, 2 );
+			add_filter( 'tribe_events_list_after_the_content', array( __CLASS__, 'after_the_content' ), 1, 2 );		
 	
 			// End list loop
 			add_filter( 'tribe_events_list_inside_after_loop', array( __CLASS__, 'inside_after_loop' ), 1, 2 );
@@ -233,7 +227,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 				}
 
 				if ( self::$prev_event_month != tribe_get_start_date( $post, false, 'm' ) || ( self::$prev_event_month == tribe_get_start_date( $post, false, 'm' ) && self::$prev_event_year != tribe_get_start_date( $post, false, 'Y' ) ) ) {
-					echo sprintf( "<span class='tribe_list_separator_month'>%s</span>", tribe_get_start_date( $post, false, 'F' ) );
+					echo sprintf( "<span class='tribe_list_separator_month'><span>%s</span></span>", tribe_get_start_date( $post, false, 'F Y' ) );
 				}
 
 				self::$prev_event_year  = tribe_get_start_date( $post, false, 'Y' );
@@ -241,25 +235,9 @@ if( !class_exists('Tribe_Events_List_Template')){
 			}
 
 			$html = '<div id="post-' . get_the_ID() . '" class="' . $class_string . ' tribe-clearfix">';
+			if ( tribe_get_cost() ) // Get our event cost 
+				$html .= '<div class="tribe-events-event-cost"><span>'. tribe_get_cost( null, true ) .'</span></div>';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_list_inside_before_loop' );
-		}
-
-		// Event Image
-		public static function the_event_image( $content, $post_id ){
-			$html ='';
-			if ( tribe_event_featured_image() ) {
-				$html .= tribe_event_featured_image(null, 'large');
-			}
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_event_image');
-
-		}
-		// Event Details Begin
-		public static function before_the_event_details ( $content, $post_id ){
-			$html = '<div class="tribe-events-event-details">';
-			if ( tribe_get_cost() ) { // Get our event cost 
-				$html .=	'<div class="tribe-events-event-cost"><span>'. tribe_get_cost( null, true ) .'</span></div>';
-			 } 				
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_the_event_details'); 
 		}							
 		// Event Title
 		public static function the_event_title( $content, $post_id ){
@@ -275,24 +253,24 @@ if( !class_exists('Tribe_Events_List_Template')){
 			ob_start();
 		?>
 			<div class="tribe-events-event-meta">
-				<h3 class="updated published time-details">
+				<p class="updated published time-details">
 					<?php
 					global $post;
 					if ( !empty( $post->distance ) ) { ?>
 						<strong><?php echo '['. tribe_get_distance_with_unit( $post->distance ) .']'; ?></strong>
 					<?php } ?>
 					<?php echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); ?>
-				</h3>
+				</p>
 				<?php // venue display info
-
 				$venue_name = tribe_get_meta( 'tribe_event_venue_name' );
 				$venue_address = tribe_get_meta('tribe_event_venue_address');
 				
-				printf('<h3 class="tribe-venue-details">%s%s%s</h3>',
-					$venue_name,
-					( !empty( $venue_name ) && !empty( $venue_address ) ) ? ', ' : '',
-					( !empty( $venue_address ) ) ? $venue_address : ''
-				);
+				if( !empty( $venue_name ) && !empty( $venue_address ) )
+					printf('<p class="tribe-venue-details">%s%s%s</p>',
+						$venue_name,
+						( !empty( $venue_name ) && !empty( $venue_address ) ) ? ', ' : '',
+						( !empty( $venue_address ) ) ? $venue_address : ''
+					);
 
 				?>
 			</div><!-- .tribe-events-event-meta -->
@@ -303,10 +281,19 @@ if( !class_exists('Tribe_Events_List_Template')){
 		public static function after_the_meta( $content, $post_id ){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_the_meta');
-		}			
+		}
+		// Event Image
+		public static function the_event_image( $content, $post_id ){
+			$html ='';
+			if ( tribe_event_featured_image() ) {
+				$html .= tribe_event_featured_image(null, 'large');
+			}
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_event_image');
+
+		}		
 		// Event Content
 		public static function before_the_content( $content, $post_id ){
-			$html = '<div class="tribe-list-event-description tribe-content">';
+			$html = '<div class="tribe-list-event-description tribe-content entry-summary">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_the_content');
 		}
 		public static function the_content( $content, $post_id ){
@@ -320,13 +307,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 		public static function after_the_content( $content, $post_id ){
 			$html = '</div><!-- .tribe-list-event-description -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_the_content');
-		}		
-		// Event Details End
-		public static function after_the_event_details ( $content, $post_id ){
-			$html = '</div><!-- .tribe-events-event-details -->';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_the_event_details'); 
-		}	
-
+		}
 		// End List Loop
 		public static function inside_after_loop( $content, $post_id ){
 

@@ -39,7 +39,6 @@
 /* Event Schedule Detail Styling */
 .tribe-events-event-schedule-details {
 	display: inline;
-	margin-right: 10px;
 }
 /* 2011 Theme Extra Calendar Room */
 .events-archive .entry-content, 
@@ -137,7 +136,7 @@ h2.tribe-events-page-title {
 }
 
 /* don't float on filter view */
-.tribe-events-filter-view  .tribe-events-list h2.tribe-events-page-title{
+.tribe-events-filter-view  .tribe-events-list h2.tribe-events-page-title {
 	width: 100%;
 	float: none;
 }
@@ -274,11 +273,10 @@ select.tribe-events-dropdown {
 	padding-top: 0;
 }
 
-.tribe-events-list .tribe-events-event-details h2, .tribe-events-list .tribe-events-event-details h3 {
+.tribe-events-list .vevent.hentry h2 {
 	padding: 0;
 	line-height: 1.2;
 }
-
 
 /* Meta */
 .tribe-events-loop .tribe-events-event-meta {
@@ -292,7 +290,8 @@ select.tribe-events-dropdown {
 	overflow: visible;
 }
 
-.tribe-events-loop .fn, .tribe-events-loop .vard {
+.tribe-events-loop .fn, 
+.tribe-events-loop .vard {
 	float: none;
 }
 
@@ -370,7 +369,6 @@ select.tribe-events-dropdown {
 	text-align: center;
 }
 
-
 .tribe-events-meta-group + .tribe-event-single-section-title {
 	margin-top: 0;
 }
@@ -394,7 +392,6 @@ select.tribe-events-dropdown {
 }
 
 /* Date/Time */
-
 
 .single-tribe_events .tribe-event-schedule h2 {
 	display: inline-block;
@@ -544,6 +541,7 @@ select.tribe-events-dropdown {
 	position: relative;
 }
 
+/*
 .event-is-recurring img {
 	width: 16px;
 	height: 16px;
@@ -552,14 +550,17 @@ select.tribe-events-dropdown {
 	vertical-align: middle;
 	box-shadow: none !important;
 }
+
 .event-is-recurring:hover img {
 	opacity: 1.0;
 }
+*/
 
 .recurring-info-tooltip.tribe-events-tooltip {
-	left: -20px;
+	left: 10px;
 	width: 200px;
 	max-width: 320px;
+	padding-bottom: .8em;
 }
 
 /* Large Calendar Specifics */

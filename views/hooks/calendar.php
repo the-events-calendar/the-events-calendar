@@ -76,7 +76,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_the_title');
 		}
 		public static function the_title(){			
-			$html = sprintf( '<h2 class="tribe-events-page-title">'. __( 'Events For ', 'tribe-events-calendar' ) .'%s</h2>',
+			$html = sprintf( '<h2 class="tribe-events-page-title">'. __( 'Events in ', 'tribe-events-calendar' ) .'%s</h2>',
 				date( "F Y", strtotime( tribe_get_month_view_date() ))
 				);
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_the_title');
@@ -397,7 +397,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 						</div><!-- .duration -->
 
 						<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail($post->ID) ) { ?>
-						<div class="tribe-events-event-thumb"><?php echo get_the_post_thumbnail( $post->ID, array( 75,75 ) );?></div>
+						<div class="tribe-events-event-thumb"><?php echo get_the_post_thumbnail( $post->ID, array( 90,90 ) );?></div>
 						<?php } ?>
 
 						<?php if( has_excerpt( $post->ID ) || $post->post_content ) { ?>
