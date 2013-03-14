@@ -87,6 +87,9 @@
 		<input type="hidden" name="page" value="<?php echo $_GET['page'] ?>" />
 		<input type="hidden" name="event_id" value="<?php echo $_GET['event_id'] ?>" />
 		<input type="hidden" name="post_type" value="<?php echo TribeEvents::POSTTYPE; ?>" />
-		<?php $attendees_table->display() ?>
+		<?php
+		$this->attendees_table->prepare_items();
+		$this->attendees_table->display()
+		?>
 	</form>
 </div>

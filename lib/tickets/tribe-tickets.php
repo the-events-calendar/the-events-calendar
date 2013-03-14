@@ -12,6 +12,10 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		private $parentUrl;
 		private $attendees_slug = 'tickets-attendees';
 		private $attendees_page;
+		/**
+		 * @var TribeEventsTicketsAttendeesTable
+		 */
+		private $attendees_table;
 
 		// prevent re-doing the metabox by different childs
 		private static $done_metabox = false;
@@ -455,6 +459,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			$this->attendees_page = add_submenu_page( null, 'Attendee list', 'Attendee list', 'edit_posts', $this->attendees_slug, array( $this, 'attendees_page_inside' ) );
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'attendees_page_load_css_js' ) );
+			add_action( "load-$this->attendees_page", array( $this, "attendees_page_screen_setup" ) );
 
 			self::$done_attendees_admin_page = true;
 		}
@@ -470,12 +475,12 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			wp_enqueue_script( $this->attendees_slug, trailingslashit( $ecp->pluginUrl ) . '/resources/tickets-attendees.js', array( 'jquery' ) );
 		}
 
-		public function attendees_page_inside() {
-
+		public function attendees_page_screen_setup() {
 			require_once 'tribe-tickets-attendees.php';
-			$attendees_table = new TribeEventsTicketsAttendeesTable();
-			$attendees_table->prepare_items();
+			$this->attendees_table = new TribeEventsTicketsAttendeesTable();
+		}
 
+		public function attendees_page_inside() {
 			include $this->parentPath . 'admin-views/tickets-attendees.php';
 		}
 
