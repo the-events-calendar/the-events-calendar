@@ -513,6 +513,9 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			$this->attendees_table = new TribeEventsTicketsAttendeesTable();
 
 			$this->maybe_generate_attendees_cvs();
+
+			wp_enqueue_script('jquery-ui-dialog');
+
 		}
 
 		public function attendees_page_inside() {

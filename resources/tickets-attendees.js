@@ -15,10 +15,33 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	$( 'input.print' ).on( 'click', function ( e ) {
-
 		window.print();
-
 	} );
+
+
+	$( "#attendees_email_wrapper" ).dialog( {
+		autoOpen:false,
+		height  :300,
+		width   :350,
+		modal   :true,
+		buttons :{
+			"Send":function () {
+				$( this ).dialog( "close" );
+			},
+			Cancel:function () {
+				$( this ).dialog( "close" );
+			},
+
+			close:function () {
+				allFields.val( "" ).removeClass( "ui-state-error" );
+			}
+		} });
+
+	$( "#create-user" )
+			.button()
+			.click( function () {
+				$( "#dialog-form" ).dialog( "open" );
+			} );
 
 
 	$( '#filter_attendee' ).on( 'keyup paste', function () {

@@ -53,6 +53,6 @@ a.tickets_uncheckin {
 	left  : auto !important;
 }
 
-input.print {
+input.print, input.email, a.export {
 	margin : 1px 8px 0 0 !important;
 }

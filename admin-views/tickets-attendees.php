@@ -95,4 +95,11 @@
 		$this->attendees_table->display()
 		?>
 	</form>
+
+	<div id="attendees_email_wrapper">
+
+		test
+
+	</div>
+
 </div>
