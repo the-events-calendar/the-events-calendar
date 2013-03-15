@@ -209,11 +209,11 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 					<div class="tribe-event-cal-links">
 				<?php // iCal link
 				if ( function_exists( 'tribe_get_single_ical_link' ) ) {
-					echo '<a class="tribe-events-ical tribe-events-button-grey" href="' . tribe_get_single_ical_link() . '">' . __( 'iCal Import', 'tribe-events-calendar' ) . '</a>';
+					echo '<a class="tribe-events-ical tribe-events-button" href="' . tribe_get_single_ical_link() . '">' . __( 'iCal Import', 'tribe-events-calendar' ) . '</a>';
 				}
 				// gCal link
 				if ( function_exists( 'tribe_get_gcal_link' ) ) {
-					echo  '<a class="tribe-events-gcal tribe-events-button-grey" href="' . tribe_get_gcal_link() . '" title="' . __( 'Add to Google Calendar', 'tribe-events-calendar' ) . '">' . __( '+ Google Calendar', 'tribe-events-calendar' ) . '</a>';
+					echo  '<a class="tribe-events-gcal tribe-events-button" href="' . tribe_get_gcal_link() . '" title="' . __( 'Add to Google Calendar', 'tribe-events-calendar' ) . '">' . __( '+ Google Calendar', 'tribe-events-calendar' ) . '</a>';
 				}
 				echo '</div><!-- .tribe-event-cal-links -->';
 			} ?>

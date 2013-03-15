@@ -505,7 +505,7 @@ if( class_exists( 'TribeEvents' ) ) {
 				$tooltip .= '<span class="recurringinfo">';
 				$tooltip .= '<div class="event-is-recurring">';
 					//$tooltip .= '(&nbsp;<img src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/recurring-event-icon.png" />&nbsp;event&nbsp;)';
-					$tooltip .= '<span class="date-divider">|</span>';
+					$tooltip .= '<span class="tribe-divider">|</span>';
 					$tooltip .= 'Recurring event';
 					$tooltip .= '<div id="tribe-events-tooltip-'. $post_id .'" class="tribe-events-tooltip recurring-info-tooltip">';
 						$tooltip .= '<div class="tribe-events-event-body">';
@@ -574,7 +574,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) { // Same start/end time
 				$schedule .= '<span class="date-start">' . tribe_get_start_date( $event, false, $format ) . '</span> @ <span class="start-time">' . tribe_get_start_date( $event, false, $timeFormat ) . '</span>';
 			} else { // defined start/end time
-				$schedule .= '<span class="date-start">' . tribe_get_start_date( $event, false, $format ) . '</span> <span class="date-divider">|</span> <span class="start-time">' . tribe_get_start_date( $event, false, $timeFormat ) . '</span> - <span class="end-time">' . tribe_get_end_date( $event, false, $timeFormat ) . '</span>';
+				$schedule .= '<span class="date-start">' . tribe_get_start_date( $event, false, $format ) . '</span> @ <span class="start-time">' . tribe_get_start_date( $event, false, $timeFormat ) . '</span> - <span class="end-time">' . tribe_get_end_date( $event, false, $timeFormat ) . '</span>';
 			}
 		}
 

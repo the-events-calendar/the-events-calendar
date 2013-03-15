@@ -21,12 +21,23 @@
 
 .tribe-events-calendar td.tribe-events-present div[id*="tribe-events-daynum-"], 
 .tribe-events-calendar td.tribe-events-present div[id*="tribe-events-daynum-"] > a,
-#tribe_events_filters_wrapper input[type=submit]  {
+#tribe_events_filters_wrapper input[type=submit],
+.tribe-events-button,
+.tribe-events-button.tribe-inactive,
+.tribe-events-button:hover,
+.tribe-events-button.tribe-active:hover {
 	background-color: #21759b;
 }
 
-#tribe_events_filters_wrapper input[type=submit]:hover {
+#tribe_events_filters_wrapper input[type=submit]:hover,
+.tribe-events-button.tribe-active:hover {
 	background-color: #0f3647;
+}
+
+.tribe-events-button.tribe-inactive,
+.tribe-events-button:hover,
+.tribe-events-button.tribe-active:hover {
+	color:#fff;
 }
 
 #tribe_events_filters_wrapper h3 span:after { 	
@@ -37,8 +48,6 @@
 	border-left-color: #21759b;
 }
 
-/* Default Events Template Base HTML STyles */
-
 /* Important Link Styles */
 ul.tribe-events-sub-nav a,
 .tribe-events-back a, 
@@ -46,6 +55,11 @@ ul.tribe-events-sub-nav a,
 .tribe-events-adv-list-widget .tribe-events-widget-link a {
 	font-size: 15px;
 	font-weight: bold;
+}
+
+/* Event Schedule Detail Styling */
+.tribe-divider {
+	display: none;
 }
 
 /* General Template Headers */
@@ -72,27 +86,38 @@ h2.tribe-events-page-title {
 /* = List View Template Styles
    @ Template: list.php
 =============================================*/
+.tribe-events-list .vevent.hentry {
+	border-bottom: 0;
+	padding: 1.5em 0;
+}
+
 .tribe-events-list .vevent.hentry h2 {
-	margin-bottom: .25em;
 	font-size: 1.6em;
 }
 
 /* Cost */
 .tribe-events-list .tribe-events-event-cost span {
 	background: #f6f6f6;
+	color: #666;
 	border-color: #d2d2d2;
 }
 
 /* Date Seperators */
-.tribe_list_separator_year{
-	font-size: 32px;
+.tribe_list_separator_year {
+	font-size: 28px;
+	padding-top: 1.25em;
+
+}
+
+.tribe_list_separator_year + .tribe_list_separator_month {
+	margin-top: .25em;
 }
 
 .tribe_list_separator_month {
 	text-transform: none;
 	font-size: 24px;
 	color: #666;
-	margin: 2.5em auto 0;
+	margin: 1.25em auto;
 	text-align: center;
 	position: relative;
 	background-color: transparent;
@@ -114,6 +139,46 @@ h2.tribe-events-page-title {
 .tribe_list_separator_month span {
 	background-color: #fff;
 	padding: 0 7.5%;
+}
+
+.tribe_list_separator_month + .vevent.hentry.tribe-first {
+	padding-top: 1.5em;
+}
+
+.tribe-events-list .vevent.hentry.tribe-event-end-month {
+	padding-bottom: 1.5em;
+}
+
+/* Meta */
+.tribe-events-loop .tribe-events-event-meta {
+	margin-bottom: 1em;
+	font-size: 13px;
+}
+
+.tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
+	padding-left: 1em;
+	font-weight: normal;
+}
+
+.tribe-events-list .time-details,
+.tribe-events-list .tribe-venue-details {
+	line-height: 1.2;
+}
+
+.tribe-events-list .tribe-venue-details,
+.tribe-events-event-meta address.event-address {
+	font-weight: normal;
+	font-style: italic;
+}
+
+
+/* = List View & Single Venue (Pro Version) Template Styles
+   @ Template: list.php & single-venue.php
+=============================================*/
+/* Loop */
+.tribe-events-loop {
+	max-width: 700px;
+	margin: 0 auto;
 }
 
 
@@ -222,8 +287,7 @@ h2.tribe-events-page-title {
 	padding: 0 5.32% 15px 0;
 }
 
-.tribe-events-filter-view #tribe-events-content, 
-.tribe-events-filter-view #tribe-geo-wrapper {
+.tribe-events-filter-view #tribe-events-content {
 	width: 68.08%;  
 }
 

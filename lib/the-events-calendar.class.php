@@ -1685,21 +1685,25 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			wp_reset_postdata();
 		}
 
-		public function truncate($text, $excerpt_length = 44) {
+		public function tribe_events_truncate($text, $excerpt_length = 44, $event_post_id = null, $read_more = null ) {
 
 			$text = apply_filters('the_content', $text);
 			$text = str_replace(']]>', ']]&gt;', $text);
 			$text = strip_tags($text);
 
+			$read_more = empty($read_more) ? __('Find out more', 'tribe-events-calendar') . ' &raquo;' : $read_more;
+
 			$words = explode(' ', $text, $excerpt_length + 1);
 			if (count($words) > $excerpt_length) {
 				array_pop($words);
-				$text = implode(' ', $words);
-				$text = rtrim($text);
-				$text .= '&hellip;';
-				}
+				$text = rtrim( implode(' ', $words) );
+				if( $event_post_id )
+					$text .= '&hellip;<a href="'. get_permalink( $event_post_id ) .'" class="tribe-read-more">'. $read_more .'</a>';
+				else
+					$text .= '&hellip;';
+			}
 
-			return $text;
+			echo apply_filters( 'tribe_events_truncate', $text, $excerpt_length, $event_post_id, $read_more );
 		}
 
 		public function loadTextDomain() {

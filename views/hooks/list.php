@@ -253,25 +253,25 @@ if( !class_exists('Tribe_Events_List_Template')){
 			ob_start();
 		?>
 			<div class="tribe-events-event-meta">
-				<p class="updated published time-details">
-					<?php
-					global $post;
-					if ( !empty( $post->distance ) ) { ?>
-						<strong><?php echo '['. tribe_get_distance_with_unit( $post->distance ) .']'; ?></strong>
-					<?php } ?>
-					<?php echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); ?>
-				</p>
-				<?php // venue display info
+				<?php
+				global $post;
+				echo '<div class="updated published time-details">';
+				if ( !empty( $post->distance ) )
+					echo '<strong>['. tribe_get_distance_with_unit( $post->distance ) .']</strong>';
+				
+				echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); 
+				echo '</div>';
+				
+				// Venue display info
 				$venue_name = tribe_get_meta( 'tribe_event_venue_name' );
-				$venue_address = tribe_get_meta('tribe_event_venue_address');
+				$venue_address = tribe_get_meta( 'tribe_event_venue_address' );
 				
 				if( !empty( $venue_name ) && !empty( $venue_address ) )
-					printf('<p class="tribe-venue-details">%s%s%s</p>',
+					printf('<div class="tribe-venue-details">%s%s%s</div>',
 						$venue_name,
 						( !empty( $venue_name ) && !empty( $venue_address ) ) ? ', ' : '',
 						( !empty( $venue_address ) ) ? $venue_address : ''
 					);
-
 				?>
 			</div><!-- .tribe-events-event-meta -->
 <?php
@@ -301,7 +301,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			if (has_excerpt())
 				$html .= '<p>'. get_the_excerpt() .'</p>';
 			else
-				$html .= '<p>'. TribeEvents::truncate(get_the_content(), 80) .'</p>';	
+				$html .= '<p>'. TribeEvents::tribe_events_truncate(get_the_content(), 80, $post_id) .'</p>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_content');
 		}
 		public static function after_the_content( $content, $post_id ){
@@ -374,7 +374,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 		public static function after_template( $hasPosts = false, $post_id ){
 			$html = '';
 			if (!empty($hasPosts) && function_exists('tribe_get_ical_link')) // iCal Import
-				$html .= '<a class="tribe-events-ical tribe-events-button-grey" title="'. __( 'iCal Import', 'tribe-events-calendar' ) .'" href="'. tribe_get_ical_link() .'">'. __( 'iCal Import', 'tribe-events-calendar' ) .'</a>';
+				$html .= '<a class="tribe-events-ical tribe-events-button" title="'. __( 'iCal Import', 'tribe-events-calendar' ) .'" href="'. tribe_get_ical_link() .'">'. __( '+ iCal Import', 'tribe-events-calendar' ) .'</a>';
 				
 			$html .= '</div><!-- #tribe-events-content -->';
 			$html .= '<div class="tribe-clear"></div>';

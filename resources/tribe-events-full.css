@@ -87,6 +87,12 @@
 	text-decoration: none;
 }
 
+.tribe-read-more {
+	display: block;
+	font-weight: bold;
+	margin-top: .5em;
+}
+
 /* Important Link Styles */
 ul.tribe-events-sub-nav a,
 .tribe-events-back a, 
@@ -98,7 +104,7 @@ ul.tribe-events-sub-nav a:hover,
 .tribe-events-back a:hover, 
 .tribe-events-list-widget .tribe-events-widget-link a:hover, 
 .tribe-events-adv-list-widget .tribe-events-widget-link a:hover {
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 /* View Extra Padding */
@@ -109,7 +115,7 @@ ul.tribe-events-sub-nav a:hover,
 }
 
 /* Global Main Button Style */
-.tribe-events-button-grey {
+.tribe-events-button {
 	background-color: #666;
 	color: #fff;
 	background-image: none;
@@ -129,14 +135,14 @@ ul.tribe-events-sub-nav a:hover,
 	text-decoration: none;
 }
 
-.tribe-events-button-grey.tribe-active {
+.tribe-events-button.tribe-active {
 	background-color: #666;
 	color: #fff;
 }
 
-.tribe-events-button-grey.tribe-inactive,
-.tribe-events-button-grey:hover,
-.tribe-events-button-grey.tribe-active:hover {
+.tribe-events-button.tribe-inactive,
+.tribe-events-button:hover,
+.tribe-events-button.tribe-active:hover {
 	background-color: #ddd;
 	color:#444;
 	text-decoration: none;
@@ -161,12 +167,6 @@ a.tribe-events-gcal {
 /* Google Maps */
 .tribe-events-event-meta .tribe-events-gmap, 
 .tribe-events-event-meta-desc .tribe-events-gmap {
-	color: #fff;
-	font-size: 9px;
-	background: #004080;
-	padding: 1px 4px;
-	-webkit-border-radius: 3px;
-			border-radius: 3px;
 	white-space: nowrap;
 }
 
@@ -204,7 +204,7 @@ a.tribe-events-gcal {
 	display: inline;
 }
 
-.date-divider {
+.tribe-divider {
 	padding: 0 10px;
 	font-weight: bold;
 }
@@ -448,12 +448,7 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-list .vevent.hentry h2 {
-	padding: 0;
-	line-height: 1.2;
-}
-
-.tribe-events-list .vevent.hentry h2 {
-	margin: 0 0 10px 0;
+	margin: 0 0 8px 0;
 	padding: 0;
 	font-size: 1.4em;
 	line-height: 1.4em;
@@ -483,26 +478,16 @@ select.tribe-events-dropdown {
 	position: relative;
 }
 
-
 /* Meta */
 .tribe-events-loop .tribe-events-event-meta {
 	float: none;
 	clear: both;
 	border: 0;
 	margin: 0 0 15px 0;
+	line-height: 1.5;
+	font-size: 14px;
 	font-weight: bold;
 	overflow: visible;
-}
-
-.tribe-events-list .tribe-events-event-meta p {
-	font-size: 1.5em;
-	margin: 0 0 7px 0;
-	padding: 0;	
-}
-
-.tribe-events-loop .fn, 
-.tribe-events-loop .vcard {
-	float: none;
 }
 
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
@@ -513,15 +498,31 @@ select.tribe-events-dropdown {
 	display: inline;
 	font-style: normal;
 }
+
+
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring {
 	position: relative;
+	/*
 	font-style: normal;
 	font-weight: 500;
 	color: rgba(0, 0, 0, .7);
+	*/
 }
-
+/*
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring:hover {
 	color: #000;
+}
+*/
+
+.tribe-events-list .time-details,
+.tribe-events-list .tribe-venue-details {
+	line-height: 1.2;
+	margin: 0;
+	display: inline-block;
+}
+
+.tribe-events-list .time-details {
+	margin: 0 0 8px 0;
 }
 
 /* Cost */
@@ -733,10 +734,11 @@ select.tribe-events-dropdown {
 }
 
 /* Event Meta */
-.tribe-events-event-meta {
+.single-tribe_events .tribe-events-event-meta {
 	font-size: 12px;
 }
-.tribe-events-event-meta .tribe-events-meta-group, .tribe-events-event-meta .column {
+.tribe-events-event-meta .tribe-events-meta-group, 
+.tribe-events-event-meta .column {
 	float: left;
 	width: 25%;
 	padding: 0 4%;
@@ -1124,8 +1126,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 /* Button Styles */
-#tribe-bar-filters input.tribe-events-button-grey,
-#tribe-bar-views .tribe-bar-view-list li a.tribe-events-button-grey:hover,
+#tribe-bar-filters input.tribe-events-button,
+#tribe-bar-views .tribe-bar-view-list li a.tribe-events-button:hover,
 #tribe-bar-views .tribe-bar-drop-content button {
 	background: none;
 	background-color: #666;
@@ -1138,7 +1140,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	font-size: 11px;
 	line-height: normal;
 }
-#tribe-bar-filters input.tribe-events-button-grey:hover,
+#tribe-bar-filters input.tribe-events-button:hover,
 #tribe-bar-views .tribe-bar-drop-content button:hover {
 	background-color: #ddd;
 	color:#444;

@@ -13,9 +13,13 @@
 
 /* = Global & Miscellaneous Styles
 =============================================*/
-
 .tribe-events-back {
 	margin: 0 0 20px 0;
+}
+
+/* Links */
+.tribe-read-more {
+	display: block;
 }
 
 /* View Extra Padding */
@@ -285,14 +289,10 @@ select.tribe-events-dropdown {
 	border: 0;
 	margin: 0 0 15px 0;
 	padding: 0;
-	line-height: 1.4;
+	line-height: 1.5;
 	font-weight: normal;
+	font-size: 1.2em;
 	overflow: visible;
-}
-
-.tribe-events-loop .fn, 
-.tribe-events-loop .vard {
-	float: none;
 }
 
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
@@ -305,6 +305,17 @@ select.tribe-events-dropdown {
 }
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring {
 	position: relative;
+}
+
+.tribe-events-list .time-details,
+.tribe-events-list .tribe-venue-details {
+	line-height: 1.2;
+	margin: 0;
+	display: inline-block;
+}
+
+.tribe-events-list .time-details {
+	margin: 0 0 8px 0;
 }
 
 /* = List View & Single Venue (Pro Version) Template Styles
@@ -788,8 +799,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 /* Button Styles */
-#tribe-bar-filters input.tribe-events-button-grey,
-#tribe-bar-views .tribe-bar-view-list li a.tribe-events-button-grey:hover,
+#tribe-bar-filters input.tribe-events-button,
+#tribe-bar-views .tribe-bar-view-list li a.tribe-events-button:hover,
 #tribe-bar-views .tribe-bar-drop-content button {
 	background: none;
 	border: 0;
