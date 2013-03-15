@@ -71,7 +71,11 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			if ( is_admin() ) {
 				add_action( 'tribe_events_event_save', array( $this, 'save_tickets' ), 10, 1 );
 				add_action( 'tribe_events_tickets_metabox_advanced', array( $this, 'do_metabox_advanced_options' ), 10, 2 );
+				// Attendees list
+				add_filter( 'post_row_actions', array( $this, 'attendees_row_action' ) );
+				add_action( 'admin_menu', array( $this, 'attendees_page_register' ) );
 			}
+
 
 			add_filter( 'tribe_events_tickets_modules', array( $this, 'modules' ) );
 
@@ -82,9 +86,6 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			add_action( 'wp_ajax_tribe-ticket-checkin-' . $this->className, array( $this, 'ajax_handler_attendee_checkin' ) );
 			add_action( 'wp_ajax_tribe-ticket-uncheckin-' . $this->className, array( $this, 'ajax_handler_attendee_uncheckin' ) );
 
-			// Attendees list
-			add_filter( 'post_row_actions', array( $this, 'attendees_row_action' ) );
-			add_action( 'admin_menu', array( $this, 'attendees_page_register' ) );
 
 			// Front end
 			add_filter( 'tribe_get_ticket_form', array( $this, 'front_end_tickets_form' ) );
@@ -507,13 +508,66 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		}
 
 		public function attendees_page_screen_setup() {
+
 			require_once 'tribe-tickets-attendees.php';
 			$this->attendees_table = new TribeEventsTicketsAttendeesTable();
+
+			$this->maybe_generate_attendees_cvs();
 		}
 
 		public function attendees_page_inside() {
-
 			include $this->parentPath . 'admin-views/tickets-attendees.php';
+		}
+
+		public function maybe_generate_attendees_cvs() {
+
+			if ( empty( $_GET['attendees_csv'] ) || empty( $_GET['attendees_csv_nonce'] ) || empty( $_GET['event_id'] ) )
+				return;
+
+			if ( ! wp_verify_nonce( $_GET['attendees_csv_nonce'], 'attendees_csv_nonce' ) )
+				return;
+
+//			// output headers so that the file is downloaded rather than displayed
+			header( 'Content-Type: text/csv; charset=utf-8' );
+			header( 'Content-Disposition: attachment; filename=attendees.csv' );
+
+			// create a file pointer connected to the output stream
+			$output = fopen( 'php://output', 'w' );
+
+			$columns = get_column_headers( $this->attendees_page );
+			$hidden  = get_hidden_columns( $this->attendees_page );
+
+			// We dont want to export html inputs or private data
+			$hidden[] = 'cb';
+			$hidden[] = 'check_in';
+			$hidden[] = 'provider';
+
+			// remove the hidden fields from the final list of coulumns
+			$hidden         = array_flip( $hidden );
+			$export_columns = array_diff_key( $columns, $hidden );
+			$columns_names  = array_filter( array_values( $export_columns ) );
+			$export_columns = array_filter( array_keys( $export_columns ) );
+
+			// Get the data
+			$event_id = $_GET['event_id'];
+			$items = TribeEventsTickets::get_event_attendees( $event_id );
+
+			// output the column headings
+			fputcsv( $output, $columns_names );
+
+			//And echo the data
+			foreach ( $items as $item ) {
+				$row = array();
+				foreach ( $item as $key => $data ) {
+					if ( in_array( $key, $export_columns ) )
+						$row[$key] = $data;
+				}
+				fputcsv( $output, array_values( $row ) );
+			}
+
+			fclose( $output );
+
+			exit;
 		}
 
 		final static public function get_event_attendees( $event_id ) {
@@ -534,7 +588,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		}
 
 		private static function _checkedin_attendees_array_filter( $result, $item ) {
-			if ( ! empty( $item['checkedin'] ) )
+			if ( ! empty( $item['check_in'] ) )
 				return $result + 1;
 
 			return $result;
