@@ -512,6 +512,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		}
 
 		public function attendees_page_inside() {
+
 			include $this->parentPath . 'admin-views/tickets-attendees.php';
 		}
 

@@ -17,6 +17,10 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 		return;
 	}
 
+	function ajax_user_can() {
+		return current_user_can( get_post_type_object( $this->screen->post_type )->cap->edit_posts );
+	}
+
 	function get_columns() {
 		$columns = array( 'cb'              => '<input type="checkbox" />',
 						  'order_id'        => __( 'Order #', 'tribe-events-calendar' ),
@@ -158,14 +162,6 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 		$this->process_bulk_action();
 
 		$per_page = 10000;
-
-		$columns  = $this->get_columns();
-		$hidden   = array();
-		$sortable = array();
-
-		$this->_column_headers = array( $columns, $hidden, $sortable );
-
-		$current_page = $this->get_pagenum();
 
 		$event_id = isset( $_GET['event_id'] ) ? $_GET['event_id'] : 0;
 
