@@ -3637,9 +3637,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 				TribeEventsQuery::init();
 
+				ob_start();
 				load_template( TribeEventsTemplates::getTemplateHierarchy( 'calendar' ) );
+
+				$response = array(
+					'html'            => ob_get_clean(),
+					'success'         => true,
+					'view'            => 'month',
+				);
+				apply_filters( 'tribe_events_ajax_response', $response );
+				header( 'Content-type: application/json' );
+				echo json_encode( $response );
+				die();
 			}
-			die();
 		}
 
 
