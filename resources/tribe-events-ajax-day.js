@@ -1,6 +1,13 @@
 jQuery( document ).ready( function ( $ ) {
 	
-	var base_url = $('#tribe-events-header .tribe-nav-next a').attr('href').slice(0, -11);	
+	var base_url;
+	if( tribe_ev.state.filter_cats )
+		base_url = $('#tribe-events-header').attr( 'data-baseurl' ).slice(0, -11);	
+	else 
+		base_url = $('#tribe-events-header .tribe-nav-next a').attr('href').slice(0, -11);	
+	
+	
+	
 	tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );
 	
 	tribe_ev.state.view = 'day';
@@ -49,7 +56,10 @@ jQuery( document ).ready( function ( $ ) {
 		$this = $(this);
 		tribe_ev.state.popping = false;
 		tribe_ev.state.date = $this.attr( "data-day" );
-		tribe_ev.data.cur_url = $this.attr( "href" );
+		if( tribe_ev.state.filter_cats )
+			tribe_ev.data.cur_url = base_url + tribe_ev.state.date + '/';
+		else
+			tribe_ev.data.cur_url = $this.attr( "href" );
 		tribe_ev.fn.update_picker( tribe_ev.state.date );
 		tribe_ev.fn.pre_ajax( function() { 
 			tribe_events_calendar_ajax_post();
@@ -62,7 +72,9 @@ jQuery( document ).ready( function ( $ ) {
 		if(tribe_events_bar_action != 'change_view' ) {
 			e.preventDefault();
 			tribe_ev.state.popping = false;
-			tribe_ev.state.date = $('#tribe-events-header').attr('data-date');					
+			tribe_ev.state.date = $('#tribe-events-header').attr('data-date');
+			if( tribe_ev.state.filter_cats )
+				tribe_ev.data.cur_url = base_url + tribe_ev.state.date + '/';
 			tribe_ev.fn.pre_ajax( function() { 
 				tribe_events_calendar_ajax_post();
 			});
@@ -101,9 +113,11 @@ jQuery( document ).ready( function ( $ ) {
 	function tribe_events_calendar_ajax_post() {
 
 		tribe_ev.fn.spin_show();
-		tribe_ev.state.pushcount = 0;
+		tribe_ev.state.pushcount = 0;		
 
 		if( !tribe_ev.state.popping ) {
+			
+			tribe_ev.state.url_params = '';
 
 			tribe_ev.state.params = {
 				action:'tribe_event_day',
@@ -130,7 +144,7 @@ jQuery( document ).ready( function ( $ ) {
 			}
 		} 	
 
-		if( tribe_ev.tests.pushstate ) {
+		if( tribe_ev.tests.pushstate && !tribe_ev.state.filter_cats ) {
 			
 			$(tribe_ev.events).triggerAll('tribe_ev_ajaxStart tribe_ev_dayView_AjaxStart');					
 
@@ -162,8 +176,10 @@ jQuery( document ).ready( function ( $ ) {
 						
 						$( '#tribe-events-content.tribe-events-list' ).html( $the_content );								
 
-						var page_title = $( $the_content ).find( "#tribe-events-header" ).attr( 'data-title' );
-						var page_header = $( $the_content ).find( "#tribe-events-header" ).attr( 'data-header' );					
+						var page_title = $( "#tribe-events-header" ).attr( 'data-title' );
+						var page_header = $( "#tribe-events-header" ).attr( 'data-header' );
+						
+						console.log(page_title);
 
 						$( document ).attr( 'title', page_title );
 						$( "h2.tribe-events-page-title" ).text( page_header );						
