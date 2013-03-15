@@ -90,7 +90,7 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 			if (has_excerpt())
 				$html .= '<p>'. get_the_excerpt() .'</p>';
 			else
-				$html .= '<p>'. TribeEvents::truncate(get_the_content(), 20) .'</p>';	
+				$html .= '<p>'. TribeEvents::tribe_events_truncate(get_the_content(), 20) .'</p>';	
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_photo_the_content');
 		}
 		// Footer Navigation 

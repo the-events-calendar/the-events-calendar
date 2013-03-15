@@ -73,8 +73,8 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			global $wp_query;
 
 			// because we can't trust tribe_get_events_title will be set when run via AJAX
-			$title = sprintf( __( 'week starting %s', 'tribe-events-calendar-pro' ),
-				date( "l, F jS Y", strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) )
+			$title = sprintf( __( 'the week of %s', 'tribe-events-calendar-pro' ),
+				date( "F jS Y", strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) )
 			);
 
 			$html = sprintf( '<h2 class="tribe-events-page-title">'. __( 'Events for ', 'tribe-events-calendar-pro' ) .'%s</h2>',
@@ -329,15 +329,15 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 										</div><!-- .duration -->
 
 										<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) { ?>
-											<div class="tribe-events-event-thumb "><?php echo get_the_post_thumbnail( $event->ID, array( 75, 75 ) );?></div>
+											<div class="tribe-events-event-thumb "><?php echo get_the_post_thumbnail( $event->ID, array( 90, 90 ) );?></div>
 										<?php } ?>
 
 										<?php if( has_excerpt( $event->ID ) || $event->post_content ) { ?>
 										<p class="entry-summary description">
 										<?php if( has_excerpt( $event->ID ) ) {
-											echo TribeEvents::truncate( $event->post_excerpt, 30 );
+											echo TribeEvents::tribe_events_truncate( $event->post_excerpt, 30 );
 										} else {
-											echo TribeEvents::truncate( $event->post_content, 30 );
+											echo TribeEvents::tribe_events_truncate( $event->post_content, 30 );
 										} ?>
 										</p><!-- .entry-summary -->
 										<?php } ?>
@@ -471,14 +471,14 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 									</div><!-- .duration -->
 
 									<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) { ?>
-										<div class="tribe-events-event-thumb"><?php echo get_the_post_thumbnail( $event->ID, array( 75, 75 ) );?></div>
+										<div class="tribe-events-event-thumb"><?php echo get_the_post_thumbnail( $event->ID, array( 90, 90 ) );?></div>
 									<?php } ?>
 
 									<p class="entry-summary description">
 									<?php if( has_excerpt( $event->ID ) ) {
-										echo TribeEvents::truncate( $event->post_excerpt, 30 );
+										echo TribeEvents::tribe_events_truncate( $event->post_excerpt, 30 );
 									} else {
-										echo TribeEvents::truncate( $event->post_content, 30 );
+										echo TribeEvents::tribe_events_truncate( $event->post_content, 30 );
 									} ?>
 									</p><!-- .entry-summary -->
 									
@@ -560,10 +560,10 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 
 			// iCal import button
 			if ( function_exists( 'tribe_get_ical_link' ) ) {
-				$html .= sprintf( '<a class="tribe-events-ical tribe-events-button-grey" title="%s" href="%s">%s</a>',
+				$html .= sprintf( '<a class="tribe-events-ical tribe-events-button" title="%s" href="%s">%s</a>',
 					esc_attr( 'iCal Import', 'tribe-events-calendar' ),
 					tribe_get_ical_link(),
-					__( 'iCal Import', 'tribe-events-calendar' )
+					__( '+ iCal Import', 'tribe-events-calendar' )
 				);
 			}
 			$html .= '</div><!-- #tribe-events-content -->';

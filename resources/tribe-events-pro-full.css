@@ -56,7 +56,7 @@
 .tribe-grid-header .column {
 	text-align: center;
 	text-transform: uppercase;
-	padding: .5em 0;
+	padding: 1em 0;
 }
 .tribe-grid-header .column a {
 	color: #333;
@@ -64,9 +64,9 @@
 
 /* columns & structure */
 .tribe-week-grid-wrapper {
-	height:500px;
-	overflow-y:scroll;	
-	position:relative;
+	height: 500px;
+	overflow-y: scroll;	
+	position: relative;
 }
 
 .tribe-events-grid .slimScrollBar {
@@ -75,7 +75,7 @@
 
 .tribe-grid-body {
 	overflow: visible;
-	position:relative;
+	position: relative;
 }
 
 .tribe-week-grid-hours {
@@ -430,7 +430,7 @@
 .tribe-events-filter-view #tribe-geo-wrapper {
 	 width: 72%; 
 	 float: right; 
-	 padding: 1px 0;
+	 padding: 24px 0 1px;
 }
 
 #tribe-geo-map-wrapper {

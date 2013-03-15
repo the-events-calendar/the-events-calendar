@@ -62,15 +62,13 @@
 }
 
 /* grid header */
-/*.tribe-grid-header {
-	border-bottom: 1px solid #bbb;
-	background-color: #ddd;
-}*/
-
 .tribe-grid-header .column {
 	text-align: center;
-	padding: .5em 0;
-	
+	text-transform: uppercase;
+	padding: 1em 0;
+}
+.tribe-grid-header .column a {
+	color: #333;
 }
 
 /* columns & structure */
