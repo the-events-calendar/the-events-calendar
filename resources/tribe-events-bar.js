@@ -86,10 +86,10 @@ jQuery( document ).ready( function ( $ ) {
 
 	} );
 	
-	$(tribe_ev.events).on("tribe_ev_scrapeBar", function() {
+	$(tribe_ev.events).on("tribe_ev_serializeBar", function() {
 		$( 'form#tribe-bar-form input' ).each( function () {
 			var $this = $( this );
-			if( $this.val().length && !$this.hasClass('tribe-no-param') ) {
+			if( $this.val().length && !$this.is('.tribe-no-param') ) {
 				if( $this.is(':checkbox') ) {
 					if( $this.is(':checked') ) {
 						tribe_ev.state.params[$this.attr('name')] = $this.val();
