@@ -71,10 +71,13 @@
 							<?php
 
 							$checkedin = TribeEventsTickets::get_event_checkedin_attendees_count( $event_id );
-
-							echo sprintf( '%s %d', esc_html( __( 'Tickets sold:', 'tribe-events-calendar' ) ), $total_sold );
+							echo '<span id="total_tickets_sold_wrapper">';
+							echo sprintf( '%s <span id="total_tickets_sold">%d</span>', esc_html( __( 'Tickets sold:', 'tribe-events-calendar' ) ), $total_sold );
+							echo '</span>';
+							echo '<span id="total_checkedin_wrapper">';
 							echo "<br/>";
 							echo sprintf( '%s <span id="total_checkedin">%d</span>', esc_html( __( 'Checked in:', 'tribe-events-calendar' ) ), $checkedin );
+							echo '</span>';
 							?>
 						</div>
 					</td>
