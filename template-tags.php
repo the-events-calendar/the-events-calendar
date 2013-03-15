@@ -532,12 +532,12 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @return string $permalink
 	 * @since 3.0
 	 */
-	function tribe_get_day_permalink( $date = null ){
+	function tribe_get_day_permalink( $date = null, $term = true ){
 		$tec = TribeEvents::instance();
 		$date = is_null($date) ? TribeEventsPro::instance()->todaySlug : date('Y-m-d', strtotime( $date ) );
 		$url = trailingslashit( get_site_url() );
 		// if we're on an Event Cat, show the cat link, except for home and days.
-		if ( is_tax( TribeEvents::TAXONOMY ) )
+		if ( $term && is_tax( TribeEvents::TAXONOMY ) )
 			$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
 		else
 			$url .= trailingslashit( $tec->rewriteSlug );
