@@ -82,6 +82,7 @@ if ( !class_exists('TribeField') ) {
 				'html',
 				'text',
 				'textarea',
+				'wysiwyg',
 				'radio',
 				'checkbox_bool',
 				'checkbox_list',
@@ -363,6 +364,24 @@ if ( !class_exists('TribeField') ) {
 			$field .= $this->doFieldEnd();
 			return $field;
 		}
+
+		public function wysiwyg() {
+			$settings = array(
+			    'teeny' => true,
+			    'wpautop' => true
+			 );
+			ob_start();
+			wp_editor( $this->value, $this->name, $settings );
+			$editor = ob_get_clean();
+			$field = $this->doFieldStart();
+			$field .= $this->doFieldLabel();
+			$field .= $this->doFieldDivStart();
+			$field .= $editor;
+			$field .= $this->doScreenReaderLabel();
+			$field .= $this->doFieldDivEnd();
+			$field .= $this->doFieldEnd();
+			return $field;
+		}		
 
 		/**
 		 * generate a radio button field
