@@ -365,6 +365,13 @@ if ( !class_exists('TribeField') ) {
 			return $field;
 		}
 
+		/**
+		 * generate a wp_editor field
+		 *
+		 * @since 3.0.0
+		 * @author Kyle Unzicker
+		 * @return string the field
+		 */
 		public function wysiwyg() {
 			$settings = array(
 			    'teeny' => true,
