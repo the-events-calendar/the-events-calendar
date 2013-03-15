@@ -52,3 +52,7 @@ a.tickets_uncheckin {
 	right : 50px !important;
 	left  : auto !important;
 }
+
+input.print {
+	margin : 1px 8px 0 0 !important;
+}

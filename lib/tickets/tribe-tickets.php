@@ -493,7 +493,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 					'options'    => array(
 						'content'  => sprintf( '<h3> %s </h3> <p> %s </p>',
 							__( 'Columns', 'tribe-events-calendar' ),
-							__( 'You can use Screen Options to select which columns you want to see, both in the table below, and for the CVS export.', 'tribe-events-calendar' )
+							__( 'You can use Screen Options to select which columns you want to see. The selection works in the table below, for print and for the CVS export.', 'tribe-events-calendar' )
 						),
 						'position' => array( 'edge' => 'top', 'align' => 'center' )
 					)

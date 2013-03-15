@@ -14,6 +14,13 @@ jQuery( document ).ready( function ( $ ) {
 		$( AttendeesPointer.target ).pointer( options ).pointer( 'open' );
 	}
 
+	$( 'input.print' ).on( 'click', function ( e ) {
+
+		window.print();
+
+	} );
+
+
 	$( '#filter_attendee' ).on( 'keyup paste', function () {
 
 		var search = jQuery( this ).val().toLowerCase();

@@ -1,5 +1,5 @@
 @media print {
-	#adminmenuback, #adminmenuwrap, .tablenav, #wpfooter, .check-column, .column-check_in, #total_checkedin_wrapper, #show-settings-link, .screen-meta-toggle {
+	#adminmenuback, #adminmenuwrap, .tablenav, #wpfooter, .check-column, .column-check_in, #total_checkedin_wrapper, #show-settings-link, .screen-meta-toggle, h2, #icon-edit {
 		display : none;
 	}
 

@@ -98,9 +98,16 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 
 	function extra_tablenav( $which ) {
 
-		if ( 'top' == $which )
-			echo sprintf( '%s: <input type="text" name="filter_attendee" id="filter_attendee" value="">', __( "Filter by ticket #, order # or security code", "tribe-events-calendar" ) );
+		echo '<div class="alignleft actions">';
+		echo sprintf( '<input type="button" name="print" class="print button action" value="%s">', __( 'Print', 'tribe-events-calendar' ) );
+		echo '</div>';
 
+		if ( 'top' == $which ) {
+			echo '<div class="alignleft">';
+			echo sprintf( '%s: <input type="text" name="filter_attendee" id="filter_attendee" value="">', __( "Filter by ticket #, order # or security code", "tribe-events-calendar" ) );
+			echo '</div>';
+
+		}
 	}
 
 	function get_bulk_actions() {
