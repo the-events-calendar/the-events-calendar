@@ -371,7 +371,7 @@ if ( !class_exists('TribeField') ) {
 			    'wpautop' => true
 			 );
 			ob_start();
-			wp_editor( $this->value, $this->name, $settings );
+			wp_editor( html_entity_decode( ( $this->value ) ), $this->name, $settings );
 			$editor = ob_get_clean();
 			$field = $this->doFieldStart();
 			$field .= $this->doFieldLabel();
