@@ -165,7 +165,7 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_paged :tribe_ev.state.paged
 		};	
 
-		$(tribe_ev.events).trigger('tribe_ev_scrapeBar');
+		$(tribe_ev.events).trigger('tribe_ev_serializeBar');
 
 		tribe_ev.state.params = $.param(tribe_ev.state.params);
 		
