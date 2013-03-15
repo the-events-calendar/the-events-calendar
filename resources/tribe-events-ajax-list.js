@@ -46,7 +46,7 @@ jQuery( document ).ready( function ( $ ) {
 
 	$( '#tribe-events-list-view' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
 		e.preventDefault();
-		
+		$('#tribe-bar-date').val('');
 		if( $(this).parent().is('.tribe-past') )
 			tribe_ev.state.view = 'past';			
 		else
@@ -62,7 +62,7 @@ jQuery( document ).ready( function ( $ ) {
 		});
 	} ).on( 'click', 'li.tribe-nav-previous a', function ( e ) {
 		e.preventDefault();
-		
+		$('#tribe-bar-date').val('');
 		if( $(this).parent().is('.tribe-past') )
 			tribe_ev.state.view = 'past';			
 		else
