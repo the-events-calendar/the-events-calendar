@@ -409,7 +409,9 @@ class TribeEventsGeoLoc {
 		                   'markers'     => array(),
 		                   'success'     => TRUE,
 		                   'max_pages'   => $query->max_num_pages,
-		                   'total_count' => $query->found_posts );
+		                   'total_count' => $query->found_posts,
+		                   'view'        => 'map',
+		);
 
 		if ( $query->found_posts === 1 ) {
 			$response['html'] .= sprintf( __( "<div class='event-notices'>%d event found</div>", 'tribe-events-calendar-pro' ), $query->found_posts );
@@ -438,6 +440,8 @@ class TribeEventsGeoLoc {
 
 			$response['markers'] = $this->generate_markers( $data );
 		}
+		
+		apply_filters( 'tribe_events_ajax_response', $response );
 
 		header( 'Content-type: application/json' );
 		echo json_encode( $response );
