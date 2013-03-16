@@ -739,6 +739,36 @@ h3.tribe-events-related-events-title {
 	margin-bottom: 4%;
 }
 
+/* Placeholder if no image */
+ul.tribe-related-events .tribe-related-events-placeholder {
+	text-align: center;
+	margin: 0 auto;
+	padding: 0;
+}
+
+ul.tribe-related-events .tribe-related-events-placeholder a {
+	display: block;
+}
+
+ul.tribe-related-events .tribe-related-events-placeholder-month,
+ul.tribe-related-events .tribe-related-events-placeholder-day,
+ul.tribe-related-events .tribe-related-events-placeholder-year {
+	color: #666;
+	background-color: #ddd;
+	padding: 6px 0;
+	font-size: 16px;
+	font-weight: bold;
+	display: block;
+	text-transform: uppercase;
+}
+
+ul.tribe-related-events .tribe-related-events-placeholder-day {
+	padding: 20% 4%;
+	font-size: 48px;
+	background-color: #fafafa;
+	color: #666;
+}
+
 /* = Events Calendar Widget Styles (Sidebar)
    @ Template: calendar-widget.php
 =============================================*/
