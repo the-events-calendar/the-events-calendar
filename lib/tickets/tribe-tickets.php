@@ -410,9 +410,9 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 		public final function ajax_handler_attendee_mail_list() {
 
-			if ( ! isset( $_POST["email"] ) )
+			if ( ! isset( $_POST["email"] ) || ! ( is_numeric( $_POST["email"] ) || is_email( $_POST["email"] ) ) )
 				$this->ajax_error( 'Bad post' );
-			if ( ! ( is_numeric( $_POST["email"] ) || is_email( $_POST["email"] ) ) )
+			if ( empty( $_POST["nonce"] ) || ! wp_verify_nonce( $_POST["nonce"], 'email-attendee-list' ) )
 				$this->ajax_error( 'Bad post' );
 
 			$return = array();
@@ -492,6 +492,13 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			wp_enqueue_style( $this->attendees_slug, trailingslashit( $ecp->pluginUrl ) . '/resources/tickets-attendees.css' );
 			wp_enqueue_style( $this->attendees_slug . '-print', trailingslashit( $ecp->pluginUrl ) . '/resources/tickets-attendees-print.css', array(), false, 'print' );
 			wp_enqueue_script( $this->attendees_slug, trailingslashit( $ecp->pluginUrl ) . '/resources/tickets-attendees.js', array( 'jquery' ) );
+
+
+			$mail_data = array(
+				'nonce' => wp_create_nonce('email-attendee-list')
+			);
+
+			wp_localize_script( $this->attendees_slug, 'AttendeesMail', $mail_data );
 		}
 
 		public function attendees_page_load_pointers( $hook ) {

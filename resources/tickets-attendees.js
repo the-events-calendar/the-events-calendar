@@ -30,10 +30,10 @@ jQuery( document ).ready( function ( $ ) {
 				var $email = tribe_validate_email();
 
 				if ( $email !== false ) {
-					console.log( $email );
 					var opts = {
 						action:'tribe-ticket-email-attendee-list',
-						email :$email
+						email :$email,
+						nonce :AttendeesMail.nonce
 					};
 
 					$.post( ajaxurl, opts, function ( response ) {
@@ -46,12 +46,12 @@ jQuery( document ).ready( function ( $ ) {
 				}
 
 			},
-			close :function () {
+			Close :function () {
 				$( this ).dialog( "close" );
 			}
 		} } );
 
-	$( "#email" ).click( function () {
+	$( "input.email" ).click( function () {
 		$( "#attendees_email_wrapper" ).dialog( "open" );
 	} );
 
