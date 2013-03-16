@@ -3564,6 +3564,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$tribe_ecp->displaying = 'upcoming';
 			} elseif ( $query->query_vars['eventDisplay'] == 'past' ) {
 				$tribe_ecp->displaying = 'past';
+				$response['view'] = 'past';
 			}
 			
 			$old_request = $_SERVER;
