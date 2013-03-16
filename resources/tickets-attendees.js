@@ -135,24 +135,19 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	function tribe_validate_email() {
-		$( '#email_response' ).removeClass( 'ui-state-error' ).addClass( 'ui-state-highlight' ).text( 'Sending...' );
+		$( '#email_response' ).removeClass( 'ui-state-error' ).addClass( 'ui-state-highlight' ).text( AttendeesMail.sending );
 		var $address = $( '#email_to_address' ).val();
 		var $user = $( '#email_to_user' ).val();
 		var $email = false;
 
-		if ( $.trim( $address ) !== '' ) {
-			if ( !tribe_is_email( $address ) )
-				$( '#email_response' ).removeClass( 'ui-state-highlight' ).addClass( 'ui-state-error' ).text( 'Email address is invalid' );
-			else
-				$email = $address;
-		} else {
-			if ( $user > -1 )
-				$email = $user;
-		}
+		if ( $user > -1 )
+			$email = $user;
 
-		if ( !$email ) {
-			$( '#email_response' ).removeClass( 'ui-state-highlight' ).addClass( 'ui-state-error' ).text( 'You need to select an user or type an address' );
-		}
+		if ( $.trim( $address ) !== '' && tribe_is_email( $address ) )
+			$email = $address;
+
+		if ( !$email )
+			$( '#email_response' ).removeClass( 'ui-state-highlight' ).addClass( 'ui-state-error' ).text( AttendeesMail.required );
 
 		return $email;
 	}

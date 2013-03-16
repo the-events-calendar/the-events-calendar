@@ -409,6 +409,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		}
 
 		public function ajax_handler_attendee_mail_list() {
+
 			if ( ! isset( $_POST["event_id"] ) || ! isset( $_POST["email"] ) || ! ( is_numeric( $_POST["email"] ) || is_email( $_POST["email"] ) ) )
 				$this->ajax_error( 'Bad post' );
 			if ( empty( $_POST["nonce"] ) || ! wp_verify_nonce( $_POST["nonce"], 'email-attendee-list' ) )
@@ -427,15 +428,21 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			$this->attendees_page_screen_setup();
 
 			$items = $this->_generate_filtered_attendees_list( $_POST["event_id"] );
+			$event = get_post( $_POST["event_id"] );
 
 			ob_start();
 			include $this->parentPath . 'views/tickets-attendees-email.php';
 			$content = ob_get_clean();
 
-			if ( ! wp_mail( $email, __( 'Attendee List', 'tribe-events-calendar' ), $content ) )
+			add_filter( 'wp_mail_content_type', array( $this, 'set_contenttype' ) );
+			if ( ! wp_mail( $email, sprintf( __( 'Attendee List for: %s', 'tribe-events-calendar' ), $event->post_title ), $content ) )
 				$this->ajax_error( 'Error sending email' );
 
 			$this->ajax_ok( array() );
+		}
+
+		public function set_contenttype( $content_type ) {
+			return 'text/html';
 		}
 
 		protected function notice( $msg ) {
@@ -511,7 +518,9 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 
 			$mail_data = array(
-				'nonce' => wp_create_nonce( 'email-attendee-list' )
+				'nonce'    => wp_create_nonce( 'email-attendee-list' ),
+				'required' => __( 'You need to select an user or type a valid email address', 'tribe-events-calendar' ),
+				'sending'  => __( 'Sending...', 'tribe-events-calendar' )
 			);
 
 			wp_localize_script( $this->attendees_slug, 'AttendeesMail', $mail_data );

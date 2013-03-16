@@ -99,7 +99,7 @@
 	<div id="attendees_email_wrapper" title="<?php _e( 'Send the attendee list by email', 'tribe-events-calendar' );?>">
 		<label for="email_to_user">
 			<?php _e( 'Select a User:', 'tribe-events-calendar' );?>
-			<?php wp_dropdown_users( array( 'name' => 'email_to_user', 'id' => 'email_to_user', 'show_option_none' => ' ' ) ); ?>
+			<?php wp_dropdown_users( array( 'name' => 'email_to_user', 'id' => 'email_to_user', 'show_option_none' => ' ', 'selected' => get_current_user_id() ) ); ?>
 		</label>
 		<?php _e( 'or', 'tribe-events-calendar' );?>
 		<label for="email_to_address">
