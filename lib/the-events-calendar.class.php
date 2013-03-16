@@ -3576,6 +3576,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			load_template( TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
 			$response['html'] .= ob_get_clean();
 			$_SERVER = $old_request;
+
+			apply_filters( 'tribe_events_ajax_response', $response );
+
 			header( 'Content-type: application/json' );
 			echo json_encode( $response );
 
