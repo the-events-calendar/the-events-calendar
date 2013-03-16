@@ -417,7 +417,7 @@ select.tribe-events-dropdown {
 }
 
 /* Featured Image */
-.single-tribe_events .tribe-event-featured-image {
+.single-tribe_events .tribe-events-event-image {
 	clear: both;
 	text-align: center;
 	margin-bottom: 30px;
