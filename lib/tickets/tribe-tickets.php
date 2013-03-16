@@ -408,16 +408,26 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			$this->ajax_ok( $return );
 		}
 
-		public final function ajax_handler_attendee_mail_list() {
+		public function ajax_handler_attendee_mail_list() {
 
-			if ( ! isset( $_POST["email"] ) || ! ( is_numeric( $_POST["email"] ) || is_email( $_POST["email"] ) ) )
+			if ( ! isset( $_POST["event_id"] ) || ! isset( $_POST["email"] ) || ! ( is_numeric( $_POST["email"] ) || is_email( $_POST["email"] ) ) )
 				$this->ajax_error( 'Bad post' );
 			if ( empty( $_POST["nonce"] ) || ! wp_verify_nonce( $_POST["nonce"], 'email-attendee-list' ) )
 				$this->ajax_error( 'Bad post' );
 
 			$return = array();
+			if ( empty( $GLOBALS['hook_suffix'] ) )
+				$GLOBALS['hook_suffix'] = 'tribe_ajax';
 
-			$return['dani'] = "test";
+			$this->attendees_page_screen_setup();
+
+			$items = $this->_generate_filtered_attendees_list( $_POST["event_id"] );
+
+			ob_start();
+			include $this->parentPath . 'views/tickets-attendees-email.php';
+			$content = ob_get_clean();
+
+			$return['content'] = $content;
 
 			$this->ajax_ok( $return );
 		}
@@ -495,7 +505,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 
 			$mail_data = array(
-				'nonce' => wp_create_nonce('email-attendee-list')
+				'nonce' => wp_create_nonce( 'email-attendee-list' )
 			);
 
 			wp_localize_script( $this->attendees_slug, 'AttendeesMail', $mail_data );
@@ -517,7 +527,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 					'options'    => array(
 						'content'  => sprintf( '<h3> %s </h3> <p> %s </p>',
 							__( 'Columns', 'tribe-events-calendar' ),
-							__( 'You can use Screen Options to select which columns you want to see. The selection works in the table below, for print and for the CVS export.', 'tribe-events-calendar' )
+							__( 'You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CVS export.', 'tribe-events-calendar' )
 						),
 						'position' => array( 'edge' => 'top', 'align' => 'center' )
 					)
@@ -545,22 +555,12 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			include $this->parentPath . 'admin-views/tickets-attendees.php';
 		}
 
-		public function maybe_generate_attendees_cvs() {
+		private function _generate_filtered_attendees_list( $event_id ) {
 
-			if ( empty( $_GET['attendees_csv'] ) || empty( $_GET['attendees_csv_nonce'] ) || empty( $_GET['event_id'] ) )
-				return;
+			if ( empty( $this->attendees_page ) )
+				$this->attendees_page = 'tribe_events_page_tickets-attendees';
 
-			if ( ! wp_verify_nonce( $_GET['attendees_csv_nonce'], 'attendees_csv_nonce' ) )
-				return;
-
-//			// output headers so that the file is downloaded rather than displayed
-			header( 'Content-Type: text/csv; charset=utf-8' );
-			header( 'Content-Disposition: attachment; filename=attendees.csv' );
-
-			// create a file pointer connected to the output stream
-			$output = fopen( 'php://output', 'w' );
-
-			$columns = get_column_headers( $this->attendees_page );
+			$columns = $this->attendees_table->get_columns();
 			$hidden  = get_hidden_columns( $this->attendees_page );
 
 			// We dont want to export html inputs or private data
@@ -575,12 +575,9 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			$export_columns = array_filter( array_keys( $export_columns ) );
 
 			// Get the data
-			$event_id = $_GET['event_id'];
-			$items    = TribeEventsTickets::get_event_attendees( $event_id );
+			$items = TribeEventsTickets::get_event_attendees( $event_id );
 
-			// output the column headings
-			fputcsv( $output, $columns_names );
-
+			$rows = array( $columns_names );
 			//And echo the data
 			foreach ( $items as $item ) {
 				$row = array();
@@ -588,7 +585,32 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 					if ( in_array( $key, $export_columns ) )
 						$row[$key] = $data;
 				}
-				fputcsv( $output, array_values( $row ) );
+				$rows[] = array_values( $row );
+			}
+
+			return $rows;
+		}
+
+		public function maybe_generate_attendees_cvs() {
+
+			if ( empty( $_GET['attendees_csv'] ) || empty( $_GET['attendees_csv_nonce'] ) || empty( $_GET['event_id'] ) )
+				return;
+
+			if ( ! wp_verify_nonce( $_GET['attendees_csv_nonce'], 'attendees_csv_nonce' ) )
+				return;
+
+			// output headers so that the file is downloaded rather than displayed
+			header( 'Content-Type: text/csv; charset=utf-8' );
+			header( 'Content-Disposition: attachment; filename=attendees.csv' );
+
+			// create a file pointer connected to the output stream
+			$output = fopen( 'php://output', 'w' );
+
+			$items = $this->_generate_filtered_attendees_list($_GET['event_id'] );
+
+			//And echo the data
+			foreach ( $items as $item ) {
+				fputcsv( $output, $item );
 			}
 
 			fclose( $output );

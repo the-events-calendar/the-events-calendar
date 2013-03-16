@@ -21,7 +21,7 @@ jQuery( document ).ready( function ( $ ) {
 
 	$( "#attendees_email_wrapper" ).dialog( {
 		autoOpen:false,
-		height  :200,
+		height  :230,
 		width   :450,
 		modal   :true,
 		buttons :{
@@ -31,12 +31,14 @@ jQuery( document ).ready( function ( $ ) {
 
 				if ( $email !== false ) {
 					var opts = {
-						action:'tribe-ticket-email-attendee-list',
-						email :$email,
-						nonce :AttendeesMail.nonce
+						action  :'tribe-ticket-email-attendee-list',
+						email   :$email,
+						nonce   :AttendeesMail.nonce,
+						event_id:$( '#event_id' ).val()
 					};
 
 					$.post( ajaxurl, opts, function ( response ) {
+						console.log( response );
 						if ( response.success ) {
 							$( '#email_response' ).removeClass( 'ui-state-error' ).removeClass( 'ui-state-highlight' ).text( '' );
 							$( '#email_to_address' ).val( '' );
