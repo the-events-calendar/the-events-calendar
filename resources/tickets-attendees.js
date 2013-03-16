@@ -21,28 +21,39 @@ jQuery( document ).ready( function ( $ ) {
 
 	$( "#attendees_email_wrapper" ).dialog( {
 		autoOpen:false,
-		height  :300,
-		width   :350,
+		height  :200,
+		width   :450,
 		modal   :true,
 		buttons :{
 			"Send":function () {
-				$( this ).dialog( "close" );
-			},
-			Cancel:function () {
-				$( this ).dialog( "close" );
-			},
 
-			close:function () {
-				allFields.val( "" ).removeClass( "ui-state-error" );
+				var $email = tribe_validate_email();
+
+				if ( $email !== false ) {
+					console.log( $email );
+					var opts = {
+						action:'tribe-ticket-email-attendee-list',
+						email :$email
+					};
+
+					$.post( ajaxurl, opts, function ( response ) {
+						if ( response.success ) {
+							$( '#email_response' ).removeClass( 'ui-state-error' ).removeClass( 'ui-state-highlight' ).text( '' );
+							$( '#email_to_address' ).val( '' );
+							$( '#attendees_email_wrapper' ).dialog( "close" );
+						}
+					} );
+				}
+
+			},
+			close :function () {
+				$( this ).dialog( "close" );
 			}
-		} });
+		} } );
 
-	$( "#create-user" )
-			.button()
-			.click( function () {
-				$( "#dialog-form" ).dialog( "open" );
-			} );
-
+	$( "#email" ).click( function () {
+		$( "#attendees_email_wrapper" ).dialog( "open" );
+	} );
 
 	$( '#filter_attendee' ).on( 'keyup paste', function () {
 
@@ -75,16 +86,16 @@ jQuery( document ).ready( function ( $ ) {
 		};
 
 		$.post(
-				ajaxurl,
-				params,
-				function ( response ) {
-					if ( response.success ) {
-						obj.parent( 'td' ).parent( 'tr' ).addClass( 'tickets_checked' );
+			ajaxurl,
+			params,
+			function ( response ) {
+				if ( response.success ) {
+					obj.parent( 'td' ).parent( 'tr' ).addClass( 'tickets_checked' );
 
-						$( '#total_checkedin' ).text( parseInt( $( '#total_checkedin' ).text() ) + 1 );
-					}
-				},
-				'json'
+					$( '#total_checkedin' ).text( parseInt( $( '#total_checkedin' ).text() ) + 1 );
+				}
+			},
+			'json'
 		);
 
 		e.preventDefault();
@@ -102,18 +113,47 @@ jQuery( document ).ready( function ( $ ) {
 		};
 
 		$.post(
-				ajaxurl,
-				params,
-				function ( response ) {
-					if ( response.success ) {
-						obj.parent( 'span' ).parent( 'td' ).parent( 'tr' ).removeClass( 'tickets_checked' );
-						$( '#total_checkedin' ).text( parseInt( $( '#total_checkedin' ).text() ) - 1 );
-					}
-				},
-				'json'
+			ajaxurl,
+			params,
+			function ( response ) {
+				if ( response.success ) {
+					obj.parent( 'span' ).parent( 'td' ).parent( 'tr' ).removeClass( 'tickets_checked' );
+					$( '#total_checkedin' ).text( parseInt( $( '#total_checkedin' ).text() ) - 1 );
+				}
+			},
+			'json'
 		);
 
 		e.preventDefault();
 	} );
+
+	function tribe_is_email( emailAddress ) {
+		var pattern = new RegExp( /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i );
+		return pattern.test( emailAddress );
+	}
+
+	function tribe_validate_email() {
+		$( '#email_response' ).removeClass( 'ui-state-error' ).addClass( 'ui-state-highlight' ).text( 'Sending...' );
+		var $address = $( '#email_to_address' ).val();
+		var $user = $( '#email_to_user' ).val();
+		var $email = false;
+
+		if ( $.trim( $address ) !== '' ) {
+			if ( !tribe_is_email( $address ) )
+				$( '#email_response' ).removeClass( 'ui-state-highlight' ).addClass( 'ui-state-error' ).text( 'Email address is invalid' );
+			else
+				$email = $address;
+		} else {
+			if ( $user > -1 )
+				$email = $user;
+		}
+
+		if ( !$email ) {
+			$( '#email_response' ).removeClass( 'ui-state-highlight' ).addClass( 'ui-state-error' ).text( 'You need to select an user or type an address' );
+		}
+
+		return $email;
+	}
+
 
 } );

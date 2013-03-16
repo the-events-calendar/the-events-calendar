@@ -96,9 +96,18 @@
 		?>
 	</form>
 
-	<div id="attendees_email_wrapper">
+	<div id="attendees_email_wrapper" title="<?php _e( 'Send the attendee list by email', 'tribe-events-calendar' );?>">
+		<label for="email_to_user">
+			<?php _e( 'Select an user:', 'tribe-events-calendar' );?>
+			<?php wp_dropdown_users( array( 'name' => 'email_to_user', 'id' => 'email_to_user', 'show_option_none' => ' ' ) ); ?>
+		</label>
 
-		test
+		<label for="email_to_address">
+			<?php _e( 'or type an email address:', 'tribe-events-calendar' );?>
+			<input type="text" name="email_to_address" id="email_to_address" value="">
+		</label>
+
+		<div id="email_response"></div>
 
 	</div>
 

@@ -56,3 +56,13 @@ a.tickets_uncheckin {
 input.print, input.email, a.export {
 	margin : 1px 8px 0 0 !important;
 }
+
+#attendees_email_wrapper #email_response {
+	width      : 100%;
+	text-align : center;
+	margin-top : 10px;
+}
+
+#attendees_email_wrapper label {
+	display : block;
+}

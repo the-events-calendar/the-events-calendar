@@ -86,6 +86,8 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			add_action( 'wp_ajax_tribe-ticket-checkin-' . $this->className, array( $this, 'ajax_handler_attendee_checkin' ) );
 			add_action( 'wp_ajax_tribe-ticket-uncheckin-' . $this->className, array( $this, 'ajax_handler_attendee_uncheckin' ) );
 
+			add_action( 'wp_ajax_tribe-ticket-email-attendee-list', array( $this, 'ajax_handler_attendee_mail_list' ) );
+
 
 			// Front end
 			add_filter( 'tribe_get_ticket_form', array( $this, 'front_end_tickets_form' ) );
@@ -406,6 +408,20 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			$this->ajax_ok( $return );
 		}
 
+		public final function ajax_handler_attendee_mail_list() {
+
+			if ( ! isset( $_POST["email"] ) )
+				$this->ajax_error( 'Bad post' );
+			if ( ! ( is_numeric( $_POST["email"] ) || is_email( $_POST["email"] ) ) )
+				$this->ajax_error( 'Bad post' );
+
+			$return = array();
+
+			$return['dani'] = "test";
+
+			$this->ajax_ok( $return );
+		}
+
 		protected function notice( $msg ) {
 			return sprintf( '<div class="wrap"><div class="updated"><p>%s</p></div></div>', $msg );
 		}
@@ -514,7 +530,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 			$this->maybe_generate_attendees_cvs();
 
-			wp_enqueue_script('jquery-ui-dialog');
+			wp_enqueue_script( 'jquery-ui-dialog' );
 
 		}
 
@@ -553,7 +569,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 			// Get the data
 			$event_id = $_GET['event_id'];
-			$items = TribeEventsTickets::get_event_attendees( $event_id );
+			$items    = TribeEventsTickets::get_event_attendees( $event_id );
 
 			// output the column headings
 			fputcsv( $output, $columns_names );

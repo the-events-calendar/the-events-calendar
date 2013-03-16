@@ -92,6 +92,7 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 		echo '<div class="alignleft actions">';
 
 		echo sprintf( '<input type="button" name="print" class="print button action" value="%s">', __( 'Print', 'tribe-events-calendar' ) );
+		echo sprintf( '<input type="button" name="email" class="email button action" id="email" value="%s">', __( 'Email', 'tribe-events-calendar' ) );
 		echo sprintf( '<a target="_blank" href="%s" class="export button action">%s</a>', esc_url( add_query_arg( array( "attendees_csv" => true, "attendees_csv_nonce" => wp_create_nonce( 'attendees_csv_nonce' ) ) ) ), __( 'Export', 'tribe-events-calendar' ) );
 
 		echo '</div>';
