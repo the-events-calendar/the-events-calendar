@@ -81,18 +81,16 @@ $displayTab = array(
 			'html' => '<h3>' . __( 'Advanced Template Settings', 'tribe-events-calendar-pro' ) . '</h3>',
 		),
 		'tribeEventsBeforeHTML' => array(
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 		 	'label' => __( 'Add HTML before event content', 'tribe-events-calendar' ),
 			'tooltip' => __( 'If you are familiar with HTML, you can add additional code before the event template. Some themes may require this to help with styling or layout.', 'tribe-events-calendar' ),
-			'validation_type' => 'html',
-			'size' => 'large',
+			'validation_type' => 'html'
 		),
 		'tribeEventsAfterHTML' => array(
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 		 	'label' => __( 'Add HTML after event content', 'tribe-events-calendar' ),
 			'tooltip' => __( 'If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout.', 'tribe-events-calendar' ),
 			'validation_type' => 'html',
-			'size' => 'large',
 		),
 		'tribe-form-content-end' => array(
 			'type' => 'html',

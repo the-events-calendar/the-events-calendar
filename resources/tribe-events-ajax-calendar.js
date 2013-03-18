@@ -119,7 +119,7 @@ jQuery( document ).ready( function ( $ ) {
 
 			tribe_ev.state.url_params = {};
 
-			$(tribe_ev.events).trigger('tribe_ev_scrapeBar');
+			$(tribe_ev.events).trigger('tribe_ev_serializeBar');
 
 			tribe_ev.state.params = $.param(tribe_ev.state.params);
 			tribe_ev.state.url_params = $.param(tribe_ev.state.url_params);

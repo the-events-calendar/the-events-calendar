@@ -511,7 +511,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function initOptions() {
-
 			require_once( 'tribe-settings.class.php' );
 			require_once( 'tribe-settings-tab.class.php' );
 			require_once( 'tribe-field.class.php' );
