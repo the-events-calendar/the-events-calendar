@@ -292,7 +292,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_events_before_html() {
-		echo wpautop( apply_filters('tribe_events_before_html', stripslashes(tribe_get_option('tribeEventsBeforeHTML'))) );
+		echo apply_filters('tribe_events_before_html', stripslashes(tribe_get_option('tribeEventsBeforeHTML')) );
 	}
 
 	/**
