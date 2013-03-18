@@ -84,9 +84,7 @@ tribe_ev.fn = {
 	get_day: function() {
 		var dp_day = '';
 		if( jQuery('#tribe-bar-date').length ) {
-			var dp_date = jQuery('#tribe-bar-date').val();
-			if( dp_date.length )
-				dp_day = dp_date.slice(-3);
+			var dp_day = jQuery('#tribe-bar-date-day').val();
 		}
 		return dp_day;
 	},	
