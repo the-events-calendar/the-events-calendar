@@ -2,8 +2,8 @@
  * The Events Calendar Pro Full Stylesheet
  * (Some of these styles may override your current theme's styles)
  *
- * You can customize this stylesheet by putting a stylesheet of the same name
- * (tribe-events-pro.css) in the tribe-events/pro/ directory of your theme.
+ * You can customize this stylesheet by putting a stylesheet with the name
+ * tribe-events-pro.css in the tribe-events/pro/ directory of your theme.
  *
  * @package TribeEventsCalendarPro
  * @since  1.0
@@ -36,7 +36,7 @@
 	font-size: 12px;
 	width: 100%;
 	position: relative;
-	margin: 18px auto;
+	margin: 0 auto .6em;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
@@ -56,7 +56,7 @@
 .tribe-grid-header .column {
 	text-align: center;
 	text-transform: uppercase;
-	padding: .5em 0;
+	padding: 1em 0;
 }
 .tribe-grid-header .column a {
 	color: #333;
@@ -64,9 +64,9 @@
 
 /* columns & structure */
 .tribe-week-grid-wrapper {
-	height:500px;
-	overflow-y:scroll;	
-	position:relative;
+	height: 500px;
+	overflow-y: scroll;	
+	position: relative;
 }
 
 .tribe-events-grid .slimScrollBar {
@@ -75,7 +75,7 @@
 
 .tribe-grid-body {
 	overflow: visible;
-	position:relative;
+	position: relative;
 }
 
 .tribe-week-grid-hours {
@@ -430,7 +430,7 @@
 .tribe-events-filter-view #tribe-geo-wrapper {
 	 width: 72%; 
 	 float: right; 
-	 padding: 1px 0;
+	 padding: 24px 0 1px;
 }
 
 #tribe-geo-map-wrapper {
@@ -737,6 +737,36 @@ h3.tribe-events-related-events-title {
 
 .tribe-events-single ul.tribe-related-events .tribe-related-events-title {
 	margin-bottom: 4%;
+}
+
+/* Placeholder if no image */
+ul.tribe-related-events .tribe-related-events-placeholder {
+	text-align: center;
+	margin: 0 auto;
+	padding: 0;
+}
+
+ul.tribe-related-events .tribe-related-events-placeholder a {
+	display: block;
+}
+
+ul.tribe-related-events .tribe-related-events-placeholder-month,
+ul.tribe-related-events .tribe-related-events-placeholder-day,
+ul.tribe-related-events .tribe-related-events-placeholder-year {
+	color: #666;
+	background-color: #ddd;
+	padding: 6px 0;
+	font-size: 16px;
+	font-weight: bold;
+	display: block;
+	text-transform: uppercase;
+}
+
+ul.tribe-related-events .tribe-related-events-placeholder-day {
+	padding: 20% 4%;
+	font-size: 48px;
+	background-color: #fafafa;
+	color: #666;
 }
 
 /* = Events Calendar Widget Styles (Sidebar)
