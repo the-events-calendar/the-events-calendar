@@ -1,10 +1,9 @@
-jQuery( document ).ready( function ( $ ) {
+jQuery( document ).ready( function ( $ ) {	
 	
-	var base_url;
 	if( tribe_ev.state.filter_cats )
-		base_url = $('#tribe-events-header').attr( 'data-baseurl' ).slice(0, -11);	
-	else 
-		base_url = $('#tribe-events-header .tribe-nav-next a').attr('href').slice(0, -11);	
+		var base_url = $('#tribe-events-header').attr( 'data-baseurl' ).slice(0, -11);
+	else
+		var base_url = $('#tribe-events-header .tribe-nav-next a').attr('href').slice(0, -11);
 	
 	
 	
@@ -37,16 +36,16 @@ jQuery( document ).ready( function ( $ ) {
 
 			var state = event.originalEvent.state;
 
-			if( state ) {				
+			if(state) {
 				tribe_ev.state.do_string = false;
 				tribe_ev.state.pushstate = false;	
 				tribe_ev.state.popping = true;
 				tribe_ev.state.params = state.tribe_params;
-				tribe_ev.fn.pre_ajax( function() {
+				tribe_ev.fn.pre_ajax(function() {
 					tribe_events_calendar_ajax_post();	
 				});
 				
-				tribe_ev.fn.set_form( tribe_ev.state.params );				
+				tribe_ev.fn.set_form(tribe_ev.state.params);
 			} 
 		} );		
 	}
@@ -177,9 +176,7 @@ jQuery( document ).ready( function ( $ ) {
 						$( '#tribe-events-content.tribe-events-list' ).html( $the_content );								
 
 						var page_title = $( "#tribe-events-header" ).attr( 'data-title' );
-						var page_header = $( "#tribe-events-header" ).attr( 'data-header' );
-						
-						console.log(page_title);
+						var page_header = $( "#tribe-events-header" ).attr( 'data-header' );					
 
 						$( document ).attr( 'title', page_title );
 						$( "h2.tribe-events-page-title" ).text( page_header );						
