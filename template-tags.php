@@ -591,18 +591,9 @@ if( class_exists( 'TribeEventsPro' ) ) {
 				echo '<li>';
 				
 					$thumb = get_the_post_thumbnail( $post->ID, 'large' );
-					if ( $thumb ) { 
-						echo '<div class="tribe-related-events-thumbnail"><a href="'. get_permalink( $post->ID ) .'">'. $thumb .'</a></div>'; 
-					} elseif( class_exists( 'TribeEvents' ) && $post->post_type == TribeEvents::POSTTYPE ) {
-						echo '<div class="tribe-related-events-placeholder">';
-						echo '<a href="'. get_permalink( $post->ID ) .'">';
-						echo '<span class="tribe-related-events-placeholder-month">'. tribe_get_start_date( $post, false, 'M' ) .'</span>';
-						echo '<span class="tribe-related-events-placeholder-day">'. tribe_get_start_date( $post, false, 'j' ) .'</span>';;
-						echo '<span class="tribe-related-events-placeholder-year">'. tribe_get_start_date( $post, false, 'Y' ) .'</span>';;
-						echo '</a></div>';
-					}
+					if ( $thumb ) { echo '<div class="tribe-related-events-thumbnail"><a href="'. get_permalink( $post->ID ) .'">'. $thumb .'</a></div>'; }
 					echo '<div class="tribe-related-event-info">';
-						echo '<h3 class="tribe-related-events-title"><a href="'. get_permalink( $post->ID ) .'">'. get_the_title( $post->ID ) .'</a></h3>';
+						echo '<div class="tribe-related-events-title"><a href="'. get_permalink( $post->ID ) .'">'. get_the_title( $post->ID ) .'</a></div>';
 
 						if ( class_exists( 'TribeEvents' ) && $post->post_type == TribeEvents::POSTTYPE && function_exists( 'tribe_events_event_schedule_details' ) ) {
 							echo tribe_events_event_schedule_details( $post );

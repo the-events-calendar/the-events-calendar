@@ -47,12 +47,12 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 			
 			// Display Previous Page Navigation
 			if ( $wp_query->query_vars['paged'] > 1 ) {
-				$html .= '<li class="tribe-nav-previous"><a href="#" class="tribe_paged">' . __( '&laquo; Previous Events' ) . '</a></li>';
+				$html .= '<li class="tribe-nav-previous"><a href="#" class="tribe_paged">' . __( '&larr; Previous Events' ) . '</a></li>';
 			}
 			
 			// Display Next Page Navigation
 			if ( $wp_query->max_num_pages > ( $wp_query->query_vars['paged'] + 1 ) ) {
-				$html .= '<li class="tribe-nav-next"><a href="#" class="tribe_paged">' . __( 'Next Events &raquo;' ) . '</a>';			
+				$html .= '<li class="tribe-nav-next"><a href="#" class="tribe_paged">' . __( 'Next Events &rarr;' ) . '</a>';			
 				$html .= '</li><!-- .tribe-nav-next -->';
 			}
 			return $html;
@@ -89,7 +89,7 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 			if (has_excerpt())
 				$html .= '<p>'. get_the_excerpt() .'</p>';
 			else
-				$html .= '<p>'. TribeEvents::tribe_events_truncate(get_the_content(), 20) .'</p>';	
+				$html .= '<p>'. TribeEvents::truncate(get_the_content(), 20) .'</p>';	
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_photo_the_content');
 		}
 		// Footer Navigation 
@@ -101,12 +101,12 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 			
 			// Display Previous Page Navigation
 			if ( $wp_query->query_vars['paged'] > 1 ) {
-				$html .= '<li class="tribe-nav-previous"><a href="#" class="tribe_paged">' . __( '&laquo; Previous Events' ) . '</a></li>';
+				$html .= '<li class="tribe-nav-previous"><a href="#" class="tribe_paged">' . __( '&larr; Previous Events' ) . '</a></li>';
 			}
 			
 			// Display Next Page Navigation
 			if ( $wp_query->max_num_pages > ( $wp_query->query_vars['paged'] + 1 ) ) {
-				$html .= '<li class="tribe-nav-next"><a href="#" class="tribe_paged">' . __( 'Next Events &raquo;' ) . '</a>';
+				$html .= '<li class="tribe-nav-next"><a href="#" class="tribe_paged">' . __( 'Next Events &rarr;' ) . '</a>';
 				$html .= '</li><!-- .tribe-nav-next -->';
 			}
 			return $html;
