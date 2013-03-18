@@ -1,15 +1,19 @@
+<?php
+$event_id = isset( $_GET["event_id"] ) ? $_GET["event_id"] : 0;
+$event    = get_post( $event_id );
+$tickets  = TribeEventsTickets::get_event_tickets( $event_id );
+?>
+
 <div class="wrap">
 	<div id="icon-edit" class="icon32 icon32-tickets-attendees"><br></div>
 	<h2><?php _e( 'Attendees', 'tribe-events-calendar' );?></h2>
+	<h2><?php echo $event->post_title; ?></h2>
 
 	<div id="tribe-filters" class="metabox-holder">
 		<div id="filters-wrap" class="postbox">
 			<h3 title="Click to toggle"><?php _e( 'Event Summary', 'tribe-events-calendar' );?></h3>
 
-			<?php
-			$event_id = isset( $_GET["event_id"] ) ? $_GET["event_id"] : 0;
-			$tickets  = TribeEventsTickets::get_event_tickets( $event_id );
-			?>
+
 
 			<table class="eventtable ticket_list">
 				<tr>
