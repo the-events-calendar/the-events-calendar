@@ -1306,6 +1306,7 @@ form#tribe-bar-form #tribe-bar-views {
 .tribe-bar-views-inner {
 	padding: 15px 0;
 	background: #E0E0E0;
+	height: 72px;
 }
 
 .tribe-bar-views-inner label {
