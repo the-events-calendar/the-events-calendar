@@ -1025,10 +1025,6 @@ form#tribe-bar-form > div {
 	padding: 15px;
 }
 
-.tribe-bar-date-filter {
-	float: left;
-	width: 16.66667%;
-}
 
 /* Globals */
 /* Special Buttons & Selects */
@@ -1189,23 +1185,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 #tribe-bar-dates .select2-choice {
 	border-bottom: 1px dashed #b9b9b9;
-}
-.tribe-bar-search-filter {
-	float: left;
-	width: 25%;
-}
-
-.tribe-bar-mini .tribe-bar-search-filter {
-	padding: 10px;
-	width: 22.5%;
-}
-
-.tribe-bar-geoloc-filter {
-	float: left;
-	width: 25%;
-}
-.tribe-bar-mini .tribe-bar-geoloc-filter {
-	width: 22.5%;
 }
 
 .tribe-bar-submit {
