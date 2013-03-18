@@ -10,7 +10,7 @@
  * @author Modern Tribe Inc.
  *
  */
- 
+
 
 /* = Day Grid Template Styles
    @ Template: day.php
@@ -737,6 +737,27 @@ h3.tribe-events-related-events-title {
 
 .tribe-events-single ul.tribe-related-events .tribe-related-events-title {
 	margin-bottom: 4%;
+}
+
+/* = Events Calendar Tribe Bar Styles
+=============================================*/
+
+.tribe-bar-search-filter {
+	width: 25%;
+	float: left;
+}
+
+.tribe-bar-mini .tribe-bar-search-filter {
+	padding: 10px;
+	width: 22.5%;
+}
+
+.tribe-bar-geoloc-filter {
+	float: left;
+	width: 25%;
+}
+.tribe-bar-mini .tribe-bar-geoloc-filter {
+	width: 22.5%;
 }
 
 /* = Events Calendar Widget Styles (Sidebar)
