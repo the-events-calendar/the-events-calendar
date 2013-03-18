@@ -126,7 +126,7 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	if( tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate ) {
-		$('#tribe-bar-date').on( 'change', function (e) {
+		$('#tribe-bar-date').on( 'changeDate', function (e) {
 			if( !tribe_ev.tests.reset_on() )
 				tribe_events_bar_photoajax_actions(e)
 		} );

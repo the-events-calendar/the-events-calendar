@@ -132,6 +132,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_photoview_in_bar' ), 30, 1 );
 			add_filter( 'tribe_events_ugly_link', array( $this, 'ugly_link' ), 10, 3);
 			add_filter( 'tribe-events-bar-date-search-default-value', array( $this, 'maybe_setup_date_in_bar' ) );
+			add_filter( 'tribe_bar_datepicker_caption', array( $this, 'setup_datepicker_label' ), 10, 1 );
 
 			/* AJAX for loading day view */
 			add_action( 'wp_ajax_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
@@ -930,6 +931,15 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			                  'anchor'     => __( 'Photo', 'tribe-events-calendar-pro' ),
 			                  'url'        => tribe_get_photo_permalink() );
 			return $views;
+		}
+
+		public function setup_datepicker_label ( $caption ) {
+			if ( tribe_is_day() ) {
+				$caption = __('Day Of', 'tribe-events-calendar-pro');
+			} elseif ( tribe_is_week() ) {
+				$caption = __('Week Starting', 'tribe-events-calendar-pro');
+			}
+			return $caption;
 		}
 
 		function maybe_setup_date_in_bar( $value ) {

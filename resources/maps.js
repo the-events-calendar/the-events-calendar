@@ -321,7 +321,9 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	if ( GeoLoc.map_view  && $( 'form#tribe-bar-form' ).length ) {
-
+		$('#tribe-events-bar').on('changeDate', '#tribe-bar-date', function ( e ) {
+           tribe_events_bar_mapajax_actions( e );
+       });
 		$( '.tribe-bar-settings button[name="settingsUpdate"]' ).on( 'click', function (e) {			
 			tribe_events_bar_mapajax_actions(e);
 			tribe_ev.fn.hide_settings();
