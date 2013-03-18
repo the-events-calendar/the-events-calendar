@@ -25,7 +25,8 @@ jQuery( document ).ready( function ( $ ) {
 	});
 
 if ( !$( '.tribe-events-week-grid' ).length ) {
-	if ( !$( '.events-gridview' ).length || $( '#tribe-geo-map-wrapper' ).length )  {
+	// includes temporary check for map view, as it currently has the grid view body class
+	if ( !$( '.events-gridview' ).length || tribe_ev.tests.map_view() )  {
 
 		// setup list view datepicker
 		var tribe_var_datepickerOpts = {
@@ -38,7 +39,7 @@ if ( !$( '.tribe-events-week-grid' ).length ) {
 		}).data('datepicker');
 	}
 		// setup month view datepicker
-	if ( $( '.events-gridview' ).length && !$( '#tribe-geo-map-wrapper' ).length ) {
+	if ( $( '.events-gridview' ).length && !tribe_ev.tests.map_view() ) {
 		var tribe_var_datepickerOpts = {
 			format: 'yyyy-mm',
 			showAnim: 'fadeIn',
