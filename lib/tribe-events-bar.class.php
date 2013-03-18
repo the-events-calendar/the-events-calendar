@@ -156,6 +156,9 @@ class TribeEventsBar {
 
 		$open 		= '<label>View As</label>';
 
+		echo $open_wrap;
+		echo $open_inner_wrap;		
+
 		if ( count( $views ) <= $limit ) {
 			// Standard list navigation for larger screens
 			$open    .= '<ul class="tribe-bar-view-list">';
@@ -178,11 +181,8 @@ class TribeEventsBar {
 			$close_el = "</option>";
 		}
 
-		$close_inner_wrap = '</div></div>'; // close .tribe-bar-views-inner
+		$close_inner_wrap = '</div>'; // close .tribe-bar-views-inner
 		$close_wrap = '</div>'; // close #tribe-bar-views
-
-		echo $open_wrap;
-		echo $open_inner_wrap;
 
 		// standard list navigation for larger screens or select depending on number of views
 		echo '<h3 class="tribe-events-visuallyhidden">' . __( 'Event Views Navigation', 'tribe-events-calendar' ) . '</h3>';
