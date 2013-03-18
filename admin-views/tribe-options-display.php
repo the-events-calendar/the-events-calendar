@@ -47,12 +47,8 @@ $displayTab = array(
 		'stylesheetOption' => array(
 			'type' => 'radio',
 			'label' => __( 'Default stylesheet used for events templates', 'tribe-events-calendar' ),
-			'default' => 'tribe',
-			'options' => array( 
-				'skeleton' => 'Skeleton Styles (These styles provide a bare minimum level of layout for the more complex templates, and is recommended if you\'re customizing the events template styles)', 
-				'full' => 'Full Styles (These styles provide a more complex level of layout and style and should adapt to your theme)', 
-				'tribe' => 'Tribe Events Styles (These styles provide a fully designed events theme)'
-			),
+			'default' => 'full',
+			'options' => array( 'full' => 'Full Stylesheet (These styles will most likely override some of your current theme styles on events templates)', 'skeleton' => 'Skeleton Stylesheet (These styles shouldn\'t override your current theme styles)' ),
 			'validation_type' => 'options',
 		),
         'tribeEventsTemplate' => array(

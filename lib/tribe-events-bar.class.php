@@ -131,17 +131,9 @@ class TribeEventsBar {
 				echo $filter['html'];
 			echo '</div>';
 		}
-<<<<<<< HEAD
 		echo '<div class="tribe-bar-submit">';
 			echo '<input class="tribe-events-button-grey tribe-no-param" type="submit" name="submit-bar" value="' . __( 'Find Events', 'tribe-events-calendar' ) . '"/>';
 		echo '</div>';
-=======
-
-		echo '<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="' . __( 'Search', 'tribe-events-calendar' ) . '"/>';
-		
-		echo '</div><!-- .tribe-bar-drop-content -->';
-
->>>>>>> refs/heads/feature/sexy-theme
 	}
 
 
@@ -172,7 +164,7 @@ class TribeEventsBar {
 			$open    .= '<ul class="tribe-bar-view-list">';
 			$close    = "</ul>";
 			$current  = 'tribe-active';
-			$open_el  = '<li><a class="tribe-bar-view tribe-events-button tribe-icon-!VIEW! !CURRENT-ACTIVE!" href="!URL!">';
+			$open_el  = '<li><a class="tribe-bar-view tribe-events-button-grey tribe-icon-!VIEW! !CURRENT-ACTIVE!" href="!URL!">';
 			$close_el = "</a></li>";
 			// Select input for smaller screens
 			$open_sel     = '<select class="tribe-bar-view-select tribe-select2 tribe-no-param" name="tribe-events-bar-view">';
@@ -253,7 +245,7 @@ class TribeEventsBar {
 			echo '<label for="tribeHideRecurrence">';
 			echo '<input type="checkbox" name="tribeHideRecurrence" value="1" ' . checked( $hide_recurrence, 1, false ) . '>' . __( 'Hide subsequent occurences of events in lists<br /><span>Check to hide all but the next iteration</span>', 'tribe-events-calendar' );
 			echo '</label>';
-			echo '<button type="button" name="settingsUpdate" class="tribe-events-button">' . __( 'Update', 'tribe-events-calendar' ) . '</button>';
+			echo '<button type="button" name="settingsUpdate" class="tribe-events-button-grey">' . __( 'Update', 'tribe-events-calendar' ) . '</button>';
 			echo '</div><!-- .tribe-bar-drop-content -->';
 			echo '</div><!-- .tribe-bar-drop-content -->';
 			
