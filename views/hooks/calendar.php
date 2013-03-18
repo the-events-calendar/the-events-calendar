@@ -103,7 +103,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_the_title');
 		}
 		public static function the_title(){			
-			$html = sprintf( '<h2 class="tribe-events-page-title">'. __( 'Events For ', 'tribe-events-calendar' ) .'%s</h2>',
+			$html = sprintf( '<h2 class="tribe-events-page-title">'. __( 'Events in ', 'tribe-events-calendar' ) .'%s</h2>',
 				date( "F Y", strtotime( tribe_get_month_view_date() ))
 				);
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_the_title');
@@ -133,12 +133,12 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 
 			// Display Previous Page Navigation
 			$html = '<li class="tribe-nav-previous">';
-			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&larr; '. tribe_get_previous_month_text() .' </a>';
+			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&laquo; '. tribe_get_previous_month_text() .' </a>';
 			$html .= '</li><!-- .tribe-nav-previous -->';
 
 			// Display Next Page Navigation
 			$html .= '<li class="tribe-nav-next">';
-			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() .'" rel="next"> '. tribe_get_next_month_text() .' &rarr;</a>';
+			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() .'" rel="next"> '. tribe_get_next_month_text() .' &raquo;</a>';
 			
 			// Loading spinner
 			$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
@@ -240,12 +240,12 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 
 			// Display Previous Page Navigation
 			$html = '<li class="tribe-nav-previous">';
-			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&larr; '. tribe_get_previous_month_text() .' </a>';
+			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&laquo; '. tribe_get_previous_month_text() .' </a>';
 			$html .= '</li><!-- .tribe-nav-previous -->';
 			
 			// Display Next Page Navigation
 			$html .= '<li class="tribe-nav-next">';
-			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() .'" rel="next"> '. tribe_get_next_month_text() .' &rarr;</a>';
+			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() .'" rel="next"> '. tribe_get_next_month_text() .' &raquo;</a>';
 			$html .= '</li><!-- .tribe-nav-next -->';
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_footer_nav');
@@ -262,7 +262,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		public static function after_template(){
 			$html = '';
 			if( function_exists( 'tribe_get_ical_link' ) )
-				$html .= '<a class="tribe-events-ical tribe-events-button-grey" title="'. __( 'iCal Import', 'tribe-events-calendar' ) .'" href="'. tribe_get_ical_link() .'">'. __( 'iCal Import', 'tribe-events-calendar' ) .'</a>';
+				$html .= '<a class="tribe-events-ical tribe-events-button" title="'. __( 'iCal Import', 'tribe-events-calendar' ) .'" href="'. tribe_get_ical_link() .'">'. __( '+ iCal Import', 'tribe-events-calendar' ) .'</a>';
 				
 			if ( tribe_get_option( 'donate-link', FALSE ) == TRUE )
 				$html .= '<p class="tribe-events-promo">' . apply_filters( 'tribe_promo_banner', sprintf( __( 'Calendar powered by %sThe Events Calendar%s', 'tribe-events-calendar' ), '<a class="vcard url org fn" href="http://tri.be/wordpress-events-calendar/">', '</a>' ) ) . '</p>';
@@ -409,16 +409,18 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 						</div><!-- .duration -->
 
 						<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail($post->ID) ) { ?>
-						<div class="tribe-events-event-thumb"><?php echo get_the_post_thumbnail( $post->ID, array( 75,75 ) );?></div>
+						<div class="tribe-events-event-thumb"><?php echo get_the_post_thumbnail( $post->ID, array( 90,90 ) );?></div>
 						<?php } ?>
 
+						<?php if( has_excerpt( $post->ID ) || $post->post_content ) { ?>
 						<p class="entry-summary description">
-							<?php if( has_excerpt( $post->ID ) ) {
-							echo $tribe_ecp->truncate( $post->post_excerpt, 30 );
+						<?php if( has_excerpt( $post->ID ) ) {
+							echo $tribe_ecp->tribe_events_truncate( $post->post_excerpt, 30 );
 						} else {
-							echo $tribe_ecp->truncate( $post->post_content, 30 );
+							echo $tribe_ecp->tribe_events_truncate( $post->post_content, 30 );
 						} ?>
 						</p><!-- .entry-summary -->
+						<?php } ?>
 
 					</div><!-- .tribe-events-event-body -->
 					<span class="tribe-events-arrow"></span>
