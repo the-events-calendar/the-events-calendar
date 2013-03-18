@@ -7,10 +7,6 @@ jQuery( document ).ready( function ( $ ) {
 
 	if($('.tribe-events-calendar').length && $('#tribe-events-bar').length ) {
 		has_bar = true;
-		$( '.tribe-events-events-dropdown' ).select2({
-			minimumResultsForSearch: 9999,
-			dropdownCssClass: 'tribe-select2-results-dates'
-		});
 	}
 
 	if( tribe_ev.tests.pushstate && !tribe_ev.tests.map_view() ) {
@@ -57,29 +53,20 @@ jQuery( document ).ready( function ( $ ) {
 		});
 	} );
 
-	function tribe_monitor_selects(e) {
-		e.preventDefault();
-		tribe_ev.state.date = $( '#tribe-events-events-year' ).val() + '-' + $( '#tribe-events-events-month' ).val();
-		$( '#tribe-bar-date' ).val(tribe_ev.state.date + tribe_ev.fn.get_day());
-		if( tribe_ev.state.filter_cats )
-			tribe_ev.data.cur_url = $('#tribe-events-header').attr( 'data-baseurl' ) + tribe_ev.state.date + '/';
-		else
-			tribe_ev.data.cur_url = base_url + tribe_ev.state.date + '/';
-		tribe_ev.state.popping = false;
-		tribe_ev.fn.pre_ajax( function() {
-			tribe_events_calendar_ajax_post();
-		});
-	}
+    $('#tribe-events-bar').on('changeDate', '#tribe-bar-date', function (e) {
+        e.preventDefault();
+        tribe_ev.state.date = $(this).val();
+        $('#tribe-bar-date').val(tribe_ev.fn.get_day() + tribe_ev.state.date);
+        if (tribe_ev.state.filter_cats)
+            tribe_ev.data.cur_url = $('#tribe-events-header').attr('data-baseurl') + tribe_ev.state.date + '/';
+        else
+            tribe_ev.data.cur_url = base_url + tribe_ev.state.date + '/';
+        tribe_ev.state.popping = false;
+        tribe_ev.fn.pre_ajax(function () {
+            tribe_events_calendar_ajax_post();
+        });
+    });
 
-	if( has_bar ){
-		$( '#tribe-events-bar' ).on( 'change', '#tribe-bar-dates select', function ( e ) {
-			tribe_monitor_selects(e);
-		} );
-	} else {
-		$( 'body' ).on( 'change', '#tribe-events-events-picker select', function ( e ) {
-			tribe_monitor_selects(e);
-		} );
-	}
 
 	tribe_ev.fn.snap( '#tribe-events-content', '#tribe-events-content', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );
 
