@@ -131,17 +131,10 @@ class TribeEventsBar {
 				echo $filter['html'];
 			echo '</div>';
 		}
-<<<<<<< HEAD
 
-=======
->>>>>>> refs/heads/develop
 		echo '<div class="tribe-bar-submit">';
 			echo '<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="' . __( 'Find Events', 'tribe-events-calendar' ) . '"/>';
 		echo '</div>';
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/heads/develop
 	}
 
 
