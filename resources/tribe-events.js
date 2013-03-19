@@ -386,23 +386,17 @@ tribe_ev.fn = {
 
 tribe_ev.tests = {	
 	live_ajax: function() {
-		if( jQuery('body').hasClass('tribe-filter-live') )
-			return true;
-		else 
-			return false;
+		return  jQuery('body').is('.tribe-filter-live');
 	},
 	map_view: function(){
-		if( typeof GeoLoc !== 'undefined' && GeoLoc.map_view ) 
-			return true;		
+		if( typeof GeoLoc !== 'undefined' && GeoLoc.map_view )
+			return true;
 		else
-			return false;		
+			return false;
 	},
 	pushstate:!!(window.history && history.pushState),
 	reset_on: function(){
-		if( jQuery('body').hasClass('tribe-reset-on') )
-			return true;
-		else
-			return false;
+		return  jQuery('body').is('.tribe-reset-on');
 	}
 };
 
