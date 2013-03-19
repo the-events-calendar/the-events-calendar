@@ -131,17 +131,11 @@ class TribeEventsBar {
 				echo $filter['html'];
 			echo '</div>';
 		}
-<<<<<<< HEAD
+
 		echo '<div class="tribe-bar-submit">';
-			echo '<input class="tribe-events-button-grey tribe-no-param" type="submit" name="submit-bar" value="' . __( 'Find Events', 'tribe-events-calendar' ) . '"/>';
+			echo '<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="' . __( 'Find Events', 'tribe-events-calendar' ) . '"/>';
 		echo '</div>';
-=======
 
-		echo '<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="' . __( 'Search', 'tribe-events-calendar' ) . '"/>';
-		
-		echo '</div><!-- .tribe-bar-drop-content -->';
-
->>>>>>> refs/heads/feature/sexy-theme
 	}
 
 

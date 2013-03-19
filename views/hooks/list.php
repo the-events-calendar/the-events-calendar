@@ -119,7 +119,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			// Event content
 			add_filter( 'tribe_events_list_before_the_content', array( __CLASS__, 'before_the_content' ), 1, 2 );
 			add_filter( 'tribe_events_list_the_content', array( __CLASS__, 'the_content' ), 1, 2 );
-			add_filter( 'tribe_events_list_after_the_content', array( __CLASS__, 'after_the_content' ), 1, 2 );		
+			add_filter( 'tribe_events_list_after_the_content', array( __CLASS__, 'after_the_content' ), 1, 2 );
 	
 			// End list loop
 			add_filter( 'tribe_events_list_inside_after_loop', array( __CLASS__, 'inside_after_loop' ), 1, 2 );
@@ -175,63 +175,42 @@ if( !class_exists('Tribe_Events_List_Template')){
 			$tribe_ecp = TribeEvents::instance();
 			$html = '';
 			
-<<<<<<< HEAD
 			// Only show the header navigation if posts exist.
 			if ( have_posts() ) {
-				// LEFT NAVIGATION
+				// Left Navigation
 				if( tribe_is_past() ) {
 					$html = '<li class="tribe-nav-next tribe-nav-left tribe-past">';
 					if( get_next_posts_link() ) {
-						$html .= '<a href="' . tribe_get_past_link() . '">&larr; ' . __( 'Previous Events', 'tribe-events-calendar' ) . '</a>';
+						$html .= '<a href="' . tribe_get_past_link() . '">&laquo; ' . __( 'Previous Events', 'tribe-events-calendar' ) . '</a>';
 					}
 					$html .= '</li><!-- .tribe-nav-previous -->';
 				} elseif ( tribe_is_upcoming() ) {
 					if( get_previous_posts_link() ) {
 						$html = '<li class="tribe-nav-previous tribe-nav-left">';
-						$html .= '<a href="'. tribe_get_upcoming_link() .'" rel="prev">&larr; '. __( 'Previous Events', 'tribe-events-calendar' ) .'</a>';
+						$html .= '<a href="'. tribe_get_upcoming_link() .'" rel="prev">&laquo; '. __( 'Previous Events', 'tribe-events-calendar' ) .'</a>';
 					} elseif( !get_previous_posts_link() ) {
 						$html = '<li class="tribe-nav-previous tribe-nav-left tribe-past">';
-						$html .= '<a href="'. tribe_get_past_link() .'" rel="prev">'. __( '&larr; Previous Events', 'tribe-events-calendar' ) .'</a>';
+						$html .= '<a href="'. tribe_get_past_link() .'" rel="prev">'. __( '&laquo; Previous Events', 'tribe-events-calendar' ) .'</a>';
 					}
 					$html .= '</li><!-- .tribe-nav-previous -->';
 				}
-				// RIGHT NAVIGATION
+				// Right Navigation
 				if( tribe_is_past() ) {
 					if( get_query_var( 'paged' ) > 1 ) {
 						$html .= '<li class="tribe-nav-previous tribe-nav-right tribe-past">';
-						$html .= '<a href="'. tribe_get_past_link() .'" rel="prev">'. __( 'Next Events &rarr;', 'tribe-events-calendar' ) .'</a>';
+						$html .= '<a href="'. tribe_get_past_link() .'" rel="prev">'. __( 'Next Events &raquo;', 'tribe-events-calendar' ) .'</a>';
 					} elseif( !get_previous_posts_link() ) {
 						$html .= '<li class="tribe-nav-previous tribe-nav-right">';
-						$html .= '<a href="'. tribe_get_upcoming_link() .'" rel="next">'. __( 'Next Events &rarr;', 'tribe-events-calendar' ) .'</a>';
+						$html .= '<a href="'. tribe_get_upcoming_link() .'" rel="next">'. __( 'Next Events &raquo;', 'tribe-events-calendar' ) .'</a>';
 					}
 					$html .= '</li><!-- .tribe-nav-previous -->';
 				} elseif ( tribe_is_upcoming() ) {
 					$html .= '<li class="tribe-nav-next tribe-nav-right">';
 					if( get_next_posts_link() ) 
-						$html .= '<a href="'. tribe_get_upcoming_link() .'" rel="next">'. __( 'Next Events &rarr;', 'tribe-events-calendar' ) .'</a>';
+						$html .= '<a href="'. tribe_get_upcoming_link() .'" rel="next">'. __( 'Next Events &raquo;', 'tribe-events-calendar' ) .'</a>';
 					$html .= '</li><!-- .tribe-nav-previous -->';
 				}
-=======
-			// Display Previous Page Navigation
-			$html = '<li class="tribe-nav-previous">';
-			if(tribe_is_upcoming() && get_previous_posts_link())
-				$html .= get_previous_posts_link( __( '&laquo; Previous Events', 'tribe-events-calendar' ) );
-			elseif(tribe_is_upcoming() && !get_previous_posts_link())
-				$html .= '<a href="'. tribe_get_past_link() .'" rel="prev">'. __( '&laquo; Previous Events', 'tribe-events-calendar' ) .'</a>';
-			elseif(tribe_is_past() && get_next_posts_link()) 
-				$html .= get_next_posts_link( __( '&laquo; Previous Events', 'tribe-events-calendar' ) );
-			$html .= '</li><!-- .tribe-nav-previous -->';
-			
-			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next">';
-			if(tribe_is_upcoming() && get_next_posts_link())
-				$html .= get_next_posts_link( __( 'Next Events &raquo;', 'tribe-events-calendar' ) );
-			elseif(tribe_is_past() && get_previous_posts_link())
-				$html .= get_previous_posts_link( __( 'Next Events &raquo;', 'tribe-events-calendar' ) );
-			elseif(tribe_is_past() && !get_previous_posts_link()) 
-				$html .= '<a href="'. tribe_get_upcoming_link() .'" rel="next">'. __( 'Next Events &raquo;', 'tribe-events-calendar' ) .'</a>';
->>>>>>> refs/heads/feature/sexy-theme
-			
+				
 				// Loading spinner
 				$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
 				$html .= '</li><!-- .tribe-nav-next -->';
@@ -294,14 +273,10 @@ if( !class_exists('Tribe_Events_List_Template')){
 				self::$prev_event_month = tribe_get_start_date( $post, false, 'm' );
 			}
 
-<<<<<<< HEAD
 			$html = '<div id="post-' . get_the_ID() . '" class="'. $class_string .'">';
-=======
-			$html = '<div id="post-' . get_the_ID() . '" class="' . $class_string . ' tribe-clearfix">';
 			if ( tribe_get_cost() ) // Get our event cost 
 				$html .= '<div class="tribe-events-event-cost"><span>'. tribe_get_cost( null, true ) .'</span></div>';
->>>>>>> refs/heads/feature/sexy-theme
-			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_list_inside_before_loop' );
+				return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_list_inside_before_loop' );
 		}							
 		// Event Title
 		public static function the_event_title( $content, $post_id ){
@@ -405,63 +380,40 @@ if( !class_exists('Tribe_Events_List_Template')){
 			$tribe_ecp = TribeEvents::instance();
 			$html = '';
 			
-<<<<<<< HEAD
-			// LEFT NAVIGATION
+			// Left Navigation
 			if( tribe_is_past() ) {
 				$html = '<li class="tribe-nav-next tribe-nav-left tribe-past">';
 				if( get_next_posts_link() ) {
-					$html .= '<a href="' . tribe_get_past_link() . '">&larr; ' . __( 'Previous Events', 'tribe-events-calendar' ) . '</a>';
+					$html .= '<a href="' . tribe_get_past_link() . '">'. __( '&laquo; Previous Events', 'tribe-events-calendar' ) . '</a>';
 				}
 				$html .= '</li><!-- .tribe-nav-previous -->';
 			} elseif ( tribe_is_upcoming() ) {
 				if( get_previous_posts_link() ) {
 					$html = '<li class="tribe-nav-previous tribe-nav-left">';
-					$html .= get_previous_posts_link( __( '&larr; Previous Events', 'tribe-events-calendar' ) );
+					$html .= get_previous_posts_link( __( '&laquo; Previous Events', 'tribe-events-calendar' ) );
 				} elseif( !get_previous_posts_link() ) {
 					$html = '<li class="tribe-nav-previous tribe-nav-left tribe-past">';
-					$html .= '<a href="'. tribe_get_past_link() .'" rel="prev">'. __( '&larr; Previous Events', 'tribe-events-calendar' ) .'</a>';
+					$html .= '<a href="'. tribe_get_past_link() .'" rel="prev">'. __( '&laquo; Previous Events', 'tribe-events-calendar' ) .'</a>';
 				}
 				$html .= '</li><!-- .tribe-nav-previous -->';
 			}
 			
-			// RIGHT NAVIGATION
+			// Right Navigation
 			if( tribe_is_past() ) {
 				if( get_previous_posts_link() ) {
 					$html .= '<li class="tribe-nav-previous tribe-nav-right tribe-past">';
-					$html .= get_previous_posts_link( __( 'Next Events &rarr;', 'tribe-events-calendar' ) );
+					$html .= get_previous_posts_link( __( 'Next Events &raquo;', 'tribe-events-calendar' ) );
 				} elseif( !get_previous_posts_link() ) {
 					$html .= '<li class="tribe-nav-previous tribe-nav-right">';
-					$html .= '<a href="'. tribe_get_upcoming_link() .'" rel="next">'. __( 'Next Events &rarr;', 'tribe-events-calendar' ) .'</a>';
+					$html .= '<a href="'. tribe_get_upcoming_link() .'" rel="next">'. __( 'Next Events &raquo;', 'tribe-events-calendar' ) .'</a>';
 				}
 				$html .= '</li><!-- .tribe-nav-previous -->';
 			} elseif ( tribe_is_upcoming() ) {
 				$html .= '<li class="tribe-nav-next tribe-nav-right">';
 				if( get_next_posts_link() ) 
-					$html .= '<a href="'. tribe_get_upcoming_link() .'" rel="next">'. __( 'Next Events &rarr;', 'tribe-events-calendar' ) .'</a>';
+					$html .= '<a href="'. tribe_get_upcoming_link() .'" rel="next">'. __( 'Next Events &raquo;', 'tribe-events-calendar' ) .'</a>';
 				$html .= '</li><!-- .tribe-nav-previous -->';
 			}
-=======
-			// Display Previous Page Navigation
-			$html = '<li class="tribe-nav-previous">';
-			if(tribe_is_upcoming() && get_previous_posts_link())
-				$html .= get_previous_posts_link( __( '&laquo; Previous Events', 'tribe-events-calendar' ) );
-			elseif(tribe_is_upcoming() && !get_previous_posts_link())
-				$html .= '<a href="'. tribe_get_past_link() .'" rel="prev">'. __( '&laquo; Previous Events', 'tribe-events-calendar' ) .'</a>';
-			elseif(tribe_is_past() && get_next_posts_link()) 
-				$html .= get_next_posts_link( __( '&laquo; Previous Events', 'tribe-events-calendar' ) );
-			$html .= '</li><!-- .tribe-nav-previous -->';
-			
-			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next">';
-			if(tribe_is_upcoming() && get_next_posts_link())
-				$html .= get_next_posts_link( __( 'Next Events &raquo;', 'tribe-events-calendar' ) );
-			elseif(tribe_is_past() && get_previous_posts_link())
-				$html .= get_previous_posts_link( __( 'Next Events &raquo;', 'tribe-events-calendar' ) );
-			elseif(tribe_is_past() && !get_previous_posts_link()) 
-				$html .= '<a href="'. tribe_get_upcoming_link() .'" rel="next">'. __( 'Next Events &raquo;', 'tribe-events-calendar' ) .'</a>';
-			$html .= '</li><!-- .tribe-nav-next -->';
->>>>>>> refs/heads/feature/sexy-theme
-			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_footer_nav');
 		}
 		public static function after_footer_nav( $content, $post_id ){
