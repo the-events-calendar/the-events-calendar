@@ -28,6 +28,11 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 			add_filter( 'tribe_events_list_header_nav', array( __CLASS__, 'header_navigation' ), 20, 1 );
 			add_filter( 'tribe_events_list_before_loop', array( __CLASS__, 'before_loop'), 20, 1);
 			add_filter( 'tribe_events_list_inside_before_loop', array( __CLASS__, 'inside_before_loop'), 20, 1);
+			add_filter( 'tribe_events_list_the_event_image', array( __CLASS__, 'the_event_image' ), 20, 1 );
+			add_filter( 'tribe_events_list_the_event_title', array( __CLASS__, 'the_event_title' ), 20, 1 );
+			add_filter( 'tribe_events_list_before_the_meta', array( __CLASS__, 'before_the_meta' ), 20, 1 );
+			add_filter( 'tribe_events_list_the_meta', array( __CLASS__, 'the_meta' ), 20, 1 );
+			add_filter( 'tribe_events_list_after_the_meta', array( __CLASS__, 'after_the_meta' ), 20, 1 );
 			add_filter( 'tribe_events_list_the_content', array( __CLASS__, 'the_content'), 20, 1);
 			add_filter( 'tribe_events_list_footer_nav', array( __CLASS__, 'footer_navigation' ), 20, 1 );
 			add_filter( 'tribe_events_list_after_template', array( __CLASS__, 'after_template' ), 20, 1 );
@@ -82,6 +87,58 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 
 			$html = '<div id="post-'. $post_id .'" class="'. $class_string .'">';
 			return apply_filters('tribe_template_factory_debug', $html , 'tribe_events_day_inside_before_loop');
+		}
+		// Event Image
+		public static function the_event_image( $post_id ){
+			$html ='';
+			if ( tribe_event_featured_image() ) {
+				$html .= tribe_event_featured_image(null, 'large');
+			}
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_event_image');
+
+		}
+		// Event Title
+		public static function the_event_title( $post_id ){
+			$html = '<h2 class="entry-title summary"><a class="url" href="'. tribe_get_event_link() .'" title="'. get_the_title( $post_id ) .'" rel="bookmark">'. get_the_title( $post_id ) .'</a></h2>';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_event_title');
+		}
+		// Event Meta
+		public static function before_the_meta( $post_id ){
+			$html = '';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_the_meta');
+		}
+		public static function the_meta( $post_id ){
+			ob_start();
+		?>
+			<div class="tribe-events-event-meta">
+				<?php
+				global $post;
+				echo '<div class="updated published time-details">';
+				if ( !empty( $post->distance ) )
+					echo '<strong>['. tribe_get_distance_with_unit( $post->distance ) .']</strong>';
+				
+				echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); 
+				echo '</div>';
+				
+				// Venue display info
+				$venue_name = tribe_get_meta( 'tribe_event_venue_name' );
+				$venue_address = tribe_get_meta( 'tribe_event_venue_address' );
+				
+				if( !empty( $venue_name ) && !empty( $venue_address ) )
+					printf('<div class="tribe-venue-details">%s%s%s</div>',
+						$venue_name,
+						( !empty( $venue_name ) && !empty( $venue_address ) ) ? ', ' : '',
+						( !empty( $venue_address ) ) ? $venue_address : ''
+					);
+				?>
+			</div><!-- .tribe-events-event-meta -->
+<?php
+			$html = ob_get_clean();
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_meta');
+		}
+		public static function after_the_meta( $post_id ){
+			$html = '';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_the_meta');
 		}
 		// Photo Content
 		public static function the_content( $post_id ){
