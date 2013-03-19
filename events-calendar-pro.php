@@ -190,7 +190,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			// week view title
 			if( tribe_is_week() ) {
-				$reset_title = sprintf( __('Week starting %s', 'tribe-events-calendar-pro'),
+				$reset_title = sprintf( __('Week of %s', 'tribe-events-calendar-pro'),
 					Date("l, F jS Y", strtotime(tribe_get_first_week_day($wp_query->get('start_date'))))
 					);
 			}
@@ -937,7 +937,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			if ( tribe_is_day() ) {
 				$caption = __('Day Of', 'tribe-events-calendar-pro');
 			} elseif ( tribe_is_week() ) {
-				$caption = __('Week Starting', 'tribe-events-calendar-pro');
+				$caption = __('Week Of', 'tribe-events-calendar-pro');
 			}
 			return $caption;
 		}
