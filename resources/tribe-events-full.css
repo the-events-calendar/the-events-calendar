@@ -1256,7 +1256,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 #tribe-bar-collapse-toggle {
 	display: none;
 	height: 57px;
-	width: 66.66667%;
+	width: 60%;
 	padding: 15px;
 	position: relative;
 	font-size: 13px;
@@ -1378,7 +1378,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 33.3333%;
+	width: 40%;
 }
 
 #tribe-bar-form.tribe-bar-collapse .tribe-bar-views-inner {
