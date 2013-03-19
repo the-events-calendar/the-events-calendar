@@ -209,6 +209,8 @@ h2.tribe-events-page-title {
 .single-tribe_events .tribe-event-schedule .tribe-divider {
 	margin-right: .5em;
 	display: inline-block;
+	zoom: 1;
+	*display: inline;
 	font-weight: normal;
 }
 

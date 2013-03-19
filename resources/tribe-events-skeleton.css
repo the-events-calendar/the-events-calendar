@@ -303,6 +303,8 @@ select.tribe-events-dropdown {
 
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
 	display: inline-block;
+	zoom: 1;
+	*display: inline;
 	white-space: pre;
 } 
 
@@ -318,6 +320,8 @@ select.tribe-events-dropdown {
 	line-height: 1.2;
 	margin: 0;
 	display: inline-block;
+	zoom: 1;
+	*display: inline;
 }
 
 .tribe-events-list .time-details {
@@ -412,12 +416,16 @@ select.tribe-events-dropdown {
 
 .single-tribe_events .tribe-event-schedule h2 {
 	display: inline-block;
+	zoom: 1;
+	*display: inline;
 	vertical-align: middle;
 }
 
 /* Cal Links */
 .single-tribe_events .tribe-event-cal-links { 
 	display: inline-block;
+	zoom: 1;
+	*display: inline;
 	margin: 0 0 20px 0;
 	vertical-align: middle;
 }
@@ -552,6 +560,8 @@ select.tribe-events-dropdown {
 /* recurring info tooltip */
 .recurringinfo {
 	display: inline-block;
+	zoom: 1;
+	*display: inline;
 	position: relative;
 } 
 .event-is-recurring {
@@ -685,7 +695,7 @@ select.tribe-events-dropdown {
 	width: auto;
 	min-width: 220px;
 	padding: 4px;
-	margin-bottom: 30px;
+	margin-bottom: 1em;
 }
 #tribe-events-bar * {
 	-webkit-box-sizing: border-box;
@@ -1066,6 +1076,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 .tribe-bar-mini #tribe-bar-filters .tribe-bar-button-search {
 	display: inline-block;
+	zoom: 1;
+	*display: inline;
 }
 .tribe-bar-mini	#tribe-bar-filters .tribe-bar-drop-content input {
 	width: 100%;
@@ -1121,6 +1133,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 .tribe-select2-results span[class^="tribe-icon-"] {
 	min-height: 16px;
 	display: inline-block;
+	zoom: 1;
+	*display: inline;
 }
 .tribe-select2-results .tribe-icon-list,
 .tribe-select2 .tribe-icon-list,

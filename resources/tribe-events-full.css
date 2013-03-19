@@ -354,11 +354,13 @@ h2.tribe-events-page-title a:focus {
 #tribe-events-footer .tribe-events-sub-nav .tribe-nav-previous {
 	float: left;
 	margin-right: 5px;
+	text-align: left;
 }
 #tribe-events-header .tribe-events-sub-nav .tribe-nav-next,
 #tribe-events-footer .tribe-events-sub-nav .tribe-nav-next {
 	float: right;
 	margin-left: 5px;
+	text-align: right;
 }
 #tribe-events-header .tribe-events-sub-nav .tribe-nav-left,
 #tribe-events-footer .tribe-events-sub-nav .tribe-nav-left {
@@ -499,6 +501,8 @@ select.tribe-events-dropdown {
 
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
 	display: inline-block;
+	zoom: 1;
+	*display: inline;
 } 
 
 .tribe-events-event-meta address.event-address {
@@ -526,6 +530,8 @@ select.tribe-events-dropdown {
 	line-height: 1.2;
 	margin: 0;
 	display: inline-block;
+	zoom: 1;
+	*display: inline;
 }
 
 .tribe-events-list .time-details {
@@ -676,6 +682,8 @@ select.tribe-events-dropdown {
 .single-tribe_events .tribe-event-schedule h3 {
 	font-size: 1.2em;
 	display: inline-block;
+	zoom: 1;
+	*display: inline;
 	margin: 0 0 20px 0;
 	padding: 0;
 	vertical-align: middle;
@@ -684,6 +692,8 @@ select.tribe-events-dropdown {
 /* Cal Links */
 .single-tribe_events .tribe-event-cal-links { 
 	display: inline-block;
+	zoom: 1;
+	*display: inline;
 	margin: 0 0 20px 0;
 	vertical-align: middle;
 }
@@ -710,11 +720,15 @@ select.tribe-events-dropdown {
 .single-tribe_events .tribe-event-venue-map {
 	width: 58%;
 	margin: 20px 4% 2% 0;
-	float: right;
 	padding: 5px;
+	float: right;
 	background: #eee;
 	border: 1px solid #ddd;
 	border-radius: 3px;
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
+	vertical-align: top;
 }
 
 .single-tribe_events #tribe-events-gmap {
@@ -741,11 +755,14 @@ select.tribe-events-dropdown {
 }
 .tribe-events-event-meta .tribe-events-meta-group, 
 .tribe-events-event-meta .column {
-	float: left;
 	width: 25%;
 	padding: 0 4%;
 	text-align: left;
 	margin: 0 0 20px 0;
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
+	vertical-align: top;
 }
 
 .single-tribe_events  .tribe-events-event-meta dl {
@@ -858,6 +875,8 @@ select.tribe-events-dropdown {
 /* recurring info tooltip */
 .recurringinfo {
 	display: inline-block;
+	zoom: 1;
+	*display: inline;
 	position: relative;
 } 
 .event-is-recurring {
@@ -1005,7 +1024,7 @@ select.tribe-events-dropdown {
 #tribe-events-bar {
 	width: auto;
 	min-width: 220px;
-	margin-bottom: 30px;
+	margin-bottom: 1em;
 	height: auto;
 }
 #tribe-events-bar * {
@@ -1477,6 +1496,8 @@ form#tribe-bar-form.tribe-bar-mini > div {
 	float: left;
 	width: 14px;
 	display: inline-block;
+	zoom: 1;
+	*display: inline;
 	position: relative;
 }
 #tribe-bar-views .tribe-bar-drop-content button {
@@ -1545,6 +1566,8 @@ form#tribe-bar-form.tribe-bar-mini > div {
 }
 .tribe-bar-mini #tribe-bar-filters .tribe-bar-button-search {
 	display: inline-block;
+	zoom: 1;
+	*display: inline;
 }
 .tribe-bar-mini	#tribe-bar-filters .tribe-bar-drop-content input {
 	width: 100%;
@@ -1624,6 +1647,8 @@ h2.tribe-events-tickets-title {
 .tribe-select2-results-views span[class^="tribe-icon-"] {
 	min-height: 16px;
 	display: inline-block;
+	zoom: 1;
+	*display: inline;
 }
 .tribe-select2-results-views .tribe-icon-list,
 .tribe-select2 .tribe-icon-list,
