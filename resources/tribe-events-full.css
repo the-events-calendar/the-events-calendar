@@ -1309,6 +1309,10 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	text-overflow: ellipsis;
 }
 
+.tribe-bar-mini .tribe-bar-filters {
+	display: block !important;
+}
+
 .tribe-bar-mini .tribe-bar-date-filter {
 	padding: 10px;
 	height: 54px;
