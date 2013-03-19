@@ -103,11 +103,11 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			$tribe_ecp = TribeEvents::instance();
 
 			// Display Previous Page Navigation
-			$html = '<li class="tribe-nav-previous"><a href="#" class="tribe_map_paged">'. __('&laquo; Previous Events') .'</a></li><!-- .tribe-nav-previous -->';
+			$html = '<li class="tribe-nav-previous"><a href="#" class="tribe_map_paged">'. __('&larr; Previous Events') .'</a></li><!-- .tribe-nav-previous -->';
 			
 			// Display Next Page Navigation
 			$html .= '<li class="tribe-nav-next">';
-			$html .= '<a href="#" class="tribe_map_paged">'. __('Next Events &raquo;') .'</a>';
+			$html .= '<a href="#" class="tribe_map_paged">'. __('Next Events &rarr;') .'</a>';
 			
 			// Loading spinner
 			$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
@@ -143,11 +143,11 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			$tribe_ecp = TribeEvents::instance();
 
 			// Display Previous Page Navigation
-			$html = '<li class="tribe-nav-previous"><a href="#" class="tribe_map_paged">'. __('&laquo; Previous Events') .'</a></li><!-- .tribe-nav-previous -->';
+			$html = '<li class="tribe-nav-previous"><a href="#" class="tribe_map_paged">'. __('&larr; Previous Events') .'</a></li><!-- .tribe-nav-previous -->';
 			
 			// Display Next Page Navigation
 			$html .= '<li class="tribe-nav-next">';
-			$html .= '<a href="#" class="tribe_map_paged">'. __('Next Events &raquo;') .'</a>';
+			$html .= '<a href="#" class="tribe_map_paged">'. __('Next Events &rarr;') .'</a>';
 			$html .= '</li><!-- .tribe-nav-next -->';
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_footer_nav');

@@ -8,6 +8,9 @@ function calendar_toggle( wrapper ) {
 	if ( !wrapper )
 		wrapper = jQuery( ".calendar-widget-add-filter" ).last().parents( '.widget-content' );
 
+	if ( wrapper.find( '.calendar-widget-filter-list li' ).length === 0 )
+		calendar_filters = new Object();
+
 	var count = get_term_count();
 
 	if ( count > 0 ) {
@@ -38,7 +41,7 @@ jQuery( document ).ready( function ( $ ) {
 		if( $('div.widgets-sortables').find('.calendar-widget-add-filter').length ) {
 			$( ".select2-container.calendar-widget-add-filter" ).remove();
 			setTimeout(function(){  $( ".calendar-widget-add-filter" ).select2(); calendar_toggle(); }, 600);
-		}		
+		}
 	});
 	
 	$( ".calendar-widget-add-filter" ).select2();
