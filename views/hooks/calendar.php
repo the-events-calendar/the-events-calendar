@@ -18,40 +18,13 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		private static $current_month;
 		private static $current_year;
 		private static $event_daily_counts = array();
-		private static $first_day_of_month = null;
 		private static $posts_per_page_limit = 3;
 		private static $tribe_bar_args = array();
 		private static $cache_expiration = 3600;
 
 		public static function init(){
-			global $wp_query;
 
 			Tribe_Template_Factory::asset_package( 'ajax-calendar' );
-
-			$tribe_ecp = TribeEvents::instance();
-			$tribe_ecp->date = tribe_get_month_view_date();
-
-			// get all upcoming ids to hide so we're not querying 31 times
-			self::$hide_upcoming_ids = TribeEventsQuery::getHideFromUpcomingEvents();
-
-			list( $year, $month ) = explode( '-', $tribe_ecp->date );
-			$date = mktime( 12, 0, 0, $month, 1, $year ); // 1st day of month as unix stamp
-			self::$first_day_of_month = $date;
-
-			// let's find out how many events are happening each day and share
-			self::$event_daily_counts = self::get_daily_counts($date);
-			$total_counts = array_unique(self::$event_daily_counts);
-
-			// setup a search term for query or via ajax
-			if( !empty( $wp_query->query_vars['s'] )){
-				$search_term = $wp_query->query_vars['s'];
-			} else if( !empty($_POST['tribe-bar-search'])) {
-				$search_term = $_POST['tribe-bar-search'];
-			}
-
-			if( count($total_counts) < 2 && !empty($search_term)) {
-				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There are no events for %s. this month. Try searching next month.', 'tribe-events-calendar' ), $search_term ) );
-			}		
 
 			// Start calendar template
 			add_filter( 'tribe_events_calendar_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
@@ -103,7 +76,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_the_title');
 		}
 		public static function the_title(){			
-			$html = sprintf( '<h2 class="tribe-events-page-title">'. __( 'Events For ', 'tribe-events-calendar' ) .'%s</h2>',
+			$html = sprintf( '<h2 class="tribe-events-page-title">'. __( 'Events in ', 'tribe-events-calendar' ) .'%s</h2>',
 				date( "F Y", strtotime( tribe_get_month_view_date() ))
 				);
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_the_title');
@@ -113,13 +86,15 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_after_the_title');
 		}
 		// Notices
-		public static function notices( $post_id ){
-			$html = tribe_events_the_notices(false);
+		public static function notices(){
+			$html = '';
+			if(!empty($notices))	
+				$html .= '<div class="event-notices">' . implode('<br />', $notices) . '</div>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_notices');
 		}
 		// Calendar Header
 		public static function before_header(){
-			$html = '<div id="tribe-events-header" data-title="' . wp_title( '&raquo;', FALSE ) . '" data-date="'. date( 'Y-m', strtotime( tribe_get_month_view_date() ) ) .'" data-baseurl="' . tribe_get_gridview_link( false ) . '">';
+			$html = '<div id="tribe-events-header" data-title="' . wp_title( '&raquo;', FALSE ) . '" data-date="'. date( 'Y-m', strtotime( tribe_get_month_view_date() ) ) .'">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_header');
 		}
 		// Calendar Navigation
@@ -133,12 +108,12 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 
 			// Display Previous Page Navigation
 			$html = '<li class="tribe-nav-previous">';
-			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&larr; '. tribe_get_previous_month_text() .' </a>';
+			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_previous_month_link() . '" rel="pref">&laquo; '. tribe_get_previous_month_text() .' </a>';
 			$html .= '</li><!-- .tribe-nav-previous -->';
-
+			
 			// Display Next Page Navigation
 			$html .= '<li class="tribe-nav-next">';
-			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() .'" rel="next"> '. tribe_get_next_month_text() .' &rarr;</a>';
+			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() .'" rel="next"> '. tribe_get_next_month_text() .' &raquo;</a>';
 			
 			// Loading spinner
 			$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
@@ -162,14 +137,22 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		public static function the_grid(){
 			ob_start();
 
-			$date = self::$first_day_of_month;
-			$year = date( 'Y', $date );
-			$month = date( 'm', $date );
+			$tribe_ecp = TribeEvents::instance();
+			$tribe_ecp->date = tribe_get_month_view_date();
+
+			// get all upcoming ids to hide so we're not querying 31 times
+			self::$hide_upcoming_ids = TribeEventsQuery::getHideFromUpcomingEvents();
+
+			list( $year, $month ) = explode( '-', $tribe_ecp->date );
+			$date = mktime( 12, 0, 0, $month, 1, $year ); // 1st day of month as unix stamp
+
 
 			$startOfWeek = get_option( 'start_of_week', 0 );
 			$rawOffset = date( 'w', $date ) - $startOfWeek;
 			$offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
 			$rows = 1;
+
+			self::$event_daily_counts = self::get_daily_counts($date);
 
 			if ( empty(self::$tribe_bar_args) ) {
 				foreach ( $_REQUEST as $key => $value ) {
@@ -240,12 +223,12 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 
 			// Display Previous Page Navigation
 			$html = '<li class="tribe-nav-previous">';
-			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&larr; '. tribe_get_previous_month_text() .' </a>';
+			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&laquo; '. tribe_get_previous_month_text() .' </a>';
 			$html .= '</li><!-- .tribe-nav-previous -->';
 			
 			// Display Next Page Navigation
 			$html .= '<li class="tribe-nav-next">';
-			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() .'" rel="next"> '. tribe_get_next_month_text() .' &rarr;</a>';
+			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() .'" rel="next"> '. tribe_get_next_month_text() .' &raquo;</a>';
 			$html .= '</li><!-- .tribe-nav-next -->';
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_footer_nav');
@@ -262,7 +245,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		public static function after_template(){
 			$html = '';
 			if( function_exists( 'tribe_get_ical_link' ) )
-				$html .= '<a class="tribe-events-ical tribe-events-button-grey" title="'. __( 'iCal Import', 'tribe-events-calendar' ) .'" href="'. tribe_get_ical_link() .'">'. __( 'iCal Import', 'tribe-events-calendar' ) .'</a>';
+				$html .= '<a class="tribe-events-ical tribe-events-button" title="'. __( 'iCal Import', 'tribe-events-calendar' ) .'" href="'. tribe_get_ical_link() .'">'. __( '+ iCal Import', 'tribe-events-calendar' ) .'</a>';
 				
 			if ( tribe_get_option( 'donate-link', FALSE ) == TRUE )
 				$html .= '<p class="tribe-events-promo">' . apply_filters( 'tribe_promo_banner', sprintf( __( 'Calendar powered by %sThe Events Calendar%s', 'tribe-events-calendar' ), '<a class="vcard url org fn" href="http://tri.be/wordpress-events-calendar/">', '</a>' ) ) . '</p>';
@@ -276,8 +259,6 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			if ( empty($count_args) ) { // this will likely be empty on Ajax calls
 				$count_args['post_type'] = TribeEvents::POSTTYPE;
 				$count_args['eventDisplay'] = 'month';
-				if( !empty($_POST['tribe-bar-search']))
-					$count_args['s'] = $_POST['tribe-bar-search'];
 			}
 			$count_args['start_date'] = date('Y-m-d', $date) . ' 00:00:00';
 			$count_args['end_date'] = date('Y-m-t', $date) . ' 23:59:59';
@@ -358,15 +339,16 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		private static function single_event_classes( $post ) {
 
 			// Get our wrapper classes (for event categories, organizer, venue, and defaults)
-			$classes = array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $post->ID );
+			$classes = array('hentry', 'vevent');
 			$tribe_cat_ids = tribe_get_event_cat_ids( $post->ID );
 			foreach( $tribe_cat_ids as $tribe_cat_id ) {
 				$classes[] = 'tribe-events-category-'. $tribe_cat_id;
 			}
-			if ( $venue_id = tribe_get_venue_id( $post->ID ) ) {
+			$classes = array_merge($classes, get_post_class('', $post->ID));
+			if ( $venue_id = tribe_get_venue_id($post->ID) ) {
 				$classes[] = 'tribe-events-venue-'.$venue_id;
 			}
-			if ( $organizer_id = tribe_get_organizer_id( $post->ID ) ) {
+			if ( $organizer_id = tribe_get_organizer_id($post->ID) ) {
 				$classes[] = 'tribe-events-organizer-'.$organizer_id;
 			}
 			return $classes;
@@ -388,12 +370,12 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 					<h4 class="entry-title summary"><?php echo $post->post_title;?></h4>
 					<div class="tribe-events-event-body">
 						<div class="duration">
-							<abbr class="tribe-events-abbr updated published dtstart" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $start ); ?>">
+							<abbr class="tribe-events-abbr updated published distort" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $start ); ?>">
 								<?php if ( !empty( $start ) )	echo date_i18n( get_option( 'date_format', 'F j, Y' ), $start );
 								if ( !tribe_get_event_meta( $post->ID, '_EventAllDay', TRUE ) )
 									echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), $start ); ?>
 							</abbr><!-- .dtstart -->
-							<abbr class="tribe-events-abbr dtend" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $end ); ?>">
+							<abbr class="tribe-events-abbr tend" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $end ); ?>">
 								<?php if ( !empty( $end )  && $start !== $end ) {
 								if ( date_i18n( 'Y-m-d', $start ) == date_i18n( 'Y-m-d', $end ) ) {
 									$time_format = get_option( 'time_format', 'g:i a' );
@@ -409,16 +391,18 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 						</div><!-- .duration -->
 
 						<?php if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail($post->ID) ) { ?>
-						<div class="tribe-events-event-thumb"><?php echo get_the_post_thumbnail( $post->ID, array( 75,75 ) );?></div>
+						<div class="tribe-events-event-thumb"><?php echo get_the_post_thumbnail( $post->ID, array( 90,90 ) );?></div>
 						<?php } ?>
 
+						<?php if( has_excerpt( $post->ID ) || $post->post_content ) { ?>
 						<p class="entry-summary description">
-							<?php if( has_excerpt( $post->ID ) ) {
-							echo $tribe_ecp->truncate( $post->post_excerpt, 30 );
+						<?php if( has_excerpt( $post->ID ) ) {
+							echo $tribe_ecp->tribe_events_truncate( $post->post_excerpt, 30 );
 						} else {
-							echo $tribe_ecp->truncate( $post->post_content, 30 );
+							echo $tribe_ecp->tribe_events_truncate( $post->post_content, 30 );
 						} ?>
 						</p><!-- .entry-summary -->
+						<?php } ?>
 
 					</div><!-- .tribe-events-event-body -->
 					<span class="tribe-events-arrow"></span>
@@ -447,14 +431,14 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				// Past, Present, Future class
 				if ( self::$current_day == $day ) {
 					$ppf = ' tribe-events-present';
-				} elseif ( self::$current_day > $day ) {
+				} else if ( self::$current_day > $day ) {
 					$ppf = ' tribe-events-past';
-				} elseif ( self::$current_day < $day ) {
+				} else if ( self::$current_day < $day ) {
 					$ppf = ' tribe-events-future';
 				}
-			} elseif ( self::$current_month > $month && self::$current_year == $year || self::$current_year > $year ) {
+			} else if ( self::$current_month > $month && self::$current_year == $year || self::$current_year > $year ) {
 				$ppf = ' tribe-events-past';
-			} elseif ( self::$current_month < $month && self::$current_year == $year || self::$current_year < $year ) {
+			} else if ( self::$current_month < $month && self::$current_year == $year || self::$current_year < $year ) {
 				$ppf = ' tribe-events-future';
 			}
 
@@ -468,8 +452,9 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		private function get_daily_events( $date ) {
 			global $wp_query;
 			$tribe_ecp = TribeEvents::instance();
-
+			
 			$post_status = is_user_logged_in() ? array( 'publish', 'private' ) : 'publish';
+
 			$args = wp_parse_args(array(
 				'eventDate' => $date,
 				'start_date' => tribe_event_beginning_of_day( $date ),
@@ -483,7 +468,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				'post_status' => $post_status,
 				'eventDisplay' => 'custom',
 				'no_found_rows' => TRUE
-			), $wp_query->query_vars);
+			), $wp_query->query);
 
 			if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
 				$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );

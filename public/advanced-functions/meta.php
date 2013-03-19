@@ -148,7 +148,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			$link = sprintf('<a class="tribe-events-gmap" href="%s" title="%s" target="_blank">%s</a>',
 				tribe_get_map_link(),
 				__( 'Click to view a Google Map', 'tribe-events-calendar' ),
-				__( 'Google Map', 'tribe-events-calendar' )
+				__( '+ Google Map', 'tribe-events-calendar' )
 				);
 			return apply_filters( 'tribe_event_meta_gmap_link', $link);
 		}
