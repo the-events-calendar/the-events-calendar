@@ -1173,7 +1173,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 /* Filters */
-
 #tribe-bar-form label {
 	display: block;
 	font-size: 11px;
@@ -1196,6 +1195,14 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 #tribe-bar-dates .select2-choice {
 	border-bottom: 1px dashed #b9b9b9;
+}
+
+.tribe-bar-date-filter {
+	float: left;
+	width: 16.66667%;
+	margin-bottom: 0;
+	height: 72px;
+	padding: 15px;
 }
 
 .tribe-bar-search-filter {
