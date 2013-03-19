@@ -180,6 +180,8 @@ new TribeDateFilter;
 class Tribe_Recur_Filter {
 	protected $key = 'ecp_recur';
 	protected $type = 'recur';
+	protected $meta = '_EventRecurrence';
+
 	protected $opts = array(
 		'is' => 'Yes',
 		'not' => 'No'
@@ -190,22 +192,32 @@ class Tribe_Recur_Filter {
 		$type = $this->type;
 		add_filter( 'tribe_custom_row'.$type, array($this, 'form_row'), 10, 4 );
 		add_filter( 'tribe_maybe_active'.$type, array($this, 'maybe_set_active'), 10, 3 );
-		add_action( 'tribe_after_parse_query', array($this, 'parse_query'), 10, 2 );
+
+		add_filter( 'posts_join', array($this, 'join_recur'), 10, 2);
+		add_filter( 'posts_where', array( $this, 'where_recur' ) );
+
 	}
-	
-	public function parse_query($wp_query, $active) {
-		if ( !isset( $active[$this->key] ) ) {
-			return;
-		}
-		$compare      = ( 'is' === $active[$this->key] ) ? 'NOT IN' : 'IN';
-		$meta_query   = (array)$wp_query->get( 'meta_query' );
-		$meta_query[] = array( 'key'     => '_EventRecurrence',
-		                       'value'   => array( $this->not_recur, '' ),
-		                       'compare' => $compare );
 
-		$wp_query->set('meta_query', $meta_query);
+	public function join_recur( $join, $wp_query ) {
 
+		if ( empty( $_POST[$this->key] ) )
+			return $join;
 
+		global $wpdb;
+		$join .= "LEFT JOIN {$wpdb->postmeta} AS recur_meta ON({$wpdb->posts}.ID = recur_meta.post_id AND recur_meta.meta_key='{$this->meta}') ";
+		return $join;
+	}
+
+	public function where_recur( $where ) {
+		if ( empty( $_POST[$this->key] ) )
+			return $where;
+
+		global $wpdb;
+
+		$compare = ( 'is' === $_POST[$this->key] ) ? 'NOT IN' : 'IN';
+		$where .= $wpdb->prepare( " AND recur_meta.meta_value $compare ('%s')  ", $this->not_recur );
+
+		return $where;
 	}
 
 	public function maybe_set_active($return, $key, $filter) {
