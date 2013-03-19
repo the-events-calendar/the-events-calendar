@@ -2,8 +2,8 @@
  * The Events Calendar Pro Skeleton Stylesheet
  * (These styles shouldn't override your current theme's styles)
  *
- * You can customize this stylesheet by putting a stylesheet of the same name
- * (tribe-events-pro.css) in the tribe-events/pro/ directory of your theme.
+ * You can customize this stylesheet by putting a stylesheet with the name
+ * tribe-events-pro.css in the tribe-events/pro/ directory of your theme.
  *
  * @package TribeEventsCalendar
  * @since  1.0
@@ -24,8 +24,7 @@
 .tribe-events-loop .entry-title {
 	color: #333; 
 	text-decoration: none; 
-	font-size: 18px;
-	margin: 15px 0 6px;
+	font-size: 18px	margin: 15px 0 6px;
 	padding: 0;
 	line-height: 1em;
 	font-weight: bold;
@@ -49,11 +48,9 @@
 =============================================*/
 /* grid structure */
 .tribe-events-grid {
-	border: 1px solid #bbb;
-	font-size: 12px;
 	width: 100%;
 	position: relative;
-	margin: 18px auto;
+	margin: 0 auto .6em;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
@@ -65,16 +62,10 @@
 }
 
 /* grid header */
-.tribe-grid-header {
-	border-bottom: 1px solid #bbb;
-	background-color: #ddd;
-}
-
 .tribe-grid-header .column {
 	text-align: center;
 	text-transform: uppercase;
-	padding: .5em 0;
-	
+	padding: 1em 0;
 }
 .tribe-grid-header .column a {
 	color: #333;
@@ -93,7 +84,6 @@
 }
 
 .tribe-week-grid-hours {
-	background-color: #fff;
 	position: relative;
 	z-index: 20;
 }
@@ -110,7 +100,6 @@
 .tribe-week-grid-hours div {
 	height: 60px;
 	position: relative;
-	text-transform: uppercase;
 	font-weight: bold;
 	font-size: 10px;
 	line-height: 1.25;
@@ -147,9 +136,6 @@
 	visibility: hidden;
 }
 .tribe-events-grid .hentry.vevent h3.entry-title {
-	color: #333;
-	font-size: 12px;
-	line-height: 1.25;
 	padding: 4px 6px;
 	margin: 0;
 	text-transform: none;
@@ -159,9 +145,6 @@
 	height: 100%;
 }
 .tribe-events-grid .hentry.vevent a {
- 	color: #333;
- 	font-size: 12px;
- 	line-height: 1.25;
  	padding: 0;
  	display: block;
 	width: 100%;
@@ -171,24 +154,14 @@
 .tribe-grid-allday .hentry.vevent > div,
 .tribe-grid-body div[id*="tribe-events-event-"] .hentry.vevent { 
 	width: 100%;
-	background-color: #e6e6e6;
-	background-color: rgba(221, 221, 221, .75);
-	border: 1px solid #ccc;
 	-webkit-border-radius: 3px;
 			border-radius: 3px;
 	cursor: pointer;
-}
-.tribe-grid-allday .hentry.vevent > div:hover,
-.tribe-grid-body div[id*="tribe-events-event-"] .hentry.vevent:hover {
-	background-color: #e2e2e2;
-	background-color: rgba(221, 221, 221, .85);
 }
 
 /* All day */
 .tribe-grid-allday {
 	position: relative;
-	background-color: #f9f9f9;
-	border-bottom: 1px solid #bbb;
 }
 .tribe-grid-allday .column {
 	min-height: 60px;	
@@ -285,9 +258,6 @@
 }
 
 /* Specific Classes */
-.tribe-week-today {
-	background-color: #f9f9f9;
-}
 
 /* Week view grid background */
 .tribe-week-grid-outer-wrap {
@@ -400,11 +370,6 @@
 	margin: 0;
 }
 
-.tribe-events-list #tribe-events-photo-events .tribe-events-event-details h2 {
-	font-size: 1.2em;
-	line-height: 1.2;
-	margin-bottom: 10px;
-}
 .tribe-events-list #tribe-events-photo-events .tribe-events-event-details .tribe-events-event-cost + .entry-title {
 	float: none;
 	width: 100%;
@@ -442,9 +407,6 @@
 	position: relative;
 	z-index: 2;
 	margin-bottom: 20px;
-	border: 1px solid #ddd;
-	padding: 2px;
-	background: #eee;
 }
 
 #tribe-geo-map {
@@ -550,16 +512,10 @@
 	display: block;
 	border: 1px solid #ddd;
 	padding: 2px;
-	background: #eee;
 	-webkit-transition: 0.1s ease-in-out;
 	   -moz-transition: 0.1s ease-in-out;
 	     -o-transition: 0.1s ease-in-out;
 			transition: 0.1s ease-in-out
-}
-
-.tribe-geo-result-thumb a:hover {
-	border: 1px solid #ccc;
-	background: #ddd;
 }
 
 .tribe-geo-result-thumb a img {
@@ -609,8 +565,6 @@
 	display: block;
 	font-weight: bold;
 	padding: 8px 10px;
-	border: 1px solid #ddd;
-	background: #eee;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -830,6 +784,32 @@ h3.tribe-events-related-events-title {
 
 .tribe-events-single ul.tribe-related-events .tribe-related-events-title {
 	margin-bottom: 4%;
+}
+
+/* Placeholder if no image */
+ul.tribe-related-events .tribe-related-events-placeholder {
+	text-align: center;
+	margin: 0 auto;
+	padding: 0;
+}
+
+ul.tribe-related-events .tribe-related-events-placeholder a {
+	display: block;
+}
+
+ul.tribe-related-events .tribe-related-events-placeholder-month,
+ul.tribe-related-events .tribe-related-events-placeholder-day,
+ul.tribe-related-events .tribe-related-events-placeholder-year {
+	background-color: #ddd;
+	padding: 6px 0;
+	font-size: 16px;
+	font-weight: bold;
+	display: block;
+}
+
+ul.tribe-related-events .tribe-related-events-placeholder-day {
+	padding: 20% 4%;
+	font-size: 48px;
 }
 
 /* = Events Calendar Widget Styles (Sidebar)
