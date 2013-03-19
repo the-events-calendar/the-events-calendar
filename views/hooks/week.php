@@ -68,8 +68,8 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 				$search_term = $_POST['tribe-bar-search'];
 			}
 
-			if( !empty($search_term)) {
-				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There are no events for %s this week. Try searching another week.', 'tribe-events-calendar' ), $search_term ) );
+			if( !empty( $search_term ) && !have_posts() ) {
+				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar' ), $search_term ) );
 			}				
 		}
 		// Start Week Template
