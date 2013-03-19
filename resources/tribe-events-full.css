@@ -1305,6 +1305,10 @@ form#tribe-bar-form #tribe-bar-views {
 	padding: 0 15px;
 }
 
+.tribe-bar-mini .tribe-bar-views-inner {
+	height: 64px;
+}
+
 #tribe-bar-views .select2-container .select2-choice {
 	background: none;
 	filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
@@ -1423,6 +1427,7 @@ form#tribe-bar-form.tribe-bar-mini > div {
 }
 #tribe-bar-form.tribe-bar-mini label {
 	font-size: 11px;
+	margin: 0;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
