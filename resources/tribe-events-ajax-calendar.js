@@ -4,14 +4,9 @@ jQuery( document ).ready( function ( $ ) {
 	var initial_date = tribe_ev.fn.get_url_param('tribe-bar-date');
 	tribe_ev.state.view = 'month';
 
-	var has_bar = false;
-	var has_day = false;
-
 	if($('.tribe-events-calendar').length && $('#tribe-events-bar').length ) {
-		has_bar = true;
 		if (initial_date) {
 			if (initial_date.length > 7) {
-				has_day = true;
 				$('#tribe-bar-date-day').val(initial_date.slice(-3));
 				$('#tribe-bar-date').val(initial_date.substring(0,7));
 			}
@@ -51,7 +46,7 @@ jQuery( document ).ready( function ( $ ) {
 		e.preventDefault();
 		var $this = $(this);
 		tribe_ev.state.date = $this.attr( "data-month" );
-		$( '#tribe-bar-date' ).val(tribe_ev.state.date + tribe_ev.fn.get_day());
+		$( '#tribe-bar-date' ).val(tribe_ev.state.date);
 		if( tribe_ev.state.filter_cats )
 			tribe_ev.data.cur_url = $('#tribe-events-header').attr( 'data-baseurl' );
 		else
@@ -65,7 +60,7 @@ jQuery( document ).ready( function ( $ ) {
 	$('#tribe-events-bar').on('changeDate', '#tribe-bar-date', function (e) {
 		e.preventDefault();
 		tribe_ev.state.date = $(this).val();
-		$('#tribe-bar-date').val(tribe_ev.state.date + tribe_ev.fn.get_day());
+		$('#tribe-bar-date').val(tribe_ev.state.date);
 		if (tribe_ev.state.filter_cats)
 			tribe_ev.data.cur_url = $('#tribe-events-header').attr('data-baseurl') + tribe_ev.state.date + '/';
 		else
@@ -85,7 +80,7 @@ jQuery( document ).ready( function ( $ ) {
 		if( tribe_events_bar_action != 'change_view' ) {
 			e.preventDefault();
 			tribe_ev.state.date = $('#tribe-events-header').attr('data-date');
-			$('#tribe-bar-date').val(tribe_ev.state.date + tribe_ev.fn.get_day());
+			$('#tribe-bar-date').val(tribe_ev.state.date);
 			if( tribe_ev.state.filter_cats ) {
 				tribe_ev.data.cur_url = $('#tribe-events-header').attr( 'data-baseurl' ) + tribe_ev.state.date + '/';
 			} else {
@@ -144,11 +139,6 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_ev.state.do_string = false;
 				tribe_ev.state.pushstate = true;
 			}
-
-			if (has_day) {
-				$('#tribe-bar-date').val(tribe_ev.state.date.substring(0,7));
-			}
-
 		}
 
 		if( tribe_ev.tests.pushstate && !tribe_ev.state.filter_cats ) {
