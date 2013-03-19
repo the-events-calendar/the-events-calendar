@@ -1446,6 +1446,12 @@ table.tribe-events-tickets .tickets_price {
 	font-weight: bold;
 }
 
+td.tickets_name {
+	color     : #777;
+	font-size : 13px;
+}
+
+
 table.tribe-events-tickets {
 	border-bottom: 1px solid #DDD;
 	margin: 0 0 1.625em;
