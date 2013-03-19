@@ -638,7 +638,7 @@
 
 .single-tribe_organizer  .tribe_organizer h2.entry-title {
 	font-size: 1.6em;
-	margin: 0 0 2% 0;
+	margin: 0 0 .5em 0;
 	padding: 0;
 }
 
@@ -656,6 +656,7 @@
 	font-style: normal;
 	font-weight: bold;
 	word-wrap: break-word;
+	margin-bottom: 1.25em;
 }
 
 .tribe-events-organizer address.organizer-address span {
@@ -663,12 +664,18 @@
 	white-space: pre;
 }
 
+.tribe-events-organizer .tribe-events-event-image {
+	float: left;
+	width: 30%;
+	margin: 0 3% 0 0;
+}
+
 .tribe-events-organizer .tribe-organizer-description {
-	margin-top: 20px;
+	float: left;
+	width: 67%;
 }
 
 .tribe-events-organizer .tribe-divider {
-	color: #999;
 	margin: 0 10px;
 }
 

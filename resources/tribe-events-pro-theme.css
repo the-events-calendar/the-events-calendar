@@ -136,6 +136,36 @@ ul.tribe-related-events .tribe-related-events-placeholder-year {
 }
 
 
+/* = Single Venue Template Styles (Pro Version)
+   @ Template: single-venue.php
+=============================================*/
+.tribe-events-venue .tribe-events-map-wrap {
+	margin: 5px 0 30px 30px;
+	float: right;
+	width: 50%;
+	background: #EEE;
+	padding: 5px;
+	border: 1px solid #DDD;
+	-webkit-border-radius: 3px;
+			border-radius: 3px;
+}
+
+.tribe-events-venue-meta address {
+	font-style: italic;
+	font-weight: normal;
+}
+
+
+/* = Single Organizer Template Styles (Pro Version)
+   @ Template: single-organizer.php
+=============================================*/
+.tribe-events-organizer .tribe-events-organizer-meta {
+	max-width: 700px;
+	margin: 0 auto 1em;
+	border-bottom: 0;
+}
+
+
 /* = Related Events
    @ Template: single-event.php
 =============================================*/

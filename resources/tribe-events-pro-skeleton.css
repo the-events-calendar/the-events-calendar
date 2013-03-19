@@ -619,7 +619,7 @@
 }
 
 .single-tribe_organizer  .tribe_organizer h2.entry-title {
-	margin: 0 0 2% 0;
+	margin: 0 0 .5em 0;
 	padding: 0;
 }
 
@@ -650,7 +650,6 @@
 #tribe-events-content.tribe-events-venue {
 	padding: 0;
 }
-
 
 .tribe-events-venue .tribe-events-venue-meta {
 	margin: 0 0 30px 0;
@@ -702,7 +701,7 @@
 	font-style: normal;
 	font-weight: bold;
 	word-wrap: break-word;
-
+	margin-bottom: 1.25em;
 }
 .tribe-events-organizer address.organizer-address span {
 	line-height: 1;
@@ -713,8 +712,15 @@
 	margin: 0 10px;
 }
 
+.tribe-events-organizer .tribe-events-event-image {
+	float: left;
+	width: 30%;
+	margin: 0 3% 0 0;
+}
+
 .tribe-events-organizer .tribe-organizer-description {
-	margin-top: 20px;
+	float: left;
+	width: 67%;
 }
 
 #tribe-events-pg-template .tribe-events-organizer .organizer-description p {

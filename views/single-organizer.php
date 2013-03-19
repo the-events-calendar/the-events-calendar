@@ -29,14 +29,11 @@ echo apply_filters( 'tribe_events_single_organizer_before_template', '', $organi
 
 	// Start single organizer
 	echo apply_filters( 'tribe_events_single_organizer_before_organizer', '', $organizer_id );
-	
-		// Organizer featured image
-		echo apply_filters( 'tribe_events_single_organizer_featured_image', '', $organizer_id );
 
 		// Organizer title
 		echo apply_filters( 'tribe_events_single_organizer_the_title', '', $organizer_id );
 		
-		// Organizer meta
+		// Organizer meta, featured image, content
 		echo apply_filters( 'tribe_events_single_organizer_before_the_meta', '', $organizer_id );
 		echo apply_filters( 'tribe_events_single_organizer_the_meta', '', $organizer_id );
 		echo apply_filters( 'tribe_events_single_organizer_after_the_meta', '', $organizer_id );
