@@ -50,7 +50,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			}
 
 			if( count($total_counts) < 2 && !empty($search_term)) {
-				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There are no events for %s. this month. Try searching next month.', 'tribe-events-calendar' ), $search_term ) );
+				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this month. Try searching next month.', 'tribe-events-calendar' ), $search_term ) );
 			}		
 
 			// Start calendar template
