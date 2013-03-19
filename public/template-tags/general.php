@@ -292,7 +292,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_events_before_html() {
-		echo wpautop( apply_filters('tribe_events_before_html', stripslashes(tribe_get_option('tribeEventsBeforeHTML'))) );
+		echo apply_filters('tribe_events_before_html', stripslashes(tribe_get_option('tribeEventsBeforeHTML')) );
 	}
 
 	/**
@@ -504,9 +504,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			if ( tribe_is_recurring_event( $post_id ) ) { 
 				$tooltip .= '<span class="recurringinfo">';
 				$tooltip .= '<div class="event-is-recurring">';
-					//$tooltip .= '(&nbsp;<img src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/recurring-event-icon.png" />&nbsp;event&nbsp;)';
-					$tooltip .= '<span class="tribe-divider">|</span>';
-					$tooltip .= 'Recurring event';
+					$tooltip .= '(&nbsp;<img src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/recurring-event-icon.png" />&nbsp;event&nbsp;)';
 					$tooltip .= '<div id="tribe-events-tooltip-'. $post_id .'" class="tribe-events-tooltip recurring-info-tooltip">';
 						$tooltip .= '<div class="tribe-events-event-body">';
 							$tooltip .= tribe_get_recurrence_text( $post_id );
@@ -574,7 +572,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) { // Same start/end time
 				$schedule .= '<span class="date-start">' . tribe_get_start_date( $event, false, $format ) . '</span> @ <span class="start-time">' . tribe_get_start_date( $event, false, $timeFormat ) . '</span>';
 			} else { // defined start/end time
-				$schedule .= '<span class="date-start">' . tribe_get_start_date( $event, false, $format ) . '</span> @ <span class="start-time">' . tribe_get_start_date( $event, false, $timeFormat ) . '</span> - <span class="end-time">' . tribe_get_end_date( $event, false, $timeFormat ) . '</span>';
+				$schedule .= '<span class="date-start">' . tribe_get_start_date( $event, false, $format ) . '</span> <span class="date-divider">|</span> <span class="start-time">' . tribe_get_start_date( $event, false, $timeFormat ) . '</span> - <span class="end-time">' . tribe_get_end_date( $event, false, $timeFormat ) . '</span>';
 			}
 		}
 

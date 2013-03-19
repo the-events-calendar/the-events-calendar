@@ -42,7 +42,7 @@ var tribe_ajax_timer;
 
 // tribe events object
 
-tribe_ev = {};
+var tribe_ev = {};
 
 tribe_ev.fn = {	
 	disable_inputs: function( parent, type ) {
@@ -84,7 +84,7 @@ tribe_ev.fn = {
 	get_day: function() {
 		var dp_day = '';
 		if( jQuery('#tribe-bar-date').length ) {
-			var dp_day = jQuery('#tribe-bar-date-day').val();
+			dp_day = jQuery('#tribe-bar-date-day').val();
 		}
 		return dp_day;
 	},	
@@ -104,10 +104,7 @@ tribe_ev.fn = {
 		return params.toLowerCase().indexOf( term );
 	},
 	is_category: function() {
-		if( jQuery( 'body' ).hasClass( 'tax-tribe_events_cat' ) ) 
-			return true;
-		else
-			return false;
+		return jQuery( 'body' ).hasClass( 'tax-tribe_events_cat' );
 	},
 	make_slug: function( string ) {		
 		var string_h = string.replace(/\s/g,'-');
@@ -389,23 +386,17 @@ tribe_ev.fn = {
 
 tribe_ev.tests = {	
 	live_ajax: function() {
-		if( jQuery('body').hasClass('tribe-filter-live') )
-			return true;
-		else 
-			return false;
+		return  jQuery('body').is('.tribe-filter-live');
 	},
 	map_view: function(){
-		if( typeof GeoLoc !== 'undefined' && GeoLoc.map_view ) 
-			return true;		
+		if( typeof GeoLoc !== 'undefined' && GeoLoc.map_view )
+			return true;
 		else
-			return false;		
+			return false;
 	},
 	pushstate:!!(window.history && history.pushState),
 	reset_on: function(){
-		if( jQuery('body').hasClass('tribe-reset-on') )
-			return true;
-		else
-			return false;
+		return  jQuery('body').is('.tribe-reset-on');
 	}
 };
 
