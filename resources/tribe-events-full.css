@@ -1002,11 +1002,13 @@ select.tribe-events-dropdown {
 /* = Events Navigation Bar
    @ Template: /modules/bar.php
 =============================================*/
+
 #tribe-events-bar {
 	width: auto;
 	min-width: 220px;
 	margin-bottom: 30px;
 	height: auto;
+	position: relative;
 }
 #tribe-events-bar * {
 	-webkit-box-sizing: border-box;
@@ -1018,226 +1020,8 @@ select.tribe-events-dropdown {
 	margin: 0;
 	width: 100%;
 }
-form#tribe-bar-form > div { 
-	margin-bottom: 0; 	
-	background-color: #f5f5f5;
-	height: 72px;
-	padding: 15px;
-}
 
-
-/* Globals */
-/* Special Buttons & Selects */
-#tribe-events-bar #tribe-bar-dates .select2-container .select2-choice {
-	background: none;
-	border-left: none;
-	border-right: none;
-	border-top: none;
-	padding: 0;
-	width: auto !important;
-	border-radius: 0;
-	-webkit-border-radius: 0;
-	-moz-border-radius: 0;
-}
-#tribe-events-bar #tribe-bar-dates .select2-container .select2-choice div {
-	display: none;
-}
-#tribe-events-bar #tribe-bar-dates .select2-container .select2-choice span {
-	margin-right: 0;
-}
-
-#tribe-events-bar [class^="tribe-bar-button-"] {	
-	background-color: #fff;
-	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eee), color-stop(0.5, white));
-	background-image: -webkit-linear-gradient(center bottom, #eee 0%, white 50%);
-	background-image:    -moz-linear-gradient(center bottom, #eee 0%, white 50%);
-	background-image: 	  -ms-linear-gradient(bottom, #eee 0%, #fff 50%);
-	background-image:      -o-linear-gradient(bottom, #eee 0%, #fff 50%);
-	background-image: 		  linear-gradient(bottom, #eee 0%, #fff 50%);
-	-webkit-border-radius:4px;
-			border-radius: 4px;
-	-webkit-background-clip: padding-box;
-	   -moz-background-clip: padding;
-		    background-clip: padding-box;
-	border: 1px solid #aaa;
-	display: block;
-	line-height: 26px;
-	color: #444;
-	text-decoration: none;
-	height: 26px;
-	text-align: center;	
-	cursor: pointer;
-	padding: 0 15px 0 4px;
-	position: relative;
-}
-#tribe-events-bar [class^="tribe-bar-button-"]:after {
-	content: '';
-	position: absolute;
-	right: 4px;
-	width: 12px;
-	height: 100%;
-	background: url('../vendor/select2/select2.png') no-repeat 0 1px;
-	-webkit-background-size: 60px 40px;
-    		background-size: 60px 40px;
-}
-#tribe-events-bar [class^="tribe-bar-button-"].open {
-	border: 1px solid #aaa;
-	-webkit-box-shadow: 0 1px 0 #fff inset;
-			box-shadow: 0 1px 0 #fff inset;
-	background-color: #eee;
-	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, white), color-stop(0.5, #eee));
-	background-image: -webkit-linear-gradient(center bottom, white 0%, #eee 50%);
-	background-image:    -moz-linear-gradient(center bottom, white 0%, #eee 50%);
-	background-image: 	  -ms-linear-gradient(bottom, #fff 0%, #eee 50%);
-	background-image:      -o-linear-gradient(bottom, white 0%, #eee 50%);
-	background-image: 		  linear-gradient(bottom, #fff 0%, #eee 50%);
-}
-#tribe-events-bar [class^="tribe-bar-button-"].open:after {
-	background-position: -18px 1px;
-}
-
-/* Dropdown Content */
-.tribe-bar-settings .tribe-bar-drop-content,
-.tribe-bar-mini #tribe-bar-filters .tribe-bar-drop-content {
-	display: none;
-	position: absolute;
-	top: 36px;
-	z-index: 9999;
-	background-color: #eee;
-	border: 1px solid #bbb;
-	border-top: 0;
-	padding: 4px;	
-	font-size: 13px;
-	width: 200px;
-}
-#tribe-events-bar .tribe-bar-drop-content h5 {
-	font-weight: bold;
-	color: #666;
-}
-
-/* Placeholder Bits */
-input[name*="tribe-bar-"]::-webkit-input-placeholder {
-   color:  #5f5f5f;
-   font-weight: normal;
-   font-style: italic;
-   line-height: 1.3;
-}
-input[name*="tribe-bar-"]:-moz-placeholder {
-   color:  #5f5f5f;
-   font-weight: normal;
-   font-style: italic;
-   line-height: 1.3;
-}
-.placeholder {
-   color:  #5f5f5f;
-   font-weight: normal;
-   font-style: italic;
-   line-height: 1.3;
-}
-
-/* Button Styles */
-#tribe-bar-filters input.tribe-events-button-grey,
-#tribe-bar-views .tribe-bar-view-list li a.tribe-events-button-grey:hover,
-#tribe-bar-views .tribe-bar-drop-content button {
-	background: none;
-	background-color: #666;
-	color: #fff;
-	border: 0;
-	cursor: pointer;
-	-webkit-box-shadow: none;
-			box-shadow: none;
-	font-weight: bold;
-	font-size: 11px;
-	line-height: normal;
-}
-#tribe-bar-filters input.tribe-events-button-grey:hover,
-#tribe-bar-views .tribe-bar-drop-content button:hover {
-	background-color: #ddd;
-	color:#444;
-}
-
-/* Filters */
-
-#tribe-bar-form label {
-	display: block;
-	font-size: 11px;
-	text-transform: uppercase;
-	font-weight: bold;
-	margin-bottom: 5px;
-}
-#tribe-bar-form.tribe-bar-mini label {
-}
-
-#tribe-bar-filters {
-	float: left;
-}
-#tribe-bar-filters input {
-	display: inline-block;
-	zoom: 1;
-	*display: inline;
-	vertical-align: middle;
-}
-
-.tribe-bar-date-filter{
-	float: left;
-	width: 16.66667%;
-}
-
-.tribe-bar-search-filter{
-	float: left;
-	width: 50%;
-}
-
-.tribe-bar-mini .tribe-bar-search-filter{
-	width: 45%;
-}
-
-#tribe-bar-dates .select2-choice {
-	border-bottom: 1px dashed #b9b9b9;
-}
-
-.tribe-bar-submit {
-	float: left;
-	width: 16.66667%;
-}
-
-#tribe-bar-form .tribe-bar-submit input[type=submit] {
-	font-size: 13px;
-	letter-spacing: 0;
-	width: 100%;
-	padding: 10px;
-	background-image: none;
-	background: #666;
-	color: #fff;
-	border: none;
-	border-radius: 0;
-	-moz-border-radius: 0;
-	-webkit-border-radius: 0;
-}
-
-.tribe-bar-submit input[type=submit]:hover {
-	background: #999;
-	color: #fff;
-}
-.tribe-bar-mini .tribe-bar-submit {
-	padding: 10px;
-}
-
-#tribe-bar-dates input {
-	z-index: 99000 !important;
-	width: 100%;
-	text-align: left;
-}
-#tribe-bar-dates .tribe-events-events-dropdown {
-	text-align: left;
-}
-
-#tribe-bar-dates #s2id_tribe-events-events-month {
-	width: auto;
-}
-.select2-drop.tribe-select2-results-dates {
-	width: auto !important;
-}
+/* Form Elements */
 
 #tribe-bar-form input {
 	font-size: 15px;
@@ -1261,31 +1045,97 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	outline: none;
 }
 
-/* Filters Button & Dropdown Content */
-#tribe-bar-form .tribe-bar-button-search {
-	display: none;
-	margin-top: 3px;
+input[name*="tribe-bar-"]::-webkit-input-placeholder {
+   color:  #5f5f5f;
+   font-weight: normal;
+   font-style: italic;
+   line-height: 1.3;
 }
-#tribe-bar-filters .tribe-bar-button-search .tribe-bar-btn-small {
-	background-image: url(images/events-bar/icon-search.png);
-	background-repeat: no-repeat;
-	background-position: 2px 50%;
-	-webkit-background-size: 14px 14px;
-    		background-size: 14px 14px;
-	padding-left: 20px;
+input[name*="tribe-bar-"]:-moz-placeholder {
+   color:  #5f5f5f;
+   font-weight: normal;
+   font-style: italic;
+   line-height: 1.3;
 }
-.tribe-bar-mini #tribe-bar-filters .tribe-bar-drop-content {
-	left: -5px;
-	margin-left: 0;
+.placeholder {
+   color:  #5f5f5f;
+   font-weight: normal;
+   font-style: italic;
+   line-height: 1.3;
 }
 
-/* Views */
-form#tribe-bar-form #tribe-bar-views {
+#tribe-bar-form .tribe-bar-submit input[type=submit] {
+	font-size: 13px;
+	letter-spacing: 0;
+	width: 100%;
+	padding: 10px;
+	background-image: none;
+	background: #666;
+	color: #fff;
+	border: none;
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+}
+
+.tribe-bar-submit input[type=submit]:hover {
+	background: #999;
+	color: #fff;
+}
+
+#tribe-bar-form label {
+	display: block;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+#tribe-bar-dates .select2-choice {
+	border-bottom: 1px dashed #b9b9b9;
+}
+
+/* Tribe Bar Full Layout */
+
+#tribe-bar-filters {
+	float: left;
+}
+
+.tribe-bar-filters > div {
+	background: #f5f5f5;
+}
+
+.tribe-bar-date-filter{
+	float: left;
+	width: 16.66667%;
+	margin-bottom: 0; 	
+	height: 72px;
+	padding: 15px;	
+}
+
+.tribe-bar-search-filter{
+	float: left;
+	width: 50%;
+	margin-bottom: 0; 	
+	height: 72px;
+	padding: 15px;	
+}
+
+.tribe-bar-submit {
+	float: left;
+	width: 16.66667%;
+	margin-bottom: 0; 	
+	height: 72px;
+	padding: 15px;	
+}
+
+#tribe-bar-form #tribe-bar-views {
 	float: left;
 	width: 16.66667%;
 	padding: 0 0 0 5px;
 	background: transparent;
 }
+
 #tribe-bar-views:hover, 
 #tribe-bar-views label:hover {
 	cursor:pointer;
@@ -1306,7 +1156,7 @@ form#tribe-bar-form #tribe-bar-views {
 }
 
 .tribe-bar-mini .tribe-bar-views-inner {
-	height: 64px;
+	height: 54px;
 }
 
 #tribe-bar-views .select2-container .select2-choice {
@@ -1338,25 +1188,8 @@ form#tribe-bar-form #tribe-bar-views {
 	color: inherit;
 }
 
-form#tribe-bar-form.tribe-bar-mini #tribe-bar-views {
+#tribe-bar-form.tribe-bar-mini #tribe-bar-views {
 	width: 16.66667%;
-}
-
-.tribe-bar-mini .tribe-bar-views-inner {
-	padding: 10px 0;
-}
-
-.tribe-bar-mini .tribe-bar-views-inner label {
-	padding: 0 10px;
-}
-
-.tribe-bar-mini .tribe-bar-views-inner .select2-container {
-	padding: 0 10px;
-}
-
-.tribe-bar-mini-select2-results.tribe-select2-results-views.select2-drop .select2-results li {
-	padding: 0 10px;
-	font-size: 12px;
 }
 
 #tribe-bar-views .tribe-bar-view-list {
@@ -1417,11 +1250,54 @@ form#tribe-bar-form.tribe-bar-mini #tribe-bar-views {
 	margin-right: 0;
 }
 
-/* Mini Tribe Bar */
-form#tribe-bar-form.tribe-bar-mini > div {
-	padding: 10px;
-	height: 64px;
+#tribe-bar-views .tribe-bar-settings {
+	display: none;
 }
+
+#tribe-bar-collapse-toggle {
+	display: none;
+	height: 54px;
+	width: 66.66667%;
+	padding: 15px;
+	position: relative;
+	font-size: 13px;
+	font-weight: bold;
+	text-transform: uppercase;	
+	background:  #f5f5f5;	
+}
+
+#tribe-bar-collapse-toggle:hover {
+	cursor: pointer;
+}
+
+#tribe-bar-collapse-toggle span.tribe-bar-toggle-arrow {
+	display:inline-block;
+	margin:0 4px;
+	position: absolute;
+	right: 10px;
+}
+
+#tribe-bar-collapse-toggle span.tribe-bar-toggle-arrow:after{
+	top: 10px;
+	right: 0; 
+	border: solid transparent; 
+	content: " "; 
+	height: 0; 
+	width: 0; 
+	position: absolute; 
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0); 
+	border-top-color: inherit; 
+	border-width: 8px; 	
+}
+
+#tribe-bar-collapse-toggle.tribe-bar-filters-open span.tribe-bar-toggle-arrow:after {
+	top: 0px;
+	border-top-color: transparent;
+	border-bottom-color: inherit;
+}
+/* Tribe Bar Mini Styles */
+
 #tribe-bar-form.tribe-bar-mini * {
 	font-size: 12px;
 }
@@ -1432,78 +1308,82 @@ form#tribe-bar-form.tribe-bar-mini > div {
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-.tribe-bar-mini #tribe-bar-views {
-	width: 16.66667%;
+
+.tribe-bar-mini .tribe-bar-date-filter {
+	padding: 10px;
+	height: 54px;
 }
+
+.tribe-bar-mini .tribe-bar-search-filter{
+	width: 45%;
+	height: 54px;
+	padding: 10px;	
+}
+
 .tribe-bar-mini .tribe-bar-submit {
 	width: 21.66667%;
+	padding: 10px;
+	height: 54px;
 }
 
-/* Views Select When Have Settings */
-
-.tribe-has-settings #tribe-bar-views .select2-container .select2-choice {
-	-webkit-border-bottom-right-radius: 0;
-			border-bottom-right-radius: 0;
-	-webkit-border-top-right-radius: 0;
-			border-top-right-radius: 0;
-}
-.tribe-has-settings #tribe-bar-views .select2-container .select2-choice div {
-	-webkit-border-radius: 0;
-			border-radius: 0;
-	background: transparent;
-	background-image: none;
-	filter: none;
-	border-left: 0;
+#tribe-bar-form.tribe-bar-mini .tribe-bar-submit input[type=submit] {
+	font-size: 11px;
+	padding: 10px 5px;
 }
 
-/* Settings */
-#tribe-events-bar .tribe-bar-settings {
+.tribe-bar-mini #tribe-bar-views {
+	width: 16.66667%;
+	height: 54px;
+}
+
+.tribe-bar-mini .tribe-bar-views-inner {
+	padding: 10px 0;
+}
+
+.tribe-bar-mini .tribe-bar-views-inner label {
+	padding: 0 10px;
+}
+
+.tribe-bar-mini .tribe-bar-views-inner .select2-container {
+	padding: 0 10px;
+}
+
+.tribe-bar-mini-select2-results.tribe-select2-results-views.select2-drop .select2-results li {
+	padding: 0 10px;
+	font-size: 12px;
+}
+
+/* Tribe Bar Collapse Styles */
+
+#tribe-bar-form.tribe-bar-collapse .tribe-bar-filters {
+	display: none;
+	margin-top: 5px;
 	overflow: hidden;
 }
-#tribe-events-bar .tribe-bar-button-settings span {
-	background-image: url(images/events-bar/icon-gear.png);
-	background-repeat: no-repeat;
-	background-position: 50% 50%;
-	-webkit-background-size: 14px 14px;
-    		background-size: 14px 14px;
-	height: 100%;
-	float: left;
-	width: 14px;
-	display: inline-block;
-	position: relative;
-}
-#tribe-bar-views .tribe-bar-drop-content button {
+
+.tribe-bar-collapse .tribe-bar-filters > div, .tribe-bar-collapse #tribe-bar-views {
 	width: 100%;
+	height: auto;
 }
 
-/* Filters Button & Dropdown Content */
-#tribe-events-bar .tribe-bar-button-settings {
-	border-left-color: transparent;
-	-webkit-border-radius: 0 4px 4px 0;
-			border-radius: 0 4px 4px 0;
-	float: left;
-	margin-left: -1px;
-}
-.tribe-bar-settings .tribe-bar-drop-content {
-	width: 285px;
-	right: -5px;
-	padding: 10px 12px 4px;
+.tribe-bar-collapse #tribe-bar-collapse-toggle {
+	display: block;
 }
 
-/* Bar Width Adjustments */
-.tribe-bar-full #tribe-bar-views .tribe-bar-view-select,
-.tribe-bar-full #tribe-bar-views .tribe-bar-view-select ~ .tribe-select2 {
-	display: none;
+#tribe-bar-form.tribe-bar-collapse #tribe-bar-views {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 33.3333%;
 }
-.tribe-bar-mini #tribe-bar-views .tribe-bar-view-select,
-.tribe-bar-mini #tribe-bar-views .tribe-bar-view-select ~ .tribe-select2 {
-	display: block;
+
+#tribe-bar-form.tribe-bar-collapse .tribe-bar-views-inner {
+	padding: 5px 0;
+	height: 54px;
 }
-.tribe-bar-full #tribe-bar-views ul.tribe-bar-view-list {
-	display: block;
-}
-.tribe-bar-mini #tribe-bar-views ul.tribe-bar-view-list {
-	display: none;
+
+#tribe-bar-form.tribe-bar-collapse .tribe-bar-views-inner label {
+	margin: 0;
 }
 
 /* Swap out our view nav to be a select input */
@@ -1515,71 +1395,6 @@ form#tribe-bar-form.tribe-bar-mini > div {
 	#tribe-bar-views .tribe-bar-view-select ~ .tribe-select2 {
 		display: block;
 	}
-}
-
-/* Ensure that our filters show at proper width */
-@media screen and (min-width: 676px) {
-	.tribe-bar-full #tribe-bar-filters .tribe-bar-drop-content {
-		display: inline !important;
-	}
-}
-
-/* Mini Bar styles for when parent container gets less than 643px wide */
-.tribe-bar-mini {
-	-webkit-box-sizing: border-box;
-	   -moz-box-sizing: border-box;
-			box-sizing: border-box;
-}
-.tribe-bar-mini.tribe-has-datepicker {
-	height: auto;
-}
-.tribe-bar-mini #tribe-bar-filters {
-	padding-right: 285px;
-}
-.tribe-bar-mini #tribe-bar-filters .tribe-bar-button-search {
-	display: inline-block;
-}
-.tribe-bar-mini	#tribe-bar-filters .tribe-bar-drop-content input {
-	width: 100%;
-	margin-top: 4px;
-}
-.tribe-bar-mini	#tribe-bar-form input[type="submit"] {
-	text-align: center;
-}
-
-/* Mini Bar styles for when browser window starts hitting mobile or small parent container */
-.tribe-bar-mini-parent {
-	height: 71px;
-}
-.tribe-bar-mini-parent .tribe-bar-settings .tribe-bar-drop-content,
-.tribe-bar-mini-parent #tribe-bar-filters .tribe-bar-drop-content {
-	top: 65px;
-}
-.tribe-bar-mini-parent #tribe-bar-filters {
-	margin-top: 32px;
-	padding-right: 148px;
-}
-.tribe-bar-mini-parent #tribe-bar-filters .tribe-bar-button-search {
-	width: 128px;
-	text-align: left;
-}
-.tribe-bar-mini-parent #tribe-bar-filters .tribe-bar-button-search .tribe-bar-btn-small span {
-	display: inline;
-}
-.tribe-bar-mini-parent #tribe-bar-dates,
-.tribe-bar-mini-parent.tribe-has-settings #tribe-bar-dates,
-.tribe-bar-mini-parent.tribe-has-datepicker.tribe-has-settings #tribe-bar-dates {
-	position: absolute;
-	margin-left: 0;
-	width: 100%;
-	text-align: center;
-}
-.tribe-bar-mini-parent #tribe-bar-views {
-	margin-top: 35px;
-}
-	
-.tribe-bar-mini-parent #tribe-bar-filters .tribe-bar-button-search .tribe-bar-btn-small span {
-	display: none;
 }
 
 table.tribe-events-tickets .tickets_price {
