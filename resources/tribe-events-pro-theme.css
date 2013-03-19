@@ -127,10 +127,12 @@ ul.tribe-related-events .tribe-related-events-placeholder-year {
 
 .tribe-events-filter-view #tribe-geo-wrapper #tribe-events-header li {
 	display: inline-block;
+	zoom: 1;
+	*display: inline;
 }
 
 #tribe-events-header .tribe-ajax-loading {
-	top: 0;
+	top: -8px;
 }
 
 

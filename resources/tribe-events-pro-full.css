@@ -200,7 +200,9 @@
 /* truncated all day titles */
 .tribe-grid-allday .hentry.vevent h3.entry-title a.url {
 	padding: 8px 6px;
-	display: inline-block; 
+	display: inline-block;
+	zoom: 1;
+	*display: inline; 
 	overflow: hidden; 
 	text-overflow: ellipsis; 
 	white-space: nowrap;
