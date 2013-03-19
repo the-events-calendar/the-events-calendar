@@ -1256,11 +1256,12 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 #tribe-bar-collapse-toggle {
 	display: none;
-	height: 54px;
+	height: 57px;
 	width: 66.66667%;
 	padding: 15px;
 	position: relative;
 	font-size: 13px;
+	line-height: 28px;
 	font-weight: bold;
 	text-transform: uppercase;	
 	background:  #f5f5f5;	
@@ -1378,8 +1379,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 #tribe-bar-form.tribe-bar-collapse .tribe-bar-views-inner {
-	padding: 5px 0;
-	height: 54px;
+	padding: 10px 0;
+	height: 57px;
 }
 
 #tribe-bar-form.tribe-bar-collapse .tribe-bar-views-inner label {
