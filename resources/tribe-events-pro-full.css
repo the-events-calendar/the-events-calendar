@@ -896,9 +896,14 @@ div.tribe-countdown-text {
 
 /* = Events Calendar Tribe Bar Styles
 =============================================*/
-.tribe-bar-search-filter {
+.tribe-bar-search-filter,
+.tribe-bar-geoloc-filter {
 	width: 25%;
 	float: left;
+	margin-bottom: 0; 	
+	background-color: #f5f5f5;
+	height: 72px;
+	padding: 15px;
 }
  
 .tribe-bar-mini .tribe-bar-search-filter {
@@ -906,10 +911,8 @@ div.tribe-countdown-text {
 	width: 22.5%;
 }
  
-.tribe-bar-geoloc-filter {
-	float: left;
-	width: 25%;
-}
 .tribe-bar-mini .tribe-bar-geoloc-filter {
 	width: 22.5%;
+	padding: 10px;
+	height: 54px;
 }
