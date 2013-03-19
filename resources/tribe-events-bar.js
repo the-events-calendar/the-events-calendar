@@ -8,15 +8,15 @@ jQuery( document ).ready( function ( $ ) {
 		var tribeBar = $( '#tribe-bar-form' );
 		var tribeBarWidth = tribeBar.width();
 
-		if ( tribeBarWidth > 643 ) {
-			tribeBar.removeClass( 'tribe-bar-mini tribe-bar-mini-parent' ).addClass( 'tribe-bar-full' );
+		if ( tribeBarWidth > 800 ) {
+			tribeBar.removeClass( 'tribe-bar-mini tribe-bar-collapse' ).addClass( 'tribe-bar-full' );
 		} else {
 			tribeBar.removeClass( 'tribe-bar-full' ).addClass( 'tribe-bar-mini' );
 		}
 		if ( tribeBarWidth < 470 ) {
-			tribeBar.addClass( 'tribe-bar-mini-parent' );
+			tribeBar.removeClass( 'tribe-bar-mini' ).addClass( 'tribe-bar-collapse' );
 		} else {
-			tribeBar.removeClass( 'tribe-bar-mini-parent' );
+			tribeBar.removeClass( 'tribe-bar-collapse' );
 		}
 	}
 	eventsBarWidth();
@@ -100,6 +100,11 @@ if ( !$( '.tribe-events-week-grid' ).length ) {
 		else
 			$( '#tribe-bar-views .tribe-select2' ).select2('open');
 	});
+
+	$('#tribe-bar-form').on('click', '#tribe-bar-collapse-toggle', function() {
+		$(this).toggleClass('tribe-bar-filters-open');
+		$('.tribe-bar-filters').slideToggle('fast');
+	});	
 
 	$('body').on('click', function() {
 		$( '#tribe-bar-views' ).removeClass( 'tribe-bar-views-closed' );
