@@ -25,6 +25,31 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		public static function init(){
 
 			Tribe_Template_Factory::asset_package( 'ajax-calendar' );
+			
+			$tribe_ecp = TribeEvents::instance();
+			$tribe_ecp->date = tribe_get_month_view_date();
+
+			// get all upcoming ids to hide so we're not querying 31 times
+			self::$hide_upcoming_ids = TribeEventsQuery::getHideFromUpcomingEvents();
+
+			list( $year, $month ) = explode( '-', $tribe_ecp->date );
+			$date = mktime( 12, 0, 0, $month, 1, $year ); // 1st day of month as unix stamp
+			self::$first_day_of_month = $date;
+
+			// let's find out how many events are happening each day and share
+			self::$event_daily_counts = self::get_daily_counts($date);
+			$total_counts = array_unique(self::$event_daily_counts);
+
+			// setup a search term for query or via ajax
+			if( !empty( $wp_query->query_vars['s'] )){
+				$search_term = $wp_query->query_vars['s'];
+			} else if( !empty($_POST['tribe-bar-search'])) {
+				$search_term = $_POST['tribe-bar-search'];
+			}
+
+			if( count($total_counts) < 2 && !empty($search_term)) {
+				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this month. Try searching next month.', 'tribe-events-calendar' ), $search_term ) );
+			}
 
 			// Start calendar template
 			add_filter( 'tribe_events_calendar_before_template', array( __CLASS__, 'before_template' ), 1, 1 );

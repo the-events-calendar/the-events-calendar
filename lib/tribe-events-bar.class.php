@@ -124,7 +124,8 @@ class TribeEventsBar {
 	 */
 	public static function print_filters_helper( $filters ) {
 
-		echo '<div class="tribe-bar-button-search">' . __( '<span class="tribe-bar-btn-small"><span>Event </span>Search</span>', 'tribe-events-calendar' ) . '</div>';
+		echo '<div id="tribe-bar-collapse-toggle">' . __( 'Find Events', 'tribe-events-calendar' ) . ' <span class="tribe-bar-toggle-arrow"></span></div>';
+		echo 	'<div class="tribe-bar-filters">';
 		foreach ( $filters as $filter ) {
 			echo '<div class="' . esc_attr( $filter['name'] ) . '-filter">';
 				echo '<label class="label-' . esc_attr( $filter['name'] ) . '" for="' . esc_attr( $filter['name'] ) . '">' . $filter['caption'] . '</label>';
@@ -134,6 +135,7 @@ class TribeEventsBar {
 
 		echo '<div class="tribe-bar-submit">';
 			echo '<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="' . __( 'Find Events', 'tribe-events-calendar' ) . '"/>';
+		echo '</div>';
 		echo '</div>';
 	}
 
@@ -153,7 +155,7 @@ class TribeEventsBar {
 		$limit = apply_filters( 'tribe-events-bar-views-breakpoint', 0 );
 
 		$open_wrap = '<div id="tribe-bar-views">';
-		$open_inner_wrap = '<div class="tribe-bar-views-inner">';
+		$open_inner_wrap = '<div class="tribe-bar-views-inner tribe-clearfix">';
 
 		$open 		= '<label>View As</label>';
 
