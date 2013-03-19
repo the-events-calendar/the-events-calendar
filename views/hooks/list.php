@@ -51,11 +51,11 @@ if( !class_exists('Tribe_Events_List_Template')){
 			}
 
 			// Search term based notices
-			if( !empty($search_term)) {
+			if( !empty($search_term) && !have_posts() ) {
 				if( tribe_is_day() ) {
 					TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There are no events for %s on this day. Try searching another day.', 'tribe-events-calendar' ), $search_term ) );
 				} else {
-					TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There are were no events found for %s.', 'tribe-events-calendar' ), $search_term ) );					
+					TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There are were no events found for %s.', 'tribe-events-calendar' ), $search_term ) );
 				}
 			}
 

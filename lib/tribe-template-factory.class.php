@@ -42,6 +42,9 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					wp_enqueue_script( 'jquery-ui-datepicker' );
 					wp_enqueue_style( 'jquery-ui-datepicker' );
 					break;
+				case 'bootstrap-datepicker' : // Vendor: Bootstrap Datepicker
+					wp_enqueue_style( $prefix . '-bootstrap-datepicker-css', $vendor_url . 'bootstrap-datepicker/css/datepicker.css' );
+					wp_enqueue_script( $prefix . '-bootstrap-datepicker', $vendor_url . 'bootstrap-datepicker/js/bootstrap-datepicker.js', 'jquery', '3.2' );						
 				case 'dialog' : // Vendor: jQuery Dialog
 					wp_enqueue_script( 'jquery-ui-dialog' );
 					break;

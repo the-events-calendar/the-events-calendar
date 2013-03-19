@@ -135,14 +135,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$html = '<li class="tribe-nav-previous">';
 			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&larr; '. tribe_get_previous_month_text() .' </a>';
 			$html .= '</li><!-- .tribe-nav-previous -->';
-			
-			// Display Date Navigation
-			$html .= '<li class="tribe-events-nav-date">';
-			ob_start();
-			tribe_month_year_dropdowns( "tribe-events-", tribe_get_month_view_date() );
-			$html .= ob_get_clean();
-			$html .= '</li><!-- .tribe-events-nav-date -->';
-			
+
 			// Display Next Page Navigation
 			$html .= '<li class="tribe-nav-next">';
 			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() .'" rel="next"> '. tribe_get_next_month_text() .' &rarr;</a>';
@@ -289,6 +282,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$count_args['start_date'] = date('Y-m-d', $date) . ' 00:00:00';
 			$count_args['end_date'] = date('Y-m-t', $date) . ' 23:59:59';
 			$count_args['hide_upcoming_ids'] = self::$hide_upcoming_ids;
+			$count_args['post_status'] = is_user_logged_in() ? array( 'publish', 'private' ) : 'publish';
 
 			$cache = new TribeEventsCache();
 			$cache_key = 'daily_counts_'.serialize($count_args);
@@ -475,6 +469,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			global $wp_query;
 			$tribe_ecp = TribeEvents::instance();
 
+			$post_status = is_user_logged_in() ? array( 'publish', 'private' ) : 'publish';
 			$args = wp_parse_args(array(
 				'eventDate' => $date,
 				'start_date' => tribe_event_beginning_of_day( $date ),
@@ -485,6 +480,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				'posts_per_page' => self::$posts_per_page_limit,
 				'orderby' => 'event_date',
 				'order' => 'ASC',
+				'post_status' => $post_status,
 				'eventDisplay' => 'custom',
 				'no_found_rows' => TRUE
 			), $wp_query->query_vars);

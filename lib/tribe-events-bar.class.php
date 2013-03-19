@@ -109,7 +109,7 @@ class TribeEventsBar {
 			Tribe_Template_Factory::asset_package( 'tribe-events-bar' );
 			Tribe_Template_Factory::asset_package( 'select2' );
 			Tribe_Template_Factory::asset_package( 'jquery-placeholder' );
-			Tribe_Template_Factory::asset_package( 'datepicker' );
+			Tribe_Template_Factory::asset_package( 'bootstrap-datepicker' );
 
 			do_action( 'tribe-events-bar-enqueue-scripts' );
 		}
@@ -125,18 +125,15 @@ class TribeEventsBar {
 	public static function print_filters_helper( $filters ) {
 
 		echo '<div class="tribe-bar-button-search">' . __( '<span class="tribe-bar-btn-small"><span>Event </span>Search</span>', 'tribe-events-calendar' ) . '</div>';
-
-		echo '<div class="tribe-bar-drop-content">';
-
 		foreach ( $filters as $filter ) {
-			echo '<label class="tribe-events-visuallyhidden" for="' . esc_attr( $filter['name'] ) . '">' . $filter['caption'] . '</label>';
-			echo $filter['html'];
+			echo '<div class="' . esc_attr( $filter['name'] ) . '-filter">';
+				echo '<label class="label-' . esc_attr( $filter['name'] ) . '" for="' . esc_attr( $filter['name'] ) . '">' . $filter['caption'] . '</label>';
+				echo $filter['html'];
+			echo '</div>';
 		}
-
-		echo '<input class="tribe-events-button-grey tribe-no-param" type="submit" name="submit-bar" value="' . __( 'Search', 'tribe-events-calendar' ) . '"/>';
-
-		echo '</div><!-- .tribe-bar-drop-content -->';
-
+		echo '<div class="tribe-bar-submit">';
+			echo '<input class="tribe-events-button-grey tribe-no-param" type="submit" name="submit-bar" value="' . __( 'Find Events', 'tribe-events-calendar' ) . '"/>';
+		echo '</div>';
 	}
 
 
@@ -154,9 +151,17 @@ class TribeEventsBar {
 
 		$limit = apply_filters( 'tribe-events-bar-views-breakpoint', 0 );
 
+		$open_wrap = '<div id="tribe-bar-views">';
+		$open_inner_wrap = '<div class="tribe-bar-views-inner">';
+
+		$open 		= '<label>View As</label>';
+
+		echo $open_wrap;
+		echo $open_inner_wrap;		
+
 		if ( count( $views ) <= $limit ) {
 			// Standard list navigation for larger screens
-			$open     = '<ul class="tribe-bar-view-list">';
+			$open    .= '<ul class="tribe-bar-view-list">';
 			$close    = "</ul>";
 			$current  = 'tribe-active';
 			$open_el  = '<li><a class="tribe-bar-view tribe-events-button-grey tribe-icon-!VIEW! !CURRENT-ACTIVE!" href="!URL!">';
@@ -169,20 +174,21 @@ class TribeEventsBar {
 			$close_sel_el = "</option>";
 
 		} else {
-
-			$open     = '<select class="tribe-select2 tribe-no-param" name="tribe-bar-view">';
+			$open    .= '<select class="tribe-select2 tribe-no-param" name="tribe-bar-view">';
 			$close    = "</select>";
 			$current  = 'selected';
 			$open_el  = '<option !CURRENT-ACTIVE! value="!URL!" data-view="!JSKEY!">';
 			$close_el = "</option>";
 		}
 
+		$close_inner_wrap = '</div>'; // close .tribe-bar-views-inner
+		$close_wrap = '</div>'; // close #tribe-bar-views
+
 		// standard list navigation for larger screens or select depending on number of views
 		echo '<h3 class="tribe-events-visuallyhidden">' . __( 'Event Views Navigation', 'tribe-events-calendar' ) . '</h3>';
 		echo $open;
 
 		foreach ( $views as $view ) {
-
 			$item = str_replace( '!URL!', esc_url( $view['url'] ), $open_el );
 			$item = str_replace( '!VIEW!', $view['displaying'], $item );
 			$item = str_replace( '!JSKEY!', $view['displaying'], $item );
@@ -223,9 +229,11 @@ class TribeEventsBar {
 				echo $close_sel_el;
 			}
 			echo $close_sel;
-		}
 
-		// show user front-end settings only if ECP is active
+		}
+		
+	// show user front-end settings only if ECP is active
+
 		if ( class_exists( 'TribeEventsPro' ) ) {
 			$hide_recurrence = isset( $_REQUEST['tribeHideRecurrence'] ) ? $_REQUEST['tribeHideRecurrence'] : tribe_get_option( 'hideSubsequentRecurrencesDefault', false );
 
@@ -240,9 +248,11 @@ class TribeEventsBar {
 			echo '<button type="button" name="settingsUpdate" class="tribe-events-button-grey">' . __( 'Update', 'tribe-events-calendar' ) . '</button>';
 			echo '</div><!-- .tribe-bar-drop-content -->';
 			echo '</div><!-- .tribe-bar-drop-content -->';
-
+			
 		}
-
+		
+			echo $close_inner_wrap;
+			echo $close_wrap;
 	}
 
 	/**
