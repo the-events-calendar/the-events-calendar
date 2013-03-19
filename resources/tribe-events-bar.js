@@ -158,6 +158,14 @@ if ( !$( '.tribe-events-week-grid' ).length ) {
 
 		tribe_events_bar_action = 'change_view';
 
+		if( tribe_ev.state.view === 'month' && $('#tribe-bar-date' ).length ){
+			var $dp = $('#tribe-bar-date' );
+			var dp_date = $dp.val();
+			if(dp_date.length === 7){
+				$dp.val(dp_date + tribe_ev.fn.get_day());
+			}
+		}
+
 		var cv_url_params = {};
 		var $set_inputs = $( '#tribe-bar-form input' );
 
