@@ -1097,10 +1097,9 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 /* Tribe Bar Full Layout */
 
-#tribe-bar-filters {
-	float: left;
+.tribe-bar-full .tribe-bar-filters {
+	display: block !important;
 }
-
 .tribe-bar-filters > div {
 	background: #f5f5f5;
 }
