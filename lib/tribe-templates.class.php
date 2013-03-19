@@ -32,9 +32,9 @@ if (!class_exists('TribeEventsTemplates')) {
 			
 			if( tribe_get_option('tribeEventsTemplate', 'default') == '' ) {
 				if(is_single() && !tribe_is_showing_all() ) {
-					return TribeEventsTemplates::getTemplateHierarchy('wrapper-single');
+					return self::getTemplateHierarchy('wrapper-single');
 				} else {
-					return TribeEventsTemplates::getTemplateHierarchy('wrapper-page');
+					return self::getTemplateHierarchy('wrapper-page');
 				}
 			} else {
 				// we need to ensure that we always enter the loop, whether or not there are any events in the actual query
@@ -120,22 +120,24 @@ if (!class_exists('TribeEventsTemplates')) {
 			if ( is_tax( TribeEvents::TAXONOMY) ) {
 				if ( tribe_is_upcoming() || tribe_is_past() ){
 					Tribe_Template_Factory::asset_package( 'ajax-list' );
-					$template = TribeEventsTemplates::getTemplateHierarchy('list-view');
+					$template = self::getTemplateHierarchy('list-view');
 				}else{
-					$template = TribeEventsTemplates::getTemplateHierarchy('calendar');
+					$template = self::getTemplateHierarchy('calendar');
 				}
 			} if ( is_single() && !tribe_is_showing_all() ) {
 				// single event
-				$template = TribeEventsTemplates::getTemplateHierarchy('single-event');
+				$template = self::getTemplateHierarchy('single-event');
 			} elseif ( tribe_is_upcoming() || tribe_is_past() || (is_single() && tribe_is_showing_all()) ) {
 				// list view
 				Tribe_Template_Factory::asset_package( 'ajax-list' );
-				$template = TribeEventsTemplates::getTemplateHierarchy('list-view');
+				$template = self::getTemplateHierarchy('list-view');
 			} else {
 				// calendar view
 				$tec = TribeEvents::instance();
 				if ( $tec->displaying == 'month' ) {
-					$template = TribeEventsTemplates::getTemplateHierarchy( 'calendar' );
+					$template = self::getTemplateHierarchy( 'calendar' );
+				} else {
+					$template = self::getTemplateHierarchy( 'list-view' );
 				}
 			}
 
@@ -150,36 +152,29 @@ if (!class_exists('TribeEventsTemplates')) {
 			// restore the query so that our page template can do a normal loop
 			self::restoreQuery();
 
-			// $notices = array();
-			// $gmt_offset = (get_option('gmt_offset') >= '0' ) ? ' +' . get_option('gmt_offset') : " " . get_option('gmt_offset');
-			// $gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
-			// if (strtotime( tribe_get_end_date(get_the_ID(), false, 'Y-m-d G:i') . $gmt_offset ) <= time() ) 
-			// 	TribeEvents::setNotice( __('This event has passed.', 'tribe-events-calendar') );
-				// $notices[] = __('This event has passed.', 'tribe-events-calendar');
-
 			ob_start();
 
 			// filter the WYSIWYG similiar to the_content
 			$before = tribe_get_option( 'tribeEventsBeforeHTML' );
-      $before = wptexturize( $before );
-      $before = convert_chars( $before );
-      $before = wpautop( $before );
-      $before = shortcode_unautop( $before );
-      $before = apply_filters( 'tribe_events_before_html', $before );
+			$before = wptexturize( $before );
+			$before = convert_chars( $before );
+			$before = wpautop( $before );
+			$before = shortcode_unautop( $before );
+			$before = apply_filters( 'tribe_events_before_html', $before );
 
-      echo $before;
+			echo $before;
 
-			include TribeEventsTemplates::get_current_page_template();
+			include self::get_current_page_template();
 			$after = tribe_get_option( 'tribeEventsAfterHTML' );
-      $after = wptexturize( $after );
-      $after = convert_chars( $after );
-      $after = wpautop( $after );
-      $after = shortcode_unautop( $after );
-      $after = apply_filters( 'tribe_events_after_html', $after );
-      
-      echo $after;			
+			$after = wptexturize( $after );
+			$after = convert_chars( $after );
+			$after = wpautop( $after );
+			$after = shortcode_unautop( $after );
+			$after = apply_filters( 'tribe_events_after_html', $after );
 
-      $contents = ob_get_contents();
+			echo $after;			
+
+			$contents = ob_get_contents();
 			ob_end_clean();
 		
 			// spoof the query again because not all of our templates make use of the loop
@@ -196,7 +191,7 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			// if the helper class for single event template hasn't been loaded fix that
 			if( !class_exists('Tribe_Events_Single_Event_Template') )
-				TribeEventsTemplates::getTemplateHierarchy('single-event');
+				self::getTemplateHierarchy('single-event');
 
 			// single event title
 			$before_title = apply_filters( 'tribe_events_single_event_before_the_title', '', $post_id );
@@ -254,7 +249,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			if (tribe_is_in_main_loop() && tribe_is_event($post->ID)) {
 				ob_start();
 				echo stripslashes(tribe_get_option('tribeEventsBeforeHTML'));
-				include_once(TribeEventsTemplates::getTemplateHierarchy('in-loop'));
+				include_once(self::getTemplateHierarchy('in-loop'));
 				echo stripslashes(tribe_get_option('tribeEventsAfterHTML'));
 				$content = ob_get_contents();
 				ob_end_clean();
@@ -366,8 +361,8 @@ if (!class_exists('TribeEventsTemplates')) {
 		private static function spoofQuery() {
 			global $wp_query, $withcomments;
 
-			TribeEventsTemplates::$origPostCount = $wp_query->post_count;
-			TribeEventsTemplates::$origCurrentPost =  $wp_query->current_post;
+			self::$origPostCount = $wp_query->post_count;
+			self::$origCurrentPost =  $wp_query->current_post;
 			$wp_query->current_post = -1;
 			$wp_query->post_count = max($wp_query->post_count, 2);
 			//$wp_query->is_page = true; // don't show comments
@@ -424,8 +419,8 @@ if (!class_exists('TribeEventsTemplates')) {
 		private static function restoreQuery() {
 			global $wp_query;
 			// remove_filter('the_title', array(__CLASS__, 'load_ecp_title_into_page_template') );			
-			$wp_query->current_post = TribeEventsTemplates::$origCurrentPost;
-			$wp_query->post_count = TribeEventsTemplates::$origPostCount;
+			$wp_query->current_post = self::$origCurrentPost;
+			$wp_query->post_count = self::$origPostCount;
 			$wp_query->rewind_posts();
 		}
 	}
