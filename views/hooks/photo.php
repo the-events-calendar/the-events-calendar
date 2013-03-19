@@ -28,7 +28,7 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 			add_filter( 'tribe_events_list_header_nav', array( __CLASS__, 'header_navigation' ), 20, 1 );
 			add_filter( 'tribe_events_list_before_loop', array( __CLASS__, 'before_loop'), 20, 1);
 			add_filter( 'tribe_events_list_inside_before_loop', array( __CLASS__, 'inside_before_loop'), 20, 1);
-			add_filter( 'tribe_events_list_the_event_image', array( __CLASS__, 'the_event_image' ), 20, 1 );
+			add_filter( 'tribe_events_list_the_event_image', '__return_false' );
 			add_filter( 'tribe_events_list_the_event_title', array( __CLASS__, 'the_event_title' ), 20, 1 );
 			add_filter( 'tribe_events_list_before_the_meta', array( __CLASS__, 'before_the_meta' ), 20, 1 );
 			add_filter( 'tribe_events_list_the_meta', array( __CLASS__, 'the_meta' ), 20, 1 );
@@ -86,17 +86,14 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 			$class_string = implode(' ', $classes);
 
 			$html = '<div id="post-'. $post_id .'" class="'. $class_string .'">';
-			return apply_filters('tribe_template_factory_debug', $html , 'tribe_events_day_inside_before_loop');
-		}
-		// Event Image
-		public static function the_event_image( $post_id ){
-			$html ='';
+
+			// show the event featured image
 			if ( tribe_event_featured_image() ) {
 				$html .= tribe_event_featured_image(null, 'large');
 			}
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_event_image');
-
+			return apply_filters('tribe_template_factory_debug', $html , 'tribe_events_day_inside_before_loop');
 		}
+
 		// Event Title
 		public static function the_event_title( $post_id ){
 			$html = '<h2 class="entry-title summary"><a class="url" href="'. tribe_get_event_link() .'" title="'. get_the_title( $post_id ) .'" rel="bookmark">'. get_the_title( $post_id ) .'</a></h2>';
