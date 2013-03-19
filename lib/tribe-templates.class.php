@@ -156,12 +156,30 @@ if (!class_exists('TribeEventsTemplates')) {
 			// if (strtotime( tribe_get_end_date(get_the_ID(), false, 'Y-m-d G:i') . $gmt_offset ) <= time() ) 
 			// 	TribeEvents::setNotice( __('This event has passed.', 'tribe-events-calendar') );
 				// $notices[] = __('This event has passed.', 'tribe-events-calendar');
-		
+
 			ob_start();
-			echo apply_filters( 'tribe_events_before_html', stripslashes( tribe_get_option( 'tribeEventsBeforeHTML' ) ) );
+
+			// filter the WYSIWYG similiar to the_content
+			$before = tribe_get_option( 'tribeEventsBeforeHTML' );
+      $before = wptexturize( $before );
+      $before = convert_chars( $before );
+      $before = wpautop( $before );
+      $before = shortcode_unautop( $before );
+      $before = apply_filters( 'tribe_events_before_html', $before );
+
+      echo $before;
+
 			include TribeEventsTemplates::get_current_page_template();
-			echo apply_filters( 'tribe_events_after_html', stripslashes( tribe_get_option( 'tribeEventsAfterHTML' ) ) );				
-			$contents = ob_get_contents();
+			$after = tribe_get_option( 'tribeEventsAfterHTML' );
+      $after = wptexturize( $after );
+      $after = convert_chars( $after );
+      $after = wpautop( $after );
+      $after = shortcode_unautop( $after );
+      $after = apply_filters( 'tribe_events_after_html', $after );
+      
+      echo $after;			
+
+      $contents = ob_get_contents();
 			ob_end_clean();
 		
 			// spoof the query again because not all of our templates make use of the loop
