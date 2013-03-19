@@ -13,7 +13,7 @@ jQuery( document ).ready( function ( $ ) {
 		} else {
 			tribeBar.removeClass( 'tribe-bar-full' ).addClass( 'tribe-bar-mini' );
 		}
-		if ( tribeBarWidth < 470 ) {
+		if ( tribeBarWidth < 670 ) {
 			tribeBar.removeClass( 'tribe-bar-mini' ).addClass( 'tribe-bar-collapse' );
 		} else {
 			tribeBar.removeClass( 'tribe-bar-collapse' );
