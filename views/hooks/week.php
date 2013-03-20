@@ -366,9 +366,9 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 
 										<p class="entry-summary description">
 										<?php if( has_excerpt( $event->ID ) ) {
-											echo TribeEvents::tribe_events_truncate( $event->post_excerpt, 30 );
+											echo TribeEvents::truncate( $event->post_excerpt, 30 );
 										} else {
-											echo TribeEvents::tribe_events_truncate( $event->post_content, 30 );
+											echo TribeEvents::truncate( $event->post_content, 30 );
 										} ?>
 										</p><!-- .entry-summary -->
 
@@ -517,9 +517,9 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 
 									<p class="entry-summary description">
 									<?php if( has_excerpt( $event->ID ) ) {
-										echo TribeEvents::tribe_events_truncate( $event->post_excerpt, 30 );
+										echo TribeEvents::truncate( $event->post_excerpt, 30 );
 									} else {
-										echo TribeEvents::tribe_events_truncate( $event->post_content, 30 );
+										echo TribeEvents::truncate( $event->post_content, 30 );
 									} ?>
 									</p><!-- .entry-summary -->
 									
