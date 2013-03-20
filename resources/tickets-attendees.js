@@ -152,5 +152,19 @@ jQuery( document ).ready( function ( $ ) {
 		return $email;
 	}
 
+	function tribe_array_filter( arr ) {
+
+		var retObj = {},
+			k;
+
+		for ( k in arr ) {
+			if ( arr[k]  ) {
+				retObj[k] = arr[k];
+			}
+		}
+
+		return retObj;
+	}
+
 
 } );

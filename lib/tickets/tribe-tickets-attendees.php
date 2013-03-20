@@ -29,8 +29,8 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 		$columns = array( 'cb'              => '<input type="checkbox" />',
 						  'order_id'        => __( 'Order #', 'tribe-events-calendar' ),
 						  'order_status'    => __( 'Order Status', 'tribe-events-calendar' ),
-						  'purchaser_name'  => __( 'Purcharser name', 'tribe-events-calendar' ),
-						  'purchaser_email' => __( 'Purcharser email', 'tribe-events-calendar' ),
+						  'purchaser_name'  => __( 'Purchaser name', 'tribe-events-calendar' ),
+						  'purchaser_email' => __( 'Purchaser email', 'tribe-events-calendar' ),
 						  'ticket'          => __( 'Ticket type', 'tribe-events-calendar' ),
 						  'attendee_id'     => __( 'Ticket #', 'tribe-events-calendar' ),
 						  'security'        => __( 'Security Code', 'tribe-events-calendar' ),
@@ -93,7 +93,7 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 
 		echo sprintf( '<input type="button" name="print" class="print button action" value="%s">', __( 'Print', 'tribe-events-calendar' ) );
 		echo sprintf( '<input type="button" name="email" class="email button action" value="%s">', __( 'Email', 'tribe-events-calendar' ) );
-		echo sprintf( '<a target="_blank" href="%s" class="export button action">%s</a>', esc_url( add_query_arg( array( "attendees_csv" => true, "attendees_csv_nonce" => wp_create_nonce( 'attendees_csv_nonce' ) ) ) ), __( 'Export', 'tribe-events-calendar' ) );
+		echo sprintf( '<a href="%s" class="export button action">%s</a>', esc_url( add_query_arg( array( "attendees_csv" => true, "attendees_csv_nonce" => wp_create_nonce( 'attendees_csv_nonce' ) ) ) ), __( 'Export', 'tribe-events-calendar' ) );
 
 		echo '</div>';
 
