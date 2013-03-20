@@ -396,14 +396,14 @@ jQuery(document).ready(function($) {
 	// so events parent menu stays open and active
 	if ( $('#icon-edit').hasClass('icon32-posts-tribe_venue') ) {
 		$('#menu-posts-tribe_events, a.wp-has-submenu')
-			.addClass('wp-menu-open, wp-has-current-submenu')
+			.addClass('wp-menu-open', 'wp-has-current-submenu')
 			.removeClass('wp-not-current-submenu')
 			.find("li:contains('Venues')")
 			.addClass('current');
 	}
 	if ( $('#icon-edit').hasClass('icon32-posts-tribe_organizer') ) {
 		$('#menu-posts-tribe_events, a.wp-has-submenu')
-			.addClass('wp-menu-open, wp-has-current-submenu')
+			.addClass('wp-menu-open', 'wp-has-current-submenu')
 			.removeClass('wp-not-current-submenu')
 			.find("li:contains('Organizers')")
 			.addClass('current');
