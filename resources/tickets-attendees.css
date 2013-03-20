@@ -66,3 +66,13 @@ input.print, input.email, a.export {
 #attendees_email_wrapper label {
 	display : block;
 }
+.attendees_email_dialog {
+	padding:20px;
+	border-radius:0;
+}
+.attendees_email_dialog .ui-dialog-titlebar
+.attendees_email_dialog .ui-widget-header{
+	background:eee;
+	border-radius:0;
+
+}
