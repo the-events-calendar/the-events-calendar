@@ -21,6 +21,7 @@ jQuery( document ).ready( function ( $ ) {
 
 	$( "#attendees_email_wrapper" ).dialog( {
 		autoOpen:false,
+		dialogClass: 'attendees_email_dialog',
 		height  :230,
 		width   :450,
 		modal   :true,
