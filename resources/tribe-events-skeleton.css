@@ -1199,27 +1199,29 @@ only screen and (min-device-pixel-ratio: 2) {
 	#tribe-events-bar [class^="tribe-bar-button-"]:after {
 		background-image: url(../vendor/select2/select2x2.png);
 	}
-	.tribe-select2-results .tribe-icon-list,
-	.tribe-select2 .tribe-icon-list {
+	.tribe-select2-results-views .tribe-icon-list,
+	.tribe-select2 .tribe-icon-list,
+	.tribe-bar-view-list a.tribe-icon-upcoming {
 		background-image: url(images/events-bar/icon-list@2x.png);
 	}
-	.tribe-select2-results .tribe-icon-month,
-	.tribe-select2 .tribe-icon-month {
+	.tribe-select2-results-views .tribe-icon-month,
+	.tribe-select2 .tribe-icon-month,
+	.tribe-bar-view-list a.tribe-icon-month {
 		background-image: url(images/events-bar/icon-month@2x.png);
 	}
-	.tribe-select2-results .tribe-icon-week,
+	.tribe-select2-results-views .tribe-icon-week,
 	.tribe-select2 .tribe-icon-week {
 		background-image: url(images/events-bar/icon-week@2x.png);
 	}
-	.tribe-select2-results .tribe-icon-day,
+	.tribe-select2-results-views .tribe-icon-day,
 	.tribe-select2 .tribe-icon-day {
 		background-image: url(images/events-bar/icon-day@2x.png);
 	}
-	.tribe-select2-results .tribe-icon-photo,
+	.tribe-select2-results-views .tribe-icon-photo,
 	.tribe-select2 .tribe-icon-photo {
 		background-image: url(images/events-bar/icon-photo@2x.png);
 	}
-	.tribe-select2-results span.tribe-icon-map,
+	.tribe-select2-results-views span.tribe-icon-map,
 	.tribe-select2 span.tribe-icon-map {
 		background-image: url(images/events-bar/icon-map@2x.png);
 	}
