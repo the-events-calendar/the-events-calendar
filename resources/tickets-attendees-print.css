@@ -3,6 +3,8 @@
 		display : none;
 	}
 
+	.wrap h2 + h2 {display:block}
+
 	#wpcontent, #wpfooter {
 		margin-left : 20px;
 	}
