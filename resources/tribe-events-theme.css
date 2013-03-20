@@ -89,13 +89,17 @@ h2.tribe-events-page-title {
 #tribe-events-header .tribe-events-sub-nav .tribe-nav-next {
  	display: block;
 }
+.single-tribe_events #tribe-events-footer,
+.tribe-events-day #tribe-events-footer,
+.events-list #tribe-events-footer,
+#tribe-geo-wrapper #tribe-events-footer,
+.tribe-events-photo #tribe-events-footer {
+	border-top: 1px solid #e5e5e5;
+	padding-top: 2em;
+}
 /* General Template Header/Footer Nav */
 .single-tribe_events #tribe-events-header {
  	display: none;
-}
-.single-tribe_events #tribe-events-footer {
-	border-top: 1px solid #e5e5e5;
-	padding-top: 2em;
 }
 
 #tribe-events-header .tribe-ajax-loading {
