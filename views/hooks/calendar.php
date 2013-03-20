@@ -423,9 +423,9 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 						<?php if( has_excerpt( $post->ID ) || $post->post_content ) { ?>
 						<p class="entry-summary description">
 						<?php if( has_excerpt( $post->ID ) ) {
-							echo $tribe_ecp->tribe_events_truncate( $post->post_excerpt, 30 );
+							echo $tribe_ecp->truncate( $post->post_excerpt, 30 );
 						} else {
-							echo $tribe_ecp->tribe_events_truncate( $post->post_content, 30 );
+							echo $tribe_ecp->truncate( $post->post_content, 30 );
 						} ?>
 						</p><!-- .entry-summary -->
 						<?php } ?>
