@@ -18,6 +18,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		private static $current_month;
 		private static $current_year;
 		private static $event_daily_counts = array();
+		private static $first_day_of_month = null;
 		private static $posts_per_page_limit = 3;
 		private static $tribe_bar_args = array();
 		private static $cache_expiration = 3600;
