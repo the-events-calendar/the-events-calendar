@@ -178,7 +178,7 @@ class TribeEventsGeoLoc {
 			// Show only venues that have geoloc info
 			$force  = true;
 			//Get all geoloc'ed venues
-			$venues = $this->get_venues_in_geofence(1, 1, 7000 );
+			$venues = $this->get_venues_in_geofence( 1, 1, self::EARTH_RADIO * 2 );
 		}
 
 		if ( $force ) {
