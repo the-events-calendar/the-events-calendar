@@ -19,31 +19,33 @@ $tickets  = TribeEventsTickets::get_event_tickets( $event_id );
 				<tr>
 					<td width="33%" valign="top">
 						<?php
-
-						$venue_id = tribe_get_venue_id( $event_id );
-						if ( ! empty( $venue_id ) )
-							$venue = get_post( $venue_id );
-
 						echo sprintf( '<h4>%s</h4>', esc_html( __( 'Event Details', 'tribe-events-calendar' ) ) );
 
 						echo sprintf( '<strong>%s </strong> %s', esc_html( __( 'Start Date / Time:', 'tribe-events-calendar' ) ), tribe_get_start_date( $event_id, false, get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) ) );
 						echo "<br/>";
 						echo sprintf( '<strong>%s </strong> %s', esc_html( __( 'End Date / Time:', 'tribe-events-calendar' ) ), tribe_get_end_date( $event_id, false, get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) ) );
 
+						$venue_id = tribe_get_venue_id( $event_id );
+						if ( ! empty( $venue_id ) )
+							$venue = get_post( $venue_id );
+
 						if ( ! empty( $venue ) ) {
 							echo "<br/>";
 							echo sprintf( '<strong>%s </strong> %s', esc_html( __( 'Venue:', 'tribe-events-calendar' ) ), esc_html( $venue->post_title ) );
 
-							echo "<br/>";
-							echo sprintf( '<strong>%s </strong> %s', esc_html( __( 'Phone:', 'tribe-events-calendar' ) ), esc_html( get_post_meta( $venue_id, '_VenuePhone', true ) ) );
+							$phone = get_post_meta( $venue_id, '_VenuePhone', true );
+							if ( ! empty( $phone ) ) {
+								echo "<br/>";
+								echo sprintf( '<strong>%s </strong> %s', esc_html( __( 'Phone:', 'tribe-events-calendar' ) ), esc_html( $phone ) );
+							}
 
-							echo "<br/>";
-							echo sprintf( '<strong>%s </strong> <a target="_blank" href="%s">%s</a>', esc_html( __( 'Website:', 'tribe-events-calendar' ) ), esc_url( get_post_meta( $venue_id, '_VenueURL', true ) ), esc_html( get_post_meta( $venue_id, '_VenueURL', true ) ) );
-
+							$website = get_post_meta( $venue_id, '_VenueURL', true );
+							if ( ! empty( $website ) ) {
+								echo "<br/>";
+								echo sprintf( '<strong>%s </strong> <a target="_blank" href="%s">%s</a>', esc_html( __( 'Website:', 'tribe-events-calendar' ) ), esc_url( $website ), esc_html( $website ) );
+							}
 						}
-
 						?>
-
 					</td>
 					<td width="33%" valign="top">
 						<?php
