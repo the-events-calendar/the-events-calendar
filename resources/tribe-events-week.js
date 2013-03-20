@@ -178,7 +178,7 @@ jQuery(document).ready(function($){
 		
 		// set the height of the header columns to the height of the tallest
 
-		var header_column_height = $(".tribe-grid-header .tribe-grid-content-wrap").height();
+		var header_column_height = $(".tribe-grid-header .tribe-grid-content-wrap .column").height();
 
 		$(".tribe-grid-header .column").height(header_column_height);
 

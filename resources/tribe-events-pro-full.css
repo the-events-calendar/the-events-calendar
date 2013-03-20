@@ -58,6 +58,7 @@
 	text-transform: uppercase;
 	padding: 1em 0;
 }
+
 .tribe-grid-header .column a {
 	color: #333;
 }
@@ -233,7 +234,6 @@
 .tribe-grid-body .hentry.vevent {
  	width: 100%;
  	height: 100%;
- 	overflow: hidden;
 }
 .tribe-grid-body div[id*="tribe-events-event-"] { 		
  	font-weight: bold; 
