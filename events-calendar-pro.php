@@ -570,6 +570,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					// remove the default gridview class from core
 					$classes = array_diff($classes, array('events-gridview'));
 				}
+				if ( $wp_query->tribe_is_map ) {
+					$classes[] = ' tribe-events-map';
+					// remove the default gridview class from core
+					$classes = array_diff( $classes, array( 'events-gridview' ) );
+				}
 			}
 			return $classes;
 		}
@@ -579,6 +584,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$query->tribe_is_week = false;
 			$query->tribe_is_day = false;
 			$query->tribe_is_photo = false;
+			$query->tribe_is_map = false;
 			if(!empty( $query->query_vars['eventDisplay'] )) {
 				$pro_query = true;
 				switch( $query->query_vars['eventDisplay']){
@@ -613,6 +619,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$query->set( 'hide_upcoming', false );
 						$query->tribe_is_photo = true;
 						break;
+					case 'map':
+						/*
+						* Query setup for the map view is located in
+						* TribeEventsGeoLoc->setup_geoloc_in_query()
+						*/
+						$query->tribe_is_map = true;
+
 				}
 			}
 			$query->tribe_is_event_pro_query = $pro_query;
