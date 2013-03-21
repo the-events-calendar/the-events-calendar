@@ -121,7 +121,7 @@ if (!class_exists('TribeEventsTemplates')) {
 				if ( tribe_is_upcoming() || tribe_is_past() ){
 					Tribe_Template_Factory::asset_package( 'ajax-list' );
 					$template = self::getTemplateHierarchy('list-view');
-				}else{
+				}elseif ( tribe_is_month() ) {
 					$template = self::getTemplateHierarchy('calendar');
 				}
 			} if ( is_single() && !tribe_is_showing_all() ) {
