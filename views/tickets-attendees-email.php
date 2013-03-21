@@ -19,8 +19,9 @@
 	foreach ( $items as $item ) {
 		$count ++;
 		if ( $count === 1 ) echo '<thead><tr>';
-		if ( $count === 2 ) echo '<tbody><tr>';
+		if ( $count === 2 ) echo '<tbody>';
 		if ( $count > 1 ) {
+			echo '<tr>';
 			$cell_type = 'td';
 			if ( $count % 2 == 0 )
 				$style = $odd_style;
