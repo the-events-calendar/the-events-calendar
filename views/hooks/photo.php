@@ -124,8 +124,7 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 				'sep' => ', ',
 				'after' => '</p>'
 			);
-			global $post;
-			$html .= tribe_get_event_taxonomy( $post->ID, $args );
+			$html .= tribe_get_event_taxonomy( get_the_id(), $args );
 			
 			$html .= '</div><!-- .tribe-events-event-details -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_photo_the_content');
