@@ -30,6 +30,11 @@ echo apply_filters( 'tribe_events_single_event_before_template', '', $event_id )
 	// Event notice
 	echo apply_filters( 'tribe_events_single_event_notices', $event_id );
 	
+	// Event title
+	echo apply_filters( 'tribe_events_single_event_before_the_title', '', $event_id );
+	echo apply_filters( 'tribe_events_single_event_the_title', '', $event_id );
+	echo apply_filters( 'tribe_events_single_event_after_the_title', '', $event_id );
+	
 	// Event header
     echo apply_filters( 'tribe_events_single_event_before_header', '', $event_id );
 
@@ -39,11 +44,6 @@ echo apply_filters( 'tribe_events_single_event_before_template', '', $event_id )
 		echo apply_filters( 'tribe_events_single_event_after_header_nav', '', $event_id );
 
 	echo apply_filters( 'tribe_events_single_event_after_header', '', $event_id );
-	
-	// Event title
-	echo apply_filters( 'tribe_events_single_event_before_the_title', '', $event_id );
-	echo apply_filters( 'tribe_events_single_event_the_title', '', $event_id );
-	echo apply_filters( 'tribe_events_single_event_after_the_title', '', $event_id );
 	
 	// Event featured image
 	echo apply_filters( 'tribe_events_single_event_featured_image', '', $event_id );

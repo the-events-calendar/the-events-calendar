@@ -160,6 +160,10 @@ a.tribe-events-gcal {
 .tribe-events-gcal {
 	margin-right: 9px;
 }
+.single-tribe_events a.tribe-events-ical,
+.single-tribe_events a.tribe-events-gcal {
+	float: none;
+}
 
 /* Google Maps */
 .tribe-events-event-meta .tribe-events-gmap, 
@@ -388,9 +392,11 @@ h2.tribe-events-page-title a:focus {
 	margin: 1.25em 0 18px;
 }
 /* Single Event & Map View Nav Tweaks */
-.single-tribe_events #tribe-events-header,
 #tribe-geo-wrapper #tribe-events-header {
 	margin: 1em 0;
+}
+.single-tribe_events #tribe-events-header {
+	margin: 1em 0 20px;
 }
 .single-tribe_events #tribe-events-header li,
 .single-tribe_events #tribe-events-footer li {
@@ -682,7 +688,7 @@ select.tribe-events-dropdown {
 	display: inline-block;
 	zoom: 1;
 	*display: inline;
-	margin: 0 0 20px 0;
+	margin: 0;
 	padding: 0;
 	vertical-align: middle;
 }
