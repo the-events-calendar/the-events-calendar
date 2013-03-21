@@ -44,6 +44,25 @@ ul.tribe-related-events .tribe-related-events-placeholder-year {
  	color: #fff;	
 }
 
+
+/* = Day Grid Template Styles
+   @ Template: day.php
+=============================================*/
+.tribe-events-day .tribe-events-day-time-slot h5 {
+	font-size: 21px;
+	margin: 1.5em 0 .25em;
+	background-color: transparent;
+	padding: 6px 10px;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	color: #ccc;
+	line-height: 1;
+}
+.tribe-events-day .tribe-events-day-time-slot .vevent {
+	margin-left: 0;
+}
+
+
 /* = Week Grid Template Styles
    @ Template: week.php
 =============================================*/
@@ -163,6 +182,53 @@ ul.tribe-related-events .tribe-related-events-placeholder-year {
 	max-width: 700px;
 	margin: 0 auto 1em;
 	border-bottom: 0;
+}
+
+
+/* = Photo View Template Styles 
+   @ Template: photo.php
+=============================================*/
+#tribe-events-photo-events {
+	margin-top: 23px;
+}
+
+#tribe-events-photo-events .vevent.tribe-events-photo-event {
+	border: 0;
+}
+
+.tribe-events-photo h2.tribe-events-page-title {
+	display: none;
+}
+
+/* Tile Styling */
+.tribe-events-photo-event  {
+	background: #f6f6f6;
+}
+.tribe-events-photo-event:hover {
+	background: #fff;
+}
+
+.tribe-events-loop .tribe-events-photo-event .tribe-list-event-description  {
+	margin-top: .5em;
+}
+
+.tribe-events-photo #tribe-events-content .tribe-list-event-description p {
+	line-height: 1.45;
+}
+
+.tribe-events-photo .tribe-events-loop .vevent.hentry .tribe-events-event-meta {
+	margin: 0;
+	padding-right: 0;
+}
+
+.tribe-events-list #tribe-events-photo-events .tribe-events-event-details h2 {
+	font-size: 21px;
+	line-height: 1.35;
+	margin-bottom: .35em;
+}
+
+.tribe-events-photo .tribe-events-loop .tribe-events-event-meta .recurringinfo {
+	padding-left: 0;
 }
 
 

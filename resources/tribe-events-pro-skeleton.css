@@ -365,13 +365,13 @@
 	float: none;
 	margin-top: 10px;
 }
-.tribe-events-list .tribe-events-loop .tribe-events-photo-event .tribe-events-event-meta {
+.tribe-events-photo .tribe-events-loop .vevent.hentry .tribe-events-event-meta {
 	margin: 0;
+	padding-right: 0;
 }
 
-.tribe-events-list #tribe-events-photo-events .tribe-events-event-details .tribe-events-event-cost + .entry-title {
-	float: none;
-	width: 100%;
+.tribe-events-list #tribe-events-photo-events .tribe-events-event-details h2 {
+	padding-right: 0;
 }
 
 .tribe-events-photo-event .entry-title a {
