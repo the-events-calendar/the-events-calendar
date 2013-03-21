@@ -88,6 +88,7 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 			if ( tribe_event_featured_image() ) {
 				$html .= tribe_event_featured_image(null, 'large');
 			}
+			$html .= '<div class="tribe-events-event-details">';
 			return apply_filters('tribe_template_factory_debug', $html , 'tribe_events_day_inside_before_loop');
 		}
 		// Event Meta
@@ -112,10 +113,20 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 		// Photo Content
 		public static function the_content( $post_id ){
 			$html = '';
-			if (has_excerpt())
-				$html .= '<p>'. get_the_excerpt() .'</p>';
+			if ( has_excerpt() )
+				$html .= '<p>'. TribeEvents::truncate(get_the_excerpt(), 20) .'</p>';
 			else
-				$html .= '<p>'. TribeEvents::truncate(get_the_content(), 20) .'</p>';	
+				$html .= '<p>'. TribeEvents::truncate(get_the_content(), 20) .'</p>';
+				
+			// Event Categories
+			$args = array(
+				'before' => '<p class="tribe-event-categories">',
+				'sep' => ', ',
+				'after' => '</p>'
+			);
+			$html .= tribe_get_event_taxonomy( get_the_id(), $args );
+			
+			$html .= '</div><!-- .tribe-events-event-details -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_photo_the_content');
 		}
 		// Footer Navigation 
