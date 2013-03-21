@@ -70,15 +70,15 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 			
 			// Get our wrapper classes (for event categories, organizer, venue, and defaults)
 			$classes = array( 'hentry', 'vevent', 'type-tribe_events', 'tribe-events-photo-event', 'post-' . $post_id, 'tribe-clearfix' );
-			$tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
+			$tribe_cat_slugs = tribe_get_event_cat_slugs( $post_id );
 			foreach( $tribe_cat_slugs as $tribe_cat_slug ) {
 				$classes[] = 'tribe-events-category-'. $tribe_cat_slug;
 			}
 			if ( $venue_id = tribe_get_venue_id( $post_id ) ) {
-				$classes[] = 'tribe-events-venue-'.$venue_id;
+				$classes[] = 'tribe-events-venue-'. $venue_id;
 			}
 			if ( $organizer_id = tribe_get_organizer_id( $post_id ) ) {
-				$classes[] = 'tribe-events-organizer-'.$organizer_id;
+				$classes[] = 'tribe-events-organizer-'. $organizer_id;
 			}
 			$class_string = implode(' ', $classes);
 

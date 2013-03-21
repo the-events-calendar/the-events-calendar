@@ -18,9 +18,7 @@
 	color: #21759b;	
 }
 
-.tribe-events-grid .tribe-grid-header .tribe-week-today,
-ul.tribe-related-events .tribe-related-events-placeholder-month,
-ul.tribe-related-events .tribe-related-events-placeholder-year {
+.tribe-events-grid .tribe-grid-header .tribe-week-today {
  	background-color: #21759b;
  }
 
@@ -38,9 +36,7 @@ ul.tribe-related-events .tribe-related-events-placeholder-year {
 	background-color: rgba(33, 117, 155, .9);
 }
 
-.tribe-events-grid .hentry.vevent a,
-ul.tribe-related-events .tribe-related-events-placeholder-month,
-ul.tribe-related-events .tribe-related-events-placeholder-year {
+.tribe-events-grid .hentry.vevent a {
  	color: #fff;	
 }
 
