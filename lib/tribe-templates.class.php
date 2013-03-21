@@ -24,6 +24,10 @@ if (!class_exists('TribeEventsTemplates')) {
 		public static function templateChooser($template) {
          $events = TribeEvents::instance();
          do_action('tribe_tec_template_chooser', $template);
+
+         	// hijack this method right up front if it's a 404
+         	if( is_404() )
+         		return get_404_template();
   
 			// no non-events need apply
 			if ( ! in_array( get_query_var( 'post_type' ), array( TribeEvents::POSTTYPE, TribeEvents::VENUE_POST_TYPE, TribeEvents::ORGANIZER_POST_TYPE ) ) && ! is_tax( TribeEvents::TAXONOMY ) ) {
@@ -132,12 +136,18 @@ if (!class_exists('TribeEventsTemplates')) {
 				Tribe_Template_Factory::asset_package( 'ajax-list' );
 				$template = self::getTemplateHierarchy('list-view');
 			} else {
+				
 				// calendar view
 				$tec = TribeEvents::instance();
 				if ( $tec->displaying == 'month' ) {
 					$template = self::getTemplateHierarchy( 'calendar' );
 				} else {
-					$template = self::getTemplateHierarchy( 'list-view' );
+					if( is_404() ) {
+						// in case we somehow magically get here - protect the display
+						$template = get_404_template();
+					} else {
+						$template = self::getTemplateHierarchy( 'list-view' );
+					}
 				}
 			}
 

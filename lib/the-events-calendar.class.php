@@ -297,6 +297,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_venue_table_top', array( $this, 'displayEventVenueDropdown' ) );
 			add_action( 'tribe_organizer_table_top', array( $this, 'displayEventOrganizerDropdown' ) );
 
+			add_action( 'template_redirect', array( $this, 'template_redirect') );
+
 
 			if( defined('TRIBE_SHOW_EVENT_AUDITING') && TRIBE_SHOW_EVENT_AUDITING )
 				add_action('tribe_events_details_bottom', array($this,'showAuditingData') );
@@ -517,6 +519,17 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-validate.class.php' );
 
 			TribeSettings::instance();
+		}
+
+		/**
+		 * trigger is_404 on single event if no events are found
+		 * @return void
+		 */
+		function template_redirect(){
+			global $wp_query;
+			if( $wp_query->tribe_is_event_query && TribeEvents::instance()->displaying == 'single-event' && empty($wp_query->posts)){
+				$wp_query->is_404 = true;
+			}
 		}
 
 		/**
