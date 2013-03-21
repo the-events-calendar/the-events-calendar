@@ -28,8 +28,11 @@ jQuery( document ).ready( function ( $ ) {
 		buttons :{
 			"Send":function () {
 
-				$('.attendees_email_dialog #email_response').show();
-				$('.attendees_email_dialog #email_send, .attendees_email_dialog .ui-dialog-buttonpane' ).hide();
+				var $response = $('.attendees_email_dialog #email_response');
+				var $send = $('.attendees_email_dialog #email_send, .attendees_email_dialog .ui-dialog-buttonpane' );
+
+				$response.show();
+				$send.hide();
 
 				var $email = tribe_validate_email();
 
@@ -47,6 +50,8 @@ jQuery( document ).ready( function ( $ ) {
 							$( '#email_response' ).removeClass( 'ui-state-error' ).removeClass( 'ui-state-highlight' ).text( '' );
 							$( '#email_to_address' ).val( '' );
 							$( '#attendees_email_wrapper' ).dialog( "close" );
+							$response.hide();
+							$send.show();
 						}
 					} );
 				}
@@ -54,6 +59,8 @@ jQuery( document ).ready( function ( $ ) {
 			},
 			Close :function () {
 				$( this ).dialog( "close" );
+				$('.attendees_email_dialog #email_response').hide();
+				$('.attendees_email_dialog #email_send, .attendees_email_dialog .ui-dialog-buttonpane' ).show();
 			}
 		} } );
 
