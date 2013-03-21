@@ -169,6 +169,7 @@ class TribeEventsGeoLoc {
 	}
 
 	public function setup_geoloc_in_query( $query ) {
+
 		$force = false;
 		if ( !empty( $_REQUEST['tribe-bar-geoloc-lat'] ) && !empty( $_REQUEST['tribe-bar-geoloc-lng'] ) ) {
 			$force  = true;
@@ -176,11 +177,8 @@ class TribeEventsGeoLoc {
 		} else if ( TribeEvents::instance()->displaying == 'map' || ( !empty( $query->query_vars['eventDisplay'] ) && $query->query_vars['eventDisplay'] == 'map' ) ) {
 			// Show only venues that have geoloc info
 			$force  = true;
-			remove_filter( 'tribe_events_pre_get_posts', array( $this, 'setup_geoloc_in_query' ) );
-			$args   = array( 'post_type' => TribeEvents::VENUE_POST_TYPE, 'posts_per_page' => - 1, 'fields' => 'ids', 'meta_key' => self::LAT, 'suppress_filters' => false );
-			$venues = new WP_Query( $args );
-			$venues = $venues->posts;
-			add_filter( 'tribe_events_pre_get_posts', array( $this, 'setup_geoloc_in_query' ) );
+			//Get all geoloc'ed venues
+			$venues = $this->get_venues_in_geofence( 1, 1, self::EARTH_RADIO * 2 );
 		}
 
 		if ( $force ) {
@@ -437,6 +435,8 @@ class TribeEventsGeoLoc {
 			add_filter( 'tribe_events_list_show_separators', "__return_false" );
 
 			echo '<div id="tribe-geo-results">';
+			global $wp_query;
+			print_r($wp_query,true);
 			include apply_filters( 'tribe_include_view_list', TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
 			echo '</div>';
 			$response['html'] .= ob_get_clean();
