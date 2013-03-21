@@ -359,7 +359,9 @@ tribe_ev.fn = {
 				bottomPad = $this.find( 'a' ).outerHeight() + 18;
 			} else if ( jQuery( 'body' ).is( '.single-tribe_events, .events-list' ) ) { // Single/List View Recurring Tooltips
 				bottomPad = $this.outerHeight() + 12;
-			}	
+			} else if ( jQuery( 'body' ).is( '.tribe-events-photo' ) ) { // Photo View
+				bottomPad = $this.outerHeight() + 10;
+			}
 			
 			// Widget Tooltips
 			if ( $this.parents( '.tribe-events-calendar-widget' ).length ) {
