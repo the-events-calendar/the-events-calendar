@@ -11,6 +11,30 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( class_exists( 'TribeEvents' ) ) {
 
 	/**
+	 * tribe_get_object_property_from_array loop through an array of objects to retrieve a single property
+	 * @param  array  $array_objects
+	 * @param  string $property
+	 * @return array
+	 */
+	function tribe_get_object_property_from_array( $array_objects = array(), $property = null ){
+		$array_properties = array();
+		if( !empty( $array_objects ) && !empty($property) ) {
+			if( ! is_wp_error( $array_objects ) ) {
+				// loop through array of objects to pick out property
+				foreach( $array_objects as $object ) {
+					if( !isset($object->{$property}) )
+						continue;
+					$array_properties[] = $object->{$property};
+				}
+			} else {
+				// return $array_objects if WP_Error to pass the error through
+				return $array_objects;
+			}
+		}
+		return $array_properties;
+	}
+
+	/**
 	 * Get Options
 	 *
 	 * Retrieve specific key from options array, optionally provide a default return value
@@ -131,18 +155,19 @@ if( class_exists( 'TribeEvents' ) ) {
  	 */    	
 	function tribe_get_event_cat_ids( $post_id = 0 ) {
 		$post_id = TribeEvents::postIdHelper($post_id);
-		
-		$return_id = array();
-		
-		$tribe_cat_ids = get_the_terms( $post_id, TribeEvents::TAXONOMY );
-		if( !empty( $tribe_cat_ids ) ){
-			if( !is_wp_error( $tribe_cat_ids ) ) {
-				foreach( $tribe_cat_ids as $tribe_cat_id ) {
-					$return_id[] = $tribe_cat_id->term_id;
-				}
-			}
-		}
-		return $return_id;
+		return (array) tribe_get_object_property_from_array( get_the_terms( $post_id, TribeEvents::TAXONOMY ), 'term_id' );
+	}
+	/**
+ 	 * Event Category slugs
+ 	 *
+ 	 * Display the event category ID as a class for events wrapper
+ 	 *
+ 	 * @uses wp_get_object_terms()
+ 	 * @since 2.1
+ 	 */    	
+	function tribe_get_event_cat_slugs( $post_id = 0 ) {
+		$post_id = TribeEvents::postIdHelper($post_id);
+		return (array) tribe_get_object_property_from_array( get_the_terms( $post_id, TribeEvents::TAXONOMY ), 'slug' );
 	}
 
 	function tribe_get_event_taxonomy( $post_id = null, $args = array() ){
