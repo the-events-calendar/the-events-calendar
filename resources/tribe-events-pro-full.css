@@ -396,6 +396,11 @@
 	line-height: 1.45;
 }
 
+.tribe-events-photo #tribe-events-content .tribe-list-event-description p.tribe-event-categories {
+	margin-top: 1em;
+	font-size: 13px;
+}
+
 .tribe-events-photo .tribe-events-loop .vevent.hentry .tribe-events-event-meta {
 	margin: 0;
 	padding-right: 0;
