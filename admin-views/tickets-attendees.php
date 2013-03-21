@@ -103,18 +103,18 @@ $tickets  = TribeEventsTickets::get_event_tickets( $event_id );
 	</form>
 
 	<div id="attendees_email_wrapper" title="<?php _e( 'Send the attendee list by email', 'tribe-events-calendar' );?>">
-		<label for="email_to_user">
-			<?php _e( 'Select a User:', 'tribe-events-calendar' );?>
-			<?php wp_dropdown_users( array( 'name' => 'email_to_user', 'id' => 'email_to_user', 'show_option_none' => ' ', 'selected' => get_current_user_id() ) ); ?>
-		</label>
-		<?php _e( 'or', 'tribe-events-calendar' );?>
-		<label for="email_to_address">
-			<?php _e( 'Email Address:', 'tribe-events-calendar' );?>
-			<input type="text" name="email_to_address" id="email_to_address" value="">
-		</label>
-
+		<div id="email_send">
+			<label for="email_to_user">
+				<span><?php _e( 'Select a User:', 'tribe-events-calendar' );?></span>
+				<?php wp_dropdown_users( array( 'name' => 'email_to_user', 'id' => 'email_to_user', 'show_option_none' => ' ', 'selected' => get_current_user_id() ) ); ?>
+			</label>
+			<span class="attendees_or"><?php _e( 'or', 'tribe-events-calendar' );?></span>
+			<label for="email_to_address">
+				<span><?php _e( 'Email Address:', 'tribe-events-calendar' );?></span>
+				<input type="text" name="email_to_address" id="email_to_address" value="">
+			</label>
+		</div>
 		<div id="email_response"></div>
-
 	</div>
 
 </div>

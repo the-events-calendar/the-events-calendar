@@ -21,11 +21,15 @@ jQuery( document ).ready( function ( $ ) {
 
 	$( "#attendees_email_wrapper" ).dialog( {
 		autoOpen:false,
-		height  :230,
-		width   :450,
+		dialogClass: 'attendees_email_dialog',
+		height  :310,
+		width   :400,
 		modal   :true,
 		buttons :{
 			"Send":function () {
+
+				$('.attendees_email_dialog #email_response').show();
+				$('.attendees_email_dialog #email_send, .attendees_email_dialog .ui-dialog-buttonpane' ).hide();
 
 				var $email = tribe_validate_email();
 
