@@ -398,6 +398,13 @@ h2.tribe-events-page-title {
 }
 
 
+/* = WooTickets
+=============================================*/
+h2.tribe-events-tickets-title {
+	font-size: 17px;
+}
+
+
 /* Events Retina Bits */
 @media 
 only screen and (-moz-min-device-pixel-ratio: 2),
