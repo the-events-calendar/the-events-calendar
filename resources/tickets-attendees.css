@@ -57,22 +57,84 @@ input.print, input.email, a.export {
 	margin : 1px 8px 0 0 !important;
 }
 
+#attendees_email_wrapper {
+	padding:20px 0;
+}
+
 #attendees_email_wrapper #email_response {
-	width      : 100%;
 	text-align : center;
-	margin-top : 10px;
+	padding:80px 0 30px;
+	background:url('images/tribe-loading.gif') 50% 30% no-repeat;
+	border:0;
+	background-size:32px 32px;
+	display:none;
 }
 
 #attendees_email_wrapper label {
 	display : block;
 }
+
+#attendees_email_wrapper label span {
+	display:inline-block;
+	width:105px;
+	padding-left:15px;
+}
+
+#attendees_email_wrapper select{
+	margin-top:10px;
+}
+
+#attendees_email_wrapper select,
+#attendees_email_wrapper input[type='text']{
+	width:260px;
+	border-radius:0;
+	background:#fff;
+	border-color:#ccc;
+	line-height:30px;
+	height:30px;
+}
+
 .attendees_email_dialog {
 	padding:20px;
 	border-radius:0;
+	background:#F7F7F7;
 }
-.attendees_email_dialog .ui-dialog-titlebar
+.attendees_email_dialog .ui-dialog-titlebar,
 .attendees_email_dialog .ui-widget-header{
-	background:eee;
+	background:#eee;
+	border-color:#ccc;
 	border-radius:0;
+	height:30px;
+	line-height:30px;
+}
 
+.attendees_email_dialog .attendees_or{
+	display:block;
+	font-weight:700;
+	margin:15px 0 15px 125px;
+	width:260px;
+	text-align:center;
+	text-transform:uppercase;
+}
+
+.attendees_email_dialog .ui-dialog-title {
+	margin-top:-2px;
+}
+
+.attendees_email_dialog .ui-dialog-buttonpane{
+	background:transparent;
+	border-color:transparent;
+	margin-top:6px;
+	padding-top:0;
+	margin-left:23px;
+}
+
+.attendees_email_dialog .ui-state-default, .attendees_email_dialog .ui-widget-content .ui-state-default, .attendees_email_dialog .ui-widget-header .ui-state-default {
+	background: none repeat scroll 0 0 #666666;
+	border: medium none;
+	border-radius: 0 0 0 0;
+	color: #FFFFFF;
+	font-size: 13px;
+	letter-spacing: 0;
+	padding: 6px 10px;
 }
