@@ -372,10 +372,10 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			}
 			$classes = array_merge($classes, get_post_class('', $post->ID));
 			if ( $venue_id = tribe_get_venue_id($post->ID) ) {
-				$classes[] = 'tribe-events-venue-'.$venue_id;
+				$classes[] = 'tribe-events-venue-'. $venue_id;
 			}
 			if ( $organizer_id = tribe_get_organizer_id($post->ID) ) {
-				$classes[] = 'tribe-events-organizer-'.$organizer_id;
+				$classes[] = 'tribe-events-organizer-'. $organizer_id;
 			}
 			return $classes;
 		}
