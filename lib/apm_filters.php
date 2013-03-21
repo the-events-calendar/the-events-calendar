@@ -186,7 +186,7 @@ class Tribe_Recur_Filter {
 		'is' => 'Yes',
 		'not' => 'No'
 	);
-	protected $not_recur = 'a:12:{s:4:"type";s:4:"None";s:8:"end-type";s:2:"On";s:3:"end";s:0:"";s:9:"end-count";s:1:"1";s:11:"custom-type";s:5:"Daily";s:15:"custom-interval";s:0:"";s:16:"custom-type-text";s:0:"";s:21:"occurrence-count-text";s:0:"";s:19:"custom-month-number";s:5:"First";s:16:"custom-month-day";s:1:"1";s:24:"custom-year-month-number";s:1:"1";s:21:"custom-year-month-day";s:1:"1";}';
+	protected $not_recur = 'a:12:{s:4:"type";s:4:"None";';
 	
 	public function __construct() {
 		$type = $this->type;
@@ -214,8 +214,8 @@ class Tribe_Recur_Filter {
 
 		global $wpdb;
 
-		$compare = ( 'is' === $_POST[$this->key] ) ? 'NOT IN' : 'IN';
-		$where .= $wpdb->prepare( " AND recur_meta.meta_value $compare ('%s')  ", $this->not_recur );
+		$compare = ( 'is' === $_POST[$this->key] ) ? 'NOT LIKE' : 'LIKE';
+		$where .=  " AND recur_meta.meta_value $compare '$this->not_recur%'  ";
 
 		return $where;
 	}
@@ -384,7 +384,12 @@ class Tribe_Venue_Filter {
 			return $where;
 
 		global $wpdb;
-		$where .= $wpdb->prepare( ' AND venue_meta.meta_value = %d  ', $_POST[$this->key] );
+
+		$venues = (array) $_POST[$this->key];
+
+		$ids_format_string = rtrim( str_repeat( '%d,', count( $venues ) ), ',' );
+
+		$where .= $wpdb->prepare( " AND venue_meta.meta_value in ($ids_format_string) ", $venues );
 
 		return $where;
 	}
@@ -458,7 +463,12 @@ class Tribe_Organizer_Filter {
 			return $where;
 
 		global $wpdb;
-		$where .= $wpdb->prepare( ' AND organizer_meta.meta_value = %d  ', $_POST[$this->key] );
+
+		$organizers = (array) $_POST[$this->key];
+
+		$ids_format_string = rtrim( str_repeat( '%d,', count( $organizers ) ), ',' );
+
+		$where .= $wpdb->prepare( " AND organizer_meta.meta_value in ($ids_format_string) ", $organizers );
 
 		return $where;
 	}
