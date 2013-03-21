@@ -193,6 +193,7 @@ h2.tribe-events-page-title {
 =============================================*/
 /* Loop */
 .events-list .tribe-events-loop,
+.tribe-events-day .tribe-events-loop,
 .single-tribe_venue .tribe-events-loop,
 .single-tribe_organizer .tribe-events-loop {
 	max-width: 700px;
