@@ -132,22 +132,26 @@ ul.tribe-related-events .tribe-related-events-placeholder-year {
 	 width: 68.08%; 
 }
 
-.tribe-events-filter-view #tribe-geo-wrapper #tribe-events-header,
-.tribe-events-filter-view #tribe-geo-wrapper #tribe-events-footer,
-.tribe-events-filter-view #tribe-geo-results {
+#tribe-geo-wrapper #tribe-events-header,
+#tribe-geo-wrapper #tribe-events-footer,
+#tribe-geo-results {
 	max-width: 700px;
 	margin-left: auto;
 	margin-right: auto;
 }
 
-.tribe-events-filter-view #tribe-geo-wrapper #tribe-events-header {
+#tribe-geo-wrapper #tribe-events-header {
 	position: relative;
 }
 
-.tribe-events-filter-view #tribe-geo-wrapper #tribe-events-header li {
+#tribe-geo-wrapper #tribe-events-header li {
 	display: inline-block;
 	zoom: 1;
 	*display: inline;
+}
+
+#tribe-geo-wrapper #tribe-events-header li a {
+	display: none !important;
 }
 
 #tribe-events-header .tribe-ajax-loading {
@@ -182,6 +186,11 @@ ul.tribe-related-events .tribe-related-events-placeholder-year {
 	max-width: 700px;
 	margin: 0 auto 1em;
 	border-bottom: 0;
+}
+
+.tribe-events-organizer .tribe-divider {
+	display: inline-block;
+	font-weight: normal;
 }
 
 
@@ -229,6 +238,10 @@ ul.tribe-related-events .tribe-related-events-placeholder-year {
 
 .tribe-events-photo .tribe-events-loop .tribe-events-event-meta .recurringinfo {
 	padding-left: 0;
+}
+
+.tribe-events-photo #tribe-events-header li a {
+	display: none !important;
 }
 
 
