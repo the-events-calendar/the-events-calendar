@@ -319,9 +319,7 @@ select.tribe-events-dropdown {
 .tribe-events-list .tribe-venue-details {
 	line-height: 1.2;
 	margin: 0;
-	display: inline-block;
-	zoom: 1;
-	*display: inline;
+	display: block
 }
 
 .tribe-events-list .time-details {
