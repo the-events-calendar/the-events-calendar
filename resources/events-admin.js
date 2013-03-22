@@ -2,6 +2,7 @@ jQuery(document).ready(function($) {
 
 	// Load the Chosen JQuery plugin for all select elements with the class 'chosen'.
 	$('.chosen, .tribe-field-dropdown_chosen select').chosen();
+	$('.select2, .tribe-field-dropdown_select2 select').select2();
 
 	//not done by default on front end
 	$('.hide-if-js').hide();
@@ -425,7 +426,7 @@ jQuery(document).ready(function($) {
 				if( $('#tribe-field-tribeEnableViews input[value=' + option_val + ']').is(":checked") ) { 
 					$(this).prop('disabled',false);
 				} else { 
-					$(this).removeAttr('selected');
+					$(this).removeProp('selected');
 					$(this).prop('disabled', true);
 				}
     		});
@@ -436,7 +437,7 @@ jQuery(document).ready(function($) {
 			if( typeof $('select[name="viewOption"] option:selected').first().val() == 'undefined' || ! $.inArray( $('select[name="viewOption"] option:selected').first().val(), views ) ) {
 				$('select[name="viewOption"] option').not(':disabled').first().attr('selected','selected');
 	    	}
-    		$('select[name="viewOption"]').trigger("liszt:updated");
+    		$('select[name="viewOption"]').trigger("change");
     	});
     }
 	

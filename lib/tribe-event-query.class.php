@@ -268,36 +268,6 @@ if (!class_exists('TribeEventsQuery')) {
 			return $query;
 		}
 
-		/**
-		 * Filter all returned event posts & add additional required fields
-		 * @param  array $posts returned via wp_query
-		 * @return array $posts (modified)
-		 */
-		public function the_posts( $posts ) {
-			if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) || !is_admin() ) {
-				if( !empty($posts) ) {
-					foreach( $posts as $id => $post ) {
-						$posts[$id]->tribe_is_event = false;
-						$posts[$id]->tribe_is_recurrance = false;
-
-						// is event add required fields
-						if( tribe_is_event( $post ) ) {
-							$posts[$id]->tribe_is_event = true;
-							$posts[$id]->tribe_is_allday = tribe_get_event_meta( $post->ID, '_EventAllDay' ) ? true : false;
-							$posts[$id]->EventStartDate = get_post_meta( $post->ID, '_EventStartDate', true);
-							$posts[$id]->EventDuration = get_post_meta( $post->ID, '_EventDuration', true);
-							$posts[$id]->EventEndDate = get_post_meta( $post->ID, '_EventEndDate', true);
-						}
-					}
-				}
-			}
-
-			// print_r(self::$start_date);
-
-			// return modified event posts with additional fields if added
-			return $posts;
-		}
-
 		public static function posts_groupby( $groupby_sql, $query ) {
 			global $wpdb;
 			if ( self::$is_event_query ) {
