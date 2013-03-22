@@ -1,0 +1,1420 @@
+# POT for Events Calendar Pro 2.0 by Modern Tribe, Inc..
+# Copyright (C) 2011 Modern Tribe, Inc.
+# This file is distributed under the same license as the Events Calendar Pro package.
+msgid ""
+msgstr ""
+"Project-Id-Version: The Events Calendar 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-08 16:33-0500\n"
+"PO-Revision-Date: 2013-03-05 20:25+0200\n"
+"Last-Translator: Mamdouh Samy <asyuti47@gmail.com>\n"
+"Language-Team: Elmalak <asyuti47@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: ./\n"
+"X-Generator: Poedit 1.5.5\n"
+"Language: Arabic\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../events-calendar-pro.php:197
+msgid "Venues"
+msgstr "أماكن"
+
+#: ../events-calendar-pro.php:198
+msgid "Organizers"
+msgstr "المنظمين"
+
+#: ../events-calendar-pro.php:222
+msgid "Use Saved Venue:"
+msgstr "استخدم المكان الذي تم حفظه:"
+
+#: ../events-calendar-pro.php:249
+msgid "Use Saved Organizer:"
+msgstr "استخدم المنظم الذي تم حفظه"
+
+#: ../events-calendar-pro.php:283
+msgid "Use New Venue"
+msgstr "استخدم المكان الجديد"
+
+#: ../events-calendar-pro.php:285
+msgid "My Venues"
+msgstr "أماكني"
+
+#: ../events-calendar-pro.php:290
+msgid "Available Venues"
+msgstr "الأماكن المتاحة"
+
+#: ../events-calendar-pro.php:301 ../admin-views/tribe-options-defaults.php:70
+msgid "No saved venues yet."
+msgstr "لا توجد أماكن محفوظة حتي الآن."
+
+#: ../events-calendar-pro.php:333
+msgid "Use New Organizer"
+msgstr "استخدم منظم جديد"
+
+#: ../events-calendar-pro.php:335
+msgid "My Organizers"
+msgstr "منظمي"
+
+#: ../events-calendar-pro.php:340
+msgid "Available Organizers"
+msgstr "المنظمين المتوفرين"
+
+#: ../events-calendar-pro.php:351 ../admin-views/tribe-options-defaults.php:57
+msgid "No saved organizers yet."
+msgstr "لا يوجد منظمين محفوظين حتي الآن"
+
+#: ../events-calendar-pro.php:364
+msgid "Defaults"
+msgstr "الإفتراضي"
+
+#: ../events-calendar-pro.php:366 ../admin-views/event-meta-options.php:2
+msgid "Additional Fields"
+msgstr "حقول إضافية"
+
+#: ../events-calendar-pro.php:372
+#, php-format
+msgid ""
+"If this is your first time using The Events Calendar, you're in for a treat. "
+"You're going to find it super-easy to get up and running with managing your "
+"events. Here are some ways to get started:</p><ul><li><strong>Feeling "
+"adventurous?</strong> Jump right into it by visiting the Events menu to "
+"%sadd your first event%s.</li><li><strong>Want to get the low-down first?</"
+"strong> Visit our <a href=\"http://tri.be/support/documentation/events-"
+"calendar-pro-new-user-primer/"
+msgstr ""
+"إذا كانت هذه اول مرة  تستخدم فيها The Events Calendar, فأنت محظوظ.لإدارة "
+"الأحداث الخاصة بك ستجد أنها في منتهي السهولة. هذه بعض الطرق لكي تبدأ:</"
+"p><ul><li><strong>لديك روح المغامرة?</strong> تفضل بالدخول إلي قائمة الأحداث "
+"لكي تضيف %sالحدث الأول%s.</li><li><strong>تريد أن تتمهل في البداية؟</"
+"strong>تفضل بزيارة <a href=\"http://tri.be/support/documentation/events-"
+"calendar-pro-new-user-primer/"
+
+#: ../events-calendar-pro.php:373
+#, php-format
+msgid ""
+"%sOh, wondering what to do with your license key and whether you need it "
+"before you can get into event creation? Check out %s on that subject for an "
+"answer. %s, if you don't have it handy.%s"
+msgstr ""
+"%sهل تتسائل ماذا تفعل بمفتاح الترخيص الخاص بك و هل تحتاجه قبل البدء في إضافة "
+"الأحداث?قم بتفقد %s هذه الموضوع للإجابة. %s,إذا لم تكن تعرفها.%s"
+
+#: ../events-calendar-pro.php:373
+msgid "our blog post"
+msgstr "التدوينة الخاصة بنا"
+
+#: ../events-calendar-pro.php:373
+msgid "Here's how you find your license key"
+msgstr "هكذا تجد مفتاح الترخيص الخاص بك"
+
+#: ../events-calendar-pro.php:380
+#, php-format
+msgid ""
+"%sOne of the advantages of being a PRO user is that you have access to our "
+"PRO-exclusive forums at %s. Our support staff hits the forums on a daily "
+"basis, and what they can't answer on the spot they'll bring a member of our "
+"dev team in to address directly.%s"
+msgstr ""
+"%sمن أهم مميزات النسخة الإحترافية أنها تعطيك حق الدخول إلي المنتديات الخاصة "
+"بالأعضاء الموجودة في %s. يقوم مسئولو الدعم الفني بزيارة هذه المنتديات يومياً "
+"و إذا لم تكن لديهم الإجابة في الحال يقومون بإحضار واحد من فريق التطوير "
+"للتعامل معها.%s"
+
+#: ../events-calendar-pro.php:381
+#, php-format
+msgid "%sSome things to consider before posting on the forum:%s"
+msgstr "%sبعض النقاط المهمة قبل البدء بالنشر في المنتدي:%s"
+
+#: ../events-calendar-pro.php:382
+#, php-format
+msgid ""
+"%sLook through existing threads before posting a new one and check that "
+"there isn't already a discussion going on your issue. The tri.be site has a "
+"solid search function that should help find what you're looking for, if it "
+"indeed already is present.%s"
+msgstr ""
+"%sانظر في الموضوعات الحالية و تأكد من عدم وجود مناقشة حول نفس الموضوع. موقع "
+"tri.be يوفر خاصية بحث متطورة تساعدك في الوصول إلي ما تبحث عنه.%s"
+
+#: ../events-calendar-pro.php:383
+#, php-format
+msgid ""
+"%sA good way to help us out before posting is to check whether the issue is "
+"a conflict with another plugin or your theme. This can be tested relatively "
+"easily on a staging site by deactivating other plugins one-by-one, and "
+"reverting to the default 2011 theme as needed, to see if conflicts can be "
+"easily identified. If so, please note that when posting your thread.%s"
+msgstr ""
+"%sمن المفيد قبل طرح سؤالك أن تحاول التأكد إن كانت المشكلة هي تعارض مع إضافة "
+"أخري أو التملبيت الخاص بك. من الممكن معرفة ذلك بسهولة عن طريق تعطيل الإضافات "
+"واحدة تلو الأخري و العودة للقالب الإفتراضي 2011 لتري إن كان من الممكن معرفة "
+"سبب المشكلة. .فإذا قمت بهذا نرجو إبلاغنا عند كتابة طلب الدعم.%s"
+
+#: ../events-calendar-pro.php:384
+#, php-format
+msgid ""
+"%sSometimes, just resaving your permalinks (under Settings -> Permalinks) "
+"can resolve events-related problems on your site. It is worth a shot before "
+"creating a new thread.%s"
+msgstr ""
+"%sإحياناً يقوم  إعادة حفظ الروابط الدائمة (قائمة إعدادات -> روابط دائمة) بحل "
+"بعض المشكلات علي موقعك.لذا نرجو أن تجرب هذا قبل الكتابة إلينا.%s"
+
+#: ../events-calendar-pro.php:385
+#, php-format
+msgid ""
+"%sWhile we won't build your site for you and can't guarantee The Events "
+"Calendar/PRO to play nicely with every theme and plugin out there, our team "
+"will do our best to help you get it functioning nicely with your site. And "
+"as an added bonus, once you're done you can post it in the %s so the rest of "
+"the community can see what you've been working on.%s"
+msgstr ""
+"%sرغم أننا لن نقوم بإنشاء موقعك بالنيابة عنك و لا نستطيع أن نضمن أن تكون The "
+"Events Calendar/PRO متوافقة مع القالب الخاص بك أو الإضافات الأخري التي "
+"تستخدمها فإن فريقنا سيبذل أقصي جهده لمساعدتك في جعلها تعمل بشكل جيد معك. كما "
+"يمكنك عرضها في  %s حتي يعرف المجتمع ما الذي كنت تعمل علي تحقيقه.%s"
+
+#: ../events-calendar-pro.php:385
+msgid "Showcase thread"
+msgstr "عرض الموضوع"
+
+#: ../events-calendar-pro.php:562
+msgid "Settings"
+msgstr "الإعدادات"
+
+#: ../events-calendar-pro.php:607
+#, php-format
+msgid "Calendar powered by %sThe Events Calendar PRO%s"
+msgstr "التقويم مدعوم من %sThe Events Calendar PRO%s"
+
+#: ../events-calendar-pro.php:616
+msgid "Support"
+msgstr "الدعم"
+
+#: ../events-calendar-pro.php:618
+msgid "View All Add-Ons"
+msgstr "شاهد جميع الإضافات"
+
+#: ../events-calendar-pro.php:658
+msgid "The Events Calendar"
+msgstr "أجندة الأحداث"
+
+#: ../events-calendar-pro.php:659
+#, php-format
+msgid ""
+"To begin using Events Calendar PRO, please install the latest version of <a "
+"href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+msgstr ""
+"للبدء باستخدام Events Calendar PRO, من فضلك قم بتثبيت أحدث نسخة <a href=\"%s"
+"\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+
+#: ../template-tags.php:208 ../template-tags.php:222 ../template-tags.php:235
+#: ../template-tags.php:236 ../template-tags.php:249 ../template-tags.php:250
+#: ../template-tags.php:263 ../template-tags.php:264 ../template-tags.php:277
+#: ../template-tags.php:278 ../template-tags.php:291 ../template-tags.php:292
+#: ../template-tags.php:305 ../template-tags.php:306 ../template-tags.php:319
+#: ../template-tags.php:320
+msgid "No default set"
+msgstr "لم يتم تحديد الإفتراضي"
+
+#: ../template-tags.php:209
+#, php-format
+msgid "The current default organizer is: %s"
+msgstr "المنظم الإفتراضي الحالي هو : %s"
+
+#: ../template-tags.php:223
+#, php-format
+msgid "The current default venue is: %s"
+msgstr "المكان الإفتراضي الحالي هو : %s"
+
+#: ../template-tags.php:237
+#, php-format
+msgid "The current default address is: %s"
+msgstr "العنوان الإفتراضي الحالي هو : %s"
+
+#: ../template-tags.php:251
+#, php-format
+msgid "The current default city is: %s"
+msgstr "المدينة الإفتراضية الحالية هي : %s"
+
+#: ../template-tags.php:265
+#, php-format
+msgid "The current default state is: %s"
+msgstr "الولاية الإفتراضية الحالية هي : %s"
+
+#: ../template-tags.php:279
+#, php-format
+msgid "The current default province is: %s"
+msgstr "المقاطعة الأفتراضية الحالية هي : %s"
+
+#: ../template-tags.php:293
+#, php-format
+msgid "The current default postal code/zip code is: %s"
+msgstr "الرقم البريدي الإفتراضي الحالي هو : %s"
+
+#: ../template-tags.php:307
+#, php-format
+msgid "The current default country is: %s"
+msgstr "الدولة الإفتراضية الحالية هي : %s"
+
+#: ../template-tags.php:321
+#, php-format
+msgid "The current default phone is: %s"
+msgstr "التليفون الإفتراضي الحالي هو : %s"
+
+#: ../admin-views/event-defaults.php:1
+#: ../admin-views/events-options-defaults.php:35
+#: ../admin-views/tribe-options-defaults.php:35
+msgid "Customize Defaults"
+msgstr "تخصيص البيانات الإفتراضية"
+
+#: ../admin-views/event-defaults.php:2
+#: ../admin-views/events-options-defaults.php:36
+msgid ""
+"These settings change the default event form. For example, if you set a "
+"default venue, this field will be automatically filled in on a new event."
+msgstr ""
+"هذه الإعدادات تغير القيم الإفتراضية. فمثلاً, لو قمت بإعداد مكان إفتراضي سيتم "
+"إضافته تلقائياً في الحدث الجديد ."
+
+#: ../admin-views/event-defaults.php:5 ../admin-views/event-defaults.php:9
+#: ../admin-views/events-options-defaults.php:39
+#: ../admin-views/events-options-defaults.php:43
+#: ../admin-views/tribe-options-defaults.php:47
+msgid "Automatically replace empty fields with default values"
+msgstr "قم باستبدال الحقول الفارغة بالحقول الإفتراضية"
+
+#: ../admin-views/event-defaults.php:13
+#: ../admin-views/events-options-defaults.php:47
+msgid "Enabled"
+msgstr "مفعلة"
+
+#: ../admin-views/event-defaults.php:19
+#: ../admin-views/events-options-defaults.php:53
+msgid "Default Organizer for Events"
+msgstr "المنظم الأفتراضي للأحداث"
+
+#: ../admin-views/event-defaults.php:22
+#: ../admin-views/events-options-defaults.php:56
+#: ../admin-views/tribe-options-defaults.php:53
+msgid "Default Organizer"
+msgstr "المنظم الإفتراضي"
+
+#: ../admin-views/event-defaults.php:23
+#: ../admin-views/events-options-defaults.php:57
+msgid "The default organizer value"
+msgstr "حقل المنظم الإفتراضي"
+
+#: ../admin-views/event-defaults.php:23 ../admin-views/event-defaults.php:31
+#: ../admin-views/event-defaults.php:38 ../admin-views/event-defaults.php:45
+#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
+#: ../admin-views/event-defaults.php:82 ../admin-views/event-defaults.php:108
+#, php-format
+msgid "The current default value is <strong>%s</strong>"
+msgstr "القيمة الإفتراضية الحالية هي  <strong>%s</strong>"
+
+#: ../admin-views/event-defaults.php:27
+#: ../admin-views/events-options-defaults.php:62
+msgid "Default Venue for Events"
+msgstr "المكان الإفتراضي للأحداث"
+
+#: ../admin-views/event-defaults.php:30
+#: ../admin-views/events-options-defaults.php:65
+#: ../admin-views/tribe-options-defaults.php:66
+msgid "Default Venue"
+msgstr "المكان الإفتراضي"
+
+#: ../admin-views/event-defaults.php:31
+#: ../admin-views/events-options-defaults.php:66
+msgid "The default venue value"
+msgstr "حقل المكان الافتراضي"
+
+#: ../admin-views/event-defaults.php:35 ../admin-views/event-defaults.php:37
+#: ../admin-views/events-options-defaults.php:71
+#: ../admin-views/events-options-defaults.php:73
+#: ../admin-views/tribe-options-defaults.php:79
+msgid "Default Address"
+msgstr "العنوان الإفتراضي"
+
+#: ../admin-views/event-defaults.php:38
+#: ../admin-views/events-options-defaults.php:74
+msgid "The default address value"
+msgstr "حقل العنوان الإفتراضي"
+
+#: ../admin-views/event-defaults.php:42 ../admin-views/event-defaults.php:44
+#: ../admin-views/events-options-defaults.php:79
+#: ../admin-views/events-options-defaults.php:81
+#: ../admin-views/tribe-options-defaults.php:92
+msgid "Default City"
+msgstr "المدينة الإفتراضية"
+
+#: ../admin-views/event-defaults.php:45
+#: ../admin-views/events-options-defaults.php:82
+msgid "The default city value"
+msgstr "حقل المدينة الإفتراضية"
+
+#: ../admin-views/event-defaults.php:50
+#: ../admin-views/events-options-defaults.php:88
+#: ../admin-views/tribe-options-defaults.php:105
+msgid "Default State"
+msgstr "الولاية الإفتراضية"
+
+#: ../admin-views/event-defaults.php:52 ../admin-views/event-defaults.php:73
+#: ../admin-views/events-options-defaults.php:90
+#: ../admin-views/events-options-defaults.php:112
+msgid "Default Province or State"
+msgstr "الولاية أو المقاطعة الإفتراضية"
+
+#: ../admin-views/event-defaults.php:55
+#: ../admin-views/events-options-defaults.php:93
+msgid "Select a State:"
+msgstr "اختر ولاية"
+
+#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
+#: ../admin-views/events-options-defaults.php:104
+#: ../admin-views/events-options-defaults.php:113
+msgid "The default  value"
+msgstr "القيمة الإفتراضية"
+
+#: ../admin-views/event-defaults.php:71
+#: ../admin-views/events-options-defaults.php:110
+#: ../admin-views/tribe-options-defaults.php:118
+msgid "Default Province"
+msgstr "المقاطعة الإفتراضية"
+
+#: ../admin-views/event-defaults.php:79 ../admin-views/event-defaults.php:81
+#: ../admin-views/events-options-defaults.php:119
+#: ../admin-views/events-options-defaults.php:121
+msgid "Default Postal Code"
+msgstr "رقم البريد الإفتراضي"
+
+#: ../admin-views/event-defaults.php:82
+#: ../admin-views/events-options-defaults.php:122
+msgid "The default Postal Code value"
+msgstr "حقل رقم البريد الإفتراضي"
+
+#: ../admin-views/event-defaults.php:87
+#: ../admin-views/events-options-defaults.php:128
+msgid "Default Country for Events"
+msgstr "البلد الإفتراضي للأحداث"
+
+#: ../admin-views/event-defaults.php:105 ../admin-views/event-defaults.php:107
+#: ../admin-views/events-options-defaults.php:146
+#: ../admin-views/events-options-defaults.php:148
+#: ../admin-views/tribe-options-defaults.php:157
+msgid "Default Phone"
+msgstr "التليفون الإفتراضي"
+
+#: ../admin-views/event-defaults.php:108
+#: ../admin-views/events-options-defaults.php:149
+msgid "The default phone value"
+msgstr "حقل التليفون الإفتراضي"
+
+#: ../admin-views/event-defaults.php:112
+#: ../admin-views/events-options-defaults.php:154
+#: ../admin-views/tribe-options-defaults.php:170
+msgid "Use a custom list of countries"
+msgstr "استخدم قائمة مخصصة للبلدان"
+
+#: ../admin-views/event-defaults.php:114
+#: ../admin-views/events-options-defaults.php:156
+msgid "Use the following list:"
+msgstr "استخدم القائمة التالية:"
+
+#: ../admin-views/event-defaults.php:116
+msgid ""
+"One country per line in the following format: <br/>US, United States <br/> "
+"UK, United Kingdom."
+msgstr ""
+"دولة واحدة في كل سطر بهذا الشكل: <br/>US, الولايات المتحدة <br/> UK, المملكة "
+"المتحدة."
+
+#: ../admin-views/event-defaults.php:116
+msgid "(Replaces the default list.)"
+msgstr "(تستبدل القائمة الإفتراضية)"
+
+#: ../admin-views/event-meta-options.php:3
+msgid ""
+"Add unique fields to your event creation screen. These appear up in the "
+"event metabox above your event listing alongside the date, time, venue, "
+"organizer, etc. Everyone who creates events will have access to these "
+"additional fields. Each new piece of data needs:"
+msgstr ""
+"اضف حقول جديدة لشاشة إنشاء الأحداث. هذه الحقول ستظهر أعلي الحدث بجوار "
+"التاريخ, الوقت, المكان, المنظم. كل من ينشئ أحداث سيتمكن من الوصول لهذه "
+"الحقول. كل واحدة منها تحتاج إلي:"
+
+#: ../admin-views/event-meta-options.php:6
+msgid "a label (e.g. Meal Plans)"
+msgstr "اسم( مثلاً نوع الوجبة) "
+
+#: ../admin-views/event-meta-options.php:9
+msgid "at least one option (e.g. Vegetarian, Kosher, Paleo)"
+msgstr "إختيار واحد علي الأقل ( مثلاً نباتي, رجيم...)"
+
+#: ../admin-views/event-meta-options.php:12
+msgid "a field type. These are:"
+msgstr "نوع الحقل. و هي تشمل:"
+
+#: ../admin-views/event-meta-options.php:16
+msgid "text - for the user to input text"
+msgstr "نص - لكتابة نص"
+
+#: ../admin-views/event-meta-options.php:19
+msgid "checkbox - for multiple choice"
+msgstr "مربع إختيارات- لأختيارات متعددة"
+
+#: ../admin-views/event-meta-options.php:22
+msgid "radio button - to select only one"
+msgstr "إختيار من متعدد - لأختيار واحد فقط"
+
+#: ../admin-views/event-meta-options.php:25
+msgid "dropdown menu - for a dropdown menu"
+msgstr "قائمة منسدلة - لقائمة أختيارات"
+
+#: ../admin-views/event-meta-options.php:31
+msgid "Field Label"
+msgstr "اسم الحقل"
+
+#: ../admin-views/event-meta-options.php:31
+msgid "Field Type"
+msgstr "نوع الحقل"
+
+#: ../admin-views/event-meta-options.php:31
+msgid "Options (one per line)"
+msgstr "الإختيارات) واحد في كل سطر)"
+
+#: ../admin-views/event-meta-options.php:39
+msgid "Text"
+msgstr "نص"
+
+#: ../admin-views/event-meta-options.php:40
+msgid "Radio"
+msgstr "إختيار"
+
+#: ../admin-views/event-meta-options.php:41
+msgid "Checkbox"
+msgstr "قائمة"
+
+#: ../admin-views/event-meta-options.php:42
+msgid "Dropdown"
+msgstr "قائمة منسدلة"
+
+#: ../admin-views/event-meta-options.php:48
+msgid "Add another"
+msgstr "اضف آخر"
+
+#: ../admin-views/event-meta-options.php:50
+msgid "Remove"
+msgstr "احذف"
+
+#: ../admin-views/event-meta-options.php:58
+#, php-format
+msgid ""
+"Enter the field label as you want it to appear (this will be the label in "
+"the same way “Start Date,” “Organizer,” etc appear in the event details box "
+"on the frontend). Select whether the field will be a text field; radio "
+"buttons; checkboxes; or a dropdown. All of these with the exception of text "
+"allow for multiple options to be included, which you can add — one per-line "
+"— in the right-hand column. If you feel flummoxed, we've got you covered "
+"with a %s."
+msgstr ""
+"ادخل اسم الحقل كما تريده أن يظهر( و سيظهر بنفس شكل \" تاريخ البداية\", \" "
+"المنظم\", و هكذا في مربع تفاصيل الحدث علي موقعك). اختر نوع الحقل بين نص, "
+"إختيار, قائمة, قائمة منسدلة. كل هذه الإختيارات ما عدا النص تسمح بوجود "
+"إختيارات متعددة و يمكنك إضافتها واحدة في كل سطر في العامود الأيمن. فإذا شعرت "
+"بالإرتباك فنحن هنا لمساعدتك  %s. "
+
+#: ../admin-views/event-meta-options.php:58
+msgid "video tutorial that will walk you through the process"
+msgstr "عرض فيديو توضيحي ليشرح لك الطريقة"
+
+#: ../admin-views/event-meta-options.php:60
+msgid "Editor \"Custom Fields\" meta box"
+msgstr "Editor \"Custom Fields\" meta box"
+
+#: ../admin-views/event-meta-options.php:62
+msgid "Show"
+msgstr "اظهار"
+
+#: ../admin-views/event-meta-options.php:63
+msgid "Hide"
+msgstr "اخفاء"
+
+#: ../admin-views/event-meta-options.php:64
+msgid ""
+"Enabling this option this will not remove custom field data or "
+"functionality, just the default meta box editor."
+msgstr ""
+"هذا الإختيار لن يحذف بيانات الحقل المخصص, فقط  المحرر الإفتراضي للمربع."
+
+#: ../admin-views/event-meta-options.php:73
+msgid ""
+"Are you sure you wish to remove this field and its data from all events? "
+"Once you click OK this cannot be undone."
+msgstr ""
+"هل أنت متأكد أنك تريد حذف هذا الحقل و بياناته من كل الأحداث؟ هذه العملية لا "
+"يمكن الرجوع فيها."
+
+#: ../admin-views/event-meta.php:7
+msgid "Additional Event Fields"
+msgstr "حقول الحدث الإضافية"
+
+#: ../admin-views/event-recurrence.php:2
+msgid "Recurrence:"
+msgstr "التكرار:"
+
+#: ../admin-views/event-recurrence.php:7
+msgid "Never"
+msgstr "مطلقاً"
+
+#: ../admin-views/event-recurrence.php:8
+msgid "Every Day"
+msgstr "كل يوم"
+
+#: ../admin-views/event-recurrence.php:9
+msgid "Every Week"
+msgstr "كل أسبوع"
+
+#: ../admin-views/event-recurrence.php:10
+msgid "Every Month"
+msgstr "كل شهر"
+
+#: ../admin-views/event-recurrence.php:11
+msgid "Every Year"
+msgstr "كل عام"
+
+#: ../admin-views/event-recurrence.php:12
+msgid "Custom"
+msgstr "مخصص"
+
+#: ../admin-views/event-recurrence.php:15
+msgid "* End"
+msgstr "* نهاية"
+
+#: ../admin-views/event-recurrence.php:17
+msgid "On"
+msgstr "في"
+
+#: ../admin-views/event-recurrence.php:18
+msgid "After"
+msgstr "بعد"
+
+#: ../admin-views/event-recurrence.php:22
+msgid "You must select a recurrence end date"
+msgstr "يجب أن تختار تاريخ لنهاية التكرار"
+
+#: ../admin-views/event-recurrence.php:29
+msgid "Frequency"
+msgstr "تكرار"
+
+#: ../admin-views/event-recurrence.php:31
+msgid "Day(s)"
+msgstr "يوم"
+
+#: ../admin-views/event-recurrence.php:31
+msgid "Daily"
+msgstr "يومياً"
+
+#: ../admin-views/event-recurrence.php:32
+msgid "Week(s) on:"
+msgstr "أسبوع في: "
+
+#: ../admin-views/event-recurrence.php:32
+msgid "Weekly"
+msgstr "أسبوعياً"
+
+#: ../admin-views/event-recurrence.php:33
+msgid "Month(s) on the:"
+msgstr "أشهر في :"
+
+#: ../admin-views/event-recurrence.php:33
+msgid "Monthly"
+msgstr "شهرياً"
+
+#: ../admin-views/event-recurrence.php:34
+msgid "Year(s) on:"
+msgstr "سنة في: "
+
+#: ../admin-views/event-recurrence.php:34
+msgid "Yearly"
+msgstr "سنوياً"
+
+#: ../admin-views/event-recurrence.php:36
+msgid "Every"
+msgstr "كل "
+
+#: ../admin-views/event-recurrence.php:40
+msgid "Frequency of recurring event must be a number"
+msgstr "معدل تكرار الحدث يجب أن يكون رقم"
+
+#: ../admin-views/event-recurrence.php:48
+msgid "M"
+msgstr "أثنين"
+
+#: ../admin-views/event-recurrence.php:49
+msgid "Tu"
+msgstr "ثلاثاء"
+
+#: ../admin-views/event-recurrence.php:50
+msgid "W"
+msgstr "أربعاء"
+
+#: ../admin-views/event-recurrence.php:51
+msgid "Th"
+msgstr "خميس"
+
+#: ../admin-views/event-recurrence.php:52
+msgid "F"
+msgstr "جمعة"
+
+#: ../admin-views/event-recurrence.php:53
+msgid "Sa"
+msgstr "سبت"
+
+#: ../admin-views/event-recurrence.php:54
+msgid "Su"
+msgstr "أحد"
+
+#: ../admin-views/event-recurrence.php:62
+#: ../admin-views/event-recurrence.php:111
+msgid "First"
+msgstr "الأول"
+
+#: ../admin-views/event-recurrence.php:63
+#: ../admin-views/event-recurrence.php:112
+msgid "Second"
+msgstr "الثاني"
+
+#: ../admin-views/event-recurrence.php:64
+#: ../admin-views/event-recurrence.php:113
+msgid "Third"
+msgstr "الثالث"
+
+#: ../admin-views/event-recurrence.php:65
+#: ../admin-views/event-recurrence.php:114
+msgid "Fourth"
+msgstr "الرابع"
+
+#: ../admin-views/event-recurrence.php:66
+#: ../admin-views/event-recurrence.php:115
+msgid "Last"
+msgstr "الأخير"
+
+#: ../admin-views/event-recurrence.php:73
+#: ../admin-views/event-recurrence.php:118
+#: ../lib/tribe-events-recurrence-meta.class.php:576
+msgid "Monday"
+msgstr "الإثنين"
+
+#: ../admin-views/event-recurrence.php:74
+#: ../admin-views/event-recurrence.php:119
+#: ../lib/tribe-events-recurrence-meta.class.php:576
+msgid "Tuesday"
+msgstr "الثلاثاء"
+
+#: ../admin-views/event-recurrence.php:75
+#: ../admin-views/event-recurrence.php:120
+#: ../lib/tribe-events-recurrence-meta.class.php:576
+msgid "Wednesday"
+msgstr "الأربعاء"
+
+#: ../admin-views/event-recurrence.php:76
+#: ../admin-views/event-recurrence.php:121
+#: ../lib/tribe-events-recurrence-meta.class.php:576
+msgid "Thursday"
+msgstr "الخميس"
+
+#: ../admin-views/event-recurrence.php:77
+#: ../admin-views/event-recurrence.php:122
+#: ../lib/tribe-events-recurrence-meta.class.php:576
+msgid "Friday"
+msgstr "الجمعة"
+
+#: ../admin-views/event-recurrence.php:78
+#: ../admin-views/event-recurrence.php:123
+#: ../lib/tribe-events-recurrence-meta.class.php:576
+msgid "Saturday"
+msgstr "السبت"
+
+#: ../admin-views/event-recurrence.php:79
+#: ../admin-views/event-recurrence.php:124
+#: ../lib/tribe-events-recurrence-meta.class.php:576
+msgid "Sunday"
+msgstr "الأحد"
+
+#: ../admin-views/event-recurrence.php:81
+#: ../admin-views/event-recurrence.php:126
+msgid "Day"
+msgstr "يوم"
+
+#: ../admin-views/event-recurrence.php:90
+msgid "Jan"
+msgstr "يناير"
+
+#: ../admin-views/event-recurrence.php:91
+msgid "Feb"
+msgstr "فبراير"
+
+#: ../admin-views/event-recurrence.php:92
+msgid "Mar"
+msgstr "مارس"
+
+#: ../admin-views/event-recurrence.php:93
+msgid "Apr"
+msgstr "أبريل"
+
+#: ../admin-views/event-recurrence.php:94
+#: ../lib/tribe-events-recurrence-meta.class.php:602
+msgid "May"
+msgstr "مايو"
+
+#: ../admin-views/event-recurrence.php:95
+msgid "Jun"
+msgstr "يونيو"
+
+#: ../admin-views/event-recurrence.php:99
+msgid "Jul"
+msgstr "يوليو"
+
+#: ../admin-views/event-recurrence.php:100
+msgid "Aug"
+msgstr "أغسطس"
+
+#: ../admin-views/event-recurrence.php:101
+msgid "Sep"
+msgstr "سبتمبر"
+
+#: ../admin-views/event-recurrence.php:102
+msgid "Oct"
+msgstr "أكتوبر"
+
+#: ../admin-views/event-recurrence.php:103
+msgid "Nov"
+msgstr "نوفمبر"
+
+#: ../admin-views/event-recurrence.php:104
+msgid "Dec"
+msgstr "ديسمبر"
+
+#: ../admin-views/event-recurrence.php:109
+msgid "On the:"
+msgstr "في: "
+
+#: ../admin-views/events-options-defaults.php:58
+#: ../admin-views/events-options-defaults.php:67
+#: ../admin-views/events-options-defaults.php:75
+#: ../admin-views/events-options-defaults.php:83
+#: ../admin-views/events-options-defaults.php:105
+#: ../admin-views/events-options-defaults.php:114
+#: ../admin-views/events-options-defaults.php:123
+#: ../admin-views/events-options-defaults.php:150
+#, php-format
+msgid "<em>The current default value is:</em> <strong>%s</strong>"
+msgstr "<em>القيمة الإفتراضية الحالية هي :</em> <strong>%s</strong>"
+
+#: ../admin-views/events-options-defaults.php:58
+#: ../admin-views/events-options-defaults.php:67
+#: ../admin-views/events-options-defaults.php:75
+#: ../admin-views/events-options-defaults.php:83
+#: ../admin-views/events-options-defaults.php:105
+#: ../admin-views/events-options-defaults.php:114
+#: ../admin-views/events-options-defaults.php:123
+#: ../admin-views/events-options-defaults.php:150
+msgid "No default value set"
+msgstr "لم يتم تحديد قيمة إفتراضية"
+
+#: ../admin-views/events-options-defaults.php:158
+msgid ""
+"One country per line in the following format: <br/>US, United States <br/> "
+"UK, United Kingdom.<br/>"
+msgstr ""
+"دولة واحدة في كل سطر بهذا الشكل: <br/>US, الولايات المتحدة <br/> UK, المملكة "
+"المتحدة."
+
+#: ../admin-views/events-options-defaults.php:158
+msgid "(Replaces the default list)"
+msgstr "(تستبدل القائمة الإفتراضية)"
+
+#: ../admin-views/support-form.php:11
+msgid "Need help? Send us a support request."
+msgstr "تحتاج للمساعدة؟ أرسل لنا طلب دعم"
+
+#: ../admin-views/support-form.php:14
+#, php-format
+msgid ""
+"Tell us about the problem you're seeing in as much detail as possible. "
+"Please note that we'll also be sending some basic system information along "
+"with this request so that we can better diagnose the issue. If you would "
+"like to contact us without sending any system information, please visit our "
+"support page at %s. Thanks!"
+msgstr ""
+"أخبرنا بالمشكلة التي تراها بأكبر تفصيل ممكن. مع العلم بأننا سنقوم بإرسال بعض "
+"بيانات النظام الخاص بك مع هذا الطلب حتي نستطيع تشخصي المشكلة بشكل أفضل. إذا "
+"كنت ترغب في الإتصال بنا بدون إرسال بيانات النظام تفضل بزيارة صفحة الدعم علي "
+"%s. شكراً لك!"
+
+#: ../admin-views/support-form.php:18
+msgid "Send a Support Request"
+msgstr "أرسل طلب الدعم"
+
+#: ../admin-views/tribe-options-defaults.php:6
+msgid "No Default"
+msgstr "لا يوجد إفتراضي"
+
+#: ../admin-views/tribe-options-defaults.php:15
+msgid "Use New Venue/No Default"
+msgstr "استخدم المكان الجديد- لا يوجد إفتراضي"
+
+#: ../admin-views/tribe-options-defaults.php:22
+msgid "Select a State"
+msgstr "اختر ولاية"
+
+#: ../admin-views/tribe-options-defaults.php:39
+msgid ""
+"Set values for event organizers & venues that appear pre-populated in the "
+"event editor whenever you create a new event. This helps save time in "
+"situations where the venue or organizer rarely changes, saving you from "
+"having to manually re-enter the data each time you create an event.</"
+"p><p>It's worth noting that these can be overridden on the event creation "
+"screen; if a venue and organizer are pre-populated but you wants to change "
+"to something else, use the dropdown to either select another existing venue/"
+"organizer, or manually enter the details of a new one."
+msgstr ""
+"قم بتعيين قيم في خانة المنظمين و المكان حتي تظهر لك في محرر الأحداث عندما "
+"تقوم بإنشاء حدث جديد. و هذا يساعدك علي توفير الوقت في حالة أن يكون المكان أو "
+"المنظم نادراً ما يتغير حتي لا تضطر إلي إدخال نفس البيانات في كل مرة.</p><p> "
+"مع العلم بأن هذه القيم يمكن تغييرها في شاشة إنشاء الأحداث, فإذا كان المكان "
+"أو المنظم ظاهر بالفعل و تريد تغييره يمكنك إستخدام القائمة لتختار منظم أو "
+"مكان موجود بالفعل أو إدخال جديد"
+
+#: ../admin-views/tribe-options-defaults.php:131
+msgid "Default Postal Code/Zip Code"
+msgstr "رقم البريد الإفتراضي"
+
+#: ../admin-views/tribe-options-defaults.php:144
+msgid "Default Country"
+msgstr "البلد الإفتراضية"
+
+#: ../admin-views/tribe-options-defaults.php:173
+msgid ""
+"One country per line in the following format: <br>US, United States <br> UK, "
+"United Kingdom. <br> (Replaces the default list.)"
+msgstr ""
+"دولة واحدة في كل سطر بهذا الشكل: <br/>US, الولايات المتحدة <br/> UK, المملكة "
+"المتحدة. ( تحل محل القائمة الإفتراضية)"
+
+#: ../admin-views/widget-admin-advanced-list.php:11
+#: ../admin-views/widget-admin-calendar.php:10
+#: ../admin-views/widget-admin-featured.php:10
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:62
+msgid "Title:"
+msgstr "العنوان: "
+
+#: ../admin-views/widget-admin-advanced-list.php:16
+msgid "Show:"
+msgstr "أظهر: "
+
+#: ../admin-views/widget-admin-advanced-list.php:24
+msgid "Show widget only if there are upcoming events:"
+msgstr "أظهر فقط في حالة وجود أحدث قادمة:"
+
+#: ../admin-views/widget-admin-advanced-list.php:30
+msgid "Display:"
+msgstr "عرض: "
+
+#: ../admin-views/widget-admin-advanced-list.php:33
+msgid "Start Date & Time"
+msgstr "يوم و تاريخ البداية"
+
+#: ../admin-views/widget-admin-advanced-list.php:33
+msgid "(Widget will always show start date)"
+msgstr "(المربع سيظهر دائماً تاريخ البداية)"
+
+#: ../admin-views/widget-admin-advanced-list.php:34
+msgid "End Date & Time"
+msgstr "تاريخ و ميعاد الحدث"
+
+#: ../admin-views/widget-admin-advanced-list.php:35 ../lib/apm_filters.php:21
+msgid "Venue"
+msgstr "المكان"
+
+#: ../admin-views/widget-admin-advanced-list.php:36
+msgid "Address"
+msgstr "العنوان"
+
+#: ../admin-views/widget-admin-advanced-list.php:37
+msgid "City"
+msgstr "المدينة"
+
+#: ../admin-views/widget-admin-advanced-list.php:38
+msgid "State (US) Or Province (Int)"
+msgstr "ولاية( أمريكا) أو مقاطعة ( باقي الدول)"
+
+#: ../admin-views/widget-admin-advanced-list.php:39
+msgid "Postal Code"
+msgstr "الرقم البريدي"
+
+#: ../admin-views/widget-admin-advanced-list.php:40
+msgid "Country"
+msgstr "البلد"
+
+#: ../admin-views/widget-admin-advanced-list.php:41
+msgid "Phone"
+msgstr "التليفون"
+
+#: ../admin-views/widget-admin-advanced-list.php:42
+msgid "Price"
+msgstr "السعر"
+
+#: ../admin-views/widget-admin-advanced-list.php:49
+#: ../admin-views/widget-admin-featured.php:13
+msgid "Category:"
+msgstr "التصنيف:"
+
+#: ../admin-views/widget-admin-advanced-list.php:64
+#, php-format
+msgid "Want to modify the display of this widget? Try a %stemplate override%s."
+msgstr "تريد تعديل طريقة ظهر المربع الجانبي؟ جرب   %sتعديل القالب%s."
+
+#: ../admin-views/widget-admin-featured.php:17
+msgid "All Events"
+msgstr "كل الأحداث"
+
+#: ../lib/apm_filters.php:26
+msgid "Organizer"
+msgstr "منظم"
+
+#: ../lib/apm_filters.php:31
+msgid "Start Date"
+msgstr "تاريخ البداية"
+
+#: ../lib/apm_filters.php:37
+msgid "Event Cost"
+msgstr "تكلفة الحدث"
+
+#: ../lib/apm_filters.php:42
+msgid "Event Cats"
+msgstr "تصنيف الحدث"
+
+#: ../lib/apm_filters.php:47
+msgid "Title"
+msgstr "العنوان"
+
+#: ../lib/apm_filters.php:52
+msgid "Recurring"
+msgstr "التكرار"
+
+#: ../lib/apm_filters.php:57
+msgid "Description"
+msgstr "الوصف"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:413
+msgid ""
+"Monthly custom recurrences cannot have a dash set as the day to occur on."
+msgstr ""
+"معدل التكرار الشهري لا يجب أن يحتوي علي حقل فارغ في اليوم المفترض أن يحدث "
+"فيه."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:416
+msgid ""
+"Yearly custom recurrences cannot have a dash set as the day to occur on."
+msgstr ""
+"معدل التكرار السنوي لا يجب أن يحتوي علي حقل فارغ في اليوم المفترض أن يحدث "
+"فيه."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:514
+#: ../lib/tribe-events-recurrence-meta.class.php:529
+msgid "Every day"
+msgstr "كل يوم"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:518
+#: ../lib/tribe-events-recurrence-meta.class.php:534
+msgid "Every week"
+msgstr "كل أسبوع"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:521
+#: ../lib/tribe-events-recurrence-meta.class.php:540
+msgid "Every month"
+msgstr "كل شهر"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:524
+#: ../lib/tribe-events-recurrence-meta.class.php:547
+msgid "Every year"
+msgstr "كل عام"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:530
+#, php-format
+msgid "Every %d days"
+msgstr "كل %d أيام"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:535
+#, php-format
+msgid "Every %d weeks"
+msgstr "كل %d أسابيع"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:536
+#, php-format
+msgid " on %s"
+msgstr "في %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:541
+#, php-format
+msgid "Every %d months"
+msgstr "كل %d شهور"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:543
+#, php-format
+msgid " on the %s %s"
+msgstr "في  %s %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:543
+msgid "day"
+msgstr "يوم"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:548
+#, php-format
+msgid "Every %d years"
+msgstr "كل %d سنين"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:550
+msgid "last"
+msgstr "الأخير"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:555
+#, php-format
+msgid " on the %s %s of %s"
+msgstr "في %s %s من %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:562
+#, php-format
+msgid " until %s"
+msgstr "حتي %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:567
+#, php-format
+msgid "%s%s%s"
+msgstr "%s%s%s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:582
+msgid ", and"
+msgstr ", و"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:584
+msgid "and"
+msgstr "و"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:586
+msgid ","
+msgstr ","
+
+#: ../lib/tribe-events-recurrence-meta.class.php:601
+msgid "January"
+msgstr "يناير"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:601
+msgid "February"
+msgstr "فبراير"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:601
+msgid "March"
+msgstr "مارس"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:601
+msgid "April"
+msgstr "أبريل"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:602
+msgid "June"
+msgstr "يونيو"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:602
+msgid "July"
+msgstr "يوليو"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:602
+msgid "August"
+msgstr "أغسطس"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:602
+msgid "September"
+msgstr "سبتمبر"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:602
+msgid "October"
+msgstr "أكتوبر"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:602
+msgid "November"
+msgstr "نوفمبر"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:602
+msgid "December"
+msgstr "ديسمبر"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:608
+msgid ", and "
+msgstr ", و"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:610
+msgid " and "
+msgstr "و"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:612
+msgid ", "
+msgstr ","
+
+#: ../lib/widget-advanced-list.class.php:16
+msgid "A widget that displays the next upcoming x events."
+msgstr "مربع يظهر الأحداث القادمة."
+
+#: ../lib/widget-calendar.class.php:14
+msgid "A calendar of your events"
+msgstr "تقويم بالأحداث الخاصة بك"
+
+#: ../lib/widget-calendar.class.php:15
+msgid "Events Calendar"
+msgstr "الأجندة"
+
+#: ../lib/widget-featured.class.php:13
+msgid "Your next upcoming event"
+msgstr "الحدث التالي"
+
+#: ../lib/widget-featured.class.php:14
+msgid "Next Event Widget"
+msgstr "المربع الجانبي التالي"
+
+#: ../lib/widget-featured.class.php:58
+msgid "There are no upcoming events at this time."
+msgstr "لا توجد أحداث مقبلة في هذا الوقت."
+
+#: ../vendor/advanced-post-manager/demo/demo.php:31
+#, php-format
+msgid ""
+"It looks like you might not have any demo data. <a href=\"%s\">Download our "
+"data</a> and use the <a href=\"%s\">WordPress Importer</a>."
+msgstr ""
+"يبدو أنه ليس لديك أي بيانات بادئة. <a href=\"%s\">قم بتحميل بياناتنا</a>و "
+"استخدم  <a href=\"%s\">مستورد وردبريس </a>."
+
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:133
+msgid "Add a Column"
+msgstr "أضف عامود"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:507
+msgid "Choose a Saved Filter"
+msgstr "أختر الفلتر المحفوظ"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:623
+msgid "Add a Filter"
+msgstr "اضف فلتر"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:46
+msgid "Extended Information"
+msgstr "معلومات موسعة"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:128
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:401
+msgid "Delete this image"
+msgstr "امسح الصورة"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:128
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:356
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:401
+msgid "Delete"
+msgstr "مسح"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:352
+msgid "Uploaded files"
+msgstr "الملفات المرفوعة"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:362
+msgid "Upload new files"
+msgstr "ارفع ملفات جديدة"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:365
+msgid "Add another file"
+msgstr "اضف ملف جديد"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:408
+msgid "Add more images"
+msgstr "اضف صور أخري"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:416
+msgid "Select a color"
+msgstr "اختر لون"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:7
+#: ../vendor/advanced-post-manager/views/edit-filters.php:8
+msgid "Click to toggle"
+msgstr "اضغط للتبديل"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:8
+msgid "Filters &amp; Columns"
+msgstr "فلترة &amp; أعمدة"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:17
+msgid "Apply"
+msgstr "تطبيق"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:18
+msgid "Clear"
+msgstr "مسح"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:19
+#: ../vendor/advanced-post-manager/views/edit-filters.php:26
+msgid "Save"
+msgstr "حفظ"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:21
+msgid "Export to CSV"
+msgstr "تصدير إلي ملف CSV"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:25
+msgid "Filter Name"
+msgstr "اسم الفلتر"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:27
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:9
+#: ../vendor/pue-client/admin-views/license-key.view.php:13
+msgid "License Key"
+msgstr "مفتاح الترخيص"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:10
+#: ../vendor/pue-client/admin-views/license-key.view.php:17
+msgid "A valid license key is required for support and updates."
+msgstr "يجب الحصول علي مفتاح ترخيص صالح من أجل الدعم و التحديثات."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:177
+#, php-format
+msgid "License Key for %s"
+msgstr "مفتاح الترخصي  ل %s"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:178
+msgid "A valid license key is required for support and updates"
+msgstr "يجب الحصول علي مفتاح ترخيص صالح من أجل الدعم و التحديثات."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:241
+msgid "License key(s) updated."
+msgstr "تم تحديث مفتاح الترخصي."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:278
+msgid "Sorry, key validation server is not available."
+msgstr "ناسف, خادم مفتاح الترخيص غير متاح حالياً."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:280
+msgid "Sorry, this key is expired."
+msgstr "نأسف, هذا المفتاح منتهي الصلاحية."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:282
+msgid "Sorry, this key is out of installs."
+msgstr "نأسف, هذا المفتاح استنفذ مرات التثبيت المسموح بها."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:284
+msgid "Sorry, this key is not valid."
+msgstr "ناسف, هذا المفتاح غير صالح."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:287
+#, php-format
+msgid "Valid Key! Expires on %s"
+msgstr "مفتاح الترخيص سليم و ينتهي في %s"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:291
+msgid ""
+"Hmmm... something's wrong with this validator. Please contact <a href="
+"\"http://tri.be/support\">support.</a>"
+msgstr ""
+"هناك خطأ ما في هذا المفتاح. نرجو التواصل مع<a href=\"http://tri.be/support"
+"\">الدعم.</a>"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:319
+msgid "[X]"
+msgstr "[X]"
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:20
+msgid "Displays posts related to the post."
+msgstr "اظهر التدوينات المرتبطة بهذه التدوينة."
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:22
+msgid "Related Posts"
+msgstr "التدوينات المتصلة"
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:64
+msgid "Count:"
+msgstr "عدد: "
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
+msgid "Display Thumbnails?"
+msgstr "أظهار الصور؟"
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:75
+msgid "Only Display Related Posts?"
+msgstr "أظهار التدوينات المتصلة فقط؟"
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:78
+msgid "Post Type:"
+msgstr "نوع التدوينة:"
+
+#: ../vendor/tribe-support/tribe-support.class.php:54
+msgid "Send a support request for this site."
+msgstr "ارسل طلب دعم لهذا الموقع."
+
+#: ../views/events-advanced-list-load-widget-display.php:57
+#: ../views/widget-featured-display.php:48
+msgid "All Day"
+msgstr "طوال اليوم"
+
+#: ../views/events-advanced-list-load-widget-display.php:110
+msgid "Price:"
+msgstr "السعر: "
+
+#: ../views/single-venue.php:14
+msgid "&laquo; Back to Events"
+msgstr "&laquo; العودة للأحداث"
+
+#: ../views/single-venue.php:20
+msgid "Name:"
+msgstr "الاسم:"
+
+#: ../views/single-venue.php:23
+msgid "Phone:"
+msgstr "التليفون: "
+
+#: ../views/single-venue.php:29
+msgid "Address:"
+msgstr "العنوان: "
+
+#: ../views/single-venue.php:31
+msgid "Click to view a Google Map"
+msgstr "اضغط لرؤية خريطة جوجل"
+
+#: ../views/single-venue.php:31
+msgid "Google Map"
+msgstr "خريطة جوجل"
+
+#: ../views/single-venue.php:39
+msgid "Description:"
+msgstr "الوصف: "
+
+#: ../views/single-venue.php:67
+msgid "Start:"
+msgstr "البداية: "
+
+#: ../views/single-venue.php:71
+msgid "End:"
+msgstr "النهاية:"
+
+#: ../views/single-venue.php:76
+msgid "Date:"
+msgstr "التاريخ:"
+
+#: ../views/single-venue.php:85
+msgid "Cost:"
+msgstr "التكلفة:"
