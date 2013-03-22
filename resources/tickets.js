@@ -228,10 +228,10 @@ jQuery( document ).ready( function ( $ ) {
 		uploader:function () {
 
 			var frame = wp.media( {
-				title   : 'title',
+				title   : 'Ticket header',
 				multiple:false,
 				library :{ type:'image' },
-				button  :{ text:'button text' }
+				button  :{ text:'Upload' }
 			} );
 
 			// Handle results from media manager.
