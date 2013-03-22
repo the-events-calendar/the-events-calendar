@@ -588,19 +588,12 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			echo '<h3 class="tribe-events-related-events-title">'.  __( 'Related Events', 'tribe-events-calendar-pro' ) .'</h3>';
 			echo '<ul class="tribe-related-events tribe-clearfix">';
 			foreach ( $posts as $post ) {
-				echo '<li>';
+				echo '<li>';	
 				
-					$thumb = get_the_post_thumbnail( $post->ID, 'large' );
-					if ( $thumb ) { 
-						echo '<div class="tribe-related-events-thumbnail"><a href="'. get_permalink( $post->ID ) .'">'. $thumb .'</a></div>'; 
-					} elseif( class_exists( 'TribeEvents' ) && $post->post_type == TribeEvents::POSTTYPE ) {
-						echo '<div class="tribe-related-events-placeholder">';
-						echo '<a href="'. get_permalink( $post->ID ) .'">';
-						echo '<span class="tribe-related-events-placeholder-month">'. tribe_get_start_date( $post, false, 'M' ) .'</span>';
-						echo '<span class="tribe-related-events-placeholder-day">'. tribe_get_start_date( $post, false, 'j' ) .'</span>';;
-						echo '<span class="tribe-related-events-placeholder-year">'. tribe_get_start_date( $post, false, 'Y' ) .'</span>';;
-						echo '</a></div>';
-					}
+					$thumb = ( has_post_thumbnail( $post->ID ) ) ? get_the_post_thumbnail( $post->ID, 'large' ) : '<img src="'. trailingslashit( TribeEventsPro::instance()->pluginUrl ) . 'resources/images/tribe-related-events-placeholder.png" alt="'. get_the_title( $post->ID ) .'" />';;
+					echo '<div class="tribe-related-events-thumbnail">';
+					echo '<a href="'. get_permalink( $post->ID ) .'">'. $thumb .'</a>';
+					echo '</div>';
 					echo '<div class="tribe-related-event-info">';
 						echo '<h3 class="tribe-related-events-title"><a href="'. get_permalink( $post->ID ) .'">'. get_the_title( $post->ID ) .'</a></h3>';
 
