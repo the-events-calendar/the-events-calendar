@@ -3436,12 +3436,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function setup_listview_in_bar( $views ) {
-			$views[] = array( 'displaying' => 'upcoming', 'anchor' => 'List', 'url' => tribe_get_listview_link() );
+			$views[] = array( 'displaying' => 'upcoming', 'event_bar_hook' => 'tribe_events_list_before_template', 'anchor' => 'List', 'url' => tribe_get_listview_link() );
 			return $views;
 		}
 
 		public function setup_gridview_in_bar( $views ) {
-			$views[] = array( 'displaying' => 'month', 'anchor' => 'Month', 'url' => tribe_get_gridview_link() );
+			$views[] = array( 'displaying' => 'month', 'event_bar_hook' => 'tribe_events_calendar_before_template', 'anchor' => 'Month', 'url' => tribe_get_gridview_link() );
 			return $views;
 		}
 
