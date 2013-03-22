@@ -31,8 +31,11 @@ class TribeEventsTicketsMetabox {
 		if ( ( $hook != 'post-new.php' && $hook != 'post.php' ) || TribeEvents::POSTTYPE != $post->post_type )
 			return;
 
+		$upload_header_data = array( 'title' => __( 'Ticket header image', 'tribe-events-calendar' ), 'button'=> __( 'Set as ticket header', 'tribe-events-calendar' ) );
+
 		wp_enqueue_script( 'events-tickets', plugins_url( 'resources/tickets.js', dirname( dirname( __FILE__ ) ) ) );
 		wp_enqueue_style( 'events-tickets', plugins_url( 'resources/tickets.css', dirname( dirname( __FILE__ ) ) ) );
+		wp_localize_script( 'events-tickets', 'HeaderImageData', $upload_header_data );
 
 
 	}

@@ -228,16 +228,17 @@ jQuery( document ).ready( function ( $ ) {
 		uploader:function () {
 
 			var frame = wp.media( {
-				title   : 'Ticket header',
+				title   : HeaderImageData.title,
 				multiple:false,
 				library :{ type:'image' },
-				button  :{ text:'Upload' }
+				button  :{ text:HeaderImageData.button }
 			} );
 
 			// Handle results from media manager.
 			frame.on( 'close', function () {
 				var attachments = frame.state().get( 'selection' ).toJSON();
-				ticketHeaderImage.render( attachments[0] );
+				if ( attachments.length )
+					ticketHeaderImage.render( attachments[0] );
 			} );
 
 			frame.open();
