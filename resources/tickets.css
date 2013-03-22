@@ -51,7 +51,11 @@ p.ticket_name {
 	display : none;
 }
 
-#tribe_ticket_header_preview img{
-	max-width: 100%;
-	height: auto;
+#tribe_ticket_header_preview img {
+	max-width : 95%;
+	height    : auto;
+}
+
+#tribe_ticket_header_remove {
+	display: none;
 }

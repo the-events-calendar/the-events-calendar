@@ -1,8 +1,14 @@
 <?php
 // Don't load directly
-if ( ! defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) )
 	die( '-1' );
-}
+
+$header_id  = get_post_meta( get_the_ID(), $this->image_header_field, true );
+$header_id  = ! empty( $header_id ) ? $header_id : '';
+$header_img = '';
+if ( ! empty( $header_id ) )
+	$header_img = wp_get_attachment_image( $header_id, 'full' );
+
 ?>
 
 <table id="event_tickets" class="eventtable">
@@ -17,27 +23,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php
 	}
 	?>
-	<table class="eventtable ticket_list eventForm">
-		<tr>
-			<td>
-				<?php _e( 'Upload image for the ticket header', 'tribe-events-calendar' ); ?>
-				<p class="description"><?php _e( 'Best 800px wide', 'tribe-events-calendar' ); ?></p>
-			</td>
-			<td>
-				<input type="button" class="button" name="tribe_ticket_header_image" id="tribe_ticket_header_image" value="<?php _e( 'Select an Image', 'tribe-events-calendar' ); ?>" onclick="ticketHeaderImage.uploader( '', '' ); return false;" />
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<div class="tribe_preview" id="tribe_ticket_header_preview">
+	<tr>
+		<td colspan="2" class="tribe_sectionheader updated">
+			<table class="eventtable ticket_list eventForm">
+				<tr>
+					<td>
+						<?php _e( 'Upload image for the ticket header', 'tribe-events-calendar' ); ?>
+						<p class="description"><?php _e( 'Best 800px wide', 'tribe-events-calendar' ); ?></p>
+					</td>
+					<td>
+						<input type="button" class="button" name="tribe_ticket_header_image" id="tribe_ticket_header_image" value="<?php _e( 'Select an Image', 'tribe-events-calendar' ); ?>" onclick="ticketHeaderImage.uploader( '', '' ); return false;" />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<div class="tribe_preview" id="tribe_ticket_header_preview">
+							<?php echo $header_img; ?>
+							<p class="description"><a href="#" id="tribe_ticket_header_remove"><?php _e('Remove'); ?></a></p>
+						</div>
 
-				</div>
-
-				<input type="hidden" id="tribe_ticket_header_image_id" name="tribe_ticket_header_image_id" value="" />
-				<input type="hidden" id="tribe_ticket_header_image_url" name="tribe_ticket_header_image_url" value="" />
-			</td>
-		</tr>
-	</table>
+						<input type="hidden" id="tribe_ticket_header_image_id" name="tribe_ticket_header_image_id" value="<?php echo esc_attr($header_id);?>" />
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
 	<tr>
 		<td colspan="2" class="tribe_sectionheader ticket_list_container">
 

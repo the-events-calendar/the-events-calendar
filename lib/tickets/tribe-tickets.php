@@ -12,6 +12,8 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		private $parentUrl;
 		private $attendees_slug = 'tickets-attendees';
 		private $attendees_page;
+
+		protected $image_header_field = '_tribe_ticket_header';
 		/**
 		 * @var TribeEventsTicketsAttendeesTable
 		 */
@@ -69,11 +71,12 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			self::$active = true;
 
 			if ( is_admin() ) {
-				add_action( 'tribe_events_event_save', array( $this, 'save_tickets' ), 10, 1 );
+				//add_action( 'tribe_events_event_save', array( $this, 'save_tickets' ), 10, 1 );
 				add_action( 'tribe_events_tickets_metabox_advanced', array( $this, 'do_metabox_advanced_options' ), 10, 2 );
 				// Attendees list
 				add_filter( 'post_row_actions', array( $this, 'attendees_row_action' ) );
 				add_action( 'admin_menu', array( $this, 'attendees_page_register' ) );
+				add_action( 'save_post', array( $this, 'save_image_header' ), 20, 2 );
 			}
 
 
@@ -330,6 +333,24 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			}
 
 			$this->ajax_ok( $return );
+		}
+
+
+		public function save_image_header( $post_id, $post ) {
+
+			// only continue if it's an event post
+			if ( $post->post_type != TribeEvents::POSTTYPE )
+				return;
+			// don't do anything on autosave or auto-draft either or massupdates
+			if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) )
+				return;
+
+			if ( empty( $_POST['tribe_ticket_header_image_id'] ) )
+				delete_post_meta( $post_id, $this->image_header_field );
+			else
+				update_post_meta( $post_id, $this->image_header_field, $_POST['tribe_ticket_header_image_id'] );
+
+			return;
 		}
 
 		public final function ajax_handler_attendee_checkin() {
