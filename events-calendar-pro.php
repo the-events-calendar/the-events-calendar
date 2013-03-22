@@ -575,6 +575,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					// remove the default gridview class from core
 					$classes = array_diff( $classes, array( 'events-gridview' ) );
 				}
+				if ( !tribe_get_option( 'hideLocationSearch', false ) ) {
+					$classes[] = ' tribe-events-uses-geolocation';
+				}
 			}
 			return $classes;
 		}

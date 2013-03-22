@@ -129,8 +129,17 @@ class TribeEventsGeoLoc {
 																						'kms'   => __( 'Kilometers', 'tribe-events-calendar-pro' ) ) ) ) ) 
 				);
 
-		}
-
+		} elseif ( $id == 'display' ) {
+			$args = TribeEvents::array_insert_after_key( 'viewOption', $args, array(
+				'hideLocationSearch' => array( 
+					'type' => 'checkbox_bool',
+					'label' => __( 'Hide location search', 'tribe-events-calendar-pro' ),
+					'tooltip' => __( 'Removes location search field from the events bar.', 'tribe-events-calendar-pro' ),
+					'default' => false,
+					'validation_type' => 'boolean',
+				),
+			) );
+	  	}
 
 		return $args;
 	}
@@ -141,26 +150,26 @@ class TribeEventsGeoLoc {
 	}
 
 	public function setup_geoloc_filter_in_bar( $filters ) {
+		if ( !tribe_get_option( 'hideLocationSearch', false ) ) {
+			$value = "";
+			if ( !empty( $_REQUEST['tribe-bar-geoloc'] ) ) {
+				$value = $_REQUEST['tribe-bar-geoloc'];
+			}
 
-		$value = "";
-		if ( !empty( $_REQUEST['tribe-bar-geoloc'] ) ) {
-			$value = $_REQUEST['tribe-bar-geoloc'];
+			$lat = "";
+			if ( !empty( $_REQUEST['tribe-bar-geoloc-lat'] ) ) {
+				$lat = $_REQUEST['tribe-bar-geoloc-lat'];
+			}
+
+			$lng = "";
+			if ( !empty( $_REQUEST['tribe-bar-geoloc-lng'] ) ) {
+				$lng = $_REQUEST['tribe-bar-geoloc-lng'];
+			}
+
+			$filters[] = array( 'name'    => 'tribe-bar-geoloc',
+								'caption' => __( 'Near', 'tribe-events-calendar-pro' ),
+								'html'    => '<input type="hidden" name="tribe-bar-geoloc-lat" id="tribe-bar-geoloc-lat" value="' . esc_attr( $lat ) . '" /><input type="hidden" name="tribe-bar-geoloc-lng" id="tribe-bar-geoloc-lng" value="' . esc_attr( $lng ) . '" /><input type="text" name="tribe-bar-geoloc" id="tribe-bar-geoloc" value="' . esc_attr( $value ) . '" placeholder="Location">' );
 		}
-
-		$lat = "";
-		if ( !empty( $_REQUEST['tribe-bar-geoloc-lat'] ) ) {
-			$lat = $_REQUEST['tribe-bar-geoloc-lat'];
-		}
-
-		$lng = "";
-		if ( !empty( $_REQUEST['tribe-bar-geoloc-lng'] ) ) {
-			$lng = $_REQUEST['tribe-bar-geoloc-lng'];
-		}
-
-		$filters[] = array( 'name'    => 'tribe-bar-geoloc',
-		                    'caption' => __( 'Near', 'tribe-events-calendar-pro' ),
-		                    'html'    => '<input type="hidden" name="tribe-bar-geoloc-lat" id="tribe-bar-geoloc-lat" value="' . esc_attr( $lat ) . '" /><input type="hidden" name="tribe-bar-geoloc-lng" id="tribe-bar-geoloc-lng" value="' . esc_attr( $lng ) . '" /><input type="text" name="tribe-bar-geoloc" id="tribe-bar-geoloc" value="' . esc_attr( $value ) . '" placeholder="Location">' );
-
 		return $filters;
 	}
 
