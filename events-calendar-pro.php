@@ -603,6 +603,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$query->tribe_is_week = true;
 						break;
 					case 'day':
+						// a little hack to prevent 404 from happening on day view
+						add_filter( 'tribe_events_templates_is_404', '__return_false' );
 						$event_date = $query->get('eventDate') != '' ? $query->get('eventDate') : Date('Y-m-d');
 						$query->set( 'start_date', tribe_event_beginning_of_day( $event_date ) );
 						$query->set( 'end_date', tribe_event_end_of_day( $event_date ) );

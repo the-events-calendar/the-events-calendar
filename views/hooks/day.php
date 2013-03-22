@@ -18,6 +18,11 @@ if( !class_exists('Tribe_Events_Day_Template')){
 		static $timeslots = array();
 
 		public static function init(){
+
+			// Search term based notices
+			if( !empty($search_term) && !have_posts() ) {
+				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> on this day. Try searching another day.', 'tribe-events-calendar' ), $search_term ) );
+			}
 		
 			add_filter( 'tribe_events_list_show_separators', '__return_false' );
 			add_filter( 'tribe_get_ical_link', array(__CLASS__,'ical_link'), 20, 1 );
