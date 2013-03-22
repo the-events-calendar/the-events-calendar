@@ -49,9 +49,9 @@ $displayTab = array(
 			'label' => __( 'Default stylesheet used for events templates', 'tribe-events-calendar' ),
 			'default' => 'tribe',
 			'options' => array( 
-				'skeleton' => 'Skeleton Styles (These styles provide a bare minimum level of layout for the more complex templates, and is recommended if you\'re customizing the events template styles)', 
-				'full' => 'Full Styles (These styles provide a more complex level of layout and style and should adapt to your theme)', 
-				'tribe' => 'Tribe Events Styles (These styles provide a fully designed events theme)'
+				'skeleton' => __( 'Skeleton Styles (These styles provide a bare minimum level of layout for the more complex templates, and is recommended if you\'re customizing the events template styles)', 'tribe-events-calendar' ), 
+				'full' => __( 'Full Styles (These styles provide a more complex level of layout and style and should adapt to your theme)', 'tribe-events-calendar' ), 
+				'tribe' => __( 'Tribe Events Styles (These styles provide a fully designed events theme)', 'tribe-events-calendar' )
 			),
 			'validation_type' => 'options',
 		),
