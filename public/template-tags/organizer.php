@@ -154,5 +154,19 @@ if( class_exists( 'TribeEvents' ) ) {
 		}
 		return apply_filters('tribe_get_organizer_website_link', $html );
 	}
+	
+	/**
+	 * Get all the organizers
+	 *
+	 * @author PaulHughes01
+	 * @since 2.1
+	 * @param bool $only_with_upcoming Only return organizers with upcoming events attached to them.
+	 * @return array An array of organizer post objects.
+	 */
+	function tribe_get_organizers( $only_with_upcoming = false, $posts_per_page = -1 ) {
+		$organizers = get_posts( array( 'post_type' => TribeEvents::ORGANIZER_POST_TYPE, 'posts_per_page' => $posts_per_page ) );
+		
+		return $organizers;
+	}
 
 }
