@@ -14,11 +14,10 @@ class TribeEventsBar {
 	private $views = array();
 
 	public function __construct() {
-		add_filter( 'tribe_events_before_html', array( $this, 'show' ), 	  15 );
-		add_filter( 'wp_enqueue_scripts', 		array( $this, 'load_script' )    );
+		add_filter( 'wp_enqueue_scripts', array( $this, 'load_script' ) );
 
-		add_action( 'tribe-events-bar-show-filters', array( 'TribeEventsBar', 'print_filters_helper' ), 10, 1 );
-		add_action( 'tribe-events-bar-show-views', 	 array( 'TribeEventsBar', 'print_views_helper' ),   10, 1 );
+		add_action( 'tribe-events-bar-show-filters', array( $this, 'print_filters_helper' ) );
+		add_action( 'tribe-events-bar-show-views', 	 array( $this, 'print_views_helper' ) );
 	}
 
 	/**
@@ -37,9 +36,14 @@ class TribeEventsBar {
 		global $wp_query;
 		$active_views = apply_filters( 'tribe-events-bar-views', array() );
 
+		// print_r($active_views);
+
 		$view_slugs = array();
 		foreach ( $active_views as $view ) {
 			$view_slugs[] = $view['displaying'];
+			// we look at each view params and try to add the hook if supplied if not dump in on the tribe_events
+			$event_bar_hook = !empty($view['event_bar_hook']) ? $view['event_bar_hook'] : 'tribe_events_before_html';
+			add_filter( $event_bar_hook , array( $this, 'show' ), 15 );
 		}
 
 		$is_tribe_view = ( ! empty( $wp_query->tribe_is_event_query ) && in_array( TribeEvents::instance()->displaying, $view_slugs ) );
@@ -94,7 +98,7 @@ class TribeEventsBar {
 			//Load the template
 			ob_start();
 			include $tec->pluginPath . "views/modules/bar.php";
-			$content = $content . ob_get_clean();
+			$content = ob_get_clean() . $content;
 		}
 
 		return $content;
