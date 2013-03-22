@@ -29,7 +29,7 @@ if ( ! empty( $header_id ) )
 				<tr>
 					<td>
 						<?php _e( 'Upload image for the ticket header', 'tribe-events-calendar' ); ?>
-						<p class="description"><?php _e( 'Best 800px wide', 'tribe-events-calendar' ); ?></p>
+						<p class="description"><?php _e( 'Best 580px wide', 'tribe-events-calendar' ); ?></p>
 					</td>
 					<td>
 						<input type="button" class="button" name="tribe_ticket_header_image" id="tribe_ticket_header_image" value="<?php _e( 'Select an Image', 'tribe-events-calendar' ); ?>" onclick="ticketHeaderImage.uploader( '', '' ); return false;" />
