@@ -56,7 +56,7 @@ $displayTab = array(
 			'validation_type' => 'options',
 		),
         'tribeEventsTemplate' => array(
-			'type' => 'dropdown_chosen',
+			'type' => 'dropdown_select2',
 		 	'label' => __( 'Events template', 'tribe-events-calendar' ),
 			'tooltip' => __( 'Choose a page template to control the appearance of your calendar and event content.', 'tribe-events-calendar' ),
 			'validation_type' => 'options',
@@ -73,7 +73,7 @@ $displayTab = array(
             'validation_type' => 'options_multi'
         ),
         'viewOption' => array(
-			'type' => 'dropdown_chosen',
+			'type' => 'dropdown_select2',
 		 	'label' => __( 'Default view', 'tribe-events-calendar' ),
 			'validation_type' => 'options',
 			'size' => 'large',

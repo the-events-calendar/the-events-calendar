@@ -88,6 +88,7 @@ if ( !class_exists('TribeField') ) {
 				'checkbox_list',
 				'dropdown',
 				'dropdown_chosen',
+				'dropdown_select2',
 				'license_key',
 			);
 
@@ -519,6 +520,20 @@ if ( !class_exists('TribeField') ) {
 		 * @return string the field
 		 */
 		public function dropdown_chosen() {
+			$field = $this->dropdown();
+			return $field;
+		}
+
+		/**
+		 * generate a select2 dropdown field - the same as the
+		 * regular dropdown but wrapped so it can have the
+		 * right css class applied to it
+		 *
+		 * @since 2.0.5
+		 * @author jkudish
+		 * @return string the field
+		 */
+		public function dropdown_select2() {
 			$field = $this->dropdown();
 			return $field;
 		}

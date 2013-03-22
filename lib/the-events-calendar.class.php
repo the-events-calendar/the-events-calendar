@@ -1400,6 +1400,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				// chosen
 				Tribe_Template_Factory::asset_package('chosen');
 
+				// select 2
+				Tribe_Template_Factory::asset_package('select2');
+
 				// smoothness
 				Tribe_Template_Factory::asset_package('smoothness');
 
