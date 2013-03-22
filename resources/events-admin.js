@@ -4,6 +4,12 @@ jQuery(document).ready(function($) {
 	$('.chosen, .tribe-field-dropdown_chosen select').chosen();
 	$('.select2, .tribe-field-dropdown_select2 select').select2({width: '250px'});
 
+	if($('select[name="tribeEventsTemplate"]' ).length && $('select[name="tribeEventsTemplate"]' ).val() === '' ){
+		$templates = $('select[name="tribeEventsTemplate"]' );
+		var name = $templates.find("option:selected" ).text();
+		$templates.prev('.select2-container' ).children().children('span').text(name);
+	}
+
 	//not done by default on front end
 	$('.hide-if-js').hide();
 
