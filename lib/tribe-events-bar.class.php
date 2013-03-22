@@ -34,16 +34,18 @@ class TribeEventsBar {
 	 */
 	public function should_show() {
 		global $wp_query;
+
 		$active_views = apply_filters( 'tribe-events-bar-views', array() );
-
-		// print_r($active_views);
-
+		$show_bar_filter = apply_filters( 'tribe_events_bar_should_show_filter', in_array( get_post_type(), array( TribeEvents::VENUE_POST_TYPE, TribeEvents::ORGANIZER_POST_TYPE ) ) ? false : true );
 		$view_slugs = array();
+		
 		foreach ( $active_views as $view ) {
 			$view_slugs[] = $view['displaying'];
-			// we look at each view params and try to add the hook if supplied if not dump in on the tribe_events
-			$event_bar_hook = !empty($view['event_bar_hook']) ? $view['event_bar_hook'] : 'tribe_events_before_html';
-			add_filter( $event_bar_hook , array( $this, 'show' ), 15 );
+			if( $show_bar_filter ) {
+				// we look at each view params and try to add the hook if supplied if not dump in on the tribe_events
+				$event_bar_hook = !empty($view['event_bar_hook']) ? $view['event_bar_hook'] : 'tribe_events_before_html';
+				add_filter( $event_bar_hook , array( $this, 'show' ), 30 );
+			}
 		}
 
 		$is_tribe_view = ( ! empty( $wp_query->tribe_is_event_query ) && in_array( TribeEvents::instance()->displaying, $view_slugs ) );
@@ -83,25 +85,21 @@ class TribeEventsBar {
 	 */
 	public function show( $content ) {
 
+		$tec = TribeEvents::instance();
 
-		if ( $this->should_show() ) {
+		//set it to false to prevent infinite nesting
+		add_filter( 'tribe-events-bar-should-show', '__return_false', 9999 );
 
-			$tec = TribeEvents::instance();
+		// Load the registered filters and views for the Bar. This values will be used in the template.
+		$filters = apply_filters( 'tribe-events-bar-filters', $this->filters );
+		$views   = apply_filters( 'tribe-events-bar-views', $this->views );
 
-			//set it to false to prevent infinite nesting
-			add_filter( 'tribe-events-bar-should-show', '__return_false', 9999 );
+		//Load the template
+		ob_start();
+		include $tec->pluginPath . "views/modules/bar.php";
+		$html = ob_get_clean() . $content;
 
-			// Load the registered filters and views for the Bar. This values will be used in the template.
-			$filters = apply_filters( 'tribe-events-bar-filters', $this->filters );
-			$views   = apply_filters( 'tribe-events-bar-views', $this->views );
-
-			//Load the template
-			ob_start();
-			include $tec->pluginPath . "views/modules/bar.php";
-			$content = ob_get_clean() . $content;
-		}
-
-		return $content;
+		return apply_filters( 'tribe_events_bar_show', $html, $filters, $views, $content );
 	}
 
 	/**
