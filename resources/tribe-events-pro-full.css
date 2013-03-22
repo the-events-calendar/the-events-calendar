@@ -441,7 +441,7 @@
    @ Template: map.php
 =============================================*/
 /* tribe geolocation map area */
-.tribe-events-filter-view #tribe-geo-wrapper {
+.tribe-events-filters-v #tribe-geo-wrapper {
 	 width: 72%; 
 	 float: right; 
 	 padding: 24px 0 1px;
