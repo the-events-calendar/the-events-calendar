@@ -318,7 +318,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 								$span_class = $day_span_length > 0 ? 'tribe-dayspan' . $day_span_length : '';
 								// Get our wrapper classes (for event categories, organizer, venue, and defaults)
 								$classes = array( 'hentry', 'vevent', $span_class, 'type-tribe_events', 'post-' . $event->ID, 'tribe-clearfix' );
-								$tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
+								$tribe_cat_slugs = tribe_get_event_cat_slugs( $event->ID );
 								foreach( $tribe_cat_slugs as $tribe_cat_slug ) {
 									$classes[] = 'tribe-events-category-'. $tribe_cat_slug;
 								}

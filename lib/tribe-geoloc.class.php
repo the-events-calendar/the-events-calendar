@@ -136,7 +136,7 @@ class TribeEventsGeoLoc {
 	}
 
 	public function setup_view_for_bar( $views ) {
-		$views[] = array( 'displaying' => 'map', 'anchor'=> 'Map', 'url' => tribe_get_mapview_link() );
+		$views[] = array( 'displaying' => 'map', 'event_bar_hook' => 'tribe_events_map_before_the_options', 'anchor'=> 'Map', 'url' => tribe_get_mapview_link() );
 		return $views;
 	}
 

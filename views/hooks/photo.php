@@ -35,7 +35,7 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 			add_filter( 'tribe_events_list_after_template', array( __CLASS__, 'after_template' ), 20, 1 );
 		}
 		// Start Photo Template
-		public static function before_template() {
+		public static function before_template( $html ) {
 			$html = '<input type="hidden" id="tribe-events-list-hash" value="" />';				
 			$html .= '<div id="tribe-events-content" class="tribe-events-list tribe-nav-alt">';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_photo_before_template' );
