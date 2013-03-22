@@ -222,6 +222,50 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 
+	ticketHeaderImage = {
+
+		// Call this from the upload button to initiate the upload frame.
+		uploader:function ( widget_id, widget_id_string ) {
+
+			var frame = wp.media( {
+				title   : 'title',
+				multiple:false,
+				library :{ type:'image' },
+				button  :{ text:'button text' }
+			} );
+
+			// Handle results from media manager.
+			frame.on( 'close', function () {
+				var attachments = frame.state().get( 'selection' ).toJSON();
+				ticketHeaderImage.render( attachments[0] );
+			} );
+
+			frame.open();
+			return false;
+		},
+		// Output Image preview and populate widget form.
+		render:function ( attachment ) {
+
+			$( '#tribe_ticket_header_preview' ).html( ticketHeaderImage.imgHTML( attachment ) );
+
+			$( '#tribe_ticket_header_image_id' ).val( attachment.id );
+			$( 'tribe_ticket_header_image_url' ).val( attachment.url );
+
+		},
+		// Render html for the image.
+		imgHTML           :function ( attachment ) {
+			var img_html = '<img src="' + attachment.url + '" ';
+			img_html += 'width="' + attachment.width + '" ';
+			img_html += 'height="' + attachment.height + '" ';
+			if ( attachment.alt != '' ) {
+				img_html += 'alt="' + attachment.alt + '" ';
+			}
+			img_html += '/>';
+			return img_html;
+		}
+	};
+
+
 	/* Helper functions */
 
 	function ticket_clear_form() {
@@ -244,6 +288,8 @@ jQuery( document ).ready( function ( $ ) {
 		jQuery( '#event_tickets' ).css( 'opacity', '1' );
 		jQuery( "#tribe-loading" ).hide();
 	}
+
+
 
 
 } );

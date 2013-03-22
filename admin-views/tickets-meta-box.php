@@ -1,6 +1,6 @@
 <?php
 // Don't load directly
-if ( !defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 ?>
@@ -17,6 +17,27 @@ if ( !defined( 'ABSPATH' ) ) {
 		<?php
 	}
 	?>
+	<table class="eventtable ticket_list eventForm">
+		<tr>
+			<td>
+				<?php _e( 'Upload image for the ticket header', 'tribe-events-calendar' ); ?>
+				<p class="description"><?php _e( 'Best 800px wide', 'tribe-events-calendar' ); ?></p>
+			</td>
+			<td>
+				<input type="button" class="button" name="tribe_ticket_header_image" id="tribe_ticket_header_image" value="<?php _e( 'Select an Image', 'tribe-events-calendar' ); ?>" onclick="ticketHeaderImage.uploader( '', '' ); return false;" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div class="tribe_preview" id="tribe_ticket_header_preview">
+
+				</div>
+
+				<input type="hidden" id="tribe_ticket_header_image_id" name="tribe_ticket_header_image_id" value="" />
+				<input type="hidden" id="tribe_ticket_header_image_url" name="tribe_ticket_header_image_url" value="" />
+			</td>
+		</tr>
+	</table>
 	<tr>
 		<td colspan="2" class="tribe_sectionheader ticket_list_container">
 
@@ -51,8 +72,8 @@ if ( !defined( 'ABSPATH' ) ) {
 						foreach ( self::$active_modules as $class => $module ) {
 							?>
 							<input <?php checked( $checked );?> type="radio" name="ticket_provider" id="ticket_provider"
-							                                    value="<?php echo esc_attr( $class );?>"
-							                                    class="ticket_field">
+																value="<?php echo esc_attr( $class );?>"
+																class="ticket_field">
 							<span><?php echo esc_html( $module ); ?></span>
 							<?php
 							$checked = false;
@@ -63,7 +84,7 @@ if ( !defined( 'ABSPATH' ) ) {
 				<tr>
 					<td><label for="ticket_name"><?php _e( 'Ticket Name:', 'tribe-events-calendar' ); ?></label></td>
 					<td>
-						<input type='text' id='ticket_name' name='ticket_name' class="ticket_field" size='25' value=''/>
+						<input type='text' id='ticket_name' name='ticket_name' class="ticket_field" size='25' value='' />
 					</td>
 				</tr>
 				<tr class="ticket">
@@ -72,7 +93,7 @@ if ( !defined( 'ABSPATH' ) ) {
 					</td>
 					<td>
 						<textarea rows="5" cols="40" name="ticket_description" class="ticket_field"
-						          id="ticket_description"></textarea>
+								  id="ticket_description"></textarea>
 					</td>
 				</tr>
 				<tr class="ticket">
@@ -81,7 +102,8 @@ if ( !defined( 'ABSPATH' ) ) {
 					</td>
 					<td>
 						<input type='text' id='ticket_price' name='ticket_price' class="ticket_field" size='7'
-						       value=''/>
+							   value='' />
+
 						<p class="description">(0 or empty for free tickets)</p>
 					</td>
 				</tr>
@@ -92,7 +114,7 @@ if ( !defined( 'ABSPATH' ) ) {
 					</td>
 					<td>
 						<input autocomplete="off" type="text" class="ticket_field" size='7' name="ticket_start_date"
-						       id="ticket_start_date" value="">
+							   id="ticket_start_date" value="">
 						<span class=''>
 							<?php _e( '@', 'tribe-events-calendar' ); ?>
 							<select name='ticket_start_hour' id='ticket_start_hour' class="ticket_field">
@@ -101,7 +123,7 @@ if ( !defined( 'ABSPATH' ) ) {
 							<select name='ticket_start_minute' id='ticket_start_minute' class="ticket_field">
 								<?php echo $startMinuteOptions; ?>
 							</select>
-							<?php if ( !strstr( get_option( 'time_format', TribeDateUtils::TIMEFORMAT ), 'H' ) ) : ?>
+							<?php if ( ! strstr( get_option( 'time_format', TribeDateUtils::TIMEFORMAT ), 'H' ) ) : ?>
 							<select name='ticket_start_meridian' id='ticket_start_meridian' class="ticket_field">
 								<?php echo $startMeridianOptions; ?>
 							</select>
@@ -116,7 +138,7 @@ if ( !defined( 'ABSPATH' ) ) {
 					</td>
 					<td valign="top">
 						<input autocomplete="off" type="text" class="ticket_field" size='7' name="ticket_end_date"
-						       id="ticket_end_date" value="">
+							   id="ticket_end_date" value="">
 
 						<span class=''>
 							<?php _e( '@', 'tribe-events-calendar' ); ?>
@@ -126,13 +148,15 @@ if ( !defined( 'ABSPATH' ) ) {
 							<select name='ticket_end_minute' id='ticket_end_minute' class="ticket_field">
 								<?php echo $endMinuteOptions; ?>
 							</select>
-							<?php if ( !strstr( get_option( 'time_format', TribeDateUtils::TIMEFORMAT ), 'H' ) ) : ?>
+							<?php if ( ! strstr( get_option( 'time_format', TribeDateUtils::TIMEFORMAT ), 'H' ) ) : ?>
 							<select name='ticket_end_meridian' id='ticket_end_meridian' class="ticket_field">
 								<?php echo $endMeridianOptions; ?>
 							</select>
 							<?php endif; ?>
 						</span>
-						<br/><p class="description"><?php _e("When will ticket sales occur? If you don't set a start/end date for sales, tickets will be available from now until the event ends.",'tribe-events-calendar');?></p>
+						<br />
+
+						<p class="description"><?php _e( "When will ticket sales occur? If you don't set a start/end date for sales, tickets will be available from now until the event ends.", 'tribe-events-calendar' );?></p>
 					</td>
 				</tr>
 
@@ -142,13 +166,13 @@ if ( !defined( 'ABSPATH' ) ) {
 				<tr class="ticket bottom">
 					<td></td>
 					<td>
-						<input type="hidden" name="ticket_id" id="ticket_id" class="ticket_field" value=""/>
+						<input type="hidden" name="ticket_id" id="ticket_id" class="ticket_field" value="" />
 
 						<input type='button' id='ticket_form_save' name='ticket_form_save' value="Save this ticket"
-						       class="button-primary"/>
+							   class="button-primary" />
 
 						<input type='button' id='ticket_form_cancel' name='ticket_form_cancel' value="Cancel"
-						       class="button-highlighted"/>
+							   class="button-highlighted" />
 					</td>
 				</tr>
 

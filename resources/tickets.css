@@ -50,3 +50,8 @@ p.ticket_name {
 .ticket_form h4.ticket_form_title_edit {
 	display : none;
 }
+
+#tribe_ticket_header_preview img{
+	max-width: 100%;
+	height: auto;
+}
