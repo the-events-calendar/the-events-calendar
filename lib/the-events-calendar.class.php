@@ -298,6 +298,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_organizer_table_top', array( $this, 'displayEventOrganizerDropdown' ) );
 
 			add_action( 'template_redirect', array( $this, 'template_redirect') );
+			add_filter( 'tribe_events_promo_banner', array( $this, 'promo_banner_prevent_bot') );
 
 
 			if( defined('TRIBE_SHOW_EVENT_AUDITING') && TRIBE_SHOW_EVENT_AUDITING )
@@ -340,6 +341,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_events_pre_get_posts', array( $this, 'set_tribe_paged' ) );
 			add_action( 'wp_ajax_nopriv_tribe_list', array( $this, 'list_ajax_call' ) );
 
+		}
+
+		public function promo_banner_prevent_bot( $html ){
+			return $html;
 		}
 
 		function enqueue_for_ajax_calendar() {
