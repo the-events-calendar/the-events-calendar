@@ -680,7 +680,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			// Tribe Events CSS filename
 			$event_file = 'tribe-events-pro.css';
-			$stylesheet_option = tribe_get_option( 'stylesheetOption' );
+			$stylesheet_option = tribe_get_option( 'stylesheetOption', 'tribe' );
 
 			// What Option was selected
 			switch( $stylesheet_option ) {
