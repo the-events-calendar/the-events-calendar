@@ -115,7 +115,12 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 		}
 
+		public function generate_tickets_email_content( $tickets ) {
 
+			ob_start();
+			include TribeEventsTemplates::getTemplateHierarchy( 'tickets-email.php' );
+			return ob_get_clean();
+		}
 
 		/* AJAX Handlers */
 
