@@ -132,6 +132,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_photoview_in_bar' ), 30, 1 );
 			add_filter( 'tribe_events_ugly_link', array( $this, 'ugly_link' ), 10, 3);
 			add_filter( 'tribe-events-bar-date-search-default-value', array( $this, 'maybe_setup_date_in_bar' ) );
+			add_filter( 'tribe_bar_datepicker_caption', array( $this, 'setup_datepicker_label' ), 10, 1 );
 
 			/* AJAX for loading day view */
 			add_action( 'wp_ajax_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
@@ -189,7 +190,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			// week view title
 			if( tribe_is_week() ) {
-				$reset_title = sprintf( __('Week starting %s', 'tribe-events-calendar-pro'),
+				$reset_title = sprintf( __('Week of %s', 'tribe-events-calendar-pro'),
 					Date("l, F jS Y", strtotime(tribe_get_first_week_day($wp_query->get('start_date'))))
 					);
 			}
@@ -594,6 +595,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					// remove the default gridview class from core
 					$classes = array_diff($classes, array('events-gridview'));
 				}
+				if ( $wp_query->tribe_is_map ) {
+					$classes[] = ' tribe-events-map';
+					// remove the default gridview class from core
+					$classes = array_diff( $classes, array( 'events-gridview' ) );
+				}
+				if ( !tribe_get_option( 'hideLocationSearch', false ) ) {
+					$classes[] = ' tribe-events-uses-geolocation';
+				}
 			}
 			return $classes;
 		}
@@ -603,6 +612,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$query->tribe_is_week = false;
 			$query->tribe_is_day = false;
 			$query->tribe_is_photo = false;
+			$query->tribe_is_map = false;
 			if(!empty( $query->query_vars['eventDisplay'] )) {
 				$pro_query = true;
 				switch( $query->query_vars['eventDisplay']){
@@ -618,6 +628,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$query->tribe_is_week = true;
 						break;
 					case 'day':
+						// a little hack to prevent 404 from happening on day view
+						add_filter( 'tribe_events_templates_is_404', '__return_false' );
 						$event_date = $query->get('eventDate') != '' ? $query->get('eventDate') : Date('Y-m-d');
 						$query->set( 'start_date', tribe_event_beginning_of_day( $event_date ) );
 						$query->set( 'end_date', tribe_event_end_of_day( $event_date ) );
@@ -637,6 +649,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$query->set( 'hide_upcoming', false );
 						$query->tribe_is_photo = true;
 						break;
+					case 'map':
+						/*
+						* Query setup for the map view is located in
+						* TribeEventsGeoLoc->setup_geoloc_in_query()
+						*/
+						$query->tribe_is_map = true;
+
 				}
 			}
 			$query->tribe_is_event_pro_query = $pro_query;
@@ -684,16 +703,33 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		public function enqueue_styles() {
 
-			// Enqueue the pro-stylesheet.
-			if ( tribe_get_option('stylesheetOption') == 'skeleton') {
-				$stylesheet_url = $this->pluginUrl . 'resources/tribe-events-pro-skeleton.css';
-			} else {
-				$stylesheet_url = $this->pluginUrl . 'resources/tribe-events-pro-full.css';
+			// Tribe Events CSS filename
+			$event_file = 'tribe-events-pro.css';
+			$stylesheet_option = tribe_get_option( 'stylesheetOption', 'tribe' );
+
+			// What Option was selected
+			switch( $stylesheet_option ) {
+				case 'skeleton':
+				case 'full':
+					$event_file_option = 'tribe-events-pro-'. $stylesheet_option .'.css';
+					break;
+				default:
+					$event_file_option = 'tribe-events-pro-theme.css';
+					break;
 			}
-			$stylesheet_url = TribeEventsTemplates::locate_stylesheet('tribe-events/pro/tribe-events-pro.css', $stylesheet_url);
-			$stylesheet_url = apply_filters( 'tribe_events_pro_stylesheet_url', $stylesheet_url );
-			if ( $stylesheet_url )
-				wp_enqueue_style( 'tribe_events_pro_stylesheet', $stylesheet_url, array( TribeEvents::POSTTYPE . '-calendar-style' ) );
+					
+			// Is there a pro override file in the theme?
+			$styleUrl = trailingslashit( $this->pluginUrl ) . 'resources/' . $event_file_option;
+			$styleUrl = TribeEventsTemplates::locate_stylesheet( 'tribe-events/pro/'. $event_file, $styleUrl );
+			$styleUrl = apply_filters( 'tribe_events_pro_stylesheet_url', $styleUrl );
+
+			// Load up stylesheet from theme or plugin
+			if( $styleUrl && $stylesheet_option == 'tribe' ) {
+				wp_enqueue_style( 'full-calendar-pro-style', trailingslashit( $this->pluginUrl ) . 'resources/tribe-events-pro-full.css' );
+				wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-pro-style', $styleUrl );
+			} else {
+				wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-pro-style', $styleUrl );
+			}
 
 			$tec = TribeEvents::instance();
 			if ( $tec->displaying === 'day' ) {
@@ -939,6 +975,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function setup_weekview_in_bar( $views ) {
 			$views[] = array( 'displaying' => 'week',
 			                  'anchor'     => __( 'Week', 'tribe-events-calendar-pro' ),
+			                  'event_bar_hook'       => 'tribe_events_week_before_template', 
 			                  'url'        => tribe_get_week_permalink() );
 			return $views;
 		}
@@ -946,6 +983,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function setup_dayview_in_bar( $views ) {
 			$views[] = array( 'displaying' => 'day',
 			                  'anchor'     => __( 'Day', 'tribe-events-calendar-pro' ),
+			                  'event_bar_hook'       => 'tribe_events_list_before_template', 
 			                  'url'        => tribe_get_day_permalink() );
 			return $views;
 		}
@@ -953,8 +991,18 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function setup_photoview_in_bar( $views ) {
 			$views[] = array( 'displaying' => 'photo',
 			                  'anchor'     => __( 'Photo', 'tribe-events-calendar-pro' ),
+			                  'event_bar_hook'       => 'tribe_events_list_before_template', 
 			                  'url'        => tribe_get_photo_permalink() );
 			return $views;
+		}
+
+		public function setup_datepicker_label ( $caption ) {
+			if ( tribe_is_day() ) {
+				$caption = __('Day Of', 'tribe-events-calendar-pro');
+			} elseif ( tribe_is_week() ) {
+				$caption = __('Week Of', 'tribe-events-calendar-pro');
+			}
+			return $caption;
 		}
 
 		function maybe_setup_date_in_bar( $value ) {

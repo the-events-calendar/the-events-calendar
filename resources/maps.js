@@ -43,77 +43,8 @@ jQuery( document ).ready( function ( $ ) {
 		}
 	}
 
-	tribe_test_location();	
+	tribe_test_location();
 
-	$( '#tribe-geo-location' ).placeholder();	
-
-	if( GeoLoc.map_view ) {
-		
-		tribe_ev.state.view = 'map';
-		
-		var tribe_is_paged = tribe_ev.fn.get_url_param('tribe_paged');
-		if( tribe_is_paged ) {
-			tribe_ev.state.paged = tribe_is_paged;
-		}		
-		$( 'body' ).addClass( 'events-list' );
-		tribe_ev.fn.tooltips();
-	}
-	
-	
-	
-	if( GeoLoc.map_view && tribe_ev.data.params ) {
-		
-		var tp = tribe_ev.data.params;
-		if ( tribe_ev.fn.in_params( tp, "geosearch" ) >= 0 ) {} else
-			tp += '&action=geosearch';
-		if ( tribe_ev.fn.in_params( tp, "tribe_paged" ) >= 0 ) {} else
-			tp += '&tribe_paged=1';
-		
-		tribe_ev.state.params = tp;
-					
-		tribe_ev.state.do_string = false;
-		tribe_ev.state.pushstate = false;	
-		tribe_ev.state.popping = true;
-		tribe_ev.fn.pre_ajax( function() { 
-			tribe_map_processOption( null );	
-		});
-	} else if( GeoLoc.map_view ){
-		
-		tribe_ev.state.do_string = false;
-		tribe_ev.state.pushstate = false;	
-		tribe_ev.state.popping = false;
-		tribe_ev.state.initial_load = true;
-		tribe_ev.fn.pre_ajax( function() { 
-			tribe_map_processOption( null );			
-		});
-	}
-	
-	if( tribe_ev.tests.pushstate && tribe_ev.tests.map_view() ) {	
-		
-		history.replaceState({
-			"tribe_paged": tribe_ev.state.paged,
-			"tribe_params": tribe_ev.state.params
-		}, '', location.href);	
-
-		$(window).on('popstate', function(event) {			
-			
-			var state = event.originalEvent.state;
-
-			if( state ) {				
-				tribe_ev.state.do_string = false;
-				tribe_ev.state.pushstate = false;	
-				tribe_ev.state.popping = true;
-				tribe_ev.state.params = state.tribe_params;
-				tribe_ev.state.paged = state.tribe_paged;
-				tribe_ev.fn.pre_ajax( function() {
-					tribe_map_processOption( null );
-				});
-				
-				tribe_ev.fn.set_form( tribe_ev.state.params );					
-			} 
-		} );
-	}
-	
 	var options = {
 		zoom     :5,
 		center   :new google.maps.LatLng( GeoLoc.center.max_lat, GeoLoc.center.max_lng ),
@@ -129,9 +60,76 @@ jQuery( document ).ready( function ( $ ) {
 
 		var maxLatlng = new google.maps.LatLng( GeoLoc.center.max_lat, GeoLoc.center.max_lng );
 		tribe_map_bounds.extend( maxLatlng );
+	}
 
-		centerMap();
-	}	
+	$( '#tribe-geo-location' ).placeholder();	
+
+	if( GeoLoc.map_view ) {
+		
+		tribe_ev.state.view = 'map';
+		
+		var tribe_is_paged = tribe_ev.fn.get_url_param('tribe_paged');
+		if( tribe_is_paged ) {
+			tribe_ev.state.paged = tribe_is_paged;
+		}		
+		$( 'body' ).addClass( 'events-list' );
+		tribe_ev.fn.tooltips();
+	}
+	
+	if( GeoLoc.map_view && tribe_ev.data.params ) {
+		
+		var tp = tribe_ev.data.params;
+		if ( tribe_ev.fn.in_params( tp, "geosearch" ) >= 0 ) {} else
+			tp += '&action=geosearch';
+		if ( tribe_ev.fn.in_params( tp, "tribe_paged" ) >= 0 ) {} else
+			tp += '&tribe_paged=1';
+		
+		tribe_ev.state.params = tp;
+
+		tribe_ev.state.do_string = false;
+		tribe_ev.state.pushstate = false;
+		tribe_ev.state.popping = true;
+		tribe_ev.fn.pre_ajax( function() {
+			tribe_map_processOption( null );
+		});
+	} else if( GeoLoc.map_view ){
+
+		tribe_ev.state.do_string = false;
+		tribe_ev.state.pushstate = false;
+		tribe_ev.state.popping = false;
+		tribe_ev.state.initial_load = true;
+		tribe_ev.fn.pre_ajax( function() {
+			tribe_map_processOption( null );
+		});
+	}
+
+	if( tribe_ev.tests.pushstate && tribe_ev.tests.map_view() ) {	
+		
+		history.replaceState({
+			"tribe_paged": tribe_ev.state.paged,
+			"tribe_params": tribe_ev.state.params
+		}, '', location.href);	
+
+		$(window).on('popstate', function(event) {			
+			
+			var state = event.originalEvent.state;
+
+			if( state ) {
+				tribe_ev.state.do_string = false;
+				tribe_ev.state.pushstate = false;
+				tribe_ev.state.popping = true;
+				tribe_ev.state.params = state.tribe_params;
+				tribe_ev.state.paged = state.tribe_paged;
+				tribe_ev.fn.pre_ajax( function() {
+					tribe_map_processOption( null );
+				});
+
+				tribe_ev.fn.set_form( tribe_ev.state.params );					
+			} 
+		} );
+	}
+	
+
 
 	$( "#tribe-geo-options" ).on( 'click', 'a', function ( e ) {
 		spin_start();
@@ -165,7 +163,7 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_paged :tribe_ev.state.paged
 		};	
 
-		$(tribe_ev.events).trigger('tribe_ev_serializeBar');
+		$(tribe_ev.events).trigger('tribe_ev_scrapeBar');
 
 		tribe_ev.state.params = $.param(tribe_ev.state.params);
 		
@@ -253,7 +251,6 @@ jQuery( document ).ready( function ( $ ) {
 					if ( response.markers.length > 0 ) {
 						centerMap();
 					}
-
 				}
 
 				spin_end();
@@ -321,7 +318,9 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	if ( GeoLoc.map_view  && $( 'form#tribe-bar-form' ).length ) {
-
+		$('#tribe-events-bar').on('changeDate', '#tribe-bar-date', function ( e ) {
+           tribe_events_bar_mapajax_actions( e );
+       });
 		$( '.tribe-bar-settings button[name="settingsUpdate"]' ).on( 'click', function (e) {			
 			tribe_events_bar_mapajax_actions(e);
 			tribe_ev.fn.hide_settings();
@@ -379,12 +378,10 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	function centerMap() {
-
 		map.fitBounds( tribe_map_bounds );
 		if ( map.getZoom() > 13 ) {
 			map.setZoom( 13 );
 		}
-
 	}
 
 	function spin_start() {

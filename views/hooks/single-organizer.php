@@ -69,10 +69,9 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 			add_filter( 'tribe_events_single_organizer_before_organizer', array( __CLASS__, 'before_organizer' ), 1, 1 );
 
 			// Organizer map
-			add_filter( 'tribe_events_single_organizer_featured_image', array( __CLASS__, 'featured_image' ), 1, 1 );
 			add_filter( 'tribe_events_single_organizer_the_title', array( __CLASS__, 'the_title' ), 1, 1 );
 
-			// Organizer meta
+			// Organizer meta, featured image, content
 			add_filter( 'tribe_events_single_organizer_before_the_meta', array( __CLASS__, 'before_the_meta' ), 1, 1 );
 			add_filter( 'tribe_events_single_organizer_the_meta', array( __CLASS__, 'the_meta' ), 1, 1 );
 			add_filter( 'tribe_events_single_organizer_after_the_meta', array( __CLASS__, 'after_the_meta' ), 1, 1 );
@@ -103,14 +102,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 			$html = '<div class="tribe-events-organizer-meta tribe-clearfix">';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_before_organizer' );
 		}
-		// Organizer Featured Image
-		public static function featured_image( $post_id ){
-			$html = '';
-			if ( tribe_event_featured_image() ) {
-				$html .= tribe_event_featured_image(null, 'full');
-			}			
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_organizer_featured_image');
-		}
 		// Organizer Title
 		public static function the_title( $post_id ){
 			$html = the_title('<h2 class="entry-title summary">','</h2>', false);
@@ -122,13 +113,14 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_before_the_meta' );
 		}
 		public static function the_meta( $post_id ) {
-
+			// Meta, featured image, content
 			$content = get_the_content();
 			$content = apply_filters('the_content', $content);
 			$content = str_replace(']]>', ']]&gt;', $content);
 
-			$html = sprintf('%s%s',
+			$html = sprintf('%s%s%s',
 				tribe_get_meta_group( 'tribe_event_organizer' ),
+				( tribe_event_featured_image() ) ? tribe_event_featured_image( null, 'full' ): '',
 				!empty($content) ? '<div class="tribe-organizer-description tribe-content">' . $content . '</div>' : ''
 				);
 

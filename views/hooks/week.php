@@ -68,8 +68,8 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 				$search_term = $_POST['tribe-bar-search'];
 			}
 
-			if( !empty($search_term)) {
-				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There are no events for %s this week. Try searching another week.', 'tribe-events-calendar' ), $search_term ) );
+			if( !empty( $search_term ) && !have_posts() ) {
+				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar' ), $search_term ) );
 			}				
 		}
 		// Start Week Template
@@ -87,7 +87,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			global $wp_query;
 
 			// because we can't trust tribe_get_events_title will be set when run via AJAX
-			$title = sprintf( __( 'week starting %s', 'tribe-events-calendar-pro' ),
+			$title = sprintf( __( 'week of %s', 'tribe-events-calendar-pro' ),
 				date( "l, F jS Y", strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) )
 			);
 
@@ -122,10 +122,10 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			$current_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
 
 			// Display Previous Page Navigation
-			$html = '<li class="tribe-nav-previous"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' -7 days' ) ) .'" href="'. tribe_get_last_week_permalink( $current_week ) .'" rel="prev">&larr; '. __( 'Previous Week', 'tribe-events-calendar-pro' ) .'</a></li><!-- .tribe-nav-previous -->';
+			$html = '<li class="tribe-nav-previous"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' -7 days' ) ) .'" href="'. tribe_get_last_week_permalink( $current_week ) .'" rel="prev">&laquo; '. __( 'Previous Week', 'tribe-events-calendar-pro' ) .'</a></li><!-- .tribe-nav-previous -->';
 			
 			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' +7 days' ) ) .'" href="'. tribe_get_next_week_permalink( $current_week ) .'" rel="next">'. __( 'Next Week', 'tribe-events-calendar-pro' ) .' &rarr;</a>';
+			$html .= '<li class="tribe-nav-next"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' +7 days' ) ) .'" href="'. tribe_get_next_week_permalink( $current_week ) .'" rel="next">'. __( 'Next Week', 'tribe-events-calendar-pro' ) .' &raquo;</a>';
 			
 			// Loading spinner
 			$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
@@ -318,15 +318,15 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 								$span_class = $day_span_length > 0 ? 'tribe-dayspan' . $day_span_length : '';
 								// Get our wrapper classes (for event categories, organizer, venue, and defaults)
 								$classes = array( 'hentry', 'vevent', $span_class, 'type-tribe_events', 'post-' . $event->ID, 'tribe-clearfix' );
-								$tribe_cat_ids = tribe_get_event_cat_ids( $event->ID );
-								foreach( $tribe_cat_ids as $tribe_cat_id ) {
-									$classes[] = 'tribe-events-category-'. $tribe_cat_id;
+								$tribe_cat_slugs = tribe_get_event_cat_slugs( $event->ID );
+								foreach( $tribe_cat_slugs as $tribe_cat_slug ) {
+									$classes[] = 'tribe-events-category-'. $tribe_cat_slug;
 								}
 								if ( $venue_id = tribe_get_venue_id( $event->ID ) ) {
-									$classes[] = 'tribe-events-venue-'.$venue_id;
+									$classes[] = 'tribe-events-venue-'. $venue_id;
 								}
 								if ( $organizer_id = tribe_get_organizer_id( $event->ID ) ) {
-									$classes[] = 'tribe-events-organizer-'.$organizer_id;
+									$classes[] = 'tribe-events-organizer-'. $organizer_id;
 								}
 								$class_string = implode(' ', $classes);
 								printf( '<div id="tribe-events-event-'. $event->ID .'" class="%s" data-hour="all-day"><div><h3 class="entry-title summary"><a href="%s" class="url" rel="bookmark">%s</a></h3>',
@@ -461,15 +461,15 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 							}
 							// Get our wrapper classes (for event categories, organizer, venue, and defaults)
 							$classes = array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $event->ID, 'tribe-clearfix' );
-							$tribe_cat_ids = tribe_get_event_cat_ids( $event->ID );
-							foreach( $tribe_cat_ids as $tribe_cat_id ) {
-								$classes[] = 'tribe-events-category-'. $tribe_cat_id;
+							$tribe_cat_slugs = tribe_get_event_cat_slugs( $event->ID );
+							foreach( $tribe_cat_slugs as $tribe_cat_slug ) {
+								$classes[] = 'tribe-events-category-'. $tribe_cat_slug;
 							}
 							if ( $venue_id = tribe_get_venue_id( $event->ID ) ) {
-								$classes[] = 'tribe-events-venue-'.$venue_id;
+								$classes[] = 'tribe-events-venue-'. $venue_id;
 							}
 							if ( $organizer_id = tribe_get_organizer_id( $event->ID ) ) {
-								$classes[] = 'tribe-events-organizer-'.$organizer_id;
+								$classes[] = 'tribe-events-organizer-'. $organizer_id;
 							}
 							if( strtotime( $prior_event_date->EventStartDate ) < strtotime( $event->EventStartDate ) ) {
 								$classes[] = 'tribe-event-overlap';
@@ -579,10 +579,10 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			$current_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
 
 			// Display Previous Page Navigation
-			$html = '<li class="tribe-nav-previous"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' -7 days' ) ) .'" href="'. tribe_get_last_week_permalink( $current_week ) .'" rel="prev">&larr; '. __( 'Prev Week', 'tribe-events-calendar-pro' ) .'</a></li><!-- .tribe-nav-previous -->';
+			$html = '<li class="tribe-nav-previous"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' -7 days' ) ) .'" href="'. tribe_get_last_week_permalink( $current_week ) .'" rel="prev">&laquo; '. __( 'Prev Week', 'tribe-events-calendar-pro' ) .'</a></li><!-- .tribe-nav-previous -->';
 			
 			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' +7 days' ) ) .'" href="'. tribe_get_next_week_permalink( $current_week ) .'" rel="next">'. __( 'Next Week', 'tribe-events-calendar-pro' ) .' &rarr;</a>';
+			$html .= '<li class="tribe-nav-next"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' +7 days' ) ) .'" href="'. tribe_get_next_week_permalink( $current_week ) .'" rel="next">'. __( 'Next Week', 'tribe-events-calendar-pro' ) .' &raquo;</a>';
 			$html .= '</li><!-- .tribe-nav-next -->';
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_footer_nav');
@@ -601,13 +601,14 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 
 			// iCal import button
 			if ( function_exists( 'tribe_get_ical_link' ) ) {
-				$html .= sprintf( '<a class="tribe-events-ical tribe-events-button-grey" title="%s" href="%s">%s</a>',
+				$html .= sprintf( '<a class="tribe-events-ical tribe-events-button" title="%s" href="%s">%s</a>',
 					esc_attr( 'iCal Import', 'tribe-events-calendar' ),
 					tribe_get_ical_link(),
-					__( 'iCal Import', 'tribe-events-calendar' )
+					__( '+ iCal Import', 'tribe-events-calendar' )
 				);
 			}
 			$html .= '</div><!-- #tribe-events-content -->';
+			$html .= tribe_events_promo_banner( false );
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_after_template' );
 		}
 	}

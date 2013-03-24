@@ -129,38 +129,47 @@ class TribeEventsGeoLoc {
 																						'kms'   => __( 'Kilometers', 'tribe-events-calendar-pro' ) ) ) ) ) 
 				);
 
-		}
-
+		} elseif ( $id == 'display' ) {
+			$args = TribeEvents::array_insert_after_key( 'viewOption', $args, array(
+				'hideLocationSearch' => array( 
+					'type' => 'checkbox_bool',
+					'label' => __( 'Hide location search', 'tribe-events-calendar-pro' ),
+					'tooltip' => __( 'Removes location search field from the events bar.', 'tribe-events-calendar-pro' ),
+					'default' => false,
+					'validation_type' => 'boolean',
+				),
+			) );
+	  	}
 
 		return $args;
 	}
 
 	public function setup_view_for_bar( $views ) {
-		$views[] = array( 'displaying' => 'map', 'anchor'=> 'Map', 'url' => tribe_get_mapview_link() );
+		$views[] = array( 'displaying' => 'map', 'event_bar_hook' => 'tribe_events_map_before_the_options', 'anchor'=> 'Map', 'url' => tribe_get_mapview_link() );
 		return $views;
 	}
 
 	public function setup_geoloc_filter_in_bar( $filters ) {
+		if ( !tribe_get_option( 'hideLocationSearch', false ) ) {
+			$value = "";
+			if ( !empty( $_REQUEST['tribe-bar-geoloc'] ) ) {
+				$value = $_REQUEST['tribe-bar-geoloc'];
+			}
 
-		$value = "";
-		if ( !empty( $_REQUEST['tribe-bar-geoloc'] ) ) {
-			$value = $_REQUEST['tribe-bar-geoloc'];
+			$lat = "";
+			if ( !empty( $_REQUEST['tribe-bar-geoloc-lat'] ) ) {
+				$lat = $_REQUEST['tribe-bar-geoloc-lat'];
+			}
+
+			$lng = "";
+			if ( !empty( $_REQUEST['tribe-bar-geoloc-lng'] ) ) {
+				$lng = $_REQUEST['tribe-bar-geoloc-lng'];
+			}
+
+			$filters[] = array( 'name'    => 'tribe-bar-geoloc',
+								'caption' => __( 'Near', 'tribe-events-calendar-pro' ),
+								'html'    => '<input type="hidden" name="tribe-bar-geoloc-lat" id="tribe-bar-geoloc-lat" value="' . esc_attr( $lat ) . '" /><input type="hidden" name="tribe-bar-geoloc-lng" id="tribe-bar-geoloc-lng" value="' . esc_attr( $lng ) . '" /><input type="text" name="tribe-bar-geoloc" id="tribe-bar-geoloc" value="' . esc_attr( $value ) . '" placeholder="Location">' );
 		}
-
-		$lat = "";
-		if ( !empty( $_REQUEST['tribe-bar-geoloc-lat'] ) ) {
-			$lat = $_REQUEST['tribe-bar-geoloc-lat'];
-		}
-
-		$lng = "";
-		if ( !empty( $_REQUEST['tribe-bar-geoloc-lng'] ) ) {
-			$lng = $_REQUEST['tribe-bar-geoloc-lng'];
-		}
-
-		$filters[] = array( 'name'    => 'tribe-bar-geoloc',
-		                    'caption' => __( 'Near this location', 'tribe-events-calendar-pro' ),
-		                    'html'    => '<input type="hidden" name="tribe-bar-geoloc-lat" id="tribe-bar-geoloc-lat" value="' . esc_attr( $lat ) . '" /><input type="hidden" name="tribe-bar-geoloc-lng" id="tribe-bar-geoloc-lng" value="' . esc_attr( $lng ) . '" /><input type="text" name="tribe-bar-geoloc" id="tribe-bar-geoloc" value="' . esc_attr( $value ) . '" placeholder="Location">' );
-
 		return $filters;
 	}
 
@@ -169,13 +178,16 @@ class TribeEventsGeoLoc {
 	}
 
 	public function setup_geoloc_in_query( $query ) {
+
 		$force = false;
 		if ( !empty( $_REQUEST['tribe-bar-geoloc-lat'] ) && !empty( $_REQUEST['tribe-bar-geoloc-lng'] ) ) {
 			$force  = true;
 			$venues = $this->get_venues_in_geofence( $_REQUEST['tribe-bar-geoloc-lat'], $_REQUEST['tribe-bar-geoloc-lng'] );
 		} else if ( TribeEvents::instance()->displaying == 'map' || ( !empty( $query->query_vars['eventDisplay'] ) && $query->query_vars['eventDisplay'] == 'map' ) ) {
+			// Show only venues that have geoloc info
 			$force  = true;
-			$venues = $this->get_venues_in_geofence( 1, 1, 70000 );
+			//Get all geoloc'ed venues
+			$venues = $this->get_venues_in_geofence( 1, 1, self::EARTH_RADIO * M_PI);
 		}
 
 		if ( $force ) {
@@ -434,6 +446,8 @@ class TribeEventsGeoLoc {
 			add_filter( 'tribe_events_list_show_separators', "__return_false" );
 
 			echo '<div id="tribe-geo-results">';
+			global $wp_query;
+			print_r($wp_query,true);
 			include apply_filters( 'tribe_include_view_list', TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
 			echo '</div>';
 			$response['html'] .= ob_get_clean();

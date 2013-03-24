@@ -13,24 +13,27 @@ jQuery(document).ready(function($){
 	tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );		
 	var base_url = $('#tribe-events-header .tribe-nav-next a').attr('href').slice(0, -11);	
 	
-	var tribe_var_datepickerOpts = {
-		dateFormat: 'yy-mm-dd',
-		showAnim: 'fadeIn',
-		beforeShowDay: disableSpecificWeekDays		
-	};
-	
-	$( '#tribe-bar-date' ).datepicker( tribe_var_datepickerOpts );
-	
-	var daysToDisable = [0, 2, 3, 4, 5, 6];
+		// setup list view datepicker
+		var tribe_var_datepickerOpts = {
+			format: 'yyyy-mm-dd',
+			showAnim: 'fadeIn',
+			onRender: disableSpecificWeekDays
+		};
+
+		var tribeBarDate = $('#tribe-bar-date').bootstrapDatepicker( tribe_var_datepickerOpts ).on('changeDate', function() {
+		  tribeBarDate.hide();
+		}).data('datepicker');
+
 
 	function disableSpecificWeekDays(date) {
+		var daysToDisable = [0, 2, 3, 4, 5, 6];
 		var day = date.getDay();
 		for (i = 0; i < daysToDisable.length; i++) {
 			if ($.inArray(day, daysToDisable) != -1) {
-				return [false];
+				return 'disabled';
 			}
 		}
-		return [true];
+		return '';
 	}
 	
 	function tribe_go_to_8() {
@@ -175,7 +178,7 @@ jQuery(document).ready(function($){
 		
 		// set the height of the header columns to the height of the tallest
 
-		var header_column_height = $(".tribe-grid-header .tribe-grid-content-wrap").height();
+		var header_column_height = $(".tribe-grid-header .tribe-grid-content-wrap .column").height();
 
 		$(".tribe-grid-header .column").height(header_column_height);
 
@@ -274,7 +277,7 @@ jQuery(document).ready(function($){
 	} );
 
 	if( tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate ) {
-		$('#tribe-bar-date').on( 'change', function (e) {
+		$('#tribe-bar-date').on( 'changeDate', function (e) {
 			if( !tribe_ev.tests.reset_on() ) {				
 				tribe_events_bar_weekajax_actions(e);
 			}			

@@ -2,8 +2,8 @@
  * The Events Calendar Pro Full Stylesheet
  * (Some of these styles may override your current theme's styles)
  *
- * You can customize this stylesheet by putting a stylesheet of the same name
- * (tribe-events-pro.css) in the tribe-events/pro/ directory of your theme.
+ * You can customize this stylesheet by putting a stylesheet with the name
+ * tribe-events-pro.css in the tribe-events/pro/ directory of your theme.
  *
  * @package TribeEventsCalendarPro
  * @since  1.0
@@ -36,7 +36,7 @@
 	font-size: 12px;
 	width: 100%;
 	position: relative;
-	margin: 18px auto;
+	margin: 0 auto .6em;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
@@ -56,17 +56,18 @@
 .tribe-grid-header .column {
 	text-align: center;
 	text-transform: uppercase;
-	padding: .5em 0;
+	padding: 1em 0;
 }
+
 .tribe-grid-header .column a {
 	color: #333;
 }
 
 /* columns & structure */
 .tribe-week-grid-wrapper {
-	height:500px;
-	overflow-y:scroll;	
-	position:relative;
+	height: 500px;
+	overflow-y: scroll;	
+	position: relative;
 }
 
 .tribe-events-grid .slimScrollBar {
@@ -75,7 +76,7 @@
 
 .tribe-grid-body {
 	overflow: visible;
-	position:relative;
+	position: relative;
 }
 
 .tribe-week-grid-hours {
@@ -200,7 +201,9 @@
 /* truncated all day titles */
 .tribe-grid-allday .hentry.vevent h3.entry-title a.url {
 	padding: 8px 6px;
-	display: inline-block; 
+	display: inline-block;
+	zoom: 1;
+	*display: inline; 
 	overflow: hidden; 
 	text-overflow: ellipsis; 
 	white-space: nowrap;
@@ -231,7 +234,6 @@
 .tribe-grid-body .hentry.vevent {
  	width: 100%;
  	height: 100%;
- 	overflow: hidden;
 }
 .tribe-grid-body div[id*="tribe-events-event-"] { 		
  	font-weight: bold; 
@@ -377,29 +379,41 @@
 .tribe-events-list .tribe-events-photo-event .tribe-events-event-details {
 	float: none;
 	width: 84%;
-	padding: 8%;
+	padding: 8% 8% 10%;
 	word-wrap: break-word;
 }
 .tribe-events-loop .tribe-events-photo-event .tribe-list-event-description  {
 	float: none;
 	margin-top: 10px;
 }
-.tribe-events-list .tribe-events-loop .tribe-events-photo-event .tribe-events-event-meta {
+
+.tribe-events-photo #tribe-events-content .tribe-list-event-description p,
+.tribe-events-loop .tribe-events-photo-event .time-details {
+	margin-bottom: 0;
+}
+
+.tribe-events-photo #tribe-events-content .tribe-list-event-description p {
+	line-height: 1.45;
+}
+
+.tribe-events-photo #tribe-events-content .tribe-list-event-description p.tribe-event-categories {
+	margin-top: 1em;
+	font-size: 13px;
+}
+
+.tribe-events-photo .tribe-events-loop .vevent.hentry .tribe-events-event-meta {
 	margin: 0;
+	padding-right: 0;
 }
 
 .tribe-events-list #tribe-events-photo-events .tribe-events-event-details h2 {
 	font-size: 1.2em;
 	line-height: 1.2;
 	margin-bottom: 10px;
-}
-.tribe-events-list #tribe-events-photo-events .tribe-events-event-details .tribe-events-event-cost + .entry-title {
-	float: none;
-	width: 100%;
+	padding-right: 0;
 }
 
 .tribe-events-photo-event .entry-title a {
-	color: #1982D1;
 	-webkit-transition: .2s ease-in;
   	   -moz-transition: .2s ease-in;
   	     -o-transition: .2s ease-in;
@@ -427,10 +441,10 @@
    @ Template: map.php
 =============================================*/
 /* tribe geolocation map area */
-.tribe-events-filter-view #tribe-geo-wrapper {
+.tribe-events-filters-v #tribe-geo-wrapper {
 	 width: 72%; 
 	 float: right; 
-	 padding: 1px 0;
+	 padding: 24px 0 1px;
 }
 
 #tribe-geo-map-wrapper {
@@ -636,7 +650,7 @@
 
 .single-tribe_organizer  .tribe_organizer h2.entry-title {
 	font-size: 1.6em;
-	margin: 0 0 2% 0;
+	margin: 0 0 .5em 0;
 	padding: 0;
 }
 
@@ -654,6 +668,7 @@
 	font-style: normal;
 	font-weight: bold;
 	word-wrap: break-word;
+	margin-bottom: 1.25em;
 }
 
 .tribe-events-organizer address.organizer-address span {
@@ -661,12 +676,18 @@
 	white-space: pre;
 }
 
+.tribe-events-organizer .tribe-events-event-image {
+	float: left;
+	width: 30%;
+	margin: 0 3% 0 0;
+}
+
 .tribe-events-organizer .tribe-organizer-description {
-	margin-top: 20px;
+	float: left;
+	width: 67%;
 }
 
 .tribe-events-organizer .tribe-divider {
-	color: #999;
 	margin: 0 10px;
 }
 
@@ -854,4 +875,27 @@ div.tribe-countdown-text {
 =============================================*/
 .tribe_venue-widget-venue-name a {
 	font-weight: bold;
+}
+
+/* = Events Calendar Tribe Bar Styles
+=============================================*/
+.tribe-events-uses-geolocation .tribe-bar-search-filter,
+.tribe-bar-geoloc-filter {
+	width: 25%;
+	float: left;
+	margin-bottom: 0; 	
+	background-color: #f5f5f5;
+	height: 72px;
+	padding: 15px;
+}
+ 
+.tribe-events-uses-geolocation .tribe-bar-mini .tribe-bar-search-filter {
+	padding: 10px;
+	width: 22.5%;
+}
+ 
+.tribe-bar-mini .tribe-bar-geoloc-filter {
+	width: 22.5%;
+	padding: 10px;
+	height: 54px;
 }

@@ -18,6 +18,11 @@ if( !class_exists('Tribe_Events_Day_Template')){
 		static $timeslots = array();
 
 		public static function init(){
+
+			// Search term based notices
+			if( !empty($search_term) && !have_posts() ) {
+				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> on this day. Try searching another day.', 'tribe-events-calendar' ), $search_term ) );
+			}
 		
 			add_filter( 'tribe_events_list_show_separators', '__return_false' );
 			add_filter( 'tribe_get_ical_link', array(__CLASS__,'ical_link'), 20, 1 );
@@ -62,10 +67,10 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			$html = '';
 			
 			// Display Previous Page Navigation
-			$html .= '<li class="tribe-nav-previous"><a href="'. tribe_get_day_permalink( $yesterday ) .'" data-day="'. $yesterday .'" rel="prev">&larr; '. __( 'Previous Day', 'tribe-events-calendar-pro' ) .'</a></li>';
+			$html .= '<li class="tribe-nav-previous"><a href="'. tribe_get_day_permalink( $yesterday ) .'" data-day="'. $yesterday .'" rel="prev">&laquo; '. __( 'Previous Day', 'tribe-events-calendar-pro' ) .'</a></li>';
 			
 			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next"><a href="'. tribe_get_day_permalink( $tomorrow ) .'" data-day="'. $tomorrow .'" rel="next">'. __( 'Next Day', 'tribe-events-calendar-pro' ) .' &rarr;</a>';
+			$html .= '<li class="tribe-nav-next"><a href="'. tribe_get_day_permalink( $tomorrow ) .'" data-day="'. $tomorrow .'" rel="next">'. __( 'Next Day', 'tribe-events-calendar-pro' ) .' &raquo;</a>';
 			// Loading spinner
 			$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
 			$html .= '</li><!-- .tribe-nav-next -->';
@@ -121,23 +126,17 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			global $wp_query;
 			$tribe_ecp = TribeEvents::instance();
 			$html = '';
-			if( $wp_query->found_posts > 0 ) {
 
-			
-				$current_day = $wp_query->get('start_date');
-				$yesterday = Date('Y-m-d', strtotime($current_day . " -1 day") );
-				$tomorrow = Date('Y-m-d', strtotime($current_day . " +1 day") );
+			$current_day = $wp_query->get('start_date');
+			$yesterday = Date('Y-m-d', strtotime($current_day . " -1 day") );
+			$tomorrow = Date('Y-m-d', strtotime($current_day . " +1 day") );
 				
+			// Display Previous Page Navigation
+			$html .= '<li class="tribe-nav-previous"><a href="'. tribe_get_day_permalink( $yesterday ) .'" data-day="'. $yesterday .'" rel="prev">&laquo; '. __( 'Previous Day', 'tribe-events-calendar-pro' ) .'</a></li>';
 				
-				
-				// Display Previous Page Navigation
-				$html .= '<li class="tribe-nav-previous"><a href="'. tribe_get_day_permalink( $yesterday ) .'" data-day="'. $yesterday .'" rel="prev">&larr; '. __( 'Previous Day', 'tribe-events-calendar-pro' ) .'</a></li>';
-				
-				// Display Next Page Navigation
-				$html .= '<li class="tribe-nav-next"><a href="'. tribe_get_day_permalink( $tomorrow ) .'" data-day="'. $tomorrow .'" rel="next">'. __( 'Next Day', 'tribe-events-calendar-pro' ) .' &rarr;</a>';
-				$html .= '</li><!-- .tribe-nav-next -->';
-
-			}
+			// Display Next Page Navigation
+			$html .= '<li class="tribe-nav-next"><a href="'. tribe_get_day_permalink( $tomorrow ) .'" data-day="'. $tomorrow .'" rel="next">'. __( 'Next Day', 'tribe-events-calendar-pro' ) .' &raquo;</a>';
+			$html .= '</li><!-- .tribe-nav-next -->';
 			
 			return apply_filters('tribe_template_factory_debug',  $html, 'tribe_events_day_footer_navigation');
 		}
