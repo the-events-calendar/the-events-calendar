@@ -47,12 +47,16 @@ $displayTab = array(
 		'stylesheetOption' => array(
 			'type' => 'radio',
 			'label' => __( 'Default stylesheet used for events templates', 'tribe-events-calendar' ),
-			'default' => 'full',
-			'options' => array( 'full' => 'Full Stylesheet (These styles will most likely override some of your current theme styles on events templates)', 'skeleton' => 'Skeleton Stylesheet (These styles shouldn\'t override your current theme styles)' ),
+			'default' => 'tribe',
+			'options' => array( 
+				'skeleton' => __( 'Skeleton Styles (These styles provide a bare minimum level of layout for the more complex templates, and is recommended if you\'re customizing the events template styles)', 'tribe-events-calendar' ), 
+				'full' => __( 'Full Styles (These styles provide a more complex level of layout and style and should adapt to your theme)', 'tribe-events-calendar' ), 
+				'tribe' => __( 'Tribe Events Styles (These styles provide a fully designed events theme)', 'tribe-events-calendar' )
+			),
 			'validation_type' => 'options',
 		),
         'tribeEventsTemplate' => array(
-			'type' => 'dropdown_chosen',
+			'type' => 'dropdown_select2',
 		 	'label' => __( 'Events template', 'tribe-events-calendar' ),
 			'tooltip' => __( 'Choose a page template to control the appearance of your calendar and event content.', 'tribe-events-calendar' ),
 			'validation_type' => 'options',
@@ -69,7 +73,7 @@ $displayTab = array(
             'validation_type' => 'options_multi'
         ),
         'viewOption' => array(
-			'type' => 'dropdown_chosen',
+			'type' => 'dropdown_select2',
 		 	'label' => __( 'Default view', 'tribe-events-calendar' ),
 			'validation_type' => 'options',
 			'size' => 'large',

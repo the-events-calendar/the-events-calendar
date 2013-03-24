@@ -33,7 +33,11 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					break;
 				case 'select2' : // Vendor: Select2
 					wp_enqueue_style( $prefix . '-select2-css', $vendor_url . 'select2/select2.css' );
-					wp_enqueue_script( $prefix . '-select2', $vendor_url . 'select2/select2.js', 'jquery', '3.2' );
+					if (defined('WP_DEBUG') && WP_DEBUG) {
+						wp_enqueue_script( $prefix . '-select2', $vendor_url . 'select2/select2.js', 'jquery', '3.2' );
+					} else {
+						wp_enqueue_script( $prefix . '-select2', $vendor_url . 'select2/select2.min.js', 'jquery', '3.2' );
+					}
 					break;
 				case 'calendar-script' : // Tribe Events JS
 					wp_enqueue_script( $prefix . '-calendar-script', $resouces_url . 'tribe-events.js', array_merge( array( 'jquery' ), $deps ), apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
@@ -42,6 +46,9 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					wp_enqueue_script( 'jquery-ui-datepicker' );
 					wp_enqueue_style( 'jquery-ui-datepicker' );
 					break;
+				case 'bootstrap-datepicker' : // Vendor: Bootstrap Datepicker
+					wp_enqueue_style( $prefix . '-bootstrap-datepicker-css', $vendor_url . 'bootstrap-datepicker/css/datepicker.css' );
+					wp_enqueue_script( $prefix . '-bootstrap-datepicker', $vendor_url . 'bootstrap-datepicker/js/bootstrap-datepicker.js', 'jquery', '3.2' );						
 				case 'dialog' : // Vendor: jQuery Dialog
 					wp_enqueue_script( 'jquery-ui-dialog' );
 					break;
@@ -78,21 +85,31 @@ if( !class_exists('Tribe_Template_Factory') ) {
 				case 'events-css':
 					// Tribe Events CSS filename
 					$event_file = 'tribe-events.css';
-					$event_file_option = 'tribe-events-full.css';
-			
-					// What Option was selected
-					if ( tribe_get_option('stylesheetOption') == 'skeleton') {
-						$event_file_option = 'tribe-events-skeleton.css';
-					}
+					$stylesheet_option = tribe_get_option( 'stylesheetOption', 'tribe' );
 
+					// What Option was selected
+					switch( $stylesheet_option ) {
+						case 'skeleton':
+						case 'full':
+							$event_file_option = 'tribe-events-'. $stylesheet_option .'.css';
+							break;
+						default:
+							$event_file_option = 'tribe-events-theme.css';
+							break;
+					}
+					
+					// Is there a core override file in the theme?
 					$styleUrl = trailingslashit( $tec->pluginUrl ) . 'resources/' . $event_file_option;
-					// is there a tribe-events.css file in the theme?
 					$styleUrl = TribeEventsTemplates::locate_stylesheet('tribe-events/'.$event_file, $styleUrl);
 					$styleUrl = apply_filters( 'tribe_events_stylesheet_url', $styleUrl );
 
-					// load up stylesheet from theme or plugin
-					if ( $styleUrl )
+					// Load up stylesheet from theme or plugin
+					if( $styleUrl && $stylesheet_option == 'tribe' ) {
+						wp_enqueue_style( 'full-calendar-style', trailingslashit( $tec->pluginUrl ) . 'resources/tribe-events-full.css' );
 						wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-style', $styleUrl );
+					} else {
+						wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-style', $styleUrl );
+					}
 					break;
 				default :
 					do_action($prefix . '-' . $name);

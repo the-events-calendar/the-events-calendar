@@ -2,6 +2,13 @@ jQuery(document).ready(function($) {
 
 	// Load the Chosen JQuery plugin for all select elements with the class 'chosen'.
 	$('.chosen, .tribe-field-dropdown_chosen select').chosen();
+	$('.select2, .tribe-field-dropdown_select2 select').select2({width: '250px'});
+
+	if($('select[name="tribeEventsTemplate"]' ).length && $('select[name="tribeEventsTemplate"]' ).val() === '' ){
+		$templates = $('select[name="tribeEventsTemplate"]' );
+		var name = $templates.find("option:selected" ).text();
+		$templates.prev('.select2-container' ).children().children('span').text(name);
+	}
 
 	//not done by default on front end
 	$('.hide-if-js').hide();
@@ -395,15 +402,15 @@ jQuery(document).ready(function($) {
 	// Workaround for venue & organizer post types when editing or adding
 	// so events parent menu stays open and active
 	if ( $('#icon-edit').hasClass('icon32-posts-tribe_venue') ) {
-		$('#menu-posts-tribe_events, a.wp-has-submenu')
-			.addClass('wp-menu-open, wp-has-current-submenu')
+		$('#menu-posts-tribe_events, #menu-posts-tribe_events a.wp-has-submenu')
+			.addClass('wp-menu-open wp-has-current-submenu')
 			.removeClass('wp-not-current-submenu')
 			.find("li:contains('Venues')")
 			.addClass('current');
 	}
 	if ( $('#icon-edit').hasClass('icon32-posts-tribe_organizer') ) {
-		$('#menu-posts-tribe_events, a.wp-has-submenu')
-			.addClass('wp-menu-open, wp-has-current-submenu')
+		$('#menu-posts-tribe_events, #menu-posts-tribe_events a.wp-has-submenu')
+			.addClass('wp-menu-open wp-has-current-submenu')
 			.removeClass('wp-not-current-submenu')
 			.find("li:contains('Organizers')")
 			.addClass('current');
@@ -425,7 +432,7 @@ jQuery(document).ready(function($) {
 				if( $('#tribe-field-tribeEnableViews input[value=' + option_val + ']').is(":checked") ) { 
 					$(this).prop('disabled',false);
 				} else { 
-					$(this).removeAttr('selected');
+					$(this).removeProp('selected');
 					$(this).prop('disabled', true);
 				}
     		});
@@ -436,7 +443,7 @@ jQuery(document).ready(function($) {
 			if( typeof $('select[name="viewOption"] option:selected').first().val() == 'undefined' || ! $.inArray( $('select[name="viewOption"] option:selected').first().val(), views ) ) {
 				$('select[name="viewOption"] option').not(':disabled').first().attr('selected','selected');
 	    	}
-    		$('select[name="viewOption"]').trigger("liszt:updated");
+    		$('select[name="viewOption"]').trigger("change");
     	});
     }
 	
