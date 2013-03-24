@@ -174,19 +174,18 @@ jQuery( document ).ready( function ( $ ) {
 
 					if ( response.success ) {
 
-						$(tribe_ev.events).triggerAll('tribe_ev_ajaxSuccess tribe_ev_listView_AjaxSuccess');
-
 						tribe_ev.data.ajax_response = {
-							'type':'tribe_events_ajax',
-							'post_count':parseInt(response.total_count),
-							'view':'list',
+							'total_count':parseInt(response.total_count),
+							'view':response.view,
 							'max_pages':response.max_pages,
-							'page':tribe_ev.state.paged,
+							'tribe_paged':response.tribe_paged,
 							'timestamp':new Date().getTime()
 						};
 
+                        $(tribe_ev.events).triggerAll('tribe_ev_ajaxSuccess tribe_ev_listView_AjaxSuccess');
+
 						$( '#tribe-events-list-hash' ).val( response.hash );
-						$( '#tribe-events-list-view' ).html( response.html );
+						$( '#tribe-events-content' ).html( response.html );
 
 						if( tribe_ev.state.do_string ) {
 							history.pushState({
