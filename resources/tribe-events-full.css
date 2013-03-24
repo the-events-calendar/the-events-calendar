@@ -1227,8 +1227,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 /* Views Select */
-#tribe-bar-views .tribe-bar-view-select,
-#tribe-bar-views .tribe-bar-view-select ~ .tribe-select2 {
+#tribe-bar-views [name="tribe-bar-view"] {
 	display: none;
 }
 #tribe-bar-views .tribe-select2 {
