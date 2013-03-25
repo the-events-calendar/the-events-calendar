@@ -336,11 +336,23 @@ jQuery(document).ready(function($){
 					tribe_ev.state.initial_load = false;
 					tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
 					
-					if ( response !== '' ) {						
+					if ( response.success ) {
+
+                        tribe_ev.data.ajax_response = {
+                            'total_count':'',
+                            'view':response.view,
+                            'max_pages':'',
+                            'tribe_paged':'',
+                            'timestamp':new Date().getTime()
+                        };
 						
 						$(tribe_ev.events).triggerAll('tribe_ev_ajaxSuccess tribe_ev_weekView_AjaxSuccess');
 						
-						$( '#tribe-events-content.tribe-events-week-grid' ).replaceWith( response );
+						$( '#tribe-events-content.tribe-events-week-grid' ).replaceWith( response.html );
+
+                        var page_title = $( "#tribe-events-header" ).attr( 'data-title' );
+
+                        $( document ).attr( 'title', page_title );
 						
 						tribe_set_allday_placeholder_height();
 						tribe_set_allday_spanning_events_width();
@@ -361,14 +373,14 @@ jQuery(document).ready(function($){
 							history.pushState({
 								"tribe_url_params": tribe_ev.state.url_params,
 								"tribe_params": tribe_ev.state.params
-							}, '', tribe_ev.data.cur_url + '?' + tribe_ev.state.url_params);															
+							}, page_title, tribe_ev.data.cur_url + '?' + tribe_ev.state.url_params);
 						}						
 
 						if( tribe_ev.state.pushstate ) {								
 							history.pushState({
 								"tribe_url_params": tribe_ev.state.url_params,
 								"tribe_params": tribe_ev.state.params
-							}, '', tribe_ev.data.cur_url);
+							}, page_title, tribe_ev.data.cur_url);
 						}
 					}
 				}

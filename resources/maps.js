@@ -197,19 +197,18 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
 				
 				if ( response.success ) {
+
+                    tribe_ev.data.ajax_response = {
+                        'total_count':parseInt(response.total_count),
+                        'view':response.view,
+                        'max_pages':response.max_pages,
+                        'tribe_paged':tribe_ev.state.paged,
+                        'timestamp':new Date().getTime()
+                    };
 					
 					$(tribe_ev.events).triggerAll('tribe_ev_ajaxSuccess tribe_ev_mapView_AjaxSuccess');
 					
 					tribe_ev.state.initial_load = false;
-					
-					tribe_ev.data.ajax_response = {
-						'type':'tribe_events_ajax',
-						'post_count':parseInt(response.total_count),
-						'view':'map',
-						'max_pages':response.max_pages,
-						'page':tribe_ev.state.paged,
-						'timestamp':new Date().getTime()
-					};
 
 					$( "#tribe-geo-results" ).html( response.html );					
 					$( "#tribe-events-content" ).parent().removeAttr('id').find('.tribe-events-page-title').remove();	
