@@ -3574,7 +3574,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			                   'max_pages'       => $query->max_num_pages,
 			                   'hash'            => $hash_str,
 			                   'tribe_paged'     => $tribe_paged,
-			                   'total_count'	 => $query->found_posts );
+			                   'total_count'     => $query->found_posts,
+			                   'view'            => 'list',
+			);
 
 
 			remove_action( 'pre_get_posts', array( $this, 'list_ajax_call_set_date' ), -10 );
@@ -3594,6 +3596,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$tribe_ecp->displaying = 'upcoming';
 			} elseif ( $query->query_vars['eventDisplay'] == 'past' ) {
 				$tribe_ecp->displaying = 'past';
+				$response['view'] = 'past';
 			}
 			
 			$old_request = $_SERVER;
@@ -3605,6 +3608,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			load_template( TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
 			$response['html'] .= ob_get_clean();
 			$_SERVER = $old_request;
+
+			apply_filters( 'tribe_events_ajax_response', $response );
+
 			header( 'Content-type: application/json' );
 			echo json_encode( $response );
 
@@ -3669,9 +3675,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 				TribeEventsQuery::init();
 
+				ob_start();
 				load_template( TribeEventsTemplates::getTemplateHierarchy( 'calendar' ) );
+
+				$response = array(
+					'html'            => ob_get_clean(),
+					'success'         => true,
+					'view'            => 'month',
+				);
+				apply_filters( 'tribe_events_ajax_response', $response );
+				header( 'Content-type: application/json' );
+				echo json_encode( $response );
+				die();
 			}
-			die();
 		}
 
 

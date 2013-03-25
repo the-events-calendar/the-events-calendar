@@ -134,7 +134,7 @@ if ( !$( '.tribe-events-week-grid' ).length ) {
 
 	} );
 
-	$(tribe_ev.events).on("tribe_ev_scrapeBar", function() {
+	$(tribe_ev.events).on("tribe_ev_serializeBar", function() {
 		$( 'form#tribe-bar-form input' ).each( function () {
 			var $this = $( this );
 			if( $this.val().length && !$this.hasClass('tribe-no-param') ) {
@@ -159,7 +159,7 @@ if ( !$( '.tribe-events-week-grid' ).length ) {
 
 	function tribe_events_bar_change_view( url, name ) {
 
-		starting_delim = url.indexOf('?') != -1 ? '&' : '?';
+		var starting_delim = url.indexOf('?') != -1 ? '&' : '?';
 
 		tribe_events_bar_action = 'change_view';
 
@@ -175,7 +175,7 @@ if ( !$( '.tribe-events-week-grid' ).length ) {
 		var $set_inputs = $( '#tribe-bar-form input' );
 
 		if( $( '#tribe-bar-geoloc' ).length ) {
-			tribe_map_val = jQuery( '#tribe-bar-geoloc' ).val();
+			var tribe_map_val = jQuery( '#tribe-bar-geoloc' ).val();
 			if( !tribe_map_val.length ) {
 				$( '#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng' ).val( '' );
 			} else {
@@ -204,7 +204,7 @@ if ( !$( '.tribe-events-week-grid' ).length ) {
 			if( tribe_ev.state.filter_cats )
 				$('#tribe_events_filter_item_eventcategory option:selected, #tribe_events_filter_item_eventcategory input:checked').remove();
 
-			cv_filter_params = tribe_ev.fn.serialize( '#tribe_events_filters_form', 'input, select' );
+			var cv_filter_params = tribe_ev.fn.serialize( '#tribe_events_filters_form', 'input, select' );
 
 			if( cv_url_params.length && cv_filter_params.length )
 				cv_url_params = cv_url_params + '&' + cv_filter_params;
