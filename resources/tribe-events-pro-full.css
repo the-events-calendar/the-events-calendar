@@ -441,7 +441,7 @@
    @ Template: map.php
 =============================================*/
 /* tribe geolocation map area */
-.tribe-events-filters-v #tribe-geo-wrapper {
+.tribe-events-filters-v #tribe-geo-results {
 	 width: 72%; 
 	 float: right; 
 	 padding: 24px 0 1px;
@@ -892,6 +892,7 @@ div.tribe-countdown-text {
 .tribe-events-uses-geolocation .tribe-bar-mini .tribe-bar-search-filter {
 	padding: 10px;
 	width: 22.5%;
+	height: 54px;
 }
  
 .tribe-bar-mini .tribe-bar-geoloc-filter {

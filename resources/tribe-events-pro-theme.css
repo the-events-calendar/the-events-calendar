@@ -124,8 +124,14 @@
    @ Template: map.php
 =============================================*/
 /* tribe geolocation map area */
-.tribe-events-filters-v #tribe-geo-wrapper {
+.tribe-events-filters-v #tribe-geo-results,
+.tribe-events-filters-v.tribe-filters-closed #tribe-geo-results {
 	 width: 68.08%; 
+}
+.tribe-events-filters-v #tribe-geo-wrapper #tribe-events-header,
+.tribe-events-filters-v #tribe-geo-wrapper #tribe-events-footer {
+	width: 68.08%; 
+	float: right;
 }
 
 #tribe-geo-wrapper #tribe-events-header,
