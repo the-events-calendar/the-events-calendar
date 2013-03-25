@@ -83,6 +83,9 @@ jQuery(document).ready(function($){
 				
 			var $this = $(this);
 			var $target = $this.next();
+
+            var css_left = {"left":"0","width":"65%"};
+            var css_right = {"right":"0","width":"65%"};
 				
 			if($target.length){
 					
@@ -106,16 +109,15 @@ jQuery(document).ready(function($){
 				if ( t_x[0] < i_x[1] && t_x[1] > i_x[0] && t_y[0] < i_y[1] && t_y[1] > i_y[0] ) {
 						
 					// we've got an overlap
-						
-					$this.css({
-						"left":"0", // o_p
-						"width":"65%" // o_w
-					});
-					$target.css({
-						"right":"0", // o_p
-						"width":"65%" // o_w
-					});
-					
+
+                    if($this.is('.overlap-right')){
+                        $target.css(css_left).addClass('overlap-left');
+                    } else if($this.is('.overlap-left')){
+                        $target.css(css_right).addClass('overlap-right');
+                    } else {
+                        $this.css(css_left);
+                        $target.css(css_right).addClass('overlap-right');
+                    }
 				}
 			}
 		});			
