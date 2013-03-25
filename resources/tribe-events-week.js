@@ -83,6 +83,9 @@ jQuery(document).ready(function($){
 				
 			var $this = $(this);
 			var $target = $this.next();
+
+            var css_left = {"left":"0","width":"65%"};
+            var css_right = {"right":"0","width":"65%"};
 				
 			if($target.length){
 					
@@ -106,16 +109,15 @@ jQuery(document).ready(function($){
 				if ( t_x[0] < i_x[1] && t_x[1] > i_x[0] && t_y[0] < i_y[1] && t_y[1] > i_y[0] ) {
 						
 					// we've got an overlap
-						
-					$this.css({
-						"left":"0", // o_p
-						"width":"65%" // o_w
-					});
-					$target.css({
-						"right":"0", // o_p
-						"width":"65%" // o_w
-					});
-					
+
+                    if($this.is('.overlap-right')){
+                        $target.css(css_left).addClass('overlap-left');
+                    } else if($this.is('.overlap-left')){
+                        $target.css(css_right).addClass('overlap-right');
+                    } else {
+                        $this.css(css_left);
+                        $target.css(css_right).addClass('overlap-right');
+                    }
 				}
 			}
 		});			
@@ -336,11 +338,23 @@ jQuery(document).ready(function($){
 					tribe_ev.state.initial_load = false;
 					tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
 					
-					if ( response !== '' ) {						
+					if ( response.success ) {
+
+                        tribe_ev.data.ajax_response = {
+                            'total_count':'',
+                            'view':response.view,
+                            'max_pages':'',
+                            'tribe_paged':'',
+                            'timestamp':new Date().getTime()
+                        };
 						
 						$(tribe_ev.events).triggerAll('tribe_ev_ajaxSuccess tribe_ev_weekView_AjaxSuccess');
 						
-						$( '#tribe-events-content.tribe-events-week-grid' ).replaceWith( response );
+						$( '#tribe-events-content.tribe-events-week-grid' ).replaceWith( response.html );
+
+                        var page_title = $( "#tribe-events-header" ).attr( 'data-title' );
+
+                        $( document ).attr( 'title', page_title );
 						
 						tribe_set_allday_placeholder_height();
 						tribe_set_allday_spanning_events_width();
@@ -361,14 +375,14 @@ jQuery(document).ready(function($){
 							history.pushState({
 								"tribe_url_params": tribe_ev.state.url_params,
 								"tribe_params": tribe_ev.state.params
-							}, '', tribe_ev.data.cur_url + '?' + tribe_ev.state.url_params);															
+							}, page_title, tribe_ev.data.cur_url + '?' + tribe_ev.state.url_params);
 						}						
 
 						if( tribe_ev.state.pushstate ) {								
 							history.pushState({
 								"tribe_url_params": tribe_ev.state.url_params,
 								"tribe_params": tribe_ev.state.params
-							}, '', tribe_ev.data.cur_url);
+							}, page_title, tribe_ev.data.cur_url);
 						}
 					}
 				}

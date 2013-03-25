@@ -244,7 +244,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			                   'success'         => true,
 			                   'max_pages'       => $query->max_num_pages,
 			                   'hash'            => $hash_str,
-			                   'tribe_paged'     => $tribe_paged );
+			                   'tribe_paged'     => $tribe_paged,
+			                   'view'            => 'photo',
+			);
 
 
 			remove_action( 'pre_get_posts', array( $tec, 'list_ajax_call_set_date' ), -10 );
@@ -266,6 +268,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			load_template( TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
 
 			$response['html'] .= ob_get_clean();
+
+			apply_filters( 'tribe_events_ajax_response', $response );
 
 			header( 'Content-type: application/json' );
 			echo json_encode( $response );
@@ -302,11 +306,20 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 				if ( have_posts() )
 					the_post();
-				
-				load_template( TribeEventsTemplates::getTemplateHierarchy( 'week', '', 'pro', $this->pluginPath ) );
-			}
-			die();
 
+				ob_start();
+				load_template( TribeEventsTemplates::getTemplateHierarchy( 'week', '', 'pro', $this->pluginPath ) );
+
+				$response = array(
+					'html'            => ob_get_clean(),
+					'success'         => true,
+					'view'            => 'week',
+				);
+				apply_filters( 'tribe_events_ajax_response', $response );
+				header( 'Content-type: application/json' );
+				echo json_encode( $response );
+				die();
+			}
 		}
 
 		/**
@@ -343,9 +356,21 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				add_filter( 'tribe_is_day', '__return_true' ); // simplest way to declare that this is a day view
 				TribeEventsTemplates::getTemplateHierarchy( 'day', '', 'pro', $this->pluginPath );
 
+				ob_start();
 				load_template( TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
+
+				$response = array(
+					'html'            => ob_get_clean(),
+					'success'         => true,
+					'total_count'     => $query->found_posts,
+					'view'            => 'day',
+				);
+				apply_filters( 'tribe_events_ajax_response', $response );
+
+				header( 'Content-type: application/json' );
+				echo json_encode( $response );
+				die();
 			}
-			die();
 
 		}
 
