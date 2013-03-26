@@ -120,7 +120,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		}
 		// Calendar Header
 		public static function before_header(){
-			$html = '<div id="tribe-events-header" data-title="' . wp_title( '&raquo;', FALSE ) . '" data-date="'. date( 'Y-m', strtotime( tribe_get_month_view_date() ) ) .'">';
+			$html = '<div id="tribe-events-header" data-title="' . wp_title( '&raquo;', false ) . '" data-date="'. date( 'Y-m', strtotime( tribe_get_month_view_date() ) ) .'">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_header');
 		}
 		// Calendar Navigation
