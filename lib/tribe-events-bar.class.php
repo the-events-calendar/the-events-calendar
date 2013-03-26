@@ -34,14 +34,14 @@ class TribeEventsBar {
 	 */
 	public function should_show() {
 		global $wp_query;
-
+		$tec = TribeEvents::instance();
 		$active_views = apply_filters( 'tribe-events-bar-views', array() );
 		$show_bar_filter = apply_filters( 'tribe_events_bar_should_show_filter', in_array( get_post_type(), array( TribeEvents::VENUE_POST_TYPE, TribeEvents::ORGANIZER_POST_TYPE ) ) ? false : true );
 		$view_slugs = array();
 		
 		foreach ( $active_views as $view ) {
 			$view_slugs[] = $view['displaying'];
-			if( $show_bar_filter ) {
+			if( $show_bar_filter && $tec->displaying === $view['displaying'] ) {
 				// we look at each view params and try to add the hook if supplied if not dump in on the tribe_events
 				$event_bar_hook = !empty($view['event_bar_hook']) ? $view['event_bar_hook'] : 'tribe_events_before_html';
 				add_filter( $event_bar_hook , array( __CLASS__, 'show' ), 30 );
