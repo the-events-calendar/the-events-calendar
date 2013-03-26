@@ -382,6 +382,9 @@ h2.tribe-events-page-title a:focus {
 	-webkit-box-shadow: none;
 			box-shadow: none;
 }
+#tribe-events-header {
+	position: relative;
+}
 #tribe-events-footer {
 	margin-bottom: 1em;
 }
@@ -390,6 +393,7 @@ h2.tribe-events-page-title a:focus {
 .tribe-events-day #tribe-events-footer,
 #tribe-geo-wrapper #tribe-events-footer {
 	margin: 1.25em 0 18px;
+	clear: both;
 }
 /* Single Event & Map View Nav Tweaks */
 #tribe-geo-wrapper #tribe-events-header {

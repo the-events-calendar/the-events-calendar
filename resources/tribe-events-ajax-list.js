@@ -147,7 +147,7 @@ jQuery( document ).ready( function ( $ ) {
 				tribe_ev.state.params['tribe_event_category'] = tribe_ev.state.category;
 			}
 
-			$(tribe_ev.events).trigger('tribe_ev_scrapeBar');
+			$(tribe_ev.events).trigger('tribe_ev_serializeBar');
 
 			tribe_ev.state.params = $.param(tribe_ev.state.params);
 			tribe_ev.state.url_params = $.param(tribe_ev.state.url_params);
@@ -174,19 +174,19 @@ jQuery( document ).ready( function ( $ ) {
 
 					if ( response.success ) {
 
-						$(tribe_ev.events).triggerAll('tribe_ev_ajaxSuccess tribe_ev_listView_AjaxSuccess');
-
 						tribe_ev.data.ajax_response = {
-							'type':'tribe_events_ajax',
-							'post_count':parseInt(response.total_count),
-							'view':'list',
+							'total_count':parseInt(response.total_count),
+							'view':response.view,
 							'max_pages':response.max_pages,
-							'page':tribe_ev.state.paged,
+							'tribe_paged':response.tribe_paged,
 							'timestamp':new Date().getTime()
 						};
 
+                        $(tribe_ev.events).triggerAll('tribe_ev_ajaxSuccess tribe_ev_listView_AjaxSuccess');
+
 						$( '#tribe-events-list-hash' ).val( response.hash );
-						$( '#tribe-events-list-view' ).html( response.html );
+						$( '#tribe-events-content' ).replaceWith( response.html );
+                        $( '#tribe-events-content').next('.tribe-clear').next('.tribe-clear').remove();
 
 						if( tribe_ev.state.do_string ) {
 							history.pushState({

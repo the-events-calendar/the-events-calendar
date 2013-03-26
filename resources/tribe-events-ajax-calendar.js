@@ -42,7 +42,7 @@ jQuery( document ).ready( function ( $ ) {
 		} );
 	}
 
-	$( '#tribe-events-content' ).on( 'click', '.tribe-events-sub-nav a', function ( e ) {
+	$( 'body' ).on( 'click', '.tribe-events-sub-nav a', function ( e ) {
 		e.preventDefault();
 		var $this = $(this);
 		tribe_ev.state.date = $this.attr( "data-month" );
@@ -72,7 +72,7 @@ jQuery( document ).ready( function ( $ ) {
 	});
 
 
-	tribe_ev.fn.snap( '#tribe-events-content', '#tribe-events-content', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );
+	tribe_ev.fn.snap( '#tribe-bar-form', 'body', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a' );
 
 	// events bar intercept submit
 
@@ -125,7 +125,7 @@ jQuery( document ).ready( function ( $ ) {
 
 			tribe_ev.state.url_params = {};
 
-			$(tribe_ev.events).trigger('tribe_ev_scrapeBar');
+			$(tribe_ev.events).trigger('tribe_ev_serializeBar');
 
 			tribe_ev.state.params = $.param(tribe_ev.state.params);
 			tribe_ev.state.url_params = $.param(tribe_ev.state.url_params);
@@ -154,26 +154,21 @@ jQuery( document ).ready( function ( $ ) {
 					tribe_ev.state.initial_load = false;
 					tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
 
-					if ( response !== '' ) {
-
-						$(tribe_ev.events).triggerAll('tribe_ev_ajaxSuccess tribe_ev_monthView_AjaxSuccess');
+					if ( response.success ) {
 
 						tribe_ev.data.ajax_response = {
-							'type':'tribe_events_ajax',
-							'view':'month',
-							'timestamp':new Date().getTime()
+                            'total_count':'',
+                            'view':response.view,
+                            'max_pages':'',
+                            'tribe_paged':'',
+                            'timestamp':new Date().getTime()
 						};
 
-						var $the_content;
+                        $(tribe_ev.events).triggerAll('tribe_ev_ajaxSuccess tribe_ev_monthView_AjaxSuccess');
 
-						if ($.isFunction(jQuery.parseHTML))
-							$the_content = $( $.parseHTML(response) ).contents();
-						else
-							$the_content = $( response ).contents();
+                        $( '#tribe-events-content' ).replaceWith( response.html );
 
-						$( '#tribe-events-content.tribe-events-calendar' ).html( $the_content );
-
-						var page_title = $the_content.filter("#tribe-events-header").attr('data-title');
+						var page_title = $("#tribe-events-header").attr('data-title');
 
 						$(document).attr('title', page_title);
 
