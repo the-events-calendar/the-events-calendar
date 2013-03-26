@@ -21,8 +21,6 @@ if( !class_exists( 'TribeEventsAdvancedListWidget' ) ) {
 			/* Create the widget. */
 			$this->WP_Widget( 'tribe-events-adv-list-widget', 'Events List Advanced Widget', $widget_ops, $control_ops );
 	
-			/* Add function to look for view in premium directory rather than free. */
-			add_filter( 'tribe_events_template_events-advanced-list-load-widget-display.php', array( $this, 'load_premium_view' ) );
 		}
 	
 		function widget( $args, $instance ) {
@@ -31,21 +29,21 @@ if( !class_exists( 'TribeEventsAdvancedListWidget' ) ) {
 		}
 
 		function update( $new_instance, $old_instance ) {
-				$instance = parent::update( $new_instance, $old_instance );
+			$instance = parent::update( $new_instance, $old_instance );
 
-				/* Process remaining options. */
-				/* Strip tags (if needed) and update the widget settings. */
-				$instance['venue'] = $new_instance['venue'];
-				$instance['country'] = $new_instance['country'];
-				$instance['address'] = $new_instance['address'];
-				$instance['city'] = $new_instance['city'];
-				$instance['region'] = $new_instance['region'];
-				$instance['zip'] = $new_instance['zip'];
-				$instance['phone'] = $new_instance['phone'];
-				$instance['cost'] = $new_instance['cost'];
-				$instance['category'] = $new_instance['category'];
-				$instance['organizer'] = $new_instance['organizer'];
-				return $instance;
+			/* Process remaining options. */
+			/* Strip tags (if needed) and update the widget settings. */
+			$instance['venue']     = $new_instance['venue'];
+			$instance['country']   = $new_instance['country'];
+			$instance['address']   = $new_instance['address'];
+			$instance['city']      = $new_instance['city'];
+			$instance['region']    = $new_instance['region'];
+			$instance['zip']       = $new_instance['zip'];
+			$instance['phone']     = $new_instance['phone'];
+			$instance['cost']      = $new_instance['cost'];
+			$instance['category']  = $new_instance['category'];
+			$instance['organizer'] = $new_instance['organizer'];
+			return $instance;
 		}
 	
 		function form( $instance ) {				
@@ -55,12 +53,5 @@ if( !class_exists( 'TribeEventsAdvancedListWidget' ) ) {
 			include( TribeEventsPro::instance()->pluginPath . 'admin-views/widget-admin-advanced-list.php' );
 		}
 
-		function load_premium_view($file) {
-			if ( !file_exists($file) ) {
-				$file = TribeEventsPro::instance()->pluginPath . 'views/events-advanced-list-load-widget-display.php';
-			}
-
-			return $file;
-		}
 	}
 }

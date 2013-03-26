@@ -32,16 +32,16 @@
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 $the_content_args = array(
-	'venue' => $venue, 
-	'address' => $address, 
-	'city' => $city, 
-	'region' => $region,
-	'zip' => $zip, 
-	'country' => $country, 
-	'phone' => $phone, 
-	'cost' => $cost,
+	'venue'     => $venue,
+	'address'   => $address,
+	'city'      => $city,
+	'region'    => $region,
+	'zip'       => $zip,
+	'country'   => $country,
+	'phone'     => $phone,
+	'cost'      => $cost,
 	'organizer' => $organizer
-	);
+);
 
 $event = array();
 $tribe_ecp = TribeEvents::instance();
