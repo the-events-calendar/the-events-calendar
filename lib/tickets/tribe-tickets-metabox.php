@@ -17,12 +17,7 @@ class TribeEventsTicketsMetabox {
 		if ( empty( $modules ) )
 			return;
 
-		foreach ( $modules as $class => $title ) {
-			if ( class_exists( $class ) ) {
-				$obj = call_user_func( array( $class, 'get_instance' ) );
-				$obj->do_meta_box( $post_id );
-			}
-		}
+		TribeEventsTicketsPro::instance()->do_meta_box( $post_id );
 	}
 
 	public static function add_admin_scripts( $hook ) {
