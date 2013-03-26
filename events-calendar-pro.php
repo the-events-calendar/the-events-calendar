@@ -105,6 +105,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'get_delete_post_link', array( $this, 'adjust_date_on_recurring_event_trash_link' ), 10, 2 );
 			add_action( 'admin_footer', array( $this, 'addDeleteDialogForRecurringEvents' ) );
 			add_filter( 'tribe_get_events_title', array( $this, 'reset_page_title'));
+			add_filter( 'tribe_events_add_title', array($this, 'maybeAddEventTitle' ), 10, 3 );
 
 			add_action( 'tribe_helper_activation_complete', array( $this, 'helpersLoaded' ) );
 			add_filter( 'tribe_promo_banner', array( $this, 'tribePromoBannerPro' ) );
@@ -171,6 +172,18 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		function single_event_the_meta_group_venue( $status, $event_id ){
 
 			return $status;
+		}
+
+		function maybeAddEventTitle( $new_title, $title, $sep = null ){
+			global $wp_query;
+			if( get_query_var('eventDisplay') == 'week' ){
+				// because we can't trust tribe_get_events_title will be set when run via AJAX
+				$new_title = sprintf( '%s %s',
+					__( 'Events for week of', 'tribe-events-calendar-pro' ),
+					date( "l, F jS Y", strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) )
+				);
+			}
+			return apply_filters( 'tribe_events_pro_add_title', $new_title, $title, $sep );
 		}
 
 		// function single_event_meta_init( $meta_templates, $meta_template_keys, $meta_group_templates, $meta_group_template_keys ){
@@ -292,7 +305,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 				TribeEventsQuery::init();
 				add_filter( 'tribe_events_pre_get_posts', array( $this, 'pre_get_posts' ) );
-				add_filter( 'tribe_get_events_title', array( $this, 'reset_page_title'));
+				add_filter( 'tribe_events_add_title', array($this, 'maybeAddEventTitle' ), 15, 3 );
 
 				$args = array(
 					'post_status' => array( 'publish', 'private', 'future' ),
