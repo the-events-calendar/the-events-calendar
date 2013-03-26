@@ -68,7 +68,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					wp_enqueue_script( $prefix . '-bar', $resouces_url . 'tribe-events-bar.js', array_merge( array( 'jquery' ), $deps ), apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 					break;
 				case 'jquery-placeholder' : // Vendor: jQuery Placeholder
-					wp_enqueue_script( $prefix . '-jquery-placeholder', $vendor_url . 'jquery-placeholder/jquery.placeholder.min.js', array_merge( array( 'jquery' ), $deps ), '2.0.7', false );
+					wp_enqueue_script( 'jquery-placeholder', $vendor_url . 'jquery-placeholder/jquery.placeholder.min.js', array_merge( array( 'jquery' ), $deps ), '2.0.7', false );
 					break;
 				case 'ajax-calendar':
 					$ajax_data = array( "ajaxurl"   => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
