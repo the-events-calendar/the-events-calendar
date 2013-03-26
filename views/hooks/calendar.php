@@ -102,8 +102,8 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_the_title');
 		}
 		public static function the_title(){			
-			$html = sprintf( '<h2 class="tribe-events-page-title">'. __( 'Events in ', 'tribe-events-calendar' ) .'%s</h2>',
-				date( "F Y", strtotime( tribe_get_month_view_date() ))
+			$html = sprintf( '<h2 class="tribe-events-page-title">%s</h2>',
+				tribe_get_events_title()
 				);
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_the_title');
 		}
