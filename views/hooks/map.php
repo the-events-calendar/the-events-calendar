@@ -16,7 +16,6 @@ if( !class_exists('Tribe_Events_Map_Template')){
 		public static function init(){
 
 			add_filter( 'tribe_events_list_show_separators', "__return_false" );
-			remove_filter( 'tribe_events_list_before_template' , array( 'TribeEventsBar', 'show' ), 30 );
 
 			// Start map template
 			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'before_template' ), 20, 1 );
@@ -27,13 +26,13 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			add_filter( 'tribe_events_list_before_loop', array( __CLASS__, 'before_the_results' ), 20, 1 );
 
 			// Navigation
-			add_filter( 'tribe_events_list_before_header_nav', array( __CLASS__, 'before_header_nav' ), 20, 1 );
-			add_filter( 'tribe_events_list_header_nav', array( __CLASS__, 'header_navigation' ), 20, 1 );
+			// add_filter( 'tribe_events_list_before_header_nav', array( __CLASS__, 'before_header_nav' ), 20, 1 );
+			// add_filter( 'tribe_events_list_header_nav', array( __CLASS__, 'header_navigation' ), 20, 1 );
 			
 			// Navigation
-			add_filter( 'tribe_events_map_before_footer_nav', array( __CLASS__, 'before_footer_nav' ), 20, 1 );
-			add_filter( 'tribe_events_map_footer_nav', array( __CLASS__, 'footer_navigation' ), 20, 1 );
-			add_filter( 'tribe_events_map_after_footer_nav', array( __CLASS__, 'after_footer_nav' ), 20, 1 );
+			// add_filter( 'tribe_events_map_before_footer_nav', array( __CLASS__, 'before_footer_nav' ), 20, 1 );
+			// add_filter( 'tribe_events_map_footer_nav', array( __CLASS__, 'footer_navigation' ), 20, 1 );
+			// add_filter( 'tribe_events_map_after_footer_nav', array( __CLASS__, 'after_footer_nav' ), 20, 1 );
 
 		}
 		// Start Map Template
@@ -59,27 +58,27 @@ if( !class_exists('Tribe_Events_Map_Template')){
 		}
 
 		// Map Navigation
-		public static function before_header_nav( $html ){
-			$html = '<h3 class="tribe-events-visuallyhidden">'. __( 'Events Map Navigation', 'tribe-events-calendar' ) .'</h3>';
-			$html .= '<ul class="tribe-events-sub-nav">';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_header_nav');
-		}
-		public static function header_navigation( $post_id ){
-			$tribe_ecp = TribeEvents::instance();
+		// public static function before_header_nav( $html ){
+		// 	$html = '<h3 class="tribe-events-visuallyhidden">'. __( 'Events Map Navigation', 'tribe-events-calendar' ) .'</h3>';
+		// 	$html .= '<ul class="tribe-events-sub-nav">';
+		// 	return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_header_nav');
+		// }
+		// public static function header_navigation( $post_id ){
+		// 	$tribe_ecp = TribeEvents::instance();
 
-			// Display Previous Page Navigation
-			$html = '<li class="tribe-nav-previous"><a href="#" class="tribe_map_paged">'. __('&laquo; Previous Events') .'</a></li><!-- .tribe-nav-previous -->';
+		// 	// Display Previous Page Navigation
+		// 	$html = '<li class="tribe-nav-previous"><a href="#" class="tribe_map_paged">'. __('&laquo; Previous Events') .'</a></li><!-- .tribe-nav-previous -->';
 			
-			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next">';
-			$html .= '<a href="#" class="tribe_map_paged">'. __('Next Events &raquo;') .'</a>';
+		// 	// Display Next Page Navigation
+		// 	$html .= '<li class="tribe-nav-next">';
+		// 	$html .= '<a href="#" class="tribe_map_paged">'. __('Next Events &raquo;') .'</a>';
 			
-			// Loading spinner
-			$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
-			$html .= '</li><!-- .tribe-nav-next -->';
+		// 	// Loading spinner
+		// 	$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
+		// 	$html .= '</li><!-- .tribe-nav-next -->';
 			
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_header_nav');
-		}
+		// 	return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_header_nav');
+		// }
 
 		// Start Results
 		public static function before_the_results( $html ){
@@ -88,39 +87,28 @@ if( !class_exists('Tribe_Events_Map_Template')){
 		}
 
 		// Map Navigation
-		public static function before_footer_nav( $html ){
-			$html = '<h3 class="tribe-events-visuallyhidden">'. __( 'Events Map Navigation', 'tribe-events-calendar' ) .'</h3>';
-			$html .= '<ul class="tribe-events-sub-nav">';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_footer_nav');
-		}
-		public static function footer_navigation( $html ){
-			$tribe_ecp = TribeEvents::instance();
+		// public static function before_footer_nav( $html ){
+		// 	$html = '<h3 class="tribe-events-visuallyhidden">'. __( 'Events Map Navigation', 'tribe-events-calendar' ) .'</h3>';
+		// 	$html .= '<ul class="tribe-events-sub-nav">';
+		// 	return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_footer_nav');
+		// }
+		// public static function footer_navigation( $html ){
+		// 	$tribe_ecp = TribeEvents::instance();
 
-			// Display Previous Page Navigation
-			$html = '<li class="tribe-nav-previous"><a href="#" class="tribe_map_paged">'. __('&laquo; Previous Events') .'</a></li><!-- .tribe-nav-previous -->';
+		// 	// Display Previous Page Navigation
+		// 	$html = '<li class="tribe-nav-previous"><a href="#" class="tribe_map_paged">'. __('&laquo; Previous Events') .'</a></li><!-- .tribe-nav-previous -->';
 			
-			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next">';
-			$html .= '<a href="#" class="tribe_map_paged">'. __('Next Events &raquo;') .'</a>';
-			$html .= '</li><!-- .tribe-nav-next -->';
+		// 	// Display Next Page Navigation
+		// 	$html .= '<li class="tribe-nav-next">';
+		// 	$html .= '<a href="#" class="tribe_map_paged">'. __('Next Events &raquo;') .'</a>';
+		// 	$html .= '</li><!-- .tribe-nav-next -->';
 			
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_footer_nav');
-		}
-		public static function after_footer_nav( $html ){
-			$html = '</ul><!-- .tribe-events-sub-nav -->';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_after_footer_nav');
-		}
-
-		// End Results
-		public static function after_the_results( $html ){
-			$html = '</div>';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_after_the_results');		
-		}
-
-		public static function after_template( $html ){
-			$html .= '</div>';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_after_template');			
-		}
+		// 	return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_footer_nav');
+		// }
+		// public static function after_footer_nav( $html ){
+		// 	$html = '</ul><!-- .tribe-events-sub-nav -->';
+		// 	return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_after_footer_nav');
+		// }
 
 	}
 	Tribe_Events_Map_Template::init();
