@@ -185,7 +185,8 @@ jQuery( document ).ready( function ( $ ) {
                         $(tribe_ev.events).triggerAll('tribe_ev_ajaxSuccess tribe_ev_listView_AjaxSuccess');
 
 						$( '#tribe-events-list-hash' ).val( response.hash );
-						$( '#tribe-events-content' ).html( response.html );
+						$( '#tribe-events-content' ).replaceWith( response.html );
+                        $( '#tribe-events-content').next('.tribe-clear').next('.tribe-clear').remove();
 
 						if( tribe_ev.state.do_string ) {
 							history.pushState({
