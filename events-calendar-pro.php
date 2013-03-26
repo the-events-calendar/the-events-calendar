@@ -356,6 +356,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					'eventDate' => $_POST["eventDate"],
 					'eventDisplay' => 'day'
 					);
+				
+				if ( isset( $_POST['tribe_event_category'] ) ) {
+					$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
+				}
+					
 				$query = TribeEventsQuery::getEvents( $args, true );
 
 				global $wp_query, $post;
