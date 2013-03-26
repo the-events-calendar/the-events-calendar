@@ -25,8 +25,6 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			// Results
 			add_filter( 'tribe_events_list_before_loop', array( __CLASS__, 'before_the_results' ), 20, 1 );
 
-			add_filter( 'tribe_events_list_after_template', array( __CLASS__, 'reset_after_template' ), 20, 1 );
-
 		}
 		// Start Map Template
 		public static function before_template( $html ){
@@ -55,13 +53,6 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			$html = '<div id="tribe-geo-results">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_the_results');
 		}
-
-		public static function reset_after_template( $html ){
-			$html = '';				
-			$html .= '</div><!-- #tribe-events-content -->';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_reset_after_template');
-		}
-
 
 	}
 	Tribe_Events_Map_Template::init();
