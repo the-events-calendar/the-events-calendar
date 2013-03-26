@@ -783,18 +783,18 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			} elseif(get_query_var('eventDisplay') == 'day') {
 				$title_date = date_i18n("F d, Y",strtotime(get_query_var('eventDate')));
 				$new_title = apply_filters( 'tribe_events_day_view_title', sprintf(__("Events for %s", 'tribe-events-calendar'), $title_date) . ' '. $sep . ' ' . $title, $sep, $title_date );
-         } elseif(get_query_var('post_type') == self::POSTTYPE && is_single() && $this->getOption('tribeEventsTemplate') != '' ) {
+         	} elseif(get_query_var('post_type') == self::POSTTYPE && is_single() && $this->getOption('tribeEventsTemplate') != '' ) {
 				global $post;
 				$new_title = $post->post_title . ' '. $sep . ' ' . $title;
 			} elseif(get_query_var('post_type') == self::VENUE_POST_TYPE && $this->getOption('tribeEventsTemplate') != '' ) {
 				global $post;
 				$new_title = apply_filters( 'tribe_events_venue_view_title', sprintf(__("Events at %s", 'tribe-events-calendar'), $post->post_title) . ' '. $sep . ' ' . $title,  $sep );
 			} else {
-				return $title;
+				$new_title = $title;
 			}
 
 
-			return $new_title;
+			return apply_filters( 'tribe_events_add_title', $new_title, $title, $sep );
 
 		}
 
@@ -3658,6 +3658,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		function calendar_ajax_call() {
 			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
 				global $wp_query;
+
+				// set the global query var for eventDisplay
+				$wp_query->set( 'eventDisplay', 'month');
+				if( !empty($_REQUEST['eventDate']))
+					$wp_query->set( 'eventDate', $_REQUEST['eventDate']);
 				
 				if ( isset( $_POST['tribe_event_category'] ) ) {
 					$wp_query->set( TribeEvents::TAXONOMY, $_POST['tribe_event_category'] );
