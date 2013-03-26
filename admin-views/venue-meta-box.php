@@ -55,17 +55,20 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	</td>
 </tr>
 <tr class="venue">
-	<?php if(!isset($_VenueStateProvince) || $_VenueStateProvince == "") $_VenueStateProvince = -1; ?>
+	<?php if(!isset($_VenueStateProvince) || $_VenueStateProvince == "") $_VenueStateProvince = -1;
+	$defaultState = tribe_get_option( 'eventsDefaultState' );
+	$defaultProvince = tribe_get_option( 'eventsDefaultProvince' );
+	$currentState = ( $_VenueStateProvince == -1 && tribe_get_option( 'defaultValueReplace' ) ) ? $defaultState : $_VenueStateProvince;
+	$currentProvince = ( $_VenueProvince && tribe_get_option( 'defaultValueReplace' ) ) ? $defaultProvince : $_VenueProvince;
+	?>
 	<td><?php _e('State or Province:','tribe-events-calendar'); ?></td>
-	<td><input tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceText" name="venue[Province]" type='text' name='' size='25' value='<?php echo ( isset($_VenueStateProvince) && $_VenueStateProvince != '' && $_VenueStateProvince != -1 ) ? esc_attr($_VenueProvince) : esc_attr(''); ?>' />
+	<td><input tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceText" name="venue[Province]" type='text' name='' size='25' value='<?php echo ( isset($_VenueStateProvince) && $_VenueStateProvince != '' && $_VenueStateProvince != -1 ) ? esc_attr($currentProvince) : esc_attr(''); ?>' />
 	<select class="chosen" tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceSelect" name="venue[State]">
 		<option value=""><?php _e('Select a State:','tribe-events-calendar'); ?></option>
 		<?php
 			foreach (TribeEventsViewHelpers::loadStates() as $abbr => $fullname) {
 				echo '<option value="'.$abbr.'"';
-				if( $_VenueStateProvince != -1 ){
-					selected((( $_VenueStateProvince != -1 ? $_VenueStateProvince : $_VenueState) == $abbr));
-				}
+					selected((( $_VenueStateProvince != -1 ? $_VenueStateProvince : $currentState) == $abbr));
 				echo '>' . esc_html($fullname) . '</option>';
 			}
 		?>
