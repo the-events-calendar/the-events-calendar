@@ -16,6 +16,7 @@ if( !class_exists('Tribe_Events_Map_Template')){
 		public static function init(){
 
 			add_filter( 'tribe_events_list_show_separators', "__return_false" );
+			remove_filter( 'tribe_events_list_before_template' , array( 'TribeEventsBar', 'show' ), 30 );
 
 			// Start map template
 			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'before_template' ), 20, 1 );
@@ -111,9 +112,14 @@ if( !class_exists('Tribe_Events_Map_Template')){
 		}
 
 		// End Results
-		public static function after_the_results( $post_id ){
+		public static function after_the_results( $html ){
 			$html = '</div>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_after_the_results');		
+		}
+
+		public static function after_template( $html ){
+			$html .= '</div>';
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_after_template');			
 		}
 
 	}

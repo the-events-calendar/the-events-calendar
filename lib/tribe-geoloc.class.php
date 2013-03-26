@@ -145,8 +145,8 @@ class TribeEventsGeoLoc {
 	}
 
 	public function setup_view_for_bar( $views ) {
-		$views[] = array( 'displaying' => 'map', 'event_bar_hook' => 'tribe_events_list_before_template', 'anchor'=> 'Map', 'url' => tribe_get_mapview_link() );
-		return $views;
+		$views[] = array( 'displaying' => 'map', 'event_bar_hook' => 'tribe_events_list_the_title', 'anchor'=> 'Map', 'url' => tribe_get_mapview_link() );
+		return $views; 
 	}
 
 	public function setup_geoloc_filter_in_bar( $filters ) {
