@@ -4,25 +4,25 @@ tribe_map_bounds = new google.maps.LatLngBounds();
 
 function tribe_process_geocoding( location, callback ) {
 
-	var request = {
-		address:location
-	};
+    var request = {
+        address:location
+    };
 
-	tribe_map_geocoder.geocode( request, function ( results, status ) {
-		if ( status == google.maps.GeocoderStatus.OK ) {
-			callback( results );
-			return results;
-		}
+    tribe_map_geocoder.geocode(request,function (results,status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            callback(results);
+            return results;
+        }
 
-		if ( status == google.maps.GeocoderStatus.ZERO_RESULTS ) {
-			if( GeoLoc.map_view ) {
-				spin_end();
-			}
-			return status;
-		}
+        if (status == google.maps.GeocoderStatus.ZERO_RESULTS) {
+            if (GeoLoc.map_view) {
+                spin_end();
+            }
+            return status;
+        }
 
-		return status;
-	} );
+        return status;
+    });
 }
 
 jQuery( document ).ready( function ( $ ) {
