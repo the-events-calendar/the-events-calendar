@@ -124,7 +124,7 @@
    @ Template: map.php
 =============================================*/
 /* tribe geolocation map area */
-.tribe-events-filters-v #tribe-events-geo-content {
+.tribe-events-filter-view #tribe-events-geo-content {
 	 width: 68.08%;
 	 padding-top: 1px;
 }
