@@ -400,11 +400,6 @@ h2.tribe-events-page-title a:focus {
 	margin: 1em 0;
 }
 
-.tribe-events-filters-v #tribe-geo-wrapper #tribe-events-header,
-.tribe-events-filters-v #tribe-geo-wrapper #tribe-events-footer {
-	width: 72%;
-	float: right;
-}
 .single-tribe_events #tribe-events-header {
 	margin: 1em 0 20px;
 }
