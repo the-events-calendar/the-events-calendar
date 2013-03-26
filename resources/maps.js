@@ -268,7 +268,7 @@ jQuery( document ).ready( function ( $ ) {
 			map.setCenter(center);			
 		});		
 		
-		$( '#tribe-geo-wrapper' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
+		$( '#tribe-events' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
 			e.preventDefault();
 			tribe_ev.state.paged++;
 			tribe_ev.state.popping = false;
