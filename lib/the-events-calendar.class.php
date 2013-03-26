@@ -237,7 +237,30 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
+		/**
+		 * before_html_data_wrapper adds a persistant tag to wrap the event display with a 
+		 * way for jQuery to maintain state in the dom
+		 * @param  string $html
+		 * @return string
+		 */
+		function before_html_data_wrapper( $html ){
+			$html = '<div id="tribe-events">' . $html;
+			return $html;
+		}
+
+		/**
+		 * after_html_data_wrapper close out the persistant dom wrapper
+		 * @param  string $html
+		 * @return string
+		 */
+		function after_html_data_wrapper( $html ){
+			$html .= '</div>';
+			return $html;
+		}
+
 		protected function addFilters() {
+			add_filter( 'tribe_events_before_html', array( $this, 'before_html_data_wrapper' ) );
+			add_filter( 'tribe_events_after_html', array( $this, 'after_html_data_wrapper' ) );
 			add_filter( 'post_class', array( $this, 'post_class') );
 			add_filter( 'body_class', array( $this, 'body_class' ) );
 			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );
