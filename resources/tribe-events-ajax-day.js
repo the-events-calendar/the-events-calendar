@@ -8,7 +8,6 @@ jQuery( document ).ready( function ( $ ) {
 	
 	
 	tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );
-	
 	tribe_ev.state.view = 'day';
 
 	function tribe_day_add_classes() {		
@@ -50,7 +49,7 @@ jQuery( document ).ready( function ( $ ) {
 		} );		
 	}
 
-	$( 'body' ).on( 'click', '.tribe-nav-previous a, .tribe-nav-next a', function ( e ) {
+	$( '#tribe-events' ).on( 'click', '.tribe-nav-previous a, .tribe-nav-next a', function ( e ) {
 		e.preventDefault();
 		var $this = $(this);
 		tribe_ev.state.popping = false;
@@ -125,6 +124,10 @@ jQuery( document ).ready( function ( $ ) {
 			tribe_ev.state.url_params = {
 				action     :'tribe_event_day'					
 			};
+
+            if( tribe_ev.state.category ) {
+                tribe_ev.state.params['tribe_event_category'] = tribe_ev.state.category;
+            }
 
 			$(tribe_ev.events).trigger('tribe_ev_serializeBar');
 
