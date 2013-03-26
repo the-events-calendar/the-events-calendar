@@ -34,9 +34,9 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			add_filter( 'tribe_events_list_header_nav', array( __CLASS__, 'header_navigation' ), 20, 1 );
 
 			// Navigation
-			add_filter( 'tribe_events_map_before_footer_nav', array( __CLASS__, 'before_footer_nav' ), 20, 1 );
-			add_filter( 'tribe_events_map_footer_nav', array( __CLASS__, 'footer_navigation' ), 20, 1 );
-			add_filter( 'tribe_events_map_after_footer_nav', array( __CLASS__, 'after_footer_nav' ), 20, 1 );
+			add_filter( 'tribe_events_list_before_footer_nav', array( __CLASS__, 'before_footer_nav' ), 20, 1 );
+			add_filter( 'tribe_events_list_footer_nav', array( __CLASS__, 'footer_navigation' ), 20, 1 );
+			add_filter( 'tribe_events_list_after_footer_nav', array( __CLASS__, 'after_footer_nav' ), 20, 1 );
 
 		}
 		// Start Map Template
@@ -103,7 +103,7 @@ if( !class_exists('Tribe_Events_Map_Template')){
 		public static function before_footer_nav( $html ){
 			$html = '<h3 class="tribe-events-visuallyhidden">'. __( 'Events Map Navigation', 'tribe-events-calendar' ) .'</h3>';
 			$html .= '<ul class="tribe-events-sub-nav">';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_footer_nav');
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_footer_nav');
 		}
 		public static function footer_navigation( $html ){
 
@@ -115,11 +115,11 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			$html .= '<a href="#" class="tribe_map_paged">'. __('Next Events &raquo;') .'</a>';
 			$html .= '</li><!-- .tribe-nav-next -->';
 
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_footer_nav');
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_footer_nav');
 		}
 		public static function after_footer_nav( $html ){
 			$html = '</ul><!-- .tribe-events-sub-nav -->';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_after_footer_nav');
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_footer_nav');
 		}
 
 		// End List Template

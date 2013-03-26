@@ -244,8 +244,8 @@ class TribeEventsGeoLoc {
 			$template = TribeEventsTemplates::getTemplateHierarchy('list');
 
 			/* This view only works with JS active, we don't want content
-					 *  on the first load.. just the wrapper. ajax will take care of it
-					 */
+			 *  on the first load.. just the wrapper. ajax will take care of it
+			*/
 			if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
 
 				// Start list loop
