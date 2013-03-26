@@ -258,7 +258,7 @@ class TribeEventsGeoLoc {
 	}
 
 	public function setup_geoloc_title( $title ) {
-		return __( 'Geolocation search', 'tribe-events-calendar-pro' );
+		return __( 'Upcoming Events', 'tribe-events-calendar-pro' );
 	}
 
 	function save_venue_geodata( $venueId, $data ) {

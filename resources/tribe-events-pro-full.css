@@ -440,13 +440,6 @@
 /* = Map View Template Styles 
    @ Template: map.php
 =============================================*/
-/* tribe geolocation map area */
-.tribe-events-filters-v #tribe-geo-results {
-	 width: 72%; 
-	 float: right; 
-	 padding: 24px 0 1px;
-}
-
 #tribe-geo-map-wrapper {
 	position: relative;
 	z-index: 2;

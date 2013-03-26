@@ -35,6 +35,8 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	echo apply_filters( 'tribe_events_map_before_the_options', '', $the_post_id );
 	echo apply_filters( 'tribe_events_map_the_options', '', $the_post_id );
 	echo apply_filters( 'tribe_events_map_after_the_options', '', $the_post_id );
+
+	echo apply_filters( 'tribe_events_map_the_title', '', $the_post_id );
 	
 	// Map header
     echo apply_filters( 'tribe_events_map_before_header', '', $the_post_id );
@@ -49,13 +51,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	// Results
 	echo apply_filters( 'tribe_events_map_before_the_results', '', $the_post_id );
 	echo apply_filters( 'tribe_events_map_after_the_results', '', $the_post_id );
-	
-	// Pagination
-	/*
-	echo apply_filters( 'tribe_events_map_before_pagination', '', $the_post_id );
-	echo apply_filters( 'tribe_events_map_pagination', '', $the_post_id );
-	echo apply_filters( 'tribe_events_map_after_pagination', '', $the_post_id );
-	*/
 	
 	// Map footer
     echo apply_filters( 'tribe_events_map_before_footer', '', $the_post_id );
