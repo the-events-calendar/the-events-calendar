@@ -419,6 +419,14 @@ class TribeEventsGeoLoc {
 
 	}
 
+	public function set_past_events_query( $query ) {
+		$query->set( 'start_date', '' );
+		$query->set( 'eventDate', '' );
+		$query->set( 'order', 'DESC' );
+		$query->set( 'end_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
+		return $query;
+	}
+
 	function ajax_geosearch() {
 
 		if ( class_exists( 'TribeEventsFilterView' ) ) {
@@ -431,15 +439,19 @@ class TribeEventsGeoLoc {
 		TribeEventsQuery::init();
 
 		$defaults = array( 'post_type'      => TribeEvents::POSTTYPE,
-		                   'orderby'        => 'event_date',
-		                   'order'          => 'ASC',
-		                   'posts_per_page' => tribe_get_option( 'postsPerPage', 10 ),
-		                   'paged'          => $tribe_paged,
-		                   'post_status'    => array( 'publish' ),
-		                   'eventDisplay'   => 'map' );
+						   'orderby'        => 'event_date',
+						   'order'          => 'ASC',
+						   'posts_per_page' => tribe_get_option( 'postsPerPage', 10 ),
+						   'paged'          => $tribe_paged,
+						   'post_status'    => array( 'publish' ),
+						   'eventDisplay'   => 'map',
+		);
+
+		/* if past view */
+		if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' )
+			add_filter( 'tribe_events_pre_get_posts', array( $this, 'set_past_events_query' ) );
 
 		$query = TribeEventsQuery::getEvents( $defaults, true );
-
 
 		if ( $this->is_geoloc_query() && $query->found_posts > 0 ) {
 			$lat = isset( $_POST['tribe-bar-geoloc-lat'] ) ? $_POST['tribe-bar-geoloc-lat'] : 0;
