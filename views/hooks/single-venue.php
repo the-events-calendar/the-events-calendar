@@ -100,6 +100,18 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 
 			// End single venue template
 			add_filter( 'tribe_events_single_venue_after_template', array( __CLASS__, 'after_template' ), 1, 1 );
+
+			// Remove header / footer navigation
+			add_filter( 'tribe_events_list_before_header', '__return_false' );
+			add_filter( 'tribe_events_list_before_header_nav', '__return_false' );
+			add_filter( 'tribe_events_list_header_nav', '__return_false' );
+			add_filter( 'tribe_events_list_after_header_nav', '__return_false' );
+			add_filter( 'tribe_events_list_after_header', '__return_false' );
+			add_filter( 'tribe_events_list_before_footer', '__return_false' );
+			add_filter( 'tribe_events_list_before_footer_nav', '__return_false' );
+			add_filter( 'tribe_events_list_footer_nav', '__return_false' );
+			add_filter( 'tribe_events_list_after_footer_nav', '__return_false' );
+			add_filter( 'tribe_events_list_after_footer', '__return_false' );
 		}
 
 		public static function remove_comments_template($template) {
