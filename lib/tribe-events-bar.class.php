@@ -44,7 +44,7 @@ class TribeEventsBar {
 			if( $show_bar_filter ) {
 				// we look at each view params and try to add the hook if supplied if not dump in on the tribe_events
 				$event_bar_hook = !empty($view['event_bar_hook']) ? $view['event_bar_hook'] : 'tribe_events_before_html';
-				add_filter( $event_bar_hook , array( $this, 'show' ), 30 );
+				add_filter( $event_bar_hook , array( __CLASS__, 'show' ), 30 );
 			}
 		}
 
@@ -91,8 +91,8 @@ class TribeEventsBar {
 		add_filter( 'tribe-events-bar-should-show', '__return_false', 9999 );
 
 		// Load the registered filters and views for the Bar. This values will be used in the template.
-		$filters = apply_filters( 'tribe-events-bar-filters', $this->filters );
-		$views   = apply_filters( 'tribe-events-bar-views', $this->views );
+		$filters = apply_filters( 'tribe-events-bar-filters', self::instance()->filters );
+		$views   = apply_filters( 'tribe-events-bar-views', self::instance()->views );
 
 		//Load the template
 		ob_start();
