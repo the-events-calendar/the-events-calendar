@@ -145,8 +145,8 @@ class TribeEventsGeoLoc {
 	}
 
 	public function setup_view_for_bar( $views ) {
-		$views[] = array( 'displaying' => 'map', 'event_bar_hook' => 'tribe_events_map_before_the_options', 'anchor'=> 'Map', 'url' => tribe_get_mapview_link() );
-		return $views;
+		$views[] = array( 'displaying' => 'map', 'event_bar_hook' => 'tribe_events_list_the_title', 'anchor'=> 'Map', 'url' => tribe_get_mapview_link() );
+		return $views; 
 	}
 
 	public function setup_geoloc_filter_in_bar( $filters ) {
@@ -236,30 +236,31 @@ class TribeEventsGeoLoc {
 		if ( !empty( $wp_query->query_vars['eventDisplay'] ) && $wp_query->query_vars['eventDisplay'] === 'map' ) {
 
 			add_filter( 'tribe-events-bar-should-show', '__return_true' );
-			//add_action( 'tribe_current_events_page_template', array( $this, 'setup_geoloc_template' ), 1 );
-			add_action( 'tribe_get_events_title', array( $this, 'setup_geoloc_title' ), 1 );
+			// add_action( 'tribe_current_events_page_template', array( $this, 'setup_geoloc_template' ), 1 );
+			// add_action( 'tribe_get_events_title', array( $this, 'setup_geoloc_title' ), 1 );
 
-			$pro      = TribeEventsPro::instance();
-			$template = TribeEventsTemplates::getTemplateHierarchy( 'map', '', 'pro', $pro->pluginPath );
+			// $pro      = TribeEventsPro::instance();
+			$template = TribeEventsTemplates::getTemplateHierarchy( 'map', '', 'pro', TribeEventsPro::instance()->pluginPath );
+			$template = TribeEventsTemplates::getTemplateHierarchy('list');
 
 		}
 
 		return $template;
 	}
 
-	public function setup_geoloc_template() {
-		remove_action( 'the_content', array( $this, 'setup_geoloc_template' ) );
-		$this->scripts();
-		$pro = TribeEventsPro::instance();
+	// public function setup_geoloc_template() {
+	// 	remove_action( 'the_content', array( $this, 'setup_geoloc_template' ) );
+	// 	$this->scripts();
+	// 	$pro = TribeEventsPro::instance();
 
-		include $pro->pluginPath . 'views/hooks/map.php';
+	// 	include $pro->pluginPath . 'views/hooks/map.php';
 
-		return $pro->pluginPath . 'views/map.php';
-	}
+	// 	return $pro->pluginPath . 'views/map.php';
+	// }
 
-	public function setup_geoloc_title( $title ) {
-		return __( 'Upcoming Events', 'tribe-events-calendar-pro' );
-	}
+	// public function setup_geoloc_title( $title ) {
+	// 	return __( 'Upcoming Events', 'tribe-events-calendar-pro' );
+	// }
 
 	function save_venue_geodata( $venueId, $data ) {
 
@@ -446,12 +447,11 @@ class TribeEventsGeoLoc {
 			add_filter( 'tribe_events_list_show_separators', "__return_false" );
 
 			echo '<div id="tribe-geo-results">';
-			global $wp_query;
-			print_r($wp_query,true);
-			include apply_filters( 'tribe_include_view_list', TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
+			// global $wp_query;
+			// print_r($wp_query,true);
+			include TribeEventsTemplates::getTemplateHierarchy( 'list' );
 			echo '</div>';
 			$response['html'] .= ob_get_clean();
-
 			$response['markers'] = $this->generate_markers( $data );
 		}
 		
