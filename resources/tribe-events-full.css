@@ -399,6 +399,12 @@ h2.tribe-events-page-title a:focus {
 #tribe-geo-wrapper #tribe-events-header {
 	margin: 1em 0;
 }
+
+.tribe-events-filters-v #tribe-geo-wrapper #tribe-events-header,
+.tribe-events-filters-v #tribe-geo-wrapper #tribe-events-footer {
+	width: 72%;
+	float: right;
+}
 .single-tribe_events #tribe-events-header {
 	margin: 1em 0 20px;
 }
@@ -1461,9 +1467,19 @@ h2.tribe-events-tickets-title {
 	min-height: 16px;
 	display: inline-block;
 }
-.tribe-select2-results-views .tribe-icon-list,
-.tribe-select2 .tribe-icon-list,
-.tribe-bar-view-list a.tribe-icon-upcoming {
+
+/* default icon */
+.tribe-select2-results-views span[class^="tribe-icon-"],
+.tribe-select2 span[class^="tribe-icon-"],
+.tribe-bar-view-list a[class^="tribe-icon-"] {
+	background-image: url(images/events-bar/icon-month.png);
+	-webkit-background-size: 15px 16px;
+    		background-size: 15px 16px;
+}
+
+.tribe-select2-results-views span.tribe-icon-list,
+.tribe-select2 span.tribe-icon-list,
+.tribe-bar-view-list a.tribe-icon-list {
 	background-image: url(images/events-bar/icon-list.png);
 	-webkit-background-size: 15px 10px;
     		background-size: 15px 10px;
@@ -1473,27 +1489,28 @@ h2.tribe-events-tickets-title {
 	padding-left: 30px;
 	background-position: 10px 50%;
 }
+
 .tribe-select2-results-views .tribe-icon-month,
-.tribe-select2 .tribe-icon-month,
+.tribe-select2 span.tribe-icon-month,
 .tribe-bar-view-list a.tribe-icon-month {
 	background-image: url(images/events-bar/icon-month.png);
 	-webkit-background-size: 15px 16px;
     		background-size: 15px 16px;
 }
-.tribe-select2-results-views .tribe-icon-week,
-.tribe-select2 .tribe-icon-week {
+.tribe-select2-results-views span.tribe-icon-week,
+.tribe-select2 span.tribe-icon-week {
 	background-image: url(images/events-bar/icon-week.png);
 	-webkit-background-size: 15px 16px;
     		background-size: 15px 16px;
 }
-.tribe-select2-results-views .tribe-icon-day,
-.tribe-select2 .tribe-icon-day {
+.tribe-select2-results-views span.tribe-icon-day,
+.tribe-select2 span.tribe-icon-day {
 	background-image: url(images/events-bar/icon-day.png);
 	-webkit-background-size: 15px 16px;
     		background-size: 15px 16px;
 }
-.tribe-select2-results-views .tribe-icon-photo,
-.tribe-select2 .tribe-icon-photo {
+.tribe-select2-results-views span.tribe-icon-photo,
+.tribe-select2 span.tribe-icon-photo {
 	background-image: url(images/events-bar/icon-photo.png);
 	-webkit-background-size: 15px 14px;
     		background-size: 15px 14px;
@@ -1508,7 +1525,7 @@ h2.tribe-events-tickets-title {
 
 /* Events Retina Bits */
 @media 
-only screen and (-moz-min-device-pixel-ratio: 2),
+only screen and (min--moz-device-pixel-ratio: 2),
 only screen and (-o-min-device-pixel-ratio: 2/1),
 only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (min-device-pixel-ratio: 2) {
@@ -1524,26 +1541,33 @@ only screen and (min-device-pixel-ratio: 2) {
 	#tribe-events-bar [class^="tribe-bar-button-"]:after {
 		background-image: url(../vendor/select2/select2x2.png);
 	}
-	.tribe-select2-results-views .tribe-icon-list,
-	.tribe-select2 .tribe-icon-list,
+
+	/* default icon */
+	.tribe-select2-results-views span[class^="tribe-icon-"],
+	.tribe-select2 span[class^="tribe-icon-"],
+	.tribe-bar-view-list a[class^="tribe-icon-"] {
+		background-image: url(images/events-bar/icon-month@2x.png);
+	}	
+	.tribe-select2-results-views span.tribe-icon-list,
+	.tribe-select2 span.tribe-icon-list,
 	.tribe-bar-view-list a.tribe-icon-upcoming {
 		background-image: url(images/events-bar/icon-list@2x.png);
 	}
-	.tribe-select2-results-views .tribe-icon-month,
-	.tribe-select2 .tribe-icon-month,
+	.tribe-select2-results-views span.tribe-icon-month,
+	.tribe-select2 span.tribe-icon-month,
 	.tribe-bar-view-list a.tribe-icon-month {
 		background-image: url(images/events-bar/icon-month@2x.png);
 	}
-	.tribe-select2-results-views .tribe-icon-week,
-	.tribe-select2 .tribe-icon-week {
+	.tribe-select2-results-views span.tribe-icon-week,
+	.tribe-select2 span.tribe-icon-week {
 		background-image: url(images/events-bar/icon-week@2x.png);
 	}
-	.tribe-select2-results-views .tribe-icon-day,
-	.tribe-select2 .tribe-icon-day {
+	.tribe-select2-results-views span.tribe-icon-day,
+	.tribe-select2 span.tribe-icon-day {
 		background-image: url(images/events-bar/icon-day@2x.png);
 	}
-	.tribe-select2-results-views .tribe-icon-photo,
-	.tribe-select2 .tribe-icon-photo {
+	.tribe-select2-results-views span.tribe-icon-photo,
+	.tribe-select2 span.tribe-icon-photo {
 		background-image: url(images/events-bar/icon-photo@2x.png);
 	}
 	.tribe-select2-results-views span.tribe-icon-map,
