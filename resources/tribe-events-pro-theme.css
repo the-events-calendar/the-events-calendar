@@ -175,6 +175,12 @@
 			border-radius: 3px;
 }
 
+.tribe-events-venue .tribe-events-venue-meta {
+	margin: 0;
+	padding: 1em;
+	border-bottom: 0;
+}
+
 .tribe-events-venue-meta address {
 	font-style: italic;
 	font-weight: normal;
@@ -186,7 +192,7 @@
 =============================================*/
 .tribe-events-organizer .tribe-events-organizer-meta {
 	max-width: 700px;
-	margin: 0 auto 1em;
+	margin: 0 auto;
 	border-bottom: 0;
 }
 

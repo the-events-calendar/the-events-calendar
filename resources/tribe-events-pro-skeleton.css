@@ -710,15 +710,8 @@
 	margin: 0 10px;
 }
 
-.tribe-events-organizer .tribe-events-event-image {
-	float: left;
-	width: 30%;
-	margin: 0 3% 0 0;
-}
-
 .tribe-events-organizer .tribe-organizer-description {
-	float: left;
-	width: 67%;
+	margin-bottom: 1em;
 }
 
 #tribe-events-pg-template .tribe-events-organizer .organizer-description p {
