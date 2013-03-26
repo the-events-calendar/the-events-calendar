@@ -46,17 +46,35 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			extract( $instance, EXTR_SKIP );
 			// extracting $instance provides $title, $limit
 			$title = apply_filters('widget_title', $title );
-			if (!isset($category)) {
-				$category = null;
-			}
-			if ( tribe_get_option('viewOption') == 'upcoming') {
-				$event_url = tribe_get_listview_link($category != -1 ? intval($category) : null);
-			} else {
-				$event_url = tribe_get_gridview_link($category != -1 ? intval($category) : null);
+			if ( ! isset( $category ) || $category === '-1' ) {
+				$category = 0;
 			}
 
-			if( function_exists( 'tribe_get_events' ) ) {
-				$posts = tribe_get_events( 'eventDisplay=upcoming&posts_per_page=' . $limit .'&eventCat=' . $category );
+			if ( tribe_get_option( 'viewOption' ) == 'upcoming' ) {
+				$event_url = tribe_get_listview_link( $category );
+			} else {
+				$event_url = tribe_get_gridview_link( $category );
+			}
+
+			if ( function_exists( 'tribe_get_events' ) ) {
+
+				$args = array(
+					'eventDisplay'   => 'upcoming',
+					'posts_per_page' => $limit,
+				);
+
+				if ( ! empty( $category ) ) {
+					$args['tax_query'] = array(
+						array(
+							'taxonomy'         => TribeEvents::TAXONOMY,
+							'terms'            => $category,
+							'field'            => 'ID',
+							'include_children' => false
+						)
+					);
+				}
+
+				$posts    = tribe_get_events( $args );
 				$template = TribeEventsTemplates::getTemplateHierarchy( $template_name, $subfolder, $namespace, $pluginPath );
 			}
 

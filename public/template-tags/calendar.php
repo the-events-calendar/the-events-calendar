@@ -326,9 +326,9 @@ if( class_exists( 'TribeEvents' ) ) {
 			<?php			
 			// Get our wrapper classes (for event categories, organizer, venue, and defaults)
 			$classes = array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $post->ID, 'tribe-clearfix' );
-			$tribe_cat_ids = tribe_get_event_cat_ids( $post->ID );
-			foreach( $tribe_cat_ids as $tribe_cat_id ) {
-				$classes[] = 'tribe-events-category-'. $tribe_cat_id;
+			$tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
+			foreach( $tribe_cat_slugs as $tribe_cat_slug ) {
+				$classes[] = 'tribe-events-category-'. $tribe_cat_slug;
 			}
 			if ( $venue_id = tribe_get_venue_id( $post->ID ) ) {
 				$classes[] = 'tribe-events-venue-'.$venue_id;

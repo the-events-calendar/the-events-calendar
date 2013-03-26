@@ -30,7 +30,7 @@ $displayTab = array(
 		),
 		'info-box-description' => array(
 			'type' => 'html',
-			'html' => __('<p>Use the options below to change the display of your calendar and event content on the frontend. The Events Calendar comes with its own Default Events Template. If your WordPress theme has its own page templates, they\'ll also be available for use in the dropdown below.</p><p>If you aren\'t satisfied with how the calendar looks upon installation, try switching to a different page template and refreshing the frontend to see if the new template integrates better. While we strive to ensure The Events Calendar is flexible enough to integrate smoothly out of the box with as many themes as possible, there are going to be situations where no template is 100% perfect. In these situations we encourage you to check out <a href="http://tri.be/support/documentation/events-calendar-themers-guide/">our themer\'s guide</a> to find what steps can be taken to get the layout where you want it to be.</p>', 'tribe-events-calendar'),
+			'html' => __('<p>Use the options below to change the display of your calendar and event content on the frontend. The Events Calendar comes with its own Default Events Template. If your WordPress theme has its own page templates, they\'ll also be available for use in the dropdown below.</p><p>If you aren\'t satisfied with how the calendar looks upon installation, try switching to a different page template and refreshing the frontend to see if the new template integrates better. While we strive to ensure The Events Calendar is flexible enough to integrate smoothly out of the box with as many themes as possible, there are going to be situations where no template is 100% perfect. In these situations we encourage you to check out <a href="http://tri.be/support/documentation/events-calendar-themers-guide/">our themer\'s guide</a> to find what steps can be taken to get the layout where you want it to be.</p><h4>Developers: Want to create a new view?</h4><p>We have created an example plugin that demonstrates how to register a new view. You can <a href="https://github.com/moderntribe/tribe-events-agenda-view">download the plugin at Github</a> to start learning how to integrate a new view from your theme or plugin into The Events Calendar.</p>', 'tribe-events-calendar'),
 		),
 		'info-end' => array(
 			'type' => 'html',
@@ -47,12 +47,16 @@ $displayTab = array(
 		'stylesheetOption' => array(
 			'type' => 'radio',
 			'label' => __( 'Default stylesheet used for events templates', 'tribe-events-calendar' ),
-			'default' => 'full',
-			'options' => array( 'full' => 'Full Stylesheet (These styles will most likely override some of your current theme styles on events templates)', 'skeleton' => 'Skeleton Stylesheet (These styles shouldn\'t override your current theme styles)' ),
+			'default' => 'tribe',
+			'options' => array( 
+				'skeleton' => __( 'Skeleton Styles (These styles provide a bare minimum level of layout for the more complex templates, and is recommended if you\'re customizing the events template styles)', 'tribe-events-calendar' ), 
+				'full' => __( 'Full Styles (These styles provide a more complex level of layout and style and should adapt to your theme)', 'tribe-events-calendar' ), 
+				'tribe' => __( 'Tribe Events Styles (These styles provide a fully designed events theme)', 'tribe-events-calendar' )
+			),
 			'validation_type' => 'options',
 		),
         'tribeEventsTemplate' => array(
-			'type' => 'dropdown_chosen',
+			'type' => 'dropdown_select2',
 		 	'label' => __( 'Events template', 'tribe-events-calendar' ),
 			'tooltip' => __( 'Choose a page template to control the appearance of your calendar and event content.', 'tribe-events-calendar' ),
 			'validation_type' => 'options',
@@ -69,7 +73,7 @@ $displayTab = array(
             'validation_type' => 'options_multi'
         ),
         'viewOption' => array(
-			'type' => 'dropdown_chosen',
+			'type' => 'dropdown_select2',
 		 	'label' => __( 'Default view', 'tribe-events-calendar' ),
 			'validation_type' => 'options',
 			'size' => 'large',
@@ -81,18 +85,16 @@ $displayTab = array(
 			'html' => '<h3>' . __( 'Advanced Template Settings', 'tribe-events-calendar-pro' ) . '</h3>',
 		),
 		'tribeEventsBeforeHTML' => array(
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 		 	'label' => __( 'Add HTML before event content', 'tribe-events-calendar' ),
 			'tooltip' => __( 'If you are familiar with HTML, you can add additional code before the event template. Some themes may require this to help with styling or layout.', 'tribe-events-calendar' ),
-			'validation_type' => 'html',
-			'size' => 'large',
+			'validation_type' => 'html'
 		),
 		'tribeEventsAfterHTML' => array(
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 		 	'label' => __( 'Add HTML after event content', 'tribe-events-calendar' ),
 			'tooltip' => __( 'If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout.', 'tribe-events-calendar' ),
 			'validation_type' => 'html',
-			'size' => 'large',
 		),
 		'tribe-form-content-end' => array(
 			'type' => 'html',

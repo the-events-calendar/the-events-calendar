@@ -397,7 +397,7 @@ if ( !class_exists( 'TribeValidate' ) ) {
 		 */
 		public function address() {
 			$this->value = stripslashes( $this->value );
-			if ( preg_match( "/^[0-9a-zA-Z '-]+$/", $this->value ) ) {
+			if ( preg_match( "/^[0-9\S '-]+$/", $this->value ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
@@ -415,7 +415,7 @@ if ( !class_exists( 'TribeValidate' ) ) {
 		 */
 		public function city_or_province() {
 				$this->value = stripslashes( $this->value );
-			if ( preg_match( "/^[a-zA-Z '-]+$/", $this->value ) ) {
+			if ( preg_match( "/^[\D '\-]+$/", $this->value ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;

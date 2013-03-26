@@ -14,11 +14,10 @@ class TribeEventsBar {
 	private $views = array();
 
 	public function __construct() {
-		add_filter( 'tribe_events_before_html', array( $this, 'show' ), 	  15 );
-		add_filter( 'wp_enqueue_scripts', 		array( $this, 'load_script' )    );
+		add_filter( 'wp_enqueue_scripts', array( $this, 'load_script' ) );
 
-		add_action( 'tribe-events-bar-show-filters', array( 'TribeEventsBar', 'print_filters_helper' ), 10, 1 );
-		add_action( 'tribe-events-bar-show-views', 	 array( 'TribeEventsBar', 'print_views_helper' ),   10, 1 );
+		add_action( 'tribe-events-bar-show-filters', array( $this, 'print_filters_helper' ) );
+		add_action( 'tribe-events-bar-show-views', 	 array( $this, 'print_views_helper' ) );
 	}
 
 	/**
@@ -35,11 +34,18 @@ class TribeEventsBar {
 	 */
 	public function should_show() {
 		global $wp_query;
-		$active_views = apply_filters( 'tribe-events-bar-views', array() );
 
+		$active_views = apply_filters( 'tribe-events-bar-views', array() );
+		$show_bar_filter = apply_filters( 'tribe_events_bar_should_show_filter', in_array( get_post_type(), array( TribeEvents::VENUE_POST_TYPE, TribeEvents::ORGANIZER_POST_TYPE ) ) ? false : true );
 		$view_slugs = array();
+		
 		foreach ( $active_views as $view ) {
 			$view_slugs[] = $view['displaying'];
+			if( $show_bar_filter ) {
+				// we look at each view params and try to add the hook if supplied if not dump in on the tribe_events
+				$event_bar_hook = !empty($view['event_bar_hook']) ? $view['event_bar_hook'] : 'tribe_events_before_html';
+				add_filter( $event_bar_hook , array( $this, 'show' ), 30 );
+			}
 		}
 
 		$is_tribe_view = ( ! empty( $wp_query->tribe_is_event_query ) && in_array( TribeEvents::instance()->displaying, $view_slugs ) );
@@ -79,25 +85,21 @@ class TribeEventsBar {
 	 */
 	public function show( $content ) {
 
+		$tec = TribeEvents::instance();
 
-		if ( $this->should_show() ) {
+		//set it to false to prevent infinite nesting
+		add_filter( 'tribe-events-bar-should-show', '__return_false', 9999 );
 
-			$tec = TribeEvents::instance();
+		// Load the registered filters and views for the Bar. This values will be used in the template.
+		$filters = apply_filters( 'tribe-events-bar-filters', $this->filters );
+		$views   = apply_filters( 'tribe-events-bar-views', $this->views );
 
-			//set it to false to prevent infinite nesting
-			add_filter( 'tribe-events-bar-should-show', '__return_false', 9999 );
+		//Load the template
+		ob_start();
+		include $tec->pluginPath . "views/modules/bar.php";
+		$html = ob_get_clean() . $content;
 
-			// Load the registered filters and views for the Bar. This values will be used in the template.
-			$filters = apply_filters( 'tribe-events-bar-filters', $this->filters );
-			$views   = apply_filters( 'tribe-events-bar-views', $this->views );
-
-			//Load the template
-			ob_start();
-			include $tec->pluginPath . "views/modules/bar.php";
-			$content = $content . ob_get_clean();
-		}
-
-		return $content;
+		return apply_filters( 'tribe_events_bar_show', $html, $filters, $views, $content );
 	}
 
 	/**
@@ -109,7 +111,7 @@ class TribeEventsBar {
 			Tribe_Template_Factory::asset_package( 'tribe-events-bar' );
 			Tribe_Template_Factory::asset_package( 'select2' );
 			Tribe_Template_Factory::asset_package( 'jquery-placeholder' );
-			Tribe_Template_Factory::asset_package( 'datepicker' );
+			Tribe_Template_Factory::asset_package( 'bootstrap-datepicker' );
 
 			do_action( 'tribe-events-bar-enqueue-scripts' );
 		}
@@ -124,19 +126,19 @@ class TribeEventsBar {
 	 */
 	public static function print_filters_helper( $filters ) {
 
-		echo '<div class="tribe-bar-button-search">' . __( '<span class="tribe-bar-btn-small"><span>Event </span>Search</span>', 'tribe-events-calendar' ) . '</div>';
-
-		echo '<div class="tribe-bar-drop-content">';
-
+		echo '<div id="tribe-bar-collapse-toggle">' . __( 'Find Events', 'tribe-events-calendar' ) . ' <span class="tribe-bar-toggle-arrow"></span></div>';
+		echo 	'<div class="tribe-bar-filters">';
 		foreach ( $filters as $filter ) {
-			echo '<label class="tribe-events-visuallyhidden" for="' . esc_attr( $filter['name'] ) . '">' . $filter['caption'] . '</label>';
-			echo $filter['html'];
+			echo '<div class="' . esc_attr( $filter['name'] ) . '-filter">';
+				echo '<label class="label-' . esc_attr( $filter['name'] ) . '" for="' . esc_attr( $filter['name'] ) . '">' . $filter['caption'] . '</label>';
+				echo $filter['html'];
+			echo '</div>';
 		}
 
-		echo '<input class="tribe-events-button-grey tribe-no-param" type="submit" name="submit-bar" value="' . __( 'Search', 'tribe-events-calendar' ) . '"/>';
-
-		echo '</div><!-- .tribe-bar-drop-content -->';
-
+		echo '<div class="tribe-bar-submit">';
+			echo '<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="' . __( 'Find Events', 'tribe-events-calendar' ) . '"/>';
+		echo '</div>';
+		echo '</div>';
 	}
 
 
@@ -154,9 +156,17 @@ class TribeEventsBar {
 
 		$limit = apply_filters( 'tribe-events-bar-views-breakpoint', 0 );
 
+		$open_wrap = '<div id="tribe-bar-views">';
+		$open_inner_wrap = '<div class="tribe-bar-views-inner tribe-clearfix">';
+
+		$open 		= '<label>View As</label>';
+
+		echo $open_wrap;
+		echo $open_inner_wrap;		
+
 		if ( count( $views ) <= $limit ) {
 			// Standard list navigation for larger screens
-			$open     = '<ul class="tribe-bar-view-list">';
+			$open    .= '<ul class="tribe-bar-view-list">';
 			$close    = "</ul>";
 			$current  = 'tribe-active';
 			$open_el  = '<li><a class="tribe-bar-view tribe-events-button-grey tribe-icon-!VIEW! !CURRENT-ACTIVE!" href="!URL!">';
@@ -169,20 +179,21 @@ class TribeEventsBar {
 			$close_sel_el = "</option>";
 
 		} else {
-
-			$open     = '<select class="tribe-select2 tribe-no-param" name="tribe-bar-view">';
+			$open    .= '<select class="tribe-select2 tribe-no-param" name="tribe-bar-view">';
 			$close    = "</select>";
 			$current  = 'selected';
 			$open_el  = '<option !CURRENT-ACTIVE! value="!URL!" data-view="!JSKEY!">';
 			$close_el = "</option>";
 		}
 
+		$close_inner_wrap = '</div>'; // close .tribe-bar-views-inner
+		$close_wrap = '</div>'; // close #tribe-bar-views
+
 		// standard list navigation for larger screens or select depending on number of views
 		echo '<h3 class="tribe-events-visuallyhidden">' . __( 'Event Views Navigation', 'tribe-events-calendar' ) . '</h3>';
 		echo $open;
 
 		foreach ( $views as $view ) {
-
 			$item = str_replace( '!URL!', esc_url( $view['url'] ), $open_el );
 			$item = str_replace( '!VIEW!', $view['displaying'], $item );
 			$item = str_replace( '!JSKEY!', $view['displaying'], $item );
@@ -223,9 +234,11 @@ class TribeEventsBar {
 				echo $close_sel_el;
 			}
 			echo $close_sel;
-		}
 
-		// show user front-end settings only if ECP is active
+		}
+		
+	// show user front-end settings only if ECP is active
+
 		if ( class_exists( 'TribeEventsPro' ) ) {
 			$hide_recurrence = isset( $_REQUEST['tribeHideRecurrence'] ) ? $_REQUEST['tribeHideRecurrence'] : tribe_get_option( 'hideSubsequentRecurrencesDefault', false );
 
@@ -240,9 +253,11 @@ class TribeEventsBar {
 			echo '<button type="button" name="settingsUpdate" class="tribe-events-button-grey">' . __( 'Update', 'tribe-events-calendar' ) . '</button>';
 			echo '</div><!-- .tribe-bar-drop-content -->';
 			echo '</div><!-- .tribe-bar-drop-content -->';
-
+			
 		}
-
+		
+			echo $close_inner_wrap;
+			echo $close_wrap;
 	}
 
 	/**

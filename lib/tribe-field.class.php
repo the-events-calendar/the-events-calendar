@@ -82,11 +82,13 @@ if ( !class_exists('TribeField') ) {
 				'html',
 				'text',
 				'textarea',
+				'wysiwyg',
 				'radio',
 				'checkbox_bool',
 				'checkbox_list',
 				'dropdown',
 				'dropdown_chosen',
+				'dropdown_select2',
 				'license_key',
 			);
 
@@ -365,6 +367,31 @@ if ( !class_exists('TribeField') ) {
 		}
 
 		/**
+		 * generate a wp_editor field
+		 *
+		 * @since 3.0.0
+		 * @author Kyle Unzicker
+		 * @return string the field
+		 */
+		public function wysiwyg() {
+			$settings = array(
+			    'teeny' => true,
+			    'wpautop' => true
+			 );
+			ob_start();
+			wp_editor( html_entity_decode( ( $this->value ) ), $this->name, $settings );
+			$editor = ob_get_clean();
+			$field = $this->doFieldStart();
+			$field .= $this->doFieldLabel();
+			$field .= $this->doFieldDivStart();
+			$field .= $editor;
+			$field .= $this->doScreenReaderLabel();
+			$field .= $this->doFieldDivEnd();
+			$field .= $this->doFieldEnd();
+			return $field;
+		}		
+
+		/**
 		 * generate a radio button field
 		 *
 		 * @since 2.0.5
@@ -493,6 +520,20 @@ if ( !class_exists('TribeField') ) {
 		 * @return string the field
 		 */
 		public function dropdown_chosen() {
+			$field = $this->dropdown();
+			return $field;
+		}
+
+		/**
+		 * generate a select2 dropdown field - the same as the
+		 * regular dropdown but wrapped so it can have the
+		 * right css class applied to it
+		 *
+		 * @since 2.0.5
+		 * @author jkudish
+		 * @return string the field
+		 */
+		public function dropdown_select2() {
 			$field = $this->dropdown();
 			return $field;
 		}
