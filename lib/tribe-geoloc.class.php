@@ -243,6 +243,37 @@ class TribeEventsGeoLoc {
 			$template = TribeEventsTemplates::getTemplateHierarchy( 'map', '', 'pro', TribeEventsPro::instance()->pluginPath );
 			$template = TribeEventsTemplates::getTemplateHierarchy('list');
 
+			/* This view only works with JS active, we don't want content
+					 *  on the first load.. just the wrapper. ajax will take care of it
+					 */
+			if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
+
+				// Start list loop
+				remove_filter( 'tribe_events_list_before_loop', array( 'Tribe_Events_List_Template', 'before_loop' ), 1, 2 );
+				remove_filter( 'tribe_events_list_inside_before_loop', array( 'Tribe_Events_List_Template', 'inside_before_loop' ), 1, 3 );
+
+				// Event title
+				remove_filter( 'tribe_events_list_the_event_title', array( 'Tribe_Events_List_Template', 'the_event_title' ), 1, 2 );
+
+				// Event meta
+				remove_filter( 'tribe_events_list_before_the_meta', array( 'Tribe_Events_List_Template', 'before_the_meta' ), 1, 2 );
+				remove_filter( 'tribe_events_list_the_meta', array( 'Tribe_Events_List_Template', 'the_meta' ), 1, 2 );
+				remove_filter( 'tribe_events_list_after_the_meta', array( 'Tribe_Events_List_Template', 'after_the_meta' ), 1, 2 );
+
+				// Event featured image
+				remove_filter( 'tribe_events_list_the_event_image', array( 'Tribe_Events_List_Template', 'the_event_image' ), 1, 2 );
+
+				// Event content
+				remove_filter( 'tribe_events_list_before_the_content', array( 'Tribe_Events_List_Template', 'before_the_content' ), 1, 2 );
+				remove_filter( 'tribe_events_list_the_content', array( 'Tribe_Events_List_Template', 'the_content' ), 1, 2 );
+				remove_filter( 'tribe_events_list_after_the_content', array( 'Tribe_Events_List_Template', 'after_the_content' ), 1, 2 );
+
+				// End list loop
+				remove_filter( 'tribe_events_list_inside_after_loop', array( 'Tribe_Events_List_Template', 'inside_after_loop' ), 1, 2 );
+				remove_filter( 'tribe_events_list_after_loop', array( 'Tribe_Events_List_Template', 'after_loop' ), 1, 2 );
+
+			}
+			
 		}
 
 		return $template;
