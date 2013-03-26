@@ -196,17 +196,17 @@ jQuery( document ).ready( function ( $ ) {
 					tribe_ev.state.initial_load = false;	
 					tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
 					
-					if ( response.success ) {						
-						
-						$(tribe_ev.events).triggerAll('tribe_ev_ajaxSuccess tribe_ev_photoView_AjaxSuccess');
+					if ( response.success ) {
 
-						tribe_ev.data.ajax_response = {
-							'type':'tribe_events_ajax',
-							'view':'photo',
-							'max_pages':response.max_pages,
-							'page':response.tribe_paged,
-							'timestamp':new Date().getTime()
-						};
+                        tribe_ev.data.ajax_response = {
+                            'total_count':parseInt(response.total_count),
+                            'view':response.view,
+                            'max_pages':response.max_pages,
+                            'tribe_paged':response.tribe_paged,
+                            'timestamp':new Date().getTime()
+                        };
+
+                        $(tribe_ev.events).triggerAll('tribe_ev_ajaxSuccess tribe_ev_photoView_AjaxSuccess');
 
 						$( '#tribe-events-list-hash' ).val( response.hash );						
 

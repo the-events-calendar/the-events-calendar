@@ -779,6 +779,7 @@ class TribeEventsRecurrenceMeta {
 	 * @return void
 	 */
 	public function checkRecurrenceAmount( $post_id ) {
+		$is_success = true;
 		if ( get_post_type( $post_id ) == TribeEvents::POSTTYPE && get_post_meta( $post_id, '_EventRecurrence' ) ) {
 			extract(TribeEventsRecurrenceMeta::getRecurrenceMeta($post_id));
 			$rules = TribeEventsRecurrenceMeta::getSeriesRules($post_id);
@@ -799,9 +800,11 @@ class TribeEventsRecurrenceMeta {
 				$max_recurrences = apply_filters( 'tribe_events_max_recurrences', 199 );
 				if ( count( $dates ) > $max_recurrences ) {
 					add_filter( 'redirect_post_location', array( __CLASS__, 'tooManyRecurrencesError' ) );
+					$is_success = false;
 				}
 			}
 		}
+		return $is_success;
 	}
 	
 }

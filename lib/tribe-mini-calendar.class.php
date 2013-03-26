@@ -16,7 +16,7 @@ class TribeEventsMiniCalendar {
 	}
 
 	public function  ajax_select_day() {
-		$response = array( 'success' => false, 'html' => '' );
+		$response = array( 'success' => false, 'html' => '', 'view' => 'mini-day' );
 
 		if ( isset( $_POST["nonce"] ) && isset( $_POST["eventDate"] ) && isset( $_POST["count"] ) ) {
 
@@ -47,6 +47,7 @@ class TribeEventsMiniCalendar {
 			}
 
 		}
+		apply_filters( 'tribe_events_ajax_response', $response );
 
 		header( 'Content-type: application/json' );
 		echo json_encode( $response );
@@ -55,7 +56,7 @@ class TribeEventsMiniCalendar {
 
 	public function ajax_change_month() {
 
-		$response = array( 'success' => false, 'html' => '' );
+		$response = array( 'success' => false, 'html' => '', 'view' => 'mini-month' );
 
 		if ( isset( $_POST["eventDate"] ) && isset( $_POST["layout"] ) && isset( $_POST["count"] ) ) {
 
@@ -75,6 +76,7 @@ class TribeEventsMiniCalendar {
 			$response['success'] = true;
 
 		}
+		apply_filters( 'tribe_events_ajax_response', $response );
 
 		header( 'Content-type: application/json' );
 		echo json_encode( $response );
