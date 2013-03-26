@@ -524,20 +524,9 @@ select.tribe-events-dropdown {
 	font-style: normal;
 }
 
-
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring {
 	position: relative;
-	/*
-	font-style: normal;
-	font-weight: 500;
-	color: rgba(0, 0, 0, .7);
-	*/
 }
-/*
-.tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring:hover {
-	color: #000;
-}
-*/
 
 .tribe-events-list .time-details,
 .tribe-events-list .tribe-venue-details {
