@@ -15,95 +15,70 @@ if( !class_exists('Tribe_Events_Map_Template')){
 	class Tribe_Events_Map_Template extends Tribe_Template_Factory {
 		public static function init(){
 
+			add_filter( 'tribe_events_list_show_separators', "__return_false" );
+
 			// Start map template
-			add_filter( 'tribe_events_map_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
+			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'before_template' ), 20, 1 );
 
 			// Map
-			add_filter( 'tribe_events_map_before_the_map', array( __CLASS__, 'before_the_map' ), 1, 1 );
-			add_filter( 'tribe_events_map_the_map', array( __CLASS__, 'the_map' ), 1, 1 );
-			add_filter( 'tribe_events_map_after_the_map', array( __CLASS__, 'after_the_map' ), 1, 1 );
+			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'before_the_map' ), 20, 1 );
+			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'the_map' ), 20, 1 );
+			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'after_the_map' ), 20, 1 );
 	
 			// Options
-			add_filter( 'tribe_events_map_before_the_options', array( __CLASS__, 'before_the_options' ), 1, 1 );
-			add_filter( 'tribe_events_map_the_options', array( __CLASS__, 'the_options' ), 1, 1 );
-			add_filter( 'tribe_events_map_after_the_options', array( __CLASS__, 'after_the_options' ), 1, 1 );
-
-			// Page Title
-			add_filter( 'tribe_events_map_the_title', array( __CLASS__, 'the_title' ), 1, 2 );
+			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'before_the_options' ), 20, 1 );
+			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'the_options' ), 20, 1 );
+			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'after_the_options' ), 20, 1 );
 	
 			// Results
-			add_filter( 'tribe_events_map_before_the_results', array( __CLASS__, 'before_the_results' ), 1, 1 );
-			add_filter( 'tribe_events_map_after_the_results', array( __CLASS__, 'after_the_results' ), 1, 1 );
-			
-			// Map header
-			add_filter( 'tribe_events_map_before_header', array( __CLASS__, 'before_header' ), 1, 1 );
-			
-			// Navigation
-			add_filter( 'tribe_events_map_before_header_nav', array( __CLASS__, 'before_header_nav' ), 1, 1 );
-			add_filter( 'tribe_events_map_header_nav', array( __CLASS__, 'header_navigation' ), 1, 1 );
-			add_filter( 'tribe_events_map_after_header_nav', array( __CLASS__, 'after_header_nav' ), 1, 1 );
-			
-			add_filter( 'tribe_events_map_after_header', array( __CLASS__, 'after_header' ), 1, 1 );
-			
-			// Map footer
-			add_filter( 'tribe_events_map_before_footer', array( __CLASS__, 'before_footer' ), 1, 1 );
-			
-			// Navigation
-			add_filter( 'tribe_events_map_before_footer_nav', array( __CLASS__, 'before_footer_nav' ), 1, 1 );
-			add_filter( 'tribe_events_map_footer_nav', array( __CLASS__, 'footer_navigation' ), 1, 1 );
-			add_filter( 'tribe_events_map_after_footer_nav', array( __CLASS__, 'after_footer_nav' ), 1, 1 );
-			
-			add_filter( 'tribe_events_map_after_footer', array( __CLASS__, 'after_footer' ), 1, 1 );
+			add_filter( 'tribe_events_list_before_loop', array( __CLASS__, 'before_the_results' ), 20, 1 );
 
-			// End map template
-			add_filter( 'tribe_events_map_after_template', array( __CLASS__, 'after_template' ), 1, 1 );			
+			// Navigation
+			add_filter( 'tribe_events_list_before_header_nav', array( __CLASS__, 'before_header_nav' ), 20, 1 );
+			add_filter( 'tribe_events_list_header_nav', array( __CLASS__, 'header_navigation' ), 20, 1 );
+			
+			// Navigation
+			add_filter( 'tribe_events_map_before_footer_nav', array( __CLASS__, 'before_footer_nav' ), 20, 1 );
+			add_filter( 'tribe_events_map_footer_nav', array( __CLASS__, 'footer_navigation' ), 20, 1 );
+			add_filter( 'tribe_events_map_after_footer_nav', array( __CLASS__, 'after_footer_nav' ), 20, 1 );
+
 		}
 		// Start Map Template
-		public static function before_template( $post_id ){
+		public static function before_template( $html ){
 			$html = '<div id="tribe-geo-wrapper">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_template');
 		}
 		// Map
-		public static function before_the_map( $post_id ){
-			$html = '<div id="tribe-geo-map-wrapper">';
+		public static function before_the_map( $html ){
+			$html .= '<div id="tribe-geo-map-wrapper">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_the_map');
 		}
-		public static function the_map( $post_id ){
-			$html = '<div id="tribe-geo-loading"><img class="tribe-ajax-loading tribe-spinner" src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" /></div>';
+		public static function the_map( $html ){
+			$html .= '<div id="tribe-geo-loading"><img class="tribe-ajax-loading tribe-spinner" src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" /></div>';
 			$html .= '<div id="tribe-geo-map"></div>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_the_map');
 		}
-		public static function after_the_map( $post_id ){
-			$html = '</div>';
+		public static function after_the_map( $html ){
+			$html .= '</div>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_after_the_map');
 		}
 		// Options
-		public static function before_the_options( $post_id ){
-			$html = '<div id="tribe-geo-options">';
+		public static function before_the_options( $html ){
+			$html .= '<div id="tribe-geo-options">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_the_options');
 		}
-		public static function the_options( $post_id ){
-			$html = '<h2>'. __( 'Refine your search:', 'tribe-events-calendar-pro' ) .'</h2>';
+		public static function the_options( $html ){
+			$html .= '<h2>'. __( 'Refine your search:', 'tribe-events-calendar-pro' ) .'</h2>';
 			$html .= '<div id="tribe-geo-links"></div>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_the_options');
 		}
-		public static function after_the_options( $post_id ){
-			$html = '</div>';
+		public static function after_the_options( $html ){
+			$html .= '</div>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_after_the_options');
 		}
-		public static function the_title( $post_id ){
-			$html = sprintf( '<h2 class="tribe-events-page-title">%s</h2>',
-				tribe_get_events_title()
-				);
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_the_title');
-		}
-		// Map Header
-		public static function before_header( $post_id ){
-			$html = '<div id="tribe-events-header">';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_header');
-		}
+
 		// Map Navigation
-		public static function before_header_nav( $post_id ){
+		public static function before_header_nav( $html ){
 			$html = '<h3 class="tribe-events-visuallyhidden">'. __( 'Events Map Navigation', 'tribe-events-calendar' ) .'</h3>';
 			$html .= '<ul class="tribe-events-sub-nav">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_header_nav');
@@ -124,31 +99,20 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_header_nav');
 		}
-		public static function after_header_nav( $post_id ){
-			$html = '</ul><!-- .tribe-events-sub-nav -->';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_after_header_nav');
-		}
-		public static function after_header( $post_id ){
-			$html = '</div><!-- #tribe-events-header -->';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_after_header');
-		}
+
 		// Start Results
-		public static function before_the_results( $post_id ){
+		public static function before_the_results( $html ){
 			$html = '<div id="tribe-geo-results">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_the_results');
 		}
-		// Map Footer
-		public static function before_footer( $post_id ){
-			$html = '<div id="tribe-events-footer">';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_footer');
-		}
+
 		// Map Navigation
-		public static function before_footer_nav( $post_id ){
+		public static function before_footer_nav( $html ){
 			$html = '<h3 class="tribe-events-visuallyhidden">'. __( 'Events Map Navigation', 'tribe-events-calendar' ) .'</h3>';
 			$html .= '<ul class="tribe-events-sub-nav">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_footer_nav');
 		}
-		public static function footer_navigation( $post_id ){
+		public static function footer_navigation( $html ){
 			$tribe_ecp = TribeEvents::instance();
 
 			// Display Previous Page Navigation
@@ -161,24 +125,17 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_footer_nav');
 		}
-		public static function after_footer_nav( $post_id ){
+		public static function after_footer_nav( $html ){
 			$html = '</ul><!-- .tribe-events-sub-nav -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_after_footer_nav');
 		}
-		public static function after_footer( $post_id ){
-			$html = '</div><!-- #tribe-events-footer -->';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_after_footer');
-		}
+
 		// End Results
 		public static function after_the_results( $post_id ){
 			$html = '</div>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_after_the_results');		
 		}
-		// End Map Template
-		public static function after_template( $post_id ){
-			$html = '</div>';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_after_template');		
-		}
+
 	}
 	Tribe_Events_Map_Template::init();
 }
