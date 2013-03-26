@@ -19,16 +19,8 @@ if( !class_exists('Tribe_Events_Map_Template')){
 
 			// Start map template
 			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'before_template' ), 20, 1 );
-
-			// Map
-			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'before_the_map' ), 20, 1 );
 			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'the_map' ), 20, 1 );
-			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'after_the_map' ), 20, 1 );
-	
-			// Options
-			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'before_the_options' ), 20, 1 );
 			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'the_options' ), 20, 1 );
-			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'after_the_options' ), 20, 1 );
 	
 			// Results
 			add_filter( 'tribe_events_list_before_loop', array( __CLASS__, 'before_the_results' ), 20, 1 );
@@ -49,32 +41,20 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_template');
 		}
 		// Map
-		public static function before_the_map( $html ){
-			$html .= '<div id="tribe-geo-map-wrapper">';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_the_map');
-		}
 		public static function the_map( $html ){
+			$html .= '<div id="tribe-geo-map-wrapper">';
 			$html .= '<div id="tribe-geo-loading"><img class="tribe-ajax-loading tribe-spinner" src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" /></div>';
 			$html .= '<div id="tribe-geo-map"></div>';
+			$html .= '</div>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_the_map');
 		}
-		public static function after_the_map( $html ){
-			$html .= '</div>';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_after_the_map');
-		}
 		// Options
-		public static function before_the_options( $html ){
-			$html .= '<div id="tribe-geo-options">';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_the_options');
-		}
 		public static function the_options( $html ){
+			$html .= '<div id="tribe-geo-options">';
 			$html .= '<h2>'. __( 'Refine your search:', 'tribe-events-calendar-pro' ) .'</h2>';
 			$html .= '<div id="tribe-geo-links"></div>';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_the_options');
-		}
-		public static function after_the_options( $html ){
 			$html .= '</div>';
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_after_the_options');
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_the_options');
 		}
 
 		// Map Navigation
