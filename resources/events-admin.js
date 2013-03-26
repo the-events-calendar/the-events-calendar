@@ -107,7 +107,7 @@ jQuery(document).ready(function($) {
 		
 		if ( savedVenue.size() > 0 && savedVenue.val() != '0' && !$('.nosaved').get(0) ) {
 			venueFields.hide();
-			$('input',venueFields).val('');
+			$('[name="venue[Venue]"]').val('');
 		}
 		
 		savedVenue.change(function() {

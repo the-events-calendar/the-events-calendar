@@ -370,12 +370,12 @@ h2.tribe-events-page-title {
 =============================================*/
 
 /* Vertical Filter Styles */
-.tribe-events-filters-v #tribe_events_filters_wrapper {
+.tribe-events-filter-view #tribe_events_filters_wrapper {
 	width: 26.6%; 
 	padding: 0 5.32% 15px 0;
 }
 
-.tribe-events-filters-v #tribe-events-content {
+.tribe-events-filter-view #tribe-events-content {
 	width: 68.08%;  
 }
 
