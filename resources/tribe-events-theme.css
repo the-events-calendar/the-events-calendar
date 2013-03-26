@@ -410,7 +410,7 @@ h2.tribe-events-tickets-title {
 
 /* Events Retina Bits */
 @media 
-only screen and (-moz-min-device-pixel-ratio: 2),
+only screen and (min--moz-device-pixel-ratio: 2),
 only screen and (-o-min-device-pixel-ratio: 2/1),
 only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (min-device-pixel-ratio: 2) {
