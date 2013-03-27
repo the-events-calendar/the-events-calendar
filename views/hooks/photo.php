@@ -44,17 +44,17 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 		public static function header_navigation( $html ){
 			$tribe_ecp = TribeEvents::instance();
 			global $wp_query;
-			
+
 			$html = '';
-			
+
 			// Display Previous Page Navigation
 			if ( $wp_query->query_vars['paged'] > 1 ) {
 				$html .= '<li class="tribe-nav-previous"><a href="#" class="tribe_paged">' . __( '&laquo; Previous Events' ) . '</a></li>';
 			}
-			
+
 			// Display Next Page Navigation
 			if ( $wp_query->max_num_pages > ( $wp_query->query_vars['paged'] + 1 ) ) {
-				$html .= '<li class="tribe-nav-next"><a href="#" class="tribe_paged">' . __( 'Next Events &raquo;' ) . '</a>';			
+				$html .= '<li class="tribe-nav-next"><a href="#" class="tribe_paged">' . __( 'Next Events &raquo;' ) . '</a>';
 				$html .= '</li><!-- .tribe-nav-next -->';
 			}
 			return $html;
