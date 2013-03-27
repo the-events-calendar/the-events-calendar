@@ -66,12 +66,19 @@ jQuery( document ).ready( function ( $ ) {
 
 	if( tribe_ev.tests.map_view() ) {
 		
-		tribe_ev.state.view = 'map';
-		
 		var tribe_is_paged = tribe_ev.fn.get_url_param('tribe_paged');
 		if( tribe_is_paged ) {
 			tribe_ev.state.paged = tribe_is_paged;
-		}		
+		}
+
+        var tribe_display = tribe_ev.fn.get_url_param('tribe_event_display');
+
+        if( tribe_display ) {
+            tribe_ev.state.view = tribe_display;
+        } else {
+            tribe_ev.state.view = 'map';
+        }
+
 		$( 'body' ).addClass( 'events-list' );
 		tribe_ev.fn.tooltips();
 	}
@@ -271,11 +278,13 @@ jQuery( document ).ready( function ( $ ) {
 		
 		$( '#tribe-events' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
 			e.preventDefault();
-            if( $(this).parent().is('.tribe-past') ){
-                tribe_ev.state.view = 'past';
-                tribe_ev.state.paged--;
+            if( tribe_ev.state.view === 'past' ){
+                if( tribe_ev.state.paged === 1 ){
+                    tribe_ev.state.view = 'map';
+                } else {
+                    tribe_ev.state.paged--;
+                }
             } else {
-                tribe_ev.state.view = 'map';
                 tribe_ev.state.paged++;
             }
 			tribe_ev.state.popping = false;
@@ -290,12 +299,15 @@ jQuery( document ).ready( function ( $ ) {
 			}
 		} ).on( 'click', 'li.tribe-nav-previous a', function ( e ) {
                 e.preventDefault();
-                if( $(this).parent().is('.tribe-past') ){
-                    tribe_ev.state.view = 'past';
-                    tribe_ev.state.paged++;
+
+                if( tribe_ev.state.view === 'map' ){
+                    if( tribe_ev.state.paged === 1 ){
+                        tribe_ev.state.view = 'past';
+                    } else {
+                        tribe_ev.state.paged--;
+                    }
                 } else {
-                    tribe_ev.state.view = 'map';
-                    tribe_ev.state.paged--;
+                    tribe_ev.state.paged++;
                 }
                 tribe_ev.state.popping = false;
                 if( tribe_ev.tests.pushstate ) {
