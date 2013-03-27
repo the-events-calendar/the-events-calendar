@@ -540,9 +540,6 @@
 	width: 100%;
 }
 
-.tribe_map_paged {
-	display: none;
-}
 
 /* = View Loading / Pagination Styles 
    @ Template: map.php & photo.php
