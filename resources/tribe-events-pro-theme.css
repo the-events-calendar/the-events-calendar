@@ -135,6 +135,10 @@
 	margin-right: auto;
 }
 
+#tribe-geo-results {
+	margin-top: 2em;
+}
+
 #tribe-geo-wrapper #tribe-events-header {
 	position: relative;
 }
@@ -146,7 +150,7 @@
 }
 
 #tribe-geo-wrapper #tribe-events-header li a {
-
+	display: none !important;
 }
 
 #tribe-events-header .tribe-ajax-loading {

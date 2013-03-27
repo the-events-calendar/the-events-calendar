@@ -1,6 +1,16 @@
-var map, tribe_map_geocoder, geocodes, tribe_map_bounds, markersArray = [], spinner;
-tribe_map_geocoder = new google.maps.Geocoder();
-tribe_map_bounds = new google.maps.LatLngBounds();
+var spinner;
+
+tribe_ev.geoloc = {
+    map:[],
+    geocoder:[],
+    geocodes:[],
+    bounds:[],
+    markers:[],
+    spinner:''
+}
+
+tribe_ev.geoloc.geocoder = new google.maps.Geocoder();
+tribe_ev.geoloc.bounds = new google.maps.LatLngBounds();
 
 function tribe_process_geocoding( location, callback ) {
 
@@ -8,7 +18,7 @@ function tribe_process_geocoding( location, callback ) {
         address:location
     };
 
-    tribe_map_geocoder.geocode(request,function (results,status) {
+    tribe_ev.geoloc.geocoder.geocode(request,function (results,status) {
         if (status == google.maps.GeocoderStatus.OK) {
             callback(results);
             return results;
@@ -52,14 +62,14 @@ jQuery( document ).ready( function ( $ ) {
 	};
 
 	if ( document.getElementById( 'tribe-geo-map' ) ) {
-		map = new google.maps.Map( document.getElementById( 'tribe-geo-map' ), options );
-		tribe_map_bounds = new google.maps.LatLngBounds();
+        tribe_ev.geoloc.map = new google.maps.Map( document.getElementById( 'tribe-geo-map' ), options );
+        tribe_ev.geoloc.bounds = new google.maps.LatLngBounds();
 
 		var minLatlng = new google.maps.LatLng( GeoLoc.center.min_lat, GeoLoc.center.min_lng );
-		tribe_map_bounds.extend( minLatlng );
+        tribe_ev.geoloc.bounds.extend( minLatlng );
 
 		var maxLatlng = new google.maps.LatLng( GeoLoc.center.max_lat, GeoLoc.center.max_lng );
-		tribe_map_bounds.extend( maxLatlng );
+        tribe_ev.geoloc.bounds.extend( maxLatlng );
 	}
 
 	$( '#tribe-geo-location' ).placeholder();	
@@ -145,8 +155,8 @@ jQuery( document ).ready( function ( $ ) {
 		$( this ).addClass( 'tribe-option-loaded' );
 		
 		$( '#tribe-bar-geoloc' ).val( $( this ).text() );
-		$( '#tribe-bar-geoloc-lat' ).val( geocodes[$( this ).attr( 'data-index' )].geometry.location.lat() );
-		$( '#tribe-bar-geoloc-lng' ).val( geocodes[$( this ).attr( 'data-index' )].geometry.location.lng() );		
+		$( '#tribe-bar-geoloc-lat' ).val( tribe_ev.geoloc.geocodes[$( this ).attr( 'data-index' )].geometry.location.lat() );
+		$( '#tribe-bar-geoloc-lng' ).val( tribe_ev.geoloc.geocodes[$( this ).attr( 'data-index' )].geometry.location.lng() );
 		
 		
 		if( tribe_ev.tests.pushstate ) {
@@ -271,9 +281,9 @@ jQuery( document ).ready( function ( $ ) {
 		var center;
 		
 		$("#tribe-geo-map-wrapper").resize(function() {
-			center = map.getCenter();
-			google.maps.event.trigger(map, "resize");
-			map.setCenter(center);			
+			center = tribe_ev.geoloc.map.getCenter();
+			google.maps.event.trigger(tribe_ev.geoloc.map, "resize");
+            tribe_ev.geoloc.map.setCenter(center);
 		});		
 		
 		$( '#tribe-events' ).on( 'click', 'li.tribe-nav-next a', function ( e ) {
@@ -364,7 +374,7 @@ jQuery( document ).ready( function ( $ ) {
 
 		var marker = new google.maps.Marker( {
 			position:myLatlng,
-			map     :map,
+			map     :tribe_ev.geoloc.map,
 			title   :title
 		} );
 
@@ -384,28 +394,28 @@ jQuery( document ).ready( function ( $ ) {
 		infoWindow.setContent( content );
 
 		google.maps.event.addListener( marker, 'click', function ( event ) {
-			infoWindow.open( map, marker );
+			infoWindow.open( tribe_ev.geoloc.map, marker );
 		} );
 
-		markersArray.push( marker );
-		tribe_map_bounds.extend( myLatlng );
+        tribe_ev.geoloc.markers.push( marker );
+        tribe_ev.geoloc.bounds.extend( myLatlng );
 
 	}
 
 	function deleteMarkers() {
-		if ( markersArray ) {
-			for ( i in markersArray ) {
-				markersArray[i].setMap( null );
+		if ( tribe_ev.geoloc.markers ) {
+			for ( i in tribe_ev.geoloc.markers ) {
+                tribe_ev.geoloc.markers[i].setMap( null );
 			}
-			markersArray.length = 0;
-			tribe_map_bounds = new google.maps.LatLngBounds();
+            tribe_ev.geoloc.markers.length = 0;
+            tribe_ev.geoloc.bounds = new google.maps.LatLngBounds();
 		}
 	}
 
 	function centerMap() {
-		map.fitBounds( tribe_map_bounds );
-		if ( map.getZoom() > 13 ) {
-			map.setZoom( 13 );
+        tribe_ev.geoloc.map.fitBounds( tribe_ev.geoloc.bounds );
+		if ( tribe_ev.geoloc.map.getZoom() > 13 ) {
+            tribe_ev.geoloc.map.setZoom( 13 );
 		}
 	}
 
@@ -433,7 +443,7 @@ jQuery( document ).ready( function ( $ ) {
 					$( "#tribe-geo-options #tribe-geo-links" ).empty();			
 
 					tribe_process_geocoding( val, function ( results, selected_index ) {
-						geocodes = results;
+                        tribe_ev.geoloc.geocodes = results;
 
 						spin_end();
 
@@ -446,12 +456,12 @@ jQuery( document ).ready( function ( $ ) {
 						if ( lng )
 							$( '#tribe-bar-geoloc-lng' ).val( lng );
 
-						if ( geocodes.length > 1 ) {
+						if ( tribe_ev.geoloc.geocodes.length > 1 ) {
 							$( "#tribe-geo-options" ).show();
 
-							for ( var i = 0; i < geocodes.length; i++ ) {
-								$( "<a/>" ).text( geocodes[i].formatted_address ).attr( "href", "#" ).addClass( 'tribe-geo-option-link' ).attr( 'data-index', i ).appendTo( "#tribe-geo-options #tribe-geo-links" );
-								tribe_map_addMarker( geocodes[i].geometry.location.lat(), geocodes[i].geometry.location.lng(), geocodes[i].formatted_address );
+							for ( var i = 0; i < tribe_ev.geoloc.geocodes.length; i++ ) {
+								$( "<a/>" ).text( tribe_ev.geoloc.geocodes[i].formatted_address ).attr( "href", "#" ).addClass( 'tribe-geo-option-link' ).attr( 'data-index', i ).appendTo( "#tribe-geo-options #tribe-geo-links" );
+								tribe_map_addMarker( tribe_ev.geoloc.geocodes[i].geometry.location.lat(), tribe_ev.geoloc.geocodes[i].geometry.location.lng(), tribe_ev.geoloc.geocodes[i].formatted_address );
 							}
 							tribe_test_location();	
 							centerMap();
@@ -460,7 +470,7 @@ jQuery( document ).ready( function ( $ ) {
 						} else {
 							if( tribe_ev.tests.pushstate ) {	
 								tribe_test_location();	
-								tribe_map_processOption( geocodes[0] );
+								tribe_map_processOption( tribe_ev.geoloc.geocodes[0] );
 							} else {								
 								$(tribe_ev.events).trigger('tribe_ev_reloadOldBrowser');
 							}						
