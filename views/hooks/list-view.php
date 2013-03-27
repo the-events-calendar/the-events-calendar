@@ -62,7 +62,7 @@ if ( !class_exists( 'Tribe_Events_Pro_List_View_Template' ) ) {
 			if ( empty($wp_query->query['eventDisplay']) || $wp_query->query['eventDisplay'] != 'upcoming' ) {
 				$args = wp_parse_args(array( 'eventDisplay' => 'upcoming' ), $wp_query->query);
 			}
-			$html = tribe_include_view_list( $args );
+			$html = $wp_query->is_main_query() ? tribe_include_view_list( $args ) : '';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_list_view_upcoming_events' );
 		}
 		// Footer Navigation 
