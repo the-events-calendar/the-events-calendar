@@ -178,9 +178,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			global $wp_query;
 			if( get_query_var('eventDisplay') == 'week' ){
 				// because we can't trust tribe_get_events_title will be set when run via AJAX
-				$new_title = sprintf( '%s %s',
+				$new_title = sprintf( '%s %s %s %s',
 					__( 'Events for week of', 'tribe-events-calendar-pro' ),
-					date( "l, F jS Y", strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) )
+					date( "l, F jS Y", strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) ),
+					$sep,
+					$title
 				);
 			}
 			return apply_filters( 'tribe_events_pro_add_title', $new_title, $title, $sep );
