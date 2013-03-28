@@ -187,10 +187,10 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @return string URL for ical dump.
 	 * @since 2.0
 	 */
-	function tribe_get_ical_link()  {
+	function tribe_get_ical_link() {
 		$tribe_ecp = TribeEvents::instance();
-		$output = $tribe_ecp->getLink('ical');
-		return apply_filters('tribe_get_ical_link', $output);
+		$output    = $tribe_ecp->getLink( 'ical' );
+		return apply_filters( 'tribe_get_ical_link', $output );
 	}
 
 	/**

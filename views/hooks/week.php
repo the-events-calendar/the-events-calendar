@@ -598,15 +598,6 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 		// End Week Template
 		public static function after_template( $post_id ) {
 			$html = '';
-
-			// iCal import button
-			if ( function_exists( 'tribe_get_ical_link' ) ) {
-				$html .= sprintf( '<a class="tribe-events-ical tribe-events-button" title="%s" href="%s">%s</a>',
-					esc_attr( 'iCal Import', 'tribe-events-calendar' ),
-					tribe_get_ical_link(),
-					__( '+ iCal Import', 'tribe-events-calendar' )
-				);
-			}
 			$html .= '</div><!-- #tribe-events-content -->';
 			$html .= tribe_events_promo_banner( false );
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_after_template' );

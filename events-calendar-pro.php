@@ -74,6 +74,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/tribe-geoloc.class.php' );
 			require_once( 'lib/meta-pro.php' );
 
+			//iCal
+			require_once ( 'lib/tribe-ical.class.php' );
+			TribeiCal::init();
+
+
 			// Tribe common resources
 			require_once( 'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
 			TribeCommonLibraries::register( 'pue-client', '1.2.1', $this->pluginPath . 'vendor/pue-client/pue-client.php' );
