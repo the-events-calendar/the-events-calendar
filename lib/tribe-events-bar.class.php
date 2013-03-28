@@ -237,24 +237,7 @@ class TribeEventsBar {
 
 		}
 		
-	// show user front-end settings only if ECP is active
 
-		if ( class_exists( 'TribeEventsPro' ) ) {
-			$hide_recurrence = isset( $_REQUEST['tribeHideRecurrence'] ) ? $_REQUEST['tribeHideRecurrence'] : tribe_get_option( 'hideSubsequentRecurrencesDefault', false );
-
-			echo '<div class="tribe-bar-settings">';
-			echo '<div class="tribe-bar-button-settings">' . __( '<span class="tribe-hide-text">User Settings</span>', 'tribe-events-calendar' ) . '</div>';
-
-			echo '<div class="tribe-bar-drop-content">';
-			echo '<h5>' . __( 'Event Settings', 'tribe-events-calendar' ) . '</h5>';
-			echo '<label for="tribeHideRecurrence">';
-			echo '<input type="checkbox" name="tribeHideRecurrence" value="1" ' . checked( $hide_recurrence, 1, false ) . '>' . __( 'Hide subsequent occurences of events in lists<br /><span>Check to hide all but the next iteration</span>', 'tribe-events-calendar' );
-			echo '</label>';
-			echo '<button type="button" name="settingsUpdate" class="tribe-events-button-grey">' . __( 'Update', 'tribe-events-calendar' ) . '</button>';
-			echo '</div><!-- .tribe-bar-drop-content -->';
-			echo '</div><!-- .tribe-bar-drop-content -->';
-			
-		}
 		
 			echo $close_inner_wrap;
 			echo $close_wrap;
