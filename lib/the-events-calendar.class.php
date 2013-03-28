@@ -176,6 +176,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			// Tribe Common Libs Helper
 			require_once( $this->pluginPath.'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
+			TribeCommonLibraries::register( 'presstrends', '1.0', $this->pluginPath . 'vendor/presstrends/presstrends.php' );
 
 			// Load Template Tags
 			require_once( $this->pluginPath.'public/template-tags/query.php' );
@@ -363,7 +364,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'wp_ajax_tribe_list', array( $this, 'list_ajax_call' ) );
 			add_action( 'tribe_events_pre_get_posts', array( $this, 'set_tribe_paged' ) );
 			add_action( 'wp_ajax_nopriv_tribe_list', array( $this, 'list_ajax_call' ) );
+			add_Action( 'plugins_loaded', array( $this, 'initPressTrends' ), 9999 );
+		}
 
+		/**
+		 * Initialize PressTrends.
+		 * @author Peter Chester
+		 */
+		public function initPressTrends() {
+			new TribePressTrends(
+				$this->pluginPath.'the-events-calendar.php',
+				'tije8ygaph33vjqfbnyv6irf0wzulmingvl2',
+				'emkw894xhz9vicapxnfeyvpa8secpqh23'
+			);
 		}
 
 		public function promo_banner_prevent_bot( $html ){

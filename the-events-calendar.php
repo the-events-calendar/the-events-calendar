@@ -31,8 +31,6 @@ require_once( dirname(__FILE__) . '/lib/the-events-calendar.class.php' );
 
 TribeEvents::instance();
 
-require_once( dirname(__FILE__) . '/lib/tribe-presstrends.php' );
-
 if ( is_admin() && ( !defined( 'DOING_AJAX' ) || !DOING_AJAX ) ) {
 	register_deactivation_hook( __FILE__, array( 'TribeEvents', 'resetActivationMessage' ) );
 }
