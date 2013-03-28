@@ -711,7 +711,15 @@ class TribeEventsRecurrenceMeta {
 				'tooltip' => __( 'Show only the first instance of each recurring event.', 'tribe-events-calendar' ),
 				'default' => false,
 				'validation_type' => 'boolean',
-				), ) 
+				), 
+ 				'userToggleSubsequentRecurrences' => array(
+ 				'type' => 'checkbox_bool',
+				'label' => __( 'Front-end recurring event instances toggle', 'tribe-events-calendar' ),
+				'tooltip' => __( 'Allow users to decide whether to show all instances of a recurring event.', 'tribe-events-calendar' ),
+				'default' => false,
+				'validation_type' => 'boolean',
+         ),
+				) 
 			);
 
 		}

@@ -139,6 +139,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_events_ugly_link', array( $this, 'ugly_link' ), 10, 3);
 			add_filter( 'tribe-events-bar-date-search-default-value', array( $this, 'maybe_setup_date_in_bar' ) );
 			add_filter( 'tribe_bar_datepicker_caption', array( $this, 'setup_datepicker_label' ), 10, 1 );
+			add_filter( 'tribe_events_calendar_after_the_title', array( $this, 'add_recurring_occurance_setting_to_month' ) );
+			add_filter( 'tribe_events_list_after_the_title', array( $this, 'add_recurring_occurance_setting_to_list' ) );
 
 			/* AJAX for loading day view */
 			add_action( 'wp_ajax_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
@@ -218,12 +220,16 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			if( tribe_is_day() ) {
 				$reset_title = __( 'Events for', 'tribe-events-calendar-pro' ) . ' ' .Date("l, F jS Y", strtotime($wp_query->get('start_date')));
 			}
+			// map view title
+			if( get_query_var( 'eventDisplay' ) == 'map' ) {
+				$reset_title = __( 'Upcoming Events', 'tribe-events-calendar-pro' );
+			}
 			return isset($reset_title) ? apply_filters( 'tribe_template_factory_debug', $reset_title, 'tribe_get_events_title' ) : $content;
 		}
 
 
 		/**
-		 * AJAX handler for tribe_event_photo (Photo view)		 *
+		 * AJAX handler for tribe_event_photo (Photo view)
 		 */
 
 		function wp_ajax_tribe_photo() {
@@ -745,6 +751,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			if ( $tec->displaying === 'day' ) {
 				Tribe_PRO_Template_Factory::asset_package( 'ajax-dayview' );
 			}
+
+			if ( tribe_is_event_query() ) {
+				$resources_url = trailingslashit( $this->pluginUrl ) . 'resources/';
+				wp_enqueue_script( 'tribe-events-pro', $resources_url . 'tribe-events-pro.js', array( 'jquery', 'tribe-events-calendar-script' ), false, false );
+			}
 		}
 
 
@@ -932,6 +943,16 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 			return $caption;
 		}
+
+		public function add_recurring_occurance_setting_to_month () {
+			if ( isset( $_REQUEST['userToggleSubsequentRecurrences'] ) ? $_REQUEST['userToggleSubsequentRecurrences'] : tribe_get_option( 'userToggleSubsequentRecurrences', true ) )
+				$html = tribe_recurring_instances_toggle();
+		}	
+
+		public function add_recurring_occurance_setting_to_list () {
+			if ( isset( $_REQUEST['userToggleSubsequentRecurrences'] ) ? $_REQUEST['userToggleSubsequentRecurrences'] : tribe_get_option( 'userToggleSubsequentRecurrences', true ) )			
+				$html = tribe_recurring_instances_toggle();
+		}				
 
 		function maybe_setup_date_in_bar( $value ) {
 			global $wp_query;
