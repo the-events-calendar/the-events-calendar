@@ -27,7 +27,12 @@ if( !class_exists('Tribe_Events_Map_Template')){
 
 			// Navigation
 			add_filter( 'tribe_events_list_before_header_nav', array( __CLASS__, 'before_header_nav' ), 20, 1 );
+						
+			// Title & Notices
+			//remove_filter( 'tribe_events_list_notices', array( 'Tribe_Events_List_Template', 'notices' ), 20 );
 			add_filter( 'tribe_events_list_the_title', array( __CLASS__, 'the_title' ), 20, 1 );
+			//add_filter( 'tribe_events_list_the_title', array( 'Tribe_Events_List_Template', 'notices' ), 20 );
+			
 			add_filter( 'tribe_events_list_header_nav', array( __CLASS__, 'header_navigation' ), 20, 1 );
 
 			// Navigation
