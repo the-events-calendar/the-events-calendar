@@ -452,9 +452,13 @@ class TribeEventsGeoLoc {
 						   'eventDisplay'   => 'map',
 		);
 
+		$view_state = 'map';
+
 		/* if past view */
-		if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' )
+		if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ){
+			$view_state = 'past';
 			add_filter( 'tribe_events_pre_get_posts', array( $this, 'set_past_events_query' ) );
+		}
 
 		$query = TribeEventsQuery::getEvents( $defaults, true );
 
@@ -469,9 +473,10 @@ class TribeEventsGeoLoc {
 		$response = array( 'html'        => '',
 		                   'markers'     => array(),
 		                   'success'     => TRUE,
+						   'tribe_paged' => $tribe_paged,
 		                   'max_pages'   => $query->max_num_pages,
 		                   'total_count' => $query->found_posts,
-		                   'view'        => 'map',
+		                   'view'        => $view_state,
 		);
 
 		if ( $query->found_posts === 1 ) {

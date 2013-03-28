@@ -220,7 +220,7 @@ jQuery( document ).ready( function ( $ ) {
                         'total_count':parseInt(response.total_count),
                         'view':response.view,
                         'max_pages':response.max_pages,
-                        'tribe_paged':tribe_ev.state.paged,
+                        'tribe_paged':response.tribe_paged,
                         'timestamp':new Date().getTime()
                     };
 					
@@ -228,11 +228,27 @@ jQuery( document ).ready( function ( $ ) {
 					
 					tribe_ev.state.initial_load = false;
 
-					$( "#tribe-geo-results" ).html( response.html );					
-					$( "#tribe-events-content" ).parent().removeAttr('id').find('.tribe-events-page-title').remove();	
-					$( "#tribe-geo-results #tribe-events-header, #tribe-geo-results #tribe-events-footer" ).remove();	
+					$( "#tribe-events-geo-content" ).html( response.html );
+					$( "#tribe-events-content" ).parent().removeAttr('id').find('.tribe-events-page-title').remove();
 
-					if ( response.max_pages > tribe_ev.state.paged ) {
+                    if(  response.view === 'map' ){
+                        console.log('byup');
+                        if ( response.max_pages == response.tribe_paged ) {
+                            console.log('byup');
+                            $( '.tribe-nav-next' ).hide();
+                        } else {
+
+                            $( '.tribe-nav-next' ).show();
+                        }
+                    } else {
+                        if ( response.max_pages == response.tribe_paged ) {
+                            $( '.tribe-nav-previous' ).hide();
+                        } else {
+                            $( '.tribe-nav-previous' ).show();
+                        }
+                    }
+
+					if ( response.max_pages == tribe_ev.state.paged ) {
 						$( 'li.tribe-nav-next a' ).show();
 					} else {
 						// $( 'li.tribe-nav-next a' ).hide();
