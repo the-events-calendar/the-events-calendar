@@ -479,17 +479,6 @@ class TribeEventsGeoLoc {
 		                   'view'        => $view_state,
 		);
 
-		if ( $query->found_posts === 1 ) {
-			$response['html'] .= sprintf( __( "<div class='event-notices'>%d event found</div>", 'tribe-events-calendar-pro' ), $query->found_posts );
-		} else {
-			$extra = "";
-			if ( $query->max_num_pages > 1 ) {
-				$extra = sprintf( __( " / %d in this page", 'tribe-events-calendar-pro' ), $query->post_count );
-			}
-
-			$response['html'] .= sprintf( __( "<div class='event-notices'>%d events found%s</div>", 'tribe-events-calendar-pro' ), $query->found_posts, $extra );
-		}
-
 		if ( $query->found_posts > 0 ) {
 			global $wp_query, $post;
 			$data     = $query->posts;
