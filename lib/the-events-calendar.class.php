@@ -505,7 +505,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$tec_addons_required_versions = (array) apply_filters('tribe_tec_addons', $tec_addons_required_versions);
 			foreach ($tec_addons_required_versions as $plugin) {
-				if ( version_compare( $plugin['required_version'], self::VERSION, $operator) ) {
+				if ( !strstr( self::VERSION, $plugin['required_version'] ) ) {
 					if ( isset( $plugin['current_version'] ) )
 						$bad_versions[$plugin['plugin_name']] = $plugin['current_version'];
 					else
@@ -2781,7 +2781,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			if ( !empty($_REQUEST['eventDate']) ) {
 				$duration = get_post_meta( $postId, '_EventDuration', true );
-				$EventEndDate = TribeDateUtils::dateOnly( strtotime($_EventStartDate) + $duration, true );
+				$EventEndDate = TribeDateUtils::dateOnly( strtotime($_REQUEST['eventDate']) + $duration, true );
 			}
 
 			$events_meta_box_template = $this->pluginPath . 'admin-views/events-meta-box.php';
