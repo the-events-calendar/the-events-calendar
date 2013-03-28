@@ -16,6 +16,7 @@ class TribeiCal {
 		add_action( 'tribe_tec_template_chooser', 			array( __CLASS__, 'do_ical_template' ) 		  );
 	}
 
+
 	/**
 	 * Returns the url for the iCal generator for lists of posts
 	 * @static
@@ -61,10 +62,7 @@ class TribeiCal {
 		if ( get_query_var( 'ical' ) || isset( $_GET['ical'] ) ) {
 			global $wp_query;
 			if ( is_single() ) {
-				$post_id = $wp_query->post->ID;
-				self::generate_ical_feed( $wp_query->post, null, get_query_var( 'eventDate' ) );
-			} elseif ( is_tax( TribeEvents::TAXONOMY ) ) {
-				self::generate_ical_feed( null, get_query_var( TribeEvents::TAXONOMY ) );
+				self::generate_ical_feed( $wp_query->post, null );
 			} else {
 				self::generate_ical_feed();
 			}
@@ -75,44 +73,41 @@ class TribeiCal {
 
 	/**
 	 * Generates the iCal file
-	 * 
+	 *
 	 * @static
 	 *
-	 * @param null $post
-	 * @param null $eventCatSlug
-	 * @param null $eventDate
+	 * @param int|null $post If you want the ical file for a single event
 	 */
-	public static function generate_ical_feed( $post = null, $eventCatSlug = null, $eventDate = null ) {
+	public static function generate_ical_feed( $post = null ) {
 
 		$tribeEvents      = TribeEvents::instance();
 		$postId           = $post ? $post->ID : null;
-		$getstring        = ( isset( $_GET['ical'] ) ? $_GET['ical'] : null );
 		$wpTimezoneString = get_option( 'timezone_string' );
 		$postType         = TribeEvents::POSTTYPE;
 		$events           = '';
-		$lastBuildDate    = '';
-		$eventsTestArray  = array();
 		$blogHome         = get_bloginfo( 'url' );
 		$blogName         = get_bloginfo( 'name' );
 		$includePosts     = ( $postId ) ? '&include=' . $postId : '';
-		$eventsCats       = ( $eventCatSlug ) ? '&' . TribeEvents::TAXONOMY . '=' . $eventCatSlug : '';
+
+		if ( class_exists( 'TribeEventsFilterView' ) ) {
+			TribeEventsFilterView::instance()->createFilters( null, true );
+		}
+
+		TribeEventsQuery::init();
+
+		$events =  TribeEventsQuery::getEvents(array(), true);
 
 		if ( $post ) {
 			$eventPosts   = array();
 			$eventPosts[] = $post;
 		} else {
-			$eventPosts = get_posts( 'posts_per_page=-1&post_type=' . $postType . $includePosts . $eventsCats );
+			$eventPosts = get_posts( 'posts_per_page=-1&post_type=' . $postType . $includePosts );
 		}
 
 		foreach ( $eventPosts as $eventPost ) {
-			if ( $eventDate ) {
-				$duration  = TribeDateUtils::timeBetween( $eventPost->EventStartDate, $eventPost->EventEndDate );
-				$startDate = TribeDateUtils::addTimeToDate( $eventDate, TribeDateUtils::timeOnly( $eventPost->EventStartDate ) );
-				$endDate   = TribeDateUtils::dateAndTime( strtotime( $startDate ) + $duration, true );
-			} else {
-				$startDate = $eventPost->EventStartDate;
-				$endDate   = $eventPost->EventEndDate;
-			}
+
+			$startDate = $eventPost->EventStartDate;
+			$endDate   = $eventPost->EventEndDate;
 
 			// convert 2010-04-08 00:00:00 to 20100408T000000 or YYYYMMDDTHHMMSS
 			$startDate = str_replace( array( '-', ' ', ':' ), array( '', 'T', '' ), $startDate );
