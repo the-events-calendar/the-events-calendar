@@ -11,6 +11,17 @@
  *
  */
  
+ .tribe-events-user-recurrence-toggle {
+ 	display: block;
+ 	text-align: center;
+ 	margin-bottom: 15px;
+ 	font-style: italic;
+ 	font-size: 12px;
+ }
+
+ .tribe-events-user-recurrence-toggle label:hover {
+  	cursor: pointer;
+  }
 
 /* = Day Grid Template Styles
    @ Template: day.php
@@ -429,9 +440,6 @@
 .tribe-events-photo-event .tribe-events-event-cost {
 	display: none;
 }
-.tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring img {
-	display: inline;
-}
 
 .tribe-events-photo-event .date-divider {
 	padding: 0 5px;
@@ -540,6 +548,17 @@
 	width: 100%;
 }
 
+.tribe-events-distance {
+	background-color: #666666;
+	color: #fff;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 2.5em 0 1em 0;
+	padding: 6px 10px;
+	-webkit-border-radius: 3px;
+			border-radius: 3px;	
+}
 
 /* = View Loading / Pagination Styles 
    @ Template: map.php & photo.php
