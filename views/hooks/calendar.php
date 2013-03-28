@@ -270,9 +270,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		// End Calendar Template
 		public static function after_template(){
 			$html = '';
-			if( function_exists( 'tribe_get_ical_link' ) )
-				$html .= '<a class="tribe-events-ical tribe-events-button" title="'. __( 'iCal Import', 'tribe-events-calendar' ) .'" href="'. tribe_get_ical_link() .'">'. __( '+ iCal Import', 'tribe-events-calendar' ) .'</a>';
-				$html .= tribe_events_promo_banner( false );
+			$html .= tribe_events_promo_banner( false );
 			$html .= '</div><!-- #tribe-events-content -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_after_template');
 		}

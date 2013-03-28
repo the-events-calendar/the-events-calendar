@@ -2049,10 +2049,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					return trailingslashit( esc_url($eventUrl . $this->pastSlug) );
 				case 'dropdown':
 					return esc_url($eventUrl);
-				case 'ical':
-					if ( $secondary == 'single' )
-						$eventUrl = trailingslashit(get_permalink());
-					return trailingslashit( esc_url($eventUrl . 'ical') );
 				case 'single':
 					global $post;
 					$p = $secondary ? $secondary : $post;
@@ -2098,12 +2094,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				case 'dropdown':
 					$dropdown = add_query_arg( array( 'eventDisplay' => 'month', 'eventDate' => ' '), $eventUrl );
 					$eventUrl = rtrim($dropdown); // tricksy
-					break;
-				case 'ical':
-					if ( $secondary == 'single' ) {
-						return add_query_arg('ical', '1', get_permalink() );
-					}
-					$eventUrl = home_url() . '/?ical';
 					break;
 				case 'single':
 					global $post;

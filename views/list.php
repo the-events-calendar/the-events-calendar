@@ -95,4 +95,4 @@ echo apply_filters( 'tribe_events_list_before_template', '', $the_post_id );
 	echo apply_filters( 'tribe_events_list_after_footer', '', $the_post_id );
 
 // End list template
-echo apply_filters( 'tribe_events_list_after_template', $hasPosts, $the_post_id );
+echo apply_filters( 'tribe_events_list_after_template', '', $hasPosts, $the_post_id );
