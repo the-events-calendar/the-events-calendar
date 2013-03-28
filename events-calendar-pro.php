@@ -215,12 +215,16 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			if( tribe_is_day() ) {
 				$reset_title = __( 'Events for', 'tribe-events-calendar-pro' ) . ' ' .Date("l, F jS Y", strtotime($wp_query->get('start_date')));
 			}
+			// map view title
+			if( get_query_var( 'eventDisplay' ) == 'map' ) {
+				$reset_title = __( 'Upcoming Events', 'tribe-events-calendar-pro' );
+			}
 			return isset($reset_title) ? apply_filters( 'tribe_template_factory_debug', $reset_title, 'tribe_get_events_title' ) : $content;
 		}
 
 
 		/**
-		 * AJAX handler for tribe_event_photo (Photo view)		 *
+		 * AJAX handler for tribe_event_photo (Photo view)
 		 */
 
 		function wp_ajax_tribe_photo() {

@@ -231,9 +231,7 @@ jQuery( document ).ready( function ( $ ) {
 					$( "#tribe-events-geo-content" ).html( response.html );
 
                     if(  response.view === 'map' ){
-                        console.log('byup');
                         if ( response.max_pages == response.tribe_paged ) {
-                            console.log('byup');
                             $( '.tribe-nav-next' ).hide();
                         } else {
 
@@ -246,17 +244,6 @@ jQuery( document ).ready( function ( $ ) {
                             $( '.tribe-nav-previous' ).show();
                         }
                     }
-
-					if ( response.max_pages == tribe_ev.state.paged ) {
-						$( 'li.tribe-nav-next a' ).show();
-					} else {
-						// $( 'li.tribe-nav-next a' ).hide();
-					}
-					if ( tribe_ev.state.paged > 1 ) {
-						$( 'li.tribe-nav-previous a' ).show();
-					} else {
-						// $( 'li.tribe-nav-previous a' ).hide();
-					}
 
 					$.each( response.markers, function ( i, e ) {
 						tribe_map_addMarker( e.lat, e.lng, e.title, e.address, e.link );
