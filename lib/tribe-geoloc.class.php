@@ -500,11 +500,10 @@ class TribeEventsGeoLoc {
 			add_filter( 'tribe_events_list_show_separators', '__return_false' );
 			add_filter( 'tribe_events_list_show_ical_link', '__return_false' );
 
-			echo '<div id="tribe-geo-results">';
 			// global $wp_query;
 			// print_r($wp_query,true);
-			include TribeEventsTemplates::getTemplateHierarchy( 'list' );
-			echo '</div>';
+			TribeEventsTemplates::getTemplateHierarchy( 'map', '', 'pro', TribeEventsPro::instance()->pluginPath );
+			include TribeEventsTemplates::getTemplateHierarchy('list');
 			$response['html'] .= ob_get_clean();
 			$response['markers'] = $this->generate_markers( $data );
 		}
