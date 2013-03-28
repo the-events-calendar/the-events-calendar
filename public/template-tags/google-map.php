@@ -110,7 +110,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_show_google_map_link($postId = null) {
 		$postId = TribeEvents::postIdHelper( $postId );
-		$output = get_post_meta( $postId, '_EventShowMapLink', 1) == 1;
+		$output = get_post_meta( $postId, '_VenueShowMapLink', 1) == 1;
 		return apply_filters('tribe_show_google_map_link', $output, $postId);
 	}
 
