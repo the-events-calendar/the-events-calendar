@@ -82,7 +82,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			$hide_recurrence = isset( $_REQUEST['tribeHideRecurrence'] ) ? $_REQUEST['tribeHideRecurrence'] : tribe_get_option( 'hideSubsequentRecurrencesDefault', false );
 			echo '<span class="tribe-events-user-recurrence-toggle">';
 				echo '<label for="tribeHideRecurrence">';
-					echo '<input type="checkbox" name="tribeHideRecurrence" value="1" id="tribeHideRecurrence" ' . checked( $hide_recurrence, 1, false ) . '>' . __( 'Hide subsequent occurences of events in lists', 'tribe-events-calendar' );
+					echo '<input type="checkbox" name="tribeHideRecurrence" value="1" id="tribeHideRecurrence" ' . checked( $hide_recurrence, 1, false ) . '>' . __( 'Show only the first upcoming instance of recurring events', 'tribe-events-calendar' );
 				echo '</label>';
 			echo '</span>';
 	}	
