@@ -264,18 +264,18 @@ class TribeEventsGeoLoc {
 				/* it is not just enough to remove filters we want to prevent any accidental 
 				 * hooks from other plugins that could fubar the display
 				 */
-				add_filter( 'tribe_events_list_before_loop', '__return_false', 100 );
-				add_filter( 'tribe_events_list_inside_before_loop', '__return_false', 100 );
-				add_filter( 'tribe_events_list_the_event_title', '__return_false', 100 );
-				add_filter( 'tribe_events_list_before_the_meta', '__return_false', 100 );
-				add_filter( 'tribe_events_list_the_meta', '__return_false', 100 );
-				add_filter( 'tribe_events_list_after_the_meta', '__return_false', 100 );
-				add_filter( 'tribe_events_list_the_event_image', '__return_false', 100 );
-				add_filter( 'tribe_events_list_before_the_content', '__return_false', 100 );
-				add_filter( 'tribe_events_list_the_content', '__return_false', 100 );
-				add_filter( 'tribe_events_list_after_the_content', '__return_false', 100 );
-				add_filter( 'tribe_events_list_inside_after_loop', '__return_false', 100 );
-				add_filter( 'tribe_events_list_after_loop', '__return_false', 100 );
+				add_filter( 'tribe_events_list_before_loop', '__return_false', 19 );
+				add_filter( 'tribe_events_list_inside_before_loop', '__return_false', 19 );
+				add_filter( 'tribe_events_list_the_event_title', '__return_false', 19 );
+				add_filter( 'tribe_events_list_before_the_meta', '__return_false', 19 );
+				add_filter( 'tribe_events_list_the_meta', '__return_false', 19 );
+				add_filter( 'tribe_events_list_after_the_meta', '__return_false', 19 );
+				add_filter( 'tribe_events_list_the_event_image', '__return_false', 19 );
+				add_filter( 'tribe_events_list_before_the_content', '__return_false', 19 );
+				add_filter( 'tribe_events_list_the_content', '__return_false', 19 );
+				add_filter( 'tribe_events_list_after_the_content', '__return_false', 19 );
+				add_filter( 'tribe_events_list_inside_after_loop', '__return_false', 19 );
+				add_filter( 'tribe_events_list_after_loop', '__return_false', 19 );
 
 			}
 			
