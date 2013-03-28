@@ -188,8 +188,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_ical_link() {
-		$tribe_ecp = TribeEvents::instance();
-		$output    = $tribe_ecp->getLink( 'ical' );
+		$output = TribeiCal::get_ical_link();
 		return apply_filters( 'tribe_get_ical_link', $output );
 	}
 

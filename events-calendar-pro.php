@@ -93,7 +93,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'init', array( $this, 'init' ), 10 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-			add_action( 'tribe_tec_template_chooser', array( $this, 'do_ical_template' ) );
+
 			add_filter( 'tribe_settings_do_tabs', array( $this, 'add_settings_tabs' ) );
 			add_filter( 'generate_rewrite_rules', array( $this, 'add_routes' ), 11 );
 			add_filter('tribe_events_buttons_the_buttons', array($this, 'add_view_buttons'));
@@ -415,21 +415,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 		}
 
-		public function do_ical_template( $template ) {
-			// hijack to iCal template
-			if ( get_query_var( 'ical' ) || isset( $_GET['ical'] ) ) {
-				global $wp_query;
-				if ( is_single() ) {
-					$post_id = $wp_query->post->ID;
-					$this->iCalFeed( $wp_query->post, null, get_query_var( 'eventDate' ) );
-				} elseif ( is_tax( TribeEvents::TAXONOMY ) ) {
-					$this->iCalFeed( null, get_query_var( TribeEvents::TAXONOMY ) );
-				} else {
-					$this->iCalFeed();
-				}
-				die();
-			}
-	      }
 
 		// event deletion
 		public function adjust_date_on_recurring_event_trash_link( $link, $postId ) {
@@ -762,88 +747,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 		}
 
-		public function iCalFeed( $post = null, $eventCatSlug = null, $eventDate = null ) {
-
-			$tribeEvents = TribeEvents::instance();
-			$postId = $post ? $post->ID : null;
-			$getstring = ( isset( $_GET['ical'] ) ? $_GET['ical'] : null );
-			$wpTimezoneString = get_option( 'timezone_string' );
-			$postType = TribeEvents::POSTTYPE;
-			$events = '';
-			$lastBuildDate = '';
-			$eventsTestArray = array();
-			$blogHome = get_bloginfo( 'url' );
-			$blogName = get_bloginfo( 'name' );
-			$includePosts = ( $postId ) ? '&include=' . $postId : '';
-			$eventsCats = ( $eventCatSlug ) ? '&' . TribeEvents::TAXONOMY . '=' . $eventCatSlug : '';
-
-			if ( $post ) {
-				$eventPosts = array();
-				$eventPosts[] = $post;
-			} else {
-				$eventPosts = get_posts( 'posts_per_page=-1&post_type=' . $postType . $includePosts . $eventsCats );
-			}
-
-			foreach ( $eventPosts as $eventPost ) {
-				if ( $eventDate ) {
-					$duration = TribeDateUtils::timeBetween( $eventPost->EventStartDate, $eventPost->EventEndDate );
-					$startDate = TribeDateUtils::addTimeToDate( $eventDate, TribeDateUtils::timeOnly( $eventPost->EventStartDate ) );
-					$endDate = TribeDateUtils::dateAndTime( strtotime( $startDate ) + $duration, true );
-				} else {
-					$startDate = $eventPost->EventStartDate;
-					$endDate = $eventPost->EventEndDate;
-				}
-
-				// convert 2010-04-08 00:00:00 to 20100408T000000 or YYYYMMDDTHHMMSS
-				$startDate = str_replace( array( '-', ' ', ':' ) , array( '', 'T', '' ) , $startDate );
-				$endDate = str_replace( array( '-', ' ', ':' ) , array( '', 'T', '' ) , $endDate );
-				if ( get_post_meta( $eventPost->ID, '_EventAllDay', true ) == 'yes' ) {
-					$startDate = substr( $startDate, 0, 8 );
-					$endDate = substr( $endDate, 0, 8 );
-					// endDate bumped ahead one day to counter iCal's off-by-one error
-					$endDateStamp = strtotime( $endDate );
-					$endDate = date( 'Ymd', $endDateStamp + 86400 );
-					$type = 'DATE';
-				} else {
-					$type = 'DATE-TIME';
-				}
-				$description = preg_replace( "/[\n\t\r]/", ' ', strip_tags( $eventPost->post_content ) );
-
-				// add fields to iCal output
-				$item = array();
-				$item[] = "DTSTART;VALUE=$type:" . $startDate;
-				$item[] = "DTEND;VALUE=$type:" . $endDate;
-				$item[] = 'DTSTAMP:' . date( 'Ymd\THis', time() );
-				$item[] = 'CREATED:' . str_replace( array( '-', ' ', ':' ) , array( '', 'T', '' ) , $eventPost->post_date );
-				$item[] = 'LAST-MODIFIED:' . str_replace( array( '-', ' ', ':' ) , array( '', 'T', '' ) , $eventPost->post_modified );
-				$item[] = 'UID:' . $eventPost->ID . '-' . strtotime( $startDate ).'-'.strtotime( $endDate ) . '@' . $blogHome;
-				$item[] = 'SUMMARY:' . $eventPost->post_title;
-				$item[] = 'DESCRIPTION:' . str_replace( ',','\,', $description );
-				$item[] = 'LOCATION:' . html_entity_decode( $tribeEvents->fullAddressString( $eventPost->ID ), ENT_QUOTES );
-				$item[] = 'URL:' . get_permalink( $eventPost->ID );
-
-				$item = apply_filters( 'tribe_ical_feed_item', $item, $eventPost );
-
-				$events .= "BEGIN:VEVENT\n" . implode( "\n",$item ) . "\nEND:VEVENT\n";
-			}
-
-			header( 'Content-type: text/calendar' );
-			header( 'Content-Disposition: attachment; filename="iCal-TribeEvents.ics"' );
-			$content = "BEGIN:VCALENDAR\n";
-			$content .= "VERSION:2.0\n";
-			$content .= 'PRODID:-//' . $blogName . ' - ECPv' . TribeEvents::VERSION . "//NONSGML v1.0//EN\n";
-			$content .= "CALSCALE:GREGORIAN\n";
-			$content .= "METHOD:PUBLISH\n";
-			$content .= 'X-WR-CALNAME:' . apply_filters( 'tribe_ical_feed_calname', $blogName ) . "\n";
-			$content .= 'X-ORIGINAL-URL:' . $blogHome . "\n";
-			$content .= 'X-WR-CALDESC:Events for ' . $blogName . "\n";
-			if ( $wpTimezoneString ) $content .= 'X-WR-TIMEZONE:' . $wpTimezoneString . "\n";
-			$content = apply_filters( 'tribe_ical_properties', $content );
-			$content .= $events;
-			$content .= 'END:VCALENDAR';
-			echo $content;
-			exit;
-		}
 
 		public function setup_hide_recurrence_in_query( $query ) {
 			if ( ( !empty( $_REQUEST['tribeHideRecurrence'] ) && $_REQUEST['tribeHideRecurrence'] == '1' ) || ( empty( $_REQUEST['tribeHideRecurrence'] ) && empty( $_REQUEST['action'] ) && tribe_get_option( 'hideSubsequentRecurrencesDefault', false ) ) ) {
