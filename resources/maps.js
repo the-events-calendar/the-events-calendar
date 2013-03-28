@@ -1,12 +1,10 @@
-var spinner;
 
 tribe_ev.geoloc = {
     map:[],
     geocoder:[],
     geocodes:[],
     bounds:[],
-    markers:[],
-    spinner:''
+    markers:[]
 }
 
 tribe_ev.geoloc.geocoder = new google.maps.Geocoder();
