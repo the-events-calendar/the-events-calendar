@@ -761,6 +761,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			if ( $tec->displaying === 'day' ) {
 				Tribe_PRO_Template_Factory::asset_package( 'ajax-dayview' );
 			}
+
+			if ( tribe_is_event_query() ) {
+				$resources_url = trailingslashit( $this->pluginUrl ) . 'resources/';
+				wp_enqueue_script( 'tribe-events-pro', $resources_url . 'tribe-events-pro.js', array( 'jquery', 'tribe-events-calendar-script' ), false, false );
+			}
 		}
 
 		public function iCalFeed( $post = null, $eventCatSlug = null, $eventDate = null ) {
