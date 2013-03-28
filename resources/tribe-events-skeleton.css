@@ -515,6 +515,11 @@ select.tribe-events-dropdown {
 	padding: 0 0 .5em;
 	font-size: 12px;
 	position: relative;
+	
+	min-width: 57px;
+	-webkit-hyphens: auto;
+	   -moz-hyphens: auto;
+			hyphens: auto;
 }
 
 /* Global Tooltips */

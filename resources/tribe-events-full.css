@@ -824,6 +824,11 @@ select.tribe-events-dropdown {
 	vertical-align: top;
 	padding: 0 0 .5em;
 	font-size: 12px;
+	
+	min-width: 57px;
+	-webkit-hyphens: auto;
+	   -moz-hyphens: auto;
+			hyphens: auto;
 }
 .vevent.viewmore {
 	font-weight:bold;
