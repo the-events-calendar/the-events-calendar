@@ -60,6 +60,9 @@ echo apply_filters( 'tribe_events_list_before_template', '', $the_post_id );
 			$more = false;
 			echo apply_filters( 'tribe_events_list_inside_before_loop', '', get_the_ID(), $post );
 
+				// Event cost
+				echo apply_filters( 'tribe_events_list_the_event_cost', '', get_the_ID(), $post );
+
 				// Event title
 				echo apply_filters( 'tribe_events_list_the_event_title', '', get_the_ID(), $post );
 
