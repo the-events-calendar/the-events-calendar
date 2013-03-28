@@ -45,6 +45,8 @@ class TribeEventsGeoLoc {
 
 		add_filter( 'tribe_settings_tab_fields', array( $this, 'inject_settings' ), 10, 2 );
 
+		add_filter( 'tribe_events_list_inside_before_loop', array( $this, 'add_event_distance' ) );
+
 	}
 
 	public function setup_geoloc_filter_in_filters() {
@@ -228,6 +230,13 @@ class TribeEventsGeoLoc {
 		
 		$wp_rewrite->rules = $newRules + $wp_rewrite->rules;
 	}
+
+	public function add_event_distance ( $html ) {
+		global $post;
+			if ( !empty( $post->distance ) )
+				$html .= '<span class="tribe-events-distance">'. tribe_get_distance_with_unit( $post->distance ) .'</span>';
+		return $html;
+	}	
 
 	public function load_template( $template ) {
 		global $wp_query;
