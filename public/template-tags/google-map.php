@@ -109,8 +109,9 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_show_google_map_link($postId = null) {
-		$output = get_post_meta( get_the_ID(), '_EventShowMapLink', 1) == 1;
-		return apply_filters('tribe_show_google_map_link', $output);
+		$postId = TribeEvents::postIdHelper( $postId );
+		$output = get_post_meta( $postId, '_EventShowMapLink', 1) == 1;
+		return apply_filters('tribe_show_google_map_link', $output, $postId);
 	}
 
 }
