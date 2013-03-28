@@ -32,7 +32,7 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 			add_filter( 'tribe_events_list_the_meta', array( __CLASS__, 'the_meta' ), 20, 1 );
 			add_filter( 'tribe_events_list_the_content', array( __CLASS__, 'the_content'), 20, 1);
 			add_filter( 'tribe_events_list_footer_nav', array( __CLASS__, 'footer_navigation' ), 20, 1 );
-			add_filter( 'tribe_events_list_after_template', array( __CLASS__, 'after_template' ), 20, 1 );
+			add_filter( 'tribe_events_list_after_template', array( __CLASS__, 'after_template' ), 20, 3 );
 		}
 		// Start Photo Template
 		public static function before_template( $html ) {
@@ -149,7 +149,7 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 			return $html;
 		}
 		// End Photo Template
-		public static function after_template() {
+		public static function after_template( $html, $has_posts, $post_id ) {
 			$tribe_ecp = TribeEvents::instance();
 			$html = '<img class="tribe-ajax-loading tribe-spinner photo-loader" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
 			$html .= '</div>';

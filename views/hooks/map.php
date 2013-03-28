@@ -27,7 +27,7 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			add_filter( 'tribe_events_list_before_loop', array( __CLASS__, 'before_the_results' ), 20, 1 );
 
 			// End list template
-			add_filter( 'tribe_events_list_after_template', array( __CLASS__, 'after_template' ), 20, 1 );
+			add_filter( 'tribe_events_list_after_template', array( __CLASS__, 'after_template' ), 20, 3 );
 
 			// Navigation
 			add_filter( 'tribe_events_list_before_header_nav', array( __CLASS__, 'before_header_nav' ), 20, 1 );
@@ -123,7 +123,7 @@ if( !class_exists('Tribe_Events_Map_Template')){
 		}
 
 		// End List Template
-		public static function after_template( $html ){
+		public static function after_template( $html, $has_posts, $post_id ){
 			$html .= '</div><!-- #tribe-events-geo-content -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_template');		
 		}
