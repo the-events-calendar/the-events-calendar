@@ -21,6 +21,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		const FEED_URL = 'http://tri.be/category/products/feed/';
 		const INFO_API_URL = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';
+		const PREFIX = 'events';
 
 		protected $notices = array();
 
