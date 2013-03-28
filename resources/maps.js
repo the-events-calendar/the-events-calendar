@@ -228,7 +228,7 @@ jQuery( document ).ready( function ( $ ) {
 					
 					tribe_ev.state.initial_load = false;
 
-					$( "#tribe-events-geo-content" ).replaceWith( response.html );
+					$( "#tribe-events-geo-content" ).html( response.html );
 
                     if(  response.view === 'map' ){
                         console.log('byup');
