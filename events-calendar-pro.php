@@ -134,6 +134,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_events_ugly_link', array( $this, 'ugly_link' ), 10, 3);
 			add_filter( 'tribe-events-bar-date-search-default-value', array( $this, 'maybe_setup_date_in_bar' ) );
 			add_filter( 'tribe_bar_datepicker_caption', array( $this, 'setup_datepicker_label' ), 10, 1 );
+			add_filter( 'tribe_events_calendar_after_the_title', array( $this, 'add_recurring_occurance_setting_to_month' ) );
+			add_filter( 'tribe_events_list_after_the_title', array( $this, 'add_recurring_occurance_setting_to_list' ) );
 
 			/* AJAX for loading day view */
 			add_action( 'wp_ajax_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
@@ -1028,6 +1030,16 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 			return $caption;
 		}
+
+		public function add_recurring_occurance_setting_to_month () {
+			if ( isset( $_REQUEST['userToggleSubsequentRecurrences'] ) ? $_REQUEST['userToggleSubsequentRecurrences'] : tribe_get_option( 'userToggleSubsequentRecurrences', true ) )
+				$html = tribe_recurring_instances_toggle();
+		}	
+
+		public function add_recurring_occurance_setting_to_list () {
+			if ( isset( $_REQUEST['userToggleSubsequentRecurrences'] ) ? $_REQUEST['userToggleSubsequentRecurrences'] : tribe_get_option( 'userToggleSubsequentRecurrences', true ) )			
+				$html = tribe_recurring_instances_toggle();
+		}				
 
 		function maybe_setup_date_in_bar( $value ) {
 			global $wp_query;
