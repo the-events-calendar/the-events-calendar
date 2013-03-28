@@ -76,6 +76,16 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			echo apply_filters('tribe_all_occurences_link', $tribe_ecp->getLink('all'));
 		}
 	}
+
+	// show user front-end settings only if ECP is active
+	function tribe_recurring_instances_toggle( $postId = null )  {
+			$hide_recurrence = isset( $_REQUEST['tribeHideRecurrence'] ) ? $_REQUEST['tribeHideRecurrence'] : tribe_get_option( 'hideSubsequentRecurrencesDefault', false );
+			echo '<span class="tribe-events-user-recurrence-toggle">';
+				echo '<label for="tribeHideRecurrence">';
+					echo '<input type="checkbox" name="tribeHideRecurrence" value="1" id="tribeHideRecurrence" ' . checked( $hide_recurrence, 1, false ) . '>' . __( 'Hide subsequent occurences of events in lists', 'tribe-events-calendar' );
+				echo '</label>';
+			echo '</span>';
+	}	
 	
 	/**
 	 * Event Custom Fields
