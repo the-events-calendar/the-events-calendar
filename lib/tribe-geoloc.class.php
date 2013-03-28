@@ -261,21 +261,21 @@ class TribeEventsGeoLoc {
 				remove_filter( 'tribe_events_list_inside_after_loop', array( 'Tribe_Events_List_Template', 'inside_after_loop' ), 1, 2 );
 				remove_filter( 'tribe_events_list_after_loop', array( 'Tribe_Events_List_Template', 'after_loop' ), 1, 2 );
 
-				/* it is not just enough to remove filters we want to prevent any accidental 
+				/* it is not just enough to remove filters we want to prevent any accidental
 				 * hooks from other plugins that could fubar the display
 				 */
-				add_filter( 'tribe_events_list_before_loop', '__return_false', 100 );
-				add_filter( 'tribe_events_list_inside_before_loop', '__return_false', 100 );
-				add_filter( 'tribe_events_list_the_event_title', '__return_false', 100 );
-				add_filter( 'tribe_events_list_before_the_meta', '__return_false', 100 );
-				add_filter( 'tribe_events_list_the_meta', '__return_false', 100 );
-				add_filter( 'tribe_events_list_after_the_meta', '__return_false', 100 );
-				add_filter( 'tribe_events_list_the_event_image', '__return_false', 100 );
-				add_filter( 'tribe_events_list_before_the_content', '__return_false', 100 );
-				add_filter( 'tribe_events_list_the_content', '__return_false', 100 );
-				add_filter( 'tribe_events_list_after_the_content', '__return_false', 100 );
-				add_filter( 'tribe_events_list_inside_after_loop', '__return_false', 100 );
-				add_filter( 'tribe_events_list_after_loop', '__return_false', 100 );
+				add_filter( 'tribe_events_list_before_loop', '__return_false', 19 );
+				add_filter( 'tribe_events_list_inside_before_loop', '__return_false', 19 );
+				add_filter( 'tribe_events_list_the_event_title', '__return_false', 19 );
+				add_filter( 'tribe_events_list_before_the_meta', '__return_false', 19 );
+				add_filter( 'tribe_events_list_the_meta', '__return_false', 19 );
+				add_filter( 'tribe_events_list_after_the_meta', '__return_false', 19 );
+				add_filter( 'tribe_events_list_the_event_image', '__return_false', 19 );
+				add_filter( 'tribe_events_list_before_the_content', '__return_false', 19 );
+				add_filter( 'tribe_events_list_the_content', '__return_false', 19 );
+				add_filter( 'tribe_events_list_after_the_content', '__return_false', 19 );
+				add_filter( 'tribe_events_list_inside_after_loop', '__return_false', 19 );
+				add_filter( 'tribe_events_list_after_loop', '__return_false', 19 );
 
 			}
 			
@@ -452,9 +452,13 @@ class TribeEventsGeoLoc {
 						   'eventDisplay'   => 'map',
 		);
 
+		$view_state = 'map';
+
 		/* if past view */
-		if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' )
+		if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ){
+			$view_state = 'past';
 			add_filter( 'tribe_events_pre_get_posts', array( $this, 'set_past_events_query' ) );
+		}
 
 		$query = TribeEventsQuery::getEvents( $defaults, true );
 
@@ -469,9 +473,10 @@ class TribeEventsGeoLoc {
 		$response = array( 'html'        => '',
 		                   'markers'     => array(),
 		                   'success'     => TRUE,
+						   'tribe_paged' => $tribe_paged,
 		                   'max_pages'   => $query->max_num_pages,
 		                   'total_count' => $query->found_posts,
-		                   'view'        => 'map',
+		                   'view'        => $view_state,
 		);
 
 		if ( $query->found_posts === 1 ) {
@@ -495,11 +500,10 @@ class TribeEventsGeoLoc {
 			add_filter( 'tribe_events_list_show_separators', '__return_false' );
 			add_filter( 'tribe_events_list_show_ical_link', '__return_false' );
 
-			echo '<div id="tribe-geo-results">';
 			// global $wp_query;
 			// print_r($wp_query,true);
-			include TribeEventsTemplates::getTemplateHierarchy( 'list' );
-			echo '</div>';
+			TribeEventsTemplates::getTemplateHierarchy( 'map', '', 'pro', TribeEventsPro::instance()->pluginPath );
+			include TribeEventsTemplates::getTemplateHierarchy('list');
 			$response['html'] .= ob_get_clean();
 			$response['markers'] = $this->generate_markers( $data );
 		}
