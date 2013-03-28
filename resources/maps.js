@@ -229,7 +229,6 @@ jQuery( document ).ready( function ( $ ) {
 					tribe_ev.state.initial_load = false;
 
 					$( "#tribe-events-geo-content" ).html( response.html );
-					$( "#tribe-events-content" ).parent().removeAttr('id').find('.tribe-events-page-title').remove();
 
                     if(  response.view === 'map' ){
                         console.log('byup');
