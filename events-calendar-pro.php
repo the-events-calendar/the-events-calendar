@@ -685,12 +685,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$query->tribe_is_day = true;
 						break;
 					case 'photo':
+						$tribe_paged = ( !empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 0;
 						$event_date = $query->get('eventDate') != '' ? $query->get('eventDate') : Date('Y-m-d');
 						$query->set( 'start_date', tribe_event_beginning_of_day( $event_date ) );
 						$query->set( 'eventDate', $event_date );
 						$query->set( 'orderby', 'event_date' );
 						$query->set( 'order', 'ASC' );
 						$query->set( 'hide_upcoming', false );
+						$query->set( 'paged', $tribe_paged );
 						$query->tribe_is_photo = true;
 						break;
 					case 'map':
