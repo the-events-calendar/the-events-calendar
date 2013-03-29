@@ -107,7 +107,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			global $wp_query;
 			$current_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
 		
-			$html = '<div id="tribe-events-header" data-title="' . wp_title( '&raquo;', false ) . '" data-date="'. $current_week .'">';
+			$html = '<div id="tribe-events-header" data-startofweek="'.get_option( 'start_of_week' ).'" data-baseurl="'.tribe_get_week_permalink( null, false ).'" data-title="' . wp_title( '&raquo;', false ) . '" data-date="'. $current_week .'">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_before_header');
 		}
 		// Week Navigation
