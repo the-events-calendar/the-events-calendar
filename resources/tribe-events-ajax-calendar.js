@@ -143,7 +143,7 @@ jQuery( document ).ready( function ( $ ) {
 
 		if( tribe_ev.tests.pushstate && !tribe_ev.state.filter_cats ) {
 
-			$(tribe_ev.events).triggerAll('tribe_ev_ajaxStart tribe_ev_monthView_AjaxStart');
+			$(tribe_ev.events).trigger('tribe_ev_ajaxStart').trigger('tribe_ev_monthView_AjaxStart');
 
 			$.post(
 				TribeCalendar.ajaxurl,
@@ -164,7 +164,7 @@ jQuery( document ).ready( function ( $ ) {
                             'timestamp':new Date().getTime()
 						};
 
-                        $(tribe_ev.events).triggerAll('tribe_ev_ajaxSuccess tribe_ev_monthView_AjaxSuccess');
+                        $(tribe_ev.events).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev__monthView_ajaxSuccess');
 
                         $( '#tribe-events-content' ).replaceWith( response.html );
 
