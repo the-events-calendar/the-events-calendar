@@ -135,17 +135,17 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$tribe_ecp = TribeEvents::instance();
 
 			// Display Previous Page Navigation
-			$html = '<li class="tribe-nav-previous">';
+			$html = '<li class="tribe-events-nav-previous">';
 			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_previous_month_link() . '" rel="pref">&laquo; '. tribe_get_previous_month_text() .' </a>';
-			$html .= '</li><!-- .tribe-nav-previous -->';
+			$html .= '</li><!-- .tribe-events-nav-previous -->';
 			
 			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next">';
+			$html .= '<li class="tribe-events-nav-next">';
 			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() .'" rel="next"> '. tribe_get_next_month_text() .' &raquo;</a>';
 			
 			// Loading spinner
-			$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
-			$html .= '</li><!-- .tribe-nav-next -->';
+			$html .= '<img class="tribe-events-ajax-loading tribe-events-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
+			$html .= '</li><!-- .tribe-events-nav-next -->';
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_header_nav');
 		}
@@ -250,14 +250,14 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$tribe_ecp = TribeEvents::instance();
 
 			// Display Previous Page Navigation
-			$html = '<li class="tribe-nav-previous">';
+			$html = '<li class="tribe-events-nav-previous">';
 			$html .= '<a data-month="'. $tribe_ecp->previousMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_previous_month_link() . '" rel="prev">&laquo; '. tribe_get_previous_month_text() .' </a>';
-			$html .= '</li><!-- .tribe-nav-previous -->';
+			$html .= '</li><!-- .tribe-events-nav-previous -->';
 			
 			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next">';
+			$html .= '<li class="tribe-events-nav-next">';
 			$html .= '<a data-month="'. $tribe_ecp->nextMonth( tribe_get_month_view_date() ) .'" href="' . tribe_get_next_month_link() .'" rel="next"> '. tribe_get_next_month_text() .' &raquo;</a>';
-			$html .= '</li><!-- .tribe-nav-next -->';
+			$html .= '</li><!-- .tribe-events-nav-next -->';
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_footer_nav');
 		}

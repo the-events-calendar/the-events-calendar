@@ -174,14 +174,14 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 			$tribe_ecp = TribeEvents::instance();
 
 			// Display Previous Page Navigation
-			$html = '<li class="tribe-nav-previous">' . tribe_get_prev_event_link( '&laquo; %title%' ) . '</li>';
+			$html = '<li class="tribe-events-nav-previous">' . tribe_get_prev_event_link( '&laquo; %title%' ) . '</li>';
 			
 			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next">' . tribe_get_next_event_link( '%title% &raquo;' );
+			$html .= '<li class="tribe-events-nav-next">' . tribe_get_next_event_link( '%title% &raquo;' );
 			
 			// Loading spinner
-			$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
-			$html .= '</li><!-- .tribe-nav-next -->';
+			$html .= '<img class="tribe-events-ajax-loading tribe-events-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
+			$html .= '</li><!-- .tribe-events-nav-next -->';
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_header_nav');
 		}
@@ -334,10 +334,10 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 			$tribe_ecp = TribeEvents::instance();
 
 			// Display Previous Page Navigation
-			$html = '<li class="tribe-nav-previous">'. tribe_get_prev_event_link( '&laquo; %title%' ) .'</li>';
+			$html = '<li class="tribe-events-nav-previous">'. tribe_get_prev_event_link( '&laquo; %title%' ) .'</li>';
 			
 			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next">'. tribe_get_next_event_link( '%title% &raquo;' ) .'</li><!-- .tribe-nav-next -->';
+			$html .= '<li class="tribe-events-nav-next">'. tribe_get_next_event_link( '%title% &raquo;' ) .'</li><!-- .tribe-events-nav-next -->';
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_single_event_footer_nav');
 		}

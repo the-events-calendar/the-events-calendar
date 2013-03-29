@@ -83,10 +83,10 @@ h2.tribe-events-page-title {
 
 /* General Template Header/Footer Nav */
 #tribe-events-header .tribe-events-sub-nav li,
-#tribe-events-header .tribe-events-sub-nav .tribe-nav-next a {
+#tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next a {
  	display: none;
 }
-#tribe-events-header .tribe-events-sub-nav .tribe-nav-next {
+#tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next {
  	display: block;
 }
 .single-tribe_events #tribe-events-footer,
@@ -102,7 +102,7 @@ h2.tribe-events-page-title {
  	display: none;
 }
 
-#tribe-events-header .tribe-ajax-loading {
+#tribe-events-header .tribe-events-ajax-loading {
 	top: -12px;
 }
 
