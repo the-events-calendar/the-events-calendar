@@ -25,6 +25,7 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 
 			// Override list methods
 			add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'before_template' ), 20, 1);
+			add_filter( 'tribe_events_list_before_header', array( __CLASS__, 'before_header' ), 20, 1 );
 			add_filter( 'tribe_events_list_header_nav', array( __CLASS__, 'header_navigation' ), 20, 1 );
 			add_filter( 'tribe_events_list_before_loop', array( __CLASS__, 'before_loop'), 20, 1);
 			add_filter( 'tribe_events_list_inside_before_loop', array( __CLASS__, 'inside_before_loop'), 20, 1);
@@ -40,19 +41,27 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 			$html .= '<div id="tribe-events-content" class="tribe-events-list tribe-nav-alt">';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_photo_before_template' );
 		}
+
+		public static function before_header( $html ){
+			$html = '<div id="tribe-events-header" data-title="' . wp_title( '&raquo;', false ) . '" data-baseurl="'.tribe_get_photo_permalink( false ).'">';
+
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_header');
+		}
 		// Header Navigation 
 		public static function header_navigation( $html ){
 			$tribe_ecp = TribeEvents::instance();
 			global $wp_query;
 
 			$html = '';
+			$nav_display = '';
 
 			// Display Previous Page Navigation
 			$html .= '<li class="tribe-nav-previous"><a href="#" class="tribe_paged">' . __( '&laquo; Previous Events' ) . '</a></li>';
-
-
+			if ( $wp_query->max_num_pages === ( $wp_query->query_vars['paged'] ) ) {
+				$nav_display = ' style="display:none;"';
+			}
 			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next"><a href="#" class="tribe_paged">' . __( 'Next Events &raquo;' ) . '</a>';
+			$html .= '<li class="tribe-nav-next"'.$nav_display.'><a href="#" class="tribe_paged">' . __( 'Next Events &raquo;' ) . '</a>';
 			$html .= '</li><!-- .tribe-nav-next -->';
 
 			return $html;

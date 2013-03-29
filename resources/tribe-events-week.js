@@ -300,12 +300,19 @@ jQuery(document).ready(function($){
 		
 		if( !tribe_ev.state.popping ) {
 
+            if (tribe_ev.state.filter_cats)
+                tribe_ev.data.cur_url = $('#tribe-events-header').attr('data-baseurl');
+
 			tribe_ev.state.params = {
 				action:'tribe_week',
 				eventDate:tribe_ev.state.date
 			};
 			
 			tribe_ev.state.url_params = {};
+
+            if( tribe_ev.state.category ) {
+                tribe_ev.state.params['tribe_event_category'] = tribe_ev.state.category;
+            }
 
 			$(tribe_ev.events).trigger('tribe_ev_serializeBar');
 
@@ -351,6 +358,7 @@ jQuery(document).ready(function($){
                         $(tribe_ev.events).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev_weekView_AjaxSuccess');
 						
 						$( '#tribe-events-content.tribe-events-week-grid' ).replaceWith( response.html );
+                        $( '.tribe-events-promo').next('.tribe-events-promo').remove();
 
                         var page_title = $( "#tribe-events-header" ).attr( 'data-title' );
 
