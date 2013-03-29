@@ -147,56 +147,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Format the css class or id.
-	 *
-	 * @author Jessica Yazbek
-	 * @since 3.0
-	 * @param string|array $properties the property value(s) to format
-	 * @param string $filter (optional) substring for the property filter name
-	 * @param string $classname (optional) the class to use for the prefix
-	 * @return string
-	 **/
-	function tribe_events_format_css_properties($properties, $filter = 'class', $classname = 'TribeEvents') {
-		$prefix = 'tribe-';
-		if  (class_exists($classname)) {
-			$prefix .= $classname::PREFIX.'-';
-		}
-		if ( ! is_array( $properties ) ) {
-			$arr_properties = explode(' ', $properties);
-		}
-		$output = array();
-		foreach ( $arr_properties as $property ) {
-			$output[] = sanitize_title( rtrim( $prefix.$property ) );
-		}
-		$output = implode(' ', $output);
-		return apply_filters( 'tribe_events_css_'.$filter, $output, $prefix, $properties);
-	}
-
-	/**
-	 * Generate the class for Events Calendar PRO css.
-	 *
-	 * @author Peter Chester and Paul Hughes
-	 * @since 3.0
-	 * @param array|string $class the text to prefix for the property.
-	 * @return string
-	 */
-	function tribe_events_css_class( $class ) {
-		return tribe_events_format_css_properties( $class );
-	}
-
-	/**
-	 * Generate the id for Events Calendar css.
-	 *
-	 * @author Peter Chester and Paul Hughes
-	 * @since 3.0
-	 * @param array|string $id the text to prefix for the property.
-	 * @return string
-	 */
-	function tribe_events_css_id( $id ) {
-		return tribe_events_format_css_properties( $id, 'id');
-	}
-
-	/**
 	 * Event Category ID's
 	 *
 	 * Display the event category ID as a class for events wrapper
