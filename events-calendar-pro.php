@@ -222,6 +222,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			return isset($reset_title) ? apply_filters( 'tribe_template_factory_debug', $reset_title, 'tribe_get_events_title' ) : $content;
 		}
 
+		public function set_past_events_query( $query ) {
+			$query->set( 'start_date', '' );
+			$query->set( 'eventDate', '' );
+			$query->set( 'order', 'DESC' );
+			$query->set( 'end_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
+			return $query;
+		}
+
 
 		/**
 		 * AJAX handler for tribe_event_photo (Photo view)
@@ -247,6 +255,15 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			               'post_status'        => 'publish',
 			               'paged'              => $tribe_paged );
 
+			$view_state = 'photo';
+
+			/* if past view */
+			if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ){
+				$view_state = 'past';
+				add_filter( 'tribe_events_pre_get_posts', array( $this, 'set_past_events_query' ) );
+			}
+
+
 			$query = TribeEventsQuery::getEvents( $args, true );
 			$hash  = $query->query_vars;
 
@@ -266,8 +283,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			                   'max_pages'       => $query->max_num_pages,
 			                   'hash'            => $hash_str,
 			                   'tribe_paged'     => $tribe_paged,
-			                   'view'            => 'photo',
+			                   'view'            => $view_state,
 			);
+
 
 
 			remove_action( 'pre_get_posts', array( $tec, 'list_ajax_call_set_date' ), -10 );
@@ -667,13 +685,22 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$query->tribe_is_day = true;
 						break;
 					case 'photo':
-						$event_date = $query->get('eventDate') != '' ? $query->get('eventDate') : Date('Y-m-d');
+						$tribe_event_display = ( ! empty( $_REQUEST['tribe_event_display'] ) ) ? $_REQUEST['tribe_event_display'] : '';
+						$tribe_paged         = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 0;
+						$event_date          = $query->get( 'eventDate' ) != '' ? $query->get( 'eventDate' ) : Date( 'Y-m-d' );
+
 						$query->set( 'start_date', tribe_event_beginning_of_day( $event_date ) );
 						$query->set( 'eventDate', $event_date );
 						$query->set( 'orderby', 'event_date' );
 						$query->set( 'order', 'ASC' );
 						$query->set( 'hide_upcoming', false );
+						$query->set( 'paged', $tribe_paged );
 						$query->tribe_is_photo = true;
+
+						if ( $tribe_event_display === 'past' ) {
+							add_filter( 'tribe_events_pre_get_posts', array( $this, 'set_past_events_query' ), 20 );
+						}
+
 						break;
 					case 'map':
 						/*

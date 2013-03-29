@@ -326,8 +326,8 @@ jQuery(document).ready(function($){
 		} 
 
 		if( tribe_ev.tests.pushstate ) {
-			
-			$(tribe_ev.events).triggerAll('tribe_ev_ajaxStart tribe_ev_weekView_AjaxStart');					
+
+            $(tribe_ev.events).trigger('tribe_ev_ajaxStart').trigger('tribe_ev_weekView_AjaxStart');
 
 			$.post(
 				TribeWeek.ajaxurl,
@@ -347,8 +347,8 @@ jQuery(document).ready(function($){
                             'tribe_paged':'',
                             'timestamp':new Date().getTime()
                         };
-						
-						$(tribe_ev.events).triggerAll('tribe_ev_ajaxSuccess tribe_ev_weekView_AjaxSuccess');
+
+                        $(tribe_ev.events).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev_weekView_AjaxSuccess');
 						
 						$( '#tribe-events-content.tribe-events-week-grid' ).replaceWith( response.html );
 
