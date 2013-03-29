@@ -26,7 +26,7 @@ if (!class_exists('TribeEventsTemplates')) {
          do_action('tribe_tec_template_chooser', $template);
 
          	// hijack this method right up front if it's a 404
-         	if( is_404() && apply_filters( 'tribe_events_templates_is_404', '__return_true') )
+         	if( is_404() && is_single() && apply_filters( 'tribe_events_templates_is_404', '__return_true') )
          		return get_404_template();
   
 			// no non-events need apply
