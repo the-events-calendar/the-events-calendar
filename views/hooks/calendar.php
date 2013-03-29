@@ -114,8 +114,10 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		// Notices
 		public static function notices(){
 			$html = '';
-			if(!empty($notices))	
-				$html .= '<div class="event-notices">' . implode('<br />', $notices) . '</div>';
+			if(!empty($notices)) {
+				$notices = implode('<br />', $notices);
+				$html .= '<div class="tribe-events-notices">'.$notices.'</div>';
+			}
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_notices');
 		}
 		// Calendar Header

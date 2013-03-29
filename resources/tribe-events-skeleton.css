@@ -54,7 +54,7 @@
 }
 
 /* Event Notices */
-.tribe-event-notices {
+.tribe-events-notices {
     background: #d9edf7;
     border: 1px solid #bce8f1;
     color: #3a87ad;
@@ -64,7 +64,7 @@
     -webkit-border-radius: 4px;
     		border-radius: 4px;
 }
-div.tribe-event-notices > ul, div.tribe-event-notices > ul > li {
+div.tribe-events-notices > ul, div.tribe-events-notices > ul > li {
 	margin:0;
 	padding:0;
 	list-style: none;
