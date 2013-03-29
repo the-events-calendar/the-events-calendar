@@ -236,7 +236,8 @@ jQuery( document ).ready( function ( $ ) {
 						$( '#tribe-events-list-hash' ).val( response.hash );						
 
 						$( '#tribe-events-content' ).replaceWith( response.html );
-						$( '#tribe-events-content' ).prev('#tribe-events-list-hash').remove();																		
+						$( '#tribe-events-content' ).prev('#tribe-events-list-hash').remove();
+                        $( '.tribe-events-promo').next('.tribe-events-promo').remove();
 
 
 
