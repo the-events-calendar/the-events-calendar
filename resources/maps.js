@@ -206,10 +206,10 @@ jQuery( document ).ready( function ( $ ) {
 		}	
 
 			$.post( GeoLoc.ajaxurl, tribe_ev.state.params, function ( response ) {
-				
-				$(tribe_ev.events).triggerAll('tribe_ev_ajaxStart tribe_ev_mapView_AjaxStart');
 
-				spin_end();
+                $(tribe_ev.events).trigger('tribe_ev_ajaxStart').trigger('tribe_ev_mapView_AjaxStart');
+
+                spin_end();
 				tribe_ev.fn.enable_inputs( '#tribe_events_filters_form', 'input, select' );
 				
 				if ( response.success ) {
@@ -221,8 +221,8 @@ jQuery( document ).ready( function ( $ ) {
                         'tribe_paged':response.tribe_paged,
                         'timestamp':new Date().getTime()
                     };
-					
-					$(tribe_ev.events).triggerAll('tribe_ev_ajaxSuccess tribe_ev_mapView_AjaxSuccess');
+
+                    $(tribe_ev.events).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev_mapView_AjaxSuccess');
 					
 					tribe_ev.state.initial_load = false;
 

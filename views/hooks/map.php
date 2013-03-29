@@ -16,7 +16,7 @@ if( !class_exists('Tribe_Events_Map_Template')){
 		public static function init(){
 
 			add_filter( 'tribe_events_list_show_separators', "__return_false" );
-			add_filter( 'tribe_events_list_the_title', array( __CLASS__, 'the_title' ), 20, 1 );
+			
 			if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
 				add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'before_template' ), 20, 1 );
 				add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'the_map' ), 20, 1 );
@@ -24,6 +24,7 @@ if( !class_exists('Tribe_Events_Map_Template')){
 				
 				// Title & Notices
 				remove_filter( 'tribe_events_list_notices', array( 'Tribe_Events_List_Template', 'notices' ), 20 );
+				add_filter( 'tribe_events_list_the_title', array( __CLASS__, 'the_title' ), 20, 1 );
 				add_filter( 'tribe_events_list_the_title', array( 'Tribe_Events_List_Template', 'notices' ), 20 );
 			}
 
@@ -103,7 +104,13 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			$html .= sprintf( '<h2 class="tribe-events-page-title">%s</h2>',
 				tribe_get_events_title()
 				);
+			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_title');
+		}
 
+		// Start Results
+		public static function before_the_results( $html ){
+			global $wp_query;
+			$html = '';
 			if ( $wp_query->found_posts === 1 ) {
 				$html .= sprintf( __( "<div class='event-notices'>%d event found</div>", 'tribe-events-calendar-pro' ), $wp_query->found_posts );
 			} else {
@@ -114,12 +121,7 @@ if( !class_exists('Tribe_Events_Map_Template')){
 
 				$html .= sprintf( __( "<div class='event-notices'>%d events found%s</div>", 'tribe-events-calendar-pro' ), $wp_query->found_posts, $extra );
 			}
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_title');
-		}
-
-		// Start Results
-		public static function before_the_results( $html ){
-			$html = '<div id="tribe-geo-results" class="tribe-events-loop">';
+			$html .= '<div id="tribe-geo-results" class="tribe-events-loop">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_the_results');
 		}
 
