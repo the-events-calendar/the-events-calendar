@@ -15,60 +15,76 @@
 =============================================*/
 
 /* Default Events Template Base HTML STyles */
-#tribe-events-pg-template .tribe-content p {
+#tribe-events-pg-template .tribe-content p,
+#tribe-events p {
 	margin: 0 0 20px;
 	line-height: 1.7;
 }
 
 #tribe-events-pg-template .tribe-content h1,
+#tribe-events h1,
 #tribe-events-pg-template .tribe-content h2,
+#tribe-events h2,
 #tribe-events-pg-template .tribe-content h3,
+#tribe-events h3,
 #tribe-events-pg-template .tribe-content h4,
+#tribe-events h4,
 #tribe-events-pg-template .tribe-content h5,
-#tribe-events-pg-template .tribe-content h6 {
+#tribe-events h5,
+#tribe-events-pg-template .tribe-content h6, 
+#tribe-events h6 {
 	margin: 24px 0;
 	margin: 20px 0;
 	line-height: 1.7;
 }
 
+#tribe-events h1,
 #tribe-events-pg-template .tribe-content h1 {
 	font-size: 21px;
 	line-height: 1.5;
 }
-
+#tribe-events h2,
 #tribe-events-pg-template .tribe-content h2 {
 	font-size: 18px;
 	line-height: 1.6;
 }
 
+#tribe-events h3,
 #tribe-events-pg-template .tribe-content h3 {
 	font-size: 16px;
 	line-height: 1.8;
 }
 
+#tribe-events h4,
 #tribe-events-pg-template .tribe-content h4 {
 	font-size: 14px;
 	line-height: 1.8;
 }
 
+#tribe-events h5,
 #tribe-events-pg-template .tribe-content h5 {
 	font-size: 13px;
 	line-height: 1.8;
 }
 
+#tribe-events h6,
 #tribe-events-pg-template .tribe-content h6 {
 	font-size: 12px;
 	line-height: 1.8;
 }
 
+#tribe-events ul,
 #tribe-events-pg-template .tribe-content  ul {
 	list-style: disc outside;
 }
 
+#tribe-events ol,
 #tribe-events-pg-template .tribe-content  ol {
 	list-style: decimal outside;
 } 
 
+#tribe-events ul li,
+#tribe-events ol li,
 #tribe-events-pg-template .tribe-content ul li,
 #tribe-events-pg-template .tribe-content ol li {
 	margin: 0 0 20px;
