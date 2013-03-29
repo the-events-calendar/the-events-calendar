@@ -102,9 +102,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_the_title');
 		}
 		public static function the_title(){			
-			$html = sprintf( '<h2 class="tribe-events-page-title">%s</h2>',
-				tribe_get_events_title()
-				);
+			$html = '<h2 class="tribe-events-page-title">'.tribe_get_events_title().'</h2>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_the_title');
 		}
 		public static function after_the_title(){
