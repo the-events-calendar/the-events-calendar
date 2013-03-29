@@ -161,7 +161,7 @@ jQuery( document ).ready( function ( $ ) {
 
 		if( tribe_ev.tests.pushstate && !tribe_ev.state.filter_cats ) {
 
-			$(tribe_ev.events).triggerAll('tribe_ev_ajaxStart tribe_ev_listView_AjaxStart');
+            $(tribe_ev.events).trigger('tribe_ev_ajaxStart').trigger('tribe_ev_listView_AjaxStart');
 
 			$.post(
 				TribeList.ajaxurl,
@@ -182,7 +182,7 @@ jQuery( document ).ready( function ( $ ) {
 							'timestamp':new Date().getTime()
 						};
 
-                        $(tribe_ev.events).triggerAll('tribe_ev_ajaxSuccess tribe_ev_listView_AjaxSuccess');
+                        $(tribe_ev.events).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev_listView_AjaxSuccess');
 
 						$( '#tribe-events-list-hash' ).val( response.hash );
 						$( '#tribe-events-content' ).replaceWith( response.html );

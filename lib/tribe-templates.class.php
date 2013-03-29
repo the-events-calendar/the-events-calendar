@@ -142,7 +142,7 @@ if (!class_exists('TribeEventsTemplates')) {
 				if ( $tec->displaying == 'month' ) {
 					$template = self::getTemplateHierarchy( 'calendar' );
 				} else {
-					if( is_404() ) {
+					if( is_404() && is_single() ) {
 						// in case we somehow magically get here - protect the display
 						$template = get_404_template();
 					} else {
