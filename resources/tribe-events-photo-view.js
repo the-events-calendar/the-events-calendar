@@ -238,8 +238,6 @@ jQuery( document ).ready( function ( $ ) {
                             'timestamp':new Date().getTime()
                         };
 
-                        $(tribe_ev.events).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev_photoView_AjaxSuccess');
-
 						$( '#tribe-events-list-hash' ).val( response.hash );						
 
 						$( '#tribe-events-content' ).replaceWith( response.html );
@@ -275,7 +273,10 @@ jQuery( document ).ready( function ( $ ) {
 							}, '', tribe_ev.data.cur_url);
 						}
 
-						tribe_setup_isotope( $('#tribe-events-photo-events') );	
+						tribe_setup_isotope( $('#tribe-events-photo-events') );
+
+                        $(tribe_ev.events).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev_photoView_AjaxSuccess');
+
 					}
 				}
 			);

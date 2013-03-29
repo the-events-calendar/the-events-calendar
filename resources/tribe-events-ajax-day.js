@@ -168,8 +168,6 @@ jQuery( document ).ready( function ( $ ) {
                             'timestamp':new Date().getTime()
                         };
 
-                        $(tribe_ev.events).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev_dayView_AjaxSuccess');
-
                         $( '#tribe-events-content' ).replaceWith( response.html );
 
                         if(response.total_count === 0){
@@ -196,6 +194,9 @@ jQuery( document ).ready( function ( $ ) {
 						}					
 
 						tribe_day_add_classes();
+
+                        $(tribe_ev.events).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev_dayView_AjaxSuccess');
+
 					}
 				}
 			);

@@ -10,8 +10,8 @@ jQuery(document).ready(function($){
 	tribe_ev.state.view = 'week';
 
 	$( '#tribe-events-bar' ).addClass( 'tribe-has-datepicker' );
-	tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );		
-	var base_url = $('#tribe-events-header .tribe-nav-next a').attr('href').slice(0, -11);	
+	tribe_ev.state.date = $( '#tribe-events-header' ).attr( 'data-date' );
+	var base_url = $('#tribe-events-header .tribe-nav-next a').attr('href').slice(0, -11);
 	
 		// setup list view datepicker
 		var tribe_var_datepickerOpts = {
@@ -24,9 +24,10 @@ jQuery(document).ready(function($){
 		  tribeBarDate.hide();
 		}).data('datepicker');
 
-
 	function disableSpecificWeekDays(date) {
-		var daysToDisable = [0, 2, 3, 4, 5, 6];
+        var start_day = $('#tribe-events-header').attr('data-startofweek');
+		var daysToDisable = [0, 1, 2, 3, 4, 5, 6];
+        delete daysToDisable[start_day];
 		var day = date.getDay();
 		for (i = 0; i < daysToDisable.length; i++) {
 			if ($.inArray(day, daysToDisable) != -1) {
@@ -354,8 +355,6 @@ jQuery(document).ready(function($){
                             'tribe_paged':'',
                             'timestamp':new Date().getTime()
                         };
-
-                        $(tribe_ev.events).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev_weekView_AjaxSuccess');
 						
 						$( '#tribe-events-content.tribe-events-week-grid' ).replaceWith( response.html );
                         $( '.tribe-events-promo').next('.tribe-events-promo').remove();
@@ -392,6 +391,9 @@ jQuery(document).ready(function($){
 								"tribe_params": tribe_ev.state.params
 							}, page_title, tribe_ev.data.cur_url);
 						}
+
+                        $(tribe_ev.events).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev_weekView_AjaxSuccess');
+
 					}
 				}
 			);

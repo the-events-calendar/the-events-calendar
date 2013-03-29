@@ -221,8 +221,6 @@ jQuery( document ).ready( function ( $ ) {
                         'tribe_paged':response.tribe_paged,
                         'timestamp':new Date().getTime()
                     };
-
-                    $(tribe_ev.events).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev_mapView_AjaxSuccess');
 					
 					tribe_ev.state.initial_load = false;
 
@@ -264,6 +262,8 @@ jQuery( document ).ready( function ( $ ) {
 						}
 					
 					}
+
+                    $(tribe_ev.events).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev_mapView_AjaxSuccess');
 
 					if ( response.markers.length > 0 ) {
 						centerMap();
