@@ -685,13 +685,22 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$query->tribe_is_day = true;
 						break;
 					case 'photo':
-						$event_date = $query->get('eventDate') != '' ? $query->get('eventDate') : Date('Y-m-d');
+						$tribe_event_display = ( ! empty( $_REQUEST['tribe_event_display'] ) ) ? $_REQUEST['tribe_event_display'] : '';
+						$tribe_paged         = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 0;
+						$event_date          = $query->get( 'eventDate' ) != '' ? $query->get( 'eventDate' ) : Date( 'Y-m-d' );
+
 						$query->set( 'start_date', tribe_event_beginning_of_day( $event_date ) );
 						$query->set( 'eventDate', $event_date );
 						$query->set( 'orderby', 'event_date' );
 						$query->set( 'order', 'ASC' );
 						$query->set( 'hide_upcoming', false );
+						$query->set( 'paged', $tribe_paged );
 						$query->tribe_is_photo = true;
+
+						if ( $tribe_event_display === 'past' ) {
+							add_filter( 'tribe_events_pre_get_posts', array( $this, 'set_past_events_query' ), 20 );
+						}
+
 						break;
 					case 'map':
 						/*
