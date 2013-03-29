@@ -80,39 +80,34 @@ class TribeiCal {
 	 */
 	public static function generate_ical_feed( $post = null ) {
 
-		$tribeEvents      = TribeEvents::instance();
-		$postId           = $post ? $post->ID : null;
-		$wpTimezoneString = get_option( 'timezone_string' );
-		$postType         = TribeEvents::POSTTYPE;
-		$events           = '';
-		$blogHome         = get_bloginfo( 'url' );
-		$blogName         = get_bloginfo( 'name' );
-		$includePosts     = ( $postId ) ? '&include=' . $postId : '';
+		$tec         = TribeEvents::instance();
+		$wp_timezone = get_option( 'timezone_string' );
+		$events      = '';
+		$blogHome    = get_bloginfo( 'url' );
+		$blogName    = get_bloginfo( 'name' );
 
-		if ( class_exists( 'TribeEventsFilterView' ) ) {
-			TribeEventsFilterView::instance()->createFilters( null, true );
-		}
-
-		TribeEventsQuery::init();
-
-		$events =  TribeEventsQuery::getEvents(array(), true);
 
 		if ( $post ) {
-			$eventPosts   = array();
-			$eventPosts[] = $post;
+			$events_posts   = array();
+			$events_posts[] = $post;
 		} else {
-			$eventPosts = get_posts( 'posts_per_page=-1&post_type=' . $postType . $includePosts );
+			if ( class_exists( 'TribeEventsFilterView' ) ) {
+				TribeEventsFilterView::instance()->createFilters( null, true );
+			}
+			TribeEventsQuery::init();
+			$events_query = TribeEventsQuery::getEvents( array( 'posts_per_page'=> - 1 ), true );
+			$events_posts = $events_query->posts;
 		}
 
-		foreach ( $eventPosts as $eventPost ) {
+		foreach ( $events_posts as $event_post ) {
 
-			$startDate = $eventPost->EventStartDate;
-			$endDate   = $eventPost->EventEndDate;
+			$startDate = $event_post->EventStartDate;
+			$endDate   = $event_post->EventEndDate;
 
 			// convert 2010-04-08 00:00:00 to 20100408T000000 or YYYYMMDDTHHMMSS
 			$startDate = str_replace( array( '-', ' ', ':' ), array( '', 'T', '' ), $startDate );
 			$endDate   = str_replace( array( '-', ' ', ':' ), array( '', 'T', '' ), $endDate );
-			if ( get_post_meta( $eventPost->ID, '_EventAllDay', true ) == 'yes' ) {
+			if ( get_post_meta( $event_post->ID, '_EventAllDay', true ) == 'yes' ) {
 				$startDate = substr( $startDate, 0, 8 );
 				$endDate   = substr( $endDate, 0, 8 );
 				// endDate bumped ahead one day to counter iCal's off-by-one error
@@ -122,22 +117,22 @@ class TribeiCal {
 			} else {
 				$type = 'DATE-TIME';
 			}
-			$description = preg_replace( "/[\n\t\r]/", ' ', strip_tags( $eventPost->post_content ) );
+			$description = preg_replace( "/[\n\t\r]/", ' ', strip_tags( $event_post->post_content ) );
 
 			// add fields to iCal output
 			$item   = array();
 			$item[] = "DTSTART;VALUE=$type:" . $startDate;
 			$item[] = "DTEND;VALUE=$type:" . $endDate;
 			$item[] = 'DTSTAMP:' . date( 'Ymd\THis', time() );
-			$item[] = 'CREATED:' . str_replace( array( '-', ' ', ':' ), array( '', 'T', '' ), $eventPost->post_date );
-			$item[] = 'LAST-MODIFIED:' . str_replace( array( '-', ' ', ':' ), array( '', 'T', '' ), $eventPost->post_modified );
-			$item[] = 'UID:' . $eventPost->ID . '-' . strtotime( $startDate ) . '-' . strtotime( $endDate ) . '@' . $blogHome;
-			$item[] = 'SUMMARY:' . $eventPost->post_title;
+			$item[] = 'CREATED:' . str_replace( array( '-', ' ', ':' ), array( '', 'T', '' ), $event_post->post_date );
+			$item[] = 'LAST-MODIFIED:' . str_replace( array( '-', ' ', ':' ), array( '', 'T', '' ), $event_post->post_modified );
+			$item[] = 'UID:' . $event_post->ID . '-' . strtotime( $startDate ) . '-' . strtotime( $endDate ) . '@' . $blogHome;
+			$item[] = 'SUMMARY:' . $event_post->post_title;
 			$item[] = 'DESCRIPTION:' . str_replace( ',', '\,', $description );
-			$item[] = 'LOCATION:' . html_entity_decode( $tribeEvents->fullAddressString( $eventPost->ID ), ENT_QUOTES );
-			$item[] = 'URL:' . get_permalink( $eventPost->ID );
+			$item[] = 'LOCATION:' . html_entity_decode( $tec->fullAddressString( $event_post->ID ), ENT_QUOTES );
+			$item[] = 'URL:' . get_permalink( $event_post->ID );
 
-			$item = apply_filters( 'tribe_ical_feed_item', $item, $eventPost );
+			$item = apply_filters( 'tribe_ical_feed_item', $item, $event_post );
 
 			$events .= "BEGIN:VEVENT\n" . implode( "\n", $item ) . "\nEND:VEVENT\n";
 		}
@@ -152,11 +147,13 @@ class TribeiCal {
 		$content .= 'X-WR-CALNAME:' . apply_filters( 'tribe_ical_feed_calname', $blogName ) . "\n";
 		$content .= 'X-ORIGINAL-URL:' . $blogHome . "\n";
 		$content .= 'X-WR-CALDESC:Events for ' . $blogName . "\n";
-		if ( $wpTimezoneString ) $content .= 'X-WR-TIMEZONE:' . $wpTimezoneString . "\n";
+		if ( $wp_timezone ) $content .= 'X-WR-TIMEZONE:' . $wp_timezone . "\n";
 		$content = apply_filters( 'tribe_ical_properties', $content );
 		$content .= $events;
 		$content .= 'END:VCALENDAR';
 		echo $content;
+
 		exit;
+
 	}
 }
