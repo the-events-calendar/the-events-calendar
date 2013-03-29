@@ -15,7 +15,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			$tec = TribeEvents::instance();
 			$geo = TribeEventsGeoLoc::instance();
 			$url = trailingslashit( get_site_url() );
-			if ( get_option( 'permalink_strucure' ) == '' ) {
+			if ( '' === get_option('permalink_structure') ) {
 				if ( is_tax( TribeEvents::TAXONOMY ) ) 
 					$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'map' ), get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );				
 				else 
@@ -553,7 +553,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$tec = TribeEvents::instance();
 		$date = is_null($date) ? TribeEventsPro::instance()->todaySlug : date('Y-m-d', strtotime( $date ) );
 		$url = trailingslashit( get_site_url() );
-		if ( get_option( 'permalink_strucure' ) == '' ) {
+		if ( '' === get_option('permalink_structure') ) {
 			if ( is_tax( TribeEvents::TAXONOMY ) ) 
 				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'day' ), get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );				
 			else 
@@ -579,7 +579,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$tec = TribeEvents::instance();
 		$week = is_null($week) ? '' : date('Y-m-d', strtotime( $week ) );
 		$url = trailingslashit( get_site_url() );
-		if ( get_option( 'permalink_strucure' ) == '' ) {
+		if ( '' === get_option('permalink_structure') ) {
 			if ( is_tax( TribeEvents::TAXONOMY ) ) 
 				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'week' ), get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );				
 			else 
@@ -604,7 +604,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	function tribe_get_photo_permalink( $term = true ) {
 		$tec       = TribeEvents::instance();
 		$url = trailingslashit( get_site_url() );
-		if ( get_option( 'permalink_strucure' ) == '' ) {
+		if ( '' === get_option('permalink_structure') ) {
 			if ( is_tax( TribeEvents::TAXONOMY ) ) 
 				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'photo' ), get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );				
 			else 
