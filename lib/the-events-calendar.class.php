@@ -61,6 +61,18 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public static $refQueryString = '?ref=tec-plugin';
 		public static $dotOrgSupportUrl = 'http://wordpress.org/tags/the-events-calendar';
 
+		/**
+		 * PressTrends API key
+		 * @var string
+		 */
+		private static $pressTrendsApiKey = 'tije8ygaph33vjqfbnyv6irf0wzulmingvl2';
+
+		/**
+		 * PressTrends auth key
+		 * @var string
+		 */
+		private static $pressTrendsAuth = 'emkw894xhz9vicapxnfeyvpa8secpqh23';
+
 		protected static $instance;
 		public $rewriteSlug = 'events';
 		public $rewriteSlugSingular = 'event';
@@ -372,11 +384,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @author Peter Chester
 		 */
 		public function initPressTrends() {
-			new TribePressTrends(
-				$this->pluginPath.'the-events-calendar.php',
-				'tije8ygaph33vjqfbnyv6irf0wzulmingvl2',
-				'emkw894xhz9vicapxnfeyvpa8secpqh23'
-			);
+			if ( class_exists('TribePressTrends') ) {
+				new TribePressTrends(
+					$this->pluginPath.'the-events-calendar.php',
+					self::$pressTrendsApiKey,
+					self::$pressTrendsAuth
+				);
+			}
 		}
 
 		public function promo_banner_prevent_bot( $html ){
