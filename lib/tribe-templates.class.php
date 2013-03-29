@@ -164,15 +164,9 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			ob_start();
 
-			// filter the WYSIWYG similiar to the_content
-			$before = tribe_get_option( 'tribeEventsBeforeHTML' );
-			$before = wptexturize( $before );
-			$before = convert_chars( $before );
-			$before = wpautop( $before );
-			$before = shortcode_unautop( $before );
-			$before = apply_filters( 'tribe_events_before_html', $before );
 
-			echo $before;
+
+			echo tribe_events_before_html();
 
 			include self::get_current_page_template();
 			$after = tribe_get_option( 'tribeEventsAfterHTML' );
@@ -182,7 +176,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			$after = shortcode_unautop( $after );
 			$after = apply_filters( 'tribe_events_after_html', $after );
 
-			echo $after;			
+			echo tribe_events_after_html();			
 
 			$contents = ob_get_contents();
 			ob_end_clean();
