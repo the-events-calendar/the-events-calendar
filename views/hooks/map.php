@@ -17,15 +17,12 @@ if( !class_exists('Tribe_Events_Map_Template')){
 
 			add_filter( 'tribe_events_list_show_separators', "__return_false" );
 			
+			// prevent these filters from running during ajax
 			if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
 				add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'before_template' ), 20, 1 );
 				add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'the_map' ), 20, 1 );
 				add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'the_options' ), 20, 1 );
-				
-				// Title & Notices
-				remove_filter( 'tribe_events_list_notices', array( 'Tribe_Events_List_Template', 'notices' ), 20 );
 				add_filter( 'tribe_events_list_the_title', array( __CLASS__, 'the_title' ), 20, 1 );
-				add_filter( 'tribe_events_list_the_title', array( 'Tribe_Events_List_Template', 'notices' ), 20 );
 			}
 
 			add_filter( 'tribe_events_list_before_header', array( __CLASS__, 'before_header' ), 20, 1 );
