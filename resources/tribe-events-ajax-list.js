@@ -182,8 +182,6 @@ jQuery( document ).ready( function ( $ ) {
 							'timestamp':new Date().getTime()
 						};
 
-                        $(tribe_ev.events).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev_listView_AjaxSuccess');
-
 						$( '#tribe-events-list-hash' ).val( response.hash );
 						$( '#tribe-events-content' ).replaceWith( response.html );
                         $( '#tribe-events-content').next('.tribe-clear').next('.tribe-clear').remove();
@@ -201,7 +199,10 @@ jQuery( document ).ready( function ( $ ) {
 								"tribe_url_params": tribe_ev.state.url_params
 							}, '', tribe_ev.data.cur_url);
 						}
-					}
+
+                        $(tribe_ev.events).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev_listView_AjaxSuccess');
+
+                    }
 				}
 			);
 		} else {

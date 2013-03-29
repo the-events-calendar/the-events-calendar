@@ -164,8 +164,6 @@ jQuery( document ).ready( function ( $ ) {
                             'timestamp':new Date().getTime()
 						};
 
-                        $(tribe_ev.events).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev__monthView_ajaxSuccess');
-
                         $( '#tribe-events-content' ).replaceWith( response.html );
 
 						var page_title = $("#tribe-events-header").attr('data-title');
@@ -186,6 +184,8 @@ jQuery( document ).ready( function ( $ ) {
 								"tribe_params": tribe_ev.state.params
 							}, page_title, tribe_ev.data.cur_url);
 						}
+
+                        $(tribe_ev.events).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev__monthView_ajaxSuccess');
 					}
 				}
 			);
