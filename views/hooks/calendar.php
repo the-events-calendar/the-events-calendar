@@ -443,7 +443,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				if ( !empty($args) ) {
 					$day_link = add_query_arg($args, $day_link);
 				}
-				printf( '<div class="tribe-viewmore"><a href="%s">View All %d &raquo;</a></div>',
+				printf( '<div class="tribe-events-viewmore"><a href="%s">View All %d &raquo;</a></div>',
 					$day_link,
 					self::$event_daily_counts[$date]
 				);
