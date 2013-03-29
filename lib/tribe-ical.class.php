@@ -86,6 +86,9 @@ class TribeiCal {
 		$blogHome    = get_bloginfo( 'url' );
 		$blogName    = get_bloginfo( 'name' );
 
+		$event_display = ! empty( $_REQUEST['tribe_display'] ) ? $_REQUEST['tribe_display'] : 'upcoming';
+		if ( $event_display == 'list' )
+			$event_display = 'upcoming';
 
 		if ( $post ) {
 			$events_posts   = array();
@@ -95,7 +98,7 @@ class TribeiCal {
 				TribeEventsFilterView::instance()->createFilters( null, true );
 			}
 			TribeEventsQuery::init();
-			$events_query = TribeEventsQuery::getEvents( array( 'posts_per_page'=> - 1 ), true );
+			$events_query = TribeEventsQuery::getEvents( array( 'posts_per_page'=> - 1, 'eventDisplay' => $event_display ), true );
 			$events_posts = $events_query->posts;
 		}
 

@@ -183,10 +183,9 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @return string URL for ical for single event.
 	 * @since 2.0
 	 */
-	function tribe_get_single_ical_link()  {
-		$tribe_ecp = TribeEvents::instance();
-		$output = $tribe_ecp->getLink( 'ical', 'single' );
-		return apply_filters('tribe_get_single_ical_link', $output);
+	function tribe_get_single_ical_link() {
+		$output = TribeiCal::get_ical_link();
+		return apply_filters( 'tribe_get_ical_link', $output );
 	}
 
 	/**
