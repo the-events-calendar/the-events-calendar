@@ -48,15 +48,13 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 			$html = '';
 
 			// Display Previous Page Navigation
-			if ( $wp_query->query_vars['paged'] > 1 ) {
-				$html .= '<li class="tribe-nav-previous"><a href="#" class="tribe_paged">' . __( '&laquo; Previous Events' ) . '</a></li>';
-			}
+			$html .= '<li class="tribe-nav-previous"><a href="#" class="tribe_paged">' . __( '&laquo; Previous Events' ) . '</a></li>';
+
 
 			// Display Next Page Navigation
-			if ( $wp_query->max_num_pages > ( $wp_query->query_vars['paged'] + 1 ) ) {
-				$html .= '<li class="tribe-nav-next"><a href="#" class="tribe_paged">' . __( 'Next Events &raquo;' ) . '</a>';
-				$html .= '</li><!-- .tribe-nav-next -->';
-			}
+			$html .= '<li class="tribe-nav-next"><a href="#" class="tribe_paged">' . __( 'Next Events &raquo;' ) . '</a>';
+			$html .= '</li><!-- .tribe-nav-next -->';
+
 			return $html;
 		}
 		// Start Photo Loop
