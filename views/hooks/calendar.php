@@ -91,24 +91,29 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			// End calendar template
 			add_filter( 'tribe_events_calendar_after_template', array( __CLASS__, 'after_template' ), 1, 1 );
 		}
+
 		// Start Calendar Template
 		public static function before_template(){
 			$html = '<div id="tribe-events-content" class="tribe-events-calendar">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_template');
 		}
+
 		// Calendar Title
 		public static function before_the_title(){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_the_title');
 		}
+
 		public static function the_title(){			
 			$html = '<h2 class="tribe-events-page-title">'.tribe_get_events_title().'</h2>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_the_title');
 		}
+
 		public static function after_the_title(){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_after_the_title');
 		}
+
 		// Notices
 		public static function notices(){
 			$html = '';
@@ -118,17 +123,20 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			}
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_notices');
 		}
+
 		// Calendar Header
 		public static function before_header(){
 			$html = '<div id="tribe-events-header" data-title="' . wp_title( '&raquo;', false ) . '" data-date="'. date( 'Y-m', strtotime( tribe_get_month_view_date() ) ) .'">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_header');
 		}
+
 		// Calendar Navigation
 		public static function before_header_nav(){
 			$html = '<h3 class="tribe-events-visuallyhidden">'. __( 'Calendar Month Navigation', 'tribe-events-calendar' ) .'</h3>';
 			$html .= '<ul class="tribe-events-sub-nav">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_header_nav');
 		}
+
 		public static function header_navigation(){
 			$tribe_ecp = TribeEvents::instance();
 
@@ -147,19 +155,23 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_header_nav');
 		}
+
 		public static function after_header_nav(){
 			$html = '</ul><!-- .tribe-events-sub-nav -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_after_header_nav');
 		}
+
 		public static function after_header(){
 			$html = '</div><!-- #tribe-events-header -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_after_header');
 		}
+
 		// Calendar GRID
 		public static function before_the_grid(){
 			$html = '';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_before_the_grid');
 		}
+
 		public static function the_grid(){
 			ob_start();
 
