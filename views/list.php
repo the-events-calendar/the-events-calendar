@@ -30,7 +30,7 @@ echo apply_filters( 'tribe_events_list_before_template', '', $the_post_id );
 	echo apply_filters( 'tribe_events_list_the_title', '', $the_post_id );
 
 	// List notices
-	echo apply_filters( 'tribe_events_list_notices', $the_post_id );
+	echo apply_filters( 'tribe_events_list_notices', '', $the_post_id );
 	
 	// List header
     echo apply_filters( 'tribe_events_list_before_header', '', $the_post_id );
