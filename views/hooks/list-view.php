@@ -86,7 +86,7 @@ if ( !class_exists( 'Tribe_Events_Pro_List_View_Template' ) ) {
 		}
 		// End Single Venue Template
 		public static function after_template() {
-			$html = '</div><!-- #tribe-events-list-view-wrapper -->';
+			$html = '</div><!-- #tribe-events-list-view -->';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_list_view_after_template' );
 		}
 	}
