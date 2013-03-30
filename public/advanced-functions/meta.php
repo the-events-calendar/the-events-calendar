@@ -120,7 +120,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		function venue_address( $meta_id ){
 			global $_tribe_meta_factory;
 
-			$address = tribe_address_exists( get_the_ID() ) ? '<address class="event-address">' . tribe_get_full_address( get_the_ID() ) . '</address>' : '';
+			$address = tribe_address_exists( get_the_ID() ) ? '<address class="tribe-events-address">' . tribe_get_full_address( get_the_ID() ) . '</address>' : '';
 
 			// Google map link
 			$gmap_link = tribe_show_google_map_link( get_the_ID() ) ? self::gmap_link() : '' ;
@@ -221,7 +221,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_details
 	 */
 	tribe_register_meta( 'tribe_event_website', array(
-			'classes' => array( 'meta_before' => array('published', 'event-url')),
+			'classes' => array( 'meta_before' => array('published', 'tribe-events-event-url')),
 			'label' => __( 'Website:', 'tribe-events-calendar' ),
 			'filter_callback' => array('Tribe_Register_Meta', 'event_website'),
 			'priority' => 50,
@@ -234,7 +234,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_details
 	 */
 	tribe_register_meta( 'tribe_event_origin', array(
-			'classes' => array('meta_before'=>array('published','event-origin')),
+			'classes' => array('meta_before'=>array('published','tribe-events-event-origin')),
 			'label' => __( 'Origin:', 'tribe-events-calendar' ),
 			'filter_callback' => array( 'Tribe_Register_Meta', 'event_origin' ),
 			'priority' => 60,
@@ -384,7 +384,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 				'meta_before'=>'<div class="%s">',
 				'meta_after'=>'</div>'
 			),
-			'classes'=>array('meta_before'=>array('tribe-event-venue-map')),
+			'classes'=>array('meta_before'=>array('tribe-events-venue-map')),
 			'label' => '',
 			'priority' => 10,
 			'filter_callback' => array( 'Tribe_Register_Meta', 'venue_map' )

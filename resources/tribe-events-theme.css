@@ -177,12 +177,12 @@ h2.tribe-events-page-title {
 }
 
 .tribe-events-list .time-details,
-.tribe-events-list .tribe-venue-details {
+.tribe-events-list .tribe-events-venue-details {
 	line-height: 1.2;
 }
 
-.tribe-events-list .tribe-venue-details,
-.tribe-events-event-meta address.event-address {
+.tribe-events-list .tribe-events-venue-details,
+.tribe-events-event-meta address.tribe-events-address {
 	font-weight: normal;
 	font-style: italic;
 }

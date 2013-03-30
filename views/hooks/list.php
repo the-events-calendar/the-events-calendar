@@ -279,7 +279,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			global $post;
 			$html = '';
 			if ( !empty( $post->distance ) )
-				$html = '<span class="tribe-event-distance">['. tribe_get_distance_with_unit( $post->distance ) .']</span>';
+				$html = '<span class="tribe-events-distance">['. tribe_get_distance_with_unit( $post->distance ) .']</span>';
 			$html .= '<h2 class="entry-title summary"><a class="url" href="'. tribe_get_event_link() .'" title="'. get_the_title( $post_id ) .'" rel="bookmark">'. get_the_title( $post_id ) .'</a></h2>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_event_title');
 		}
@@ -303,7 +303,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 				$venue_address = tribe_get_meta( 'tribe_event_venue_address' );
 				
 				if( !empty( $venue_name ) && !empty( $venue_address ) )
-					printf('<div class="tribe-venue-details">%s%s%s</div>',
+					printf('<div class="tribe-events-venue-details">%s%s%s</div>',
 						$venue_name,
 						( !empty( $venue_name ) && !empty( $venue_address ) ) ? ', ' : '',
 						( !empty( $venue_address ) ) ? $venue_address : ''
