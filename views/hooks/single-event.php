@@ -211,7 +211,7 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 
 			// Single event content ?>
 
-			<div class="tribe-single-event-description tribe-content">
+			<div class="tribe-events-single-event-description tribe-events-content">
 
 			<?php // Event content
 			the_content(); ?>

@@ -360,7 +360,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			foreach( $daily_events->posts as $post_int => $post ) {
 				$classes = self::single_event_classes($post);
 				if ( $post_int+1 == count($daily_events->posts) ) {
-					$classes[] = 'tribe-last';
+					$classes[] = 'tribe-events-last';
 				}
 				self::single_event( $post, $day, $classes );
 			}

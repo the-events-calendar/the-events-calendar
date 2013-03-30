@@ -244,11 +244,11 @@ if( !class_exists('Tribe_Events_List_Template')){
 			}
 			// added first class for css
 			if( ( self::$loop_increment == 0 ) && !tribe_is_day() ) {
-				$classes[] = 'tribe-first';
+				$classes[] = 'tribe-events-first';
 			}
 			// added last class for css
 			if( self::$loop_increment == count($wp_query->posts)-1 ) {
-				$classes[] = 'tribe-last';
+				$classes[] = 'tribe-events-last';
 			}
 			$class_string = implode(' ', $classes);
 
@@ -339,7 +339,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			else
 				$html .= '<p>'. TribeEvents::truncate( get_the_content(), 80 ) .'</p>';
 			
-			$html .= '<a href="'. tribe_get_event_link() .'" class="tribe-read-more">'. __('Find out more', 'tribe-events-calendar') . ' &raquo;</a>';
+			$html .= '<a href="'. tribe_get_event_link() .'" class="tribe-events-read-more">'. __('Find out more', 'tribe-events-calendar') . ' &raquo;</a>';
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_content');
 		}

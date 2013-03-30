@@ -18,7 +18,7 @@
 }
 
 /* Links */
-.tribe-read-more {
+.tribe-events-read-more {
 	display: block;
 }
 
@@ -269,7 +269,7 @@ select.tribe-events-dropdown {
 	margin-bottom: 60px;
 }
 
-.tribe-events-list .vevent.hentry.tribe-first {
+.tribe-events-list .vevent.hentry.tribe-events-first {
 	padding-top: 0;
 }
 
@@ -324,10 +324,10 @@ select.tribe-events-dropdown {
 	clear: both;
 }
 
-.tribe-events-loop .vevent.tribe-last {
+.tribe-events-loop .vevent.tribe-events-last {
 	border-bottom: 0;
 }
-.tribe-events-list .tribe-events-loop .tribe-content {
+.tribe-events-list .tribe-events-loop .tribe-events-content {
 	clear: both;
 	width: 100%;
 	padding: 0;
@@ -359,7 +359,7 @@ select.tribe-events-dropdown {
 .single-tribe_events #tribe-events-content {
 	padding: 0;
 }
-.single-tribe_events .tribe-event-schedule .tribe-divider {
+.single-tribe_events .tribe-event-schedule .tribe-events-divider {
 	margin-right: 10px;
 }
 
@@ -589,7 +589,7 @@ select.tribe-events-dropdown {
 	padding: 6px 8px;
 	border-bottom: 1px solid #e7e7e7;
 }
-.events-archive.events-gridview #tribe-events-content table .tribe-last {
+.events-archive.events-gridview #tribe-events-content table .tribe-events-last {
 	border-bottom: 0;
 }
 .tribe-events-viewmore {
