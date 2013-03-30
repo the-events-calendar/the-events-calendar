@@ -363,11 +363,11 @@ select.tribe-events-dropdown {
 	margin-right: 10px;
 }
 
-.single-tribe_events .tribe-event-schedule .recurringinfo {
+.single-tribe_events .tribe-events-schedule .recurringinfo {
 	margin-right: 10px;
 }
 
-.single-tribe_events .tribe-event-schedule .tribe-event-cost {
+.single-tribe_events .tribe-events-schedule .tribe-events-cost {
 	margin-right: 10px;
 }
 
@@ -402,7 +402,7 @@ select.tribe-events-dropdown {
 
 /* Date/Time */
 
-.single-tribe_events .tribe-event-schedule h2 {
+.single-tribe_events .tribe-events-schedule h2 {
 	display: inline-block;
 	zoom: 1;
 	*display: inline;

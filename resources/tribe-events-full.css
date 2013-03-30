@@ -197,7 +197,7 @@ a.tribe-events-gcal {
 }
 
 /* Event Schedule Detail Styling */
-.tribe-event-schedule h2 {
+.tribe-events-schedule h2 {
 	font-style: normal;
 	font-weight: bold;
 }
@@ -656,16 +656,17 @@ select.tribe-events-dropdown {
 }
 
 /* Date/Time */
-.tribe-event-schedule {
+.tribe-events-schedule {
 	margin: 20px 0 0;
 }
-.single-tribe_events .tribe-event-schedule .recurringinfo,
-.single-tribe_events .tribe-event-schedule .tribe-event-cost {
+
 .single-tribe_events .tribe-event-schedule .tribe-events-divider,
+.single-tribe_events .tribe-events-schedule .recurringinfo,
+.single-tribe_events .tribe-events-schedule .tribe-events-cost {
 	margin-right: 10px;
 }
 
-.single-tribe_events .tribe-event-schedule h3 {
+.single-tribe_events .tribe-events-schedule h3 {
 	font-size: 1.2em;
 	display: inline-block;
 	zoom: 1;

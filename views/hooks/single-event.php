@@ -146,8 +146,8 @@ if ( !class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 			ob_start();
 
 			// Single event meta ?>
-			<div class="tribe-event-schedule tribe-clearfix">
-				<h3><?php echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); ?><?php  if ( tribe_get_cost() ) :  echo '<span class="tribe-divider">|</span><span class="tribe-event-cost">'. tribe_get_cost( null, true ) .'</span>'; endif; ?></h3>
+			<div class="tribe-events-schedule tribe-clearfix">
+				<h3><?php echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); ?><?php  if ( tribe_get_cost() ) :  echo '<span class="tribe-events-divider">|</span><span class="tribe-events-cost">'. tribe_get_cost( null, true ) .'</span>'; endif; ?></h3>
 			</div>
 
 			<?php
