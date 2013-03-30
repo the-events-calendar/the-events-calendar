@@ -162,7 +162,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			'label' => __('Details', 'tribe-events-calendar' ),
 			'classes' => array(
 				'before'=>array('tribe-events-meta-group'),
-				'label_before'=>array('tribe-event-single-section-title'))
+				'label_before'=>array('tribe-events-single-section-title'))
 		) );
 
 	/**
@@ -248,7 +248,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			'label' => __('Venue', 'tribe-events-calendar' ),
 			'classes' => array(
 				'before'=>array('tribe-events-meta-group'),
-				'label_before'=>array('tribe-event-single-section-title'))
+				'label_before'=>array('tribe-events-single-section-title'))
 		) );
 
 	/**
@@ -310,7 +310,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			'label' => __('Organizer', 'tribe-events-calendar' ),
 			'classes' => array(
 				'before'=>array('tribe-events-meta-group'),
-				'label_before'=>array('tribe-event-single-section-title'))
+				'label_before'=>array('tribe-events-single-section-title'))
 		) );
 
 	/**

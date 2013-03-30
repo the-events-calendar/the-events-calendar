@@ -627,20 +627,20 @@ select.tribe-events-dropdown {
 	margin: 0;
 	padding: 0;
 }
-#tribe-events-content .tribe-single-event-description  img.attachment-post-thumbnail {
+#tribe-events-content .tribe-events-single-event-description  img.attachment-post-thumbnail {
 	margin-left: auto;
 	margin-right: auto;
 	display: block;
 	text-align: center;
 }
 
-.tribe-events-meta-group .tribe-event-single-section-title {
+.tribe-events-meta-group .tribe-events-single-section-title {
 	margin: 20px 0 10px;
 	font-size: 1.4em;
 	font-weight: bold;
 }
 
-.tribe-events-meta-group + .tribe-event-single-section-title {
+.tribe-events-meta-group + .tribe-events-single-section-title {
 	margin-top: 0;
 }
 
@@ -676,7 +676,7 @@ select.tribe-events-dropdown {
 }
 
 /* Cal Links */
-.single-tribe_events .tribe-event-cal-links { 
+.single-tribe_events .tribe-events-cal-links { 
 	display: inline-block;
 	zoom: 1;
 	*display: inline;

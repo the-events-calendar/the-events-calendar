@@ -231,7 +231,7 @@ h2.tribe-events-page-title {
 }
 
 /* Cal Links */
-.single-tribe_events .tribe-event-cal-links {
+.single-tribe_events .tribe-events-cal-links {
 	margin-bottom: 1.75em;
 	padding-bottom: 1.75em;
 	border-bottom: 1px solid #e5e5e5;
@@ -262,7 +262,7 @@ h2.tribe-events-page-title {
 }
 
 /* Event Meta */
-.tribe-events-meta-group .tribe-event-single-section-title {
+.tribe-events-meta-group .tribe-events-single-section-title {
 	font-size: 17px;
 }
 
