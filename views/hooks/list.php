@@ -258,11 +258,11 @@ if( !class_exists('Tribe_Events_List_Template')){
 
 			if ( $show_separators ) {
 				if ( ( tribe_get_start_date( $post, false, 'Y' ) != date( 'Y' ) && self::$prev_event_year != tribe_get_start_date( $post, false, 'Y' ) ) || ( tribe_get_start_date( $post, false, 'Y' ) == date( 'Y' ) && self::$prev_event_year != null && self::$prev_event_year != tribe_get_start_date( $post, false, 'Y' ) ) ) {
-					echo sprintf( "<span class='tribe_list_separator_year'>%s</span>", tribe_get_start_date( $post, false, 'Y' ) );
+					echo sprintf( "<span class='tribe-events-list-separator-year'>%s</span>", tribe_get_start_date( $post, false, 'Y' ) );
 				}
 
 				if ( self::$prev_event_month != tribe_get_start_date( $post, false, 'm' ) || ( self::$prev_event_month == tribe_get_start_date( $post, false, 'm' ) && self::$prev_event_year != tribe_get_start_date( $post, false, 'Y' ) ) ) {
-					echo sprintf( "<span class='tribe_list_separator_month'><span>%s</span></span>", tribe_get_start_date( $post, false, 'F Y' ) );
+					echo sprintf( "<span class='tribe-events-list-separator-month'><span>%s</span></span>", tribe_get_start_date( $post, false, 'F Y' ) );
 				}
 
 				self::$prev_event_year  = tribe_get_start_date( $post, false, 'Y' );

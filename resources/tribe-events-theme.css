@@ -121,16 +121,16 @@ h2.tribe-events-page-title {
 }
 
 /* Date Seperators */
-.tribe_list_separator_year {
+.tribe-events-list-separator-year {
 	font-size: 28px;
 	padding-top: 1.25em;
 }
 
-.tribe_list_separator_year + .tribe_list_separator_month {
+.tribe-events-list-separator-year + .tribe-events-list-separator-month {
 	margin-top: .25em;
 }
 
-.tribe_list_separator_month {
+.tribe-events-list-separator-month {
 	text-transform: none;
 	font-size: 24px;
 	margin: 1.25em auto;
@@ -140,7 +140,7 @@ h2.tribe-events-page-title {
 	z-index: 1;
 }
 
-.tribe_list_separator_month:after {
+.tribe-events-list-separator-month:after {
 	content: '';
 	border-bottom: 1px solid #c2c2c2;
 	height: 1px;
@@ -152,7 +152,7 @@ h2.tribe-events-page-title {
 	z-index: -1;
 }
 
-.tribe_list_separator_month span {
+.tribe-events-list-separator-month span {
 	background-color: #fff;
 	padding: 0 7.5%;
 }

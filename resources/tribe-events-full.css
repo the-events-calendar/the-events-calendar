@@ -556,7 +556,7 @@ select.tribe-events-dropdown {
 }
 
 /* Date Seperators */
-.tribe_list_separator_year {
+.tribe-events-list-separator-year {
 	display: block;
 	text-align: center;
 	font-size: 38px;
@@ -565,7 +565,7 @@ select.tribe-events-dropdown {
 	font-weight: bold;
 }
 
-.tribe_list_separator_month {
+.tribe-events-list-separator-month {
 	display: block;
 	text-transform: uppercase;
 	font-weight: bold;
