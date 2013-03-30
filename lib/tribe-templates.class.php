@@ -26,7 +26,7 @@ if (!class_exists('TribeEventsTemplates')) {
          do_action('tribe_tec_template_chooser', $template);
 
          	// hijack this method right up front if it's a 404
-         	if( is_404() && apply_filters( 'tribe_events_templates_is_404', '__return_true') )
+         	if( is_404() && is_single() && apply_filters( 'tribe_events_templates_is_404', '__return_true') )
          		return get_404_template();
   
 			// no non-events need apply
@@ -142,7 +142,7 @@ if (!class_exists('TribeEventsTemplates')) {
 				if ( $tec->displaying == 'month' ) {
 					$template = self::getTemplateHierarchy( 'calendar' );
 				} else {
-					if( is_404() ) {
+					if( is_404() && is_single() ) {
 						// in case we somehow magically get here - protect the display
 						$template = get_404_template();
 					} else {
@@ -164,15 +164,9 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			ob_start();
 
-			// filter the WYSIWYG similiar to the_content
-			$before = tribe_get_option( 'tribeEventsBeforeHTML' );
-			$before = wptexturize( $before );
-			$before = convert_chars( $before );
-			$before = wpautop( $before );
-			$before = shortcode_unautop( $before );
-			$before = apply_filters( 'tribe_events_before_html', $before );
 
-			echo $before;
+
+			echo tribe_events_before_html();
 
 			include self::get_current_page_template();
 			$after = tribe_get_option( 'tribeEventsAfterHTML' );
@@ -182,7 +176,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			$after = shortcode_unautop( $after );
 			$after = apply_filters( 'tribe_events_after_html', $after );
 
-			echo $after;			
+			echo tribe_events_after_html();			
 
 			$contents = ob_get_contents();
 			ob_end_clean();
