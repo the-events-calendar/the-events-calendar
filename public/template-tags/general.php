@@ -318,7 +318,14 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_events_before_html() {
-		echo apply_filters( 'tribe_events_before_html', stripslashes( tribe_get_option( 'tribeEventsBeforeHTML' ) ) );
+		$before = tribe_get_option( 'tribeEventsBeforeHTML' );
+		$before = wptexturize( $before );
+		$before = convert_chars( $before );
+		$before = wpautop( $before );
+		$before = shortcode_unautop( $before );
+		$before = apply_filters( 'tribe_events_before_html', $before );	
+
+		echo apply_filters( 'tribe_events_before_html', $before );
 	}
 
 	/**
@@ -329,7 +336,14 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_events_after_html() {
-		echo apply_filters( 'tribe_events_after_html', stripslashes( tribe_get_option( 'tribeEventsAfterHTML' ) ) );
+		$after = tribe_get_option( 'tribeEventsAfterHTML' );
+		$after = wptexturize( $after );
+		$after = convert_chars( $after );
+		$after = wpautop( $after );
+		$after = shortcode_unautop( $after );
+		$after = apply_filters( 'tribe_events_before_html', $after );	
+			
+		echo apply_filters( 'tribe_events_before_html', $after );
 	}
 
 	/**

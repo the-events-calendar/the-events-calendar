@@ -76,7 +76,8 @@ ul.tribe-events-sub-nav a,
 }
 
 /* General Template Headers */
-h2.tribe-events-page-title {
+h2.tribe-events-page-title,
+#tribe-geo-results h2.tribe-events-page-title {
 	font-size: 30px;
 	font-weight: bold;
 }

@@ -16,15 +16,6 @@ var tribe_ajax_timer;
 // jquery functions
 
 (function($) {
-	$.fn.extend({
-		triggerAll: function(events) {
-			var el = $(this);
-			for (var evt in events.split(' ')) {
-				el.trigger(evt);
-			}
-			return el;
-		}
-	});
 	$.fn.tribe_clear_form = function() {
 		return this.each(function() {
 			var type = this.type, tag = this.tagName.toLowerCase();
