@@ -67,13 +67,13 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			$html = '';
 			
 			// Display Previous Page Navigation
-			$html .= '<li class="tribe-nav-previous"><a href="'. tribe_get_day_permalink( $yesterday ) .'" data-day="'. $yesterday .'" rel="prev">&laquo; '. __( 'Previous Day', 'tribe-events-calendar-pro' ) .'</a></li>';
+			$html .= '<li class="tribe-events-nav-previous"><a href="'. tribe_get_day_permalink( $yesterday ) .'" data-day="'. $yesterday .'" rel="prev">&laquo; '. __( 'Previous Day', 'tribe-events-calendar-pro' ) .'</a></li>';
 			
 			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next"><a href="'. tribe_get_day_permalink( $tomorrow ) .'" data-day="'. $tomorrow .'" rel="next">'. __( 'Next Day', 'tribe-events-calendar-pro' ) .' &raquo;</a>';
+			$html .= '<li class="tribe-events-nav-next"><a href="'. tribe_get_day_permalink( $tomorrow ) .'" data-day="'. $tomorrow .'" rel="next">'. __( 'Next Day', 'tribe-events-calendar-pro' ) .' &raquo;</a>';
 			// Loading spinner
 			$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
-			$html .= '</li><!-- .tribe-nav-next -->';
+			$html .= '</li><!-- .tribe-events-nav-next -->';
 			
 			return $html;
 		}
@@ -132,11 +132,11 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			$tomorrow = Date('Y-m-d', strtotime($current_day . " +1 day") );
 				
 			// Display Previous Page Navigation
-			$html .= '<li class="tribe-nav-previous"><a href="'. tribe_get_day_permalink( $yesterday ) .'" data-day="'. $yesterday .'" rel="prev">&laquo; '. __( 'Previous Day', 'tribe-events-calendar-pro' ) .'</a></li>';
+			$html .= '<li class="tribe-events-nav-previous"><a href="'. tribe_get_day_permalink( $yesterday ) .'" data-day="'. $yesterday .'" rel="prev">&laquo; '. __( 'Previous Day', 'tribe-events-calendar-pro' ) .'</a></li>';
 				
 			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next"><a href="'. tribe_get_day_permalink( $tomorrow ) .'" data-day="'. $tomorrow .'" rel="next">'. __( 'Next Day', 'tribe-events-calendar-pro' ) .' &raquo;</a>';
-			$html .= '</li><!-- .tribe-nav-next -->';
+			$html .= '<li class="tribe-events-nav-next"><a href="'. tribe_get_day_permalink( $tomorrow ) .'" data-day="'. $tomorrow .'" rel="next">'. __( 'Next Day', 'tribe-events-calendar-pro' ) .' &raquo;</a>';
+			$html .= '</li><!-- .tribe-events-nav-next -->';
 			
 			return apply_filters('tribe_template_factory_debug',  $html, 'tribe_events_day_footer_navigation');
 		}

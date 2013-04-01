@@ -56,13 +56,13 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 			$nav_display = '';
 
 			// Display Previous Page Navigation
-			$html .= '<li class="tribe-nav-previous"><a href="#" class="tribe_paged">' . __( '&laquo; Previous Events' ) . '</a></li>';
+			$html .= '<li class="tribe-events-nav-previous"><a href="#" class="tribe_paged">' . __( '&laquo; Previous Events' ) . '</a></li>';
 			if ( $wp_query->max_num_pages === ( $wp_query->query_vars['paged'] ) ) {
 				$nav_display = ' style="display:none;"';
 			}
 			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next"'.$nav_display.'><a href="#" class="tribe_paged">' . __( 'Next Events &raquo;' ) . '</a>';
-			$html .= '</li><!-- .tribe-nav-next -->';
+			$html .= '<li class="tribe-events-nav-next"'.$nav_display.'><a href="#" class="tribe_paged">' . __( 'Next Events &raquo;' ) . '</a>';
+			$html .= '</li><!-- .tribe-events-nav-next -->';
 
 			return $html;
 		}
@@ -145,13 +145,13 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 			
 			// Display Previous Page Navigation
 			if ( $wp_query->query_vars['paged'] > 1 ) {
-				$html .= '<li class="tribe-nav-previous"><a href="#" class="tribe_paged">' . __( '&laquo; Previous Events' ) . '</a></li>';
+				$html .= '<li class="tribe-events-nav-previous"><a href="#" class="tribe_paged">' . __( '&laquo; Previous Events' ) . '</a></li>';
 			}
 			
 			// Display Next Page Navigation
 			if ( $wp_query->max_num_pages > ( $wp_query->query_vars['paged'] + 1 ) ) {
-				$html .= '<li class="tribe-nav-next"><a href="#" class="tribe_paged">' . __( 'Next Events &raquo;' ) . '</a>';
-				$html .= '</li><!-- .tribe-nav-next -->';
+				$html .= '<li class="tribe-events-nav-next"><a href="#" class="tribe_paged">' . __( 'Next Events &raquo;' ) . '</a>';
+				$html .= '</li><!-- .tribe-events-nav-next -->';
 			}
 			return $html;
 		}
