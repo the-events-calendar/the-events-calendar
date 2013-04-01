@@ -9,7 +9,7 @@ jQuery(document).ready(function ($) {
 
     $('#tribe-events-bar').addClass('tribe-has-datepicker');
     tribe_ev.state.date = $('#tribe-events-header').attr('data-date');
-    var base_url = $('#tribe-events-header .tribe-nav-next a').attr('href').slice(0, -11);
+    var base_url = $('#tribe-events-header .tribe-events-nav-next a').attr('href').slice(0, -11);
 
     function disableSpecificWeekDays(date) {
         var start_day = $('#tribe-events-header').attr('data-startofweek');
@@ -285,7 +285,7 @@ jQuery(document).ready(function ($) {
         });
     }
 
-    tribe_ev.fn.snap('#tribe-events-content', 'body', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a');
+    tribe_ev.fn.snap('#tribe-events-content', 'body', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a');
 
     $(tribe_ev.events).on("tribe_ev_runAjax", function () {
         tribe_events_week_ajax_post();

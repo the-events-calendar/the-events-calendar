@@ -55,7 +55,7 @@ jQuery(document).ready(function ($) {
         }
     }
 
-    $('#tribe-events-header .tribe-ajax-loading').clone().addClass("photo-loader").appendTo('#tribe-events-content');
+    $('#tribe-events-header .tribe-events-ajax-loading').clone().addClass("photo-loader").appendTo('#tribe-events-content');
 
     var $container = $('#tribe-events-photo-events');
 
@@ -96,7 +96,7 @@ jQuery(document).ready(function ($) {
         });
     }
 
-    $('#tribe-events').on('click', 'li.tribe-nav-next a',function (e) {
+    $('#tribe-events').on('click', 'li.tribe-events-nav-next a',function (e) {
         e.preventDefault();
         if (tribe_ev.state.view === 'past') {
             if (tribe_ev.state.paged === 1) {
@@ -111,7 +111,7 @@ jQuery(document).ready(function ($) {
         tribe_ev.fn.pre_ajax(function () {
             tribe_events_list_ajax_post();
         });
-    }).on('click', 'li.tribe-nav-previous a', function (e) {
+    }).on('click', 'li.tribe-events-nav-previous a', function (e) {
             e.preventDefault();
             if (tribe_ev.state.view === 'photo') {
                 if (tribe_ev.state.paged === 1) {
@@ -159,7 +159,7 @@ jQuery(document).ready(function ($) {
         }
     });
 
-    tribe_ev.fn.snap('#tribe-events-content', '#tribe-events-content', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a');
+    tribe_ev.fn.snap('#tribe-events-content', '#tribe-events-content', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a');
 
     $(tribe_ev.events).on("tribe_ev_runAjax", function () {
         tribe_events_list_ajax_post();
@@ -238,16 +238,16 @@ jQuery(document).ready(function ($) {
 
                         if (response.view === 'photo') {
                             if (response.max_pages == tribe_ev.state.paged) {
-                                $('.tribe-nav-next').hide();
+                                $('.tribe-events-nav-next').hide();
                             } else {
 
-                                $('.tribe-nav-next').show();
+                                $('.tribe-events-nav-next').show();
                             }
                         } else {
                             if (response.max_pages == tribe_ev.state.paged) {
-                                $('.tribe-nav-previous').hide();
+                                $('.tribe-events-nav-previous').hide();
                             } else {
-                                $('.tribe-nav-previous').show();
+                                $('.tribe-events-nav-previous').show();
                             }
                         }
 

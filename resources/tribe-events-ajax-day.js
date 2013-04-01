@@ -3,14 +3,14 @@ jQuery(document).ready(function ($) {
     if (tribe_ev.state.filter_cats)
         var base_url = $('#tribe-events-header').attr('data-baseurl').slice(0, -11);
     else
-        var base_url = $('#tribe-events-header .tribe-nav-next a').attr('href').slice(0, -11);
+        var base_url = $('#tribe-events-header .tribe-events-nav-next a').attr('href').slice(0, -11);
 
     tribe_ev.state.date = $('#tribe-events-header').attr('data-date');
 
     function tribe_day_add_classes() {
         if ($('.tribe-events-day-time-slot').length) {
-            $('.tribe-events-day-time-slot').find('.vevent:last').addClass('tribe-last');
-            $('.tribe-events-day-time-slot:first').find('.vevent:first').removeClass('tribe-first');
+            $('.tribe-events-day-time-slot').find('.vevent:last').addClass('tribe-events-last');
+            $('.tribe-events-day-time-slot:first').find('.vevent:first').removeClass('tribe-events-first');
         }
     }
 
@@ -46,7 +46,7 @@ jQuery(document).ready(function ($) {
         });
     }
 
-    $('#tribe-events').on('click', '.tribe-nav-previous a, .tribe-nav-next a', function (e) {
+    $('#tribe-events').on('click', '.tribe-events-nav-previous a, .tribe-events-nav-next a', function (e) {
         e.preventDefault();
         var $this = $(this);
         tribe_ev.state.popping = false;
@@ -61,7 +61,7 @@ jQuery(document).ready(function ($) {
         });
     });
 
-    tribe_ev.fn.snap('#tribe-events-bar', 'body', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a');
+    tribe_ev.fn.snap('#tribe-events-bar', '#tribe-events', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a');
 
     function tribe_events_bar_dayajax_actions(e) {
         if (tribe_events_bar_action != 'change_view') {
@@ -170,6 +170,8 @@ jQuery(document).ready(function ($) {
                         if (response.total_count === 0) {
                             $('#tribe-events-header .tribe-events-sub-nav').empty();
                         }
+
+                        $('.tribe-events-promo').next('.tribe-events-promo').remove();
 
                         var page_title = $("#tribe-events-header").attr('data-title');
 
