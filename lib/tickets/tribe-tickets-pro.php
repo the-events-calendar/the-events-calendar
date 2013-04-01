@@ -1,4 +1,7 @@
 <?php
+/**
+ *
+ */
 class TribeEventsTicketsPro {
 	/**
 	 * Singleton instance of this class
@@ -37,12 +40,15 @@ class TribeEventsTicketsPro {
 	 */
 	private $attendees_table;
 
+	/**
+	 *
+	 */
 	public function __construct() {
 
 		add_action( 'wp_ajax_tribe-ticket-email-attendee-list', array( $this, 'ajax_handler_attendee_mail_list' ) );
-		add_action( 'save_post', 								array( $this, 'save_image_header' 				), 20, 2 );
-		add_action( 'admin_menu', 								array( $this, 'attendees_page_register' 		) 		 );
-		add_filter( 'post_row_actions', 						array( $this, 'attendees_row_action' 			) 		 );
+		add_action( 'save_post', array( $this, 'save_image_header' ), 20, 2 );
+		add_action( 'admin_menu', array( $this, 'attendees_page_register' ) );
+		add_filter( 'post_row_actions', array( $this, 'attendees_row_action' ) );
 
 
 		$this->path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
@@ -147,6 +153,23 @@ class TribeEventsTicketsPro {
 
 		wp_enqueue_script( 'jquery-ui-dialog' );
 
+		add_filter( 'admin_title', array( $this, 'attendees_admin_title' ), 10, 2 );
+
+	}
+
+	/**
+	 * @param $admin_title
+	 * @param $title
+	 *
+	 * @return string
+	 */
+	public function attendees_admin_title( $admin_title, $title ) {
+
+		if ( ! empty( $_GET['event_id'] ) ) {
+			$event       = get_post( $_GET['event_id'] );
+			$admin_title = sprintf( "%s - Attendee list", $event->post_title );
+		}
+		return $admin_title;
 	}
 
 	/**
