@@ -1,6 +1,6 @@
 <?php
 
-if ( !class_exists( 'WP_List_Table' ) ) {
+if ( ! class_exists( 'WP_List_Table' ) ) {
 	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
 
@@ -8,8 +8,6 @@ if ( !class_exists( 'WP_List_Table' ) ) {
 class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 
 	function __construct() {
-		global $status, $page;
-
 		parent::__construct( array( 'singular'  => 'attendee', 'plural' => 'attendees', 'ajax' => true ) );
 	}
 
@@ -147,23 +145,20 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 
 	function prepare_items() {
 
-		global $wpdb;
-
 		$this->process_bulk_action();
-
-		$per_page = 10000;
 
 		$event_id = isset( $_GET['event_id'] ) ? $_GET['event_id'] : 0;
 
 		$items = TribeEventsTickets::get_event_attendees( $event_id );
 
-		$this->items = $items;
 
+		$this->items = $items;
 		$total_items = count( $this->items );
+		$per_page    = $total_items;
 
 		$this->set_pagination_args( array( 'total_items' => $total_items,
 		                                   'per_page'    => $per_page,
-		                                   'total_pages' => ceil( $total_items / $per_page ) ) );
+		                                   'total_pages' => 1 ) );
 
 	}
 

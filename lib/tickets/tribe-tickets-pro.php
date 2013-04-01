@@ -179,6 +179,7 @@ class TribeEventsTicketsPro {
 		include $this->path . 'admin-views/tickets-attendees.php';
 	}
 
+
 	/**
 	 * @param $event_id
 	 *
@@ -350,6 +351,15 @@ class TribeEventsTicketsPro {
 		ob_end_clean();
 
 		return $return;
+	}
+
+	/**
+	 * @param $event_id
+	 *
+	 * @return mixed
+	 */
+	public function get_header_image_id( $event_id ) {
+		return get_post_meta( $event_id, $this->image_header_field, true );
 	}
 
 	/**

@@ -1,32 +1,34 @@
 <?php
 
 if ( ! class_exists( 'TribeEventsTickets' ) ) {
+	/**
+	 * Abstract class with the API definition and common functionality
+	 * for Tribe Tickets Pro. Providers for this functionality need to
+	 * extend this class. For a functional example of how this works
+	 * see Tribe WooTickets.
+	 */
 	abstract class TribeEventsTickets {
 
-		// All TribeEventsTickets api consumers. It's static, so it's shared across childs.
 		/**
+		 * All TribeEventsTickets api consumers. It's static, so it's shared across all child.
 		 * @var array
 		 */
 		protected static $active_modules = array();
-		/**
-		 * @var bool
-		 */
-		public static $active = false;
 
 		/**
-		 * @var
-		 */
-		private $handler;
-
-		/**
+		 * Name of this class. Note that it refers to the child class.
 		 * @var string
 		 */
 		public $className;
+
 		/**
+		 * Path of the parent class
 		 * @var string
 		 */
 		private $parentPath;
+
 		/**
+		 * URL of the parent class
 		 * @var string
 		 */
 		private $parentUrl;
@@ -35,19 +37,26 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		// Child classes must implement all these functions / properties
 
 		/**
+		 * Name of the provider
 		 * @var
 		 */
 		public $pluginName;
+
 		/**
+		 * Path of the child class
 		 * @var
 		 */
 		protected $pluginPath;
+
 		/**
+		 * URL of the child class
 		 * @var
 		 */
 		protected $pluginUrl;
 
 		/**
+		 * Returns link to the report interface for sales for an event or
+		 * null if the provider doesn't have reporting capabilities.
 		 * @abstract
 		 *
 		 * @param $event_id
@@ -57,6 +66,9 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		abstract function get_event_reports_link( $event_id );
 
 		/**
+		 * Returns link to the report interface for sales for a single ticket or
+		 * null if the provider doesn't have reporting capabilities.
+		 *
 		 * @abstract
 		 *
 		 * @param $event_id
@@ -67,53 +79,8 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		abstract function get_ticket_reports_link( $event_id, $ticket_id );
 
 		/**
-		 * @abstract
+		 * Returns a single ticket
 		 *
-		 * @param       $event_id
-		 * @param       $ticket
-		 * @param array $raw_data
-		 *
-		 * @return mixed
-		 */
-		abstract function save_ticket( $event_id, $ticket, $raw_data = array() );
-
-		/**
-		 * @abstract
-		 *
-		 * @param $event_id
-		 *
-		 * @return mixed
-		 */
-		abstract protected function get_tickets( $event_id );
-
-		/**
-		 * @abstract
-		 *
-		 * @param $event_id
-		 *
-		 * @return mixed
-		 */
-		abstract protected function get_attendees( $event_id );
-
-		/**
-		 * @abstract
-		 *
-		 * @param $attendee_id
-		 *
-		 * @return mixed
-		 */
-		abstract public function checkin( $attendee_id );
-
-		/**
-		 * @abstract
-		 *
-		 * @param $attendee_id
-		 *
-		 * @return mixed
-		 */
-		abstract public function uncheckin( $attendee_id );
-
-		/**
 		 * @abstract
 		 *
 		 * @param $event_id
@@ -124,6 +91,8 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		abstract function get_ticket( $event_id, $ticket_id );
 
 		/**
+		 * Deletes a ticket
+		 *
 		 * @abstract
 		 *
 		 * @param $event_id
@@ -134,6 +103,67 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		abstract function delete_ticket( $event_id, $ticket_id );
 
 		/**
+		 * Saves a ticket
+		 *
+		 * @abstract
+		 *
+		 * @param int   $event_id
+		 * @param int   $ticket
+		 * @param array $raw_data
+		 *
+		 * @return mixed
+		 */
+		abstract function save_ticket( $event_id, $ticket, $raw_data = array() );
+
+		/**
+		 * Get all the tickets for an event
+		 *
+		 * @abstract
+		 *
+		 * @param int $event_id
+		 *
+		 * @return array mixed
+		 */
+		abstract protected function get_tickets( $event_id );
+
+		/**
+		 * Get all the attendees (sold tickets) for an event
+		 * @abstract
+		 *
+		 * @param $event_id
+		 *
+		 * @return mixed
+		 */
+		abstract protected function get_attendees( $event_id );
+
+		/**
+		 * Mark an attendee as checked in
+		 *
+		 * @abstract
+		 *
+		 * @param $attendee_id
+		 *
+		 * @return mixed
+		 */
+		abstract public function checkin( $attendee_id );
+
+		/**
+		 * Mark an attendee as not checked in
+		 *
+		 * @abstract
+		 *
+		 * @param $attendee_id
+		 *
+		 * @return mixed
+		 */
+		abstract public function uncheckin( $attendee_id );
+
+
+		/**
+		 * Renders the advanced fields in the new/edit ticket form.
+		 * Using the method, providers can add as many fields as
+		 * they want, specific to their implementation.
+		 *
 		 * @abstract
 		 *
 		 * @param $event_id
@@ -144,6 +174,8 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		abstract function do_metabox_advanced_options( $event_id, $ticket_id );
 
 		/**
+		 * Renders the front end form for selling tickets in the event single page
+		 *
 		 * @abstract
 		 *
 		 * @param $content
@@ -153,6 +185,8 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		abstract function front_end_tickets_form( $content );
 
 		/**
+		 * Returns instance of the child class (singleton)
+		 *
 		 * @static
 		 * @abstract
 		 * @return mixed
@@ -166,10 +200,10 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		 */
 		function __construct() {
 
+			// Start the singleton with the generic functionality to all providers.
 			TribeEventsTicketsPro::instance();
 
-			// As this is an abstract class, we want to know which child
-			// instantiated it
+			// As this is an abstract class, we want to know which child instantiated it
 			$this->className = get_class( $this );
 
 			$this->parentPath = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
@@ -178,16 +212,14 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			// Register all TribeEventsTickets api consumers
 			self::$active_modules[$this->className] = $this->pluginName;
 
-			self::$active = true;
-
-			add_filter( 'tribe_events_tickets_modules', array( $this, 'modules' ) );
+			add_filter( 'tribe_events_tickets_modules', 		 array( $this, 'modules' 					 )		  );
 			add_action( 'tribe_events_tickets_metabox_advanced', array( $this, 'do_metabox_advanced_options' ), 10, 2 );
 
-			// Admin AJAX actions
-			add_action( 'wp_ajax_tribe-ticket-add-' . $this->className, array( $this, 'ajax_handler_ticket_add' ) );
-			add_action( 'wp_ajax_tribe-ticket-delete-' . $this->className, array( $this, 'ajax_handler_ticket_delete' ) );
-			add_action( 'wp_ajax_tribe-ticket-edit-' . $this->className, array( $this, 'ajax_handler_ticket_edit' ) );
-			add_action( 'wp_ajax_tribe-ticket-checkin-' . $this->className, array( $this, 'ajax_handler_attendee_checkin' ) );
+			// Admin AJAX actions for each provider
+			add_action( 'wp_ajax_tribe-ticket-add-'       . $this->className, array( $this, 'ajax_handler_ticket_add' 		  ) );
+			add_action( 'wp_ajax_tribe-ticket-delete-'    . $this->className, array( $this, 'ajax_handler_ticket_delete' 	  ) );
+			add_action( 'wp_ajax_tribe-ticket-edit-'      . $this->className, array( $this, 'ajax_handler_ticket_edit' 		  ) );
+			add_action( 'wp_ajax_tribe-ticket-checkin-'   . $this->className, array( $this, 'ajax_handler_attendee_checkin'   ) );
 			add_action( 'wp_ajax_tribe-ticket-uncheckin-' . $this->className, array( $this, 'ajax_handler_attendee_uncheckin' ) );
 
 			// Front end
@@ -196,21 +228,11 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		}
 
 
-		/**
-		 * @param $tickets
-		 *
-		 * @return string
-		 */
-		public function generate_tickets_email_content( $tickets ) {
-			ob_start();
-			include TribeEventsTemplates::getTemplateHierarchy( 'tickets-email.php' );
-			return ob_get_clean();
-		}
-
 		/* AJAX Handlers */
 
 		/**
-		 *
+		 *	Sanitizes the data for the new/edit ticket ajax call,
+		 *  and calls the child save_ticket function.
 		 */
 		public final function ajax_handler_ticket_add() {
 
@@ -264,7 +286,8 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 
 		/**
-		 *
+		 *	Handles the check-in ajax call, and calls the
+		 *  checkin method.
 		 */
 		public final function ajax_handler_attendee_checkin() {
 
@@ -282,7 +305,8 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		}
 
 		/**
-		 *
+		 *  Handles the check-in ajax call, and calls the
+		 *  uncheckin method.
 		 */
 		public final function ajax_handler_attendee_uncheckin() {
 
@@ -300,7 +324,8 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		}
 
 		/**
-		 *
+		 *  Sanitizes the data for the delete ticket ajax call,
+		 *  and calls the child delete_ticket function.
 		 */
 		public final function ajax_handler_ticket_delete() {
 
@@ -327,7 +352,8 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		}
 
 		/**
-		 *
+		 * Returns the data from a single ticket to populate
+		 * the edit form.
 		 */
 		public final function ajax_handler_ticket_edit() {
 
@@ -353,9 +379,10 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 
 		/**
-		 * @param $msg
+		 * Returns the markup for a notice in the admin
+		 * @param string $msg Text for the notice
 		 *
-		 * @return string
+		 * @return string Notice with markup
 		 */
 		protected function notice( $msg ) {
 			return sprintf( '<div class="wrap"><div class="updated"><p>%s</p></div></div>', $msg );
@@ -367,6 +394,8 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		// start Attendees
 
 		/**
+		 * Returns all the attendees for an event. Queries all registered providers.
+		 *
 		 * @static
 		 *
 		 * @param $event_id
@@ -383,6 +412,8 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		}
 
 		/**
+		 * Returns the sum of all checked-in attendees for an event. Queries all registered providers.
+		 *
 		 * @static
 		 *
 		 * @param $event_id
@@ -395,6 +426,10 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		}
 
 		/**
+		 * Internal function to use as a callback for array_reduce in
+		 * get_event_checkedin_attendees_count. It increments the counter
+		 * if the attendee is checked-in.
+		 *
 		 * @static
 		 *
 		 * @param $result
@@ -415,6 +450,8 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		// start Helpers
 
 		/**
+		 * Returns whether a class name is a valid active module/provider.
+		 *
 		 * @param $module
 		 *
 		 * @return bool
@@ -424,13 +461,15 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		}
 
 		/**
-		 *
+		 * Echos the class for the <tr> in the tickets list admin
 		 */
 		protected function tr_class() {
 			echo "ticket_advanced ticket_advanced_" . $this->className;
 		}
 
 		/**
+		 * Returns the array of active modules/providers.
+		 *
 		 * @static
 		 * @return array
 		 */
@@ -439,6 +478,8 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		}
 
 		/**
+		 * Get all the tickets for an event. Queries all active modules/providers.
+		 *
 		 * @static
 		 *
 		 * @param $event_id
@@ -458,6 +499,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		}
 
 		/**
+		 * Sets an AJAX error, returns a JSON array and ends the execution.
 		 * @param string $message
 		 */
 		protected final function ajax_error( $message = "" ) {
@@ -469,6 +511,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		}
 
 		/**
+		 * Sets an AJAX response, returns a JSON array and ends the execution.
 		 * @param $data
 		 */
 		protected final function ajax_ok( $data ) {
@@ -488,6 +531,21 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		}
 
 		/**
+		 * Generates and returns the email template for a group of attendees.
+		 *
+		 * @param $tickets
+		 *
+		 * @return string
+		 */
+		public function generate_tickets_email_content( $tickets ) {
+			ob_start();
+			include TribeEventsTemplates::getTemplateHierarchy( 'tickets-email.php' );
+			return ob_get_clean();
+		}
+
+		/**
+		 * Gets the view from the plugin's folder, or from the user's theme if found.
+		 * 
 		 * @param $template
 		 *
 		 * @return mixed|void
