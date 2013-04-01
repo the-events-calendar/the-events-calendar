@@ -364,6 +364,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_settings_content_tab_help', array( $this, 'doHelpTab' ) );
 			add_action( 'tribe_settings_validate_tab_network', array( $this, 'saveAllTabsHidden' ) );
 			add_action( 'load-tribe_events_page_tribe-events-calendar', array( 'Tribe_Amalgamator', 'listen_for_migration_button' ), 10, 0 );
+			add_action( 'tribe_settings_after_save_display', 'flush_rewrite_rules');
+
 			// add-on compatibility
 			if ( is_multisite() )
 				add_action( 'network_admin_notices', array( $this, 'checkAddOnCompatibility' ) );
