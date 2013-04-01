@@ -268,10 +268,10 @@ tribe_ev.fn = {
 		});
 	},
 	spin_hide: function() {
-		jQuery( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').hide();
+		jQuery( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-events-ajax-loading').hide();
 	},
 	spin_show: function() {
-		jQuery( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-ajax-loading').show();
+		jQuery( '#tribe-events-footer, #tribe-events-header' ).find('.tribe-events-ajax-loading').show();
 	},
 	tooltips: function() {
 		
@@ -445,6 +445,6 @@ jQuery( document ).ready( function ( $ ) {
 
 	//remove border on list view event before month divider
 	if (  $( '.tribe-events-list' ).length ) {
-		$('.tribe_list_separator_month').prev('.vevent').addClass('tribe-event-end-month');
+		$('.tribe-events-list-separator-month').prev('.vevent').addClass('tribe-event-end-month');
 	}
 } );

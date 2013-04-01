@@ -37,10 +37,10 @@ jQuery(document).ready(function ($) {
         });
     }
 
-    $('#tribe-events-list-view').on('click', 'li.tribe-nav-next a',function (e) {
+    $('#tribe-events-list-view').on('click', 'li.tribe-events-nav-next a',function (e) {
         e.preventDefault();
 
-        if ($(this).parent().is('.tribe-past'))
+        if ($(this).parent().is('.tribe-events-past'))
             tribe_ev.state.view = 'past';
         else
             tribe_ev.state.view = 'list';
@@ -53,10 +53,10 @@ jQuery(document).ready(function ($) {
         tribe_ev.fn.pre_ajax(function () {
             tribe_events_list_ajax_post();
         });
-    }).on('click', 'li.tribe-nav-previous a', function (e) {
+    }).on('click', 'li.tribe-events-nav-previous a', function (e) {
             e.preventDefault();
 
-            if ($(this).parent().is('.tribe-past'))
+            if ($(this).parent().is('.tribe-events-past'))
                 tribe_ev.state.view = 'past';
             else
                 tribe_ev.state.view = 'list';
@@ -72,7 +72,7 @@ jQuery(document).ready(function ($) {
             });
         });
 
-    tribe_ev.fn.snap('#tribe-events-list-view', '#tribe-events-list-view', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a');
+    tribe_ev.fn.snap('#tribe-events-list-view', '#tribe-events-list-view', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a');
 
     function tribe_events_bar_listajax_actions(e) {
         if (tribe_events_bar_action != 'change_view') {
@@ -177,7 +177,8 @@ jQuery(document).ready(function ($) {
 
                         $('#tribe-events-list-hash').val(response.hash);
                         $('#tribe-events-content').replaceWith(response.html);
-                        $('#tribe-events-content').next('.tribe-clear').next('.tribe-clear').remove();
+                        $('#tribe-events-content').next('.tribe-clear').remove();
+                        $('.tribe-events-promo').next('.tribe-events-promo').remove();
 
                         if (tribe_ev.state.do_string) {
                             history.pushState({

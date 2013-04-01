@@ -1,6 +1,6 @@
 jQuery(document).ready(function ($) {
 
-    var base_url = $('#tribe-events-header .tribe-nav-next a').attr('href').slice(0, -8);
+    var base_url = $('#tribe-events-header .tribe-events-nav-next a').attr('href').slice(0, -8);
     var initial_date = tribe_ev.fn.get_url_param('tribe-bar-date');
 
     if ($('.tribe-events-calendar').length && $('#tribe-events-bar').length) {
@@ -41,7 +41,7 @@ jQuery(document).ready(function ($) {
         });
     }
 
-    $('body').on('click', '.tribe-events-sub-nav a', function (e) {
+    $('#tribe-events').on('click', '.tribe-events-sub-nav a', function (e) {
         e.preventDefault();
         var $this = $(this);
         tribe_ev.state.date = $this.attr("data-month");
@@ -71,7 +71,7 @@ jQuery(document).ready(function ($) {
     });
 
 
-    tribe_ev.fn.snap('#tribe-bar-form', 'body', '#tribe-events-footer .tribe-nav-previous a, #tribe-events-footer .tribe-nav-next a');
+    tribe_ev.fn.snap('#tribe-bar-form', 'body', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a');
 
     // events bar intercept submit
 
