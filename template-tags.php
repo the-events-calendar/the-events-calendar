@@ -15,12 +15,19 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			$tec = TribeEvents::instance();
 			$geo = TribeEventsGeoLoc::instance();
 			$url = trailingslashit( get_site_url() );
-			// if we're on an Event Cat, show the cat link, except for home and days.
-			if ( is_tax( TribeEvents::TAXONOMY ) )
-				$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
-			else
-				$url .= trailingslashit( $tec->rewriteSlug );
-			$permalink = $url . $geo->rewrite_slug . '/';
+			if ( '' === get_option('permalink_structure') ) {
+				if ( is_tax( TribeEvents::TAXONOMY ) ) 
+					$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'map' ), get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );				
+				else 
+					$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'map' ), home_url() );
+			} else {
+				// if we're on an Event Cat, show the cat link, except for home and days.
+				if ( is_tax( TribeEvents::TAXONOMY ) )
+					$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
+				else
+					$url .= trailingslashit( $tec->rewriteSlug );
+				$permalink = $url . $geo->rewrite_slug . '/';
+			}
 			return apply_filters( 'tribe_get_map_view_permalink', $permalink );
 		}
 	}
@@ -544,12 +551,19 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$tec = TribeEvents::instance();
 		$date = is_null($date) ? TribeEventsPro::instance()->todaySlug : date('Y-m-d', strtotime( $date ) );
 		$url = trailingslashit( get_site_url() );
-		// if we're on an Event Cat, show the cat link, except for home and days.
-		if ( $term && is_tax( TribeEvents::TAXONOMY ) )
-			$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
-		else
-			$url .= trailingslashit( $tec->rewriteSlug );
-		$permalink = $url . trailingslashit( $date );
+		if ( '' === get_option('permalink_structure') ) {
+			if ( is_tax( TribeEvents::TAXONOMY ) ) 
+				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'day' ), get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );				
+			else 
+				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'day' ), home_url() );
+		} else {
+			// if we're on an Event Cat, show the cat link, except for home and days.
+			if ( $term && is_tax( TribeEvents::TAXONOMY ) )
+				$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
+			else
+				$url .= trailingslashit( $tec->rewriteSlug );
+			$permalink = $url . trailingslashit( $date );
+		}
 		return apply_filters('tribe_get_day_permalink', $permalink);
 	}
 	/**
@@ -563,12 +577,19 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$tec = TribeEvents::instance();
 		$week = is_null($week) ? '' : date('Y-m-d', strtotime( $week ) );
 		$url = trailingslashit( get_site_url() );
-		// if we're on an Event Cat, show the cat link, except for home and days.
-		if ( $term && is_tax( TribeEvents::TAXONOMY ) )
-			$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
-		else
-			$url .= trailingslashit( $tec->rewriteSlug );
-		$permalink = $url . trailingslashit( TribeEventsPro::instance()->weekSlug . '/' . $week );
+		if ( '' === get_option('permalink_structure') ) {
+			if ( is_tax( TribeEvents::TAXONOMY ) ) 
+				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'week' ), get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );				
+			else 
+				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'week' ), home_url() );
+		} else {
+			// if we're on an Event Cat, show the cat link, except for home and days.
+			if ( $term && is_tax( TribeEvents::TAXONOMY ) )
+				$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
+			else
+				$url .= trailingslashit( $tec->rewriteSlug );
+			$permalink = $url . trailingslashit( TribeEventsPro::instance()->weekSlug . '/' . $week );
+		}
 		return apply_filters('tribe_get_week_permalink', $permalink);
 	}
 
@@ -581,12 +602,19 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	function tribe_get_photo_permalink( $term = true ) {
 		$tec       = TribeEvents::instance();
 		$url = trailingslashit( get_site_url() );
-		// if we're on an Event Cat, show the cat link, except for home and days.
-		if ( $term && is_tax( TribeEvents::TAXONOMY ) )
-			$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
-		else
-			$url .= trailingslashit( $tec->rewriteSlug );
-		$permalink = $url . trailingslashit( TribeEventsPro::instance()->photoSlug . '/' );
+		if ( '' === get_option('permalink_structure') ) {
+			if ( is_tax( TribeEvents::TAXONOMY ) ) 
+				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'photo' ), get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );				
+			else 
+				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'photo' ), home_url() );
+		} else {
+			// if we're on an Event Cat, show the cat link, except for home and days.
+			if ( $term && is_tax( TribeEvents::TAXONOMY ) )
+				$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
+			else
+				$url .= trailingslashit( $tec->rewriteSlug );
+			$permalink = $url . trailingslashit( TribeEventsPro::instance()->photoSlug . '/' );
+		}
 		return apply_filters( 'tribe_get_photo_view_permalink', $permalink );
 	}
 	

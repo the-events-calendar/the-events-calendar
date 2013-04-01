@@ -106,19 +106,7 @@ if( !class_exists('Tribe_Events_Map_Template')){
 
 		// Start Results
 		public static function before_the_results( $html ){
-			global $wp_query;
-			$html = '';
-			if ( $wp_query->found_posts === 1 ) {
-				$html .= sprintf( __( "<div class='event-notices'>%d event found</div>", 'tribe-events-calendar-pro' ), $wp_query->found_posts );
-			} else {
-				$extra = '';
-				if ( $wp_query->max_num_pages > 1 ) {
-					$extra = sprintf( __( " / %d in this page", 'tribe-events-calendar-pro' ), $wp_query->post_count );
-				}
-
-				$html .= sprintf( __( "<div class='event-notices'>%d events found%s</div>", 'tribe-events-calendar-pro' ), $wp_query->found_posts, $extra );
-			}
-			$html .= '<div id="tribe-geo-results" class="tribe-events-loop">';
+			$html = '<div id="tribe-geo-results" class="tribe-events-loop">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_the_results');
 		}
 
