@@ -51,7 +51,7 @@ if ( ! class_exists( 'Tribe_Register_Meta_Pro' ) ) {
 			'label' => __( 'Other', 'tribe-events-calendar' ),
 			'classes' => array(
 				'before'=>array('tribe-events-meta-group'),
-				'label_before'=>array('tribe-event-single-section-title'))
+				'label_before'=>array('tribe-events-single-section-title'))
 		) );
 
 	/**
