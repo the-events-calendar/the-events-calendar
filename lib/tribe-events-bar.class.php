@@ -34,17 +34,17 @@ class TribeEventsBar {
 	 */
 	public function should_show() {
 		global $wp_query;
-
+		$tec = TribeEvents::instance();
 		$active_views = apply_filters( 'tribe-events-bar-views', array() );
 		$show_bar_filter = apply_filters( 'tribe_events_bar_should_show_filter', in_array( get_post_type(), array( TribeEvents::VENUE_POST_TYPE, TribeEvents::ORGANIZER_POST_TYPE ) ) ? false : true );
 		$view_slugs = array();
 		
 		foreach ( $active_views as $view ) {
 			$view_slugs[] = $view['displaying'];
-			if( $show_bar_filter ) {
+			if( $show_bar_filter && $tec->displaying === $view['displaying'] ) {
 				// we look at each view params and try to add the hook if supplied if not dump in on the tribe_events
 				$event_bar_hook = !empty($view['event_bar_hook']) ? $view['event_bar_hook'] : 'tribe_events_before_html';
-				add_filter( $event_bar_hook , array( $this, 'show' ), 30 );
+				add_filter( $event_bar_hook , array( __CLASS__, 'show' ), 30 );
 			}
 		}
 
@@ -91,8 +91,8 @@ class TribeEventsBar {
 		add_filter( 'tribe-events-bar-should-show', '__return_false', 9999 );
 
 		// Load the registered filters and views for the Bar. This values will be used in the template.
-		$filters = apply_filters( 'tribe-events-bar-filters', $this->filters );
-		$views   = apply_filters( 'tribe-events-bar-views', $this->views );
+		$filters = apply_filters( 'tribe-events-bar-filters', self::instance()->filters );
+		$views   = apply_filters( 'tribe-events-bar-views', self::instance()->views );
 
 		//Load the template
 		ob_start();
@@ -237,24 +237,7 @@ class TribeEventsBar {
 
 		}
 		
-	// show user front-end settings only if ECP is active
 
-		if ( class_exists( 'TribeEventsPro' ) ) {
-			$hide_recurrence = isset( $_REQUEST['tribeHideRecurrence'] ) ? $_REQUEST['tribeHideRecurrence'] : tribe_get_option( 'hideSubsequentRecurrencesDefault', false );
-
-			echo '<div class="tribe-bar-settings">';
-			echo '<div class="tribe-bar-button-settings">' . __( '<span class="tribe-hide-text">User Settings</span>', 'tribe-events-calendar' ) . '</div>';
-
-			echo '<div class="tribe-bar-drop-content">';
-			echo '<h5>' . __( 'Event Settings', 'tribe-events-calendar' ) . '</h5>';
-			echo '<label for="tribeHideRecurrence">';
-			echo '<input type="checkbox" name="tribeHideRecurrence" value="1" ' . checked( $hide_recurrence, 1, false ) . '>' . __( 'Hide subsequent occurences of events in lists<br /><span>Check to hide all but the next iteration</span>', 'tribe-events-calendar' );
-			echo '</label>';
-			echo '<button type="button" name="settingsUpdate" class="tribe-events-button-grey">' . __( 'Update', 'tribe-events-calendar' ) . '</button>';
-			echo '</div><!-- .tribe-bar-drop-content -->';
-			echo '</div><!-- .tribe-bar-drop-content -->';
-			
-		}
 		
 			echo $close_inner_wrap;
 			echo $close_wrap;

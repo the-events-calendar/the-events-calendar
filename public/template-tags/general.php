@@ -318,7 +318,14 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_events_before_html() {
-		echo apply_filters( 'tribe_events_before_html', stripslashes( tribe_get_option( 'tribeEventsBeforeHTML' ) ) );
+		$before = tribe_get_option( 'tribeEventsBeforeHTML' );
+		$before = wptexturize( $before );
+		$before = convert_chars( $before );
+		$before = wpautop( $before );
+		$before = shortcode_unautop( $before );
+		$before = apply_filters( 'tribe_events_before_html', $before );	
+
+		echo apply_filters( 'tribe_events_before_html', $before );
 	}
 
 	/**
@@ -329,7 +336,14 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_events_after_html() {
-		echo apply_filters( 'tribe_events_after_html', stripslashes( tribe_get_option( 'tribeEventsAfterHTML' ) ) );
+		$after = tribe_get_option( 'tribeEventsAfterHTML' );
+		$after = wptexturize( $after );
+		$after = convert_chars( $after );
+		$after = wpautop( $after );
+		$after = shortcode_unautop( $after );
+		$after = apply_filters( 'tribe_events_before_html', $after );	
+			
+		echo apply_filters( 'tribe_events_before_html', $after );
 	}
 
 	/**
@@ -625,7 +639,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		global $wp_query;
 
 		// hijack the main query to load the events via provided $args
-		if ( !$wp_query->is_main_query() && ( !is_null( $args ) || ! ( $wp_query->tribe_is_event || $wp_query->tribe_is_event_category ) ) ) {
+		if ( !is_null( $args ) || ! ( $wp_query->tribe_is_event || $wp_query->tribe_is_event_category ) ) {
 			$reset_q = $wp_query;
 			$wp_query = TribeEventsQuery::getEvents( $args, true );
 		}

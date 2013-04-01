@@ -131,7 +131,7 @@
 			table.ticket-venue {
 				position       : relative !important;
 				width          : 100% !important;
-				padding-bottom : 300px !important;
+				padding-bottom : 150px !important;
 			}
 
 			td.ticket-venue,
@@ -164,7 +164,7 @@
 			}
 
 			td.ticket-organizer {
-				bottom : 180px;
+				bottom : 0px;
 				height : 100px !important;
 			}
 
@@ -253,11 +253,16 @@
 					<table class="inner-wrapper" border="0" cellpadding="0" cellspacing="0" width="620" bgcolor="#f7f7f7" style="margin:0 auto !important; width:620px; padding:0;">
 						<tr>
 							<td valign="top" class="ticket-content" align="left" width="580" border="0" cellpadding="20" cellspacing="0" style="padding:20px; background:#f7f7f7;">
-								<?php if ( ! empty( $header_img ) ) { ?>
+								<?php if ( ! empty( $header_img ) ) {
+									$header_width = esc_attr( $header_img[1] );
+									if( $header_width > 580 ){
+										$header_width = 580;
+									}
+								?>
 								<table border="0" cellpadding="0" cellspacing="0" width="100%">
 									<tr>
-										<td class="ticket-image" valign="top" align="left" width="100%">
-											<img src="<?php echo esc_attr( $header_img[0] ); ?>" width="<?php echo esc_attr( $header_img[1] ); ?>" height="<?php echo esc_attr( $header_img[2] ); ?>" alt="<?php echo esc_attr( $event->post_title ); ?>" style="border:0; outline:none; height:auto; max-width:100%; display:block;" />
+										<td class="ticket-image" valign="top" align="left" width="100%" style="padding-bottom:15px !important;">
+											<img src="<?php echo esc_attr( $header_img[0] ); ?>" width="<?php echo $header_width; ?>" alt="<?php echo esc_attr( $event->post_title ); ?>" style="border:0; outline:none; height:auto; max-width:100%; display:block;" />
 										</td>
 									</tr>
 								</table>
@@ -266,7 +271,7 @@
 									<tr>
 										<td valign="top" align="center" width="100%" style="padding: 0 !important; margin:0 !important;">
 
-											<h2 style="color:#0a0a0e; margin:15px 0 10px 0 !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-style:normal; font-weight:700; font-size:28px; letter-spacing:normal; text-align:left;line-height: 100%;">
+											<h2 style="color:#0a0a0e; margin:0 0 10px 0 !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-style:normal; font-weight:700; font-size:28px; letter-spacing:normal; text-align:left;line-height: 100%;">
 												<span style="color:#0a0a0e !important"><?php echo $event->post_title; ?></span>
 											</h2>
 											<h4 style="color:#0a0a0e; margin:0 !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-style:normal; font-weight:700; font-size:15px; letter-spacing:normal; text-align:left;line-height: 100%;">
@@ -324,7 +329,7 @@
 													</td>
 													<td class="ticket-venue-child" valign="top" align="left" width="100" style="padding: 0 !important; width:140px; margin:0 !important;">
 														<span style="color:#0a0a0e !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:13px; display:block; margin-bottom:5px;"><?php echo $venue_phone;?></span>
-														<a href="#" style="color:#006caa !important; display:block; margin:0; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:13px; text-decoration:underline;"><?php echo $venue_email;?></a>
+														<a href="#" style="color:#006caa !important; display:block; margin:0; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:13px; text-decoration:underline;"><?php echo $venue_email;?></a><br />
 														<a href="#" style="color:#006caa !important; display:block; margin:0; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:13px; text-decoration:underline;"><?php echo $venue_web;?></a>
 													</td>
 												</tr>

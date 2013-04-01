@@ -109,7 +109,16 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_show_google_map_link($postId = null) {
-		$output = get_post_meta( get_the_ID(), '_EventShowMapLink', 1) == 1;
+		if( !$postId )
+			return 1;
+			
+		$postId = TribeEvents::postIdHelper( $postId );
+		$post_type = get_post_type( $postId );
+			if ( $post_type == TribeEvents::POSTTYPE ) {
+				$output = get_post_meta( $postId, '_EventShowMapLink', 1) == 1;
+			} elseif ( $post_type == TribeEvents::VENUE_POST_TYPE ) {
+				$output = get_post_meta( $postId, '_VenueShowMapLink', 1) !== 'false' ? 1 : 0;
+			}
 		return apply_filters('tribe_show_google_map_link', $output);
 	}
 

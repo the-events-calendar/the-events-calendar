@@ -240,13 +240,34 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		/**
 		 * before_html_data_wrapper adds a persistant tag to wrap the event display with a 
-		 * way for jQuery to maintain state in the dom
+		 * way for jQuery to maintain state in the dom. Also has a hook for filtering data
+		 * attributes for inclusion in the dom
+		 * 
 		 * @param  string $html
 		 * @return string
 		 */
 		function before_html_data_wrapper( $html ){
-			$html = '<div id="tribe-events">' . $html;
-			return $html;
+			global $wp_query;
+
+			$tec = TribeEvents::instance();
+
+			$data_attributes = array(
+				'live_ajax' => tribe_get_option( 'liveFiltersUpdate', false ) ? 1 : 0,
+				'category' => is_tax( $tec->get_event_taxonomy() ) ? get_query_var( 'term' ) : ''
+				);
+			// allow data attributes to be filtered before display
+			$data_attributes = (array) apply_filters( 'tribe_events_view_data_attributes', $data_attributes );
+
+			// loop through the attributes and build the html output
+			foreach( $data_attributes as $id => $attr ){
+				$attribute_html[] = sprintf( 'data-%s="%s"',
+					sanitize_title( $id ),
+					esc_attr( $attr )
+					);
+			}
+
+			// return filtered html
+			return apply_filters( 'tribe_events_view_before_html_data_wrapper', sprintf( '<div id="tribe-events" %s>%s', implode(' ', $attribute_html ), $html ), $data_attributes, $html );
 		}
 
 		/**
@@ -256,7 +277,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		function after_html_data_wrapper( $html ){
 			$html .= '</div>';
-			return $html;
+			return apply_filters( 'tribe_events_view_after_html_data_wrapper', $html );
 		}
 
 		protected function addFilters() {
@@ -493,7 +514,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$tec_addons_required_versions = (array) apply_filters('tribe_tec_addons', $tec_addons_required_versions);
 			foreach ($tec_addons_required_versions as $plugin) {
-				if ( version_compare( $plugin['required_version'], self::VERSION, $operator) ) {
+				if ( !strstr( self::VERSION, $plugin['required_version'] ) ) {
 					if ( isset( $plugin['current_version'] ) )
 						$bad_versions[$plugin['plugin_name']] = $plugin['current_version'];
 					else
@@ -2769,7 +2790,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			if ( !empty($_REQUEST['eventDate']) ) {
 				$duration = get_post_meta( $postId, '_EventDuration', true );
-				$EventEndDate = TribeDateUtils::dateOnly( strtotime($_EventStartDate) + $duration, true );
+				$EventEndDate = TribeDateUtils::dateOnly( strtotime($_REQUEST['eventDate']) + $duration, true );
 			}
 
 			$events_meta_box_template = $this->pluginPath . 'admin-views/events-meta-box.php';

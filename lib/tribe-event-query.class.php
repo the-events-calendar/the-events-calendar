@@ -109,6 +109,8 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					$query->query_vars['s'] = $_REQUEST['tribe-bar-search'];
 				}
 
+				$query->query_vars['eventDisplay'] = !empty( $query->query_vars['eventDisplay'] ) ? $query->query_vars['eventDisplay'] : TribeEvents::instance()->displaying;
+
 				if ( !empty( $query->query_vars['eventDisplay'] ) ) {
 					switch ( $query->query_vars['eventDisplay'] ) {
 					case 'custom':
