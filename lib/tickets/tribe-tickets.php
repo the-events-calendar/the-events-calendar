@@ -363,7 +363,6 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'attendees_page_load_pointers' ) );
 			add_action( "load-$this->attendees_page", array( $this, "attendees_page_screen_setup" ) );
 
-
 			self::$done_attendees_admin_page = true;
 		}
 
@@ -425,6 +424,17 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 			wp_enqueue_script( 'jquery-ui-dialog' );
 
+			add_filter( 'admin_title', array( $this, 'attendees_admin_title' ), 10, 2 );
+
+		}
+
+		public function attendees_admin_title( $admin_title, $title ) {
+
+			if ( ! empty( $_GET['event_id'] ) ) {
+				$event       = get_post( $_GET['event_id'] );
+				$admin_title = sprintf( "%s - Attendee list", $event->post_title );
+			}
+			return $admin_title;
 		}
 
 		public function attendees_page_inside() {
