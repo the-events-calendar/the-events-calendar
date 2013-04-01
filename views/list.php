@@ -27,7 +27,9 @@ $the_post_id = ( have_posts() ) ? get_the_ID() : null;
 // Start list template
 echo apply_filters( 'tribe_events_list_before_template', '', $the_post_id );
 	
+	echo apply_filters( 'tribe_events_list_before_the_title', '', $the_post_id );
 	echo apply_filters( 'tribe_events_list_the_title', '', $the_post_id );
+	echo apply_filters( 'tribe_events_list_after_the_title', '', $the_post_id );
 
 	// List notices
 	echo apply_filters( 'tribe_events_list_notices', '', $the_post_id );
