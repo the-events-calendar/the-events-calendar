@@ -38,12 +38,38 @@ class TribeiCal {
 	 */
 	public static function maybe_add_link( $content ) {
 
+		/*
+		 iCal Import [Month]'s Events
+		 iCal Import [Week]'s Events
+		 iCal Import [All} Upcoming
+		 3/28/13 4:00 PM
+		 Tooltip - ""
+		 */
+
 		$show_ical = apply_filters( 'tribe_events_list_show_ical_link', true );
 
 		if ( ! $show_ical )
 			return $content;
 
-		$ical    = '<a class="tribe-events-ical tribe-events-button" title="' . __( 'iCal Import', 'tribe-events-calendar' ) . '" href="' . tribe_get_ical_link() . '">' . __( '+ iCal Import', 'tribe-events-calendar' ) . '</a>';
+		$tec = TribeEvents::instance();
+
+		switch ( strtolower( $tec->displaying ) ) {
+
+			case 'month':
+				$modifier = __( "Month's Events", "tribe-events-calendar-pro" );
+				break;
+			case 'week':
+				$modifier = __( "Week's Events", "tribe-events-calendar-pro" );
+				break;
+			case 'day':
+				$modifier = __( "Day's Events", "tribe-events-calendar-pro" );
+				break;
+			default:
+				$modifier = __( "All Upcoming", "tribe-events-calendar-pro" );
+				break;
+		}
+
+		$ical    = '<a class="tribe-events-ical tribe-events-button" title="' . __( 'Import is filter/view sensitive', 'tribe-events-calendar' ) . '" href="' . tribe_get_ical_link() . '">' . __( '+ iCal Import', 'tribe-events-calendar' ) . ' ' . $modifier . '</a>';
 		$content = $ical . $content;
 
 		return $content;

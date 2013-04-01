@@ -781,7 +781,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			if ( tribe_is_event_query() ) {
 				$resources_url = trailingslashit( $this->pluginUrl ) . 'resources/';
-				wp_enqueue_script( 'tribe-events-pro', $resources_url . 'tribe-events-pro.js', array( 'jquery', 'tribe-events-calendar-script' ), false, false );
+				wp_enqueue_script( 'tribe-events-pro', $resources_url . 'tribe-events-pro.js', array( 'jquery', 'tribe-events-calendar-script' ), false, true );
 			}
 		}
 
