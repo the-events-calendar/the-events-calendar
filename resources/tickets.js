@@ -247,6 +247,7 @@ jQuery( document ).ready( function ( $ ) {
 		render:function ( attachment ) {
 			$( '#tribe_ticket_header_preview' ).html( ticketHeaderImage.imgHTML( attachment ) );
 			$( '#tribe_ticket_header_image_id' ).val( attachment.id );
+			$( '#tribe_ticket_header_remove' ).show();
 		},
 		// Render html for the image.
 		imgHTML           :function ( attachment ) {

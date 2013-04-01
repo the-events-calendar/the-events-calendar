@@ -40,8 +40,8 @@ $modules = TribeEventsTickets::modules();
 					<td colspan="2">
 						<div class="tribe_preview" id="tribe_ticket_header_preview">
 							<?php echo $header_img; ?>
-							<p class="description"><a href="#" id="tribe_ticket_header_remove"><?php _e('Remove'); ?></a></p>
 						</div>
+						<p class="description"><a href="#" id="tribe_ticket_header_remove"><?php _e('Remove'); ?></a></p>
 
 						<input type="hidden" id="tribe_ticket_header_image_id" name="tribe_ticket_header_image_id" value="<?php echo esc_attr($header_id);?>" />
 					</td>

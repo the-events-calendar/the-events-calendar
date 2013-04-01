@@ -365,6 +365,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_settings_content_tab_help', array( $this, 'doHelpTab' ) );
 			add_action( 'tribe_settings_validate_tab_network', array( $this, 'saveAllTabsHidden' ) );
 			add_action( 'load-tribe_events_page_tribe-events-calendar', array( 'Tribe_Amalgamator', 'listen_for_migration_button' ), 10, 0 );
+			add_action( 'tribe_settings_after_save_display', 'flush_rewrite_rules');
+
 			// add-on compatibility
 			if ( is_multisite() )
 				add_action( 'network_admin_notices', array( $this, 'checkAddOnCompatibility' ) );
@@ -2050,10 +2052,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					return trailingslashit( esc_url($eventUrl . $this->pastSlug) );
 				case 'dropdown':
 					return esc_url($eventUrl);
-				case 'ical':
-					if ( $secondary == 'single' )
-						$eventUrl = trailingslashit(get_permalink());
-					return trailingslashit( esc_url($eventUrl . 'ical') );
 				case 'single':
 					global $post;
 					$p = $secondary ? $secondary : $post;
@@ -2099,12 +2097,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				case 'dropdown':
 					$dropdown = add_query_arg( array( 'eventDisplay' => 'month', 'eventDate' => ' '), $eventUrl );
 					$eventUrl = rtrim($dropdown); // tricksy
-					break;
-				case 'ical':
-					if ( $secondary == 'single' ) {
-						return add_query_arg('ical', '1', get_permalink() );
-					}
-					$eventUrl = home_url() . '/?ical';
 					break;
 				case 'single':
 					global $post;
