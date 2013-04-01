@@ -158,7 +158,7 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 		// End Photo Template
 		public static function after_template( $html, $has_posts, $post_id ) {
 			$tribe_ecp = TribeEvents::instance();
-			$html = '<img class="tribe-ajax-loading tribe-spinner photo-loader" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
+			$html = '<img class="tribe-events-ajax-loading tribe-spinner photo-loader" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
 			$html .= '</div>';
 			$html .= tribe_events_promo_banner( false );
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_photo_after_template' );
