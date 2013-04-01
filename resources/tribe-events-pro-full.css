@@ -393,21 +393,21 @@
 	padding: 8% 8% 10%;
 	word-wrap: break-word;
 }
-.tribe-events-loop .tribe-events-photo-event .tribe-list-event-description  {
+.tribe-events-loop .tribe-events-photo-event .tribe-events-list-event-description  {
 	float: none;
 	margin-top: 10px;
 }
 
-.tribe-events-photo #tribe-events-content .tribe-list-event-description p,
+.tribe-events-photo #tribe-events-content .tribe-events-list-event-description p,
 .tribe-events-loop .tribe-events-photo-event .time-details {
 	margin-bottom: 0;
 }
 
-.tribe-events-photo #tribe-events-content .tribe-list-event-description p {
+.tribe-events-photo #tribe-events-content .tribe-events-list-event-description p {
 	line-height: 1.45;
 }
 
-.tribe-events-photo #tribe-events-content .tribe-list-event-description p.tribe-event-categories {
+.tribe-events-photo #tribe-events-content .tribe-events-list-event-description p.tribe-event-categories {
 	margin-top: 1em;
 	font-size: 13px;
 }

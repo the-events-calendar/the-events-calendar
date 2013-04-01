@@ -222,11 +222,11 @@
 	background: #fff;
 }
 
-.tribe-events-loop .tribe-events-photo-event .tribe-list-event-description  {
+.tribe-events-loop .tribe-events-photo-event .tribe-events-list-event-description  {
 	margin-top: .5em;
 }
 
-.tribe-events-photo #tribe-events-content .tribe-list-event-description p {
+.tribe-events-photo #tribe-events-content .tribe-events-list-event-description p {
 	line-height: 1.45;
 }
 
