@@ -128,7 +128,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			$html .= '<li class="tribe-events-nav-next"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' +7 days' ) ) .'" href="'. tribe_get_next_week_permalink( $current_week ) .'" rel="next">'. __( 'Next Week', 'tribe-events-calendar-pro' ) .' &raquo;</a>';
 			
 			// Loading spinner
-			$html .= '<img class="tribe-events-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
+			$html .= '<img class="tribe-events-ajax-loading tribe-events-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
 			$html .= '</li><!-- .tribe-events-nav-next -->';
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_header_nav');

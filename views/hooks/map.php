@@ -89,7 +89,7 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			$html .= '<a href="#" class="tribe_map_paged">'. __('Next Events &raquo;') .'</a>';
 
 			// Loading spinner
-			$html .= '<img class="tribe-events-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
+			$html .= '<img class="tribe-events-ajax-loading tribe-events-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
 			$html .= '</li><!-- .tribe-events-nav-next -->';
 
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_header_nav');
