@@ -1,249 +1,259 @@
 // Check for width of events bar so can kick in the view filter select input when appropriate
 var tribe_events_bar_action;
 
-jQuery( document ).ready( function ( $ ) {
+jQuery(document).ready(function ($) {
 
-	// Check width of events bar
-	function eventsBarWidth() {
-		var tribeBar = $( '#tribe-bar-form' );
-		var tribeBarWidth = tribeBar.width();
+    var $tribebar = $('#tribe-bar-form');
+    var $tribedate = $('#tribe-bar-date');
 
-		if ( tribeBarWidth > 800 ) {
-			tribeBar.removeClass( 'tribe-bar-mini tribe-bar-collapse' ).addClass( 'tribe-bar-full' );
-		} else {
-			tribeBar.removeClass( 'tribe-bar-full' ).addClass( 'tribe-bar-mini' );
-		}
-		if ( tribeBarWidth < 670 ) {
-			tribeBar.removeClass( 'tribe-bar-mini' ).addClass( 'tribe-bar-collapse' );
-		} else {
-			tribeBar.removeClass( 'tribe-bar-collapse' );
-		}
-	}
-	eventsBarWidth();
-	$( '#tribe-bar-form' ).resize(function() {
-		eventsBarWidth();
-	});
+    // Check width of events bar
+    function eventsBarWidth($tribebar) {
 
-if ( !$( '.tribe-events-week-grid' ).length ) {
-	// includes temporary check for map view, as it currently has the grid view body class
-	if ( !$( '.events-gridview' ).length || tribe_ev.tests.map_view() )  {
+        var tribeBarWidth = $tribebar.width();
 
-		// setup list view datepicker
-		var tribe_var_datepickerOpts = {
-			format: 'yyyy-mm-dd',
-			showAnim: 'fadeIn'
-		};
+        if (tribeBarWidth > 800) {
+            $tribebar.removeClass('tribe-bar-mini tribe-bar-collapse').addClass('tribe-bar-full');
+        } else {
+            $tribebar.removeClass('tribe-bar-full').addClass('tribe-bar-mini');
+        }
+        if (tribeBarWidth < 670) {
+            $tribebar.removeClass('tribe-bar-mini').addClass('tribe-bar-collapse');
+        } else {
+            $tribebar.removeClass('tribe-bar-collapse');
+        }
+    }
 
-		var tribeBarDate = $('#tribe-bar-date').bootstrapDatepicker( tribe_var_datepickerOpts ).on('changeDate', function() {
-		  tribeBarDate.hide();
-		}).data('datepicker');
-	}
-		// setup month view datepicker
-	if ( $( '.events-gridview' ).length && !tribe_ev.tests.map_view() ) {
-		var tribe_var_datepickerOpts = {
-			format: 'yyyy-mm',
-			showAnim: 'fadeIn',
-			viewMode: 'months'
-		};
+    eventsBarWidth($tribebar);
 
-		var tribeBarDate = $('#tribe-bar-date').bootstrapDatepicker( tribe_var_datepickerOpts ).on('changeDate', function() {
-		  tribeBarDate.hide();
-		}).data('datepicker');
+    $tribebar.resize(function () {
+        eventsBarWidth();
+    });
 
-	}
-}	
+    if (!$('.tribe-events-week-grid').length) {
+        // includes temporary check for map view, as it currently has the grid view body class
+        if (!$('.events-gridview').length || tribe_ev.tests.map_view()) {
 
-	// Add some classes
-	if( $( '.tribe-bar-settings' ).length ) {
-		$( '#tribe-events-bar' ).addClass( 'tribe-has-settings' );
-	}
-	if ( $( '#tribe-events-bar .hasDatepicker' ).length ) {
-		$( '#tribe-events-bar' ).addClass( 'tribe-has-datepicker' );
-	}
+            // setup list view datepicker
+            var tribe_var_datepickerOpts = {
+                format: 'yyyy-mm-dd',
+                showAnim: 'fadeIn'
+            };
 
-	// Implement placeholder
-	$( 'input[name*="tribe-bar-"]' ).placeholder();
+            var tribeBarDate = $tribedate.bootstrapDatepicker(tribe_var_datepickerOpts).on('changeDate',function () {
+                tribeBarDate.hide();
+            }).data('datepicker');
+        }
+        // setup month view datepicker
+        if ($('.events-gridview').length && !tribe_ev.tests.map_view()) {
+            var tribe_var_datepickerOpts = {
+                format: 'yyyy-mm',
+                showAnim: 'fadeIn',
+                viewMode: 'months'
+            };
 
-	// Implement select2
-	function format( view ) {
-    	return '<span class="tribe-icon-' + view.text.toLowerCase() + '">' + view.text + '</span>';
-   	}
+            var tribeBarDate = $tribedate.bootstrapDatepicker(tribe_var_datepickerOpts).on('changeDate',function () {
+                tribeBarDate.hide();
+            }).data('datepicker');
 
+        }
+    }
 
-   	// trying to add a unique class to the select2 dropdown if the tribe bar is mini
-   if ( $( '#tribe-bar-form' ).is( '.tribe-bar-mini' ) ) {
-   		select2_opts =  {
-				placeholder: "Views",
-				dropdownCssClass: "tribe-select2-results-views tribe-bar-mini-select2-results",
-				minimumResultsForSearch: 9999,
-				formatResult: format,
-				formatSelection: format
-   		}
-   } else {
-   		select2_opts = {
-				placeholder: "Views",
-				dropdownCssClass: "tribe-select2-results-views",
-				minimumResultsForSearch: 9999,
-				formatResult: format,
-				formatSelection: format
-			}
-   }
-	  	
-	$( '#tribe-bar-views .tribe-select2' ).select2( select2_opts );
+    $tribedate.blur(function () {
+        if ($tribedate.val() === '' && $('.datepicker.dropdown-menu').is(':hidden')) {
+            $(tribe_ev.events).trigger('tribe_ev_runAjax');
+        }
+    });
 
-	$('#tribe-bar-form').on('click', '#tribe-bar-views', function(e) {
-		e.stopPropagation();
-		var $this = $(this);
-		$this.toggleClass( 'tribe-bar-views-open' );
-		if ( !$this.is( '.tribe-bar-views-open' ) )
-			$( '#tribe-bar-views .tribe-select2' ).select2('close');
-		else
-			$( '#tribe-bar-views .tribe-select2' ).select2('open');
-	});
+    // Add some classes
+    if ($('.tribe-bar-settings').length) {
+        $('#tribe-events-bar').addClass('tribe-has-settings');
+    }
+    if ($('#tribe-events-bar .hasDatepicker').length) {
+        $('#tribe-events-bar').addClass('tribe-has-datepicker');
+    }
 
-	$('#tribe-bar-form').on('click', '#tribe-bar-collapse-toggle', function() {
-		$(this).toggleClass('tribe-bar-filters-open');
-		$('.tribe-bar-filters').slideToggle('fast');
-	});	
+    // Implement placeholder
+    $('input[name*="tribe-bar-"]').placeholder();
 
-	$('body').on('click', function() {
-		$( '#tribe-bar-views' ).removeClass( 'tribe-bar-views-closed' );
-	});
-
-	// Wrap date inputs with a parent container
-	$('label[for="tribe-bar-date"], input[name="tribe-bar-date"]').wrapAll('<div id="tribe-bar-dates" />');
-
-	// Add our date bits outside of our filter container
-	$( '#tribe-bar-filters' ).before( $('#tribe-bar-dates') );
+    // Implement select2
+    function format(view) {
+        return '<span class="tribe-icon-' + view.text.toLowerCase() + '">' + view.text + '</span>';
+    }
 
 
-	// Implement our views bit
-	$( 'select[name=tribe-bar-view]' ).change( function () {
-		var el = $( this );
-		var url = el.val()
-		var name = $( 'select[name=tribe-bar-view] option[value="' + url + '"]' ).attr('data-view');
-		tribe_events_bar_action = 'change_view';
-		tribe_events_bar_change_view( url, name );
-	} );
+    // trying to add a unique class to the select2 dropdown if the tribe bar is mini
+    if ($tribebar.is('.tribe-bar-mini')) {
+        select2_opts = {
+            placeholder: "Views",
+            dropdownCssClass: "tribe-select2-results-views tribe-bar-mini-select2-results",
+            minimumResultsForSearch: 9999,
+            formatResult: format,
+            formatSelection: format
+        }
+    } else {
+        select2_opts = {
+            placeholder: "Views",
+            dropdownCssClass: "tribe-select2-results-views",
+            minimumResultsForSearch: 9999,
+            formatResult: format,
+            formatSelection: format
+        }
+    }
 
-	$( 'a.tribe-bar-view' ).on( 'click', function ( e ) {
-		e.preventDefault();
-		var el = $( this );
-		var name = el.attr('data-view');
-		tribe_events_bar_change_view( el.attr( 'href' ), name );
+    $('#tribe-bar-views .tribe-select2').select2(select2_opts);
 
-	} );
+    $tribebar.on('click', '#tribe-bar-views', function (e) {
+        e.stopPropagation();
+        var $this = $(this);
+        $this.toggleClass('tribe-bar-views-open');
+        if (!$this.is('.tribe-bar-views-open'))
+            $('#tribe-bar-views .tribe-select2').select2('close');
+        else
+            $('#tribe-bar-views .tribe-select2').select2('open');
+    });
 
-	$(tribe_ev.events).on("tribe_ev_serializeBar", function() {
-		$( 'form#tribe-bar-form input' ).each( function () {
-			var $this = $( this );
-			if( $this.val().length && !$this.hasClass('tribe-no-param') ) {
-				if( $this.is(':checkbox') ) {
-					if( $this.is(':checked') ) {
-						tribe_ev.state.params[$this.attr('name')] = $this.val();
-						if( tribe_ev.state.view !== 'map' )
-							tribe_ev.state.url_params[$this.attr('name')] = $this.val();
-						if( tribe_ev.state.view === 'month' || tribe_ev.state.view === 'day' || tribe_ev.state.view === 'week' )
-							tribe_ev.state.pushcount++;
-					}
-				} else {
-					tribe_ev.state.params[$this.attr('name')] = $this.val();
-					if( tribe_ev.state.view !== 'map' )
-						tribe_ev.state.url_params[$this.attr('name')] = $this.val();
-					if( tribe_ev.state.view === 'month' || tribe_ev.state.view === 'day' || tribe_ev.state.view === 'week' )
-						tribe_ev.state.pushcount++;
-				}
-			}
-		} );
-	});
+    $tribebar.on('click', '#tribe-bar-collapse-toggle', function () {
+        $(this).toggleClass('tribe-bar-filters-open');
+        $('.tribe-bar-filters').slideToggle('fast');
+    });
 
-	function tribe_events_bar_change_view( url, name ) {
+    $('body').on('click', function () {
+        $('#tribe-bar-views').removeClass('tribe-bar-views-closed');
+    });
 
-		var starting_delim = url.indexOf('?') != -1 ? '&' : '?';
+    // Wrap date inputs with a parent container
+    $('label[for="tribe-bar-date"], input[name="tribe-bar-date"]').wrapAll('<div id="tribe-bar-dates" />');
 
-		tribe_events_bar_action = 'change_view';
+    // Add our date bits outside of our filter container
+    $('#tribe-bar-filters').before($('#tribe-bar-dates'));
 
-		if( tribe_ev.state.view === 'month' && $('#tribe-bar-date' ).length ){
-			var $dp = $('#tribe-bar-date' );
-			var dp_date = $dp.val();
-			if(dp_date.length === 7){
-				$dp.val(dp_date + tribe_ev.fn.get_day());
-			}
-		}
 
-		var cv_url_params = {};
-		var $set_inputs = $( '#tribe-bar-form input' );
+    // Implement our views bit
+    $('select[name=tribe-bar-view]').change(function () {
+        var el = $(this);
+        var url = el.val()
+        var name = $('select[name=tribe-bar-view] option[value="' + url + '"]').attr('data-view');
+        tribe_events_bar_action = 'change_view';
+        tribe_events_bar_change_view(url, name);
+    });
 
-		if( $( '#tribe-bar-geoloc' ).length ) {
-			var tribe_map_val = jQuery( '#tribe-bar-geoloc' ).val();
-			if( !tribe_map_val.length ) {
-				$( '#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng' ).val( '' );
-			} else {
-				if( name === 'map' )
-					cv_url_params['action'] = 'geosearch';
-			}
-		}
+    $('a.tribe-bar-view').on('click', function (e) {
+        e.preventDefault();
+        var el = $(this);
+        var name = el.attr('data-view');
+        tribe_events_bar_change_view(el.attr('href'), name);
 
-		$set_inputs.each( function () {
-			var $this = $( this );
-			if( $this.val().length && !$this.hasClass('tribe-no-param') ) {
-				if( $this.is(':checkbox') ) {
-					if( $this.is(':checked') ) {
-						cv_url_params[$this.attr('name')] = $this.val();
-					}
-				} else {
-					cv_url_params[$this.attr('name')] = $this.val();
-				}
-			}
-		} );
+    });
 
-		cv_url_params = $.param(cv_url_params);
+    $(tribe_ev.events).on("tribe_ev_serializeBar", function () {
+        $('form#tribe-bar-form input').each(function () {
+            var $this = $(this);
+            if ($this.val().length && !$this.hasClass('tribe-no-param')) {
+                if ($this.is(':checkbox')) {
+                    if ($this.is(':checked')) {
+                        tribe_ev.state.params[$this.attr('name')] = $this.val();
+                        if (tribe_ev.state.view !== 'map')
+                            tribe_ev.state.url_params[$this.attr('name')] = $this.val();
+                        if (tribe_ev.state.view === 'month' || tribe_ev.state.view === 'day' || tribe_ev.state.view === 'week')
+                            tribe_ev.state.pushcount++;
+                    }
+                } else {
+                    tribe_ev.state.params[$this.attr('name')] = $this.val();
+                    if (tribe_ev.state.view !== 'map')
+                        tribe_ev.state.url_params[$this.attr('name')] = $this.val();
+                    if (tribe_ev.state.view === 'month' || tribe_ev.state.view === 'day' || tribe_ev.state.view === 'week')
+                        tribe_ev.state.pushcount++;
+                }
+            }
+        });
+    });
 
-		if ( $( '#tribe_events_filters_form' ).length ) {
+    function tribe_events_bar_change_view(url, name) {
 
-			if( tribe_ev.state.filter_cats )
-				$('#tribe_events_filter_item_eventcategory option:selected, #tribe_events_filter_item_eventcategory input:checked').remove();
+        var starting_delim = url.indexOf('?') != -1 ? '&' : '?';
 
-			var cv_filter_params = tribe_ev.fn.serialize( '#tribe_events_filters_form', 'input, select' );
+        tribe_events_bar_action = 'change_view';
 
-			if( cv_url_params.length && cv_filter_params.length )
-				cv_url_params = cv_url_params + '&' + cv_filter_params;
-			else if( cv_filter_params.length )
-				cv_url_params = cv_filter_params;
+        if (tribe_ev.state.view === 'month' && $tribedate.length) {
+            var dp_date = $dp.val();
+            if (dp_date.length === 7) {
+                $tribedate.val(dp_date + tribe_ev.fn.get_day());
+            }
+        }
 
-			if( cv_url_params.length )
-				url += starting_delim + cv_url_params;
+        var cv_url_params = {};
+        var $set_inputs = $('#tribe-bar-form input');
 
-			window.location.href = url;
-		} else {
-			if( cv_url_params.length )
-				url += starting_delim + cv_url_params;
+        if ($('#tribe-bar-geoloc').length) {
+            var tribe_map_val = jQuery('#tribe-bar-geoloc').val();
+            if (!tribe_map_val.length) {
+                $('#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng').val('');
+            } else {
+                if (name === 'map')
+                    cv_url_params['action'] = 'geosearch';
+            }
+        }
 
-			window.location.href = url;
-		}
-	}
+        $set_inputs.each(function () {
+            var $this = $(this);
+            if ($this.val().length && !$this.hasClass('tribe-no-param')) {
+                if ($this.is(':checkbox')) {
+                    if ($this.is(':checked')) {
+                        cv_url_params[$this.attr('name')] = $this.val();
+                    }
+                } else {
+                    cv_url_params[$this.attr('name')] = $this.val();
+                }
+            }
+        });
 
-	// Implement simple toggle for filters at smaller size (and close if click outside of toggle area)
-	var $tribeDropToggle = $( '#tribe-events-bar [class^="tribe-bar-button-"]' );
-	var $tribeDropToggleEl = $tribeDropToggle.next( '.tribe-bar-drop-content' );
+        cv_url_params = $.param(cv_url_params);
 
-	$tribeDropToggle.click( function () {
-		var $this = $(this);
-		$this.toggleClass( 'open' );
-		$this.next( '.tribe-bar-drop-content' ).toggle();
-		return false
-	} );
+        if ($('#tribe_events_filters_form').length) {
 
-	$(document).click(function(){
-		if( $tribeDropToggle.hasClass('open') ) {
-			$tribeDropToggle.removeClass( 'open' );
-			$tribeDropToggleEl.hide();
-		}
-	});
+            if (tribe_ev.state.filter_cats)
+                $('#tribe_events_filter_item_eventcategory option:selected, #tribe_events_filter_item_eventcategory input:checked').remove();
 
-	$tribeDropToggleEl.click( function ( e ) {
-		e.stopPropagation();
-	} );
+            var cv_filter_params = tribe_ev.fn.serialize('#tribe_events_filters_form', 'input, select');
+
+            if (cv_url_params.length && cv_filter_params.length)
+                cv_url_params = cv_url_params + '&' + cv_filter_params;
+            else if (cv_filter_params.length)
+                cv_url_params = cv_filter_params;
+
+            if (cv_url_params.length)
+                url += starting_delim + cv_url_params;
+
+            window.location.href = url;
+        } else {
+            if (cv_url_params.length)
+                url += starting_delim + cv_url_params;
+
+            window.location.href = url;
+        }
+    }
+
+    // Implement simple toggle for filters at smaller size (and close if click outside of toggle area)
+    var $tribeDropToggle = $('#tribe-events-bar [class^="tribe-bar-button-"]');
+    var $tribeDropToggleEl = $tribeDropToggle.next('.tribe-bar-drop-content');
+
+    $tribeDropToggle.click(function () {
+        var $this = $(this);
+        $this.toggleClass('open');
+        $this.next('.tribe-bar-drop-content').toggle();
+        return false
+    });
+
+    $(document).click(function () {
+        if ($tribeDropToggle.hasClass('open')) {
+            $tribeDropToggle.removeClass('open');
+            $tribeDropToggleEl.hide();
+        }
+    });
+
+    $tribeDropToggleEl.click(function (e) {
+        e.stopPropagation();
+    });
 
 });
 
