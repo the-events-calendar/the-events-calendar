@@ -2,12 +2,13 @@
 
 var tribe_storage, t_fail, t_uid;
 try {
-	t_uid = new Date;
-	(tribe_storage = window.localStorage).setItem(t_uid, t_uid);
-	t_fail = tribe_storage.getItem(t_uid) != t_uid;
-	tribe_storage.removeItem(t_uid);
-	t_fail && (tribe_storage = false);
-} catch(e) {}
+    t_uid = new Date;
+    (tribe_storage = window.localStorage).setItem(t_uid,t_uid);
+    t_fail = tribe_storage.getItem(t_uid) != t_uid;
+    tribe_storage.removeItem(t_uid);
+    t_fail && (tribe_storage = false);
+} catch (e) {
+}
 
 // live ajax timer 
 
@@ -15,20 +16,23 @@ var tribe_ajax_timer;
 
 // jquery functions
 
-(function($) {
-	$.fn.tribe_clear_form = function() {
-		return this.each(function() {
-			var type = this.type, tag = this.tagName.toLowerCase();
-			if (tag == 'form')
-				return jQuery(':input', this).tribe_clear_form();
-			if (type == 'text' || type == 'password' || tag == 'textarea')
-				this.value = '';
-			else if (type == 'checkbox' || type == 'radio')
-				this.checked = false;
-			else if (tag == 'select')
-				this.selectedIndex = 0;
-		});
-	};
+(function ($) {
+    $.fn.tribe_clear_form = function () {
+        return this.each(function () {
+            var type = this.type, tag = this.tagName.toLowerCase();
+            if (tag == 'form')
+                return jQuery(':input',this).tribe_clear_form();
+            if (type == 'text' || type == 'password' || tag == 'textarea')
+                this.value = '';
+            else if (type == 'checkbox' || type == 'radio')
+                this.checked = false;
+            else if (tag == 'select')
+                this.selectedIndex = 0;
+        });
+    };
+    $.fn.tribe_has_attr = function (name) {
+        return this.attr(name) !== undefined;
+    };
 })(jQuery);
 
 // tribe events object
@@ -422,6 +426,14 @@ tribe_ev.state = {
 jQuery( document ).ready( function ( $ ) {	
 	
 	tribe_ev.state.category = tribe_ev.fn.get_category();
+
+    var tribe_display = tribe_ev.fn.get_url_param('tribe_event_display');
+
+    if( tribe_display ) {
+        tribe_ev.state.view = tribe_display;
+    } else if($('#tribe-events-header').length && $('#tribe-events-header').tribe_has_attr('data-view')){
+        tribe_ev.state.view = $('#tribe-events-header').attr('data-view');
+    }
 
 	/* Let's hide the widget calendar if we find more than one instance */
 	$(".tribe-events-calendar-widget").not(":eq(0)").hide();
