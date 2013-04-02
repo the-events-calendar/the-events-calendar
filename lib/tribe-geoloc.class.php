@@ -269,6 +269,8 @@ class TribeEventsGeoLoc {
 				remove_filter( 'tribe_events_list_after_the_content', array( 'Tribe_Events_List_Template', 'after_the_content' ), 1, 2 );
 				remove_filter( 'tribe_events_list_inside_after_loop', array( 'Tribe_Events_List_Template', 'inside_after_loop' ), 1, 2 );
 				remove_filter( 'tribe_events_list_after_loop', array( 'Tribe_Events_List_Template', 'after_loop' ), 1, 2 );
+				remove_filter( 'tribe_events_list_the_title', array( 'Tribe_Events_List_Template', 'the_title' ), 1, 2 );
+
 
 				/* it is not just enough to remove filters we want to prevent any accidental
 				 * hooks from other plugins that could fubar the display

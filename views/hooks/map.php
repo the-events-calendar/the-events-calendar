@@ -16,7 +16,8 @@ if( !class_exists('Tribe_Events_Map_Template')){
 		public static function init(){
 
 			add_filter( 'tribe_events_list_show_separators', "__return_false" );
-			
+
+
 			// prevent these filters from running during ajax
 			if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
 				add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'before_template' ), 20, 1 );
