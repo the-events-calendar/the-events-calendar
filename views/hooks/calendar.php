@@ -497,7 +497,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				'post__not_in' => self::$hide_upcoming_ids,
 				'hide_upcoming' => FALSE,
 				'posts_per_page' => self::$posts_per_page_limit,
-				'orderby' => 'event_date',
+				'orderby' => 'menu_order',
 				'order' => 'ASC',
 				'post_status' => $post_status,
 				'eventDisplay' => 'custom',
@@ -513,7 +513,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$cache_key = 'daily_events_'.serialize($args);
 			$found = $cache->get($cache_key, 'save_post');
 			if ( $found && is_a($found, 'WP_Query') ) {
-				return $found;
+				//return $found;
 			}
 
 			$result = TribeEventsQuery::getEvents( $args, TRUE );

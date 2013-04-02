@@ -427,6 +427,9 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					case 'title':
 						$order_sql = "{$wpdb->posts}.post_title {$order}, " . $order_sql;
 						break;
+					case 'menu_order':
+						$order_sql = "{$wpdb->posts}.menu_order ASC, " . $order_sql;
+						break;
 					case 'event_date':
 					default:
 						// we've already setup $order_sql
