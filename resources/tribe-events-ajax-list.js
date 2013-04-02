@@ -40,6 +40,9 @@ jQuery(document).ready(function ($) {
     $('#tribe-events-list-view').on('click', 'li.tribe-events-nav-next a',function (e) {
         e.preventDefault();
 
+        if (tribe_ev.state.ajax_running)
+            return;
+
         if ($(this).parent().is('.tribe-events-past'))
             tribe_ev.state.view = 'past';
         else
@@ -55,6 +58,9 @@ jQuery(document).ready(function ($) {
         });
     }).on('click', 'li.tribe-events-nav-previous a', function (e) {
             e.preventDefault();
+
+            if (tribe_ev.state.ajax_running)
+                return;
 
             if ($(this).parent().is('.tribe-events-past'))
                 tribe_ev.state.view = 'past';
@@ -77,6 +83,8 @@ jQuery(document).ready(function ($) {
     function tribe_events_bar_listajax_actions(e) {
         if (tribe_events_bar_action != 'change_view') {
             e.preventDefault();
+            if (tribe_ev.state.ajax_running)
+                return;
             tribe_ev.state.paged = 1;
             tribe_ev.state.view = 'list';
             tribe_ev.state.popping = false;
@@ -113,6 +121,7 @@ jQuery(document).ready(function ($) {
     function tribe_events_list_ajax_post() {
 
         tribe_ev.fn.spin_show();
+        tribe_ev.state.ajax_running = true;
 
         if (!tribe_ev.state.popping) {
 
@@ -166,6 +175,8 @@ jQuery(document).ready(function ($) {
                     tribe_ev.fn.enable_inputs('#tribe_events_filters_form', 'input, select');
 
                     if (response.success) {
+
+                        tribe_ev.state.ajax_running = false;
 
                         tribe_ev.data.ajax_response = {
                             'total_count': parseInt(response.total_count),

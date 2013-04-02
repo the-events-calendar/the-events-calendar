@@ -82,6 +82,9 @@ jQuery(document).ready(function ($) {
 
 
     // trying to add a unique class to the select2 dropdown if the tribe bar is mini
+
+    var select2_opts = {}
+
     if ($tribebar.is('.tribe-bar-mini')) {
         select2_opts = {
             placeholder: "Views",
