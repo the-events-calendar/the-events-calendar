@@ -45,7 +45,6 @@ jQuery( document ).ready( function ( $ ) {
 					};
 
 					$.post( ajaxurl, opts, function ( response ) {
-						console.log( response );
 						if ( response.success ) {
 							$( '#email_response' ).removeClass( 'ui-state-error' ).removeClass( 'ui-state-highlight' ).text( '' );
 							$( '#email_to_address' ).val( '' );

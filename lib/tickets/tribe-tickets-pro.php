@@ -403,7 +403,7 @@ class TribeEventsTicketsPro {
 
 
 	/**
-	 * 
+	 *
 	 * @param string $message
 	 */
 	protected final function ajax_error( $message = "" ) {
