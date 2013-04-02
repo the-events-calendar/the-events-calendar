@@ -108,12 +108,6 @@ jQuery(document).ready(function ($) {
         tribe_events_bar_listajax_actions(e);
     });
 
-    $('.tribe-bar-settings button[name="settingsUpdate"]').on('click', function (e) {
-        tribe_ev.state.popping = false;
-        tribe_events_bar_listajax_actions(e);
-        tribe_ev.fn.hide_settings();
-    });
-
     $(tribe_ev.events).on("tribe_ev_runAjax", function () {
         tribe_events_list_ajax_post();
     });

@@ -149,7 +149,7 @@ jQuery(document).ready(function ($) {
     });
 
     $(tribe_ev.events).on("tribe_ev_serializeBar", function () {
-        $('form#tribe-bar-form input').each(function () {
+        $('form#tribe-bar-form input, #tribeHideRecurrence').each(function () {
             var $this = $(this);
             if ($this.val().length && !$this.hasClass('tribe-no-param')) {
                 if ($this.is(':checkbox')) {
@@ -157,7 +157,7 @@ jQuery(document).ready(function ($) {
                         tribe_ev.state.params[$this.attr('name')] = $this.val();
                         if (tribe_ev.state.view !== 'map')
                             tribe_ev.state.url_params[$this.attr('name')] = $this.val();
-                        if (tribe_ev.state.view === 'month' || tribe_ev.state.view === 'day' || tribe_ev.state.view === 'week')
+                        if (tribe_ev.state.view === 'month' || tribe_ev.state.view === 'day' || tribe_ev.state.view === 'week' || tribe_ev.state.recurrence)
                             tribe_ev.state.pushcount++;
                     }
                 } else {
@@ -195,6 +195,10 @@ jQuery(document).ready(function ($) {
                 if (name === 'map')
                     cv_url_params['action'] = 'geosearch';
             }
+        }
+
+        if ($('#tribeHideRecurrence:checked').length) {
+            cv_url_params['tribeHideRecurrence'] = $('#tribeHideRecurrence').val();
         }
 
         $set_inputs.each(function () {

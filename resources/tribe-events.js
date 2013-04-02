@@ -68,14 +68,11 @@ tribe_ev.fn = {
 		}
 	},
 	get_category: function() {
-		if( tribe_ev.fn.is_category() ) {	
-			var class_name = jQuery('body').attr('class');
-			var matches = class_name.match(/\bevents-category-[^\s]+\b/);		
-			return matches[0].substring(16);
-		} else {
-			return '';
-		}		
-	},
+        if( tribe_ev.fn.is_category() )
+            return jQuery('#tribe-events').attr('data-category');
+        else
+            return '';
+        },
 	get_day: function() {
 		var dp_day = '';
 		if( jQuery('#tribe-bar-date').length ) {
@@ -98,9 +95,9 @@ tribe_ev.fn = {
 	in_params: function( params, term ) {
 		return params.toLowerCase().indexOf( term );
 	},
-	is_category: function() {
-		return jQuery( 'body' ).hasClass( 'tax-tribe_events_cat' );
-	},
+    is_category: function () {
+        return (jQuery('#tribe-events').length && jQuery('#tribe-events').tribe_has_attr('data-category') && jQuery('#tribe-events').attr('data-category') !== '') ? true : false;
+    },
 	make_slug: function( string ) {		
 		var string_h = string.replace(/\s/g,'-');
 		var slug = string_h.replace(/[^a-zA-Z0-9\-]/g,'');
@@ -371,8 +368,8 @@ tribe_ev.fn = {
 		} );
 	},
 	update_picker: function( date ){
-		if( jQuery().datepicker && jQuery("#tribe-bar-date").length )
-			jQuery("#tribe-bar-date").datepicker("setDate", date );
+		if( jQuery().bootstrapDatepicker && jQuery("#tribe-bar-date").length )
+			jQuery("#tribe-bar-date").bootstrapDatepicker("setValue", date );
 		else if( jQuery("#tribe-bar-date").length )
 			jQuery("#tribe-bar-date").val( date );
 	},
@@ -381,15 +378,15 @@ tribe_ev.fn = {
 	}	
 };
 
-tribe_ev.tests = {	
+tribe_ev.tests = {
+    hide_recurrence: function(){
+        return  (jQuery('#tribeHideRecurrence:checked').length) ? true : false;
+    },
 	live_ajax: function() {
-		return  jQuery('body').is('.tribe-filter-live');
+		return  (jQuery('#tribe-events').length && jQuery('#tribe-events').tribe_has_attr('live_ajax') && jQuery('#tribe-events').attr('live_ajax' === '1')) ? true : false;
 	},
 	map_view: function(){
-		if( typeof GeoLoc !== 'undefined' && GeoLoc.map_view )
-			return true;
-		else
-			return false;
+		return ( typeof GeoLoc !== 'undefined' && GeoLoc.map_view ) ? true : false;
 	},
 	pushstate:!!(window.history && history.pushState),
 	reset_on: function(){
@@ -419,6 +416,7 @@ tribe_ev.state = {
 	popping:false,
 	pushstate:true,
 	pushcount:0,
+    recurrence:false,
 	url_params:{},
 	view:''
 };

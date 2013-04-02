@@ -47,7 +47,7 @@ jQuery(document).ready(function ($) {
             return;
         var $this = $(this);
         tribe_ev.state.date = $this.attr("data-month");
-        $('#tribe-bar-date').val(tribe_ev.state.date);
+        tribe_ev.fn.update_picker(tribe_ev.state.date);
         if (tribe_ev.state.filter_cats)
             tribe_ev.data.cur_url = $('#tribe-events-header').attr('data-baseurl');
         else
@@ -56,14 +56,12 @@ jQuery(document).ready(function ($) {
         tribe_ev.fn.pre_ajax(function () {
             tribe_events_calendar_ajax_post();
         });
-    });
-
-    $('#tribe-events-bar').on('changeDate', '#tribe-bar-date', function (e) {
+    }).on('changeDate', '#tribe-bar-date', function (e) {
         e.preventDefault();
         if (tribe_ev.state.ajax_running)
             return;
         tribe_ev.state.date = $(this).val();
-        $('#tribe-bar-date').val(tribe_ev.state.date);
+        tribe_ev.fn.update_picker(tribe_ev.state.date);
         if (tribe_ev.state.filter_cats)
             tribe_ev.data.cur_url = $('#tribe-events-header').attr('data-baseurl') + tribe_ev.state.date + '/';
         else
@@ -109,6 +107,15 @@ jQuery(document).ready(function ($) {
 
     $(tribe_ev.events).on("tribe_ev_runAjax", function () {
         tribe_events_calendar_ajax_post();
+    });
+
+    $(tribe_ev.events).on("tribe_ev_updatingRecurrence", function () {
+        tribe_ev.state.date = $('#tribe-events-header').attr("data-date");
+        if (tribe_ev.state.filter_cats)
+            tribe_ev.data.cur_url = $('#tribe-events-header').attr('data-baseurl') + tribe_ev.state.date + '/';
+        else
+            tribe_ev.data.cur_url = base_url + tribe_ev.state.date + '/';
+        tribe_ev.state.popping = false;
     });
 
 
