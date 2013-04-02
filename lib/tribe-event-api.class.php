@@ -115,7 +115,7 @@ if (!class_exists('TribeEventsAPI')) {
 			$tribe_ecp->do_action('tribe_events_event_save', $event_id);
 
 			$cost              = ( isset( $data['EventCost'] ) ) ? $data['EventCost'] : '';
-			$data['EventCost'] = $cost;
+			$data['EventCost'] = $cost;			
 
 			//update meta fields
 			foreach ( $tribe_ecp->metaTags as $tag ) {
@@ -128,6 +128,21 @@ if (!class_exists('TribeEventsAPI')) {
 					else
 						update_post_meta( $event_id, $tag, $data[$htmlElement] );
 				}
+			}
+
+			// Set sticky state for calendar view.
+			if ( isset( $data['EventShowInCalendar'] ) && $data['EventShowInCalendar'] == 'yes' && $event->menu_order != '-1' ) {
+				$update_event = array(
+					'ID' => $event_id,
+					'menu_order' => '-1',
+				);
+				wp_update_post( $update_event );
+			} elseif ( ( !isset( $data['EventShowInCalendar'] ) || $data['EventShowInCalendar'] != 'yes' ) && $event->menu_order == '-1' ) {
+				$update_event = array(
+					'ID' => $event_id,
+					'menu_order' => '0',
+				);
+				wp_update_post( $update_event );
 			}
 
 	      	$tribe_ecp->do_action('tribe_events_update_meta', $event_id, false, $data, $event);
