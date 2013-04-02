@@ -175,7 +175,7 @@ jQuery(document).ready(function ($) {
         tribe_events_bar_action = 'change_view';
 
         if (tribe_ev.state.view === 'month' && $tribedate.length) {
-            var dp_date = $dp.val();
+            var dp_date = $tribedate.val();
             if (dp_date.length === 7) {
                 $tribedate.val(dp_date + tribe_ev.fn.get_day());
             }
