@@ -225,6 +225,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 
 			// Tickets
+			require_once( 'tickets/tribe-tickets-pro.php' );
 			require_once( 'tickets/tribe-ticket-object.php' );
 			require_once( 'tickets/tribe-tickets.php' );
 			require_once( 'tickets/tribe-tickets-metabox.php' );

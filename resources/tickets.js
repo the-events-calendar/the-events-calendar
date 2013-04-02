@@ -84,7 +84,6 @@ jQuery( document ).ready( function ( $ ) {
 			ajaxurl,
 			params,
 			function ( response ) {
-				console.log( response );
 				if ( response.success ) {
 					ticket_clear_form();
 					$( 'td.ticket_list_container' ).empty().html( response.data );

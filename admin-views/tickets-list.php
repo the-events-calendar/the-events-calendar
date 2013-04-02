@@ -9,6 +9,8 @@
 		$post_id = $_POST["post_ID"];
 	}
 
+	$modules = TribeEventsTickets::modules();
+
 	foreach ( $tickets as $ticket ) {
 
 		$controls     = array();
@@ -19,7 +21,7 @@
 		$controls[] = sprintf( "<span><a href='#' attr-provider='%s' attr-ticket-id='%s' id='ticket_edit_%s' class='ticket_edit'>Edit</a></span>", $ticket->provider_class, $ticket->ID, $ticket->ID );
 		$controls[] = sprintf( "<span><a href='#' attr-provider='%s' attr-ticket-id='%s' id='ticket_delete_%s' class='ticket_delete'>Delete</a></span>", $ticket->provider_class, $ticket->ID, $ticket->ID );
 		if ( $ticket->admin_link ) {
-			$controls[] = sprintf( __("<span><a href='%s'>Edit in %s</a></span>", "tribe-events-calendar"), esc_url( $ticket->admin_link ), self::$active_modules[$ticket->provider_class] );
+			$controls[] = sprintf( __("<span><a href='%s'>Edit in %s</a></span>", "tribe-events-calendar"), esc_url( $ticket->admin_link ), $modules[$ticket->provider_class] );
 		}
 		if ( $ticket->frontend_link && get_post_status( $post_id ) == 'publish' ) {
 			$controls[] = sprintf( "<span><a href='%s'>View</a></span>", esc_url( $ticket->frontend_link ) );
@@ -33,10 +35,10 @@
 		if ( ( $ticket->provider_class !== $provider ) || $count == 0 ) {
 			?>
 			<td colspan="4" class="titlewrap">
-				<h4 class="tribe_sectionheader"><?php echo esc_html( self::$active_modules[$ticket->provider_class] ); ?>
+				<h4 class="tribe_sectionheader"><?php echo esc_html( $modules[$ticket->provider_class] ); ?>
 						<?php echo $provider_obj->get_event_reports_link( $post_id ); ?>
 					<small>&nbsp;|&nbsp;</small>
-					<?php echo sprintf( "<small><a title='See who purchased tickets to this event' href='%s'>%s</a></small>", admin_url( sprintf( 'edit.php?post_type=%s&page=%s&event_id=%d', TribeEvents::POSTTYPE, $this->attendees_slug, $post_id ) ), __( "Attendees", 'tribe-events-calendar' ) ); ?>
+					<?php echo sprintf( "<small><a title='See who purchased tickets to this event' href='%s'>%s</a></small>", admin_url( sprintf( 'edit.php?post_type=%s&page=%s&event_id=%d', TribeEvents::POSTTYPE, TribeEventsTicketsPro::$attendees_slug, $post_id ) ), __( "Attendees", 'tribe-events-calendar' ) ); ?>
 				</h4>
 			</td>
 			<?php } ?>
