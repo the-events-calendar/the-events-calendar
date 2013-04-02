@@ -84,11 +84,6 @@ jQuery(document).ready(function ($) {
         tribe_events_bar_dayajax_actions(e);
     });
 
-    $('.tribe-bar-settings button[name="settingsUpdate"]').on('click', function (e) {
-        tribe_events_bar_dayajax_actions(e);
-        tribe_ev.fn.hide_settings();
-    });
-
     if (tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate) {
 
         $('#tribe-bar-date').on('changeDate', function (e) {
