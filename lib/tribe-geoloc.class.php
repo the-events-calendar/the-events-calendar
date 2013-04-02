@@ -152,7 +152,7 @@ class TribeEventsGeoLoc {
 	}
 
 	public function setup_geoloc_filter_in_bar( $filters ) {
-		if ( !tribe_get_option( 'hideLocationSearch', false ) ) {
+		if ( tribe_is_map() || !tribe_get_option( 'hideLocationSearch', false ) ) {
 			$value = "";
 			if ( !empty( $_REQUEST['tribe-bar-geoloc'] ) ) {
 				$value = $_REQUEST['tribe-bar-geoloc'];
@@ -269,6 +269,8 @@ class TribeEventsGeoLoc {
 				remove_filter( 'tribe_events_list_after_the_content', array( 'Tribe_Events_List_Template', 'after_the_content' ), 1, 2 );
 				remove_filter( 'tribe_events_list_inside_after_loop', array( 'Tribe_Events_List_Template', 'inside_after_loop' ), 1, 2 );
 				remove_filter( 'tribe_events_list_after_loop', array( 'Tribe_Events_List_Template', 'after_loop' ), 1, 2 );
+				remove_filter( 'tribe_events_list_the_title', array( 'Tribe_Events_List_Template', 'the_title' ), 1, 2 );
+
 
 				/* it is not just enough to remove filters we want to prevent any accidental
 				 * hooks from other plugins that could fubar the display
