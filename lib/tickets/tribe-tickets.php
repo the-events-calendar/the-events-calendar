@@ -545,7 +545,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 		/**
 		 * Gets the view from the plugin's folder, or from the user's theme if found.
-		 * 
+		 *
 		 * @param $template
 		 *
 		 * @return mixed|void

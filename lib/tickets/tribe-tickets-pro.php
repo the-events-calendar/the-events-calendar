@@ -41,20 +41,21 @@ class TribeEventsTicketsPro {
 	private $attendees_table;
 
 	/**
-	 *
+	 *	Class constructor.
 	 */
 	public function __construct() {
 
-		add_action( 'wp_ajax_tribe-ticket-email-attendee-list', array( $this, 'ajax_handler_attendee_mail_list' ) );
-		add_action( 'save_post', array( $this, 'save_image_header' ), 20, 2 );
-		add_action( 'admin_menu', array( $this, 'attendees_page_register' ) );
-		add_filter( 'post_row_actions', array( $this, 'attendees_row_action' ) );
-
+		add_action( 'wp_ajax_tribe-ticket-email-attendee-list', array( $this, 'ajax_handler_attendee_mail_list' ) 		 );
+		add_action( 'save_post', 								array( $this, 'save_image_header' 				), 20, 2 );
+		add_action( 'admin_menu', 								array( $this, 'attendees_page_register' 		) 		 );
+		add_filter( 'post_row_actions', 						array( $this, 'attendees_row_action' 			) 		 );
 
 		$this->path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
 	}
 
 	/**
+	 * Adds the "attendees" link in the admin list row actions for each event.
+	 *
 	 * @param $actions
 	 *
 	 * @return array
@@ -75,7 +76,7 @@ class TribeEventsTicketsPro {
 	}
 
 	/**
-	 *
+	 * Registers the Attendees admin page
 	 */
 	public function attendees_page_register() {
 
@@ -88,6 +89,7 @@ class TribeEventsTicketsPro {
 	}
 
 	/**
+	 * Enqueues the JS and CSS for the attendees page in the admin
 	 * @param $hook
 	 */
 	public function attendees_page_load_css_js( $hook ) {
@@ -110,6 +112,8 @@ class TribeEventsTicketsPro {
 	}
 
 	/**
+	 * Loads the WP-Pointer for the Attendees screen
+	 *
 	 * @param $hook
 	 */
 	public function attendees_page_load_pointers( $hook ) {
@@ -142,14 +146,14 @@ class TribeEventsTicketsPro {
 	}
 
 	/**
-	 *
+	 *	Setups the Attendees screen data.
 	 */
 	public function attendees_page_screen_setup() {
 
 		require_once 'tribe-tickets-attendees.php';
 		$this->attendees_table = new TribeEventsTicketsAttendeesTable();
 
-		$this->maybe_generate_attendees_cvs();
+		$this->maybe_generate_attendees_csv();
 
 		wp_enqueue_script( 'jquery-ui-dialog' );
 
@@ -158,6 +162,9 @@ class TribeEventsTicketsPro {
 	}
 
 	/**
+	 * Sets the browser title for the Attendees admin page.
+	 * Uses the event title.
+	 *
 	 * @param $admin_title
 	 * @param $title
 	 *
@@ -173,7 +180,7 @@ class TribeEventsTicketsPro {
 	}
 
 	/**
-	 *
+	 * Renders the Attendees page
 	 */
 	public function attendees_page_inside() {
 		include $this->path . 'admin-views/tickets-attendees.php';
@@ -181,6 +188,9 @@ class TribeEventsTicketsPro {
 
 
 	/**
+	 * Generates a list of attendees taking into account the Screen Options.
+	 * It's used both for the Email functionality, as for the CSV export.
+	 *
 	 * @param $event_id
 	 *
 	 * @return array
@@ -224,9 +234,10 @@ class TribeEventsTicketsPro {
 	}
 
 	/**
-	 *
+	 *	Checks if the user requested a CSV export from the attendees list.
+	 *  If so, generates the download and finishes the execution.
 	 */
-	public function maybe_generate_attendees_cvs() {
+	public function maybe_generate_attendees_csv() {
 
 		if ( empty( $_GET['attendees_csv'] ) || empty( $_GET['attendees_csv_nonce'] ) || empty( $_GET['event_id'] ) )
 			return;
@@ -261,7 +272,7 @@ class TribeEventsTicketsPro {
 	}
 
 	/**
-	 *
+	 *	Handles the "send to email" action for the attendees list.
 	 */
 	public function ajax_handler_attendee_mail_list() {
 
@@ -298,6 +309,9 @@ class TribeEventsTicketsPro {
 	}
 
 	/**
+	 * Sets the content type for the attendees to email functionality.
+	 * Allows for sending an HTML email.
+	 *
 	 * @param $content_type
 	 *
 	 * @return string
@@ -354,6 +368,8 @@ class TribeEventsTicketsPro {
 	}
 
 	/**
+	 * Returns the attachment ID for the header image for a event.
+	 *
 	 * @param $event_id
 	 *
 	 * @return mixed
@@ -363,7 +379,7 @@ class TribeEventsTicketsPro {
 	}
 
 	/**
-	 * Save or delete the image header for tickes on an event
+	 * Save or delete the image header for tickets on an event
 	 *
 	 * @param $post_id
 	 * @param $post
@@ -387,6 +403,7 @@ class TribeEventsTicketsPro {
 
 
 	/**
+	 * 
 	 * @param string $message
 	 */
 	protected final function ajax_error( $message = "" ) {
