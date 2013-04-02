@@ -108,6 +108,14 @@ jQuery(document).ready(function ($) {
         tribe_events_calendar_ajax_post();
     });
 
+    $(tribe_ev.events).on("tribe_ev_updatingRecurrence", function () {
+        if (tribe_ev.state.filter_cats)
+            tribe_ev.data.cur_url = base_url + tribe_ev.state.date + '/';
+        else
+            tribe_ev.data.cur_url = $('#tribe-events-header').attr("data-baseurl");
+        tribe_ev.state.popping = false;
+    });
+
     function tribe_events_calendar_ajax_post() {
 
         tribe_ev.fn.spin_show();
@@ -177,8 +185,8 @@ jQuery(document).ready(function ($) {
                         if (response.total_count === 0) {
                             $('#tribe-events-header .tribe-events-sub-nav').empty();
                         }
-
                         $('.tribe-events-promo').next('.tribe-events-promo').remove();
+                        $('#tribe-events-content').next('.tribe-clear').remove();
 
                         var page_title = $("#tribe-events-header").attr('data-title');
 

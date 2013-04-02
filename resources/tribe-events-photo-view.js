@@ -154,9 +154,8 @@ jQuery(document).ready(function ($) {
         });
     }
 
-    $('.tribe-bar-settings button[name="settingsUpdate"]').on('click', function (e) {
-        tribe_events_bar_photoajax_actions(e);
-        tribe_ev.fn.hide_settings();
+    $(tribe_ev.events).on("tribe_ev_updatingRecurrence", function () {
+        tribe_ev.state.popping = false;
     });
 
     $('#tribe-bar-form').on('submit', function (e) {
