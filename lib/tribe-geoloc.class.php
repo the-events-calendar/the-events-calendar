@@ -152,7 +152,7 @@ class TribeEventsGeoLoc {
 	}
 
 	public function setup_geoloc_filter_in_bar( $filters ) {
-		if ( !tribe_get_option( 'hideLocationSearch', false ) ) {
+		if ( tribe_is_map() || !tribe_get_option( 'hideLocationSearch', false ) ) {
 			$value = "";
 			if ( !empty( $_REQUEST['tribe-bar-geoloc'] ) ) {
 				$value = $_REQUEST['tribe-bar-geoloc'];

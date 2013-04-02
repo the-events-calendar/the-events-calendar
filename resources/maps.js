@@ -165,6 +165,7 @@ jQuery(document).ready(function ($) {
     tribe_ev.fn.snap('#tribe-geo-wrapper', '#tribe-geo-wrapper', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a');
 
     function tribe_generate_map_params() {
+        tribe_ev.state.ajax_running = true;
         tribe_ev.state.params = {
             action: 'geosearch',
             tribe_paged: tribe_ev.state.paged,
@@ -205,6 +206,8 @@ jQuery(document).ready(function ($) {
             tribe_ev.fn.enable_inputs('#tribe_events_filters_form', 'input, select');
 
             if (response.success) {
+
+                tribe_ev.state.ajax_running = false;
 
                 tribe_ev.data.ajax_response = {
                     'total_count': parseInt(response.total_count),
@@ -280,6 +283,8 @@ jQuery(document).ready(function ($) {
 
         $('#tribe-events').on('click', 'li.tribe-events-nav-next a',function (e) {
             e.preventDefault();
+            if (tribe_ev.state.ajax_running)
+                return;
             if (tribe_ev.state.view === 'past') {
                 if (tribe_ev.state.paged === 1) {
                     tribe_ev.state.view = 'map';
@@ -301,7 +306,8 @@ jQuery(document).ready(function ($) {
             }
         }).on('click', 'li.tribe-events-nav-previous a', function (e) {
                 e.preventDefault();
-
+                if (tribe_ev.state.ajax_running)
+                    return;
                 if (tribe_ev.state.view === 'map') {
                     if (tribe_ev.state.paged === 1) {
                         tribe_ev.state.view = 'past';
@@ -328,6 +334,8 @@ jQuery(document).ready(function ($) {
     function tribe_events_bar_mapajax_actions(e) {
         if (tribe_events_bar_action != 'change_view') {
             e.preventDefault();
+            if (tribe_ev.state.ajax_running)
+                return;
             tribe_ev.state.paged = 1;
             tribe_ev.state.view = 'map';
             tribe_ev.state.popping = false;

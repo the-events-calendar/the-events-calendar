@@ -496,6 +496,18 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	}
 
 	/**
+	 * Map Loop View Test
+	 *
+	 * @return bool
+	 * @since 3.0
+	 */
+	function tribe_is_map()  {
+		$tribe_ecp = TribeEvents::instance();
+		$is_map = ($tribe_ecp->displaying == 'map') ? true : false;
+		return apply_filters('tribe_is_map', $is_map);
+	}	
+
+	/**
 	 * Display Week Navigation
 	 *
 	 * @param string $week
