@@ -65,4 +65,4 @@ echo apply_filters( 'tribe_events_list_widget_before_template', $event, $class )
 // End list widget template
 echo apply_filters( 'tribe_events_list_widget_after_template', $event );
 
-$alt_text = ( empty( $alt_text ) ) ? 'alt' : '';
+$alt_text = ( empty( $alt_text ) ) ? 'tribe-events-list-widget-alt' : '';

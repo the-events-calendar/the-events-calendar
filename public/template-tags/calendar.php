@@ -338,7 +338,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			}
 			// added last class for css
 			if( $i+1 == count( $monthView[$day] ) ) {
-				$classes[] = 'tribe-last';
+				$classes[] = 'tribe-events-last';
 			}
 			$class_string = implode(' ', $classes);
 

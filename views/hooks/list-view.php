@@ -43,15 +43,15 @@ if ( !class_exists( 'Tribe_Events_Pro_List_View_Template' ) ) {
 			
 			// Display Previous Page Navigation
 			if ( $wp_query->query_vars['paged'] > 1 ) {
-				$html .= '<li class="tribe-nav-previous"><a href="#" class="tribe_paged">' . __( '&larr; Previous Events' ) . '</a></li>';
+				$html .= '<li class="tribe-events-nav-previous"><a href="#" class="tribe-events-paged">' . __( '&larr; Previous Events' ) . '</a></li>';
 			}
 			
 			// Display Next Page Navigation
 			if ( $wp_query->max_num_pages > ( $wp_query->query_vars['paged'] + 1 ) ) {
-				$html .= '<li class="tribe-nav-next"><a href="#" class="tribe_paged">' . __( 'Next Events &rarr;' ) . '</a>';
+				$html .= '<li class="tribe-events-nav-next"><a href="#" class="tribe-events-paged">' . __( 'Next Events &rarr;' ) . '</a>';
 				// Loading spinner
-				$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
-				$html .= '</li><!-- .tribe-nav-next -->';
+				$html .= '<img class="tribe-events-ajax-loading tribe-events-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
+				$html .= '</li><!-- .tribe-events-nav-next -->';
 			}
 			return $html;
 		}
@@ -74,19 +74,19 @@ if ( !class_exists( 'Tribe_Events_Pro_List_View_Template' ) ) {
 			
 			// Display Previous Page Navigation
 			if ( $wp_query->query_vars['paged'] > 1 ) {
-				$html .= '<li class="tribe-nav-previous"><a href="#" class="tribe_paged">' . __( '&larr; Previous Events' ) . '</a></li>';
+				$html .= '<li class="tribe-events-nav-previous"><a href="#" class="tribe-events-paged">' . __( '&larr; Previous Events' ) . '</a></li>';
 			}
 			
 			// Display Next Page Navigation
 			if ( $wp_query->max_num_pages > ( $wp_query->query_vars['paged'] + 1 ) ) {
-				$html .= '<li class="tribe-nav-next"><a href="#" class="tribe_paged">' . __( 'Next Events &rarr;' ) . '</a>';
-				$html .= '</li><!-- .tribe-nav-next -->';
+				$html .= '<li class="tribe-events-nav-next"><a href="#" class="tribe-events-paged">' . __( 'Next Events &rarr;' ) . '</a>';
+				$html .= '</li><!-- .tribe-events-nav-next -->';
 			}
 			return $html;
 		}
 		// End Single Venue Template
 		public static function after_template() {
-			$html = '</div><!-- #tribe-events-list-view-wrapper -->';
+			$html = '</div><!-- #tribe-events-list-view -->';
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_list_view_after_template' );
 		}
 	}

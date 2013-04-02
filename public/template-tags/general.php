@@ -546,7 +546,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			if ( tribe_is_recurring_event( $post_id ) ) {
 				$tooltip .= '<span class="recurringinfo">';
 				$tooltip .= '<div class="event-is-recurring">';
-				$tooltip .= '<span class="tribe-divider">|</span>';
+				$tooltip .= '<span class="tribe-events-divider">|</span>';
 				$tooltip .= __( 'Recurring Event', 'tribe-events-calendar' );
 				$tooltip .= '<div id="tribe-events-tooltip-'. $post_id .'" class="tribe-events-tooltip recurring-info-tooltip">';
 				$tooltip .= '<div class="tribe-events-event-body">';
@@ -666,7 +666,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 	function tribe_events_the_notices( $echo = true ) {
 		$notices = TribeEvents::getNotices();
-		$html = !empty( $notices ) ? '<div class="tribe-event-notices"><ul><li>' . implode( '</li><li>', $notices ) . '</li></ul></div>' : '';
+		$html = !empty( $notices ) ? '<div class="tribe-events-notices"><ul><li>' . implode( '</li><li>', $notices ) . '</li></ul></div>' : '';
 		$the_notices = apply_filters( 'tribe_events_the_notices', $html, $notices );
 		if ( $echo ) {
 			echo $the_notices;

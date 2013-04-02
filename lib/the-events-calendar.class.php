@@ -21,6 +21,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		const FEED_URL = 'http://tri.be/category/products/feed/';
 		const INFO_API_URL = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';
+		const PREFIX = 'events';
 
 		protected $notices = array();
 
@@ -3685,8 +3686,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public static function clear_module_pagination( $html ) {
-			$html = '<li class="tribe-nav-previous"><a href="#" id="tribe_paged_prev" class="tribe_paged">' . __( '<< Previous Events' ) . '</a></li>';
-			$html .= '<li class="tribe-nav-next"><a href="#" id="tribe_paged_next" class="tribe_paged">' . __( 'Next Events >>' ) . '</a></li>';
+			$html = '<li class="tribe-events-nav-previous"><a href="#" id="tribe-events-paged-prev" class="tribe-events-paged">' . __( '<< Previous Events' ) . '</a></li>';
+			$html .= '<li class="tribe-events-nav-next"><a href="#" id="tribe-events-paged-next" class="tribe-events-paged">' . __( 'Next Events >>' ) . '</a></li>';
 			return $html;
 
 		}
