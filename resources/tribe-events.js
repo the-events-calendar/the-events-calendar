@@ -368,10 +368,11 @@ tribe_ev.fn = {
 		} );
 	},
 	update_picker: function( date ){
-		if( jQuery().bootstrapDatepicker && jQuery("#tribe-bar-date").length )
-			jQuery("#tribe-bar-date").bootstrapDatepicker("setValue", date );
-		else if( jQuery("#tribe-bar-date").length )
-			jQuery("#tribe-bar-date").val( date );
+		if( jQuery().bootstrapDatepicker && jQuery("#tribe-bar-date").length ){
+            jQuery("#tribe-bar-date").bootstrapDatepicker("setValue", date );
+        } else if( jQuery("#tribe-bar-date").length ){
+            jQuery("#tribe-bar-date").val( date );
+        }
 	},
 	url_path: function( url ) {
 		return url.split("?")[0];
@@ -383,7 +384,7 @@ tribe_ev.tests = {
         return  (jQuery('#tribeHideRecurrence:checked').length) ? true : false;
     },
 	live_ajax: function() {
-		return  (jQuery('#tribe-events').length && jQuery('#tribe-events').tribe_has_attr('live_ajax') && jQuery('#tribe-events').attr('live_ajax' === '1')) ? true : false;
+		return (jQuery('#tribe-events').length && jQuery('#tribe-events').tribe_has_attr('data-live_ajax') && jQuery('#tribe-events').attr('data-live_ajax') == '1') ? true : false;
 	},
 	map_view: function(){
 		return ( typeof GeoLoc !== 'undefined' && GeoLoc.map_view ) ? true : false;

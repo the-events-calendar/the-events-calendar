@@ -43,19 +43,6 @@ jQuery(document).ready(function ($) {
                 tribeBarDate.hide();
             }).data('datepicker');
         }
-        // setup month view datepicker
-        if ($('.events-gridview').length && !tribe_ev.tests.map_view()) {
-            var tribe_var_datepickerOpts = {
-                format: 'yyyy-mm',
-                showAnim: 'fadeIn',
-                viewMode: 'months'
-            };
-
-            var tribeBarDate = $tribedate.bootstrapDatepicker(tribe_var_datepickerOpts).on('changeDate',function () {
-                tribeBarDate.hide();
-            }).data('datepicker');
-
-        }
     }
 
     $tribedate.blur(function () {

@@ -95,7 +95,7 @@ jQuery(document).ready(function ($) {
     }
 
     if (tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate) {
-        $('#tribe-bar-date').on('changeDate', function (e) {
+        $('#tribe-events-bar').on('changeDate', '#tribe-bar-date', function (e) {
             if (!tribe_ev.tests.reset_on()) {
                 tribe_ev.state.popping = false;
                 tribe_events_bar_listajax_actions(e);
