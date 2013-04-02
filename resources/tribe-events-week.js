@@ -237,8 +237,10 @@ jQuery(document).ready(function ($) {
         });
     }
 
-    $('body').on('click', '.tribe-events-sub-nav a', function (e) {
+    $('#tribe-events').on('click', '.tribe-events-sub-nav a', function (e) {
         e.preventDefault();
+        if (tribe_ev.state.ajax_running)
+            return;
         var $this = $(this);
         tribe_ev.state.popping = false;
         tribe_ev.state.date = $this.attr("data-week");
@@ -251,8 +253,9 @@ jQuery(document).ready(function ($) {
 
     function tribe_events_bar_weekajax_actions(e) {
         if (tribe_events_bar_action != 'change_view') {
-
             e.preventDefault();
+            if (tribe_ev.state.ajax_running)
+                return;
             var picker = $('#tribe-bar-date').val();
             tribe_ev.state.popping = false;
             if (picker.length) {
@@ -296,6 +299,7 @@ jQuery(document).ready(function ($) {
 
         tribe_ev.fn.spin_show();
         tribe_ev.state.pushcount = 0;
+        tribe_ev.state.ajax_running = true;
 
         if (!tribe_ev.state.popping) {
 
@@ -345,6 +349,8 @@ jQuery(document).ready(function ($) {
                     tribe_ev.fn.enable_inputs('#tribe_events_filters_form', 'input, select');
 
                     if (response.success) {
+
+                        tribe_ev.state.ajax_running = false;
 
                         tribe_ev.data.ajax_response = {
                             'total_count': '',
