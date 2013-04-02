@@ -136,8 +136,7 @@ jQuery(document).ready(function ($) {
             }
         });
     }
-
-
+    
     $("#tribe-geo-options").on('click', 'a', function (e) {
         spin_start();
         e.preventDefault();
@@ -459,6 +458,7 @@ jQuery(document).ready(function ($) {
 
                         if (tribe_ev.geoloc.geocodes.length > 1) {
                             $("#tribe-geo-options").show();
+                            $("#tribe-events-content").hide();
 
                             for (var i = 0; i < tribe_ev.geoloc.geocodes.length; i++) {
                                 $("<a/>").text(tribe_ev.geoloc.geocodes[i].formatted_address).attr("href", "#").addClass('tribe-geo-option-link').attr('data-index', i).appendTo("#tribe-geo-options #tribe-geo-links");
