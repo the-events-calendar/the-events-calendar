@@ -123,9 +123,6 @@ a.tribe-row-add:hover, a.tribe-row-add:focus {
 }
 
 /* Empty Results set UI tweaks */
-.empty-result-set .subsubsub {
-	display:none;
-}
 .empty-result-set #posts-filter p:last-of-type {
 	font-style:italic;
 	font-size:14px;
