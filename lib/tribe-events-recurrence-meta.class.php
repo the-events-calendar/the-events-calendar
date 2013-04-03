@@ -34,6 +34,8 @@ class TribeEventsRecurrenceMeta {
 		add_action( 'admin_notices', array( __CLASS__, 'displayErrors' ), 10 );
 	
 		add_action( 'save_post', array( __CLASS__, 'checkRecurrenceAmount' ), 16, 1 );
+		
+		add_action( 'load-edit.php', array( __CLASS__, 'combineRecurringRequestIds' ) );
 	}
 
 	
@@ -813,6 +815,20 @@ class TribeEventsRecurrenceMeta {
 			}
 		}
 		return $is_success;
+	}
+	
+	/**
+	 * Combines the ['post'] piece of the $_REQUEST variable so it only has unique post ids.
+	 *
+	 * @since 3.0
+	 * @author PaulHughes01
+	 *
+	 * @return void
+	 */
+	public function combineRecurringRequestIds() {
+		if ( isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] == TribeEvents::POSTTYPE && !empty( $_REQUEST['post'] ) && is_array( $_REQUEST['post'] ) ) {
+			$_REQUEST['post'] = array_unique( $_REQUEST['post'] );
+		}
 	}
 	
 }
