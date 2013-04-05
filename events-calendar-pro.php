@@ -152,7 +152,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'wp_ajax_nopriv_tribe_week', array( $this, 'wp_ajax_tribe_week' ) );
 
 			add_filter( 'tribe_events_pre_get_posts' , array( $this, 'setup_hide_recurrence_in_query' ) );
+			add_filter( 'wp' , array( $this, 'detect_recurrence_redirect' ) );
 		}
+
 		function single_event_the_meta_addon( $html, $event_id){
 
 			// add custom meta if it's available
@@ -424,6 +426,57 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			TribeEventsRecurrenceMeta::init();
 			TribeEventsGeoLoc::instance();
 			$this->displayMetaboxCustomFields();
+		}
+
+		/**
+		 * at the pre_get_post hook detect if we should redirect to a particular instance 
+		 * @return void
+		 */
+		function detect_recurrence_redirect(){
+			global $wp_query;
+
+			// we are showing a recurrence all list (legacy)
+			if( $wp_query->query_vars['eventDisplay'] == 'all' ){
+				global $wp;
+				// get the current pretty permalink
+				$current_url = home_url( $wp->request ); //add_query_arg( $wp->query_string, '', home_url( $wp->request ) );
+
+				// remove trailing slash if present
+				$current_url = (substr($current_url, -1) == '/') ? substr($current_url, 0, -1) : $current_url; 
+
+				// explode on slash
+				$url_parts = explode('/', $current_url); 
+
+				// remove last part
+				array_pop($url_parts); 
+
+				// put it back together
+				$current_url = implode($url_parts, '/'); 
+
+				// find next recurrence date
+				$right_now = current_time( 'timestamp' );
+				foreach( $wp_query->posts as $key => $event ){
+					if( $right_now < strtotime( $event->EventStartDate ) ) {
+						$next_recurrence = date_i18n( 'Y-m-d', strtotime($event->EventStartDate) );
+						break;
+					}
+				}
+				if( empty($next_recurrence)){
+					$last_key = end(array_keys($wp_query->posts));
+					$next_recurrence = $wp_query->posts[$last_key]->EventStartDate;
+				}
+
+				// set final url with next recurrence
+				$current_url = trailingslashit( $current_url ) . trailingslashit( $next_recurrence );
+
+				// redirect user with 301
+				$confirm_redirect = apply_filters( 'tribe_events_pro_detect_recurrence_redirect', true );
+				do_action('tribe_events_pro_detect_recurrence_redirect' );
+				if( $confirm_redirect ) {
+					wp_redirect( $current_url, 301 ); 
+					exit;
+				}
+			}
 		}
 
 
