@@ -79,4 +79,4 @@ echo apply_filters( 'tribe_events_pro_list_widget_before_template', $event, $cla
 echo apply_filters( 'tribe_events_pro_list_widget_after_template', $event );
 
 // Clean up alt text
-$alt_text = ( empty( $alt_text ) ) ? 'alt' : '';
+$alt_text = ( empty( $alt_text ) ) ? 'tribe-events-list-widget-alt' : '';

@@ -107,7 +107,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			global $wp_query;
 			$current_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
 		
-			$html = '<div id="tribe-events-header" data-startofweek="'.get_option( 'start_of_week' ).'" data-baseurl="'.tribe_get_week_permalink( null, false ).'" data-title="' . wp_title( '&raquo;', false ) . '" data-date="'. $current_week .'">';
+			$html = '<div id="tribe-events-header" data-view="week" data-startofweek="'.get_option( 'start_of_week' ).'" data-baseurl="'.tribe_get_week_permalink( null, false ).'" data-title="' . wp_title( '&raquo;', false ) . '" data-date="'. $current_week .'">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_before_header');
 		}
 		// Week Navigation
@@ -122,14 +122,14 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			$current_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
 
 			// Display Previous Page Navigation
-			$html = '<li class="tribe-nav-previous"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' -7 days' ) ) .'" href="'. tribe_get_last_week_permalink( $current_week ) .'" rel="prev">&laquo; '. __( 'Previous Week', 'tribe-events-calendar-pro' ) .'</a></li><!-- .tribe-nav-previous -->';
+			$html = '<li class="tribe-events-nav-previous"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' -7 days' ) ) .'" href="'. tribe_get_last_week_permalink( $current_week ) .'" rel="prev">&laquo; '. __( 'Previous Week', 'tribe-events-calendar-pro' ) .'</a></li><!-- .tribe-events-nav-previous -->';
 			
 			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' +7 days' ) ) .'" href="'. tribe_get_next_week_permalink( $current_week ) .'" rel="next">'. __( 'Next Week', 'tribe-events-calendar-pro' ) .' &raquo;</a>';
+			$html .= '<li class="tribe-events-nav-next"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' +7 days' ) ) .'" href="'. tribe_get_next_week_permalink( $current_week ) .'" rel="next">'. __( 'Next Week', 'tribe-events-calendar-pro' ) .' &raquo;</a>';
 			
 			// Loading spinner
-			$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
-			$html .= '</li><!-- .tribe-nav-next -->';
+			$html .= '<img class="tribe-events-ajax-loading tribe-events-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
+			$html .= '</li><!-- .tribe-events-nav-next -->';
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_header_nav');
 		}
@@ -583,11 +583,11 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 			$current_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
 
 			// Display Previous Page Navigation
-			$html = '<li class="tribe-nav-previous"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' -7 days' ) ) .'" href="'. tribe_get_last_week_permalink( $current_week ) .'" rel="prev">&laquo; '. __( 'Prev Week', 'tribe-events-calendar-pro' ) .'</a></li><!-- .tribe-nav-previous -->';
+			$html = '<li class="tribe-events-nav-previous"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' -7 days' ) ) .'" href="'. tribe_get_last_week_permalink( $current_week ) .'" rel="prev">&laquo; '. __( 'Prev Week', 'tribe-events-calendar-pro' ) .'</a></li><!-- .tribe-events-nav-previous -->';
 			
 			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' +7 days' ) ) .'" href="'. tribe_get_next_week_permalink( $current_week ) .'" rel="next">'. __( 'Next Week', 'tribe-events-calendar-pro' ) .' &raquo;</a>';
-			$html .= '</li><!-- .tribe-nav-next -->';
+			$html .= '<li class="tribe-events-nav-next"><a data-week="'. date( 'Y-m-d', strtotime( $current_week . ' +7 days' ) ) .'" href="'. tribe_get_next_week_permalink( $current_week ) .'" rel="next">'. __( 'Next Week', 'tribe-events-calendar-pro' ) .' &raquo;</a>';
+			$html .= '</li><!-- .tribe-events-nav-next -->';
 			
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_week_footer_nav');
 		}
@@ -602,15 +602,6 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 		// End Week Template
 		public static function after_template( $post_id ) {
 			$html = '';
-
-			// iCal import button
-			if ( function_exists( 'tribe_get_ical_link' ) ) {
-				$html .= sprintf( '<a class="tribe-events-ical tribe-events-button" title="%s" href="%s">%s</a>',
-					esc_attr( 'iCal Import', 'tribe-events-calendar' ),
-					tribe_get_ical_link(),
-					__( '+ iCal Import', 'tribe-events-calendar' )
-				);
-			}
 			$html .= '</div><!-- #tribe-events-content -->';
 			$html .= tribe_events_promo_banner( false );
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_after_template' );

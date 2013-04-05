@@ -25,7 +25,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 					'label_after'=>'',
 					'meta_before'=>'<address class="organizer-address">',
 					'meta_after'=>'</address>',
-					'meta_separator' => '<span class="tribe-divider">|</span>'
+					'meta_separator' => '<span class="tribe-events-divider">|</span>'
 				), 'meta_group');
 
 			// setup the template for the meta items
@@ -134,7 +134,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 			$html = sprintf('%s%s%s',
 				tribe_get_meta_group( 'tribe_event_organizer' ),
 				( tribe_event_featured_image() ) ? tribe_event_featured_image( null, 'full' ): '',
-				!empty($content) ? '<div class="tribe-organizer-description tribe-content">' . $content . '</div>' : ''
+				!empty($content) ? '<div class="tribe-organizer-description tribe-events-content">' . $content . '</div>' : ''
 				);
 
 /*
@@ -145,13 +145,13 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 	 				<span class="vcard tel"><?php echo tribe_get_organizer_phone(); ?></span>
 	 			<?php endif; ?>
 	 			<?php if ( tribe_get_organizer_phone() && tribe_get_organizer_link( get_the_ID(), false, false )  ) : // organizer phone ?>
-	 				<span class="tribe-divider">|</span>
+	 				<span class="tribe-events-divider">|</span>
 	 			<?php endif; ?>
 	 			<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) ) : // organizer website ?>
 	 				<span class="vcard author fn org"><?php echo tribe_get_organizer_website_link( $post_id ); ?></span>
 	 			<?php endif; ?>
 	 			<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) &&  tribe_get_organizer_email() ) : // organizer phone ?>
-	 				<span class="tribe-divider">|</span>
+	 				<span class="tribe-events-divider">|</span>
 	 			<?php endif; ?>	 			
 	 			<?php if ( tribe_get_organizer_email() ) : // organizer email ?>
 	 				<span class="vcard email"><a href="mailto:<?php echo tribe_get_organizer_email(); ?>"><?php echo tribe_get_organizer_email(); ?></a></span>

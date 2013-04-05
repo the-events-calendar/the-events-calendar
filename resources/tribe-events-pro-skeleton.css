@@ -484,7 +484,7 @@
 }
 
 /* tribe geo location results list formatting */
-#tribe-geo-results .event-notices {
+#tribe-geo-results .tribe-events-notices {
 	text-align: center;
 	margin: 2.25em 0 0 0;
 }
@@ -706,7 +706,7 @@
 	white-space: pre;
 }
 
-.tribe-events-organizer .tribe-divider {
+.tribe-events-organizer .tribe-events-divider {
 	margin: 0 10px;
 }
 

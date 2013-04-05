@@ -16,13 +16,14 @@ if( !class_exists('Tribe_Events_Map_Template')){
 		public static function init(){
 
 			add_filter( 'tribe_events_list_show_separators', "__return_false" );
-			
+
+
 			// prevent these filters from running during ajax
 			if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
 				add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'before_template' ), 20, 1 );
 				add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'the_map' ), 20, 1 );
-				add_filter( 'tribe_events_list_before_template', array( __CLASS__, 'the_options' ), 20, 1 );
-				add_filter( 'tribe_events_list_the_title', array( __CLASS__, 'the_title' ), 20, 1 );
+				add_filter( 'tribe_events_list_the_title', array( __CLASS__, 'the_options' ), 20, 1 );
+				add_filter( 'tribe_events_list_the_title', array( __CLASS__, 'the_title' ), 20, 2 );
 			}
 
 			add_filter( 'tribe_events_list_before_header', array( __CLASS__, 'before_header' ), 20, 1 );
@@ -52,7 +53,7 @@ if( !class_exists('Tribe_Events_Map_Template')){
 		// Map
 		public static function the_map( $html ){
 			$html .= '<div id="tribe-geo-map-wrapper">';
-			$html .= '<div id="tribe-geo-loading"><img class="tribe-ajax-loading tribe-spinner" src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" /></div>';
+			$html .= '<div id="tribe-geo-loading"><img class="tribe-events-ajax-loading tribe-spinner" src="'. trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" /></div>';
 			$html .= '<div id="tribe-geo-map"></div>';
 			$html .= '</div>';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_the_map');
@@ -67,7 +68,7 @@ if( !class_exists('Tribe_Events_Map_Template')){
 		}
 
 		public static function before_header( $html ){
-			$html = '<div id="tribe-events-header" data-title="' . wp_title( '&raquo;', false ) . '">';
+			$html = '<div id="tribe-events-header" data-view="map" data-title="' . wp_title( '&raquo;', false ) . '">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_before_header');
 		}
 
@@ -82,22 +83,22 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			$tribe_ecp = TribeEvents::instance();
 
 			// Display Previous Page Navigation
-			$html = '<li class="tribe-nav-previous"><a href="#" class="tribe_map_paged">'. __('&laquo; Previous Events') .'</a></li><!-- .tribe-nav-previous -->';
+			$html = '<li class="tribe-events-nav-previous"><a href="#" class="tribe_map_paged">'. __('&laquo; Previous Events') .'</a></li><!-- .tribe-events-nav-previous -->';
 
 			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next">';
+			$html .= '<li class="tribe-events-nav-next">';
 			$html .= '<a href="#" class="tribe_map_paged">'. __('Next Events &raquo;') .'</a>';
 
 			// Loading spinner
-			$html .= '<img class="tribe-ajax-loading tribe-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
-			$html .= '</li><!-- .tribe-nav-next -->';
+			$html .= '<img class="tribe-events-ajax-loading tribe-events-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
+			$html .= '</li><!-- .tribe-events-nav-next -->';
 
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_header_nav');
 		}
 
 		public static function the_title( $html ){
 			global $wp_query;
-			$html = '<div id="tribe-events-geo-content">';
+			$html .= '<div id="tribe-events-geo-content">';
 			$html .= sprintf( '<h2 class="tribe-events-page-title">%s</h2>',
 				tribe_get_events_title()
 				);
@@ -106,19 +107,7 @@ if( !class_exists('Tribe_Events_Map_Template')){
 
 		// Start Results
 		public static function before_the_results( $html ){
-			global $wp_query;
-			$html = '';
-			if ( $wp_query->found_posts === 1 ) {
-				$html .= sprintf( __( "<div class='event-notices'>%d event found</div>", 'tribe-events-calendar-pro' ), $wp_query->found_posts );
-			} else {
-				$extra = '';
-				if ( $wp_query->max_num_pages > 1 ) {
-					$extra = sprintf( __( " / %d in this page", 'tribe-events-calendar-pro' ), $wp_query->post_count );
-				}
-
-				$html .= sprintf( __( "<div class='event-notices'>%d events found%s</div>", 'tribe-events-calendar-pro' ), $wp_query->found_posts, $extra );
-			}
-			$html .= '<div id="tribe-geo-results" class="tribe-events-loop">';
+			$html = '<div id="tribe-geo-results" class="tribe-events-loop">';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_map_before_the_results');
 		}
 
@@ -131,12 +120,12 @@ if( !class_exists('Tribe_Events_Map_Template')){
 		public static function footer_navigation( $html ){
 
 			// Display Previous Page Navigation
-			$html = '<li class="tribe-nav-previous"><a href="#" class="tribe_map_paged">'. __('&laquo; Previous Events') .'</a></li><!-- .tribe-nav-previous -->';
+			$html = '<li class="tribe-events-nav-previous"><a href="#" class="tribe_map_paged">'. __('&laquo; Previous Events') .'</a></li><!-- .tribe-events-nav-previous -->';
 
 			// Display Next Page Navigation
-			$html .= '<li class="tribe-nav-next">';
+			$html .= '<li class="tribe-events-nav-next">';
 			$html .= '<a href="#" class="tribe_map_paged">'. __('Next Events &raquo;') .'</a>';
-			$html .= '</li><!-- .tribe-nav-next -->';
+			$html .= '</li><!-- .tribe-events-nav-next -->';
 
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_footer_nav');
 		}

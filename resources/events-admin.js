@@ -294,5 +294,15 @@ jQuery(document).ready(function($) {
 		updateRecurrenceText();
 	});
 	$('#recurrence_end, #EventStartDate, #EventEndDate').datepicker('option', 'onClose', updateRecurrenceText);
-
+	
+	$('input[name="post[]"]').click( function(e) {
+		var event_id = $(this).val();
+		
+		if ( $(this).is(':checked') ) {
+			$('input[name="post[]"][value="' + event_id + '"]').prop( 'checked', true );
+		} else {
+			$('input[name="post[]"][value="' + event_id + '"]').prop( 'checked', false );
+		}
+	});
+	
 });

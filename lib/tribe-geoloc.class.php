@@ -50,32 +50,34 @@ class TribeEventsGeoLoc {
 	}
 
 	public function setup_geoloc_filter_in_filters() {
-		$current_filters = get_option( 'tribe_events_filters_current_active_filters', TribeEventsFilterView::instance()->getDefaultFilters() );
+		if ( !tribe_get_option( 'hideLocationSearch', false ) ) {
+			$current_filters = get_option( 'tribe_events_filters_current_active_filters', TribeEventsFilterView::instance()->getDefaultFilters() );
 
-		$distances = apply_filters( 'geoloc-values-for-filters', array( '5'    => '5 miles',
-		                                                                '10'   => '10 miles',
-		                                                                '25'   => '25 miles',
-		                                                                '50'   => '50 miles',
-		                                                                '100'  => '100 miles',
-		                                                                '250'  => '250 miles' ) );
+			$distances = apply_filters( 'geoloc-values-for-filters', array( '5'    => '5 miles',
+																			'10'   => '10 miles',
+																			'25'   => '25 miles',
+																			'50'   => '50 miles',
+																			'100'  => '100 miles',
+																			'250'  => '250 miles' ) );
 
-		$geoloc_filter_array = array( 'name'   => __( 'Distance', 'tribe-events-calendar-pro' ),
-		                              'slug'   => 'geofence',
-		                              'values' => $distances, );
+			$geoloc_filter_array = array( 'name'   => __( 'Distance', 'tribe-events-calendar-pro' ),
+										  'slug'   => 'geofence',
+										  'values' => $distances, );
 
-		$geoloc_filter_array['type'] = isset( $current_filters[$geoloc_filter_array['slug']]['type'] ) ? $current_filters[$geoloc_filter_array['slug']]['type'] : 'select';
-		$geoloc_filter_array['title'] = isset( $current_filters[$geoloc_filter_array['slug']]['title'] ) ? $current_filters[$geoloc_filter_array['slug']]['title'] : $geoloc_filter_array['name'];
+			$geoloc_filter_array['type'] = isset( $current_filters[$geoloc_filter_array['slug']]['type'] ) ? $current_filters[$geoloc_filter_array['slug']]['type'] : 'select';
+			$geoloc_filter_array['title'] = isset( $current_filters[$geoloc_filter_array['slug']]['title'] ) ? $current_filters[$geoloc_filter_array['slug']]['title'] : $geoloc_filter_array['name'];
 
-		$geoloc_filter_array['admin_form'] = sprintf( __( 'Title: %s', 'tribe-events-calendar-pro' ), '<input type="text" name="title" value="' . $geoloc_filter_array['title'] . '">' );
-		$geoloc_filter_array['admin_form'] .= '<br />';
-		$geoloc_filter_array['admin_form'] .= sprintf( __( '%sType: %s', 'tribe-events-calendar-pro' ), '<br />', '<br /><label><input type="radio" name="type" value="select" ' . checked( $geoloc_filter_array['type'], 'select', false ) . ' /> ' . __( 'Select Dropdown', 'tribe-events-calendar-pro' ) .'</label><br />' );
-		$geoloc_filter_array['admin_form'] .= '<label><input type="radio" name="type" value="radio" ' . checked( $geoloc_filter_array['type'], 'radio', false ) . ' /> ' . __( 'Radio Buttons', 'tribe-events-calendar-pro' ) .'</label><br />';
+			$geoloc_filter_array['admin_form'] = sprintf( __( 'Title: %s', 'tribe-events-calendar-pro' ), '<input type="text" name="title" value="' . $geoloc_filter_array['title'] . '">' );
+			$geoloc_filter_array['admin_form'] .= '<br />';
+			$geoloc_filter_array['admin_form'] .= sprintf( __( '%sType: %s', 'tribe-events-calendar-pro' ), '<br />', '<br /><label><input type="radio" name="type" value="select" ' . checked( $geoloc_filter_array['type'], 'select', false ) . ' /> ' . __( 'Select Dropdown', 'tribe-events-calendar-pro' ) .'</label><br />' );
+			$geoloc_filter_array['admin_form'] .= '<label><input type="radio" name="type" value="radio" ' . checked( $geoloc_filter_array['type'], 'radio', false ) . ' /> ' . __( 'Radio Buttons', 'tribe-events-calendar-pro' ) .'</label><br />';
 				
-		$geoloc_filter = new TribeEventsFilter( $geoloc_filter_array['name'], $geoloc_filter_array['slug'], $geoloc_filter_array['values'], $geoloc_filter_array['type'], $geoloc_filter_array['admin_form'], $geoloc_filter_array['title'] );
+			$geoloc_filter = new TribeEventsFilter( $geoloc_filter_array['name'], $geoloc_filter_array['slug'], $geoloc_filter_array['values'], $geoloc_filter_array['type'], $geoloc_filter_array['admin_form'], $geoloc_filter_array['title'] );
 
-		if ( isset( $geoloc_filter->currentValue ) ) {
-			$this->selected_geofence = tribe_convert_units( $geoloc_filter->currentValue, 'miles', 'kms' );
-			add_filter( 'tribe_geoloc_geofence', array( $this, 'setup_geofence_in_query' ) );
+			if ( isset( $geoloc_filter->currentValue ) ) {
+				$this->selected_geofence = tribe_convert_units( $geoloc_filter->currentValue, 'miles', 'kms' );
+				add_filter( 'tribe_geoloc_geofence', array( $this, 'setup_geofence_in_query' ) );
+			}
 		}
 	}
 
@@ -152,7 +154,7 @@ class TribeEventsGeoLoc {
 	}
 
 	public function setup_geoloc_filter_in_bar( $filters ) {
-		if ( !tribe_get_option( 'hideLocationSearch', false ) ) {
+		if ( tribe_is_map() || !tribe_get_option( 'hideLocationSearch', false ) ) {
 			$value = "";
 			if ( !empty( $_REQUEST['tribe-bar-geoloc'] ) ) {
 				$value = $_REQUEST['tribe-bar-geoloc'];
@@ -269,6 +271,8 @@ class TribeEventsGeoLoc {
 				remove_filter( 'tribe_events_list_after_the_content', array( 'Tribe_Events_List_Template', 'after_the_content' ), 1, 2 );
 				remove_filter( 'tribe_events_list_inside_after_loop', array( 'Tribe_Events_List_Template', 'inside_after_loop' ), 1, 2 );
 				remove_filter( 'tribe_events_list_after_loop', array( 'Tribe_Events_List_Template', 'after_loop' ), 1, 2 );
+				remove_filter( 'tribe_events_list_the_title', array( 'Tribe_Events_List_Template', 'the_title' ), 1, 2 );
+
 
 				/* it is not just enough to remove filters we want to prevent any accidental
 				 * hooks from other plugins that could fubar the display

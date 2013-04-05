@@ -83,4 +83,4 @@ echo apply_filters( 'tribe_events_pro_featured_widget_before_template', $post->I
 // End featured widget template
 echo apply_filters( 'tribe_events_pro_featured_widget_after_template', $post->ID );
 
-$alt_text = ( empty( $alt_text ) ) ? 'alt' : '';
+$alt_text = ( empty( $alt_text ) ) ? 'tribe-events-list-widget-alt' : '';
