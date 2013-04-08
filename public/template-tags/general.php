@@ -318,7 +318,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_events_before_html() {
-		$before = tribe_get_option( 'tribeEventsBeforeHTML' );
+		$before = stripslashes( tribe_get_option( 'tribeEventsBeforeHTML', '' ) );
 		$before = wptexturize( $before );
 		$before = convert_chars( $before );
 		$before = wpautop( $before );
@@ -336,7 +336,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_events_after_html() {
-		$after = tribe_get_option( 'tribeEventsAfterHTML' );
+		$after = stripslashes( tribe_get_option( 'tribeEventsAfterHTML', '' ) );
 		$after = wptexturize( $after );
 		$after = convert_chars( $after );
 		$after = wpautop( $after );
