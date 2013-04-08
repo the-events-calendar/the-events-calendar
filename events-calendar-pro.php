@@ -441,7 +441,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			global $wp_query;
 
 			// we are showing a recurrence all list (legacy)
-			if( $wp_query->query_vars['eventDisplay'] == 'all' ){
+			if( isset( $wp_query->query_vars['eventDisplay'] ) && $wp_query->query_vars['eventDisplay'] == 'all' ){
 				global $wp;
 				// get the current pretty permalink
 				$current_url = home_url( $wp->request ); //add_query_arg( $wp->query_string, '', home_url( $wp->request ) );
