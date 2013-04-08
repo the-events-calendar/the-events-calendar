@@ -287,34 +287,6 @@ jQuery(document).ready(function($) {
 		//publishing-action		
 	}
 
-	$('.wp-admin.events-cal .submitdelete').click(function(e) {
-
-		var link = $(this);
-		var isRecurringLink = $(this).attr('href').split('&eventDate');
-
-		if(isRecurringLink[1]) {
-			e.preventDefault();
-
-			$('#deletion-dialog').dialog({
-				//submitdelete
-				modal: true,
-				buttons: [{
-					text: "Only This Event",
-					click: function() {
-						document.location = link.attr('href') + '&event_start=' + $(this).data('start');
-					}
-				},
-				{
-					text: "All Events",
-					click: function() {
-						document.location = link.attr('href') + '&deleteAll';
-					}
-				}]
-			});
-		}
-
-	});
-
 	// recurrence ui
 	$('[name="recurrence[type]"]').change(function() {
 		var curOption =  $(this).find("option:selected").val();
