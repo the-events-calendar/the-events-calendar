@@ -2783,7 +2783,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			if ( !empty($_REQUEST['eventDate']) ) {
 				$duration = get_post_meta( $postId, '_EventDuration', true );
-				$EventEndDate = TribeDateUtils::dateOnly( strtotime($_REQUEST['eventDate']) + $duration, true );
+				$start_time = isset( $_EventStartDate ) ? TribeDateUtils::timeOnly( $_EventStartDate ) : TribeDateUtils::timeOnly( tribe_get_start_date( $post->ID ) );
+				$EventEndDate = TribeDateUtils::dateOnly( strtotime($_REQUEST['eventDate'] . ' ' . $start_time) + $duration, true );
 			}
 
 			$events_meta_box_template = $this->pluginPath . 'admin-views/events-meta-box.php';
