@@ -125,7 +125,7 @@ if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ) {
 	</tr>
 <?php 
 } else {
-	if( tribe_get_option('embedGoogleMaps') ) { // Only show if embed option selected
+	if( tribe_get_option('embedGoogleMaps', true) ) { // Only show if embed option selected
 	
 		$google_map_toggle = ( tribe_embed_google_map( $postId ) || get_post_status($postId) == 'auto-draft' ) ? true : false;
 ?>
