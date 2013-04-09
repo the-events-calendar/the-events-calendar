@@ -447,7 +447,6 @@ if( !class_exists('Tribe_Events_List_Template')){
 				
 			$html .= '</div><!-- #tribe-events-content -->';
 			$html .= '<div class="tribe-clear"></div>';
-			$html .= tribe_events_promo_banner( false );
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_after_template');		
 		}
 	}

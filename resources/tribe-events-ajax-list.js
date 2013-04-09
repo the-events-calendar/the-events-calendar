@@ -183,7 +183,6 @@ jQuery(document).ready(function ($) {
                         $('#tribe-events-list-hash').val(response.hash);
                         $('#tribe-events-content').replaceWith(response.html);
                         $('#tribe-events-content').next('.tribe-clear').remove();
-                        $('.tribe-events-promo').next('.tribe-events-promo').remove();
 
                         if (tribe_ev.state.do_string) {
                             history.pushState({

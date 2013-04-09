@@ -651,9 +651,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 		// single-event notices are jumping in on this init when loading as a module
 		TribeEvents::removeNotice( 'event-past' );
 
-		// remove promo banner since this will most likely be used on venue/organizer or some submodule
-		add_filter( 'tribe_events_promo_banner', '__return_false' );
-
 		// get the list view template
 		ob_start();
 		include apply_filters( 'tribe_include_view_list', TribeEventsTemplates::getTemplateHierarchy( 'list' ) );

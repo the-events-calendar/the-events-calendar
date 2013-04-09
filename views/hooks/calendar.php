@@ -282,7 +282,6 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		// End Calendar Template
 		public static function after_template(){
 			$html = '';
-			$html .= tribe_events_promo_banner( false );
 			$html .= '</div><!-- #tribe-events-content -->';
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_calendar_after_template');
 		}

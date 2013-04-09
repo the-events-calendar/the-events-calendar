@@ -25,6 +25,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		protected $notices = array();
 
+		private $show_data_wrapper = array('before'=>true, 'after'=>true);
+
 		protected $postTypeArgs = array(
 			'public' => true,
 			'rewrite' => array('slug' => 'event', 'with_front' => false),
@@ -250,6 +252,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		function before_html_data_wrapper( $html ){
 			global $wp_query;
 
+			if( !$this->show_data_wrapper['before'] )
+				return $html;
+
 			$tec = TribeEvents::instance();
 
 			$data_attributes = array(
@@ -267,6 +272,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					);
 			}
 
+			$this->show_data_wrapper['before'] = false;
+
 			// return filtered html
 			return apply_filters( 'tribe_events_view_before_html_data_wrapper', sprintf( '<div id="tribe-events" %s>%s', implode(' ', $attribute_html ), $html ), $data_attributes, $html );
 		}
@@ -277,7 +284,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return string
 		 */
 		function after_html_data_wrapper( $html ){
+			if( !$this->show_data_wrapper['after'] )
+				return $html;
+
 			$html .= '</div>';
+			$html .= tribe_events_promo_banner( false );
+			$this->show_data_wrapper['after'] = false;
 			return apply_filters( 'tribe_events_view_after_html_data_wrapper', $html );
 		}
 
