@@ -435,53 +435,101 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		/**
 		 * at the pre_get_post hook detect if we should redirect to a particular instance 
+		 * for /all routing or invalid 404 recurrence entries
 		 * @return void
 		 */
 		function detect_recurrence_redirect(){
-			global $wp_query;
+			global $wp_query, $wp;
+			if( ! isset( $wp_query->query_vars['eventDisplay'] ) )
+				return false;
 
-			// we are showing a recurrence all list (legacy)
-			if( isset( $wp_query->query_vars['eventDisplay'] ) && $wp_query->query_vars['eventDisplay'] == 'all' ){
-				global $wp;
-				// get the current pretty permalink
-				$current_url = home_url( $wp->request ); //add_query_arg( $wp->query_string, '', home_url( $wp->request ) );
+			$current_url = null;
+			
+			switch( $wp_query->query_vars['eventDisplay'] ){
+				case 'single-event':
+					// a recurrence event with a bad date will throw 404 because of WP_Query limiting by date range
+					if( is_404() ) {
+						$recurrence_check = array_merge( array( 'posts_per_page' => -1 ), $wp_query->query );
+						unset( $recurrence_check['eventDate'] );
+						unset( $recurrence_check['tribe_events'] );
 
-				// remove trailing slash if present
-				$current_url = (substr($current_url, -1) == '/') ? substr($current_url, 0, -1) : $current_url; 
+						// retrieve event object
+						$get_recurrence_event = new WP_Query( $recurrence_check );
 
-				// explode on slash
-				$url_parts = explode('/', $current_url); 
+						// if a reccurence event actually exists then proceed with redirection
+						if( !empty($get_recurrence_event->posts) && tribe_is_recurring_event($get_recurrence_event->posts[0]->ID)){
 
-				// remove last part
-				array_pop($url_parts); 
+							// get next recurrence
+							$next_recurrence = $this->get_last_recurrence( $get_recurrence_event->posts );
 
-				// put it back together
-				$current_url = implode($url_parts, '/'); 
-
-				// find next recurrence date
-				$right_now = current_time( 'timestamp' );
-				foreach( $wp_query->posts as $key => $event ){
-					if( $right_now < strtotime( $event->EventStartDate ) ) {
-						$next_recurrence = date_i18n( 'Y-m-d', strtotime($event->EventStartDate) );
-						break;
+							// set current url to the next available recurrence and await redirection
+							$current_url = str_replace( $wp_query->query['eventDate'], $next_recurrence, home_url( $wp->request ) );
+						}
+						
 					}
-				}
-				if( empty($next_recurrence)){
-					$last_key = end(array_keys($wp_query->posts));
-					$next_recurrence = $wp_query->posts[$last_key]->EventStartDate;
-				}
+					break;
+				case 'all': 
+					// get the current pretty permalink
+					$current_url = home_url( $wp->request ); //add_query_arg( $wp->query_string, '', home_url( $wp->request ) );
 
-				// set final url with next recurrence
-				$current_url = trailingslashit( $current_url ) . trailingslashit( $next_recurrence );
+					// remove trailing slash if present
+					$current_url = (substr($current_url, -1) == '/') ? substr($current_url, 0, -1) : $current_url; 
 
+					// explode on slash
+					$url_parts = explode('/', $current_url); 
+
+					// remove last part
+					array_pop($url_parts); 
+
+					// put it back together
+					$current_url = implode($url_parts, '/'); 
+
+					// get next recurrence
+					$next_recurrence = $this->get_last_recurrence();
+
+					// set final url with next recurrence and await redirection
+					$current_url = trailingslashit( $current_url ) . trailingslashit( $next_recurrence );
+					
+					break;
+			}
+
+			if( !empty( $current_url )) {
 				// redirect user with 301
-				$confirm_redirect = apply_filters( 'tribe_events_pro_detect_recurrence_redirect', true );
-				do_action('tribe_events_pro_detect_recurrence_redirect' );
+				$confirm_redirect = apply_filters( 'tribe_events_pro_detect_recurrence_redirect', true, $wp_query->query_vars['eventDisplay'] );
+				do_action('tribe_events_pro_detect_recurrence_redirect', $wp_query->query_vars['eventDisplay'] );
 				if( $confirm_redirect ) {
 					wp_redirect( $current_url, 301 ); 
 					exit;
 				}
 			}
+		}
+
+		/**
+		 * Loop through recurrence posts array and find out the next recurring datetime from right now
+		 * @param  array  $event_list
+		 * @return $next_recurrence (Y-m-d format)
+		 */
+		public function get_last_recurrence( $event_list = array() ){
+			global $wp_query;
+
+			$event_list = empty($event_list) ? $wp_query->posts : $event_list;
+			$right_now = current_time( 'timestamp' );
+			$next_recurrence = null;
+
+			// find next recurrence date by loop
+			foreach( $event_list as $key => $event ){
+				if( $right_now < strtotime( $event->EventStartDate ) ) {
+					$next_recurrence = date_i18n( 'Y-m-d', strtotime($event->EventStartDate) );
+					break;
+				}
+			}
+			if( empty($next_recurrence) && !empty($event_list) ){
+				$last_key = end(array_keys($event_list));
+				$next_recurrence = $event_list[$last_key]->EventStartDate;
+			}
+
+			return apply_filters( 'tribe_events_pro_get_last_recurrence', $next_recurrence, $event_list, $right_now );
+
 		}
 
 
