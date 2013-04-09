@@ -137,7 +137,7 @@ if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ) {
 		</tr>
 <?php
 	} 
-	$google_map_link_toggle = ( get_post_status($postId) != 'auto-draft' && get_post_meta( $postId, '_VenueShowMapLink', true ) !== 'false' ) ? true : false;
+	$google_map_link_toggle = ( get_post_status($postId) != 'auto-draft' || get_post_meta( $postId, '_VenueShowMapLink', true ) !== 'false' ) ? true : false;
 	?>
 	<tr id="google_map_link_toggle">
 		<td><?php _e('Show Google Maps Link:','tribe-events-calendar'); ?></td>
