@@ -603,7 +603,6 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 		public static function after_template( $post_id ) {
 			$html = '';
 			$html .= '</div><!-- #tribe-events-content -->';
-			$html .= tribe_events_promo_banner( false );
 			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_week_after_template' );
 		}
 	}
