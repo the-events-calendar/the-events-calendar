@@ -362,6 +362,17 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		}
 	}
+
+	/**
+	 * Prints a url to a file in the resources directory
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	function tribe_events_resource_url($resource) {
+		$url = trailingslashit( TribeEvents::instance()->pluginUrl );
+		echo apply_filters('tribe_events_resource_url', $url, $resource);
+	}
 	 * Event Cost
 	 *
 	 * If EventBrite plugin is active
