@@ -92,6 +92,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			add_action( 'init', array( $this, 'init' ), 10 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_pro_scripts' ), 8);
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 
 			add_filter( 'tribe_settings_do_tabs', array( $this, 'add_settings_tabs' ) );
@@ -879,10 +880,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			if ( $tec->displaying === 'day' ) {
 				Tribe_PRO_Template_Factory::asset_package( 'ajax-dayview' );
 			}
+		}
 
+		public function enqueue_pro_scripts() {
 			if ( tribe_is_event_query() ) {
 				$resources_url = trailingslashit( $this->pluginUrl ) . 'resources/';
-				wp_enqueue_script( 'tribe-events-pro', $resources_url . 'tribe-events-pro.js', array( 'jquery', 'tribe-events-calendar-script' ), false, true );
+				wp_enqueue_script( 'tribe-events-pro', $resources_url . 'tribe-events-pro.js', array( 'jquery', 'tribe-events-calendar-script' ), false, false );
 			}
 		}
 
