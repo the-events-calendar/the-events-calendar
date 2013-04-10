@@ -200,6 +200,34 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Display a link to the previous month. Used in the calendar navigation.
+	 *
+	 * @return void
+	 * @since 3.0
+	 **/
+	function tribe_events_previous_month_link() {
+		$url = tribe_get_previous_month_link();
+		$date = TribeEvents::instance()->previousMonth( tribe_get_month_view_date() );
+		$text = tribe_get_previous_month_text();
+		$html = '<a data-month="'. $date .'" href="' . $url . '" rel="pref">&laquo; '. $text .' </a>';
+		echo apply_filters('tribe_events_previous_month_link', $html);
+	}
+
+	/**
+	 * Display a link to the next month. Used in the calendar navigation.
+	 *
+	 * @return void
+	 * @since 3.0
+	 **/
+	function tribe_events_next_month_link() {
+		$url = tribe_get_next_month_link();
+		$date = TribeEvents::instance()->nextMonth( tribe_get_month_view_date() );
+		$text = tribe_get_next_month_text();
+		$html = '<a data-month="'. $date .'" href="' . $url . '" rel="pref">&laquo; '. $text .' </a>';
+		echo apply_filters('tribe_events_next_month_link', $html);
+	}
+
+	/**
 	 * Link to Previous Month
 	 * 
 	 * Returns a link to the previous month's events page. Used in the grid view.
