@@ -373,6 +373,26 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$url = trailingslashit( TribeEvents::instance()->pluginUrl );
 		echo apply_filters('tribe_events_resource_url', $url, $resource);
 	}
+
+	/**
+	 * Return an array with the days of the week, numbered with respect to the start_of_week WP option
+	 *
+	 * @return array Days of the week.
+	 * @since 3.0
+	 **/
+	function tribe_events_get_days_of_week() {
+		$days_of_week = TribeEvents::instance()->daysOfWeek;
+		$start_of_week = get_option('start_of_week', 0);
+		for ($i = 0; $i < $start_of_week; $i++) {
+			$day = $days_of_week[$i];
+			unset($days_of_week[$i]);
+			$days_of_week[$i] = $day;
+		}
+		// $days_of_week = array_values($days_of_week);
+		return apply_filters('tribe_events_get_days_of_week', $days_of_week);
+	}
+
+	/**
 	 * Event Cost
 	 *
 	 * If EventBrite plugin is active
