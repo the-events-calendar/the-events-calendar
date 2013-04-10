@@ -347,6 +347,21 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Prints out data attributes used in the template header tags
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	function tribe_events_header_attributes() {
+		$current_view = basename(tribe_get_current_template());
+		switch($current_view) {
+			case 'calendar.php' :
+				$attrs = ' data-view="month" data-title="' . wp_title( '&raquo;', false ) . '" data-date="'. date( 'Y-m', strtotime( tribe_get_month_view_date() ) ) .'"';
+				echo apply_filters('tribe_events_calendar_header_attributes', $attrs);
+			break;
+
+		}
+	}
 	 * Event Cost
 	 *
 	 * If EventBrite plugin is active
