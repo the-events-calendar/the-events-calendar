@@ -120,11 +120,10 @@ jQuery(document).ready(function ($) {
 
     // Implement our views bit
     $('select[name=tribe-bar-view]').change(function () {
-        var el = $(this);
-        var url = el.val()
-        var name = $('select[name=tribe-bar-view] option[value="' + url + '"]').attr('data-view');
+        tribe_ev.state.cur_url = $(this).val();
+        tribe_ev.state.view_target = $('select[name=tribe-bar-view] option[value="' + tribe_ev.state.cur_url + '"]').attr('data-view');
         tribe_events_bar_action = 'change_view';
-        tribe_events_bar_change_view(url, name);
+        tribe_events_bar_change_view();
     });
 
     $('a.tribe-bar-view').on('click', function (e) {
@@ -158,9 +157,7 @@ jQuery(document).ready(function ($) {
         });
     });
 
-    function tribe_events_bar_change_view(url, name) {
-
-        var starting_delim = url.indexOf('?') != -1 ? '&' : '?';
+    function tribe_events_bar_change_view() {
 
         tribe_events_bar_action = 'change_view';
 
@@ -171,60 +168,31 @@ jQuery(document).ready(function ($) {
             }
         }
 
-        var cv_url_params = {};
-        var $set_inputs = $('#tribe-bar-form input');
+        tribe_ev.state.url_params = {};
 
-        if ($('#tribe-bar-geoloc').length) {
-            var tribe_map_val = jQuery('#tribe-bar-geoloc').val();
-            if (!tribe_map_val.length) {
-                $('#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng').val('');
-            } else {
-                if (name === 'map')
-                    cv_url_params['action'] = 'geosearch';
-            }
-        }
+        $(tribe_ev.events).trigger('tribe_ev_preCollectBarParams');
 
-        if ($('#tribeHideRecurrence:checked').length) {
-            cv_url_params['tribeHideRecurrence'] = $('#tribeHideRecurrence').val();
-        }
-
-        $set_inputs.each(function () {
+        $('#tribe-bar-form input').each(function () {
             var $this = $(this);
             if ($this.val().length && !$this.hasClass('tribe-no-param')) {
                 if ($this.is(':checkbox')) {
                     if ($this.is(':checked')) {
-                        cv_url_params[$this.attr('name')] = $this.val();
+                        tribe_ev.state.url_params[$this.attr('name')] = $this.val();
                     }
                 } else {
-                    cv_url_params[$this.attr('name')] = $this.val();
+                    tribe_ev.state.url_params[$this.attr('name')] = $this.val();
                 }
             }
         });
 
-        cv_url_params = $.param(cv_url_params);
+        tribe_ev.state.url_params = $.param(tribe_ev.state.url_params);
 
-        if ($('#tribe_events_filters_form').length) {
+        $(tribe_ev.events).trigger('tribe_ev_postCollectBarParams');
 
-            if (tribe_ev.state.filter_cats)
-                $('#tribe_events_filter_item_eventcategory option:selected, #tribe_events_filter_item_eventcategory input:checked').remove();
+        if (tribe_ev.state.url_params.length)
+            tribe_ev.state.cur_url += tribe_ev.tests.starting_delim() + tribe_ev.state.url_params;
 
-            var cv_filter_params = tribe_ev.fn.serialize('#tribe_events_filters_form', 'input, select');
-
-            if (cv_url_params.length && cv_filter_params.length)
-                cv_url_params = cv_url_params + '&' + cv_filter_params;
-            else if (cv_filter_params.length)
-                cv_url_params = cv_filter_params;
-
-            if (cv_url_params.length)
-                url += starting_delim + cv_url_params;
-
-            window.location.href = url;
-        } else {
-            if (cv_url_params.length)
-                url += starting_delim + cv_url_params;
-
-            window.location.href = url;
-        }
+        window.location.href = tribe_ev.state.cur_url;
     }
 
     // Implement simple toggle for filters at smaller size (and close if click outside of toggle area)

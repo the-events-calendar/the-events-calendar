@@ -380,10 +380,7 @@ tribe_ev.fn = {
 };
 
 tribe_ev.tests = {
-    hide_recurrence: function(){
-        return  (jQuery('#tribeHideRecurrence:checked').length) ? true : false;
-    },
-	live_ajax: function() {
+	live_ajax: function(){
 		return (jQuery('#tribe-events').length && jQuery('#tribe-events').tribe_has_attr('data-live_ajax') && jQuery('#tribe-events').attr('data-live_ajax') == '1') ? true : false;
 	},
 	map_view: function(){
@@ -391,8 +388,11 @@ tribe_ev.tests = {
 	},
 	pushstate:!!(window.history && history.pushState),
 	reset_on: function(){
-		return  jQuery('body').is('.tribe-reset-on');
-	}
+		return jQuery('body').is('.tribe-reset-on');
+	},
+    starting_delim: function(){
+        return tribe_ev.state.cur_url.indexOf('?') != -1 ? '&' : '?';
+    }
 };
 
 tribe_ev.data = {
@@ -419,7 +419,8 @@ tribe_ev.state = {
 	pushcount:0,
     recurrence:false,
 	url_params:{},
-	view:''
+	view:'',
+    view_target:''
 };
 
 jQuery( document ).ready( function ( $ ) {	
