@@ -24,7 +24,7 @@ $end = tribe_get_end_date( $post, FALSE, 'U' );
 
 <div id="tribe-events-event-<?php echo $event_id ?>" class="<?php tribe_events_the_calendar_single_event_classes() ?>">
 	<h3 class="entry-title summary"><a href="<?php tribe_event_link( $post ); ?>"><?php the_title() ?></a></h3>
-	<div id="tribe-events-tooltip-<?php echo $$event_id; ?>" class="tribe-events-tooltip">
+	<div id="tribe-events-tooltip-<?php echo $event_id; ?>" class="tribe-events-tooltip">
 		<h4 class="entry-title summary"><?php the_title() ?></h4>
 		<div class="tribe-events-event-body">
 			<div class="duration">
