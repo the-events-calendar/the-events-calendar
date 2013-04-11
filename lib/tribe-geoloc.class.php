@@ -409,7 +409,7 @@ class TribeEventsGeoLoc {
 		//FTW!
 
 		$sql = "Select distinct venue_id from (
-		SELECT venue_id,
+		SELECT coords.venue_id,
 		       Max(lat) AS lat,
 		       Max(lng) AS lng
 		FROM   (SELECT post_id AS venue_id,
@@ -422,7 +422,10 @@ class TribeEventsGeoLoc {
 		        FROM   $wpdb->postmeta
 		        WHERE  meta_key = '" . self::LAT . "'
 		            OR meta_key = '" . self::LNG . "') coords
+		        INNER JOIN $wpdb->posts p
+		            ON coords.venue_id = p.id
 		WHERE (lat > $minLat OR lat IS NULL) AND (lat < $maxLat OR lat IS NULL) AND (lng > $minLng OR lng IS NULL) AND (lng < $maxLng OR lng IS NULL)
+			AND p.post_status = 'publish'
 		GROUP  BY venue_id
 		HAVING lat IS NOT NULL
 		       AND lng IS NOT NULL
