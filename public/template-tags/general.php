@@ -404,7 +404,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @author 
 	 **/
 	function tribe_events_resource_url($resource) {
-		$url = trailingslashit( TribeEvents::instance()->pluginUrl );
+		$url = trailingslashit( TribeEvents::instance()->pluginUrl ).'resources/'.$resource;
 		echo apply_filters('tribe_events_resource_url', $url, $resource);
 	}
 
