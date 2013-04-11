@@ -46,7 +46,9 @@ jQuery(document).ready(function ($) {
     }
 
     $tribedate.blur(function () {
-        if ($tribedate.val() === '' && $('.datepicker.dropdown-menu').is(':hidden')) {
+        if ($tribedate.val() === '' && $('.datepicker.dropdown-menu').is(':hidden') && tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate) {
+            tribe_ev.state.date = tribe_ev.data.cur_date;
+            tribe_ev.data.cur_url = tribe_ev.data.base_url;
             $(tribe_ev.events).trigger('tribe_ev_runAjax');
         }
     });
@@ -137,7 +139,15 @@ jQuery(document).ready(function ($) {
     $(tribe_ev.events).on("tribe_ev_serializeBar", function () {
         $('form#tribe-bar-form input, #tribeHideRecurrence').each(function () {
             var $this = $(this);
-            if ($this.val().length && !$this.hasClass('tribe-no-param')) {
+            if($this.is('#tribe-bar-date')){
+                if ($this.val().length){
+                    tribe_ev.state.params[$this.attr('name')] = $this.val();
+                } else {
+                    tribe_ev.state.date = tribe_ev.data.cur_date;
+                }
+            }
+
+            if ($this.val().length && !$this.hasClass('tribe-no-param') && !$this.is('#tribe-bar-date')) {
                 if ($this.is(':checkbox')) {
                     if ($this.is(':checked')) {
                         tribe_ev.state.params[$this.attr('name')] = $this.val();
