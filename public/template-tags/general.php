@@ -322,7 +322,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$before = wptexturize( $before );
 		$before = convert_chars( $before );
 		$before = wpautop( $before );
-		$before = '<div class="tribe-events-before-html">'. shortcode_unautop( $before ) .'</div>';
+		$before = '<div class="tribe-events-before-html">'. stripslashes( shortcode_unautop( $before  ) ) .'</div>';
 		$before = apply_filters( 'tribe_events_before_html', $before );	
 
 		echo apply_filters( 'tribe_events_before_html', $before );
@@ -340,7 +340,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$after = wptexturize( $after );
 		$after = convert_chars( $after );
 		$after = wpautop( $after );
-		$after = '<div class="tribe-events-after-html">'. shortcode_unautop( $after ) .'</div>';
+		$after = '<div class="tribe-events-after-html">'. stripslashes( shortcode_unautop( $after ) ) .'</div>';
 		$after = apply_filters( 'tribe_events_after_html', $after );	
 			
 		echo apply_filters( 'tribe_events_after_html', $after );
