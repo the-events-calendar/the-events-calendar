@@ -25,7 +25,6 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		private static $calendar_days = array();
 		private static $current_day = -1;
 		private static $current_week = -1;
-		private static $weeks_on_calendar;
 
 		public static function init(){
 
@@ -195,6 +194,8 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 
 			// fill month with required days for previous month
 			$days = array_fill(0, $prev_month_offset, array('date' => 'previous'));
+
+			// get $cur_calendar_day up to speed
 			$cur_calendar_day += $offset;
 
 			// add days for this month
@@ -207,16 +208,17 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 					'events'	=> self::get_daily_events($date),
 				);
 			}
+
+			// get $cur_calendar_day up to speed
 			$cur_calendar_day += $days_in_month;
 
-			// add days for next month
+			// check if $cur_calendar_day is less than $days_in_calendar, if so, add days for next month
 			if ($cur_calendar_day < $days_in_calendar) {
 				$days = array_merge($days, array_fill($cur_calendar_day, $days_in_calendar - $cur_calendar_day+1, array('date' => 'next')));
 			}
 
-			self::$weeks_on_calendar = $days_in_calendar / 7;
+			// store set of found days for use in calendar loop functions
 			self::$calendar_days = $days;
-			self::$current_day = -1;
 		}
 
 		/**
@@ -293,16 +295,6 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				$ppf .= ' tribe-events-right';
 			}
 			return $ppf;
-		}
-
-		/**
-		 * Returns self::$weeks_on_calendar
-		 *
-		 * @return int $weeks_on_calendar
-		 * @since 3.0
-		 **/
-		public static function get_weeks_on_calendar() {
-			return self::$weeks_on_calendar;
 		}
 
 		/**

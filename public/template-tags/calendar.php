@@ -71,16 +71,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Returns the number of weeks that should show on the calendar
-	 *
-	 * @return int Number of weeks on the calendar
-	 * @since 3.0
-	 **/
-	function tribe_events_get_weeks_on_calendar() {
-		return Tribe_Events_Calendar_Template::get_weeks_on_calendar();
-	}
-
-	/**
 	 * Returns the internal counter for the current week in the calendar loop
 	 *
 	 * @return void
