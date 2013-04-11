@@ -49,6 +49,99 @@ if( class_exists( 'TribeEvents' ) ) {
 		$output = ( $tribe_ecp->displaying == 'month' ) ? true : false;
 		return apply_filters('tribe_is_month', $output);
 	}
+
+	/**
+	 * Whether there are more calendar days available in the loop.
+	 *
+	 * @return bool True if calendar days are available, false if end of loop.
+	 * @since 3.0
+	 **/
+	function tribe_events_have_calendar_days() {
+		return Tribe_Events_Calendar_Template::have_days();
+	}
+
+	/**
+	 * Sets up the current calendar day
+	 *
+	 * @return void
+	 * @since 3.0
+	 **/
+	function tribe_events_the_calendar_day() {
+		Tribe_Events_Calendar_Template::the_day();
+	}
+
+	/**
+	 * Returns the number of weeks that should show on the calendar
+	 *
+	 * @return int Number of weeks on the calendar
+	 * @since 3.0
+	 **/
+	function tribe_events_get_weeks_on_calendar() {
+		return Tribe_Events_Calendar_Template::get_weeks_on_calendar();
+	}
+
+	/**
+	 * Returns the internal counter for the current week in the calendar loop
+	 *
+	 * @return void
+	 * @since 3.0 
+	 **/
+	function tribe_events_get_current_week() {
+		return Tribe_Events_Calendar_Template::get_current_week();
+	}
+
+	/**
+	 * Gets the current day array in the calendar loop
+	 *
+	 * @return array Day information
+	 * @since 3.0
+	 **/
+	function tribe_events_get_current_calendar_day() {
+		return apply_filters('tribe_events_current_calendar_day', Tribe_Events_Calendar_Template::get_current_day());
+	}
+
+	/**
+	 * Outputs classes for the current calendar day
+	 *
+	 * @return void
+	 * @since 3.0 
+	 **/
+	function tribe_events_the_calendar_day_classes() {
+		$classes = apply_filters('tribe_events_the_calendar_day_class', Tribe_Events_Calendar_Template::day_classes());
+		echo 'class="'.$classes.'"';
+	}
+
+	/**
+	 * Output the current day number
+	 *
+	 * @return void
+	 * @since 3.0
+	 **/
+	function tribe_events_the_calendar_day_title()	{
+		$day = tribe_events_get_current_calendar_day();
+		echo apply_filters('tribe_events_the_calendar_day_title', $day['daynum']);
+	}
+
+	/**
+	 * Get the wp_query with the list of events for the current day in the calendar loop
+	 *
+	 * @return $wp_query
+	 * @since 3.0
+	 **/
+	function tribe_events_get_current_calendar_day_events()	{
+		$day = tribe_events_get_current_calendar_day();
+		return apply_filters('tribe_events_get_current_calendar_day_events', $day['events'], $day);
+	}
+
+	/**
+	 * Outputs classes for the current single event in the calendar loop
+	 *
+	 * @return void
+	 * @since 3.0 
+	 **/
+	function tribe_events_the_calendar_single_event_classes() {
+		echo apply_filters('tribe_events_the_calendar_single_event_classes', Tribe_Events_Calendar_Template::event_classes());
+	}
 	
 	/**
 	 * Sort Events by Day
