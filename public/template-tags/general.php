@@ -36,6 +36,40 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Includes a template part, similar to the WP get template part, but looks 
+	 * in the correct directories for Tribe Events templates
+	 *
+	 * @return void
+	 * @uses TribeEventsTemplates::getTemplateHierarchy
+	 * @since 3.0 
+	 **/
+	function tribe_get_template_part( $slug, $name = null ) {
+
+		// Execute code for this part
+		do_action( 'tribe_pre_get_template_part_' . $slug, $slug, $name );
+
+		// Setup possible parts
+		$templates = array();
+		if ( isset( $name ) ) {
+			$templates[] = $slug . '-' . $name . '.php';
+		}
+		$templates[] = $slug . '.php';
+
+		// Allow template parts to be filtered
+		$templates = apply_filters( 'tribe_get_template_part_templates', $templates, $slug, $name );
+
+		// loop through templates, return first one found.
+		foreach($templates as $template) {
+			$file = TribeEventsTemplates::getTemplateHierarchy( $template );
+			if (file_exists($file)) {
+				do_action('tribe_before_get_template_part', $template, $file, $template, $slug, $name);
+				include($file);
+				do_action('tribe_after_get_template_part', $template, $file, $slug, $name);
+			}
+		}
+	}
+
+	/**
 	 * Get Options
 	 *
 	 * Retrieve specific key from options array, optionally provide a default return value
