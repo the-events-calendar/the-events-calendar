@@ -99,7 +99,7 @@ class TribeEventsBar {
 		include $tec->pluginPath . "views/modules/bar.php";
 		$html = ob_get_clean() . $content;
 
-		return apply_filters( 'tribe_events_bar_show', $html, $filters, $views, $content );
+		echo apply_filters( 'tribe_events_bar_show', $html, $filters, $views, $content );
 	}
 
 	/**
