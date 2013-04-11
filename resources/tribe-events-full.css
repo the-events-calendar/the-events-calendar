@@ -15,6 +15,9 @@
 =============================================*/
 
 /* Default Events Template Base HTML STyles */
+.tribe-events-after-html {
+	clear: both;
+}
 #tribe-events-pg-template .tribe-events-content p,
 .tribe-events-before-html p,
 .tribe-events-after-html p {
