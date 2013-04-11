@@ -323,7 +323,8 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		 **/
 		public static function event_classes() {
 
-			$post = self::get_current_day();
+			$day = self::get_current_day();
+			$post = $day['events']->post;
 
 			// Get our wrapper classes (for event categories, organizer, venue, and defaults)
 			$classes = array('hentry', 'vevent');
@@ -338,6 +339,11 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			if ( $organizer_id = tribe_get_organizer_id($post->ID) ) {
 				$classes[] = 'tribe-events-organizer-'. $organizer_id;
 			}
+
+			if ($day['events']->current_post + 1 == $day['events']->post_count) {
+				$classes[] = 'tribe-events-last';
+			}
+
 			return implode(' ', $classes);
 		}
 	} // class Tribe_Events_Calendar_Template
