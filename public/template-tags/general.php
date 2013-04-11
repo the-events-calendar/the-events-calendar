@@ -340,7 +340,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$after = wptexturize( $after );
 		$after = convert_chars( $after );
 		$after = wpautop( $after );
-		$after = '<div class="tribe-events-after-html">'. shortcode_unautop( $after ) .'</div>';
+		$after = '<div class="tribe-events-after-html">'. stripslashes( shortcode_unautop( $after ) ) .'</div>';
 		$after = apply_filters( 'tribe_events_after_html', $after );	
 			
 		echo apply_filters( 'tribe_events_after_html', $after );
