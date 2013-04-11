@@ -44,6 +44,15 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			self::$event_daily_counts = self::get_daily_counts($date);
 			$total_counts = array_unique(self::$event_daily_counts);
 
+			// save tribe bar args
+			if ( empty(self::$tribe_bar_args) ) {
+				foreach ( $_REQUEST as $key => $value ) {
+					if ( $value && strpos($key, 'tribe-bar-') === 0 && $key != 'tribe-bar-date' ) {
+						self::$tribe_bar_args[$key] = $value;
+					}
+				}
+			}
+
 			// setup a search term for query or via ajax
 			if( !empty( $wp_query->query_vars['s'] )){
 				$search_term = $wp_query->query_vars['s'];
@@ -66,7 +75,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		 * Limit the excerpt length on the calendar view
 		 *
 		 * @return void
-		 * @author 
+		 * @since 3.0
 		 **/
 		function excerpt_length( $length ) {
 			return 30;
@@ -101,10 +110,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				if ( !empty($args) ) {
 					$day_link = add_query_arg($args, $day_link);
 				}
-				printf( '<div class="tribe-events-viewmore"><a href="%s">View All %d &raquo;</a></div>',
-					$day_link,
-					self::$event_daily_counts[$date]
-				);
+				return $day_link;
 			}
 		}
 
@@ -150,6 +156,12 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			return $result;
 		}
 
+		/**
+		 * Sets up an array of $days based on the current query, that can be used in the calendar loop
+		 *
+		 * @return void
+		 * @since 3.0 
+		 **/
 		private static function setup_month() {
 			$tribe_ecp = TribeEvents::instance();
 			$tribe_ecp->date = tribe_get_month_view_date();
@@ -203,9 +215,11 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				$day = $i + 1;
 				$date = date( 'Y-m-d', strtotime("$year-$month-$day"));
 				$days[] = array(
-					'daynum'	=> $day,
-					'date' 		=> $date,
-					'events'	=> self::get_daily_events($date),
+					'daynum'		=> $day,
+					'date' 			=> $date,
+					'events'		=> self::get_daily_events($date),
+					'total_events'	=> self::$event_daily_counts[$date],
+					'view_more' 	=> self::view_more_link($date, self::$tribe_bar_args),
 				);
 			}
 
@@ -251,7 +265,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		 * Returns the current day according to self::$current_day
 		 *
 		 * @return void
-		 * @author 
+		 * @since 3.0 
 		 **/
 		public static function get_current_day() {
 			return self::$calendar_days[self::$current_day];
@@ -260,8 +274,8 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		/**
 		 * Generates and returns a set of classes for the current day
 		 *
-		 * @return void
-		 * @author 
+		 * @return string Classes
+		 * @since 3.0 
 		 **/
 		public static function day_classes() {
 			$ppf = '';
@@ -310,8 +324,8 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		/**
 		 * Generates and returns a set of classes for the current day
 		 *
-		 * @return void
-		 * @author 
+		 * @return string Classes
+		 * @since 3.0 
 		 **/
 		public static function event_classes() {
 

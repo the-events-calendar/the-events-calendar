@@ -106,9 +106,9 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @return void
 	 * @since 3.0
 	 **/
-	function tribe_events_the_calendar_day_title()	{
+	function tribe_events_the_calendar_day_header()	{
 		$day = tribe_events_get_current_calendar_day();
-		echo apply_filters('tribe_events_the_calendar_day_title', $day['daynum']);
+		echo apply_filters('tribe_events_the_calendar_day_header', $day['daynum']);
 	}
 
 	/**
