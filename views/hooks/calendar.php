@@ -182,13 +182,13 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$days = array();
 
 			// setup counters
+			$rawOffset = date( 'w', $first_date_of_month ) - $startOfWeek;
+			$prev_month_offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
 			$days_in_month = date( 't', intval($first_date_of_month) );
-			$days_in_calendar = $days_in_month + $offset;
+			$days_in_calendar = $days_in_month + $prev_month_offset;
 			while ($days_in_calendar % 7 > 0) {
 				$days_in_calendar++;
 			}
-			$rawOffset = date( 'w', $first_date_of_month ) - $startOfWeek;
-			$prev_month_offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
 			$week = 0;
 			$cur_calendar_day = 0;
 
@@ -196,7 +196,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$days = array_fill(0, $prev_month_offset, array('date' => 'previous'));
 
 			// get $cur_calendar_day up to speed
-			$cur_calendar_day += $offset;
+			$cur_calendar_day += $prev_month_offset;
 
 			// add days for this month
 			for ($i = 0; $i < $days_in_month; $i++) {
@@ -214,7 +214,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 
 			// check if $cur_calendar_day is less than $days_in_calendar, if so, add days for next month
 			if ($cur_calendar_day < $days_in_calendar) {
-				$days = array_merge($days, array_fill($cur_calendar_day, $days_in_calendar - $cur_calendar_day+1, array('date' => 'next')));
+				$days = array_merge($days, array_fill($cur_calendar_day, $days_in_calendar - $cur_calendar_day, array('date' => 'next')));
 			}
 
 			// store set of found days for use in calendar loop functions
