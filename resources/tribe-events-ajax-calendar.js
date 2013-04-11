@@ -92,11 +92,16 @@ jQuery(document).ready(function ($) {
             e.preventDefault();
             if (tribe_ev.state.ajax_running)
                 return;
-            tribe_ev.state.date = $tribedate.val();
+            if($tribedate.val().length){
+                tribe_ev.state.date = $tribedate.val();
+            } else {
+                tribe_ev.state.date = tribe_ev.data.cur_date.slice(0, -3);
+            }
+
             if (tribe_ev.state.filter_cats) {
                 tribe_ev.data.cur_url = $('#tribe-events-header').attr('data-baseurl') + tribe_ev.state.date + '/';
             } else {
-                tribe_ev.data.cur_url = tribe_ev.data.initial_url;
+                tribe_ev.data.cur_url = base_url + tribe_ev.state.date + '/';
             }
             tribe_ev.state.popping = false;
             tribe_ev.fn.pre_ajax(function () {
