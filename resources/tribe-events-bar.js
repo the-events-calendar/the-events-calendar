@@ -26,7 +26,7 @@ jQuery(document).ready(function ($) {
     eventsBarWidth($tribebar);
 
     $tribebar.resize(function () {
-        eventsBarWidth();
+        eventsBarWidth($tribebar);
     });
 
     if (!$('.tribe-events-week-grid').length) {
