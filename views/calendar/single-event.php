@@ -61,7 +61,7 @@ $end = tribe_get_end_date( $post, FALSE, 'U' );
 			<?php endif; ?>
 
 			<p class="entry-summary description">
-				<?php the_excerpt() ?>
+				<?php echo get_the_excerpt() ?>
 			</p><!-- .entry-summary -->
 
 		</div><!-- .tribe-events-event-body -->
