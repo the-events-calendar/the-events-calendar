@@ -107,8 +107,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 3.0 
 	 **/
 	function tribe_events_the_calendar_day_classes() {
-		$classes = apply_filters('tribe_events_the_calendar_day_class', Tribe_Events_Calendar_Template::day_classes());
-		echo 'class="'.$classes.'"';
+		echo apply_filters('tribe_events_the_calendar_day_class', Tribe_Events_Calendar_Template::day_classes());
 	}
 
 	/**
