@@ -59,9 +59,18 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			// set up an array of the days of the current month
 			self::setup_month();			
 
+			add_filter( 'excerpt_length', array(__CLASS__, 'excerpt_length'));
 
 		}
 
+		/**
+		 * Limit the excerpt length on the calendar view
+		 *
+		 * @return void
+		 * @author 
+		 **/
+		function excerpt_length( $length ) {
+			return 30;
 		}
 
 		private static function get_daily_counts( $date ) {
