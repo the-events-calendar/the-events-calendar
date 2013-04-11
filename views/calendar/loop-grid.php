@@ -14,37 +14,33 @@
 
 <?php 
 
-// Initialize variables used in this template
-$start_of_week = get_option('start_of_week', 0);
 $days_of_week = tribe_events_get_days_of_week();
+$week = 0;
 
-list($year, $month) = explode('-', tribe_get_month_view_date());
-$date_start = mktime(12, 0, 0, $month, 1, $year); // 1st day of month as unix stamp
-
-$rawOffset = date( 'w', $date_start ) - $start_of_week;
-$previous_month_offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
-echo $previous_month_offset;
-$event_daily_counts = tribe_events_get_daily_counts($date_start); // Tribe_Events_Calendar_Template::get_daily_counts()
-
-$current_day = date_i18n( 'd' );
-$current_month = date_i18n( 'm' );
-$current_year = date_i18n( 'Y' );
-
- ?>
+?>
 
 
 <?php do_action('tribe_events_calendar_before_the_grid') ?>
 <table class="tribe-events-calendar">
-			<thead>
-				<tr>
-				<?php foreach($days_of_week as $day) : ?>
-					<th id="tribe-events-<?php echo strtolower($day) ?>" title="<?php echo $day ?>"><?php echo $day ?></th>
-				<?php endforeach; ?>
-				</tr>
-			</thead>
-			<tbody class="hfeed vcalendar">
-				<?php foreach ($days_of_week as $numeric_day => $day) ?>
-
-				<?php endforeach; ?>
-			</tbody>
+	<thead>
+		<tr>
+		<?php foreach($days_of_week as $day) : ?>
+			<th id="tribe-events-<?php echo strtolower($day) ?>" title="<?php echo $day ?>"><?php echo $day ?></th>
+		<?php endforeach; ?>
+		</tr>
+	</thead>
+	<tbody class="hfeed vcalendar">
+		<tr>
+		<?php while (tribe_events_have_calendar_days()) : tribe_events_the_calendar_day(); ?>
+			<?php if ($week != tribe_events_get_current_week()) : $week++; ?>
+		</tr>
+		<tr>
+			<?php endif; ?>
+			<td class="<?php tribe_events_the_calendar_day_classes() ?>">
+				<?php tribe_get_template_part('calendar/single', 'day') ?>
+			</td>
+		<?php endwhile; ?>
+		</tr>
+	</tbody>
+</table><!-- .tribe-events-calendar -->
 <?php do_action('tribe_events_calendar_after_the_grid') ?>
