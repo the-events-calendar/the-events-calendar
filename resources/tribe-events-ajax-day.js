@@ -70,9 +70,15 @@ jQuery(document).ready(function ($) {
             e.preventDefault();
             if (tribe_ev.state.ajax_running)
                 return;
+            var picker = $('#tribe-bar-date').val();
             tribe_ev.state.popping = false;
-            tribe_ev.state.date = $('#tribe-bar-date').val();
-            tribe_ev.data.cur_url = base_url + tribe_ev.state.date + '/';
+            if (picker.length) {
+                tribe_ev.state.date = $('#tribe-bar-date').val();
+                tribe_ev.data.cur_url = base_url + tribe_ev.state.date + '/';
+            } else {
+                tribe_ev.state.date = tribe_ev.data.cur_date;
+                tribe_ev.data.cur_url = base_url + tribe_ev.data.cur_date + '/';
+            }
             tribe_ev.fn.pre_ajax(function () {
                 tribe_events_calendar_ajax_post();
             });
