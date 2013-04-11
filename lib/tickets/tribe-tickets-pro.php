@@ -45,10 +45,10 @@ class TribeEventsTicketsPro {
 	 */
 	public function __construct() {
 
-		add_action( 'wp_ajax_tribe-ticket-email-attendee-list', array( $this, 'ajax_handler_attendee_mail_list' ) 		 );
-		add_action( 'save_post', 								array( $this, 'save_image_header' 				), 20, 2 );
-		add_action( 'admin_menu', 								array( $this, 'attendees_page_register' 		) 		 );
-		add_filter( 'post_row_actions', 						array( $this, 'attendees_row_action' 			) 		 );
+		add_action( 'wp_ajax_tribe-ticket-email-attendee-list', array( $this, 'ajax_handler_attendee_mail_list' )        );
+		add_action( 'save_post',                                array( $this, 'save_image_header'               ), 20, 2 );
+		add_action( 'admin_menu',                               array( $this, 'attendees_page_register'         )        );
+		add_filter( 'post_row_actions',                         array( $this, 'attendees_row_action'            )        );
 
 		$this->path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
 	}
