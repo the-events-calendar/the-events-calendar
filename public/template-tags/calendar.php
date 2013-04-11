@@ -316,7 +316,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		$url = tribe_get_next_month_link();
 		$date = TribeEvents::instance()->nextMonth( tribe_get_month_view_date() );
 		$text = tribe_get_next_month_text();
-		$html = '<a data-month="'. $date .'" href="' . $url . '" rel="pref">&laquo; '. $text .' </a>';
+		$html = '<a data-month="'. $date .'" href="' . $url . '" rel="pref">&raquo; '. $text .' </a>';
 		echo apply_filters('tribe_events_next_month_link', $html);
 	}
 
@@ -328,7 +328,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @return string URL
 	 * @since 2.0
 	 */
-	function tribe_get_previous_month_link()  {
+	function tribe_get_previous_month_link() {
 		global $wp_query;
 		$term = null;
 		$tribe_ecp = TribeEvents::instance();
