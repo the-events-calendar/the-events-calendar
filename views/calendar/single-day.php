@@ -24,9 +24,10 @@ $day = tribe_events_get_current_calendar_day();
 
 		<?php tribe_events_the_calendar_day_title() ?>
 
+	</div>
 		<?php while ($day['events']->have_posts()) : $day['events']->the_post() ?>
 			<?php tribe_get_template_part('calendar/single', 'event') ?>
 		<?php endwhile; ?>
-	</div>
+			<?php // self::view_more_link( $date, self::$tribe_bar_args ); ?>
 
 <?php endif; ?>
