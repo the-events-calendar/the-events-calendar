@@ -18,7 +18,6 @@ if (!class_exists('TribeEventsTemplates')) {
 			//add_filter( 'template_include', array( __CLASS__, 'fixIs404') );
 			add_filter( 'template_include', array( __CLASS__, 'templateChooser') );
 			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished'), 999 );
-			add_filter( 'excerpt_more', array(__CLASS__, 'excerptMore'));
 		}
 
 		// pick the correct template to include
@@ -125,7 +124,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			if ( is_tax( TribeEvents::TAXONOMY) ) {
 				if ( tribe_is_upcoming() || tribe_is_past() ){
 					Tribe_Template_Factory::asset_package( 'ajax-list' );
-					$template = self::getTemplateHierarchy('list-view');
+					$template = self::getTemplateHierarchy('list');
 				}elseif ( tribe_is_month() ) {
 					$template = self::getTemplateHierarchy('calendar');
 				}
@@ -135,7 +134,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			} elseif ( tribe_is_upcoming() || tribe_is_past() || (is_single() && tribe_is_showing_all()) ) {
 				// list view
 				Tribe_Template_Factory::asset_package( 'ajax-list' );
-				$template = self::getTemplateHierarchy('list-view');
+				$template = self::getTemplateHierarchy('list');
 			} else {
 				
 				// calendar view
@@ -147,7 +146,7 @@ if (!class_exists('TribeEventsTemplates')) {
 						// in case we somehow magically get here - protect the display
 						$template = get_404_template();
 					} else {
-						$template = self::getTemplateHierarchy( 'list-view' );
+						$template = self::getTemplateHierarchy( 'list' );
 					}
 				}
 			}
@@ -363,10 +362,6 @@ if (!class_exists('TribeEventsTemplates')) {
 			return $located;
 		}
 
-		public static function excerptMore($more) {
-			return '&hellip;';
-		}
-	
 		private static function spoofQuery() {
 			global $wp_query, $withcomments;
 

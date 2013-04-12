@@ -22,79 +22,120 @@
 
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-$the_post_id = ( have_posts() ) ? get_the_ID() : null;
+$the_post_id = ( have_posts() ) ? get_the_ID() : null; ?>
 
-// Start list template
-echo apply_filters( 'tribe_events_list_before_template', '', $the_post_id );
+
+<?php do_action( 'tribe_events_list_before_template' ); ?>
+<input type="hidden" id="tribe-events-list-hash" value="">
+
+<div id="tribe-events-list-view">
+
+	<div id="tribe-events-content" class="tribe-events-list">
 	
-	echo apply_filters( 'tribe_events_list_before_the_title', '', $the_post_id );
-	echo apply_filters( 'tribe_events_list_the_title', '', $the_post_id );
-	echo apply_filters( 'tribe_events_list_after_the_title', '', $the_post_id );
+		<!-- List Title -->
+		<?php do_action( 'tribe_events_list_before_the_title' ); ?>
+		<h2 class="tribe-events-page-title"><?php tribe_get_events_title() ?></h2>
+		<?php do_action( 'tribe_events_list_after_the_title' ); ?>
 
-	// List notices
-	echo apply_filters( 'tribe_events_list_notices', '', $the_post_id );
-	
-	// List header
-    echo apply_filters( 'tribe_events_list_before_header', '', $the_post_id );
+		<!-- Notices -->
+		<?php tribe_events_the_notices() ?>
 
-    	// Navigation
-    	echo apply_filters( 'tribe_events_list_before_header_nav', '', $the_post_id );
-		echo apply_filters( 'tribe_events_list_header_nav', '', $the_post_id );
-		echo apply_filters( 'tribe_events_list_after_header_nav', '', $the_post_id );
-
-	echo apply_filters( 'tribe_events_list_after_header', '', $the_post_id );
-
-	// Start list loop
-	echo apply_filters( 'tribe_events_list_before_loop', '', $the_post_id );
-
-	$hasPosts = false;
-
-	// Does this page have posts?
-	if ( have_posts() ) {
+		<?php if ( have_posts() ) : ?>
 		
-		$hasPosts = true;
+		<!-- List Header -->
+	    <?php do_action( 'tribe_events_list_before_header' ); ?>
+		<div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
 
-		// Start Loop
-		while ( have_posts() ) {
-			
-			the_post();
-			global $more, $post; 
-			$more = false;
-			echo apply_filters( 'tribe_events_list_inside_before_loop', '', get_the_ID(), $post );
+			<!-- Header Navigation -->
+			<?php tribe_get_template_part('list/nav', 'header'); ?>
 
-				// Event title
-				echo apply_filters( 'tribe_events_list_the_event_title', '', get_the_ID(), $post );
+		</div><!-- #tribe-events-header -->
+		<?php do_action( 'tribe_events_list_after_header' ); ?>
 
-				// Event meta
-				echo apply_filters( 'tribe_events_list_before_the_meta', '', get_the_ID(), $post );
-				echo apply_filters( 'tribe_events_list_the_meta', '', get_the_ID(), $post );
-				echo apply_filters( 'tribe_events_list_after_the_meta', '', get_the_ID(), $post );
-					
-				// Event image
-				echo apply_filters( 'tribe_events_list_the_event_image', '', get_the_ID(), $post );
+		<!-- Start list loop -->
+		<?php do_action( 'tribe_events_list_before_loop' ); ?>
+		<div class="tribe-events-loop heed">
+		
+			<?php while ( have_posts() ) : the_post(); ?>
 
-				// Event content
-				echo apply_filters( 'tribe_events_list_before_the_content', '', get_the_ID(), $post );
-				echo apply_filters( 'tribe_events_list_the_content', '', get_the_ID(), $post );
-				echo apply_filters( 'tribe_events_list_after_the_content', '', get_the_ID(), $post );			
-			
-			echo apply_filters( 'tribe_events_list_inside_after_loop', '', get_the_ID(), $post );
+				<?php 
 
+				global $more, $post; 
+				$more = false;
+				do_action('tribe_events_list_inside_before_loop');
 
-		} // End list loop
-	} // End if list has posts
+				?>
+				<?php //tribe_events_show_separators() ?>
 
-	echo apply_filters( 'tribe_events_list_after_loop', '', $the_post_id );
-	
-	// List footer
-    echo apply_filters( 'tribe_events_list_before_footer', '', $the_post_id );
+				<!-- Event  -->
+				<div id="post-<?php the_ID() ?>" class="<?php tribe_events_event_classes() ?>">
 
-    	// Navigation
-    	echo apply_filters( 'tribe_events_list_before_footer_nav', '', $the_post_id );
-		echo apply_filters( 'tribe_events_list_footer_nav', '', $the_post_id );
-		echo apply_filters( 'tribe_events_list_after_footer_nav', '', $the_post_id );
+					<!-- Event Title -->
+					<h2 class="tribe-events-list-event-title entry-title summary">
+						<a class="url" href="<?php echo tribe_get_event_link() ?>" title="<?php the_title() ?>" rel="bookmark">
+							<?php the_title() ?>
+						</a>
+					</h2>
 
-	echo apply_filters( 'tribe_events_list_after_footer', '', $the_post_id );
+					<!-- Event Meta -->
+					<?php do_action( 'tribe_events_list_before_the_meta' ) ?>
+					<div class="tribe-events-event-meta">
 
-// End list template
-echo apply_filters( 'tribe_events_list_after_template', '', $hasPosts, $the_post_id );
+						<!-- Schedule & Recurrence Details -->
+						<div class="updated published time-details">
+							<?php echo tribe_events_event_schedule_details() ?>
+							<?php echo tribe_events_event_recurring_info_tooltip() ?>
+						</div>
+						
+						<!-- Venue Display Info -->
+						<?php
+						$venue_name = tribe_get_meta( 'tribe_event_venue_name' );
+						$venue_address = tribe_get_meta( 'tribe_event_venue_address' );
+						
+						if( !empty( $venue_name ) && !empty( $venue_address ) )
+							printf('<div class="tribe-events-venue-details">%s%s%s</div>',
+								$venue_name,
+								( !empty( $venue_name ) && !empty( $venue_address ) ) ? ', ' : '',
+								( !empty( $venue_address ) ) ? $venue_address : ''
+							);
+						?>
+					</div><!-- .tribe-events-event-meta -->
+					<?php do_action( 'tribe_events_list_after_the_meta' ) ?>
+
+					<!-- Event Image -->
+					<?php tribe_event_featured_image(null, 'large') ?>
+
+					<!-- Event Content -->
+					<?php do_action( 'tribe_events_list_before_the_content' ) ?>
+					<div class="tribe-events-list-event-description tribe-events-content entry-summary">
+						<?php the_excerpt() ?>
+						<a href="<?php echo tribe_get_event_link() ?>" class="tribe-events-read-more"><?php _e('Find out more', 'tribe-events-calendar') ?> &raquo;</a>
+					</div><!-- .tribe-events-list-event-description -->
+					<?php do_action('tribe_events_list_after_the_content') ?>
+
+				</div><!-- .hentry .vevent -->
+				<?php do_action( 'tribe_events_list_inside_after_loop' ); ?>
+
+			<?php endwhile; ?>
+			</div><!-- .tribe-events-loop -->
+			<?php do_action('tribe_events_list_after_loop'); ?>
+
+		<?php endif; ?>
+
+		<!-- List Footer -->
+		<?php do_action( 'tribe_events_list_before_footer' ); ?>
+		<div id="tribe-events-footer">
+
+			<!-- Footer Navigation -->
+			<?php tribe_get_template_part('list/nav', 'footer') ?>
+
+		</div><!-- #tribe-events-footer -->
+		<?php do_action( 'tribe_events_list_after_footer' ) ?>
+
+	</div><!-- #tribe-events-content -->
+
+	<div class="tribe-clear"></div>
+
+</div><!-- #tribe-events-list-view -->
+
+<?php do_action('tribe_events_list_after_template') ?>
