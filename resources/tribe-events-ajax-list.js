@@ -114,7 +114,7 @@ jQuery(document).ready(function ($) {
 
     function tribe_events_list_ajax_post() {
 
-        tribe_ev.fn.spin_show();
+        $('#tribe-events-header').tribe_spin();
         tribe_ev.state.ajax_running = true;
 
         if (!tribe_ev.state.popping) {
@@ -181,7 +181,7 @@ jQuery(document).ready(function ($) {
                         };
 
                         $('#tribe-events-list-hash').val(response.hash);
-                        $('#tribe-events-content').replaceWith(response.html);
+                        $('#tribe-events-content').replaceWith($(response.html).find('#tribe-events-content'));
                         $('#tribe-events-content').next('.tribe-clear').remove();
 
                         if (tribe_ev.state.do_string) {

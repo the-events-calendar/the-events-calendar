@@ -130,7 +130,7 @@ jQuery(document).ready(function ($) {
 
     function tribe_events_calendar_ajax_post() {
 
-        tribe_ev.fn.spin_show();
+        $('#tribe-events-header').tribe_spin();
         tribe_ev.state.pushcount = 0;
         tribe_ev.state.ajax_running = true;
 

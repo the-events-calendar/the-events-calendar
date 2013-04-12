@@ -184,13 +184,18 @@ h2.tribe-events-page-title a:focus {
 	float: right;
 	text-align: right;
 }
-#tribe-events-header .tribe-events-ajax-loading {
+.tribe-events-ajax-loading {
 	display: none;
 	position: absolute;
 	left: 50%;
 	-webkit-box-shadow: none;
 			box-shadow: none;
 }
+
+.tribe-events-loading .tribe-events-ajax-loading {
+	display: block;
+}
+
 #tribe-events-footer {
 	margin-bottom: 1em;
 }

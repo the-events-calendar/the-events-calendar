@@ -35,6 +35,18 @@ var tribe_ajax_timer;
     };
 })(jQuery);
 
+// ajax spinner stuff
+(function($) {
+    
+    // $(element).tribe_spin()
+    $.fn.tribe_spin = function() {
+        $loadingImg = $('.tribe-events-ajax-loading:first').clone().addClass('tribe-events-active-spinner');
+        $loadingImg.appendTo(this);
+        $(this).addClass('tribe-events-loading');
+    }
+
+})(jQuery);
+
 // tribe events object
 
 var tribe_ev = {};
@@ -470,4 +482,9 @@ jQuery(document).ready(function ($) {
     if ($('.tribe-events-list').length) {
         $('.tribe-events-list-separator-month').prev('.vevent').addClass('tribe-event-end-month');
     }
+
+    // ajax complete function to remove active spinner
+    $(tribe_ev.events).on( 'tribe_ev_ajaxSuccess', function() {
+        $('.tribe-events-active-spinner').remove();
+    });
 });
