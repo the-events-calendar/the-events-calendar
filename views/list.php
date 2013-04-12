@@ -34,7 +34,7 @@ $the_post_id = ( have_posts() ) ? get_the_ID() : null; ?>
 	
 		<!-- List Title -->
 		<?php do_action( 'tribe_events_list_before_the_title' ); ?>
-		<h2 class="tribe-events-page-title"><?php tribe_get_events_title() ?></h2>
+		<h2 class="tribe-events-page-title"><?php echo tribe_get_events_title() ?></h2>
 		<?php do_action( 'tribe_events_list_after_the_title' ); ?>
 
 		<!-- Notices -->
