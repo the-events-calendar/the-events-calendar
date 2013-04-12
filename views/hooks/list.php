@@ -81,20 +81,19 @@ if( !class_exists('Tribe_Events_List_Template')){
 				}
 			}
 
-			// Hijack global WP_Query
-			add_action( 'tribe_events_list_before_template', array(__CLASS__, 'setup_events_query') );
+			if ( ! defined('DOING_AJAX') || ! DOING_AJAX) { // ajax requests handle the query separately
+				// Hijack global WP_Query
+				add_action( 'tribe_events_list_before_template', array(__CLASS__, 'setup_events_query') );
 
-			// Reset global WP_Query
-			add_action( 'tribe_events_list_after_template', 'wp_reset_query' );
+				// Reset global WP_Query
+				add_action( 'tribe_events_list_after_template', 'wp_reset_query' );
+			}
 
 			// Set excerpt length & more
 			add_action( 'tribe_events_list_before_loop', array(__CLASS__, 'setup_excerpt') );
 
 			// Reset excerpt length & more
 			add_action( 'tribe_events_list_after_loop', array(__CLASS__, 'reset_excerpt') );
-
-			// Month / Year Separators
-			add_action('tribe_events_list_inside_before_loop', array(__CLASS__, 'show_separators'));
 			
 			// Event cost
 			add_filter( 'tribe_events_list_the_event_cost', array( __CLASS__, 'the_event_cost' ), 1, 2 );
@@ -123,42 +122,6 @@ if( !class_exists('Tribe_Events_List_Template')){
 	
 			// single-event notices are jumping in on this init when loading as a module
 			TribeEvents::removeNotice( 'event-past' );
-		}
-
-		public static function show_separators(){
-
-			global $post;
-			
-			/* Month and year separators (on every month and year change) */
-
-			$show_separators = apply_filters( 'tribe_events_list_show_separators', true );
-
-			if ( $show_separators ) {
-
-				$event_year  = tribe_get_start_date( $post, false, 'Y' );
-				$event_month = tribe_get_start_date( $post, false, 'm' );
-
-				/*
-				 * If this event year is different to the year of the previous event in the loop,
-				 * and it's not it's not the first event in the loop (we don't want to start the loop with a year separator)
-				 */
-				if ( self::$prev_event_year != $event_year && self::$prev_event_year != null ) {
-					echo sprintf( "<span class='tribe-events-list-separator-year'>%s</span>", $event_year );
-				}
-
-				/*
-				 * If the event month changed since the last event in the loop,
-				 * or is the same month but the year changed.
-				 *
-				 */
-				if ( self::$prev_event_month != $event_month || ( self::$prev_event_month == $event_month && self::$prev_event_year != $event_year ) ) {
-					echo sprintf( "<span class='tribe-events-list-separator-month'><span>%s</span></span>", tribe_get_start_date( $post, false, 'F Y' ) );
-				}
-
-				self::$prev_event_year  = $event_year;
-				self::$prev_event_month = $event_month;
-			}
-
 		}
 
 		/**
