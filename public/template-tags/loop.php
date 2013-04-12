@@ -242,5 +242,49 @@ if( class_exists( 'TribeEvents' ) ) {
 		return apply_filters( 'tribe_is_list_view', $return );
 	}
 
+	/**
+	 * Used in list loop, displays the date headers between events in the loop when the month / year has changed
+	 *
+	 * @return void
+	 * @since 3.0
+	 **/
+	function tribe_events_list_the_date_headers() {
+
+		/* Month and year separators (on every month and year change) */
+
+		$show_headers = apply_filters( 'tribe_events_list_show_date_headers', true );
+
+		$html = '';
+
+		if ($show_headers) {
+
+			global $post;
+		
+			$event_year  = tribe_get_start_date( $post, false, 'Y' );
+			$event_month = tribe_get_start_date( $post, false, 'm' );
+
+			/*
+			 * If this event year is different to the year of the previous event in the loop,
+			 * and it's not it's not the first event in the loop (we don't want to start the loop with a year separator)
+			 */
+			if ( Tribe_Events_List_Template::$prev_event_year != $event_year && Tribe_Events_List_Template::$prev_event_year != null ) {
+				$html .= sprintf( "<span class='tribe-events-list-separator-year'>%s</span>", $event_year );
+			}
+
+			/*
+			 * If the event month changed since the last event in the loop,
+			 * or is the same month but the year changed.
+			 *
+			 */
+			if ( Tribe_Events_List_Template::$prev_event_month != $event_month || ( Tribe_Events_List_Template::$prev_event_month == $event_month && Tribe_Events_List_Template::$prev_event_year != $event_year ) ) {
+				$html .= sprintf( "<span class='tribe-events-list-separator-month'><span>%s</span></span>", tribe_get_start_date( $post, false, 'F Y' ) );
+			}
+
+			Tribe_Events_List_Template::$prev_event_year  = $event_year;
+			Tribe_Events_List_Template::$prev_event_month = $event_month;
+		}		
+		echo apply_filters('tribe_events_list_the_date_headers', $html, $event_month, $event_year);
+	}
+
 }
 ?>
