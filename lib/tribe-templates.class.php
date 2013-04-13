@@ -119,39 +119,27 @@ if (!class_exists('TribeEventsTemplates')) {
 		
 		// get the correct internal page template
 		public static function get_current_page_template() {
-         $template = '';
 
-			if ( is_tax( TribeEvents::TAXONOMY) ) {
-				if ( tribe_is_upcoming() || tribe_is_past() ){
-					Tribe_Template_Factory::asset_package( 'ajax-list' );
-					$template = self::getTemplateHierarchy('list');
-				}elseif ( tribe_is_month() ) {
-					$template = self::getTemplateHierarchy('calendar');
-				}
-			} if ( is_single() && !tribe_is_showing_all() ) {
-				// single event
-				$template = self::getTemplateHierarchy('single-event');
-			} elseif ( tribe_is_upcoming() || tribe_is_past() || (is_single() && tribe_is_showing_all()) ) {
-				// list view
-				Tribe_Template_Factory::asset_package( 'ajax-list' );
-				$template = self::getTemplateHierarchy('list');
-			} else {
-				
-				// calendar view
-				$tec = TribeEvents::instance();
-				if ( $tec->displaying == 'month' ) {
-					$template = self::getTemplateHierarchy( 'calendar' );
-				} else {
-					if( is_404() && is_single() ) {
-						// in case we somehow magically get here - protect the display
-						$template = get_404_template();
-					} else {
-						$template = self::getTemplateHierarchy( 'list' );
-					}
-				}
+			$template = '';
+
+			// list view
+			if ( tribe_is_list_view() ) {
+				$template = self::getTemplateHierarchy( 'list' );
+			} 
+
+			// calendar view
+			if ( tribe_is_month() ) {
+				$template = self::getTemplateHierarchy( 'calendar' );
+			} 
+
+			// single event view
+			if ( is_single( TribeEvents::POSTTYPE )) {
+				$template = self::getTemplateHierarchy( 'single-event' );
 			}
 
-         return apply_filters('tribe_current_events_page_template', $template);
+			// apply filters
+			return apply_filters('tribe_current_events_page_template', $template);
+
 		}
 
 		// loads the contents into the page template
