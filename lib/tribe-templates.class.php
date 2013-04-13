@@ -12,12 +12,16 @@ if (!class_exists('TribeEventsTemplates')) {
 		public static $origPostCount;
 		public static $origCurrentPost;
 		public static $throughHead = false;
+		private static $template_paths = array();
 	
 		public static function init() {
 			//add_filter( 'parse_query', array( __CLASS__, 'fixIsHome') );
 			//add_filter( 'template_include', array( __CLASS__, 'fixIs404') );
 			add_filter( 'template_include', array( __CLASS__, 'templateChooser') );
 			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished'), 999 );
+
+			// set $template_paths;
+			self::$template_paths = array(TribeEvents::instance()->pluginPath);
 		}
 
 		// pick the correct template to include
@@ -299,8 +303,13 @@ if (!class_exists('TribeEventsTemplates')) {
 			// setup the meta definitions
 			require_once( $tec->pluginPath . 'public/advanced-functions/meta.php' );
 
-			// allow pluginPath to be set outside of this method
-			$plugin_path = empty($plugin_path) ? $tec->pluginPath : $plugin_path;
+			// Allow base path for templates to be filtered
+			$template_base_paths = (array) apply_filters( 'tribe_events_template_paths', self::$template_paths);
+
+			// backwards compatibility if $plugin_path arg is used
+			if ( $plugin_path && ! in_array($plugin_path, $template_base_paths) ) {
+				$template_base_paths[] = $plugin_path;
+			}
 
 			// ensure that addon plugins look in the right override folder in theme
 			$namespace = !empty($namespace) && $namespace[0] != '/' ? '/' . trailingslashit($namespace) : trailingslashit($namespace);
@@ -308,22 +317,32 @@ if (!class_exists('TribeEventsTemplates')) {
 			// setup subfolder options
 			$subfolder = !empty($subfolder) ? trailingslashit($subfolder) : $subfolder;
 
-			if( file_exists($plugin_path . 'views/hooks/' . $template))
-				include_once $plugin_path . 'views/hooks/' . $template;
+			foreach ( $template_base_paths as $template_base_path ) {
 
-			if ( $theme_file = locate_template( array('tribe-events' . $namespace . $subfolder . $template ), FALSE, FALSE) ) {
-				$file = $theme_file;
-			} else {
-				// protect from concat folder with filename
-				$subfolder = empty($subfolder) ? trailingslashit($subfolder) : $subfolder;
-				$subfolder = $subfolder[0] != '/' ? '/' . $subfolder : $subfolder;
+				if ( $theme_file = locate_template( array('tribe-events' . $namespace . $subfolder . $template ), FALSE, FALSE) ) {
+					$file = $theme_file;
+				} else {
+					// protect from concat folder with filename
+					$subfolder = empty($subfolder) ? trailingslashit($subfolder) : $subfolder;
+					$subfolder = $subfolder[0] != '/' ? '/' . $subfolder : $subfolder;
 
-				$file = $plugin_path . 'views' . $subfolder . $template;
+					$file = $template_base_path . 'views' . $subfolder . $template;
+					// echo $file;
+				}
+				
+				if ( !$disable_view_check && in_array( $tec->displaying, tribe_events_disabled_views() ) ) {
+					$file = get_404_template();
+				}
+
+				$file = apply_filters( 'tribe_events_template', $file, $template);
+
+				// return the first one found
+				if (file_exists($file))
+					break;
 			}
-			
-			if ( !$disable_view_check && in_array( $tec->displaying, tribe_events_disabled_views() ) ) {
-				$file = get_404_template();
-			}
+
+			if( file_exists($template_base_path . 'views/hooks/' . $template))
+				include_once $template_base_path . 'views/hooks/' . $template;
 
 			return apply_filters( 'tribe_events_template_'.$template, $file);
 		}
