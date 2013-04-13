@@ -36,6 +36,40 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Includes a template part, similar to the WP get template part, but looks 
+	 * in the correct directories for Tribe Events templates
+	 *
+	 * @return void
+	 * @uses TribeEventsTemplates::getTemplateHierarchy
+	 * @since 3.0 
+	 **/
+	function tribe_get_template_part( $slug, $name = null ) {
+
+		// Execute code for this part
+		do_action( 'tribe_pre_get_template_part_' . $slug, $slug, $name );
+
+		// Setup possible parts
+		$templates = array();
+		if ( isset( $name ) ) {
+			$templates[] = $slug . '-' . $name . '.php';
+		}
+		$templates[] = $slug . '.php';
+
+		// Allow template parts to be filtered
+		$templates = apply_filters( 'tribe_get_template_part_templates', $templates, $slug, $name );
+
+		// loop through templates, return first one found.
+		foreach($templates as $template) {
+			$file = TribeEventsTemplates::getTemplateHierarchy( $template );
+			if (file_exists($file)) {
+				do_action('tribe_before_get_template_part', $template, $file, $template, $slug, $name);
+				include($file);
+				do_action('tribe_after_get_template_part', $template, $file, $slug, $name);
+			}
+		}
+	}
+
+	/**
 	 * Get Options
 	 *
 	 * Retrieve specific key from options array, optionally provide a default return value
@@ -344,6 +378,52 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$after = apply_filters( 'tribe_events_after_html', $after );	
 			
 		echo apply_filters( 'tribe_events_after_html', $after );
+	}
+
+	/**
+	 * Prints out data attributes used in the template header tags
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	function tribe_events_header_attributes() {
+		$current_view = basename(tribe_get_current_template());
+		switch($current_view) {
+			case 'calendar.php' :
+				$attrs = ' data-view="month" data-title="' . wp_title( '&raquo;', false ) . '" data-date="'. date( 'Y-m', strtotime( tribe_get_month_view_date() ) ) .'"';
+				echo apply_filters('tribe_events_calendar_header_attributes', $attrs);
+			break;
+
+		}
+	}
+
+	/**
+	 * Prints a url to a file in the resources directory
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	function tribe_events_resource_url($resource) {
+		$url = trailingslashit( TribeEvents::instance()->pluginUrl ).'resources/'.$resource;
+		echo apply_filters('tribe_events_resource_url', $url, $resource);
+	}
+
+	/**
+	 * Return an array with the days of the week, numbered with respect to the start_of_week WP option
+	 *
+	 * @return array Days of the week.
+	 * @since 3.0
+	 **/
+	function tribe_events_get_days_of_week() {
+		$days_of_week = TribeEvents::instance()->daysOfWeek;
+		$start_of_week = get_option('start_of_week', 0);
+		for ($i = 0; $i < $start_of_week; $i++) {
+			$day = $days_of_week[$i];
+			unset($days_of_week[$i]);
+			$days_of_week[$i] = $day;
+		}
+		// $days_of_week = array_values($days_of_week);
+		return apply_filters('tribe_events_get_days_of_week', $days_of_week);
 	}
 
 	/**

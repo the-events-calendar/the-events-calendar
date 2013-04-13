@@ -1,9 +1,7 @@
-<?php
+<?php 
 /**
  * Calendar Template
  * This file loads the TEC month or calendar view, specifically the month view navigation.
- *
- * This view contains the filters required to create an effective calendar month view.
  *
  * You can recreate an ENTIRELY new calendar view by doing a template override, and placing
  * a calendar.php file in a tribe-events/ directory within your theme directory, which
@@ -14,48 +12,45 @@
  * readme on templates hooks and filters (TO-DO)
  *
  * @package TribeEventsCalendar
- * @since  2.1
+ * @since  3.0
  * @author Modern Tribe Inc.
  *
  */
+?>
 
-if ( !defined('ABSPATH') ) { die('-1'); }
-
-// Start calendar template
-echo apply_filters( 'tribe_events_calendar_before_template', '' );
-
-	// Calendar title
-	echo apply_filters( 'tribe_events_calendar_before_the_title', '');
-	echo apply_filters( 'tribe_events_calendar_the_title', '');
-	echo apply_filters( 'tribe_events_calendar_after_the_title', '');
-
-	// Calendar notices
-	echo apply_filters( 'tribe_events_calendar_notices', array());
-
-	// Calendar header
-    echo apply_filters( 'tribe_events_calendar_before_header', '');
-
-    	// Navigation
-    	echo apply_filters( 'tribe_events_calendar_before_header_nav', '');
-		echo apply_filters( 'tribe_events_calendar_header_nav', '');
-		echo apply_filters( 'tribe_events_calendar_after_header_nav', '');
-
-	echo apply_filters( 'tribe_events_calendar_after_header', '');
-		
-	// Calendar grid
-	echo apply_filters( 'tribe_events_calendar_before_the_grid', '');
-	echo apply_filters( 'tribe_events_calendar_the_grid', '');
-	echo apply_filters( 'tribe_events_calendar_after_the_grid', '');
+<?php do_action('tribe_events_calendar_before_template') ?>
+<div id="tribe-events-content" class="tribe-events-calendar">
 	
-	// Calendar footer
-    echo apply_filters( 'tribe_events_calendar_before_footer', '');
+	<!-- Calendar Title -->
+	<?php do_action('tribe_events_calendar_before_the_title') ?>
+	<h2 class="tribe-events-page-title"><?php tribe_events_title() ?></h2>
+	<?php do_action('tribe_events_calendar_after_the_title') ?>
 
-    	// Navigation
-    	echo apply_filters( 'tribe_events_calendar_before_footer_nav', '');
-		echo apply_filters( 'tribe_events_calendar_footer_nav', '');
-		echo apply_filters( 'tribe_events_calendar_after_footer_nav', '');
+	<!-- Notices -->
+	<?php tribe_events_the_notices() ?>
 
-	echo apply_filters( 'tribe_events_calendar_after_footer', '');
+	<!-- Calendar Header -->
+	<?php do_action('tribe_events_calendar_before_header') ?>
+	<div id="tribe-events-header" <?php tribe_events_header_attributes() ?>>
 
-// End calendar template
-echo apply_filters( 'tribe_events_calendar_after_template', '');
+		<!-- Header Navigation -->
+		<?php tribe_get_template_part('calendar/nav', 'header'); ?>
+
+	</div><!-- #tribe-events-header -->
+	<?php do_action('tribe_events_calendar_after_header') ?>
+
+	<!-- Calendar Grid -->
+	<?php tribe_get_template_part('calendar/loop', 'grid') ?>
+
+	<!-- Calendar Footer -->
+	<?php do_action('tribe_events_calendar_before_footer') ?>
+	<div id="tribe-events-footer">
+
+		<!-- Footer Navigation -->
+		<?php tribe_get_template_part('calendar/nav', 'footer'); ?>
+
+	</div><!-- #tribe-events-footer -->
+	<?php do_action('tribe_events_calendar_after_footer') ?>
+	
+</div><!-- #tribe-events-content -->
+<?php do_action('tribe_events_calendar_after_template') ?>

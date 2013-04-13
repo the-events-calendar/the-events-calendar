@@ -265,21 +265,34 @@ if( !class_exists('Tribe_Events_List_Template')){
 			}
 			$class_string = implode(' ', $classes);
 
-			/* Month and year separators */
+			/* Month and year separators (on every month and year change) */
 
 			$show_separators = apply_filters( 'tribe_events_list_show_separators', true );
 
 			if ( $show_separators ) {
-				if ( ( tribe_get_start_date( $post, false, 'Y' ) != date( 'Y' ) && self::$prev_event_year != tribe_get_start_date( $post, false, 'Y' ) ) || ( tribe_get_start_date( $post, false, 'Y' ) == date( 'Y' ) && self::$prev_event_year != null && self::$prev_event_year != tribe_get_start_date( $post, false, 'Y' ) ) ) {
-					echo sprintf( "<span class='tribe-events-list-separator-year'>%s</span>", tribe_get_start_date( $post, false, 'Y' ) );
+
+				$event_year  = tribe_get_start_date( $post, false, 'Y' );
+				$event_month = tribe_get_start_date( $post, false, 'm' );
+
+				/*
+				 * If this event year is different to the year of the previous event in the loop,
+				 * and it's not it's not the first event in the loop (we don't want to start the loop with a year separator)
+				 */
+				if ( self::$prev_event_year != $event_year && self::$prev_event_year != null ) {
+					echo sprintf( "<span class='tribe-events-list-separator-year'>%s</span>", $event_year );
 				}
 
-				if ( self::$prev_event_month != tribe_get_start_date( $post, false, 'm' ) || ( self::$prev_event_month == tribe_get_start_date( $post, false, 'm' ) && self::$prev_event_year != tribe_get_start_date( $post, false, 'Y' ) ) ) {
+				/*
+				 * If the event month changed since the last event in the loop,
+				 * or is the same month but the year changed.
+				 *
+				 */
+				if ( self::$prev_event_month != $event_month || ( self::$prev_event_month == $event_month && self::$prev_event_year != $event_year ) ) {
 					echo sprintf( "<span class='tribe-events-list-separator-month'><span>%s</span></span>", tribe_get_start_date( $post, false, 'F Y' ) );
 				}
 
-				self::$prev_event_year  = tribe_get_start_date( $post, false, 'Y' );
-				self::$prev_event_month = tribe_get_start_date( $post, false, 'm' );
+				self::$prev_event_year  = $event_year;
+				self::$prev_event_month = $event_month;
 			}
 
 			$html = '<div id="post-' . get_the_ID() . '" class="'. $class_string .'">';

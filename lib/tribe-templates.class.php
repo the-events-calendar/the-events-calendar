@@ -18,6 +18,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			//add_filter( 'template_include', array( __CLASS__, 'fixIs404') );
 			add_filter( 'template_include', array( __CLASS__, 'templateChooser') );
 			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished'), 999 );
+			add_filter( 'excerpt_more', array(__CLASS__, 'excerptMore'));
 		}
 
 		// pick the correct template to include
@@ -360,6 +361,10 @@ if (!class_exists('TribeEventsTemplates')) {
 				return $fallback;
 			}
 			return $located;
+		}
+
+		public static function excerptMore($more) {
+			return '&hellip;';
 		}
 	
 		private static function spoofQuery() {
