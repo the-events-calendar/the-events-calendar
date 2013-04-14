@@ -12,7 +12,7 @@
  */
 ?>
 
-<h3 class="tribe-events-visuallyhidden">'. __( 'Events List Navigation', 'tribe-events-calendar' )</h3>
+<h3 class="tribe-events-visuallyhidden"><?php _e( 'Events List Navigation', 'tribe-events-calendar' ) ?></h3>
 <ul class="tribe-events-sub-nav">
 	<!-- Left Navigation -->
 	<?php if( tribe_is_past() ) : ?>
