@@ -262,7 +262,8 @@ jQuery(document).ready(function ($) {
                 tribe_ev.state.date = $('#tribe-bar-date').val();
                 tribe_ev.data.cur_url = base_url + tribe_ev.state.date + '/';
             } else {
-                tribe_ev.state.date = $('#tribe-events-header').attr('data-date');
+                tribe_ev.state.date = tribe_ev.data.cur_date;
+                tribe_ev.data.cur_url = base_url + tribe_ev.data.cur_date + '/';
             }
 
             tribe_ev.fn.pre_ajax(function () {
@@ -273,11 +274,6 @@ jQuery(document).ready(function ($) {
 
     $('form#tribe-bar-form').on('submit', function (e) {
         tribe_events_bar_weekajax_actions(e);
-    });
-
-    $('.tribe-bar-settings button[name="settingsUpdate"]').on('click', function (e) {
-        tribe_events_bar_weekajax_actions(e);
-        tribe_ev.fn.hide_settings();
     });
 
     if (tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate) {
