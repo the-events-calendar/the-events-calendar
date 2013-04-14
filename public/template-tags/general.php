@@ -205,7 +205,11 @@ if ( class_exists( 'TribeEvents' ) ) {
 		return (array) tribe_get_object_property_from_array( get_the_terms( $post_id, TribeEvents::TAXONOMY ), 'slug' );
 	}
 
-	function tribe_get_event_taxonomy( $post_id = null, $args = array() ) {
+	function tribe_get_event_taxonomy( $args = array(), $post_id = null ) {
+		if ( $post_id == null) {
+			global $post;
+			$post_id = $post->ID;
+		}
 		$tribe_ecp = TribeEvents::instance();
 		$defaults = array(
 			'taxonomy' => $tribe_ecp->get_event_taxonomy(),
