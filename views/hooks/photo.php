@@ -33,12 +33,6 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No events scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), date_i18n( 'F d, Y', strtotime( get_query_var( 'eventDate' ) ) ) ) );
 			}
 
-
-			add_filter( 'tribe_events_list_show_separators', '__return_false' );
-
-			// Override list methods
-			add_filter( 'tribe_events_list_after_template', array( __CLASS__, 'after_template' ), 20, 3 );
-
 			// Set excerpt length & more
 			add_action( 'tribe_events_list_before_loop', array(__CLASS__, 'setup_excerpt') );
 
