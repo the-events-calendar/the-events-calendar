@@ -53,6 +53,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				}
 			}
 
+			global $wp_query;
 			// setup a search term for query or via ajax
 			if( !empty( $wp_query->query_vars['s'] )){
 				$search_term = $wp_query->query_vars['s'];
@@ -74,9 +75,11 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		/**
 		 * Limit the excerpt length on the calendar view
 		 *
-		 * @return void
+		 * @param $length
+		 *
+		 * @return int
 		 * @since 3.0
-		 **/
+		 */
 		function excerpt_length( $length ) {
 			return 30;
 		}
@@ -112,6 +115,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				}
 				return $day_link;
 			}
+			return '';
 		}
 
 		/**
@@ -130,13 +134,13 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				'end_date' => tribe_event_end_of_day( $date ),
 				// setup our own custom hide upcoming
 				'post__not_in' => self::$hide_upcoming_ids,
-				'hide_upcoming' => FALSE,
+				'hide_upcoming' => false,
 				'posts_per_page' => self::$posts_per_page_limit,
 				'orderby' => 'menu_order',
 				'order' => 'ASC',
 				'post_status' => $post_status,
 				'eventDisplay' => 'custom',
-				'no_found_rows' => TRUE
+				'no_found_rows' => true
 			), $wp_query->query);
 
 			if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
@@ -151,7 +155,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				//return $found;
 			}
 
-			$result = TribeEventsQuery::getEvents( $args, TRUE );
+			$result = TribeEventsQuery::getEvents( $args, true );
 			$cache->set($cache_key, $result, self::$cache_expiration, 'save_post');
 			return $result;
 		}
@@ -195,9 +199,9 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 
 			// setup counters
 			$rawOffset = date( 'w', $first_date_of_month ) - $startOfWeek;
-			$prev_month_offset = ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset; // month begins on day x
-			$days_in_month = date( 't', intval($first_date_of_month) );
-			$days_in_calendar = $days_in_month + $prev_month_offset;
+			$prev_month_offset = (int) ( ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset ); // month begins on day x
+			$days_in_month = (int) date( 't', intval( $first_date_of_month ) );
+			$days_in_calendar =  $days_in_month + $prev_month_offset;
 			while ($days_in_calendar % 7 > 0) {
 				$days_in_calendar++;
 			}
@@ -205,7 +209,8 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$cur_calendar_day = 0;
 
 			// fill month with required days for previous month
-			$days = array_fill(0, $prev_month_offset, array('date' => 'previous'));
+			if ( $prev_month_offset > 0 )
+				$days = array_fill( 0, $prev_month_offset, array( 'date' => 'previous' ) );
 
 			// get $cur_calendar_day up to speed
 			$cur_calendar_day += $prev_month_offset;
@@ -214,12 +219,15 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			for ($i = 0; $i < $days_in_month; $i++) {
 				$day = $i + 1;
 				$date = date( 'Y-m-d', strtotime("$year-$month-$day"));
+
+				$total_events = ! empty( self::$event_daily_counts[$date] ) ? self::$event_daily_counts[$date] : 0;
+
 				$days[] = array(
-					'daynum'		=> $day,
-					'date' 			=> $date,
-					'events'		=> self::get_daily_events($date),
-					'total_events'	=> self::$event_daily_counts[$date],
-					'view_more' 	=> self::view_more_link($date, self::$tribe_bar_args),
+					'daynum'       => $day,
+					'date'         => $date,
+					'events'       => self::get_daily_events( $date ),
+					'total_events' => $total_events,
+					'view_more'    => self::view_more_link( $date, self::$tribe_bar_args ),
 				);
 			}
 
@@ -264,7 +272,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		/**
 		 * Returns the current day according to self::$current_day
 		 *
-		 * @return void
+		 * @return int
 		 * @since 3.0 
 		 **/
 		public static function get_current_day() {
