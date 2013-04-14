@@ -21,6 +21,8 @@ if( !class_exists('Tribe_Events_List_Template')){
 
 		public static function init(){
 
+			Tribe_Template_Factory::asset_package( 'ajax-list' );
+
 			// customize meta items
 			tribe_set_the_meta_template( 'tribe_event_venue_name', array(
 				'before'=>'',
