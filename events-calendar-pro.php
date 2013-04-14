@@ -97,11 +97,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			add_filter( 'tribe_settings_do_tabs', array( $this, 'add_settings_tabs' ) );
 			add_filter( 'generate_rewrite_rules', array( $this, 'add_routes' ), 11 );
-			add_filter('tribe_events_buttons_the_buttons', array($this, 'add_view_buttons'));
+			add_filter( 'tribe_events_buttons_the_buttons', array($this, 'add_view_buttons'));
 			add_filter( 'tribe_events_pre_get_posts', array( $this, 'pre_get_posts'));
 			add_filter( 'tribe_enable_recurring_event_queries', '__return_true', 10, 1 );
 			add_filter( 'body_class', array( $this, 'body_class') );
 			add_filter( 'tribe_current_events_page_template', array( $this, 'select_page_template' ) );
+			add_filter( 'tribe_events_template_paths', array($this, 'template_paths'));
+
 			add_filter( 'tribe_help_tab_getting_started_text', array( $this, 'add_help_tab_getting_started_text' ) );
 			add_filter( 'tribe_help_tab_enb_content', array( $this, 'add_help_tab_enb_text' ) );
 			// add_filter( 'tribe_events_template_single-venue.php', array( $this, 'load_venue_template' ) );
@@ -158,6 +160,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			add_filter( 'tribe_events_pre_get_posts' , array( $this, 'setup_hide_recurrence_in_query' ) );
 			add_filter( 'wp' , array( $this, 'detect_recurrence_redirect' ) );
+
 		}
 
 		function single_event_the_meta_addon( $html, $event_id){
@@ -827,14 +830,31 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// day view
 			if( tribe_is_day() ) {
 				$template = TribeEventsTemplates::getTemplateHierarchy('day','','pro', $this->pluginPath);
-				$template = TribeEventsTemplates::getTemplateHierarchy('list');
 			}
 			// photo view
 			if( tribe_is_photo() ){
 				$template = TribeEventsTemplates::getTemplateHierarchy('photo','','pro', $this->pluginPath);
-				$template = TribeEventsTemplates::getTemplateHierarchy('list');
+			}
+
+			// map view
+			if ( tribe_is_map() ) {
+				$template = TribeEventsTemplates::getTemplateHierarchy( 'map', '', 'pro', $this->pluginPath );
 			}
 			return $template;
+		}
+
+		/**
+		 * Add premium plugin paths for each file in the templates array
+		 *
+		 * @param $template_paths array
+		 * @return array
+		 * @since 3.0
+		 **/
+		function template_paths($template_paths = array()) {
+
+			$template_paths[] = $this->pluginPath;
+			return $template_paths;
+
 		}
 
     	public function load_venue_template( $file ) {

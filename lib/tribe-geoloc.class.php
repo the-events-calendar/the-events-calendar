@@ -251,8 +251,8 @@ class TribeEventsGeoLoc {
 			// add_action( 'tribe_get_events_title', array( $this, 'setup_geoloc_title' ), 1 );
 
 			// $pro      = TribeEventsPro::instance();
-			$template = TribeEventsTemplates::getTemplateHierarchy( 'map', '', 'pro', TribeEventsPro::instance()->pluginPath );
-			$template = TribeEventsTemplates::getTemplateHierarchy('list');
+			// $template = TribeEventsTemplates::getTemplateHierarchy( 'map', '', 'pro', TribeEventsPro::instance()->pluginPath );
+			// $template = TribeEventsTemplates::getTemplateHierarchy('list');
 
 			/* This view only works with JS active, we don't want content on the first load..
 			 * just the wrapper. ajax will take care of it
