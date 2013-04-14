@@ -55,7 +55,7 @@ jQuery(document).ready(function ($) {
         }
     }
 
-    $('#tribe-events-header .tribe-events-ajax-loading').clone().addClass("photo-loader").appendTo('#tribe-events-content');
+    // $('#tribe-events-header .tribe-events-ajax-loading').clone().addClass("photo-loader").appendTo('#tribe-events-content');
 
     var $container = $('#tribe-events-photo-events');
 
@@ -172,6 +172,7 @@ jQuery(document).ready(function ($) {
 
     function tribe_events_list_ajax_post() {
 
+        $('#tribe-events-content').tribe_spin();
         tribe_show_loader();
 
         if (!tribe_ev.state.popping) {
