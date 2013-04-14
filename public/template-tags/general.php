@@ -393,16 +393,18 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 **/
 	function tribe_events_event_classes() {
 		$current_view = basename(tribe_get_current_template());
+		$classes = array();
 		switch($current_view) {
 
 			case 'calendar.php' :
-				$classes = '';
 			break;
-			
+			case 'photo.php' :
+				$classes[] = 'tribe-events-photo-event';
 			case 'list.php' :
+
 				global $wp_query, $post;
 
-				$classes = array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $post->ID, 'tribe-clearfix' );
+				$classes = array_merge($classes, array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $post->ID, 'tribe-clearfix' ));
 				$tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
 				foreach( $tribe_cat_slugs as $tribe_cat_slug ) {
 					$classes[] = 'tribe-events-category-'. $tribe_cat_slug;
@@ -421,11 +423,11 @@ if ( class_exists( 'TribeEvents' ) ) {
 				if( $wp_query->current_post == $wp_query->post_count-1 ) {
 					$classes[] = 'tribe-events-last';
 				}
-				$classes = implode(' ', $classes);
 
 			break;
 
 		}
+		$classes = implode(' ', $classes);
 		echo apply_filters('tribe_events_event_classes', $classes, $current_view);
 	}
 
@@ -449,6 +451,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 				} else {
 					$attrs = ' data-view="list" data-title="' . wp_title( '&raquo;', false ) . '"';
 				}
+			break;
+			case 'photo.php' :
+				$attrs = 'data-view="photo" data-title="' . wp_title( '&raquo;', false ) . '" data-baseurl="'.tribe_get_photo_permalink( false ).'"';
 			break;
 
 		}
