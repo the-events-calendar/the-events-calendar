@@ -301,7 +301,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			require_once( $tec->pluginPath . 'public/advanced-functions/meta.php' );
 
 			// Allow base path for templates to be filtered
-			$template_base_paths = (array) apply_filters( 'tribe_events_template_paths', TribeEvents::instance()->pluginPath);
+			$template_base_paths = apply_filters( 'tribe_events_template_paths', (array) TribeEvents::instance()->pluginPath);
 
 			// backwards compatibility if $plugin_path arg is used
 			if ( $plugin_path && ! in_array($plugin_path, $template_base_paths) ) {
