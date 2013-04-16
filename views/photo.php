@@ -28,6 +28,9 @@ $the_post_id = ( have_posts() ) ? get_the_ID() : null; ?>
 <?php do_action( 'tribe_events_photo_before_template' ); ?>
 <input type="hidden" id="tribe-events-list-hash" value="">
 
+<!-- Tribe Bar -->
+<?php tribe_get_template_part('modules/bar'); ?>
+
 <div id="tribe-events-content" class="tribe-events-list tribe-nav-alt">
 	
 		<!-- Photo View Title -->
