@@ -895,4 +895,24 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 	}
 
+	/**
+	 * Return the filters registered in the tribe bar
+	 *
+	 * @return array
+	 * @since 3.0
+	 **/
+	function tribe_events_get_filters()	{
+		return apply_filters('tribe-events-bar-filters', array());
+	}
+
+	/**
+	 * Return the views registered in the tribe bar
+	 *
+	 * @return array
+	 * @since 3.0
+	 **/
+	function tribe_events_get_views()	{
+		return apply_filters('tribe-events-bar-views', array());
+	}
+
 }

@@ -16,8 +16,9 @@ class TribeEventsBar {
 	public function __construct() {
 		add_filter( 'wp_enqueue_scripts', array( $this, 'load_script' ) );
 
-		add_action( 'tribe-events-bar-show-filters', array( $this, 'print_filters_helper' ) );
-		add_action( 'tribe-events-bar-show-views', 	 array( $this, 'print_views_helper' ) );
+		// add_action( 'tribe-events-bar-show-filters', array( $this, 'print_filters_helper' ) );
+		// add_action( 'tribe-events-bar-show-views', 	 array( $this, 'print_views_helper' ) );
+
 	}
 
 	/**
@@ -44,7 +45,7 @@ class TribeEventsBar {
 			if( $show_bar_filter && $tec->displaying === $view['displaying'] ) {
 				// we look at each view params and try to add the hook if supplied if not dump in on the tribe_events
 				$event_bar_hook = !empty($view['event_bar_hook']) ? $view['event_bar_hook'] : 'tribe_events_before_html';
-				add_filter( $event_bar_hook , array( __CLASS__, 'show' ), 30 );
+				// add_filter( $event_bar_hook , array( __CLASS__, 'show' ), 30 );
 			}
 		}
 
@@ -106,7 +107,7 @@ class TribeEventsBar {
 	 *	Load the CSSs and JSs only if the Bar will be shown
 	 */
 	public function load_script() {
-		if ( $this->should_show() ) {
+		// if ( $this->should_show() ) {
 
 			Tribe_Template_Factory::asset_package( 'tribe-events-bar' );
 			Tribe_Template_Factory::asset_package( 'select2' );
@@ -114,7 +115,7 @@ class TribeEventsBar {
 			Tribe_Template_Factory::asset_package( 'bootstrap-datepicker' );
 
 			do_action( 'tribe-events-bar-enqueue-scripts' );
-		}
+		// }
 	}
 
 	/**

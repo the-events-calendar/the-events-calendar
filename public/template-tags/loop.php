@@ -286,5 +286,14 @@ if( class_exists( 'TribeEvents' ) ) {
 		echo apply_filters('tribe_events_list_the_date_headers', $html, $event_month, $event_year);
 	}
 
+	/**
+	 * Checks whether we're on a particular view
+	 *
+	 * @return bool
+	 * @since 3.0
+	 **/
+	function tribe_is_view( $view = false ) {
+		return $view === TribeEvents::instance()->displaying;
+	}
 }
 ?>

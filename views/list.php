@@ -30,6 +30,9 @@ $the_post_id = ( have_posts() ) ? get_the_ID() : null; ?>
 
 <div id="tribe-events-list-view">
 
+	<!-- Tribe Bar -->
+	<?php tribe_get_template_part('modules/bar'); ?>
+
 	<div id="tribe-events-content" class="tribe-events-list">
 	
 		<!-- List Title -->

@@ -181,7 +181,11 @@ jQuery(document).ready(function ($) {
                         };
 
                         $('#tribe-events-list-hash').val(response.hash);
-                        $('#tribe-events-content').replaceWith($(response.html).find('#tribe-events-content'));
+                        $('#tribe-events-content')
+                            .replaceWith(
+                                    $('<div />').append(response.html)
+                                    .find('#tribe-events-content')
+                             );
                         $('#tribe-events-content').next('.tribe-clear').remove();
 
                         if (tribe_ev.state.do_string) {

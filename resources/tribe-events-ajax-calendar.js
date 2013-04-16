@@ -188,7 +188,11 @@ jQuery(document).ready(function ($) {
                             'timestamp': new Date().getTime()
                         };
 
-                        $('#tribe-events-content').replaceWith(response.html);
+                        $('#tribe-events-content')
+                            .replaceWith(
+                                    $('<div />').append(response.html)
+                                    .find('#tribe-events-content')
+                             );
 
                         var page_title = $("#tribe-events-header").attr('data-title');
 

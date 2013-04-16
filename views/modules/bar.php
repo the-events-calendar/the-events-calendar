@@ -13,14 +13,44 @@
  */
 ?>
 
+<?php 
+
+$filters = tribe_events_get_filters();
+$views = tribe_events_get_views();
+
+ ?>
+
 <div id="tribe-events-bar">
 
 	<form id="tribe-bar-form" class="tribe-clearfix" name="tribe-bar-form" method="post" action="<?php echo add_query_arg( array() ); ?>">
 
-			<?php do_action( 'tribe-events-bar-show-filters', $filters ); ?>
+		<!-- Filters -->
+		<div id="tribe-bar-collapse-toggle"><?php _e( 'Find Events', 'tribe-events-calendar' ) ?><span class="tribe-bar-toggle-arrow"></span></div>
+		<div class="tribe-bar-filters">
+			<?php foreach ( $filters as $filter ) : ?>
+				<div class="<?php echo esc_attr( $filter['name'] ) ?>-filter">
+					<label class="label-<?php echo esc_attr( $filter['name'] ) ?>" for="<?php echo esc_attr( $filter['name'] ) ?>"><?php echo $filter['caption'] ?></label>
+					<?php echo $filter['html'] ?>
+				</div>
+			<?php endforeach; ?>
+			<div class="tribe-bar-submit">
+				<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="<?php _e( 'Find Events', 'tribe-events-calendar' ) ?>" />
+			</div><!-- .tribe-bar-submit -->
+		</div><!-- .tribe-bar-filters -->
 
-			<?php do_action( 'tribe-events-bar-show-views', $views ); ?>
-
+		<!-- Views -->
+		<div id="tribe-bar-views">
+			<div class="tribe-bar-views-inner tribe-clearfix">
+				<h3 class="tribe-events-visuallyhidden"><?php _e( 'Event Views Navigation', 'tribe-events-calendar' ) ?></h3>
+				<label>View As</label><select class="tribe-select2 tribe-no-param" name="tribe-bar-view">
+					<?php foreach ( $views as $view ) : ?>
+						<option <?php echo tribe_is_view($view['displaying']) ? 'selected' : 'tribe-inactive' ?> value="<?php echo $view['url'] ?>" data-view="<?php echo $view['displaying'] ?>">
+							<?php echo $view['anchor'] ?>
+						</option>
+					<?php endforeach; ?>
+				</select>
+			</div><!-- .tribe-bar-views-inner -->
+		</div><!-- .tribe-bar-views -->
 	</form><!-- #tribe-bar-form -->
 
 </div><!-- #tribe-events-bar -->
