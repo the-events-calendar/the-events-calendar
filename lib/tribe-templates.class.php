@@ -12,7 +12,6 @@ if (!class_exists('TribeEventsTemplates')) {
 		public static $origPostCount;
 		public static $origCurrentPost;
 		public static $throughHead = false;
-		private static $template_paths = array();
 	
 		public static function init() {
 			//add_filter( 'parse_query', array( __CLASS__, 'fixIsHome') );
@@ -20,8 +19,6 @@ if (!class_exists('TribeEventsTemplates')) {
 			add_filter( 'template_include', array( __CLASS__, 'templateChooser') );
 			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished'), 999 );
 
-			// set $template_paths;
-			self::$template_paths = array(TribeEvents::instance()->pluginPath);
 		}
 
 		// pick the correct template to include
@@ -304,7 +301,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			require_once( $tec->pluginPath . 'public/advanced-functions/meta.php' );
 
 			// Allow base path for templates to be filtered
-			$template_base_paths = (array) apply_filters( 'tribe_events_template_paths', self::$template_paths);
+			$template_base_paths = (array) apply_filters( 'tribe_events_template_paths', TribeEvents::instance()->pluginPath);
 
 			// backwards compatibility if $plugin_path arg is used
 			if ( $plugin_path && ! in_array($plugin_path, $template_base_paths) ) {
