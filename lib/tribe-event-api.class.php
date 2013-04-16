@@ -309,7 +309,9 @@ if (!class_exists('TribeEventsAPI')) {
 				) {
 					$data['StateProvince'] = $data['State'];
 				} else if(isset($data['Province'])  && $data['Province'] != '') {
-					$data['StateProvince'] = $data['Province'];					
+					$data['StateProvince'] = $data['Province'];
+				} else {
+					$data['StateProvince'] = '';
 				}
 			}
 
