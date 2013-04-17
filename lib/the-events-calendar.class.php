@@ -3738,9 +3738,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 
 				TribeEventsQuery::init();
+				$this->setDisplay();
 
 				ob_start();
-				load_template( TribeEventsTemplates::getTemplateHierarchy( 'calendar' ) );
+				tribe_get_view();
 
 				$response = array(
 					'html'            => ob_get_clean(),
