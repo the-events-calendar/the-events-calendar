@@ -214,8 +214,12 @@ class Tribe_Recur_Filter {
 
 		global $wpdb;
 
-		$compare = ( 'is' === $_POST[$this->key] ) ? 'NOT LIKE' : 'LIKE';
-		$where .=  " AND recur_meta.meta_value $compare '$this->not_recur%'  ";
+
+		if ( 'is' === $_POST[$this->key] ) {
+			$where .= " AND ( recur_meta.meta_value NOT LIKE '$this->not_recur%' AND recur_meta.meta_value <> '' )  ";
+		} else {
+			$where .= " AND ( recur_meta.meta_value LIKE '$this->not_recur%' OR recur_meta.meta_value = '' ) ";
+		}
 
 		return $where;
 	}
