@@ -6,7 +6,12 @@ if ( !defined('ABSPATH') )
 if( !class_exists('Tribe_PRO_Template_Factory') ) {
 	class Tribe_PRO_Template_Factory extends Tribe_Template_Factory {
 
-		public static function asset_package( $name ){
+		protected function __construct() {
+			parent::__construct();
+			add_action('tribe_events_asset_package', array(__CLASS__, 'asset_package'), 10, 2);
+		}
+
+		public static function asset_package( $name, $deps = array() ){
 
 			$tec_pro = TribeEventsPro::instance();
 			$prefix = 'tribe-events-pro';
