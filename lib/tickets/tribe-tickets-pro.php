@@ -207,7 +207,8 @@ class TribeEventsTicketsPro {
 		$hidden[] = 'cb';
 		$hidden[] = 'provider';
 
-		// remove the hidden fields from the final list of coulumns
+		// remove the hidden fields from the final list of columns
+		$hidden         = array_filter( $hidden );
 		$hidden         = array_flip( $hidden );
 		$export_columns = array_diff_key( $columns, $hidden );
 		$columns_names  = array_filter( array_values( $export_columns ) );
