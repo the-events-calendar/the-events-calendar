@@ -52,9 +52,11 @@ if ( class_exists( 'TribeEvents' ) ) {
 			$template_file = TribeEventsTemplates::getTemplateHierarchy( $name );
 		}
 
-		do_action('tribe_events_view_setup', $template_file);
-		include( $template_file );
-		do_action('tribe_events_view_shutdown', $template_file);
+		if (file_exists($template_file)) {
+			do_action('tribe_events_view_setup', $template_file);
+			include( $template_file );
+			do_action('tribe_events_view_shutdown', $template_file);
+		}
 	}
 
 	/**
