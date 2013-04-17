@@ -350,6 +350,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( "wp_ajax_tribe_event_validation", array($this,'ajax_form_validate') );
 			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
 			add_action( 'plugins_loaded', array('TribeEventsCacheListener', 'instance') );
+
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
 			add_action( 'tribe_venue_table_top', array( $this, 'displayEventVenueDropdown' ) );
@@ -3661,8 +3662,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$_SERVER['REQUEST_URI'] = $this->rewriteSlug . '/' . 'past/';
 			else
 				$_SERVER['REQUEST_URI'] = $this->rewriteSlug . '/' . 'upcoming/';
+
 			ob_start();
-			load_template( TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
+			tribe_get_view('list');
 			$response['html'] .= ob_get_clean();
 			$_SERVER = $old_request;
 
