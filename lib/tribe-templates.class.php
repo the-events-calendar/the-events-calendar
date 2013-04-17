@@ -14,11 +14,20 @@ if (!class_exists('TribeEventsTemplates')) {
 		public static $throughHead = false;
 	
 		public static function init() {
+
 			//add_filter( 'parse_query', array( __CLASS__, 'fixIsHome') );
 			//add_filter( 'template_include', array( __CLASS__, 'fixIs404') );
-			add_filter( 'template_include', array( __CLASS__, 'templateChooser') );
-			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished'), 999 );
 
+			// choose the wordpress theme template to use
+			add_filter( 'template_include', array( __CLASS__, 'templateChooser') );
+
+			// include our view class
+			add_action( 'template_redirect', array(__CLASS__, 'include_view_class'));
+			if (defined('DOING_AJAX') && DOING_AJAX) {
+				add_action( 'tribe_pre_get_view', array(__CLASS__, 'include_view_class'));
+			}
+
+			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished'), 999 );
 		}
 
 		// pick the correct template to include
@@ -34,7 +43,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			if ( ! in_array( get_query_var( 'post_type' ), array( TribeEvents::POSTTYPE, TribeEvents::VENUE_POST_TYPE, TribeEvents::ORGANIZER_POST_TYPE ) ) && ! is_tax( TribeEvents::TAXONOMY ) ) {
 				return $template;
 			}
-			
+
 			if( tribe_get_option('tribeEventsTemplate', 'default') == '' ) {
 				if(is_single() && !tribe_is_showing_all() ) {
 					return self::getTemplateHierarchy('wrapper-single');
@@ -60,6 +69,24 @@ if (!class_exists('TribeEventsTemplates')) {
 				}
 				return $template;
 			}			
+		}
+
+		/**
+		 * Include the class for the current view
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		function include_view_class() {
+			$template_file = self::get_current_page_template();
+
+			if (file_exists($template_file)) {
+				$template = basename($template_file);
+				$template_path = dirname($template_file);
+				if( file_exists($template_path . 'hooks/' . $template))
+					include_once $template_path . 'hooks/' . $template;
+			}
+			
 		}
 	
 		// remove "singular" from available body class
@@ -108,8 +135,8 @@ if (!class_exists('TribeEventsTemplates')) {
 				add_filter('comments_template', array(__CLASS__, 'load_ecp_comments_page_template') );
 				remove_action( 'loop_start', array(__CLASS__, 'setup_ecp_template') );
 			}
-		}					
-	
+		}
+
 		private static function is_main_loop($query) {
 			if (method_exists($query, 'is_main_query')) // WP 3.3+
      		return $query->is_main_query();
@@ -153,11 +180,10 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			ob_start();
 
-
-
 			echo tribe_events_before_html();
 
-			include self::get_current_page_template();
+			tribe_get_view();
+
 			$after = tribe_get_option( 'tribeEventsAfterHTML' );
 			$after = wptexturize( $after );
 			$after = convert_chars( $after );
@@ -165,7 +191,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			$after = shortcode_unautop( $after );
 			$after = apply_filters( 'tribe_events_after_html', $after );
 
-			echo tribe_events_after_html();			
+			echo tribe_events_after_html();	
 
 			$contents = ob_get_contents();
 			ob_end_clean();

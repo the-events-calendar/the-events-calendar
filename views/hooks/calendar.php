@@ -25,10 +25,12 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		private static $calendar_days = array();
 		private static $current_day = -1;
 		private static $current_week = -1;
+		protected $excerpt_length = 30;
+		protected $asset_packages = array( 'ajax-calendar' );
 
-		public static function init(){
+		protected function __construct() {
 
-			Tribe_Template_Factory::asset_package( 'ajax-calendar' );
+			parent::__construct();
 			
 			$tribe_ecp = TribeEvents::instance();
 			$tribe_ecp->date = tribe_get_month_view_date();
@@ -66,22 +68,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			}
 
 			// set up an array of the days of the current month
-			self::setup_month();			
-
-			add_filter( 'excerpt_length', array(__CLASS__, 'excerpt_length'));
-
-		}
-
-		/**
-		 * Limit the excerpt length on the calendar view
-		 *
-		 * @param $length
-		 *
-		 * @return int
-		 * @since 3.0
-		 */
-		function excerpt_length( $length ) {
-			return 30;
+			self::setup_content();			
 		}
 
 		private static function get_daily_counts( $date ) {
@@ -166,7 +153,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		 * @return void
 		 * @since 3.0 
 		 **/
-		private static function setup_month() {
+		private static function setup_content() {
 			$tribe_ecp = TribeEvents::instance();
 			$tribe_ecp->date = tribe_get_month_view_date();
 
@@ -362,5 +349,5 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		}
 	} // class Tribe_Events_Calendar_Template
 
-	Tribe_Events_Calendar_Template::init();
+	Tribe_Events_Calendar_Template::instance();
 }

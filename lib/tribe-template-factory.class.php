@@ -7,11 +7,224 @@ if( !class_exists('Tribe_Template_Factory') ) {
 	class Tribe_Template_Factory {
 
 		/**
+		 * Singleton member
+		 *
+		 * @var self
+		 **/
+		protected static $instance;
+
+		/**
+		 * Array of asset packages needed for this template
+		 *
+		 * @var array
+		 **/
+		protected $asset_packages = array();
+
+		/**
+		 * Length for excerpts on this template
+		 *
+		 * @var int
+		 **/
+		protected $excerpt_length = 80;
+
+		/**
+		 * Text for excerpt more on this template
+		 *
+		 * @var int
+		 **/
+		protected $excerpt_more = '&hellip;';
+
+		/**
+		 * Run include packages, set up hooks
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		protected function __construct() {
+			$this->hooks();
+			$this->asset_packages();
+			$this->set_notices();
+		}
+
+		/**
+		 * Set up hooks for this template
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		protected function hooks() {
+			// set up queries, vars, etc that needs to be used in this view
+			add_action( 'tribe_events_view_setup', array(&$this, 'setup_view') );
+
+			// cleanup after view (reset query, etc)
+			add_action( 'tribe_events_view_shutdown', array(&$this, 'shutdown_view' ) );
+		}
+
+		/**
+		 * Manage the asset packages defined for this template
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		protected function asset_packages()	{
+			foreach ($this->asset_packages as $asset_package) {
+				$this->asset_package($asset_package);
+			}
+		}
+
+		/**
+		 * Set up the notices for this template
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		protected function set_notices() {
+			global $wp_query;
+
+			// Look for a search query
+			if( !empty( $wp_query->query_vars['s'] )){
+				$search_term = $wp_query->query_vars['s'];
+			} else if( !empty($_POST['tribe-bar-search'])) {
+				$search_term = $_POST['tribe-bar-search'];
+			}
+
+			// Search term based notices
+			if( !empty($search_term) && !have_posts() ) {
+				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There  were no results found for <strong>"%s"</strong>.', 'tribe-events-calendar' ), $search_term ) );
+			}
+
+			// Our various messages if there are no events for the query
+			else if ( empty($search_term) && empty( $wp_query->query_vars['s'] ) && !have_posts() ) { // Messages if currently no events, and no search term
+				$tribe_ecp = TribeEvents::instance();
+				$is_cat_message = '';
+				if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
+					$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );
+					if( tribe_is_upcoming() ) {
+						$is_cat_message = sprintf( __( 'listed under %s. Check out past events for this category or view the full calendar.', 'tribe-events-calendar' ), $cat->name );
+					} else if( tribe_is_past() ) {
+						$is_cat_message = sprintf( __( 'listed under %s. Check out upcoming events for this category or view the full calendar.', 'tribe-events-calendar' ), $cat->name );
+					}
+				}
+				if( tribe_is_day() ) {						
+					TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No events scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), date_i18n( 'F d, Y', strtotime( get_query_var( 'eventDate' ) ) ) ) );
+				} elseif( tribe_is_upcoming() ) {
+					$date = date('Y-m-d', strtotime($tribe_ecp->date));
+					if ( $date == date('Y-m-d') ) {
+						TribeEvents::setNotice( 'events-not-found', __('No upcoming events ', 'tribe-events-calendar') . $is_cat_message );
+					} else {
+						TribeEvents::setNotice( 'events-not-found', __('No matching events ', 'tribe-events-calendar') . $is_cat_message );
+					}
+				} elseif( tribe_is_past() ) {
+					TribeEvents::setNotice( 'events-past-not-found', __('No previous events ', 'tribe-events-calendar') . $is_cat_message );
+				}
+			}
+		}
+
+		/**
+		 * Setup the view, query hijacking, etc. This happens right before the view file is included
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		public function setup_view() {
+
+			// set up the excerpt
+			if (is_int($this->excerpt_length)) {
+				add_filter( 'excerpt_length', array($this, 'excerpt_length'));
+			}
+			if (is_string($this->excerpt_more)) {
+				add_filter( 'excerpt_more', array($this, 'excerpt_more'));
+			}
+
+			// customize meta items
+			tribe_set_the_meta_template( 'tribe_event_venue_name', array(
+				'before'=>'',
+				'after'=>'',
+				'label_before'=>'',
+				'label_after'=>'',
+				'meta_before'=>'<span class="%s">',
+				'meta_after'=>'</span>'
+			));
+			tribe_set_meta_label( 'tribe_event_venue_address', '' );
+			tribe_set_the_meta_template( 'tribe_event_venue_address', array(
+				'before'=>'',
+				'after'=>'',
+				'label_before'=>'',
+				'label_after'=>'',
+				'meta_before'=>'',
+				'meta_after'=>''
+			));
+			tribe_set_the_meta_visibility( 'tribe_event_venue_gmap_link', false );
+
+			if ( ! defined('DOING_AJAX') || ! DOING_AJAX) { // ajax requests handle the query separately
+				global $wp_query;
+				$args = NULL;
+				if ( empty($wp_query->query['eventDisplay']) || $wp_query->query['eventDisplay'] != 'upcoming' ) {
+					$args = wp_parse_args(array( 'eventDisplay' => 'upcoming' ), $wp_query->query);
+				}
+
+				// hijack the main query to load the events via provided $args
+				if ( !is_null( $args ) || ! ( $wp_query->tribe_is_event || $wp_query->tribe_is_event_category ) ) {
+					$wp_query = TribeEventsQuery::getEvents( $args, true );
+				}
+	
+				// single-event notices are jumping in on this init when loading as a module
+				TribeEvents::removeNotice( 'event-past' );
+			}
+		}
+
+		/**
+		 * Shutdown the view, restore the query, etc. This happens right after the view file is included
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		public function shutdown_view() {
+
+			// reset the excerpt
+			if (is_int($this->excerpt_length)) {
+				remove_filter( 'excerpt_length', array($this, 'excerpt_length'));
+			}
+			if (is_string($this->excerpt_more)) {
+				remove_filter( 'excerpt_more', array($this, 'excerpt_more'));
+			}
+
+			// reset the main query
+			wp_reset_query();
+		}
+
+		/**
+		 * Limit the excerpt length on this template
+		 *
+		 * @param $length
+		 *
+		 * @return int
+		 * @since 3.0
+		 */
+		public function excerpt_length( $length ) {
+			return $this->excerpt_length;
+		}
+
+		/**
+		 * Set up the excerpt more text on this template
+		 *
+		 * @param $length
+		 *
+		 * @return int
+		 * @since 3.0
+		 */
+		function excerpt_more( $more ) {
+			return $this->excerpt_more;
+		}
+
+		/**
 		 * Asset calls for vendor packages
 		 * @param  string $name
 		 * @return null
 		 */
 		public static function asset_package( $name, $deps = array() ){
+
+			do_action('tribe_events_asset_package', $name, $deps);
 
 			$tec = TribeEvents::instance();
 			$prefix = 'tribe-events'; // TribeEvents::POSTTYPE;
@@ -116,22 +329,36 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					break;
 			}
 		}
-
-		public function debug_wrapper( $html, $filter_name ){
-			return self::debug($filter_name) . $html . self::debug($filter_name, false);
-		}
-
-		public static function debug( $label = null, $start = TRUE, $echo = false) {
-			if( defined('WP_DEBUG') && WP_DEBUG && !empty($label) ) {
-				$label = (!$start) ? '/' . $label : $label;
-				$html = "\n" . '<!-- ' . $label . ' -->' . "\n";
-				if( $echo ) {
-					echo $html;
-				} else {
-					return $html;
-				}
+		/**
+		 * Static Singleton Factory Method
+		 * @return called class
+		 */
+		public static function instance() {
+			if (!isset(self::$instance)) {
+				$className = tribe_get_called_class();
+				self::$instance = new $className;
 			}
+			return self::$instance;
 		}
 	}
-	add_filter( 'tribe_template_factory_debug', array( 'Tribe_Template_Factory', 'debug_wrapper' ), 1, 2 );
+}
+
+/**
+ * get_called_class() function that works in php < 5.3
+ *
+ * @return string
+ * @since 3.0
+ **/
+function tribe_get_called_class()
+{
+    $bt = debug_backtrace();
+    $l = 0;
+    do
+    {
+        $l++;
+        $lines = file($bt[$l]['file']);
+        $callerLine = $lines[$bt[$l]['line']-1];
+        preg_match('/([a-zA-Z0-9\_]+)::'.$bt[$l]['function'].'/', $callerLine, $matches);
+    } while ($matches[1] === 'parent' && $matches[1]);
+    return $matches[1];
 }
