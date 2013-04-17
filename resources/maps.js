@@ -186,7 +186,7 @@ jQuery(document).ready(function ($) {
 
 
     function tribe_map_processOption(geocode) {
-        spin_start();
+        $('#tribe-events-header').tribe_spin();
         deleteMarkers();
 
         if (!tribe_ev.state.popping) {
@@ -201,7 +201,6 @@ jQuery(document).ready(function ($) {
 
             $(tribe_ev.events).trigger('tribe_ev_ajaxStart').trigger('tribe_ev_mapView_AjaxStart');
 
-            spin_end();
             tribe_ev.fn.enable_inputs('#tribe_events_filters_form', 'input, select');
 
             if (response.success) {
@@ -218,7 +217,7 @@ jQuery(document).ready(function ($) {
 
                 tribe_ev.state.initial_load = false;
 
-                $("#tribe-events-geo-content").html(response.html);
+                $("#tribe-geo-results").html(response.html);
 
                 if (response.view === 'map') {
                     if (response.max_pages == response.tribe_paged) {
@@ -263,9 +262,6 @@ jQuery(document).ready(function ($) {
                     centerMap();
                 }
             }
-
-            spin_end();
-
         });
 
     }
@@ -284,6 +280,7 @@ jQuery(document).ready(function ($) {
             e.preventDefault();
             if (tribe_ev.state.ajax_running)
                 return;
+            console.log(tribe_ev.state);
             if (tribe_ev.state.view === 'past') {
                 if (tribe_ev.state.paged === 1) {
                     tribe_ev.state.view = 'map';
@@ -307,6 +304,7 @@ jQuery(document).ready(function ($) {
                 e.preventDefault();
                 if (tribe_ev.state.ajax_running)
                     return;
+                console.log(tribe_ev.state);
                 if (tribe_ev.state.view === 'map') {
                     if (tribe_ev.state.paged === 1) {
                         tribe_ev.state.view = 'past';
