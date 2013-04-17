@@ -156,19 +156,15 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 
 			global $wp_query;
 			$tribe_ecp = TribeEvents::instance();
-			$start_of_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
-
-			// convert the start of the week into a timestamp
-			$start_of_weektime = strtotime( $start_of_week );
-			$start_of_weekday = date( 'w', $start_of_weektime );
-
+			$start_of_week_date = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
+			$start_of_week = get_option( 'start_of_week', 0 );
 			$week_length = 7;
 			$today = date( 'Y-m-d', strtotime( 'today' ) );
 			$events = (object) array( 'all_day' => array(), 'daily' => array(), 'hours' => array( 'start'=>null, 'end'=>null ) );
 			$all_day_events = array();
 
 			// get it started off with at least 1 row
-			$all_day_events[] = array_fill( $start_of_weekday, $week_length, null);
+			$all_day_events[] = array_fill( $start_of_week, $week_length, null);
 
 			foreach ( $wp_query->posts as $event_key_id => $event ) {
 				
@@ -176,7 +172,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 				$event_start_time = strtotime($event->EventStartDate);
 
 				// if the event start time is greater than the start time of the week then we use the event date otherwise use the beginning of the week date
-				$start_date_compare = $start_of_weektime < $event_start_time ? $event->EventStartDate : $start_of_week;
+				$start_date_compare = strtotime( $start_of_week_date ) < $event_start_time ? $event->EventStartDate : $start_of_week_date;
 
 				// convert the starting event or week date into day of the week
 				$event_start_day_of_week = date('w', strtotime($start_date_compare) );
@@ -199,8 +195,12 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 						// loop through the columns of this hash row
 						for( $n = $event_start_day_of_week; $n <= $event_start_day_of_week + $event->days_between; $n++){
 
+							// create an offset id for cases where the day of the week is less the starting day of the week
+							// thus looping the beginning days of the start week starting at 0 around to the end
+							$all_day_offset = ( $n < $start_of_week ) ? ( $start_of_week + $week_length ) - ($n + $start_of_week) : $n;
+
 							// check for hash collision and setup bool for going to the next row if we can't fit it on this row
-							if( ! empty($all_day_events[$hash_id][$n]) ) {
+							if( ! empty($all_day_events[$hash_id][$all_day_offset]) ) {
 								$insert_current_row = true;
 								break;
 							} else {
@@ -211,7 +211,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 						if( $insert_current_row && count($all_day_events) == $hash_id + 1 ){
 
 							// create a new row and fill with week day columns
-							$all_day_events[] = array_fill( $start_of_weekday, $week_length, null);
+							$all_day_events[] = array_fill( $start_of_week, $week_length, null);
 
 							// change the row id to the last row
 							$hash_id = count( $all_day_events ) -1;
@@ -227,11 +227,12 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 
 							// loop through each week day we want the event to be inserted
 							for( $n = $event_start_day_of_week; $n <= $event_start_day_of_week + $event->days_between; $n++){
-								if( $n > $week_length - 1 )
-									continue;
+								// create an offset id for cases where the day of the week is less the starting day of the week
+								// thus looping the beginning days of the start week starting at 0 around to the end
+								$all_day_offset = ( $n < $start_of_week ) ? ( $start_of_week + $week_length ) - ($n + $start_of_week) : $n;
 
 								// add the event array key id into the week day column
-								$all_day_events[$hash_id][$n] = $event_key_id;
+								$all_day_events[$hash_id][$all_day_offset] = $event_key_id;
 							}
 
 							// break the hashtable since we have successfully added the event into a row
@@ -268,14 +269,14 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 		<div class="tribe-grid-content-wrap">
 
 			<?php
-			for ( $n = 0; $n < $week_length; $n++ ) {
-				$day = date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) );
-				$header_class = ( $day == $today ) ? 'tribe-week-today' : '';
+			for ( $n = $start_of_week; $n < $start_of_week + $week_length; $n++ ) {
+				$all_day_offset = ( 0 < $start_of_week ) ? $n - $start_of_week : $n;
+				$day = date( 'Y-m-d', strtotime( $start_of_week_date . " +$all_day_offset days" ) );
 				printf( '<div title="%s" class="column %s"><a href="%s" rel="bookmark">%s</a></div><!-- header column -->',
 					$day,
-					$header_class,
-					trailingslashit( get_site_url() ) . trailingslashit( $tribe_ecp->rewriteSlug ) . trailingslashit( date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) ) ),
-					date( 'D jS', strtotime( $start_of_week . " +$n days" ) )
+					( $day == $today ) ? 'tribe-week-today' : '',
+					trailingslashit( get_site_url() ) . trailingslashit( $tribe_ecp->rewriteSlug ) . trailingslashit( date( 'Y-m-d', strtotime( $start_of_week_date. " +$n days" ) ) ),
+					date( 'D jS', strtotime( $start_of_week_date. " +$all_day_offset days" ) )
 				);
 			} ?>
 
@@ -294,12 +295,13 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 				<?php
 				$placeholder_html = '<div class="tribe-event-placeholder hentry vevent" data-event-id="%s">&nbsp;</div>';
 				$all_day_span_ids = array();
-				for ( $n = $start_of_weekday; $n <= $week_length -1; $n++ ) {
-					$day = date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) );
+				for ( $n = $start_of_week; $n < $start_of_week + $week_length; $n++ ) {
+					$all_day_offset = ( 0 < $start_of_week ) ? $n - $start_of_week : $n;
+					$day = date( 'Y-m-d', strtotime( $start_of_week_date. " +$all_day_offset days" ) );
 					$header_class = ( $day == $today ) ? ' tribe-week-today' : '';
 					$right_align = ( $n != 0 && ( ( $n % 4 == 0 ) || ( $n % 5 == 0 ) || ( $n % 6 == 0 ) ) ) ? ' tribe-events-right' : '';
 					printf( '<div title="%s" class="column%s%s">', 
-						date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) ), 
+						date( 'Y-m-d', strtotime( $start_of_week_date. " +$all_day_offset days" ) ), 
 						$header_class, 
 						$right_align );
 
@@ -318,7 +320,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 									);
 							} else {
 								$all_day_span_ids[] = $event_key_id;
-								$day_span_length = $event->days_between + $start_of_weekday; // we need to adjust on behalf of weekly span scripts
+								$day_span_length = $event->days_between + $start_of_week; // we need to adjust on behalf of weekly span scripts
 								$span_class = $day_span_length > 0 ? 'tribe-dayspan' . $day_span_length : '';
 								// Get our wrapper classes (for event categories, organizer, venue, and defaults)
 								$classes = array( 'hentry', 'vevent', $span_class, 'type-tribe_events', 'post-' . $event->ID, 'tribe-clearfix' );
@@ -429,11 +431,11 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 				<?php // Our day columns?
 				$daily_span_ids = array();
 				for ( $n = 0; $n < $week_length; $n++ ) {
-					$day = date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) );
+					$day = date( 'Y-m-d', strtotime( $start_of_week_date. " +$n days" ) );
 					$header_class = ( $day == $today ) ? ' tribe-week-today' : '';
 					$right_align = ( $n != 0 && ( ( $n % 4 == 0 ) || ( $n % 5 == 0 ) || ( $n % 6 == 0 ) ) ) ? ' tribe-events-right' : '';
 					printf( '<div title="%s" class="column hfeed vcalendar%s%s">',
-						date( 'Y-m-d', strtotime( $start_of_week . " +$n days" ) ),
+						date( 'Y-m-d', strtotime( $start_of_week_date. " +$n days" ) ),
 						$header_class,
 						$right_align
 					);
