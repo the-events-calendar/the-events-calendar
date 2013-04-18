@@ -185,6 +185,16 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		abstract function front_end_tickets_form( $content );
 
 		/**
+		 * Returns the markup for the price field
+		 * (it may contain the user selected currency, etc)
+		 *
+		 * @param object|int $product
+		 *
+		 * @return string
+		 */
+		abstract function get_price_html( $product );
+
+		/**
 		 * Returns instance of the child class (singleton)
 		 *
 		 * @static

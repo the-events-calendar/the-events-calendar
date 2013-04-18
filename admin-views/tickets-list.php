@@ -53,8 +53,9 @@
 				</div>
 
 			</td>
+
 			<td valign="top">
-				<?php echo  woocommerce_price( $ticket->price ); ?>
+				<?php echo $provider_obj->get_price_html( $ticket->ID ); ?>
 			</td>
 
 			<td nowrap="nowrap">
