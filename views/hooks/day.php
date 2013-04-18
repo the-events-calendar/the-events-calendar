@@ -11,135 +11,97 @@
 
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-
 if( !class_exists('Tribe_Events_Day_Template')){
 	class Tribe_Events_Day_Template extends Tribe_Template_Factory {
 
 		static $timeslots = array();
 
-		public static function init(){
+		/**
+		 * Set up hooks for this template
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		public function hooks() {
 
-			// Search term based notices
-			if( !empty($search_term) && !have_posts() ) {
-				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> on this day. Try searching another day.', 'tribe-events-calendar' ), $search_term ) );
-			}
-		
-			add_filter( 'tribe_events_list_show_separators', '__return_false' );
-			add_filter( 'tribe_get_ical_link', array(__CLASS__,'ical_link'), 20, 1 );
-
-			// Override list methods
-			add_filter( 'tribe_events_list_before_header', array( __CLASS__, 'before_header' ), 20, 1 );
-			add_filter( 'tribe_events_list_before_header_nav', array( __CLASS__, 'before_header_nav' ), 20, 1 );
-			add_filter( 'tribe_events_list_header_nav', array( __CLASS__, 'header_navigation' ), 20, 1 );
-			add_filter( 'tribe_events_list_inside_before_loop', array( __CLASS__, 'inside_before_loop'), 20, 1);
-			add_filter( 'tribe_events_list_inside_after_loop', array( __CLASS__, 'inside_after_loop' ), 20, 1 );
-			add_filter( 'tribe_events_list_before_footer', array( __CLASS__, 'before_footer' ), 20, 1 );
-			add_filter( 'tribe_events_list_before_footer_nav', array( __CLASS__, 'before_footer_nav' ), 20, 1 );
-			add_filter( 'tribe_events_list_footer_nav', array( __CLASS__, 'footer_navigation' ), 20, 1 );
+			parent::hooks();
+			
+			add_filter( 'tribe_get_ical_link', array($this,'ical_link'), 20, 1 );
+			add_filter( 'tribe_events_header_attributes',  array( $this, 'header_attributes') );
 		}
+
+		/**
+		 * Add header attributes for day view
+		 *
+		 * @return string
+		 * @since 3.0
+		 **/
+		function header_attributes($attrs) {
+
+			global $wp_query;
+			$current_day = $wp_query->get('start_date');
+
+			$attrs['data-view'] = 'day';
+			$attrs['data-baseurl'] = tribe_get_day_permalink( $current_day, false );
+			$attrs['data-date'] = Date('Y-m-d', strtotime( $current_day) );
+			$attrs['data-header'] = Date("l, F jS Y", strtotime( $current_day ) );
+
+			return apply_filters('tribe_events_pro_header_attributes', $attrs);
+		}
+
 		public static function ical_link( $link ){
 			global $wp_query;
 			$day = $wp_query->get('start_date');
 			return trailingslashit( esc_url(trailingslashit( tribe_get_day_permalink( $day ) ) . 'ical') );
 		}
-		// Day Header
-		public static function before_header( $html ){
+
+		/**
+		 * Organize and reorder the events posts according to time slot
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		public function setup_view() {
+
 			global $wp_query;
-			$current_day = $wp_query->get('start_date');
-			
-			$html = '<div id="tribe-events-header" data-view="day" data-date="'. Date('Y-m-d', strtotime($current_day) ) .'" data-baseurl="' . tribe_get_day_permalink( $current_day, false ) . '" data-title="'. wp_title( '&raquo;', false ) .'" data-header="'. Date("l, F jS Y", strtotime($wp_query->get('start_date'))) .'">';
-			return $html;
-		}
-		// Day Navigation
-		public static function before_header_nav( $html ){
-			$html = '<h3 class="tribe-events-visuallyhidden">'. __( 'Day Navigation', 'tribe-events-calendar-pro' ) .'</h3>';
-			$html .= '<ul class="tribe-events-sub-nav">';
-			return $html;
-		}
-		public static function header_navigation( $html ){
-			$tribe_ecp = TribeEvents::instance();
-			global $wp_query;
-			
-			$current_day = $wp_query->get('start_date');
-			$yesterday = Date('Y-m-d', strtotime($current_day . " -1 day") );
-			$tomorrow = Date('Y-m-d', strtotime($current_day . " +1 day") );
-			
-			$html = '';
-			
-			// Display Previous Page Navigation
-			$html .= '<li class="tribe-events-nav-previous"><a href="'. tribe_get_day_permalink( $yesterday ) .'" data-day="'. $yesterday .'" rel="prev">&laquo; '. __( 'Previous Day', 'tribe-events-calendar-pro' ) .'</a></li>';
-			
-			// Display Next Page Navigation
-			$html .= '<li class="tribe-events-nav-next"><a href="'. tribe_get_day_permalink( $tomorrow ) .'" data-day="'. $tomorrow .'" rel="next">'. __( 'Next Day', 'tribe-events-calendar-pro' ) .' &raquo;</a>';
-			// Loading spinner
-			$html .= '<img class="tribe-events-ajax-loading tribe-events-spinner-medium" src="'. trailingslashit( $tribe_ecp->pluginUrl ) . 'resources/images/tribe-loading.gif" alt="Loading Events" />';
-			$html .= '</li><!-- .tribe-events-nav-next -->';
-			
-			return $html;
-		}
-		// Day Before Loop
-		public static function inside_before_loop( $pass_through ){
-			global $post;
 
-			$html = '';
-
-			// setup the "start time" for the event header
-			$start_time = ( tribe_get_all_day( $post->ID ) ) ? 
-				__( 'All Day', 'tribe-events-calendar' ) :
-				tribe_get_start_date( null, false, 'ga ' );
-
-			// determine if we want to open up a new time block
-			if( ! in_array( $start_time, self::$timeslots ) ) {
-
-				self::$timeslots[] = $start_time;	
-
-				// close out any prior opened time blocks
-				$html .= ( Tribe_Events_List_Template::$loop_increment > 0 ) ? '</div>' : '';
-
-				// open new time block & time vs all day header
-				$html .= sprintf( '<div class="tribe-events-day-time-slot"><h5>%s</h5>', $start_time );
-
+			foreach ( $wp_query->posts as $post ) {
+				$post->timeslot = tribe_event_is_all_day( $post->ID ) 
+					? __( 'All Day', 'tribe-events-calendar' ) 
+					: $post->timeslot = tribe_get_start_date( $post, false, 'ga ' );
 			}
-			return apply_filters('tribe_template_factory_debug', $html . $pass_through, 'tribe_events_day_inside_before_loop');
+
+			$wp_query->post = $wp_query->posts[0];
 		}
-		// Day Inside After Loop
-		public static function inside_after_loop( $pass_through ){
+
+		/**
+		 * Set up the notices for this template
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		protected function set_notices() {
+
+			parent::set_notices();
+
 			global $wp_query;
 
-			// close out the last time block
-			$html = ( Tribe_Events_List_Template::$loop_increment == count($wp_query->posts) ) ? '</div>' : '';
+			// Look for a search query
+			if( !empty( $wp_query->query_vars['s'] )){
+				$search_term = $wp_query->query_vars['s'];
+			} else if( !empty($_POST['tribe-bar-search'])) {
+				$search_term = $_POST['tribe-bar-search'];
+			}
 
-			return apply_filters('tribe_template_factory_debug', $pass_through . $html, 'tribe_events_day_inside_after_loop');
-		}
-		// Day Footer
-		public static function before_footer( $html ){			
-			$html = '<div id="tribe-events-footer">';
-			return $html;
-		}
-		// Day Navigation
-		public static function before_footer_nav( $html ){
-			$html = '<h3 class="tribe-events-visuallyhidden">'. __( 'Day Navigation', 'tribe-events-calendar-pro' ) .'</h3>';
-			$html .= '<ul class="tribe-events-sub-nav">';
-			return $html;
-		}
-		public static function footer_navigation( $pass_through ){
-			global $wp_query;
-			$tribe_ecp = TribeEvents::instance();
-			$html = '';
-
-			$current_day = $wp_query->get('start_date');
-			$yesterday = Date('Y-m-d', strtotime($current_day . " -1 day") );
-			$tomorrow = Date('Y-m-d', strtotime($current_day . " +1 day") );
-				
-			// Display Previous Page Navigation
-			$html .= '<li class="tribe-events-nav-previous"><a href="'. tribe_get_day_permalink( $yesterday ) .'" data-day="'. $yesterday .'" rel="prev">&laquo; '. __( 'Previous Day', 'tribe-events-calendar-pro' ) .'</a></li>';
-				
-			// Display Next Page Navigation
-			$html .= '<li class="tribe-events-nav-next"><a href="'. tribe_get_day_permalink( $tomorrow ) .'" data-day="'. $tomorrow .'" rel="next">'. __( 'Next Day', 'tribe-events-calendar-pro' ) .' &raquo;</a>';
-			$html .= '</li><!-- .tribe-events-nav-next -->';
-			
-			return apply_filters('tribe_template_factory_debug',  $html, 'tribe_events_day_footer_navigation');
+			// Search term based notices
+			if( !empty($search_term) && !have_posts() ) {
+				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> on this day. Try searching another day.', 'tribe-events-calendar' ), $search_term ) );
+			}
+			// No events found on this day
+			else if ( empty($search_term) && empty( $wp_query->query_vars['s'] ) && !have_posts() ) { // Messages if currently no events, and no search term
+				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No events scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), date_i18n( 'F d, Y', strtotime( get_query_var( 'eventDate' ) ) ) ) );
+			}
 		}
 	}
-	Tribe_Events_Day_Template::init();
+	Tribe_Events_Day_Template::instance();
 }

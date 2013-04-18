@@ -159,13 +159,13 @@ jQuery(document).ready(function ($) {
         if (tribe_ev.tests.pushstate && !tribe_ev.state.filter_cats) {
 
             $(tribe_ev.events).trigger('tribe_ev_ajaxStart').trigger('tribe_ev_dayView_AjaxStart');
+            $('#tribe-events-header').tribe_spin();
 
             $.post(
                 TribeCalendar.ajaxurl,
                 tribe_ev.state.params,
                 function (response) {
 
-                    tribe_ev.fn.spin_hide();
                     tribe_ev.state.initial_load = false;
                     tribe_ev.fn.enable_inputs('#tribe_events_filters_form', 'input, select');
 
@@ -181,7 +181,11 @@ jQuery(document).ready(function ($) {
                             'timestamp': new Date().getTime()
                         };
 
-                        $('#tribe-events-content').replaceWith(response.html);
+                        $('#tribe-events-content')
+                            .replaceWith(
+                                    $('<div />').append(response.html)
+                                    .find('#tribe-events-content')
+                             );
 
                         if (response.total_count === 0) {
                             $('#tribe-events-header .tribe-events-sub-nav').empty();
