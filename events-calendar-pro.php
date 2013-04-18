@@ -817,28 +817,28 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function select_page_template( $template ) {
 			// venue view
 			if( is_singular( TribeEvents::VENUE_POST_TYPE ) ) {
-				$template = TribeEventsTemplates::getTemplateHierarchy( 'single-venue','','pro', $this->pluginPath );
+				$template = TribeEventsTemplates::getTemplateHierarchy( 'single-venue' );
 			}
 			// organizer view
 			if( is_singular( TribeEvents::ORGANIZER_POST_TYPE ) ) {
-				$template = TribeEventsTemplates::getTemplateHierarchy( 'single-organizer','','pro', $this->pluginPath );
+				$template = TribeEventsTemplates::getTemplateHierarchy( 'single-organizer' );
 			}
 			// week view
 			if( tribe_is_week() ) {
-				$template = TribeEventsTemplates::getTemplateHierarchy('week','','pro', $this->pluginPath);
+				$template = TribeEventsTemplates::getTemplateHierarchy('week');
 			}
 			// day view
 			if( tribe_is_day() ) {
-				$template = TribeEventsTemplates::getTemplateHierarchy('day','','pro', $this->pluginPath);
+				$template = TribeEventsTemplates::getTemplateHierarchy('day');
 			}
 			// photo view
 			if( tribe_is_photo() ){
-				$template = TribeEventsTemplates::getTemplateHierarchy('photo','','pro', $this->pluginPath);
+				$template = TribeEventsTemplates::getTemplateHierarchy('photo');
 			}
 
 			// map view
 			if ( tribe_is_map() ) {
-				$template = TribeEventsTemplates::getTemplateHierarchy( 'map', '', 'pro', $this->pluginPath );
+				$template = TribeEventsTemplates::getTemplateHierarchy( 'map' );
 			}
 			return $template;
 		}
