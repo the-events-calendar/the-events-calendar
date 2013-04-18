@@ -40,7 +40,7 @@ jQuery( document ).ready( function ( $ ) {
 					var opts = {
 						action  :'tribe-ticket-email-attendee-list',
 						email   :$email,
-						nonce   :AttendeesMail.nonce,
+						nonce   :Attendees.nonce,
 						event_id:$( '#event_id' ).val()
 					};
 
@@ -92,9 +92,10 @@ jQuery( document ).ready( function ( $ ) {
 		var obj = jQuery( this );
 
 		var params = {
-			action  :'tribe-ticket-checkin-' + obj.attr( 'data-provider' ),
-			provider:obj.attr( 'data-provider' ),
-			order_ID:obj.attr( 'data-attendee-id' )
+			action  : 'tribe-ticket-checkin-' + obj.attr( 'data-provider' ),
+			provider: obj.attr( 'data-provider' ),
+			order_ID: obj.attr( 'data-attendee-id' ),
+			nonce   : Attendees.checkin_nonce
 		};
 
 		$.post(
@@ -119,9 +120,10 @@ jQuery( document ).ready( function ( $ ) {
 		var obj = jQuery( this );
 
 		var params = {
-			action  :'tribe-ticket-uncheckin-' + obj.attr( 'data-provider' ),
-			provider:obj.attr( 'data-provider' ),
-			order_ID:obj.attr( 'data-attendee-id' )
+			action  : 'tribe-ticket-uncheckin-' + obj.attr( 'data-provider' ),
+			provider: obj.attr( 'data-provider' ),
+			order_ID: obj.attr( 'data-attendee-id' ),
+			nonce   : Attendees.uncheckin_nonce
 		};
 
 		$.post(
@@ -145,7 +147,7 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	function tribe_validate_email() {
-		$( '#email_response' ).removeClass( 'ui-state-error' ).addClass( 'ui-state-highlight' ).text( AttendeesMail.sending );
+		$( '#email_response' ).removeClass( 'ui-state-error' ).addClass( 'ui-state-highlight' ).text( Attendees.sending );
 		var $address = $( '#email_to_address' ).val();
 		var $user = $( '#email_to_user' ).val();
 		var $email = false;
@@ -157,7 +159,7 @@ jQuery( document ).ready( function ( $ ) {
 			$email = $address;
 
 		if ( !$email )
-			$( '#email_response' ).removeClass( 'ui-state-highlight' ).addClass( 'ui-state-error' ).text( AttendeesMail.required );
+			$( '#email_response' ).removeClass( 'ui-state-highlight' ).addClass( 'ui-state-error' ).text( Attendees.required );
 
 		return $email;
 	}

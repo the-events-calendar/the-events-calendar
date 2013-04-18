@@ -103,12 +103,14 @@ class TribeEventsTicketsPro {
 		wp_enqueue_script( TribeEventsTicketsPro::$attendees_slug, trailingslashit( $ecp->pluginUrl ) . 'resources/tickets-attendees.js', array( 'jquery' ) );
 
 		$mail_data = array(
-			'nonce'    => wp_create_nonce( 'email-attendee-list' ),
-			'required' => __( 'You need to select an user or type a valid email address', 'tribe-events-calendar' ),
-			'sending'  => __( 'Sending...', 'tribe-events-calendar' )
+			'nonce'           => wp_create_nonce( 'email-attendee-list' ),
+			'required'        => __( 'You need to select an user or type a valid email address', 'tribe-events-calendar' ),
+			'sending'         => __( 'Sending...', 'tribe-events-calendar' ),
+			'checkin_nonce'   => wp_create_nonce( 'checkin' ),
+			'uncheckin_nonce' => wp_create_nonce( 'uncheckin' )
 		);
 
-		wp_localize_script( TribeEventsTicketsPro::$attendees_slug, 'AttendeesMail', $mail_data );
+		wp_localize_script( TribeEventsTicketsPro::$attendees_slug, 'Attendees', $mail_data );
 	}
 
 	/**

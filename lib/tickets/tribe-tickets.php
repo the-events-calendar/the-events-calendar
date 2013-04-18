@@ -242,18 +242,19 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			$data    = wp_parse_args( $_POST["formdata"] );
 			$post_id = $_POST["post_ID"];
 
+			if ( empty( $_POST["nonce"] ) || ! wp_verify_nonce( $_POST["nonce"], 'add_ticket_nonce' ) || ! current_user_can( 'edit_tribe_events' ) )
+				$this->ajax_error( "Cheatin' huh?" );
+
 			if ( ! isset( $data["ticket_provider"] ) || ! $this->module_is_valid( $data["ticket_provider"] ) ) $this->ajax_error( 'Bad module' );
 
 			$ticket = new TribeEventsTicketObject();
 
-			$ticket->ID          = isset( $data["ticket_id"] ) ? $data["ticket_id"] : null;
-			$ticket->name        = isset( $data["ticket_name"] ) ? $data["ticket_name"] : null;
-			$ticket->description = isset( $data["ticket_description"] ) ? $data["ticket_description"] : null;
+			$ticket->ID          = isset( $data["ticket_id"] ) ? absint( $data["ticket_id"] ) : null;
+			$ticket->name        = isset( $data["ticket_name"] ) ? esc_html( $data["ticket_name"] ) : null;
+			$ticket->description = isset( $data["ticket_description"] ) ? esc_html( $data["ticket_description"] ) : null;
 			$ticket->price       = isset( $data["ticket_price"] ) ? trim( $data["ticket_price"] ) : 0;
 
-			if ( empty( $ticket->price ) ) {
-				$ticket->price = 0;
-			} else {
+			if ( !empty( $ticket->price ) ) {
 				//remove non-money characters
 				$ticket->price = preg_replace( '/[^0-9\.]/Uis', '', $ticket->price );
 			}
@@ -296,6 +297,9 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			if ( ! isset( $_POST["provider"] ) || ! $this->module_is_valid( $_POST["provider"] ) )
 				$this->ajax_error( 'Bad module' );
 
+			if ( empty( $_POST["nonce"] ) || ! wp_verify_nonce( $_POST["nonce"], 'checkin' ) || ! current_user_can( 'edit_tribe_events' ) )
+					$this->ajax_error( "Cheatin' huh?" );
+
 			$order_id = $_POST["order_ID"];
 
 			// Pass the control to the child object
@@ -315,6 +319,10 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			if ( ! isset( $_POST["provider"] ) || ! $this->module_is_valid( $_POST["provider"] ) )
 				$this->ajax_error( 'Bad module' );
 
+			if ( empty( $_POST["nonce"] ) || ! wp_verify_nonce( $_POST["nonce"], 'uncheckin' ) || ! current_user_can( 'edit_tribe_events' ) )
+				$this->ajax_error( "Cheatin' huh?" );
+
+
 			$order_id = $_POST["order_ID"];
 
 			// Pass the control to the child object
@@ -333,6 +341,9 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 				$this->ajax_error( 'Bad post' );
 			if ( ! isset( $_POST["ticket_id"] ) )
 				$this->ajax_error( 'Bad post' );
+
+			if ( empty( $_POST["nonce"] ) || ! wp_verify_nonce( $_POST["nonce"], 'remove_ticket_nonce' ) || ! current_user_can( 'edit_tribe_events' ) )
+					$this->ajax_error( "Cheatin' huh?" );
 
 			$post_id   = $_POST["post_ID"];
 			$ticket_id = $_POST["ticket_id"];
@@ -361,6 +372,9 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 				$this->ajax_error( 'Bad post' );
 			if ( ! isset( $_POST["ticket_id"] ) )
 				$this->ajax_error( 'Bad post' );
+
+			if ( empty( $_POST["nonce"] ) || ! wp_verify_nonce( $_POST["nonce"], 'edit_ticket_nonce' ) || ! current_user_can( 'edit_tribe_events' ) )
+				$this->ajax_error( "Cheatin' huh?" );
 
 			$post_id   = $_POST["post_ID"];
 			$ticket_id = $_POST["ticket_id"];

@@ -49,17 +49,27 @@ class TribeEventsTicketsMetabox {
 	public static function add_admin_scripts( $hook ) {
 		global $post;
 
-		$modules = apply_filters( 'tribe_events_tickets_modules', NULL );
+		$modules = apply_filters( 'tribe_events_tickets_modules', null );
 
 		/* Only load the resources in the event edit screen, and if there's a provider available */
 		if ( ( $hook != 'post-new.php' && $hook != 'post.php' ) || TribeEvents::POSTTYPE != $post->post_type || empty( $modules ) )
 			return;
 
-		$upload_header_data = array( 'title' => __( 'Ticket header image', 'tribe-events-calendar' ), 'button'=> __( 'Set as ticket header', 'tribe-events-calendar' ) );
 
 		wp_enqueue_style  ( 'events-tickets', plugins_url( 'resources/tickets.css', dirname( dirname( __FILE__ ) ) ) );
 		wp_enqueue_script ( 'events-tickets', plugins_url( 'resources/tickets.js',  dirname( dirname( __FILE__ ) ) ) );
+
+		$upload_header_data = array( 'title' => __( 'Ticket header image', 'tribe-events-calendar' ), 'button' => __( 'Set as ticket header', 'tribe-events-calendar' ) );
 		wp_localize_script( 'events-tickets', 'HeaderImageData', $upload_header_data );
+
+
+		$nonces = array( 'add_ticket_nonce'    => wp_create_nonce( 'add_ticket_nonce' ),
+		                 'edit_ticket_nonce'   => wp_create_nonce( 'edit_ticket_nonce' ),
+		                 'remove_ticket_nonce' => wp_create_nonce( 'remove_ticket_nonce' ) );
+
+		wp_localize_script( 'events-tickets', 'TribeTickets', $nonces );
+
+
 	}
 }
 
