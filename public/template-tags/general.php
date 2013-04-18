@@ -179,7 +179,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return bool
 	 * @since 2.0
 	 */
-	function tribe_get_all_day( $postId = null ) {
+	function tribe_event_is_all_day( $postId = null ) {
 		$postId = TribeEvents::postIdHelper( $postId );
 		$output = !! tribe_get_event_meta( $postId, '_EventAllDay', true );
 		return apply_filters( 'tribe_get_all_day', $output );
@@ -194,7 +194,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return bool true if event spans multiple days
 	 * @since 2.0
 	 */
-	function tribe_is_multiday( $postId = null ) {
+	function tribe_event_is_multiday( $postId = null ) {
 		$postId = TribeEvents::postIdHelper( $postId );
 		$start = (array)tribe_get_event_meta( $postId, '_EventStartDate', false );
 		sort( $start );

@@ -30,7 +30,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		if ( is_numeric( $event ) )
 			$event = get_post( $event );
 
-		if( tribe_get_all_day( $event ) )
+		if( tribe_event_is_all_day( $event ) )
 			 $displayTime = false;
 
 		if( empty($event->EventStartDate) && is_object( $event ) )
@@ -65,7 +65,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		if( is_numeric( $event ) )
 			$event = get_post( $event );
 	
-		if( tribe_get_all_day( $event ) )
+		if( tribe_event_is_all_day( $event ) )
 			 $displayTime = false;
 
 		if( empty($event->EventEndDate) )
