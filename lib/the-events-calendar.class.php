@@ -632,13 +632,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				'tribe-form-content-start' => array(
 					'type' => 'html',
 					'html' => '<div class="tribe-settings-form-wrap">'
-				)/*,
-				TODO: Figure out how properly close this wrapper after the license content
+				),
+				// TODO: Figure out how properly close this wrapper after the license content
 				'tribe-form-content-end' => array(
 					'type' => 'html',
 					'html' => '</div>'
 				)
-				*/
 			);
 			new TribeSettingsTab( 'general', __('General', 'tribe-events-calendar'), $generalTab );
 			new TribeSettingsTab( 'display', __('Display', 'tribe-events-calendar'), $displayTab );
