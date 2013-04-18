@@ -583,6 +583,63 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		}
 		return apply_filters('tribe_get_day_permalink', $permalink);
 	}
+
+	/**
+	 * Output an html link to a day
+	 *
+	 * @param $date 'previous day', 'next day', 'yesterday', 'tomorrow', or any date string that strtotime() can parse
+	 * @param $text text for the link
+	 * @param $term bool whether to show the link with the tribe event taxonomy
+	 * @return void
+	 * @since 3.0
+	 **/
+	function tribe_the_day_link( $date = null, $text = null, $term = true ) {
+
+		global $wp_query;
+
+		if ( is_null( $text ) ) {
+			switch ( strtolower( $date ) ) {
+				case null : 
+					 $text = __( 'Today', 'tribe-events-calendar-pro' );
+				break;
+				case 'previous day' :
+					 $text = __( '&laquo; Previous Day', 'tribe-events-calendar-pro' );
+				break;
+				case 'next day' :
+					 $text = __( 'Next Day &raquo;', 'tribe-events-calendar-pro' );
+				break;
+				case 'yesterday' :
+					 $text = __( 'Yesterday', 'tribe-events-calendar-pro' );
+				break;
+				case 'tomorrow' :
+					 $text = __( 'Tomorrow', 'tribe-events-calendar-pro' );
+				break;
+				default : 
+					$text = date_i18n( 'Y-m-d', strtotime( $date ) );
+				break;
+			}
+		}
+
+		switch ( $date ) {
+			case null : 
+				$date = TribeEventsPro::instance()->todaySlug;
+			break;
+			case 'previous day' :
+				$date = Date('Y-m-d', strtotime($wp_query->get('start_date') . " -1 day") );
+			break;
+			case 'next day' : 
+				$date = Date('Y-m-d', strtotime($wp_query->get('start_date') . " +1 day") );
+			break;
+		}
+
+		$link = tribe_get_day_permalink($date, $term);
+
+		$html = '<a href="'. $link .'" data-day="'. $date .'" rel="prev">'.$text.'</a>';
+
+		echo apply_filters( 'tribe_the_day_link', $html );
+	}
+
+
 	/**
 	 * Get week permalink
 	 * 
@@ -661,6 +718,5 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			}
 			echo '</ul>';
 		}
-	}	
-
+	}
 }
