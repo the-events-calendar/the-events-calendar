@@ -83,8 +83,8 @@ if (!class_exists('TribeEventsTemplates')) {
 			if (file_exists($template_file)) {
 				$template = basename($template_file);
 				$template_path = dirname($template_file);
-				if( file_exists($template_path . 'hooks/' . $template))
-					include_once $template_path . 'hooks/' . $template;
+				if( file_exists($template_path . '/hooks/' . $template))
+					include_once $template_path . '/hooks/' . $template;
 			}
 			
 		}
@@ -363,9 +363,6 @@ if (!class_exists('TribeEventsTemplates')) {
 				if (file_exists($file))
 					break;
 			}
-
-			if( file_exists($template_base_path . 'views/hooks/' . $template))
-				include_once $template_base_path . 'views/hooks/' . $template;
 
 			return apply_filters( 'tribe_events_template_'.$template, $file);
 		}
