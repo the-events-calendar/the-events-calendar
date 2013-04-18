@@ -29,7 +29,7 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 		}
 
 		/**
-		 * Add header attributes for map view
+		 * Add header attributes for photo view
 		 *
 		 * @return string
 		 * @since 3.0
