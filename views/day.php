@@ -20,13 +20,10 @@
  *
  */
 
-if ( !defined('ABSPATH') ) { die('-1'); }
-
-$the_post_id = ( have_posts() ) ? get_the_ID() : null; ?>
+if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 
 <?php do_action( 'tribe_events_day_before_template' ); ?>
-<input type="hidden" id="tribe-events-list-hash" value="">
 
 <div id="tribe-events-list-view">
 
