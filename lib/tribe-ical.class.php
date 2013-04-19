@@ -115,9 +115,6 @@ class TribeiCal {
 			$events_posts   = array();
 			$events_posts[] = $post;
 		} else {
-			if ( class_exists( 'TribeEventsFilterView' ) ) {
-				TribeEventsFilterView::instance()->createFilters( null, true );
-			}
 			TribeEventsQuery::init();
 			$events_query = TribeEventsQuery::getEvents( array( 'posts_per_page'=> - 1, 'eventDisplay' => $event_display ), true );
 			$events_posts = $events_query->posts;
