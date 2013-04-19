@@ -10,9 +10,7 @@ class TribeiCal {
 	 * @static
 	 */
 	public static function init() {
-		add_filter( 'tribe_events_list_after_template',   array( __CLASS__, 'maybe_add_link' ), 30, 1 );
-		add_filter( 'tribe_events_calendar_after_footer', array( __CLASS__, 'maybe_add_link' ), 30, 1 );
-		add_filter( 'tribe_events_week_after_template',   array( __CLASS__, 'maybe_add_link' ), 30, 1 );
+		add_filter( 'tribe_events_after_view',   array( __CLASS__, 'maybe_add_link' ), 30, 1 );
 		add_action( 'tribe_tec_template_chooser',         array( __CLASS__, 'do_ical_template' ) );
 	}
 
@@ -39,7 +37,7 @@ class TribeiCal {
 	public static function maybe_add_link( $content ) {
 		global $wp_query;
 
-		$show_ical = apply_filters( 'tribe_events_list_show_ical_link', true );
+		$show_ical = ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) && apply_filters( 'tribe_events_list_show_ical_link', true );
 
 		if ( ! $show_ical )
 			return $content;
