@@ -123,6 +123,7 @@ jQuery( document ).ready( function ( $ ) {
 			function ( response ) {
 
 				if ( response.success ) {
+					ticket_clear_form();
 					$( 'td.ticket_list_container' ).empty().html( response.data );
 				}
 			},
