@@ -93,7 +93,7 @@ h2.tribe-events-page-title,
 .single-tribe_events #tribe-events-footer,
 .tribe-events-day #tribe-events-footer,
 .events-list #tribe-events-footer,
-#tribe-geo-wrapper #tribe-events-footer,
+.tribe-events-map #tribe-events-footer,
 .tribe-events-photo #tribe-events-footer {
 	border-top: 1px solid #e5e5e5;
 	padding-top: 2em;

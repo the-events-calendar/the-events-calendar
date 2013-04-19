@@ -202,12 +202,12 @@ h2.tribe-events-page-title a:focus {
 /* List & Map & Day Nav Tweaks */
 .events-list #tribe-events-footer,
 .tribe-events-day #tribe-events-footer,
-#tribe-geo-wrapper #tribe-events-footer {
+.tribe-events-map #tribe-events-footer {
 	margin: 1.25em 0 18px;
 }
 /* Single Event & Map View Nav Tweaks */
 .single-tribe_events #tribe-events-header,
-#tribe-geo-wrapper #tribe-events-header {
+.tribe-events-map #tribe-events-header {
 	margin: 24px 0 14px;
 }
 .single-tribe_events #tribe-events-header li,

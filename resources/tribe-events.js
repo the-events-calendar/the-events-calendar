@@ -474,7 +474,7 @@ jQuery(document).ready(function ($) {
     $(".tribe-events-calendar-widget").not(":eq(0)").hide();
 
     // Global Tooltips
-    if ($('.tribe-events-calendar').length || $('.tribe-events-grid').length || $('.tribe-events-list').length || $('.tribe-events-single').length || $('tribe-geo-wrapper').length) {
+    if ($('.tribe-events-calendar').length || $('.tribe-events-grid').length || $('.tribe-events-list').length || $('.tribe-events-single').length || $('.tribe-events-map').length) {
         tribe_ev.fn.tooltips();
     }
 
