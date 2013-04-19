@@ -139,17 +139,17 @@
 	margin-top: 2em;
 }
 
-#tribe-geo-wrapper #tribe-events-header {
+.tribe-events-map #tribe-events-header {
 	position: relative;
 }
 
-#tribe-geo-wrapper #tribe-events-header li {
+.tribe-events-map #tribe-events-header li {
 	display: inline-block;
 	zoom: 1;
 	*display: inline;
 }
 
-#tribe-geo-wrapper #tribe-events-header li a {
+.tribe-events-map #tribe-events-header li a {
 	display: none !important;
 }
 

@@ -161,7 +161,7 @@ jQuery(document).ready(function ($) {
 
     });
 
-    tribe_ev.fn.snap('#tribe-geo-wrapper', '#tribe-geo-wrapper', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a');
+    tribe_ev.fn.snap('#tribe-events-content-wrapper', '#tribe-events-content-wrapper', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a');
 
     function tribe_generate_map_params() {
         tribe_ev.state.ajax_running = true;
@@ -217,7 +217,7 @@ jQuery(document).ready(function ($) {
 
                 tribe_ev.state.initial_load = false;
 
-                $("#tribe-geo-results").html(response.html);
+                $('#tribe-events-content').replaceWith(response.html);
 
                 if (response.view === 'map') {
                     if (response.max_pages == response.tribe_paged) {

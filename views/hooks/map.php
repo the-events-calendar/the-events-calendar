@@ -45,6 +45,23 @@ if( !class_exists('Tribe_Events_Map_Template')){
 			return apply_filters('tribe_events_pro_header_attributes', $attrs);
 		}
 
+		/**
+		 * Filter tribe_get_template_part()
+		 *
+		 * @return string
+		 * @since 3.0
+		 **/
+		public function filter_template_paths( $file, $template ) {
+			
+			$file = parent::filter_template_paths( $file, $template );
+
+			// Don't include google map in ajax response
+			if ( $template == 'map/gmap-container.php' && ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+				return false;
+			}
+			return $file;
+		}
+
 	}
 	Tribe_Events_Map_Template::instance();
 }

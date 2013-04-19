@@ -447,7 +447,7 @@ class TribeEventsGeoLoc {
 
 			// global $wp_query;
 			// print_r($wp_query,true);
-			tribe_get_view('map/loop-map');
+			tribe_get_view();
 			$response['html'] .= ob_get_clean();
 			$response['markers'] = $this->generate_markers( $data );
 		}
