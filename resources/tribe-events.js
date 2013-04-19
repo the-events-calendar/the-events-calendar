@@ -37,7 +37,7 @@ var tribe_ajax_timer;
 
 // tribe events object
 
-var tribe_ev = {};
+var tribe_ev = window.tribe_ev || {};
 
 tribe_ev.fn = {
     current_date: function () {
@@ -131,41 +131,8 @@ tribe_ev.fn = {
         return map;
     },
     pre_ajax: function (tribe_ajax_callback) {
-
-        if (jQuery('#tribe-bar-geoloc').length) {
-            var tribe_map_val = jQuery('#tribe-bar-geoloc').val();
-            if (tribe_map_val.length) {
-                tribe_process_geocoding(tribe_map_val, function (tribe_geoloc_results) {
-
-                    var tribe_geoloc_lat = tribe_geoloc_results[0].geometry.location.lat();
-                    var tribe_geoloc_lng = tribe_geoloc_results[0].geometry.location.lng();
-                    if (tribe_geoloc_lat)
-                        jQuery('#tribe-bar-geoloc-lat').val(tribe_geoloc_lat);
-
-                    if (tribe_geoloc_lng)
-                        jQuery('#tribe-bar-geoloc-lng').val(tribe_geoloc_lng);
-
-                    if (tribe_ajax_callback && typeof( tribe_ajax_callback ) === "function") {
-                        if (jQuery("#tribe_events_filter_item_geofence").length)
-                            jQuery("#tribe_events_filter_item_geofence").show();
-                        tribe_ajax_callback();
-                    }
-                });
-            } else {
-                jQuery('#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng').val('');
-                if (tribe_ajax_callback && typeof( tribe_ajax_callback ) === "function") {
-                    if (jQuery("#tribe_events_filter_item_geofence").length) {
-                        jQuery('#tribe_events_filter_item_geofence input').prop('checked', false);
-                        jQuery("#tribe_events_filter_item_geofence").hide().find('select').prop('selectedIndex', 0);
-                    }
-                    tribe_ajax_callback();
-                }
-            }
-        } else {
-
-            if (tribe_ajax_callback && typeof( tribe_ajax_callback ) === "function") {
-                tribe_ajax_callback();
-            }
+        if (tribe_ajax_callback && typeof( tribe_ajax_callback ) === "function") {
+            tribe_ajax_callback();
         }
     },
     serialize: function (form, type) {
