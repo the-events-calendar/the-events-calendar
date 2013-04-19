@@ -65,13 +65,14 @@ if( !class_exists('Tribe_Events_Day_Template')){
 
 			global $wp_query;
 
-			foreach ( $wp_query->posts as $post ) {
+			foreach ( $wp_query->posts as &$post ) {
 				$post->timeslot = tribe_event_is_all_day( $post->ID ) 
 					? __( 'All Day', 'tribe-events-calendar' ) 
 					: $post->timeslot = tribe_get_start_date( $post, false, 'ga ' );
 			}
 
-			$wp_query->post = $wp_query->posts[0];
+			$wp_query->rewind_posts();
+
 		}
 
 		/**

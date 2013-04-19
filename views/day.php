@@ -25,57 +25,54 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <?php do_action( 'tribe_events_day_before_template' ); ?>
 
-<div id="tribe-events-list-view">
+<!-- Tribe Bar -->
+<?php tribe_get_template_part('modules/bar'); ?>
 
-	<!-- Tribe Bar -->
-	<?php tribe_get_template_part('modules/bar'); ?>
+<!-- Main Events Content -->
+<div id="tribe-events-content" class="tribe-events-list tribe-events-day">
 
-	<div id="tribe-events-content" class="tribe-events-list">
-	
-		<!-- List Title -->
-		<?php do_action( 'tribe_events_day_before_the_title' ); ?>
-		<h2 class="tribe-events-page-title"><?php echo tribe_get_events_title() ?></h2>
-		<?php do_action( 'tribe_events_day_after_the_title' ); ?>
+	<!-- List Title -->
+	<?php do_action( 'tribe_events_day_before_the_title' ); ?>
+	<h2 class="tribe-events-page-title"><?php echo tribe_get_events_title() ?></h2>
+	<?php do_action( 'tribe_events_day_after_the_title' ); ?>
 
-		<!-- Notices -->
-		<?php tribe_events_the_notices() ?>
+	<!-- Notices -->
+	<?php tribe_events_the_notices() ?>
 
-		<!-- List Header -->
-	    <?php do_action( 'tribe_events_day_before_header' ); ?>
-		<div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
+	<!-- List Header -->
+    <?php do_action( 'tribe_events_day_before_header' ); ?>
+	<div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
 
-			<!-- Header Navigation -->
-			<?php do_action( 'tribe_events_day_before_header_nav' ); ?>
-			<?php tribe_get_template_part('nav', 'day'); ?>
-			<?php do_action( 'tribe_events_day_after_header_nav' ); ?>
+		<!-- Header Navigation -->
+		<?php do_action( 'tribe_events_day_before_header_nav' ); ?>
+		<?php tribe_get_template_part('nav', 'day'); ?>
+		<?php do_action( 'tribe_events_day_after_header_nav' ); ?>
 
-		</div><!-- #tribe-events-header -->
-		<?php do_action( 'tribe_events_day_after_header' ); ?>
+	</div><!-- #tribe-events-header -->
+	<?php do_action( 'tribe_events_day_after_header' ); ?>
 
 
-		<!-- Events Loop -->
-		<?php if ( have_posts() ) : ?>
-			<?php do_action( 'tribe_events_day_before_loop' ); ?>
-			<?php tribe_get_template_part('loop', 'day') ?>
-			<?php do_action('tribe_events_day_after_loop'); ?>
-		<?php endif; ?>
+	<!-- Events Loop -->
+	<?php if ( have_posts() ) : ?>
+		<?php do_action( 'tribe_events_day_before_loop' ); ?>
+		<?php tribe_get_template_part('loop', 'day') ?>
+		<?php do_action('tribe_events_day_after_loop'); ?>
+	<?php endif; ?>
 
-		<!-- List Footer -->
-		<?php do_action( 'tribe_events_day_before_footer' ); ?>
-		<div id="tribe-events-footer">
+	<!-- List Footer -->
+	<?php do_action( 'tribe_events_day_before_footer' ); ?>
+	<div id="tribe-events-footer">
 
-			<!-- Footer Navigation -->
-			<?php do_action( 'tribe_events_day_before_footer_nav' ); ?>
-			<?php tribe_get_template_part('nav', 'day'); ?>
-			<?php do_action( 'tribe_events_day_after_footer_nav' ); ?>
+		<!-- Footer Navigation -->
+		<?php do_action( 'tribe_events_day_before_footer_nav' ); ?>
+		<?php tribe_get_template_part('nav', 'day'); ?>
+		<?php do_action( 'tribe_events_day_after_footer_nav' ); ?>
 
-		</div><!-- #tribe-events-footer -->
-		<?php do_action( 'tribe_events_day_after_footer' ) ?>
+	</div><!-- #tribe-events-footer -->
+	<?php do_action( 'tribe_events_day_after_footer' ) ?>
 
-	</div><!-- #tribe-events-content -->
+</div><!-- #tribe-events-content -->
 
-	<div class="tribe-clear"></div>
-
-</div><!-- #tribe-events-list-view -->
+<div class="tribe-clear"></div>
 
 <?php do_action('tribe_events_day_after_template') ?>

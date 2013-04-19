@@ -181,11 +181,7 @@ jQuery(document).ready(function ($) {
                             'timestamp': new Date().getTime()
                         };
 
-                        $('#tribe-events-content')
-                            .replaceWith(
-                                    $('<div />').append(response.html)
-                                    .find('#tribe-events-content')
-                             );
+                        $('#tribe-events-content').replaceWith(response.html);
 
                         if (response.total_count === 0) {
                             $('#tribe-events-header .tribe-events-sub-nav').empty();
