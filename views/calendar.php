@@ -23,6 +23,7 @@
 <!-- Tribe Bar -->
 <?php tribe_get_template_part('modules/bar'); ?>
 
+<!-- Main Events Content -->
 <div id="tribe-events-content" class="tribe-events-calendar">
 	
 	<!-- Calendar Title -->

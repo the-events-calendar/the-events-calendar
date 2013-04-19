@@ -78,13 +78,15 @@ if (!class_exists('TribeEventsTemplates')) {
 		 * @since 3.0
 		 **/
 		function include_view_class() {
+
 			$template_file = self::get_current_page_template();
 
 			if (file_exists($template_file)) {
 				$template = basename($template_file);
 				$template_path = dirname($template_file);
-				if( file_exists($template_path . '/hooks/' . $template))
+				if( file_exists($template_path . '/hooks/' . $template)) {
 					include_once $template_path . '/hooks/' . $template;
+				}
 			}
 			
 		}

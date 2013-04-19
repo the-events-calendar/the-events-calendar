@@ -67,7 +67,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
 				add_action( 'tribe_events_before_view', array(&$this, 'view_wrapper_open') );
 				add_action( 'tribe_events_after_view', array(&$this, 'view_wrapper_close' ) );
-				add_filter('tribe_events_before_view', array($this, 'add_input_hash') );
+				add_filter( 'tribe_events_before_view', array($this, 'add_input_hash' ) );
 			}
 		}
 
