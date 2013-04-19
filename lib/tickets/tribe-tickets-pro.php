@@ -103,12 +103,14 @@ class TribeEventsTicketsPro {
 		wp_enqueue_script( TribeEventsTicketsPro::$attendees_slug, trailingslashit( $ecp->pluginUrl ) . 'resources/tickets-attendees.js', array( 'jquery' ) );
 
 		$mail_data = array(
-			'nonce'    => wp_create_nonce( 'email-attendee-list' ),
-			'required' => __( 'You need to select an user or type a valid email address', 'tribe-events-calendar' ),
-			'sending'  => __( 'Sending...', 'tribe-events-calendar' )
+			'nonce'           => wp_create_nonce( 'email-attendee-list' ),
+			'required'        => __( 'You need to select an user or type a valid email address', 'tribe-events-calendar' ),
+			'sending'         => __( 'Sending...', 'tribe-events-calendar' ),
+			'checkin_nonce'   => wp_create_nonce( 'checkin' ),
+			'uncheckin_nonce' => wp_create_nonce( 'uncheckin' )
 		);
 
-		wp_localize_script( TribeEventsTicketsPro::$attendees_slug, 'AttendeesMail', $mail_data );
+		wp_localize_script( TribeEventsTicketsPro::$attendees_slug, 'Attendees', $mail_data );
 	}
 
 	/**
@@ -243,7 +245,7 @@ class TribeEventsTicketsPro {
 		if ( empty( $_GET['attendees_csv'] ) || empty( $_GET['attendees_csv_nonce'] ) || empty( $_GET['event_id'] ) )
 			return;
 
-		if ( ! wp_verify_nonce( $_GET['attendees_csv_nonce'], 'attendees_csv_nonce' ) )
+		if ( ! wp_verify_nonce( $_GET['attendees_csv_nonce'], 'attendees_csv_nonce' ) || ! current_user_can( 'edit_tribe_events' ) )
 			return;
 
 
@@ -279,8 +281,8 @@ class TribeEventsTicketsPro {
 
 		if ( ! isset( $_POST["event_id"] ) || ! isset( $_POST["email"] ) || ! ( is_numeric( $_POST["email"] ) || is_email( $_POST["email"] ) ) )
 			$this->ajax_error( 'Bad post' );
-		if ( empty( $_POST["nonce"] ) || ! wp_verify_nonce( $_POST["nonce"], 'email-attendee-list' ) )
-			$this->ajax_error( 'Bad post' );
+		if ( empty( $_POST["nonce"] ) || ! wp_verify_nonce( $_POST["nonce"], 'email-attendee-list' ) || ! current_user_can( 'edit_tribe_events' ) )
+			$this->ajax_error( 'Cheatin Huh?' );
 
 		if ( is_email( $_POST["email"] ) ) {
 			$email = $_POST["email"];
