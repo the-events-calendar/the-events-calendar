@@ -84,16 +84,18 @@ jQuery( document ).ready( function ( $ ) {
 
 		var search = jQuery( this ).val().toLowerCase();
 
-		$( 'td.column-security' ).each( function ( i, e ) {
-			var attendeeobj = jQuery( e );
-			var attendee = attendeeobj.text().toLowerCase();
-			var orderid = attendeeobj.prev( 'td' ).prev( 'td' ).prev( 'td' ).prev( 'td' ).children( 'a' ).text();
-			var ticketid = attendeeobj.prev( 'td' ).text();
+		$( '#the-list' ).find( 'tr' ).each( function ( i, e ) {
 
-			if ( attendee.indexOf( search ) === 0 || orderid.indexOf( search ) === 0 || ticketid.indexOf( search ) === 0 ) {
-				attendeeobj.parent( 'tr' ).show();
+			var row = $( e );
+
+			var order = row.children( 'td.order_id' ).children( 'a' ).text();
+			var attendee = row.children( 'td.attendee_id' ).text();
+			var security = row.children( 'td.security' ).text();
+
+			if ( attendee.indexOf( search ) === 0 || order.indexOf( search ) === 0 || security.indexOf( search ) === 0 ) {
+				row.show();
 			} else {
-				attendeeobj.parent( 'tr' ).hide();
+				row.hide();
 			}
 		} );
 
