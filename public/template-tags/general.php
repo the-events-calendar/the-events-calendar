@@ -87,9 +87,12 @@ if ( class_exists( 'TribeEvents' ) ) {
 			$file = TribeEventsTemplates::getTemplateHierarchy( $template );
 			$file = apply_filters( 'tribe_get_template_part_path', $file, $template, $slug, $name );
 			if (file_exists($file)) {
+				ob_start();
 				do_action('tribe_before_get_template_part', $template, $file, $template, $slug, $name);
 				include($file);
 				do_action('tribe_after_get_template_part', $template, $file, $slug, $name);
+				$html = ob_get_clean();
+				echo apply_filters('tribe_get_template_part_content', $html, $template, $file, $slug, $name);
 			}
 		}
 	}
