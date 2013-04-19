@@ -58,6 +58,10 @@ if( !class_exists('Tribe_Template_Factory') ) {
 
 			// cleanup after view (reset query, etc)
 			add_action( 'tribe_events_view_shutdown', array(&$this, 'shutdown_view' ) );
+
+			// add input hash to html
+			add_filter('tribe_pre_get_view', array($this, 'add_input_hash'));
+
 			// add filters for template paths
 			add_filter( 'tribe_get_template_part_path' , array( $this, 'filter_template_paths' ), 10, 2 );
 		}
@@ -193,6 +197,16 @@ if( !class_exists('Tribe_Template_Factory') ) {
 
 			// reset the main query
 			wp_reset_query();
+		}
+
+		/**
+		 * Output an input to store the hash for the current query
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		public function add_input_hash() {
+			echo '<input type="hidden" id="tribe-events-list-hash" value="">';
 		}
 
 		/**

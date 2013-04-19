@@ -19,6 +19,7 @@
 ?>
 
 <?php do_action('tribe_events_calendar_before_template') ?>
+
 <!-- Tribe Bar -->
 <?php tribe_get_template_part('modules/bar'); ?>
 
