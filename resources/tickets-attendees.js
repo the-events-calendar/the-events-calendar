@@ -18,6 +18,7 @@ jQuery( document ).ready( function ( $ ) {
 		window.print();
 	} );
 
+	var tribe_status_bg = null;
 
 	$( "#attendees_email_wrapper" ).dialog( {
 		autoOpen:false,
@@ -51,15 +52,27 @@ jQuery( document ).ready( function ( $ ) {
 							$( '#attendees_email_wrapper' ).dialog( "close" );
 							$response.hide();
 							$send.show();
+						} else {
+
+							tribe_status_bg = $response.css('background');
+							$response.removeClass( 'ui-state-highlight' ).addClass( 'ui-state-error' ).text( response.message ).css('background', 'none');
+							$( '.ui-dialog-buttonpane' ).show();
+							$( '.ui-button-text-only:first' ).hide();
 						}
 					} );
 				}
 
 			},
-			Close :function () {
+			Close: function () {
 				$( this ).dialog( "close" );
-				$('.attendees_email_dialog #email_response').hide();
-				$('.attendees_email_dialog #email_send, .attendees_email_dialog .ui-dialog-buttonpane' ).show();
+				$( '.ui-button-text-only:first' ).show();
+				$( '.attendees_email_dialog #email_response' ).hide();
+				$( '.attendees_email_dialog #email_send, .attendees_email_dialog .ui-dialog-buttonpane' ).show();
+
+				if ( tribe_status_bg !== null ) {
+					$('.attendees_email_dialog #email_response').css( 'background', tribe_status_bg );
+				}
+
 			}
 		} } );
 
