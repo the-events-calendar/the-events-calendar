@@ -53,9 +53,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 
 		if (file_exists($template_file)) {
-			do_action('tribe_events_view_setup', $template_file);
+			do_action('tribe_events_before_view', $template_file);
 			include( $template_file );
-			do_action('tribe_events_view_shutdown', $template_file);
+			do_action('tribe_events_after_view', $template_file);
 		}
 	}
 
