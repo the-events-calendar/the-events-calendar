@@ -58,6 +58,8 @@ if( !class_exists('Tribe_Template_Factory') ) {
 
 			// cleanup after view (reset query, etc)
 			add_action( 'tribe_events_view_shutdown', array(&$this, 'shutdown_view' ) );
+			// add filters for template paths
+			add_filter( 'tribe_get_template_part_path' , array( $this, 'filter_template_paths' ), 10, 2 );
 		}
 
 		/**
@@ -191,6 +193,23 @@ if( !class_exists('Tribe_Template_Factory') ) {
 
 			// reset the main query
 			wp_reset_query();
+		}
+
+		/**
+		 * Filter tribe_get_template_part()
+		 *
+		 * @return string
+		 * @since 3.0
+		 **/
+		public function filter_template_paths($file, $template) {
+
+			// don't return the tribe bar on ajax requests
+			if ($template == 'modules/bar') {
+				if ( defined('DOING_AJAX') && DOING_AJAX) { 
+					return false;
+				}
+			}
+			return $file;
 		}
 
 		/**
