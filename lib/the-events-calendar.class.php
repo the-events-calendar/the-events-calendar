@@ -3663,7 +3663,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$_SERVER['REQUEST_URI'] = $this->rewriteSlug . '/' . 'upcoming/';
 
 			ob_start();
-			tribe_get_view('list');
+			tribe_get_view();
 			$response['html'] .= ob_get_clean();
 			$_SERVER = $old_request;
 
