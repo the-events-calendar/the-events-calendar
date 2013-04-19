@@ -312,9 +312,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			ob_start();
 
-			// TribeEventsTemplates::getTemplateHierarchy( 'photo', '', 'pro', $this->pluginPath );
-
-			load_template( TribeEventsTemplates::getTemplateHierarchy( 'photo' ) );
+			tribe_get_view();
 
 			$response['html'] .= ob_get_clean();
 
