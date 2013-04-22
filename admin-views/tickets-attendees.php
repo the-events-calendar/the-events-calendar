@@ -103,6 +103,7 @@ $tickets  = TribeEventsTickets::get_event_tickets( $event_id );
 	</form>
 
 	<div id="attendees_email_wrapper" title="<?php _e( 'Send the attendee list by email', 'tribe-events-calendar' );?>">
+		<div id="email_errors"></div>
 		<div id="email_send">
 			<label for="email_to_user">
 				<span><?php _e( 'Select a User:', 'tribe-events-calendar' );?></span>
