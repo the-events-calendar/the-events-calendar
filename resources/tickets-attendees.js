@@ -80,6 +80,22 @@ jQuery( document ).ready( function ( $ ) {
 		$( "#attendees_email_wrapper" ).dialog( "open" );
 	} );
 
+
+	$( '#email_to_address' ).on( 'keyup paste', function () {
+
+		var email = jQuery( this ).val().trim();
+		var combo = $( '#email_to_user' );
+
+		if ( email === '' ) {
+			combo.prop( 'disabled', false );
+		} else {
+			combo.val( '' );
+			combo.prop( 'disabled', 'disabled' );
+		}
+
+	} );
+
+
 	$( '#filter_attendee' ).on( 'keyup paste', function () {
 
 		var search = jQuery( this ).val().toLowerCase();
