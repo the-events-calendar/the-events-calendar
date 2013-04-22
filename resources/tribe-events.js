@@ -1,4 +1,12 @@
-// tribe local storage
+/**
+ * @global
+ * @desc Test for localstorage support. Returns false if not available and tribe_storage as a method if true.
+ * @example
+ * if (tribe_storage) {
+ *      tribe_storage.setItem('cats', 'hairball');
+ *      tribe_storage.getItem('cats');
+ * }
+ */
 
 var tribe_storage, t_fail, t_uid;
 try {
@@ -7,21 +15,34 @@ try {
     t_fail = tribe_storage.getItem(t_uid) != t_uid;
     tribe_storage.removeItem(t_uid);
     t_fail && (tribe_storage = false);
-} catch (e) {
-}
+} catch (e) {}
 
-// live ajax timer 
+/**
+ * @global
+ * @desc Variable used when live ajax is on for delay interval.
+ */
 
 var tribe_ajax_timer;
 
-// jquery functions
+/**
+ * @external "jQuery.fn"
+ * @desc The jQuery plugin namespace.
+ */
+
 
 (function ($) {
+    /**
+     * @function external:"jQuery.fn".tribe_clear_form
+     * @since 3.0
+     * @desc Clear a forms inputs with jquery.
+     * @example <caption>Clear a form with the forms id as a selector.</caption>
+     * $('#myForm').tribe_clear_form();
+     */
     $.fn.tribe_clear_form = function () {
         return this.each(function () {
             var type = this.type, tag = this.tagName.toLowerCase();
             if (tag == 'form')
-                return jQuery(':input', this).tribe_clear_form();
+                return $(':input', this).tribe_clear_form();
             if (type == 'text' || type == 'password' || tag == 'textarea')
                 this.value = '';
             else if (type == 'checkbox' || type == 'radio')
@@ -30,24 +51,58 @@ var tribe_ajax_timer;
                 this.selectedIndex = 0;
         });
     };
+    /**
+     * @function external:"jQuery.fn".tribe_has_attr
+     * @since 3.0
+     * @desc Check if a given element has an attribute.
+     * @example if($('#myLink').tribe_has_attr('data-cats')) {true} else {false}
+     */
     $.fn.tribe_has_attr = function (name) {
         return this.attr(name) !== undefined;
     };
-    // $(element).tribe_spin()
+    /**
+     * @function external:"jQuery.fn".tribe_spin
+     * @since 3.0
+     * @desc Shows loading spinners for events ajax interactions.
+     * @example $('#myElement').tribe_spin();
+     */
     $.fn.tribe_spin = function() {
-        $loadingImg = $('.tribe-events-ajax-loading:first').clone().addClass('tribe-events-active-spinner');
+        var $loadingImg = $('.tribe-events-ajax-loading:first').clone().addClass('tribe-events-active-spinner');
         $loadingImg.appendTo(this);
         $(this).addClass('tribe-events-loading');
     }
 })(jQuery);
 
-// tribe events object
+/**
+ * @namespace tribe_ev
+ * @since 3.0
+ * @desc The tribe_ev namespace that stores all custom functions, data, application state and an empty events object to bind custom events to.
+ * This namespace loads for all tribe events pages.
+ * @example <caption>Test for tribe_ev in your own js and then run one of our functions.</caption>
+ * jQuery(document).ready(function ($) {
+ *      if (typeof window['tribe_ev'​​​​​​​] !== 'undefined') {
+ *          if(tribe_ev.fn.get_category() === 'Cats'){
+ *              alert('Meow!');
+ *          }
+ *      }
+ * });
+ */
 
 var tribe_ev = window.tribe_ev || {};
 
 (function ($) {
-
+    /**
+     * @namespace tribe_ev.fn
+     * @since 3.0
+     * @desc tribe_ev.fn namespace stores all the custom functions used throughout the core events plugin.
+     */
     tribe_ev.fn = {
+        /**
+         * @function tribe_ev.fn.current_date
+         * @since 3.0
+         * @desc tribe_ev.fn.current_date simply gets the current date in javascript and formats it to yyyy-mm-dd for use were needed.
+         * @example var right_now = tribe_ev.fn.current_date();
+         */
         current_date: function () {
             var today = new Date();
             var dd = today.getDate();
@@ -61,6 +116,15 @@ var tribe_ev = window.tribe_ev || {};
             }
             return yyyy + '-' + mm + '-' + dd;
         },
+        /**
+         * @function tribe_ev.fn.disable_inputs
+         * @since 3.0
+         * @desc tribe_ev.fn.disable_inputs disables all inputs of a specified type inside a parent element, and also disables select2 selects if it discovers any.
+         * @param {String} parent The top level element you would like all child inputs of the specified type to be disabled for.
+         * @param {String} type A single or comma separated string of the type of inputs you would like disabled.
+         * @example <caption>Disable all inputs and selects for #myForm.</caption>
+         * tribe_ev.fn.disable_inputs( '#myForm', 'input, select' );
+         */
         disable_inputs: function (parent, type) {
             $(parent).find(type).prop('disabled', true);
             if ($(parent).find('.select2-container').length) {
@@ -71,6 +135,15 @@ var tribe_ev = window.tribe_ev || {};
                 });
             }
         },
+        /**
+         * @function tribe_ev.fn.disable_empty
+         * @since 3.0
+         * @desc tribe_ev.fn.disable_empty disables all empty inputs of a specified type inside a parent element.
+         * @param {String} parent The top level element you would like all empty child inputs of the specified type to be disabled for.
+         * @param {String} type A single or comma separated string of the type of empty inputs you would like disabled.
+         * @example <caption>Disable all empty inputs and selects for #myForm.</caption>
+         * tribe_ev.fn.disable_empty( '#myForm', 'input, select' );
+         */
         disable_empty: function (parent, type) {
             $(parent).find(type).each(function () {
                 if ($(this).val() === '') {
@@ -78,6 +151,15 @@ var tribe_ev = window.tribe_ev || {};
                 }
             });
         },
+        /**
+         * @function tribe_ev.fn.enable_inputs
+         * @since 3.0
+         * @desc tribe_ev.fn.enable_inputs enables all inputs of a specified type inside a parent element, and also enables select2 selects if it discovers any.
+         * @param {String} parent The top level element you would like all child inputs of the specified type to be disabled for.
+         * @param {String} type A single or comma separated string of the type of inputs you would like enabled.
+         * @example <caption>Enable all inputs and selects for #myForm.</caption>
+         * tribe_ev.fn.enable_inputs( '#myForm', 'input, select' );
+         */
         enable_inputs: function (parent, type) {
             $(parent).find(type).prop('disabled', false);
             if ($(parent).find('.select2-container').length) {
@@ -88,6 +170,13 @@ var tribe_ev = window.tribe_ev || {};
                 });
             }
         },
+        /**
+         * @function tribe_ev.fn.get_base_url
+         * @since 3.0
+         * @desc tribe_ev.fn.get_base_url can be used on any events view to get the base_url for that view, even when on a category subset for that view.
+         * @returns {String} Either an empty string or base url if data-baseurl is found on #tribe-events-header.
+         * @example var base_url = tribe_ev.fn.get_base_url();
+         */
         get_base_url: function () {
             var base_url = '';
             if ($('#tribe-events-header').length){
@@ -95,12 +184,26 @@ var tribe_ev = window.tribe_ev || {};
             }
             return base_url;
         },
+        /**
+         * @function tribe_ev.fn.get_category
+         * @since 3.0
+         * @desc tribe_ev.fn.get_category can be used on any events view to get the category for that view.
+         * @returns {String} Either an empty string or category slug if data-category is found on #tribe-events.
+         * @example var cat = tribe_ev.fn.get_category();
+         */
         get_category: function () {
             if (tribe_ev.fn.is_category())
                 return $('#tribe-events').attr('data-category');
             else
                 return '';
         },
+        /**
+         * @function tribe_ev.fn.get_day
+         * @since 3.0
+         * @desc tribe_ev.fn.get_day can be used to check the event bar for a day value that was set by the user when using the datepicker.
+         * @returns {String|Number} Either an empty string or day number if #tribe-bar-date-day has a val() set by user interaction.
+         * @example var day = tribe_ev.fn.get_day();
+         */
         get_day: function () {
             var dp_day = '';
             if ($('#tribe-bar-date').length) {
@@ -108,29 +211,62 @@ var tribe_ev = window.tribe_ev || {};
             }
             return dp_day;
         },
+        /**
+         * @function tribe_ev.fn.get_params
+         * @since 3.0
+         * @desc tribe_ev.fn.get_params returns the params of the current document.url.
+         * @returns {String} any url params sans "?".
+         * @example var params = tribe_ev.fn.get_params();
+         */
         get_params: function () {
             return location.search.substr(1);
         },
-        get_url_param: function (tribe_param_name) {
-            return decodeURIComponent((new RegExp('[?|&]' + tribe_param_name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null;
+        /**
+         * @function tribe_ev.fn.get_url_param
+         * @since 3.0
+         * @desc tribe_ev.fn.get_url_param returns the value of a passed param name if set.
+         * @param {String} name The name of the url param value you are after.
+         * @returns {String|Null} the value of a parameter if set or null if not.
+         * @example var param = tribe_ev.fn.get_url_param('category');
+         */
+        get_url_param: function (name) {
+            return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null;
         },
-        hide_settings: function () {
-            $('#tribe-events-bar [class^="tribe-bar-button-"]')
-                .removeClass('open')
-                .next('.tribe-bar-drop-content')
-                .hide();
-        },
+        /**
+         * @function tribe_ev.fn.in_params
+         * @since 3.0
+         * @desc tribe_ev.fn.in_params returns the value of a passed param name if set.
+         * @param {String} params The paramter string you would like to search for a term.
+         * @param {String} term The name of the url param value you are checking for.
+         * @returns {Number} Returns index if term is present in params, or -1 if not found.
+         * @example
+         * if (tribe_ev.fn.in_params(tribe_ev.data.params, "tabby") >= 0)){
+         *     // tabby is in params
+         * } else {
+         *     // tabby is not in params
+         * }
+         */
         in_params: function (params, term) {
             return params.toLowerCase().indexOf(term);
         },
+        /**
+         * @function tribe_ev.fn.is_category
+         * @since 3.0
+         * @desc tribe_ev.fn.is_category test for whether the view is a category subpage.
+         * @returns {Boolean} Returns true if category page, false if not.
+         * @example if (tribe_ev.fn.is_category()){ true } else { false }
+         */
         is_category: function () {
             return ($('#tribe-events').length && $('#tribe-events').tribe_has_attr('data-category') && $('#tribe-events').attr('data-category') !== '') ? true : false;
         },
-        make_slug: function (string) {
-            var string_h = string.replace(/\s/g, '-');
-            var slug = string_h.replace(/[^a-zA-Z0-9\-]/g, '');
-            return slug.toLowerCase();
-        },
+        /**
+         * @function tribe_ev.fn.parse_string
+         * @since 3.0
+         * @desc tribe_ev.fn.parse_string converts a string to an object.
+         * @param {String} string The string to be converted.
+         * @returns {Object} Returns mapped object.
+         * @example if (tribe_ev.fn.is_category()){ true } else { false }
+         */
         parse_string: function (string) {
             var map = {};
             string.replace(/([^&=]+)=?([^&]*)(?:&+|$)/g, function (match, key, value) {

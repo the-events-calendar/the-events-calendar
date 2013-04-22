@@ -59,6 +59,7 @@ input.print, input.email, a.export {
 
 #attendees_email_wrapper {
 	padding:20px 0;
+	overflow: hidden;
 }
 
 #attendees_email_wrapper #email_response {

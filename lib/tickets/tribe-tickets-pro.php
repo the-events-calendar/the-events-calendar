@@ -104,7 +104,7 @@ class TribeEventsTicketsPro {
 
 		$mail_data = array(
 			'nonce'           => wp_create_nonce( 'email-attendee-list' ),
-			'required'        => __( 'You need to select an user or type a valid email address', 'tribe-events-calendar' ),
+			'required'        => __( 'You need to select a user or type a valid email address', 'tribe-events-calendar' ),
 			'sending'         => __( 'Sending...', 'tribe-events-calendar' ),
 			'checkin_nonce'   => wp_create_nonce( 'checkin' ),
 			'uncheckin_nonce' => wp_create_nonce( 'uncheckin' )
