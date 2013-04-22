@@ -33,18 +33,12 @@ var tribe_ajax_timer;
     $.fn.tribe_has_attr = function (name) {
         return this.attr(name) !== undefined;
     };
-})(jQuery);
-
-// ajax spinner stuff
-(function($) {
-    
     // $(element).tribe_spin()
     $.fn.tribe_spin = function() {
         $loadingImg = $('.tribe-events-ajax-loading:first').clone().addClass('tribe-events-active-spinner');
         $loadingImg.appendTo(this);
         $(this).addClass('tribe-events-loading');
     }
-
 })(jQuery);
 
 // tribe events object
@@ -159,40 +153,6 @@ var tribe_ev = window.tribe_ev || {};
         set_form: function (params) {
             $('body').addClass('tribe-reset-on');
 
-            var has_sliders = false;
-            var has_select2 = false;
-
-            if ($('#tribe_events_filters_form').length) {
-                var $form = $('#tribe_events_filters_form');
-
-                $form.tribe_clear_form();
-
-                if ($form.find('.select2-container').length) {
-
-                    has_select2 = true;
-
-                    $('#tribe_events_filters_form .select2-container').select2("val", {});
-                }
-
-                if ($form.find('.ui-slider').length) {
-
-                    has_sliders = true;
-
-                    $('#tribe_events_filters_form .ui-slider').each(function () {
-                        var s_id = $(this).attr('id');
-                        var $this = $('#' + s_id);
-                        var $input = $this.prev();
-                        var $display = $input.prev();
-                        var settings = $this.slider("option");
-
-                        $this.slider("values", 0, settings.min);
-                        $this.slider("values", 1, settings.max);
-                        $display.text(settings.min + " - " + settings.max);
-                        $input.val('');
-                    });
-                }
-            }
-
             if ($('#tribe-bar-form').length) {
                 $('#tribe-bar-form').tribe_clear_form();
             }
@@ -224,32 +184,6 @@ var tribe_ev = window.tribe_ev || {};
                 }
             });
 
-            if (has_sliders) {
-                $('#tribe_events_filters_form .ui-slider').each(function () {
-                    var s_id = $(this).attr('id');
-                    var $this = $('#' + s_id);
-                    var $input = $this.prev();
-                    var range = $input.val().split('-');
-
-                    if (range[0] !== '') {
-                        var $display = $input.prev();
-
-                        $this.slider("values", 0, range[0]);
-                        $this.slider("values", 1, range[1]);
-                        $display.text(range[0] + " - " + range[1]);
-                        $this.slider('refresh');
-                    }
-                });
-            }
-
-            if (has_select2) {
-                $('#tribe_events_filters_form .select2-container').each(function () {
-                    var s2_id = $(this).attr('id');
-                    var $this = $('#' + s2_id);
-                    $this.next().trigger("change");
-                });
-            }
-
             $('body').removeClass('tribe-reset-on');
         },
         setup_ajax_timer: function (callback) {
@@ -273,86 +207,17 @@ var tribe_ev = window.tribe_ev || {};
         },
         tooltips: function () {
 
-            $('body').on('mouseenter', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring',function () {
+            $('#tribe-events').on('mouseenter', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring',function () {
 
                 var bottomPad = 0;
                 var $this = $(this);
+                var $body = $('body');
 
-                if ($('body').hasClass('tribe-events-week')) {
-
-                    var $tip = $this.find('.tribe-events-tooltip');
-
-                    if (!$this.parents('.tribe-grid-allday').length) {
-
-                        var $wrapper = $('.tribe-week-grid-wrapper');
-                        var $parent = $this.parent();
-                        var $container = $parent.parent();
-
-                        var pwidth = Math.ceil($container.width());
-                        var cwidth = Math.ceil($this.width());
-                        var twidth = Math.ceil($tip.outerWidth());
-                        var gheight = $wrapper.height();
-
-                        var scroll = $wrapper.scrollTop();
-                        var coffset = $parent.position();
-                        var poffset = $this.position();
-                        var ptop = Math.ceil(poffset.top);
-                        var toffset = scroll - ptop;
-
-                        var isright = $parent.hasClass('tribe-events-right');
-                        var wcheck;
-                        var theight;
-                        var available;
-                        var cssmap = {};
-
-                        if (!$tip.hasClass('hovered')) {
-                            $tip.attr('data-ow', twidth).addClass('hovered');
-                        }
-
-                        if (isright)
-                            wcheck = Math.ceil(coffset.left) - 20;
-                        else
-                            wcheck = pwidth - cwidth - Math.ceil(coffset.left);
-
-                        if (twidth >= wcheck)
-                            twidth = wcheck;
-                        else if ($tip.attr('data-ow') > wcheck)
-                            twidth = wcheck;
-                        else
-                            twidth = $tip.attr('data-ow');
-
-                        if (isright)
-                            cssmap = { "right": cwidth + 20, "bottom": "auto", "width": twidth + "px"};
-                        else
-                            cssmap = { "left": cwidth + 20, "bottom": "auto", "width": twidth + "px"};
-
-                        $tip.css(cssmap);
-
-                        theight = $tip.height();
-
-                        if (toffset >= 0) {
-                            toffset = toffset + 5;
-                        } else {
-                            available = toffset + gheight;
-                            if (theight > available)
-                                toffset = available - theight - 8;
-                            else
-                                toffset = 5;
-                        }
-
-                        $tip.css("top", toffset).show();
-
-                    } else {
-                        bottomPad = $this.outerHeight() + 6;
-                        $tip.css('bottom', bottomPad).show();
-                    }
-
-
-                } else if ($('body').hasClass('events-gridview')) { // Cal View Tooltips
+                if ($body.hasClass('events-gridview')) { // Cal View Tooltips
                     bottomPad = $this.find('a').outerHeight() + 18;
-                } else if ($('body').is('.single-tribe_events, .events-list')) { // Single/List View Recurring Tooltips
+                } else if ($body.is('.single-tribe_events, .events-list')) { // Single/List View Recurring Tooltips
                     bottomPad = $this.outerHeight() + 12;
-                } else if ($('body').is('.tribe-events-photo')) { // Photo View
+                } else if ($body.is('.tribe-events-photo')) { // Photo View
                     bottomPad = $this.outerHeight() + 10;
                 }
 
@@ -444,10 +309,8 @@ jQuery(document).ready(function ($) {
     /* Let's hide the widget calendar if we find more than one instance */
     $(".tribe-events-calendar-widget").not(":eq(0)").hide();
 
-    // Global Tooltips
-    if ($('.tribe-events-calendar').length || $('.tribe-events-grid').length || $('.tribe-events-list').length || $('.tribe-events-single').length || $('.tribe-events-map').length) {
-        tribe_ev.fn.tooltips();
-    }
+    tribe_ev.fn.tooltips();
+
 
     //remove border on list view event before month divider
     if ($('.tribe-events-list').length) {
