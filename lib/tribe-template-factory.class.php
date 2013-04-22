@@ -170,9 +170,6 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			if ( ! defined('DOING_AJAX') || ! DOING_AJAX) { // ajax requests handle the query separately
 				global $wp_query;
 				$args = NULL;
-				if ( empty($wp_query->query['eventDisplay']) || $wp_query->query['eventDisplay'] != 'upcoming' ) {
-					$args = wp_parse_args(array( 'eventDisplay' => 'upcoming' ), $wp_query->query);
-				}
 
 				// hijack the main query to load the events via provided $args
 				if ( !is_null( $args ) || ! ( $wp_query->tribe_is_event || $wp_query->tribe_is_event_category ) ) {
