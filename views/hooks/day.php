@@ -12,7 +12,7 @@
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 if( !class_exists('Tribe_Events_Day_Template')){
-	class Tribe_Events_Day_Template extends Tribe_Template_Factory {
+	class Tribe_Events_Day_Template extends Tribe_PRO_Template_Factory {
 
 		static $timeslots = array();
 
