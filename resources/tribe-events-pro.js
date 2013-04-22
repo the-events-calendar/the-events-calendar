@@ -45,6 +45,87 @@
                 }
             }
         },
+        pro_tooltips: function () {
+
+            $('#tribe-events').on('mouseenter', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring',function () {
+
+                var bottomPad = 0;
+                var $this = $(this);
+
+                if ($('body').hasClass('tribe-events-week')) {
+
+                    var $tip = $this.find('.tribe-events-tooltip');
+
+                    if (!$this.parents('.tribe-grid-allday').length) {
+
+                        var $wrapper = $('.tribe-week-grid-wrapper');
+                        var $parent = $this.parent();
+                        var $container = $parent.parent();
+
+                        var pwidth = Math.ceil($container.width());
+                        var cwidth = Math.ceil($this.width());
+                        var twidth = Math.ceil($tip.outerWidth());
+                        var gheight = $wrapper.height();
+
+                        var scroll = $wrapper.scrollTop();
+                        var coffset = $parent.position();
+                        var poffset = $this.position();
+                        var ptop = Math.ceil(poffset.top);
+                        var toffset = scroll - ptop;
+
+                        var isright = $parent.hasClass('tribe-events-right');
+                        var wcheck;
+                        var theight;
+                        var available;
+                        var cssmap = {};
+
+                        if (!$tip.hasClass('hovered')) {
+                            $tip.attr('data-ow', twidth).addClass('hovered');
+                        }
+
+                        if (isright)
+                            wcheck = Math.ceil(coffset.left) - 20;
+                        else
+                            wcheck = pwidth - cwidth - Math.ceil(coffset.left);
+
+                        if (twidth >= wcheck)
+                            twidth = wcheck;
+                        else if ($tip.attr('data-ow') > wcheck)
+                            twidth = wcheck;
+                        else
+                            twidth = $tip.attr('data-ow');
+
+                        if (isright)
+                            cssmap = { "right": cwidth + 20, "bottom": "auto", "width": twidth + "px"};
+                        else
+                            cssmap = { "left": cwidth + 20, "bottom": "auto", "width": twidth + "px"};
+
+                        $tip.css(cssmap);
+
+                        theight = $tip.height();
+
+                        if (toffset >= 0) {
+                            toffset = toffset + 5;
+                        } else {
+                            available = toffset + gheight;
+                            if (theight > available)
+                                toffset = available - theight - 8;
+                            else
+                                toffset = 5;
+                        }
+
+                        $tip.css("top", toffset).show();
+
+                    } else {
+                        bottomPad = $this.outerHeight() + 6;
+                        $tip.css('bottom', bottomPad).show();
+                    }
+
+
+                }
+
+            });
+        },
         print_geo_options: function (){
             $("#tribe-geo-links").empty();
             $("#tribe-geo-options").show();
@@ -103,17 +184,19 @@
         }
     });
 
+    tribe_ev.geoloc = {
+        map: [],
+        geocoder: [],
+        geocodes: [],
+        bounds: [],
+        markers: []
+    };
+
 })( jQuery );
 
-tribe_ev.geoloc = {
-    map: [],
-    geocoder: [],
-    geocodes: [],
-    bounds: [],
-    markers: []
-};
-
 jQuery(document).ready(function ($) {
+
+    tribe_ev.fn.pro_tooltips();
 
     var recurrence_on = false;
 
