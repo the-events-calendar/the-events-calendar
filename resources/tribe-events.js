@@ -225,7 +225,7 @@ var tribe_ev = window.tribe_ev || {};
          * @function tribe_ev.fn.get_url_param
          * @since 3.0
          * @desc tribe_ev.fn.get_url_param returns the value of a passed param name if set.
-         * @param {String} name The name of the url param value you are after.
+         * @param {String} name The name of the url param value desired.
          * @returns {String|Null} the value of a parameter if set or null if not.
          * @example var param = tribe_ev.fn.get_url_param('category');
          */
@@ -274,11 +274,26 @@ var tribe_ev = window.tribe_ev || {};
             });
             return map;
         },
+        /**
+         * @function tribe_ev.fn.pre_ajax
+         * @since 3.0
+         * @desc tribe_ev.fn.pre_ajax allows for functions to be executed before ajax begins.
+         * @param {Function} tribe_ajax_callback The callback function, expected to be an ajax function for one of our views.
+         */
         pre_ajax: function (tribe_ajax_callback) {
             if (tribe_ajax_callback && typeof( tribe_ajax_callback ) === "function") {
                 tribe_ajax_callback();
             }
         },
+        /**
+         * @function tribe_ev.fn.serialize
+         * @since 3.0
+         * @desc tribe_ev.fn.serialize serializes the passed input types. Enable/disable flow in place to protect inputs during process, especially for live ajax mode.
+         * @param {String} form The form element.
+         * @param {String} type The input types to be serialized.
+         * @returns {String} Returns a param string of populated inputs.
+         * @example tribe_ev.fn.serialize('#myForm', 'input, select');
+         */
         serialize: function (form, type) {
             tribe_ev.fn.enable_inputs(form, type);
             tribe_ev.fn.disable_empty(form, type);
