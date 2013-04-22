@@ -369,7 +369,6 @@ jQuery(document).ready(function ($) {
         });
         $('.tribe-bar-settings button[name="settingsUpdate"]').on('click', function (e) {
             tribe_events_bar_mapajax_actions(e);
-            tribe_ev.fn.hide_settings();
         });
     }
 
