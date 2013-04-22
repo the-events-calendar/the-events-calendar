@@ -472,6 +472,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			case 'calendar.php' :
 				$attrs['data-view'] = 'month';
 				$attrs['data-date'] =  date( 'Y-m', strtotime( tribe_get_month_view_date() ) );
+				$attrs['data-baseurl'] =  tribe_get_gridview_link(false);
 			break;
 			case 'list.php' :
 				$attrs['data-view']= 'list';
