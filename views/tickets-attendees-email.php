@@ -7,8 +7,8 @@
 <table align="center" width="100%" style="border-width: 1px; padding:0; border-spacing: 0px; border-style: none; border-color: #cccccc; border-collapse: collapse; background-color: #f7f7f7;">
 	<tr>
 		<td align="left" style="padding:20px; background-color: #dddddd;">
-			<h1 style="color:#0a0a0e; margin:0 0 20px 0 !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-style:normal; font-weight:700; font-size:32px; letter-spacing:normal; text-align:left; line-height: 100%;"><?php _e( 'Attendee List', 'tribe-events-calendar' ); ?></h1>
-			<h2 style="color:#0a0a0e; margin:0 !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-style:normal; font-weight:700; font-size:18px; letter-spacing:normal; text-align:left; line-height: 100%;"><?php echo $event->post_title; ?></h2>
+			<h1 style="color:#0a0a0e; margin:0 0 20px 0 !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-style:normal; font-weight:700; font-size:32px; letter-spacing:normal; text-align:left; line-height: 100%;"><?php echo $event->post_title; ?></h1>
+			<h2 style="color:#0a0a0e; margin:0 !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-style:normal; font-weight:700; font-size:18px; letter-spacing:normal; text-align:left; line-height: 100%;"><?php _e( 'Attendee List', 'tribe-events-calendar' ); ?></h2>
 		</td>
 	</tr>
 </table>
