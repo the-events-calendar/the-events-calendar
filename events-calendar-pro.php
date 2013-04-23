@@ -103,7 +103,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_enable_recurring_event_queries', '__return_true', 10, 1 );
 			add_filter( 'body_class', array( $this, 'body_class') );
 			add_filter( 'tribe_current_events_page_template', array( $this, 'select_page_template' ) );
-			add_filter( 'tribe_events_template_paths', array($this, 'template_paths'));
+			add_filter( 'tribe_events_template_paths', array( $this, 'template_paths' ) );
 
 			add_filter( 'tribe_help_tab_getting_started_text', array( $this, 'add_help_tab_getting_started_text' ) );
 			add_filter( 'tribe_help_tab_enb_content', array( $this, 'add_help_tab_enb_text' ) );
@@ -130,6 +130,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_event_meta_venue_name', array('Tribe_Register_Meta_Pro', 'venue_name'), 10, 2);
 			add_filter( 'tribe_event_meta_organizer_name', array('Tribe_Register_Meta_Pro','organizer_name'), 10, 2);
 			add_filter( 'tribe_events_single_event_the_meta_group_venue', array( $this, 'single_event_the_meta_group_venue'), 10, 2);
+
+			// add related events to single event view
+			add_action( 'tribe_events_single_event_after_the_meta', 'tribe_single_related_events' );
+			
 			// add_action( 'tribe_events_single_event_meta_init', array( $this, 'single_event_meta_init'), 10, 4);
 
 			// see function tribe_convert_units( $value, $unit_from, $unit_to )
