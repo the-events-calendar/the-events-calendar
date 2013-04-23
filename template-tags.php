@@ -453,13 +453,10 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @param int $first_day sets start of the week (offset) respectively, accepts 0-6
 	 * @return DateTime
 	 */
-	function tribe_get_first_week_day( $date_or_int = null, $by_date = true ) {
+	function tribe_get_first_week_day( $date = null, $by_date = true ) {
+		global $wp_query;
 		$offset = 7 - get_option( 'start_of_week', 0 );
-		if( is_null($date_or_int) ){
-			$date = new DateTime('now');
-		} else {
-			$date = ( $by_date ) ? new DateTime($date_or_int) : strtotime( $date_or_int . ' weeks');
-		}
+		$date = is_null($date) ? new DateTime( $wp_query->get( 'start_date' ) ) : new DateTime( $date );
 		// Clone to avoid altering the original date
 		$r = clone $date;
 		$r->modify(-(($date->format('w') + $offset) % 7) . 'days');
@@ -537,8 +534,9 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @return string $permalink
 	 * @since 3.0
 	 */
-	function tribe_get_last_week_permalink( $week, $is_current = true ) {
-		$week = ($is_current) ? date('Y-m-d', strtotime( $week . ' -7 days') ): $week;
+	function tribe_get_last_week_permalink( $week = null ) {
+		$week = !empty( $week ) ? $week : tribe_get_first_week_day();
+		$week = date('Y-m-d', strtotime( $week . ' -1 week'));
 		return apply_filters('tribe_get_last_week_permalink', tribe_get_week_permalink( $week ) );
 	}
 
@@ -551,8 +549,9 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @return string $permalink
 	 * @since 3.0
 	 */
-	function tribe_get_next_week_permalink( $week, $is_current = true ) {
-		$week = ($is_current) ? date('Y-m-d', strtotime( $week . ' +7 days') ): $week;
+	function tribe_get_next_week_permalink( $week = null ) {
+		$week = !empty( $week ) ? $week : tribe_get_first_week_day();
+		$week = date('Y-m-d', strtotime( $week . ' +1 week'));
 		return apply_filters('tribe_get_next_week_permalink', tribe_get_week_permalink( $week ) );
 	}
 
