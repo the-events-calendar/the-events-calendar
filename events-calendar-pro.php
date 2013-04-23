@@ -70,6 +70,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/widget-calendar.class.php' );
 
 			require_once( 'template-tags.php' );
+			require_once( 'public/template-tags/week.php' );
 			require_once( 'lib/tribe-presstrends-events-calendar-pro.php' );
 			require_once( 'lib/tribe-geoloc.class.php' );
 			require_once( 'lib/meta-pro.php' );
@@ -217,7 +218,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			// week view title
 			if( tribe_is_week() ) {
-				$reset_title = sprintf( __('Week of %s', 'tribe-events-calendar-pro'),
+				$reset_title = sprintf( __('Events for week of %s', 'tribe-events-calendar-pro'),
 					Date("l, F jS Y", strtotime(tribe_get_first_week_day($wp_query->get('start_date'))))
 					);
 			}

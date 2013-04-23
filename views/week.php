@@ -1,69 +1,68 @@
-<?php
+<?php 
 /**
- * Week Grid Template
- * The template for displaying events by week.
+ * Calendar Template
+ * This file loads the TEC month or calendar view, specifically the month view navigation.
  *
- * This view contains the filters required to create an effective week grid view.
- *
- * You can recreate an ENTIRELY new week grid view by doing a template override, and placing
- * a week.php file in a tribe-events/pro/ directory within your theme directory, which
- * will override the /views/week.php. 
+ * You can recreate an ENTIRELY new calendar view by doing a template override, and placing
+ * a calendar.php file in a tribe-events/ directory within your theme directory, which
+ * will override the /views/calendar.php. 
  *
  * You can use any or all filters included in this file or create your own filters in 
  * your functions.php. In order to modify or extend a single filter, please see our
  * readme on templates hooks and filters (TO-DO)
  *
- * @package TribeEventsCalendarPro
- * @since  2.1
+ * @package TribeEventsCalendar
+ * @since  3.0
  * @author Modern Tribe Inc.
  *
  */
 
-if ( !defined('ABSPATH') ) { die('-1'); }
+	if ( !defined('ABSPATH') ) 
+		die('-1');
 
 ?>
 
-	<!-- Tribe Bar -->
-	<?php tribe_get_template_part('modules/bar'); ?>
+<?php do_action('tribe_events_week_before_template') ?>
+<div id="tribe-events-content" class="tribe-events-week-grid">
 
-<?php
+<!-- Tribe Bar -->
+<?php tribe_get_template_part('modules/bar'); ?>
 
-// Start week template
-echo apply_filters( 'tribe_events_week_before_template', '');
-
-	// Week title
-	echo apply_filters( 'tribe_events_week_the_title', '');
-
-    // Week navigation
-    /*
-	echo apply_filters( 'tribe_events_week_the_header', '');
-	*/
-	// Week Notices 
-	echo apply_filters( 'tribe_events_week_notices', '');
-
-	// Week header
-    echo apply_filters( 'tribe_events_week_before_header', '');
-
-    	// Navigation
-    	echo apply_filters( 'tribe_events_week_before_header_nav', '');
-		echo apply_filters( 'tribe_events_week_header_nav', '');
-		echo apply_filters( 'tribe_events_week_after_header_nav', '');
-
-	echo apply_filters( 'tribe_events_week_after_header', '');
-
-
-	// Week grid
-	echo apply_filters( 'tribe_events_week_the_grid', '');
+<div id="tribe-events-content" class="tribe-events-calendar">
 	
-	// Week footer
-    echo apply_filters( 'tribe_events_week_before_footer', '');
+	<!-- Calendar Title -->
+	<?php do_action('tribe_events_week_before_the_title') ?>
+	<h2 class="tribe-events-page-title"><?php tribe_events_title() ?></h2>
+	<?php do_action('tribe_events_week_after_the_title') ?>
 
-    	// Navigation
-    	echo apply_filters( 'tribe_events_week_before_footer_nav', '');
-		echo apply_filters( 'tribe_events_week_footer_nav', '');
-		echo apply_filters( 'tribe_events_week_after_footer_nav', '');
+	<!-- Notices -->
+	<?php tribe_events_the_notices() ?>
 
-	echo apply_filters( 'tribe_events_week_after_footer', '');
+	<!-- Calendar Header -->
+	<?php do_action('tribe_events_week_before_header') ?>
+	<div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
 
-// End week template
-echo apply_filters( 'tribe_events_week_after_template', '');
+		<!-- Header Navigation -->
+		<?php tribe_get_template_part('week/nav', 'header'); ?>
+
+	</div><!-- #tribe-events-header -->
+	<?php do_action('tribe_events_week_after_header') ?>
+
+	<!-- Calendar Grid -->
+	<?php tribe_get_template_part('week/loop', 'grid') ?>
+
+	<!-- Calendar Footer -->
+	<?php do_action('tribe_events_week_before_footer') ?>
+	<div id="tribe-events-footer">
+
+		<!-- Footer Navigation -->
+		<?php tribe_get_template_part('week/nav', 'footer'); ?>
+
+	</div><!-- #tribe-events-footer -->
+	<?php do_action('tribe_events_week_after_footer') ?>
+	
+</div><!-- #tribe-events-content -->
+<?php do_action('tribe_events_week_after_template') ?>
+
+
+<?php /* echo Tribe_Events_Week_Template::the_grid(); */ ?>
