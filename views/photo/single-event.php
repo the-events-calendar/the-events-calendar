@@ -1,3 +1,4 @@
+
 <?php 
 /**
  * Photo Single Event
@@ -43,9 +44,9 @@ global $post;
 
 	<!-- Event Content -->
 	<?php do_action( 'tribe_events_photo_before_the_content' ) ?>
-	<?php the_excerpt() ?>
+	<div class="tribe-events-list-photo-description tribe-events-content entry-summary">
+		<?php the_excerpt() ?>
+	</div>
 	<?php do_action('tribe_events_photo_after_the_content') ?>
-
-<?php echo tribe_get_event_taxonomy( array('before' => '<p class="tribe-event-categories">', 'sep' => ', ', 'after' => '</p>') ) ?>
 
 </div><!-- /.tribe-events-event-details -->
