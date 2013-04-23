@@ -378,7 +378,7 @@ h2.tribe-events-page-title a:focus {
 	margin: 0;
 	vertical-align: middle;
 }
-#tribe-events-header .tribe-events-sub-nav .tribe-events-nav-previous,
+#tribe-events-header .tribe-events-sub-nav li,
 #tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-previous {
 	float: left;
 	margin-right: 5px;
@@ -451,6 +451,32 @@ select.tribe-events-dropdown {
 #tribe-events-picker {
 	display: inline;
 }
+
+@media only screen and (max-width: 767px) {
+	#tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next,
+	#tribe-events-header .tribe-events-sub-nav .tribe-events-nav-previous,
+	#tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-next,
+	#tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-previous {
+		display: block;
+		width: 50%;
+		margin: 0;
+		-webkit-box-sizing: border-box;
+		   -moz-box-sizing: border-box;
+				box-sizing: border-box;		
+	}
+	.tribe-events-sub-nav li a {
+		display: block;
+		padding: 10px 15px;
+		background: #666666;
+		color: #fff;
+	}
+	.tribe-events-sub-nav .tribe-events-nav-previous {
+		padding-right: 1px;
+	}
+	.tribe-events-sub-nav .tribe-events-nav-next {
+		padding-left: 1px;
+	}
+}	
 
 /* = Calendar View & List View Template Styles
    @ Template: calendar.php & list.php
