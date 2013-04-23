@@ -413,8 +413,17 @@
 }
 
 .tribe-events-photo .tribe-events-loop .vevent.hentry .tribe-events-event-meta {
-	margin: 0;
+	margin: 0 0 8px 0;
 	padding-right: 0;
+}
+
+.tribe-events-list .tribe-events-loop .tribe-events-photo-event .tribe-events-event-meta .recurringinfo {
+	display: block;
+	margin: 8px 0 0;
+}
+
+.tribe-events-loop .tribe-events-photo-event .recurringinfo .tribe-events-divider {
+	display: none;
 }
 
 .tribe-events-list #tribe-events-photo-events .tribe-events-event-details h2 {
