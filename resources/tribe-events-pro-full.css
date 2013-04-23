@@ -501,6 +501,17 @@
 	border-bottom-color: #fff;
 }
 
+.tribe-bar-collapse #tribe-geo-options {
+	position: relative;
+	top: auto;
+	left: auto;
+}
+
+.tribe-bar-collapse #tribe-geo-options:before, 
+.tribe-bar-collapse #tribe-geo-options:after {
+	display: none;
+}
+
 /* tribe geo location option links (displayed when multiple locations found) */
 #tribe-geo-results h2,
 #tribe-geo-options h2 {
@@ -544,6 +555,9 @@
 	color: #fff;
 }
 
+.tribe-bar-collapse .tribe-geo-option-link {
+	padding: 10px;
+}
 .timer {
 	text-align: center;
 	width: 100%;
