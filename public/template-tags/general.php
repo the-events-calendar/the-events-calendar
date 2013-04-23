@@ -464,9 +464,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return void
 	 * @since 3.0 
 	 **/
-	function tribe_events_the_header_attributes() {
+	function tribe_events_the_header_attributes( $current_view = null ) {
 		$attrs = array();
-		$current_view = basename(tribe_get_current_template());
+		$current_view = !empty( $current_view ) ? $current_view : basename(tribe_get_current_template());
 		$attrs['data-title'] = wp_title('&raquo;', false);
 		switch($current_view) {
 			case 'calendar.php' :
