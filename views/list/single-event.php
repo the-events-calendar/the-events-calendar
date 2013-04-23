@@ -19,6 +19,13 @@ $venue_address = tribe_get_meta( 'tribe_event_venue_address' );
 
  ?>
 
+<!-- Event Cost -->
+<?php if ( tribe_get_cost() ) : ?> 
+	<div class="tribe-events-event-cost">
+		<span><?php echo tribe_get_cost(); ?></span>
+	</div>
+<?php endif; ?>
+
 <!-- Event Title -->
 <?php do_action( 'tribe_events_list_before_the_event_title' ) ?>
 <h2 class="tribe-events-list-event-title entry-title summary">
@@ -50,7 +57,7 @@ $venue_address = tribe_get_meta( 'tribe_event_venue_address' );
 <?php do_action( 'tribe_events_list_after_the_meta' ) ?>
 
 <!-- Event Image -->
-<?php tribe_event_featured_image(null, 'large') ?>
+<?php echo tribe_event_featured_image(null, 'large') ?>
 
 <!-- Event Content -->
 <?php do_action( 'tribe_events_list_before_the_content' ) ?>

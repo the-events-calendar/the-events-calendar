@@ -75,4 +75,3 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 <div class="tribe-clear"></div>
 
 <?php do_action('tribe_events_list_after_template') ?>
-<div id="tribe-events-list-view">

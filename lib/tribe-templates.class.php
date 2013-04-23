@@ -163,7 +163,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			} 
 
 			// single event view
-			if ( is_single( TribeEvents::POSTTYPE )) {
+			if ( is_singular( TribeEvents::POSTTYPE )) {
 				$template = self::getTemplateHierarchy( 'single-event' );
 			}
 

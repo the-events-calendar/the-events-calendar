@@ -18,26 +18,28 @@ jQuery( document ).ready( function ( $ ) {
 		window.print();
 	} );
 
-	var tribe_status_bg = null;
-
 	$( "#attendees_email_wrapper" ).dialog( {
 		autoOpen:false,
 		dialogClass: 'attendees_email_dialog',
-		height  :310,
+		height  :'auto',
 		width   :400,
 		modal   :true,
 		buttons :{
 			"Send":function () {
 
+				var $errors = $('.attendees_email_dialog #email_errors');
 				var $response = $('.attendees_email_dialog #email_response');
 				var $send = $('.attendees_email_dialog #email_send, .attendees_email_dialog .ui-dialog-buttonpane' );
 
-				$response.show();
-				$send.hide();
+				$errors.show();
 
 				var $email = tribe_validate_email();
 
 				if ( $email !== false ) {
+
+					$response.show();
+					$send.hide();
+
 					var opts = {
 						action  :'tribe-ticket-email-attendee-list',
 						email   :$email,
@@ -47,15 +49,18 @@ jQuery( document ).ready( function ( $ ) {
 
 					$.post( ajaxurl, opts, function ( response ) {
 						if ( response.success ) {
-							$( '#email_response' ).removeClass( 'ui-state-error' ).removeClass( 'ui-state-highlight' ).text( '' );
+							$errors.removeClass( 'ui-state-error' ).removeClass( 'ui-state-highlight' ).text( '' );
+							var combo = $( '#email_to_user' );
+							combo.prop( 'disabled', false );
+							combo.val( '' );
 							$( '#email_to_address' ).val( '' );
 							$( '#attendees_email_wrapper' ).dialog( "close" );
 							$response.hide();
 							$send.show();
+							$errors.hide();
 						} else {
-
 							tribe_status_bg = $response.css('background');
-							$response.removeClass( 'ui-state-highlight' ).addClass( 'ui-state-error' ).text( response.message ).css('background', 'none');
+							$errors.removeClass( 'ui-state-highlight' ).addClass( 'ui-state-error' ).text( response.message );
 							$( '.ui-dialog-buttonpane' ).show();
 							$( '.ui-button-text-only:first' ).hide();
 						}
@@ -68,17 +73,42 @@ jQuery( document ).ready( function ( $ ) {
 				$( '.ui-button-text-only:first' ).show();
 				$( '.attendees_email_dialog #email_response' ).hide();
 				$( '.attendees_email_dialog #email_send, .attendees_email_dialog .ui-dialog-buttonpane' ).show();
-
-				if ( tribe_status_bg !== null ) {
-					$('.attendees_email_dialog #email_response').css( 'background', tribe_status_bg );
-				}
+				$( '.attendees_email_dialog #email_errors' ).removeClass( 'ui-state-error' ).removeClass( 'ui-state-highlight' ).text( '' ).hide();
 
 			}
 		} } );
 
 	$( "input.email" ).click( function () {
+
+		/* Cleanup */
+		var combo = $( '#email_to_user' );
+		combo.prop( 'disabled', false );
+		combo.val( '' );
+		$( '#email_to_address' ).val( '' );
+		$( '#email_response' ).removeClass( 'ui-state-error' ).removeClass( 'ui-state-highlight' ).text( '' );
+		$( '.ui-button-text-only:first' ).show();
+		$( '.attendees_email_dialog #email_response' ).hide();
+		$( '.attendees_email_dialog #email_send, .attendees_email_dialog .ui-dialog-buttonpane' ).show();
+
 		$( "#attendees_email_wrapper" ).dialog( "open" );
+
 	} );
+
+
+	$( '#email_to_address' ).on( 'keyup paste', function () {
+
+		var email = jQuery( this ).val().trim();
+		var combo = $( '#email_to_user' );
+
+		if ( email === '' ) {
+			combo.prop( 'disabled', false );
+		} else {
+			combo.val( '' );
+			combo.prop( 'disabled', 'disabled' );
+		}
+
+	} );
+
 
 	$( '#filter_attendee' ).on( 'keyup paste', function () {
 
@@ -162,7 +192,7 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	function tribe_validate_email() {
-		$( '#email_response' ).removeClass( 'ui-state-error' ).addClass( 'ui-state-highlight' ).text( Attendees.sending );
+		$( '#email_errors' ).removeClass( 'ui-state-error' ).addClass( 'ui-state-highlight' ).text( Attendees.sending );
 		var $address = $( '#email_to_address' ).val();
 		var $user = $( '#email_to_user' ).val();
 		var $email = false;
@@ -174,7 +204,7 @@ jQuery( document ).ready( function ( $ ) {
 			$email = $address;
 
 		if ( !$email )
-			$( '#email_response' ).removeClass( 'ui-state-highlight' ).addClass( 'ui-state-error' ).text( Attendees.required );
+			$( '#email_errors' ).removeClass( 'ui-state-highlight' ).addClass( 'ui-state-error' ).text( Attendees.required );
 
 		return $email;
 	}
