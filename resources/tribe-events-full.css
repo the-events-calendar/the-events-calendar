@@ -485,24 +485,22 @@ select.tribe-events-dropdown {
 	padding-top: 0;
 }
 
-.tribe-events-list .vevent.hentry h2, 
-.events-archive .tribe-events-list .vevent.hentry h2 {
-	float: none;
-	padding-right: 90px;
-}
-
-.tribe-events-list .vevent.hentry .tribe-events-event-meta, 
-.events-archive .tribe-events-list .vevent.hentry .tribe-events-event-meta {
-	padding-right: 90px;
-}
-
-.tribe-events-list .vevent.hentry h2 {
+.tribe-events-list h2.tribe-events-list-event-title {
 	margin: 0 0 5px 0;
 	padding: 0;
 	font-size: 1.4em;
 	line-height: 1.4em;
 	text-transform: none;
 	letter-spacing: 0;
+}
+
+.tribe-events-list .tribe-events-event-cost + h2.tribe-events-list-event-title {
+	float: none;
+	padding-right: 90px;
+}
+
+.tribe-events-list .tribe-events-event-cost + h2.tribe-events-list-event-title + .tribe-events-event-meta {
+	padding-right: 90px;
 }
 
 .tribe-events-event-details .tribe-events-event-meta address.tribe-events-address {
@@ -518,6 +516,7 @@ select.tribe-events-dropdown {
 
 .tribe-events-list .tribe-events-event-image img {
 	width: 100%;
+	height: auto;
 }
 
 /* Details (Title, Meta, Content) */
@@ -623,6 +622,25 @@ select.tribe-events-dropdown {
 .tribe-events-list .vevent.hentry.tribe-event-end-month {
 	border-bottom: 0;
 	padding-bottom: 0;
+}
+
+@media only screen and (max-width: 767px) {
+	.tribe-events-list .tribe-events-event-image {
+		float: none;
+		width: 100%;
+		margin: 0 0 20px 0;
+	}
+.tribe-events-list .tribe-events-event-image + div.tribe-events-content {
+	float: none;
+	width: 100%;
+}	
+	.tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
+		display: block;
+		margin: 8px 0 0;
+	}
+	.tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo .tribe-events-divider {
+		display: none;
+	}
 }
 
 /* = List View & Single Venue (Pro Version) Template Styles
