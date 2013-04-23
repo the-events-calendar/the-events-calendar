@@ -1,5 +1,6 @@
 jQuery( document ).ready( function ( $ ) {
 
+
 	var datepickerOpts = {
 		dateFormat:'yy-mm-dd',
 		showAnim:'fadeIn',
@@ -77,7 +78,8 @@ jQuery( document ).ready( function ( $ ) {
 		var params = {
 			action:'tribe-ticket-add-' + $( 'input[name=ticket_provider]:checked' ).val(),
 			formdata:$( '.ticket_field' ).serialize(),
-			post_ID:$( '#post_ID' ).val()
+			post_ID:$( '#post_ID' ).val(),
+			nonce:TribeTickets.add_ticket_nonce
 		};
 
 		$.post(
@@ -111,7 +113,8 @@ jQuery( document ).ready( function ( $ ) {
 		var params = {
 			action:'tribe-ticket-delete-' + $( this ).attr( "attr-provider" ),
 			post_ID:$( '#post_ID' ).val(),
-			ticket_id:$( this ).attr( "attr-ticket-id" )
+			ticket_id:$( this ).attr( "attr-ticket-id" ),
+			nonce:TribeTickets.remove_ticket_nonce
 		};
 
 		$.post(
@@ -120,6 +123,7 @@ jQuery( document ).ready( function ( $ ) {
 			function ( response ) {
 
 				if ( response.success ) {
+					ticket_clear_form();
 					$( 'td.ticket_list_container' ).empty().html( response.data );
 				}
 			},
@@ -146,7 +150,8 @@ jQuery( document ).ready( function ( $ ) {
 		var params = {
 			action:'tribe-ticket-edit-' + $( this ).attr( "attr-provider" ),
 			post_ID:$( '#post_ID' ).val(),
-			ticket_id:$( this ).attr( "attr-ticket-id" )
+			ticket_id:$( this ).attr( "attr-ticket-id" ),
+			nonce:TribeTickets.edit_ticket_nonce
 		};
 
 		$.post(
@@ -259,14 +264,17 @@ jQuery( document ).ready( function ( $ ) {
 		}
 	};
 
-	if ( $( '#tribe_ticket_header_preview img' ).length )
-		$( '#tribe_ticket_header_remove' ).show();
+	var $remove = $( '#tribe_ticket_header_remove' );
+	var $preview = $( '#tribe_ticket_header_preview' );
 
-	$( '#tribe_ticket_header_remove' ).live( 'click', function ( e ) {
+	if ( $preview.find( 'img' ).length )
+		$remove.show();
+
+	$remove.live( 'click', function ( e ) {
 
 		e.preventDefault();
-		$( '#tribe_ticket_header_preview' ).html('');
-		$( '#tribe_ticket_header_remove' ).hide();
+		$preview.html('');
+		$remove.hide();
 		$( '#tribe_ticket_header_image_id' ).val('');
 
 	} );

@@ -53,11 +53,22 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 * @since 3.0
 		 **/
 		protected function hooks() {
+
 			// set up queries, vars, etc that needs to be used in this view
-			add_action( 'tribe_events_view_setup', array(&$this, 'setup_view') );
+			add_action( 'tribe_events_before_view', array(&$this, 'setup_view') );
 
 			// cleanup after view (reset query, etc)
-			add_action( 'tribe_events_view_shutdown', array(&$this, 'shutdown_view' ) );
+			add_action( 'tribe_events_after_view', array(&$this, 'shutdown_view' ) );
+
+			// add filters for template paths
+			add_filter( 'tribe_get_template_part_path', array( $this, 'filter_template_paths' ), 10, 2 );
+
+			// add wrapper html and input hash to non-ajax request
+			if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
+				add_action( 'tribe_events_before_view', array(&$this, 'view_wrapper_open') );
+				add_action( 'tribe_events_after_view', array(&$this, 'view_wrapper_close' ) );
+				add_filter( 'tribe_events_before_view', array($this, 'add_input_hash' ) );
+			}
 		}
 
 		/**
@@ -82,14 +93,14 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			global $wp_query;
 
 			// Look for a search query
-			if( !empty( $wp_query->query_vars['s'] )){
+			if ( ! empty( $wp_query->query_vars['s'] )) {
 				$search_term = $wp_query->query_vars['s'];
-			} else if( !empty($_POST['tribe-bar-search'])) {
+			} else if ( !empty( $_POST['tribe-bar-search'] ) ) {
 				$search_term = $_POST['tribe-bar-search'];
 			}
 
 			// Search term based notices
-			if( !empty($search_term) && !have_posts() ) {
+			if ( ! empty($search_term) && ! have_posts() ) {
 				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There  were no results found for <strong>"%s"</strong>.', 'tribe-events-calendar' ), $search_term ) );
 			}
 
@@ -174,6 +185,36 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		}
 
 		/**
+		 * Echo open tags for wrapper around view
+		 *
+		 * @return void
+		 * @since 
+		 **/
+		public function view_wrapper_open() {
+			echo '<div id="tribe-events-content-wrapper">';
+		}
+
+		/**
+		 * Output an input to store the hash for the current query
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		public function add_input_hash() {
+			echo '<input type="hidden" id="tribe-events-list-hash" value="">';
+		}
+
+		/**
+		 * Echo open tags for wrapper around view
+		 *
+		 * @return void
+		 * @since 
+		 **/
+		public function view_wrapper_close() {
+			echo '</div> <!-- #tribe-events-content-wrapper -->';
+		}
+
+		/**
 		 * Shutdown the view, restore the query, etc. This happens right after the view file is included
 		 *
 		 * @return void
@@ -191,6 +232,20 @@ if( !class_exists('Tribe_Template_Factory') ) {
 
 			// reset the main query
 			wp_reset_query();
+		}
+
+		/**
+		 * Filter tribe_get_template_part()
+		 *
+		 * @return string
+		 * @since 3.0
+		 **/
+		public function filter_template_paths( $file, $template ) {
+			// don't return the tribe bar on ajax requests
+			if ( $template == 'modules/bar.php' && ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+				return false;
+			}
+			return $file;
 		}
 
 		/**

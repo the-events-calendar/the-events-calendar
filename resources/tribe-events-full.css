@@ -422,12 +422,12 @@ h2.tribe-events-page-title a:focus {
 /* List & Map & Day Nav Tweaks */
 .events-list #tribe-events-footer,
 .tribe-events-day #tribe-events-footer,
-#tribe-geo-wrapper #tribe-events-footer {
+.tribe-events-map #tribe-events-footer {
 	margin: 1.25em 0 18px;
 	clear: both;
 }
 /* Single Event & Map View Nav Tweaks */
-#tribe-geo-wrapper #tribe-events-header {
+.tribe-events-map #tribe-events-header {
 	margin: 1em 0;
 }
 

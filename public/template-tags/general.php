@@ -53,9 +53,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 
 		if (file_exists($template_file)) {
-			do_action('tribe_events_view_setup', $template_file);
+			do_action('tribe_events_before_view', $template_file);
 			include( $template_file );
-			do_action('tribe_events_view_shutdown', $template_file);
+			do_action('tribe_events_after_view', $template_file);
 		}
 	}
 
@@ -85,10 +85,14 @@ if ( class_exists( 'TribeEvents' ) ) {
 		// loop through templates, return first one found.
 		foreach($templates as $template) {
 			$file = TribeEventsTemplates::getTemplateHierarchy( $template );
+			$file = apply_filters( 'tribe_get_template_part_path', $file, $template, $slug, $name );
 			if (file_exists($file)) {
+				ob_start();
 				do_action('tribe_before_get_template_part', $template, $file, $template, $slug, $name);
 				include($file);
 				do_action('tribe_after_get_template_part', $template, $file, $slug, $name);
+				$html = ob_get_clean();
+				echo apply_filters('tribe_get_template_part_content', $html, $template, $file, $slug, $name);
 			}
 		}
 	}
@@ -179,7 +183,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return bool
 	 * @since 2.0
 	 */
-	function tribe_get_all_day( $postId = null ) {
+	function tribe_event_is_all_day( $postId = null ) {
 		$postId = TribeEvents::postIdHelper( $postId );
 		$output = !! tribe_get_event_meta( $postId, '_EventAllDay', true );
 		return apply_filters( 'tribe_get_all_day', $output );
@@ -194,7 +198,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return bool true if event spans multiple days
 	 * @since 2.0
 	 */
-	function tribe_is_multiday( $postId = null ) {
+	function tribe_event_is_multiday( $postId = null ) {
 		$postId = TribeEvents::postIdHelper( $postId );
 		$start = (array)tribe_get_event_meta( $postId, '_EventStartDate', false );
 		sort( $start );

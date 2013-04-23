@@ -87,20 +87,25 @@
 			 */
 			public function do_menu_page() {
 				$remote = $this->get_all_products();
-				if ( $remote ) {
-					$products = NULL;
+
+				if ( ! empty( $remote ) ) {
+					$products = null;
 					if ( property_exists( $remote, 'data' ) ) {
 						$products = $remote->data;
 					}
-					$banner = NULL;
+					$banner = null;
 					if ( property_exists( $remote, 'banner' ) ) {
 						$banner = $remote->banner;
 					}
+
+					if ( empty( $products ) )
+						return;
 
 					$categories = array_unique( wp_list_pluck( $products, 'category' ) );
 
 					include_once( TribeEvents::instance()->pluginPath . 'admin-views/app-shop.php' );
 				}
+
 			}
 
 

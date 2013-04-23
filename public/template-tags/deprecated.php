@@ -731,4 +731,17 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 	}
 
+	if ( !function_exists( 'tribe_get_all_day' ) ) {
+		function tribe_get_all_day( $postId = null ) {
+			_deprecated_function( __FUNCTION__, '3.0', 'tribe_event_is_all_day( $postId )' );
+			return apply_filters( 'tribe_get_all_day', tribe_event_is_all_day( $postId ) );
+		}
+	}
+
+	if ( !function_exists( 'tribe_is_multiday' ) ) {
+		function tribe_is_multiday( $postId = null ) {
+			_deprecated_function( __FUNCTION__, '3.0', 'tribe_event_is_multiday( $postId )' );
+			return apply_filters( 'tribe_is_multiday', tribe_event_is_multiday( $postId ) );
+		}
+	}
 }
