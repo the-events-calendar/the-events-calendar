@@ -21,8 +21,12 @@ jQuery(document).ready(function ($) {
 
     var tribeBarDate = $tribedate.bootstrapDatepicker(tribe_var_datepickerOpts).on('changeDate', function (e) {
         tribeBarDate.hide();
+        var $this = $(this);
+        if($this.val() === ''){
+            return;
+        }
         tribe_ev.fn.update_picker(e.date);
-        tribe_ev.state.date = $(this).val();
+        tribe_ev.state.date = $this.val();
         if (tribe_ev.tests.live_ajax() && tribe_ev.tests.pushstate) {
             if (tribe_ev.state.ajax_running)
                 return;

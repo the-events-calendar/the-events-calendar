@@ -186,7 +186,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	function tribe_event_is_all_day( $postId = null ) {
 		$postId = TribeEvents::postIdHelper( $postId );
 		$output = !! tribe_get_event_meta( $postId, '_EventAllDay', true );
-		return apply_filters( 'tribe_get_all_day', $output );
+		return apply_filters( 'tribe_event_is_all_day', $output );
 	}
 
 	/**
@@ -205,7 +205,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$start = strtotime( $start[0] );
 		$end = strtotime( tribe_get_event_meta( $postId, '_EventEndDate', true ) );
 		$output = date( 'd-m-Y', $start ) != date( 'd-m-Y', $end );
-		return apply_filters( 'tribe_is_multiday', $output );
+		return apply_filters( 'tribe_event_is_multiday', $output );
 	}
 
 	/**
@@ -472,6 +472,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			case 'calendar.php' :
 				$attrs['data-view'] = 'month';
 				$attrs['data-date'] =  date( 'Y-m', strtotime( tribe_get_month_view_date() ) );
+				$attrs['data-baseurl'] =  tribe_get_gridview_link(false);
 			break;
 			case 'list.php' :
 				$attrs['data-view']= 'list';
@@ -775,21 +776,21 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		$schedule = '<div class="tribe-events-event-schedule-details">';
 
-		if ( tribe_is_multiday( $event ) ) { // multi-date event
+		if ( tribe_event_is_multiday( $event ) ) { // multi-date event
 
 			$format2ndday = $format;
 
 			// If the WordPress date setting matches DATEONLYFORMAT, make the string more readable
 			if ( get_option( 'date_format' ) == TribeDateUtils::DATEONLYFORMAT ) {
 				//If it's all day and the end date is in the same month and year, just show the day.
-				if ( tribe_get_all_day( $event ) && tribe_get_end_date( $event, false, 'm' ) === tribe_get_start_date( $event, false, 'm' ) && tribe_get_end_date( $event, false, 'Y' ) === date( 'Y' ) ) {
+				if ( tribe_event_is_all_day( $event ) && tribe_get_end_date( $event, false, 'm' ) === tribe_get_start_date( $event, false, 'm' ) && tribe_get_end_date( $event, false, 'Y' ) === date( 'Y' ) ) {
 					$format2ndday = 'j';
 				}
 			}
 
 			$schedule .= '<span class="date-start">' . tribe_get_start_date( $event, true, $format ) . '</span> - <span class="date-end">' . tribe_get_end_date( $event, true, $format2ndday ) . '</span>';
 
-		} elseif ( tribe_get_all_day( $event ) ) { // all day event
+		} elseif ( tribe_event_is_all_day( $event ) ) { // all day event
 			$schedule .= '<span class="date-start">' . tribe_get_start_date( $event, true, $format ) . '</span>';
 		} else { // single day event
 			if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) { // Same start/end time

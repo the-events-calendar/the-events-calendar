@@ -66,7 +66,7 @@ jQuery(document).ready(function ($) {
 
     // Implement select2
     function format(view) {
-        return '<span class="tribe-icon-' + view.text.toLowerCase() + '">' + view.text + '</span>';
+        return '<span class="tribe-icon-' + $.trim(view.text.toLowerCase()) + '">' + view.text + '</span>';
     }
 
 

@@ -33,7 +33,7 @@ $set_post_type = get_post_type();
 
 		<?php the_post(); global $post; ?>
 			<div id="post-<?php the_ID(); ?>" <?php post_class('hentry vevent'); ?>>
-				<?php include( tribe_get_current_template() ); ?>
+				<?php tribe_get_view(); ?>
 				<?php edit_post_link( __( 'Edit', 'tribe-events-calendar' ), '<span class="edit-link">', '</span>' ); ?>
 			</div><!-- .hentry .vevent -->
 		<?php if( $set_post_type == TribeEvents::POSTTYPE && tribe_get_option( 'showComments','no' ) == 'yes' ) { comments_template(); } ?>

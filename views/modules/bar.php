@@ -20,6 +20,7 @@ $views = tribe_events_get_views();
 
  ?>
 
+<?php do_action('tribe_events_bar_before_template') ?>
 <div id="tribe-events-bar">
 
 	<form id="tribe-bar-form" class="tribe-clearfix" name="tribe-bar-form" method="post" action="<?php echo add_query_arg( array() ); ?>">
@@ -54,3 +55,4 @@ $views = tribe_events_get_views();
 	</form><!-- #tribe-bar-form -->
 
 </div><!-- #tribe-events-bar -->
+<?php do_action('tribe_events_bar_after_template') ?>

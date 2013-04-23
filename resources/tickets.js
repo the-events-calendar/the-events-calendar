@@ -302,7 +302,18 @@ jQuery( document ).ready( function ( $ ) {
 		jQuery( "#tribe-loading" ).hide();
 	}
 
+    if($('#tribe_ticket_header_preview img').length){
 
+        var $tiximg = $('#tribe_ticket_header_preview img');
+        $tiximg.removeAttr("width").removeAttr("height");
+
+        function tribe_fix_image_width(){
+            if($('#tribetickets').width() < $tiximg.width()){
+                $tiximg.css("width",'95%');
+            }
+        }
+        tribe_fix_image_width();
+    }
 
 
 } );

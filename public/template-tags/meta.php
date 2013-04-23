@@ -262,7 +262,7 @@ if( !function_exists('tribe_get_the_event_meta')) {
 }
 
 /**
- *  Simple diplay of meta group tag
+ *  Simple display of meta group tag
  *
  * @uses tribe_get_meta_group()
  * @param string $meta_group_id
@@ -298,4 +298,63 @@ if ( !function_exists( 'tribe_display_meta' ) ) {
 	function tribe_display_meta( $meta_id ) {
 		echo apply_filters('tribe_display_meta', tribe_get_meta( $meta_id ));
 	}
+}
+
+/**
+ * Output the single event meta
+ *
+ * @return void
+ * @since 3.0
+ **/
+function tribe_events_the_single_event_meta() {
+	$event_id = get_the_ID();
+	$skeleton_mode = apply_filters( 'tribe_events_single_event_the_meta_skeleton', false, $event_id ) ;
+	$group_venue = apply_filters( 'tribe_events_single_event_the_meta_group_venue', false, $event_id );
+	$html = '';
+
+	if ( $skeleton_mode ) {
+
+		// show all visible meta_groups in skeleton view
+		$html .= tribe_get_the_event_meta();
+
+	} else {
+
+		// Event Details
+		$html .= tribe_get_meta_group( 'tribe_event_details' );
+
+		// When there is no map show the venue info up top
+		if ( ! $group_venue && ! tribe_embed_google_map( $event_id ) ) {
+			// Venue Details
+			$html .= tribe_get_meta_group( 'tribe_event_venue' );
+			$group_venue = false;
+		} else if ( ! $group_venue && ! tribe_has_organizer( $event_id ) && tribe_address_exists( $event_id ) && tribe_embed_google_map( $event_id ) ) {
+			$html .= sprintf( '%s<div class="tribe-events-meta-group">%s</div>',
+				tribe_get_meta_group( 'tribe_event_venue' ),
+				tribe_get_meta( 'tribe_venue_map' )
+			);
+			$group_venue = false;
+		} else {
+			$group_venue = true;
+		}
+
+		// Organizer Details
+		if ( tribe_has_organizer( $event_id ) ) {
+			$html .= tribe_get_meta_group( 'tribe_event_organizer' );
+		}
+
+		$html .= apply_filters( 'tribe_events_single_event_the_meta_addon', '', $event_id );
+
+	}
+
+	if ( ! $skeleton_mode && $group_venue ) {
+		// If there's a venue map and custom fields or organizer, show venue details in this seperate section
+
+		$html .= apply_filters( 'tribe_events_single_event_the_meta_venue_row', sprintf( '<div class="tribe-events-single-section tribe-events-event-meta tribe-clearfix">%s%s</div>',
+				tribe_get_meta_group( 'tribe_event_venue' ),
+				tribe_get_meta( 'tribe_venue_map' )
+			) );
+	}
+
+	echo $html;
+
 }

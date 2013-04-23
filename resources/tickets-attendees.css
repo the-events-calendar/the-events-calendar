@@ -59,6 +59,7 @@ input.print, input.email, a.export {
 
 #attendees_email_wrapper {
 	padding:20px 0;
+	overflow: hidden;
 }
 
 #attendees_email_wrapper #email_response {
@@ -69,6 +70,14 @@ input.print, input.email, a.export {
 	background-size:32px 32px;
 	display:none;
 }
+
+#attendees_email_wrapper #email_errors {
+	text-align : center;
+	padding:10px 0 10px;
+	border:0;
+	display:none;
+}
+
 
 #attendees_email_wrapper label {
 	display : block;

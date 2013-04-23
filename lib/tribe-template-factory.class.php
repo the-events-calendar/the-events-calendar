@@ -170,9 +170,6 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			if ( ! defined('DOING_AJAX') || ! DOING_AJAX) { // ajax requests handle the query separately
 				global $wp_query;
 				$args = NULL;
-				if ( empty($wp_query->query['eventDisplay']) || $wp_query->query['eventDisplay'] != 'upcoming' ) {
-					$args = wp_parse_args(array( 'eventDisplay' => 'upcoming' ), $wp_query->query);
-				}
 
 				// hijack the main query to load the events via provided $args
 				if ( !is_null( $args ) || ! ( $wp_query->tribe_is_event || $wp_query->tribe_is_event_category ) ) {
@@ -340,14 +337,14 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					break;
 				case 'ajax-calendar':
 					$ajax_data = array( "ajaxurl"   => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
-					wp_enqueue_script( 'tribe-events-calendar', $resouces_url . 'tribe-events-ajax-calendar.js', array(), apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
+					wp_enqueue_script( 'tribe-events-calendar', $resouces_url . 'tribe-events-ajax-calendar.js', array_merge( array( 'jquery' ), $deps ), apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 					wp_localize_script( 'tribe-events-calendar', 'TribeCalendar', $ajax_data );
 					break;
 				case 'ajax-list':
 					$tribe_paged = ( !empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 0;
 					$ajax_data = array( "ajaxurl"     => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
 					                    'tribe_paged' => $tribe_paged );
-					wp_enqueue_script( 'tribe-events-list', $resouces_url . 'tribe-events-ajax-list.js', array(), apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
+					wp_enqueue_script( 'tribe-events-list', $resouces_url . 'tribe-events-ajax-list.js', array_merge( array( 'jquery' ), $deps ), apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 					wp_localize_script( 'tribe-events-list', 'TribeList', $ajax_data );
 					break;
 				case 'events-css':
