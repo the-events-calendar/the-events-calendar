@@ -104,11 +104,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 			include_once(TribeEvents::instance()->pluginPath.'views/hooks/list.php');
 		}
 
-		public function remove_comments_template($template) {
-			remove_filter('comments_template', array($this, 'remove_comments_template') );
-			return TribeEvents::instance()->pluginPath . 'admin-views/no-comments.php';
-		}
-
 		/**
 		 * Filter tribe_get_template_part()
 		 *
