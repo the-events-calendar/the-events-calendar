@@ -58,10 +58,18 @@ class TribeEventsGeoLoc {
 																			'50'   => '50 miles',
 																			'100'  => '100 miles',
 																			'250'  => '250 miles' ) );
+			
+			$distances_values = array();
+			foreach( $distances as $value => $name ) {
+				$distances_values[] = array(
+					'name' => $name,
+					'value' => $value,
+				);
+			}
 
 			$geoloc_filter_array = array( 'name'   => __( 'Distance', 'tribe-events-calendar-pro' ),
 										  'slug'   => 'geofence',
-										  'values' => $distances, );
+										  'values' => $distances_values, );
 
 			$geoloc_filter_array['type'] = isset( $current_filters[$geoloc_filter_array['slug']]['type'] ) ? $current_filters[$geoloc_filter_array['slug']]['type'] : 'select';
 			$geoloc_filter_array['title'] = isset( $current_filters[$geoloc_filter_array['slug']]['title'] ) ? $current_filters[$geoloc_filter_array['slug']]['title'] : $geoloc_filter_array['name'];
