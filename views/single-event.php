@@ -42,7 +42,11 @@ $event_id = get_the_ID();
 	<!-- Event header -->
 	<div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
 		<!-- Navigation -->
-		<?php tribe_get_template_part('single-event/nav') ?>
+		<h3 class="tribe-events-visuallyhidden"><?php _e( 'Event Navigation', 'tribe-events-calendar' ) ?></h3>
+		<ul class="tribe-events-sub-nav">
+			<li class="tribe-events-nav-previous"><?php tribe_get_prev_event_link( '&laquo; %title%' ) ?></li>
+			<li class="tribe-events-nav-next"><?php tribe_get_next_event_link( '%title% &raquo;' ) ?></li>
+		</ul><!-- .tribe-events-sub-nav -->
 	</div><!-- #tribe-events-header -->
 
 	<!-- Event featured image -->
@@ -65,7 +69,12 @@ $event_id = get_the_ID();
 	<!-- Event footer -->
     <div id="tribe-events-footer">
 		<!-- Navigation -->
-		<?php tribe_get_template_part('single-event/nav') ?>
+		<!-- Navigation -->
+		<h3 class="tribe-events-visuallyhidden"><?php _e( 'Event Navigation', 'tribe-events-calendar' ) ?></h3>
+		<ul class="tribe-events-sub-nav">
+			<li class="tribe-events-nav-previous"><?php tribe_get_prev_event_link( '&laquo; %title%' ) ?></li>
+			<li class="tribe-events-nav-next"><?php tribe_get_next_event_link( '%title% &raquo;' ) ?></li>
+		</ul><!-- .tribe-events-sub-nav -->
 	</div><!-- #tribe-events-footer -->
 
 </div><!-- #tribe-events-content -->
