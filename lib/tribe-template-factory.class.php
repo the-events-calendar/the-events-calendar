@@ -247,6 +247,17 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		}
 
 		/**
+		 * Return an empty file as the comments template (to disable comments)
+		 *
+		 * @return string
+		 * @since 3.0
+		 **/
+		public function remove_comments_template( $template ) {
+			remove_filter( 'comments_template', array( $this, 'remove_comments_template' ) );
+			return TribeEvents::instance()->pluginPath . 'admin-views/no-comments.php';
+		}
+
+		/**
 		 * Limit the excerpt length on this template
 		 *
 		 * @param $length
