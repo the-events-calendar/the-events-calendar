@@ -33,7 +33,7 @@ $event_id = get_the_ID();
 	<!-- Notices -->
 	<?php tribe_events_the_notices() ?>
 
-	<?php the_title( '<h2 class="tribe-events-single-event-title entry-title summary">', '</h2>', false ); ?>
+	<?php the_title( '<h2 class="tribe-events-single-event-title entry-title summary">', '</h2>' ); ?>
 
 	<div class="tribe-events-schedule tribe-clearfix">
 		<h3><?php echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); ?><?php  if ( tribe_get_cost() ) :  echo '<span class="tribe-events-divider">|</span><span class="tribe-events-cost">'. tribe_get_cost( null, true ) .'</span>'; endif; ?></h3>
