@@ -802,6 +802,23 @@ h3.tribe-events-related-events-title {
 	margin-bottom: 4%;
 }
 
+.tribe-events-single ul.tribe-related-events .recurringinfo {
+	display: block;
+	margin: 4% 0;
+}
+
+.tribe-events-single ul.tribe-related-events .recurringinfo .tribe-events-divider {
+	display: none;
+}
+
+@media only screen and (max-width: 767px) {
+ .tribe-events-single ul.tribe-related-events li {
+ 	float: none;
+ 	margin-right: 0;
+ 	width: 100%;
+ }
+}
+
 /* = Events Calendar Widget Styles (Sidebar)
    @ Template: calendar-widget.php
 =============================================*/
