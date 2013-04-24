@@ -19,6 +19,8 @@ global $post;
 
  ?>
 
+<?php echo tribe_event_featured_image( null, 'large' ) ?>
+
  <div class="tribe-events-event-details">
 
 	<!-- Event Title -->
