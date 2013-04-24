@@ -277,8 +277,6 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 */
 		public static function asset_package( $name, $deps = array() ){
 
-			do_action('tribe_events_asset_package', $name, $deps);
-
 			$tec = TribeEvents::instance();
 			$prefix = 'tribe-events'; // TribeEvents::POSTTYPE;
 
