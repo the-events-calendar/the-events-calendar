@@ -107,6 +107,12 @@ h2.tribe-events-page-title,
 	top: -12px;
 }
 
+@media only screen and (max-width: 767px) {
+	#tribe-events-header .tribe-events-sub-nav li a {
+	 	display: none;
+	}
+}
+
 
 /* = List View Template Styles
    @ Template: list.php
@@ -188,6 +194,12 @@ h2.tribe-events-page-title,
 	font-style: italic;
 }
 
+@media only screen and (max-width: 767px) {
+ .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
+ 	display: block;
+ 	padding: 0;
+ }
+}
 
 /* = List View & Single Venue (Pro Version) Template Styles
    @ Template: list.php & single-venue.php
@@ -270,7 +282,15 @@ h2.tribe-events-page-title,
 .single-tribe_events .tribe-events-event-meta {
 	font-size: 14px;
 }
-
+@media only screen and (max-width: 767px) {
+	.single-tribe_events .tribe-events-schedule .recurringinfo {
+		display: block;
+		margin: 1em 0 0;
+	}
+	.single-tribe_events .tribe-events-schedule .recurringinfo .tribe-events-divider {
+		display: none;
+	}
+}
 
 /* = Calendar Styles (includes styles for both large & small calendars)
    @ Template: calendar.php & calendar-widget.php
