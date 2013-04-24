@@ -1214,6 +1214,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	border-radius: 0;
 	-moz-border-radius: 0;
 	-webkit-border-radius: 0;
+	-webkit-appearance: button;
 }
 
 .tribe-bar-submit input[type=submit]:hover {
@@ -1427,6 +1428,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 #tribe-bar-form.tribe-bar-mini .tribe-bar-submit input[type=submit] {
 	font-size: 11px;
 	padding: 10px 5px;
+	-webkit-appearance: button;
 }
 
 .tribe-bar-mini #tribe-bar-views {
