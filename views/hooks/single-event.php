@@ -15,7 +15,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 	class Tribe_Events_Single_Event_Template extends Tribe_Template_Factory {
 
 		/**
-		 * Set up hooks for this template
+		 * Setup the view, query, etc. This happens right before the view file is included
 		 *
 		 * @return void
 		 * @since 3.0
