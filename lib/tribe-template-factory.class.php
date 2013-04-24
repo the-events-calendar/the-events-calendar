@@ -146,40 +146,6 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			if (is_string($this->excerpt_more)) {
 				add_filter( 'excerpt_more', array($this, 'excerpt_more'));
 			}
-
-			// customize meta items
-			tribe_set_the_meta_template( 'tribe_event_venue_name', array(
-				'before'=>'',
-				'after'=>'',
-				'label_before'=>'',
-				'label_after'=>'',
-				'meta_before'=>'<span class="%s">',
-				'meta_after'=>'</span>'
-			));
-			tribe_set_meta_label( 'tribe_event_venue_address', '' );
-			tribe_set_the_meta_template( 'tribe_event_venue_address', array(
-				'before'=>'',
-				'after'=>'',
-				'label_before'=>'',
-				'label_after'=>'',
-				'meta_before'=>'',
-				'meta_after'=>''
-			));
-
-			tribe_set_the_meta_visibility( 'tribe_event_venue_gmap_link', false );
-
-			if ( ! defined('DOING_AJAX') || ! DOING_AJAX) { // ajax requests handle the query separately
-				global $wp_query;
-				$args = NULL;
-
-				// hijack the main query to load the events via provided $args
-				if ( !is_null( $args ) || ! ( $wp_query->tribe_is_event || $wp_query->tribe_is_event_category ) ) {
-					$wp_query = TribeEventsQuery::getEvents( $args, true );
-				}
-	
-				// single-event notices are jumping in on this init when loading as a module
-				TribeEvents::removeNotice( 'event-past' );
-			}
 		}
 
 		/**
