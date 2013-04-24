@@ -26,9 +26,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 		 **/
 		function hooks() {
 			parent::hooks();
-			// hide title from list view
-			add_filter('tribe_get_events_title', '__return_false');
-
 
 			add_action( 'tribe_events_single_venue_before_upcoming_events', array( $this, 'setup_upcoming_events' ) );
 
