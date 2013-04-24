@@ -24,25 +24,39 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 $organizer_id = get_the_ID();
 
-// Start single organizer template
-echo apply_filters( 'tribe_events_single_organizer_before_template', '', $organizer_id );
+?>
 
-	// Start single organizer
-	echo apply_filters( 'tribe_events_single_organizer_before_organizer', '', $organizer_id );
+<div class="tribe-events-organizer">
+	<p class="tribe-events-back"><a href="<?php echo tribe_get_events_link() ?>" rel="bookmark"><?php _e( '&larr; Back to Events', 'tribe-events-calendar-pro' ) ?></a></p>
 
-		// Organizer title
-		echo apply_filters( 'tribe_events_single_organizer_the_title', '', $organizer_id );
-		
-		// Organizer meta, featured image, content
-		echo apply_filters( 'tribe_events_single_organizer_before_the_meta', '', $organizer_id );
-		echo apply_filters( 'tribe_events_single_organizer_the_meta', '', $organizer_id );
-		echo apply_filters( 'tribe_events_single_organizer_after_the_meta', '', $organizer_id );
+	<?php do_action( 'tribe_events_single_organizer_before_organizer' ) ?>
+	<div class="tribe-events-organizer-meta tribe-clearfix">
 
-	// End single organizer
-	echo apply_filters( 'tribe_events_single_organizer_after_organizer', '', $organizer_id );
+			<!-- Organizer Title -->
+			<?php do_action('tribe_events_single_organizer_before_title') ?>
+			<?php the_title('<h2 class="entry-title summary">','</h2>'); ?>
+			<?php do_action('tribe_events_single_organizer_after_title') ?>
+
+			<!-- Organizer Meta -->
+			<?php do_action( 'tribe_events_single_organizer_before_the_meta'); ?>
+			<?php echo tribe_get_meta_group( 'tribe_event_organizer' ) ?>
+			<?php do_action( 'tribe_events_single_organizer_after_the_meta' ) ?>
+
+			<!-- Organizer Featured Image -->
+			<?php tribe_event_featured_image( null, 'full' ); ?>
+
+			<!-- Organizer Content -->
+			<div class="tribe-organizer-description tribe-events-content">
+				<?php the_content(); ?>
+			</div>
+
+	</div><!-- .tribe-events-organizer-meta -->
+	<?php do_action( 'tribe_events_single_organizer_after_organizer' ) ?>
+
+	<!-- Upcoming event list -->
+	<?php do_action('tribe_events_single_organizer_before_upcoming_events') ?>
+	<?php echo tribe_include_view_list( array('organizer' => get_the_ID(), 'eventDisplay' => 'upcoming' ) )?>
+	<?php do_action('tribe_events_single_organizer_after_upcoming_events') ?>
 	
-	// Upcoming event list
-	echo apply_filters( 'tribe_events_single_organizer_upcoming_events', '', $organizer_id );
-	
-// End single organizer template
-echo apply_filters( 'tribe_events_single_organizer_after_template', '', $organizer_id );
+</div><!-- .tribe-events-organizer -->
+<?php do_action( 'tribe_events_single_organizer_after_template' ) ?>

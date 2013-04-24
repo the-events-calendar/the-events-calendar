@@ -14,8 +14,28 @@
 if ( !defined( 'ABSPATH' ) ) { die( '-1' ); }
 
 if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
-	class Tribe_Events_Pro_Single_Organizer_Template extends Tribe_Template_Factory {
-		public static function init() {
+	class Tribe_Events_Pro_Single_Organizer_Template extends Tribe_PRO_Template_Factory {
+
+		/**
+		 * Set up hooks for this template
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		function hooks() {
+			parent::hooks();
+
+			add_action( 'tribe_events_single_organizer_before_upcoming_events', array( $this, 'setup_upcoming_events' ) );
+
+		}
+
+		/**
+		 * Setup the view, query, etc. This happens right before the view file is included
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		public function setup_view() {
 
 			// setup the template for the meta group
 			tribe_set_the_meta_template( 'tribe_event_organizer', array(
@@ -50,149 +70,44 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 				'tribe_event_organizer_website' => ''
 				));
 
-			// turn off the venue name in the group
+			// turn off the organizer name in the group
 			tribe_set_the_meta_visibility( 'tribe_event_organizer_name', false);
 
 			// provide for meta actions before loading the template
 			do_action('tribe_events_pro_single_organizer_meta_init' );
-						
-			// Remove the title from the list view
-			add_filter( 'tribe_events_list_the_title', '__return_null', 2, 1 );
 
 			// Remove the comments template
-			add_filter('comments_template', array(__CLASS__, 'remove_comments_template') );
-			
-			// Start single organizer template
-			add_filter( 'tribe_events_single_organizer_before_template', array( __CLASS__, 'before_template' ), 1, 1 );
-
-			// Start single organizer
-			add_filter( 'tribe_events_single_organizer_before_organizer', array( __CLASS__, 'before_organizer' ), 1, 1 );
-
-			// Organizer map
-			add_filter( 'tribe_events_single_organizer_the_title', array( __CLASS__, 'the_title' ), 1, 1 );
-
-			// Organizer meta, featured image, content
-			add_filter( 'tribe_events_single_organizer_before_the_meta', array( __CLASS__, 'before_the_meta' ), 1, 1 );
-			add_filter( 'tribe_events_single_organizer_the_meta', array( __CLASS__, 'the_meta' ), 1, 1 );
-			add_filter( 'tribe_events_single_organizer_after_the_meta', array( __CLASS__, 'after_the_meta' ), 1, 1 );
-
-			// End single organizer
-			add_filter( 'tribe_events_single_organizer_after_organizer', array( __CLASS__, 'after_organizer' ), 1, 1 );
-
-			// Load up the event list
-			add_filter( 'tribe_events_single_organizer_upcoming_events', array( __CLASS__, 'upcoming_events' ), 1, 1 );
-
-			// End single organizer template
-			add_filter( 'tribe_events_single_organizer_after_template', array( __CLASS__, 'after_template' ), 1, 1 );
-
-			// Remove header / footer navigation
-			add_filter( 'tribe_events_list_before_header', '__return_false' );
-			add_filter( 'tribe_events_list_before_header_nav', '__return_false' );
-			add_filter( 'tribe_events_list_header_nav', '__return_false' );
-			add_filter( 'tribe_events_list_after_header_nav', '__return_false' );
-			add_filter( 'tribe_events_list_after_header', '__return_false' );
-			add_filter( 'tribe_events_list_before_footer', '__return_false' );
-			add_filter( 'tribe_events_list_before_footer_nav', '__return_false' );
-			add_filter( 'tribe_events_list_footer_nav', '__return_false' );
-			add_filter( 'tribe_events_list_after_footer_nav', '__return_false' );
-			add_filter( 'tribe_events_list_after_footer', '__return_false' );
+			add_filter('comments_template', array( $this, 'remove_comments_template' ) );
 
 		}
 
-		public static function remove_comments_template($template) {
-			remove_filter('comments_template', array(__CLASS__, 'remove_comments_template') );
-			return TribeEvents::instance()->pluginPath . 'admin-views/no-comments.php';
+		/**
+		 * Do any setup for upcoming events
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		public function setup_upcoming_events() {
+			// tribe_set_the_meta_visibility( 'tribe_event_organizer', false, 'meta_group');
 		}
 
-		// Start Single organizer Template
-		public static function before_template( $post_id ) {
-			$html = '<div id="tribe-events-content" class="tribe-events-organizer">';
-						$html .= '<p class="tribe-events-back"><a href="' . tribe_get_events_link() . '" rel="bookmark">'. __( '&larr; Back to Events', 'tribe-events-calendar-pro' ) .'</a></p>';			
-			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_before_template' );
-		}
-		// Start Single organizer
-		public static function before_organizer( $post_id ) {
-			$html = '<div class="tribe-events-organizer-meta tribe-clearfix">';
-			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_before_organizer' );
-		}
-		// Organizer Title
-		public static function the_title( $post_id ){
-			$html = the_title('<h2 class="entry-title summary">','</h2>', false);
-			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_the_title' );
-		}
-		// Organizer Meta
-		public static function before_the_meta( $post_id ) {
-			$html = '';
-			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_before_the_meta' );
-		}
-		public static function the_meta( $post_id ) {
-			// Meta, featured image, content
-			$content = get_the_content();
-			$content = apply_filters('the_content', $content);
-			$content = str_replace(']]>', ']]&gt;', $content);
+		/**
+		 * Filter tribe_get_template_part()
+		 *
+		 * @return string
+		 * @since 3.0
+		 **/
+		public function filter_template_paths( $file, $template ) {
 
-			$html = sprintf('%s%s%s',
-				tribe_get_meta_group( 'tribe_event_organizer' ),
-				( tribe_event_featured_image() ) ? tribe_event_featured_image( null, 'full' ): '',
-				!empty($content) ? '<div class="tribe-organizer-description tribe-events-content">' . $content . '</div>' : ''
-				);
+			parent::filter_template_paths( $file, $template );
 
-/*
-			ob_start();
-?>
-			<address class="organizer-address">
-				<?php if ( tribe_get_organizer_phone() ) : // organizer phone ?>
-	 				<span class="vcard tel"><?php echo tribe_get_organizer_phone(); ?></span>
-	 			<?php endif; ?>
-	 			<?php if ( tribe_get_organizer_phone() && tribe_get_organizer_link( get_the_ID(), false, false )  ) : // organizer phone ?>
-	 				<span class="tribe-events-divider">|</span>
-	 			<?php endif; ?>
-	 			<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) ) : // organizer website ?>
-	 				<span class="vcard author fn org"><?php echo tribe_get_organizer_website_link( $post_id ); ?></span>
-	 			<?php endif; ?>
-	 			<?php if ( tribe_get_organizer_link( get_the_ID(), false, false ) &&  tribe_get_organizer_email() ) : // organizer phone ?>
-	 				<span class="tribe-events-divider">|</span>
-	 			<?php endif; ?>	 			
-	 			<?php if ( tribe_get_organizer_email() ) : // organizer email ?>
-	 				<span class="vcard email"><a href="mailto:<?php echo tribe_get_organizer_email(); ?>"><?php echo tribe_get_organizer_email(); ?></a></span>
-	 			<?php endif; ?>
- 			</address>
-			<?php if ( get_the_content() != '' ): // Organizer content ?>
-				<div class="organizer-description">	
-					<?php the_content(); ?>
-				</div>	
- 			<?php endif ?> 			
-<?php
-			$html = ob_get_clean();
-			*/
-			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_the_meta' );
+			// don't return the tribe bar on organizer view
+			if ( $template == 'modules/bar.php' ) {
+				return false;
+			}
+			return $file;
 		}
-		public static function after_the_meta( $post_id ) {
-			$html = '';
-			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_after_the_meta' );
-		}
-		// End Single organizer
-		public static function after_organizer( $post_id ) {
-			$html = '</div><!-- .tribe-events-organizer-meta -->';
-			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_after_organizer' );
-		}
-		// Event List View
-		public static function upcoming_events( $organizer_id ) {
-			global $post;
-			$args = array(
-				'organizer' => $post->ID,
-				'eventDisplay' => 'upcoming' );
 
-			$html = sprintf( 
-				tribe_include_view_list( $args )
-				);
-			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_upcoming_events' );
-		}
-		// End Single Organizer Template
-		public static function after_template( $post_id ) {
-			$html = '</div><!-- #tribe-events-content -->';
-			return apply_filters( 'tribe_template_factory_debug', $html, 'tribe_events_single_organizer_after_template' );
-		}
 	}
-	Tribe_Events_Pro_Single_Organizer_Template::init();
+	Tribe_Events_Pro_Single_Organizer_Template::instance();
 }
