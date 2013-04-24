@@ -14,15 +14,22 @@
 
 <?php 
 
-$venue_name = tribe_get_meta( 'tribe_event_venue_name' );
-$venue_address = tribe_get_meta( 'tribe_event_venue_address' );
+$venue_details = array();
 
- ?>
+if ($venue_name = tribe_get_meta( 'tribe_event_venue_name' ) ) {
+	$venue_details[] = $venue_name;	
+}
+
+if ($venue_address = tribe_get_meta( 'tribe_event_venue_address' ) ) {
+	$venue_details[] = $venue_address;	
+}
+
+?>
 
 <!-- Event Cost -->
 <?php if ( tribe_get_cost() ) : ?> 
 	<div class="tribe-events-event-cost">
-		<span><?php echo tribe_get_cost(); ?></span>
+		<span><?php echo tribe_get_cost( null, true); ?></span>
 	</div>
 <?php endif; ?>
 
@@ -45,13 +52,12 @@ $venue_address = tribe_get_meta( 'tribe_event_venue_address' );
 		<?php echo tribe_events_event_recurring_info_tooltip() ?>
 	</div>
 	
-	<!-- Venue Display Info -->
-	<div class="tribe-events-venue-details">
-		<?php echo $venue_name ?>
-		<?php if ($venue_address) : ?>
-			, <?php echo $venue_address ?>
-		<?php endif; ?>
-	</div> <!-- .tribe-events-venue-details -->
+	<?php if ( $venue_details ) : ?>
+		<!-- Venue Display Info -->
+		<div class="tribe-events-venue-details">
+			<?php echo implode(', ', $venue_details); ?>
+		</div> <!-- .tribe-events-venue-details -->
+	<?php endif; ?>
 
 </div><!-- .tribe-events-event-meta -->
 <?php do_action( 'tribe_events_list_after_the_meta' ) ?>
