@@ -829,7 +829,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		// get the list view template
 		ob_start();
-		include apply_filters( 'tribe_include_view_list', TribeEventsTemplates::getTemplateHierarchy( 'list' ) );
+		tribe_get_template_part('list');
 		$list_view_html = ob_get_clean();
 
 		// fix the error of our ways
