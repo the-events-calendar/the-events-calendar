@@ -282,8 +282,8 @@ if( class_exists( 'TribeEvents' ) ) {
 
 			Tribe_Events_List_Template::$prev_event_year  = $event_year;
 			Tribe_Events_List_Template::$prev_event_month = $event_month;
+			echo apply_filters('tribe_events_list_the_date_headers', $html, $event_month, $event_year);
 		}		
-		echo apply_filters('tribe_events_list_the_date_headers', $html, $event_month, $event_year);
 	}
 
 	/**
