@@ -55,19 +55,19 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		protected function hooks() {
 
 			// set up queries, vars, etc that needs to be used in this view
-			add_action( 'tribe_events_before_view', array(&$this, 'setup_view') );
+			add_action( 'tribe_events_before_view', array( $this, 'setup_view') );
 
 			// cleanup after view (reset query, etc)
-			add_action( 'tribe_events_after_view', array(&$this, 'shutdown_view' ) );
+			add_action( 'tribe_events_after_view', array( $this, 'shutdown_view' ) );
 
 			// add filters for template paths
 			add_filter( 'tribe_get_template_part_path', array( $this, 'filter_template_paths' ), 10, 2 );
 
 			// add wrapper html and input hash to non-ajax request
 			if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
-				add_action( 'tribe_events_before_view', array(&$this, 'view_wrapper_open') );
-				add_action( 'tribe_events_after_view', array(&$this, 'view_wrapper_close' ) );
-				add_filter( 'tribe_events_before_view', array($this, 'add_input_hash' ) );
+				add_action( 'tribe_events_before_view', array( $this, 'view_wrapper_open' ) );
+				add_action( 'tribe_events_after_view', array( $this, 'view_wrapper_close' ) );
+				add_filter( 'tribe_events_before_view', array( $this, 'add_input_hash' ) );
 			}
 		}
 
@@ -165,6 +165,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 				'meta_before'=>'',
 				'meta_after'=>''
 			));
+
 			tribe_set_the_meta_visibility( 'tribe_event_venue_gmap_link', false );
 
 			if ( ! defined('DOING_AJAX') || ! DOING_AJAX) { // ajax requests handle the query separately
