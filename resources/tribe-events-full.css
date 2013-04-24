@@ -860,7 +860,13 @@ select.tribe-events-dropdown {
 	width: auto;
 	padding: 0;
 }
-
+@media only screen and (max-width: 767px) {
+	.tribe-events-event-meta .tribe-events-meta-group, 
+	.tribe-events-event-meta .column {
+		float: none;
+		width: 100%;
+	}
+}
 
 /* = Calendar Styles (includes styles for both large & small calendars)
    @ Template: calendar.php & calendar-widget.php
