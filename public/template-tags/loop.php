@@ -258,17 +258,15 @@ if( class_exists( 'TribeEvents' ) ) {
 
 		if ($show_headers) {
 
-			global $post;
-		
-			$event_year  = tribe_get_start_date( $post, false, 'Y' );
+			global $post, $wp_query;
+
+			$event_year = tribe_get_start_date( $post, false, 'Y' );
 			$event_month = tribe_get_start_date( $post, false, 'm' );
 
-			/*
-			 * If this event year is different to the year of the previous event in the loop,
-			 * and it's not it's not the first event in the loop (we don't want to start the loop with a year separator)
-			 */
-			if ( Tribe_Events_List_Template::$prev_event_year != $event_year && Tribe_Events_List_Template::$prev_event_year != null ) {
-				$html .= sprintf( "<span class='tribe-events-list-separator-year'>%s</span>", $event_year );
+			if ($wp_query->current_post > 0) {
+				$prev_post = $wp_query->posts[$wp_query->current_post - 1];
+				$prev_event_year = tribe_get_start_date( $prev_post, false, 'Y' );
+				$prev_event_month = tribe_get_start_date( $prev_post, false, 'm' );
 			}
 
 			/*
@@ -276,12 +274,18 @@ if( class_exists( 'TribeEvents' ) ) {
 			 * or is the same month but the year changed.
 			 *
 			 */
-			if ( Tribe_Events_List_Template::$prev_event_month != $event_month || ( Tribe_Events_List_Template::$prev_event_month == $event_month && Tribe_Events_List_Template::$prev_event_year != $event_year ) ) {
+			if ( $wp_query->current_post === 0 || ( $prev_event_month != $event_month || ( $prev_event_month == $event_month && $prev_event_year != $event_year ) ) ) {
 				$html .= sprintf( "<span class='tribe-events-list-separator-month'><span>%s</span></span>", tribe_get_start_date( $post, false, 'F Y' ) );
 			}
 
-			Tribe_Events_List_Template::$prev_event_year  = $event_year;
-			Tribe_Events_List_Template::$prev_event_month = $event_month;
+			/*
+			 * If this event year is different to the year of the previous event in the loop,
+			 * and it's not it's not the first event in the loop (we don't want to start the loop with a year separator)
+			 */
+			if ( $wp_query->current_post > 0 && $prev_event_year != $event_year ) {
+				$html .= sprintf( "<span class='tribe-events-list-separator-year'>%s</span>", $event_year );
+			}
+
 			echo apply_filters('tribe_events_list_the_date_headers', $html, $event_month, $event_year);
 		}		
 	}
