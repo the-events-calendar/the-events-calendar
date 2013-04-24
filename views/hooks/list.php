@@ -21,26 +21,6 @@ if( !class_exists('Tribe_Events_List_Template')){
 
 		protected $asset_packages = array( 'ajax-list' );
 
-		/**
-		 * additional hooks for this template
-		 *
-		 * @return void
-		 * @since 3.0
-		 **/
-		protected function hooks() {
-
-			parent::hooks();
-
-			// Event cost
-			add_filter( 'tribe_events_list_the_event_cost', array( __CLASS__, 'the_event_cost' ), 1, 2 );
-		}
-
-		public static function the_event_cost( $content, $post_id ) {
-			$html= '';
-			if ( tribe_get_cost() ) // Get our event cost 
-				$html .= '<div class="tribe-events-event-cost"><span>'. tribe_get_cost( null, true ) .'</span></div>';			
-			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_the_event_cost');		
-		}		
 	}
 	Tribe_Events_List_Template::instance();
 }
