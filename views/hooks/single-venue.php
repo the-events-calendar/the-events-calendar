@@ -16,18 +16,19 @@ if ( !defined( 'ABSPATH' ) ) { die( '-1' ); }
 if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 	class Tribe_Events_Pro_Single_Venue_Template extends Tribe_PRO_Template_Factory {
 
+		protected $asset_packages = array( 'ajax-list' );
+
 		/**
 		 * Set up hooks for this template
 		 *
 		 * @return void
 		 * @since 3.0
 		 **/
-		function hooks()
-		{
+		function hooks() {
 			parent::hooks();
-
 			// hide title from list view
 			add_filter('tribe_get_events_title', '__return_false');
+
 
 			add_action( 'tribe_events_single_venue_before_upcoming_events', array( $this, 'setup_upcoming_events' ) );
 

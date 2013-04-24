@@ -26,7 +26,7 @@ $venue_id = get_the_ID();
 
 ?>
 
-<div id="tribe-events-content" class="tribe-events-venue">
+<div class="tribe-events-venue">
 
 	<p class="tribe-events-back"><a href="<?php echo tribe_get_events_link() ?>" rel="bookmark"><?php _e( '&larr; Back to Events', 'tribe-events-calendar-pro' ) ?></a></p>
 

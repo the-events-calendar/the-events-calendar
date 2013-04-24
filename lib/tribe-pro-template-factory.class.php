@@ -43,8 +43,7 @@ if( !class_exists('Tribe_PRO_Template_Factory') ) {
 					wp_localize_script( 'tribe-events-pro-ajax-day', 'TribeCalendar', $ajax_data );
 					break;
 			}
-
+			parent::asset_package( $name, $deps );
 		}
-		
 	}
 }
