@@ -26,8 +26,8 @@ if( !class_exists('Tribe_Events_Day_Template')){
 
 			parent::hooks();
 			
-			add_filter( 'tribe_get_ical_link', array($this,'ical_link'), 20, 1 );
-			add_filter( 'tribe_events_header_attributes',  array( $this, 'header_attributes') );
+			add_filter( 'tribe_get_ical_link', array( $this, 'ical_link' ), 20, 1 );
+			add_filter( 'tribe_events_header_attributes',  array( $this, 'header_attributes' ) );
 		}
 
 		/**
@@ -36,7 +36,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 		 * @return string
 		 * @since 3.0
 		 **/
-		function header_attributes($attrs) {
+		public function header_attributes( $attrs ) {
 
 			global $wp_query;
 			$current_day = $wp_query->get('start_date');
@@ -49,10 +49,10 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			return apply_filters('tribe_events_pro_header_attributes', $attrs);
 		}
 
-		public static function ical_link( $link ){
+		public function ical_link( $link ){
 			global $wp_query;
 			$day = $wp_query->get('start_date');
-			return trailingslashit( esc_url(trailingslashit( tribe_get_day_permalink( $day ) ) . 'ical') );
+			return trailingslashit( esc_url(trailingslashit( tribe_get_day_permalink( $day ) ) . 'ical' ) );
 		}
 
 		/**
