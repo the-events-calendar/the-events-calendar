@@ -61,7 +61,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		 * @return void
 		 * @since 3.0
 		 **/
-		function set_notices() {
+		protected function set_notices() {
 			global $wp_query;
 			// setup a search term for query or via ajax
 			if( !empty( $wp_query->query_vars['s'] )){
@@ -356,5 +356,5 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		}
 	} // class Tribe_Events_Calendar_Template
 
-	Tribe_Events_Calendar_Template::instance();
+	new Tribe_Events_Calendar_Template();
 }

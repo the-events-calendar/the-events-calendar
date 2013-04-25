@@ -89,5 +89,5 @@ if( !class_exists('Tribe_Events_Address_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_address_after_template');		
 		}
 	}
-	Tribe_Events_Address_Template::init();
+	new Tribe_Events_Address_Template();
 }

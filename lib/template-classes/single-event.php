@@ -15,12 +15,14 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 	class Tribe_Events_Single_Event_Template extends Tribe_Template_Factory {
 
 		/**
-		 * Set up hooks for this template
+		 * Setup meta display in this template
 		 *
 		 * @return void
 		 * @since 3.0
 		 **/
-		public function setup_view() {
+		protected function setup_meta() {
+
+			parent::setup_meta();
 
 			/**
 			 * Setup default meta templates
@@ -74,8 +76,6 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 			tribe_set_the_meta_template( $meta_group_template_keys, $meta_group_templates, 'meta_group');
 		}
 
-
-
 		/**
 		 * Set up the notices for this template
 		 *
@@ -96,5 +96,5 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		}
 
 	}
-	Tribe_Events_Single_Event_Template::instance();
+	new Tribe_Events_Single_Event_Template();
 }

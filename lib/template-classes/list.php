@@ -17,14 +17,12 @@ if( !class_exists('Tribe_Events_List_Template')){
 		protected $asset_packages = array( 'ajax-list' );
 
 		/**
-		 * Set event month / year property on each post
+		 * Setup meta display in this template
 		 *
 		 * @return void
 		 * @since 3.0
 		 **/
-		public function setup_view() {
-
-			parent::setup_view();
+		protected function setup_meta() {
 
 			// customize meta items
 			tribe_set_the_meta_template( 'tribe_event_venue_name', array(
@@ -46,8 +44,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 			));
 
 			tribe_set_the_meta_visibility( 'tribe_event_venue_gmap_link', false );
-
 		}
 	}
-	Tribe_Events_List_Template::instance();
+	new Tribe_Events_List_Template();
 }
