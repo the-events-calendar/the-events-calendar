@@ -40,9 +40,10 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 * @return void
 		 * @since 3.0
 		 **/
-		protected function __construct() {
+		public function __construct() {
 			$this->hooks();
 			$this->asset_packages();
+			$this->setup_meta();
 			$this->set_notices();
 		}
 
@@ -81,6 +82,15 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			foreach ($this->asset_packages as $asset_package) {
 				$this->asset_package($asset_package);
 			}
+		}
+
+		/**
+		 * Setup meta display in this template
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		protected function setup_meta() {
 		}
 
 		/**
@@ -243,7 +253,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 * @return int
 		 * @since 3.0
 		 */
-		function excerpt_more( $more ) {
+		public function excerpt_more( $more ) {
 			return $this->excerpt_more;
 		}
 
@@ -357,36 +367,5 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					break;
 			}
 		}
-		/**
-		 * Static Singleton Factory Method
-		 * @return called class
-		 */
-		public static function instance() {
-			if (!isset(self::$instance)) {
-				$className = tribe_get_called_class();
-				self::$instance = new $className;
-			}
-			return self::$instance;
-		}
 	}
-}
-
-/**
- * get_called_class() function that works in php < 5.3
- *
- * @return string
- * @since 3.0
- **/
-function tribe_get_called_class()
-{
-    $bt = debug_backtrace();
-    $l = 0;
-    do
-    {
-        $l++;
-        $lines = file($bt[$l]['file']);
-        $callerLine = $lines[$bt[$l]['line']-1];
-        preg_match('/([a-zA-Z0-9\_]+)::'.$bt[$l]['function'].'/', $callerLine, $matches);
-    } while ($matches[1] === 'parent' && $matches[1]);
-    return $matches[1];
 }
