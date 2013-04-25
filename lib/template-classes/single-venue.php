@@ -25,19 +25,21 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 		public function hooks() {
 			parent::hooks();
 
-			add_action( 'tribe_events_single_venue_before_upcoming_events', array( $this, 'setup_upcoming_events' ) );
+			// Remove the comments template
+			add_filter('comments_template', array( $this, 'remove_comments_template' ) );
 
-			// disable venue info from showing on list module (since it's duplicate of this view)
-			tribe_set_the_meta_visibility( 'tribe_list_venue_name_address', false );
+			add_action( 'tribe_events_single_venue_before_upcoming_events', array( $this, 'setup_upcoming_events' ) );
 		}
 
 		/**
-		 * Setup the view, query, etc. This happens right before the view file is included
+		 * Setup meta display in this template
 		 *
 		 * @return void
 		 * @since 3.0
 		 **/
-		public function setup_view() {
+		protected function setup_meta() {
+
+			parent::setup_meta();
 
 			// setup the template for the meta group
 			tribe_set_the_meta_template( 'tribe_event_venue', array(
@@ -82,12 +84,8 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 
 			add_filter('tribe_event_meta_venue_address_gmap', '__return_null', 10);
 
-			// provide for meta actions before loading the template
-			do_action('tribe_events_pro_single_venue_meta_init' );
-
-			// Remove the comments template
-			add_filter('comments_template', array( $this, 'remove_comments_template' ) );
-
+			// disable venue info from showing on list module (since it's duplicate of this view)
+			tribe_set_the_meta_visibility( 'tribe_list_venue_name_address', false );
 		}
 
 		/**

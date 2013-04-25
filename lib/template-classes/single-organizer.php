@@ -22,20 +22,24 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 		 * @return void
 		 * @since 3.0
 		 **/
-		function hooks() {
+		protected function hooks() {
+
 			parent::hooks();
+
+			// Remove the comments template
+			add_filter('comments_template', array( $this, 'remove_comments_template' ) );
 
 			add_action( 'tribe_events_single_organizer_before_upcoming_events', array( $this, 'setup_upcoming_events' ) );
 
 		}
 
 		/**
-		 * Setup the view, query, etc. This happens right before the view file is included
+		 * Setup meta display in this template
 		 *
 		 * @return void
 		 * @since 3.0
 		 **/
-		public function setup_view() {
+		protected function setup_meta() {
 
 			// setup the template for the meta group
 			tribe_set_the_meta_template( 'tribe_event_organizer', array(
@@ -72,13 +76,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 
 			// turn off the organizer name in the group
 			tribe_set_the_meta_visibility( 'tribe_event_organizer_name', false);
-
-			// provide for meta actions before loading the template
-			do_action('tribe_events_pro_single_organizer_meta_init' );
-
-			// Remove the comments template
-			add_filter('comments_template', array( $this, 'remove_comments_template' ) );
-
 		}
 
 		/**
@@ -88,7 +85,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 		 * @since 3.0
 		 **/
 		public function setup_upcoming_events() {
-			// tribe_set_the_meta_visibility( 'tribe_event_organizer', false, 'meta_group');
+			tribe_set_the_meta_visibility( 'tribe_event_organizer', false, 'meta_group');
 		}
 
 		/**
