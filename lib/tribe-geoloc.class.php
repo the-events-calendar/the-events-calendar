@@ -96,7 +96,9 @@ class TribeEventsGeoLoc {
 	}
 
 	public function scripts() {
-		Tribe_PRO_Template_Factory::asset_package( 'ajax-maps' );
+		if ( tribe_is_event_query() ) {
+			Tribe_PRO_Template_Factory::asset_package( 'ajax-maps' );
+		}
 	}
 
 
