@@ -22,9 +22,11 @@ if (!class_exists('TribeEventsTemplates')) {
 			add_filter( 'template_include', array( __CLASS__, 'templateChooser') );
 
 			// include our view class
-			add_action( 'template_redirect', array(__CLASS__, 'include_view_class'));
-			if (defined('DOING_AJAX') && DOING_AJAX) {
-				add_action( 'tribe_pre_get_view', array(__CLASS__, 'include_view_class'));
+			add_action( 'template_redirect', 'tribe_initialize_view' );
+
+			// there's no template redirect on ajax, so we include the template class right before the view is included
+			if (defined('DOING_AJAX') && DOING_AJAX) { 
+				add_action( 'tribe_pre_get_view', 'tribe_initialize_view' );
 			}
 
 			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished'), 999 );
@@ -77,18 +79,25 @@ if (!class_exists('TribeEventsTemplates')) {
 		 * @return void
 		 * @since 3.0
 		 **/
-		function include_view_class() {
+		public static function include_template_class( $template_file_name = false ) {
 
-			$template_file = self::get_current_page_template();
-
-			if (file_exists($template_file)) {
-				$template = basename($template_file);
-				$template_path = dirname($template_file);
-				if( file_exists($template_path . '/hooks/' . $template)) {
-					include_once $template_path . '/hooks/' . $template;
+			if ( ! $template_file_name ) {
+				$template_file_name = basename( self::get_current_page_template() );
+			} else {
+				if ( substr( $template_file_name, -4 ) != '.php' ) {
+					$template_file_name .= '.php';
 				}
 			}
-			
+
+			$template_class_paths = array( TribeEvents::instance()->pluginPath . '/lib/template-classes/');
+			$template_class_paths = apply_filters( 'tribe_events_template_class_path', $template_class_paths, $template_file_name );
+
+			foreach ($template_class_paths as $template_class_path) {
+				if ( file_exists( $template_class_path.$template_file_name ) ) {
+					include_once $template_class_path.$template_file_name;
+					return;
+				}
+			}
 		}
 	
 		// remove "singular" from available body class

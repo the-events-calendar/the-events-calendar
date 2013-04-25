@@ -36,20 +36,36 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Includes a view, which is the Tribe Events base template
+	 * Include the class file for the view. If no name is passed, defaults to the current view
+	 *
+	 * @return void
+	 * @since 3.0
+	 **/
+	function tribe_initialize_view( $view = false )	{
+
+		if (class_exists('TribeEventsTemplates')) {
+			do_action( 'tribe_pre_initialize_view' );
+			TribeEventsTemplates::include_template_class();
+		} else {
+			_doing_it_wrong( __FUNCTION__, __FUNCTION__.' must be called after the plugins_loaded action has run.', '3.0' );
+		}
+	}
+
+	/**
+	 * Includes a view file, runs hooks around the view
 	 *
 	 * @param $name name of the view
 	 * @return void
 	 * @since 3.0
 	 **/
-	function tribe_get_view( $name = false ) {
+	function tribe_get_view( $view = false ) {
 
 		do_action('tribe_pre_get_view');
 
-		if ( ! $name ) {
+		if ( ! $view ) {
 			$template_file = tribe_get_current_template();
 		} else {
-			$template_file = TribeEventsTemplates::getTemplateHierarchy( $name );
+			$template_file = TribeEventsTemplates::getTemplateHierarchy( $view );
 		}
 
 		if (file_exists($template_file)) {
