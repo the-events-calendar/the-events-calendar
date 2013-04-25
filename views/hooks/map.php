@@ -16,13 +16,6 @@ if( !class_exists('Tribe_Events_Map_Template')){
 	class Tribe_Events_Map_Template extends Tribe_PRO_Template_Factory {
 
 		/**
-		 * Array of asset packages needed for this template
-		 *
-		 * @var array
-		 **/
-		protected $asset_packages = array( 'ajax-list' );
-
-		/**
 		 * Set up hooks for map view
 		 *
 		 * @return void
