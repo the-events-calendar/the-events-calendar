@@ -34,7 +34,6 @@
 	
 	<!-- List Title -->
 	<?php do_action( 'tribe_events_map_before_the_title' ); ?>
-	<div id="tribe-events-geo-content">
 		<h2 class="tribe-events-page-title"><?php echo tribe_get_events_title() ?></h2>
 		<div id="tribe-geo-options">
 			<h2><?php _e( 'Refine your search:', 'tribe-events-calendar-pro' )?></h2>
@@ -77,8 +76,6 @@
 
 		</div><!-- #tribe-events-footer -->
 		<?php do_action( 'tribe_events_map_after_footer' ) ?>
-
-	</div><!-- #tribe-events-geo-content -->
 
 </div><!-- #tribe-events-content -->
 
