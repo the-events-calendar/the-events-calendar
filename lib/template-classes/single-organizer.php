@@ -109,5 +109,5 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 		}
 
 	}
-	Tribe_Events_Pro_Single_Organizer_Template::instance();
+	new Tribe_Events_Pro_Single_Organizer_Template();
 }

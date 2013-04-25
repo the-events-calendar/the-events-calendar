@@ -333,5 +333,5 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 		}
 
 	}
-	Tribe_Events_Week_Template::instance();
+	new Tribe_Events_Week_Template();
 }

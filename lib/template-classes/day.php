@@ -104,5 +104,5 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			}
 		}
 	}
-	Tribe_Events_Day_Template::instance();
+	new Tribe_Events_Day_Template();
 }

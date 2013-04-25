@@ -34,7 +34,7 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 		 * @return string
 		 * @since 3.0
 		 **/
-		function header_attributes($attrs) {
+		public function header_attributes($attrs) {
 			$attrs['data-view'] = 'photo';
 			$attrs['data-baseurl'] = tribe_get_photo_permalink( false );
 			return apply_filters('tribe_events_pro_header_attributes', $attrs);
@@ -77,5 +77,5 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 
 		}
 	}
-	Tribe_Events_Photo_Template::instance();
+	new Tribe_Events_Photo_Template();
 }

@@ -155,5 +155,5 @@ if( !class_exists('Tribe_Events_Pro_featured_widget_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_pro_featured_widget_after_template');		
 		}
 	}
-	Tribe_Events_Pro_featured_widget_Template::init();
+	new Tribe_Events_Pro_featured_widget_Template();
 }

@@ -32,7 +32,7 @@ if( !class_exists('Tribe_Events_Map_Template')){
 		 * @return string
 		 * @since 3.0
 		 **/
-		function header_attributes($attrs) {
+		public function header_attributes($attrs) {
 			$attrs['data-view'] = 'map';
 			$attrs['data-baseurl'] = tribe_get_mapview_link();
 			return apply_filters('tribe_events_pro_header_attributes', $attrs);
@@ -56,5 +56,5 @@ if( !class_exists('Tribe_Events_Map_Template')){
 		}
 
 	}
-	Tribe_Events_Map_Template::instance();
+	new Tribe_Events_Map_Template();
 }

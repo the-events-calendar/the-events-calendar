@@ -24,7 +24,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 		 * @return void
 		 * @since 3.0
 		 **/
-		function hooks() {
+		public function hooks() {
 			parent::hooks();
 
 			add_action( 'tribe_events_single_venue_before_upcoming_events', array( $this, 'setup_upcoming_events' ) );
@@ -101,7 +101,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 		public function setup_upcoming_events() {
 
 			// include the list view class for upcoming events
-			include_once(TribeEvents::instance()->pluginPath.'views/hooks/list.php');
+			tribe_initialize_view( 'list' );
 		}
 
 		/**
@@ -122,5 +122,5 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 		}
 
 	}
-	Tribe_Events_Pro_Single_Venue_Template::instance();
+	new Tribe_Events_Pro_Single_Venue_Template();
 }
