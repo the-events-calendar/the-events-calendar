@@ -37,7 +37,7 @@ class TribeEventsGeoLoc {
 
 		add_filter( 'tribe-events-bar-views', array( $this, 'setup_view_for_bar' ), 25, 1 );
 		add_filter( 'tribe-events-bar-filters', array( $this, 'setup_geoloc_filter_in_bar' ), 1, 1 );
-		add_action( 'tribe-events-bar-enqueue-scripts', array( $this, 'scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'scripts' ) );
 		add_filter( 'tribe_events_pre_get_posts', array( $this, 'setup_geoloc_in_query' ) );
 
 		add_action( 'tribe_events_filters_create_filters', array( $this, 'setup_geoloc_filter_in_filters' ), 1 );
@@ -96,23 +96,7 @@ class TribeEventsGeoLoc {
 	}
 
 	public function scripts() {
-
-		$tec = TribeEvents::instance();
-
-		$http = is_ssl() ? 'https' : 'http';
-
-		wp_register_script( 'gmaps', $http . '://maps.google.com/maps/api/js?sensor=false', array( 'jquery' ) );
-		wp_register_script( 'tribe-geoloc', trailingslashit( TribeEventsPro::instance()->pluginUrl ) . 'resources/maps.js', array( 'gmaps' ) );
-		wp_enqueue_script( 'tribe-geoloc' );
-
-		$data = array( 'ajaxurl'  => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
-		               'nonce'    => wp_create_nonce( 'geosearch' ),
-		               'center'   => $this->estimate_center_point(),
-		               'map_view' => ( $tec->displaying == 'map' ) ? TRUE : FALSE );
-
-		wp_localize_script( 'tribe-geoloc', 'GeoLoc', $data );
-
-
+		Tribe_PRO_Template_Factory::asset_package( 'ajax-maps' );
 	}
 
 
@@ -277,7 +261,7 @@ class TribeEventsGeoLoc {
 			return;
 
 		// If the address didn't change, doesn't make sense to query google again for the geo data
-		if ( $address === get_post_meta( $venueId, self::ADDRESS, TRUE ) )
+		if ( $address === get_post_meta( $venueId, self::ADDRESS, true ) )
 			return;
 
 		$data = wp_remote_get( "http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode( $address ) . "&sensor=false" );
@@ -302,7 +286,7 @@ class TribeEventsGeoLoc {
 
 	}
 
-	public static function getOptions( $force = FALSE ) {
+	public static function getOptions( $force = false ) {
 		if ( !isset( self::$options ) || $force ) {
 			$options       = get_option( self::OPTIONNAME, array() );
 			self::$options = apply_filters( 'tribe_geoloc_get_options', $options );
@@ -310,7 +294,7 @@ class TribeEventsGeoLoc {
 		return self::$options;
 	}
 
-	public function getOption( $optionName, $default = '', $force = FALSE ) {
+	public function getOption( $optionName, $default = '', $force = false ) {
 
 		if ( !$optionName )
 			return;
@@ -341,7 +325,7 @@ class TribeEventsGeoLoc {
 		return apply_filters( 'tribe_geoloc_geofence', $geofence );
 	}
 
-	function get_venues_in_geofence( $lat, $lng, $geofence_radio = NULL ) {
+	function get_venues_in_geofence( $lat, $lng, $geofence_radio = null ) {
 
 
 		if ( !$geofence_radio ) {
@@ -384,7 +368,7 @@ class TribeEventsGeoLoc {
 		$data = $wpdb->get_results( $sql, ARRAY_A );
 
 		if ( empty( $data ) )
-			return NULL;
+			return null;
 
 		return wp_list_pluck( $data, 'venue_id' );
 
@@ -438,7 +422,7 @@ class TribeEventsGeoLoc {
 
 		$response = array( 'html'        => '',
 		                   'markers'     => array(),
-		                   'success'     => TRUE,
+		                   'success'     => true,
 						   'tribe_paged' => $tribe_paged,
 		                   'max_pages'   => $query->max_num_pages,
 		                   'total_count' => $query->found_posts,
@@ -550,15 +534,15 @@ class TribeEventsGeoLoc {
 
 	public function get_lat_for_event( $event_id ) {
 		$venue = tribe_get_venue_id( $event_id );
-		return get_post_meta( $venue, self::LAT, TRUE );
+		return get_post_meta( $venue, self::LAT, true );
 	}
 
 	public function get_lng_for_event( $event_id ) {
 		$venue = tribe_get_venue_id( $event_id );
-		return get_post_meta( $venue, self::LNG, TRUE );
+		return get_post_meta( $venue, self::LNG, true );
 	}
 
-	private function estimate_center_point() {
+	public function estimate_center_point() {
 		global $wpdb;
 
 		$data = get_transient( self::ESTIMATION_CACHE_KEY );
@@ -600,8 +584,8 @@ class TribeEventsGeoLoc {
 		foreach ( $events as $event ) {
 
 			$venue_id = tribe_get_venue_id( $event->ID );
-			$lat      = get_post_meta( $venue_id, self::LAT, TRUE );
-			$lng      = get_post_meta( $venue_id, self::LNG, TRUE );
+			$lat      = get_post_meta( $venue_id, self::LAT, true );
+			$lng      = get_post_meta( $venue_id, self::LNG, true );
 			$address  = tribe_get_address( $event->ID );
 			$title    = $event->post_title;
 			$link     = get_permalink( $event->ID );
