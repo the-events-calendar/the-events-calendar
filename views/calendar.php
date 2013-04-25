@@ -39,7 +39,7 @@
 	<div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
 
 		<!-- Header Navigation -->
-		<?php tribe_get_template_part('calendar/nav', 'header'); ?>
+		<?php tribe_get_template_part('calendar/nav'); ?>
 
 	</div><!-- #tribe-events-header -->
 	<?php do_action('tribe_events_calendar_after_header') ?>
@@ -52,7 +52,7 @@
 	<div id="tribe-events-footer">
 
 		<!-- Footer Navigation -->
-		<?php tribe_get_template_part('calendar/nav', 'footer'); ?>
+		<?php tribe_get_template_part('calendar/nav'); ?>
 
 	</div><!-- #tribe-events-footer -->
 	<?php do_action('tribe_events_calendar_after_footer') ?>
