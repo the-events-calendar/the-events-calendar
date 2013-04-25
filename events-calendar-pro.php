@@ -105,6 +105,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'body_class', array( $this, 'body_class') );
 			add_filter( 'tribe_current_events_page_template', array( $this, 'select_page_template' ) );
 			add_filter( 'tribe_events_template_paths', array( $this, 'template_paths' ) );
+			add_filter( 'tribe_events_template_class_path', array( $this, 'template_class_path' ) );
 
 			add_filter( 'tribe_help_tab_getting_started_text', array( $this, 'add_help_tab_getting_started_text' ) );
 			add_filter( 'tribe_help_tab_enb_content', array( $this, 'add_help_tab_enb_text' ) );
@@ -854,10 +855,24 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @return array
 		 * @since 3.0
 		 **/
-		function template_paths($template_paths = array()) {
+		function template_paths( $template_paths = array() ) {
 
 			$template_paths[] = $this->pluginPath;
 			return $template_paths;
+
+		}
+
+		/**
+		 * Add premium plugin paths for each file in the templates array
+		 *
+		 * @param $template_class_path string
+		 * @return array
+		 * @since 3.0
+		 **/
+		function template_class_path( $template_class_paths = array() ) {
+
+			$template_class_paths[] = $this->pluginPath.'/lib/template-classes/';
+			return $template_class_paths;
 
 		}
 
