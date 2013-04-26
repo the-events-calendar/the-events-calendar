@@ -37,9 +37,9 @@ $end = tribe_get_end_date( $post, FALSE, 'U' );
 						<?php echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), $start ); ?>
 					<?php endif; 
 					// Start date microformat ?>
-					<span class="value-title" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $start ); ?>"></span>
+					<span class="value-title" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-dTh:i' ), $start ); ?>"></span>
 				</abbr><!-- .dtstart -->
-				<abbr class="tribe-events-abbr dtend" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $end ); ?>">
+				<abbr class="tribe-events-abbr dtend">
 					<?php // move to template tag: tribe_events_the_end_time() ?>
 					<?php if ( !empty( $end )  && $start !== $end ) : ?>
 						-
@@ -55,7 +55,7 @@ $end = tribe_get_end_date( $post, FALSE, 'U' );
 							<?php endif; ?>
 						<?php endif;
 						// End date microformat ?>
-						<span class="value-title" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $end ); ?>"></span>
+						<span class="value-title" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-dTh:i' ), $end ); ?>"></span>
 					<?php endif; ?>
 				</abbr><!-- .dtend -->
 			</div><!-- .duration -->
