@@ -17,7 +17,7 @@
 $venue_details = array();
 
 if ($venue_name = tribe_get_meta( 'tribe_event_venue_name' ) ) {
-	$venue_details[] = $venue_name;	
+	$venue_details[] = '<span class="author">'. $venue_name .'</span>';	
 }
 
 if ($venue_address = tribe_get_meta( 'tribe_event_venue_address' ) ) {
