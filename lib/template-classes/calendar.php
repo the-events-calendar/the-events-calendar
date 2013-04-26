@@ -28,7 +28,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		protected $excerpt_length = 30;
 		protected $asset_packages = array( 'ajax-calendar' );
 
-		protected function __construct() {
+		public function __construct() {
 
 			parent::__construct();
 			
