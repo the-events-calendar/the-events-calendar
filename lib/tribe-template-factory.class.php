@@ -43,8 +43,6 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		public function __construct() {
 			$this->hooks();
 			$this->asset_packages();
-			$this->setup_meta();
-			$this->set_notices();
 		}
 
 		/**
@@ -57,6 +55,12 @@ if( !class_exists('Tribe_Template_Factory') ) {
 
 			// set up queries, vars, etc that needs to be used in this view
 			add_action( 'tribe_events_before_view', array( $this, 'setup_view') );
+
+			// set notices
+			add_action( 'tribe_events_before_view', array( $this, 'set_notices') );
+
+			// set up meta used in this view
+			add_action( 'tribe_events_before_view', array( $this, 'setup_meta') );
 
 			// cleanup after view (reset query, etc)
 			add_action( 'tribe_events_after_view', array( $this, 'shutdown_view' ) );
@@ -90,7 +94,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 * @return void
 		 * @since 3.0
 		 **/
-		protected function setup_meta() {
+		public function setup_meta() {
 		}
 
 		/**
@@ -99,7 +103,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 * @return void
 		 * @since 3.0
 		 **/
-		protected function set_notices() {
+		public function set_notices() {
 			global $wp_query;
 
 			// Look for a search query

@@ -20,7 +20,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		 * @return void
 		 * @since 3.0
 		 **/
-		protected function setup_meta() {
+		public function setup_meta() {
 
 			parent::setup_meta();
 
@@ -82,7 +82,7 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		 * @return void
 		 * @since 3.0
 		 **/
-		protected function set_notices() {
+		public function set_notices() {
 
 			parent::set_notices();
 

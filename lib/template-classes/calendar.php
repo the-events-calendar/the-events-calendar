@@ -61,7 +61,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		 * @return void
 		 * @since 3.0
 		 **/
-		protected function set_notices() {
+		public function set_notices() {
 			global $wp_query;
 			// setup a search term for query or via ajax
 			if( !empty( $wp_query->query_vars['s'] )){

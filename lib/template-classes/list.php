@@ -22,7 +22,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 		 * @return void
 		 * @since 3.0
 		 **/
-		protected function setup_meta() {
+		public function setup_meta() {
 
 			// customize meta items
 			tribe_set_the_meta_template( 'tribe_event_venue_name', array(
