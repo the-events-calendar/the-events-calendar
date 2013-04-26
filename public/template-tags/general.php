@@ -790,7 +790,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
-		$schedule = '<div class="tribe-events-event-schedule-details">';
+		$schedule = '<div class="tribe-events-event-schedule-details dtstart dtend">';
 
 		if ( tribe_event_is_multiday( $event ) ) { // multi-date event
 
