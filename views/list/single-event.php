@@ -44,7 +44,7 @@ if ($venue_address = tribe_get_meta( 'tribe_event_venue_address' ) ) {
 
 <!-- Event Meta -->
 <?php do_action( 'tribe_events_list_before_the_meta' ) ?>
-<div class="tribe-events-event-meta location">
+<div class="tribe-events-event-meta vcard location">
 
 	<!-- Schedule & Recurrence Details -->
 	<div class="updated published time-details">
