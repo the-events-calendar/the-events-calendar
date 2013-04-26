@@ -20,7 +20,7 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 		 *
 		 * @var array
 		 **/
-		protected $asset_packages = array( 'ajax-list', 'ajax-photoview' );
+		protected $asset_packages = array( 'ajax-photoview' );
 
 		protected function hooks() {
 			parent::hooks();
