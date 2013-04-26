@@ -28,7 +28,7 @@ $end = tribe_get_end_date( $post, FALSE, 'U' );
 		<h4 class="entry-title summary"><?php the_title() ?></h4>
 		<div class="tribe-events-event-body">
 			<div class="duration">
-				<abbr class="tribe-events-abbr updated published dstart">
+				<abbr class="tribe-events-abbr updated published dtstart">
 					<?php // move to template tag: tribe_events_the_start_time() ?>
 					<?php if ( !empty( $start ) ) : ?>
 						<?php echo date_i18n( get_option( 'date_format', 'F j, Y' ), $start ); ?>
