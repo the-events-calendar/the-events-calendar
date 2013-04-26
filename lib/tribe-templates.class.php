@@ -30,6 +30,10 @@ if (!class_exists('TribeEventsTemplates')) {
 			}
 
 			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished'), 999 );
+
+			// make sure we enter the loop by always having some posts in $wp_query, then after we enter it, restore the original query
+			add_filter( 'the_posts', array( __CLASS__, 'maybeSpoofQuery' ), 10, 2 );
+			add_action( 'tribe_pre_get_view', array( __CLASS__, 'restoreQuery' ) );
 		}
 
 		// pick the correct template to include
@@ -53,12 +57,10 @@ if (!class_exists('TribeEventsTemplates')) {
 					return self::getTemplateHierarchy('wrapper-page');
 				}
 			} else {
-				// we need to ensure that we always enter the loop, whether or not there are any events in the actual query
-				self::spoofQuery();
 				add_filter( 'wp_title', array(__CLASS__, 'remove_default_title'), 1);
 				add_action( 'tribe_events_filter_the_page_title', array( __CLASS__, 'remove_title_from_page' ) );
 				add_filter( 'the_title', array( __CLASS__, 'remove_title_filter' ), 2 );
-				add_action( 'loop_start', array(__CLASS__, 'setup_ecp_template'));
+				add_action( 'loop_start', array(__CLASS__, 'setup_ecp_template' ) );
 			
 				$template = locate_template( tribe_get_option('tribeEventsTemplate', 'default') == 'default' ? 'page.php' : tribe_get_option('tribeEventsTemplate', 'default') );
 				if ($template ==  '') $template = get_index_template();
@@ -73,6 +75,44 @@ if (!class_exists('TribeEventsTemplates')) {
 			}			
 		}
 
+		public static function maybeSpoofQuery( $posts, $wp_query ) {
+			if ( $wp_query->is_main_query() && tribe_is_event_query() && empty( $posts ) ) {
+				// we need to ensure that we always enter the loop, whether or not there are any events in the actual query
+				$spoofed_post = array( "ID"                    => 1,
+				                       "post_author"           => 1,
+				                       "post_date"             => '1900-10-02 00:00:00',
+				                       "post_date_gmt"         => '1900-10-02 00:00:00',
+				                       "post_content"          => '',
+				                       "post_title"            => '',
+				                       "post_excerpt"          => '',
+				                       "post_status"           => 'publish',
+				                       "comment_status"        => 'closed',
+				                       "ping_status"           => 'closed',
+				                       "post_password"         => '',
+				                       "post_name"             => 'post',
+				                       "to_ping"               => '',
+				                       "pinged"                => '',
+				                       "post_modified"         => '1000-01-01 00:00:00',
+				                       "post_modified_gmt"     => '1000-01-01 00:00:00',
+				                       "post_content_filtered" => '',
+				                       "post_parent"           => 0,
+				                       "guid"                  => '_tribe_empty_event',
+				                       "menu_order"            => 0,
+				                       "post_type"             => 'tribe_events',
+				                       "post_mime_type"        => '',
+				                       "comment_count"         => 0,
+				                       "EventStartDate"        => '1000-01-01 00:00:00',
+				                       "EventEndDate"          => '1000-01-01 00:00:00',
+				                       "filter"                => 'raw' );
+
+				$spoofed_post = (object) $spoofed_post;
+				$posts[] = $spoofed_post;
+				$posts[] = $spoofed_post;
+				$wp_query->spoofed = true;
+			}
+			return $posts;
+		}
+
 		/**
 		 * Include the class for the current view
 		 *
@@ -81,9 +121,7 @@ if (!class_exists('TribeEventsTemplates')) {
 		 **/
 		public static function include_template_class( $template_file_name = false ) {
 
-			global $wp_query; 
-			
-			if ( $wp_query->tribe_is_event_query ) {
+			if ( tribe_is_event_query() ) {
 				if ( ! $template_file_name ) {
 					$template_file_name = basename( self::get_current_page_template() );
 				} else {
@@ -190,9 +228,6 @@ if (!class_exists('TribeEventsTemplates')) {
 			// only run once!!!
 			remove_filter('the_content', array(__CLASS__, 'load_ecp_into_page_template') );	
 		
-			// restore the query so that our page template can do a normal loop
-			self::restoreQuery();
-
 			ob_start();
 
 			echo tribe_events_before_html();
@@ -404,57 +439,6 @@ if (!class_exists('TribeEventsTemplates')) {
 			return $located;
 		}
 
-		private static function spoofQuery() {
-			global $wp_query, $withcomments;
-
-			self::$origPostCount = $wp_query->post_count;
-			self::$origCurrentPost =  $wp_query->current_post;
-			$wp_query->current_post = -1;
-			$wp_query->post_count = max($wp_query->post_count, 2);
-			//$wp_query->is_page = true; // don't show comments
-			//$wp_query->is_single = false; // don't show comments
-			//$wp_query->is_singular = true;
-
-			if ( empty ( $wp_query->posts ) ) {
-
-				global $post;
-
-				$spoofed_post = array( "ID"                    => 1,
-				                       "post_author"           => 1,
-				                       "post_date"             => '1900-10-02 00:00:00',
-				                       "post_date_gmt"         => '1900-10-02 00:00:00',
-				                       "post_content"          => '',
-				                       "post_title"            => '',
-				                       "post_excerpt"          => '',
-				                       "post_status"           => 'publish',
-				                       "comment_status"        => 'closed',
-				                       "ping_status"           => 'closed',
-				                       "post_password"         => '',
-				                       "post_name"             => 'post',
-				                       "to_ping"               => '',
-				                       "pinged"                => '',
-				                       "post_modified"         => '1000-01-01 00:00:00',
-				                       "post_modified_gmt"     => '1000-01-01 00:00:00',
-				                       "post_content_filtered" => '',
-				                       "post_parent"           => 0,
-				                       "guid"                  => '_tribe_empty_event',
-				                       "menu_order"            => 0,
-				                       "post_type"             => 'tribe_events',
-				                       "post_mime_type"        => '',
-				                       "comment_count"         => 0,
-				                       "EventStartDate"        => '1000-01-01 00:00:00',
-				                       "EventEndDate"          => '1000-01-01 00:00:00',
-				                       "filter"                => 'raw' );
-
-				$post = (object)$spoofed_post;
-
-				$wp_query->post    = $post;
-				$wp_query->posts[] = $post;
-				$wp_query->posts[] = $post;
-
-			}
-		}
-	
 		private static function endQuery() {
 			global $wp_query;
 		
@@ -462,12 +446,14 @@ if (!class_exists('TribeEventsTemplates')) {
 			$wp_query->post_count = 1;		
 		}	
 	
-		private static function restoreQuery() {
+		public static function restoreQuery() {
 			global $wp_query;
+			if ( isset( $wp_query->spoofed ) && $wp_query->spoofed ) {
+				$wp_query->posts = array();
+				$wp_query->post = NULL;
+				$wp_query->post_count = 0;
+			}
 			// remove_filter('the_title', array(__CLASS__, 'load_ecp_title_into_page_template') );			
-			$wp_query->current_post = self::$origCurrentPost;
-			$wp_query->post_count = self::$origPostCount;
-			$wp_query->rewind_posts();
 		}
 	}
 
