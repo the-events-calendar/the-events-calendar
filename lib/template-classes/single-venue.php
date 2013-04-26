@@ -35,7 +35,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 		 * @return void
 		 * @since 3.0
 		 **/
-		protected function setup_meta() {
+		public function setup_meta() {
 
 			parent::setup_meta();
 
