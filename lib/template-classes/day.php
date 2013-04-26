@@ -81,7 +81,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 		 * @return void
 		 * @since 3.0
 		 **/
-		protected function set_notices() {
+		public function set_notices() {
 
 			parent::set_notices();
 
