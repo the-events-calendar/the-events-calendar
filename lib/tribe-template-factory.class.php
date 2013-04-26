@@ -150,11 +150,11 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		public function setup_view() {
 
 			// set up the excerpt
-			if (is_int($this->excerpt_length)) {
-				add_filter( 'excerpt_length', array($this, 'excerpt_length'));
+			if ( is_int( $this->excerpt_length ) ) {
+				add_filter( 'excerpt_length', array( $this, 'excerpt_length' ) );
 			}
-			if (is_string($this->excerpt_more)) {
-				add_filter( 'excerpt_more', array($this, 'excerpt_more'));
+			if ( is_string( $this->excerpt_more ) ) {
+				add_filter( 'excerpt_more', array( $this, 'excerpt_more' ) );
 			}
 		}
 
