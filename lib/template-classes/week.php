@@ -33,7 +33,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 		public $loop_type = 'hourly';
 
 
-		protected function __construct() {
+		public function __construct() {
 
 			parent::__construct();
 
@@ -61,7 +61,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 		}
 
 		/**
-		 * Set the notices used on month view
+		 * Set the notices used on week view
 		 *
 		 * @return void
 		 * @since 3.0
@@ -81,7 +81,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 		}
 
 		/**
-		 * Set up hooks for map view
+		 * Set up hooks for week view
 		 *
 		 * @return void
 		 * @since 3.0
@@ -92,7 +92,7 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 		}
 
 		/**
-		 * Add header attributes for map view
+		 * Add header attributes for week view
 		 *
 		 * @return string
 		 * @since 3.0
