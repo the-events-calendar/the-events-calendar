@@ -34,8 +34,8 @@ if (!class_exists('TribeEventsTemplates')) {
 
 		// pick the correct template to include
 		public static function templateChooser($template) {
-         $events = TribeEvents::instance();
-         do_action('tribe_tec_template_chooser', $template);
+			$events = TribeEvents::instance();
+			do_action('tribe_tec_template_chooser', $template);
 
          	// hijack this method right up front if it's a 404
          	if( is_404() && is_single() && apply_filters( 'tribe_events_templates_is_404', '__return_true') )
@@ -81,21 +81,25 @@ if (!class_exists('TribeEventsTemplates')) {
 		 **/
 		public static function include_template_class( $template_file_name = false ) {
 
-			if ( ! $template_file_name ) {
-				$template_file_name = basename( self::get_current_page_template() );
-			} else {
-				if ( substr( $template_file_name, -4 ) != '.php' ) {
-					$template_file_name .= '.php';
+			global $wp_query; 
+			
+			if ( $wp_query->tribe_is_event_query ) {
+				if ( ! $template_file_name ) {
+					$template_file_name = basename( self::get_current_page_template() );
+				} else {
+					if ( substr( $template_file_name, -4 ) != '.php' ) {
+						$template_file_name .= '.php';
+					}
 				}
-			}
 
-			$template_class_paths = array( TribeEvents::instance()->pluginPath . '/lib/template-classes/');
-			$template_class_paths = apply_filters( 'tribe_events_template_class_path', $template_class_paths, $template_file_name );
+				$template_class_paths = array( TribeEvents::instance()->pluginPath . '/lib/template-classes/');
+				$template_class_paths = apply_filters( 'tribe_events_template_class_path', $template_class_paths, $template_file_name );
 
-			foreach ($template_class_paths as $template_class_path) {
-				if ( file_exists( $template_class_path.$template_file_name ) ) {
-					include_once $template_class_path.$template_file_name;
-					return;
+				foreach ($template_class_paths as $template_class_path) {
+					if ( file_exists( $template_class_path.$template_file_name ) ) {
+						include_once $template_class_path.$template_file_name;
+						return;
+					}
 				}
 			}
 		}
