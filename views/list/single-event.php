@@ -44,6 +44,8 @@ $has_venue_address = ( $venue_address ) ? ' location': '';
 </h2>
 <?php do_action( 'tribe_events_list_after_the_event_title' ) ?>
 
+<span class="vcard author"><a class="fn" href="http://theryanking.com">Ryan King</a></span>
+
 <!-- Event Meta -->
 <?php do_action( 'tribe_events_list_before_the_meta' ) ?>
 <div class="tribe-events-event-meta<?php echo $has_venue . $has_venue_address; ?>">
@@ -58,8 +60,6 @@ $has_venue_address = ( $venue_address ) ? ' location': '';
 		<!-- Venue Display Info -->
 		<div class="tribe-events-venue-details">
 			<?php echo implode(', ', $venue_details); ?>
-			
-			<span class="vcard author"><a class="url fn" href="http://theryanking.com">Ryan King</a></span>
 		</div> <!-- .tribe-events-venue-details -->
 	<?php endif; ?>
 
