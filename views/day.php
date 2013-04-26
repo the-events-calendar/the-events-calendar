@@ -45,7 +45,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 		<!-- Header Navigation -->
 		<?php do_action( 'tribe_events_day_before_header_nav' ); ?>
-		<?php tribe_get_template_part('nav', 'day'); ?>
+		<?php tribe_get_template_part('day/nav'); ?>
 		<?php do_action( 'tribe_events_day_after_header_nav' ); ?>
 
 	</div><!-- #tribe-events-header -->
@@ -55,7 +55,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 	<!-- Events Loop -->
 	<?php if ( have_posts() ) : ?>
 		<?php do_action( 'tribe_events_day_before_loop' ); ?>
-		<?php tribe_get_template_part('loop', 'day') ?>
+		<?php tribe_get_template_part('day/loop') ?>
 		<?php do_action('tribe_events_day_after_loop'); ?>
 	<?php endif; ?>
 
@@ -65,7 +65,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 		<!-- Footer Navigation -->
 		<?php do_action( 'tribe_events_day_before_footer_nav' ); ?>
-		<?php tribe_get_template_part('nav', 'day'); ?>
+		<?php tribe_get_template_part('day/nav'); ?>
 		<?php do_action( 'tribe_events_day_after_footer_nav' ); ?>
 
 	</div><!-- #tribe-events-footer -->
