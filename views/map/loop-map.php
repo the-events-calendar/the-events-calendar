@@ -13,8 +13,10 @@
 ?>
 
 <?php 
+
 global $more;
 $more = false;
+
 ?>
 
 <?php while ( have_posts() ) : the_post(); ?>

@@ -1,9 +1,7 @@
 <?php
 /**
- *
- *
  * @for Week Grid Template
- * This file contains the hook logic required to create an effective week grid view.
+ * This file contains hooks and functions required to set up the week grid view.
  *
  * @package TribeEventsCalendarPro
  * @since  2.1

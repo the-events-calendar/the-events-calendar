@@ -1,7 +1,7 @@
 <?php
 /**
  * @for Day Template
- * This file contains the hook logic required to create an effective day grid view.
+ * This file contains hooks and functions required to set up the day view.
  *
  * @package TribeEventsCalendarPro
  * @since  3.0

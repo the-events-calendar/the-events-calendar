@@ -1,9 +1,7 @@
 <?php
 /**
- *
- *
  * @for Single organizer Template
- * This file contains the hook logic required to create an effective single organizer view.
+ * This file contains hooks and functions required to set up the single organizer view.
  *
  * @package TribeEventsCalendarPro
  * @since  2.1

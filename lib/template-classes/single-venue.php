@@ -1,9 +1,7 @@
 <?php
 /**
- *
- *
  * @for Single Venue Template
- * This file contains the hook logic required to create an effective single venue view.
+ * This file contains hooks and functions required to set up the single venue view.
  *
  * @package TribeEventsCalendarPro
  * @since  2.1
