@@ -218,6 +218,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-debug-bar.class.php' );
 			require_once( 'tribe-amalgamator.php' );
 
+			// Load Template Classes
+			require_once( 'template-classes/calendar.php' );
+			require_once( 'template-classes/list-widget.php' );
+			require_once( 'template-classes/list.php' );
+			require_once( 'template-classes/single-event.php' );
+
 			// caching
 			require_once( 'tribe-events-cache.class.php' );
 
@@ -3721,6 +3727,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				global $wp_query;
 
 				// set the global query var for eventDisplay
+
 				$wp_query->set( 'eventDisplay', 'month');
 				if( !empty($_REQUEST['eventDate']))
 					$wp_query->set( 'eventDate', $_REQUEST['eventDate']);
@@ -3734,9 +3741,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 
 				TribeEventsQuery::init();
+
+				$wp_query->tribe_is_event_query = true;
+
 				$this->setDisplay();
 
 				ob_start();
+
 				tribe_get_view();
 
 				$response = array(

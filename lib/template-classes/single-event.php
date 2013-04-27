@@ -96,5 +96,4 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 		}
 
 	}
-	new Tribe_Events_Single_Event_Template();
 }

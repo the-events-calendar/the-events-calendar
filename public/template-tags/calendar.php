@@ -87,7 +87,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 3.0
 	 **/
 	function tribe_events_get_current_calendar_day() {
-		return apply_filters('tribe_events_current_calendar_day', Tribe_Events_Calendar_Template::get_current_day());
+		return apply_filters( 'tribe_events_current_calendar_day', Tribe_Events_Calendar_Template::get_current_day() );
 	}
 
 	/**
@@ -97,7 +97,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 3.0 
 	 **/
 	function tribe_events_the_calendar_day_classes() {
-		echo apply_filters('tribe_events_the_calendar_day_class', Tribe_Events_Calendar_Template::day_classes());
+		echo apply_filters( 'tribe_events_the_calendar_day_class', Tribe_Events_Calendar_Template::day_classes() );
 	}
 
 	/**
@@ -107,8 +107,14 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 3.0
 	 **/
 	function tribe_events_the_calendar_day_header()	{
+		$day_num = 0;
 		$day = tribe_events_get_current_calendar_day();
-		echo apply_filters('tribe_events_the_calendar_day_header', $day['daynum']);
+		if ( $day ) {
+			$day_num = $day['daynum'];			
+		} else {
+			_doing_it_wrong( __FUNCTION__, __FUNCTION__.' should only be used in the month view loop.', 'The Events Calendar 3.0' );
+		}
+		echo apply_filters( 'tribe_events_the_calendar_day_header', $day_num, $day );
 	}
 
 	/**
@@ -118,8 +124,14 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 3.0
 	 **/
 	function tribe_events_get_current_calendar_day_events()	{
+		$events = new WP_Query;
 		$day = tribe_events_get_current_calendar_day();
-		return apply_filters('tribe_events_get_current_calendar_day_events', $day['events'], $day);
+		if ( $day ) {
+			$events = $day['events'];			
+		} else {
+			_doing_it_wrong( __FUNCTION__, __FUNCTION__.' should only be used in the month view loop.', 'The Events Calendar 3.0' );
+		}
+		return apply_filters( 'tribe_events_get_current_calendar_day_events', $events, $day );
 	}
 
 	/**

@@ -244,7 +244,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		 * @since 3.0
 		 **/
 		public static function have_days() {
-			if ( self::$current_day + 1 < count(self::$calendar_days) ) {
+			if ( self::$current_day + 1 < count( self::$calendar_days ) ) {
 				return true;
 			}
 			return false;
@@ -257,9 +257,11 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		 * @since 3.0
 		 **/
 		public static function the_day() {
-			self::$current_day++;
-			if (self::$current_day % 7 == 0) {
-				self::$current_week++;
+			if ( self::have_days() ) {
+				self::$current_day++;
+				if ( self::$current_day % 7 == 0 ) {
+					self::$current_week++;
+				}
 			}
 		}
 
@@ -270,7 +272,10 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		 * @since 3.0 
 		 **/
 		public static function get_current_day() {
-			return self::$calendar_days[self::$current_day];
+			if ( count( self::$calendar_days ) && self::$current_day < count( self::$calendar_days ) ) {
+				return self::$calendar_days[self::$current_day];
+			}
+			return false;
 		}
 
 		/**
@@ -355,6 +360,4 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			return implode(' ', $classes);
 		}
 	} // class Tribe_Events_Calendar_Template
-
-	new Tribe_Events_Calendar_Template();
 }
