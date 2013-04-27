@@ -46,7 +46,7 @@ $has_venue_address = ( $venue_address ) ? ' location': '';
 
 <!-- Event Meta -->
 <?php do_action( 'tribe_events_list_before_the_meta' ) ?>
-<div class="tribe-events-event-meta<?php echo $has_venue . $has_venue_address; ?>">
+<div class="tribe-events-event-meta author <?php echo $has_venue . $has_venue_address; ?>">
 
 	<!-- Schedule & Recurrence Details -->
 	<div class="updated published time-details">
