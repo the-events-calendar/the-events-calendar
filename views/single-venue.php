@@ -30,7 +30,7 @@ $venue_id = get_the_ID();
 
 	<p class="tribe-events-back"><a href="<?php echo tribe_get_events_link() ?>" rel="bookmark"><?php _e( '&larr; Back to Events', 'tribe-events-calendar-pro' ) ?></a></p>
 
-	<div class="tribe-events-venue-meta tribe-clearfix">
+	<div class="tribe-events-venue-meta vcard tribe-clearfix">
 
 		<?php if ( tribe_embed_google_map() ) : ?>
 			<!-- Venue Map -->
@@ -41,7 +41,7 @@ $venue_id = get_the_ID();
 
 		<!-- Venue Title -->
 		<?php do_action('tribe_events_single_venue_before_title') ?>
-		<?php the_title('<h2 class="tribe-venue-title">','</h2>'); ?>
+		<?php the_title('<h2 class="entry-title author fn org">','</h2>'); ?>
 		<?php do_action('tribe_events_single_venue_after_title') ?>
 
 		<?php if ( tribe_show_google_map_link() ) : ?>
@@ -55,9 +55,11 @@ $venue_id = get_the_ID();
 		<?php do_action('tribe_events_single_venue_after_the_meta') ?>
 
 		<!-- Venue Description -->
-		<div class="tribe-venue-description tribe-events-content">
+		<?php if( get_the_content() ) { ?>
+		<div class="tribe-venue-description tribe-events-content entry-content">
 			<?php the_content(); ?>
 		</div>
+		<?php } ?>
 			
 		<!-- Venue Featured Image -->
 		<?php tribe_event_featured_image(null, 'full') ?>

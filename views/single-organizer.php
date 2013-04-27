@@ -30,11 +30,11 @@ $organizer_id = get_the_ID();
 	<p class="tribe-events-back"><a href="<?php echo tribe_get_events_link() ?>" rel="bookmark"><?php _e( '&larr; Back to Events', 'tribe-events-calendar-pro' ) ?></a></p>
 
 	<?php do_action( 'tribe_events_single_organizer_before_organizer' ) ?>
-	<div class="tribe-events-organizer-meta tribe-clearfix">
+	<div class="tribe-events-organizer-meta vcard tribe-clearfix">
 
 			<!-- Organizer Title -->
 			<?php do_action('tribe_events_single_organizer_before_title') ?>
-			<?php the_title('<h2 class="tribe-organizer-title">','</h2>'); ?>
+			<?php the_title('<h2 class="entry-title author fn org">','</h2>'); ?>
 			<?php do_action('tribe_events_single_organizer_after_title') ?>
 
 			<!-- Organizer Meta -->
@@ -46,9 +46,11 @@ $organizer_id = get_the_ID();
 			<?php tribe_event_featured_image( null, 'full' ); ?>
 
 			<!-- Organizer Content -->
-			<div class="tribe-organizer-description tribe-events-content">
+			<?php if( get_the_content() ) { ?>
+			<div class="tribe-organizer-description tribe-events-content entry-content">
 				<?php the_content(); ?>
 			</div>
+			<?php } ?>
 
 	</div><!-- .tribe-events-organizer-meta -->
 	<?php do_action( 'tribe_events_single_organizer_after_organizer' ) ?>
