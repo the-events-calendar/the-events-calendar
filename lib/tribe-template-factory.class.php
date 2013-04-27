@@ -95,6 +95,27 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 * @since 3.0
 		 **/
 		public function setup_meta() {
+
+			// customize meta items
+			tribe_set_the_meta_template( 'tribe_event_venue_name', array(
+				'before'=>'',
+				'after'=>'',
+				'label_before'=>'',
+				'label_after'=>'',
+				'meta_before'=>'<span class="%s">',
+				'meta_after'=>'</span>'
+			));
+			tribe_set_meta_label( 'tribe_event_venue_address', '' );
+			tribe_set_the_meta_template( 'tribe_event_venue_address', array(
+				'before'=>'',
+				'after'=>'',
+				'label_before'=>'',
+				'label_after'=>'',
+				'meta_before'=>'',
+				'meta_after'=>''
+			));
+
+			tribe_set_the_meta_visibility( 'tribe_event_venue_gmap_link', false );
 		}
 
 		/**
