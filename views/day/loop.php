@@ -26,11 +26,11 @@ $current_timeslot = null;
 	<?php while ( have_posts() ) : the_post(); ?>
 		<?php do_action('tribe_events_day_inside_before_loop'); ?>
 
-		<?php if ( $current_timeslot != $post->timeslot ) : $current_timeslot = $post->timeslot ?>
+		<?php if ( $current_timeslot != $post->timeslot ) : $current_timeslot = $post->timeslot; ?>
 			</div><!-- .tribe-events-day-time-slot -->
 
 			<div class="tribe-events-day-time-slot">
-				<h5><?php echo $current_timeslot ?></h5>
+				<h5><?php echo $current_timeslot; ?></h5>
 		<?php endif; ?>
 
 		<!-- Event  -->

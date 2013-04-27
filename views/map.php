@@ -60,7 +60,7 @@
 		<?php if ( have_posts() ) : ?>
 			<?php do_action( 'tribe_events_map_before_loop' ); ?>
 			<div id="tribe-geo-results" class="tribe-events-loop">
-			<?php tribe_get_template_part('map/loop', 'map') ?>
+			<?php tribe_get_template_part('map/loop') ?>
 			</div> <!-- #tribe-geo-results -->
 			<?php do_action('tribe_events_map_after_loop'); ?>
 		<?php endif; ?>
