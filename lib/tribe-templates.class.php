@@ -260,7 +260,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			ob_end_clean();
 		
 			// spoof the query again because not all of our templates make use of the loop
-			self::endQuery();
+			// self::endQuery();
 
 			return $contents;
 		} 
@@ -465,6 +465,7 @@ if (!class_exists('TribeEventsTemplates')) {
 				$wp_query->posts = array();
 				$wp_query->post = NULL;
 				$wp_query->post_count = 0;
+				unset($wp_query->spoofed);
 			}
 			// remove_filter('the_title', array(__CLASS__, 'load_ecp_title_into_page_template') );			
 		}

@@ -23,9 +23,11 @@ if ($venue_name = tribe_get_meta( 'tribe_event_venue_name' ) ) {
 if ($venue_address = tribe_get_meta( 'tribe_event_venue_address' ) ) {
 	$venue_details[] = $venue_address;	
 }
+
 // Venue microformats
 $has_venue = ( $venue_details ) ? ' vcard': '';
 $has_venue_address = ( $venue_address ) ? ' location': '';
+
 ?>
 
 <!-- Event Cost -->
