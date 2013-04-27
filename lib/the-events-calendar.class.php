@@ -3727,6 +3727,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				global $wp_query;
 
 				// set the global query var for eventDisplay
+
 				$wp_query->set( 'eventDisplay', 'month');
 				if( !empty($_REQUEST['eventDate']))
 					$wp_query->set( 'eventDate', $_REQUEST['eventDate']);
@@ -3740,9 +3741,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 
 				TribeEventsQuery::init();
+
+				$wp_query->tribe_is_event_query = true;
+
 				$this->setDisplay();
 
 				ob_start();
+
 				tribe_get_view();
 
 				$response = array(
