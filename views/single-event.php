@@ -28,7 +28,7 @@ $event_id = get_the_ID();
 
 <div id="tribe-events-content" class="tribe-events-single">
 
-	<p class="tribe-events-back"><a href="<?php echo tribe_get_events_link() ?>" rel="bookmark"> <?php _e( '&laquo; Back to Events', 'tribe-events-calendar-pro' ) ?></a></p>
+	<p class="tribe-events-back"><a href="<?php echo tribe_get_events_link() ?>"> <?php _e( '&laquo; Back to Events', 'tribe-events-calendar-pro' ) ?></a></p>
 
 	<!-- Notices -->
 	<?php tribe_events_the_notices() ?>
@@ -54,7 +54,7 @@ $event_id = get_the_ID();
 
 	<!-- Event content -->
 	<?php do_action( 'tribe_events_single_event_before_the_content' ) ?>
-	<div class="tribe-events-single-event-description tribe-events-content">
+	<div class="tribe-events-single-event-description tribe-events-content entry-content description">
 		<?php the_content(); ?>
 	</div><!-- .tribe-events-single-event-description -->
 	<?php do_action( 'tribe_events_single_event_after_the_content' ) ?>

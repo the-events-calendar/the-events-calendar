@@ -46,10 +46,10 @@ $has_venue_address = ( $venue_address ) ? ' location': '';
 
 <!-- Event Meta -->
 <?php do_action( 'tribe_events_list_before_the_meta' ) ?>
-<div class="tribe-events-event-meta author <?php echo $has_venue . $has_venue_address; ?>">
+<div class="tribe-events-event-meta <?php echo $has_venue . $has_venue_address; ?>">
 
 	<!-- Schedule & Recurrence Details -->
-	<div class="updated published time-details">
+	<div class="time-details">
 		<?php echo tribe_events_event_schedule_details() ?>
 		<?php echo tribe_events_event_recurring_info_tooltip() ?>
 	</div>
@@ -69,8 +69,8 @@ $has_venue_address = ( $venue_address ) ? ' location': '';
 
 <!-- Event Content -->
 <?php do_action( 'tribe_events_list_before_the_content' ) ?>
-<div class="tribe-events-list-event-description tribe-events-content entry-summary">
+<div class="tribe-events-list-event-description tribe-events-content description entry-summary">
 	<?php the_excerpt() ?>
-	<a href="<?php echo tribe_get_event_link() ?>" class="tribe-events-read-more"><?php _e('Find out more', 'tribe-events-calendar') ?> &raquo;</a>
+	<a href="<?php echo tribe_get_event_link() ?>" class="tribe-events-read-more" rel="bookmark"><?php _e('Find out more', 'tribe-events-calendar') ?> &raquo;</a>
 </div><!-- .tribe-events-list-event-description -->
 <?php do_action('tribe_events_list_after_the_content') ?>
