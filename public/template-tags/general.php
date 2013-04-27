@@ -36,19 +36,15 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Include the class file for the view. If no name is passed, defaults to the current view
+	 * Instantiate the template class. If no name is passed, defaults to the class for the current view
 	 *
+	 * @param $class string - classname you want to instantiate
 	 * @return void
 	 * @since 3.0
 	 **/
-	function tribe_initialize_view( $view = false )	{
-
-		if (class_exists('TribeEventsTemplates')) {
-			do_action( 'tribe_pre_initialize_view' );
-			TribeEventsTemplates::include_template_class();
-		} else {
-			_doing_it_wrong( __FUNCTION__, __FUNCTION__.' must be called after the plugins_loaded action has run.', '3.0' );
-		}
+	function tribe_initialize_view( $class = false )	{
+		do_action( 'tribe_pre_initialize_view' );
+		TribeEventsTemplates::instantiate_template_class( $class );
 	}
 
 	/**
@@ -99,16 +95,16 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$templates = apply_filters( 'tribe_get_template_part_templates', $templates, $slug, $name );
 
 		// loop through templates, return first one found.
-		foreach($templates as $template) {
+		foreach( $templates as $template ) {
 			$file = TribeEventsTemplates::getTemplateHierarchy( $template );
 			$file = apply_filters( 'tribe_get_template_part_path', $file, $template, $slug, $name );
 			if (file_exists($file)) {
 				ob_start();
-				do_action('tribe_before_get_template_part', $template, $file, $template, $slug, $name);
+				do_action( 'tribe_before_get_template_part', $template, $file, $template, $slug, $name );
 				include($file);
-				do_action('tribe_after_get_template_part', $template, $file, $slug, $name);
+				do_action( 'tribe_after_get_template_part', $template, $file, $slug, $name );
 				$html = ob_get_clean();
-				echo apply_filters('tribe_get_template_part_content', $html, $template, $file, $slug, $name);
+				echo apply_filters( 'tribe_get_template_part_content', $html, $template, $file, $slug, $name );
 			}
 		}
 	}
