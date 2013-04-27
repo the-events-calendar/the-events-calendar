@@ -60,7 +60,7 @@ $venue_id = get_the_ID();
 		</div>
 			
 		<!-- Venue Featured Image -->
-		<?php tribe_event_featured_image(null, 'full') ?>
+		<?php echo tribe_event_featured_image(null, 'full') ?>
 
 	</div><!-- .tribe-events-event-meta -->
 
