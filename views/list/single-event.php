@@ -60,6 +60,8 @@ $has_venue_address = ( $venue_address ) ? ' location': '';
 			<?php echo implode(', ', $venue_details); ?>
 		</div> <!-- .tribe-events-venue-details -->
 	<?php endif; ?>
+	
+	<span class="vcard author"><a class="fn" href="http://theryanking.com">Ryan King</a></span>
 
 </div><!-- .tribe-events-event-meta -->
 <?php do_action( 'tribe_events_list_after_the_meta' ) ?>
