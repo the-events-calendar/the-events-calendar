@@ -37,7 +37,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 		 * @return void
 		 * @since 3.0
 		 **/
-		protected function setup_meta() {
+		public function setup_meta() {
 
 			// setup the template for the meta group
 			tribe_set_the_meta_template( 'tribe_event_organizer', array(
@@ -104,5 +104,4 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 		}
 
 	}
-	new Tribe_Events_Pro_Single_Organizer_Template();
 }

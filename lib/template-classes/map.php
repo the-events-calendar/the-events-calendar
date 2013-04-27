@@ -12,8 +12,8 @@
 if ( !defined('ABSPATH') ) 
 	die('-1');
 
-if( !class_exists('Tribe_Events_Map_Template')){
-	class Tribe_Events_Map_Template extends Tribe_PRO_Template_Factory {
+if( !class_exists('Tribe_Events_Pro_Map_Template')){
+	class Tribe_Events_Pro_Map_Template extends Tribe_PRO_Template_Factory {
 
 		/**
 		 * Set up hooks for map view
@@ -56,5 +56,4 @@ if( !class_exists('Tribe_Events_Map_Template')){
 		}
 
 	}
-	new Tribe_Events_Map_Template();
 }

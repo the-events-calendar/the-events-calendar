@@ -11,10 +11,8 @@
 
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-if( !class_exists('Tribe_Events_Day_Template')){
-	class Tribe_Events_Day_Template extends Tribe_PRO_Template_Factory {
-
-		static $timeslots = array();
+if( !class_exists('Tribe_Events_Pro_Day_Template')){
+	class Tribe_Events_Pro_Day_Template extends Tribe_PRO_Template_Factory {
 
 		/**
 		 * Set up hooks for this template
@@ -65,13 +63,14 @@ if( !class_exists('Tribe_Events_Day_Template')){
 
 			global $wp_query;
 
-			foreach ( $wp_query->posts as &$post ) {
-				$post->timeslot = tribe_event_is_all_day( $post->ID ) 
-					? __( 'All Day', 'tribe-events-calendar' ) 
-					: $post->timeslot = tribe_get_start_date( $post, false, 'ga ' );
+			if ( $wp_query->have_posts() ) {
+				foreach ( $wp_query->posts as &$post ) {
+					$post->timeslot = tribe_event_is_all_day( $post->ID ) 
+						? __( 'All Day', 'tribe-events-calendar' ) 
+						: $post->timeslot = tribe_get_start_date( $post, false, 'ga ' );
+				}
+				$wp_query->rewind_posts();
 			}
-
-			$wp_query->rewind_posts();
 
 		}
 
@@ -104,5 +103,4 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			}
 		}
 	}
-	new Tribe_Events_Day_Template();
 }

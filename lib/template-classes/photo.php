@@ -12,8 +12,8 @@
 if ( !defined('ABSPATH') ) 
 	die('-1');
 
-if( !class_exists('Tribe_Events_Photo_Template')){
-	class Tribe_Events_Photo_Template extends Tribe_PRO_Template_Factory {
+if( !class_exists('Tribe_Events_Pro_Photo_Template')){
+	class Tribe_Events_Pro_Photo_Template extends Tribe_PRO_Template_Factory {
 
 		/**
 		 * Array of asset packages needed for this template
@@ -77,5 +77,4 @@ if( !class_exists('Tribe_Events_Photo_Template')){
 
 		}
 	}
-	new Tribe_Events_Photo_Template();
 }
