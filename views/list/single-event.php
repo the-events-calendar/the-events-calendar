@@ -23,7 +23,9 @@ if ($venue_name = tribe_get_meta( 'tribe_event_venue_name' ) ) {
 if ($venue_address = tribe_get_meta( 'tribe_event_venue_address' ) ) {
 	$venue_details[] = $venue_address;	
 }
-
+// Venue microformats
+$has_venue = ( $venue_details ) ? ' vcard': '';
+$has_venue_address = ( $venue_address ) ? ' location': '';
 ?>
 
 <!-- Event Cost -->
@@ -44,7 +46,7 @@ if ($venue_address = tribe_get_meta( 'tribe_event_venue_address' ) ) {
 
 <!-- Event Meta -->
 <?php do_action( 'tribe_events_list_before_the_meta' ) ?>
-<div class="tribe-events-event-meta">
+<div class="tribe-events-event-meta<?php echo $has_venue . $has_venue_address; ?>">
 
 	<!-- Schedule & Recurrence Details -->
 	<div class="updated published time-details">

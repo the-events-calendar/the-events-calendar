@@ -257,7 +257,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_venue
 	 */
 	tribe_register_meta( 'tribe_event_venue_name', array(
-			'classes' => array('meta_before'=> array('vcard','fn','org')),
+			'classes' => array('meta_before'=> array('author','fn','org')),
 			'label' => '',
 			'priority' => 10,
 			'filter_callback' => array( 'Tribe_Register_Meta', 'venue_name' ),
@@ -270,7 +270,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_venue
 	 */
 	tribe_register_meta( 'tribe_event_venue_phone', array(
-			'classes' => array('meta_before'=>array('vcard','tel')),
+			'classes' => array('meta_before'=>array('tel')),
 			'label' => __( 'Phone:', 'tribe-events-calendar' ),
 			'priority' => 20,
 			'callback' => 'tribe_get_phone',

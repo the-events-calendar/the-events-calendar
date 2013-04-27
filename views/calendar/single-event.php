@@ -23,21 +23,23 @@ $end = tribe_get_end_date( $post, FALSE, 'U' );
 ?>
 
 <div id="tribe-events-event-<?php echo $event_id ?>" class="<?php tribe_events_the_calendar_single_event_classes() ?>">
-	<h3 class="entry-title summary"><a href="<?php tribe_event_link( $post ); ?>"><?php the_title() ?></a></h3>
+	<h3 class="entry-title summary"><a href="<?php tribe_event_link( $post ); ?>" class="url"><?php the_title() ?></a></h3>
 	<div id="tribe-events-tooltip-<?php echo $event_id; ?>" class="tribe-events-tooltip">
 		<h4 class="entry-title summary"><?php the_title() ?></h4>
 		<div class="tribe-events-event-body">
 			<div class="duration">
-				<abbr class="tribe-events-abbr updated published distort" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $start ); ?>">
+				<abbr class="tribe-events-abbr updated published dtstart">
 					<?php // move to template tag: tribe_events_the_start_time() ?>
 					<?php if ( !empty( $start ) ) : ?>
 						<?php echo date_i18n( get_option( 'date_format', 'F j, Y' ), $start ); ?>
 					<?php endif; ?>
 					<?php if ( !tribe_get_event_meta( $post->ID, '_EventAllDay', TRUE ) ) : ?>
 						<?php echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), $start ); ?>
-					<?php endif; ?>
+					<?php endif; 
+					// Start date microformat ?>
+					<span class="value-title" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-dTh:i' ), $start ); ?>"></span>
 				</abbr><!-- .dtstart -->
-				<abbr class="tribe-events-abbr tend" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $end ); ?>">
+				<abbr class="tribe-events-abbr dtend">
 					<?php // move to template tag: tribe_events_the_end_time() ?>
 					<?php if ( !empty( $end )  && $start !== $end ) : ?>
 						-
@@ -51,7 +53,9 @@ $end = tribe_get_end_date( $post, FALSE, 'U' );
 							<?php if ( !tribe_get_event_meta( $post->ID, '_EventAllDay', TRUE ) ) : ?>
 								<?php echo date_i18n( get_option( 'time_format', 'g:i a' ), $end ) . '<br />'; ?>
 							<?php endif; ?>
-						<?php endif; ?>
+						<?php endif;
+						// End date microformat ?>
+						<span class="value-title" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-dTh:i' ), $end ); ?>"></span>
 					<?php endif; ?>
 				</abbr><!-- .dtend -->
 			</div><!-- .duration -->

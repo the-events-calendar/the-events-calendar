@@ -17,7 +17,7 @@ global $more;
 $more = false;
 ?>
 
-<div class="tribe-events-loop heed">
+<div class="tribe-events-loop hfeed">
 
 	<?php while ( have_posts() ) : the_post(); ?>
 		<?php do_action('tribe_events_list_inside_before_loop'); ?>
