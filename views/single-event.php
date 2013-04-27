@@ -35,7 +35,7 @@ $event_id = get_the_ID();
 
 	<?php the_title( '<h2 class="tribe-events-single-event-title entry-title summary">', '</h2>' ); ?>
 
-	<div class="tribe-events-schedule tribe-clearfix">
+	<div class="tribe-events-schedule updated published tribe-clearfix">
 		<h3><?php echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); ?><?php  if ( tribe_get_cost() ) :  echo '<span class="tribe-events-divider">|</span><span class="tribe-events-cost">'. tribe_get_cost( null, true ) .'</span>'; endif; ?></h3>
 	</div>
 
