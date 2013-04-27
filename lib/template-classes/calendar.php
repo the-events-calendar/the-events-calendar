@@ -355,6 +355,4 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			return implode(' ', $classes);
 		}
 	} // class Tribe_Events_Calendar_Template
-
-	new Tribe_Events_Calendar_Template();
 }

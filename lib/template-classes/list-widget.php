@@ -88,5 +88,4 @@ if( !class_exists('Tribe_Events_List_Widget_Template')){
 			return apply_filters('tribe_template_factory_debug', $html, 'tribe_events_list_widget_after_template');		
 		}
 	}
-	new Tribe_Events_List_Widget_Template();
 }

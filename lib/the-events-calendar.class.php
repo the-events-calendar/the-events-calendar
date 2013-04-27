@@ -218,6 +218,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-debug-bar.class.php' );
 			require_once( 'tribe-amalgamator.php' );
 
+			// Load Template Classes
+			require_once( 'template-classes/calendar.php' );
+			require_once( 'template-classes/list-widget.php' );
+			require_once( 'template-classes/list.php' );
+			require_once( 'template-classes/single-event.php' );
+
 			// caching
 			require_once( 'tribe-events-cache.class.php' );
 

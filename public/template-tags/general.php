@@ -45,7 +45,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		if (class_exists('TribeEventsTemplates')) {
 			do_action( 'tribe_pre_initialize_view' );
-			TribeEventsTemplates::include_template_class();
+			TribeEventsTemplates::instantiate_template_class();
 		} else {
 			_doing_it_wrong( __FUNCTION__, __FUNCTION__.' must be called after the plugins_loaded action has run.', '3.0' );
 		}
