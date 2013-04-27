@@ -104,5 +104,4 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 		}
 
 	}
-	new Tribe_Events_Pro_Single_Organizer_Template();
 }

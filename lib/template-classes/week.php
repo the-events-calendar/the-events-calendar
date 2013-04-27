@@ -11,8 +11,8 @@
 
 if ( !defined( 'ABSPATH' ) ) { die( '-1' ); }
 
-if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
-	class Tribe_Events_Week_Template extends Tribe_Template_Factory {
+if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
+	class Tribe_Events_Pro_Week_Template extends Tribe_Pro_Template_Factory {
 
 		protected $asset_packages = array( 'ajax-weekview' );
 		private static $tribe_bar_args = array();
@@ -34,10 +34,6 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 		public function __construct() {
 
 			parent::__construct();
-
-			foreach( $this->asset_packages as $package ){
-				Tribe_PRO_Template_Factory::asset_package( $package );
-			}
 
 			$this->prior_event_date = (object) array( 'EventStartDate'=>null, 'EventEndDate'=>null );
 			$this->today = date_i18n( 'Y-m-d', strtotime( 'today' ) );
@@ -331,5 +327,4 @@ if ( !class_exists( 'Tribe_Events_Week_Template' ) ) {
 		}
 
 	}
-	new Tribe_Events_Week_Template();
 }

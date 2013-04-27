@@ -114,7 +114,5 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 			}
 			return $file;
 		}
-
 	}
-	new Tribe_Events_Pro_Single_Venue_Template();
 }

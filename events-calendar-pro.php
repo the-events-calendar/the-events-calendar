@@ -69,6 +69,15 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/widget-countdown.class.php' );
 			require_once( 'lib/widget-calendar.class.php' );
 
+			require_once( 'lib/template-classes/day.php' );
+			require_once( 'lib/template-classes/featured-widget.php' );
+			require_once( 'lib/template-classes/list-widget.php' );
+			require_once( 'lib/template-classes/map.php' );
+			require_once( 'lib/template-classes/photo.php' );
+			require_once( 'lib/template-classes/single-organizer.php' );
+			require_once( 'lib/template-classes/single-venue.php' );
+			require_once( 'lib/template-classes/week.php' );
+
 			require_once( 'public/template-tags/general.php' );
 			require_once( 'public/template-tags/week.php' );
 			require_once( 'public/template-tags/venue.php' );
@@ -104,6 +113,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_enable_recurring_event_queries', '__return_true', 10, 1 );
 			add_filter( 'body_class', array( $this, 'body_class') );
 			add_filter( 'tribe_current_events_page_template', array( $this, 'select_page_template' ) );
+			add_filter( 'tribe_current_events_template_class', array( $this, 'get_current_template_class' ) );
 			add_filter( 'tribe_events_template_paths', array( $this, 'template_paths' ) );
 			add_filter( 'tribe_events_template_class_path', array( $this, 'template_class_path' ) );
 
@@ -552,12 +562,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		// event deletion
 		public function adjust_date_on_recurring_event_trash_link( $link, $postId ) {
 			global $post;
-				if ( isset($_REQUEST['deleteAll']) ) {
-					$link = remove_query_arg( array( 'eventDate', 'deleteAll'), $link );
-				} elseif ( (isset($post->ID)) && tribe_is_recurring_event($post->ID) && isset($_REQUEST['eventDate']) ) {
-					$link = add_query_arg( 'eventDate', $_REQUEST['eventDate'], $link );
-				}
-				return $link;
+			if ( isset($_REQUEST['deleteAll']) ) {
+				$link = remove_query_arg( array( 'eventDate', 'deleteAll'), $link );
+			} elseif ( (isset($post->ID)) && tribe_is_recurring_event($post->ID) && isset($_REQUEST['eventDate']) ) {
+				$link = add_query_arg( 'eventDate', $_REQUEST['eventDate'], $link );
+			}
+			return $link;
 	      }
 
 		public function addDeleteDialogForRecurringEvents() {
@@ -846,6 +856,44 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				$template = TribeEventsTemplates::getTemplateHierarchy( 'map' );
 			}
 			return $template;
+		}
+
+		/**
+		 * Specify the class for the current page template
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		public function get_current_template_class( $class ) {
+
+			// venue view
+			if( is_singular( TribeEvents::VENUE_POST_TYPE ) ) {
+				$class = 'Tribe_Events_Pro_Single_Venue_Template';
+			}
+			// organizer view
+			if( is_singular( TribeEvents::ORGANIZER_POST_TYPE ) ) {
+				$class = 'Tribe_Events_Pro_Single_Organizer_Template';
+			}
+			// week view
+			if( tribe_is_week() ) {
+				$class = 'Tribe_Events_Pro_Week_Template';
+			}
+			// day view
+			if( tribe_is_day() ) {
+				$class = 'Tribe_Events_Pro_Single_Venue_Template';
+			}
+			// photo view
+			if( tribe_is_photo() ){
+				$class = 'Tribe_Events_Pro_Photo_Template';
+			}
+
+			// map view
+			if ( tribe_is_map() ) {
+				$class = 'Tribe_Events_Pro_Map_Template';
+			}
+
+			return $class;
+
 		}
 
 		/**
