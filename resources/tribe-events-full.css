@@ -322,6 +322,10 @@ div.tribe-events-notices > ul, div.tribe-events-notices > ul > li {
 	margin-left: -8px;
 }
 
+.tribe-events-active-spinner {
+	top: 0 !important;
+}
+
 /* IE7 Tweaks */
 *+html .events-archive h2.tribe-events-page-title {
 	padding-bottom: 30px;
@@ -873,7 +877,7 @@ select.tribe-events-dropdown {
 =============================================*/
 /* Global Calendar Styles */
 #tribe-events-content table.tribe-events-calendar {
-	margin: 0 0 .6em;
+	margin: 12px 0 .6em;
 	clear: both;
 	font-size: 12px;
 	border-collapse: collapse;

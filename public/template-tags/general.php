@@ -98,7 +98,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		foreach( $templates as $template ) {
 			$file = TribeEventsTemplates::getTemplateHierarchy( $template );
 			$file = apply_filters( 'tribe_get_template_part_path', $file, $template, $slug, $name );
-			if ( file_exists( $file ) ) {
+			if (file_exists($file)) {
 				ob_start();
 				do_action( 'tribe_before_get_template_part', $template, $file, $template, $slug, $name );
 				include($file);
