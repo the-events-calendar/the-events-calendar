@@ -880,7 +880,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 			// day view
 			if( tribe_is_day() ) {
-				$class = 'Tribe_Events_Pro_Single_Venue_Template';
+				$class = 'Tribe_Events_Pro_Day_Template';
 			}
 			// photo view
 			if( tribe_is_photo() ){
