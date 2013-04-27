@@ -42,13 +42,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since 3.0
 	 **/
 	function tribe_initialize_view( $view = false )	{
-
-		if (class_exists('TribeEventsTemplates')) {
-			do_action( 'tribe_pre_initialize_view' );
-			TribeEventsTemplates::instantiate_template_class();
-		} else {
-			_doing_it_wrong( __FUNCTION__, __FUNCTION__.' must be called after the plugins_loaded action has run.', '3.0' );
-		}
+		do_action( 'tribe_pre_initialize_view' );
+		TribeEventsTemplates::instantiate_template_class();
 	}
 
 	/**
