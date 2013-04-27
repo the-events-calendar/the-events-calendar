@@ -20,7 +20,7 @@ $current_timeslot = null;
 
 ?>
 
-<div class="tribe-events-loop heed">
+<div class="tribe-events-loop hfeed vcalendar">
 	<div class="tribe-events-day-time-slot">
 
 	<?php while ( have_posts() ) : the_post(); ?>
