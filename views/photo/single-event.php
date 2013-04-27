@@ -35,7 +35,7 @@ global $post;
 	<!-- Event Meta -->
 	<?php do_action( 'tribe_events_photo_before_the_meta' ) ?>
 		<div class="tribe-events-event-meta">
-			<div class="time-details">
+			<div class="updated published time-details">
 				<?php if ( !empty( $post->distance ) ) : ?>
 				<strong>[<?php echo tribe_get_distance_with_unit( $post->distance ) ?>]</strong>
 				<?php endif; ?>
