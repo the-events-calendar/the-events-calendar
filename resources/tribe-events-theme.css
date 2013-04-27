@@ -103,8 +103,8 @@ h2.tribe-events-page-title,
  	display: none;
 }
 
-#tribe-events-header .tribe-events-ajax-loading {
-	top: -12px;
+.tribe-events-active-spinner {
+	top: -75px !important;
 }
 
 @media only screen and (max-width: 767px) {
@@ -179,7 +179,7 @@ h2.tribe-events-page-title,
 }
 
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
-	padding-left: 1em;
+	padding-left: 0;
 	font-weight: normal;
 }
 
@@ -192,6 +192,10 @@ h2.tribe-events-page-title,
 .tribe-events-event-meta address.tribe-events-address {
 	font-weight: normal;
 	font-style: italic;
+}
+
+.tribe-events-event-meta address.tribe-events-address {
+	padding-right: 3px;
 }
 
 @media only screen and (max-width: 767px) {
