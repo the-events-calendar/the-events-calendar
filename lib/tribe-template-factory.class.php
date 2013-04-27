@@ -228,9 +228,6 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			if (is_string($this->excerpt_more)) {
 				remove_filter( 'excerpt_more', array($this, 'excerpt_more'));
 			}
-
-			// reset the main query
-			wp_reset_query();
 		}
 
 		/**
