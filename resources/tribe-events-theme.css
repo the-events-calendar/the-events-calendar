@@ -107,6 +107,10 @@ h2.tribe-events-page-title,
 	top: -75px !important;
 }
 
+.tribe-events-notices + #tribe-events-header .tribe-events-active-spinner {
+	top: -125px !important;
+}
+
 @media only screen and (max-width: 767px) {
 	#tribe-events-header .tribe-events-sub-nav li a {
 	 	display: none;
