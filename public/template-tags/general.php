@@ -695,16 +695,16 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$posts = tribe_get_related_posts( $tag, $category, $count, $blog, $only_display_related, $post_type );
 		if ( is_array( $posts ) && !empty( $posts ) ) {
 			echo '<h3 class="tribe-events-related-events-title">'.  __( 'Related Events', 'tribe-events-calendar-pro' ) .'</h3>';
-			echo '<ul class="tribe-related-events tribe-clearfix">';
+			echo '<ul class="tribe-related-events tribe-clearfix hfeed vcalendar">';
 			foreach ( $posts as $post ) {
 				echo '<li>';	
 				
 					$thumb = ( has_post_thumbnail( $post->ID ) ) ? get_the_post_thumbnail( $post->ID, 'large' ) : '<img src="'. trailingslashit( TribeEventsPro::instance()->pluginUrl ) . 'resources/images/tribe-related-events-placeholder.png" alt="'. get_the_title( $post->ID ) .'" />';;
 					echo '<div class="tribe-related-events-thumbnail">';
-					echo '<a href="'. get_permalink( $post->ID ) .'">'. $thumb .'</a>';
+					echo '<a href="'. get_permalink( $post->ID ) .'" class="url" rel="bookmark">'. $thumb .'</a>';
 					echo '</div>';
 					echo '<div class="tribe-related-event-info">';
-						echo '<h3 class="tribe-related-events-title"><a href="'. get_permalink( $post->ID ) .'">'. get_the_title( $post->ID ) .'</a></h3>';
+						echo '<h3 class="tribe-related-events-title entry-title summary"><a href="'. get_permalink( $post->ID ) .'" class="url" rel="bookmark">'. get_the_title( $post->ID ) .'</a></h3>';
 
 						if ( class_exists( 'TribeEvents' ) && $post->post_type == TribeEvents::POSTTYPE && function_exists( 'tribe_events_event_schedule_details' ) ) {
 							echo tribe_events_event_schedule_details( $post );

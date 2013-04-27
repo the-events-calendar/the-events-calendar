@@ -17,7 +17,7 @@ global $more;
 $more = false;
 ?>
 
-<div class="tribe-events-loop hfeed tribe-clearfix" id="tribe-events-photo-events">
+<div class="tribe-events-loop hfeed vcalendar tribe-clearfix" id="tribe-events-photo-events">
 
 	<?php while ( have_posts() ) : the_post(); ?>
 		<?php do_action('tribe_events_photo_inside_before_loop'); ?>

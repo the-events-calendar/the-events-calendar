@@ -41,7 +41,7 @@ $venue_id = get_the_ID();
 
 		<!-- Venue Title -->
 		<?php do_action('tribe_events_single_venue_before_title') ?>
-		<?php the_title('<h2 class="entry-title summary">','</h2>'); ?>
+		<?php the_title('<h2 class="tribe-venue-title">','</h2>'); ?>
 		<?php do_action('tribe_events_single_venue_after_title') ?>
 
 		<?php if ( tribe_show_google_map_link() ) : ?>
