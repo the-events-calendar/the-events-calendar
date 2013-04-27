@@ -36,15 +36,19 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Instantiate the template class. If no name is passed, defaults to the class for the current view
+	 * Include the class file for the view. If no name is passed, defaults to the current view
 	 *
-	 * @param $class string - classname you want to instantiate
 	 * @return void
 	 * @since 3.0
 	 **/
-	function tribe_initialize_view( $class = false )	{
-		do_action( 'tribe_pre_initialize_view' );
-		TribeEventsTemplates::instantiate_template_class( $class );
+	function tribe_initialize_view( $view = false )	{
+
+		if (class_exists('TribeEventsTemplates')) {
+			do_action( 'tribe_pre_initialize_view' );
+			TribeEventsTemplates::include_template_class();
+		} else {
+			_doing_it_wrong( __FUNCTION__, __FUNCTION__.' must be called after the plugins_loaded action has run.', '3.0' );
+		}
 	}
 
 	/**
@@ -95,16 +99,16 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$templates = apply_filters( 'tribe_get_template_part_templates', $templates, $slug, $name );
 
 		// loop through templates, return first one found.
-		foreach( $templates as $template ) {
+		foreach($templates as $template) {
 			$file = TribeEventsTemplates::getTemplateHierarchy( $template );
 			$file = apply_filters( 'tribe_get_template_part_path', $file, $template, $slug, $name );
-			if ( file_exists( $file ) ) {
+			if (file_exists($file)) {
 				ob_start();
-				do_action( 'tribe_before_get_template_part', $template, $file, $template, $slug, $name );
+				do_action('tribe_before_get_template_part', $template, $file, $template, $slug, $name);
 				include($file);
-				do_action( 'tribe_after_get_template_part', $template, $file, $slug, $name );
+				do_action('tribe_after_get_template_part', $template, $file, $slug, $name);
 				$html = ob_get_clean();
-				echo apply_filters( 'tribe_get_template_part_content', $html, $template, $file, $slug, $name );
+				echo apply_filters('tribe_get_template_part_content', $html, $template, $file, $slug, $name);
 			}
 		}
 	}
@@ -802,15 +806,15 @@ if ( class_exists( 'TribeEvents' ) ) {
 				}
 			}
 
-			$schedule .= '<span class="date-start dtstart updated published">' . tribe_get_start_date( $event, true, $format ) . '<span class="value-title" title="'. $microformatStartFormat .'"></span></span> - <span class="date-end dtend">' . tribe_get_end_date( $event, true, $format2ndday ) . '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
+			$schedule .= '<span class="date-start dtstart">' . tribe_get_start_date( $event, true, $format ) . '<span class="value-title" title="'. $microformatStartFormat .'"></span></span> - <span class="date-end dtend">' . tribe_get_end_date( $event, true, $format2ndday ) . '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
 
 		} elseif ( tribe_event_is_all_day( $event ) ) { // all day event
-			$schedule .= '<span class="date-start dtstart updated published">' . tribe_get_start_date( $event, true, $format ) . '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
+			$schedule .= '<span class="date-start dtstart">' . tribe_get_start_date( $event, true, $format ) . '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
 		} else { // single day event
 			if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) { // Same start/end time
-				$schedule .= '<span class="date-start dtstart updated published">' . tribe_get_start_date( $event, false, $format ) . ' @ ' . tribe_get_start_date( $event, false, $timeFormat ) . '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
+				$schedule .= '<span class="date-start dtstart">' . tribe_get_start_date( $event, false, $format ) . ' @ ' . tribe_get_start_date( $event, false, $timeFormat ) . '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
 			} else { // defined start/end time
-				$schedule .= '<span class="date-start dtstart updated published">' . tribe_get_start_date( $event, false, $format ) . ' @ ' . tribe_get_start_date( $event, false, $timeFormat ) . '<span class="value-title" title="'. $microformatStartFormat .'"></span> - <span class="end-time dtend">' . tribe_get_end_date( $event, false, $timeFormat ) . '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
+				$schedule .= '<span class="date-start dtstart">' . tribe_get_start_date( $event, false, $format ) . ' @ ' . tribe_get_start_date( $event, false, $timeFormat ) . '<span class="value-title" title="'. $microformatStartFormat .'"></span> - <span class="end-time dtend">' . tribe_get_end_date( $event, false, $timeFormat ) . '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
 			}
 		}
 
