@@ -454,6 +454,10 @@
 	padding: 0 5px;
 }
 
+.tribe-events-photo .tribe-events-ical {
+	clear: both;
+}
+
 /* = Map View Template Styles 
    @ Template: map.php
 =============================================*/
