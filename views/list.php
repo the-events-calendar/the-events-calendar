@@ -54,7 +54,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 	<!-- Events Loop -->
 	<?php if ( have_posts() ) : ?>
 		<?php do_action( 'tribe_events_list_before_loop' ); ?>
-		<?php tribe_get_template_part('list/loop', 'list') ?>
+		<?php tribe_get_template_part('list/loop') ?>
 		<?php do_action('tribe_events_list_after_loop'); ?>
 	<?php endif; ?>
 
