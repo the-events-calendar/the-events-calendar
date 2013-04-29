@@ -15,9 +15,6 @@ if (!class_exists('TribeEventsTemplates')) {
 	
 		public static function init() {
 
-			//add_filter( 'parse_query', array( __CLASS__, 'fixIsHome') );
-			//add_filter( 'template_include', array( __CLASS__, 'fixIs404') );
-
 			// choose the wordpress theme template to use
 			add_filter( 'template_include', array( __CLASS__, 'templateChooser') );
 
@@ -31,9 +28,11 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished'), 999 );
 
-			// make sure we enter the loop by always having some posts in $wp_query, then after we enter it, restore the original query
+			// make sure we enter the loop by always having some posts in $wp_query
 			add_action( 'template_redirect', array( __CLASS__, 'maybeSpoofQuery' ) );
-			add_action( 'tribe_pre_get_view', array( __CLASS__, 'restoreQuery' ) );
+
+			// then after we enter the loop, restore the original query
+			add_action( 'the_content', array( __CLASS__, 'restoreQuery' ) );
 		}
 
 		// pick the correct template to include
@@ -57,9 +56,9 @@ if (!class_exists('TribeEventsTemplates')) {
 					return self::getTemplateHierarchy('wrapper-page');
 				}
 			} else {
-				add_filter( 'wp_title', array(__CLASS__, 'remove_default_title'), 1);
-				add_action( 'tribe_events_filter_the_page_title', array( __CLASS__, 'remove_title_from_page' ) );
-				add_filter( 'the_title', array( __CLASS__, 'remove_title_filter' ), 2 );
+
+				// add_filter( 'wp_title', array(__CLASS__, 'remove_default_title'), 1);
+
 				add_action( 'loop_start', array(__CLASS__, 'setup_ecp_template' ) );
 			
 				$template = locate_template( tribe_get_option('tribeEventsTemplate', 'default') == 'default' ? 'page.php' : tribe_get_option('tribeEventsTemplate', 'default') );
@@ -115,10 +114,6 @@ if (!class_exists('TribeEventsTemplates')) {
 		public static function wpHeadFinished() {
 			self::$throughHead = true;
 		}
-
-		public static function remove_default_title($title) {
-			return '';
-		}
 		
 		// Get rid of the repeating title if the page template is not the default events template.
 		public function remove_title_from_page() {
@@ -131,13 +126,34 @@ if (!class_exists('TribeEventsTemplates')) {
 		}
 	
 		public static function setup_ecp_template($query) {
+
 			do_action( 'tribe_events_filter_the_page_title' );
+
 			if( self::is_main_loop($query) && self::$throughHead) {
-				// add_filter('the_title', array(__CLASS__, 'load_ecp_title_into_page_template'), 10, 2 );		
-				add_filter('the_content', array(__CLASS__, 'load_ecp_into_page_template') );		
+
+				// on loop start, unset the global post so that template tags don't work before the_content()
+				add_action('the_post', array(__CLASS__, 'spoof_the_post'));
+
+				// on the_content, load our events template
+				add_filter('the_content', array(__CLASS__, 'load_ecp_into_page_template') );
+
+				// remove the comments template		
 				add_filter('comments_template', array(__CLASS__, 'load_ecp_comments_page_template') );
+
+				// only do this once
 				remove_action( 'loop_start', array(__CLASS__, 'setup_ecp_template') );
 			}
+		}
+
+		/**
+		 * Spoof the global post just once
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		public static function spoof_the_post() {
+			$GLOBALS['post'] = self::spoofed_post();
+			remove_action('the_post', array(__CLASS__, 'spoof_the_post'));
 		}
 
 		private static function is_main_loop($query) {
@@ -219,9 +235,10 @@ if (!class_exists('TribeEventsTemplates')) {
 			echo tribe_events_after_html();	
 
 			$contents = ob_get_contents();
+			
 			ob_end_clean();
 		
-			// spoof the query again because not all of our templates make use of the loop
+			// make sure the loop ends after our template is included
 			if ( ! is_404() )
 				self::endQuery();
 
@@ -420,7 +437,41 @@ if (!class_exists('TribeEventsTemplates')) {
 		
 			$wp_query->current_post = 0;
 			$wp_query->post_count = 1;		
-		}	
+		}
+
+		private static function spoofed_post() {
+			$spoofed_post = array(
+                	'ID'                    => -9999,
+	                'post_status'           => 'draft',
+	                'post_author'           => 0,
+	                'post_parent'           => 0,
+	                'post_type'             => 'page',
+	                'post_date'             => 0,
+	                'post_date_gmt'         => 0,
+	                'post_modified'         => 0,
+	                'post_modified_gmt'     => 0,
+	                'post_content'          => '',
+	                'post_title'            => '',
+	                'post_excerpt'          => '',
+	                'post_content_filtered' => '',
+	                'post_mime_type'        => '',
+	                'post_password'         => '',
+	                'post_name'             => '',
+	                'guid'                  => '',
+	                'menu_order'            => 0,
+	                'pinged'                => '',
+	                'to_ping'               => '',
+	                'ping_status'           => '',
+	                'comment_status'        => 'closed',
+	                'comment_count'         => 0,
+	                'is_404'          		=> false,
+	                'is_page'         		=> false,
+	                'is_single'       		=> false,
+	                'is_archive'      		=> false,
+	                'is_tax'          		=> false,
+			);
+			return (object) $spoofed_post;
+		}
 	
 		public static function maybeSpoofQuery() {
 
@@ -429,34 +480,8 @@ if (!class_exists('TribeEventsTemplates')) {
 			if ( $wp_query->is_main_query() && tribe_is_event_query() ) {
 
 				// we need to ensure that we always enter the loop, whether or not there are any events in the actual query
-				$spoofed_post = array( "ID"                    => 1,
-				                       "post_author"           => 1,
-				                       "post_date"             => '1900-10-02 00:00:00',
-				                       "post_date_gmt"         => '1900-10-02 00:00:00',
-				                       "post_content"          => '',
-				                       "post_title"            => '',
-				                       "post_excerpt"          => '',
-				                       "post_status"           => 'publish',
-				                       "comment_status"        => 'closed',
-				                       "ping_status"           => 'closed',
-				                       "post_password"         => '',
-				                       "post_name"             => 'post',
-				                       "to_ping"               => '',
-				                       "pinged"                => '',
-				                       "post_modified"         => '1000-01-01 00:00:00',
-				                       "post_modified_gmt"     => '1000-01-01 00:00:00',
-				                       "post_content_filtered" => '',
-				                       "post_parent"           => 0,
-				                       "guid"                  => '_tribe_empty_event',
-				                       "menu_order"            => 0,
-				                       "post_type"             => 'tribe_events',
-				                       "post_mime_type"        => '',
-				                       "comment_count"         => 0,
-				                       "EventStartDate"        => '1000-01-01 00:00:00',
-				                       "EventEndDate"          => '1000-01-01 00:00:00',
-				                       "filter"                => 'raw' );
 
-				$spoofed_post = (object) $spoofed_post;
+				$spoofed_post = self::spoofed_post();
 
 				$GLOBALS['post'] = $spoofed_post;
 				$wp_query->posts[] = $spoofed_post;
@@ -481,10 +506,8 @@ if (!class_exists('TribeEventsTemplates')) {
 				// rewind the posts
 				$wp_query->rewind_posts();
 
-				// if we have some posts, advance to the first one 
-				// (since this function runs inside the_content(), we're supposed to be on the first post)
 				if ( $wp_query->have_posts() ) {
-					$wp_query->the_post();
+					wp_reset_postdata();
 				} else {
 					// there are no posts, unset the current post
 					unset ( $wp_query->post );
