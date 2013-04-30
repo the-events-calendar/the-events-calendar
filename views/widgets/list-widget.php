@@ -22,47 +22,15 @@
  * @author Modern Tribe Inc.
  *
  */
+?>
 
-$the_content_args = array(
-	'venue' => $venue, 
-	'address' => $address, 
-	'city' => $city, 
-	'region' => $region,
-	'zip' => $zip, 
-	'country' => $country, 
-	'phone' => $phone, 
-	'cost' => $cost,
-	'organizer' => $organizer
-	);
-
-$event = array();
-$tribe_ecp = TribeEvents::instance();
-reset( $tribe_ecp->metaTags ); // Move pointer to beginning of array.
-foreach( $tribe_ecp->metaTags as $tag ) {
-	$var_name = str_replace( '_Event', '', $tag );
-	$event[$var_name] = tribe_get_event_meta( $post->ID, $tag, true );
-}
-
-$event = (object) $event; // Easier to work with.
-ob_start();
-if ( !isset($alt_text) ) { $alt_text = ''; }
-post_class( $alt_text,$post->ID );
-$class = ob_get_clean();
-
-// Start list widget template
-echo apply_filters( 'tribe_events_list_widget_before_template', $event, $class );
-	
-	// Event date
-	echo apply_filters( 'tribe_events_list_widget_before_the_date', $event );
-	echo apply_filters( 'tribe_events_list_widget_the_date', $event, $post->ID );
-	echo apply_filters( 'tribe_events_list_widget_after_the_date', $event );
-
-	// Event title
-	echo apply_filters( 'tribe_events_list_widget_before_the_title', $event );
-	echo apply_filters( 'tribe_events_list_widget_the_title', $post );
-	echo apply_filters( 'tribe_events_list_widget_after_the_title', $event );
-
-// End list widget template
-echo apply_filters( 'tribe_events_list_widget_after_template', $event );
-
-$alt_text = ( empty( $alt_text ) ) ? 'tribe-events-list-widget-alt' : '';
+<li class="tribe-events-list-widget-events">
+	<!-- Event Time -->
+	<div class="duration">
+		<?php echo tribe_events_event_schedule_details(); ?>
+	</div>
+	<!-- Event Title -->
+	<p class="entry-title summary">
+			<a href="<?php tribe_get_event_link(); ?>" rel="bookmark"><?php the_title(); ?></a>
+	</p>
+</li>

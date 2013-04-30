@@ -220,7 +220,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			// Load Template Classes
 			require_once( 'template-classes/calendar.php' );
-			require_once( 'template-classes/list-widget.php' );
 			require_once( 'template-classes/list.php' );
 			require_once( 'template-classes/single-event.php' );
 
