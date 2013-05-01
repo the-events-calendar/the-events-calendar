@@ -132,6 +132,9 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			return apply_filters('tribe_events_pro_header_attributes', $attrs, $current_view );
 		}
 
+		/**
+		 * This will set the $this->week_days array with proper offset for start day in settings
+		 */
 		function set_week_days() {
 			$week_days = array();
 			for ( $n = $this->start_of_week; $n < $this->start_of_week + $this->week_length; $n++ ) {
@@ -146,10 +149,19 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			$this->week_days = $week_days;
 		}
 
+		/**
+		 * Get access to the internal week day list
+		 * @return array $week_days
+		 */
 		function get_week_days() {
 			return $this->week_days;
 		}
 
+		/**
+		 * Get events by type
+		 * @param  string $obj
+		 * @return object $this->events->{$obj}
+		 */
 		function get_events( $obj = null ) {
 			if ( !empty( $this->events->{$obj} ) )
 				return $this->events->{$obj};
@@ -157,6 +169,10 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			return $this->events;
 		}
 
+		/**
+		 * Break the $wp_query post loop apart into sorted events by type
+		 * @return void
+		 */
 		function setup_loop() {
 			global $wp_query;
 			$this->events = (object) array( 'all_day_map' => array(), 'all_day' => array(), 'hourly' => array(), 'hours' => array( 'start'=>null, 'end'=>null ) );
@@ -253,18 +269,34 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			}
 		}
 
+		/**
+		 * set internal mechanism for tracking what the current day of the week is within the display loops
+		 * @param int $day_id
+		 */
 		function set_current_day( $day_id ){
 			$this->current_day = $day_id;
 		}
 
+		/**
+		 * get internal increment for current day of the week
+		 * @return int
+		 */
 		function get_current_day(){
 			return $this->current_day;
 		}
 
+		/**
+		 * get the current date based on the current day of week
+		 * @return date( 'Y-m-d' )
+		 */
 		function get_current_date(){
 			return date_i18n( 'Y-m-d', strtotime( $this->start_of_week . ' +' . $this->current_day . ' days' ) );
 		}
 
+		/**
+		 * css column classes used during loop
+		 * @return void
+		 */
 		function column_classes(){
 			if( $this->week_days[ $this->current_day ]->is_today )
 				echo 'tribe-week-today';
@@ -272,6 +304,10 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				echo ' tribe-events-right';
 		}
 
+		/**
+		 * css event wrapper classes used during loop
+		 * @return void
+		 */
 		function event_classes(){
 
 			if( $this->loop_type == 'allday') {
@@ -309,18 +345,35 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			$this->prior_event_date->EventStartDate = $event->EventStartDate;
 		}
 
+		/**
+		 * set the internal event id for tracking between methods/templates
+		 * @param int $event_id
+		 */
 		function set_event_id( $event_id ){
 			$this->event_id = $event_id;
 		}
+
+		/**
+		 * access the internal var for tracking the event id
+		 * @return int $this->event_id
+		 */
 		function get_event_id(){
 			return $this->event_id;
 		}
 
+		/**
+		 * Based on set event id return an all day event
+		 * @return object $event
+		 */
 		function get_allday_event(){
 			$event = !empty( $this->events->all_day[ $this->event_id ] ) ? $this->events->all_day[ $this->event_id ] : null;
 			return $event;
 		}
 
+		/**
+		 * Based on set event id return an hourly type event
+		 * @return object $event
+		 */
 		function get_hourly_event(){
 			$event = !empty( $this->events->hourly[ $this->event_id ] ) ? $this->events->hourly[ $this->event_id ] : null;
 			return $event;
