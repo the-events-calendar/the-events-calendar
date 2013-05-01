@@ -14,6 +14,10 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( !class_exists('Tribe_Events_Pro_Day_Template')){
 	class Tribe_Events_Pro_Day_Template extends Tribe_PRO_Template_Factory {
 
+
+		protected $asset_packages = array('ajax-dayview');
+
+
 		/**
 		 * Set up hooks for this template
 		 *

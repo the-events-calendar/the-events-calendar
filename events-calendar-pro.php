@@ -962,9 +962,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-pro-style', $styleUrl );
 			}
 
-			$tec = TribeEvents::instance();
-			if ( $tec->displaying === 'day' ) {
-				Tribe_PRO_Template_Factory::asset_package( 'ajax-dayview' );
 			}
 		}
 
