@@ -31,7 +31,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			extract( $args, EXTR_SKIP );
 			// The view expects all these $instance variables, which may not be set without pro
 			$instance = wp_parse_args($instance, array(
-				'venue' => 0,
+/*				'venue' => 0,
 				'organizer' => 0,
 				'address' => '',
 				'city' => '',
@@ -39,7 +39,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				'zip' => '',
 				'country' => '',
 				'phone' => '',
-				'cost' => '',
+				'cost' => '',*/
 				'limit' => 5,
 				'title' => '',
 			));
@@ -75,7 +75,6 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				}
 
 				$posts    = tribe_get_events( $args );
-				$template = TribeEventsTemplates::getTemplateHierarchy( $template_name, $subfolder, $namespace, $pluginPath );
 			}
 
 			// if no posts, and the don't show if no posts checked, let's bail
@@ -94,7 +93,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				echo '<ol class="hfeed vcalendar">';
 				foreach( $posts as $post ) : 
 					setup_postdata($post);
-					include $template;
+				  tribe_get_template_part('widgets/list-widget');
 				endforeach;
 				echo "</ol><!-- .hfeed -->";
 

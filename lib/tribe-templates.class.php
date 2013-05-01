@@ -30,15 +30,13 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			// make sure we enter the loop by always having some posts in $wp_query
 			add_action( 'template_redirect', array( __CLASS__, 'maybeSpoofQuery' ) );
-
-			// then after we enter the loop, restore the original query
-			add_action( 'the_content', array( __CLASS__, 'restoreQuery' ) );
 		}
 
 		// pick the correct template to include
 		public static function templateChooser($template) {
 			$events = TribeEvents::instance();
 			do_action('tribe_tec_template_chooser', $template);
+
 
          	// hijack this method right up front if it's a 404
          	if( is_404() && is_single() && apply_filters( 'tribe_events_templates_is_404', '__return_true') )
@@ -56,6 +54,7 @@ if (!class_exists('TribeEventsTemplates')) {
 					return self::getTemplateHierarchy('wrapper-page');
 				}
 			} else {
+
 
 				// add_filter( 'wp_title', array(__CLASS__, 'remove_default_title'), 1);
 
@@ -219,6 +218,8 @@ if (!class_exists('TribeEventsTemplates')) {
 			// only run once!!!
 			remove_filter('the_content', array(__CLASS__, 'load_ecp_into_page_template') );	
 			
+			self::restoreQuery();
+
 			ob_start();
 
 			echo tribe_events_before_html();
@@ -477,7 +478,7 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			global $wp_query;
 
-			if ( $wp_query->is_main_query() && tribe_is_event_query() ) {
+			if ( $wp_query->is_main_query() && tribe_is_event_query() && tribe_get_option('tribeEventsTemplate', 'default') != '' ) {
 
 				// we need to ensure that we always enter the loop, whether or not there are any events in the actual query
 
