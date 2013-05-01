@@ -934,33 +934,40 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		public function enqueue_styles() {
 
-			// Tribe Events CSS filename
-			$event_file = 'tribe-events-pro.css';
-			$stylesheet_option = tribe_get_option( 'stylesheetOption', 'tribe' );
+			if ( tribe_is_event_query() 
+					|| is_active_widget( false, false, 'tribe-events-adv-list-widget' ) 
+					|| is_active_widget( false, false, 'tribe-mini-calendar' ) 
+					|| is_active_widget( false, false, 'tribe-events-countdown-widget' ) 
+					|| is_active_widget( false, false, 'next_event' ) 
+					|| is_active_widget( false, false, 'tribe-events-venue-widget') 
+				) {
+				// Tribe Events CSS filename
+				$event_file = 'tribe-events-pro.css';
+				$stylesheet_option = tribe_get_option( 'stylesheetOption', 'tribe' );
 
-			// What Option was selected
-			switch( $stylesheet_option ) {
-				case 'skeleton':
-				case 'full':
-					$event_file_option = 'tribe-events-pro-'. $stylesheet_option .'.css';
-					break;
-				default:
-					$event_file_option = 'tribe-events-pro-theme.css';
-					break;
-			}
+				// What Option was selected
+				switch( $stylesheet_option ) {
+					case 'skeleton':
+					case 'full':
+						$event_file_option = 'tribe-events-pro-'. $stylesheet_option .'.css';
+						break;
+					default:
+						$event_file_option = 'tribe-events-pro-theme.css';
+						break;
+				}
 
-			// Is there a pro override file in the theme?
-			$styleUrl = trailingslashit( $this->pluginUrl ) . 'resources/' . $event_file_option;
-			$styleUrl = TribeEventsTemplates::locate_stylesheet( 'tribe-events/pro/'. $event_file, $styleUrl );
-			$styleUrl = apply_filters( 'tribe_events_pro_stylesheet_url', $styleUrl );
+				// Is there a pro override file in the theme?
+				$styleUrl = trailingslashit( $this->pluginUrl ) . 'resources/' . $event_file_option;
+				$styleUrl = TribeEventsTemplates::locate_stylesheet( 'tribe-events/pro/'. $event_file, $styleUrl );
+				$styleUrl = apply_filters( 'tribe_events_pro_stylesheet_url', $styleUrl );
 
-			// Load up stylesheet from theme or plugin
-			if( $styleUrl && $stylesheet_option == 'tribe' ) {
-				wp_enqueue_style( 'full-calendar-pro-style', trailingslashit( $this->pluginUrl ) . 'resources/tribe-events-pro-full.css' );
-				wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-pro-style', $styleUrl );
-			} else {
-				wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-pro-style', $styleUrl );
-			}
+				// Load up stylesheet from theme or plugin
+				if( $styleUrl && $stylesheet_option == 'tribe' ) {
+					wp_enqueue_style( 'full-calendar-pro-style', trailingslashit( $this->pluginUrl ) . 'resources/tribe-events-pro-full.css' );
+					wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-pro-style', $styleUrl );
+				} else {
+					wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-pro-style', $styleUrl );
+				}
 
 			}
 		}
