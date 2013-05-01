@@ -905,7 +905,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 **/
 		function template_paths( $template_paths = array() ) {
 
-			$template_paths[] = $this->pluginPath;
+			array_unshift($template_paths, $this->pluginPath);
 			return $template_paths;
 
 		}
