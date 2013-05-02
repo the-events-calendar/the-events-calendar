@@ -55,42 +55,11 @@ if( !class_exists( 'TribeCountdownWidget') ) {
  
 		function get_output($event_ID, $complete, $show_seconds, $event_date = null ) {
 			$ret = $complete;
-			if ($show_seconds) {
-				$hourformat = '
-				<div class="tribe-countdown-timer tribe-clearfix">
-					<div class="tribe-countdown-days tribe-countdown-number">DD<br />
-						<span class="tribe-countdown-under">'.__('days', 'tribe-events-calendar-pro').'</span>
-					</div>
-					<div class="tribe-countdown-colon">:</div>
-					<div class="tribe-countdown-hours tribe-countdown-number">HH<br />
-						<span class="tribe-countdown-under">'.__('hours', 'tribe-events-calendar-pro').'</span>
-					</div>
-					<div class="tribe-countdown-colon">:</div>
-					<div class="tribe-countdown-minutes tribe-countdown-number">MM<br />
-						<span class="tribe-countdown-under">'.__('min', 'tribe-events-calendar-pro').'</span>
-					</div>
-					<div class="tribe-countdown-colon">:</div>
-					<div class="tribe-countdown-seconds tribe-countdown-number tribe-countdown-right">SS<br />
-						<span class="tribe-countdown-under">'.__('sec', 'tribe-events-calendar-pro').'</span>
-					</div>
-				</div>';
-			} else {
-				$hourformat = 'dd days hh:mm';
-				$hourformat = '
-				<div class="tribe-countdown-timer">
-					<div class="tribe-countdown-days tribe-countdown-number">DD<br />
-						<span class="tribe-countdown-under">'.__('days', 'tribe-events-calendar-pro').'</span>
-					</div>
-					<div class="tribe-countdown-colon">:</div>
-					<div class="tribe-countdown-hours tribe-countdown-number">HH<br />
-						<span class="tribe-countdown-under">'.__('hours', 'tribe-events-calendar-pro').'</span>
-					</div>
-					<div class="tribe-countdown-colon">:</div>
-					<div class="tribe-countdown-minutes tribe-countdown-number tribe-countdown-right">MM<br />
-						<span class="tribe-countdown-under">'.__('min', 'tribe-events-calendar-pro').'</span>
-					</div>
-				</div>';
-			}
+			
+			ob_start();
+			include( TribeEventsTemplates::getTemplateHierarchy('widgets/countdown-widget.php' ) );
+			$hourformat = ob_get_clean();
+			
 			// Get the event start date.
 			$startdate = tribe_is_recurring_event( $event_ID ) ? $event_date . ' ' . tribe_get_start_date( $event_ID, false, TribeDateUtils::DBTIMEFORMAT ) : tribe_get_start_date( $event_ID, false, TribeDateUtils::DBDATETIMEFORMAT );
 			// Get the number of seconds remaining until the date in question.
