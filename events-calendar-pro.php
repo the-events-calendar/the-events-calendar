@@ -70,8 +70,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/widget-calendar.class.php' );
 
 			require_once( 'lib/template-classes/day.php' );
-			require_once( 'lib/template-classes/featured-widget.php' );
-			require_once( 'lib/template-classes/list-widget.php' );
 			require_once( 'lib/template-classes/map.php' );
 			require_once( 'lib/template-classes/photo.php' );
 			require_once( 'lib/template-classes/single-organizer.php' );
@@ -97,9 +95,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			TribeCommonLibraries::register( 'related-posts', '1.1', $this->pluginPath. 'vendor/tribe-related-posts/tribe-related-posts.php' );
 
 			//TribeCommonLibraries::register( 'tribe-support', '0.1', $this->pluginPath . 'vendor/tribe-support/tribe-support.class.php' );
-
-			// Next Event Widget
-			require_once( 'lib/widget-featured.class.php');
 
 			add_action( 'init', array( $this, 'init' ), 10 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
