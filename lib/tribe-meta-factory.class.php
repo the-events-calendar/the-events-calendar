@@ -1,4 +1,15 @@
 <?php
+/**
+ * Meta Factory
+ *
+ * Events have meta that may change in the way it is displayed across templates.
+ * The meta factory provides a storage and templating engine similar to the WordPress 
+ * Widget Factory which allows for registration, sorting, assignment, templating and
+ * deregistration of meta items within a Tribe Meta container (similar to "sidebar")
+ * 
+ * @since  3.0
+ * @author tim@imaginesimplicity.com
+ */
 
 if ( !defined('ABSPATH') ) 
 	die('-1');
