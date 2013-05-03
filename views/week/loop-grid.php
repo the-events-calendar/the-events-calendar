@@ -10,9 +10,9 @@
  * @author Modern Tribe Inc.
  *
  */
-echo '<pre>';
-print_r( Tribe_Events_Pro_Week_Template::$events->hourly );
-echo '</pre>';
+// echo '<pre>';
+// print_r( Tribe_Events_Pro_Week_Template::$events->hourly );
+// echo '</pre>';
 
 ?>
 <div class="tribe-events-grid hfeed vcalendar clearfix">
