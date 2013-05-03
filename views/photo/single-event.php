@@ -19,7 +19,7 @@ global $post;
 
  ?>
 
-<?php echo tribe_event_featured_image( null, 'large' ) ?>
+<?php echo tribe_event_featured_image( null, 'medium' ) ?>
 
  <div class="tribe-events-event-details">
 
