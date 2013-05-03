@@ -11,13 +11,14 @@ if( !class_exists('Tribe_Meta_Factory') ) {
 
 		const META_IDS = 'meta_ids';
 
-		function __contstruct(){
+		function __construct(){
 
 		}
 
 		/**
 		 * register meta or meta_groups
-		 * 
+		 * @since  3.0
+		 * @author tim@imaginesimplicity.com
 		 * @param  string $meta
 		 * @param  array  $args
 		 * @return bool
@@ -88,18 +89,42 @@ if( !class_exists('Tribe_Meta_Factory') ) {
 			return true;
 		}
 
+		/**
+		 * check to see if meta item has been defined
+		 * @since  3.0
+		 * @author tim@imaginesimplicity.com
+		 * @param  string $meta_id
+		 * @param  string $type
+		 * @return boolean
+		 */
 		public static function check_exists( $meta_id, $type = 'meta' ){
 			global $_tribe_meta_factory;
 			$status = isset( $_tribe_meta_factory->{$type}[$meta_id] ) ? true : false ;
 			return apply_filters('tribe_meta_factory_check_exists', $status );
 		}
 
+		/**
+		 * get meta arguments
+		 * @since  3.0
+		 * @author tim@imaginesimplicity.com
+		 * @param  string $meta_id
+		 * @param  string $type
+		 * @return array of arguments
+		 */
 		public static function get_args( $meta_id, $type = 'meta' ){
 			global $_tribe_meta_factory;
 			$args = self::check_exists( $meta_id, $type ) ? $_tribe_meta_factory->{$type}[$meta_id] : array();
 			return apply_filters('tribe_meta_factory_get_args', $args );
 		}
 
+		/**
+		 * get the set order of meta items
+		 * useful when generically displaying meta for skeleton view or bulk assignments
+		 * @since  3.0
+		 * @author tim@imaginesimplicity.com
+		 * @param  string $meta_id
+		 * @return array of ordered meta ids
+		 */
 		public static function get_order( $meta_id = null ){
 			global $_tribe_meta_factory;
 
@@ -122,6 +147,14 @@ if( !class_exists('Tribe_Meta_Factory') ) {
 			return $ordered_group;
 		}
 
+		/**
+		 * set the visibility of a meta item when using a bulk display tag
+		 * @since  3.0
+		 * @author tim@imaginesimplicity.com
+		 * @param string  $meta_id
+		 * @param string  $type
+		 * @param boolean $status
+		 */
 		public static function set_visibility( $meta_id, $type = 'meta', $status = true ){
 			global $_tribe_meta_factory;
 			if( self::check_exists( $meta_id, $type ) ){
@@ -129,6 +162,12 @@ if( !class_exists('Tribe_Meta_Factory') ) {
 			}
 		}
 
+		/**
+		 * embed css classes for templating the meta item on display
+		 * @param  string $template
+		 * @param  array  $classes
+		 * @return string $template
+		 */
 		public static function embed_classes( $template, $classes = array() ){
 			if( !empty($classes) && is_array($classes)){
 
@@ -151,6 +190,17 @@ if( !class_exists('Tribe_Meta_Factory') ) {
 			return $template;
 		}
 
+		/**
+		 * return a completed meta template for display
+		 * @since  3.0
+		 * @author tim@imaginesimplicity.com
+		 * @uses   self::embed_classes for css classes
+		 * @param  string $label   
+		 * @param  string $meta    
+		 * @param  string $meta_id 
+		 * @param  string $type    
+		 * @return string $html finished meta item for display
+		 */
 		public static function template( $label, $meta, $meta_id, $type = 'meta' ) {
 			global $_tribe_meta_factory;
 			$template = self::embed_classes( 
