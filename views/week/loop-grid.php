@@ -11,7 +11,7 @@
  *
  */
 // echo '<pre>';
-// print_r( Tribe_Events_Week_Template::instance()->events->hourly);
+// print_r( Tribe_Events_Pro_Week_Template::$events->hourly );
 // echo '</pre>';
 
 ?>

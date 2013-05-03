@@ -15,34 +15,32 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 	class Tribe_Events_Pro_Week_Template extends Tribe_Pro_Template_Factory {
 
 		protected $asset_packages = array( 'ajax-weekview' );
-		private static $tribe_bar_args = array();
-		private $today;
-		private $start_of_week_date;
-		private $start_of_week;
-		private $week_length = 7;
-		private $week_days;
-		private $events;
-		private $current_day = -1;
-		private $event_id = -1;
-		private $prior_event_date = null;
-		private $daily_span_ids = array();
-
-		public $event_key_track = array();
-		public $loop_type = 'hourly';
-
+		public static $tribe_bar_args = array();
+		public static $today;
+		public static $start_of_week_date;
+		public static $start_of_week;
+		public static $week_length = 7;
+		public static $week_days;
+		public static $events;
+		public static $current_day = -1;
+		public static $event_id = -1;
+		public static $prior_event_date = null;
+		public static $daily_span_ids = array();
+		public static $event_key_track = array();
+		public static $loop_type = 'hourly';
 
 		public function __construct() {
 
 			parent::__construct();
 
-			$this->prior_event_date = (object) array( 'EventStartDate'=>null, 'EventEndDate'=>null );
-			$this->today = date_i18n( 'Y-m-d', strtotime( 'today' ) );
-			$this->start_of_week_date = tribe_get_first_week_day();
-			$this->start_of_week = get_option( 'start_of_week', 0 );
+			self::$prior_event_date = (object) array( 'EventStartDate'=>null, 'EventEndDate'=>null );
+			self::$today = date_i18n( 'Y-m-d', strtotime( 'today' ) );
+			self::$start_of_week_date = tribe_get_first_week_day();
+			self::$start_of_week = get_option( 'start_of_week', 0 );
 
 			// let's get this show on the road
-			$this->set_week_days();
-			$this->setup_loop();
+			self::set_week_days();
+			self::setup_loop();
 
 			// save tribe bar args
 			if ( empty( self::$tribe_bar_args ) ) {
@@ -97,21 +95,21 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 					$attrs['data-hour'] = 'all-day';
 					break;
 				case 'week-hourly':
-					$event = $this->get_hourly_event();
+					$event = self::get_hourly_event();
 					if ( $event->days_between > 0 ) {
 						$daily_mins = 1440;
 						$data_hour = 0;
 						$data_min = 0;
-						if ( in_array( $event->ID, $this->daily_span_ids ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) == $this->get_current_date() ) {
+						if ( in_array( $event->ID, self::$daily_span_ids ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) == self::get_current_date() ) {
 							// if the event is longer than a day we want to account for that with an offset for the ending time
-							$duration = abs( ( strtotime( $this->get_current_date() ) - strtotime( $event->EventEndDate ) ) / 60 );
-						} else if ( in_array( $event->ID, $this->daily_span_ids ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) > $this->get_current_date() ) {
+							$duration = abs( ( strtotime( self::get_current_date() ) - strtotime( $event->EventEndDate ) ) / 60 );
+						} else if ( in_array( $event->ID, self::$daily_span_ids ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) > self::get_current_date() ) {
 								// if there is a day in between start/end we just want to fill the spacer with the total mins in the day.
 								$duration = $daily_mins;
 							} else {
-							$this->daily_span_ids[] = $event->ID;
+							self::$daily_span_ids[] = $event->ID;
 							// if the event is longer than a day we want to account for that with an offset
-							$duration = $daily_mins - abs( ( strtotime( $this->get_current_date() ) - strtotime( $event->EventStartDate ) ) / 60 );
+							$duration = $daily_mins - abs( ( strtotime( self::get_current_date() ) - strtotime( $event->EventStartDate ) ) / 60 );
 							$data_hour = date( 'G', strtotime( $event->EventStartDate ) );
 							$data_min = date( 'i', strtotime( $event->EventStartDate ) );
 						}
@@ -133,20 +131,20 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		}
 
 		/**
-		 * This will set the $this->week_days array with proper offset for start day in settings
+		 * This will set the self::week_days array with proper offset for start day in settings
 		 */
 		function set_week_days() {
 			$week_days = array();
-			for ( $n = $this->start_of_week; $n < $this->start_of_week + $this->week_length; $n++ ) {
-				$day_offset = ( 0 < $this->start_of_week ) ? $n - $this->start_of_week : $n;
-				$date = date( 'Y-m-d', strtotime( $this->start_of_week_date . " +$day_offset days" ) );
+			for ( $n = self::$start_of_week; $n < self::$start_of_week + self::$week_length; $n++ ) {
+				$day_offset = ( 0 < self::$start_of_week ) ? $n - self::$start_of_week : $n;
+				$date = date( 'Y-m-d', strtotime( self::$start_of_week_date . " +$day_offset days" ) );
 				$week_days[ $n ] = (object) array(
 					'date' => $date,
-					'display' => date( 'D jS', strtotime( $this->start_of_week_date . " +$day_offset days" ) ),
-					'is_today' => ( $date == $this->today ) ? true : false
+					'display' => date( 'D jS', strtotime( self::$start_of_week_date . " +$day_offset days" ) ),
+					'is_today' => ( $date == self::$today ) ? true : false
 				);
 			}
-			$this->week_days = $week_days;
+			self::$week_days = $week_days;
 		}
 
 		/**
@@ -154,19 +152,19 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return array $week_days
 		 */
 		function get_week_days() {
-			return $this->week_days;
+			return self::$week_days;
 		}
 
 		/**
 		 * Get events by type
 		 * @param  string $obj
-		 * @return object $this->events->{$obj}
+		 * @return object self::events->{$obj}
 		 */
 		function get_events( $obj = null ) {
-			if ( !empty( $this->events->{$obj} ) )
-				return $this->events->{$obj};
+			if ( !empty( self::$events->{$obj} ) )
+				return self::$events->{$obj};
 
-			return $this->events;
+			return self::$events;
 		}
 
 		/**
@@ -175,17 +173,17 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 */
 		function setup_loop() {
 			global $wp_query;
-			$this->events = (object) array( 'all_day_map' => array(), 'all_day' => array(), 'hourly' => array(), 'hours' => array( 'start'=>null, 'end'=>null ) );
+			self::$events = (object) array( 'all_day_map' => array(), 'all_day' => array(), 'hourly' => array(), 'hours' => array( 'start'=>null, 'end'=>null ) );
 
 			// get it started off with at least 1 row
-			$this->events->all_day_map[] = array_fill( $this->start_of_week, $this->week_length, null );
+			self::$events->all_day_map[] = array_fill( self::$start_of_week, self::$week_length, null );
 			foreach ( $wp_query->posts as $event_key_id => $event ) {
 
 				// convert the start date of the event into a timestamp
 				$event_start_time = strtotime( $event->EventStartDate );
 
 				// if the event start time is greater than the start time of the week then we use the event date otherwise use the beginning of the week date
-				$start_date_compare = strtotime( $this->start_of_week_date ) < $event_start_time ? $event->EventStartDate : $this->start_of_week_date;
+				$start_date_compare = strtotime( self::$start_of_week_date ) < $event_start_time ? $event->EventStartDate : self::$start_of_week_date;
 
 				// convert the starting event or week date into day of the week
 				$event_start_day_of_week = date( 'w', strtotime( $start_date_compare ) );
@@ -194,13 +192,13 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				$event->days_between = tribe_get_days_between( $start_date_compare, $event->EventEndDate );
 
 				// make sure that our days between will not extend past the end of the week
-				$event->days_between = $event->days_between >= $this->week_length - $event_start_day_of_week ? ( $this->week_length - $event_start_day_of_week ) : (int) $event->days_between;
+				$event->days_between = $event->days_between >= self::$week_length - $event_start_day_of_week ? ( self::$week_length - $event_start_day_of_week ) : (int) $event->days_between;
 
 				// if this is an all day event
 				if (  tribe_get_event_meta( $event->ID, '_EventAllDay' ) ) {
 
 					// let's build our hashtable for add day events
-					foreach ( $this->events->all_day_map as $hash_id => $days ) {
+					foreach ( self::$events->all_day_map as $hash_id => $days ) {
 
 						// set bool for if we should inset the event id on the current hash row
 						$insert_current_row = false;
@@ -210,10 +208,10 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 							// create an offset id for cases where the day of the week is less the starting day of the week
 							// thus looping the beginning days of the start week starting at 0 around to the end
-							$all_day_offset = ( $n < $this->start_of_week ) ? ( $this->start_of_week + $this->week_length ) - ( $n + $this->start_of_week ) : $n;
+							$all_day_offset = ( $n < self::$start_of_week ) ? ( self::$start_of_week + self::$week_length ) - ( $n + self::$start_of_week ) : $n;
 
 							// check for hash collision and setup bool for going to the next row if we can't fit it on this row
-							if ( ! empty( $this->events->all_day_map[$hash_id][$all_day_offset] ) ) {
+							if ( ! empty( self::$events->all_day_map[$hash_id][$all_day_offset] ) ) {
 								$insert_current_row = true;
 								break;
 							} else {
@@ -221,13 +219,13 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 							}
 						}
 						// if we should actually insert a new row vs going to the next row
-						if ( $insert_current_row && count( $this->events->all_day_map ) == $hash_id + 1 ) {
+						if ( $insert_current_row && count( self::$events->all_day_map ) == $hash_id + 1 ) {
 
 							// create a new row and fill with week day columns
-							$this->events->all_day_map[] = array_fill( $this->start_of_week, $this->week_length, null );
+							self::$events->all_day_map[] = array_fill( self::$start_of_week, self::$week_length, null );
 
 							// change the row id to the last row
-							$hash_id = count( $this->events->all_day_map ) -1;
+							$hash_id = count( self::$events->all_day_map ) -1;
 
 						} else if ( $insert_current_row ) {
 
@@ -242,10 +240,10 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 							for ( $n = $event_start_day_of_week; $n <= $event_start_day_of_week + $event->days_between; $n++ ) {
 								// create an offset id for cases where the day of the week is less the starting day of the week
 								// thus looping the beginning days of the start week starting at 0 around to the end
-								$all_day_offset = ( $n < $this->start_of_week ) ? ( $this->start_of_week + $this->week_length ) - ( $n + $this->start_of_week ) : $n;
+								$all_day_offset = ( $n < self::$start_of_week ) ? ( self::$start_of_week + self::$week_length ) - ( $n + self::$start_of_week ) : $n;
 
 								// add the event array key id into the week day column
-								$this->events->all_day_map[$hash_id][$all_day_offset] = $event_key_id;
+								self::$events->all_day_map[$hash_id][$all_day_offset] = $event_key_id;
 							}
 
 							// break the hashtable since we have successfully added the event into a row
@@ -254,17 +252,17 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 					}
 
 					// using the array key for the event id for uniqueness of recurring events
-					$this->events->all_day[ $event_key_id ] = $event;
+					self::$events->all_day[ $event_key_id ] = $event;
 				} else {
 					$start_hour = date( 'G', strtotime( $event->EventStartDate ) );
 					$end_hour = date( 'G', strtotime( $event->EventEndDate ) );
-					if ( is_null( $this->events->hours['start'] ) || $start_hour < $this->events->hours['start'] ) {
-						$this->events->hours['start'] = $start_hour;
+					if ( is_null( self::$events->hours['start'] ) || $start_hour < self::$events->hours['start'] ) {
+						self::$events->hours['start'] = $start_hour;
 					}
-					if ( is_null( $this->events->hours['end'] ) || $end_hour > $this->events->hours['end'] ) {
-						$this->events->hours['end'] = $end_hour;
+					if ( is_null( self::$events->hours['end'] ) || $end_hour > self::$events->hours['end'] ) {
+						self::$events->hours['end'] = $end_hour;
 					}
-					$this->events->hourly[ $event->ID ] = $event;
+					self::$events->hourly[ $event->ID ] = $event;
 				}
 			}
 		}
@@ -274,7 +272,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @param int $day_id
 		 */
 		function set_current_day( $day_id ){
-			$this->current_day = $day_id;
+			self::$current_day = $day_id;
 		}
 
 		/**
@@ -282,7 +280,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return int
 		 */
 		function get_current_day(){
-			return $this->current_day;
+			return self::$current_day;
 		}
 
 		/**
@@ -290,7 +288,8 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return date( 'Y-m-d' )
 		 */
 		function get_current_date(){
-			return date_i18n( 'Y-m-d', strtotime( $this->start_of_week . ' +' . $this->current_day . ' days' ) );
+			echo date_i18n( 'Y-m-d', strtotime( self::$start_of_week . ' +' . self::$current_day . ' days' ) );
+			return date_i18n( 'Y-m-d', strtotime( self::$start_of_week . ' +' . self::$current_day . ' days' ) );
 		}
 
 		/**
@@ -298,9 +297,9 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return void
 		 */
 		function column_classes(){
-			if( $this->week_days[ $this->current_day ]->is_today )
+			if( self::$week_days[ self::$current_day ]->is_today )
 				echo 'tribe-week-today';
-			if ( $this->current_day != 0 && ( ( $this->current_day % 4 == 0 ) || ( $this->current_day % 5 == 0 ) || ( $this->current_day % 6 == 0 ) ) )
+			if ( self::$current_day != 0 && ( ( self::$current_day % 4 == 0 ) || ( self::$current_day % 5 == 0 ) || ( self::$current_day % 6 == 0 ) ) )
 				echo ' tribe-events-right';
 		}
 
@@ -310,17 +309,17 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 */
 		function event_classes(){
 
-			if( $this->loop_type == 'allday') {
-				$event = $this->get_allday_event();
+			if( self::$loop_type == 'allday') {
+				$event = self::get_allday_event();
 			} else {
-				$event = $this->get_hourly_event();
+				$event = self::get_hourly_event();
 			}
 
 			// Get our wrapper classes (for event categories, organizer, venue, and defaults)
 			echo 'hentry vevent type-tribe_events post-' . $event->ID, ' tribe-clearfix ';
 
 			// we need to adjust on behalf of weekly span scripts
-			$day_span_length = $event->days_between + $this->start_of_week;
+			$day_span_length = $event->days_between + self::$start_of_week;
 			if( $day_span_length > 0 )
 				echo 'tribe-dayspan' . $day_span_length . ' ';
 
@@ -338,11 +337,11 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				echo 'tribe-events-category-'. $tribe_cat_slug . ' ';
 			}
 
-			if ( $this->loop_type == 'hourly' && strtotime( $this->prior_event_date->EventStartDate ) < strtotime( $event->EventStartDate ) ) {
+			if ( self::$loop_type == 'hourly' && strtotime( self::$prior_event_date->EventStartDate ) < strtotime( $event->EventStartDate ) ) {
 				echo 'tribe-event-overlap ';
 			}
 
-			$this->prior_event_date->EventStartDate = $event->EventStartDate;
+			self::$prior_event_date->EventStartDate = $event->EventStartDate;
 		}
 
 		/**
@@ -350,15 +349,15 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @param int $event_id
 		 */
 		function set_event_id( $event_id ){
-			$this->event_id = $event_id;
+			self::$event_id = $event_id;
 		}
 
 		/**
 		 * access the internal var for tracking the event id
-		 * @return int $this->event_id
+		 * @return int self::event_id
 		 */
 		function get_event_id(){
-			return $this->event_id;
+			return self::$event_id;
 		}
 
 		/**
@@ -366,7 +365,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return object $event
 		 */
 		function get_allday_event(){
-			$event = !empty( $this->events->all_day[ $this->event_id ] ) ? $this->events->all_day[ $this->event_id ] : null;
+			$event = !empty( self::$events->all_day[ self::$event_id ] ) ? self::$events->all_day[ self::$event_id ] : null;
 			return $event;
 		}
 
@@ -375,7 +374,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return object $event
 		 */
 		function get_hourly_event(){
-			$event = !empty( $this->events->hourly[ $this->event_id ] ) ? $this->events->hourly[ $this->event_id ] : null;
+			$event = !empty( self::$events->hourly[ self::$event_id ] ) ? self::$events->hourly[ self::$event_id ] : null;
 			return $event;
 		}
 
