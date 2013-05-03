@@ -115,7 +115,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 				'meta_after'=>''
 			));
 
-			tribe_set_the_meta_visibility( 'tribe_event_venue_gmap_link', false );
+			add_filter( 'tribe_event_meta_venue_address_gmap', '__return_false' );
 		}
 
 		/**
