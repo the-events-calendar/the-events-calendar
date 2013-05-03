@@ -179,7 +179,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			} 
 
 			// single event view
-			if ( is_singular( TribeEvents::POSTTYPE )) {
+			if ( is_singular( TribeEvents::POSTTYPE ) && !tribe_is_showing_all() ) {
 				$template = self::getTemplateHierarchy( 'single-event' );
 			}
 
