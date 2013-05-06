@@ -1333,7 +1333,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$my_venues = false;
 			$my_venue_options = '';
 			if ( 0 != $current_user->ID ) {
-			    $my_venues = $this->get_venue_info( null, null, array('post_status' => array('publish', 'draft'), 'author' => $current_user->ID) );
+			    $my_venues = $this->get_venue_info( null, null, array('post_status' => array('publish', 'draft', 'private'), 'author' => $current_user->ID) );
 
 				if ( !empty( $my_venues ) ) {
 					foreach ( $my_venues as $my_venue ) {
@@ -1385,7 +1385,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$my_organizers = false;
 			$my_organizers_options = '';
 			if ( 0 != $current_user->ID ) {
-			    $my_organizers = $this->get_organizer_info( null, null, array('post_status' => array('publish', 'draft'), 'author' => $current_user->ID) );
+			    $my_organizers = $this->get_organizer_info( null, null, array('post_status' => array('publish', 'draft', 'private'), 'author' => $current_user->ID) );
 
 				if ( !empty( $my_organizers ) ) {
 					foreach ( $my_organizers as $my_organizer ) {
