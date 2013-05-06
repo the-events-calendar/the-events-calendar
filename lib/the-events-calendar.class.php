@@ -1835,7 +1835,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			} else {
 				global $wp_query;
 				$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : tribe_get_option( 'viewOption', 'upcoming');
-				if ( is_single() && $wp_query->query_vars['eventDisplay'] != 'all' )
+				if ( is_single() && $this->displaying != 'all' )
 					$this->displaying = 'single-event';
 			}
 		}
