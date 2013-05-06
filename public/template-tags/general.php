@@ -36,16 +36,22 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Event Recurrence
 	 * 
 	 * Test to see if event is recurring.
-	 * 
+	 *
+	 * Note: $recur_test_cache is used to avoid having to call get_post_meta repeatedly since get_post_meta is slow.
+	 *
 	 * @param int $postId (optional)
 	 * @return bool true if event is a recurring event.
 	 * @since 2.0
 	 */
 	if (!function_exists( 'tribe_is_recurring_event' )) {
 		function tribe_is_recurring_event( $postId = null )  {
-			$tribe_ecp = TribeEvents::instance();
+			static $recur_test_cache;
+			if ( empty( $recur_test_cache ) ) $recur_test_cache = array();
+			TribeEvents::instance();
 			$postId = TribeEvents::postIdHelper( $postId );
-			return apply_filters('tribe_is_recurring_event', (sizeof(get_post_meta($postId, '_EventStartDate')) > 1));
+			if ( isset( $recur_test_cache[$postId] ) ) return $recur_test_cache[$postId];
+			$recur_test_cache[$postId] = apply_filters('tribe_is_recurring_event', (sizeof(get_post_meta($postId, '_EventStartDate')) > 1));
+			return $recur_test_cache[$postId];
 		}
 	}
 
