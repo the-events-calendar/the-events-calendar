@@ -483,29 +483,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						
 					}
 					break;
-				case 'all': 
-					// get the current pretty permalink
-					$current_url = home_url( $wp->request ); //add_query_arg( $wp->query_string, '', home_url( $wp->request ) );
-
-					// remove trailing slash if present
-					$current_url = (substr($current_url, -1) == '/') ? substr($current_url, 0, -1) : $current_url; 
-
-					// explode on slash
-					$url_parts = explode('/', $current_url); 
-
-					// remove last part
-					array_pop($url_parts); 
-
-					// put it back together
-					$current_url = implode($url_parts, '/'); 
-
-					// get next recurrence
-					$next_recurrence = $this->get_last_recurrence();
-
-					// set final url with next recurrence and await redirection
-					$current_url = trailingslashit( $current_url ) . trailingslashit( $next_recurrence );
-					
-					break;
 			}
 
 			if( !empty( $current_url )) {
