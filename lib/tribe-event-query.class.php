@@ -154,7 +154,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						self::$start_date = $query->get( 'start_date' );
 						break;
 					}
-				} else if ( is_single() ) {
+				} else if ( is_single() && !tribe_is_showing_all() ) {
 						if ( $query->get( 'eventDate' ) != '' ) {
 							$query->set( 'start_date', $query->get( 'eventDate' ) );
 							$query->set( 'eventDate', $query->get( 'eventDate' ) );
