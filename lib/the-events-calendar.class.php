@@ -419,7 +419,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'wp_ajax_tribe_list', array( $this, 'list_ajax_call' ) );
 			add_action( 'tribe_events_pre_get_posts', array( $this, 'set_tribe_paged' ) );
 			add_action( 'wp_ajax_nopriv_tribe_list', array( $this, 'list_ajax_call' ) );
-			add_Action( 'plugins_loaded', array( $this, 'initPressTrends' ), 9999 );
+			add_action( 'plugins_loaded', array( $this, 'initPressTrends' ), 9999 );
 		}
 
 		/**
