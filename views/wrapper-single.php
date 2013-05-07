@@ -32,8 +32,8 @@ $set_post_type = get_post_type();
 	<?php tribe_events_before_html(); ?>
 
 		<?php the_post(); global $post; ?>
-			<div id="post-<?php the_ID(); ?>" <?php post_class('hentry vevent'); ?>>
-				<?php include( tribe_get_current_template() ); ?>
+			<div id="post-<?php the_ID(); ?>" <?php post_class('vevent'); ?>>
+				<?php tribe_get_view(); ?>
 				<?php edit_post_link( __( 'Edit', 'tribe-events-calendar' ), '<span class="edit-link">', '</span>' ); ?>
 			</div><!-- .hentry .vevent -->
 		<?php if( $set_post_type == TribeEvents::POSTTYPE && tribe_get_option( 'showComments','no' ) == 'yes' ) { comments_template(); } ?>

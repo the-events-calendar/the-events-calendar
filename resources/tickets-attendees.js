@@ -18,70 +18,114 @@ jQuery( document ).ready( function ( $ ) {
 		window.print();
 	} );
 
-
 	$( "#attendees_email_wrapper" ).dialog( {
 		autoOpen:false,
 		dialogClass: 'attendees_email_dialog',
-		height  :310,
+		height  :'auto',
 		width   :400,
 		modal   :true,
 		buttons :{
 			"Send":function () {
 
+				var $errors = $('.attendees_email_dialog #email_errors');
 				var $response = $('.attendees_email_dialog #email_response');
 				var $send = $('.attendees_email_dialog #email_send, .attendees_email_dialog .ui-dialog-buttonpane' );
 
-				$response.show();
-				$send.hide();
+				$errors.show();
 
 				var $email = tribe_validate_email();
 
 				if ( $email !== false ) {
+
+					$response.show();
+					$send.hide();
+
 					var opts = {
 						action  :'tribe-ticket-email-attendee-list',
 						email   :$email,
-						nonce   :AttendeesMail.nonce,
+						nonce   :Attendees.nonce,
 						event_id:$( '#event_id' ).val()
 					};
 
 					$.post( ajaxurl, opts, function ( response ) {
-						console.log( response );
 						if ( response.success ) {
-							$( '#email_response' ).removeClass( 'ui-state-error' ).removeClass( 'ui-state-highlight' ).text( '' );
+							$errors.removeClass( 'ui-state-error' ).removeClass( 'ui-state-highlight' ).text( '' );
+							var combo = $( '#email_to_user' );
+							combo.prop( 'disabled', false );
+							combo.val( '' );
 							$( '#email_to_address' ).val( '' );
 							$( '#attendees_email_wrapper' ).dialog( "close" );
 							$response.hide();
 							$send.show();
+							$errors.hide();
+						} else {
+							tribe_status_bg = $response.css('background');
+							$errors.removeClass( 'ui-state-highlight' ).addClass( 'ui-state-error' ).text( response.message );
+							$( '.ui-dialog-buttonpane' ).show();
+							$( '.ui-button-text-only:first' ).hide();
 						}
 					} );
 				}
 
 			},
-			Close :function () {
+			Close: function () {
 				$( this ).dialog( "close" );
-				$('.attendees_email_dialog #email_response').hide();
-				$('.attendees_email_dialog #email_send, .attendees_email_dialog .ui-dialog-buttonpane' ).show();
+				$( '.ui-button-text-only:first' ).show();
+				$( '.attendees_email_dialog #email_response' ).hide();
+				$( '.attendees_email_dialog #email_send, .attendees_email_dialog .ui-dialog-buttonpane' ).show();
+				$( '.attendees_email_dialog #email_errors' ).removeClass( 'ui-state-error' ).removeClass( 'ui-state-highlight' ).text( '' ).hide();
+
 			}
 		} } );
 
 	$( "input.email" ).click( function () {
+
+		/* Cleanup */
+		var combo = $( '#email_to_user' );
+		combo.prop( 'disabled', false );
+		combo.val( '' );
+		$( '#email_to_address' ).val( '' );
+		$( '#email_response' ).removeClass( 'ui-state-error' ).removeClass( 'ui-state-highlight' ).text( '' );
+		$( '.ui-button-text-only:first' ).show();
+		$( '.attendees_email_dialog #email_response' ).hide();
+		$( '.attendees_email_dialog #email_send, .attendees_email_dialog .ui-dialog-buttonpane' ).show();
+
 		$( "#attendees_email_wrapper" ).dialog( "open" );
+
 	} );
+
+
+	$( '#email_to_address' ).on( 'keyup paste', function () {
+
+		var email = jQuery( this ).val().trim();
+		var combo = $( '#email_to_user' );
+
+		if ( email === '' ) {
+			combo.prop( 'disabled', false );
+		} else {
+			combo.val( '' );
+			combo.prop( 'disabled', 'disabled' );
+		}
+
+	} );
+
 
 	$( '#filter_attendee' ).on( 'keyup paste', function () {
 
 		var search = jQuery( this ).val().toLowerCase();
 
-		$( 'td.column-security' ).each( function ( i, e ) {
-			var attendeeobj = jQuery( e );
-			var attendee = attendeeobj.text().toLowerCase();
-			var orderid = attendeeobj.prev( 'td' ).prev( 'td' ).prev( 'td' ).prev( 'td' ).children( 'a' ).text();
-			var ticketid = attendeeobj.prev( 'td' ).text();
+		$( '#the-list' ).find( 'tr' ).each( function ( i, e ) {
 
-			if ( attendee.indexOf( search ) === 0 || orderid.indexOf( search ) === 0 || ticketid.indexOf( search ) === 0 ) {
-				attendeeobj.parent( 'tr' ).show();
+			var row = $( e );
+
+			var order = row.children( 'td.order_id' ).children( 'a' ).text();
+			var attendee = row.children( 'td.attendee_id' ).text();
+			var security = row.children( 'td.security' ).text();
+
+			if ( attendee.indexOf( search ) === 0 || order.indexOf( search ) === 0 || security.indexOf( search ) === 0 ) {
+				row.show();
 			} else {
-				attendeeobj.parent( 'tr' ).hide();
+				row.hide();
 			}
 		} );
 
@@ -93,9 +137,10 @@ jQuery( document ).ready( function ( $ ) {
 		var obj = jQuery( this );
 
 		var params = {
-			action  :'tribe-ticket-checkin-' + obj.attr( 'data-provider' ),
-			provider:obj.attr( 'data-provider' ),
-			order_ID:obj.attr( 'data-attendee-id' )
+			action  : 'tribe-ticket-checkin-' + obj.attr( 'data-provider' ),
+			provider: obj.attr( 'data-provider' ),
+			order_ID: obj.attr( 'data-attendee-id' ),
+			nonce   : Attendees.checkin_nonce
 		};
 
 		$.post(
@@ -120,9 +165,10 @@ jQuery( document ).ready( function ( $ ) {
 		var obj = jQuery( this );
 
 		var params = {
-			action  :'tribe-ticket-uncheckin-' + obj.attr( 'data-provider' ),
-			provider:obj.attr( 'data-provider' ),
-			order_ID:obj.attr( 'data-attendee-id' )
+			action  : 'tribe-ticket-uncheckin-' + obj.attr( 'data-provider' ),
+			provider: obj.attr( 'data-provider' ),
+			order_ID: obj.attr( 'data-attendee-id' ),
+			nonce   : Attendees.uncheckin_nonce
 		};
 
 		$.post(
@@ -146,7 +192,7 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	function tribe_validate_email() {
-		$( '#email_response' ).removeClass( 'ui-state-error' ).addClass( 'ui-state-highlight' ).text( AttendeesMail.sending );
+		$( '#email_errors' ).removeClass( 'ui-state-error' ).addClass( 'ui-state-highlight' ).text( Attendees.sending );
 		var $address = $( '#email_to_address' ).val();
 		var $user = $( '#email_to_user' ).val();
 		var $email = false;
@@ -158,7 +204,7 @@ jQuery( document ).ready( function ( $ ) {
 			$email = $address;
 
 		if ( !$email )
-			$( '#email_response' ).removeClass( 'ui-state-highlight' ).addClass( 'ui-state-error' ).text( AttendeesMail.required );
+			$( '#email_errors' ).removeClass( 'ui-state-highlight' ).addClass( 'ui-state-error' ).text( Attendees.required );
 
 		return $email;
 	}

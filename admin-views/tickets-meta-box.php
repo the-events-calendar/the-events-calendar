@@ -9,6 +9,7 @@ $header_img = '';
 if ( ! empty( $header_id ) )
 	$header_img = wp_get_attachment_image( $header_id, 'full' );
 
+$modules = TribeEventsTickets::modules();
 ?>
 
 <table id="event_tickets" class="eventtable">
@@ -39,8 +40,8 @@ if ( ! empty( $header_id ) )
 					<td colspan="2">
 						<div class="tribe_preview" id="tribe_ticket_header_preview">
 							<?php echo $header_img; ?>
-							<p class="description"><a href="#" id="tribe_ticket_header_remove"><?php _e('Remove'); ?></a></p>
 						</div>
+						<p class="description"><a href="#" id="tribe_ticket_header_remove"><?php _e('Remove'); ?></a></p>
 
 						<input type="hidden" id="tribe_ticket_header_image_id" name="tribe_ticket_header_image_id" value="<?php echo esc_attr($header_id);?>" />
 					</td>
@@ -79,7 +80,7 @@ if ( ! empty( $header_id ) )
 					<td>
 						<?php
 						$checked = true;
-						foreach ( self::$active_modules as $class => $module ) {
+						foreach ( $modules as $class => $module ) {
 							?>
 							<input <?php checked( $checked );?> type="radio" name="ticket_provider" id="ticket_provider"
 																value="<?php echo esc_attr( $class );?>"

@@ -3,6 +3,5 @@
 /tests/PHPUnit/wordpress-tests/unittests-config.php
 
 # /vendor/
-
 .DS_Store
 .idea

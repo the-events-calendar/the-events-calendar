@@ -14,16 +14,29 @@ if (!class_exists('TribeEventsTemplates')) {
 		public static $throughHead = false;
 	
 		public static function init() {
-			//add_filter( 'parse_query', array( __CLASS__, 'fixIsHome') );
-			//add_filter( 'template_include', array( __CLASS__, 'fixIs404') );
+
+			// choose the wordpress theme template to use
 			add_filter( 'template_include', array( __CLASS__, 'templateChooser') );
+
+			// include our view class
+			add_action( 'template_redirect', 'tribe_initialize_view' );
+
+			// there's no template redirect on ajax, so we include the template class right before the view is included
+			if (defined('DOING_AJAX') && DOING_AJAX) { 
+				add_action( 'tribe_pre_get_view', 'tribe_initialize_view' );
+			}
+
 			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished'), 999 );
+
+			// make sure we enter the loop by always having some posts in $wp_query
+			add_action( 'template_redirect', array( __CLASS__, 'maybeSpoofQuery' ) );
 		}
 
 		// pick the correct template to include
 		public static function templateChooser($template) {
-         $events = TribeEvents::instance();
-         do_action('tribe_tec_template_chooser', $template);
+			$events = TribeEvents::instance();
+			do_action('tribe_tec_template_chooser', $template);
+
 
          	// hijack this method right up front if it's a 404
          	if( is_404() && is_single() && apply_filters( 'tribe_events_templates_is_404', '__return_true') )
@@ -33,7 +46,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			if ( ! in_array( get_query_var( 'post_type' ), array( TribeEvents::POSTTYPE, TribeEvents::VENUE_POST_TYPE, TribeEvents::ORGANIZER_POST_TYPE ) ) && ! is_tax( TribeEvents::TAXONOMY ) ) {
 				return $template;
 			}
-			
+
 			if( tribe_get_option('tribeEventsTemplate', 'default') == '' ) {
 				if(is_single() && !tribe_is_showing_all() ) {
 					return self::getTemplateHierarchy('wrapper-single');
@@ -41,12 +54,11 @@ if (!class_exists('TribeEventsTemplates')) {
 					return self::getTemplateHierarchy('wrapper-page');
 				}
 			} else {
-				// we need to ensure that we always enter the loop, whether or not there are any events in the actual query
-				self::spoofQuery();
-				add_filter( 'wp_title', array(__CLASS__, 'remove_default_title'), 1);
-				add_action( 'tribe_events_filter_the_page_title', array( __CLASS__, 'remove_title_from_page' ) );
-				add_filter( 'the_title', array( __CLASS__, 'remove_title_filter' ), 2 );
-				add_action( 'loop_start', array(__CLASS__, 'setup_ecp_template'));
+
+
+				// add_filter( 'wp_title', array(__CLASS__, 'remove_default_title'), 1);
+
+				add_action( 'loop_start', array(__CLASS__, 'setup_ecp_template' ) );
 			
 				$template = locate_template( tribe_get_option('tribeEventsTemplate', 'default') == 'default' ? 'page.php' : tribe_get_option('tribeEventsTemplate', 'default') );
 				if ($template ==  '') $template = get_index_template();
@@ -59,6 +71,23 @@ if (!class_exists('TribeEventsTemplates')) {
 				}
 				return $template;
 			}			
+		}
+
+		/**
+		 * Include the class for the current view
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		public static function instantiate_template_class( $class = false ) {
+			if ( tribe_is_event_query() ) {
+				if ( ! $class ) {
+					$class = self::get_current_template_class();
+				}
+				if ( class_exists( $class ) ) {
+					new $class;
+				}
+			}
 		}
 	
 		// remove "singular" from available body class
@@ -84,10 +113,6 @@ if (!class_exists('TribeEventsTemplates')) {
 		public static function wpHeadFinished() {
 			self::$throughHead = true;
 		}
-
-		public static function remove_default_title($title) {
-			return '';
-		}
 		
 		// Get rid of the repeating title if the page template is not the default events template.
 		public function remove_title_from_page() {
@@ -100,15 +125,36 @@ if (!class_exists('TribeEventsTemplates')) {
 		}
 	
 		public static function setup_ecp_template($query) {
+
 			do_action( 'tribe_events_filter_the_page_title' );
+
 			if( self::is_main_loop($query) && self::$throughHead) {
-				// add_filter('the_title', array(__CLASS__, 'load_ecp_title_into_page_template'), 10, 2 );		
-				add_filter('the_content', array(__CLASS__, 'load_ecp_into_page_template') );		
+
+				// on loop start, unset the global post so that template tags don't work before the_content()
+				add_action('the_post', array(__CLASS__, 'spoof_the_post'));
+
+				// on the_content, load our events template
+				add_filter('the_content', array(__CLASS__, 'load_ecp_into_page_template') );
+
+				// remove the comments template		
 				add_filter('comments_template', array(__CLASS__, 'load_ecp_comments_page_template') );
+
+				// only do this once
 				remove_action( 'loop_start', array(__CLASS__, 'setup_ecp_template') );
 			}
-		}					
-	
+		}
+
+		/**
+		 * Spoof the global post just once
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		public static function spoof_the_post() {
+			$GLOBALS['post'] = self::spoofed_post();
+			remove_action('the_post', array(__CLASS__, 'spoof_the_post'));
+		}
+
 		private static function is_main_loop($query) {
 			if (method_exists($query, 'is_main_query')) // WP 3.3+
      		return $query->is_main_query();
@@ -119,62 +165,67 @@ if (!class_exists('TribeEventsTemplates')) {
 		
 		// get the correct internal page template
 		public static function get_current_page_template() {
-         $template = '';
 
-			if ( is_tax( TribeEvents::TAXONOMY) ) {
-				if ( tribe_is_upcoming() || tribe_is_past() ){
-					Tribe_Template_Factory::asset_package( 'ajax-list' );
-					$template = self::getTemplateHierarchy('list-view');
-				}elseif ( tribe_is_month() ) {
-					$template = self::getTemplateHierarchy('calendar');
-				}
-			} if ( is_single() && !tribe_is_showing_all() ) {
-				// single event
-				$template = self::getTemplateHierarchy('single-event');
-			} elseif ( tribe_is_upcoming() || tribe_is_past() || (is_single() && tribe_is_showing_all()) ) {
-				// list view
-				Tribe_Template_Factory::asset_package( 'ajax-list' );
-				$template = self::getTemplateHierarchy('list-view');
-			} else {
-				
-				// calendar view
-				$tec = TribeEvents::instance();
-				if ( $tec->displaying == 'month' ) {
-					$template = self::getTemplateHierarchy( 'calendar' );
-				} else {
-					if( is_404() && is_single() ) {
-						// in case we somehow magically get here - protect the display
-						$template = get_404_template();
-					} else {
-						$template = self::getTemplateHierarchy( 'list-view' );
-					}
-				}
+			$template = '';
+
+			// list view
+			if ( tribe_is_list_view() ) {
+				$template = self::getTemplateHierarchy( 'list' );
+			} 
+
+			// calendar view
+			if ( tribe_is_month() ) {
+				$template = self::getTemplateHierarchy( 'calendar' );
+			} 
+
+			// single event view
+			if ( is_singular( TribeEvents::POSTTYPE ) && !tribe_is_showing_all() ) {
+				$template = self::getTemplateHierarchy( 'single-event' );
 			}
 
-         return apply_filters('tribe_current_events_page_template', $template);
+			// apply filters
+			return apply_filters('tribe_current_events_page_template', $template);
+
+		}
+
+		// get the correct internal page template
+		public static function get_current_template_class() {
+
+			$class = '';
+
+			// list view
+			if ( tribe_is_list_view() ) {
+				$class = 'Tribe_Events_List_Template';
+			} 
+
+			// calendar view
+			if ( tribe_is_month() ) {
+				$class = 'Tribe_Events_Calendar_Template';
+			} 
+
+			// single event view
+			if ( is_singular( TribeEvents::POSTTYPE )) {
+				$class = 'Tribe_Events_Single_Event_Template';
+			}
+
+			// apply filters
+			return apply_filters('tribe_current_events_template_class', $class);
+
 		}
 
 		// loads the contents into the page template
 		public static function load_ecp_into_page_template() {
 			// only run once!!!
 			remove_filter('the_content', array(__CLASS__, 'load_ecp_into_page_template') );	
-		
-			// restore the query so that our page template can do a normal loop
+			
 			self::restoreQuery();
 
 			ob_start();
 
-			// filter the WYSIWYG similiar to the_content
-			$before = tribe_get_option( 'tribeEventsBeforeHTML' );
-			$before = wptexturize( $before );
-			$before = convert_chars( $before );
-			$before = wpautop( $before );
-			$before = shortcode_unautop( $before );
-			$before = apply_filters( 'tribe_events_before_html', $before );
+			echo tribe_events_before_html();
 
-			echo $before;
+			tribe_get_view();
 
-			include self::get_current_page_template();
 			$after = tribe_get_option( 'tribeEventsAfterHTML' );
 			$after = wptexturize( $after );
 			$after = convert_chars( $after );
@@ -182,13 +233,15 @@ if (!class_exists('TribeEventsTemplates')) {
 			$after = shortcode_unautop( $after );
 			$after = apply_filters( 'tribe_events_after_html', $after );
 
-			echo $after;			
+			echo tribe_events_after_html();	
 
 			$contents = ob_get_contents();
+			
 			ob_end_clean();
 		
-			// spoof the query again because not all of our templates make use of the loop
-			self::endQuery();
+			// make sure the loop ends after our template is included
+			if ( ! is_404() )
+				self::endQuery();
 
 			return $contents;
 		} 
@@ -317,8 +370,13 @@ if (!class_exists('TribeEventsTemplates')) {
 			// setup the meta definitions
 			require_once( $tec->pluginPath . 'public/advanced-functions/meta.php' );
 
-			// allow pluginPath to be set outside of this method
-			$plugin_path = empty($plugin_path) ? $tec->pluginPath : $plugin_path;
+			// Allow base path for templates to be filtered
+			$template_base_paths = apply_filters( 'tribe_events_template_paths', (array) TribeEvents::instance()->pluginPath);
+
+			// backwards compatibility if $plugin_path arg is used
+			if ( $plugin_path && ! in_array($plugin_path, $template_base_paths) ) {
+				$template_base_paths[] = $plugin_path;
+			}
 
 			// ensure that addon plugins look in the right override folder in theme
 			$namespace = !empty($namespace) && $namespace[0] != '/' ? '/' . trailingslashit($namespace) : trailingslashit($namespace);
@@ -326,21 +384,28 @@ if (!class_exists('TribeEventsTemplates')) {
 			// setup subfolder options
 			$subfolder = !empty($subfolder) ? trailingslashit($subfolder) : $subfolder;
 
-			if( file_exists($plugin_path . 'views/hooks/' . $template))
-				include_once $plugin_path . 'views/hooks/' . $template;
+			foreach ( $template_base_paths as $template_base_path ) {
 
-			if ( $theme_file = locate_template( array('tribe-events' . $namespace . $subfolder . $template ), FALSE, FALSE) ) {
-				$file = $theme_file;
-			} else {
-				// protect from concat folder with filename
-				$subfolder = empty($subfolder) ? trailingslashit($subfolder) : $subfolder;
-				$subfolder = $subfolder[0] != '/' ? '/' . $subfolder : $subfolder;
+				if ( $theme_file = locate_template( array('tribe-events' . $namespace . $subfolder . $template ), FALSE, FALSE) ) {
+					$file = $theme_file;
+				} else {
+					// protect from concat folder with filename
+					$subfolder = empty($subfolder) ? trailingslashit($subfolder) : $subfolder;
+					$subfolder = $subfolder[0] != '/' ? '/' . $subfolder : $subfolder;
 
-				$file = $plugin_path . 'views' . $subfolder . $template;
-			}
-			
-			if ( !$disable_view_check && in_array( $tec->displaying, tribe_events_disabled_views() ) ) {
-				$file = get_404_template();
+					$file = $template_base_path . 'views' . $subfolder . $template;
+					// echo $file;
+				}
+				
+				if ( !$disable_view_check && in_array( $tec->displaying, tribe_events_disabled_views() ) ) {
+					$file = get_404_template();
+				}
+
+				$file = apply_filters( 'tribe_events_template', $file, $template);
+
+				// return the first one found
+				if (file_exists($file))
+					break;
 			}
 
 			return apply_filters( 'tribe_events_template_'.$template, $file);
@@ -367,71 +432,92 @@ if (!class_exists('TribeEventsTemplates')) {
 			}
 			return $located;
 		}
-	
-		private static function spoofQuery() {
-			global $wp_query, $withcomments;
 
-			self::$origPostCount = $wp_query->post_count;
-			self::$origCurrentPost =  $wp_query->current_post;
-			$wp_query->current_post = -1;
-			$wp_query->post_count = max($wp_query->post_count, 2);
-			//$wp_query->is_page = true; // don't show comments
-			//$wp_query->is_single = false; // don't show comments
-			//$wp_query->is_singular = true;
-
-			if ( empty ( $wp_query->posts ) ) {
-
-				global $post;
-
-				$spoofed_post = array( "ID"                    => 1,
-				                       "post_author"           => 1,
-				                       "post_date"             => '1900-10-02 00:00:00',
-				                       "post_date_gmt"         => '1900-10-02 00:00:00',
-				                       "post_content"          => '',
-				                       "post_title"            => '',
-				                       "post_excerpt"          => '',
-				                       "post_status"           => 'publish',
-				                       "comment_status"        => 'closed',
-				                       "ping_status"           => 'closed',
-				                       "post_password"         => '',
-				                       "post_name"             => 'post',
-				                       "to_ping"               => '',
-				                       "pinged"                => '',
-				                       "post_modified"         => '1000-01-01 00:00:00',
-				                       "post_modified_gmt"     => '1000-01-01 00:00:00',
-				                       "post_content_filtered" => '',
-				                       "post_parent"           => 0,
-				                       "guid"                  => '_tribe_empty_event',
-				                       "menu_order"            => 0,
-				                       "post_type"             => 'tribe_events',
-				                       "post_mime_type"        => '',
-				                       "comment_count"         => 0,
-				                       "EventStartDate"        => '1000-01-01 00:00:00',
-				                       "EventEndDate"          => '1000-01-01 00:00:00',
-				                       "filter"                => 'raw' );
-
-				$post = (object)$spoofed_post;
-
-				$wp_query->post    = $post;
-				$wp_query->posts[] = $post;
-				$wp_query->posts[] = $post;
-
-			}
-		}
-	
 		private static function endQuery() {
 			global $wp_query;
 		
 			$wp_query->current_post = 0;
 			$wp_query->post_count = 1;		
-		}	
+		}
+
+		private static function spoofed_post() {
+			$spoofed_post = array(
+                	'ID'                    => -9999,
+	                'post_status'           => 'draft',
+	                'post_author'           => 0,
+	                'post_parent'           => 0,
+	                'post_type'             => 'page',
+	                'post_date'             => 0,
+	                'post_date_gmt'         => 0,
+	                'post_modified'         => 0,
+	                'post_modified_gmt'     => 0,
+	                'post_content'          => '',
+	                'post_title'            => '',
+	                'post_excerpt'          => '',
+	                'post_content_filtered' => '',
+	                'post_mime_type'        => '',
+	                'post_password'         => '',
+	                'post_name'             => '',
+	                'guid'                  => '',
+	                'menu_order'            => 0,
+	                'pinged'                => '',
+	                'to_ping'               => '',
+	                'ping_status'           => '',
+	                'comment_status'        => 'closed',
+	                'comment_count'         => 0,
+	                'is_404'          		=> false,
+	                'is_page'         		=> false,
+	                'is_single'       		=> false,
+	                'is_archive'      		=> false,
+	                'is_tax'          		=> false,
+			);
+			return (object) $spoofed_post;
+		}
 	
-		private static function restoreQuery() {
+		public static function maybeSpoofQuery() {
+
 			global $wp_query;
+
+			if ( $wp_query->is_main_query() && tribe_is_event_query() && tribe_get_option('tribeEventsTemplate', 'default') != '' ) {
+
+				// we need to ensure that we always enter the loop, whether or not there are any events in the actual query
+
+				$spoofed_post = self::spoofed_post();
+
+				$GLOBALS['post'] = $spoofed_post;
+				$wp_query->posts[] = $spoofed_post;
+				$wp_query->post_count = count($wp_query->posts);
+
+				$wp_query->spoofed = true;
+				$wp_query->rewind_posts();
+
+			}
+		}
+
+		public static function restoreQuery() {
+			global $wp_query;
+			if ( isset( $wp_query->spoofed ) && $wp_query->spoofed ) {
+
+				// take the spoofed post out of the posts array
+				array_pop( $wp_query->posts );
+
+				// fix the post_count
+				$wp_query->post_count = count( $wp_query->posts );
+				
+				// rewind the posts
+				$wp_query->rewind_posts();
+
+				if ( $wp_query->have_posts() ) {
+					wp_reset_postdata();
+				} else {
+					// there are no posts, unset the current post
+					unset ( $wp_query->post );
+				}
+
+				// don't do this again
+				unset( $wp_query->spoofed );
+			}
 			// remove_filter('the_title', array(__CLASS__, 'load_ecp_title_into_page_template') );			
-			$wp_query->current_post = self::$origCurrentPost;
-			$wp_query->post_count = self::$origPostCount;
-			$wp_query->rewind_posts();
 		}
 	}
 

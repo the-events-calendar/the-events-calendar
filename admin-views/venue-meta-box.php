@@ -66,11 +66,12 @@ if ( tribe_get_option( 'defaultValueReplace' ) && $post->post_type != TribeEvent
 	<?php if(!isset($_VenueStateProvince) || $_VenueStateProvince == "") $_VenueStateProvince = -1;
 	$defaultState = tribe_get_option( 'eventsDefaultState' );
 	$defaultProvince = tribe_get_option( 'eventsDefaultProvince' );
+	$_VenueProvince = isset( $_VenueProvince ) ? $_VenueProvince : '';
 	$currentState = ( $_VenueStateProvince == -1 && tribe_get_option( 'defaultValueReplace' ) ) ? $defaultState : $_VenueStateProvince;
-	$currentProvince = ( $_VenueProvince && tribe_get_option( 'defaultValueReplace' ) ) ? $defaultProvince : $_VenueProvince;
+	$currentProvince = ( !isset( $_VenueProvince ) && tribe_get_option( 'defaultValueReplace' ) ) ? $defaultProvince : $_VenueProvince;
 	?>
 	<td><?php _e('State or Province:','tribe-events-calendar'); ?></td>
-	<td><input tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceText" name="venue[Province]" type='text' name='' size='25' value='<?php echo ( isset($_VenueStateProvince) && $_VenueStateProvince != '' && $_VenueStateProvince != -1 ) ? esc_attr($currentProvince) : esc_attr(''); ?>' />
+	<td><input tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceText" name="venue[Province]" type='text' name='' size='25' value='<?php echo ( isset($_VenueProvince) && $_VenueProvince != '' ) ? esc_attr($currentProvince) : esc_attr(''); ?>' />
 	<select class="chosen" tabindex="<?php $this->tabIndex(); ?>" id="StateProvinceSelect" name="venue[State]">
 		<option value=""><?php _e('Select a State:','tribe-events-calendar'); ?></option>
 		<?php
@@ -125,7 +126,7 @@ if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ) {
 	</tr>
 <?php 
 } else {
-	if( tribe_get_option('embedGoogleMaps') ) { // Only show if embed option selected
+	if( tribe_get_option('embedGoogleMaps', true) ) { // Only show if embed option selected
 	
 		$google_map_toggle = ( tribe_embed_google_map( $postId ) || get_post_status($postId) == 'auto-draft' ) ? true : false;
 ?>
@@ -137,7 +138,7 @@ if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ) {
 		</tr>
 <?php
 	} 
-	$google_map_link_toggle = ( get_post_status($postId) != 'auto-draft' && get_post_meta( $postId, '_VenueShowMapLink', true ) !== 'false' ) ? true : false;
+	$google_map_link_toggle = ( get_post_status($postId) != 'auto-draft' || get_post_meta( $postId, '_VenueShowMapLink', true ) !== 'false' ) ? true : false;
 	?>
 	<tr id="google_map_link_toggle">
 		<td><?php _e('Show Google Maps Link:','tribe-events-calendar'); ?></td>

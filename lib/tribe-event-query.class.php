@@ -109,6 +109,8 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					$query->query_vars['s'] = $_REQUEST['tribe-bar-search'];
 				}
 
+				$query->query_vars['eventDisplay'] = !empty( $query->query_vars['eventDisplay'] ) ? $query->query_vars['eventDisplay'] : TribeEvents::instance()->displaying;
+
 				if ( !empty( $query->query_vars['eventDisplay'] ) ) {
 					switch ( $query->query_vars['eventDisplay'] ) {
 					case 'custom':
@@ -152,7 +154,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						self::$start_date = $query->get( 'start_date' );
 						break;
 					}
-				} else if ( is_single() ) {
+				} else if ( is_single() && !tribe_is_showing_all() ) {
 						if ( $query->get( 'eventDate' ) != '' ) {
 							$query->set( 'start_date', $query->get( 'eventDate' ) );
 							$query->set( 'eventDate', $query->get( 'eventDate' ) );
@@ -424,6 +426,9 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						break;
 					case 'title':
 						$order_sql = "{$wpdb->posts}.post_title {$order}, " . $order_sql;
+						break;
+					case 'menu_order':
+						$order_sql = "{$wpdb->posts}.menu_order ASC, " . $order_sql;
 						break;
 					case 'event_date':
 					default:

@@ -103,10 +103,11 @@ $tickets  = TribeEventsTickets::get_event_tickets( $event_id );
 	</form>
 
 	<div id="attendees_email_wrapper" title="<?php _e( 'Send the attendee list by email', 'tribe-events-calendar' );?>">
+		<div id="email_errors"></div>
 		<div id="email_send">
 			<label for="email_to_user">
 				<span><?php _e( 'Select a User:', 'tribe-events-calendar' );?></span>
-				<?php wp_dropdown_users( array( 'name' => 'email_to_user', 'id' => 'email_to_user', 'show_option_none' => ' ', 'selected' => get_current_user_id() ) ); ?>
+				<?php wp_dropdown_users( array( 'name' => 'email_to_user', 'id' => 'email_to_user', 'show_option_none' => __( 'Select...', 'tribe-events-calendar' ), 'selected' => '' ) ); ?>
 			</label>
 			<span class="attendees_or"><?php _e( 'or', 'tribe-events-calendar' );?></span>
 			<label for="email_to_address">

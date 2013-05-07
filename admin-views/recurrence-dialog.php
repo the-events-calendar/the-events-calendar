@@ -5,7 +5,9 @@
 
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
-
+if ( empty( $recStart ) ) {
+	$recStart = tribe_get_start_date( $post->ID, false, TribeDateUtils::DBDATEFORMAT );
+}
 ?>
 <div id="recurring-dialog"  title="Saving Recurring Event" style="display: none;">
 	<p><?php _e('Would you like to change only this instance of the event, or all future events in this series?','tribe-events-calendar'); ?></p>

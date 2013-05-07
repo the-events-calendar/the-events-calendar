@@ -49,6 +49,100 @@ if( class_exists( 'TribeEvents' ) ) {
 		$output = ( $tribe_ecp->displaying == 'month' ) ? true : false;
 		return apply_filters('tribe_is_month', $output);
 	}
+
+	/**
+	 * Whether there are more calendar days available in the loop.
+	 *
+	 * @return bool True if calendar days are available, false if end of loop.
+	 * @since 3.0
+	 **/
+	function tribe_events_have_calendar_days() {
+		return Tribe_Events_Calendar_Template::have_days();
+	}
+
+	/**
+	 * Sets up the current calendar day
+	 *
+	 * @return void
+	 * @since 3.0
+	 **/
+	function tribe_events_the_calendar_day() {
+		Tribe_Events_Calendar_Template::the_day();
+	}
+
+	/**
+	 * Returns the internal counter for the current week in the calendar loop
+	 *
+	 * @return void
+	 * @since 3.0 
+	 **/
+	function tribe_events_get_current_week() {
+		return Tribe_Events_Calendar_Template::get_current_week();
+	}
+
+	/**
+	 * Gets the current day array in the calendar loop
+	 *
+	 * @return array Day information
+	 * @since 3.0
+	 **/
+	function tribe_events_get_current_calendar_day() {
+		return apply_filters( 'tribe_events_current_calendar_day', Tribe_Events_Calendar_Template::get_current_day() );
+	}
+
+	/**
+	 * Outputs classes for the current calendar day
+	 *
+	 * @return void
+	 * @since 3.0 
+	 **/
+	function tribe_events_the_calendar_day_classes() {
+		echo apply_filters( 'tribe_events_the_calendar_day_class', Tribe_Events_Calendar_Template::day_classes() );
+	}
+
+	/**
+	 * Output the current day number
+	 *
+	 * @return void
+	 * @since 3.0
+	 **/
+	function tribe_events_the_calendar_day_header()	{
+		$day_num = 0;
+		$day = tribe_events_get_current_calendar_day();
+		if ( $day ) {
+			$day_num = $day['daynum'];			
+		} else {
+			_doing_it_wrong( __FUNCTION__, __FUNCTION__.' should only be used in the month view loop.', 'The Events Calendar 3.0' );
+		}
+		echo apply_filters( 'tribe_events_the_calendar_day_header', $day_num, $day );
+	}
+
+	/**
+	 * Get the wp_query with the list of events for the current day in the calendar loop
+	 *
+	 * @return $wp_query
+	 * @since 3.0
+	 **/
+	function tribe_events_get_current_calendar_day_events()	{
+		$events = new WP_Query;
+		$day = tribe_events_get_current_calendar_day();
+		if ( $day ) {
+			$events = $day['events'];			
+		} else {
+			_doing_it_wrong( __FUNCTION__, __FUNCTION__.' should only be used in the month view loop.', 'The Events Calendar 3.0' );
+		}
+		return apply_filters( 'tribe_events_get_current_calendar_day_events', $events, $day );
+	}
+
+	/**
+	 * Outputs classes for the current single event in the calendar loop
+	 *
+	 * @return void
+	 * @since 3.0 
+	 **/
+	function tribe_events_the_calendar_single_event_classes() {
+		echo apply_filters('tribe_events_the_calendar_single_event_classes', Tribe_Events_Calendar_Template::event_classes());
+	}
 	
 	/**
 	 * Sort Events by Day
@@ -200,6 +294,34 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Display a link to the previous month. Used in the calendar navigation.
+	 *
+	 * @return void
+	 * @since 3.0
+	 **/
+	function tribe_events_previous_month_link() {
+		$url = tribe_get_previous_month_link();
+		$date = TribeEvents::instance()->previousMonth( tribe_get_month_view_date() );
+		$text = tribe_get_previous_month_text();
+		$html = '<a data-month="'. $date .'" href="' . $url . '" rel="pref">&laquo; '. $text .' </a>';
+		echo apply_filters('tribe_events_previous_month_link', $html);
+	}
+
+	/**
+	 * Display a link to the next month. Used in the calendar navigation.
+	 *
+	 * @return void
+	 * @since 3.0
+	 **/
+	function tribe_events_next_month_link() {
+		$url = tribe_get_next_month_link();
+		$date = TribeEvents::instance()->nextMonth( tribe_get_month_view_date() );
+		$text = tribe_get_next_month_text();
+		$html = '<a data-month="'. $date .'" href="' . $url . '" rel="pref">'. $text .' &raquo;</a>';
+		echo apply_filters('tribe_events_next_month_link', $html);
+	}
+
+	/**
 	 * Link to Previous Month
 	 * 
 	 * Returns a link to the previous month's events page. Used in the grid view.
@@ -207,7 +329,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @return string URL
 	 * @since 2.0
 	 */
-	function tribe_get_previous_month_link()  {
+	function tribe_get_previous_month_link() {
 		global $wp_query;
 		$term = null;
 		$tribe_ecp = TribeEvents::instance();
@@ -338,7 +460,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			}
 			// added last class for css
 			if( $i+1 == count( $monthView[$day] ) ) {
-				$classes[] = 'tribe-last';
+				$classes[] = 'tribe-events-last';
 			}
 			$class_string = implode(' ', $classes);
 

@@ -82,19 +82,17 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_embed_google_map($postId = null) {
-		if( !$postId )
-			return 1;
-			
+		
+		$output = false;
 		$postId = TribeEvents::postIdHelper( $postId );
 		$post_type = get_post_type( $postId );
+
 		if ( tribe_get_option('embedGoogleMaps') ) {
 			if ( $post_type == TribeEvents::POSTTYPE ) {
 				$output = get_post_meta( $postId, '_EventShowMap', 1) == 1;
 			} elseif ( $post_type == TribeEvents::VENUE_POST_TYPE ) {
 				$output = get_post_meta( $postId, '_VenueShowMap', 1) !== 'false' ? 1 : 0;
 			}
-		} else {
-			return 0;
 		}
 		return apply_filters('tribe_embed_google_map', $output);
 	}
@@ -109,11 +107,11 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_show_google_map_link($postId = null) {
-		if( !$postId )
-			return 1;
-			
+
+		$output = false;			
 		$postId = TribeEvents::postIdHelper( $postId );
 		$post_type = get_post_type( $postId );
+
 			if ( $post_type == TribeEvents::POSTTYPE ) {
 				$output = get_post_meta( $postId, '_EventShowMapLink', 1) == 1;
 			} elseif ( $post_type == TribeEvents::VENUE_POST_TYPE ) {

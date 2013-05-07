@@ -14,14 +14,14 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 				// Start & end date
 				$html = Tribe_Meta_Factory::template(
 					__( 'Start:', 'tribe-events-calendar' ),
-					sprintf( '<abbr class="tribe-events-abbr" title="%s">%s</abbr>',
+					sprintf( '<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
 						tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ),
 						tribe_get_start_date()
 					),
 					$meta_id );
 				$html .= Tribe_Meta_Factory::template(
 					__( 'End:', 'tribe-events-calendar' ),
-					sprintf( '<abbr class="tribe-events-abbr" title="%s">%s</abbr>',
+					sprintf( '<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
 						tribe_get_end_date( null, false, TribeDateUtils::DBDATEFORMAT ),
 						tribe_get_end_date()
 					),
@@ -30,7 +30,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 				// If all day event, show only start date
 				$html = Tribe_Meta_Factory::template(
 					__( 'Date:', 'tribe-events-calendar' ),
-					sprintf( '<abbr class="tribe-events-abbr" title="%s">%s</abbr>',
+					sprintf( '<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
 						tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ),
 						tribe_get_start_date()
 					),
@@ -120,7 +120,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		function venue_address( $meta_id ){
 			global $_tribe_meta_factory;
 
-			$address = tribe_address_exists( get_the_ID() ) ? '<address class="event-address">' . tribe_get_full_address( get_the_ID() ) . '</address>' : '';
+			$address = tribe_address_exists( get_the_ID() ) ? '<address class="tribe-events-address">' . tribe_get_full_address( get_the_ID() ) . '</address>' : '';
 
 			// Google map link
 			$gmap_link = tribe_show_google_map_link( get_the_ID() ) ? self::gmap_link() : '' ;
@@ -162,7 +162,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			'label' => __('Details', 'tribe-events-calendar' ),
 			'classes' => array(
 				'before'=>array('tribe-events-meta-group'),
-				'label_before'=>array('tribe-event-single-section-title'))
+				'label_before'=>array('tribe-events-single-section-title'))
 		) );
 
 	/**
@@ -221,7 +221,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_details
 	 */
 	tribe_register_meta( 'tribe_event_website', array(
-			'classes' => array( 'meta_before' => array('published', 'event-url')),
+			'classes' => array( 'meta_before' => array('tribe-events-event-url')),
 			'label' => __( 'Website:', 'tribe-events-calendar' ),
 			'filter_callback' => array('Tribe_Register_Meta', 'event_website'),
 			'priority' => 50,
@@ -234,7 +234,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_details
 	 */
 	tribe_register_meta( 'tribe_event_origin', array(
-			'classes' => array('meta_before'=>array('published','event-origin')),
+			'classes' => array('meta_before'=>array('published','tribe-events-event-origin')),
 			'label' => __( 'Origin:', 'tribe-events-calendar' ),
 			'filter_callback' => array( 'Tribe_Register_Meta', 'event_origin' ),
 			'priority' => 60,
@@ -247,8 +247,8 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	tribe_register_meta_group( 'tribe_event_venue', array(
 			'label' => __('Venue', 'tribe-events-calendar' ),
 			'classes' => array(
-				'before'=>array('tribe-events-meta-group'),
-				'label_before'=>array('tribe-event-single-section-title'))
+				'before'=>array('tribe-events-meta-group','vcard'),
+				'label_before'=>array('tribe-events-single-section-title'))
 		) );
 
 	/**
@@ -257,7 +257,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_venue
 	 */
 	tribe_register_meta( 'tribe_event_venue_name', array(
-			'classes' => array('meta_before'=> array('vcard','fn','org')),
+			'classes' => array('meta_before'=> array('author','fn','org')),
 			'label' => '',
 			'priority' => 10,
 			'filter_callback' => array( 'Tribe_Register_Meta', 'venue_name' ),
@@ -270,7 +270,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_venue
 	 */
 	tribe_register_meta( 'tribe_event_venue_phone', array(
-			'classes' => array('meta_before'=>array('vcard','tel')),
+			'classes' => array('meta_before'=>array('tel')),
 			'label' => __( 'Phone:', 'tribe-events-calendar' ),
 			'priority' => 20,
 			'callback' => 'tribe_get_phone',
@@ -283,7 +283,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_venue
 	 */
 	tribe_register_meta( 'tribe_event_venue_address', array(
-			'classes' => array('meta_before' =>array('location')),
+			'classes' => array('meta_before'=>array('location')),
 			'priority' => 30,
 			'label' => __( 'Address:', 'tribe-events-calendar' ),
 			'filter_callback' => array( 'Tribe_Register_Meta', 'venue_address' ),
@@ -291,12 +291,12 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		) );
 
 	/**
-	 * Register Meta: Venue Phone
+	 * Register Meta: Venue Website
 	 *
 	 * @group tribe_event_venue
 	 */
 	tribe_register_meta( 'tribe_event_venue_website', array(
-			'classes' => array('meta_before'=>array('vcard','url')),
+			'classes' => array('meta_before'=>array('url')),
 			'label' => __( 'Website:', 'tribe-events-calendar' ),
 			'priority' => 40,
 			'callback' => 'tribe_get_venue_website_link',
@@ -309,8 +309,8 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	tribe_register_meta_group( 'tribe_event_organizer', array(
 			'label' => __('Organizer', 'tribe-events-calendar' ),
 			'classes' => array(
-				'before'=>array('tribe-events-meta-group'),
-				'label_before'=>array('tribe-event-single-section-title'))
+				'before'=>array('tribe-events-meta-group','vcard'),
+				'label_before'=>array('tribe-events-single-section-title'))
 		) );
 
 	/**
@@ -319,7 +319,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_organizer
 	 */
 	tribe_register_meta( 'tribe_event_organizer_name', array(
-			'classes'=>array('meta_before'=>array('vcard','author','fn','org')),
+			'classes'=>array('meta_before'=>array('fn','org')),
 			'label' => '',
 			'priority' => 10,
 			'filter_callback' => array( 'Tribe_Register_Meta', 'organizer_name' ),
@@ -332,7 +332,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_organizer
 	 */
 	tribe_register_meta( 'tribe_event_organizer_phone', array(
-			'classes' => array('meta_before'=> array( 'vcard', 'tel') ),
+			'classes' => array('meta_before'=> array('tel') ),
 			'label' => __( 'Phone:', 'tribe-events-calendar' ),
 			'priority' => 20,
 			'callback' => 'tribe_get_organizer_phone',
@@ -345,7 +345,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_organizer
 	 */
 	tribe_register_meta( 'tribe_event_organizer_email', array(
-			'classes'=> array('meta_before'=>array('vcard','email')),
+			'classes'=> array('meta_before'=>array('email')),
 			'label' => __( 'Email:', 'tribe-events-calendar' ),
 			'priority' => 30,
 			'filter_callback' => array( 'Tribe_Register_Meta', 'organizer_email' ),
@@ -358,7 +358,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group tribe_event_organizer
 	 */
 	tribe_register_meta( 'tribe_event_organizer_website', array(
-			'classes' => array('meta_before'=>array('vcard','url')),
+			'classes' => array('meta_before'=>array('url')),
 			'label' => __( 'Website:', 'tribe-events-calendar' ),
 			'priority' => 40,
 			'callback' => 'tribe_get_organizer_website_link',
@@ -371,7 +371,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group none specified
 	 */
 	tribe_register_meta( 'tribe_event_title', array(
-			'classes'=>array('meta_before'=>array('summary')),
+			'classes'=>array('meta_before'=>array('entry-title','summary')),
 			'label' => __( 'Event:', 'tribe-events-calendar' ),
 			'callback' => array( 'Tribe_Register_Meta', 'the_title' )
 		) );
@@ -384,7 +384,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 				'meta_before'=>'<div class="%s">',
 				'meta_after'=>'</div>'
 			),
-			'classes'=>array('meta_before'=>array('tribe-event-venue-map')),
+			'classes'=>array('meta_before'=>array('tribe-events-venue-map')),
 			'label' => '',
 			'priority' => 10,
 			'filter_callback' => array( 'Tribe_Register_Meta', 'venue_map' )

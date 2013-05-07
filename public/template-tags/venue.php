@@ -276,8 +276,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param bool $only_with_upcoming Only return venues with upcoming events attached to them.
 	 * @return array An array of venue post objects.
 	 */
-	function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1 ) {
-		$venues = get_posts( array( 'post_type' => TribeEvents::VENUE_POST_TYPE, 'posts_per_page' => $posts_per_page ) );
+	function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1, $suppress_filters = true ) {
+		$venues = get_posts( array( 'post_type' => TribeEvents::VENUE_POST_TYPE, 'posts_per_page' => $posts_per_page, 'suppress_filters' => $suppress_filters ) );
 		
 		return $venues;
 	}

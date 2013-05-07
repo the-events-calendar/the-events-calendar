@@ -35,7 +35,7 @@ $wp_query->is_404=false;
 	
 		<?php tribe_events_before_html(); ?>
 		
-			<?php include(tribe_get_current_template()); ?>
+			<?php tribe_get_view(); ?>
 	
 		<?php tribe_events_after_html(); ?>
 	
