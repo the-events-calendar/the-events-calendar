@@ -1,17 +1,19 @@
 <?php
+/**
+ * Template Factory
+ *
+ * The parent class for managing the view methods in core and addons
+ * 
+ * @since  3.0
+ * @author tim@imaginesimplicity.com
+ * @author jessica@
+ */
 
 if ( !defined('ABSPATH') ) 
 	die('-1');
 
 if( !class_exists('Tribe_Template_Factory') ) {
 	class Tribe_Template_Factory {
-
-		/**
-		 * Singleton member
-		 *
-		 * @var self
-		 **/
-		protected static $instance;
 
 		/**
 		 * Array of asset packages needed for this template
