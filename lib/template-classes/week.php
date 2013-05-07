@@ -286,7 +286,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * increment the current day for tracking the current day of the week within the loop
 		 * @return [type] [description]
 		 */
-		public static function increment_current_day(){
+		public static function the_day(){
 			if( self::$current_day == -1 ) {
 				self::$current_day = self::$start_of_week;
 			} else 
@@ -297,19 +297,19 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			}
 		}
 
-		public static function reset_current_day(){
+		public static function reset_the_day(){
 			self::$current_day = -1;
 		}
 
-		public static function get_map_row(){
+		public static function get_the_day_map(){
 			return self::$current_map_row;
 		}
 
-		public static function increment_map_row(){
+		public static function the_day_map(){
 			self::$current_map_row++;
 		}
 
-		public static function reset_map_row(){
+		public static function reset_the_day_map(){
 			self::$current_map_row = -1;
 		}
 
@@ -402,7 +402,12 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return int self::event_id
 		 */
 		function get_event_id(){
-			return self::$event_id;
+			if( self::$loop_type == 'allday' && !empty( self::$events->all_day[ self::$event_id ] ) ) {
+				return self::$events->all_day[ self::$event_id ]->ID;
+			} else if ( self::$loop_type == 'hourly' ) {
+				return self::$event_id;
+			}
+			return null;
 		}
 
 		/**
@@ -419,9 +424,13 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return object $event
 		 */
 		function get_hourly_event( $event_id = null ){
-			$event_id = empty( $event_id ) ? self::$event_id : $event_id;
-			$event = !empty( self::$events->hourly[ $event_id ] ) ? self::$events->hourly[ $event_id ] : null;
-			return $event;
+			$event_id = !empty( $event_id ) ? $event_id : self::get_event_id();
+			if( is_object( $event_id )){
+				return $event_id;
+			} else {
+				$event = !empty( self::$events->hourly[ $event_id ] ) ? self::$events->hourly[ $event_id ] : null;
+				return $event;	
+			}
 		}
 
 	}

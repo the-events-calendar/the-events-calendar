@@ -12,7 +12,7 @@
  */
 ?>
 <?php if( tribe_events_week_is_not_allday_event_field() ) : ?>
-	<div class="tribe-event-placeholder hentry vevent " data-event-id="<?php echo tribe_events_week_get_event_id(); ?>">&nbsp;</div>
+	<div class="tribe-event-placeholder hentry vevent " data-event-id="<?php tribe_events_week_get_event_id(); ?>">&nbsp;</div>
 <?php else : $event = tribe_events_week_get_event(); ?>
 	<div id="tribe-events-event-<?php echo $event->ID; ?>" class="<?php tribe_events_week_event_classes(); ?>" <?php tribe_events_the_header_attributes( 'week-all-day' ); ?>>
 		<div>
