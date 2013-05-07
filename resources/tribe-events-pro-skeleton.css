@@ -620,19 +620,6 @@
 /* = Single Venue Template Styles (Pro Version)
    @ Template: single-venue.php
 =============================================*/
-.single-tribe_venue  .tribe_venue .tribe-events-venue-meta h2.entry-title {
-	display: inline;
-}
-.tribe-events-venue .tribe-events-map-wrap {
-	margin: 5px 0 30px 30px;
-	float: right;
-	width: 50%;
-}
-
-.tribe-events-venue h3.tribe-events-upcoming {
-	font-size: 1.3em;
-	margin-bottom: 30px;
-}
 
 .tribe-events-venue .tribe-events-map-wrap #tribe-events-gmap {
 	height: 0 !important;
@@ -641,82 +628,6 @@
 	margin: 0 !important;
 }
 
-#tribe-events-content.tribe-events-venue {
-	padding: 0;
-}
-
-.tribe-events-venue .tribe-events-venue-meta {
-	margin: 0 0 30px 0;
-	padding: 0 0 30px 0;
-	border-bottom: 1px solid #ddd;
-}
-
-.tribe-events-venue .tribe-events-event-meta {
-	border: 0;
-}
-
-.tribe-events-venue address.venue-address {
-	margin: 0;
-}
-.tribe-events-venue address.venue-address span {
-	margin: 5px 0;
-	line-height: 1;	
-}
-
-.tribe-events-venue address.venue-address,
-.tribe-events-venue address.venue-address span.street-address,
-.tribe-events-venue address.venue-address span.tel,
-.tribe-events-venue address.venue-address span.url {
-	display: block;
-}
-
-.tribe-events-venue .tribe-venue-description {
-	margin: 3% 0 0;
-}
-#tribe-events-pg-template .tribe-events-venue .tribe-venue-description p {
-	margin: 0 0 3% 0;
-}
-
-.tribe-events-organizer-meta {
-	padding: 0 0 4% 0;
-}
-
-.tribe-events-organizer .tribe-events-event-meta {
-	border: 0;
-}
-
-.tribe-events-organizer .tribe-events-organizer-meta {
-	margin-bottom: 30px;
-	padding-bottom: 30px;
-	border-bottom: 1px solid #ddd;
-}
-
-.tribe-events-organizer address.organizer-address {
-	font-style: normal;
-	font-weight: bold;
-	word-wrap: break-word;
-	margin-bottom: 1.25em;
-}
-.tribe-events-organizer address.organizer-address span {
-	line-height: 1;
-	white-space: pre;
-}
-
-.tribe-events-organizer .tribe-events-divider {
-	margin: 0 10px;
-}
-
-.tribe-events-organizer .tribe-organizer-description {
-	margin-bottom: 1em;
-}
-
-#tribe-events-pg-template .tribe-events-organizer .organizer-description p {
-	margin: 0 0 10px 0;
-}
-
-.tribe-events-organizer h3.tribe-events-upcoming {
-	margin-bottom: 30px;
-}
 
 /* = Related Events
    @ Template: single-event.php

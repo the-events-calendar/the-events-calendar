@@ -828,6 +828,29 @@ h3.tribe-events-related-events-title {
 }
 
 /* = Events Calendar Widget Styles (Sidebar)
+   @ Template: list-widget.php
+=============================================*/
+
+.tribe-events-adv-list-widget ol li {
+	margin-bottom: 20px;
+}
+
+.tribe-events-adv-list-widget .tribe-venue {
+	display: block;
+}
+
+.tribe-events-adv-list-widget .country-name {
+	display: block;
+}
+
+.tribe-events-adv-list-widget .tribe-events-event-cost {
+	display: block;
+}
+
+.tribe-events-adv-list-widget  .tribe-events-event-schedule-details {
+}
+
+/* = Events Calendar Widget Styles (Sidebar)
    @ Template: calendar-widget.php
 =============================================*/
 .tribe-events-calendar-widget {
@@ -940,10 +963,27 @@ div.tribe-countdown-text {
 
 /* = Events Venue Widget
 =============================================*/
-.tribe_venue-widget-venue-name a {
+.tribe-venue-widget-venue-name a {
 	font-weight: bold;
 }
 
+.tribe-venue-widget-list li + li {
+	margin-top: 15px;
+}
+
+.tribe-venue-widget-list .tribe-events-event-schedule-details {
+	display: inline;
+	font-weight: bold;
+}
+.tribe-venue-widget-thumbnail {
+	margin: 10px 0 20px 0;
+}
+
+.tribe-venue-widget-thumbnail img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
 /* = Events Calendar Tribe Bar Styles
 =============================================*/
 .tribe-events-uses-geolocation .tribe-bar-search-filter,

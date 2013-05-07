@@ -37,13 +37,13 @@ tribe_events_week_set_loop_type( 'hourly' );
 		</div><!-- tribe-week-grid-hours -->
 		<?php // Content ?>
 		<div class="tribe-grid-content-wrap">
-			<?php foreach( tribe_events_week_get_days() as $day_id => $day ) : tribe_events_week_setup_current_day( $day_id ); ?>
-			<div title="<?php echo $day->date; ?>" class="column <?php tribe_events_week_column_classes(); ?>">
-				<?php foreach( tribe_events_week_get_hourly() as $event ) : if( tribe_events_week_setup_event( $event->ID ) ) : ?>
-					<?php tribe_get_template_part('week/single-event', 'hourly'); ?>
+			<?php while ( tribe_events_week_have_days() ) : tribe_events_week_the_day(); ?>
+			<div title="<?php tribe_events_week_get_the_date(); ?>" class="column <?php tribe_events_week_column_classes(); ?>">
+				<?php foreach ( tribe_events_week_get_hourly() as $event ) : if ( tribe_events_week_setup_event( $event ) ) : ?>
+					<?php tribe_get_template_part( 'week/single-event', 'hourly' ); ?>
 				<?php endif; endforeach; ?>
 			</div><!-- hourly column -->
-			<?php endforeach; ?>
+			<?php endwhile; ?>
 		</div><!-- .tribe-grid-content-wrap -->
 	</div><!-- .tribe-grid-body -->
 </div><!-- .tribe-week-grid-wrapper -->

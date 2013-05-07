@@ -43,7 +43,7 @@ $organizer_id = get_the_ID();
 			<?php do_action( 'tribe_events_single_organizer_after_the_meta' ) ?>
 
 			<!-- Organizer Featured Image -->
-			<?php tribe_event_featured_image( null, 'full' ); ?>
+			<?php echo tribe_event_featured_image(null, 'full') ?>
 
 			<!-- Organizer Content -->
 			<?php if( get_the_content() ) { ?>

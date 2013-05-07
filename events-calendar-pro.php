@@ -47,6 +47,18 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		const REQUIRED_TEC_VERSION = '3.0';
 		const VERSION = '3.0';
 
+		/**
+		 * PressTrends API key
+		 * @var string
+		 */
+		private static $pressTrendsApiKey = 'tije8ygaph33vjqfbnyv6irf0wzulmingvl2';
+
+		/**
+		 * PressTrends auth key
+		 * @var string
+		 */
+		private static $pressTrendsAuth = '23gkvkelwcf37hmgnxqzjrcmf4bkycrui';
+
 		private function __construct() {
 			$this->pluginDir = trailingslashit( basename( dirname( __FILE__ ) ) );
 			$this->pluginPath = trailingslashit( dirname( __FILE__ ) );
@@ -79,7 +91,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'public/template-tags/general.php' );
 			require_once( 'public/template-tags/week.php' );
 			require_once( 'public/template-tags/venue.php' );
-			require_once( 'lib/tribe-presstrends-events-calendar-pro.php' );
 			require_once( 'lib/tribe-geoloc.class.php' );
 			require_once( 'lib/meta-pro.php' );
 
@@ -140,7 +151,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			// add related events to single event view
 			add_action( 'tribe_events_single_event_after_the_meta', 'tribe_single_related_events' );
-			
+
 			// add_action( 'tribe_events_single_event_meta_init', array( $this, 'single_event_meta_init'), 10, 4);
 
 			// see function tribe_convert_units( $value, $unit_from, $unit_to )
@@ -173,6 +184,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'wp_ajax_nopriv_tribe_week', array( $this, 'wp_ajax_tribe_week' ) );
 
 			add_filter( 'tribe_events_pre_get_posts' , array( $this, 'setup_hide_recurrence_in_query' ) );
+
+			add_action( 'plugins_loaded', array( $this, 'initPressTrends' ), 9999 );
+
 			add_filter( 'wp' , array( $this, 'detect_recurrence_redirect' ) );
 
 		}
@@ -404,11 +418,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					'eventDate' => $_POST["eventDate"],
 					'eventDisplay' => 'day'
 					);
-				
+
 				if ( isset( $_POST['tribe_event_category'] ) ) {
 					$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
 				}
-					
+
 				$query = TribeEventsQuery::getEvents( $args, true );
 
 				global $wp_query, $post;
@@ -449,7 +463,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		/**
-		 * at the pre_get_post hook detect if we should redirect to a particular instance 
+		 * at the pre_get_post hook detect if we should redirect to a particular instance
 		 * for /all routing or invalid 404 recurrence entries
 		 * @return void
 		 */
@@ -459,7 +473,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				return false;
 
 			$current_url = null;
-			
+
 			switch( $wp_query->query_vars['eventDisplay'] ){
 				case 'single-event':
 					// a recurrence event with a bad date will throw 404 because of WP_Query limiting by date range
@@ -480,7 +494,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 							// set current url to the next available recurrence and await redirection
 							$current_url = str_replace( $wp_query->query['eventDate'], $next_recurrence, home_url( $wp->request ) );
 						}
-						
+
 					}
 					break;
 			}
@@ -490,7 +504,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				$confirm_redirect = apply_filters( 'tribe_events_pro_detect_recurrence_redirect', true, $wp_query->query_vars['eventDisplay'] );
 				do_action('tribe_events_pro_detect_recurrence_redirect', $wp_query->query_vars['eventDisplay'] );
 				if( $confirm_redirect ) {
-					wp_redirect( $current_url, 301 ); 
+					wp_redirect( $current_url, 301 );
 					exit;
 				}
 			}
@@ -908,12 +922,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		public function enqueue_styles() {
 
-			if ( tribe_is_event_query() 
-					|| is_active_widget( false, false, 'tribe-events-adv-list-widget' ) 
-					|| is_active_widget( false, false, 'tribe-mini-calendar' ) 
-					|| is_active_widget( false, false, 'tribe-events-countdown-widget' ) 
-					|| is_active_widget( false, false, 'next_event' ) 
-					|| is_active_widget( false, false, 'tribe-events-venue-widget') 
+			if ( tribe_is_event_query()
+					|| is_active_widget( false, false, 'tribe-events-adv-list-widget' )
+					|| is_active_widget( false, false, 'tribe-mini-calendar' )
+					|| is_active_widget( false, false, 'tribe-events-countdown-widget' )
+					|| is_active_widget( false, false, 'next_event' )
+					|| is_active_widget( false, false, 'tribe-events-venue-widget')
 				) {
 				// Tribe Events CSS filename
 				$event_file = 'tribe-events-pro.css';
@@ -1137,12 +1151,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				$caption = __('Week Of', 'tribe-events-calendar-pro');
 			}
 			return $caption;
-		}	
+		}
 
 		public function add_recurring_occurance_setting_to_list () {
-			if ( isset( $_REQUEST['userToggleSubsequentRecurrences'] ) ? $_REQUEST['userToggleSubsequentRecurrences'] : tribe_get_option( 'userToggleSubsequentRecurrences', true ) && !tribe_is_day() )			
+			if ( isset( $_REQUEST['userToggleSubsequentRecurrences'] ) ? $_REQUEST['userToggleSubsequentRecurrences'] : tribe_get_option( 'userToggleSubsequentRecurrences', true ) && !tribe_is_day() )
 				$html = tribe_recurring_instances_toggle();
-		}				
+		}
 
 		function maybe_setup_date_in_bar( $value ) {
 			global $wp_query;
@@ -1158,6 +1172,20 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		function miles_to_kms_ratio() {
 			return 1.60934;
+		}
+
+		/**
+		 * Initialize PressTrends.
+		 * @author Peter Chester
+		 */
+		public function initPressTrends() {
+			if ( class_exists('TribePressTrends') ) {
+				new TribePressTrends(
+					$this->pluginPath.'events-calendar-pro.php',
+					self::$pressTrendsApiKey,
+					self::$pressTrendsAuth
+				);
+			}
 		}
 
 
