@@ -34,6 +34,8 @@ class TribeEventsRecurrenceMeta {
 		add_action( 'admin_notices', array( __CLASS__, 'displayErrors' ), 10 );
 	
 		add_action( 'save_post', array( __CLASS__, 'checkRecurrenceAmount' ), 16, 1 );
+		
+		add_action( 'load-edit.php', array( __CLASS__, 'combineRecurringRequestIds' ) );
 	}
 
 	
@@ -70,6 +72,9 @@ class TribeEventsRecurrenceMeta {
    public static function addDateToEventPermalink($permalink, $the_post) {
       global $post;
       $event = $the_post ? $the_post : $post;
+
+		  if ( is_numeric( $event ) )
+		    $event = get_post( $event );
 
       if(tribe_is_recurring_event($event->ID)) {
          $events = TribeEvents::instance();
@@ -121,8 +126,8 @@ class TribeEventsRecurrenceMeta {
 	 * @return void  
 	 */	
 	public static function deleteRecurringEvent($postId) {
-		if (isset($_REQUEST['eventDate']) && !isset($_REQUEST['deleteAll'])) {
-			$occurrenceDate = $_REQUEST['eventDate'];
+		if (isset($_REQUEST['event_start']) && !isset($_REQUEST['deleteAll'])) {
+			$occurrenceDate = $_REQUEST['event_start'];
 		}else{
 			$occurrenceDate = null;
 		}
@@ -711,7 +716,15 @@ class TribeEventsRecurrenceMeta {
 				'tooltip' => __( 'Show only the first instance of each recurring event.', 'tribe-events-calendar' ),
 				'default' => false,
 				'validation_type' => 'boolean',
-				), ) 
+				), 
+ 				'userToggleSubsequentRecurrences' => array(
+ 				'type' => 'checkbox_bool',
+				'label' => __( 'Front-end recurring event instances toggle', 'tribe-events-calendar' ),
+				'tooltip' => __( 'Allow users to decide whether to show all instances of a recurring event.', 'tribe-events-calendar' ),
+				'default' => false,
+				'validation_type' => 'boolean',
+         ),
+				) 
 			);
 
 		}
@@ -805,6 +818,20 @@ class TribeEventsRecurrenceMeta {
 			}
 		}
 		return $is_success;
+	}
+	
+	/**
+	 * Combines the ['post'] piece of the $_REQUEST variable so it only has unique post ids.
+	 *
+	 * @since 3.0
+	 * @author PaulHughes01
+	 *
+	 * @return void
+	 */
+	public function combineRecurringRequestIds() {
+		if ( isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] == TribeEvents::POSTTYPE && !empty( $_REQUEST['post'] ) && is_array( $_REQUEST['post'] ) ) {
+			$_REQUEST['post'] = array_unique( $_REQUEST['post'] );
+		}
 	}
 	
 }

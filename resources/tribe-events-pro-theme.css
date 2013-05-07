@@ -124,36 +124,26 @@
    @ Template: map.php
 =============================================*/
 /* tribe geolocation map area */
-.tribe-events-filter-view #tribe-events-geo-content {
-	 width: 68.08%;
-	 padding-top: 1px;
-}
-
-#tribe-events-geo-content {
-	max-width: 700px;
-	margin-left: auto;
-	margin-right: auto;
-}
 
 #tribe-geo-results {
 	margin-top: 2em;
 }
 
-#tribe-geo-wrapper #tribe-events-header {
+.tribe-events-map #tribe-events-header {
 	position: relative;
 }
 
-#tribe-geo-wrapper #tribe-events-header li {
+.tribe-events-map #tribe-events-header li {
 	display: inline-block;
 	zoom: 1;
 	*display: inline;
 }
 
-#tribe-geo-wrapper #tribe-events-header li a {
+.tribe-events-map #tribe-events-header li a {
 	display: none !important;
 }
 
-#tribe-events-header .tribe-ajax-loading {
+#tribe-events-header .tribe-events-ajax-loading {
 	top: -8px;
 }
 
@@ -193,7 +183,7 @@
 	border-bottom: 0;
 }
 
-.tribe-events-organizer .tribe-divider {
+.tribe-events-organizer .tribe-events-divider {
 	display: inline-block;
 	font-weight: normal;
 }
@@ -222,11 +212,11 @@
 	background: #fff;
 }
 
-.tribe-events-loop .tribe-events-photo-event .tribe-list-event-description  {
+.tribe-events-loop .tribe-events-photo-event .tribe-events-list-event-description  {
 	margin-top: .5em;
 }
 
-.tribe-events-photo #tribe-events-content .tribe-list-event-description p {
+.tribe-events-photo #tribe-events-content .tribe-events-list-event-description p {
 	line-height: 1.45;
 }
 

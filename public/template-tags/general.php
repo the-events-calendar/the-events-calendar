@@ -15,12 +15,19 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			$tec = TribeEvents::instance();
 			$geo = TribeEventsGeoLoc::instance();
 			$url = trailingslashit( get_site_url() );
-			// if we're on an Event Cat, show the cat link, except for home and days.
-			if ( is_tax( TribeEvents::TAXONOMY ) )
-				$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
-			else
-				$url .= trailingslashit( $tec->rewriteSlug );
-			$permalink = $url . $geo->rewrite_slug . '/';
+			if ( '' === get_option('permalink_structure') ) {
+				if ( is_tax( TribeEvents::TAXONOMY ) ) 
+					$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'map' ), get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );				
+				else 
+					$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'map' ), home_url() );
+			} else {
+				// if we're on an Event Cat, show the cat link, except for home and days.
+				if ( is_tax( TribeEvents::TAXONOMY ) )
+					$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
+				else
+					$url .= trailingslashit( $tec->rewriteSlug );
+				$permalink = $url . $geo->rewrite_slug . '/';
+			}
 			return apply_filters( 'tribe_get_map_view_permalink', $permalink );
 		}
 	}
@@ -29,16 +36,22 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Event Recurrence
 	 * 
 	 * Test to see if event is recurring.
-	 * 
+	 *
+	 * Note: $recur_test_cache is used to avoid having to call get_post_meta repeatedly since get_post_meta is slow.
+	 *
 	 * @param int $postId (optional)
 	 * @return bool true if event is a recurring event.
 	 * @since 2.0
 	 */
 	if (!function_exists( 'tribe_is_recurring_event' )) {
 		function tribe_is_recurring_event( $postId = null )  {
-			$tribe_ecp = TribeEvents::instance();
+			static $recur_test_cache;
+			if ( empty( $recur_test_cache ) ) $recur_test_cache = array();
+			TribeEvents::instance();
 			$postId = TribeEvents::postIdHelper( $postId );
-			return apply_filters('tribe_is_recurring_event', (sizeof(get_post_meta($postId, '_EventStartDate')) > 1));
+			if ( isset( $recur_test_cache[$postId] ) ) return $recur_test_cache[$postId];
+			$recur_test_cache[$postId] = apply_filters('tribe_is_recurring_event', (sizeof(get_post_meta($postId, '_EventStartDate')) > 1));
+			return $recur_test_cache[$postId];
 		}
 	}
 
@@ -69,13 +82,28 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @since 2.0
 	 */
 	if (!function_exists( 'tribe_all_occurences_link' )) {
-		function tribe_all_occurences_link( $postId = null )  {
+		function tribe_all_occurences_link( $postId = null, $echo = true )  {
 			$postId = TribeEvents::postIdHelper( $postId );
 			$post = get_post($postId);
 			$tribe_ecp = TribeEvents::instance();
-			echo apply_filters('tribe_all_occurences_link', $tribe_ecp->getLink('all'));
+			$link = apply_filters('tribe_all_occurences_link', $tribe_ecp->getLink('all'));
+			if( $echo ) {
+				echo $link;
+			} else {
+				return $link;
+			}
 		}
 	}
+
+	// show user front-end settings only if ECP is active
+	function tribe_recurring_instances_toggle( $postId = null )  {
+			$hide_recurrence = isset( $_REQUEST['tribeHideRecurrence'] ) ? $_REQUEST['tribeHideRecurrence'] : tribe_get_option( 'hideSubsequentRecurrencesDefault', false );
+			echo '<span class="tribe-events-user-recurrence-toggle">';
+				echo '<label for="tribeHideRecurrence">';
+					echo '<input type="checkbox" name="tribeHideRecurrence" value="1" id="tribeHideRecurrence" ' . checked( $hide_recurrence, 1, false ) . '>' . __( 'Show only the first upcoming instance of recurring events', 'tribe-events-calendar' );
+				echo '</label>';
+			echo '</span>';
+	}	
 	
 	/**
 	 * Event Custom Fields
@@ -173,10 +201,9 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @return string URL for ical for single event.
 	 * @since 2.0
 	 */
-	function tribe_get_single_ical_link()  {
-		$tribe_ecp = TribeEvents::instance();
-		$output = $tribe_ecp->getLink( 'ical', 'single' );
-		return apply_filters('tribe_get_single_ical_link', $output);
+	function tribe_get_single_ical_link() {
+		$output = TribeiCal::get_ical_link();
+		return apply_filters( 'tribe_get_ical_link', $output );
 	}
 
 	/**
@@ -187,10 +214,9 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @return string URL for ical dump.
 	 * @since 2.0
 	 */
-	function tribe_get_ical_link()  {
-		$tribe_ecp = TribeEvents::instance();
-		$output = $tribe_ecp->getLink('ical');
-		return apply_filters('tribe_get_ical_link', $output);
+	function tribe_get_ical_link() {
+		$output = TribeiCal::get_ical_link();
+		return apply_filters( 'tribe_get_ical_link', $output );
 	}
 
 	/**
@@ -433,13 +459,10 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @param int $first_day sets start of the week (offset) respectively, accepts 0-6
 	 * @return DateTime
 	 */
-	function tribe_get_first_week_day( $date_or_int = null, $by_date = true ) {
+	function tribe_get_first_week_day( $date = null, $by_date = true ) {
+		global $wp_query;
 		$offset = 7 - get_option( 'start_of_week', 0 );
-		if( is_null($date_or_int) ){
-			$date = new DateTime('now');
-		} else {
-			$date = ( $by_date ) ? new DateTime($date_or_int) : strtotime( $date_or_int . ' weeks');
-		}
+		$date = is_null($date) ? new DateTime( $wp_query->get( 'start_date' ) ) : new DateTime( $date );
 		// Clone to avoid altering the original date
 		$r = clone $date;
 		$r->modify(-(($date->format('w') + $offset) % 7) . 'days');
@@ -481,6 +504,18 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	}
 
 	/**
+	 * Map Loop View Test
+	 *
+	 * @return bool
+	 * @since 3.0
+	 */
+	function tribe_is_map()  {
+		$tribe_ecp = TribeEvents::instance();
+		$is_map = ($tribe_ecp->displaying == 'map') ? true : false;
+		return apply_filters('tribe_is_map', $is_map);
+	}	
+
+	/**
 	 * Display Week Navigation
 	 *
 	 * @param string $week
@@ -505,8 +540,9 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @return string $permalink
 	 * @since 3.0
 	 */
-	function tribe_get_last_week_permalink( $week, $is_current = true ) {
-		$week = ($is_current) ? date('Y-m-d', strtotime( $week . ' -7 days') ): $week;
+	function tribe_get_last_week_permalink( $week = null ) {
+		$week = !empty( $week ) ? $week : tribe_get_first_week_day();
+		$week = date('Y-m-d', strtotime( $week . ' -1 week'));
 		return apply_filters('tribe_get_last_week_permalink', tribe_get_week_permalink( $week ) );
 	}
 
@@ -519,8 +555,9 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @return string $permalink
 	 * @since 3.0
 	 */
-	function tribe_get_next_week_permalink( $week, $is_current = true ) {
-		$week = ($is_current) ? date('Y-m-d', strtotime( $week . ' +7 days') ): $week;
+	function tribe_get_next_week_permalink( $week = null ) {
+		$week = !empty( $week ) ? $week : tribe_get_first_week_day();
+		$week = date('Y-m-d', strtotime( $week . ' +1 week'));
 		return apply_filters('tribe_get_next_week_permalink', tribe_get_week_permalink( $week ) );
 	}
 
@@ -536,14 +573,78 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$tec = TribeEvents::instance();
 		$date = is_null($date) ? TribeEventsPro::instance()->todaySlug : date('Y-m-d', strtotime( $date ) );
 		$url = trailingslashit( get_site_url() );
-		// if we're on an Event Cat, show the cat link, except for home and days.
-		if ( $term && is_tax( TribeEvents::TAXONOMY ) )
-			$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
-		else
-			$url .= trailingslashit( $tec->rewriteSlug );
-		$permalink = $url . trailingslashit( $date );
+		if ( '' === get_option('permalink_structure') ) {
+			if ( is_tax( TribeEvents::TAXONOMY ) ) 
+				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'day' ), get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );				
+			else 
+				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'day' ), home_url() );
+		} else {
+			// if we're on an Event Cat, show the cat link, except for home and days.
+			if ( $term && is_tax( TribeEvents::TAXONOMY ) )
+				$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
+			else
+				$url .= trailingslashit( $tec->rewriteSlug );
+			$permalink = $url . trailingslashit( $date );
+		}
 		return apply_filters('tribe_get_day_permalink', $permalink);
 	}
+
+	/**
+	 * Output an html link to a day
+	 *
+	 * @param $date 'previous day', 'next day', 'yesterday', 'tomorrow', or any date string that strtotime() can parse
+	 * @param $text text for the link
+	 * @param $term bool whether to show the link with the tribe event taxonomy
+	 * @return void
+	 * @since 3.0
+	 **/
+	function tribe_the_day_link( $date = null, $text = null, $term = true ) {
+
+		global $wp_query;
+
+		if ( is_null( $text ) ) {
+			switch ( strtolower( $date ) ) {
+				case null : 
+					 $text = __( 'Today', 'tribe-events-calendar-pro' );
+				break;
+				case 'previous day' :
+					 $text = __( '&laquo; Previous Day', 'tribe-events-calendar-pro' );
+				break;
+				case 'next day' :
+					 $text = __( 'Next Day &raquo;', 'tribe-events-calendar-pro' );
+				break;
+				case 'yesterday' :
+					 $text = __( 'Yesterday', 'tribe-events-calendar-pro' );
+				break;
+				case 'tomorrow' :
+					 $text = __( 'Tomorrow', 'tribe-events-calendar-pro' );
+				break;
+				default : 
+					$text = date_i18n( 'Y-m-d', strtotime( $date ) );
+				break;
+			}
+		}
+
+		switch ( $date ) {
+			case null : 
+				$date = TribeEventsPro::instance()->todaySlug;
+			break;
+			case 'previous day' :
+				$date = Date('Y-m-d', strtotime($wp_query->get('start_date') . " -1 day") );
+			break;
+			case 'next day' : 
+				$date = Date('Y-m-d', strtotime($wp_query->get('start_date') . " +1 day") );
+			break;
+		}
+
+		$link = tribe_get_day_permalink($date, $term);
+
+		$html = '<a href="'. $link .'" data-day="'. $date .'" rel="prev">'.$text.'</a>';
+
+		echo apply_filters( 'tribe_the_day_link', $html );
+	}
+
+
 	/**
 	 * Get week permalink
 	 * 
@@ -551,16 +652,23 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @return string $permalink
 	 * @since 3.0
 	 */
-	function tribe_get_week_permalink( $week = null ){
+	function tribe_get_week_permalink( $week = null, $term = true ){
 		$tec = TribeEvents::instance();
 		$week = is_null($week) ? '' : date('Y-m-d', strtotime( $week ) );
 		$url = trailingslashit( get_site_url() );
-		// if we're on an Event Cat, show the cat link, except for home and days.
-		if ( is_tax( TribeEvents::TAXONOMY ) )
-			$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
-		else
-			$url .= trailingslashit( $tec->rewriteSlug );
-		$permalink = $url . trailingslashit( TribeEventsPro::instance()->weekSlug . '/' . $week );
+		if ( '' === get_option('permalink_structure') ) {
+			if ( is_tax( TribeEvents::TAXONOMY ) ) 
+				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'week' ), get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );				
+			else 
+				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'week' ), home_url() );
+		} else {
+			// if we're on an Event Cat, show the cat link, except for home and days.
+			if ( $term && is_tax( TribeEvents::TAXONOMY ) )
+				$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
+			else
+				$url .= trailingslashit( $tec->rewriteSlug );
+			$permalink = $url . trailingslashit( TribeEventsPro::instance()->weekSlug . '/' . $week );
+		}
 		return apply_filters('tribe_get_week_permalink', $permalink);
 	}
 
@@ -570,15 +678,22 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @return string $permalink
 	 * @since 3.0
 	 */
-	function tribe_get_photo_permalink() {
+	function tribe_get_photo_permalink( $term = true ) {
 		$tec       = TribeEvents::instance();
 		$url = trailingslashit( get_site_url() );
-		// if we're on an Event Cat, show the cat link, except for home and days.
-		if ( is_tax( TribeEvents::TAXONOMY ) )
-			$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
-		else
-			$url .= trailingslashit( $tec->rewriteSlug );
-		$permalink = $url . trailingslashit( TribeEventsPro::instance()->photoSlug . '/' );
+		if ( '' === get_option('permalink_structure') ) {
+			if ( is_tax( TribeEvents::TAXONOMY ) ) 
+				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'photo' ), get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );				
+			else 
+				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'photo' ), home_url() );
+		} else {
+			// if we're on an Event Cat, show the cat link, except for home and days.
+			if ( $term && is_tax( TribeEvents::TAXONOMY ) )
+				$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
+			else
+				$url .= trailingslashit( $tec->rewriteSlug );
+			$permalink = $url . trailingslashit( TribeEventsPro::instance()->photoSlug . '/' );
+		}
 		return apply_filters( 'tribe_get_photo_view_permalink', $permalink );
 	}
 	
@@ -586,16 +701,16 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$posts = tribe_get_related_posts( $tag, $category, $count, $blog, $only_display_related, $post_type );
 		if ( is_array( $posts ) && !empty( $posts ) ) {
 			echo '<h3 class="tribe-events-related-events-title">'.  __( 'Related Events', 'tribe-events-calendar-pro' ) .'</h3>';
-			echo '<ul class="tribe-related-events tribe-clearfix">';
+			echo '<ul class="tribe-related-events tribe-clearfix hfeed vcalendar">';
 			foreach ( $posts as $post ) {
 				echo '<li>';	
 				
 					$thumb = ( has_post_thumbnail( $post->ID ) ) ? get_the_post_thumbnail( $post->ID, 'large' ) : '<img src="'. trailingslashit( TribeEventsPro::instance()->pluginUrl ) . 'resources/images/tribe-related-events-placeholder.png" alt="'. get_the_title( $post->ID ) .'" />';;
 					echo '<div class="tribe-related-events-thumbnail">';
-					echo '<a href="'. get_permalink( $post->ID ) .'">'. $thumb .'</a>';
+					echo '<a href="'. get_permalink( $post->ID ) .'" class="url" rel="bookmark">'. $thumb .'</a>';
 					echo '</div>';
 					echo '<div class="tribe-related-event-info">';
-						echo '<h3 class="tribe-related-events-title"><a href="'. get_permalink( $post->ID ) .'">'. get_the_title( $post->ID ) .'</a></h3>';
+						echo '<h3 class="tribe-related-events-title entry-title summary"><a href="'. get_permalink( $post->ID ) .'" class="url" rel="bookmark">'. get_the_title( $post->ID ) .'</a></h3>';
 
 						if ( class_exists( 'TribeEvents' ) && $post->post_type == TribeEvents::POSTTYPE && function_exists( 'tribe_events_event_schedule_details' ) ) {
 							echo tribe_events_event_schedule_details( $post );
@@ -608,6 +723,5 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			}
 			echo '</ul>';
 		}
-	}	
-
+	}
 }
