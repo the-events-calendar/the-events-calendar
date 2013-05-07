@@ -288,7 +288,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return date( 'Y-m-d' )
 		 */
 		function get_current_date(){
-			echo date_i18n( 'Y-m-d', strtotime( self::$start_of_week . ' +' . self::$current_day . ' days' ) );
 			return date_i18n( 'Y-m-d', strtotime( self::$start_of_week . ' +' . self::$current_day . ' days' ) );
 		}
 
@@ -373,8 +372,9 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * Based on set event id return an hourly type event
 		 * @return object $event
 		 */
-		function get_hourly_event(){
-			$event = !empty( self::$events->hourly[ self::$event_id ] ) ? self::$events->hourly[ self::$event_id ] : null;
+		function get_hourly_event( $event_id = null ){
+			$event_id = empty( $event_id ) ? self::$event_id : $event_id;
+			$event = !empty( self::$events->hourly[ $event_id ] ) ? self::$events->hourly[ $event_id ] : null;
 			return $event;
 		}
 
