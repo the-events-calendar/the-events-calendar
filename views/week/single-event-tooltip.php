@@ -1,21 +1,20 @@
 <?php $event = tribe_events_week_get_event(); ?>
-
 <div id="tribe-events-tooltip-<?php echo $event->ID; ?>" class="tribe-events-tooltip">
 	<h4 class="entry-title summary"><?php echo $event->post_title; ?></h4>
 	<div class="tribe-events-event-body">
 		<div class="duration">
 			<abbr class="tribe-events-abbr updated published dtstart" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), strtotime( $event->EventStartDate ) ); ?>">
-				<?php 
+				<?php
 
 				if ( !empty( $event->EventStartDate ) )
 					echo date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventStartDate ) );
 				if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
-					echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventStartDate ) ); 
+					echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventStartDate ) );
 
 				?>
 			</abbr><!-- .dtstart -->
 			<abbr class="tribe-events-abbr dtend" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), strtotime( $event->EventEndDate ) ); ?>">
-				<?php 
+				<?php
 
 				if ( !empty( $event->EventEndDate ) && $event->EventStartDate !== $event->EventEndDate ) {
 					if ( date_i18n( 'Y-m-d', strtotime( $event->EventStartDate ) ) == date_i18n( 'Y-m-d', strtotime( $event->EventEndDate ) ) ) {
@@ -27,7 +26,7 @@
 						if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
 							echo ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventEndDate ) ) . '<br />';
 					}
-				} 
+				}
 
 				?>
 			</abbr><!-- .dtend -->
