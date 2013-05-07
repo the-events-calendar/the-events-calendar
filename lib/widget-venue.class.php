@@ -23,46 +23,7 @@ if( !class_exists( 'TribeVenueWidget') ) {
 			if ($show_if_empty || (!$show_if_empty && count($events) > 0)) {
 				echo $before_widget;
 				$title = $before_title.apply_filters('widget_title', $title).$after_title;
-				echo '<h3 class="tribe_widget-title">' . $title . '</h3>';
-				echo '<div class="tribe_venue-widget-wrapper">';
-				// Display the venue information.
-				echo '<div class="tribe_venue-widget-venue">';
-				echo '<div class="tribe_venue-widget-venue-name">';
-				tribe_get_venue_link($venue_ID);
-				echo '</div>';
-				if (has_post_thumbnail($venue_ID)) {
-					echo '<div class="tribe_venue-widget-thumbnail">' . get_the_post_thumbnail($venue_ID, 'related-event-thumbnail' ) . '</div>';
-				}
-				if (tribe_address_exists($venue_ID)) {
-					$address = tribe_get_address($venue_ID);
-					$city = tribe_get_city($venue_ID);
-					$region = tribe_get_region($venue_ID);
-					$zip = tribe_get_zip($venue_ID);
-					$country = tribe_get_country($venue_ID);
-					echo '<div class="tribe_venue-widget-address">';
-					echo '<p>';
-					echo $address . '<br />';
-					echo $city . ', ' . $region . ' ' . $zip .'<br />';
-					echo $country;
-					echo '</p>';
-					echo '</div>';
-				}
-				echo '</div>';
-				echo '<hr />';
-				// Display the events.
-				if (count($events) == 0) {
-					_e('No upcoming events.', 'tribe-events-calendar-pro');
-				}
-				echo '<ul class="tribe_venue-widget-list">';
-				foreach ($events as $event) {
-					echo '<li>';
-					echo '<a href="' . get_permalink($event) . '">';
-					echo '<div class="tribe_venue-widget-title">' . get_the_title($event->ID) . '</div>';
-					echo '</a>';
-					echo '</li>';
-				}
-				echo '</ul>';
-				echo '</div>';
+				include( TribeEventsTemplates::getTemplateHierarchy('widgets/venue-widget.php' ) );
 				echo $after_widget;
 			}
 		}

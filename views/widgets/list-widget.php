@@ -19,64 +19,55 @@
  *
  */
 
-// Vars set:
-// '$event->AllDay',
-// '$event->StartDate',
-// '$event->EndDate',
-// '$event->ShowMapLink',
-// '$event->ShowMap',
-// '$event->Cost',
-// '$event->Phone',
-
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
+?>
 
-$the_content_args = array(
-	'venue'     => $venue,
-	'address'   => $address,
-	'city'      => $city,
-	'region'    => $region,
-	'zip'       => $zip,
-	'country'   => $country,
-	'phone'     => $phone,
-	'cost'      => $cost,
-	'organizer' => $organizer
-);
+<li>
+	<p class="entry-title summary">
+			<a href="<?php echo tribe_get_event_link(); ?>" rel="bookmark"><?php the_title(); ?></a>
+	</p>
+	<div class="duration">
+			<?php echo tribe_events_event_schedule_details(); ?>	
+	</div>
+	<div class="vcard adr location">	
+		<?php if ( $venue  && tribe_get_venue() != '') { ?>
+			<span class="fn org tribe-venue"><?php echo tribe_get_venue(); ?></span> 
+		<?php } ?>
 
-$event = array();
-$tribe_ecp = TribeEvents::instance();
-reset( $tribe_ecp->metaTags ); // Move pointer to beginning of array.
-foreach( $tribe_ecp->metaTags as $tag ) {
-	$var_name = str_replace( '_Event', '', $tag );
-	$event[$var_name] = tribe_get_event_meta( $post->ID, $tag, true );
-}
+		<?php if ( $address && tribe_get_address() != '' ) { ?>
+			<span class="street-address"><?php echo tribe_get_address(); ?></span>
+		<?php } ?>
 
-$event = (object) $event; // Easier to work with.
-ob_start();
-if ( !isset($alt_text) ) { $alt_text = ''; }
-post_class( $alt_text,$post->ID );
-$class = ob_get_clean();
+		<?php if ( $city && tribe_get_city() != '' ) { ?>
+			<span class="locality"><?php echo tribe_get_city(); ?></span>
+		<?php } ?>
 
-// Start list widget template
-echo apply_filters( 'tribe_events_pro_list_widget_before_template', $event, $class );
+		<?php if ( $region && tribe_get_region() !='' ) { ?>
+			<span class="region"><?php echo tribe_get_region(); ?></span>
+		<?php	} ?>
 
-	// Event date
-	echo apply_filters( 'tribe_events_pro_list_widget_before_the_date', $event );
-	echo apply_filters( 'tribe_events_pro_list_widget_the_date', $event, $post->ID );
-	echo apply_filters( 'tribe_events_pro_list_widget_after_the_date', $event );
+		<?php if ( $zip && tribe_get_zip() != '' ) { ?>
+			<span class="postal-code"><?php echo tribe_get_zip(); ?></span>
+		<?php } ?>
 
-	// Event title
-	echo apply_filters( 'tribe_events_pro_list_widget_before_the_title', $event );
-	echo apply_filters( 'tribe_events_pro_list_widget_the_title', $post );
-	echo apply_filters( 'tribe_events_pro_list_widget_after_the_title', $event );
+		<?php if ( $country  && tribe_get_country() != '') { ?>
+			<span class="country-name"><?php echo tribe_get_country(); ?></span>
+		<?php } ?>
 
-	// Event content
-	echo apply_filters( 'tribe_events_pro_list_widget_before_the_content', $event );
-	echo apply_filters( 'tribe_events_pro_list_widget_the_content', $event, $the_content_args );
-	echo apply_filters( 'tribe_events_pro_list_widget_after_the_content', $event );
+		<?php if ( $organizer && tribe_get_organizer() != '' ) { ?>
+				<span class="tribe-organizer"><?php echo tribe_get_organizer(); ?></span>
+		<?php } ?>
 
-// End list widget template
-echo apply_filters( 'tribe_events_pro_list_widget_after_template', $event );
+		<?php if ( $phone && tribe_get_phone() != '' ) { ?>
+			<span class="tel"><?php echo tribe_get_phone(); ?></span>
+		<?php } ?>
 
-// Clean up alt text
-$alt_text = ( empty( $alt_text ) ) ? 'tribe-events-list-widget-alt' : '';
+		<?php if ( $cost && tribe_get_cost() != '' ) { ?>
+			<span class="tribe-events-event-cost">
+				<?php _e( 'Price:', 'tribe-events-calendar-pro' ); ?>
+				<?php echo tribe_get_cost( null, true ); ?>
+			</span>
+		<?php } ?>
+	</div>
+</li>
