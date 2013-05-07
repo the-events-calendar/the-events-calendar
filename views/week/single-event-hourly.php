@@ -1,10 +1,11 @@
-<?php 
+<?php
 /**
  * Week Grid Hourly Single Event
  * This file sets up the structure for the week grid hourly single event
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/week/single-event-hourly.php
  * *
+ *
  * @package TribeEventsCalendar
  * @since  3.0
  * @author Modern Tribe Inc.
@@ -16,5 +17,5 @@
 	<div class="hentry vevent">
 		<h3 class="entry-title summary"><a href="<?php tribe_event_link( $event ); ?>" class="url" rel="bookmark"><?php echo $event->post_title; ?></a></h3>
 	</div>
-	<?php tribe_get_template_part('week/single-event', 'tooltip'); ?>
+	<?php tribe_get_template_part( 'week/single-event', 'tooltip' ); ?>
 </div>
