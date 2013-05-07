@@ -60,17 +60,17 @@ var tribe_ajax_timer;
     $.fn.tribe_has_attr = function (name) {
         return this.attr(name) !== undefined;
     };
-    /**
-     * @function external:"jQuery.fn".tribe_spin
-     * @since 3.0
-     * @desc Shows loading spinners for events ajax interactions.
-     * @example $('#myElement').tribe_spin();
-     */
-    $.fn.tribe_spin = function() {
-        var $loadingImg = $('.tribe-events-ajax-loading:first').clone().addClass('tribe-events-active-spinner');
-        $loadingImg.appendTo(this);
-        $(this).addClass('tribe-events-loading');
-    }
+	/**
+	 * @function external:"jQuery.fn".tribe_spin
+	 * @since 3.0
+	 * @desc Shows loading spinners for events ajax interactions.
+	 * @example $('#myElement').tribe_spin();
+	 */
+	$.fn.tribe_spin = function () {
+		var $loadingImg = $('.tribe-events-ajax-loading:first').clone().addClass('tribe-events-active-spinner');
+		$loadingImg.appendTo(this);
+		$(this).addClass('tribe-events-loading');
+	}
 })(jQuery);
 
 /**
@@ -236,7 +236,7 @@ var tribe_ev = window.tribe_ev || {};
          * @function tribe_ev.fn.in_params
          * @since 3.0
          * @desc tribe_ev.fn.in_params returns the value of a passed param name if set.
-         * @param {String} params The paramter string you would like to search for a term.
+         * @param {String} params The parameter string you would like to search for a term.
          * @param {String} term The name of the url param value you are checking for.
          * @returns {Number} Returns index if term is present in params, or -1 if not found.
          * @example
@@ -444,32 +444,35 @@ var tribe_ev = window.tribe_ev || {};
 
 })(jQuery);
 
-jQuery(document).ready(function ($) {
+(function ($, td, te, tf, ts) {
 
-    tribe_ev.state.category = tribe_ev.fn.get_category();
-    tribe_ev.data.base_url = tribe_ev.fn.get_base_url();
+	$(document).ready(function () {
 
-    var tribe_display = tribe_ev.fn.get_url_param('tribe_event_display');
+		ts.category = tf.get_category();
+		td.base_url = tf.get_base_url();
 
-    if (tribe_display) {
-        tribe_ev.state.view = tribe_display;
-    } else if ($('#tribe-events-header').length && $('#tribe-events-header').tribe_has_attr('data-view')) {
-        tribe_ev.state.view = $('#tribe-events-header').attr('data-view');
-    }
+		var tribe_display = tf.get_url_param('tribe_event_display');
 
-    /* Let's hide the widget calendar if we find more than one instance */
-    $(".tribe-events-calendar-widget").not(":eq(0)").hide();
+		if (tribe_display) {
+			ts.view = tribe_display;
+		} else if ($('#tribe-events-header').length && $('#tribe-events-header').tribe_has_attr('data-view')) {
+			ts.view = $('#tribe-events-header').attr('data-view');
+		}
 
-    tribe_ev.fn.tooltips();
+		/* Let's hide the widget calendar if we find more than one instance */
+		$(".tribe-events-calendar-widget").not(":eq(0)").hide();
+
+		tf.tooltips();
 
 
-    //remove border on list view event before month divider
-    if ($('.tribe-events-list').length) {
-        $('.tribe-events-list-separator-month').prev('.vevent').addClass('tribe-event-end-month');
-    }
+		//remove border on list view event before month divider
+		if ($('.tribe-events-list').length) {
+			$('.tribe-events-list-separator-month').prev('.vevent').addClass('tribe-event-end-month');
+		}
 
-    // ajax complete function to remove active spinner
-    $(tribe_ev.events).on( 'tribe_ev_ajaxSuccess', function() {
-        $('.tribe-events-active-spinner').remove();
-    });
-});
+		// ajax complete function to remove active spinner
+		$(te).on( 'tribe_ev_ajaxSuccess', function() {
+			$('.tribe-events-active-spinner').remove();
+		});
+	});
+})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state);

@@ -25,12 +25,12 @@
 ?>
 
 <li class="tribe-events-list-widget-events">
+	<p class="entry-title summary">
+			<a href="<?php tribe_get_event_link(); ?>" rel="bookmark"><?php the_title(); ?></a>
+	</p>	
 	<!-- Event Time -->
 	<div class="duration">
 		<?php echo tribe_events_event_schedule_details(); ?>
 	</div>
 	<!-- Event Title -->
-	<p class="entry-title summary">
-			<a href="<?php tribe_get_event_link(); ?>" rel="bookmark"><?php the_title(); ?></a>
-	</p>
 </li>
