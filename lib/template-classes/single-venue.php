@@ -80,7 +80,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 				'tribe_event_venue_website' => 30
 				));
 
-			add_filter('tribe_event_meta_venue_address_gmap', '__return_null', 10);
+			add_filter( 'tribe_event_meta_venue_address_gmap', '__return_false' );
 
 			// disable venue info from showing on list module (since it's duplicate of this view)
 			tribe_set_the_meta_visibility( 'tribe_list_venue_name_address', false );
