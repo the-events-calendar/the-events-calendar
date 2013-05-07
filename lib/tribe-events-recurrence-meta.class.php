@@ -73,6 +73,9 @@ class TribeEventsRecurrenceMeta {
       global $post;
       $event = $the_post ? $the_post : $post;
 
+		  if ( is_numeric( $event ) )
+		    $event = get_post( $event );
+
       if(tribe_is_recurring_event($event->ID)) {
          $events = TribeEvents::instance();
 			if( '' == get_option('permalink_structure') || false == $events->getOption('useRewriteRules',true) )
