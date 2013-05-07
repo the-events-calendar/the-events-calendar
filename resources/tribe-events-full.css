@@ -577,6 +577,7 @@ select.tribe-events-dropdown {
 .tribe-events-event-meta address.tribe-events-address {
 	display: inline;
 	font-style: normal;
+	margin-right: 10px;
 }
 
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring {
@@ -731,6 +732,11 @@ select.tribe-events-dropdown {
 
 .tribe-events-meta-group + .tribe-events-single-section-title {
 	margin-top: 0;
+}
+
+.tribe-events-event-meta .tribe-events-meta-group address.tribe-events-address {
+	margin: 0;
+	display: block;
 }
 
 /* Eventbrite */
