@@ -22,6 +22,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		public static $week_length = 7;
 		public static $week_days;
 		public static $events;
+		public static $current_map_row = -1;
 		public static $current_day = -1;
 		public static $event_id = -1;
 		public static $prior_event_date = null;
@@ -39,7 +40,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			self::$start_of_week = get_option( 'start_of_week', 0 );
 
 			// let's get this show on the road
-			self::set_current_day( self::$start_of_week );
+			// self::set_current_day( self::$start_of_week );
 			self::set_week_days();
 			self::setup_loop();
 
@@ -146,6 +147,19 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				);
 			}
 			self::$week_days = $week_days;
+		}
+
+		/**
+		 * Checks whether there are more calendar days to display
+		 *
+		 * @return bool True if calendar days are available, false if not.
+		 * @since 3.0
+		 **/
+		public static function have_days() {
+			if ( self::$current_day < ( self::$start_of_week + self::$week_length ) - 1 ) {
+				return true;
+			}
+			return false;
 		}
 
 		/**
@@ -273,7 +287,10 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return [type] [description]
 		 */
 		public static function increment_current_day(){
-			if( self::$current_day < self::$week_length ) {
+			if( self::$current_day == -1 ) {
+				self::$current_day = self::$start_of_week;
+			} else 
+			if( self::$current_day < self::$start_of_week + self::$week_length ) {
 				self::$current_day++;
 			} else {
 				self::reset_current_day();
@@ -281,7 +298,19 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		}
 
 		public static function reset_current_day(){
-			self::$current_day = self::$start_of_week;
+			self::$current_day = -1;
+		}
+
+		public static function get_map_row(){
+			return self::$current_map_row;
+		}
+
+		public static function increment_map_row(){
+			self::$current_map_row++;
+		}
+
+		public static function reset_map_row(){
+			self::$current_map_row = -1;
 		}
 
 		/**

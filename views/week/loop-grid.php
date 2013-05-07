@@ -17,11 +17,11 @@
 			<span class="tribe-events-visuallyhidden"><?php _e( 'Hours', 'tribe-events-calendar-pro' ); ?></span>
 		</div>
 		<div class="tribe-grid-content-wrap">
-			<?php foreach( tribe_events_week_get_days() as $day ) : tribe_events_week_increment_day(); ?>
+			<?php while( tribe_events_week_have_days() ) : tribe_events_week_increment_day(); ?>
 			<div title="<?php tribe_events_week_get_current_date(); ?>" class="column <?php echo tribe_events_week_is_current_today() ? 'tribe-week-today' : ''; ?>">
 				<a href="<?php echo tribe_get_day_permalink( tribe_events_week_get_current_date( false ) ); ?>" rel="bookmark"><?php tribe_events_week_get_current_day_display(); ?></a>
 			</div><!-- header column -->
-			<?php endforeach; ?>
+			<?php endwhile; ?>
 		</div><!-- .tribe-grid-content-wrap -->
 	</div><!-- .tribe-grid-header -->
 	<?php tribe_get_template_part('week/loop', 'grid-allday'); ?>

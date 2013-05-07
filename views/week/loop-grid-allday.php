@@ -19,12 +19,12 @@ tribe_events_week_set_loop_type( 'allday' );
 		<span><?php _e( 'All Day', 'tribe-events-calendar-pro' ); ?></span>
 	</div>
 	<div class="tribe-grid-content-wrap">
-		<?php foreach( tribe_events_week_get_days() as $day_id => $day ) : tribe_events_week_increment_day(); /* tribe_events_week_setup_current_day( $day_id ); */ ?>
+		<?php while( tribe_events_week_have_days() ) : tribe_events_week_increment_day(); ?>
 		<div title="<?php tribe_events_week_get_current_date(); ?>" class="column <?php tribe_events_week_column_classes(); ?>">
-			<?php foreach( tribe_events_week_get_all_day_map() as $all_day_cols ) : tribe_events_week_setup_event( $all_day_cols[ $day_id ] ); ?>
+			<?php foreach( tribe_events_week_get_all_day_map() as $all_day_cols ) : tribe_events_week_increment_all_day(); ?>
 				<?php tribe_get_template_part('week/single-event', 'allday'); ?>
-			<?php endforeach; ?>
+			<?php endforeach; tribe_events_week_reset_map_row(); ?>
 		</div><!-- allday column -->
-		<?php endforeach; ?>
+		<?php endwhile; ?>
 	</div><!-- .tribe-grid-content-wrap -->
 </div><!-- .tribe-grid-allday -->

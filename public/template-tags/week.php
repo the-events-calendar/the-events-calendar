@@ -34,11 +34,32 @@ if( class_exists('TribeEventsPro')) {
 	}
 
 	/**
+	 * Whether there are more calendar days available in the loop.
+	 *
+	 * @return bool True if calendar days are available, false if end of loop.
+	 * @since 3.0
+	 * @return  void
+	 **/
+	function tribe_events_week_have_days(){
+		return Tribe_Events_Pro_Week_Template::have_days();
+	}
+
+	/**
 	 * increment the current day loop
 	 * @return void
 	 */
 	function tribe_events_week_increment_day(){
 		Tribe_Events_Pro_Week_Template::increment_current_day();
+	}
+
+	function tribe_events_week_increment_all_day(){
+		Tribe_Events_Pro_Week_Template::increment_map_row();
+		$all_day_map = tribe_events_week_get_all_day_map();
+		tribe_events_week_setup_event( $all_day_map[ Tribe_Events_Pro_Week_Template::get_map_row() ][ Tribe_Events_Pro_Week_Template::get_current_day() ] );
+	}
+
+	function tribe_events_week_reset_map_row(){
+		Tribe_Events_Pro_Week_Template::reset_map_row();
 	}
 
 	/**
@@ -73,7 +94,8 @@ if( class_exists('TribeEventsPro')) {
 
 	/**
 	 * return the current date of the day set by $current_day
-	 * @return [type] [description]
+	 * @param  boolean $echo
+	 * @return string $html
 	 */
 	function tribe_events_week_get_current_date( $echo = true ){
 		$week_days = tribe_events_week_get_days();
@@ -85,6 +107,11 @@ if( class_exists('TribeEventsPro')) {
 		}
 	}
 
+	/**
+	 * display the date in a nice formated view for headers
+	 * @param  boolean $echo
+	 * @return string $html
+	 */
 	function tribe_events_week_get_current_day_display( $echo = true ){
 		$week_days = tribe_events_week_get_days();
 		$html = apply_filters( 'tribe_events_week_get_current_date', $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->display );
