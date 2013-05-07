@@ -24,16 +24,6 @@ if( class_exists('TribeEventsPro')) {
 	}
 
 	/**
-	 * retrieve the loop type for checking the loop between all day and hourly events
-	 * @since  3.0
-	 * @author tim@imaginesimplicty.com
-	 * @return string $loop_type
-	 */
-	function tribe_events_week_get_loop_type(){
-		return apply_filters( 'tribe_events_week_get_loop_type', Tribe_Events_Pro_Week_Template::$loop_type );
-	}
-
-	/**
 	 * Whether there are more calendar days available in the loop.
 	 *
 	 * @return bool True if calendar days are available, false if end of loop.
@@ -46,18 +36,32 @@ if( class_exists('TribeEventsPro')) {
 
 	/**
 	 * increment the current day loop
+	 * @since 3.0
+	 * @author tim@imaginesimplicity.com
 	 * @return void
 	 */
 	function tribe_events_week_the_day(){
 		Tribe_Events_Pro_Week_Template::the_day();
 	}
 
+	/**
+	 * increment the row for the all day map
+	 * @since 3.0
+	 * @author tim@imaginesimplicity.com
+	 * @return void
+	 */
 	function tribe_events_week_the_day_map(){
 		Tribe_Events_Pro_Week_Template::the_day_map();
 		$all_day_map = tribe_events_week_get_all_day_map();
 		tribe_events_week_setup_event( $all_day_map[ Tribe_Events_Pro_Week_Template::get_the_day_map() ][ Tribe_Events_Pro_Week_Template::get_current_day() ] );
 	}
 
+	/**
+	 * provide a clean way to reset the counter for the all day map row iterator
+	 * @since 3.0
+	 * @author tim@imaginesimplicity.com
+	 * @return void
+	 */
 	function tribe_events_week_reset_the_day_map(){
 		Tribe_Events_Pro_Week_Template::reset_the_day_map();
 	}
@@ -83,22 +87,12 @@ if( class_exists('TribeEventsPro')) {
 	}
 
 	/**
-	 * get a list of days of the week with proper offset applied
-	 * @since  3.0
-	 * @author tim@imaginesimplicty.com
-	 * @return object week days
-	 */
-	function tribe_events_week_get_days(){
-		return apply_filters('tribe_events_week_get_days', Tribe_Events_Pro_Week_Template::get_week_days() );
-	}
-
-	/**
 	 * return the current date of the day set by $current_day
 	 * @param  boolean $echo
 	 * @return string $html
 	 */
 	function tribe_events_week_get_the_date( $echo = true ){
-		$week_days = tribe_events_week_get_days();
+		$week_days = Tribe_Events_Pro_Week_Template::get_week_days();
 		$html = apply_filters( 'tribe_events_week_get_the_date', $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->date );
 		if ( $echo ) {
 			echo $html;
@@ -113,7 +107,7 @@ if( class_exists('TribeEventsPro')) {
 	 * @return string $html
 	 */
 	function tribe_events_week_get_the_day_display( $echo = true ){
-		$week_days = tribe_events_week_get_days();
+		$week_days = Tribe_Events_Pro_Week_Template::get_week_days();
 		$html = apply_filters( 'tribe_events_week_get_the_day_display', $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->display );
 		if ( $echo ) {
 			echo $html;
@@ -127,7 +121,7 @@ if( class_exists('TribeEventsPro')) {
 	 * @return bool
 	 */
 	function tribe_events_week_is_current_today(){
-		$week_days = tribe_events_week_get_days();
+		$week_days = Tribe_Events_Pro_Week_Template::get_week_days();
 		return apply_filters( 'tribe_events_week_is_current_today', $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->today );
 	}
 
@@ -142,27 +136,6 @@ if( class_exists('TribeEventsPro')) {
 	}
 
 	/**
-	 * get array of all day events sorted by day
-	 * @since  3.0
-	 * @author tim@imaginesimplicty.com
-	 * @return array of event objects
-	 */
-	function tribe_events_week_get_all_day(){
-		return apply_filters('tribe_events_week_get_all_day', Tribe_Events_Pro_Week_Template::get_events('all_day') );
-	}
-
-	/**
-	 * get all day event ids from map specific all day column by current day
-	 * @since  3.0
-	 * @author tim@imaginesimplicty.com
-	 * @return array of event ids
-	 */
-	function tribe_events_week_get_all_day_map_col(){
-		$all_day_map  = tribe_events_week_get_all_day_map();
-		return apply_filters('tribe_events_week_get_all_day_map_col', $all_day_map[ Tribe_Events_Pro_Week_Template::get_current_day() ]);
-	}
-
-	/**
 	 * get array of hourly event objects
 	 * @since  3.0
 	 * @author tim@imaginesimplicty.com
@@ -170,27 +143,6 @@ if( class_exists('TribeEventsPro')) {
 	 */
 	function tribe_events_week_get_hourly(){
 		return apply_filters('tribe_events_week_get_hourly', Tribe_Events_Pro_Week_Template::get_events('hourly') );
-	}
-
-	/**
-	 * set the current day by day of the week number
-	 * @since  3.0
-	 * @author tim@imaginesimplicty.com
-	 * @param  integer $day_id
-	 * @return void
-	 */
-	function tribe_events_week_setup_current_day(){
-		Tribe_Events_Pro_Week_Template::increment_current_day();
-	}
-
-	/**
-	 * get the current day of the week number
-	 * @since  3.0
-	 * @author tim@imaginesimplicty.com
-	 * @return int $day_id
-	 */
-	function tribe_events_week_get_current_day(){
-		Tribe_Events_Pro_Week_Template::get_current_day();
 	}
 
 	/**
@@ -235,13 +187,12 @@ if( class_exists('TribeEventsPro')) {
 	}
 
 	/**
-	 * check to see if event is available or first instance 
-	 * used in templating all day event spans and positioning
+	 * check to see if placeholder should be used in template in place of event block
 	 * @since  3.0
 	 * @author tim@imaginesimplicty.com
 	 * @return boolean
 	 */
-	function tribe_events_week_is_not_allday_event_field(){
+	function tribe_events_week_is_all_day_placeholder(){
 		$event_key_id = tribe_events_week_get_event_id( false );
 		if( is_null( $event_key_id ) || in_array( $event_key_id, Tribe_Events_Pro_Week_Template::$event_key_track ) ) {
 			return true;
