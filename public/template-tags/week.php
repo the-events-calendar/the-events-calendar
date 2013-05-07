@@ -208,7 +208,7 @@ if( class_exists('TribeEventsPro')) {
 				break;
 			case 'hourly':
 				$event = Tribe_Events_Pro_Week_Template::get_hourly_event( $event_id );
-				if ( !empty($event->EventStartDate) && date( 'Y-m-d', strtotime( $event->EventStartDate ) ) <= Tribe_Events_Pro_Week_Template::get_current_date() && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) >= Tribe_Events_Pro_Week_Template::get_current_date() ) {
+				if ( !empty($event->EventStartDate) && date( 'Y-m-d', strtotime( $event->EventStartDate ) ) <= tribe_events_week_get_the_date( false ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) >= tribe_events_week_get_the_date( false ) ) {
 					Tribe_Events_Pro_Week_Template::set_event_id( $event_id );
 					return true; 
 				} else {
