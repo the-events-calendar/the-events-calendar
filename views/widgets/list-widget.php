@@ -24,15 +24,22 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 ?>
 
 <li>
-	<p class="entry-title summary">
+	<h4 class="entry-title summary">
 			<a href="<?php echo tribe_get_event_link(); ?>" rel="bookmark"><?php the_title(); ?></a>
-	</p>
+	</h4>
+	<?php if ( $cost && tribe_get_cost() != '' ) { ?>
+		<div class="tribe-events-event-cost">
+			<?php _e( 'Price:', 'tribe-events-calendar-pro' ); ?>
+			<?php echo tribe_get_cost( null, true ); ?>
+		</div>
+	<?php } ?>	
 	<div class="duration">
 			<?php echo tribe_events_event_schedule_details(); ?>	
-	</div>
+	</div>	
 	<div class="vcard adr location">	
+
 		<?php if ( $venue  && tribe_get_venue() != '') { ?>
-			<span class="fn org tribe-venue"><?php echo tribe_get_venue(); ?></span> 
+			<span class="fn org tribe-venue"><?php echo tribe_get_venue_link(); ?></span> 
 		<?php } ?>
 
 		<?php if ( $address && tribe_get_address() != '' ) { ?>
@@ -56,18 +63,12 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<?php } ?>
 
 		<?php if ( $organizer && tribe_get_organizer() != '' ) { ?>
-				<span class="tribe-organizer"><?php echo tribe_get_organizer(); ?></span>
+		<?php _e( 'Organizer:', 'tribe-events-calendar-pro' ); ?>
+				<span class="tribe-organizer"><?php echo tribe_get_organizer_link(); ?></span>
 		<?php } ?>
 
 		<?php if ( $phone && tribe_get_phone() != '' ) { ?>
 			<span class="tel"><?php echo tribe_get_phone(); ?></span>
-		<?php } ?>
-
-		<?php if ( $cost && tribe_get_cost() != '' ) { ?>
-			<span class="tribe-events-event-cost">
-				<?php _e( 'Price:', 'tribe-events-calendar-pro' ); ?>
-				<?php echo tribe_get_cost( null, true ); ?>
-			</span>
 		<?php } ?>
 	</div>
 </li>

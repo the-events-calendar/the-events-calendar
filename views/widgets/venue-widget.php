@@ -19,9 +19,7 @@
 	<ul class="tribe-venue-widget-list">
 		<?php foreach ($events as $event) { ?>
 			<li>
-				<a href="<?php echo get_permalink($event); ?>">
-					<div class="tribe_venue-widget-title"><?php echo get_the_title($event->ID); ?></div>
-				</a>
+				<h4><a href="<?php echo get_permalink($event); ?>"><?php echo get_the_title($event->ID); ?></a></h4>
 				<?php echo tribe_events_event_schedule_details( $event->ID ) ?>
 				<?php if ( tribe_get_cost( $event->ID ) != '' ) { ?>
 				<span class="tribe-events-divider">|</span>

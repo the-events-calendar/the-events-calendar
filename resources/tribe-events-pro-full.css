@@ -828,6 +828,29 @@ h3.tribe-events-related-events-title {
 }
 
 /* = Events Calendar Widget Styles (Sidebar)
+   @ Template: list-widget.php
+=============================================*/
+
+.tribe-events-adv-list-widget ol li {
+	margin-bottom: 20px;
+}
+
+.tribe-events-adv-list-widget .tribe-venue {
+	display: block;
+}
+
+.tribe-events-adv-list-widget .country-name {
+	display: block;
+}
+
+.tribe-events-adv-list-widget .tribe-events-event-cost {
+	display: block;
+}
+
+.tribe-events-adv-list-widget  .tribe-events-event-schedule-details {
+}
+
+/* = Events Calendar Widget Styles (Sidebar)
    @ Template: calendar-widget.php
 =============================================*/
 .tribe-events-calendar-widget {
