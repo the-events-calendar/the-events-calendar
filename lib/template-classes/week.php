@@ -1,5 +1,7 @@
 <?php
 /**
+ *
+ *
  * @for Week Grid Template
  * This file contains hooks and functions required to set up the week grid view.
  *
@@ -57,8 +59,9 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		/**
 		 * Set the notices used on week view
 		 *
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
 		 * @return void
-		 * @since 3.0
 		 * */
 		function set_notices() {
 			global $wp_query;
@@ -78,62 +81,68 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * Set up hooks for week view
 		 *
 		 * @return void
-		 * @since 3.0
-		 **/
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
+		 * */
 		protected function hooks() {
 			parent::hooks();
-			add_filter( 'tribe_events_header_attributes',  array( $this, 'header_attributes'), 10, 2 );
+			add_filter( 'tribe_events_header_attributes',  array( $this, 'header_attributes' ), 10, 2 );
 		}
 
 		/**
 		 * Add header attributes for week view
 		 *
 		 * @return string
-		 * @since 3.0
-		 **/
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
+		 * */
 		function header_attributes( $attrs, $current_view ) {
-			switch( $current_view ){
-				case 'week-all-day':
-					$attrs['data-hour'] = 'all-day';
-					break;
-				case 'week-hourly':
-					$event = self::get_hourly_event();
-					if ( $event->days_between > 0 ) {
-						$daily_mins = 1440;
-						$data_hour = 0;
-						$data_min = 0;
-						if ( in_array( $event->ID, self::$daily_span_ids ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) == self::get_current_date() ) {
-							// if the event is longer than a day we want to account for that with an offset for the ending time
-							$duration = abs( ( strtotime( self::get_current_date() ) - strtotime( $event->EventEndDate ) ) / 60 );
-						} else if ( in_array( $event->ID, self::$daily_span_ids ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) > self::get_current_date() ) {
-								// if there is a day in between start/end we just want to fill the spacer with the total mins in the day.
-								$duration = $daily_mins;
-							} else {
-							self::$daily_span_ids[] = $event->ID;
-							// if the event is longer than a day we want to account for that with an offset
-							$duration = $daily_mins - abs( ( strtotime( self::get_current_date() ) - strtotime( $event->EventStartDate ) ) / 60 );
-							$data_hour = date( 'G', strtotime( $event->EventStartDate ) );
-							$data_min = date( 'i', strtotime( $event->EventStartDate ) );
-						}
-					} else {
-						// for a default event continue as everything is normal
-						$duration = ( $event->EventDuration / 60 );
+			switch ( $current_view ) {
+			case 'week-all-day':
+				$attrs['data-hour'] = 'all-day';
+				break;
+			case 'week-hourly':
+				$event = self::get_hourly_event();
+				if ( $event->days_between > 0 ) {
+					$daily_mins = 1440;
+					$data_hour = 0;
+					$data_min = 0;
+					if ( in_array( $event->ID, self::$daily_span_ids ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) == self::get_current_date() ) {
+						// if the event is longer than a day we want to account for that with an offset for the ending time
+						$duration = abs( ( strtotime( self::get_current_date() ) - strtotime( $event->EventEndDate ) ) / 60 );
+					} else if ( in_array( $event->ID, self::$daily_span_ids ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) > self::get_current_date() ) {
+							// if there is a day in between start/end we just want to fill the spacer with the total mins in the day.
+							$duration = $daily_mins;
+						} else {
+						self::$daily_span_ids[] = $event->ID;
+						// if the event is longer than a day we want to account for that with an offset
+						$duration = $daily_mins - abs( ( strtotime( self::get_current_date() ) - strtotime( $event->EventStartDate ) ) / 60 );
 						$data_hour = date( 'G', strtotime( $event->EventStartDate ) );
 						$data_min = date( 'i', strtotime( $event->EventStartDate ) );
 					}
-					$attrs['data-duration'] = $duration;
-					$attrs['data-hour'] = $data_hour;
-					$attrs['data-min'] = $data_min;
-					break;
+				} else {
+					// for a default event continue as everything is normal
+					$duration = ( $event->EventDuration / 60 );
+					$data_hour = date( 'G', strtotime( $event->EventStartDate ) );
+					$data_min = date( 'i', strtotime( $event->EventStartDate ) );
+				}
+				$attrs['data-duration'] = $duration;
+				$attrs['data-hour'] = $data_hour;
+				$attrs['data-min'] = $data_min;
+				break;
 			}
 
 			unset( $attrs['data-title'] );
 
-			return apply_filters('tribe_events_pro_header_attributes', $attrs, $current_view );
+			return apply_filters( 'tribe_events_pro_header_attributes', $attrs, $current_view );
 		}
 
 		/**
 		 * This will set the self::week_days array with proper offset for start day in settings
+		 *
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
+		 * @return  void
 		 */
 		function set_week_days() {
 			$week_days = array();
@@ -153,8 +162,9 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * Checks whether there are more calendar days to display
 		 *
 		 * @return bool True if calendar days are available, false if not.
-		 * @since 3.0
-		 **/
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
+		 * */
 		public static function have_days() {
 			if ( self::$current_day < ( self::$start_of_week + self::$week_length ) - 1 ) {
 				return true;
@@ -164,7 +174,10 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 		/**
 		 * Get access to the internal week day list
+		 *
 		 * @return array $week_days
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
 		 */
 		function get_week_days() {
 			return self::$week_days;
@@ -172,8 +185,11 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 		/**
 		 * Get events by type
-		 * @param  string $obj
+		 *
+		 * @param string  $obj
 		 * @return object self::events->{$obj}
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
 		 */
 		function get_events( $obj = null ) {
 			if ( !empty( self::$events->{$obj} ) )
@@ -184,7 +200,10 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 		/**
 		 * Break the $wp_query post loop apart into sorted events by type
+		 *
 		 * @return void
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
 		 */
 		function setup_loop() {
 			global $wp_query;
@@ -284,65 +303,108 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 		/**
 		 * increment the current day for tracking the current day of the week within the loop
-		 * @return [type] [description]
+		 *
+		 * @return void
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
 		 */
-		public static function the_day(){
-			if( self::$current_day == -1 ) {
+		public static function the_day() {
+			if ( self::$current_day == -1 ) {
 				self::$current_day = self::$start_of_week;
-			} else 
-			if( self::$current_day < self::$start_of_week + self::$week_length ) {
-				self::$current_day++;
-			} else {
+			} else
+				if ( self::$current_day < self::$start_of_week + self::$week_length ) {
+					self::$current_day++;
+				} else {
 				self::reset_current_day();
 			}
 		}
 
-		public static function reset_the_day(){
+		/**
+		 * reset the internal counter for the current day
+		 *
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
+		 * @return void
+		 */
+		public static function reset_the_day() {
 			self::$current_day = -1;
 		}
 
-		public static function get_the_day_map(){
+		/**
+		 * returns the current iterator for the all day map row
+		 *
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
+		 * @return int
+		 */
+		public static function get_the_day_map() {
 			return self::$current_map_row;
 		}
 
-		public static function the_day_map(){
+		/**
+		 * internal mechanism to increment the all day map counter
+		 *
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
+		 * @return void
+		 */
+		public static function the_day_map() {
 			self::$current_map_row++;
 		}
 
-		public static function reset_the_day_map(){
+		/**
+		 * reset the internal counter for all day map counter
+		 *
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
+		 * @return void
+		 */
+		public static function reset_the_day_map() {
 			self::$current_map_row = -1;
 		}
 
 		/**
 		 * set internal mechanism for tracking what the current day of the week is within the display loops
-		 * @param int $day_id
+		 *
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
+		 * @param int     $day_id
 		 */
-		function set_current_day( $day_id ){
+		function set_current_day( $day_id ) {
 			self::$current_day = $day_id;
 		}
 
 		/**
 		 * get internal increment for current day of the week
+		 *
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
 		 * @return int
 		 */
-		function get_current_day(){
+		function get_current_day() {
 			return self::$current_day;
 		}
 
 		/**
 		 * get the current date based on the current day of week
+		 *
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
 		 * @return date( 'Y-m-d' )
 		 */
-		function get_current_date(){
+		function get_current_date() {
 			return date_i18n( 'Y-m-d', strtotime( self::$start_of_week . ' +' . self::$current_day . ' days' ) );
 		}
 
 		/**
 		 * css column classes used during loop
+		 *
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
 		 * @return void
 		 */
-		function column_classes(){
-			if( self::$week_days[ self::$current_day ]->is_today )
+		function column_classes() {
+			if ( self::$week_days[ self::$current_day ]->is_today )
 				echo 'tribe-week-today';
 			if ( self::$current_day != 0 && ( ( self::$current_day % 4 == 0 ) || ( self::$current_day % 5 == 0 ) || ( self::$current_day % 6 == 0 ) ) )
 				echo ' tribe-events-right';
@@ -350,11 +412,14 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 		/**
 		 * css event wrapper classes used during loop
+		 *
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
 		 * @return void
 		 */
-		function event_classes(){
+		function event_classes() {
 
-			if( self::$loop_type == 'allday') {
+			if ( self::$loop_type == 'allday' ) {
 				$event = self::get_allday_event();
 			} else {
 				$event = self::get_hourly_event();
@@ -365,7 +430,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 			// we need to adjust on behalf of weekly span scripts
 			$day_span_length = $event->days_between + self::$start_of_week;
-			if( $day_span_length > 0 )
+			if ( $day_span_length > 0 )
 				echo 'tribe-dayspan' . $day_span_length . ' ';
 
 			// if we have a venue add the class
@@ -375,7 +440,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			// if we have an organizer add the class
 			if ( $organizer_id = tribe_get_organizer_id( $event->ID ) )
 				$classes[] = 'tribe-events-organizer-'. $organizer_id . ' ';
-			
+
 			// add classes for all assigned categories
 			$tribe_cat_slugs = tribe_get_event_cat_slugs( $event->ID );
 			foreach ( $tribe_cat_slugs as $tribe_cat_slug ) {
@@ -391,45 +456,57 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 		/**
 		 * set the internal event id for tracking between methods/templates
-		 * @param int $event_id
+		 *
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
+		 * @param int     $event_id
 		 */
-		function set_event_id( $event_id ){
+		function set_event_id( $event_id ) {
 			self::$event_id = $event_id;
 		}
 
 		/**
 		 * access the internal var for tracking the event id
+		 *
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
 		 * @return int self::event_id
 		 */
-		function get_event_id(){
-			if( self::$loop_type == 'allday' && !empty( self::$events->all_day[ self::$event_id ] ) ) {
+		function get_event_id() {
+			if ( self::$loop_type == 'allday' && !empty( self::$events->all_day[ self::$event_id ] ) ) {
 				return self::$events->all_day[ self::$event_id ]->ID;
 			} else if ( self::$loop_type == 'hourly' ) {
-				return self::$event_id;
-			}
+					return self::$event_id;
+				}
 			return null;
 		}
 
 		/**
 		 * Based on set event id return an all day event
+		 *
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
 		 * @return object $event
 		 */
-		function get_allday_event(){
+		function get_allday_event() {
 			$event = !empty( self::$events->all_day[ self::$event_id ] ) ? self::$events->all_day[ self::$event_id ] : null;
 			return $event;
 		}
 
 		/**
 		 * Based on set event id return an hourly type event
+		 *
+		 * @since  3.0
+		 * @author tim@imaginesimplicty.com
 		 * @return object $event
 		 */
-		function get_hourly_event( $event_id = null ){
+		function get_hourly_event( $event_id = null ) {
 			$event_id = !empty( $event_id ) ? $event_id : self::get_event_id();
-			if( is_object( $event_id )){
+			if ( is_object( $event_id ) ) {
 				return $event_id;
 			} else {
 				$event = !empty( self::$events->hourly[ $event_id ] ) ? self::$events->hourly[ $event_id ] : null;
-				return $event;	
+				return $event;
 			}
 		}
 
