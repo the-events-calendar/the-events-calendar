@@ -176,12 +176,10 @@ h2.tribe-events-page-title a:focus {
 }
 #tribe-events-header .tribe-events-sub-nav .tribe-events-nav-left,
 #tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-left {
-	float: left;
 	text-align: left;
 }
 #tribe-events-header .tribe-events-sub-nav .tribe-events-nav-right,
 #tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-right {
-	float: right;
 	text-align: right;
 }
 .tribe-events-ajax-loading {
@@ -232,11 +230,9 @@ h2.tribe-events-page-title a:focus {
 }
 #tribe-events-content ul.tribe-events-sub-nav li.tribe-events-nav-prev {
 	margin-right: 5px;
-	float: left;
 }
 #tribe-events-content ul.tribe-events-sub-nav li.tribe-events-nav-next {
 	margin-left: 5px;
-	float: right;
 }
 #tribe-events-content li.tribe-events-nav-date {
 	padding-top: 16px;
