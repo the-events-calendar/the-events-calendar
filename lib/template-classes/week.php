@@ -39,6 +39,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			self::$start_of_week = get_option( 'start_of_week', 0 );
 
 			// let's get this show on the road
+			self::set_current_day( self::$start_of_week );
 			self::set_week_days();
 			self::setup_loop();
 
@@ -265,6 +266,22 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 					self::$events->hourly[ $event->ID ] = $event;
 				}
 			}
+		}
+
+		/**
+		 * increment the current day for tracking the current day of the week within the loop
+		 * @return [type] [description]
+		 */
+		public static function increment_current_day(){
+			if( self::$current_day < self::$week_length ) {
+				self::$current_day++;
+			} else {
+				self::reset_current_day();
+			}
+		}
+
+		public static function reset_current_day(){
+			self::$current_day = self::$start_of_week;
 		}
 
 		/**

@@ -18,7 +18,8 @@ if( class_exists('TribeEventsPro')) {
 	 * @param  string $loop_type
 	 * @return void
 	 */
-	function tribe_events_week_set_loop_type( $loop_type ){
+	function tribe_events_week_set_loop_type( $loop_type = 'hourly' ){
+		Tribe_Events_Pro_Week_Template::reset_current_day();
 		Tribe_Events_Pro_Week_Template::$loop_type = $loop_type;
 	}
 
@@ -30,6 +31,14 @@ if( class_exists('TribeEventsPro')) {
 	 */
 	function tribe_events_week_get_loop_type(){
 		return apply_filters( 'tribe_events_week_get_loop_type', Tribe_Events_Pro_Week_Template::$loop_type );
+	}
+
+	/**
+	 * increment the current day loop
+	 * @return void
+	 */
+	function tribe_events_week_increment_day(){
+		Tribe_Events_Pro_Week_Template::increment_current_day();
 	}
 
 	/**
@@ -63,6 +72,39 @@ if( class_exists('TribeEventsPro')) {
 	}
 
 	/**
+	 * return the current date of the day set by $current_day
+	 * @return [type] [description]
+	 */
+	function tribe_events_week_get_current_date( $echo = true ){
+		$week_days = tribe_events_week_get_days();
+		$html = apply_filters( 'tribe_events_week_get_current_date', $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->date );
+		if ( $echo ) {
+			echo $html;
+		} else {
+			return $html;
+		}
+	}
+
+	function tribe_events_week_get_current_day_display( $echo = true ){
+		$week_days = tribe_events_week_get_days();
+		$html = apply_filters( 'tribe_events_week_get_current_date', $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->display );
+		if ( $echo ) {
+			echo $html;
+		} else {
+			return $html;
+		}
+	}
+
+	/**
+	 * return if the current day is today
+	 * @return bool
+	 */
+	function tribe_events_week_is_current_today(){
+		$week_days = tribe_events_week_get_days();
+		return apply_filters( 'tribe_events_week_is_current_today', $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->today );
+	}
+
+	/**
 	 * get map of all day events for week view
 	 * @since  3.0
 	 * @author tim@imaginesimplicty.com
@@ -89,7 +131,7 @@ if( class_exists('TribeEventsPro')) {
 	 * @return array of event ids
 	 */
 	function tribe_events_week_get_all_day_map_col(){
-		$all_day_map  = Tribe_Events_Pro_Week_Template::get_events('all_day_map');
+		$all_day_map  = tribe_events_week_get_all_day_map();
 		return apply_filters('tribe_events_week_get_all_day_map_col', $all_day_map[ Tribe_Events_Pro_Week_Template::get_current_day() ]);
 	}
 
@@ -110,8 +152,8 @@ if( class_exists('TribeEventsPro')) {
 	 * @param  integer $day_id
 	 * @return void
 	 */
-	function tribe_events_week_setup_current_day( $day_id = 0 ){
-		Tribe_Events_Pro_Week_Template::set_current_day( $day_id );
+	function tribe_events_week_setup_current_day(){
+		Tribe_Events_Pro_Week_Template::increment_current_day();
 	}
 
 	/**
