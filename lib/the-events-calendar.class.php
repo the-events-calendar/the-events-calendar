@@ -215,7 +215,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-view-helpers.class.php' );
 			require_once( 'tribe-events-bar.class.php' );
 			require_once( 'tribe-the-events-calendar-import.class.php' );
-			require_once( 'tribe-debug-bar.class.php' );
+			//require_once( 'tribe-debug-bar.class.php' );
 			require_once( 'tribe-amalgamator.php' );
 
 			// Load Template Classes
