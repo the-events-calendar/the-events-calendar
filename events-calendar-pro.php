@@ -91,7 +91,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'public/template-tags/general.php' );
 			require_once( 'public/template-tags/week.php' );
 			require_once( 'public/template-tags/venue.php' );
-			require_once( 'lib/tribe-presstrends-events-calendar-pro.php' );
 			require_once( 'lib/tribe-geoloc.class.php' );
 			require_once( 'lib/meta-pro.php' );
 
