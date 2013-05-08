@@ -28,7 +28,6 @@ jQuery(document).ready(function ($) {
             $container.imagesLoaded(function () {
                 $container.isotope({
                     transformsEnabled: false,
-                    resizesContainer: false,
                     containerStyle: {
                         position: 'relative',
                         overflow: 'visible'
