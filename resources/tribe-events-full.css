@@ -1083,26 +1083,14 @@ select.tribe-events-dropdown {
 /* = Events List Widget Styles (Sidebar)
    @ Template: list-widget.php
 =============================================*/
-.tribe-events-list-widget ol,
-.tribe-events-adv-list-widget ol {
-	list-style-type: square;
-	margin-left: 0;
-	margin-bottom: 0;
+
+.tribe-events-list-widget ol li {
+	margin-bottom: 30px;
+	list-style: none;
 }
-.tribe-events-list-widget li, 
-.singular.page li.hentry, 
-.tribe-events-adv-list-widget li, 
-.singular.page li.hentry {
-	margin: 6px 0;
-	padding: 0 0 10px 0;
-	color: #777;
-	font-size: 13px;
-}
-.tribe-events-list-widget li p.entry-title.summary,
-.tribe-events-adv-list-widget li p.entry-title.summary {
-	margin-bottom: 0;
-	padding: 0;
-	font-size: 100%;
+
+.tribe-events-list-widget  .duration {
+	font-weight: bold;
 }
 
 /* = WooTickets
