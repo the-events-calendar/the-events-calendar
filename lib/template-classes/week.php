@@ -100,6 +100,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			switch ( $current_view ) {
 			case 'week-all-day':
 				$attrs['data-hour'] = 'all-day';
+				unset( $attrs['data-title'] );
 				break;
 			case 'week-hourly':
 				$event = self::get_hourly_event();
@@ -129,10 +130,20 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				$attrs['data-duration'] = $duration;
 				$attrs['data-hour'] = $data_hour;
 				$attrs['data-min'] = $data_min;
+				unset( $attrs['data-title'] );
+				break;
+
+			case 'week-header':
+
+				global $wp_query;
+				$current_week = $wp_query->get('start_date');
+
+				$attrs['data-view'] = 'week';
+				$attrs['data-startofweek'] = get_option( 'start_of_week' );
+				$attrs['data-baseurl'] = tribe_get_week_permalink( null, false );
+				$attrs['data-date'] = Date('Y-m-d', strtotime( $current_week ) );
 				break;
 			}
-
-			unset( $attrs['data-title'] );
 
 			return apply_filters( 'tribe_events_pro_header_attributes', $attrs, $current_view );
 		}

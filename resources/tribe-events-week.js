@@ -1,12 +1,5 @@
 jQuery(document).ready(function ($) {
 
-//	$( '.tribe-event-overlap').each(function(){
-//		$(this).css({
-//			'margin-left' : '15px',
-//			'right' : ''
-//		});
-//	});
-
     $('#tribe-events-bar').addClass('tribe-has-datepicker');
     tribe_ev.state.date = $('#tribe-events-header').attr('data-date');
     var base_url = $('#tribe-events-header .tribe-events-nav-next a').attr('href').slice(0, -11);
@@ -293,7 +286,7 @@ jQuery(document).ready(function ($) {
 
     function tribe_events_week_ajax_post() {
 
-        tribe_ev.fn.spin_show();
+		$('#tribe-events-header').tribe_spin();
         tribe_ev.state.pushcount = 0;
         tribe_ev.state.ajax_running = true;
 
