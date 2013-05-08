@@ -832,7 +832,7 @@ h3.tribe-events-related-events-title {
 =============================================*/
 
 .tribe-events-adv-list-widget ol li {
-	margin-bottom: 20px;
+	margin-bottom: 30px;
 }
 
 .tribe-events-adv-list-widget .tribe-venue {
@@ -844,10 +844,12 @@ h3.tribe-events-related-events-title {
 }
 
 .tribe-events-adv-list-widget .tribe-events-event-cost {
-	display: block;
+	display: inline;
 }
 
-.tribe-events-adv-list-widget  .tribe-events-event-schedule-details {
+.tribe-events-adv-list-widget  .duration {
+	display: inline;
+	font-weight: bold;
 }
 
 /* = Events Calendar Widget Styles (Sidebar)

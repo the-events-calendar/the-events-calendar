@@ -27,15 +27,15 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<h4 class="entry-title summary">
 			<a href="<?php echo tribe_get_event_link(); ?>" rel="bookmark"><?php the_title(); ?></a>
 	</h4>
-	<?php if ( $cost && tribe_get_cost() != '' ) { ?>
-		<div class="tribe-events-event-cost">
-			<?php _e( 'Price:', 'tribe-events-calendar-pro' ); ?>
-			<?php echo tribe_get_cost( null, true ); ?>
-		</div>
-	<?php } ?>	
 	<div class="duration">
 			<?php echo tribe_events_event_schedule_details(); ?>	
-	</div>	
+	</div>
+	<?php if ( $cost && tribe_get_cost() != '' ) { ?>
+		<span class="tribe-events-divider">|</span>
+		<div class="tribe-events-event-cost">
+			<?php echo tribe_get_cost( null, true ); ?>
+		</div>
+	<?php } ?>			
 	<div class="vcard adr location">	
 
 		<?php if ( $venue  && tribe_get_venue() != '') { ?>
