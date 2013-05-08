@@ -27,6 +27,8 @@ jQuery(document).ready(function ($) {
 
             $container.imagesLoaded(function () {
                 $container.isotope({
+                    transformsEnabled: false,
+                    resizesContainer: false,
                     containerStyle: {
                         position: 'relative',
                         overflow: 'visible'
@@ -34,9 +36,10 @@ jQuery(document).ready(function ($) {
                 }, tribe_hide_loader());
             });
 
+
             $container.resize(function () {
                 container_width = $container.width();
-                if (container_width < 643) {
+                if (container_width < 645) {
                     $container.addClass('photo-two-col');
                 } else {
                     $container.removeClass('photo-two-col');
