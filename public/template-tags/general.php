@@ -843,7 +843,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		// get the list view template
 		ob_start();
-		tribe_get_template_part('list');
+		tribe_initialize_view('Tribe_Events_List_Template');
+		tribe_get_view('list');
 		$list_view_html = ob_get_clean();
 
 		// fix the error of our ways

@@ -10,3 +10,6 @@
 [submodule "vendor/jquery-resize"]
 	path = vendor/jquery-resize
 	url = git://github.com/cowboy/jquery-resize.git
+[submodule "vendor/presstrends"]
+	path = vendor/presstrends
+	url = moderntribe_git@git.tri.be:presstrends

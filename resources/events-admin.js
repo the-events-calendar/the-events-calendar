@@ -345,32 +345,6 @@ jQuery(document).ready(function($) {
 		}
 	});
 
-	function maybeDisplayPressTrendsDialogue() {
-		return $('[name="maybeDisplayPressTrendsDialogue"]').val() == "1"
-	}
-
-	if( maybeDisplayPressTrendsDialogue() ) {
-		$('#presstrends-dialog').dialog({
-			modal: true,
-			buttons: [{
-				text:"Send data",
-				click: function() { 
-					$('[name="presstrends_action"]').val(1);
-					$(this).dialog("close"); 							
-					$('[name="sendPressTrendsData"]').prop("checked", true);
-					$('#tribeSaveSettings').click();
-				}
-			}, {
-				text:"Do not send data",
-				click: function() { 
-					$('[name="presstrends_action"]').val(0);
-					$(this).dialog("close"); 
-					$('[name="sendPressTrendsData"]').prop("checked", false);
-				}
-			}]
-		});	
-	}
-	
 	// Workaround for venue & organizer post types when editing or adding
 	// so events parent menu stays open and active
 	if ( $('#icon-edit').hasClass('icon32-posts-tribe_venue') ) {
