@@ -42,8 +42,6 @@ tribe_ev.geoloc.bounds = new google.maps.LatLngBounds();
 
 jQuery(document).ready(function ($) {
 
-    $(".tribe-bar-geoloc-filter").append('<div id="tribe-geo-options"><div id="tribe-geo-links"></div></div>');
-
     function tribe_test_location() {
 
         if ($('#tribe-bar-geoloc').length) {
@@ -365,9 +363,6 @@ jQuery(document).ready(function ($) {
 
     if (GeoLoc.map_view && $('form#tribe-bar-form').length) {
         $('#tribe-events-bar').on('changeDate', '#tribe-bar-date', function (e) {
-            tribe_events_bar_mapajax_actions(e);
-        });
-        $('.tribe-bar-settings button[name="settingsUpdate"]').on('click', function (e) {
             tribe_events_bar_mapajax_actions(e);
         });
     }
