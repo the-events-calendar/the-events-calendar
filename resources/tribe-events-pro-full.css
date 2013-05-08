@@ -646,6 +646,10 @@
 	margin-bottom: 30px;
 }
 
+.tribe-events-venue .tribe-events-user-recurrence-toggle {
+	display: none;
+}
+
 .tribe-events-venue .tribe-events-map-wrap #tribe-events-gmap {
 	height: 0 !important;
 	padding-top: 50%;
@@ -735,6 +739,10 @@
 
 .tribe-events-organizer .tribe-events-divider {
 	margin: 0 10px;
+}
+
+.tribe-events-organizer .tribe-events-user-recurrence-toggle {
+	display: none;
 }
 
 /* = Related Events
