@@ -390,6 +390,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					'success'         => true,
 					'view'            => 'week',
 				);
+				
+				add_filter( 'tribe_is_week', '__return_true' ); // simplest way to declare that this is a day view
 
 				ob_start();
 
