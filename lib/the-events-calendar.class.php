@@ -3167,7 +3167,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				'post_status' => 'publish',
 				'post__not_in' => array( $post->ID ),
 				'order' => $order,
-				'orderby' => 'TIMESTAMP(wp_postmeta.meta_value) ID',
+				'orderby' => "TIMESTAMP($wpdb->postmeta.meta_value) ID",
 				'posts_per_page' => 1,
 				'meta_query' => array(
 					array(
