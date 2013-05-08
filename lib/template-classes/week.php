@@ -518,7 +518,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			
 			if ( is_object( $event_id ) ) {
 				return $event_id;
-			} else if( !empty( self::$events->hourly[ $event_id ] ) ) {
+			} else if( is_numeric( $event_id ) && !empty( self::$events->hourly[ $event_id ] ) ) {
 				return self::$events->hourly[ $event_id ];
 			} else {
 				return null;
