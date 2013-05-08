@@ -876,7 +876,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	function tribe_events_disabled_views() {
-		static $disabled = NULL;
+		static $disabled;
 		if ( isset( $disabled ) ) {
 			return $disabled;
 		}
