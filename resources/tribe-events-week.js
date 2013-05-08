@@ -133,7 +133,7 @@ jQuery(document).ready(function ($) {
 
             var $this = $(this);
             var event_hour = $this.attr("data-hour");
-            var event_length = $this.attr("duration");
+            var event_length = $this.attr("data-duration");
             var event_min = $this.attr("data-min");
 
             // $event_target is our grid block with the same data-hour value as our event.
@@ -153,7 +153,7 @@ jQuery(document).ready(function ($) {
 
             // test if we've exceeded space because this event runs into next day
 
-            var free_space = grid_height - event_length - event_position_top;
+            var free_space = parseInt(grid_height) - parseInt(event_length) - parseInt(event_position_top);
 
             if (free_space < 0) {
                 event_length = event_length + free_space - 14;
