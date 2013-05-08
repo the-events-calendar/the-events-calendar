@@ -193,7 +193,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 */
 		function get_events( $obj = null ) {
 			if ( !empty( self::$events->{$obj} ) )
-				return self::$events->{$obj};
+				return (array) self::$events->{$obj};
 
 			return self::$events;
 		}

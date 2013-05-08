@@ -112,7 +112,8 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	function tribe_events_week_get_the_date( $echo = true ) {
 		$week_days = Tribe_Events_Pro_Week_Template::get_week_days();
-		$html = apply_filters( 'tribe_events_week_get_the_date', $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->date );
+		$html = !empty( $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->date ) ? $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->date : null;
+		$html = apply_filters( 'tribe_events_week_get_the_date', $html );
 		if ( $echo ) {
 			echo $html;
 		} else {
@@ -128,7 +129,8 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	function tribe_events_week_get_the_day_display( $echo = true ) {
 		$week_days = Tribe_Events_Pro_Week_Template::get_week_days();
-		$html = apply_filters( 'tribe_events_week_get_the_day_display', $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->display );
+		$html = !empty( $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->display ) ? $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->display : null;
+		$html = apply_filters( 'tribe_events_week_get_the_day_display', $html );
 		if ( $echo ) {
 			echo $html;
 		} else {
@@ -143,7 +145,8 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	function tribe_events_week_is_current_today() {
 		$week_days = Tribe_Events_Pro_Week_Template::get_week_days();
-		return apply_filters( 'tribe_events_week_is_current_today', $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->today );
+		$status = !empty( $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->today ) ? $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->today : false;
+		return apply_filters( 'tribe_events_week_is_current_today', $status );
 	}
 
 	/**
@@ -154,7 +157,8 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 * @return array of event ids
 	 */
 	function tribe_events_week_get_all_day_map() {
-		return apply_filters( 'tribe_events_week_get_all_day_map', Tribe_Events_Pro_Week_Template::get_events( 'all_day_map' ) );
+		$all_day_map = (array) Tribe_Events_Pro_Week_Template::get_events( 'all_day_map' );
+		return apply_filters( 'tribe_events_week_get_all_day_map', $all_day_map );
 	}
 
 	/**
@@ -165,7 +169,8 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 * @return array of hourly event objects
 	 */
 	function tribe_events_week_get_hourly() {
-		return apply_filters( 'tribe_events_week_get_hourly', Tribe_Events_Pro_Week_Template::get_events( 'hourly' ) );
+		$hourly_events = (array) Tribe_Events_Pro_Week_Template::get_events( 'hourly' );
+		return apply_filters( 'tribe_events_week_get_hourly', $hourly_events );
 	}
 
 	/**
