@@ -11,6 +11,18 @@ if ( !defined( 'ABSPATH' ) )
 
 if ( class_exists( 'TribeEventsPro' ) ) {
 
+	function tribe_events_the_nav_attributes( $direction = 'prev', $echo = true ){
+		global $wp_query;
+		$direction = $direction == 'prev' ? '-' : '+';
+		$current_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
+		$attributes = sprintf(' data-week="%s" ', date( 'Y-m-d', strtotime( $current_week . ' ' . $direction . '7 days' ) ) );
+		if( $echo ){
+			echo $attributes;
+		} else {
+			return $attributes;
+		}
+	}
+
 	/**
 	 * set the loop type for week view between all day and hourly events
 	 *

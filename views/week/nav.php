@@ -17,9 +17,9 @@
 <h3 class="tribe-events-visuallyhidden"><?php _e( 'Week Navigation', 'tribe-events-calendar-pro' ); ?></h3>
 <ul class="tribe-events-sub-nav">
 	<li class="tribe-events-nav-previous">
-		<a href="<?php echo tribe_get_last_week_permalink(); ?>" rel="prev">&laquo; <?php _e( 'Previous Week', 'tribe-events-calendar-pro' ); ?></a>
+		<a <?php tribe_events_the_nav_attributes( 'prev' ); ?> href="<?php echo tribe_get_last_week_permalink(); ?>" rel="prev">&laquo; <?php _e( 'Previous Week', 'tribe-events-calendar-pro' ); ?></a>
 	</li><!-- .tribe-events-nav-previous -->
 	<li class="tribe-events-nav-next">
-		<a href="<?php echo tribe_get_next_week_permalink(); ?>" rel="next"><?php _e( 'Next Week', 'tribe-events-calendar-pro' ); ?> &raquo;</a>
+		<a <?php tribe_events_the_nav_attributes( 'next' ); ?> href="<?php echo tribe_get_next_week_permalink(); ?>" rel="next"><?php _e( 'Next Week', 'tribe-events-calendar-pro' ); ?> &raquo;</a>
 	</li><!-- .tribe-events-nav-next -->
 </ul><!-- .tribe-events-sub-nav -->
