@@ -833,6 +833,7 @@ h3.tribe-events-related-events-title {
 
 .tribe-events-adv-list-widget ol li {
 	margin-bottom: 30px;
+	list-style: none;
 }
 
 .tribe-events-adv-list-widget .tribe-venue {
