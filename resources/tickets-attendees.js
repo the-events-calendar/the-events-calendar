@@ -63,6 +63,7 @@ jQuery( document ).ready( function ( $ ) {
 							$errors.removeClass( 'ui-state-highlight' ).addClass( 'ui-state-error' ).text( response.message );
 							$( '.ui-dialog-buttonpane' ).show();
 							$( '.ui-button-text-only:first' ).hide();
+							$( '#email_response' ).css( 'background', 'none' );
 						}
 					} );
 				}
