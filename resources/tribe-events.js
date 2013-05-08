@@ -464,7 +464,11 @@ var tribe_ev = window.tribe_ev || {};
 
 		tf.tooltips();
 
-
+        // remove events header subnav pagination if no results
+        if ($('.tribe-events-list .tribe-events-notices').length) {
+            $('#tribe-events-header .tribe-events-sub-nav').empty();
+        }
+        
 		//remove border on list view event before month divider
 		if ($('.tribe-events-list').length) {
 			$('.tribe-events-list-separator-month').prev('.vevent').addClass('tribe-event-end-month');
