@@ -382,15 +382,23 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				if ( have_posts() )
 					the_post();
 
-				ob_start();
-				load_template( TribeEventsTemplates::getTemplateHierarchy( 'week', '', 'pro', $this->pluginPath ) );
+				// ob_start();
+				// load_template( TribeEventsTemplates::getTemplateHierarchy( 'week', '', 'pro', $this->pluginPath ) );
 
 				$response = array(
-					'html'            => ob_get_clean(),
+					'html'            => '',
 					'success'         => true,
 					'view'            => 'week',
 				);
+
+				ob_start();
+
+				tribe_get_view( 'week' );
+
+				$response['html'] .= ob_get_clean();
+
 				apply_filters( 'tribe_events_ajax_response', $response );
+				
 				header( 'Content-type: application/json' );
 				echo json_encode( $response );
 				die();

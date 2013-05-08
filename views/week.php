@@ -23,45 +23,46 @@
 ?>
 
 <?php do_action('tribe_events_week_before_template') ?>
-<div id="tribe-events-content" class="tribe-events-week-grid">
+<div id="tribe-events-content-wrapper" class="tribe-events-week-grid">
 
-<!-- Tribe Bar -->
-<?php tribe_get_template_part('modules/bar'); ?>
+	<!-- Tribe Bar -->
+	<?php tribe_get_template_part('modules/bar'); ?>
 
-<div id="tribe-events-content" class="tribe-events-calendar">
-	
-	<!-- Calendar Title -->
-	<?php do_action('tribe_events_week_before_the_title') ?>
-	<h2 class="tribe-events-page-title"><?php tribe_events_title() ?></h2>
-	<?php do_action('tribe_events_week_after_the_title') ?>
+	<div id="tribe-events-content" class="tribe-events-calendar">
+		
+		<!-- Calendar Title -->
+		<?php do_action('tribe_events_week_before_the_title') ?>
+		<h2 class="tribe-events-page-title"><?php tribe_events_title() ?></h2>
+		<?php do_action('tribe_events_week_after_the_title') ?>
 
-	<!-- Notices -->
-	<?php tribe_events_the_notices() ?>
+		<!-- Notices -->
+		<?php tribe_events_the_notices() ?>
 
-	<!-- Calendar Header -->
-	<?php do_action('tribe_events_week_before_header') ?>
-	<div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
+		<!-- Calendar Header -->
+		<?php do_action('tribe_events_week_before_header') ?>
+		<div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
 
-		<!-- Header Navigation -->
-		<?php tribe_get_template_part('week/nav', 'header'); ?>
+			<!-- Header Navigation -->
+			<?php tribe_get_template_part('week/nav', 'header'); ?>
 
-	</div><!-- #tribe-events-header -->
-	<?php do_action('tribe_events_week_after_header') ?>
+		</div><!-- #tribe-events-header -->
+		<?php do_action('tribe_events_week_after_header') ?>
 
-	<!-- Calendar Grid -->
-	<?php tribe_get_template_part('week/loop', 'grid') ?>
+		<!-- Calendar Grid -->
+		<?php tribe_get_template_part('week/loop', 'grid') ?>
 
-	<!-- Calendar Footer -->
-	<?php do_action('tribe_events_week_before_footer') ?>
-	<div id="tribe-events-footer">
+		<!-- Calendar Footer -->
+		<?php do_action('tribe_events_week_before_footer') ?>
+		<div id="tribe-events-footer">
 
-		<!-- Footer Navigation -->
-		<?php tribe_get_template_part('week/nav', 'footer'); ?>
+			<!-- Footer Navigation -->
+			<?php tribe_get_template_part('week/nav', 'footer'); ?>
 
-	</div><!-- #tribe-events-footer -->
-	<?php do_action('tribe_events_week_after_footer') ?>
-	
-</div><!-- #tribe-events-content -->
+		</div><!-- #tribe-events-footer -->
+		<?php do_action('tribe_events_week_after_footer') ?>
+		
+	</div><!-- #tribe-events-content -->
+</div><!-- #tribe-events-content-wrapper -->
 <?php do_action('tribe_events_week_after_template') ?>
 
 

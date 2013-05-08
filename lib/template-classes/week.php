@@ -502,11 +502,15 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 */
 		function get_hourly_event( $event_id = null ) {
 			$event_id = !empty( $event_id ) ? $event_id : self::get_event_id();
+			if( empty($event_id))
+				return null;
+			
 			if ( is_object( $event_id ) ) {
 				return $event_id;
+			} else if( !empty( self::$events->hourly[ $event_id ] ) ) {
+				return self::$events->hourly[ $event_id ];
 			} else {
-				$event = !empty( self::$events->hourly[ $event_id ] ) ? self::$events->hourly[ $event_id ] : null;
-				return $event;
+				return null;
 			}
 		}
 
