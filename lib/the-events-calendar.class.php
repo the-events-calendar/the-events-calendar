@@ -2216,7 +2216,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function fullAddress( $postId=null, $includeVenueName=false ) {
 			ob_start();
-			load_template( TribeEventsTemplates::getTemplateHierarchy( 'modules/address' ) );
+			tribe_get_template_part( 'modules/address' );
 			$address = ob_get_contents();
 			ob_end_clean();
 			return $address;
