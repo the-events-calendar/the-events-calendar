@@ -447,7 +447,7 @@ var tribe_ev = window.tribe_ev || {};
 (function ($, td, te, tf, ts) {
 
 	$(document).ready(function () {
-
+        $('#tribe-events').removeClass('tribe-no-js');
 		ts.category = tf.get_category();
 		td.base_url = tf.get_base_url();
 

@@ -293,7 +293,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->show_data_wrapper['before'] = false;
 
 			// return filtered html
-			return apply_filters( 'tribe_events_view_before_html_data_wrapper', sprintf( '<div id="tribe-events" %s>%s', implode(' ', $attribute_html ), $html ), $data_attributes, $html );
+			return apply_filters( 'tribe_events_view_before_html_data_wrapper', sprintf( '<div id="tribe-events" class="tribe-no-js" %s>%s', implode(' ', $attribute_html ), $html ), $data_attributes, $html );
 		}
 
 		/**
