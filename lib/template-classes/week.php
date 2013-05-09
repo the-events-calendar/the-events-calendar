@@ -421,8 +421,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		function column_classes() {
 			if ( self::$week_days[ self::$current_day ]->is_today )
 				echo 'tribe-week-today';
-			if ( self::$current_day != 0 && ( ( self::$current_day % 4 == 0 ) || ( self::$current_day % 5 == 0 ) || ( self::$current_day % 6 == 0 ) ) )
-				echo ' tribe-events-right';
 		}
 
 		/**
