@@ -1343,6 +1343,9 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 /* Views Select */
+.tribe-no-js #tribe-bar-views [name="tribe-bar-view"] {
+	display: block;
+}
 #tribe-bar-views [name="tribe-bar-view"] {
 	display: none;
 }
