@@ -76,6 +76,10 @@ if( !class_exists('Tribe_Template_Factory') ) {
 				add_action( 'tribe_events_after_view', array( $this, 'view_wrapper_close' ) );
 				add_filter( 'tribe_events_before_view', array( $this, 'add_input_hash' ) );
 			}
+
+			// hide sensitive event info if post is password protected
+			add_action( 'the_post', array( $this, 'manage_sensitive_info' ) );
+
 		}
 
 		/**
@@ -242,6 +246,28 @@ if( !class_exists('Tribe_Template_Factory') ) {
 				return false;
 			}
 			return $file;
+		}
+
+		/**
+		 * Add/remove filters to hide/show sensitive event info on password protected posts
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		public function manage_sensitive_info( $post ) {
+			if ( post_password_required( $post ) ) {
+				add_filter( 'tribe_events_event_schedule_details', '__return_null' );
+				add_filter( 'tribe_events_event_recurring_info_tooltip', '__return_null' );
+				add_filter( 'tribe_event_meta_venue_name', '__return_null' );
+				add_filter( 'tribe_event_meta_venue_address', '__return_null' );
+				add_filter( 'tribe_event_featured_image', '__return_null' );
+			} else {
+				remove_filter( 'tribe_events_event_schedule_details', '__return_null' );
+				remove_filter( 'tribe_events_event_recurring_info_tooltip', '__return_null' );
+				remove_filter( 'tribe_event_meta_venue_name', '__return_null' );
+				remove_filter( 'tribe_event_meta_venue_address', '__return_null' );
+				remove_filter( 'tribe_event_featured_image', '__return_null' );
+			}
 		}
 
 		/**
