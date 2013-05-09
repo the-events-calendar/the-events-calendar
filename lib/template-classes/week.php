@@ -127,7 +127,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 					$data_hour = date( 'G', strtotime( $event->EventStartDate ) );
 					$data_min = date( 'i', strtotime( $event->EventStartDate ) );
 				}
-				$attrs['data-duration'] = $duration;
+				$attrs['data-duration'] = abs( $duration );
 				$attrs['data-hour'] = $data_hour;
 				$attrs['data-min'] = $data_min;
 				unset( $attrs['data-title'] );
