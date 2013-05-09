@@ -750,7 +750,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 				$tooltip .= '</span>';
 			}
 		}
-		return $tooltip;
 		return apply_filters( 'tribe_events_event_recurring_info_tooltip', $tooltip );
 	}
 
