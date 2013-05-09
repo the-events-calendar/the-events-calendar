@@ -101,7 +101,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			// Tribe common resources
 			require_once( 'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
-			TribeCommonLibraries::register( 'pue-client', '1.2.1', $this->pluginPath . 'vendor/pue-client/pue-client.php' );
+			TribeCommonLibraries::register( 'pue-client', '1.3', $this->pluginPath . 'vendor/pue-client/pue-client.php' );
 			TribeCommonLibraries::register( 'advanced-post-manager', '1.0.5', $this->pluginPath . 'vendor/advanced-post-manager/tribe-apm.php' );
 			TribeCommonLibraries::register( 'related-posts', '1.1', $this->pluginPath. 'vendor/tribe-related-posts/tribe-related-posts.php' );
 
@@ -552,7 +552,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function helpersLoaded() {
 			require_once( 'lib/apm_filters.php' );
 			if ( apply_filters( 'tribe_enable_pue', TRUE, $this->pluginSlug ) ) {
-				new PluginUpdateEngineChecker( self::$updateUrl, $this->pluginSlug, array(), plugin_basename( __FILE__ ) );
+				new TribePluginUpdateEngineChecker( self::$updateUrl, $this->pluginSlug, array(), plugin_basename( __FILE__ ) );
 			}
 		}
 
