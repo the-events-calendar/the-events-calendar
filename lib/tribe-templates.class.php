@@ -37,11 +37,10 @@ if (!class_exists('TribeEventsTemplates')) {
 			$events = TribeEvents::instance();
 			do_action('tribe_tec_template_chooser', $template);
 
-
          	// hijack this method right up front if it's a 404
          	if( is_404() && is_single() && apply_filters( 'tribe_events_templates_is_404', '__return_true') )
          		return get_404_template();
-  
+
 			// no non-events need apply
 			if ( ! in_array( get_query_var( 'post_type' ), array( TribeEvents::POSTTYPE, TribeEvents::VENUE_POST_TYPE, TribeEvents::ORGANIZER_POST_TYPE ) ) && ! is_tax( TribeEvents::TAXONOMY ) ) {
 				return $template;
@@ -58,7 +57,9 @@ if (!class_exists('TribeEventsTemplates')) {
 
 				// add_filter( 'wp_title', array(__CLASS__, 'remove_default_title'), 1);
 
-				add_action( 'loop_start', array(__CLASS__, 'setup_ecp_template' ) );
+				if ( ! is_single() || ! post_password_required()) {
+					add_action( 'loop_start', array(__CLASS__, 'setup_ecp_template' ) );
+				}
 			
 				$template = locate_template( tribe_get_option('tribeEventsTemplate', 'default') == 'default' ? 'page.php' : tribe_get_option('tribeEventsTemplate', 'default') );
 				if ($template ==  '') $template = get_index_template();
@@ -80,6 +81,12 @@ if (!class_exists('TribeEventsTemplates')) {
 		 * @since 3.0
 		 **/
 		public static function instantiate_template_class( $class = false ) {
+
+			// hijack this method right up front if it's a password protected post and the password isn't entered
+			if ( is_single() && post_password_required() ) {
+				return;
+			}
+  
 			if ( tribe_is_event_query() ) {
 				if ( ! $class ) {
 					$class = self::get_current_template_class();
@@ -476,6 +483,11 @@ if (!class_exists('TribeEventsTemplates')) {
 	
 		public static function maybeSpoofQuery() {
 
+			// hijack this method right up front if it's a password protected post and the password isn't entered
+			if (is_single() && post_password_required()) {
+				return;
+			}
+  
 			global $wp_query;
 
 			if ( $wp_query->is_main_query() && tribe_is_event_query() && tribe_get_option('tribeEventsTemplate', 'default') != '' ) {

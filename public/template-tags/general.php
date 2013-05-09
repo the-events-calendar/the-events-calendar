@@ -56,7 +56,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 **/
 	function tribe_get_view( $view = false ) {
 
-		do_action('tribe_pre_get_view');
+		do_action( 'tribe_pre_get_view' );
 
 		if ( ! $view ) {
 			$template_file = tribe_get_current_template();
@@ -750,7 +750,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 				$tooltip .= '</span>';
 			}
 		}
-		return $tooltip;
 		return apply_filters( 'tribe_events_event_recurring_info_tooltip', $tooltip );
 	}
 
@@ -876,7 +875,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	function tribe_events_disabled_views() {
-		static $disabled = NULL;
+		static $disabled;
 		if ( isset( $disabled ) ) {
 			return $disabled;
 		}
