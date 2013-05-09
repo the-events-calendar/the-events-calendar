@@ -131,7 +131,7 @@ class TribeEventsGeoLoc {
 				'hideLocationSearch' => array( 
 					'type' => 'checkbox_bool',
 					'label' => __( 'Hide location search', 'tribe-events-calendar-pro' ),
-					'tooltip' => __( 'Removes location search field from the events bar.', 'tribe-events-calendar-pro' ),
+					'tooltip' => __( 'Removes location search field from the events bar on all views except for map view.', 'tribe-events-calendar-pro' ),
 					'default' => false,
 					'validation_type' => 'boolean',
 				),
