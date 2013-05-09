@@ -1838,6 +1838,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				Tribe_Template_Factory::asset_package('calendar-script');
 
 				Tribe_Template_Factory::asset_package('events-css');
+			} else if ( is_active_widget( false, false, 'tribe-events-list-widget' ) ) {
+
+				Tribe_Template_Factory::asset_package('events-css');
+
 			}
 		}
 

@@ -56,7 +56,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 **/
 	function tribe_get_view( $view = false ) {
 
-		do_action('tribe_pre_get_view');
+		do_action( 'tribe_pre_get_view' );
 
 		if ( ! $view ) {
 			$template_file = tribe_get_current_template();
