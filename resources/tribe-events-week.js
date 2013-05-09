@@ -43,6 +43,10 @@
 			});
 		}
 
+		function tribe_add_right_class() {
+			$('.tribe-grid-content-wrap .column:eq(5), .tribe-grid-content-wrap .column:eq(6), .tribe-grid-content-wrap .column:eq(7)').addClass('tribe-events-right');
+		}
+
 		function tribe_set_allday_placeholder_height() {
 			$('.tribe-event-placeholder').each(function () {
 				var pid = $(this).attr("data-event-id");
@@ -177,6 +181,7 @@
 		function tribe_week_view_init(callback, resize) {
 			tribe_set_allday_placeholder_height();
 			tribe_set_allday_spanning_events_width();
+			tribe_add_right_class();
 			if(resize)
 				$('.tribe-grid-content-wrap .column').css('height', 'auto');
 			tribe_display_week_view();
