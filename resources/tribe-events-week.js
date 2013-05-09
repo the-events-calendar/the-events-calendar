@@ -44,7 +44,8 @@
 		}
 
 		function tribe_add_right_class() {
-			$('.tribe-grid-content-wrap .column:eq(5), .tribe-grid-content-wrap .column:eq(6), .tribe-grid-content-wrap .column:eq(7)').addClass('tribe-events-right');
+			$('.tribe-grid-body .column:eq(5), .tribe-grid-body .column:eq(6), .tribe-grid-body .column:eq(7)').addClass('tribe-events-right');
+			console.log($('.tribe-grid-content-wrap .column:eq(5), .tribe-grid-content-wrap .column:eq(6), .tribe-grid-content-wrap .column:eq(7)'))
 		}
 
 		function tribe_set_allday_placeholder_height() {
