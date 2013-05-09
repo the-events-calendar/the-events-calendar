@@ -604,6 +604,35 @@ class TribeEventsGeoLoc {
 
 	}
 
+	public static function generate_geopoints_for_all_venues() {
+
+		$args = array(
+			'post_type'      => TribeEvents::VENUE_POST_TYPE,
+			'posts_per_page' => 20,
+			'meta_query'     => array(
+				array(
+					'key'     => '_VenueGeoAddress',
+					'compare' => 'NOT EXISTS'
+				)
+			)
+		);
+
+		$venues = get_posts( $args );
+
+		foreach ( $venues as $venue ) {
+			$data             = array();
+			$data["Address"]  = get_post_meta( $venue->ID, '_VenueAddress', true );
+			$data["City"]     = get_post_meta( $venue->ID, '_VenueCity', true );
+			$data["Province"] = get_post_meta( $venue->ID, '_VenueProvince', true );
+			$data["State"]    = get_post_meta( $venue->ID, '_VenueState', true );
+			$data["Zip"]      = get_post_meta( $venue->ID, '_VenueZip', true );
+			$data["Country"]  = get_post_meta( $venue->ID, '_VenueCountry', true );
+
+			self::instance()->save_venue_geodata( $venue->ID, $data );
+		}
+
+	}
+
 
 	/* Static Singleton Factory Method */
 	private static $instance;

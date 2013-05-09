@@ -23,12 +23,11 @@
 ?>
 
 <?php do_action('tribe_events_week_before_template') ?>
-<div id="tribe-events-content-wrapper" class="tribe-events-week-grid">
 
-	<!-- Tribe Bar -->
-	<?php tribe_get_template_part('modules/bar'); ?>
+<!-- Tribe Bar -->
+<?php tribe_get_template_part('modules/bar'); ?>
 
-	<div id="tribe-events-content" class="tribe-events-calendar">
+	<div id="tribe-events-content" class="tribe-events-week-grid">
 		
 		<!-- Calendar Title -->
 		<?php do_action('tribe_events_week_before_the_title') ?>
@@ -40,7 +39,7 @@
 
 		<!-- Calendar Header -->
 		<?php do_action('tribe_events_week_before_header') ?>
-		<div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
+		<div id="tribe-events-header" <?php tribe_events_the_header_attributes('week-header') ?>>
 
 			<!-- Header Navigation -->
 			<?php tribe_get_template_part('week/nav', 'header'); ?>
@@ -62,7 +61,7 @@
 		<?php do_action('tribe_events_week_after_footer') ?>
 		
 	</div><!-- #tribe-events-content -->
-</div><!-- #tribe-events-content-wrapper -->
+
 <?php do_action('tribe_events_week_after_template') ?>
 
 
