@@ -52,7 +52,7 @@ if( !class_exists('Tribe_PRO_Template_Factory') ) {
 
 					$geoloc = TribeEventsGeoLoc::instance();
 					$data   = array( 'ajaxurl'  => admin_url( 'admin-ajax.php', $http ),
-					                 'nonce'    => wp_create_nonce( 'geosearch' ),
+					                 'nonce'    => wp_create_nonce( 'tribe_geosearch' ),
 					                 'center'   => $geoloc->estimate_center_point(),
 					                 'map_view' => ( TribeEvents::instance()->displaying == 'map' ) ? true : false );
 

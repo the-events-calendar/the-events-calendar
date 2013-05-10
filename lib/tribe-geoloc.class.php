@@ -32,8 +32,8 @@ class TribeEventsGeoLoc {
 		add_action( 'tribe_events_venue_updated', array( $this, 'save_venue_geodata' ), 10, 2 );
 		add_action( 'tribe_events_venue_created', array( $this, 'save_venue_geodata' ), 10, 2 );
 
-		add_action( 'wp_ajax_geosearch', array( $this, 'ajax_geosearch' ) );
-		add_action( 'wp_ajax_nopriv_geosearch', array( $this, 'ajax_geosearch' ) );
+		add_action( 'wp_ajax_tribe_geosearch', array( $this, 'ajax_tribe_geosearch' ) );
+		add_action( 'wp_ajax_nopriv_tribe_geosearch', array( $this, 'ajax_tribe_geosearch' ) );
 
 		add_filter( 'tribe-events-bar-views', array( $this, 'setup_view_for_bar' ), 25, 1 );
 		add_filter( 'tribe-events-bar-filters', array( $this, 'setup_geoloc_filter_in_bar' ), 1, 1 );
@@ -384,7 +384,7 @@ class TribeEventsGeoLoc {
 		return $query;
 	}
 
-	function ajax_geosearch() {
+	function ajax_tribe_geosearch() {
 
 		if ( class_exists( 'TribeEventsFilterView' ) ) {
 			TribeEventsFilterView::instance()->createFilters( null, true );

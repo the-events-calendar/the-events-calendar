@@ -91,9 +91,9 @@
 		if (tt.map_view() && td.params) {
 
 			var tp = td.params;
-			if (tf.in_params(tp, "geosearch") >= 0) {
+			if (tf.in_params(tp, "tribe_geosearch") >= 0) {
 			} else
-				tp += '&action=geosearch';
+				tp += '&action=tribe_geosearch';
 			if (tf.in_params(tp, "tribe_paged") >= 0) {
 			} else
 				tp += '&tribe_paged=1';
@@ -176,7 +176,7 @@
 		function tribe_generate_map_params() {
 			ts.ajax_running = true;
 			ts.params = {
-				action: 'geosearch',
+				action: 'tribe_geosearch',
 				tribe_paged: ts.paged,
 				tribe_event_display: ts.view
 			};
