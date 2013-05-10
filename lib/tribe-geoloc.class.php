@@ -437,13 +437,21 @@ class TribeEventsGeoLoc {
 			$post     = $query->posts[0];
 			$wp_query = $query;
 			TribeEvents::instance()->setDisplay();
+
 			ob_start();
 
-			// global $wp_query;
-			// print_r($wp_query,true);
 			tribe_get_view();
 			$response['html'] .= ob_get_clean();
 			$response['markers'] = $this->generate_markers( $data );
+		} else {
+			global $wp_query;
+			$wp_query = $query;
+			TribeEvents::instance()->setDisplay();
+
+			ob_start();
+
+			tribe_get_view();
+			$response['html'] .= ob_get_clean();
 		}
 		
 		apply_filters( 'tribe_events_ajax_response', $response );
