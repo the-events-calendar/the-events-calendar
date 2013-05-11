@@ -32,8 +32,8 @@ class TribeEventsGeoLoc {
 		add_action( 'tribe_events_venue_updated', array( $this, 'save_venue_geodata' ), 10, 2 );
 		add_action( 'tribe_events_venue_created', array( $this, 'save_venue_geodata' ), 10, 2 );
 
-		add_action( 'wp_ajax_geosearch', array( $this, 'ajax_geosearch' ) );
-		add_action( 'wp_ajax_nopriv_geosearch', array( $this, 'ajax_geosearch' ) );
+		add_action( 'wp_ajax_tribe_geosearch', array( $this, 'ajax_tribe_geosearch' ) );
+		add_action( 'wp_ajax_nopriv_tribe_geosearch', array( $this, 'ajax_tribe_geosearch' ) );
 
 		add_filter( 'tribe-events-bar-views', array( $this, 'setup_view_for_bar' ), 25, 1 );
 		add_filter( 'tribe-events-bar-filters', array( $this, 'setup_geoloc_filter_in_bar' ), 1, 1 );
@@ -74,7 +74,7 @@ class TribeEventsGeoLoc {
 			$geoloc_filter_array['type'] = isset( $current_filters[$geoloc_filter_array['slug']]['type'] ) ? $current_filters[$geoloc_filter_array['slug']]['type'] : 'select';
 			$geoloc_filter_array['title'] = isset( $current_filters[$geoloc_filter_array['slug']]['title'] ) ? $current_filters[$geoloc_filter_array['slug']]['title'] : $geoloc_filter_array['name'];
 
-			$geoloc_filter_array['admin_form'] = sprintf( __( 'Title: %s', 'tribe-events-calendar-pro' ), '<input type="text" name="title" value="' . $geoloc_filter_array['title'] . '">' );
+			$geoloc_filter_array['admin_form'] = sprintf( __( 'Title: %s', 'tribe-events-calendar-pro' ), '<input type="text" name="title" value="' . stripslashes($geoloc_filter_array['title']) . '">' );
 			$geoloc_filter_array['admin_form'] .= '<br />';
 			$geoloc_filter_array['admin_form'] .= sprintf( __( '%sType: %s', 'tribe-events-calendar-pro' ), '<br />', '<br /><label><input type="radio" name="type" value="select" ' . checked( $geoloc_filter_array['type'], 'select', false ) . ' /> ' . __( 'Select Dropdown', 'tribe-events-calendar-pro' ) .'</label><br />' );
 			$geoloc_filter_array['admin_form'] .= '<label><input type="radio" name="type" value="radio" ' . checked( $geoloc_filter_array['type'], 'radio', false ) . ' /> ' . __( 'Radio Buttons', 'tribe-events-calendar-pro' ) .'</label><br />';
@@ -384,7 +384,7 @@ class TribeEventsGeoLoc {
 		return $query;
 	}
 
-	function ajax_geosearch() {
+	function ajax_tribe_geosearch() {
 
 		if ( class_exists( 'TribeEventsFilterView' ) ) {
 			TribeEventsFilterView::instance()->createFilters( null, true );
@@ -437,13 +437,21 @@ class TribeEventsGeoLoc {
 			$post     = $query->posts[0];
 			$wp_query = $query;
 			TribeEvents::instance()->setDisplay();
+
 			ob_start();
 
-			// global $wp_query;
-			// print_r($wp_query,true);
 			tribe_get_view();
 			$response['html'] .= ob_get_clean();
 			$response['markers'] = $this->generate_markers( $data );
+		} else {
+			global $wp_query;
+			$wp_query = $query;
+			TribeEvents::instance()->setDisplay();
+
+			ob_start();
+
+			tribe_get_view();
+			$response['html'] .= ob_get_clean();
 		}
 		
 		apply_filters( 'tribe_events_ajax_response', $response );

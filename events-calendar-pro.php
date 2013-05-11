@@ -375,6 +375,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					'eventDate' => $_POST["eventDate"],
 					'eventDisplay' => 'week'
 					);
+					
+				if ( isset( $_POST['tribe_event_category'] ) ) {
+					$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
+				}
+				
 				$query = TribeEventsQuery::getEvents( $args, true );
 
 				global $wp_query, $post;
@@ -619,15 +624,15 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		    	if( empty($meta_keys) ) {
 		    		remove_post_type_support( TribeEvents::POSTTYPE, 'custom-fields' );
 		    		// update_option('disable_metabox_custom_fields','hide');
-		    		$options['disable_metabox_custom_fields'] = 'hide';
+		    		$show_box = 'hide';
 		    		$r = false;
 		    	} else {
 		    		// update_option('disable_metabox_custom_fields','true');
-		    		$options['disable_metabox_custom_fields'] = 'show';
+		    		$show_box = 'show';
 		    		$r = true;
 		    	}
 
-		    	TribeEvents::setOptions($options);
+		    	tribe_update_option( 'disable_metabox_custom_fields', $show_box );
 		    	return $r;
 		    }
 
