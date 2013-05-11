@@ -26,8 +26,8 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 		
 		echo $args['before_widget'];
 		
-		$defaults = array( 'title' => 'Events Calendar', 'layout' => "tall", 'count' => 5, 'filters' => null, 'operand' => 'OR' );
-		$instance = wp_parse_args( (array)$instance, $defaults );
+		$defaults = array( 'title' => 'Events Calendar', 'count' => 5, 'filters' => null, 'operand' => 'OR' );
+		$instance = wp_parse_args( (array) $instance, $defaults );
 
 		$tax_query = TribeEventsMiniCalendar::instance()->get_tax_query_from_widget_options( json_decode( $instance['filters'] ), $instance['operand'] );
 
@@ -44,7 +44,6 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 	function update( $new_instance, $old_instance ) {
 		$instance            = $old_instance;
 		$instance['title']   = strip_tags( $new_instance['title'] );
-		$instance['layout']  = strip_tags( $new_instance['layout'] );
 		$instance['count']   = intval( strip_tags( $new_instance['count'] ) );
 		$instance['operand'] = strip_tags( $new_instance['operand'] );
 		$instance['filters'] = maybe_unserialize( $new_instance['filters'] );
