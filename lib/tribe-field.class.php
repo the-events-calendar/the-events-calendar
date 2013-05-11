@@ -246,7 +246,7 @@ if ( !class_exists('TribeField') ) {
 		public function doToolTip() {
 			$return = '';
 			if ($this->tooltip)
-				$return = '<p class="description">'.$this->tooltip.'</p>';
+				$return = '<p class="tooltip description">'.$this->tooltip.'</p>';
 			return apply_filters( 'tribe_field_tooltip', $return, $this->tooltip, $this );
 		}
 
@@ -554,9 +554,9 @@ if ( !class_exists('TribeField') ) {
 			$field .= $this->doFieldName();
 			$field .= $this->doFieldValue();
 			$field .= '/>';
-			$field .= '<img src="'.esc_url( admin_url( 'images/wpspin_light.gif' ) ).'" class="ajax-loading-license" alt="Loading" style="display: none"/>';
+			$field .= '<p class="license-test-results"><img src="'.esc_url( admin_url( 'images/wpspin_light.gif' ) ).'" class="ajax-loading-license" alt="Loading" style="display: none"/>';
 			$field .= '<span class="valid-key"></span>';
-			$field .= '<span class="invalid-key"></span>';
+			$field .= '<span class="invalid-key"></span></p>';
 			$field .= $this->doScreenReaderLabel();
 			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
