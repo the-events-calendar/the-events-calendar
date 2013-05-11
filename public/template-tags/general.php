@@ -83,7 +83,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		// Execute code for this part
 		do_action( 'tribe_pre_get_template_part_' . $slug, $slug, $name );
-
 		// Setup possible parts
 		$templates = array();
 		if ( isset( $name ) ) {
@@ -94,9 +93,11 @@ if ( class_exists( 'TribeEvents' ) ) {
 		// Allow template parts to be filtered
 		$templates = apply_filters( 'tribe_get_template_part_templates', $templates, $slug, $name );
 
+
 		// loop through templates, return first one found.
 		foreach( $templates as $template ) {
-			$file = TribeEventsTemplates::getTemplateHierarchy( $template );
+			$file = TribeEventsTemplates::getTemplateHierarchy( $template, array('disable_view_check' => true) );
+			$file = apply_filters( 'tribe_get_template_part_path', $file, $template, $slug, $name );
 			$file = apply_filters( 'tribe_get_template_part_path', $file, $template, $slug, $name );
 			if (file_exists($file)) {
 				ob_start();
@@ -107,6 +108,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 				echo apply_filters( 'tribe_get_template_part_content', $html, $template, $file, $slug, $name );
 			}
 		}
+		do_action( 'tribe_post_get_template_part_' . $slug, $slug, $name );
 	}
 
 	/**
@@ -828,7 +830,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		return TribeEventsQuery::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
 	}
 
-	function tribe_include_view_list( $args = null ) {
+	function tribe_include_view_list( $args = null, $initialize = true ) {
 		global $wp_query;
 
 		// hijack the main query to load the events via provided $args
@@ -842,7 +844,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		// get the list view template
 		ob_start();
-		tribe_initialize_view('Tribe_Events_List_Template');
+		if ( $initialize ) {
+			tribe_initialize_view('Tribe_Events_List_Template');
+		}
 		tribe_get_view('list');
 		$list_view_html = ob_get_clean();
 
