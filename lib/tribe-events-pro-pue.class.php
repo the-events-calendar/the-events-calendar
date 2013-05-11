@@ -45,7 +45,7 @@ if( !class_exists( 'TribeEventsProPUE' ) ) {
 		 * Load the Plugin Update Engine
 		 */
 		public function load_plugin_update_engine() {
-			if( apply_filters( 'tribe_enable_pue', TRUE, self::$pue_slug ) ) {
+			if( apply_filters( 'tribe_enable_pue', TRUE, self::$pue_slug ) && class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 				$this->pue_instance = new TribePluginUpdateEngineChecker( self::$update_url, self::$pue_slug, array(), plugin_basename( self::$plugin_file ) );
 			}
 		}
