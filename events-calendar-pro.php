@@ -374,11 +374,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					'eventDate' => $_POST["eventDate"],
 					'eventDisplay' => 'week'
 					);
-					
+
 				if ( isset( $_POST['tribe_event_category'] ) ) {
 					$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
 				}
-				
+
 				$query = TribeEventsQuery::getEvents( $args, true );
 
 				global $wp_query, $post;
@@ -395,7 +395,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					'success'         => true,
 					'view'            => 'week',
 				);
-				
+
 				add_filter( 'tribe_is_week', '__return_true' ); // simplest way to declare that this is a day view
 
 				ob_start();
@@ -405,7 +405,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				$response['html'] .= ob_get_clean();
 
 				apply_filters( 'tribe_events_ajax_response', $response );
-				
+
 				header( 'Content-type: application/json' );
 				echo json_encode( $response );
 				die();
