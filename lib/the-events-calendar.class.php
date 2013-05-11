@@ -2071,12 +2071,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				return esc_url($this->uglyLink($type, $secondary));
 			}
 
-       // account for semi-pretty permalinks
-      if( strpos(get_option('permalink_structure'),"index.php") !== FALSE ) {
-        $eventUrl = trailingslashit( home_url() . '/index.php/' . sanitize_title($this->getOption('eventsSlug', 'events')) );
-       } else {
-       	$eventUrl = trailingslashit( home_url() . '/' . sanitize_title($this->getOption('eventsSlug', 'events')) );
-       }
+			// account for semi-pretty permalinks
+			if( strpos(get_option('permalink_structure'),"index.php") !== FALSE ) {
+				$eventUrl = trailingslashit( home_url() . '/index.php/' . sanitize_title($this->getOption('eventsSlug', 'events')) );
+			} else {
+				$eventUrl = trailingslashit( home_url() . '/' . sanitize_title($this->getOption('eventsSlug', 'events')) );
+			}
 
 			// if we're on an Event Cat, show the cat link, except for home and days.
 			if ( $type !== 'home' && $type !== 'day' && is_tax( self::TAXONOMY ) && $term !== false && ! is_numeric( $term ) ) {
