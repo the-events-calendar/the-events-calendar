@@ -28,33 +28,6 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		protected $excerpt_length = 30;
 		protected $asset_packages = array( 'ajax-calendar' );
 
-		public function __construct() {
-
-			parent::__construct();
-			
-			$tribe_ecp = TribeEvents::instance();
-			$tribe_ecp->date = tribe_get_month_view_date();
-
-			// get all upcoming ids to hide so we're not querying 31 times
-			self::$hide_upcoming_ids = TribeEventsQuery::getHideFromUpcomingEvents();
-
-			list( $year, $month ) = explode( '-', $tribe_ecp->date );
-			$date = mktime( 12, 0, 0, $month, 1, $year ); // 1st day of month as unix stamp
-			self::$first_day_of_month = $date;
-
-			// let's find out how many events are happening each day and share
-			self::$event_daily_counts = self::get_daily_counts($date);
-
-			// save tribe bar args
-			if ( empty(self::$tribe_bar_args) ) {
-				foreach ( $_REQUEST as $key => $value ) {
-					if ( $value && strpos($key, 'tribe-bar-') === 0 && $key != 'tribe-bar-date' ) {
-						self::$tribe_bar_args[$key] = $value;
-					}
-				}
-			}
-		}
-
 		/**
 		 * Set the notices used on month view
 		 *
@@ -80,14 +53,15 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		private static function get_daily_counts( $date ) {
 			global $wp_query;
 			$count_args = $wp_query->query;
-			if ( empty($count_args) ) { // this will likely be empty on Ajax calls
-				$count_args['post_type'] = TribeEvents::POSTTYPE;
-				$count_args['eventDisplay'] = 'month';
-			}
+			$count_args['post_type'] = TribeEvents::POSTTYPE;
+			$count_args['eventDisplay'] = 'month';
+			$count_args['eventDate'] = date('Y-m', $date);
 			$count_args['start_date'] = date('Y-m-d', $date) . ' 00:00:00';
 			$count_args['end_date'] = date('Y-m-t', $date) . ' 23:59:59';
 			$count_args['hide_upcoming_ids'] = self::$hide_upcoming_ids;
 			$count_args['post_status'] = is_user_logged_in() ? array( 'publish', 'private' ) : 'publish';
+
+			// print_r($count_args);
 
 			$cache = new TribeEventsCache();
 			$cache_key = 'daily_counts_'.serialize($count_args);
@@ -118,7 +92,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		private function get_daily_events( $date ) {
 			global $wp_query;
 			$tribe_ecp = TribeEvents::instance();
-			
+
 			$post_status = is_user_logged_in() ? array( 'publish', 'private' ) : 'publish';
 
 			$args = wp_parse_args(array(
@@ -145,7 +119,7 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 			$cache_key = 'daily_events_'.serialize($args);
 			$found = $cache->get($cache_key, 'save_post');
 			if ( $found && is_a($found, 'WP_Query') ) {
-				//return $found;
+				// return $found;
 			}
 
 			$result = TribeEventsQuery::getEvents( $args, true );
@@ -246,6 +220,10 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 		public static function have_days() {
 			if ( self::$current_day + 1 < count( self::$calendar_days ) ) {
 				return true;
+			} elseif ( self::$current_day + 1 == count( self::$calendar_days ) && count( self::$calendar_days ) > 0 ) {
+				do_action_ref_array('tribe_events_calendar_loop_end', array(&$this));
+				// Do some cleaning up after the loop
+				self::rewind_days();
 			}
 			return false;
 		}
@@ -264,6 +242,18 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				}
 			}
 		}
+
+		/**
+		 * Rewind the posts and reset post index.
+		 *
+		 * @since 1.5.0
+		 * @access public
+		 */
+		public static function rewind_days() {
+			self::$current_day = -1;
+			self::$current_week = -1;
+		}
+
 
 		/**
 		 * Returns the current day according to self::$current_day
