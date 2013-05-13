@@ -22,12 +22,18 @@ $week = 0;
 ?>
 <div class="tribe-mini-calendar-grid-wrapper">
 	<table class="tribe-mini-calendar" <?php tribe_events_the_mini_calendar_header_attributes() ?>>
-		<thead class="tribe-mini-calendar-nav"><td colspan="7"><div>
-			<?php tribe_events_the_mini_calendar_prev_link() ?>
-			<span id="tribe-mini-calendar-month"><?php tribe_events_the_mini_calendar_title() ?></span>
-			<?php tribe_events_the_mini_calendar_next_link() ?>
-			<img id="ajax-loading-mini" src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ) ?>" alt="loading..." />
-		</div></td></thead>
+		<thead class="tribe-mini-calendar-nav">
+			<tr>
+				<td colspan="7">
+					<div>
+					<?php tribe_events_the_mini_calendar_prev_link() ?>
+					<span id="tribe-mini-calendar-month"><?php tribe_events_the_mini_calendar_title() ?></span>
+					<?php tribe_events_the_mini_calendar_next_link() ?>
+					<img id="ajax-loading-mini" src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ) ?>" alt="loading..." />
+					</div>
+				</td>
+			</tr>
+		</thead>
 		<tbody class="hfeed vcalendar">
 
 			<tr>
