@@ -535,7 +535,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * @param $value
 		 * @param $validated_field
 		 */
-		public function maybeFlushPermalinks( $field_id, $value, $validated_field ) {
+		public function maybeFlushPermalinks( $field_id, $value = null, $validated_field = null ) {
 
 			static $done;
 
