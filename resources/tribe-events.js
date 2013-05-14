@@ -366,7 +366,7 @@ var tribe_ev = window.tribe_ev || {};
 
                 if ($body.hasClass('events-gridview')) { // Cal View Tooltips
                     bottomPad = $this.find('a').outerHeight() + 18;
-                } else if ($body.is('.single-tribe_events, .events-list')) { // Single/List View Recurring Tooltips
+                } else if ($body.is('.single-tribe_events, .events-list, .tribe-events-day')) { // Single/List View Recurring Tooltips
                     bottomPad = $this.outerHeight() + 12;
                 } else if ($body.is('.tribe-events-photo')) { // Photo View
                     bottomPad = $this.outerHeight() + 10;
