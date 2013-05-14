@@ -28,6 +28,8 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 			add_filter('comments_template', array( $this, 'remove_comments_template' ) );
 
 			add_action( 'tribe_events_single_organizer_before_upcoming_events', array( $this, 'setup_upcoming_events' ) );
+			
+			add_filter( 'tribe_get_template_part_templates', array( $this, 'remove_list_navigation' ), 10, 3 );
 
 		}
 
@@ -101,6 +103,23 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 				return false;
 			}
 			return $file;
+		}
+		
+		/**
+		 * Remove navigation from the list view included.
+		 *
+		 * @param array $templates The templates to include.
+		 * @param string $slug The slug referencing the template.
+		 * @param string $name The name of the specific template.
+		 * @return array The new array of templates to include.
+		 * @author Paul Hughes
+		 * @since 3.0
+		 */
+		public function remove_list_navigation( $templates, $slug, $name ) {
+			if ( $slug == 'list/nav' ) {
+				$templates = array();
+			}
+			return $templates;
 		}
 
 	}
