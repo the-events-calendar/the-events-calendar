@@ -23,7 +23,9 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-		
+
+		add_filter( 'tribe_events_list_show_ical_link', '__return_false' );
+
 		echo $args['before_widget'];
 		
 		$defaults = array( 'title' => 'Events Calendar', 'count' => 5, 'filters' => null, 'operand' => 'OR' );
@@ -38,6 +40,8 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 		TribeEventsMiniCalendar::instance()->do_calendar( $instance );
 
 		echo $args['after_widget'];
+
+		remove_filter( 'tribe_events_list_show_ical_link', '__return_false' );
 
 	}
 
