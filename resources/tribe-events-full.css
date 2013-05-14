@@ -1142,7 +1142,7 @@ h2.tribe-events-tickets-title {
 =============================================*/
 
 #tribe-events-bar {
-	width: auto;
+	width: 100%;
 	min-width: 220px;
 	margin-bottom: 30px;
 	height: auto;
@@ -1154,6 +1154,7 @@ h2.tribe-events-tickets-title {
 			box-sizing: border-box;
 }
 #tribe-bar-form {
+	background: #f5f5f5;
 	position: relative;
 	margin: 0;
 	width: 100%;
@@ -1238,32 +1239,31 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 .tribe-bar-full .tribe-bar-filters {
 	display: block !important;
+	float: left;
+	width: 83.3333%;
 }
 .tribe-bar-filters > div {
-	background: #f5f5f5;
 }
 
 .tribe-bar-date-filter{
 	float: left;
-	width: 16.66667%;
+	width: 25%;
 	margin-bottom: 0; 	
-	height: 72px;
 	padding: 15px;	
 }
 
 .tribe-bar-search-filter{
 	float: left;
-	width: 50%;
+	width: 33.3333%;
 	margin-bottom: 0; 	
-	height: 72px;
 	padding: 15px;	
 }
 
 .tribe-bar-submit {
 	float: left;
-	width: 16.66667%;
-	margin-bottom: 0; 	
-	height: 72px;
+	width: 25%;
+	margin-bottom: 0; 
+	margin-left: 16.6667%;	
 	padding: 15px;	
 }
 
@@ -1282,7 +1282,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 .tribe-bar-views-inner {
 	padding: 15px 0;
 	background: #E0E0E0;
-	height: 72px;
 }
 
 .tribe-bar-views-inner label {
@@ -1291,10 +1290,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 .tribe-bar-views-inner .select2-container {
 	padding: 0 15px;
-}
-
-.tribe-bar-mini .tribe-bar-views-inner {
-	height: 54px;
 }
 
 #tribe-bar-views .select2-container .select2-choice {
@@ -1401,7 +1396,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 #tribe-bar-form.tribe-bar-mini label {
 	font-size: 11px;
-	margin: 0;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -1409,23 +1403,24 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 .tribe-bar-mini .tribe-bar-filters {
 	display: block !important;
+	background: #f5f5f5;
+	float: left;
+	width: 83.3333%;
 }
 
 .tribe-bar-mini .tribe-bar-date-filter {
 	padding: 10px;
-	height: 54px;
 }
 
 .tribe-bar-mini .tribe-bar-search-filter{
 	width: 45%;
-	height: 54px;
 	padding: 10px;	
 }
 
 .tribe-bar-mini .tribe-bar-submit {
-	width: 21.66667%;
+	width: 25%;
+	margin-left: 5%;
 	padding: 10px;
-	height: 54px;
 }
 
 #tribe-bar-form.tribe-bar-mini .tribe-bar-submit input[type=submit] {
@@ -1436,7 +1431,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 .tribe-bar-mini #tribe-bar-views {
 	width: 16.66667%;
-	height: 54px;
 }
 
 .tribe-bar-mini .tribe-bar-views-inner {
@@ -1508,7 +1502,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	overflow: hidden;
 }
 
-.tribe-bar-collapse .tribe-bar-filters > div, .tribe-bar-collapse #tribe-bar-views {
+.tribe-bar-collapse .tribe-bar-filters-inner > div, .tribe-bar-collapse #tribe-bar-views {
 	width: 100%;
 	height: auto;
 }
