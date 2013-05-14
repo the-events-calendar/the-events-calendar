@@ -33,8 +33,8 @@ class TribeEventsGeoLoc {
 		add_action( 'tribe_events_venue_updated',           array( $this, 'save_venue_geodata'                      ), 10, 2 );
 		add_action( 'tribe_events_venue_created',           array( $this, 'save_venue_geodata'                      ), 10, 2 );
 		add_action( 'tribe_events_filters_create_filters',  array( $this, 'setup_geoloc_filter_in_filters'          ),  1    );
-		add_action( 'wp_ajax_geosearch',                    array( $this, 'ajax_geosearch'                          )        );
-		add_action( 'wp_ajax_nopriv_geosearch',             array( $this, 'ajax_geosearch'                          )        );
+		add_action( 'wp_ajax_tribe_geosearch',              array( $this, 'ajax_tribe_geosearch'                    )        );
+		add_action( 'wp_ajax_nopriv_tribe_geosearch',       array( $this, 'ajax_tribe_geosearch'                    )        );
 		add_action( 'wp_enqueue_scripts',                   array( $this, 'scripts'                                 )        );
 		add_action( 'admin_init',                           array( $this, 'maybe_generate_geopoints_for_all_venues' )        );
 		add_action( 'admin_init',                           array( $this, 'maybe_offer_generate_geopoints'          )        );
