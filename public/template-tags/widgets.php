@@ -68,7 +68,7 @@ function tribe_events_the_mini_calendar_next_link() {
  * @author Jessica Yazbek
  **/
 function tribe_events_the_mini_calendar_day_link() {
-	$day = tribe_events_get_current_calendar_day();
+	$day = tribe_events_get_current_month_day();
 	$args = tribe_events_get_mini_calendar_args();
 
 	if ($args['count'] == 0) {

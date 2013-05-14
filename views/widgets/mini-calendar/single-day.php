@@ -14,7 +14,7 @@
 
 <?php 
 
-$day = tribe_events_get_current_calendar_day();
+$day = tribe_events_get_current_month_day();
 
  ?>
 

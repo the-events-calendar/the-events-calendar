@@ -163,7 +163,7 @@ class TribeEventsMiniCalendar {
 		add_action( 'pre_get_posts', array( $this, 'set_taxonomies' ) );
 
 		// set up all the days of the month
-		new Tribe_Events_Calendar_Template;
+		new Tribe_Events_Month_Template;
 
 		// dequeue the month view js
 		if ( ! tribe_is_month() ) {

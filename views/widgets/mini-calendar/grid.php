@@ -37,12 +37,12 @@ $week = 0;
 		<tbody class="hfeed vcalendar">
 
 			<tr>
-			<?php while (tribe_events_have_calendar_days()) : tribe_events_the_calendar_day(); ?>
+			<?php while (tribe_events_have_month_days()) : tribe_events_the_month_day(); ?>
 				<?php if ($week != tribe_events_get_current_week()) : $week++; ?>
 			</tr>
 			<tr>
 				<?php endif; ?>
-				<td class="<?php tribe_events_the_calendar_day_classes() ?>">
+				<td class="<?php tribe_events_the_month_day_classes() ?>">
 					<?php tribe_get_template_part('widgets/mini-calendar/single-day') ?>
 				</td>
 			<?php endwhile; ?>
