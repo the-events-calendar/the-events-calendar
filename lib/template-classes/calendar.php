@@ -297,6 +297,9 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 				} else if ( self::$current_month < $month && self::$current_year == $year || self::$current_year < $year ) {
 					$ppf .= ' tribe-events-future';
 				}
+				if ( $calendar_day['total_events'] > 0 ) {
+   				$ppf .= ' tribe-events-has-events';
+   			}			
 
 			}
 
