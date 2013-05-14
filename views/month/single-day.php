@@ -3,7 +3,7 @@
  * Calendar Single Day
  * This file contains one day in the calendar grid
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/calendar/single-day.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/month/single-day.php
  * *
  * @package TribeEventsCalendar
  * @since  3.0
@@ -14,7 +14,7 @@
 
 <?php 
 
-$day = tribe_events_get_current_calendar_day();
+$day = tribe_events_get_current_month_day();
 
  ?>
 
@@ -23,13 +23,13 @@ $day = tribe_events_get_current_calendar_day();
 	<!-- Day Header -->
 	<div id="tribe-events-daynum-<?php echo $day['daynum'] ?>">
 
-		<?php tribe_events_the_calendar_day_header() ?>
+		<?php tribe_events_the_month_day_header() ?>
 
 	</div>
 
 	<!-- Events List -->
 	<?php while ($day['events']->have_posts()) : $day['events']->the_post() ?>
-		<?php tribe_get_template_part('calendar/single', 'event') ?>
+		<?php tribe_get_template_part('month/single', 'event') ?>
 	<?php endwhile; ?>
 
 	<!-- View More -->

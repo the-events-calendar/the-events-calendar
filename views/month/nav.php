@@ -1,11 +1,11 @@
 <?php 
 /**
- * Calendar Footer Nav Template
+ * Calendar Nav Template
  * This file loads the month view navigation.
  *
- * You can recreate an ENTIRELY new calendar header nav by doing a template override, and placing
- * a calendar/nav-header.php file in a tribe-events/ directory within your theme directory, which
- * will override /views/calendar/nav-header.php. 
+ * You can recreate an ENTIRELY new calendar nav by doing a template override, and placing
+ * a calendar/nav.php file in a tribe-events/ directory within your theme directory, which
+ * will override /views/calendar/nav.php. 
  * *
  * @package TribeEventsCalendar
  * @since  3.0
@@ -14,7 +14,7 @@
  */
 ?>
 
-<?php do_action('tribe_events_calendar_before_footer_nav') ?>
+<?php do_action('tribe_events_month_before_nav') ?>
 
 <h3 class="tribe-events-visuallyhidden"><?php _e( 'Calendar Month Navigation', 'tribe-events-calendar' ) ?></h3>
 
@@ -27,4 +27,4 @@
 	</li><!-- .tribe-events-nav-next -->
 </ul><!-- .tribe-events-sub-nav -->
 
-<?php do_action('tribe_events_calendar_after_footer_nav') ?>
+<?php do_action('tribe_events_month_after_nav') ?>

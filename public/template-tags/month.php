@@ -56,8 +56,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @return bool True if calendar days are available, false if end of loop.
 	 * @since 3.0
 	 **/
-	function tribe_events_have_calendar_days() {
-		return Tribe_Events_Calendar_Template::have_days();
+	function tribe_events_have_month_days() {
+		return Tribe_Events_Month_Template::have_days();
 	}
 
 	/**
@@ -66,8 +66,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @return void
 	 * @since 3.0
 	 **/
-	function tribe_events_the_calendar_day() {
-		Tribe_Events_Calendar_Template::the_day();
+	function tribe_events_the_month_day() {
+		Tribe_Events_Month_Template::the_day();
 	}
 
 	/**
@@ -77,7 +77,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 3.0 
 	 **/
 	function tribe_events_get_current_week() {
-		return Tribe_Events_Calendar_Template::get_current_week();
+		return Tribe_Events_Month_Template::get_current_week();
 	}
 
 	/**
@@ -86,8 +86,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @return array Day information
 	 * @since 3.0
 	 **/
-	function tribe_events_get_current_calendar_day() {
-		return apply_filters( 'tribe_events_current_calendar_day', Tribe_Events_Calendar_Template::get_current_day() );
+	function tribe_events_get_current_month_day() {
+		return apply_filters( 'tribe_events_get_current_month_day', Tribe_Events_Month_Template::get_current_day() );
 	}
 
 	/**
@@ -96,8 +96,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @return void
 	 * @since 3.0 
 	 **/
-	function tribe_events_the_calendar_day_classes() {
-		echo apply_filters( 'tribe_events_the_calendar_day_class', Tribe_Events_Calendar_Template::day_classes() );
+	function tribe_events_the_month_day_classes() {
+		echo apply_filters( 'tribe_events_the_month_day_class', Tribe_Events_Month_Template::day_classes() );
 	}
 
 	/**
@@ -106,15 +106,15 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @return void
 	 * @since 3.0
 	 **/
-	function tribe_events_the_calendar_day_header()	{
+	function tribe_events_the_month_day_header()	{
 		$day_num = 0;
-		$day = tribe_events_get_current_calendar_day();
+		$day = tribe_events_get_current_month_day();
 		if ( $day ) {
 			$day_num = $day['daynum'];			
 		} else {
 			_doing_it_wrong( __FUNCTION__, __FUNCTION__.' should only be used in the month view loop.', 'The Events Calendar 3.0' );
 		}
-		echo apply_filters( 'tribe_events_the_calendar_day_header', $day_num, $day );
+		echo apply_filters( 'tribe_events_the_month_day_header', $day_num, $day );
 	}
 
 	/**
@@ -123,15 +123,15 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @return $wp_query
 	 * @since 3.0
 	 **/
-	function tribe_events_get_current_calendar_day_events()	{
+	function tribe_events_get_current_month_day_events()	{
 		$events = new WP_Query;
-		$day = tribe_events_get_current_calendar_day();
+		$day = tribe_events_get_current_month_day();
 		if ( $day ) {
 			$events = $day['events'];			
 		} else {
 			_doing_it_wrong( __FUNCTION__, __FUNCTION__.' should only be used in the month view loop.', 'The Events Calendar 3.0' );
 		}
-		return apply_filters( 'tribe_events_get_current_calendar_day_events', $events, $day );
+		return apply_filters( 'tribe_events_get_current_month_day_events', $events, $day );
 	}
 
 	/**
@@ -140,8 +140,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @return void
 	 * @since 3.0 
 	 **/
-	function tribe_events_the_calendar_single_event_classes() {
-		echo apply_filters('tribe_events_the_calendar_single_event_classes', Tribe_Events_Calendar_Template::event_classes());
+	function tribe_events_the_month_single_event_classes() {
+		echo apply_filters('tribe_events_the_month_single_event_classes', Tribe_Events_Month_Template::event_classes());
 	}
 	
 	/**

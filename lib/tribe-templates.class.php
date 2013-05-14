@@ -21,6 +21,9 @@ if (!class_exists('TribeEventsTemplates')) {
 			// include our view class
 			add_action( 'template_redirect', 'tribe_initialize_view' );
 
+			// make sure we enter the loop by always having some posts in $wp_query
+			add_action( 'template_redirect', array( __CLASS__, 'maybeSpoofQuery' ) );
+
 			// there's no template redirect on ajax, so we include the template class right before the view is included
 			if (defined('DOING_AJAX') && DOING_AJAX) { 
 				add_action( 'tribe_pre_get_view', 'tribe_initialize_view' );
@@ -28,8 +31,6 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished'), 999 );
 
-			// make sure we enter the loop by always having some posts in $wp_query
-			add_action( 'template_redirect', array( __CLASS__, 'maybeSpoofQuery' ) );
 		}
 
 		// pick the correct template to include
@@ -182,7 +183,7 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			// calendar view
 			if ( tribe_is_month() ) {
-				$template = self::getTemplateHierarchy( 'calendar', array('disable_view_check' => true) );
+				$template = self::getTemplateHierarchy( 'month', array('disable_view_check' => true) );
 			} 
 
 			// single event view
@@ -207,7 +208,7 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			// calendar view
 			if ( tribe_is_month() ) {
-				$class = 'Tribe_Events_Calendar_Template';
+				$class = 'Tribe_Events_Month_Template';
 			} 
 
 			// single event view
