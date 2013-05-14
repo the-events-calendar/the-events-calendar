@@ -260,7 +260,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			$ticket->ID          = isset( $data["ticket_id"] ) ? absint( $data["ticket_id"] ) : null;
 			$ticket->name        = isset( $data["ticket_name"] ) ? esc_html( $data["ticket_name"] ) : null;
 			$ticket->description = isset( $data["ticket_description"] ) ? esc_html( $data["ticket_description"] ) : null;
-			$ticket->price       = isset( $data["ticket_price"] ) ? trim( $data["ticket_price"] ) : 0;
+			$ticket->price       = !empty( $data["ticket_price"] ) ? trim( $data["ticket_price"] ) : 0;
 
 			if ( !empty( $ticket->price ) ) {
 				//remove non-money characters
