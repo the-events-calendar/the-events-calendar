@@ -146,6 +146,7 @@
 		if (tt.map_view()) {
 
 			$("#tribe-geo-options").on('click', 'a', function (e) {
+
 				spin_start();
 				e.preventDefault();
 				$("#tribe-geo-options a").removeClass('tribe-option-loaded');
@@ -154,7 +155,6 @@
 				$('#tribe-bar-geoloc').val($(this).text());
 				$('#tribe-bar-geoloc-lat').val(tg.geocodes[$(this).attr('data-index')].geometry.location.lat());
 				$('#tribe-bar-geoloc-lng').val(tg.geocodes[$(this).attr('data-index')].geometry.location.lng());
-
 
 				if (tt.pushstate) {
 					tf.pre_ajax(function () {

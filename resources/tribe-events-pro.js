@@ -8,7 +8,7 @@
 				if (val.length) {
 					tribe_ev.fn.process_geocoding(val, function (results) {
 						tribe_ev.geoloc.geocodes = results;
-						if (tribe_ev.geoloc.geocodes.length > 1) {
+						if (tribe_ev.geoloc.geocodes.length > 1 && tribe_ev.geoloc.geocodes[0].formatted_address !== val ) {
 							tribe_ev.fn.print_geo_options();
 						} else {
 							var lat = results[0].geometry.location.lat();
