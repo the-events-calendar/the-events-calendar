@@ -234,6 +234,7 @@
 		$tribe_container.on('click', '#tribeHideRecurrence', function () {
 			ts.popping = false;
 			ts.do_string = true;
+			ts.paged = 1;
 			recurrence_on = ($(this).is(':checked') ? true : false);
 
 			tf.set_recurrence(recurrence_on);
@@ -248,7 +249,7 @@
 					$('#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng').val('');
 				} else {
 					if (ts.view_target === 'map')
-						ts.url_params['action'] = 'geosearch';
+						ts.url_params['action'] = 'tribe_geosearch';
 				}
 			}
 

@@ -100,6 +100,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			switch ( $current_view ) {
 			case 'week-all-day':
 				$attrs['data-hour'] = 'all-day';
+				unset( $attrs['data-title'] );
 				break;
 			case 'week-hourly':
 				$event = self::get_hourly_event();
@@ -110,10 +111,14 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 					if ( in_array( $event->ID, self::$daily_span_ids ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) == self::get_current_date() ) {
 						// if the event is longer than a day we want to account for that with an offset for the ending time
 						$duration = abs( ( strtotime( self::get_current_date() ) - strtotime( $event->EventEndDate ) ) / 60 );
-					} else if ( in_array( $event->ID, self::$daily_span_ids ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) > self::get_current_date() ) {
-							// if there is a day in between start/end we just want to fill the spacer with the total mins in the day.
-							$duration = $daily_mins;
-						} else {
+					} else if ( 
+						( in_array( $event->ID, self::$daily_span_ids ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) > self::get_current_date() ) ||
+						( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) <= date( 'Y-m-d', strtotime( self::$start_of_week_date ) ) )
+						) {
+						// if there is a day in between start/end we just want to fill the spacer with the total mins in the day.
+						$duration = $daily_mins;
+					} else {
+							echo 'hello murphy';
 						self::$daily_span_ids[] = $event->ID;
 						// if the event is longer than a day we want to account for that with an offset
 						$duration = $daily_mins - abs( ( strtotime( self::get_current_date() ) - strtotime( $event->EventStartDate ) ) / 60 );
@@ -126,13 +131,23 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 					$data_hour = date( 'G', strtotime( $event->EventStartDate ) );
 					$data_min = date( 'i', strtotime( $event->EventStartDate ) );
 				}
-				$attrs['data-duration'] = $duration;
+				$attrs['data-duration'] = abs( $duration );
 				$attrs['data-hour'] = $data_hour;
 				$attrs['data-min'] = $data_min;
+				unset( $attrs['data-title'] );
+				break;
+
+			case 'week-header':
+
+				global $wp_query;
+				$current_week = $wp_query->get('start_date');
+
+				$attrs['data-view'] = 'week';
+				$attrs['data-startofweek'] = get_option( 'start_of_week' );
+				$attrs['data-baseurl'] = tribe_get_week_permalink( null, false );
+				$attrs['data-date'] = Date('Y-m-d', strtotime( $current_week ) );
 				break;
 			}
-
-			unset( $attrs['data-title'] );
 
 			return apply_filters( 'tribe_events_pro_header_attributes', $attrs, $current_view );
 		}
@@ -406,8 +421,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		function column_classes() {
 			if ( self::$week_days[ self::$current_day ]->is_today )
 				echo 'tribe-week-today';
-			if ( self::$current_day != 0 && ( ( self::$current_day % 4 == 0 ) || ( self::$current_day % 5 == 0 ) || ( self::$current_day % 6 == 0 ) ) )
-				echo ' tribe-events-right';
 		}
 
 		/**
@@ -507,7 +520,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			
 			if ( is_object( $event_id ) ) {
 				return $event_id;
-			} else if( !empty( self::$events->hourly[ $event_id ] ) ) {
+			} else if( is_numeric( $event_id ) && !empty( self::$events->hourly[ $event_id ] ) ) {
 				return self::$events->hourly[ $event_id ];
 			} else {
 				return null;

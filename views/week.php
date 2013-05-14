@@ -39,7 +39,7 @@
 
 		<!-- Calendar Header -->
 		<?php do_action('tribe_events_week_before_header') ?>
-		<div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
+		<div id="tribe-events-header" <?php tribe_events_the_header_attributes('week-header') ?>>
 
 			<!-- Header Navigation -->
 			<?php tribe_get_template_part('week/nav', 'header'); ?>
