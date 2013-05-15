@@ -194,7 +194,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 * @since 
 		 **/
 		public function view_wrapper_open() {
-			echo '<div id="tribe-events-content-wrapper">';
+			echo '<div id="tribe-events-content-wrapper" class="tribe-clearfix">';
 		}
 
 		/**

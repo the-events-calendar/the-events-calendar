@@ -146,7 +146,9 @@ if( class_exists( 'TribeEvents' ) ) {
 		$day_num = 0;
 		$day = tribe_events_get_current_month_day();
 		if ( $day ) {
-			$day_num = $day['daynum'];			
+			$day_num = sprintf( '<a href="%s">%s</a>', 
+				tribe_get_day_link( $day['date'] ),
+				$day['daynum'] );
 		} else {
 			_doing_it_wrong( __FUNCTION__, __FUNCTION__.' should only be used in the month view loop.', 'The Events Calendar 3.0' );
 		}
