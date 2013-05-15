@@ -2140,8 +2140,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				case 'week':
 				case 'month':
 					$eventUrl = add_query_arg( array( 'eventDisplay' => $type ), $eventUrl );
-					if ( $secondary )
+					if ( is_string( $secondary ) ) {
 						$eventUrl = add_query_arg( array( 'eventDate' => $secondary ), $eventUrl );
+					} elseif( is_array( $secondary ) ) {
+						$eventUrl = add_query_arg( $secondary, $eventUrl );
+					}
 					break;
 				case 'past':
 				case 'upcoming':
