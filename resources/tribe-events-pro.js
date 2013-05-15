@@ -2,13 +2,19 @@
 
 	$.extend(tribe_ev.fn, {
 
+		has_address: function (val, geocodes) {
+			for(var i = 0; i < geocodes.length; i++) {
+				if(geocodes[i].formatted_address == val) return true;
+			}
+			return false;
+		},
 		pre_ajax: function (callback) {
 			if ($('#tribe-bar-geoloc').length) {
 				var val = $('#tribe-bar-geoloc').val();
 				if (val.length) {
 					tribe_ev.fn.process_geocoding(val, function (results) {
 						tribe_ev.geoloc.geocodes = results;
-						if (tribe_ev.geoloc.geocodes.length > 1) {
+						if (tribe_ev.geoloc.geocodes.length > 1 && !tribe_ev.fn.has_address(val, tribe_ev.geoloc.geocodes)) {
 							tribe_ev.fn.print_geo_options();
 						} else {
 							var lat = results[0].geometry.location.lat();
@@ -234,6 +240,7 @@
 		$tribe_container.on('click', '#tribeHideRecurrence', function () {
 			ts.popping = false;
 			ts.do_string = true;
+			ts.paged = 1;
 			recurrence_on = ($(this).is(':checked') ? true : false);
 
 			tf.set_recurrence(recurrence_on);
@@ -248,7 +255,7 @@
 					$('#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng').val('');
 				} else {
 					if (ts.view_target === 'map')
-						ts.url_params['action'] = 'geosearch';
+						ts.url_params['action'] = 'tribe_geosearch';
 				}
 			}
 

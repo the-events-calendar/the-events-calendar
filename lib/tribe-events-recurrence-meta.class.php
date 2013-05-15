@@ -36,6 +36,9 @@ class TribeEventsRecurrenceMeta {
 		add_action( 'save_post', array( __CLASS__, 'checkRecurrenceAmount' ), 16, 1 );
 		
 		add_action( 'load-edit.php', array( __CLASS__, 'combineRecurringRequestIds' ) );
+		
+		add_filter( 'get_the_guid', array( __CLASS__, 'verifyDateInGuidForRecurringEvents' ), 10, 1 );
+
 	}
 
 	
@@ -836,4 +839,19 @@ class TribeEventsRecurrenceMeta {
 		}
 	}
 	
+	/**
+	 * Verifies that the date is in the URL/Guid for recurring events in RSS feed.
+	 *
+	 * @param string $guid The current guid.
+	 * @return string The revised guid.
+	 * @author Paul Hughes
+	 * @since 3.0
+	 */
+	public function verifyDateInGuidForRecurringEvents( $guid ) {
+		global $post;
+		if ( get_post_type( $post ) == TribeEvents::POSTTYPE ) {
+			$guid = tribe_get_event_link( $post );
+		}		
+		return $guid;
+	}
 }

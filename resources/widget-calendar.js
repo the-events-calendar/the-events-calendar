@@ -28,15 +28,17 @@ jQuery( document ).ready( function ( $ ) {
 
 	$( '.tribe-mini-calendar-wrapper' ).delegate( '.tribe-mini-calendar-nav-link', 'click', function ( e ) {
 		e.preventDefault();
+
+		var $current_calendar = $(this).closest('.tribe-mini-calendar');
+
 		var month_target = $( this ).attr( 'data-month' );
 
 		var params = {
-			action   :'tribe-mini-cal',
-			eventDate:month_target,
-			count    :$( '#tribe-mini-calendar-count' ).val(),
-			layout   :$( '#tribe-mini-calendar-layout' ).val(),
-			tax_query:$( '#tribe-mini-calendar-tax-query' ).val(),
-			nonce    :$( '#tribe-mini-calendar-nonce' ).val()
+			action   	:'tribe-mini-cal',
+			eventDate	: month_target,
+			count    	: $current_calendar.data('count'),
+			tax_query	: $current_calendar.data('tax-query'),
+			nonce    	: $current_calendar.data('nonce'),
 		};
 		
 		 $('.tribe-mini-calendar-nav div > span').addClass('active').siblings('#ajax-loading-mini').show();
@@ -62,14 +64,16 @@ jQuery( document ).ready( function ( $ ) {
 		var obj = $( this );
 		var date = obj.attr( 'data-day' );
 		var day = obj.text();
+		var $current_calendar = $(this).closest('.tribe-mini-calendar');
+
 		$( 'h2.tribe-mini-calendar-title' ).text( $( '#tribe-mini-calendar-month-name' ).val() + ' ' + day + ' Events' );	
 		change_active_day(obj);
 		var params = {
 			action   :'tribe-mini-cal-day',
 			eventDate:date,
-			count    :$( '#tribe-mini-calendar-count' ).val(),
-			tax_query:$( '#tribe-mini-calendar-tax-query' ).val(),
-			nonce    :$( '#tribe-mini-calendar-nonce' ).val()
+			count    	: $current_calendar.data('count'),
+			tax_query	: $current_calendar.data('tax-query'),
+			nonce    	: $current_calendar.data('nonce'),
 		};
 
 		$('.tribe-mini-calendar-nav div > span').addClass('active').siblings('#ajax-loading-mini').show();

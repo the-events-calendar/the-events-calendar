@@ -91,6 +91,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'public/template-tags/general.php' );
 			require_once( 'public/template-tags/week.php' );
 			require_once( 'public/template-tags/venue.php' );
+			require_once( 'public/template-tags/widgets.php' );
 			require_once( 'lib/tribe-geoloc.class.php' );
 			require_once( 'lib/meta-pro.php' );
 
@@ -101,7 +102,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			// Tribe common resources
 			require_once( 'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
-			TribeCommonLibraries::register( 'tribe-pue-client', '1.3', $this->pluginPath . 'vendor/pue-client/pue-client.php' );
 			TribeCommonLibraries::register( 'advanced-post-manager', '1.0.5', $this->pluginPath . 'vendor/advanced-post-manager/tribe-apm.php' );
 			TribeCommonLibraries::register( 'related-posts', '1.1', $this->pluginPath. 'vendor/tribe-related-posts/tribe-related-posts.php' );
 
@@ -374,6 +374,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					'eventDate' => $_POST["eventDate"],
 					'eventDisplay' => 'week'
 					);
+
+				if ( isset( $_POST['tribe_event_category'] ) ) {
+					$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
+				}
+
 				$query = TribeEventsQuery::getEvents( $args, true );
 
 				global $wp_query, $post;
@@ -390,7 +395,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					'success'         => true,
 					'view'            => 'week',
 				);
-				
+
 				add_filter( 'tribe_is_week', '__return_true' ); // simplest way to declare that this is a day view
 
 				ob_start();
@@ -400,7 +405,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				$response['html'] .= ob_get_clean();
 
 				apply_filters( 'tribe_events_ajax_response', $response );
-				
+
 				header( 'Content-type: application/json' );
 				echo json_encode( $response );
 				die();
@@ -551,9 +556,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		public function helpersLoaded() {
 			require_once( 'lib/apm_filters.php' );
-			if ( apply_filters( 'tribe_enable_pue', TRUE, $this->pluginSlug ) ) {
-				new TribePluginUpdateEngineChecker( self::$updateUrl, $this->pluginSlug, array(), plugin_basename( __FILE__ ) );
-			}
 		}
 
 
@@ -618,15 +620,15 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		    	if( empty($meta_keys) ) {
 		    		remove_post_type_support( TribeEvents::POSTTYPE, 'custom-fields' );
 		    		// update_option('disable_metabox_custom_fields','hide');
-		    		$options['disable_metabox_custom_fields'] = 'hide';
+		    		$show_box = 'hide';
 		    		$r = false;
 		    	} else {
 		    		// update_option('disable_metabox_custom_fields','true');
-		    		$options['disable_metabox_custom_fields'] = 'show';
+		    		$show_box = 'show';
 		    		$r = true;
 		    	}
 
-		    	TribeEvents::setOptions($options);
+		    	tribe_update_option( 'disable_metabox_custom_fields', $show_box );
 		    	return $r;
 		    }
 
@@ -1276,7 +1278,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 	}
 
-	function tribe_ecp_uninstall() {
-		delete_option( 'pue_install_key_events_calendar_pro' );
-	}
+	function tribe_ecp_uninstall() {}
+
+	require_once( 'lib/tribe-events-pro-pue.class.php' );
+	new TribeEventsProPUE( __FILE__ );
 } // end if Class exists

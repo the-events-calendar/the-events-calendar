@@ -249,10 +249,10 @@
 				ts.popping = false;
 				if (picker.length) {
 					ts.date = $('#tribe-bar-date').val();
-					td.cur_url = event_url + ts.date + '/';
+					td.cur_url = td.base_url + ts.date + '/';
 				} else {
 					ts.date = td.cur_date;
-					td.cur_url = event_url + td.cur_date + '/';
+					td.cur_url = td.base_url + td.cur_date + '/';
 				}
 
 				tf.pre_ajax(function () {
