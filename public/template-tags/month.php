@@ -11,6 +11,42 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( class_exists( 'TribeEvents' ) ) {
 
 	/**
+	 * Display a month view
+	 *
+	 * @param array $args query args to pass to the month
+	 * @param string $template_path template to use, defaults to 'month'
+	 * @return void
+	 * @author Jessica Yazbek
+	 * @since 3.0
+	 **/
+	function tribe_show_month( $args = array(), $template_path = 'month' ) {
+
+		// temporarily unset the tribe bar params so they don't apply
+		$hold_tribe_bar_args =  array();
+		foreach ( $_REQUEST as $key => $value ) {
+			if ( $value && strpos( $key, 'tribe-bar-' ) === 0 ) {
+				$hold_tribe_bar_args[$key] = $value;
+				unset( $_REQUEST[$key] );
+			}
+		}
+
+		do_action('tribe_events_before_show_month');
+
+		new Tribe_Events_Month_Template($args);
+		tribe_get_view( $template_path );
+
+		do_action('tribe_events_before_show_month');
+
+		// reinstate the tribe bar params
+		if ( ! empty( $hold_tribe_bar_args ) ) {
+			foreach ( $hold_tribe_bar_args as $key => $value ) {
+				$_REQUEST[$key] = $value;
+			}
+		}
+
+	}
+
+	/**
 	 * Calendar Grid (Display)
 	 *
 	 * Display the full size grid calendar table
