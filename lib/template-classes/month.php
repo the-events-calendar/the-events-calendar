@@ -25,8 +25,31 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		private static $calendar_days = array();
 		private static $current_day = -1;
 		private static $current_week = -1;
+		protected static $args;
 		protected $excerpt_length = 30;
 		protected $asset_packages = array( 'ajax-calendar' );
+
+		/**
+		 * Set the notices used on month view
+		 *
+		 * @return void
+		 * @param $args set of $wp_query params for the month view, if none passed then will default to $wp_query
+		 * @since 3.0
+		 **/
+		public function __construct( $args = null ) {
+			if ( $args === null ) {
+				global $wp_query;
+				$args = $wp_query->query;
+			}
+
+			self::$args = $args;
+
+			if ( ! tribe_is_month() ) {
+				$this->asset_packages = array();
+			}
+
+			parent::__construct();
+		}
 
 		/**
 		 * Set the notices used on month view
@@ -52,8 +75,9 @@ if( !class_exists('Tribe_Events_Month_Template')){
 
 		private static function get_daily_counts( $date ) {
 			global $wp_query;
-			$count_args = $wp_query->query;
-			$count_args['post_type'] = TribeEvents::POSTTYPE;
+
+			$count_args = self::$args;
+			
 			$count_args['eventDisplay'] = 'month';
 			$count_args['eventDate'] = date('Y-m', $date);
 			$count_args['start_date'] = date('Y-m-d', $date) . ' 00:00:00';
@@ -95,7 +119,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 
 			$post_status = is_user_logged_in() ? array( 'publish', 'private' ) : 'publish';
 
-			$args = wp_parse_args(array(
+			$args = wp_parse_args( array(
 				'eventDate' => $date,
 				'start_date' => tribe_event_beginning_of_day( $date ),
 				'end_date' => tribe_event_end_of_day( $date ),
@@ -108,7 +132,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 				'post_status' => $post_status,
 				'eventDisplay' => 'custom',
 				'no_found_rows' => true
-			), $wp_query->query);
+			), self::$args );
 
 			if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
 				$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );
@@ -136,7 +160,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		public function setup_view() {
 
 			$tribe_ecp = TribeEvents::instance();
-			$tribe_ecp->date = tribe_get_month_view_date();
+			$tribe_ecp->date = isset( self::$args['eventDate'] ) ? self::$args['eventDate'] : tribe_get_month_view_date();
 
 			// get all upcoming ids to hide so we're not querying 31 times
 			self::$hide_upcoming_ids = TribeEventsQuery::getHideFromUpcomingEvents();
