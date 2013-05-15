@@ -256,6 +256,7 @@ class TribeEventsRecurrenceMeta {
 			// the following two fields are just text fields used in the display
 			$recArray['recCustomTypeText'] = $recurrenceData['custom-type-text'];
 			$recArray['recOccurrenceCountText'] = $recurrenceData['occurrence-count-text'];
+			$recArray['recCustomRecurrenceDescription'] = $recurrenceData['recurrence-description'];
 
 			$recArray['recCustomWeekDay'] = !empty($recurrenceData['custom-week-day']) ? $recurrenceData['custom-week-day'] : null;
 			$recArray['recCustomMonthNumber'] = $recurrenceData['custom-month-number'];
@@ -273,6 +274,7 @@ class TribeEventsRecurrenceMeta {
 			$recArray['recCustomType'] = null;
 			$recArray['recCustomInterval'] = null;
 			$recArray['recCustomTypeText'] = null;
+			$recArray['recCustomRecurrenceDescription'] = null;
 			$recArray['recOccurrenceCountText'] = null;
 			$recArray['recCustomWeekDay'] = null;
 			$recArray['recCustomMonthNumber'] = null;

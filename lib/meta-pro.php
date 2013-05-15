@@ -7,6 +7,18 @@ if ( ! class_exists( 'Tribe_Register_Meta_Pro' ) ) {
 
 	class Tribe_Register_Meta_Pro {
 
+		function custom_recurrence_description( $meta_id ){
+			global $_tribe_meta_factory;
+			$post_id = get_the_ID();
+			$recurrence_meta = TribeEventsRecurrenceMeta::getRecurrenceMeta( $post_id );
+			$recurrence_description = !empty($recurrence_meta['recCustomRecurrenceDescription']) ? $recurrence_meta['recCustomRecurrenceDescription'] : tribe_get_recurrence_text( $post_id );
+			$html = tribe_is_recurring_event( $post_id ) ? Tribe_Meta_Factory::template(
+				$_tribe_meta_factory->meta[$meta_id]['label'],
+				$recurrence_description,
+				$meta_id ) : '';
+			return apply_filters( 'tribe_event_pro_meta_custom_recurrence_description', $html );
+		}
+
 		function venue_name( $html, $meta_id ){
 			global $_tribe_meta_factory;
 			$post_id = get_the_ID();
@@ -64,6 +76,26 @@ if ( ! class_exists( 'Tribe_Register_Meta_Pro' ) ) {
 			'priority' => 60,
 			'filter_callback' => array( 'Tribe_Register_Meta_Pro', 'custom_meta' ),
 			'group' => 'tribe_event_group_custom_meta'
+		) );
+
+	/**
+	 * Register Meta: Event Recurrence Description
+	 *
+	 * @group tribe_event_custom_meta
+	 */
+	tribe_register_meta( 'tribe_event_custom_recurrence_description', array(
+			'label' => __('Recurrence Pattern:', 'tribe-events-calendar'),
+			'priority' => 15,
+			'wrap' => array(
+					'before'=>'',
+					'after'=>'',
+					'label_before'=>'<dt>',
+					'label_after'=>'</dt>',
+					'meta_before'=>'<dd class="%s">',
+					'meta_after'=>'</dd>'
+				),
+			'filter_callback' => array( 'Tribe_Register_Meta_Pro', 'custom_recurrence_description' ),
+			'group' => 'tribe_event_details'
 		) );
 
 }
