@@ -25,6 +25,10 @@
 				</span>
 			</td>
 		</tr>
+		<tr class="recurrence-pattern-description-row" id="custom-recurrence-text" style="display: <?php echo !$recType || $recType == "None" ? "none" : "table-row"; ?>;">
+			<td><?php _e('Recurrence Text:','tribe-events-calendar-pro'); ?></td>
+			<td><input type="text" name="recurrence[recurrence-description]" value="<?php echo esc_attr( $recCustomRecurrenceDescription ) ?>" /> <span><?php _e('If left blank, we will generate recurrance text for you'); ?></span></td>
+		</tr>
 		<tr class="recurrence-row" id="custom-recurrence-frequency" style="display: <?php echo $recType == "Custom" ? "table-row" : "none" ?>;">
 			<td></td>
 			<td>
