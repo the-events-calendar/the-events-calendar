@@ -11,8 +11,8 @@
  
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-if( !class_exists('Tribe_Events_Calendar_Template')){
-	class Tribe_Events_Calendar_Template extends Tribe_Template_Factory {
+if( !class_exists('Tribe_Events_Month_Template')){
+	class Tribe_Events_Month_Template extends Tribe_Template_Factory {
 		private static $hide_upcoming_ids;
 		private static $today;
 		private static $current_month;
@@ -352,5 +352,5 @@ if( !class_exists('Tribe_Events_Calendar_Template')){
 
 			return implode(' ', $classes);
 		}
-	} // class Tribe_Events_Calendar_Template
+	} // class Tribe_Events_Month_Template
 }

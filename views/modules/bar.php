@@ -28,15 +28,17 @@ $views = tribe_events_get_views();
 		<!-- Filters -->
 		<div id="tribe-bar-collapse-toggle"><?php _e( 'Find Events', 'tribe-events-calendar' ) ?><span class="tribe-bar-toggle-arrow"></span></div>
 		<div class="tribe-bar-filters">
-			<?php foreach ( $filters as $filter ) : ?>
-				<div class="<?php echo esc_attr( $filter['name'] ) ?>-filter">
-					<label class="label-<?php echo esc_attr( $filter['name'] ) ?>" for="<?php echo esc_attr( $filter['name'] ) ?>"><?php echo $filter['caption'] ?></label>
-					<?php echo $filter['html'] ?>
-				</div>
-			<?php endforeach; ?>
-			<div class="tribe-bar-submit">
-				<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="<?php _e( 'Find Events', 'tribe-events-calendar' ) ?>" />
-			</div><!-- .tribe-bar-submit -->
+			<div class="tribe-bar-filters-inner tribe-clearfix">
+				<?php foreach ( $filters as $filter ) : ?>
+					<div class="<?php echo esc_attr( $filter['name'] ) ?>-filter">
+						<label class="label-<?php echo esc_attr( $filter['name'] ) ?>" for="<?php echo esc_attr( $filter['name'] ) ?>"><?php echo $filter['caption'] ?></label>
+						<?php echo $filter['html'] ?>
+					</div>
+				<?php endforeach; ?>
+				<div class="tribe-bar-submit">
+					<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="<?php _e( 'Find Events', 'tribe-events-calendar' ) ?>" />
+				</div><!-- .tribe-bar-submit -->
+			</div><!-- .tribe-bar-filters-inner -->
 		</div><!-- .tribe-bar-filters -->
 
 		<!-- Views -->

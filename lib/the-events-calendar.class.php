@@ -196,7 +196,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// Load Template Tags
 			require_once( $this->pluginPath.'public/template-tags/query.php' );
 			require_once( $this->pluginPath.'public/template-tags/general.php' );
-			require_once( $this->pluginPath.'public/template-tags/calendar.php' );
+			require_once( $this->pluginPath.'public/template-tags/month.php' );
 			require_once( $this->pluginPath.'public/template-tags/loop.php' );
 			require_once( $this->pluginPath.'public/template-tags/google-map.php' );
 			require_once( $this->pluginPath.'public/template-tags/organizer.php' );
@@ -232,7 +232,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-amalgamator.php' );
 
 			// Load Template Classes
-			require_once( 'template-classes/calendar.php' );
+			require_once( 'template-classes/month.php' );
 			require_once( 'template-classes/list.php' );
 			require_once( 'template-classes/single-event.php' );
 
@@ -3540,7 +3540,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function setup_gridview_in_bar( $views ) {
-			$views[] = array( 'displaying' => 'month', 'event_bar_hook' => 'tribe_events_calendar_before_template', 'anchor' => 'Month', 'url' => tribe_get_gridview_link() );
+			$views[] = array( 'displaying' => 'month', 'event_bar_hook' => 'tribe_events_month_before_template', 'anchor' => 'Month', 'url' => tribe_get_gridview_link() );
 			return $views;
 		}
 

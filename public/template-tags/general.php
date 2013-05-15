@@ -486,7 +486,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$current_view = !empty( $current_view ) ? $current_view : basename(tribe_get_current_template());
 		$attrs['data-title'] = wp_title('&raquo;', false);
 		switch($current_view) {
-			case 'calendar.php' :
+			case 'month.php' :
 				$attrs['data-view'] = 'month';
 				$attrs['data-date'] =  date( 'Y-m', strtotime( tribe_get_month_view_date() ) );
 				$attrs['data-baseurl'] =  tribe_get_gridview_link(false);
