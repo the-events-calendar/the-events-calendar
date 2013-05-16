@@ -562,34 +562,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	}
 
 	/**
-	 * Get day permalink by provided date
-	 * Note: default if null returns TribeEvents::instance()->todaySlug
-	 * 
-	 * @param string $week
-	 * @return string $permalink
-	 * @since 3.0
-	 */
-	function tribe_get_day_permalink( $date = null, $term = true ){
-		$tec = TribeEvents::instance();
-		$date = is_null($date) ? TribeEventsPro::instance()->todaySlug : date('Y-m-d', strtotime( $date ) );
-		$url = trailingslashit( get_site_url() );
-		if ( '' === get_option('permalink_structure') ) {
-			if ( is_tax( TribeEvents::TAXONOMY ) ) 
-				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'day' ), get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );				
-			else 
-				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'day' ), home_url() );
-		} else {
-			// if we're on an Event Cat, show the cat link, except for home and days.
-			if ( $term && is_tax( TribeEvents::TAXONOMY ) )
-				$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
-			else
-				$url .= trailingslashit( $tec->rewriteSlug );
-			$permalink = $url . trailingslashit( $date );
-		}
-		return apply_filters('tribe_get_day_permalink', $permalink);
-	}
-
-	/**
 	 * Output an html link to a day
 	 *
 	 * @param $date 'previous day', 'next day', 'yesterday', 'tomorrow', or any date string that strtotime() can parse
