@@ -22,7 +22,7 @@ if ( !defined( 'ABSPATH' ) ) { die( '-1' ); }
 if ( !function_exists( 'tribe_register_meta_group' ) ) {
 	function tribe_register_meta_group( $meta_group_id, $args = array() ) {
 		// setup default for registering a meta group
-		$defaults = array( 'register_type' => 'meta_group' );
+		$defaults = array( 'register_type' => 'meta_group', 'register_overwrite' => true );
 		// parse the $default and $args into the second param for registering a meta item
 		return Tribe_Meta_Factory::register( $meta_group_id, wp_parse_args( $args, $defaults) );
 	}
