@@ -14,6 +14,10 @@
 /* = Global & Miscellaneous Styles
 =============================================*/
 
+#tribe-events-pg-template {
+	max-width: 1000px;
+	margin: 0 auto;
+}
 /* Default Events Template Base HTML STyles */
 .tribe-events-after-html {
 	clear: both;
@@ -524,6 +528,8 @@ select.tribe-events-dropdown {
 	line-height: 1.4em;
 	text-transform: none;
 	letter-spacing: 0;
+	display: block;
+	border: none;
 }
 
 .tribe-events-list .tribe-events-event-cost + h2.tribe-events-list-event-title {
@@ -1167,6 +1173,7 @@ h2.tribe-events-tickets-title {
 	position: relative;
 	margin: 0;
 	width: 100%;
+	display: table;
 }
 
 /* Form Elements */
@@ -1214,8 +1221,10 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 #tribe-bar-form .tribe-bar-submit input[type=submit] {
 	font-size: 13px;
+	line-height: 20px;
 	letter-spacing: 0;
 	width: 100%;
+	height: auto;
 	padding: 10px;
 	background-image: none;
 	background: #666;
@@ -1246,14 +1255,18 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 /* Tribe Bar Full Layout */
 
-.tribe-bar-full .tribe-bar-filters {
-	display: block !important;
+#tribe-bar-form .tribe-bar-filters {
+	position: relative;
+	right: 16.66667%;
+	left: auto;	
 	float: left;
 	width: 83.3333%;
-}
-.tribe-bar-filters > div {
+	display: table-cell;
 }
 
+#tribe-bar-form.tribe-bar-full .tribe-bar-filters {
+	display: block !important;
+}
 .tribe-bar-date-filter{
 	float: left;
 	width: 25%;
@@ -1277,10 +1290,14 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 #tribe-bar-form #tribe-bar-views {
+	position: relative;
+	left: 83.3333%;
+	right: auto;
 	float: left;
 	width: 16.66667%;
 	padding: 0 0 0 5px;
 	background: transparent;
+	display: table-cell;
 }
 
 #tribe-bar-views:hover, 
@@ -1316,6 +1333,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 .tribe-select2-results-views.select2-drop {
 	background: #DBDBDB;
 	border: none;
+	z-index: 9999;
 	box-shadow: none;
 	-moz-box-shadow: none;
 	-webkit-box-shadow: none;
@@ -1463,7 +1481,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 #tribe-bar-collapse-toggle {
 	display: none;
-	width: 70%;
+	float: left;
 	padding: 15px;
 	position: relative;
 	font-size: 13px;
@@ -1508,6 +1526,10 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	display: none;
 	margin-top: 5px;
 	overflow: hidden;
+	clear: both;
+	left: auto;
+	right: auto;
+	width: 100%;
 }
 
 .tribe-bar-collapse .tribe-bar-filters-inner > div, .tribe-bar-collapse #tribe-bar-views {
@@ -1517,12 +1539,12 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 .tribe-bar-collapse #tribe-bar-collapse-toggle {
 	display: block;
+	width: 70%;
 }
 
 #tribe-bar-form.tribe-bar-collapse #tribe-bar-views {
-	position: absolute;
-	top: 0;
-	right: 0;
+	float: left;
+	left: auto;
 	width: 30%;
 }
 
@@ -1535,7 +1557,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 @media only screen and (max-width: 767px) {
-	#tribe-bar-collapse-toggle {
+	.tribe-bar-collapse #tribe-bar-collapse-toggle {
 		width: 60%;
 	}
 	
