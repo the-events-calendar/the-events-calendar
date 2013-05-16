@@ -745,7 +745,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$week_class = ($wp_query->tribe_is_week) ? 'tribe-events-button-on' : 'tribe-events-button-off';
 			$html .= sprintf('<a class="%s" href="%s">%s</a><a class="%s" href="%s">%s</a>',
 				$day_class,
-				tribe_get_day_permalink(),
+				tribe_get_day_link(),
 				__( 'Day View', 'tribe-events-calendar' ),
 				$week_class,
 				tribe_get_week_permalink(),
@@ -1167,7 +1167,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$views[] = array( 'displaying' => 'day',
 			                  'anchor'     => __( 'Day', 'tribe-events-calendar-pro' ),
 			                  'event_bar_hook'       => 'tribe_events_list_before_template',
-			                  'url'        => tribe_get_day_permalink() );
+			                  'url'        => tribe_get_day_link() );
 			return $views;
 		}
 

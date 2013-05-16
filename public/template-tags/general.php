@@ -637,7 +637,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			break;
 		}
 
-		$link = tribe_get_day_permalink($date, $term);
+		$link = tribe_get_day_link($date);
 
 		$html = '<a href="'. $link .'" data-day="'. $date .'" rel="prev">'.$text.'</a>';
 

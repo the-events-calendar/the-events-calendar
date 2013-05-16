@@ -44,7 +44,7 @@ if( !class_exists('Tribe_Events_Pro_Day_Template')){
 			$current_day = $wp_query->get('start_date');
 
 			$attrs['data-view'] = 'day';
-			$attrs['data-baseurl'] = tribe_get_day_permalink( $current_day, false );
+			$attrs['data-baseurl'] = tribe_get_day_link( $current_day );
 			$attrs['data-date'] = Date('Y-m-d', strtotime( $current_day) );
 			$attrs['data-header'] = Date("l, F jS Y", strtotime( $current_day ) );
 
@@ -54,7 +54,7 @@ if( !class_exists('Tribe_Events_Pro_Day_Template')){
 		public function ical_link( $link ){
 			global $wp_query;
 			$day = $wp_query->get('start_date');
-			return trailingslashit( esc_url(trailingslashit( tribe_get_day_permalink( $day ) ) . 'ical' ) );
+			return trailingslashit( esc_url(trailingslashit( tribe_get_day_link( $day ) ) . 'ical' ) );
 		}
 
 		/**
