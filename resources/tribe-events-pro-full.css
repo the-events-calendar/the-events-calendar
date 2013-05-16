@@ -773,7 +773,8 @@ h3.tribe-events-related-events-title {
 	font-size: 1.4em;
 }
  
-.tribe-events-single ul.tribe-related-events {
+.tribe-events-single ul.tribe-related-events,
+.post .tribe-events-single ul.tribe-related-events {
 	margin: 0 -4% 8% 0;
 	border: none;
 } 
