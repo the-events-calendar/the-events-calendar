@@ -261,7 +261,7 @@ class TribeEventsRecurrenceMeta {
 	 */		
 	public static function getRecurrenceMeta( $postId, $recurrenceData = null ) {
 		if (!$recurrenceData )
-			$recurrenceData = get_post_meta($postId, '_EventRecurrence', true);
+			$recurrenceData = self::recurrenceMetaDefault( get_post_meta($postId, '_EventRecurrence', true) );
 		
 		$recurrence_meta = array();
 
@@ -272,16 +272,14 @@ class TribeEventsRecurrenceMeta {
 			$recurrence_meta['recEndCount'] = $recurrenceData['end-count'];
 			$recurrence_meta['recCustomType'] = $recurrenceData['custom-type'];
 			$recurrence_meta['recCustomInterval'] = $recurrenceData['custom-interval'];
-			
-			// the following two fields are just text fields used in the display
 			$recurrence_meta['recCustomTypeText'] = $recurrenceData['custom-type-text'];
 			$recurrence_meta['recOccurrenceCountText'] = $recurrenceData['occurrence-count-text'];
 			$recurrence_meta['recCustomRecurrenceDescription'] = $recurrenceData['recurrence-description'];
-			$recurrence_meta['recCustomWeekDay'] = !empty($recurrenceData['custom-week-day']) ? $recurrenceData['custom-week-day'] : null;
+			$recurrence_meta['recCustomWeekDay'] = $recurrenceData['custom-week-day'];
 			$recurrence_meta['recCustomMonthNumber'] = $recurrenceData['custom-month-number'];
 			$recurrence_meta['recCustomMonthDay'] = $recurrenceData['custom-month-day'];
-			$recurrence_meta['recCustomYearMonth'] = !empty($recurrenceData['custom-year-month']) ? $recurrenceData['custom-year-month'] : array();
-			$recurrence_meta['recCustomYearFilter'] = !empty($recurrenceData['custom-year-filter']) ?  $recurrenceData['custom-year-filter'] : null;
+			$recurrence_meta['recCustomYearMonth'] = $recurrenceData['custom-year-month'];
+			$recurrence_meta['recCustomYearFilter'] = $recurrenceData['custom-year-filter'];
 			$recurrence_meta['recCustomYearMonthNumber'] = $recurrenceData['custom-year-month-number'];
 			$recurrence_meta['recCustomYearMonthDay'] = $recurrenceData['custom-year-month-day'];
 		}
@@ -289,6 +287,33 @@ class TribeEventsRecurrenceMeta {
 		$recurrence_meta = wp_parse_args( $recurrence_meta, self::$recurrence_default_meta );
 
 		return apply_filters( 'TribeEventsRecurrenceMeta_getRecurrenceMeta', $recurrence_meta );
+	}
+
+	/**
+	 * clean up meta array by providing defaults
+	 * @param  array  $meta 
+	 * @return array of $meta merged with defaults
+	 */
+	function recurrenceMetaDefault( $meta = array() ){
+		$default_meta = array(
+			'type' => null,
+			'end-type' => null,
+			'end' => null,
+			'end-count' => null,
+			'custom-type' => null,
+			'custom-interval' => null,
+			'custom-type-text' => null,
+			'occurrence-count-text' => null,
+			'recurrence-description' => null,
+			'custom-week-day' => null,
+			'custom-month-number' => null,
+			'custom-month-day' => null,
+			'custom-year-month' => array(),
+			'custom-year-filter' => null,
+			'custom-year-month-number' => null,
+			'custom-year-month-day' => null );
+		$meta = wp_parse_args( (array) $meta, $default_meta );
+		return $meta;
 	}
 
 	
