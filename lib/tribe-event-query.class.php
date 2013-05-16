@@ -143,6 +143,13 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						self::$start_date = $query->get( 'start_date' );
 						self::$end_date = $query->get( 'end_date' );
 						break;
+					case 'single-event':
+						if ( $query->get( 'eventDate' ) != '' ) {
+							$query->set( 'start_date', $query->get( 'eventDate' ) );
+							$query->set( 'eventDate', $query->get( 'eventDate' ) );
+							self::$start_date = $query->get( 'start_date' );
+						}
+						break;
 					case 'upcoming':
 					default: // default display query
 						$start_date = date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
@@ -154,13 +161,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						self::$start_date = $query->get( 'start_date' );
 						break;
 					}
-				} else if ( is_single() && !tribe_is_showing_all() ) {
-						if ( $query->get( 'eventDate' ) != '' ) {
-							$query->set( 'start_date', $query->get( 'eventDate' ) );
-							$query->set( 'eventDate', $query->get( 'eventDate' ) );
-							self::$start_date = $query->get( 'start_date' );
-						}
-					} else {
+				} else {
 					$query->set( 'hide_upcoming', true );
 					$query->set( 'start_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
 					$query->set( 'orderby', self::set_orderby() );
