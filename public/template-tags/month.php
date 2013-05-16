@@ -11,10 +11,18 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( class_exists( 'TribeEvents' ) ) {
 
 	/**
-	 * Display a month view
+	 * Display a month
+	 * 
+	 * Inline example:
+	 * < code >
+	 * <?php
+	 * // output the events in May 2016 using the full month view template
+	 * tribe_show_month( array( 'eventDate' => '2016-05-01' ) )
+	 * ?>
+	 * </ code >
 	 *
-	 * @param array $args query args to pass to the month
-	 * @param string $template_path template to use, defaults to 'month'
+	 * @param array $args query args to pass to the month view
+	 * @param string $template_path template to use, defaults to the full month view
 	 * @return void
 	 * @author Jessica Yazbek
 	 * @since 3.0
@@ -32,7 +40,7 @@ if( class_exists( 'TribeEvents' ) ) {
 
 		do_action('tribe_events_before_show_month');
 
-		new Tribe_Events_Month_Template($args);
+		new Tribe_Events_Month_Template( $args );
 		tribe_get_view( $template_path );
 
 		do_action('tribe_events_before_show_month');
@@ -43,7 +51,6 @@ if( class_exists( 'TribeEvents' ) ) {
 				$_REQUEST[$key] = $value;
 			}
 		}
-
 	}
 
 	/**
@@ -73,9 +80,9 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Grid View Test
+	 * Month view conditional tag
 	 *
-	 * Returns true if the query is set for grid display (as opposed to Upcoming / Past)
+	 * Returns true if the current view is Month
 	 *
 	 * @return bool
 	 * @since 2.0
@@ -87,9 +94,22 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Whether there are more calendar days available in the loop.
+	 * Used in the month loop. 
+	 * Returns true if there are more calendar days available in the loop.
 	 *
-	 * @return bool True if calendar days are available, false if end of loop.
+	 * Example:
+	 * < code >
+	 * <?php
+	 * // loop through the days in the current month query
+	 * while( tribe_events_have_month_days() ) : tribe_events_the_month_day();
+	 * 		// do stuff
+	 * endwhile;
+	 * ?>
+	 * </ code >
+	 *
+	 * @return bool
+	 * @author Jessica Yazbek
+	 * @see Tribe_Events_Month_Template::have_days()
 	 * @since 3.0
 	 **/
 	function tribe_events_have_month_days() {
@@ -97,9 +117,22 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Sets up the current calendar day
+	 * Used in the month loop. 
+	 * Advances the loop pointer to the next day, and sets that day up for use.
+	 *
+	 * Example:
+	 * < code >
+	 * <?php
+	 * // loop through the days in the current month query
+	 * while( tribe_events_have_month_days() ) : tribe_events_the_month_day();
+	 * 		// do stuff
+	 * endwhile;
+	 * ?>
+	 * </ code >
 	 *
 	 * @return void
+	 * @author Jessica Yazbek
+	 * @see Tribe_Events_Month_Template::the_day()
 	 * @since 3.0
 	 **/
 	function tribe_events_the_month_day() {
@@ -107,9 +140,22 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Returns the internal counter for the current week in the calendar loop
+	 * Used in the month loop.
+	 * Returns the counter for the current week in the month loop
 	 *
-	 * @return void
+	 * Example:
+	 * < code >
+	 * <?php
+	 * // loop through the days in the current month query
+	 * if( tribe_events_get_current_week == 3 );
+	 * 		// do stuff
+	 * endif;
+	 * ?>
+	 * </ code >
+	 *
+	 * @return int
+	 * @author Jessica Yazbek
+	 * @see Tribe_Events_Month_Template::get_current_week()
 	 * @since 3.0 
 	 **/
 	function tribe_events_get_current_week() {
@@ -117,9 +163,22 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Gets the current day array in the calendar loop
+	 * Used in the month loop.
+	 * Gets the current day in the month loop
+	 * 
+	 * Returned array contains the following elements if the day is in the currently displaying month:
+	 * 	'daynum'       => Day of the month (int)
+	 *  'date'         => Complete date (Y-m-d)
+	 *  'events'       => Object containing events on this day (WP_Query)
+	 *  'total_events' => Number of events on this day (int)
+	 *  'view_more'    => Link to the single day (URL)
+	 * 
+	 * If the day is part of the previous or next month, the array simply contains:
+	 * 	'date' => 'previous' or 'next'
 	 *
-	 * @return array Day information
+	 * @return array
+	 * @author Jessica Yazbek
+	 * @see Tribe_Events_Month_Template::get_current_day()
 	 * @since 3.0
 	 **/
 	function tribe_events_get_current_month_day() {
@@ -127,9 +186,12 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Outputs classes for the current calendar day
+	 * Used in the month loop.
+	 * Outputs classes for the current month day, including special classes for past / present / future days
 	 *
 	 * @return void
+	 * @author Jessica Yazbek
+	 * @see Tribe_Events_Month_Template::day_classes()
 	 * @since 3.0 
 	 **/
 	function tribe_events_the_month_day_classes() {
@@ -137,45 +199,12 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Output the current day number
+	 * Used in the month loop.
+	 * Outputs classes for the current single event in the month loop
 	 *
 	 * @return void
-	 * @since 3.0
-	 **/
-	function tribe_events_the_month_day_header()	{
-		$day_num = 0;
-		$day = tribe_events_get_current_month_day();
-		if ( $day ) {
-			$day_num = sprintf( '<a href="%s">%s</a>', 
-				tribe_get_day_link( $day['date'] ),
-				$day['daynum'] );
-		} else {
-			_doing_it_wrong( __FUNCTION__, __FUNCTION__.' should only be used in the month view loop.', 'The Events Calendar 3.0' );
-		}
-		echo apply_filters( 'tribe_events_the_month_day_header', $day_num, $day );
-	}
-
-	/**
-	 * Get the wp_query with the list of events for the current day in the calendar loop
-	 *
-	 * @return $wp_query
-	 * @since 3.0
-	 **/
-	function tribe_events_get_current_month_day_events()	{
-		$events = new WP_Query;
-		$day = tribe_events_get_current_month_day();
-		if ( $day ) {
-			$events = $day['events'];			
-		} else {
-			_doing_it_wrong( __FUNCTION__, __FUNCTION__.' should only be used in the month view loop.', 'The Events Calendar 3.0' );
-		}
-		return apply_filters( 'tribe_events_get_current_month_day_events', $events, $day );
-	}
-
-	/**
-	 * Outputs classes for the current single event in the calendar loop
-	 *
-	 * @return void
+	 * @author Jessica Yazbek
+	 * @see Tribe_Events_Month_Template::event_classes()
 	 * @since 3.0 
 	 **/
 	function tribe_events_the_month_single_event_classes() {
@@ -332,9 +361,11 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Display a link to the previous month. Used in the calendar navigation.
+	 * Display a link to the previous month. Used in the month navigation.
 	 *
 	 * @return void
+	 * @author Jessica Yazbek
+	 * @uses tribe_get_previous_month_text()
 	 * @since 3.0
 	 **/
 	function tribe_events_previous_month_link() {
@@ -346,9 +377,11 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Display a link to the next month. Used in the calendar navigation.
+	 * Display a link to the next month. Used in the month navigation.
 	 *
 	 * @return void
+	 * @author Jessica Yazbek
+	 * @uses tribe_get_next_month_text()
 	 * @since 3.0
 	 **/
 	function tribe_events_next_month_link() {

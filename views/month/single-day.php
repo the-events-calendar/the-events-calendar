@@ -23,7 +23,7 @@ $day = tribe_events_get_current_month_day();
 	<!-- Day Header -->
 	<div id="tribe-events-daynum-<?php echo $day['daynum'] ?>">
 
-		<?php tribe_events_the_month_day_header() ?>
+		<a href="<?php echo tribe_get_day_link($day['date']) ?>"><?php echo $day['daynum'] ?></a>
 
 	</div>
 
