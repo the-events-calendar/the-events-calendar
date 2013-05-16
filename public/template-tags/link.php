@@ -17,7 +17,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @return string URL
 	 * @since 2.0
 	 */
-	function tribe_get_day_link($date) {
+	function tribe_get_day_link( $date = null ) {
 		$tribe_ecp = TribeEvents::instance();
 		return apply_filters('tribe_get_day_link', $tribe_ecp->getLink('day', $date));
 	}
