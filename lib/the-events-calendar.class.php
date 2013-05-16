@@ -2454,56 +2454,47 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 			remove_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
-
 			remove_action( 'save_post', array( $this, 'publishAssociatedTypes'), 25, 2 );
 
 			// Only continue if the post being published is an event
-			if ( wp_is_post_autosave( $postID ) || $post->post_status == 'auto-draft' ||
-						isset($_GET['bulk_edit']) || (isset($_REQUEST['action']) && $_REQUEST['action'] == 'inline-save') ||
-						($post->post_type != self::POSTTYPE && $postID)) {
+			if ( ( $post->post_type != self::POSTTYPE && $postID ) && ( 
+				wp_is_post_autosave( $postID ) || 
+				in_array( $post->post_status, array( 'auto-draft', 'draft' ) ) ||
+				isset( $_GET['bulk_edit'] ) || 
+				( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'inline-save' ) ) ) {
 				return;
 			}
 
+			// save venue and organizer info on first pass
+			if( isset( $post->post_status ) && $post->post_status == 'publish' ){
 
-				if( isset( $post->post_status ) && $post->post_status == 'publish' ){
+				//get venue and organizer and publish them
+				$pm = get_post_custom($post->ID);
 
-					//get venue and organizer and publish them
-
-					$pm = get_post_custom($post->ID);
-
-					if( isset($pm['_EventVenueID']) && $pm['_EventVenueID'] ){
-
-						if( is_array($pm['_EventVenueID']) ){
-							$venue_id = current($pm['_EventVenueID']);
-						}else{
-							$venue_id = $pm['_EventVenueID'];
-						}
-
-
-						$venue_post = get_post($venue_id);
-						if ( !empty($venue_post) && $venue_post->post_status != 'publish' ) {
+				// save venue on first setup
+				if( !empty( $pm['_EventVenueID'] ) ){
+					$venue_id = is_array( $pm['_EventVenueID'] ) ? current( $pm['_EventVenueID'] ) : $pm['_EventVenueID'];
+					if( $venue_id ){
+						$venue_post = get_post( $venue_id );
+						if ( !empty( $venue_post ) && $venue_post->post_status != 'publish' ) {
 							$venue_post->post_status = 'publish';
-							wp_update_post($venue_post);
+							wp_update_post( $venue_post );
 						}
-
-					}
-
-					if( isset($pm['_EventOrganizerID']) && $pm['_EventOrganizerID'] ){
-
-						if( is_array($pm['_EventOrganizerID']) ){
-							$org_id = current($pm['_EventOrganizerID']);
-						}else{
-							$org_id = $pm['_EventOrganizerID'];
-						}
-
-						$org_post = get_post($org_id);
-						if ( !empty($org_post) && $org_post->post_status != 'publish' ) {
-							$org_post->post_status = 'publish';
-							wp_update_post($org_post);
-						}
-
 					}
 				}
+
+				// save organizer on first setup
+				if( !empty( $pm['_EventOrganizerID'] ) ){
+					$org_id = is_array( $pm['_EventOrganizerID'] ) ? current( $pm['_EventOrganizerID'] ) : $pm['_EventOrganizerID'];
+					if( $org_id ){
+						$org_post = get_post( $org_id );
+						if ( !empty( $org_post ) && $org_post->post_status != 'publish' ) {
+							$org_post->post_status = 'publish';
+							wp_update_post( $org_post );
+						}
+					}
+				}
+			}
 
 		}
 
@@ -2511,23 +2502,28 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function save_venue_data( $postID = null, $post=null ) {
 			global $_POST;
 
+			//There is a possibility to get stuck in an infinite loop.
+			//That would be bad.
+			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
+
+			if( !isset($_POST['venue']) ) 
+				$_POST['venue'] = null;
+
 			// don't do anything on autosave or auto-draft either or massupdates
 			// Or inline saves, or data being posted without a venue Or
 			// finally, called from the save_post action, but on save_posts that
 			// are not venue posts
-			if ( wp_is_post_autosave( $postID ) || $post->post_status == 'auto-draft' ||
-						isset($_GET['bulk_edit']) || (isset($_REQUEST['action']) && $_REQUEST['action'] == 'inline-save') ||
-						(isset($_POST['venue']) && !$_POST['venue']) ||
-						($post->post_type != self::VENUE_POST_TYPE && $postID)) {
+			if ( ( $post->post_type != self::VENUE_POST_TYPE && $postID ) && ( 
+				wp_is_post_autosave( $postID ) || 
+				in_array( $post->post_status, array( 'auto-draft', 'draft' ) ) ||
+				isset( $_GET['bulk_edit'] ) || 
+				! $_POST['venue'] ||
+				( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'inline-save' ) ) ) {
 				return;
 			}
 
 			if ( !current_user_can( 'edit_tribe_venues' ) )
 				return;
-
-			//There is a possibility to get stuck in an infinite loop.
-			//That would be bad.
-			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 
 			$data = $_POST['venue'];
 			if ( empty($data['Venue']) ) {
@@ -2539,9 +2535,15 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 
 			$data = stripslashes_deep($data);
-			$venue_id = TribeEventsAPI::updateVenue($postID, $data);
+			$venue_id = TribeEventsAPI::updateVenue( $postID, $data );
 
-			return $venue_id;
+			/**
+			 * Put our hook back
+			 * @link http://codex.wordpress.org/Plugin_API/Action_Reference/save_post#Avoiding_infinite_loops
+			 */
+			add_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
+
+			// return $venue_id;
 		}
 		/**
 		 *
@@ -2582,26 +2584,29 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function save_organizer_data( $postID = null, $post=null ) {
 			global $_POST;
 
+			//There is a possibility to get stuck in an infinite loop.
+			//That would be bad.
+			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
+
 			// don't do anything on autosave or auto-draft either or massupdates
 			// Or inline saves, or data being posted without a organizer Or
 			// finally, called from the save_post action, but on save_posts that
 			// are not organizer posts
 
-			if( !isset($_POST['organizer']) ) $_POST['organizer'] = null;
+			if( !isset($_POST['organizer']) ) 
+				$_POST['organizer'] = null;
 
-			if ( wp_is_post_autosave( $postID ) || $post->post_status == 'auto-draft' ||
-						isset($_GET['bulk_edit']) || (isset($_REQUEST['action']) && $_REQUEST['action'] == 'inline-save') ||
-						!$_POST['organizer'] ||
-						($post->post_type != self::ORGANIZER_POST_TYPE && $postID)) {
+			if ( ( $post->post_type != self::ORGANIZER_POST_TYPE && $postID ) && ( 
+				wp_is_post_autosave( $postID ) || 
+				in_array( $post->post_status, array( 'auto-draft', 'draft' ) ) ||
+				isset( $_GET['bulk_edit'] ) || 
+				! $_POST['organizer'] ||
+				( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'inline-save' ) ) ) {
 				return;
 			}
 
 			if ( !current_user_can( 'edit_tribe_organizers' ) )
 				return;
-
-			//There is a possibility to get stuck in an infinite loop.
-			//That would be bad.
-			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 
 			$data = $_POST['organizer'];
 			if ( empty($data['Organizer']) ) {
@@ -2621,7 +2626,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			 */
 			add_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 
-			return $organizer_id;
+			// return $organizer_id;
 		}
 
 		// abstracted for EventBrite
