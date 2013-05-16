@@ -24,13 +24,10 @@ class TribeEventsMiniCalendar {
 	 * @author Jessica Yazbek
 	 **/
 	public function get_month()	{
-
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-			return $_POST["eventDate"] ? $_POST["eventDate"] : date_i18n( TribeDateUtils::DBDATEFORMAT );
+			return isset( $_POST["eventDate"] ) ? $_POST["eventDate"] : date_i18n( TribeDateUtils::DBDATEFORMAT );
 		}
-
 		return date_i18n( TribeDateUtils::DBDATEFORMAT );
-
 	}
 
 	/**
@@ -55,8 +52,6 @@ class TribeEventsMiniCalendar {
 			$response['success'] = true;
 
 			add_action( 'pre_get_posts', array( $this, 'ajax_select_day_set_date' ), -10 );
-
-			// print_r($_POST['tax_query']);
 
 			$tax_query = isset( $_POST['tax_query'] ) ? $_POST['tax_query'] : null;
 
@@ -151,23 +146,13 @@ class TribeEventsMiniCalendar {
 
 		$this->args = $args;
 
+		if ( ! isset( $this->args['eventDate'] ) ) {
+			$this->args['eventDate'] = $this->get_month();
+		}
+
 		// don't show the list if they set it the widget option to show 0 events in the list
 		if ( $this->args['count'] == 0 )	{ 
 			$this->show_list = false;
-		}
-
-		// set the month that's used in the calendar template class
-		add_filter( 'tribe_get_month_view_date', array( $this, 'get_month' ) );
-
-		// make sure the widget taxonomy filter setting is respected
-		add_action( 'pre_get_posts', array( $this, 'set_taxonomies' ) );
-
-		// set up all the days of the month
-		new Tribe_Events_Month_Template;
-
-		// dequeue the month view js
-		if ( ! tribe_is_month() ) {
-			wp_dequeue_script( 'tribe-events-calendar' );
 		}
 
 		// enqueue the widget js
@@ -184,13 +169,10 @@ class TribeEventsMiniCalendar {
 			add_filter( 'tribe_get_template_part_path', array( $this, 'block_list_template_path' ), 10, 2 );
 		}
 
-		tribe_get_view('widgets/mini-calendar/calendar');
-
-		// remove the widget taxonomy filter from future queries, we're done using it
-		remove_action( 'pre_get_posts', array( $this, 'set_taxonomies' ) );
-
-		// remove the month setting from future queries, we're done using it
-		remove_filter( 'tribe_get_month_view_date', array( $this, 'get_month' ) );
+		tribe_show_month( array(
+				'tax_query' => $this->args['tax_query'],
+				'eventDate' => $this->args['eventDate'],
+			), 'widgets/mini-calendar/calendar' );
 
 	}
 
