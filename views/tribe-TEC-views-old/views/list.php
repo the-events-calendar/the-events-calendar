@@ -46,7 +46,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 				<h4 class="event-day"><?php echo tribe_event_format_date( strtotime( get_query_var( 'eventDate' ) ), false ); ?></h4>
 			<?php endif; ?>
 			
-			<?php the_title( '<h2 class="entry-title" itemprop="name"><a href="'. tribe_get_event_link() .'" title="'. the_title_attribute( 'echo=0' ) .'" rel="bookmark">', '</a></h2>' ); ?>
+			<?php the_title( '<h2 class="tribe-events-list-event-title" itemprop="name"><a href="'. tribe_get_event_link() .'" title="'. the_title_attribute( 'echo=0' ) .'" rel="bookmark">', '</a></h2>' ); ?>
 			
 			<div class="entry-content tribe-events-event-entry" itemprop="description">
 				<?php if ( has_excerpt () ): ?>

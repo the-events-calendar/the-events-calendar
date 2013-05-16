@@ -725,8 +725,7 @@ select.tribe-events-dropdown {
 /* = Single Event Template Styles
    @ Template: single-event.php
 =============================================*/
-.single-tribe_events h2.entry-title, 
-.single-tribe_events #content h2.entry-title {
+.single-tribe_events h2.tribe-events-single-event-title {
 	font-size: 1.7em;
 	line-height: 1;
 	margin: 0;
@@ -877,6 +876,7 @@ select.tribe-events-dropdown {
 	margin: 0 0 10px 0;
 	line-height: 1.5;
 	list-style: none;
+	float: none;
 }
 
 #tribe-events-content .tribe-events-event-meta dd span.adr {
@@ -1049,21 +1049,23 @@ select.tribe-events-dropdown {
 	position: relative;
 	margin: 0;
 }
-#tribe-events-content .tribe-events-calendar div[id*="tribe-events-event-"] h3.entry-title {
+#tribe-events-content .tribe-events-calendar div[id*="tribe-events-event-"] h3.tribe-events-month-event-title {
 	line-height: 1.5;
-	font-size: 91.7%;
+	font-size: 13px;
 	font-weight: normal;
+	font-family: sans-serif;
+	font-weight: bold;
 	text-transform: none;
 	margin: 0;
 	padding: 0;
 	letter-spacing: 0;
 }
-.tribe-events-calendar div[id*="tribe-events-event-"] h3.entry-title a {
+.tribe-events-calendar div[id*="tribe-events-event-"] h3.tribe-events-month-event-title a {
 	font-size: 100%;
 }
 
 /* Large Calendar Tooltip Specifics */
-#tribe-events-content .tribe-events-tooltip h4.entry-title {
+#tribe-events-content .tribe-events-tooltip h4 {
 	margin: 0;
 	color: #fff;
 	background-color: #666;
@@ -1244,6 +1246,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 #tribe-bar-form label {
 	display: block;
 	font-size: 11px;
+	line-height: 1;
 	text-transform: uppercase;
 	font-weight: bold;
 	margin-bottom: 5px;

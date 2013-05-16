@@ -538,9 +538,9 @@ if( class_exists( 'TribeEvents' ) ) {
 			?>
 			
 			<div id="tribe-events-event-<?php echo $eventId; ?>" class="<?php echo $class_string; ?>">
-				<h3 class="entry-title summary"><a href="<?php tribe_event_link(); ?>"><?php echo $post->post_title; ?></a></h3>
+				<h3 class="tribe-events-month-event-title"><a href="<?php tribe_event_link(); ?>"><?php echo $post->post_title; ?></a></h3>
 				<div id="tribe-events-tooltip-<?php echo $eventId; ?>" class="tribe-events-tooltip">
-					<h4 class="entry-title summary"><?php the_title() ;?></h4>
+					<h4 class="summary"><?php the_title() ;?></h4>
 					<div class="tribe-events-event-body">
 						<div class="duration">
 							<abbr class="tribe-events-abbr updated published dtstart" title="<?php echo date_i18n( get_option( 'date_format', 'Y-m-d' ), $start ); ?>">

@@ -371,7 +371,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	 * @group none specified
 	 */
 	tribe_register_meta( 'tribe_event_title', array(
-			'classes'=>array('meta_before'=>array('entry-title','summary')),
+			'classes'=>array('meta_before'=>array('tribe-events-meta-event-title','summary')),
 			'label' => __( 'Event:', 'tribe-events-calendar' ),
 			'callback' => array( 'Tribe_Register_Meta', 'the_title' )
 		) );

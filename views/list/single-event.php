@@ -37,7 +37,7 @@ $has_venue_address = ( $venue_address ) ? ' location': '';
 
 <!-- Event Title -->
 <?php do_action( 'tribe_events_list_before_the_event_title' ) ?>
-<h2 class="tribe-events-list-event-title entry-title summary">
+<h2 class="tribe-events-list-event-title summary">
 	<a class="url" href="<?php echo tribe_get_event_link() ?>" title="<?php the_title() ?>" rel="bookmark">
 		<?php the_title() ?>
 	</a>
