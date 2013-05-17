@@ -1,5 +1,14 @@
 (function ($, td, te, tf, ts, tt) {
 
+	/***
+	 * $  = jQuery
+	 * td = tribe_ev.data
+	 * te = tribe_ev.events
+	 * tf = tribe_ev.fn
+	 * ts = tribe_ev.state
+	 * tt = tribe_ev.tests
+	 */
+
 	$(document).ready(function () {
 
 		var tribe_is_paged = tf.get_url_param('tribe_paged');

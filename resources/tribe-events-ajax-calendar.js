@@ -1,5 +1,14 @@
 (function ($, td, te, tf, ts, tt) {
 
+	/***
+	 * $  = jQuery
+	 * td = tribe_ev.data
+	 * te = tribe_ev.events
+	 * tf = tribe_ev.fn
+	 * ts = tribe_ev.state
+	 * tt = tribe_ev.tests
+	 */
+
 	$(document).ready(function () {
 
 		var base_url = $('#tribe-events-header .tribe-events-nav-next a').attr('href').slice(0, -8);
@@ -24,10 +33,10 @@
 		var tribeBarDate = $tribedate.bootstrapDatepicker(tribe_var_datepickerOpts).on('changeDate',function (e) {
 			tribeBarDate.hide();
 			var $this = $(this);
+			tf.update_picker(e.date);
 			if ($this.val() === '') {
 				return;
 			}
-			tf.update_picker(e.date);
 			ts.date = $this.val();
 			if (tt.live_ajax() && tt.pushstate) {
 				if (ts.ajax_running)
