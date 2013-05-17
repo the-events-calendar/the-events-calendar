@@ -850,6 +850,7 @@ select.tribe-events-dropdown {
 }
 .tribe-events-event-meta .tribe-events-meta-group, 
 .tribe-events-event-meta .column {
+	float: left;
 	width: 25%;
 	padding: 0 4%;
 	text-align: left;

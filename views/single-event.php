@@ -61,9 +61,7 @@ $event_id = get_the_ID();
 
 	<!-- Event meta -->
 	<?php do_action( 'tribe_events_single_event_before_the_meta' ) ?>
-	<div class="tribe-events-event-meta tribe-clearfix">
 		<?php tribe_events_the_single_event_meta() ?>
-	</div><!-- .tribe-events-event-meta -->
 	<?php do_action( 'tribe_events_single_event_after_the_meta' ) ?>
 
 	<!-- Event footer -->

@@ -318,7 +318,7 @@ function tribe_events_the_single_event_meta() {
 		$html .= tribe_get_the_event_meta();
 
 	} else {
-
+		$html .= '<div class="tribe-events-single-section tribe-events-event-meta tribe-clearfix">';
 		// Event Details
 		$html .= tribe_get_meta_group( 'tribe_event_details' );
 
@@ -343,6 +343,7 @@ function tribe_events_the_single_event_meta() {
 		}
 
 		$html .= apply_filters( 'tribe_events_single_event_the_meta_addon', '', $event_id );
+		$html .= '</div>';
 
 	}
 
