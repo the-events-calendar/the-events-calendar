@@ -682,7 +682,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 					echo '<a href="'. get_permalink( $post->ID ) .'" class="url" rel="bookmark">'. $thumb .'</a>';
 					echo '</div>';
 					echo '<div class="tribe-related-event-info">';
-						echo '<h3 class="tribe-related-events-title entry-title summary"><a href="'. get_permalink( $post->ID ) .'" class="url" rel="bookmark">'. get_the_title( $post->ID ) .'</a></h3>';
+						echo '<h3 class="tribe-related-events-title summary"><a href="'. get_permalink( $post->ID ) .'" class="url" rel="bookmark">'. get_the_title( $post->ID ) .'</a></h3>';
 
 						if ( class_exists( 'TribeEvents' ) && $post->post_type == TribeEvents::POSTTYPE && function_exists( 'tribe_events_event_schedule_details' ) ) {
 							echo tribe_events_event_schedule_details( $post );
