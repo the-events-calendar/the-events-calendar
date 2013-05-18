@@ -23,6 +23,9 @@
   	cursor: pointer;
   }
 
+ .tribe-events-user-recurrence-toggle input {
+ 	margin-right: 5px;
+ }
 /* = Day Grid Template Styles
    @ Template: day.php
 =============================================*/
@@ -389,8 +392,7 @@
 
 .tribe-events-list .tribe-events-photo-event .tribe-events-event-details {
 	float: none;
-	width: 84%;
-	padding: 8% 8% 10%;
+	padding: 15px;
 	word-wrap: break-word;
 }
 .tribe-events-loop .tribe-events-photo-event .tribe-events-list-event-description  {
@@ -749,7 +751,8 @@
    @ Template: single-event.php
 =============================================*/
 .related-events-title {
-	color: #666;
+	font-size: 18px;
+	line-height: 1.4;
 }
 ul.related-events {
 	display: block;
@@ -776,6 +779,7 @@ h3.tribe-events-related-events-title {
 .tribe-events-single ul.tribe-related-events,
 .post .tribe-events-single ul.tribe-related-events {
 	margin: 0 -4% 8% 0;
+	padding: 0;
 	border: none;
 } 
 
@@ -809,10 +813,15 @@ h3.tribe-events-related-events-title {
 	width: 100%;
 	max-width: 100%;
 	height: auto;
+	border: none;
+	padding: 0;
+	margin: 0;
 }
 
 .tribe-events-single ul.tribe-related-events .tribe-related-events-title {
-	margin-bottom: 4%;
+	margin: 0 0 10px 0;
+	font-size: 16px;
+	line-height: 1.5;
 }
 
 .tribe-events-single ul.tribe-related-events .recurringinfo {
