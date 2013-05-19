@@ -169,7 +169,7 @@ class TribeEventsGeoLoc {
 	}
 
 	public function setup_view_for_bar( $views ) {
-		$views[] = array( 'displaying' => 'map', 'event_bar_hook' => 'tribe_events_list_the_title', 'anchor'=> 'Map', 'url' => tribe_get_mapview_link() );
+		$views[] = array( 'displaying' => 'map', 'event_bar_hook' => 'tribe_events_list_the_title', 'anchor'=> __( 'Map', 'tribe-events-calendar-pro' ), 'url' => tribe_get_mapview_link() );
 		return $views;
 	}
 
