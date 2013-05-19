@@ -3,20 +3,20 @@
 /** I get included by the APM Demo plugin.
  * Helpful for demoing/testing.
  * See Tribe_Status_Type class below for a custom filter type example
- * 
+ *
  */
 
 class Tribe_Demo_APM {
-	
+
 	private $post_type = 'tribe_movie';
 	private $textdomain = 'tribe-apm';
-	
+
 	public function __construct() {
-		$this->textdomain = apply_filters( 'tribe_apm_textdomain', $this->textdomain );
+		'tribe-apm' = apply_filters( 'tribe_apm_textdomain', 'tribe-apm' );
 		add_action( 'init', array($this, 'test_filters') );
 		add_action( 'admin_notices', array($this, 'notice') );
 	}
-	
+
 	public function notice() {
 		$screen = get_current_screen();
 		if ( 'edit-'.$this->post_type !== $screen->id ) {
@@ -28,11 +28,11 @@ class Tribe_Demo_APM {
 			$url = home_url($path) . '/demo_data.xml';
 			$import_url = admin_url('import.php');
 			echo '<div id="messsage" class="updated"><p>';
-			printf( __('It looks like you might not have any demo data. <a href="%s">Download our data</a> and use the <a href="%s">WordPress Importer</a>.', $this->textdomain), $url, $import_url );
+			printf( __('It looks like you might not have any demo data. <a href="%s">Download our data</a> and use the <a href="%s">WordPress Importer</a>.', 'tribe-apm'), $url, $import_url );
 			echo '</p></div>';
 		}
 	}
-	
+
 	public function test_filters() {
 		$filter_args = array(
 			'release_date' =>  array(
@@ -72,7 +72,7 @@ class Tribe_Demo_APM {
 		$boxes = array(
 			'my_box' => 'Awesome Box'
 		);
-		
+
 		$labels = array(
 			'name' => 'Demo Movies',
 			'singular_name' => 'Demo Movie',
@@ -107,29 +107,29 @@ class Tribe_Demo_APM {
 	public function log($data = array() ) {
 		error_log(print_r($data,1));
 	}
-	
+
 }
 new Tribe_Demo_APM;
 
 class Tribe_Status_Type {
-	
+
 	protected $key = 'tribe_post_status';
 	protected $type = 'post_status';
-	
+
 	public function __construct() {
 		$type = $this->type;
-		
+
 		add_filter( 'tribe_custom_column'.$type, array($this, 'column_value'), 10, 3 );
 		add_filter( 'tribe_custom_row'.$type, array($this, 'form_row'), 10, 4 );
 		add_filter( 'tribe_maybe_active'.$type, array($this, 'maybe_set_active'), 10, 3 );
 		add_action( 'tribe_after_parse_query', array($this, 'parse_query'), 10, 2 );
 		add_action( 'tribe_orderby_custom'.$type, array($this, 'orderby'), 10, 2 );
 	}
-	
+
 	public function orderby($wp_query, $filter) {
 		add_filter( 'posts_orderby', array($this, 'set_orderby'), 10, 2 );
 	}
-	
+
 	public function set_orderby($orderby, $wp_query) {
 		// run once
 		remove_filter( 'posts_orderby', array($this, 'set_orderby'), 10, 2 );
@@ -138,7 +138,7 @@ class Tribe_Status_Type {
 		$by = "{$wpdb->posts}.post_status";
 		return $by . ' ' . $order;
 	}
-	
+
 	public function parse_query($wp_query, $active) {
 		if ( ! isset($active[$this->key]) ) {
 			return;
@@ -146,14 +146,14 @@ class Tribe_Status_Type {
 		$status = $active[$this->key]['value'];
 		$wp_query->set('post_status', $status);
 	}
-	
+
 	public function maybe_set_active($return, $key, $filter) {
 		if ( isset($_POST[$key]) && ! empty($_POST[$key]) ) {
 			return array('value' => $_POST[$key]);
 		}
 		return $return;
 	}
-	
+
 	public function form_row($return, $key, $value, $filter) {
 		$stati = get_post_stati(array('show_in_admin_status_list'=>true), 'objects');
 		$args = array();
@@ -168,12 +168,12 @@ class Tribe_Status_Type {
 		$status_object = get_post_status_object($status);
 		return ( isset($status_object->label) ) ? $status_object->label : $status;
 	}
-	
+
 	public function log($data = array() ) {
 		error_log(print_r($data,1));
 	}
-	
-	
+
+
 }
 new Tribe_Status_Type;
 

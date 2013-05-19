@@ -8,30 +8,28 @@
 if ( ! class_exists( 'Tribe_Meta_Box_Helper' ) ) {
 
 class Tribe_Meta_Box_Helper {
-	
+
 	const PREFIX = 'tribe_';
-	
+
 	protected $fields = array();
 	protected $post_type = '';
 	protected $metaboxes = array();
-	protected $textdomain = 'tribe-apm';
-	
+
 	protected $type_map = array(
 		'DATE' => 'date',
 		'TIME' => 'time'
 	);
-	
-	
+
+
 	public function __construct($post_type, $fields, $metaboxes = array() ) {
 		$this->post_type = $post_type;
 		$this->fields = $this->fill_filter_vars($fields);
 		$this->metaboxes = $metaboxes;
 		$this->create_meta_boxes();
-		$this->textdomain = apply_filters( 'tribe_apm_textdomain', $this->textdomain );
 	}
-	
+
 	// HELPERS AND UTITLIES
-	
+
 	protected function create_meta_boxes() {
 		require_once 'tribe-meta-box.php';
 		$boxes = $this->map_meta_boxes();
@@ -39,11 +37,11 @@ class Tribe_Meta_Box_Helper {
 			new Tribe_Meta_Box($box);
 		}
 	}
-	
+
 	protected function map_meta_boxes() {
 		$return_boxes = array();
 		$default_id = self::PREFIX . $this->post_type . '_metabox';
-		$default_box = array( $default_id => __( 'Extended Information', $this->textdomain ) );
+		$default_box = array( $default_id => __( 'Extended Information', 'tribe-apm' ) );
 		$metaboxes = $this->metaboxes;
 		if ( is_string($metaboxes) ) {
 			$default_box[$default_id] = $metaboxes;
@@ -75,7 +73,7 @@ class Tribe_Meta_Box_Helper {
 		}
 		return $return_boxes;
 	}
-	
+
 	protected function order_meta_fields($fields) {
 		$ordered = array();
 		foreach ( $fields as $key => $field ) {
@@ -88,7 +86,7 @@ class Tribe_Meta_Box_Helper {
 		ksort($ordered);
 		return array_merge($ordered, $fields);
 	}
-	
+
 	protected function fill_filter_vars($fields) {
 		foreach ( $fields as $key => $field ) {
 			if ( ! isset($field['type']) ) {
@@ -97,7 +95,7 @@ class Tribe_Meta_Box_Helper {
 		}
 		return $fields;
 	}
-	
+
 	// Only gets called when no explicit type was set, remember
 	protected function predictive_type($field) {
 		$type = 'text';
@@ -111,12 +109,12 @@ class Tribe_Meta_Box_Helper {
 		}
 		return $type;
 	}
-	
+
 	public function log() {
 		foreach ( func_get_args() as $data )
 			error_log( print_r($data, 1) );
 	}
-	
+
 }
 
 } // end if class_exists()
