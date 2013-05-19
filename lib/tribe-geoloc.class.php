@@ -154,7 +154,7 @@ class TribeEventsGeoLoc {
 			);
 
 		} elseif ( $id == 'display' ) {
-			$args = TribeEvents::array_insert_after_key( 'viewOption', $args, array(
+			$args = TribeEvents::array_insert_after_key( 'tribeDisableTribeBar', $args, array(
 				'hideLocationSearch' => array(
 					'type' => 'checkbox_bool',
 					'label' => __( 'Hide location search', 'tribe-events-calendar-pro' ),
