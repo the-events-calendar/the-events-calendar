@@ -33,8 +33,8 @@ class TribeiCal {
 	 **/
 	public static function single_event_links()	{
 		echo '<div class="tribe-events-cal-links">';
-			echo '<a class="tribe-events-gcal tribe-events-button" href="' . tribe_get_gcal_link() . '" title="' . __( 'Add to Google Calendar', 'tribe-events-calendar' ) . '">' . __( '+ Google Calendar', 'tribe-events-calendar' ) . '</a>';
-			echo '<a class="tribe-events-ical tribe-events-button" href="' . tribe_get_single_ical_link() . '">' . __( '+ iCal Import', 'tribe-events-calendar' ) . '</a>';
+			echo '<a class="tribe-events-gcal tribe-events-button" href="' . tribe_get_gcal_link() . '" title="' . __( 'Add to Google Calendar', 'tribe-events-calendar' ) . '">+ ' . __( 'Google Calendar', 'tribe-events-calendar' ) . '</a>';
+			echo '<a class="tribe-events-ical tribe-events-button" href="' . tribe_get_single_ical_link() . '">+ ' . __( 'iCal Import', 'tribe-events-calendar' ) . '</a>';
 		echo '</div><!-- .tribe-events-cal-links -->';
 	}
 
@@ -80,7 +80,7 @@ class TribeiCal {
 				break;
 		}
 
-		$ical    = '<a class="tribe-events-ical tribe-events-button" title="' . __( 'Import is filter/view sensitive', 'tribe-events-calendar' ) . '" href="' . tribe_get_ical_link() . '">' . __( '+ iCal Import', 'tribe-events-calendar' ) . ' ' . $modifier . '</a>';
+		$ical    = '<a class="tribe-events-ical tribe-events-button" title="' . __( 'Import is filter/view sensitive', 'tribe-events-calendar' ) . '" href="' . tribe_get_ical_link() . '">+ ' . __( 'iCal Import', 'tribe-events-calendar' ) . ' ' . $modifier . '</a>';
 		echo $ical;
 
 		return $content;
