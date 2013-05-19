@@ -69,8 +69,8 @@ $generalTab = array(
 		 ),
 		'liveFiltersUpdate' => array(
 			'type' => 'checkbox_bool',
-			'label' => __( 'Live update AJAX', 'tribe-events-calendar' ),
-			'tooltip' => __( 'Enable live updating for AJAX requests on the frontend.' , 'tribe-events-calendar' ),
+			'label' => __( 'Use Javascript to control page load', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Enable ajax to live refresh content.' , 'tribe-events-calendar' ),
 			'default' => true,
 			'validation_type' => 'boolean',
 		),
@@ -83,7 +83,7 @@ $generalTab = array(
 		),
 		'showEventsInMainLoop' => array(
 			'type' => 'checkbox_bool',
-			'label' => __( 'Include events as posts in the main blog loop?', 'tribe-events-calendar' ),
+			'label' => __( 'Include events in main blog loop', 'tribe-events-calendar' ),
 			'tooltip' => __( 'Show events with the site\'s other posts. When this box is checked, events will also continue to appear on the default events page.', 'tribe-events-calendar' ),
 			'default' => false,
 			'validation_type' => 'boolean',
@@ -125,7 +125,7 @@ $generalTab = array(
 		),
 		'multiDayCutoff' => array(
 			'type' => 'dropdown',
-		 	'label' => __( 'Multiday event cutoff', 'tribe-events-calendar' ),
+		 	'label' => __( 'End of day cutoff', 'tribe-events-calendar' ),
 			'validation_type' => 'options',
 			'size' => 'small',
 			'default' => '12:00',
@@ -133,7 +133,7 @@ $generalTab = array(
 		),
 		'multiDayCutoffHelper' => array(
 			'type' => 'html',
-			'html' => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'Hide last day of event from the month and week views if a multi-day event ends before this time.', 'tribe-events-calendar' ) ) . '</p>',
+			'html' => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'Have events that run past midnight? Control when your day official ends to avoid awkwardly adding your event to the next day.', 'tribe-events-calendar' ) ) . '</p>',
 			'conditional' => ( '' != get_option( 'permalink_structure' ) ),
 		),
 		'defaultCurrencySymbol' => array(
@@ -151,15 +151,7 @@ $generalTab = array(
 		'embedGoogleMaps' => array(
 			'type' => 'checkbox_bool',
 			'label' => __( 'Enable Google Maps', 'tribe-events-calendar' ),
-			'tooltip' => __( 'Check to enable maps for events and venues in the frontend.', 'tribe-events-calendar' ),
-			'default' => true,
-			'class' => 'google-embed-size',
-			'validation_type' => 'boolean',
-		),
-		'embedGoogleMaps' => array(
-			'type' => 'checkbox_bool',
-			'label' => __( 'Enable Google Maps', 'tribe-events-calendar' ),
-			'tooltip' => __( 'Check to enable maps for events and venues in the frontend.', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Check to enable maps for events and venues.', 'tribe-events-calendar' ),
 			'default' => true,
 			'class' => 'google-embed-size',
 			'validation_type' => 'boolean',
