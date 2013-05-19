@@ -260,10 +260,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * before_html_data_wrapper adds a persistant tag to wrap the event display with a 
+		 * before_html_data_wrapper adds a persistant tag to wrap the event display with a
 		 * way for jQuery to maintain state in the dom. Also has a hook for filtering data
 		 * attributes for inclusion in the dom
-		 * 
+		 *
 		 * @param  string $html
 		 * @return string
 		 */
@@ -2457,10 +2457,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			remove_action( 'save_post', array( $this, 'publishAssociatedTypes'), 25, 2 );
 
 			// Only continue if the post being published is an event
-			if ( ( $post->post_type != self::POSTTYPE && $postID ) && ( 
-				wp_is_post_autosave( $postID ) || 
+			if ( ( $post->post_type != self::POSTTYPE && $postID ) && (
+				wp_is_post_autosave( $postID ) ||
 				in_array( $post->post_status, array( 'auto-draft', 'draft' ) ) ||
-				isset( $_GET['bulk_edit'] ) || 
+				isset( $_GET['bulk_edit'] ) ||
 				( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'inline-save' ) ) ) {
 				return;
 			}
@@ -2506,17 +2506,17 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			//That would be bad.
 			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 
-			if( !isset($_POST['venue']) ) 
+			if( !isset($_POST['venue']) )
 				$_POST['venue'] = null;
 
 			// don't do anything on autosave or auto-draft either or massupdates
 			// Or inline saves, or data being posted without a venue Or
 			// finally, called from the save_post action, but on save_posts that
 			// are not venue posts
-			if ( ( $post->post_type != self::VENUE_POST_TYPE && $postID ) && ( 
-				wp_is_post_autosave( $postID ) || 
+			if ( ( $post->post_type != self::VENUE_POST_TYPE && $postID ) && (
+				wp_is_post_autosave( $postID ) ||
 				in_array( $post->post_status, array( 'auto-draft', 'draft' ) ) ||
-				isset( $_GET['bulk_edit'] ) || 
+				isset( $_GET['bulk_edit'] ) ||
 				! $_POST['venue'] ||
 				( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'inline-save' ) ) ) {
 				return;
@@ -2593,13 +2593,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// finally, called from the save_post action, but on save_posts that
 			// are not organizer posts
 
-			if( !isset($_POST['organizer']) ) 
+			if( !isset($_POST['organizer']) )
 				$_POST['organizer'] = null;
 
-			if ( ( $post->post_type != self::ORGANIZER_POST_TYPE && $postID ) && ( 
-				wp_is_post_autosave( $postID ) || 
+			if ( ( $post->post_type != self::ORGANIZER_POST_TYPE && $postID ) && (
+				wp_is_post_autosave( $postID ) ||
 				in_array( $post->post_status, array( 'auto-draft', 'draft' ) ) ||
-				isset( $_GET['bulk_edit'] ) || 
+				isset( $_GET['bulk_edit'] ) ||
 				! $_POST['organizer'] ||
 				( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'inline-save' ) ) ) {
 				return;
@@ -3644,11 +3644,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			               'post_type'          => TribeEvents::POSTTYPE,
 			               'post_status'        => 'publish',
 			               'paged'              => $tribe_paged );
-			               
+
 			if ( isset( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ) {
 				$args['eventDisplay'] = 'past';
 			}
-			
+
 			if ( isset( $_POST['tribe_event_category'] ) ) {
 				$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
 			}
@@ -3685,7 +3685,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( !empty( $query->posts ) ) {
 				$post = $query->posts[0];
 			}
-			
+
 			$paged = $tribe_paged;
 
 			add_filter( 'tribe_events_list_pagination', array( __CLASS__, 'clear_module_pagination' ), 10 );
@@ -3697,7 +3697,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$tribe_ecp->displaying = 'past';
 				$response['view'] = 'past';
 			}
-			
+
 			$old_request = $_SERVER;
 			if( tribe_is_past() )
 				$_SERVER['REQUEST_URI'] = $this->rewriteSlug . '/' . 'past/';
@@ -3770,11 +3770,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$wp_query->set( 'eventDisplay', 'month');
 				if( !empty($_REQUEST['eventDate']))
 					$wp_query->set( 'eventDate', $_REQUEST['eventDate']);
-				
+
 				if ( isset( $_POST['tribe_event_category'] ) ) {
 					$wp_query->set( TribeEvents::TAXONOMY, $_POST['tribe_event_category'] );
 				}
-				
+
 				if ( class_exists( 'TribeEventsFilterView' ) ) {
 					TribeEventsFilterView::instance()->createFilters( null, true );
 				}
