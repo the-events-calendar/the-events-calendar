@@ -92,7 +92,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				echo '<p class="tribe-events-widget-link"><a href="' . $event_url . '" rel="bookmark">' . __('View All Events', 'tribe-events-calendar' ) . '</a></p>';
 			}
 			else {
-				_e('<p>There are no upcoming events at this time.</p>', 'tribe-events-calendar');
+				echo '<p>' . __('There are no upcoming events at this time.', 'tribe-events-calendar') . '</p>';
 			}
 
 			/* After widget (defined by themes). */
