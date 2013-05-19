@@ -127,6 +127,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_help_tab_enb_content', array( $this, 'add_help_tab_enb_text' ) );
 			// add_filter( 'tribe_events_template_single-venue.php', array( $this, 'load_venue_template' ) );
 			add_action( 'widgets_init', array( $this, 'pro_widgets_init' ), 100 );
+			add_action( 'init', array( $this, 'loadTextDomain' ) );
 			add_action( 'wp_loaded', array( $this, 'allow_cpt_search' ) );
 			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
 			add_filter( 'get_delete_post_link', array( $this, 'adjust_date_on_recurring_event_trash_link' ), 10, 2 );
@@ -1084,13 +1085,17 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			unregister_widget( 'TribeEventsListWidget' );
 			register_widget( 'TribeEventsAdvancedListWidget' );
 			register_widget( 'TribeEventsMiniCalendarWidget' );
-			add_filter( 'tribe_apm_textdomain', array( __CLASS__, 'apm_textdomain' ) );
-			// load text domain after class registration
-			load_plugin_textdomain( 'tribe-events-calendar-pro', false, basename( dirname( dirname( __FILE__ ) ) ) . '/lang/' );
 		}
 
-		public function apm_textdomain($domain) {
-			return 'tribe-events-calendar-pro';
+		/**
+		 * Load textdomain for localization
+		 *
+		 * @author Peter Chester
+		 * @since 3.0
+		 */
+		public function loadTextDomain() {
+			// load text domain after class registration
+			load_plugin_textdomain( 'tribe-events-calendar-pro', false, $this->pluginDir . 'lang/' );
 		}
 
 		/**
