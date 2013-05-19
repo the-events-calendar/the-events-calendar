@@ -692,7 +692,7 @@ class TribeEventsGeoLoc {
 
 		?>
 			<div class="updated">
-				<p><?php echo sprintf( __( "You have venues for which we don't have Geolocation information. <a href='%s#geoloc_fix'>Click here to generate it</a>.", 'tribe-events-calendar-pro' ), $url ); ?></p>
+				<p><?php echo sprintf( __( "You have venues for which we don't have Geolocation information. <a href='%s'>Click here to generate it</a>.", 'tribe-events-calendar-pro' ), $url.'#geoloc_fix' ); ?></p>
 			</div>
 		<?php
 		}
