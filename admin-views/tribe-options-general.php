@@ -84,7 +84,7 @@ $generalTab = array(
 		'showEventsInMainLoop' => array(
 			'type' => 'checkbox_bool',
 			'label' => __( 'Include events as posts in the main blog loop?', 'tribe-events-calendar' ),
-			'tooltip' => __( 'Show events with the site\'s other posts. When this box is checked, events will also continue to appear on the default events page.' ),
+			'tooltip' => __( 'Show events with the site\'s other posts. When this box is checked, events will also continue to appear on the default events page.', 'tribe-events-calendar' ),
 			'default' => false,
 			'validation_type' => 'boolean',
 		),
@@ -167,7 +167,7 @@ $generalTab = array(
 		'embedGoogleMapsZoom' => array(
 			'type' => 'text',
 			'label' => __( 'Google Maps Default Zoom Level', 'tribe-events-calendar' ),
-			'tooltip' => __( '0 = zoomed out; 21 = zoomed in.', 'tribe_events_calendar' ),
+			'tooltip' => __( '0 = zoomed out; 21 = zoomed in.', 'tribe-events-calendar' ),
 			'size' => 'small',
 			'default' => 10,
 			'class' => 'google-embed-field',
