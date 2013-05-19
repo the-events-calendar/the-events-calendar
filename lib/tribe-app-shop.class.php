@@ -139,7 +139,7 @@
 
 				$ret = wp_remote_get( $url );
 
-				if ( $ret && isset( $ret["body"] ) ) {
+				if ( !is_wp_error( $ret ) && isset( $ret["body"] ) ) {
 					return json_decode( $ret["body"] );
 				}
 
