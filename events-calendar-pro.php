@@ -65,6 +65,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$this->pluginUrl = WP_PLUGIN_URL.'/'.$this->pluginDir;
 			$this->pluginSlug = 'events-calendar-pro';
 
+			$this->loadTextDomain();
+
 			$this->weekSlug = sanitize_title(__('week', 'tribe-events-calendar-pro'));
 			$this->photoSlug = sanitize_title(__('photo', 'tribe-events-calendar-pro'));
 			$this->daySlug = sanitize_title(__('day', 'tribe-events-calendar-pro'));
@@ -127,7 +129,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_help_tab_enb_content', array( $this, 'add_help_tab_enb_text' ) );
 			// add_filter( 'tribe_events_template_single-venue.php', array( $this, 'load_venue_template' ) );
 			add_action( 'widgets_init', array( $this, 'pro_widgets_init' ), 100 );
-			add_action( 'init', array( $this, 'loadTextDomain' ) );
 			add_action( 'wp_loaded', array( $this, 'allow_cpt_search' ) );
 			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
 			add_filter( 'get_delete_post_link', array( $this, 'adjust_date_on_recurring_event_trash_link' ), 10, 2 );
@@ -1096,8 +1097,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @since 3.0
 		 */
 		public function loadTextDomain() {
-			// load text domain after class registration
-			load_plugin_textdomain( 'tribe-events-calendar-pro', false, $this->pluginDir . 'lang/' );
+			load_plugin_textdomain( 'tribe-events-calendar-pro', false, $this->pluginDir . 'lang/');
 		}
 
 		/**
@@ -1244,7 +1244,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 	} // end Class
 
-
 	// Instantiate class and set up WordPress actions.
 	function Tribe_ECP_Load() {
 		add_filter( 'tribe_tec_addons', 'tribe_init_ecp_addon' );
@@ -1265,6 +1264,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	 */
 	function tribe_show_fail_message() {
 		if ( current_user_can( 'activate_plugins' ) ) {
+			$langpath = trailingslashit( basename( dirname( __FILE__ ) ) ) . 'lang/';
+			load_plugin_textdomain( 'tribe-events-calendar-pro', false, $langpath );
 			$url = 'plugin-install.php?tab=plugin-information&plugin=the-events-calendar&TB_iframe=true';
 			$title = __( 'The Events Calendar', 'tribe-events-calendar-pro' );
 			echo '<div class="error"><p>'.sprintf( __( 'To begin using Events Calendar PRO, please install the latest version of <a href="%s" class="thickbox" title="%s">The Events Calendar</a>.', 'tribe-events-calendar-pro' ),$url, $title ).'</p></div>';
