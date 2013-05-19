@@ -13,7 +13,7 @@
  */
 ?>
 
-<?php 
+<?php
 
 $filters = tribe_events_get_filters();
 $views = tribe_events_get_views();
@@ -29,6 +29,7 @@ $views = tribe_events_get_views();
 		<div id="tribe-bar-collapse-toggle"><?php _e( 'Find Events', 'tribe-events-calendar' ) ?><span class="tribe-bar-toggle-arrow"></span></div>
 
 		<!-- Views -->
+		<?php if ( count( $views ) > 1 ) { ?>
 		<div id="tribe-bar-views">
 			<div class="tribe-bar-views-inner tribe-clearfix">
 				<h3 class="tribe-events-visuallyhidden"><?php _e( 'Event Views Navigation', 'tribe-events-calendar' ) ?></h3>
@@ -41,6 +42,9 @@ $views = tribe_events_get_views();
 				</select>
 			</div><!-- .tribe-bar-views-inner -->
 		</div><!-- .tribe-bar-views -->
+		<?php } // if ( count( $views ) > 1 ) ?>
+
+		<?php if ( !empty( $filters ) ) { ?>
 		<div class="tribe-bar-filters">
 			<div class="tribe-bar-filters-inner tribe-clearfix">
 				<?php foreach ( $filters as $filter ) : ?>
@@ -53,7 +57,9 @@ $views = tribe_events_get_views();
 					<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="<?php _e( 'Find Events', 'tribe-events-calendar' ) ?>" />
 				</div><!-- .tribe-bar-submit -->
 			</div><!-- .tribe-bar-filters-inner -->
-		</div><!-- .tribe-bar-filters -->		
+		</div><!-- .tribe-bar-filters -->
+		<?php } // if ( !empty( $filters ) ) ?>
+
 	</form><!-- #tribe-bar-form -->
 
 </div><!-- #tribe-events-bar -->
