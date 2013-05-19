@@ -58,7 +58,7 @@ class TribeEventsGeoLoc {
 																			'50'   => '50 miles',
 																			'100'  => '100 miles',
 																			'250'  => '250 miles' ) );
-			
+
 			$distances_values = array();
 			foreach( $distances as $value => $name ) {
 				$distances_values[] = array(
@@ -78,7 +78,7 @@ class TribeEventsGeoLoc {
 			$geoloc_filter_array['admin_form'] .= '<br />';
 			$geoloc_filter_array['admin_form'] .= sprintf( __( '%sType: %s', 'tribe-events-calendar-pro' ), '<br />', '<br /><label><input type="radio" name="type" value="select" ' . checked( $geoloc_filter_array['type'], 'select', false ) . ' /> ' . __( 'Select Dropdown', 'tribe-events-calendar-pro' ) .'</label><br />' );
 			$geoloc_filter_array['admin_form'] .= '<label><input type="radio" name="type" value="radio" ' . checked( $geoloc_filter_array['type'], 'radio', false ) . ' /> ' . __( 'Radio Buttons', 'tribe-events-calendar-pro' ) .'</label><br />';
-				
+
 			$geoloc_filter = new TribeEventsFilter( $geoloc_filter_array['name'], $geoloc_filter_array['slug'], $geoloc_filter_array['values'], $geoloc_filter_array['type'], $geoloc_filter_array['admin_form'], $geoloc_filter_array['title'] );
 
 			if ( isset( $geoloc_filter->currentValue ) ) {
@@ -127,7 +127,7 @@ class TribeEventsGeoLoc {
 
 			$venues = new WP_Query( $query_args );
 
-			// we want to inject the map default distance and unit into the map section directly after "enable Google Maps" 
+			// we want to inject the map default distance and unit into the map section directly after "enable Google Maps"
 			$args = TribeEvents::array_insert_after_key( 'embedGoogleMaps', $args, array(
 				'geoloc_default_geofence' => array(
 					'type'            => 'text',
@@ -155,7 +155,7 @@ class TribeEventsGeoLoc {
 
 		} elseif ( $id == 'display' ) {
 			$args = TribeEvents::array_insert_after_key( 'viewOption', $args, array(
-				'hideLocationSearch' => array( 
+				'hideLocationSearch' => array(
 					'type' => 'checkbox_bool',
 					'label' => __( 'Hide location search', 'tribe-events-calendar-pro' ),
 					'tooltip' => __( 'Removes location search field from the events bar on all views except for map view.', 'tribe-events-calendar-pro' ),
@@ -170,7 +170,7 @@ class TribeEventsGeoLoc {
 
 	public function setup_view_for_bar( $views ) {
 		$views[] = array( 'displaying' => 'map', 'event_bar_hook' => 'tribe_events_list_the_title', 'anchor'=> 'Map', 'url' => tribe_get_mapview_link() );
-		return $views; 
+		return $views;
 	}
 
 	public function setup_geoloc_filter_in_bar( $filters ) {
@@ -243,13 +243,13 @@ class TribeEventsGeoLoc {
 		$baseTax = "(.*)" . $baseTax . "(?:[^/]+/)*";
 		$baseTag = trailingslashit( $tec->tagRewriteSlug );
 		$baseTag = "(.*)" . $baseTag;
-		
+
 		$newRules = array();
 
 		$newRules[$base . $this->rewrite_slug] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=map';
 		$newRules[$baseTax . '([^/]+)/' . $this->rewrite_slug . '/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=map';
 		$newRules[$baseTag . '([^/]+)/' . $this->rewrite_slug . '/?$'] = 'index.php?tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=map';
-		
+
 		$wp_rewrite->rules = $newRules + $wp_rewrite->rules;
 	}
 
@@ -258,7 +258,7 @@ class TribeEventsGeoLoc {
 			if ( !empty( $post->distance ) )
 				$html .= '<span class="tribe-events-distance">'. tribe_get_distance_with_unit( $post->distance ) .'</span>';
 		return $html;
-	}	
+	}
 
 	// public function setup_geoloc_template() {
 	// 	remove_action( 'the_content', array( $this, 'setup_geoloc_template' ) );
@@ -480,7 +480,7 @@ class TribeEventsGeoLoc {
 			tribe_get_view();
 			$response['html'] .= ob_get_clean();
 		}
-		
+
 		apply_filters( 'tribe_events_ajax_response', $response );
 
 		header( 'Content-type: application/json' );
@@ -650,10 +650,10 @@ class TribeEventsGeoLoc {
 
 		return sprintf( '<a href="%s" class="button">%s</a>', $url, __( "Fix venues data", "tribe-events-calendar-pro" ) );
 	}
-	
+
 	public function maybe_offer_generate_geopoints(){
 		$done = get_option( 'tribe_geoloc_fixed' );
-	
+
 		if ( ! empty( $done ) )
 			return;
 
