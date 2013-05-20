@@ -261,8 +261,10 @@ class TribeEventsRecurrenceMeta {
 	 */		
 	public static function getRecurrenceMeta( $postId, $recurrenceData = null ) {
 		if (!$recurrenceData )
-			$recurrenceData = self::recurrenceMetaDefault( get_post_meta($postId, '_EventRecurrence', true) );
+			$recurrenceData = get_post_meta($postId, '_EventRecurrence', true);
 		
+		$recurrenceData = self::recurrenceMetaDefault( $recurrenceData );
+
 		$recurrence_meta = array();
 
 		if ( $recurrenceData ) {
