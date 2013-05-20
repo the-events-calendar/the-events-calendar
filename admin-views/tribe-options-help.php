@@ -4,7 +4,10 @@
  * variable setup
  */
 
-$tec_info = wp_remote_get( apply_filters('tribe_help_tab_api_info_url', TribeEvents::INFO_API_URL) );
+$tec_info = wp_remote_get( apply_filters('tribe_help_tab_api_info_url', TribeEvents::INFO_API_URL), array(
+	'timeout' => 15, //seconds
+	'headers' => array( 'Accept' => 'application/json' ),
+) );
 if ( !is_wp_error($tec_info) ) {
 	$tec_info = $tec_info['body'];
 	$tec_info = unserialize($tec_info);
@@ -161,8 +164,14 @@ $more_text = __('More...', 'tribe-events-calendar');
 		<div class="star-holder">
 			<div class="star star-rating" style="width: <?php echo( $rating ); ?>px"></div>
 		</div>
+<<<<<<< HEAD
 		<?php printf( _n('Based on %d rating', 'Based on %d ratings', $num_rating, 'tribe-events-calendar' ), $num_rating ); ?>
 		<p><a href="<?php echo apply_filters('tribe_help_tab_wp_plugin_url', TribeEvents::WP_PLUGIN_URL); ?>"><?php _e('Give us 5 stars!', 'tribe-events-calendar'); ?></a></p>
+=======
+		<?php printf( _n( __('Based on %d rating', 'tribe-events-calendar'), __('Based on %d ratings', 'tribe-events-calendar'), $num_rating ), $num_rating ); ?>
+		<br />
+		<a href="<?php echo apply_filters('tribe_help_tab_wp_plugin_url', TribeEvents::WP_PLUGIN_URL); ?>"><?php _e('Give us 5 stars!', 'tribe-events-calendar'); ?></a>
+>>>>>>> 2fee7e9a028ce827f234952995d5ef84a50e989f
 	<?php } ?>
 
 	<h3><?php _e('Premium Add-Ons', 'tribe-events-calendar'); ?></h3>
