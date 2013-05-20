@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: Events Calendar Pro\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-20 02:25-0600\n"
-"PO-Revision-Date: 2013-05-20 02:25-0600\n"
-"Last-Translator: Wim Enters <wenters@live.nl>\n"
+"PO-Revision-Date: 2013-05-20 03:00-0600\n"
+"Last-Translator: Modern Tribe Inc. <pro@tri.be>\n"
 "Language-Team: DECKERWEB <deckerweb.mobil@googlemail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,7 +18,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../events-calendar-pro.php:58
@@ -30,21 +30,21 @@ msgid "photo"
 msgstr ""
 
 # @ tribe-events-calendar
+#
 #: ../events-calendar-pro.php:60
 #: ../lib/tribe-events-recurrence-meta.class.php:619
-#
 msgid "day"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../events-calendar-pro.php:61
 #
+#: ../events-calendar-pro.php:61
 msgid "today"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../events-calendar-pro.php:211
 #
+#: ../events-calendar-pro.php:211
 msgid "Events for week of"
 msgstr ""
 
@@ -55,8 +55,8 @@ msgid "Events for week of %s"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../events-calendar-pro.php:243
 #
+#: ../events-calendar-pro.php:243
 msgid "Events for"
 msgstr ""
 
@@ -66,14 +66,14 @@ msgid "Upcoming Events"
 msgstr "Aankomende activiteiten"
 
 # @ default
-#: ../events-calendar-pro.php:664 ../admin-views/tribe-options-defaults.php:35
 #
+#: ../events-calendar-pro.php:664 ../admin-views/tribe-options-defaults.php:35
 msgid "Default Content"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../events-calendar-pro.php:666 ../admin-views/event-meta-options.php:3
 #
+#: ../events-calendar-pro.php:666 ../admin-views/event-meta-options.php:3
 msgid "Additional Fields"
 msgstr ""
 
@@ -173,9 +173,9 @@ msgid "Week"
 msgstr ""
 
 # @ tribe-events-calendar
+#
 #: ../events-calendar-pro.php:1168 ../admin-views/event-recurrence.php:82
 #: ../admin-views/event-recurrence.php:127
-#
 msgid "Day"
 msgstr ""
 
@@ -204,8 +204,8 @@ msgid ""
 msgstr ""
 
 # @ default
-#: ../admin-views/event-defaults.php:1
 #
+#: ../admin-views/event-defaults.php:1
 msgid "Customize Defaults"
 msgstr ""
 
@@ -225,14 +225,14 @@ msgid "Enabled"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/event-defaults.php:19
 #
+#: ../admin-views/event-defaults.php:19
 msgid "Default Organizer for Events"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/event-defaults.php:22
 #
+#: ../admin-views/event-defaults.php:22
 msgid "Default Organizer"
 msgstr ""
 
@@ -250,14 +250,14 @@ msgid "The current default value is <strong>%s</strong>"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/event-defaults.php:27
 #
+#: ../admin-views/event-defaults.php:27
 msgid "Default Venue for Events"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/event-defaults.php:30
 #
+#: ../admin-views/event-defaults.php:30
 msgid "Default Venue"
 msgstr ""
 
@@ -266,8 +266,8 @@ msgid "The default venue value"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/event-defaults.php:35 ../admin-views/event-defaults.php:37
 #
+#: ../admin-views/event-defaults.php:35 ../admin-views/event-defaults.php:37
 msgid "Default Address"
 msgstr ""
 
@@ -276,8 +276,8 @@ msgid "The default address value"
 msgstr ""
 
 # @ default
-#: ../admin-views/event-defaults.php:42 ../admin-views/event-defaults.php:44
 #
+#: ../admin-views/event-defaults.php:42 ../admin-views/event-defaults.php:44
 msgid "Default City"
 msgstr ""
 
@@ -286,14 +286,14 @@ msgid "The default city value"
 msgstr ""
 
 # @ default
-#: ../admin-views/event-defaults.php:50
 #
+#: ../admin-views/event-defaults.php:50
 msgid "Default State"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/event-defaults.php:52 ../admin-views/event-defaults.php:73
 #
+#: ../admin-views/event-defaults.php:52 ../admin-views/event-defaults.php:73
 msgid "Default Province or State"
 msgstr ""
 
@@ -307,14 +307,14 @@ msgid "The default  value"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/event-defaults.php:71
 #
+#: ../admin-views/event-defaults.php:71
 msgid "Default Province"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/event-defaults.php:79 ../admin-views/event-defaults.php:81
 #
+#: ../admin-views/event-defaults.php:79 ../admin-views/event-defaults.php:81
 msgid "Default Postal Code"
 msgstr ""
 
@@ -323,14 +323,14 @@ msgid "The default Postal Code value"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/event-defaults.php:87
 #
+#: ../admin-views/event-defaults.php:87
 msgid "Default Country for Events"
 msgstr ""
 
 # @ default
-#: ../admin-views/event-defaults.php:105 ../admin-views/event-defaults.php:107
 #
+#: ../admin-views/event-defaults.php:105 ../admin-views/event-defaults.php:107
 msgid "Default Phone"
 msgstr ""
 
@@ -458,8 +458,8 @@ msgid "Editor \"Custom Fields\" meta box"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/event-meta-options.php:51
 #
+#: ../admin-views/event-meta-options.php:51
 msgid "Show"
 msgstr ""
 
@@ -480,14 +480,14 @@ msgid ""
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/event-meta.php:7
 #
+#: ../admin-views/event-meta.php:7
 msgid "Additional Event Fields"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/event-recurrence.php:2
 #
+#: ../admin-views/event-recurrence.php:2
 msgid "Recurrence:"
 msgstr ""
 
@@ -520,8 +520,8 @@ msgid "and will end"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/event-recurrence.php:18
 #
+#: ../admin-views/event-recurrence.php:18
 msgid "On"
 msgstr ""
 
@@ -558,8 +558,8 @@ msgid "Month(s) on the:"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/event-recurrence.php:34
 #
+#: ../admin-views/event-recurrence.php:34
 msgid "Monthly"
 msgstr ""
 
@@ -657,10 +657,10 @@ msgid "Thursday"
 msgstr ""
 
 # @ tribe-events-calendar
+#
 #: ../admin-views/event-recurrence.php:78
 #: ../admin-views/event-recurrence.php:123
 #: ../lib/tribe-events-recurrence-meta.class.php:652
-#
 msgid "Friday"
 msgstr ""
 
@@ -677,8 +677,8 @@ msgid "Sunday"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/event-recurrence.php:91
 #
+#: ../admin-views/event-recurrence.php:91
 msgid "Jan"
 msgstr ""
 
@@ -687,8 +687,8 @@ msgid "Feb"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/event-recurrence.php:93
 #
+#: ../admin-views/event-recurrence.php:93
 msgid "Mar"
 msgstr ""
 
@@ -697,9 +697,9 @@ msgid "Apr"
 msgstr ""
 
 # @ tribe-events-calendar
+#
 #: ../admin-views/event-recurrence.php:95
 #: ../lib/tribe-events-recurrence-meta.class.php:678
-#
 msgid "May"
 msgstr ""
 
@@ -774,8 +774,8 @@ msgid "No Default"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/tribe-options-defaults.php:22
 #
+#: ../admin-views/tribe-options-defaults.php:22
 msgid "Select a State"
 msgstr ""
 
@@ -787,8 +787,8 @@ msgid ""
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/tribe-options-defaults.php:51
 #
+#: ../admin-views/tribe-options-defaults.php:51
 msgid "Options"
 msgstr ""
 
@@ -805,8 +805,8 @@ msgid "Organizer"
 msgstr "Organisator"
 
 # @ tribe-events-calendar
-#: ../admin-views/tribe-options-defaults.php:69
 #
+#: ../admin-views/tribe-options-defaults.php:69
 msgid "Default organizer"
 msgstr ""
 
@@ -822,8 +822,8 @@ msgid "Venue"
 msgstr "Locatie"
 
 # @ default
-#: ../admin-views/tribe-options-defaults.php:86
 #
+#: ../admin-views/tribe-options-defaults.php:86
 msgid "Default venue"
 msgstr ""
 
@@ -833,9 +833,9 @@ msgid "No saved venues yet."
 msgstr "Nog geen opgeslagen locaties."
 
 # @ tribe-events-calendar
+#
 #: ../admin-views/tribe-options-defaults.php:99
 #: ../admin-views/widget-admin-advanced-list.php:30
-#
 msgid "Address"
 msgstr ""
 
@@ -854,8 +854,8 @@ msgid "Default city"
 msgstr ""
 
 # @ default
-#: ../admin-views/tribe-options-defaults.php:133
 #
+#: ../admin-views/tribe-options-defaults.php:133
 msgid "Default state"
 msgstr ""
 
@@ -868,14 +868,14 @@ msgid "Default postal code/zip code"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/tribe-options-defaults.php:172
 #
+#: ../admin-views/tribe-options-defaults.php:172
 msgid "Default country"
 msgstr ""
 
 # @ default
-#: ../admin-views/tribe-options-defaults.php:185
 #
+#: ../admin-views/tribe-options-defaults.php:185
 msgid "Default phone"
 msgstr ""
 
@@ -906,32 +906,32 @@ msgid "Display:"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/widget-admin-advanced-list.php:31
 #
+#: ../admin-views/widget-admin-advanced-list.php:31
 msgid "City"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/widget-admin-advanced-list.php:32
 #
+#: ../admin-views/widget-admin-advanced-list.php:32
 msgid "State (US) Or Province (Int)"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/widget-admin-advanced-list.php:33
 #
+#: ../admin-views/widget-admin-advanced-list.php:33
 msgid "Postal Code"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/widget-admin-advanced-list.php:34
 #
+#: ../admin-views/widget-admin-advanced-list.php:34
 msgid "Country"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/widget-admin-advanced-list.php:35
 #
+#: ../admin-views/widget-admin-advanced-list.php:35
 msgid "Phone"
 msgstr ""
 
@@ -940,21 +940,21 @@ msgid "Price"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/widget-admin-advanced-list.php:43
 #
+#: ../admin-views/widget-admin-advanced-list.php:43
 msgid "Category:"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/widget-admin-advanced-list.php:47
 #
+#: ../admin-views/widget-admin-advanced-list.php:47
 msgid "All Events"
 msgstr ""
 
 # @ tribe-events-calendar
+#
 #: ../admin-views/widget-admin-advanced-list.php:58
 #: ../admin-views/widget-admin-venue.php:28
-#
 msgid "Hide this widget if there are no upcoming events:"
 msgstr ""
 
@@ -964,14 +964,14 @@ msgid "Want to modify the display of this widget? Try a %stemplate override%s."
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/widget-admin-countdown.php:12
 #
+#: ../admin-views/widget-admin-countdown.php:12
 msgid "Event:"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/widget-admin-countdown.php:21
 #
+#: ../admin-views/widget-admin-countdown.php:21
 msgid "Show seconds:"
 msgstr ""
 
@@ -1005,8 +1005,8 @@ msgid "Add a filter"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../admin-views/widget-calendar.php:63
 #
+#: ../admin-views/widget-calendar.php:63
 msgid "Select one..."
 msgstr ""
 
@@ -1026,20 +1026,20 @@ msgid "Event Cost"
 msgstr "Activiteit kosten"
 
 # @ tribe-events-calendar
-#: ../lib/apm_filters.php:47
 #
+#: ../lib/apm_filters.php:47
 msgid "Event Cats"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../lib/apm_filters.php:52
 #
+#: ../lib/apm_filters.php:52
 msgid "Title"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../lib/apm_filters.php:57
 #
+#: ../lib/apm_filters.php:57
 msgid "Recurring"
 msgstr ""
 
@@ -1090,9 +1090,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 # @ tribe-events-calendar
+#
 #: ../lib/tribe-events-recurrence-meta.class.php:597
 #: ../lib/tribe-events-recurrence-meta.class.php:616
-#
 msgid "Every month"
 msgstr ""
 
@@ -1181,9 +1181,9 @@ msgid ", and"
 msgstr ""
 
 # @ tribe-events-calendar
+#
 #: ../lib/tribe-events-recurrence-meta.class.php:660
 #: ../lib/tribe-events-recurrence-meta.class.php:686
-#
 msgid "and"
 msgstr ""
 
@@ -1258,8 +1258,8 @@ msgid "Your recurrence pattern would create greater than "
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../lib/tribe-geoloc.class.php:70
 #
+#: ../lib/tribe-geoloc.class.php:70
 msgid "Distance"
 msgstr ""
 
@@ -1356,8 +1356,8 @@ msgid "Add to Google Calendar"
 msgstr "Voeg toe aan de Google agenda"
 
 # @ tribe-events-calendar
-#: ../lib/tribe-ical.class.php:36
 #
+#: ../lib/tribe-ical.class.php:36
 msgid "Google Calendar"
 msgstr ""
 
@@ -1367,26 +1367,26 @@ msgid "iCal Import"
 msgstr "iCal-Import"
 
 # @ tribe-events-calendar
-#: ../lib/tribe-ical.class.php:70
 #
+#: ../lib/tribe-ical.class.php:70
 msgid "Month's Events"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../lib/tribe-ical.class.php:73
 #
+#: ../lib/tribe-ical.class.php:73
 msgid "Week's Events"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../lib/tribe-ical.class.php:76
 #
+#: ../lib/tribe-ical.class.php:76
 msgid "Day's Events"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../lib/tribe-ical.class.php:79
 #
+#: ../lib/tribe-ical.class.php:79
 msgid "Listed Events"
 msgstr ""
 
@@ -1400,8 +1400,8 @@ msgid "A widget that displays the next upcoming x events."
 msgstr "Een Widget, die de komende X activiteiten toont."
 
 # @ tribe-events-calendar
-#: ../lib/widget-advanced-list.class.php:22
 #
+#: ../lib/widget-advanced-list.class.php:22
 msgid "Events List"
 msgstr ""
 
@@ -1410,9 +1410,9 @@ msgid "The events calendar mini calendar widget"
 msgstr ""
 
 # @ tribe-events-calendar
+#
 #: ../lib/widget-calendar.class.php:10 ../lib/widget-calendar.class.php:31
 #: ../lib/widget-calendar.class.php:59
-#
 msgid "Events Calendar"
 msgstr ""
 
@@ -1421,8 +1421,8 @@ msgid "Displays the time remaining until a specified event."
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../lib/widget-countdown.class.php:15
 #
+#: ../lib/widget-countdown.class.php:15
 msgid "Events Countdown"
 msgstr ""
 
@@ -1451,21 +1451,17 @@ msgstr ""
 
 # @ default
 #: ../lib/template-classes/day.php:106 ../lib/template-classes/photo.php:75
-#, fuzzy, php-format
+#, php-format
 msgid "No events scheduled for <strong>%s</strong>. Please try another day."
 msgstr ""
-"Activiteit ingepland voor: <strong>%1$s</strong>. <a target=\"_blank\" href="
-"\"%2$s\">Bekijk activiteit</a>"
 
 # @ tribe-events-calendar
 #: ../lib/template-classes/photo.php:72
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "listed under %s. Check out events for this category or view the full "
 "calendar."
 msgstr ""
-"Staat onder %s; Bekijk voorafgaande activiteiten voor deze categorie of "
-"bekijk de volledige agenda"
 
 #: ../lib/template-classes/week.php:76
 #, php-format
@@ -1475,8 +1471,8 @@ msgid ""
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../public/template-tags/general.php:103
 #
+#: ../public/template-tags/general.php:103
 msgid "Show only the first upcoming instance of recurring events"
 msgstr ""
 
@@ -1550,14 +1546,14 @@ msgid "Today"
 msgstr "Vandaag"
 
 # @ tribe-events-calendar
-#: ../public/template-tags/general.php:583
 #
+#: ../public/template-tags/general.php:583
 msgid "&laquo; Previous Day"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../public/template-tags/general.php:586
 #
+#: ../public/template-tags/general.php:586
 msgid "Next Day &raquo;"
 msgstr ""
 
@@ -1566,14 +1562,14 @@ msgid "Yesterday"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../public/template-tags/general.php:592
 #
+#: ../public/template-tags/general.php:592
 msgid "Tomorrow"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../public/template-tags/general.php:675
 #
+#: ../public/template-tags/general.php:675
 msgid "Related Events"
 msgstr ""
 
@@ -1593,8 +1589,8 @@ msgid "Add a Column"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:141
 #
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:141
 msgid "Comments"
 msgstr ""
 
@@ -1613,8 +1609,8 @@ msgid "LIKE"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
 #
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
 msgid "Search"
 msgstr ""
 
@@ -1647,8 +1643,8 @@ msgid "Add a Filter"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:44
 #
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:44
 msgid "Extended Information"
 msgstr ""
 
@@ -1680,15 +1676,15 @@ msgid "Add more images"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:412
 #
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:412
 msgid "Select a color"
 msgstr ""
 
 # @ tribe-events-calendar
+#
 #: ../vendor/advanced-post-manager/views/edit-filters.php:7
 #: ../vendor/advanced-post-manager/views/edit-filters.php:8
-#
 msgid "Click to toggle"
 msgstr ""
 
@@ -1714,14 +1710,14 @@ msgid "Export to CSV"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../vendor/advanced-post-manager/views/edit-filters.php:25
 #
+#: ../vendor/advanced-post-manager/views/edit-filters.php:25
 msgid "Filter Name"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../vendor/advanced-post-manager/views/edit-filters.php:27
 #
+#: ../vendor/advanced-post-manager/views/edit-filters.php:27
 msgid "Cancel"
 msgstr ""
 
@@ -1745,8 +1741,8 @@ msgid "A valid license key is required for support and updates"
 msgstr ""
 
 # @ default
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:251
 #
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:251
 msgid "License key(s) updated."
 msgstr ""
 
@@ -1786,8 +1782,8 @@ msgid "Related Posts"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
 #
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
 msgid "Count:"
 msgstr ""
 
@@ -1800,8 +1796,8 @@ msgid "Only Display Related Posts?"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:86
 #
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:86
 msgid "Post Type:"
 msgstr ""
 
@@ -1814,8 +1810,8 @@ msgid "Refine your search:"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../views/single-organizer.php:30 ../views/single-venue.php:31
 #
+#: ../views/single-organizer.php:30 ../views/single-venue.php:31
 msgid "&larr; Back to Events"
 msgstr ""
 
@@ -1824,8 +1820,8 @@ msgid "Day Navigation"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../views/map/nav.php:21 ../views/photo/nav.php:21
 #
+#: ../views/map/nav.php:21 ../views/photo/nav.php:21
 msgid "Events List Navigation"
 msgstr ""
 
@@ -1849,8 +1845,8 @@ msgid "&laquo; Back to Events"
 msgstr "&laquo; Terug naar de activiteiten"
 
 # @ tribe-events-calendar
-#: ../views/tribe-ECP-views-old/views/single-venue.php:37
 #
+#: ../views/tribe-ECP-views-old/views/single-venue.php:37
 msgid "Name:"
 msgstr ""
 
@@ -1875,8 +1871,8 @@ msgid "Google Map"
 msgstr "Google Maps"
 
 # @ tribe-events-calendar
-#: ../views/tribe-ECP-views-old/views/single-venue.php:76
 #
+#: ../views/tribe-ECP-views-old/views/single-venue.php:76
 msgid "Upcoming Events At This Venue"
 msgstr ""
 
@@ -1891,8 +1887,8 @@ msgid "End:"
 msgstr "Einde:"
 
 # @ tribe-events-calendar
-#: ../views/tribe-ECP-views-old/views/single-venue.php:105
 #
+#: ../views/tribe-ECP-views-old/views/single-venue.php:105
 msgid "Date:"
 msgstr ""
 
@@ -1910,14 +1906,14 @@ msgid "Week Navigation"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../views/week/nav.php:20
 #
+#: ../views/week/nav.php:20
 msgid "Previous Week"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../views/week/nav.php:23
 #
+#: ../views/week/nav.php:23
 msgid "Next Week"
 msgstr ""
 
@@ -1930,8 +1926,8 @@ msgid "hours"
 msgstr ""
 
 # @ tribe-events-calendar
-#: ../views/widgets/countdown-widget.php:35
 #
+#: ../views/widgets/countdown-widget.php:35
 msgid "min"
 msgstr ""
 
@@ -1945,8 +1941,8 @@ msgid "Organizer:"
 msgstr "Organisator:"
 
 # @ tribe-events-calendar
-#: ../views/widgets/venue-widget.php:17
 #
+#: ../views/widgets/venue-widget.php:17
 msgid "No upcoming events."
 msgstr ""
 

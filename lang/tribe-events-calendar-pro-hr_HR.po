@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: Events Calendar Pro\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-20 02:25-0600\n"
-"PO-Revision-Date: 2013-05-20 02:25-0600\n"
-"Last-Translator: Marko Manojlović <manmar984@gmail.com>\n"
+"PO-Revision-Date: 2013-05-20 02:58-0600\n"
+"Last-Translator: Modern Tribe Inc. <pro@tri.be>\n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,7 +18,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../events-calendar-pro.php:58
@@ -40,8 +40,8 @@ msgid "today"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../events-calendar-pro.php:211
 #
+#: ../events-calendar-pro.php:211
 msgid "Events for week of"
 msgstr ""
 
@@ -51,20 +51,20 @@ msgid "Events for week of %s"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../events-calendar-pro.php:243
 #
+#: ../events-calendar-pro.php:243
 msgid "Events for"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../events-calendar-pro.php:247 ../lib/widget-advanced-list.class.php:51
 #
+#: ../events-calendar-pro.php:247 ../lib/widget-advanced-list.class.php:51
 msgid "Upcoming Events"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../events-calendar-pro.php:664 ../admin-views/tribe-options-defaults.php:35
 #
+#: ../events-calendar-pro.php:664 ../admin-views/tribe-options-defaults.php:35
 msgid "Default Content"
 msgstr ""
 
@@ -164,8 +164,8 @@ msgid "View All Add-Ons"
 msgstr "Pogledaj sve dodatke"
 
 # @ tribe-events-calendar-pro
-#: ../events-calendar-pro.php:1160
 #
+#: ../events-calendar-pro.php:1160
 msgid "Week"
 msgstr ""
 
@@ -184,8 +184,8 @@ msgid "Day Of"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../events-calendar-pro.php:1186
 #
+#: ../events-calendar-pro.php:1186
 msgid "Week Of"
 msgstr ""
 
@@ -470,14 +470,14 @@ msgid "video tutorial that will walk you through the process"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/event-meta-options.php:49
 #
+#: ../admin-views/event-meta-options.php:49
 msgid "Editor \"Custom Fields\" meta box"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/event-meta-options.php:51
 #
+#: ../admin-views/event-meta-options.php:51
 msgid "Show"
 msgstr ""
 
@@ -501,8 +501,8 @@ msgstr ""
 "događaja? Kada kliknete na OK to ne može biti opovrgnuto."
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/event-meta.php:7
 #
+#: ../admin-views/event-meta.php:7
 msgid "Additional Event Fields"
 msgstr ""
 
@@ -801,8 +801,8 @@ msgid "Description:"
 msgstr "Opis:"
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/event-recurrence.php:143
 #
+#: ../admin-views/event-recurrence.php:143
 msgid "Recurrence Text:"
 msgstr ""
 
@@ -839,15 +839,15 @@ msgid "Send a Support Request"
 msgstr "Pošaljite zahtjev za podršku"
 
 # @ tribe-events-calendar-pro
+#
 #: ../admin-views/tribe-options-defaults.php:6
 #: ../admin-views/tribe-options-defaults.php:15
-#
 msgid "No Default"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/tribe-options-defaults.php:22
 #
+#: ../admin-views/tribe-options-defaults.php:22
 msgid "Select a State"
 msgstr ""
 
@@ -875,8 +875,8 @@ msgid "Organizer"
 msgstr "Organizator"
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/tribe-options-defaults.php:69
 #
+#: ../admin-views/tribe-options-defaults.php:69
 msgid "Default organizer"
 msgstr ""
 
@@ -892,8 +892,8 @@ msgid "Venue"
 msgstr "Mjesto"
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/tribe-options-defaults.php:86
 #
+#: ../admin-views/tribe-options-defaults.php:86
 msgid "Default venue"
 msgstr ""
 
@@ -915,55 +915,53 @@ msgid ""
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/tribe-options-defaults.php:107
 #
+#: ../admin-views/tribe-options-defaults.php:107
 msgid "Default address"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/tribe-options-defaults.php:120
 #
+#: ../admin-views/tribe-options-defaults.php:120
 msgid "Default city"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/tribe-options-defaults.php:133
 #
+#: ../admin-views/tribe-options-defaults.php:133
 msgid "Default state"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/tribe-options-defaults.php:146
 #
+#: ../admin-views/tribe-options-defaults.php:146
 msgid "Default province"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/tribe-options-defaults.php:159
 #
+#: ../admin-views/tribe-options-defaults.php:159
 msgid "Default postal code/zip code"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/tribe-options-defaults.php:172
 #
+#: ../admin-views/tribe-options-defaults.php:172
 msgid "Default country"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/tribe-options-defaults.php:185
 #
+#: ../admin-views/tribe-options-defaults.php:185
 msgid "Default phone"
 msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:201
-#, fuzzy
 msgid ""
 "One country per line in the following format: <br>US, United States <br> UK, "
 "United Kingdom. <br> (Replaces the default list.)"
 msgstr ""
-"Jedna zemlja po redu u sledećem formatu: <br/>RS, Srbija <br/> HR, Hrvatska."
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/widget-admin-advanced-list.php:11
@@ -1027,9 +1025,9 @@ msgid "All Events"
 msgstr "Svi događaji"
 
 # @ tribe-events-calendar-pro
+#
 #: ../admin-views/widget-admin-advanced-list.php:58
 #: ../admin-views/widget-admin-venue.php:28
-#
 msgid "Hide this widget if there are no upcoming events:"
 msgstr ""
 
@@ -1039,14 +1037,14 @@ msgid "Want to modify the display of this widget? Try a %stemplate override%s."
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/widget-admin-countdown.php:12
 #
+#: ../admin-views/widget-admin-countdown.php:12
 msgid "Event:"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/widget-admin-countdown.php:21
 #
+#: ../admin-views/widget-admin-countdown.php:21
 msgid "Show seconds:"
 msgstr ""
 
@@ -1055,20 +1053,20 @@ msgid "Countdown Completed Text:"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/widget-admin-venue.php:11
 #
+#: ../admin-views/widget-admin-venue.php:11
 msgid "Venue:"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/widget-calendar.php:24
 #
+#: ../admin-views/widget-calendar.php:24
 msgid "Filters"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/widget-calendar.php:42
 #
+#: ../admin-views/widget-calendar.php:42
 msgid "remove"
 msgstr ""
 
@@ -1081,8 +1079,8 @@ msgid "Match any"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/widget-calendar.php:60
 #
+#: ../admin-views/widget-calendar.php:60
 msgid "Add a filter"
 msgstr ""
 
@@ -1096,8 +1094,8 @@ msgid "Start Date"
 msgstr "Datum početka"
 
 # @ tribe-events-calendar-pro
-#: ../lib/apm_filters.php:37
 #
+#: ../lib/apm_filters.php:37
 msgid "End Date"
 msgstr ""
 
@@ -1131,8 +1129,8 @@ msgid "Other"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../lib/meta-pro.php:87
 #
+#: ../lib/meta-pro.php:87
 msgid "Recurrence Pattern:"
 msgstr ""
 
@@ -1156,11 +1154,11 @@ msgstr "Svaki dan"
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:591
-#, fuzzy, php-format
+#, php-format
 msgid " for %d day"
 msgid_plural " for %d days"
-msgstr[0] "Svakih %d dana"
-msgstr[1] "Svakih %d dana"
+msgstr[0] ""
+msgstr[1] ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:594
@@ -1170,11 +1168,11 @@ msgstr "Svakog tjedna"
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:595
-#, fuzzy, php-format
+#, php-format
 msgid " for %d week"
 msgid_plural " for %d weeks"
-msgstr[0] "Svakih %d tjedana"
-msgstr[1] "Svakih %d tjedana"
+msgstr[0] ""
+msgstr[1] ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:597
@@ -1184,11 +1182,11 @@ msgstr "Svakog mjeseca"
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:598
-#, fuzzy, php-format
+#, php-format
 msgid " for %d month"
 msgid_plural " for %d months"
-msgstr[0] "Svakih %d mjeseci"
-msgstr[1] "Svakih %d mjeseci"
+msgstr[0] ""
+msgstr[1] ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:600
@@ -1198,11 +1196,11 @@ msgstr "Svake godine"
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:601
-#, fuzzy, php-format
+#, php-format
 msgid " for %d year"
 msgid_plural " for %d years"
-msgstr[0] "Svakih %d godina"
-msgstr[1] "Svakih %d godina"
+msgstr[0] ""
+msgstr[1] ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:606
@@ -1383,8 +1381,8 @@ msgid "%sType: %s"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-geoloc.class.php:79
 #
+#: ../lib/tribe-geoloc.class.php:79
 msgid "Select Dropdown"
 msgstr ""
 
@@ -1437,8 +1435,8 @@ msgid ""
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-geoloc.class.php:172
 #
+#: ../lib/tribe-geoloc.class.php:172
 msgid "Map"
 msgstr ""
 
@@ -1467,8 +1465,8 @@ msgid "Add to Google Calendar"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-ical.class.php:36
 #
+#: ../lib/tribe-ical.class.php:36
 msgid "Google Calendar"
 msgstr ""
 
@@ -1477,26 +1475,26 @@ msgid "iCal Import"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-ical.class.php:70
 #
+#: ../lib/tribe-ical.class.php:70
 msgid "Month's Events"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-ical.class.php:73
 #
+#: ../lib/tribe-ical.class.php:73
 msgid "Week's Events"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-ical.class.php:76
 #
+#: ../lib/tribe-ical.class.php:76
 msgid "Day's Events"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-ical.class.php:79
 #
+#: ../lib/tribe-ical.class.php:79
 msgid "Listed Events"
 msgstr ""
 
@@ -1510,8 +1508,8 @@ msgid "A widget that displays the next upcoming x events."
 msgstr "Vidžet koji prikazuje sljedećih x događaja."
 
 # @ tribe-events-calendar-pro
-#: ../lib/widget-advanced-list.class.php:22
 #
+#: ../lib/widget-advanced-list.class.php:22
 msgid "Events List"
 msgstr ""
 
@@ -1530,8 +1528,8 @@ msgid "Displays the time remaining until a specified event."
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../lib/widget-countdown.class.php:15
 #
+#: ../lib/widget-countdown.class.php:15
 msgid "Events Countdown"
 msgstr ""
 
@@ -1578,12 +1576,13 @@ msgid ""
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../public/template-tags/general.php:103
 #
+#: ../public/template-tags/general.php:103
 msgid "Show only the first upcoming instance of recurring events"
 msgstr ""
 
 # @ tribe-events-calendar-pro
+#
 #: ../public/template-tags/general.php:294
 #: ../public/template-tags/general.php:308
 #: ../public/template-tags/general.php:321
@@ -1600,7 +1599,6 @@ msgstr ""
 #: ../public/template-tags/general.php:392
 #: ../public/template-tags/general.php:405
 #: ../public/template-tags/general.php:406
-#
 msgid "No default set"
 msgstr ""
 
@@ -1679,8 +1677,8 @@ msgid "Tomorrow"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../public/template-tags/general.php:675
 #
+#: ../public/template-tags/general.php:675
 msgid "Related Events"
 msgstr ""
 
@@ -1722,8 +1720,8 @@ msgid "LIKE"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
 #
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
 msgid "Search"
 msgstr ""
 
@@ -1859,9 +1857,9 @@ msgid "Replace empty fields"
 msgstr ""
 
 # @ tribe-events-calendar-pro
+#
 #: ../vendor/pue-client/admin-views/license-key.view.php:25
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:183
-#
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
@@ -1913,8 +1911,8 @@ msgid "Related Posts"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
 #
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
 msgid "Count:"
 msgstr ""
 
@@ -1940,8 +1938,8 @@ msgid "Refine your search:"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../views/single-organizer.php:30 ../views/single-venue.php:31
 #
+#: ../views/single-organizer.php:30 ../views/single-venue.php:31
 msgid "&larr; Back to Events"
 msgstr ""
 
@@ -1954,14 +1952,14 @@ msgid "Events List Navigation"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../views/map/nav.php:24 ../views/photo/nav.php:24
 #
+#: ../views/map/nav.php:24 ../views/photo/nav.php:24
 msgid "&laquo; Previous Events"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../views/map/nav.php:31 ../views/photo/nav.php:31
 #
+#: ../views/map/nav.php:31 ../views/photo/nav.php:31
 msgid "Next Events &raquo;"
 msgstr ""
 
@@ -2037,8 +2035,8 @@ msgid "Previous Week"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../views/week/nav.php:23
 #
+#: ../views/week/nav.php:23
 msgid "Next Week"
 msgstr ""
 
@@ -2055,20 +2053,20 @@ msgid "min"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../views/widgets/countdown-widget.php:40
 #
+#: ../views/widgets/countdown-widget.php:40
 msgid "sec"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../views/widgets/list-widget.php:66
 #
+#: ../views/widgets/list-widget.php:66
 msgid "Organizer:"
 msgstr ""
 
 # @ tribe-events-calendar-pro
-#: ../views/widgets/venue-widget.php:17
 #
+#: ../views/widgets/venue-widget.php:17
 msgid "No upcoming events."
 msgstr ""
 

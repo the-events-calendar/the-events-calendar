@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: Events Calendar Pro\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-20 02:25-0600\n"
-"PO-Revision-Date: 2013-05-20 02:25-0600\n"
-"Last-Translator: petri <info@petrikajander.com>\n"
+"PO-Revision-Date: 2013-05-20 02:58-0600\n"
+"Last-Translator: Modern Tribe Inc. <pro@tri.be>\n"
 "Language-Team: Ben Andersen <wp@bentrix.com>\n"
 "Language: Finnish\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../events-calendar-pro.php:58
@@ -39,8 +39,8 @@ msgstr "päivä"
 msgid "today"
 msgstr ""
 
-#: ../events-calendar-pro.php:211
 #
+#: ../events-calendar-pro.php:211
 msgid "Events for week of"
 msgstr ""
 
@@ -49,8 +49,8 @@ msgstr ""
 msgid "Events for week of %s"
 msgstr ""
 
-#: ../events-calendar-pro.php:243
 #
+#: ../events-calendar-pro.php:243
 msgid "Events for"
 msgstr ""
 
@@ -58,8 +58,8 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr "Kommande evenemang"
 
-#: ../events-calendar-pro.php:664 ../admin-views/tribe-options-defaults.php:35
 #
+#: ../events-calendar-pro.php:664 ../admin-views/tribe-options-defaults.php:35
 msgid "Default Content"
 msgstr ""
 
@@ -81,20 +81,16 @@ msgid ""
 msgstr ""
 
 #: ../events-calendar-pro.php:680
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "One of the advantages of being a PRO user is that you have access to our "
 "exclusive forums at %s. Our support staff hits the forums on a daily basis, "
 "and what they can't answer on the spot they'll bring a member of our dev "
 "team in to address directly."
 msgstr ""
-"%sEräs PRO-käyttäjänä olemisen eduista on, että pääset meidän PRO-"
-"eklusiivifoorumeihin %s. Tukihenkilöstömme vierailee foorumilla päivittäin "
-"ja mihin he eivät pysty suoraan vastaamaan, he pyytävät avuksi "
-"kehitystiimimme vastaamaan suoraan.%s"
 
-#: ../events-calendar-pro.php:681
 #
+#: ../events-calendar-pro.php:681
 msgid "Some things to consider before posting on the forum:"
 msgstr ""
 
@@ -105,7 +101,6 @@ msgid ""
 msgstr ""
 
 #: ../events-calendar-pro.php:684
-#, fuzzy
 msgid ""
 "Check whether the issue is a conflict with another plugin or your theme. "
 "This can be tested easily on a staging site by deactivating other plugins "
@@ -113,25 +108,17 @@ msgid ""
 "conflicts can be easily identified. If you find a conflict, note it in a "
 "support thread."
 msgstr ""
-"%sHyvä tapa auttaa meitä on varmistaa ensin, ettei ongelmana ole konflikti "
-"toisen lisäosan tai ulkoasun kanssa. Tämä on suhteellisen helppo kokeilla "
-"poistamalla käytöstä muut lisäosat yksitellen ja käyttämällä tarvittaessa "
-"2011 perusulkoasua. Jos ongelma löytyy näin, mainitse siitä kirjoituksessasi."
-"%s"
 
 #: ../events-calendar-pro.php:685
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Sometimes, resaving your permalinks (under <a href=\"%s\">Settings > "
 "Permalinks</a>) can resolve events-related problems on your site. Before "
 "creating a new thread try this handy trick."
 msgstr ""
-"%sToisinaan osoiterakenteen uudelleentallennus (Asetukset -> Osoiterakenne) "
-"voi ratkaista tapahtumiin liittyviä ongelmia. Kannattaa yrittää ennen kuin "
-"ilmoittaa eteenpäin.%s"
 
 #: ../events-calendar-pro.php:688
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "While we won't build your site for you and can't guarantee The Events "
 "Calendar PRO to play nicely with every theme and plugin out there, our team "
@@ -139,11 +126,6 @@ msgid ""
 "as an added bonus, once you're done you can post it in the %s so the rest of "
 "the community can see what you've been working on."
 msgstr ""
-"%sVaikka emme tee sivustoa puolestasi ja emme voi taata, että The Events "
-"Calendar/PRO toimii täydellisesti kaikkien ulkoasujen ja lisäosien kanssa, "
-"teemme parhaamme auttaaksemme, että se toimii hyvin sivustosi kanssa. "
-"Lisäbonuksena, kun olet saanut kaiken valmiiksi, voit lisätä sivustosi "
-"muiden nähtäväksi tänne: %s.%s"
 
 #: ../events-calendar-pro.php:688
 msgid "Showcase thread"
@@ -174,8 +156,8 @@ msgstr "Tuki"
 msgid "View All Add-Ons"
 msgstr "Näytä kaikki lisäosat"
 
-#: ../events-calendar-pro.php:1160
 #
+#: ../events-calendar-pro.php:1160
 msgid "Week"
 msgstr ""
 
@@ -192,8 +174,8 @@ msgstr ""
 msgid "Day Of"
 msgstr ""
 
-#: ../events-calendar-pro.php:1186
 #
+#: ../events-calendar-pro.php:1186
 msgid "Week Of"
 msgstr ""
 
@@ -421,7 +403,7 @@ msgid "Remove"
 msgstr "Poista"
 
 #: ../admin-views/event-meta-options.php:47
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Enter the field label as you want it to appear (this will be the label in "
 "the same way “Start Date,” “Organizer,” etc appear in the event details box "
@@ -431,24 +413,18 @@ msgid ""
 "one per-line — in the right-hand column. If you feel flummoxed, we've got "
 "you covered with a %s."
 msgstr ""
-"Syötä kentän nimi niin kuin halut sen näkyvän (se näkyy samoin kuin "
-"\"Aloituspäivämäärä\", \"Järjestäjä\" jne. näkyvät tapahtuman tiedoissa "
-"ulospäin). Valitse onko kenttä tekstiä, valintanappeja, valintaruutuja tai "
-"alasvalikkolista. Kaikki nämä tekstikenttää lukuun ottamatta sallivat "
-"monivalinnan - yksi per rivi - oikeanpuoleisessa sarakkeessa. Jos olet sormi "
-"suussa, tästä löydät apua %s."
 
 #: ../admin-views/event-meta-options.php:47
 msgid "video tutorial that will walk you through the process"
 msgstr "Opetusvideo opastaa koko prosessin"
 
-#: ../admin-views/event-meta-options.php:49
 #
+#: ../admin-views/event-meta-options.php:49
 msgid "Editor \"Custom Fields\" meta box"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:51
 #
+#: ../admin-views/event-meta-options.php:51
 msgid "Show"
 msgstr ""
 
@@ -470,8 +446,8 @@ msgstr ""
 "Haluatko varmasti poistaa tämän kentän ja sen tiedot kaikista tapahtumista? "
 "Kun painat OK, sitä ei voida enää perua."
 
-#: ../admin-views/event-meta.php:7
 #
+#: ../admin-views/event-meta.php:7
 msgid "Additional Event Fields"
 msgstr ""
 
@@ -716,8 +692,8 @@ msgstr "Aikana:"
 msgid "Description:"
 msgstr "Kuvaus:"
 
-#: ../admin-views/event-recurrence.php:143
 #
+#: ../admin-views/event-recurrence.php:143
 msgid "Recurrence Text:"
 msgstr ""
 
@@ -765,8 +741,8 @@ msgid ""
 "these settings as you enter a new event.</p>"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:51
 #
+#: ../admin-views/tribe-options-defaults.php:51
 msgid "Options"
 msgstr ""
 
@@ -781,8 +757,8 @@ msgstr ""
 msgid "Organizer"
 msgstr "Järjestäjä"
 
-#: ../admin-views/tribe-options-defaults.php:69
 #
+#: ../admin-views/tribe-options-defaults.php:69
 msgid "Default organizer"
 msgstr ""
 
@@ -795,8 +771,8 @@ msgstr "Ei tallennettuja järjestäjiä."
 msgid "Venue"
 msgstr "Paikka"
 
-#: ../admin-views/tribe-options-defaults.php:86
 #
+#: ../admin-views/tribe-options-defaults.php:86
 msgid "Default venue"
 msgstr ""
 
@@ -815,38 +791,38 @@ msgid ""
 "Venue you create (these will not be used for your default venue)."
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:107
 #
+#: ../admin-views/tribe-options-defaults.php:107
 msgid "Default address"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:120
 #
+#: ../admin-views/tribe-options-defaults.php:120
 msgid "Default city"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:133
 #
+#: ../admin-views/tribe-options-defaults.php:133
 msgid "Default state"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:146
 #
+#: ../admin-views/tribe-options-defaults.php:146
 msgid "Default province"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:159
 #
+#: ../admin-views/tribe-options-defaults.php:159
 msgid "Default postal code/zip code"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:172
 #
+#: ../admin-views/tribe-options-defaults.php:172
 msgid "Default country"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:185
 #
+#: ../admin-views/tribe-options-defaults.php:185
 msgid "Default phone"
 msgstr ""
 
@@ -909,9 +885,9 @@ msgstr "Kategoria:"
 msgid "All Events"
 msgstr "Kaikki tapahtumat"
 
+#
 #: ../admin-views/widget-admin-advanced-list.php:58
 #: ../admin-views/widget-admin-venue.php:28
-#
 msgid "Hide this widget if there are no upcoming events:"
 msgstr ""
 
@@ -920,13 +896,13 @@ msgstr ""
 msgid "Want to modify the display of this widget? Try a %stemplate override%s."
 msgstr ""
 
-#: ../admin-views/widget-admin-countdown.php:12
 #
+#: ../admin-views/widget-admin-countdown.php:12
 msgid "Event:"
 msgstr ""
 
-#: ../admin-views/widget-admin-countdown.php:21
 #
+#: ../admin-views/widget-admin-countdown.php:21
 msgid "Show seconds:"
 msgstr ""
 
@@ -938,13 +914,13 @@ msgstr ""
 msgid "Venue:"
 msgstr "Plats:"
 
-#: ../admin-views/widget-calendar.php:24
 #
+#: ../admin-views/widget-calendar.php:24
 msgid "Filters"
 msgstr ""
 
-#: ../admin-views/widget-calendar.php:42
 #
+#: ../admin-views/widget-calendar.php:42
 msgid "remove"
 msgstr ""
 
@@ -956,8 +932,8 @@ msgstr ""
 msgid "Match any"
 msgstr ""
 
-#: ../admin-views/widget-calendar.php:60
 #
+#: ../admin-views/widget-calendar.php:60
 msgid "Add a filter"
 msgstr ""
 
@@ -969,8 +945,8 @@ msgstr ""
 msgid "Start Date"
 msgstr "Aloituspäivämäärä"
 
-#: ../lib/apm_filters.php:37
 #
+#: ../lib/apm_filters.php:37
 msgid "End Date"
 msgstr ""
 
@@ -998,8 +974,8 @@ msgstr "Kuvaus"
 msgid "Other"
 msgstr ""
 
-#: ../lib/meta-pro.php:87
 #
+#: ../lib/meta-pro.php:87
 msgid "Recurrence Pattern:"
 msgstr ""
 
@@ -1021,11 +997,11 @@ msgid "Every day"
 msgstr "Joka päivä"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:591
-#, fuzzy, php-format
+#, php-format
 msgid " for %d day"
 msgid_plural " for %d days"
-msgstr[0] "Joka %d päivä"
-msgstr[1] "Joka %d päivä"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:594
 #: ../lib/tribe-events-recurrence-meta.class.php:610
@@ -1033,11 +1009,11 @@ msgid "Every week"
 msgstr "Joka viikko"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:595
-#, fuzzy, php-format
+#, php-format
 msgid " for %d week"
 msgid_plural " for %d weeks"
-msgstr[0] "Joka %d viikko"
-msgstr[1] "Joka %d viikko"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:597
 #: ../lib/tribe-events-recurrence-meta.class.php:616
@@ -1045,11 +1021,11 @@ msgid "Every month"
 msgstr "Joka kuukausi"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:598
-#, fuzzy, php-format
+#, php-format
 msgid " for %d month"
 msgid_plural " for %d months"
-msgstr[0] "Joka %d kuukausi"
-msgstr[1] "Joka %d kuukausi"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:600
 #: ../lib/tribe-events-recurrence-meta.class.php:623
@@ -1057,11 +1033,11 @@ msgid "Every year"
 msgstr "Joka vuosi"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:601
-#, fuzzy, php-format
+#, php-format
 msgid " for %d year"
 msgid_plural " for %d years"
-msgstr[0] "Joka %d vuosi"
-msgstr[1] "Joka %d vuosi"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:606
 #, php-format
@@ -1202,8 +1178,8 @@ msgstr ""
 msgid "Your recurrence pattern would create greater than "
 msgstr ""
 
-#: ../lib/tribe-geoloc.class.php:70
 #
+#: ../lib/tribe-geoloc.class.php:70
 msgid "Distance"
 msgstr ""
 
@@ -1217,8 +1193,8 @@ msgstr ""
 msgid "%sType: %s"
 msgstr ""
 
-#: ../lib/tribe-geoloc.class.php:79
 #
+#: ../lib/tribe-geoloc.class.php:79
 msgid "Select Dropdown"
 msgstr ""
 
@@ -1270,8 +1246,8 @@ msgid ""
 "map view."
 msgstr ""
 
-#: ../lib/tribe-geoloc.class.php:172
 #
+#: ../lib/tribe-geoloc.class.php:172
 msgid "Map"
 msgstr ""
 
@@ -1299,8 +1275,8 @@ msgstr ""
 msgid "Add to Google Calendar"
 msgstr "Lägg till i Google Calendar"
 
-#: ../lib/tribe-ical.class.php:36
 #
+#: ../lib/tribe-ical.class.php:36
 msgid "Google Calendar"
 msgstr ""
 
@@ -1308,23 +1284,23 @@ msgstr ""
 msgid "iCal Import"
 msgstr "iCal import"
 
-#: ../lib/tribe-ical.class.php:70
 #
+#: ../lib/tribe-ical.class.php:70
 msgid "Month's Events"
 msgstr ""
 
-#: ../lib/tribe-ical.class.php:73
 #
+#: ../lib/tribe-ical.class.php:73
 msgid "Week's Events"
 msgstr ""
 
-#: ../lib/tribe-ical.class.php:76
 #
+#: ../lib/tribe-ical.class.php:76
 msgid "Day's Events"
 msgstr ""
 
-#: ../lib/tribe-ical.class.php:79
 #
+#: ../lib/tribe-ical.class.php:79
 msgid "Listed Events"
 msgstr ""
 
@@ -1336,8 +1312,8 @@ msgstr ""
 msgid "A widget that displays the next upcoming x events."
 msgstr "Vimpain, joka näyttää seuraavat x tulevaa tapahtumaa."
 
-#: ../lib/widget-advanced-list.class.php:22
 #
+#: ../lib/widget-advanced-list.class.php:22
 msgid "Events List"
 msgstr ""
 
@@ -1354,8 +1330,8 @@ msgstr "Tapahtumakalenteri"
 msgid "Displays the time remaining until a specified event."
 msgstr ""
 
-#: ../lib/widget-countdown.class.php:15
 #
+#: ../lib/widget-countdown.class.php:15
 msgid "Events Countdown"
 msgstr ""
 
@@ -1363,8 +1339,8 @@ msgstr ""
 msgid "Displays a list of upcoming events at a specific venue."
 msgstr ""
 
-#: ../lib/widget-venue.class.php:14
 #
+#: ../lib/widget-venue.class.php:14
 msgid "Events Featured Venue"
 msgstr ""
 
@@ -1383,20 +1359,16 @@ msgid ""
 msgstr ""
 
 #: ../lib/template-classes/day.php:106 ../lib/template-classes/photo.php:75
-#, fuzzy, php-format
+#, php-format
 msgid "No events scheduled for <strong>%s</strong>. Please try another day."
 msgstr ""
-"Evenemang schemalagt för: <strong>%1$s</strong>. <a target=\"_blank\" href="
-"\"%2$s\">Förhandsgranska evenemang</a>"
 
 #: ../lib/template-classes/photo.php:72
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "listed under %s. Check out events for this category or view the full "
 "calendar."
 msgstr ""
-"listad under %s. Kolla tidigare evenemang för denna kategori eller visa hela "
-"kalendern."
 
 #: ../lib/template-classes/week.php:76
 #, php-format
@@ -1405,8 +1377,8 @@ msgid ""
 "searching another week."
 msgstr ""
 
-#: ../public/template-tags/general.php:103
 #
+#: ../public/template-tags/general.php:103
 msgid "Show only the first upcoming instance of recurring events"
 msgstr ""
 
@@ -1478,13 +1450,13 @@ msgstr "Nykyinen oletuspuhelinnumero on : %s"
 msgid "Today"
 msgstr ""
 
-#: ../public/template-tags/general.php:583
 #
+#: ../public/template-tags/general.php:583
 msgid "&laquo; Previous Day"
 msgstr ""
 
-#: ../public/template-tags/general.php:586
 #
+#: ../public/template-tags/general.php:586
 msgid "Next Day &raquo;"
 msgstr ""
 
@@ -1492,13 +1464,13 @@ msgstr ""
 msgid "Yesterday"
 msgstr ""
 
-#: ../public/template-tags/general.php:592
 #
+#: ../public/template-tags/general.php:592
 msgid "Tomorrow"
 msgstr ""
 
-#: ../public/template-tags/general.php:675
 #
+#: ../public/template-tags/general.php:675
 msgid "Related Events"
 msgstr ""
 
@@ -1519,8 +1491,8 @@ msgstr ""
 msgid "Add a Column"
 msgstr "Lisää sarake"
 
-#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:141
 #
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:141
 msgid "Comments"
 msgstr ""
 
@@ -1538,8 +1510,8 @@ msgstr ""
 msgid "LIKE"
 msgstr ""
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
 #
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
 msgid "Search"
 msgstr ""
 
@@ -1700,8 +1672,8 @@ msgstr ""
 msgid "Related Posts"
 msgstr ""
 
-#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
 #
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
 msgid "Count:"
 msgstr ""
 
@@ -1725,8 +1697,8 @@ msgstr "Lähetä tukipyyntö tähän kohteeseen."
 msgid "Refine your search:"
 msgstr ""
 
-#: ../views/single-organizer.php:30 ../views/single-venue.php:31
 #
+#: ../views/single-organizer.php:30 ../views/single-venue.php:31
 msgid "&larr; Back to Events"
 msgstr ""
 
@@ -1734,8 +1706,8 @@ msgstr ""
 msgid "Day Navigation"
 msgstr ""
 
-#: ../views/map/nav.php:21 ../views/photo/nav.php:21
 #
+#: ../views/map/nav.php:21 ../views/photo/nav.php:21
 msgid "Events List Navigation"
 msgstr ""
 
@@ -1775,8 +1747,8 @@ msgstr "Avaa Google Mapissä"
 msgid "Google Map"
 msgstr "Google Map"
 
-#: ../views/tribe-ECP-views-old/views/single-venue.php:76
 #
+#: ../views/tribe-ECP-views-old/views/single-venue.php:76
 msgid "Upcoming Events At This Venue"
 msgstr ""
 
@@ -1804,13 +1776,13 @@ msgstr ""
 msgid "Week Navigation"
 msgstr ""
 
-#: ../views/week/nav.php:20
 #
+#: ../views/week/nav.php:20
 msgid "Previous Week"
 msgstr ""
 
-#: ../views/week/nav.php:23
 #
+#: ../views/week/nav.php:23
 msgid "Next Week"
 msgstr ""
 
@@ -1822,23 +1794,23 @@ msgstr ""
 msgid "hours"
 msgstr ""
 
-#: ../views/widgets/countdown-widget.php:35
 #
+#: ../views/widgets/countdown-widget.php:35
 msgid "min"
 msgstr ""
 
-#: ../views/widgets/countdown-widget.php:40
 #
+#: ../views/widgets/countdown-widget.php:40
 msgid "sec"
 msgstr ""
 
-#: ../views/widgets/list-widget.php:66
 #
+#: ../views/widgets/list-widget.php:66
 msgid "Organizer:"
 msgstr ""
 
-#: ../views/widgets/venue-widget.php:17
 #
+#: ../views/widgets/venue-widget.php:17
 msgid "No upcoming events."
 msgstr ""
 
