@@ -1285,8 +1285,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function addVenueAndOrganizerEditor() {
-			add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __( 'Venues','tribe-events-calendar-pro' ), __( 'Venues','tribe-events-calendar-pro' ), 'edit_tribe_venues', 'edit.php?post_type='.TribeEvents::VENUE_POST_TYPE );
-			add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __( 'Organizers','tribe-events-calendar-pro' ), __( 'Organizers','tribe-events-calendar-pro' ), 'edit_tribe_organizers', 'edit.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE );
+			add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __( 'Venues','tribe-events-calendar' ), __( 'Venues','tribe-events-calendar' ), 'edit_tribe_venues', 'edit.php?post_type='.TribeEvents::VENUE_POST_TYPE );
+			add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __( 'Organizers','tribe-events-calendar' ), __( 'Organizers','tribe-events-calendar' ), 'edit_tribe_organizers', 'edit.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE );
 		}
 
 
@@ -1312,7 +1312,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$VenueID = apply_filters( 'tribe_display_event_venue_dropdown_id', $VenueID );
 			?>
 			<tr class="">
-				<td style="width:170px"><?php _e( 'Use Saved Venue:','tribe-events-calendar-pro' ); ?></td>
+				<td style="width:170px"><?php _e( 'Use Saved Venue:','tribe-events-calendar' ); ?></td>
 				<td><?php $this->saved_venues_dropdown( $VenueID ); ?></td>
 			</tr>
 			<?php
@@ -1341,7 +1341,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			?>
 			<tr class="" >
-				<td style="width:170px"><?php _e( 'Use Saved Organizer:', 'tribe-events-calendar-pro' ); ?></td>
+				<td style="width:170px"><?php _e( 'Use Saved Organizer:', 'tribe-events-calendar' ); ?></td>
 				<td><?php $this->saved_organizers_dropdown( $curOrg ); ?></td>
 			</tr>
 			<?php
@@ -1377,14 +1377,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$venues = $this->get_venue_info( null, null, array('post_status' => 'publish', 'post__not_in' => $my_venue_ids) );
 			if ( $venues || $my_venues ) {
 				echo '<select class="chosen venue-dropdown" name="' . esc_attr( $name ) . '" id="saved_venue">';
-				echo '<option value="0">' . __( 'Use New Venue' ,  'tribe-events-calendar-pro' ) . '</option>';
+				echo '<option value="0">' . __( 'Use New Venue' ,  'tribe-events-calendar' ) . '</option>';
 				if( $my_venues ) {
-					echo $venues ? '<optgroup label="' . apply_filters('tribe_events_saved_venues_dropdown_my_optgroup', __('My Venues', 'tribe-events-calendar-pro')) . '">' : '';
+					echo $venues ? '<optgroup label="' . apply_filters('tribe_events_saved_venues_dropdown_my_optgroup', __('My Venues', 'tribe-events-calendar')) . '">' : '';
 					echo $my_venue_options;
 					echo $venues ? '</optgroup>' : '';
 				}
 				if ( $venues ) {
-					echo $my_venues ? '<optgroup label="' . apply_filters('tribe_events_saved_venues_dropdown_optgroup', __('Available Venues', 'tribe-events-calendar-pro')) . '">' : '';
+					echo $my_venues ? '<optgroup label="' . apply_filters('tribe_events_saved_venues_dropdown_optgroup', __('Available Venues', 'tribe-events-calendar')) . '">' : '';
 					foreach ( $venues as $venue ) {
 						$venue_title = wp_kses( get_the_title( $venue->ID ), array() );
 						echo '<option data-address="' . esc_attr( $this->fullAddressString( $venue->ID ) ) . '" value="' . esc_attr( $venue->ID ) .'"';
@@ -1395,7 +1395,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 				echo '</select>';
 			} else {
-				echo '<p class="nosaved">' . __( 'No saved venues yet.', 'tribe-events-calendar-pro' ) . '</p>';
+				echo '<p class="nosaved">' . __( 'No saved venues yet.', 'tribe-events-calendar' ) . '</p>';
 			}
 		}
 
@@ -1429,14 +1429,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$organizers = $this->get_organizer_info( null, null, array('post_status' => 'publish', 'post__not_in' => $my_organizer_ids) );
 			if ( $organizers || $my_organizers ) {
 				echo '<select class="chosen organizer-dropdown" name="' . esc_attr( $name ) . '" id="saved_organizer">';
-				echo '<option value="0">' . __( 'Use New Organizer' ,  'tribe-events-calendar-pro' ) . '</option>';
+				echo '<option value="0">' . __( 'Use New Organizer' ,  'tribe-events-calendar' ) . '</option>';
 				if( $my_organizers ) {
-					echo $organizers ? '<optgroup label="' . apply_filters('tribe_events_saved_organizers_dropdown_my_optgroup', __('My Organizers', 'tribe-events-calendar-pro')) . '">' : '';
+					echo $organizers ? '<optgroup label="' . apply_filters('tribe_events_saved_organizers_dropdown_my_optgroup', __('My Organizers', 'tribe-events-calendar')) . '">' : '';
 					echo $my_organizers_options;
 					echo $organizers ? '</optgroup>' : '';
 				}
 				if ( $organizers ) {
-					echo $my_organizers ? '<optgroup label="' . apply_filters('tribe_events_saved_organizers_dropdown_optgroup', __('Available Organizers', 'tribe-events-calendar-pro')) . '">' : '';
+					echo $my_organizers ? '<optgroup label="' . apply_filters('tribe_events_saved_organizers_dropdown_optgroup', __('Available Organizers', 'tribe-events-calendar')) . '">' : '';
 					foreach ( $organizers as $organizer ) {
 						$organizer_title = wp_kses( get_the_title( $organizer->ID ), array() );
 						echo '<option value="' . esc_attr( $organizer->ID ) .'"';
@@ -1447,7 +1447,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 				echo '</select>';
 			} else {
-				echo '<p class="nosaved">' . __( 'No saved organizers yet.', 'tribe-events-calendar-pro' ) . '</p>';
+				echo '<p class="nosaved">' . __( 'No saved organizers yet.', 'tribe-events-calendar' ) . '</p>';
 			}
 		}
 
