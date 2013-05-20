@@ -43,7 +43,7 @@ $week = 0;
 			<tr>
 				<?php endif; ?>
 				<td class="<?php tribe_events_the_month_day_classes() ?>">
-					<?php tribe_get_template_part('widgets/mini-calendar/single-day') ?>
+						<?php tribe_get_template_part('widgets/mini-calendar/single-day') ?>
 				</td>
 			<?php endwhile; ?>
 			</tr>
