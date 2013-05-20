@@ -364,6 +364,14 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					wp_enqueue_style( $prefix . '-bootstrap-datepicker-css', $vendor_url . 'bootstrap-datepicker/css/datepicker.css' );
 					wp_enqueue_script( $prefix . '-bootstrap-datepicker', $vendor_url . 'bootstrap-datepicker/js/bootstrap-datepicker.js', 'jquery', '3.2' );						
 					self::$vendor_scripts[] = $prefix . '-bootstrap-datepicker';
+					$localized_datepicker_array = array(
+						'days' => array_merge( $tec->daysOfWeek, array( $tec->daysOfWeek[0] ) ),
+						'daysShort' => array_merge( $tec->daysOfWeekShort, array( $tec->daysOfWeekShort[0] ) ),
+						'daysMin' => array_merge( $tec->daysOfWeekMin, array( $tec->daysOfWeekMin[0] ) ),
+						'months' => array_values( $tec->monthsFull ),
+						'monthsShort' => array_values( $tec->monthsShort ),
+					);
+					wp_localize_script( $prefix . '-bootstrap-datepicker', 'tribe_bootstrap_datepicker_strings', array( 'dates' => $localized_datepicker_array ) );
 					break;
 				case 'dialog' : // Vendor: jQuery Dialog
 					wp_enqueue_script( 'jquery-ui-dialog' );
