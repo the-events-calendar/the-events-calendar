@@ -58,7 +58,7 @@ $generalTab = array(
 		),
 		'tribeEventsDisplayThemeTitle' => array(
 			'type' => 'html',
-			'html' => '<h3>' . __( 'General Settings', 'tribe-events-calendar-pro' ) . '</h3>',
+			'html' => '<h3>' . __( 'General Settings', 'tribe-events-calendar' ) . '</h3>',
 		),
 		'postsPerPage' => array(
 			'type' => 'text',
@@ -91,7 +91,7 @@ $generalTab = array(
 		'unprettyPermalinksUrl' => array(
 			'type' => 'html',
 			'label' => __( 'Events URL slug', 'tribe-events-calendar' ),
-			'html' => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href="%s">%s</a>. In order to edit the slug here, <a href="%soptions-permalink.php">enable pretty permalinks</a>.','tribe-events-calendar') , $tec->getLink( 'home' ), $tec->getLink( 'home ' ), trailingslashit( get_admin_url() ) ) .'</p>',
+			'html' => '<p>' . sprintf( __( 'You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href="%s">%s</a>. In order to edit the slug here, <a href="%soptions-permalink.php">enable pretty permalinks</a>.','tribe-events-calendar') , $tec->getLink( 'home' ), $tec->getLink( 'home ' ), trailingslashit( get_admin_url() ) ) .'</p>',
 			'conditional' => ('' == get_option( 'permalink_structure' ) ),
 		),
 		'eventsSlug' => array(
@@ -146,7 +146,7 @@ $generalTab = array(
 		),
 		'tribeEventsDisplayTitle' => array(
 			'type' => 'html',
-			'html' => '<h3>' . __( 'Map Settings', 'tribe-events-calendar-pro' ) . '</h3>',
+			'html' => '<h3>' . __( 'Map Settings', 'tribe-events-calendar' ) . '</h3>',
 		),
 		'embedGoogleMaps' => array(
 			'type' => 'checkbox_bool',
@@ -167,7 +167,7 @@ $generalTab = array(
 		),
 		'tribeEventsMiscellaneousTitle' => array(
 			'type' => 'html',
-			'html' => '<h3>' . __( 'Miscellaneous Settings', 'tribe-events-calendar-pro' ) . '</h3>',
+			'html' => '<h3>' . __( 'Miscellaneous Settings', 'tribe-events-calendar' ) . '</h3>',
 		),
 		'amalgamateDuplicates' => array(
 			'type' => 'html',
