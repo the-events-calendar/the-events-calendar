@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar Pro\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-19 16:11-0600\n"
-"PO-Revision-Date: 2013-05-19 16:14-0600\n"
+"POT-Creation-Date: 2013-05-20 00:56-0600\n"
+"PO-Revision-Date: 2013-05-20 00:56-0600\n"
 "Last-Translator: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language-Team: Modern Tribe <pro@tri.be>\n"
 "MIME-Version: 1.0\n"
@@ -20,20 +20,20 @@ msgstr ""
 
 #: ../events-calendar-pro.php:70
 msgid "week"
-msgstr "XXXXX"
+msgstr "weekX"
 
 #: ../events-calendar-pro.php:71
 msgid "photo"
-msgstr "XXXXX"
+msgstr "photoX"
 
 #: ../events-calendar-pro.php:72
 #: ../lib/tribe-events-recurrence-meta.class.php:619
 msgid "day"
-msgstr "XXXXX"
+msgstr "dayX"
 
 #: ../events-calendar-pro.php:73
 msgid "today"
-msgstr "XXXXX"
+msgstr "todayX"
 
 #: ../events-calendar-pro.php:224
 msgid "Events for week of"
@@ -48,7 +48,7 @@ msgstr "XXXXX"
 msgid "Events for"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:260
+#: ../events-calendar-pro.php:260 ../lib/widget-advanced-list.class.php:51
 msgid "Upcoming Events"
 msgstr "XXXXX"
 
@@ -195,11 +195,11 @@ msgstr "XXXXX"
 msgid "Week Of"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:1273
+#: ../events-calendar-pro.php:1270
 msgid "The Events Calendar"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:1274
+#: ../events-calendar-pro.php:1271
 #, php-format
 msgid ""
 "To begin using Events Calendar PRO, please install the latest version of <a "
@@ -207,41 +207,33 @@ msgid ""
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:1
-#: ../admin-views/events-options-defaults.php:35
 msgid "Customize Defaults"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:2
-#: ../admin-views/events-options-defaults.php:36
 msgid ""
 "These settings change the default event form. For example, if you set a "
 "default venue, this field will be automatically filled in on a new event."
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:5 ../admin-views/event-defaults.php:9
-#: ../admin-views/events-options-defaults.php:39
-#: ../admin-views/events-options-defaults.php:43
 #: ../admin-views/tribe-options-defaults.php:55
 msgid "Automatically replace empty fields with default values"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:13
-#: ../admin-views/events-options-defaults.php:47
 msgid "Enabled"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:19
-#: ../admin-views/events-options-defaults.php:53
 msgid "Default Organizer for Events"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:22
-#: ../admin-views/events-options-defaults.php:56
 msgid "Default Organizer"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:23
-#: ../admin-views/events-options-defaults.php:57
 msgid "The default organizer value"
 msgstr "XXXXX"
 
@@ -254,104 +246,79 @@ msgid "The current default value is <strong>%s</strong>"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:27
-#: ../admin-views/events-options-defaults.php:62
 msgid "Default Venue for Events"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:30
-#: ../admin-views/events-options-defaults.php:65
 msgid "Default Venue"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:31
-#: ../admin-views/events-options-defaults.php:66
 msgid "The default venue value"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:35 ../admin-views/event-defaults.php:37
-#: ../admin-views/events-options-defaults.php:71
-#: ../admin-views/events-options-defaults.php:73
 msgid "Default Address"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:38
-#: ../admin-views/events-options-defaults.php:74
 msgid "The default address value"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:42 ../admin-views/event-defaults.php:44
-#: ../admin-views/events-options-defaults.php:79
-#: ../admin-views/events-options-defaults.php:81
 msgid "Default City"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:45
-#: ../admin-views/events-options-defaults.php:82
 msgid "The default city value"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:50
-#: ../admin-views/events-options-defaults.php:88
 msgid "Default State"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:52 ../admin-views/event-defaults.php:73
-#: ../admin-views/events-options-defaults.php:90
-#: ../admin-views/events-options-defaults.php:112
 msgid "Default Province or State"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:55
-#: ../admin-views/events-options-defaults.php:93
 msgid "Select a State:"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
-#: ../admin-views/events-options-defaults.php:104
-#: ../admin-views/events-options-defaults.php:113
 msgid "The default  value"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:71
-#: ../admin-views/events-options-defaults.php:110
 msgid "Default Province"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:79 ../admin-views/event-defaults.php:81
-#: ../admin-views/events-options-defaults.php:119
-#: ../admin-views/events-options-defaults.php:121
 msgid "Default Postal Code"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:82
-#: ../admin-views/events-options-defaults.php:122
 msgid "The default Postal Code value"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:87
-#: ../admin-views/events-options-defaults.php:128
 msgid "Default Country for Events"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:105 ../admin-views/event-defaults.php:107
-#: ../admin-views/events-options-defaults.php:146
-#: ../admin-views/events-options-defaults.php:148
 msgid "Default Phone"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:108
-#: ../admin-views/events-options-defaults.php:149
 msgid "The default phone value"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:112
-#: ../admin-views/events-options-defaults.php:154
 #: ../admin-views/tribe-options-defaults.php:198
 msgid "Use a custom list of countries"
 msgstr "XXXXX"
 
 #: ../admin-views/event-defaults.php:114
-#: ../admin-views/events-options-defaults.php:156
 msgid "Use the following list:"
 msgstr "XXXXX"
 
@@ -742,39 +709,6 @@ msgstr "XXXXX"
 msgid "Description:"
 msgstr "XXXXX"
 
-#: ../admin-views/events-options-defaults.php:58
-#: ../admin-views/events-options-defaults.php:67
-#: ../admin-views/events-options-defaults.php:75
-#: ../admin-views/events-options-defaults.php:83
-#: ../admin-views/events-options-defaults.php:105
-#: ../admin-views/events-options-defaults.php:114
-#: ../admin-views/events-options-defaults.php:123
-#: ../admin-views/events-options-defaults.php:150
-#, php-format
-msgid "<em>The current default value is:</em> <strong>%s</strong>"
-msgstr "XXXXX"
-
-#: ../admin-views/events-options-defaults.php:58
-#: ../admin-views/events-options-defaults.php:67
-#: ../admin-views/events-options-defaults.php:75
-#: ../admin-views/events-options-defaults.php:83
-#: ../admin-views/events-options-defaults.php:105
-#: ../admin-views/events-options-defaults.php:114
-#: ../admin-views/events-options-defaults.php:123
-#: ../admin-views/events-options-defaults.php:150
-msgid "No default value set"
-msgstr "XXXXX"
-
-#: ../admin-views/events-options-defaults.php:158
-msgid ""
-"One country per line in the following format: <br/>US, United States <br/> "
-"UK, United Kingdom.<br/>"
-msgstr "XXXXX"
-
-#: ../admin-views/events-options-defaults.php:158
-msgid "(Replaces the default list)"
-msgstr "XXXXX"
-
 #: ../admin-views/support-form.php:11
 msgid "Need help? Send us a support request."
 msgstr "XXXXX"
@@ -804,15 +738,10 @@ msgstr "XXXXX"
 
 #: ../admin-views/tribe-options-defaults.php:39
 msgid ""
-"Set values for event organizers & venues that appear pre-populated in the "
-"event editor whenever you create a new event. This helps save time in "
-"situations where the venue or organizer rarely changes, saving you from "
-"having to manually re-enter the data each time you create an event.</"
-"p><p>It's worth noting that these can be overridden on the event creation "
-"screen; if a venue and organizer are pre-populated but you wants to change "
-"to something else, use the dropdown to either select another existing venue/"
-"organizer, or manually enter the details of a new one."
-msgstr "XXXXX"
+"<p>Choose the default venue & organizer. Set default address information to "
+"save time when entering a new venue or organizer.</p><p>You can override "
+"these settings as you enter a new event.</p>"
+msgstr "<p>XXXXX</p><p>XXXXX</p>"
 
 #: ../admin-views/tribe-options-defaults.php:51
 msgid "Options"
@@ -944,6 +873,10 @@ msgstr "XXXXX"
 msgid "Category:"
 msgstr "XXXXX"
 
+#: ../admin-views/widget-admin-advanced-list.php:52
+msgid "All Events"
+msgstr "XXXXX"
+
 #: ../admin-views/widget-admin-advanced-list.php:63
 #, php-format
 msgid "Want to modify the display of this widget? Try a %stemplate override%s."
@@ -982,7 +915,6 @@ msgid "Filters"
 msgstr "XXXXX"
 
 #: ../admin-views/widget-calendar.php:44
-#, fuzzy
 msgid "remove"
 msgstr "XXXXX"
 
@@ -995,12 +927,10 @@ msgid "Match any"
 msgstr "XXXXX"
 
 #: ../admin-views/widget-calendar.php:62
-#, fuzzy
 msgid "Add a filter"
 msgstr "XXXXX"
 
 #: ../admin-views/widget-calendar.php:65
-#, fuzzy
 msgid "Select one..."
 msgstr "XXXXX"
 
@@ -1265,6 +1195,10 @@ msgid ""
 "map view."
 msgstr "XXXXX"
 
+#: ../lib/tribe-geoloc.class.php:172
+msgid "Map"
+msgstr "XXXXX"
+
 #: ../lib/tribe-geoloc.class.php:194
 msgid "Near"
 msgstr "XXXXX"
@@ -1319,6 +1253,10 @@ msgstr "XXXXX"
 
 #: ../lib/widget-advanced-list.class.php:16
 msgid "A widget that displays the next upcoming x events."
+msgstr "XXXXX"
+
+#: ../lib/widget-advanced-list.class.php:22
+msgid "Events List"
 msgstr "XXXXX"
 
 #: ../lib/widget-calendar.class.php:8
@@ -1793,3 +1731,28 @@ msgstr "XXXXX"
 #: ../views/widgets/venue-widget.php:17
 msgid "No upcoming events."
 msgstr "XXXXX"
+
+#~ msgid "<em>The current default value is:</em> <strong>%s</strong>"
+#~ msgstr "XXXXX"
+
+#~ msgid "No default value set"
+#~ msgstr "XXXXX"
+
+#~ msgid ""
+#~ "One country per line in the following format: <br/>US, United States <br/"
+#~ "> UK, United Kingdom.<br/>"
+#~ msgstr "XXXXX"
+
+#~ msgid "(Replaces the default list)"
+#~ msgstr "XXXXX"
+
+#~ msgid ""
+#~ "Set values for event organizers & venues that appear pre-populated in the "
+#~ "event editor whenever you create a new event. This helps save time in "
+#~ "situations where the venue or organizer rarely changes, saving you from "
+#~ "having to manually re-enter the data each time you create an event.</"
+#~ "p><p>It's worth noting that these can be overridden on the event creation "
+#~ "screen; if a venue and organizer are pre-populated but you wants to "
+#~ "change to something else, use the dropdown to either select another "
+#~ "existing venue/organizer, or manually enter the details of a new one."
+#~ msgstr "XXXXX"
