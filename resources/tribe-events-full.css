@@ -1265,7 +1265,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 #tribe-bar-form .tribe-bar-filters {
 	position: relative;
 	float: left;
-	width: 100%%;
+	width: 100%;
 	display: table-cell;
 	margin: 0;
 }
