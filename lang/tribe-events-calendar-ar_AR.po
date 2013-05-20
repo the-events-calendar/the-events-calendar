@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-20 00:06-0600\n"
-"PO-Revision-Date: 2013-05-20 00:06-0600\n"
+"POT-Creation-Date: 2013-05-20 02:05-0600\n"
+"PO-Revision-Date: 2013-05-20 02:05-0600\n"
 "Last-Translator: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language: en_US\n"
@@ -35,11 +35,12 @@ msgid "Last Update"
 msgstr "آخر تحديث"
 
 #: ../admin-views/event-sidebar-options.php:11
-msgid "Hide From Upcoming Events List"
+#, fuzzy
+msgid "Hide From Event Listings"
 msgstr "إخفاء من قائمة الأحداث القادمة"
 
 #: ../admin-views/event-sidebar-options.php:12
-msgid "Force Event To Show On Calendar View"
+msgid "Sticky in Calendar View"
 msgstr ""
 
 #: ../admin-views/events-audit-trail.php:41
@@ -68,13 +69,13 @@ msgstr ""
 "الأحداث القادمة. إذا لم تكن ترغب في تغيير كل الأحداث من فضلك أعد تحميل "
 "الصفحة."
 
-#: ../admin-views/events-meta-box.php:35
 #
+#: ../admin-views/events-meta-box.php:35
 msgid "All Day Event:"
 msgstr ""
 
-#: ../admin-views/events-meta-box.php:39
 #
+#: ../admin-views/events-meta-box.php:39
 msgid "Start Date &amp; Time:"
 msgstr ""
 
@@ -82,8 +83,8 @@ msgstr ""
 msgid "YYYY-MM-DD"
 msgstr "YYYY-MM-DD"
 
-#: ../admin-views/events-meta-box.php:60
 #
+#: ../admin-views/events-meta-box.php:60
 msgid "End Date &amp; Time:"
 msgstr ""
 
@@ -95,8 +96,8 @@ msgstr "تفاصيل مكان الحدث"
 msgid "Event Organizer Details"
 msgstr "تفاصيل منظم الحدث"
 
-#: ../admin-views/events-meta-box.php:101
 #
+#: ../admin-views/events-meta-box.php:101
 msgid "Event Website"
 msgstr ""
 
@@ -194,23 +195,23 @@ msgstr "كل الأحداث المستقبلية في هذه السلسلة سي
 msgid "Attendees"
 msgstr "الحضور"
 
-#: ../admin-views/tickets-attendees.php:14
 #
+#: ../admin-views/tickets-attendees.php:14
 msgid "Event Summary"
 msgstr ""
 
-#: ../admin-views/tickets-attendees.php:22
 #
+#: ../admin-views/tickets-attendees.php:22
 msgid "Event Details"
 msgstr ""
 
-#: ../admin-views/tickets-attendees.php:24
 #
+#: ../admin-views/tickets-attendees.php:24
 msgid "Start Date / Time:"
 msgstr ""
 
-#: ../admin-views/tickets-attendees.php:26
 #
+#: ../admin-views/tickets-attendees.php:26
 msgid "End Date / Time:"
 msgstr ""
 
@@ -218,8 +219,8 @@ msgstr ""
 msgid "Venue:"
 msgstr "مكان:"
 
-#: ../admin-views/tickets-attendees.php:52
 #
+#: ../admin-views/tickets-attendees.php:52
 msgid "Ticket Sales"
 msgstr ""
 
@@ -233,13 +234,13 @@ msgstr ""
 msgid "Sold %d of %d"
 msgstr "تم بيع %d من %d"
 
-#: ../admin-views/tickets-attendees.php:81
 #
+#: ../admin-views/tickets-attendees.php:81
 msgid "Tickets sold:"
 msgstr ""
 
-#: ../admin-views/tickets-attendees.php:85
 #
+#: ../admin-views/tickets-attendees.php:85
 msgid "Checked in:"
 msgstr ""
 
@@ -247,8 +248,8 @@ msgstr ""
 msgid "Send the attendee list by email"
 msgstr ""
 
-#: ../admin-views/tickets-attendees.php:109
 #
+#: ../admin-views/tickets-attendees.php:109
 msgid "Select a User:"
 msgstr ""
 
@@ -260,8 +261,8 @@ msgstr ""
 msgid "or"
 msgstr ""
 
-#: ../admin-views/tickets-attendees.php:114
 #
+#: ../admin-views/tickets-attendees.php:114
 msgid "Email Address:"
 msgstr ""
 
@@ -306,8 +307,8 @@ msgid ""
 "sized to 1160px wide."
 msgstr ""
 
-#: ../admin-views/tickets-meta-box.php:36
 #
+#: ../admin-views/tickets-meta-box.php:36
 msgid "Select an Image"
 msgstr ""
 
@@ -364,8 +365,8 @@ msgstr " قالب الأحداث الإفتراضي"
 msgid "Default Page Template"
 msgstr "قالب الصفحات الإفتراضي"
 
-#: ../admin-views/tribe-options-display.php:29
 #
+#: ../admin-views/tribe-options-display.php:29
 msgid "Display Settings"
 msgstr ""
 
@@ -381,13 +382,13 @@ msgid ""
 "events-agenda-view\">Sample Agenda View plugin from Github</a></p>"
 msgstr ""
 
-#: ../admin-views/tribe-options-display.php:45
 #
+#: ../admin-views/tribe-options-display.php:45
 msgid "Basic Template Settings"
 msgstr ""
 
-#: ../admin-views/tribe-options-display.php:49
 #
+#: ../admin-views/tribe-options-display.php:49
 msgid "Default stylesheet used for events templates"
 msgstr ""
 
@@ -412,8 +413,8 @@ msgid ""
 "adapt to your theme"
 msgstr ""
 
-#: ../admin-views/tribe-options-display.php:60
 #
+#: ../admin-views/tribe-options-display.php:60
 msgid "Tribe Events Styles"
 msgstr ""
 
@@ -421,8 +422,8 @@ msgstr ""
 msgid "These styles provide a fully designed events theme"
 msgstr ""
 
-#: ../admin-views/tribe-options-display.php:69
 #
+#: ../admin-views/tribe-options-display.php:69
 msgid "Events template"
 msgstr ""
 
@@ -441,8 +442,8 @@ msgstr ""
 msgid "You must select at least one view."
 msgstr ""
 
-#: ../admin-views/tribe-options-display.php:86
 #
+#: ../admin-views/tribe-options-display.php:86
 msgid "Default view"
 msgstr ""
 
@@ -454,13 +455,13 @@ msgstr ""
 msgid "Uncheck this to use the classic header."
 msgstr ""
 
-#: ../admin-views/tribe-options-display.php:101
 #
+#: ../admin-views/tribe-options-display.php:101
 msgid "Advanced Template Settings"
 msgstr ""
 
-#: ../admin-views/tribe-options-display.php:105
 #
+#: ../admin-views/tribe-options-display.php:105
 msgid "Add HTML before event content"
 msgstr ""
 
@@ -473,8 +474,8 @@ msgstr ""
 "إذا كانت لديك دراية بال CSS  يمكنك استخدام هذا الحقل لإضافة بعض الأكواد قبل "
 "الأجندة. بعض القوالب تحتاج إلي هذا للمساعدة في تهيئة الشكل."
 
-#: ../admin-views/tribe-options-display.php:111
 #
+#: ../admin-views/tribe-options-display.php:111
 msgid "Add HTML after event content"
 msgstr ""
 
@@ -511,8 +512,8 @@ msgstr ""
 "هل تبحث عن خواص إضافية مثل أحداث متكررة, حقول مخصصة, أحداث المجتمع و بيع "
 "التذاكر و غيرها؟"
 
-#: ../admin-views/tribe-options-general.php:28
 #
+#: ../admin-views/tribe-options-general.php:28
 msgid "Check out the available add-ons"
 msgstr ""
 
@@ -548,13 +549,13 @@ msgstr ""
 "علي كل المجهود المبذول فيها .\" أفضل طريقة شكر نتطلع إليها هي الإشادة من "
 "خلال وضع نص قصير يحتوي علي رابط إلي موقعنا في نهاية الصفحة."
 
-#: ../admin-views/tribe-options-general.php:47
 #
+#: ../admin-views/tribe-options-general.php:47
 msgid "Show The Events Calendar link"
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:61
 #
+#: ../admin-views/tribe-options-general.php:61
 msgid "General Settings"
 msgstr ""
 
@@ -570,13 +571,13 @@ msgstr ""
 msgid "Enable ajax to live refresh content."
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:79
 #
+#: ../admin-views/tribe-options-general.php:79
 msgid "Show comments"
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:80
 #
+#: ../admin-views/tribe-options-general.php:80
 msgid "Enable comments on event pages."
 msgstr ""
 
@@ -621,8 +622,8 @@ msgstr ""
 msgid "Here is the iCal feed URL for your events:"
 msgstr "هذا هو رابط iCal feed الخاص بك:"
 
-#: ../admin-views/tribe-options-general.php:116
 #
+#: ../admin-views/tribe-options-general.php:116
 msgid "Single event URL slug"
 msgstr ""
 
@@ -656,8 +657,8 @@ msgid ""
 "future events, and changes made will not apply retroactively."
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:149
 #
+#: ../admin-views/tribe-options-general.php:149
 msgid "Map Settings"
 msgstr ""
 
@@ -677,8 +678,8 @@ msgstr "مستوي التكبير الإفتراضي لخرائط جوجل"
 msgid "0 = zoomed out; 21 = zoomed in."
 msgstr "0 = للتصغير; 21 = لأقصي تقريب."
 
-#: ../admin-views/tribe-options-general.php:170
 #
+#: ../admin-views/tribe-options-general.php:170
 msgid "Miscellaneous Settings"
 msgstr ""
 
@@ -698,8 +699,8 @@ msgstr ""
 msgid "Merge Duplicates"
 msgstr ""
 
-#: ../admin-views/tribe-options-general.php:179
 #
+#: ../admin-views/tribe-options-general.php:179
 msgid "Debug mode"
 msgstr ""
 
@@ -720,6 +721,11 @@ msgstr ""
 msgid "Debug Bar Plugin"
 msgstr "إضافة شريط تصحيح الإخطاء"
 
+#: ../admin-views/tribe-options-help.php:18
+msgctxt "not available"
+msgid "n/a"
+msgstr ""
+
 #: ../admin-views/tribe-options-help.php:19
 msgid "You need to upgrade!"
 msgstr "تحتاج للترقية!"
@@ -729,70 +735,57 @@ msgid "You are up to date!"
 msgstr "أنت تملك أحدث إصدار!"
 
 #: ../admin-views/tribe-options-help.php:42
-msgid "Advanced Post Manager"
-msgstr "مدير التدوينات المتطور"
-
-#: ../admin-views/tribe-options-help.php:46
-msgid "Event Importer"
-msgstr "استيراد الأحداث"
-
-#: ../admin-views/tribe-options-help.php:53
 msgid "The Events Calendar PRO"
 msgstr "The Events Calendar PRO"
 
-#: ../admin-views/tribe-options-help.php:57
+#: ../admin-views/tribe-options-help.php:46
 msgid "Eventbrite Tickets"
 msgstr "تذاكر Eventbrite "
 
-#: ../admin-views/tribe-options-help.php:61
+#: ../admin-views/tribe-options-help.php:50
 msgid "Community Events"
 msgstr "أحداث المجتمع"
 
-#: ../admin-views/tribe-options-help.php:65
+#: ../admin-views/tribe-options-help.php:54
 msgid "Facebook Events"
 msgstr "أحداث الفيسبوك"
 
-#: ../admin-views/tribe-options-help.php:69
+#: ../admin-views/tribe-options-help.php:58
 msgid "WooTickets"
 msgstr "WooTickets"
 
+#: ../admin-views/tribe-options-help.php:63
+msgid "Faceted Filters"
+msgstr ""
+
 #: ../admin-views/tribe-options-help.php:71
-#: ../admin-views/tribe-options-help.php:76
-msgid "(coming later in 2012)"
-msgstr "(يتوفر قريباً)"
-
-#: ../admin-views/tribe-options-help.php:74
-msgid "Conference Manager"
-msgstr "مدير المؤتمرات"
-
-#: ../admin-views/tribe-options-help.php:83
 msgid "Documentation"
 msgstr "الدليل الإرشادي"
 
-#: ../admin-views/tribe-options-help.php:87
+#: ../admin-views/tribe-options-help.php:75
 msgid "FAQ"
 msgstr "أشهر الأسئلة"
 
-#: ../admin-views/tribe-options-help.php:91
-#: ../lib/the-events-calendar.class.php:687
-#: ../lib/the-events-calendar.class.php:3406
-#: ../lib/the-events-calendar.class.php:3497
+#: ../admin-views/tribe-options-help.php:79
+#: ../lib/the-events-calendar.class.php:656
+#: ../lib/the-events-calendar.class.php:3375
+#: ../lib/the-events-calendar.class.php:3466
 msgid "Help"
 msgstr "المساعدة"
 
-#: ../admin-views/tribe-options-help.php:95
+#: ../admin-views/tribe-options-help.php:83
 msgid "Tutorials"
 msgstr "شرح تعليمي"
 
-#: ../admin-views/tribe-options-help.php:99
+#: ../admin-views/tribe-options-help.php:87
 msgid "Release Notes"
 msgstr "معلومات الإصدار"
 
-#: ../admin-views/tribe-options-help.php:103
+#: ../admin-views/tribe-options-help.php:91
 msgid "Forums"
 msgstr "المنتديات"
 
-#: ../admin-views/tribe-options-help.php:108
+#: ../admin-views/tribe-options-help.php:96
 #, fuzzy, php-format
 msgid ""
 "If this is your first time using The Events Calendar,you're in for a treat. "
@@ -800,11 +793,8 @@ msgid ""
 "events. Here are some ways to get started:</p><ul><li><strong>Feeling "
 "adventurous?</strong> Jump right into it by visiting the Events menu to <a "
 "href=\"%s\">add your first event</a>.</li><li><strong>Want to get the low-"
-"down first?</strong> Visit our <a href=\"http://tri.be/support/documentation/"
-"events-calendar-pro-new-user-primer/%s\">new user primer</a>, designed with "
-"folk exactly like yourself in mind to help familiarize you with the plugin "
-"basics.</li></ul><p>Next, check out resources below, created to help you "
-"kick ass.</p>"
+"down first?</strong> Visit our <a href=\"%s\">new user primer</a>,  designed "
+"to help familiarize you with the plugin basics.</li></ul>"
 msgstr ""
 "إذا كانت هذه هي المرة الأولي التي تستخدم فيها أجندة الأحداث فأنت محظوظ. ستجد "
 "الأمر في منتهي السهولة لتبدأ.هذه بعض الطرق لمساعدتك علي البدء:</"
@@ -815,42 +805,37 @@ msgstr ""
 "utm_campaign=plugin\">البداية للمستخدم  الجديد</a>,المصمم من أجلك لمساعدتك "
 "علي لتعرفك علي الأساسيات الخاصة بالإضافة."
 
-#: ../admin-views/tribe-options-help.php:111
-#, php-format
+#: ../admin-views/tribe-options-help.php:99
+#, fuzzy, php-format
 msgid ""
-"We love all our users and want to help free & PRO customers alike. If you're "
-"running the latest version of The Events Calendar and are having problems, "
-"post a thread the %s at WordPress.org. We hit the forum a few times a week "
-"and do what we can to assist users."
+"<p>We love all our users and want to help free & PRO customers alike. If "
+"you're running the latest version of The Events Calendar and are having "
+"problems, post a thread at the %s on WordPress.org. We hit the forum once a "
+"week to look for legitimate bug reports and do what we can to assist users.</"
+"p>"
 msgstr ""
 "نحن نحب جميع مستخدمينا و نرغب في مساعدة عملاء النسخة المجانية و الإحترافية "
 "علي حد سواء. إذا كنت تستعمل النسخة الأحدث من أجندة الأحداث و تعاني من مشاكل, "
 "قم بإنشاء طلب مساعدة %s علي موقع ووردبريس. نحن نزور المنتدي عدة مرات "
 "أسبوعياص و نفعل ما  بوسعنا لمساعدة المستخدمين."
 
-#: ../admin-views/tribe-options-help.php:111
+#: ../admin-views/tribe-options-help.php:99
 msgid "forum for The Events Calendar"
 msgstr "منتدي The Events Calendar"
 
-#: ../admin-views/tribe-options-help.php:112
-#, fuzzy, php-format
+#: ../admin-views/tribe-options-help.php:100
+#, php-format
 msgid ""
-"Support is available for both free and PRO customers. If you're running the "
-"latest version of The Events Calendar and have run into problems, post a "
-"forum thread on our %sWordPress.org support forum%s. We visit the forums a "
-"few times a week and will do what we can to help you."
+"<p>If you need additional help, %sEvents Calendar Pro%s gets you access to "
+"our support forums for a full year.</p>"
 msgstr ""
-"%s الدعم متوفر لمساعدة عملاء النسخة المجانية  الإحترافية. إذا كنت تستعمل "
-"النسخة الأحدث من أجندة الأحداث و تواجهك مشاكل, فقم بإنشاء طلب مساعدة علي "
-"%sمنتدي ورردبريس للدعم%s. نحن نزور المنتدي عدة مرات أسبوعياً و نفعل ما "
-"نستطيعه لمساعدتك. %s"
 
-#: ../admin-views/tribe-options-help.php:113
 #
+#: ../admin-views/tribe-options-help.php:101
 msgid "A few things to keep in mind before posting:"
 msgstr ""
 
-#: ../admin-views/tribe-options-help.php:115
+#: ../admin-views/tribe-options-help.php:103
 #, fuzzy
 msgid ""
 "Search recent threads before posting a new one to check that there isn't "
@@ -859,13 +844,13 @@ msgstr ""
 "%sقم بالبحث في الموضوعات الموجودة بالفعل قبل البدء في إنشاء واحد جديد لتتأكد "
 "من عدم وجود موضوع يناقش مشكلتك نفسها .%s"
 
-#: ../admin-views/tribe-options-help.php:116
+#: ../admin-views/tribe-options-help.php:104
 #, fuzzy
 msgid ""
 "Check whether the issue is a conflict with another plugin or your theme. "
 "This can be tested easily on a staging site by deactivating other plugins "
-"one-by-one, and reverting to the default Twenty Eleven theme to see if "
-"conflicts can be easily identified. If you find a conflict note it on your "
+"one-by-one, and reverting to the default Twenty Twelve theme to see if "
+"conflicts can be easily identified. If you find a conflict, note it in a "
 "support thread."
 msgstr ""
 "%sحاول التأكد إن كانت المشكلة هي تعارض مع إضافة أخري أو التملبيت الخاص بك. "
@@ -873,17 +858,17 @@ msgstr ""
 "للقالب الإفتراضي 2011 لتري إن كان من الممكن معرفة سبب المشكلة. .فإذا لاحظت "
 "تعارض إذكر ذلك أثناء كتابة طلب الدعم.%s"
 
-#: ../admin-views/tribe-options-help.php:117
-#, fuzzy
+#: ../admin-views/tribe-options-help.php:105
+#, fuzzy, php-format
 msgid ""
-"Sometimes, just resaving your permalinks (under Settings > Permalinks) can "
-"resolve events-related problems on your site. Before creating a new thread "
-"try the out."
+"Sometimes, resaving your permalinks (under <a href=\"%s\">Settings > "
+"Permalinks</a>) can resolve events-related problems on your site. Before "
+"creating a new thread try this handy trick."
 msgstr ""
 "%sإحياناً يقوم  إعادة حفظ الروابط الدائمة (قائمة إعدادات -> روابط دائمة) بحل "
 "بعض المشكلات علي موقعك.لذا نرجو أن تجرب هذا قبل الكتابة إلينا%s"
 
-#: ../admin-views/tribe-options-help.php:119
+#: ../admin-views/tribe-options-help.php:107
 #, fuzzy
 msgid ""
 "While we are happy to help with bugs and provide light integration tips for "
@@ -895,7 +880,7 @@ msgstr ""
 "لمستخدمينا علي منتدي المساعدة الخاص بووردبريس فإننا لا نستطيع تقديم المساعدة "
 "لتهيئة الأجندة لتعمل مع الإضافات الأخري..%s"
 
-#: ../admin-views/tribe-options-help.php:121
+#: ../admin-views/tribe-options-help.php:109
 #, fuzzy, php-format
 msgid ""
 "Shoot us an email at %s or tweet %s and tell us why. We'll do what we can to "
@@ -904,11 +889,11 @@ msgstr ""
 "%sارسل لنا علي البريد الإلكتروني  %s أو تويتر %s و أخبرنا بالمشكلة. و سنبذل "
 "ما نستطيع لتصحيح الأمر.%s"
 
-#: ../admin-views/tribe-options-help.php:122
+#: ../admin-views/tribe-options-help.php:110
 msgid "More..."
 msgstr "المزيد..."
 
-#: ../admin-views/tribe-options-help.php:129
+#: ../admin-views/tribe-options-help.php:117
 msgid ""
 "Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so much "
 "for installing our labor of love!"
@@ -916,89 +901,81 @@ msgstr ""
 "أهلاً بك, نحن Modern Tribe و نحن هنا لمساعدتك. نشكرك علي تثبيت المنتج الذي "
 "أعددناه بكثير من الحب"
 
-#: ../admin-views/tribe-options-help.php:131
+#: ../admin-views/tribe-options-help.php:119
 msgid "Getting Started"
 msgstr "البداية"
 
-#: ../admin-views/tribe-options-help.php:138
+#: ../admin-views/tribe-options-help.php:126
 msgid "Resources to Help You Kick Ass"
 msgstr "موارد تساعدك علي البدء"
 
-#: ../admin-views/tribe-options-help.php:150
+#: ../admin-views/tribe-options-help.php:138
 msgid "Everyone Needs a Buddy"
 msgstr "كل شخص يحتاج إلي رفيق"
 
-#: ../admin-views/tribe-options-help.php:153
+#: ../admin-views/tribe-options-help.php:141
 msgid "Still Not Satisfied?"
 msgstr "لا تزال غير راضي؟"
 
-#: ../admin-views/tribe-options-help.php:163
-#: ../lib/the-events-calendar.class.php:468
+#: ../admin-views/tribe-options-help.php:151
+#: ../lib/the-events-calendar.class.php:437
 #: ../lib/tribe-settings.class.php:135
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
 
-#: ../admin-views/tribe-options-help.php:167
+#: ../admin-views/tribe-options-help.php:155
 msgid "Latest Version:"
 msgstr "أحدث إصدار:"
 
-#: ../admin-views/tribe-options-help.php:168
+#: ../admin-views/tribe-options-help.php:156
 msgid "Author:"
 msgstr "المؤلف:"
 
-#: ../admin-views/tribe-options-help.php:168
+#: ../admin-views/tribe-options-help.php:156
 msgid "Modern Tribe Inc"
 msgstr "Modern Tribe Inc"
 
-#: ../admin-views/tribe-options-help.php:169
+#: ../admin-views/tribe-options-help.php:157
 msgid "Requires:"
 msgstr "يحتاج إلي:"
 
-#: ../admin-views/tribe-options-help.php:169
+#: ../admin-views/tribe-options-help.php:157
 msgid "WordPress "
 msgstr "ووردبريس"
 
-#: ../admin-views/tribe-options-help.php:170
+#: ../admin-views/tribe-options-help.php:158
 msgid "Wordpress.org Plugin Page"
 msgstr "صفحة الإضافة علي موقع ووردبريس"
 
-#: ../admin-views/tribe-options-help.php:175
+#: ../admin-views/tribe-options-help.php:163
 msgid "Average Rating"
 msgstr "متوسط التقييم"
 
-#: ../admin-views/tribe-options-help.php:179
+#: ../admin-views/tribe-options-help.php:167
 #, php-format
 msgid "Based on %d rating"
-msgstr ""
+msgid_plural "Based on %d ratings"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../admin-views/tribe-options-help.php:179
-#, php-format
-msgid "Based on %d ratings"
-msgstr ""
-
-#: ../admin-views/tribe-options-help.php:181
+#: ../admin-views/tribe-options-help.php:168
 msgid "Give us 5 stars!"
 msgstr "اعطنا خمس نجوم!"
 
-#: ../admin-views/tribe-options-help.php:184
-msgid "Free Add-Ons"
-msgstr "إضافات مجانية"
-
-#: ../admin-views/tribe-options-help.php:190
-#: ../admin-views/tribe-options-help.php:203
-msgid "(Coming Soon!)"
-msgstr "قريباً!"
-
-#: ../admin-views/tribe-options-help.php:197
+#: ../admin-views/tribe-options-help.php:171
 msgid "Premium Add-Ons"
 msgstr "إضافات متميزة"
 
-#: ../admin-views/tribe-options-help.php:210
+#: ../admin-views/tribe-options-help.php:177
+msgid "(Coming Soon!)"
+msgstr "قريباً!"
+
+#: ../admin-views/tribe-options-help.php:184
 msgid "News and Tutorials"
 msgstr "أخبار و شرح تعليمي"
 
-#: ../admin-views/tribe-options-network.php:14
 #
+#: ../admin-views/tribe-options-network.php:14
 msgid "Network Settings"
 msgstr ""
 
@@ -1066,28 +1043,28 @@ msgstr "اظهر المربع الجانبي فقط إذا كانت هناك أ�
 msgid "Want to modify the display of this widget? Try a %stemplate override%s."
 msgstr "هل ترغب في تعديل طريقة عرض المربع الجانبي؟ جرب %sتخطي القالب%s."
 
-#: ../lib/the-events-calendar.class.php:473
+#: ../lib/the-events-calendar.class.php:442
 msgid "month"
 msgstr "month"
 
-#: ../lib/the-events-calendar.class.php:474
+#: ../lib/the-events-calendar.class.php:443
 msgid "upcoming"
 msgstr "upcoming"
 
-#: ../lib/the-events-calendar.class.php:475
+#: ../lib/the-events-calendar.class.php:444
 msgid "past"
 msgstr "past"
 
-#: ../lib/the-events-calendar.class.php:477
+#: ../lib/the-events-calendar.class.php:446
 msgid "venue"
 msgstr "venue"
 
-#: ../lib/the-events-calendar.class.php:491
+#: ../lib/the-events-calendar.class.php:460
 #, php-format
 msgid "Initializing Tribe Events on %s"
 msgstr "تهيئة Tribe Events علي %s"
 
-#: ../lib/the-events-calendar.class.php:583
+#: ../lib/the-events-calendar.class.php:552
 #, php-format
 msgid ""
 "Your version of The Events Calendar is not up-to-date with one of your The "
@@ -1096,7 +1073,7 @@ msgstr ""
 "هذا الإصدار من الأجندة ليس أحدث نسخة مع أحد الإضافات. من فضلك  %sقم بالتحديث "
 "الآن.%s"
 
-#: ../lib/the-events-calendar.class.php:597
+#: ../lib/the-events-calendar.class.php:566
 #, php-format
 msgid ""
 "The following plugins are out of date: <b>%s</b>. Please %supdate now%s. All "
@@ -1108,13 +1085,13 @@ msgstr ""
 "تعتمد علي أجندة الأحداث و لن تعمل بشكل جيد إلا إذا تم استعمالها مع الإصدار "
 "الصحيح. %sهل ترغب في استعمال إصدار أقدم%s?"
 
-#: ../lib/the-events-calendar.class.php:654
-#: ../lib/the-events-calendar.class.php:682
-#: ../lib/the-events-calendar.class.php:684
+#: ../lib/the-events-calendar.class.php:623
+#: ../lib/the-events-calendar.class.php:651
+#: ../lib/the-events-calendar.class.php:653
 msgid "Licenses"
 msgstr "تراخيص"
 
-#: ../lib/the-events-calendar.class.php:658
+#: ../lib/the-events-calendar.class.php:627
 #, fuzzy, php-format
 msgid ""
 "<p>The license key you received when completing your purchase from http://"
@@ -1145,15 +1122,15 @@ msgstr ""
 "\">هذه التدوينة</a>.</p><p>لا تري تحديث و لكن تنتظره وجوده? في ووردبريس اذهب "
 "إلي <i>لوحة التحكم > تحديثات</i> واضغط علي \"Check Again\"."
 
-#: ../lib/the-events-calendar.class.php:674
+#: ../lib/the-events-calendar.class.php:643
 msgid "General"
 msgstr "عام"
 
-#: ../lib/the-events-calendar.class.php:675
+#: ../lib/the-events-calendar.class.php:644
 msgid "Display"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:720
+#: ../lib/the-events-calendar.class.php:689
 #, php-format
 msgid ""
 "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade "
@@ -1162,7 +1139,7 @@ msgstr ""
 "ناسف, الأجندة تتطلب إصدار ووردبريس  %s أو أعلي. من فضلك ترقية إصدار ووردبريس "
 "الخاص بك"
 
-#: ../lib/the-events-calendar.class.php:723
+#: ../lib/the-events-calendar.class.php:692
 #, php-format
 msgid ""
 "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host "
@@ -1171,246 +1148,247 @@ msgstr ""
 "نأسف, الأجندة تتطلب إصدار  PHP %s أو أعلي. من فضلك تحدث إلي خادم الويب الخاص "
 "بك للترقية إلي نسخة أحدث."
 
-#: ../lib/the-events-calendar.class.php:870 ../lib/widget-list.class.php:116
+#: ../lib/the-events-calendar.class.php:839 ../lib/widget-list.class.php:116
 #: ../public/template-tags/loop.php:135 ../public/template-tags/loop.php:138
 msgid "Upcoming Events"
 msgstr "أحداث مستقبلية"
 
-#: ../lib/the-events-calendar.class.php:872
+#: ../lib/the-events-calendar.class.php:841
 #: ../public/template-tags/loop.php:174
 msgid "Past Events"
 msgstr "أحداث ماضية"
 
-#: ../lib/the-events-calendar.class.php:877
-#: ../lib/the-events-calendar.class.php:884
+#: ../lib/the-events-calendar.class.php:846
+#: ../lib/the-events-calendar.class.php:853
 #, php-format
 msgid "Events for %s"
 msgstr "أحداث ل %s"
 
-#: ../lib/the-events-calendar.class.php:879
+#: ../lib/the-events-calendar.class.php:848
 msgid "Events this month"
 msgstr "أحداث هذا الشهر"
 
-#: ../lib/the-events-calendar.class.php:890
+#: ../lib/the-events-calendar.class.php:859
 #, php-format
 msgid "Events at %s"
 msgstr "حدث في %s"
 
-#: ../lib/the-events-calendar.class.php:903
+#: ../lib/the-events-calendar.class.php:872
 msgid "No description has been entered for this event."
 msgstr "لم يتم إدخال وصف لهذا الحدث."
 
-#: ../lib/the-events-calendar.class.php:1150
+#: ../lib/the-events-calendar.class.php:1119
 msgid "category"
 msgstr "category"
 
-#: ../lib/the-events-calendar.class.php:1155
+#: ../lib/the-events-calendar.class.php:1124
 msgid "tag"
 msgstr "tag"
 
-#: ../lib/the-events-calendar.class.php:1169
-#: ../lib/the-events-calendar.class.php:3337
-#: ../lib/the-events-calendar.class.php:3397
+#: ../lib/the-events-calendar.class.php:1138
+#: ../lib/the-events-calendar.class.php:3306
+#: ../lib/the-events-calendar.class.php:3366
 msgid "Events"
 msgstr "أحداث"
 
-#: ../lib/the-events-calendar.class.php:1170
+#: ../lib/the-events-calendar.class.php:1139
 msgid "Event"
 msgstr "حدث"
 
-#: ../lib/the-events-calendar.class.php:1171
-#: ../lib/the-events-calendar.class.php:1184
-#: ../lib/the-events-calendar.class.php:1197
+#: ../lib/the-events-calendar.class.php:1140
+#: ../lib/the-events-calendar.class.php:1153
+#: ../lib/the-events-calendar.class.php:1166
 msgid "Add New"
 msgstr "اضف جديد"
 
-#: ../lib/the-events-calendar.class.php:1172
+#: ../lib/the-events-calendar.class.php:1141
 msgid "Add New Event"
 msgstr "اضف حدث جديد"
 
-#: ../lib/the-events-calendar.class.php:1173
+#: ../lib/the-events-calendar.class.php:1142
 msgid "Edit Event"
 msgstr "تحرير الحدث"
 
-#: ../lib/the-events-calendar.class.php:1174
+#: ../lib/the-events-calendar.class.php:1143
 msgid "New Event"
 msgstr "حدث جديد"
 
-#: ../lib/the-events-calendar.class.php:1175
+#: ../lib/the-events-calendar.class.php:1144
 msgid "View Event"
 msgstr "شاهد الحدث"
 
-#: ../lib/the-events-calendar.class.php:1176
+#: ../lib/the-events-calendar.class.php:1145
 msgid "Search Events"
 msgstr "ابحث عن الأحداث"
 
-#: ../lib/the-events-calendar.class.php:1177
+#: ../lib/the-events-calendar.class.php:1146
 msgid "No events found"
 msgstr "لا توجد أحداث"
 
-#: ../lib/the-events-calendar.class.php:1178
+#: ../lib/the-events-calendar.class.php:1147
 msgid "No events found in Trash"
 msgstr "لا توجد أحداث في سلة المهملات"
 
-#: ../lib/the-events-calendar.class.php:1182
-#: ../lib/the-events-calendar.class.php:1288
+#: ../lib/the-events-calendar.class.php:1151
+#: ../lib/the-events-calendar.class.php:1257
 msgid "Venues"
 msgstr "أماكن"
 
-#: ../lib/the-events-calendar.class.php:1183
+#: ../lib/the-events-calendar.class.php:1152
 #: ../public/advanced-functions/meta.php:248 ../views/tickets-email.php:320
 msgid "Venue"
 msgstr "مكان"
 
-#: ../lib/the-events-calendar.class.php:1185
+#: ../lib/the-events-calendar.class.php:1154
 msgid "Add New Venue"
 msgstr "اضف مكان جديد"
 
-#: ../lib/the-events-calendar.class.php:1186
+#: ../lib/the-events-calendar.class.php:1155
 msgid "Edit Venue"
 msgstr "تحرير المكان"
 
-#: ../lib/the-events-calendar.class.php:1187
+#: ../lib/the-events-calendar.class.php:1156
 msgid "New Venue"
 msgstr "مكان جديد"
 
-#: ../lib/the-events-calendar.class.php:1188
+#: ../lib/the-events-calendar.class.php:1157
 msgid "View Venue"
 msgstr "شاهد المكان"
 
-#: ../lib/the-events-calendar.class.php:1189
+#: ../lib/the-events-calendar.class.php:1158
 msgid "Search Venues"
 msgstr "ابحث عن الأماكن"
 
-#: ../lib/the-events-calendar.class.php:1190
+#: ../lib/the-events-calendar.class.php:1159
 msgid "No venue found"
 msgstr "لا توجد أماكن"
 
-#: ../lib/the-events-calendar.class.php:1191
+#: ../lib/the-events-calendar.class.php:1160
 msgid "No venues found in Trash"
 msgstr "لا توجد أماكن في سلة المهملات"
 
-#: ../lib/the-events-calendar.class.php:1195
-#: ../lib/the-events-calendar.class.php:1289
+#: ../lib/the-events-calendar.class.php:1164
+#: ../lib/the-events-calendar.class.php:1258
 msgid "Organizers"
 msgstr "المنظمين"
 
-#: ../lib/the-events-calendar.class.php:1196
+#: ../lib/the-events-calendar.class.php:1165
 #: ../public/advanced-functions/meta.php:310 ../views/tickets-email.php:339
 msgid "Organizer"
 msgstr "منظم"
 
-#: ../lib/the-events-calendar.class.php:1198
+#: ../lib/the-events-calendar.class.php:1167
 msgid "Add New Organizer"
 msgstr "اضف منظم جديد"
 
-#: ../lib/the-events-calendar.class.php:1199
+#: ../lib/the-events-calendar.class.php:1168
 msgid "Edit Organizer"
 msgstr "تحرير المنظم"
 
-#: ../lib/the-events-calendar.class.php:1200
+#: ../lib/the-events-calendar.class.php:1169
 msgid "New Organizer"
 msgstr "منظم جديد"
 
-#: ../lib/the-events-calendar.class.php:1201
 #
+#: ../lib/the-events-calendar.class.php:1170
 msgid "View Organizer"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:1202
+#: ../lib/the-events-calendar.class.php:1171
 msgid "Search Organizers"
 msgstr "ابحث عن المنظمين"
 
-#: ../lib/the-events-calendar.class.php:1203
+#: ../lib/the-events-calendar.class.php:1172
 msgid "No organizer found"
 msgstr "لا يوجد منظمين"
 
-#: ../lib/the-events-calendar.class.php:1204
+#: ../lib/the-events-calendar.class.php:1173
 msgid "No organizers found in Trash"
 msgstr "لا يوجد منظمين في سلة المهملات"
 
-#: ../lib/the-events-calendar.class.php:1208
+#: ../lib/the-events-calendar.class.php:1177
 #: ../lib/tribe-admin-events-list.class.php:181
 msgid "Event Categories"
 msgstr "تصنيف الأحداث"
 
-#: ../lib/the-events-calendar.class.php:1209
+#: ../lib/the-events-calendar.class.php:1178
+#: ../public/template-tags/general.php:295
 msgid "Event Category"
 msgstr "تصنيف الحدث"
 
-#: ../lib/the-events-calendar.class.php:1210
+#: ../lib/the-events-calendar.class.php:1179
 msgid "Search Event Categories"
 msgstr "ابحث عن تصنيف الحدث"
 
-#: ../lib/the-events-calendar.class.php:1211
+#: ../lib/the-events-calendar.class.php:1180
 msgid "All Event Categories"
 msgstr "كل التصنيفات"
 
-#: ../lib/the-events-calendar.class.php:1212
+#: ../lib/the-events-calendar.class.php:1181
 msgid "Parent Event Category"
 msgstr "تصنيف حدث رئيسي"
 
-#: ../lib/the-events-calendar.class.php:1213
+#: ../lib/the-events-calendar.class.php:1182
 msgid "Parent Event Category:"
 msgstr "تصنيف حدث رئيسي:"
 
-#: ../lib/the-events-calendar.class.php:1214
+#: ../lib/the-events-calendar.class.php:1183
 msgid "Edit Event Category"
 msgstr "تعديل تصنيف الحدث"
 
-#: ../lib/the-events-calendar.class.php:1215
+#: ../lib/the-events-calendar.class.php:1184
 msgid "Update Event Category"
 msgstr "تحديث تصنيف الحدث"
 
-#: ../lib/the-events-calendar.class.php:1216
+#: ../lib/the-events-calendar.class.php:1185
 msgid "Add New Event Category"
 msgstr "اضف تصنيف جديد"
 
-#: ../lib/the-events-calendar.class.php:1217
+#: ../lib/the-events-calendar.class.php:1186
 msgid "New Event Category Name"
 msgstr "اسم التصنيف الجديد"
 
-#: ../lib/the-events-calendar.class.php:1227
+#: ../lib/the-events-calendar.class.php:1196
 #, php-format
 msgid "Event updated. <a href=\"%s\">View event</a>"
 msgstr "تم تحديث الحدث. <a href=\"%s\">شاهد الحدث</a>"
 
-#: ../lib/the-events-calendar.class.php:1228
-#: ../lib/the-events-calendar.class.php:1245
-#: ../lib/the-events-calendar.class.php:1262
+#: ../lib/the-events-calendar.class.php:1197
+#: ../lib/the-events-calendar.class.php:1214
+#: ../lib/the-events-calendar.class.php:1231
 msgid "Custom field updated."
 msgstr "تم تحديث الحقل المخصص."
 
-#: ../lib/the-events-calendar.class.php:1229
-#: ../lib/the-events-calendar.class.php:1246
-#: ../lib/the-events-calendar.class.php:1263
+#: ../lib/the-events-calendar.class.php:1198
+#: ../lib/the-events-calendar.class.php:1215
+#: ../lib/the-events-calendar.class.php:1232
 msgid "Custom field deleted."
 msgstr "تم حذف الحقل المخصص."
 
-#: ../lib/the-events-calendar.class.php:1230
+#: ../lib/the-events-calendar.class.php:1199
 msgid "Event updated."
 msgstr "تم تحديث الحدث."
 
-#: ../lib/the-events-calendar.class.php:1232
+#: ../lib/the-events-calendar.class.php:1201
 #, php-format
 msgid "Event restored to revision from %s"
 msgstr "تم إعادة الحدث إلي المراجعة من %s"
 
-#: ../lib/the-events-calendar.class.php:1233
+#: ../lib/the-events-calendar.class.php:1202
 #, php-format
 msgid "Event published. <a href=\"%s\">View event</a>"
 msgstr "تم نشر الحدث. <a href=\"%s\">شاهد الحدث</a>"
 
-#: ../lib/the-events-calendar.class.php:1234
+#: ../lib/the-events-calendar.class.php:1203
 msgid "Event saved."
 msgstr "تم حفظ الحدث."
 
-#: ../lib/the-events-calendar.class.php:1235
+#: ../lib/the-events-calendar.class.php:1204
 #, php-format
 msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
 msgstr "تم إرسال الحدث. <a target=\"_blank\" href=\"%s\">معاينة الحدث</a>"
 
-#: ../lib/the-events-calendar.class.php:1236
+#: ../lib/the-events-calendar.class.php:1205
 #, php-format
 msgid ""
 "Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
@@ -1419,46 +1397,46 @@ msgstr ""
 "تم جدولة الحدث إلي : <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
 "\">عاين الحدث</a>"
 
-#: ../lib/the-events-calendar.class.php:1238
-#: ../lib/the-events-calendar.class.php:1255
-#: ../lib/the-events-calendar.class.php:1272
+#: ../lib/the-events-calendar.class.php:1207
+#: ../lib/the-events-calendar.class.php:1224
+#: ../lib/the-events-calendar.class.php:1241
 msgid "M j, Y @ G:i"
 msgstr "M j, Y @ G:i"
 
-#: ../lib/the-events-calendar.class.php:1239
+#: ../lib/the-events-calendar.class.php:1208
 #, php-format
 msgid "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
 msgstr "تم تحديث المسودة. <a target=\"_blank\" href=\"%s\">معاينة الحدث</a>"
 
-#: ../lib/the-events-calendar.class.php:1244
+#: ../lib/the-events-calendar.class.php:1213
 #, php-format
 msgid "Venue updated. <a href=\"%s\">View venue</a>"
 msgstr "تم تحديث المكان. <a href=\"%s\">معاينة المكان</a>"
 
-#: ../lib/the-events-calendar.class.php:1247
+#: ../lib/the-events-calendar.class.php:1216
 msgid "Venue updated."
 msgstr "تم تحديث المكان."
 
-#: ../lib/the-events-calendar.class.php:1249
+#: ../lib/the-events-calendar.class.php:1218
 #, php-format
 msgid "Venue restored to revision from %s"
 msgstr "تم إعادة المكان إلي المراجعة من  %s"
 
-#: ../lib/the-events-calendar.class.php:1250
+#: ../lib/the-events-calendar.class.php:1219
 #, php-format
 msgid "Venue published. <a href=\"%s\">View venue</a>"
 msgstr "تم نشر المكان. <a href=\"%s\">شاهد المكان</a>"
 
-#: ../lib/the-events-calendar.class.php:1251
+#: ../lib/the-events-calendar.class.php:1220
 msgid "Venue saved."
 msgstr "تم حفظ المكان."
 
-#: ../lib/the-events-calendar.class.php:1252
+#: ../lib/the-events-calendar.class.php:1221
 #, php-format
 msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr "تم إرسال المكان. <a target=\"_blank\" href=\"%s\">معاينة المكان</a>"
 
-#: ../lib/the-events-calendar.class.php:1253
+#: ../lib/the-events-calendar.class.php:1222
 #, php-format
 msgid ""
 "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
@@ -1467,41 +1445,41 @@ msgstr ""
 "تم جدولة المكان حتي :<strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
 "\">معاينة المكان</a>"
 
-#: ../lib/the-events-calendar.class.php:1256
+#: ../lib/the-events-calendar.class.php:1225
 #, php-format
 msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr "تم تحديث المسودة. <a target=\"_blank\" href=\"%s\">معاينة المكان</a>"
 
-#: ../lib/the-events-calendar.class.php:1261
+#: ../lib/the-events-calendar.class.php:1230
 #, php-format
 msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
 msgstr "تم تحديث المنظم. <a href=\"%s\">شاهد المنظم</a>"
 
-#: ../lib/the-events-calendar.class.php:1264
+#: ../lib/the-events-calendar.class.php:1233
 msgid "Organizer updated."
 msgstr "تم تحديث المنظم."
 
-#: ../lib/the-events-calendar.class.php:1266
+#: ../lib/the-events-calendar.class.php:1235
 #, php-format
 msgid "Organizer restored to revision from %s"
 msgstr "تم إعادة المنظم إلي المراجعة من %s"
 
-#: ../lib/the-events-calendar.class.php:1267
+#: ../lib/the-events-calendar.class.php:1236
 #, php-format
 msgid "Organizer published. <a href=\"%s\">View organizer</a>"
 msgstr "تم نشر المنظم. <a href=\"%s\">شاهد المنظم</a>"
 
-#: ../lib/the-events-calendar.class.php:1268
+#: ../lib/the-events-calendar.class.php:1237
 msgid "Organizer saved."
 msgstr "تم حفظ المنظم."
 
-#: ../lib/the-events-calendar.class.php:1269
+#: ../lib/the-events-calendar.class.php:1238
 #, php-format
 msgid ""
 "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr "تم إرسال المنظم. <a target=\"_blank\" href=\"%s\">معاينة المنظم</a>"
 
-#: ../lib/the-events-calendar.class.php:1270
+#: ../lib/the-events-calendar.class.php:1239
 #, php-format
 msgid ""
 "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
@@ -1510,7 +1488,7 @@ msgstr ""
 "تم جدولة المنظم حتي <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
 "\">معاينة المنظم</a>"
 
-#: ../lib/the-events-calendar.class.php:1273
+#: ../lib/the-events-calendar.class.php:1242
 #, php-format
 msgid ""
 "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</"
@@ -1518,113 +1496,113 @@ msgid ""
 msgstr ""
 "تم تحديث مسودة المنظم. <a target=\"_blank\" href=\"%s\">معاينة المنظم</a>"
 
-#: ../lib/the-events-calendar.class.php:1315
+#: ../lib/the-events-calendar.class.php:1284
 msgid "Use Saved Venue:"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:1344
 #
+#: ../lib/the-events-calendar.class.php:1313
 msgid "Use Saved Organizer:"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:1380
 #
+#: ../lib/the-events-calendar.class.php:1349
 msgid "Use New Venue"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:1382
 #
+#: ../lib/the-events-calendar.class.php:1351
 msgid "My Venues"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:1387
 #
+#: ../lib/the-events-calendar.class.php:1356
 msgid "Available Venues"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:1398
+#: ../lib/the-events-calendar.class.php:1367
 msgid "No saved venue exists."
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:1432
 #
+#: ../lib/the-events-calendar.class.php:1401
 msgid "Use New Organizer"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:1434
 #
+#: ../lib/the-events-calendar.class.php:1403
 msgid "My Organizers"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:1439
 #
+#: ../lib/the-events-calendar.class.php:1408
 msgid "Available Organizers"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:1450
 #
+#: ../lib/the-events-calendar.class.php:1419
 msgid "No saved organizer exists."
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:1561
+#: ../lib/the-events-calendar.class.php:1530
 msgid "Next"
 msgstr "التالي"
 
-#: ../lib/the-events-calendar.class.php:1562
+#: ../lib/the-events-calendar.class.php:1531
 msgid "Prev"
 msgstr "السابق"
 
-#: ../lib/the-events-calendar.class.php:1563
+#: ../lib/the-events-calendar.class.php:1532
 msgid "Today"
 msgstr "اليوم الحالي"
 
-#: ../lib/the-events-calendar.class.php:1564
+#: ../lib/the-events-calendar.class.php:1533
 msgid "Done"
 msgstr "تم"
 
-#: ../lib/the-events-calendar.class.php:1749
+#: ../lib/the-events-calendar.class.php:1718
 msgid "Network"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:2533
 #
+#: ../lib/the-events-calendar.class.php:2502
 msgid "Unnamed Venue"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:2616
 #
+#: ../lib/the-events-calendar.class.php:2585
 msgid "Unnamed Organizer"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3096
+#: ../lib/the-events-calendar.class.php:3065
 msgid "Event Options"
 msgstr "خيارات الحدث"
 
-#: ../lib/the-events-calendar.class.php:3098
+#: ../lib/the-events-calendar.class.php:3067
 msgid "Venue Information"
 msgstr "معلومات المكان"
 
-#: ../lib/the-events-calendar.class.php:3099
+#: ../lib/the-events-calendar.class.php:3068
 msgid "Organizer Information"
 msgstr "معلومات المنظم"
 
-#: ../lib/the-events-calendar.class.php:3238
+#: ../lib/the-events-calendar.class.php:3207
 msgid "Support"
 msgstr "الدعم"
 
-#: ../lib/the-events-calendar.class.php:3241
+#: ../lib/the-events-calendar.class.php:3210
 msgid "View All Add-Ons"
 msgstr "شاهد كل الإضافات"
 
-#: ../lib/the-events-calendar.class.php:3248
+#: ../lib/the-events-calendar.class.php:3217
 msgid "News from Modern Tribe"
 msgstr "أخبار من مودرن ترايب"
 
-#: ../lib/the-events-calendar.class.php:3293
+#: ../lib/the-events-calendar.class.php:3262
 msgid "Additional Functionality"
 msgstr "خواص إضافية"
 
-#: ../lib/the-events-calendar.class.php:3298
+#: ../lib/the-events-calendar.class.php:3267
 #, fuzzy
 msgid ""
 "Looking for additional functionality including recurring events, ticket "
@@ -1633,31 +1611,31 @@ msgstr ""
 "هل تبحث عن خواص إضافية مثل أحداث متكررة, حقول مخصصة, أحداث المجتمع و بيع "
 "التذاكر و غيرها؟"
 
-#: ../lib/the-events-calendar.class.php:3298
+#: ../lib/the-events-calendar.class.php:3267
 #, php-format
 msgid "Check out the <a href=\"%s\">available add-ons</a>."
 msgstr "شاهد <a href=\"%s\">الإضافات المتاحة</a>."
 
-#: ../lib/the-events-calendar.class.php:3363
-#: ../lib/the-events-calendar.class.php:3454
+#: ../lib/the-events-calendar.class.php:3332
+#: ../lib/the-events-calendar.class.php:3423
 msgid "View Calendar"
 msgstr "شاهد الأجندة"
 
-#: ../lib/the-events-calendar.class.php:3371
+#: ../lib/the-events-calendar.class.php:3340
 msgid "Add Event"
 msgstr "اضف حدث"
 
-#: ../lib/the-events-calendar.class.php:3380
+#: ../lib/the-events-calendar.class.php:3349
 msgid "Edit Events"
 msgstr "تعديل الأحداث"
 
-#: ../lib/the-events-calendar.class.php:3389
-#: ../lib/the-events-calendar.class.php:3490
+#: ../lib/the-events-calendar.class.php:3358
+#: ../lib/the-events-calendar.class.php:3459
 #: ../lib/tribe-settings.class.php:164
 msgid "Settings"
 msgstr "إعدادات"
 
-#: ../lib/the-events-calendar.class.php:3425
+#: ../lib/the-events-calendar.class.php:3394
 #, php-format
 msgid ""
 "Welcome to The Events Calendar! Your events calendar can be found at %s. To "
@@ -1666,40 +1644,40 @@ msgstr ""
 "أهلاً بك في أجندة الأحداث!  يمكنك أن تجد الأجندة الخاصة بك في %s. لتغيير نص "
 "الرابط, قم بزيارة %sالأحداث -> الإعدادات%s."
 
-#: ../lib/the-events-calendar.class.php:3491
+#: ../lib/the-events-calendar.class.php:3460
 msgid "Calendar"
 msgstr "الأجندة"
 
-#: ../lib/the-events-calendar.class.php:3543
+#: ../lib/the-events-calendar.class.php:3512
 msgid "List"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3548
 #
+#: ../lib/the-events-calendar.class.php:3517
 msgid "Month"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3576
 #
+#: ../lib/the-events-calendar.class.php:3545
 msgid "Date"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3579
 #
+#: ../lib/the-events-calendar.class.php:3548
 msgid "Events In"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3581
 #
+#: ../lib/the-events-calendar.class.php:3550
 msgid "Events From"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3751 ../views/list/nav.php:21
+#: ../lib/the-events-calendar.class.php:3720 ../views/list/nav.php:21
 #: ../views/list/nav.php:27 ../views/list/nav.php:30
 msgid "&laquo; Previous Events"
 msgstr "الأحداث الماضية  &raquo;"
 
-#: ../lib/the-events-calendar.class.php:3752 ../views/list/nav.php:39
+#: ../lib/the-events-calendar.class.php:3721 ../views/list/nav.php:39
 #: ../views/list/nav.php:42 ../views/list/nav.php:48
 msgid "Next Events &raquo;"
 msgstr "الأحداث التالية &laquo;"
@@ -1778,8 +1756,8 @@ msgstr "لم يتم تحديد حقول لعلامة التبويب هذه."
 msgid "The Events Calendar Settings"
 msgstr "إعدادات أجندة الأحداث."
 
-#: ../lib/tribe-settings.class.php:176
 #
+#: ../lib/tribe-settings.class.php:176
 msgid "Events Settings"
 msgstr ""
 
@@ -1816,6 +1794,14 @@ msgstr "الأستمارة كان بها الخطأ التالي:"
 msgid "None of your settings were saved. Please try again."
 msgstr "لم يتم حفظ الإعدادات. رجاء المحاولة مرة أخري."
 
+#: ../lib/tribe-settings.class.php:485
+msgid ""
+"The above setting was not saved. Other settings were successfully saved."
+msgid_plural ""
+"The above settings were not saved. Other settings were successfully saved."
+msgstr[0] ""
+msgstr[1] ""
+
 #: ../lib/tribe-settings.class.php:509
 msgid "Settings saved."
 msgstr "تم حفظ الإعدادات."
@@ -1844,18 +1830,18 @@ msgstr "مصنف تحت %s. شاهد الأحداث التالية لهذا ال
 msgid "No events scheduled for <strong>%s</strong>. Please try another day."
 msgstr "لا توجد أحداث مجدولة ل  <strong>%s</strong>. جرب يوم آخر."
 
-#: ../lib/tribe-template-factory.class.php:163
 #
+#: ../lib/tribe-template-factory.class.php:163
 msgid "No upcoming events "
 msgstr ""
 
-#: ../lib/tribe-template-factory.class.php:165
 #
+#: ../lib/tribe-template-factory.class.php:165
 msgid "No matching events "
 msgstr ""
 
-#: ../lib/tribe-template-factory.class.php:168
 #
+#: ../lib/tribe-template-factory.class.php:168
 msgid "No previous events "
 msgstr ""
 
@@ -1912,6 +1898,11 @@ msgstr "رقم الحقل:"
 #: ../lib/tribe-validate.class.php:109
 msgid "Non-existant field validation function passed"
 msgstr "تم إرسال دالة تحقق لحقل غير موجود"
+
+#: ../lib/tribe-validate.class.php:110
+msgctxt "non-existant function name passed for field validation"
+msgid "with function name:"
+msgstr ""
 
 #: ../lib/tribe-validate.class.php:135 ../lib/tribe-validate.class.php:153
 #, php-format
@@ -3163,13 +3154,13 @@ msgstr ""
 msgid "Wyoming"
 msgstr ""
 
-#: ../lib/widget-list.class.php:16
 #
+#: ../lib/widget-list.class.php:16
 msgid "A widget that displays upcoming events."
 msgstr ""
 
-#: ../lib/widget-list.class.php:22
 #
+#: ../lib/widget-list.class.php:22
 msgid "Events List Widget"
 msgstr ""
 
@@ -3208,8 +3199,8 @@ msgstr ""
 msgid "Purchaser email"
 msgstr ""
 
-#: ../lib/tickets/tribe-tickets-attendees.php:37
 #
+#: ../lib/tickets/tribe-tickets-attendees.php:37
 msgid "Ticket type"
 msgstr ""
 
@@ -3238,13 +3229,13 @@ msgstr "تراجع عن تسجيل الدخول"
 msgid "Print"
 msgstr ""
 
-#: ../lib/tickets/tribe-tickets-attendees.php:98
 #
+#: ../lib/tickets/tribe-tickets-attendees.php:98
 msgid "Email"
 msgstr ""
 
-#: ../lib/tickets/tribe-tickets-attendees.php:99
 #
+#: ../lib/tickets/tribe-tickets-attendees.php:99
 msgid "Export"
 msgstr ""
 
@@ -3256,8 +3247,8 @@ msgstr "فلترة عن طريق رقم التذكرة, رقم الطلب أو �
 msgid "Tickets"
 msgstr "تذاكر"
 
-#: ../lib/tickets/tribe-tickets-metabox.php:62
 #
+#: ../lib/tickets/tribe-tickets-metabox.php:62
 msgid "Ticket header image"
 msgstr ""
 
@@ -3284,8 +3275,8 @@ msgid ""
 "export."
 msgstr ""
 
-#: ../lib/tickets/tribe-tickets-pro.php:258
 #
+#: ../lib/tickets/tribe-tickets-pro.php:258
 msgid "attendees"
 msgstr ""
 
@@ -3318,8 +3309,8 @@ msgstr "تاريخ:"
 msgid "Click to view a Google Map"
 msgstr "اضغط لمشاهدة خريطة جودل"
 
-#: ../public/advanced-functions/meta.php:151
 #
+#: ../public/advanced-functions/meta.php:151
 msgid "+ Google Map"
 msgstr ""
 
@@ -3327,8 +3318,8 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-#: ../public/advanced-functions/meta.php:212
 #
+#: ../public/advanced-functions/meta.php:212
 msgid "Event Tags:"
 msgstr ""
 
@@ -3340,8 +3331,8 @@ msgstr ""
 msgid "Event:"
 msgstr "حدث:"
 
-#: ../public/template-tags/deprecated.php:724
 #
+#: ../public/template-tags/deprecated.php:724
 msgid "Category"
 msgstr ""
 
@@ -3349,8 +3340,8 @@ msgstr ""
 msgid "Tags:"
 msgstr "سمات:"
 
-#: ../public/template-tags/general.php:409
 #
+#: ../public/template-tags/general.php:409
 msgid "Loading Events"
 msgstr ""
 
@@ -3358,8 +3349,8 @@ msgstr ""
 msgid "Free"
 msgstr "مجاني"
 
-#: ../public/template-tags/general.php:743
 #
+#: ../public/template-tags/general.php:743
 msgid "Recurring Event"
 msgstr ""
 
@@ -3382,8 +3373,8 @@ msgstr ""
 msgid "Events for %1$s through %2$s"
 msgstr ""
 
-#: ../public/template-tags/loop.php:168
 #
+#: ../public/template-tags/loop.php:168
 msgid "Events for "
 msgstr ""
 
@@ -3402,47 +3393,28 @@ msgstr ""
 "يفضل أن يكون في صيغة الجمع, و هذا في صيغة المفرد.<br />نص الرابط المفرد هو : "
 "%s"
 
-#: ../vendor/presstrends/presstrends.php:50
 #
-msgid "Send PressTrends data"
-msgstr ""
-
-#: ../vendor/presstrends/presstrends.php:56
-msgid ""
-"Help us out by sending analytics data about your usage of The Events "
-"Calendar."
-msgstr "ساعدنا بإرسال بيانات تحليلية عن استخدامك ل  The Events Calendar."
-
-#: ../vendor/presstrends/presstrends.php:65
-msgid ""
-"Would you like to help us out and send analytics about your usage of The "
-"Events Calendar?"
-msgstr ""
-"هل ترغب في مساعدتنا و إرسال بيانات تحليلية عن استخدامك ل  The Events "
-"Calendar?"
-
 #: ../views/single-event.php:31
-#
 msgid "&laquo; All Events"
 msgstr ""
 
-#: ../views/single-event.php:45 ../views/single-event.php:71
 #
+#: ../views/single-event.php:45 ../views/single-event.php:71
 msgid "Event Navigation"
 msgstr ""
 
-#: ../views/tickets-attendees-email.php:11
 #
+#: ../views/tickets-attendees-email.php:11
 msgid "Attendee List"
 msgstr ""
 
-#: ../views/tickets-email.php:16
 #
+#: ../views/tickets-email.php:16
 msgid "Your tickets"
 msgstr ""
 
-#: ../views/tickets-email.php:297
 #
+#: ../views/tickets-email.php:297
 msgid "Ticket Type"
 msgstr ""
 
@@ -3450,8 +3422,8 @@ msgstr ""
 msgid "Purchaser"
 msgstr ""
 
-#: ../views/list/nav.php:15
 #
+#: ../views/list/nav.php:15
 msgid "Events List Navigation"
 msgstr ""
 
@@ -3459,8 +3431,8 @@ msgstr ""
 msgid "Find out more"
 msgstr ""
 
-#: ../views/modules/bar.php:29 ../views/modules/bar.php:57
 #
+#: ../views/modules/bar.php:29 ../views/modules/bar.php:57
 msgid "Find Events"
 msgstr ""
 
@@ -3468,15 +3440,54 @@ msgstr ""
 msgid "Event Views Navigation"
 msgstr ""
 
-#: ../views/modules/bar.php:36
 #
+#: ../views/modules/bar.php:36
 msgid "View As"
 msgstr ""
 
-#: ../views/month/nav.php:19
 #
+#: ../views/month/nav.php:19
 msgid "Calendar Month Navigation"
 msgstr ""
+
+#~ msgid "Advanced Post Manager"
+#~ msgstr "مدير التدوينات المتطور"
+
+#~ msgid "Event Importer"
+#~ msgstr "استيراد الأحداث"
+
+#~ msgid "(coming later in 2012)"
+#~ msgstr "(يتوفر قريباً)"
+
+#~ msgid "Conference Manager"
+#~ msgstr "مدير المؤتمرات"
+
+#, fuzzy
+#~ msgid ""
+#~ "Support is available for both free and PRO customers. If you're running "
+#~ "the latest version of The Events Calendar and have run into problems, "
+#~ "post a forum thread on our %sWordPress.org support forum%s. We visit the "
+#~ "forums a few times a week and will do what we can to help you."
+#~ msgstr ""
+#~ "%s الدعم متوفر لمساعدة عملاء النسخة المجانية  الإحترافية. إذا كنت تستعمل "
+#~ "النسخة الأحدث من أجندة الأحداث و تواجهك مشاكل, فقم بإنشاء طلب مساعدة علي "
+#~ "%sمنتدي ورردبريس للدعم%s. نحن نزور المنتدي عدة مرات أسبوعياً و نفعل ما "
+#~ "نستطيعه لمساعدتك. %s"
+
+#~ msgid "Free Add-Ons"
+#~ msgstr "إضافات مجانية"
+
+#~ msgid ""
+#~ "Help us out by sending analytics data about your usage of The Events "
+#~ "Calendar."
+#~ msgstr "ساعدنا بإرسال بيانات تحليلية عن استخدامك ل  The Events Calendar."
+
+#~ msgid ""
+#~ "Would you like to help us out and send analytics about your usage of The "
+#~ "Events Calendar?"
+#~ msgstr ""
+#~ "هل ترغب في مساعدتنا و إرسال بيانات تحليلية عن استخدامك ل  The Events "
+#~ "Calendar?"
 
 #~ msgid "All day event?"
 #~ msgstr "طوال اليوم؟"
