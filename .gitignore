@@ -1,2 +1,6 @@
 .DS_Store
 .idea
+# build files for js minification
+
+compiler.jar
+*.ps1
