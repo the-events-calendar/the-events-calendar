@@ -24,6 +24,7 @@ if( !class_exists('Tribe_Events_Pro_Map_Template')){
 		protected function hooks() {
 			parent::hooks();
 			add_filter( 'tribe_events_header_attributes',  array( $this, 'header_attributes') );
+			add_action('tribe_events_list_before_the_event_title', array( $this, 'add_event_distance' ) );
 		}
 
 		/**
@@ -54,6 +55,12 @@ if( !class_exists('Tribe_Events_Pro_Map_Template')){
 			}
 			return $file;
 		}
-
-	}
+		public function add_event_distance($distance) {
+			global $post;
+			$distance = '';
+			if ( !empty( $post->distance ) )
+				$distance = '<span class="tribe-events-distance">'. tribe_get_distance_with_unit( $post->distance ) .'</span>';
+			echo $distance;
+		}
+	}	
 }
