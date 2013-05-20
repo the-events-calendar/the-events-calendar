@@ -742,15 +742,15 @@ class TribeEventsRecurrenceMeta {
 			$args = TribeEvents::array_insert_after_key( 'liveFiltersUpdate', $args, array(
 				'hideSubsequentRecurrencesDefault' => array(
 				'type' => 'checkbox_bool',
-				'label' => __( 'Recurring event instances', 'tribe-events-calendar' ),
-				'tooltip' => __( 'Show only the first instance of each recurring event.', 'tribe-events-calendar' ),
+				'label' => __( 'Recurring event instances', 'tribe-events-calendar-pro' ),
+				'tooltip' => __( 'Show only the first instance of each recurring event.', 'tribe-events-calendar-pro' ),
 				'default' => false,
 				'validation_type' => 'boolean',
 				),
  				'userToggleSubsequentRecurrences' => array(
  				'type' => 'checkbox_bool',
-				'label' => __( 'Front-end recurring event instances toggle', 'tribe-events-calendar' ),
-				'tooltip' => __( 'Allow users to decide whether to show all instances of a recurring event.', 'tribe-events-calendar' ),
+				'label' => __( 'Front-end recurring event instances toggle', 'tribe-events-calendar-pro' ),
+				'tooltip' => __( 'Allow users to decide whether to show all instances of a recurring event.', 'tribe-events-calendar-pro' ),
 				'default' => false,
 				'validation_type' => 'boolean',
          ),

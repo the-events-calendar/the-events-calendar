@@ -65,6 +65,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$this->pluginUrl = WP_PLUGIN_URL.'/'.$this->pluginDir;
 			$this->pluginSlug = 'events-calendar-pro';
 
+			$this->loadTextDomain();
+
 			$this->weekSlug = sanitize_title(__('week', 'tribe-events-calendar-pro'));
 			$this->photoSlug = sanitize_title(__('photo', 'tribe-events-calendar-pro'));
 			$this->daySlug = sanitize_title(__('day', 'tribe-events-calendar-pro'));
@@ -127,7 +129,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_help_tab_enb_content', array( $this, 'add_help_tab_enb_text' ) );
 			// add_filter( 'tribe_events_template_single-venue.php', array( $this, 'load_venue_template' ) );
 			add_action( 'widgets_init', array( $this, 'pro_widgets_init' ), 100 );
-			add_action( 'init', array( $this, 'loadTextDomain' ) );
 			add_action( 'wp_loaded', array( $this, 'allow_cpt_search' ) );
 			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
 			add_filter( 'get_delete_post_link', array( $this, 'adjust_date_on_recurring_event_trash_link' ), 10, 2 );
@@ -689,6 +690,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$enb_text[] = '<li>' . __('Search recent threads before posting a new one to check that there isn\'t already a discussion about your issue.', 'tribe-events-calendar') . '</li>';
 			$enb_text[] = '<li>' . __('Check whether the issue is a conflict with another plugin or your theme. This can be tested easily on a staging site by deactivating other plugins one-by-one, and reverting to the default Twenty Twelve theme to see if conflicts can be easily identified. If you find a conflict, note it in a support thread.', 'tribe-events-calendar') . '</li>';
 			$enb_text[] = '<li>' . sprintf( __('Sometimes, resaving your permalinks (under <a href="%s">Settings > Permalinks</a>) can resolve events-related problems on your site. Before creating a new thread try this handy trick.', 'tribe-events-calendar'), admin_url('options-permalink.php')) . '</li>';
+
 			$enb_text[] = '</ul>';
 			$enb_text[] = '<p>' . sprintf( __( 'While we won\'t build your site for you and can\'t guarantee The Events Calendar PRO to play nicely with every theme and plugin out there, our team will do our best to help you get it functioning nicely with your site. And as an added bonus, once you\'re done you can post it in the %s so the rest of the community can see what you\'ve been working on.', 'tribe-events-calendar-pro' ), sprintf( '<a href="http://tri.be/support/forums/topic/showcase-2-0/' . $ga_query_string . '">%s</a>', __( 'Showcase thread', 'tribe-events-calendar-pro' ) ) ) . '</p>';
 			$content = implode( $enb_text );
@@ -748,10 +750,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$html .= sprintf('<a class="%s" href="%s">%s</a><a class="%s" href="%s">%s</a>',
 				$day_class,
 				tribe_get_day_link(),
-				__( 'Day View', 'tribe-events-calendar' ),
+				__( 'Day View', 'tribe-events-calendar-pro' ),
 				$week_class,
 				tribe_get_week_permalink(),
-				__( 'Week View', 'tribe-events-calendar' )
+				__( 'Week View', 'tribe-events-calendar-pro' )
 				);
 			return $html;
 		}
@@ -1070,7 +1072,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public function addLinksToPluginActions( $actions ) {
 			if( class_exists( 'TribeEvents' ) ) {
-				$actions['settings'] = '<a href="' . add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'page' => 'tribe-events-calendar' ), admin_url( 'edit.php' ) ) .'">' . __('Settings', 'tribe-events-calendar-pro') . '</a>';
+				$actions['settings'] = '<a href="' . add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'page' => 'tribe-events-calendar-pro' ), admin_url( 'edit.php' ) ) .'">' . __('Settings', 'tribe-events-calendar-pro') . '</a>';
 			}
 			return $actions;
 		}
@@ -1095,8 +1097,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @since 3.0
 		 */
 		public function loadTextDomain() {
-			// load text domain after class registration
-			load_plugin_textdomain( 'tribe-events-calendar-pro', false, $this->pluginDir . 'lang/' );
+			load_plugin_textdomain( 'tribe-events-calendar-pro', false, $this->pluginDir . 'lang/');
 		}
 
 		/**
@@ -1243,7 +1244,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 	} // end Class
 
-
 	// Instantiate class and set up WordPress actions.
 	function Tribe_ECP_Load() {
 		add_filter( 'tribe_tec_addons', 'tribe_init_ecp_addon' );
@@ -1264,6 +1264,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	 */
 	function tribe_show_fail_message() {
 		if ( current_user_can( 'activate_plugins' ) ) {
+			$langpath = trailingslashit( basename( dirname( __FILE__ ) ) ) . 'lang/';
+			load_plugin_textdomain( 'tribe-events-calendar-pro', false, $langpath );
 			$url = 'plugin-install.php?tab=plugin-information&plugin=the-events-calendar&TB_iframe=true';
 			$title = __( 'The Events Calendar', 'tribe-events-calendar-pro' );
 			echo '<div class="error"><p>'.sprintf( __( 'To begin using Events Calendar PRO, please install the latest version of <a href="%s" class="thickbox" title="%s">The Events Calendar</a>.', 'tribe-events-calendar-pro' ),$url, $title ).'</p></div>';
