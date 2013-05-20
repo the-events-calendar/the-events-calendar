@@ -159,6 +159,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_events_list_after_the_title', array( $this, 'add_recurring_occurance_setting_to_list' ) );
 			add_filter( 'tribe_events_map_after_the_title', array( $this, 'add_recurring_occurance_setting_to_list' ) );
 			add_filter( 'tribe_events_photo_after_the_title', array( $this, 'add_recurring_occurance_setting_to_list' ) );
+			add_filter( 'tribe_get_day_link', array( $this, 'add_empty_date_dayview_link' ), 10, 2 );
 
 			/* AJAX for loading day view */
 			add_action( 'wp_ajax_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
@@ -1207,6 +1208,23 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		function miles_to_kms_ratio() {
 			return 1.60934;
+		}
+		
+		/**
+		 * Adds /today to the day view link if no day is passed.
+		 *
+		 * @param string $link The current link.
+		 * @param string|null $date The date passed.
+		 * @return string The modified link.
+		 * @author Paul Hughes
+		 * @since 3.0
+		 */
+		public function add_empty_date_dayview_link( $link, $date ) {
+			if ( is_null( $date ) ) {
+				$tribe_ecp = TribeEvents::instance();
+				$link = trailingslashit( trailingslashit( $tribe_ecp->getLink( '' ) ) . $this->todaySlug );
+			}
+			return $link;
 		}
 
 
