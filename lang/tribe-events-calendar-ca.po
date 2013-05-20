@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-20 02:24-0600\n"
-"PO-Revision-Date: 2013-05-20 02:24-0600\n"
-"Last-Translator: Modern Tribe, Inc. <pro@tri.be>\n"
+"PO-Revision-Date: 2013-05-20 02:42-0600\n"
+"Last-Translator: Modern Tribe Inc. <pro@tri.be>\n"
 "Language-Team: Modern Tribe <pro@tri.be>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #
@@ -36,9 +36,8 @@ msgid "Last Update"
 msgstr "Última actualització"
 
 #: ../admin-views/event-sidebar-options.php:11
-#, fuzzy
 msgid "Hide From Event Listings"
-msgstr "Amaga a la llista de propers esdeveniments"
+msgstr ""
 
 #: ../admin-views/event-sidebar-options.php:12
 msgid "Sticky in Calendar View"
@@ -426,11 +425,10 @@ msgid "Events template"
 msgstr ""
 
 #: ../admin-views/tribe-options-display.php:70
-#, fuzzy
 msgid ""
 "Choose a page template to control the appearance of your calendar and event "
 "content."
-msgstr "Esculliu una plantilla per controlar l'aspecte del vostre calendari."
+msgstr ""
 
 #: ../admin-views/tribe-options-display.php:78
 msgid "Enable event views"
@@ -515,16 +513,12 @@ msgid "We hope our plugin is helping you out."
 msgstr "Esperem que el nostre plugin us faci servei."
 
 #: ../admin-views/tribe-options-general.php:37
-#, fuzzy
 msgid ""
 "Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
 "Modern Tribe for all their hard work.\" The greatest thanks we could ask for "
 "is recognition. Add a small text-only link at the bottom of your calendar "
 "pointing to The Events Calendar project."
 msgstr ""
-"Esteu pensant \"Aquest plugin és increible! Hauria d'agraïr a Modern Tribe "
-"la seva feina.\" El millor agraïment és el reconeixement. Afegeix un petit "
-"enllaç de text a sota del calendari cap al projecte The Events Calendar."
 
 #: ../admin-views/tribe-options-general.php:37
 #: ../admin-views/tribe-options-general.php:42
@@ -591,16 +585,13 @@ msgid "Events URL slug"
 msgstr "Adreça amigable de l'esdeveniment (slug)"
 
 #: ../admin-views/tribe-options-general.php:94
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You cannot edit the slug for your events page as you do not have pretty "
 "permalinks enabled. The current URL for your events page is <a href=\"%s\">"
 "%s</a>. In order to edit the slug here, <a href=\"%soptions-permalink.php"
 "\">enable pretty permalinks</a>."
 msgstr ""
-"No podeu editar l'adreça amigable de l'esdeveniment perquè no heu habilitat "
-"les adreces amigables. L'adreça actual per la vostra pàgina d'esdeveniments "
-"és <a href=\""
 
 #: ../admin-views/tribe-options-general.php:106
 #: ../public/template-tags/options.php:20
@@ -623,14 +614,11 @@ msgid "Single event URL slug"
 msgstr ""
 
 #: ../admin-views/tribe-options-general.php:123
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The above should ideally be plural, and this singular.<br />Your single "
 "event URL is: %s"
 msgstr ""
-"<strong>No</strong> pots fer servir aquesta adreça amigable. Aquesta hauria "
-"de ser plural i és singular. <br />L'adreça amigable pel vostre esdeveniment "
-"únic és: %s"
 
 #: ../admin-views/tribe-options-general.php:128
 msgid "End of day cutoff"
@@ -796,7 +784,7 @@ msgid ""
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:99
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "<p>We love all our users and want to help free & PRO customers alike. If "
 "you're running the latest version of The Events Calendar and are having "
@@ -804,10 +792,6 @@ msgid ""
 "week to look for legitimate bug reports and do what we can to assist users.</"
 "p>"
 msgstr ""
-"Volem ajudar als nostres usuaris de la versió de franc i la versió PRO "
-"d'igual manera. Si feu servir l'última versió de The Events Calendar i teniu "
-"problemes, publiqueu un fil al %s a WordPress.org. Comprovem el fòrum vàries "
-"vegades a la setmana per ajudar els usuaris."
 
 #: ../admin-views/tribe-options-help.php:99
 msgid "forum for The Events Calendar"
@@ -826,14 +810,12 @@ msgid "A few things to keep in mind before posting:"
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:103
-#, fuzzy
 msgid ""
 "Search recent threads before posting a new one to check that there isn't "
 "already a discussion about your issue."
-msgstr "%sMireu si hi ha cap fil actiu sobre el mateix problema.%s"
+msgstr ""
 
 #: ../admin-views/tribe-options-help.php:104
-#, fuzzy
 msgid ""
 "Check whether the issue is a conflict with another plugin or your theme. "
 "This can be tested easily on a staging site by deactivating other plugins "
@@ -841,41 +823,29 @@ msgid ""
 "conflicts can be easily identified. If you find a conflict, note it in a "
 "support thread."
 msgstr ""
-"%sComproveu si hi ha cap conflicte amb altre plugin o el tema que feu "
-"servir. Això es pot comprovar fàcilment desactivant els plugins un per un, o "
-"activant el tema per defecte. Si noteu cap conflicte, indiqueu-ho quan "
-"publiqueu el vostre fil%s"
 
 #: ../admin-views/tribe-options-help.php:105
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Sometimes, resaving your permalinks (under <a href=\"%s\">Settings > "
 "Permalinks</a>) can resolve events-related problems on your site. Before "
 "creating a new thread try this handy trick."
 msgstr ""
-"%sDe vegades, tornant a guardar els enllaços permanents (permalinks) pot "
-"ressoldre el problema. Proveu-ho abans de publicar el vostre fil.%s"
 
 #: ../admin-views/tribe-options-help.php:107
-#, fuzzy
 msgid ""
 "While we are happy to help with bugs and provide light integration tips for "
 "users of The Events Calendar, on the WordPress.org support forums we're not "
 "able to provide customization tips or assist in integration with 3rd party "
 "plugins."
 msgstr ""
-"%sTot i que el nostre equip us ajudarà amb l'integració i solució de "
-"problemes amb The Events Calendar, no podem donar suport a personalització o "
-"integració amb plugins de tercers als fòrums de Wordpress.org%s"
 
 #: ../admin-views/tribe-options-help.php:109
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Shoot us an email at %s or tweet %s and tell us why. We'll do what we can to "
 "make it right."
 msgstr ""
-"%sEnvia'ns un missatge per correu electrònic a l'adreça %s o un tuit a %s i "
-"expliqueu-nos per què. Farem el possible per ajudar-vos%s"
 
 #: ../admin-views/tribe-options-help.php:110
 msgid "More..."
@@ -1581,13 +1551,10 @@ msgid "Additional Functionality"
 msgstr "Funcions adicionals"
 
 #: ../lib/the-events-calendar.class.php:3267
-#, fuzzy
 msgid ""
 "Looking for additional functionality including recurring events, ticket "
 "sales, publicly submitted events, new views and more?"
 msgstr ""
-"Voleu funcions adicionals com ara esdeveniments recurrents, metadades a "
-"mida, esdeveniments de la comunitat, venda d'entrades i altres?"
 
 #: ../lib/the-events-calendar.class.php:3267
 #, php-format
@@ -1790,22 +1757,18 @@ msgid "There  were no results found for <strong>\"%s\"</strong>."
 msgstr ""
 
 #: ../lib/tribe-template-factory.class.php:153
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "listed under %s. Check out past events for this category or view the full "
 "calendar."
 msgstr ""
-"llistat a %s. Comproveu esdeveniments anteriors en aquesta categoria o veieu "
-"el calendari complet."
 
 #: ../lib/tribe-template-factory.class.php:155
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "listed under %s. Check out upcoming events for this category or view the "
 "full calendar."
 msgstr ""
-"llistat a %s. Comproveu propers esdeveniments en aquesta categoria o veieu "
-"el calendari complet."
 
 #: ../lib/tribe-template-factory.class.php:159
 #, php-format
@@ -3142,9 +3105,8 @@ msgid "A widget that displays upcoming events."
 msgstr ""
 
 #: ../lib/widget-list.class.php:22
-#, fuzzy
 msgid "Events List"
-msgstr "Preu de l'esdeveniment"
+msgstr ""
 
 #: ../lib/widget-list.class.php:92
 msgid "View All Events"

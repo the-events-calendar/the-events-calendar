@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-20 02:24-0600\n"
-"PO-Revision-Date: 2013-05-20 02:24-0600\n"
-"Last-Translator: Modern Tribe, Inc. <pro@tri.be>\n"
+"PO-Revision-Date: 2013-05-20 02:36-0600\n"
+"Last-Translator: Modern Tribe Inc. <pro@tri.be>\n"
 "Language-Team: Modern Tribe, Inc. <kamilszymanski@gmail.com>\n"
 "Language: pl_PL\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #
@@ -37,9 +37,8 @@ msgid "Last Update"
 msgstr ""
 
 #: ../admin-views/event-sidebar-options.php:11
-#, fuzzy
 msgid "Hide From Event Listings"
-msgstr "Ukryj na liście nadchodzących wydarzeń"
+msgstr ""
 
 #: ../admin-views/event-sidebar-options.php:12
 msgid "Sticky in Calendar View"
@@ -426,11 +425,10 @@ msgid "Events template"
 msgstr ""
 
 #: ../admin-views/tribe-options-display.php:70
-#, fuzzy
 msgid ""
 "Choose a page template to control the appearance of your calendar and event "
 "content."
-msgstr "Wybierz szablon strony, aby kontrolować wygląd kalendarza."
+msgstr ""
 
 #: ../admin-views/tribe-options-display.php:78
 msgid "Enable event views"
@@ -597,10 +595,9 @@ msgid "The slug used for building the events URL."
 msgstr ""
 
 #: ../admin-views/tribe-options-general.php:106
-#, fuzzy, php-format
+#, php-format
 msgid "Your current events URL is: %s"
 msgstr ""
-"Twój obecny ciąg znaków dla URLi to <strong><a href=\"%s\">%s</a></strong>"
 
 #
 #: ../admin-views/tribe-options-general.php:111
@@ -614,14 +611,11 @@ msgid "Single event URL slug"
 msgstr ""
 
 #: ../admin-views/tribe-options-general.php:123
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The above should ideally be plural, and this singular.<br />Your single "
 "event URL is: %s"
 msgstr ""
-"<strong>UWAGA:</strong> Nie <em>możesz</em> użyć tego samego ciągu co wyżej. "
-"Ciąg powyżej powinien być w liczbie mnogiej, a aktualny w liczbie "
-"pojedynczej.<br />Twój URL do pojedynczego wydarzenia to: <strong>%s</strong>"
 
 #: ../admin-views/tribe-options-general.php:128
 msgid "End of day cutoff"
@@ -692,17 +686,13 @@ msgid "Debug mode"
 msgstr ""
 
 #: ../admin-views/tribe-options-general.php:185
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Enable this option to log debug information. By default this will log to "
 "your server PHP error log. If you'd like to see the log messages in your "
 "browser, then we recommend that you install the %s and look for the \"Tribe"
 "\" tab in the debug output."
 msgstr ""
-"Włącz tę opcję, aby zapisywać informacje debugowania. Domyślnie informacje "
-"będą zapisywane do logów serwera PHP. Jeśli chciałbyś zobaczyć logi w "
-"przeglądarce, zalecamy instalację wtyczki <a href=\"%s\" target=\"_blank"
-"\">Debug Ba</a> i wyszukwanie karty \"Tribe\" w logu wyświetalania."
 
 #: ../admin-views/tribe-options-general.php:185
 msgid "Debug Bar Plugin"
@@ -1424,13 +1414,11 @@ msgid ""
 msgstr "Organizator nadesłany. <a target=\"_blank\" href=\"%s\">Podejrzyj</a"
 
 #: ../lib/the-events-calendar.class.php:1239
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
 "\"%2$s\">Preview organizer</a>"
 msgstr ""
-"Miejsce zaplanowane na: <strong>%1$s</strong>. <a target=\"_blank\" href="
-"\"%2$s\">Podejrzyj</a>"
 
 #: ../lib/the-events-calendar.class.php:1242
 #, php-format
@@ -1548,13 +1536,10 @@ msgid "Additional Functionality"
 msgstr "Dodatkowa funkcjonalność"
 
 #: ../lib/the-events-calendar.class.php:3267
-#, fuzzy
 msgid ""
 "Looking for additional functionality including recurring events, ticket "
 "sales, publicly submitted events, new views and more?"
 msgstr ""
-"Szukasz nowych funkcji? Nawracających wydarzeń, danych użytkownika, wydarzeń "
-"społecznościowych, sprzedaży biletów lub innych?"
 
 #: ../lib/the-events-calendar.class.php:3267
 #, php-format
@@ -1763,22 +1748,18 @@ msgid "There  were no results found for <strong>\"%s\"</strong>."
 msgstr ""
 
 #: ../lib/tribe-template-factory.class.php:153
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "listed under %s. Check out past events for this category or view the full "
 "calendar."
 msgstr ""
-" w kategorii %s. Sprawdź poprzednie wydarzenia z tej kategorii lub przejrzyj "
-"cały kalendarz."
 
 #: ../lib/tribe-template-factory.class.php:155
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "listed under %s. Check out upcoming events for this category or view the "
 "full calendar."
 msgstr ""
-" w kategorii %s. Sprawdź nadchodzące wydarzenia z tej kategorii lub "
-"przejrzyj cały kalendarz."
 
 #: ../lib/tribe-template-factory.class.php:159
 #, php-format
@@ -3107,9 +3088,8 @@ msgid "A widget that displays upcoming events."
 msgstr ""
 
 #: ../lib/widget-list.class.php:22
-#, fuzzy
 msgid "Events List"
-msgstr "Koszty wydarzenia"
+msgstr ""
 
 #: ../lib/widget-list.class.php:92
 msgid "View All Events"
@@ -3323,20 +3303,16 @@ msgid "Events for "
 msgstr ""
 
 #: ../public/template-tags/options.php:20
-#, fuzzy, php-format
+#, php-format
 msgid "Your current Events URL is %s"
 msgstr ""
-"Twój obecny ciąg znaków dla URLi to <strong><a href=\"%s\">%s</a></strong>"
 
 #: ../public/template-tags/options.php:31
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You <strong>cannot</strong> use the same slug as above. The above should "
 "ideally be plural, and this singular.<br />Your single Event URL is like: %s"
 msgstr ""
-"<strong>UWAGA:</strong> Nie <em>możesz</em> użyć tego samego ciągu co wyżej. "
-"Ciąg powyżej powinien być w liczbie mnogiej, a aktualny w liczbie "
-"pojedynczej.<br />Twój URL do pojedynczego wydarzenia to: <strong>%s</strong>"
 
 #
 #: ../views/single-event.php:31
