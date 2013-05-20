@@ -3,6 +3,9 @@
 }
 
 /* calendar css */
+.tribe-mini-calendar-grid-wrapper {
+	margin-bottom: 10px;
+}
 
 .tribe-mini-calendar {
 	border-collapse: collapse;
