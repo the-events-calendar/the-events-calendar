@@ -285,7 +285,6 @@ Our Premium Plugins:
 
 **Small features, UX and Content Tweaks:**
 
-* Integration with Presstrends (<a href="http://www.presstrends.io/">http://www.presstrends.io/</a>).
 * Added an prominent message showing where the calendar lives on your site, appearing immediately upon initial activation.
 * Added prominent links to the frontend calendar throughout the backend: on the admin Events list, within the admin bar Events menu, on the plugins list and in the Events panel in the main left-hand admin menu.
 * Updated Events panel in main left-hand admin menu to include "Settings" and "Help," & to rename "App Shop" to "Event Add-Ons."

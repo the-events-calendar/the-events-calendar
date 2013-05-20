@@ -64,18 +64,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public static $refQueryString = '?ref=tec-plugin';
 		public static $dotOrgSupportUrl = 'http://wordpress.org/tags/the-events-calendar';
 
-		/**
-		 * PressTrends API key
-		 * @var string
-		 */
-		private static $pressTrendsApiKey = 'tije8ygaph33vjqfbnyv6irf0wzulmingvl2';
-
-		/**
-		 * PressTrends auth key
-		 * @var string
-		 */
-		private static $pressTrendsAuth = 'emkw894xhz9vicapxnfeyvpa8secpqh23';
-
 		protected static $instance;
 		public $rewriteSlug = 'events';
 		public $rewriteSlugSingular = 'event';
@@ -188,10 +176,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		protected function loadLibraries() {
 			// Exceptions Helper
 			require_once( 'tribe-event-exception.class.php' );
-
-			// Tribe Common Libs Helper
-			require_once( $this->pluginPath.'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
-			TribeCommonLibraries::register( 'presstrends', '1.0', $this->pluginPath . 'vendor/presstrends/presstrends.php' );
 
 			// Load Template Tags
 			require_once( $this->pluginPath.'public/template-tags/query.php' );
@@ -419,21 +403,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'wp_ajax_tribe_list', array( $this, 'list_ajax_call' ) );
 			add_action( 'tribe_events_pre_get_posts', array( $this, 'set_tribe_paged' ) );
 			add_action( 'wp_ajax_nopriv_tribe_list', array( $this, 'list_ajax_call' ) );
-			add_action( 'plugins_loaded', array( $this, 'initPressTrends' ), 9999 );
-		}
-
-		/**
-		 * Initialize PressTrends.
-		 * @author Peter Chester
-		 */
-		public function initPressTrends() {
-			if ( class_exists('TribePressTrends') ) {
-				new TribePressTrends(
-					$this->pluginPath.'the-events-calendar.php',
-					self::$pressTrendsApiKey,
-					self::$pressTrendsAuth
-				);
-			}
 		}
 
 		public function promo_banner_prevent_bot( $html ){
