@@ -4,7 +4,10 @@
  * variable setup
  */
 
-$tec_info = wp_remote_get( apply_filters('tribe_help_tab_api_info_url', TribeEvents::INFO_API_URL) );
+$tec_info = wp_remote_get( apply_filters('tribe_help_tab_api_info_url', TribeEvents::INFO_API_URL), array(
+	'timeout' => 15, //seconds
+	'headers' => array( 'Accept' => 'application/json' ),
+) );
 if ( !is_wp_error($tec_info) ) {
 	$tec_info = $tec_info['body'];
 	$tec_info = unserialize($tec_info);
