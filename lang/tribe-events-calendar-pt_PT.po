@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-20 02:05-0600\n"
-"PO-Revision-Date: 2013-05-20 02:05-0600\n"
+"PO-Revision-Date: 2013-05-20 02:24-0600\n"
 "Last-Translator: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language-Team: Diego Meneghetti <diego@meneghetti.jor.br>\n"
 "Language: pt_BR\n"
@@ -15,8 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
 "X-Generator: Poedit 1.5.4\n"
@@ -62,14 +61,8 @@ msgid "Event Time &amp; Date"
 msgstr "Hora do evento &amp; Data"
 
 #: ../admin-views/events-meta-box.php:32
-msgid ""
-"You have changed the recurrence rules of this event.  Saving the event will "
-"update all future events.  If you did not mean to change all events, then "
-"please refresh the page."
-msgstr ""
-"Você alterou as regras de repetição deste evento. Salvar o evento irá "
-"actualizar todos os eventos futuros. Se não quiser mudar todos os eventos, "
-"por favor, actualize a página."
+msgid "You have changed the recurrence rules of this event.  Saving the event will update all future events.  If you did not mean to change all events, then please refresh the page."
+msgstr "Você alterou as regras de repetição deste evento. Salvar o evento irá actualizar todos os eventos futuros. Se não quiser mudar todos os eventos, por favor, actualize a página."
 
 #
 #: ../admin-views/events-meta-box.php:35
@@ -151,9 +144,7 @@ msgid "Email:"
 msgstr "E-mail:"
 
 #: ../admin-views/recurrence-dialog.php:13
-msgid ""
-"Would you like to change only this instance of the event, or all future "
-"events in this series?"
+msgid "Would you like to change only this instance of the event, or all future events in this series?"
 msgstr ""
 
 #: ../admin-views/recurrence-dialog.php:15
@@ -172,15 +163,11 @@ msgid "All Events:"
 msgstr ""
 
 #: ../admin-views/recurrence-dialog.php:16
-msgid ""
-"All future events in the series will be changed. Any changes made to other "
-"events will be kept."
+msgid "All future events in the series will be changed. Any changes made to other events will be kept."
 msgstr ""
 
 #: ../admin-views/recurrence-dialog.php:21
-msgid ""
-"Would you like to delete only this instance of the event, or all future "
-"events in this series?"
+msgid "Would you like to delete only this instance of the event, or all future events in this series?"
 msgstr ""
 
 #: ../admin-views/recurrence-dialog.php:23
@@ -285,9 +272,7 @@ msgid "See who purchased tickets to this event"
 msgstr ""
 
 #: ../admin-views/tickets-meta-box.php:21
-msgid ""
-"This event was created using Community Events. Are you sure you want to sell "
-"tickets for it?"
+msgid "This event was created using Community Events. Are you sure you want to sell tickets for it?"
 msgstr ""
 
 #: ../admin-views/tickets-meta-box.php:32
@@ -295,10 +280,7 @@ msgid "Upload image for the ticket header"
 msgstr ""
 
 #: ../admin-views/tickets-meta-box.php:33
-msgid ""
-"The maximum image size in the email will be 580px wide by any height, and "
-"then scaled for mobile. If you would like \"retina\" support use an image "
-"sized to 1160px wide."
+msgid "The maximum image size in the email will be 580px wide by any height, and then scaled for mobile. If you would like \"retina\" support use an image sized to 1160px wide."
 msgstr ""
 
 #
@@ -349,9 +331,7 @@ msgid "End sale:"
 msgstr ""
 
 #: ../admin-views/tickets-meta-box.php:170
-msgid ""
-"When will ticket sales occur? If you don't set a start/end date for sales, "
-"tickets will be available from now until the event ends."
+msgid "When will ticket sales occur? If you don't set a start/end date for sales, tickets will be available from now until the event ends."
 msgstr ""
 
 #: ../admin-views/tribe-options-display.php:4
@@ -368,15 +348,7 @@ msgid "Display Settings"
 msgstr ""
 
 #: ../admin-views/tribe-options-display.php:33
-msgid ""
-"<p>The settings below control the display of your calendar. If things don't "
-"look right, try switching between the three style sheet options or pick a "
-"page template from your theme.</p>There are going to be situations where no "
-"out-of-the-box template is 100% perfect. Check out our <a href=\"http://tri."
-"be/support/documentation/events-calendar-themers-guide/\">our themer's "
-"guide</a> for instructions on custom modifications. Want to create a new "
-"view? Grab a copy of the <a href=\"https://github.com/moderntribe/tribe-"
-"events-agenda-view\">Sample Agenda View plugin from Github</a></p>"
+msgid "<p>The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme.</p>There are going to be situations where no out-of-the-box template is 100% perfect. Check out our <a href=\"http://tri.be/support/documentation/events-calendar-themers-guide/\">our themer's guide</a> for instructions on custom modifications. Want to create a new view? Grab a copy of the <a href=\"https://github.com/moderntribe/tribe-events-agenda-view\">Sample Agenda View plugin from Github</a></p>"
 msgstr ""
 
 #
@@ -394,10 +366,7 @@ msgid "Skeleton Styles"
 msgstr ""
 
 #: ../admin-views/tribe-options-display.php:54
-msgid ""
-"These styles provide a bare minimum level of layout for the more complex "
-"templates, and is recommended if you're customizing the events template "
-"styles."
+msgid "These styles provide a bare minimum level of layout for the more complex templates, and is recommended if you're customizing the events template styles."
 msgstr ""
 
 #: ../admin-views/tribe-options-display.php:56
@@ -405,9 +374,7 @@ msgid "Full Styles"
 msgstr ""
 
 #: ../admin-views/tribe-options-display.php:58
-msgid ""
-"These styles provide a more complex level of layout and style and should "
-"adapt to your theme"
+msgid "These styles provide a more complex level of layout and style and should adapt to your theme"
 msgstr ""
 
 #
@@ -426,11 +393,8 @@ msgstr ""
 
 #: ../admin-views/tribe-options-display.php:70
 #, fuzzy
-msgid ""
-"Choose a page template to control the appearance of your calendar and event "
-"content."
-msgstr ""
-"Escolha um modelo de página para controlar a aparência de seu calendário."
+msgid "Choose a page template to control the appearance of your calendar and event content."
+msgstr "Escolha um modelo de página para controlar a aparência de seu calendário."
 
 #: ../admin-views/tribe-options-display.php:78
 msgid "Enable event views"
@@ -463,9 +427,7 @@ msgid "Add HTML before event content"
 msgstr ""
 
 #: ../admin-views/tribe-options-display.php:106
-msgid ""
-"If you are familiar with HTML, you can add additional code before the event "
-"template. Some themes may require this to help with styling or layout."
+msgid "If you are familiar with HTML, you can add additional code before the event template. Some themes may require this to help with styling or layout."
 msgstr ""
 
 #
@@ -474,9 +436,7 @@ msgid "Add HTML after event content"
 msgstr ""
 
 #: ../admin-views/tribe-options-display.php:112
-msgid ""
-"If you are familiar with HTML, you can add additional code after the event "
-"template. Some themes may require this to help with styling or layout."
+msgid "If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout."
 msgstr ""
 
 #: ../admin-views/tribe-options-general.php:14
@@ -497,12 +457,8 @@ msgid "Right here"
 msgstr ""
 
 #: ../admin-views/tribe-options-general.php:28
-msgid ""
-"Looking for additional functionality including recurring events, custom "
-"meta, community events, ticket sales and more?"
-msgstr ""
-"Procura funcionalidades adicionais, como eventos recorrentes, informações "
-"personalizadas, eventos da comunidade, venda de bilhetes e muito mais?"
+msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
+msgstr "Procura funcionalidades adicionais, como eventos recorrentes, informações personalizadas, eventos da comunidade, venda de bilhetes e muito mais?"
 
 #
 #: ../admin-views/tribe-options-general.php:28
@@ -514,11 +470,7 @@ msgid "We hope our plugin is helping you out."
 msgstr ""
 
 #: ../admin-views/tribe-options-general.php:37
-msgid ""
-"Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
-"Modern Tribe for all their hard work.\" The greatest thanks we could ask for "
-"is recognition. Add a small text-only link at the bottom of your calendar "
-"pointing to The Events Calendar project."
+msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project."
 msgstr ""
 
 #: ../admin-views/tribe-options-general.php:37
@@ -527,11 +479,7 @@ msgid "See an example of the link"
 msgstr ""
 
 #: ../admin-views/tribe-options-general.php:42
-msgid ""
-"Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
-"Modern Tribe for all their hard work.\" The greatest thanks we could ask for "
-"is recognition. Add a small text only link at the bottom of your calendar "
-"pointing to The Events Calendar project."
+msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project."
 msgstr ""
 
 #
@@ -570,9 +518,7 @@ msgid "Include events in main blog loop"
 msgstr ""
 
 #: ../admin-views/tribe-options-general.php:87
-msgid ""
-"Show events with the site's other posts. When this box is checked, events "
-"will also continue to appear on the default events page."
+msgid "Show events with the site's other posts. When this box is checked, events will also continue to appear on the default events page."
 msgstr ""
 
 #: ../admin-views/tribe-options-general.php:93
@@ -582,11 +528,7 @@ msgstr "Slug da URL de Eventos"
 
 #: ../admin-views/tribe-options-general.php:94
 #, php-format
-msgid ""
-"You cannot edit the slug for your events page as you do not have pretty "
-"permalinks enabled. The current URL for your events page is <a href=\"%s\">"
-"%s</a>. In order to edit the slug here, <a href=\"%soptions-permalink.php"
-"\">enable pretty permalinks</a>."
+msgid "You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href=\"%s\">%s</a>. In order to edit the slug here, <a href=\"%soptions-permalink.php\">enable pretty permalinks</a>."
 msgstr ""
 
 #
@@ -613,22 +555,15 @@ msgstr ""
 
 #: ../admin-views/tribe-options-general.php:123
 #, fuzzy, php-format
-msgid ""
-"The above should ideally be plural, and this singular.<br />Your single "
-"event URL is: %s"
-msgstr ""
-"<strong>OBS:</strong> Você <em>não pode</em> usar a mesma slug acima. A slug "
-"de cima deve estar no plural, e esté no singular.<br />A URL de um evento é "
-"do tipo: <strong>%s</strong>"
+msgid "The above should ideally be plural, and this singular.<br />Your single event URL is: %s"
+msgstr "<strong>OBS:</strong> Você <em>não pode</em> usar a mesma slug acima. A slug de cima deve estar no plural, e esté no singular.<br />A URL de um evento é do tipo: <strong>%s</strong>"
 
 #: ../admin-views/tribe-options-general.php:128
 msgid "End of day cutoff"
 msgstr ""
 
 #: ../admin-views/tribe-options-general.php:136
-msgid ""
-"Have events that run past midnight? Control when your day official ends to "
-"avoid awkwardly adding your event to the next day."
+msgid "Have events that run past midnight? Control when your day official ends to avoid awkwardly adding your event to the next day."
 msgstr ""
 
 #: ../admin-views/tribe-options-general.php:141
@@ -636,9 +571,7 @@ msgid "Default currency symbol"
 msgstr ""
 
 #: ../admin-views/tribe-options-general.php:142
-msgid ""
-"Set the default currency symbol for event costs. Note that this only impacts "
-"future events, and changes made will not apply retroactively."
+msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
 msgstr ""
 
 #
@@ -672,10 +605,7 @@ msgid "Duplicate Venues &amp; Organizers"
 msgstr ""
 
 #: ../admin-views/tribe-options-general.php:174
-msgid ""
-"You might find duplicate venues and organizers when updating The Events "
-"Calendar from a pre-3.0 version. Click this button to automatically merge "
-"identical venues and organizers."
+msgid "You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers."
 msgstr ""
 
 #: ../admin-views/tribe-options-general.php:174
@@ -690,16 +620,8 @@ msgstr ""
 
 #: ../admin-views/tribe-options-general.php:185
 #, fuzzy, php-format
-msgid ""
-"Enable this option to log debug information. By default this will log to "
-"your server PHP error log. If you'd like to see the log messages in your "
-"browser, then we recommend that you install the %s and look for the \"Tribe"
-"\" tab in the debug output."
-msgstr ""
-"Habilite esta opção para registrar informações de debug. Por padrão isso "
-"cria um log de erro do servidor. Se você gostaria de ver as mensagens de log "
-"no navegador, recomendamos que você instale o <a href=\"%s\" target=\"_blank"
-"\"> Plugin Bar Debug </ a> e procure a tab \"Tribe\" na saída de debug."
+msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"Tribe\" tab in the debug output."
+msgstr "Habilite esta opção para registrar informações de debug. Por padrão isso cria um log de erro do servidor. Se você gostaria de ver as mensagens de log no navegador, recomendamos que você instale o <a href=\"%s\" target=\"_blank\"> Plugin Bar Debug </ a> e procure a tab \"Tribe\" na saída de debug."
 
 #: ../admin-views/tribe-options-general.php:185
 msgid "Debug Bar Plugin"
@@ -774,24 +696,12 @@ msgstr ""
 
 #: ../admin-views/tribe-options-help.php:96
 #, php-format
-msgid ""
-"If this is your first time using The Events Calendar,you're in for a treat. "
-"You're going to find it super-easy to get up and running with managing your "
-"events. Here are some ways to get started:</p><ul><li><strong>Feeling "
-"adventurous?</strong> Jump right into it by visiting the Events menu to <a "
-"href=\"%s\">add your first event</a>.</li><li><strong>Want to get the low-"
-"down first?</strong> Visit our <a href=\"%s\">new user primer</a>,  designed "
-"to help familiarize you with the plugin basics.</li></ul>"
+msgid "If this is your first time using The Events Calendar,you're in for a treat. You're going to find it super-easy to get up and running with managing your events. Here are some ways to get started:</p><ul><li><strong>Feeling adventurous?</strong> Jump right into it by visiting the Events menu to <a href=\"%s\">add your first event</a>.</li><li><strong>Want to get the low-down first?</strong> Visit our <a href=\"%s\">new user primer</a>,  designed to help familiarize you with the plugin basics.</li></ul>"
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:99
 #, php-format
-msgid ""
-"<p>We love all our users and want to help free & PRO customers alike. If "
-"you're running the latest version of The Events Calendar and are having "
-"problems, post a thread at the %s on WordPress.org. We hit the forum once a "
-"week to look for legitimate bug reports and do what we can to assist users.</"
-"p>"
+msgid "<p>We love all our users and want to help free & PRO customers alike. If you're running the latest version of The Events Calendar and are having problems, post a thread at the %s on WordPress.org. We hit the forum once a week to look for legitimate bug reports and do what we can to assist users.</p>"
 msgstr ""
 
 #
@@ -801,9 +711,7 @@ msgstr ""
 
 #: ../admin-views/tribe-options-help.php:100
 #, php-format
-msgid ""
-"<p>If you need additional help, %sEvents Calendar Pro%s gets you access to "
-"our support forums for a full year.</p>"
+msgid "<p>If you need additional help, %sEvents Calendar Pro%s gets you access to our support forums for a full year.</p>"
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:101
@@ -811,41 +719,25 @@ msgid "A few things to keep in mind before posting:"
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:103
-msgid ""
-"Search recent threads before posting a new one to check that there isn't "
-"already a discussion about your issue."
+msgid "Search recent threads before posting a new one to check that there isn't already a discussion about your issue."
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:104
-msgid ""
-"Check whether the issue is a conflict with another plugin or your theme. "
-"This can be tested easily on a staging site by deactivating other plugins "
-"one-by-one, and reverting to the default Twenty Twelve theme to see if "
-"conflicts can be easily identified. If you find a conflict, note it in a "
-"support thread."
+msgid "Check whether the issue is a conflict with another plugin or your theme. This can be tested easily on a staging site by deactivating other plugins one-by-one, and reverting to the default Twenty Twelve theme to see if conflicts can be easily identified. If you find a conflict, note it in a support thread."
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:105
 #, php-format
-msgid ""
-"Sometimes, resaving your permalinks (under <a href=\"%s\">Settings > "
-"Permalinks</a>) can resolve events-related problems on your site. Before "
-"creating a new thread try this handy trick."
+msgid "Sometimes, resaving your permalinks (under <a href=\"%s\">Settings > Permalinks</a>) can resolve events-related problems on your site. Before creating a new thread try this handy trick."
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:107
-msgid ""
-"While we are happy to help with bugs and provide light integration tips for "
-"users of The Events Calendar, on the WordPress.org support forums we're not "
-"able to provide customization tips or assist in integration with 3rd party "
-"plugins."
+msgid "While we are happy to help with bugs and provide light integration tips for users of The Events Calendar, on the WordPress.org support forums we're not able to provide customization tips or assist in integration with 3rd party plugins."
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:109
 #, php-format
-msgid ""
-"Shoot us an email at %s or tweet %s and tell us why. We'll do what we can to "
-"make it right."
+msgid "Shoot us an email at %s or tweet %s and tell us why. We'll do what we can to make it right."
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:110
@@ -853,9 +745,7 @@ msgid "More..."
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:117
-msgid ""
-"Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so much "
-"for installing our labor of love!"
+msgid "Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so much for installing our labor of love!"
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:119
@@ -937,9 +827,7 @@ msgid "Network Settings"
 msgstr ""
 
 #: ../admin-views/tribe-options-network.php:18
-msgid ""
-"This is where all of the global network settings for Modern Tribe's The "
-"Events Calendar can be modified."
+msgid "This is where all of the global network settings for Modern Tribe's The Events Calendar can be modified."
 msgstr ""
 
 #: ../admin-views/tribe-options-network.php:26
@@ -1023,18 +911,12 @@ msgstr "A iniciar Tribe Events em %s."
 
 #: ../lib/the-events-calendar.class.php:552
 #, php-format
-msgid ""
-"Your version of The Events Calendar is not up-to-date with one of your The "
-"Events Calendar add-ons. Please %supdate now.%s"
+msgid "Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s"
 msgstr ""
 
 #: ../lib/the-events-calendar.class.php:566
 #, php-format
-msgid ""
-"The following plugins are out of date: <b>%s</b>. Please %supdate now%s. All "
-"add-ons contain dependencies on The Events Calendar and will not function "
-"properly unless paired with the right version. %sWant to pair an older "
-"version%s?"
+msgid "The following plugins are out of date: <b>%s</b>. Please %supdate now%s. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sWant to pair an older version%s?"
 msgstr ""
 
 #: ../lib/the-events-calendar.class.php:623
@@ -1045,19 +927,7 @@ msgstr ""
 
 #: ../lib/the-events-calendar.class.php:627
 #, php-format
-msgid ""
-"<p>The license key you received when completing your purchase from http://"
-"tri.be will grant you access to support and updates until it expires. You do "
-"not need to enter the key below for the plugins to work, but you will need "
-"to enter it to get automatic updates. <strong>Find your license keys at <a "
-"href=\"%s\">%s</a></strong>.</p> <p>Each paid add-on has its own unique "
-"license key. Simply paste the key into its appropriate field on below, and "
-"give it a moment to validate. You know you're set when a green expiration "
-"date appears alongside a \"valid\" message.</p> <p>If you're seeing a red "
-"message telling you that your key isn't valid or is out of installs, visit "
-"[enter link to account/licenses] to manage your installs or renew / upgrade "
-"your license.</p><p>Not seeing an update but expecting one? In WordPress, go "
-"to <a href=\"%s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
+msgid "<p>The license key you received when completing your purchase from http://tri.be will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href=\"%s\">%s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit [enter link to account/licenses] to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
 msgstr ""
 
 #: ../lib/the-events-calendar.class.php:643
@@ -1070,22 +940,13 @@ msgstr ""
 
 #: ../lib/the-events-calendar.class.php:689
 #, php-format
-msgid ""
-"Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade "
-"your WordPress install."
-msgstr ""
-"Desculpe, mas o plugin Agenda de Eventos precisa do Wordpress %s ou "
-"superior. Por favor, actualize seu Wordpress."
+msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
+msgstr "Desculpe, mas o plugin Agenda de Eventos precisa do Wordpress %s ou superior. Por favor, actualize seu Wordpress."
 
 #: ../lib/the-events-calendar.class.php:692
 #, php-format
-msgid ""
-"Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host "
-"about moving you to a newer version of PHP."
-msgstr ""
-"Desculpe, mas o plugin Agenda de Eventos exige versão PHP %s ou superior. "
-"Entre em contacto com o seu servidor de alojamento e peça para actualizarem "
-"a versão do PHP."
+msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
+msgstr "Desculpe, mas o plugin Agenda de Eventos exige versão PHP %s ou superior. Entre em contacto com o seu servidor de alojamento e peça para actualizarem a versão do PHP."
 
 #: ../lib/the-events-calendar.class.php:839 ../lib/widget-list.class.php:116
 #: ../public/template-tags/loop.php:135 ../public/template-tags/loop.php:138
@@ -1329,12 +1190,8 @@ msgstr "Evento enviado. <a target=\"_blank\" href=\"%s\">Preview do evento</a>"
 
 #: ../lib/the-events-calendar.class.php:1205
 #, php-format
-msgid ""
-"Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
-"\">Preview event</a>"
-msgstr ""
-"Evento agendado para : <strong>%1$s</strong>. <a target=\"_blank\" href="
-"\"%2$s\">Preview do evento</a>"
+msgid "Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview event</a>"
+msgstr "Evento agendado para : <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview do evento</a>"
 
 #: ../lib/the-events-calendar.class.php:1207
 #: ../lib/the-events-calendar.class.php:1224
@@ -1377,18 +1234,13 @@ msgstr "Local enviado. <a target=\"_blank\" href=\"%s\">Preview</a>"
 
 #: ../lib/the-events-calendar.class.php:1222
 #, php-format
-msgid ""
-"Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
-"\">Preview venue</a>"
-msgstr ""
-"Local agendado para: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
-"\">Preview</a>"
+msgid "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview venue</a>"
+msgstr "Local agendado para: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview</a>"
 
 #: ../lib/the-events-calendar.class.php:1225
 #, php-format
 msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
-msgstr ""
-"Rascunho de local actualizado. <a target=\"_blank\" href=\"%s\">Preview</a>"
+msgstr "Rascunho de local actualizado. <a target=\"_blank\" href=\"%s\">Preview</a>"
 
 #: ../lib/the-events-calendar.class.php:1230
 #, php-format
@@ -1415,27 +1267,18 @@ msgstr "Organizador gravado."
 
 #: ../lib/the-events-calendar.class.php:1238
 #, php-format
-msgid ""
-"Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+msgid "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr "Organizador enviado. <a target=\"_blank\" href=\"%s\">Preview</a>"
 
 #: ../lib/the-events-calendar.class.php:1239
 #, php-format
-msgid ""
-"Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
-"\"%2$s\">Preview organizer</a>"
-msgstr ""
-"Organizador agendado para: <strong>%1$s</strong>. <a target=\"_blank\" href="
-"\"%2$s\">Preview</a>"
+msgid "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview organizer</a>"
+msgstr "Organizador agendado para: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview</a>"
 
 #: ../lib/the-events-calendar.class.php:1242
 #, php-format
-msgid ""
-"Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</"
-"a>"
-msgstr ""
-"Rascunho de organizador actualizado. <a target=\"_blank\" href=\"%s"
-"\">Preview</a>"
+msgid "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+msgstr "Rascunho de organizador actualizado. <a target=\"_blank\" href=\"%s\">Preview</a>"
 
 #: ../lib/the-events-calendar.class.php:1284
 msgid "Use Saved Venue:"
@@ -1546,12 +1389,8 @@ msgstr "Funcionalidade adicional"
 
 #: ../lib/the-events-calendar.class.php:3267
 #, fuzzy
-msgid ""
-"Looking for additional functionality including recurring events, ticket "
-"sales, publicly submitted events, new views and more?"
-msgstr ""
-"Procura funcionalidades adicionais, como eventos recorrentes, informações "
-"personalizadas, eventos da comunidade, venda de bilhetes e muito mais?"
+msgid "Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?"
+msgstr "Procura funcionalidades adicionais, como eventos recorrentes, informações personalizadas, eventos da comunidade, venda de bilhetes e muito mais?"
 
 #: ../lib/the-events-calendar.class.php:3267
 #, php-format
@@ -1582,9 +1421,7 @@ msgstr "Configurações"
 
 #: ../lib/the-events-calendar.class.php:3394
 #, php-format
-msgid ""
-"Welcome to The Events Calendar! Your events calendar can be found at %s. To "
-"change the events slug, visit %sEvents -> Settings%s."
+msgid "Welcome to The Events Calendar! Your events calendar can be found at %s. To change the events slug, visit %sEvents -> Settings%s."
 msgstr ""
 
 #: ../lib/the-events-calendar.class.php:3460
@@ -1742,10 +1579,8 @@ msgid "None of your settings were saved. Please try again."
 msgstr ""
 
 #: ../lib/tribe-settings.class.php:485
-msgid ""
-"The above setting was not saved. Other settings were successfully saved."
-msgid_plural ""
-"The above settings were not saved. Other settings were successfully saved."
+msgid "The above setting was not saved. Other settings were successfully saved."
+msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] ""
 msgstr[1] ""
 
@@ -1761,27 +1596,18 @@ msgstr ""
 
 #: ../lib/tribe-template-factory.class.php:153
 #, fuzzy, php-format
-msgid ""
-"listed under %s. Check out past events for this category or view the full "
-"calendar."
-msgstr ""
-"listados abaixo %s. Verifique os eventos anteriores nesta categoria ou veja "
-"o calendário completo."
+msgid "listed under %s. Check out past events for this category or view the full calendar."
+msgstr "listados abaixo %s. Verifique os eventos anteriores nesta categoria ou veja o calendário completo."
 
 #: ../lib/tribe-template-factory.class.php:155
 #, fuzzy, php-format
-msgid ""
-"listed under %s. Check out upcoming events for this category or view the "
-"full calendar."
-msgstr ""
-"listados abaixo %s. Veja os próximos eventos ou veja o calendário completo."
+msgid "listed under %s. Check out upcoming events for this category or view the full calendar."
+msgstr "listados abaixo %s. Veja os próximos eventos ou veja o calendário completo."
 
 #: ../lib/tribe-template-factory.class.php:159
 #, fuzzy, php-format
 msgid "No events scheduled for <strong>%s</strong>. Please try another day."
-msgstr ""
-"Evento agendado para : <strong>%1$s</strong>. <a target=\"_blank\" href="
-"\"%2$s\">Preview do evento</a>"
+msgstr "Evento agendado para : <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview do evento</a>"
 
 #
 #: ../lib/tribe-template-factory.class.php:163
@@ -1799,12 +1625,7 @@ msgid "No previous events "
 msgstr ""
 
 #: ../lib/tribe-the-events-calendar-import.class.php:44
-msgid ""
-"Welcome to Events 2.0! This is a HUGE upgrade from 1.6.5. Please make sure "
-"you have backed up before proceeding any further. You can easily <a href=\" "
-"http://wordpress.org/extend/plugins/the-events-calendar/download/\">revert "
-"to an old version</a> if you want to backup first. This upgrade includes two "
-"major steps, <a href=\"edit.php?post_type="
+msgid "Welcome to Events 2.0! This is a HUGE upgrade from 1.6.5. Please make sure you have backed up before proceeding any further. You can easily <a href=\" http://wordpress.org/extend/plugins/the-events-calendar/download/\">revert to an old version</a> if you want to backup first. This upgrade includes two major steps, <a href=\"edit.php?post_type="
 msgstr ""
 
 #: ../lib/tribe-the-events-calendar-import.class.php:54
@@ -1812,14 +1633,8 @@ msgid "Upgrade from The Events Calendar"
 msgstr "Faça upgrade do The Events Calendar"
 
 #: ../lib/tribe-the-events-calendar-import.class.php:55
-msgid ""
-"It appears that you have some old events calendar data that needs to be "
-"upgraded. Please be sure to back up your database before initiating the "
-"upgrade. This process can not be undone."
-msgstr ""
-"Parece que você tem alguns dados do calendário de eventos que precisam ser "
-"actualizados. Por favor, certifique-se de fazer backup dos seus dados antes "
-"de iniciar a actualização. Este processo não pode ser desfeito."
+msgid "It appears that you have some old events calendar data that needs to be upgraded. Please be sure to back up your database before initiating the upgrade. This process can not be undone."
+msgstr "Parece que você tem alguns dados do calendário de eventos que precisam ser actualizados. Por favor, certifique-se de fazer backup dos seus dados antes de iniciar a actualização. Este processo não pode ser desfeito."
 
 #: ../lib/tribe-the-events-calendar-import.class.php:56
 msgid "Migrate Data!"
@@ -1885,9 +1700,7 @@ msgstr ""
 
 #: ../lib/tribe-validate.class.php:295
 #, php-format
-msgid ""
-"Comparison validation failed because no comparison value was provided, for "
-"field %s"
+msgid "Comparison validation failed because no comparison value was provided, for field %s"
 msgstr ""
 
 #: ../lib/tribe-validate.class.php:302
@@ -1912,8 +1725,7 @@ msgstr ""
 
 #: ../lib/tribe-validate.class.php:404
 #, php-format
-msgid ""
-"%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
+msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr ""
 
 #: ../lib/tribe-validate.class.php:422
@@ -1932,9 +1744,7 @@ msgid "%s must be a phone number."
 msgstr ""
 
 #: ../lib/tribe-validate.class.php:472
-msgid ""
-"Country List must be formatted as one country per line in the following "
-"format: <br>US, United States <br> UK, United Kingdom."
+msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr ""
 
 #: ../lib/tribe-view-helpers.class.php:16
@@ -3119,9 +2929,7 @@ msgstr "Não há eventos agendados actualmente."
 
 #: ../lib/template-classes/month.php:72
 #, php-format
-msgid ""
-"There were no results found for <strong>\"%s\"</strong> this month. Try "
-"searching next month."
+msgid "There were no results found for <strong>\"%s\"</strong> this month. Try searching next month."
 msgstr ""
 
 #: ../lib/template-classes/single-event.php:94
@@ -3211,10 +3019,7 @@ msgid "Columns"
 msgstr ""
 
 #: ../lib/tickets/tribe-tickets-pro.php:137
-msgid ""
-"You can use Screen Options to select which columns you want to see. The "
-"selection works in the table below, in the email, for print and for the CSV "
-"export."
+msgid "You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CSV export."
 msgstr ""
 
 #: ../lib/tickets/tribe-tickets-pro.php:258
@@ -3328,13 +3133,8 @@ msgstr ""
 
 #: ../public/template-tags/options.php:31
 #, fuzzy, php-format
-msgid ""
-"You <strong>cannot</strong> use the same slug as above. The above should "
-"ideally be plural, and this singular.<br />Your single Event URL is like: %s"
-msgstr ""
-"<strong>OBS:</strong> Você <em>não pode</em> usar a mesma slug acima. A slug "
-"de cima deve estar no plural, e esté no singular.<br />A URL de um evento é "
-"do tipo: <strong>%s</strong>"
+msgid "You <strong>cannot</strong> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: %s"
+msgstr "<strong>OBS:</strong> Você <em>não pode</em> usar a mesma slug acima. A slug de cima deve estar no plural, e esté no singular.<br />A URL de um evento é do tipo: <strong>%s</strong>"
 
 #
 #: ../views/single-event.php:31

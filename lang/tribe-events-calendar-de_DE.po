@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-20 02:05-0600\n"
-"PO-Revision-Date: 2013-05-20 02:05-0600\n"
+"POT-Creation-Date: 2013-05-20 02:24-0600\n"
+"PO-Revision-Date: 2013-05-20 02:24-0600\n"
 "Last-Translator: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language-Team: DECKERWEB <deckerweb.mobil@googlemail.com>\n"
 "Language: de_DE\n"
@@ -3649,10 +3649,10 @@ msgid "A widget that displays upcoming events."
 msgstr ""
 
 # @ tribe-events-calendar
-#
 #: ../lib/widget-list.class.php:22
-msgid "Events List Widget"
-msgstr ""
+#, fuzzy
+msgid "Events List"
+msgstr "Kosten f&uuml;r die Veranstaltung"
 
 # @ tribe-events-calendar
 #: ../lib/widget-list.class.php:92

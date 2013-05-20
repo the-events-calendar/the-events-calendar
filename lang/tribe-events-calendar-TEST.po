@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-20 02:05-0600\n"
-"PO-Revision-Date: 2013-05-20 02:05-0600\n"
+"POT-Creation-Date: 2013-05-20 02:24-0600\n"
+"PO-Revision-Date: 2013-05-20 02:24-0600\n"
 "Last-Translator: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language: en_US\n"
@@ -2997,7 +2997,8 @@ msgid "A widget that displays upcoming events."
 msgstr "XXXXX"
 
 #: ../lib/widget-list.class.php:22
-msgid "Events List Widget"
+#, fuzzy
+msgid "Events List"
 msgstr "XXXXX"
 
 #: ../lib/widget-list.class.php:92
@@ -3263,6 +3264,9 @@ msgstr "XXXXX"
 msgid "Calendar Month Navigation"
 msgstr "XXXXX"
 
+#~ msgid "Events List Widget"
+#~ msgstr "XXXXX"
+
 #~ msgid "Send PressTrends data"
 #~ msgstr "XXXXX"
 
@@ -3352,9 +3356,6 @@ msgstr "XXXXX"
 #~ msgstr "XXXXX"
 
 #~ msgid "View all &raquo;"
-#~ msgstr "XXXXX"
-
-#~ msgid "Event List"
 #~ msgstr "XXXXX"
 
 #~ msgid "iCal Import"
