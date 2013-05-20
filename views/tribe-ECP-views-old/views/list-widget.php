@@ -1,6 +1,6 @@
-<?php 
+<?php
 /**
- * This is the template for the output of the events list widget. 
+ * This is the template for the output of the events list widget.
  * All the items are turned on and off through the widget admin.
  * There is currently no default styling, which is highly needed.
  *
@@ -43,10 +43,10 @@ ob_end_clean();
 		<?php
 			$space = false;
 			$output = '';
-			echo tribe_get_start_date( $post->ID ); 
-			
+			echo tribe_get_start_date( $post->ID );
+
 			if( $end && $event->EndDate != '' ) {
-				if ( ( tribe_get_all_day( $post->ID ) != 'yes' && tribe_is_multiday( $post->ID ) ) || ( tribe_get_all_day( $post->ID ) == 'yes' && tribe_is_multiday( $post->ID ) ) ) { 
+				if ( ( tribe_get_all_day( $post->ID ) != 'yes' && tribe_is_multiday( $post->ID ) ) || ( tribe_get_all_day( $post->ID ) == 'yes' && tribe_is_multiday( $post->ID ) ) ) {
 					echo ' – <br/>'. tribe_get_end_date($post->ID);
 				} elseif ( tribe_get_all_day( $post->ID ) != 'yes' && !tribe_is_multiday( $post->ID ) ) {
 					echo ' – <br/>'. tribe_get_end_date($post->ID, false, 'g:i a');
@@ -64,7 +64,7 @@ ob_end_clean();
 	<div class="loc"><?php
 		if ( $venue && tribe_get_venue() != '') {
 			$output .= ( $space ) ? '<br />' : '';
-			$output .= tribe_get_venue(); 
+			$output .= tribe_get_venue();
 			$space = true;
 		}
 
@@ -95,19 +95,19 @@ ob_end_clean();
 
 		if ( $country && tribe_get_country() != '') {
 			$output .= ( $space ) ? '<br />' : ' ';
-			$output .= tribe_get_country(); 
+			$output .= tribe_get_country();
 		}
 
 		if ( $phone && tribe_get_phone() != '') {
-			if($output) 
+			if($output)
 				$output .= '<br/>';
 
-			$output .= tribe_get_phone(); 
+			$output .= tribe_get_phone();
 		}
-		if ( $cost && tribe_get_cost() != '') {		
-			if($output) 
+		if ( $cost && tribe_get_cost() != '') {
+			if($output)
 				$output .= '<br/>';
-			$output .= __('Price:', 'tribe-events-calendar-pro') . ' ' . tribe_get_cost(); 
+			$output .= __('Price:', 'tribe-events-calendar-pro') . ' ' . tribe_get_cost();
 		}
 
 		echo $output;

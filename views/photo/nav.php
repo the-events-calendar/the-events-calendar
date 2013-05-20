@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
  * Photo Nav Template
  * This file contains the photo view navigation.
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/calendar/nav.php 
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/calendar/nav.php
  *
  * @package TribeEventsCalendar
  * @since  3.0
