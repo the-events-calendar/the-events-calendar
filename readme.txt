@@ -9,10 +9,10 @@ Stable tag: 2.0.10
 
 == Description ==
 
-Create and manage events quickly and easily with The Events Calendar plugin. Show off your  events on your website in a calendar or an event list. Our advanced templating system makes it simple for you to integrate the calendar seamlessly with your website. Other features include Google Maps integration and an upcoming events widget. It's 
+Create and manage events quickly and easily with The Events Calendar plugin. Show off your  events on your website in a calendar or an event list. Our advanced templating system makes it simple for you to integrate the calendar seamlessly with your website. Other features include Google Maps integration and an upcoming events widget. It's
 got everything you need to manage basic events from your WordPress website.
 
-Want more? We have a bunch of premium upgrades that let you create recurring events, sell tickets, manage conference schedules, accept user submitted events, create custom fields, and even integrate with Facebook. You can check out our <a href="http://tri.be/products/?ref=tec-readme">available premium and community add-ons</a>. 
+Want more? We have a bunch of premium upgrades that let you create recurring events, sell tickets, manage conference schedules, accept user submitted events, create custom fields, and even integrate with Facebook. You can check out our <a href="http://tri.be/products/?ref=tec-readme">available premium and community add-ons</a>.
 
 Just getting started? Check out our <a href="http://tri.be/new-user-primers/?ref=tec-readme">new user primer!</a>
 
@@ -23,7 +23,7 @@ Just getting started? Check out our <a href="http://tri.be/new-user-primers/?ref
 * Upcoming Events Widget
 * Compatibility with Twenty Eleven and Twenty Ten Themes (month and list view)
 * Extensive template tags for customization
-* Multisite Compatible 
+* Multisite Compatible
 * Google Maps Integration
 * Calendar Month view with tooltips
 * Includes support for venue, cost, address, start and end time, google maps link
@@ -52,13 +52,13 @@ We've created a collection of premium add-ons that let you take your Events Cale
 *<a href="http://tri.be/facebook-events/">Facebook Events</a> to integrate with Facebook
 *<a href="http://tri.be/wordpress-wootickets/">WooTickets</a> to sell tickets directly from event listings with WooCommerce
 
-We offer <a href="ttp://wordpress.org/tags/the-events-calendar">basic support via the WordPress.org support forums </a> so feel free to ask a question if you're having a problem with implementation or bugs. 
+We offer <a href="ttp://wordpress.org/tags/the-events-calendar">basic support via the WordPress.org support forums </a> so feel free to ask a question if you're having a problem with implementation or bugs.
 
 The <a href="http://tri.be/support/forums/?ref=tec-readme">Modern Tribe PRO support forums</a> are available for you to read. You won't, however, be able to post a message in any forums beyond Pre-Sale Questions unless you have purchase a PRO license.
 
-Are you a PRO user looking to renew an expired license? While we're still putting the finishing touches on our renewal functionality, we can provide you with a coupon in the interim that entitles you to a 30% discount on a new license (the same amount you'd be paying to renew your existing one). Send us an email to pro@tri.be referencing your license key # and the date it expired so we can get you sorted. 
+Are you a PRO user looking to renew an expired license? While we're still putting the finishing touches on our renewal functionality, we can provide you with a coupon in the interim that entitles you to a 30% discount on a new license (the same amount you'd be paying to renew your existing one). Send us an email to pro@tri.be referencing your license key # and the date it expired so we can get you sorted.
 
-Note: If you are upgrading from a pre-2.0 version of The Events Calendar, please back up your data before upgrading! 
+Note: If you are upgrading from a pre-2.0 version of The Events Calendar, please back up your data before upgrading!
 
 
 == Screenshots ==
@@ -74,15 +74,15 @@ Note: If you are upgrading from a pre-2.0 version of The Events Calendar, please
 
 = Where do I go to file a bug or ask a question? =
 
-Users of the free The Events Calendar should post their questions at the  plugin's <a href="http://wordpress.org/support/plugin/the-events-calendar/?ref=tec-readme">WordPress.org forum</a>, which we hit about once a week. PRO users are entitled access to our more actively-monitored <a href="tri.be/support/forums/?ref=tec-readme">PRO forums</a> at the tri.be website. 
+Users of the free The Events Calendar should post their questions at the  plugin's <a href="http://wordpress.org/support/plugin/the-events-calendar/?ref=tec-readme">WordPress.org forum</a>, which we hit about once a week. PRO users are entitled access to our more actively-monitored <a href="tri.be/support/forums/?ref=tec-readme">PRO forums</a> at the tri.be website.
 
-= I want access to more features. How can I get my hands on Events Calendar PRO? = 
+= I want access to more features. How can I get my hands on Events Calendar PRO? =
 
 Events Calendar PRO can be purchased directly at the <a href="tri.be/support/forums/?ref=tec-readme">tri.be website.</a> There are three (3) license types available, and all licenses include 1 year of access to support + updates.
 
 = I'm interested in updating to PRO, but have a question that's not answered on the product page. Where can I get that answered? =
 
-Our <a href="http://tri.be/support/forums/forum/_welcome/pre-sales-questions/?ref=tec-readme">pre-sale forum</a> at the tri.be website is open and available to everyone; we encourage potential customers to review threads on that forum + post a new discussion if your question isn't already answered. You may also email <a href="mailto:pro@tri.be">pro@tri.be</a> with pre-sale questions if you prefer. 
+Our <a href="http://tri.be/support/forums/forum/_welcome/pre-sales-questions/?ref=tec-readme">pre-sale forum</a> at the tri.be website is open and available to everyone; we encourage potential customers to review threads on that forum + post a new discussion if your question isn't already answered. You may also email <a href="mailto:pro@tri.be">pro@tri.be</a> with pre-sale questions if you prefer.
 
 = What add-ons are available for The Events Calendar, and where can I read more about them? =
 
@@ -90,13 +90,13 @@ Currently, the following add-ons are available for The Events Calendar/Events Ca
 
 * <a href="http://tri.be/wordpress-eventbrite-tickets/?ref=tec-readme">Eventbrite Tickets</a>, for selling tickets to your event directly through Eventbrite.
 * <a href="http://tri.be/wordpress-community-events/?ref=tec-readme">Community Events</a>, for allowing frontend event submission from your readers.
-* <a href="http://tri.be/facebook-events/?ref=tec-readme">Facebook Events</a>, for importing events directly from an organization or page on Facebook. 
-* <a href="http://tri.be/shop/conference-manager/?ref=tec-readme">Conference Manager (COMING SOON)</a>, for managing multiple rooms/sessions/speakers at an event or conference. 
+* <a href="http://tri.be/facebook-events/?ref=tec-readme">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
+* <a href="http://tri.be/shop/conference-manager/?ref=tec-readme">Conference Manager (COMING SOON)</a>, for managing multiple rooms/sessions/speakers at an event or conference.
 * <a href="http://tri.be/shop/wootickets/?ref=tec-readme">WooTickets (COMING SOON)</a>, for selling tickets to your event using WooCommerce.
 
 = Is there a more substantive FAQ for The Events Calendar available elsewhere online? =
 
-There sure is. If you check out our a href="http://tri.be/support/faqs/?ref=tec-readme">Frequently Asked Questions page</a> on the tri.be website, you'll find answers to more specific questions related to The Events Calendar/Events Calendar PRO. Please make sure to review that FAQ before posting a support threadÉas there's a very good chance your question has already been answered. 
+There sure is. If you check out our a href="http://tri.be/support/faqs/?ref=tec-readme">Frequently Asked Questions page</a> on the tri.be website, you'll find answers to more specific questions related to The Events Calendar/Events Calendar PRO. Please make sure to review that FAQ before posting a support threadï¿½as there's a very good chance your question has already been answered.
 
 == Installation ==
 
@@ -126,7 +126,7 @@ Some docs you may find particularly useful are:
 * <a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/">The Events Calendar New User Primer</a>
 * <a href="http://tri.be/support/documentation/events-calendar-themers-guide/">The Themer's Guide to The Events Calendar</a>
 * <a href="http://tri.be/support/faqs/">The Events Calendar FAQ</a>
- 
+
 
 Tutorials are available at <a href="http://tri.be/the-events-calendar-for-wordpress-tutorials/?ref=tec-readme" target="_blank">http://tri.be/the-events-calendar-for-wordpress-tutorials.</a>
 
@@ -178,7 +178,7 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 * Hebrew (free & PRO) from Sagi Shrieber
 * Japanese (free only) from Matthew Meyer
 * French (PRO) from Arno Faure
-* French (free) from Fanny HŽraud
+* French (free) from Fanny Hï¿½raud
 * Lithuanian (free only) from Vincent G from Host1Free
 * Czech (free & PRO) from Petr Bastan
 * Serbian (free & PRO) from Marko Manojlovic
@@ -215,7 +215,7 @@ Our Premium Plugins:
 **Small features, UX and Content Tweaks:**
 
 * Incorporated new Ukrainian translation files (free only), courtesy of Alexey Fedorov.
-* Incorporated new French translation files (free only), courtesy of Fanny HŽraud.
+* Incorporated new French translation files (free only), courtesy of Fanny Hï¿½raud.
 * Improved the events.js to avoid animation build up.
 
 
@@ -227,32 +227,31 @@ Our Premium Plugins:
 * There was previously no modal window when trashing individual instances of a recurring event; that is no more.
 * Cleaned up event query filters to prevent conflicts.
 * Event-specific settings no longer revert to default upon updating the plugin.
-* Rewrite rules are no longer one step behind (meaning you won't need to flush permalinks as often). 
-* Warnings/notices no longer litter the page in instances where no upcoming events are scheduled. 
+* Rewrite rules are no longer one step behind (meaning you won't need to flush permalinks as often).
+* Warnings/notices no longer litter the page in instances where no upcoming events are scheduled.
 * Default permalinks are no longer malformed.
-* Removed a PressTrends-generated notice that appeared upon activation. 
-* Removed remaining sp_ functions. 
-* Fixed an issue where default permalinks caused multiple errors when viewing a recurring event and venue page (PRO only). 
+* Removed remaining sp_ functions.
+* Fixed an issue where default permalinks caused multiple errors when viewing a recurring event and venue page (PRO only).
 
-= 2.0.9 = 
+= 2.0.9 =
 
 **Small features, UX and Content Tweaks:**
 
-* Clarified messaging regarding how a widget template override is done, on the Appearance --> Widgets screen. 
+* Clarified messaging regarding how a widget template override is done, on the Appearance --> Widgets screen.
 * Allowed for HTML in Additional Fields - a, b, i, em & strong are all accepted. (PRO only).
-* Added a filter for the $content object in the iCal feed (PRO only). 
-* Included the forum on the list of helpful resources, under Events --> Settings --> Help. 
+* Added a filter for the $content object in the iCal feed (PRO only).
+* Included the forum on the list of helpful resources, under Events --> Settings --> Help.
 * Added asterisks (indicating "required") to the start/end date fields in the event editor.
 * Added end date to header in list view for multi-day events.
 * Users now have an ability to select "None" on dropdowns created using Additional Fields. (PRO only).
-* Relabeled "Event Custom Fields" to "Additional Event Fields" on the event creation page. (PRO only). 
+* Relabeled "Event Custom Fields" to "Additional Event Fields" on the event creation page. (PRO only).
 * Changed the .next and .previous classes for the single.php event navigation to 'tribe-next' and 'tribe-previous'. This change was also made in the stylesheet declarations for these classes in events.css.
 * Added end date for multi-day, all day events in the list widget.
-* The events admin menu bar is now a constant, and can be set to true/false by adding TRIBE_DISABLE_TOOLBAR_ITEMS to your wp-config file. 
+* The events admin menu bar is now a constant, and can be set to true/false by adding TRIBE_DISABLE_TOOLBAR_ITEMS to your wp-config file.
 * All calls to HTTP are now HTTPS supported.
-* WordPress' default Custom Fields are now disabled on the event creation page by default for PRO users, unless that site already had custom fields in use at the time 2.0.9 is activated. Custom fields can be re-enabled as you see fit under Events --> Settings --> Additional Fields. (PRO only). 
+* WordPress' default Custom Fields are now disabled on the event creation page by default for PRO users, unless that site already had custom fields in use at the time 2.0.9 is activated. Custom fields can be re-enabled as you see fit under Events --> Settings --> Additional Fields. (PRO only).
 * The Google Maps checkbox on Events --> Settings --> General is now enabled by default.
-* Updated the modal window that shows upon updating a recurring event, to clarify messaging. (PRO only). 
+* Updated the modal window that shows upon updating a recurring event, to clarify messaging. (PRO only).
 * The TRIBE_DISABLE_SHOP constant has been removed; use TRIBE_HIDE_UPSELL instead.
 * Various content clarification tweaks throughout the tabs on Events -> Settings.
 * Incorporated new Catalan translation files (PRO only), courtesy of Fran Rosa.
@@ -271,14 +270,14 @@ Our Premium Plugins:
 * Before/After HTML is now filtered along with the rest of a user's content.
 * Removed shorthand PHP tags from list.php.
 * Eliminated a "Warning: missing argument" message that showed in certain recurrence patterns.
-* Fixed incorrect "Tutorials" link found under Events --> Settings --> Help. 
+* Fixed incorrect "Tutorials" link found under Events --> Settings --> Help.
 * Fixed a pair of unrelated errors in public/template-tags/general.php.
 * Tag cloud widgets no longer lead to 404 errors when clicked from within the calendar.
 * Resolved a bug where the Advanced Post Manager filters conflicted with quickedit when modifying an event. (PRO only).
-* Frontend "Edit Event" in the admin bar no longer takes you to the wrong instance of a recurrence pattern on the backend. 
-* Dates for recurring events are no longer incorrect when imported into Google Calendar. (PRO only). 
-* Added a missing label back into the datepicker.php file. 
-* Fixed an issue where the calendar widget's next/previous month links failed to load in certain situations. (PRO only). 
+* Frontend "Edit Event" in the admin bar no longer takes you to the wrong instance of a recurrence pattern on the backend.
+* Dates for recurring events are no longer incorrect when imported into Google Calendar. (PRO only).
+* Added a missing label back into the datepicker.php file.
+* Fixed an issue where the calendar widget's next/previous month links failed to load in certain situations. (PRO only).
 
 
 = 2.0.8 =
@@ -319,7 +318,7 @@ Our Premium Plugins:
 * Fixed star rating icons that appeared broken on Settings -> Help as a result of the WP 3.4 update.
 * Users are no longer taken to a "Page not found" screen after submitting comments on recurring events.
 
-= 2.0.7 = 
+= 2.0.7 =
 
 **Small features, UX and Content Tweaks:**
 
@@ -335,12 +334,12 @@ Our Premium Plugins:
 * Google Calendar import now works and truncates appropriately for extremely long event listings (thanks for the fix, Andy Fragen!)
 * Fixed settings page slug so as not to break backwards compatibility
 * Got rid of a superfluous daily query of events that was running for once-per-day every month-view load, thereby improving overall load speed
-* Tweaked a bug where TribeEvents::uglyLink() was missing Ôday'
+* Tweaked a bug where TribeEvents::uglyLink() was missing ï¿½day'
 * A message is now displayed in place of the events-slug boxes when a user does not have pretty permalinks enabled.
 * Next/previous links no longer navigate in order of event ID when pretty permalinks are disabled.
 * Contributors are now able to create recurring events.
 * Fixed an issue with single quotes getting converted to funky characters upon saving on Additional Fields and other Settings --> The Events Calendar tabs.
-* Addressed various other bugs with the Additional Fields tab in Settings --> The Events Calendar. 
+* Addressed various other bugs with the Additional Fields tab in Settings --> The Events Calendar.
 * Tiny patch to help integrate with the Duotive theme.
 * Fixed category rewrite slug issue that occurred with certain permalink structures.
 
@@ -518,7 +517,7 @@ This is such a major re-write that we are starting the change log over.
 
 == Help ==
 
-Welcome to The Events Calendar, a full-featured events management system for WordPress. Thank you so much for using the labor of our love. We are Modern Tribe and we are here to help you kick ass. 
+Welcome to The Events Calendar, a full-featured events management system for WordPress. Thank you so much for using the labor of our love. We are Modern Tribe and we are here to help you kick ass.
 
 If you aren't familiar with The Events Calendar, check out our <a href="http://tri.be/new-user-primers/?ref=tec-readme">new user primer.</a> It'll introduce you to the basics of what the plugin has to offer and will have you creating events in no time. From there, the resources below -- extensive template tag documentation, FAQs, video walkthroughs and more -- will give you a leg up as you dig deeper.
 
