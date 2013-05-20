@@ -54,9 +54,9 @@ ob_end_clean();
 			}
 
 			if( $event->AllDay ) {
-				echo ' <small><em>('.__('All Day','tribe-events-calendar').')</em></small>';
+				echo ' <small><em>('.__( 'All Day', 'tribe-events-calendar-pro' ).')</em></small>';
          	}
-		?> 
+		?>
 	</div>
 	<div class="event">
 		<a href="<?php echo tribe_get_event_link($post) ?>"><?php echo $post->post_title ?></a>

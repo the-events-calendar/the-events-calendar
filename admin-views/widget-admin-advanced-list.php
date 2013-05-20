@@ -60,4 +60,4 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			));
 		?>
 </p>
-<p><small><em><?php printf( __('Want to modify the display of this widget? Try a %stemplate override%s.', 'tribe-events-calendar'), '<a href="http://tri.be/faq/what-are-template-overrides-and-how-do-i-do-them/">', '</a>' ); ?></em></small></p>
+<p><small><em><?php printf( __('Want to modify the display of this widget? Try a %stemplate override%s.', 'tribe-events-calendar-pro'), '<a href="http://tri.be/faq/what-are-template-overrides-and-how-do-i-do-them/">', '</a>' ); ?></em></small></p>

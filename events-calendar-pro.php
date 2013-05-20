@@ -686,11 +686,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function add_help_tab_enb_text() {
 			$ga_query_string = '?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin';
 			$enb_text[] = '<p>' . sprintf( __( 'One of the advantages of being a PRO user is that you have access to our PRO-exclusive forums at %s. Our support staff hits the forums on a daily basis, and what they can\'t answer on the spot they\'ll bring a member of our dev team in to address directly.', 'tribe-events-calendar-pro' ), sprintf( '<a href="http://tri.be/support/forums/' . $ga_query_string . '">%s</a>', 'tri.be' ) ) . '</p>';
-			$enb_text[] = '<p>' . __( 'Some things to consider before posting on the forum:', 'tribe-events-calendar') . '</p>';
+			$enb_text[] = '<p>' . __( 'Some things to consider before posting on the forum:', 'tribe-events-calendar-pro') . '</p>';
 			$enb_text[] = '<ul>';
 			$enb_text[] = '<li>' . __( 'Look through existing threads before posting a new one and check that there isn\'t already a discussion going on your issue. The tri.be site has a solid search function that should help find what you\'re looking for, if it indeed already is present.', 'tribe-events-calendar-pro' ) . '</li>';
 			$enb_text[] = '<li>' . __( 'A good way to help us out before posting is to check whether the issue is a conflict with another plugin or your theme. This can be tested relatively easily on a staging site by deactivating other plugins one-by-one, and reverting to the default 2011 theme as needed, to see if conflicts can be easily identified. If so, please note that when posting your thread.', 'tribe-events-calendar-pro' ) . '</li>';
-			$enb_text[] = '<li>' . __( 'Sometimes, just resaving your permalinks (under Settings -> Permalinks) can resolve events-related problems on your site. It is worth a shot before creating a new thread.', 'tribe-events-calendar' ) . '</li>';
+			$enb_text[] = '<li>' . __( 'Sometimes, just resaving your permalinks (under Settings -> Permalinks) can resolve events-related problems on your site. It is worth a shot before creating a new thread.', 'tribe-events-calendar-pro' ) . '</li>';
 			$enb_text[] = '</ul>';
 			$enb_text[] = '<p>' . sprintf( __( 'While we won\'t build your site for you and can\'t guarantee The Events Calendar/PRO to play nicely with every theme and plugin out there, our team will do our best to help you get it functioning nicely with your site. And as an added bonus, once you\'re done you can post it in the %s so the rest of the community can see what you\'ve been working on.', 'tribe-events-calendar-pro' ), sprintf( '<a href="http://tri.be/support/forums/topic/showcase-2-0/' . $ga_query_string . '">%s</a>', __( 'Showcase thread', 'tribe-events-calendar-pro' ) ) ) . '</p>';
 			$content = implode( $enb_text );
@@ -750,10 +750,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$html .= sprintf('<a class="%s" href="%s">%s</a><a class="%s" href="%s">%s</a>',
 				$day_class,
 				tribe_get_day_link(),
-				__( 'Day View', 'tribe-events-calendar' ),
+				__( 'Day View', 'tribe-events-calendar-pro' ),
 				$week_class,
 				tribe_get_week_permalink(),
-				__( 'Week View', 'tribe-events-calendar' )
+				__( 'Week View', 'tribe-events-calendar-pro' )
 				);
 			return $html;
 		}
@@ -1072,7 +1072,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public function addLinksToPluginActions( $actions ) {
 			if( class_exists( 'TribeEvents' ) ) {
-				$actions['settings'] = '<a href="' . add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'page' => 'tribe-events-calendar' ), admin_url( 'edit.php' ) ) .'">' . __('Settings', 'tribe-events-calendar-pro') . '</a>';
+				$actions['settings'] = '<a href="' . add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'page' => 'tribe-events-calendar-pro' ), admin_url( 'edit.php' ) ) .'">' . __('Settings', 'tribe-events-calendar-pro') . '</a>';
 			}
 			return $actions;
 		}
