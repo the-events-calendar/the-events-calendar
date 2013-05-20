@@ -43,9 +43,9 @@ msgstr ""
 # @ default
 # @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:211
-#, fuzzy
+#
 msgid "Events for week of"
-msgstr "Ogni settimana"
+msgstr ""
 
 #: ../events-calendar-pro.php:237
 #, php-format
@@ -54,21 +54,21 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:243
-#, fuzzy
+#
 msgid "Events for"
-msgstr "Costo evento"
+msgstr ""
 
 # @ default
 #: ../events-calendar-pro.php:247 ../lib/widget-advanced-list.class.php:51
-#, fuzzy
+#
 msgid "Upcoming Events"
-msgstr "Il tuo prossimo evento"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:664 ../admin-views/tribe-options-defaults.php:35
-#, fuzzy
+#
 msgid "Default Content"
-msgstr "Telefono predefinito"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:666 ../admin-views/event-meta-options.php:3
@@ -167,9 +167,9 @@ msgstr "Vedi tutti gli Add-Ons"
 
 # @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:1160
-#, fuzzy
+#
 msgid "Week"
-msgstr "Settimanale"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:1168 ../admin-views/event-recurrence.php:82
@@ -187,9 +187,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:1186
-#, fuzzy
+#
 msgid "Week Of"
-msgstr "Settimanale"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:1249
@@ -473,15 +473,15 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/event-meta-options.php:49
-#, fuzzy
+#
 msgid "Editor \"Custom Fields\" meta box"
-msgstr "Campi personalizzati dell'evento"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/event-meta-options.php:51
-#, fuzzy
+#
 msgid "Show"
-msgstr "Mostra:"
+msgstr ""
 
 #: ../admin-views/event-meta-options.php:52
 msgid "Hide"
@@ -504,9 +504,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/event-meta.php:7
-#, fuzzy
+#
 msgid "Additional Event Fields"
-msgstr "Campi aggiuntivi"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:2
@@ -804,9 +804,9 @@ msgstr "Descrizione:"
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:143
-#, fuzzy
+#
 msgid "Recurrence Text:"
-msgstr "Ripetizione:"
+msgstr ""
 
 #: ../admin-views/event-recurrence.php:148
 msgid ""
@@ -843,15 +843,15 @@ msgstr "Invia una richiesta di assistenza"
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:6
 #: ../admin-views/tribe-options-defaults.php:15
-#, fuzzy
+#
 msgid "No Default"
-msgstr "Personalizza le impostazioni predefinite"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:22
-#, fuzzy
+#
 msgid "Select a State"
-msgstr "Seleziona uno Stato:"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:39
 msgid ""
@@ -878,9 +878,9 @@ msgstr "Organizzatore"
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:69
-#, fuzzy
+#
 msgid "Default organizer"
-msgstr "Gestore predefinito"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:73
@@ -895,9 +895,9 @@ msgstr "Luogo"
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:86
-#, fuzzy
+#
 msgid "Default venue"
-msgstr "Luogo predefinito"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:90
@@ -918,45 +918,45 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:107
-#, fuzzy
+#
 msgid "Default address"
-msgstr "Indirizzo predefinito"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:120
-#, fuzzy
+#
 msgid "Default city"
-msgstr "Citt&agrave; predefinita"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:133
-#, fuzzy
+#
 msgid "Default state"
-msgstr "Stato predefinito"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:146
-#, fuzzy
+#
 msgid "Default province"
-msgstr "Provincia predefinita"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:159
-#, fuzzy
+#
 msgid "Default postal code/zip code"
-msgstr "Codice postale predefinito"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:172
-#, fuzzy
+#
 msgid "Default country"
-msgstr "Citt&agrave; predefinita"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:185
-#, fuzzy
+#
 msgid "Default phone"
-msgstr "Telefono predefinito"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:201
@@ -1032,9 +1032,9 @@ msgstr "Tutti gli eventi"
 # @ tribe-events-calendar-pro
 #: ../admin-views/widget-admin-advanced-list.php:58
 #: ../admin-views/widget-admin-venue.php:28
-#, fuzzy
+#
 msgid "Hide this widget if there are no upcoming events:"
-msgstr "Mostra il widget solo se ci sono eventi in arrivo:"
+msgstr ""
 
 #: ../admin-views/widget-admin-advanced-list.php:61
 #, php-format
@@ -1043,15 +1043,15 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/widget-admin-countdown.php:12
-#, fuzzy
+#
 msgid "Event:"
-msgstr "Tutti gli eventi"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/widget-admin-countdown.php:21
-#, fuzzy
+#
 msgid "Show seconds:"
-msgstr "Secondo"
+msgstr ""
 
 #: ../admin-views/widget-admin-countdown.php:24
 msgid "Countdown Completed Text:"
@@ -1059,21 +1059,21 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/widget-admin-venue.php:11
-#, fuzzy
+#
 msgid "Venue:"
-msgstr "Luogo"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/widget-calendar.php:24
-#, fuzzy
+#
 msgid "Filters"
-msgstr "Nome filtro"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/widget-calendar.php:42
-#, fuzzy
+#
 msgid "remove"
-msgstr "Rimuovi"
+msgstr ""
 
 #: ../admin-views/widget-calendar.php:53
 msgid "Match all"
@@ -1085,9 +1085,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/widget-calendar.php:60
-#, fuzzy
+#
 msgid "Add a filter"
-msgstr "Aggiungi un filtro"
+msgstr ""
 
 #: ../admin-views/widget-calendar.php:63
 msgid "Select one..."
@@ -1100,9 +1100,9 @@ msgstr "Data inizio"
 
 # @ tribe-events-calendar-pro
 #: ../lib/apm_filters.php:37
-#, fuzzy
+#
 msgid "End Date"
-msgstr "Data e Ora di termine"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/apm_filters.php:42
@@ -1135,9 +1135,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/meta-pro.php:87
-#, fuzzy
+#
 msgid "Recurrence Pattern:"
-msgstr "Ripetizione:"
+msgstr ""
 
 # @ default
 #: ../lib/tribe-events-recurrence-meta.class.php:460
@@ -1239,9 +1239,9 @@ msgstr "Ogni %d settimane"
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:612
-#, fuzzy, php-format
+#, php-format
 msgid "on %s"
-msgstr "il %s"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:617
@@ -1251,9 +1251,9 @@ msgstr "Ogni %d mesi"
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:619
-#, fuzzy, php-format
+#, php-format
 msgid "on the %s %s"
-msgstr " il %s %s"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:624
@@ -1287,23 +1287,23 @@ msgstr "%s%s%s"
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:658
 #: ../lib/tribe-events-recurrence-meta.class.php:684
-#, fuzzy
+#
 msgid ", and"
-msgstr ", e "
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:660
 #: ../lib/tribe-events-recurrence-meta.class.php:686
-#, fuzzy
+#
 msgid "and"
-msgstr " e "
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:662
 #: ../lib/tribe-events-recurrence-meta.class.php:688
-#, fuzzy
+#
 msgid ","
-msgstr ", "
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:677
@@ -1387,9 +1387,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-geoloc.class.php:77
-#, fuzzy, php-format
+#, php-format
 msgid "Title: %s"
-msgstr "Titolo:"
+msgstr ""
 
 #: ../lib/tribe-geoloc.class.php:79
 #, php-format
@@ -1398,9 +1398,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-geoloc.class.php:79
-#, fuzzy
+#
 msgid "Select Dropdown"
-msgstr "Menu a discesa"
+msgstr ""
 
 #: ../lib/tribe-geoloc.class.php:80
 msgid "Radio Buttons"
@@ -1452,9 +1452,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-geoloc.class.php:172
-#, fuzzy
+#
 msgid "Map"
-msgstr "Mar"
+msgstr ""
 
 #: ../lib/tribe-geoloc.class.php:194
 msgid "Near"
@@ -1482,9 +1482,9 @@ msgstr ""
 
 # @ default
 #: ../lib/tribe-ical.class.php:36
-#, fuzzy
+#
 msgid "Google Calendar"
-msgstr "Calendario Eventi"
+msgstr ""
 
 #: ../lib/tribe-ical.class.php:37 ../lib/tribe-ical.class.php:83
 msgid "iCal Import"
@@ -1492,27 +1492,27 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-ical.class.php:70
-#, fuzzy
+#
 msgid "Month's Events"
-msgstr "Mese(i) sul:"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-ical.class.php:73
-#, fuzzy
+#
 msgid "Week's Events"
-msgstr "Tutti gli eventi"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-ical.class.php:76
-#, fuzzy
+#
 msgid "Day's Events"
-msgstr "Tutti gli eventi"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-ical.class.php:79
-#, fuzzy
+#
 msgid "Listed Events"
-msgstr "Tutti gli eventi"
+msgstr ""
 
 #: ../lib/tribe-ical.class.php:83
 msgid "Import is filter/view sensitive"
@@ -1525,9 +1525,9 @@ msgstr "Un widget che mostra i prossimi N eventi."
 
 # @ tribe-events-calendar-pro
 #: ../lib/widget-advanced-list.class.php:22
-#, fuzzy
+#
 msgid "Events List"
-msgstr "Costo evento"
+msgstr ""
 
 #: ../lib/widget-calendar.class.php:8
 msgid "The events calendar mini calendar widget"
@@ -1545,9 +1545,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/widget-countdown.class.php:15
-#, fuzzy
+#
 msgid "Events Countdown"
-msgstr "Costo evento"
+msgstr ""
 
 #: ../lib/widget-venue.class.php:12
 msgid "Displays a list of upcoming events at a specific venue."
@@ -1593,9 +1593,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:103
-#, fuzzy
+#
 msgid "Show only the first upcoming instance of recurring events"
-msgstr "Mostra il widget solo se ci sono eventi in arrivo:"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:294
@@ -1614,63 +1614,63 @@ msgstr "Mostra il widget solo se ci sono eventi in arrivo:"
 #: ../public/template-tags/general.php:392
 #: ../public/template-tags/general.php:405
 #: ../public/template-tags/general.php:406
-#, fuzzy
+#
 msgid "No default set"
-msgstr "Il valore predefinito"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:295
-#, fuzzy, php-format
+#, php-format
 msgid "The current default organizer is: %s"
-msgstr "Il valore del gestore predefinito"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:309
-#, fuzzy, php-format
+#, php-format
 msgid "The current default venue is: %s"
-msgstr "Il valore corrente &egrave; <strong>%s</strong>"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:323
-#, fuzzy, php-format
+#, php-format
 msgid "The current default address is: %s"
-msgstr "Il valore corrente &egrave; <strong>%s</strong>"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:337
-#, fuzzy, php-format
+#, php-format
 msgid "The current default city is: %s"
-msgstr "Il valore corrente &egrave; <strong>%s</strong>"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:351
-#, fuzzy, php-format
+#, php-format
 msgid "The current default state is: %s"
-msgstr "Il valore corrente &egrave; <strong>%s</strong>"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:365
-#, fuzzy, php-format
+#, php-format
 msgid "The current default province is: %s"
-msgstr "Il valore corrente &egrave; <strong>%s</strong>"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:379
-#, fuzzy, php-format
+#, php-format
 msgid "The current default postal code/zip code is: %s"
-msgstr "Il valore corrente &egrave; <strong>%s</strong>"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:393
-#, fuzzy, php-format
+#, php-format
 msgid "The current default country is: %s"
-msgstr "Il valore corrente &egrave; <strong>%s</strong>"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:407
-#, fuzzy, php-format
+#, php-format
 msgid "The current default phone is: %s"
-msgstr "Il valore corrente &egrave; <strong>%s</strong>"
+msgstr ""
 
 #: ../public/template-tags/general.php:580
 msgid "Today"
@@ -1694,9 +1694,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:675
-#, fuzzy
+#
 msgid "Related Events"
-msgstr "Tutti gli eventi"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/demo/demo.php:31
@@ -1737,9 +1737,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
-#, fuzzy
+#
 msgid "Search"
-msgstr "Marzo"
+msgstr ""
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:82
 msgid "Member Type"
@@ -1933,9 +1933,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
-#, fuzzy
+#
 msgid "Count:"
-msgstr "Paese"
+msgstr ""
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:80
 msgid "Display Thumbnails?"
@@ -1960,9 +1960,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../views/single-organizer.php:30 ../views/single-venue.php:31
-#, fuzzy
+#
 msgid "&larr; Back to Events"
-msgstr "&laquo; Torna agli Eventi"
+msgstr ""
 
 #: ../views/day/nav.php:15
 msgid "Day Navigation"
@@ -1974,15 +1974,15 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../views/map/nav.php:24 ../views/photo/nav.php:24
-#, fuzzy
+#
 msgid "&laquo; Previous Events"
-msgstr "&laquo; Torna agli Eventi"
+msgstr ""
 
 # @ default
 #: ../views/map/nav.php:31 ../views/photo/nav.php:31
-#, fuzzy
+#
 msgid "Next Events &raquo;"
-msgstr "Widget prossimo evento"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../views/tribe-ECP-views-old/views/list-widget.php:110
@@ -2057,9 +2057,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../views/week/nav.php:23
-#, fuzzy
+#
 msgid "Next Week"
-msgstr "Ogni settimana"
+msgstr ""
 
 #: ../views/widgets/countdown-widget.php:27
 msgid "days"
@@ -2075,21 +2075,21 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../views/widgets/countdown-widget.php:40
-#, fuzzy
+#
 msgid "sec"
-msgstr "Dic"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../views/widgets/list-widget.php:66
-#, fuzzy
+#
 msgid "Organizer:"
-msgstr "Organizzatore"
+msgstr ""
 
 # @ default
 #: ../views/widgets/venue-widget.php:17
-#, fuzzy
+#
 msgid "No upcoming events."
-msgstr "Il tuo prossimo evento"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #~ msgid "Show:"

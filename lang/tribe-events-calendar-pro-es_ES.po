@@ -40,9 +40,9 @@ msgid "today"
 msgstr ""
 
 #: ../events-calendar-pro.php:211
-#, fuzzy
+#
 msgid "Events for week of"
-msgstr "Cada semana"
+msgstr ""
 
 #: ../events-calendar-pro.php:237
 #, php-format
@@ -50,19 +50,19 @@ msgid "Events for week of %s"
 msgstr ""
 
 #: ../events-calendar-pro.php:243
-#, fuzzy
+#
 msgid "Events for"
-msgstr "Calendario de Eventos"
+msgstr ""
 
 #: ../events-calendar-pro.php:247 ../lib/widget-advanced-list.class.php:51
-#, fuzzy
+#
 msgid "Upcoming Events"
-msgstr "Su siguiente evento programado"
+msgstr ""
 
 #: ../events-calendar-pro.php:664 ../admin-views/tribe-options-defaults.php:35
-#, fuzzy
+#
 msgid "Default Content"
-msgstr "Teléfono por Defecto"
+msgstr ""
 
 #: ../events-calendar-pro.php:666 ../admin-views/event-meta-options.php:3
 msgid "Additional Fields"
@@ -157,9 +157,9 @@ msgid "View All Add-Ons"
 msgstr ""
 
 #: ../events-calendar-pro.php:1160
-#, fuzzy
+#
 msgid "Week"
-msgstr "Semanal"
+msgstr ""
 
 #: ../events-calendar-pro.php:1168 ../admin-views/event-recurrence.php:82
 #: ../admin-views/event-recurrence.php:127
@@ -175,14 +175,14 @@ msgid "Day Of"
 msgstr ""
 
 #: ../events-calendar-pro.php:1186
-#, fuzzy
+#
 msgid "Week Of"
-msgstr "Semanal"
+msgstr ""
 
 #: ../events-calendar-pro.php:1249
-#, fuzzy
+#
 msgid "The Events Calendar"
-msgstr "Calendario de Eventos"
+msgstr ""
 
 #: ../events-calendar-pro.php:1250
 #, php-format
@@ -419,14 +419,14 @@ msgid "video tutorial that will walk you through the process"
 msgstr ""
 
 #: ../admin-views/event-meta-options.php:49
-#, fuzzy
+#
 msgid "Editor \"Custom Fields\" meta box"
-msgstr "Campos Personalizados del Evento"
+msgstr ""
 
 #: ../admin-views/event-meta-options.php:51
-#, fuzzy
+#
 msgid "Show"
-msgstr "Mostrar:"
+msgstr ""
 
 #: ../admin-views/event-meta-options.php:52
 msgid "Hide"
@@ -447,9 +447,9 @@ msgstr ""
 "eventos? una vez que haga click esto no podra deshacerse."
 
 #: ../admin-views/event-meta.php:7
-#, fuzzy
+#
 msgid "Additional Event Fields"
-msgstr "Campos Adicionales"
+msgstr ""
 
 #: ../admin-views/event-recurrence.php:2
 msgid "Recurrence:"
@@ -693,9 +693,9 @@ msgid "Description:"
 msgstr ""
 
 #: ../admin-views/event-recurrence.php:143
-#, fuzzy
+#
 msgid "Recurrence Text:"
-msgstr "Repetición:"
+msgstr ""
 
 #: ../admin-views/event-recurrence.php:148
 msgid ""
@@ -728,14 +728,14 @@ msgstr "Envie una Solicitud de Soporte"
 
 #: ../admin-views/tribe-options-defaults.php:6
 #: ../admin-views/tribe-options-defaults.php:15
-#, fuzzy
+#
 msgid "No Default"
-msgstr "Valores por Defecto"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:22
-#, fuzzy
+#
 msgid "Select a State"
-msgstr "Seleccione un Estado:"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:39
 msgid ""
@@ -756,14 +756,14 @@ msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:65
 #: ../admin-views/widget-admin-advanced-list.php:29 ../lib/apm_filters.php:27
-#, fuzzy
+#
 msgid "Organizer"
-msgstr "Organizador por Defecto"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:69
-#, fuzzy
+#
 msgid "Default organizer"
-msgstr "Organizador por Defecto"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:73
 msgid "No saved organizers yet."
@@ -775,9 +775,9 @@ msgid "Venue"
 msgstr "Lugar"
 
 #: ../admin-views/tribe-options-defaults.php:86
-#, fuzzy
+#
 msgid "Default venue"
-msgstr "Lugar por Defecto"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:90
 msgid "No saved venues yet."
@@ -795,39 +795,39 @@ msgid ""
 msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:107
-#, fuzzy
+#
 msgid "Default address"
-msgstr "Dirección "
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:120
-#, fuzzy
+#
 msgid "Default city"
-msgstr "Ciudad por Defecto"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:133
-#, fuzzy
+#
 msgid "Default state"
-msgstr "Estado por Defecto"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:146
-#, fuzzy
+#
 msgid "Default province"
-msgstr "Provincia por Defecto"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:159
-#, fuzzy
+#
 msgid "Default postal code/zip code"
-msgstr "Código Postal por Defecto"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:172
-#, fuzzy
+#
 msgid "Default country"
-msgstr "Ciudad por Defecto"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:185
-#, fuzzy
+#
 msgid "Default phone"
-msgstr "Teléfono por Defecto"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:201
 #, fuzzy
@@ -891,9 +891,9 @@ msgstr "Todos los Eventos"
 
 #: ../admin-views/widget-admin-advanced-list.php:58
 #: ../admin-views/widget-admin-venue.php:28
-#, fuzzy
+#
 msgid "Hide this widget if there are no upcoming events:"
-msgstr "Mostrar el widget solo si hay eventos programados:"
+msgstr ""
 
 #: ../admin-views/widget-admin-advanced-list.php:61
 #, php-format
@@ -901,33 +901,33 @@ msgid "Want to modify the display of this widget? Try a %stemplate override%s."
 msgstr ""
 
 #: ../admin-views/widget-admin-countdown.php:12
-#, fuzzy
+#
 msgid "Event:"
-msgstr "Todos los Eventos"
+msgstr ""
 
 #: ../admin-views/widget-admin-countdown.php:21
-#, fuzzy
+#
 msgid "Show seconds:"
-msgstr "Segundo"
+msgstr ""
 
 #: ../admin-views/widget-admin-countdown.php:24
 msgid "Countdown Completed Text:"
 msgstr ""
 
 #: ../admin-views/widget-admin-venue.php:11
-#, fuzzy
+#
 msgid "Venue:"
-msgstr "Lugar"
+msgstr ""
 
 #: ../admin-views/widget-calendar.php:24
-#, fuzzy
+#
 msgid "Filters"
-msgstr "Nombre del Filtro"
+msgstr ""
 
 #: ../admin-views/widget-calendar.php:42
-#, fuzzy
+#
 msgid "remove"
-msgstr "Remover"
+msgstr ""
 
 #: ../admin-views/widget-calendar.php:53
 msgid "Match all"
@@ -938,43 +938,43 @@ msgid "Match any"
 msgstr ""
 
 #: ../admin-views/widget-calendar.php:60
-#, fuzzy
+#
 msgid "Add a filter"
-msgstr "Egregar un Filtro"
+msgstr ""
 
 #: ../admin-views/widget-calendar.php:63
 msgid "Select one..."
 msgstr ""
 
 #: ../lib/apm_filters.php:32
-#, fuzzy
+#
 msgid "Start Date"
-msgstr "Fecha y Hora de Inicio:"
+msgstr ""
 
 #: ../lib/apm_filters.php:37
-#, fuzzy
+#
 msgid "End Date"
-msgstr "Fecha y Hora Finaliza"
+msgstr ""
 
 #: ../lib/apm_filters.php:42
-#, fuzzy
+#
 msgid "Event Cost"
-msgstr "Campos Personalizados del Evento"
+msgstr ""
 
 #: ../lib/apm_filters.php:47
-#, fuzzy
+#
 msgid "Event Cats"
-msgstr "Calendario de Eventos"
+msgstr ""
 
 #: ../lib/apm_filters.php:52
-#, fuzzy
+#
 msgid "Title"
-msgstr "Título:"
+msgstr ""
 
 #: ../lib/apm_filters.php:57
-#, fuzzy
+#
 msgid "Recurring"
-msgstr "Repetición:"
+msgstr ""
 
 #: ../lib/apm_filters.php:62
 msgid "Description"
@@ -985,9 +985,9 @@ msgid "Other"
 msgstr ""
 
 #: ../lib/meta-pro.php:87
-#, fuzzy
+#
 msgid "Recurrence Pattern:"
-msgstr "Repetición:"
+msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:460
 msgid ""
@@ -1072,9 +1072,9 @@ msgid "Every %d weeks"
 msgstr "Cada %d semanas"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:612
-#, fuzzy, php-format
+#, php-format
 msgid "on %s"
-msgstr "en %s"
+msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:617
 #, php-format
@@ -1082,9 +1082,9 @@ msgid "Every %d months"
 msgstr "Cada %d meses"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:619
-#, fuzzy, php-format
+#, php-format
 msgid "on the %s %s"
-msgstr "en el %s %s"
+msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:624
 #, php-format
@@ -1112,21 +1112,21 @@ msgstr "%s%s%s"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:658
 #: ../lib/tribe-events-recurrence-meta.class.php:684
-#, fuzzy
+#
 msgid ", and"
-msgstr ", y"
+msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:660
 #: ../lib/tribe-events-recurrence-meta.class.php:686
-#, fuzzy
+#
 msgid "and"
-msgstr "y"
+msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:662
 #: ../lib/tribe-events-recurrence-meta.class.php:688
-#, fuzzy
+#
 msgid ","
-msgstr ","
+msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:677
 msgid "January"
@@ -1198,9 +1198,9 @@ msgid "Distance"
 msgstr ""
 
 #: ../lib/tribe-geoloc.class.php:77
-#, fuzzy, php-format
+#, php-format
 msgid "Title: %s"
-msgstr "Título:"
+msgstr ""
 
 #: ../lib/tribe-geoloc.class.php:79
 #, php-format
@@ -1208,9 +1208,9 @@ msgid "%sType: %s"
 msgstr ""
 
 #: ../lib/tribe-geoloc.class.php:79
-#, fuzzy
+#
 msgid "Select Dropdown"
-msgstr "Selección"
+msgstr ""
 
 #: ../lib/tribe-geoloc.class.php:80
 msgid "Radio Buttons"
@@ -1261,9 +1261,9 @@ msgid ""
 msgstr ""
 
 #: ../lib/tribe-geoloc.class.php:172
-#, fuzzy
+#
 msgid "Map"
-msgstr "Mar"
+msgstr ""
 
 #: ../lib/tribe-geoloc.class.php:194
 msgid "Near"
@@ -1290,33 +1290,33 @@ msgid "Add to Google Calendar"
 msgstr ""
 
 #: ../lib/tribe-ical.class.php:36
-#, fuzzy
+#
 msgid "Google Calendar"
-msgstr "Calendario de Eventos"
+msgstr ""
 
 #: ../lib/tribe-ical.class.php:37 ../lib/tribe-ical.class.php:83
 msgid "iCal Import"
 msgstr ""
 
 #: ../lib/tribe-ical.class.php:70
-#, fuzzy
+#
 msgid "Month's Events"
-msgstr "Mes(es) en el:"
+msgstr ""
 
 #: ../lib/tribe-ical.class.php:73
-#, fuzzy
+#
 msgid "Week's Events"
-msgstr "Todos los Eventos"
+msgstr ""
 
 #: ../lib/tribe-ical.class.php:76
-#, fuzzy
+#
 msgid "Day's Events"
-msgstr "Todos los Eventos"
+msgstr ""
 
 #: ../lib/tribe-ical.class.php:79
-#, fuzzy
+#
 msgid "Listed Events"
-msgstr "Todos los Eventos"
+msgstr ""
 
 #: ../lib/tribe-ical.class.php:83
 msgid "Import is filter/view sensitive"
@@ -1327,9 +1327,9 @@ msgid "A widget that displays the next upcoming x events."
 msgstr "Un widget que muestra los siguientes x eventos"
 
 #: ../lib/widget-advanced-list.class.php:22
-#, fuzzy
+#
 msgid "Events List"
-msgstr "Campos Personalizados del Evento"
+msgstr ""
 
 #: ../lib/widget-calendar.class.php:8
 msgid "The events calendar mini calendar widget"
@@ -1345,9 +1345,9 @@ msgid "Displays the time remaining until a specified event."
 msgstr ""
 
 #: ../lib/widget-countdown.class.php:15
-#, fuzzy
+#
 msgid "Events Countdown"
-msgstr "Campos Personalizados del Evento"
+msgstr ""
 
 #: ../lib/widget-venue.class.php:12
 msgid "Displays a list of upcoming events at a specific venue."
@@ -1391,9 +1391,9 @@ msgid ""
 msgstr ""
 
 #: ../public/template-tags/general.php:103
-#, fuzzy
+#
 msgid "Show only the first upcoming instance of recurring events"
-msgstr "Mostrar el widget solo si hay eventos programados:"
+msgstr ""
 
 #: ../public/template-tags/general.php:294
 #: ../public/template-tags/general.php:308
@@ -1411,54 +1411,54 @@ msgstr "Mostrar el widget solo si hay eventos programados:"
 #: ../public/template-tags/general.php:392
 #: ../public/template-tags/general.php:405
 #: ../public/template-tags/general.php:406
-#, fuzzy
+#
 msgid "No default set"
-msgstr "Valor por Defecto"
+msgstr ""
 
 #: ../public/template-tags/general.php:295
-#, fuzzy, php-format
+#, php-format
 msgid "The current default organizer is: %s"
-msgstr "Valor para organizador por defecto"
+msgstr ""
 
 #: ../public/template-tags/general.php:309
-#, fuzzy, php-format
+#, php-format
 msgid "The current default venue is: %s"
-msgstr "El valor por defecto actual es <strong>%s</strong>"
+msgstr ""
 
 #: ../public/template-tags/general.php:323
-#, fuzzy, php-format
+#, php-format
 msgid "The current default address is: %s"
-msgstr "El valor por defecto actual es <strong>%s</strong>"
+msgstr ""
 
 #: ../public/template-tags/general.php:337
-#, fuzzy, php-format
+#, php-format
 msgid "The current default city is: %s"
-msgstr "El valor por defecto actual es <strong>%s</strong>"
+msgstr ""
 
 #: ../public/template-tags/general.php:351
-#, fuzzy, php-format
+#, php-format
 msgid "The current default state is: %s"
-msgstr "El valor por defecto actual es <strong>%s</strong>"
+msgstr ""
 
 #: ../public/template-tags/general.php:365
-#, fuzzy, php-format
+#, php-format
 msgid "The current default province is: %s"
-msgstr "El valor por defecto actual es <strong>%s</strong>"
+msgstr ""
 
 #: ../public/template-tags/general.php:379
-#, fuzzy, php-format
+#, php-format
 msgid "The current default postal code/zip code is: %s"
-msgstr "El valor por defecto actual es <strong>%s</strong>"
+msgstr ""
 
 #: ../public/template-tags/general.php:393
-#, fuzzy, php-format
+#, php-format
 msgid "The current default country is: %s"
-msgstr "El valor por defecto actual es <strong>%s</strong>"
+msgstr ""
 
 #: ../public/template-tags/general.php:407
-#, fuzzy, php-format
+#, php-format
 msgid "The current default phone is: %s"
-msgstr "El valor por defecto actual es <strong>%s</strong>"
+msgstr ""
 
 #: ../public/template-tags/general.php:580
 msgid "Today"
@@ -1481,9 +1481,9 @@ msgid "Tomorrow"
 msgstr ""
 
 #: ../public/template-tags/general.php:675
-#, fuzzy
+#
 msgid "Related Events"
-msgstr "Todos los Eventos"
+msgstr ""
 
 #: ../vendor/advanced-post-manager/demo/demo.php:31
 #, php-format
@@ -1521,9 +1521,9 @@ msgid "LIKE"
 msgstr ""
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
-#, fuzzy
+#
 msgid "Search"
-msgstr "Marzo"
+msgstr ""
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:82
 msgid "Member Type"
@@ -1577,9 +1577,9 @@ msgid "Upload new files"
 msgstr "Subir nuevos archivos"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:361
-#, fuzzy
+#
 msgid "Add another file"
-msgstr "Agrega otro"
+msgstr ""
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:404
 msgid "Add more images"
@@ -1682,9 +1682,9 @@ msgid "Related Posts"
 msgstr ""
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
-#, fuzzy
+#
 msgid "Count:"
-msgstr "País"
+msgstr ""
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:80
 msgid "Display Thumbnails?"
@@ -1707,9 +1707,9 @@ msgid "Refine your search:"
 msgstr ""
 
 #: ../views/single-organizer.php:30 ../views/single-venue.php:31
-#, fuzzy
+#
 msgid "&larr; Back to Events"
-msgstr "&laquo; Regresar a Eventos"
+msgstr ""
 
 #: ../views/day/nav.php:15
 msgid "Day Navigation"
@@ -1720,14 +1720,14 @@ msgid "Events List Navigation"
 msgstr ""
 
 #: ../views/map/nav.php:24 ../views/photo/nav.php:24
-#, fuzzy
+#
 msgid "&laquo; Previous Events"
-msgstr "&laquo; Regresar a Eventos"
+msgstr ""
 
 #: ../views/map/nav.php:31 ../views/photo/nav.php:31
-#, fuzzy
+#
 msgid "Next Events &raquo;"
-msgstr "Widget Siguiente Evento"
+msgstr ""
 
 #: ../views/tribe-ECP-views-old/views/list-widget.php:110
 msgid "Price:"
@@ -1790,9 +1790,9 @@ msgid "Previous Week"
 msgstr ""
 
 #: ../views/week/nav.php:23
-#, fuzzy
+#
 msgid "Next Week"
-msgstr "Cada Semana"
+msgstr ""
 
 #: ../views/widgets/countdown-widget.php:27
 msgid "days"
@@ -1807,19 +1807,19 @@ msgid "min"
 msgstr ""
 
 #: ../views/widgets/countdown-widget.php:40
-#, fuzzy
+#
 msgid "sec"
-msgstr "Dic"
+msgstr ""
 
 #: ../views/widgets/list-widget.php:66
-#, fuzzy
+#
 msgid "Organizer:"
-msgstr "Organizador por Defecto"
+msgstr ""
 
 #: ../views/widgets/venue-widget.php:17
-#, fuzzy
+#
 msgid "No upcoming events."
-msgstr "Su siguiente evento programado"
+msgstr ""
 
 #~ msgid "Show:"
 #~ msgstr "Mostrar:"

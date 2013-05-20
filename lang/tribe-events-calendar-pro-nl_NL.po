@@ -32,33 +32,33 @@ msgstr ""
 # @ tribe-events-calendar
 #: ../events-calendar-pro.php:60
 #: ../lib/tribe-events-recurrence-meta.class.php:619
-#, fuzzy
+#
 msgid "day"
-msgstr "Vandaag"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../events-calendar-pro.php:61
-#, fuzzy
+#
 msgid "today"
-msgstr "Vandaag"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../events-calendar-pro.php:211
-#, fuzzy
+#
 msgid "Events for week of"
-msgstr "Activiteiten voor %s"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../events-calendar-pro.php:237
-#, fuzzy, php-format
+#, php-format
 msgid "Events for week of %s"
-msgstr "Activiteiten voor %s"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../events-calendar-pro.php:243
-#, fuzzy
+#
 msgid "Events for"
-msgstr "Activiteiten voor %s"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../events-calendar-pro.php:247 ../lib/widget-advanced-list.class.php:51
@@ -67,15 +67,15 @@ msgstr "Aankomende activiteiten"
 
 # @ default
 #: ../events-calendar-pro.php:664 ../admin-views/tribe-options-defaults.php:35
-#, fuzzy
+#
 msgid "Default Content"
-msgstr "Standaard ECP Template"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../events-calendar-pro.php:666 ../admin-views/event-meta-options.php:3
-#, fuzzy
+#
 msgid "Additional Fields"
-msgstr "Extra functionaliteiten"
+msgstr ""
 
 #: ../events-calendar-pro.php:672
 #, php-format
@@ -155,9 +155,9 @@ msgstr "Instellingen"
 
 # @ tribe-events-calendar
 #: ../events-calendar-pro.php:1117
-#, fuzzy, php-format
+#, php-format
 msgid "Calendar powered by %sThe Events Calendar PRO%s"
-msgstr "Upgrade van de Plugin 'The Events Calendar' "
+msgstr ""
 
 #: ../events-calendar-pro.php:1126
 msgid "Support"
@@ -175,9 +175,9 @@ msgstr ""
 # @ tribe-events-calendar
 #: ../events-calendar-pro.php:1168 ../admin-views/event-recurrence.php:82
 #: ../admin-views/event-recurrence.php:127
-#, fuzzy
+#
 msgid "Day"
-msgstr "De hele dag"
+msgstr ""
 
 #: ../events-calendar-pro.php:1176
 msgid "Photo"
@@ -205,9 +205,9 @@ msgstr ""
 
 # @ default
 #: ../admin-views/event-defaults.php:1
-#, fuzzy
+#
 msgid "Customize Defaults"
-msgstr "Extra veld verwijderd."
+msgstr ""
 
 #: ../admin-views/event-defaults.php:2
 msgid ""
@@ -226,15 +226,15 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/event-defaults.php:19
-#, fuzzy
+#
 msgid "Default Organizer for Events"
-msgstr "Standaard opmaak voor activiteiten"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/event-defaults.php:22
-#, fuzzy
+#
 msgid "Default Organizer"
-msgstr "Nieuwe Organisator"
+msgstr ""
 
 #: ../admin-views/event-defaults.php:23
 msgid "The default organizer value"
@@ -245,21 +245,21 @@ msgstr ""
 #: ../admin-views/event-defaults.php:38 ../admin-views/event-defaults.php:45
 #: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
 #: ../admin-views/event-defaults.php:82 ../admin-views/event-defaults.php:108
-#, fuzzy, php-format
+#, php-format
 msgid "The current default value is <strong>%s</strong>"
-msgstr "Jouw huidige activiteit URL is <strong>%s</strong>"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/event-defaults.php:27
-#, fuzzy
+#
 msgid "Default Venue for Events"
-msgstr "Standaard opmaak voor activiteiten"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/event-defaults.php:30
-#, fuzzy
+#
 msgid "Default Venue"
-msgstr "Nieuwe locatie"
+msgstr ""
 
 #: ../admin-views/event-defaults.php:31
 msgid "The default venue value"
@@ -267,9 +267,9 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/event-defaults.php:35 ../admin-views/event-defaults.php:37
-#, fuzzy
+#
 msgid "Default Address"
-msgstr "Adres:"
+msgstr ""
 
 #: ../admin-views/event-defaults.php:38
 msgid "The default address value"
@@ -277,9 +277,9 @@ msgstr ""
 
 # @ default
 #: ../admin-views/event-defaults.php:42 ../admin-views/event-defaults.php:44
-#, fuzzy
+#
 msgid "Default City"
-msgstr "Standaard ECP Template"
+msgstr ""
 
 #: ../admin-views/event-defaults.php:45
 msgid "The default city value"
@@ -287,15 +287,15 @@ msgstr ""
 
 # @ default
 #: ../admin-views/event-defaults.php:50
-#, fuzzy
+#
 msgid "Default State"
-msgstr "Standaard ECP Template"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/event-defaults.php:52 ../admin-views/event-defaults.php:73
-#, fuzzy
+#
 msgid "Default Province or State"
-msgstr "Standaard opmaak voor activiteiten"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/event-defaults.php:55
@@ -308,15 +308,15 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/event-defaults.php:71
-#, fuzzy
+#
 msgid "Default Province"
-msgstr "Provincie:"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/event-defaults.php:79 ../admin-views/event-defaults.php:81
-#, fuzzy
+#
 msgid "Default Postal Code"
-msgstr "Postcode:"
+msgstr ""
 
 #: ../admin-views/event-defaults.php:82
 msgid "The default Postal Code value"
@@ -324,15 +324,15 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/event-defaults.php:87
-#, fuzzy
+#
 msgid "Default Country for Events"
-msgstr "Standaard opmaak voor activiteiten"
+msgstr ""
 
 # @ default
 #: ../admin-views/event-defaults.php:105 ../admin-views/event-defaults.php:107
-#, fuzzy
+#
 msgid "Default Phone"
-msgstr "Standaard ECP Template"
+msgstr ""
 
 #: ../admin-views/event-defaults.php:108
 msgid "The default phone value"
@@ -459,9 +459,9 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/event-meta-options.php:51
-#, fuzzy
+#
 msgid "Show"
-msgstr "Bekijk:"
+msgstr ""
 
 #: ../admin-views/event-meta-options.php:52
 msgid "Hide"
@@ -481,15 +481,15 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/event-meta.php:7
-#, fuzzy
+#
 msgid "Additional Event Fields"
-msgstr "Extra functionaliteiten"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/event-recurrence.php:2
-#, fuzzy
+#
 msgid "Recurrence:"
-msgstr "Terugkerend?"
+msgstr ""
 
 #: ../admin-views/event-recurrence.php:8
 msgid "None"
@@ -521,9 +521,9 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/event-recurrence.php:18
-#, fuzzy
+#
 msgid "On"
-msgstr "Oman"
+msgstr ""
 
 #: ../admin-views/event-recurrence.php:19
 msgid "After"
@@ -559,9 +559,9 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/event-recurrence.php:34
-#, fuzzy
+#
 msgid "Monthly"
-msgstr "Maand"
+msgstr ""
 
 #: ../admin-views/event-recurrence.php:35
 msgid "Year(s) on:"
@@ -660,9 +660,9 @@ msgstr ""
 #: ../admin-views/event-recurrence.php:78
 #: ../admin-views/event-recurrence.php:123
 #: ../lib/tribe-events-recurrence-meta.class.php:652
-#, fuzzy
+#
 msgid "Friday"
-msgstr "Florida"
+msgstr ""
 
 #: ../admin-views/event-recurrence.php:79
 #: ../admin-views/event-recurrence.php:124
@@ -678,9 +678,9 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/event-recurrence.php:91
-#, fuzzy
+#
 msgid "Jan"
-msgstr "Japan"
+msgstr ""
 
 #: ../admin-views/event-recurrence.php:92
 msgid "Feb"
@@ -688,9 +688,9 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/event-recurrence.php:93
-#, fuzzy
+#
 msgid "Mar"
-msgstr "Myanmar"
+msgstr ""
 
 #: ../admin-views/event-recurrence.php:94
 msgid "Apr"
@@ -699,9 +699,9 @@ msgstr ""
 # @ tribe-events-calendar
 #: ../admin-views/event-recurrence.php:95
 #: ../lib/tribe-events-recurrence-meta.class.php:678
-#, fuzzy
+#
 msgid "May"
-msgstr "Mayotte"
+msgstr ""
 
 #: ../admin-views/event-recurrence.php:96
 msgid "Jun"
@@ -775,9 +775,9 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/tribe-options-defaults.php:22
-#, fuzzy
+#
 msgid "Select a State"
-msgstr "Selecteer een provincie:"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:39
 msgid ""
@@ -788,9 +788,9 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/tribe-options-defaults.php:51
-#, fuzzy
+#
 msgid "Options"
-msgstr "Activiteit opties"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:61
 msgid ""
@@ -806,9 +806,9 @@ msgstr "Organisator"
 
 # @ tribe-events-calendar
 #: ../admin-views/tribe-options-defaults.php:69
-#, fuzzy
+#
 msgid "Default organizer"
-msgstr "Nieuwe Organisator"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/tribe-options-defaults.php:73
@@ -823,9 +823,9 @@ msgstr "Locatie"
 
 # @ default
 #: ../admin-views/tribe-options-defaults.php:86
-#, fuzzy
+#
 msgid "Default venue"
-msgstr "Standaard ECP Template"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/tribe-options-defaults.php:90
@@ -835,9 +835,9 @@ msgstr "Nog geen opgeslagen locaties."
 # @ tribe-events-calendar
 #: ../admin-views/tribe-options-defaults.php:99
 #: ../admin-views/widget-admin-advanced-list.php:30
-#, fuzzy
+#
 msgid "Address"
-msgstr "Adres:"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:103
 msgid ""
@@ -855,9 +855,9 @@ msgstr ""
 
 # @ default
 #: ../admin-views/tribe-options-defaults.php:133
-#, fuzzy
+#
 msgid "Default state"
-msgstr "Standaard ECP Template"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:146
 msgid "Default province"
@@ -869,15 +869,15 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/tribe-options-defaults.php:172
-#, fuzzy
+#
 msgid "Default country"
-msgstr "Selecteer een land:"
+msgstr ""
 
 # @ default
 #: ../admin-views/tribe-options-defaults.php:185
-#, fuzzy
+#
 msgid "Default phone"
-msgstr "Standaard ECP Template"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:201
 msgid ""
@@ -907,33 +907,33 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/widget-admin-advanced-list.php:31
-#, fuzzy
+#
 msgid "City"
-msgstr "Stad:"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/widget-admin-advanced-list.php:32
-#, fuzzy
+#
 msgid "State (US) Or Province (Int)"
-msgstr "Provincie:"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/widget-admin-advanced-list.php:33
-#, fuzzy
+#
 msgid "Postal Code"
-msgstr "Postcode:"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/widget-admin-advanced-list.php:34
-#, fuzzy
+#
 msgid "Country"
-msgstr "Land:"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/widget-admin-advanced-list.php:35
-#, fuzzy
+#
 msgid "Phone"
-msgstr "Telefoon:"
+msgstr ""
 
 #: ../admin-views/widget-admin-advanced-list.php:36
 msgid "Price"
@@ -941,22 +941,22 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/widget-admin-advanced-list.php:43
-#, fuzzy
+#
 msgid "Category:"
-msgstr "Categorie"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/widget-admin-advanced-list.php:47
-#, fuzzy
+#
 msgid "All Events"
-msgstr "Bekijk alle activiteiten"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/widget-admin-advanced-list.php:58
 #: ../admin-views/widget-admin-venue.php:28
-#, fuzzy
+#
 msgid "Hide this widget if there are no upcoming events:"
-msgstr "Laat Widget alleen zien wanneer er aankomende activiteiten zijn:"
+msgstr ""
 
 #: ../admin-views/widget-admin-advanced-list.php:61
 #, php-format
@@ -965,15 +965,15 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/widget-admin-countdown.php:12
-#, fuzzy
+#
 msgid "Event:"
-msgstr "Activiteit"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/widget-admin-countdown.php:21
-#, fuzzy
+#
 msgid "Show seconds:"
-msgstr "Bekijk opmerkingen"
+msgstr ""
 
 #: ../admin-views/widget-admin-countdown.php:24
 msgid "Countdown Completed Text:"
@@ -1006,9 +1006,9 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/widget-calendar.php:63
-#, fuzzy
+#
 msgid "Select one..."
-msgstr "Selecteer een land:"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../lib/apm_filters.php:32
@@ -1027,21 +1027,21 @@ msgstr "Activiteit kosten"
 
 # @ tribe-events-calendar
 #: ../lib/apm_filters.php:47
-#, fuzzy
+#
 msgid "Event Cats"
-msgstr "Activiteit kosten"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../lib/apm_filters.php:52
-#, fuzzy
+#
 msgid "Title"
-msgstr "Titel:"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../lib/apm_filters.php:57
-#, fuzzy
+#
 msgid "Recurring"
-msgstr "Terugkerend?"
+msgstr ""
 
 #: ../lib/apm_filters.php:62
 msgid "Description"
@@ -1092,9 +1092,9 @@ msgstr[1] ""
 # @ tribe-events-calendar
 #: ../lib/tribe-events-recurrence-meta.class.php:597
 #: ../lib/tribe-events-recurrence-meta.class.php:616
-#, fuzzy
+#
 msgid "Every month"
-msgstr "Vermont"
+msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:598
 #, php-format
@@ -1142,9 +1142,9 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../lib/tribe-events-recurrence-meta.class.php:617
-#, fuzzy, php-format
+#, php-format
 msgid "Every %d months"
-msgstr "Activiteiten deze maand"
+msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:619
 #, php-format
@@ -1183,9 +1183,9 @@ msgstr ""
 # @ tribe-events-calendar
 #: ../lib/tribe-events-recurrence-meta.class.php:660
 #: ../lib/tribe-events-recurrence-meta.class.php:686
-#, fuzzy
+#
 msgid "and"
-msgstr "Canada"
+msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:662
 #: ../lib/tribe-events-recurrence-meta.class.php:688
@@ -1259,15 +1259,15 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../lib/tribe-geoloc.class.php:70
-#, fuzzy
+#
 msgid "Distance"
-msgstr "Pakistan"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../lib/tribe-geoloc.class.php:77
-#, fuzzy, php-format
+#, php-format
 msgid "Title: %s"
-msgstr "Titel:"
+msgstr ""
 
 #: ../lib/tribe-geoloc.class.php:79
 #, php-format
@@ -1357,9 +1357,9 @@ msgstr "Voeg toe aan de Google agenda"
 
 # @ tribe-events-calendar
 #: ../lib/tribe-ical.class.php:36
-#, fuzzy
+#
 msgid "Google Calendar"
-msgstr "+ Google agenda"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../lib/tribe-ical.class.php:37 ../lib/tribe-ical.class.php:83
@@ -1368,27 +1368,27 @@ msgstr "iCal-Import"
 
 # @ tribe-events-calendar
 #: ../lib/tribe-ical.class.php:70
-#, fuzzy
+#
 msgid "Month's Events"
-msgstr "Voorgaande activiteiten"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../lib/tribe-ical.class.php:73
-#, fuzzy
+#
 msgid "Week's Events"
-msgstr "Voorgaande activiteiten"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../lib/tribe-ical.class.php:76
-#, fuzzy
+#
 msgid "Day's Events"
-msgstr "Voorgaande activiteiten"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../lib/tribe-ical.class.php:79
-#, fuzzy
+#
 msgid "Listed Events"
-msgstr "Voorgaande activiteiten"
+msgstr ""
 
 #: ../lib/tribe-ical.class.php:83
 msgid "Import is filter/view sensitive"
@@ -1401,9 +1401,9 @@ msgstr "Een Widget, die de komende X activiteiten toont."
 
 # @ tribe-events-calendar
 #: ../lib/widget-advanced-list.class.php:22
-#, fuzzy
+#
 msgid "Events List"
-msgstr "Activiteitenlijst"
+msgstr ""
 
 #: ../lib/widget-calendar.class.php:8
 msgid "The events calendar mini calendar widget"
@@ -1412,9 +1412,9 @@ msgstr ""
 # @ tribe-events-calendar
 #: ../lib/widget-calendar.class.php:10 ../lib/widget-calendar.class.php:31
 #: ../lib/widget-calendar.class.php:59
-#, fuzzy
+#
 msgid "Events Calendar"
-msgstr "The Events Calendar"
+msgstr ""
 
 #: ../lib/widget-countdown.class.php:13
 msgid "Displays the time remaining until a specified event."
@@ -1422,9 +1422,9 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../lib/widget-countdown.class.php:15
-#, fuzzy
+#
 msgid "Events Countdown"
-msgstr "Activiteit kosten"
+msgstr ""
 
 #: ../lib/widget-venue.class.php:12
 msgid "Displays a list of upcoming events at a specific venue."
@@ -1476,9 +1476,9 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../public/template-tags/general.php:103
-#, fuzzy
+#
 msgid "Show only the first upcoming instance of recurring events"
-msgstr "Laat Widget alleen zien wanneer er aankomende activiteiten zijn:"
+msgstr ""
 
 #: ../public/template-tags/general.php:294
 #: ../public/template-tags/general.php:308
@@ -1551,15 +1551,15 @@ msgstr "Vandaag"
 
 # @ tribe-events-calendar
 #: ../public/template-tags/general.php:583
-#, fuzzy
+#
 msgid "&laquo; Previous Day"
-msgstr "&laquo; voorgaande activiteiten"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../public/template-tags/general.php:586
-#, fuzzy
+#
 msgid "Next Day &raquo;"
-msgstr "Komende activiteiten &raquo;"
+msgstr ""
 
 #: ../public/template-tags/general.php:589
 msgid "Yesterday"
@@ -1567,15 +1567,15 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../public/template-tags/general.php:592
-#, fuzzy
+#
 msgid "Tomorrow"
-msgstr "Komoren"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../public/template-tags/general.php:675
-#, fuzzy
+#
 msgid "Related Events"
-msgstr "Voorgaande activiteiten"
+msgstr ""
 
 #: ../vendor/advanced-post-manager/demo/demo.php:31
 #, php-format
@@ -1594,9 +1594,9 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:141
-#, fuzzy
+#
 msgid "Comments"
-msgstr "Bekijk opmerkingen"
+msgstr ""
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:52
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:72
@@ -1614,9 +1614,9 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
-#, fuzzy
+#
 msgid "Search"
-msgstr "Zoek activiteiten"
+msgstr ""
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:82
 msgid "Member Type"
@@ -1648,9 +1648,9 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:44
-#, fuzzy
+#
 msgid "Extended Information"
-msgstr "Locatie informatie"
+msgstr ""
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:124
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:397
@@ -1681,16 +1681,16 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:412
-#, fuzzy
+#
 msgid "Select a color"
-msgstr "Selecteer een land:"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../vendor/advanced-post-manager/views/edit-filters.php:7
 #: ../vendor/advanced-post-manager/views/edit-filters.php:8
-#, fuzzy
+#
 msgid "Click to toggle"
-msgstr "Klik om Google Maps te zien"
+msgstr ""
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:8
 msgid "Filters &amp; Columns"
@@ -1715,15 +1715,15 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../vendor/advanced-post-manager/views/edit-filters.php:25
-#, fuzzy
+#
 msgid "Filter Name"
-msgstr "Vietnam"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../vendor/advanced-post-manager/views/edit-filters.php:27
-#, fuzzy
+#
 msgid "Cancel"
-msgstr "Frankrijk"
+msgstr ""
 
 #: ../vendor/pue-client/admin-views/license-key.view.php:9
 #: ../vendor/pue-client/admin-views/license-key.view.php:13
@@ -1746,9 +1746,9 @@ msgstr ""
 
 # @ default
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:251
-#, fuzzy
+#
 msgid "License key(s) updated."
-msgstr "Locatie geupdate."
+msgstr ""
 
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:288
 msgid "Sorry, key validation server is not available."
@@ -1787,9 +1787,9 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
-#, fuzzy
+#
 msgid "Count:"
-msgstr "Land:"
+msgstr ""
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:80
 msgid "Display Thumbnails?"
@@ -1801,9 +1801,9 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:86
-#, fuzzy
+#
 msgid "Post Type:"
-msgstr "Postcode:"
+msgstr ""
 
 #: ../vendor/tribe-support/tribe-support.class.php:54
 msgid "Send a support request for this site."
@@ -1815,9 +1815,9 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../views/single-organizer.php:30 ../views/single-venue.php:31
-#, fuzzy
+#
 msgid "&larr; Back to Events"
-msgstr "&laquo; Terug naar de activiteiten"
+msgstr ""
 
 #: ../views/day/nav.php:15
 msgid "Day Navigation"
@@ -1825,9 +1825,9 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../views/map/nav.php:21 ../views/photo/nav.php:21
-#, fuzzy
+#
 msgid "Events List Navigation"
-msgstr "Activiteitenlijst"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../views/map/nav.php:24 ../views/photo/nav.php:24
@@ -1850,9 +1850,9 @@ msgstr "&laquo; Terug naar de activiteiten"
 
 # @ tribe-events-calendar
 #: ../views/tribe-ECP-views-old/views/single-venue.php:37
-#, fuzzy
+#
 msgid "Name:"
-msgstr "Locatie naam:"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../views/tribe-ECP-views-old/views/single-venue.php:41
@@ -1876,9 +1876,9 @@ msgstr "Google Maps"
 
 # @ tribe-events-calendar
 #: ../views/tribe-ECP-views-old/views/single-venue.php:76
-#, fuzzy
+#
 msgid "Upcoming Events At This Venue"
-msgstr "Aankomende activiteiten"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../views/tribe-ECP-views-old/views/single-venue.php:96
@@ -1892,9 +1892,9 @@ msgstr "Einde:"
 
 # @ tribe-events-calendar
 #: ../views/tribe-ECP-views-old/views/single-venue.php:105
-#, fuzzy
+#
 msgid "Date:"
-msgstr "Einddatum"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../views/tribe-ECP-views-old/views/single-venue.php:114
@@ -1911,15 +1911,15 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../views/week/nav.php:20
-#, fuzzy
+#
 msgid "Previous Week"
-msgstr "Geen voorgaande activiteiten"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../views/week/nav.php:23
-#, fuzzy
+#
 msgid "Next Week"
-msgstr "Volgende"
+msgstr ""
 
 #: ../views/widgets/countdown-widget.php:27
 msgid "days"
@@ -1931,9 +1931,9 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../views/widgets/countdown-widget.php:35
-#, fuzzy
+#
 msgid "min"
-msgstr "Wyoming"
+msgstr ""
 
 #: ../views/widgets/countdown-widget.php:40
 msgid "sec"
@@ -1946,9 +1946,9 @@ msgstr "Organisator:"
 
 # @ tribe-events-calendar
 #: ../views/widgets/venue-widget.php:17
-#, fuzzy
+#
 msgid "No upcoming events."
-msgstr "Geen aankomende activiteiten"
+msgstr ""
 
 # @ tribe-events-calendar
 #~ msgid "Show:"

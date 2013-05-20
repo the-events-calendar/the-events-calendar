@@ -37,9 +37,9 @@ msgid "today"
 msgstr ""
 
 #: ../events-calendar-pro.php:211
-#, fuzzy
+#
 msgid "Events for week of"
-msgstr "Каждую неделю"
+msgstr ""
 
 #: ../events-calendar-pro.php:237
 #, php-format
@@ -47,19 +47,19 @@ msgid "Events for week of %s"
 msgstr ""
 
 #: ../events-calendar-pro.php:243
-#, fuzzy
+#
 msgid "Events for"
-msgstr "Стоимость события"
+msgstr ""
 
 #: ../events-calendar-pro.php:247 ../lib/widget-advanced-list.class.php:51
-#, fuzzy
+#
 msgid "Upcoming Events"
-msgstr "Ваше следующее наступающее события"
+msgstr ""
 
 #: ../events-calendar-pro.php:664 ../admin-views/tribe-options-defaults.php:35
-#, fuzzy
+#
 msgid "Default Content"
-msgstr "Телефон по умолчанию"
+msgstr ""
 
 #: ../events-calendar-pro.php:666 ../admin-views/event-meta-options.php:3
 msgid "Additional Fields"
@@ -154,9 +154,9 @@ msgid "View All Add-Ons"
 msgstr ""
 
 #: ../events-calendar-pro.php:1160
-#, fuzzy
+#
 msgid "Week"
-msgstr "Еженедельно"
+msgstr ""
 
 #: ../events-calendar-pro.php:1168 ../admin-views/event-recurrence.php:82
 #: ../admin-views/event-recurrence.php:127
@@ -172,14 +172,14 @@ msgid "Day Of"
 msgstr ""
 
 #: ../events-calendar-pro.php:1186
-#, fuzzy
+#
 msgid "Week Of"
-msgstr "Еженедельно"
+msgstr ""
 
 #: ../events-calendar-pro.php:1249
-#, fuzzy
+#
 msgid "The Events Calendar"
-msgstr "Календарь Событий"
+msgstr ""
 
 #: ../events-calendar-pro.php:1250
 #, php-format
@@ -416,14 +416,14 @@ msgid "video tutorial that will walk you through the process"
 msgstr ""
 
 #: ../admin-views/event-meta-options.php:49
-#, fuzzy
+#
 msgid "Editor \"Custom Fields\" meta box"
-msgstr "Пользовательское поле события"
+msgstr ""
 
 #: ../admin-views/event-meta-options.php:51
-#, fuzzy
+#
 msgid "Show"
-msgstr "Показать:"
+msgstr ""
 
 #: ../admin-views/event-meta-options.php:52
 msgid "Hide"
@@ -444,9 +444,9 @@ msgstr ""
 "только вы кликните ОК, это нельзя будет отменить."
 
 #: ../admin-views/event-meta.php:7
-#, fuzzy
+#
 msgid "Additional Event Fields"
-msgstr "Дополнительные поля."
+msgstr ""
 
 #: ../admin-views/event-recurrence.php:2
 msgid "Recurrence:"
@@ -690,9 +690,9 @@ msgid "Description:"
 msgstr "Описание:"
 
 #: ../admin-views/event-recurrence.php:143
-#, fuzzy
+#
 msgid "Recurrence Text:"
-msgstr "Периодичность"
+msgstr ""
 
 #: ../admin-views/event-recurrence.php:148
 msgid ""
@@ -724,14 +724,14 @@ msgstr "Отправить запрос на поддержку"
 
 #: ../admin-views/tribe-options-defaults.php:6
 #: ../admin-views/tribe-options-defaults.php:15
-#, fuzzy
+#
 msgid "No Default"
-msgstr "Пользовательские Предустановки"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:22
-#, fuzzy
+#
 msgid "Select a State"
-msgstr "Выбрать Штат"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:39
 msgid ""
@@ -756,9 +756,9 @@ msgid "Organizer"
 msgstr "Организатор"
 
 #: ../admin-views/tribe-options-defaults.php:69
-#, fuzzy
+#
 msgid "Default organizer"
-msgstr "Организатор по умолчанию"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:73
 msgid "No saved organizers yet."
@@ -770,9 +770,9 @@ msgid "Venue"
 msgstr "Место"
 
 #: ../admin-views/tribe-options-defaults.php:86
-#, fuzzy
+#
 msgid "Default venue"
-msgstr "Место по умолчанию"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:90
 msgid "No saved venues yet."
@@ -790,39 +790,39 @@ msgid ""
 msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:107
-#, fuzzy
+#
 msgid "Default address"
-msgstr "Адрес по умолчанию"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:120
-#, fuzzy
+#
 msgid "Default city"
-msgstr "Город по умолчанию"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:133
-#, fuzzy
+#
 msgid "Default state"
-msgstr "Штат по умолчанию"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:146
-#, fuzzy
+#
 msgid "Default province"
-msgstr "Штат по умолчанию"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:159
-#, fuzzy
+#
 msgid "Default postal code/zip code"
-msgstr "Почтовый индекс по умолчанию"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:172
-#, fuzzy
+#
 msgid "Default country"
-msgstr "Город по умолчанию"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:185
-#, fuzzy
+#
 msgid "Default phone"
-msgstr "Телефон по умолчанию"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:201
 #, fuzzy
@@ -886,9 +886,9 @@ msgstr "Все события"
 
 #: ../admin-views/widget-admin-advanced-list.php:58
 #: ../admin-views/widget-admin-venue.php:28
-#, fuzzy
+#
 msgid "Hide this widget if there are no upcoming events:"
-msgstr "Показывать виджет только, если ожидаются события:"
+msgstr ""
 
 #: ../admin-views/widget-admin-advanced-list.php:61
 #, php-format
@@ -896,33 +896,33 @@ msgid "Want to modify the display of this widget? Try a %stemplate override%s."
 msgstr ""
 
 #: ../admin-views/widget-admin-countdown.php:12
-#, fuzzy
+#
 msgid "Event:"
-msgstr "Все события"
+msgstr ""
 
 #: ../admin-views/widget-admin-countdown.php:21
-#, fuzzy
+#
 msgid "Show seconds:"
-msgstr "Второй"
+msgstr ""
 
 #: ../admin-views/widget-admin-countdown.php:24
 msgid "Countdown Completed Text:"
 msgstr ""
 
 #: ../admin-views/widget-admin-venue.php:11
-#, fuzzy
+#
 msgid "Venue:"
-msgstr "Место"
+msgstr ""
 
 #: ../admin-views/widget-calendar.php:24
-#, fuzzy
+#
 msgid "Filters"
-msgstr "Название фильтра"
+msgstr ""
 
 #: ../admin-views/widget-calendar.php:42
-#, fuzzy
+#
 msgid "remove"
-msgstr "Удалить"
+msgstr ""
 
 #: ../admin-views/widget-calendar.php:53
 msgid "Match all"
@@ -933,9 +933,9 @@ msgid "Match any"
 msgstr ""
 
 #: ../admin-views/widget-calendar.php:60
-#, fuzzy
+#
 msgid "Add a filter"
-msgstr "Добавть фильтр"
+msgstr ""
 
 #: ../admin-views/widget-calendar.php:63
 msgid "Select one..."
@@ -946,42 +946,42 @@ msgid "Start Date"
 msgstr "Дата начала"
 
 #: ../lib/apm_filters.php:37
-#, fuzzy
+#
 msgid "End Date"
-msgstr "Дата и Время окончания"
+msgstr ""
 
 #: ../lib/apm_filters.php:42
 msgid "Event Cost"
 msgstr "Стоимость события"
 
 #: ../lib/apm_filters.php:47
-#, fuzzy
+#
 msgid "Event Cats"
-msgstr "Стоимость события"
+msgstr ""
 
 #: ../lib/apm_filters.php:52
-#, fuzzy
+#
 msgid "Title"
-msgstr "Заголовок:"
+msgstr ""
 
 #: ../lib/apm_filters.php:57
-#, fuzzy
+#
 msgid "Recurring"
-msgstr "Периодичность"
+msgstr ""
 
 #: ../lib/apm_filters.php:62
-#, fuzzy
+#
 msgid "Description"
-msgstr "Описание:"
+msgstr ""
 
 #: ../lib/meta-pro.php:63
 msgid "Other"
 msgstr ""
 
 #: ../lib/meta-pro.php:87
-#, fuzzy
+#
 msgid "Recurrence Pattern:"
-msgstr "Периодичность"
+msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:460
 msgid ""
@@ -1024,9 +1024,9 @@ msgid "Every %d weeks"
 msgstr "Каждые %d недели"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:612
-#, fuzzy, php-format
+#, php-format
 msgid "on %s"
-msgstr "на %s"
+msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:617
 #, php-format
@@ -1034,9 +1034,9 @@ msgid "Every %d months"
 msgstr "Каждые %d месяцев"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:619
-#, fuzzy, php-format
+#, php-format
 msgid "on the %s %s"
-msgstr "на %s %s"
+msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:624
 #, php-format
@@ -1064,21 +1064,21 @@ msgstr "%s%s%s"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:658
 #: ../lib/tribe-events-recurrence-meta.class.php:684
-#, fuzzy
+#
 msgid ", and"
-msgstr ", и"
+msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:660
 #: ../lib/tribe-events-recurrence-meta.class.php:686
-#, fuzzy
+#
 msgid "and"
-msgstr "и"
+msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:662
 #: ../lib/tribe-events-recurrence-meta.class.php:688
-#, fuzzy
+#
 msgid ","
-msgstr ","
+msgstr ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:677
 msgid "January"
@@ -1150,9 +1150,9 @@ msgid "Distance"
 msgstr ""
 
 #: ../lib/tribe-geoloc.class.php:77
-#, fuzzy, php-format
+#, php-format
 msgid "Title: %s"
-msgstr "Заголовок:"
+msgstr ""
 
 #: ../lib/tribe-geoloc.class.php:79
 #, php-format
@@ -1160,9 +1160,9 @@ msgid "%sType: %s"
 msgstr ""
 
 #: ../lib/tribe-geoloc.class.php:79
-#, fuzzy
+#
 msgid "Select Dropdown"
-msgstr "Дропдаун"
+msgstr ""
 
 #: ../lib/tribe-geoloc.class.php:80
 msgid "Radio Buttons"
@@ -1213,9 +1213,9 @@ msgid ""
 msgstr ""
 
 #: ../lib/tribe-geoloc.class.php:172
-#, fuzzy
+#
 msgid "Map"
-msgstr "Мар"
+msgstr ""
 
 #: ../lib/tribe-geoloc.class.php:194
 msgid "Near"
@@ -1242,33 +1242,33 @@ msgid "Add to Google Calendar"
 msgstr ""
 
 #: ../lib/tribe-ical.class.php:36
-#, fuzzy
+#
 msgid "Google Calendar"
-msgstr "Календарь Событий"
+msgstr ""
 
 #: ../lib/tribe-ical.class.php:37 ../lib/tribe-ical.class.php:83
 msgid "iCal Import"
 msgstr ""
 
 #: ../lib/tribe-ical.class.php:70
-#, fuzzy
+#
 msgid "Month's Events"
-msgstr "Месяца(ов):"
+msgstr ""
 
 #: ../lib/tribe-ical.class.php:73
-#, fuzzy
+#
 msgid "Week's Events"
-msgstr "Все события"
+msgstr ""
 
 #: ../lib/tribe-ical.class.php:76
-#, fuzzy
+#
 msgid "Day's Events"
-msgstr "Все события"
+msgstr ""
 
 #: ../lib/tribe-ical.class.php:79
-#, fuzzy
+#
 msgid "Listed Events"
-msgstr "Все события"
+msgstr ""
 
 #: ../lib/tribe-ical.class.php:83
 msgid "Import is filter/view sensitive"
@@ -1279,9 +1279,9 @@ msgid "A widget that displays the next upcoming x events."
 msgstr "Виджет показывает следующие приближающиеся события."
 
 #: ../lib/widget-advanced-list.class.php:22
-#, fuzzy
+#
 msgid "Events List"
-msgstr "Стоимость события"
+msgstr ""
 
 #: ../lib/widget-calendar.class.php:8
 msgid "The events calendar mini calendar widget"
@@ -1297,9 +1297,9 @@ msgid "Displays the time remaining until a specified event."
 msgstr ""
 
 #: ../lib/widget-countdown.class.php:15
-#, fuzzy
+#
 msgid "Events Countdown"
-msgstr "Стоимость события"
+msgstr ""
 
 #: ../lib/widget-venue.class.php:12
 msgid "Displays a list of upcoming events at a specific venue."
@@ -1343,9 +1343,9 @@ msgid ""
 msgstr ""
 
 #: ../public/template-tags/general.php:103
-#, fuzzy
+#
 msgid "Show only the first upcoming instance of recurring events"
-msgstr "Показывать виджет только, если ожидаются события:"
+msgstr ""
 
 #: ../public/template-tags/general.php:294
 #: ../public/template-tags/general.php:308
@@ -1363,54 +1363,54 @@ msgstr "Показывать виджет только, если ожидают�
 #: ../public/template-tags/general.php:392
 #: ../public/template-tags/general.php:405
 #: ../public/template-tags/general.php:406
-#, fuzzy
+#
 msgid "No default set"
-msgstr "Значение по умолчанию"
+msgstr ""
 
 #: ../public/template-tags/general.php:295
-#, fuzzy, php-format
+#, php-format
 msgid "The current default organizer is: %s"
-msgstr "Поле для Организатора по умолчанию"
+msgstr ""
 
 #: ../public/template-tags/general.php:309
-#, fuzzy, php-format
+#, php-format
 msgid "The current default venue is: %s"
-msgstr "Текущее значение по умолчанию <strong>%s</strong>"
+msgstr ""
 
 #: ../public/template-tags/general.php:323
-#, fuzzy, php-format
+#, php-format
 msgid "The current default address is: %s"
-msgstr "Текущее значение по умолчанию <strong>%s</strong>"
+msgstr ""
 
 #: ../public/template-tags/general.php:337
-#, fuzzy, php-format
+#, php-format
 msgid "The current default city is: %s"
-msgstr "Текущее значение по умолчанию <strong>%s</strong>"
+msgstr ""
 
 #: ../public/template-tags/general.php:351
-#, fuzzy, php-format
+#, php-format
 msgid "The current default state is: %s"
-msgstr "Текущее значение по умолчанию <strong>%s</strong>"
+msgstr ""
 
 #: ../public/template-tags/general.php:365
-#, fuzzy, php-format
+#, php-format
 msgid "The current default province is: %s"
-msgstr "Текущее значение по умолчанию <strong>%s</strong>"
+msgstr ""
 
 #: ../public/template-tags/general.php:379
-#, fuzzy, php-format
+#, php-format
 msgid "The current default postal code/zip code is: %s"
-msgstr "Текущее значение по умолчанию <strong>%s</strong>"
+msgstr ""
 
 #: ../public/template-tags/general.php:393
-#, fuzzy, php-format
+#, php-format
 msgid "The current default country is: %s"
-msgstr "Текущее значение по умолчанию <strong>%s</strong>"
+msgstr ""
 
 #: ../public/template-tags/general.php:407
-#, fuzzy, php-format
+#, php-format
 msgid "The current default phone is: %s"
-msgstr "Текущее значение по умолчанию <strong>%s</strong>"
+msgstr ""
 
 #: ../public/template-tags/general.php:580
 msgid "Today"
@@ -1433,9 +1433,9 @@ msgid "Tomorrow"
 msgstr ""
 
 #: ../public/template-tags/general.php:675
-#, fuzzy
+#
 msgid "Related Events"
-msgstr "Все события"
+msgstr ""
 
 #: ../vendor/advanced-post-manager/demo/demo.php:31
 #, php-format
@@ -1473,9 +1473,9 @@ msgid "LIKE"
 msgstr ""
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
-#, fuzzy
+#
 msgid "Search"
-msgstr "Март"
+msgstr ""
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:82
 msgid "Member Type"
@@ -1529,9 +1529,9 @@ msgid "Upload new files"
 msgstr "Загрузить новые файлы в систему"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:361
-#, fuzzy
+#
 msgid "Add another file"
-msgstr "Добавить еще"
+msgstr ""
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:404
 msgid "Add more images"
@@ -1634,9 +1634,9 @@ msgid "Related Posts"
 msgstr ""
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
-#, fuzzy
+#
 msgid "Count:"
-msgstr "Страна"
+msgstr ""
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:80
 msgid "Display Thumbnails?"
@@ -1659,9 +1659,9 @@ msgid "Refine your search:"
 msgstr ""
 
 #: ../views/single-organizer.php:30 ../views/single-venue.php:31
-#, fuzzy
+#
 msgid "&larr; Back to Events"
-msgstr "&laquo; Перейти к Событиям"
+msgstr ""
 
 #: ../views/day/nav.php:15
 msgid "Day Navigation"
@@ -1672,14 +1672,14 @@ msgid "Events List Navigation"
 msgstr ""
 
 #: ../views/map/nav.php:24 ../views/photo/nav.php:24
-#, fuzzy
+#
 msgid "&laquo; Previous Events"
-msgstr "&laquo; Перейти к Событиям"
+msgstr ""
 
 #: ../views/map/nav.php:31 ../views/photo/nav.php:31
-#, fuzzy
+#
 msgid "Next Events &raquo;"
-msgstr "Виджет приближающихся событий"
+msgstr ""
 
 #: ../views/tribe-ECP-views-old/views/list-widget.php:110
 msgid "Price:"
@@ -1742,9 +1742,9 @@ msgid "Previous Week"
 msgstr ""
 
 #: ../views/week/nav.php:23
-#, fuzzy
+#
 msgid "Next Week"
-msgstr "Каждую неделю"
+msgstr ""
 
 #: ../views/widgets/countdown-widget.php:27
 msgid "days"
@@ -1759,19 +1759,19 @@ msgid "min"
 msgstr ""
 
 #: ../views/widgets/countdown-widget.php:40
-#, fuzzy
+#
 msgid "sec"
-msgstr "Дек"
+msgstr ""
 
 #: ../views/widgets/list-widget.php:66
-#, fuzzy
+#
 msgid "Organizer:"
-msgstr "Организатор"
+msgstr ""
 
 #: ../views/widgets/venue-widget.php:17
-#, fuzzy
+#
 msgid "No upcoming events."
-msgstr "Ваше следующее наступающее события"
+msgstr ""
 
 #~ msgid "Show:"
 #~ msgstr "Показать:"

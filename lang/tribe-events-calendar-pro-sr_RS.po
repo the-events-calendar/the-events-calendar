@@ -41,9 +41,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:211
-#, fuzzy
+#
 msgid "Events for week of"
-msgstr "Svake nedelje"
+msgstr ""
 
 #: ../events-calendar-pro.php:237
 #, php-format
@@ -52,21 +52,21 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:243
-#, fuzzy
+#
 msgid "Events for"
-msgstr "Cena događaja"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:247 ../lib/widget-advanced-list.class.php:51
-#, fuzzy
+#
 msgid "Upcoming Events"
-msgstr "Sledeći nadolazeći događaj"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:664 ../admin-views/tribe-options-defaults.php:35
-#, fuzzy
+#
 msgid "Default Content"
-msgstr "Podrazumevani telefon"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:666 ../admin-views/event-meta-options.php:3
@@ -165,9 +165,9 @@ msgstr "Pogledaj sve dodatke"
 
 # @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:1160
-#, fuzzy
+#
 msgid "Week"
-msgstr "Nedeljno"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:1168 ../admin-views/event-recurrence.php:82
@@ -185,9 +185,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:1186
-#, fuzzy
+#
 msgid "Week Of"
-msgstr "Nedeljno"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:1249
@@ -471,15 +471,15 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/event-meta-options.php:49
-#, fuzzy
+#
 msgid "Editor \"Custom Fields\" meta box"
-msgstr "Prilagođena polja za događaj"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/event-meta-options.php:51
-#, fuzzy
+#
 msgid "Show"
-msgstr "Prikaži:"
+msgstr ""
 
 #: ../admin-views/event-meta-options.php:52
 msgid "Hide"
@@ -502,9 +502,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/event-meta.php:7
-#, fuzzy
+#
 msgid "Additional Event Fields"
-msgstr "Dodatna polja"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:2
@@ -802,9 +802,9 @@ msgstr "Opis:"
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:143
-#, fuzzy
+#
 msgid "Recurrence Text:"
-msgstr "Ponavljanje:"
+msgstr ""
 
 #: ../admin-views/event-recurrence.php:148
 msgid ""
@@ -841,15 +841,15 @@ msgstr "Pošaljite zahtev za podršku"
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:6
 #: ../admin-views/tribe-options-defaults.php:15
-#, fuzzy
+#
 msgid "No Default"
-msgstr "Izmeni podrazumevana podešavanja"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:22
-#, fuzzy
+#
 msgid "Select a State"
-msgstr "Odaberite državu:"
+msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:39
 msgid ""
@@ -876,9 +876,9 @@ msgstr "Organizator"
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:69
-#, fuzzy
+#
 msgid "Default organizer"
-msgstr "Podrazumevani organizator"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:73
@@ -893,9 +893,9 @@ msgstr "Mesto"
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:86
-#, fuzzy
+#
 msgid "Default venue"
-msgstr "Podrazumevano mesto"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:90
@@ -916,45 +916,45 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:107
-#, fuzzy
+#
 msgid "Default address"
-msgstr "Podrazumevana adresa"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:120
-#, fuzzy
+#
 msgid "Default city"
-msgstr "Podrazumevani grad"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:133
-#, fuzzy
+#
 msgid "Default state"
-msgstr "Podrazumevana država"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:146
-#, fuzzy
+#
 msgid "Default province"
-msgstr "Podrazumevana pokrajina"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:159
-#, fuzzy
+#
 msgid "Default postal code/zip code"
-msgstr "Podrazumevani poštanski kod"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:172
-#, fuzzy
+#
 msgid "Default country"
-msgstr "Podrazumevani grad"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:185
-#, fuzzy
+#
 msgid "Default phone"
-msgstr "Podrazumevani telefon"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:201
@@ -1029,9 +1029,9 @@ msgstr "Svi događaji"
 # @ tribe-events-calendar-pro
 #: ../admin-views/widget-admin-advanced-list.php:58
 #: ../admin-views/widget-admin-venue.php:28
-#, fuzzy
+#
 msgid "Hide this widget if there are no upcoming events:"
-msgstr "Prikaži vidžet samo ako ima predstojećih događaja:"
+msgstr ""
 
 #: ../admin-views/widget-admin-advanced-list.php:61
 #, php-format
@@ -1040,15 +1040,15 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/widget-admin-countdown.php:12
-#, fuzzy
+#
 msgid "Event:"
-msgstr "Svi događaji"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/widget-admin-countdown.php:21
-#, fuzzy
+#
 msgid "Show seconds:"
-msgstr "Drugi"
+msgstr ""
 
 #: ../admin-views/widget-admin-countdown.php:24
 msgid "Countdown Completed Text:"
@@ -1056,21 +1056,21 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/widget-admin-venue.php:11
-#, fuzzy
+#
 msgid "Venue:"
-msgstr "Mesto"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/widget-calendar.php:24
-#, fuzzy
+#
 msgid "Filters"
-msgstr "Ime filtera"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/widget-calendar.php:42
-#, fuzzy
+#
 msgid "remove"
-msgstr "Skloni"
+msgstr ""
 
 #: ../admin-views/widget-calendar.php:53
 msgid "Match all"
@@ -1082,9 +1082,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/widget-calendar.php:60
-#, fuzzy
+#
 msgid "Add a filter"
-msgstr "Dodajte filter"
+msgstr ""
 
 #: ../admin-views/widget-calendar.php:63
 msgid "Select one..."
@@ -1097,9 +1097,9 @@ msgstr "Datum početka"
 
 # @ tribe-events-calendar-pro
 #: ../lib/apm_filters.php:37
-#, fuzzy
+#
 msgid "End Date"
-msgstr "Datum i vreme završetka"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/apm_filters.php:42
@@ -1132,9 +1132,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/meta-pro.php:87
-#, fuzzy
+#
 msgid "Recurrence Pattern:"
-msgstr "Ponavljanje:"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:460
@@ -1228,9 +1228,9 @@ msgstr "Svakih %d nedelja "
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:612
-#, fuzzy, php-format
+#, php-format
 msgid "on %s"
-msgstr "na %s"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:617
@@ -1240,9 +1240,9 @@ msgstr "Svakih %d meseci"
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:619
-#, fuzzy, php-format
+#, php-format
 msgid "on the %s %s"
-msgstr "na %s %s"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:624
@@ -1373,9 +1373,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-geoloc.class.php:77
-#, fuzzy, php-format
+#, php-format
 msgid "Title: %s"
-msgstr "Naslov:"
+msgstr ""
 
 #: ../lib/tribe-geoloc.class.php:79
 #, php-format
@@ -1384,9 +1384,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-geoloc.class.php:79
-#, fuzzy
+#
 msgid "Select Dropdown"
-msgstr "Padajući meni"
+msgstr ""
 
 #: ../lib/tribe-geoloc.class.php:80
 msgid "Radio Buttons"
@@ -1438,9 +1438,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-geoloc.class.php:172
-#, fuzzy
+#
 msgid "Map"
-msgstr "Mar"
+msgstr ""
 
 #: ../lib/tribe-geoloc.class.php:194
 msgid "Near"
@@ -1468,9 +1468,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-ical.class.php:36
-#, fuzzy
+#
 msgid "Google Calendar"
-msgstr "Kalendar događaja"
+msgstr ""
 
 #: ../lib/tribe-ical.class.php:37 ../lib/tribe-ical.class.php:83
 msgid "iCal Import"
@@ -1478,27 +1478,27 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-ical.class.php:70
-#, fuzzy
+#
 msgid "Month's Events"
-msgstr "Mesečno na:"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-ical.class.php:73
-#, fuzzy
+#
 msgid "Week's Events"
-msgstr "Svi događaji"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-ical.class.php:76
-#, fuzzy
+#
 msgid "Day's Events"
-msgstr "Svi događaji"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/tribe-ical.class.php:79
-#, fuzzy
+#
 msgid "Listed Events"
-msgstr "Svi događaji"
+msgstr ""
 
 #: ../lib/tribe-ical.class.php:83
 msgid "Import is filter/view sensitive"
@@ -1511,9 +1511,9 @@ msgstr "Vidžet koji prikazuje sledećih x događaja."
 
 # @ tribe-events-calendar-pro
 #: ../lib/widget-advanced-list.class.php:22
-#, fuzzy
+#
 msgid "Events List"
-msgstr "Cena događaja"
+msgstr ""
 
 #: ../lib/widget-calendar.class.php:8
 msgid "The events calendar mini calendar widget"
@@ -1531,9 +1531,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../lib/widget-countdown.class.php:15
-#, fuzzy
+#
 msgid "Events Countdown"
-msgstr "Cena događaja"
+msgstr ""
 
 #: ../lib/widget-venue.class.php:12
 msgid "Displays a list of upcoming events at a specific venue."
@@ -1579,9 +1579,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:103
-#, fuzzy
+#
 msgid "Show only the first upcoming instance of recurring events"
-msgstr "Prikaži vidžet samo ako ima predstojećih događaja:"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:294
@@ -1600,63 +1600,63 @@ msgstr "Prikaži vidžet samo ako ima predstojećih događaja:"
 #: ../public/template-tags/general.php:392
 #: ../public/template-tags/general.php:405
 #: ../public/template-tags/general.php:406
-#, fuzzy
+#
 msgid "No default set"
-msgstr "Podrazumevana vrednost"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:295
-#, fuzzy, php-format
+#, php-format
 msgid "The current default organizer is: %s"
-msgstr "Vrednost za podrazumevanog organizatora"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:309
-#, fuzzy, php-format
+#, php-format
 msgid "The current default venue is: %s"
-msgstr "Trenutna podrazumevana vrednost je <strong>%s</strong>"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:323
-#, fuzzy, php-format
+#, php-format
 msgid "The current default address is: %s"
-msgstr "Trenutna podrazumevana vrednost je <strong>%s</strong>"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:337
-#, fuzzy, php-format
+#, php-format
 msgid "The current default city is: %s"
-msgstr "Trenutna podrazumevana vrednost je <strong>%s</strong>"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:351
-#, fuzzy, php-format
+#, php-format
 msgid "The current default state is: %s"
-msgstr "Trenutna podrazumevana vrednost je <strong>%s</strong>"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:365
-#, fuzzy, php-format
+#, php-format
 msgid "The current default province is: %s"
-msgstr "Trenutna podrazumevana vrednost je <strong>%s</strong>"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:379
-#, fuzzy, php-format
+#, php-format
 msgid "The current default postal code/zip code is: %s"
-msgstr "Trenutna podrazumevana vrednost je <strong>%s</strong>"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:393
-#, fuzzy, php-format
+#, php-format
 msgid "The current default country is: %s"
-msgstr "Trenutna podrazumevana vrednost je <strong>%s</strong>"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:407
-#, fuzzy, php-format
+#, php-format
 msgid "The current default phone is: %s"
-msgstr "Trenutna podrazumevana vrednost je <strong>%s</strong>"
+msgstr ""
 
 #: ../public/template-tags/general.php:580
 msgid "Today"
@@ -1680,9 +1680,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:675
-#, fuzzy
+#
 msgid "Related Events"
-msgstr "Svi događaji"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/demo/demo.php:31
@@ -1723,9 +1723,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
-#, fuzzy
+#
 msgid "Search"
-msgstr "Mart"
+msgstr ""
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:82
 msgid "Member Type"
@@ -1861,9 +1861,9 @@ msgstr ""
 # @ tribe-events-calendar-pro
 #: ../vendor/pue-client/admin-views/license-key.view.php:25
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:183
-#, fuzzy
+#
 msgid "A valid license key is required for support and updates"
-msgstr "Validan ključ  je potreban za podršku i ažuriranje."
+msgstr ""
 
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:251
 msgid "License key(s) updated."
@@ -1914,9 +1914,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
-#, fuzzy
+#
 msgid "Count:"
-msgstr "Zemlja"
+msgstr ""
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:80
 msgid "Display Thumbnails?"
@@ -1941,9 +1941,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../views/single-organizer.php:30 ../views/single-venue.php:31
-#, fuzzy
+#
 msgid "&larr; Back to Events"
-msgstr "&laquo; Nazad na događaje"
+msgstr ""
 
 #: ../views/day/nav.php:15
 msgid "Day Navigation"
@@ -1955,15 +1955,15 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../views/map/nav.php:24 ../views/photo/nav.php:24
-#, fuzzy
+#
 msgid "&laquo; Previous Events"
-msgstr "&laquo; Nazad na događaje"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../views/map/nav.php:31 ../views/photo/nav.php:31
-#, fuzzy
+#
 msgid "Next Events &raquo;"
-msgstr "Sledeći događaj vidžet"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../views/tribe-ECP-views-old/views/list-widget.php:110
@@ -2038,9 +2038,9 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../views/week/nav.php:23
-#, fuzzy
+#
 msgid "Next Week"
-msgstr "Svake nedelje"
+msgstr ""
 
 #: ../views/widgets/countdown-widget.php:27
 msgid "days"
@@ -2056,21 +2056,21 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../views/widgets/countdown-widget.php:40
-#, fuzzy
+#
 msgid "sec"
-msgstr "Dec"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../views/widgets/list-widget.php:66
-#, fuzzy
+#
 msgid "Organizer:"
-msgstr "Organizator"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../views/widgets/venue-widget.php:17
-#, fuzzy
+#
 msgid "No upcoming events."
-msgstr "Sledeći nadolazeći događaj"
+msgstr ""
 
 # @ tribe-events-calendar-pro
 #~ msgid "Show:"

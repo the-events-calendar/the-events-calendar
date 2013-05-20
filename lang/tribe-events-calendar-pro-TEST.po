@@ -464,9 +464,9 @@ msgid "Custom"
 msgstr "XXXXX"
 
 #: ../admin-views/event-recurrence.php:16
-#, fuzzy
+#
 msgid "and will end"
-msgstr "XXXXX"
+msgstr ""
 
 #: ../admin-views/event-recurrence.php:18
 msgid "On"
@@ -855,9 +855,9 @@ msgstr "XXXXX"
 
 #: ../admin-views/widget-admin-advanced-list.php:58
 #: ../admin-views/widget-admin-venue.php:28
-#, fuzzy
+#
 msgid "Hide this widget if there are no upcoming events:"
-msgstr "XXXXX"
+msgstr ""
 
 #: ../admin-views/widget-admin-advanced-list.php:61
 #, php-format
@@ -869,9 +869,9 @@ msgid "Event:"
 msgstr "XXXXX"
 
 #: ../admin-views/widget-admin-countdown.php:21
-#, fuzzy
+#
 msgid "Show seconds:"
-msgstr "XXXXX"
+msgstr ""
 
 #: ../admin-views/widget-admin-countdown.php:24
 msgid "Countdown Completed Text:"
@@ -1282,9 +1282,9 @@ msgid "Displays the time remaining until a specified event."
 msgstr "XXXXX"
 
 #: ../lib/widget-countdown.class.php:15
-#, fuzzy
+#
 msgid "Events Countdown"
-msgstr "XXXXX"
+msgstr ""
 
 #: ../lib/widget-venue.class.php:12
 msgid "Displays a list of upcoming events at a specific venue."
