@@ -3065,6 +3065,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_meta_box( 'Event Options', __('Event Options', 'tribe-events-calendar'), array( $this, 'eventMetaBox' ), self::POSTTYPE, 'side', 'default' );
 
 			add_meta_box( 'Venue Details', __('Venue Information', 'tribe-events-calendar'), array( $this, 'VenueMetaBox' ), self::VENUE_POST_TYPE, 'normal', 'high' );
+
+			if ( ! class_exists( 'TribeEventsPro' ) )
+				remove_meta_box( 'slugdiv', self::VENUE_POST_TYPE, 'normal' );
+
 			add_meta_box( 'Organizer Details', __('Organizer Information', 'tribe-events-calendar'), array( $this, 'OrganizerMetaBox' ), self::ORGANIZER_POST_TYPE, 'normal', 'high' );
 		}
 		public function eventMetaBox() {
