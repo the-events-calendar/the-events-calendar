@@ -404,6 +404,9 @@
 					ts.paged = 1;
 					spin_start();
 
+					// hide pagination on submit
+					$('.tribe-events-sub-nav').remove();
+
 					var val = $('#tribe-bar-geoloc').val();
 
 					if (val !== '') {

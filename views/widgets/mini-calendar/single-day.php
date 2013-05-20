@@ -26,5 +26,5 @@ $day = tribe_events_get_current_month_day();
 				<?php tribe_events_the_mini_calendar_day_link(); ?>
 			<?php endif; ?>
 	</div>
-
+	
 <?php endif; ?>
