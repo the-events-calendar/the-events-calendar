@@ -36,12 +36,12 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<td><input tabindex="<?php $this->tabIndex(); ?>" type='checkbox' id='allDayCheckbox' name='EventAllDay' value='yes' <?php echo $isEventAllDay; ?> /></td>
 		</tr>
 		<tr>
-			<td style="width:125px;"><?php _e('* Start Date / Time:','tribe-events-calendar'); ?></td>
+			<td style="width:125px;"><?php _e('Start Date / Time:','tribe-events-calendar'); ?></td>
 			<td>
 				<input autocomplete="off" tabindex="<?php $this->tabIndex(); ?>" type="text" class="datepicker" name="EventStartDate" id="EventStartDate"  value="<?php echo esc_attr($EventStartDate) ?>" />
 				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', 'tribe-events-calendar') ?></span>
 				<span class='timeofdayoptions'>
-					<?php _e('@','tribe-events-calendar'); ?>
+					@
 					<select tabindex="<?php $this->tabIndex(); ?>" name='EventStartHour'>
 						<?php echo $startHourOptions; ?>
 					</select>
@@ -57,12 +57,12 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			</td>
 		</tr>
 		<tr>
-			<td><?php _e('* End Date / Time:','tribe-events-calendar'); ?></td>
+			<td><?php _e('End Date / Time:','tribe-events-calendar'); ?></td>
 			<td>
 				<input autocomplete="off" type="text" class="datepicker" name="EventEndDate" id="EventEndDate"  value="<?php echo esc_attr( $EventEndDate ); ?>" />
 				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', 'tribe-events-calendar') ?></span>
 				<span class='timeofdayoptions'>
-					<?php _e('@','tribe-events-calendar'); ?>
+					@
 					<select class="tribeEventsInput" tabindex="<?php $this->tabIndex(); ?>" name='EventEndHour'>
 						<?php echo $endHourOptions; ?>
 					</select>
