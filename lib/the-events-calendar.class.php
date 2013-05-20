@@ -1395,7 +1395,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 				echo '</select>';
 			} else {
-				echo '<p class="nosaved">' . __( 'No saved venues yet.', 'tribe-events-calendar' ) . '</p>';
+				echo '<p class="nosaved">' . __( 'No saved venue exists.', 'tribe-events-calendar' ) . '</p>';
 			}
 		}
 
@@ -1447,7 +1447,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 				echo '</select>';
 			} else {
-				echo '<p class="nosaved">' . __( 'No saved organizers yet.', 'tribe-events-calendar' ) . '</p>';
+				echo '<p class="nosaved">' . __( 'No saved organizer exists.', 'tribe-events-calendar' ) . '</p>';
 			}
 		}
 
@@ -3295,7 +3295,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			</tr>
 			<tr class="eventBritePluginPlug">
 				<td colspan="2">
-					<p><?php _e('Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ) ?> <?php printf( __('Check out the <a href="%s">available add-ons</a>.', 'tribe-events-calendar' ), TribeEvents::$tribeUrl.'shop/?ref=tec-event' ); ?></p>
+					<p><?php _e('Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?', 'tribe-events-calendar' ) ?> <?php printf( __('Check out the <a href="%s">available add-ons</a>.', 'tribe-events-calendar' ), TribeEvents::$tribeUrl.'shop/?ref=tec-event' ); ?></p>
 				</td>
 			</tr><?php
 		}
