@@ -45,11 +45,11 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<label for="<?php echo $this->get_field_id( $option ); ?>"><?php echo $label ?></label>
 		<br/>
 <?php } ?>
-	<label for="<?php echo $this->get_field_id( 'category' ); ?>"><?php _e('Category:','tribe-events-calendar-pro');?>
+	<label for="<?php echo $this->get_field_id( 'category' ); ?>"><?php _e( 'Category:', 'tribe-events-calendar-pro' );?>
 		<?php
 
 			echo wp_dropdown_categories( array(
-				'show_option_none' => 'All Events',
+				'show_option_none' => __( 'All Events', 'tribe-events-calendar-pro' ),
 				'hide_empty' => 0,
 				'echo' => 0,
 				'name' => $this->get_field_name( 'category' ),
@@ -60,4 +60,4 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			));
 		?>
 </p>
-<p><small><em><?php printf( __('Want to modify the display of this widget? Try a %stemplate override%s.', 'tribe-events-calendar-pro'), '<a href="http://tri.be/faq/what-are-template-overrides-and-how-do-i-do-them/">', '</a>' ); ?></em></small></p>
+<p><small><em><?php printf( __( 'Want to modify the display of this widget? Try a %stemplate override%s.', 'tribe-events-calendar-pro' ), '<a href="http://tri.be/faq/what-are-template-overrides-and-how-do-i-do-them/">', '</a>' ); ?></em></small></p>
