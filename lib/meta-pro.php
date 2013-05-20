@@ -60,7 +60,7 @@ if ( ! class_exists( 'Tribe_Register_Meta_Pro' ) ) {
 	 * Register Meta Group: Event Custom Meta
 	 */
 	tribe_register_meta_group( 'tribe_event_group_custom_meta', array(
-			'label' => __( 'Other', 'tribe-events-calendar' ),
+			'label' => __( 'Other', 'tribe-events-calendar-pro' ),
 			'classes' => array(
 				'before'=>array('tribe-events-meta-group'),
 				'label_before'=>array('tribe-events-single-section-title'))
@@ -84,7 +84,7 @@ if ( ! class_exists( 'Tribe_Register_Meta_Pro' ) ) {
 	 * @group tribe_event_custom_meta
 	 */
 	tribe_register_meta( 'tribe_event_custom_recurrence_description', array(
-			'label' => __('Recurrence Pattern:', 'tribe-events-calendar'),
+			'label' => __('Recurrence Pattern:', 'tribe-events-calendar-pro'),
 			'priority' => 15,
 			'wrap' => array(
 					'before'=>'',

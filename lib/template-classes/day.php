@@ -27,7 +27,7 @@ if( !class_exists('Tribe_Events_Pro_Day_Template')){
 		public function hooks() {
 
 			parent::hooks();
-			
+
 			add_filter( 'tribe_get_ical_link', array( $this, 'ical_link' ), 20, 1 );
 			add_filter( 'tribe_events_header_attributes',  array( $this, 'header_attributes' ) );
 		}
@@ -69,8 +69,8 @@ if( !class_exists('Tribe_Events_Pro_Day_Template')){
 
 			if ( $wp_query->have_posts() ) {
 				foreach ( $wp_query->posts as &$post ) {
-					$post->timeslot = tribe_event_is_all_day( $post->ID ) 
-						? __( 'All Day', 'tribe-events-calendar' ) 
+					$post->timeslot = tribe_event_is_all_day( $post->ID )
+						? __( 'All Day', 'tribe-events-calendar-pro' )
 						: $post->timeslot = tribe_get_start_date( $post, false, 'ga ' );
 				}
 				$wp_query->rewind_posts();
@@ -99,11 +99,11 @@ if( !class_exists('Tribe_Events_Pro_Day_Template')){
 
 			// Search term based notices
 			if( !empty($search_term) && !have_posts() ) {
-				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> on this day. Try searching another day.', 'tribe-events-calendar' ), $search_term ) );
+				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> on this day. Try searching another day.', 'tribe-events-calendar-pro' ), $search_term ) );
 			}
 			// No events found on this day
 			else if ( empty($search_term) && empty( $wp_query->query_vars['s'] ) && !have_posts() ) { // Messages if currently no events, and no search term
-				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No events scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), date_i18n( 'F d, Y', strtotime( get_query_var( 'eventDate' ) ) ) ) );
+				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No events scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar-pro' ), date_i18n( 'F d, Y', strtotime( get_query_var( 'eventDate' ) ) ) ) );
 			}
 		}
 	}
