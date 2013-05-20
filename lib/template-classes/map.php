@@ -55,12 +55,5 @@ if( !class_exists('Tribe_Events_Pro_Map_Template')){
 			}
 			return $file;
 		}
-		public function add_event_distance($distance) {
-			global $post;
-			$distance = '';
-			if ( !empty( $post->distance ) )
-				$distance = '<span class="tribe-events-distance">'. tribe_get_distance_with_unit( $post->distance ) .'</span>';
-			echo $distance;
-		}
 	}	
 }

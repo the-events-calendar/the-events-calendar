@@ -426,6 +426,19 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		return apply_filters( 'tribe_formatted_distance', $distance . ' ' .  $unit );
 	}
 
+	/**
+	 * Returns an events distance from location search term
+	 *
+	 * @since 3.0 
+	 * @return string
+	 *
+	 */
+	function tribe_event_distance() {
+		global $post;
+ 		if ( !empty( $post->distance ) ) {
+			return '<span class="tribe-events-distance">'. tribe_get_distance_with_unit( $post->distance ) .'</span>';
+		}	
+	}		
 
 	/**
 	 *
