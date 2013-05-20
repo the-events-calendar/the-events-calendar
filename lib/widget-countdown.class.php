@@ -12,7 +12,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 		function TribeCountdownWidget() {
 			$widget_ops = array( 'classname' => 'tribe-events-countdown-widget', 'description' => __( 'Displays the time remaining until a specified event.', 'tribe-events-calendar-pro' ) );
 			$control_ops = array( 'id_base' => 'tribe-events-countdown-widget' );
-			$this->WP_Widget( 'tribe-events-countdown-widget', __('Countdown Widget', 'tribe-events-calendar-pro'), $widget_ops, $control_ops );
+			$this->WP_Widget( 'tribe-events-countdown-widget', __('Events Countdown', 'tribe-events-calendar-pro'), $widget_ops, $control_ops );
 		}
  
 		function widget( $args, $instance ) {
