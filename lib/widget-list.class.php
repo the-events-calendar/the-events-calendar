@@ -19,7 +19,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			$control_ops = array( 'id_base' => 'tribe-events-list-widget' );
 
 			/* Create the widget. */
-			$this->WP_Widget( 'tribe-events-list-widget', __( 'Events List Widget', 'tribe-events-calendar' ), $widget_ops, $control_ops );
+			$this->WP_Widget( 'tribe-events-list-widget', __( 'Events List', 'tribe-events-calendar' ), $widget_ops, $control_ops );
 		}
 
 		function widget( $args, $instance ) {
