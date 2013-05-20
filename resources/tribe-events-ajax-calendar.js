@@ -1,6 +1,7 @@
 (function ($, td, te, tf, ts, tt) {
 
-	/***
+	/*
+	 *
 	 * $  = jQuery
 	 * td = tribe_ev.data
 	 * te = tribe_ev.events

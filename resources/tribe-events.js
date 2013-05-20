@@ -1,3 +1,90 @@
+/** @define {boolean} */
+var tribe_debug = true;
+
+if(tribe_debug){
+
+	window.debug = (function () {
+		var window = this,
+			aps = Array.prototype.slice,
+			con = window.console,
+			that = {},
+			callback_func,
+			callback_force,
+			log_level = 9,
+			log_methods = [ 'error', 'warn', 'info', 'debug', 'log' ],
+			pass_methods = 'assert clear count dir dirxml exception group groupCollapsed groupEnd profile profileEnd table time timeEnd trace'.split(' '),
+			idx = pass_methods.length,
+			logs = [];
+
+		while (--idx >= 0) {
+			(function (method) {
+
+				that[ method ] = function () {
+					log_level !== 0 && con && con[ method ]
+					&& con[ method ].apply(con, arguments);
+				}
+
+			})(pass_methods[idx]);
+		}
+
+		idx = log_methods.length;
+		while (--idx >= 0) {
+			(function (idx, level) {
+
+				that[ level ] = function () {
+					var args = aps.call(arguments),
+						log_arr = [ level ].concat(args);
+
+					logs.push(log_arr);
+					exec_callback(log_arr);
+
+					if (!con || !is_level(idx)) {
+						return;
+					}
+
+					con.firebug ? con[ level ].apply(window, args)
+						: con[ level ] ? con[ level ](args)
+						: con.log(args);
+				};
+
+			})(idx, log_methods[idx]);
+		}
+
+		function exec_callback(args) {
+			if (callback_func && (callback_force || !con || !con.log)) {
+				callback_func.apply(window, args);
+			}
+		};
+
+		that.setLevel = function (level) {
+			log_level = typeof level === 'number' ? level : 9;
+		};
+
+		function is_level(level) {
+			return log_level > 0
+				? log_level > level
+				: log_methods.length + log_level <= level;
+		};
+
+		that.setCallback = function () {
+			var args = aps.call(arguments),
+				max = logs.length,
+				i = max;
+
+			callback_func = args.shift() || null;
+			callback_force = typeof args[0] === 'boolean' ? args.shift() : false;
+
+			i -= typeof args[0] === 'number' ? args.shift() : max;
+
+			while (i < max) {
+				exec_callback(logs[i++]);
+			}
+		};
+
+		return that;
+	})();
+}
+
 /**
  * @global
  * @desc Test for localstorage support. Returns false if not available and tribe_storage as a method if true.
@@ -463,6 +550,8 @@ var tribe_ev = window.tribe_ev || {};
 		$(".tribe-events-calendar-widget").not(":eq(0)").hide();
 
 		tf.tooltips();
+
+		tribe_debug && debug.log(td.base_url);
 
         // remove events header subnav pagination if no results
         if ($('.tribe-events-list .tribe-events-notices').length) {
