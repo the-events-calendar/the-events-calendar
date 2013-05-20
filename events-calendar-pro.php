@@ -47,18 +47,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		const REQUIRED_TEC_VERSION = '3.0';
 		const VERSION = '3.0';
 
-		/**
-		 * PressTrends API key
-		 * @var string
-		 */
-		private static $pressTrendsApiKey = 'tije8ygaph33vjqfbnyv6irf0wzulmingvl2';
-
-		/**
-		 * PressTrends auth key
-		 * @var string
-		 */
-		private static $pressTrendsAuth = '23gkvkelwcf37hmgnxqzjrcmf4bkycrui';
-
 		private function __construct() {
 			$this->pluginDir = trailingslashit( basename( dirname( __FILE__ ) ) );
 			$this->pluginPath = trailingslashit( dirname( __FILE__ ) );
@@ -109,6 +97,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			//TribeCommonLibraries::register( 'tribe-support', '0.1', $this->pluginPath . 'vendor/tribe-support/tribe-support.class.php' );
 
+			add_action( 'tribe_helper_activation_complete', array( $this, 'helpersLoaded' ) );
+
 			add_action( 'init', array( $this, 'init' ), 10 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_pro_scripts' ), 8);
@@ -136,7 +126,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_get_events_title', array( $this, 'reset_page_title'));
 			add_filter( 'tribe_events_add_title', array($this, 'maybeAddEventTitle' ), 10, 3 );
 
-			add_action( 'tribe_helper_activation_complete', array( $this, 'helpersLoaded' ) );
 			add_filter( 'tribe_promo_banner', array( $this, 'tribePromoBannerPro' ) );
 			add_filter( 'tribe_help_tab_forums_url', array( $this, 'helpTabForumsLink' ) );
 			add_action( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'addLinksToPluginActions' ) );
@@ -186,8 +175,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'wp_ajax_nopriv_tribe_week', array( $this, 'wp_ajax_tribe_week' ) );
 
 			add_filter( 'tribe_events_pre_get_posts' , array( $this, 'setup_hide_recurrence_in_query' ) );
-
-			add_action( 'plugins_loaded', array( $this, 'initPressTrends' ), 9999 );
 
 			add_filter( 'wp' , array( $this, 'detect_recurrence_redirect' ) );
 
@@ -578,8 +565,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		}
 
-
+		/**
+		 * Common library plugins have been activated. Functions that need to be applied afterwards can be added here.
+		 *
+		 * @author Peter Chester
+		 * @since 3.0
+		 */
 		public function helpersLoaded() {
+			remove_action( 'widgets_init', 'tribe_related_posts_register_widget' );
 			require_once( 'lib/apm_filters.php' );
 		}
 
@@ -1214,20 +1207,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		function miles_to_kms_ratio() {
 			return 1.60934;
-		}
-
-		/**
-		 * Initialize PressTrends.
-		 * @author Peter Chester
-		 */
-		public function initPressTrends() {
-			if ( class_exists('TribePressTrends') ) {
-				new TribePressTrends(
-					$this->pluginPath.'events-calendar-pro.php',
-					self::$pressTrendsApiKey,
-					self::$pressTrendsAuth
-				);
-			}
 		}
 
 
