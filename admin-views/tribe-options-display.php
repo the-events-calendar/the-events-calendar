@@ -42,22 +42,22 @@ $displayTab = array(
 		),
 		'tribeEventsBasicSettingsTitle' => array(
 			'type' => 'html',
-			'html' => '<h3>' . __( 'Basic Template Settings', 'tribe-events-calendar-pro' ) . '</h3>',
+			'html' => '<h3>' . __( 'Basic Template Settings', 'tribe-events-calendar' ) . '</h3>',
 		),
 		'stylesheetOption' => array(
 			'type' => 'radio',
 			'label' => __( 'Default stylesheet used for events templates', 'tribe-events-calendar' ),
 			'default' => 'tribe',
-			'options' => array( 
-				'skeleton' => __( 'Skeleton Styles', 'tribe-events-calendar' ) . 
-					'<p class=\'description\'>' . 
-					__('These styles provide a bare minimum level of layout for the more complex templates, and is recommended if you\'re customizing the events template styles.', 'tribe-events-calendar' ) . 
-					'</p>', 
-				'full' => __( 'Full Styles', 'tribe-events-calendar' ) . 
+			'options' => array(
+				'skeleton' => __( 'Skeleton Styles', 'tribe-events-calendar' ) .
+					'<p class=\'description\'>' .
+					__('These styles provide a bare minimum level of layout for the more complex templates, and is recommended if you\'re customizing the events template styles.', 'tribe-events-calendar' ) .
+					'</p>',
+				'full' => __( 'Full Styles', 'tribe-events-calendar' ) .
 					'<p class=\'description\'>' .
 					__( 'These styles provide a more complex level of layout and style and should adapt to your theme', 'tribe-events-calendar' ) .
-					'</p>', 
-				'tribe' => __( 'Tribe Events Styles', 'tribe-events-calendar' ) . 
+					'</p>',
+				'tribe' => __( 'Tribe Events Styles', 'tribe-events-calendar' ) .
 					'<p class=\'description\'>' .
 					__( 'These styles provide a fully designed events theme', 'tribe-events-calendar' ) .
 					'</p>',
@@ -89,16 +89,16 @@ $displayTab = array(
 			'default' => 'month',
 			'options' => $views_options
 		),
-		'tribeDisableTribeBar' => array( 
+		'tribeDisableTribeBar' => array(
 					'type' => 'checkbox_bool',
-					'label' => __( 'Use the Event Search Bar', 'tribe-events-calendar-pro' ),
-					'tooltip' => __( 'Uncheck this to use the classic header.', 'tribe-events-calendar-pro' ),
+					'label' => __( 'Use the Event Search Bar', 'tribe-events-calendar' ),
+					'tooltip' => __( 'Uncheck this to use the classic header.', 'tribe-events-calendar' ),
 					'default' => false,
 					'validation_type' => 'boolean',
 		),
 		'tribeEventsAdvancedSettingsTitle' => array(
 			'type' => 'html',
-			'html' => '<h3>' . __( 'Advanced Template Settings', 'tribe-events-calendar-pro' ) . '</h3>',
+			'html' => '<h3>' . __( 'Advanced Template Settings', 'tribe-events-calendar' ) . '</h3>',
 		),
 		'tribeEventsBeforeHTML' => array(
 			'type' => 'wysiwyg',

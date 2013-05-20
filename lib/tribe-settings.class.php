@@ -222,7 +222,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 			echo '<div class="tribe_settings wrap">';
 				screen_icon();
 				echo '<h2>';
-					printf( _x( '%s Settings', 'The Event Calendar settings heading', 'tribe-events-calendar' ), $this->menuName );
+					printf( __( '%s Settings', 'tribe-events-calendar' ), $this->menuName );
 				echo '</h2>';
 				do_action( 'tribe_settings_above_tabs' );
 				$this->generateTabs( $this->currentTab );
