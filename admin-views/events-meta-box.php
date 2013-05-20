@@ -32,16 +32,16 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<td colspan='2'><?php _e("You have changed the recurrence rules of this event.  Saving the event will update all future events.  If you did not mean to change all events, then please refresh the page.", 'tribe-events-calendar') ?></td>
 		</tr>
 		<tr>
-			<td><?php _e('All day event?', 'tribe-events-calendar'); ?></td>
+			<td><?php _e('All Day Event:', 'tribe-events-calendar'); ?></td>
 			<td><input tabindex="<?php $this->tabIndex(); ?>" type='checkbox' id='allDayCheckbox' name='EventAllDay' value='yes' <?php echo $isEventAllDay; ?> /></td>
 		</tr>
 		<tr>
-			<td style="width:125px;"><?php _e('* Start Date / Time:','tribe-events-calendar'); ?></td>
+			<td style="width:125px;"><?php _e('Start Date &amp; Time:','tribe-events-calendar'); ?></td>
 			<td>
 				<input autocomplete="off" tabindex="<?php $this->tabIndex(); ?>" type="text" class="datepicker" name="EventStartDate" id="EventStartDate"  value="<?php echo esc_attr($EventStartDate) ?>" />
 				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', 'tribe-events-calendar') ?></span>
 				<span class='timeofdayoptions'>
-					<?php _e('@','tribe-events-calendar'); ?>
+					@
 					<select tabindex="<?php $this->tabIndex(); ?>" name='EventStartHour'>
 						<?php echo $startHourOptions; ?>
 					</select>
@@ -57,12 +57,12 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			</td>
 		</tr>
 		<tr>
-			<td><?php _e('* End Date / Time:','tribe-events-calendar'); ?></td>
+			<td><?php _e('End Date &amp; Time:','tribe-events-calendar'); ?></td>
 			<td>
 				<input autocomplete="off" type="text" class="datepicker" name="EventEndDate" id="EventEndDate"  value="<?php echo esc_attr( $EventEndDate ); ?>" />
 				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', 'tribe-events-calendar') ?></span>
 				<span class='timeofdayoptions'>
-					<?php _e('@','tribe-events-calendar'); ?>
+					@
 					<select class="tribeEventsInput" tabindex="<?php $this->tabIndex(); ?>" name='EventEndHour'>
 						<?php echo $endHourOptions; ?>
 					</select>
@@ -98,15 +98,11 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 	<table id="event_url" class="eventtable">
 		<tr>
-			<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event URL', 'tribe-events-calendar'); ?></h4></td>
+			<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event Website', 'tribe-events-calendar'); ?></h4></td>
 		</tr>
 		<tr>
 			<td><?php _e('URL:','tribe-events-calendar'); ?></td>
-			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventURL' name='EventURL' size='50' value='<?php echo (isset($_EventURL)) ? esc_attr($_EventURL) : ''; ?>' /></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td><small><?php _e('Leave blank to hide the field.', 'tribe-events-calendar'); ?></small></td>
+			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventURL' name='EventURL' size='50' value='<?php echo (isset($_EventURL)) ? esc_attr($_EventURL) : ''; ?>' placeholder='example.com' /></td>
 		</tr>
       <?php $this->do_action('tribe_events_url_table', $postId, true) ?>
 	</table>
@@ -128,7 +124,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		</tr>
 		<tr>
 			<td></td>
-			<td><small><?php _e('Leave blank to hide the field. Enter a 0 for events that are free.', 'tribe-events-calendar'); ?></small></td>
+			<td><small><?php _e('Enter a 0 for events that are free or leave blank to hide the field.', 'tribe-events-calendar'); ?></small></td>
 		</tr>
       <?php $this->do_action('tribe_events_cost_table', $postId, true) ?>
 	</table>

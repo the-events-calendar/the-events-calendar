@@ -166,8 +166,9 @@ td.tribe_message {padding-bottom: 10px !important;}
 
 /* = Help Screen
 =============================================*/
-.admin-indent {margin-left: 15px;}
-.admin-list {list-style-type: square; margin-left: 35px;}
+.tribe-settings-form-wrap p,
+.tribe-settings-form-wrap ul {margin-left: 15px;}
+.tribe-settings-form-wrap ul {list-style-type: square; margin-left: 35px;}
 
 /* = jQuery UI
 =============================================*/
@@ -232,7 +233,7 @@ td.tribe_message {padding-bottom: 10px !important;}
 
 /* = Admin Retina Bits
 =============================================*/
-@media 
+@media
 only screen and (min--moz-device-pixel-ratio: 2),
 only screen and (-o-min-device-pixel-ratio: 2/1),
 only screen and (-webkit-min-device-pixel-ratio: 2),

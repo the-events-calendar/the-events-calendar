@@ -1,2624 +1,3919 @@
+# The Events Calendar by Modern Tribe, Inc.
+# Copyright (C) Modern Tribe, Inc.
+# This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 2.0\n"
+"Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-23 08:21-0800\n"
-"PO-Revision-Date: 2012-06-13 15:39+0100\n"
-"Last-Translator: Marko Manojlović <manmar984@gmail.com>\n"
-"Language-Team: Modern Tribe, Inc.\n"
+"POT-Creation-Date: 2013-05-20 02:24-0600\n"
+"PO-Revision-Date: 2013-05-20 02:42-0600\n"
+"Last-Translator: Modern Tribe Inc. <pro@tri.be>\n"
+"Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Poedit-Language: English\n"
-"X-Poedit-Country: UNITED STATES\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#@ tribe-events-calendar
-#: ../admin-views/event-sidebar-options.php:11
-msgid "Hide From Upcoming Events List"
-msgstr "Sakrij sa popisa nadolazećih događaja"
+# @ tribe-events-calendar
+#
+#: ../admin-views/app-shop.php:4
+msgid "Tribe Event Add-Ons"
+msgstr ""
 
-#@ tribe-events-calendar
-#: ../admin-views/events-meta-box.php:25
+#: ../admin-views/app-shop.php:56
+msgid "Version"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/app-shop.php:59
+msgid "Last Update"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../admin-views/event-sidebar-options.php:11
+msgid "Hide From Event Listings"
+msgstr ""
+
+#: ../admin-views/event-sidebar-options.php:12
+msgid "Sticky in Calendar View"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/events-audit-trail.php:41
+msgid "Auditing Information"
+msgstr ""
+
+#: ../admin-views/events-audit-trail.php:47
+msgid "Created by:"
+msgstr ""
+
+#: ../admin-views/events-audit-trail.php:51
+msgid "Audit Trail:"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:26
 msgid "Event Time &amp; Date"
 msgstr "Vrijeme i datum događaja"
 
-#@ tribe-events-calendar
-#: ../admin-views/events-meta-box.php:28
-msgid "You have changed the recurrence rules of this event.  Saving the event will update all future events.  If you did not mean to change all events, then please refresh the page."
-msgstr "Promenili ste podešavanja za ponavljanje ovog događaja. Ako spremite događaj podešavanja će se primenti na sve naredne događaje. Ako niste želeli da promenite sve događaje molimo vas osvježite stranicu."
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:32
+msgid ""
+"You have changed the recurrence rules of this event.  Saving the event will "
+"update all future events.  If you did not mean to change all events, then "
+"please refresh the page."
+msgstr ""
+"Promenili ste podešavanja za ponavljanje ovog događaja. Ako spremite događaj "
+"podešavanja će se primenti na sve naredne događaje. Ako niste želeli da "
+"promenite sve događaje molimo vas osvježite stranicu."
 
-#@ tribe-events-calendar
-#: ../admin-views/events-meta-box.php:31
-msgid "All day event?"
-msgstr "Cjelodnevni događaj?"
-
-#@ tribe-events-calendar
+# @ tribe-events-calendar
+#
 #: ../admin-views/events-meta-box.php:35
-msgid "Start Date / Time:"
-msgstr "Datum / Vrijeme početka:"
+msgid "All Day Event:"
+msgstr ""
 
-#@ tribe-events-calendar
-#: ../admin-views/events-meta-box.php:38
-#: ../admin-views/events-meta-box.php:59
+# @ tribe-events-calendar
+#
+#: ../admin-views/events-meta-box.php:39
+msgid "Start Date &amp; Time:"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:42 ../admin-views/events-meta-box.php:63
 msgid "YYYY-MM-DD"
 msgstr "GGGG-MM-DD"
 
-#@ tribe-events-calendar
-#: ../admin-views/events-meta-box.php:40
-#: ../admin-views/events-meta-box.php:61
-msgid "@"
-msgstr "@"
+# @ tribe-events-calendar
+#
+#: ../admin-views/events-meta-box.php:60
+msgid "End Date &amp; Time:"
+msgstr ""
 
-#@ tribe-events-calendar
-#: ../admin-views/events-meta-box.php:56
-msgid "End Date / Time:"
-msgstr "Datum / Vrijeme završetka"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-meta-box.php:78
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:85
 msgid "Event Location Details"
 msgstr "Podaci o lokaciji događaja"
 
-#@ tribe-events-calendar
-#: ../admin-views/events-meta-box.php:84
-msgid "Show Google Maps Link:"
-msgstr "Pokaži link Google mape:"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-meta-box.php:91
-msgid "Show Google Map:"
-msgstr "Pokaži Google mapu:"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-meta-box.php:100
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:93
 msgid "Event Organizer Details"
 msgstr "Podaci o organizatoru"
 
-#@ tribe-events-calendar
-#: ../admin-views/events-meta-box.php:109
+# @ tribe-events-calendar
+#
+#: ../admin-views/events-meta-box.php:101
+msgid "Event Website"
+msgstr ""
+
+#: ../admin-views/events-meta-box.php:104
+msgid "URL:"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:115
 msgid "Event Cost"
 msgstr "Cjena događaja"
 
-#@ tribe-events-calendar
-#: ../admin-views/events-meta-box.php:112
+#: ../admin-views/events-meta-box.php:118
+msgid "Currency Symbol:"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../admin-views/events-meta-box.php:122
+#: ../public/advanced-functions/meta.php:187
 msgid "Cost:"
 msgstr "Cjena:"
 
-#@ tribe-events-calendar
-#: ../admin-views/events-meta-box.php:117
-msgid "Leave blank to hide the field. Enter a 0 for events that are free."
-msgstr "Ostavite prazno da sakrijete polje. Unesite 0 za besplatne događaje."
+#: ../admin-views/events-meta-box.php:127
+msgid "Enter a 0 for events that are free or leave blank to hide the field."
+msgstr ""
 
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:47
-#, php-format
-msgid "%s Settings"
-msgstr "%s Podešavanja"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:51
-msgid "Need a hand?"
-msgstr "Da li vam je potrebna pomoć?"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:52
-#, php-format
-msgid "If you're stuck on these options, please go to the <a href=\"%s\">support forum</a>."
-msgstr "Ako ste se zaglavili na podešavanjima molimo vas posetite <a href=\"%s\">forum podrške</a>."
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:54
-msgid "Here is the iCal feed URL for your events: "
-msgstr "Ovde je iCal feed URL za vaše događaje:"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:60
-msgid "Settings"
-msgstr "Podešavanja"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:63
-#: ../admin-views/events-options.php:67
-msgid "Default View for the Events"
-msgstr "Zadani izgled za događaje"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:71
-msgid "Calendar"
-msgstr "Kalendar"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:75
-msgid "Event List"
-msgstr "Popis događaja"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:81
-#: ../admin-views/events-options.php:85
-msgid "Number of events to show per page in the loop"
-msgstr "Broj događaja koji će se prikazivati po stranici"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:90
-msgid "This is the number of posts displayed per page when returning a list of events."
-msgstr "Ovo je broj postova prikazanih po stranici kada se prikazuje popis događaja."
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:95
-#: ../admin-views/events-options.php:99
-#: ../admin-views/events-options.php:101
-msgid "Show Comments"
-msgstr "Pokaži komentare"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:109
-#: ../admin-views/events-options.php:113
-msgid "Multiday Event Cutoff"
-msgstr "Odsecanje za višednevne događaje"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:127
-msgid "For multi-day events, hide the last day from grid view if it ends on or before this time."
-msgstr "Za višednevne događaje sakrij poslednji dan na kalendaru ako se završava u ili pre ovog vrijemena."
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:132
-#: ../admin-views/events-options.php:136
-msgid "Enable Google Maps"
-msgstr "Omogući Goolge mapu"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:142
-msgid "Height"
-msgstr "Visina"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:143
-msgid "Width"
-msgstr "Širina"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:143
-msgid "(number or %)"
-msgstr "(broj ili %)"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:144
-msgid "Zoom Level"
-msgstr "Nivo zuma"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:144
-msgid "(0 = zoomed-out; 21 = zoomed-in)"
-msgstr "(0 = odzumirano; 21 = zumirano)"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:148
-msgid "If you don't have this turned on, your event listings won't have the backend map preview or frontend embedded map."
-msgstr "Ako je ovo isključeno vaši događaji neće imati pregled mape u zadnjem delu ni ugrađenu  mapu na prednjem delu.  "
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:156
-#: ../admin-views/events-options.php:158
-msgid "Events URL slug"
-msgstr "Slug URL događaja"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:159
-msgid "The slug used for building the Events URL."
-msgstr "Slug korišćen za pravljenje URL događaja."
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:159
-#, php-format
-msgid "Your current Events URL is <strong><a href=\"%s\">%s</a></strong>"
-msgstr "URL trenutnog događaja je <strong><a href=\"%s\">%s</a></strong>"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:163
-#: ../admin-views/events-options.php:165
-msgid "Single Event URL slug"
-msgstr "Slug jednog URL događaja"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:166
-msgid "The slug used for building a single Event URL."
-msgstr "Ovaj slug se koristi za pravljenje URL-a jednog događaja."
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:167
-#, php-format
-msgid "<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: <strong>%s</strong>"
-msgstr "<strong>NAPOMENA:</strong><em>Ne možete</em> koristiti isti slug kao iznad. Iznad bi trebalo da bude množina, a ovde jednina. <br />URL jednog događaja izgleda ovako: <strong>%s</strong>"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:172
-#: ../admin-views/events-options.php:174
-msgid "Debug"
-msgstr "Debagovanje"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:175
-msgid "Debug Events display issues."
-msgstr "Prikaz problema prilikom debagovanja."
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:176
-#, php-format
-msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the <a href=\"%s\" target=\"_blank\">Debug Bar Plugin</a> and look for the \"Tribe\" tab in the debug output."
-msgstr "Omogućite ovu opciju da bi ste logovali debag informacije. Po zadanim postavkama  ovo će biti logovanp na PHP error logu vašeg servera. Ako želite da vidite log poruke u vašem pretraživaču preporučujemo da instalirate <a href=\"%s\" target=\"_blank\">Debug Bar Plugin</a> i potražite \"Tribe\" tab u outputu debaga."
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:181
-msgid "Theme Settings"
-msgstr "Postavke teme"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:184
-#: ../admin-views/events-options.php:186
-msgid "Events Template"
-msgstr "Šablon događaja"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:188
-msgid "Default Events Template"
-msgstr "Zadani šablon događaja"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:189
-msgid "Default Page Template"
-msgstr "Zadani šablon stranice"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:192
-msgid "Choose a page template to control the look and feel of your calendar."
-msgstr "Izaberite šablon stranice da bi ste kontrolisali izgled vašeg kalendara."
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:196
-#: ../admin-views/events-options.php:198
-#: ../admin-views/events-options.php:206
-msgid "Add HTML before calendar"
-msgstr "Dodaj HTML pre kalendara"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:200
-msgid "Some themes may require that you add extra divs before the calendar list to help with styling."
-msgstr "Neke teme će zahtevati da dodate <div> tagove pre liste da bi ste je mogli stilizovati."
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:200
-msgid "This is displayed directly after the header."
-msgstr "Ovo se prikazuje odmah nakon zaglavlja."
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:200
-#: ../admin-views/events-options.php:208
-msgid "You may use (x)HTML."
-msgstr "Možete da koristite (x)HTML."
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:204
-msgid "Add HTML after calendar"
-msgstr "Dodaj HTML posle kalendara"
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:208
-msgid "Some themes may require that you add extra divs after the calendar list to help with styling."
-msgstr "Neke teme će zahtevati da dodate <div> tagove posle liste da bi ste je mogli stilizovati."
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:208
-msgid "This is displayed directly above the footer."
-msgstr "Ovo se prikazuje odmah iznad podnožja."
-
-#@ tribe-events-calendar
-#: ../admin-views/events-options.php:217
-msgid "Save Changes"
-msgstr "Sačuvaj promene"
-
-#@ tribe-events-calendar
-#: ../admin-views/organizer-meta-box.php:11
+# @ tribe-events-calendar
+#: ../admin-views/organizer-meta-box.php:12
 msgid "Organizer Name:"
 msgstr "Organizator:"
 
-#@ tribe-events-calendar
-#: ../admin-views/organizer-meta-box.php:17
-#: ../admin-views/venue-meta-box.php:83
+# @ tribe-events-calendar
+#: ../admin-views/organizer-meta-box.php:19
+#: ../admin-views/tickets-attendees.php:39
+#: ../admin-views/venue-meta-box.php:93
+#: ../public/advanced-functions/meta.php:274
+#: ../public/advanced-functions/meta.php:336
 msgid "Phone:"
 msgstr "Telefon:"
 
-#@ tribe-events-calendar
-#: ../admin-views/organizer-meta-box.php:21
+# @ tribe-events-calendar
+#: ../admin-views/organizer-meta-box.php:23
+#: ../admin-views/tickets-attendees.php:45
+#: ../admin-views/venue-meta-box.php:97
+#: ../public/advanced-functions/meta.php:225
+#: ../public/advanced-functions/meta.php:300
+#: ../public/advanced-functions/meta.php:362
 msgid "Website:"
 msgstr "Web sajt"
 
-#@ tribe-events-calendar
-#: ../admin-views/organizer-meta-box.php:25
+# @ tribe-events-calendar
+#: ../admin-views/organizer-meta-box.php:27
+#: ../public/advanced-functions/meta.php:349
 msgid "Email:"
 msgstr "E-pošta:"
 
-#@ tribe-events-calendar
-#: ../admin-views/recurrence-dialog.php:11
-msgid "Which events do you wish to update?"
-msgstr "Koje događaje želite ažurirati?"
+#: ../admin-views/recurrence-dialog.php:13
+msgid ""
+"Would you like to change only this instance of the event, or all future "
+"events in this series?"
+msgstr ""
 
-#@ tribe-events-calendar
-#: ../admin-views/recurrence-dialog.php:14
-msgid "Select your desired action"
-msgstr "Odaberite željenu akciju"
+#: ../admin-views/recurrence-dialog.php:15
+#: ../admin-views/recurrence-dialog.php:23
+msgid "Only This Event:"
+msgstr ""
 
-#@ tribe-events-calendar
-#: ../admin-views/venue-meta-box.php:12
+#: ../admin-views/recurrence-dialog.php:15
+msgid "All other future events in the series will remain the same."
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/recurrence-dialog.php:16
+#: ../admin-views/recurrence-dialog.php:24
+msgid "All Events:"
+msgstr ""
+
+#: ../admin-views/recurrence-dialog.php:16
+msgid ""
+"All future events in the series will be changed. Any changes made to other "
+"events will be kept."
+msgstr ""
+
+#: ../admin-views/recurrence-dialog.php:21
+msgid ""
+"Would you like to delete only this instance of the event, or all future "
+"events in this series?"
+msgstr ""
+
+#: ../admin-views/recurrence-dialog.php:23
+msgid "All other future events in the series will not be deleted."
+msgstr ""
+
+#: ../admin-views/recurrence-dialog.php:24
+msgid "All future events in the series will be deleted."
+msgstr ""
+
+#: ../admin-views/tickets-attendees.php:9 ../admin-views/tickets-list.php:41
+#: ../lib/tickets/tribe-tickets-pro.php:73
+msgid "Attendees"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tickets-attendees.php:14
+msgid "Event Summary"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tickets-attendees.php:22
+msgid "Event Details"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../admin-views/tickets-attendees.php:24
+msgid "Start Date / Time:"
+msgstr "Datum / Vrijeme početka:"
+
+# @ tribe-events-calendar
+#: ../admin-views/tickets-attendees.php:26
+msgid "End Date / Time:"
+msgstr "Datum / Vrijeme završetka"
+
+# @ tribe-events-calendar
+#: ../admin-views/tickets-attendees.php:34
+msgid "Venue:"
+msgstr "Mjesto: "
+
+#: ../admin-views/tickets-attendees.php:52
+msgid "Ticket Sales"
+msgstr ""
+
+#: ../admin-views/tickets-attendees.php:64 ../admin-views/tickets-list.php:67
+#, php-format
+msgid "Sold %d"
+msgstr ""
+
+#: ../admin-views/tickets-attendees.php:66 ../admin-views/tickets-list.php:69
+#, php-format
+msgid "Sold %d of %d"
+msgstr ""
+
+#: ../admin-views/tickets-attendees.php:81
+msgid "Tickets sold:"
+msgstr ""
+
+#: ../admin-views/tickets-attendees.php:85
+msgid "Checked in:"
+msgstr ""
+
+#: ../admin-views/tickets-attendees.php:105
+msgid "Send the attendee list by email"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tickets-attendees.php:109
+msgid "Select a User:"
+msgstr ""
+
+#: ../admin-views/tickets-attendees.php:110
+msgid "Select..."
+msgstr ""
+
+#: ../admin-views/tickets-attendees.php:112
+msgid "or"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tickets-attendees.php:114
+msgid "Email Address:"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../admin-views/tickets-list.php:21 ../views/wrapper-single.php:37
+msgid "Edit"
+msgstr "Izmjeni"
+
+#: ../admin-views/tickets-list.php:22
+msgid "Delete"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../admin-views/tickets-list.php:24
+#, php-format
+msgid "Edit in %s"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../admin-views/tickets-list.php:27
+#: ../lib/tribe-admin-events-list.class.php:41
+msgid "View"
+msgstr "Pogledajte"
+
+#: ../admin-views/tickets-list.php:41 ../lib/tickets/tribe-tickets-pro.php:73
+msgid "See who purchased tickets to this event"
+msgstr ""
+
+#: ../admin-views/tickets-meta-box.php:21
+msgid ""
+"This event was created using Community Events. Are you sure you want to sell "
+"tickets for it?"
+msgstr ""
+
+#: ../admin-views/tickets-meta-box.php:32
+msgid "Upload image for the ticket header"
+msgstr ""
+
+#: ../admin-views/tickets-meta-box.php:33
+msgid ""
+"The maximum image size in the email will be 580px wide by any height, and "
+"then scaled for mobile. If you would like \"retina\" support use an image "
+"sized to 1160px wide."
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tickets-meta-box.php:36
+msgid "Select an Image"
+msgstr ""
+
+#: ../admin-views/tickets-meta-box.php:44
+msgid "Remove"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tickets-meta-box.php:62
+#: ../admin-views/tickets-meta-box.php:72
+msgid "Add new ticket"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tickets-meta-box.php:73
+msgid "Edit ticket"
+msgstr ""
+
+#: ../admin-views/tickets-meta-box.php:79
+msgid "Sell using:"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tickets-meta-box.php:96
+msgid "Ticket Name:"
+msgstr ""
+
+#: ../admin-views/tickets-meta-box.php:103
+msgid "Ticket Description:"
+msgstr ""
+
+#: ../admin-views/tickets-meta-box.php:112
+msgid "Price:"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tickets-meta-box.php:124
+msgid "Start sale:"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tickets-meta-box.php:148
+msgid "End sale:"
+msgstr ""
+
+#: ../admin-views/tickets-meta-box.php:170
+msgid ""
+"When will ticket sales occur? If you don't set a start/end date for sales, "
+"tickets will be available from now until the event ends."
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../admin-views/tribe-options-display.php:4
+msgid "Default Events Template"
+msgstr "Zadani šablon događaja"
+
+# @ tribe-events-calendar
+#: ../admin-views/tribe-options-display.php:5
+msgid "Default Page Template"
+msgstr "Zadani šablon stranice"
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-display.php:29
+msgid "Display Settings"
+msgstr ""
+
+#: ../admin-views/tribe-options-display.php:33
+msgid ""
+"<p>The settings below control the display of your calendar. If things don't "
+"look right, try switching between the three style sheet options or pick a "
+"page template from your theme.</p>There are going to be situations where no "
+"out-of-the-box template is 100% perfect. Check out our <a href=\"http://tri."
+"be/support/documentation/events-calendar-themers-guide/\">our themer's "
+"guide</a> for instructions on custom modifications. Want to create a new "
+"view? Grab a copy of the <a href=\"https://github.com/moderntribe/tribe-"
+"events-agenda-view\">Sample Agenda View plugin from Github</a></p>"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-display.php:45
+msgid "Basic Template Settings"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-display.php:49
+msgid "Default stylesheet used for events templates"
+msgstr ""
+
+#: ../admin-views/tribe-options-display.php:52
+msgid "Skeleton Styles"
+msgstr ""
+
+#: ../admin-views/tribe-options-display.php:54
+msgid ""
+"These styles provide a bare minimum level of layout for the more complex "
+"templates, and is recommended if you're customizing the events template "
+"styles."
+msgstr ""
+
+#: ../admin-views/tribe-options-display.php:56
+msgid "Full Styles"
+msgstr ""
+
+#: ../admin-views/tribe-options-display.php:58
+msgid ""
+"These styles provide a more complex level of layout and style and should "
+"adapt to your theme"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-display.php:60
+msgid "Tribe Events Styles"
+msgstr ""
+
+#: ../admin-views/tribe-options-display.php:62
+msgid "These styles provide a fully designed events theme"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-display.php:69
+msgid "Events template"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../admin-views/tribe-options-display.php:70
+msgid ""
+"Choose a page template to control the appearance of your calendar and event "
+"content."
+msgstr ""
+
+#: ../admin-views/tribe-options-display.php:78
+msgid "Enable event views"
+msgstr ""
+
+#: ../admin-views/tribe-options-display.php:79
+msgid "You must select at least one view."
+msgstr ""
+
+#: ../admin-views/tribe-options-display.php:86
+msgid "Default view"
+msgstr ""
+
+#: ../admin-views/tribe-options-display.php:94
+msgid "Use the Event Search Bar"
+msgstr ""
+
+#: ../admin-views/tribe-options-display.php:95
+msgid "Uncheck this to use the classic header."
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-display.php:101
+msgid "Advanced Template Settings"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-display.php:105
+msgid "Add HTML before event content"
+msgstr ""
+
+#: ../admin-views/tribe-options-display.php:106
+msgid ""
+"If you are familiar with HTML, you can add additional code before the event "
+"template. Some themes may require this to help with styling or layout."
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-display.php:111
+msgid "Add HTML after event content"
+msgstr ""
+
+#: ../admin-views/tribe-options-display.php:112
+msgid ""
+"If you are familiar with HTML, you can add additional code after the event "
+"template. Some themes may require this to help with styling or layout."
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:14
+msgid "Finding & extending your calendar."
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:19
+msgid "Finding your calendar."
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-general.php:24
+msgid "Where's my calendar?"
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:24
+msgid "Right here"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../admin-views/tribe-options-general.php:28
+msgid ""
+"Looking for additional functionality including recurring events, custom "
+"meta, community events, ticket sales and more?"
+msgstr ""
+"Potrebna vam je dodatna funkcionalnost uključujući ponavljajuće događaje, "
+"prilagođen  meta, zajednički događaji, prodaja karata i još dosta toga?"
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-general.php:28
+msgid "Check out the available add-ons"
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:33
+msgid "We hope our plugin is helping you out."
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:37
+msgid ""
+"Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
+"Modern Tribe for all their hard work.\" The greatest thanks we could ask for "
+"is recognition. Add a small text-only link at the bottom of your calendar "
+"pointing to The Events Calendar project."
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:37
+#: ../admin-views/tribe-options-general.php:42
+msgid "See an example of the link"
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:42
+msgid ""
+"Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
+"Modern Tribe for all their hard work.\" The greatest thanks we could ask for "
+"is recognition. Add a small text only link at the bottom of your calendar "
+"pointing to The Events Calendar project."
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-general.php:47
+msgid "Show The Events Calendar link"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-general.php:61
+msgid "General Settings"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-general.php:65
+msgid "Number of events to show per page"
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:72
+msgid "Use Javascript to control page load"
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:73
+msgid "Enable ajax to live refresh content."
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-general.php:79
+msgid "Show comments"
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:80
+msgid "Enable comments on event pages."
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:86
+msgid "Include events in main blog loop"
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:87
+msgid ""
+"Show events with the site's other posts. When this box is checked, events "
+"will also continue to appear on the default events page."
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../admin-views/tribe-options-general.php:93
+#: ../admin-views/tribe-options-general.php:99
+msgid "Events URL slug"
+msgstr "Slug URL događaja"
+
+#: ../admin-views/tribe-options-general.php:94
+#, php-format
+msgid ""
+"You cannot edit the slug for your events page as you do not have pretty "
+"permalinks enabled. The current URL for your events page is <a href=\"%s\">"
+"%s</a>. In order to edit the slug here, <a href=\"%soptions-permalink.php"
+"\">enable pretty permalinks</a>."
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-general.php:106
+#: ../public/template-tags/options.php:20
+msgid "The slug used for building the events URL."
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../admin-views/tribe-options-general.php:106
+#, php-format
+msgid "Your current events URL is: %s"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-general.php:111
+#: ../public/template-tags/options.php:43
+msgid "Here is the iCal feed URL for your events:"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-general.php:116
+msgid "Single event URL slug"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../admin-views/tribe-options-general.php:123
+#, php-format
+msgid ""
+"The above should ideally be plural, and this singular.<br />Your single "
+"event URL is: %s"
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:128
+msgid "End of day cutoff"
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:136
+msgid ""
+"Have events that run past midnight? Control when your day official ends to "
+"avoid awkwardly adding your event to the next day."
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:141
+msgid "Default currency symbol"
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:142
+msgid ""
+"Set the default currency symbol for event costs. Note that this only impacts "
+"future events, and changes made will not apply retroactively."
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-general.php:149
+msgid "Map Settings"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../admin-views/tribe-options-general.php:153
+msgid "Enable Google Maps"
+msgstr "Omogući Goolge mapu"
+
+#: ../admin-views/tribe-options-general.php:154
+msgid "Check to enable maps for events and venues."
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:161
+msgid "Google Maps Default Zoom Level"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-general.php:162
+msgid "0 = zoomed out; 21 = zoomed in."
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-general.php:170
+msgid "Miscellaneous Settings"
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:174
+msgid "Duplicate Venues &amp; Organizers"
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:174
+msgid ""
+"You might find duplicate venues and organizers when updating The Events "
+"Calendar from a pre-3.0 version. Click this button to automatically merge "
+"identical venues and organizers."
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:174
+#: ../lib/tribe-amalgamator.php:182
+msgid "Merge Duplicates"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-general.php:179
+msgid "Debug mode"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../admin-views/tribe-options-general.php:185
+#, php-format
+msgid ""
+"Enable this option to log debug information. By default this will log to "
+"your server PHP error log. If you'd like to see the log messages in your "
+"browser, then we recommend that you install the %s and look for the \"Tribe"
+"\" tab in the debug output."
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:185
+msgid "Debug Bar Plugin"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:18
+msgctxt "not available"
+msgid "n/a"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:19
+msgid "You need to upgrade!"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:19
+msgid "You are up to date!"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-help.php:42
+msgid "The Events Calendar PRO"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:46
+msgid "Eventbrite Tickets"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-help.php:50
+msgid "Community Events"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-help.php:54
+msgid "Facebook Events"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:58
+msgid "WooTickets"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:63
+msgid "Faceted Filters"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:71
+msgid "Documentation"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:75
+msgid "FAQ"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:79
+#: ../lib/the-events-calendar.class.php:656
+#: ../lib/the-events-calendar.class.php:3375
+#: ../lib/the-events-calendar.class.php:3466
+msgid "Help"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:83
+msgid "Tutorials"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:87
+msgid "Release Notes"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:91
+msgid "Forums"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:96
+#, php-format
+msgid ""
+"If this is your first time using The Events Calendar,you're in for a treat. "
+"You're going to find it super-easy to get up and running with managing your "
+"events. Here are some ways to get started:</p><ul><li><strong>Feeling "
+"adventurous?</strong> Jump right into it by visiting the Events menu to <a "
+"href=\"%s\">add your first event</a>.</li><li><strong>Want to get the low-"
+"down first?</strong> Visit our <a href=\"%s\">new user primer</a>,  designed "
+"to help familiarize you with the plugin basics.</li></ul>"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:99
+#, php-format
+msgid ""
+"<p>We love all our users and want to help free & PRO customers alike. If "
+"you're running the latest version of The Events Calendar and are having "
+"problems, post a thread at the %s on WordPress.org. We hit the forum once a "
+"week to look for legitimate bug reports and do what we can to assist users.</"
+"p>"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-help.php:99
+msgid "forum for The Events Calendar"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:100
+#, php-format
+msgid ""
+"<p>If you need additional help, %sEvents Calendar Pro%s gets you access to "
+"our support forums for a full year.</p>"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:101
+msgid "A few things to keep in mind before posting:"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:103
+msgid ""
+"Search recent threads before posting a new one to check that there isn't "
+"already a discussion about your issue."
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:104
+msgid ""
+"Check whether the issue is a conflict with another plugin or your theme. "
+"This can be tested easily on a staging site by deactivating other plugins "
+"one-by-one, and reverting to the default Twenty Twelve theme to see if "
+"conflicts can be easily identified. If you find a conflict, note it in a "
+"support thread."
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:105
+#, php-format
+msgid ""
+"Sometimes, resaving your permalinks (under <a href=\"%s\">Settings > "
+"Permalinks</a>) can resolve events-related problems on your site. Before "
+"creating a new thread try this handy trick."
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:107
+msgid ""
+"While we are happy to help with bugs and provide light integration tips for "
+"users of The Events Calendar, on the WordPress.org support forums we're not "
+"able to provide customization tips or assist in integration with 3rd party "
+"plugins."
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:109
+#, php-format
+msgid ""
+"Shoot us an email at %s or tweet %s and tell us why. We'll do what we can to "
+"make it right."
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:110
+msgid "More..."
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:117
+msgid ""
+"Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so much "
+"for installing our labor of love!"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:119
+msgid "Getting Started"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:126
+msgid "Resources to Help You Kick Ass"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:138
+msgid "Everyone Needs a Buddy"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:141
+msgid "Still Not Satisfied?"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../admin-views/tribe-options-help.php:151
+#: ../lib/the-events-calendar.class.php:437
+#: ../lib/tribe-settings.class.php:135
+msgid "The Events Calendar"
+msgstr "Kalendar događaja"
+
+#: ../admin-views/tribe-options-help.php:155
+msgid "Latest Version:"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:156
+msgid "Author:"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-help.php:156
+msgid "Modern Tribe Inc"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:157
+msgid "Requires:"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:157
+msgid "WordPress "
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:158
+msgid "Wordpress.org Plugin Page"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:163
+msgid "Average Rating"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:167
+#, php-format
+msgid "Based on %d rating"
+msgid_plural "Based on %d ratings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../admin-views/tribe-options-help.php:168
+msgid "Give us 5 stars!"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:171
+msgid "Premium Add-Ons"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:177
+msgid "(Coming Soon!)"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:184
+msgid "News and Tutorials"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../admin-views/tribe-options-network.php:14
+msgid "Network Settings"
+msgstr ""
+
+#: ../admin-views/tribe-options-network.php:18
+msgid ""
+"This is where all of the global network settings for Modern Tribe's The "
+"Events Calendar can be modified."
+msgstr ""
+
+#: ../admin-views/tribe-options-network.php:26
+msgid "Hide the following settings tabs on every site:"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../admin-views/venue-meta-box.php:20
 msgid "Venue Name:"
 msgstr "Mjesto: "
 
-#@ tribe-events-calendar
-#: ../admin-views/venue-meta-box.php:19
+# @ tribe-events-calendar
+#: ../admin-views/venue-meta-box.php:27
+#: ../public/advanced-functions/meta.php:288
 msgid "Address:"
 msgstr "Adresa:"
 
-#@ tribe-events-calendar
-#: ../admin-views/venue-meta-box.php:23
+# @ tribe-events-calendar
+#: ../admin-views/venue-meta-box.php:31
 msgid "City:"
 msgstr "Grad:"
 
-#@ tribe-events-calendar
-#: ../admin-views/venue-meta-box.php:27
+# @ tribe-events-calendar
+#: ../admin-views/venue-meta-box.php:35
 msgid "Country:"
 msgstr "Zemlja:"
 
-#@ tribe-events-calendar
-#: ../admin-views/venue-meta-box.php:58
+# @ tribe-events-calendar
+#: ../admin-views/venue-meta-box.php:73
 msgid "State or Province:"
 msgstr "Država ili provincija:"
 
-#@ tribe-events-calendar
-#: ../admin-views/venue-meta-box.php:61
+# @ tribe-events-calendar
+#: ../admin-views/venue-meta-box.php:76
 msgid "Select a State:"
 msgstr "Odaberite državu:"
 
-#@ tribe-events-calendar
-#: ../admin-views/venue-meta-box.php:79
+# @ tribe-events-calendar
+#: ../admin-views/venue-meta-box.php:89
 msgid "Postal Code:"
 msgstr "Poštanski broj: "
 
-#@ tribe-events-calendar
+# @ tribe-events-calendar
+#: ../admin-views/venue-meta-box.php:112 ../admin-views/venue-meta-box.php:134
+msgid "Show Google Map:"
+msgstr "Pokaži Google mapu:"
+
+# @ tribe-events-calendar
+#: ../admin-views/venue-meta-box.php:122 ../admin-views/venue-meta-box.php:144
+msgid "Show Google Maps Link:"
+msgstr "Pokaži link Google mape:"
+
+# @ tribe-events-calendar
 #: ../admin-views/widget-admin-list.php:11
 msgid "Title:"
 msgstr "Titula: "
 
-#@ tribe-events-calendar
+# @ tribe-events-calendar
 #: ../admin-views/widget-admin-list.php:16
 msgid "Show:"
 msgstr "Prikaži:"
 
-#@ tribe-events-calendar
+# @ tribe-events-calendar
 #: ../admin-views/widget-admin-list.php:24
 msgid "Show widget only if there are upcoming events:"
 msgstr "Prikaži vidžet samo ako ima nadolazećih događaja: "
 
-#@ tribe-events-calendar
 #: ../admin-views/widget-admin-list.php:30
-msgid "If you wish to customize the widget display yourself, see the file views/events-list-load-widget-display.php inside the Events Premium plugin."
-msgstr "Ako želite da podesite izgled vidžeta pogledajte fajl views/events-list-load-widget-display.php unutar Events Premium plagina."
+#, php-format
+msgid "Want to modify the display of this widget? Try a %stemplate override%s."
+msgstr ""
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:255
-msgid "The Events Calendar"
-msgstr "Kalendar događaja"
-
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:258
-msgid "category"
-msgstr "kategorija"
-
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:259
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:442
 msgid "month"
 msgstr "mjesec"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:260
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:443
 msgid "upcoming"
 msgstr "predstojeći"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:261
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:444
 msgid "past"
 msgstr "prethodni"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:263
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:446
 msgid "venue"
 msgstr "mjesto"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:273
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:460
 #, php-format
 msgid "Initializing Tribe Events on %s"
 msgstr "Inicijalizacija Tribe Events na %s"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:330
+#: ../lib/the-events-calendar.class.php:552
 #, php-format
-msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
-msgstr "Žao nam je, The Events Calendar zahteva WordPress %s ili noviji. Molimo vas da ažurirate vašu Wordpress instalaciju."
+msgid ""
+"Your version of The Events Calendar is not up-to-date with one of your The "
+"Events Calendar add-ons. Please %supdate now.%s"
+msgstr ""
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:333
+#: ../lib/the-events-calendar.class.php:566
 #, php-format
-msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
-msgstr "Žao nam je, The Events Calendar zahteva PHP %s ili noviji. Pričajte sa vašim hostom o prebacivanju na noviju verziju PHP-a."
+msgid ""
+"The following plugins are out of date: <b>%s</b>. Please %supdate now%s. All "
+"add-ons contain dependencies on The Events Calendar and will not function "
+"properly unless paired with the right version. %sWant to pair an older "
+"version%s?"
+msgstr ""
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:454
+#: ../lib/the-events-calendar.class.php:623
+#: ../lib/the-events-calendar.class.php:651
+#: ../lib/the-events-calendar.class.php:653
+msgid "Licenses"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:627
+#, php-format
+msgid ""
+"<p>The license key you received when completing your purchase from http://"
+"tri.be will grant you access to support and updates until it expires. You do "
+"not need to enter the key below for the plugins to work, but you will need "
+"to enter it to get automatic updates. <strong>Find your license keys at <a "
+"href=\"%s\">%s</a></strong>.</p> <p>Each paid add-on has its own unique "
+"license key. Simply paste the key into its appropriate field on below, and "
+"give it a moment to validate. You know you're set when a green expiration "
+"date appears alongside a \"valid\" message.</p> <p>If you're seeing a red "
+"message telling you that your key isn't valid or is out of installs, visit "
+"[enter link to account/licenses] to manage your installs or renew / upgrade "
+"your license.</p><p>Not seeing an update but expecting one? In WordPress, go "
+"to <a href=\"%s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:643
+msgid "General"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:644
+msgid "Display"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:689
+#, php-format
+msgid ""
+"Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade "
+"your WordPress install."
+msgstr ""
+"Žao nam je, The Events Calendar zahteva WordPress %s ili noviji. Molimo vas "
+"da ažurirate vašu Wordpress instalaciju."
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:692
+#, php-format
+msgid ""
+"Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host "
+"about moving you to a newer version of PHP."
+msgstr ""
+"Žao nam je, The Events Calendar zahteva PHP %s ili noviji. Pričajte sa vašim "
+"hostom o prebacivanju na noviju verziju PHP-a."
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:839 ../lib/widget-list.class.php:116
+#: ../public/template-tags/loop.php:135 ../public/template-tags/loop.php:138
 msgid "Upcoming Events"
 msgstr "Predstojeći događaji"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:456
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:841
+#: ../public/template-tags/loop.php:174
 msgid "Past Events"
 msgstr "Prošli događaji"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:460
-#: ../lib/the-events-calendar.class.php:466
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:846
+#: ../lib/the-events-calendar.class.php:853
 #, php-format
 msgid "Events for %s"
 msgstr "Događaji za %s"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:462
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:848
 msgid "Events this month"
 msgstr "Događaji ovog mjeseca"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:472
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:859
 #, php-format
 msgid "Events at %s"
 msgstr "Događaji u %s"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:485
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:872
 msgid "No description has been entered for this event."
 msgstr "Nema opisa za ovaj događaj."
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:594
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1119
+msgid "category"
+msgstr "kategorija"
+
+#: ../lib/the-events-calendar.class.php:1124
+msgid "tag"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1138
+#: ../lib/the-events-calendar.class.php:3306
+#: ../lib/the-events-calendar.class.php:3366
 msgid "Events"
 msgstr "Događaji"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:595
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1139
 msgid "Event"
 msgstr "Događaj"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:596
-#: ../lib/the-events-calendar.class.php:609
-#: ../lib/the-events-calendar.class.php:622
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1140
+#: ../lib/the-events-calendar.class.php:1153
+#: ../lib/the-events-calendar.class.php:1166
 msgid "Add New"
 msgstr "Dodaj novi"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:597
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1141
 msgid "Add New Event"
 msgstr "Dodaj novi događaj"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:598
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1142
 msgid "Edit Event"
 msgstr "Uredi događaj"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:599
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1143
 msgid "New Event"
 msgstr "Novi događaj"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:600
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1144
 msgid "View Event"
 msgstr "Pogledaj događaj"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:601
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1145
 msgid "Search Events"
 msgstr "Pretraži događaje"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:602
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1146
 msgid "No events found"
 msgstr "Nema nađenih događaja"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:603
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1147
 msgid "No events found in Trash"
 msgstr "Nema nađenih događaja u smeću"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:607
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1151
+#: ../lib/the-events-calendar.class.php:1257
 msgid "Venues"
 msgstr "Mjesta"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:608
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1152
+#: ../public/advanced-functions/meta.php:248 ../views/tickets-email.php:320
 msgid "Venue"
 msgstr "Mjesto"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:610
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1154
 msgid "Add New Venue"
 msgstr "Dodaj novo mjesto"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:611
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1155
 msgid "Edit Venue"
 msgstr "Izmeni mjesto"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:612
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1156
 msgid "New Venue"
 msgstr "Novo mjesto"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:613
-#: ../lib/the-events-calendar.class.php:626
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1157
 msgid "View Venue"
 msgstr "Pogledaj mjesto"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:614
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1158
 msgid "Search Venues"
 msgstr "Pretraži mjesta"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:615
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1159
 msgid "No venue found"
 msgstr "Nema nađenih mjesta"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:616
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1160
 msgid "No venues found in Trash"
 msgstr "Nema nađenih mjesta u smeću"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:620
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1164
+#: ../lib/the-events-calendar.class.php:1258
 msgid "Organizers"
 msgstr "Organizatori"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:621
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1165
+#: ../public/advanced-functions/meta.php:310 ../views/tickets-email.php:339
 msgid "Organizer"
 msgstr "Organizator"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:623
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1167
 msgid "Add New Organizer"
 msgstr "Dodaj novog organizatora"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:624
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1168
 msgid "Edit Organizer"
 msgstr "Izmjeni organizatora"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:625
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1169
 msgid "New Organizer"
 msgstr "Novi organizator"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:627
+# @ tribe-events-calendar
+#
+#: ../lib/the-events-calendar.class.php:1170
+msgid "View Organizer"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1171
 msgid "Search Organizers"
 msgstr "Pretraži organizatore"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:628
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1172
 msgid "No organizer found"
 msgstr "Nema nađenih organizatora"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:629
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1173
 msgid "No organizers found in Trash"
 msgstr "Nema nađenih organizatora u smeću"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:633
-#: ../lib/tribe-admin-events-list.class.php:172
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1177
+#: ../lib/tribe-admin-events-list.class.php:181
 msgid "Event Categories"
 msgstr "Kategorije događaja"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:634
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1178
+#: ../public/template-tags/general.php:295
 msgid "Event Category"
 msgstr "Kategorija događaja"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:635
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1179
 msgid "Search Event Categories"
 msgstr "Pretraži kategorije događaja"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:636
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1180
 msgid "All Event Categories"
 msgstr "Sve kategorije događaja"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:637
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1181
 msgid "Parent Event Category"
 msgstr "Roditeljska kategorija događaja"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:638
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1182
 msgid "Parent Event Category:"
 msgstr "Roditeljska kategorija događaja:"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:639
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1183
 msgid "Edit Event Category"
 msgstr "Izmjeni kategoriju događaja"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:640
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1184
 msgid "Update Event Category"
 msgstr "Ažuriraj kategoriju događaja"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:641
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1185
 msgid "Add New Event Category"
 msgstr "Dodaj novu kategoriju događaja"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:642
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1186
 msgid "New Event Category Name"
 msgstr "Novo ime kategorije događaja"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:652
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1196
 #, php-format
 msgid "Event updated. <a href=\"%s\">View event</a>"
 msgstr "Događaj ažuriran. <a href=\"%s\">Pogledaj događaj</a>"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:653
-#: ../lib/the-events-calendar.class.php:670
-#: ../lib/the-events-calendar.class.php:687
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1197
+#: ../lib/the-events-calendar.class.php:1214
+#: ../lib/the-events-calendar.class.php:1231
 msgid "Custom field updated."
 msgstr "Prilagođeno polje ažurirano."
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:654
-#: ../lib/the-events-calendar.class.php:671
-#: ../lib/the-events-calendar.class.php:688
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1198
+#: ../lib/the-events-calendar.class.php:1215
+#: ../lib/the-events-calendar.class.php:1232
 msgid "Custom field deleted."
 msgstr "Prilagođeno polje obrisano."
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:655
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1199
 msgid "Event updated."
 msgstr "Događaj ažuriran."
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:657
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1201
 #, php-format
 msgid "Event restored to revision from %s"
 msgstr "Događaj vraćen na reviziju od %s"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:658
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1202
 #, php-format
 msgid "Event published. <a href=\"%s\">View event</a>"
 msgstr "Događaj objavljen. <a href=\"%s\">Pogledaj događaj</a>"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:659
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1203
 msgid "Event saved."
 msgstr "Događaj sačuvan."
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:660
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1204
 #, php-format
 msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
 msgstr "Događaj poslat. <a target=\"_blank\" href=\"%s\">Pregled događaja</a>"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:661
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1205
 #, php-format
-msgid "Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview event</a>"
-msgstr "Događaj stavljen na raspored za: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Pregled događaja</a>"
+msgid ""
+"Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
+"\">Preview event</a>"
+msgstr ""
+"Događaj stavljen na raspored za: <strong>%1$s</strong>. <a target=\"_blank\" "
+"href=\"%2$s\">Pregled događaja</a>"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:663
-#: ../lib/the-events-calendar.class.php:680
-#: ../lib/the-events-calendar.class.php:697
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1207
+#: ../lib/the-events-calendar.class.php:1224
+#: ../lib/the-events-calendar.class.php:1241
 msgid "M j, Y @ G:i"
 msgstr "M j, Y @ G:i"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:664
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1208
 #, php-format
 msgid "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
 msgstr "Nacrt ažiruran. <a target=\"_blank\" href=\"%s\">Pregled događaja</a>"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:669
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1213
 #, php-format
 msgid "Venue updated. <a href=\"%s\">View venue</a>"
 msgstr "Mjesto ažurirano. <a href=\"%s\">Vidi mjesto</a>"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:672
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1216
 msgid "Venue updated."
 msgstr "Mjesto ažurirano. "
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:674
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1218
 #, php-format
 msgid "Venue restored to revision from %s"
 msgstr "Mjesto vraćeno na reviziju od %s"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:675
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1219
 #, php-format
 msgid "Venue published. <a href=\"%s\">View venue</a>"
 msgstr "Mjesto objavljeno. <a href=\"%s\">Vidi mjesto</a>"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:676
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1220
 msgid "Venue saved."
 msgstr "Mjesto sačuvano."
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:677
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1221
 #, php-format
 msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr "Mjesto poslato. <a target=\"_blank\" href=\"%s\">Pregled mesta</a>"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:678
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1222
 #, php-format
-msgid "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview venue</a>"
-msgstr "Mjesto stavljeno na raspored za: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Pregled mjesta</a>"
+msgid ""
+"Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
+"\">Preview venue</a>"
+msgstr ""
+"Mjesto stavljeno na raspored za: <strong>%1$s</strong>. <a target=\"_blank\" "
+"href=\"%2$s\">Pregled mjesta</a>"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:681
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1225
 #, php-format
 msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
-msgstr "Nacrt mjesta ažiruran. <a target=\"_blank\" href=\"%s\">Pregled mjesta</a>"
+msgstr ""
+"Nacrt mjesta ažiruran. <a target=\"_blank\" href=\"%s\">Pregled mjesta</a>"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:686
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1230
 #, php-format
 msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
 msgstr "Organizator ažuriran. <a href=\"%s\">Vidi organizatora</a>"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:689
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1233
 msgid "Organizer updated."
 msgstr "Organizator ažuriran."
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:691
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1235
 #, php-format
 msgid "Organizer restored to revision from %s"
 msgstr "Organizator vraćen na reviziju od %s"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:692
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1236
 #, php-format
 msgid "Organizer published. <a href=\"%s\">View organizer</a>"
 msgstr "Organizator objavljen. <a href=\"%s\">Vidi organizatora</a>"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:693
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1237
 msgid "Organizer saved."
 msgstr "Organizator sačuvan."
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:694
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1238
 #, php-format
-msgid "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
-msgstr "Organizator poslat. <a target=\"_blank\" href=\"%s\">Pregled organizatora</a>"
+msgid ""
+"Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+msgstr ""
+"Organizator poslat. <a target=\"_blank\" href=\"%s\">Pregled organizatora</a>"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:695
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1239
 #, php-format
-msgid "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview organizer</a>"
-msgstr "Organizator stavljen na raspored za: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Pregled organizatora</a>"
+msgid ""
+"Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
+"\"%2$s\">Preview organizer</a>"
+msgstr ""
+"Organizator stavljen na raspored za: <strong>%1$s</strong>. <a target="
+"\"_blank\" href=\"%2$s\">Pregled organizatora</a>"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:698
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1242
 #, php-format
-msgid "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
-msgstr "Nacrt organizatora ažiruran. <a target=\"_blank\" href=\"%s\">Pregled organizatora</a>"
+msgid ""
+"Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</"
+"a>"
+msgstr ""
+"Nacrt organizatora ažiruran. <a target=\"_blank\" href=\"%s\">Pregled "
+"organizatora</a>"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:753
+#: ../lib/the-events-calendar.class.php:1284
+msgid "Use Saved Venue:"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/the-events-calendar.class.php:1313
+msgid "Use Saved Organizer:"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/the-events-calendar.class.php:1349
+msgid "Use New Venue"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/the-events-calendar.class.php:1351
+msgid "My Venues"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/the-events-calendar.class.php:1356
+msgid "Available Venues"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:1367
+msgid "No saved venue exists."
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/the-events-calendar.class.php:1401
+msgid "Use New Organizer"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/the-events-calendar.class.php:1403
+msgid "My Organizers"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/the-events-calendar.class.php:1408
+msgid "Available Organizers"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/the-events-calendar.class.php:1419
+msgid "No saved organizer exists."
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1530
 msgid "Next"
 msgstr "Sljedeći"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:754
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1531
 msgid "Prev"
 msgstr "Prethodni"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:755
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1532
 msgid "Today"
 msgstr "Danas"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:756
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:1533
 msgid "Done"
 msgstr "Gotovo"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:1944
+#: ../lib/the-events-calendar.class.php:1718
+msgid "Network"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/the-events-calendar.class.php:2502
+msgid "Unnamed Venue"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/the-events-calendar.class.php:2585
+msgid "Unnamed Organizer"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:3065
 msgid "Event Options"
 msgstr "Opcije događaja"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:1946
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:3067
 msgid "Venue Information"
 msgstr "Informacije o mjestu"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:1947
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:3068
 msgid "Organizer Information"
 msgstr "Informacije o organizatoru"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:2060
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:3207
 msgid "Support"
 msgstr "Podrška"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:2063
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:3210
 msgid "View All Add-Ons"
 msgstr "Pogledaj sve add-one"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:2070
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:3217
 msgid "News from Modern Tribe"
 msgstr "Modern Tribe vjesti"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:2115
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:3262
 msgid "Additional Functionality"
 msgstr "Dodatna funkcionalnost"
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:2120
-#: ../lib/the-events-calendar.class.php:2126
-msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
-msgstr "Potrebna vam je dodatna funkcionalnost uključujući ponavljajuće događaje, prilagođen  meta, zajednički događaji, prodaja karata i još dosta toga?"
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:3267
+msgid ""
+"Looking for additional functionality including recurring events, ticket "
+"sales, publicly submitted events, new views and more?"
+msgstr ""
 
-#@ tribe-events-calendar
-#: ../lib/the-events-calendar.class.php:2120
-#: ../lib/the-events-calendar.class.php:2127
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:3267
 #, php-format
-msgid "Check out the <a href=\"%s\">available Add-Ons</a>."
-msgstr "Pogledajte <a href=\"%s\">dostupne Add-one</a>."
+msgid "Check out the <a href=\"%s\">available add-ons</a>."
+msgstr ""
 
-#@ tribe-events-calendar
-#: ../lib/tribe-admin-events-list.class.php:40
+# @ tribe-events-calendar
+#
+#: ../lib/the-events-calendar.class.php:3332
+#: ../lib/the-events-calendar.class.php:3423
+msgid "View Calendar"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/the-events-calendar.class.php:3340
+msgid "Add Event"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/the-events-calendar.class.php:3349
+msgid "Edit Events"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:3358
+#: ../lib/the-events-calendar.class.php:3459
+#: ../lib/tribe-settings.class.php:164
+msgid "Settings"
+msgstr "Podešavanja"
+
+#: ../lib/the-events-calendar.class.php:3394
+#, php-format
+msgid ""
+"Welcome to The Events Calendar! Your events calendar can be found at %s. To "
+"change the events slug, visit %sEvents -> Settings%s."
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:3460
+msgid "Calendar"
+msgstr "Kalendar"
+
+#: ../lib/the-events-calendar.class.php:3512
+msgid "List"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/the-events-calendar.class.php:3517
+msgid "Month"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/the-events-calendar.class.php:3545
+msgid "Date"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/the-events-calendar.class.php:3548
+msgid "Events In"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/the-events-calendar.class.php:3550
+msgid "Events From"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:3720 ../views/list/nav.php:21
+#: ../views/list/nav.php:27 ../views/list/nav.php:30
+msgid "&laquo; Previous Events"
+msgstr "&laquo; Prošli događaji"
+
+# @ tribe-events-calendar
+#: ../lib/the-events-calendar.class.php:3721 ../views/list/nav.php:39
+#: ../views/list/nav.php:42 ../views/list/nav.php:48
+msgid "Next Events &raquo;"
+msgstr "Predstojeći događaji &raquo;"
+
+# @ tribe-events-calendar
+#: ../lib/tribe-admin-events-list.class.php:41
 #, php-format
 msgid "View &#8220;%s&#8221;"
 msgstr "Pogledajte &#8220;%s&#8221;"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-admin-events-list.class.php:40
-msgid "View"
-msgstr "Pogledajte"
-
-#@ tribe-events-calendar
-#: ../lib/tribe-admin-events-list.class.php:177
+# @ tribe-events-calendar
+#: ../lib/tribe-admin-events-list.class.php:186
 msgid "Start Date"
 msgstr "Datum početka"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-admin-events-list.class.php:178
+# @ tribe-events-calendar
+#: ../lib/tribe-admin-events-list.class.php:187
 msgid "End Date"
 msgstr "Datum završetka"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-admin-events-list.class.php:179
+# @ tribe-events-calendar
+#: ../lib/tribe-admin-events-list.class.php:189
 msgid "Recurring?"
 msgstr "Ponavljajući?"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-admin-events-list.class.php:222
+# @ tribe-events-calendar
+#: ../lib/tribe-admin-events-list.class.php:233
+#: ../lib/tickets/tribe-tickets-pro.php:229
 msgid "Yes"
 msgstr "Da"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-admin-events-list.class.php:222
+# @ tribe-events-calendar
+#: ../lib/tribe-admin-events-list.class.php:233
 msgid "No"
 msgstr "Ne"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-admin-events-list.class.php:276
+# @ tribe-events-calendar
+#: ../lib/tribe-admin-events-list.class.php:287
 #, php-format
 msgid "All %s"
 msgstr "Svi %s"
 
-#@ tribe-events-calendar
+# @ tribe-events-calendar
+#
+#: ../lib/tribe-app-shop.class.php:53 ../lib/tribe-app-shop.class.php:54
+#: ../lib/tribe-app-shop.class.php:72
+msgid "Event Add-Ons"
+msgstr ""
+
+# @ tribe-events-calendar
 #: ../lib/tribe-debug-bar.class.php:18
 msgid "Tribe"
 msgstr "Tribe"
 
-#@ tribe-events-calendar
+# @ tribe-events-calendar
+#: ../lib/tribe-event-api.class.php:308 ../lib/tribe-view-helpers.class.php:36
+#: ../public/template-tags/venue.php:232
+msgid "United States"
+msgstr "Sjedinjene Države"
+
+# @ tribe-events-calendar
 #: ../lib/tribe-event-exception.class.php:17
 #: ../lib/tribe-event-exception.class.php:34
 msgid "Error"
 msgstr "Greška"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-the-events-calendar-import.class.php:44
-msgid "Welcome to Events 2.0! This is a HUGE upgrade from 1.6.5. Please make sure you have backed up before proceeding any further. You can easily <a href=\" http://wordpress.org/extend/plugins/the-events-calendar/download/\">revert to an old version</a> if you want to backup first. This upgrade includes two major steps, <a href=\"options-general.php?page=tribe-events-calendar\">migrating data</a> & updating your templates as necessary. There have been significant changes to the template tags and functions. Check out our <a href=\"http://tri.be/migrating-from-events-calendar-1-6-5-to-2-0\">walkthrough on the upgrade</a> before proceeding and check out the FAQ & Knowledge base from the <a href=\"http://tri.be/support/\">support page</a>. If you're new to The Events Calendar, you may want to review our <a href=\"http://tri.be/support/documentation/events-calendar-pro-new-user-primer/\">new user primer</a>.<br/><br/> You have events that need to be migrated.  Please visit the bottom of the <a href=\"options-general.php?page=tribe-events-calendar\">settings page</a> to perform the migration."
-msgstr "Dobrodošli na Events 2.0! Ovo je VELIKO poboljšanje od 1.6.5 Molimo vas da uradite bekap pre nastavka. Možete se lako<a href=\" http://wordpress.org/extend/plugins/the-events-calendar/download/\">vratiti na staru verziju</a> ako želite da prvo uradite bekap. Ova nadogradnja uključuje dva glavna koraka, <a href=\"options-general.php?page=tribe-events-calendar\">migraciju podataka</a> i nadogradnji vaših šablona po potrebi. Postoje značajne promjene u tagovima i funkcionalnosti. Pogledajte <a href=\"http://tri.be/migrating-from-events-calendar-1-6-5-to-2-0\">walkthrough on the upgrade</a> pre nastavka i pogledajte FAQ na <a href=\"http://tri.be/support/\">stranici podrške</a>. Ako ste novi korisnik The Events Calendar-a možda bi ste željeli da pogledate <a href=\"http://tri.be/support/documentation/events-calendar-pro-new-user-primer/\">upute za nove korisnike</a>.<br/><br/> Imate događaje kojima treba migracija? Molimo vas otiđite na dno <a href=\"options-general.php?page=tribe-events-calendar\">stranice za postavke</a> da izvršite migraciju."
+#: ../lib/tribe-field.class.php:163
+msgid "Invalid field type specified"
+msgstr ""
 
-#@ tribe-events-calendar
+#: ../lib/tribe-field.class.php:415
+msgid "No radio options specified"
+msgstr ""
+
+#: ../lib/tribe-field.class.php:452
+msgid "No checkbox options specified"
+msgstr ""
+
+#: ../lib/tribe-field.class.php:506
+msgid "No select options specified"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/tribe-settings-tab.class.php:220
+msgid "There are no fields setup for this tab yet."
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/tribe-settings.class.php:164 ../lib/tribe-settings.class.php:176
+msgid "The Events Calendar Settings"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/tribe-settings.class.php:176
+msgid "Events Settings"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../lib/tribe-settings.class.php:225
+#, php-format
+msgid "%s Settings"
+msgstr "%s Podešavanja"
+
+#: ../lib/tribe-settings.class.php:239
+msgid "You've requested a non-existent tab."
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/tribe-settings.class.php:247
+msgid " Save Changes"
+msgstr ""
+
+#: ../lib/tribe-settings.class.php:299
+msgid "You don't have permission to do that."
+msgstr ""
+
+#: ../lib/tribe-settings.class.php:305
+msgid "The request was sent insecurely."
+msgstr ""
+
+#: ../lib/tribe-settings.class.php:311
+msgid "The request wasn't sent from this tab."
+msgstr ""
+
+#: ../lib/tribe-settings.class.php:476
+msgid "Your form had the following errors:"
+msgstr ""
+
+#: ../lib/tribe-settings.class.php:485
+msgid "None of your settings were saved. Please try again."
+msgstr ""
+
+#: ../lib/tribe-settings.class.php:485
+msgid ""
+"The above setting was not saved. Other settings were successfully saved."
+msgid_plural ""
+"The above settings were not saved. Other settings were successfully saved."
+msgstr[0] ""
+msgstr[1] ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/tribe-settings.class.php:509
+msgid "Settings saved."
+msgstr ""
+
+#: ../lib/tribe-template-factory.class.php:143
+#, php-format
+msgid "There  were no results found for <strong>\"%s\"</strong>."
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../lib/tribe-template-factory.class.php:153
+#, php-format
+msgid ""
+"listed under %s. Check out past events for this category or view the full "
+"calendar."
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../lib/tribe-template-factory.class.php:155
+#, php-format
+msgid ""
+"listed under %s. Check out upcoming events for this category or view the "
+"full calendar."
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../lib/tribe-template-factory.class.php:159
+#, php-format
+msgid "No events scheduled for <strong>%s</strong>. Please try another day."
+msgstr "Nema događaja zakazanih za <strong>%s</strong>. Pogledajte drugi dan."
+
+# @ tribe-events-calendar
+#
+#: ../lib/tribe-template-factory.class.php:163
+msgid "No upcoming events "
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/tribe-template-factory.class.php:165
+msgid "No matching events "
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/tribe-template-factory.class.php:168
+msgid "No previous events "
+msgstr ""
+
+#: ../lib/tribe-the-events-calendar-import.class.php:44
+msgid ""
+"Welcome to Events 2.0! This is a HUGE upgrade from 1.6.5. Please make sure "
+"you have backed up before proceeding any further. You can easily <a href=\" "
+"http://wordpress.org/extend/plugins/the-events-calendar/download/\">revert "
+"to an old version</a> if you want to backup first. This upgrade includes two "
+"major steps, <a href=\"edit.php?post_type="
+msgstr ""
+
+# @ tribe-events-calendar
 #: ../lib/tribe-the-events-calendar-import.class.php:54
 msgid "Upgrade from The Events Calendar"
 msgstr "Nadogradite sa The Events Calendar"
 
-#@ tribe-events-calendar
+# @ tribe-events-calendar
 #: ../lib/tribe-the-events-calendar-import.class.php:55
-msgid "It appears that you have some old events calendar data that needs to be upgraded. Please be sure to back up your database before initiating the upgrade. This process can not be undone."
-msgstr "Izgleda da imate podatke iz starog kalendara kojima treba nadogradnja. Molimo vas da uradite bekap vaše baze pre nadogradnje. Ovaj proces ne može biti povraćen."
+msgid ""
+"It appears that you have some old events calendar data that needs to be "
+"upgraded. Please be sure to back up your database before initiating the "
+"upgrade. This process can not be undone."
+msgstr ""
+"Izgleda da imate podatke iz starog kalendara kojima treba nadogradnja. "
+"Molimo vas da uradite bekap vaše baze pre nadogradnje. Ovaj proces ne može "
+"biti povraćen."
 
-#@ tribe-events-calendar
+# @ tribe-events-calendar
 #: ../lib/tribe-the-events-calendar-import.class.php:56
 msgid "Migrate Data!"
 msgstr "Migracija podataka!"
 
-#@ tribe-events-calendar
+# @ tribe-events-calendar
 #: ../lib/tribe-the-events-calendar-import.class.php:132
 #, php-format
 msgid "You successfully migrated (%d) entries."
 msgstr "Uspešno ste migrirali (%d) unosa."
 
-#@ tribe-events-calendar
+# @ tribe-events-calendar
 #: ../lib/tribe-the-events-calendar-import.class.php:203
 msgid "Install has 1 or more legacy event!"
 msgstr "Instalacija ima 1 ili više zaveštanih događaja."
 
-#@ tribe-events-calendar
+#: ../lib/tribe-validate.class.php:77 ../lib/tribe-validate.class.php:115
+msgid "Invalid or incomplete field passed"
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:78 ../lib/tribe-validate.class.php:110
+#: ../lib/tribe-validate.class.php:116
+msgid "Field ID:"
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:109
+msgid "Non-existant field validation function passed"
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:110
+msgctxt "non-existant function name passed for field validation"
+msgid "with function name:"
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:135 ../lib/tribe-validate.class.php:153
+#, php-format
+msgid "%s must contain numbers and letters only"
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:171
+#, php-format
+msgid "%s must contain numbers, letters and dots only"
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:187
+#, php-format
+msgid "%s must be a positive number."
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:204
+#, php-format
+msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:221
+#, php-format
+msgid "%s must be a valid absolute URL."
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:239 ../lib/tribe-validate.class.php:258
+#: ../lib/tribe-validate.class.php:279
+#, php-format
+msgid "%s must have a value that's part of its options."
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:295
+#, php-format
+msgid ""
+"Comparison validation failed because no comparison value was provided, for "
+"field %s"
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:302
+#, php-format
+msgid "%s cannot be the same as %s."
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:304
+#, php-format
+msgid "%s cannot be a duplicate"
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:322
+#, php-format
+msgid "%s must be a number or percentage."
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:386
+#, php-format
+msgid "%s must be a number between 0 and 21."
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:404
+#, php-format
+msgid ""
+"%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:422
+#, php-format
+msgid "%s must consist of letters, spaces, apostrophes, and dashes."
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:438
+#, php-format
+msgid "%s must consist of 5 numbers."
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:454
+#, php-format
+msgid "%s must be a phone number."
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:472
+msgid ""
+"Country List must be formatted as one country per line in the following "
+"format: <br>US, United States <br> UK, United Kingdom."
+msgstr ""
+
+# @ tribe-events-calendar
 #: ../lib/tribe-view-helpers.class.php:16
-#: ../lib/tribe-view-helpers.class.php:33
+#: ../lib/tribe-view-helpers.class.php:35
 msgid "Select a Country:"
 msgstr "Odaberite zemlju:"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:34
-msgid "United States"
-msgstr "Sjedinjene Države"
-
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:35
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:37
 msgid "Afghanistan"
 msgstr "Afganistan"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:36
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:38
 msgid "Albania"
 msgstr "Albania"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:37
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:39
 msgid "Algeria"
 msgstr "Alžir"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:38
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:40
 msgid "American Samoa"
 msgstr "Američka Samoa"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:39
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:41
 msgid "Andorra"
 msgstr "Andora"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:40
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:42
 msgid "Angola"
 msgstr "Angola"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:41
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:43
 msgid "Anguilla"
 msgstr "Angvila"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:42
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:44
 msgid "Antarctica"
 msgstr "Antarktik"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:43
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:45
 msgid "Antigua And Barbuda"
 msgstr "Antigva i Barbuda"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:44
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:46
 msgid "Argentina"
 msgstr "Argentina"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:45
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:47
 msgid "Armenia"
 msgstr "Armenija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:46
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:48
 msgid "Aruba"
 msgstr "Aruba"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:47
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:49
 msgid "Australia"
 msgstr "Australija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:48
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:50
 msgid "Austria"
 msgstr "Austrija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:49
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:51
 msgid "Azerbaijan"
 msgstr "Azerbejdžan"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:50
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:52
 msgid "Bahamas"
 msgstr "Bahami"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:51
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:53
 msgid "Bahrain"
 msgstr "Bahrin"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:52
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:54
 msgid "Bangladesh"
 msgstr "Bangladeš"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:53
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:55
 msgid "Barbados"
 msgstr "Barbados"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:54
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:56
 msgid "Belarus"
 msgstr "Bjelorusija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:55
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:57
 msgid "Belgium"
 msgstr "Belgija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:56
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:58
 msgid "Belize"
 msgstr "Belize"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:57
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:59
 msgid "Benin"
 msgstr "Benin"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:58
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:60
 msgid "Bermuda"
 msgstr "Bermuda"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:59
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:61
 msgid "Bhutan"
 msgstr "Butan"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:60
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:62
 msgid "Bolivia"
 msgstr "Bolivija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:61
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:63
 msgid "Bosnia And Herzegowina"
 msgstr "Bosna i Hercegovina"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:62
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:64
 msgid "Botswana"
 msgstr "Botsvana"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:63
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:65
 msgid "Bouvet Island"
 msgstr "Buve Ostrva"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:64
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:66
 msgid "Brazil"
 msgstr "Brazil"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:65
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:67
 msgid "British Indian Ocean Territory"
 msgstr "Britanska Teriritorija Indijskog Oceana"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:66
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:68
 msgid "Brunei Darussalam"
 msgstr "Brunej"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:67
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:69
 msgid "Bulgaria"
 msgstr "Bugarska"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:68
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:70
 msgid "Burkina Faso"
 msgstr "Burkina Faso"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:69
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:71
 msgid "Burundi"
 msgstr "Burundi"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:70
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:72
 msgid "Cambodia"
 msgstr "Kambodža"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:71
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:73
 msgid "Cameroon"
 msgstr "Kamerun"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:72
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:74
 msgid "Canada"
 msgstr "Kanada"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:73
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:75
 msgid "Cape Verde"
 msgstr "Kape Verde"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:74
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:76
 msgid "Cayman Islands"
 msgstr "Kajmanska ostrva"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:75
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:77
 msgid "Central African Republic"
 msgstr "Centralna Afrička Republika"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:76
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:78
 msgid "Chad"
 msgstr "Čad"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:77
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:79
 msgid "Chile"
 msgstr "Čile"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:78
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:80
 msgid "China"
 msgstr "Kina"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:79
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:81
 msgid "Christmas Island"
 msgstr "Božićni Otok"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:80
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:82
 msgid "Cocos (Keeling) Islands"
 msgstr "Kokos (Kiling) Otoci"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:81
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:83
 msgid "Colombia"
 msgstr "Kolumbija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:82
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:84
 msgid "Comoros"
 msgstr "Komoros"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:83
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:85
 msgid "Congo"
 msgstr "Kongo"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:84
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:86
 msgid "Congo, The Democratic Republic Of The"
 msgstr "Kongo, Demokratska Republika"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:85
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:87
 msgid "Cook Islands"
 msgstr "Kukovi Otoci"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:86
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:88
 msgid "Costa Rica"
 msgstr "Kostarika"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:87
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:89
 msgid "Cote D'Ivoire"
 msgstr "Cote D'Ivoire"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:88
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:90
 msgid "Croatia (Local Name: Hrvatska)"
 msgstr "Hrvatska"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:89
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:91
 msgid "Cuba"
 msgstr "Kuba"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:90
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:92
 msgid "Cyprus"
 msgstr "Kipar"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:91
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:93
 msgid "Czech Republic"
 msgstr "Češka Republika"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:92
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:94
 msgid "Denmark"
 msgstr "Danska"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:93
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:95
 msgid "Djibouti"
 msgstr "Džibuti"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:94
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:96
 msgid "Dominica"
 msgstr "Dominikana"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:95
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:97
 msgid "Dominican Republic"
 msgstr "Dominikanska Republika"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:96
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:98
 msgid "East Timor"
 msgstr "Istočni Timor"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:97
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:99
 msgid "Ecuador"
 msgstr "Ekvator"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:98
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:100
 msgid "Egypt"
 msgstr "Egipat"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:99
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:101
 msgid "El Salvador"
 msgstr "El Salvador"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:100
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:102
 msgid "Equatorial Guinea"
 msgstr "Ekvatorska Gvineja"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:101
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:103
 msgid "Eritrea"
 msgstr "Eritrea"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:102
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:104
 msgid "Estonia"
 msgstr "Estonija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:103
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:105
 msgid "Ethiopia"
 msgstr "Etiopija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:104
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:106
 msgid "Falkland Islands (Malvinas)"
 msgstr "Foklandski Otoci"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:105
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:107
 msgid "Faroe Islands"
 msgstr "Farski Otoci"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:106
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:108
 msgid "Fiji"
 msgstr "Fidži"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:107
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:109
 msgid "Finland"
 msgstr "Finska"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:108
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:110
 msgid "France"
 msgstr "Francuska"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:109
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:111
 msgid "France, Metropolitan"
 msgstr "Francuska, Metropolitan"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:110
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:112
 msgid "French Guiana"
 msgstr "Francuska Gvajana"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:111
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:113
 msgid "French Polynesia"
 msgstr "Francuska Polinezija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:112
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:114
 msgid "French Southern Territories"
 msgstr "Francuske Južne Teritorije"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:113
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:115
 msgid "Gabon"
 msgstr "Gabon"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:114
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:116
 msgid "Gambia"
 msgstr "Gambija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:115
-#: ../lib/tribe-view-helpers.class.php:303
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:117
+#: ../lib/tribe-view-helpers.class.php:305
 msgid "Georgia"
 msgstr "Gruzija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:116
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:118
 msgid "Germany"
 msgstr "Njemačka"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:117
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:119
 msgid "Ghana"
 msgstr "Gana"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:118
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:120
 msgid "Gibraltar"
 msgstr "Gibraltar"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:119
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:121
 msgid "Greece"
 msgstr "Grčka"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:120
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:122
 msgid "Greenland"
 msgstr "Grenland"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:121
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:123
 msgid "Grenada"
 msgstr "Grenada"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:122
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:124
 msgid "Guadeloupe"
 msgstr "Gvadelupe"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:123
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:125
 msgid "Guam"
 msgstr "Guam"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:124
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:126
 msgid "Guatemala"
 msgstr "Gvatemala"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:125
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:127
 msgid "Guinea"
 msgstr "Gvineja"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:126
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:128
 msgid "Guinea-Bissau"
 msgstr "Gvineja-Bissau"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:127
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:129
 msgid "Guyana"
 msgstr "Gvajana"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:128
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:130
 msgid "Haiti"
 msgstr "Haiti"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:129
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:131
 msgid "Heard And Mc Donald Islands"
 msgstr "Heard And Mc Donaldovi Otoci"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:130
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:132
 msgid "Holy See (Vatican City State)"
 msgstr "Vatikan"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:131
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:133
 msgid "Honduras"
 msgstr "Honduras"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:132
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:134
 msgid "Hong Kong"
 msgstr "Hong Kong"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:133
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:135
 msgid "Hungary"
 msgstr "Mađarska"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:134
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:136
 msgid "Iceland"
 msgstr "Island"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:135
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:137
 msgid "India"
 msgstr "Indija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:136
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:138
 msgid "Indonesia"
 msgstr "Indonesija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:137
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:139
 msgid "Iran (Islamic Republic Of)"
 msgstr "Iran"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:138
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:140
 msgid "Iraq"
 msgstr "Irak"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:139
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:141
 msgid "Ireland"
 msgstr "Irska"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:140
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:142
 msgid "Israel"
 msgstr "Izrael"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:141
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:143
 msgid "Italy"
 msgstr "Italija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:142
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:144
 msgid "Jamaica"
 msgstr "Jamajka"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:143
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:145
 msgid "Japan"
 msgstr "Japan"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:144
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:146
 msgid "Jordan"
 msgstr "Jordan"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:145
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:147
 msgid "Kazakhstan"
 msgstr "Kazahstan"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:146
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:148
 msgid "Kenya"
 msgstr "Kenija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:147
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:149
 msgid "Kiribati"
 msgstr "Kiribati"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:148
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:150
 msgid "Korea, Democratic People's Republic Of"
 msgstr "Koreja, Demokratska Narodna Republika"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:149
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:151
 msgid "Korea, Republic Of"
 msgstr "Koreja, Republika"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:150
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:152
 msgid "Kuwait"
 msgstr "Kuvajt"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:151
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:153
 msgid "Kyrgyzstan"
 msgstr "Kirgistan"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:152
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:154
 msgid "Lao People's Democratic Republic"
 msgstr "Laoska Narodna Demokratska Republika"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:153
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:155
 msgid "Latvia"
 msgstr "Latvija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:154
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:156
 msgid "Lebanon"
 msgstr "Liban"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:155
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:157
 msgid "Lesotho"
 msgstr "Lesoto"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:156
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:158
 msgid "Liberia"
 msgstr "Liberija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:157
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:159
 msgid "Libya"
 msgstr "Libija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:158
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:160
 msgid "Liechtenstein"
 msgstr "Lihtenštajn"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:159
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:161
 msgid "Lithuania"
 msgstr "Litvanija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:160
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:162
 msgid "Luxembourg"
 msgstr "Luksemburg"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:161
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:163
 msgid "Macau"
 msgstr "Makao"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:162
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:164
 msgid "Macedonia"
 msgstr "Makedonija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:163
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:165
 msgid "Madagascar"
 msgstr "Madagaskar"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:164
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:166
 msgid "Malawi"
 msgstr "Malavi"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:165
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:167
 msgid "Malaysia"
 msgstr "Malezija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:166
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:168
 msgid "Maldives"
 msgstr "Malavi"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:167
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:169
 msgid "Mali"
 msgstr "Mali"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:168
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:170
 msgid "Malta"
 msgstr "Malta"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:169
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:171
 msgid "Marshall Islands"
 msgstr "Maršalska Ostrva"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:170
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:172
 msgid "Martinique"
 msgstr "Martinik"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:171
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:173
 msgid "Mauritania"
 msgstr "Mauritanija "
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:172
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:174
 msgid "Mauritius"
 msgstr "Mauricijus"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:173
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:175
 msgid "Mayotte"
 msgstr "Majote"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:174
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:176
 msgid "Mexico"
 msgstr "Meksiko"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:175
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:177
 msgid "Micronesia, Federated States Of"
 msgstr "Mikronezija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:176
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:178
 msgid "Moldova, Republic Of"
 msgstr "Moldavija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:177
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:179
 msgid "Monaco"
 msgstr "Monako"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:178
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:180
 msgid "Mongolia"
 msgstr "Mongolija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:179
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:181
 msgid "Montenegro"
 msgstr "Crna Gora"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:180
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:182
 msgid "Montserrat"
 msgstr "Montserat"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:181
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:183
 msgid "Morocco"
 msgstr "Maroko"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:182
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:184
 msgid "Mozambique"
 msgstr "Mozambik"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:183
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:185
 msgid "Myanmar"
 msgstr "Mjanmar"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:184
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:186
 msgid "Namibia"
 msgstr "Namibija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:185
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:187
 msgid "Nauru"
 msgstr "Nauru"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:186
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:188
 msgid "Nepal"
 msgstr "Nepal"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:187
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:189
 msgid "Netherlands"
 msgstr "Nizozemska"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:188
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:190
 msgid "Netherlands Antilles"
 msgstr "Nozozemski Antili"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:189
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:191
 msgid "New Caledonia"
 msgstr "Nova Kaledonija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:190
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:192
 msgid "New Zealand"
 msgstr "Novi Zeland"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:191
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:193
 msgid "Nicaragua"
 msgstr "Nikaragva"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:192
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:194
 msgid "Niger"
 msgstr "Niger"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:193
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:195
 msgid "Nigeria"
 msgstr "Nigerija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:194
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:196
 msgid "Niue"
 msgstr "Niue"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:195
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:197
 msgid "Norfolk Island"
 msgstr "Norfolk Ostrva"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:196
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:198
 msgid "Northern Mariana Islands"
 msgstr "Severna Marijanska Ostrva"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:197
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:199
 msgid "Norway"
 msgstr "Norveška"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:198
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:200
 msgid "Oman"
 msgstr "Oman"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:199
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:201
 msgid "Pakistan"
 msgstr "Pakistan"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:200
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:202
 msgid "Palau"
 msgstr "Palau"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:201
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:203
 msgid "Panama"
 msgstr "Panama"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:202
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:204
 msgid "Papua New Guinea"
 msgstr "Papua Nova Gvineja"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:203
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:205
 msgid "Paraguay"
 msgstr "Paragvaj"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:204
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:206
 msgid "Peru"
 msgstr "Peru"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:205
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:207
 msgid "Philippines"
 msgstr "Filipini"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:206
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:208
 msgid "Pitcairn"
 msgstr "Pitcairn"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:207
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:209
 msgid "Poland"
 msgstr "Poljska"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:208
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:210
 msgid "Portugal"
 msgstr "Portugal"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:209
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:211
 msgid "Puerto Rico"
 msgstr "Portoriko"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:210
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:212
 msgid "Qatar"
 msgstr "Kvatar"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:211
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:213
 msgid "Reunion"
 msgstr "Reunion"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:212
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:214
 msgid "Romania"
 msgstr "Rumunija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:213
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:215
 msgid "Russian Federation"
 msgstr "Rusija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:214
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:216
 msgid "Rwanda"
 msgstr "Ruanda"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:215
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:217
 msgid "Saint Kitts And Nevis"
 msgstr "Sveti Kristofer i Nevis"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:216
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:218
 msgid "Saint Lucia"
 msgstr "Sveta Lučija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:217
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:219
 msgid "Saint Vincent And The Grenadines"
 msgstr "Sveti Vinsent i Grenadini"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:218
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:220
 msgid "Samoa"
 msgstr "Samoa"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:219
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:221
 msgid "San Marino"
 msgstr "San Marino"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:220
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:222
 msgid "Sao Tome And Principe"
 msgstr "Sao Tome And Principe"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:221
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:223
 msgid "Saudi Arabia"
 msgstr "Saudiska Arabija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:222
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:224
 msgid "Senegal"
 msgstr "Senegal"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:223
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:225
 msgid "Serbia"
 msgstr "Srbija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:224
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:226
 msgid "Seychelles"
 msgstr "Sejšeli"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:225
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:227
 msgid "Sierra Leone"
 msgstr "Sijera Leone"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:226
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:228
 msgid "Singapore"
 msgstr "Singapur"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:227
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:229
 msgid "Slovakia (Slovak Republic)"
 msgstr "Slovačka"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:228
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:230
 msgid "Slovenia"
 msgstr "Slovenija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:229
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:231
 msgid "Solomon Islands"
 msgstr "Solomonska Ostrva"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:230
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:232
 msgid "Somalia"
 msgstr "Somalija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:231
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:233
 msgid "South Africa"
 msgstr "Južna Afrika"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:232
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:234
 msgid "South Georgia, South Sandwich Islands"
 msgstr "Južna Džordžija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:233
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:235
 msgid "Spain"
 msgstr "Španija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:234
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:236
 msgid "Sri Lanka"
 msgstr "Šri Lanka"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:235
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:237
 msgid "St. Helena"
 msgstr "Sveta Helena"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:236
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:238
 msgid "St. Pierre And Miquelon"
 msgstr "Sveti Pierre i Miquelon"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:237
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:239
 msgid "Sudan"
 msgstr "Sudan"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:238
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:240
 msgid "Suriname"
 msgstr "Surinam"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:239
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:241
 msgid "Svalbard And Jan Mayen Islands"
 msgstr "Svalbard"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:240
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:242
 msgid "Swaziland"
 msgstr "Svaziland"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:241
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:243
 msgid "Sweden"
 msgstr "Švedska"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:242
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:244
 msgid "Switzerland"
 msgstr "Švicarska"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:243
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:245
 msgid "Syrian Arab Republic"
 msgstr "Sirija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:244
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:246
 msgid "Taiwan"
 msgstr "Tajvan"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:245
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:247
 msgid "Tajikistan"
 msgstr "Tadžikistan"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:246
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:248
 msgid "Tanzania, United Republic Of"
 msgstr "Tanzanija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:247
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:249
 msgid "Thailand"
 msgstr "Tajland"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:248
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:250
 msgid "Togo"
 msgstr "Togo"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:249
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:251
 msgid "Tokelau"
 msgstr "Tokelau"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:250
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:252
 msgid "Tonga"
 msgstr "Tonga"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:251
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:253
 msgid "Trinidad And Tobago"
 msgstr "Trinidad i Tobago"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:252
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:254
 msgid "Tunisia"
 msgstr "Tunis"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:253
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:255
 msgid "Turkey"
 msgstr "Turska"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:254
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:256
 msgid "Turkmenistan"
 msgstr "Turkmenistan"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:255
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:257
 msgid "Turks And Caicos Islands"
 msgstr "Turks i Caicos Ostrva"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:256
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:258
 msgid "Tuvalu"
 msgstr "Tuvalu"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:257
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:259
 msgid "Uganda"
 msgstr "Uganda"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:258
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:260
 msgid "Ukraine"
 msgstr "Ukrajina"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:259
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:261
 msgid "United Arab Emirates"
 msgstr "Ujedinjeni Arapski Emirati"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:260
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:262
 msgid "United Kingdom"
 msgstr "Ujedinjeno Kraljevstvo"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:261
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:263
 msgid "United States Minor Outlying Islands"
 msgstr "Manji Pacifički Otoci Sjedinjenih Američkih Država"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:262
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:264
 msgid "Uruguay"
 msgstr "Urugvaj "
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:263
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:265
 msgid "Uzbekistan"
 msgstr "Uzbekistan"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:264
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:266
 msgid "Vanuatu"
 msgstr "Vanuatu"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:265
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:267
 msgid "Venezuela"
 msgstr "Venecuela"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:266
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:268
 msgid "Viet Nam"
 msgstr "Vijetnam"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:267
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:269
 msgid "Virgin Islands (British)"
 msgstr "DevičanskI Otoci (Britanija)"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:268
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:270
 msgid "Virgin Islands (U.S.)"
 msgstr "Djevičanski Otoci (SAD)"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:269
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:271
 msgid "Wallis And Futuna Islands"
 msgstr "Volis i Futuna"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:270
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:272
 msgid "Western Sahara"
 msgstr "Zapadna Sahara"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:271
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:273
 msgid "Yemen"
 msgstr "Jemen"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:272
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:274
 msgid "Zambia"
 msgstr "Zambija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:273
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:275
 msgid "Zimbabwe"
 msgstr "Zimbabve"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:293
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:295
 msgid "Alabama"
 msgstr "Alabama"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:294
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:296
 msgid "Alaska"
 msgstr "Aljaska"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:295
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:297
 msgid "Arizona"
 msgstr "Arizona"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:296
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:298
 msgid "Arkansas"
 msgstr "Arkanzas"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:297
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:299
 msgid "California"
 msgstr "Kalifornija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:298
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:300
 msgid "Colorado"
 msgstr "Kolorado"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:299
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:301
 msgid "Connecticut"
 msgstr "Konetikat"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:300
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:302
 msgid "Delaware"
 msgstr "Delaver"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:301
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:303
 msgid "District of Columbia"
 msgstr "Okrug Kolumbije"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:302
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:304
 msgid "Florida"
 msgstr "Florida"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:304
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:306
 msgid "Hawaii"
 msgstr "Havaiji"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:305
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:307
 msgid "Idaho"
 msgstr "Ajdaho"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:306
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:308
 msgid "Illinois"
 msgstr "Ilinois"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:307
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:309
 msgid "Indiana"
 msgstr "Indijana"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:308
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:310
 msgid "Iowa"
 msgstr "Iova"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:309
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:311
 msgid "Kansas"
 msgstr "Kansas"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:310
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:312
 msgid "Kentucky"
 msgstr "Kentaki"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:311
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:313
 msgid "Louisiana"
 msgstr "Luizijana"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:312
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:314
 msgid "Maine"
 msgstr "Maine"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:313
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:315
 msgid "Maryland"
 msgstr "Mariland"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:314
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:316
 msgid "Massachusetts"
 msgstr "Masačusec"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:315
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:317
 msgid "Michigan"
 msgstr "Mičigen"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:316
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:318
 msgid "Minnesota"
 msgstr "Minesota"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:317
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:319
 msgid "Mississippi"
 msgstr "Misisipi"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:318
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:320
 msgid "Missouri"
 msgstr "Misuri"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:319
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:321
 msgid "Montana"
 msgstr "Montana"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:320
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:322
 msgid "Nebraska"
 msgstr "Nebraska"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:321
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:323
 msgid "Nevada"
 msgstr "Nevada"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:322
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:324
 msgid "New Hampshire"
 msgstr "Nju Hempšir"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:323
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:325
 msgid "New Jersey"
 msgstr "Nju Džerzi"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:324
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:326
 msgid "New Mexico"
 msgstr "Nju Meksiko"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:325
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:327
 msgid "New York"
 msgstr "Nju Jork"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:326
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:328
 msgid "North Carolina"
 msgstr "Severna Karolina"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:327
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:329
 msgid "North Dakota"
 msgstr "Severna Dakota"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:328
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:330
 msgid "Ohio"
 msgstr "Ohajo"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:329
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:331
 msgid "Oklahoma"
 msgstr "Oklahoma"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:330
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:332
 msgid "Oregon"
 msgstr "Oregon"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:331
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:333
 msgid "Pennsylvania"
 msgstr "Pensilvanija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:332
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:334
 msgid "Rhode Island"
 msgstr "Rode Island"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:333
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:335
 msgid "South Carolina"
 msgstr "Južna Karolina"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:334
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:336
 msgid "South Dakota"
 msgstr "Južna Dakota"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:335
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:337
 msgid "Tennessee"
 msgstr "Tenesi"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:336
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:338
 msgid "Texas"
 msgstr "Teksas"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:337
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:339
 msgid "Utah"
 msgstr "Juta"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:338
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:340
 msgid "Vermont"
 msgstr "Vermont"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:339
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:341
 msgid "Virginia"
 msgstr "Virginija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:340
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:342
 msgid "Washington"
 msgstr "Vašington"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:341
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:343
 msgid "West Virginia"
 msgstr "Zapadna Virginija"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:342
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:344
 msgid "Wisconsin"
 msgstr "Viskonsin"
 
-#@ tribe-events-calendar
-#: ../lib/tribe-view-helpers.class.php:343
+# @ tribe-events-calendar
+#: ../lib/tribe-view-helpers.class.php:345
 msgid "Wyoming"
 msgstr "Vajoming"
 
-#@ tribe-events-calendar
+# @ tribe-events-calendar
+#
 #: ../lib/widget-list.class.php:16
-msgid "A widget that displays the next upcoming x events."
-msgstr "Vidžet koji prikazuje sledećih x događaja."
+msgid "A widget that displays upcoming events."
+msgstr ""
 
-#@ tribe-events-calendar
-#: ../lib/widget-list.class.php:70
+# @ tribe-events-calendar
+#: ../lib/widget-list.class.php:22
+msgid "Events List"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../lib/widget-list.class.php:92
 msgid "View All Events"
 msgstr "Vidi sve događaje"
 
-#@ tribe-events-calendar
-#: ../lib/widget-list.class.php:73
+# @ tribe-events-calendar
+#: ../lib/widget-list.class.php:95
 msgid "There are no upcoming events at this time."
 msgstr "Trenutno nema predstojećih događaja."
 
-#@ tribe-events-calendar
-#: ../public/template-tags/general.php:120
-msgid "Category:"
-msgstr "Kategorija:"
-
-#@ tribe-events-calendar
-#: ../public/template-tags/general.php:137
-msgid "Tags:"
-msgstr "Tagovi:"
-
-#@ tribe-events-calendar
-#: ../public/template-tags/general.php:255
-msgid "Free"
-msgstr "Slobodan"
-
-#@ tribe-events-calendar
-#: ../public/template-tags/loop.php:130
-msgid "Calendar of Events"
-msgstr "Kalendar događaja"
-
-#@ tribe-events-calendar
-#: ../views/ecp-single-template.php:24
-msgid "Edit"
-msgstr "Izmjeni"
-
-#@ tribe-events-calendar
-#: ../views/events-list-load-widget-display.php:52
-msgid "All Day"
-msgstr "Cjelodnevni"
-
-#@ tribe-events-calendar
-#: ../views/gridview.php:42
-#: ../views/list.php:165
-#: ../views/single.php:101
-msgid "iCal Import"
-msgstr "iCal uvoz"
-
-#@ tribe-events-calendar
-#: ../views/list.php:50
-#: ../views/single.php:20
-msgid "Start:"
-msgstr "Početak:"
-
-#@ tribe-events-calendar
-#: ../views/list.php:54
-#: ../views/single.php:22
-msgid "End:"
-msgstr "Kraj:"
-
-#@ tribe-events-calendar
-#: ../views/list.php:59
-#: ../views/single.php:25
-msgid "Date:"
-msgstr "Datum: "
-
-#@ tribe-events-calendar
-#: ../views/list.php:69
-#: ../views/single.php:59
-msgid "Venue:"
-msgstr "Mjesto: "
-
-#@ tribe-events-calendar
-#: ../views/list.php:92
-#: ../views/single.php:76
-msgid "Google Map"
-msgstr "Google mapa"
-
-#@ tribe-events-calendar
-#: ../views/list.php:116
+#: ../lib/template-classes/month.php:72
 #, php-format
-msgid " listed under %s. Check out past events for this category or view the full calendar."
-msgstr "naveden pod %s. Pogledajte prošle događaje za ovu kategoriju ili vidite ceo kalendar."
+msgid ""
+"There were no results found for <strong>\"%s\"</strong> this month. Try "
+"searching next month."
+msgstr ""
 
-#@ tribe-events-calendar
-#: ../views/list.php:118
-#, php-format
-msgid " listed under %s. Check out upcoming events for this category or view the full calendar."
-msgstr "naveden pod %s. Pogledajte predstojeće događaje za ovu kategoriju ili vidite ceo kalendar."
-
-#@ tribe-events-calendar
-#: ../views/list.php:123
-#, php-format
-msgid "No events scheduled for <strong>%s</strong>. Please try another day."
-msgstr "Nema događaja zakazanih za <strong>%s</strong>. Pogledajte drugi dan."
-
-#@ tribe-events-calendar
-#: ../views/list.php:127
-msgid "No upcoming events"
-msgstr "Nema predstojećih događaja."
-
-#@ tribe-events-calendar
-#: ../views/list.php:131
-msgid "No previous events"
-msgstr "Nema prošlih događaja."
-
-#@ tribe-events-calendar
-#: ../views/list.php:144
-#: ../views/list.php:146
-#: ../views/list.php:148
-msgid "&laquo; Previous Events"
-msgstr "&laquo; Prošli događaji"
-
-#@ tribe-events-calendar
-#: ../views/list.php:155
-#: ../views/list.php:157
-#: ../views/list.php:159
-msgid "Next Events &raquo;"
-msgstr "Predstojeći događaji &raquo;"
-
-#@ tribe-events-calendar
-#: ../views/single.php:13
-msgid "&laquo; Back to Events"
-msgstr "&laquo; Nazad na događaje"
-
-#@ tribe-events-calendar
-#: ../views/single.php:14
+# @ tribe-events-calendar
+#: ../lib/template-classes/single-event.php:94
 msgid "This event has passed."
 msgstr "Ovaj događaj je prošao."
 
-#@ tribe-events-calendar
-#: ../views/single.php:17
-msgid "Event:"
-msgstr "Događaj:"
+#: ../lib/tickets/tribe-tickets-attendees.php:33
+msgid "Order #"
+msgstr ""
 
-#@ tribe-events-calendar
-#: ../views/single.php:34
-#: ../views/single.php:37
-msgid "Organizer:"
-msgstr "Organizator:"
+#: ../lib/tickets/tribe-tickets-attendees.php:34
+msgid "Order Status"
+msgstr ""
 
-#@ tribe-events-calendar
-#: ../views/single.php:48
-msgid "Updated:"
-msgstr "Izmjenjeno: "
+#: ../lib/tickets/tribe-tickets-attendees.php:35
+msgid "Purchaser name"
+msgstr ""
 
-#@ tribe-events-calendar
-#: ../views/single.php:51
-msgid "Schedule:"
-msgstr "Raspored: "
+#: ../lib/tickets/tribe-tickets-attendees.php:36
+msgid "Purchaser email"
+msgstr ""
 
-#@ tribe-events-calendar
-#: ../views/single.php:76
+#: ../lib/tickets/tribe-tickets-attendees.php:37
+msgid "Ticket type"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-attendees.php:38
+#: ../views/tickets-email.php:293
+msgid "Ticket #"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-attendees.php:39
+#: ../views/tickets-email.php:305
+msgid "Security Code"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-attendees.php:40
+#: ../lib/tickets/tribe-tickets-attendees.php:73
+#: ../lib/tickets/tribe-tickets-attendees.php:112
+msgid "Check in"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-attendees.php:74
+#: ../lib/tickets/tribe-tickets-attendees.php:112
+msgid "Undo Check in"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-attendees.php:97
+msgid "Print"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/tickets/tribe-tickets-attendees.php:98
+msgid "Email"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../lib/tickets/tribe-tickets-attendees.php:99
+msgid "Export"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-attendees.php:105
+msgid "Filter by ticket #, order # or security code"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-metabox.php:24
+msgid "Tickets"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-metabox.php:62
+msgid "Ticket header image"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-metabox.php:62
+msgid "Set as ticket header"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-pro.php:107
+msgid "You need to select a user or type a valid email address"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-pro.php:108
+msgid "Sending..."
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-pro.php:136
+msgid "Columns"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-pro.php:137
+msgid ""
+"You can use Screen Options to select which columns you want to see. The "
+"selection works in the table below, in the email, for print and for the CSV "
+"export."
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-pro.php:258
+msgid "attendees"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-pro.php:308
+#, php-format
+msgid "Attendee List for: %s"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets.php:290
+msgid "Your ticket has been saved."
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets.php:367
+msgid "Your ticket has been deleted."
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../public/advanced-functions/meta.php:16
+msgid "Start:"
+msgstr "Početak:"
+
+# @ tribe-events-calendar
+#: ../public/advanced-functions/meta.php:23
+msgid "End:"
+msgstr "Kraj:"
+
+# @ tribe-events-calendar
+#: ../public/advanced-functions/meta.php:32
+msgid "Date:"
+msgstr "Datum: "
+
+# @ tribe-events-calendar
+#: ../public/advanced-functions/meta.php:150
 msgid "Click to view a Google Map"
 msgstr "Kliknite da vidite Google mapu"
 
-#@ tribe-events-calendar
-#: ../views/single.php:104
-msgid "Add to Google Calendar"
-msgstr "Dodaj u Google kalendar"
+# @ tribe-events-calendar
+#
+#: ../public/advanced-functions/meta.php:151
+msgid "+ Google Map"
+msgstr ""
 
-#@ tribe-events-calendar
-#: ../views/single.php:104
-msgid "+ Google Calendar"
-msgstr "+ Google Kalendar"
+#: ../public/advanced-functions/meta.php:162
+msgid "Details"
+msgstr ""
 
-#@ tribe-events-calendar
-#: ../views/table-mini.php:24
-msgid "View all &raquo;"
-msgstr "Vidi sve &raquo;"
+# @ tribe-events-calendar
+#
+#: ../public/advanced-functions/meta.php:212
+msgid "Event Tags:"
+msgstr ""
 
+#: ../public/advanced-functions/meta.php:238
+msgid "Origin:"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../public/advanced-functions/meta.php:375
+msgid "Event:"
+msgstr "Događaj:"
+
+# @ tribe-events-calendar
+#
+#: ../public/template-tags/deprecated.php:724
+msgid "Category"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../public/template-tags/general.php:323
+msgid "Tags:"
+msgstr "Tagovi:"
+
+# @ tribe-events-calendar
+#
+#: ../public/template-tags/general.php:409
+msgid "Loading Events"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../public/template-tags/general.php:570
+msgid "Free"
+msgstr "Slobodan"
+
+# @ tribe-events-calendar
+#
+#: ../public/template-tags/general.php:743
+msgid "Recurring Event"
+msgstr ""
+
+#: ../public/template-tags/general.php:746
+msgid "(See all)"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../public/template-tags/general.php:939
+#, php-format
+msgid "Calendar powered by %sThe Events Calendar%s"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../public/template-tags/loop.php:150
+#, php-format
+msgid "Events for %1$s"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../public/template-tags/loop.php:158
+#, php-format
+msgid "Events for %1$s through %2$s"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../public/template-tags/loop.php:168
+msgid "Events for "
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../public/template-tags/options.php:20
+#, php-format
+msgid "Your current Events URL is %s"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../public/template-tags/options.php:31
+#, php-format
+msgid ""
+"You <strong>cannot</strong> use the same slug as above. The above should "
+"ideally be plural, and this singular.<br />Your single Event URL is like: %s"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../views/single-event.php:31
+msgid "&laquo; All Events"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../views/single-event.php:45 ../views/single-event.php:71
+msgid "Event Navigation"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../views/tickets-attendees-email.php:11
+msgid "Attendee List"
+msgstr ""
+
+#: ../views/tickets-email.php:16
+msgid "Your tickets"
+msgstr ""
+
+#: ../views/tickets-email.php:297
+msgid "Ticket Type"
+msgstr ""
+
+#: ../views/tickets-email.php:301
+msgid "Purchaser"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../views/list/nav.php:15
+msgid "Events List Navigation"
+msgstr ""
+
+#: ../views/list/single-event.php:74
+msgid "Find out more"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../views/modules/bar.php:29 ../views/modules/bar.php:57
+msgid "Find Events"
+msgstr ""
+
+#: ../views/modules/bar.php:35
+msgid "Event Views Navigation"
+msgstr ""
+
+# @ tribe-events-calendar
+#
+#: ../views/modules/bar.php:36
+msgid "View As"
+msgstr ""
+
+# @ tribe-events-calendar
+#: ../views/month/nav.php:19
+msgid "Calendar Month Navigation"
+msgstr ""

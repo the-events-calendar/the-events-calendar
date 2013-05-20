@@ -30,7 +30,7 @@ $displayTab = array(
 		),
 		'info-box-description' => array(
 			'type' => 'html',
-			'html' => __('<p>Use the options below to change the display of your calendar and event content on the frontend. The Events Calendar comes with its own Default Events Template. If your WordPress theme has its own page templates, they\'ll also be available for use in the dropdown below.</p><p>If you aren\'t satisfied with how the calendar looks upon installation, try switching to a different page template and refreshing the frontend to see if the new template integrates better. While we strive to ensure The Events Calendar is flexible enough to integrate smoothly out of the box with as many themes as possible, there are going to be situations where no template is 100% perfect. In these situations we encourage you to check out <a href="http://tri.be/support/documentation/events-calendar-themers-guide/">our themer\'s guide</a> to find what steps can be taken to get the layout where you want it to be.</p><h4>Developers: Want to create a new view?</h4><p>We have created an example plugin that demonstrates how to register a new view. You can <a href="https://github.com/moderntribe/tribe-events-agenda-view">download the plugin at Github</a> to start learning how to integrate a new view from your theme or plugin into The Events Calendar.</p>', 'tribe-events-calendar'),
+			'html' => __('<p>The settings below control the display of your calendar. If things don\'t look right, try switching between the three style sheet options or pick a page template from your theme.</p>There are going to be situations where no out-of-the-box template is 100% perfect. Check out our <a href="http://tri.be/support/documentation/events-calendar-themers-guide/">our themer\'s guide</a> for instructions on custom modifications. Want to create a new view? Grab a copy of the <a href="https://github.com/moderntribe/tribe-events-agenda-view">Sample Agenda View plugin from Github</a></p>', 'tribe-events-calendar'),
 		),
 		'info-end' => array(
 			'type' => 'html',
@@ -42,16 +42,25 @@ $displayTab = array(
 		),
 		'tribeEventsBasicSettingsTitle' => array(
 			'type' => 'html',
-			'html' => '<h3>' . __( 'Basic Template Settings', 'tribe-events-calendar-pro' ) . '</h3>',
+			'html' => '<h3>' . __( 'Basic Template Settings', 'tribe-events-calendar' ) . '</h3>',
 		),
 		'stylesheetOption' => array(
 			'type' => 'radio',
 			'label' => __( 'Default stylesheet used for events templates', 'tribe-events-calendar' ),
 			'default' => 'tribe',
-			'options' => array( 
-				'skeleton' => __( 'Skeleton Styles (These styles provide a bare minimum level of layout for the more complex templates, and is recommended if you\'re customizing the events template styles)', 'tribe-events-calendar' ), 
-				'full' => __( 'Full Styles (These styles provide a more complex level of layout and style and should adapt to your theme)', 'tribe-events-calendar' ), 
-				'tribe' => __( 'Tribe Events Styles (These styles provide a fully designed events theme)', 'tribe-events-calendar' )
+			'options' => array(
+				'skeleton' => __( 'Skeleton Styles', 'tribe-events-calendar' ) .
+					'<p class=\'description\'>' .
+					__('These styles provide a bare minimum level of layout for the more complex templates, and is recommended if you\'re customizing the events template styles.', 'tribe-events-calendar' ) .
+					'</p>',
+				'full' => __( 'Full Styles', 'tribe-events-calendar' ) .
+					'<p class=\'description\'>' .
+					__( 'These styles provide a more complex level of layout and style and should adapt to your theme', 'tribe-events-calendar' ) .
+					'</p>',
+				'tribe' => __( 'Tribe Events Styles', 'tribe-events-calendar' ) .
+					'<p class=\'description\'>' .
+					__( 'These styles provide a fully designed events theme', 'tribe-events-calendar' ) .
+					'</p>',
 			),
 			'validation_type' => 'options',
 		),
@@ -80,9 +89,16 @@ $displayTab = array(
 			'default' => 'month',
 			'options' => $views_options
 		),
+		'tribeDisableTribeBar' => array(
+					'type' => 'checkbox_bool',
+					'label' => __( 'Use the Event Search Bar', 'tribe-events-calendar' ),
+					'tooltip' => __( 'Uncheck this to use the classic header.', 'tribe-events-calendar' ),
+					'default' => false,
+					'validation_type' => 'boolean',
+		),
 		'tribeEventsAdvancedSettingsTitle' => array(
 			'type' => 'html',
-			'html' => '<h3>' . __( 'Advanced Template Settings', 'tribe-events-calendar-pro' ) . '</h3>',
+			'html' => '<h3>' . __( 'Advanced Template Settings', 'tribe-events-calendar' ) . '</h3>',
 		),
 		'tribeEventsBeforeHTML' => array(
 			'type' => 'wysiwyg',

@@ -18,13 +18,13 @@
 		$provider_obj = call_user_func( array( $provider, 'get_instance' ) );
 
 
-		$controls[] = sprintf( "<span><a href='#' attr-provider='%s' attr-ticket-id='%s' id='ticket_edit_%s' class='ticket_edit'>Edit</a></span>", $ticket->provider_class, $ticket->ID, $ticket->ID );
-		$controls[] = sprintf( "<span><a href='#' attr-provider='%s' attr-ticket-id='%s' id='ticket_delete_%s' class='ticket_delete'>Delete</a></span>", $ticket->provider_class, $ticket->ID, $ticket->ID );
+		$controls[] = sprintf( "<span><a href='#' attr-provider='%s' attr-ticket-id='%s' id='ticket_edit_%s' class='ticket_edit'>" . __( 'Edit', "tribe-events-calendar" ) . "</a></span>", $ticket->provider_class, $ticket->ID, $ticket->ID );
+		$controls[] = sprintf( "<span><a href='#' attr-provider='%s' attr-ticket-id='%s' id='ticket_delete_%s' class='ticket_delete'>" . __( 'Delete', "tribe-events-calendar" ) . "</a></span>", $ticket->provider_class, $ticket->ID, $ticket->ID );
 		if ( $ticket->admin_link ) {
-			$controls[] = sprintf( __("<span><a href='%s'>Edit in %s</a></span>", "tribe-events-calendar"), esc_url( $ticket->admin_link ), $modules[$ticket->provider_class] );
+			$controls[] = sprintf( "<span><a href='%s'>" . __('Edit in %s', "tribe-events-calendar") . '</a></span>', esc_url( $ticket->admin_link ), $modules[$ticket->provider_class] );
 		}
 		if ( $ticket->frontend_link && get_post_status( $post_id ) == 'publish' ) {
-			$controls[] = sprintf( "<span><a href='%s'>View</a></span>", esc_url( $ticket->frontend_link ) );
+			$controls[] = sprintf( "<span><a href='%s'>" . __('View', "tribe-events-calendar") . '</a></span>', esc_url( $ticket->frontend_link ) );
 		}
 
 		$report = $provider_obj->get_ticket_reports_link( $post_id, $ticket->ID );
@@ -38,7 +38,7 @@
 				<h4 class="tribe_sectionheader"><?php echo esc_html( $modules[$ticket->provider_class] ); ?>
 						<?php echo $provider_obj->get_event_reports_link( $post_id ); ?>
 					<small>&nbsp;|&nbsp;</small>
-					<?php echo sprintf( "<small><a title='See who purchased tickets to this event' href='%s'>%s</a></small>", admin_url( sprintf( 'edit.php?post_type=%s&page=%s&event_id=%d', TribeEvents::POSTTYPE, TribeEventsTicketsPro::$attendees_slug, $post_id ) ), __( "Attendees", 'tribe-events-calendar' ) ); ?>
+					<?php echo sprintf( "<small><a title='" . __( 'See who purchased tickets to this event', "tribe-events-calendar" ) . "' href='%s'>%s</a></small>", admin_url( sprintf( 'edit.php?post_type=%s&page=%s&event_id=%d', TribeEvents::POSTTYPE, TribeEventsTicketsPro::$attendees_slug, $post_id ) ), __( "Attendees", 'tribe-events-calendar' ) ); ?>
 				</h4>
 			</td>
 			<?php } ?>
