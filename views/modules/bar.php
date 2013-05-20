@@ -25,8 +25,11 @@ $views = tribe_events_get_views();
 
 	<form id="tribe-bar-form" class="tribe-clearfix" name="tribe-bar-form" method="post" action="<?php echo add_query_arg( array() ); ?>">
 
-		<!-- Filters -->
-		<div id="tribe-bar-collapse-toggle"><?php _e( 'Find Events', 'tribe-events-calendar' ) ?><span class="tribe-bar-toggle-arrow"></span></div>
+		<!-- Mobile Filters Toggle -->
+
+		<div id="tribe-bar-collapse-toggle" <?php if ( count( $views ) == 1 ) { ?> class="tribe-bar-collapse-toggle-full-width"<?php } ?>>
+			<?php _e( 'Find Events', 'tribe-events-calendar' ) ?><span class="tribe-bar-toggle-arrow"></span>
+		</div>
 
 		<!-- Views -->
 		<?php if ( count( $views ) > 1 ) { ?>
