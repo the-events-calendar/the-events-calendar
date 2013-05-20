@@ -176,7 +176,7 @@ $more_text = __('More...', 'tribe-events-calendar');
 		<div class="star-holder">
 			<div class="star star-rating" style="width: <?php echo( $rating ); ?>px"></div>
 		</div>
-		<?php printf( _n('Based on %d rating', 'Based on %d ratings', $num_rating, 'tribe-events-calendar' ), $num_rating ); ?>
+		<?php printf( _n( __('Based on %d rating', 'tribe-events-calendar'), __('Based on %d ratings', 'tribe-events-calendar'), $num_rating ), $num_rating ); ?>
 		<br />
 		<a href="<?php echo apply_filters('tribe_help_tab_wp_plugin_url', TribeEvents::WP_PLUGIN_URL); ?>"><?php _e('Give us 5 stars!', 'tribe-events-calendar'); ?></a>
 	<?php } ?>
