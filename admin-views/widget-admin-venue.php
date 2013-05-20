@@ -25,7 +25,7 @@ foreach ($venues as $venue )
 <?php } ?>
 </select>
 </p>
-<p><label for="<?php echo $this->get_field_id('show_if_empty'); ?>"><?php _e('Show if no events?','tribe-events-calendar-pro'); ?></label>
+<p><label for="<?php echo $this->get_field_id('show_if_empty'); ?>"><?php _e('Hide this widget if there are no upcoming events:','tribe-events-calendar-pro'); ?></label>
 <input class="checkbox" type="checkbox" value="1" <?php checked( $instance['show_if_empty'], true ); ?> id="<?php echo $this->get_field_id( 'show_if_empty' ); ?>" name="<?php echo $this->get_field_name('show_if_empty'); ?>" />
 </p>
 <?php
