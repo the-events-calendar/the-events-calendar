@@ -4,18 +4,19 @@
  * variable setup
  */
 
-$tec_info = wp_remote_get( apply_filters('tribe_help_tab_api_info_url', TribeEvents::INFO_API_URL) );
+$tec_info = wp_remote_get( apply_filters('tribe_help_tab_api_info_url', TribeEvents::INFO_API_URL), array(
+	'timeout' => 15, //seconds
+	'headers' => array( 'Accept' => 'application/json' ),
+) );
 if ( !is_wp_error($tec_info) ) {
 	$tec_info = $tec_info['body'];
 	$tec_info = unserialize($tec_info);
-	$rating = ( isset($tec_info['rating']) ) ? $tec_info['rating'] / 20 : _x('n/a', 'not available', 'tribe-events-calendar');
-	$requires = ( isset($tec_info['requires']) ) ? $tec_info['requires'] : _x('n/a', 'not available', 'tribe-events-calendar');
-	$version = ( isset($tec_info['version']) ) ? $tec_info['version'] : _x('n/a', 'not available', 'tribe-events-calendar');
+	if ( isset( $tec_info['rating'] ) ) $rating = $tec_info['rating'];
+	if ( isset( $tec_info['num_ratings'] ) ) $num_rating = $tec_info['num_ratings'];
+	if ( isset( $tec_info['requires'] ) ) $requires = $tec_info['requires'];
+	if ( isset( $tec_info['version'] ) ) $version = $tec_info['version'];
 	$total_downloads = ( isset($tec_info['total_downloads']) ) ? number_format( $tec_info['total_downloads'] ) : _x('n/a', 'not available', 'tribe-events-calendar');
 	$up_to_date = ( isset($tec_info['version']) && version_compare( TribeEvents::VERSION, $tec_info['version'], '<' ) ) ? __('You need to upgrade!', 'tribe-events-calendar') : __('You are up to date!', 'tribe-events-calendar');
-} else {
-	$rating = $total_downloads = $requires = _x('n/a', 'not available', 'tribe-events-calendar');
-	$up_to_date = '';
 }
 
 $news_rss = fetch_feed(TribeEvents::FEED_URL);
@@ -35,17 +36,6 @@ if ( !is_wp_error($news_rss) ) {
 }
 
 $ga_query_string = '?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin';
-
-$free_add_ons = array();
-$free_add_ons[] = array(
-	'title' => __('Advanced Post Manager', 'tribe_events_calendar'),
-	'link' => apply_filters('tribe_help_tab_apm_wp_url', 'http://wordpress.org/extend/plugins/advanced-post-manager/'),
-);
-$free_add_ons[] = array(
-	'title' => __('Event Importer', 'tribe_events_calendar'),
-	'coming_soon' => true,
-);
-$free_add_ons = (array) apply_filters( 'tribe_help_tab_free_addons', $free_add_ons );
 
 $premium_add_ons = array();
 $premium_add_ons[] = array(
@@ -67,14 +57,13 @@ $premium_add_ons[] = array(
 $premium_add_ons[] = array(
 	'title' => __('WooTickets', 'tribe_events_calendar'),
 	'link' => apply_filters('tribe_help_tab_wootickets_tribe_url', 'http://tri.be/shop/wootickets/'.$ga_query_string),
-	'coming_soon' => __('(coming later in 2012)', 'tribe_events_calendar'),
 );
+
 $premium_add_ons[] = array(
-	'title' => __('Conference Manager', 'tribe_events_calendar'),
-	'link' => apply_filters('tribe_help_tab_conference_manager_tribe_url', 'http://tri.be/shop/conference-manager/'.$ga_query_string),
-	'coming_soon' => __('(coming later in 2012)', 'tribe_events_calendar'),
+	'title' => __('Faceted Filters', 'tribe_events_calendar'),
+	'link' => apply_filters('tribe_help_tab_wootickets_tribe_url', 'http://tri.be/shop/faceted-filters/'.$ga_query_string), // TODO make sure this link is correct
 );
-$premium_add_ons = (array) apply_filters( 'tribe_help_tab_premium_addons', $premium_add_ons );
+$premium_add_ons = (array) apply_filters( 'tribe_help_tab_premium_addons', $premium_add_ons ); // TODO should we replace this with an RSS feed??
 
 
 $resources = array();
@@ -104,22 +93,20 @@ $resources[] = array(
 );
 $resources = (array) apply_filters( 'tribe_help_tab_resources', $resources );
 
-$getting_started_text = sprintf( __('If this is your first time using The Events Calendar,you\'re in for a treat. You\'re going to find it super-easy to get up and running with managing your events. Here are some ways to get started:</p><ul><li><strong>Feeling adventurous?</strong> Jump right into it by visiting the Events menu to <a href="%s">add your first event</a>.</li><li><strong>Want to get the low-down first?</strong> Visit our <a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/%s">new user primer</a>, designed with folk exactly like yourself in mind to help familiarize you with the plugin basics.</li></ul><p>Next, check out resources below, created to help you kick ass.</p>', 'tribe-events-calendar' ),  add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE ), 'post-new.php' ), $ga_query_string );
-
-
-
+$getting_started_text = sprintf( __('If this is your first time using The Events Calendar,you\'re in for a treat. You\'re going to find it super-easy to get up and running with managing your events. Here are some ways to get started:</p><ul><li><strong>Feeling adventurous?</strong> Jump right into it by visiting the Events menu to <a href="%s">add your first event</a>.</li><li><strong>Want to get the low-down first?</strong> Visit our <a href="%s">new user primer</a>,  designed to help familiarize you with the plugin basics.</li></ul>', 'tribe-events-calendar' ),  'http://tri.be/support/documentation/events-calendar-pro-new-user-primer/' . add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE ), 'post-new.php' ), $ga_query_string );
 $getting_started_text = apply_filters( 'tribe_help_tab_getting_started_text', $getting_started_text );
 
-$enb_text[] = sprintf( __('We love all our users and want to help free & PRO customers alike. If you\'re running the latest version of The Events Calendar and are having problems, post a thread the %s at WordPress.org. We hit the forum a few times a week and do what we can to assist users.', 'tribe-events-calendar'), sprintf( '<a href="http://wordpress.org/tags/the-events-calendar/' .$ga_query_string .'&forum_id=10">%s</a>', __('forum for The Events Calendar', 'tribe-events-calendar') ) );
-
-$enb_text[] = sprintf( __('%sSupport is available for both free and PRO customers. If you\'re running the latest version of The Events Calendar and have run into problems, post a forum thread on our %sWordPress.org support forum%s. We visit the forums a few times a week and will do what we can to help you.%s', 'tribe-events-calendar'), '<p class="admin-indent">', '<a href="http://wordpress.org/support/plugin/the-events-calendar">', '</a>', '</p>' );
-$enb_text[] = sprintf( __('%sA few things to keep in mind before posting:%s', 'tribe-events-calendar'), '<p class="admin-indent">', '</p><ul class="admin-list">' );
-$enb_text[] = sprintf( __('%sSearch recent threads before posting a new one to check that there isn\'t already a discussion about your issue.%s', 'tribe-events-calendar'), '<li>', '</li>' );
-$enb_text[] = sprintf( __('%sCheck whether the issue is a conflict with another plugin or your theme. This can be tested easily on a staging site by deactivating other plugins one-by-one, and reverting to the default Twenty Eleven theme to see if conflicts can be easily identified. If you find a conflict note it on your support thread.%s', 'tribe-events-calendar'), '<li>', '</li>' );
-$enb_text[] = sprintf( __('%sSometimes, just resaving your permalinks (under Settings > Permalinks) can resolve events-related problems on your site. Before creating a new thread try the out.%s', 'tribe-events-calendar'), '<li>', '</li></ul>' );
-$enb_text[] = sprintf( __('%sWhile we are happy to help with bugs and provide light integration tips for users of The Events Calendar, on the WordPress.org support forums we\'re not able to provide customization tips or assist in integration with 3rd party plugins.%s', 'tribe-events-calendar'), '<p class="admin-indent">', '</p>' );
+$enb_text[] = sprintf( __('<p>We love all our users and want to help free & PRO customers alike. If you\'re running the latest version of The Events Calendar and are having problems, post a thread at the %s on WordPress.org. We hit the forum once a week to look for legitimate bug reports and do what we can to assist users.</p>', 'tribe-events-calendar'), sprintf( '<a href="http://wordpress.org/tags/the-events-calendar/' .$ga_query_string .'&forum_id=10">%s</a>', __('forum for The Events Calendar', 'tribe-events-calendar') ) );
+$enb_text[] = sprintf( __('<p>If you need additional help, %sEvents Calendar Pro%s gets you access to our support forums for a full year.</p>', 'tribe-events-calendar'), '<a href="http://tri.be/shop/wordpress-events-calendar-pro/">', '</a>' ) . '</p>';
+$enb_text[] = '<p>' . __('A few things to keep in mind before posting:', 'tribe-events-calendar') . '</p>';
+$enb_text[] = '<ul>';
+$enb_text[] = '<li>' . __('Search recent threads before posting a new one to check that there isn\'t already a discussion about your issue.', 'tribe-events-calendar') . '</li>';
+$enb_text[] = '<li>' . __('Check whether the issue is a conflict with another plugin or your theme. This can be tested easily on a staging site by deactivating other plugins one-by-one, and reverting to the default Twenty Twelve theme to see if conflicts can be easily identified. If you find a conflict, note it in a support thread.', 'tribe-events-calendar') . '</li>';
+$enb_text[] = '<li>' . sprintf( __('Sometimes, resaving your permalinks (under <a href="%s">Settings > Permalinks</a>) can resolve events-related problems on your site. Before creating a new thread try this handy trick.', 'tribe-events-calendar'), admin_url('options-permalink.php')) . '</li>';
+$enb_text[] = '</ul>';
+$enb_text[] = '<p>' . __('While we are happy to help with bugs and provide light integration tips for users of The Events Calendar, on the WordPress.org support forums we\'re not able to provide customization tips or assist in integration with 3rd party plugins.', 'tribe-events-calendar') . '</p>';
 $enb_text = implode( $enb_text );
-$sns_text = sprintf( __('%sShoot us an email at %s or tweet %s and tell us why. We\'ll do what we can to make it right.%s', 'tribe-events-calendar'), '<p class="admin-indent">', sprintf( '<a href="mailto:pro@tri.be">%s</a>', __('pro@tri.be', 'tribe-events-calendar') ), sprintf( '<a href="http://www.twitter.com/moderntribeinc">%s</a>', __('@moderntribeinc', 'tribe-events-calendar') ), '</p>' );
+$sns_text = '<p>' . sprintf( __('Shoot us an email at %s or tweet %s and tell us why. We\'ll do what we can to make it right.', 'tribe-events-calendar'), '<a href="mailto:pro@tri.be">pro@tri.be</a>', '<a href="http://www.twitter.com/moderntribeinc">@moderntribeinc</a>' ) . '</p>';
 $more_text = __('More...', 'tribe-events-calendar');
 ?>
 
@@ -133,12 +120,12 @@ $more_text = __('More...', 'tribe-events-calendar');
 
 		<?php echo( apply_filters( 'tribe_help_tab_getting_started_content', $getting_started_text ) ); ?>
 	</div>
-	
+
 	<div class="tribe-settings-form-wrap">
 
 	<h3><?php _e('Resources to Help You Kick Ass', 'tribe-events-calendar'); ?></h3>
 
-	<ul class="admin-indent">
+	<ul>
 	<?php foreach ($resources as $resource) :
 		echo '<li>';
 		if ( isset($resource['link']) ) echo '<a href="'.$resource['link'].'">';
@@ -153,9 +140,9 @@ $more_text = __('More...', 'tribe-events-calendar');
 
 	<h3><?php _e('Still Not Satisfied?', 'tribe-events-calendar'); ?></h3>
 	<?php echo( apply_filters( 'tribe_help_tab_sns_content', $sns_text ) ); ?>
-	
+
 	</div>
-	
+
 </div>
 
 
@@ -164,42 +151,22 @@ $more_text = __('More...', 'tribe-events-calendar');
 		<h3><?php _e('The Events Calendar', 'tribe-events-calendar'); ?></h3>
 
 
-		<p><?php echo $up_to_date; ?></p>
-		<p><b><?php _e('Latest Version:', 'tribe-events-calendar'); ?></b> <?php echo $version; ?><br />
+		<?php if ( isset( $up_to_date ) ) { ?><p><?php echo $up_to_date; ?></p><?php } ?>
+		<?php if ( isset( $version ) ) { ?><p><b><?php _e('Latest Version:', 'tribe-events-calendar'); ?></b> <?php echo $version; ?><br /><?php } ?>
 		<b><?php _e('Author:', 'tribe-events-calendar'); ?></b> <?php _e('Modern Tribe Inc', 'tribe-events-calendar'); ?><br />
-		<b><?php _e('Requires:', 'tribe-events-calendar'); ?></b> <?php _e('WordPress ', 'tribe-events-calendar'); echo $requires; ?>+<br />
+		<?php if ( isset( $requires ) ) { ?><b><?php _e('Requires:', 'tribe-events-calendar'); ?></b> <?php _e('WordPress ', 'tribe-events-calendar'); echo $requires; ?>+<br /><?php } ?>
 		<a href="<?php echo apply_filters('tribe_help_tab_wp_plugin_url', TribeEvents::WP_PLUGIN_URL); ?>"><?php _e('Wordpress.org Plugin Page', 'tribe-events-calendar'); ?></a></p>
 	</div>
 
-	<h3><?php _e('Average Rating', 'tribe-events-calendar'); ?></h3>
 
-	<?php if ($rating != _x('n/a', 'not available', 'tribe-events-calendar') ) :  ?>
+	<?php if ( isset( $rating ) && isset( $num_rating ) ) {  ?>
+		<h3><?php _e('Average Rating', 'tribe-events-calendar'); ?></h3>
 		<div class="star-holder">
-			<div class="star star-rating" style="width: <?php echo( $tec_info['rating'] ); ?>px"></div>
+			<div class="star star-rating" style="width: <?php echo( $rating ); ?>px"></div>
 		</div>
-		<?php printf( _n('Based on %d rating', 'Based on %d ratings', $tec_info['num_ratings'], 'tribe-events-calendar' ), $tec_info['num_ratings'] ); ?>
-	<?php else : ?>
-		<div class="no-rating-available">
-			<?php _e('Rating currently unavailable :(', 'tribe-events-calendar'); ?>
-		</div>
-	<?php endif; ?>
-
-
-	<br />
-	<a href="<?php echo apply_filters('tribe_help_tab_wp_plugin_url', TribeEvents::WP_PLUGIN_URL); ?>"><?php _e('Give us 5 stars!', 'tribe-events-calendar'); ?></a>
-
-	<h3><?php _e('Free Add-Ons', 'tribe-events-calendar'); ?></h3>
-	<ul>
-	<?php foreach ($free_add_ons as $addon) :
-		echo '<li>';
-		if ( isset($addon['link']) ) echo '<a href="'.$addon['link'].'">';
-		echo $addon['title'];
-		if ( isset($addon['coming_soon']) ) echo ( is_string($addon['coming_soon']) ) ? ' '.$addon['coming_soon'] : ' '.__('(Coming Soon!)', 'tribe-events-calendar');
-		if ( isset($addon['link']) ) echo '</a>';
-		echo '</li>';
-	endforeach; ?>
-	</ul>
-
+		<?php printf( _n('Based on %d rating', 'Based on %d ratings', $num_rating, 'tribe-events-calendar' ), $num_rating ); ?>
+		<p><a href="<?php echo apply_filters('tribe_help_tab_wp_plugin_url', TribeEvents::WP_PLUGIN_URL); ?>"><?php _e('Give us 5 stars!', 'tribe-events-calendar'); ?></a></p>
+	<?php } ?>
 
 	<h3><?php _e('Premium Add-Ons', 'tribe-events-calendar'); ?></h3>
 	<ul>

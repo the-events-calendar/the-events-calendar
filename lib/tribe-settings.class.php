@@ -26,7 +26,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * @var array
 		 */
 		public static $tabs;
-		
+
 		/**
 		 * All the tabs registered, not just the ones that will appear
 		 * @var array
@@ -164,7 +164,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 				$this->admin_page = add_submenu_page( 'edit.php?post_type=' . TribeEvents::POSTTYPE, __( 'The Events Calendar Settings', 'tribe-events-calendar'), __('Settings', 'tribe-events-calendar'), $this->requiredCap, $this->adminSlug, array( $this, 'generatePage' ) );
 			}
 		}
-		
+
 		/**
 		 * create the network options page
 		 *
@@ -222,7 +222,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 			echo '<div class="tribe_settings wrap">';
 				screen_icon();
 				echo '<h2>';
-					printf( _x( '%s Settings', 'The Event Calendar settings heading', 'tribe-events-calendar' ), $this->menuName );
+					printf( __( '%s Settings', 'tribe-events-calendar' ), $this->menuName );
 				echo '</h2>';
 				do_action( 'tribe_settings_above_tabs' );
 				$this->generateTabs( $this->currentTab );
@@ -396,7 +396,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 						$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : TribeEvents::OPTIONNAMENETWORK;
 					if ( !is_network_admin() )
 						$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : TribeEvents::OPTIONNAME;
-					
+
 					$parent_option = apply_filters( 'tribe_settings_save_field_parent_option', $parent_option, $field_id );
 
 					// some hooks
@@ -433,7 +433,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 
 				if ( $option_id == TribeEvents::OPTIONNAME ) {
 					// save using the TribeEvents method
-					TribeEvents::setOptions( $options );						
+					TribeEvents::setOptions( $options );
 				} elseif ( $option_id == TribeEvents::OPTIONNAMENETWORK ) {
 					TribeEvents::setNetworkOptions( $options );
 				} else {
@@ -442,7 +442,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 						update_site_option( $option_id, $options );
 					else
 						update_option( $option_id, $options );
-						
+
 				}
 			}
 

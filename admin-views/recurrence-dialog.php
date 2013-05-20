@@ -6,7 +6,7 @@
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 if ( empty( $recStart ) ) {
-	$recStart = tribe_get_start_date( $post->ID, false, TribeDateUtils::DBDATEFORMAT );
+	$recStart = isset( $_REQUEST['eventDate'] ) ? $_REQUEST['eventDate'] : null;
 }
 ?>
 <div id="recurring-dialog"  title="Saving Recurring Event" style="display: none;">

@@ -19,7 +19,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_day_link( $date = null ) {
 		$tribe_ecp = TribeEvents::instance();
-		return apply_filters('tribe_get_day_link', $tribe_ecp->getLink('day', $date));
+		return apply_filters('tribe_get_day_link', $tribe_ecp->getLink('day', $date), $date);
 	}
 	
 	/**
