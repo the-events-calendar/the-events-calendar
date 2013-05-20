@@ -9,3 +9,4 @@
 # build files for js minification
 
 compiler.jar
+*.ps1
