@@ -11,7 +11,7 @@ if( !class_exists( 'TribeVenueWidget') ) {
 			// Widget settings.
 			$widget_ops = array('classname' => 'tribe-events-venue-widget', 'description' => __( 'Displays a list of upcoming events at a specific venue.', 'tribe-events-calendar-pro') );
 			// Create the widget.
-			$this->WP_Widget('tribe-events-venue-widget', __('Venue Widget', 'tribe-events-calendar-pro'), $widget_ops);
+			$this->WP_Widget('tribe-events-venue-widget', __('Events Featured Venue', 'tribe-events-calendar-pro'), $widget_ops);
 		}
  
 		function widget($args, $instance) {
