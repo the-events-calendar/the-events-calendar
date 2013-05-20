@@ -1435,11 +1435,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			global $current_screen;
 
 			// setup plugin resources & 3rd party vendor urls
-			$resouces_url = trailingslashit( $this->pluginUrl ) . 'resources/';
+			$resources_url = trailingslashit( $this->pluginUrl ) . 'resources/';
 			$vendor_url = trailingslashit( $this->pluginUrl ) . 'vendor/';
 
 			// admin stylesheet - always loaded for a few persistent things (e.g. icon)
-			wp_enqueue_style( self::POSTTYPE . '-admin', $resouces_url . 'events-admin.css' );
+			wp_enqueue_style( self::POSTTYPE . '-admin', $resources_url . 'events-admin.css' );
 
 			// settings screen
 			if (isset($current_screen->id) && $current_screen->id == 'settings_page_tribe-settings') {
