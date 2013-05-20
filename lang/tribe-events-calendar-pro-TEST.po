@@ -1,20 +1,24 @@
-# POT for Events Calendar Pro 2.0 by Modern Tribe, Inc..
-# Copyright (C) 2011 Modern Tribe, Inc.
+# Events Calendar Pro by Modern Tribe, Inc.
+# Copyright (C) Modern Tribe, Inc.
 # This file is distributed under the same license as the Events Calendar Pro package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar Pro\n"
+"Project-Id-Version: Events Calendar Pro\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-20 00:56-0600\n"
-"PO-Revision-Date: 2013-05-20 00:56-0600\n"
+"POT-Creation-Date: 2013-05-20 01:51-0600\n"
+"PO-Revision-Date: 2013-05-20 01:51-0600\n"
 "Last-Translator: Modern Tribe, Inc. <pro@tri.be>\n"
-"Language-Team: Modern Tribe <pro@tri.be>\n"
+"Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
+"Language: TEST\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
+"X-Textdomain-Support: yes\n"
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: ..\n"
 
@@ -35,171 +39,146 @@ msgstr "dayX"
 msgid "today"
 msgstr "todayX"
 
-#: ../events-calendar-pro.php:224
+#: ../events-calendar-pro.php:225
 msgid "Events for week of"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:250
+#: ../events-calendar-pro.php:251
 #, php-format
 msgid "Events for week of %s"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:256
+#: ../events-calendar-pro.php:257
 msgid "Events for"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:260 ../lib/widget-advanced-list.class.php:51
+#: ../events-calendar-pro.php:261 ../lib/widget-advanced-list.class.php:51
 msgid "Upcoming Events"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:671 ../admin-views/tribe-options-defaults.php:35
+#: ../events-calendar-pro.php:678 ../admin-views/tribe-options-defaults.php:35
 msgid "Default Content"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:673 ../admin-views/event-meta-options.php:3
+#: ../events-calendar-pro.php:680 ../admin-views/event-meta-options.php:3
 msgid "Additional Fields"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:679
-msgid ""
-"Welcome to The Events Calendar, a full-featured events management system for "
-"WordPress. By buying a license you've given us a vote of confidence, will "
-"get active support and have hooked up some sweet additional features not "
-"found in the free The Events Calendar."
-msgstr "XXXXX"
-
-#: ../events-calendar-pro.php:680
+#: ../events-calendar-pro.php:686
 #, php-format
 msgid ""
-"If you aren't familiar with The Events Calendar, it may be wise to check out "
-"our %s. It'll introduce you to the basics of what the plugin has to offer "
-"and will have you creating events in no time. From there, the resources "
-"below -- extensive template tag documentation, FAQs, video walkthroughs and "
-"more -- will give you a leg up as you dig deeper."
-msgstr "XXXXX"
+"<p>By buying a PRO license you will get active support and sweet additional "
+"features not found in the free The Events Calendar.</p><p><strong>Feeling "
+"adventurous?</strong> Jump right into it by visiting the Events menu to <a "
+"href=\"%s\">add your first event</a>.</p><p><strong>Want to get the low-down "
+"first?</strong> Visit our <a href=\"http://tri.be/support/documentation/"
+"events-calendar-pro-new-user-primer/%s\">new user primer</a>,  designed to "
+"help familiarize you with the plugin basics.</p><p>Don't forget to head over "
+"to the <a href=\"%s\">license tab</a> and enter your key!</p>"
+msgstr ""
 
-#: ../events-calendar-pro.php:680
-msgid "new user primer"
-msgstr "XXXXX"
-
-#: ../events-calendar-pro.php:681
-#, php-format
+#: ../events-calendar-pro.php:694
+#, fuzzy, php-format
 msgid ""
-"Oh, wondering what to do with your license key and whether you need it "
-"before you can get into event creation? Check out %s on that subject for an "
-"answer. %s, if you don't have it handy."
-msgstr "XXXXX"
-
-#: ../events-calendar-pro.php:681
-msgid "our blog post"
-msgstr "XXXXX"
-
-#: ../events-calendar-pro.php:681
-msgid "Here's how you find your license key"
-msgstr "XXXXX"
-
-#: ../events-calendar-pro.php:688
-#, php-format
-msgid ""
-"One of the advantages of being a PRO user is that you have access to our PRO-"
+"One of the advantages of being a PRO user is that you have access to our "
 "exclusive forums at %s. Our support staff hits the forums on a daily basis, "
 "and what they can't answer on the spot they'll bring a member of our dev "
 "team in to address directly."
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:689
+#: ../events-calendar-pro.php:695
 msgid "Some things to consider before posting on the forum:"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:691
+#: ../events-calendar-pro.php:697
 msgid ""
-"Look through existing threads before posting a new one and check that there "
-"isn't already a discussion going on your issue. The tri.be site has a solid "
-"search function that should help find what you're looking for, if it indeed "
-"already is present."
+"Search recent threads before posting a new one to check that there isn't "
+"already a discussion about your issue."
+msgstr ""
+
+#: ../events-calendar-pro.php:698
+#, fuzzy
+msgid ""
+"Check whether the issue is a conflict with another plugin or your theme. "
+"This can be tested easily on a staging site by deactivating other plugins "
+"one-by-one, and reverting to the default Twenty Twelve theme to see if "
+"conflicts can be easily identified. If you find a conflict, note it in a "
+"support thread."
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:692
+#: ../events-calendar-pro.php:699
+#, fuzzy, php-format
 msgid ""
-"A good way to help us out before posting is to check whether the issue is a "
-"conflict with another plugin or your theme. This can be tested relatively "
-"easily on a staging site by deactivating other plugins one-by-one, and "
-"reverting to the default 2011 theme as needed, to see if conflicts can be "
-"easily identified. If so, please note that when posting your thread."
+"Sometimes, resaving your permalinks (under <a href=\"%s\">Settings > "
+"Permalinks</a>) can resolve events-related problems on your site. Before "
+"creating a new thread try this handy trick."
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:693
-msgid ""
-"Sometimes, just resaving your permalinks (under Settings -> Permalinks) can "
-"resolve events-related problems on your site. It is worth a shot before "
-"creating a new thread."
-msgstr "XXXXX"
-
-#: ../events-calendar-pro.php:695
-#, php-format
+#: ../events-calendar-pro.php:702
+#, fuzzy, php-format
 msgid ""
 "While we won't build your site for you and can't guarantee The Events "
-"Calendar/PRO to play nicely with every theme and plugin out there, our team "
+"Calendar PRO to play nicely with every theme and plugin out there, our team "
 "will do our best to help you get it functioning nicely with your site. And "
 "as an added bonus, once you're done you can post it in the %s so the rest of "
 "the community can see what you've been working on."
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:695
+#: ../events-calendar-pro.php:702
 msgid "Showcase thread"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:753
+#: ../events-calendar-pro.php:760
 msgid "Day View"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:756
+#: ../events-calendar-pro.php:763
 msgid "Week View"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:1075
+#: ../events-calendar-pro.php:1082
 msgid "Settings"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:1124
+#: ../events-calendar-pro.php:1131
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar PRO%s"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:1133
+#: ../events-calendar-pro.php:1140
 msgid "Support"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:1135
+#: ../events-calendar-pro.php:1142
 msgid "View All Add-Ons"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:1167
+#: ../events-calendar-pro.php:1174
 msgid "Week"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:1175 ../admin-views/event-recurrence.php:87
-#: ../admin-views/event-recurrence.php:132
+#: ../events-calendar-pro.php:1182 ../admin-views/event-recurrence.php:82
+#: ../admin-views/event-recurrence.php:127
 msgid "Day"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:1183
+#: ../events-calendar-pro.php:1190
 msgid "Photo"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:1191
+#: ../events-calendar-pro.php:1198
 msgid "Day Of"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:1193
+#: ../events-calendar-pro.php:1200
 msgid "Week Of"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:1270
+#: ../events-calendar-pro.php:1277
 msgid "The Events Calendar"
 msgstr "XXXXX"
 
-#: ../events-calendar-pro.php:1271
+#: ../events-calendar-pro.php:1278
 #, php-format
 msgid ""
 "To begin using Events Calendar PRO, please install the latest version of <a "
@@ -460,254 +439,253 @@ msgstr "XXXXX"
 msgid "Recurrence:"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:4
-msgid "This event recurs "
-msgstr "XXXXX"
+#: ../admin-views/event-recurrence.php:8
+msgid "None"
+msgstr ""
 
 #: ../admin-views/event-recurrence.php:9
-msgid "Never"
-msgstr "XXXXX"
-
-#: ../admin-views/event-recurrence.php:10
 msgid "Every Day"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:11
+#: ../admin-views/event-recurrence.php:10
 msgid "Every Week"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:12
+#: ../admin-views/event-recurrence.php:11
 msgid "Every Month"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:13
+#: ../admin-views/event-recurrence.php:12
 msgid "Every Year"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:14
+#: ../admin-views/event-recurrence.php:13
 msgid "Custom"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:17
-msgid "and will end *"
+#: ../admin-views/event-recurrence.php:16
+#, fuzzy
+msgid "and will end"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:19
+#: ../admin-views/event-recurrence.php:18
 msgid "On"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:20
+#: ../admin-views/event-recurrence.php:19
 msgid "After"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:24
+#: ../admin-views/event-recurrence.php:23
 msgid "You must select a recurrence end date"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:29
-msgid "Recurrence Text:"
-msgstr "XXXXX"
-
 #: ../admin-views/event-recurrence.php:30
-msgid "If left blank, we will generate recurrance text for you"
-msgstr "XXXXX"
-
-#: ../admin-views/event-recurrence.php:35
 msgid "Frequency"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:37
+#: ../admin-views/event-recurrence.php:32
 msgid "Day(s)"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:37
+#: ../admin-views/event-recurrence.php:32
 msgid "Daily"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:38
+#: ../admin-views/event-recurrence.php:33
 msgid "Week(s) on:"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:38
+#: ../admin-views/event-recurrence.php:33
 msgid "Weekly"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:39
+#: ../admin-views/event-recurrence.php:34
 msgid "Month(s) on the:"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:39
+#: ../admin-views/event-recurrence.php:34
 msgid "Monthly"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:40
+#: ../admin-views/event-recurrence.php:35
 msgid "Year(s) on:"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:40
+#: ../admin-views/event-recurrence.php:35
 msgid "Yearly"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:42
+#: ../admin-views/event-recurrence.php:37
 msgid "Every"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:46
+#: ../admin-views/event-recurrence.php:41
 msgid "Frequency of recurring event must be a number"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:54
+#: ../admin-views/event-recurrence.php:49
 msgid "M"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:55
+#: ../admin-views/event-recurrence.php:50
 msgid "Tu"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:56
+#: ../admin-views/event-recurrence.php:51
 msgid "W"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:57
+#: ../admin-views/event-recurrence.php:52
 msgid "Th"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:58
+#: ../admin-views/event-recurrence.php:53
 msgid "F"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:59
+#: ../admin-views/event-recurrence.php:54
 msgid "Sa"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:60
+#: ../admin-views/event-recurrence.php:55
 msgid "Su"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:68
-#: ../admin-views/event-recurrence.php:117
+#: ../admin-views/event-recurrence.php:63
+#: ../admin-views/event-recurrence.php:112
 msgid "First"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:69
-#: ../admin-views/event-recurrence.php:118
+#: ../admin-views/event-recurrence.php:64
+#: ../admin-views/event-recurrence.php:113
 msgid "Second"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:70
-#: ../admin-views/event-recurrence.php:119
+#: ../admin-views/event-recurrence.php:65
+#: ../admin-views/event-recurrence.php:114
 msgid "Third"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:71
-#: ../admin-views/event-recurrence.php:120
+#: ../admin-views/event-recurrence.php:66
+#: ../admin-views/event-recurrence.php:115
 msgid "Fourth"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:72
-#: ../admin-views/event-recurrence.php:121
+#: ../admin-views/event-recurrence.php:67
+#: ../admin-views/event-recurrence.php:116
 msgid "Last"
+msgstr "XXXXX"
+
+#: ../admin-views/event-recurrence.php:74
+#: ../admin-views/event-recurrence.php:119
+#: ../lib/tribe-events-recurrence-meta.class.php:652
+msgid "Monday"
+msgstr "XXXXX"
+
+#: ../admin-views/event-recurrence.php:75
+#: ../admin-views/event-recurrence.php:120
+#: ../lib/tribe-events-recurrence-meta.class.php:652
+msgid "Tuesday"
+msgstr "XXXXX"
+
+#: ../admin-views/event-recurrence.php:76
+#: ../admin-views/event-recurrence.php:121
+#: ../lib/tribe-events-recurrence-meta.class.php:652
+msgid "Wednesday"
+msgstr "XXXXX"
+
+#: ../admin-views/event-recurrence.php:77
+#: ../admin-views/event-recurrence.php:122
+#: ../lib/tribe-events-recurrence-meta.class.php:652
+msgid "Thursday"
+msgstr "XXXXX"
+
+#: ../admin-views/event-recurrence.php:78
+#: ../admin-views/event-recurrence.php:123
+#: ../lib/tribe-events-recurrence-meta.class.php:652
+msgid "Friday"
 msgstr "XXXXX"
 
 #: ../admin-views/event-recurrence.php:79
 #: ../admin-views/event-recurrence.php:124
 #: ../lib/tribe-events-recurrence-meta.class.php:652
-msgid "Monday"
+msgid "Saturday"
 msgstr "XXXXX"
 
 #: ../admin-views/event-recurrence.php:80
 #: ../admin-views/event-recurrence.php:125
 #: ../lib/tribe-events-recurrence-meta.class.php:652
-msgid "Tuesday"
-msgstr "XXXXX"
-
-#: ../admin-views/event-recurrence.php:81
-#: ../admin-views/event-recurrence.php:126
-#: ../lib/tribe-events-recurrence-meta.class.php:652
-msgid "Wednesday"
-msgstr "XXXXX"
-
-#: ../admin-views/event-recurrence.php:82
-#: ../admin-views/event-recurrence.php:127
-#: ../lib/tribe-events-recurrence-meta.class.php:652
-msgid "Thursday"
-msgstr "XXXXX"
-
-#: ../admin-views/event-recurrence.php:83
-#: ../admin-views/event-recurrence.php:128
-#: ../lib/tribe-events-recurrence-meta.class.php:652
-msgid "Friday"
-msgstr "XXXXX"
-
-#: ../admin-views/event-recurrence.php:84
-#: ../admin-views/event-recurrence.php:129
-#: ../lib/tribe-events-recurrence-meta.class.php:652
-msgid "Saturday"
-msgstr "XXXXX"
-
-#: ../admin-views/event-recurrence.php:85
-#: ../admin-views/event-recurrence.php:130
-#: ../lib/tribe-events-recurrence-meta.class.php:652
 msgid "Sunday"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:96
+#: ../admin-views/event-recurrence.php:91
 msgid "Jan"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:97
+#: ../admin-views/event-recurrence.php:92
 msgid "Feb"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:98
+#: ../admin-views/event-recurrence.php:93
 msgid "Mar"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:99
+#: ../admin-views/event-recurrence.php:94
 msgid "Apr"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:100
+#: ../admin-views/event-recurrence.php:95
 #: ../lib/tribe-events-recurrence-meta.class.php:678
 msgid "May"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:101
+#: ../admin-views/event-recurrence.php:96
 msgid "Jun"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:105
+#: ../admin-views/event-recurrence.php:100
 msgid "Jul"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:106
+#: ../admin-views/event-recurrence.php:101
 msgid "Aug"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:107
+#: ../admin-views/event-recurrence.php:102
 msgid "Sep"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:108
+#: ../admin-views/event-recurrence.php:103
 msgid "Oct"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:109
+#: ../admin-views/event-recurrence.php:104
 msgid "Nov"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:110
+#: ../admin-views/event-recurrence.php:105
 msgid "Dec"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:115
+#: ../admin-views/event-recurrence.php:110
 msgid "On the:"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:139
+#: ../admin-views/event-recurrence.php:135
 #: ../views/tribe-ECP-views-old/views/single-venue.php:58
 msgid "Description:"
 msgstr "XXXXX"
+
+#: ../admin-views/event-recurrence.php:143
+msgid "Recurrence Text:"
+msgstr "XXXXX"
+
+#: ../admin-views/event-recurrence.php:148
+msgid ""
+"Create a custom plain language description of the recurrance. Leave it blank "
+"and we'll automate it."
+msgstr ""
 
 #: ../admin-views/support-form.php:11
 msgid "Need help? Send us a support request."
@@ -985,25 +963,63 @@ msgstr "XXXXX"
 msgid "Every day"
 msgstr "XXXXX"
 
+#: ../lib/tribe-events-recurrence-meta.class.php:591
+#, fuzzy, php-format
+msgid " for %d day"
+msgid_plural " for %d days"
+msgstr[0] "XXXXX"
+msgstr[1] "XXXXX"
+
 #: ../lib/tribe-events-recurrence-meta.class.php:594
 #: ../lib/tribe-events-recurrence-meta.class.php:610
 msgid "Every week"
 msgstr "XXXXX"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:595
+#, fuzzy, php-format
+msgid " for %d week"
+msgid_plural " for %d weeks"
+msgstr[0] "XXXXX"
+msgstr[1] "XXXXX"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:597
 #: ../lib/tribe-events-recurrence-meta.class.php:616
 msgid "Every month"
 msgstr "XXXXX"
 
+#: ../lib/tribe-events-recurrence-meta.class.php:598
+#, fuzzy, php-format
+msgid " for %d month"
+msgid_plural " for %d months"
+msgstr[0] "XXXXX"
+msgstr[1] "XXXXX"
+
 #: ../lib/tribe-events-recurrence-meta.class.php:600
 #: ../lib/tribe-events-recurrence-meta.class.php:623
 msgid "Every year"
 msgstr "XXXXX"
 
+#: ../lib/tribe-events-recurrence-meta.class.php:601
+#, fuzzy, php-format
+msgid " for %d year"
+msgid_plural " for %d years"
+msgstr[0] "XXXXX"
+msgstr[1] "XXXXX"
+
 #: ../lib/tribe-events-recurrence-meta.class.php:606
 #, php-format
 msgid "Every %d days"
 msgstr "XXXXX"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:607
+#: ../lib/tribe-events-recurrence-meta.class.php:613
+#: ../lib/tribe-events-recurrence-meta.class.php:620
+#: ../lib/tribe-events-recurrence-meta.class.php:632
+#, php-format
+msgid ", recurring %d time"
+msgid_plural ", recurring %d times"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:611
 #, php-format
@@ -1263,7 +1279,8 @@ msgstr "XXXXX"
 msgid "The events calendar mini calendar widget"
 msgstr "XXXXX"
 
-#: ../lib/widget-calendar.class.php:10
+#: ../lib/widget-calendar.class.php:10 ../lib/widget-calendar.class.php:31
+#: ../lib/widget-calendar.class.php:59
 msgid "Events Calendar"
 msgstr "XXXXX"
 
@@ -1731,6 +1748,52 @@ msgstr "XXXXX"
 #: ../views/widgets/venue-widget.php:17
 msgid "No upcoming events."
 msgstr "XXXXX"
+
+#~ msgid ""
+#~ "Welcome to The Events Calendar, a full-featured events management system "
+#~ "for WordPress. By buying a license you've given us a vote of confidence, "
+#~ "will get active support and have hooked up some sweet additional features "
+#~ "not found in the free The Events Calendar."
+#~ msgstr "XXXXX"
+
+#~ msgid ""
+#~ "If you aren't familiar with The Events Calendar, it may be wise to check "
+#~ "out our %s. It'll introduce you to the basics of what the plugin has to "
+#~ "offer and will have you creating events in no time. From there, the "
+#~ "resources below -- extensive template tag documentation, FAQs, video "
+#~ "walkthroughs and more -- will give you a leg up as you dig deeper."
+#~ msgstr "XXXXX"
+
+#~ msgid "new user primer"
+#~ msgstr "XXXXX"
+
+#~ msgid ""
+#~ "Oh, wondering what to do with your license key and whether you need it "
+#~ "before you can get into event creation? Check out %s on that subject for "
+#~ "an answer. %s, if you don't have it handy."
+#~ msgstr "XXXXX"
+
+#~ msgid "our blog post"
+#~ msgstr "XXXXX"
+
+#~ msgid "Here's how you find your license key"
+#~ msgstr "XXXXX"
+
+#~ msgid ""
+#~ "Look through existing threads before posting a new one and check that "
+#~ "there isn't already a discussion going on your issue. The tri.be site has "
+#~ "a solid search function that should help find what you're looking for, if "
+#~ "it indeed already is present."
+#~ msgstr "XXXXX"
+
+#~ msgid "This event recurs "
+#~ msgstr "XXXXX"
+
+#~ msgid "Never"
+#~ msgstr "XXXXX"
+
+#~ msgid "If left blank, we will generate recurrance text for you"
+#~ msgstr "XXXXX"
 
 #~ msgid "<em>The current default value is:</em> <strong>%s</strong>"
 #~ msgstr "XXXXX"
