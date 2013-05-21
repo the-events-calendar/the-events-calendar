@@ -165,6 +165,12 @@ td.tribe_message {padding-bottom: 10px !important;}
 .tribe-arrangeable-action { float:right; }
 .tribe-arrangeable-child { display:none; padding: 25px; border-top: 1px solid lightGrey; background-color: #f9f9f9 }
 .tribe-arrangeable-child label{margin:0 0 7px 0; display:block;}
+.tribe_events_active_filter_type_options {
+	margin: 10px 0;
+}
+.tribe_events_active_filter_type_options label {
+	margin: 7px 0;
+}
 .tribe-settings-form .tribe-settings-form-wrap fieldset .tribe-style-selection{margin-bottom:18px;}
 
 /* = Help Screen
