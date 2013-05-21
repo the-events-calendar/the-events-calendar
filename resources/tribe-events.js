@@ -1,7 +1,36 @@
-/** @define {boolean} */
+/**
+ * @file The core file for the events calendar plugin javascript.
+ * This file must load on all front facing events pages and be the first file loaded after vendor dependencies.
+ * @version 3.0
+ */
+
+/**
+ * @define {boolean} tribe_debug
+ * @desc Setup safe enhanced console logging. Se the link to get the available methods, then prefix with this short circuit ('tribe_debug && ').
+ * @link http://benalman.com/code/projects/javascript-debug/docs/files/ba-debug-js.html
+ * @example <caption>Place this at the very bottom of the doc ready for tribe-events.js ALWAYS short circuit with 'tribe_debug && '</caption> *
+ * tribe_debug && debug.info('tribe-events.js successfully loaded');
+ */
+
 var tribe_debug = true;
 
+/*!
+ * this debug code is stripped out by closure compiler so it is not present in the .min versions.
+ */
+
 if(tribe_debug){
+
+	/*!
+	 * JavaScript Debug - v0.4 - 6/22/2010
+	 * http://benalman.com/projects/javascript-debug-console-log/
+	 *
+	 * Copyright (c) 2010 "Cowboy" Ben Alman
+	 * Dual licensed under the MIT and GPL licenses.
+	 * http://benalman.com/about/license/
+	 *
+	 * With lots of help from Paul Irish!
+	 * http://paulirish.com/
+	 */
 
 	window.debug = (function () {
 		var window = this,
@@ -384,9 +413,9 @@ var tribe_ev = window.tribe_ev || {};
 		/**
 		 * @function tribe_ev.fn.set_form
 		 * @since 3.0
-		 * @desc tribe_ev.fn.set_form takes a param string and sets the even
-		 * @param {String} params The params to be looped over and applied to a matching input. Needed for back button browser history when forms are outside of the ajax area.
-		 * @example
+		 * @desc tribe_ev.fn.set_form takes a param string and sets a forms inputs to the values received. Extended in the Query Filters plugin.
+		 * @param {String} params The params to be looped over and applied to the named input. Needed for back button browser history when forms are outside of the ajax area.
+		 * @example <caption>Set all inputs in a form(s) to the values in a param string retrieved from the history object on popstate.</caption>
 		 * $(window).on('popstate', function (event) {
 		 *		var state = event.originalEvent.state;
 		 *		if (state) {
@@ -397,10 +426,13 @@ var tribe_ev = window.tribe_ev || {};
 		 *	});
 		 */
         set_form: function (params) {
-            $('body').addClass('tribe-reset-on');
+			var $body = $('body'),
+				$tribe_bar = $('#tribe-bar-form');
 
-            if ($('#tribe-bar-form').length) {
-                $('#tribe-bar-form').tribe_clear_form();
+			$body.addClass('tribe-reset-on');
+
+            if ($tribe_bar.length) {
+				$tribe_bar.tribe_clear_form();
             }
 
             params = tribe_ev.fn.parse_string(params);
@@ -430,8 +462,20 @@ var tribe_ev = window.tribe_ev || {};
                 }
             });
 
-            $('body').removeClass('tribe-reset-on');
+			tribe_debug && debug.debug('tribe_ev.fn.set_form fired these params: ' + params + '.');
+
+			$body.removeClass('tribe-reset-on');
         },
+		/**
+		 * @function tribe_ev.fn.setup_ajax_timer
+		 * @since 3.0
+		 * @desc tribe_ev.fn.setup_ajax_timer is a simple function to add a delay to the execution of a passed callback function, in our case ajax hence the name.
+		 * @param {Function} callback Used to delay ajax execution when in live ajax mode.
+		 * @example <caption>Run some crazy ajax.</caption>
+		 * tribe_ev.fn.setup_ajax_timer( function() {
+		 *		run_some_crazy_ajax();
+		 * });
+		 */
         setup_ajax_timer: function (callback) {
 			var timer = 500;
             clearTimeout(tribe_ev.state.ajax_timer);
@@ -442,6 +486,16 @@ var tribe_ev = window.tribe_ev || {};
 				tribe_debug && debug.debug('tribe_ev.fn.setup_ajax_timer fired with a timeout of ' + timer + ' ms');
             }
         },
+		/**
+		 * @function tribe_ev.fn.snap
+		 * @since 3.0
+		 * @desc tribe_ev.fn.snap uses jquery to bind a handler to a trigger_parent which uses bubbling of a click event from the trigger to position the document to the passed container. Has an offset of -120 px to get some breathing room.
+		 * @param {String} container the jquery selector to send the document to.
+		 * @param {String} trigger_parent the persistent element to bind the handler to.
+		 * @param {String} trigger the trigger for the click event
+		 * @example <caption>"Snap" the document 120 px above the tribe bar when a footer nav link is clicked.</caption>
+		 * 		tribe_ev.fn.snap('#tribe-bar-form', '#tribe-events', '#tribe-events-footer a');
+		 */
         snap: function (container, trigger_parent, trigger) {
             $(trigger_parent).on('click', trigger, function (e) {
                 $('html, body').animate({scrollTop: $(container).offset().top - 120}, {duration: 0});
