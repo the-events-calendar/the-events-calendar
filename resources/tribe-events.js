@@ -587,17 +587,59 @@ var tribe_ev = window.tribe_ev || {};
         }
     };
 
+	/**
+	 * @namespace tribe_ev.tests
+	 * @since 3.0
+	 * @desc tribe_ev.tests namespace stores all the custom tests used throughout the core events plugin.
+	 */
+
     tribe_ev.tests = {
+		/**
+		 * @function tribe_ev.tests.live_ajax
+		 * @since 3.0
+		 * @desc tribe_ev.tests.live_ajax tests if live ajax is enabled in the events settings tab by checking the data attribute data-live_ajax on #tribe-events in the front end.
+		 * @example <caption>Very easy test to use. In a doc ready:</caption>
+		 * if (tribe_ev.tests.live_ajax()) {
+		 *		// live ajax is on
+		 * ) else {
+		 *     // live ajax is off
+		 * }
+		 */
         live_ajax: function () {
-            return ($('#tribe-events').length && $('#tribe-events').tribe_has_attr('data-live_ajax') && $('#tribe-events').attr('data-live_ajax') == '1') ? true : false;
+			var $tribe_events = $('#tribe-events');
+            return ($tribe_events.length && $tribe_events.tribe_has_attr('data-live_ajax') && $tribe_events.attr('data-live_ajax') == '1') ? true : false;
         },
-        map_view: function () {
-            return ( typeof GeoLoc !== 'undefined' && GeoLoc.map_view ) ? true : false;
-        },
+		/**
+		 * @type Boolean tribe_ev.tests.pushstate
+		 * @since 3.0
+		 * @desc tribe_ev.tests.pushstate checks if the history object is available safely and returns true or false.
+		 * @example <caption></caption>
+		 * if (tribe_ev.tests.pushstate) {
+		 *		// pushstate is available
+		 * ) else {
+		 *     // pushstate is not available
+		 * }
+		 */
         pushstate: !!(window.history && history.pushState),
+		/**
+		 * @function tribe_ev.tests.reset_on
+		 * @since 3.0
+		 * @desc tribe_ev.tests.reset_on tests if any other function is currently disabling a tribe ajax function.
+		 * @example <caption>In another handler that will be triggering a tribe ajax function:</caption>
+		 * if (!tribe_ev.tests.reset_on()) {
+		 *		// reset is not occuring so lets run some other ajax
+		 * )
+		 */
         reset_on: function () {
             return $('body').is('.tribe-reset-on');
         },
+		/**
+		 * @function tribe_ev.tests.starting_delim
+		 * @since 3.0
+		 * @desc tribe_ev.tests.starting_delim is used by events url forming functions to determine if "?" is already present. It then sets the delimiter for the next part of the url concatenation to "?" if not found and "&" if it is.
+		 * @example <caption>Test and set delimter during url string concatenation.</caption>
+		 * 		tribe_ev.state.cur_url += tribe_ev.tests.starting_delim + tribe_ev.state.url_params;
+		 */
         starting_delim: function () {
             return tribe_ev.state.cur_url.indexOf('?') != -1 ? '&' : '?';
         }
