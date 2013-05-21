@@ -39,6 +39,9 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #
 
 .eventForm {margin-top: -20px;}
 .eventForm td {padding:0 6px 10px 0; font-size:12px; vertical-align:middle;}
+.eventForm #event-meta td { vertical-align: top; }
+.eventForm #event-meta td div { margin-bottom: 10px; }
+.eventForm #event-meta td div:last-child {margin-bottom: 20px;}
 .eventForm select, .eventForm input {font-size:11px;}
 .eventForm h4 {font-size:1.2em; margin:1em 0 1em;}
 .eventForm h4.event-time {margin-top: 0;}
