@@ -324,7 +324,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			$prefix = 'tribe-events'; // TribeEvents::POSTTYPE;
 
 			// setup plugin resources & 3rd party vendor urls
-			$resouces_url = trailingslashit( $tec->pluginUrl ) . 'resources/';
+			$resources_url = trailingslashit( $tec->pluginUrl ) . 'resources/';
 			$vendor_url = trailingslashit( $tec->pluginUrl ) . 'vendor/';
 
 			switch( $name ) {
@@ -353,7 +353,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					break;
 				case 'calendar-script' : // Tribe Events JS
 					$deps = array_merge( $deps, array( 'jquery' ), self::$vendor_scripts );
-					wp_enqueue_script( $prefix . '-calendar-script', $resouces_url . 'tribe-events.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
+					wp_enqueue_script( $prefix . '-calendar-script', $resources_url . 'tribe-events.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 					break;
 				case 'datepicker' : // Vendor: jQuery Datepicker
 					wp_enqueue_script( 'jquery-ui-datepicker' );
@@ -364,29 +364,37 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					wp_enqueue_style( $prefix . '-bootstrap-datepicker-css', $vendor_url . 'bootstrap-datepicker/css/datepicker.css' );
 					wp_enqueue_script( $prefix . '-bootstrap-datepicker', $vendor_url . 'bootstrap-datepicker/js/bootstrap-datepicker.js', 'jquery', '3.2' );						
 					self::$vendor_scripts[] = $prefix . '-bootstrap-datepicker';
+					$localized_datepicker_array = array(
+						'days' => array_merge( $tec->daysOfWeek, array( $tec->daysOfWeek[0] ) ),
+						'daysShort' => array_merge( $tec->daysOfWeekShort, array( $tec->daysOfWeekShort[0] ) ),
+						'daysMin' => array_merge( $tec->daysOfWeekMin, array( $tec->daysOfWeekMin[0] ) ),
+						'months' => array_values( $tec->monthsFull ),
+						'monthsShort' => array_values( $tec->monthsShort ),
+					);
+					wp_localize_script( $prefix . '-bootstrap-datepicker', 'tribe_bootstrap_datepicker_strings', array( 'dates' => $localized_datepicker_array ) );
 					break;
 				case 'dialog' : // Vendor: jQuery Dialog
 					wp_enqueue_script( 'jquery-ui-dialog' );
 					self::$vendor_scripts[] = 'jquery-ui-dialog';
 					break;
 				case 'admin-ui' : // Tribe Events 
-					wp_enqueue_style( $prefix . '-admin-ui', $resouces_url . 'events-admin.css' );
+					wp_enqueue_style( $prefix . '-admin-ui', $resources_url . 'events-admin.css' );
 					break;
 				case 'admin' :
 					$deps = array_merge( $deps, array( 'jquery', 'jquery-ui-datepicker' ) );
-					wp_enqueue_script( $prefix . '-admin', $resouces_url . 'events-admin.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
+					wp_enqueue_script( $prefix . '-admin', $resources_url . 'events-admin.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
 					break;
 				case 'settings' :
 					$deps = array_merge( $deps, array( 'jquery' ) );
-					wp_enqueue_script( $prefix . '-settings', $resouces_url . 'tribe-settings.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
+					wp_enqueue_script( $prefix . '-settings', $resources_url . 'tribe-settings.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
 					break;
 				case 'ecp-plugins' : 
 					$deps = array_merge( $deps, array( 'jquery' ) );
-					wp_enqueue_script( $prefix . '-ecp-plugins', $resouces_url . 'jquery-ecp-plugins.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
+					wp_enqueue_script( $prefix . '-ecp-plugins', $resources_url . 'jquery-ecp-plugins.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 					break;
 				case 'tribe-events-bar' :
 					$deps = array_merge( $deps, array( 'jquery', $prefix . '-calendar-script', $prefix . '-bootstrap-datepicker', $prefix . '-jquery-resize', $prefix . '-select2' ) );
-					wp_enqueue_script( $prefix . '-bar', $resouces_url . 'tribe-events-bar.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
+					wp_enqueue_script( $prefix . '-bar', $resources_url . 'tribe-events-bar.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 					break;
 				case 'jquery-placeholder' : // Vendor: jQuery Placeholder
 					$deps = array_merge( $deps, array( 'jquery' ) );
@@ -396,7 +404,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 				case 'ajax-calendar':
 					$deps = array_merge( $deps, array( 'jquery', $prefix . '-calendar-script' ) );
 					$ajax_data = array( "ajaxurl"   => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
-					wp_enqueue_script( 'tribe-events-calendar', $resouces_url . 'tribe-events-ajax-calendar.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
+					wp_enqueue_script( 'tribe-events-calendar', $resources_url . 'tribe-events-ajax-calendar.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
 					wp_localize_script( 'tribe-events-calendar', 'TribeCalendar', $ajax_data );
 					break;
 				case 'ajax-list':
@@ -404,7 +412,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					$tribe_paged = ( !empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 0;
 					$ajax_data = array( "ajaxurl"     => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
 					                    'tribe_paged' => $tribe_paged );
-					wp_enqueue_script( 'tribe-events-list', $resouces_url . 'tribe-events-ajax-list.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
+					wp_enqueue_script( 'tribe-events-list', $resources_url . 'tribe-events-ajax-list.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
 					wp_localize_script( 'tribe-events-list', 'TribeList', $ajax_data );
 					break;
 				case 'events-css':

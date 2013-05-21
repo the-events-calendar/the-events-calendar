@@ -1,11 +1,21 @@
 var tribe_events_bar_action;
 
-(function ($, td, te, tf, ts, tt) {
+(function ($, td, te, tf, ts, tt, dbug) {
+
+	/*
+	 * $    = jQuery
+	 * td   = tribe_ev.data
+	 * te   = tribe_ev.events
+	 * tf   = tribe_ev.fn
+	 * ts   = tribe_ev.state
+	 * tt   = tribe_ev.tests
+	 * dbug = tribe_debug
+	 */
 
 	$(document).ready(function () {
 
-		var $tribebar = $('#tribe-bar-form');
-		var $tribedate = $('#tribe-bar-date');
+		var $tribebar = $('#tribe-bar-form'),
+			$tribedate = $('#tribe-bar-date');
 
 		// Check width of events bar
 		function eventsBarWidth($tribebar) {
@@ -34,7 +44,8 @@ var tribe_events_bar_action;
 			// includes temporary check for map view, as it currently has the grid view body class
 			if (!$('.events-gridview').length || tt.map_view()) {
 
-				// setup list view datepicker
+				dbug && debug.info('bootstrapDatepicker was just initialized in "tribe-events-bar.js" on:', $tribedate);
+
 				var tribe_var_datepickerOpts = {
 					format: 'yyyy-mm-dd',
 					showAnim: 'fadeIn'
@@ -143,6 +154,7 @@ var tribe_events_bar_action;
 				if ($this.is('#tribe-bar-date')) {
 					if ($this.val().length) {
 						ts.params[$this.attr('name')] = $this.val();
+						ts.url_params[$this.attr('name')] = $this.val();
 					} else {
 						ts.date = td.cur_date;
 					}
@@ -176,7 +188,9 @@ var tribe_events_bar_action;
 				var dp_date = $tribedate.val();
 				if (dp_date.length === 7) {
 					$tribedate.val(dp_date + tf.get_day());
+
 				}
+
 			}
 
 			ts.url_params = {};
@@ -227,8 +241,8 @@ var tribe_events_bar_action;
 		$tribeDropToggleEl.click(function (e) {
 			e.stopPropagation();
 		});
-
+		dbug && debug.info('tribe-events-bar.js successfully loaded');
 	});
 
-})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests);
+})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);
 

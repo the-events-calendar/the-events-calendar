@@ -1,12 +1,13 @@
-(function ($, td, te, tf, ts, tt) {
+(function ($, td, te, tf, ts, tt, dbug) {
 
-	/***
-	 * $  = jQuery
-	 * td = tribe_ev.data
-	 * te = tribe_ev.events
-	 * tf = tribe_ev.fn
-	 * ts = tribe_ev.state
-	 * tt = tribe_ev.tests
+	/*
+	 * $    = jQuery
+	 * td   = tribe_ev.data
+	 * te   = tribe_ev.events
+	 * tf   = tribe_ev.fn
+	 * ts   = tribe_ev.state
+	 * tt   = tribe_ev.tests
+	 * dbug = tribe_debug
 	 */
 
 	$(document).ready(function () {
@@ -145,6 +146,8 @@
 
 		function tribe_events_calendar_ajax_post() {
 
+			dbug && debug.time('Month View Ajax Timer');
+
 			$('#tribe-events-header').tribe_spin();
 			ts.pushcount = 0;
 			ts.ajax_running = true;
@@ -187,7 +190,6 @@
 					ts.params,
 					function (response) {
 
-						tf.spin_hide();
 						ts.initial_load = false;
 						tf.enable_inputs('#tribe_events_filters_form', 'input, select');
 
@@ -225,6 +227,8 @@
 							}
 
 							$(te).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev__monthView_ajaxSuccess');
+
+							dbug && debug.timeEnd('Month View Ajax Timer');
 						}
 					}
 				);
@@ -236,6 +240,7 @@
 					window.location = td.cur_url;
 			}
 		}
+		dbug && debug.info('tribe-events-ajax-calendar.js successfully loaded');
 	});
 
-})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests);
+})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);
