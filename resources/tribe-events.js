@@ -689,11 +689,16 @@ var tribe_ev = window.tribe_ev || {};
 
 })(jQuery, tribe_debug);
 
-(function ($, td, te, tf, ts, dbug) {
+(function ($, td, te, tf, ts, tt, dbug) {
 
 	$(document).ready(function () {
 
-        $('#tribe-events').removeClass('tribe-no-js');
+		dbug && debug.info('Hello Dave, Tribe Events Javascript is initializing, Tribe JS Init Timer started from tribe-events.js.');
+
+		var $tribe_events = $('#tribe-events'),
+			$tribe_events_header = $('#tribe-events-header');
+
+		$tribe_events.removeClass('tribe-no-js');
 		ts.category = tf.get_category();
 		td.base_url = tf.get_base_url();
 
@@ -701,9 +706,11 @@ var tribe_ev = window.tribe_ev || {};
 
 		if (tribe_display) {
 			ts.view = tribe_display;
-		} else if ($('#tribe-events-header').length && $('#tribe-events-header').tribe_has_attr('data-view')) {
-			ts.view = $('#tribe-events-header').attr('data-view');
+		} else if ($tribe_events_header.length && $tribe_events_header.tribe_has_attr('data-view')) {
+			ts.view = $tribe_events_header.attr('data-view');
 		}
+
+		ts.view && dbug && debug.time('Tribe JS Init Timer');
 
 		/* Let's hide the widget calendar if we find more than one instance */
 		$(".tribe-events-calendar-widget").not(":eq(0)").hide();
@@ -725,6 +732,14 @@ var tribe_ev = window.tribe_ev || {};
 			$('.tribe-events-active-spinner').remove();
 		});
 
-		dbug && debug.info('tribe-events.js successfully loaded');
+		if(dbug){
+			debug.groupCollapsed('Browser and events settings information:');
+			debug.log('User agent reported as: "' + navigator.userAgent);
+			debug.log('Live ajax returned its state as: "' + tt.live_ajax());
+			ts.view && debug.log('Tribe js detected the view to be: "' + ts.view);
+			debug.log('Supports pushstate: "' + tt.pushstate);
+			debug.groupEnd();
+			debug.info('tribe-events.js successfully loaded');
+		}
 	});
-})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_debug);
+})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);

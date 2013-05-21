@@ -12,6 +12,18 @@ var tribe_events_bar_action;
 	 * dbug = tribe_debug
 	 */
 
+	if(dbug){
+		if(!$().bootstrapDatepicker){
+			debug.warn('vendor bootstrapDatepicker was not loaded before its dependant file tribe-events-bar.js');
+		}
+		if(!$().placeholder){
+			debug.warn('vendor placeholder was not loaded before its dependant file tribe-events-bar.js');
+		}
+		if(!$().select2){
+			debug.warn('vendor select2 was not loaded before its dependant file tribe-events-bar.js');
+		}
+	}
+
 	$(document).ready(function () {
 
 		var $tribebar = $('#tribe-bar-form'),
