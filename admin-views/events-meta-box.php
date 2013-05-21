@@ -23,7 +23,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<?php do_action('tribe_events_eventform_top', $postId); ?>
 	<table cellspacing="0" cellpadding="0" id="EventInfo">
 		<tr>
-			<td colspan="2" class="tribe_sectionheader"><div class="tribe_sectionheader" style="padding: 6px 6px 0 0; font-size: 11px; margin: 0 10px;"><h4><?php _e('Event Time &amp; Date', 'tribe-events-calendar'); ?></h4></div></td>
+			<td colspan="2" class="tribe_sectionheader"><div class="tribe_sectionheader" style=""><h4><?php _e('Event Time &amp; Date', 'tribe-events-calendar'); ?></h4></div></td>
 		</tr>
 		<tr>
 		<td colspan="2">
@@ -36,7 +36,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<td><input tabindex="<?php $this->tabIndex(); ?>" type='checkbox' id='allDayCheckbox' name='EventAllDay' value='yes' <?php echo $isEventAllDay; ?> /></td>
 		</tr>
 		<tr>
-			<td style="width:125px;"><?php _e('Start Date &amp; Time:','tribe-events-calendar'); ?></td>
+			<td style="width:175px;"><?php _e('Start Date &amp; Time:','tribe-events-calendar'); ?></td>
 			<td>
 				<input autocomplete="off" tabindex="<?php $this->tabIndex(); ?>" type="text" class="datepicker" name="EventStartDate" id="EventStartDate"  value="<?php echo esc_attr($EventStartDate) ?>" />
 				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', 'tribe-events-calendar') ?></span>
@@ -82,7 +82,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	</td>
 	</tr>
 	</table>
-	<div class="tribe_sectionheader" style="padding: 6px 6px 0 0; font-size: 11px; margin: 0 10px;"><h4><?php _e('Event Location Details', 'tribe-events-calendar'); ?></h4></div>
+	<div class="tribe_sectionheader" style=""><h4><?php _e('Event Location Details', 'tribe-events-calendar'); ?></h4></div>
 		<table id="event_venue" class="eventtable">
          <?php do_action('tribe_venue_table_top', $postId) ?>
 			<?php include( $this->pluginPath . 'admin-views/venue-meta-box.php' ); ?>
@@ -98,11 +98,11 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 	<table id="event_url" class="eventtable">
 		<tr>
-			<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event Website', 'tribe-events-calendar'); ?></h4></td>
+			<td colspan="2" class="tribe_sectionheader" ><h4><?php _e('Event Website', 'tribe-events-calendar'); ?></h4></td>
 		</tr>
 		<tr>
-			<td><?php _e('URL:','tribe-events-calendar'); ?></td>
-			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventURL' name='EventURL' size='50' value='<?php echo (isset($_EventURL)) ? esc_attr($_EventURL) : ''; ?>' placeholder='example.com' /></td>
+			<td style="width:172px;"><?php _e('URL:','tribe-events-calendar'); ?></td>
+			<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='EventURL' name='EventURL' size='25' value='<?php echo (isset($_EventURL)) ? esc_attr($_EventURL) : ''; ?>' placeholder='example.com' /></td>
 		</tr>
       <?php $this->do_action('tribe_events_url_table', $postId, true) ?>
 	</table>
