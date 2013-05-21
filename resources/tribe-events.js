@@ -386,7 +386,7 @@ var tribe_ev = window.tribe_ev || {};
             string.replace(/([^&=]+)=?([^&]*)(?:&+|$)/g, function (match, key, value) {
                 (map[key] = map[key] || []).push(value);
             });
-			dbug && debug.info('tribe_ev.fn.parse_string returned this map: "' + map + '".');
+			dbug && debug.info('tribe_ev.fn.parse_string returned this map: "' + map);
             return map;
         },
         /**
@@ -414,7 +414,7 @@ var tribe_ev = window.tribe_ev || {};
             tribe_ev.fn.disable_empty(form, type);
             var params = $(form).serialize();
             tribe_ev.fn.disable_inputs(form, type);
-			dbug && debug.info('tribe_ev.fn.serialize returned these params: "' + params + '".');
+			dbug && debug.info('tribe_ev.fn.serialize returned these params: "' + params);
             return params;
         },
 		/**
@@ -469,7 +469,7 @@ var tribe_ev = window.tribe_ev || {};
                 }
             });
 
-			dbug && debug.info('tribe_ev.fn.set_form fired these params: ' + params + '.');
+			dbug && debug.info('tribe_ev.fn.set_form fired these params: "' + params);
 
 			$body.removeClass('tribe-reset-on');
         },
@@ -490,7 +490,7 @@ var tribe_ev = window.tribe_ev || {};
 				tribe_ev.state.ajax_timer = setTimeout(function () {
                     callback();
                 }, timer);
-				dbug && debug.info('tribe_ev.fn.setup_ajax_timer fired with a timeout of ' + timer + ' ms');
+				dbug && debug.info('tribe_ev.fn.setup_ajax_timer fired with a timeout of "' + timer + '" ms');
             }
         },
 		/**
