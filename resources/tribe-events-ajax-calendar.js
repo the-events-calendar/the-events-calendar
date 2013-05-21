@@ -188,7 +188,6 @@
 					ts.params,
 					function (response) {
 
-						tf.spin_hide();
 						ts.initial_load = false;
 						tf.enable_inputs('#tribe_events_filters_form', 'input, select');
 

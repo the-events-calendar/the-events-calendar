@@ -501,19 +501,13 @@ var tribe_ev = window.tribe_ev || {};
                 $('html, body').animate({scrollTop: $(container).offset().top - 120}, {duration: 0});
             });
         },
-        spin_hide: function () {
-            $('#tribe-events-footer, #tribe-events-header').find('.tribe-events-ajax-loading').hide();
-        },
-        spin_show: function () {
-            $('#tribe-events-footer, #tribe-events-header').find('.tribe-events-ajax-loading').show();
-        },
         tooltips: function () {
 
             $('#tribe-events').on('mouseenter', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring',function () {
 
-                var bottomPad = 0;
-                var $this = $(this);
-                var $body = $('body');
+                var bottomPad = 0,
+					$this = $(this),
+					$body = $('body');
 
                 if ($body.hasClass('events-gridview')) { // Cal View Tooltips
                     bottomPad = $this.find('a').outerHeight() + 18;
@@ -527,7 +521,7 @@ var tribe_ev = window.tribe_ev || {};
                 if ($this.parents('.tribe-events-calendar-widget').length) {
                     bottomPad = $this.outerHeight() - 6;
                 }
-                if (!$('body').hasClass('tribe-events-week')) {
+                if (!$body.hasClass('tribe-events-week')) {
                     $this.find('.tribe-events-tooltip').css('bottom', bottomPad).show();
                 }
 
