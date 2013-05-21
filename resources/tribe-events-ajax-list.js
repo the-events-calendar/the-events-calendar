@@ -1,6 +1,6 @@
 (function ($, td, te, tf, ts, tt) {
 
-	/***
+	/*
 	 * $  = jQuery
 	 * td = tribe_ev.data
 	 * te = tribe_ev.events
@@ -224,6 +224,7 @@
 					window.location = td.cur_url;
 			}
 		}
+		tribe_debug && debug.info('tribe-events-ajax-list.js successfully loaded');
 	});
 
 })(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests);

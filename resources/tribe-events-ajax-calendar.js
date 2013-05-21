@@ -237,6 +237,7 @@
 					window.location = td.cur_url;
 			}
 		}
+		tribe_debug && debug.info('tribe-events-ajax-calendar.js successfully loaded');
 	});
 
 })(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests);

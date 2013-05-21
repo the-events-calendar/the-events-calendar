@@ -105,13 +105,6 @@ try {
 } catch (e) {}
 
 /**
- * @global
- * @desc Variable used when live ajax is on for delay interval.
- */
-
-var tribe_ajax_timer;
-
-/**
  * @external "jQuery.fn"
  * @desc The jQuery plugin namespace.
  */
@@ -375,7 +368,7 @@ var tribe_ev = window.tribe_ev || {};
         /**
          * @function tribe_ev.fn.serialize
          * @since 3.0
-         * @desc tribe_ev.fn.serialize serializes the passed input types. Enable/disable flow in place to protect inputs during process, especially for live ajax mode.
+         * @desc tribe_ev.fn.serialize serializes the passed input types. Enable/disable stack in place to protect inputs during process, especially for live ajax mode.
          * @param {String} form The form element.
          * @param {String} type The input types to be serialized.
          * @returns {String} Returns a param string of populated inputs.
@@ -388,6 +381,21 @@ var tribe_ev = window.tribe_ev || {};
             tribe_ev.fn.disable_inputs(form, type);
             return params;
         },
+		/**
+		 * @function tribe_ev.fn.set_form
+		 * @since 3.0
+		 * @desc tribe_ev.fn.set_form takes a param string and sets the even
+		 * @param {String} params The params to be looped over and applied to a matching input. Needed for back button browser history when forms are outside of the ajax area.
+		 * @example
+		 * $(window).on('popstate', function (event) {
+		 *		var state = event.originalEvent.state;
+		 *		if (state) {
+		 *		 	tribe_ev.state.params = state.tribe_params;
+		 *		 	// do something magical to restore query state like ajax, then set the forms to match the history state like so:
+		 *			tribe_ev.fn.set_form(tribe_ev.state.params);
+		 *		}
+		 *	});
+		 */
         set_form: function (params) {
             $('body').addClass('tribe-reset-on');
 
@@ -399,8 +407,8 @@ var tribe_ev = window.tribe_ev || {};
 
             $.each(params, function (key, value) {
                 if (key !== 'action') {
-                    var name = decodeURI(key);
-                    var $target = '';
+                    var name = decodeURI(key),
+						$target = '';
                     if (value.length === 1) {
                         if ($('[name="' + name + '"]').is('input[type="text"], input[type="hidden"]')) {
                             $('[name="' + name + '"]').val(value);
@@ -425,11 +433,13 @@ var tribe_ev = window.tribe_ev || {};
             $('body').removeClass('tribe-reset-on');
         },
         setup_ajax_timer: function (callback) {
-            clearTimeout(tribe_ajax_timer);
+			var timer = 500;
+            clearTimeout(tribe_ev.state.ajax_timer);
             if (!tribe_ev.tests.reset_on()) {
-                tribe_ajax_timer = setTimeout(function () {
+				tribe_ev.state.ajax_timer = setTimeout(function () {
                     callback();
-                }, 500);
+                }, timer);
+				tribe_debug && debug.debug('tribe_ev.fn.setup_ajax_timer fired with a timeout of ' + timer + ' ms');
             }
         },
         snap: function (container, trigger_parent, trigger) {
@@ -512,6 +522,7 @@ var tribe_ev = window.tribe_ev || {};
 
     tribe_ev.state = {
         ajax_running: false,
+		ajax_timer: 0,
         category: '',
         date: '',
         do_string: false,
@@ -534,6 +545,7 @@ var tribe_ev = window.tribe_ev || {};
 (function ($, td, te, tf, ts) {
 
 	$(document).ready(function () {
+
         $('#tribe-events').removeClass('tribe-no-js');
 		ts.category = tf.get_category();
 		td.base_url = tf.get_base_url();
@@ -551,8 +563,6 @@ var tribe_ev = window.tribe_ev || {};
 
 		tf.tooltips();
 
-		tribe_debug && debug.log(td.base_url);
-
         // remove events header subnav pagination if no results
         if ($('.tribe-events-list .tribe-events-notices').length) {
             $('#tribe-events-header .tribe-events-sub-nav').empty();
@@ -567,5 +577,7 @@ var tribe_ev = window.tribe_ev || {};
 		$(te).on( 'tribe_ev_ajaxSuccess', function() {
 			$('.tribe-events-active-spinner').remove();
 		});
+
+		tribe_debug && debug.info('tribe-events.js successfully loaded');
 	});
 })(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state);
