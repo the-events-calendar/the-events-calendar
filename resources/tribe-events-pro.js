@@ -1,4 +1,14 @@
-(function ($) {
+if (window.hasOwnProperty('tribe_ev')) {
+	tribe_ev.geoloc = {
+		map: [],
+		geocoder: [],
+		geocodes: [],
+		bounds: [],
+		markers: []
+	};
+}
+
+(function ($, te, tf, tg, ts, tt, dbug) {
 
 	$.extend(tribe_ev.fn, {
 
@@ -12,10 +22,10 @@
 			if ($('#tribe-bar-geoloc').length) {
 				var val = $('#tribe-bar-geoloc').val();
 				if (val.length) {
-					tribe_ev.fn.process_geocoding(val, function (results) {
-						tribe_ev.geoloc.geocodes = results;
-						if (tribe_ev.geoloc.geocodes.length > 1 && !tribe_ev.fn.has_address(val, tribe_ev.geoloc.geocodes)) {
-							tribe_ev.fn.print_geo_options();
+					tf.process_geocoding(val, function (results) {
+						tg.geocodes = results;
+						if (tg.geocodes.length > 1 && !tf.has_address(val, tg.geocodes)) {
+							tf.print_geo_options();
 						} else {
 							var lat = results[0].geometry.location.lat();
 							var lng = results[0].geometry.location.lng();
@@ -133,13 +143,13 @@
 		print_geo_options: function () {
 			$("#tribe-geo-links").empty();
 			$("#tribe-geo-options").show();
-			for (var i = 0; i < tribe_ev.geoloc.geocodes.length; i++) {
-				$("<a/>").text(tribe_ev.geoloc.geocodes[i].formatted_address).attr("href", "#").addClass('tribe-geo-option-link').attr('data-index', i).appendTo("#tribe-geo-links");
-				if (tribe_ev.tests.map_view()) {
-					tribe_ev.fn.map_add_marker(
-						tribe_ev.geoloc.geocodes[i].geometry.location.lat(),
-						tribe_ev.geoloc.geocodes[i].geometry.location.lng(),
-						tribe_ev.geoloc.geocodes[i].formatted_address
+			for (var i = 0; i < tg.geocodes.length; i++) {
+				$("<a/>").text(tg.geocodes[i].formatted_address).attr("href", "#").addClass('tribe-geo-option-link').attr('data-index', i).appendTo("#tribe-geo-links");
+				if (tt.map_view()) {
+					tf.map_add_marker(
+						tg.geocodes[i].geometry.location.lat(),
+						tg.geocodes[i].geometry.location.lng(),
+						tg.geocodes[i].formatted_address
 					);
 				}
 			}
@@ -149,7 +159,7 @@
 				address: location
 			};
 
-			tribe_ev.geoloc.geocoder.geocode(request, function (results, status) {
+			tg.geocoder.geocode(request, function (results, status) {
 				if (status == google.maps.GeocoderStatus.OK) {
 					callback(results);
 					return results;
@@ -168,12 +178,12 @@
 		},
 		set_recurrence: function (recurrence_on) {
 			if (recurrence_on) {
-				tribe_ev.state.recurrence = true;
+				ts.recurrence = true;
 				if (tribe_storage) {
 					tribe_storage.setItem('tribeHideRecurrence', '1');
 				}
 			} else {
-				tribe_ev.state.recurrence = false;
+				ts.recurrence = false;
 				if (tribe_storage) {
 					tribe_storage.setItem('tribeHideRecurrence', '0');
 				}
@@ -186,18 +196,6 @@
 			return  ($('#tribeHideRecurrence:checked').length) ? true : false;
 		}
 	});
-
-	tribe_ev.geoloc = {
-		map: [],
-		geocoder: [],
-		geocodes: [],
-		bounds: [],
-		markers: []
-	};
-
-})(jQuery);
-
-(function ($, te, tf, tg, ts, tt) {
 
 	$(document).ready(function () {
 
@@ -300,6 +298,8 @@
 
 		}
 
+		dbug && debug.info('tribe-events-pro.js successfully loaded');
+
 	});
 
-})(jQuery, tribe_ev.events, tribe_ev.fn, tribe_ev.geoloc, tribe_ev.state, tribe_ev.tests);
+})(jQuery, tribe_ev.events, tribe_ev.fn, tribe_ev.geoloc, tribe_ev.state, tribe_ev.tests, tribe_debug);

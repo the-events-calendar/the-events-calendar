@@ -16,7 +16,6 @@ class Tribe_Columns {
 	private $override = false;
 	private $fallback;
 	private $column_headers = array();
-	private $textdomain = 'tribe-apm';
 
 	private $url;
 
@@ -24,12 +23,7 @@ class Tribe_Columns {
 	private $user_meta = 'tribe_columns_';
 	private $nonce = 'tribe_columns';
 
-	private $columns_example = array(
-		'column_id' => array(
-			'name' => 'Column Name',
-			'meta' => '_some_meta' // in most cases, this piece of meta will be queried to provide column contents
-		)
-	);
+	private $columns_example;
 
 	/**
 	 * Sets up the class to work. Duh.
@@ -44,9 +38,16 @@ class Tribe_Columns {
 	 **/
 
 	public function __construct( $post_type, $columns = array(), $active = array(), $fallback = array() ) {
+
+		$this->columns_example = array(
+			'column_id' => array(
+				'name' => __('Column Name', 'tribe-apm'),
+				'meta' => '_some_meta' // in most cases, this piece of meta will be queried to provide column contents
+			)
+		);
+
 		$this->nonce .= $post_type; // keep it tidy
 		$this->user_meta .= $post_type;
-		$this->textdomain = apply_filters( 'tribe_apm_textdomain', $this->textdomain );
 
 		$this->post_type = $post_type;
 		$this->set_active($active);
@@ -57,9 +58,9 @@ class Tribe_Columns {
 
 		$this->url = trailingslashit( plugins_url( '', __FILE__ ) );
 	}
-	
+
 	// PUBLIC API METHODS
-	
+
 	/**
 	 * Sets the columns to be shown in the list view for associated post type
 	 * See documentation for column array construction
@@ -71,7 +72,7 @@ class Tribe_Columns {
 			$this->alphabetize_columns();
 		}
 	}
-	
+
 	/**
 	 * Adds columns to the current set of registered columns
 	 * See documentation for column array construction
@@ -91,7 +92,7 @@ class Tribe_Columns {
 	public function set_override($override) {
 		$this->override = (bool) $override;
 	}
-	
+
 	/**
 	 * Set fallback defaults for when custom column are cleared
 	 * When fallback is empty, all columns will be shown on reset
@@ -100,7 +101,7 @@ class Tribe_Columns {
 	public function set_fallback($fallback = array() ) {
 		$this->fallback = (array) $fallback;
 	}
-	
+
 	/**
 	 * Explicitly set an active set of columns. Usually not set.
 	 * This will override any other internal method of retrieving active columns
@@ -109,7 +110,7 @@ class Tribe_Columns {
 	public function set_active($active = array() ) {
 		$this->active = (array) $active;
 	}
-	
+
 	/**
 	 * Outputs the drag & drop columns view.
 	 * Expects to be inside a form
@@ -130,7 +131,7 @@ class Tribe_Columns {
 		unset($active); ?>
 
 		<select name="tribe-cols-drop" id="tribe-cols-drop"><?php
-			echo '<option value="0">'. __('Add a Column', $this->textdomain).'</option>';
+			echo '<option value="0">'. __('Add a Column', 'tribe-apm').'</option>';
 			foreach ( $inactive as $key => $value ) {
 				$name = ( is_string($value) ) ? $value : $value['name'];
 				if ( empty($name) ) {
@@ -164,7 +165,7 @@ class Tribe_Columns {
 		)); ?>; </script><?php	echo "\n";
 
 	}
-	
+
 
 	// CALLBACKS
 
@@ -179,7 +180,7 @@ class Tribe_Columns {
 		// Needs to be executed when quick edit is saved, hence the following line.
 		add_action( 'save_post', array( $this, 'init_active' ) );
 	}
-	
+
 	public function date_column($value, $column_id, $column) {
 		if ( ! empty($value) && self::is_date($column) && isset($column['date_format']) ) {
 			$value = date( $column['date_format'], strtotime($value) );
@@ -327,7 +328,7 @@ class Tribe_Columns {
 
 
 	// UTLITIES AND INTERNAL METHODS
-	
+
 	protected function sweep_empties() {
 		$headers = $this->get_column_headers();
 		foreach ( $headers as $k => $v ) {
@@ -366,7 +367,7 @@ class Tribe_Columns {
 		}
 		return $headers;
 	}
-	
+
 	private function load_list_table() {
 		if ( ! class_exists('WP_Posts_List_Table') ) {
 			require_once( ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php' );
@@ -391,7 +392,7 @@ class Tribe_Columns {
 		$this->columns = $alpha_columns;
 		unset($alpha_columns, $temp);
 	}
-	
+
 	public function log($data = array() ) {
 		error_log(print_r($data,1));
 	}
@@ -417,7 +418,7 @@ class Tribe_Columns {
 		$this->active = array();
 		$this->init_active();
 	}
-	
+
 	protected function is_date($column) {
 		if ( isset($column['cast']) ) {
 			$cast = ucwords( $column['cast'] );
@@ -430,7 +431,7 @@ class Tribe_Columns {
 		}
 		return false;
 	}
-	
+
 	protected function is_our_post_type() {
 		$screen = get_current_screen();
 		if ( empty($screen) ) {

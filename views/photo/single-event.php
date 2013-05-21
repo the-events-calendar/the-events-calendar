@@ -21,7 +21,7 @@ global $post;
 
 <?php echo tribe_event_featured_image( null, 'medium' ) ?>
 
- <div class="tribe-events-event-details">
+ <div class="tribe-events-event-details tribe-clearfix">
 
 	<!-- Event Title -->
 	<?php do_action( 'tribe_events_photo_before_the_event_title' ) ?>

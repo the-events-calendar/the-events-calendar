@@ -36,7 +36,7 @@ $defaultsTab = array(
 		),
 		'info-box-description' => array(
 			'type' => 'html',
-			'html' => '<p>' . __('Set values for event organizers & venues that appear pre-populated in the event editor whenever you create a new event. This helps save time in situations where the venue or organizer rarely changes, saving you from having to manually re-enter the data each time you create an event.</p><p>It\'s worth noting that these can be overridden on the event creation screen; if a venue and organizer are pre-populated but you wants to change to something else, use the dropdown to either select another existing venue/organizer, or manually enter the details of a new one.', 'tribe-events-calendar-pro') . '</p>',
+			'html' => '<p>' . __('<p>Choose the default venue & organizer. Set default address information to save time when entering a new venue or organizer.</p><p>You can override these settings as you enter a new event.</p>', 'tribe-events-calendar-pro') . '</p>',
 		),
 		'info-end' => array(
 			'type' => 'html',
@@ -58,7 +58,7 @@ $defaultsTab = array(
 		),
 		'defaultValueReplaceHelper' => array(
 			'type' => 'html',
-			'html' => '<p class="tribe-field-indent tribe-field-description description">' . __( 'Check this box to have the organizer and venue fields pre-populated with the default values below for any new event that is created.', 'tribe-events-calendar-pro' ) . '</p>'
+			'html' => '<p style="margin-top:-15px;" class="tribe-field-indent tribe-field-description description">' . __( 'Check this box to have the organizer and venue fields pre-populated with the default values below for any new event that is created.', 'tribe-events-calendar-pro' ) . '</p>'
 		),
 		'eventsDefaultOrganizerHelperTitle' => array(
 			'type' => 'html',

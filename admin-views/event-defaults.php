@@ -1,7 +1,7 @@
 	<h3><?php _e('Customize Defaults', 'tribe-events-calendar-pro'); ?></h3>
 	<p><?php _e('These settings change the default event form. For example, if you set a default venue, this field will be automatically filled in on a new event.', 'tribe-events-calendar-pro') ?></p>
 	<table class="form-table">
-<tr>
+		<tr>
 			<th scope="row"><?php _e('Automatically replace empty fields with default values','tribe-events-calendar-pro'); ?></th>
 	        <td>
 	            <fieldset>

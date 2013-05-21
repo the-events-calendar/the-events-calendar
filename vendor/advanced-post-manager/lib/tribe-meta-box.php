@@ -6,7 +6,7 @@
  * Support input types: text, textarea, checkbox, checkbox list, radio box, select, wysiwyg, file, image, date, time, color
  *
  * @author Rilwis <rilwis@gmail.com>
- * @author Matt Wiebe 
+ * @author Matt Wiebe
  * @author Modern Tribe, Inc.
  * @link http://www.deluxeblogtips.com/p/meta-box-script-for-wordpress.html
  * @example meta-box-usage.php Sample declaration and usage of meta boxes
@@ -22,16 +22,12 @@ class Tribe_Meta_Box {
 
 	protected $_meta_box;
 	protected $_fields;
-	protected $textdomain = 'tribe-apm';
 
 	// Create meta box based on given data
 	public function __construct($meta_box) {
 		// run script only in admin area
 		if (!is_admin()) return;
-		
-		// overrideable textdomain
-		$this->textdomain = apply_filters( 'tribe_apm_textdomain', $this->textdomain );
-		
+
 		// assign meta box values to local variables and add it's missed values
 		$this->_meta_box = $meta_box;
 		// Cast pages to array
@@ -54,20 +50,20 @@ class Tribe_Meta_Box {
 		// must enqueue for all pages as we need js for the media upload, too
 		add_action('admin_enqueue_scripts', array(__CLASS__, 'js_css'));
 	}
-	
+
 	function register_scripts_and_styles() {
 		// change '\' to '/' in case using Windows
 		$content_dir = str_replace('\\', '/', WP_CONTENT_DIR);
 		$script_dir = str_replace('\\', '/', dirname(__FILE__));
-		
+
 		// get URL of the directory of current file, this works in both theme or plugin
 		$base_url = trailingslashit( str_replace($content_dir, WP_CONTENT_URL, $script_dir) );
 		$resources_url = apply_filters( 'tribe_apm_resources_url', $base_url . 'resources' );
 		$resources_url = trailingslashit($resources_url);
-		
+
 		wp_register_style( 'tribe-meta-box', $resources_url . 'meta-box.css');
 		wp_register_script('tribe-meta-box', $resources_url . 'meta-box.js', array('jquery'), null, true);
-		
+
 		wp_register_style('tribe-jquery-ui-css', 'https://ajax.googleapis.com/ajax/libs/jqueryui/' . self::get_jqueryui_ver() . '/themes/base/jquery-ui.css');
 		wp_register_script('tribe-jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/' . self::get_jqueryui_ver() . '/jquery-ui.min.js', array('jquery'));
 		wp_register_script('tribe-timepicker', 'https://github.com/trentrichardson/jQuery-Timepicker-Addon/raw/master/jquery-ui-timepicker-addon.js', array('tribe-jquery-ui'));
@@ -125,7 +121,7 @@ class Tribe_Meta_Box {
 
 			$li = "<li id='item_$attachment_id'>";
 			$li .= "<img src='{$attachment['url']}' />";
-			$li .= "<a title='" . __('Delete this image', $this->textdomain) . "' class='tribe-delete-file' href='#' rel='$nonce|$post_id|$id|$attachment_id'>" . __('Delete', $this->textdomain) . "</a>";
+			$li .= "<a title='" . __('Delete this image', 'tribe-apm') . "' class='tribe-delete-file' href='#' rel='$nonce|$post_id|$id|$attachment_id'>" . __('Delete', 'tribe-apm') . "</a>";
 			$li .= "<input type='hidden' name='{$id}[]' value='$attachment_id' />";
 			$li .= "</li>";
 			$html .= $li;
@@ -221,7 +217,7 @@ class Tribe_Meta_Box {
 			add_action('admin_print_footer_scripts', 'wp_tiny_mce', 25);
 		}
 	}
-	
+
 	/******************** END OTHER FIELDS **********************/
 
 	/******************** BEGIN META BOX PAGE **********************/
@@ -249,14 +245,14 @@ class Tribe_Meta_Box {
 		}
 		echo '</table>';
 	}
-	
+
 	function retrieve_meta_for_field($field, $post) {
 		$meta = get_post_meta($post->ID, $field['meta'], !$field['multiple']);
 		$meta = ! empty($meta) ? $meta : $field['std'];
 		$meta = ( is_array($meta) ) ? self::array_map_deep('esc_attr',$meta) : esc_attr($meta);
 		return $meta;
 	}
-	
+
 	function array_map_deep( $callback, $data ) {
 		$results =	array();
 		$args = array();
@@ -349,20 +345,20 @@ class Tribe_Meta_Box {
 
 		if (!empty($meta)) {
 			$nonce = wp_create_nonce('tribe_ajax_delete');
-			echo '<div style="margin-bottom: 10px"><strong>' . __('Uploaded files', $this->textdomain) . '</strong></div>';
+			echo '<div style="margin-bottom: 10px"><strong>' . __('Uploaded files', 'tribe-apm') . '</strong></div>';
 			echo '<ol class="tribe-upload">';
 			foreach ($meta as $att) {
 				// if (wp_attachment_is_image($att)) continue; // what's image uploader for?
-				echo "<li>" . wp_get_attachment_link($att, '' , false, false, ' ') . " (<a class='tribe-delete-file' href='#' rel='$nonce|{$post->ID}|{$field['meta']}|$att'>" . __('Delete', $this->textdomain) . "</a>)</li>";
+				echo "<li>" . wp_get_attachment_link($att, '' , false, false, ' ') . " (<a class='tribe-delete-file' href='#' rel='$nonce|{$post->ID}|{$field['meta']}|$att'>" . __('Delete', 'tribe-apm') . "</a>)</li>";
 			}
 			echo '</ol>';
 		}
 
 		// show form upload
-		echo "<div style='clear: both'><strong>" . __('Upload new files', $this->textdomain) . "</strong></div>
+		echo "<div style='clear: both'><strong>" . __('Upload new files', 'tribe-apm') . "</strong></div>
 			<div class='new-files'>
 				<div class='file-input'><input type='file' name='{$field['meta']}[]' /></div>
-				<a class='tribe-add-file' href='#'>" . __('Add another file', $this->textdomain) . "</a>
+				<a class='tribe-add-file' href='#'>" . __('Add another file', 'tribe-apm') . "</a>
 			</div>
 		</td>";
 	}
@@ -398,14 +394,14 @@ class Tribe_Meta_Box {
 
 				echo "<li id='item_$image'>
 						<img src='$src' />
-						<a title='" . __('Delete this image', $this->textdomain) . "' class='tribe-delete-file' href='#' rel='$nonce_delete|{$post->ID}|{$field['meta']}|$image'>" . __('Delete', $this->textdomain) . "</a>
+						<a title='" . __('Delete this image', 'tribe-apm') . "' class='tribe-delete-file' href='#' rel='$nonce_delete|{$post->ID}|{$field['meta']}|$image'>" . __('Delete', 'tribe-apm') . "</a>
 						<input type='hidden' name='{$field['meta']}[]' value='$image' />
 					</li>";
 			}
 		}
 		echo '</ul>';
 
-		echo "<a href='#' class='tribe-upload-button button' rel='{$post->ID}|{$field['meta']}'>" . __('Add more images', $this->textdomain) . "</a>";
+		echo "<a href='#' class='tribe-upload-button button' rel='{$post->ID}|{$field['meta']}'>" . __('Add more images', 'tribe-apm') . "</a>";
 		echo '</td>';
 	}
 
@@ -413,7 +409,7 @@ class Tribe_Meta_Box {
 		if (empty($meta)) $meta = '#';
 		$this->show_field_begin($field, $meta);
 		echo "<input class='tribe-color' type='text' name='{$field['meta']}' id='{$field['meta']}' value='$meta' size='8' />
-			  <a href='#' class='tribe-color-select' rel='{$field['meta']}'>" . __('Select a color', $this->textdomain) . "</a>
+			  <a href='#' class='tribe-color-select' rel='{$field['meta']}'>" . __('Select a color', 'tribe-apm') . "</a>
 			  <div style='display:none' class='tribe-color-picker' rel='{$field['meta']}'></div>";
 		$this->show_field_end($field, $meta);
 	}
@@ -440,7 +436,7 @@ class Tribe_Meta_Box {
 		echo "<input type='text' class='tribe-time' name='{$field['meta']}' id='{$field['meta']}' rel='{$field['format']}' value='$meta' size='30' />";
 		$this->show_field_end($field, $meta);
 	}
-	
+
 	function show_field_text_multi($field, $meta) {
 		$this->show_field_begin($field, $meta);
 		$meta = (array) $meta;
@@ -461,13 +457,13 @@ class Tribe_Meta_Box {
 		echo '</div>';
 		$this->show_field_end($field, $meta);
 	}
-	
+
 	function show_field_html($field, $meta) {
 		$this->show_field_begin($field, $meta);
 		echo $field['html'];
 		$this->show_field_end($field, $meta);
 	}
-	
+
 	function show_field_post2post($field, $meta) {
 		$this->show_field_begin($field, $meta);
 		if ( ! isset($field['dropdown_title']) ) {
@@ -481,7 +477,7 @@ class Tribe_Meta_Box {
 			'name' => $field['meta'],
 			'class' => 'p2p-drop'
 		));
-		
+
 		$list_items = '';
 		$list_item_template = '<li><label><input type="checkbox" name="'.$field['meta'].'[]" value="%s" checked="checked" /> %s</label></li>';
 		if ( ! empty($meta) ) {
@@ -490,7 +486,7 @@ class Tribe_Meta_Box {
 				$list_items .= sprintf($list_item_template, $p->ID, $p->post_title);
 			}
 		}
-		
+
 		echo '<ul class="p2p-connected">'.$list_items.'</ul>';
 		$this->show_field_end($field, $meta);
 	}
@@ -511,7 +507,7 @@ class Tribe_Meta_Box {
 		|| (!current_user_can($post_type_object->cap->edit_post, $post_id))) {	// check permission
 			return $post_id;
 		}
-		
+
 		foreach ($this->_fields as $field) {
 			$name = $field['meta'];
 			$type = $field['type'];
@@ -581,7 +577,7 @@ class Tribe_Meta_Box {
 			}
 		}
 	}
-	
+
 	function save_field_text_multi($post_id, $field, $old, $new) {
 		$data = array();
 		$new = (array) $new;
@@ -594,11 +590,11 @@ class Tribe_Meta_Box {
 			update_post_meta($post_id, $field['meta'], $data);
 		}
 	}
-	
+
 	function save_field_html() {
 		// do nothing
 	}
-	
+
 	function save_field_post2post($post_id, $field, $old, $new) {
 		delete_post_meta($post_id, $field['meta']);
 		$new = (array) $new;
@@ -611,7 +607,7 @@ class Tribe_Meta_Box {
 	/******************** END META BOX SAVE **********************/
 
 	/******************** BEGIN HELPER FUNCTIONS **********************/
-	
+
 	function dropdown_posts( $args = '' ) {
 		$defaults = array(
 			'numberposts' => -1, 'post_type' => 'post',

@@ -3,6 +3,9 @@
 }
 
 /* calendar css */
+.tribe-mini-calendar-grid-wrapper {
+	margin-bottom: 10px;
+}
 
 .tribe-mini-calendar {
 	border-collapse: collapse;
@@ -11,54 +14,47 @@
 }
 
 .tribe-mini-calendar td {
-	height         : 28px;
 	width: 14.2857142857%;
 	text-align     : center;
 	vertical-align : middle;
-	border         : 1px solid #fff;	
-	background     : #f3f3f3;
+	border         : 1px solid #bbb;	
 }
 
-.tribe-mini-calendar td.tribe-events-thismonth {
-	background : #cccccc;
-}
-
-.tribe-mini-calendar td.tribe-events-thismonth.today, 
-.tribe-mini-calendar td.tribe-events-thismonth.has-events.today {
-	background : #4f4f4f;
-} 
-
-.tribe-mini-calendar td.tribe-events-thismonth > div {
-	display:none;
-}
-
-.tribe-mini-calendar td.tribe-events-thismonth.tribe-events-has-events > div {
-	display:block;
-}
-
-.tribe-mini-calendar td.tribe-events-thismonth.tribe-events-has-events a {
-	color   : #ffffff;
+.tribe-mini-calendar .tribe-events-has-events a {
+	color   : #999;
 	font-weight:bold;
 	display : block;
 	text-decoration: none;
+	padding: 5px;
 }
 
-.tribe-mini-calendar td.tribe-events-thismonth.tribe-events-has-events a:hover {
-	text-decoration : none;
+.tribe-mini-calendar .tribe-events-has-events a:hover {
+	background: #999;
+	color: #fff;
+	text-decoration: none;
 }
 
-.tribe-mini-calendar td.tribe-events-thismonth.tribe-events-has-events:hover {
+.tribe-mini-calendar .tribe-events-has-events:hover {
 	background: #444;
 }
 
-.tribe-mini-calendar td.tribe-events-thismonth.tribe-events-has-events {
-	background: #888;
+.tribe-mini-calendar .tribe-events-has-events.tribe-mini-calendar-today,
+.tribe-mini-calendar .tribe-events-has-events.tribe-mini-calendar-today:hover a:hover {
+	background: #666;
+}
+
+.tribe-mini-calendar .tribe-events-has-events.tribe-mini-calendar-today a {
+	color: #fff;
+}
+
+.tribe-mini-calendar .tribe-events-has-events.tribe-mini-calendar-today .tribe-mini-calendar-day-link:after {
+	background: #fff;
 }
 
 .tribe-mini-calendar-nav {
 	text-align     : center;
 	vertical-align : middle;	
-	border         : 1px solid #ffffff;
+	border         : 1px solid #bbb;
 	background     : #f3f3f3;
 }
 
@@ -80,10 +76,24 @@
 .tribe-mini-calendar-nav .tribe-mini-calendar-nav-link {
 	display:inline-block;
 	color:#999;
+	padding: 5px;
 }
 
 .tribe-mini-calendar-nav .tribe-mini-calendar-nav-link:hover {
 	color:#6fb7ff;
+}
+
+.tribe-mini-calendar-day-link:after {
+	content: '';
+	display: block;
+	height: 7px;
+	width: 7px;
+	padding: 0;
+	border-radius: 7px;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	background: #333333;
+	margin: 5px auto 0 auto;
 }
 
 .tribe-mini-calendar-nav #ajax-loading-mini {
@@ -120,6 +130,7 @@
 	width: 15%;
 	text-align:center;
 	display: inline;
+	background: #666;
 }
 
 .tribe-mini-calendar-event .list-info { 
@@ -130,14 +141,12 @@
 	width: 80%;
 }
 
-
 .tribe-mini-calendar-event .list-date .list-dayname {
 	display : none;
 }
 
 .tribe-mini-calendar-event .list-date .list-daynumber {
-	background: #888;
-	color      : #ffffff;
+	color      : #fff;
 	font-size  : 15px;
 	width: 100%;
 	height     : 25px;
@@ -152,18 +161,6 @@
 	line-height:18px;
 	margin-top: 0;
 }
-
-.tribe-mini-calendar-event.first .list-info h2 {		
-}
-
-.tribe-mini-calendar-event .list-info h2 a {
-	/*color     : #2f2f2f;*/
-}
-
-.tribe-mini-calendar-event .list-info h2 a:hover {
-	/*color     : #1182fa;*/
-}
-
 .tribe-mini-calendar-event .list-info p {
 	margin:5px 0;
 	display:none;
@@ -175,30 +172,6 @@
 
 .tribe-mini-calendar-event .list-info span a {
 	font-size: 11px;
-}
-
-/* wide mode css */
-
-.tribe-mini-calendar-title.layout-wide {
-	width:620px;
-}
-
-.tribe-mini-calendar-wrapper.layout-wide {
-	position:relative;
-	width:620px;
-	overflow:hidden;	
-}
-
-.tribe-mini-calendar-wrapper.layout-wide .tribe-mini-calendar-event.first,
-.tribe-mini-calendar-wrapper.layout-wide .tribe-mini-calendar-event.last {
-	border:0;
-}
-
-.tribe-mini-calendar-wrapper.layout-wide .tribe-mini-calendar-right {
-	position:absolute;
-	top:20px; 
-	right:0;
-	width:300px;
 }
 
 .tribe_mini_calendar_widget a.tribe-events-button {

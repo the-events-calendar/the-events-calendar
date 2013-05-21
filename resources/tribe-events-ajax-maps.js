@@ -1,6 +1,6 @@
-(function ($, td, te, tf, tg, ts, tt) {
+(function ($, td, te, tf, tg, ts, tt, dbug) {
 
-	$.extend(tf, {
+	$.extend(tribe_ev.fn, {
 		map_add_marker: function (lat, lng, title, address, link) {
 			var myLatlng = new google.maps.LatLng(lat, lng);
 
@@ -404,6 +404,9 @@
 					ts.paged = 1;
 					spin_start();
 
+					// hide pagination on submit
+					$('.tribe-events-sub-nav').remove();
+
 					var val = $('#tribe-bar-geoloc').val();
 
 					if (val !== '') {
@@ -467,6 +470,8 @@
 			});
 		}
 
+		dbug && debug.info('tribe-events-ajax-maps.js successfully loaded');
+
 	});
 
-})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.geoloc, tribe_ev.state, tribe_ev.tests);
+})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.geoloc, tribe_ev.state, tribe_ev.tests, tribe_debug);

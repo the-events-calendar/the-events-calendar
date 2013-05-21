@@ -10,7 +10,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 if( !class_exists( 'TribeEventsAdvancedListWidget' ) ) {
 	class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
-				
+
 		function TribeEventsAdvancedListWidget() {
 			/* Widget settings. */
 			$widget_ops = array( 'classname' => 'tribe-events-adv-list-widget', 'description' => __( 'A widget that displays the next upcoming x events.', 'tribe-events-calendar-pro' ) );
@@ -19,10 +19,10 @@ if( !class_exists( 'TribeEventsAdvancedListWidget' ) ) {
 			$control_ops = array( 'id_base' => 'tribe-events-adv-list-widget' );
 
 			/* Create the widget. */
-			$this->WP_Widget( 'tribe-events-adv-list-widget', 'Events List Advanced Widget', $widget_ops, $control_ops );
-	
+			$this->WP_Widget( 'tribe-events-adv-list-widget', __( 'Events List', 'tribe-events-calendar-pro' ), $widget_ops, $control_ops );
+
 		}
-	
+
 		function widget( $args, $instance ) {
 			// Use parent's output function with the premium template.
 			return parent::widget_output( $args, $instance, 'list-widget', 'widgets', 'pro', TribeEventsPro::instance()->pluginPath );
@@ -45,10 +45,10 @@ if( !class_exists( 'TribeEventsAdvancedListWidget' ) ) {
 			$instance['organizer'] = $new_instance['organizer'];
 			return $instance;
 		}
-	
-		function form( $instance ) {				
+
+		function form( $instance ) {
 			/* Set up default widget settings. */
-			$defaults = array( 'title' => 'Upcoming Events', 'limit' => '5', 'no_upcoming_events' => false, 'venue' => false, 'country' => true, 'address' => false, 'city' => true, 'region' => true, 'zip' => false, 'phone' => false, 'cost' => false,'category' => false, 'organizer' => false);
+			$defaults = array( 'title' => __( 'Upcoming Events', 'tribe-events-calendar-pro' ), 'limit' => '5', 'no_upcoming_events' => false, 'venue' => false, 'country' => true, 'address' => false, 'city' => true, 'region' => true, 'zip' => false, 'phone' => false, 'cost' => false,'category' => false, 'organizer' => false);
 			$instance = wp_parse_args( (array) $instance, $defaults );
 			include( TribeEventsPro::instance()->pluginPath . 'admin-views/widget-admin-advanced-list.php' );
 		}

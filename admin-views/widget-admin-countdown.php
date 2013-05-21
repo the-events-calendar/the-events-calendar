@@ -18,7 +18,7 @@ foreach ($events as $event )
 <?php } ?>
 </select>
 </p>
-<p><label for="<?php echo $this->get_field_id('show_seconds'); ?>"><?php _e('Show seconds?','tribe-events-calendar-pro'); ?></label>
+<p><label for="<?php echo $this->get_field_id('show_seconds'); ?>"><?php _e('Show seconds:','tribe-events-calendar-pro'); ?></label>
 <input class="checkbox" type="checkbox" value="1" <?php checked( $instance['show_seconds'], true ); ?> id="<?php echo $this->get_field_id( 'show_seconds' ); ?>" name="<?php echo $this->get_field_name('show_seconds'); ?>" />
 </p>
 <p><label for="<?php echo $this->get_field_id('complete'); ?>"><?php _e('Countdown Completed Text:', 'tribe-events-calendar-pro'); ?></label>

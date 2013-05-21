@@ -5,9 +5,9 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 	function __construct() {
 
 		$widget_ops = array( 'classname'   => 'tribe_mini_calendar_widget',
-		                     'description' => __( 'The events calendar mini calendar widget' ) );
+		                     'description' => __( 'The events calendar mini calendar widget', 'tribe-events-calendar-pro' ) );
 
-		parent::__construct( 'tribe-mini-calendar', __( 'Events Calendar' ), $widget_ops );
+		parent::__construct( 'tribe-mini-calendar', __( 'Events Calendar', 'tribe-events-calendar-pro' ), $widget_ops );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_scripts' ) );
 
@@ -27,8 +27,8 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 		add_filter( 'tribe_events_list_show_ical_link', '__return_false' );
 
 		echo $args['before_widget'];
-		
-		$defaults = array( 'title' => 'Events Calendar', 'count' => 5, 'filters' => null, 'operand' => 'OR' );
+
+		$defaults = array( 'title' => __( 'Events Calendar', 'tribe-events-calendar-pro' ), 'count' => 5, 'filters' => null, 'operand' => 'OR' );
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
 		$tax_query = TribeEventsMiniCalendar::instance()->get_tax_query_from_widget_options( json_decode( $instance['filters'] ), $instance['operand'] );
@@ -56,7 +56,7 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 	}
 
 	function form( $instance ) {
-		$defaults = array( 'title' => 'Events Calendar', 'layout' => "tall", 'count' => 5, 'operand' => 'OR', 'filters' => null );
+		$defaults = array( 'title' => __( 'Events Calendar', 'tribe-events-calendar-pro' ), 'layout' => "tall", 'count' => 5, 'operand' => 'OR', 'filters' => null );
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
 		$taxonomies = get_object_taxonomies( TribeEvents::POSTTYPE, 'objects' );

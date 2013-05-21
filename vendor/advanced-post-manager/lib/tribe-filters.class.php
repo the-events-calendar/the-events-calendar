@@ -15,7 +15,6 @@ class Tribe_Filters {
 	const FILTER_META = '_post_type';
 
 	private $filtered_post_type;
-	private $textdomain = 'tribe-apm';
 
 	private $filters = array();
 	private $active = array();
@@ -28,54 +27,15 @@ class Tribe_Filters {
 	private $is_pre;
 	private $val_pre;
 
-	private $query_options = array(
-		'is' => 'Is',
-		'not' => 'Is Not',
-		'gt' => '>',
-		'lt' => '<',
-		'gte' => '>=',
-		'lte' => '<='
-	);
+	private $query_options;
 
-	private $query_options_map = array( // turn into SQL comparison operators
-		'is' => '=',
-		'not' => '!=',
-		'gt' => '>',
-		'lt' => '<',
-		'gte' => '>=',
-		'lte' => '<=',
-		'like' => 'LIKE'
-	);
+	private $query_options_map;
 
-	private $query_search_options = array(
-		'like' => 'Search',
-		'is' => 'Is',
-		'not' => 'Is Not',
-		'gt' => '>',
-		'lt' => '<',
-		'gte' => '>=',
-		'lte' => '<='
-	);
+	private $query_search_options;
 
-	private $filters_example = array(
-		'filter_key' => array(
-			'name' => 'Member Type', // text label
-			'meta' => '_type', // the meta key to query
-			'taxonomy' => 'some_taxonomy',// the taxonomy to query. Would never be set alongside meta above
-			'options' => array( // options for a meta query. Restricts them.
-				'cafe' => 'Cafe',
-				'desk' => 'Private Desk',
-				'office' => 'Office'
-			)
-		)
-	);
+	private $filters_example;
 
-	private $active_example = array(
-		'filter_key' => array( // array key corresponds to key in $filters
-			'value' => 'what i’m querying. probably a key in the options array in $filters',
-			'query_option' => 'is/is not,etc.'
-		)
-	);
+	private $active_example;
 
 	/**
 	 * Constructor function is critical.
@@ -87,10 +47,59 @@ class Tribe_Filters {
 	private $saved_active = false;
 
 	public function __construct( $post_type, $filters = array() ) {
+
+		$this->query_options = array(
+			'is' => __('Is','tribe-apm'),
+			'not' => __('Is Not','tribe-apm'),
+			'gt' => '>',
+			'lt' => '<',
+			'gte' => '>=',
+			'lte' => '<='
+		);
+
+		$this->query_options_map = array( // turn into SQL comparison operators
+			'is' => '=',
+			'not' => '!=',
+			'gt' => '>',
+			'lt' => '<',
+			'gte' => '>=',
+			'lte' => '<=',
+			'like' => __('LIKE','tribe-apm')
+		);
+
+		$this->query_search_options = array(
+			'like' => __('Search','tribe-apm'),
+			'is' => __('Is','tribe-apm'),
+			'not' => __('Is Not','tribe-apm'),
+			'gt' => '>',
+			'lt' => '<',
+			'gte' => '>=',
+			'lte' => '<='
+		);
+
+		$this->filters_example = array(
+			'filter_key' => array(
+				'name' => __('Member Type','tribe-apm'), // text label
+				'meta' => '_type', // the meta key to query
+				'taxonomy' => 'some_taxonomy',// the taxonomy to query. Would never be set alongside meta above
+				'options' => array( // options for a meta query. Restricts them.
+					'cafe' => __('Cafe','tribe-apm'),
+					'desk' => __('Private Desk','tribe-apm'),
+					'office' => __('Office','tribe-apm')
+				)
+			)
+		);
+
+		$this->active_example = array(
+			'filter_key' => array( // array key corresponds to key in $filters
+				'value' => __('what i’m querying. probably a key in the options array in $filters','tribe-apm'),
+				'query_option' => 'is/is not,etc.'
+			)
+		);
+
 		$this->filtered_post_type = $post_type;
 		$this->set_filters( $filters );
-		
-		$this->textdomain = apply_filters( 'tribe_apm_textdomain', $this->textdomain );
+
 		$this->url = trailingslashit( plugins_url( '', __FILE__ ) );
 		$this->add_actions_and_filters();
 
@@ -511,7 +520,7 @@ class Tribe_Filters {
 		$url = str_replace('balderdash', '', $url);
 
 		$sel = '<select id="tribe-saved-filters" name="tribe-saved-filters" data:submit_url="' . $url . '">';
-		$sel .= '<option value="0">'. __('Choose a Saved Filter', $this->textdomain) .'</option>';
+		$sel .= '<option value="0">'. __('Choose a Saved Filter', 'tribe-apm') .'</option>';
 		foreach ( $filters as $filter ) {
 			$selected = ( $this->saved_active && $this->saved_active->ID == $filter->ID ) ? ' selected="selected" ' : '';
 			$sel .= "<option value='{$filter->ID}' {$selected}>{$filter->post_title}</option>";
@@ -627,7 +636,7 @@ class Tribe_Filters {
 	protected function inactive_dropdown() {
 		$inactive = $this->inactive;
 		echo '<select name="tribe-filters-inactive" id="tribe-filters-inactive">';
-		echo '<option value="0">'.__('Add a Filter', $this->textdomain).'</option>';
+		echo '<option value="0">'.__('Add a Filter', 'tribe-apm').'</option>';
 		foreach ( $inactive as $k => $v ) {
 			echo $this->dropdown_row($k,$v);
 		}
