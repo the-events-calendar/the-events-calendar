@@ -450,6 +450,13 @@
             '</thead>',
         contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>'
     };
+    
+    // HACK: Localizes the datepicker strings based on the Wordpress date strings
+    // (though passed by way of Modern Tribe's The Events Calendar plugin).
+	if ( tribe_bootstrap_datepicker_strings.dates != null ) {
+		DPGlobal.dates = tribe_bootstrap_datepicker_strings.dates;
+	}
+    
     DPGlobal.template = '<div class="datepicker dropdown-menu">'+
         '<div class="datepicker-days">'+
         '<table class=" table-condensed">'+

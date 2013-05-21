@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-20 02:24-0600\n"
-"PO-Revision-Date: 2013-05-20 02:24-0600\n"
-"Last-Translator: Modern Tribe, Inc. <pro@tri.be>\n"
+"PO-Revision-Date: 2013-05-20 02:43-0600\n"
+"Last-Translator: Modern Tribe Inc. <pro@tri.be>\n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../admin-views/app-shop.php:4
@@ -35,9 +35,8 @@ msgid "Last Update"
 msgstr "آخر تحديث"
 
 #: ../admin-views/event-sidebar-options.php:11
-#, fuzzy
 msgid "Hide From Event Listings"
-msgstr "إخفاء من قائمة الأحداث القادمة"
+msgstr ""
 
 #: ../admin-views/event-sidebar-options.php:12
 msgid "Sticky in Calendar View"
@@ -428,11 +427,10 @@ msgid "Events template"
 msgstr ""
 
 #: ../admin-views/tribe-options-display.php:70
-#, fuzzy
 msgid ""
 "Choose a page template to control the appearance of your calendar and event "
 "content."
-msgstr "اختر قالب للصفحة للتحكم في شكل الأجندة."
+msgstr ""
 
 #: ../admin-views/tribe-options-display.php:78
 msgid "Enable event views"
@@ -466,13 +464,10 @@ msgid "Add HTML before event content"
 msgstr ""
 
 #: ../admin-views/tribe-options-display.php:106
-#, fuzzy
 msgid ""
 "If you are familiar with HTML, you can add additional code before the event "
 "template. Some themes may require this to help with styling or layout."
 msgstr ""
-"إذا كانت لديك دراية بال CSS  يمكنك استخدام هذا الحقل لإضافة بعض الأكواد قبل "
-"الأجندة. بعض القوالب تحتاج إلي هذا للمساعدة في تهيئة الشكل."
 
 #
 #: ../admin-views/tribe-options-display.php:111
@@ -480,13 +475,10 @@ msgid "Add HTML after event content"
 msgstr ""
 
 #: ../admin-views/tribe-options-display.php:112
-#, fuzzy
 msgid ""
 "If you are familiar with HTML, you can add additional code after the event "
 "template. Some themes may require this to help with styling or layout."
 msgstr ""
-"إذا كانت لديك دراية بال CSS  يمكنك استخدام هذا الحقل لإضافة بعض الأكواد بعد "
-"الأجندة. بعض القوالب تحتاج إلي هذا للمساعدة في تهيئة الشكل."
 
 #: ../admin-views/tribe-options-general.php:14
 msgid "Finding & extending your calendar."
@@ -522,16 +514,12 @@ msgid "We hope our plugin is helping you out."
 msgstr "نتمني أن تكون الإضافة مفيدة لك."
 
 #: ../admin-views/tribe-options-general.php:37
-#, fuzzy
 msgid ""
 "Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
 "Modern Tribe for all their hard work.\" The greatest thanks we could ask for "
 "is recognition. Add a small text-only link at the bottom of your calendar "
 "pointing to The Events Calendar project."
 msgstr ""
-"هل تفكر \"رائع, هذه الإضافة مذهلة و يجب علي أن أقول شكراً لفريق  Modern Tribe "
-"علي كل المجهود المبذول فيها .\" أفضل طريقة شكر نتطلع إليها هي الإشادة من "
-"خلال وضع نص قصير يحتوي علي رابط إلي موقعنا في نهاية الصفحة."
 
 #: ../admin-views/tribe-options-general.php:37
 #: ../admin-views/tribe-options-general.php:42
@@ -597,15 +585,13 @@ msgid "Events URL slug"
 msgstr "نص رابط الأحداث"
 
 #: ../admin-views/tribe-options-general.php:94
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You cannot edit the slug for your events page as you do not have pretty "
 "permalinks enabled. The current URL for your events page is <a href=\"%s\">"
 "%s</a>. In order to edit the slug here, <a href=\"%soptions-permalink.php"
 "\">enable pretty permalinks</a>."
 msgstr ""
-"لا يمكنك تعديل نص رابط الأحداث لأنك لم تقم بتهيئة الروابط الدائمة.  الرابط "
-"الحالي لصفحة الأحداث هو <a href=\" "
 
 #: ../admin-views/tribe-options-general.php:106
 #: ../public/template-tags/options.php:20
@@ -628,14 +614,11 @@ msgid "Single event URL slug"
 msgstr ""
 
 #: ../admin-views/tribe-options-general.php:123
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The above should ideally be plural, and this singular.<br />Your single "
 "event URL is: %s"
 msgstr ""
-"أنت <strong>لا تستطيع</strong> استخدام نفس نصر الرابط كما بالأعلي. الأعلي "
-"يفضل أن يكون في صيغة الجمع, و هذا في صيغة المفرد.<br />نص الرابط المفرد هو : "
-"%s"
 
 #: ../admin-views/tribe-options-general.php:128
 msgid "End of day cutoff"
@@ -786,7 +769,7 @@ msgid "Forums"
 msgstr "المنتديات"
 
 #: ../admin-views/tribe-options-help.php:96
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "If this is your first time using The Events Calendar,you're in for a treat. "
 "You're going to find it super-easy to get up and running with managing your "
@@ -796,17 +779,9 @@ msgid ""
 "down first?</strong> Visit our <a href=\"%s\">new user primer</a>,  designed "
 "to help familiarize you with the plugin basics.</li></ul>"
 msgstr ""
-"إذا كانت هذه هي المرة الأولي التي تستخدم فيها أجندة الأحداث فأنت محظوظ. ستجد "
-"الأمر في منتهي السهولة لتبدأ.هذه بعض الطرق لمساعدتك علي البدء:</"
-"p><ul><li><strong>لديك روح المغامرة?</strong> توجه إلي قائمة الأحداث لكي  "
-"%sتضيف أول حدث%s.</li><li><strong>تريد أن تأخذ الأمر بتهمل؟</strong> قم "
-"بزيارة <a href=\"http://tri.be/support/documentation/events-calendar-pro-new-"
-"user-primer/?utm_source=helptab&amp;utm_medium=promolink&amp;"
-"utm_campaign=plugin\">البداية للمستخدم  الجديد</a>,المصمم من أجلك لمساعدتك "
-"علي لتعرفك علي الأساسيات الخاصة بالإضافة."
 
 #: ../admin-views/tribe-options-help.php:99
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "<p>We love all our users and want to help free & PRO customers alike. If "
 "you're running the latest version of The Events Calendar and are having "
@@ -814,10 +789,6 @@ msgid ""
 "week to look for legitimate bug reports and do what we can to assist users.</"
 "p>"
 msgstr ""
-"نحن نحب جميع مستخدمينا و نرغب في مساعدة عملاء النسخة المجانية و الإحترافية "
-"علي حد سواء. إذا كنت تستعمل النسخة الأحدث من أجندة الأحداث و تعاني من مشاكل, "
-"قم بإنشاء طلب مساعدة %s علي موقع ووردبريس. نحن نزور المنتدي عدة مرات "
-"أسبوعياص و نفعل ما  بوسعنا لمساعدة المستخدمين."
 
 #: ../admin-views/tribe-options-help.php:99
 msgid "forum for The Events Calendar"
@@ -836,16 +807,12 @@ msgid "A few things to keep in mind before posting:"
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:103
-#, fuzzy
 msgid ""
 "Search recent threads before posting a new one to check that there isn't "
 "already a discussion about your issue."
 msgstr ""
-"%sقم بالبحث في الموضوعات الموجودة بالفعل قبل البدء في إنشاء واحد جديد لتتأكد "
-"من عدم وجود موضوع يناقش مشكلتك نفسها .%s"
 
 #: ../admin-views/tribe-options-help.php:104
-#, fuzzy
 msgid ""
 "Check whether the issue is a conflict with another plugin or your theme. "
 "This can be tested easily on a staging site by deactivating other plugins "
@@ -853,41 +820,29 @@ msgid ""
 "conflicts can be easily identified. If you find a conflict, note it in a "
 "support thread."
 msgstr ""
-"%sحاول التأكد إن كانت المشكلة هي تعارض مع إضافة أخري أو التملبيت الخاص بك. "
-"من الممكن معرفة ذلك بسهولة عن طريق تعطيل الإضافات واحدة تلو الأخري و العودة "
-"للقالب الإفتراضي 2011 لتري إن كان من الممكن معرفة سبب المشكلة. .فإذا لاحظت "
-"تعارض إذكر ذلك أثناء كتابة طلب الدعم.%s"
 
 #: ../admin-views/tribe-options-help.php:105
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Sometimes, resaving your permalinks (under <a href=\"%s\">Settings > "
 "Permalinks</a>) can resolve events-related problems on your site. Before "
 "creating a new thread try this handy trick."
 msgstr ""
-"%sإحياناً يقوم  إعادة حفظ الروابط الدائمة (قائمة إعدادات -> روابط دائمة) بحل "
-"بعض المشكلات علي موقعك.لذا نرجو أن تجرب هذا قبل الكتابة إلينا%s"
 
 #: ../admin-views/tribe-options-help.php:107
-#, fuzzy
 msgid ""
 "While we are happy to help with bugs and provide light integration tips for "
 "users of The Events Calendar, on the WordPress.org support forums we're not "
 "able to provide customization tips or assist in integration with 3rd party "
 "plugins."
 msgstr ""
-"%sبينما نكون سعداء بمساعدتك في التخلص من أي عقبات تواجهك و تقديم بعض النصائح "
-"لمستخدمينا علي منتدي المساعدة الخاص بووردبريس فإننا لا نستطيع تقديم المساعدة "
-"لتهيئة الأجندة لتعمل مع الإضافات الأخري..%s"
 
 #: ../admin-views/tribe-options-help.php:109
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Shoot us an email at %s or tweet %s and tell us why. We'll do what we can to "
 "make it right."
 msgstr ""
-"%sارسل لنا علي البريد الإلكتروني  %s أو تويتر %s و أخبرنا بالمشكلة. و سنبذل "
-"ما نستطيع لتصحيح الأمر.%s"
 
 #: ../admin-views/tribe-options-help.php:110
 msgid "More..."
@@ -1092,7 +1047,7 @@ msgid "Licenses"
 msgstr "تراخيص"
 
 #: ../lib/the-events-calendar.class.php:627
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "<p>The license key you received when completing your purchase from http://"
 "tri.be will grant you access to support and updates until it expires. You do "
@@ -1107,20 +1062,6 @@ msgid ""
 "your license.</p><p>Not seeing an update but expecting one? In WordPress, go "
 "to <a href=\"%s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
 msgstr ""
-"مفتاح الترخيص الذي حصلت عليه عند إتمام الشراء يتيح لك الحق في الحصول علي "
-"الدعم و التحديثات. لا تحتاج إلي إدخال المفتاح لكل تعمل الإضافة و لكنك تحتاجه "
-"لكي تحصل علي التحديثات التلقائية و لن يستطيع فريق الدعم مساعدتك إلا إذا كان "
-"المفتاح موجود. .</p><p>كل إضافة لها المفتاح الخاص بها. ببساطة انسخ المفتاح "
-"في الحقل المقابل  له من القائمة التالية و تمهل لحظات للتحقق. ستعرف أنك جاهز "
-"عندما يظهر تاريخ إنتهاء صلاحية باللون الأخضر بجوار  \"valid\" رسالة.</"
-"p><p>إذا ظهرت لك رسالة باللون الأحمر فهذا يعني  أن المفتاح غير صالح أو تعديت "
-"عدد مرات الثبيت المسموح بها و هذا يعني أن المفتاح غير مقبول. قم بزيارة <a "
-"href=\"http://tri.be\">http://tri.be</a>, سجل الدخول و انتقل إلي  <i>Account "
-"Central > Licenses</i> علي موقع tri.be لتري إن كان المفتاح مرتبط بموقع آخر "
-"أو قد تعدي فترة الصلاحية الخاصة به.. للمزيد عن التحديث التلقائي و استخدام "
-"المفتاح الخاص بك تفضل بزيارة <a href=\"http://tri.be/updating-the-plugin/"
-"\">هذه التدوينة</a>.</p><p>لا تري تحديث و لكن تنتظره وجوده? في ووردبريس اذهب "
-"إلي <i>لوحة التحكم > تحديثات</i> واضغط علي \"Check Again\"."
 
 #: ../lib/the-events-calendar.class.php:643
 msgid "General"
@@ -1603,13 +1544,10 @@ msgid "Additional Functionality"
 msgstr "خواص إضافية"
 
 #: ../lib/the-events-calendar.class.php:3267
-#, fuzzy
 msgid ""
 "Looking for additional functionality including recurring events, ticket "
 "sales, publicly submitted events, new views and more?"
 msgstr ""
-"هل تبحث عن خواص إضافية مثل أحداث متكررة, حقول مخصصة, أحداث المجتمع و بيع "
-"التذاكر و غيرها؟"
 
 #: ../lib/the-events-calendar.class.php:3267
 #, php-format
@@ -1812,18 +1750,18 @@ msgid "There  were no results found for <strong>\"%s\"</strong>."
 msgstr ""
 
 #: ../lib/tribe-template-factory.class.php:153
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "listed under %s. Check out past events for this category or view the full "
 "calendar."
-msgstr "مصنف تحت %s. شاهد الأحداث الماضية لهذا التصنيف أو شاهد الأجندة كاملة."
+msgstr ""
 
 #: ../lib/tribe-template-factory.class.php:155
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "listed under %s. Check out upcoming events for this category or view the "
 "full calendar."
-msgstr "مصنف تحت %s. شاهد الأحداث التالية لهذا التصنيف أو شاهد الأجندة كاملة."
+msgstr ""
 
 #: ../lib/tribe-template-factory.class.php:159
 #, php-format
@@ -3160,9 +3098,8 @@ msgid "A widget that displays upcoming events."
 msgstr ""
 
 #: ../lib/widget-list.class.php:22
-#, fuzzy
 msgid "Events List"
-msgstr "تكلفة الحدث"
+msgstr ""
 
 #: ../lib/widget-list.class.php:92
 msgid "View All Events"

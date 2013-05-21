@@ -227,7 +227,7 @@ var tribe_events_bar_action;
 		$tribeDropToggleEl.click(function (e) {
 			e.stopPropagation();
 		});
-
+		tribe_debug && debug.info('tribe-events-bar.js successfully loaded');
 	});
 
 })(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests);

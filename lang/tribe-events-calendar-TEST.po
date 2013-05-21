@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-20 02:24-0600\n"
-"PO-Revision-Date: 2013-05-20 02:24-0600\n"
-"Last-Translator: Modern Tribe, Inc. <pro@tri.be>\n"
+"PO-Revision-Date: 2013-05-20 02:46-0600\n"
+"Last-Translator: Modern Tribe Inc. <pro@tri.be>\n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../admin-views/app-shop.php:4
@@ -2997,7 +2997,6 @@ msgid "A widget that displays upcoming events."
 msgstr "XXXXX"
 
 #: ../lib/widget-list.class.php:22
-#, fuzzy
 msgid "Events List"
 msgstr "XXXXX"
 

@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-20 02:24-0600\n"
-"PO-Revision-Date: 2013-05-20 02:24-0600\n"
-"Last-Translator: Modern Tribe, Inc. <pro@tri.be>\n"
+"PO-Revision-Date: 2013-05-20 02:38-0600\n"
+"Last-Translator: Modern Tribe Inc. <pro@tri.be>\n"
 "Language-Team: DECKERWEB <deckerweb.mobil@googlemail.com>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../admin-views/app-shop.php:4
@@ -37,9 +37,8 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/event-sidebar-options.php:11
-#, fuzzy
 msgid "Hide From Event Listings"
-msgstr "これからのイベントリストに表示しない"
+msgstr ""
 
 #: ../admin-views/event-sidebar-options.php:12
 msgid "Sticky in Calendar View"
@@ -652,14 +651,11 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../admin-views/tribe-options-general.php:123
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The above should ideally be plural, and this singular.<br />Your single "
 "event URL is: %s"
 msgstr ""
-"<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The "
-"above should ideally be plural, and this singular.<br />Your single Event "
-"URL is like: <strong>%s</strong>"
 
 #: ../admin-views/tribe-options-general.php:128
 msgid "End of day cutoff"
@@ -1942,27 +1938,25 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../lib/tribe-template-factory.class.php:153
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "listed under %s. Check out past events for this category or view the full "
 "calendar."
-msgstr "これまでの %s イベントリストやイベントカレンダーを見ることができます。"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../lib/tribe-template-factory.class.php:155
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "listed under %s. Check out upcoming events for this category or view the "
 "full calendar."
-msgstr "これからの %s イベントリストやイベントカレンダーを見ることができます。"
+msgstr ""
 
 # @ default
 #: ../lib/tribe-template-factory.class.php:159
-#, fuzzy, php-format
+#, php-format
 msgid "No events scheduled for <strong>%s</strong>. Please try another day."
 msgstr ""
-"イベント公開日時: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">"
-"イベントのプレビューを見る</a>"
 
 # @ tribe-events-calendar
 #
@@ -3583,9 +3577,8 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../lib/widget-list.class.php:22
-#, fuzzy
 msgid "Events List"
-msgstr "イベントの費用"
+msgstr ""
 
 # @ tribe-events-calendar
 #: ../lib/widget-list.class.php:92
@@ -3825,14 +3818,11 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../public/template-tags/options.php:31
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You <strong>cannot</strong> use the same slug as above. The above should "
 "ideally be plural, and this singular.<br />Your single Event URL is like: %s"
 msgstr ""
-"<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. The "
-"above should ideally be plural, and this singular.<br />Your single Event "
-"URL is like: <strong>%s</strong>"
 
 # @ tribe-events-calendar
 #
@@ -3892,6 +3882,5 @@ msgstr ""
 
 # @ tribe-events-calendar
 #: ../views/month/nav.php:19
-#, fuzzy
 msgid "Calendar Month Navigation"
-msgstr "イベントカレンダー"
+msgstr ""

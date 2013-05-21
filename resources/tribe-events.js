@@ -1,3 +1,90 @@
+/** @define {boolean} */
+var tribe_debug = true;
+
+if(tribe_debug){
+
+	window.debug = (function () {
+		var window = this,
+			aps = Array.prototype.slice,
+			con = window.console,
+			that = {},
+			callback_func,
+			callback_force,
+			log_level = 9,
+			log_methods = [ 'error', 'warn', 'info', 'debug', 'log' ],
+			pass_methods = 'assert clear count dir dirxml exception group groupCollapsed groupEnd profile profileEnd table time timeEnd trace'.split(' '),
+			idx = pass_methods.length,
+			logs = [];
+
+		while (--idx >= 0) {
+			(function (method) {
+
+				that[ method ] = function () {
+					log_level !== 0 && con && con[ method ]
+					&& con[ method ].apply(con, arguments);
+				}
+
+			})(pass_methods[idx]);
+		}
+
+		idx = log_methods.length;
+		while (--idx >= 0) {
+			(function (idx, level) {
+
+				that[ level ] = function () {
+					var args = aps.call(arguments),
+						log_arr = [ level ].concat(args);
+
+					logs.push(log_arr);
+					exec_callback(log_arr);
+
+					if (!con || !is_level(idx)) {
+						return;
+					}
+
+					con.firebug ? con[ level ].apply(window, args)
+						: con[ level ] ? con[ level ](args)
+						: con.log(args);
+				};
+
+			})(idx, log_methods[idx]);
+		}
+
+		function exec_callback(args) {
+			if (callback_func && (callback_force || !con || !con.log)) {
+				callback_func.apply(window, args);
+			}
+		};
+
+		that.setLevel = function (level) {
+			log_level = typeof level === 'number' ? level : 9;
+		};
+
+		function is_level(level) {
+			return log_level > 0
+				? log_level > level
+				: log_methods.length + log_level <= level;
+		};
+
+		that.setCallback = function () {
+			var args = aps.call(arguments),
+				max = logs.length,
+				i = max;
+
+			callback_func = args.shift() || null;
+			callback_force = typeof args[0] === 'boolean' ? args.shift() : false;
+
+			i -= typeof args[0] === 'number' ? args.shift() : max;
+
+			while (i < max) {
+				exec_callback(logs[i++]);
+			}
+		};
+
+		return that;
+	})();
+}
+
 /**
  * @global
  * @desc Test for localstorage support. Returns false if not available and tribe_storage as a method if true.
@@ -16,13 +103,6 @@ try {
     tribe_storage.removeItem(t_uid);
     t_fail && (tribe_storage = false);
 } catch (e) {}
-
-/**
- * @global
- * @desc Variable used when live ajax is on for delay interval.
- */
-
-var tribe_ajax_timer;
 
 /**
  * @external "jQuery.fn"
@@ -288,7 +368,7 @@ var tribe_ev = window.tribe_ev || {};
         /**
          * @function tribe_ev.fn.serialize
          * @since 3.0
-         * @desc tribe_ev.fn.serialize serializes the passed input types. Enable/disable flow in place to protect inputs during process, especially for live ajax mode.
+         * @desc tribe_ev.fn.serialize serializes the passed input types. Enable/disable stack in place to protect inputs during process, especially for live ajax mode.
          * @param {String} form The form element.
          * @param {String} type The input types to be serialized.
          * @returns {String} Returns a param string of populated inputs.
@@ -301,6 +381,21 @@ var tribe_ev = window.tribe_ev || {};
             tribe_ev.fn.disable_inputs(form, type);
             return params;
         },
+		/**
+		 * @function tribe_ev.fn.set_form
+		 * @since 3.0
+		 * @desc tribe_ev.fn.set_form takes a param string and sets the even
+		 * @param {String} params The params to be looped over and applied to a matching input. Needed for back button browser history when forms are outside of the ajax area.
+		 * @example
+		 * $(window).on('popstate', function (event) {
+		 *		var state = event.originalEvent.state;
+		 *		if (state) {
+		 *		 	tribe_ev.state.params = state.tribe_params;
+		 *		 	// do something magical to restore query state like ajax, then set the forms to match the history state like so:
+		 *			tribe_ev.fn.set_form(tribe_ev.state.params);
+		 *		}
+		 *	});
+		 */
         set_form: function (params) {
             $('body').addClass('tribe-reset-on');
 
@@ -312,8 +407,8 @@ var tribe_ev = window.tribe_ev || {};
 
             $.each(params, function (key, value) {
                 if (key !== 'action') {
-                    var name = decodeURI(key);
-                    var $target = '';
+                    var name = decodeURI(key),
+						$target = '';
                     if (value.length === 1) {
                         if ($('[name="' + name + '"]').is('input[type="text"], input[type="hidden"]')) {
                             $('[name="' + name + '"]').val(value);
@@ -338,11 +433,13 @@ var tribe_ev = window.tribe_ev || {};
             $('body').removeClass('tribe-reset-on');
         },
         setup_ajax_timer: function (callback) {
-            clearTimeout(tribe_ajax_timer);
+			var timer = 500;
+            clearTimeout(tribe_ev.state.ajax_timer);
             if (!tribe_ev.tests.reset_on()) {
-                tribe_ajax_timer = setTimeout(function () {
+				tribe_ev.state.ajax_timer = setTimeout(function () {
                     callback();
-                }, 500);
+                }, timer);
+				tribe_debug && debug.debug('tribe_ev.fn.setup_ajax_timer fired with a timeout of ' + timer + ' ms');
             }
         },
         snap: function (container, trigger_parent, trigger) {
@@ -425,6 +522,7 @@ var tribe_ev = window.tribe_ev || {};
 
     tribe_ev.state = {
         ajax_running: false,
+		ajax_timer: 0,
         category: '',
         date: '',
         do_string: false,
@@ -447,6 +545,7 @@ var tribe_ev = window.tribe_ev || {};
 (function ($, td, te, tf, ts) {
 
 	$(document).ready(function () {
+
         $('#tribe-events').removeClass('tribe-no-js');
 		ts.category = tf.get_category();
 		td.base_url = tf.get_base_url();
@@ -478,5 +577,7 @@ var tribe_ev = window.tribe_ev || {};
 		$(te).on( 'tribe_ev_ajaxSuccess', function() {
 			$('.tribe-events-active-spinner').remove();
 		});
+
+		tribe_debug && debug.info('tribe-events.js successfully loaded');
 	});
 })(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state);

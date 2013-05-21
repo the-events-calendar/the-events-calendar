@@ -1435,11 +1435,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			global $current_screen;
 
 			// setup plugin resources & 3rd party vendor urls
-			$resouces_url = trailingslashit( $this->pluginUrl ) . 'resources/';
+			$resources_url = trailingslashit( $this->pluginUrl ) . 'resources/';
 			$vendor_url = trailingslashit( $this->pluginUrl ) . 'vendor/';
 
 			// admin stylesheet - always loaded for a few persistent things (e.g. icon)
-			wp_enqueue_style( self::POSTTYPE . '-admin', $resouces_url . 'events-admin.css' );
+			wp_enqueue_style( self::POSTTYPE . '-admin', $resources_url . 'events-admin.css' );
 
 			// settings screen
 			if (isset($current_screen->id) && $current_screen->id == 'settings_page_tribe-settings') {
@@ -3065,6 +3065,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_meta_box( 'Event Options', __('Event Options', 'tribe-events-calendar'), array( $this, 'eventMetaBox' ), self::POSTTYPE, 'side', 'default' );
 
 			add_meta_box( 'Venue Details', __('Venue Information', 'tribe-events-calendar'), array( $this, 'VenueMetaBox' ), self::VENUE_POST_TYPE, 'normal', 'high' );
+
+			if ( ! class_exists( 'TribeEventsPro' ) )
+				remove_meta_box( 'slugdiv', self::VENUE_POST_TYPE, 'normal' );
+
 			add_meta_box( 'Organizer Details', __('Organizer Information', 'tribe-events-calendar'), array( $this, 'OrganizerMetaBox' ), self::ORGANIZER_POST_TYPE, 'normal', 'high' );
 		}
 		public function eventMetaBox() {
@@ -3198,7 +3202,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 	            } elseif ( strpos( $anchor, '%title%' ) !== false ) {
 					$anchor = preg_replace( '|%title%|', $results->post_title, $anchor );
 				}
-				return apply_filters('tribe_events_get_event_link', '<a href='.tribe_get_event_link($results).'>'.$anchor.'</a>');
+				return apply_filters('tribe_events_get_event_link', '<a href="'.tribe_get_event_link($results).'">'.$anchor.'</a>');
 			}
 		}
 

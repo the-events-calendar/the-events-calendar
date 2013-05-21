@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-20 02:24-0600\n"
-"PO-Revision-Date: 2013-05-20 02:24-0600\n"
-"Last-Translator: Modern Tribe, Inc. <pro@tri.be>\n"
+"PO-Revision-Date: 2013-05-20 02:37-0600\n"
+"Last-Translator: Modern Tribe Inc. <pro@tri.be>\n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #
@@ -36,9 +36,8 @@ msgid "Last Update"
 msgstr ""
 
 #: ../admin-views/event-sidebar-options.php:11
-#, fuzzy
 msgid "Hide From Event Listings"
-msgstr "Verberg op de lijst met komende activiteiten"
+msgstr ""
 
 #: ../admin-views/event-sidebar-options.php:12
 msgid "Sticky in Calendar View"
@@ -425,12 +424,10 @@ msgid "Events template"
 msgstr ""
 
 #: ../admin-views/tribe-options-display.php:70
-#, fuzzy
 msgid ""
 "Choose a page template to control the appearance of your calendar and event "
 "content."
 msgstr ""
-"Kies een paginatemplate om de look & feel van je calender aan te passen."
 
 #: ../admin-views/tribe-options-display.php:78
 msgid "Enable event views"
@@ -612,14 +609,11 @@ msgid "Single event URL slug"
 msgstr ""
 
 #: ../admin-views/tribe-options-general.php:123
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The above should ideally be plural, and this singular.<br />Your single "
 "event URL is: %s"
 msgstr ""
-"<strong>LET OP:</strong> Je <em>kunt niet</em> dezelfde slug als hierboven "
-"gebruiken. de bovenste zou idealiter het meervoud van de onderste moeten "
-"zijn.<br />Je enkele activiteiten URL is: <strong>%s</strong>"
 
 #: ../admin-views/tribe-options-general.php:128
 msgid "End of day cutoff"
@@ -689,18 +683,13 @@ msgid "Debug mode"
 msgstr ""
 
 #: ../admin-views/tribe-options-general.php:185
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Enable this option to log debug information. By default this will log to "
 "your server PHP error log. If you'd like to see the log messages in your "
 "browser, then we recommend that you install the %s and look for the \"Tribe"
 "\" tab in the debug output."
 msgstr ""
-"Enable this option to log debug information. By default this will log to "
-"your server PHP error log. If you'd like to see the log messages in your "
-"browser, then we recommend that you install the <a href=\"%s\" target="
-"\"_blank\">Debug Bar Plugin</a> and look for the \"Tribe\" tab in the debug "
-"output."
 
 #: ../admin-views/tribe-options-general.php:185
 msgid "Debug Bar Plugin"
@@ -1549,13 +1538,10 @@ msgid "Additional Functionality"
 msgstr "Extra functionaliteit"
 
 #: ../lib/the-events-calendar.class.php:3267
-#, fuzzy
 msgid ""
 "Looking for additional functionality including recurring events, ticket "
 "sales, publicly submitted events, new views and more?"
 msgstr ""
-"Op zoek naar extra functionaliteiten, waaronder terugkerende activiteiten, "
-"gemeenschappelijke activiteiten, ticketverkoop en meer?"
 
 #: ../lib/the-events-calendar.class.php:3267
 #, php-format
@@ -1764,29 +1750,23 @@ msgid "There  were no results found for <strong>\"%s\"</strong>."
 msgstr ""
 
 #: ../lib/tribe-template-factory.class.php:153
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "listed under %s. Check out past events for this category or view the full "
 "calendar."
 msgstr ""
-"gesorteerd onder %s. Bekijk de vorige activiteiten voor deze categorie of "
-"bekijk de volledige kalender."
 
 #: ../lib/tribe-template-factory.class.php:155
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "listed under %s. Check out upcoming events for this category or view the "
 "full calendar."
 msgstr ""
-"gesorteerd onder %s. Bekijk de komende activiteiten voor deze categorie of "
-"bekijk de volledige kalender."
 
 #: ../lib/tribe-template-factory.class.php:159
-#, fuzzy, php-format
+#, php-format
 msgid "No events scheduled for <strong>%s</strong>. Please try another day."
 msgstr ""
-"Activiteit ingeplanned voor: <strong>%1$s</strong>. <a target=\"_blank\" "
-"href=\"%2$s\">Preview de activiteit</a>"
 
 #
 #: ../lib/tribe-template-factory.class.php:163
@@ -3110,9 +3090,8 @@ msgid "A widget that displays upcoming events."
 msgstr ""
 
 #: ../lib/widget-list.class.php:22
-#, fuzzy
 msgid "Events List"
-msgstr "Activiteitskosten"
+msgstr ""
 
 #: ../lib/widget-list.class.php:92
 msgid "View All Events"
@@ -3332,14 +3311,11 @@ msgid "Your current Events URL is %s"
 msgstr ""
 
 #: ../public/template-tags/options.php:31
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You <strong>cannot</strong> use the same slug as above. The above should "
 "ideally be plural, and this singular.<br />Your single Event URL is like: %s"
 msgstr ""
-"<strong>LET OP:</strong> Je <em>kunt niet</em> dezelfde slug als hierboven "
-"gebruiken. de bovenste zou idealiter het meervoud van de onderste moeten "
-"zijn.<br />Je enkele activiteiten URL is: <strong>%s</strong>"
 
 #
 #: ../views/single-event.php:31

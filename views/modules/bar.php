@@ -25,15 +25,18 @@ $views = tribe_events_get_views();
 
 	<form id="tribe-bar-form" class="tribe-clearfix" name="tribe-bar-form" method="post" action="<?php echo add_query_arg( array() ); ?>">
 
-		<!-- Filters -->
-		<div id="tribe-bar-collapse-toggle"><?php _e( 'Find Events', 'tribe-events-calendar' ) ?><span class="tribe-bar-toggle-arrow"></span></div>
+		<!-- Mobile Filters Toggle -->
+
+		<div id="tribe-bar-collapse-toggle" <?php if ( count( $views ) == 1 ) { ?> class="tribe-bar-collapse-toggle-full-width"<?php } ?>>
+			<?php _e( 'Find Events', 'tribe-events-calendar' ) ?><span class="tribe-bar-toggle-arrow"></span>
+		</div>
 
 		<!-- Views -->
 		<?php if ( count( $views ) > 1 ) { ?>
 		<div id="tribe-bar-views">
 			<div class="tribe-bar-views-inner tribe-clearfix">
 				<h3 class="tribe-events-visuallyhidden"><?php _e( 'Event Views Navigation', 'tribe-events-calendar' ) ?></h3>
-				<label><?php __( 'View As', 'tribe-events-calendar' ); ?></label><select class="tribe-select2 tribe-no-param" name="tribe-bar-view">
+				<label><?php _e( 'View As', 'tribe-events-calendar' ); ?></label><select class="tribe-select2 tribe-no-param" name="tribe-bar-view">
 					<?php foreach ( $views as $view ) : ?>
 						<option <?php echo tribe_is_view($view['displaying']) ? 'selected' : 'tribe-inactive' ?> value="<?php echo $view['url'] ?>" data-view="<?php echo $view['displaying'] ?>">
 							<?php echo $view['anchor'] ?>
