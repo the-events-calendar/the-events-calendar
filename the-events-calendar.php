@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: The Events Calendar
-Description: The Events Calendar is a fully featured event management system with multiple views, 3rd party integrations, and a slew of premium add-ons.
+Description: The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome.
 Version: 3.0-alpha
 Author: Modern Tribe, Inc.
 Author URI: http://tri.be?ref=tec-plugin

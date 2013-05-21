@@ -4,62 +4,77 @@ Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codea
 Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar, recurring, event, venue, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.3
-Tested up to: 3.5
-Stable tag: 2.0.11
+Tested up to: 3.6
+Stable tag: 3.0-Alpha
 
 == Description ==
 
-Create and manage events quickly and easily with The Events Calendar plugin. Show off your  events on your website in a calendar or an event list. Our advanced templating system makes it simple for you to integrate the calendar seamlessly with your website. Other features include Google Maps integration and an upcoming events widget. It's
-got everything you need to manage basic events from your WordPress website.
+Create and manage events with ease. Professional-level quality and features backed by a name you can trust. The Events Calendar will help you kick ass.
 
-Want more? We have a bunch of premium upgrades that let you create recurring events, sell tickets, manage conference schedules, accept user submitted events, create custom fields, and even integrate with Facebook. You can check out our <a href="http://tri.be/products/?ref=tec-readme">available premium and community add-ons</a>.
+The Events Calendar is built and supported by WordPress artisans Modern Tribe. Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views, Facebook event integration and more? <a href="http://tri.be/products/?utm_source=wordpressorg&utm_medium=descriptiontab&utm_campaign=readme&utm_content=premiumlink">Check out the available add-ons.</a>
 
-Just getting started? Check out our <a href="http://tri.be/new-user-primers/?ref=tec-readme">new user primer!</a>
+[new user primer or a custom video]
 
-= Features =
+= BUILT SOLID & SUPPORTED =
 
-* Easy-to-use event interface
-* Easily manage events
-* Upcoming Events Widget
-* Compatibility with Twenty Eleven and Twenty Ten Themes (month and list view)
-* Extensive template tags for customization
-* Multisite Compatible
-* Google Maps Integration
-* Calendar Month view with tooltips
-* Includes support for venue, cost, address, start and end time, google maps link
+The Events Calendar is crafted the WordPress way. 
 
-<a href="https://www.facebook.com/ModernTribeInc">Join us on Facebook</a> to be part of our active community, <a href="http://tri.be#newsletter">sign up for our newsletter</a> or check out <a href="http://tri.be/support/?ref=tec-readme">our support page</a>.
+Audited by many of the industry's WordPress experts including core developer Mark Jaquith for security & plugin review team member Pippin Williamson for best practices and plugin compatibility.
 
-= The Events Calendar PRO features =
+100s of hours of QA by a dedicated support team, monthly usability tests to guarantee that you can figure features out without help, and user interviews to make sure you get what you want. We care about quality and crafting products that thrive in the wild.
 
-* Recurring events
-* Save venues & organizers
-* Custom event attributes
-* Advanced events manager
-* Venue view
-* Single day view
-* Ajax calendar
-* Advanced widgets
-* Gcal / ical user download (import)
-* and lots more.
+The team at Modern Tribe stands by our work and offers free support once a week via the WordPress.org support forums, so feel free to ask a question if you're having a problem with implementation or bugs. Looking for help NOW? Upgrade to <a href="">a commercial plugin</a> and you get access to premium support forums with under 24hr response times on weekdays.
 
-<a href="http://tri.be/wordpress-events-calendar-pro/?ref=tec-readme">Grab a copy of The Events Calendar PRO!</a>
+= PLUG-N-PLAY & HIGHLY CUSTOMIZABLE =
 
-= More Add-ons! =
-We've created a collection of premium add-ons that let you take your Events Calendar in the direction you want:
-*<a href="http://tri.be/wordpress-eventbrite-tickets/">Eventbrite Tickets</a> to sell tickets for your event</li>
-*<a href="http://tri.be/wordpress-community-events/">Community Events</a> to let your website users create their own events
-*<a href="http://tri.be/facebook-events/">Facebook Events</a> to integrate with Facebook
-*<a href="http://tri.be/wordpress-wootickets/">WooTickets</a> to sell tickets directly from event listings with WooCommerce
+Built to work out of the box. Just turn it on, pick the right settings to match your needs and you'll be making events within less than 5 minutes. Want proof? <a href="http://tri.be/new-user-primers/?utm_source=wordpressorg&utm_medium=descriptiontab&utm_campaign=readme&utm_content=primerlink">Watch our user primer!</a>
 
-We offer <a href="ttp://wordpress.org/tags/the-events-calendar">basic support via the WordPress.org support forums </a> so feel free to ask a question if you're having a problem with implementation or bugs.
+Built as a foundation for your wildest hack sessions. By devs for devs, so you can Code Awesome. A skeleton stylesheet to theme fast and efficiently. Loads of tools including partial template overrides, a host of template tags, hooks and filters, <a href="http://tri.be/support/documentation/??utm_source=wordpressorg&utm_medium=descriptiontab&utm_campaign=readme&utm_content=documentationlink">careful documentation</a>, as well as a <a href="">library of code snippets</a> on git hub.
 
-The <a href="http://tri.be/support/forums/?ref=tec-readme">Modern Tribe PRO support forums</a> are available for you to read. You won't, however, be able to post a message in any forums beyond Pre-Sale Questions unless you have purchase a PRO license.
+Whether your vision is big or small, we have you in mind. 
 
-Are you a PRO user looking to renew an expired license? While we're still putting the finishing touches on our renewal functionality, we can provide you with a coupon in the interim that entitles you to a 30% discount on a new license (the same amount you'd be paying to renew your existing one). Send us an email to pro@tri.be referencing your license key # and the date it expired so we can get you sorted.
+We've scaled The Events Calendar to work on a network with over 25 million unique visitors / month and hundreds of thousands of events. We have it running for fortune 100 companies. Major universities, government institutions and some seriously bad ass startups push their events with our platform. Thousands of churches, small businesses, musicians and venues, non-profits and my mom use it. You're in good company.
 
-Note: If you are upgrading from a pre-2.0 version of The Events Calendar, please back up your data before upgrading!
+= FEATURES =
 
+Whether you're operating a hyperlocal hub listing thousands of events, a university with many thousands of users, or a a sole business owner listing your classes, The Events Calendar has your back.
+
+Just getting started? Definitely watch or read the <a href="http://tri.be/new-user-primers/?utm_source=wordpressorg&utm_medium=descriptiontab&utm_campaign=readme&utm_content=primerlink">New User Primer</a>.
+
+* Rapidly create events 
+* Saved venues & organizers 
+* Calendar month view with tooltips
+* List view
+* Event search
+* Google maps
+* Widget: Upcoming events
+* Events Taxonomies (Categories & Tags)
+* Completely ajaxified
+* Tested on the major theme frameworks such as Genesis, Woo Themes, Thesis and many more.
+* Increase your SEO with Microformats
+* Internationalized & Translated
+* Multiple stylesheets (Skeleton, Default, Tribe Event Styles) to improve integration
+* Extensive Template Tags for Customization
+* Hook & Filters up the Wazoo
+* Caching Support
+* Debug Mode for Developers
+
+Looking for something else? 
+
+* <a href="http://tri.be/shop/wordpress-events-calendar-pro/?utm_source=wordpressorg&utm_medium=descriptiontab&utm_campaign=readme&utm_content=prolink">Events PRO</a>: recurring events, a whole range of new views (day / week / map / photo / venue / organizer) & widgets (calendar / featured venue / event countdown), custom event attributes, geolocation search and a lot more.
+* Sell tickets with <a href="http://tri.be/shop/wordpress-wootickets/?utm_source=wordpressorg&utm_medium=descriptiontab&utm_campaign=readme&utm_content=wooticketslink">WooCommerce</a> or <a href="http://tri.be/shop/wordpress-eventbrite-tickets/?utm_source=wordpressorg&utm_medium=descriptiontab&utm_campaign=readme&utm_content=eventbriteticketslink">Eventbrite</a>
+* <a href="http://tri.be/shop/facebook-events/?utm_source=wordpressorg&utm_medium=descriptiontab&utm_campaign=readme&utm_content=fbimportlink">Import events from Facebook</a> or let your <a href="http://tri.be/shop/wordpress-community-events/?utm_source=wordpressorg&utm_medium=descriptiontab&utm_campaign=readme&utm_content=communitylink">users submit</a> from right on your website! 
+* Have so many amazing events that your users get overwhelmed? Drop some <a href="TODO MAKE URL">filters</a> on them.  
+
+<a href="https://www.facebook.com/ModernTribeInc">Join us on Facebook</a> to be part of our active community, check us out <a href="">on Twitter</a>, and <a href="http://tri.be#newsletter">sign up for our newsletter</a> for release announcements and discounts.
+
+= GET INVOLVED =
+
+Need to hack the plugin or build a new feature for a project? How about making that into an add-on plugin so other people who have been wishing for the same feature can take advantage! 
+
+<a href="TODO MAKE URL">How to create an Add-On to The Events Calendar</a>
+
+Send it to us and we would be <a href="mailto:pro@tri.be">happy to review it</a> and give you feedback! Then put it up on the .org repo for everyone to appreciate!
 
 == Screenshots ==
 
