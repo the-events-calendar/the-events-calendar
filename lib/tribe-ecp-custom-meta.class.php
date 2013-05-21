@@ -127,7 +127,7 @@ class TribeEventsCustomMeta {
 			$values = strip_tags( $_POST['custom-field-options'][$i] );
 
 			// Remove empty lines
-			$values = preg_replace( "/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $values );
+			$values = preg_replace( "/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\r\n", $values );
 			$values = rtrim( $values );
 
 		/*while( isset($_POST['custom-field-' . $count]) ) {
