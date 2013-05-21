@@ -1,12 +1,13 @@
-(function ($, td, te, tf, ts, tt) {
+(function ($, td, te, tf, ts, tt, dbug) {
 
 	/*
-	 * $  = jQuery
-	 * td = tribe_ev.data
-	 * te = tribe_ev.events
-	 * tf = tribe_ev.fn
-	 * ts = tribe_ev.state
-	 * tt = tribe_ev.tests
+	 * $    = jQuery
+	 * td   = tribe_ev.data
+	 * te   = tribe_ev.events
+	 * tf   = tribe_ev.fn
+	 * ts   = tribe_ev.state
+	 * tt   = tribe_ev.tests
+	 * dbug = tribe_debug
 	 */
 
 	$(document).ready(function () {
@@ -223,7 +224,7 @@
 					window.location = td.cur_url;
 			}
 		}
-		tribe_debug && debug.info('tribe-events-ajax-list.js successfully loaded');
+		dbug && debug.info('tribe-events-ajax-list.js successfully loaded');
 	});
 
-})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests);
+})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);

@@ -202,7 +202,7 @@ var tribe_ev = window.tribe_ev || {};
 
 (function ($, dbug) {
     /**
-     * @namespace tribe_ev.fn
+     * @namespace tribe_ev
      * @since 3.0
      * @desc tribe_ev.fn namespace stores all the custom functions used throughout the core events plugin.
      */
@@ -588,7 +588,7 @@ var tribe_ev = window.tribe_ev || {};
     };
 
 	/**
-	 * @namespace tribe_ev.tests
+	 * @namespace tribe_ev
 	 * @since 3.0
 	 * @desc tribe_ev.tests namespace stores all the custom tests used throughout the core events plugin.
 	 */
@@ -613,7 +613,7 @@ var tribe_ev = window.tribe_ev || {};
 		 * @type Boolean tribe_ev.tests.pushstate
 		 * @since 3.0
 		 * @desc tribe_ev.tests.pushstate checks if the history object is available safely and returns true or false.
-		 * @example <caption></caption>
+		 * @example <caption>Execute an if else on the presence of pushstate</caption>
 		 * if (tribe_ev.tests.pushstate) {
 		 *		// pushstate is available
 		 * ) else {
