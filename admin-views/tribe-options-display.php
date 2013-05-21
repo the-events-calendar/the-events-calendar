@@ -30,7 +30,7 @@ $displayTab = array(
 		),
 		'info-box-description' => array(
 			'type' => 'html',
-			'html' => __('<p>The settings below control the display of your calendar. If things don\'t look right, try switching between the three style sheet options or pick a page template from your theme.</p>There are going to be situations where no out-of-the-box template is 100% perfect. Check out our <a href="http://tri.be/support/documentation/events-calendar-themers-guide/">our themer\'s guide</a> for instructions on custom modifications. Want to create a new view? Grab a copy of the <a href="https://github.com/moderntribe/tribe-events-agenda-view">Sample Agenda View plugin from Github</a></p>', 'tribe-events-calendar'),
+			'html' => __('<p>The settings below control the display of your calendar. If things don\'t look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100% perfect. Check out our <a href="http://tri.be/support/documentation/events-calendar-themers-guide/">our themer\'s guide</a> for instructions on custom modifications. Want to create a new view? Grab a copy of the <a href="https://github.com/moderntribe/tribe-events-agenda-view">Sample Agenda View plugin from Github</a></p>', 'tribe-events-calendar'),
 		),
 		'info-end' => array(
 			'type' => 'html',
