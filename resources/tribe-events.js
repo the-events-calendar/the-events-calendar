@@ -6,9 +6,10 @@
 
 /**
  * @define {boolean} tribe_debug
- * @desc Setup safe enhanced console logging. Se the link to get the available methods, then prefix with this short circuit ('tribe_debug && ').
+ * @global tribe_debug is used both by closure compiler to strip debug code on min and as a failsafe short circuit if compiler fails to strip all debug strings.
+ * @desc Setup safe enhanced console logging. See the link to get the available methods, then prefix with this short circuit ('tribe_debug && '). tribe_debug is aliased in all tribe js doc readys as 'dbug'.
  * @link http://benalman.com/code/projects/javascript-debug/docs/files/ba-debug-js.html
- * @example <caption>Place this at the very bottom of the doc ready for tribe-events.js ALWAYS short circuit with 'tribe_debug && '</caption> *
+ * @example <caption>Place this at the very bottom of the doc ready for tribe-events.js ALWAYS short circuit with 'tribe_debug && ' or 'dbug &&' if aliased as such.</caption> *
  * tribe_debug && debug.info('tribe-events.js successfully loaded');
  */
 
@@ -186,7 +187,7 @@ try {
  * @namespace tribe_ev
  * @since 3.0
  * @desc The tribe_ev namespace that stores all custom functions, data, application state and an empty events object to bind custom events to.
- * This namespace loads for all tribe events pages.
+ * This Object Literal namespace loads for all tribe events pages and is by design fully public so that themers can hook in and/or extend anything they want from their own files.
  * @example <caption>Test for tribe_ev in your own js and then run one of our functions.</caption>
  * jQuery(document).ready(function ($) {
  *      if (typeof window['tribe_ev'​​​​​​​] !== 'undefined') {
@@ -199,7 +200,7 @@ try {
 
 var tribe_ev = window.tribe_ev || {};
 
-(function ($) {
+(function ($, dbug) {
     /**
      * @namespace tribe_ev.fn
      * @since 3.0
@@ -287,9 +288,10 @@ var tribe_ev = window.tribe_ev || {};
          * @example var base_url = tribe_ev.fn.get_base_url();
          */
         get_base_url: function () {
-            var base_url = '';
-            if ($('#tribe-events-header').length){
-                base_url = $('#tribe-events-header').attr('data-baseurl');
+            var base_url = '',
+				$event_header = $('#tribe-events-header');
+            if ($event_header.length){
+                base_url = $event_header.attr('data-baseurl');
             }
             return base_url;
         },
@@ -314,10 +316,12 @@ var tribe_ev = window.tribe_ev || {};
          * @example var day = tribe_ev.fn.get_day();
          */
         get_day: function () {
-            var dp_day = '';
-            if ($('#tribe-bar-date').length) {
-                dp_day = $('#tribe-bar-date-day').val();
+            var dp_day = '',
+				$bar_date = $('#tribe-bar-date');
+            if ($bar_date.length) {
+                dp_day = $bar_date.val();
             }
+			dbug && debug.info('tribe_ev.fn.get_day returned this date: "' + dp_day + '".');
             return dp_day;
         },
         /**
@@ -361,12 +365,13 @@ var tribe_ev = window.tribe_ev || {};
         /**
          * @function tribe_ev.fn.is_category
          * @since 3.0
-         * @desc tribe_ev.fn.is_category test for whether the view is a category subpage.
+         * @desc tribe_ev.fn.is_category test for whether the view is a category subpage in the pretty permalink system.
          * @returns {Boolean} Returns true if category page, false if not.
          * @example if (tribe_ev.fn.is_category()){ true } else { false }
          */
         is_category: function () {
-            return ($('#tribe-events').length && $('#tribe-events').tribe_has_attr('data-category') && $('#tribe-events').attr('data-category') !== '') ? true : false;
+			var $tribe_events = $('#tribe-events');
+            return ($tribe_events.length && $tribe_events.tribe_has_attr('data-category') && $tribe_events.attr('data-category') !== '') ? true : false;
         },
         /**
          * @function tribe_ev.fn.parse_string
@@ -381,6 +386,7 @@ var tribe_ev = window.tribe_ev || {};
             string.replace(/([^&=]+)=?([^&]*)(?:&+|$)/g, function (match, key, value) {
                 (map[key] = map[key] || []).push(value);
             });
+			dbug && debug.info('tribe_ev.fn.parse_string returned this map: "' + map + '".');
             return map;
         },
         /**
@@ -408,6 +414,7 @@ var tribe_ev = window.tribe_ev || {};
             tribe_ev.fn.disable_empty(form, type);
             var params = $(form).serialize();
             tribe_ev.fn.disable_inputs(form, type);
+			dbug && debug.info('tribe_ev.fn.serialize returned these params: "' + params + '".');
             return params;
         },
 		/**
@@ -462,7 +469,7 @@ var tribe_ev = window.tribe_ev || {};
                 }
             });
 
-			tribe_debug && debug.debug('tribe_ev.fn.set_form fired these params: ' + params + '.');
+			dbug && debug.info('tribe_ev.fn.set_form fired these params: ' + params + '.');
 
 			$body.removeClass('tribe-reset-on');
         },
@@ -483,7 +490,7 @@ var tribe_ev = window.tribe_ev || {};
 				tribe_ev.state.ajax_timer = setTimeout(function () {
                     callback();
                 }, timer);
-				tribe_debug && debug.debug('tribe_ev.fn.setup_ajax_timer fired with a timeout of ' + timer + ' ms');
+				dbug && debug.info('tribe_ev.fn.setup_ajax_timer fired with a timeout of ' + timer + ' ms');
             }
         },
 		/**
@@ -498,9 +505,18 @@ var tribe_ev = window.tribe_ev || {};
 		 */
         snap: function (container, trigger_parent, trigger) {
             $(trigger_parent).on('click', trigger, function (e) {
+				e.preventDefault();
                 $('html, body').animate({scrollTop: $(container).offset().top - 120}, {duration: 0});
+				dbug && debug.info('tribe_ev.fn.snap bubbled from "' + trigger + '" to "' + trigger_parent + '" and moved the document to "' + container + '"');
             });
         },
+		/**
+		 * @function tribe_ev.fn.tooltips
+		 * @since 3.0
+		 * @desc tribe_ev.fn.tooltips binds the event handler that covers all tooltip hover events for the various views. Extended in tribe-events-pro.js for the pro views. One of the reasons both these files must load FIRST in the tribe events js stack at all times.
+		 * @example <caption>It's really not that hard... Get yourself inside a doc ready and...</caption>
+		 * 		tribe_ev.fn.tooltips();
+		 */
         tooltips: function () {
 
             $('#tribe-events').on('mouseenter', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring',function () {
@@ -529,13 +545,43 @@ var tribe_ev = window.tribe_ev || {};
                     $(this).find('.tribe-events-tooltip').stop(true, false).fadeOut(200);
                 });
         },
+		/**
+		 * @function tribe_ev.fn.update_picker
+		 * @since 3.0
+		 * @desc tribe_ev.fn.update_picker Updates the custom bootstrapDatepicker if it and the event bar is present, or only the event bar input if it is present.
+		 * @param {String} date The date string to update picker or input with.
+		 * @example <caption>Bind a handler that updates the datepicker if present with the date, in this case harvested from a data attribute on the link.</caption>
+		 * $('#tribe-events').on('click', '.tribe-events-nav-previous a', function (e) {
+		 *     e.preventDefault();
+		 *     var $this = $(this);
+		 *     tribe_ev.state.date = $this.attr("data-day");
+		 *     tribe_ev.fn.update_picker(tribe_ev.state.date);
+		 * });
+		 */
         update_picker: function (date) {
-            if ($().bootstrapDatepicker && $("#tribe-bar-date").length) {
-                $("#tribe-bar-date").bootstrapDatepicker("setValue", date);
-            } else if ($("#tribe-bar-date").length) {
-                $("#tribe-bar-date").val(date);
-            }
+			var $bar_date = $("#tribe-bar-date");
+            if ($().bootstrapDatepicker && $bar_date.length) {
+				$bar_date.bootstrapDatepicker("setValue", date);
+				dbug && debug.info('tribe_ev.fn.update_picker sent "' + date + '" to the boostrapDatepicker');
+            } else if ($bar_date.length) {
+				$bar_date.val(date);
+				dbug && debug.warn('tribe_ev.fn.update_picker sent "' + date + '" to ' + $bar_date);
+            } else {
+				dbug && debug.warn('tribe_ev.fn.update_picker couldnt send "' + date + '" to any object.');
+			}
         },
+		/**
+		 * @function tribe_ev.fn.url_path
+		 * @since 3.0
+		 * @desc tribe_ev.fn.url_path strips query vars from a url passed to it using js split on the ? character.
+		 * @param {String} url The url to remove all vars from.
+		 * @returns {String} Returns a url devoid of any query vars.
+		 * @example <caption>Get the query var free version of an href attribute.</caption>
+		 * $('#tribe-events').on('click', '.tribe-events-nav-next', function (e) {
+		 *		e.preventDefault();
+		 *		tribe_ev.data.cur_url = tribe_ev.fn.url_path($(this).attr('href'));
+		 * });
+		 */
         url_path: function (url) {
             return url.split("?")[0];
         }
@@ -588,9 +634,9 @@ var tribe_ev = window.tribe_ev || {};
         view_target: ''
     };
 
-})(jQuery);
+})(jQuery, tribe_debug);
 
-(function ($, td, te, tf, ts) {
+(function ($, td, te, tf, ts, dbug) {
 
 	$(document).ready(function () {
 
@@ -626,6 +672,6 @@ var tribe_ev = window.tribe_ev || {};
 			$('.tribe-events-active-spinner').remove();
 		});
 
-		tribe_debug && debug.info('tribe-events.js successfully loaded');
+		dbug && debug.info('tribe-events.js successfully loaded');
 	});
-})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state);
+})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_debug);
