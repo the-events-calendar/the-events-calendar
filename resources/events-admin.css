@@ -117,7 +117,9 @@ td.tribe_message {padding-bottom: 10px !important;}
 .tribe_settings .tribe-error {border: 1px solid #F00;}
 .tribe_settings .tribe-field-description {position: relative; top: -12px; margin-bottom: 0;}
 .tribe_settings #ical-link {top: -14px;}
-
+.tribe-settings-form #tribe-field-stylesheetOption label { margin-left: 20px;}
+.tribe-settings-form #tribe-field-stylesheetOption input { margin-left: -20px; margin-right: 8px;}
+.tribe-settings-form #tribe-field-stylesheetOption p.description {color: #999;}
 /* Modern Tribe box */
 #modern-tribe-info {margin: 20px 0; background-color: #f9f9f9; padding: 8px 20px 12px; border: 1px solid #ccc; border-rarius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; -o-border-radius: 4px;}
 #modern-tribe-info img {margin: 10px 0; width: 250px; height: 18px;}
