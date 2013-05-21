@@ -58,7 +58,7 @@ $defaultsTab = array(
 		),
 		'defaultValueReplaceHelper' => array(
 			'type' => 'html',
-			'html' => '<p class="tribe-field-indent tribe-field-description description">' . __( 'Check this box to have the organizer and venue fields pre-populated with the default values below for any new event that is created.', 'tribe-events-calendar-pro' ) . '</p>'
+			'html' => '<p style="margin-top:-15px;" class="tribe-field-indent tribe-field-description description">' . __( 'Check this box to have the organizer and venue fields pre-populated with the default values below for any new event that is created.', 'tribe-events-calendar-pro' ) . '</p>'
 		),
 		'eventsDefaultOrganizerHelperTitle' => array(
 			'type' => 'html',
