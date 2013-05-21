@@ -14,7 +14,7 @@
 =============================================*/
 
 /* Tribe Theme Color */
-#tribe-events-content .tribe-events-tooltip h4.entry-title,
+#tribe-events-content .tribe-events-tooltip h4,
 #tribe_events_filters_wrapper .tribe_events_slider_val,
 .single-tribe_events a.tribe-events-ical, 
 .single-tribe_events a.tribe-events-gcal {
@@ -225,8 +225,7 @@ h2.tribe-events-page-title,
 /* = Single Event Template Styles
    @ Template: single-event.php
 =============================================*/
-.single-tribe_events h2.entry-title, 
-.single-tribe_events #content h2.entry-title {
+.single-tribe_events h2.tribe-events-single-event-title {
 	font-size: 33px;
 }
 
@@ -368,7 +367,7 @@ h2.tribe-events-page-title,
 }
 
 /* Large Calendar Tooltip Specifics */
-#tribe-events-content .tribe-events-tooltip h4.entry-title {
+#tribe-events-content .tribe-events-tooltip h4 {
 	margin: 0;
 	background-color: transparent;
 	font-size: 18px;
