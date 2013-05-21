@@ -147,7 +147,7 @@ class TribeEventsGeoLoc {
 					                                                                   'kms'   => __( 'Kilometers', 'tribe-events-calendar-pro' ) ) ) ),
 				'geoloc_fix_venues' => array(
 					'type'        => 'html',
-					'html'        => '<a name="geoloc_fix"></a><fieldset class="tribe-field tribe-field-html"><legend>' . __( 'Fix geolocation data', 'tribe-events-calendar-pro' ) . '</legend><p class="tribe-field-indent description">' . sprintf( __( "You have %d venues for which we don't have geolocation data. We need to use the Google Maps API to get that information. Doing this may take a while (aprox. 1 minute for every 200 venues).", 'tribe-events-calendar-pro' ), $venues->found_posts ) . '</p><p class="tribe-field-indent">' . $this->fix_geoloc_data_button( ) . '</p></fieldset>',
+					'html'        => '<a name="geoloc_fix"></a><fieldset class="tribe-field tribe-field-html"><legend>' . __( 'Fix geolocation data', 'tribe-events-calendar-pro' ) . '</legend><div class="tribe-field-wrap">' . $this->fix_geoloc_data_button( ) . '<p class="tribe-field-indent description">' . sprintf( __( "You have %d venues for which we don't have geolocation data. We need to use the Google Maps API to get that information. Doing this may take a while (aprox. 1 minute for every 200 venues).", 'tribe-events-calendar-pro' ), $venues->found_posts ) . '</p></div></fieldset>',
 					'conditional' => ( $venues->found_posts > 0 )
 				),
 			                                                                       )
