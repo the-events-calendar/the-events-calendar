@@ -184,6 +184,9 @@
 	$.extend(tribe_ev.tests, {
 		hide_recurrence: function () {
 			return  ($('#tribeHideRecurrence:checked').length) ? true : false;
+		},
+		map_view: function () {
+			return ( typeof GeoLoc !== 'undefined' && GeoLoc.map_view ) ? true : false;
 		}
 	});
 
