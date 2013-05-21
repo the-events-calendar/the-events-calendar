@@ -316,10 +316,9 @@ var tribe_ev = window.tribe_ev || {};
          * @example var day = tribe_ev.fn.get_day();
          */
         get_day: function () {
-            var dp_day = '',
-				$bar_date = $('#tribe-bar-date');
-            if ($bar_date.length) {
-                dp_day = $bar_date.val();
+            var dp_day = '';
+            if ($('#tribe-bar-date').length) {
+                dp_day = $('#tribe-bar-date-day').val();
             }
 			dbug && debug.info('tribe_ev.fn.get_day returned this date: "' + dp_day + '".');
             return dp_day;
@@ -609,6 +608,18 @@ var tribe_ev = window.tribe_ev || {};
 			var $tribe_events = $('#tribe-events');
             return ($tribe_events.length && $tribe_events.tribe_has_attr('data-live_ajax') && $tribe_events.attr('data-live_ajax') == '1') ? true : false;
         },
+		/**
+		 * @function tribe_ev.tests.map_view
+		 * @since 3.0
+		 * @desc tribe_ev.tests.map_view test if we are on map view.
+		 * @example <caption>Test if we are on map view</caption>
+		 * if (tribe_ev.tests.map_view()) {
+		 *		// we are on map view
+		 * )
+		 */
+		map_view: function () {
+			return ( typeof GeoLoc !== 'undefined' && GeoLoc.map_view ) ? true : false;
+		},
 		/**
 		 * @type Boolean tribe_ev.tests.pushstate
 		 * @since 3.0

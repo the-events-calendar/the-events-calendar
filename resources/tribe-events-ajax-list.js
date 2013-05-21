@@ -15,7 +15,7 @@
 		var tribe_is_paged = tf.get_url_param('tribe_paged');
 
 		if (tribe_is_paged) {
-			tf.paged = tribe_is_paged;
+			ts.paged = tribe_is_paged;
 		}
 
 		if (tt.pushstate && !tt.map_view()) {
@@ -111,6 +111,7 @@
 				if (!tt.reset_on()) {
 					ts.popping = false;
 					tribe_events_bar_listajax_actions(e);
+
 				}
 			});
 		}
