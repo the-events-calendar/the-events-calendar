@@ -146,6 +146,8 @@
 
 		function tribe_events_calendar_ajax_post() {
 
+			dbug && debug.time('Month View Ajax Timer');
+
 			$('#tribe-events-header').tribe_spin();
 			ts.pushcount = 0;
 			ts.ajax_running = true;
@@ -225,6 +227,8 @@
 							}
 
 							$(te).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev__monthView_ajaxSuccess');
+
+							dbug && debug.timeEnd('Month View Ajax Timer');
 						}
 					}
 				);

@@ -190,7 +190,7 @@ try {
  * This Object Literal namespace loads for all tribe events pages and is by design fully public so that themers can hook in and/or extend anything they want from their own files.
  * @example <caption>Test for tribe_ev in your own js and then run one of our functions.</caption>
  * jQuery(document).ready(function ($) {
- *      if (typeof window['tribe_ev'​​​​​​​] !== 'undefined') {
+ *      if (window.hasOwnProperty('tribe_ev')) {
  *          if(tribe_ev.fn.get_category() === 'Cats'){
  *              alert('Meow!');
  *          }
