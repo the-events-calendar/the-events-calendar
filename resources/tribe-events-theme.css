@@ -107,7 +107,12 @@ h2.tribe-events-page-title,
 	top: -75px !important;
 }
 
-.tribe-events-notices + #tribe-events-header .tribe-events-active-spinner {
+
+.events-list .tribe-events-active-spinner{
+	top: -105px !important;
+}
+
+.tribe-events-notices + #tribe-events-header .tribe-events-active-spinner{
 	top: -125px !important;
 }
 
@@ -123,7 +128,7 @@ h2.tribe-events-page-title,
 =============================================*/
 .tribe-events-list .vevent.hentry {
 	border-bottom: 0;
-	padding: 1.5em 0;
+	padding: 1.75em 0;
 	position: relative;
 }
 
