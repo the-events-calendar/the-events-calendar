@@ -1,7 +1,37 @@
-/** @define {boolean} */
+/**
+ * @file The core file for the events calendar plugin javascript.
+ * This file must load on all front facing events pages and be the first file loaded after vendor dependencies.
+ * @version 3.0
+ */
+
+/**
+ * @define {boolean} tribe_debug
+ * @global tribe_debug is used both by closure compiler to strip debug code on min and as a failsafe short circuit if compiler fails to strip all debug strings.
+ * @desc Setup safe enhanced console logging. See the link to get the available methods, then prefix with this short circuit ('tribe_debug && '). tribe_debug is aliased in all tribe js doc readys as 'dbug'.
+ * @link http://benalman.com/code/projects/javascript-debug/docs/files/ba-debug-js.html
+ * @example <caption>Place this at the very bottom of the doc ready for tribe-events.js ALWAYS short circuit with 'tribe_debug && ' or 'dbug &&' if aliased as such.</caption> *
+ * tribe_debug && debug.info('tribe-events.js successfully loaded');
+ */
+
 var tribe_debug = true;
 
+/*!
+ * this debug code is stripped out by closure compiler so it is not present in the .min versions.
+ */
+
 if(tribe_debug){
+
+	/*!
+	 * JavaScript Debug - v0.4 - 6/22/2010
+	 * http://benalman.com/projects/javascript-debug-console-log/
+	 *
+	 * Copyright (c) 2010 "Cowboy" Ben Alman
+	 * Dual licensed under the MIT and GPL licenses.
+	 * http://benalman.com/about/license/
+	 *
+	 * With lots of help from Paul Irish!
+	 * http://paulirish.com/
+	 */
 
 	window.debug = (function () {
 		var window = this,
@@ -157,10 +187,10 @@ try {
  * @namespace tribe_ev
  * @since 3.0
  * @desc The tribe_ev namespace that stores all custom functions, data, application state and an empty events object to bind custom events to.
- * This namespace loads for all tribe events pages.
+ * This Object Literal namespace loads for all tribe events pages and is by design fully public so that themers can hook in and/or extend anything they want from their own files.
  * @example <caption>Test for tribe_ev in your own js and then run one of our functions.</caption>
  * jQuery(document).ready(function ($) {
- *      if (typeof window['tribe_ev'​​​​​​​] !== 'undefined') {
+ *      if (window.hasOwnProperty('tribe_ev')) {
  *          if(tribe_ev.fn.get_category() === 'Cats'){
  *              alert('Meow!');
  *          }
@@ -170,9 +200,9 @@ try {
 
 var tribe_ev = window.tribe_ev || {};
 
-(function ($) {
+(function ($, dbug) {
     /**
-     * @namespace tribe_ev.fn
+     * @namespace tribe_ev
      * @since 3.0
      * @desc tribe_ev.fn namespace stores all the custom functions used throughout the core events plugin.
      */
@@ -258,9 +288,10 @@ var tribe_ev = window.tribe_ev || {};
          * @example var base_url = tribe_ev.fn.get_base_url();
          */
         get_base_url: function () {
-            var base_url = '';
-            if ($('#tribe-events-header').length){
-                base_url = $('#tribe-events-header').attr('data-baseurl');
+            var base_url = '',
+				$event_header = $('#tribe-events-header');
+            if ($event_header.length){
+                base_url = $event_header.attr('data-baseurl');
             }
             return base_url;
         },
@@ -289,6 +320,7 @@ var tribe_ev = window.tribe_ev || {};
             if ($('#tribe-bar-date').length) {
                 dp_day = $('#tribe-bar-date-day').val();
             }
+			dbug && debug.info('tribe_ev.fn.get_day returned this date: "' + dp_day + '".');
             return dp_day;
         },
         /**
@@ -332,12 +364,13 @@ var tribe_ev = window.tribe_ev || {};
         /**
          * @function tribe_ev.fn.is_category
          * @since 3.0
-         * @desc tribe_ev.fn.is_category test for whether the view is a category subpage.
+         * @desc tribe_ev.fn.is_category test for whether the view is a category subpage in the pretty permalink system.
          * @returns {Boolean} Returns true if category page, false if not.
          * @example if (tribe_ev.fn.is_category()){ true } else { false }
          */
         is_category: function () {
-            return ($('#tribe-events').length && $('#tribe-events').tribe_has_attr('data-category') && $('#tribe-events').attr('data-category') !== '') ? true : false;
+			var $tribe_events = $('#tribe-events');
+            return ($tribe_events.length && $tribe_events.tribe_has_attr('data-category') && $tribe_events.attr('data-category') !== '') ? true : false;
         },
         /**
          * @function tribe_ev.fn.parse_string
@@ -352,6 +385,7 @@ var tribe_ev = window.tribe_ev || {};
             string.replace(/([^&=]+)=?([^&]*)(?:&+|$)/g, function (match, key, value) {
                 (map[key] = map[key] || []).push(value);
             });
+			dbug && debug.info('tribe_ev.fn.parse_string returned this map: "' + map);
             return map;
         },
         /**
@@ -379,14 +413,15 @@ var tribe_ev = window.tribe_ev || {};
             tribe_ev.fn.disable_empty(form, type);
             var params = $(form).serialize();
             tribe_ev.fn.disable_inputs(form, type);
+			dbug && debug.info('tribe_ev.fn.serialize returned these params: "' + params);
             return params;
         },
 		/**
 		 * @function tribe_ev.fn.set_form
 		 * @since 3.0
-		 * @desc tribe_ev.fn.set_form takes a param string and sets the even
-		 * @param {String} params The params to be looped over and applied to a matching input. Needed for back button browser history when forms are outside of the ajax area.
-		 * @example
+		 * @desc tribe_ev.fn.set_form takes a param string and sets a forms inputs to the values received. Extended in the Query Filters plugin.
+		 * @param {String} params The params to be looped over and applied to the named input. Needed for back button browser history when forms are outside of the ajax area.
+		 * @example <caption>Set all inputs in a form(s) to the values in a param string retrieved from the history object on popstate.</caption>
 		 * $(window).on('popstate', function (event) {
 		 *		var state = event.originalEvent.state;
 		 *		if (state) {
@@ -397,10 +432,13 @@ var tribe_ev = window.tribe_ev || {};
 		 *	});
 		 */
         set_form: function (params) {
-            $('body').addClass('tribe-reset-on');
+			var $body = $('body'),
+				$tribe_bar = $('#tribe-bar-form');
 
-            if ($('#tribe-bar-form').length) {
-                $('#tribe-bar-form').tribe_clear_form();
+			$body.addClass('tribe-reset-on');
+
+            if ($tribe_bar.length) {
+				$tribe_bar.tribe_clear_form();
             }
 
             params = tribe_ev.fn.parse_string(params);
@@ -430,8 +468,20 @@ var tribe_ev = window.tribe_ev || {};
                 }
             });
 
-            $('body').removeClass('tribe-reset-on');
+			dbug && debug.info('tribe_ev.fn.set_form fired these params: "' + params);
+
+			$body.removeClass('tribe-reset-on');
         },
+		/**
+		 * @function tribe_ev.fn.setup_ajax_timer
+		 * @since 3.0
+		 * @desc tribe_ev.fn.setup_ajax_timer is a simple function to add a delay to the execution of a passed callback function, in our case ajax hence the name.
+		 * @param {Function} callback Used to delay ajax execution when in live ajax mode.
+		 * @example <caption>Run some crazy ajax.</caption>
+		 * tribe_ev.fn.setup_ajax_timer( function() {
+		 *		run_some_crazy_ajax();
+		 * });
+		 */
         setup_ajax_timer: function (callback) {
 			var timer = 500;
             clearTimeout(tribe_ev.state.ajax_timer);
@@ -439,27 +489,40 @@ var tribe_ev = window.tribe_ev || {};
 				tribe_ev.state.ajax_timer = setTimeout(function () {
                     callback();
                 }, timer);
-				tribe_debug && debug.debug('tribe_ev.fn.setup_ajax_timer fired with a timeout of ' + timer + ' ms');
+				dbug && debug.info('tribe_ev.fn.setup_ajax_timer fired with a timeout of "' + timer + '" ms');
             }
         },
+		/**
+		 * @function tribe_ev.fn.snap
+		 * @since 3.0
+		 * @desc tribe_ev.fn.snap uses jquery to bind a handler to a trigger_parent which uses bubbling of a click event from the trigger to position the document to the passed container. Has an offset of -120 px to get some breathing room.
+		 * @param {String} container the jquery selector to send the document to.
+		 * @param {String} trigger_parent the persistent element to bind the handler to.
+		 * @param {String} trigger the trigger for the click event
+		 * @example <caption>"Snap" the document 120 px above the tribe bar when a footer nav link is clicked.</caption>
+		 * 		tribe_ev.fn.snap('#tribe-bar-form', '#tribe-events', '#tribe-events-footer a');
+		 */
         snap: function (container, trigger_parent, trigger) {
             $(trigger_parent).on('click', trigger, function (e) {
+				e.preventDefault();
                 $('html, body').animate({scrollTop: $(container).offset().top - 120}, {duration: 0});
+				dbug && debug.info('tribe_ev.fn.snap bubbled from "' + trigger + '" to "' + trigger_parent + '" and moved the document to "' + container + '"');
             });
         },
-        spin_hide: function () {
-            $('#tribe-events-footer, #tribe-events-header').find('.tribe-events-ajax-loading').hide();
-        },
-        spin_show: function () {
-            $('#tribe-events-footer, #tribe-events-header').find('.tribe-events-ajax-loading').show();
-        },
+		/**
+		 * @function tribe_ev.fn.tooltips
+		 * @since 3.0
+		 * @desc tribe_ev.fn.tooltips binds the event handler that covers all tooltip hover events for the various views. Extended in tribe-events-pro.js for the pro views. One of the reasons both these files must load FIRST in the tribe events js stack at all times.
+		 * @example <caption>It's really not that hard... Get yourself inside a doc ready and...</caption>
+		 * 		tribe_ev.fn.tooltips();
+		 */
         tooltips: function () {
 
             $('#tribe-events').on('mouseenter', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring',function () {
 
-                var bottomPad = 0;
-                var $this = $(this);
-                var $body = $('body');
+                var bottomPad = 0,
+					$this = $(this),
+					$body = $('body');
 
                 if ($body.hasClass('events-gridview')) { // Cal View Tooltips
                     bottomPad = $this.find('a').outerHeight() + 18;
@@ -473,7 +536,7 @@ var tribe_ev = window.tribe_ev || {};
                 if ($this.parents('.tribe-events-calendar-widget').length) {
                     bottomPad = $this.outerHeight() - 6;
                 }
-                if (!$('body').hasClass('tribe-events-week')) {
+                if (!$body.hasClass('tribe-events-week')) {
                     $this.find('.tribe-events-tooltip').css('bottom', bottomPad).show();
                 }
 
@@ -481,29 +544,113 @@ var tribe_ev = window.tribe_ev || {};
                     $(this).find('.tribe-events-tooltip').stop(true, false).fadeOut(200);
                 });
         },
+		/**
+		 * @function tribe_ev.fn.update_picker
+		 * @since 3.0
+		 * @desc tribe_ev.fn.update_picker Updates the custom bootstrapDatepicker if it and the event bar is present, or only the event bar input if it is present.
+		 * @param {String} date The date string to update picker or input with.
+		 * @example <caption>Bind a handler that updates the datepicker if present with the date, in this case harvested from a data attribute on the link.</caption>
+		 * $('#tribe-events').on('click', '.tribe-events-nav-previous a', function (e) {
+		 *     e.preventDefault();
+		 *     var $this = $(this);
+		 *     tribe_ev.state.date = $this.attr("data-day");
+		 *     tribe_ev.fn.update_picker(tribe_ev.state.date);
+		 * });
+		 */
         update_picker: function (date) {
-            if ($().bootstrapDatepicker && $("#tribe-bar-date").length) {
-                $("#tribe-bar-date").bootstrapDatepicker("setValue", date);
-            } else if ($("#tribe-bar-date").length) {
-                $("#tribe-bar-date").val(date);
-            }
+			var $bar_date = $("#tribe-bar-date");
+            if ($().bootstrapDatepicker && $bar_date.length) {
+				$bar_date.bootstrapDatepicker("setValue", date);
+				dbug && debug.info('tribe_ev.fn.update_picker sent "' + date + '" to the boostrapDatepicker');
+            } else if ($bar_date.length) {
+				$bar_date.val(date);
+				dbug && debug.warn('tribe_ev.fn.update_picker sent "' + date + '" to ' + $bar_date);
+            } else {
+				dbug && debug.warn('tribe_ev.fn.update_picker couldnt send "' + date + '" to any object.');
+			}
         },
+		/**
+		 * @function tribe_ev.fn.url_path
+		 * @since 3.0
+		 * @desc tribe_ev.fn.url_path strips query vars from a url passed to it using js split on the ? character.
+		 * @param {String} url The url to remove all vars from.
+		 * @returns {String} Returns a url devoid of any query vars.
+		 * @example <caption>Get the query var free version of an href attribute.</caption>
+		 * $('#tribe-events').on('click', '.tribe-events-nav-next', function (e) {
+		 *		e.preventDefault();
+		 *		tribe_ev.data.cur_url = tribe_ev.fn.url_path($(this).attr('href'));
+		 * });
+		 */
         url_path: function (url) {
             return url.split("?")[0];
         }
     };
 
+	/**
+	 * @namespace tribe_ev
+	 * @since 3.0
+	 * @desc tribe_ev.tests namespace stores all the custom tests used throughout the core events plugin.
+	 */
+
     tribe_ev.tests = {
+		/**
+		 * @function tribe_ev.tests.live_ajax
+		 * @since 3.0
+		 * @desc tribe_ev.tests.live_ajax tests if live ajax is enabled in the events settings tab by checking the data attribute data-live_ajax on #tribe-events in the front end.
+		 * @example <caption>Very easy test to use. In a doc ready:</caption>
+		 * if (tribe_ev.tests.live_ajax()) {
+		 *		// live ajax is on
+		 * ) else {
+		 *     // live ajax is off
+		 * }
+		 */
         live_ajax: function () {
-            return ($('#tribe-events').length && $('#tribe-events').tribe_has_attr('data-live_ajax') && $('#tribe-events').attr('data-live_ajax') == '1') ? true : false;
+			var $tribe_events = $('#tribe-events');
+            return ($tribe_events.length && $tribe_events.tribe_has_attr('data-live_ajax') && $tribe_events.attr('data-live_ajax') == '1') ? true : false;
         },
-        map_view: function () {
-            return ( typeof GeoLoc !== 'undefined' && GeoLoc.map_view ) ? true : false;
-        },
+		/**
+		 * @function tribe_ev.tests.map_view
+		 * @since 3.0
+		 * @desc tribe_ev.tests.map_view test if we are on map view.
+		 * @example <caption>Test if we are on map view</caption>
+		 * if (tribe_ev.tests.map_view()) {
+		 *		// we are on map view
+		 * )
+		 */
+		map_view: function () {
+			return ( typeof GeoLoc !== 'undefined' && GeoLoc.map_view ) ? true : false;
+		},
+		/**
+		 * @type Boolean tribe_ev.tests.pushstate
+		 * @since 3.0
+		 * @desc tribe_ev.tests.pushstate checks if the history object is available safely and returns true or false.
+		 * @example <caption>Execute an if else on the presence of pushstate</caption>
+		 * if (tribe_ev.tests.pushstate) {
+		 *		// pushstate is available
+		 * ) else {
+		 *     // pushstate is not available
+		 * }
+		 */
         pushstate: !!(window.history && history.pushState),
+		/**
+		 * @function tribe_ev.tests.reset_on
+		 * @since 3.0
+		 * @desc tribe_ev.tests.reset_on tests if any other function is currently disabling a tribe ajax function.
+		 * @example <caption>In another handler that will be triggering a tribe ajax function:</caption>
+		 * if (!tribe_ev.tests.reset_on()) {
+		 *		// reset is not occuring so lets run some other ajax
+		 * )
+		 */
         reset_on: function () {
             return $('body').is('.tribe-reset-on');
         },
+		/**
+		 * @function tribe_ev.tests.starting_delim
+		 * @since 3.0
+		 * @desc tribe_ev.tests.starting_delim is used by events url forming functions to determine if "?" is already present. It then sets the delimiter for the next part of the url concatenation to "?" if not found and "&" if it is.
+		 * @example <caption>Test and set delimter during url string concatenation.</caption>
+		 * 		tribe_ev.state.cur_url += tribe_ev.tests.starting_delim + tribe_ev.state.url_params;
+		 */
         starting_delim: function () {
             return tribe_ev.state.cur_url.indexOf('?') != -1 ? '&' : '?';
         }
@@ -540,13 +687,18 @@ var tribe_ev = window.tribe_ev || {};
         view_target: ''
     };
 
-})(jQuery);
+})(jQuery, tribe_debug);
 
-(function ($, td, te, tf, ts) {
+(function ($, td, te, tf, ts, tt, dbug) {
 
 	$(document).ready(function () {
 
-        $('#tribe-events').removeClass('tribe-no-js');
+		dbug && debug.info('Hello Dave, Tribe Events Javascript is initializing, Tribe JS Init Timer started from tribe-events.js.');
+
+		var $tribe_events = $('#tribe-events'),
+			$tribe_events_header = $('#tribe-events-header');
+
+		$tribe_events.removeClass('tribe-no-js');
 		ts.category = tf.get_category();
 		td.base_url = tf.get_base_url();
 
@@ -554,9 +706,11 @@ var tribe_ev = window.tribe_ev || {};
 
 		if (tribe_display) {
 			ts.view = tribe_display;
-		} else if ($('#tribe-events-header').length && $('#tribe-events-header').tribe_has_attr('data-view')) {
-			ts.view = $('#tribe-events-header').attr('data-view');
+		} else if ($tribe_events_header.length && $tribe_events_header.tribe_has_attr('data-view')) {
+			ts.view = $tribe_events_header.attr('data-view');
 		}
+
+		ts.view && dbug && debug.time('Tribe JS Init Timer');
 
 		/* Let's hide the widget calendar if we find more than one instance */
 		$(".tribe-events-calendar-widget").not(":eq(0)").hide();
@@ -578,6 +732,14 @@ var tribe_ev = window.tribe_ev || {};
 			$('.tribe-events-active-spinner').remove();
 		});
 
-		tribe_debug && debug.info('tribe-events.js successfully loaded');
+		if(dbug){
+			debug.groupCollapsed('Browser and events settings information:');
+			debug.log('User agent reported as: "' + navigator.userAgent);
+			debug.log('Live ajax returned its state as: "' + tt.live_ajax());
+			ts.view && debug.log('Tribe js detected the view to be: "' + ts.view);
+			debug.log('Supports pushstate: "' + tt.pushstate);
+			debug.groupEnd();
+			debug.info('tribe-events.js successfully loaded');
+		}
 	});
-})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state);
+})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);

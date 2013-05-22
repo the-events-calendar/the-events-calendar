@@ -39,11 +39,14 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #
 
 .eventForm {margin-top: -20px;}
 .eventForm td {padding:0 6px 10px 0; font-size:12px; vertical-align:middle;}
+.eventForm #event-meta td { vertical-align: top; }
+.eventForm #event-meta td div { margin-bottom: 10px; }
+.eventForm #event-meta td div:last-child {margin-bottom: 20px;}
 .eventForm select, .eventForm input {font-size:11px;}
 .eventForm h4 {font-size:1.2em; margin:1em 0 1em;}
 .eventForm h4.event-time {margin-top: 0;}
-.tribe-community-event-info, .eventtable {margin: 10px; width:100%;}
-.eventtable{margin-top:10px; padding-top:0;}
+.tribe-community-event-info {margin: 10px; width:100%;}
+.eventtable, #EventInfo{margin:0; padding-top:0; width:100%;}
 .form-table form input {border:none;}
 #submitLabel {display: block;}
 #submitLabel input {display: block; padding: 0;}
@@ -58,6 +61,7 @@ td.tribe_message {padding-bottom: 10px !important;}
 
 .tribe-events-error {display:none;}
 .tribe-events-multi-event-day {color: #0F81BB;}
+
 
 /* = Eventbrite
 =============================================*/
@@ -105,7 +109,7 @@ td.tribe_message {padding-bottom: 10px !important;}
 .tribe-settings-form .tribe-settings-form-wrap fieldset,
 .tribe-settings-form .tribe-settings-form-wrap .description,
 .tribe-settings-form fieldset[id^="tribe-field-geoloc_"] {padding-left: 12px;}
-.tribe-settings-form .tribe-settings-form-wrap fieldset .description {padding-left: 0;}
+.tribe-settings-form .tribe-settings-form-wrap fieldset .description {padding-left: 0; margin-left:0; max-width: 450px;}
 .tribe-settings-form .tribe-settings-form-wrap h3 {margin-bottom: 10px; background-color: #f9f9f9; padding: 6px 0 6px 12px;}
 .tribe-settings-form .tribe-settings-form-wrap h3 ~ h3 {margin-top: 2.25em;}
 .tribe-settings-form .tribe-settings-form-wrap h3 + p {margin: 0 0 10px; padding-left: 12px;}
@@ -116,7 +120,9 @@ td.tribe_message {padding-bottom: 10px !important;}
 .tribe_settings .tribe-error {border: 1px solid #F00;}
 .tribe_settings .tribe-field-description {position: relative; top: -12px; margin-bottom: 0;}
 .tribe_settings #ical-link {top: -14px;}
-
+.tribe-settings-form #tribe-field-stylesheetOption label { margin-left: 20px;}
+.tribe-settings-form #tribe-field-stylesheetOption input { margin-left: -20px; margin-right: 8px;}
+.tribe-settings-form #tribe-field-stylesheetOption p.description {color: #999;}
 /* Modern Tribe box */
 #modern-tribe-info {margin: 20px 0; background-color: #f9f9f9; padding: 8px 20px 12px; border: 1px solid #ccc; border-rarius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; -o-border-radius: 4px;}
 #modern-tribe-info img {margin: 10px 0; width: 250px; height: 18px;}
@@ -162,7 +168,15 @@ td.tribe_message {padding-bottom: 10px !important;}
 .tribe-arrangeable-item-top { padding: 6px; }
 .tribe-arrangeable-item-top:hover { cursor: move; }
 .tribe-arrangeable-action { float:right; }
-.tribe-arrangeable-child { display:none; padding: 5px; border-top: 1px solid lightGrey; background-color: #f9f9f9 }
+.tribe-arrangeable-child { display:none; padding: 25px; border-top: 1px solid lightGrey; background-color: #f9f9f9 }
+.tribe-arrangeable-child label{margin:0 0 7px 0; display:block;}
+.tribe_events_active_filter_type_options {
+	margin: 10px 0;
+}
+.tribe_events_active_filter_type_options label {
+	margin: 7px 0;
+}
+.tribe-settings-form .tribe-settings-form-wrap fieldset .tribe-style-selection{margin-bottom:18px;}
 
 /* = Help Screen
 =============================================*/
