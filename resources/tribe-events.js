@@ -5,12 +5,29 @@
  */
 
 /**
+ * @namespace tribe_ev
+ * @since 3.0
+ * @desc The tribe_ev namespace that stores all custom functions, data, application state and an empty events object to bind custom events to.
+ * This Object Literal namespace loads for all tribe events pages and is by design fully public so that themers can hook in and/or extend anything they want from their own files.
+ * @example <caption>Test for tribe_ev in your own js and then run one of our functions.</caption>
+ * jQuery(document).ready(function ($) {
+ *      if (window.hasOwnProperty('tribe_ev')) {
+ *          if(tribe_ev.fn.get_category() === 'Cats'){
+ *              alert('Meow!');
+ *          }
+ *      }
+ * });
+ */
+
+var tribe_ev = window.tribe_ev || {};
+
+/**
  * @define {boolean} tribe_debug
  * @global tribe_debug is used both by closure compiler to strip debug code on min and as a failsafe short circuit if compiler fails to strip all debug strings.
- * @desc Setup safe enhanced console logging. See the link to get the available methods, then prefix with this short circuit ('tribe_debug && '). tribe_debug is aliased in all tribe js doc readys as 'dbug'.
+ * @desc Setup safe enhanced console logging. See the link to get the available methods, then prefix with this short circuit: 'tribe_debug && '. tribe_debug is aliased in all tribe js doc readys as 'dbug'.
  * @link http://benalman.com/code/projects/javascript-debug/docs/files/ba-debug-js.html
- * @example <caption>Place this at the very bottom of the doc ready for tribe-events.js ALWAYS short circuit with 'tribe_debug && ' or 'dbug &&' if aliased as such.</caption> *
- * tribe_debug && debug.info('tribe-events.js successfully loaded');
+ * @example <caption>EG: Place this at the very bottom of the doc ready for tribe-events.js. ALWAYS short circuit with 'tribe_debug && ' or 'dbug &&' if aliased as such.</caption> *
+ * 		tribe_debug && debug.info('tribe-events.js successfully loaded');
  */
 
 var tribe_debug = true;
@@ -113,6 +130,12 @@ if(tribe_debug){
 
 		return that;
 	})();
+
+	if (window.hasOwnProperty('tribe_ev')) {
+		tribe_ev.diagnostics = {
+			init: []
+		};
+	}
 }
 
 /**
@@ -182,23 +205,6 @@ try {
 		$(this).addClass('tribe-events-loading');
 	}
 })(jQuery);
-
-/**
- * @namespace tribe_ev
- * @since 3.0
- * @desc The tribe_ev namespace that stores all custom functions, data, application state and an empty events object to bind custom events to.
- * This Object Literal namespace loads for all tribe events pages and is by design fully public so that themers can hook in and/or extend anything they want from their own files.
- * @example <caption>Test for tribe_ev in your own js and then run one of our functions.</caption>
- * jQuery(document).ready(function ($) {
- *      if (window.hasOwnProperty('tribe_ev')) {
- *          if(tribe_ev.fn.get_category() === 'Cats'){
- *              alert('Meow!');
- *          }
- *      }
- * });
- */
-
-var tribe_ev = window.tribe_ev || {};
 
 (function ($, dbug) {
     /**
