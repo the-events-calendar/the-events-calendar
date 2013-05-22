@@ -3690,35 +3690,29 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			die();
 		}
 
-		public static function array_insert( $source_array, $insert_array, $position, $replace_amount = 0 ) {
-			array_splice( $source_array, $position, $replace_amount, $insert_array );
+		/**
+		 * Insert an array after a specified key within another array.
+		 *
+		 * @param $key
+		 * @param $source_array
+		 * @param $insert_array
+		 * @return array
+		 *
+		 * @author codearachnid
+		 * @author Peter Chester
+		 * @since 3.0
+		 */
+		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
+			if ( array_key_exists( $key, $source_array ) ) {
+				$position = array_search( $key, array_keys( $source_array ) ) + 1;
+				$source_array = array_slice($source_array, 0, $position, true) + $insert_array + array_slice($source_array, $position, NULL, true);
+			} else {
+				// If no key is found, then add it to the end of the array.
+				$source_array += $insert_array;
+			}
 			return $source_array;
 		}
-		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
-			return self::array_insert_by_key( $key, $source_array, $insert_array );
-		}
-		public static function array_insert_before_key( $key, $source_array, $insert_array ) {
-			return self::array_insert_by_key( $key, $source_array, $insert_array, 0 );
-		}
-		public static function array_insert_by_key( $key, $source_array, $insert_array, $direction = 1 ){
-			$position = array_search( $key, array_keys( $source_array ) ) + $direction;
 
-			// setup the return with the source array
-			$modified_array = $source_array;
-
-			if( count($source_array) < $position && $position != 0 ) {
-				// push one or more elements onto the end of array
-				array_push( $modified_array, $insert_array );
-			} else if ( $position < 0 ){
-				// prepend one or more elements to the beginning of an array
-				array_unshift( $modified_array, $insert_array );
-			} else {
-				$modified_array = array_slice($source_array, 0, $position, true) +
-		            $insert_array +
-		            array_slice($source_array, $position, NULL, true);
-			}
-			return $modified_array;
-		}
 
 		public static function clear_module_pagination( $html ) {
 			$html = '<li class="tribe-events-nav-previous"><a href="#" id="tribe-events-paged-prev" class="tribe-events-paged">' . __( '&laquo; Previous Events', 'tribe-events-calendar' ) . '</a></li>';
