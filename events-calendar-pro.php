@@ -576,6 +576,32 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/apm_filters.php' );
 		}
 
+		/**
+		 * Insert an array after a specified key within another array.
+		 *
+		 * This function is a duplicate of the one used in The Events Calendar.
+		 * It exists only for reverse compatibility during 3.0 upgrades.
+		 *
+		 * @param $key
+		 * @param $source_array
+		 * @param $insert_array
+		 * @return array
+		 *
+		 * @author codearachnid
+		 * @author Peter Chester
+		 * @since 3.0
+		 * @todo deprecate this function in release 3.1
+		 */
+		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
+			if ( array_key_exists( $key, $source_array ) ) {
+				$position = array_search( $key, array_keys( $source_array ) ) + 1;
+				$source_array = array_slice($source_array, 0, $position, true) + $insert_array + array_slice($source_array, $position, NULL, true);
+			} else {
+				// If no key is found, then add it to the end of the array.
+				$source_array += $insert_array;
+			}
+			return $source_array;
+		}
 
 		// event deletion
 		public function adjust_date_on_recurring_event_trash_link( $link, $postId ) {
