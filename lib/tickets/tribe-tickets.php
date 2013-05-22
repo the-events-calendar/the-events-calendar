@@ -182,7 +182,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		 *
 		 * @return mixed
 		 */
-		abstract function front_end_tickets_form( $content = 'deprecated' );
+		abstract function front_end_tickets_form( $content );
 
 		/**
 		 * Returns the markup for the price field
@@ -192,7 +192,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		 *
 		 * @return string
 		 */
-		abstract function get_price_html( $product );
+		function get_price_html( $product ){ return '';  }
 
 		/**
 		 * Returns instance of the child class (singleton)
@@ -233,7 +233,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			add_action( 'wp_ajax_tribe-ticket-uncheckin-' . $this->className, array( $this, 'ajax_handler_attendee_uncheckin' ) );
 
 			// Front end
-			add_filter( 'tribe_events_single_event_after_the_meta', array( $this, 'front_end_tickets_form' ) );
+			add_action( 'tribe_events_single_event_after_the_meta', array( $this, 'front_end_tickets_form' ) );
 
 		}
 
