@@ -1030,9 +1030,13 @@ select.tribe-events-dropdown {
 }
 .tribe-events-viewmore {
 	margin: 0 5%;
-	padding: 6px 8px;
+	padding: 9px 8px;
 	font-weight: bold;
 	line-height: 1;
+	border-top: 1px solid #e7e7e7;
+}
+.tribe-events-calendar td .tribe-events-viewmore a{
+	font-size: 100%;
 }
 .tribe-events-calendar th {
 	width: 250px;
@@ -1055,7 +1059,7 @@ select.tribe-events-dropdown {
 	margin: 0;
 }
 #tribe-events-content .tribe-events-calendar div[id*="tribe-events-event-"] h3.tribe-events-month-event-title {
-	line-height: 1.5;
+	line-height: 1.25;
 	font-size: 13px;
 	font-weight: normal;
 	font-family: sans-serif;
