@@ -182,7 +182,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		 *
 		 * @return mixed
 		 */
-		abstract function front_end_tickets_form( $content );
+		abstract function front_end_tickets_form( $content = 'deprecated' );
 
 		/**
 		 * Returns the markup for the price field
