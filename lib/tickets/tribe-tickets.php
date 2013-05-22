@@ -178,9 +178,11 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		 *
 		 * @abstract
 		 *
+		 * @param $content
+		 *
 		 * @return mixed
 		 */
-		abstract function front_end_tickets_form( );
+		abstract function front_end_tickets_form( $content );
 
 		/**
 		 * Returns the markup for the price field

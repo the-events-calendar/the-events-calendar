@@ -393,7 +393,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					wp_enqueue_script( $prefix . '-ecp-plugins', $resources_url . 'jquery-ecp-plugins.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 					break;
 				case 'tribe-events-bar' :
-					$deps = array_merge( $deps, array( 'jquery', $prefix . '-calendar-script', $prefix . '-bootstrap-datepicker', $prefix . '-jquery-resize', $prefix . '-select2' ) );
+					$deps = array_merge( $deps, array( 'jquery', $prefix . '-calendar-script', $prefix . '-bootstrap-datepicker', $prefix . '-jquery-resize', $prefix . '-select2', 'jquery-placeholder' ) );
 					wp_enqueue_script( $prefix . '-bar', $resources_url . 'tribe-events-bar.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 					break;
 				case 'jquery-placeholder' : // Vendor: jQuery Placeholder
