@@ -25,7 +25,7 @@
 #tribe-events-pg-template .tribe-events-content p,
 .tribe-events-before-html p,
 .tribe-events-after-html p {
-	margin: 0 0 20px;
+	margin: 0 0 10px;
 	line-height: 1.7;
 }
 
@@ -126,8 +126,6 @@
 
 .tribe-events-read-more {
 	display: block;
-	font-weight: bold;
-	margin-top: .5em;
 }
 
 /* Important Link Styles */
