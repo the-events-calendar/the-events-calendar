@@ -51,15 +51,15 @@ $displayTab = array(
 			'options' => array(
 				'skeleton' => __( 'Skeleton Styles', 'tribe-events-calendar' ) .
 					'<p class=\'description tribe-style-selection\'>' .
-					__('These styles provide a bare minimum level of layout for the more complex templates, and is recommended if you\'re customizing the events template styles.', 'tribe-events-calendar' ) .
+					__('Only includes enough css to achieve complex layouts like calendar and week view.', 'tribe-events-calendar' ) .
 					'</p>',
 				'full' => __( 'Full Styles', 'tribe-events-calendar' ) .
 					'<p class=\'description tribe-style-selection\'>' .
-					__( 'These styles provide a more complex level of layout and style and should adapt to your theme', 'tribe-events-calendar' ) .
+					__( 'More detailed styling, tries to grab styles from your theme.', 'tribe-events-calendar' ) .
 					'</p>',
 				'tribe' => __( 'Tribe Events Styles', 'tribe-events-calendar' ) .
 					'<p class=\'description tribe-style-selection\'>' .
-					__( 'These styles provide a fully designed events theme', 'tribe-events-calendar' ) .
+					__( 'A fully designed and styled theme for your events pages.', 'tribe-events-calendar' ) .
 					'</p>',
 			),
 			'validation_type' => 'options',
