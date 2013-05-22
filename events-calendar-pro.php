@@ -116,7 +116,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_events_template_class_path', array( $this, 'template_class_path' ) );
 
 			add_filter( 'tribe_help_tab_getting_started_text', array( $this, 'add_help_tab_getting_started_text' ) );
-			add_filter( 'tribe_help_tab_enb_content', array( $this, 'add_help_tab_enb_text' ) );
+			add_filter( 'tribe_help_tab_introtext', array( $this, 'add_help_tab_intro_text' ) );
+			add_filter( 'tribe_help_tab_forumtext', array( $this, 'add_help_tab_forumtext' ) );
+			
 			// add_filter( 'tribe_events_template_single-venue.php', array( $this, 'load_venue_template' ) );
 			add_action( 'widgets_init', array( $this, 'pro_widgets_init' ), 100 );
 			add_action( 'wp_loaded', array( $this, 'allow_cpt_search' ) );
@@ -159,6 +161,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_events_list_after_the_title', array( $this, 'add_recurring_occurance_setting_to_list' ) );
 			add_filter( 'tribe_events_map_after_the_title', array( $this, 'add_recurring_occurance_setting_to_list' ) );
 			add_filter( 'tribe_events_photo_after_the_title', array( $this, 'add_recurring_occurance_setting_to_list' ) );
+			add_filter( 'tribe_get_day_link', array( $this, 'add_empty_date_dayview_link' ), 10, 2 );
 
 			/* AJAX for loading day view */
 			add_action( 'wp_ajax_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
@@ -695,25 +698,37 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		public function add_help_tab_getting_started_text() {
 			$ga_query_string = '?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin';
-			$getting_started_text[] = sprintf( __('<p>By buying a PRO license you will get active support and sweet additional features not found in the free The Events Calendar.</p><p><strong>Feeling adventurous?</strong> Jump right into it by visiting the Events menu to <a href="%s">add your first event</a>.</p><p><strong>Want to get the low-down first?</strong> Visit our <a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/%s">new user primer</a>,  designed to help familiarize you with the plugin basics.</p><p>Don\'t forget to head over to the <a href="%s">license tab</a> and enter your key!</p>', 'tribe-events-calendar' ),  add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE ), 'post-new.php' ), $ga_query_string, admin_url('/edit.php?post_type=tribe_events&page=tribe-events-calendar&tab=licenses') );
-
+			$getting_started_text[] = sprintf (__('Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we sincerely appreciate it. If you\'re looking for help with Events Calendar PRO, you\'ve come to the right place. We are committed to helping make your calendar kick ass... and hope the resources provided below will help get you there.', 'tribe_events_calendar'));
 			$content = implode( $getting_started_text );
 			return $content;
 		}
 
-		public function add_help_tab_enb_text() {
+		public function add_help_tab_intro_text(){
 			$ga_query_string = '?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin';
-			$enb_text[] = '<p>' . sprintf( __( 'One of the advantages of being a PRO user is that you have access to our exclusive forums at %s. Our support staff hits the forums on a daily basis, and what they can\'t answer on the spot they\'ll bring a member of our dev team in to address directly.', 'tribe-events-calendar-pro' ), sprintf( '<a href="http://tri.be/support/forums/' . $ga_query_string . '">%s</a>', 'tri.be' ) ) . '</p>';
-			$enb_text[] = '<p>' . __( 'Some things to consider before posting on the forum:', 'tribe-events-calendar') . '</p>';
-			$enb_text[] = '<ul>';
-			$enb_text[] = '<li>' . __('Search recent threads before posting a new one to check that there isn\'t already a discussion about your issue.', 'tribe-events-calendar') . '</li>';
-			$enb_text[] = '<li>' . __('Check whether the issue is a conflict with another plugin or your theme. This can be tested easily on a staging site by deactivating other plugins one-by-one, and reverting to the default Twenty Twelve theme to see if conflicts can be easily identified. If you find a conflict, note it in a support thread.', 'tribe-events-calendar') . '</li>';
-			$enb_text[] = '<li>' . sprintf( __('Sometimes, resaving your permalinks (under <a href="%s">Settings > Permalinks</a>) can resolve events-related problems on your site. Before creating a new thread try this handy trick.', 'tribe-events-calendar'), admin_url('options-permalink.php')) . '</li>';
+			$intro_text[] = __('<p>If this is your first time using The Events Calendar Pro, you\'re in for a treat and are already well on your way to creating a first event. Here are some basics we\'ve found helpful for users jumping into it for the first time:</p>', 'tribe-events-calendar');
+			$intro_text[] = '<ul>';
+			$intro_text[] = '<li>';
+			$intro_text[] = __ ('Our New User Primer was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time.', 'tribe-events-calendar');
+			$intro_text[] = '</li><li>';
+			$intro_text[] =__('Installation/Setup FAQs from our Support page, can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer.', 'tribe-events-calendar');
+			$intro_text[] = '</li><li>';
+			$intro_text[] = __('Are you developer looking to build your own frontend view? We created an example plugin that demonstrates how to register a new view. You can download the plugin at GitHub to get started.', 'tribe-events-calendar');
+			$intro_text[] = '</li><li>';
+			$intro_text[] = __( 'Take care of your license key. Though not required to create your first event, you\'ll want to get it in place as soon as possible to guarantee your access to support and upgrades. Here\'s how to find your license key, if you don\'t have it handy.', 'tribe_eve');
+			$intro_text[] = '</li></ul><p>';
+			$intro_text[] = __('Otherwise, if you\'re feeling adventurous, you can get started by heading to the Events menu and adding your first event.', 'tribe-events-calendar');
+			$intro_text[] = '</p>';
+			$intro_text = implode( $intro_text );
+			return $intro_text;
+		}
 
-			$enb_text[] = '</ul>';
-			$enb_text[] = '<p>' . sprintf( __( 'While we won\'t build your site for you and can\'t guarantee The Events Calendar PRO to play nicely with every theme and plugin out there, our team will do our best to help you get it functioning nicely with your site. And as an added bonus, once you\'re done you can post it in the %s so the rest of the community can see what you\'ve been working on.', 'tribe-events-calendar-pro' ), sprintf( '<a href="http://tri.be/support/forums/topic/showcase-2-0/' . $ga_query_string . '">%s</a>', __( 'Showcase thread', 'tribe-events-calendar-pro' ) ) ) . '</p>';
-			$content = implode( $enb_text );
-			return $content;
+		public function add_help_tab_forumtext(){
+			$forum_text[] = __('<p>Written documentation can only take things so far...sometimes, you need help from a real person. This is where our support forums come into play.</p>', 'tribe_events_calendar');
+			$forum_text[] = __('<p>Users who have purchased an Events Calendar PRO license are granted total access to our premium support forums. Unlike at the WordPress.org support forums, where our involvement is limited to identifying and patching bugs, we have a dedicated support team for PRO users. We\'re on the PRO forums daily throughout the business week, and no thread should go more than 24-hours without a response.</p>', 'tribe_events_calendar');
+			$forum_text[] = __('<p>Our number one goal is helping you succeed, and to whatever extent possible, we\'ll help troubleshoot and guide your customizations or tweaks. While we won\'t build your site for you, and we can\'t guarantee we\'ll be able to get you 100% integrated with every theme or plugin out there, we\'ll do all we can to point you in the right direction and to make you -- and your client, as is often more importantly the case -- satisfied. </p>', 'tribe_events_calendar');
+			$forum_text[] = __('<p>Before posting a new thread, please do a search to make sure your issue hasn\'t already been addressed. When posting please make sure to provide as much detail about the problem as you can (with screenshots or screencasts if feasible), and make sure that you\'ve identified whether a plugin / theme conflict could be at play in your initial message.</p>', 'tribe_events_calendar');
+			$forum_text = implode($forum_text );
+			return $forum_text;
 		}
 
 
@@ -1233,6 +1248,23 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		function miles_to_kms_ratio() {
 			return 1.60934;
+		}
+		
+		/**
+		 * Adds /today to the day view link if no day is passed.
+		 *
+		 * @param string $link The current link.
+		 * @param string|null $date The date passed.
+		 * @return string The modified link.
+		 * @author Paul Hughes
+		 * @since 3.0
+		 */
+		public function add_empty_date_dayview_link( $link, $date ) {
+			if ( is_null( $date ) ) {
+				$tribe_ecp = TribeEvents::instance();
+				$link = trailingslashit( trailingslashit( $tribe_ecp->getLink( '' ) ) . $this->todaySlug );
+			}
+			return $link;
 		}
 
 

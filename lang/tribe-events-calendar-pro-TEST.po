@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: Events Calendar Pro\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-20 02:25-0600\n"
-"PO-Revision-Date: 2013-05-20 02:25-0600\n"
-"Last-Translator: Modern Tribe, Inc. <pro@tri.be>\n"
+"PO-Revision-Date: 2013-05-20 02:56-0600\n"
+"Last-Translator: Modern Tribe Inc. <pro@tri.be>\n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language: TEST\n"
 "MIME-Version: 1.0\n"
@@ -19,12 +19,12 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../events-calendar-pro.php:58
 msgid "week"
-msgstr "weekX"
+msgstr "xxxxx"
 
 #: ../events-calendar-pro.php:59
 msgid "photo"
@@ -78,13 +78,13 @@ msgid ""
 msgstr ""
 
 #: ../events-calendar-pro.php:680
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "One of the advantages of being a PRO user is that you have access to our "
 "exclusive forums at %s. Our support staff hits the forums on a daily basis, "
 "and what they can't answer on the spot they'll bring a member of our dev "
 "team in to address directly."
-msgstr "XXXXX"
+msgstr "xxxxx"
 
 #: ../events-calendar-pro.php:681
 msgid "Some things to consider before posting on the forum:"
@@ -97,32 +97,31 @@ msgid ""
 msgstr ""
 
 #: ../events-calendar-pro.php:684
-#, fuzzy
 msgid ""
 "Check whether the issue is a conflict with another plugin or your theme. "
 "This can be tested easily on a staging site by deactivating other plugins "
 "one-by-one, and reverting to the default Twenty Twelve theme to see if "
 "conflicts can be easily identified. If you find a conflict, note it in a "
 "support thread."
-msgstr "XXXXX"
+msgstr "xxxxx"
 
 #: ../events-calendar-pro.php:685
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Sometimes, resaving your permalinks (under <a href=\"%s\">Settings > "
 "Permalinks</a>) can resolve events-related problems on your site. Before "
 "creating a new thread try this handy trick."
-msgstr "XXXXX"
+msgstr "xxxxx"
 
 #: ../events-calendar-pro.php:688
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "While we won't build your site for you and can't guarantee The Events "
 "Calendar PRO to play nicely with every theme and plugin out there, our team "
 "will do our best to help you get it functioning nicely with your site. And "
 "as an added bonus, once you're done you can post it in the %s so the rest of "
 "the community can see what you've been working on."
-msgstr "XXXXX"
+msgstr "xxxxx"
 
 #: ../events-calendar-pro.php:688
 msgid "Showcase thread"
@@ -463,8 +462,8 @@ msgstr "XXXXX"
 msgid "Custom"
 msgstr "XXXXX"
 
-#: ../admin-views/event-recurrence.php:16
 #
+#: ../admin-views/event-recurrence.php:16
 msgid "and will end"
 msgstr ""
 
@@ -853,9 +852,9 @@ msgstr "XXXXX"
 msgid "All Events"
 msgstr "XXXXX"
 
+#
 #: ../admin-views/widget-admin-advanced-list.php:58
 #: ../admin-views/widget-admin-venue.php:28
-#
 msgid "Hide this widget if there are no upcoming events:"
 msgstr ""
 
@@ -868,8 +867,8 @@ msgstr "XXXXX"
 msgid "Event:"
 msgstr "XXXXX"
 
-#: ../admin-views/widget-admin-countdown.php:21
 #
+#: ../admin-views/widget-admin-countdown.php:21
 msgid "Show seconds:"
 msgstr ""
 
@@ -957,11 +956,11 @@ msgid "Every day"
 msgstr "XXXXX"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:591
-#, fuzzy, php-format
+#, php-format
 msgid " for %d day"
 msgid_plural " for %d days"
-msgstr[0] "XXXXX"
-msgstr[1] "XXXXX"
+msgstr[0] "xxxxx"
+msgstr[1] ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:594
 #: ../lib/tribe-events-recurrence-meta.class.php:610
@@ -969,11 +968,11 @@ msgid "Every week"
 msgstr "XXXXX"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:595
-#, fuzzy, php-format
+#, php-format
 msgid " for %d week"
 msgid_plural " for %d weeks"
-msgstr[0] "XXXXX"
-msgstr[1] "XXXXX"
+msgstr[0] "xxxxx"
+msgstr[1] ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:597
 #: ../lib/tribe-events-recurrence-meta.class.php:616
@@ -981,11 +980,11 @@ msgid "Every month"
 msgstr "XXXXX"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:598
-#, fuzzy, php-format
+#, php-format
 msgid " for %d month"
 msgid_plural " for %d months"
-msgstr[0] "XXXXX"
-msgstr[1] "XXXXX"
+msgstr[0] "xxxx"
+msgstr[1] ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:600
 #: ../lib/tribe-events-recurrence-meta.class.php:623
@@ -993,11 +992,11 @@ msgid "Every year"
 msgstr "XXXXX"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:601
-#, fuzzy, php-format
+#, php-format
 msgid " for %d year"
 msgid_plural " for %d years"
-msgstr[0] "XXXXX"
-msgstr[1] "XXXXX"
+msgstr[0] "xxxxx"
+msgstr[1] ""
 
 #: ../lib/tribe-events-recurrence-meta.class.php:606
 #, php-format
@@ -1281,8 +1280,8 @@ msgstr "XXXXX"
 msgid "Displays the time remaining until a specified event."
 msgstr "XXXXX"
 
-#: ../lib/widget-countdown.class.php:15
 #
+#: ../lib/widget-countdown.class.php:15
 msgid "Events Countdown"
 msgstr ""
 

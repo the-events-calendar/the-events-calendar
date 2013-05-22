@@ -16,7 +16,7 @@ if ( empty($customFields) || !is_array($customFields) ) {
                <?php elseif($customField['type'] == 'url'): ?>
                   <input type="text" name="<?php echo esc_attr($customField['name']) ?>" value="<?php echo esc_attr($val) ?>"/>
                <?php elseif($customField['type'] == 'radio'): ?>
-                   	 <div><label><input type="radio" name="<?php echo esc_attr($customField['name']) ?>" value="" <?php checked(trim($val), '') ?>/>None</label></div>
+                   	 <div><label><input type="radio" name="<?php echo esc_attr($customField['name']) ?>" value="" <?php checked(trim($val), '') ?>/> None</label></div>
                   <?php foreach ($options as $option): ?>
                      <div><label><input type="radio" name="<?php echo esc_attr($customField['name']) ?>" value="<?php echo esc_attr($option) ?>" <?php checked(trim($val), trim($option)) ?>/> <?php echo esc_html(stripslashes($option)) ?></label></div>
                   <?php endforeach ?>

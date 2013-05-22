@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: The Events Calendar Pro\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-20 02:25-0600\n"
-"PO-Revision-Date: 2013-05-20 02:25-0600\n"
-"Last-Translator: Modern Tribe, Inc. <pro@tri.be>\n"
+"PO-Revision-Date: 2013-05-20 03:01-0600\n"
+"Last-Translator: Modern Tribe Inc. <pro@tri.be>\n"
 "Language-Team: mikei <mm@hilightprojects.com>\n"
 "Language: Russian\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ./\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../events-calendar-pro.php:58
@@ -36,8 +36,8 @@ msgstr "день"
 msgid "today"
 msgstr ""
 
-#: ../events-calendar-pro.php:211
 #
+#: ../events-calendar-pro.php:211
 msgid "Events for week of"
 msgstr ""
 
@@ -46,18 +46,18 @@ msgstr ""
 msgid "Events for week of %s"
 msgstr ""
 
-#: ../events-calendar-pro.php:243
 #
+#: ../events-calendar-pro.php:243
 msgid "Events for"
 msgstr ""
 
-#: ../events-calendar-pro.php:247 ../lib/widget-advanced-list.class.php:51
 #
+#: ../events-calendar-pro.php:247 ../lib/widget-advanced-list.class.php:51
 msgid "Upcoming Events"
 msgstr ""
 
-#: ../events-calendar-pro.php:664 ../admin-views/tribe-options-defaults.php:35
 #
+#: ../events-calendar-pro.php:664 ../admin-views/tribe-options-defaults.php:35
 msgid "Default Content"
 msgstr ""
 
@@ -153,8 +153,8 @@ msgstr ""
 msgid "View All Add-Ons"
 msgstr ""
 
-#: ../events-calendar-pro.php:1160
 #
+#: ../events-calendar-pro.php:1160
 msgid "Week"
 msgstr ""
 
@@ -171,13 +171,13 @@ msgstr ""
 msgid "Day Of"
 msgstr ""
 
-#: ../events-calendar-pro.php:1186
 #
+#: ../events-calendar-pro.php:1186
 msgid "Week Of"
 msgstr ""
 
-#: ../events-calendar-pro.php:1249
 #
+#: ../events-calendar-pro.php:1249
 msgid "The Events Calendar"
 msgstr ""
 
@@ -415,13 +415,13 @@ msgstr ""
 msgid "video tutorial that will walk you through the process"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:49
 #
+#: ../admin-views/event-meta-options.php:49
 msgid "Editor \"Custom Fields\" meta box"
 msgstr ""
 
-#: ../admin-views/event-meta-options.php:51
 #
+#: ../admin-views/event-meta-options.php:51
 msgid "Show"
 msgstr ""
 
@@ -443,8 +443,8 @@ msgstr ""
 "Вы уверены, что хотите удалить это поле и все данные для этих событий. Как "
 "только вы кликните ОК, это нельзя будет отменить."
 
-#: ../admin-views/event-meta.php:7
 #
+#: ../admin-views/event-meta.php:7
 msgid "Additional Event Fields"
 msgstr ""
 
@@ -689,8 +689,8 @@ msgstr "На:"
 msgid "Description:"
 msgstr "Описание:"
 
-#: ../admin-views/event-recurrence.php:143
 #
+#: ../admin-views/event-recurrence.php:143
 msgid "Recurrence Text:"
 msgstr ""
 
@@ -722,14 +722,14 @@ msgstr ""
 msgid "Send a Support Request"
 msgstr "Отправить запрос на поддержку"
 
+#
 #: ../admin-views/tribe-options-defaults.php:6
 #: ../admin-views/tribe-options-defaults.php:15
-#
 msgid "No Default"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:22
 #
+#: ../admin-views/tribe-options-defaults.php:22
 msgid "Select a State"
 msgstr ""
 
@@ -755,8 +755,8 @@ msgstr ""
 msgid "Organizer"
 msgstr "Организатор"
 
-#: ../admin-views/tribe-options-defaults.php:69
 #
+#: ../admin-views/tribe-options-defaults.php:69
 msgid "Default organizer"
 msgstr ""
 
@@ -769,8 +769,8 @@ msgstr "Сохраненных Организаторов пока нет."
 msgid "Venue"
 msgstr "Место"
 
-#: ../admin-views/tribe-options-defaults.php:86
 #
+#: ../admin-views/tribe-options-defaults.php:86
 msgid "Default venue"
 msgstr ""
 
@@ -789,49 +789,46 @@ msgid ""
 "Venue you create (these will not be used for your default venue)."
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:107
 #
+#: ../admin-views/tribe-options-defaults.php:107
 msgid "Default address"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:120
 #
+#: ../admin-views/tribe-options-defaults.php:120
 msgid "Default city"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:133
 #
+#: ../admin-views/tribe-options-defaults.php:133
 msgid "Default state"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:146
 #
+#: ../admin-views/tribe-options-defaults.php:146
 msgid "Default province"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:159
 #
+#: ../admin-views/tribe-options-defaults.php:159
 msgid "Default postal code/zip code"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:172
 #
+#: ../admin-views/tribe-options-defaults.php:172
 msgid "Default country"
 msgstr ""
 
-#: ../admin-views/tribe-options-defaults.php:185
 #
+#: ../admin-views/tribe-options-defaults.php:185
 msgid "Default phone"
 msgstr ""
 
 #: ../admin-views/tribe-options-defaults.php:201
-#, fuzzy
 msgid ""
 "One country per line in the following format: <br>US, United States <br> UK, "
 "United Kingdom. <br> (Replaces the default list.)"
 msgstr ""
-"Одна страна в строке в следующем формате: <br/>US, United States <br/> UK, "
-"United Kingdom."
 
 #: ../admin-views/widget-admin-advanced-list.php:11
 #: ../admin-views/widget-admin-calendar.php:10
@@ -884,9 +881,9 @@ msgstr "Категория:"
 msgid "All Events"
 msgstr "Все события"
 
+#
 #: ../admin-views/widget-admin-advanced-list.php:58
 #: ../admin-views/widget-admin-venue.php:28
-#
 msgid "Hide this widget if there are no upcoming events:"
 msgstr ""
 
@@ -895,13 +892,13 @@ msgstr ""
 msgid "Want to modify the display of this widget? Try a %stemplate override%s."
 msgstr ""
 
-#: ../admin-views/widget-admin-countdown.php:12
 #
+#: ../admin-views/widget-admin-countdown.php:12
 msgid "Event:"
 msgstr ""
 
-#: ../admin-views/widget-admin-countdown.php:21
 #
+#: ../admin-views/widget-admin-countdown.php:21
 msgid "Show seconds:"
 msgstr ""
 
@@ -909,18 +906,18 @@ msgstr ""
 msgid "Countdown Completed Text:"
 msgstr ""
 
-#: ../admin-views/widget-admin-venue.php:11
 #
+#: ../admin-views/widget-admin-venue.php:11
 msgid "Venue:"
 msgstr ""
 
-#: ../admin-views/widget-calendar.php:24
 #
+#: ../admin-views/widget-calendar.php:24
 msgid "Filters"
 msgstr ""
 
-#: ../admin-views/widget-calendar.php:42
 #
+#: ../admin-views/widget-calendar.php:42
 msgid "remove"
 msgstr ""
 
@@ -932,8 +929,8 @@ msgstr ""
 msgid "Match any"
 msgstr ""
 
-#: ../admin-views/widget-calendar.php:60
 #
+#: ../admin-views/widget-calendar.php:60
 msgid "Add a filter"
 msgstr ""
 
@@ -945,8 +942,8 @@ msgstr ""
 msgid "Start Date"
 msgstr "Дата начала"
 
-#: ../lib/apm_filters.php:37
 #
+#: ../lib/apm_filters.php:37
 msgid "End Date"
 msgstr ""
 
@@ -954,23 +951,23 @@ msgstr ""
 msgid "Event Cost"
 msgstr "Стоимость события"
 
-#: ../lib/apm_filters.php:47
 #
+#: ../lib/apm_filters.php:47
 msgid "Event Cats"
 msgstr ""
 
-#: ../lib/apm_filters.php:52
 #
+#: ../lib/apm_filters.php:52
 msgid "Title"
 msgstr ""
 
-#: ../lib/apm_filters.php:57
 #
+#: ../lib/apm_filters.php:57
 msgid "Recurring"
 msgstr ""
 
-#: ../lib/apm_filters.php:62
 #
+#: ../lib/apm_filters.php:62
 msgid "Description"
 msgstr ""
 
@@ -978,8 +975,8 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: ../lib/meta-pro.php:87
 #
+#: ../lib/meta-pro.php:87
 msgid "Recurrence Pattern:"
 msgstr ""
 
@@ -1062,21 +1059,21 @@ msgstr "до %s"
 msgid "%s%s%s"
 msgstr "%s%s%s"
 
+#
 #: ../lib/tribe-events-recurrence-meta.class.php:658
 #: ../lib/tribe-events-recurrence-meta.class.php:684
-#
 msgid ", and"
 msgstr ""
 
+#
 #: ../lib/tribe-events-recurrence-meta.class.php:660
 #: ../lib/tribe-events-recurrence-meta.class.php:686
-#
 msgid "and"
 msgstr ""
 
+#
 #: ../lib/tribe-events-recurrence-meta.class.php:662
 #: ../lib/tribe-events-recurrence-meta.class.php:688
-#
 msgid ","
 msgstr ""
 
@@ -1159,8 +1156,8 @@ msgstr ""
 msgid "%sType: %s"
 msgstr ""
 
-#: ../lib/tribe-geoloc.class.php:79
 #
+#: ../lib/tribe-geoloc.class.php:79
 msgid "Select Dropdown"
 msgstr ""
 
@@ -1212,8 +1209,8 @@ msgid ""
 "map view."
 msgstr ""
 
-#: ../lib/tribe-geoloc.class.php:172
 #
+#: ../lib/tribe-geoloc.class.php:172
 msgid "Map"
 msgstr ""
 
@@ -1241,8 +1238,8 @@ msgstr ""
 msgid "Add to Google Calendar"
 msgstr ""
 
-#: ../lib/tribe-ical.class.php:36
 #
+#: ../lib/tribe-ical.class.php:36
 msgid "Google Calendar"
 msgstr ""
 
@@ -1250,23 +1247,23 @@ msgstr ""
 msgid "iCal Import"
 msgstr ""
 
-#: ../lib/tribe-ical.class.php:70
 #
+#: ../lib/tribe-ical.class.php:70
 msgid "Month's Events"
 msgstr ""
 
-#: ../lib/tribe-ical.class.php:73
 #
+#: ../lib/tribe-ical.class.php:73
 msgid "Week's Events"
 msgstr ""
 
-#: ../lib/tribe-ical.class.php:76
 #
+#: ../lib/tribe-ical.class.php:76
 msgid "Day's Events"
 msgstr ""
 
-#: ../lib/tribe-ical.class.php:79
 #
+#: ../lib/tribe-ical.class.php:79
 msgid "Listed Events"
 msgstr ""
 
@@ -1278,8 +1275,8 @@ msgstr ""
 msgid "A widget that displays the next upcoming x events."
 msgstr "Виджет показывает следующие приближающиеся события."
 
-#: ../lib/widget-advanced-list.class.php:22
 #
+#: ../lib/widget-advanced-list.class.php:22
 msgid "Events List"
 msgstr ""
 
@@ -1296,8 +1293,8 @@ msgstr "Календарь Событий"
 msgid "Displays the time remaining until a specified event."
 msgstr ""
 
-#: ../lib/widget-countdown.class.php:15
 #
+#: ../lib/widget-countdown.class.php:15
 msgid "Events Countdown"
 msgstr ""
 
@@ -1342,11 +1339,12 @@ msgid ""
 "searching another week."
 msgstr ""
 
-#: ../public/template-tags/general.php:103
 #
+#: ../public/template-tags/general.php:103
 msgid "Show only the first upcoming instance of recurring events"
 msgstr ""
 
+#
 #: ../public/template-tags/general.php:294
 #: ../public/template-tags/general.php:308
 #: ../public/template-tags/general.php:321
@@ -1363,7 +1361,6 @@ msgstr ""
 #: ../public/template-tags/general.php:392
 #: ../public/template-tags/general.php:405
 #: ../public/template-tags/general.php:406
-#
 msgid "No default set"
 msgstr ""
 
@@ -1432,8 +1429,8 @@ msgstr ""
 msgid "Tomorrow"
 msgstr ""
 
-#: ../public/template-tags/general.php:675
 #
+#: ../public/template-tags/general.php:675
 msgid "Related Events"
 msgstr ""
 
@@ -1472,8 +1469,8 @@ msgstr ""
 msgid "LIKE"
 msgstr ""
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
 #
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
 msgid "Search"
 msgstr ""
 
@@ -1528,8 +1525,8 @@ msgstr "Загруженные файлы"
 msgid "Upload new files"
 msgstr "Загрузить новые файлы в систему"
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:361
 #
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:361
 msgid "Add another file"
 msgstr ""
 
@@ -1633,8 +1630,8 @@ msgstr ""
 msgid "Related Posts"
 msgstr ""
 
-#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
 #
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
 msgid "Count:"
 msgstr ""
 
@@ -1658,8 +1655,8 @@ msgstr "Отправить заявку на поддержку на этот с
 msgid "Refine your search:"
 msgstr ""
 
-#: ../views/single-organizer.php:30 ../views/single-venue.php:31
 #
+#: ../views/single-organizer.php:30 ../views/single-venue.php:31
 msgid "&larr; Back to Events"
 msgstr ""
 
@@ -1671,13 +1668,13 @@ msgstr ""
 msgid "Events List Navigation"
 msgstr ""
 
-#: ../views/map/nav.php:24 ../views/photo/nav.php:24
 #
+#: ../views/map/nav.php:24 ../views/photo/nav.php:24
 msgid "&laquo; Previous Events"
 msgstr ""
 
-#: ../views/map/nav.php:31 ../views/photo/nav.php:31
 #
+#: ../views/map/nav.php:31 ../views/photo/nav.php:31
 msgid "Next Events &raquo;"
 msgstr ""
 
@@ -1741,8 +1738,8 @@ msgstr ""
 msgid "Previous Week"
 msgstr ""
 
-#: ../views/week/nav.php:23
 #
+#: ../views/week/nav.php:23
 msgid "Next Week"
 msgstr ""
 
@@ -1758,18 +1755,18 @@ msgstr ""
 msgid "min"
 msgstr ""
 
-#: ../views/widgets/countdown-widget.php:40
 #
+#: ../views/widgets/countdown-widget.php:40
 msgid "sec"
 msgstr ""
 
-#: ../views/widgets/list-widget.php:66
 #
+#: ../views/widgets/list-widget.php:66
 msgid "Organizer:"
 msgstr ""
 
-#: ../views/widgets/venue-widget.php:17
 #
+#: ../views/widgets/venue-widget.php:17
 msgid "No upcoming events."
 msgstr ""
 

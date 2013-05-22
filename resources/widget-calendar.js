@@ -19,8 +19,8 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	function change_active_day(obj){
-		$('.tribe-mini-calendar .thismonth').removeClass('today');
-		obj.parents('.has-events').addClass('today');
+		$('.tribe-mini-calendar .tribe-events-thismonth').removeClass('tribe-mini-calendar-today');
+		obj.parents('.tribe-events-has-events').addClass('tribe-mini-calendar-today');
 	}
 	
 	
@@ -29,9 +29,11 @@ jQuery( document ).ready( function ( $ ) {
 	$( '.tribe-mini-calendar-wrapper' ).delegate( '.tribe-mini-calendar-nav-link', 'click', function ( e ) {
 		e.preventDefault();
 
-		var $current_calendar = $(this).closest('.tribe-mini-calendar');
+		var $this = $(this);
 
-		var month_target = $( this ).attr( 'data-month' );
+		var $current_calendar = $this.closest('.tribe-mini-calendar');
+
+		var month_target = $this.attr( 'data-month' );
 
 		var params = {
 			action   	:'tribe-mini-cal',
@@ -40,8 +42,7 @@ jQuery( document ).ready( function ( $ ) {
 			tax_query	: $current_calendar.data('tax-query'),
 			nonce    	: $current_calendar.data('nonce'),
 		};
-		
-		 $('.tribe-mini-calendar-nav div > span').addClass('active').siblings('#ajax-loading-mini').show();
+		$('.tribe-mini-calendar-nav div > span').addClass('active').siblings('#ajax-loading-mini').show();
 		
 		$.post(
 			TribeMiniCalendar.ajaxurl,

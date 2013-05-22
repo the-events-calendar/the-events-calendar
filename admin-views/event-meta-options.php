@@ -1,17 +1,17 @@
 <div id="modern-tribe-info">
 	
 	<h2><?php _e('Additional Fields','tribe-events-calendar-pro'); ?></h2>
-	<p><?php _e('Use additional fields to add unique content fields to the event admin, which can be used by anyone who creates events. Upon publication they\'ll appear in the event metabox that accompanies your event listing, alongside the date/time/venue/organizer/etc. Each new piece of data needs:', 'tribe-events-calendar-pro') . '</p>'; ?>
+	<p><?php _e('Use additional fields to add unique content fields to the event admin, which can be used by anyone who creates events. Upon publication they\'ll appear in the event metabox that accompanies your event listing, alongside the date/time/venue/organizer/etc. </p><p>Each new piece of data needs:', 'tribe-events-calendar-pro') . '</p>'; ?>
 	<ul class="admin-list">
-		<li><?php _e('a label (e.g. Meal Plans)', 'tribe-events-calendar-pro'); ?></li>
-		<li><?php _e('at least one option (e.g. Vegetarian, Kosher, Paleo)', 'tribe-events-calendar-pro'); ?></li>
-		<li><?php _e('a field type. These are:', 'tribe-events-calendar-pro'); ?></li>
-		<ul class="admin-list">
-			<li><?php _e('text - for the user to input text', 'tribe-events-calendar-pro'); ?></li>
-			<li><?php _e('URL - for the user to input a URL', 'tribe-events-calendar-pro'); ?></li>
-			<li><?php _e('checkbox - for multiple choice', 'tribe-events-calendar-pro'); ?></li>
-			<li><?php _e('radio button - to select only one', 'tribe-events-calendar-pro'); ?></li>
-			<li><?php _e('dropdown menu - for a dropdown menu', 'tribe-events-calendar-pro'); ?></li>
+		<li style="list-style:inside;"><?php _e('Label (e.g. Meal Plans)', 'tribe-events-calendar-pro'); ?></li>
+		<li style="list-style:inside;"><?php _e('At least one option (e.g. Vegetarian, Kosher, Paleo)', 'tribe-events-calendar-pro'); ?></li>
+		<li style="list-style:inside;"><?php _e('Field type. These are:', 'tribe-events-calendar-pro'); ?></li>
+		<ul class="admin-list" style="margin-left:20px;">
+			<li style="list-style:inside circle;"><?php _e('Text - for the user to input text', 'tribe-events-calendar-pro'); ?></li>
+			<li style="list-style:inside circle;"><?php _e('URL - for the user to input a URL', 'tribe-events-calendar-pro'); ?></li>
+			<li style="list-style:inside circle;"><?php _e('Checkbox - for multiple choice', 'tribe-events-calendar-pro'); ?></li>
+			<li style="list-style:inside circle;"><?php _e('Radio Button - to select only one', 'tribe-events-calendar-pro'); ?></li>
+			<li style="list-style:inside circle;"><?php _e('Dropdown Menu - for a dropdown menu', 'tribe-events-calendar-pro'); ?></li>
 		</ul>
 	</ul>
 </div>

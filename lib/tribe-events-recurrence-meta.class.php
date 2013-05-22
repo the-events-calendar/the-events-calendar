@@ -261,7 +261,9 @@ class TribeEventsRecurrenceMeta {
 	 */
 	public static function getRecurrenceMeta( $postId, $recurrenceData = null ) {
 		if (!$recurrenceData )
-			$recurrenceData = self::recurrenceMetaDefault( get_post_meta($postId, '_EventRecurrence', true) );
+			$recurrenceData = get_post_meta($postId, '_EventRecurrence', true);
+
+		$recurrenceData = self::recurrenceMetaDefault( $recurrenceData );
 
 		$recurrence_meta = array();
 
@@ -609,14 +611,14 @@ class TribeEventsRecurrenceMeta {
 				$text = $recCustomInterval == 1 ?
 					__("Every week", 'tribe-events-calendar-pro') :
 					sprintf(__("Every %d weeks", 'tribe-events-calendar-pro'), $recCustomInterval);
-				$custom_text = ' ' . sprintf(__("on %s", 'tribe-events-calendar-pro'), self::daysToText($recCustomWeekDay));
+				$custom_text = sprintf(__(" on %s", 'tribe-events-calendar-pro'), self::daysToText($recCustomWeekDay));
 				$occurrence_text = sprintf(_n(", recurring %d time", ", recurring %d times", $recEndCount, 'tribe-events-calendar-pro'), $recEndCount);
 			} else if ($recCustomType == "Monthly") {
 				$text = $recCustomInterval == 1 ?
 					__("Every month", 'tribe-events-calendar-pro') :
 					sprintf(__("Every %d months", 'tribe-events-calendar-pro'), $recCustomInterval);
                $number_display = is_numeric($recCustomMonthNumber) ? TribeDateUtils::numberToOrdinal( $recCustomMonthNumber ) : strtolower($recCustomMonthNumber);
-				$custom_text = ' ' . sprintf(__("on the %s %s", 'tribe-events-calendar-pro'), $number_display,  is_numeric($recCustomMonthNumber) ? __("day", 'tribe-events-calendar-pro') : self::daysToText($recCustomMonthDay));
+				$custom_text = sprintf(__(" on the %s %s", 'tribe-events-calendar-pro'), $number_display,  is_numeric($recCustomMonthNumber) ? __("day", 'tribe-events-calendar-pro') : self::daysToText($recCustomMonthDay));
 				$occurrence_text = sprintf(_n(", recurring %d time", ", recurring %d times", $recEndCount, 'tribe-events-calendar-pro'), $recEndCount);
 			} else if ($recCustomType == "Yearly") {
 				$text = $recCustomInterval == 1 ?
@@ -681,11 +683,11 @@ class TribeEventsRecurrenceMeta {
 
 		for($i = 0; $i < $count ; $i++) {
 			if ( $count > 2 && $i == $count - 1 ) {
-				$month_text .= __(", and", 'tribe-events-calendar-pro') . ' ';
+				$month_text .= __(", and ", 'tribe-events-calendar-pro');
 			} else if ($count == 2 && $i == $count - 1) {
-				$month_text .= ' ' . __("and", 'tribe-events-calendar-pro') . ' ';
+				$month_text .= __(" and ", 'tribe-events-calendar-pro');
 			} else if ($count > 2 && $i > 0) {
-				$month_text .= __(",", 'tribe-events-calendar-pro') . ' ';
+				$month_text .= __(", ", 'tribe-events-calendar-pro');
 			}
 
 			$month_text .= $month_words[$months[$i]-1];

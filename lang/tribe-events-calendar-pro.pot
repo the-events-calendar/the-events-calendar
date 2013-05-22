@@ -5,9 +5,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Events Calendar Pro\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-20 02:27-0600\n"
-"PO-Revision-Date: 2013-05-20 02:27-0600\n"
-"Last-Translator: Modern Tribe, Inc. <pro@tri.be>\n"
+"POT-Creation-Date: 2013-05-20 17:45-0500\n"
+"PO-Revision-Date: 2013-05-20 17:45-0500\n"
+"Last-Translator: Paul Hughes <paul@paulalexanderhughes.com>\n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language: English\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../events-calendar-pro.php:58
@@ -39,32 +39,32 @@ msgstr ""
 msgid "today"
 msgstr ""
 
-#: ../events-calendar-pro.php:211
+#: ../events-calendar-pro.php:212
 msgid "Events for week of"
 msgstr ""
 
-#: ../events-calendar-pro.php:237
+#: ../events-calendar-pro.php:238
 #, php-format
 msgid "Events for week of %s"
 msgstr ""
 
-#: ../events-calendar-pro.php:243
+#: ../events-calendar-pro.php:244
 msgid "Events for"
 msgstr ""
 
-#: ../events-calendar-pro.php:247 ../lib/widget-advanced-list.class.php:51
+#: ../events-calendar-pro.php:248 ../lib/widget-advanced-list.class.php:51
 msgid "Upcoming Events"
 msgstr ""
 
-#: ../events-calendar-pro.php:664 ../admin-views/tribe-options-defaults.php:35
+#: ../events-calendar-pro.php:665 ../admin-views/tribe-options-defaults.php:35
 msgid "Default Content"
 msgstr ""
 
-#: ../events-calendar-pro.php:666 ../admin-views/event-meta-options.php:3
+#: ../events-calendar-pro.php:667 ../admin-views/event-meta-options.php:3
 msgid "Additional Fields"
 msgstr ""
 
-#: ../events-calendar-pro.php:672
+#: ../events-calendar-pro.php:673
 #, php-format
 msgid ""
 "<p>By buying a PRO license you will get active support and sweet additional "
@@ -77,7 +77,7 @@ msgid ""
 "to the <a href=\"%s\">license tab</a> and enter your key!</p>"
 msgstr ""
 
-#: ../events-calendar-pro.php:680
+#: ../events-calendar-pro.php:681
 #, php-format
 msgid ""
 "One of the advantages of being a PRO user is that you have access to our "
@@ -86,17 +86,17 @@ msgid ""
 "team in to address directly."
 msgstr ""
 
-#: ../events-calendar-pro.php:681
+#: ../events-calendar-pro.php:682
 msgid "Some things to consider before posting on the forum:"
 msgstr ""
 
-#: ../events-calendar-pro.php:683
+#: ../events-calendar-pro.php:684
 msgid ""
 "Search recent threads before posting a new one to check that there isn't "
 "already a discussion about your issue."
 msgstr ""
 
-#: ../events-calendar-pro.php:684
+#: ../events-calendar-pro.php:685
 msgid ""
 "Check whether the issue is a conflict with another plugin or your theme. "
 "This can be tested easily on a staging site by deactivating other plugins "
@@ -105,7 +105,7 @@ msgid ""
 "support thread."
 msgstr ""
 
-#: ../events-calendar-pro.php:685
+#: ../events-calendar-pro.php:686
 #, php-format
 msgid ""
 "Sometimes, resaving your permalinks (under <a href=\"%s\">Settings > "
@@ -113,7 +113,7 @@ msgid ""
 "creating a new thread try this handy trick."
 msgstr ""
 
-#: ../events-calendar-pro.php:688
+#: ../events-calendar-pro.php:689
 #, php-format
 msgid ""
 "While we won't build your site for you and can't guarantee The Events "
@@ -123,61 +123,61 @@ msgid ""
 "the community can see what you've been working on."
 msgstr ""
 
-#: ../events-calendar-pro.php:688
+#: ../events-calendar-pro.php:689
 msgid "Showcase thread"
 msgstr ""
 
-#: ../events-calendar-pro.php:746
+#: ../events-calendar-pro.php:747
 msgid "Day View"
 msgstr ""
 
-#: ../events-calendar-pro.php:749
+#: ../events-calendar-pro.php:750
 msgid "Week View"
 msgstr ""
 
-#: ../events-calendar-pro.php:1068
+#: ../events-calendar-pro.php:1069
 msgid "Settings"
 msgstr ""
 
-#: ../events-calendar-pro.php:1117
+#: ../events-calendar-pro.php:1118
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar PRO%s"
 msgstr ""
 
-#: ../events-calendar-pro.php:1126
+#: ../events-calendar-pro.php:1127
 msgid "Support"
 msgstr ""
 
-#: ../events-calendar-pro.php:1128
+#: ../events-calendar-pro.php:1129
 msgid "View All Add-Ons"
 msgstr ""
 
-#: ../events-calendar-pro.php:1160
+#: ../events-calendar-pro.php:1161
 msgid "Week"
 msgstr ""
 
-#: ../events-calendar-pro.php:1168 ../admin-views/event-recurrence.php:82
+#: ../events-calendar-pro.php:1169 ../admin-views/event-recurrence.php:82
 #: ../admin-views/event-recurrence.php:127
 msgid "Day"
 msgstr ""
 
-#: ../events-calendar-pro.php:1176
+#: ../events-calendar-pro.php:1177
 msgid "Photo"
 msgstr ""
 
-#: ../events-calendar-pro.php:1184
+#: ../events-calendar-pro.php:1185
 msgid "Day Of"
 msgstr ""
 
-#: ../events-calendar-pro.php:1186
+#: ../events-calendar-pro.php:1187
 msgid "Week Of"
 msgstr ""
 
-#: ../events-calendar-pro.php:1249
+#: ../events-calendar-pro.php:1267
 msgid "The Events Calendar"
 msgstr ""
 
-#: ../events-calendar-pro.php:1250
+#: ../events-calendar-pro.php:1268
 #, php-format
 msgid ""
 "To begin using Events Calendar PRO, please install the latest version of <a "
