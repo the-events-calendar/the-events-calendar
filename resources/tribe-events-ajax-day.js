@@ -3,7 +3,7 @@ jQuery(document).ready(function ($) {
     if (tribe_ev.state.filter_cats)
         var base_url = $('#tribe-events-header').attr('data-baseurl').slice(0, -11);
     else
-        var base_url = $('#tribe-events-header .tribe-events-nav-next a').attr('href').slice(0, -11);
+        var base_url = $('#tribe-events-footer .tribe-events-nav-next a').attr('href').slice(0, -11);
 
     tribe_ev.state.date = $('#tribe-events-header').attr('data-date');
 
