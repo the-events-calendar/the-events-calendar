@@ -11,7 +11,7 @@ Stable tag: 3.0-Alpha
 
 Create and manage events with ease. Professional-level quality and features backed by a name you can trust. The Events Calendar will help you kick ass.
 
-The Events Calendar is built and supported by WordPress artisans Modern Tribe. Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views, Facebook event integration and more? <a href="http://tri.be/products/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=readme&utm_content=premiumlink">Check out the available add-ons.</a>
+The Events Calendar is built and supported by WordPress artisans Modern Tribe. Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views, Facebook event integration and more? <a href="http://tri.be/products/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=premiumlink">Check out the available add-ons.</a>
 
 [new user primer or a custom video]
 
@@ -27,9 +27,9 @@ The team at Modern Tribe stands by our work and offers free support once a week 
 
 = PLUG-N-PLAY & HIGHLY CUSTOMIZABLE =
 
-Built to work out of the box. Just turn it on, pick the right settings to match your needs and you'll be making events within less than 5 minutes. Want proof? <a href="http://tri.be/new-user-primers/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=readme&utm_content=primerlink">Watch our user primer!</a>
+Built to work out of the box. Just turn it on, pick the right settings to match your needs and you'll be making events within less than 5 minutes. Want proof? <a href="http://tri.be/new-user-primers/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=primerlink">Watch our user primer!</a>
 
-Built as a foundation for your wildest hack sessions. By devs for devs, so you can Code Awesome. A skeleton stylesheet to theme fast and efficiently. Loads of tools including partial template overrides, a host of template tags, hooks and filters, <a href="http://tri.be/support/documentation/??utm_source=readme&utm_medium=descriptiontab&utm_campaign=readme&utm_content=documentationlink">careful documentation</a>, as well as a <a href="">library of code snippets</a> on git hub.
+Built as a foundation for your wildest hack sessions. By devs for devs, so you can Code Awesome. A skeleton stylesheet to theme fast and efficiently. Loads of tools including partial template overrides, a host of template tags, hooks and filters, <a href="http://tri.be/support/documentation/??utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=documentationlink">careful documentation</a>, as well as a <a href="">library of code snippets</a> on git hub.
 
 Whether your vision is big or small, we have you in mind. 
 
@@ -39,7 +39,7 @@ We've scaled The Events Calendar to work on a network with over 25 million uniqu
 
 Whether you're operating a hyperlocal hub listing thousands of events, a university with many thousands of users, or a a sole business owner listing your classes, The Events Calendar has your back.
 
-Just getting started? Definitely watch or read the <a href="http://tri.be/new-user-primers/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=readme&utm_content=primerlink">New User Primer</a>.
+Just getting started? Definitely watch or read the <a href="http://tri.be/new-user-primers/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=primerlink">New User Primer</a>.
 
 * Rapidly create events 
 * Saved venues & organizers 
@@ -61,9 +61,9 @@ Just getting started? Definitely watch or read the <a href="http://tri.be/new-us
 
 Looking for something else? 
 
-* <a href="http://tri.be/shop/wordpress-events-calendar-pro/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=readme&utm_content=prolink">Events PRO</a>: recurring events, a whole range of new views (day / week / map / photo / venue / organizer) & widgets (calendar / featured venue / event countdown), custom event attributes, geolocation search and a lot more.
-* Sell tickets with <a href="http://tri.be/shop/wordpress-wootickets/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=readme&utm_content=wooticketslink">WooCommerce</a> or <a href="http://tri.be/shop/wordpress-eventbrite-tickets/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=readme&utm_content=eventbriteticketslink">Eventbrite</a>
-* <a href="http://tri.be/shop/facebook-events/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=readme&utm_content=fbimportlink">Import events from Facebook</a> or let your <a href="http://tri.be/shop/wordpress-community-events/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=readme&utm_content=communitylink">users submit</a> from right on your website! 
+* <a href="http://tri.be/shop/wordpress-events-calendar-pro/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=prolink">Events PRO</a>: recurring events, a whole range of new views (day / week / map / photo / venue / organizer) & widgets (calendar / featured venue / event countdown), custom event attributes, geolocation search and a lot more.
+* Sell tickets with <a href="http://tri.be/shop/wordpress-wootickets/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=wooticketslink">WooCommerce</a> or <a href="http://tri.be/shop/wordpress-eventbrite-tickets/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=eventbriteticketslink">Eventbrite</a>
+* <a href="http://tri.be/shop/facebook-events/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=fbimportlink">Import events from Facebook</a> or let your <a href="http://tri.be/shop/wordpress-community-events/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=communitylink">users submit</a> from right on your website! 
 * Have so many amazing events that your users get overwhelmed? Drop some <a href="TODO MAKE URL">filters</a> on them.  
 
 <a href="https://www.facebook.com/ModernTribeInc">Join us on Facebook</a> to be part of our active community, check us out <a href="">on Twitter</a>, and <a href="http://tri.be#newsletter">sign up for our newsletter</a> for release announcements and discounts.
