@@ -475,7 +475,16 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	function tribe_get_first_week_day( $date = null, $by_date = true ) {
 		global $wp_query;
 		$offset = 7 - get_option( 'start_of_week', 0 );
-		$date = is_null($date) ? new DateTime( $wp_query->get( 'start_date' ) ) : new DateTime( $date );
+
+		$date = is_null( $date ) ? $wp_query->get('start_date') : $date; 
+
+		try {
+			$date = new DateTime( $date );
+		} catch ( exception $e ) {
+			$date = new DateTime();
+		}
+
+		// $date = is_null($date) ? new DateTime( $wp_query->get( 'start_date' ) ) : new DateTime( $date );
 		// Clone to avoid altering the original date
 		$r = clone $date;
 		$r->modify(-(($date->format('w') + $offset) % 7) . 'days');
