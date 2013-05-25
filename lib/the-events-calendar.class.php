@@ -533,9 +533,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			foreach ($tec_addons_required_versions as $plugin) {
 				if ( !strstr( self::VERSION, $plugin['required_version'] ) ) {
 					if ( isset( $plugin['current_version'] ) )
-						$bad_versions[$plugin['plugin_name']] = $plugin['current_version'];
-					else
-						$bad_versions[$plugin['plugin_name']] = '';
+						$bad_versions[] = $plugin;
 					if ( ( isset( $plugin['plugin_dir_file'] ) ) )
 						$addon_short_path = $plugin['plugin_dir_file'];
 					else
@@ -553,17 +551,35 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$output .= '</div>';
 			} else {
 				if ( !empty($bad_versions) ) {
-					foreach ($bad_versions as $plugin => $version) {
-						if ( $version )
-							$out_of_date_addons[] = $plugin . ' ' . $version;
+					$site_plugins_to_update = get_site_transient( 'update_plugins' );
+					$already_checked = get_site_transient( 'tribe_events_pue_already_checked' );
+					$check_for_updates = false;
+					foreach ($bad_versions as $plugin) {
+						if ( !in_array( $plugin['plugin_dir_file'], array_keys( $site_plugins_to_update->response ) ) ) {
+							$check_for_updates = true;
+						}
+						if ( $plugin['current_version'] )
+							$out_of_date_addons[] = $plugin['plugin_name'] . ' ' . $plugin['current_version'];
 						else
-							$out_of_date_addons[] = $plugin;
+							$out_of_date_addons[] = $plugin['plugin_name'];
 					}
+					if ( $check_for_updates && !$already_checked ) {
+						delete_site_transient( 'update_plugins' );
+						wp_update_plugins();
+						set_site_transient ( 'tribe_events_pue_already_checked', true, 86400 );
+					}
+					$show_update_link = true;
 					if ( count( $out_of_date_addons ) == 1 && $addon_short_path ) {
 						$update_link = wp_nonce_url( add_query_arg( array( 'action' => 'upgrade-plugin', 'plugin' => $addon_short_path ), get_admin_url() . 'update.php' ), 'upgrade-plugin_' . $addon_short_path );
+						if ( !in_array( $addon_short_path, array_keys( $site_plugins_to_update->response ) ) ) {
+							$show_update_link = false;
+						}
 					}
 					$output .= '<div class="error">';
-					$output .= '<p>'.sprintf( __('The following plugins are out of date: <b>%s</b>. Please %supdate now%s. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sWant to pair an older version%s?', 'tribe-events-calendar'), join( $out_of_date_addons, ', ' ), '<a href="' . $update_link . '">', '</a>', '<a href="http://tri.be/version-relationships-in-modern-tribe-pluginsadd-ons/">', '</a>' ).'</p>';
+					if ( $show_update_link )
+						$output .= '<p>'.sprintf( __('The following plugins are out of date: <b>%s</b>. Please %supdate now%s. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sWant to pair an older version%s?', 'tribe-events-calendar'), join( $out_of_date_addons, ', ' ), '<a href="' . $update_link . '">', '</a>', '<a href="http://tri.be/version-relationships-in-modern-tribe-pluginsadd-ons/">', '</a>' ).'</p>';
+					else
+						$output .= '<p>'.sprintf( __('The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sWant to pair an older version%s?', 'tribe-events-calendar'), join( $out_of_date_addons, ', ' ), '<a href="http://tri.be/version-relationships-in-modern-tribe-pluginsadd-ons/">', '</a>' ).'</p>';
 					$output .= '</div>';
 				}
 			}
