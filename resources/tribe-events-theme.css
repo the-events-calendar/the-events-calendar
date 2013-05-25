@@ -107,6 +107,11 @@ h2.tribe-events-page-title,
 	top: -75px !important;
 }
 
+.tribe-events-photo  .tribe-events-active-spinner {
+	top: 30px !important;
+}
+
+
 
 .events-list .tribe-events-active-spinner{
 	top: -105px !important;
@@ -221,7 +226,8 @@ h2.tribe-events-page-title,
 .events-list .tribe-events-loop,
 .tribe-events-day .tribe-events-loop,
 .single-tribe_venue .tribe-events-loop,
-.single-tribe_organizer .tribe-events-loop {
+.single-tribe_organizer .tribe-events-loop,
+.tribe-events-map .tribe-events-loop {
 	max-width: 700px;
 	margin: 0 auto;
 }
@@ -485,3 +491,5 @@ only screen and (min-device-pixel-ratio: 2) {
 		background-image: url(images/tribe-theme/tribe-theme-tooltips@2x.png);
 	}
 }
+
+
