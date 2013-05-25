@@ -35,8 +35,7 @@ if ( defined( "DOING_AJAX" ) && DOING_AJAX && isset( $_POST['action'] ) && $_POS
 	</div>
 	<div class="list-info">
 		<h2><a href="<?php echo get_permalink( $post->ID ); ?>"><?php echo $post->post_title; ?></a></h2>
-
 		<p><?php echo $post->post_excerpt; ?></p>
-		<span><?php echo tribe_get_venue_link( $post->ID ); ?></span>
+		<span>4:30pm</span>|<span><?php echo tribe_get_venue_link( $post->ID ); ?></span>
 	</div>
 </div>

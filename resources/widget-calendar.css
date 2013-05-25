@@ -13,11 +13,22 @@
 	width: 100%;
 }
 
-.tribe-mini-calendar td {
+.tribe-mini-calendar td,
+.tribe-mini-calendar th {
 	width: 14.2857142857%;
 	text-align     : center;
 	vertical-align : middle;
-	border         : 1px solid #bbb;	
+	border         : 1px solid #d2d2d2;	
+}
+
+
+
+.tribe-mini-calendar-dayofweek{
+	background: #d2d2d2;
+	color:#fff;
+	font-size:80%;
+	text-transform: uppercase;
+	padding:3px 0;
 }
 
 .tribe-mini-calendar .tribe-events-has-events a {
@@ -38,6 +49,14 @@
 	background: #444;
 }
 
+.tribe-mini-calendar-no-event{
+	color: #999;
+	font-weight: bold;
+	display: block;
+	text-decoration: none;
+	padding: 5px;
+}
+
 .tribe-mini-calendar .tribe-events-has-events.tribe-mini-calendar-today,
 .tribe-mini-calendar .tribe-events-has-events.tribe-mini-calendar-today:hover a:hover {
 	background: #666;
@@ -54,8 +73,9 @@
 .tribe-mini-calendar-nav {
 	text-align     : center;
 	vertical-align : middle;	
-	border         : 1px solid #bbb;
-	background     : #f3f3f3;
+	border         : 1px solid #666;
+	background     : #666;
+	color:#fff;
 }
 
 .tribe-mini-calendar-nav div {
@@ -66,7 +86,8 @@
 	font-weight:bold;
 	margin:0 20px;
 	display:inline-block;
-	color:#999;
+	color:#fff;
+	text-transform: uppercase;
 }
 
 .tribe-mini-calendar-nav span.active {
@@ -83,7 +104,7 @@
 	color:#6fb7ff;
 }
 
-.tribe-mini-calendar-day-link:after {
+.tribe-events-has-events  .tribe-mini-calendar-day-link:after {
 	content: '';
 	display: block;
 	height: 7px;
@@ -92,9 +113,15 @@
 	border-radius: 7px;
 	-moz-border-radius: 7px;
 	-webkit-border-radius: 7px;
-	background: #333333;
+	background: #999;
 	margin: 5px auto 0 auto;
 }
+
+
+.tribe-events-has-events  .tribe-mini-calendar-day-link:hover:after{
+	background:#fff;
+}
+
 
 .tribe-mini-calendar-nav #ajax-loading-mini {
 	position: absolute;
@@ -102,6 +129,18 @@
 	left: 50%;
 	margin: -8px 0 0 -8px;
 	display: none;
+}
+
+.tribe-mini-calendar .tribe-events-past{
+	opacity: .2;
+}
+
+.tribe-mini-calendar .tribe-events-present{
+	background-color: #21759b;
+}
+
+.tribe-mini-calendar .tribe-events-present a{
+	color:#fff;
 }
 
 /* event list css */
@@ -194,4 +233,46 @@
 	-webkit-box-shadow: none;
 			box-shadow: none;
 	text-decoration: none;
+}
+/** Modern tribe Version */
+
+.tribe-mini-calendar td{
+	background: #b2b2b2;
+	border-color:#fff;
+}
+
+.tribe-mini-calendar-no-event{
+	color:#fff;
+	padding:5px 0 15px 0;
+}
+
+.tribe-mini-calendar th{
+	background:#666;
+	border-color:#666;
+}
+
+.tribe-mini-calendar th:first{
+	border-left-color:#fff;
+}
+
+.tribe-mini-calendar-nav td{
+	background:#666;
+	border-color:#666;
+}
+
+.tribe-mini-calendar .tribe-events-othermonth{
+	background:#f7f7f7;
+}
+
+.tribe-mini-calendar .tribe-events-has-events a{
+	color:#fff;
+	padding:15px 0;
+}
+
+.tribe-mini-calendar .tribe-events-has-events a:after{
+	background: #fff;
+}
+
+.tribe-mini-calendar .tribe-events-past{
+	opacity: .35;
 }

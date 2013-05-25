@@ -34,6 +34,26 @@ $week = 0;
 				</td>
 			</tr>
 		</thead>
+
+	<thead>
+		<tr>
+			<th class="tribe-mini-calendar-dayofweek">Mon</th>
+			<th class="tribe-mini-calendar-dayofweek">Tue</th>
+			<th class="tribe-mini-calendar-dayofweek">Wed</th>
+			<th class="tribe-mini-calendar-dayofweek">Thu</th>
+			<th class="tribe-mini-calendar-dayofweek">Fri</th>
+			<th class="tribe-mini-calendar-dayofweek">Sat</th>
+			<th class="tribe-mini-calendar-dayofweek">Sun</th>
+
+		<!--<?php 
+			$days_of_week = tribe_events_get_days_of_week();
+			foreach($days_of_week as $day) : ?>
+			<th id="tribe-events-<?php echo strtolower($day) ?>" title="<?php echo $day ?>"><?php echo $day ?></th>
+		<?php endforeach; ?>-->
+		</tr>
+	</thead>
+	
+
 		<tbody class="hfeed vcalendar">
 
 			<tr>

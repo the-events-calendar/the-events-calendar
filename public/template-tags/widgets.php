@@ -78,8 +78,10 @@ function tribe_events_the_mini_calendar_day_link() {
 		ob_start();
 		tribe_the_day_link($day['date'], $day['daynum']);
 		$html = ob_get_clean();
-	} else {
+	} elseif ( $day['total_events'] > 0 ) {
 		$html = '<a href="#" data-day="'.$day['date'].'" class="tribe-mini-calendar-day-link">'.$day['daynum'].'</a>';
+	} else {
+		$html = '<span class="tribe-mini-calendar-no-event">'.$day['daynum'].'</span>';
 	}
 	echo apply_filters( 'tribe_events_the_mini_calendar_day_link', $html );
 }
