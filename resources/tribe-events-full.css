@@ -1171,6 +1171,7 @@ h2.tribe-events-tickets-title {
 	margin-bottom: 30px;
 	height: auto;
 	position: relative;
+	clear: none;
 }
 #tribe-events-bar * {
 	-webkit-box-sizing: border-box;
@@ -1182,7 +1183,6 @@ h2.tribe-events-tickets-title {
 	position: relative;
 	margin: 0;
 	width: 100%;
-	display: table;
 }
 
 /* Form Elements */
@@ -1270,7 +1270,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	position: relative;
 	float: left;
 	width: 100%;
-	display: table-cell;
 	margin: 0;
 }
 #tribe-bar-form #tribe-bar-views + .tribe-bar-filters {
@@ -1543,7 +1542,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	border-bottom-color: inherit;
 }
 
-#tribe-bar-form.tribe-bar-collapse .tribe-bar-filters {
+#tribe-bar-form.tribe-bar-collapse #tribe-bar-views + .tribe-bar-filters {
 	display: none;
 	margin-top: 5px;
 	overflow: hidden;
@@ -1591,6 +1590,62 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	}
 }
 
+#tribe-events-bar.tribe-bar-is-disabled {
+	width: auto;
+	min-width: 0;
+	float: right;
+}
+.tribe-bar-is-disabled #tribe-bar-form {
+	width: auto;
+	border-radius: 3px;
+}
+
+.tribe-bar-is-disabled .tribe-bar-datepicker {
+	float: left;
+}
+
+.tribe-bar-is-disabled .tribe-bar-datepicker .tribe-bar-date-filter {
+	padding: 5px 10px;
+}
+
+.tribe-bar-is-disabled #tribe-bar-form label {
+	font-size: 10px;
+}
+.tribe-bar-is-disabled #tribe-bar-form .tribe-bar-datepicker input[type="text"] {
+	border: none;
+	width: 85px;
+	margin: 0;
+	padding: 0;
+	font-size: 13px;
+	line-height: 15px;
+}
+
+.tribe-bar-is-disabled .tribe-bar-date-filter {
+	width: auto;
+}
+
+.tribe-bar-is-disabled #tribe-bar-form #tribe-bar-views {
+	width: auto;
+	float: left;
+	left: auto;
+	right: auto;
+	padding: 0;
+}
+
+.tribe-bar-is-disabled .tribe-bar-views-inner {
+	padding: 5px 0;
+	border-radius: 0 3px 3px 0;
+}
+
+.tribe-bar-is-disabled #tribe-bar-views .select2-container,
+.tribe-bar-is-disabled #tribe-bar-form .tribe-bar-views-inner label {
+	padding: 0 10px;
+}
+.tribe-bar-is-disabled #tribe-bar-views .select2-container .select2-choice {
+	line-height: 18px;
+	height: auto;
+	font-size: 13px;
+}
 
 /* Events Bar Icons */
 .tribe-select2-results-views span[class^="tribe-icon-"],
