@@ -40,7 +40,7 @@ jQuery( document ).ready( function ( $ ) {
 			eventDate	: month_target,
 			count    	: $current_calendar.data('count'),
 			tax_query	: $current_calendar.data('tax-query'),
-			nonce    	: $current_calendar.data('nonce'),
+			nonce    	: $current_calendar.data('nonce')
 		};
 		$('.tribe-mini-calendar-nav div > span').addClass('active').siblings('#ajax-loading-mini').show();
 		
@@ -74,7 +74,7 @@ jQuery( document ).ready( function ( $ ) {
 			eventDate:date,
 			count    	: $current_calendar.data('count'),
 			tax_query	: $current_calendar.data('tax-query'),
-			nonce    	: $current_calendar.data('nonce'),
+			nonce    	: $current_calendar.data('nonce')
 		};
 
 		$('.tribe-mini-calendar-nav div > span').addClass('active').siblings('#ajax-loading-mini').show();
