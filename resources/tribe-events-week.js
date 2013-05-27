@@ -1,4 +1,4 @@
-(function ($, td, te, tf, ts, tt) {
+(function ($, td, te, tf, ts, tt, dbug) {
 
 	$(document).ready(function () {
 
@@ -323,6 +323,7 @@
 
 			if (tt.pushstate) {
 
+				dbug && debug.time('Week View Ajax Timer');
 				$(te).trigger('tribe_ev_ajaxStart').trigger('tribe_ev_weekView_AjaxStart');
 
 				$.post(
@@ -377,6 +378,8 @@
 								.trigger('tribe_ev_ajaxSuccess')
 								.trigger('tribe_ev_weekView_AjaxSuccess');
 
+							dbug && debug.timeEnd('Week View Ajax Timer');
+
 						}
 					}
 				);
@@ -388,6 +391,8 @@
 					window.location = td.cur_url;
 			}
 		}
+		dbug && debug.info('tribe-events-week.js successfully loaded');
+		ts.view && dbug && debug.timeEnd('Tribe JS Init Timer');
 	});
 
-})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests);
+})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);

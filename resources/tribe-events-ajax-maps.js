@@ -468,6 +468,7 @@
 					return true;
 				}
 			});
+			ts.view && dbug && debug.timeEnd('Tribe JS Init Timer');
 		}
 
 		dbug && debug.info('tribe-events-ajax-maps.js successfully loaded');
