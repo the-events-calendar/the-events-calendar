@@ -533,9 +533,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			foreach ($tec_addons_required_versions as $plugin) {
 				if ( !strstr( self::VERSION, $plugin['required_version'] ) ) {
 					if ( isset( $plugin['current_version'] ) )
-						$bad_versions[$plugin['plugin_name']] = $plugin['current_version'];
-					else
-						$bad_versions[$plugin['plugin_name']] = '';
+						$bad_versions[] = $plugin;
 					if ( ( isset( $plugin['plugin_dir_file'] ) ) )
 						$addon_short_path = $plugin['plugin_dir_file'];
 					else
@@ -553,17 +551,35 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$output .= '</div>';
 			} else {
 				if ( !empty($bad_versions) ) {
-					foreach ($bad_versions as $plugin => $version) {
-						if ( $version )
-							$out_of_date_addons[] = $plugin . ' ' . $version;
+					$site_plugins_to_update = get_site_transient( 'update_plugins' );
+					$already_checked = get_site_transient( 'tribe_events_pue_already_checked' );
+					$check_for_updates = false;
+					foreach ($bad_versions as $plugin) {
+						if ( !in_array( $plugin['plugin_dir_file'], array_keys( $site_plugins_to_update->response ) ) ) {
+							$check_for_updates = true;
+						}
+						if ( $plugin['current_version'] )
+							$out_of_date_addons[] = $plugin['plugin_name'] . ' ' . $plugin['current_version'];
 						else
-							$out_of_date_addons[] = $plugin;
+							$out_of_date_addons[] = $plugin['plugin_name'];
 					}
+					if ( $check_for_updates && !$already_checked ) {
+						delete_site_transient( 'update_plugins' );
+						wp_update_plugins();
+						set_site_transient ( 'tribe_events_pue_already_checked', true, 86400 );
+					}
+					$show_update_link = true;
 					if ( count( $out_of_date_addons ) == 1 && $addon_short_path ) {
 						$update_link = wp_nonce_url( add_query_arg( array( 'action' => 'upgrade-plugin', 'plugin' => $addon_short_path ), get_admin_url() . 'update.php' ), 'upgrade-plugin_' . $addon_short_path );
+						if ( !in_array( $addon_short_path, array_keys( $site_plugins_to_update->response ) ) ) {
+							$show_update_link = false;
+						}
 					}
 					$output .= '<div class="error">';
-					$output .= '<p>'.sprintf( __('The following plugins are out of date: <b>%s</b>. Please %supdate now%s. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sWant to pair an older version%s?', 'tribe-events-calendar'), join( $out_of_date_addons, ', ' ), '<a href="' . $update_link . '">', '</a>', '<a href="http://tri.be/version-relationships-in-modern-tribe-pluginsadd-ons/">', '</a>' ).'</p>';
+					if ( $show_update_link )
+						$output .= '<p>'.sprintf( __('The following plugins are out of date: <b>%s</b>. Please %supdate now%s. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sWant to pair an older version%s?', 'tribe-events-calendar'), join( $out_of_date_addons, ', ' ), '<a href="' . $update_link . '">', '</a>', '<a href="http://tri.be/version-relationships-in-modern-tribe-pluginsadd-ons/">', '</a>' ).'</p>';
+					else
+						$output .= '<p>'.sprintf( __('The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sWant to pair an older version%s?', 'tribe-events-calendar'), join( $out_of_date_addons, ', ' ), '<a href="http://tri.be/version-relationships-in-modern-tribe-pluginsadd-ons/">', '</a>' ).'</p>';
 					$output .= '</div>';
 				}
 			}
@@ -3690,35 +3706,29 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			die();
 		}
 
-		public static function array_insert( $source_array, $insert_array, $position, $replace_amount = 0 ) {
-			array_splice( $source_array, $position, $replace_amount, $insert_array );
+		/**
+		 * Insert an array after a specified key within another array.
+		 *
+		 * @param $key
+		 * @param $source_array
+		 * @param $insert_array
+		 * @return array
+		 *
+		 * @author codearachnid
+		 * @author Peter Chester
+		 * @since 3.0
+		 */
+		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
+			if ( array_key_exists( $key, $source_array ) ) {
+				$position = array_search( $key, array_keys( $source_array ) ) + 1;
+				$source_array = array_slice($source_array, 0, $position, true) + $insert_array + array_slice($source_array, $position, NULL, true);
+			} else {
+				// If no key is found, then add it to the end of the array.
+				$source_array += $insert_array;
+			}
 			return $source_array;
 		}
-		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
-			return self::array_insert_by_key( $key, $source_array, $insert_array );
-		}
-		public static function array_insert_before_key( $key, $source_array, $insert_array ) {
-			return self::array_insert_by_key( $key, $source_array, $insert_array, 0 );
-		}
-		public static function array_insert_by_key( $key, $source_array, $insert_array, $direction = 1 ){
-			$position = array_search( $key, array_keys( $source_array ) ) + $direction;
 
-			// setup the return with the source array
-			$modified_array = $source_array;
-
-			if( count($source_array) < $position && $position != 0 ) {
-				// push one or more elements onto the end of array
-				array_push( $modified_array, $insert_array );
-			} else if ( $position < 0 ){
-				// prepend one or more elements to the beginning of an array
-				array_unshift( $modified_array, $insert_array );
-			} else {
-				$modified_array = array_slice($source_array, 0, $position, true) +
-		            $insert_array +
-		            array_slice($source_array, $position, NULL, true);
-			}
-			return $modified_array;
-		}
 
 		public static function clear_module_pagination( $html ) {
 			$html = '<li class="tribe-events-nav-previous"><a href="#" id="tribe-events-paged-prev" class="tribe-events-paged">' . __( '&laquo; Previous Events', 'tribe-events-calendar' ) . '</a></li>';

@@ -107,7 +107,12 @@ h2.tribe-events-page-title,
 	top: -75px !important;
 }
 
-.tribe-events-notices + #tribe-events-header .tribe-events-active-spinner {
+
+.events-list .tribe-events-active-spinner{
+	top: -105px !important;
+}
+
+.tribe-events-notices + #tribe-events-header .tribe-events-active-spinner{
 	top: -125px !important;
 }
 
@@ -123,7 +128,7 @@ h2.tribe-events-page-title,
 =============================================*/
 .tribe-events-list .vevent.hentry {
 	border-bottom: 0;
-	padding: 1.5em 0;
+	padding: 1.75em 0;
 	position: relative;
 }
 
@@ -306,11 +311,18 @@ h2.tribe-events-page-title,
 #tribe-events-content .tribe-events-calendar td {
 	border: 1px solid #d2d2d2;
 	border-top: 0;
+	-webkit-transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530); 
+  	   -moz-transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530); 
+        -ms-transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530); 
+         -o-transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530); 
+	        transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530);
 }
 
 #tribe-events-content .tribe-events-calendar td:hover{
-	-webkit-box-shadow: rgba(0,0,0, 0.15) 0px 0px 10px;
-			box-shadow: rgba(0,0,0, 0.15) 0px 0px 10px;		
+	background: #f7f7f7;
+	-webkit-box-shadow: rgba(0,0,0, 0.2) 0px 0px 10px;
+			box-shadow: rgba(0,0,0, 0.2) 0px 0px 10px;	
+
 }
 
 .tribe-events-othermonth{
