@@ -30,7 +30,7 @@ var tribe_events_bar_action;
 
 		// Check width of events bar
 		function eventsBarWidth($tribebar) {
-			if ( $tribebar.parents('.tribe-bar-is-disabled').length ) {
+			if ( $tribebar.parents('.tribe-bar-disabled').length ) {
 				return false;
 			}
 			var tribeBarWidth = $tribebar.width();
