@@ -18,7 +18,9 @@
 
 	$(document).ready(function () {
 
-		var tribe_is_paged = tf.get_url_param('tribe_paged');
+		var tribe_is_paged = tf.get_url_param('tribe_paged'),
+			$container = $('#tribe-events-photo-events'),
+			resize_timer;
 
 		ts.view = 'photo';
 
@@ -39,8 +41,6 @@
 		function tribe_setup_isotope($container) {
 			if ($().isotope) {
 
-				var tribe_not_initial_resize = false;
-				var tribe_last_width = 0;
 				var container_width = 0;
 
 				$container.imagesLoaded(function () {
@@ -62,14 +62,11 @@
 					} else {
 						$container.removeClass('photo-two-col');
 					}
-
-					if (tribe_not_initial_resize && container_width !== tribe_last_width) {
+					clearTimeout(resize_timer);
+					resize_timer = setTimeout(function(){
 						$container.isotope('reLayout');
-					}
-
-					tribe_not_initial_resize = true;
-					tribe_last_width = container_width;
-					dbug && debug.info('TEC Debug: resize kicked isotope on photo view.');
+						dbug && debug.info('TEC Debug: resize kicked isotope on photo view.');
+					}, 400);
 				});
 
 			} else {
@@ -77,17 +74,11 @@
 			}
 		}
 
-		// $('#tribe-events-header .tribe-events-ajax-loading').clone().addClass("photo-loader").appendTo('#tribe-events-content');
-
-		var $container = $('#tribe-events-photo-events');
-
 		tribe_setup_isotope($container);
 
 		if ($container.width() < 643) {
 			$container.addClass('photo-two-col');
 		}
-
-		$container.isotope('reLayout');
 
 		if (tt.pushstate && !tt.map_view()) {
 
