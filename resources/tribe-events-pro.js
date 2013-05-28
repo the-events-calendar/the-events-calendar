@@ -1,4 +1,4 @@
-if (window.hasOwnProperty('tribe_ev')) {
+if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 	tribe_ev.geoloc = {
 		map: [],
 		geocoder: [],

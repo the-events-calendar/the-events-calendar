@@ -10,9 +10,18 @@
 	 * dbug = tribe_debug
 	 */
 
+	if(dbug){
+		if(!$().isotope){
+			debug.warn('TEC Debug: vendor bootstrapDatepicker was not loaded before its dependant file tribe-photo-view.js');
+		}
+	}
+
 	$(document).ready(function () {
 
-		var tribe_is_paged = tf.get_url_param('tribe_paged');
+		var tribe_is_paged = tf.get_url_param('tribe_paged'),
+			$container = $('#tribe-events-photo-events'),
+			container_width = 0,
+			resize_timer;
 
 		ts.view = 'photo';
 
@@ -30,12 +39,17 @@
 			$('#tribe-events-photo-events').removeClass("photo-hidden").animate({"opacity": "1"}, {duration: 600});
 		}
 
+		function tribe_apply_photo_cols($container){
+			container_width = $container.width();
+			if (container_width < 645) {
+				$container.addClass('photo-two-col');
+			} else {
+				$container.removeClass('photo-two-col');
+			}
+		}
+
 		function tribe_setup_isotope($container) {
 			if ($().isotope) {
-
-				var tribe_not_initial_resize = false;
-				var tribe_last_width = 0;
-				var container_width = 0;
 
 				$container.imagesLoaded(function () {
 					$container.isotope({
@@ -45,23 +59,15 @@
 							overflow: 'visible'
 						}
 					}, tribe_hide_loader());
+					dbug && debug.info('TEC Debug: imagesLoaded setup isotope on photo view.');
 				});
 
+				tribe_apply_photo_cols($container);
 
 				$container.resize(function () {
-					container_width = $container.width();
-					if (container_width < 645) {
-						$container.addClass('photo-two-col');
-					} else {
-						$container.removeClass('photo-two-col');
-					}
-
-					if (tribe_not_initial_resize && container_width !== tribe_last_width) {
-						$container.isotope('reLayout');
-					}
-
-					tribe_not_initial_resize = true;
-					tribe_last_width = container_width;
+					tribe_apply_photo_cols($container);
+					clearTimeout(resize_timer);
+					resize_timer = setTimeout(function(){$container.isotope('reLayout');}, 400);
 				});
 
 			} else {
@@ -69,15 +75,7 @@
 			}
 		}
 
-		// $('#tribe-events-header .tribe-events-ajax-loading').clone().addClass("photo-loader").appendTo('#tribe-events-content');
-
-		var $container = $('#tribe-events-photo-events');
-
 		tribe_setup_isotope($container);
-
-		if ($container.width() < 643) {
-			$container.addClass('photo-two-col');
-		}
 
 		if (tt.pushstate && !tt.map_view()) {
 
