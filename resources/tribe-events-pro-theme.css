@@ -127,6 +127,9 @@
    @ Template: map.php
 =============================================*/
 /* tribe geolocation map area */
+.tribe-bar-is-disabled .events-list .tribe-events-loop {
+	max-width: none;
+}
 
 #tribe-geo-results {
 	margin-top: 2em;
@@ -201,10 +204,6 @@
 
 #tribe-events-photo-events .vevent.tribe-events-photo-event {
 	border: 0;
-}
-
-.tribe-events-photo h2.tribe-events-page-title {
-	display: none;
 }
 
 /* Tile Styling */
