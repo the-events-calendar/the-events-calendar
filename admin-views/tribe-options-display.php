@@ -91,8 +91,8 @@ $displayTab = array(
 		),
 		'tribeDisableTribeBar' => array(
 					'type' => 'checkbox_bool',
-					'label' => __( 'Use the Event Search Bar', 'tribe-events-calendar' ),
-					'tooltip' => __( 'Uncheck this to use the classic header.', 'tribe-events-calendar' ),
+					'label' => __( 'Disable the Event Search Bar', 'tribe-events-calendar' ),
+					'tooltip' => __( 'Check this to use the classic header.', 'tribe-events-calendar' ),
 					'default' => false,
 					'validation_type' => 'boolean',
 		),
