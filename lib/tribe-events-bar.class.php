@@ -15,6 +15,9 @@ class TribeEventsBar {
 
 	public function __construct() {
 		add_filter( 'wp_enqueue_scripts', array( $this, 'load_script' ) );
+		add_filter( 'body_class', array( $this, 'body_class') );
+		add_action('tribe_events_bar_before_template',  array( $this, 'disabled_bar_before') );
+		add_action('tribe_events_bar_after_template',  array( $this, 'disabled_bar_after') );
 
 		// add_action( 'tribe-events-bar-show-filters', array( $this, 'print_filters_helper' ) );
 		// add_action( 'tribe-events-bar-show-views', 	 array( $this, 'print_views_helper' ) );
@@ -88,6 +91,26 @@ class TribeEventsBar {
 		$html = ob_get_clean() . $content;
 
 		echo apply_filters( 'tribe_events_bar_show', $html, $filters, $views, $content );
+	}
+	
+	public function body_class( $classes ){
+		if ( tribe_get_option('tribeDisableTribeBar') == true ) {
+			$classes[] = 'tribe-bar-is-disabled';
+		}
+		return $classes;
+	}
+	public function disabled_bar_before( $before ) {
+		if ( tribe_get_option('tribeDisableTribeBar') == true ) {
+			$before = '<div class="tribe-bar-disabled">';
+			echo $before;
+		}
+	}
+
+	public function disabled_bar_after( $after ) {
+		if ( tribe_get_option('tribeDisableTribeBar') == true ) {
+			$after = '</div>';
+			echo $after;
+		}
 	}
 
 	/**
