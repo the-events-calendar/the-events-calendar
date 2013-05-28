@@ -20,6 +20,7 @@
 
 		var tribe_is_paged = tf.get_url_param('tribe_paged'),
 			$container = $('#tribe-events-photo-events'),
+			container_width = 0,
 			resize_timer;
 
 		ts.view = 'photo';
@@ -38,10 +39,17 @@
 			$('#tribe-events-photo-events').removeClass("photo-hidden").animate({"opacity": "1"}, {duration: 600});
 		}
 
+		function tribe_apply_photo_cols($container){
+			container_width = $container.width();
+			if (container_width < 645) {
+				$container.addClass('photo-two-col');
+			} else {
+				$container.removeClass('photo-two-col');
+			}
+		}
+
 		function tribe_setup_isotope($container) {
 			if ($().isotope) {
-
-				var container_width = 0;
 
 				$container.imagesLoaded(function () {
 					$container.isotope({
@@ -54,19 +62,12 @@
 					dbug && debug.info('TEC Debug: imagesLoaded setup isotope on photo view.');
 				});
 
+				tribe_apply_photo_cols($container);
 
 				$container.resize(function () {
-					container_width = $container.width();
-					if (container_width < 645) {
-						$container.addClass('photo-two-col');
-					} else {
-						$container.removeClass('photo-two-col');
-					}
+					tribe_apply_photo_cols($container);
 					clearTimeout(resize_timer);
-					resize_timer = setTimeout(function(){
-						$container.isotope('reLayout');
-						dbug && debug.info('TEC Debug: resize kicked isotope on photo view.');
-					}, 400);
+					resize_timer = setTimeout(function(){$container.isotope('reLayout');}, 400);
 				});
 
 			} else {
@@ -75,10 +76,6 @@
 		}
 
 		tribe_setup_isotope($container);
-
-		if ($container.width() < 643) {
-			$container.addClass('photo-two-col');
-		}
 
 		if (tt.pushstate && !tt.map_view()) {
 
