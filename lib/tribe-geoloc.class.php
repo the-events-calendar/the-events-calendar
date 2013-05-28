@@ -175,24 +175,26 @@ class TribeEventsGeoLoc {
 
 	public function setup_geoloc_filter_in_bar( $filters ) {
 		if ( tribe_is_map() || !tribe_get_option( 'hideLocationSearch', false ) ) {
-			$value = "";
-			if ( !empty( $_REQUEST['tribe-bar-geoloc'] ) ) {
-				$value = $_REQUEST['tribe-bar-geoloc'];
-			}
+			if ( tribe_get_option( 'tribeDisableTribeBar' ) == false ) {
+				$value = "";
+				if ( !empty( $_REQUEST['tribe-bar-geoloc'] ) ) {
+					$value = $_REQUEST['tribe-bar-geoloc'];
+				}
 
-			$lat = "";
-			if ( !empty( $_REQUEST['tribe-bar-geoloc-lat'] ) ) {
-				$lat = $_REQUEST['tribe-bar-geoloc-lat'];
-			}
+				$lat = "";
+				if ( !empty( $_REQUEST['tribe-bar-geoloc-lat'] ) ) {
+					$lat = $_REQUEST['tribe-bar-geoloc-lat'];
+				}
 
-			$lng = "";
-			if ( !empty( $_REQUEST['tribe-bar-geoloc-lng'] ) ) {
-				$lng = $_REQUEST['tribe-bar-geoloc-lng'];
-			}
+				$lng = "";
+				if ( !empty( $_REQUEST['tribe-bar-geoloc-lng'] ) ) {
+					$lng = $_REQUEST['tribe-bar-geoloc-lng'];
+				}
 
-			$filters[] = array( 'name'    => 'tribe-bar-geoloc',
-								'caption' => __( 'Near', 'tribe-events-calendar-pro' ),
-								'html'    => '<input type="hidden" name="tribe-bar-geoloc-lat" id="tribe-bar-geoloc-lat" value="' . esc_attr( $lat ) . '" /><input type="hidden" name="tribe-bar-geoloc-lng" id="tribe-bar-geoloc-lng" value="' . esc_attr( $lng ) . '" /><input type="text" name="tribe-bar-geoloc" id="tribe-bar-geoloc" value="' . esc_attr( $value ) . '" placeholder="Location">' );
+				$filters[] = array( 'name'    => 'tribe-bar-geoloc',
+									'caption' => __( 'Near', 'tribe-events-calendar-pro' ),
+									'html'    => '<input type="hidden" name="tribe-bar-geoloc-lat" id="tribe-bar-geoloc-lat" value="' . esc_attr( $lat ) . '" /><input type="hidden" name="tribe-bar-geoloc-lng" id="tribe-bar-geoloc-lng" value="' . esc_attr( $lng ) . '" /><input type="text" name="tribe-bar-geoloc" id="tribe-bar-geoloc" value="' . esc_attr( $value ) . '" placeholder="Location">' );
+			}
 		}
 		return $filters;
 	}
