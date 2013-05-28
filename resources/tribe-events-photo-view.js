@@ -87,6 +87,8 @@
 			$container.addClass('photo-two-col');
 		}
 
+		$container.isotope('reLayout');
+
 		if (tt.pushstate && !tt.map_view()) {
 
 			var params = 'action=tribe_photo&tribe_paged=' + ts.paged;
