@@ -20,10 +20,10 @@
 
 <ul class="tribe-events-sub-nav">
 	<li class="tribe-events-nav-previous">
-			<?php tribe_events_previous_month_link(); ?>
+			<?php tribe_events_the_previous_month_link(); ?>
 	</li><!-- .tribe-events-nav-previous -->
 	<li class="tribe-events-nav-next">
-		<?php tribe_events_next_month_link(); ?>
+		<?php tribe_events_the_next_month_link(); ?>
 	</li><!-- .tribe-events-nav-next -->
 </ul><!-- .tribe-events-sub-nav -->
 
