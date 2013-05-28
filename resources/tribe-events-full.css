@@ -1556,6 +1556,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 .tribe-bar-collapse .tribe-bar-filters-inner > div, .tribe-bar-collapse #tribe-bar-views {
 	width: 100%;
 	height: auto;
+	margin: 0;
 }
 
 .tribe-bar-collapse #tribe-bar-collapse-toggle {
@@ -1639,7 +1640,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	width: 50%;
 }
 
-.tribe-bar-disabled .tribe-bar-date-filter {
+.tribe-bar-disabled .tribe-bar-date-filter,
+.tribe-events-uses-geolocation .tribe-bar-disabled .tribe-bar-date-filter {
 	width: auto;
 }
 
@@ -1670,7 +1672,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	padding: 0 10px;
 }
 
-.tribe-bar-disabled .tribe-bar-collapse-toggle,
+.tribe-bar-disabled #tribe-bar-collapse-toggle,
 .tribe-bar-disabled .tribe-bar-submit {
 	display: none;
 }
