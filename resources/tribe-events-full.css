@@ -348,6 +348,7 @@ h2.tribe-events-page-title {
 	z-index: 0;
 	margin-bottom: .5em;
 	text-align: center;
+	clear: none;
 }
 /* don't float on filter view */
 .tribe-events-filter-view  .tribe-events-list h2.tribe-events-page-title{
@@ -367,6 +368,7 @@ h2.tribe-events-page-title a:focus {
 #tribe-events-header,
 #tribe-events-footer {
 	margin-bottom: .5em;
+	clear: both;
 }
 #tribe-events-header .tribe-events-sub-nav,
 #tribe-events-footer .tribe-events-sub-nav {
@@ -1171,6 +1173,7 @@ h2.tribe-events-tickets-title {
 	margin-bottom: 30px;
 	height: auto;
 	position: relative;
+	clear: none;
 }
 #tribe-events-bar * {
 	-webkit-box-sizing: border-box;
@@ -1182,7 +1185,6 @@ h2.tribe-events-tickets-title {
 	position: relative;
 	margin: 0;
 	width: 100%;
-	display: table;
 }
 
 /* Form Elements */
@@ -1270,7 +1272,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	position: relative;
 	float: left;
 	width: 100%;
-	display: table-cell;
 	margin: 0;
 }
 #tribe-bar-form #tribe-bar-views + .tribe-bar-filters {
@@ -1316,7 +1317,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	width: 16.66667%;
 	padding: 0 0 0 5px;
 	background: transparent;
-	display: table-cell;
 	margin: 0;
 }
 
@@ -1543,7 +1543,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	border-bottom-color: inherit;
 }
 
-#tribe-bar-form.tribe-bar-collapse .tribe-bar-filters {
+#tribe-bar-form.tribe-bar-collapse #tribe-bar-views + .tribe-bar-filters {
 	display: none;
 	margin-top: 5px;
 	overflow: hidden;
@@ -1590,7 +1590,90 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 		width: 40%;
 	}
 }
+.tribe-bar-is-disabled .tribe-events-page-title {
+	line-height: 45px;
+	text-align: left;
+	clear: none;
+	margin: 0;
+}
+.tribe-bar-disabled {
+	float: right;
+	position: relative;
+	z-index: 10;
+}
 
+.tribe-bar-disabled #tribe-events-bar {
+	width: auto;
+	min-width: 0;
+	float: none;
+}
+.tribe-bar-disabled #tribe-bar-form {
+	width: auto;
+	border-radius: 3px;
+}
+
+.tribe-bar-disabled .tribe-bar-filters {
+	float: left;
+}
+
+.tribe-bar-disabled .tribe-bar-filters .tribe-bar-date-filter {
+	padding: 5px 10px;
+}
+
+.tribe-bar-disabled #tribe-bar-form label {
+	font-size: 10px;
+}
+.tribe-bar-disabled #tribe-bar-form .tribe-bar-filters input[type="text"] {
+	border: none;
+	display: block;
+	width: 85px;
+	margin: 0;
+	padding: 0;
+	font-size: 13px;
+	line-height: 15px;
+}
+
+.tribe-bar-disabled #tribe-bar-form #tribe-bar-views + .tribe-bar-filters {
+	left: auto;
+	right: 50%;
+	width: 50%;
+}
+
+.tribe-bar-disabled .tribe-bar-date-filter {
+	width: auto;
+}
+
+.tribe-bar-disabled #tribe-bar-form #tribe-bar-views {
+	width: 50%;
+	float: left;
+	left: 50%;
+	right: auto;
+	padding: 0;
+}
+
+.tribe-bar-disabled .tribe-bar-views-inner {
+	padding: 5px 0;
+	border-radius: 0 3px 3px 0;
+}
+
+.tribe-bar-disabled #tribe-bar-views .select2-container,
+.tribe-bar-disabled #tribe-bar-form .tribe-bar-views-inner label {
+	padding: 0 10px;
+}
+.tribe-bar-disabled #tribe-bar-views .select2-container .select2-choice {
+	line-height: 18px;
+	height: auto;
+	font-size: 13px;
+}
+
+.tribe-bar-is-disabled .tribe-select2-results-views.select2-drop .select2-results li {
+	padding: 0 10px;
+}
+
+.tribe-bar-disabled .tribe-bar-collapse-toggle,
+.tribe-bar-disabled .tribe-bar-submit {
+	display: none;
+}
 
 /* Events Bar Icons */
 .tribe-select2-results-views span[class^="tribe-icon-"],

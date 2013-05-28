@@ -25,13 +25,14 @@ var tribe_events_bar_action;
 	}
 
 	$(document).ready(function () {
-
 		var $tribebar = $('#tribe-bar-form'),
 			$tribedate = $('#tribe-bar-date');
 
 		// Check width of events bar
 		function eventsBarWidth($tribebar) {
-
+			if ( $tribebar.parents('.tribe-bar-disabled').length ) {
+				return false;
+			}
 			var tribeBarWidth = $tribebar.width();
 
 			if (tribeBarWidth > 800) {

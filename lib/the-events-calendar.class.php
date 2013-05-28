@@ -3545,11 +3545,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$value = $_REQUEST['tribe-bar-search'];
 			}
 
-
+			if ( tribe_get_option('tribeDisableTribeBar') == false ) { 
 			$filters[] = array( 'name'    => 'tribe-bar-search',
 			                    'caption' => 'Search',
 			                    'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' . esc_attr($value) . '" placeholder="Search">' );
 
+			}
 			return $filters;
 		}
 
