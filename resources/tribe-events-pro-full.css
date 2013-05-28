@@ -17,6 +17,7 @@
  	margin-bottom: 15px;
  	font-style: italic;
  	font-size: 12px;
+ 	clear: both;
  }
 
  .tribe-events-user-recurrence-toggle label:hover {
