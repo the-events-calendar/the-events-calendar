@@ -105,6 +105,13 @@ if( class_exists( 'TribeEvents' ) ) {
 		return str_replace( array_keys($tribe_ecp->monthNames( $shortMonthNames )), $tribe_ecp->monthNames( $shortMonthNames ), $date);
 	}
 
+	/**
+	 * Returns formatted date for the official beginning of the day according to the Multi-day cutoff time option
+	 *
+	 * @param string $date The date to find the beginning of the day, defaults to today
+	 * @param string $format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 * @return string
+	 */
 	function tribe_event_beginning_of_day( $date = null, $format = 'Y-m-d H:i:s' ){
 		$multiday_cutoff = explode( ':', tribe_get_option( 'multiDayCutoff', '00:00' ) );
 		$hours_to_add = $multiday_cutoff[0] == '12' ? '00' : $multiday_cutoff[0];
@@ -115,6 +122,14 @@ if( class_exists( 'TribeEvents' ) ) {
 			return apply_filters( 'tribe_event_beginning_of_day', Date($format, strtotime( date( 'Y-m-d', strtotime($date) ) . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) ) );
 		}
 	}
+
+	/**
+	 * Returns formatted date for the official end of the day according to the Multi-day cutoff time option
+	 *
+	 * @param string $date The date to find the end of the day, defaults to today
+	 * @param string $format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 * @return string
+	 */
 	function tribe_event_end_of_day( $date = null, $format = 'Y-m-d H:i:s' ){
 		$multiday_cutoff = explode( ':', tribe_get_option( 'multiDayCutoff', '00:00' ) );
 		$hours_to_add = $multiday_cutoff[0] == '12' ? '00' : $multiday_cutoff[0];
