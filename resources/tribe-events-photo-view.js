@@ -10,6 +10,12 @@
 	 * dbug = tribe_debug
 	 */
 
+	if(dbug){
+		if(!$().isotope){
+			debug.warn('TEC Debug: vendor bootstrapDatepicker was not loaded before its dependant file tribe-photo-view.js');
+		}
+	}
+
 	$(document).ready(function () {
 
 		var tribe_is_paged = tf.get_url_param('tribe_paged');
@@ -45,6 +51,7 @@
 							overflow: 'visible'
 						}
 					}, tribe_hide_loader());
+					dbug && debug.info('TEC Debug: imagesLoaded setup isotope on photo view.');
 				});
 
 
@@ -62,6 +69,7 @@
 
 					tribe_not_initial_resize = true;
 					tribe_last_width = container_width;
+					dbug && debug.info('TEC Debug: resize kicked isotope on photo view.');
 				});
 
 			} else {
