@@ -432,6 +432,14 @@ h2.tribe-events-page-title,
 	padding-top: .5em;
 }
 
+.events-list.tribe-bar-is-disabled #tribe-events-content-wrapper {
+	max-width: 700px;
+	margin: 0 auto;
+}
+
+.tribe-events-map.tribe-bar-is-disabled #tribe-events-content-wrapper {
+	max-width: none;
+}
 
 /* = Events Filter Styles
 =============================================*/
