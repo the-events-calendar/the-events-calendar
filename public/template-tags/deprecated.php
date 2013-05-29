@@ -851,7 +851,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 
-
+	/**** GENERAL DEPRECATED TAGS *****/
 
 	/**
 	 * tribe_get_object_property_from_array loop through an array of objects to retrieve a single property
@@ -865,6 +865,11 @@ if ( class_exists( 'TribeEvents' ) ) {
 		return wp_list_pluck($array_objects, $property);
 	}
 
+	/**** WIDGET DEPRECATED TAGS *****/
+
+	function tribe_mini_display_day( $day, $monthView ) {
+		_deprecated_function( __FUNCTION__, '3.0' );
+	}
 
 
 }
