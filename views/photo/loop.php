@@ -20,15 +20,15 @@ $more = false;
 <div class="tribe-events-loop hfeed vcalendar tribe-clearfix" id="tribe-events-photo-events">
 
 	<?php while ( have_posts() ) : the_post(); ?>
-		<?php do_action('tribe_events_photo_inside_before_loop'); ?>
+		<?php do_action( 'tribe_events_inside_before_loop' ); ?>
 
 		<!-- Event  -->
 		<div id="post-<?php the_ID() ?>" class="<?php tribe_events_event_classes() ?>">
-			<?php tribe_get_template_part('photo/single', 'event') ?>
+			<?php tribe_get_template_part( 'photo/single', 'event' ) ?>
 		</div><!-- .hentry .vevent -->
 
 
-		<?php do_action( 'tribe_events_photo_inside_after_loop' ); ?>
+		<?php do_action( 'tribe_events_inside_after_loop' ); ?>
 	<?php endwhile; ?>
 
 </div><!-- .tribe-events-loop -->
