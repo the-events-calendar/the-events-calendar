@@ -22,7 +22,7 @@
 
 ?>
 
-<?php do_action('tribe_events_week_before_template') ?>
+<?php do_action( 'tribe_events_before_template') ?>
 
 <!-- Tribe Bar -->
 <?php tribe_get_template_part('modules/bar'); ?>
@@ -30,39 +30,39 @@
 	<div id="tribe-events-content" class="tribe-events-week-grid">
 		
 		<!-- Calendar Title -->
-		<?php do_action('tribe_events_week_before_the_title') ?>
+		<?php do_action( 'tribe_events_before_the_title') ?>
 		<h2 class="tribe-events-page-title"><?php tribe_events_title() ?></h2>
-		<?php do_action('tribe_events_week_after_the_title') ?>
+		<?php do_action( 'tribe_events_after_the_title') ?>
 
 		<!-- Notices -->
 		<?php tribe_events_the_notices() ?>
 
 		<!-- Calendar Header -->
-		<?php do_action('tribe_events_week_before_header') ?>
+		<?php do_action( 'tribe_events_before_header') ?>
 		<div id="tribe-events-header" <?php tribe_events_the_header_attributes('week-header') ?>>
 
 			<!-- Header Navigation -->
 			<?php tribe_get_template_part('week/nav', 'header'); ?>
 
 		</div><!-- #tribe-events-header -->
-		<?php do_action('tribe_events_week_after_header') ?>
+		<?php do_action( 'tribe_events_after_header') ?>
 
 		<!-- Calendar Grid -->
 		<?php tribe_get_template_part('week/loop', 'grid') ?>
 
 		<!-- Calendar Footer -->
-		<?php do_action('tribe_events_week_before_footer') ?>
+		<?php do_action( 'tribe_events_before_footer') ?>
 		<div id="tribe-events-footer">
 
 			<!-- Footer Navigation -->
 			<?php tribe_get_template_part('week/nav', 'footer'); ?>
 
 		</div><!-- #tribe-events-footer -->
-		<?php do_action('tribe_events_week_after_footer') ?>
+		<?php do_action( 'tribe_events_after_footer') ?>
 		
 	</div><!-- #tribe-events-content -->
 
-<?php do_action('tribe_events_week_after_template') ?>
+<?php do_action( 'tribe_events_after_template') ?>
 
 
 <?php /* echo Tribe_Events_Week_Template::the_grid(); */ ?>
