@@ -77,7 +77,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		foreach( $templates as $template ) {
 			$file = TribeEventsTemplates::getTemplateHierarchy( $template, array('disable_view_check' => true) );
 			$file = apply_filters( 'tribe_get_template_part_path', $file, $template, $slug, $name );
-			$file = apply_filters( 'tribe_get_template_part_path', $file, $template, $slug, $name );
+			$file = apply_filters( 'tribe_get_template_part_path_'.$template, $file, $slug, $name );
 			if (file_exists($file)) {
 				ob_start();
 				do_action( 'tribe_before_get_template_part', $template, $file, $template, $slug, $name );
