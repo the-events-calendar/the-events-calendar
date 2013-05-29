@@ -20,7 +20,7 @@ $week = 0;
 ?>
 
 
-<?php do_action('tribe_events_month_before_the_grid') ?>
+<?php do_action( 'tribe_events_before_the_grid' ) ?>
 <table class="tribe-events-calendar">
 	<thead>
 		<tr>
@@ -32,15 +32,15 @@ $week = 0;
 	<tbody class="hfeed vcalendar">
 		<tr>
 		<?php while (tribe_events_have_month_days()) : tribe_events_the_month_day(); ?>
-			<?php if ($week != tribe_events_get_current_week()) : $week++; ?>
+			<?php if ( $week != tribe_events_get_current_week() ) : $week++; ?>
 		</tr>
 		<tr>
 			<?php endif; ?>
 			<td class="<?php tribe_events_the_month_day_classes() ?>">
-				<?php tribe_get_template_part('month/single', 'day') ?>
+				<?php tribe_get_template_part( 'month/single', 'day' ) ?>
 			</td>
 		<?php endwhile; ?>
 		</tr>
 	</tbody>
 </table><!-- .tribe-events-calendar -->
-<?php do_action('tribe_events_month_after_the_grid') ?>
+<?php do_action( 'tribe_events_after_the_grid' ) ?>

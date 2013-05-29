@@ -18,44 +18,44 @@
  */
 ?>
 
-<?php do_action('tribe_events_month_before_template') ?>
+<?php do_action( 'tribe_events_before_template' ) ?>
 
 <!-- Tribe Bar -->
-<?php tribe_get_template_part('modules/bar'); ?>
+<?php tribe_get_template_part( 'modules/bar' ); ?>
 
 <!-- Main Events Content -->
 <div id="tribe-events-content" class="tribe-events-month">
 	
 	<!-- Month Title -->
-	<?php do_action('tribe_events_month_before_the_title') ?>
+	<?php do_action( 'tribe_events_before_the_title' ) ?>
 	<h2 class="tribe-events-page-title"><?php tribe_events_title() ?></h2>
-	<?php do_action('tribe_events_month_after_the_title') ?>
+	<?php do_action( 'tribe_events_after_the_title' ) ?>
 
 	<!-- Notices -->
 	<?php tribe_events_the_notices() ?>
 
 	<!-- Month Header -->
-	<?php do_action('tribe_events_month_before_header') ?>
+	<?php do_action( 'tribe_events_before_header' ) ?>
 	<div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
 
 		<!-- Header Navigation -->
-		<?php tribe_get_template_part('month/nav'); ?>
+		<?php tribe_get_template_part( 'month/nav' ); ?>
 
 	</div><!-- #tribe-events-header -->
-	<?php do_action('tribe_events_month_after_header') ?>
+	<?php do_action( 'tribe_events_after_header' ) ?>
 
 	<!-- Month Grid -->
-	<?php tribe_get_template_part('month/loop', 'grid') ?>
+	<?php tribe_get_template_part( 'month/loop', 'grid' ) ?>
 
 	<!-- Month Footer -->
-	<?php do_action('tribe_events_month_before_footer') ?>
+	<?php do_action( 'tribe_events_before_footer' ) ?>
 	<div id="tribe-events-footer">
 
 		<!-- Footer Navigation -->
-		<?php tribe_get_template_part('month/nav'); ?>
+		<?php tribe_get_template_part( 'month/nav' ); ?>
 
 	</div><!-- #tribe-events-footer -->
-	<?php do_action('tribe_events_month_after_footer') ?>
+	<?php do_action( 'tribe_events_after_footer' ) ?>
 	
 </div><!-- #tribe-events-content -->
-<?php do_action('tribe_events_month_after_template') ?>
+<?php do_action( 'tribe_events_after_template' ) ?>

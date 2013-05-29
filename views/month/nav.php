@@ -14,7 +14,7 @@
  */
 ?>
 
-<?php do_action('tribe_events_month_before_nav') ?>
+<?php do_action( 'tribe_events_before_nav' ) ?>
 
 <h3 class="tribe-events-visuallyhidden"><?php _e( 'Calendar Month Navigation', 'tribe-events-calendar' ) ?></h3>
 
@@ -27,4 +27,4 @@
 	</li><!-- .tribe-events-nav-next -->
 </ul><!-- .tribe-events-sub-nav -->
 
-<?php do_action('tribe_events_month_after_nav') ?>
+<?php do_action( 'tribe_events_after_nav' ) ?>
