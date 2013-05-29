@@ -3529,7 +3529,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function setup_listview_in_bar( $views ) {
-			$views[] = array( 'displaying' => 'upcoming', 'event_bar_hook' => 'tribe_events_list_before_template', 'anchor' => __( 'List', 'tribe-events-calendar' ), 'url' => tribe_get_listview_link() );
+			$views[] = array( 'displaying' => 'upcoming', 'event_bar_hook' => 'tribe_events_before_template', 'anchor' => __( 'List', 'tribe-events-calendar' ), 'url' => tribe_get_listview_link() );
 			return $views;
 		}
 
