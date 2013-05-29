@@ -28,11 +28,21 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Displays a link to the previous post by start date for the given event
 	 *
 	 * @param string $anchor link text. Use %title% to place the post title in your string.
+	 * @return void
+	 * @see tribe_get_prev_event_link()
 	 * @since 2.1
 	 */
 	function tribe_the_prev_event_link( $anchor = false ){
 		echo apply_filters('tribe_the_prev_event_link', tribe_get_prev_event_link( $anchor ));
 	}
+
+	/**
+	 * Return a link to the previous post by start date for the given event
+	 *
+	 * @param string $anchor link text. Use %title% to place the post title in your string.
+	 * @return string
+	 * @since 2.1
+	 */
 	function tribe_get_prev_event_link( $anchor = false ){
 		global $post;
 		return apply_filters('tribe_get_next_event_link', TribeEvents::instance()->get_event_link($post,'previous',$anchor));
@@ -44,11 +54,21 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Display a link to the next post by start date for the given event
 	 *
 	 * @param string $anchor link text. Use %title% to place the post title in your string.
+	 * @return void
+	 * @see tribe_get_next_event_link()
 	 * @since 2.1
 	 */
 	function tribe_the_next_event_link( $anchor = false ){
 		echo apply_filters('tribe_the_next_event_link', tribe_get_next_event_link( $anchor ));
 	}
+
+	/**
+	 * Return a link to the next post by start date for the given event
+	 *
+	 * @param string $anchor link text. Use %title% to place the post title in your string.
+	 * @return string
+	 * @since 2.1
+	 */
 	function tribe_get_next_event_link( $anchor = false ){
 		global $post;
 		return apply_filters('tribe_get_next_event_link', TribeEvents::instance()->get_event_link($post,'next',$anchor));

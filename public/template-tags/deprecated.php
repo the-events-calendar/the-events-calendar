@@ -851,4 +851,20 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 
+
+
+	/**
+	 * tribe_get_object_property_from_array loop through an array of objects to retrieve a single property
+	 *
+	 * @param array   $array_objects
+	 * @param string  $property
+	 * @return array
+	 */
+	function tribe_get_object_property_from_array( $array_objects = array(), $property = null ) {
+		_deprecated_function( __FUNCTION__, '3.0', 'wp_list_pluck()' );
+		return wp_list_pluck($array_objects, $property);
+	}
+
+
+
 }

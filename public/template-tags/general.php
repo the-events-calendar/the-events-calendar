@@ -11,35 +11,12 @@ if ( !defined( 'ABSPATH' ) ) { die( '-1' ); }
 if ( class_exists( 'TribeEvents' ) ) {
 
 	/**
-	 * tribe_get_object_property_from_array loop through an array of objects to retrieve a single property
-	 *
-	 * @param array   $array_objects
-	 * @param string  $property
-	 * @return array
-	 */
-	function tribe_get_object_property_from_array( $array_objects = array(), $property = null ) {
-		$array_properties = array();
-		if ( !empty( $array_objects ) && !empty( $property ) ) {
-			if ( ! is_wp_error( $array_objects ) ) {
-				// loop through array of objects to pick out property
-				foreach ( $array_objects as $object ) {
-					if ( !isset( $object->{$property} ) )
-						continue;
-					$array_properties[] = $object->{$property};
-				}
-			} else {
-				// return $array_objects if WP_Error to pass the error through
-				return $array_objects;
-			}
-		}
-		return $array_properties;
-	}
-
-	/**
-	 * Instantiate the template class. If no name is passed, defaults to the class for the current view
+	 * Instantiate the template class, preparing a view file for use. If no name is passed, defaults to the class for the current view
 	 *
 	 * @param $class string - classname you want to instantiate
 	 * @return void
+	 * @author Jessica Yazbek
+	 * @uses TribeEventsTemplates::instantiate_template_class()
 	 * @since 3.0
 	 **/
 	function tribe_initialize_view( $class = false )	{
@@ -52,6 +29,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param $name name of the view
 	 * @return void
+	 * @author Jessica Yazbek
 	 * @since 3.0
 	 **/
 	function tribe_get_view( $view = false ) {
@@ -77,6 +55,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @return void
 	 * @uses TribeEventsTemplates::getTemplateHierarchy
+	 * @author Jessica Yazbek
 	 * @since 3.0 
 	 **/
 	function tribe_get_template_part( $slug, $name = null ) {
@@ -232,7 +211,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_event_cat_ids( $post_id = 0 ) {
 		$post_id = TribeEvents::postIdHelper( $post_id );
-		return (array) tribe_get_object_property_from_array( get_the_terms( $post_id, TribeEvents::TAXONOMY ), 'term_id' );
+		return wp_list_pluck( (array) get_the_terms( $post_id, TribeEvents::TAXONOMY ), 'term_id' );
 	}
 	/**
 	 * Event Category slugs
@@ -244,7 +223,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_event_cat_slugs( $post_id = 0 ) {
 		$post_id = TribeEvents::postIdHelper( $post_id );
-		return (array) tribe_get_object_property_from_array( get_the_terms( $post_id, TribeEvents::TAXONOMY ), 'slug' );
+		return wp_list_pluck( (array) get_the_terms( $post_id, TribeEvents::TAXONOMY ), 'slug' );
 	}
 
 	/**
@@ -508,10 +487,13 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Prints a url to a file in the resources directory
+	 * Returns or echoes a url to a file in the Events Calendar plugin resources directory
 	 *
-	 * @return void
-	 * @author 
+	 * @param string $resource the filename of the resource
+	 * @param bool $echo whether or not to echo the url
+	 * @return string
+	 * @author Jessica Yazbek
+	 * @since 3.0
 	 **/
 	function tribe_events_resource_url($resource, $echo = false) {
 		$url = apply_filters('tribe_events_resource_url', trailingslashit( TribeEvents::instance()->pluginUrl ).'resources/'.$resource, $resource);
@@ -823,6 +805,15 @@ if ( class_exists( 'TribeEvents' ) ) {
 		return apply_filters( 'tribe_events_event_schedule_details', $schedule );
 	}
 
+	/**
+	 * Accepts two dates and returns the number of days between them
+	 *
+	 * @param string $start_date 
+	 * @param string $end_date 
+	 * @return int
+	 * @author Modern Tribe
+	 * @see TribeEventsQuery::dateDiff()
+	 **/
 	function tribe_get_days_between( $start_date, $end_date ) {
 
 		$start_date = new DateTime( $start_date );
@@ -833,6 +824,21 @@ if ( class_exists( 'TribeEvents' ) ) {
 		return TribeEventsQuery::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
 	}
 
+	/**
+	 * Accepts an array of query arguments, retrieves them, and returns the html for those events in list view
+	 *
+	 * Optional inline example:
+	 * < code >
+	 * <?php
+	 * echo myfunction();
+	 * ?>
+	 * </ code >
+	 *
+	 * @param array $args Args to be passed to TribeEventsQuery::getEvents()
+	 * @param bool $initialize Whether the list view template class needs to be included and initialized
+	 * @return string 
+	 * @author Modern Tribe
+	 **/
 	function tribe_include_view_list( $args = null, $initialize = true ) {
 		global $wp_query;
 
@@ -862,6 +868,14 @@ if ( class_exists( 'TribeEvents' ) ) {
 		return $list_view_html;
 	}
 
+	/**
+	 * Generates html for any notices that have been queued on the current view
+	 *
+	 * @param bool $echo Whether or not to echo the notices html
+	 * @return void | string
+	 * @author Modern Tribe
+	 * @see TribeEvents::getNotices()
+	 **/
 	function tribe_events_the_notices( $echo = true ) {
 		$notices = TribeEvents::getNotices();
 		$html = !empty( $notices ) ? '<div class="tribe-events-notices"><ul><li>' . implode( '</li><li>', $notices ) . '</li></ul></div>' : '';
@@ -873,6 +887,14 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 	}
 
+	/**
+	 * Get a list of the views that are enabled
+	 *
+	 * @param array $views Default list of views
+	 * @return array
+	 * @author Modern Tribe
+	 * @see tribeEnableViews option
+	 **/
 	function tribe_events_enabled_views( $views ) {
 		$enabled_views_defaults = array();
 		foreach ( $views as $view ) {
@@ -881,6 +903,12 @@ if ( class_exists( 'TribeEvents' ) ) {
 		return tribe_get_option( 'tribeEnableViews', $enabled_views_defaults );
 	}
 
+	/**
+	 * Get a list of the views that are disabled
+	 *
+	 * @return array
+	 * @author Modern Tribe
+	 **/
 	function tribe_events_disabled_views() {
 		static $disabled;
 		if ( isset( $disabled ) ) {
@@ -899,19 +927,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 		return $disabled;
 	}
 
-	function tribe_count_hierarchical_keys( $value, $key ) {
-		global $tribe_count_hierarchical_increment;
-		$tribe_count_hierarchical_increment++;
-	}
-	function tribe_count_hierarchical( array $walk ) {
-		global $tribe_count_hierarchical_increment;
-		$tribe_count_hierarchical_increment = 0;
-		array_walk_recursive( $walk, 'tribe_count_hierarchical_keys' );
-		return $tribe_count_hierarchical_increment;
-	}
-
 	/**
 	 * tribe_is_bot checks if the visitor is a bot and returns status
+	 * 
 	 * @return bool
 	 */
 	function tribe_is_bot() {
@@ -934,6 +952,13 @@ if ( class_exists( 'TribeEvents' ) ) {
 		return apply_filters( 'tribe_is_bot_status', false, $user_agent, null );
 	}
 
+	/**
+	 * Display the Events Calendar promo banner
+	 *
+	 * @param array $echo Whether or not to echo the banner, if false, it's returned
+	 * @return void | string
+	 * @author  Modern Tribe
+	 **/
 	function tribe_events_promo_banner( $echo = true ){
 		if ( tribe_get_option( 'donate-link', false ) == true && !tribe_is_bot() ) {
 			$promo = apply_filters( 'tribe_events_promo_banner_message', sprintf( __( 'Calendar powered by %sThe Events Calendar%s', 'tribe-events-calendar' ), '<a class="vcard url org fn" href="http://tri.be/wordpress-events-calendar/">', '</a>' ) );
@@ -950,6 +975,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * Return the filters registered in the tribe bar
 	 *
 	 * @return array
+	 * @author Jessica Yazbek
 	 * @since 3.0
 	 **/
 	function tribe_events_get_filters()	{
@@ -960,10 +986,22 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * Return the views registered in the tribe bar
 	 *
 	 * @return array
+	 * @author Jessica Yazbek
 	 * @since 3.0
 	 **/
 	function tribe_events_get_views()	{
 		return apply_filters('tribe-events-bar-views', array());
+	}
+
+	function tribe_count_hierarchical_keys( $value, $key ) {
+		global $tribe_count_hierarchical_increment;
+		$tribe_count_hierarchical_increment++;
+	}
+	function tribe_count_hierarchical( array $walk ) {
+		global $tribe_count_hierarchical_increment;
+		$tribe_count_hierarchical_increment = 0;
+		array_walk_recursive( $walk, 'tribe_count_hierarchical_keys' );
+		return $tribe_count_hierarchical_increment;
 	}
 
 }
