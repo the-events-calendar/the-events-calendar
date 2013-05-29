@@ -856,6 +856,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * tribe_get_object_property_from_array loop through an array of objects to retrieve a single property
 	 *
+	 * @deprecated
 	 * @param array   $array_objects
 	 * @param string  $property
 	 * @return array
@@ -867,6 +868,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 	/**** WIDGET DEPRECATED TAGS *****/
 
+	/**
+	 * @deprecated
+	 */
 	function tribe_mini_display_day( $day, $monthView ) {
 		_deprecated_function( __FUNCTION__, '3.0' );
 	}
