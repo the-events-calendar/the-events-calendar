@@ -123,17 +123,16 @@ if( class_exists( 'TribeEvents' ) ) {
 		$output = esc_html(tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerPhone', true ));
 		return apply_filters( 'tribe_get_organizer_phone', $output );
 	}
-
-	function tribe_get_organizer_permalink( $post_id = null ){
-		$post_id = TribeEvents::postIdHelper( $post_id );
-		$organizer_id = tribe_get_organizer_id( $post_id );
-		$link = sprintf('<a href="%s">%s</a>',
-			get_permalink( $organizer_id ),
-			get_the_title( $organizer_id )
-			);
-		return apply_filters('tribe_get_organizer_permalink', $link, $post_id, $organizer_id );
-	}
 	
+	/**
+	 * Return html for the link to an organizer's website
+	 *
+	 *
+	 * @param $post_id post ID for an event
+	 * @param $label text for the link
+	 * @return string
+	 * @author  Modern Tribe
+	 **/
 	function tribe_get_organizer_website_link( $post_id = null, $label = null ){
 		$post_id = tribe_get_organizer_id( $post_id );
 		$url = tribe_get_event_meta( $post_id, '_OrganizerWebsite', true );
