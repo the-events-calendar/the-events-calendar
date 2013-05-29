@@ -1207,7 +1207,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function setup_dayview_in_bar( $views ) {
 			$views[] = array( 'displaying' => 'day',
 			                  'anchor'     => __( 'Day', 'tribe-events-calendar-pro' ),
-			                  'event_bar_hook'       => 'tribe_events_list_before_template',
+			                  'event_bar_hook'       => 'tribe_events_before_template',
 			                  'url'        => tribe_get_day_link() );
 			return $views;
 		}
@@ -1215,7 +1215,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function setup_photoview_in_bar( $views ) {
 			$views[] = array( 'displaying' => 'photo',
 			                  'anchor'     => __( 'Photo', 'tribe-events-calendar-pro' ),
-			                  'event_bar_hook'       => 'tribe_events_list_before_template',
+			                  'event_bar_hook'       => 'tribe_events_before_template',
 			                  'url'        => tribe_get_photo_permalink() );
 			return $views;
 		}
