@@ -182,6 +182,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 * @return boolean
 	 */
 	function tribe_events_week_setup_event( $event_id = null ) {
+		do_action( 'tribe_events_week_pre_setup_event', $event_id);
 		switch ( Tribe_Events_Pro_Week_Template::$loop_type ) {
 		case 'allday':
 			Tribe_Events_Pro_Week_Template::set_event_id( $event_id );

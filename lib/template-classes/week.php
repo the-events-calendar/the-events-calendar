@@ -87,6 +87,26 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		protected function hooks() {
 			parent::hooks();
 			add_filter( 'tribe_events_header_attributes',  array( $this, 'header_attributes' ), 10, 2 );
+			add_action( 'tribe_events_week_pre_setup_event', array( $this, 'manage_sensitive_info' ) );
+		}
+
+		/**
+		 * Add/remove filters to hide/show sensitive event info on password protected posts
+		 *
+		 * @param $post
+		 * @return void
+		 * @author Jessica Yazbek
+		 * @since 3.0
+		 **/
+		public function manage_sensitive_info( $post ) {
+
+			parent::manage_sensitive_info( $post );
+
+			if ( post_password_required( $post ) ) {
+				add_filter( 'tribe_get_template_part_path_week/single-event-tooltip.php', '__return_false' );
+			} else {
+				remove_filter( 'tribe_get_template_part_path_week/single-event-tooltip.php', '__return_false' );
+			}
 		}
 
 		/**
