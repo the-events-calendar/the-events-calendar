@@ -20,14 +20,14 @@ $more = false;
 ?>
 
 <?php while ( have_posts() ) : the_post(); ?>
-	<?php do_action('tribe_events_map_inside_before_loop'); ?>
+	<?php do_action( 'tribe_events_inside_before_loop' ); ?>
 
 	<!-- Event  -->
 	<div id="post-<?php the_ID() ?>" class="<?php tribe_events_event_classes() ?>">
-		<?php tribe_get_template_part('map/single', 'event') ?>
+		<?php tribe_get_template_part( 'map/single', 'event' ) ?>
 	</div><!-- .hentry .vevent -->
 
 
-	<?php do_action( 'tribe_events_map_inside_after_loop' ); ?>
+	<?php do_action( 'tribe_events_inside_after_loop' ); ?>
 <?php endwhile; ?>
 

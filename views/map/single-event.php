@@ -38,7 +38,7 @@ $has_venue_address = ( $venue_address ) ? ' location': '';
 <?php endif; ?>
 
 <!-- Event Title -->
-<?php do_action( 'tribe_events_map_before_the_event_title' ) ?>
+<?php do_action( 'tribe_events_before_the_event_title' ) ?>
 
 <!-- Event Distance -->
 <?php echo tribe_event_distance(); ?>
@@ -48,10 +48,10 @@ $has_venue_address = ( $venue_address ) ? ' location': '';
 		<?php the_title() ?>
 	</a>
 </h2>
-<?php do_action( 'tribe_events_map_after_the_event_title' ) ?>
+<?php do_action( 'tribe_events_after_the_event_title' ) ?>
 
 <!-- Event Meta -->
-<?php do_action( 'tribe_events_map_before_the_meta' ) ?>
+<?php do_action( 'tribe_events_before_the_meta' ) ?>
 <div class="tribe-events-event-meta <?php echo $has_venue . $has_venue_address; ?>">
 
 	<!-- Schedule & Recurrence Details -->
@@ -63,20 +63,20 @@ $has_venue_address = ( $venue_address ) ? ' location': '';
 	<?php if ( $venue_details ) : ?>
 		<!-- Venue Display Info -->
 		<div class="tribe-events-venue-details">
-			<?php echo implode(', ', $venue_details); ?>
+			<?php echo implode( ', ', $venue_details ); ?>
 		</div> <!-- .tribe-events-venue-details -->
 	<?php endif; ?>
 
 </div><!-- .tribe-events-event-meta -->
-<?php do_action( 'tribe_events_map_after_the_meta' ) ?>
+<?php do_action( 'tribe_events_after_the_meta' ) ?>
 
 <!-- Event Image -->
-<?php echo tribe_event_featured_image(null, 'medium') ?>
+<?php echo tribe_event_featured_image( null, 'medium' ) ?>
 
 <!-- Event Content -->
-<?php do_action( 'tribe_events_map_before_the_content' ) ?>
+<?php do_action( 'tribe_events_before_the_content' ) ?>
 <div class="tribe-events-map-event-description tribe-events-content description entry-summary">
 	<?php the_excerpt() ?>
-	<a href="<?php echo tribe_get_event_link() ?>" class="tribe-events-read-more" rel="bookmark"><?php _e('Find out more', 'tribe-events-calendar') ?> &raquo;</a>
+	<a href="<?php echo tribe_get_event_link() ?>" class="tribe-events-read-more" rel="bookmark"><?php _e( 'Find out more', 'tribe-events-calendar' ) ?> &raquo;</a>
 </div><!-- .tribe-events-map-event-description -->
-<?php do_action('tribe_events_map_after_the_content') ?>
+<?php do_action( 'tribe_events_after_the_content' ) ?>
