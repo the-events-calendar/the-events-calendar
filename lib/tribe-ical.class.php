@@ -10,7 +10,7 @@ class TribeiCal {
 	 * @static
 	 */
 	public static function init() {
-		add_filter( 'tribe_events_after_view',                     array( __CLASS__, 'maybe_add_link'     ), 10, 1 );
+		add_filter( 'tribe_events_after_footer',                     array( __CLASS__, 'maybe_add_link'     ), 10, 1 );
 		add_action( 'tribe_events_single_event_after_the_content', array( __CLASS__, 'single_event_links' )        );
 		add_action( 'tribe_tec_template_chooser',                  array( __CLASS__, 'do_ical_template'   )        );
 	}
