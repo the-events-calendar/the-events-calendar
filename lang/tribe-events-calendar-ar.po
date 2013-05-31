@@ -5,11 +5,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-20 02:05-0600\n"
-"PO-Revision-Date: 2013-05-27 12:32-0000\n"
-"Last-Translator: Antonio Pratas <hi@antoniopratas.com>\n"
-"Language-Team: Diego Meneghetti <diego@meneghetti.jor.br>\n"
-"Language: pt_BR\n"
+"POT-Creation-Date: 2013-05-20 02:24-0600\n"
+"PO-Revision-Date: 2013-05-24 20:44+0200\n"
+"Last-Translator: Mamdouh Samy <asyuti47@gmail.com>\n"
+"Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,43 +22,41 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#
 #: ../admin-views/app-shop.php:4
 msgid "Tribe Event Add-Ons"
-msgstr "Add-Ons Tribe Event"
+msgstr "إضافات أجندة ترايب"
 
 #: ../admin-views/app-shop.php:56
 msgid "Version"
-msgstr "Versão"
+msgstr "الإصدار"
 
 #: ../admin-views/app-shop.php:59
 msgid "Last Update"
-msgstr "Último update"
+msgstr "آخر تحديث"
 
 #: ../admin-views/event-sidebar-options.php:11
 msgid "Hide From Event Listings"
-msgstr "Esconder da Listagem de Eventos"
+msgstr "إخفاء من قائمة الأحداث"
 
 #: ../admin-views/event-sidebar-options.php:12
 msgid "Sticky in Calendar View"
-msgstr "Fixo na vista de Calendário"
+msgstr "تثبيت في مقدمة الأجندة"
 
-#
 #: ../admin-views/events-audit-trail.php:41
 msgid "Auditing Information"
-msgstr "Informação de Auditoria"
+msgstr "بيانات المراجعة"
 
 #: ../admin-views/events-audit-trail.php:47
 msgid "Created by:"
-msgstr "Criado por:"
+msgstr "تم إنشائها بواسطة:"
 
 #: ../admin-views/events-audit-trail.php:51
 msgid "Audit Trail:"
-msgstr "Registo de Auditoria:"
+msgstr "مسار المراجعة:"
 
 #: ../admin-views/events-meta-box.php:26
 msgid "Event Time &amp; Date"
-msgstr "Hora do evento &amp; Data"
+msgstr "وقت الحدث &amp; تاريخه"
 
 #: ../admin-views/events-meta-box.php:32
 msgid ""
@@ -66,67 +64,66 @@ msgid ""
 "update all future events.  If you did not mean to change all events, then "
 "please refresh the page."
 msgstr ""
-"Você alterou as regras de repetição deste evento. Salvar o evento irá "
-"actualizar todos os eventos futuros. Se não quiser mudar todos os eventos, "
-"por favor, actualize a página."
+"لقد قمت بتغيير قواعد تكرار هذا الحدث. حفظ الحدث سيقوم بالتأثير علي كل "
+"الأحداث القادمة. إذا لم تكن ترغب في تغيير كل الأحداث من فضلك أعد تحميل "
+"الصفحة."
 
 #
 #: ../admin-views/events-meta-box.php:35
 msgid "All Day Event:"
-msgstr "Evento Diário:"
+msgstr "حدث طوال اليوم:"
 
 #
 #: ../admin-views/events-meta-box.php:39
 msgid "Start Date &amp; Time:"
-msgstr "Data e hora de início:"
+msgstr "تاريخ و وقت البداية:"
 
 #: ../admin-views/events-meta-box.php:42 ../admin-views/events-meta-box.php:63
 msgid "YYYY-MM-DD"
-msgstr "DD-MM-YYYY"
+msgstr "YYYY-MM-DD"
 
 #
 #: ../admin-views/events-meta-box.php:60
 msgid "End Date &amp; Time:"
-msgstr "Data e hora do final:"
+msgstr "تاريخ و وقت النهاية:"
 
 #: ../admin-views/events-meta-box.php:85
 msgid "Event Location Details"
-msgstr "Detalhes do local do evento"
+msgstr "تفاصيل مكان الحدث"
 
 #: ../admin-views/events-meta-box.php:93
 msgid "Event Organizer Details"
-msgstr "Detalhes do organizador do evento:"
+msgstr "تفاصيل منظم الحدث"
 
 #
 #: ../admin-views/events-meta-box.php:101
 msgid "Event Website"
-msgstr "Website do Evento"
+msgstr "موقع الإنترنت للحدث"
 
 #: ../admin-views/events-meta-box.php:104
 msgid "URL:"
-msgstr ""
+msgstr "عنوان الموقع (URL):"
 
 #: ../admin-views/events-meta-box.php:115
 msgid "Event Cost"
-msgstr "Preço do evento:"
+msgstr "تكلفة الحدث"
 
 #: ../admin-views/events-meta-box.php:118
 msgid "Currency Symbol:"
-msgstr "Símbolo de Moeda"
+msgstr "رمز العملة"
 
 #: ../admin-views/events-meta-box.php:122
 #: ../public/advanced-functions/meta.php:187
 msgid "Cost:"
-msgstr "Preço:"
+msgstr "التكلفة:"
 
 #: ../admin-views/events-meta-box.php:127
 msgid "Enter a 0 for events that are free or leave blank to hide the field."
-msgstr ""
-"Introduza 0 para eventos gratuitos ou deixe em branco para esconder o campo."
+msgstr "اكتب 0 للأحداث المجانية أو أتركه فارغاً لإخفاء الحقل"
 
 #: ../admin-views/organizer-meta-box.php:12
 msgid "Organizer Name:"
-msgstr "Nome do organizador:"
+msgstr "اسم المنظم:"
 
 #: ../admin-views/organizer-meta-box.php:19
 #: ../admin-views/tickets-attendees.php:39
@@ -134,7 +131,7 @@ msgstr "Nome do organizador:"
 #: ../public/advanced-functions/meta.php:274
 #: ../public/advanced-functions/meta.php:336
 msgid "Phone:"
-msgstr "Telefone:"
+msgstr "تليفون:"
 
 #: ../admin-views/organizer-meta-box.php:23
 #: ../admin-views/tickets-attendees.php:45
@@ -143,164 +140,164 @@ msgstr "Telefone:"
 #: ../public/advanced-functions/meta.php:300
 #: ../public/advanced-functions/meta.php:362
 msgid "Website:"
-msgstr "Site:"
+msgstr "موقع إلكتروني:"
 
 #: ../admin-views/organizer-meta-box.php:27
 #: ../public/advanced-functions/meta.php:349
 msgid "Email:"
-msgstr "E-mail:"
+msgstr "بريد إلكتروني:"
 
 #: ../admin-views/recurrence-dialog.php:13
 msgid ""
 "Would you like to change only this instance of the event, or all future "
 "events in this series?"
-msgstr ""
-"Pretende mudar só esta instância do evento, ou todos os futuros eventos "
-"desta série?"
+msgstr "هل ترغب في تغيير هذا الحدث فقط أم كل الأحداث المستقبلية في هذه السلسة؟"
 
 #: ../admin-views/recurrence-dialog.php:15
 #: ../admin-views/recurrence-dialog.php:23
 msgid "Only This Event:"
-msgstr "Só Este Evento:"
+msgstr "هذا الحدث فقط:"
 
 #: ../admin-views/recurrence-dialog.php:15
 msgid "All other future events in the series will remain the same."
-msgstr "Todos os outros eventos na série irão manter-se inalterados."
+msgstr "كل الأحداث المستقبلية في هذه السلسة تظل كما هي."
 
-#
 #: ../admin-views/recurrence-dialog.php:16
 #: ../admin-views/recurrence-dialog.php:24
 msgid "All Events:"
-msgstr "Todos Os Eventos:"
+msgstr "كل الأحداث:"
 
 #: ../admin-views/recurrence-dialog.php:16
 msgid ""
 "All future events in the series will be changed. Any changes made to other "
 "events will be kept."
 msgstr ""
-"Todos os futuros eventos nesta série irão ser alterados. Qualquer mudança "
-"feita noutros eventos irá manter-se."
+"كل الأحداث المستقبلية في هذه السلسة سيتم تغييرها. أي تغييرات ستتم علي "
+"الأحداث الأخري سيتم الإحتفاظ بها."
 
 #: ../admin-views/recurrence-dialog.php:21
 msgid ""
 "Would you like to delete only this instance of the event, or all future "
 "events in this series?"
-msgstr ""
-"Pretende apagar só esta instância do evento, ou todos os futuros eventos "
-"desta série?"
+msgstr "هل ترغب في حذف هذا الحدث فقط أم كل الأحداث المستقبلية في هذه السلسة؟"
 
 #: ../admin-views/recurrence-dialog.php:23
 msgid "All other future events in the series will not be deleted."
-msgstr "Todos os futuros eventos desta série não serão apagados."
+msgstr "كل الأحداث المستقبلية في هذه السلسلة لن يتم حذفها."
 
 #: ../admin-views/recurrence-dialog.php:24
 msgid "All future events in the series will be deleted."
-msgstr "Todos os futuros eventos desta série serão apagados."
+msgstr "كل الأحداث المستقبلية في هذه السلسلة سيتم حذفها."
 
 #: ../admin-views/tickets-attendees.php:9 ../admin-views/tickets-list.php:41
 #: ../lib/tickets/tribe-tickets-pro.php:73
 msgid "Attendees"
-msgstr "Participantes"
+msgstr "الحضور"
 
 #
 #: ../admin-views/tickets-attendees.php:14
 msgid "Event Summary"
-msgstr "Sumário do Evento"
+msgstr "ملخص الحدث"
 
 #
 #: ../admin-views/tickets-attendees.php:22
 msgid "Event Details"
-msgstr "Detalhes do Evento"
+msgstr "تفاصيل الحدث"
 
+#
 #: ../admin-views/tickets-attendees.php:24
 msgid "Start Date / Time:"
-msgstr "Data e hora de início:"
+msgstr "تاريخ - وقت البداية:"
 
+#
 #: ../admin-views/tickets-attendees.php:26
 msgid "End Date / Time:"
-msgstr "Data e hora do final:"
+msgstr "تاريخ - وقت النهاية:"
 
 #: ../admin-views/tickets-attendees.php:34
 msgid "Venue:"
-msgstr "Local:"
+msgstr "مكان:"
 
+#
 #: ../admin-views/tickets-attendees.php:52
 msgid "Ticket Sales"
-msgstr "Vendas de Bilhetes"
+msgstr "بيع التذاكر"
 
 #: ../admin-views/tickets-attendees.php:64 ../admin-views/tickets-list.php:67
 #, php-format
 msgid "Sold %d"
-msgstr "%d Vendidos"
+msgstr "مبيع %d"
 
 #: ../admin-views/tickets-attendees.php:66 ../admin-views/tickets-list.php:69
 #, php-format
 msgid "Sold %d of %d"
-msgstr "Vendidos %d de %d"
+msgstr "تم بيع %d من %d"
 
+#
 #: ../admin-views/tickets-attendees.php:81
 msgid "Tickets sold:"
-msgstr "Bilhetes vendidos:"
+msgstr "التذاكر المباعة:"
 
+#
 #: ../admin-views/tickets-attendees.php:85
 msgid "Checked in:"
-msgstr "Check-in feito:"
+msgstr "تسجيل الدخول:"
 
 #: ../admin-views/tickets-attendees.php:105
 msgid "Send the attendee list by email"
-msgstr "Enviar a lista de participantes por email"
+msgstr "ارسل قائمة الحضور بالبريد الإلكتروني"
 
 #
 #: ../admin-views/tickets-attendees.php:109
 msgid "Select a User:"
-msgstr "Escolha um utilizador:"
+msgstr "اختر مستخدم:"
 
 #: ../admin-views/tickets-attendees.php:110
 msgid "Select..."
-msgstr "Escolha..."
+msgstr "اختار"
 
 #: ../admin-views/tickets-attendees.php:112
 msgid "or"
-msgstr "ou"
+msgstr "أو"
 
 #
 #: ../admin-views/tickets-attendees.php:114
 msgid "Email Address:"
-msgstr "Endereço de Email:"
+msgstr "البريد الإلكتروني:"
 
 #: ../admin-views/tickets-list.php:21 ../views/wrapper-single.php:37
 msgid "Edit"
-msgstr "Editar"
+msgstr "تعديل"
 
 #: ../admin-views/tickets-list.php:22
 msgid "Delete"
-msgstr "Apagar"
+msgstr "مسح"
 
 #: ../admin-views/tickets-list.php:24
 #, php-format
 msgid "Edit in %s"
-msgstr "Editar em %s"
+msgstr "تعديل في %s"
 
 #: ../admin-views/tickets-list.php:27
 #: ../lib/tribe-admin-events-list.class.php:41
 msgid "View"
-msgstr "Ver"
+msgstr "شاهد"
 
 #: ../admin-views/tickets-list.php:41 ../lib/tickets/tribe-tickets-pro.php:73
 msgid "See who purchased tickets to this event"
-msgstr "Ver quem comprou bilhetes para este evento"
+msgstr "شاهد من اشتري تذاكر لهذا الحدث"
 
 #: ../admin-views/tickets-meta-box.php:21
 msgid ""
 "This event was created using Community Events. Are you sure you want to sell "
 "tickets for it?"
 msgstr ""
-"Este evento foi criado usando Eventos da Comunidade. Tem a certeza que quer "
-"comprar bilhetes?"
+"هذا الحدث تم إنشاءه باستعمال أحداث المجتمع. هل أنت متأكد من رغبتك في بيع "
+"تذاكر له؟"
 
 #: ../admin-views/tickets-meta-box.php:32
 msgid "Upload image for the ticket header"
-msgstr "Enviar imagem para cabeçalho do bilhete"
+msgstr "رفع صورة هيدر لبيع التذاكر"
 
 #: ../admin-views/tickets-meta-box.php:33
 msgid ""
@@ -308,78 +305,72 @@ msgid ""
 "then scaled for mobile. If you would like \"retina\" support use an image "
 "sized to 1160px wide."
 msgstr ""
-"A dimensão máxima da imagem neste email é de 580px de largura por qualquer "
-"altura, e depois é redimensionada para mobile. Se quiser suporte para "
-"\"retina\" use uma imagem com uma largura de 1160px."
+"أكبر حجم للصورة في البريد الإلكتروني هي 580 بكسل عرض لأي أرتفاع و سيتم "
+"تصغيرها لتناسب الموبايل. إذا رغبت في دعم خاصة   \"retina\" استخدم صورة بحجز "
+"1160 بكسل عرض"
 
 #
 #: ../admin-views/tickets-meta-box.php:36
 msgid "Select an Image"
-msgstr "Escolha uma imagem"
+msgstr "اختر صورة"
 
 #: ../admin-views/tickets-meta-box.php:44
 msgid "Remove"
-msgstr "Remover"
+msgstr "حذف"
 
-#
 #: ../admin-views/tickets-meta-box.php:62
 #: ../admin-views/tickets-meta-box.php:72
 msgid "Add new ticket"
-msgstr "Adicionar novo bilhete"
+msgstr "اضف تذكرة جديدة"
 
-#
 #: ../admin-views/tickets-meta-box.php:73
 msgid "Edit ticket"
-msgstr "Editar Bilhete"
+msgstr "تحرير التذكرة"
 
 #: ../admin-views/tickets-meta-box.php:79
 msgid "Sell using:"
-msgstr "Vender usando:"
+msgstr "بيع بواسطة:"
 
-#
 #: ../admin-views/tickets-meta-box.php:96
 msgid "Ticket Name:"
-msgstr "Nome Bilhete:"
+msgstr "اسم التذكرة:"
 
 #: ../admin-views/tickets-meta-box.php:103
 msgid "Ticket Description:"
-msgstr "Descrição Bilhete:"
+msgstr "وصف التذكرة:"
 
 #: ../admin-views/tickets-meta-box.php:112
 msgid "Price:"
-msgstr "Preço:"
+msgstr "السعر:"
 
-#
 #: ../admin-views/tickets-meta-box.php:124
 msgid "Start sale:"
-msgstr "Começar venda:"
+msgstr "بداية البيع:"
 
-#
 #: ../admin-views/tickets-meta-box.php:148
 msgid "End sale:"
-msgstr "Terminar Venda:"
+msgstr "نهاية البيع:"
 
 #: ../admin-views/tickets-meta-box.php:170
 msgid ""
 "When will ticket sales occur? If you don't set a start/end date for sales, "
 "tickets will be available from now until the event ends."
 msgstr ""
-"Quando irá ocorrer a venda de bilhetes? Se não definir uma data de início/"
-"fim para a venda, os bilhetes irão estar disponíveis a partir de agora até "
-"ao final do evento."
+"متي سيتم بيع التذكرة؟ إذا لم تقم بتحديد تاريخ بداية و نهاية فإن التذاكر "
+"ستصبح متاحة من الآن و حتي موعد نهاية الحدث."
 
 #: ../admin-views/tribe-options-display.php:4
 msgid "Default Events Template"
-msgstr "Template padrão de eventos"
+msgstr " قالب الأحداث الإفتراضي"
 
 #: ../admin-views/tribe-options-display.php:5
 msgid "Default Page Template"
-msgstr "Template padrão de página"
+msgstr "قالب الصفحات الإفتراضي"
 
 #
 #: ../admin-views/tribe-options-display.php:29
 msgid "Display Settings"
-msgstr "Configuração de visualização"
+msgstr "خيارات العرض"
 
 #: ../admin-views/tribe-options-display.php:33
 msgid ""
@@ -392,29 +383,28 @@ msgid ""
 "view? Grab a copy of the <a href=\"https://github.com/moderntribe/tribe-"
 "events-agenda-view\">Sample Agenda View plugin from Github</a></p>"
 msgstr ""
-"<p>As configurações abaixo controlam a visualização do seu calendário. Se "
-"algo não parecer correcto, tente trocar entre as três opções de Style Sheets "
-"ou escolha um template de página do seu tema.</p>Irão existir situações em "
-"que nenhum template será 100% perfeito. Verifique o nosso <a href=\"http://"
-"tri.be/support/documentation/events-calendar-themers-guide/\">guia de "
-"criação de temas</a> para instruções ou modificações personalizadas. Quer "
-"criar uma nova vista? Pode fazer download de uma cópia do <a href=\"https://"
-"github.com/moderntribe/tribe-events-agenda-view\">Plugin Vista de Agenda "
-"Exemplo no Github</a></p>"
+"<p>الإعدادات التالية تتحكم في طريقة عرض الأجندة. إذا لم تظهر الأشياء بشكل "
+"جيد جرب تغيير الخيارات المتاحة أو أختر تمبلت صفحة مختلف من القالب الخاص بك.</"
+"p> قد يحدث أحياناً أن لا يكون هناك تمبلت ملائمة بنسبة 100% لذا جرب تفقد <a "
+"href=\"http://tri.be/support/documentation/events-calendar-themers-guide/"
+"\">دليل الثيمات الخاص بنا</a> لمعرفة تعليمات التخصيص المتاحة. إذا كنت ترغب "
+"في طريقة عرض جديدة يمكنك أخذ نسخة من <a href=\"https://github.com/"
+"moderntribe/tribe-events-agenda-view\">Sample Agenda View plugin from "
+"Github</a></p>"
 
 #
 #: ../admin-views/tribe-options-display.php:45
 msgid "Basic Template Settings"
-msgstr "Definições de Template Básico"
+msgstr "إعدادات التمبلت الأساسية"
 
 #
 #: ../admin-views/tribe-options-display.php:49
 msgid "Default stylesheet used for events templates"
-msgstr "Folha de Estilo usada por defeito para templates de eventos "
+msgstr "ملف التنسيق المستخدم في تمبليت الأحداث"
 
 #: ../admin-views/tribe-options-display.php:52
 msgid "Skeleton Styles"
-msgstr "Estilos base"
+msgstr "الستايل الأساسي"
 
 #: ../admin-views/tribe-options-display.php:54
 msgid ""
@@ -422,129 +412,125 @@ msgid ""
 "templates, and is recommended if you're customizing the events template "
 "styles."
 msgstr ""
-"Estes estilos dão um nível de layout mínimo para templates mais complexos, e "
-"é recomendado se está a costumizar o estilo de um template de eventos."
+"هذه التنسيقات تعطي الحد الأدني من التنسيق مقارنة بأي تمبليت أخري و هي مناسبة "
+"إذا كنت ترغب في تخصيس التنسيقات لتناسب موقعك."
 
 #: ../admin-views/tribe-options-display.php:56
 msgid "Full Styles"
-msgstr "Estilos Completos"
+msgstr "تنسيقات كاملة"
 
 #: ../admin-views/tribe-options-display.php:58
 msgid ""
 "These styles provide a more complex level of layout and style and should "
 "adapt to your theme"
 msgstr ""
-"Estes estilos fornecem um nível mais complexo de layout e estilo e deverão "
-"adaptar-se ao seu tema"
+"هذه التنسيقات تعطي درجة عالية من التحكم في الشكل و التنسيق و يمكن أن تكون "
+"مناسبة للتمبليت الخاصة بك"
 
 #
 #: ../admin-views/tribe-options-display.php:60
 msgid "Tribe Events Styles"
-msgstr "Estilos de Eventos Tribe"
+msgstr "التنسيقات الخاصة ب Tribe Events"
 
 #: ../admin-views/tribe-options-display.php:62
 msgid "These styles provide a fully designed events theme"
-msgstr "Estes estilos fornecem um tema completamente desenhado para eventos"
+msgstr "هذه التنسيقات تعطي تمبليت أحداث كاملة"
 
 #
 #: ../admin-views/tribe-options-display.php:69
 msgid "Events template"
-msgstr "Template de Eventos"
+msgstr "تمبليت الأحداث"
 
 #: ../admin-views/tribe-options-display.php:70
 msgid ""
 "Choose a page template to control the appearance of your calendar and event "
 "content."
-msgstr ""
-"Escolha um template de página para controlar a aparência do seu calendário e "
-"do conteúdo do evento."
+msgstr "اختار تمبليت الصفحة للتحكم في شكل أجندة الأحداث."
 
 #: ../admin-views/tribe-options-display.php:78
 msgid "Enable event views"
-msgstr "Activar vistas de evento"
+msgstr "تفعيل عرض الأحداث"
 
 #: ../admin-views/tribe-options-display.php:79
 msgid "You must select at least one view."
-msgstr "Tem que escolher pelo menos uma vista"
+msgstr "يجب أن تختار طريقة عرض واحدة علي الأقل."
 
+#
 #: ../admin-views/tribe-options-display.php:86
 msgid "Default view"
-msgstr "Vista por defeito"
+msgstr "طريقة العرض الإفتراضية"
 
 #: ../admin-views/tribe-options-display.php:94
 msgid "Use the Event Search Bar"
-msgstr "Use a Barra de Pesquisa de Eventos"
+msgstr "استخدم البحث الخاص بالأحداث"
 
 #: ../admin-views/tribe-options-display.php:95
 msgid "Uncheck this to use the classic header."
-msgstr "Desmarque isto para usar o cabeçalho clássico."
+msgstr "إلغاء الأختيار لاستعمال الهيدر الأساسي."
 
 #
 #: ../admin-views/tribe-options-display.php:101
 msgid "Advanced Template Settings"
-msgstr "Definições Avançadas de Template"
+msgstr "إختيارات التمبليت المتقدمة"
 
 #
 #: ../admin-views/tribe-options-display.php:105
 msgid "Add HTML before event content"
-msgstr "Adicionar HTML antes do conteúdo do evento"
+msgstr "ضع كود HTML قبل محتوي الحدث"
 
 #: ../admin-views/tribe-options-display.php:106
 msgid ""
 "If you are familiar with HTML, you can add additional code before the event "
 "template. Some themes may require this to help with styling or layout."
 msgstr ""
-"Se está familiarizado com HTML, pode adicionar código extra antes do "
-"template do evento. Alguns temas podem necessitar disto para ajudar a criar "
-"estilos ou layouts."
+"إذا كنت تجيد استعمال أكواد HTML,  يمكنك إضافة بعض الأكواد قبل تمبليت الحدث. "
+"بعض الثيمات تتطلب ذلك للمساعدة في التنسيق."
 
 #
 #: ../admin-views/tribe-options-display.php:111
 msgid "Add HTML after event content"
-msgstr "Adicionar HTML após conteúdo do evento"
+msgstr "اضف كود HTML بعد محتوي الحدث"
 
 #: ../admin-views/tribe-options-display.php:112
 msgid ""
 "If you are familiar with HTML, you can add additional code after the event "
 "template. Some themes may require this to help with styling or layout."
 msgstr ""
-"Se está familiarizado com HTML, pode adicionar código extra depois do "
-"template do evento. Alguns temas podem necessitar disto para ajudar a criar "
-"estilos ou layouts."
+"إذا كنت تجيد استعمال أكواد HTML,  يمكنك إضافة بعض الأكواد بعد تمبليت الحدث. "
+"بعض الثيمات تتطلب ذلك للمساعدة في التنسيق."
 
 #: ../admin-views/tribe-options-general.php:14
 msgid "Finding & extending your calendar."
-msgstr "Encontrar e expandir o seu calendário."
+msgstr "إيجاد و توسيع الأجندة."
 
 #: ../admin-views/tribe-options-general.php:19
 msgid "Finding your calendar."
-msgstr "Encontrar o seu calendário."
+msgstr "إيجاد الأجندة."
 
-#
 #: ../admin-views/tribe-options-general.php:24
 msgid "Where's my calendar?"
-msgstr "Onde está o meu calendário?"
+msgstr "أين هي الأجندة؟"
 
 #: ../admin-views/tribe-options-general.php:24
 msgid "Right here"
-msgstr "Aqui"
+msgstr "هنا"
 
 #: ../admin-views/tribe-options-general.php:28
 msgid ""
 "Looking for additional functionality including recurring events, custom "
 "meta, community events, ticket sales and more?"
 msgstr ""
-"Procura funcionalidades adicionais, como eventos recorrentes, informações "
-"personalizadas, eventos da comunidade, venda de bilhetes e muito mais?"
+"هل تبحث عن خواص إضافية مثل أحداث متكررة, حقول مخصصة, أحداث المجتمع و بيع "
+"التذاكر و غيرها؟"
 
 #
 #: ../admin-views/tribe-options-general.php:28
 msgid "Check out the available add-ons"
-msgstr "Verifique os add-ons disponíveis"
+msgstr "تعرف علي الإضافات المتاحة"
 
 #: ../admin-views/tribe-options-general.php:33
 msgid "We hope our plugin is helping you out."
-msgstr "Esperemos que nosso plugin o tenha ajudado."
+msgstr "نتمني أن تكون الإضافة مفيدة لك."
 
 #: ../admin-views/tribe-options-general.php:37
 msgid ""
@@ -553,15 +539,14 @@ msgid ""
 "is recognition. Add a small text-only link at the bottom of your calendar "
 "pointing to The Events Calendar project."
 msgstr ""
-"Está a pensar \"Uau, este plugin é fantástico! Eu devia agradecer à Modern "
-"Tribe por todo o seu árduo trabalho.\" O maior agradecimento que podemos "
-"pedir é reconhecimento. Adicione um pequeno link textual no final do seu "
-"calendário a apontar para o projecto do Calendário de Eventos."
+"هل تفكر  \"رائع, هذه الإضافة مذهلة! يجب علي أن أقول شكراً لشركة مودرن ترايب "
+"علي كل مجهوداتهم..\" أفضل طريقة شكر يمكن أن نحلم بها هي التقدير. قم بإضافة "
+"رابط نصي في نهاية الأجندة يقود إلي مشروعنا."
 
 #: ../admin-views/tribe-options-general.php:37
 #: ../admin-views/tribe-options-general.php:42
 msgid "See an example of the link"
-msgstr "Ver um exemplo de um link"
+msgstr "شاهد نموذج لهذا الرابط"
 
 #: ../admin-views/tribe-options-general.php:42
 msgid ""
@@ -570,58 +555,58 @@ msgid ""
 "is recognition. Add a small text only link at the bottom of your calendar "
 "pointing to The Events Calendar project."
 msgstr ""
-"Está a pensar \"Uau, este plugin é fantástico! Eu devia agradecer à Modern "
-"Tribe por todo o seu árduo trabalho.\" O maior agradecimento que podemos "
-"pedir é reconhecimento. Adicione um pequeno link textual no final do seu "
-"calendário a apontar para o projecto do Calendário de Eventos."
+"هل تفكر \"رائع, هذه الإضافة مذهلة و يجب علي أن أقول شكراً لفريق  Modern Tribe "
+"علي كل المجهود المبذول فيها .\" أفضل طريقة شكر نتطلع إليها هي الإشادة من "
+"خلال وضع نص قصير يحتوي علي رابط إلي موقعنا في نهاية الصفحة."
 
 #
 #: ../admin-views/tribe-options-general.php:47
 msgid "Show The Events Calendar link"
-msgstr "Mostrar link do Calendário de Eventos"
+msgstr "إظهار رابط أجندة الأحداث"
 
 #
 #: ../admin-views/tribe-options-general.php:61
 msgid "General Settings"
-msgstr "Definições Gerais"
+msgstr "الإعدادات العامة"
 
 #: ../admin-views/tribe-options-general.php:65
 msgid "Number of events to show per page"
-msgstr "Número de ventos a mostrar por página"
+msgstr "عدد الأحداث التي تظهر في صفحة واحدة"
 
 #: ../admin-views/tribe-options-general.php:72
 msgid "Use Javascript to control page load"
-msgstr "Usar Javascript para controlar o loading da página"
+msgstr "استخدم جافاسكريبت للتحكم في تحميل الصفحة"
 
 #: ../admin-views/tribe-options-general.php:73
 msgid "Enable ajax to live refresh content."
-msgstr "Activar Ajax para actualizar conteúdo em tempo-real"
+msgstr "فعل آجاكس لتحديث المحتوي في الحال."
 
 #
 #: ../admin-views/tribe-options-general.php:79
 msgid "Show comments"
-msgstr "Mostrar comentários"
+msgstr "اظهار التعليقات"
 
+#
 #: ../admin-views/tribe-options-general.php:80
 msgid "Enable comments on event pages."
-msgstr "Activar comenários nas páginas de Eventos"
+msgstr "فعل التعليقات في صفحات الأحداث."
 
 #: ../admin-views/tribe-options-general.php:86
 msgid "Include events in main blog loop"
-msgstr "Incluir eventos no loop do blog principal"
+msgstr "تضمين الأحداث في المدونة"
 
 #: ../admin-views/tribe-options-general.php:87
 msgid ""
 "Show events with the site's other posts. When this box is checked, events "
 "will also continue to appear on the default events page."
 msgstr ""
-"Mostrar eventos com os outros posts do site. Quando esta caixa estiver "
-"selecionada, os eventos irão continuar a aparecer na página de eventos."
+"اظهر الأحداث مع التدوينات الأخري علي الموقع. عندما تختار هذا المربع ستستمر "
+"الأحداث في الظهور في مكانها الطبيعي في صفحة الأحداث كذلك."
 
 #: ../admin-views/tribe-options-general.php:93
 #: ../admin-views/tribe-options-general.php:99
 msgid "Events URL slug"
-msgstr "Slug da URL de Eventos"
+msgstr "نص رابط الأحداث"
 
 #: ../admin-views/tribe-options-general.php:94
 #, php-format
@@ -631,32 +616,30 @@ msgid ""
 "%s</a>. In order to edit the slug here, <a href=\"%soptions-permalink.php"
 "\">enable pretty permalinks</a>."
 msgstr ""
-"Não consegue editar o slug para a página dos eventos pois não tem pretty "
-"permalinks activo. O URL actual para a sua página de eventos é <a href=\"%s"
-"\">%s</a>. Para poder editar o slug aqui, <a href=\"%soptions-permalink.php"
-"\">active os pretty permalinks</a>."
+"لا تستطيع تغيير slug  لصفحة الأحداث الخاصة بك لأنك لم تقم بتفعيل الروابط "
+"الثابتة الجميلة. عنوان ال URL الحالي لصفحة الأحداث هو <a href=\"%s\">%s</a>. "
+"لتغييره <a href=\"%soptions-permalink.php\">قم بتفعيل الروابط الثابتة "
+"الجميلة عنا</a>."
 
-#
 #: ../admin-views/tribe-options-general.php:106
 #: ../public/template-tags/options.php:20
 msgid "The slug used for building the events URL."
-msgstr "A slug usada para criar o URL dos eventos."
+msgstr "نص الرابط المستخدم في بناء صفحة الأحداث."
 
 #: ../admin-views/tribe-options-general.php:106
 #, php-format
 msgid "Your current events URL is: %s"
-msgstr "O seu URL actual de eventos é: %s"
+msgstr "عنوان URL الحالي الخاص بالأحداث هو  %s"
 
-#
 #: ../admin-views/tribe-options-general.php:111
 #: ../public/template-tags/options.php:43
 msgid "Here is the iCal feed URL for your events:"
-msgstr "iCal feed para os seus eventos:"
+msgstr "هذا هو رابط iCal feed الخاص بك:"
 
 #
 #: ../admin-views/tribe-options-general.php:116
 msgid "Single event URL slug"
-msgstr "URL slug de Evento individual"
+msgstr "عنوان URL  للحدث الواحد"
 
 #: ../admin-views/tribe-options-general.php:123
 #, php-format
@@ -664,63 +647,62 @@ msgid ""
 "The above should ideally be plural, and this singular.<br />Your single "
 "event URL is: %s"
 msgstr ""
-"Idealmente, o texto acima deverá ser plurar e este singular. <br/>O url do "
-"seu evento individual é: %s"
+"الموجود بالأعلي يفضل أن يكون الجميع, أما للمفرد <br />أما للمفرد فعنوان URL "
+"هو: %s"
 
 #: ../admin-views/tribe-options-general.php:128
 msgid "End of day cutoff"
-msgstr "Limite do final do dia"
+msgstr "ينتهي بنهاية اليوم"
 
 #: ../admin-views/tribe-options-general.php:136
 msgid ""
 "Have events that run past midnight? Control when your day official ends to "
 "avoid awkwardly adding your event to the next day."
 msgstr ""
-"Tem eventos que passam a meia noite? Controle aqui a data final do dia para "
-"evitar adicionar um evento ao próximo dia."
+"هل لديك أحداث مستمرة بعد منتصف اليل؟ تحكم في نهاية اليوم الرسمية لك حتي لا "
+"تجد الأحداث ممتدة لليوم التالي"
 
 #: ../admin-views/tribe-options-general.php:141
 msgid "Default currency symbol"
-msgstr "Símbolo de moeda por defeito"
+msgstr "العملة الإفتراضية"
 
 #: ../admin-views/tribe-options-general.php:142
 msgid ""
 "Set the default currency symbol for event costs. Note that this only impacts "
 "future events, and changes made will not apply retroactively."
 msgstr ""
-"Define o símbolo de moeda por defeito para custos de eventos. Note que esta "
-"opção só irá ser aplicada em eventos futuros, e não tem efeitos retroactivos "
-"para eventos passados."
+"قم بتحديد العملة الإفتراضية لتكلفة الأحداث. مع ملاحظة أن هذا يؤثر فقط علي "
+"الأحداث المستقبلية و ليس السابقة."
 
 #
 #: ../admin-views/tribe-options-general.php:149
 msgid "Map Settings"
-msgstr "Definições de Mapa"
+msgstr "إعدادات الخريطة"
 
 #: ../admin-views/tribe-options-general.php:153
 msgid "Enable Google Maps"
-msgstr "Activar Google Maps"
+msgstr "تفعيل خرائط جوجل"
 
 #: ../admin-views/tribe-options-general.php:154
 msgid "Check to enable maps for events and venues."
-msgstr "Escolha para activar mapas para eventos e locais."
+msgstr "اختر لتفعيل الخرائط للأحداث و الأماكن"
 
 #: ../admin-views/tribe-options-general.php:161
 msgid "Google Maps Default Zoom Level"
-msgstr "Google maps Zoom por Defeito"
+msgstr "مستوي التكبير الإفتراضي لخرائط جوجل"
 
 #: ../admin-views/tribe-options-general.php:162
 msgid "0 = zoomed out; 21 = zoomed in."
-msgstr "0 = Zoom Out; 21 = Zoom In."
+msgstr "0 = للتصغير; 21 = لأقصي تقريب."
 
 #
 #: ../admin-views/tribe-options-general.php:170
 msgid "Miscellaneous Settings"
-msgstr "Definições várias"
+msgstr "إعدادات متنوعة"
 
 #: ../admin-views/tribe-options-general.php:174
 msgid "Duplicate Venues &amp; Organizers"
-msgstr "Locais e Organizadores Duplicados"
+msgstr "أماكن و منظمين مكررة"
 
 #: ../admin-views/tribe-options-general.php:174
 msgid ""
@@ -728,19 +710,18 @@ msgid ""
 "Calendar from a pre-3.0 version. Click this button to automatically merge "
 "identical venues and organizers."
 msgstr ""
-"Poderá encontrar locais e organizadores duplicados ao fazer update do "
-"Calendário de Eventos a partir de uma versão anterior à 3.0. Clique neste "
-"botão para automaticamente juntar locais e organizadores idênticos."
+"يمكن أن تجد أماكن أو منظمين مكررين عندما تقوم بالترقية من نسخة قبل أجندة "
+"الأحداث 3.0 . اضغط علي هذا الزر لدمج هذه البيانات بشكل تلقائي."
 
 #: ../admin-views/tribe-options-general.php:174
 #: ../lib/tribe-amalgamator.php:182
 msgid "Merge Duplicates"
-msgstr "Juntar Duplicados"
+msgstr "دمج التكرارات"
 
 #
 #: ../admin-views/tribe-options-general.php:179
 msgid "Debug mode"
-msgstr "Modo de Debug"
+msgstr "وضع تصحيح الأخطاء"
 
 #: ../admin-views/tribe-options-general.php:185
 #, php-format
@@ -750,81 +731,78 @@ msgid ""
 "browser, then we recommend that you install the %s and look for the \"Tribe"
 "\" tab in the debug output."
 msgstr ""
-"Active esta opção para registar a informação de debug. Por defeito esta "
-"informação será guardada no log de erro de PHP do seu servidor. Se pretende "
-"ver as mensagens de erro no seu browser, então recomendamos que instale o %s "
-"e procure pela tab \"Tribe\" no output do debug."
+"فعل هذا الإختيار لتسجيل معلومات تصحيح الأخطاء. هذا سيقوم بالتسجيل لسجل PHP "
+"الخاص بالخادم الذي تستعمله. إذا كنت ترغب في معاينة المعلومات في المتصفح "
+"الخاص بك ننصحك بتثبيت  %s  و البحث عن علامة تبويب \"Tribe\"   في سجل تصحيح "
+"الإخطاء. "
 
 #: ../admin-views/tribe-options-general.php:185
 msgid "Debug Bar Plugin"
-msgstr "Plugin barra de Debug"
+msgstr "إضافة شريط تصحيح الإخطاء"
 
 #: ../admin-views/tribe-options-help.php:18
 msgctxt "not available"
 msgid "n/a"
-msgstr ""
+msgstr "غير متاح"
 
 #: ../admin-views/tribe-options-help.php:19
 msgid "You need to upgrade!"
-msgstr "Precisa de actualizar!"
+msgstr "تحتاج للترقية!"
 
 #: ../admin-views/tribe-options-help.php:19
 msgid "You are up to date!"
-msgstr "Está actualizado!"
+msgstr "أنت تملك أحدث إصدار!"
 
-#
 #: ../admin-views/tribe-options-help.php:42
 msgid "The Events Calendar PRO"
-msgstr "Calendário de Eventos PRO"
+msgstr "The Events Calendar PRO"
 
 #: ../admin-views/tribe-options-help.php:46
 msgid "Eventbrite Tickets"
-msgstr "Bilhetes Eventbrite"
+msgstr "تذاكر Eventbrite "
 
-#
 #: ../admin-views/tribe-options-help.php:50
 msgid "Community Events"
-msgstr "Eventos de Comunidade"
+msgstr "أحداث المجتمع"
 
-#
 #: ../admin-views/tribe-options-help.php:54
 msgid "Facebook Events"
-msgstr "Eventos Facebook"
+msgstr "أحداث الفيسبوك"
 
 #: ../admin-views/tribe-options-help.php:58
 msgid "WooTickets"
-msgstr "Bilhetes Woo"
+msgstr "WooTickets"
 
 #: ../admin-views/tribe-options-help.php:63
 msgid "Faceted Filters"
-msgstr "Filtros Facetados"
+msgstr "عوامل التصفية"
 
 #: ../admin-views/tribe-options-help.php:71
 msgid "Documentation"
-msgstr "Documentação"
+msgstr "الدليل الإرشادي"
 
 #: ../admin-views/tribe-options-help.php:75
 msgid "FAQ"
-msgstr "Questões Frequentes"
+msgstr "أشهر الأسئلة"
 
 #: ../admin-views/tribe-options-help.php:79
 #: ../lib/the-events-calendar.class.php:656
 #: ../lib/the-events-calendar.class.php:3375
 #: ../lib/the-events-calendar.class.php:3466
 msgid "Help"
-msgstr "Ajuda"
+msgstr "المساعدة"
 
 #: ../admin-views/tribe-options-help.php:83
 msgid "Tutorials"
-msgstr "Tutoriais"
+msgstr "شرح تعليمي"
 
 #: ../admin-views/tribe-options-help.php:87
 msgid "Release Notes"
-msgstr "Notas de lançamento"
+msgstr "معلومات الإصدار"
 
 #: ../admin-views/tribe-options-help.php:91
 msgid "Forums"
-msgstr "Forúns"
+msgstr "المنتديات"
 
 #: ../admin-views/tribe-options-help.php:96
 #, php-format
@@ -837,13 +815,12 @@ msgid ""
 "down first?</strong> Visit our <a href=\"%s\">new user primer</a>,  designed "
 "to help familiarize you with the plugin basics.</li></ul>"
 msgstr ""
-"Se esta é a sua primeira vez a usar o Calendário de Eventos, vai de certeza "
-"ficar bem surpreendido. Vai descobrir o quão fácil é criar e gerir os seus "
-"eventos. Aqui ficam algumas maneiras de começar:</p><ul><li><strong>A sentir-"
-"se corajoso?</strong> Comece já e <a href=\"%s\">adicione o seu primeiro "
-"evento</a>.</li><li><strong>Quer uma explicação primeiro?</strong> Visite o "
-"nosso <a href=\"%s\">guia de novos utilizadores</a>,  desenhado para o "
-"familiarizar com as bases do plugin.</li></ul>"
+"إذا كانت هذه أول مرة تستعمل فيها أجندة الأحداث فبالتأكيد ستستمتع بها. ستجد "
+"الأمر غاية في السهولة لتبدأ في إدارة أحداثك. هذه بعض طرق المساعدة: </"
+"p><ul><li><strong>لديك روح المغامرة?</strong> تفضل بالدخول مباشرة للبدء في "
+"<a href=\"%s\">إضافة أول حدث خاص بك</a>.</li><li><strong>هل تريد التمهل أولاً?"
+"</strong> تفضل بزيارة <a href=\"%s\">دليل المستخدم الجديد</a>,  و المصمم "
+"لمساعدتك في التعرف علي مبادئ الإضافة .</li></ul> "
 
 #: ../admin-views/tribe-options-help.php:99
 #, php-format
@@ -854,17 +831,15 @@ msgid ""
 "week to look for legitimate bug reports and do what we can to assist users.</"
 "p>"
 msgstr ""
-"<p> Gostamos de todos os nossos utilizadores e queremos ajudar tanto os "
-"clientes free e PRO da mesma maneira. Se está a correr a última versão do "
-"Calendário de Eventos e está a ter problemas, deixe uma mensagem em %s no "
-"WordPress.org. Nós visitamos o fórum uma vez por semana para procurar "
-"relatórios de bugs legítimos e fazermos o que pudermos para dar assistência "
-"aos nossos utilizadores.</p>"
+"<p>نحن نحب جميع من يستخدم الإضافة الخاصة بنا و نرغب في مساعدة  عملاء النسخ "
+"المجانية و الإحترافية علي السواء. إذا كنت تستخدم أحدث نسخة من أجندة الأحداث "
+"و تواجهك مشاكل قم بإضافة موضوع علي %s  في موقع الووردبريس. نحن نزور المنتدي "
+"مرة كل أسبوع للبحث عن المشاكل التي تحتاج إلي إصلاك و نفعل ما في وسعنا "
+"لمساعدة عملائنا .</p>"
 
-#
 #: ../admin-views/tribe-options-help.php:99
 msgid "forum for The Events Calendar"
-msgstr "Fórum para Calendário de Eventos"
+msgstr "منتدي The Events Calendar"
 
 #: ../admin-views/tribe-options-help.php:100
 #, php-format
@@ -872,20 +847,21 @@ msgid ""
 "<p>If you need additional help, %sEvents Calendar Pro%s gets you access to "
 "our support forums for a full year.</p>"
 msgstr ""
-"<p>Se precisa de ajuda adicional, %sCalendário de Eventos Pro%s dá-lhe "
-"acesso aos nossos fóruns de suporte por um ano.</p>"
+"<p>إذا كنت تحتاج لمساعدة إضافية, %sEvents Calendar Pro%s يمكنك الوصول "
+"لمنتديات الدعم الخاصة بنا لمدة عام كامل.</p>"
 
+#
 #: ../admin-views/tribe-options-help.php:101
 msgid "A few things to keep in mind before posting:"
-msgstr "Alguns pontos a ter em mente antes de criar um post:"
+msgstr "بعض الأشياء لتضعها في ذهنك قبل النشر:"
 
 #: ../admin-views/tribe-options-help.php:103
 msgid ""
 "Search recent threads before posting a new one to check that there isn't "
 "already a discussion about your issue."
 msgstr ""
-"Procure threads recentes antes de criar uma nova, para verificar que não "
-"existe já uma discussão acerca do seu problema."
+"ابحث في المواضيع السابقة قبل نشر واحدة جديدة للتأكد من عدم وجود مناقشة "
+"مفتوحة حول نفس مشكلتك."
 
 #: ../admin-views/tribe-options-help.php:104
 msgid ""
@@ -895,10 +871,10 @@ msgid ""
 "conflicts can be easily identified. If you find a conflict, note it in a "
 "support thread."
 msgstr ""
-"Verifique se o problema não se deve a um conflito com outro plugin ou tema. "
-"Isto pode ser testado muito facilmente num site de staging ao desactivar "
-"outros plugins um a um, e revertendo para o tema por defeito Twenty Twelve. "
-"Se encontrar um conflito, anote-o numa thread de suporte."
+"تأكد إذا كانت هذه المشكلة عبارة عن تعارض مع إضافة أخري أو تمبليت. هذا يمكن "
+"التأكد منه بسهولة عن طريق إلغاء تفعيل باقي الإضافات واحدة تلو الأخري و "
+"العودة للتمبليت الأساسي 2012 لتري إن كان هذا يحل الأمر. فإذا وجدت هذا "
+"التعارض اذكره لنا في منتدي الدعم."
 
 #: ../admin-views/tribe-options-help.php:105
 #, php-format
@@ -907,9 +883,9 @@ msgid ""
 "Permalinks</a>) can resolve events-related problems on your site. Before "
 "creating a new thread try this handy trick."
 msgstr ""
-"Por vezes, voltar a salvar os permalinks (em <a href=\"%s\">Settings > "
-"Permalinks</a>) pode resolver problemas relacionados com os eventos no seu "
-"site. Tente este truque antes de criar uma nova thread."
+"أحياناً تكون إعادة حفظ الروابط الدائمة  (تحت <a href=\"%s\">إعدادات > روابط "
+"دائمة</a>) كفيلة بحل بعض المشاكل علي موقعك. جرب هذه الحيلة السهلة قبل نشر "
+"موضوع جديد علي منتدي الدعم."
 
 #: ../admin-views/tribe-options-help.php:107
 msgid ""
@@ -918,10 +894,9 @@ msgid ""
 "able to provide customization tips or assist in integration with 3rd party "
 "plugins."
 msgstr ""
-"Ajudamos os nossos utilizadores sempre que possível com bugs e dicas na "
-"integração do Calendário de Eventos, mas nos fóruns de suporte do WordPress."
-"org não podemos ajudar com dicas ou integração com plugins feitos por "
-"terceiros."
+"مع أننا نكون سعداء لمساعدتك في تصحيح الأخطاء و إعطاء بعض نصائح الدمج البسيطة "
+"لمستخدمي أجندة الأحداث علي صفحات الدعم الخاصة بالورردبريس إلا أننا لا نستطيع "
+"إعطاء مساعدة  متخصصة أو نصائح للدمج مع الإضافات الأخري."
 
 #: ../admin-views/tribe-options-help.php:109
 #, php-format
@@ -929,186 +904,183 @@ msgid ""
 "Shoot us an email at %s or tweet %s and tell us why. We'll do what we can to "
 "make it right."
 msgstr ""
-"Envie-nos um email para %s ou mande um tweet %s e diga-nos porquê. Faremos o "
-"que for possível para corrigir o seu problema."
+"ارسل لنا ايميل علي %s أو تغريدة %s و اخبرنا عن السبب. سنفعل ما في وسعنا "
+"لتصحيح الأمر."
 
 #: ../admin-views/tribe-options-help.php:110
 msgid "More..."
-msgstr "Mais..."
+msgstr "المزيد..."
 
 #: ../admin-views/tribe-options-help.php:117
 msgid ""
 "Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so much "
 "for installing our labor of love!"
 msgstr ""
-"Olá! Nós somos a Modern Tribe e estamos aqui para o ajudar a ser brutal. "
-"Muito obrigado por instalar o nosso produto!"
+"أهلاً بك, نحن Modern Tribe و نحن هنا لمساعدتك. نشكرك علي تثبيت المنتج الذي "
+"أعددناه بكثير من الحب"
 
 #: ../admin-views/tribe-options-help.php:119
 msgid "Getting Started"
-msgstr "Como Começar"
+msgstr "البداية"
 
 #: ../admin-views/tribe-options-help.php:126
 msgid "Resources to Help You Kick Ass"
-msgstr "Recursos para ajudá-lo a ser brutal"
+msgstr "موارد تساعدك علي البدء"
 
 #: ../admin-views/tribe-options-help.php:138
 msgid "Everyone Needs a Buddy"
-msgstr "Todos Precisam de um Amigo"
+msgstr "كل شخص يحتاج إلي رفيق"
 
 #: ../admin-views/tribe-options-help.php:141
 msgid "Still Not Satisfied?"
-msgstr "Ainda Não Está Satisfeito?"
+msgstr "لا تزال غير راضي؟"
 
 #: ../admin-views/tribe-options-help.php:151
 #: ../lib/the-events-calendar.class.php:437
 #: ../lib/tribe-settings.class.php:135
 msgid "The Events Calendar"
-msgstr "Agenda de Eventos"
+msgstr "The Events Calendar"
 
 #: ../admin-views/tribe-options-help.php:155
 msgid "Latest Version:"
-msgstr "Última Versão:"
+msgstr "أحدث إصدار:"
 
 #: ../admin-views/tribe-options-help.php:156
 msgid "Author:"
-msgstr "Autor:"
+msgstr "المؤلف:"
 
 #: ../admin-views/tribe-options-help.php:156
 msgid "Modern Tribe Inc"
-msgstr ""
+msgstr "Modern Tribe Inc"
 
 #: ../admin-views/tribe-options-help.php:157
 msgid "Requires:"
-msgstr "Requere:"
+msgstr "يحتاج إلي:"
 
 #: ../admin-views/tribe-options-help.php:157
 msgid "WordPress "
-msgstr ""
+msgstr "ووردبريس"
 
 #: ../admin-views/tribe-options-help.php:158
 msgid "Wordpress.org Plugin Page"
-msgstr "Página de Plugins Wordpress.org"
+msgstr "صفحة الإضافة علي موقع ووردبريس"
 
 #: ../admin-views/tribe-options-help.php:163
 msgid "Average Rating"
-msgstr "Avaliação Média"
+msgstr "متوسط التقييم"
 
 #: ../admin-views/tribe-options-help.php:167
 #, php-format
 msgid "Based on %d rating"
 msgid_plural "Based on %d ratings"
-msgstr[0] "Baseado numa avaliação de %d"
-msgstr[1] "Baseado em avaliações de %d"
+msgstr[0] "بناءاً علي %d تقييم"
+msgstr[1] "بناءاً علي %d تقييم"
 
 #: ../admin-views/tribe-options-help.php:168
 msgid "Give us 5 stars!"
-msgstr "Dê-nos 5 estrelas!"
+msgstr "اعطنا خمس نجوم!"
 
 #: ../admin-views/tribe-options-help.php:171
 msgid "Premium Add-Ons"
-msgstr "Add-Ons Premium"
+msgstr "إضافات متميزة"
 
 #: ../admin-views/tribe-options-help.php:177
 msgid "(Coming Soon!)"
-msgstr "(Brevemente!)"
+msgstr "قريباً!"
 
 #: ../admin-views/tribe-options-help.php:184
 msgid "News and Tutorials"
-msgstr "Notícias e Tutoriais"
+msgstr "أخبار و شرح تعليمي"
 
 #
 #: ../admin-views/tribe-options-network.php:14
 msgid "Network Settings"
-msgstr "Definições de Rede"
+msgstr "إعدادات الشبكة"
 
 #: ../admin-views/tribe-options-network.php:18
 msgid ""
 "This is where all of the global network settings for Modern Tribe's The "
 "Events Calendar can be modified."
-msgstr ""
-"Aqui é onde todas as definições globais de rede para o Calendário de Eventos "
-"Modern Tribe podem ser modificadas."
+msgstr "هذا هو المكان الذي تستطيع من خلاله تعديل كل الإعدادات الخاصة بالأجندة"
 
 #: ../admin-views/tribe-options-network.php:26
 msgid "Hide the following settings tabs on every site:"
-msgstr "Esconder as seguintes tabs de definições em todos os sites:"
+msgstr "إخفاء تبويبات الإعدادات التالية علي كل المواقع:"
 
 #: ../admin-views/venue-meta-box.php:20
 msgid "Venue Name:"
-msgstr "Nome do local:"
+msgstr "اسم المكان:"
 
 #: ../admin-views/venue-meta-box.php:27
 #: ../public/advanced-functions/meta.php:288
 msgid "Address:"
-msgstr "Endereço:"
+msgstr "العنوان:"
 
 #: ../admin-views/venue-meta-box.php:31
 msgid "City:"
-msgstr "Cidade:"
+msgstr "المدينة:"
 
 #: ../admin-views/venue-meta-box.php:35
 msgid "Country:"
-msgstr "País:"
+msgstr "الدولة:"
 
 #: ../admin-views/venue-meta-box.php:73
 msgid "State or Province:"
-msgstr "Estado ou região:"
+msgstr "الولاية أو المقاطعة:"
 
 #: ../admin-views/venue-meta-box.php:76
 msgid "Select a State:"
-msgstr "Selecione um estado:"
+msgstr "اختر ولاية:"
 
 #: ../admin-views/venue-meta-box.php:89
 msgid "Postal Code:"
-msgstr "Código-Postal:"
+msgstr "الرقم البريدي:"
 
 #: ../admin-views/venue-meta-box.php:112 ../admin-views/venue-meta-box.php:134
 msgid "Show Google Map:"
-msgstr "Mostrar Google Map:"
+msgstr "اظهر خريطة جوجل:"
 
 #: ../admin-views/venue-meta-box.php:122 ../admin-views/venue-meta-box.php:144
 msgid "Show Google Maps Link:"
-msgstr "Mostrar link do Google Maps:"
+msgstr "اظهر رابط خريطة جوجل:"
 
 #: ../admin-views/widget-admin-list.php:11
 msgid "Title:"
-msgstr "Título:"
+msgstr "العنوان:"
 
 #: ../admin-views/widget-admin-list.php:16
 msgid "Show:"
-msgstr "Mostrar:"
+msgstr "اظهر:"
 
 #: ../admin-views/widget-admin-list.php:24
 msgid "Show widget only if there are upcoming events:"
-msgstr "Mostrar widget apenas se houver eventos futuros:"
+msgstr "اظهر المربع الجانبي فقط إذا كانت هناك أحداث مستقبلية:"
 
 #: ../admin-views/widget-admin-list.php:30
 #, php-format
 msgid "Want to modify the display of this widget? Try a %stemplate override%s."
-msgstr ""
-"Quer modificar a visualização deste widget? Tente %salterar o template%s."
+msgstr "هل ترغب في تعديل طريقة عرض المربع الجانبي؟ جرب %sتخطي القالب%s."
 
 #: ../lib/the-events-calendar.class.php:442
 msgid "month"
-msgstr "mês"
+msgstr "month"
 
 #: ../lib/the-events-calendar.class.php:443
 msgid "upcoming"
-msgstr "próximos"
+msgstr "upcoming"
 
 #: ../lib/the-events-calendar.class.php:444
 msgid "past"
-msgstr "passados"
+msgstr "past"
 
 #: ../lib/the-events-calendar.class.php:446
 msgid "venue"
-msgstr "local"
+msgstr "venue"
 
 #: ../lib/the-events-calendar.class.php:460
 #, php-format
 msgid "Initializing Tribe Events on %s"
-msgstr "A iniciar Tribe Events em %s."
+msgstr "تهيئة Tribe Events علي %s"
 
 #: ../lib/the-events-calendar.class.php:552
 #, php-format
@@ -1116,8 +1088,8 @@ msgid ""
 "Your version of The Events Calendar is not up-to-date with one of your The "
 "Events Calendar add-ons. Please %supdate now.%s"
 msgstr ""
-"A sua versão do Calendário de Eventos não se encontra a par de um dos seus "
-"Add-ons do Calendário de Eventos. Por favor %sactualize agora%s."
+"هذا الإصدار من الأجندة ليس أحدث نسخة مع أحد الإضافات. من فضلك  %sقم بالتحديث "
+"الآن.%s"
 
 #: ../lib/the-events-calendar.class.php:566
 #, php-format
@@ -1127,16 +1099,15 @@ msgid ""
 "properly unless paired with the right version. %sWant to pair an older "
 "version%s?"
 msgstr ""
-"Os seguintes plugins estão desactualizados: <b>%s</b>. Por favor %sactualize "
-"agora%s. Todos os add-ons têm dependências no Calendário de Eventos e não "
-"funcionarão propriamente a não ser que estejam a par com a versão correcta. "
-"%sDeseja colocar a par com uma versão anterior%s?"
+"هذه الإضافات غير محدثة: <b>%s</b>. من فضلك %sقم بالتحديث الآن%s. كل الإضافات "
+"تعتمد علي أجندة الأحداث و لن تعمل بشكل جيد إلا إذا تم استعمالها مع الإصدار "
+"الصحيح. %sهل ترغب في استعمال إصدار أقدم%s?"
 
 #: ../lib/the-events-calendar.class.php:623
 #: ../lib/the-events-calendar.class.php:651
 #: ../lib/the-events-calendar.class.php:653
 msgid "Licenses"
-msgstr "Licenças"
+msgstr "تراخيص"
 
 #: ../lib/the-events-calendar.class.php:627
 #, php-format
@@ -1154,27 +1125,26 @@ msgid ""
 "your license.</p><p>Not seeing an update but expecting one? In WordPress, go "
 "to <a href=\"%s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
 msgstr ""
-"<p>A chave de licença que recebeu aquando a sua compra em http://tri.be dá-"
-"lhe acesso a suporte e actualizações até expirar. Não necessita de inserir a "
-"chave abaixo para os plugins funcionarem, mas necessita de colocar para ter "
-"actualizações automáticas. <strong>Encontra a sua chave de licença em <a "
-"href=\"%s\">%s</a></strong>.</p> <p>Cada add-on pago tem a sua única chave "
-"de licença. Simplesmente introduza a chave no campo indicado abaixo e espere "
-"um momento para a validarmos. Saberá que está terminado quando uma data de "
-"expiração a verde aparecer junto de uma mensagem a indicar \"válida\".</p> "
-"<p>Se vê uma mensagem vermelha a dizer que a sua chave é inválida ou que já "
-"não tem mais instalações possíveis, visite [enter link to account/licenses] "
-"para gerir as suas instalações ou renovar a sua licença.</p><p>Não vê uma "
-"actualização mas esperava ver? No WordPress, và a <a href=\"%s\">Dashboard > "
-"Updates</a> e clique \"Check Again\".</p>"
+"<p>إن مفتاح الترخيص الذي حصلت عليه عند إتمام الشراء من  http://tri.be سوف "
+"يمنحك الوصول للدعم و التحديثات حتي ينتهي تاريخه. لا تحتاج لإدخال المفتاح "
+"الموجود بالأسفل لكي تعمل الإضافة و لكنك تحتاجه للحصول علي الترقية التلقائية. "
+"<strong>يمكنك إيجاد مفتاح الترخيص الخاص بك في  <a href=\"%s\">%s</a></"
+"strong>.</p> <p>كل إضافة مدفوعة الأجر لها المفتاح المميز الخاص بها. قم بنسخ "
+"المفتاح في الحقل المخصص له و اعطه ثواني للتأكد. ستعرف أن كل شئ علي ما يرام "
+"عندما يظهر لك تاريخ إنتهاء باللون الأخضر مع  \"valid\" رسالة.</p> <p>إذا ظهر "
+"لك رسالة باللون الأحمر تقول أن المفتاح غير صالح أو استنفذ عدد مرات التثبيت, "
+"زر [enter link to account/licenses] للتحكم في مرات الثبيت أو تجديد الرخصة أو "
+"ترقيتها..</p><p>هل تتوقع ظهور تحديث جديد و لكنك لا تراه? في الورردبريس اذهب "
+"إلي <a href=\"%s\">لوحة التحكم > تحديثات</a> واضغط علي زر \"Check Again\".</"
+"p>"
 
 #: ../lib/the-events-calendar.class.php:643
 msgid "General"
-msgstr "Geral"
+msgstr "عام"
 
 #: ../lib/the-events-calendar.class.php:644
 msgid "Display"
-msgstr "Visualização"
+msgstr "عرض"
 
 #: ../lib/the-events-calendar.class.php:689
 #, php-format
@@ -1182,8 +1152,8 @@ msgid ""
 "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade "
 "your WordPress install."
 msgstr ""
-"Desculpe, mas o plugin Agenda de Eventos precisa do Wordpress %s ou "
-"superior. Por favor, actualize seu Wordpress."
+"ناسف, الأجندة تتطلب إصدار ووردبريس  %s أو أعلي. من فضلك ترقية إصدار ووردبريس "
+"الخاص بك"
 
 #: ../lib/the-events-calendar.class.php:692
 #, php-format
@@ -1191,249 +1161,248 @@ msgid ""
 "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host "
 "about moving you to a newer version of PHP."
 msgstr ""
-"Desculpe, mas o plugin Agenda de Eventos exige versão PHP %s ou superior. "
-"Entre em contacto com o seu servidor de alojamento e peça para actualizarem "
-"a versão do PHP."
+"نأسف, الأجندة تتطلب إصدار  PHP %s أو أعلي. من فضلك تحدث إلي خادم الويب الخاص "
+"بك للترقية إلي نسخة أحدث."
 
 #: ../lib/the-events-calendar.class.php:839 ../lib/widget-list.class.php:116
 #: ../public/template-tags/loop.php:135 ../public/template-tags/loop.php:138
 msgid "Upcoming Events"
-msgstr "Próximos eventos"
+msgstr "أحداث مستقبلية"
 
 #: ../lib/the-events-calendar.class.php:841
 #: ../public/template-tags/loop.php:174
 msgid "Past Events"
-msgstr "Eventos anteriores"
+msgstr "أحداث ماضية"
 
 #: ../lib/the-events-calendar.class.php:846
 #: ../lib/the-events-calendar.class.php:853
 #, php-format
 msgid "Events for %s"
-msgstr "Eventos para %s"
+msgstr "أحداث ل %s"
 
 #: ../lib/the-events-calendar.class.php:848
 msgid "Events this month"
-msgstr "Eventos neste mês"
+msgstr "أحداث هذا الشهر"
 
 #: ../lib/the-events-calendar.class.php:859
 #, php-format
 msgid "Events at %s"
-msgstr "Eventos em %s"
+msgstr "حدث في %s"
 
 #: ../lib/the-events-calendar.class.php:872
 msgid "No description has been entered for this event."
-msgstr "Nenhuma descrição foi adicionada."
+msgstr "لم يتم إدخال وصف لهذا الحدث."
 
 #: ../lib/the-events-calendar.class.php:1119
 msgid "category"
-msgstr "categoria"
+msgstr "category"
 
 #: ../lib/the-events-calendar.class.php:1124
 msgid "tag"
-msgstr ""
+msgstr "tag"
 
 #: ../lib/the-events-calendar.class.php:1138
 #: ../lib/the-events-calendar.class.php:3306
 #: ../lib/the-events-calendar.class.php:3366
 msgid "Events"
-msgstr "Eventos"
+msgstr "أحداث"
 
 #: ../lib/the-events-calendar.class.php:1139
 msgid "Event"
-msgstr "Evento"
+msgstr "حدث"
 
 #: ../lib/the-events-calendar.class.php:1140
 #: ../lib/the-events-calendar.class.php:1153
 #: ../lib/the-events-calendar.class.php:1166
 msgid "Add New"
-msgstr "Adicionar novo"
+msgstr "اضف جديد"
 
 #: ../lib/the-events-calendar.class.php:1141
 msgid "Add New Event"
-msgstr "Adicionar novo evento"
+msgstr "اضف حدث جديد"
 
 #: ../lib/the-events-calendar.class.php:1142
 msgid "Edit Event"
-msgstr "Editar evento"
+msgstr "تحرير الحدث"
 
 #: ../lib/the-events-calendar.class.php:1143
 msgid "New Event"
-msgstr "Novo evento"
+msgstr "حدث جديد"
 
 #: ../lib/the-events-calendar.class.php:1144
 msgid "View Event"
-msgstr "Ver evento"
+msgstr "شاهد الحدث"
 
 #: ../lib/the-events-calendar.class.php:1145
 msgid "Search Events"
-msgstr "Procurar eventos"
+msgstr "ابحث عن الأحداث"
 
 #: ../lib/the-events-calendar.class.php:1146
 msgid "No events found"
-msgstr "Nenhum evento encontrado"
+msgstr "لا توجد أحداث"
 
 #: ../lib/the-events-calendar.class.php:1147
 msgid "No events found in Trash"
-msgstr "Nenhum evento na reciclagem"
+msgstr "لا توجد أحداث في سلة المهملات"
 
 #: ../lib/the-events-calendar.class.php:1151
 #: ../lib/the-events-calendar.class.php:1257
 msgid "Venues"
-msgstr "Locais"
+msgstr "أماكن"
 
 #: ../lib/the-events-calendar.class.php:1152
 #: ../public/advanced-functions/meta.php:248 ../views/tickets-email.php:320
 msgid "Venue"
-msgstr "Local"
+msgstr "مكان"
 
 #: ../lib/the-events-calendar.class.php:1154
 msgid "Add New Venue"
-msgstr "Adicionar novo local"
+msgstr "اضف مكان جديد"
 
 #: ../lib/the-events-calendar.class.php:1155
 msgid "Edit Venue"
-msgstr "Editar local"
+msgstr "تحرير المكان"
 
 #: ../lib/the-events-calendar.class.php:1156
 msgid "New Venue"
-msgstr "Novo local"
+msgstr "مكان جديد"
 
 #: ../lib/the-events-calendar.class.php:1157
 msgid "View Venue"
-msgstr "Ver local"
+msgstr "شاهد المكان"
 
 #: ../lib/the-events-calendar.class.php:1158
 msgid "Search Venues"
-msgstr "Procurar locais"
+msgstr "ابحث عن الأماكن"
 
 #: ../lib/the-events-calendar.class.php:1159
 msgid "No venue found"
-msgstr "Nenhum local encontrado"
+msgstr "لا توجد أماكن"
 
 #: ../lib/the-events-calendar.class.php:1160
 msgid "No venues found in Trash"
-msgstr "Nenhum local na reciclagem"
+msgstr "لا توجد أماكن في سلة المهملات"
 
 #: ../lib/the-events-calendar.class.php:1164
 #: ../lib/the-events-calendar.class.php:1258
 msgid "Organizers"
-msgstr "Organizadores"
+msgstr "المنظمين"
 
 #: ../lib/the-events-calendar.class.php:1165
 #: ../public/advanced-functions/meta.php:310 ../views/tickets-email.php:339
 msgid "Organizer"
-msgstr "Organizador"
+msgstr "منظم"
 
 #: ../lib/the-events-calendar.class.php:1167
 msgid "Add New Organizer"
-msgstr "Adicionar novo organizador"
+msgstr "اضف منظم جديد"
 
 #: ../lib/the-events-calendar.class.php:1168
 msgid "Edit Organizer"
-msgstr "Editar organizador"
+msgstr "تحرير المنظم"
 
 #: ../lib/the-events-calendar.class.php:1169
 msgid "New Organizer"
-msgstr "Novo organizador"
+msgstr "منظم جديد"
 
 #
 #: ../lib/the-events-calendar.class.php:1170
 msgid "View Organizer"
-msgstr "Organizador de Vistas"
+msgstr "شاهد المنظم"
 
 #: ../lib/the-events-calendar.class.php:1171
 msgid "Search Organizers"
-msgstr "Procurar organizadores"
+msgstr "ابحث عن المنظمين"
 
 #: ../lib/the-events-calendar.class.php:1172
 msgid "No organizer found"
-msgstr "Nenhum organizador encontrado"
+msgstr "لا يوجد منظمين"
 
 #: ../lib/the-events-calendar.class.php:1173
 msgid "No organizers found in Trash"
-msgstr "Nenhum organizador na reciclagem"
+msgstr "لا يوجد منظمين في سلة المهملات"
 
 #: ../lib/the-events-calendar.class.php:1177
 #: ../lib/tribe-admin-events-list.class.php:181
 msgid "Event Categories"
-msgstr "Categorias de eventos"
+msgstr "تصنيف الأحداث"
 
 #: ../lib/the-events-calendar.class.php:1178
 #: ../public/template-tags/general.php:295
 msgid "Event Category"
-msgstr "Categoria de eventos"
+msgstr "تصنيف الحدث"
 
 #: ../lib/the-events-calendar.class.php:1179
 msgid "Search Event Categories"
-msgstr "Procurar categorias"
+msgstr "ابحث عن تصنيف الحدث"
 
 #: ../lib/the-events-calendar.class.php:1180
 msgid "All Event Categories"
-msgstr "Todos os tipos de eventos"
+msgstr "كل التصنيفات"
 
 #: ../lib/the-events-calendar.class.php:1181
 msgid "Parent Event Category"
-msgstr "Pai"
+msgstr "تصنيف حدث رئيسي"
 
 #: ../lib/the-events-calendar.class.php:1182
 msgid "Parent Event Category:"
-msgstr "Pai:"
+msgstr "تصنيف حدث رئيسي:"
 
 #: ../lib/the-events-calendar.class.php:1183
 msgid "Edit Event Category"
-msgstr "Editar categoria"
+msgstr "تعديل تصنيف الحدث"
 
 #: ../lib/the-events-calendar.class.php:1184
 msgid "Update Event Category"
-msgstr "Actualizar categoria de eventos"
+msgstr "تحديث تصنيف الحدث"
 
 #: ../lib/the-events-calendar.class.php:1185
 msgid "Add New Event Category"
-msgstr "Adicionar nova categoria"
+msgstr "اضف تصنيف جديد"
 
 #: ../lib/the-events-calendar.class.php:1186
 msgid "New Event Category Name"
-msgstr "Nome da nova categoria"
+msgstr "اسم التصنيف الجديد"
 
 #: ../lib/the-events-calendar.class.php:1196
 #, php-format
 msgid "Event updated. <a href=\"%s\">View event</a>"
-msgstr "Evento actualizado. <a href=\"%s\">Ver evento</a>"
+msgstr "تم تحديث الحدث. <a href=\"%s\">شاهد الحدث</a>"
 
 #: ../lib/the-events-calendar.class.php:1197
 #: ../lib/the-events-calendar.class.php:1214
 #: ../lib/the-events-calendar.class.php:1231
 msgid "Custom field updated."
-msgstr "Campo personalizado actualizado."
+msgstr "تم تحديث الحقل المخصص."
 
 #: ../lib/the-events-calendar.class.php:1198
 #: ../lib/the-events-calendar.class.php:1215
 #: ../lib/the-events-calendar.class.php:1232
 msgid "Custom field deleted."
-msgstr "Campo personalizado excluído."
+msgstr "تم حذف الحقل المخصص."
 
 #: ../lib/the-events-calendar.class.php:1199
 msgid "Event updated."
-msgstr "Evento actualizado."
+msgstr "تم تحديث الحدث."
 
 #: ../lib/the-events-calendar.class.php:1201
 #, php-format
 msgid "Event restored to revision from %s"
-msgstr "Evento restaurado para revisão de %s."
+msgstr "تم إعادة الحدث إلي المراجعة من %s"
 
 #: ../lib/the-events-calendar.class.php:1202
 #, php-format
 msgid "Event published. <a href=\"%s\">View event</a>"
-msgstr "Evento publicado. <a href=\"%s\">Ver evento</a>"
+msgstr "تم نشر الحدث. <a href=\"%s\">شاهد الحدث</a>"
 
 #: ../lib/the-events-calendar.class.php:1203
 msgid "Event saved."
-msgstr "Evento gravado."
+msgstr "تم حفظ الحدث."
 
 #: ../lib/the-events-calendar.class.php:1204
 #, php-format
 msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
-msgstr "Evento enviado. <a target=\"_blank\" href=\"%s\">Preview do evento</a>"
+msgstr "تم إرسال الحدث. <a target=\"_blank\" href=\"%s\">معاينة الحدث</a>"
 
 #: ../lib/the-events-calendar.class.php:1205
 #, php-format
@@ -1441,47 +1410,47 @@ msgid ""
 "Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
 "\">Preview event</a>"
 msgstr ""
-"Evento agendado para : <strong>%1$s</strong>. <a target=\"_blank\" href="
-"\"%2$s\">Preview do evento</a>"
+"تم جدولة الحدث إلي : <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
+"\">عاين الحدث</a>"
 
 #: ../lib/the-events-calendar.class.php:1207
 #: ../lib/the-events-calendar.class.php:1224
 #: ../lib/the-events-calendar.class.php:1241
 msgid "M j, Y @ G:i"
-msgstr ""
+msgstr "M j, Y @ G:i"
 
 #: ../lib/the-events-calendar.class.php:1208
 #, php-format
 msgid "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
-msgstr "Rsacunho actualizado. <a target=\"_blank\" href=\"%s\">Preview</a>"
+msgstr "تم تحديث المسودة. <a target=\"_blank\" href=\"%s\">معاينة الحدث</a>"
 
 #: ../lib/the-events-calendar.class.php:1213
 #, php-format
 msgid "Venue updated. <a href=\"%s\">View venue</a>"
-msgstr "Local actualizado. <a href=\"%s\">Ver local</a>"
+msgstr "تم تحديث المكان. <a href=\"%s\">معاينة المكان</a>"
 
 #: ../lib/the-events-calendar.class.php:1216
 msgid "Venue updated."
-msgstr "Local actualizado."
+msgstr "تم تحديث المكان."
 
 #: ../lib/the-events-calendar.class.php:1218
 #, php-format
 msgid "Venue restored to revision from %s"
-msgstr "Local restaurado para revisão de %s"
+msgstr "تم إعادة المكان إلي المراجعة من  %s"
 
 #: ../lib/the-events-calendar.class.php:1219
 #, php-format
 msgid "Venue published. <a href=\"%s\">View venue</a>"
-msgstr "Local publicado. <a href=\"%s\">Ver local</a>"
+msgstr "تم نشر المكان. <a href=\"%s\">شاهد المكان</a>"
 
 #: ../lib/the-events-calendar.class.php:1220
 msgid "Venue saved."
-msgstr "Local gravado."
+msgstr "تم حفظ المكان."
 
 #: ../lib/the-events-calendar.class.php:1221
 #, php-format
 msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
-msgstr "Local enviado. <a target=\"_blank\" href=\"%s\">Preview</a>"
+msgstr "تم إرسال المكان. <a target=\"_blank\" href=\"%s\">معاينة المكان</a>"
 
 #: ../lib/the-events-calendar.class.php:1222
 #, php-format
@@ -1489,43 +1458,42 @@ msgid ""
 "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
 "\">Preview venue</a>"
 msgstr ""
-"Local agendado para: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
-"\">Preview</a>"
+"تم جدولة المكان حتي :<strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
+"\">معاينة المكان</a>"
 
 #: ../lib/the-events-calendar.class.php:1225
 #, php-format
 msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
-msgstr ""
-"Rascunho de local actualizado. <a target=\"_blank\" href=\"%s\">Preview</a>"
+msgstr "تم تحديث المسودة. <a target=\"_blank\" href=\"%s\">معاينة المكان</a>"
 
 #: ../lib/the-events-calendar.class.php:1230
 #, php-format
 msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
-msgstr "Organizador actualizado. <a href=\"%s\">Ver organizador</a>"
+msgstr "تم تحديث المنظم. <a href=\"%s\">شاهد المنظم</a>"
 
 #: ../lib/the-events-calendar.class.php:1233
 msgid "Organizer updated."
-msgstr "Organizador actualizado."
+msgstr "تم تحديث المنظم."
 
 #: ../lib/the-events-calendar.class.php:1235
 #, php-format
 msgid "Organizer restored to revision from %s"
-msgstr "Organizador restaurado para revisão de %s"
+msgstr "تم إعادة المنظم إلي المراجعة من %s"
 
 #: ../lib/the-events-calendar.class.php:1236
 #, php-format
 msgid "Organizer published. <a href=\"%s\">View organizer</a>"
-msgstr "Organizador publicado. <a href=\"%s\">Ver organizador</a>"
+msgstr "تم نشر المنظم. <a href=\"%s\">شاهد المنظم</a>"
 
 #: ../lib/the-events-calendar.class.php:1237
 msgid "Organizer saved."
-msgstr "Organizador gravado."
+msgstr "تم حفظ المنظم."
 
 #: ../lib/the-events-calendar.class.php:1238
 #, php-format
 msgid ""
 "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
-msgstr "Organizador enviado. <a target=\"_blank\" href=\"%s\">Preview</a>"
+msgstr "تم إرسال المنظم. <a target=\"_blank\" href=\"%s\">معاينة المنظم</a>"
 
 #: ../lib/the-events-calendar.class.php:1239
 #, php-format
@@ -1533,8 +1501,8 @@ msgid ""
 "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
 "\"%2$s\">Preview organizer</a>"
 msgstr ""
-"Organizador agendado para: <strong>%1$s</strong>. <a target=\"_blank\" href="
-"\"%2$s\">Preview</a>"
+"تم جدولة المنظم حتي <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
+"\">معاينة المنظم</a>"
 
 #: ../lib/the-events-calendar.class.php:1242
 #, php-format
@@ -1542,150 +1510,145 @@ msgid ""
 "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</"
 "a>"
 msgstr ""
-"Rascunho de organizador actualizado. <a target=\"_blank\" href=\"%s"
-"\">Preview</a>"
+"تم تحديث مسودة المنظم. <a target=\"_blank\" href=\"%s\">معاينة المنظم</a>"
 
 #: ../lib/the-events-calendar.class.php:1284
 msgid "Use Saved Venue:"
-msgstr "Usar Local Guardado"
+msgstr "استخدم مكان محفوظ قبلاً:"
 
 #
 #: ../lib/the-events-calendar.class.php:1313
 msgid "Use Saved Organizer:"
-msgstr "Usar Organizador Guardado"
+msgstr "استخدم منظم محفوظ قبلاْ"
 
 #
 #: ../lib/the-events-calendar.class.php:1349
 msgid "Use New Venue"
-msgstr "Usar Novo Local"
+msgstr "استخدم مكان جديد"
 
 #
 #: ../lib/the-events-calendar.class.php:1351
 msgid "My Venues"
-msgstr "Os Meus Locais"
+msgstr "أماكني"
 
 #
 #: ../lib/the-events-calendar.class.php:1356
 msgid "Available Venues"
-msgstr "Locais Disponíveis"
+msgstr "الأماكن المتاحة"
 
 #: ../lib/the-events-calendar.class.php:1367
 msgid "No saved venue exists."
-msgstr "Não existem locais guardados."
+msgstr "لا توجد أماكن محفوظة."
 
 #
 #: ../lib/the-events-calendar.class.php:1401
 msgid "Use New Organizer"
-msgstr "Usar Novo Organizador"
+msgstr "استخدم منظم جديد"
 
 #
 #: ../lib/the-events-calendar.class.php:1403
 msgid "My Organizers"
-msgstr "Os Meus Organizadores"
+msgstr "المنظمين"
 
 #
 #: ../lib/the-events-calendar.class.php:1408
 msgid "Available Organizers"
-msgstr "Organizadores Disponíveis"
+msgstr "المنظمين المتاحين"
 
 #
 #: ../lib/the-events-calendar.class.php:1419
 msgid "No saved organizer exists."
-msgstr "Não existem organizadores guardados."
+msgstr "لا يوجد منظمين محفوظين"
 
 #: ../lib/the-events-calendar.class.php:1530
 msgid "Next"
-msgstr "Próximo"
+msgstr "التالي"
 
 #: ../lib/the-events-calendar.class.php:1531
 msgid "Prev"
-msgstr "Anterior"
+msgstr "السابق"
 
 #: ../lib/the-events-calendar.class.php:1532
 msgid "Today"
-msgstr "Hoje"
+msgstr "اليوم الحالي"
 
 #: ../lib/the-events-calendar.class.php:1533
 msgid "Done"
-msgstr "Feito"
+msgstr "تم"
 
 #: ../lib/the-events-calendar.class.php:1718
 msgid "Network"
-msgstr "Rede"
+msgstr "شبكة"
 
 #
 #: ../lib/the-events-calendar.class.php:2502
 msgid "Unnamed Venue"
-msgstr "Local Sem Nome"
+msgstr "مكان لم يتم تسميته"
 
 #
 #: ../lib/the-events-calendar.class.php:2585
 msgid "Unnamed Organizer"
-msgstr "Organizador Sem Nome"
+msgstr "منظم لم يتم تسميته"
 
 #: ../lib/the-events-calendar.class.php:3065
 msgid "Event Options"
-msgstr "Opções do evento"
+msgstr "خيارات الحدث"
 
 #: ../lib/the-events-calendar.class.php:3067
 msgid "Venue Information"
-msgstr "Informações do local"
+msgstr "معلومات المكان"
 
 #: ../lib/the-events-calendar.class.php:3068
 msgid "Organizer Information"
-msgstr "Informações do organizador"
+msgstr "معلومات المنظم"
 
 #: ../lib/the-events-calendar.class.php:3207
 msgid "Support"
-msgstr "Suporte"
+msgstr "الدعم"
 
 #: ../lib/the-events-calendar.class.php:3210
 msgid "View All Add-Ons"
-msgstr "Ver todos os Add-Ons"
+msgstr "شاهد كل الإضافات"
 
-#
 #: ../lib/the-events-calendar.class.php:3217
 msgid "News from Modern Tribe"
-msgstr "Notícias da Modern Tribe"
+msgstr "أخبار من مودرن ترايب"
 
 #: ../lib/the-events-calendar.class.php:3262
 msgid "Additional Functionality"
-msgstr "Funcionalidade adicional"
+msgstr "خواص إضافية"
 
 #: ../lib/the-events-calendar.class.php:3267
 msgid ""
 "Looking for additional functionality including recurring events, ticket "
 "sales, publicly submitted events, new views and more?"
 msgstr ""
-"Procura por funcionalidade adicionar incluindo eventos recorrentes, venda de "
-"bilhetes, eventos enviados publicamente, novas vistas e mais?"
+"هل تبحث عن خصائص إضافية مثل أحداث متكررة, بيع تذاكر, أحداث عامة و طرق عرض "
+"جديدة و أكثر ؟"
 
 #: ../lib/the-events-calendar.class.php:3267
 #, php-format
 msgid "Check out the <a href=\"%s\">available add-ons</a>."
-msgstr "Verifique os <a href=\"%s\">add-ons disponíveis</a>."
+msgstr "شاهد <a href=\"%s\">الإضافات المتاحة</a>."
 
-#
 #: ../lib/the-events-calendar.class.php:3332
 #: ../lib/the-events-calendar.class.php:3423
 msgid "View Calendar"
-msgstr "Ver Calendário"
+msgstr "شاهد الأجندة"
 
-#
 #: ../lib/the-events-calendar.class.php:3340
 msgid "Add Event"
-msgstr "Adicionar Evento"
+msgstr "اضف حدث"
 
-#
 #: ../lib/the-events-calendar.class.php:3349
 msgid "Edit Events"
-msgstr "Editar Eventos"
+msgstr "تعديل الأحداث"
 
 #: ../lib/the-events-calendar.class.php:3358
 #: ../lib/the-events-calendar.class.php:3459
 #: ../lib/tribe-settings.class.php:164
 msgid "Settings"
-msgstr "Configurações"
+msgstr "إعدادات"
 
 #: ../lib/the-events-calendar.class.php:3394
 #, php-format
@@ -1693,87 +1656,86 @@ msgid ""
 "Welcome to The Events Calendar! Your events calendar can be found at %s. To "
 "change the events slug, visit %sEvents -> Settings%s."
 msgstr ""
-"Bem vindo ao Calendário de Eventos! O seu calendarío de eventos pode ser "
-"visto em %s. Para alterar a slug dos eventos, visite %sEvents -> Settings%s."
+"أهلاً بك في أجندة الأحداث!  يمكنك أن تجد الأجندة الخاصة بك في %s. لتغيير نص "
+"الرابط, قم بزيارة %sالأحداث -> الإعدادات%s."
 
 #: ../lib/the-events-calendar.class.php:3460
 msgid "Calendar"
-msgstr "Calendário"
+msgstr "الأجندة"
 
 #: ../lib/the-events-calendar.class.php:3512
 msgid "List"
-msgstr "Lista"
+msgstr "قائمة"
 
 #
 #: ../lib/the-events-calendar.class.php:3517
 msgid "Month"
-msgstr "Mês"
+msgstr "شهر"
 
 #
 #: ../lib/the-events-calendar.class.php:3545
 msgid "Date"
-msgstr "Data"
+msgstr "تاريخ"
 
 #
 #: ../lib/the-events-calendar.class.php:3548
 msgid "Events In"
-msgstr "Eventos em"
+msgstr "الحدث في"
 
 #
 #: ../lib/the-events-calendar.class.php:3550
 msgid "Events From"
-msgstr "Eventos de"
+msgstr "الحدث من "
 
 #: ../lib/the-events-calendar.class.php:3720 ../views/list/nav.php:21
 #: ../views/list/nav.php:27 ../views/list/nav.php:30
 msgid "&laquo; Previous Events"
-msgstr "&laquo; Eventos anteriores"
+msgstr "الأحداث الماضية  &raquo;"
 
 #: ../lib/the-events-calendar.class.php:3721 ../views/list/nav.php:39
 #: ../views/list/nav.php:42 ../views/list/nav.php:48
 msgid "Next Events &raquo;"
-msgstr "Próximos eventos &raquo;"
+msgstr "الأحداث التالية &laquo;"
 
 #: ../lib/tribe-admin-events-list.class.php:41
 #, php-format
 msgid "View &#8220;%s&#8221;"
-msgstr "Ver &#8220;%s&#8221;"
+msgstr "شاهد  &#8220;%s&#8221;"
 
 #: ../lib/tribe-admin-events-list.class.php:186
 msgid "Start Date"
-msgstr "Data de início"
+msgstr "تاريخ البداية"
 
 #: ../lib/tribe-admin-events-list.class.php:187
 msgid "End Date"
-msgstr "Data de final"
+msgstr "تاريخ النهاية"
 
 #: ../lib/tribe-admin-events-list.class.php:189
 msgid "Recurring?"
-msgstr "Recorrente?"
+msgstr "متكرر؟"
 
 #: ../lib/tribe-admin-events-list.class.php:233
 #: ../lib/tickets/tribe-tickets-pro.php:229
 msgid "Yes"
-msgstr "Sim"
+msgstr "نعم"
 
 #: ../lib/tribe-admin-events-list.class.php:233
 msgid "No"
-msgstr "Não"
+msgstr "لا"
 
 #: ../lib/tribe-admin-events-list.class.php:287
 #, php-format
 msgid "All %s"
-msgstr "Todos %s."
+msgstr "كل %s"
 
-#
 #: ../lib/tribe-app-shop.class.php:53 ../lib/tribe-app-shop.class.php:54
 #: ../lib/tribe-app-shop.class.php:72
 msgid "Event Add-Ons"
-msgstr "Add-Ons de Evento"
+msgstr "أضافات الحدث"
 
 #: ../lib/tribe-debug-bar.class.php:18
 msgid "Tribe"
-msgstr ""
+msgstr "Tribe"
 
 #: ../lib/tribe-event-api.class.php:308 ../lib/tribe-view-helpers.class.php:36
 #: ../public/template-tags/venue.php:232
@@ -1783,93 +1745,86 @@ msgstr ""
 #: ../lib/tribe-event-exception.class.php:17
 #: ../lib/tribe-event-exception.class.php:34
 msgid "Error"
-msgstr "Erro"
+msgstr "خطأ"
 
 #: ../lib/tribe-field.class.php:163
 msgid "Invalid field type specified"
-msgstr "Tipo de campo especificado inválido"
+msgstr "نوع الحقل غير مناسب"
 
 #: ../lib/tribe-field.class.php:415
 msgid "No radio options specified"
-msgstr "Não foram especificadas opções de radio"
+msgstr "لم يتم الإختيار من القائمة"
 
 #: ../lib/tribe-field.class.php:452
 msgid "No checkbox options specified"
-msgstr "Não foram especificadas opções de checkbox"
+msgstr "لم يتم الإختيار من القائمة"
 
 #: ../lib/tribe-field.class.php:506
 msgid "No select options specified"
-msgstr "Não foram especificadas opções de select"
+msgstr "لم يتم الإختيار من القائمة"
 
-#
 #: ../lib/tribe-settings-tab.class.php:220
 msgid "There are no fields setup for this tab yet."
-msgstr "Ainda não existem campos de configuração para esta tab."
+msgstr "لم يتم تحديد حقول لعلامة التبويب هذه."
 
-#
 #: ../lib/tribe-settings.class.php:164 ../lib/tribe-settings.class.php:176
 msgid "The Events Calendar Settings"
-msgstr "Definições do Calendário de Eventos"
+msgstr "إعدادات أجندة الأحداث."
 
 #
 #: ../lib/tribe-settings.class.php:176
 msgid "Events Settings"
-msgstr "Definiçoes de Eventos"
+msgstr "إعدادات الأحداث"
 
 #: ../lib/tribe-settings.class.php:225
 #, php-format
 msgid "%s Settings"
-msgstr "%s Configurações"
+msgstr "%s إعدادات"
 
 #: ../lib/tribe-settings.class.php:239
 msgid "You've requested a non-existent tab."
-msgstr "Pediu uma tab não existente."
+msgstr "لقد طلبت علامة تبويب غير موجودة."
 
-#
 #: ../lib/tribe-settings.class.php:247
 msgid " Save Changes"
-msgstr "Salvar alterações"
+msgstr "حفظ التغييرات"
 
 #: ../lib/tribe-settings.class.php:299
 msgid "You don't have permission to do that."
-msgstr "Não tem permissão para fazer isso."
+msgstr "لا تملك الصلاحية لفعل هذا."
 
 #: ../lib/tribe-settings.class.php:305
 msgid "The request was sent insecurely."
-msgstr "O pedido foi enviado sem segurança."
+msgstr "تم إرسال الطلب بطريقة غير آمنة."
 
 #: ../lib/tribe-settings.class.php:311
 msgid "The request wasn't sent from this tab."
-msgstr "O pedido não foi feito a partir desta tab."
+msgstr "لم يتم إرسال الطلب من هذا التبويب."
 
 #: ../lib/tribe-settings.class.php:476
 msgid "Your form had the following errors:"
-msgstr "O seu formulário tem os seguintes erros:"
+msgstr "الأستمارة كان بها الخطأ التالي:"
 
 #: ../lib/tribe-settings.class.php:485
 msgid "None of your settings were saved. Please try again."
-msgstr "Nenhuma das suas definições foi salva. Por favor tente novamente."
+msgstr "لم يتم حفظ الإعدادات. رجاء المحاولة مرة أخري."
 
 #: ../lib/tribe-settings.class.php:485
 msgid ""
 "The above setting was not saved. Other settings were successfully saved."
 msgid_plural ""
 "The above settings were not saved. Other settings were successfully saved."
-msgstr[0] ""
-"A definição acima não foi salva. Outras definições foram salvas com successo."
-msgstr[1] ""
-"As definições acima não foram salvas. Outras definições foram salvas com "
-"successo."
+msgstr[0] "هذا الأختيار لم يتم حفظه. باقي الإعدادات تم حفظها بنجاح."
+msgstr[1] "هذه الأختيارات لم يتم حفظه. باقي الإعدادات تم حفظها بنجاح."
 
-#
 #: ../lib/tribe-settings.class.php:509
 msgid "Settings saved."
-msgstr "Definições guardadas."
+msgstr "تم حفظ الإعدادات."
 
 #: ../lib/tribe-template-factory.class.php:143
 #, php-format
 msgid "There  were no results found for <strong>\"%s\"</strong>."
-msgstr "Não foram encontrados resultados para <strong>\"%s\"</strong>."
+msgstr "لا توجد نتائج خاصة ب strong>\"%s\"</strong>"
 
 #: ../lib/tribe-template-factory.class.php:153
 #, php-format
@@ -1877,8 +1832,7 @@ msgid ""
 "listed under %s. Check out past events for this category or view the full "
 "calendar."
 msgstr ""
-"Listado sob %s. Verifique eventos passados para esta categoria ou veja o "
-"calendário completo."
+"مصنفة تحت بند %s. شاهد الأحداث الماضية لهذا التصنيف أو شاهد النتيجة كاملة"
 
 #: ../lib/tribe-template-factory.class.php:155
 #, php-format
@@ -1886,29 +1840,27 @@ msgid ""
 "listed under %s. Check out upcoming events for this category or view the "
 "full calendar."
 msgstr ""
-"Listado sob %s. Verifique próximos eventos para esta categoria ou veja o "
-"calendário completo."
+"مصنفة تحت بند %s. شاهد الأحداث المستقبلية لهذا التصنيف أو شاهد النتيجة كاملة"
 
 #: ../lib/tribe-template-factory.class.php:159
 #, php-format
 msgid "No events scheduled for <strong>%s</strong>. Please try another day."
-msgstr ""
-"Não há eventos marcados para <strong>%s</strong>. Por favor tente outro dia."
+msgstr "لا توجد أحداث مجدولة ل  <strong>%s</strong>. جرب يوم آخر."
 
 #
 #: ../lib/tribe-template-factory.class.php:163
 msgid "No upcoming events "
-msgstr "Não há próximos eventos"
+msgstr "لا توجد أحداث مستقبلية"
 
 #
 #: ../lib/tribe-template-factory.class.php:165
 msgid "No matching events "
-msgstr "Não há eventos"
+msgstr "لا توجد أحداث مطابقة"
 
 #
 #: ../lib/tribe-template-factory.class.php:168
 msgid "No previous events "
-msgstr "Não há eventos passados"
+msgstr "لا توجد أحداث سابقة"
 
 #: ../lib/tribe-the-events-calendar-import.class.php:44
 msgid ""
@@ -1918,16 +1870,15 @@ msgid ""
 "to an old version</a> if you want to backup first. This upgrade includes two "
 "major steps, <a href=\"edit.php?post_type="
 msgstr ""
-"Bem vindo ao Eventos 2.0! Foi feita uma ENORME actualização desde a 1.6.5. "
-"Por favor verifique que fez backup a todos os seus ficheiros antes de "
-"proceder. Pode facilmente <a href=\" http://wordpress.org/extend/plugins/the-"
-"events-calendar/download/\">reverter para uma versão anterior</a> se quiser "
-"fazer backups antes. Este upgrade inclui dois passos principais, <a href="
-"\"edit.php?post_type="
+"أهلاً بك إلي الأجندة الإصدار 2! و هي تطور كبير من الإصدارات السابقة. من فضلك "
+"تأكد من أخذ نسخة إحتياطية قبل المتابعة. يمكن بسهولة <a href=\" http://"
+"wordpress.org/extend/plugins/the-events-calendar/download/\">العودة لنسخة "
+"أقدم</a> إذا قمت بأخذ نسخة إحتياطية أولاً.هذه الترقية تشمل خطوتين أساسيتين, "
+"<a href=\"edit.php?post_type="
 
 #: ../lib/tribe-the-events-calendar-import.class.php:54
 msgid "Upgrade from The Events Calendar"
-msgstr "Faça upgrade do The Events Calendar"
+msgstr "الترقية من The Events Calendar"
 
 #: ../lib/tribe-the-events-calendar-import.class.php:55
 msgid ""
@@ -1935,135 +1886,133 @@ msgid ""
 "upgraded. Please be sure to back up your database before initiating the "
 "upgrade. This process can not be undone."
 msgstr ""
-"Parece que você tem alguns dados do calendário de eventos que precisam ser "
-"actualizados. Por favor, certifique-se de fazer backup dos seus dados antes "
-"de iniciar a actualização. Este processo não pode ser desfeito."
+"يبدو أنه لديك بعض بيانات الأجندة القديمة التي تحتاج إلي ترقية. من فضلك تأكد "
+"من أخذ نسخة إحتياطية من قاعدة البيانات قبل البدء في الترقية. هذه الخطوة لا "
+"يمكن الرجوع فيها."
 
 #: ../lib/tribe-the-events-calendar-import.class.php:56
 msgid "Migrate Data!"
-msgstr "Arquivos migrados!"
+msgstr "ترحيل البيانات!"
 
 #: ../lib/tribe-the-events-calendar-import.class.php:132
 #, php-format
 msgid "You successfully migrated (%d) entries."
-msgstr "Você migrou com sucesso (%d) entradas."
+msgstr "قمت بترحيل عدد  (%d) إدخالات."
 
 #: ../lib/tribe-the-events-calendar-import.class.php:203
 msgid "Install has 1 or more legacy event!"
-msgstr "A instalação tem 1 ou mais eventos herdado!"
+msgstr "هناك واحد أو أكثر من الأحداث القديمة!"
 
 #: ../lib/tribe-validate.class.php:77 ../lib/tribe-validate.class.php:115
 msgid "Invalid or incomplete field passed"
-msgstr "Campo inválido ou incompleto passou"
+msgstr "تم إرسال حقل غير صحيح أو ناقص"
 
 #: ../lib/tribe-validate.class.php:78 ../lib/tribe-validate.class.php:110
 #: ../lib/tribe-validate.class.php:116
 msgid "Field ID:"
-msgstr "ID do campo:"
+msgstr "رقم الحقل:"
 
 #: ../lib/tribe-validate.class.php:109
 msgid "Non-existant field validation function passed"
-msgstr "Função de validação de campo não-existente passou"
+msgstr "تم إرسال دالة تحقق لحقل غير موجود"
 
 #: ../lib/tribe-validate.class.php:110
 msgctxt "non-existant function name passed for field validation"
 msgid "with function name:"
-msgstr "com nome da função:"
+msgstr "باستخدام اسم الدالة:"
 
 #: ../lib/tribe-validate.class.php:135 ../lib/tribe-validate.class.php:153
 #, php-format
 msgid "%s must contain numbers and letters only"
-msgstr "%s deve conter somente números e letras"
+msgstr "%s يجب أن يحتوي علي أرقام و حروف فقط"
 
 #: ../lib/tribe-validate.class.php:171
 #, php-format
 msgid "%s must contain numbers, letters and dots only"
-msgstr "%s deve conter somente números, letras e pontos"
+msgstr "%s يجب أن يحتوي علي أرقام, حروف و نقط فقط"
 
 #: ../lib/tribe-validate.class.php:187
 #, php-format
 msgid "%s must be a positive number."
-msgstr "%s deve ser um número positivo"
+msgstr "%s يجب أن يكون رقم موجب."
 
 #: ../lib/tribe-validate.class.php:204
 #, php-format
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
-msgstr "%s deve ser uma slug válida (números, letras, traço e underscores)."
+msgstr ""
+"%s يجب أن يكون نص رابط مقبول ( أرقام, حروف, شرطة, شرطة شرطة أسفل السطر)"
 
 #: ../lib/tribe-validate.class.php:221
 #, php-format
 msgid "%s must be a valid absolute URL."
-msgstr "%s deve ser um URL válido e absoluto."
+msgstr "%s يجب أن يكون رابط مطلق."
 
 #: ../lib/tribe-validate.class.php:239 ../lib/tribe-validate.class.php:258
 #: ../lib/tribe-validate.class.php:279
 #, php-format
 msgid "%s must have a value that's part of its options."
-msgstr "%s deve ser um valor que seja parte das suas opções."
+msgstr "%s يجب أن يكون قيمة متوفرة كجزء من الإختيارات."
 
 #: ../lib/tribe-validate.class.php:295
 #, php-format
 msgid ""
 "Comparison validation failed because no comparison value was provided, for "
 "field %s"
-msgstr ""
-"Validação da comparação falhou pois não foi indicado nenhum valor de "
-"comparação para campo %s"
+msgstr "التحقق المقارن لم ينجح لأن قيمة المقارنة لم يتم إدخالها للحقل %s"
 
 #: ../lib/tribe-validate.class.php:302
 #, php-format
 msgid "%s cannot be the same as %s."
-msgstr "%s não pode ser o mesmo que %s"
+msgstr "%s لا يمكن أن تكون نفس قيمة %s."
 
 #: ../lib/tribe-validate.class.php:304
 #, php-format
 msgid "%s cannot be a duplicate"
-msgstr "%s não pode ser duplicado"
+msgstr "%s لا يمكن أن تتكرر"
 
 #: ../lib/tribe-validate.class.php:322
 #, php-format
 msgid "%s must be a number or percentage."
-msgstr "%s deve ser um número ou uma percentagem."
+msgstr "%s يجب أن يكون رقم أو نسبة مئوية."
 
 #: ../lib/tribe-validate.class.php:386
 #, php-format
 msgid "%s must be a number between 0 and 21."
-msgstr "%s deve ser um número entre 0 e 21."
+msgstr "%s يجب أن يكون رقم بين 0 و 21"
 
 #: ../lib/tribe-validate.class.php:404
 #, php-format
 msgid ""
 "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
-msgstr ""
-"%s deve consistir somente de letras, número, pontos, apóstrofes e espaços."
+msgstr "%s يجب أن تتكون من حروف, أرقام, شرطة,فاصلة علوية أو مسافة فقط."
 
 #: ../lib/tribe-validate.class.php:422
 #, php-format
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
-msgstr "%s deve ser constituído por letras, espaços, apóstrofes e traços"
+msgstr "%s يجب أن تتكون من حروف, مسافات, فاصلة علوية أو شرطة."
 
 #: ../lib/tribe-validate.class.php:438
 #, php-format
 msgid "%s must consist of 5 numbers."
-msgstr "%s deve ser constituído por 5 números"
+msgstr "%s يجب أن تتكون من 5 أرقام."
 
 #: ../lib/tribe-validate.class.php:454
 #, php-format
 msgid "%s must be a phone number."
-msgstr "%s deve ser um número de telefone"
+msgstr "%s يجب أن يكون رقم تليفون."
 
 #: ../lib/tribe-validate.class.php:472
 msgid ""
 "Country List must be formatted as one country per line in the following "
 "format: <br>US, United States <br> UK, United Kingdom."
 msgstr ""
-"A lista de países deve ser formatada como um país por linha no seguinte "
-"formato: <br>US, United States <br> UK, United Kingdom."
+"قائمة الدول يجب أن تتكون من دولة واحدة لكل سطر علي شكل:  <br>US, United "
+"States <br> UK, United Kingdom."
 
 #: ../lib/tribe-view-helpers.class.php:16
 #: ../lib/tribe-view-helpers.class.php:35
 msgid "Select a Country:"
-msgstr "Selecione um país:"
+msgstr "اختر الدولة:"
 
 #: ../lib/tribe-view-helpers.class.php:37
 msgid "Afghanistan"
@@ -2183,7 +2132,7 @@ msgstr ""
 
 #: ../lib/tribe-view-helpers.class.php:66
 msgid "Brazil"
-msgstr "Brasil"
+msgstr ""
 
 #: ../lib/tribe-view-helpers.class.php:67
 msgid "British Indian Ocean Territory"
@@ -3225,20 +3174,19 @@ msgstr ""
 #
 #: ../lib/widget-list.class.php:16
 msgid "A widget that displays upcoming events."
-msgstr "Um widget que mostra os próximos eventos"
+msgstr "مربع جانبي يظهر الأحداث المستقبلية"
 
-#
 #: ../lib/widget-list.class.php:22
-msgid "Events List Widget"
-msgstr "Widget Lista de Eventos"
+msgid "Events List"
+msgstr "قائمة الأحداث"
 
 #: ../lib/widget-list.class.php:92
 msgid "View All Events"
-msgstr "Ver todos os eventos"
+msgstr "شاهد كل الأحداث"
 
 #: ../lib/widget-list.class.php:95
 msgid "There are no upcoming events at this time."
-msgstr "Não há eventos agendados actualmente."
+msgstr "لا توجد أحداث مستقبلية حالياً."
 
 #: ../lib/template-classes/month.php:72
 #, php-format
@@ -3246,96 +3194,97 @@ msgid ""
 "There were no results found for <strong>\"%s\"</strong> this month. Try "
 "searching next month."
 msgstr ""
-"Não foram encontrados resultados para <strong>\"%s\"</strong> neste mês. "
-"Tente pesquisar no próximo mês."
+"لا توجد نتائج مطابقة ل <strong>\"%s\"</strong>  هذا الشهر. جرب البحث في "
+"الشهر التالي. "
 
 #: ../lib/template-classes/single-event.php:94
 msgid "This event has passed."
-msgstr "Este evento já ocorreu."
+msgstr "هذا الحدث انتهي."
 
 #: ../lib/tickets/tribe-tickets-attendees.php:33
 msgid "Order #"
-msgstr "Encomenda #"
+msgstr "رقم الطلب"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:34
 msgid "Order Status"
-msgstr "Estado da Encomenda"
+msgstr "حالة الطلب"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:35
 msgid "Purchaser name"
-msgstr "Nome do Comprador"
+msgstr "اسم المشتري"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:36
 msgid "Purchaser email"
-msgstr "Email do Comprador"
+msgstr "البريد الإلكتروني للمشتري"
 
+#
 #: ../lib/tickets/tribe-tickets-attendees.php:37
 msgid "Ticket type"
-msgstr "Tipo de Bilhete"
+msgstr "نوع التذكرة"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:38
 #: ../views/tickets-email.php:293
 msgid "Ticket #"
-msgstr "Bilhete #"
+msgstr "رقم التذكرة"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:39
 #: ../views/tickets-email.php:305
 msgid "Security Code"
-msgstr "Código de Segurança"
+msgstr "كود الأمان"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:40
 #: ../lib/tickets/tribe-tickets-attendees.php:73
 #: ../lib/tickets/tribe-tickets-attendees.php:112
 msgid "Check in"
-msgstr ""
+msgstr "تسجيل الدخول"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:74
 #: ../lib/tickets/tribe-tickets-attendees.php:112
 msgid "Undo Check in"
-msgstr "Cancelar Check in"
+msgstr "تراجع عن تسجيل الدخول"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:97
 msgid "Print"
-msgstr "Imprimir"
+msgstr "طباعة"
 
 #
 #: ../lib/tickets/tribe-tickets-attendees.php:98
 msgid "Email"
-msgstr ""
+msgstr "بريد إلكتروني"
 
+#
 #: ../lib/tickets/tribe-tickets-attendees.php:99
 msgid "Export"
-msgstr "Exportar"
+msgstr "تصدير"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:105
 msgid "Filter by ticket #, order # or security code"
-msgstr ""
-"Filtar por número de bilhete, número de encomenda ou código de segurança"
+msgstr "فلترة عن طريق رقم التذكرة, رقم الطلب أو كود الأمان"
 
 #: ../lib/tickets/tribe-tickets-metabox.php:24
 msgid "Tickets"
-msgstr "Bilhetes"
+msgstr "تذاكر"
 
+#
 #: ../lib/tickets/tribe-tickets-metabox.php:62
 msgid "Ticket header image"
-msgstr "Imagem de cabeçalho do bilhete"
+msgstr "صورة الهيدر للتذكرة"
 
 #: ../lib/tickets/tribe-tickets-metabox.php:62
 msgid "Set as ticket header"
-msgstr "Definir como cabeçalho do bilhete"
+msgstr "استخدم كصورة هيدر للتذكرة"
 
 #: ../lib/tickets/tribe-tickets-pro.php:107
 msgid "You need to select a user or type a valid email address"
-msgstr ""
-"Precisa de escolher um utilizador ou introduzir um endereço de email válido"
+msgstr "يجب عليك اختيار مستخدم أو كتابة بريد إلكتروني صحيح"
 
 #: ../lib/tickets/tribe-tickets-pro.php:108
 msgid "Sending..."
-msgstr "A enviar..."
+msgstr "يتم الإرسال..."
 
 #: ../lib/tickets/tribe-tickets-pro.php:136
 msgid "Columns"
-msgstr "Colunas"
+msgstr "أعمدة"
 
 #: ../lib/tickets/tribe-tickets-pro.php:137
 msgid ""
@@ -3343,118 +3292,116 @@ msgid ""
 "selection works in the table below, in the email, for print and for the CSV "
 "export."
 msgstr ""
-"Pode usar as opções de ecrã para selecionar que colunas pretende usar. A "
-"seleção funciona na tabela abaixo, no email, a imprimir e para exportar o "
-"CSV."
+"يمكنك استخدام إختيارات الشاشة لإختيار الأعمدة التي تريد استخدامها. الإختيار "
+"يعمل في الجدول التالي, في البريد الإلكتروني, و كذلك للطباعة في ملف CSV."
 
+#
 #: ../lib/tickets/tribe-tickets-pro.php:258
 msgid "attendees"
-msgstr "participantes"
+msgstr "الحضور"
 
 #: ../lib/tickets/tribe-tickets-pro.php:308
 #, php-format
 msgid "Attendee List for: %s"
-msgstr "Lista de Participantes para: %s"
+msgstr "قائمة الحضور ل: %s"
 
 #: ../lib/tickets/tribe-tickets.php:290
 msgid "Your ticket has been saved."
-msgstr "O seu bilhete foi guardado."
+msgstr "تم حفظ تذكرتك."
 
 #: ../lib/tickets/tribe-tickets.php:367
 msgid "Your ticket has been deleted."
-msgstr "O seu bilhete foi apagado."
+msgstr "تم حذف تذكرتك"
 
 #: ../public/advanced-functions/meta.php:16
 msgid "Start:"
-msgstr "Início:"
+msgstr "بداية:"
 
 #: ../public/advanced-functions/meta.php:23
 msgid "End:"
-msgstr "Fim:"
+msgstr "نهاية:"
 
-#
 #: ../public/advanced-functions/meta.php:32
 msgid "Date:"
-msgstr "Data:"
+msgstr "تاريخ:"
 
 #: ../public/advanced-functions/meta.php:150
 msgid "Click to view a Google Map"
-msgstr "Clique para ver no Google Maps"
+msgstr "اضغط لمشاهدة خريطة جودل"
 
 #
 #: ../public/advanced-functions/meta.php:151
 msgid "+ Google Map"
-msgstr ""
+msgstr "+ خريطة جوجل"
 
 #: ../public/advanced-functions/meta.php:162
 msgid "Details"
-msgstr "Detalhes"
+msgstr "تفاصيل"
 
 #
 #: ../public/advanced-functions/meta.php:212
 msgid "Event Tags:"
-msgstr "Tags de evento:"
+msgstr "كلمات الحدث:"
 
 #: ../public/advanced-functions/meta.php:238
 msgid "Origin:"
-msgstr "Origem:"
+msgstr "المنشأ:"
 
-#
 #: ../public/advanced-functions/meta.php:375
 msgid "Event:"
-msgstr "Evento:"
+msgstr "حدث:"
 
 #
 #: ../public/template-tags/deprecated.php:724
 msgid "Category"
-msgstr "Categoria:"
+msgstr "تصنيف"
 
 #: ../public/template-tags/general.php:323
 msgid "Tags:"
-msgstr "Tags:"
+msgstr "سمات:"
 
 #
 #: ../public/template-tags/general.php:409
 msgid "Loading Events"
-msgstr "A carregar eventos"
+msgstr "جاري تحميل الأحداث"
 
 #: ../public/template-tags/general.php:570
 msgid "Free"
-msgstr "Grátis"
+msgstr "مجاني"
 
 #
 #: ../public/template-tags/general.php:743
 msgid "Recurring Event"
-msgstr "Evento Recorrente"
+msgstr "حدث متكرر"
 
 #: ../public/template-tags/general.php:746
 msgid "(See all)"
-msgstr "(Ver todos)"
+msgstr "اظهر الكل"
 
 #: ../public/template-tags/general.php:939
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar%s"
-msgstr "Calendário por %sCalendário de Eventos%s"
+msgstr "الأجندة مدعومة من  %sThe Events Calendar%s"
 
 #: ../public/template-tags/loop.php:150
 #, php-format
 msgid "Events for %1$s"
-msgstr "Eventos para %1$s"
+msgstr "أحداث خاصة ب %1$s"
 
 #: ../public/template-tags/loop.php:158
 #, php-format
 msgid "Events for %1$s through %2$s"
-msgstr "Eventos para %1$s até %2$s"
+msgstr "أحداث من %1$s و حتي %2$s"
 
 #
 #: ../public/template-tags/loop.php:168
 msgid "Events for "
-msgstr "Eventos para"
+msgstr "أحداث خاصة ب"
 
 #: ../public/template-tags/options.php:20
 #, php-format
 msgid "Your current Events URL is %s"
-msgstr "O seu URL de Eventos actual é %s"
+msgstr "نص رابط الأحداث الحالي هو %s"
 
 #: ../public/template-tags/options.php:31
 #, php-format
@@ -3462,167 +3409,241 @@ msgid ""
 "You <strong>cannot</strong> use the same slug as above. The above should "
 "ideally be plural, and this singular.<br />Your single Event URL is like: %s"
 msgstr ""
-"<strong>Não pode</strong> usar a mesma slug que a usada acima. A sluga acima "
-"deverá idealmente ser plural, e esta singular.<br />O URL do seu evento "
-"individual será: %s"
+"أنت <strong>لا تستطيع</strong> استخدام نفس نصر الرابط كما بالأعلي. الأعلي "
+"يفضل أن يكون في صيغة الجمع, و هذا في صيغة المفرد.<br />نص الرابط المفرد هو : "
+"%s"
 
 #
 #: ../views/single-event.php:31
 msgid "&laquo; All Events"
-msgstr "&laquo; Todos os Eventos"
+msgstr "&laquo; جميع الأحداث"
 
 #
 #: ../views/single-event.php:45 ../views/single-event.php:71
 msgid "Event Navigation"
-msgstr "Navegação de Evento"
+msgstr "التنقل بين الأحداث"
 
 #
 #: ../views/tickets-attendees-email.php:11
 msgid "Attendee List"
-msgstr "Lista de participantes"
+msgstr "قائمة الحضور"
 
+#
 #: ../views/tickets-email.php:16
 msgid "Your tickets"
-msgstr "Os seus bilhetes"
+msgstr "تذاكرك"
 
+#
 #: ../views/tickets-email.php:297
 msgid "Ticket Type"
-msgstr "Tipo de bilhete"
+msgstr "نوع التذكرة"
 
 #: ../views/tickets-email.php:301
 msgid "Purchaser"
-msgstr "Comprador"
+msgstr "المشتري"
 
 #
 #: ../views/list/nav.php:15
 msgid "Events List Navigation"
-msgstr "Navegação Lista de Eventos"
+msgstr "التنقل في قائمة الأحداث"
 
 #: ../views/list/single-event.php:74
 msgid "Find out more"
-msgstr "Saiba mais"
+msgstr "اعرف المزيد"
 
 #
 #: ../views/modules/bar.php:29 ../views/modules/bar.php:57
 msgid "Find Events"
-msgstr "Encontrar Eventos"
+msgstr "ابحث عن أحداث"
 
 #: ../views/modules/bar.php:35
 msgid "Event Views Navigation"
-msgstr "Navegação Vista de Eventos"
+msgstr "التنقل بين طرق عرض الحدث"
 
 #
 #: ../views/modules/bar.php:36
 msgid "View As"
-msgstr "Ver como"
+msgstr "شاهده ك "
 
 #
 #: ../views/month/nav.php:19
 msgid "Calendar Month Navigation"
-msgstr "Navegação Mês de Calendário"
+msgstr "التنقل في الأحداث بالشهر"
 
-#~ msgid "iCal Import"
-#~ msgstr "Importar para iCal"
+#~ msgid "Advanced Post Manager"
+#~ msgstr "مدير التدوينات المتطور"
 
-#~ msgid "View all &raquo;"
-#~ msgstr "Ver todos &raquo;"
+#~ msgid "Event Importer"
+#~ msgstr "استيراد الأحداث"
 
-#~ msgid "Schedule:"
-#~ msgstr "Horário:"
+#~ msgid "(coming later in 2012)"
+#~ msgstr "(يتوفر قريباً)"
 
-#~ msgid "Add to Google Calendar"
-#~ msgstr "Adicionar ao Google Agenda"
+#~ msgid "Conference Manager"
+#~ msgstr "مدير المؤتمرات"
 
-#~ msgid "+ Google Calendar"
-#~ msgstr "+ Google Agenda"
+#, fuzzy
+#~ msgid ""
+#~ "Support is available for both free and PRO customers. If you're running "
+#~ "the latest version of The Events Calendar and have run into problems, "
+#~ "post a forum thread on our %sWordPress.org support forum%s. We visit the "
+#~ "forums a few times a week and will do what we can to help you."
+#~ msgstr ""
+#~ "%s الدعم متوفر لمساعدة عملاء النسخة المجانية  الإحترافية. إذا كنت تستعمل "
+#~ "النسخة الأحدث من أجندة الأحداث و تواجهك مشاكل, فقم بإنشاء طلب مساعدة علي "
+#~ "%sمنتدي ورردبريس للدعم%s. نحن نزور المنتدي عدة مرات أسبوعياً و نفعل ما "
+#~ "نستطيعه لمساعدتك. %s"
 
-#~ msgid "All Day"
-#~ msgstr "Todo o dia"
+#~ msgid "Free Add-Ons"
+#~ msgstr "إضافات مجانية"
 
-#~ msgid "Ends"
-#~ msgstr "Final"
+#~ msgid ""
+#~ "Help us out by sending analytics data about your usage of The Events "
+#~ "Calendar."
+#~ msgstr "ساعدنا بإرسال بيانات تحليلية عن استخدامك ل  The Events Calendar."
+
+#~ msgid ""
+#~ "Would you like to help us out and send analytics about your usage of The "
+#~ "Events Calendar?"
+#~ msgstr ""
+#~ "هل ترغب في مساعدتنا و إرسال بيانات تحليلية عن استخدامك ل  The Events "
+#~ "Calendar?"
+
+#~ msgid "All day event?"
+#~ msgstr "طوال اليوم؟"
+
+#~ msgid "@"
+#~ msgstr "@"
 
 #~ msgid "Leave blank to hide the field. Enter a 0 for events that are free."
-#~ msgstr ""
-#~ "Deixe em branco para ocultar o campo. Digite 0 para os eventos que são "
-#~ "gratuitos."
+#~ msgstr "اتركه فارغاً لأخفاء الحقل. أكتب 0 للأحداث المجانية"
 
-#~ msgid "Which events do you wish to update?"
-#~ msgstr "Quais os eventos que deseja actualizar?"
-
-#~ msgid "Select your desired action"
-#~ msgstr "Selecione a sua acção"
-
-#~ msgid "Need a hand?"
-#~ msgstr "Precisa de ajuda?"
-
-#~ msgid ""
-#~ "If you're stuck on these options, please <a href=\"%s\">check out the "
-#~ "documentation</a>. Or, go to the <a href=\"%s\">support forum</a>."
-#~ msgstr ""
-#~ "Se você está com dúvidas nestas opções, por favor <a href=\"%s\">leia a "
-#~ "nossa documentação</a>. Ou visite o nosso <a href=\"%s\">fórum de "
-#~ "suporte</a>."
-
-#~ msgid "Default View for the Events"
-#~ msgstr "Visualização padrão dos eventos"
+#~ msgid "<span><a href='%s'>Edit in %s</a></span>"
+#~ msgstr "<span><a href='%s'>تحرير في%s</a></span>"
 
 #~ msgid "Multiday Event Cutoff"
-#~ msgstr "Interromper evento de vários dias"
+#~ msgstr "الحد الفاصل للأحداث التي تجري علي عدة أيام"
 
 #~ msgid ""
-#~ "For multi-day events, hide the last day from grid view if it ends on or "
-#~ "before this time."
+#~ "Hide final day from grid view if multi-day event ends before this time."
 #~ msgstr ""
-#~ "Para eventos de vários dias, esconda o último dia da grelha se terminar "
-#~ "no dia ou antes dele."
+#~ "إخفاء اليوم الأخير من العرض للأحداث التي تتم علي عدة أيام إذا كان وقت "
+#~ "الإنتهاء قبل هذا التوقيت."
 
-#~ msgid "Height"
-#~ msgstr "Altura"
+#~ msgid "Turn on to enable backend map preview and frontend map."
+#~ msgstr "تشغيل لتفعيل إمكانية معاينة الخريطة."
 
-#~ msgid "Width"
-#~ msgstr "Largura"
+#~ msgid "Google Maps Embed Height"
+#~ msgstr "إرتفاع خريطة جوجل"
 
-#~ msgid "(number or %)"
-#~ msgstr "(número ou %)"
+#~ msgid "Enter a number."
+#~ msgstr "اكتب رقم."
+
+#~ msgid "Google Maps Embed Width"
+#~ msgstr "عرض خريطة جوجل"
+
+#~ msgid "Enter a number or %."
+#~ msgstr "اكتب رقم أو نسبة مئوية."
+
+#~ msgid "pro@tri.be"
+#~ msgstr "pro@tri.be"
+
+#~ msgid "@moderntribeinc"
+#~ msgstr "@moderntribeinc"
+
+#~ msgid "Rating currently unavailable :("
+#~ msgstr "التقييم غير متاح حالياً "
 
 #~ msgid ""
-#~ "If you don't have this turned on, your event listings won't have the "
-#~ "backend map preview or frontend embedded map."
-#~ msgstr "Active para mostrar mapas do Google no backend e no frontend."
-
-#~ msgid "The slug used for building a single Event URL."
-#~ msgstr "Slug usada para acessar a URL de um evento único."
-
-#~ msgid "Debug Events display issues."
-#~ msgstr "Activar Dubug de Eventos para mostrar problemas."
-
-#~ msgid ""
-#~ "Some themes may require that you add extra divs before the calendar list "
-#~ "to help with styling."
+#~ "You can apply different page templates to The Events Calendar. Page "
+#~ "templates control the layout of individual pages. The Events Calendar "
+#~ "comes with a Default Events Template. However, you can apply any page "
+#~ "template that is available in your WordPress Theme. If you are having "
+#~ "problems getting your Events Calendar to display correctly, switching the "
+#~ "page template may solve the problem.</p><p>We make every effort to ensure "
+#~ "that the Plugin is compatible with as many Themes as possible but there "
+#~ "may be situations in which none of the below templating options will look "
+#~ "100% perfect. Check out our <a href=\"http://tri.be/support/documentation/"
+#~ "events-calendar-themers-guide/\">our themer's guide</a> to figure out "
+#~ "what approach is best for you."
 #~ msgstr ""
-#~ "Alguns temas podem exigir que você adicione divs extras antes da lista de "
-#~ "calendário para ajudar na tela."
+#~ "يمكنك تطبيق عدة قوالب لصفحة الأجندة. القوالب تتحكم في شكل الصفحات. و تأتي "
+#~ "الأجندة بالقالب الإفتراضي الخاص بها. و لكنك تستطيع تطبيق أي قالب آخر "
+#~ "متوفر لديك. إذا واجهتك مشكلة في جعل الأجندة تعرض بشكل جيد يمكنك تغيير "
+#~ "القالب لحل هذه المشكلة..</p><p>نحن نبذل اقصي جهد لجعل الأجندة موافقة مع "
+#~ "أكبر عدد ممكن من القوالب و لكن قد يحدث أحياناً أن لا تظهر الأجندة بشكل "
+#~ "ممتاز مع بعض القوالب. .راجع <a href=\"http://tri.be/support/documentation/"
+#~ "events-calendar-themers-guide/\">دليل القوالب</a>لتعرف أي طريقة هي المثلي "
+#~ "بالنسبة لك."
 
-#~ msgid "This is displayed directly after the header."
-#~ msgstr "Isto será exibido diretamente depois do header."
+#~ msgid "Template"
+#~ msgstr "قالب"
 
-#~ msgid "You may use (x)HTML."
-#~ msgstr "Você pode usar (x)HTML."
+#~ msgid "Ticket"
+#~ msgstr "تذكرة"
 
-#~ msgid ""
-#~ "Some themes may require that you add extra divs after the calendar list "
-#~ "to help with styling."
-#~ msgstr ""
-#~ "Alguns temas podem exigir que você adicione divs extras depois da lista "
-#~ "de calendário para ajudar na tela."
+#~ msgid "EVENT NAME:"
+#~ msgstr "اسم الحدث:"
 
-#~ msgid "This is displayed directly above the footer."
-#~ msgstr "Isto será exibido diretamente acima do footer."
+#~ msgid "TICKET HOLDER:"
+#~ msgstr "حامل التذكرة:"
 
-#~ msgid ""
-#~ "If you wish to customize the widget display yourself, see the file views/"
-#~ "events-list-load-widget-display.php inside the Events Premium plugin."
-#~ msgstr ""
-#~ "Se você quiser personalizar a exibição do widget, veja o arquivo views/"
-#~ "events-list-load-widget-display.php dentro do plugin Events Premium."
+#~ msgid "LOCATION:"
+#~ msgstr "الموقع:"
+
+#~ msgid "ORDER:"
+#~ msgstr "الطلب:"
+
+#~ msgid "TICKET:"
+#~ msgstr "التذكرة:"
+
+#~ msgid "VERIFICATION:"
+#~ msgstr "التحقق"
+
+#~ msgid "Missing %s"
+#~ msgstr "%s ناقص"
+
+#~ msgid "Property not found: %s."
+#~ msgstr "لم يتم إيجاد الخاصية: %s."
+
+#~ msgid "Invalid value for %s. Value may not be empty."
+#~ msgstr "قيمة غير مقبولة ل %s. هذا الحقل لا يمكن تركه فارغاً"
+
+#~ msgid "Invalid value for %1$s: %2$s. Value must be an array."
+#~ msgstr "قيمة غير مقبولة ل %1$s: %2$s. القيمة يجب أن تكون مجموعة."
+
+#~ msgid "You are not authorized to access this page"
+#~ msgstr "غير مسموح لك بالدخول إلي هذه الصفحة"
+
+#~ msgid "Access Denied"
+#~ msgstr "غير مسموح بالدخول"
+
+#~ msgid "WP Router Placeholder Page"
+#~ msgstr "WP Router Placeholder Page"
+
+#~ msgid "%1$s requires WordPress %2$s or higher and PHP %3$s or higher."
+#~ msgstr "%1$sيحتاج إلي ووردبريس  %2$s أو أعلي و  PHP %3$s أو أعلي."
+
+#~ msgid "All Day"
+#~ msgstr "طوال اليوم"
+
+#~ msgid "iCal Import"
+#~ msgstr "إستيراد iCal"
+
+#~ msgid "Organizer:"
+#~ msgstr "المنظم:"
+
+#~ msgid "Updated:"
+#~ msgstr "تحديث:"
+
+#~ msgid "Schedule:"
+#~ msgstr "جدولة:"
+
+#~ msgid "Add to Google Calendar"
+#~ msgstr "اضف لأجندة جوجل"
+
+#~ msgid "+ Google Calendar"
+#~ msgstr "+ أجندة جوجل"
+
+#~ msgid "View all &raquo;"
+#~ msgstr "  &laquo;شاهد الكل"
