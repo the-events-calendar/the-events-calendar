@@ -610,7 +610,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		function template_redirect(){
 			global $wp_query;
-			if( $wp_query->tribe_is_event_query && TribeEvents::instance()->displaying == 'single-event' && empty($wp_query->posts)){
+			if ( $wp_query->tribe_is_event_query && TribeEvents::instance()->displaying == 'single-event' && empty( $wp_query->posts ) ) {
 				$wp_query->is_404 = true;
 			}
 		}

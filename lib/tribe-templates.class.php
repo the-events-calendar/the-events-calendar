@@ -37,10 +37,10 @@ if (!class_exists('TribeEventsTemplates')) {
 		public static function templateChooser($template) {
 			$events = TribeEvents::instance();
 			do_action('tribe_tec_template_chooser', $template);
-
-         	// hijack this method right up front if it's a 404
-         	if( is_404() && is_single() && apply_filters( 'tribe_events_templates_is_404', '__return_true') )
-         		return get_404_template();
+			
+			// hijack this method right up front if it's a 404
+			if ( is_404() && $events->displaying == 'single-event' && apply_filters( 'tribe_events_templates_is_404', '__return_true' ) )
+				return get_404_template();
 
 			// no non-events need apply
 			if ( ! in_array( get_query_var( 'post_type' ), array( TribeEvents::POSTTYPE, TribeEvents::VENUE_POST_TYPE, TribeEvents::ORGANIZER_POST_TYPE ) ) && ! is_tax( TribeEvents::TAXONOMY ) ) {

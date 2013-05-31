@@ -5,9 +5,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-20 02:24-0600\n"
-"PO-Revision-Date: 2013-05-20 02:45-0600\n"
-"Last-Translator: Modern Tribe Inc. <pro@tri.be>\n"
+"POT-Creation-Date: 2013-05-20 17:04-0500\n"
+"PO-Revision-Date: 2013-05-29 15:20-0430\n"
+"Last-Translator: Héctor Gil Rizo <hectorgrizo@gmail.com>\n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
@@ -19,42 +19,42 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #
 #: ../admin-views/app-shop.php:4
 msgid "Tribe Event Add-Ons"
-msgstr ""
+msgstr "Complementos (Add-Ons) de Tribe Events"
 
 #: ../admin-views/app-shop.php:56
 msgid "Version"
-msgstr ""
+msgstr "Versión"
 
 #: ../admin-views/app-shop.php:59
 msgid "Last Update"
-msgstr ""
+msgstr "Última Actualización"
 
 #: ../admin-views/event-sidebar-options.php:11
 msgid "Hide From Event Listings"
-msgstr ""
+msgstr "No Mostrar en el Listado de Eventos"
 
 #: ../admin-views/event-sidebar-options.php:12
 msgid "Sticky in Calendar View"
-msgstr ""
+msgstr "De Primero \"Sticky\" en Vista de Calendario"
 
 #
 #: ../admin-views/events-audit-trail.php:41
 msgid "Auditing Information"
-msgstr ""
+msgstr "Información de Auditoría"
 
 #: ../admin-views/events-audit-trail.php:47
 msgid "Created by:"
-msgstr ""
+msgstr "Creado por:"
 
 #: ../admin-views/events-audit-trail.php:51
 msgid "Audit Trail:"
-msgstr ""
+msgstr "Traza para Auditar:"
 
 #: ../admin-views/events-meta-box.php:26
 msgid "Event Time &amp; Date"
@@ -73,12 +73,12 @@ msgstr ""
 #
 #: ../admin-views/events-meta-box.php:35
 msgid "All Day Event:"
-msgstr ""
+msgstr "Evento de Todo el Día:"
 
 #
 #: ../admin-views/events-meta-box.php:39
 msgid "Start Date &amp; Time:"
-msgstr ""
+msgstr "Fecha &amp; Hora Inicia:"
 
 #: ../admin-views/events-meta-box.php:42 ../admin-views/events-meta-box.php:63
 msgid "YYYY-MM-DD"
@@ -87,7 +87,7 @@ msgstr "AAAA-MM-DD"
 #
 #: ../admin-views/events-meta-box.php:60
 msgid "End Date &amp; Time:"
-msgstr ""
+msgstr "Fecha &amp; Hora Finaliza:"
 
 #: ../admin-views/events-meta-box.php:85
 msgid "Event Location Details"
@@ -100,11 +100,11 @@ msgstr "Detalles sobre el Organizador del Evento"
 #
 #: ../admin-views/events-meta-box.php:101
 msgid "Event Website"
-msgstr ""
+msgstr "Sitio Web del Evento"
 
 #: ../admin-views/events-meta-box.php:104
 msgid "URL:"
-msgstr ""
+msgstr "URL:"
 
 #: ../admin-views/events-meta-box.php:115
 msgid "Event Cost"
@@ -112,7 +112,7 @@ msgstr "Precio del Evento:"
 
 #: ../admin-views/events-meta-box.php:118
 msgid "Currency Symbol:"
-msgstr ""
+msgstr "Símbolo Monetario:"
 
 #: ../admin-views/events-meta-box.php:122
 #: ../public/advanced-functions/meta.php:187
@@ -122,6 +122,8 @@ msgstr "Precio:"
 #: ../admin-views/events-meta-box.php:127
 msgid "Enter a 0 for events that are free or leave blank to hide the field."
 msgstr ""
+"Introduzca 0 para eventos que sean gratis o deje en blanco para no mostrar "
+"el campo."
 
 #: ../admin-views/organizer-meta-box.php:12
 msgid "Organizer Name:"
@@ -154,56 +156,61 @@ msgid ""
 "Would you like to change only this instance of the event, or all future "
 "events in this series?"
 msgstr ""
+"¿Desea solo modificar este evento o todos los eventos futuros de esta serie?"
 
 #: ../admin-views/recurrence-dialog.php:15
 #: ../admin-views/recurrence-dialog.php:23
 msgid "Only This Event:"
-msgstr ""
+msgstr "Solo Este Evento:"
 
 #: ../admin-views/recurrence-dialog.php:15
 msgid "All other future events in the series will remain the same."
-msgstr ""
+msgstr "El resto de los eventos de esta serie se mantendrán sin cambios."
 
 #
 #: ../admin-views/recurrence-dialog.php:16
 #: ../admin-views/recurrence-dialog.php:24
 msgid "All Events:"
-msgstr ""
+msgstr "Todos los Eventos:"
 
 #: ../admin-views/recurrence-dialog.php:16
 msgid ""
 "All future events in the series will be changed. Any changes made to other "
 "events will be kept."
 msgstr ""
+"El resto de los eventos de esta serie serán modificados, Cambios hechos a "
+"otros eventos se mantendrán."
 
 #: ../admin-views/recurrence-dialog.php:21
 msgid ""
 "Would you like to delete only this instance of the event, or all future "
 "events in this series?"
 msgstr ""
+"¿Desea usted borrar solo este evento o trodos los eventos futuors de esta "
+"serie?"
 
 #: ../admin-views/recurrence-dialog.php:23
 msgid "All other future events in the series will not be deleted."
-msgstr ""
+msgstr "Los eventos restantes de esta serie no serán borrados."
 
 #: ../admin-views/recurrence-dialog.php:24
 msgid "All future events in the series will be deleted."
-msgstr ""
+msgstr "Todos los eventos restantes de esta serie serán borrados."
 
 #: ../admin-views/tickets-attendees.php:9 ../admin-views/tickets-list.php:41
 #: ../lib/tickets/tribe-tickets-pro.php:73
 msgid "Attendees"
-msgstr ""
+msgstr "Asistentes"
 
 #
 #: ../admin-views/tickets-attendees.php:14
 msgid "Event Summary"
-msgstr ""
+msgstr "Resumen del Evento"
 
 #
 #: ../admin-views/tickets-attendees.php:22
 msgid "Event Details"
-msgstr ""
+msgstr "Detalle del Evento"
 
 #: ../admin-views/tickets-attendees.php:24
 msgid "Start Date / Time:"
@@ -219,47 +226,47 @@ msgstr "Lugar:"
 
 #: ../admin-views/tickets-attendees.php:52
 msgid "Ticket Sales"
-msgstr ""
+msgstr "Venta de Boletos"
 
 #: ../admin-views/tickets-attendees.php:64 ../admin-views/tickets-list.php:67
 #, php-format
 msgid "Sold %d"
-msgstr ""
+msgstr "%d Vendido"
 
 #: ../admin-views/tickets-attendees.php:66 ../admin-views/tickets-list.php:69
 #, php-format
 msgid "Sold %d of %d"
-msgstr ""
+msgstr "%d de %d Vendidos"
 
 #: ../admin-views/tickets-attendees.php:81
 msgid "Tickets sold:"
-msgstr ""
+msgstr "Boletos vendidos:"
 
 #: ../admin-views/tickets-attendees.php:85
 msgid "Checked in:"
-msgstr ""
+msgstr "Asistieron:"
 
 #: ../admin-views/tickets-attendees.php:105
 msgid "Send the attendee list by email"
-msgstr ""
+msgstr "Enviar la lista de asistentes por correo electrónico"
 
 #
 #: ../admin-views/tickets-attendees.php:109
 msgid "Select a User:"
-msgstr ""
+msgstr "Seleccionar a un usuario:"
 
 #: ../admin-views/tickets-attendees.php:110
 msgid "Select..."
-msgstr ""
+msgstr "Seleccionar..."
 
 #: ../admin-views/tickets-attendees.php:112
 msgid "or"
-msgstr ""
+msgstr "o"
 
 #
 #: ../admin-views/tickets-attendees.php:114
 msgid "Email Address:"
-msgstr ""
+msgstr "Correo Electrónico:"
 
 #: ../admin-views/tickets-list.php:21 ../views/wrapper-single.php:37
 msgid "Edit"
@@ -267,31 +274,33 @@ msgstr "Modificar"
 
 #: ../admin-views/tickets-list.php:22
 msgid "Delete"
-msgstr ""
+msgstr "Borrar"
 
 #: ../admin-views/tickets-list.php:24
 #, php-format
 msgid "Edit in %s"
-msgstr ""
+msgstr "Modificar en %s"
 
 #: ../admin-views/tickets-list.php:27
 #: ../lib/tribe-admin-events-list.class.php:41
 msgid "View"
-msgstr ""
+msgstr "ver"
 
 #: ../admin-views/tickets-list.php:41 ../lib/tickets/tribe-tickets-pro.php:73
 msgid "See who purchased tickets to this event"
-msgstr ""
+msgstr "Ver quienes adquirieron boletos para este evento"
 
 #: ../admin-views/tickets-meta-box.php:21
 msgid ""
 "This event was created using Community Events. Are you sure you want to sell "
 "tickets for it?"
 msgstr ""
+"Este evento fué creado con \"Community Events\". ¿Esta usted seguro que "
+"desea vender boletos para este evento?"
 
 #: ../admin-views/tickets-meta-box.php:32
 msgid "Upload image for the ticket header"
-msgstr ""
+msgstr "Cargue una imagen para usar en el encabezado del boleto"
 
 #: ../admin-views/tickets-meta-box.php:33
 msgid ""
@@ -299,64 +308,70 @@ msgid ""
 "then scaled for mobile. If you would like \"retina\" support use an image "
 "sized to 1160px wide."
 msgstr ""
+"El tamaño máximo en el correo será de 580px de ancho, y luego será llevado a "
+"escala para el dispositivo móvil. Si desea que la imagen se vea bien en "
+"dispositivos \"retina\" use una imagen de 1160px de ancho."
 
 #
 #: ../admin-views/tickets-meta-box.php:36
 msgid "Select an Image"
-msgstr ""
+msgstr "Seleccione una imagen"
 
 #: ../admin-views/tickets-meta-box.php:44
 msgid "Remove"
-msgstr ""
+msgstr "Remover"
 
 #
 #: ../admin-views/tickets-meta-box.php:62
 #: ../admin-views/tickets-meta-box.php:72
 msgid "Add new ticket"
-msgstr ""
+msgstr "Agregar un nuevo boleto"
 
 #
 #: ../admin-views/tickets-meta-box.php:73
 msgid "Edit ticket"
-msgstr ""
+msgstr "Modificar boleto"
 
 #: ../admin-views/tickets-meta-box.php:79
 msgid "Sell using:"
-msgstr ""
+msgstr "Vender a través:"
 
 #
 #: ../admin-views/tickets-meta-box.php:96
 msgid "Ticket Name:"
-msgstr ""
+msgstr "Nombre del Boleto:"
 
 #: ../admin-views/tickets-meta-box.php:103
 msgid "Ticket Description:"
-msgstr ""
+msgstr "Descripción del Boleto:"
 
 #: ../admin-views/tickets-meta-box.php:112
 msgid "Price:"
-msgstr ""
+msgstr "Precio:"
 
 #
 #: ../admin-views/tickets-meta-box.php:124
 msgid "Start sale:"
-msgstr ""
+msgstr "Comienzo de la oferta:"
 
 #
 #: ../admin-views/tickets-meta-box.php:148
 msgid "End sale:"
-msgstr ""
+msgstr "Final de la oferta:"
 
 #: ../admin-views/tickets-meta-box.php:170
 msgid ""
 "When will ticket sales occur? If you don't set a start/end date for sales, "
 "tickets will be available from now until the event ends."
 msgstr ""
+"Indique las fechas de venta de los boletos. Si usted no indica las fechas de "
+"comienzo/fin para la venta, los boletos estarán disponibles desde ahora "
+"hasta que finalice el evento."
 
 #
 #: ../admin-views/tribe-options-display.php:4
 msgid "Default Events Template"
-msgstr ""
+msgstr "Plantilla por defecto para los Eventos"
 
 #: ../admin-views/tribe-options-display.php:5
 msgid "Default Page Template"
@@ -365,7 +380,7 @@ msgstr "Plantilla de Página por Defecto"
 #
 #: ../admin-views/tribe-options-display.php:29
 msgid "Display Settings"
-msgstr ""
+msgstr "Opciones de muestra"
 
 #: ../admin-views/tribe-options-display.php:33
 msgid ""
@@ -378,19 +393,29 @@ msgid ""
 "view? Grab a copy of the <a href=\"https://github.com/moderntribe/tribe-"
 "events-agenda-view\">Sample Agenda View plugin from Github</a></p>"
 msgstr ""
+"<p>Los ajustes a continuación controlan como se mostrará su calendario. Si "
+"este no se muestra adecuadamente, intente cambiar entre las tres opciones de "
+"estilo o seleccione una plantilla del tema que usted está utilizando.</p>Va "
+"a encontrar ocasiones en las que estas opciones no lograran que su "
+"calendario se muestre 100% perfecto. Puede consultar <a href=\"http://tri.be/"
+"support/documentation/events-calendar-themers-guide/\">nuestra Guía para "
+"hacer plantillas</a> para obtener instrucciones de como hacer modificaciones "
+"por su cuenta. ¿Desea crear un nuevo estilo de vista? Baje desde Github una "
+"copia del <a href=\"https://github.com/moderntribe/tribe-events-agenda-view"
+"\">ejemplo  de un Pluginde de Vista de Agenda </a></p>"
 
 #
 #: ../admin-views/tribe-options-display.php:45
 msgid "Basic Template Settings"
-msgstr ""
+msgstr "Opciones básicas de la plantilla"
 
 #: ../admin-views/tribe-options-display.php:49
 msgid "Default stylesheet used for events templates"
-msgstr ""
+msgstr "Hoja de estilo por defecto a usar para la plantilla de eventos"
 
 #: ../admin-views/tribe-options-display.php:52
 msgid "Skeleton Styles"
-msgstr ""
+msgstr "Estilos básicos"
 
 #: ../admin-views/tribe-options-display.php:54
 msgid ""
@@ -398,100 +423,113 @@ msgid ""
 "templates, and is recommended if you're customizing the events template "
 "styles."
 msgstr ""
+"Estos solo aplican el mínimo de estilo para las plantillas más complejas, y "
+"son los recomendados si usted desea hacer sus propias modificaciones a los "
+"estilos de las plantillas."
 
 #: ../admin-views/tribe-options-display.php:56
 msgid "Full Styles"
-msgstr ""
+msgstr "Estilos completos"
 
 #: ../admin-views/tribe-options-display.php:58
 msgid ""
 "These styles provide a more complex level of layout and style and should "
 "adapt to your theme"
 msgstr ""
+"Estos proveen un nivel de estilos más complejo y deberían adaptarse a su "
+"tema."
 
 #
 #: ../admin-views/tribe-options-display.php:60
 msgid "Tribe Events Styles"
-msgstr ""
+msgstr "Estilos Tribe para Eventos"
 
 #: ../admin-views/tribe-options-display.php:62
 msgid "These styles provide a fully designed events theme"
-msgstr ""
+msgstr "Estos temas proveen estilos completos diseñados para sus eventos"
 
 #
 #: ../admin-views/tribe-options-display.php:69
 msgid "Events template"
-msgstr ""
+msgstr "Plantillas para eventos"
 
 #: ../admin-views/tribe-options-display.php:70
 msgid ""
 "Choose a page template to control the appearance of your calendar and event "
 "content."
 msgstr ""
+"Seleccione un plantilla de página para controlar la apariencia del "
+"calendario y su contenido."
 
 #: ../admin-views/tribe-options-display.php:78
 msgid "Enable event views"
-msgstr ""
+msgstr "Habilitar vistas de evento"
 
 #: ../admin-views/tribe-options-display.php:79
 msgid "You must select at least one view."
-msgstr ""
+msgstr "Debe por lo menos seleccionar una vista."
 
 #: ../admin-views/tribe-options-display.php:86
 msgid "Default view"
-msgstr ""
+msgstr "Vista por defecto"
 
 #: ../admin-views/tribe-options-display.php:94
 msgid "Use the Event Search Bar"
-msgstr ""
+msgstr "Usar la barra de búsqueda de eventos"
 
 #: ../admin-views/tribe-options-display.php:95
 msgid "Uncheck this to use the classic header."
-msgstr ""
+msgstr "Deshabilitar para utilizar el encabezado clásico."
 
 #
 #: ../admin-views/tribe-options-display.php:101
 msgid "Advanced Template Settings"
-msgstr ""
+msgstr "Opciones avanzadas de plantilla"
 
 #
 #: ../admin-views/tribe-options-display.php:105
 msgid "Add HTML before event content"
-msgstr ""
+msgstr "Agregar HTML antes del contenido del evento"
 
 #: ../admin-views/tribe-options-display.php:106
 msgid ""
 "If you are familiar with HTML, you can add additional code before the event "
 "template. Some themes may require this to help with styling or layout."
 msgstr ""
+"Si usted está familiarizado con HTML, puede agregar código adicional antes "
+"de la plantilla del evento. Algunos temas pueden requerirlo para hacer que "
+"se vean correctamente."
 
 #
 #: ../admin-views/tribe-options-display.php:111
 msgid "Add HTML after event content"
-msgstr ""
+msgstr "Agregar HTML luego del contenido del evento"
 
 #: ../admin-views/tribe-options-display.php:112
 msgid ""
 "If you are familiar with HTML, you can add additional code after the event "
 "template. Some themes may require this to help with styling or layout."
 msgstr ""
+"Si usted esta familiarizado con HTML, puede agregar código adicional después "
+"de la plantilla del evento. Algunos temas pueden requerirlo para hacer que "
+"se vean correctamente."
 
 #: ../admin-views/tribe-options-general.php:14
 msgid "Finding & extending your calendar."
-msgstr ""
+msgstr "Encontrar y extender su calendario."
 
 #: ../admin-views/tribe-options-general.php:19
 msgid "Finding your calendar."
-msgstr ""
+msgstr "Encontrando su calendario."
 
 #
 #: ../admin-views/tribe-options-general.php:24
 msgid "Where's my calendar?"
-msgstr ""
+msgstr "¿Donse se encuentra mi calendario?"
 
 #: ../admin-views/tribe-options-general.php:24
 msgid "Right here"
-msgstr ""
+msgstr "Aquí esta"
 
 #: ../admin-views/tribe-options-general.php:28
 msgid ""
@@ -504,11 +542,11 @@ msgstr ""
 #
 #: ../admin-views/tribe-options-general.php:28
 msgid "Check out the available add-ons"
-msgstr ""
+msgstr "Revise los complementos (add-ons) disponibles."
 
 #: ../admin-views/tribe-options-general.php:33
 msgid "We hope our plugin is helping you out."
-msgstr ""
+msgstr "Esperamos que nuestro plugin le sea útil"
 
 #: ../admin-views/tribe-options-general.php:37
 msgid ""
@@ -517,11 +555,16 @@ msgid ""
 "is recognition. Add a small text-only link at the bottom of your calendar "
 "pointing to The Events Calendar project."
 msgstr ""
+"¿Está usted pensando \"vaya, ¡este si es un excelente plugin! Debería darle "
+"las gracias a los de Modern Tribe por su excelente trabajo.\" La mejor forma "
+"de darnos las gracias es darnos crédito por nuestro trabajo. Permítanos "
+"agregar en la parte baja de su calendario un enlace de texto al proyecto "
+"'The Events Calendar\"."
 
 #: ../admin-views/tribe-options-general.php:37
 #: ../admin-views/tribe-options-general.php:42
 msgid "See an example of the link"
-msgstr ""
+msgstr "Vea un ejemplo del enlace"
 
 #: ../admin-views/tribe-options-general.php:42
 msgid ""
@@ -530,47 +573,54 @@ msgid ""
 "is recognition. Add a small text only link at the bottom of your calendar "
 "pointing to The Events Calendar project."
 msgstr ""
+"¿Está usted pensando \"vaya, ¡este si es un excelente plugin! Debería darle "
+"las gracias a los de Modern Tribe por su excelente trabajo.\" La mejor forma "
+"de darnos las gracias es darnos crédito por nuestro trabajo. Permítanos "
+"agregar en la parte baja de su calendario un enlace de texto al proyecto "
+"'The Events Calendar\"."
 
 #
 #: ../admin-views/tribe-options-general.php:47
 msgid "Show The Events Calendar link"
-msgstr ""
+msgstr "Mostrar el enlace a The Events Calendar"
 
 #
 #: ../admin-views/tribe-options-general.php:61
 msgid "General Settings"
-msgstr ""
+msgstr "Opciones Generales"
 
 #: ../admin-views/tribe-options-general.php:65
 msgid "Number of events to show per page"
-msgstr ""
+msgstr "Cantidad de eventos a mostrar por página"
 
 #: ../admin-views/tribe-options-general.php:72
 msgid "Use Javascript to control page load"
-msgstr ""
+msgstr "Usar javascript para controlar la carga de la página"
 
 #: ../admin-views/tribe-options-general.php:73
 msgid "Enable ajax to live refresh content."
-msgstr ""
+msgstr "Habiltar ajax para refrescar el contenido en vivo."
 
 #
 #: ../admin-views/tribe-options-general.php:79
 msgid "Show comments"
-msgstr ""
+msgstr "Mostrar comentarios"
 
 #: ../admin-views/tribe-options-general.php:80
 msgid "Enable comments on event pages."
-msgstr ""
+msgstr "Habilitar comentarios en páginas de eventos."
 
 #: ../admin-views/tribe-options-general.php:86
 msgid "Include events in main blog loop"
-msgstr ""
+msgstr "Incluir eventos en en el bucle (loop) principal del blog"
 
 #: ../admin-views/tribe-options-general.php:87
 msgid ""
 "Show events with the site's other posts. When this box is checked, events "
 "will also continue to appear on the default events page."
 msgstr ""
+"Mostrar eventos junto con los otros posts del sitio. Cuando se habilita esta "
+"opción los eventos se siguen mostrando en la página de eventos."
 
 #: ../admin-views/tribe-options-general.php:93
 #: ../admin-views/tribe-options-general.php:99
@@ -585,28 +635,32 @@ msgid ""
 "%s</a>. In order to edit the slug here, <a href=\"%soptions-permalink.php"
 "\">enable pretty permalinks</a>."
 msgstr ""
+"Usted no puede modificar el slug de su página de eventos ya que \"pretty "
+"permalinks\" no estan habilitadas. Actualmente la URL de su página de "
+"eventos es <a href=\"%s\">%s</a>. Para poder modificar el slug, <a href="
+"\"%soptions-permalink.php\">habilitar pretty permalinks</a>."
 
 #
 #: ../admin-views/tribe-options-general.php:106
 #: ../public/template-tags/options.php:20
 msgid "The slug used for building the events URL."
-msgstr ""
+msgstr "El slug utilizado para construir el URL de sus eventos. "
 
 #: ../admin-views/tribe-options-general.php:106
 #, php-format
 msgid "Your current events URL is: %s"
-msgstr ""
+msgstr "Actualmente su URL de eventos es: %s"
 
 #
 #: ../admin-views/tribe-options-general.php:111
 #: ../public/template-tags/options.php:43
 msgid "Here is the iCal feed URL for your events:"
-msgstr ""
+msgstr "El URL para el feed de iCal de sus eventos es:"
 
 #
 #: ../admin-views/tribe-options-general.php:116
 msgid "Single event URL slug"
-msgstr ""
+msgstr "Slug de URL para un evento"
 
 #: ../admin-views/tribe-options-general.php:123
 #, php-format
@@ -614,56 +668,63 @@ msgid ""
 "The above should ideally be plural, and this singular.<br />Your single "
 "event URL is: %s"
 msgstr ""
+"El anterior usualmente debe ser el plural. <br />El URL para un solo evento "
+"es: %s"
 
 #: ../admin-views/tribe-options-general.php:128
 msgid "End of day cutoff"
-msgstr ""
+msgstr "Fin del día (cutoff)"
 
 #: ../admin-views/tribe-options-general.php:136
 msgid ""
 "Have events that run past midnight? Control when your day official ends to "
 "avoid awkwardly adding your event to the next day."
 msgstr ""
+"¿Tiene eventos que pasen de la medianoche? Controle cuando el día finaliza "
+"oficialmente para evitar agregar su evento en el día siguiente."
 
 #: ../admin-views/tribe-options-general.php:141
 msgid "Default currency symbol"
-msgstr ""
+msgstr "Simbolo monetario por defecto"
 
 #: ../admin-views/tribe-options-general.php:142
 msgid ""
 "Set the default currency symbol for event costs. Note that this only impacts "
 "future events, and changes made will not apply retroactively."
 msgstr ""
+"Asigne el simbolo monetario por defecto para eventos. Note que esto solo "
+"afectará los eventos por ocurrir, los cambios no se aplicaran "
+"retroactivamente. "
 
 #
 #: ../admin-views/tribe-options-general.php:149
 msgid "Map Settings"
-msgstr ""
+msgstr "Opciones de Mapas"
 
 #: ../admin-views/tribe-options-general.php:153
 msgid "Enable Google Maps"
-msgstr "Habilita Google Maps"
+msgstr "Habilitar Google Maps"
 
 #: ../admin-views/tribe-options-general.php:154
 msgid "Check to enable maps for events and venues."
-msgstr ""
+msgstr "Habilitar para eventos y lugares."
 
 #: ../admin-views/tribe-options-general.php:161
 msgid "Google Maps Default Zoom Level"
-msgstr ""
+msgstr "Nivel de acercamiento (zoom) por defecto en Google Maps"
 
 #: ../admin-views/tribe-options-general.php:162
 msgid "0 = zoomed out; 21 = zoomed in."
-msgstr ""
+msgstr "0 = alejado (zoomed out); 21 = cerca (zoomed in)."
 
 #
 #: ../admin-views/tribe-options-general.php:170
 msgid "Miscellaneous Settings"
-msgstr ""
+msgstr "Opciones Miscelaneas"
 
 #: ../admin-views/tribe-options-general.php:174
 msgid "Duplicate Venues &amp; Organizers"
-msgstr ""
+msgstr "Organizadores y Lugares Duplicados"
 
 #: ../admin-views/tribe-options-general.php:174
 msgid ""
@@ -671,16 +732,19 @@ msgid ""
 "Calendar from a pre-3.0 version. Click this button to automatically merge "
 "identical venues and organizers."
 msgstr ""
+"Puede ser que se encuentre organizadores y lugares duplicados luego de "
+"actualizar de una versión anterior a la 3.0. Haga click en este boton para "
+"arreglar este problema."
 
 #: ../admin-views/tribe-options-general.php:174
 #: ../lib/tribe-amalgamator.php:182
 msgid "Merge Duplicates"
-msgstr ""
+msgstr "Borrar Duplicados"
 
 #
 #: ../admin-views/tribe-options-general.php:179
 msgid "Debug mode"
-msgstr ""
+msgstr "Modo Depuración (Debug)"
 
 #: ../admin-views/tribe-options-general.php:185
 #, php-format
@@ -690,77 +754,82 @@ msgid ""
 "browser, then we recommend that you install the %s and look for the \"Tribe"
 "\" tab in the debug output."
 msgstr ""
+"Habilite esta opción para mantener una bitacora (log) de información para "
+"depuración. Por defecto esta información será enviada a la bitacora de "
+"errores de PHP. Si usted desea ver estos errores en el navegador le "
+"recomendamos instalar el %s y buscar la pestaña \"Tribe\" en la pantalla de "
+"depuración."
 
 #: ../admin-views/tribe-options-general.php:185
 msgid "Debug Bar Plugin"
-msgstr ""
+msgstr "Debug Bar Plugin"
 
 #: ../admin-views/tribe-options-help.php:18
 msgctxt "not available"
 msgid "n/a"
-msgstr ""
+msgstr "No Disponible"
 
 #: ../admin-views/tribe-options-help.php:19
 msgid "You need to upgrade!"
-msgstr ""
+msgstr "¡Necesita Actualizar!"
 
 #: ../admin-views/tribe-options-help.php:19
 msgid "You are up to date!"
-msgstr ""
+msgstr "¡Se encuentra actualizado!"
 
 #
 #: ../admin-views/tribe-options-help.php:42
 msgid "The Events Calendar PRO"
-msgstr ""
+msgstr "The Events Calendar PRO"
 
 #: ../admin-views/tribe-options-help.php:46
 msgid "Eventbrite Tickets"
-msgstr ""
+msgstr "Eventbrite Tickets"
 
 #
 #: ../admin-views/tribe-options-help.php:50
 msgid "Community Events"
-msgstr ""
+msgstr "Community Events"
 
 #
 #: ../admin-views/tribe-options-help.php:54
 msgid "Facebook Events"
-msgstr ""
+msgstr "Facebook Events"
 
 #: ../admin-views/tribe-options-help.php:58
 msgid "WooTickets"
-msgstr ""
+msgstr "WooTickets"
 
 #: ../admin-views/tribe-options-help.php:63
 msgid "Faceted Filters"
-msgstr ""
+msgstr "Filtros por Facetas"
 
 #: ../admin-views/tribe-options-help.php:71
 msgid "Documentation"
-msgstr ""
+msgstr "Documentación"
 
 #: ../admin-views/tribe-options-help.php:75
 msgid "FAQ"
-msgstr ""
+msgstr "Preguntas Frecuentes"
 
 #: ../admin-views/tribe-options-help.php:79
 #: ../lib/the-events-calendar.class.php:656
-#: ../lib/the-events-calendar.class.php:3375
-#: ../lib/the-events-calendar.class.php:3466
+#: ../lib/the-events-calendar.class.php:3379
+#: ../lib/the-events-calendar.class.php:3470
 msgid "Help"
-msgstr ""
+msgstr "Ayuda"
 
 #: ../admin-views/tribe-options-help.php:83
 msgid "Tutorials"
-msgstr ""
+msgstr "Tutoriales"
 
 #: ../admin-views/tribe-options-help.php:87
 msgid "Release Notes"
-msgstr ""
+msgstr "Notas de la Versión"
 
 #: ../admin-views/tribe-options-help.php:91
 msgid "Forums"
-msgstr ""
+msgstr "Foros"
 
 #: ../admin-views/tribe-options-help.php:96
 #, php-format
@@ -773,6 +842,14 @@ msgid ""
 "down first?</strong> Visit our <a href=\"%s\">new user primer</a>,  designed "
 "to help familiarize you with the plugin basics.</li></ul>"
 msgstr ""
+"Si esta es la primera vez que usa The Events Calendar, va a disfrutarlo. Va "
+"a encontrar lo super-fácil que es comenzar a manejar sus eventos. A "
+"continuación algunas ayudas para hacer más fluido el comienzo:</"
+"p><ul><li><strong>¿Con espiritu de aventura?</strong> láncese directamente a "
+"visitar el menú de Eventos para <a href=\"%s\">agregar su primer evento</a>."
+"</li><li><strong>¿Quiere conocer más detalles antes de comenzar?</strong> "
+"Visite nuestro <a href=\"%s\">resumen para nuevos usuarios</a>,  diseñado "
+"para que usted se familiarice con lo básico.</li></ul>"
 
 #: ../admin-views/tribe-options-help.php:99
 #, php-format
@@ -783,11 +860,18 @@ msgid ""
 "week to look for legitimate bug reports and do what we can to assist users.</"
 "p>"
 msgstr ""
+"<p>Apreciamos a todos nuestros usuarios y deseamos ayudar tanto a los que "
+"utilizan la versión gratuita como a los que utilizan la versión PRO. Si "
+"usted tiene problemas y tiene instalado la última versión de The Events "
+"Calendar, puede hacer una pregunta en nuestro %s en WordPress.org. Nustro "
+"personal visita este foro una vez a la semana buscando reportes de fallas "
+"legítimos (bugs) y también hacemos lo que podemos para ayudar a los usuarios."
+"</p>"
 
 #
 #: ../admin-views/tribe-options-help.php:99
 msgid "forum for The Events Calendar"
-msgstr ""
+msgstr "Foro de The Events Calendar"
 
 #: ../admin-views/tribe-options-help.php:100
 #, php-format
@@ -795,16 +879,20 @@ msgid ""
 "<p>If you need additional help, %sEvents Calendar Pro%s gets you access to "
 "our support forums for a full year.</p>"
 msgstr ""
+"<p>Si usted necesita ayuda adicional, %sEvents Calendar Pro%s le da acceso a "
+"nuestro foro de soporte por todo un año.</p>"
 
 #: ../admin-views/tribe-options-help.php:101
 msgid "A few things to keep in mind before posting:"
-msgstr ""
+msgstr "Algunas sugerencias antes de hacer una pregunta o un reporte:"
 
 #: ../admin-views/tribe-options-help.php:103
 msgid ""
 "Search recent threads before posting a new one to check that there isn't "
 "already a discussion about your issue."
 msgstr ""
+"Realice una búsqueda en el foro antes de publicar su pregunta, puede ser que "
+"encuentre la respuesta o ya exista una discusión sobre su problema."
 
 #: ../admin-views/tribe-options-help.php:104
 msgid ""
@@ -814,6 +902,11 @@ msgid ""
 "conflicts can be easily identified. If you find a conflict, note it in a "
 "support thread."
 msgstr ""
+"Verifique que su problema no sea generado por un conflicto con otro plugin o "
+"con el tema que está usando. Usted puede comprobarlo en su sitio de pruebas  "
+"desactivando uno a uno los plugins, también puede cambiar su tema por Twenty "
+"Twelve para verificar que su tema no esté generando conflictos. Si usted "
+"encuentra algún conflicto, por favor repórtelo en el foro de soporte."
 
 #: ../admin-views/tribe-options-help.php:105
 #, php-format
@@ -822,6 +915,10 @@ msgid ""
 "Permalinks</a>) can resolve events-related problems on your site. Before "
 "creating a new thread try this handy trick."
 msgstr ""
+"Algunas veces, guardando nuevamente su configuración de Enlaces Permanentes "
+"(permalinks) (lo encuenta en <a href=\"%s\">Ajustes > Enlaces Permanentes</"
+"a>) puede resolver ciertos problemas con los eventos. Antes de hacer un "
+"reporte de problemas trate a ver si este truco lo resuelve."
 
 #: ../admin-views/tribe-options-help.php:107
 msgid ""
@@ -830,6 +927,10 @@ msgid ""
 "able to provide customization tips or assist in integration with 3rd party "
 "plugins."
 msgstr ""
+"Aunque nos gusta ayudarlo cuando existan fallas en nuestro plugin y a veces "
+"dar ciertas ayudas sencillas en como integrar The Events Calendar, en el "
+"foro de WordPress.org no podemos ayudarlo en como personalizar su calendario "
+"o como integrarlo con plugins de otras empresas.  "
 
 #: ../admin-views/tribe-options-help.php:109
 #, php-format
@@ -837,32 +938,36 @@ msgid ""
 "Shoot us an email at %s or tweet %s and tell us why. We'll do what we can to "
 "make it right."
 msgstr ""
+"Envíenos un correo a %s o un tweet a %s y díganos lo que sucede. Haremos lo "
+"posible para solucionarlo."
 
 #: ../admin-views/tribe-options-help.php:110
 msgid "More..."
-msgstr ""
+msgstr "Más..."
 
 #: ../admin-views/tribe-options-help.php:117
 msgid ""
 "Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so much "
 "for installing our labor of love!"
 msgstr ""
+"¡Hola! Somos Modern Tribe y estamos aquí para ayudarlo a hacer bien las "
+"cosas. ¡Gracias por instalar el fruto de nuestro esfuerzo y trabajo!"
 
 #: ../admin-views/tribe-options-help.php:119
 msgid "Getting Started"
-msgstr ""
+msgstr "Como Comenzar"
 
 #: ../admin-views/tribe-options-help.php:126
 msgid "Resources to Help You Kick Ass"
-msgstr ""
+msgstr "Recursos para Ayudarlo a Comenzar"
 
 #: ../admin-views/tribe-options-help.php:138
 msgid "Everyone Needs a Buddy"
-msgstr ""
+msgstr "Todo el mundo necesita un amigo"
 
 #: ../admin-views/tribe-options-help.php:141
 msgid "Still Not Satisfied?"
-msgstr ""
+msgstr "¿Todavía no se encuentra satisfecho?"
 
 #: ../admin-views/tribe-options-help.php:151
 #: ../lib/the-events-calendar.class.php:437
@@ -872,69 +977,72 @@ msgstr "The Events Calendar"
 
 #: ../admin-views/tribe-options-help.php:155
 msgid "Latest Version:"
-msgstr ""
+msgstr "Última Versión:"
 
 #: ../admin-views/tribe-options-help.php:156
 msgid "Author:"
-msgstr ""
+msgstr "Autor:"
 
 #: ../admin-views/tribe-options-help.php:156
 msgid "Modern Tribe Inc"
-msgstr ""
+msgstr "Modern Tribe Inc"
 
 #: ../admin-views/tribe-options-help.php:157
 msgid "Requires:"
-msgstr ""
+msgstr "Requiere:"
 
 #: ../admin-views/tribe-options-help.php:157
 msgid "WordPress "
-msgstr ""
+msgstr "WordPress "
 
 #: ../admin-views/tribe-options-help.php:158
 msgid "Wordpress.org Plugin Page"
-msgstr ""
+msgstr "Página del Plugin en Wordpress.org"
 
 #: ../admin-views/tribe-options-help.php:163
 msgid "Average Rating"
-msgstr ""
+msgstr "Average de Clasificación"
 
 #: ../admin-views/tribe-options-help.php:167
 #, php-format
 msgid "Based on %d rating"
 msgid_plural "Based on %d ratings"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Basada en %d clasificación"
+msgstr[1] "Basada en %d clasificaciones"
 
 #: ../admin-views/tribe-options-help.php:168
 msgid "Give us 5 stars!"
-msgstr ""
+msgstr "¡Otorgenos 5 estrellas!"
 
 #: ../admin-views/tribe-options-help.php:171
 msgid "Premium Add-Ons"
-msgstr ""
+msgstr "Complementos (Add-Ons) Premium "
 
 #: ../admin-views/tribe-options-help.php:177
 msgid "(Coming Soon!)"
-msgstr ""
+msgstr "(¡Pronto disponibles!)"
 
 #: ../admin-views/tribe-options-help.php:184
 msgid "News and Tutorials"
-msgstr ""
+msgstr "Noticias y Tutoriales"
 
 #
 #: ../admin-views/tribe-options-network.php:14
 msgid "Network Settings"
-msgstr ""
+msgstr "Opciones de Red"
 
 #: ../admin-views/tribe-options-network.php:18
 msgid ""
 "This is where all of the global network settings for Modern Tribe's The "
 "Events Calendar can be modified."
 msgstr ""
+"Aquí es donde todas las opciones globales de la red (Network) para The "
+"Events Calendar de  Modern Tribe pueden ser modificadas."
 
 #: ../admin-views/tribe-options-network.php:26
 msgid "Hide the following settings tabs on every site:"
 msgstr ""
+"Esconder la(s) siguiente(s) pestaña(s) de opciones en todas los sitios:"
 
 #: ../admin-views/venue-meta-box.php:20
 msgid "Venue Name:"
@@ -989,6 +1097,8 @@ msgstr "Mostrar El Widget solo si hay eventos programados: "
 #, php-format
 msgid "Want to modify the display of this widget? Try a %stemplate override%s."
 msgstr ""
+"¿Quiere modificar como se muestra este widget? Intente un %stemplate override"
+"%s."
 
 #: ../lib/the-events-calendar.class.php:442
 msgid "month"
@@ -1017,6 +1127,8 @@ msgid ""
 "Your version of The Events Calendar is not up-to-date with one of your The "
 "Events Calendar add-ons. Please %supdate now.%s"
 msgstr ""
+"Su versión de The Events Calendar no se encuentra actualizado con uno de sus "
+"add-ons. Por favor %supdate now.%s"
 
 #: ../lib/the-events-calendar.class.php:566
 #, php-format
@@ -1026,12 +1138,16 @@ msgid ""
 "properly unless paired with the right version. %sWant to pair an older "
 "version%s?"
 msgstr ""
+"Los siguientes plugins se encuentra desactualizados: <b>%s</b>. Por favor "
+"%supdate now%s. Todos los add-ons dependen de la versión de  The Events "
+"Calendar y no funcionarán correctamente a menos que se encuentre instalada "
+"la versión correcta. %sWant to pair an older version%s?"
 
 #: ../lib/the-events-calendar.class.php:623
 #: ../lib/the-events-calendar.class.php:651
 #: ../lib/the-events-calendar.class.php:653
 msgid "Licenses"
-msgstr ""
+msgstr "Licencias"
 
 #: ../lib/the-events-calendar.class.php:627
 #, php-format
@@ -1049,14 +1165,29 @@ msgid ""
 "your license.</p><p>Not seeing an update but expecting one? In WordPress, go "
 "to <a href=\"%s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
 msgstr ""
+"<p>La clave de licencia que usted recibió al completar su compra en http://"
+"tri.be le dará acceso a soporte y actualizaciones hasta que la licencia "
+"expire. No necesita ingresar la clave para que los plugins funcionen, pero "
+"si es necesaria para hacer actualizaciones automáticas. <strong>Para "
+"encontrar su código de licencia diríjase a <a href=\"%s\">%s</a></strong>.</"
+"p> <p>cada add-on pago tiene su propio código de licencia. Simplemente copie "
+"el código en el campo correspondiente más abajo, y espere un breve tiempo "
+"mientras es validado. usted sabrá que el código fue aceptado cuando la fecha "
+"de expiración se muestre en color verde junto a la palabra \"valid\".</p> "
+"<p>Si se muestra un mensaje en color rojo indicando que la licencia es "
+"invalida o no tiene más instalaciones, visite [enter link to account/"
+"licenses] para gestionar sus instalaciones o renovar su licencia.</p><p>Si "
+"no se muestra una actualización  pero sabe que debe haber una, en WordPress, "
+"diríjase a <a href=\"%s\">Escritorio > Actualizaciones</a> y haga click en "
+"\"Comprobar de nuevo\".</p>"
 
 #: ../lib/the-events-calendar.class.php:643
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: ../lib/the-events-calendar.class.php:644
 msgid "Display"
-msgstr ""
+msgstr "Mostrar"
 
 #: ../lib/the-events-calendar.class.php:689
 #, php-format
@@ -1099,7 +1230,7 @@ msgstr "Eventos este mes"
 #: ../lib/the-events-calendar.class.php:859
 #, php-format
 msgid "Events at %s"
-msgstr ""
+msgstr "Evento en %s"
 
 #: ../lib/the-events-calendar.class.php:872
 msgid "No description has been entered for this event."
@@ -1111,11 +1242,11 @@ msgstr "Categoría"
 
 #: ../lib/the-events-calendar.class.php:1124
 msgid "tag"
-msgstr ""
+msgstr "etiqueta"
 
 #: ../lib/the-events-calendar.class.php:1138
-#: ../lib/the-events-calendar.class.php:3306
-#: ../lib/the-events-calendar.class.php:3366
+#: ../lib/the-events-calendar.class.php:3310
+#: ../lib/the-events-calendar.class.php:3370
 msgid "Events"
 msgstr "Eventos"
 
@@ -1220,7 +1351,7 @@ msgstr "Nuevo Organizador"
 #
 #: ../lib/the-events-calendar.class.php:1170
 msgid "View Organizer"
-msgstr ""
+msgstr "Ver Organizador"
 
 #: ../lib/the-events-calendar.class.php:1171
 msgid "Search Organizers"
@@ -1250,7 +1381,7 @@ msgstr "Buscar en Categorías de Eventos"
 
 #: ../lib/the-events-calendar.class.php:1180
 msgid "All Event Categories"
-msgstr "Todas las Categorías de Eventos"
+msgstr "Todas las Categorías"
 
 #: ../lib/the-events-calendar.class.php:1181
 msgid "Parent Event Category"
@@ -1448,17 +1579,17 @@ msgstr "Usar Nuevo Lugar"
 #
 #: ../lib/the-events-calendar.class.php:1351
 msgid "My Venues"
-msgstr ""
+msgstr "Mis Lugares"
 
 #
 #: ../lib/the-events-calendar.class.php:1356
 msgid "Available Venues"
-msgstr ""
+msgstr "Lugares Disponibles"
 
 #
 #: ../lib/the-events-calendar.class.php:1367
 msgid "No saved venue exists."
-msgstr ""
+msgstr "No hay lugares guardados."
 
 #: ../lib/the-events-calendar.class.php:1401
 msgid "Use New Organizer"
@@ -1467,17 +1598,17 @@ msgstr "Usar Nuevo Organizador"
 #
 #: ../lib/the-events-calendar.class.php:1403
 msgid "My Organizers"
-msgstr ""
+msgstr "Mis Organizadores"
 
 #
 #: ../lib/the-events-calendar.class.php:1408
 msgid "Available Organizers"
-msgstr ""
+msgstr "Organizadores disponibles"
 
 #
 #: ../lib/the-events-calendar.class.php:1419
 msgid "No saved organizer exists."
-msgstr ""
+msgstr "No hay Organizadores Guardados."
 
 #: ../lib/the-events-calendar.class.php:1530
 msgid "Next"
@@ -1497,121 +1628,125 @@ msgstr "Hecho"
 
 #: ../lib/the-events-calendar.class.php:1718
 msgid "Network"
-msgstr ""
+msgstr "Red"
 
 #
 #: ../lib/the-events-calendar.class.php:2502
 msgid "Unnamed Venue"
-msgstr ""
+msgstr "Lugar sin nombre"
 
 #
 #: ../lib/the-events-calendar.class.php:2585
 msgid "Unnamed Organizer"
-msgstr ""
+msgstr "Organizador sin nombre"
 
 #: ../lib/the-events-calendar.class.php:3065
 msgid "Event Options"
-msgstr "Opciones de Evento"
+msgstr "Opciones del Evento"
 
 #: ../lib/the-events-calendar.class.php:3067
 msgid "Venue Information"
 msgstr "Información Sobre El Lugar"
 
-#: ../lib/the-events-calendar.class.php:3068
+#: ../lib/the-events-calendar.class.php:3072
 msgid "Organizer Information"
 msgstr "Información Sobre El Organizador"
 
-#: ../lib/the-events-calendar.class.php:3207
+#: ../lib/the-events-calendar.class.php:3211
 msgid "Support"
-msgstr ""
+msgstr "Soporte"
 
-#: ../lib/the-events-calendar.class.php:3210
+#: ../lib/the-events-calendar.class.php:3214
 msgid "View All Add-Ons"
-msgstr "Ver Todos Los Complementos"
+msgstr "Ver Todos Los Complementos (Add-Ons)"
 
 #
-#: ../lib/the-events-calendar.class.php:3217
+#: ../lib/the-events-calendar.class.php:3221
 msgid "News from Modern Tribe"
-msgstr ""
+msgstr "Noticias de Modern Tribe"
 
-#: ../lib/the-events-calendar.class.php:3262
+#: ../lib/the-events-calendar.class.php:3266
 msgid "Additional Functionality"
 msgstr "Funcionalidad Adicional"
 
-#: ../lib/the-events-calendar.class.php:3267
+#: ../lib/the-events-calendar.class.php:3271
 msgid ""
 "Looking for additional functionality including recurring events, ticket "
 "sales, publicly submitted events, new views and more?"
 msgstr ""
+"¿Busca funcionalidad adicional, incluyendo eventos recurrentes, venta de "
+"boletos, eventos agregados por el público, vistas adicionales y más?"
 
-#: ../lib/the-events-calendar.class.php:3267
+#: ../lib/the-events-calendar.class.php:3271
 #, php-format
 msgid "Check out the <a href=\"%s\">available add-ons</a>."
-msgstr ""
+msgstr "Vea los <a href=\"%s\">add-ons disponibles</a>."
 
 #
-#: ../lib/the-events-calendar.class.php:3332
-#: ../lib/the-events-calendar.class.php:3423
+#: ../lib/the-events-calendar.class.php:3336
+#: ../lib/the-events-calendar.class.php:3427
 msgid "View Calendar"
-msgstr ""
+msgstr "Ver Calendario"
 
 #
-#: ../lib/the-events-calendar.class.php:3340
+#: ../lib/the-events-calendar.class.php:3344
 msgid "Add Event"
-msgstr ""
+msgstr "Agregar Evento"
 
 #
-#: ../lib/the-events-calendar.class.php:3349
+#: ../lib/the-events-calendar.class.php:3353
 msgid "Edit Events"
-msgstr ""
+msgstr "Modificar Eventos"
 
-#: ../lib/the-events-calendar.class.php:3358
-#: ../lib/the-events-calendar.class.php:3459
+#: ../lib/the-events-calendar.class.php:3362
+#: ../lib/the-events-calendar.class.php:3463
 #: ../lib/tribe-settings.class.php:164
 msgid "Settings"
 msgstr "Ajustes"
 
-#: ../lib/the-events-calendar.class.php:3394
+#: ../lib/the-events-calendar.class.php:3398
 #, php-format
 msgid ""
 "Welcome to The Events Calendar! Your events calendar can be found at %s. To "
 "change the events slug, visit %sEvents -> Settings%s."
 msgstr ""
+"¡Bienvenido a The Events Calendar! Puede encontrar su calendario de eventos "
+"en %s. Para cambiar el slug de los eventos dirijase a %sEventos -> Ajustes%s"
 
-#: ../lib/the-events-calendar.class.php:3460
+#: ../lib/the-events-calendar.class.php:3464
 msgid "Calendar"
 msgstr "Calendario"
 
-#: ../lib/the-events-calendar.class.php:3512
+#: ../lib/the-events-calendar.class.php:3516
 msgid "List"
-msgstr ""
+msgstr "Lista"
 
 #
-#: ../lib/the-events-calendar.class.php:3517
+#: ../lib/the-events-calendar.class.php:3521
 msgid "Month"
-msgstr ""
+msgstr "Mes"
 
 #
-#: ../lib/the-events-calendar.class.php:3545
+#: ../lib/the-events-calendar.class.php:3549
 msgid "Date"
-msgstr ""
+msgstr "Fecha"
 
 #
-#: ../lib/the-events-calendar.class.php:3548
+#: ../lib/the-events-calendar.class.php:3552
 msgid "Events In"
-msgstr ""
+msgstr "Eventos en"
 
 #
-#: ../lib/the-events-calendar.class.php:3550
+#: ../lib/the-events-calendar.class.php:3554
 msgid "Events From"
-msgstr ""
+msgstr "Eventos desde"
 
-#: ../lib/the-events-calendar.class.php:3720 ../views/list/nav.php:21
+#: ../lib/the-events-calendar.class.php:3724 ../views/list/nav.php:21
 #: ../views/list/nav.php:27 ../views/list/nav.php:30
 msgid "&laquo; Previous Events"
 msgstr "&laquo; Eventos Previos"
 
-#: ../lib/the-events-calendar.class.php:3721 ../views/list/nav.php:39
+#: ../lib/the-events-calendar.class.php:3725 ../views/list/nav.php:39
 #: ../views/list/nav.php:42 ../views/list/nav.php:48
 msgid "Next Events &raquo;"
 msgstr "Eventos Siguientes &raquo;"
@@ -1619,7 +1754,7 @@ msgstr "Eventos Siguientes &raquo;"
 #: ../lib/tribe-admin-events-list.class.php:41
 #, php-format
 msgid "View &#8220;%s&#8221;"
-msgstr ""
+msgstr "Vista &#8220;%s&#8221;"
 
 #: ../lib/tribe-admin-events-list.class.php:186
 msgid "Start Date"
@@ -1636,11 +1771,11 @@ msgstr "¿Se Repite?"
 #: ../lib/tribe-admin-events-list.class.php:233
 #: ../lib/tickets/tribe-tickets-pro.php:229
 msgid "Yes"
-msgstr ""
+msgstr "Si"
 
 #: ../lib/tribe-admin-events-list.class.php:233
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: ../lib/tribe-admin-events-list.class.php:287
 #, php-format
@@ -1651,7 +1786,7 @@ msgstr "Todos %s"
 #: ../lib/tribe-app-shop.class.php:53 ../lib/tribe-app-shop.class.php:54
 #: ../lib/tribe-app-shop.class.php:72
 msgid "Event Add-Ons"
-msgstr ""
+msgstr "Add-Ons para Eventos"
 
 #: ../lib/tribe-debug-bar.class.php:18
 msgid "Tribe"
@@ -1669,34 +1804,34 @@ msgstr "Error"
 
 #: ../lib/tribe-field.class.php:163
 msgid "Invalid field type specified"
-msgstr ""
+msgstr "Tipo de Campo especificado es incorrecto"
 
 #: ../lib/tribe-field.class.php:415
 msgid "No radio options specified"
-msgstr ""
+msgstr "No se especificó una opción."
 
 #: ../lib/tribe-field.class.php:452
 msgid "No checkbox options specified"
-msgstr ""
+msgstr "No se especificó ninguna opción."
 
 #: ../lib/tribe-field.class.php:506
 msgid "No select options specified"
-msgstr ""
+msgstr "No se seleccionó ninguna opción."
 
 #
 #: ../lib/tribe-settings-tab.class.php:220
 msgid "There are no fields setup for this tab yet."
-msgstr ""
+msgstr "Todavía no hay campos definidos para esta pestaña."
 
 #
 #: ../lib/tribe-settings.class.php:164 ../lib/tribe-settings.class.php:176
 msgid "The Events Calendar Settings"
-msgstr ""
+msgstr "Opciones de The Events Calendar"
 
 #
 #: ../lib/tribe-settings.class.php:176
 msgid "Events Settings"
-msgstr ""
+msgstr "Opciones de Eventos"
 
 #: ../lib/tribe-settings.class.php:225
 #, php-format
@@ -1705,32 +1840,32 @@ msgstr "%s Ajustes"
 
 #: ../lib/tribe-settings.class.php:239
 msgid "You've requested a non-existent tab."
-msgstr ""
+msgstr "Usted a tratado de seleccionar una pestaña inexistente."
 
 #
 #: ../lib/tribe-settings.class.php:247
 msgid " Save Changes"
-msgstr ""
+msgstr "Guardar Cambios"
 
 #: ../lib/tribe-settings.class.php:299
 msgid "You don't have permission to do that."
-msgstr ""
+msgstr "Usted no tiene permiso para hacer eso."
 
 #: ../lib/tribe-settings.class.php:305
 msgid "The request was sent insecurely."
-msgstr ""
+msgstr "El pedido fué enviado de forma no segura."
 
 #: ../lib/tribe-settings.class.php:311
 msgid "The request wasn't sent from this tab."
-msgstr ""
+msgstr "El pedido no fué enviado desde esta pestaña."
 
 #: ../lib/tribe-settings.class.php:476
 msgid "Your form had the following errors:"
-msgstr ""
+msgstr "Su formulario contiene los siguientes errores:"
 
 #: ../lib/tribe-settings.class.php:485
 msgid "None of your settings were saved. Please try again."
-msgstr ""
+msgstr "Las opciones no fueron guardadas. Por favor intente nuevamente."
 
 #: ../lib/tribe-settings.class.php:485
 msgid ""
@@ -1738,51 +1873,61 @@ msgid ""
 msgid_plural ""
 "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] ""
+"La opción indicada ariiba no fué guardada. Las otras opciones si fueron "
+"guardadas sin problemas."
 msgstr[1] ""
+"Las opciónes indicadas ariiba no furon guardadas. Las otras opciones si "
+"fueron guardadas sin problemas."
 
 #
 #: ../lib/tribe-settings.class.php:509
 msgid "Settings saved."
-msgstr ""
+msgstr "Opciones fueron guardadas."
 
-#: ../lib/tribe-template-factory.class.php:143
+#: ../lib/tribe-template-factory.class.php:151
 #, php-format
 msgid "There  were no results found for <strong>\"%s\"</strong>."
-msgstr ""
+msgstr "No se encontraron resultados para <strong>\"%s\"</strong>."
 
-#: ../lib/tribe-template-factory.class.php:153
+#: ../lib/tribe-template-factory.class.php:161
 #, php-format
 msgid ""
 "listed under %s. Check out past events for this category or view the full "
 "calendar."
 msgstr ""
+"listado bajo %s. Verifique eventos anteriores para esta categoría o vea el "
+"calendario completo."
 
-#: ../lib/tribe-template-factory.class.php:155
+#: ../lib/tribe-template-factory.class.php:163
 #, php-format
 msgid ""
 "listed under %s. Check out upcoming events for this category or view the "
 "full calendar."
 msgstr ""
+"listado bajo %s. Verifique los próximos eventos para esta categoría o vea el "
+"calendario completo."
 
-#: ../lib/tribe-template-factory.class.php:159
+#: ../lib/tribe-template-factory.class.php:167
 #, php-format
 msgid "No events scheduled for <strong>%s</strong>. Please try another day."
 msgstr ""
+"No hay eventos programados para <strong>%s</strong>. Por favor intente con "
+"otra fecha."
 
 #
-#: ../lib/tribe-template-factory.class.php:163
+#: ../lib/tribe-template-factory.class.php:171
 msgid "No upcoming events "
-msgstr ""
+msgstr "No hay eventos próximos"
 
 #
-#: ../lib/tribe-template-factory.class.php:165
+#: ../lib/tribe-template-factory.class.php:173
 msgid "No matching events "
-msgstr ""
+msgstr "No se encontraron eventos"
 
 #
-#: ../lib/tribe-template-factory.class.php:168
+#: ../lib/tribe-template-factory.class.php:176
 msgid "No previous events "
-msgstr ""
+msgstr "No hay eventos anteriores"
 
 #: ../lib/tribe-the-events-calendar-import.class.php:44
 msgid ""
@@ -1792,10 +1937,16 @@ msgid ""
 "to an old version</a> if you want to backup first. This upgrade includes two "
 "major steps, <a href=\"edit.php?post_type="
 msgstr ""
+"¡Bienvenido a Eventos 2.0! Esta es una GRAN actualización con respecto a "
+"1.6.5. Por favor asegurese de haber realizado un respaldo antes de proceder. "
+"Usted puede facilmente <a href=\" http://wordpress.org/extend/plugins/the-"
+"events-calendar/download/\">volver a la versión anterior</a> en caso de "
+"desear hacer primero un respaldo. This upgrade includes two major steps, <a "
+"href=\"edit.php?post_type="
 
 #: ../lib/tribe-the-events-calendar-import.class.php:54
 msgid "Upgrade from The Events Calendar"
-msgstr "Actualizar Desde The Events Calendar"
+msgstr "Actualizar desde The Events Calendar"
 
 #: ../lib/tribe-the-events-calendar-import.class.php:55
 msgid ""
@@ -1803,9 +1954,9 @@ msgid ""
 "upgraded. Please be sure to back up your database before initiating the "
 "upgrade. This process can not be undone."
 msgstr ""
-"Al Parecer usted tiene datos de events calendar que requieren ser "
+"Al Parecer usted tiene datos de \"events calendar\" que requieren ser "
 "actualizados. Por favor asegurese de respaldar su base de datos antes de "
-"iniciar la actualización. Este proceso no puede ser deshecho."
+"iniciar la actualización. Este proceso no puede ser reversado."
 
 #: ../lib/tribe-the-events-calendar-import.class.php:56
 msgid "Migrate Data!"
@@ -1822,52 +1973,52 @@ msgstr "¡Esta instalación tiene uno o más eventos en formato anterior!"
 
 #: ../lib/tribe-validate.class.php:77 ../lib/tribe-validate.class.php:115
 msgid "Invalid or incomplete field passed"
-msgstr ""
+msgstr "El campo especificado se encuentra inválido o incompleto"
 
 #: ../lib/tribe-validate.class.php:78 ../lib/tribe-validate.class.php:110
 #: ../lib/tribe-validate.class.php:116
 msgid "Field ID:"
-msgstr ""
+msgstr "ID del Campo:"
 
 #: ../lib/tribe-validate.class.php:109
 msgid "Non-existant field validation function passed"
-msgstr ""
+msgstr "La función de validación especificada no existe"
 
 #: ../lib/tribe-validate.class.php:110
 msgctxt "non-existant function name passed for field validation"
 msgid "with function name:"
-msgstr ""
+msgstr "con el nombre de función:"
 
 #: ../lib/tribe-validate.class.php:135 ../lib/tribe-validate.class.php:153
 #, php-format
 msgid "%s must contain numbers and letters only"
-msgstr ""
+msgstr "%s solo debe contener números y letras"
 
 #: ../lib/tribe-validate.class.php:171
 #, php-format
 msgid "%s must contain numbers, letters and dots only"
-msgstr ""
+msgstr "%s solo debe contener números, letras y puntos"
 
 #: ../lib/tribe-validate.class.php:187
 #, php-format
 msgid "%s must be a positive number."
-msgstr ""
+msgstr "%s debe ser un número positivo."
 
 #: ../lib/tribe-validate.class.php:204
 #, php-format
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
-msgstr ""
+msgstr "%s debe ser un slug válido (números, letras, guiones y guiones bajos)."
 
 #: ../lib/tribe-validate.class.php:221
 #, php-format
 msgid "%s must be a valid absolute URL."
-msgstr ""
+msgstr "%s debe ser una URL absoluta válida"
 
 #: ../lib/tribe-validate.class.php:239 ../lib/tribe-validate.class.php:258
 #: ../lib/tribe-validate.class.php:279
 #, php-format
 msgid "%s must have a value that's part of its options."
-msgstr ""
+msgstr "%s debe contener una valor que sea parte de sus opciones disponibles."
 
 #: ../lib/tribe-validate.class.php:295
 #, php-format
@@ -1875,53 +2026,58 @@ msgid ""
 "Comparison validation failed because no comparison value was provided, for "
 "field %s"
 msgstr ""
+"La validación por comparación falló debido a que no se indicó el valor a "
+"comparar para el campo %s"
 
 #: ../lib/tribe-validate.class.php:302
 #, php-format
 msgid "%s cannot be the same as %s."
-msgstr ""
+msgstr "%s no puede ser igual a %s"
 
 #: ../lib/tribe-validate.class.php:304
 #, php-format
 msgid "%s cannot be a duplicate"
-msgstr ""
+msgstr "%s no puede estar duplicada"
 
 #: ../lib/tribe-validate.class.php:322
 #, php-format
 msgid "%s must be a number or percentage."
-msgstr ""
+msgstr "%s debe ser un número o un porcentaje."
 
 #: ../lib/tribe-validate.class.php:386
 #, php-format
 msgid "%s must be a number between 0 and 21."
-msgstr ""
+msgstr "%s debe ser un número entre 0 y 21."
 
 #: ../lib/tribe-validate.class.php:404
 #, php-format
 msgid ""
 "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr ""
+"%s debe consistir solo de letras, números, guiones, apostrofes y espacios."
 
 #: ../lib/tribe-validate.class.php:422
 #, php-format
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
-msgstr ""
+msgstr "%s debe consistir solo de letras, guiones, apostrofes y espacios."
 
 #: ../lib/tribe-validate.class.php:438
 #, php-format
 msgid "%s must consist of 5 numbers."
-msgstr ""
+msgstr "%s debe solo contener 5 números."
 
 #: ../lib/tribe-validate.class.php:454
 #, php-format
 msgid "%s must be a phone number."
-msgstr ""
+msgstr "%s debe ser un número de teléfono."
 
 #: ../lib/tribe-validate.class.php:472
 msgid ""
 "Country List must be formatted as one country per line in the following "
 "format: <br>US, United States <br> UK, United Kingdom."
 msgstr ""
+"La lista de paises debe contener solo un país por línea de la siguiente "
+"forma: <br>US., Estados Unidos<br> VE, Venezuela."
 
 #: ../lib/tribe-view-helpers.class.php:16
 #: ../lib/tribe-view-helpers.class.php:35
@@ -1942,7 +2098,7 @@ msgstr "Algeria"
 
 #: ../lib/tribe-view-helpers.class.php:40
 msgid "American Samoa"
-msgstr "American Samoa"
+msgstr "Samoa Americana"
 
 #: ../lib/tribe-view-helpers.class.php:41
 msgid "Andorra"
@@ -1958,7 +2114,7 @@ msgstr "Anguilla"
 
 #: ../lib/tribe-view-helpers.class.php:44
 msgid "Antarctica"
-msgstr "Antarctica"
+msgstr "Antartica"
 
 #: ../lib/tribe-view-helpers.class.php:45
 msgid "Antigua And Barbuda"
@@ -1986,7 +2142,7 @@ msgstr "Austria"
 
 #: ../lib/tribe-view-helpers.class.php:51
 msgid "Azerbaijan"
-msgstr "Azerbaijan"
+msgstr "Azerbaiyán"
 
 #: ../lib/tribe-view-helpers.class.php:52
 msgid "Bahamas"
@@ -1994,7 +2150,7 @@ msgstr "Bahamas"
 
 #: ../lib/tribe-view-helpers.class.php:53
 msgid "Bahrain"
-msgstr "Bahrain"
+msgstr "Bahrein"
 
 #: ../lib/tribe-view-helpers.class.php:54
 msgid "Bangladesh"
@@ -2006,19 +2162,19 @@ msgstr "Barbados"
 
 #: ../lib/tribe-view-helpers.class.php:56
 msgid "Belarus"
-msgstr "Belarus"
+msgstr "Bielorusia"
 
 #: ../lib/tribe-view-helpers.class.php:57
 msgid "Belgium"
-msgstr "Belgium"
+msgstr "Bélgica"
 
 #: ../lib/tribe-view-helpers.class.php:58
 msgid "Belize"
-msgstr "Belize"
+msgstr "Belice"
 
 #: ../lib/tribe-view-helpers.class.php:59
 msgid "Benin"
-msgstr "Benin"
+msgstr "Benín"
 
 #: ../lib/tribe-view-helpers.class.php:60
 msgid "Bermuda"
@@ -2026,7 +2182,7 @@ msgstr "Bermuda"
 
 #: ../lib/tribe-view-helpers.class.php:61
 msgid "Bhutan"
-msgstr "Bhutan"
+msgstr "Bután"
 
 #: ../lib/tribe-view-helpers.class.php:62
 msgid "Bolivia"
@@ -2034,7 +2190,7 @@ msgstr "Bolivia"
 
 #: ../lib/tribe-view-helpers.class.php:63
 msgid "Bosnia And Herzegowina"
-msgstr "Bosnia y Herzegowina"
+msgstr "Bosnia-Herzegovina"
 
 #: ../lib/tribe-view-helpers.class.php:64
 msgid "Botswana"
@@ -2042,7 +2198,7 @@ msgstr "Botswana"
 
 #: ../lib/tribe-view-helpers.class.php:65
 msgid "Bouvet Island"
-msgstr "Bouvet Island"
+msgstr "Isla Bouvet"
 
 #: ../lib/tribe-view-helpers.class.php:66
 msgid "Brazil"
@@ -2050,7 +2206,7 @@ msgstr "Brasil"
 
 #: ../lib/tribe-view-helpers.class.php:67
 msgid "British Indian Ocean Territory"
-msgstr "British Indian Ocean Territory"
+msgstr "Territorio Británico del Oceano Indico"
 
 #: ../lib/tribe-view-helpers.class.php:68
 msgid "Brunei Darussalam"
@@ -2070,27 +2226,27 @@ msgstr "Burundi"
 
 #: ../lib/tribe-view-helpers.class.php:72
 msgid "Cambodia"
-msgstr "Cambodia"
+msgstr "Camboya"
 
 #: ../lib/tribe-view-helpers.class.php:73
 msgid "Cameroon"
-msgstr "Cameroon"
+msgstr "Camerún"
 
 #: ../lib/tribe-view-helpers.class.php:74
 msgid "Canada"
-msgstr "Canada"
+msgstr "Canadá"
 
 #: ../lib/tribe-view-helpers.class.php:75
 msgid "Cape Verde"
-msgstr "Cape Verde"
+msgstr "Cabo Verde"
 
 #: ../lib/tribe-view-helpers.class.php:76
 msgid "Cayman Islands"
-msgstr "Cayman Islands"
+msgstr "Islas Caiman"
 
 #: ../lib/tribe-view-helpers.class.php:77
 msgid "Central African Republic"
-msgstr "Central African Republic"
+msgstr "República Centroafricana"
 
 #: ../lib/tribe-view-helpers.class.php:78
 msgid "Chad"
@@ -2106,11 +2262,11 @@ msgstr "China"
 
 #: ../lib/tribe-view-helpers.class.php:81
 msgid "Christmas Island"
-msgstr "Christmas Island"
+msgstr "Isla de la Navidad"
 
 #: ../lib/tribe-view-helpers.class.php:82
 msgid "Cocos (Keeling) Islands"
-msgstr "Cocos (Keeling) Islands"
+msgstr "Islas Cocos"
 
 #: ../lib/tribe-view-helpers.class.php:83
 msgid "Colombia"
@@ -2118,7 +2274,7 @@ msgstr "Colombia"
 
 #: ../lib/tribe-view-helpers.class.php:84
 msgid "Comoros"
-msgstr "Comoros"
+msgstr "Comores"
 
 #: ../lib/tribe-view-helpers.class.php:85
 msgid "Congo"
@@ -2126,11 +2282,11 @@ msgstr "Congo"
 
 #: ../lib/tribe-view-helpers.class.php:86
 msgid "Congo, The Democratic Republic Of The"
-msgstr "Congo, The Democratic Republic Of The"
+msgstr "República Democrática del Congo"
 
 #: ../lib/tribe-view-helpers.class.php:87
 msgid "Cook Islands"
-msgstr "Cook Islands"
+msgstr "Islas Cook"
 
 #: ../lib/tribe-view-helpers.class.php:88
 msgid "Costa Rica"
@@ -2138,11 +2294,11 @@ msgstr "Costa Rica"
 
 #: ../lib/tribe-view-helpers.class.php:89
 msgid "Cote D'Ivoire"
-msgstr "Costa De Marfil"
+msgstr "Costa de Marfil"
 
 #: ../lib/tribe-view-helpers.class.php:90
 msgid "Croatia (Local Name: Hrvatska)"
-msgstr "Croatia"
+msgstr "Croacia"
 
 #: ../lib/tribe-view-helpers.class.php:91
 msgid "Cuba"
@@ -2154,7 +2310,7 @@ msgstr "Chipre"
 
 #: ../lib/tribe-view-helpers.class.php:93
 msgid "Czech Republic"
-msgstr "Republica Checa"
+msgstr "República Checa"
 
 #: ../lib/tribe-view-helpers.class.php:94
 msgid "Denmark"
@@ -2162,7 +2318,7 @@ msgstr "Dinamarca"
 
 #: ../lib/tribe-view-helpers.class.php:95
 msgid "Djibouti"
-msgstr "Djibouti"
+msgstr "Yibuti"
 
 #: ../lib/tribe-view-helpers.class.php:96
 msgid "Dominica"
@@ -2170,11 +2326,11 @@ msgstr "Dominica"
 
 #: ../lib/tribe-view-helpers.class.php:97
 msgid "Dominican Republic"
-msgstr "Republica Dominicana"
+msgstr "República Dominicana"
 
 #: ../lib/tribe-view-helpers.class.php:98
 msgid "East Timor"
-msgstr "East Timor"
+msgstr "Timor Oriental"
 
 #: ../lib/tribe-view-helpers.class.php:99
 msgid "Ecuador"
@@ -2182,7 +2338,7 @@ msgstr "Ecuador"
 
 #: ../lib/tribe-view-helpers.class.php:100
 msgid "Egypt"
-msgstr "Egypt"
+msgstr "Egipto"
 
 #: ../lib/tribe-view-helpers.class.php:101
 msgid "El Salvador"
@@ -2190,7 +2346,7 @@ msgstr "El Salvador"
 
 #: ../lib/tribe-view-helpers.class.php:102
 msgid "Equatorial Guinea"
-msgstr "Equatorial Guinea"
+msgstr "Guinea Ecuatorial"
 
 #: ../lib/tribe-view-helpers.class.php:103
 msgid "Eritrea"
@@ -2202,7 +2358,7 @@ msgstr "Estonia"
 
 #: ../lib/tribe-view-helpers.class.php:105
 msgid "Ethiopia"
-msgstr "Ethiopia"
+msgstr "Etiopía"
 
 #: ../lib/tribe-view-helpers.class.php:106
 msgid "Falkland Islands (Malvinas)"
@@ -2210,39 +2366,39 @@ msgstr "Islas Malvinas"
 
 #: ../lib/tribe-view-helpers.class.php:107
 msgid "Faroe Islands"
-msgstr "Faroe Islands"
+msgstr "Islas Feroe"
 
 #: ../lib/tribe-view-helpers.class.php:108
 msgid "Fiji"
-msgstr "Fiji"
+msgstr "Fiyi"
 
 #: ../lib/tribe-view-helpers.class.php:109
 msgid "Finland"
-msgstr "Finland"
+msgstr "Finlandia"
 
 #: ../lib/tribe-view-helpers.class.php:110
 msgid "France"
-msgstr "France"
+msgstr "Francia"
 
 #: ../lib/tribe-view-helpers.class.php:111
 msgid "France, Metropolitan"
-msgstr "France, Metropolitan"
+msgstr "Francia Metropolitana"
 
 #: ../lib/tribe-view-helpers.class.php:112
 msgid "French Guiana"
-msgstr "French Guiana"
+msgstr "Guayana Francesa"
 
 #: ../lib/tribe-view-helpers.class.php:113
 msgid "French Polynesia"
-msgstr "French Polynesia"
+msgstr "Polinesia Francesa"
 
 #: ../lib/tribe-view-helpers.class.php:114
 msgid "French Southern Territories"
-msgstr "French Southern Territories"
+msgstr "Tierras Australes y Antárticas Francesas"
 
 #: ../lib/tribe-view-helpers.class.php:115
 msgid "Gabon"
-msgstr "Gabon"
+msgstr "Gabón"
 
 #: ../lib/tribe-view-helpers.class.php:116
 msgid "Gambia"
@@ -2267,11 +2423,11 @@ msgstr "Gibraltar"
 
 #: ../lib/tribe-view-helpers.class.php:121
 msgid "Greece"
-msgstr "Greece"
+msgstr "Grecia"
 
 #: ../lib/tribe-view-helpers.class.php:122
 msgid "Greenland"
-msgstr "Greenland"
+msgstr "Groenlandia"
 
 #: ../lib/tribe-view-helpers.class.php:123
 msgid "Grenada"
@@ -2279,7 +2435,7 @@ msgstr "Grenada"
 
 #: ../lib/tribe-view-helpers.class.php:124
 msgid "Guadeloupe"
-msgstr "Guadeloupe"
+msgstr "Guadalupe"
 
 #: ../lib/tribe-view-helpers.class.php:125
 msgid "Guam"
@@ -2291,11 +2447,11 @@ msgstr "Guatemala"
 
 #: ../lib/tribe-view-helpers.class.php:127
 msgid "Guinea"
-msgstr "Guinea"
+msgstr "República de Guinea"
 
 #: ../lib/tribe-view-helpers.class.php:128
 msgid "Guinea-Bissau"
-msgstr "Guinea-Bissau"
+msgstr "Guinea Bissau"
 
 #: ../lib/tribe-view-helpers.class.php:129
 msgid "Guyana"
@@ -2307,11 +2463,11 @@ msgstr "Haiti"
 
 #: ../lib/tribe-view-helpers.class.php:131
 msgid "Heard And Mc Donald Islands"
-msgstr "Heard And Mc Donald Islands"
+msgstr "Islas Mc Donald"
 
 #: ../lib/tribe-view-helpers.class.php:132
 msgid "Holy See (Vatican City State)"
-msgstr "Vatican City"
+msgstr "Ciudad del Vaticano"
 
 #: ../lib/tribe-view-helpers.class.php:133
 msgid "Honduras"
@@ -2323,11 +2479,11 @@ msgstr "Hong Kong"
 
 #: ../lib/tribe-view-helpers.class.php:135
 msgid "Hungary"
-msgstr "Hungary"
+msgstr "Hungaria"
 
 #: ../lib/tribe-view-helpers.class.php:136
 msgid "Iceland"
-msgstr "Iceland"
+msgstr "Islandia"
 
 #: ../lib/tribe-view-helpers.class.php:137
 msgid "India"
@@ -2339,7 +2495,7 @@ msgstr "Indonesia"
 
 #: ../lib/tribe-view-helpers.class.php:139
 msgid "Iran (Islamic Republic Of)"
-msgstr "Iran (Islamic Republic Of)"
+msgstr "República Islámica de Irán"
 
 #: ../lib/tribe-view-helpers.class.php:140
 msgid "Iraq"
@@ -2347,7 +2503,7 @@ msgstr "Iraq"
 
 #: ../lib/tribe-view-helpers.class.php:141
 msgid "Ireland"
-msgstr "Ireland"
+msgstr "Irlanda"
 
 #: ../lib/tribe-view-helpers.class.php:142
 msgid "Israel"
@@ -2355,7 +2511,7 @@ msgstr "Israel"
 
 #: ../lib/tribe-view-helpers.class.php:143
 msgid "Italy"
-msgstr "Italy"
+msgstr "Italia"
 
 #: ../lib/tribe-view-helpers.class.php:144
 msgid "Jamaica"
@@ -2363,19 +2519,19 @@ msgstr "Jamaica"
 
 #: ../lib/tribe-view-helpers.class.php:145
 msgid "Japan"
-msgstr "Japan"
+msgstr "Japón"
 
 #: ../lib/tribe-view-helpers.class.php:146
 msgid "Jordan"
-msgstr "Jordan"
+msgstr "Jordania"
 
 #: ../lib/tribe-view-helpers.class.php:147
 msgid "Kazakhstan"
-msgstr "Kazakhstan"
+msgstr "Kazajstán"
 
 #: ../lib/tribe-view-helpers.class.php:148
 msgid "Kenya"
-msgstr "Kenya"
+msgstr "Kenia"
 
 #: ../lib/tribe-view-helpers.class.php:149
 msgid "Kiribati"
@@ -2383,11 +2539,11 @@ msgstr "Kiribati"
 
 #: ../lib/tribe-view-helpers.class.php:150
 msgid "Korea, Democratic People's Republic Of"
-msgstr "Korea, Democratic People's Republic Of"
+msgstr "Corea del Norte"
 
 #: ../lib/tribe-view-helpers.class.php:151
 msgid "Korea, Republic Of"
-msgstr "Korea, Republic Of"
+msgstr "Corea del Sur"
 
 #: ../lib/tribe-view-helpers.class.php:152
 msgid "Kuwait"
@@ -2395,19 +2551,19 @@ msgstr "Kuwait"
 
 #: ../lib/tribe-view-helpers.class.php:153
 msgid "Kyrgyzstan"
-msgstr "Kyrgyzstan"
+msgstr "Kirguistán"
 
 #: ../lib/tribe-view-helpers.class.php:154
 msgid "Lao People's Democratic Republic"
-msgstr "Lao People's Democratic Republic"
+msgstr "República Democrática Popular Lao"
 
 #: ../lib/tribe-view-helpers.class.php:155
 msgid "Latvia"
-msgstr "Latvia"
+msgstr "Letonia"
 
 #: ../lib/tribe-view-helpers.class.php:156
 msgid "Lebanon"
-msgstr "Lebanon"
+msgstr "Líbano"
 
 #: ../lib/tribe-view-helpers.class.php:157
 msgid "Lesotho"
@@ -2419,7 +2575,7 @@ msgstr "Liberia"
 
 #: ../lib/tribe-view-helpers.class.php:159
 msgid "Libya"
-msgstr ""
+msgstr "Libia"
 
 #: ../lib/tribe-view-helpers.class.php:160
 msgid "Liechtenstein"
@@ -2427,20 +2583,20 @@ msgstr "Liechtenstein"
 
 #: ../lib/tribe-view-helpers.class.php:161
 msgid "Lithuania"
-msgstr "Lithuania"
+msgstr "Lituania"
 
 #: ../lib/tribe-view-helpers.class.php:162
 msgid "Luxembourg"
-msgstr "Luxembourg"
+msgstr "Luxemburgo"
 
 #: ../lib/tribe-view-helpers.class.php:163
 msgid "Macau"
-msgstr "Macau"
+msgstr "Macao"
 
 #
 #: ../lib/tribe-view-helpers.class.php:164
 msgid "Macedonia"
-msgstr ""
+msgstr "Macedonia"
 
 #: ../lib/tribe-view-helpers.class.php:165
 msgid "Madagascar"
@@ -2452,15 +2608,15 @@ msgstr "Malawi"
 
 #: ../lib/tribe-view-helpers.class.php:167
 msgid "Malaysia"
-msgstr "Malaysia"
+msgstr "Malasia"
 
 #: ../lib/tribe-view-helpers.class.php:168
 msgid "Maldives"
-msgstr "Maldives"
+msgstr "Maldivas"
 
 #: ../lib/tribe-view-helpers.class.php:169
 msgid "Mali"
-msgstr "Mali"
+msgstr "Malí"
 
 #: ../lib/tribe-view-helpers.class.php:170
 msgid "Malta"
@@ -2468,11 +2624,11 @@ msgstr "Malta"
 
 #: ../lib/tribe-view-helpers.class.php:171
 msgid "Marshall Islands"
-msgstr "Marshall Islands"
+msgstr "Islas Marshall"
 
 #: ../lib/tribe-view-helpers.class.php:172
 msgid "Martinique"
-msgstr "Martinique"
+msgstr "Martinica"
 
 #: ../lib/tribe-view-helpers.class.php:173
 msgid "Mauritania"
@@ -2480,7 +2636,7 @@ msgstr "Mauritania"
 
 #: ../lib/tribe-view-helpers.class.php:174
 msgid "Mauritius"
-msgstr "Mauritius"
+msgstr "Mauricio"
 
 #: ../lib/tribe-view-helpers.class.php:175
 msgid "Mayotte"
@@ -2492,11 +2648,11 @@ msgstr "México"
 
 #: ../lib/tribe-view-helpers.class.php:177
 msgid "Micronesia, Federated States Of"
-msgstr "Micronesia, Federated States Of"
+msgstr "Estados Federados de Micronesia"
 
 #: ../lib/tribe-view-helpers.class.php:178
 msgid "Moldova, Republic Of"
-msgstr "Moldova, Republic Of"
+msgstr "Moldavia"
 
 #: ../lib/tribe-view-helpers.class.php:179
 msgid "Monaco"
@@ -2516,7 +2672,7 @@ msgstr "Montserrat"
 
 #: ../lib/tribe-view-helpers.class.php:183
 msgid "Morocco"
-msgstr "Morocco"
+msgstr "Marruecos"
 
 #: ../lib/tribe-view-helpers.class.php:184
 msgid "Mozambique"
@@ -2540,19 +2696,19 @@ msgstr "Nepal"
 
 #: ../lib/tribe-view-helpers.class.php:189
 msgid "Netherlands"
-msgstr "Netherlands"
+msgstr "Holanda"
 
 #: ../lib/tribe-view-helpers.class.php:190
 msgid "Netherlands Antilles"
-msgstr "Netherlands Antilles"
+msgstr "Antillas Holandesas"
 
 #: ../lib/tribe-view-helpers.class.php:191
 msgid "New Caledonia"
-msgstr "New Caledonia"
+msgstr "Nueva Caledonia"
 
 #: ../lib/tribe-view-helpers.class.php:192
 msgid "New Zealand"
-msgstr "New Zealand"
+msgstr "Nueva Zelanda"
 
 #: ../lib/tribe-view-helpers.class.php:193
 msgid "Nicaragua"
@@ -2572,23 +2728,23 @@ msgstr "Niue"
 
 #: ../lib/tribe-view-helpers.class.php:197
 msgid "Norfolk Island"
-msgstr "Norfolk Island"
+msgstr "Isla Norfolk"
 
 #: ../lib/tribe-view-helpers.class.php:198
 msgid "Northern Mariana Islands"
-msgstr "Northern Mariana Islands"
+msgstr "Marianas del Norte"
 
 #: ../lib/tribe-view-helpers.class.php:199
 msgid "Norway"
-msgstr "Norway"
+msgstr "Noruega"
 
 #: ../lib/tribe-view-helpers.class.php:200
 msgid "Oman"
-msgstr "Oman"
+msgstr "Omán"
 
 #: ../lib/tribe-view-helpers.class.php:201
 msgid "Pakistan"
-msgstr "Pakistan"
+msgstr "Pakistán"
 
 #: ../lib/tribe-view-helpers.class.php:202
 msgid "Palau"
@@ -2596,11 +2752,11 @@ msgstr "Palau"
 
 #: ../lib/tribe-view-helpers.class.php:203
 msgid "Panama"
-msgstr "Panama"
+msgstr "Panamá"
 
 #: ../lib/tribe-view-helpers.class.php:204
 msgid "Papua New Guinea"
-msgstr "Papua New Guinea"
+msgstr "Papua Nueva Guinea"
 
 #: ../lib/tribe-view-helpers.class.php:205
 msgid "Paraguay"
@@ -2608,19 +2764,19 @@ msgstr "Paraguay"
 
 #: ../lib/tribe-view-helpers.class.php:206
 msgid "Peru"
-msgstr "Peru"
+msgstr "Perú"
 
 #: ../lib/tribe-view-helpers.class.php:207
 msgid "Philippines"
-msgstr "Philippines"
+msgstr "Filipinas"
 
 #: ../lib/tribe-view-helpers.class.php:208
 msgid "Pitcairn"
-msgstr "Pitcairn"
+msgstr "Isla Pitcairn"
 
 #: ../lib/tribe-view-helpers.class.php:209
 msgid "Poland"
-msgstr "Poland"
+msgstr "Polonia"
 
 #: ../lib/tribe-view-helpers.class.php:210
 msgid "Portugal"
@@ -2636,31 +2792,31 @@ msgstr "Qatar"
 
 #: ../lib/tribe-view-helpers.class.php:213
 msgid "Reunion"
-msgstr "Reunion"
+msgstr "Reunión"
 
 #: ../lib/tribe-view-helpers.class.php:214
 msgid "Romania"
-msgstr "Romania"
+msgstr "Rumania"
 
 #: ../lib/tribe-view-helpers.class.php:215
 msgid "Russian Federation"
-msgstr "Russian Federation"
+msgstr "Federación Rusa"
 
 #: ../lib/tribe-view-helpers.class.php:216
 msgid "Rwanda"
-msgstr "Rwanda"
+msgstr "Ruanda"
 
 #: ../lib/tribe-view-helpers.class.php:217
 msgid "Saint Kitts And Nevis"
-msgstr "Saint Kitts And Nevis"
+msgstr "San Cristobal y Nevis"
 
 #: ../lib/tribe-view-helpers.class.php:218
 msgid "Saint Lucia"
-msgstr "Saint Lucia"
+msgstr "Santa Lucia"
 
 #: ../lib/tribe-view-helpers.class.php:219
 msgid "Saint Vincent And The Grenadines"
-msgstr "Saint Vincent And The Grenadines"
+msgstr "San Vincente y Las Granadinas"
 
 #: ../lib/tribe-view-helpers.class.php:220
 msgid "Samoa"
@@ -2672,11 +2828,11 @@ msgstr "San Marino"
 
 #: ../lib/tribe-view-helpers.class.php:222
 msgid "Sao Tome And Principe"
-msgstr "Sao Tome And Principe"
+msgstr "Santo Tomé And Príncipe"
 
 #: ../lib/tribe-view-helpers.class.php:223
 msgid "Saudi Arabia"
-msgstr "Saudi Arabia"
+msgstr "Arabia Saudita"
 
 #: ../lib/tribe-view-helpers.class.php:224
 msgid "Senegal"
@@ -2696,19 +2852,19 @@ msgstr "Sierra Leone"
 
 #: ../lib/tribe-view-helpers.class.php:228
 msgid "Singapore"
-msgstr "Singapore"
+msgstr "Singapur"
 
 #: ../lib/tribe-view-helpers.class.php:229
 msgid "Slovakia (Slovak Republic)"
-msgstr "Slovakia (Slovak Republic)"
+msgstr "Eslovaquia"
 
 #: ../lib/tribe-view-helpers.class.php:230
 msgid "Slovenia"
-msgstr "Slovenia"
+msgstr "Eslovenia"
 
 #: ../lib/tribe-view-helpers.class.php:231
 msgid "Solomon Islands"
-msgstr "Solomon Islands"
+msgstr "Islas Solomón"
 
 #: ../lib/tribe-view-helpers.class.php:232
 msgid "Somalia"
@@ -2716,11 +2872,11 @@ msgstr "Somalia"
 
 #: ../lib/tribe-view-helpers.class.php:233
 msgid "South Africa"
-msgstr "South Africa"
+msgstr "Sudáfrica"
 
 #: ../lib/tribe-view-helpers.class.php:234
 msgid "South Georgia, South Sandwich Islands"
-msgstr "South Georgia, South Sandwich Islands"
+msgstr "Islas Sandwich y Georgia del sur"
 
 #: ../lib/tribe-view-helpers.class.php:235
 msgid "Spain"
@@ -2736,15 +2892,15 @@ msgstr "St. Helena"
 
 #: ../lib/tribe-view-helpers.class.php:238
 msgid "St. Pierre And Miquelon"
-msgstr "St. Pierre And Miquelon"
+msgstr "St. Pierre y Miquelón"
 
 #: ../lib/tribe-view-helpers.class.php:239
 msgid "Sudan"
-msgstr "Sudan"
+msgstr "Sudán"
 
 #: ../lib/tribe-view-helpers.class.php:240
 msgid "Suriname"
-msgstr "Suriname"
+msgstr "Surinam"
 
 #: ../lib/tribe-view-helpers.class.php:241
 msgid "Svalbard And Jan Mayen Islands"
@@ -2752,7 +2908,7 @@ msgstr "Svalbard And Jan Mayen Islands"
 
 #: ../lib/tribe-view-helpers.class.php:242
 msgid "Swaziland"
-msgstr "Swaziland"
+msgstr "Swazilandia"
 
 #: ../lib/tribe-view-helpers.class.php:243
 msgid "Sweden"
@@ -2760,11 +2916,11 @@ msgstr "Suecia"
 
 #: ../lib/tribe-view-helpers.class.php:244
 msgid "Switzerland"
-msgstr "Switzerland"
+msgstr "Suiza"
 
 #: ../lib/tribe-view-helpers.class.php:245
 msgid "Syrian Arab Republic"
-msgstr "Syrian Arab Republic"
+msgstr "Siria"
 
 #: ../lib/tribe-view-helpers.class.php:246
 msgid "Taiwan"
@@ -2772,15 +2928,15 @@ msgstr "Taiwan"
 
 #: ../lib/tribe-view-helpers.class.php:247
 msgid "Tajikistan"
-msgstr "Tajikistan"
+msgstr "Tadjikistan"
 
 #: ../lib/tribe-view-helpers.class.php:248
 msgid "Tanzania, United Republic Of"
-msgstr "Tanzania, United Republic Of"
+msgstr "Tanzania"
 
 #: ../lib/tribe-view-helpers.class.php:249
 msgid "Thailand"
-msgstr "Thailand"
+msgstr "Tailandia"
 
 #: ../lib/tribe-view-helpers.class.php:250
 msgid "Togo"
@@ -2796,15 +2952,15 @@ msgstr "Tonga"
 
 #: ../lib/tribe-view-helpers.class.php:253
 msgid "Trinidad And Tobago"
-msgstr "Trinidad And Tobago"
+msgstr "Trinidad y Tobago"
 
 #: ../lib/tribe-view-helpers.class.php:254
 msgid "Tunisia"
-msgstr "Tunisia"
+msgstr "Túnez"
 
 #: ../lib/tribe-view-helpers.class.php:255
 msgid "Turkey"
-msgstr "Turkey"
+msgstr "Turquía"
 
 #: ../lib/tribe-view-helpers.class.php:256
 msgid "Turkmenistan"
@@ -2812,7 +2968,7 @@ msgstr "Turkmenistan"
 
 #: ../lib/tribe-view-helpers.class.php:257
 msgid "Turks And Caicos Islands"
-msgstr "Turks And Caicos Islands"
+msgstr "Islas Turcas y Caicos"
 
 #: ../lib/tribe-view-helpers.class.php:258
 msgid "Tuvalu"
@@ -2824,19 +2980,19 @@ msgstr "Uganda"
 
 #: ../lib/tribe-view-helpers.class.php:260
 msgid "Ukraine"
-msgstr "Ukraine"
+msgstr "Ucrania"
 
 #: ../lib/tribe-view-helpers.class.php:261
 msgid "United Arab Emirates"
-msgstr "United Arab Emirates"
+msgstr "Emiratos Arabes Unidos"
 
 #: ../lib/tribe-view-helpers.class.php:262
 msgid "United Kingdom"
-msgstr "United Kingdom"
+msgstr "Reino Unido"
 
 #: ../lib/tribe-view-helpers.class.php:263
 msgid "United States Minor Outlying Islands"
-msgstr "United States Minor Outlying Islands"
+msgstr "Islas menores de los EE.UU."
 
 #: ../lib/tribe-view-helpers.class.php:264
 msgid "Uruguay"
@@ -2844,7 +3000,7 @@ msgstr "Uruguay"
 
 #: ../lib/tribe-view-helpers.class.php:265
 msgid "Uzbekistan"
-msgstr "Uzbekistan"
+msgstr "Uzbekistán"
 
 #: ../lib/tribe-view-helpers.class.php:266
 msgid "Vanuatu"
@@ -2860,19 +3016,19 @@ msgstr "Viet Nam"
 
 #: ../lib/tribe-view-helpers.class.php:269
 msgid "Virgin Islands (British)"
-msgstr "Virgin Islands (British)"
+msgstr "Islas Virgenes Británicas"
 
 #: ../lib/tribe-view-helpers.class.php:270
 msgid "Virgin Islands (U.S.)"
-msgstr "Virgin Islands (U.S.)"
+msgstr "Islas Virgenes Americanas"
 
 #: ../lib/tribe-view-helpers.class.php:271
 msgid "Wallis And Futuna Islands"
-msgstr "Wallis And Futuna Islands"
+msgstr "Wallis y Futuna"
 
 #: ../lib/tribe-view-helpers.class.php:272
 msgid "Western Sahara"
-msgstr "Western Sahara"
+msgstr "Sahara Occidental"
 
 #: ../lib/tribe-view-helpers.class.php:273
 msgid "Yemen"
@@ -2920,7 +3076,7 @@ msgstr "Delaware"
 
 #: ../lib/tribe-view-helpers.class.php:303
 msgid "District of Columbia"
-msgstr "District of Columbia"
+msgstr "Distrito de Columbia"
 
 #: ../lib/tribe-view-helpers.class.php:304
 msgid "Florida"
@@ -2956,11 +3112,11 @@ msgstr "Kentucky"
 
 #: ../lib/tribe-view-helpers.class.php:313
 msgid "Louisiana"
-msgstr "Louisiana"
+msgstr "Luisiana"
 
 #: ../lib/tribe-view-helpers.class.php:314
 msgid "Maine"
-msgstr "Maine"
+msgstr "Main"
 
 #: ../lib/tribe-view-helpers.class.php:315
 msgid "Maryland"
@@ -3004,23 +3160,23 @@ msgstr "New Hampshire"
 
 #: ../lib/tribe-view-helpers.class.php:325
 msgid "New Jersey"
-msgstr "New Jersey"
+msgstr "Nueva Jersey"
 
 #: ../lib/tribe-view-helpers.class.php:326
 msgid "New Mexico"
-msgstr "New Mexico"
+msgstr "Nuevo Mexico"
 
 #: ../lib/tribe-view-helpers.class.php:327
 msgid "New York"
-msgstr "New York"
+msgstr "Nueva York"
 
 #: ../lib/tribe-view-helpers.class.php:328
 msgid "North Carolina"
-msgstr "North Carolina"
+msgstr "Carolina del Norte"
 
 #: ../lib/tribe-view-helpers.class.php:329
 msgid "North Dakota"
-msgstr "North Dakota"
+msgstr "Dakota del Norte"
 
 #: ../lib/tribe-view-helpers.class.php:330
 msgid "Ohio"
@@ -3044,11 +3200,11 @@ msgstr "Rhode Island"
 
 #: ../lib/tribe-view-helpers.class.php:335
 msgid "South Carolina"
-msgstr "South Carolina"
+msgstr "Carolina del Sur"
 
 #: ../lib/tribe-view-helpers.class.php:336
 msgid "South Dakota"
-msgstr "South Dakota"
+msgstr "Dakota del Sur"
 
 #: ../lib/tribe-view-helpers.class.php:337
 msgid "Tennessee"
@@ -3089,11 +3245,11 @@ msgstr "Wyoming"
 #
 #: ../lib/widget-list.class.php:16
 msgid "A widget that displays upcoming events."
-msgstr ""
+msgstr "Un widget que muestra los próximos eventos."
 
 #: ../lib/widget-list.class.php:22
 msgid "Events List"
-msgstr ""
+msgstr "Lista de Eventos"
 
 #: ../lib/widget-list.class.php:92
 msgid "View All Events"
@@ -3109,6 +3265,8 @@ msgid ""
 "There were no results found for <strong>\"%s\"</strong> this month. Try "
 "searching next month."
 msgstr ""
+"No se encontraron resultados este mes por <strong>\"%s\"</strong>. Intente "
+"buscando en otro mes."
 
 #: ../lib/template-classes/single-event.php:94
 msgid "This event has passed."
@@ -3116,85 +3274,86 @@ msgstr "Este evento ya finalizó "
 
 #: ../lib/tickets/tribe-tickets-attendees.php:33
 msgid "Order #"
-msgstr ""
+msgstr "Orden #"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:34
 msgid "Order Status"
-msgstr ""
+msgstr "Estatus de la Orden"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:35
 msgid "Purchaser name"
-msgstr ""
+msgstr "Nombre del Comprador"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:36
 msgid "Purchaser email"
-msgstr ""
+msgstr "Correo del Comprador"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:37
 msgid "Ticket type"
-msgstr ""
+msgstr "Tipo de Boleto"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:38
 #: ../views/tickets-email.php:293
 msgid "Ticket #"
-msgstr ""
+msgstr "Boleto #"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:39
 #: ../views/tickets-email.php:305
 msgid "Security Code"
-msgstr ""
+msgstr "Código de seguridad"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:40
 #: ../lib/tickets/tribe-tickets-attendees.php:73
 #: ../lib/tickets/tribe-tickets-attendees.php:112
 msgid "Check in"
-msgstr ""
+msgstr "Check in"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:74
 #: ../lib/tickets/tribe-tickets-attendees.php:112
 msgid "Undo Check in"
-msgstr ""
+msgstr "Deshacer Check in"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:97
 msgid "Print"
-msgstr ""
+msgstr "Imprimir"
 
 #
 #: ../lib/tickets/tribe-tickets-attendees.php:98
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:99
 msgid "Export"
-msgstr ""
+msgstr "Exportar"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:105
 msgid "Filter by ticket #, order # or security code"
-msgstr ""
+msgstr "Filtrar por # de boleto, orden o código de seguridad"
 
 #: ../lib/tickets/tribe-tickets-metabox.php:24
 msgid "Tickets"
-msgstr ""
+msgstr "Boletos"
 
 #: ../lib/tickets/tribe-tickets-metabox.php:62
 msgid "Ticket header image"
-msgstr ""
+msgstr "Imagen para la cabecera del boleto"
 
 #: ../lib/tickets/tribe-tickets-metabox.php:62
 msgid "Set as ticket header"
-msgstr ""
+msgstr "Colocar como cabecera del boleto"
 
 #: ../lib/tickets/tribe-tickets-pro.php:107
 msgid "You need to select a user or type a valid email address"
 msgstr ""
+"Necesita seleccionar a un usuario o introducir una dirección de correo válida"
 
 #: ../lib/tickets/tribe-tickets-pro.php:108
 msgid "Sending..."
-msgstr ""
+msgstr "Enviando..."
 
 #: ../lib/tickets/tribe-tickets-pro.php:136
 msgid "Columns"
-msgstr ""
+msgstr "Columnas"
 
 #: ../lib/tickets/tribe-tickets-pro.php:137
 msgid ""
@@ -3202,23 +3361,26 @@ msgid ""
 "selection works in the table below, in the email, for print and for the CSV "
 "export."
 msgstr ""
+"Puede seleccionar en las opciones de pantalla cuales columnas desea ver. "
+"Esas opciones afectan el listado de la tabla siguiente, lo que se envia por "
+"correo, la impresión y la exportación CSV."
 
 #: ../lib/tickets/tribe-tickets-pro.php:258
 msgid "attendees"
-msgstr ""
+msgstr "Asistentes"
 
 #: ../lib/tickets/tribe-tickets-pro.php:308
 #, php-format
 msgid "Attendee List for: %s"
-msgstr ""
+msgstr "Lista de asistentes para: %s"
 
 #: ../lib/tickets/tribe-tickets.php:290
 msgid "Your ticket has been saved."
-msgstr ""
+msgstr "El boleto ha sido guardado."
 
 #: ../lib/tickets/tribe-tickets.php:367
 msgid "Your ticket has been deleted."
-msgstr ""
+msgstr "El boleto ha sido borrado."
 
 #: ../public/advanced-functions/meta.php:16
 msgid "Start:"
@@ -3231,7 +3393,7 @@ msgstr "Finaliza:"
 #
 #: ../public/advanced-functions/meta.php:32
 msgid "Date:"
-msgstr ""
+msgstr "Fecha:"
 
 #: ../public/advanced-functions/meta.php:150
 msgid "Click to view a Google Map"
@@ -3240,39 +3402,39 @@ msgstr "Click para ver Mapa de Google"
 #
 #: ../public/advanced-functions/meta.php:151
 msgid "+ Google Map"
-msgstr ""
+msgstr "+ Google Map"
 
 #: ../public/advanced-functions/meta.php:162
 msgid "Details"
-msgstr ""
+msgstr "Detalles"
 
 #
 #: ../public/advanced-functions/meta.php:212
 msgid "Event Tags:"
-msgstr ""
+msgstr "Etiquetas del Evento:"
 
 #: ../public/advanced-functions/meta.php:238
 msgid "Origin:"
-msgstr ""
+msgstr "Origen:"
 
 #
 #: ../public/advanced-functions/meta.php:375
 msgid "Event:"
-msgstr ""
+msgstr "Evento:"
 
 #
 #: ../public/template-tags/deprecated.php:724
 msgid "Category"
-msgstr ""
+msgstr "Categoría"
 
 #: ../public/template-tags/general.php:323
 msgid "Tags:"
-msgstr ""
+msgstr "Etiquetas:"
 
 #
 #: ../public/template-tags/general.php:409
 msgid "Loading Events"
-msgstr ""
+msgstr "Cargando Eventos:"
 
 #: ../public/template-tags/general.php:570
 msgid "Free"
@@ -3281,36 +3443,36 @@ msgstr "Gratuito"
 #
 #: ../public/template-tags/general.php:743
 msgid "Recurring Event"
-msgstr ""
+msgstr "Evento Recurrente"
 
 #: ../public/template-tags/general.php:746
 msgid "(See all)"
-msgstr ""
+msgstr "(ver todos)"
 
 #: ../public/template-tags/general.php:939
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar%s"
-msgstr ""
+msgstr "Este Calendario se muestra usando %sThe Events Calendar%s"
 
 #: ../public/template-tags/loop.php:150
 #, php-format
 msgid "Events for %1$s"
-msgstr ""
+msgstr "Eventos para %1$s"
 
 #: ../public/template-tags/loop.php:158
 #, php-format
 msgid "Events for %1$s through %2$s"
-msgstr ""
+msgstr "Eventos desde %1$s hasta %2$s"
 
 #
 #: ../public/template-tags/loop.php:168
 msgid "Events for "
-msgstr ""
+msgstr "Eventos para "
 
 #: ../public/template-tags/options.php:20
 #, php-format
 msgid "Your current Events URL is %s"
-msgstr ""
+msgstr "La URL para este evento es %s"
 
 #: ../public/template-tags/options.php:31
 #, php-format
@@ -3318,61 +3480,83 @@ msgid ""
 "You <strong>cannot</strong> use the same slug as above. The above should "
 "ideally be plural, and this singular.<br />Your single Event URL is like: %s"
 msgstr ""
+"<strong>No puede</strong> usar el mismo slug de arriba. El anterior debe ser "
+"el plural y este el singular.<br />El URL para este evento debe ser como: %s"
+
+#: ../vendor/presstrends/presstrends.php:50
+msgid "Send PressTrends data"
+msgstr "Enviar datos de  PressTrends"
+
+#: ../vendor/presstrends/presstrends.php:56
+msgid ""
+"Help us out by sending analytics data about your usage of The Events "
+"Calendar."
+msgstr ""
+"Ayúdenos permitiendo el envió de datos para análisis de uso de The Events "
+"Calendar."
+
+#: ../vendor/presstrends/presstrends.php:65
+msgid ""
+"Would you like to help us out and send analytics about your usage of The "
+"Events Calendar?"
+msgstr ""
+"¿Desearía colaborar permitiendo el envió de datos para análisis de uso de "
+"The Events Calendar?"
 
 #
 #: ../views/single-event.php:31
 msgid "&laquo; All Events"
-msgstr ""
+msgstr "&laquo; Todos los Eventos"
 
 #
 #: ../views/single-event.php:45 ../views/single-event.php:71
 msgid "Event Navigation"
-msgstr ""
+msgstr "Navegación entre Eventos"
 
 #
 #: ../views/tickets-attendees-email.php:11
 msgid "Attendee List"
-msgstr ""
+msgstr "Lista de Asistentes"
 
 #: ../views/tickets-email.php:16
 msgid "Your tickets"
-msgstr ""
+msgstr "Sus Boletos"
 
 #: ../views/tickets-email.php:297
 msgid "Ticket Type"
-msgstr ""
+msgstr "Tipo de Boleto"
 
 #: ../views/tickets-email.php:301
 msgid "Purchaser"
-msgstr ""
+msgstr "Comprador"
 
 #
 #: ../views/list/nav.php:15
 msgid "Events List Navigation"
-msgstr ""
+msgstr "Navegación en la Lista de Eventos"
 
 #: ../views/list/single-event.php:74
 msgid "Find out more"
-msgstr ""
+msgstr "Averiguar más"
 
 #
-#: ../views/modules/bar.php:29 ../views/modules/bar.php:57
+#: ../views/modules/bar.php:31 ../views/modules/bar.php:60
 msgid "Find Events"
-msgstr ""
+msgstr "Encontrar Eventos"
 
-#: ../views/modules/bar.php:35
+#: ../views/modules/bar.php:38
 msgid "Event Views Navigation"
-msgstr ""
+msgstr "Navegación entre vistas de Eventos"
 
 #
-#: ../views/modules/bar.php:36
+#: ../views/modules/bar.php:39
 msgid "View As"
-msgstr ""
+msgstr "Ver Como"
 
 #
 #: ../views/month/nav.php:19
 msgid "Calendar Month Navigation"
-msgstr ""
+msgstr "Navegación en Calendario Mensual"
 
 #~ msgid "iCal Import"
 #~ msgstr "Importar en iCal"
