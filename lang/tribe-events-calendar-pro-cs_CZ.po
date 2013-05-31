@@ -5,17 +5,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Events Calendar Pro\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-20 02:25-0600\n"
-"PO-Revision-Date: 2013-05-20 02:57-0600\n"
-"Last-Translator: Modern Tribe Inc. <pro@tri.be>\n"
+"POT-Creation-Date: 2013-05-26 22:44+0100\n"
+"PO-Revision-Date: 2013-05-27 04:26+0100\n"
+"Last-Translator: Petr Baštán <pbastan@lop.cz>\n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
+"Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:1,2,4c;_n_noop:1,2;"
+"_nx_noop:1,2,3c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;"
+"esc_html_x:1,2c\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
 "X-Generator: Poedit 1.5.5\n"
@@ -23,11 +25,11 @@ msgstr ""
 
 #: ../events-calendar-pro.php:58
 msgid "week"
-msgstr ""
+msgstr "tyden"
 
 #: ../events-calendar-pro.php:59
 msgid "photo"
-msgstr ""
+msgstr "foto"
 
 #: ../events-calendar-pro.php:60
 #: ../lib/tribe-events-recurrence-meta.class.php:619
@@ -36,38 +38,38 @@ msgstr "den"
 
 #: ../events-calendar-pro.php:61
 msgid "today"
-msgstr ""
+msgstr "dnes"
 
 #
-#: ../events-calendar-pro.php:211
+#: ../events-calendar-pro.php:212
 msgid "Events for week of"
-msgstr ""
+msgstr "Akce týdne od"
 
-#: ../events-calendar-pro.php:237
+#: ../events-calendar-pro.php:238
 #, php-format
 msgid "Events for week of %s"
-msgstr ""
+msgstr "Akce týdne od %s"
 
 #
-#: ../events-calendar-pro.php:243
+#: ../events-calendar-pro.php:244
 msgid "Events for"
-msgstr ""
+msgstr "Akce na"
 
 #
-#: ../events-calendar-pro.php:247 ../lib/widget-advanced-list.class.php:51
+#: ../events-calendar-pro.php:248 ../lib/widget-advanced-list.class.php:51
 msgid "Upcoming Events"
-msgstr ""
+msgstr "Nadcházející akce"
 
 #
-#: ../events-calendar-pro.php:664 ../admin-views/tribe-options-defaults.php:35
+#: ../events-calendar-pro.php:665 ../admin-views/tribe-options-defaults.php:35
 msgid "Default Content"
-msgstr ""
+msgstr "Výchozí obsah"
 
-#: ../events-calendar-pro.php:666 ../admin-views/event-meta-options.php:3
+#: ../events-calendar-pro.php:667 ../admin-views/event-meta-options.php:3
 msgid "Additional Fields"
 msgstr "Dodatečná pole"
 
-#: ../events-calendar-pro.php:672
+#: ../events-calendar-pro.php:673
 #, php-format
 msgid ""
 "<p>By buying a PRO license you will get active support and sweet additional "
@@ -79,8 +81,17 @@ msgid ""
 "help familiarize you with the plugin basics.</p><p>Don't forget to head over "
 "to the <a href=\"%s\">license tab</a> and enter your key!</p>"
 msgstr ""
+"<p>Zakoupením PRO licence jste získali aktivní podporu a navíc pár lákavých "
+"dodatečných funkcí, které ve volné verzi pluginu The Events Calendar "
+"nenajdete.</p><p><strong>Jste dobrodružné povahy?</strong> Vrhněte se rovnou "
+"na věc a přejděte do nabídky Akce pro <a href=\"%s\">vytvoření vaší první "
+"akce</a>.</p><p><strong>Chcete začít raději zvolna?</strong> Pročtěte si "
+"naši <a href=\"http://tri.be/support/documentation/events-calendar-pro-new-"
+"user-primer/%s\">příručku nového uživatele</a>, která je vytvořena přávě pro "
+"vás a s úmyslem seznámit vás se základy pluginu.</p><p>Nezapomeňte přejít na "
+"záložku <a href=\"%s\">licence</a> a vložit váš klíč!</p>"
 
-#: ../events-calendar-pro.php:680
+#: ../events-calendar-pro.php:681
 #, php-format
 msgid ""
 "One of the advantages of being a PRO user is that you have access to our "
@@ -88,19 +99,25 @@ msgid ""
 "and what they can't answer on the spot they'll bring a member of our dev "
 "team in to address directly."
 msgstr ""
+"Jednou z výhod být PRO uživatelem je, že máte přístup k našemu exkluzivnímu "
+"fóru na stránkách %s. Naší pracovníci podpory sledují toto fórum každý den, "
+"a na co nemohou odpovědět ihned, to předají členovi našeho vývojového týmu k "
+"okamžitému řešení."
 
 #
-#: ../events-calendar-pro.php:681
+#: ../events-calendar-pro.php:682
 msgid "Some things to consider before posting on the forum:"
-msgstr ""
+msgstr "Pár věcí, které je dobré zvážit než napíšete příspěvek ve fóru:"
 
-#: ../events-calendar-pro.php:683
+#: ../events-calendar-pro.php:684
 msgid ""
 "Search recent threads before posting a new one to check that there isn't "
 "already a discussion about your issue."
 msgstr ""
+"Prohlédněte si poslední aktivní vlákna v diskuzi a než založíte nové, "
+"zkontrolujte zda se už vašemu problému nějaká diskuze nevěnuje."
 
-#: ../events-calendar-pro.php:684
+#: ../events-calendar-pro.php:685
 msgid ""
 "Check whether the issue is a conflict with another plugin or your theme. "
 "This can be tested easily on a staging site by deactivating other plugins "
@@ -108,16 +125,24 @@ msgid ""
 "conflicts can be easily identified. If you find a conflict, note it in a "
 "support thread."
 msgstr ""
+"Zkontrolujte zda daný problém není způsoben konfliktem s jiným pluginem nebo "
+"vámi použitou šablonou. To lze jednoduše otestovat na zkušebním webu tim, že "
+"postupně deaktivujete ostatní pluginy jeden po druhém a vrátíte se zpět k "
+"výchozí šabloně Twenty Twelve. Pokud jste tímto způsobem na nějaký konflikt "
+"narazili, dejte nám to při oznamování chyby vědět."
 
-#: ../events-calendar-pro.php:685
+#: ../events-calendar-pro.php:686
 #, php-format
 msgid ""
 "Sometimes, resaving your permalinks (under <a href=\"%s\">Settings > "
 "Permalinks</a>) can resolve events-related problems on your site. Before "
 "creating a new thread try this handy trick."
 msgstr ""
+"Někdy pro vyřešení problémů ohledně akcí jenom stačí opětovně uložit "
+"nastavení vašich trvalých odkazů (v menu <a href=\"%s\">Nastavení > Trvalé "
+"odkazy</a>). Před vytvářením nového tématu v diskuzi to stojí za zkoušku."
 
-#: ../events-calendar-pro.php:688
+#: ../events-calendar-pro.php:689
 #, php-format
 msgid ""
 "While we won't build your site for you and can't guarantee The Events "
@@ -126,64 +151,69 @@ msgid ""
 "as an added bonus, once you're done you can post it in the %s so the rest of "
 "the community can see what you've been working on."
 msgstr ""
+"Přestože nebudeme budovat vaše stránky za vás a nemůžeme zaručit, že si bude "
+"plugin The Events Calendar/PRO rozumět s úplně každou šablonou a pluginem, "
+"náš tým se bude snažit vám pomoci se správnou funkčností na vašem webu. A až "
+"budete hotovi, můžete se jako bonus pochlubit s výsledkem své práce v "
+"diskuzi %s, aby zbytek komunity viděl na čem jste pracovali."
 
-#: ../events-calendar-pro.php:688
+#: ../events-calendar-pro.php:689
 msgid "Showcase thread"
 msgstr "vlákna Showcase"
 
-#: ../events-calendar-pro.php:746
+#: ../events-calendar-pro.php:747
 msgid "Day View"
-msgstr ""
+msgstr "Denní přehled"
 
-#: ../events-calendar-pro.php:749
+#: ../events-calendar-pro.php:750
 msgid "Week View"
-msgstr ""
+msgstr "Týdenní přehled"
 
-#: ../events-calendar-pro.php:1068
+#: ../events-calendar-pro.php:1069
 msgid "Settings"
-msgstr ""
+msgstr "Nastavení"
 
-#: ../events-calendar-pro.php:1117
+#: ../events-calendar-pro.php:1118
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar PRO%s"
 msgstr "Vytvořeno pomocí %sThe Events Calendar PRO%s"
 
-#: ../events-calendar-pro.php:1126
+#: ../events-calendar-pro.php:1127
 msgid "Support"
 msgstr "Podpora"
 
-#: ../events-calendar-pro.php:1128
+#: ../events-calendar-pro.php:1129
 msgid "View All Add-Ons"
 msgstr "Prohlédnout všechny doplňky"
 
 #
-#: ../events-calendar-pro.php:1160
+#: ../events-calendar-pro.php:1161
 msgid "Week"
-msgstr ""
+msgstr "Týden"
 
-#: ../events-calendar-pro.php:1168 ../admin-views/event-recurrence.php:82
+#: ../events-calendar-pro.php:1169 ../admin-views/event-recurrence.php:82
 #: ../admin-views/event-recurrence.php:127
 msgid "Day"
-msgstr "den"
+msgstr "Den"
 
-#: ../events-calendar-pro.php:1176
+#: ../events-calendar-pro.php:1177
 msgid "Photo"
-msgstr ""
+msgstr "Foto"
 
-#: ../events-calendar-pro.php:1184
+#: ../events-calendar-pro.php:1185
 msgid "Day Of"
-msgstr ""
+msgstr "Dne"
 
 #
-#: ../events-calendar-pro.php:1186
+#: ../events-calendar-pro.php:1187
 msgid "Week Of"
-msgstr ""
+msgstr "V týdnu"
 
-#: ../events-calendar-pro.php:1249
+#: ../events-calendar-pro.php:1267
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
 
-#: ../events-calendar-pro.php:1250
+#: ../events-calendar-pro.php:1268
 #, php-format
 msgid ""
 "To begin using Events Calendar PRO, please install the latest version of <a "
@@ -330,38 +360,43 @@ msgid ""
 "the event metabox that accompanies your event listing, alongside the date/"
 "time/venue/organizer/etc. Each new piece of data needs:"
 msgstr ""
+"Pomocí dodatečných polí si do editoru akcí můžete přidat pole pro specifický "
+"obsah. Všichni kdo mohou vytvářet akce, budou mít přístup i k těmto "
+"dodatečným polím. Po publikování se pak objeví v metaboxu u výpisu akce "
+"společně s údaji o datu, čase, místu konání, pořadateli atd. Každý nový údaj "
+"musí mít:"
 
 #: ../admin-views/event-meta-options.php:6
 msgid "a label (e.g. Meal Plans)"
-msgstr ""
+msgstr "název (např. Stravovací plán)"
 
 #: ../admin-views/event-meta-options.php:7
 msgid "at least one option (e.g. Vegetarian, Kosher, Paleo)"
-msgstr ""
+msgstr "alespoň jednu volbu (např. Vegetariánské nebo Košer)"
 
 #: ../admin-views/event-meta-options.php:8
 msgid "a field type. These are:"
-msgstr ""
+msgstr "typ pole. A ten může být:"
 
 #: ../admin-views/event-meta-options.php:10
 msgid "text - for the user to input text"
-msgstr ""
+msgstr "text - pro vložení uživatelského textu"
 
 #: ../admin-views/event-meta-options.php:11
 msgid "URL - for the user to input a URL"
-msgstr ""
+msgstr "URL - pro vložení uživatelské URL adresy"
 
 #: ../admin-views/event-meta-options.php:12
 msgid "checkbox - for multiple choice"
-msgstr ""
+msgstr "zaškrtávací políčko - pro volbu více možností zároveň"
 
 #: ../admin-views/event-meta-options.php:13
 msgid "radio button - to select only one"
-msgstr ""
+msgstr "přepínač - pro volbu jedné možnosti"
 
 #: ../admin-views/event-meta-options.php:14
 msgid "dropdown menu - for a dropdown menu"
-msgstr ""
+msgstr "rozbalovací seznam - pro volbu ze seznamu"
 
 #: ../admin-views/event-meta-options.php:19
 msgid "Field Label"
@@ -381,7 +416,7 @@ msgstr "Text"
 
 #: ../admin-views/event-meta-options.php:28
 msgid "URL"
-msgstr ""
+msgstr "URL adresa"
 
 #: ../admin-views/event-meta-options.php:29
 msgid "Radio"
@@ -414,6 +449,13 @@ msgid ""
 "one per-line — in the right-hand column. If you feel flummoxed, we've got "
 "you covered with a %s."
 msgstr ""
+"Zadejte název pole, jak si přejete aby se zobrazilo (název se zobrazí v "
+"záhlaví panelu údajů o akci, stejně jako je tomu u pole “Datum zahájení”, "
+"“Pořadatel” a další). Zvolte jestli se bude jednat o textové pole, URL "
+"adresu, přepínač, zaškrtávací políčko nebo rozbalovací seznam. Všechny typy "
+"s vyjímkou textového pole a URL umožňují zadávat více položek, které lze "
+"přidávat v pravém sloupci (každou na jeden řádek). Pokud se cítíte trochu "
+"zmateně, připravili jsme pro vás %s."
 
 #: ../admin-views/event-meta-options.php:47
 msgid "video tutorial that will walk you through the process"
@@ -422,22 +464,24 @@ msgstr "instruktážní video, které vás provede celým procesem"
 #
 #: ../admin-views/event-meta-options.php:49
 msgid "Editor \"Custom Fields\" meta box"
-msgstr ""
+msgstr "Metabox \"Uživatelská pole\" v editoru"
 
 #
 #: ../admin-views/event-meta-options.php:51
 msgid "Show"
-msgstr ""
+msgstr "Zobrazit"
 
 #: ../admin-views/event-meta-options.php:52
 msgid "Hide"
-msgstr ""
+msgstr "Skrýt"
 
 #: ../admin-views/event-meta-options.php:53
 msgid ""
 "Enabling this option this will not remove custom field data or "
 "functionality, just the default meta box editor."
 msgstr ""
+"Tato volba neodstraní data či funkcionalitu Uživatelských polí, pouze změní "
+"viditelnost výchozího metaboxu."
 
 #: ../admin-views/event-meta-options.php:62
 msgid ""
@@ -450,7 +494,7 @@ msgstr ""
 #
 #: ../admin-views/event-meta.php:7
 msgid "Additional Event Fields"
-msgstr ""
+msgstr "Dodatečná pole akce"
 
 #: ../admin-views/event-recurrence.php:2
 msgid "Recurrence:"
@@ -482,7 +526,7 @@ msgstr "Vlastní"
 
 #: ../admin-views/event-recurrence.php:16
 msgid "and will end"
-msgstr ""
+msgstr "a skončí"
 
 #: ../admin-views/event-recurrence.php:18
 msgid "On"
@@ -538,7 +582,7 @@ msgstr "Každý"
 
 #: ../admin-views/event-recurrence.php:41
 msgid "Frequency of recurring event must be a number"
-msgstr ""
+msgstr "Četnost opakující akce musí být číslo"
 
 #: ../admin-views/event-recurrence.php:49
 msgid "M"
@@ -696,13 +740,15 @@ msgstr "Popis:"
 #
 #: ../admin-views/event-recurrence.php:143
 msgid "Recurrence Text:"
-msgstr ""
+msgstr "Text pro opakování:"
 
 #: ../admin-views/event-recurrence.php:148
 msgid ""
 "Create a custom plain language description of the recurrance. Leave it blank "
 "and we'll automate it."
 msgstr ""
+"Vytvořte vlastní srozumitelný popis opakování akce. Pokud nic nezadáte, "
+"automaticky ho vyplníme za vás."
 
 #: ../admin-views/support-form.php:11
 msgid "Need help? Send us a support request."
@@ -742,16 +788,21 @@ msgid ""
 "save time when entering a new venue or organizer.</p><p>You can override "
 "these settings as you enter a new event.</p>"
 msgstr ""
+"<p>Vyberte výchozí místo konání a pořadatele. Pro úsporu času při zadávání "
+"nového místa nebo pořadatele si nastavte výchozí adresu.</p><p>Tyto údaje "
+"můžete kdykoli přepsat při zadávání nové akce.</p>"
 
 #: ../admin-views/tribe-options-defaults.php:51
 msgid "Options"
-msgstr ""
+msgstr "Možnosti"
 
 #: ../admin-views/tribe-options-defaults.php:61
 msgid ""
 "Check this box to have the organizer and venue fields pre-populated with the "
 "default values below for any new event that is created."
 msgstr ""
+"Zaškrtnutím této volby se vám při vytváření nové akce automaticky předvyplní "
+"pole pro pořadatele a místo konání níže uvedenými výchozími hodnotami."
 
 #: ../admin-views/tribe-options-defaults.php:65
 #: ../admin-views/widget-admin-advanced-list.php:29 ../lib/apm_filters.php:27
@@ -761,7 +812,7 @@ msgstr "Pořadatel"
 #
 #: ../admin-views/tribe-options-defaults.php:69
 msgid "Default organizer"
-msgstr ""
+msgstr "Výchozí pořadatel"
 
 #: ../admin-views/tribe-options-defaults.php:73
 msgid "No saved organizers yet."
@@ -775,7 +826,7 @@ msgstr "Místo konání"
 #
 #: ../admin-views/tribe-options-defaults.php:86
 msgid "Default venue"
-msgstr ""
+msgstr "Výchozí místo konání"
 
 #: ../admin-views/tribe-options-defaults.php:90
 msgid "No saved venues yet."
@@ -791,41 +842,43 @@ msgid ""
 "You can use this setting to set specific, individual defaults for any new "
 "Venue you create (these will not be used for your default venue)."
 msgstr ""
+"Pomocí tohoto nastavení si můžete určit individuální výchozí hodnoty pro "
+"nově vytvářená místa konání (tyto údaje se nepoužijí pro vaše výchozí místo)."
 
 #
 #: ../admin-views/tribe-options-defaults.php:107
 msgid "Default address"
-msgstr ""
+msgstr "Výchozí adresa"
 
 #
 #: ../admin-views/tribe-options-defaults.php:120
 msgid "Default city"
-msgstr ""
+msgstr "Výchozí město"
 
 #
 #: ../admin-views/tribe-options-defaults.php:133
 msgid "Default state"
-msgstr ""
+msgstr "Výchozí stát"
 
 #
 #: ../admin-views/tribe-options-defaults.php:146
 msgid "Default province"
-msgstr ""
+msgstr "Výchozí kraj"
 
 #
 #: ../admin-views/tribe-options-defaults.php:159
 msgid "Default postal code/zip code"
-msgstr ""
+msgstr "Výchozí PSČ"
 
 #
 #: ../admin-views/tribe-options-defaults.php:172
 msgid "Default country"
-msgstr ""
+msgstr "Výchozí země"
 
 #
 #: ../admin-views/tribe-options-defaults.php:185
 msgid "Default phone"
-msgstr ""
+msgstr "Výchozí telefon"
 
 #: ../admin-views/tribe-options-defaults.php:201
 msgid ""
@@ -848,7 +901,7 @@ msgstr "Název:"
 #: ../admin-views/widget-admin-venue.php:20
 #: ../admin-views/widget-calendar.php:8
 msgid "Number of events to show:"
-msgstr ""
+msgstr "Počet zobrazených akcí:"
 
 #: ../admin-views/widget-admin-advanced-list.php:25
 msgid "Display:"
@@ -890,58 +943,60 @@ msgstr "Všechny akce"
 #: ../admin-views/widget-admin-advanced-list.php:58
 #: ../admin-views/widget-admin-venue.php:28
 msgid "Hide this widget if there are no upcoming events:"
-msgstr ""
+msgstr "Skrýt tento widget pokud nejsou žádné nadcházející akce:"
 
 #: ../admin-views/widget-admin-advanced-list.php:61
 #, php-format
 msgid "Want to modify the display of this widget? Try a %stemplate override%s."
 msgstr ""
+"Pokud chcete upravit zobrazení tohoto widgetu, vyzkoušejte %snahrazení šablon"
+"%s."
 
 #
 #: ../admin-views/widget-admin-countdown.php:12
 msgid "Event:"
-msgstr ""
+msgstr "Akce:"
 
 #
 #: ../admin-views/widget-admin-countdown.php:21
 msgid "Show seconds:"
-msgstr ""
+msgstr "Zobrazit sekundy:"
 
 #: ../admin-views/widget-admin-countdown.php:24
 msgid "Countdown Completed Text:"
-msgstr ""
+msgstr "Text při ukončení odpočítávání:"
 
 #
 #: ../admin-views/widget-admin-venue.php:11
 msgid "Venue:"
-msgstr ""
+msgstr "Místo konání:"
 
 #
 #: ../admin-views/widget-calendar.php:24
 msgid "Filters"
-msgstr ""
+msgstr "Filtry"
 
 #
 #: ../admin-views/widget-calendar.php:42
 msgid "remove"
-msgstr ""
+msgstr "odstranit"
 
 #: ../admin-views/widget-calendar.php:53
 msgid "Match all"
-msgstr ""
+msgstr "Odpovídá všem"
 
 #: ../admin-views/widget-calendar.php:56
 msgid "Match any"
-msgstr ""
+msgstr "Odpovídá některým"
 
 #
 #: ../admin-views/widget-calendar.php:60
 msgid "Add a filter"
-msgstr ""
+msgstr "Přidat filtr"
 
 #: ../admin-views/widget-calendar.php:63
 msgid "Select one..."
-msgstr ""
+msgstr "Vyberte jeden..."
 
 #: ../lib/apm_filters.php:32
 msgid "Start Date"
@@ -950,7 +1005,7 @@ msgstr "Počáteční datum"
 #
 #: ../lib/apm_filters.php:37
 msgid "End Date"
-msgstr ""
+msgstr "Koncové datum"
 
 #: ../lib/apm_filters.php:42
 msgid "Event Cost"
@@ -974,12 +1029,12 @@ msgstr "Popis"
 
 #: ../lib/meta-pro.php:63
 msgid "Other"
-msgstr ""
+msgstr "Ostatní"
 
 #
 #: ../lib/meta-pro.php:87
 msgid "Recurrence Pattern:"
-msgstr ""
+msgstr "Schéma opakování:"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:460
 msgid ""
@@ -1068,7 +1123,7 @@ msgstr "Každých %d týdnů"
 #: ../lib/tribe-events-recurrence-meta.class.php:612
 #, php-format
 msgid "on %s"
-msgstr ""
+msgstr "ve dnech: %s"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:617
 #, php-format
@@ -1078,7 +1133,7 @@ msgstr "Každých %d měsíců"
 #: ../lib/tribe-events-recurrence-meta.class.php:619
 #, php-format
 msgid "on the %s %s"
-msgstr ""
+msgstr "v den: %s %s"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:624
 #, php-format
@@ -1165,73 +1220,79 @@ msgstr "prosinec"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:745
 msgid "Recurring event instances"
-msgstr ""
+msgstr "Instance opakující se akce"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:746
 msgid "Show only the first instance of each recurring event."
-msgstr ""
+msgstr "Zobrazit pouze první instanci z každé opakující se akce."
 
 #: ../lib/tribe-events-recurrence-meta.class.php:752
 msgid "Front-end recurring event instances toggle"
-msgstr ""
+msgstr "Možnost rozbalení instancí opakující se akce na webu"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:753
 msgid ""
 "Allow users to decide whether to show all instances of a recurring event."
 msgstr ""
+"Povolit uživatelům možnost, zda si chtějí zobrazit všechny instance "
+"opakující se akce."
 
+# incomplete string
 #: ../lib/tribe-events-recurrence-meta.class.php:810
+#, fuzzy
 msgid "Your recurrence pattern would create greater than "
-msgstr ""
+msgstr "Vaše schéma opakování by vytvořilo více než "
 
 #: ../lib/tribe-geoloc.class.php:70
 msgid "Distance"
-msgstr ""
+msgstr "Vzdálenost"
 
 #: ../lib/tribe-geoloc.class.php:77
 #, php-format
 msgid "Title: %s"
-msgstr ""
+msgstr "Název: %s"
 
 #: ../lib/tribe-geoloc.class.php:79
 #, php-format
 msgid "%sType: %s"
-msgstr ""
+msgstr "%sTyp: %s"
 
 #
 #: ../lib/tribe-geoloc.class.php:79
 msgid "Select Dropdown"
-msgstr ""
+msgstr "Rozbalovací seznam"
 
 #: ../lib/tribe-geoloc.class.php:80
 msgid "Radio Buttons"
-msgstr ""
+msgstr "Přepínače"
 
 #: ../lib/tribe-geoloc.class.php:134
 msgid "Map view search distance limit"
-msgstr ""
+msgstr "Limit vzdálenosti pro hledání v mapovém zobrazení"
 
 #: ../lib/tribe-geoloc.class.php:136
 msgid ""
 "Set the distance that the location search covers (find events within X "
 "distance units of location search input)."
 msgstr ""
+"Nastavte vzdálenost pro hledání místa (nalezne akce v dosahu X jednotek "
+"vzdálenosti od hledaného místa)."
 
 #: ../lib/tribe-geoloc.class.php:142
 msgid "Map view distance unit"
-msgstr ""
+msgstr "Jednotka vzdálenosti mapového zobrazení"
 
 #: ../lib/tribe-geoloc.class.php:146
 msgid "Miles"
-msgstr ""
+msgstr "Míle"
 
 #: ../lib/tribe-geoloc.class.php:147
 msgid "Kilometers"
-msgstr ""
+msgstr "Kilometry"
 
 #: ../lib/tribe-geoloc.class.php:150
 msgid "Fix geolocation data"
-msgstr ""
+msgstr "Opravit geolokační data"
 
 #: ../lib/tribe-geoloc.class.php:150
 #, php-format
@@ -1240,29 +1301,34 @@ msgid ""
 "the Google Maps API to get that information. Doing this may take a while "
 "(aprox. 1 minute for every 200 venues)."
 msgstr ""
+"U %d míst konání nejsou k dispozici geolokační informace. Pro jejich získání "
+"musíme použít Google Maps API. To může chvíli trvat (asi 1 minutu na každých "
+"200 míst)."
 
 #: ../lib/tribe-geoloc.class.php:160
 msgid "Hide location search"
-msgstr ""
+msgstr "Skrýt hledání místa"
 
 #: ../lib/tribe-geoloc.class.php:161
 msgid ""
 "Removes location search field from the events bar on all views except for "
 "map view."
 msgstr ""
+"Odstraní pole pro hledání místa z lišty akcí u všech zobrazení kromě "
+"mapového."
 
 #
 #: ../lib/tribe-geoloc.class.php:172
 msgid "Map"
-msgstr ""
+msgstr "Mapa"
 
 #: ../lib/tribe-geoloc.class.php:194
 msgid "Near"
-msgstr ""
+msgstr "Blízko"
 
 #: ../lib/tribe-geoloc.class.php:651
 msgid "Fix venues data"
-msgstr ""
+msgstr "Opravit data u míst konání"
 
 #: ../lib/tribe-geoloc.class.php:695
 #, php-format
@@ -1270,48 +1336,50 @@ msgid ""
 "You have venues for which we don't have Geolocation information. <a "
 "href='%s'>Click here to generate it</a>."
 msgstr ""
+"U některých míst konání nejsou k dispozici geolokační informace. <a "
+"href='%s'>Klikněte zde pro jejich vytvoření</a>."
 
 #: ../lib/tribe-geoloc.class.php:714
 #, php-format
 msgid "Fixed geolocation data for %d venues"
-msgstr ""
+msgstr "Geolokační data byla opravena pro %d míst"
 
 #: ../lib/tribe-ical.class.php:36
 msgid "Add to Google Calendar"
-msgstr ""
+msgstr "Přidat do služby Kalendář Google"
 
 #
 #: ../lib/tribe-ical.class.php:36
 msgid "Google Calendar"
-msgstr ""
+msgstr "Kalendář Google"
 
 #: ../lib/tribe-ical.class.php:37 ../lib/tribe-ical.class.php:83
 msgid "iCal Import"
-msgstr ""
+msgstr "iCal import"
 
 #
 #: ../lib/tribe-ical.class.php:70
 msgid "Month's Events"
-msgstr ""
+msgstr "akcí měsíce"
 
 #
 #: ../lib/tribe-ical.class.php:73
 msgid "Week's Events"
-msgstr ""
+msgstr "akcí týdne"
 
 #
 #: ../lib/tribe-ical.class.php:76
 msgid "Day's Events"
-msgstr ""
+msgstr "akcí dne"
 
 #
 #: ../lib/tribe-ical.class.php:79
 msgid "Listed Events"
-msgstr ""
+msgstr "uvedených akcí"
 
 #: ../lib/tribe-ical.class.php:83
 msgid "Import is filter/view sensitive"
-msgstr ""
+msgstr "Import bere v úvahu aktuální filtr a zobrazení"
 
 #: ../lib/widget-advanced-list.class.php:16
 msgid "A widget that displays the next upcoming x events."
@@ -1320,11 +1388,11 @@ msgstr "Widget, který zobrazuje seznam nadcházejících akcí."
 #
 #: ../lib/widget-advanced-list.class.php:22
 msgid "Events List"
-msgstr ""
+msgstr "Seznam akcí"
 
 #: ../lib/widget-calendar.class.php:8
 msgid "The events calendar mini calendar widget"
-msgstr ""
+msgstr "Widget ve formě mini kalendáře akcí"
 
 #: ../lib/widget-calendar.class.php:10 ../lib/widget-calendar.class.php:31
 #: ../lib/widget-calendar.class.php:59
@@ -1333,20 +1401,20 @@ msgstr "Kalendář akcí"
 
 #: ../lib/widget-countdown.class.php:13
 msgid "Displays the time remaining until a specified event."
-msgstr ""
+msgstr "Zobrazí zbývající čas do stanovené akce."
 
 #
 #: ../lib/widget-countdown.class.php:15
 msgid "Events Countdown"
-msgstr ""
+msgstr "Akce - Odpočítávání"
 
 #: ../lib/widget-venue.class.php:12
 msgid "Displays a list of upcoming events at a specific venue."
-msgstr ""
+msgstr "Zobrazí seznam nadcházejících akcí na stanoveném místě."
 
 #: ../lib/widget-venue.class.php:14
 msgid "Events Featured Venue"
-msgstr ""
+msgstr "Akce - Doporučené místo"
 
 #: ../lib/template-classes/day.php:73
 #: ../views/tribe-ECP-views-old/views/featured-widget.php:59
@@ -1361,11 +1429,14 @@ msgid ""
 "There were no results found for <strong>\"%s\"</strong> on this day. Try "
 "searching another day."
 msgstr ""
+"Nebyly nalezeny žádné záznamy pro <strong>\"%s\"</strong> v tento den. "
+"Zkuste hledat v jiném dni."
 
 #: ../lib/template-classes/day.php:106 ../lib/template-classes/photo.php:75
 #, php-format
 msgid "No events scheduled for <strong>%s</strong>. Please try another day."
 msgstr ""
+"Na <strong>%s</strong> nejsou naplánované žádné akce. Zkuste prosím jiný den."
 
 #: ../lib/template-classes/photo.php:72
 #, php-format
@@ -1373,6 +1444,8 @@ msgid ""
 "listed under %s. Check out events for this category or view the full "
 "calendar."
 msgstr ""
+"v rubrice %s. Podívejte se na akce z této rubriky nebo si zobrazte úplný "
+"kalendář."
 
 #: ../lib/template-classes/week.php:76
 #, php-format
@@ -1380,11 +1453,13 @@ msgid ""
 "There were no results found for <strong>\"%s\"</strong> this week. Try "
 "searching another week."
 msgstr ""
+"Nebyly nalezeny žádné záznamy pro <strong>\"%s\"</strong> v tomto týdnu. "
+"Zkuste hledat v jiném týdnu."
 
 #
 #: ../public/template-tags/general.php:103
 msgid "Show only the first upcoming instance of recurring events"
-msgstr ""
+msgstr "Zobrazit pouze první nadcházející akci z opakujících se akcí"
 
 #: ../public/template-tags/general.php:294
 #: ../public/template-tags/general.php:308
@@ -1452,28 +1527,28 @@ msgstr "Současný výchozí telefon je: %s"
 
 #: ../public/template-tags/general.php:580
 msgid "Today"
-msgstr ""
+msgstr "Dnes"
 
 #: ../public/template-tags/general.php:583
 msgid "&laquo; Previous Day"
-msgstr ""
+msgstr "&laquo; Předchozí den"
 
 #: ../public/template-tags/general.php:586
 msgid "Next Day &raquo;"
-msgstr ""
+msgstr "Další den &raquo;"
 
 #: ../public/template-tags/general.php:589
 msgid "Yesterday"
-msgstr ""
+msgstr "Včera"
 
 #: ../public/template-tags/general.php:592
 msgid "Tomorrow"
-msgstr ""
+msgstr "Zítra"
 
 #
 #: ../public/template-tags/general.php:675
 msgid "Related Events"
-msgstr ""
+msgstr "Související akce"
 
 #: ../vendor/advanced-post-manager/demo/demo.php:31
 #, php-format
@@ -1486,7 +1561,7 @@ msgstr ""
 
 #: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:44
 msgid "Column Name"
-msgstr ""
+msgstr "Název sloupce"
 
 #: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:134
 msgid "Add a Column"
@@ -1494,46 +1569,47 @@ msgstr "Přidat sloupec"
 
 #: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:141
 msgid "Comments"
-msgstr ""
+msgstr "Komentáře"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:52
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:72
 msgid "Is"
-msgstr ""
+msgstr "Je"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:53
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:73
 msgid "Is Not"
-msgstr ""
+msgstr "Není"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:67
 msgid "LIKE"
-msgstr ""
+msgstr "LIKE"
 
 #
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
 msgid "Search"
-msgstr ""
+msgstr "Hledat"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:82
 msgid "Member Type"
-msgstr ""
+msgstr "Member Type"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:86
 msgid "Cafe"
-msgstr ""
+msgstr "Cafe"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:87
 msgid "Private Desk"
-msgstr ""
+msgstr "Private Desk"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:88
 msgid "Office"
-msgstr ""
+msgstr "Office"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:95
 msgid "what i’m querying. probably a key in the options array in $filters"
 msgstr ""
+"na co se dotazuji. pravděpodobně klíč v poli options v proměnné $filters"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:523
 msgid "Choose a Saved Filter"
@@ -1624,7 +1700,7 @@ msgstr "Platný licenční klíč je vyžadován pro podporu a aktualizace."
 
 #: ../vendor/pue-client/admin-views/license-key.view.php:16
 msgid "Replace empty fields"
-msgstr ""
+msgstr "Nahradit prázdná pole"
 
 #: ../vendor/pue-client/admin-views/license-key.view.php:25
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:183
@@ -1666,28 +1742,28 @@ msgstr ""
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:20
 msgid "Displays posts related to the post."
-msgstr ""
+msgstr "Zobrazí přehled souvisejících příspěvků."
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:22
 msgid "Related Posts"
-msgstr ""
+msgstr "Související příspěvky"
 
 #
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
 msgid "Count:"
-msgstr ""
+msgstr "Počet:"
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:80
 msgid "Display Thumbnails?"
-msgstr ""
+msgstr "Zobrazit náhledy?"
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:83
 msgid "Only Display Related Posts?"
-msgstr ""
+msgstr "Zobrazit pouze související?"
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:86
 msgid "Post Type:"
-msgstr ""
+msgstr "Typ obsahu:"
 
 #: ../vendor/tribe-support/tribe-support.class.php:54
 msgid "Send a support request for this site."
@@ -1695,30 +1771,30 @@ msgstr "Odeslat požadavek na podporu pro tento web."
 
 #: ../views/map.php:39
 msgid "Refine your search:"
-msgstr ""
+msgstr "Upřesněte své hledání:"
 
 #
 #: ../views/single-organizer.php:30 ../views/single-venue.php:31
 msgid "&larr; Back to Events"
-msgstr ""
+msgstr "&larr; Zpět k akcím"
 
 #: ../views/day/nav.php:15
 msgid "Day Navigation"
-msgstr ""
+msgstr "Navigace pro dny"
 
 #: ../views/map/nav.php:21 ../views/photo/nav.php:21
 msgid "Events List Navigation"
-msgstr ""
+msgstr "Navigace pro seznam akcí"
 
 #
 #: ../views/map/nav.php:24 ../views/photo/nav.php:24
 msgid "&laquo; Previous Events"
-msgstr ""
+msgstr "&laquo; Předchozí akce"
 
 #
 #: ../views/map/nav.php:31 ../views/photo/nav.php:31
 msgid "Next Events &raquo;"
-msgstr ""
+msgstr "Další akce &raquo;"
 
 #: ../views/tribe-ECP-views-old/views/list-widget.php:110
 msgid "Price:"
@@ -1750,7 +1826,7 @@ msgstr "Mapa Google"
 
 #: ../views/tribe-ECP-views-old/views/single-venue.php:76
 msgid "Upcoming Events At This Venue"
-msgstr ""
+msgstr "Nadcházející akce na tomto místě"
 
 #: ../views/tribe-ECP-views-old/views/single-venue.php:96
 msgid "Start:"
@@ -1770,217 +1846,44 @@ msgstr "Cena:"
 
 #: ../views/week/loop-grid.php:18
 msgid "Hours"
-msgstr ""
+msgstr "Hodiny"
 
 #: ../views/week/nav.php:17
 msgid "Week Navigation"
-msgstr ""
+msgstr "Navigace pro týdny"
 
 #: ../views/week/nav.php:20
 msgid "Previous Week"
-msgstr ""
+msgstr "Předchozí týden"
 
 #
 #: ../views/week/nav.php:23
 msgid "Next Week"
-msgstr ""
+msgstr "Další týden"
 
 #: ../views/widgets/countdown-widget.php:27
 msgid "days"
-msgstr ""
+msgstr "dny"
 
 #: ../views/widgets/countdown-widget.php:31
 msgid "hours"
-msgstr ""
+msgstr "hodiny"
 
 #: ../views/widgets/countdown-widget.php:35
 msgid "min"
-msgstr ""
+msgstr "minuty"
 
 #
 #: ../views/widgets/countdown-widget.php:40
 msgid "sec"
-msgstr ""
+msgstr "sekundy"
 
 #
 #: ../views/widgets/list-widget.php:66
 msgid "Organizer:"
-msgstr ""
+msgstr "Pořadatel:"
 
 #
 #: ../views/widgets/venue-widget.php:17
 msgid "No upcoming events."
-msgstr ""
-
-#~ msgid "Show:"
-#~ msgstr "Zobrazit:"
-
-#, fuzzy
-#~ msgid "Venue Widget"
-#~ msgstr "Next Event Widget"
-
-#~ msgid "Venues"
-#~ msgstr "Místa konání"
-
-#~ msgid "Organizers"
-#~ msgstr "Pořadatelé"
-
-#~ msgid "Use Saved Venue:"
-#~ msgstr "Použít uložené místo konání:"
-
-#~ msgid "Use Saved Organizer:"
-#~ msgstr "Použít uloženého pořadatele:"
-
-#~ msgid "Use New Venue"
-#~ msgstr "Vytvořit nové místo konání"
-
-#~ msgid "Use New Organizer"
-#~ msgstr "Vytvořit nového pořadatele"
-
-#~ msgid "Defaults"
-#~ msgstr "Výchozí hodnoty"
-
-#~ msgid ""
-#~ "%sWelcome to Events Calendar, a full-featured events management system "
-#~ "for WordPress. By buying a license you've given us a vote of confidence, "
-#~ "will get active support and have hooked up some sweet additional features "
-#~ "not found in the free The Events Calendar.%s"
-#~ msgstr ""
-#~ "%sVítejte u pluginu Events Calendar Pro, plnohodnotného systému pro "
-#~ "správu akcí ve WordPressu. Zakoupením licence jste nám dali důvěru, my "
-#~ "vám za to poskytneme aktivní podporu a navíc přihodíme pár lákavých "
-#~ "dodatečných funkcí, které ve volné verzi pluginu The Events Calendar "
-#~ "nenajdete.%s"
-
-#~ msgid ""
-#~ "%sIf you aren't familiar with The Events Calendar, it may be wise to "
-#~ "check out our %s. It'll introduce you to the basics of what the plugin "
-#~ "has to offer and will have you creating events in no time. From there, "
-#~ "the resources below -- extensive template tag documentation, FAQs, video "
-#~ "walkthroughs and more -- will give you a leg up as you dig deeper.%s"
-#~ msgstr ""
-#~ "%sPokud dosud nejste obeznámeni s pluginem The Events Calendar, je vhodné "
-#~ "se nejprve podívat na naši %s. Seznámí vás se základy toho, co plugin "
-#~ "nabízí a umožní vám tak vytvářet akce během okamžiku. Po zvládnutí tohoto "
-#~ "základu vám níže uvedené informační zdroje (rozsáhlá dokumentace "
-#~ "šablonových tagů, FAQ, video návody a další) jistě pomohou při hlubším "
-#~ "zkoumání.%s"
-
-#~ msgid "new user primer"
-#~ msgstr "příručku nového uživatele"
-
-#~ msgid ""
-#~ "%sOh, wondering what to do with your license key and whether you need it "
-#~ "before you can get into event creation? Check out %s on that subject for "
-#~ "an answer. %s, if you don't have it handy.%s"
-#~ msgstr ""
-#~ "%sPřemýšlíte co udělat se svým licenčním klíčem anebo jestli ho budete "
-#~ "potřebovat ještě před vytvářením akcí? Pro odpověď se podívejte na %s. "
-#~ "%s, pokud ho nemáte po ruce.%s"
-
-#~ msgid "our blog post"
-#~ msgstr "příspěvek na našem blogu"
-
-#~ msgid "Here's how you find your license key"
-#~ msgstr "Zde je návod, jak můžete najít svůj licenční klíč"
-
-#~ msgid ""
-#~ "%sLook through existing threads before posting a new one and check that "
-#~ "there isn't already a discussion going on your issue. The tri.be site has "
-#~ "a solid search function that should help find what you're looking for, if "
-#~ "it indeed already is present.%s"
-#~ msgstr ""
-#~ "%sProhlédněte si poslední aktivní vlákna v diskuzi a než založíte nové, "
-#~ "zkontrolujte zda se už vašemu problému nějaká diskuze nevěnuje. Web tri."
-#~ "be má slušnou vyhledávací funkci, která by vám měla pomoci najít co "
-#~ "hledáte, tedy pokud něco takového už existuje.%s"
-
-#~ msgid ""
-#~ "Add unique fields to your event editor. Using the form below, you can "
-#~ "quickly add checkboxes for dietary options like \"low salt, vegetarian, "
-#~ "kosher\" or a dropdown for “DJ” to your event editor."
-#~ msgstr ""
-#~ "Přidání jedinečných polí do editoru akcí. Pomocí níže uvedeného formuláře "
-#~ "si můžete do editoru svých akcí rychle přidat zaškrtávací políčka např. "
-#~ "pro volbu dietní stravy jako: \"s nízkým obsahem soli, vegetariánské, "
-#~ "košer\" nebo rozbalovací seznam pro volbu “DJ”."
-
-#~ msgid "End"
-#~ msgstr "Skončí"
-
-#~ msgid "<em>The current default value is:</em> <strong>%s</strong>"
-#~ msgstr "<em>Současná výchozí hodnota je:</em> <strong>%s</strong>"
-
-#~ msgid "No default value set"
-#~ msgstr "Výchozí hodnota není nastavena"
-
-#~ msgid ""
-#~ "One country per line in the following format: <br/>US, United States <br/"
-#~ "> UK, United Kingdom.<br/>"
-#~ msgstr ""
-#~ "Jedna země na řádek v následujícím formátu: <br/>US, United States <br/> "
-#~ "UK, United Kingdom.<br/>"
-
-#~ msgid "(Replaces the default list)"
-#~ msgstr "(Nahradí výchozí seznam)"
-
-#~ msgid "Use New Venue/No Default"
-#~ msgstr "Není výchozí / Vytvořit nové místo"
-
-#~ msgid "Default Address for Events"
-#~ msgstr "Výchozí adresa pro akce"
-
-#~ msgid "Default City for Events"
-#~ msgstr "Výchozí město pro akce"
-
-#~ msgid "Default State for Events"
-#~ msgstr "Výchozí stát pro akce"
-
-#~ msgid "Default Province for Events"
-#~ msgstr "Výchozí kraj pro akce"
-
-#~ msgid "Default Postal Code/Zip Code for Events"
-#~ msgstr "Výchozí PSČ pro akce"
-
-#~ msgid "Default Phone for Events"
-#~ msgstr "Výchozí telefon pro akce"
-
-#~ msgid "Start Date & Time"
-#~ msgstr "Datum / čas zahájení"
-
-#~ msgid "(Widget will always show start date)"
-#~ msgstr "(Widget bude vždy zobrazovat počáteční datum)"
-
-#~ msgid ""
-#~ "If you wish to customize the widget display yourself, see the file views/"
-#~ "events-list-load-widget-display.php inside the Events Premium plugin."
-#~ msgstr ""
-#~ "Pokud si chcete přizpůsobit zobrazení widgetu, podívejte se do souboru "
-#~ "views/events-list-load-widget-display.php v pluginu Events Premium."
-
-#~ msgid ", and "
-#~ msgstr " a "
-
-#~ msgid " and "
-#~ msgstr " a "
-
-#~ msgid ", "
-#~ msgstr ", "
-
-#~ msgid "A calendar of your events"
-#~ msgstr "Kalendář vašich akcí"
-
-#~ msgid "There are no upcoming events at this time."
-#~ msgstr "V tuto chvíli nejsou k dispozici žádné nadcházející akce."
-
-#~ msgid "License Key for %s"
-#~ msgstr "Licenční klíč pro %s"
-
-#~ msgid "[X]"
-#~ msgstr "[X]"
-
-#~ msgid "Ends"
-#~ msgstr "Končí"
-
-#~ msgid "tri.be"
-#~ msgstr "tri.be"
+msgstr "Žádné nadcházející akce."

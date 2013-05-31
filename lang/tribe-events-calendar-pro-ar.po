@@ -6,9 +6,10 @@ msgstr ""
 "Project-Id-Version: Events Calendar Pro\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-20 02:25-0600\n"
-"PO-Revision-Date: 2013-05-24 20:08+0100\n"
-"Last-Translator: Marko Manojlović <manmar984@gmail.com>\n"
-"Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
+"PO-Revision-Date: 2013-05-24 21:50+0200\n"
+"Last-Translator: Mamdouh Samy <asyuti47@gmail.com>\n"
+"Language-Team: Elmalak <asyuti47@gmail.com>\n"
+"Language: ar_AR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,55 +24,49 @@ msgstr ""
 
 #: ../events-calendar-pro.php:58
 msgid "week"
-msgstr "sedmica"
+msgstr "أسبوع"
 
 #: ../events-calendar-pro.php:59
 msgid "photo"
-msgstr "fotografija"
+msgstr "صورة"
 
-# @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:60
 #: ../lib/tribe-events-recurrence-meta.class.php:619
 msgid "day"
-msgstr "dan"
+msgstr "يوم"
 
 #: ../events-calendar-pro.php:61
 msgid "today"
-msgstr "danas"
+msgstr "اليوم"
 
-# @ tribe-events-calendar-pro
 #
 #: ../events-calendar-pro.php:211
 msgid "Events for week of"
-msgstr "Događaji za sedmicu"
+msgstr "أحداث الأسبوع"
 
 #: ../events-calendar-pro.php:237
 #, php-format
 msgid "Events for week of %s"
-msgstr "Događaji za sedmicu %s"
+msgstr "أحداث الأسبوع من %s"
 
-# @ tribe-events-calendar-pro
 #
 #: ../events-calendar-pro.php:243
 msgid "Events for"
-msgstr "Događaji za"
+msgstr "أحداث خاصة ب "
 
-# @ tribe-events-calendar-pro
 #
 #: ../events-calendar-pro.php:247 ../lib/widget-advanced-list.class.php:51
 msgid "Upcoming Events"
-msgstr "Predstojeći događaji"
+msgstr "الأحداث المستقبلية"
 
-# @ tribe-events-calendar-pro
 #
 #: ../events-calendar-pro.php:664 ../admin-views/tribe-options-defaults.php:35
 msgid "Default Content"
-msgstr "Zadani sadržaj"
+msgstr "المحتوي الإفتراضي"
 
-# @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:666 ../admin-views/event-meta-options.php:3
 msgid "Additional Fields"
-msgstr "Dodatna polja"
+msgstr "حقول إضافية"
 
 #: ../events-calendar-pro.php:672
 #, php-format
@@ -85,15 +80,14 @@ msgid ""
 "help familiarize you with the plugin basics.</p><p>Don't forget to head over "
 "to the <a href=\"%s\">license tab</a> and enter your key!</p>"
 msgstr ""
-"<p>Kupnjom PRO licence dobićete aktivnu podršku i dodatke koji se ne nalaze "
-"u besplatnom The Events Calendar.</p><p><strong>Osećate se avanturistički?</"
-"strong> Uskočite u njega tako što će te postetiti meni Događaja da<a href="
-"\"%s\">dodate vaš prvi događaj</a>.</p><p><strong>Želite prvo pogledati "
-"detalje?</strong> Posjetite našu <a href=\"http://tri.be/support/"
-"documentation/events-calendar-pro-new-user-primer/%s\">stranicu za nove "
-"korisnike</a>, dizajniranu da vam pomogne da se upoznate sa osnovama plagina."
-"</p><p>Ne zaboravite otići na <a href=\"%s\">tab licence</a> i uneseti svoj "
-"ključ!</p>"
+"<p>بشرائك نسخة إحترافية سوف تحصل علي دعم فعال و بعض الخواص الإضافية الرائعة "
+"غير موجودة في النسخة المجانية.</p><p><strong>لديك روح المغامرة?</strong> "
+"تفضل بالدخول مباشرة لقائمة الأحداث ل  <a href=\"%s\">إضافة أول حدث</a>.</"
+"p><p><strong>ترغب في أخذ الأمور بتمهل?</strong> قم بزيارة <a href=\"http://"
+"tri.be/support/documentation/events-calendar-pro-new-user-primer/%s\">دليل "
+"المستخدم الجديد</a>,  و المصمم لمساعدتك في التعرف علي مبادئ الإضافة.</"
+"p><p>لا تنسي التوجه إلي  <a href=\"%s\">تبويت الرخصة</a>لإدخال المفتاح الخاص "
+"بك!</p>"
 
 #: ../events-calendar-pro.php:680
 #, php-format
@@ -103,22 +97,22 @@ msgid ""
 "and what they can't answer on the spot they'll bring a member of our dev "
 "team in to address directly."
 msgstr ""
-"Jedna od prednosti PRO licence je to što će te imati ekskluzivni pristup "
-"našim forumima na %s. Naše osoblje podrške posećuje forum na dnevnoj osnovi, "
-"i na šta ne mogu da odgovore na mjestu dovešće člana našeg razvojnog tima da "
-"vam izravno pomogne."
+"واحدة من مميزات الحصول علي نسخة إحترافية هي أنها تعطيك حرية الوصول لمنتديات "
+"الدعم الحصرية الموجودة في %s. طاقم الدعم الفني يزور هذه المنتديات بشكل يومي "
+"و ما لا يستطيعون الإجابة عليه بشكل فوري سيقومون بتحويله لأحد أعضاء فريق "
+"المطورين للتعامل معه مباشرة."
 
+#
 #: ../events-calendar-pro.php:681
 msgid "Some things to consider before posting on the forum:"
-msgstr "Stvari koje treba razmotriti pre pisanja na forumu:"
+msgstr "بعض الأشياء لتضعها في إعتبارك قبل النشر علي المنتدي:"
 
 #: ../events-calendar-pro.php:683
 msgid ""
 "Search recent threads before posting a new one to check that there isn't "
 "already a discussion about your issue."
 msgstr ""
-"Pretražite prethodne unose pre postavljanja novog da bi ste proverili da već "
-"nije u toku diskusija sa vašim problemom."
+"ابحث في الموضوعات القريبة لتري إن كانت بعضها خاصة بمشكلتك قبل نشر موضوع جديد."
 
 #: ../events-calendar-pro.php:684
 msgid ""
@@ -128,11 +122,10 @@ msgid ""
 "conflicts can be easily identified. If you find a conflict, note it in a "
 "support thread."
 msgstr ""
-"Proverite da problem nije konflikt sa drugim plaginom ili vašom temom. Ovo "
-"može biti lako provereno na testnom sajtu tako što će te deaktivirati ostale "
-"plagine jedan po jedan i aktivirati standardnu Twenty Twelve temu da vidite "
-"da li konflikti mogu biti lako identificirani. Ako naiđete na konflikt, "
-"prijavite ga na forumu podrške."
+"تأكد ما إذا كانت المشكلة عبارة عن تعارض مع إضافة أو ثيم أخري. و يمكنك التأكد "
+"من ذلك عن طريق تعطيل الإضافات الأخري واحدة تلو الأخري و العودة للثيم الأساسي "
+"2012 لتري إن كان هذا يحل المشكلة أم لا. فإذا تعرفت علي سبب المشكلة أذكره لنا "
+"في موضوع الدعم الذي ترسله."
 
 #: ../events-calendar-pro.php:685
 #, php-format
@@ -141,9 +134,9 @@ msgid ""
 "Permalinks</a>) can resolve events-related problems on your site. Before "
 "creating a new thread try this handy trick."
 msgstr ""
-"Ponekad, ako ponovo sprijemite permalinkove  (pod <a href=\"%s\">Settings > "
-"Permalinks</a>) se mogu riješiti problemi vezani za događaje na vašem sajtu. "
-"Pre kreiranja novog pitanja na forumu probajte ovaj trik."
+"أحياناً تكون إعادة حفظ الروابط الدائمة  (تحت <a href=\"%s\">إعدادات> روابط "
+"دائمة</a>) هي الحل لبعض المشاكل التي تواجهك مع الأجندة. لذا جرب أن تقوم بهذه "
+"الخطوة قبل إرسال موضوع دعم جديد."
 
 #: ../events-calendar-pro.php:688
 #, php-format
@@ -154,243 +147,206 @@ msgid ""
 "as an added bonus, once you're done you can post it in the %s so the rest of "
 "the community can see what you've been working on."
 msgstr ""
-"Iako vam nećemo napraviti stranicu i ne možemo jamčiti da će The Events "
-"Calendar PRO biti kompatibilan sa svakom temom i plaginom, naš tim će se "
-"potruditi da on profunkcionira na vašem sajtu. I kao dodatni bonus, kada "
-"završite možete o tome pisati na%s kako bi ostatak zajednice mogao vidjeti "
-"na čemu ste radili."
+"بينما لن نستطيع بناء موقعك بالنيابة عنك كما لا نستطيع ضمان أن تعمل إضافة  "
+"The Events Calendar PRO بشكل جيد مع كل ثيم و إضافة أخري موجودة, فإن فريقنا "
+"سيبذل قصاري جهده لمساعدتك في جعلها تعمل بشكل جيد علي موقعك. بالإضافة إلي ذلك "
+"فإننا بعد الإنتهاء من حل المشكلة سنقوم بنشرها علي  %s حتي يستطيع الآخرون "
+"الأستفادة منها."
 
 #: ../events-calendar-pro.php:688
 msgid "Showcase thread"
-msgstr "Pokaži unos"
+msgstr "عرض الموضوع"
 
 #: ../events-calendar-pro.php:746
 msgid "Day View"
-msgstr "Dnevni pogled "
+msgstr "عرض اليوم الواحد"
 
 #: ../events-calendar-pro.php:749
 msgid "Week View"
-msgstr "Sedmični pogled"
+msgstr "عرض الأسبوع"
 
 #: ../events-calendar-pro.php:1068
 msgid "Settings"
-msgstr "Podešavanja"
+msgstr "الإعدادات"
 
 #: ../events-calendar-pro.php:1117
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar PRO%s"
-msgstr "Kalendar pokreće %sThe Events Calendar PRO%s"
+msgstr "التقويم مدعوم من %sThe Events Calendar PRO%s"
 
-# @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:1126
 msgid "Support"
-msgstr "Podrška"
+msgstr "الدعم"
 
-# @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:1128
 msgid "View All Add-Ons"
-msgstr "Pogledaj sve dodatke"
+msgstr "شاهد جميع الإضافات"
 
-# @ tribe-events-calendar-pro
 #
 #: ../events-calendar-pro.php:1160
 msgid "Week"
-msgstr "Sedmica"
+msgstr "أسبوع"
 
-# @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:1168 ../admin-views/event-recurrence.php:82
 #: ../admin-views/event-recurrence.php:127
 msgid "Day"
-msgstr "Dan"
+msgstr "يوم"
 
 #: ../events-calendar-pro.php:1176
 msgid "Photo"
-msgstr "Fotografija"
+msgstr "صورة"
 
 #: ../events-calendar-pro.php:1184
 msgid "Day Of"
-msgstr "Dan"
+msgstr "يوم من"
 
-# @ tribe-events-calendar-pro
 #
 #: ../events-calendar-pro.php:1186
 msgid "Week Of"
-msgstr "Sedmica"
+msgstr "أسبوع من"
 
-# @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:1249
 msgid "The Events Calendar"
-msgstr "Kalendar događaja"
+msgstr "أجندة الأحداث"
 
-# @ tribe-events-calendar-pro
 #: ../events-calendar-pro.php:1250
 #, php-format
 msgid ""
 "To begin using Events Calendar PRO, please install the latest version of <a "
 "href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
 msgstr ""
-"Da bi ste počeli sa korišćenjem Events Calendar PRO, molimo vas instalirajte "
-"poslednju verziju <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events "
-"Calendar-a</a>."
+"للبدء باستخدام Events Calendar PRO, من فضلك قم بتثبيت أحدث نسخة <a href=\"%s"
+"\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:1
 msgid "Customize Defaults"
-msgstr "Izmeni podrazumevane postavke"
+msgstr "تخصيص البيانات الإفتراضية"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:2
 msgid ""
 "These settings change the default event form. For example, if you set a "
 "default venue, this field will be automatically filled in on a new event."
 msgstr ""
-"Ove postavke mjenjaju podrazumevanu formu događaja. Na primer, ako postavite "
-"podrazumevano mjesto, ovo polje će biti automatski popunjeno na novom "
-"događaju."
+"هذه الإعدادات تغير القيم الإفتراضية. فمثلاً, لو قمت بإعداد مكان إفتراضي سيتم "
+"إضافته تلقائياً في الحدث الجديد ."
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:5 ../admin-views/event-defaults.php:9
 #: ../admin-views/tribe-options-defaults.php:55
 msgid "Automatically replace empty fields with default values"
-msgstr "Automatski zameni prazna polja podrazumevanim vrijednostima"
+msgstr "قم باستبدال الحقول الفارغة بالحقول الإفتراضية"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:13
 msgid "Enabled"
-msgstr "Omogućeno"
+msgstr "مفعلة"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:19
 msgid "Default Organizer for Events"
-msgstr "Zadani organizator za događaje"
+msgstr "المنظم الأفتراضي للأحداث"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:22
 msgid "Default Organizer"
-msgstr "Zadani organizator"
+msgstr "المنظم الإفتراضي"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:23
 msgid "The default organizer value"
-msgstr "Vrijednost za zadanog organizatora"
+msgstr "حقل المنظم الإفتراضي"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:23 ../admin-views/event-defaults.php:31
 #: ../admin-views/event-defaults.php:38 ../admin-views/event-defaults.php:45
 #: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
 #: ../admin-views/event-defaults.php:82 ../admin-views/event-defaults.php:108
 #, php-format
 msgid "The current default value is <strong>%s</strong>"
-msgstr "Trenutna zadana vrijednost je <strong>%s</strong>"
+msgstr "القيمة الإفتراضية الحالية هي  <strong>%s</strong>"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:27
 msgid "Default Venue for Events"
-msgstr "Zadano mjesto za događaje"
+msgstr "المكان الإفتراضي للأحداث"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:30
 msgid "Default Venue"
-msgstr "Zadano mjesto"
+msgstr "المكان الإفتراضي"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:31
 msgid "The default venue value"
-msgstr "Vrijednost za zadano mesto"
+msgstr "حقل المكان الافتراضي"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:35 ../admin-views/event-defaults.php:37
 msgid "Default Address"
-msgstr "Zadana adresa"
+msgstr "العنوان الإفتراضي"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:38
 msgid "The default address value"
-msgstr "Vrijednost za zadanu adresu"
+msgstr "حقل العنوان الإفتراضي"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:42 ../admin-views/event-defaults.php:44
 msgid "Default City"
-msgstr "Zadani grad"
+msgstr "المدينة الإفتراضية"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:45
 msgid "The default city value"
-msgstr "Vrijednost za zadani grad"
+msgstr "حقل المدينة الإفتراضية"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:50
 msgid "Default State"
-msgstr "Zadana država"
+msgstr "الولاية الإفتراضية"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:52 ../admin-views/event-defaults.php:73
 msgid "Default Province or State"
-msgstr "Zadana pokrajina ili država"
+msgstr "الولاية أو المقاطعة الإفتراضية"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:55
 msgid "Select a State:"
-msgstr "Odaberite državu:"
+msgstr "اختر ولاية"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
 msgid "The default  value"
-msgstr "Zadana vrijednost"
+msgstr "القيمة الإفتراضية"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:71
 msgid "Default Province"
-msgstr "Zadana pokrajina"
+msgstr "المقاطعة الإفتراضية"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:79 ../admin-views/event-defaults.php:81
 msgid "Default Postal Code"
-msgstr "Podrazumevani poštanski kod"
+msgstr "رقم البريد الإفتراضي"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:82
 msgid "The default Postal Code value"
-msgstr "Vrijednost zadanog poštanskog koda"
+msgstr "حقل رقم البريد الإفتراضي"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:87
 msgid "Default Country for Events"
-msgstr "Zadana zemlja za događaje"
+msgstr "البلد الإفتراضي للأحداث"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:105 ../admin-views/event-defaults.php:107
 msgid "Default Phone"
-msgstr "Zadani telefon"
+msgstr "التليفون الإفتراضي"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:108
 msgid "The default phone value"
-msgstr "Vrijednost za podrazumevani telefon"
+msgstr "حقل التليفون الإفتراضي"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:112
 #: ../admin-views/tribe-options-defaults.php:198
 msgid "Use a custom list of countries"
-msgstr "Koristi prilagođenu listu zemalja"
+msgstr "استخدم قائمة مخصصة للبلدان"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:114
 msgid "Use the following list:"
-msgstr "Koristi sledeću listu"
+msgstr "استخدم القائمة التالية:"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:116
 msgid ""
 "One country per line in the following format: <br/>US, United States <br/> "
 "UK, United Kingdom."
 msgstr ""
-"Jedna zemlja po redu u sledećem formatu: <br/>RS, Srbija <br/> HR, Hrvatska."
+"دولة واحدة في كل سطر بهذا الشكل: <br/>US, الولايات المتحدة <br/> UK, المملكة "
+"المتحدة."
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-defaults.php:116
 msgid "(Replaces the default list.)"
-msgstr "(Zamenjuje zadanu listu.)"
+msgstr "(تستبدل القائمة الإفتراضية)"
 
 #: ../admin-views/event-meta-options.php:4
 msgid ""
@@ -399,92 +355,82 @@ msgid ""
 "the event metabox that accompanies your event listing, alongside the date/"
 "time/venue/organizer/etc. Each new piece of data needs:"
 msgstr ""
-"Koristite dodatna polja da dodate unikatna polja za sadržaj u adminu "
-"događaja, koja mogu biti koršćena od strane bilo koga tko kreira događaje. "
-"Nakon publikacije oni će se pojaviti u meta-kutiji koja prati listu "
-"događaja, pored datuma/vremena/mjesta održavanja/organizatora/itd. Svakom "
-"novom podatku treba:"
+"استخدم حقول إضافية لإضافة محتوي فريد لصفحة إدارة الأجندة و هي يمكن أن "
+"يستخدمها أي شخص يقوم بإنشاء الأحداث. عند النشر ستظهر بجوار تفاصيل الحدث مثل "
+"التاريخ- الوقت- المكان- المنظم و هكذا. كل حقل جديد يحتاج إلي:"
 
 #: ../admin-views/event-meta-options.php:6
 msgid "a label (e.g. Meal Plans)"
-msgstr "naslov (npr, Jelovnik)"
+msgstr "اسم( مثلاً نوع الوجبة) "
 
 #: ../admin-views/event-meta-options.php:7
 msgid "at least one option (e.g. Vegetarian, Kosher, Paleo)"
-msgstr "makar jedna opcija (npr. Salate, Predjela, Glavno jelo...)"
+msgstr "إختيار واحد علي الأقل ( مثلاً نباتي, رجيم...)"
 
 #: ../admin-views/event-meta-options.php:8
 msgid "a field type. These are:"
-msgstr "tip polja. Oni su:"
+msgstr "نوع الحقل. و هي تشمل:"
 
 #: ../admin-views/event-meta-options.php:10
 msgid "text - for the user to input text"
-msgstr "tekst - da bi korisnik unio tekst"
+msgstr "نص - لكتابة نص"
 
+#
 #: ../admin-views/event-meta-options.php:11
 msgid "URL - for the user to input a URL"
-msgstr "URL - da bi korisnik unio link"
+msgstr "URL - لكي يقوم المستخدم بادخال عنوان URL"
 
 #: ../admin-views/event-meta-options.php:12
 msgid "checkbox - for multiple choice"
-msgstr "checkbox polje - za višestruki izbor"
+msgstr "مربع إختيارات- لأختيارات متعددة"
 
 #: ../admin-views/event-meta-options.php:13
 msgid "radio button - to select only one"
-msgstr "radio dugme - za jednu opciju"
+msgstr "إختيار من متعدد - لأختيار واحد فقط"
 
 #: ../admin-views/event-meta-options.php:14
 msgid "dropdown menu - for a dropdown menu"
-msgstr "padajući izbornik"
+msgstr "قائمة منسدلة - لقائمة أختيارات"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-meta-options.php:19
 msgid "Field Label"
-msgstr "Oznaka polja"
+msgstr "اسم الحقل"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-meta-options.php:19
 msgid "Field Type"
-msgstr "Tip polja"
+msgstr "نوع الحقل"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-meta-options.php:19
 msgid "Options (one per line)"
-msgstr "Opcije (jedna po retku)"
+msgstr "الإختيارات) واحد في كل سطر)"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-meta-options.php:27
 msgid "Text"
-msgstr "Tekst"
+msgstr "نص"
 
 #: ../admin-views/event-meta-options.php:28
 msgid "URL"
 msgstr "URL"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-meta-options.php:29
 msgid "Radio"
-msgstr "Radio"
+msgstr "إختيار"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-meta-options.php:30
 msgid "Checkbox"
-msgstr "Polje za potvrdu"
+msgstr "قائمة"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-meta-options.php:31
 msgid "Dropdown"
-msgstr "Padajući meni"
+msgstr "قائمة منسدلة"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-meta-options.php:37
 msgid "Add another"
-msgstr "Dodaj"
+msgstr "اضف آخر"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-meta-options.php:39
 msgid "Remove"
-msgstr "Skloni"
+msgstr "احذف"
 
 #: ../admin-views/event-meta-options.php:47
 #, php-format
@@ -497,371 +443,304 @@ msgid ""
 "one per-line — in the right-hand column. If you feel flummoxed, we've got "
 "you covered with a %s."
 msgstr ""
-"Unestite naslov polja onako kako želite da se on pojavi (ovo će biti naslov "
-"na neki način \"Datum početka\", \"Organizator\" itd. koji će se "
-"pojavljivati u kutiji sa detaljima na stranici.) Odaberite da li će polje "
-"biti tekstualno, link, radio, polje za potvrdu (checkbox) ili padajući "
-"izbornik. Sva opcije sa izuzetkom linka dozvoljavaju vešestruke opciji, koje "
-"možete dodati - jednu po liniji* u desnoj koloni. Ako se osjećate zbunjeno, "
-"pokrivamo vas sa %s."
+"ادخل نص تعريف الحقل كما تريده أن يظهر( هذا سيعمل بنفس طريقة \" تاريخ البداية"
+"\", \" المنظم\" و هكذا التي تظهر في بيانات الحدث). قم باختيار اذا ما كان "
+"الحقل هو حقل نصي, عنوان URL, زر أختيار من متعدد, مربعات إختيار, أو قائمة "
+"منسدلة. كل هذه العناصر باستثناء النص و عنوان URL  تسمح باختيارات متعددة و هي "
+"تستطيع إضافتها بمعدل واحد فقط في كل سطر في العامود الأيمن. إذا كنت تشعر "
+"بالحيرة فنحن نساعدك ب %s."
 
 #: ../admin-views/event-meta-options.php:47
 msgid "video tutorial that will walk you through the process"
-msgstr "video tutorijal koji će vas provesti kroz proces"
+msgstr "عرض فيديو توضيحي ليشرح لك الطريقة"
 
-# @ tribe-events-calendar-pro
-#
 #: ../admin-views/event-meta-options.php:49
 msgid "Editor \"Custom Fields\" meta box"
-msgstr "Editor  \"Custom Fields\" meta box"
+msgstr "Editor \"Custom Fields\" meta box"
 
-# @ tribe-events-calendar-pro
-#
 #: ../admin-views/event-meta-options.php:51
 msgid "Show"
-msgstr "Pokaži"
+msgstr "اظهار"
 
 #: ../admin-views/event-meta-options.php:52
 msgid "Hide"
-msgstr "Sakrij"
+msgstr "اخفاء"
 
 #: ../admin-views/event-meta-options.php:53
 msgid ""
 "Enabling this option this will not remove custom field data or "
 "functionality, just the default meta box editor."
 msgstr ""
-"Izbor ove opcije neće ukloniti podatke niti funkcionalnos iz custom polja, "
-"samo zadani meta box editor."
+"هذا الإختيار لن يحذف بيانات الحقل المخصص, فقط  المحرر الإفتراضي للمربع."
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-meta-options.php:62
 msgid ""
 "Are you sure you wish to remove this field and its data from all events? "
 "Once you click OK this cannot be undone."
 msgstr ""
-"Da li ste sigurni da želite skloniti ovo polje i sve njegove podatke iz svih "
-"događaja? Kada kliknete na OK to ne može biti opovrgnuto."
+"هل أنت متأكد أنك تريد حذف هذا الحقل و بياناته من كل الأحداث؟ هذه العملية لا "
+"يمكن الرجوع فيها."
 
-# @ tribe-events-calendar-pro
-#
 #: ../admin-views/event-meta.php:7
 msgid "Additional Event Fields"
-msgstr "Dodatna polja događaja"
+msgstr "حقول الحدث الإضافية"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:2
 msgid "Recurrence:"
-msgstr "Ponavljanje:"
+msgstr "التكرار:"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:8
 msgid "None"
-msgstr "Prazno"
+msgstr "لا شئ"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:9
 msgid "Every Day"
-msgstr "Svaki dan"
+msgstr "كل يوم"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:10
 msgid "Every Week"
-msgstr "Svakog tjedna"
+msgstr "كل أسبوع"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:11
 msgid "Every Month"
-msgstr "Svakog mjeseca"
+msgstr "كل شهر"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:12
 msgid "Every Year"
-msgstr "Svake godine"
+msgstr "كل عام"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:13
 msgid "Custom"
-msgstr "Prilagođeno"
+msgstr "مخصص"
 
 #: ../admin-views/event-recurrence.php:16
 msgid "and will end"
-msgstr "i završiće se"
+msgstr "و سوف ينتهي في"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:18
 msgid "On"
-msgstr "Na"
+msgstr "في"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:19
 msgid "After"
-msgstr "Posle"
+msgstr "بعد"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:23
 msgid "You must select a recurrence end date"
-msgstr "Morate odabrati ponavljanje i krajnji datum"
+msgstr "يجب أن تختار تاريخ لنهاية التكرار"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:30
 msgid "Frequency"
-msgstr "Učestalost"
+msgstr "تكرار"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:32
 msgid "Day(s)"
-msgstr "Dan(i)"
+msgstr "يوم"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:32
 msgid "Daily"
-msgstr "Dnevno"
+msgstr "يومياً"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:33
 msgid "Week(s) on:"
-msgstr "Tjedan/ni na:"
+msgstr "أسبوع في: "
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:33
 msgid "Weekly"
-msgstr "Tjedno"
+msgstr "أسبوعياً"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:34
 msgid "Month(s) on the:"
-msgstr "Mjesečno na:"
+msgstr "أشهر في :"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:34
 msgid "Monthly"
-msgstr "Mjesečno"
+msgstr "شهرياً"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:35
 msgid "Year(s) on:"
-msgstr "Godišnje na:"
+msgstr "سنة في: "
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:35
 msgid "Yearly"
-msgstr "Godišnje"
+msgstr "سنوياً"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:37
 msgid "Every"
-msgstr "Svaki"
+msgstr "كل "
 
 #: ../admin-views/event-recurrence.php:41
 msgid "Frequency of recurring event must be a number"
-msgstr "Frekvencija ponavljajućih događaja mora biti broj"
+msgstr "معدل تكرار الحدث يجب أن يكون رقم"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:49
 msgid "M"
-msgstr "Pon"
+msgstr "أثنين"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:50
 msgid "Tu"
-msgstr "Ut"
+msgstr "ثلاثاء"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:51
 msgid "W"
-msgstr "Sre"
+msgstr "أربعاء"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:52
 msgid "Th"
-msgstr "Čet"
+msgstr "خميس"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:53
 msgid "F"
-msgstr "Pet"
+msgstr "جمعة"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:54
 msgid "Sa"
-msgstr "Sub"
+msgstr "سبت"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:55
 msgid "Su"
-msgstr "Ned"
+msgstr "أحد"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:63
 #: ../admin-views/event-recurrence.php:112
 msgid "First"
-msgstr "Prvi"
+msgstr "الأول"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:64
 #: ../admin-views/event-recurrence.php:113
 msgid "Second"
-msgstr "Drugi"
+msgstr "الثاني"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:65
 #: ../admin-views/event-recurrence.php:114
 msgid "Third"
-msgstr "Treći"
+msgstr "الثالث"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:66
 #: ../admin-views/event-recurrence.php:115
 msgid "Fourth"
-msgstr "Četvrti"
+msgstr "الرابع"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:67
 #: ../admin-views/event-recurrence.php:116
 msgid "Last"
-msgstr "Poslednji"
+msgstr "الأخير"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:74
 #: ../admin-views/event-recurrence.php:119
 #: ../lib/tribe-events-recurrence-meta.class.php:652
 msgid "Monday"
-msgstr "Ponedjeljak"
+msgstr "الإثنين"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:75
 #: ../admin-views/event-recurrence.php:120
 #: ../lib/tribe-events-recurrence-meta.class.php:652
 msgid "Tuesday"
-msgstr "Utorak"
+msgstr "الثلاثاء"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:76
 #: ../admin-views/event-recurrence.php:121
 #: ../lib/tribe-events-recurrence-meta.class.php:652
 msgid "Wednesday"
-msgstr "Srijeda"
+msgstr "الأربعاء"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:77
 #: ../admin-views/event-recurrence.php:122
 #: ../lib/tribe-events-recurrence-meta.class.php:652
 msgid "Thursday"
-msgstr "Četvrtak"
+msgstr "الخميس"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:78
 #: ../admin-views/event-recurrence.php:123
 #: ../lib/tribe-events-recurrence-meta.class.php:652
 msgid "Friday"
-msgstr "Petak"
+msgstr "الجمعة"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:79
 #: ../admin-views/event-recurrence.php:124
 #: ../lib/tribe-events-recurrence-meta.class.php:652
 msgid "Saturday"
-msgstr "Subota"
+msgstr "السبت"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:80
 #: ../admin-views/event-recurrence.php:125
 #: ../lib/tribe-events-recurrence-meta.class.php:652
 msgid "Sunday"
-msgstr "Nedelja"
+msgstr "الأحد"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:91
 msgid "Jan"
-msgstr "Sij"
+msgstr "يناير"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:92
 msgid "Feb"
-msgstr "Vel"
+msgstr "فبراير"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:93
 msgid "Mar"
-msgstr "Ožu"
+msgstr "مارس"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:94
 msgid "Apr"
-msgstr "Tra"
+msgstr "أبريل"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:95
 #: ../lib/tribe-events-recurrence-meta.class.php:678
 msgid "May"
-msgstr "Svi"
+msgstr "مايو"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:96
 msgid "Jun"
-msgstr "Lip"
+msgstr "يونيو"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:100
 msgid "Jul"
-msgstr "Srp"
+msgstr "يوليو"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:101
 msgid "Aug"
-msgstr "Kol"
+msgstr "أغسطس"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:102
 msgid "Sep"
-msgstr "Ruj"
+msgstr "سبتمبر"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:103
 msgid "Oct"
-msgstr "Lis"
+msgstr "أكتوبر"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:104
 msgid "Nov"
-msgstr "Stu"
+msgstr "نوفمبر"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:105
 msgid "Dec"
-msgstr "Pro"
+msgstr "ديسمبر"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:110
 msgid "On the:"
-msgstr "Na:"
+msgstr "في: "
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:135
 #: ../views/tribe-ECP-views-old/views/single-venue.php:58
 msgid "Description:"
-msgstr "Opis:"
+msgstr "الوصف: "
 
-# @ tribe-events-calendar-pro
 #
 #: ../admin-views/event-recurrence.php:143
 msgid "Recurrence Text:"
-msgstr "Ponavljajući tekst:"
+msgstr "نص التكرار:"
 
 #: ../admin-views/event-recurrence.php:148
 msgid ""
 "Create a custom plain language description of the recurrance. Leave it blank "
 "and we'll automate it."
-msgstr ""
-"Kreirajte poseban opis za ponavljanje. Ostavite ga praznim i popunit ćemo ga "
-"automatski. "
+msgstr "قم بإنشاء نص مخصص لوصف التكرار. اتركه فارغاً و سوف نملأ بشكل أوتوماتيكي"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/support-form.php:11
 msgid "Need help? Send us a support request."
-msgstr "Potrebna vam je pomoć? Pošaljite nam zahtev za podršku."
+msgstr "تحتاج للمساعدة؟ أرسل لنا طلب دعم"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/support-form.php:14
 #, php-format
 msgid ""
@@ -871,29 +750,23 @@ msgid ""
 "like to contact us without sending any system information, please visit our "
 "support page at %s. Thanks!"
 msgstr ""
-"Opišite nam problem koji imate što je detaljnije moguće. Imajte na umu da "
-"ćemo takođe slati osnovne informacije o sistemu zajedno sa ovim zahtevom da "
-"bi smo mogli bolje dijagnozirati problem. Ako bi ste nas željeli  "
-"kontaktirati bez slanja informacija o sistemu, molimo vas posjetite našu "
-"stranicu za podršku na %s. Hvala!"
+"أخبرنا بالمشكلة التي تراها بأكبر تفصيل ممكن. مع العلم بأننا سنقوم بإرسال بعض "
+"بيانات النظام الخاص بك مع هذا الطلب حتي نستطيع تشخصي المشكلة بشكل أفضل. إذا "
+"كنت ترغب في الإتصال بنا بدون إرسال بيانات النظام تفضل بزيارة صفحة الدعم علي "
+"%s. شكراً لك!"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/support-form.php:18
 msgid "Send a Support Request"
-msgstr "Pošaljite zahtjev za podršku"
+msgstr "أرسل طلب الدعم"
 
-# @ tribe-events-calendar-pro
-#
 #: ../admin-views/tribe-options-defaults.php:6
 #: ../admin-views/tribe-options-defaults.php:15
 msgid "No Default"
-msgstr "Bez zadanog"
+msgstr "لا يوجد إفتراضي"
 
-# @ tribe-events-calendar-pro
-#
 #: ../admin-views/tribe-options-defaults.php:22
 msgid "Select a State"
-msgstr "Odaberite državu"
+msgstr "اختر ولاية"
 
 #: ../admin-views/tribe-options-defaults.php:39
 msgid ""
@@ -901,124 +774,106 @@ msgid ""
 "save time when entering a new venue or organizer.</p><p>You can override "
 "these settings as you enter a new event.</p>"
 msgstr ""
-"<p>Odaberite ztadani prostor održavanja i organizatora. Podesite zadanu "
-"adresu kako bi ste uštedjeli na vremenu kada unosite novi prostor ili "
-"organizatora.</p><p>Možete poništiti ove postavke kada kreirate novi "
-"događaj</p>"
+"<p>اختر القيمة الإفتراضية للمكان و المنظم.قم تحديد العنوان الإفتراضي لتوفير "
+"الوقت عندما تقوم بإدخال مكان أو منظم جديد.</p><p>يمكنك تجاوز هذه الإعدادات "
+"عند إنشاء حدث جديد</p>"
 
 #: ../admin-views/tribe-options-defaults.php:51
 msgid "Options"
-msgstr "Opcije"
+msgstr "الإختيارات"
 
 #: ../admin-views/tribe-options-defaults.php:61
 msgid ""
 "Check this box to have the organizer and venue fields pre-populated with the "
 "default values below for any new event that is created."
 msgstr ""
-"Čekirajte ovo polje da bi se organizator i prostor održavanja popunili "
-"zadanim vrednostima za bilo koji novi događaj koji se kreira."
+"اختر هذا المربع لكي نقوم بملأ بيانات المنظم و المكان باستخدام القيم "
+"الإفتراضية لأي حدث جديد تقوم بإنشاءه."
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:65
 #: ../admin-views/widget-admin-advanced-list.php:29 ../lib/apm_filters.php:27
 msgid "Organizer"
-msgstr "Organizator"
+msgstr "منظم"
 
-# @ tribe-events-calendar-pro
 #
 #: ../admin-views/tribe-options-defaults.php:69
 msgid "Default organizer"
-msgstr "Zadani organizator"
+msgstr "المنظم الإفتراضي"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:73
 msgid "No saved organizers yet."
-msgstr "Nema sačuvanih organizatora."
+msgstr "لا يوجد منظمين محفوظين حتي الآن"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:82
 #: ../admin-views/widget-admin-advanced-list.php:28 ../lib/apm_filters.php:22
 msgid "Venue"
-msgstr "Mjesto"
+msgstr "المكان"
 
-# @ tribe-events-calendar-pro
 #
 #: ../admin-views/tribe-options-defaults.php:86
 msgid "Default venue"
-msgstr "Zadano mjesto održavanja"
+msgstr "المكان الإفتراض"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:90
 msgid "No saved venues yet."
-msgstr "Nema sačuvanih mjesta."
+msgstr "لا توجد أماكن محفوظة حتي الآن."
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:99
 #: ../admin-views/widget-admin-advanced-list.php:30
 msgid "Address"
-msgstr "Adresa"
+msgstr "العنوان"
 
 #: ../admin-views/tribe-options-defaults.php:103
 msgid ""
 "You can use this setting to set specific, individual defaults for any new "
 "Venue you create (these will not be used for your default venue)."
 msgstr ""
-"Možete koristiti ovo podešavanje da postavite specifične, individualne "
-"vrijednosti za bilo koje novo mjesto održavanja koje kreirate (ono neće biti "
-"korišteno za novo podrazumevano mjesto)"
+"يمكنك إختيار هذا الإعداد لاختيار قيم إفتراضية فردية خاصة لأي مكان جديد تقوم "
+"بإنشاءه( و هي لن يتم إختيارها علي أنها المكان الإفتراضي الخاص بك)"
 
-# @ tribe-events-calendar-pro
 #
 #: ../admin-views/tribe-options-defaults.php:107
 msgid "Default address"
-msgstr "Zadana adresa"
+msgstr "العنوان الإفتراضي"
 
-# @ tribe-events-calendar-pro
 #
 #: ../admin-views/tribe-options-defaults.php:120
 msgid "Default city"
-msgstr "Zadani grad"
+msgstr "المدينة الإفتراضية"
 
-# @ tribe-events-calendar-pro
 #
 #: ../admin-views/tribe-options-defaults.php:133
 msgid "Default state"
-msgstr "Zadana država"
+msgstr "الولاية الإفتراضية"
 
-# @ tribe-events-calendar-pro
 #
 #: ../admin-views/tribe-options-defaults.php:146
 msgid "Default province"
-msgstr "Zadana provincija"
+msgstr "الإقليم الإفتراضي"
 
-# @ tribe-events-calendar-pro
 #
 #: ../admin-views/tribe-options-defaults.php:159
 msgid "Default postal code/zip code"
-msgstr "Zadani poštanski kod"
+msgstr "رقم البريد الأفتراضي"
 
-# @ tribe-events-calendar-pro
 #
 #: ../admin-views/tribe-options-defaults.php:172
 msgid "Default country"
-msgstr "Zadana zemlja"
+msgstr "الدولة الإفتراضية"
 
-# @ tribe-events-calendar-pro
 #
 #: ../admin-views/tribe-options-defaults.php:185
 msgid "Default phone"
-msgstr "Zadani telefon"
+msgstr "التليفون الإفتراضي"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:201
 msgid ""
 "One country per line in the following format: <br>US, United States <br> UK, "
 "United Kingdom. <br> (Replaces the default list.)"
 msgstr ""
-"Jedna zemlja po redu u sledećem formatu: <br>SAD Sjedinjene Američke Države "
-"<br> UK, Ujedinjeno Kraljevstvo. <br> (Zamjenjuje zadanu listu.)"
+"دولة واحدة في كل سطر بهذا الشكل: <br/>US, الولايات المتحدة <br/> UK, المملكة "
+"المتحدة. ( تحل محل القائمة الإفتراضية)"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/widget-admin-advanced-list.php:11
 #: ../admin-views/widget-admin-calendar.php:10
 #: ../admin-views/widget-admin-countdown.php:10
@@ -1026,243 +881,211 @@ msgstr ""
 #: ../admin-views/widget-calendar.php:2
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:70
 msgid "Title:"
-msgstr "Naslov:"
+msgstr "العنوان: "
 
 #: ../admin-views/widget-admin-advanced-list.php:16
 #: ../admin-views/widget-admin-venue.php:20
 #: ../admin-views/widget-calendar.php:8
 msgid "Number of events to show:"
-msgstr "Broj događaja za prikazivanje:"
+msgstr "عدد الأحداث التي ترغب في عرضها:"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/widget-admin-advanced-list.php:25
 msgid "Display:"
-msgstr "Prikaži:"
+msgstr "عرض: "
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/widget-admin-advanced-list.php:31
 msgid "City"
-msgstr "Grad"
+msgstr "المدينة"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/widget-admin-advanced-list.php:32
 msgid "State (US) Or Province (Int)"
-msgstr "Država (SAD) ili pokrajina (Int)"
+msgstr "ولاية( أمريكا) أو مقاطعة ( باقي الدول)"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/widget-admin-advanced-list.php:33
 msgid "Postal Code"
-msgstr "Poštanski kod"
+msgstr "الرقم البريدي"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/widget-admin-advanced-list.php:34
 msgid "Country"
-msgstr "Zemlja"
+msgstr "البلد"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/widget-admin-advanced-list.php:35
 msgid "Phone"
-msgstr "Telefon"
+msgstr "التليفون"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/widget-admin-advanced-list.php:36
 msgid "Price"
-msgstr "Cijena"
+msgstr "السعر"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/widget-admin-advanced-list.php:43
 msgid "Category:"
-msgstr "Kategorija"
+msgstr "التصنيف:"
 
-# @ tribe-events-calendar-pro
 #: ../admin-views/widget-admin-advanced-list.php:47
 msgid "All Events"
-msgstr "Svi događaji"
+msgstr "كل الأحداث"
 
-# @ tribe-events-calendar-pro
 #
 #: ../admin-views/widget-admin-advanced-list.php:58
 #: ../admin-views/widget-admin-venue.php:28
 msgid "Hide this widget if there are no upcoming events:"
-msgstr "Sakrij ovaj vidžet ako nema predstojećih događaja:"
+msgstr "إخفاء المربع الجانبي إذا لم يكن هناك أحداث مستقبلية:"
 
 #: ../admin-views/widget-admin-advanced-list.php:61
 #, php-format
 msgid "Want to modify the display of this widget? Try a %stemplate override%s."
-msgstr ""
-"Želite promeniti prikazivanje ovog vidžeta? Probajte %stemplate override%s."
+msgstr "تريد تعديل طريقة ظهر المربع الجانبي؟ جرب   %sتعديل القالب%s."
 
-# @ tribe-events-calendar-pro
 #
 #: ../admin-views/widget-admin-countdown.php:12
 msgid "Event:"
-msgstr "Događaj:"
+msgstr "حدث:"
 
-# @ tribe-events-calendar-pro
 #
 #: ../admin-views/widget-admin-countdown.php:21
 msgid "Show seconds:"
-msgstr "Prikaži sekunde:"
+msgstr "اظهر الثواني:"
 
 #: ../admin-views/widget-admin-countdown.php:24
 msgid "Countdown Completed Text:"
-msgstr "Izbroj završeni tekst:"
+msgstr "نص إكتمال العد التنازلي:"
 
-# @ tribe-events-calendar-pro
 #
 #: ../admin-views/widget-admin-venue.php:11
 msgid "Venue:"
-msgstr "Mjesto održavanja:"
+msgstr "المكان:"
 
-# @ tribe-events-calendar-pro
 #
 #: ../admin-views/widget-calendar.php:24
 msgid "Filters"
-msgstr "Filteri:"
+msgstr "مرشحات:"
 
-# @ tribe-events-calendar-pro
 #
 #: ../admin-views/widget-calendar.php:42
 msgid "remove"
-msgstr "ukloni"
+msgstr "حذف"
 
 #: ../admin-views/widget-calendar.php:53
 msgid "Match all"
-msgstr "Spari sve"
+msgstr "مطابقة الكل"
 
 #: ../admin-views/widget-calendar.php:56
 msgid "Match any"
-msgstr "Spari bilo koji"
+msgstr "مطابقة أي"
 
-# @ tribe-events-calendar-pro
 #
 #: ../admin-views/widget-calendar.php:60
 msgid "Add a filter"
-msgstr "Dodajte filter"
+msgstr "اضف مرشح"
 
 #: ../admin-views/widget-calendar.php:63
 msgid "Select one..."
-msgstr "Odaberite jedan..."
+msgstr "اختر واحدة..ز"
 
-# @ tribe-events-calendar-pro
 #: ../lib/apm_filters.php:32
 msgid "Start Date"
-msgstr "Datum početka"
+msgstr "تاريخ البداية"
 
-# @ tribe-events-calendar-pro
 #
 #: ../lib/apm_filters.php:37
 msgid "End Date"
-msgstr "Datum završetka"
+msgstr "تاريخ النهاية"
 
-# @ tribe-events-calendar-pro
 #: ../lib/apm_filters.php:42
 msgid "Event Cost"
-msgstr "Cijena događaja"
+msgstr "تكلفة الحدث"
 
-# @ tribe-events-calendar-pro
 #: ../lib/apm_filters.php:47
 msgid "Event Cats"
-msgstr "Kategorije događaja"
+msgstr "تصنيف الحدث"
 
-# @ tribe-events-calendar-pro
 #: ../lib/apm_filters.php:52
 msgid "Title"
-msgstr "Naslov"
+msgstr "العنوان"
 
-# @ tribe-events-calendar-pro
 #: ../lib/apm_filters.php:57
 msgid "Recurring"
-msgstr "Ponavljajući"
+msgstr "التكرار"
 
-# @ tribe-events-calendar-pro
 #: ../lib/apm_filters.php:62
 msgid "Description"
-msgstr "Opis"
+msgstr "الوصف"
 
 #: ../lib/meta-pro.php:63
 msgid "Other"
-msgstr "Drugi"
+msgstr "أخري"
 
-# @ tribe-events-calendar-pro
 #
 #: ../lib/meta-pro.php:87
 msgid "Recurrence Pattern:"
-msgstr "Predložak ponavljanja:"
+msgstr "نمط التكرار:"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:460
 msgid ""
 "Monthly custom recurrences cannot have a dash set as the day to occur on."
-msgstr "Mjesečna prilagođena ponavljanja ne mogu imati crtu podešenu kao dan."
+msgstr ""
+"معدل التكرار الشهري لا يجب أن يحتوي علي حقل فارغ في اليوم المفترض أن يحدث "
+"فيه."
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:463
 msgid ""
 "Yearly custom recurrences cannot have a dash set as the day to occur on."
-msgstr "Godišnja ponavljanja ne mogu imati crtu podešenu kao dan."
+msgstr ""
+"معدل التكرار السنوي لا يجب أن يحتوي علي حقل فارغ في اليوم المفترض أن يحدث "
+"فيه."
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:590
 #: ../lib/tribe-events-recurrence-meta.class.php:605
 msgid "Every day"
-msgstr "Svaki dan"
+msgstr "كل يوم"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:591
 #, php-format
 msgid " for %d day"
 msgid_plural " for %d days"
-msgstr[0] "za %d dan"
-msgstr[1] "za %d dana"
+msgstr[0] "من أجل %d يوم"
+msgstr[1] "من أجل %d أيام"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:594
 #: ../lib/tribe-events-recurrence-meta.class.php:610
 msgid "Every week"
-msgstr "Svakog tjedna"
+msgstr "كل أسبوع"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:595
 #, php-format
 msgid " for %d week"
 msgid_plural " for %d weeks"
-msgstr[0] "za %d sedmicu"
-msgstr[1] "za %d sedmica"
+msgstr[0] "من أجل %d أسبوع"
+msgstr[1] "من أجل %d أسابيع"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:597
 #: ../lib/tribe-events-recurrence-meta.class.php:616
 msgid "Every month"
-msgstr "Svakog mjeseca"
+msgstr "كل شهر"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:598
 #, php-format
 msgid " for %d month"
 msgid_plural " for %d months"
-msgstr[0] "za %d mjesec"
-msgstr[1] "za %d mjeseci"
+msgstr[0] "من أجل %d شهر"
+msgstr[1] "من أجل %d أشهر"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:600
 #: ../lib/tribe-events-recurrence-meta.class.php:623
 msgid "Every year"
-msgstr "Svake godine"
+msgstr "كل عام"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:601
 #, php-format
 msgid " for %d year"
 msgid_plural " for %d years"
-msgstr[0] "za %d godinu"
-msgstr[1] "za %d godine"
+msgstr[0] "من أجل %d سنة"
+msgstr[1] "من أجل %d سنوات"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:606
 #, php-format
 msgid "Every %d days"
-msgstr "Svakih %d dana"
+msgstr "كل %d أيام"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:607
 #: ../lib/tribe-events-recurrence-meta.class.php:613
@@ -1271,210 +1094,184 @@ msgstr "Svakih %d dana"
 #, php-format
 msgid ", recurring %d time"
 msgid_plural ", recurring %d times"
-msgstr[0] ", ponavljanje %d put"
-msgstr[1] ", ponavljanje %d puta"
+msgstr[0] ", تكرار  %d مرة"
+msgstr[1] ", تكرار  %d مرات"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:611
 #, php-format
 msgid "Every %d weeks"
-msgstr "Svakih %d tjedana"
+msgstr "كل %d أسابيع"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:612
 #, php-format
 msgid "on %s"
-msgstr "na %s"
+msgstr "في %s"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:617
 #, php-format
 msgid "Every %d months"
-msgstr "Svakih %d mjeseci"
+msgstr "كل %d شهور"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:619
 #, php-format
 msgid "on the %s %s"
-msgstr "na %s %s"
+msgstr "في ال  %s %s"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:624
 #, php-format
 msgid "Every %d years"
-msgstr "Svakih %d godina"
+msgstr "كل %d سنين"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:626
 msgid "last"
-msgstr "poslednji"
+msgstr "الأخير"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:631
 #, php-format
 msgid " on the %s %s of %s"
-msgstr " on the %s %s of %s"
+msgstr "في %s %s من %s"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:638
 #, php-format
 msgid " until %s"
-msgstr "do %s"
+msgstr "حتي %s"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:643
 #, php-format
 msgid "%s%s%s"
 msgstr "%s%s%s"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:658
 #: ../lib/tribe-events-recurrence-meta.class.php:684
 msgid ", and"
-msgstr ", i"
+msgstr ", و"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:660
 #: ../lib/tribe-events-recurrence-meta.class.php:686
 msgid "and"
-msgstr "i"
+msgstr "و"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:662
 #: ../lib/tribe-events-recurrence-meta.class.php:688
 msgid ","
 msgstr ","
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:677
 msgid "January"
-msgstr "Siječanj"
+msgstr "يناير"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:677
 msgid "February"
-msgstr "Veljača"
+msgstr "فبراير"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:677
 msgid "March"
-msgstr "Ožujak"
+msgstr "مارس"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:677
 msgid "April"
-msgstr "Travanj"
+msgstr "أبريل"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:678
 msgid "June"
-msgstr "Lipanj"
+msgstr "يونيو"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:678
 msgid "July"
-msgstr "Srpanj"
+msgstr "يوليو"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:678
 msgid "August"
-msgstr "Kolovoz"
+msgstr "أغسطس"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:678
 msgid "September"
-msgstr "Rujan"
+msgstr "سبتمبر"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:678
 msgid "October"
-msgstr "Listopad"
+msgstr "أكتوبر"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:678
 msgid "November"
-msgstr "Studeni"
+msgstr "نوفمبر"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-events-recurrence-meta.class.php:678
 msgid "December"
-msgstr "Prosinac"
+msgstr "ديسمبر"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:745
 msgid "Recurring event instances"
-msgstr "Instance ponavljajućeg događaja"
+msgstr "مرات تكرار الحدث"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:746
 msgid "Show only the first instance of each recurring event."
-msgstr "Pokaži samo prvu instancu svakog ponavljajućeg događaja."
+msgstr "اظهر فقط المرة الأولي لكل حدث مكرر."
 
 #: ../lib/tribe-events-recurrence-meta.class.php:752
 msgid "Front-end recurring event instances toggle"
-msgstr "Odabir instanci ponavljajućeg događaja na stranici"
+msgstr "اظهار-اخفاء مرات تكرار الحدث"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:753
 msgid ""
 "Allow users to decide whether to show all instances of a recurring event."
 msgstr ""
-"Dozvolite korisniku da odluči da li da prikaže sve instance ponavljajućeg "
-"događaja."
+"اعط الحرية للمستخدم ليقرر إذا ما كان يرغب في إظهار كل مرات تكرار الحدث أم لا."
 
 #: ../lib/tribe-events-recurrence-meta.class.php:810
 msgid "Your recurrence pattern would create greater than "
-msgstr "Vaš predložak ponavljanja bi kreirao više od"
+msgstr "نمط التكرار ينشأ أكثر من"
 
 #: ../lib/tribe-geoloc.class.php:70
 msgid "Distance"
-msgstr "Udaljenost"
+msgstr "المسافة"
 
-# @ tribe-events-calendar-pro
 #: ../lib/tribe-geoloc.class.php:77
 #, php-format
 msgid "Title: %s"
-msgstr "Naslov: %s"
+msgstr "العنوان: %s"
 
 #: ../lib/tribe-geoloc.class.php:79
 #, php-format
 msgid "%sType: %s"
-msgstr "%sTip: %s"
+msgstr "%sنوع: %s"
 
-# @ tribe-events-calendar-pro
 #
 #: ../lib/tribe-geoloc.class.php:79
 msgid "Select Dropdown"
-msgstr "Odaberi padajući izbornik"
+msgstr "اختر القائمة المنسدلة"
 
 #: ../lib/tribe-geoloc.class.php:80
 msgid "Radio Buttons"
-msgstr "Radio dugmad"
+msgstr "زر أختيار من متعدد"
 
 #: ../lib/tribe-geoloc.class.php:134
 msgid "Map view search distance limit"
-msgstr "Limit distance na pogledu mape"
+msgstr "مدي مسافة البحث في الخريطة"
 
 #: ../lib/tribe-geoloc.class.php:136
 msgid ""
 "Set the distance that the location search covers (find events within X "
 "distance units of location search input)."
 msgstr ""
-"Odaberite distancu koja pokriva pretragu lokacije (nađite događaj u krugu od "
-"X od lokacije pretrage)"
+"حدد المسافة التي يغطيها البحث عن المكان ( أبحث عن أحداث تقع في نطاق س مسافة "
+"من مكان البحث)"
 
 #: ../lib/tribe-geoloc.class.php:142
 msgid "Map view distance unit"
-msgstr "Jedinica distance na pogledu mape"
+msgstr "وحدة قياس المسافة علي الخريطة"
 
 #: ../lib/tribe-geoloc.class.php:146
 msgid "Miles"
-msgstr "Milje"
+msgstr "أميال"
 
 #: ../lib/tribe-geoloc.class.php:147
 msgid "Kilometers"
-msgstr "Kilometri"
+msgstr "كيلومترات"
 
 #: ../lib/tribe-geoloc.class.php:150
 msgid "Fix geolocation data"
-msgstr "Fiksni geografski podaci"
+msgstr "تصحيح تحديد الموقع الجغرافي"
 
 #: ../lib/tribe-geoloc.class.php:150
 #, php-format
@@ -1483,34 +1280,33 @@ msgid ""
 "the Google Maps API to get that information. Doing this may take a while "
 "(aprox. 1 minute for every 200 venues)."
 msgstr ""
-"Imate %d mjesta održavanja za koje namamo geografske podatke. Moramo da "
-"koristimo Google Maps API da bi smo dobili te podatke. Izvršenje ovoga može "
-"da potraje (približno 1 minut za svakih 200 mjesta)."
+"لديك عدد %d أماكن لم يتم تحديد بيانات الموقع الجغرافي لها. تحتاج لاستخدام "
+"API  الخاص بخرائط جوجل للحصول علي هذه المعلومات. هذه الخطوة قد تستغرق بعض "
+"الوقت( حوالي دقيقة واحدة لكل 200 مكان). "
 
 #: ../lib/tribe-geoloc.class.php:160
 msgid "Hide location search"
-msgstr "Sakrij pretragu lokacije"
+msgstr "إخفاء البحث عن المكان"
 
 #: ../lib/tribe-geoloc.class.php:161
 msgid ""
 "Removes location search field from the events bar on all views except for "
 "map view."
 msgstr ""
-"Uklanja polje za pretragu lokacije na svim pogledima osim na pogledu karte."
+"إخفاء البحث عن المكان من شريط الأحداث في كل طرق العرض ماعدا عرض الخريطة."
 
-# @ tribe-events-calendar-pro
 #
 #: ../lib/tribe-geoloc.class.php:172
 msgid "Map"
-msgstr "Karta"
+msgstr "خريطة"
 
 #: ../lib/tribe-geoloc.class.php:194
 msgid "Near"
-msgstr "Blizu"
+msgstr "بالقرب من "
 
 #: ../lib/tribe-geoloc.class.php:651
 msgid "Fix venues data"
-msgstr "Fiksi podaci mjesta održavanja"
+msgstr "إصلاح بيانات الأماكن"
 
 #: ../lib/tribe-geoloc.class.php:695
 #, php-format
@@ -1518,102 +1314,92 @@ msgid ""
 "You have venues for which we don't have Geolocation information. <a "
 "href='%s'>Click here to generate it</a>."
 msgstr ""
-"Imate jmesta održavanja za koje namamo geografske podatke.  <a "
-"href='%s'>Kliknite ovde da ih generišete</a>."
+"لديك بعض الأماكن التي لا تتوافر لها بيانات تحديد الموقع الجغرافي. <a "
+"href='%s'>اضغط هنا للبدء فيها</a>"
 
 #: ../lib/tribe-geoloc.class.php:714
 #, php-format
 msgid "Fixed geolocation data for %d venues"
-msgstr "Fiksni geografski podaci za %d mjesta održavanja"
+msgstr "تم تصحيح تحديد الوضع الجغرافي ل  %d أماكن."
 
 #: ../lib/tribe-ical.class.php:36
 msgid "Add to Google Calendar"
-msgstr "Dodajte u Google kalendar"
+msgstr "اضف إلي أجندة جوجل"
 
-# @ tribe-events-calendar-pro
 #
 #: ../lib/tribe-ical.class.php:36
 msgid "Google Calendar"
-msgstr "Google Calendar"
+msgstr "أجندة جوجل"
 
 #: ../lib/tribe-ical.class.php:37 ../lib/tribe-ical.class.php:83
 msgid "iCal Import"
-msgstr "iCal uvoz"
+msgstr "استيراد من iCal"
 
-# @ tribe-events-calendar-pro
 #
 #: ../lib/tribe-ical.class.php:70
 msgid "Month's Events"
-msgstr "Mjesečni događaji"
+msgstr "أحداث الشهر"
 
-# @ tribe-events-calendar-pro
 #
 #: ../lib/tribe-ical.class.php:73
 msgid "Week's Events"
-msgstr "Sedmični događaji"
+msgstr "أحداث الأسبوع"
 
-# @ tribe-events-calendar-pro
 #
 #: ../lib/tribe-ical.class.php:76
 msgid "Day's Events"
-msgstr "Dnevni događaji"
+msgstr "أحداث اليوم"
 
-# @ tribe-events-calendar-pro
 #
 #: ../lib/tribe-ical.class.php:79
 msgid "Listed Events"
-msgstr "Izlistani događaji"
+msgstr "الأحداث المدرجة"
 
 #: ../lib/tribe-ical.class.php:83
 msgid "Import is filter/view sensitive"
-msgstr "Uvoz je filter/pogled osetljiv"
+msgstr "استيراد البيانات حساس للفلتر و طريقة العرض"
 
-# @ tribe-events-calendar-pro
 #: ../lib/widget-advanced-list.class.php:16
 msgid "A widget that displays the next upcoming x events."
-msgstr "Vidžet koji prikazuje sljedećih x događaja."
+msgstr "مربع يظهر الأحداث القادمة."
 
-# @ tribe-events-calendar-pro
 #
 #: ../lib/widget-advanced-list.class.php:22
 msgid "Events List"
-msgstr "Lista događaja"
+msgstr "قائمة الأحداث"
 
 #: ../lib/widget-calendar.class.php:8
 msgid "The events calendar mini calendar widget"
-msgstr "Mini kalendar događaja vidžet"
+msgstr "المربع الجانبي المصغر لأجندة الأحداث"
 
-# @ tribe-events-calendar-pro
 #: ../lib/widget-calendar.class.php:10 ../lib/widget-calendar.class.php:31
 #: ../lib/widget-calendar.class.php:59
 msgid "Events Calendar"
-msgstr "Kalendar događaja"
+msgstr "الأجندة"
 
 #: ../lib/widget-countdown.class.php:13
 msgid "Displays the time remaining until a specified event."
-msgstr "Prikaži preostalo vrijeme do određenog događaja."
+msgstr "يظهر الوقت المتبقي من أجل حدث معين."
 
-# @ tribe-events-calendar-pro
 #
 #: ../lib/widget-countdown.class.php:15
 msgid "Events Countdown"
-msgstr "Odbrojavanje događaja"
+msgstr "العدد التنازلي للأحداث"
 
 #: ../lib/widget-venue.class.php:12
 msgid "Displays a list of upcoming events at a specific venue."
-msgstr "Prikaži listu predstojećih događaja za određeno mjesto održavanja."
+msgstr "يظهر قائمة بالأحداث لمكان محدد."
 
 #: ../lib/widget-venue.class.php:14
 msgid "Events Featured Venue"
-msgstr "Istaknuto mjesto održavanja"
+msgstr "مكان الأحداث المتميز"
 
-# @ tribe-events-calendar-pro
 #: ../lib/template-classes/day.php:73
 #: ../views/tribe-ECP-views-old/views/featured-widget.php:59
 #: ../views/tribe-ECP-views-old/views/list-widget.php:57
 #: ../views/week/loop-grid-allday.php:20
 msgid "All Day"
-msgstr "Cijeli dan"
+msgstr "طوال اليوم"
 
 #: ../lib/template-classes/day.php:102
 #, php-format
@@ -1621,23 +1407,20 @@ msgid ""
 "There were no results found for <strong>\"%s\"</strong> on this day. Try "
 "searching another day."
 msgstr ""
-"Nema nađenih rezultata za <strong>\"%s\"</strong> ovaj dan. Pretražite drugi "
-"dan."
+"لا توجد أحداث خاصة ب  <strong>\"%s\"</strong> هذا اليوم. جرب البحث في يوم "
+"آخر."
 
 #: ../lib/template-classes/day.php:106 ../lib/template-classes/photo.php:75
 #, php-format
 msgid "No events scheduled for <strong>%s</strong>. Please try another day."
-msgstr ""
-"Nema događaja za <strong>%s</strong>. Molimo vas probajte neki drugi dan."
+msgstr "لا توجد أحداث مجدولة ل <strong>%s</strong>. من فضلك جرب يوم آخر"
 
 #: ../lib/template-classes/photo.php:72
 #, php-format
 msgid ""
 "listed under %s. Check out events for this category or view the full "
 "calendar."
-msgstr ""
-"izlistani pod %s. Pogledajte naše događaje za ovu kategoriju ili pogledajte "
-"pun kalendar."
+msgstr "مدرجة تحت %s. شاهد الأحداث تحت هذا التصنيف أو شاهد الأجندة كاملة"
 
 #: ../lib/template-classes/week.php:76
 #, php-format
@@ -1645,17 +1428,14 @@ msgid ""
 "There were no results found for <strong>\"%s\"</strong> this week. Try "
 "searching another week."
 msgstr ""
-"Nema nađenih rezultata za <strong>\"%s\"</strong> ove sedmice. Probajte "
-"pretražiti drugu sedmicu."
+"لا توجد أحداث خاصة ب  <strong>\"%s\"</strong> هذا الأسبوع. جرب البحث في "
+"أسبوع آخر."
 
-# @ tribe-events-calendar-pro
 #
 #: ../public/template-tags/general.php:103
 msgid "Show only the first upcoming instance of recurring events"
-msgstr "Pokaži samo prvu nadolazeću instancu ponavljajućeg događaja"
+msgstr "اظهر فقط التكرار الأول للأحداث المستقبلية المكررة."
 
-# @ tribe-events-calendar-pro
-#
 #: ../public/template-tags/general.php:294
 #: ../public/template-tags/general.php:308
 #: ../public/template-tags/general.php:321
@@ -1673,481 +1453,542 @@ msgstr "Pokaži samo prvu nadolazeću instancu ponavljajućeg događaja"
 #: ../public/template-tags/general.php:405
 #: ../public/template-tags/general.php:406
 msgid "No default set"
-msgstr "Nema podrazumevanjih postavki"
+msgstr "لم يتم تحديد الإفتراضي"
 
-# @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:295
 #, php-format
 msgid "The current default organizer is: %s"
-msgstr "Trenutni zadani organizator je: %s"
+msgstr "المنظم الإفتراضي الحالي هو : %s"
 
-# @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:309
 #, php-format
 msgid "The current default venue is: %s"
-msgstr "Trenutno zadano mjesto održavanja je: %s "
+msgstr "المكان الإفتراضي الحالي هو : %s"
 
-# @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:323
 #, php-format
 msgid "The current default address is: %s"
-msgstr "Trenutna zadana adresa je: %s"
+msgstr "العنوان الإفتراضي الحالي هو : %s"
 
-# @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:337
 #, php-format
 msgid "The current default city is: %s"
-msgstr "Trenutni zadani grad je: %s"
+msgstr "المدينة الإفتراضية الحالية هي : %s"
 
-# @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:351
 #, php-format
 msgid "The current default state is: %s"
-msgstr "Trenutna zadana država je: %s "
+msgstr "الولاية الإفتراضية الحالية هي : %s"
 
-# @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:365
 #, php-format
 msgid "The current default province is: %s"
-msgstr "Trenutna zadana provincija je: %s"
+msgstr "المقاطعة الأفتراضية الحالية هي : %s"
 
-# @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:379
 #, php-format
 msgid "The current default postal code/zip code is: %s"
-msgstr "Trenutni zadani poštanski kod je: %s"
+msgstr "الرقم البريدي الإفتراضي الحالي هو : %s"
 
-# @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:393
 #, php-format
 msgid "The current default country is: %s"
-msgstr "Trenutna zadana zemlja je: %s "
+msgstr "الدولة الإفتراضية الحالية هي : %s"
 
-# @ tribe-events-calendar-pro
 #: ../public/template-tags/general.php:407
 #, php-format
 msgid "The current default phone is: %s"
-msgstr "Trenutni zadani telefon je: %s"
+msgstr "التليفون الإفتراضي الحالي هو : %s"
 
 #: ../public/template-tags/general.php:580
 msgid "Today"
-msgstr "Danas"
+msgstr "اليوم"
 
 #: ../public/template-tags/general.php:583
 msgid "&laquo; Previous Day"
-msgstr "&laquo; Prethodni dan"
+msgstr "اليوم السابق &laquo;"
 
 #: ../public/template-tags/general.php:586
 msgid "Next Day &raquo;"
-msgstr "Naredni dan &raquo;"
+msgstr "&laquo; اليوم التالي"
 
 #: ../public/template-tags/general.php:589
 msgid "Yesterday"
-msgstr "Juče"
+msgstr "الأمس"
 
 #: ../public/template-tags/general.php:592
 msgid "Tomorrow"
-msgstr "Sutra"
+msgstr "الغد"
 
-# @ tribe-events-calendar-pro
 #
 #: ../public/template-tags/general.php:675
 msgid "Related Events"
-msgstr "Povezani događaji"
+msgstr "أحداث مرتبطة"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/demo/demo.php:31
 #, php-format
 msgid ""
 "It looks like you might not have any demo data. <a href=\"%s\">Download our "
 "data</a> and use the <a href=\"%s\">WordPress Importer</a>."
 msgstr ""
-"Izgleda da nemate demo podataka. <a href=\"%s\">Skinite naše podatke</a> i "
-"koristite <a href=\"%s\">WordPress importer</a>."
+"يبدو أنه ليس لديك أي بيانات بادئة. <a href=\"%s\">قم بتحميل بياناتنا</a>و "
+"استخدم  <a href=\"%s\">مستورد وردبريس </a>."
 
 #: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:44
 msgid "Column Name"
-msgstr "Ime stupca"
+msgstr "اسم العامود"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:134
 msgid "Add a Column"
-msgstr "Dodajte kolonu"
+msgstr "أضف عامود"
 
 #: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:141
 msgid "Comments"
-msgstr "Komentari"
+msgstr "تعليقات"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:52
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:72
 msgid "Is"
-msgstr "Je"
+msgstr "نعم"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:53
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:73
 msgid "Is Not"
-msgstr "Nije"
+msgstr "لا"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:67
 msgid "LIKE"
-msgstr "Sviđa mi se"
+msgstr "مثل"
 
-# @ tribe-events-calendar-pro
 #
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
 msgid "Search"
-msgstr "Pretraga"
+msgstr "بحث"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:82
 msgid "Member Type"
-msgstr "Tip člana"
+msgstr "نوع العضو"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:86
 msgid "Cafe"
-msgstr "Kafe"
+msgstr "كافيه"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:87
 msgid "Private Desk"
-msgstr "Privatna firma"
+msgstr "مكتب خاص"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:88
 msgid "Office"
-msgstr "Kancelarija"
+msgstr "مكتب"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:95
 msgid "what i’m querying. probably a key in the options array in $filters"
-msgstr "koji je upit? verovatno ključ u nizu opcija u $filters"
+msgstr "ما ابحث عنه هو في الغالب مفتاح في مصفوفة الإختيارات في $filters"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:523
 msgid "Choose a Saved Filter"
-msgstr "Odaberite sačuvani filter"
+msgstr "أختر الفلتر المحفوظ"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:639
 msgid "Add a Filter"
-msgstr "Dodajte filter"
+msgstr "اضف فلتر"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:44
 msgid "Extended Information"
-msgstr "Detaljne informacije"
+msgstr "معلومات موسعة"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:124
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:397
 msgid "Delete this image"
-msgstr "Obrišite ovu sliku"
+msgstr "امسح الصورة"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:124
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:352
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:397
 msgid "Delete"
-msgstr "Obriši"
+msgstr "مسح"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:348
 msgid "Uploaded files"
-msgstr "Okačeni fajlovi"
+msgstr "الملفات المرفوعة"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:358
 msgid "Upload new files"
-msgstr "Okači nove fajlove"
+msgstr "ارفع ملفات جديدة"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:361
 msgid "Add another file"
-msgstr "Dodaj još jedan fajl"
+msgstr "اضف ملف جديد"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:404
 msgid "Add more images"
-msgstr "Dodajte još slika"
+msgstr "اضف صور أخري"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:412
 msgid "Select a color"
-msgstr "Odaberite boju"
+msgstr "اختر لون"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/views/edit-filters.php:7
 #: ../vendor/advanced-post-manager/views/edit-filters.php:8
 msgid "Click to toggle"
-msgstr "Kliknite da bi ste otvorili"
+msgstr "اضغط للتبديل"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/views/edit-filters.php:8
 msgid "Filters &amp; Columns"
-msgstr "Filteri i kolone"
+msgstr "فلترة &amp; أعمدة"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/views/edit-filters.php:17
 msgid "Apply"
-msgstr "Potvrdi"
+msgstr "تطبيق"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/views/edit-filters.php:18
 msgid "Clear"
-msgstr "Obriši"
+msgstr "مسح"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/views/edit-filters.php:19
 #: ../vendor/advanced-post-manager/views/edit-filters.php:26
 msgid "Save"
-msgstr "Sačuvaj"
+msgstr "حفظ"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/views/edit-filters.php:21
 msgid "Export to CSV"
-msgstr "Izvezi u CSV"
+msgstr "تصدير إلي ملف CSV"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/views/edit-filters.php:25
 msgid "Filter Name"
-msgstr "Ime filtera"
+msgstr "اسم الفلتر"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/advanced-post-manager/views/edit-filters.php:27
 msgid "Cancel"
-msgstr "Otkaži"
+msgstr "إلغاء"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/pue-client/admin-views/license-key.view.php:9
 #: ../vendor/pue-client/admin-views/license-key.view.php:13
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:182
 msgid "License Key"
-msgstr "Ključ licence"
+msgstr "مفتاح الترخيص"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/pue-client/admin-views/license-key.view.php:10
 msgid "A valid license key is required for support and updates."
-msgstr "Validan ključ  je potreban za podršku i ažuriranje."
+msgstr "يجب الحصول علي مفتاح ترخيص صالح من أجل الدعم و التحديثات."
 
 #: ../vendor/pue-client/admin-views/license-key.view.php:16
 msgid "Replace empty fields"
-msgstr "Zameni prazna polja"
+msgstr "استبدال الحقول الفارغة"
 
-# @ tribe-events-calendar-pro
-#
 #: ../vendor/pue-client/admin-views/license-key.view.php:25
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:183
 msgid "A valid license key is required for support and updates"
-msgstr "Validan ključ licence je potreban za podršku i nadogradnju"
+msgstr "يجب الحصول علي مفتاح ترخيص صالح من أجل الدعم و التحديثات."
 
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:251
 msgid "License key(s) updated."
-msgstr "Kluč(evi) licence ažirirani."
+msgstr "تم تحديث مفتاح الترخصي."
 
-# @ tribe-events-calendar-pro
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:288
 msgid "Sorry, key validation server is not available."
-msgstr "Žao nam je, server za validaciju nije dostupan."
+msgstr "ناسف, خادم مفتاح الترخيص غير متاح حالياً."
 
-# @ tribe-events-calendar-pro
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:290
 msgid "Sorry, this key is expired."
-msgstr "Žao nam je, ovaj ključ je istekao."
+msgstr "نأسف, هذا المفتاح منتهي الصلاحية."
 
-# @ tribe-events-calendar-pro
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:292
 msgid "Sorry, this key is out of installs."
-msgstr "Žao nam je, ne možete vršiti više instalacija sa ovim ključem."
+msgstr "نأسف, هذا المفتاح استنفذ مرات التثبيت المسموح بها."
 
-# @ tribe-events-calendar-pro
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:294
 msgid "Sorry, this key is not valid."
-msgstr "Žao nam je, ovaj ključ nije validan."
+msgstr "ناسف, هذا المفتاح غير صالح."
 
-# @ tribe-events-calendar-pro
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:297
 #, php-format
 msgid "Valid Key! Expires on %s"
-msgstr "Validan ključ! Ističe %s"
+msgstr "مفتاح الترخيص سليم و ينتهي في %s"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:301
 msgid ""
 "Hmmm... something's wrong with this validator. Please contact <a href="
 "\"http://tri.be/support\">support.</a>"
 msgstr ""
-"Hmmm...nešto nije u redu sa validatorom. Molimo vas kontaktirajte <a href="
-"\"http://tri.be/support\">podršku.</a>"
+"هناك خطأ ما في هذا المفتاح. نرجو التواصل مع<a href=\"http://tri.be/support"
+"\">الدعم.</a>"
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:20
 msgid "Displays posts related to the post."
-msgstr "Prikači unose povezane sa ovim unosom."
+msgstr "اظهر التدوينات المرتبطة بهذه التدوينة."
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:22
 msgid "Related Posts"
-msgstr "Povezani unosi"
+msgstr "التدوينات المتصلة"
 
-# @ tribe-events-calendar-pro
-#
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
 msgid "Count:"
-msgstr "Broj:"
+msgstr "عدد: "
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:80
 msgid "Display Thumbnails?"
-msgstr "Prikaži sliku?"
+msgstr "أظهار الصور؟"
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:83
 msgid "Only Display Related Posts?"
-msgstr "Prikaži samo povezane unose?"
+msgstr "أظهار التدوينات المتصلة فقط؟"
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:86
 msgid "Post Type:"
-msgstr "Tip unosa:"
+msgstr "نوع التدوينة:"
 
-# @ tribe-events-calendar-pro
 #: ../vendor/tribe-support/tribe-support.class.php:54
 msgid "Send a support request for this site."
-msgstr "Pošalji zahtev za podršku za ovaj sajt."
+msgstr "ارسل طلب دعم لهذا الموقع."
 
 #: ../views/map.php:39
 msgid "Refine your search:"
-msgstr "Rafinišite pretragu:"
+msgstr "تصفية البحث:"
 
-# @ tribe-events-calendar-pro
 #
 #: ../views/single-organizer.php:30 ../views/single-venue.php:31
 msgid "&larr; Back to Events"
-msgstr "&larr; Nazad na događaje"
+msgstr "&larr; العودة للأحداث"
 
 #: ../views/day/nav.php:15
 msgid "Day Navigation"
-msgstr "Dnevna navigacija"
+msgstr "التنقل عبر الأيام"
 
 #: ../views/map/nav.php:21 ../views/photo/nav.php:21
 msgid "Events List Navigation"
-msgstr "Navigacija Liste događaja"
+msgstr "التنقل عبر الأحداث"
 
-# @ tribe-events-calendar-pro
 #
 #: ../views/map/nav.php:24 ../views/photo/nav.php:24
 msgid "&laquo; Previous Events"
-msgstr "&laquo; Prethofni događaji"
+msgstr "الأحداث السابقة &laquo;"
 
-# @ tribe-events-calendar-pro
 #
 #: ../views/map/nav.php:31 ../views/photo/nav.php:31
 msgid "Next Events &raquo;"
-msgstr "Naredni događaji &raquo;"
+msgstr "&raquo; الأحداث التالية"
 
-# @ tribe-events-calendar-pro
 #: ../views/tribe-ECP-views-old/views/list-widget.php:110
 msgid "Price:"
-msgstr "Cijena:"
+msgstr "السعر: "
 
-# @ tribe-events-calendar-pro
 #: ../views/tribe-ECP-views-old/views/single-venue.php:24
 msgid "&laquo; Back to Events"
-msgstr "&laquo; Nazad na događaje"
+msgstr "&laquo; العودة للأحداث"
 
-# @ tribe-events-calendar-pro
 #: ../views/tribe-ECP-views-old/views/single-venue.php:37
 msgid "Name:"
-msgstr "Ime:"
+msgstr "الاسم:"
 
-# @ tribe-events-calendar-pro
 #: ../views/tribe-ECP-views-old/views/single-venue.php:41
 msgid "Phone:"
-msgstr "Telefon:"
+msgstr "التليفون: "
 
-# @ tribe-events-calendar-pro
 #: ../views/tribe-ECP-views-old/views/single-venue.php:47
 msgid "Address:"
-msgstr "Adresa:"
+msgstr "العنوان: "
 
-# @ tribe-events-calendar-pro
 #: ../views/tribe-ECP-views-old/views/single-venue.php:49
 msgid "Click to view a Google Map"
-msgstr "Kliknite da vidite Google kartu"
+msgstr "اضغط لرؤية خريطة جوجل"
 
-# @ tribe-events-calendar-pro
 #: ../views/tribe-ECP-views-old/views/single-venue.php:49
 msgid "Google Map"
-msgstr "Google karta"
+msgstr "خريطة جوجل"
 
 #: ../views/tribe-ECP-views-old/views/single-venue.php:76
 msgid "Upcoming Events At This Venue"
-msgstr "Predstojeći događaji na ovom mestu održavanja"
+msgstr "الأحداث المستقبلية في هذا المكان"
 
-# @ tribe-events-calendar-pro
 #: ../views/tribe-ECP-views-old/views/single-venue.php:96
 msgid "Start:"
-msgstr "Početak:"
+msgstr "البداية: "
 
-# @ tribe-events-calendar-pro
 #: ../views/tribe-ECP-views-old/views/single-venue.php:100
 msgid "End:"
-msgstr "Kraj:"
+msgstr "النهاية:"
 
-# @ tribe-events-calendar-pro
 #: ../views/tribe-ECP-views-old/views/single-venue.php:105
 msgid "Date:"
-msgstr "Datum:"
+msgstr "التاريخ:"
 
-# @ tribe-events-calendar-pro
 #: ../views/tribe-ECP-views-old/views/single-venue.php:114
 msgid "Cost:"
-msgstr "Cijena:"
+msgstr "التكلفة:"
 
 #: ../views/week/loop-grid.php:18
 msgid "Hours"
-msgstr "Sati"
+msgstr "ساعات"
 
 #: ../views/week/nav.php:17
 msgid "Week Navigation"
-msgstr "Sedmična navigacija"
+msgstr "التنقل عبر الأسابيع"
 
 #: ../views/week/nav.php:20
 msgid "Previous Week"
-msgstr "Prethodna sedmica"
+msgstr "الأسبوع الماضي"
 
-# @ tribe-events-calendar-pro
 #
 #: ../views/week/nav.php:23
 msgid "Next Week"
-msgstr "Naredna sedmica"
+msgstr "الأسبوع التالي"
 
 #: ../views/widgets/countdown-widget.php:27
 msgid "days"
-msgstr "dani"
+msgstr "أيام"
 
 #: ../views/widgets/countdown-widget.php:31
 msgid "hours"
-msgstr "sati"
+msgstr "ساعات"
 
 #: ../views/widgets/countdown-widget.php:35
 msgid "min"
-msgstr "min."
+msgstr "دقائق"
 
-# @ tribe-events-calendar-pro
 #
 #: ../views/widgets/countdown-widget.php:40
 msgid "sec"
-msgstr "sec"
+msgstr "ثواني"
 
-# @ tribe-events-calendar-pro
 #
 #: ../views/widgets/list-widget.php:66
 msgid "Organizer:"
-msgstr "Organizator:"
+msgstr "المنظم:"
 
-# @ tribe-events-calendar-pro
 #
 #: ../views/widgets/venue-widget.php:17
 msgid "No upcoming events."
-msgstr "Nema predstojećih događaja."
+msgstr "لا توجد أحداث مستقبلية."
 
-# @ tribe-events-calendar-pro
 #~ msgid "Show:"
-#~ msgstr "Prikaži:"
+#~ msgstr "أظهر: "
 
-# @ tribe-events-calendar-pro
 #, fuzzy
 #~ msgid "Venue Widget"
-#~ msgstr "Sledeći događaj vidžet"
+#~ msgstr "المربع الجانبي التالي"
+
+#~ msgid "Venues"
+#~ msgstr "أماكن"
+
+#~ msgid "Organizers"
+#~ msgstr "المنظمين"
+
+#~ msgid "Use Saved Venue:"
+#~ msgstr "استخدم المكان الذي تم حفظه:"
+
+#~ msgid "Use Saved Organizer:"
+#~ msgstr "استخدم المنظم الذي تم حفظه"
+
+#~ msgid "Use New Venue"
+#~ msgstr "استخدم المكان الجديد"
+
+#~ msgid "My Venues"
+#~ msgstr "أماكني"
+
+#~ msgid "Available Venues"
+#~ msgstr "الأماكن المتاحة"
+
+#~ msgid "Use New Organizer"
+#~ msgstr "استخدم منظم جديد"
+
+#~ msgid "My Organizers"
+#~ msgstr "منظمي"
+
+#~ msgid "Available Organizers"
+#~ msgstr "المنظمين المتوفرين"
+
+#~ msgid "Defaults"
+#~ msgstr "الإفتراضي"
+
+#~ msgid ""
+#~ "%sOh, wondering what to do with your license key and whether you need it "
+#~ "before you can get into event creation? Check out %s on that subject for "
+#~ "an answer. %s, if you don't have it handy.%s"
+#~ msgstr ""
+#~ "%sهل تتسائل ماذا تفعل بمفتاح الترخيص الخاص بك و هل تحتاجه قبل البدء في "
+#~ "إضافة الأحداث?قم بتفقد %s هذه الموضوع للإجابة. %s,إذا لم تكن تعرفها.%s"
+
+#~ msgid "our blog post"
+#~ msgstr "التدوينة الخاصة بنا"
+
+#~ msgid "Here's how you find your license key"
+#~ msgstr "هكذا تجد مفتاح الترخيص الخاص بك"
+
+#~ msgid ""
+#~ "%sLook through existing threads before posting a new one and check that "
+#~ "there isn't already a discussion going on your issue. The tri.be site has "
+#~ "a solid search function that should help find what you're looking for, if "
+#~ "it indeed already is present.%s"
+#~ msgstr ""
+#~ "%sانظر في الموضوعات الحالية و تأكد من عدم وجود مناقشة حول نفس الموضوع. "
+#~ "موقع tri.be يوفر خاصية بحث متطورة تساعدك في الوصول إلي ما تبحث عنه.%s"
+
+#~ msgid "Never"
+#~ msgstr "مطلقاً"
+
+#~ msgid "* End"
+#~ msgstr "* نهاية"
+
+#~ msgid "<em>The current default value is:</em> <strong>%s</strong>"
+#~ msgstr "<em>القيمة الإفتراضية الحالية هي :</em> <strong>%s</strong>"
+
+#~ msgid "No default value set"
+#~ msgstr "لم يتم تحديد قيمة إفتراضية"
+
+#~ msgid ""
+#~ "One country per line in the following format: <br/>US, United States <br/"
+#~ "> UK, United Kingdom.<br/>"
+#~ msgstr ""
+#~ "دولة واحدة في كل سطر بهذا الشكل: <br/>US, الولايات المتحدة <br/> UK, "
+#~ "المملكة المتحدة."
+
+#~ msgid "(Replaces the default list)"
+#~ msgstr "(تستبدل القائمة الإفتراضية)"
+
+#~ msgid "Use New Venue/No Default"
+#~ msgstr "استخدم المكان الجديد- لا يوجد إفتراضي"
+
+#~ msgid ""
+#~ "Set values for event organizers & venues that appear pre-populated in the "
+#~ "event editor whenever you create a new event. This helps save time in "
+#~ "situations where the venue or organizer rarely changes, saving you from "
+#~ "having to manually re-enter the data each time you create an event.</"
+#~ "p><p>It's worth noting that these can be overridden on the event creation "
+#~ "screen; if a venue and organizer are pre-populated but you wants to "
+#~ "change to something else, use the dropdown to either select another "
+#~ "existing venue/organizer, or manually enter the details of a new one."
+#~ msgstr ""
+#~ "قم بتعيين قيم في خانة المنظمين و المكان حتي تظهر لك في محرر الأحداث عندما "
+#~ "تقوم بإنشاء حدث جديد. و هذا يساعدك علي توفير الوقت في حالة أن يكون المكان "
+#~ "أو المنظم نادراً ما يتغير حتي لا تضطر إلي إدخال نفس البيانات في كل مرة.</"
+#~ "p><p> مع العلم بأن هذه القيم يمكن تغييرها في شاشة إنشاء الأحداث, فإذا كان "
+#~ "المكان أو المنظم ظاهر بالفعل و تريد تغييره يمكنك إستخدام القائمة لتختار "
+#~ "منظم أو مكان موجود بالفعل أو إدخال جديد"
+
+#~ msgid "Start Date & Time"
+#~ msgstr "يوم و تاريخ البداية"
+
+#~ msgid "(Widget will always show start date)"
+#~ msgstr "(المربع سيظهر دائماً تاريخ البداية)"
+
+#~ msgid ", and "
+#~ msgstr ", و"
+
+#~ msgid " and "
+#~ msgstr "و"
+
+#~ msgid ", "
+#~ msgstr ","
+
+#~ msgid "A calendar of your events"
+#~ msgstr "تقويم بالأحداث الخاصة بك"
+
+#~ msgid "There are no upcoming events at this time."
+#~ msgstr "لا توجد أحداث مقبلة في هذا الوقت."
+
+#~ msgid "License Key for %s"
+#~ msgstr "مفتاح الترخصي  ل %s"
+
+#~ msgid "[X]"
+#~ msgstr "[X]"
