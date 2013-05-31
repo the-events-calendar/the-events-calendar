@@ -47,7 +47,8 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #
 .eventForm h4.event-time {margin-top: 0;}
 .tribe-community-event-info {margin: 10px; width:100%;}
 .eventtable, #EventInfo{margin:0; padding-top:0; width:100%; }
-#event_tickets {table-layout: fixed;}
+#event_tickets,
+.eventtable.ticket_list.eventForm {table-layout: fixed;}
 .form-table form input {border:none;}
 #submitLabel {display: block;}
 #submitLabel input {display: block; padding: 0;}
