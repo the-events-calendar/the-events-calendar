@@ -27,7 +27,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 			add_filter('comments_template', array( $this, 'remove_comments_template' ) );
 
 			add_action( 'tribe_events_single_venue_before_upcoming_events', array( $this, 'setup_upcoming_events' ) );
-		
+
 			add_filter( 'tribe_get_template_part_templates', array( $this, 'remove_list_navigation' ), 10, 3 );
 		}
 
@@ -98,6 +98,9 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 
 			// include the list view class for upcoming events
 			tribe_initialize_view( 'list' );
+			tribe_set_the_meta_visibility( 'tribe_event_venue_name', false );
+			tribe_set_the_meta_visibility( 'tribe_event_venue_address', false );
+
 		}
 
 		/**
