@@ -2442,7 +2442,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 			remove_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
-			remove_action( 'save_post', array( $this, 'publishAssociatedTypes'), 25, 2 );
 
 			// Only continue if the post being published is an event
 			if ( $post->post_type != self::POSTTYPE ) {
