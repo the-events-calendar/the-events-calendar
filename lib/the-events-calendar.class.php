@@ -1647,7 +1647,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$newOption = array();
 			$newOption[$name] = $value;
 			$options = self::getOptions();
-			$this->setOptions( wp_parse_args( $newOption, $options ) );
+			self::setOptions( wp_parse_args( $newOption, $options ) );
 		}
 
 		/**
