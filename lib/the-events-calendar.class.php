@@ -2445,16 +2445,31 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			remove_action( 'save_post', array( $this, 'publishAssociatedTypes'), 25, 2 );
 
 			// Only continue if the post being published is an event
-			if ( ( $post->post_type != self::POSTTYPE && $postID ) && (
-				wp_is_post_autosave( $postID ) ||
-				in_array( $post->post_status, array( 'auto-draft', 'draft' ) ) ||
-				isset( $_GET['bulk_edit'] ) ||
-				( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'inline-save' ) ) ) {
+			if ( $post->post_type != self::POSTTYPE ) {
+				return;
+			}
+			if ( wp_is_post_autosave($postID) ) {
+				return;
+			}
+			if ( in_array( $post->post_status, array( 'auto-draft', 'draft' ) ) ) {
+				return;
+			}
+			if ( isset( $_GET['bulk_edit'] ) ) {
+				return;
+			}
+			if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'inline-save' ) {
 				return;
 			}
 
 			// save venue and organizer info on first pass
-			if( isset( $post->post_status ) && $post->post_status == 'publish' ){
+			if( isset( $post->post_status ) && $post->post_status == 'publish' ) {
+				// need to tread lightly here so that we don't break other plugins using save_post
+				// see http://xplus3.net/2011/08/18/wordpress-action-nesting/
+
+				// track the current position of the array_pointer
+				global $wp_filter;
+				$wp_filter_index = key($wp_filter['save_post']);
+				$did_save = FALSE;
 
 				//get venue and organizer and publish them
 				$pm = get_post_custom($post->ID);
@@ -2467,6 +2482,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						if ( !empty( $venue_post ) && $venue_post->post_status != 'publish' ) {
 							$venue_post->post_status = 'publish';
 							wp_update_post( $venue_post );
+							$did_save = TRUE;
 						}
 					}
 				}
@@ -2479,7 +2495,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						if ( !empty( $org_post ) && $org_post->post_status != 'publish' ) {
 							$org_post->post_status = 'publish';
 							wp_update_post( $org_post );
+							$did_save = TRUE;
 						}
+					}
+				}
+
+				if ( $did_save ) {
+					// put the $wp_filter pointer back where we found it
+					reset($wp_filter['save_post']);
+					foreach ( array_keys($wp_filter['save_post']) as $key ) {
+						if ( $key == $wp_filter_index ) {
+							break;
+						}
+						next($wp_filter['save_post']);
 					}
 				}
 			}
