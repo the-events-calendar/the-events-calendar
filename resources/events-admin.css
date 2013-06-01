@@ -48,7 +48,9 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #
 .tribe-community-event-info {margin: 10px; width:100%;}
 .eventtable, #EventInfo{margin:0; padding-top:0; width:100%; }
 #event_tickets,
-.eventtable.ticket_list.eventForm {table-layout: fixed;}
+.eventtable.ticket_list.eventForm {table-layout: fixed; }
+#ticket_start_date,
+#ticket_end_date{width:100px;}
 .form-table form input {border:none;}
 #submitLabel {display: block;}
 #submitLabel input {display: block; padding: 0;}
