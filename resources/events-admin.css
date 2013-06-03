@@ -46,7 +46,11 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #
 .eventForm h4 {font-size:1.2em; margin:1em 0 1em;}
 .eventForm h4.event-time {margin-top: 0;}
 .tribe-community-event-info {margin: 10px; width:100%;}
-.eventtable, #EventInfo{margin:0; padding-top:0; width:100%; table-layout: fixed;}
+.eventtable, #EventInfo{margin:0; padding-top:0; width:100%; }
+#event_tickets,
+.eventtable.ticket_list.eventForm {table-layout: fixed; }
+#ticket_start_date,
+#ticket_end_date{width:100px;}
 .form-table form input {border:none;}
 #submitLabel {display: block;}
 #submitLabel input {display: block; padding: 0;}
@@ -124,7 +128,7 @@ td.tribe_message {padding-bottom: 10px !important;}
 .tribe-settings-form #tribe-field-stylesheetOption input { margin-left: -20px; margin-right: 8px;}
 .tribe-settings-form #tribe-field-stylesheetOption p.description {color: #999;}
 /* Modern Tribe box */
-#modern-tribe-info {margin: 20px 0; background-color: #f9f9f9; padding: 8px 20px 12px; border: 1px solid #ccc; border-rarius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; -o-border-radius: 4px;}
+#modern-tribe-info {margin: 20px 0; background-color: #f9f9f9; padding: 8px 20px 12px; border: 1px solid #ccc; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; -o-border-radius: 4px;}
 #modern-tribe-info img {margin: 10px 0; width: 250px; height: 18px;}
 
 /* sizes */
