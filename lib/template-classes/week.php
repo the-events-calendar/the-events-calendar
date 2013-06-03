@@ -427,7 +427,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return date( 'Y-m-d' )
 		 */
 		function get_current_date() {
-			return date_i18n( 'Y-m-d', strtotime( self::$start_of_week_date . ' +' . self::$current_day . ' days' ) );
+			return date_i18n( 'Y-m-d', strtotime( self::$start_of_week_date . ' +' . ( self::$current_day - self::$start_of_week ) . ' days' ) );
 		}
 
 		/**
