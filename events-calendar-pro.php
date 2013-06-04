@@ -181,6 +181,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			add_filter( 'wp' , array( $this, 'detect_recurrence_redirect' ) );
 
+			add_filter( 'tribe_events_register_venue_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
+			add_filter( 'tribe_events_register_organizer_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
 		}
 
 		function single_event_the_meta_addon( $html, $event_id){
@@ -1110,6 +1112,19 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				$actions['settings'] = '<a href="' . add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'page' => 'tribe-events-calendar-pro' ), admin_url( 'edit.php' ) ) .'">' . __('Settings', 'tribe-events-calendar-pro') . '</a>';
 			}
 			return $actions;
+		}
+		
+		/**
+		 * Adds thumbnail/featured image support to Organizers and Venues when PRO is activated.
+		 *
+		 * @param array $post_type_args The current register_post_type args.
+		 * @return array The new register_post_type args.
+		 * @author Paul Hughes
+		 * @since 3.0
+		 */
+		public function addSupportsThumbnail( $post_type_args ) {
+			$post_type_args['supports'][] = 'thumbnail';
+			return $post_type_args;
 		}
 
 		/**

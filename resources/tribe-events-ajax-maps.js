@@ -74,8 +74,8 @@
 			var maxLatlng = new google.maps.LatLng(GeoLoc.center.max_lat, GeoLoc.center.max_lng);
 			tg.bounds.extend(maxLatlng);
 		}
-
-		$('#tribe-geo-location').placeholder();
+		if($().placeholder)
+			$('#tribe-geo-location').placeholder();
 
 		if (tt.map_view()) {
 

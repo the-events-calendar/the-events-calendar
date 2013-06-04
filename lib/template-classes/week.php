@@ -138,7 +138,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 						// if there is a day in between start/end we just want to fill the spacer with the total mins in the day.
 						$duration = $daily_mins;
 					} else {
-							echo 'hello murphy';
 						self::$daily_span_ids[] = $event->ID;
 						// if the event is longer than a day we want to account for that with an offset
 						$duration = $daily_mins - abs( ( strtotime( self::get_current_date() ) - strtotime( $event->EventStartDate ) ) / 60 );
@@ -350,7 +349,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				if ( self::$current_day < self::$start_of_week + self::$week_length ) {
 					self::$current_day++;
 				} else {
-				self::reset_current_day();
+				self::reset_the_day();
 			}
 		}
 
@@ -428,7 +427,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return date( 'Y-m-d' )
 		 */
 		function get_current_date() {
-			return date_i18n( 'Y-m-d', strtotime( self::$start_of_week . ' +' . self::$current_day . ' days' ) );
+			return date_i18n( 'Y-m-d', strtotime( self::$start_of_week_date . ' +' . ( self::$current_day - self::$start_of_week ) . ' days' ) );
 		}
 
 		/**
