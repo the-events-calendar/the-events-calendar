@@ -113,7 +113,7 @@ class TribeEventsGeoLoc {
 				'fields'         => 'ids',
 				'meta_query'     => array(
 					array(
-						'key'     => '_VenueLat',
+						'key'     => '_VenueGeoAddress',
 						'compare' => 'NOT EXISTS'
 					),
 					array(
@@ -152,7 +152,6 @@ class TribeEventsGeoLoc {
 				),
 			                                                                       )
 			);
-
 		} elseif ( $id == 'display' ) {
 			$args = TribeEventsPro::array_insert_after_key( 'tribeDisableTribeBar', $args, array(
 				'hideLocationSearch' => array(
@@ -289,16 +288,16 @@ class TribeEventsGeoLoc {
 		$address = trim( $_address . ' ' . $_city . ' ' . $_province . ' ' . $_state . ' ' . $_zip . ' ' . $_country );
 
 		if ( empty( $address ) )
-			return;
+			return false;
 
 		// If the address didn't change, doesn't make sense to query google again for the geo data
 		if ( $address === get_post_meta( $venueId, self::ADDRESS, true ) )
-			return;
+			return false;
 
 		$data = wp_remote_get( "http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode( $address ) . "&sensor=false" );
 
 		if ( is_wp_error( $data ) || !isset( $data["body"] ) )
-			return;
+			return false;
 
 		$data_arr = json_decode( $data["body"] );
 
@@ -314,6 +313,8 @@ class TribeEventsGeoLoc {
 		update_post_meta( $venueId, self::ADDRESS, $address );
 
 		delete_transient( self::ESTIMATION_CACHE_KEY );
+
+		return true;
 
 	}
 
@@ -728,7 +729,7 @@ class TribeEventsGeoLoc {
 			'post_status'    => 'publish',
 			'meta_query'     => array(
 				array(
-					'key'     => '_VenueLat',
+					'key'     => '_VenueGeoAddress',
 					'compare' => 'NOT EXISTS'
 				),
 				array(
