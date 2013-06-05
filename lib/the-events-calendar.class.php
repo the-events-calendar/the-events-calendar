@@ -1869,8 +1869,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 				$startTime = get_post_meta($post->ID, '_EventStartDate', true);
 				$startTime = TribeDateUtils::timeOnly($startTime);
-
-				$post->EventStartDate = TribeDateUtils::addTimeToDate($this->date, $startTime);
+				$post->EventStartDate = TribeDateUtils::addTimeToDate($post->EventStartDate, $startTime);
 				$post->EventEndDate = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($post->EventStartDate) + get_post_meta($post->ID, '_EventDuration', true) );
 			}
 		}
