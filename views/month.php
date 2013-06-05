@@ -52,7 +52,9 @@
 	<div id="tribe-events-footer">
 
 		<!-- Footer Navigation -->
+		<?php do_action( 'tribe_events_before_footer_nav' ); ?>
 		<?php tribe_get_template_part( 'month/nav' ); ?>
+		<?php do_action( 'tribe_events_after_footer_nav' ); ?>
 
 	</div><!-- #tribe-events-footer -->
 	<?php do_action( 'tribe_events_after_footer' ) ?>
