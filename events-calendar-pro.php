@@ -488,14 +488,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			switch( $wp_query->query_vars['eventDisplay'] ){
 				case 'single-event':
 					// a recurrence event with a bad date will throw 404 because of WP_Query limiting by date range
-					if( is_404() ) {
+					if( is_404() || empty( $wp_query->query['eventDate'] ) ) {
 						$recurrence_check = array_merge( array( 'posts_per_page' => -1 ), $wp_query->query );
 						unset( $recurrence_check['eventDate'] );
 						unset( $recurrence_check['tribe_events'] );
 
 						// retrieve event object
 						$get_recurrence_event = new WP_Query( $recurrence_check );
-
+						error_log( print_r( $get_recurrence_event->posts, true ) );
 						// if a reccurence event actually exists then proceed with redirection
 						if( !empty($get_recurrence_event->posts) && tribe_is_recurring_event($get_recurrence_event->posts[0]->ID)){
 
@@ -503,7 +503,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 							$next_recurrence = $this->get_last_recurrence( $get_recurrence_event->posts );
 
 							// set current url to the next available recurrence and await redirection
-							$current_url = str_replace( $wp_query->query['eventDate'], $next_recurrence, home_url( $wp->request ) );
+							if ( empty( $wp_query->query['eventDate'] ) ) {
+								$current_url = home_url( $wp->request ) . '/' . $next_recurrence;
+							} else {
+								$current_url = str_replace( $wp_query->query['eventDate'], $next_recurrence, home_url( $wp->request ) );
+							}
 						}
 
 					}
@@ -538,7 +542,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			foreach( $event_list as $key => $event ){
 				if( $right_now < strtotime( $event->EventStartDate ) ) {
 					$next_recurrence = date_i18n( 'Y-m-d', strtotime($event->EventStartDate) );
-					break;
 				}
 			}
 			if( empty($next_recurrence) && !empty($event_list) ){
