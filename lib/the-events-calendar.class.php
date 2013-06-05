@@ -3001,11 +3001,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 *
 		 * Given a week of the year (WW), returns the YYYY-MM-DD of the first day of the week
-		 *
+		 * @deprecated
 		 * @param  string $week expects string or int 2 of 1-52 (weeks of the year)
 		 * @return string $date (YYYY-MM-DD)
 		 */
 		public function weekToDate( $week ){
+			_deprecated_function( __FUNCTION__, '3.0' );
 			// TODO get first day of the week to return in YYYY-MM-DD
 			// TODO fix date return format
 			$date = date( "Y-m", strtotime( $week . ' weeks' ));
@@ -3013,11 +3014,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 		/**
 		 * Given a date (YYYY-MM-DD), returns the first day of the next week
-		 *
+		 * @deprecated
 		 * @param date
 		 * @return date
 		 */
 		public function nextWeek( $date ) {
+			_deprecated_function( __FUNCTION__, '3.0' );
 			$dateParts = explode( '-', $date );
 			if ( $dateParts[1] == 12 ) {
 				$dateParts[0]++;
@@ -3035,11 +3037,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 		/**
 		 * Given a date (YYYY-MM-DD), return the first day of the previous week
-		 *
+		 * @deprecated
 		 * @param date
 		 * @return date
 		 */
 		public function previousWeek( $date ) {
+			_deprecated_function( __FUNCTION__, '3.0' );
 			$dateParts = explode( '-', $date );
 			if ( $dateParts[1] == 1 ) {
 				$dateParts[0]--;
@@ -3058,48 +3061,21 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 		/**
 		 * Given a date (YYYY-MM-DD), returns the first of the next month
-		 *
+		 * hat tip to Dan Bernadict for method cleanup
 		 * @param date
 		 * @return date
 		 */
 		public function nextMonth( $date ) {
-			$dateParts = explode( '-', $date );
-			if ( $dateParts[1] == 12 ) {
-				$dateParts[0]++;
-				$dateParts[1] = "01";
-				$dateParts[2] = "01";
-			} else {
-				$dateParts[1]++;
-				$dateParts[2] = "01";
-			}
-			if ( $dateParts[1] < 10 && strlen( $dateParts[1] ) == 1 ) {
-				$dateParts[1] = "0" . $dateParts[1];
-			}
-			$return =	$dateParts[0] . '-' . $dateParts[1];
-			return $return;
+			return date( 'Y-m', strtotime( $date . ' +1 month' ) );
 		}
 		/**
 		 * Given a date (YYYY-MM-DD), return the first of the previous month
-		 *
+		 * hat tip to Dan Bernadict for method cleanup
 		 * @param date
 		 * @return date
 		 */
 		public function previousMonth( $date ) {
-			$dateParts = explode( '-', $date );
-			if ( $dateParts[1] == 1 ) {
-				$dateParts[0]--;
-				$dateParts[1] = "12";
-				$dateParts[2] = "01";
-			} else {
-				$dateParts[1]--;
-				$dateParts[2] = "01";
-			}
-			if ( $dateParts[1] < 10 ) {
-				$dateParts[1] = "0" . $dateParts[1];
-			}
-			$return =	$dateParts[0] . '-' . $dateParts[1];
-
-			return $return;
+			return date( 'Y-m', strtotime( $date . ' -1 month' ) );
 		}
 
 		/**
