@@ -87,7 +87,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		$postId = TribeEvents::postIdHelper( $postId );
 		$post_type = get_post_type( $postId );
 
-		if ( tribe_get_option('embedGoogleMaps') ) {
+		if ( tribe_get_option('embedGoogleMaps', true) ) {
 			if ( $post_type == TribeEvents::POSTTYPE ) {
 				$output = get_post_meta( $postId, '_EventShowMap', 1) == 1;
 			} elseif ( $post_type == TribeEvents::VENUE_POST_TYPE ) {
