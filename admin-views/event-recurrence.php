@@ -141,7 +141,7 @@
 		-->
 		<tr class="recurrence-pattern-description-row" id="custom-recurrence-text" style="display: <?php echo !$recType || $recType == "None" ? "none" : "table-row"; ?>;">
 			<td style="vertical-align:top;"><?php _e('Recurrence Description:','tribe-events-calendar-pro'); ?></td>
-			<td><input size="30" name="recurrence[recurrence-description]" type="text"><?php echo esc_attr( $recCustomRecurrenceDescription ) ?></textarea></td>
+			<td><input size="30" name="recurrence[recurrence-description]" type="text" value="<?php echo esc_attr( $recCustomRecurrenceDescription ) ?>" /></td>
 		</tr>
 		<tr class="recurrence-pattern-description-row" style="display: <?php echo !$recType || $recType == "None" ? "none" : "table-row"; ?>;">
 			<td></td>

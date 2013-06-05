@@ -563,7 +563,7 @@ class TribeEventsRecurrenceMeta {
 		$recurrence_rules = TribeEventsRecurrenceMeta::getRecurrenceMeta($postId);
 		$start_date = TribeEvents::getRealStartDate( $postId );
 
-		$output_text = self::recurrenceToText( $recurrence_rules, $start_date );
+		$output_text = empty( $recurrence_rules['recCustomRecurrenceDescription'] ) ? self::recurrenceToText( $recurrence_rules, $start_date ) : $recurrence_rules['recCustomRecurrenceDescription'];
 
 		return $output_text;
 	}
