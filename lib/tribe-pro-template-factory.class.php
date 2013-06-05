@@ -53,7 +53,7 @@ if( !class_exists('Tribe_PRO_Template_Factory') ) {
 
 					wp_register_script( 'gmaps', $http . '://maps.google.com/maps/api/js?sensor=false', array( 'tribe-events-pro' ) );
 					$path = Tribe_Template_Factory::getMinFile( $resources_url . 'tribe-events-ajax-maps.js', true );
-					wp_register_script( 'tribe-events-pro-geoloc', $path, array( 'gmaps' ) );
+					wp_register_script( 'tribe-events-pro-geoloc', $path, array( 'gmaps', 'jquery-placeholder' ) );
 					wp_enqueue_script( 'tribe-events-pro-geoloc' );
 
 					$geoloc = TribeEventsGeoLoc::instance();
