@@ -182,7 +182,7 @@
 
 		function tribe_events_list_ajax_post() {
 
-			$('#tribe-events-content').tribe_spin();
+			$('#tribe-events-header').tribe_spin();
 			tribe_show_loader();
 
 			if (!ts.popping) {
