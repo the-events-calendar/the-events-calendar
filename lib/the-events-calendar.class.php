@@ -260,7 +260,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$tec = TribeEvents::instance();
 
 			$data_attributes = array(
-				'live_ajax' => tribe_get_option( 'liveFiltersUpdate', false ) ? 1 : 0,
+				'live_ajax' => tribe_get_option( 'liveFiltersUpdate', true ) ? 1 : 0,
 				'category' => is_tax( $tec->get_event_taxonomy() ) ? get_query_var( 'term' ) : ''
 				);
 			// allow data attributes to be filtered before display
@@ -902,7 +902,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		public function body_class( $c ) {
 			if ( get_query_var('post_type') == self::POSTTYPE ) {
-				if ( !is_admin() && tribe_get_option( 'liveFiltersUpdate', false ) )
+				if ( !is_admin() && tribe_get_option( 'liveFiltersUpdate', true ) )
 					$c[] = 'tribe-filter-live';
 				if (! is_single() ) {
 					if ( (tribe_is_upcoming() || tribe_is_past()) ) {
@@ -1872,8 +1872,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 				$startTime = get_post_meta($post->ID, '_EventStartDate', true);
 				$startTime = TribeDateUtils::timeOnly($startTime);
-
-				$post->EventStartDate = TribeDateUtils::addTimeToDate($this->date, $startTime);
+				$post->EventStartDate = TribeDateUtils::addTimeToDate($post->EventStartDate, $startTime);
 				$post->EventEndDate = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($post->EventStartDate) + get_post_meta($post->ID, '_EventDuration', true) );
 			}
 		}
@@ -3554,7 +3553,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$value = $_REQUEST['tribe-bar-search'];
 			}
 
-			if ( tribe_get_option('tribeDisableTribeBar') == false ) { 
+			if ( tribe_get_option('tribeDisableTribeBar', false ) == false ) { 
 			$filters[] = array( 'name'    => 'tribe-bar-search',
 			                    'caption' => 'Search',
 			                    'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' . esc_attr($value) . '" placeholder="Search">' );
