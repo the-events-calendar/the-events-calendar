@@ -8,7 +8,7 @@
  * @package TribeEventsCalendar
  * @since  1.0
  * @author Modern Tribe Inc.
- *
+ *s
  */
 
 /* = Global & Miscellaneous Styles
@@ -417,8 +417,9 @@ h2.tribe-events-page-title a:focus {
 	display: none;
 	position: absolute;
 	left: 50%;
-	-webkit-box-shadow: none;
-			box-shadow: none;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+	-moz-box-shadow: none !important;
 }
 
 .tribe-events-loading .tribe-events-ajax-loading {
