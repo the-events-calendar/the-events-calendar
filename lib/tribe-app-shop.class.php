@@ -17,7 +17,7 @@
 			/**
 			 *
 			 */
-			const API_ENDPOINT = "http://dev.tri.be/api/app-shop/";
+			const API_ENDPOINT = "http://tri.be/api/app-shop/";
 
 			const CACHE_KEY_BASE   = "tribe-app-shop";
 			const CACHE_EXPIRATION = 300; //5 min
