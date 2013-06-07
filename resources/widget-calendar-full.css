@@ -44,15 +44,11 @@
 	padding:3px 0;
 }
 
-.tribe-mini-calendar .tribe-events-has-events {
-	padding-bottom: 10px;
-}
-
 .tribe-mini-calendar .tribe-events-has-events a {
 	font-weight:bold;
 	display : block;
 	text-decoration: none;
-	padding: 5px;
+	padding: 5px 5px 15px 5px;
 }
 
 .tribe-mini-calendar .tribe-events-has-events a:hover {
