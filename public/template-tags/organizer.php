@@ -123,7 +123,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		$output = esc_html(tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerPhone', true ));
 		return apply_filters( 'tribe_get_organizer_phone', $output );
 	}
-	
+
 	/**
 	 * Return html for the link to an organizer's website
 	 *
@@ -140,7 +140,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			$label = is_null($label) ? $url : $label;
 			if( !empty( $url )) {
 				$parseUrl = parse_url($url);
-				if (empty($parseUrl['scheme'])) 
+				if (empty($parseUrl['scheme']))
 					$url = "http://$url";
 			}
 			$html = sprintf('<a href="%s" target="%s">%s</a>',
@@ -153,18 +153,21 @@ if( class_exists( 'TribeEvents' ) ) {
 		}
 		return apply_filters('tribe_get_organizer_website_link', $html );
 	}
-	
+
 	/**
 	 * Get all the organizers
 	 *
 	 * @author PaulHughes01
 	 * @since 2.1
-	 * @param bool $only_with_upcoming Only return organizers with upcoming events attached to them.
+	 * @param $deprecated
+	 * @param $posts_per_page Maximum number of results
 	 * @return array An array of organizer post objects.
 	 */
-	function tribe_get_organizers( $only_with_upcoming = false, $posts_per_page = -1 ) {
+	function tribe_get_organizers( $deprecated = null, $posts_per_page = -1 ) {
+		if ( null !== $deprecated ) { _deprecated_argument( __FUNCTION__, '3.0', 'This parameter is no longer supported.' ); }
+
 		$organizers = get_posts( array( 'post_type' => TribeEvents::ORGANIZER_POST_TYPE, 'posts_per_page' => $posts_per_page ) );
-		
+
 		return $organizers;
 	}
 
