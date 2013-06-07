@@ -510,12 +510,16 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 	/**
 	 * Return an array with the days of the week, numbered with respect to the start_of_week WP option
-	 *
+	 * @param string $format the display format for the days of the week
 	 * @return array Days of the week.
 	 * @since 3.0
 	 **/
-	function tribe_events_get_days_of_week() {
-		$days_of_week = TribeEvents::instance()->daysOfWeek;
+	function tribe_events_get_days_of_week( $format = null ) {
+		if ( $format == 'short' ) {
+			$days_of_week = TribeEvents::instance()->daysOfWeekShort;
+		} else {
+			$days_of_week = TribeEvents::instance()->daysOfWeek;
+		}
 		$start_of_week = get_option('start_of_week', 0);
 		for ($i = 0; $i < $start_of_week; $i++) {
 			$day = $days_of_week[$i];
