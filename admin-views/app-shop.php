@@ -28,15 +28,7 @@
 		<?php if ( $product->category != $category ) { ?>
 
 		<?php if ( $category !== null ) { ?></div><?php } ?>
-	<?php /*
 
-	Didn't see category in comp - guess we don't need it?
-
-	<div class="category-title">
-		<h3><?php echo $product->category; ?></h3>
-	</div>
-
-	<?php */ ?>
 	<div class="addon-grid">
 
 		<?php
@@ -44,8 +36,7 @@
 		} ?>
 		<div class="tribe-addon<?php if ( $i == 1) { echo ' first'; } ?>">
 			<div class="thumb">
-				<!-- <a href="<?php echo $product->permalink; ?>"><img src="<?php echo $product->featured_image_url; ?>" /></a> -->	
-				<a href="#"><img src="http://placehold.it/600x450" /></a>		
+				<a href="<?php echo $product->permalink; ?>"><img src="<?php echo $product->featured_image_url; ?>" /></a>
 			</div>
 			<div class="caption">
 				<h4><a href="<?php echo $product->permalink; ?>"><?php echo $product->title;?></a></h4>
