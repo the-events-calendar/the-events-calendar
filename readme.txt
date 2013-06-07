@@ -185,29 +185,26 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 
 = Translators =
 
-* Swedish (free & PRO) from Ben Andersen
-* Russian (free & PRO) from Mikhail Michouris
-* Dutch (free & PRO) from Ed Boon, RIck van Dalen & Jacob Roel Meijering
-* Danish (PRO only) from Christian Andersen
-* Italian (free & PRO) from Filippo Montanari
-* Spanish (free & PRO) from Hector at Signo Creativo
-* German (free only) from David Decker
-* Polish (free & PRO) from Kamil Szymanski
-* Norwegian (free & PRO) from "Terje With Lunndal"
-* Hebrew (free & PRO) from Sagi Shrieber
-* Japanese (free only) from Matthew Meyer
-* French (PRO) from Arno Faure
-* French (free) from Fanny Hï¿½raud
-* Lithuanian (free only) from Vincent G from Host1Free
-* Czech (free & PRO) from Petr Bastan
-* Serbian (free & PRO) from Marko Manojlovic
-* Bosnian (free & PRO) from Marko Manojlovic
-* Croatian (free & PRO) from Marko Manojlovic
-* Finnish (free & PRO) from Petri Kajander
-* Catalan (free & PRO) from Fran Rosa
-* Ukrainian (free only) from Alexey Fedorov
+* Arabic from Mamdouh Samy
+* Bosnian from Marko Manojlovic
+* Brazilian Portuguese from Luiza Libardi and Diego Meneghetti
+* Catalan from Bˆrbara Partegˆs Rof
+* Croatian from Marko Manojlovic
+* Czech from Martin Kristan and Petr Bastan
+* Danish from Anonymous
+* Dutch from Nico (wsMaurik)
+* French from Dominique Monhardt
+* German from Thomas Butzek
+* Greek from Panos Efstratiou
+* Italian from Roberto Scano
+* Polish from Marek Kosina
+* Portuguese from Antonio Pratas
+* Romanian from Mihai Burcea
+* Serbian from Marko Manojlovic
+* Spanish from HŽctor Gil Rizo
+* Swedish from Ben Andersen
 
-
+* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Hï¿½raud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, and Alexey Fedorov
 
 == Add-Ons ==
 
