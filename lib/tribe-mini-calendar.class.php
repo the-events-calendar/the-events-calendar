@@ -213,7 +213,7 @@ class TribeEventsMiniCalendar {
 
 		$styleUrl = TribeEventsPro::instance()->pluginUrl . 'resources/' . $event_file_option;
 		$styleUrl = TribeEventsTemplates::locate_stylesheet( 'tribe-events/pro/'. $event_file, $styleUrl );
-		$styleUrl = apply_filters( 'tribe_events_pro_stylesheet_url', $styleUrl );
+		$styleUrl = apply_filters( 'tribe_events_pro_widget_calendar_stylesheet_url', $styleUrl );
 
 		// Load up stylesheet from theme or plugin
 		if( $styleUrl && $stylesheet_option == 'tribe' ) {
