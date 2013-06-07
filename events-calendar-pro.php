@@ -545,8 +545,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				}
 			}
 			if( empty($next_recurrence) && !empty($event_list) ){
-				$last_key = end(array_keys($event_list));
-				$next_recurrence = date_i18n( 'Y-m-d', strtotime( $event_list[$last_key]->EventStartDate ) );
+				$first_key = reset(array_keys($event_list));
+				$next_recurrence = date_i18n( 'Y-m-d', strtotime( $event_list[$first_key]->EventStartDate ) );
 			}
 
 			return apply_filters( 'tribe_events_pro_get_last_recurrence', $next_recurrence, $event_list, $right_now );
