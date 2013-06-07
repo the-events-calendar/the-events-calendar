@@ -98,9 +98,13 @@ if( class_exists( 'TribeEvents' ) ) {
 		$postId = TribeEvents::postIdHelper( $postId );
 		if ( class_exists( 'TribeEventsPro' ) ) {
 			$url = esc_url( get_permalink( tribe_get_organizer_id( $postId ) ) );
-			$name = tribe_get_organizer($postId);
-			$link = !empty($url) && !empty($name) ? '<a href="'.$url.'">'.$name.'</a>' : false;
-			$link = apply_filters( 'tribe_get_organizer_link', $link, $postId, $echo, $url, $name );
+			if ( $full_link ) {
+				$name = tribe_get_organizer($postId);
+				$link = !empty($url) && !empty($name) ? '<a href="'.$url.'">'.$name.'</a>' : false;
+				$link = apply_filters( 'tribe_get_organizer_link', $link, $postId, $echo, $url, $name );
+			} else {
+				$link = $url;
+			}
 			if ( $echo ) {
 				echo $link;
 			} else {
