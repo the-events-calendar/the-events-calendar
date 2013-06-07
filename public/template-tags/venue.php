@@ -58,7 +58,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		$venue = ($postId > 0) ? esc_html(get_post( $postId )->post_title) : null;
 		return apply_filters('tribe_get_venue', $venue);
 	}
-	
+
 	/**
 	 * Venue Link
 	 *
@@ -84,7 +84,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			return $link;
 		}
 	}
-	
+
 	/**
 	 * Country
 	 *
@@ -106,9 +106,10 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Returns the full address for the venue. Function uses the views/full-address.php template which you can override in your theme (including google microformats etc).
 	 *
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
+	 * @param bool $includeVenueName
 	 * @return string Formatted event address
 	 * @since 2.0
-	 */	
+	 */
 	function tribe_get_full_address( $postId = null, $includeVenueName = false )  {
 		$postId = tribe_get_venue_id( $postId );
 		$tribe_ecp = TribeEvents::instance();
@@ -244,7 +245,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Returns the event zip code
 	 *
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
-	 * @return string Zip code 
+	 * @return string Zip code
 	 * @since 2.0
 	 */
 	function tribe_get_zip( $postId = null)  {
@@ -252,7 +253,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		$output = esc_html(tribe_get_event_meta( $postId, '_VenueZip', true ));
 		return apply_filters('tribe_get_zip', $output);
 	}
-	
+
 	/**
 	 * Venue Phone Number
 	 *
@@ -267,22 +268,30 @@ if( class_exists( 'TribeEvents' ) ) {
 		$output = esc_html(tribe_get_event_meta( $postId, '_VenuePhone', true ));
 		return apply_filters('tribe_get_phone', $output);
 	}
-	
+
 	/**
 	 * Get all the venues
 	 *
 	 * @author PaulHughes01
 	 * @since 2.1
 	 * @param bool $only_with_upcoming Only return venues with upcoming events attached to them.
+	 * @param $posts_per_page
+	 * @param bool $suppress_filters
 	 * @return array An array of venue post objects.
 	 */
 	function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1, $suppress_filters = true ) {
 		$venues = get_posts( array( 'post_type' => TribeEvents::VENUE_POST_TYPE, 'posts_per_page' => $posts_per_page, 'suppress_filters' => $suppress_filters ) );
-		
+
 		return $venues;
 	}
 
-
+	/**
+	 * Get the link for the venue website.
+	 * @param null $post_id
+	 * @param null $label
+	 *
+	 * @return string Formatted link to the venue website
+	 */
 	function tribe_get_venue_website_link( $post_id = null, $label = null ){
 		$post_id = tribe_get_venue_id( $post_id );
 		$url = tribe_get_event_meta( $post_id, '_VenueURL', true );
@@ -290,7 +299,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			$label = is_null($label) ? $url : $label;
 			if( !empty( $url )) {
 				$parseUrl = parse_url($url);
-				if (empty($parseUrl['scheme'])) 
+				if (empty($parseUrl['scheme']))
 					$url = "http://$url";
 			}
 			$html = sprintf('<a href="%s" target="%s">%s</a>',
