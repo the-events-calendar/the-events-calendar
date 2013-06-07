@@ -102,7 +102,7 @@ class TribeEventsBar {
 	 * @since 3.0
 	 */	
 	public function body_class( $classes ){
-		if ( tribe_get_option('tribeDisableTribeBar') == true ) {
+		if ( tribe_get_option('tribeDisableTribeBar', false) == true ) {
 			$classes[] = 'tribe-bar-is-disabled';
 		}
 		return $classes;
@@ -116,7 +116,7 @@ class TribeEventsBar {
 	 * @since 3.0
 	 */	
 	public function disabled_bar_before( $before ) {
-		if ( tribe_get_option('tribeDisableTribeBar') == true ) {
+		if ( tribe_get_option('tribeDisableTribeBar', false) == true ) {
 			$before = '<div class="tribe-bar-disabled">';
 			echo $before;
 		}
@@ -130,7 +130,7 @@ class TribeEventsBar {
 	 * @since 3.0
 	 */
 	public function disabled_bar_after( $after ) {
-		if ( tribe_get_option('tribeDisableTribeBar') == true ) {
+		if ( tribe_get_option('tribeDisableTribeBar', false ) == true ) {
 			$after = '</div>';
 			echo $after;
 		}

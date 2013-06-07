@@ -104,16 +104,11 @@ h2.tribe-events-page-title,
 }
 
 .tribe-events-active-spinner {
-	top: -75px !important;
-}
-
-
-.events-list .tribe-events-active-spinner{
-	top: -105px !important;
+	top: 75px !important;
 }
 
 .tribe-events-notices + #tribe-events-header .tribe-events-active-spinner{
-	top: -125px !important;
+	top: 30px !important;
 }
 
 @media only screen and (max-width: 767px) {
