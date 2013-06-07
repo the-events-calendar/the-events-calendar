@@ -8,7 +8,7 @@
  * @package TribeEventsCalendar
  * @since  1.0
  * @author Modern Tribe Inc.
- *
+ *s
  */
 
 /* = Global & Miscellaneous Styles
@@ -192,8 +192,9 @@ a.tribe-events-gcal {
 	float: right;
 	text-decoration: none;
 	line-height: 18px;
-	margin-bottom: 21px;
+	margin-top: 21px;
 	color: #fff;
+	clear: both;
 }
 .tribe-events-gcal {
 	margin-right: 9px;
@@ -343,11 +344,11 @@ div.tribe-events-notices > ul, div.tribe-events-notices > ul > li {
 h2.tribe-events-page-title {
 	font-size: 24px;
 	font-weight: normal;
-	color: #000;
 	position: relative;
 	z-index: 0;
 	margin-bottom: .5em;
 	text-align: center;
+	clear: none;
 }
 /* don't float on filter view */
 .tribe-events-filter-view  .tribe-events-list h2.tribe-events-page-title{
@@ -367,6 +368,7 @@ h2.tribe-events-page-title a:focus {
 #tribe-events-header,
 #tribe-events-footer {
 	margin-bottom: .5em;
+	clear: both;
 }
 #tribe-events-header .tribe-events-sub-nav,
 #tribe-events-footer .tribe-events-sub-nav {
@@ -415,8 +417,9 @@ h2.tribe-events-page-title a:focus {
 	display: none;
 	position: absolute;
 	left: 50%;
-	-webkit-box-shadow: none;
-			box-shadow: none;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+	-moz-box-shadow: none !important;
 }
 
 .tribe-events-loading .tribe-events-ajax-loading {
@@ -480,11 +483,13 @@ select.tribe-events-dropdown {
 		background: #666666;
 		color: #fff;
 	}
-	.tribe-events-sub-nav .tribe-events-nav-previous {
-		padding: 0 0 0 1px;
+	.tribe-events-sub-nav .tribe-events-nav-previous,
+	.tribe-events-sub-nav .tribe-events-nav-left {
+		padding: 0 1px;
 	}
-	.tribe-events-sub-nav .tribe-events-nav-next {
-		padding: 0 1px 0 0;
+	.tribe-events-sub-nav .tribe-events-nav-next,
+	.tribe-events-sub-nav .tribe-events-nav-right {
+		padding: 0 0 0 1px;
 	}
 }	
 
@@ -853,7 +858,7 @@ select.tribe-events-dropdown {
 .tribe-events-event-meta .tribe-events-meta-group, 
 .tribe-events-event-meta .column {
 	float: left;
-	width: 25%;
+	width: 33.3333%;
 	padding: 0 4%;
 	text-align: left;
 	margin: 0 0 20px 0;
@@ -861,6 +866,9 @@ select.tribe-events-dropdown {
 	zoom: 1;
 	*display: inline;
 	vertical-align: top;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;	
 }
 
 .single-tribe_events  .tribe-events-event-meta dl {
@@ -1171,6 +1179,7 @@ h2.tribe-events-tickets-title {
 	margin-bottom: 30px;
 	height: auto;
 	position: relative;
+	clear: none;
 }
 #tribe-events-bar * {
 	-webkit-box-sizing: border-box;
@@ -1182,7 +1191,6 @@ h2.tribe-events-tickets-title {
 	position: relative;
 	margin: 0;
 	width: 100%;
-	display: table;
 }
 
 /* Form Elements */
@@ -1270,7 +1278,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	position: relative;
 	float: left;
 	width: 100%;
-	display: table-cell;
 	margin: 0;
 }
 #tribe-bar-form #tribe-bar-views + .tribe-bar-filters {
@@ -1316,7 +1323,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	width: 16.66667%;
 	padding: 0 0 0 5px;
 	background: transparent;
-	display: table-cell;
 	margin: 0;
 }
 
@@ -1354,7 +1360,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 .tribe-select2-results-views.select2-drop {
 	background: #DBDBDB;
 	border: none;
-	z-index: 9999;
+	z-index: 10001;
 	box-shadow: none;
 	-moz-box-shadow: none;
 	-webkit-box-shadow: none;
@@ -1451,7 +1457,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 .tribe-bar-mini .tribe-bar-filters {
 	display: block !important;
-	background: #f5f5f5;
 	float: left;
 	width: 83.3333%;
 }
@@ -1543,7 +1548,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	border-bottom-color: inherit;
 }
 
-#tribe-bar-form.tribe-bar-collapse .tribe-bar-filters {
+#tribe-bar-form.tribe-bar-collapse #tribe-bar-views + .tribe-bar-filters {
 	display: none;
 	margin-top: 5px;
 	overflow: hidden;
@@ -1556,6 +1561,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 .tribe-bar-collapse .tribe-bar-filters-inner > div, .tribe-bar-collapse #tribe-bar-views {
 	width: 100%;
 	height: auto;
+	margin: 0;
 }
 
 .tribe-bar-collapse #tribe-bar-collapse-toggle {
@@ -1590,7 +1596,91 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 		width: 40%;
 	}
 }
+.tribe-bar-is-disabled .tribe-events-page-title {
+	line-height: 45px;
+	text-align: left;
+	clear: none;
+	margin: 0;
+}
+.tribe-bar-disabled {
+	float: right;
+	position: relative;
+	z-index: 10;
+}
 
+.tribe-bar-disabled #tribe-events-bar {
+	width: auto;
+	min-width: 0;
+	float: none;
+}
+.tribe-bar-disabled #tribe-bar-form {
+	width: auto;
+	border-radius: 3px;
+}
+
+.tribe-bar-disabled .tribe-bar-filters {
+	float: left;
+}
+
+.tribe-bar-disabled .tribe-bar-filters .tribe-bar-date-filter {
+	padding: 5px 10px;
+}
+
+.tribe-bar-disabled #tribe-bar-form label {
+	font-size: 10px;
+}
+.tribe-bar-disabled #tribe-bar-form .tribe-bar-filters input[type="text"] {
+	border: none;
+	display: block;
+	width: 85px;
+	margin: 0;
+	padding: 0;
+	font-size: 13px;
+	line-height: 15px;
+}
+
+.tribe-bar-disabled #tribe-bar-form #tribe-bar-views + .tribe-bar-filters {
+	left: auto;
+	right: 50%;
+	width: 50%;
+}
+
+.tribe-bar-disabled .tribe-bar-date-filter,
+.tribe-events-uses-geolocation .tribe-bar-disabled .tribe-bar-date-filter {
+	width: auto;
+}
+
+.tribe-bar-disabled #tribe-bar-form #tribe-bar-views {
+	width: 50%;
+	float: left;
+	left: 50%;
+	right: auto;
+	padding: 0;
+}
+
+.tribe-bar-disabled .tribe-bar-views-inner {
+	padding: 5px 0;
+	border-radius: 0 3px 3px 0;
+}
+
+.tribe-bar-disabled #tribe-bar-views .select2-container,
+.tribe-bar-disabled #tribe-bar-form .tribe-bar-views-inner label {
+	padding: 0 10px;
+}
+.tribe-bar-disabled #tribe-bar-views .select2-container .select2-choice {
+	line-height: 18px;
+	height: auto;
+	font-size: 13px;
+}
+
+.tribe-bar-is-disabled .tribe-select2-results-views.select2-drop .select2-results li {
+	padding: 0 10px;
+}
+
+.tribe-bar-disabled #tribe-bar-collapse-toggle,
+.tribe-bar-disabled .tribe-bar-submit {
+	display: none;
+}
 
 /* Events Bar Icons */
 .tribe-select2-results-views span[class^="tribe-icon-"],

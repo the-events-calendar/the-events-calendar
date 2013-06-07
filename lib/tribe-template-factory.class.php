@@ -326,34 +326,37 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			// setup plugin resources & 3rd party vendor urls
 			$resources_url = trailingslashit( $tec->pluginUrl ) . 'resources/';
 			$vendor_url = trailingslashit( $tec->pluginUrl ) . 'vendor/';
-
+			
 			switch( $name ) {
 				case 'jquery-resize':
+					$path = self::getMinFile( $vendor_url . 'jquery-resize/jquery.ba-resize.js', true );
 					$deps = array_merge( $deps, array( 'jquery' ) );
-					wp_enqueue_script( $prefix . '-jquery-resize', $vendor_url . 'jquery-resize/jquery.ba-resize.min.js', $deps, '1.1', false );
+					wp_enqueue_script( $prefix . '-jquery-resize', $path, $deps, '1.1', false );
 					self::$vendor_scripts[] = $prefix . '-jquery-resize';
 					break;
 				case 'chosen' : // Vendor: jQuery Chosen
 					$deps = array_merge( $deps, array( 'jquery' ) );
-					wp_enqueue_style( $prefix . '-chosen-style', $vendor_url . 'chosen/chosen/chosen.css' );
-					wp_enqueue_script( $prefix . '-chosen-jquery', $vendor_url . 'chosen/chosen/chosen.jquery.min.js', $deps, '0.9.5', false );
+					$css_path = self::getMinFile( $vendor_url . 'chosen/chosen/chosen.css', true );
+					$path = self::getMinFile( $vendor_url . 'chosen/chosen/chosen.jquery.js', true );
+					wp_enqueue_style( $prefix . '-chosen-style',$css_path );
+					wp_enqueue_script( $prefix . '-chosen-jquery', $path, $deps, '0.9.5', false );
 					self::$vendor_scripts[] = $prefix . '-chosen-jquery';
 					break;
 				case 'smoothness' : // Vendor: jQuery Custom Styles
-					wp_enqueue_style( $prefix . '-custom-jquery-styles', $vendor_url . 'jquery/smoothness/jquery-ui-1.8.23.custom.css' );
+					$path = self::getMinFile( $vendor_url . 'jquery/smoothness/jquery-ui-1.8.23.custom.css', true );
+					wp_enqueue_style( $prefix . '-custom-jquery-styles', $path );
 					break;
 				case 'select2' : // Vendor: Select2
-					wp_enqueue_style( $prefix . '-select2-css', $vendor_url . 'select2/select2.css' );
-					if (defined('WP_DEBUG') && WP_DEBUG) {
-						wp_enqueue_script( $prefix . '-select2', $vendor_url . 'select2/select2.js', 'jquery', '3.2' );
-					} else {
-						wp_enqueue_script( $prefix . '-select2', $vendor_url . 'select2/select2.min.js', 'jquery', '3.2' );
-					}
+					$css_path = self::getMinFile( $vendor_url . 'select2/select2.css', true );
+					$path = self::getMinFile( $vendor_url . 'select2/select2.js', true );
+					wp_enqueue_style( $prefix . '-select2-css', $css_path );
+					wp_enqueue_script( $prefix . '-select2', $path, 'jquery', '3.2' );
 					self::$vendor_scripts[] = $prefix . '-select2';
 					break;
 				case 'calendar-script' : // Tribe Events JS
 					$deps = array_merge( $deps, array( 'jquery' ), self::$vendor_scripts );
-					wp_enqueue_script( $prefix . '-calendar-script', $resources_url . 'tribe-events.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
+					$path = self::getMinFile( $resources_url . 'tribe-events.js', true );
+					wp_enqueue_script( $prefix . '-calendar-script', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 					break;
 				case 'datepicker' : // Vendor: jQuery Datepicker
 					wp_enqueue_script( 'jquery-ui-datepicker' );
@@ -361,8 +364,10 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					self::$vendor_scripts[] = 'jquery-ui-datepicker';
 					break;
 				case 'bootstrap-datepicker' : // Vendor: Bootstrap Datepicker
-					wp_enqueue_style( $prefix . '-bootstrap-datepicker-css', $vendor_url . 'bootstrap-datepicker/css/datepicker.css' );
-					wp_enqueue_script( $prefix . '-bootstrap-datepicker', $vendor_url . 'bootstrap-datepicker/js/bootstrap-datepicker.js', 'jquery', '3.2' );						
+					$css_path = self::getMinFile( $vendor_url . 'bootstrap-datepicker/css/datepicker.css', true );
+					$path = self::getMinFile( $vendor_url . 'bootstrap-datepicker/js/bootstrap-datepicker.js', true );
+					wp_enqueue_style( $prefix . '-bootstrap-datepicker-css', $css_path );
+					wp_enqueue_script( $prefix . '-bootstrap-datepicker', $path, 'jquery', '3.2' );						
 					self::$vendor_scripts[] = $prefix . '-bootstrap-datepicker';
 					$localized_datepicker_array = array(
 						'days' => array_merge( $tec->daysOfWeek, array( $tec->daysOfWeek[0] ) ),
@@ -378,33 +383,40 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					self::$vendor_scripts[] = 'jquery-ui-dialog';
 					break;
 				case 'admin-ui' : // Tribe Events 
-					wp_enqueue_style( $prefix . '-admin-ui', $resources_url . 'events-admin.css' );
+					$path = self::getMinFile( $resources_url . 'events-admin.css', true );
+					wp_enqueue_style( $prefix . '-admin-ui', $path );
 					break;
 				case 'admin' :
 					$deps = array_merge( $deps, array( 'jquery', 'jquery-ui-datepicker' ) );
-					wp_enqueue_script( $prefix . '-admin', $resources_url . 'events-admin.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
+					$path = self::getMinFile( $resources_url . 'events-admin.js', true );
+					wp_enqueue_script( $prefix . '-admin', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
 					break;
 				case 'settings' :
 					$deps = array_merge( $deps, array( 'jquery' ) );
-					wp_enqueue_script( $prefix . '-settings', $resources_url . 'tribe-settings.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
+					$path = self::getMinFile( $resources_url . 'tribe-settings.js', true );
+					wp_enqueue_script( $prefix . '-settings', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
 					break;
 				case 'ecp-plugins' : 
 					$deps = array_merge( $deps, array( 'jquery' ) );
-					wp_enqueue_script( $prefix . '-ecp-plugins', $resources_url . 'jquery-ecp-plugins.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
+					$path = self::getMinFile( $resources_url . 'jquery-ecp-plugins.js', true );
+					wp_enqueue_script( $prefix . '-ecp-plugins', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 					break;
 				case 'tribe-events-bar' :
 					$deps = array_merge( $deps, array( 'jquery', $prefix . '-calendar-script', $prefix . '-bootstrap-datepicker', $prefix . '-jquery-resize', $prefix . '-select2', 'jquery-placeholder' ) );
-					wp_enqueue_script( $prefix . '-bar', $resources_url . 'tribe-events-bar.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
+					$path = self::getMinFile( $resources_url . 'tribe-events-bar.js', true );
+					wp_enqueue_script( $prefix . '-bar', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 					break;
 				case 'jquery-placeholder' : // Vendor: jQuery Placeholder
 					$deps = array_merge( $deps, array( 'jquery' ) );
-					wp_enqueue_script( 'jquery-placeholder', $vendor_url . 'jquery-placeholder/jquery.placeholder.min.js', $deps, '2.0.7', false );
+					$path = self::getMinFile( $vendor_url . 'jquery-placeholder/jquery.placeholder.js', true );
+					wp_enqueue_script( 'jquery-placeholder', $path, $deps, '2.0.7', false );
 					self::$vendor_scripts[] = 'jquery-placeholder';
 					break;
 				case 'ajax-calendar':
 					$deps = array_merge( $deps, array( 'jquery', $prefix . '-calendar-script' ) );
 					$ajax_data = array( "ajaxurl"   => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
-					wp_enqueue_script( 'tribe-events-calendar', $resources_url . 'tribe-events-ajax-calendar.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
+					$path = self::getMinFile( $resources_url . 'tribe-events-ajax-calendar.js', true );
+					wp_enqueue_script( 'tribe-events-calendar', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
 					wp_localize_script( 'tribe-events-calendar', 'TribeCalendar', $ajax_data );
 					break;
 				case 'ajax-list':
@@ -412,7 +424,8 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					$tribe_paged = ( !empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 0;
 					$ajax_data = array( "ajaxurl"     => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
 					                    'tribe_paged' => $tribe_paged );
-					wp_enqueue_script( 'tribe-events-list', $resources_url . 'tribe-events-ajax-list.js', $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
+					$path = self::getMinFile( $resources_url . 'tribe-events-ajax-list.js', true );
+					wp_enqueue_script( 'tribe-events-list', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
 					wp_localize_script( 'tribe-events-list', 'TribeList', $ajax_data );
 					break;
 				case 'events-css':
@@ -434,11 +447,13 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					// Is there a core override file in the theme?
 					$styleUrl = trailingslashit( $tec->pluginUrl ) . 'resources/' . $event_file_option;
 					$styleUrl = TribeEventsTemplates::locate_stylesheet('tribe-events/'.$event_file, $styleUrl);
+					$styleUrl = self::getMinFile( $styleUrl, true );
 					$styleUrl = apply_filters( 'tribe_events_stylesheet_url', $styleUrl );
 
 					// Load up stylesheet from theme or plugin
 					if( $styleUrl && $stylesheet_option == 'tribe' ) {
-						wp_enqueue_style( 'full-calendar-style', trailingslashit( $tec->pluginUrl ) . 'resources/tribe-events-full.css' );
+						$full_path = self::getMinFile( trailingslashit( $tec->pluginUrl ) . 'resources/tribe-events-full.css', true );
+						wp_enqueue_style( 'full-calendar-style', $full_path );
 						wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-style', $styleUrl );
 					} else {
 						wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-style', $styleUrl );
@@ -447,6 +462,33 @@ if( !class_exists('Tribe_Template_Factory') ) {
 				default :
 					do_action($prefix . '-' . $name);
 					break;
+			}	
+		}
+		
+		/**
+		 * Returns the path to a minified version of a js or css file, if it exists.
+		 * If the file does not exist, returns false.
+		 *
+		 * @param string $url The path or URL to the un-minified file.
+		 * @param bool $default_to_original Whether to just return original path if min version not found.
+		 * @return string|false The path/url to minified version or false, if file not found.
+		 * @author Paul Hughes
+		 * @since 3.0
+		 */
+		public static function getMinFile( $url, $default_to_original = false ) {
+			if ( !defined( 'SCRIPT_DEBUG' ) || SCRIPT_DEBUG === false ) {
+				if ( substr( $url, -3, 3 ) == '.js' )
+					$url_new = substr_replace( $url, '.min', -3, 0 );
+				if ( substr( $url, -4, 4 ) == '.css' )
+					$url_new = substr_replace( $url, '.min', -4, 0 );
+			}
+			
+			if ( isset( $url_new ) && file_exists( str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $url_new ) ) ) {
+				return $url_new;
+			} elseif ( $default_to_original ) {
+				return $url;
+			} else {
+				return false;
 			}
 		}
 	}

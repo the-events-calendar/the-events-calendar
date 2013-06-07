@@ -98,9 +98,13 @@ if( class_exists( 'TribeEvents' ) ) {
 		$postId = TribeEvents::postIdHelper( $postId );
 		if ( class_exists( 'TribeEventsPro' ) ) {
 			$url = esc_url( get_permalink( tribe_get_organizer_id( $postId ) ) );
-			$name = tribe_get_organizer($postId);
-			$link = !empty($url) && !empty($name) ? '<a href="'.$url.'">'.$name.'</a>' : false;
-			$link = apply_filters( 'tribe_get_organizer_link', $link, $postId, $echo, $url, $name );
+			if ( $full_link ) {
+				$name = tribe_get_organizer($postId);
+				$link = !empty($url) && !empty($name) ? '<a href="'.$url.'">'.$name.'</a>' : false;
+				$link = apply_filters( 'tribe_get_organizer_link', $link, $postId, $echo, $url, $name );
+			} else {
+				$link = $url;
+			}
 			if ( $echo ) {
 				echo $link;
 			} else {
@@ -124,16 +128,15 @@ if( class_exists( 'TribeEvents' ) ) {
 		return apply_filters( 'tribe_get_organizer_phone', $output );
 	}
 
-	function tribe_get_organizer_permalink( $post_id = null ){
-		$post_id = TribeEvents::postIdHelper( $post_id );
-		$organizer_id = tribe_get_organizer_id( $post_id );
-		$link = sprintf('<a href="%s">%s</a>',
-			get_permalink( $organizer_id ),
-			get_the_title( $organizer_id )
-			);
-		return apply_filters('tribe_get_organizer_permalink', $link, $post_id, $organizer_id );
-	}
-	
+	/**
+	 * Return html for the link to an organizer's website
+	 *
+	 *
+	 * @param $post_id post ID for an event
+	 * @param $label text for the link
+	 * @return string
+	 * @author  Modern Tribe
+	 **/
 	function tribe_get_organizer_website_link( $post_id = null, $label = null ){
 		$post_id = tribe_get_organizer_id( $post_id );
 		$url = tribe_get_event_meta( $post_id, '_OrganizerWebsite', true );
@@ -141,7 +144,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			$label = is_null($label) ? $url : $label;
 			if( !empty( $url )) {
 				$parseUrl = parse_url($url);
-				if (empty($parseUrl['scheme'])) 
+				if (empty($parseUrl['scheme']))
 					$url = "http://$url";
 			}
 			$html = sprintf('<a href="%s" target="%s">%s</a>',
@@ -154,18 +157,21 @@ if( class_exists( 'TribeEvents' ) ) {
 		}
 		return apply_filters('tribe_get_organizer_website_link', $html );
 	}
-	
+
 	/**
 	 * Get all the organizers
 	 *
 	 * @author PaulHughes01
 	 * @since 2.1
-	 * @param bool $only_with_upcoming Only return organizers with upcoming events attached to them.
+	 * @param $deprecated
+	 * @param $posts_per_page Maximum number of results
 	 * @return array An array of organizer post objects.
 	 */
-	function tribe_get_organizers( $only_with_upcoming = false, $posts_per_page = -1 ) {
+	function tribe_get_organizers( $deprecated = null, $posts_per_page = -1 ) {
+		if ( null !== $deprecated ) { _deprecated_argument( __FUNCTION__, '3.0', 'This parameter is no longer supported.' ); }
+
 		$organizers = get_posts( array( 'post_type' => TribeEvents::ORGANIZER_POST_TYPE, 'posts_per_page' => $posts_per_page ) );
-		
+
 		return $organizers;
 	}
 

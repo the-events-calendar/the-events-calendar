@@ -13,7 +13,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Link Event Day
 	 *
-	 * @param string $date 
+	 * @param string $date
 	 * @return string URL
 	 * @since 2.0
 	 */
@@ -21,18 +21,28 @@ if( class_exists( 'TribeEvents' ) ) {
 		$tribe_ecp = TribeEvents::instance();
 		return apply_filters('tribe_get_day_link', $tribe_ecp->getLink('day', $date), $date);
 	}
-	
+
 	/**
 	 * Link to Previous Event (Display)
 	 *
 	 * Displays a link to the previous post by start date for the given event
 	 *
-	 * @param string $anchor link text. Use %title% to place the post title in your string.
+	 * @param bool|string $anchor link text. Use %title% to place the post title in your string.
+	 * @return void
+	 * @see tribe_get_prev_event_link()
 	 * @since 2.1
 	 */
 	function tribe_the_prev_event_link( $anchor = false ){
 		echo apply_filters('tribe_the_prev_event_link', tribe_get_prev_event_link( $anchor ));
 	}
+
+	/**
+	 * Return a link to the previous post by start date for the given event
+	 *
+	 * @param bool|string $anchor link text. Use %title% to place the post title in your string.
+	 * @return string
+	 * @since 2.1
+	 */
 	function tribe_get_prev_event_link( $anchor = false ){
 		global $post;
 		return apply_filters('tribe_get_next_event_link', TribeEvents::instance()->get_event_link($post,'previous',$anchor));
@@ -40,15 +50,25 @@ if( class_exists( 'TribeEvents' ) ) {
 
 	/**
 	 * Link to Next Event (Display)
-	 * 
+	 *
 	 * Display a link to the next post by start date for the given event
 	 *
-	 * @param string $anchor link text. Use %title% to place the post title in your string.
+	 * @param bool|string $anchor link text. Use %title% to place the post title in your string.
+	 * @return void
+	 * @see tribe_get_next_event_link()
 	 * @since 2.1
 	 */
 	function tribe_the_next_event_link( $anchor = false ){
 		echo apply_filters('tribe_the_next_event_link', tribe_get_next_event_link( $anchor ));
 	}
+
+	/**
+	 * Return a link to the next post by start date for the given event
+	 *
+	 * @param bool|string $anchor link text. Use %title% to place the post title in your string.
+	 * @return string
+	 * @since 2.1
+	 */
 	function tribe_get_next_event_link( $anchor = false ){
 		global $post;
 		return apply_filters('tribe_get_next_event_link', TribeEvents::instance()->get_event_link($post,'next',$anchor));
@@ -97,12 +117,13 @@ if( class_exists( 'TribeEvents' ) ) {
 		$output = $tribe_ecp->getLink('upcoming', false, $term);
 		return apply_filters('tribe_get_listview_link', $output);
 	}
-	
+
 	/**
 	 * Link to List View (Past)
 	 *
 	 * Returns a link to the general or category past view
 	 *
+	 * @param int|null $term Term ID
 	 * @return string URL
 	 * @since 2.0
 	 */
@@ -117,20 +138,21 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * Display link to a single event
 	 *
-	 * @param int $postId (optional)
+	 * @param null|int $post Optional post ID
+	 * @return string Link html
 	 * @since 2.0
 	 */
 	function tribe_event_link($post = null) {
 		// pass in whole post object to retain start date
 		echo apply_filters('tribe_event_link', tribe_get_event_link($post));
-	}	
+	}
 
 	/**
 	 * Single Event Link
 	 *
 	 * Get link to a single event
-	 * 
-	 * @param int $postId (optional)
+	 *
+	 * @param int $event Optional post ID
 	 * @return string
 	 * @since 2.0
 	 */
@@ -144,9 +166,10 @@ if( class_exists( 'TribeEvents' ) ) {
 
 	/**
 	 * Event Website Link (more info)
-	 * 
-	 * @param  object|int $event
-	 * @return $html
+	 *
+	 * @param null|object|int $event
+	 * @param null|string $label
+	 * @return string $html
 	 */
 	function tribe_get_event_website_link( $event = null, $label = null ){
 		$post_id = is_object($event) && isset($event->tribe_is_event) && $event->tribe_is_event ? $event->ID : $event;
@@ -156,7 +179,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			$label = is_null($label) ? $url : $label;
 			if( !empty( $url )) {
 				$parseUrl = parse_url($url);
-				if (empty($parseUrl['scheme'])) 
+				if (empty($parseUrl['scheme']))
 					$url = "http://$url";
 			}
 			$html = sprintf('<a href="%s" target="%s">%s</a>',

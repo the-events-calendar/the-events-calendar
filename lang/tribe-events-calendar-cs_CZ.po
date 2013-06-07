@@ -5,18 +5,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-20 02:24-0600\n"
-"PO-Revision-Date: 2013-05-20 02:42-0600\n"
-"Last-Translator: Modern Tribe Inc. <pro@tri.be>\n"
+"POT-Creation-Date: 2013-05-25 18:23+0100\n"
+"PO-Revision-Date: 2013-05-27 04:29+0100\n"
+"Last-Translator: Petr Baštán <pbastan@lop.cz>\n"
 "Language-Team: Modern Tribe <pro@tri.be>\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:1,2,4c;_n_noop:1,2;"
+"_nx_noop:1,2,3c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;"
+"esc_html_x:1,2c\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
 "X-Generator: Poedit 1.5.5\n"
@@ -25,7 +26,7 @@ msgstr ""
 #
 #: ../admin-views/app-shop.php:4
 msgid "Tribe Event Add-Ons"
-msgstr ""
+msgstr "Tribe doplňky pro akce"
 
 #: ../admin-views/app-shop.php:56
 msgid "Version"
@@ -37,11 +38,11 @@ msgstr "Poslední aktualizace"
 
 #: ../admin-views/event-sidebar-options.php:11
 msgid "Hide From Event Listings"
-msgstr ""
+msgstr "Skrýt ve výpisu akcí"
 
 #: ../admin-views/event-sidebar-options.php:12
 msgid "Sticky in Calendar View"
-msgstr ""
+msgstr "Zvýraznit v kalendáři"
 
 #: ../admin-views/events-audit-trail.php:41
 msgid "Auditing Information"
@@ -72,12 +73,12 @@ msgstr ""
 #
 #: ../admin-views/events-meta-box.php:35
 msgid "All Day Event:"
-msgstr ""
+msgstr "Celodenní akce:"
 
 #
 #: ../admin-views/events-meta-box.php:39
 msgid "Start Date &amp; Time:"
-msgstr ""
+msgstr "Datum a čas zahájení:"
 
 #: ../admin-views/events-meta-box.php:42 ../admin-views/events-meta-box.php:63
 msgid "YYYY-MM-DD"
@@ -86,7 +87,7 @@ msgstr "RRRR-MM-DD"
 #
 #: ../admin-views/events-meta-box.php:60
 msgid "End Date &amp; Time:"
-msgstr ""
+msgstr "Datum a čas ukončení:"
 
 #: ../admin-views/events-meta-box.php:85
 msgid "Event Location Details"
@@ -99,11 +100,11 @@ msgstr "Údaje o pořadateli akce"
 #
 #: ../admin-views/events-meta-box.php:101
 msgid "Event Website"
-msgstr ""
+msgstr "Webová stránka akce"
 
 #: ../admin-views/events-meta-box.php:104
 msgid "URL:"
-msgstr ""
+msgstr "URL adresa:"
 
 #: ../admin-views/events-meta-box.php:115
 msgid "Event Cost"
@@ -111,7 +112,7 @@ msgstr "Vstupné na akci"
 
 #: ../admin-views/events-meta-box.php:118
 msgid "Currency Symbol:"
-msgstr ""
+msgstr "Symbol měny:"
 
 #: ../admin-views/events-meta-box.php:122
 #: ../public/advanced-functions/meta.php:187
@@ -121,6 +122,8 @@ msgstr "Cena:"
 #: ../admin-views/events-meta-box.php:127
 msgid "Enter a 0 for events that are free or leave blank to hide the field."
 msgstr ""
+"Zadejte hodnotu 0 pro akce, které jsou zdarma. Pokud nic nezadáte, pole bude "
+"skryto."
 
 #: ../admin-views/organizer-meta-box.php:12
 msgid "Organizer Name:"
@@ -153,56 +156,62 @@ msgid ""
 "Would you like to change only this instance of the event, or all future "
 "events in this series?"
 msgstr ""
+"Přejete si změnit pouze tuto konkrétní akci nebo i všechny budoucí akce ze "
+"stejné série?"
 
 #: ../admin-views/recurrence-dialog.php:15
 #: ../admin-views/recurrence-dialog.php:23
 msgid "Only This Event:"
-msgstr ""
+msgstr "Pouze tuto akci:"
 
 #: ../admin-views/recurrence-dialog.php:15
 msgid "All other future events in the series will remain the same."
-msgstr ""
+msgstr "Ostatní budoucí akce ze stejné série zůstanou nezměněny."
 
 #
 #: ../admin-views/recurrence-dialog.php:16
 #: ../admin-views/recurrence-dialog.php:24
 msgid "All Events:"
-msgstr ""
+msgstr "Všechny akce:"
 
 #: ../admin-views/recurrence-dialog.php:16
 msgid ""
 "All future events in the series will be changed. Any changes made to other "
 "events will be kept."
 msgstr ""
+"Všechny budoucí akce ze stejné série budou změněny. Jakékoli změny provedené "
+"u ostatních akcí zůstanou zachovány."
 
 #: ../admin-views/recurrence-dialog.php:21
 msgid ""
 "Would you like to delete only this instance of the event, or all future "
 "events in this series?"
 msgstr ""
+"Přejete si smazat pouze tuto konkrétní akci nebo i všechny budoucí akce ze "
+"stejné série?"
 
 #: ../admin-views/recurrence-dialog.php:23
 msgid "All other future events in the series will not be deleted."
-msgstr ""
+msgstr "Ostatní budoucí akce ze stejné série nebudou smazány."
 
 #: ../admin-views/recurrence-dialog.php:24
 msgid "All future events in the series will be deleted."
-msgstr ""
+msgstr "Všechny budoucí akce ze stejné série budou smazány."
 
 #: ../admin-views/tickets-attendees.php:9 ../admin-views/tickets-list.php:41
 #: ../lib/tickets/tribe-tickets-pro.php:73
 msgid "Attendees"
-msgstr ""
+msgstr "Účastníci"
 
 #
 #: ../admin-views/tickets-attendees.php:14
 msgid "Event Summary"
-msgstr ""
+msgstr "Přehled akce"
 
 #
 #: ../admin-views/tickets-attendees.php:22
 msgid "Event Details"
-msgstr ""
+msgstr "Údaje o akci"
 
 #: ../admin-views/tickets-attendees.php:24
 msgid "Start Date / Time:"
@@ -219,48 +228,48 @@ msgstr "Místo konání:"
 #
 #: ../admin-views/tickets-attendees.php:52
 msgid "Ticket Sales"
-msgstr ""
+msgstr "Tržby za vstupenky"
 
 #: ../admin-views/tickets-attendees.php:64 ../admin-views/tickets-list.php:67
 #, php-format
 msgid "Sold %d"
-msgstr ""
+msgstr "Prodáno %d"
 
 #: ../admin-views/tickets-attendees.php:66 ../admin-views/tickets-list.php:69
 #, php-format
 msgid "Sold %d of %d"
-msgstr ""
+msgstr "Prodáno %d z celkem %d"
 
 #
 #: ../admin-views/tickets-attendees.php:81
 msgid "Tickets sold:"
-msgstr ""
+msgstr "Prodáno vstupenek:"
 
 #: ../admin-views/tickets-attendees.php:85
 msgid "Checked in:"
-msgstr ""
+msgstr "Zaškrtnutých:"
 
 #: ../admin-views/tickets-attendees.php:105
 msgid "Send the attendee list by email"
-msgstr ""
+msgstr "Poslat seznam účastníků emailem"
 
 #
 #: ../admin-views/tickets-attendees.php:109
 msgid "Select a User:"
-msgstr ""
+msgstr "Vybrat uživatele:"
 
 #: ../admin-views/tickets-attendees.php:110
 msgid "Select..."
-msgstr ""
+msgstr "Vybrat"
 
 #: ../admin-views/tickets-attendees.php:112
 msgid "or"
-msgstr ""
+msgstr "nebo"
 
 #
 #: ../admin-views/tickets-attendees.php:114
 msgid "Email Address:"
-msgstr ""
+msgstr "Emailová adresa:"
 
 #: ../admin-views/tickets-list.php:21 ../views/wrapper-single.php:37
 msgid "Edit"
@@ -268,12 +277,12 @@ msgstr "Upravit"
 
 #: ../admin-views/tickets-list.php:22
 msgid "Delete"
-msgstr ""
+msgstr "Smazat"
 
 #: ../admin-views/tickets-list.php:24
 #, php-format
 msgid "Edit in %s"
-msgstr ""
+msgstr "Upravit v %s"
 
 #: ../admin-views/tickets-list.php:27
 #: ../lib/tribe-admin-events-list.class.php:41
@@ -282,17 +291,19 @@ msgstr "Zobrazit"
 
 #: ../admin-views/tickets-list.php:41 ../lib/tickets/tribe-tickets-pro.php:73
 msgid "See who purchased tickets to this event"
-msgstr ""
+msgstr "Kdo si koupil vstupenky na tuto akci"
 
 #: ../admin-views/tickets-meta-box.php:21
 msgid ""
 "This event was created using Community Events. Are you sure you want to sell "
 "tickets for it?"
 msgstr ""
+"Tato akce byla vytvořena pomocí Komunitních akcí. Opravdu si přejete "
+"prodávat vstupenky na tuto akci?"
 
 #: ../admin-views/tickets-meta-box.php:32
 msgid "Upload image for the ticket header"
-msgstr ""
+msgstr "Nahrát obrázek pro záhlaví vstupenky"
 
 #: ../admin-views/tickets-meta-box.php:33
 msgid ""
@@ -300,59 +311,64 @@ msgid ""
 "then scaled for mobile. If you would like \"retina\" support use an image "
 "sized to 1160px wide."
 msgstr ""
+"Maximální velikost obrázku v emailu bude 580 pixelů na šířku s volnou výškou "
+"a pro mobilní zařízení bude obrázek následně zmenšen. Pokud chcete mít "
+"podporu pro \"Retina\" displej, použijte obrázek široký 1160 pixelů."
 
 #
 #: ../admin-views/tickets-meta-box.php:36
 msgid "Select an Image"
-msgstr ""
+msgstr "Zvolit obrázek"
 
 #: ../admin-views/tickets-meta-box.php:44
 msgid "Remove"
-msgstr ""
+msgstr "Odstranit"
 
 #
 #: ../admin-views/tickets-meta-box.php:62
 #: ../admin-views/tickets-meta-box.php:72
 msgid "Add new ticket"
-msgstr ""
+msgstr "Přidat novou vstupenku"
 
 #
 #: ../admin-views/tickets-meta-box.php:73
 msgid "Edit ticket"
-msgstr ""
+msgstr "Upravit vstupenku"
 
 #: ../admin-views/tickets-meta-box.php:79
 msgid "Sell using:"
-msgstr ""
+msgstr "Prodej pomocí:"
 
 #
 #: ../admin-views/tickets-meta-box.php:96
 msgid "Ticket Name:"
-msgstr ""
+msgstr "Název vstupenky:"
 
 #: ../admin-views/tickets-meta-box.php:103
 msgid "Ticket Description:"
-msgstr ""
+msgstr "Popis vstupenky:"
 
 #: ../admin-views/tickets-meta-box.php:112
 msgid "Price:"
-msgstr ""
+msgstr "Cena:"
 
 #
 #: ../admin-views/tickets-meta-box.php:124
 msgid "Start sale:"
-msgstr ""
+msgstr "Začátek prodeje:"
 
 #
 #: ../admin-views/tickets-meta-box.php:148
 msgid "End sale:"
-msgstr ""
+msgstr "Konec prodeje:"
 
 #: ../admin-views/tickets-meta-box.php:170
 msgid ""
 "When will ticket sales occur? If you don't set a start/end date for sales, "
 "tickets will be available from now until the event ends."
 msgstr ""
+"Kdy nastane prodej vstupenek? Pokud nenastavíte začátek a konec prodeje, "
+"budou vstupenky k dispozici od této chvíle až do ukončení akce."
 
 #: ../admin-views/tribe-options-display.php:4
 msgid "Default Events Template"
@@ -365,7 +381,7 @@ msgstr "Výchozí šablona stránky"
 #
 #: ../admin-views/tribe-options-display.php:29
 msgid "Display Settings"
-msgstr ""
+msgstr "Nastavení zobrazení"
 
 #: ../admin-views/tribe-options-display.php:33
 msgid ""
@@ -378,20 +394,29 @@ msgid ""
 "view? Grab a copy of the <a href=\"https://github.com/moderntribe/tribe-"
 "events-agenda-view\">Sample Agenda View plugin from Github</a></p>"
 msgstr ""
+"<p>Následující nastavení ovlivňují jak se bude váš kalendář zobrazovat. "
+"Pokud se vám něco nezobrazuje správně, zkuste přepnout mezi třemi dodanými "
+"styly nebo zvolte šablonu pro stránky z vámi použité WordPress šablony.</p> "
+"Mohou nastat situace, kdy žádná z hotových šablon nebude úplně perfektní. "
+"Podívejte se na <a href=\"http://tri.be/support/documentation/events-"
+"calendar-themers-guide/\">naší příručku šablonáře</a> s pokyny pro "
+"uživatelské úpravy. Chcete si vytvořit nový typ zobrazení? Stáhněte si "
+"vzorový plugin <a href=\"https://github.com/moderntribe/tribe-events-agenda-"
+"view\">Sample Agenda View</a> z Github</p>"
 
 #
 #: ../admin-views/tribe-options-display.php:45
 msgid "Basic Template Settings"
-msgstr ""
+msgstr "Základní nastavení šablony"
 
 #
 #: ../admin-views/tribe-options-display.php:49
 msgid "Default stylesheet used for events templates"
-msgstr ""
+msgstr "Výchozí CSS styl použitý pro šablony akcí"
 
 #: ../admin-views/tribe-options-display.php:52
 msgid "Skeleton Styles"
-msgstr ""
+msgstr "Základní styly"
 
 #: ../admin-views/tribe-options-display.php:54
 msgid ""
@@ -399,101 +424,113 @@ msgid ""
 "templates, and is recommended if you're customizing the events template "
 "styles."
 msgstr ""
+"Tyto styly poskytují základní úroveň rozvržení prvků pro složitější šablony "
+"a jsou doporučené pro případy, kdy si chcete přizpůsobit šablonové styly "
+"akcí přesně podle svého."
 
 #: ../admin-views/tribe-options-display.php:56
 msgid "Full Styles"
-msgstr ""
+msgstr "Úplné styly"
 
 #: ../admin-views/tribe-options-display.php:58
 msgid ""
 "These styles provide a more complex level of layout and style and should "
 "adapt to your theme"
 msgstr ""
+"Tyto styly poskytují komplexnější úroveň rozvržení prvků a stylů a měly by "
+"se přizpůsobit vaší šabloně"
 
 #
 #: ../admin-views/tribe-options-display.php:60
 msgid "Tribe Events Styles"
-msgstr ""
+msgstr "Tribe Events styly"
 
 #: ../admin-views/tribe-options-display.php:62
 msgid "These styles provide a fully designed events theme"
-msgstr ""
+msgstr "Tyto styly poskytují kompletně navrženou šablonu akcí"
 
 #
 #: ../admin-views/tribe-options-display.php:69
 msgid "Events template"
-msgstr ""
+msgstr "Šablona akcí"
 
 #: ../admin-views/tribe-options-display.php:70
 msgid ""
 "Choose a page template to control the appearance of your calendar and event "
 "content."
 msgstr ""
+"Vyberte šablonu stránky, která ovlivní vzhled vašeho kalendáře a obsahu akce."
 
 #: ../admin-views/tribe-options-display.php:78
 msgid "Enable event views"
-msgstr ""
+msgstr "Povolit zobrazení akcí"
 
 #: ../admin-views/tribe-options-display.php:79
 msgid "You must select at least one view."
-msgstr ""
+msgstr "Musíte vybrat alespoň jedno zobrazení."
 
 #
 #: ../admin-views/tribe-options-display.php:86
 msgid "Default view"
-msgstr ""
+msgstr "Výchozí zobrazení"
 
 #: ../admin-views/tribe-options-display.php:94
 msgid "Use the Event Search Bar"
-msgstr ""
+msgstr "Použít vyhledávací lištu akcí"
 
 #: ../admin-views/tribe-options-display.php:95
 msgid "Uncheck this to use the classic header."
-msgstr ""
+msgstr "Zrušte tuto volbu pokud chcete použít klasickou hlavičku."
 
 #
 #: ../admin-views/tribe-options-display.php:101
 msgid "Advanced Template Settings"
-msgstr ""
+msgstr "Rozšířená nastavení šablony"
 
 #
 #: ../admin-views/tribe-options-display.php:105
 msgid "Add HTML before event content"
-msgstr ""
+msgstr "Přidat HTML kód před obsah akce"
 
 #: ../admin-views/tribe-options-display.php:106
 msgid ""
 "If you are familiar with HTML, you can add additional code before the event "
 "template. Some themes may require this to help with styling or layout."
 msgstr ""
+"Pokud se vyznáte v HTML, můžete zde přidat dodatečný kód před šablonu akce. "
+"Některé šablony mohou toto vyžadovat jako pomoc při stylování nebo rozložení "
+"prvků."
 
 #
 #: ../admin-views/tribe-options-display.php:111
 msgid "Add HTML after event content"
-msgstr ""
+msgstr "Přidat HTML kód za obsah akce"
 
 #: ../admin-views/tribe-options-display.php:112
 msgid ""
 "If you are familiar with HTML, you can add additional code after the event "
 "template. Some themes may require this to help with styling or layout."
 msgstr ""
+"Pokud se vyznáte v HTML, můžete zde přidat dodatečný kód za šablonu akce. "
+"Některé šablony mohou toto vyžadovat jako pomoc při stylování nebo rozložení "
+"prvků."
 
 #: ../admin-views/tribe-options-general.php:14
 msgid "Finding & extending your calendar."
-msgstr ""
+msgstr "Nalezení a přidání dalších funkcí do vašeho kalendáře."
 
 #: ../admin-views/tribe-options-general.php:19
 msgid "Finding your calendar."
-msgstr ""
+msgstr "Nalezení vašeho kalendáře."
 
 #
 #: ../admin-views/tribe-options-general.php:24
 msgid "Where's my calendar?"
-msgstr ""
+msgstr "Kde najdu svůj kalendář?"
 
 #: ../admin-views/tribe-options-general.php:24
 msgid "Right here"
-msgstr ""
+msgstr "Přímo zde"
 
 #: ../admin-views/tribe-options-general.php:28
 msgid ""
@@ -506,7 +543,7 @@ msgstr ""
 #
 #: ../admin-views/tribe-options-general.php:28
 msgid "Check out the available add-ons"
-msgstr ""
+msgstr "Prohlédněte si dostupné doplňky"
 
 #: ../admin-views/tribe-options-general.php:33
 msgid "We hope our plugin is helping you out."
@@ -519,6 +556,10 @@ msgid ""
 "is recognition. Add a small text-only link at the bottom of your calendar "
 "pointing to The Events Calendar project."
 msgstr ""
+"Říkáte si: \"Wow, to je ale úžasný plugin! Měl bych poděkovat Modern Tribe "
+"za jejich těžkou práci.\" Největším poděkováním, které bychom si mohli přát "
+"je uznání. Stačí přidat malý textový odkaz v dolní části vašeho kalendáře "
+"odkazující na projekt The Events Calendar."
 
 #: ../admin-views/tribe-options-general.php:37
 #: ../admin-views/tribe-options-general.php:42
@@ -540,45 +581,47 @@ msgstr ""
 #
 #: ../admin-views/tribe-options-general.php:47
 msgid "Show The Events Calendar link"
-msgstr ""
+msgstr "Zobrazit odkaz na The Events Calendar"
 
 #
 #: ../admin-views/tribe-options-general.php:61
 msgid "General Settings"
-msgstr ""
+msgstr "Obecné nastavení"
 
 #
 #: ../admin-views/tribe-options-general.php:65
 msgid "Number of events to show per page"
-msgstr ""
+msgstr "Počet zobrazených akcí na stránku"
 
 #: ../admin-views/tribe-options-general.php:72
 msgid "Use Javascript to control page load"
-msgstr ""
+msgstr "Použít Javascript pro načítání stránky"
 
 #: ../admin-views/tribe-options-general.php:73
 msgid "Enable ajax to live refresh content."
-msgstr ""
+msgstr "Povolit ajax pro aktivní obnovování obsahu."
 
 #
 #: ../admin-views/tribe-options-general.php:79
 msgid "Show comments"
-msgstr ""
+msgstr "Zobrazit komentáře"
 
 #
 #: ../admin-views/tribe-options-general.php:80
 msgid "Enable comments on event pages."
-msgstr ""
+msgstr "Povolit komentáře na stránkách akce."
 
 #: ../admin-views/tribe-options-general.php:86
 msgid "Include events in main blog loop"
-msgstr ""
+msgstr "Zahrnout akce do hlavního výpisu příspěvků"
 
 #: ../admin-views/tribe-options-general.php:87
 msgid ""
 "Show events with the site's other posts. When this box is checked, events "
 "will also continue to appear on the default events page."
 msgstr ""
+"Zobrazit akce spolu s ostatními příspěvky na webu. Pokud je tato volba "
+"zaškrtnuta, akce se budou také nadále zobrazovat na výchozí stránce akcí."
 
 #: ../admin-views/tribe-options-general.php:93
 #: ../admin-views/tribe-options-general.php:99
@@ -593,6 +636,10 @@ msgid ""
 "%s</a>. In order to edit the slug here, <a href=\"%soptions-permalink.php"
 "\">enable pretty permalinks</a>."
 msgstr ""
+"Název v URL pro stránku akcí nelze změnit, protože nemáte zapnuté používání "
+"trvalých odkazů. Vaše současná URL adresa pro stránku akcí je <a href=\"%s\">"
+"%s</a>. Chcete-li upravit název v URL, musíte nejdříve <a href=\"%soptions-"
+"permalink.php\">zapnout trvalé odkazy</a>."
 
 #: ../admin-views/tribe-options-general.php:106
 #: ../public/template-tags/options.php:20
@@ -602,7 +649,7 @@ msgstr "Název v URL použitý při tvorbě URL adres Akcí."
 #: ../admin-views/tribe-options-general.php:106
 #, php-format
 msgid "Your current events URL is: %s"
-msgstr ""
+msgstr "Vaše současná URL adresa pro Akce je: %s"
 
 #: ../admin-views/tribe-options-general.php:111
 #: ../public/template-tags/options.php:43
@@ -612,7 +659,7 @@ msgstr "Zde je URL adresa iCal zdroje vašich akcí:"
 #
 #: ../admin-views/tribe-options-general.php:116
 msgid "Single event URL slug"
-msgstr ""
+msgstr "Název v URL u jednotlivé akce"
 
 #: ../admin-views/tribe-options-general.php:123
 #, php-format
@@ -620,31 +667,38 @@ msgid ""
 "The above should ideally be plural, and this singular.<br />Your single "
 "event URL is: %s"
 msgstr ""
+"Výše uvedený by měl být v ideálním případě v množném čísle a tento v "
+"jednotném.<br />Vaše URL adresa pro jednotlivou Akci je: %s"
 
 #: ../admin-views/tribe-options-general.php:128
 msgid "End of day cutoff"
-msgstr ""
+msgstr "Mezní hranice pro konec dne"
 
 #: ../admin-views/tribe-options-general.php:136
 msgid ""
 "Have events that run past midnight? Control when your day official ends to "
 "avoid awkwardly adding your event to the next day."
 msgstr ""
+"Máte akce, které trvají i po půlnoci? Zde si můžete nastavit, kdy oficiálně "
+"končí den a tím zabráníte aby se vaše akce přidala do dalšího dne."
 
 #: ../admin-views/tribe-options-general.php:141
 msgid "Default currency symbol"
-msgstr ""
+msgstr "Výchozí symbol měny"
 
 #: ../admin-views/tribe-options-general.php:142
 msgid ""
 "Set the default currency symbol for event costs. Note that this only impacts "
 "future events, and changes made will not apply retroactively."
 msgstr ""
+"Zadejte výchozí symbol měny pro vstupné na akci. Berte na vědomí, že tato "
+"volba a její případná změna se projeví pouze u nových akcí, ale nikoliv "
+"zpětně."
 
 #
 #: ../admin-views/tribe-options-general.php:149
 msgid "Map Settings"
-msgstr ""
+msgstr "Nastavení map"
 
 #: ../admin-views/tribe-options-general.php:153
 msgid "Enable Google Maps"
@@ -652,7 +706,7 @@ msgstr "Povolit Mapy Google"
 
 #: ../admin-views/tribe-options-general.php:154
 msgid "Check to enable maps for events and venues."
-msgstr ""
+msgstr "Zaškrtnutím této volby povolíte mapy pro akce a místa konání."
 
 #: ../admin-views/tribe-options-general.php:161
 msgid "Google Maps Default Zoom Level"
@@ -661,16 +715,16 @@ msgstr "Výchozí měřítko Map Google"
 #
 #: ../admin-views/tribe-options-general.php:162
 msgid "0 = zoomed out; 21 = zoomed in."
-msgstr ""
+msgstr "0 = oddálený; 21 = přiblížený."
 
 #
 #: ../admin-views/tribe-options-general.php:170
 msgid "Miscellaneous Settings"
-msgstr ""
+msgstr "Další nastavení"
 
 #: ../admin-views/tribe-options-general.php:174
 msgid "Duplicate Venues &amp; Organizers"
-msgstr ""
+msgstr "Duplicitní Místa konání a Pořadatelé"
 
 #: ../admin-views/tribe-options-general.php:174
 msgid ""
@@ -678,16 +732,20 @@ msgid ""
 "Calendar from a pre-3.0 version. Click this button to automatically merge "
 "identical venues and organizers."
 msgstr ""
+"Při aktualizaci pluginu The Events Calendar z verze starší než 3.0 se může "
+"stát, že objevíte duplicitní zaznamy u pořadatelů a míst konání. Kliknutím "
+"na toto tlačítko dojde k automatickému sloučení identických míst konání a "
+"pořadatelů."
 
 #: ../admin-views/tribe-options-general.php:174
 #: ../lib/tribe-amalgamator.php:182
 msgid "Merge Duplicates"
-msgstr ""
+msgstr "Sloučit duplicity"
 
 #
 #: ../admin-views/tribe-options-general.php:179
 msgid "Debug mode"
-msgstr ""
+msgstr "Debug režim"
 
 #: ../admin-views/tribe-options-general.php:185
 #, php-format
@@ -722,7 +780,7 @@ msgstr "Používáte nejnovější verzi!"
 #
 #: ../admin-views/tribe-options-help.php:42
 msgid "The Events Calendar PRO"
-msgstr ""
+msgstr "The Events Calendar Pro"
 
 #: ../admin-views/tribe-options-help.php:46
 msgid "Eventbrite Tickets"
@@ -735,7 +793,7 @@ msgstr "Community Events"
 #
 #: ../admin-views/tribe-options-help.php:54
 msgid "Facebook Events"
-msgstr ""
+msgstr "Facebook Events"
 
 #: ../admin-views/tribe-options-help.php:58
 msgid "WooTickets"
@@ -743,7 +801,7 @@ msgstr "WooTickets"
 
 #: ../admin-views/tribe-options-help.php:63
 msgid "Faceted Filters"
-msgstr ""
+msgstr "Faceted Filters"
 
 #: ../admin-views/tribe-options-help.php:71
 msgid "Documentation"
@@ -755,8 +813,8 @@ msgstr "FAQ"
 
 #: ../admin-views/tribe-options-help.php:79
 #: ../lib/the-events-calendar.class.php:656
-#: ../lib/the-events-calendar.class.php:3375
-#: ../lib/the-events-calendar.class.php:3466
+#: ../lib/the-events-calendar.class.php:3379
+#: ../lib/the-events-calendar.class.php:3470
 msgid "Help"
 msgstr "Nápověda"
 
@@ -770,7 +828,7 @@ msgstr "Poznámky k vydání"
 
 #: ../admin-views/tribe-options-help.php:91
 msgid "Forums"
-msgstr ""
+msgstr "Fórum"
 
 #: ../admin-views/tribe-options-help.php:96
 #, php-format
@@ -783,6 +841,14 @@ msgid ""
 "down first?</strong> Visit our <a href=\"%s\">new user primer</a>,  designed "
 "to help familiarize you with the plugin basics.</li></ul>"
 msgstr ""
+"Pokud teprve začínáte s pluginem The Events Calendar, čeká vás příjemné "
+"překvapení. Zjistíte jak je super snadné zprovoznit správu vašich akcí. Zde "
+"je pár způsobů jak začít:</p><ul><li><strong>Jste dobrodružné povahy?</"
+"strong> Vrhněte se rovnou na věc a přejděte do nabídky Akce pro <a href=\"%s"
+"\">vytvoření vaší první akce</a>.</li><li><strong>Chcete začít raději zvolna?"
+"</strong> Pročtěte si naši <a href=\"%s\">příručku nového uživatele</a>, "
+"která je vytvořena přávě pro vás a s úmyslem seznámit vás se základy pluginu."
+"</li></ul>"
 
 #: ../admin-views/tribe-options-help.php:99
 #, php-format
@@ -793,6 +859,11 @@ msgid ""
 "week to look for legitimate bug reports and do what we can to assist users.</"
 "p>"
 msgstr ""
+"<p>Máme rádi všechny naše uživatele a chceme pomoci jak bezplatným tak i PRO "
+"zákazníkům stejně. Pokud používáte aktuální verzi pluginu The Events "
+"Calendar a máte nějaké problémy, pošlete příspěvek na %s na webu WordPress."
+"org. Fórum sledujeme jednou týdně kvůli přehledu o nahlášených chybách a "
+"děláme vše, abychom pomohli uživatelům.</p>"
 
 #: ../admin-views/tribe-options-help.php:99
 msgid "forum for The Events Calendar"
@@ -804,17 +875,21 @@ msgid ""
 "<p>If you need additional help, %sEvents Calendar Pro%s gets you access to "
 "our support forums for a full year.</p>"
 msgstr ""
+"<p>Pokud potřebujete další pomoc, plugin %sEvents Calendar Pro%s vám zajistí "
+"přístup do našeho fóra podpory na celý rok.</p>"
 
 #
 #: ../admin-views/tribe-options-help.php:101
 msgid "A few things to keep in mind before posting:"
-msgstr ""
+msgstr "Pár věcí, které je dobré vědět než nám napíšete:"
 
 #: ../admin-views/tribe-options-help.php:103
 msgid ""
 "Search recent threads before posting a new one to check that there isn't "
 "already a discussion about your issue."
 msgstr ""
+"Prohlédněte si poslední aktivní vlákna v diskuzi a než založíte nové, "
+"zkontrolujte zda se už vašemu problému nějaká diskuze nevěnuje."
 
 #: ../admin-views/tribe-options-help.php:104
 msgid ""
@@ -824,6 +899,11 @@ msgid ""
 "conflicts can be easily identified. If you find a conflict, note it in a "
 "support thread."
 msgstr ""
+"Zkontrolujte zda daný problém není způsoben konfliktem s jiným pluginem nebo "
+"vámi použitou šablonou. To lze jednoduše otestovat na zkušebním webu tim, že "
+"postupně deaktivujete ostatní pluginy jeden po druhém a vrátíte se zpět k "
+"výchozí šabloně Twenty Twelve. Pokud jste tímto způsobem na nějaký konflikt "
+"narazili, dejte nám to při oznamování chyby vědět."
 
 #: ../admin-views/tribe-options-help.php:105
 #, php-format
@@ -832,6 +912,9 @@ msgid ""
 "Permalinks</a>) can resolve events-related problems on your site. Before "
 "creating a new thread try this handy trick."
 msgstr ""
+"Někdy pro vyřešení problémů ohledně akcí jenom stačí opětovně uložit "
+"nastavení vašich trvalých odkazů (v menu <a href=\"%s\">Nastavení > Trvalé "
+"odkazy</a>). Před vytvářením nového tématu v diskuzi to stojí za zkoušku."
 
 #: ../admin-views/tribe-options-help.php:107
 msgid ""
@@ -840,6 +923,10 @@ msgid ""
 "able to provide customization tips or assist in integration with 3rd party "
 "plugins."
 msgstr ""
+"Přestože rádi pomůžeme uživatelům pluginu The Events Calendar ohledně chyb a "
+"poskytneme drobné rady s integrací, v diskuzním fóru na webu WordPress.org "
+"nejsme schopni poskytovat rady pro přizpůsobení nebo pomáhat při integraci s "
+"pluginy třetích stran."
 
 #: ../admin-views/tribe-options-help.php:109
 #, php-format
@@ -847,6 +934,8 @@ msgid ""
 "Shoot us an email at %s or tweet %s and tell us why. We'll do what we can to "
 "make it right."
 msgstr ""
+"Pošlete nám email na %s nebo tweet na %s a řekněte proč. Uděláme vše co je v "
+"našich silách, abychom to dali do pořádku."
 
 #: ../admin-views/tribe-options-help.php:110
 msgid "More..."
@@ -857,6 +946,8 @@ msgid ""
 "Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so much "
 "for installing our labor of love!"
 msgstr ""
+"Ahoj! Jmenujeme se Modern Tribe a jsme tu, abychom vám pomohli to pořádně "
+"rozjet. Moc děkujeme za to, že jste si nainstalovali dílo naší lásky!"
 
 #: ../admin-views/tribe-options-help.php:119
 msgid "Getting Started"
@@ -912,8 +1003,9 @@ msgstr "Průměrné hodnocení"
 #, php-format
 msgid "Based on %d rating"
 msgid_plural "Based on %d ratings"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Hodnotil %d uživatel"
+msgstr[1] "Hodnotili %d uživatelé"
+msgstr[2] "Hodnotilo %d uživatelů"
 
 #: ../admin-views/tribe-options-help.php:168
 msgid "Give us 5 stars!"
@@ -934,17 +1026,19 @@ msgstr "Aktuality a návody"
 #
 #: ../admin-views/tribe-options-network.php:14
 msgid "Network Settings"
-msgstr ""
+msgstr "Nastavení v síti webů"
 
 #: ../admin-views/tribe-options-network.php:18
 msgid ""
 "This is where all of the global network settings for Modern Tribe's The "
 "Events Calendar can be modified."
 msgstr ""
+"Zde si můžete změnit veškerá globální nastavení pluginu The Events Calendar "
+"pro celou síť webů."
 
 #: ../admin-views/tribe-options-network.php:26
 msgid "Hide the following settings tabs on every site:"
-msgstr ""
+msgstr "Skrýt následující panely s nastavením na každém webu:"
 
 #: ../admin-views/venue-meta-box.php:20
 msgid "Venue Name:"
@@ -999,6 +1093,8 @@ msgstr "Zobrazit widget pouze pokud jsou nadcházející akce:"
 #, php-format
 msgid "Want to modify the display of this widget? Try a %stemplate override%s."
 msgstr ""
+"Pokud chcete upravit zobrazení tohoto widgetu, vyzkoušejte %snahrazení šablon"
+"%s."
 
 #: ../lib/the-events-calendar.class.php:442
 msgid "month"
@@ -1027,6 +1123,8 @@ msgid ""
 "Your version of The Events Calendar is not up-to-date with one of your The "
 "Events Calendar add-ons. Please %supdate now.%s"
 msgstr ""
+"Vaše verze pluginu The Events Calendar není dostatečně aktuální s jedním z "
+"jeho doplňků. Proveďte prosím %saktualizaci.%s"
 
 #: ../lib/the-events-calendar.class.php:566
 #, php-format
@@ -1036,6 +1134,10 @@ msgid ""
 "properly unless paired with the right version. %sWant to pair an older "
 "version%s?"
 msgstr ""
+"Následující pluginy jsou zastaralé: <b>%s</b>. Proveďte prosím %saktualizaci"
+"%s. Všechny doplňky jsou závislé na pluginu The Events Calendar a nebudou "
+"fungovat správně, pokud nejsou spárovány se správnou verzí. %sChcete "
+"spárovat starší verzi%s?"
 
 #: ../lib/the-events-calendar.class.php:623
 #: ../lib/the-events-calendar.class.php:651
@@ -1059,6 +1161,20 @@ msgid ""
 "your license.</p><p>Not seeing an update but expecting one? In WordPress, go "
 "to <a href=\"%s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
 msgstr ""
+"<p>Licenční klíč, který jste obdrželi při dokončování vašeho nákupu na "
+"http://tri.be, vám umožňuje přístup k zákaznické podpoře a aktualizacím. "
+"Svůj klíč nemusíte zadávat aby byly pluginy plně funkční. Nicméně bez "
+"vloženého klíče nebude možné provést automatické aktualizace. <strong>Své "
+"licenční klíče můžete najít na stránce <a href=\"%s\">%s</a></strong>.</p> "
+"<p>Každý plugin/doplněk má svůj unikátní licenční klíč. Do příslušného "
+"políčka v níže uvedeném seznamu stačí vložit klíč a chvíli počkat na "
+"ověření. Jakmile se objeví zeleně Datum platnosti společně s nápisem \"valid"
+"\", je vše hotovo.</p> <p>Pokud však vidíte červeně zprávu, která říká že "
+"váš klíč není platný nebo že je mimo instalaci, navštivte web [enter link to "
+"account/licenses], kde si můžete spravovat své instalace nebo obnovit "
+"platnost licence.</p> <p>Pokud se vám nezobrazila očekávaná aktualizace, "
+"přejděte ve WordPressu na stránku <a href=\"%s\">Nástěnka > Aktualizace</a> "
+"a klikněte na \"Zkontrolovat znovu\".</p>"
 
 #: ../lib/the-events-calendar.class.php:643
 msgid "General"
@@ -1066,7 +1182,7 @@ msgstr "Obecné"
 
 #: ../lib/the-events-calendar.class.php:644
 msgid "Display"
-msgstr ""
+msgstr "Zobrazování"
 
 #: ../lib/the-events-calendar.class.php:689
 #, php-format
@@ -1124,8 +1240,8 @@ msgid "tag"
 msgstr "stitek"
 
 #: ../lib/the-events-calendar.class.php:1138
-#: ../lib/the-events-calendar.class.php:3306
-#: ../lib/the-events-calendar.class.php:3366
+#: ../lib/the-events-calendar.class.php:3310
+#: ../lib/the-events-calendar.class.php:3370
 msgid "Events"
 msgstr "Akce"
 
@@ -1230,7 +1346,7 @@ msgstr "Vytvořit pořadatele"
 #
 #: ../lib/the-events-calendar.class.php:1170
 msgid "View Organizer"
-msgstr ""
+msgstr "Zobrazit pořadatele"
 
 #: ../lib/the-events-calendar.class.php:1171
 msgid "Search Organizers"
@@ -1449,51 +1565,51 @@ msgstr ""
 
 #: ../lib/the-events-calendar.class.php:1284
 msgid "Use Saved Venue:"
-msgstr ""
+msgstr "Použít uložené místo konání:"
 
 #
 #: ../lib/the-events-calendar.class.php:1313
 msgid "Use Saved Organizer:"
-msgstr ""
+msgstr "Použít uloženého pořadatele:"
 
 #
 #: ../lib/the-events-calendar.class.php:1349
 msgid "Use New Venue"
-msgstr ""
+msgstr "Vytvořit nové místo konání"
 
 #
 #: ../lib/the-events-calendar.class.php:1351
 msgid "My Venues"
-msgstr ""
+msgstr "Moje Místa konání"
 
 #
 #: ../lib/the-events-calendar.class.php:1356
 msgid "Available Venues"
-msgstr ""
+msgstr "Místa konání k dispozici"
 
 #: ../lib/the-events-calendar.class.php:1367
 msgid "No saved venue exists."
-msgstr ""
+msgstr "Zatím nebylo uloženo žádné místo."
 
 #
 #: ../lib/the-events-calendar.class.php:1401
 msgid "Use New Organizer"
-msgstr ""
+msgstr "Vytvořit nového pořadatele"
 
 #
 #: ../lib/the-events-calendar.class.php:1403
 msgid "My Organizers"
-msgstr ""
+msgstr "Moji Pořadatelé"
 
 #
 #: ../lib/the-events-calendar.class.php:1408
 msgid "Available Organizers"
-msgstr ""
+msgstr "Pořadatelé k dispozici"
 
 #
 #: ../lib/the-events-calendar.class.php:1419
 msgid "No saved organizer exists."
-msgstr ""
+msgstr "Zatím nebyl uložen žádný pořadatel."
 
 #: ../lib/the-events-calendar.class.php:1530
 msgid "Next"
@@ -1513,17 +1629,17 @@ msgstr "Hotovo"
 
 #: ../lib/the-events-calendar.class.php:1718
 msgid "Network"
-msgstr ""
+msgstr "Síť webů"
 
 #
 #: ../lib/the-events-calendar.class.php:2502
 msgid "Unnamed Venue"
-msgstr ""
+msgstr "Neznámé místo konání"
 
 #
 #: ../lib/the-events-calendar.class.php:2585
 msgid "Unnamed Organizer"
-msgstr ""
+msgstr "Neznámý pořadatel"
 
 #: ../lib/the-events-calendar.class.php:3065
 msgid "Event Options"
@@ -1533,97 +1649,101 @@ msgstr "Nastavení akce"
 msgid "Venue Information"
 msgstr "Informace o místě konání"
 
-#: ../lib/the-events-calendar.class.php:3068
+#: ../lib/the-events-calendar.class.php:3072
 msgid "Organizer Information"
 msgstr "Informace o pořadateli"
 
-#: ../lib/the-events-calendar.class.php:3207
+#: ../lib/the-events-calendar.class.php:3211
 msgid "Support"
 msgstr "Podpora"
 
-#: ../lib/the-events-calendar.class.php:3210
+#: ../lib/the-events-calendar.class.php:3214
 msgid "View All Add-Ons"
 msgstr "Prohlédnout všechny doplňky"
 
-#: ../lib/the-events-calendar.class.php:3217
+#: ../lib/the-events-calendar.class.php:3221
 msgid "News from Modern Tribe"
 msgstr "Novinky od Modern Tribe"
 
-#: ../lib/the-events-calendar.class.php:3262
+#: ../lib/the-events-calendar.class.php:3266
 msgid "Additional Functionality"
 msgstr "Další funkce"
 
-#: ../lib/the-events-calendar.class.php:3267
+#: ../lib/the-events-calendar.class.php:3271
 msgid ""
 "Looking for additional functionality including recurring events, ticket "
 "sales, publicly submitted events, new views and more?"
 msgstr ""
+"Hledáte další funkce, včetně opakujících se akcí, prodeje vstupenek, veřejně "
+"přidávaných akcí, nových způsobů zobrazení a další?"
 
-#: ../lib/the-events-calendar.class.php:3267
+#: ../lib/the-events-calendar.class.php:3271
 #, php-format
 msgid "Check out the <a href=\"%s\">available add-ons</a>."
-msgstr ""
+msgstr "Podívejte se na <a href=\"%s\">dostupné doplňky</a>."
 
-#: ../lib/the-events-calendar.class.php:3332
-#: ../lib/the-events-calendar.class.php:3423
+#: ../lib/the-events-calendar.class.php:3336
+#: ../lib/the-events-calendar.class.php:3427
 msgid "View Calendar"
 msgstr "Zobrazit kalendář"
 
-#: ../lib/the-events-calendar.class.php:3340
+#: ../lib/the-events-calendar.class.php:3344
 msgid "Add Event"
 msgstr "Vytvořit akci"
 
-#: ../lib/the-events-calendar.class.php:3349
+#: ../lib/the-events-calendar.class.php:3353
 msgid "Edit Events"
 msgstr "Přehled akcí"
 
-#: ../lib/the-events-calendar.class.php:3358
-#: ../lib/the-events-calendar.class.php:3459
+#: ../lib/the-events-calendar.class.php:3362
+#: ../lib/the-events-calendar.class.php:3463
 #: ../lib/tribe-settings.class.php:164
 msgid "Settings"
 msgstr "Nastavení"
 
-#: ../lib/the-events-calendar.class.php:3394
+#: ../lib/the-events-calendar.class.php:3398
 #, php-format
 msgid ""
 "Welcome to The Events Calendar! Your events calendar can be found at %s. To "
 "change the events slug, visit %sEvents -> Settings%s."
 msgstr ""
+"Vítejte u pluginu The Events Calendar! Váš kalendář akcí naleznete na adrese "
+"%s. Název v URL pro akce můžete změnit na stránce %sAkce -> Nastavení%s."
 
-#: ../lib/the-events-calendar.class.php:3460
+#: ../lib/the-events-calendar.class.php:3464
 msgid "Calendar"
 msgstr "Kalendář"
 
-#: ../lib/the-events-calendar.class.php:3512
+#: ../lib/the-events-calendar.class.php:3516
 msgid "List"
-msgstr ""
+msgstr "Seznam"
 
 #
-#: ../lib/the-events-calendar.class.php:3517
+#: ../lib/the-events-calendar.class.php:3521
 msgid "Month"
-msgstr ""
+msgstr "Měsíc"
 
 #
-#: ../lib/the-events-calendar.class.php:3545
+#: ../lib/the-events-calendar.class.php:3549
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #
-#: ../lib/the-events-calendar.class.php:3548
+#: ../lib/the-events-calendar.class.php:3552
 msgid "Events In"
-msgstr ""
+msgstr "Akce v"
 
 #
-#: ../lib/the-events-calendar.class.php:3550
+#: ../lib/the-events-calendar.class.php:3554
 msgid "Events From"
-msgstr ""
+msgstr "Akce od"
 
-#: ../lib/the-events-calendar.class.php:3720 ../views/list/nav.php:21
+#: ../lib/the-events-calendar.class.php:3724 ../views/list/nav.php:21
 #: ../views/list/nav.php:27 ../views/list/nav.php:30
 msgid "&laquo; Previous Events"
 msgstr "&laquo; Předchozí akce"
 
-#: ../lib/the-events-calendar.class.php:3721 ../views/list/nav.php:39
+#: ../lib/the-events-calendar.class.php:3725 ../views/list/nav.php:39
 #: ../views/list/nav.php:42 ../views/list/nav.php:48
 msgid "Next Events &raquo;"
 msgstr "Další akce &raquo;"
@@ -1663,7 +1783,7 @@ msgstr "Celkem %s"
 #: ../lib/tribe-app-shop.class.php:53 ../lib/tribe-app-shop.class.php:54
 #: ../lib/tribe-app-shop.class.php:72
 msgid "Event Add-Ons"
-msgstr ""
+msgstr "Doplňky pro akce"
 
 #: ../lib/tribe-debug-bar.class.php:18
 msgid "Tribe"
@@ -1702,17 +1822,17 @@ msgstr "Pro tento panel nejsou zatím nastavena žádná pole."
 #
 #: ../lib/tribe-settings.class.php:164 ../lib/tribe-settings.class.php:176
 msgid "The Events Calendar Settings"
-msgstr ""
+msgstr "Nastavení pro The Events Calendar"
 
 #
 #: ../lib/tribe-settings.class.php:176
 msgid "Events Settings"
-msgstr ""
+msgstr "Nastavení akcí"
 
 #: ../lib/tribe-settings.class.php:225
 #, php-format
 msgid "%s Settings"
-msgstr ""
+msgstr "Nastavení %s"
 
 #: ../lib/tribe-settings.class.php:239
 msgid "You've requested a non-existent tab."
@@ -1761,47 +1881,53 @@ msgstr[2] ""
 msgid "Settings saved."
 msgstr "Nastavení bylo uloženo."
 
-#: ../lib/tribe-template-factory.class.php:143
+#: ../lib/tribe-template-factory.class.php:151
 #, php-format
 msgid "There  were no results found for <strong>\"%s\"</strong>."
-msgstr ""
+msgstr "Nebyly nalezeny žádné záznamy pro <strong>\"%s\"</strong>."
 
-#: ../lib/tribe-template-factory.class.php:153
+#: ../lib/tribe-template-factory.class.php:161
 #, php-format
 msgid ""
 "listed under %s. Check out past events for this category or view the full "
 "calendar."
 msgstr ""
+" v rubrice %s. Podívejte se na uplynulé akce z této rubriky nebo si zobrazte "
+"úplný kalendář."
 
-#: ../lib/tribe-template-factory.class.php:155
+#: ../lib/tribe-template-factory.class.php:163
 #, php-format
 msgid ""
 "listed under %s. Check out upcoming events for this category or view the "
 "full calendar."
 msgstr ""
+" v rubrice %s. Podívejte se na nadcházející akce z této rubriky nebo si "
+"zobrazte úplný kalendář."
 
-#: ../lib/tribe-template-factory.class.php:159
+#: ../lib/tribe-template-factory.class.php:167
 #, php-format
 msgid "No events scheduled for <strong>%s</strong>. Please try another day."
 msgstr ""
 "Na <strong>%s</strong> nejsou naplánované žádné akce. Zkuste prosím jiný den."
 
 #
-#: ../lib/tribe-template-factory.class.php:163
+#: ../lib/tribe-template-factory.class.php:171
 msgid "No upcoming events "
-msgstr ""
+msgstr "Žádné nadcházející akce"
 
 #
-#: ../lib/tribe-template-factory.class.php:165
+#: ../lib/tribe-template-factory.class.php:173
 msgid "No matching events "
-msgstr ""
+msgstr "Nebyly nalezeny žádné akce"
 
 #
-#: ../lib/tribe-template-factory.class.php:168
+#: ../lib/tribe-template-factory.class.php:176
 msgid "No previous events "
-msgstr ""
+msgstr "Žádné předchozí akce"
 
+# incomplete string
 #: ../lib/tribe-the-events-calendar-import.class.php:44
+#, fuzzy
 msgid ""
 "Welcome to Events 2.0! This is a HUGE upgrade from 1.6.5. Please make sure "
 "you have backed up before proceeding any further. You can easily <a href=\" "
@@ -1809,6 +1935,12 @@ msgid ""
 "to an old version</a> if you want to backup first. This upgrade includes two "
 "major steps, <a href=\"edit.php?post_type="
 msgstr ""
+"Vítejte u Events 2.0! Jde o obrovský pokrok od verze 1.6.5. Před "
+"pokračováním dál se prosím ujistěte, že máte vytvořenu zálohu dat. Můžete se "
+"snadno <a href=\" http://wordpress.org/extend/plugins/the-events-calendar/"
+"download/\">vrátit ke starší verzi</a>, pokud si chcete nejprve vytvořit "
+"zálohu. Tato aktualizace zahrnuje dva hlavní kroky, <a href=\"edit.php?"
+"post_type="
 
 #: ../lib/tribe-the-events-calendar-import.class.php:54
 msgid "Upgrade from The Events Calendar"
@@ -3110,11 +3242,11 @@ msgstr "Wyoming"
 #
 #: ../lib/widget-list.class.php:16
 msgid "A widget that displays upcoming events."
-msgstr ""
+msgstr "Widget, který zobrazuje seznam nadcházejících akcí."
 
 #: ../lib/widget-list.class.php:22
 msgid "Events List"
-msgstr ""
+msgstr "Seznam akcí"
 
 #: ../lib/widget-list.class.php:92
 msgid "View All Events"
@@ -3130,6 +3262,8 @@ msgid ""
 "There were no results found for <strong>\"%s\"</strong> this month. Try "
 "searching next month."
 msgstr ""
+"Nebyly nalezeny žádné záznamy pro <strong>\"%s\"</strong> v tomto měsíci. "
+"Zkuste hledat v dalším měsíci."
 
 #: ../lib/template-classes/single-event.php:94
 msgid "This event has passed."
@@ -3137,88 +3271,88 @@ msgstr "Tato akce již proběhla."
 
 #: ../lib/tickets/tribe-tickets-attendees.php:33
 msgid "Order #"
-msgstr ""
+msgstr "Objednávka č."
 
 #: ../lib/tickets/tribe-tickets-attendees.php:34
 msgid "Order Status"
-msgstr ""
+msgstr "Stav objednávky"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:35
 msgid "Purchaser name"
-msgstr ""
+msgstr "Jméno kupce"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:36
 msgid "Purchaser email"
-msgstr ""
+msgstr "Email kupce"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:37
 msgid "Ticket type"
-msgstr ""
+msgstr "Typ vstupenky"
 
 #
 #: ../lib/tickets/tribe-tickets-attendees.php:38
 #: ../views/tickets-email.php:293
 msgid "Ticket #"
-msgstr ""
+msgstr "Vstupenka č."
 
 #: ../lib/tickets/tribe-tickets-attendees.php:39
 #: ../views/tickets-email.php:305
 msgid "Security Code"
-msgstr ""
+msgstr "Kontrolní kód"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:40
 #: ../lib/tickets/tribe-tickets-attendees.php:73
 #: ../lib/tickets/tribe-tickets-attendees.php:112
 msgid "Check in"
-msgstr ""
+msgstr "Zaškrtnout"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:74
 #: ../lib/tickets/tribe-tickets-attendees.php:112
 msgid "Undo Check in"
-msgstr ""
+msgstr "Zrušit zaškrtnutí"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:97
 msgid "Print"
-msgstr ""
+msgstr "Tisk"
 
 #
 #: ../lib/tickets/tribe-tickets-attendees.php:98
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #
 #: ../lib/tickets/tribe-tickets-attendees.php:99
 msgid "Export"
-msgstr ""
+msgstr "Export"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:105
 msgid "Filter by ticket #, order # or security code"
-msgstr ""
+msgstr "Filtrovat podle čísla vstupenky, objednávky nebo kontrolního kódu"
 
 #
 #: ../lib/tickets/tribe-tickets-metabox.php:24
 msgid "Tickets"
-msgstr ""
+msgstr "Vstupenky"
 
 #: ../lib/tickets/tribe-tickets-metabox.php:62
 msgid "Ticket header image"
-msgstr ""
+msgstr "Obrázek v záhlaví vstupenky"
 
 #: ../lib/tickets/tribe-tickets-metabox.php:62
 msgid "Set as ticket header"
-msgstr ""
+msgstr "Použít jako obrázek v záhlaví vstupenky"
 
 #: ../lib/tickets/tribe-tickets-pro.php:107
 msgid "You need to select a user or type a valid email address"
-msgstr ""
+msgstr "Je třeba vybrat uživatele nebo zadat platnou emailovou adresu"
 
 #: ../lib/tickets/tribe-tickets-pro.php:108
 msgid "Sending..."
-msgstr ""
+msgstr "Odesílání..."
 
 #: ../lib/tickets/tribe-tickets-pro.php:136
 msgid "Columns"
-msgstr ""
+msgstr "Sloupce"
 
 #: ../lib/tickets/tribe-tickets-pro.php:137
 msgid ""
@@ -3226,23 +3360,26 @@ msgid ""
 "selection works in the table below, in the email, for print and for the CSV "
 "export."
 msgstr ""
+"Pomocí záložky &#8222;Nastavení zobrazených informací&#8220; si můžete "
+"vybrat, které sloupce chcete zobrazit. Tento výběr se projeví při výpisu, "
+"při odesílání emailem, při tisku a při exportu do CSV souboru."
 
 #: ../lib/tickets/tribe-tickets-pro.php:258
 msgid "attendees"
-msgstr ""
+msgstr "ucastnici"
 
 #: ../lib/tickets/tribe-tickets-pro.php:308
 #, php-format
 msgid "Attendee List for: %s"
-msgstr ""
+msgstr "Seznam účastníků na: %s"
 
 #: ../lib/tickets/tribe-tickets.php:290
 msgid "Your ticket has been saved."
-msgstr ""
+msgstr "Vaše vstupenka byla uložena."
 
 #: ../lib/tickets/tribe-tickets.php:367
 msgid "Your ticket has been deleted."
-msgstr ""
+msgstr "Vaše vstupenka byla smazána."
 
 #: ../public/advanced-functions/meta.php:16
 msgid "Start:"
@@ -3263,20 +3400,20 @@ msgstr "Klikněte pro zobrazení ve službě Mapy Google"
 #
 #: ../public/advanced-functions/meta.php:151
 msgid "+ Google Map"
-msgstr ""
+msgstr "+ Mapa Google"
 
 #: ../public/advanced-functions/meta.php:162
 msgid "Details"
-msgstr ""
+msgstr "Podrobnosti"
 
 #
 #: ../public/advanced-functions/meta.php:212
 msgid "Event Tags:"
-msgstr ""
+msgstr "Štítky akce:"
 
 #: ../public/advanced-functions/meta.php:238
 msgid "Origin:"
-msgstr ""
+msgstr "Původ:"
 
 #: ../public/advanced-functions/meta.php:375
 msgid "Event:"
@@ -3285,7 +3422,7 @@ msgstr "Akce:"
 #
 #: ../public/template-tags/deprecated.php:724
 msgid "Category"
-msgstr ""
+msgstr "Rubrika"
 
 #: ../public/template-tags/general.php:323
 msgid "Tags:"
@@ -3294,7 +3431,7 @@ msgstr "Štítky:"
 #
 #: ../public/template-tags/general.php:409
 msgid "Loading Events"
-msgstr ""
+msgstr "Načítání akcí"
 
 #: ../public/template-tags/general.php:570
 msgid "Free"
@@ -3303,11 +3440,11 @@ msgstr "Zdarma"
 #
 #: ../public/template-tags/general.php:743
 msgid "Recurring Event"
-msgstr ""
+msgstr "Opakující se akce"
 
 #: ../public/template-tags/general.php:746
 msgid "(See all)"
-msgstr ""
+msgstr "(zobrazit vše)"
 
 #: ../public/template-tags/general.php:939
 #, php-format
@@ -3317,17 +3454,17 @@ msgstr "Vytvořeno pomocí %sThe Events Calendar%s"
 #: ../public/template-tags/loop.php:150
 #, php-format
 msgid "Events for %1$s"
-msgstr ""
+msgstr "Akce na %1$s"
 
 #: ../public/template-tags/loop.php:158
 #, php-format
 msgid "Events for %1$s through %2$s"
-msgstr ""
+msgstr "Akce na %1$s do %2$s"
 
 #
 #: ../public/template-tags/loop.php:168
 msgid "Events for "
-msgstr ""
+msgstr "Akce na "
 
 #: ../public/template-tags/options.php:20
 #, php-format
@@ -3344,299 +3481,78 @@ msgstr ""
 "měl být v ideálním případě v množném čísle a tento v jednotném.<br />Vaše "
 "URL adresa pro jednotlivou Akci vypadá takto: %s"
 
+#: ../vendor/presstrends/presstrends.php:50
+msgid "Send PressTrends data"
+msgstr "Odesílat data na PressTrends"
+
+#: ../vendor/presstrends/presstrends.php:56
+msgid ""
+"Help us out by sending analytics data about your usage of The Events "
+"Calendar."
+msgstr ""
+"Odesíláním analytických údajů o používání pluginu The Events Calendar nám "
+"pomůžete při dalším vývoji."
+
+#: ../vendor/presstrends/presstrends.php:65
+msgid ""
+"Would you like to help us out and send analytics about your usage of The "
+"Events Calendar?"
+msgstr ""
+"Chtěli byste nám pomoct a povolit odesílání analytických údajů o používání "
+"pluginu The Events Calendar?"
+
 #
 #: ../views/single-event.php:31
 msgid "&laquo; All Events"
-msgstr ""
+msgstr "&laquo; všechny akce"
 
 #
 #: ../views/single-event.php:45 ../views/single-event.php:71
 msgid "Event Navigation"
-msgstr ""
+msgstr "Navigace pro akce"
 
 #
 #: ../views/tickets-attendees-email.php:11
 msgid "Attendee List"
-msgstr ""
+msgstr "Seznam účastníků"
 
 #
 #: ../views/tickets-email.php:16
 msgid "Your tickets"
-msgstr ""
+msgstr "Vaše vstupenky"
 
 #: ../views/tickets-email.php:297
 msgid "Ticket Type"
-msgstr ""
+msgstr "Typ vstupenky"
 
 #: ../views/tickets-email.php:301
 msgid "Purchaser"
-msgstr ""
+msgstr "Kupující"
 
 #
 #: ../views/list/nav.php:15
 msgid "Events List Navigation"
-msgstr ""
+msgstr "Navigace pro seznam akcí"
 
 #: ../views/list/single-event.php:74
 msgid "Find out more"
-msgstr ""
+msgstr "Více informací"
 
 #
-#: ../views/modules/bar.php:29 ../views/modules/bar.php:57
+#: ../views/modules/bar.php:31 ../views/modules/bar.php:60
 msgid "Find Events"
-msgstr ""
+msgstr "Hledat akce"
 
-#: ../views/modules/bar.php:35
+#: ../views/modules/bar.php:38
 msgid "Event Views Navigation"
-msgstr ""
+msgstr "Navigace pro zobrazení akce"
 
 #
-#: ../views/modules/bar.php:36
+#: ../views/modules/bar.php:39
 msgid "View As"
-msgstr ""
+msgstr "Zobrazit jako"
 
 #
 #: ../views/month/nav.php:19
 msgid "Calendar Month Navigation"
-msgstr ""
-
-#~ msgid "Advanced Post Manager"
-#~ msgstr "Advanced Post Manager"
-
-#~ msgid "Event Importer"
-#~ msgstr "Event Importer"
-
-#~ msgid "(coming later in 2012)"
-#~ msgstr "(bude později v roce 2012)"
-
-#~ msgid "Conference Manager"
-#~ msgstr "Conference Manager"
-
-#, fuzzy
-#~ msgid ""
-#~ "Support is available for both free and PRO customers. If you're running "
-#~ "the latest version of The Events Calendar and have run into problems, "
-#~ "post a forum thread on our %sWordPress.org support forum%s. We visit the "
-#~ "forums a few times a week and will do what we can to help you."
-#~ msgstr ""
-#~ "Máme rádi všechny naše uživatele a chceme pomoci jak bezplatným tak i PRO "
-#~ "zákazníkům stejně. Pokud používáte aktuální verzi pluginu The Events "
-#~ "Calendar a máte nějaké problémy, pošlete příspěvek na %s na webu "
-#~ "WordPress.org. Fórum sledujeme několikrát týdně a děláme vše, abychom "
-#~ "pomohli uživatelům."
-
-#~ msgid "Free Add-Ons"
-#~ msgstr "Volné doplňky"
-
-#~ msgid "Tribe App Shop"
-#~ msgstr "Tribe App Shop"
-
-#~ msgid "@"
-#~ msgstr "v"
-
-#~ msgid "Leave blank to hide the field. Enter a 0 for events that are free."
-#~ msgstr ""
-#~ "Pokud nic nezadáte, pole bude skryto. Zadejte hodnotu 0 pro akce, které "
-#~ "jsou zdarma."
-
-#~ msgid "Which events do you wish to update?"
-#~ msgstr "Které akce si přejete aktualizovat?"
-
-#~ msgid "Select your desired action"
-#~ msgstr "Vyberte si požadovanou akci"
-
-#~ msgid "Add functionality to The Events Calendar"
-#~ msgstr "Přidání dalších funkcí do pluginu The Events Calendar"
-
-#~ msgid "Determines whether the default events view is a calendar or a list."
-#~ msgstr ""
-#~ "Určuje, zda se jako výchozí zobrazení akcí použije kalendář nebo seznam."
-
-#~ msgid ""
-#~ "This is the number of events displayed per page when returning a list of "
-#~ "events."
-#~ msgstr ""
-#~ "Toto je počet akcí, které se při výpisu seznamu akcí zobrazí na jednu "
-#~ "stránku."
-
-#~ msgid "Multiday Event Cutoff"
-#~ msgstr "Mezní hranice vícedenní akce"
-
-#~ msgid ""
-#~ "For multi-day events, hide the last day from grid view if it ends on or "
-#~ "before this time."
-#~ msgstr ""
-#~ "U vícedenních akcí se při zobrazení tabulky skryje poslední den, pokud "
-#~ "akce končí před tímto časem."
-
-#~ msgid ""
-#~ "If you don't have this turned on, your event listings won't have the "
-#~ "backend map preview or frontend embedded map."
-#~ msgstr ""
-#~ "Pokud nemáte tuto volbu zapnutou, vaše výpisy akcí nebudou mít v backendu "
-#~ "náhledovou mapu a ani vloženou mapu ve frontendu."
-
-#~ msgid "Google Maps Embed Height"
-#~ msgstr "Výška vložených Map Google"
-
-#~ msgid "Enter a number."
-#~ msgstr "Zadejte číslo."
-
-#~ msgid "Google Maps Embed Width"
-#~ msgstr "Šířka vložených Map Google"
-
-#~ msgid "Enter a number or %."
-#~ msgstr "Zadejte číslo nebo %."
-
-#~ msgid ""
-#~ "If this is your first time using The Events Calendar, you're in for a "
-#~ "treat. The more adventurous users can jump right into it by finding the "
-#~ "\"Events\" section in the admin menu to the left of this message and "
-#~ "getting down to it. For those who like to dip their toes before diving in "
-#~ "full-on, we've got you covered too. First things first: visit our %s, "
-#~ "designed with folks exactly like yourself in mind and meant to "
-#~ "familiarize you with the plugin's basics. From there, the Resources "
-#~ "listed below (meant to help you kick ass, of course) should keep up the "
-#~ "momentum."
-#~ msgstr ""
-#~ "Pokud teprve začínáte s pluginem The Events Calendar, čeká vás příjemné "
-#~ "překvapeni. Dobrodružnější povahy se mohou rovnou vrhnout na věc a přejít "
-#~ "do nabídky \"Akce\" v administraci po levé straně. Mysleli jsme i na ty z "
-#~ "vás, kteří si to chtěji nejdříve tak trochu ošahat. Ale všechno pěkně "
-#~ "popořádku: pročtěte si naší %s, která je vytvořena přávě pro vás a s "
-#~ "úmyslem seznámit vás se základy pluginu. Po zvládnutí tohoto základu by "
-#~ "vás informační zdroje uvedené níže měly udržet v tempu."
-
-#~ msgid "new user primer"
-#~ msgstr "příručku nového uživatele"
-
-#~ msgid ""
-#~ "%sMake sure you're running The Events Calendar, rather than Events "
-#~ "Calendar. They're two separate plugins :)%s"
-#~ msgstr ""
-#~ "%sUjistěte se, že používáte plugin The Events Calendar a ne plugin Events "
-#~ "Calendar. Jsou to dva rozdílné pluginy :)%s"
-
-#~ msgid "pro@tri.be"
-#~ msgstr "pro@tri.be"
-
-#~ msgid "@moderntribeinc"
-#~ msgstr "@moderntribeinc"
-
-#~ msgid ""
-#~ "Hi! Thank you so much for using the labor of our love. We are Modern "
-#~ "Tribe and we are here to help you kick ass."
-#~ msgstr ""
-#~ "Ahoj! Moc děkujeme za to, že používáte výsledek naší práce z lásky. My "
-#~ "jsme Modern Tribe a jsme tu, abychom vám pomohli to pořádně rozjet."
-
-#~ msgid "Rating currently unavailable :("
-#~ msgstr "Hodnocení momentálně není k dispozici :("
-
-#~ msgid ""
-#~ "Some themes may require that you add extra divs before the calendar list "
-#~ "to help with styling.<br>This is displayed directly after the header."
-#~ msgstr ""
-#~ "Některé šablony mohou vyžadovat přidání dalších Div tagů před výpis "
-#~ "kalendáře jako pomoc při stylování.<br>Toto se zobrazí hned po záhlaví."
-
-#~ msgid "You may use (x)HTML."
-#~ msgstr "Můžete používat (x)HTML značky."
-
-#~ msgid ""
-#~ "Some themes may require that you add extra divs after the calendar list "
-#~ "to help with styling.<br>This is displayed directly above the footer."
-#~ msgstr ""
-#~ "Některé šablony mohou vyžadovat přidání dalších Div tagů za výpis "
-#~ "kalendáře jako pomoc při stylování.<br>Toto se zobrazí těsně nad zápatím."
-
-#~ msgid ""
-#~ "If you wish to customize the widget display yourself, see the file views/"
-#~ "events-list-load-widget-display.php inside the Events Premium plugin."
-#~ msgstr ""
-#~ "Pokud si chcete přizpůsobit zobrazení widgetu, podívejte se do souboru "
-#~ "views/events-list-load-widget-display.php v pluginu Events Premium."
-
-#~ msgid ""
-#~ "Your version of %s requires version %s or higher of The Events Calendar "
-#~ "(you are currently running %s). Visit %shelp%s for more information."
-#~ msgstr ""
-#~ "Vaše verze pluginu %s vyžaduje alespoň The Events Calendar %s (přávě "
-#~ "používáte verzi %s). Více informací naleznete v %snápovědě%s."
-
-#~ msgid "Template"
-#~ msgstr "Šablona"
-
-#~ msgid "App Shop"
-#~ msgstr "App Shop"
-
-#~ msgid ""
-#~ "Welcome to Events 2.0! This is a HUGE upgrade from 1.6.5. Please make "
-#~ "sure you have backed up before proceeding any further. You can easily <a "
-#~ "href=\" http://wordpress.org/extend/plugins/the-events-calendar/download/"
-#~ "\">revert to an old version</a> if you want to backup first. This upgrade "
-#~ "includes two major steps, <a href=\"options-general.php?page=tribe-"
-#~ "settings&tab=general\">migrating data</a> & updating your templates as "
-#~ "necessary. There have been significant changes to the template tags and "
-#~ "functions. Check out our <a href=\"http://tri.be/migrating-from-events-"
-#~ "calendar-1-6-5-to-2-0\">walkthrough on the upgrade</a> before proceeding "
-#~ "and check out the FAQ & Knowledge base from the <a href=\"http://tri.be/"
-#~ "support/\">support page</a>. If you're new to The Events Calendar, you "
-#~ "may want to review our <a href=\"http://tri.be/support/documentation/"
-#~ "events-calendar-pro-new-user-primer/\">new user primer</a>.<br/><br/> You "
-#~ "have events that need to be migrated.  Please visit the bottom of the <a "
-#~ "href=\"options-general.php?page=tribe-events-calendar\">settings page</a> "
-#~ "to perform the migration."
-#~ msgstr ""
-#~ "Vítejte u Events 2.0! Jde o obrovský pokrok od verze 1.6.5. Před "
-#~ "pokračováním dál se prosím ujistěte, že máte vytvořenu zálohu dat. Můžete "
-#~ "se snadno <a href=\" http://wordpress.org/extend/plugins/the-events-"
-#~ "calendar/download/\">vrátit ke starší verzi</a>, pokud si chcete nejprve "
-#~ "vytvořit zálohu. Tato aktualizace zahrnuje dva hlavní kroky, <a href="
-#~ "\"options-general.php?page=tribe-settings&tab=general\">migraci dat</a> a "
-#~ "aktualizaci šablon podle potřeby. Došlo k významným změnám u tagů šablon "
-#~ "a funkcí. Než budete pokračovat, podívejte se na náš <a href=\"http://tri."
-#~ "be/migrating-from-events-calendar-1-6-5-to-2-0\">návod na aktualizaci</a> "
-#~ "a pročtěte si FAQ a znalostní bázi na <a href=\"http://tri.be/support/"
-#~ "\">stránce podpory</a>. Pokud teprve začínáte s pluginem The Events "
-#~ "Calendar, můžete si přečíst naši <a href=\"http://tri.be/support/"
-#~ "documentation/events-calendar-pro-new-user-primer/\">příručku nového "
-#~ "uživatele</a>.<br/><br/> Je nutné přenést data stávajících akcí.  Migraci "
-#~ "můžete provést ve spodní části <a href=\"options-general.php?page=tribe-"
-#~ "events-calendar\">stránky s nastavením</a>."
-
-#~ msgid "You are not authorized to access this page"
-#~ msgstr "Nemáte oprávnění pro přístup na tuto stránku"
-
-#~ msgid "Access Denied"
-#~ msgstr "Přístup zamítnut"
-
-#~ msgid "WP Router Placeholder Page"
-#~ msgstr "Zástupná stránka WP Routeru"
-
-#~ msgid "%1$s requires WordPress %2$s or higher and PHP %3$s or higher."
-#~ msgstr "%1$s vyžaduje alespoň WordPress %2$s a alespoň PHP %3$s."
-
-#~ msgid "All Day"
-#~ msgstr "celý den"
-
-#~ msgid "iCal Import"
-#~ msgstr "iCal import"
-
-#~ msgid "Organizer:"
-#~ msgstr "Pořadatel:"
-
-#~ msgid "Updated:"
-#~ msgstr "Aktualizace:"
-
-#~ msgid "Schedule:"
-#~ msgstr "Plánováno:"
-
-#~ msgid "Add to Google Calendar"
-#~ msgstr "Přidat do služby Kalendář Google"
-
-#~ msgid "+ Google Calendar"
-#~ msgstr "+ Kalendář Google"
-
-#~ msgid "View all &raquo;"
-#~ msgstr "Zobrazit vše &raquo;"
+msgstr "Navigace pro měsíce v kalendáři"

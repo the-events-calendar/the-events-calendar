@@ -14,7 +14,10 @@ class TribeEventsBar {
 	private $views = array();
 
 	public function __construct() {
-		add_filter( 'wp_enqueue_scripts', array( $this, 'load_script' ) );
+		add_filter( 'wp_enqueue_scripts', array( $this, 'load_script' ), 9 );
+		add_filter( 'body_class', array( $this, 'body_class') );
+		add_action('tribe_events_bar_before_template',  array( $this, 'disabled_bar_before') );
+		add_action('tribe_events_bar_after_template',  array( $this, 'disabled_bar_after') );
 
 		// add_action( 'tribe-events-bar-show-filters', array( $this, 'print_filters_helper' ) );
 		// add_action( 'tribe-events-bar-show-views', 	 array( $this, 'print_views_helper' ) );
@@ -90,16 +93,59 @@ class TribeEventsBar {
 		echo apply_filters( 'tribe_events_bar_show', $html, $filters, $views, $content );
 	}
 
+
+	/**
+	 * Adds a body class of tribe-bar-is-disabled when the Tribe Bar is disabled.
+	 * 
+	 * @return array The new body class array
+	 * @author Kyle Unzicker
+	 * @since 3.0
+	 */	
+	public function body_class( $classes ){
+		if ( tribe_get_option('tribeDisableTribeBar', false) == true ) {
+			$classes[] = 'tribe-bar-is-disabled';
+		}
+		return $classes;
+	}
+
+	/**
+	 * Returns the opening tag of the disabled bar wrapper
+	 * 
+	 * @return string
+	 * @author Kyle Unzicker
+	 * @since 3.0
+	 */	
+	public function disabled_bar_before( $before ) {
+		if ( tribe_get_option('tribeDisableTribeBar', false) == true ) {
+			$before = '<div class="tribe-bar-disabled">';
+			echo $before;
+		}
+	}
+
+	/**
+	 * Returns the closing tag of the disabled bar wrapper
+	 * 
+	 * @return array The new body class array
+	 * @author Kyle Unzicker
+	 * @since 3.0
+	 */
+	public function disabled_bar_after( $after ) {
+		if ( tribe_get_option('tribeDisableTribeBar', false ) == true ) {
+			$after = '</div>';
+			echo $after;
+		}
+	}
+
 	/**
 	 *	Load the CSSs and JSs only if the Bar will be shown
 	 */
 	public function load_script() {
 
 		if ($this->should_show()) {
-			Tribe_Template_Factory::asset_package( 'tribe-events-bar' );
 			Tribe_Template_Factory::asset_package( 'select2' );
 			Tribe_Template_Factory::asset_package( 'jquery-placeholder' );
 			Tribe_Template_Factory::asset_package( 'bootstrap-datepicker' );
+			Tribe_Template_Factory::asset_package( 'tribe-events-bar' );
 
 			do_action( 'tribe-events-bar-enqueue-scripts' );
 		}

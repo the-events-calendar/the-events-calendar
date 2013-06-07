@@ -82,22 +82,32 @@
 			});
 		}
 
-		$('#tribe-events').on('click', '.tribe-events-sub-nav a', function (e) {
-			e.preventDefault();
-			if (ts.ajax_running)
-				return;
-			var $this = $(this);
-			ts.date = $this.attr("data-month");
-			tf.update_picker(ts.date);
-			if (ts.filter_cats)
-				td.cur_url = $('#tribe-events-header').attr('data-baseurl');
-			else
-				td.cur_url = $this.attr("href");
-			ts.popping = false;
-			tf.pre_ajax(function () {
-				tribe_events_calendar_ajax_post();
+		$('#tribe-events')
+			.on('click', '.tribe-events-sub-nav a', function (e) {
+				e.preventDefault();
+				if (ts.ajax_running)
+					return;
+				var $this = $(this);
+				ts.date = $this.attr("data-month");
+				tf.update_picker(ts.date);
+				if (ts.filter_cats)
+					td.cur_url = $('#tribe-events-header').attr('data-baseurl');
+				else
+					td.cur_url = $this.attr("href");
+				ts.popping = false;
+				tf.pre_ajax(function () {
+					tribe_events_calendar_ajax_post();
+				});
+			})
+			.on('click', 'td.tribe-events-thismonth', function (e) {
+				e.preventDefault();
+				var day_link = $(this).find('[id^="tribe-events-daynum"] a').attr('href');
+				if(typeof day_link !== 'undefined')
+					window.location = day_link;
+			})
+			.on('click', 'td.tribe-events-thismonth a', function (e) {
+				e.stopPropagation();
 			});
-		});
 
 		tf.snap('#tribe-bar-form', 'body', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a');
 
