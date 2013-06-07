@@ -8,10 +8,13 @@
  * @author Modern Tribe Inc.
  *
  */
- 
+
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 if( !class_exists('Tribe_Events_Month_Template')){
+	/**
+	 * Grid view template class
+	 */
 	class Tribe_Events_Month_Template extends Tribe_Template_Factory {
 		private static $hide_upcoming_ids;
 		private static $today;
@@ -32,10 +35,9 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		/**
 		 * Set the notices used on month view
 		 *
-		 * @return void
-		 * @param $args set of $wp_query params for the month view, if none passed then will default to $wp_query
+		 * @param array $args Set of $wp_query params for the month view, if none passed then will default to $wp_query
 		 * @since 3.0
-		 **/
+		 */
 		public function __construct( $args = null ) {
 			if ( $args === null ) {
 				global $wp_query;
@@ -73,19 +75,25 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			}
 		}
 
+
+		/**
+		 * Get number of events per day
+		 *
+		 * @param int $date
+		 * @return array
+		 * @since 3.0
+		 */
 		private static function get_daily_counts( $date ) {
 			global $wp_query;
 
 			$count_args = self::$args;
-			
+
 			$count_args['eventDisplay'] = 'month';
 			$count_args['eventDate'] = date('Y-m', $date);
 			$count_args['start_date'] = date('Y-m-d', $date) . ' 00:00:00';
 			$count_args['end_date'] = date('Y-m-t', $date) . ' 23:59:59';
 			$count_args['hide_upcoming_ids'] = self::$hide_upcoming_ids;
 			$count_args['post_status'] = is_user_logged_in() ? array( 'publish', 'private' ) : 'publish';
-
-			// print_r($count_args);
 
 			$cache = new TribeEventsCache();
 			$cache_key = 'daily_counts_'.serialize($count_args);
@@ -98,6 +106,15 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			return $result;
 		}
 
+
+		/**
+		 * Get the view more link
+		 *
+		 * @param int $date
+		 * @param array $args
+		 * @return string
+		 * @since 3.0
+		 */
 		private static function view_more_link( $date, $args ) {
 			if( !empty(self::$event_daily_counts[$date]) && (int) self::$event_daily_counts[$date] > self::$posts_per_page_limit ) {
 				$day_link = tribe_get_day_link($date);
@@ -155,7 +172,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 * Sets up an array of $days based on the current query, that can be used in the calendar loop
 		 *
 		 * @return void
-		 * @since 3.0 
+		 * @since 3.0
 		 **/
 		public function setup_view() {
 
@@ -283,7 +300,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 * Returns the current day according to self::$current_day
 		 *
 		 * @return int
-		 * @since 3.0 
+		 * @since 3.0
 		 **/
 		public static function get_current_day() {
 			if ( count( self::$calendar_days ) && self::$current_day < count( self::$calendar_days ) ) {
@@ -296,7 +313,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 * Generates and returns a set of classes for the current day
 		 *
 		 * @return string Classes
-		 * @since 3.0 
+		 * @since 3.0
 		 **/
 		public static function day_classes() {
 			$ppf = '';
@@ -323,7 +340,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 				}
 				if ( $calendar_day['total_events'] > 0 ) {
    				$ppf .= ' tribe-events-has-events';
-   			}			
+   			}
 
 			}
 
@@ -349,7 +366,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 * Generates and returns a set of classes for the current day
 		 *
 		 * @return string Classes
-		 * @since 3.0 
+		 * @since 3.0
 		 **/
 		public static function event_classes() {
 
