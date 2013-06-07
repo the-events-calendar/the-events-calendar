@@ -207,7 +207,7 @@ class TribeEventsMiniCalendar {
 				$event_file_option = 'widget-calendar-'. $stylesheet_option .'.css';
 				break;
 			default:
-				$event_file_option = 'widget-calendar-full.css';
+				$event_file_option = 'widget-calendar-theme.css';
 				break;
 		}
 
