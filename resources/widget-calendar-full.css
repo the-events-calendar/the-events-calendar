@@ -147,6 +147,8 @@
 	left: 50%;
 	margin: -8px 0 0 -8px;
 	display: none;
+	width: 16px;
+	height: 16px;
 }
 
 .tribe-mini-calendar .tribe-events-past{
@@ -162,6 +164,7 @@
 }
 
 /* event list css */
+
 
 .tribe-mini-calendar-event {
 	overflow:hidden;
@@ -184,10 +187,14 @@
 	overflow:hidden;
 	font-weight:bold;
 	margin: 10px 5% 10px 0;
+	padding: 3px;
 	width: 15%;
 	text-align:center;
 	display: inline;
 	background: #666;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;	
 }
 
 .tribe-mini-calendar-event .list-info { 
@@ -199,17 +206,29 @@
 }
 
 .tribe-mini-calendar-event .list-date .list-dayname {
-	display : none;
+	background: #fff;
+	padding: 3px;
+	font-size: 9px;
+	text-transform: uppercase;
+	width: 100%;
+	text-align: center;
+	display: block;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;	
 }
 
 .tribe-mini-calendar-event .list-date .list-daynumber {
 	color      : #fff;
 	font-size  : 15px;
 	width: 100%;
-	height     : 25px;
-	line-height: 25px;
+	line-height: 22px;
 	display    : block;
 	text-align : center;
+}
+
+.tribe-mini-calendar-event .list-info {
+	font-size: 11px;
 }
 
 .tribe-mini-calendar-event .list-info h2 {	
@@ -227,8 +246,21 @@
 	display:block;
 }
 
-.tribe-mini-calendar-event .list-info span a {
-	font-size: 11px;
+.tribe-mini-calendar-event-cost {
+	font-weight: bold;
+}
+
+.tribe-mini-calendar-event .tribe-events-divider {
+	display: inline;
+	font-weight: normal;
+}
+
+.tribe-mini-calendar-event .tribe-events-event-schedule-details {
+	display: inline-block;
+}
+.tribe-mini-calendar-event .tribe-events-event-schedule-details,
+.tribe-mini-calendar-event-venue {
+	margin: 5px 0 0;
 }
 
 .tribe_mini_calendar_widget a.tribe-events-button {
