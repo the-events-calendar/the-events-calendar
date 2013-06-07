@@ -22,25 +22,12 @@
 
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-// we want to capture the post type incase we run into the list module
-$set_post_type = get_post_type();
-
 ?>
 
 <?php get_header(); ?>
 <div id="tribe-events-pg-template">
 	<?php tribe_events_before_html(); ?>
-
-		<?php the_post(); global $post; ?>
-			<div id="post-<?php the_ID(); ?>" <?php post_class('vevent'); ?>>
-				<?php tribe_get_view(); ?>
-				<?php edit_post_link( __( 'Edit', 'tribe-events-calendar' ), '<span class="edit-link">', '</span>' ); ?>
-			</div><!-- .hentry .vevent -->
-		<?php if( $set_post_type == TribeEvents::POSTTYPE && tribe_get_option( 'showComments','no' ) == 'yes' ) { comments_template(); } ?>
-		
-		
-		<?php /* get_sidebar(); */ ?> 
-		
+	<?php tribe_get_view(); ?>
 	<?php tribe_events_after_html(); ?>
 </div> <!-- #tribe-events-pg-template -->
 <?php get_footer(); ?>

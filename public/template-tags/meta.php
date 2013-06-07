@@ -301,12 +301,12 @@ if ( !function_exists( 'tribe_display_meta' ) ) {
 }
 
 /**
- * Output the single event meta
+ * Return the single event meta
  *
  * @return void
  * @since 3.0
  **/
-function tribe_events_the_single_event_meta() {
+function tribe_events_single_event_meta() {
 	$event_id = get_the_ID();
 	$skeleton_mode = apply_filters( 'tribe_events_single_event_the_meta_skeleton', false, $event_id ) ;
 	$group_venue = apply_filters( 'tribe_events_single_event_the_meta_group_venue', false, $event_id );
@@ -356,6 +356,6 @@ function tribe_events_the_single_event_meta() {
 			) );
 	}
 
-	echo $html;
+	return apply_filters( 'tribe_events_single_event_meta', $html );
 
 }

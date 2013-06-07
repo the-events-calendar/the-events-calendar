@@ -83,11 +83,6 @@ if (!class_exists('TribeEventsTemplates')) {
 		 **/
 		public static function instantiate_template_class( $class = false ) {
 
-			// hijack this method right up front if it's a password protected post and the password isn't entered
-			if ( is_single() && post_password_required() ) {
-				return;
-			}
-
 			if ( tribe_is_event_query() ) {
 				if ( ! $class ) {
 					$class = self::get_current_template_class();
