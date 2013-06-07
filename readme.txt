@@ -13,7 +13,7 @@ Create and manage events with ease. Professional-level quality and features back
 
 The Events Calendar is built and supported by WordPress artisans Modern Tribe. Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views, Facebook event integration and more? <a href="http://tri.be/products/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=premiumlink">Check out the available add-ons.</a>
 
-[new user primer or a custom video]
+[new user primer or a custom vid]
 
 = BUILT SOLID & SUPPORTED =
 
@@ -115,17 +115,19 @@ There sure is. If you check out our a href="http://tri.be/support/faqs/?ref=tec-
 
 == Installation ==
 
-= Install =
+= Install & Activate =
 
-1. <a href="http://tri.be/downloading-installing-activating-the-events-calendar-2-0-pro-2-0/?ref=tec-readme">Follow the directions in our simple video.</a>
-1. 1. Update your permalinks to ensure that the event specific rewrite rules take effect. The optimal permalink option is /%postname%/.
-1. If you have trouble installing, see the [Codex](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) for more helpful info.
+Installing the plugin is easy. Just follow these steps:
 
-For more information, check out our <a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/?ref=tec-readme">new user primer!</a>
+1. From the dashboard of your site, navigate to Plugins -> Add New. 
+2. Select the Upload option and hit "Choose File." 
+3. When the popup appears select the the-events-calendar-x.x.zip file from your desktop. (The 'x.x' will change depending on the current version number).
+4. Follow the on-screen instructions and wait as the upload completes.
+5. When it's finished, activate the plugin via the prompt. A message will show confirming activation was successful. A link to access the calendar directly on the frontend will be presented here as well.
 
-= Activate =
+That's it! Just configure your settings as you see fit, and you're on your way to creating events in style. Now that you're all set up and ready to go…how about checking out the <a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/?ref=tec-readme">new user primer</a> to familiarize yourself with what's in store?
 
-No setup required. Just plug and play!
+If you're unclear about the installation process or get stuck, check out our <a href="http://tri.be/downloading-installing-activating-the-events-calendar-2-0-pro-2-0/?ref=tec-readme">simple video</a> which walks you through the process. Still having trouble from there? See the [Codex](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) for more troubleshooting ideas.
 
 = Requirements =
 
@@ -164,6 +166,8 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 * <a href="http://profiles.wordpress.org/users/jonahcoyote">Jonah West</a>
 * <a href="http://profiles.wordpress.org/users/barryhughes">Barry Hughes</a>
 * <a href="http://profiles.wordpress.org/users/ryancurban">Ryan Urban</a>
+* <a href="http://profiles.wordpress.org/users/kyleunzicker">Kyle Unzicker</a>
+* <a href="http://profiles.wordpress.org/users/jbrinley">Jonathan Brinley</a>
 * <a href="http://profiles.wordpress.org/users/leahkoerper">Leah Koerper</a>
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>

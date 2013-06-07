@@ -501,6 +501,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$this->setOptions( wp_parse_args( $new_options, $current_options ) );
 				update_option('tribe_events_db_version', '2.0.6');
 			}
+			if ( version_compare( get_option('tribe_events_db_version'), '3', '<' ) ) {
+				update_option('tribe_events_db_version', '3.0.0');
+			}
 		}
 
 		public function maybeSetTECVersion() {
