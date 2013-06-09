@@ -63,7 +63,7 @@ class TribeEventsMiniCalendar {
 			ob_start();
 
 			$this->setup_list();
-			tribe_get_template_part('widgets/mini-calendar/list');
+			tribe_get_view('widgets/mini-calendar/list');
 
 			remove_action( 'pre_get_posts', array( $this, 'ajax_select_day_set_date' ) );
 
