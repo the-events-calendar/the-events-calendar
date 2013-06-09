@@ -32,6 +32,12 @@ class TribeiCal {
 	 * @since 3.0
 	 **/
 	public static function single_event_links()	{
+
+		// don't show on password protected posts
+		if (is_single() && post_password_required()) {
+			return;
+		}
+
 		echo '<div class="tribe-events-cal-links">';
 			echo '<a class="tribe-events-gcal tribe-events-button" href="' . tribe_get_gcal_link() . '" title="' . __( 'Add to Google Calendar', 'tribe-events-calendar-pro' ) . '">+ ' . __( 'Google Calendar', 'tribe-events-calendar-pro' ) . '</a>';
 			echo '<a class="tribe-events-ical tribe-events-button" href="' . tribe_get_single_ical_link() . '">+ ' . __( 'iCal Import', 'tribe-events-calendar-pro' ) . '</a>';
