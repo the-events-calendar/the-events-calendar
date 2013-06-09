@@ -14,8 +14,6 @@ $startDate = strtotime( $post->EventStartDate );
 $endDate   = strtotime( $post->EventEndDate );
 $today     = time();
 
-$startTime = tribe_get_start_date($post, false, TribeEvents::instance()->getTimeFormat(''));
-
 /* If the event starts way in the past or ends way in the future, let's show today's date */
 if ( $today > $startDate && $today < $endDate )
 	$postDate = $today; else
