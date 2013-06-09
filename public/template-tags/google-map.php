@@ -15,7 +15,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * Returns a url to google maps for the given event
 	 *
-	 * @param string $postId 
+	 * @param string $postId
 	 * @return string A fully qualified link to http://maps.google.com/ for this event
 	 * @since 2.0
 	 */
@@ -30,14 +30,14 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * Returns an embedded google maps for an event
 	 *
-	 * @param string $postId 
-	 * @param int $width 
+	 * @param string $postId
+	 * @param int $width
 	 * @param int $height
 	 * @param bool $force_load If true, then load the map even if an address is not provided.
 	 * @return string An iframe pulling http://maps.google.com/ for this event
 	 * @since 2.0
 	 */
-	function tribe_get_embedded_map( $postId = null, $width = '', $height = '', $force_load = false )  {
+	function tribe_get_embedded_map( $postId = null, $width = null, $height = null, $force_load = false )  {
 		$postId = TribeEvents::postIdHelper( $postId );
 		if ( !tribe_is_venue( $postId ) && !tribe_is_event( $postId ) ) {
 			return apply_filters('tribe_get_embedded_map', false);
@@ -49,14 +49,14 @@ if( class_exists( 'TribeEvents' ) ) {
 
 		foreach( $locationMetaSuffixes as $val ) {
 			$metaVal = call_user_func('tribe_get_'.$val);
-			if ( $metaVal ) 
+			if ( $metaVal )
 				$toUrlEncode .= $metaVal . " ";
 		}
 
-		if ( $toUrlEncode ) 
+		if ( $toUrlEncode )
 			$address = $toUrlEncode;
 		else
-			$address = null;		
+			$address = null;
 
 
 		if (!$height) $height = tribe_get_option('embedGoogleMapsHeight','350');
@@ -82,7 +82,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_embed_google_map($postId = null) {
-		
+
 		$output = false;
 		$postId = TribeEvents::postIdHelper( $postId );
 		$post_type = get_post_type( $postId );
@@ -108,7 +108,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_show_google_map_link($postId = null) {
 
-		$output = false;			
+		$output = false;
 		$postId = TribeEvents::postIdHelper( $postId );
 		$post_type = get_post_type( $postId );
 

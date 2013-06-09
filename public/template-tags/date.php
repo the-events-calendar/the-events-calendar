@@ -15,7 +15,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * Returns the event start date and time
 	 *
-	 * @param int $postId (optional) This only works for non recurring events
+	 * @param int $event (optional) This only works for non recurring events
 	 * @param bool $displayTime If true shows date and time, if false only shows date
 	 * @param string $dateFormat Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 * @return string Date
@@ -50,7 +50,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * Returns the event end date
 	 *
-	 * @param int $postId (optional) this only works for non recurring events
+	 * @param int $event (optional) this only works for non recurring events
 	 * @param bool $displayTime If true shows date and time, if false only shows date
 	 * @param string $dateFormat Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 * @return string Date
@@ -64,7 +64,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		}
 		if( is_numeric( $event ) )
 			$event = get_post( $event );
-	
+
 		if( tribe_event_is_all_day( $event ) )
 			 $displayTime = false;
 
@@ -85,7 +85,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * Returns formatted date
 	 *
-	 * @param string $date 
+	 * @param string $date
 	 * @param bool $displayTime If true shows date and time, if false only shows date
 	 * @param string $dateFormat Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 * @return string
@@ -93,7 +93,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_event_format_date($date, $displayTime = true,  $dateFormat = '')  {
 		$tribe_ecp = TribeEvents::instance();
-		
+
 		if( $dateFormat ) $format = $dateFormat;
 		else $format = get_option( 'date_format', TribeDateUtils::DATEONLYFORMAT );
 
