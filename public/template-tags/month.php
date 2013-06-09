@@ -43,7 +43,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		new Tribe_Events_Month_Template( $args );
 		tribe_get_view( $template_path );
 
-		do_action('tribe_events_before_show_month');
+		do_action('tribe_events_after_show_month');
 
 		// reinstate the tribe bar params
 		if ( ! empty( $hold_tribe_bar_args ) ) {
