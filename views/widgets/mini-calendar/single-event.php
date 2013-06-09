@@ -14,6 +14,7 @@ $startDate = strtotime( $post->EventStartDate );
 $endDate   = strtotime( $post->EventEndDate );
 $today     = time();
 
+$startTime = tribe_get_start_date($post, false, TribeEvents::instance()->getTimeFormat(''));
 
 /* If the event starts way in the past or ends way in the future, let's show today's date */
 if ( $today > $startDate && $today < $endDate )
@@ -36,6 +37,6 @@ if ( defined( "DOING_AJAX" ) && DOING_AJAX && isset( $_POST['action'] ) && $_POS
 	<div class="list-info">
 		<h2><a href="<?php echo get_permalink( $post->ID ); ?>"><?php echo $post->post_title; ?></a></h2>
 		<p><?php echo $post->post_excerpt; ?></p>
-		<span>4:30pm</span>|<span><?php echo tribe_get_venue_link( $post->ID ); ?></span>
+		<span><?php echo $startTime ?></span><span><?php if ( tribe_get_venue_link( $post->ID, false ) != '' ) : echo ' | '; tribe_get_venue_link( $post->ID ); endif;?></span>
 	</div>
 </div>
