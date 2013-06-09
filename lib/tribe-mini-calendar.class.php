@@ -177,7 +177,7 @@ class TribeEventsMiniCalendar {
 	}
 
 	/**
-	 * Filter the list tepmlate paths
+	 * Filter the list template paths
 	 *
 	 * @return string|bool
 	 * @param $file the full file path
