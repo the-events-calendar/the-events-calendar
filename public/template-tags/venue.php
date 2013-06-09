@@ -62,7 +62,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Venue Link
 	 *
-	 * Returns or display the event Organizer Name with a link to their supplied website url
+	 * Returns or display the event Venue Name with a link to the venue
 	 *
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @param bool $display If true displays full html links around venue's name, if false returns just the link without displaying it
