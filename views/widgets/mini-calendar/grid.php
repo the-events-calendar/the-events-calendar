@@ -16,7 +16,7 @@
 ?>
 
 <?php 
-
+$days_of_week = tribe_events_get_days_of_week('short');
 $week = 0;
 
 ?>
@@ -29,7 +29,7 @@ $week = 0;
 					<?php tribe_events_the_mini_calendar_prev_link() ?>
 					<span id="tribe-mini-calendar-month"><?php tribe_events_the_mini_calendar_title() ?></span>
 					<?php tribe_events_the_mini_calendar_next_link() ?>
-					<img id="ajax-loading-mini" src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ) ?>" alt="loading..." />
+					<img id="ajax-loading-mini" src="<?php echo tribe_events_resource_url( 'images/tribe-loading.gif' ) ?>" alt="loading..." />
 					</div>
 				</td>
 			</tr>
@@ -37,19 +37,10 @@ $week = 0;
 
 	<thead>
 		<tr>
-			<th class="tribe-mini-calendar-dayofweek">Mon</th>
-			<th class="tribe-mini-calendar-dayofweek">Tue</th>
-			<th class="tribe-mini-calendar-dayofweek">Wed</th>
-			<th class="tribe-mini-calendar-dayofweek">Thu</th>
-			<th class="tribe-mini-calendar-dayofweek">Fri</th>
-			<th class="tribe-mini-calendar-dayofweek">Sat</th>
-			<th class="tribe-mini-calendar-dayofweek">Sun</th>
+		<?php foreach($days_of_week as $day) : ?>
+			<th class="tribe-mini-calendar-dayofweek"><?php echo $day ?></th>
+		<?php endforeach; ?>			
 
-		<!--<?php 
-			$days_of_week = tribe_events_get_days_of_week();
-			foreach($days_of_week as $day) : ?>
-			<th id="tribe-events-<?php echo strtolower($day) ?>" title="<?php echo $day ?>"><?php echo $day ?></th>
-		<?php endforeach; ?>-->
 		</tr>
 	</thead>
 	

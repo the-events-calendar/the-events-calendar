@@ -29,13 +29,21 @@ if ( defined( "DOING_AJAX" ) && DOING_AJAX && isset( $_POST['action'] ) && $_POS
 <div class="tribe-mini-calendar-event event-<?php echo $wp_query->current_post;?><?php echo $class;?>">
 	<div class="list-date">
 		<span
-			class="list-dayname"><?php echo apply_filters( 'tribe-mini_helper_tribe_events_ajax_list_dayname', date( 'l', $postDate ), $postDate, $class ); ?></span>
+			class="list-dayname"><?php echo apply_filters( 'tribe-mini_helper_tribe_events_ajax_list_dayname', date( 'D', $postDate ), $postDate, $class ); ?></span>
 		<span
 			class="list-daynumber"><?php echo apply_filters( 'tribe-mini_helper_tribe_events_ajax_list_daynumber', date( 'd', $postDate ), $postDate, $class ); ?></span>
 	</div>
 	<div class="list-info">
 		<h2><a href="<?php echo get_permalink( $post->ID ); ?>"><?php echo $post->post_title; ?></a></h2>
-		<p><?php echo $post->post_excerpt; ?></p>
-		<span><?php echo $startTime ?></span><span><?php if ( tribe_get_venue_link( $post->ID, false ) != '' ) : echo ' | '; tribe_get_venue_link( $post->ID ); endif;?></span>
+		<?php if ( tribe_get_cost() ) { ?>
+			<span class="tribe-mini-calendar-event-cost"><?php echo tribe_get_cost( null, true ); ?></span>
+			<div class="tribe-events-divider ">|</div>
+		<?php } ?>
+		<?php echo tribe_events_event_schedule_details(); ?>
+		<?php if ( tribe_get_venue() ) { ?>
+			<div class="tribe-mini-calendar-event-venue">
+				<?php echo tribe_get_venue_link( $post->ID ); ?></span>
+			</div>
+		<?php } ?>
 	</div>
 </div>
