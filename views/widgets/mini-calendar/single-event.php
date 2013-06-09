@@ -22,11 +22,10 @@ if ( $today > $startDate && $today < $endDate )
 	$postDate = $startDate;
 
 /* If the user clicked in a particular day, let's show that day as the event date, even if the event spans a few days */
-if ( defined( "DOING_AJAX" ) && DOING_AJAX && isset( $_POST['action'] ) && $_POST['action'] == 'ts-calendar-day' )
+if ( defined( "DOING_AJAX" ) && DOING_AJAX && isset( $_POST['action'] ) && $_POST['action'] == 'tribe-mini-cal-day' )
 	$postDate = strtotime( $_POST["eventDate"] );
-
-
 ?>
+
 <div class="tribe-mini-calendar-event event-<?php echo $wp_query->current_post;?><?php echo $class;?>">
 	<div class="list-date">
 		<span
