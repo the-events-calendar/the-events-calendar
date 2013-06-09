@@ -12,6 +12,9 @@
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 if( !class_exists('Tribe_Events_List_Template')){
+	/**
+	 * List view template class
+	 */
 	class Tribe_Events_List_Template extends Tribe_Template_Factory {
 
 		protected $asset_packages = array( 'ajax-list' );

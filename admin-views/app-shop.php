@@ -20,7 +20,7 @@
 		}
 
 		$category = null;
-
+		$i = 1;
 		foreach ( (array) $products as $product ) {
 
 		?>
@@ -29,16 +29,12 @@
 
 		<?php if ( $category !== null ) { ?></div><?php } ?>
 
-	<div class="category-title">
-		<h3><?php echo $product->category; ?></h3>
-	</div>
 	<div class="addon-grid">
 
 		<?php
 		$category = $product->category;
 		} ?>
-
-		<div class="tribe-addon">
+		<div class="tribe-addon<?php if ( $i == 1) { echo ' first'; } ?>">
 			<div class="thumb">
 				<a href="<?php echo $product->permalink; ?>"><img src="<?php echo $product->featured_image_url; ?>" /></a>
 			</div>
@@ -58,9 +54,10 @@
 					}
 					?>
 				</div>
+				<a class="button button-primary" href="<?php echo $product->permalink; ?>">Get This Add-on</a>
 			</div>
 		</div>
 
-		<?php }?>
+		<?php $i++; } ?>
 	</div>
 </div>
