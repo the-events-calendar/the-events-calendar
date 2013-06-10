@@ -196,7 +196,6 @@
 
 							$('#tribe-events-list-hash').val(response.hash);
 							$('#tribe-events-content').replaceWith(response.html);
-							$('#tribe-events-content').next('.tribe-clear').remove();
 							if (response.total_count === 0) {
 								$('#tribe-events-header .tribe-events-sub-nav').empty();
 							}

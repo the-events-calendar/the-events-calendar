@@ -3938,7 +3938,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$_SERVER['REQUEST_URI'] = $this->rewriteSlug . '/' . 'upcoming/';
 
 			ob_start();
-			tribe_get_view();
+			tribe_get_view('list/content');
 			$response['html'] .= ob_get_clean();
 			$_SERVER = $old_request;
 
@@ -4014,7 +4014,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 				ob_start();
 
-				tribe_get_view();
+				tribe_get_view('month/content');
 
 				$response = array(
 					'html'            => ob_get_clean(),
