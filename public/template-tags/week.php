@@ -68,7 +68,8 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	function tribe_events_week_the_day_map() {
 		Tribe_Events_Pro_Week_Template::the_day_map();
 		$all_day_map = tribe_events_week_get_all_day_map();
-		tribe_events_week_setup_event( $all_day_map[ Tribe_Events_Pro_Week_Template::get_the_day_map() ][ Tribe_Events_Pro_Week_Template::get_current_day() ] );
+		$all_day_offset = Tribe_Events_Pro_Week_Template::get_current_day() < Tribe_Events_Pro_Week_Template::$start_of_week ? Tribe_Events_Pro_Week_Template::$week_length + Tribe_Events_Pro_Week_Template::get_current_day() : Tribe_Events_Pro_Week_Template::get_current_day();
+		tribe_events_week_setup_event( $all_day_map[ Tribe_Events_Pro_Week_Template::get_the_day_map() ][ $all_day_offset ] );
 	}
 
 	/**
