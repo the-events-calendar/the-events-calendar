@@ -264,7 +264,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 				// if this is an all day event
 				if (  tribe_get_event_meta( $event->ID, '_EventAllDay' ) ) {
-
+					
 					// let's build our hashtable for add day events
 					foreach ( self::$events->all_day_map as $hash_id => $days ) {
 
@@ -279,7 +279,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 							$all_day_offset = ( $n < self::$start_of_week ) ? ( self::$start_of_week + self::$week_length ) - ( $n + self::$start_of_week ) : $n;
 
 							// check for hash collision and setup bool for going to the next row if we can't fit it on this row
-							if ( ! empty( self::$events->all_day_map[$hash_id][$all_day_offset] ) ) {
+							if ( ! empty( self::$events->all_day_map[$hash_id][$all_day_offset] ) || self::$events->all_day_map[$hash_id][$all_day_offset] == '0'  ) {
 								$insert_current_row = true;
 								break;
 							} else {
@@ -297,9 +297,9 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 						} else if ( $insert_current_row ) {
 
-								// nullify the hash id
-								$hash_id = null;
-							}
+							// nullify the hash id
+							$hash_id = null;
+						}
 
 						// if we still have a hash id then fill the row with the event id
 						if ( ! is_null( $hash_id ) ) {
@@ -332,7 +332,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 					}
 					self::$events->hourly[ $event->ID ] = $event;
 				}
-			}
+			}		
 		}
 
 		/**
