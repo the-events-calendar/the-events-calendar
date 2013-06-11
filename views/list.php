@@ -1,6 +1,6 @@
 <?php
 /**
- * Events List Template
+ * List View Template
  * The wrapper template for a list of events. This includes the Past Events and Upcoming Events views 
  * as well as those same views filtered to a specific category.
  *

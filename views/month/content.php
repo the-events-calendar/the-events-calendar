@@ -1,6 +1,6 @@
 <?php
 /**
- * Month Content Template
+ * Month View Content Template
  * The content template for the month view of events. This template is also used for
  * the response that is returned on month view ajax requests.
  *

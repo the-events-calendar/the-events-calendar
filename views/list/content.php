@@ -1,7 +1,7 @@
 <?php
 /**
- * Events List Content Template
- * The content template for a list of events. This template is also used for
+ * List View Content Template
+ * The content template for the list view. This template is also used for
  * the response that is returned on list view ajax requests.
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/list/content.php
