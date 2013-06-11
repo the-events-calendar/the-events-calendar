@@ -4,7 +4,7 @@
  * This file contains one event in the list view
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/list/single-event.php
- * *
+ *
  * @package TribeEventsCalendar
  * @since  3.0
  * @author Modern Tribe Inc.
