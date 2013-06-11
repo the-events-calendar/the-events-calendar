@@ -334,7 +334,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			ob_start();
 
-			tribe_get_view();
+			tribe_get_view( 'photo/content' );
 
 			$response['html'] .= ob_get_clean();
 
