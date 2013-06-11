@@ -1,0 +1,3627 @@
+# Events Calendar Pro by Modern Tribe, Inc.
+# Copyright (C) Modern Tribe, Inc.
+# This file is distributed under the same license as the Events Calendar Pro package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Events Calendar Pro\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-05-20 02:24-0600\n"
+"PO-Revision-Date: 2013-05-29 12:22+0100\n"
+"Last-Translator: Modern Tribe Inc. <pro@tri.be>\n"
+"Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
+"Language: nb_NO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ./\n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#
+#: ../admin-views/app-shop.php:4
+msgid "Tribe Event Add-Ons"
+msgstr "Tribe utvidelser"
+
+#: ../admin-views/app-shop.php:56
+msgid "Version"
+msgstr "Versjon"
+
+#
+#: ../admin-views/app-shop.php:59
+msgid "Last Update"
+msgstr "Siste oppdatering"
+
+#: ../admin-views/event-sidebar-options.php:11
+msgid "Hide From Event Listings"
+msgstr "Skjul fra aktivitets listen"
+
+#: ../admin-views/event-sidebar-options.php:12
+msgid "Sticky in Calendar View"
+msgstr "Fest til kalender visning"
+
+#
+#: ../admin-views/events-audit-trail.php:41
+msgid "Auditing Information"
+msgstr "Kontroller informasjon"
+
+#: ../admin-views/events-audit-trail.php:47
+msgid "Created by:"
+msgstr "Opprettet av:"
+
+#: ../admin-views/events-audit-trail.php:51
+msgid "Audit Trail:"
+msgstr ""
+
+#: ../admin-views/events-meta-box.php:26
+msgid "Event Time &amp; Date"
+msgstr "Tidspunkt"
+
+#: ../admin-views/events-meta-box.php:32
+msgid ""
+"You have changed the recurrence rules of this event.  Saving the event will "
+"update all future events.  If you did not mean to change all events, then "
+"please refresh the page."
+msgstr ""
+"Du har endret innstillingene for gjentakelse av denne aktiviteten. Om du "
+"lagrer aktiviteten vil alle påfølgende aktiviteter i serien oppdateres. Om "
+"du ikke hadde til hensikt å endre alle aktivitetene i serien, vennligst last "
+"siden på nytt."
+
+#
+#: ../admin-views/events-meta-box.php:35
+msgid "All Day Event:"
+msgstr "Hele dagen:"
+
+#
+#: ../admin-views/events-meta-box.php:39
+msgid "Start Date &amp; Time:"
+msgstr "Start dato og tid:"
+
+#: ../admin-views/events-meta-box.php:42 ../admin-views/events-meta-box.php:63
+msgid "YYYY-MM-DD"
+msgstr "ÅÅÅÅ-MM-DD"
+
+#
+#: ../admin-views/events-meta-box.php:60
+msgid "End Date &amp; Time:"
+msgstr "Sluttdato og tid:"
+
+#: ../admin-views/events-meta-box.php:85
+msgid "Event Location Details"
+msgstr "Stedsbeskrivelse"
+
+#: ../admin-views/events-meta-box.php:93
+msgid "Event Organizer Details"
+msgstr "Informasjon om arrangøren"
+
+#
+#: ../admin-views/events-meta-box.php:101
+msgid "Event Website"
+msgstr "Aktivitetens nettsted"
+
+#: ../admin-views/events-meta-box.php:104
+msgid "URL:"
+msgstr "URL:"
+
+#: ../admin-views/events-meta-box.php:115
+msgid "Event Cost"
+msgstr "Pris for deltakelse"
+
+#: ../admin-views/events-meta-box.php:118
+msgid "Currency Symbol:"
+msgstr "Valuta symbol:"
+
+#: ../admin-views/events-meta-box.php:122
+#: ../public/advanced-functions/meta.php:187
+msgid "Cost:"
+msgstr "Pris:"
+
+#: ../admin-views/events-meta-box.php:127
+msgid "Enter a 0 for events that are free or leave blank to hide the field."
+msgstr ""
+"Skriv inn 0 for arrangementer som er gratis eller la stå tomt for å skjule "
+"feltet."
+
+#: ../admin-views/organizer-meta-box.php:12
+msgid "Organizer Name:"
+msgstr "Arrangørens navn:"
+
+#: ../admin-views/organizer-meta-box.php:19
+#: ../admin-views/tickets-attendees.php:39
+#: ../admin-views/venue-meta-box.php:93
+#: ../public/advanced-functions/meta.php:274
+#: ../public/advanced-functions/meta.php:336
+msgid "Phone:"
+msgstr "Telefon:"
+
+#: ../admin-views/organizer-meta-box.php:23
+#: ../admin-views/tickets-attendees.php:45
+#: ../admin-views/venue-meta-box.php:97
+#: ../public/advanced-functions/meta.php:225
+#: ../public/advanced-functions/meta.php:300
+#: ../public/advanced-functions/meta.php:362
+msgid "Website:"
+msgstr "Nettsted:"
+
+#: ../admin-views/organizer-meta-box.php:27
+#: ../public/advanced-functions/meta.php:349
+msgid "Email:"
+msgstr "E-post:"
+
+#: ../admin-views/recurrence-dialog.php:13
+msgid ""
+"Would you like to change only this instance of the event, or all future "
+"events in this series?"
+msgstr ""
+"Vil du endre bare denne oppføringen av aktiviteten, eller alle fremtidige "
+"aktiviteter av samme type?"
+
+#: ../admin-views/recurrence-dialog.php:15
+#: ../admin-views/recurrence-dialog.php:23
+msgid "Only This Event:"
+msgstr "Kun denne aktiviteten:"
+
+#: ../admin-views/recurrence-dialog.php:15
+msgid "All other future events in the series will remain the same."
+msgstr ""
+
+#
+#: ../admin-views/recurrence-dialog.php:16
+#: ../admin-views/recurrence-dialog.php:24
+msgid "All Events:"
+msgstr "Alle aktiviteter:"
+
+#: ../admin-views/recurrence-dialog.php:16
+msgid ""
+"All future events in the series will be changed. Any changes made to other "
+"events will be kept."
+msgstr ""
+
+#: ../admin-views/recurrence-dialog.php:21
+msgid ""
+"Would you like to delete only this instance of the event, or all future "
+"events in this series?"
+msgstr ""
+
+#: ../admin-views/recurrence-dialog.php:23
+msgid "All other future events in the series will not be deleted."
+msgstr ""
+
+#: ../admin-views/recurrence-dialog.php:24
+msgid "All future events in the series will be deleted."
+msgstr ""
+
+#: ../admin-views/tickets-attendees.php:9 ../admin-views/tickets-list.php:41
+#: ../lib/tickets/tribe-tickets-pro.php:73
+msgid "Attendees"
+msgstr "Deltakere"
+
+#
+#: ../admin-views/tickets-attendees.php:14
+msgid "Event Summary"
+msgstr ""
+
+#
+#: ../admin-views/tickets-attendees.php:22
+msgid "Event Details"
+msgstr ""
+
+#: ../admin-views/tickets-attendees.php:24
+msgid "Start Date / Time:"
+msgstr "Startdato og tidspunkt:"
+
+#: ../admin-views/tickets-attendees.php:26
+msgid "End Date / Time:"
+msgstr "Sluttdato og tidspunkt:"
+
+#: ../admin-views/tickets-attendees.php:34
+msgid "Venue:"
+msgstr "Sted:"
+
+#: ../admin-views/tickets-attendees.php:52
+msgid "Ticket Sales"
+msgstr ""
+
+#: ../admin-views/tickets-attendees.php:64 ../admin-views/tickets-list.php:67
+#, php-format
+msgid "Sold %d"
+msgstr "Solgt %d"
+
+#: ../admin-views/tickets-attendees.php:66 ../admin-views/tickets-list.php:69
+#, php-format
+msgid "Sold %d of %d"
+msgstr "Solgt %d av %d"
+
+#: ../admin-views/tickets-attendees.php:81
+msgid "Tickets sold:"
+msgstr ""
+
+#: ../admin-views/tickets-attendees.php:85
+msgid "Checked in:"
+msgstr ""
+
+#: ../admin-views/tickets-attendees.php:105
+msgid "Send the attendee list by email"
+msgstr "Send deltakerlisten via e-post"
+
+#
+#: ../admin-views/tickets-attendees.php:109
+msgid "Select a User:"
+msgstr "Velg en bruker:"
+
+#: ../admin-views/tickets-attendees.php:110
+msgid "Select..."
+msgstr "Velg..."
+
+#: ../admin-views/tickets-attendees.php:112
+msgid "or"
+msgstr "eller"
+
+#
+#: ../admin-views/tickets-attendees.php:114
+msgid "Email Address:"
+msgstr "E-post adresse:"
+
+#: ../admin-views/tickets-list.php:21 ../views/wrapper-single.php:37
+msgid "Edit"
+msgstr "Rediger"
+
+#: ../admin-views/tickets-list.php:22
+msgid "Delete"
+msgstr "Slett"
+
+#: ../admin-views/tickets-list.php:24
+#, php-format
+msgid "Edit in %s"
+msgstr "Rediger i %s"
+
+#: ../admin-views/tickets-list.php:27
+#: ../lib/tribe-admin-events-list.class.php:41
+msgid "View"
+msgstr "Vis"
+
+#: ../admin-views/tickets-list.php:41 ../lib/tickets/tribe-tickets-pro.php:73
+msgid "See who purchased tickets to this event"
+msgstr ""
+
+#: ../admin-views/tickets-meta-box.php:21
+msgid ""
+"This event was created using Community Events. Are you sure you want to sell "
+"tickets for it?"
+msgstr ""
+
+#: ../admin-views/tickets-meta-box.php:32
+msgid "Upload image for the ticket header"
+msgstr ""
+
+#: ../admin-views/tickets-meta-box.php:33
+msgid ""
+"The maximum image size in the email will be 580px wide by any height, and "
+"then scaled for mobile. If you would like \"retina\" support use an image "
+"sized to 1160px wide."
+msgstr ""
+"Den maksimale bildestørrelsen i e-posten vil være 580px bred, og med valgfri "
+"høyde, og vil bli skalert for mobil. Hvis du ønsker \"retina \" støtte, "
+"bruke et bilde som  har bredden 1160px."
+
+#
+#: ../admin-views/tickets-meta-box.php:36
+msgid "Select an Image"
+msgstr "Velg et bilde"
+
+#: ../admin-views/tickets-meta-box.php:44
+msgid "Remove"
+msgstr "Fjern"
+
+#
+#: ../admin-views/tickets-meta-box.php:62
+#: ../admin-views/tickets-meta-box.php:72
+msgid "Add new ticket"
+msgstr ""
+
+#
+#: ../admin-views/tickets-meta-box.php:73
+msgid "Edit ticket"
+msgstr ""
+
+#: ../admin-views/tickets-meta-box.php:79
+msgid "Sell using:"
+msgstr ""
+
+#
+#: ../admin-views/tickets-meta-box.php:96
+msgid "Ticket Name:"
+msgstr ""
+
+#: ../admin-views/tickets-meta-box.php:103
+msgid "Ticket Description:"
+msgstr ""
+
+#: ../admin-views/tickets-meta-box.php:112
+msgid "Price:"
+msgstr "Pris:"
+
+#
+#: ../admin-views/tickets-meta-box.php:124
+msgid "Start sale:"
+msgstr "Start salg:"
+
+#
+#: ../admin-views/tickets-meta-box.php:148
+msgid "End sale:"
+msgstr "Avslutt salg:"
+
+#: ../admin-views/tickets-meta-box.php:170
+msgid ""
+"When will ticket sales occur? If you don't set a start/end date for sales, "
+"tickets will be available from now until the event ends."
+msgstr ""
+
+#: ../admin-views/tribe-options-display.php:4
+msgid "Default Events Template"
+msgstr "Standard aktivitetsmal"
+
+#: ../admin-views/tribe-options-display.php:5
+msgid "Default Page Template"
+msgstr "Standard sidemal"
+
+#
+#: ../admin-views/tribe-options-display.php:29
+msgid "Display Settings"
+msgstr "Visnings Innstillinger"
+
+#: ../admin-views/tribe-options-display.php:33
+msgid ""
+"<p>The settings below control the display of your calendar. If things don't "
+"look right, try switching between the three style sheet options or pick a "
+"page template from your theme.</p>There are going to be situations where no "
+"out-of-the-box template is 100% perfect. Check out our <a href=\"http://tri."
+"be/support/documentation/events-calendar-themers-guide/\">our themer's "
+"guide</a> for instructions on custom modifications. Want to create a new "
+"view? Grab a copy of the <a href=\"https://github.com/moderntribe/tribe-"
+"events-agenda-view\">Sample Agenda View plugin from Github</a></p>"
+msgstr ""
+"<p>Innstillingene under styrer visningen av kalenderen. Hvis ting ikke ser "
+"riktig ut, kan du prøve å bytte mellom de tre stilark alternativer eller "
+"velge en side mal fra temaet.</p> Det kommer til å være situasjoner der det "
+"ikke out-of-the-box malen er 100% perfekt. Sjekk ut vår <a href=\"http://tri."
+"be/support/documentation/events-calendar-themers-guide/\"> vår themer guide</"
+"a> for instruksjoner om tilpassede modifikasjoner. Vil du lage en ny "
+"visning? Ta en kopi av <a href=\"https://github.com/moderntribe/tribe-events-"
+"agenda-view\"> Sample Agenda Vis plugin fra Github</a></p>"
+
+#
+#: ../admin-views/tribe-options-display.php:45
+msgid "Basic Template Settings"
+msgstr "Grunnleggende Malinnstillinger"
+
+#
+#: ../admin-views/tribe-options-display.php:49
+msgid "Default stylesheet used for events templates"
+msgstr "Standard stil brukt på arrangement malene"
+
+#: ../admin-views/tribe-options-display.php:52
+msgid "Skeleton Styles"
+msgstr ""
+
+#: ../admin-views/tribe-options-display.php:54
+msgid ""
+"These styles provide a bare minimum level of layout for the more complex "
+"templates, and is recommended if you're customizing the events template "
+"styles."
+msgstr ""
+"Denne stilen gir et minimums nivå av oppsettet av de av mer komplekse "
+"malene, og anbefales hvis du ønsker å tilpasse aktivitets malens stiler."
+
+#: ../admin-views/tribe-options-display.php:56
+msgid "Full Styles"
+msgstr ""
+
+#: ../admin-views/tribe-options-display.php:58
+msgid ""
+"These styles provide a more complex level of layout and style and should "
+"adapt to your theme"
+msgstr ""
+"Disse stilene gi et mer komplekst nivå av layout og stil, og skal tilpasse "
+"seg ditt tema"
+
+# Er ikke dette et egennavn? Skal man oversette det?
+#
+#: ../admin-views/tribe-options-display.php:60
+msgid "Tribe Events Styles"
+msgstr ""
+
+#: ../admin-views/tribe-options-display.php:62
+msgid "These styles provide a fully designed events theme"
+msgstr "Disse stilene gir et fullt utviklet arrangmenets tema"
+
+#
+#: ../admin-views/tribe-options-display.php:69
+msgid "Events template"
+msgstr "Aktivitets mal"
+
+#: ../admin-views/tribe-options-display.php:70
+msgid ""
+"Choose a page template to control the appearance of your calendar and event "
+"content."
+msgstr ""
+"Velg en side mal for å styre utseendet på din kalender og aktivitets innhold"
+
+#: ../admin-views/tribe-options-display.php:78
+msgid "Enable event views"
+msgstr "Aktiver aktivitet visninger"
+
+#: ../admin-views/tribe-options-display.php:79
+msgid "You must select at least one view."
+msgstr "Du må velge minst én visning."
+
+#: ../admin-views/tribe-options-display.php:86
+msgid "Default view"
+msgstr "Standard visning"
+
+#: ../admin-views/tribe-options-display.php:94
+msgid "Use the Event Search Bar"
+msgstr "Bruk Arrangement Søkelinje"
+
+#: ../admin-views/tribe-options-display.php:95
+msgid "Uncheck this to use the classic header."
+msgstr "Fjern merkingen for å bruke den vanlige toppen."
+
+#
+#: ../admin-views/tribe-options-display.php:101
+msgid "Advanced Template Settings"
+msgstr "Avanserte Mal innstillinger"
+
+#
+#: ../admin-views/tribe-options-display.php:105
+msgid "Add HTML before event content"
+msgstr "Legg HTML før arrangementets innhold"
+
+#: ../admin-views/tribe-options-display.php:106
+msgid ""
+"If you are familiar with HTML, you can add additional code before the event "
+"template. Some themes may require this to help with styling or layout."
+msgstr ""
+"Hvis du er kjent med HTML, kan du legge til ekstra kode før arrangementet i "
+"mal. Noen temaer kan kreve dette for å hjelpe med styling eller layout."
+
+#
+#: ../admin-views/tribe-options-display.php:111
+msgid "Add HTML after event content"
+msgstr "Legg HTML etter arrangementets innhold"
+
+#: ../admin-views/tribe-options-display.php:112
+msgid ""
+"If you are familiar with HTML, you can add additional code after the event "
+"template. Some themes may require this to help with styling or layout."
+msgstr ""
+"Hvis du er kjent med HTML, kan du legge til ekstra kode etter arrangementet "
+"i mal. Noen temaer kan kreve dette for å hjelpe med styling eller layout."
+
+#: ../admin-views/tribe-options-general.php:14
+msgid "Finding & extending your calendar."
+msgstr "Finn og utvide din kalender."
+
+#: ../admin-views/tribe-options-general.php:19
+msgid "Finding your calendar."
+msgstr ""
+
+# Er ikke dette et egennavn? Skal man oversette det?
+#
+#: ../admin-views/tribe-options-general.php:24
+msgid "Where's my calendar?"
+msgstr "Hvor er min kalender?"
+
+#: ../admin-views/tribe-options-general.php:24
+msgid "Right here"
+msgstr "Akkurat her"
+
+#: ../admin-views/tribe-options-general.php:28
+msgid ""
+"Looking for additional functionality including recurring events, custom "
+"meta, community events, ticket sales and more?"
+msgstr ""
+"Savner du funksjonalitet som f.eks. gjentakende aktivitet, egendefinerte "
+"felter, samfunnsaktiviteter, billettsalg m.m?"
+
+#
+#: ../admin-views/tribe-options-general.php:28
+msgid "Check out the available add-ons"
+msgstr "Sjekk ut tilgjengelige utvidelser"
+
+#: ../admin-views/tribe-options-general.php:33
+msgid "We hope our plugin is helping you out."
+msgstr "Vi håper vår plugin-utvidelse hjelper deg."
+
+#: ../admin-views/tribe-options-general.php:37
+msgid ""
+"Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
+"Modern Tribe for all their hard work.\" The greatest thanks we could ask for "
+"is recognition. Add a small text-only link at the bottom of your calendar "
+"pointing to The Events Calendar project."
+msgstr ""
+"Tenker du \"Wow, denne utvidelsen er fantastisk! Jeg burde si takk til "
+"Modern Tribe for alt det harde arbeidet.\" Den største takken vi kan be om "
+"er anerkjennelse. Legg en liten tekst-kobling nederst på kalenderen som "
+"peker til aktivitetskalender prosjektet."
+
+#: ../admin-views/tribe-options-general.php:37
+#: ../admin-views/tribe-options-general.php:42
+msgid "See an example of the link"
+msgstr "Se et eksempel på koblingen"
+
+#: ../admin-views/tribe-options-general.php:42
+msgid ""
+"Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
+"Modern Tribe for all their hard work.\" The greatest thanks we could ask for "
+"is recognition. Add a small text only link at the bottom of your calendar "
+"pointing to The Events Calendar project."
+msgstr ""
+
+# Er ikke dette et egennavn? Skal man oversette det?
+#
+#: ../admin-views/tribe-options-general.php:47
+msgid "Show The Events Calendar link"
+msgstr "Vis aktivitetskalender kobling"
+
+#
+#: ../admin-views/tribe-options-general.php:61
+msgid "General Settings"
+msgstr "Generelle innstillinger"
+
+#: ../admin-views/tribe-options-general.php:65
+msgid "Number of events to show per page"
+msgstr "Antall aktiviteter som skal vises per side"
+
+#: ../admin-views/tribe-options-general.php:72
+msgid "Use Javascript to control page load"
+msgstr "Bruk Javascript for å kontrollere lasting av side"
+
+#: ../admin-views/tribe-options-general.php:73
+msgid "Enable ajax to live refresh content."
+msgstr "Aktiver ajax å kunne oppdatere innhold."
+
+#
+#: ../admin-views/tribe-options-general.php:79
+msgid "Show comments"
+msgstr "Vis kommentarer"
+
+#: ../admin-views/tribe-options-general.php:80
+msgid "Enable comments on event pages."
+msgstr "Aktiver kommentarer på aktivitets sider."
+
+#: ../admin-views/tribe-options-general.php:86
+msgid "Include events in main blog loop"
+msgstr "Inkluder arrangementer i hoved blog loop"
+
+#: ../admin-views/tribe-options-general.php:87
+msgid ""
+"Show events with the site's other posts. When this box is checked, events "
+"will also continue to appear on the default events page."
+msgstr ""
+"Vis hendelser med nettstedets andre innlegg. Når denne boksen er huket av, "
+"vil aktiviteter også fortsette å vises på standard aktiviteter siden"
+
+#: ../admin-views/tribe-options-general.php:93
+#: ../admin-views/tribe-options-general.php:99
+msgid "Events URL slug"
+msgstr "Kortnavn for aktivitets-URL"
+
+#: ../admin-views/tribe-options-general.php:94
+#, php-format
+msgid ""
+"You cannot edit the slug for your events page as you do not have pretty "
+"permalinks enabled. The current URL for your events page is <a href=\"%s\">"
+"%s</a>. In order to edit the slug here, <a href=\"%soptions-permalink.php"
+"\">enable pretty permalinks</a>."
+msgstr ""
+
+#
+#: ../admin-views/tribe-options-general.php:106
+#: ../public/template-tags/options.php:20
+msgid "The slug used for building the events URL."
+msgstr "Stikkord brukt for å bygge hendelsene URL."
+
+#: ../admin-views/tribe-options-general.php:106
+#, php-format
+msgid "Your current events URL is: %s"
+msgstr "Din nåværende aktivitets URL er: %s"
+
+#
+#: ../admin-views/tribe-options-general.php:111
+#: ../public/template-tags/options.php:43
+msgid "Here is the iCal feed URL for your events:"
+msgstr ""
+
+#
+#: ../admin-views/tribe-options-general.php:116
+msgid "Single event URL slug"
+msgstr ""
+
+#: ../admin-views/tribe-options-general.php:123
+#, php-format
+msgid ""
+"The above should ideally be plural, and this singular.<br />Your single "
+"event URL is: %s"
+msgstr ""
+"Listen bør ideelt være flertall, og denne ental.<br />Din enkelt aktivitet "
+"URL er: %s"
+
+#: ../admin-views/tribe-options-general.php:128
+msgid "End of day cutoff"
+msgstr "Slutten på dagen"
+
+#: ../admin-views/tribe-options-general.php:136
+msgid ""
+"Have events that run past midnight? Control when your day official ends to "
+"avoid awkwardly adding your event to the next day."
+msgstr ""
+"Har aktiviteter, fortsatt over midnatt? Styr når dagen offisielt slutter å "
+"unngå unødig og legge ditt arrangement til neste dag."
+
+#: ../admin-views/tribe-options-general.php:141
+msgid "Default currency symbol"
+msgstr "Standard valuta symbol"
+
+#: ../admin-views/tribe-options-general.php:142
+msgid ""
+"Set the default currency symbol for event costs. Note that this only impacts "
+"future events, and changes made will not apply retroactively."
+msgstr ""
+"Angi standard valuta symbol for arrangement kostnader. Merk at dette bare "
+"påvirker fremtidige hendelser, og at endringer gjort ikke vil gjelde med "
+"tilbakevirkende kraft."
+
+#
+#: ../admin-views/tribe-options-general.php:149
+msgid "Map Settings"
+msgstr "Kart Innstillinger"
+
+#: ../admin-views/tribe-options-general.php:153
+msgid "Enable Google Maps"
+msgstr "Aktiver Google Maps"
+
+#: ../admin-views/tribe-options-general.php:154
+msgid "Check to enable maps for events and venues."
+msgstr "Kryss av for å aktivere kart for arrangementer og møtested."
+
+#: ../admin-views/tribe-options-general.php:161
+msgid "Google Maps Default Zoom Level"
+msgstr "Google Maps Standard zoomnivå"
+
+#: ../admin-views/tribe-options-general.php:162
+msgid "0 = zoomed out; 21 = zoomed in."
+msgstr "0 = zoom ut; 21 = zoom inn."
+
+#
+#: ../admin-views/tribe-options-general.php:170
+msgid "Miscellaneous Settings"
+msgstr "Diverse innstillinger"
+
+#: ../admin-views/tribe-options-general.php:174
+msgid "Duplicate Venues &amp; Organizers"
+msgstr "Dobble steder og arrangører"
+
+#: ../admin-views/tribe-options-general.php:174
+msgid ""
+"You might find duplicate venues and organizers when updating The Events "
+"Calendar from a pre-3.0 version. Click this button to automatically merge "
+"identical venues and organizers."
+msgstr ""
+"Du kan finne dobble steder og arrangører når du oppdaterer "
+"aktivitetskalenderen fra en pre-3.0-versjonen. Klikk på denne knappen for å "
+"automatisk slå sammen identiske steder og arrangører."
+
+#: ../admin-views/tribe-options-general.php:174
+#: ../lib/tribe-amalgamator.php:182
+msgid "Merge Duplicates"
+msgstr "Slå sammen duplikater"
+
+#
+#: ../admin-views/tribe-options-general.php:179
+msgid "Debug mode"
+msgstr "Feilsøkings-modus"
+
+#: ../admin-views/tribe-options-general.php:185
+#, php-format
+msgid ""
+"Enable this option to log debug information. By default this will log to "
+"your server PHP error log. If you'd like to see the log messages in your "
+"browser, then we recommend that you install the %s and look for the \"Tribe"
+"\" tab in the debug output."
+msgstr ""
+"Aktiver dette alternativet for å logge feilsøkingsmodus informasjon. Som "
+"standard lagrer den loggen til din PHP server, feil logg. Hvis du ønsker å "
+"se loggen med meldinger i nettleseren din, så anbefaler vi at du installerer "
+"%s og ser etter \"Tribe\" fanen i feilrettingsdataene."
+
+#: ../admin-views/tribe-options-general.php:185
+msgid "Debug Bar Plugin"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:18
+msgctxt "not available"
+msgid "n/a"
+msgstr "Ikke tilgjengelig"
+
+#: ../admin-views/tribe-options-help.php:19
+msgid "You need to upgrade!"
+msgstr "Du må oppgradere!"
+
+#: ../admin-views/tribe-options-help.php:19
+msgid "You are up to date!"
+msgstr "Du er oppdatert!"
+
+# Er ikke dette et egennavn? Skal man oversette det?
+#
+#: ../admin-views/tribe-options-help.php:42
+msgid "The Events Calendar PRO"
+msgstr "The Events Calendar PRO"
+
+#: ../admin-views/tribe-options-help.php:46
+msgid "Eventbrite Tickets"
+msgstr ""
+
+#
+#: ../admin-views/tribe-options-help.php:50
+msgid "Community Events"
+msgstr ""
+
+#
+#: ../admin-views/tribe-options-help.php:54
+msgid "Facebook Events"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:58
+msgid "WooTickets"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:63
+msgid "Faceted Filters"
+msgstr ""
+
+#: ../admin-views/tribe-options-help.php:71
+msgid "Documentation"
+msgstr "Dokumentasjon"
+
+#: ../admin-views/tribe-options-help.php:75
+msgid "FAQ"
+msgstr "FAQ - Spørsmål og svar"
+
+#: ../admin-views/tribe-options-help.php:79
+#: ../lib/the-events-calendar.class.php:656
+#: ../lib/the-events-calendar.class.php:3375
+#: ../lib/the-events-calendar.class.php:3466
+msgid "Help"
+msgstr "Hjelp"
+
+#: ../admin-views/tribe-options-help.php:83
+msgid "Tutorials"
+msgstr "Brukerveiledning"
+
+#: ../admin-views/tribe-options-help.php:87
+msgid "Release Notes"
+msgstr "Utgivelses historikk"
+
+#: ../admin-views/tribe-options-help.php:91
+msgid "Forums"
+msgstr "Forum"
+
+#: ../admin-views/tribe-options-help.php:96
+#, php-format
+msgid ""
+"If this is your first time using The Events Calendar,you're in for a treat. "
+"You're going to find it super-easy to get up and running with managing your "
+"events. Here are some ways to get started:</p><ul><li><strong>Feeling "
+"adventurous?</strong> Jump right into it by visiting the Events menu to <a "
+"href=\"%s\">add your first event</a>.</li><li><strong>Want to get the low-"
+"down first?</strong> Visit our <a href=\"%s\">new user primer</a>,  designed "
+"to help familiarize you with the plugin basics.</li></ul>"
+msgstr ""
+"Hvis dette er første gang du bruker aktivitetskalenderen, er du funnet en "
+"godbit. Du kommer til å finne det super-enkelt å komme i gang med å "
+"administrere dine arrangementer. Her er noen måter å komme i gang på:</"
+"p><ul><li><strong>Er du eventyrlystnen?</strong> Hopp rett inn i det ved å "
+"gå til menyen Aktiviteter for <a href=\"%s\">legge til din første hendelse </"
+"a>.</li><li><strong>Lyst til å slappe av først?</strong> Besøk vår <a href="
+"\"%s\">ny bruker primer</a>, laget for å hjelpe deg å bli kjent med "
+"utvidelsens grunnleggende funksjon.</li></ul>"
+
+#: ../admin-views/tribe-options-help.php:99
+#, php-format
+msgid ""
+"<p>We love all our users and want to help free & PRO customers alike. If "
+"you're running the latest version of The Events Calendar and are having "
+"problems, post a thread at the %s on WordPress.org. We hit the forum once a "
+"week to look for legitimate bug reports and do what we can to assist users.</"
+"p>"
+msgstr ""
+"<p>Vi er glad i alle våre brukere, og ønsker å hjelpe gratis og PRO kunder "
+"likt. Hvis du kjører den nyeste versjonen av Aktivitetskalender og har "
+"problemer, så legg inn en tråd på %s på WordPress.org. Vi sjekker forumet en "
+"gang i uken for å se etter legitime feilrapporter og gjøre det vi kan for å "
+"hjelpe brukerne.</p>"
+
+# Er ikke dette et egennavn? Skal man oversette det?
+#
+#: ../admin-views/tribe-options-help.php:99
+msgid "forum for The Events Calendar"
+msgstr "forum for The Events Calendar"
+
+#: ../admin-views/tribe-options-help.php:100
+#, php-format
+msgid ""
+"<p>If you need additional help, %sEvents Calendar Pro%s gets you access to "
+"our support forums for a full year.</p>"
+msgstr ""
+"<p>Hvis du trenger ytterligere hjelp, så gir, %sEvents Calendar Pro%s "
+"tilgang til vårt support forum i et helt år.</p>"
+
+#: ../admin-views/tribe-options-help.php:101
+msgid "A few things to keep in mind before posting:"
+msgstr "Et par ting å huske på før du legger poster:"
+
+#: ../admin-views/tribe-options-help.php:103
+msgid ""
+"Search recent threads before posting a new one to check that there isn't "
+"already a discussion about your issue."
+msgstr ""
+"Søk siste trådene før du legger ut en ny en for å sjekke at det ikke "
+"allerede er en diskusjon om problemet."
+
+#: ../admin-views/tribe-options-help.php:104
+msgid ""
+"Check whether the issue is a conflict with another plugin or your theme. "
+"This can be tested easily on a staging site by deactivating other plugins "
+"one-by-one, and reverting to the default Twenty Twelve theme to see if "
+"conflicts can be easily identified. If you find a conflict, note it in a "
+"support thread."
+msgstr ""
+"Kontroller om problemet er i konflikt med en annen utvidelse eller tema. "
+"Dette kan testes enkelt på et område ved å deaktivere andre utvidelser en "
+"etter en, og gå tilbake til standard Twenty Twelve tema for å se om "
+"konflikten lettere kan identifiseres. Hvis du finner en konflikt, noterer i "
+"aktuell tråd."
+
+#: ../admin-views/tribe-options-help.php:105
+#, php-format
+msgid ""
+"Sometimes, resaving your permalinks (under <a href=\"%s\">Settings > "
+"Permalinks</a>) can resolve events-related problems on your site. Before "
+"creating a new thread try this handy trick."
+msgstr ""
+"Noen ganger hjelper det å lagre på nytt dine permalenker (under <a href=\"%s"
+"\"> Innstillinger > Permalenker</a>) kan løse hendelse-relaterte problemer "
+"på nettstedet ditt. Før du oppretter en ny tråd prøve dette hendige trikset."
+
+#: ../admin-views/tribe-options-help.php:107
+msgid ""
+"While we are happy to help with bugs and provide light integration tips for "
+"users of The Events Calendar, on the WordPress.org support forums we're not "
+"able to provide customization tips or assist in integration with 3rd party "
+"plugins."
+msgstr ""
+"Mens vi gjerne hjelper med feil og gir lettere integrering tips for brukere "
+"av aktivitetskalenderen, på WordPress.org hjelpe forum, er vi ikke i stand "
+"til å gi tilpasning tips eller bistå i integrasjon med 3dje parts utvidelser."
+
+#: ../admin-views/tribe-options-help.php:109
+#, php-format
+msgid ""
+"Shoot us an email at %s or tweet %s and tell us why. We'll do what we can to "
+"make it right."
+msgstr ""
+"Send oss en e-post ved %s eller twitter oss %s og fortell oss hvorfor. Vi "
+"vil gjøre hva vi kan for å gjøre det riktig."
+
+#: ../admin-views/tribe-options-help.php:110
+msgid "More..."
+msgstr "Mer..."
+
+#: ../admin-views/tribe-options-help.php:117
+msgid ""
+"Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so much "
+"for installing our labor of love!"
+msgstr ""
+"Hei! Vi er Modern Tribe og vi er her for å hjelpe deg i gang. Takk så mye "
+"for å bruke vår arbeidskraft av kjærlighet!"
+
+#: ../admin-views/tribe-options-help.php:119
+msgid "Getting Started"
+msgstr "Komme i gang"
+
+#: ../admin-views/tribe-options-help.php:126
+msgid "Resources to Help You Kick Ass"
+msgstr "Ressurser som hjelper deg å komme i gang"
+
+#: ../admin-views/tribe-options-help.php:138
+msgid "Everyone Needs a Buddy"
+msgstr "Alle trenger en Buddy"
+
+#: ../admin-views/tribe-options-help.php:141
+msgid "Still Not Satisfied?"
+msgstr "Fortsatt ikke fornøyd?"
+
+# Er ikke dette et egennavn? Skal man oversette det?
+#: ../admin-views/tribe-options-help.php:151
+#: ../lib/the-events-calendar.class.php:437
+#: ../lib/tribe-settings.class.php:135
+msgid "The Events Calendar"
+msgstr "The Events Calendar"
+
+#: ../admin-views/tribe-options-help.php:155
+msgid "Latest Version:"
+msgstr "Siste versjon:"
+
+#: ../admin-views/tribe-options-help.php:156
+msgid "Author:"
+msgstr "Forfatter:"
+
+#
+#: ../admin-views/tribe-options-help.php:156
+msgid "Modern Tribe Inc"
+msgstr "Modern Tribe Inc"
+
+#: ../admin-views/tribe-options-help.php:157
+msgid "Requires:"
+msgstr "Krever:"
+
+#: ../admin-views/tribe-options-help.php:157
+msgid "WordPress "
+msgstr "WordPress "
+
+#: ../admin-views/tribe-options-help.php:158
+msgid "Wordpress.org Plugin Page"
+msgstr "Wordpress.org Plugin side"
+
+#: ../admin-views/tribe-options-help.php:163
+msgid "Average Rating"
+msgstr "Gjennomsnittlig vurdering"
+
+#: ../admin-views/tribe-options-help.php:167
+#, php-format
+msgid "Based on %d rating"
+msgid_plural "Based on %d ratings"
+msgstr[0] "Basert på %d vurdering"
+msgstr[1] "Basert på %d rangeringer"
+
+#: ../admin-views/tribe-options-help.php:168
+msgid "Give us 5 stars!"
+msgstr "Gi oss 5 stjerner!"
+
+#: ../admin-views/tribe-options-help.php:171
+msgid "Premium Add-Ons"
+msgstr "Premium utvidelser"
+
+#: ../admin-views/tribe-options-help.php:177
+msgid "(Coming Soon!)"
+msgstr "(Kommer snart!)"
+
+#: ../admin-views/tribe-options-help.php:184
+msgid "News and Tutorials"
+msgstr "Nyheter og veiledninger"
+
+#
+#: ../admin-views/tribe-options-network.php:14
+msgid "Network Settings"
+msgstr "Nettverksinnstillinger"
+
+#: ../admin-views/tribe-options-network.php:18
+msgid ""
+"This is where all of the global network settings for Modern Tribe's The "
+"Events Calendar can be modified."
+msgstr ""
+
+#: ../admin-views/tribe-options-network.php:26
+msgid "Hide the following settings tabs on every site:"
+msgstr ""
+
+#: ../admin-views/venue-meta-box.php:20
+msgid "Venue Name:"
+msgstr "Navn på lokale/sted:"
+
+#: ../admin-views/venue-meta-box.php:27
+#: ../public/advanced-functions/meta.php:288
+msgid "Address:"
+msgstr "Adresse:"
+
+#: ../admin-views/venue-meta-box.php:31
+msgid "City:"
+msgstr "By:"
+
+#: ../admin-views/venue-meta-box.php:35
+msgid "Country:"
+msgstr "Land:"
+
+#: ../admin-views/venue-meta-box.php:73
+msgid "State or Province:"
+msgstr "Fylke eller område:"
+
+#: ../admin-views/venue-meta-box.php:76
+msgid "Select a State:"
+msgstr "Velg stat:"
+
+#: ../admin-views/venue-meta-box.php:89
+msgid "Postal Code:"
+msgstr "Postnummer:"
+
+#: ../admin-views/venue-meta-box.php:112 ../admin-views/venue-meta-box.php:134
+msgid "Show Google Map:"
+msgstr "Vis kart fra Google Maps"
+
+#: ../admin-views/venue-meta-box.php:122 ../admin-views/venue-meta-box.php:144
+msgid "Show Google Maps Link:"
+msgstr "Vis lenke til kart fra Google Maps:"
+
+#: ../admin-views/widget-admin-list.php:11
+msgid "Title:"
+msgstr "Tittel:"
+
+#: ../admin-views/widget-admin-list.php:16
+msgid "Show:"
+msgstr "Vis:"
+
+#: ../admin-views/widget-admin-list.php:24
+msgid "Show widget only if there are upcoming events:"
+msgstr "Vis widgeten kun om det finnes framtidige aktiviteter:"
+
+#: ../admin-views/widget-admin-list.php:30
+#, php-format
+msgid "Want to modify the display of this widget? Try a %stemplate override%s."
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:442
+msgid "month"
+msgstr "måned"
+
+#: ../lib/the-events-calendar.class.php:443
+msgid "upcoming"
+msgstr "kommende"
+
+#: ../lib/the-events-calendar.class.php:444
+msgid "past"
+msgstr "tidligere"
+
+#: ../lib/the-events-calendar.class.php:446
+msgid "venue"
+msgstr "sted"
+
+#: ../lib/the-events-calendar.class.php:460
+#, php-format
+msgid "Initializing Tribe Events on %s"
+msgstr "Initialiserer Tribe-aktiviteter for %s"
+
+#: ../lib/the-events-calendar.class.php:552
+#, php-format
+msgid ""
+"Your version of The Events Calendar is not up-to-date with one of your The "
+"Events Calendar add-ons. Please %supdate now.%s"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:566
+#, php-format
+msgid ""
+"The following plugins are out of date: <b>%s</b>. Please %supdate now%s. All "
+"add-ons contain dependencies on The Events Calendar and will not function "
+"properly unless paired with the right version. %sWant to pair an older "
+"version%s?"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:623
+#: ../lib/the-events-calendar.class.php:651
+#: ../lib/the-events-calendar.class.php:653
+msgid "Licenses"
+msgstr "Lisenser"
+
+#: ../lib/the-events-calendar.class.php:627
+#, php-format
+msgid ""
+"<p>The license key you received when completing your purchase from http://"
+"tri.be will grant you access to support and updates until it expires. You do "
+"not need to enter the key below for the plugins to work, but you will need "
+"to enter it to get automatic updates. <strong>Find your license keys at <a "
+"href=\"%s\">%s</a></strong>.</p> <p>Each paid add-on has its own unique "
+"license key. Simply paste the key into its appropriate field on below, and "
+"give it a moment to validate. You know you're set when a green expiration "
+"date appears alongside a \"valid\" message.</p> <p>If you're seeing a red "
+"message telling you that your key isn't valid or is out of installs, visit "
+"[enter link to account/licenses] to manage your installs or renew / upgrade "
+"your license.</p><p>Not seeing an update but expecting one? In WordPress, go "
+"to <a href=\"%s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
+msgstr ""
+"<p>Lisensnøkkelen du mottok når du fullførte kjøpet fra http://tri.be vil gi "
+"deg tilgang til support og oppdateringer inntil den utløper. Du trenger ikke "
+"å skrive inn nøkkelen under dine installerte tillegg for at det skal "
+"fungere, men du må skrive den inn for å få automatiske oppdateringer. "
+"<strong>Finn dine lisensnøkler på <a href=\"%s\">% s</ a></strong>.</p>Hvert "
+"betalte tillegg har sin egen unike lisensnøkkel. Bare lim inn nøkkelen i det "
+"aktuelle feltet nedenfor, og gi det et øyeblikk å validere. Du vet at du "
+"lagt inn riktig når en grønn utløpsdato vises sammen med en \"gyldig "
+"\"melding.</ p><p>Hvis du ser en rød melding om at nøkkelen ikke er gyldig "
+"eller at installasjon ikke er mulig, besøk [skriv link til konto/lisenser] "
+"for å administrere din versjon eller fornye / oppgradere din lisens.</"
+"p><p>Hvis du ikke ser en oppdatering, men forventer en? I WordPress, gå til "
+"<a href=\"%s\">Kontrollpanel > Oppdateringer</ a> og klikk \"Sjekk igjen \"."
+"</p>"
+
+#: ../lib/the-events-calendar.class.php:643
+msgid "General"
+msgstr "Generelt"
+
+#: ../lib/the-events-calendar.class.php:644
+msgid "Display"
+msgstr "Vis"
+
+#: ../lib/the-events-calendar.class.php:689
+#, php-format
+msgid ""
+"Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade "
+"your WordPress install."
+msgstr ""
+"Beklager, The Events Calendar krever WordPress %s eller nyere. Vennligst "
+"oppgrader WordPress."
+
+#: ../lib/the-events-calendar.class.php:692
+#, php-format
+msgid ""
+"Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host "
+"about moving you to a newer version of PHP."
+msgstr ""
+"Beklager, The Events Calendar krever PHP %s eller nyere. Be din "
+"systemadministrator om å migrere deg til en nyere versjon av PHP."
+
+#: ../lib/the-events-calendar.class.php:839 ../lib/widget-list.class.php:116
+#: ../public/template-tags/loop.php:135 ../public/template-tags/loop.php:138
+msgid "Upcoming Events"
+msgstr "Kommende aktiviteter"
+
+#: ../lib/the-events-calendar.class.php:841
+#: ../public/template-tags/loop.php:174
+msgid "Past Events"
+msgstr "Tidligere aktiviteter"
+
+#: ../lib/the-events-calendar.class.php:846
+#: ../lib/the-events-calendar.class.php:853
+#, php-format
+msgid "Events for %s"
+msgstr "Aktiviteter for %s"
+
+#: ../lib/the-events-calendar.class.php:848
+msgid "Events this month"
+msgstr "Aktiviteter denne måneden"
+
+#: ../lib/the-events-calendar.class.php:859
+#, php-format
+msgid "Events at %s"
+msgstr "Aktiviteter ved %s"
+
+#: ../lib/the-events-calendar.class.php:872
+msgid "No description has been entered for this event."
+msgstr "Denne aktiviteten har ingen beskrivelse."
+
+#: ../lib/the-events-calendar.class.php:1119
+msgid "category"
+msgstr "kategori"
+
+#: ../lib/the-events-calendar.class.php:1124
+msgid "tag"
+msgstr "merk"
+
+#: ../lib/the-events-calendar.class.php:1138
+#: ../lib/the-events-calendar.class.php:3306
+#: ../lib/the-events-calendar.class.php:3366
+msgid "Events"
+msgstr "Aktiviteter"
+
+#: ../lib/the-events-calendar.class.php:1139
+msgid "Event"
+msgstr "Aktiviteter"
+
+#: ../lib/the-events-calendar.class.php:1140
+#: ../lib/the-events-calendar.class.php:1153
+#: ../lib/the-events-calendar.class.php:1166
+msgid "Add New"
+msgstr "Legg til ny"
+
+#: ../lib/the-events-calendar.class.php:1141
+msgid "Add New Event"
+msgstr "Legg til ny aktivitet"
+
+#: ../lib/the-events-calendar.class.php:1142
+msgid "Edit Event"
+msgstr "Rediger aktivitet"
+
+#: ../lib/the-events-calendar.class.php:1143
+msgid "New Event"
+msgstr "Ny aktivitet"
+
+#: ../lib/the-events-calendar.class.php:1144
+msgid "View Event"
+msgstr "Vis aktivitet"
+
+#: ../lib/the-events-calendar.class.php:1145
+msgid "Search Events"
+msgstr "Søk i aktiviteter"
+
+#: ../lib/the-events-calendar.class.php:1146
+msgid "No events found"
+msgstr "Fant ingen aktiviteter"
+
+#: ../lib/the-events-calendar.class.php:1147
+msgid "No events found in Trash"
+msgstr "Fant ingen aktiviteter i søppelkassen"
+
+#: ../lib/the-events-calendar.class.php:1151
+#: ../lib/the-events-calendar.class.php:1257
+msgid "Venues"
+msgstr "Steder"
+
+#: ../lib/the-events-calendar.class.php:1152
+#: ../public/advanced-functions/meta.php:248 ../views/tickets-email.php:320
+msgid "Venue"
+msgstr "Sted"
+
+#: ../lib/the-events-calendar.class.php:1154
+msgid "Add New Venue"
+msgstr "Legg til nytt sted"
+
+#: ../lib/the-events-calendar.class.php:1155
+msgid "Edit Venue"
+msgstr "Rediger sted"
+
+#: ../lib/the-events-calendar.class.php:1156
+msgid "New Venue"
+msgstr "Nytt sted"
+
+#: ../lib/the-events-calendar.class.php:1157
+msgid "View Venue"
+msgstr "Vis sted"
+
+#: ../lib/the-events-calendar.class.php:1158
+msgid "Search Venues"
+msgstr "Søk i steder"
+
+#: ../lib/the-events-calendar.class.php:1159
+msgid "No venue found"
+msgstr "Fant ingen steder"
+
+#: ../lib/the-events-calendar.class.php:1160
+msgid "No venues found in Trash"
+msgstr "Fant ingen steder i søppelkassen"
+
+#: ../lib/the-events-calendar.class.php:1164
+#: ../lib/the-events-calendar.class.php:1258
+msgid "Organizers"
+msgstr "Arrangører"
+
+#: ../lib/the-events-calendar.class.php:1165
+#: ../public/advanced-functions/meta.php:310 ../views/tickets-email.php:339
+msgid "Organizer"
+msgstr "Arrangør"
+
+#: ../lib/the-events-calendar.class.php:1167
+msgid "Add New Organizer"
+msgstr "Legg til ny arrangør"
+
+#: ../lib/the-events-calendar.class.php:1168
+msgid "Edit Organizer"
+msgstr "Rediger arrangør"
+
+#: ../lib/the-events-calendar.class.php:1169
+msgid "New Organizer"
+msgstr "Ny arrangør"
+
+#
+#: ../lib/the-events-calendar.class.php:1170
+msgid "View Organizer"
+msgstr "Vis sortering"
+
+#: ../lib/the-events-calendar.class.php:1171
+msgid "Search Organizers"
+msgstr "Søk i arrangører"
+
+#: ../lib/the-events-calendar.class.php:1172
+msgid "No organizer found"
+msgstr "Fant ingen arrangører"
+
+#: ../lib/the-events-calendar.class.php:1173
+msgid "No organizers found in Trash"
+msgstr "Fant ingen arrangører i søppelkassen"
+
+#: ../lib/the-events-calendar.class.php:1177
+#: ../lib/tribe-admin-events-list.class.php:181
+msgid "Event Categories"
+msgstr "Kategorier"
+
+#: ../lib/the-events-calendar.class.php:1178
+#: ../public/template-tags/general.php:295
+msgid "Event Category"
+msgstr "Kategori"
+
+#: ../lib/the-events-calendar.class.php:1179
+msgid "Search Event Categories"
+msgstr "Søk i kategorier"
+
+#: ../lib/the-events-calendar.class.php:1180
+msgid "All Event Categories"
+msgstr "Alle kategorier"
+
+#: ../lib/the-events-calendar.class.php:1181
+msgid "Parent Event Category"
+msgstr "Overordnet kategori"
+
+#: ../lib/the-events-calendar.class.php:1182
+msgid "Parent Event Category:"
+msgstr "Overordnet kategori:"
+
+#: ../lib/the-events-calendar.class.php:1183
+msgid "Edit Event Category"
+msgstr "Rediger kategori"
+
+#: ../lib/the-events-calendar.class.php:1184
+msgid "Update Event Category"
+msgstr "Oppdater kategori"
+
+#: ../lib/the-events-calendar.class.php:1185
+msgid "Add New Event Category"
+msgstr "Legg til ny kategori"
+
+#: ../lib/the-events-calendar.class.php:1186
+msgid "New Event Category Name"
+msgstr "Navn på ny kategori"
+
+#: ../lib/the-events-calendar.class.php:1196
+#, php-format
+msgid "Event updated. <a href=\"%s\">View event</a>"
+msgstr "Aktivitet oppdatert. <a href=\"%s\">Vis aktivitet</a>"
+
+#: ../lib/the-events-calendar.class.php:1197
+#: ../lib/the-events-calendar.class.php:1214
+#: ../lib/the-events-calendar.class.php:1231
+msgid "Custom field updated."
+msgstr "Egendefinert felt oppdatert."
+
+#: ../lib/the-events-calendar.class.php:1198
+#: ../lib/the-events-calendar.class.php:1215
+#: ../lib/the-events-calendar.class.php:1232
+msgid "Custom field deleted."
+msgstr "Egendefinert felt slettet."
+
+#: ../lib/the-events-calendar.class.php:1199
+msgid "Event updated."
+msgstr "Aktivitet oppdatert."
+
+#: ../lib/the-events-calendar.class.php:1201
+#, php-format
+msgid "Event restored to revision from %s"
+msgstr "Aktivitet gjenopprettet til revisjon fra %s"
+
+#: ../lib/the-events-calendar.class.php:1202
+#, php-format
+msgid "Event published. <a href=\"%s\">View event</a>"
+msgstr "Aktivitet publisert. <a href=\"%s\">Vis aktivitet</a>"
+
+#: ../lib/the-events-calendar.class.php:1203
+msgid "Event saved."
+msgstr "Aktivitet lagret."
+
+#: ../lib/the-events-calendar.class.php:1204
+#, php-format
+msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
+msgstr "Aktivitet innsendt. <a target=\"_blank\" href=\"%s\">Forhåndsvis</a>"
+
+#: ../lib/the-events-calendar.class.php:1205
+#, php-format
+msgid ""
+"Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
+"\">Preview event</a>"
+msgstr ""
+"Aktivitet planlagt til <strong>%1$s</strong>. <a target=\"_blank\" href="
+"\"%2$s\">Forhåndsvis</a>"
+
+#: ../lib/the-events-calendar.class.php:1207
+#: ../lib/the-events-calendar.class.php:1224
+#: ../lib/the-events-calendar.class.php:1241
+msgid "M j, Y @ G:i"
+msgstr "Y-m-d @ G:i"
+
+#: ../lib/the-events-calendar.class.php:1208
+#, php-format
+msgid "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
+msgstr ""
+"Utkast for aktivitet oppdatert. <a target=\"_blank\" href=\"%s"
+"\">Forhåndsvis</a>"
+
+#: ../lib/the-events-calendar.class.php:1213
+#, php-format
+msgid "Venue updated. <a href=\"%s\">View venue</a>"
+msgstr "Sted oppdatert. <a href=\"%s\">Vis sted</a>"
+
+#: ../lib/the-events-calendar.class.php:1216
+msgid "Venue updated."
+msgstr "Sted oppdatert."
+
+#: ../lib/the-events-calendar.class.php:1218
+#, php-format
+msgid "Venue restored to revision from %s"
+msgstr "Sted gjenopprettet til revisjon fra %s"
+
+#: ../lib/the-events-calendar.class.php:1219
+#, php-format
+msgid "Venue published. <a href=\"%s\">View venue</a>"
+msgstr "Sted publisert. <a href=\"%s\">Vis sted</a>"
+
+#: ../lib/the-events-calendar.class.php:1220
+msgid "Venue saved."
+msgstr "Sted lagret."
+
+#: ../lib/the-events-calendar.class.php:1221
+#, php-format
+msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+msgstr "Sted innsendt. <a target=\"_blank\" href=\"%s\">Forhåndsvis</a>"
+
+#: ../lib/the-events-calendar.class.php:1222
+#, php-format
+msgid ""
+"Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
+"\">Preview venue</a>"
+msgstr ""
+"Sted lagt til for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
+"\">Forhåndsvis</a>"
+
+#: ../lib/the-events-calendar.class.php:1225
+#, php-format
+msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+msgstr ""
+"Utkast for sted oppdatert. <a target=\"_blank\" href=\"%s\">Forhåndsvis</a>"
+
+#: ../lib/the-events-calendar.class.php:1230
+#, php-format
+msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
+msgstr "Arrangør oppdatert. <a href=\"%s\">Vis arrangør</a>"
+
+#: ../lib/the-events-calendar.class.php:1233
+msgid "Organizer updated."
+msgstr "Arrangør oppdatert."
+
+#: ../lib/the-events-calendar.class.php:1235
+#, php-format
+msgid "Organizer restored to revision from %s"
+msgstr "Arrangør gjenopprettet til revisjon fra %s"
+
+#: ../lib/the-events-calendar.class.php:1236
+#, php-format
+msgid "Organizer published. <a href=\"%s\">View organizer</a>"
+msgstr "Arrangør publisert. <a href=\"%s\">Vis arrangør</a>"
+
+#: ../lib/the-events-calendar.class.php:1237
+msgid "Organizer saved."
+msgstr "Arrangør lagret."
+
+#: ../lib/the-events-calendar.class.php:1238
+#, php-format
+msgid ""
+"Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+msgstr "Arrangør innsendt. <a target=\"_blank\" href=\"%s\">Forhåndsvis</a>"
+
+#: ../lib/the-events-calendar.class.php:1239
+#, php-format
+msgid ""
+"Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
+"\"%2$s\">Preview organizer</a>"
+msgstr ""
+"Arrangør lagt til for: <strong>%1$s</strong>. <a target=\"_blank\" href="
+"\"%2$s\">Vis arrangør</a>"
+
+#: ../lib/the-events-calendar.class.php:1242
+#, php-format
+msgid ""
+"Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</"
+"a>"
+msgstr ""
+"Utkast for arrangør oppdatert. <a target=\"_blank\" href=\"%s\">Preview "
+"organizer</a>"
+
+#: ../lib/the-events-calendar.class.php:1284
+msgid "Use Saved Venue:"
+msgstr "Bruk lagret lokasjon:"
+
+#
+#: ../lib/the-events-calendar.class.php:1313
+msgid "Use Saved Organizer:"
+msgstr "Bruk lagret arrangør:"
+
+#
+#: ../lib/the-events-calendar.class.php:1349
+msgid "Use New Venue"
+msgstr "Bruk ny lokasjon"
+
+#
+#: ../lib/the-events-calendar.class.php:1351
+msgid "My Venues"
+msgstr ""
+
+#
+#: ../lib/the-events-calendar.class.php:1356
+msgid "Available Venues"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:1367
+msgid "No saved venue exists."
+msgstr ""
+
+#
+#: ../lib/the-events-calendar.class.php:1401
+msgid "Use New Organizer"
+msgstr "Bruk ny arrangør"
+
+#
+#: ../lib/the-events-calendar.class.php:1403
+msgid "My Organizers"
+msgstr "Mine sorteringer"
+
+#
+#: ../lib/the-events-calendar.class.php:1408
+msgid "Available Organizers"
+msgstr "Tilgjengelige sorteringer"
+
+#
+#: ../lib/the-events-calendar.class.php:1419
+msgid "No saved organizer exists."
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:1530
+msgid "Next"
+msgstr "Neste"
+
+#: ../lib/the-events-calendar.class.php:1531
+msgid "Prev"
+msgstr "Forrige"
+
+#: ../lib/the-events-calendar.class.php:1532
+msgid "Today"
+msgstr "I dag"
+
+#: ../lib/the-events-calendar.class.php:1533
+msgid "Done"
+msgstr "Ferdig"
+
+#: ../lib/the-events-calendar.class.php:1718
+msgid "Network"
+msgstr "Nettverk"
+
+#
+#: ../lib/the-events-calendar.class.php:2502
+msgid "Unnamed Venue"
+msgstr ""
+
+#
+#: ../lib/the-events-calendar.class.php:2585
+msgid "Unnamed Organizer"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:3065
+msgid "Event Options"
+msgstr "Alternativer for aktivitet"
+
+#: ../lib/the-events-calendar.class.php:3067
+msgid "Venue Information"
+msgstr "Stedsinformasjon"
+
+#: ../lib/the-events-calendar.class.php:3068
+msgid "Organizer Information"
+msgstr "Arrangørinformasjon"
+
+#: ../lib/the-events-calendar.class.php:3207
+msgid "Support"
+msgstr "Brukerstøtte"
+
+#: ../lib/the-events-calendar.class.php:3210
+msgid "View All Add-Ons"
+msgstr "Vis alle tillegg"
+
+#: ../lib/the-events-calendar.class.php:3217
+msgid "News from Modern Tribe"
+msgstr "Nyheter fra Modern Tribe"
+
+#: ../lib/the-events-calendar.class.php:3262
+msgid "Additional Functionality"
+msgstr "Tilleggsfunksjonalitet"
+
+#: ../lib/the-events-calendar.class.php:3267
+msgid ""
+"Looking for additional functionality including recurring events, ticket "
+"sales, publicly submitted events, new views and more?"
+msgstr ""
+"På jakt etter ytterligere funksjonalitet, inkludert gjentakende hendelser, "
+"billettsalg, offentlig innsendte arrangement, andre utseender og mer?"
+
+#: ../lib/the-events-calendar.class.php:3267
+#, php-format
+msgid "Check out the <a href=\"%s\">available add-ons</a>."
+msgstr "Sjekk ut <a href=\"%s\">tilgjengelige utvidelser</a>."
+
+#
+#: ../lib/the-events-calendar.class.php:3332
+#: ../lib/the-events-calendar.class.php:3423
+msgid "View Calendar"
+msgstr "Se kalender"
+
+#
+#: ../lib/the-events-calendar.class.php:3340
+msgid "Add Event"
+msgstr "Legg til aktivitet"
+
+#
+#: ../lib/the-events-calendar.class.php:3349
+msgid "Edit Events"
+msgstr "Rediger aktivitet"
+
+#: ../lib/the-events-calendar.class.php:3358
+#: ../lib/the-events-calendar.class.php:3459
+#: ../lib/tribe-settings.class.php:164
+msgid "Settings"
+msgstr "Innstillinger"
+
+#: ../lib/the-events-calendar.class.php:3394
+#, php-format
+msgid ""
+"Welcome to The Events Calendar! Your events calendar can be found at %s. To "
+"change the events slug, visit %sEvents -> Settings%s."
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:3460
+msgid "Calendar"
+msgstr "Kalender"
+
+#: ../lib/the-events-calendar.class.php:3512
+msgid "List"
+msgstr "Liste"
+
+#
+#: ../lib/the-events-calendar.class.php:3517
+msgid "Month"
+msgstr "Måned"
+
+#
+#: ../lib/the-events-calendar.class.php:3545
+msgid "Date"
+msgstr "Dato"
+
+#
+#: ../lib/the-events-calendar.class.php:3548
+msgid "Events In"
+msgstr "Aktiviteter i"
+
+#
+#: ../lib/the-events-calendar.class.php:3550
+msgid "Events From"
+msgstr ""
+
+#: ../lib/the-events-calendar.class.php:3720 ../views/list/nav.php:21
+#: ../views/list/nav.php:27 ../views/list/nav.php:30
+msgid "&laquo; Previous Events"
+msgstr "&laquo; Tidligere aktiviteter"
+
+#: ../lib/the-events-calendar.class.php:3721 ../views/list/nav.php:39
+#: ../views/list/nav.php:42 ../views/list/nav.php:48
+msgid "Next Events &raquo;"
+msgstr "Neste aktiviteter &raquo;"
+
+#: ../lib/tribe-admin-events-list.class.php:41
+#, php-format
+msgid "View &#8220;%s&#8221;"
+msgstr "Vis &#8220;%s&#8221;"
+
+#: ../lib/tribe-admin-events-list.class.php:186
+msgid "Start Date"
+msgstr "Startdato"
+
+#: ../lib/tribe-admin-events-list.class.php:187
+msgid "End Date"
+msgstr "Sluttdato"
+
+#: ../lib/tribe-admin-events-list.class.php:189
+msgid "Recurring?"
+msgstr "Gjentakende?"
+
+#: ../lib/tribe-admin-events-list.class.php:233
+#: ../lib/tickets/tribe-tickets-pro.php:229
+msgid "Yes"
+msgstr "Ja"
+
+#: ../lib/tribe-admin-events-list.class.php:233
+msgid "No"
+msgstr "Nei"
+
+#: ../lib/tribe-admin-events-list.class.php:287
+#, php-format
+msgid "All %s"
+msgstr "Alle %s"
+
+#
+#: ../lib/tribe-app-shop.class.php:53 ../lib/tribe-app-shop.class.php:54
+#: ../lib/tribe-app-shop.class.php:72
+msgid "Event Add-Ons"
+msgstr "Utvidelser"
+
+# Jeg tenker dette er et egennavn. Lar den stå.
+#: ../lib/tribe-debug-bar.class.php:18
+msgid "Tribe"
+msgstr "Tribe"
+
+#: ../lib/tribe-event-api.class.php:308 ../lib/tribe-view-helpers.class.php:36
+#: ../public/template-tags/venue.php:232
+msgid "United States"
+msgstr "USA"
+
+#: ../lib/tribe-event-exception.class.php:17
+#: ../lib/tribe-event-exception.class.php:34
+msgid "Error"
+msgstr "Feil"
+
+#: ../lib/tribe-field.class.php:163
+msgid "Invalid field type specified"
+msgstr ""
+
+#: ../lib/tribe-field.class.php:415
+msgid "No radio options specified"
+msgstr ""
+
+#: ../lib/tribe-field.class.php:452
+msgid "No checkbox options specified"
+msgstr ""
+
+#: ../lib/tribe-field.class.php:506
+msgid "No select options specified"
+msgstr ""
+
+#
+#: ../lib/tribe-settings-tab.class.php:220
+msgid "There are no fields setup for this tab yet."
+msgstr ""
+
+# Er ikke dette et egennavn? Skal man oversette det?
+#
+#: ../lib/tribe-settings.class.php:164 ../lib/tribe-settings.class.php:176
+msgid "The Events Calendar Settings"
+msgstr "Aktivitetskalender Innstillinger"
+
+#
+#: ../lib/tribe-settings.class.php:176
+msgid "Events Settings"
+msgstr ""
+
+#: ../lib/tribe-settings.class.php:225
+#, php-format
+msgid "%s Settings"
+msgstr "%s Innstillinger"
+
+#: ../lib/tribe-settings.class.php:239
+msgid "You've requested a non-existent tab."
+msgstr ""
+
+#
+#: ../lib/tribe-settings.class.php:247
+msgid " Save Changes"
+msgstr "Lagre endringer"
+
+#: ../lib/tribe-settings.class.php:299
+msgid "You don't have permission to do that."
+msgstr "Du har ikke tillatelse til å utføre handlingen."
+
+#: ../lib/tribe-settings.class.php:305
+msgid "The request was sent insecurely."
+msgstr "Forespørselen ble sendt usikret."
+
+#: ../lib/tribe-settings.class.php:311
+msgid "The request wasn't sent from this tab."
+msgstr ""
+
+#: ../lib/tribe-settings.class.php:476
+msgid "Your form had the following errors:"
+msgstr "Skjemaet hadde følgende feil:"
+
+#: ../lib/tribe-settings.class.php:485
+msgid "None of your settings were saved. Please try again."
+msgstr ""
+
+#: ../lib/tribe-settings.class.php:485
+msgid ""
+"The above setting was not saved. Other settings were successfully saved."
+msgid_plural ""
+"The above settings were not saved. Other settings were successfully saved."
+msgstr[0] ""
+msgstr[1] ""
+
+#
+#: ../lib/tribe-settings.class.php:509
+msgid "Settings saved."
+msgstr "Innstillinger lagret."
+
+#: ../lib/tribe-template-factory.class.php:143
+#, php-format
+msgid "There  were no results found for <strong>\"%s\"</strong>."
+msgstr "Ingen resultater funnet for <strong>\"% s\"</ strong>."
+
+#: ../lib/tribe-template-factory.class.php:153
+#, php-format
+msgid ""
+"listed under %s. Check out past events for this category or view the full "
+"calendar."
+msgstr ""
+"oppført under % s. Sjekk ut tidligere hendelser for denne kategorien, eller "
+"se hele kalenderen."
+
+#: ../lib/tribe-template-factory.class.php:155
+#, php-format
+msgid ""
+"listed under %s. Check out upcoming events for this category or view the "
+"full calendar."
+msgstr ""
+"oppført under %s. Sjekk ut kommende hendelser for denne kategorien, eller se "
+"hele kalenderen."
+
+#: ../lib/tribe-template-factory.class.php:159
+#, php-format
+msgid "No events scheduled for <strong>%s</strong>. Please try another day."
+msgstr ""
+"Ingen aktiviteter planlagt for <strong>%s</strong>. Forsøk en annen dag."
+
+#
+#: ../lib/tribe-template-factory.class.php:163
+msgid "No upcoming events "
+msgstr "Ingen arrangementer"
+
+#
+#: ../lib/tribe-template-factory.class.php:165
+msgid "No matching events "
+msgstr ""
+
+#
+#: ../lib/tribe-template-factory.class.php:168
+msgid "No previous events "
+msgstr ""
+
+#: ../lib/tribe-the-events-calendar-import.class.php:44
+msgid ""
+"Welcome to Events 2.0! This is a HUGE upgrade from 1.6.5. Please make sure "
+"you have backed up before proceeding any further. You can easily <a href=\" "
+"http://wordpress.org/extend/plugins/the-events-calendar/download/\">revert "
+"to an old version</a> if you want to backup first. This upgrade includes two "
+"major steps, <a href=\"edit.php?post_type="
+msgstr ""
+
+#: ../lib/tribe-the-events-calendar-import.class.php:54
+msgid "Upgrade from The Events Calendar"
+msgstr "Oppgrader fra The Events Calendar"
+
+#: ../lib/tribe-the-events-calendar-import.class.php:55
+msgid ""
+"It appears that you have some old events calendar data that needs to be "
+"upgraded. Please be sure to back up your database before initiating the "
+"upgrade. This process can not be undone."
+msgstr ""
+"Det ser ut for at du har noen eldre Events Calendar -data som må "
+"oppgraderes. Vennligst tilse at du har en sikkerhetskopi av databasen før du "
+"utfører oppgraderingen. Denne prosessen kan ikke angres."
+
+#: ../lib/tribe-the-events-calendar-import.class.php:56
+msgid "Migrate Data!"
+msgstr "Migrer data!"
+
+#: ../lib/tribe-the-events-calendar-import.class.php:132
+#, php-format
+msgid "You successfully migrated (%d) entries."
+msgstr "Du har lykkes i å migrere (%d) oppføringer."
+
+#: ../lib/tribe-the-events-calendar-import.class.php:203
+msgid "Install has 1 or more legacy event!"
+msgstr "Installasjonen har en eller flere aktiviteter av gammel type!"
+
+#: ../lib/tribe-validate.class.php:77 ../lib/tribe-validate.class.php:115
+msgid "Invalid or incomplete field passed"
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:78 ../lib/tribe-validate.class.php:110
+#: ../lib/tribe-validate.class.php:116
+msgid "Field ID:"
+msgstr "Felt-ID:"
+
+#: ../lib/tribe-validate.class.php:109
+msgid "Non-existant field validation function passed"
+msgstr "Ikke-eksisterende felt validerings funksjon godkjent"
+
+#: ../lib/tribe-validate.class.php:110
+msgctxt "non-existant function name passed for field validation"
+msgid "with function name:"
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:135 ../lib/tribe-validate.class.php:153
+#, php-format
+msgid "%s must contain numbers and letters only"
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:171
+#, php-format
+msgid "%s must contain numbers, letters and dots only"
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:187
+#, php-format
+msgid "%s must be a positive number."
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:204
+#, php-format
+msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:221
+#, php-format
+msgid "%s must be a valid absolute URL."
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:239 ../lib/tribe-validate.class.php:258
+#: ../lib/tribe-validate.class.php:279
+#, php-format
+msgid "%s must have a value that's part of its options."
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:295
+#, php-format
+msgid ""
+"Comparison validation failed because no comparison value was provided, for "
+"field %s"
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:302
+#, php-format
+msgid "%s cannot be the same as %s."
+msgstr "%s kan ikke være det samme som %s."
+
+#: ../lib/tribe-validate.class.php:304
+#, php-format
+msgid "%s cannot be a duplicate"
+msgstr "%s kan ikke være dobbelt"
+
+#: ../lib/tribe-validate.class.php:322
+#, php-format
+msgid "%s must be a number or percentage."
+msgstr "%s må være et tall eller prosent."
+
+#: ../lib/tribe-validate.class.php:386
+#, php-format
+msgid "%s must be a number between 0 and 21."
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:404
+#, php-format
+msgid ""
+"%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:422
+#, php-format
+msgid "%s must consist of letters, spaces, apostrophes, and dashes."
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:438
+#, php-format
+msgid "%s must consist of 5 numbers."
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:454
+#, php-format
+msgid "%s must be a phone number."
+msgstr ""
+
+#: ../lib/tribe-validate.class.php:472
+msgid ""
+"Country List must be formatted as one country per line in the following "
+"format: <br>US, United States <br> UK, United Kingdom."
+msgstr ""
+"Listen over land må være formatert som ett land per linje i følgende format: "
+"<br>US, USA <br> UK, Storbritannia."
+
+#: ../lib/tribe-view-helpers.class.php:16
+#: ../lib/tribe-view-helpers.class.php:35
+msgid "Select a Country:"
+msgstr "Velg et land:"
+
+#: ../lib/tribe-view-helpers.class.php:37
+msgid "Afghanistan"
+msgstr "Afganistan"
+
+#: ../lib/tribe-view-helpers.class.php:38
+msgid "Albania"
+msgstr "Albania"
+
+#: ../lib/tribe-view-helpers.class.php:39
+msgid "Algeria"
+msgstr "Algerie"
+
+#: ../lib/tribe-view-helpers.class.php:40
+msgid "American Samoa"
+msgstr "Amerikansk Samoa"
+
+#: ../lib/tribe-view-helpers.class.php:41
+msgid "Andorra"
+msgstr "Andorra"
+
+#: ../lib/tribe-view-helpers.class.php:42
+msgid "Angola"
+msgstr "Angola"
+
+#: ../lib/tribe-view-helpers.class.php:43
+msgid "Anguilla"
+msgstr "Anguilla"
+
+#: ../lib/tribe-view-helpers.class.php:44
+msgid "Antarctica"
+msgstr "Antarktis"
+
+#: ../lib/tribe-view-helpers.class.php:45
+msgid "Antigua And Barbuda"
+msgstr "Antigua og Barbuda"
+
+#: ../lib/tribe-view-helpers.class.php:46
+msgid "Argentina"
+msgstr "Argentina"
+
+#: ../lib/tribe-view-helpers.class.php:47
+msgid "Armenia"
+msgstr "Armenia"
+
+#: ../lib/tribe-view-helpers.class.php:48
+msgid "Aruba"
+msgstr "Aruba"
+
+#: ../lib/tribe-view-helpers.class.php:49
+msgid "Australia"
+msgstr "Australia"
+
+#: ../lib/tribe-view-helpers.class.php:50
+msgid "Austria"
+msgstr "Østerrike"
+
+#: ../lib/tribe-view-helpers.class.php:51
+msgid "Azerbaijan"
+msgstr "Aserbajdsjan"
+
+#: ../lib/tribe-view-helpers.class.php:52
+msgid "Bahamas"
+msgstr "Bahamas"
+
+#: ../lib/tribe-view-helpers.class.php:53
+msgid "Bahrain"
+msgstr "Bahrain"
+
+#: ../lib/tribe-view-helpers.class.php:54
+msgid "Bangladesh"
+msgstr "Bangladesh"
+
+#: ../lib/tribe-view-helpers.class.php:55
+msgid "Barbados"
+msgstr "Barbados"
+
+#: ../lib/tribe-view-helpers.class.php:56
+msgid "Belarus"
+msgstr "Hviterussland"
+
+#: ../lib/tribe-view-helpers.class.php:57
+msgid "Belgium"
+msgstr "Belgia"
+
+#: ../lib/tribe-view-helpers.class.php:58
+msgid "Belize"
+msgstr "Belize"
+
+#: ../lib/tribe-view-helpers.class.php:59
+msgid "Benin"
+msgstr "Benin"
+
+#: ../lib/tribe-view-helpers.class.php:60
+msgid "Bermuda"
+msgstr "Bermuda"
+
+#: ../lib/tribe-view-helpers.class.php:61
+msgid "Bhutan"
+msgstr "Bhutan"
+
+#: ../lib/tribe-view-helpers.class.php:62
+msgid "Bolivia"
+msgstr "Bolivia"
+
+#: ../lib/tribe-view-helpers.class.php:63
+msgid "Bosnia And Herzegowina"
+msgstr "Bosnia Herzegowina"
+
+#: ../lib/tribe-view-helpers.class.php:64
+msgid "Botswana"
+msgstr "Botswana"
+
+#: ../lib/tribe-view-helpers.class.php:65
+msgid "Bouvet Island"
+msgstr "Bouvetøya"
+
+#: ../lib/tribe-view-helpers.class.php:66
+msgid "Brazil"
+msgstr "Brasil"
+
+#: ../lib/tribe-view-helpers.class.php:67
+msgid "British Indian Ocean Territory"
+msgstr "Britisk territorium i det Indiske hav"
+
+#: ../lib/tribe-view-helpers.class.php:68
+msgid "Brunei Darussalam"
+msgstr "Brunei Darussalam"
+
+#: ../lib/tribe-view-helpers.class.php:69
+msgid "Bulgaria"
+msgstr "Bulgaria"
+
+#: ../lib/tribe-view-helpers.class.php:70
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+#: ../lib/tribe-view-helpers.class.php:71
+msgid "Burundi"
+msgstr "Burindi"
+
+#: ../lib/tribe-view-helpers.class.php:72
+msgid "Cambodia"
+msgstr "Kambodsja"
+
+#: ../lib/tribe-view-helpers.class.php:73
+msgid "Cameroon"
+msgstr "Kamerun"
+
+#: ../lib/tribe-view-helpers.class.php:74
+msgid "Canada"
+msgstr "Canada"
+
+#: ../lib/tribe-view-helpers.class.php:75
+msgid "Cape Verde"
+msgstr "Kapp Verde"
+
+#: ../lib/tribe-view-helpers.class.php:76
+msgid "Cayman Islands"
+msgstr "Cayman Islands"
+
+#: ../lib/tribe-view-helpers.class.php:77
+msgid "Central African Republic"
+msgstr "Den sentralafrikanske republikk"
+
+#: ../lib/tribe-view-helpers.class.php:78
+msgid "Chad"
+msgstr "Chad"
+
+#: ../lib/tribe-view-helpers.class.php:79
+msgid "Chile"
+msgstr "Chile"
+
+#: ../lib/tribe-view-helpers.class.php:80
+msgid "China"
+msgstr "Kina"
+
+#: ../lib/tribe-view-helpers.class.php:81
+msgid "Christmas Island"
+msgstr "Christmas Island"
+
+#: ../lib/tribe-view-helpers.class.php:82
+msgid "Cocos (Keeling) Islands"
+msgstr "Kokosøyene"
+
+#: ../lib/tribe-view-helpers.class.php:83
+msgid "Colombia"
+msgstr "Colombia"
+
+#: ../lib/tribe-view-helpers.class.php:84
+msgid "Comoros"
+msgstr "Komorene"
+
+#: ../lib/tribe-view-helpers.class.php:85
+msgid "Congo"
+msgstr "Kongo"
+
+#: ../lib/tribe-view-helpers.class.php:86
+msgid "Congo, The Democratic Republic Of The"
+msgstr "Kongo, Den demokratiske republikken"
+
+#: ../lib/tribe-view-helpers.class.php:87
+msgid "Cook Islands"
+msgstr "Cook-øyene"
+
+#: ../lib/tribe-view-helpers.class.php:88
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+#: ../lib/tribe-view-helpers.class.php:89
+msgid "Cote D'Ivoire"
+msgstr "Elfenbenskysten"
+
+#: ../lib/tribe-view-helpers.class.php:90
+msgid "Croatia (Local Name: Hrvatska)"
+msgstr "Kroatia"
+
+#: ../lib/tribe-view-helpers.class.php:91
+msgid "Cuba"
+msgstr "Cuba"
+
+#: ../lib/tribe-view-helpers.class.php:92
+msgid "Cyprus"
+msgstr "Kypros"
+
+#: ../lib/tribe-view-helpers.class.php:93
+msgid "Czech Republic"
+msgstr "Tjekkia"
+
+#: ../lib/tribe-view-helpers.class.php:94
+msgid "Denmark"
+msgstr "Danmark"
+
+#: ../lib/tribe-view-helpers.class.php:95
+msgid "Djibouti"
+msgstr "Djibouti"
+
+#: ../lib/tribe-view-helpers.class.php:96
+msgid "Dominica"
+msgstr "Dominica"
+
+#: ../lib/tribe-view-helpers.class.php:97
+msgid "Dominican Republic"
+msgstr "Dominikanske Republikk"
+
+#: ../lib/tribe-view-helpers.class.php:98
+msgid "East Timor"
+msgstr "Øst-Timor"
+
+#: ../lib/tribe-view-helpers.class.php:99
+msgid "Ecuador"
+msgstr "Ecuador"
+
+#: ../lib/tribe-view-helpers.class.php:100
+msgid "Egypt"
+msgstr "Egypt"
+
+#: ../lib/tribe-view-helpers.class.php:101
+msgid "El Salvador"
+msgstr "El Salvador"
+
+#: ../lib/tribe-view-helpers.class.php:102
+msgid "Equatorial Guinea"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:103
+msgid "Eritrea"
+msgstr "Eritrea"
+
+#: ../lib/tribe-view-helpers.class.php:104
+msgid "Estonia"
+msgstr "Estland"
+
+#: ../lib/tribe-view-helpers.class.php:105
+msgid "Ethiopia"
+msgstr "Etiopia"
+
+#: ../lib/tribe-view-helpers.class.php:106
+msgid "Falkland Islands (Malvinas)"
+msgstr "Falklandsøyene (Malvinas)"
+
+#: ../lib/tribe-view-helpers.class.php:107
+msgid "Faroe Islands"
+msgstr "Færøyene"
+
+#: ../lib/tribe-view-helpers.class.php:108
+msgid "Fiji"
+msgstr "Fiji"
+
+#: ../lib/tribe-view-helpers.class.php:109
+msgid "Finland"
+msgstr "Finland"
+
+#: ../lib/tribe-view-helpers.class.php:110
+msgid "France"
+msgstr "Frankrike"
+
+#: ../lib/tribe-view-helpers.class.php:111
+msgid "France, Metropolitan"
+msgstr "Frankrike, Metropolitan"
+
+#: ../lib/tribe-view-helpers.class.php:112
+msgid "French Guiana"
+msgstr "Fransk Guiana"
+
+#: ../lib/tribe-view-helpers.class.php:113
+msgid "French Polynesia"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:114
+msgid "French Southern Territories"
+msgstr "Franske sørlige territorier"
+
+#: ../lib/tribe-view-helpers.class.php:115
+msgid "Gabon"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:116
+msgid "Gambia"
+msgstr "Gambia"
+
+#: ../lib/tribe-view-helpers.class.php:117
+#: ../lib/tribe-view-helpers.class.php:305
+msgid "Georgia"
+msgstr "Georgia"
+
+#: ../lib/tribe-view-helpers.class.php:118
+msgid "Germany"
+msgstr "Tyskland"
+
+#: ../lib/tribe-view-helpers.class.php:119
+msgid "Ghana"
+msgstr "Ghana"
+
+#: ../lib/tribe-view-helpers.class.php:120
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+#: ../lib/tribe-view-helpers.class.php:121
+msgid "Greece"
+msgstr "Hellas"
+
+#: ../lib/tribe-view-helpers.class.php:122
+msgid "Greenland"
+msgstr "Grønland"
+
+#: ../lib/tribe-view-helpers.class.php:123
+msgid "Grenada"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:124
+msgid "Guadeloupe"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:125
+msgid "Guam"
+msgstr "Guam"
+
+#: ../lib/tribe-view-helpers.class.php:126
+msgid "Guatemala"
+msgstr "Guatemala"
+
+#: ../lib/tribe-view-helpers.class.php:127
+msgid "Guinea"
+msgstr "Guinea"
+
+#: ../lib/tribe-view-helpers.class.php:128
+msgid "Guinea-Bissau"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:129
+msgid "Guyana"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:130
+msgid "Haiti"
+msgstr "Haiti"
+
+#: ../lib/tribe-view-helpers.class.php:131
+msgid "Heard And Mc Donald Islands"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:132
+msgid "Holy See (Vatican City State)"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:133
+msgid "Honduras"
+msgstr "Honduras"
+
+#: ../lib/tribe-view-helpers.class.php:134
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+#: ../lib/tribe-view-helpers.class.php:135
+msgid "Hungary"
+msgstr "Ungarn"
+
+#: ../lib/tribe-view-helpers.class.php:136
+msgid "Iceland"
+msgstr "Island"
+
+#: ../lib/tribe-view-helpers.class.php:137
+msgid "India"
+msgstr "India"
+
+#: ../lib/tribe-view-helpers.class.php:138
+msgid "Indonesia"
+msgstr "Indonesia"
+
+#: ../lib/tribe-view-helpers.class.php:139
+msgid "Iran (Islamic Republic Of)"
+msgstr "Iran (Den Islamiske Republik)"
+
+#: ../lib/tribe-view-helpers.class.php:140
+msgid "Iraq"
+msgstr "Irak"
+
+#: ../lib/tribe-view-helpers.class.php:141
+msgid "Ireland"
+msgstr "Irland"
+
+#: ../lib/tribe-view-helpers.class.php:142
+msgid "Israel"
+msgstr "Israel"
+
+#: ../lib/tribe-view-helpers.class.php:143
+msgid "Italy"
+msgstr "Italia"
+
+#: ../lib/tribe-view-helpers.class.php:144
+msgid "Jamaica"
+msgstr "Jamaica"
+
+#: ../lib/tribe-view-helpers.class.php:145
+msgid "Japan"
+msgstr "Japan"
+
+#: ../lib/tribe-view-helpers.class.php:146
+msgid "Jordan"
+msgstr "Jordan"
+
+#: ../lib/tribe-view-helpers.class.php:147
+msgid "Kazakhstan"
+msgstr "Kazakhstan"
+
+#: ../lib/tribe-view-helpers.class.php:148
+msgid "Kenya"
+msgstr "Kenya"
+
+#: ../lib/tribe-view-helpers.class.php:149
+msgid "Kiribati"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:150
+msgid "Korea, Democratic People's Republic Of"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:151
+msgid "Korea, Republic Of"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:152
+msgid "Kuwait"
+msgstr "Kuwait"
+
+#: ../lib/tribe-view-helpers.class.php:153
+msgid "Kyrgyzstan"
+msgstr "Kirgizistan"
+
+#: ../lib/tribe-view-helpers.class.php:154
+msgid "Lao People's Democratic Republic"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:155
+msgid "Latvia"
+msgstr "Latvia"
+
+#: ../lib/tribe-view-helpers.class.php:156
+msgid "Lebanon"
+msgstr "Libanon"
+
+#: ../lib/tribe-view-helpers.class.php:157
+msgid "Lesotho"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:158
+msgid "Liberia"
+msgstr "Liberia"
+
+#: ../lib/tribe-view-helpers.class.php:159
+msgid "Libya"
+msgstr "Libya"
+
+#: ../lib/tribe-view-helpers.class.php:160
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+#: ../lib/tribe-view-helpers.class.php:161
+msgid "Lithuania"
+msgstr "Litauen"
+
+#: ../lib/tribe-view-helpers.class.php:162
+msgid "Luxembourg"
+msgstr "Luxembourg"
+
+#: ../lib/tribe-view-helpers.class.php:163
+msgid "Macau"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:164
+msgid "Macedonia"
+msgstr "Makedonia"
+
+#: ../lib/tribe-view-helpers.class.php:165
+msgid "Madagascar"
+msgstr "Madagaskar"
+
+#: ../lib/tribe-view-helpers.class.php:166
+msgid "Malawi"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:167
+msgid "Malaysia"
+msgstr "Malaysia"
+
+#: ../lib/tribe-view-helpers.class.php:168
+msgid "Maldives"
+msgstr "Maldivene"
+
+#: ../lib/tribe-view-helpers.class.php:169
+msgid "Mali"
+msgstr "Mali"
+
+#: ../lib/tribe-view-helpers.class.php:170
+msgid "Malta"
+msgstr "Malta"
+
+#: ../lib/tribe-view-helpers.class.php:171
+msgid "Marshall Islands"
+msgstr "Marshall-øyene"
+
+#: ../lib/tribe-view-helpers.class.php:172
+msgid "Martinique"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:173
+msgid "Mauritania"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:174
+msgid "Mauritius"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:175
+msgid "Mayotte"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:176
+msgid "Mexico"
+msgstr "Mexico"
+
+#: ../lib/tribe-view-helpers.class.php:177
+msgid "Micronesia, Federated States Of"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:178
+msgid "Moldova, Republic Of"
+msgstr "Moldova"
+
+#: ../lib/tribe-view-helpers.class.php:179
+msgid "Monaco"
+msgstr "Monaco"
+
+#: ../lib/tribe-view-helpers.class.php:180
+msgid "Mongolia"
+msgstr "Mongolia"
+
+#: ../lib/tribe-view-helpers.class.php:181
+msgid "Montenegro"
+msgstr "Montenegro"
+
+#: ../lib/tribe-view-helpers.class.php:182
+msgid "Montserrat"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:183
+msgid "Morocco"
+msgstr "Marokko"
+
+#: ../lib/tribe-view-helpers.class.php:184
+msgid "Mozambique"
+msgstr "Mosambik"
+
+#: ../lib/tribe-view-helpers.class.php:185
+msgid "Myanmar"
+msgstr "Myanmar"
+
+#: ../lib/tribe-view-helpers.class.php:186
+msgid "Namibia"
+msgstr "Namibia"
+
+#: ../lib/tribe-view-helpers.class.php:187
+msgid "Nauru"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:188
+msgid "Nepal"
+msgstr "Nepal"
+
+#: ../lib/tribe-view-helpers.class.php:189
+msgid "Netherlands"
+msgstr "Nederland"
+
+#: ../lib/tribe-view-helpers.class.php:190
+msgid "Netherlands Antilles"
+msgstr "Nederlandske Antiller"
+
+#: ../lib/tribe-view-helpers.class.php:191
+msgid "New Caledonia"
+msgstr "Ny Caledonia"
+
+#: ../lib/tribe-view-helpers.class.php:192
+msgid "New Zealand"
+msgstr "New Zealand"
+
+#: ../lib/tribe-view-helpers.class.php:193
+msgid "Nicaragua"
+msgstr "Nicaragua"
+
+#: ../lib/tribe-view-helpers.class.php:194
+msgid "Niger"
+msgstr "Niger"
+
+#: ../lib/tribe-view-helpers.class.php:195
+msgid "Nigeria"
+msgstr "Nigeria"
+
+#: ../lib/tribe-view-helpers.class.php:196
+msgid "Niue"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:197
+msgid "Norfolk Island"
+msgstr "Norfolk Island"
+
+#: ../lib/tribe-view-helpers.class.php:198
+msgid "Northern Mariana Islands"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:199
+msgid "Norway"
+msgstr "Norge"
+
+#: ../lib/tribe-view-helpers.class.php:200
+msgid "Oman"
+msgstr "Oman"
+
+#: ../lib/tribe-view-helpers.class.php:201
+msgid "Pakistan"
+msgstr "Pakistan"
+
+#: ../lib/tribe-view-helpers.class.php:202
+msgid "Palau"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:203
+msgid "Panama"
+msgstr "Panama"
+
+#: ../lib/tribe-view-helpers.class.php:204
+msgid "Papua New Guinea"
+msgstr "Papua New Guinea"
+
+#: ../lib/tribe-view-helpers.class.php:205
+msgid "Paraguay"
+msgstr "Paraguay"
+
+#: ../lib/tribe-view-helpers.class.php:206
+msgid "Peru"
+msgstr "Peru"
+
+#: ../lib/tribe-view-helpers.class.php:207
+msgid "Philippines"
+msgstr "Filipinene"
+
+#: ../lib/tribe-view-helpers.class.php:208
+msgid "Pitcairn"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:209
+msgid "Poland"
+msgstr "Polen"
+
+#: ../lib/tribe-view-helpers.class.php:210
+msgid "Portugal"
+msgstr "Portugal"
+
+#: ../lib/tribe-view-helpers.class.php:211
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+#: ../lib/tribe-view-helpers.class.php:212
+msgid "Qatar"
+msgstr "Qatar"
+
+#: ../lib/tribe-view-helpers.class.php:213
+msgid "Reunion"
+msgstr "Reunion"
+
+#: ../lib/tribe-view-helpers.class.php:214
+msgid "Romania"
+msgstr "Romania"
+
+#: ../lib/tribe-view-helpers.class.php:215
+msgid "Russian Federation"
+msgstr "Russland"
+
+#: ../lib/tribe-view-helpers.class.php:216
+msgid "Rwanda"
+msgstr "Rwanda"
+
+#: ../lib/tribe-view-helpers.class.php:217
+msgid "Saint Kitts And Nevis"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:218
+msgid "Saint Lucia"
+msgstr "Saint Lucia"
+
+#: ../lib/tribe-view-helpers.class.php:219
+msgid "Saint Vincent And The Grenadines"
+msgstr "Saint Vincent og Grenadinene"
+
+#: ../lib/tribe-view-helpers.class.php:220
+msgid "Samoa"
+msgstr "Samoa"
+
+#: ../lib/tribe-view-helpers.class.php:221
+msgid "San Marino"
+msgstr "San Marino"
+
+#: ../lib/tribe-view-helpers.class.php:222
+msgid "Sao Tome And Principe"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:223
+msgid "Saudi Arabia"
+msgstr "Saudi Arabia"
+
+#: ../lib/tribe-view-helpers.class.php:224
+msgid "Senegal"
+msgstr "Senegal"
+
+#: ../lib/tribe-view-helpers.class.php:225
+msgid "Serbia"
+msgstr "Serbia"
+
+#: ../lib/tribe-view-helpers.class.php:226
+msgid "Seychelles"
+msgstr "Seychellene"
+
+#: ../lib/tribe-view-helpers.class.php:227
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+#: ../lib/tribe-view-helpers.class.php:228
+msgid "Singapore"
+msgstr "Singapor"
+
+#: ../lib/tribe-view-helpers.class.php:229
+msgid "Slovakia (Slovak Republic)"
+msgstr "Slovakia (Den Slovakiske Republikk)"
+
+#: ../lib/tribe-view-helpers.class.php:230
+msgid "Slovenia"
+msgstr "Slovenia"
+
+#: ../lib/tribe-view-helpers.class.php:231
+msgid "Solomon Islands"
+msgstr "Salomonøyene"
+
+#: ../lib/tribe-view-helpers.class.php:232
+msgid "Somalia"
+msgstr "Somalia"
+
+#: ../lib/tribe-view-helpers.class.php:233
+msgid "South Africa"
+msgstr "Sør-Afrika"
+
+#: ../lib/tribe-view-helpers.class.php:234
+msgid "South Georgia, South Sandwich Islands"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:235
+msgid "Spain"
+msgstr "Spania"
+
+#: ../lib/tribe-view-helpers.class.php:236
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+#: ../lib/tribe-view-helpers.class.php:237
+msgid "St. Helena"
+msgstr "St. Helena"
+
+#: ../lib/tribe-view-helpers.class.php:238
+msgid "St. Pierre And Miquelon"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:239
+msgid "Sudan"
+msgstr "Sudan"
+
+#: ../lib/tribe-view-helpers.class.php:240
+msgid "Suriname"
+msgstr ""
+
+#: ../lib/tribe-view-helpers.class.php:241
+msgid "Svalbard And Jan Mayen Islands"
+msgstr "Svalbard og Jan Mayen"
+
+#: ../lib/tribe-view-helpers.class.php:242
+msgid "Swaziland"
+msgstr "Swaziland"
+
+#: ../lib/tribe-view-helpers.class.php:243
+msgid "Sweden"
+msgstr "Sverige"
+
+#: ../lib/tribe-view-helpers.class.php:244
+msgid "Switzerland"
+msgstr "Sveits"
+
+#: ../lib/tribe-view-helpers.class.php:245
+msgid "Syrian Arab Republic"
+msgstr "Syria"
+
+#: ../lib/tribe-view-helpers.class.php:246
+msgid "Taiwan"
+msgstr "Taiwan"
+
+#: ../lib/tribe-view-helpers.class.php:247
+msgid "Tajikistan"
+msgstr "Tajikistan"
+
+#: ../lib/tribe-view-helpers.class.php:248
+msgid "Tanzania, United Republic Of"
+msgstr "Tanzania"
+
+#: ../lib/tribe-view-helpers.class.php:249
+msgid "Thailand"
+msgstr "Thailand"
+
+#: ../lib/tribe-view-helpers.class.php:250
+msgid "Togo"
+msgstr "Togo"
+
+#: ../lib/tribe-view-helpers.class.php:251
+msgid "Tokelau"
+msgstr "Tokelau"
+
+#: ../lib/tribe-view-helpers.class.php:252
+msgid "Tonga"
+msgstr "Tonga"
+
+#: ../lib/tribe-view-helpers.class.php:253
+msgid "Trinidad And Tobago"
+msgstr "Trinidad og Tobago"
+
+#: ../lib/tribe-view-helpers.class.php:254
+msgid "Tunisia"
+msgstr "Tunisia"
+
+#: ../lib/tribe-view-helpers.class.php:255
+msgid "Turkey"
+msgstr "Tyrkia"
+
+#: ../lib/tribe-view-helpers.class.php:256
+msgid "Turkmenistan"
+msgstr "Turkmenistan"
+
+#: ../lib/tribe-view-helpers.class.php:257
+msgid "Turks And Caicos Islands"
+msgstr "Turks og Caicos øyene"
+
+#: ../lib/tribe-view-helpers.class.php:258
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+#: ../lib/tribe-view-helpers.class.php:259
+msgid "Uganda"
+msgstr "Uganda"
+
+#: ../lib/tribe-view-helpers.class.php:260
+msgid "Ukraine"
+msgstr "Ukraina"
+
+#: ../lib/tribe-view-helpers.class.php:261
+msgid "United Arab Emirates"
+msgstr "Forenede Arabiske Emirater"
+
+#: ../lib/tribe-view-helpers.class.php:262
+msgid "United Kingdom"
+msgstr "Storbrittania"
+
+#: ../lib/tribe-view-helpers.class.php:263
+msgid "United States Minor Outlying Islands"
+msgstr "USAs mindre utenforliggende øyer"
+
+#: ../lib/tribe-view-helpers.class.php:264
+msgid "Uruguay"
+msgstr "Uruguay"
+
+#: ../lib/tribe-view-helpers.class.php:265
+msgid "Uzbekistan"
+msgstr "Usbekistan"
+
+#: ../lib/tribe-view-helpers.class.php:266
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+#: ../lib/tribe-view-helpers.class.php:267
+msgid "Venezuela"
+msgstr "Venezuela"
+
+#: ../lib/tribe-view-helpers.class.php:268
+msgid "Viet Nam"
+msgstr "Vietnam"
+
+#: ../lib/tribe-view-helpers.class.php:269
+msgid "Virgin Islands (British)"
+msgstr "Virgin Islands (British)"
+
+#: ../lib/tribe-view-helpers.class.php:270
+msgid "Virgin Islands (U.S.)"
+msgstr "Virgin Islands (U.S.)"
+
+#: ../lib/tribe-view-helpers.class.php:271
+msgid "Wallis And Futuna Islands"
+msgstr "Wallis og Futuna øyene"
+
+#: ../lib/tribe-view-helpers.class.php:272
+msgid "Western Sahara"
+msgstr "Vest-Sahara"
+
+#: ../lib/tribe-view-helpers.class.php:273
+msgid "Yemen"
+msgstr "Yemen"
+
+#: ../lib/tribe-view-helpers.class.php:274
+msgid "Zambia"
+msgstr "Zambia"
+
+#: ../lib/tribe-view-helpers.class.php:275
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+#: ../lib/tribe-view-helpers.class.php:295
+msgid "Alabama"
+msgstr "Alabama"
+
+#: ../lib/tribe-view-helpers.class.php:296
+msgid "Alaska"
+msgstr "Alaska"
+
+#: ../lib/tribe-view-helpers.class.php:297
+msgid "Arizona"
+msgstr "Arizona"
+
+#: ../lib/tribe-view-helpers.class.php:298
+msgid "Arkansas"
+msgstr "Arkansas"
+
+#: ../lib/tribe-view-helpers.class.php:299
+msgid "California"
+msgstr "California"
+
+#: ../lib/tribe-view-helpers.class.php:300
+msgid "Colorado"
+msgstr "Colorado"
+
+#: ../lib/tribe-view-helpers.class.php:301
+msgid "Connecticut"
+msgstr "Connecticut"
+
+#: ../lib/tribe-view-helpers.class.php:302
+msgid "Delaware"
+msgstr "Delaware"
+
+#: ../lib/tribe-view-helpers.class.php:303
+msgid "District of Columbia"
+msgstr "District of Columbia"
+
+#: ../lib/tribe-view-helpers.class.php:304
+msgid "Florida"
+msgstr "Florida"
+
+#: ../lib/tribe-view-helpers.class.php:306
+msgid "Hawaii"
+msgstr "Hawaii"
+
+#: ../lib/tribe-view-helpers.class.php:307
+msgid "Idaho"
+msgstr "Idaho"
+
+#: ../lib/tribe-view-helpers.class.php:308
+msgid "Illinois"
+msgstr "Illinois"
+
+#: ../lib/tribe-view-helpers.class.php:309
+msgid "Indiana"
+msgstr "Indiana"
+
+#: ../lib/tribe-view-helpers.class.php:310
+msgid "Iowa"
+msgstr "Iowa"
+
+#: ../lib/tribe-view-helpers.class.php:311
+msgid "Kansas"
+msgstr "Kansas"
+
+#: ../lib/tribe-view-helpers.class.php:312
+msgid "Kentucky"
+msgstr "Kentucky"
+
+#: ../lib/tribe-view-helpers.class.php:313
+msgid "Louisiana"
+msgstr "Louisiana"
+
+#: ../lib/tribe-view-helpers.class.php:314
+msgid "Maine"
+msgstr "Maine"
+
+#: ../lib/tribe-view-helpers.class.php:315
+msgid "Maryland"
+msgstr "Maryland"
+
+#: ../lib/tribe-view-helpers.class.php:316
+msgid "Massachusetts"
+msgstr "Massachusetts"
+
+#: ../lib/tribe-view-helpers.class.php:317
+msgid "Michigan"
+msgstr "Michigan"
+
+#: ../lib/tribe-view-helpers.class.php:318
+msgid "Minnesota"
+msgstr "Minnesota"
+
+#: ../lib/tribe-view-helpers.class.php:319
+msgid "Mississippi"
+msgstr "Mississippi"
+
+#: ../lib/tribe-view-helpers.class.php:320
+msgid "Missouri"
+msgstr "Missouri"
+
+#: ../lib/tribe-view-helpers.class.php:321
+msgid "Montana"
+msgstr "Montana"
+
+#: ../lib/tribe-view-helpers.class.php:322
+msgid "Nebraska"
+msgstr "Nebraska"
+
+#: ../lib/tribe-view-helpers.class.php:323
+msgid "Nevada"
+msgstr "Nevada"
+
+#: ../lib/tribe-view-helpers.class.php:324
+msgid "New Hampshire"
+msgstr "New Hampshire"
+
+#: ../lib/tribe-view-helpers.class.php:325
+msgid "New Jersey"
+msgstr "New Jersey"
+
+#: ../lib/tribe-view-helpers.class.php:326
+msgid "New Mexico"
+msgstr "New Mexico"
+
+#: ../lib/tribe-view-helpers.class.php:327
+msgid "New York"
+msgstr "New York"
+
+#: ../lib/tribe-view-helpers.class.php:328
+msgid "North Carolina"
+msgstr "North Carolina"
+
+#: ../lib/tribe-view-helpers.class.php:329
+msgid "North Dakota"
+msgstr "North Dakota"
+
+#: ../lib/tribe-view-helpers.class.php:330
+msgid "Ohio"
+msgstr "Ohio"
+
+#: ../lib/tribe-view-helpers.class.php:331
+msgid "Oklahoma"
+msgstr "Oklahoma"
+
+#: ../lib/tribe-view-helpers.class.php:332
+msgid "Oregon"
+msgstr "Oregon"
+
+#: ../lib/tribe-view-helpers.class.php:333
+msgid "Pennsylvania"
+msgstr "Pennsylvania"
+
+#: ../lib/tribe-view-helpers.class.php:334
+msgid "Rhode Island"
+msgstr "Rhode Island"
+
+#: ../lib/tribe-view-helpers.class.php:335
+msgid "South Carolina"
+msgstr "South Carolina"
+
+#: ../lib/tribe-view-helpers.class.php:336
+msgid "South Dakota"
+msgstr "South Dakota"
+
+#: ../lib/tribe-view-helpers.class.php:337
+msgid "Tennessee"
+msgstr "Tennessee"
+
+#: ../lib/tribe-view-helpers.class.php:338
+msgid "Texas"
+msgstr "Texas"
+
+#: ../lib/tribe-view-helpers.class.php:339
+msgid "Utah"
+msgstr "Utah"
+
+#: ../lib/tribe-view-helpers.class.php:340
+msgid "Vermont"
+msgstr "Vermont"
+
+#: ../lib/tribe-view-helpers.class.php:341
+msgid "Virginia"
+msgstr "Virginia"
+
+#: ../lib/tribe-view-helpers.class.php:342
+msgid "Washington"
+msgstr "Washington"
+
+#: ../lib/tribe-view-helpers.class.php:343
+msgid "West Virginia"
+msgstr "West Virginia"
+
+#: ../lib/tribe-view-helpers.class.php:344
+msgid "Wisconsin"
+msgstr "Wisconsin"
+
+#: ../lib/tribe-view-helpers.class.php:345
+msgid "Wyoming"
+msgstr "Wyoming"
+
+#
+#: ../lib/widget-list.class.php:16
+msgid "A widget that displays upcoming events."
+msgstr ""
+
+#: ../lib/widget-list.class.php:22
+msgid "Events List"
+msgstr ""
+
+#: ../lib/widget-list.class.php:92
+msgid "View All Events"
+msgstr "Vis alle aktiviteter"
+
+#: ../lib/widget-list.class.php:95
+msgid "There are no upcoming events at this time."
+msgstr "Det finnes for tiden ingen kommende aktiviteter"
+
+#: ../lib/template-classes/month.php:72
+#, php-format
+msgid ""
+"There were no results found for <strong>\"%s\"</strong> this month. Try "
+"searching next month."
+msgstr ""
+"Ingen resultater funnet for <strong>\"% s\"</ strong> denne måneden. Prøv å "
+"søke på neste måned."
+
+#: ../lib/template-classes/single-event.php:94
+msgid "This event has passed."
+msgstr "Tidspunktet for aktiviteten er passert."
+
+#: ../lib/tickets/tribe-tickets-attendees.php:33
+msgid "Order #"
+msgstr "Bestilling #"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:34
+msgid "Order Status"
+msgstr "Ordrestatus"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:35
+msgid "Purchaser name"
+msgstr "Kjøpers navn"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:36
+msgid "Purchaser email"
+msgstr "Kjøpers e-post"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:37
+msgid "Ticket type"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-attendees.php:38
+#: ../views/tickets-email.php:293
+msgid "Ticket #"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-attendees.php:39
+#: ../views/tickets-email.php:305
+msgid "Security Code"
+msgstr "Sikkerhets kode"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:40
+#: ../lib/tickets/tribe-tickets-attendees.php:73
+#: ../lib/tickets/tribe-tickets-attendees.php:112
+msgid "Check in"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-attendees.php:74
+#: ../lib/tickets/tribe-tickets-attendees.php:112
+msgid "Undo Check in"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-attendees.php:97
+msgid "Print"
+msgstr "Skriv ut"
+
+#
+#: ../lib/tickets/tribe-tickets-attendees.php:98
+msgid "Email"
+msgstr "E-post"
+
+#
+#: ../lib/tickets/tribe-tickets-attendees.php:99
+msgid "Export"
+msgstr "Eksportere"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:105
+msgid "Filter by ticket #, order # or security code"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-metabox.php:24
+msgid "Tickets"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-metabox.php:62
+msgid "Ticket header image"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-metabox.php:62
+msgid "Set as ticket header"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-pro.php:107
+msgid "You need to select a user or type a valid email address"
+msgstr "Du må velge en bruker eller skriv en gyldig e-postadresse"
+
+#: ../lib/tickets/tribe-tickets-pro.php:108
+msgid "Sending..."
+msgstr "Sender..."
+
+#: ../lib/tickets/tribe-tickets-pro.php:136
+msgid "Columns"
+msgstr "Kolonner"
+
+#: ../lib/tickets/tribe-tickets-pro.php:137
+msgid ""
+"You can use Screen Options to select which columns you want to see. The "
+"selection works in the table below, in the email, for print and for the CSV "
+"export."
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets-pro.php:258
+msgid "attendees"
+msgstr "deltakere"
+
+#: ../lib/tickets/tribe-tickets-pro.php:308
+#, php-format
+msgid "Attendee List for: %s"
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets.php:290
+msgid "Your ticket has been saved."
+msgstr ""
+
+#: ../lib/tickets/tribe-tickets.php:367
+msgid "Your ticket has been deleted."
+msgstr ""
+
+#: ../public/advanced-functions/meta.php:16
+msgid "Start:"
+msgstr "Start:"
+
+#: ../public/advanced-functions/meta.php:23
+msgid "End:"
+msgstr "Slutt:"
+
+#: ../public/advanced-functions/meta.php:32
+msgid "Date:"
+msgstr "Dato:"
+
+#: ../public/advanced-functions/meta.php:150
+msgid "Click to view a Google Map"
+msgstr "Klikk for å se Google-kart"
+
+#
+#: ../public/advanced-functions/meta.php:151
+msgid "+ Google Map"
+msgstr "+ Google Map"
+
+#: ../public/advanced-functions/meta.php:162
+msgid "Details"
+msgstr "Detaljer"
+
+#
+#: ../public/advanced-functions/meta.php:212
+msgid "Event Tags:"
+msgstr ""
+
+#: ../public/advanced-functions/meta.php:238
+msgid "Origin:"
+msgstr "Opprinnelse:"
+
+#: ../public/advanced-functions/meta.php:375
+msgid "Event:"
+msgstr "Aktivitet:"
+
+#
+#: ../public/template-tags/deprecated.php:724
+msgid "Category"
+msgstr "Kategori"
+
+#: ../public/template-tags/general.php:323
+msgid "Tags:"
+msgstr "Merknad:"
+
+#
+#: ../public/template-tags/general.php:409
+msgid "Loading Events"
+msgstr "Laster aktiviteter"
+
+#: ../public/template-tags/general.php:570
+msgid "Free"
+msgstr "Gratis"
+
+#
+#: ../public/template-tags/general.php:743
+msgid "Recurring Event"
+msgstr "Periodisk gjentagende aktivitet"
+
+#: ../public/template-tags/general.php:746
+msgid "(See all)"
+msgstr "(Vis alle)"
+
+#: ../public/template-tags/general.php:939
+#, php-format
+msgid "Calendar powered by %sThe Events Calendar%s"
+msgstr "Kalender drives av %sThe Events Calendar%s"
+
+#: ../public/template-tags/loop.php:150
+#, php-format
+msgid "Events for %1$s"
+msgstr "Aktiviteter for %1$s"
+
+#: ../public/template-tags/loop.php:158
+#, php-format
+msgid "Events for %1$s through %2$s"
+msgstr ""
+
+#
+#: ../public/template-tags/loop.php:168
+msgid "Events for "
+msgstr "Aktiviteter for"
+
+#: ../public/template-tags/options.php:20
+#, php-format
+msgid "Your current Events URL is %s"
+msgstr ""
+
+#: ../public/template-tags/options.php:31
+#, php-format
+msgid ""
+"You <strong>cannot</strong> use the same slug as above. The above should "
+"ideally be plural, and this singular.<br />Your single Event URL is like: %s"
+msgstr ""
+
+#
+#: ../views/single-event.php:31
+msgid "&laquo; All Events"
+msgstr ""
+
+#
+#: ../views/single-event.php:45 ../views/single-event.php:71
+msgid "Event Navigation"
+msgstr ""
+
+#
+#: ../views/tickets-attendees-email.php:11
+msgid "Attendee List"
+msgstr "Deltaker liste"
+
+#: ../views/tickets-email.php:16
+msgid "Your tickets"
+msgstr ""
+
+#: ../views/tickets-email.php:297
+msgid "Ticket Type"
+msgstr ""
+
+#: ../views/tickets-email.php:301
+msgid "Purchaser"
+msgstr "Kjøper"
+
+#
+#: ../views/list/nav.php:15
+msgid "Events List Navigation"
+msgstr ""
+
+#: ../views/list/single-event.php:74
+msgid "Find out more"
+msgstr "Finn ut mer"
+
+#
+#: ../views/modules/bar.php:29 ../views/modules/bar.php:57
+msgid "Find Events"
+msgstr "Finn Aktivitet"
+
+#: ../views/modules/bar.php:35
+msgid "Event Views Navigation"
+msgstr ""
+
+#
+#: ../views/modules/bar.php:36
+msgid "View As"
+msgstr "Vis som"
+
+#
+#: ../views/month/nav.php:19
+msgid "Calendar Month Navigation"
+msgstr "Kalendermåned Navigation"
+
+#~ msgid "@"
+#~ msgstr "@"
+
+#~ msgid "Leave blank to hide the field. Enter a 0 for events that are free."
+#~ msgstr ""
+#~ "La feltet være blankt for å skjule det. Skriv 0 om aktiviteten er gratis."
+
+#~ msgid "Need a hand?"
+#~ msgstr "Trenger du hjelp?"
+
+#~ msgid ""
+#~ "If you're stuck on these options, please go to the <a href=\"%s\">support "
+#~ "forum</a>."
+#~ msgstr ""
+#~ "Om du sitter fast med innstillingene, vennligst gå til <a href=\"%s"
+#~ "\">forumet for brukerstøtte</a>."
+
+#~ msgid "Default View for the Events"
+#~ msgstr "Standardinnstillinger for aktivitetene"
+
+#~ msgid "Multiday Event Cutoff"
+#~ msgstr "Brytningspunkt for aktiviteter som strekker seg over flere dager"
+
+#~ msgid ""
+#~ "For multi-day events, hide the last day from grid view if it ends on or "
+#~ "before this time."
+#~ msgstr ""
+#~ "For aktiviteter som strekker seg over flere dager, skjul den siste dagen "
+#~ "fra kalendervisning om aktiviteten slutter på eller før dette tidspunktet."
+
+#~ msgid "Height"
+#~ msgstr "Høyde"
+
+#~ msgid "Width"
+#~ msgstr "Bredde"
+
+#~ msgid "(number or %)"
+#~ msgstr "(antall eller %)"
+
+#~ msgid ""
+#~ "If you don't have this turned on, your event listings won't have the "
+#~ "backend map preview or frontend embedded map."
+#~ msgstr ""
+#~ "Om denne ikke er aktivert vil ikke aktivitetene dine ha forhåndsvisning "
+#~ "av detaljkart eller innebygde hovedsidekart."
+
+#~ msgid "The slug used for building a single Event URL."
+#~ msgstr "Kortnavnet benyttes for å konstruere URLen til en enkeltaktivitet."
+
+#~ msgid "Debug Events display issues."
+#~ msgstr "Feilsøk visningsproblemer for aktiviteter."
+
+#~ msgid ""
+#~ "Some themes may require that you add extra divs before the calendar list "
+#~ "to help with styling."
+#~ msgstr ""
+#~ "Noen temaer krever at du legger til ekstra DIV-tagger foran kalenderen "
+#~ "for å bedre utseendet."
+
+#~ msgid "This is displayed directly after the header."
+#~ msgstr "Dette vises rett etter toppteksten."
+
+#~ msgid "You may use (x)HTML."
+#~ msgstr "Du kan benytte (x)HTML."
+
+#~ msgid ""
+#~ "Some themes may require that you add extra divs after the calendar list "
+#~ "to help with styling."
+#~ msgstr ""
+#~ "Noen temaer krever at du legger til ekstra DIV-tagger etter kalenderen "
+#~ "for å bedre utseendet."
+
+#~ msgid "This is displayed directly above the footer."
+#~ msgstr "Dette vises rett før bunnteksten."
+
+#~ msgid "Which events do you wish to update?"
+#~ msgstr "Hvilke aktiviteter vil du oppdatere?"
+
+#~ msgid "Select your desired action"
+#~ msgstr "Velg ønsket handling"
+
+#~ msgid ""
+#~ "If you wish to customize the widget display yourself, see the file views/"
+#~ "events-list-load-widget-display.php inside the Events Premium plugin."
+#~ msgstr ""
+#~ "Om du ønsker å tilpasse widgetens utseende kan du titte på filen views/"
+#~ "events-list-load-widget-display.php som følger med Events Premium-"
+#~ "innstikket."
+
+#~ msgid ""
+#~ "Welcome to Events 2.0! This is a HUGE upgrade from 1.6.5. Please make "
+#~ "sure you have backed up before proceeding any further. You can easily <a "
+#~ "href=\" http://wordpress.org/extend/plugins/the-events-calendar/download/"
+#~ "\">revert to an old version</a> if you want to backup first. This upgrade "
+#~ "includes two major steps, <a href=\"options-general.php?page=tribe-events-"
+#~ "calendar\">migrating data</a> & updating your templates as necessary. "
+#~ "There have been significant changes to the template tags and functions. "
+#~ "Check out our <a href=\"http://tri.be/migrating-from-events-"
+#~ "calendar-1-6-5-to-2-0\">walkthrough on the upgrade</a> before proceeding "
+#~ "and check out the FAQ & Knowledge base from the <a href=\"http://tri.be/"
+#~ "support/\">support page</a>. If you're new to The Events Calendar, you "
+#~ "may want to review our <a href=\"http://tri.be/support/documentation/"
+#~ "events-calendar-pro-new-user-primer/\">new user primer</a>.<br/><br/> You "
+#~ "have events that need to be migrated.  Please visit the bottom of the <a "
+#~ "href=\"options-general.php?page=tribe-events-calendar\">settings page</a> "
+#~ "to perform the migration."
+#~ msgstr ""
+#~ "Velkommen til Events 2.0! Dette er en STOR oppgradering fra 1.6.5. "
+#~ "Vennligst se til at du har tatt en sikkerhetskopi før du fortsetter. Du "
+#~ "kan enkelt <a href=\" http://wordpress.org/extend/plugins/the-events-"
+#~ "calendar/download/\">rulle tilbake til en eldre versjon</a> om du vil ta "
+#~ "en sikkerhetskopi først. Denne oppgraderingen består av to hovedsteg; <a "
+#~ "href=\"options-general.php?page=tribe-events-calendar\">migrering av "
+#~ "data</a> og oppdatering av malene dine om nødvendig. Taggene for maler og "
+#~ "funksjonene har gjennomgått betydelige endringer. Ta en titt på vår <a "
+#~ "href=\"http://tri.be/migrating-from-events-calendar-1-6-5-"
+#~ "to-2-0\">oppgraderingsveiledning</a> før du fortsetter, og se på FAQen og "
+#~ "kunnskapsdatabasen fra <a href=\"http://tri.be/support/\">siden for "
+#~ "brukerstøtte</a>. Om det er første gang du bruker The Events Calendar "
+#~ "anbefaler vi at du leser vår <a href=\"http://tri.be/support/"
+#~ "documentation/events-calendar-pro-new-user-primer/\">veiledning for nye "
+#~ "brukere</a>.<br/><br/> Du har aktiviteter som må migreres. Vennligst se "
+#~ "nederst på siden for <a href=\"options-general.php?page=tribe-events-"
+#~ "calendar\">innstillinger</a> for å utføre migreringen."
+
+#~ msgid "All Day"
+#~ msgstr "Hele dagen"
+
+#~ msgid "iCal Import"
+#~ msgstr "iCal-import"
+
+#~ msgid "Organizer:"
+#~ msgstr "Arrangør:"
+
+#~ msgid "Schedule:"
+#~ msgstr "Plan:"
+
+#~ msgid "Add to Google Calendar"
+#~ msgstr "Legg til Google-kalender"
+
+#~ msgid "+ Google Calendar"
+#~ msgstr "+ Google-kalender"
+
+#~ msgid "View all &raquo;"
+#~ msgstr "Vis alle &raquo;"
