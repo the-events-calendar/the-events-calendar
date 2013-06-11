@@ -3,16 +3,8 @@
  * Single Event Template
  * A single event. This displays the event title, description, meta, and
  * optionally, the Google map for the event.
- *
- * This view contains the filters required to create an effective single event view.
- *
- * You can recreate an ENTIRELY new single event view by doing a template override, and placing
- * a single-event.php file in a tribe-events/ directory within your theme directory, which
- * will override the /views/single-event.php.
- *
- * You can use any or all filters included in this file or create your own filters in
- * your functions.php. In order to modify or extend a single filter, please see our
- * readme on templates hooks and filters (TO-DO)
+ * 
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/single-event.php
  *
  * @package TribeEventsCalendar
  * @since  2.1

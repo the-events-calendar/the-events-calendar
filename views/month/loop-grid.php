@@ -1,7 +1,7 @@
 <?php 
 /**
- * Calendar Grid Loop
- * This file sets up the structure for the calendar grid loop
+ * Month View Grid Loop
+ * This file sets up the structure for the month grid loop
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/month/loop-grid.php
  * *
@@ -10,7 +10,8 @@
  * @author Modern Tribe Inc.
  *
  */
-?>
+
+if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <?php 
 
