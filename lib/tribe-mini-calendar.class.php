@@ -106,8 +106,6 @@ class TribeEventsMiniCalendar {
 		}
 		apply_filters( 'tribe_events_ajax_response', $response );
 
-		// echo $response['html'];
-
 		header( 'Content-type: application/json' );
 		echo json_encode( $response );
 		die();
@@ -121,11 +119,10 @@ class TribeEventsMiniCalendar {
 	 * @static
 	 *
 	 * @param array $args
-	 *              -----> layout:      string  'wide' or 'tall'
-	 *                                          month:       date    What month-year to print
-	 *                                          count:       int     # of events in the list (doesn't affect the calendar).
-	 *                                          tax_query:   array   For the events list (doesn't affect the calendar).
-	 *                                          Same format as WP_Query tax_queries. See sample below.
+	 *              -----> eventDate:   date    What month-year to print
+	 *                     count:       int     # of events in the list (doesn't affect the calendar).
+	 *                     tax_query:   array   For the events list (doesn't affect the calendar).
+	 *                     		Same format as WP_Query tax_queries. See sample below.
 	 *
 	 *
 	 * tax_query sample:
@@ -170,9 +167,9 @@ class TribeEventsMiniCalendar {
 		}
 
 		tribe_show_month( array(
-				'tax_query' => $this->args['tax_query'],
-				'eventDate' => $this->args['eventDate'],
-			), 'widgets/mini-calendar/calendar' );
+			'tax_query' => $this->args['tax_query'],
+			'eventDate' => $this->args['eventDate'],
+		), 'widgets/mini-calendar-widget' );
 
 	}
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Week Nav Template
+ * Week View Nav
  * This file loads the week view navigation.
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/week/nav.php
@@ -10,9 +10,8 @@
  * @author Modern Tribe Inc.
  *
  */
-?>
 
-<?php // TODO: add data-week attr to links for ajax ?>
+if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <h3 class="tribe-events-visuallyhidden"><?php _e( 'Week Navigation', 'tribe-events-calendar-pro' ); ?></h3>
 <ul class="tribe-events-sub-nav">

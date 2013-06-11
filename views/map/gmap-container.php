@@ -1,7 +1,7 @@
 <?php 
 /**
- * Map Container Template
- * This file loads the Google Maps container.
+ * Map View Google Map Container
+ * This file outputs the Google Map container.
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/map/gmap-container.php 
  *
@@ -10,7 +10,8 @@
  * @author Modern Tribe Inc.
  *
  */
-?>
+
+if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <div id="tribe-geo-map-wrapper">
 	<div id="tribe-geo-loading"></div><!-- #tribe-geo-loading -->

@@ -1,16 +1,17 @@
 <?php 
 /**
- * List Loop
+ * Day View Loop
  * This file sets up the structure for the day loop
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/loop-day.php
- * *
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/loop.php
+ *
  * @package TribeEventsCalendar
  * @since  3.0
  * @author Modern Tribe Inc.
  *
  */
-?>
+
+if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <?php 
 

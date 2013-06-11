@@ -1,3 +1,18 @@
+<?php
+/**
+ * Events Pro Venue Widget
+ * This is the template for the output of the venue widget. 
+ *
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/widgets/venue-widget.php
+ *
+ * @package TribeEventsCalendarPro
+ * @since  3.0
+ * @author Modern Tribe Inc.
+ *
+ */
+
+if ( !defined('ABSPATH') ) { die('-1'); } ?>
+
 <h3 class="tribe_widget-title"><?php echo $title; ?></h3>
 <div class="tribe-venue-widget-wrapper">
 	<div class="tribe-venue-widget-venue">

@@ -5,13 +5,10 @@
  * All the items are turned on and off through the widget admin.
  * There is currently no default styling, which is highly needed.
  *
- * You can customize this view by putting a replacement file of the same name
- * (list-widget.php) in the tribe-events/widgets/ directory of your theme.
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/widgets/list-widget.php
  *
  * When the template is loaded, the following vars are set: $start, $end, $venue, 
  * $address, $city, $state, $province'], $zip, $country, $phone, $cost
- *
- * @return string
  *
  * @package TribeEventsCalendarPro
  * @since  1.0
@@ -19,9 +16,7 @@
  *
  */
 
-// Don't load directly
-if ( !defined('ABSPATH') ) { die('-1'); }
-?>
+if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <li>
 	<h4 class="entry-title summary">

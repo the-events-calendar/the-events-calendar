@@ -3,14 +3,15 @@
  * Mini Calendar List Loop
  * This file sets up the structure for the list loop
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/list/loop-list.php
- * *
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/widgets/mini-calendar/list.php
+ *
  * @package TribeEventsCalendar
  * @since  3.0
  * @author Modern Tribe Inc.
  *
  */
-?>
+
+if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <div class="tribe-mini-calendar-list-wrapper">
 	<div class="tribe-events-loop hfeed vcalendar">

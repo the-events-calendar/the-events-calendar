@@ -1,16 +1,17 @@
 <?php
 /**
- * Photo Nav Template
+ * Photo View Nav
  * This file contains the photo view navigation.
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/calendar/nav.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/photo/nav.php
  *
  * @package TribeEventsCalendar
  * @since  3.0
  * @author Modern Tribe Inc.
  *
  */
-?>
+
+if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <?php
 

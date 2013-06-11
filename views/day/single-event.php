@@ -1,10 +1,10 @@
 <?php 
 /**
- * Day Single Event
+ * Day View Single Event
  * This file contains one event in the day view
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/day/single-event.php
- * *
+ *
  * @package TribeEventsCalendar
  * @since  3.0
  * @author Modern Tribe Inc.

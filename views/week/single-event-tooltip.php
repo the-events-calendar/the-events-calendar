@@ -1,3 +1,18 @@
+<?php
+/**
+ * Week View Single Event Tooltip
+ * This file sets up the content for the week view single event tooltip
+ *
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/week/single-event-tooltip.php
+ *
+ * @package TribeEventsCalendar
+ * @since  3.0
+ * @author Modern Tribe Inc.
+ *
+ */
+
+if ( !defined('ABSPATH') ) { die('-1'); } ?>
+
 <?php $event = tribe_events_week_get_event(); ?>
 <div id="tribe-events-tooltip-<?php echo $event->ID; ?>" class="tribe-events-tooltip">
 	<h4 class="entry-title summary"><?php echo $event->post_title; ?></h4>

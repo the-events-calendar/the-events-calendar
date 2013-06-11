@@ -1,16 +1,17 @@
 <?php 
 /**
- * Day Nav Template
+ * Day View Nav
  * This file contains the day view navigation.
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/nav-day.php 
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/day/nav.php 
  *
  * @package TribeEventsCalendar
  * @since  3.0
  * @author Modern Tribe Inc.
  *
  */
-?>
+
+if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <h3 class="tribe-events-visuallyhidden"><?php _e( 'Day Navigation', 'tribe-events-calendar-pro' ) ?></h3>
 <ul class="tribe-events-sub-nav">

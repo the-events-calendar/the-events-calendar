@@ -1,19 +1,16 @@
 <?php 
 /**
  * Mini Calendar Widget Grid Template
- * This file loads the TEC mini calendar widget - grid
+ * This file loads the mini calendar widget grid
  *
- * You can recreate an ENTIRELY new mini calendar widget grid by doing a template override, and placing
- * a widgets/mini-calendar/grid.php file in a tribe-events/ directory within your theme directory, which
- * will override the /views/widgets/mini-calendar/grid.php. 
- *
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/widgets/mini-calendar/grid.php
  *
  * @package TribeEventsCalendar
  * @since  3.0
  * @author Modern Tribe Inc.
  *
  */
-?>
+if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <?php 
 $days_of_week = tribe_events_get_days_of_week('short');

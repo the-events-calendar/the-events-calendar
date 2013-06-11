@@ -1,11 +1,11 @@
 <?php
 /**
- * Day View Content Template
+ * Day View Content
  * The content template for the day view. This template is also used for
  * the response that is returned on day view ajax requests.
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/day/content.php
- * *
+ *
  * @package TribeEventsCalendar
  * @since  3.0
  * @author Modern Tribe Inc.

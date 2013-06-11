@@ -1,17 +1,18 @@
 <?php
 /**
- * Week Grid Loop
- * This file sets up the structure for the week grid loop
+ * Week View Grid Loop
+ * This file sets up the structure for the week view grid loop
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/week/loop-grid.php
- *
  *
  * @package TribeEventsCalendar
  * @since  3.0
  * @author Modern Tribe Inc.
  *
  */
-?>
+
+if ( !defined('ABSPATH') ) { die('-1'); } ?>
+
 <div class="tribe-events-grid hfeed vcalendar clearfix">
 	<div class="tribe-grid-header clearfix">
 		<div class="column first">

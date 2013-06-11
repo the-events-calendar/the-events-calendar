@@ -1,16 +1,19 @@
 <?php
 /**
- * Week Grid All Day Event Loop
+ * Week View Grid All Day Event Loop
  * This file sets up the structure for the week grid all day event loop
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/week/loop-grid-allday.php
  * 
- *
  * @package TribeEventsCalendar
  * @since  3.0
  * @author Modern Tribe Inc.
  *
  */
+
+if ( !defined('ABSPATH') ) { die('-1'); } ?>
+
+<?php 
 
 tribe_events_week_set_loop_type( 'allday' );
 

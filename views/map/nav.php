@@ -1,6 +1,6 @@
 <?php
 /**
- * Map Nav Template
+ * Map View Nav
  * This file contains the map view navigation.
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/map/nav.php
@@ -10,7 +10,8 @@
  * @author Modern Tribe Inc.
  *
  */
-?>
+
+if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <?php
 

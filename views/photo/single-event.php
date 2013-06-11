@@ -1,17 +1,17 @@
-
 <?php 
 /**
- * Photo Single Event
+ * Photo View Single Event
  * This file contains one event in the photo view
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/photo/single-event.php
- * *
+ *
  * @package TribeEventsCalendar
  * @since  3.0
  * @author Modern Tribe Inc.
  *
  */
-?>
+
+if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <?php 
 
