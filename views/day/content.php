@@ -1,6 +1,6 @@
 <?php
 /**
- * Day Content Template
+ * Day View Content Template
  * The content template for the day view. This template is also used for
  * the response that is returned on day view ajax requests.
  *

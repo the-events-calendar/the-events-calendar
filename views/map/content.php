@@ -1,6 +1,6 @@
 <?php
 /**
- * Map Content Template
+ * Map View Content Template
  * The content template for the map view of events. This template is also used for
  * the response that is returned on map view ajax requests.
  *

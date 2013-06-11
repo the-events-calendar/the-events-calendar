@@ -1,6 +1,6 @@
 <?php
 /**
- * Photo Content Template
+ * Photo View Content Template
  * The content template for the photo view of events. This template is also used for
  * the response that is returned on photo view ajax requests.
  *
