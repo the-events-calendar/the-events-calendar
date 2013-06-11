@@ -470,7 +470,7 @@ class TribeEventsGeoLoc {
 
 			ob_start();
 
-			tribe_get_view();
+			tribe_get_view( 'map/content' );
 			$response['html'] .= ob_get_clean();
 			$response['markers'] = $this->generate_markers( $data );
 		} else {
