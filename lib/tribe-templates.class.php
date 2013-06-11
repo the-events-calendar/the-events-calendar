@@ -68,13 +68,8 @@ if (!class_exists('TribeEventsTemplates')) {
 			}
 
 			if( tribe_get_option('tribeEventsTemplate', 'default') == '' ) {
-				if(is_single() && !tribe_is_showing_all() ) {
-					return self::getTemplateHierarchy('wrapper-single');
-				} else {
-					return self::getTemplateHierarchy('wrapper-page');
-				}
+				return self::getTemplateHierarchy('default-template');
 			} else {
-
 
 				// add_filter( 'wp_title', array(__CLASS__, 'remove_default_title'), 1);
 
