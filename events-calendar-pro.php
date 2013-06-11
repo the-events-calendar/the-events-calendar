@@ -446,7 +446,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				TribeEventsTemplates::getTemplateHierarchy( 'day', '', 'pro', $this->pluginPath );
 
 				ob_start();
-				tribe_get_view('day');
+				tribe_get_view( 'day/content' );
 
 				$response = array(
 					'html'            => ob_get_clean(),

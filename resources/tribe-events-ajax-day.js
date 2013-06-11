@@ -199,7 +199,6 @@
 								$('#tribe-events-header .tribe-events-sub-nav').empty();
 							}
 							$('.tribe-events-promo').next('.tribe-events-promo').remove();
-							$('#tribe-events-content').next('.tribe-clear').remove();
 
 							var page_title = $("#tribe-events-header").attr('data-title');
 
