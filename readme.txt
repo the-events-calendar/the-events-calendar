@@ -209,6 +209,7 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 * German from Thomas Butzek
 * Greek from Panos Efstratiou
 * Italian from Roberto Scano
+* Norwegian from Kjell Vestnes
 * Polish from Marek Kosina
 * Portuguese from Antonio Pratas
 * Romanian from Mihai Burcea
