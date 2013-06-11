@@ -20,6 +20,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		public static $tribe_bar_args = array();
 		public static $today;
 		public static $start_of_week_date;
+		public static $end_of_week_date;
 		public static $start_of_week;
 		public static $week_length = 7;
 		public static $week_days;
@@ -39,6 +40,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			self::$prior_event_date = (object) array( 'EventStartDate'=>null, 'EventEndDate'=>null );
 			self::$today = date_i18n( 'Y-m-d', strtotime( 'today' ) );
 			self::$start_of_week_date = tribe_get_first_week_day();
+			self::$end_of_week_date = date_i18n( 'Y-m-d', strtotime( '+' . self::$week_length - 1 . ' days', strtotime( self::$start_of_week_date ) ) );
 			self::$start_of_week = get_option( 'start_of_week', 0 );
 
 			// let's get this show on the road
@@ -247,24 +249,26 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			self::$events->all_day_map[] = array_fill( self::$start_of_week, self::$week_length, null );
 			foreach ( $wp_query->posts as $event_key_id => $event ) {
 
-				// convert the start date of the event into a timestamp
+				// convert the start and end dates of the event into timestamps
 				$event_start_time = strtotime( $event->EventStartDate );
+				$event_end_time = strtotime( $event->EventEndDate );
 
 				// if the event start time is greater than the start time of the week then we use the event date otherwise use the beginning of the week date
 				$start_date_compare = strtotime( self::$start_of_week_date ) < $event_start_time ? $event->EventStartDate : self::$start_of_week_date;
+				$end_date_compare = strtotime( self::$end_of_week_date ) > $event_end_time ? $event->EventEndDate : self::$end_of_week_date;
 
 				// convert the starting event or week date into day of the week
 				$event_start_day_of_week = date( 'w', strtotime( $start_date_compare ) );
 
 				// determine the number of days between the starting date and the end of the event
-				$event->days_between = tribe_get_days_between( $start_date_compare, $event->EventEndDate );
+				$event->days_between = tribe_get_days_between( $start_date_compare, $end_date_compare );
 
 				// make sure that our days between will not extend past the end of the week
 				$event->days_between = $event->days_between >= self::$week_length - $event_start_day_of_week ? ( self::$week_length - $event_start_day_of_week ) : (int) $event->days_between;
 
 				// if this is an all day event
 				if (  tribe_get_event_meta( $event->ID, '_EventAllDay' ) ) {
-
+					
 					// let's build our hashtable for add day events
 					foreach ( self::$events->all_day_map as $hash_id => $days ) {
 
@@ -273,13 +277,12 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 						// loop through the columns of this hash row
 						for ( $n = $event_start_day_of_week; $n <= $event_start_day_of_week + $event->days_between; $n++ ) {
-
 							// create an offset id for cases where the day of the week is less the starting day of the week
 							// thus looping the beginning days of the start week starting at 0 around to the end
-							$all_day_offset = ( $n < self::$start_of_week ) ? ( self::$start_of_week + self::$week_length ) - ( $n + self::$start_of_week ) : $n;
+							$all_day_offset = ( $n < self::$start_of_week ) ? self::$week_length + $n : $n;
 
 							// check for hash collision and setup bool for going to the next row if we can't fit it on this row
-							if ( ! empty( self::$events->all_day_map[$hash_id][$all_day_offset] ) ) {
+							if ( ! empty( self::$events->all_day_map[$hash_id][$all_day_offset] ) || self::$events->all_day_map[$hash_id][$all_day_offset] == '0'  ) {
 								$insert_current_row = true;
 								break;
 							} else {
@@ -297,9 +300,9 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 						} else if ( $insert_current_row ) {
 
-								// nullify the hash id
-								$hash_id = null;
-							}
+							// nullify the hash id
+							$hash_id = null;
+						}
 
 						// if we still have a hash id then fill the row with the event id
 						if ( ! is_null( $hash_id ) ) {
@@ -308,7 +311,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 							for ( $n = $event_start_day_of_week; $n <= $event_start_day_of_week + $event->days_between; $n++ ) {
 								// create an offset id for cases where the day of the week is less the starting day of the week
 								// thus looping the beginning days of the start week starting at 0 around to the end
-								$all_day_offset = ( $n < self::$start_of_week ) ? ( self::$start_of_week + self::$week_length ) - ( $n + self::$start_of_week ) : $n;
+								$all_day_offset = ( $n < self::$start_of_week ) ? self::$week_length + $n : $n;
 
 								// add the event array key id into the week day column
 								self::$events->all_day_map[$hash_id][$all_day_offset] = $event_key_id;
@@ -332,7 +335,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 					}
 					self::$events->hourly[ $event->ID ] = $event;
 				}
-			}
+			}		
 		}
 
 		/**
@@ -461,7 +464,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			echo 'hentry vevent type-tribe_events post-' . $event->ID, ' tribe-clearfix ';
 
 			// we need to adjust on behalf of weekly span scripts
-			$day_span_length = $event->days_between + self::$start_of_week;
+			$day_span_length = $event->days_between + 1;
 			if ( $day_span_length > 0 )
 				echo 'tribe-dayspan' . $day_span_length . ' ';
 
