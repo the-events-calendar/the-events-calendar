@@ -87,17 +87,29 @@ Send it to us and we would be <a href="mailto:pro@tri.be">happy to review it</a>
 
 == FAQ ==
 
-= Where do I go to file a bug or ask a question? =
+= Are there any troubleshooting steps you'd suggest I try, that might resolve my issue before I post a new thread? =
 
-Users of the free The Events Calendar should post their questions at the  plugin's <a href="http://wordpress.org/support/plugin/the-events-calendar/?ref=tec-readme">WordPress.org forum</a>, which we hit about once a week. PRO users are entitled access to our more actively-monitored <a href="tri.be/support/forums/?ref=tec-readme">PRO forums</a> at the tri.be website.
+First, make sure that you're running the latest version of The Events Calendar (3.0.0 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
 
-= I want access to more features. How can I get my hands on Events Calendar PRO? =
+The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.0 is running on your site. If the issue persists from there, revert to the default Twenty Twelve theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
+
+Note that we aren't going to say "tough luck" if you identify a plugin/theme conflict. While we can't guarantee 100% integration with any plugin or theme out there, we will do our best (and reach out the plugin/theme author as needed) to figure out a solution that benefits everyone.
+
+= I'm still stuck. Where do I go to file a bug or ask a question? =
+
+Users of the free The Events Calendar should post their questions at the  plugin's <a href="http://wordpress.org/support/plugin/the-events-calendar/?ref=tec-readme">WordPress.org forum</a>, which we hit about once a week. Please make sure to read <a href="http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first?ref=tec-readme">our sticky post</a> providing an overview of the support we provide free users BEFORE posting. If you find you're not getting support in as timely a fashion as you wish, you might want to consider purchasing a PRO license.
+
+If you're already a PRO user, you're entitled access to our more actively-monitored <a href="tri.be/support/forums/?ref=tec-readme">PRO forums</a> at the tri.be website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. No post should go more than 24-hours during that time without a response. 
+
+= Events Calendar PRO looks awesome! I'm sold…how can I get my hands on it? =
 
 Events Calendar PRO can be purchased directly at the <a href="tri.be/support/forums/?ref=tec-readme">tri.be website.</a> There are three (3) license types available, and all licenses include 1 year of access to support + updates.
 
-= I'm interested in updating to PRO, but have a question that's not answered on the product page. Where can I get that answered? =
+= I'm interested in PRO or another add-on, but there are a few questions I've got before making the purchase. Can you help me get those addressed? =
 
-Our <a href="http://tri.be/support/forums/forum/_welcome/pre-sales-questions/?ref=tec-readme">pre-sale forum</a> at the tri.be website is open and available to everyone; we encourage potential customers to review threads on that forum + post a new discussion if your question isn't already answered. You may also email <a href="mailto:pro@tri.be">pro@tri.be</a> with pre-sale questions if you prefer.
+Absolutely. If you're not finding your questions answered on the product pages, hit up our <a href="http://tri.be/support/forums/forum/_welcome/pre-sales-questions/?ref=tec-readme">pre-sale forum</a> at the tri.be site. You can save yourself some time by reviewing the threads first to verify if your question has already been asked. If it hasn't, post a new thread as a guest. We'll get you a reply as quickly as we can, so you can make an informed decision regarding purchase. Keep in mind that the pre-sale forum is available for questions related to any premium product we've got: Events Calendar PRO, Eventbrite Tickets, Tickets; WooCommerce, Community Events, Facebook Events and the forthcoming Filter Bar. 
+
+If your question is simple and can be addressed in 140 characters, you can always ask it <a href="http://twitter.com/moderntribeinc">on Twitter</a>.
 
 = What add-ons are available for The Events Calendar, and where can I read more about them? =
 
@@ -106,13 +118,12 @@ Currently, the following add-ons are available for The Events Calendar/Events Ca
 * <a href="http://tri.be/wordpress-eventbrite-tickets/?ref=tec-readme">Eventbrite Tickets</a>, for selling tickets to your event directly through Eventbrite.
 * <a href="http://tri.be/wordpress-community-events/?ref=tec-readme">Community Events</a>, for allowing frontend event submission from your readers.
 * <a href="http://tri.be/facebook-events/?ref=tec-readme">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
-* <a href="http://tri.be/shop/conference-manager/?ref=tec-readme">Conference Manager (COMING SOON)</a>, for managing multiple rooms/sessions/speakers at an event or conference.
-* <a href="http://tri.be/shop/wootickets/?ref=tec-readme">WooTickets (COMING SOON)</a>, for selling tickets to your event using WooCommerce.
+* <a href="http://tri.be/shop/wordpress-wootickets/?ref=tec-readme">Tickets: WooCommerce, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
+* Filter Bar (COMING SOON)</a>, for adding advanced frontend filtering capabilities to your events calendar. 
 
-= Is there a more substantive FAQ for The Events Calendar available elsewhere online? =
+= I've still got questions. Do you have a bigger FAQ somewhere? =
 
-There sure is. If you check out our a href="http://tri.be/support/faqs/?ref=tec-readme">Frequently Asked Questions page</a> on the tri.be website, you'll find answers to more specific questions related to The Events Calendar/Events Calendar PRO. Please make sure to review that FAQ before posting a support threadÔøΩas there's a very good chance your question has already been answered.
-
+We do. If you check out our a href="http://tri.be/support/faqs/?ref=tec-readme">Frequently Asked Questions page</a> on the tri.be site, we've collected and addressed all of the common questions we see posed by users. In some cases we'll provide a Gist; in other cases we'll direct you to a tutorial; and in some situations we'll unfortunately say a certain capability is simply not possible. But the FAQ is a living, breathing document that we're actively updating based on commonly-seen requests.
 == Installation ==
 
 = Install & Activate =
@@ -198,6 +209,7 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 * German from Thomas Butzek
 * Greek from Panos Efstratiou
 * Italian from Roberto Scano
+* Norwegian from Kjell Vestnes
 * Polish from Marek Kosina
 * Portuguese from Antonio Pratas
 * Romanian from Mihai Burcea
