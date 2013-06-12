@@ -36,8 +36,8 @@ $event_id = get_the_ID();
 		<!-- Navigation -->
 		<h3 class="tribe-events-visuallyhidden"><?php _e( 'Event Navigation', 'tribe-events-calendar' ) ?></h3>
 		<ul class="tribe-events-sub-nav">
-			<li class="tribe-events-nav-previous"><?php tribe_get_prev_event_link( '&laquo; %title%' ) ?></li>
-			<li class="tribe-events-nav-next"><?php tribe_get_next_event_link( '%title% &raquo;' ) ?></li>
+			<li class="tribe-events-nav-previous"><?php tribe_the_prev_event_link( '&laquo; %title%' ) ?></li>
+			<li class="tribe-events-nav-next"><?php tribe_the_next_event_link( '%title% &raquo;' ) ?></li>
 		</ul><!-- .tribe-events-sub-nav -->
 	</div><!-- #tribe-events-header -->
 
@@ -67,8 +67,8 @@ $event_id = get_the_ID();
 		<!-- Navigation -->
 		<h3 class="tribe-events-visuallyhidden"><?php _e( 'Event Navigation', 'tribe-events-calendar' ) ?></h3>
 		<ul class="tribe-events-sub-nav">
-			<li class="tribe-events-nav-previous"><?php tribe_get_prev_event_link( '&laquo; %title%' ) ?></li>
-			<li class="tribe-events-nav-next"><?php tribe_get_next_event_link( '%title% &raquo;' ) ?></li>
+			<li class="tribe-events-nav-previous"><?php tribe_the_prev_event_link( '&laquo; %title%' ) ?></li>
+			<li class="tribe-events-nav-next"><?php tribe_the_next_event_link( '%title% &raquo;' ) ?></li>
 		</ul><!-- .tribe-events-sub-nav -->
 	</div><!-- #tribe-events-footer -->
 
