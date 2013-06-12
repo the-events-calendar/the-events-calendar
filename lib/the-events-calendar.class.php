@@ -434,6 +434,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'wp_ajax_tribe_list', array( $this, 'list_ajax_call' ) );
 			add_action( 'tribe_events_pre_get_posts', array( $this, 'set_tribe_paged' ) );
 			add_action( 'wp_ajax_nopriv_tribe_list', array( $this, 'list_ajax_call' ) );
+		
+			// Upgrade material.
+			add_action( 'admin_init', array( $this, 'checkSuiteIfJustUpdated' ) );
 		}
 
 		/**
@@ -4013,6 +4016,36 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				header( 'Content-type: application/json' );
 				echo json_encode( $response );
 				die();
+			}
+		}
+		
+		/**
+		 * Checks to see if any registered TEC-related plugins have been updated just now
+		 * and runs an action if so, so that any upgrade-specific functionality can
+		 * be run.
+		 *
+		 * @return void
+		 * @author Paul Hughes
+		 * @since 3.0
+		 */
+		public function checkSuiteIfJustUpdated() {
+			$plugins = apply_filters( 'tribe_tec_addons', array( 'TribeEventsCalendar' => array( 'plugin_name' => 'Events Calendar PRO', 'required_version' => self::VERSION, 'current_version' => self::VERSION, 'plugin_dir_file' => basename( dirname( __FILE__ ) ) . '/the-events-calendar.php' ) ) );
+			$plugin_versions = get_option( 'tribe_events_suite_versions', array() );
+			$new_plugin_versions = $plugin_versions;
+			
+			foreach ( $plugins as $slug => $plugin ) {
+				if ( !isset( $plugin_versions[$slug] ) || version_compare( $plugin_versions[$slug], $plugin['current_version'], '!=' ) ) {
+					$old_version = isset( $plugin_versions[$slug] ) ? $plugin_versions[$slug] : null;
+					
+					// Hook into this filter to execute upgrade items.
+					if ( apply_filters( 'tribe_events_suite_upgrade', true, $slug, $plugin['plugin_name'], $plugin['current_version'], $old_version ) ) {
+						$new_plugin_versions[$slug] = $plugin['current_version'];
+					}
+				}
+			}
+			
+			if ( $new_plugin_versions != $plugin_versions ) {
+				update_option( 'tribe_events_suite_versions', $new_plugin_versions );
 			}
 		}
 
