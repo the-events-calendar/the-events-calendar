@@ -3728,7 +3728,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return string the link
 		 */
 		public function newCommentLink( $content, $comment ) {
-			if ( class_exists( 'TribeEventsPro' ) && tribe_is_recurring_event( get_the_ID() ) && isset( $_REQUEST['eventDate'] ) ) {
+			if ( function_exists( 'tribe_is_recurring_event' ) && tribe_is_recurring_event( get_the_ID() ) && isset( $_REQUEST['eventDate'] ) ) {
 				$link = trailingslashit( $this->getLink( 'single' ) ) . $_REQUEST['eventDate'] . '#comment-' . $comment->comment_ID;
 			} else {
 				$link = $content;
