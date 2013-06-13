@@ -301,7 +301,7 @@ class TribeEventsTicketsPro {
 		$event = get_post( $_POST["event_id"] );
 
 		ob_start();
-		include $this->path . 'views/tickets-attendees-email.php';
+		include $this->path . 'views/tickets/attendees-email.php';
 		$content = ob_get_clean();
 
 		add_filter( 'wp_mail_content_type', array( $this, 'set_contenttype' ) );
