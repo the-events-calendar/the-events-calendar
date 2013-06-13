@@ -185,7 +185,7 @@ class TribeEventsTicketsPro {
 	 * Renders the Attendees page
 	 */
 	public function attendees_page_inside() {
-		include $this->path . 'admin-views/tickets-attendees.php';
+		include $this->path . 'admin-views/tickets/attendees.php';
 	}
 
 
@@ -340,7 +340,7 @@ class TribeEventsTicketsPro {
 		$endMeridianOptions   = TribeEventsViewHelpers::getMeridianOptions( null );
 
 		$tickets = TribeEventsTickets::get_event_tickets( $post_id );
-		include $this->path . 'admin-views/tickets-meta-box.php';
+		include $this->path . 'admin-views/tickets/meta-box.php';
 	}
 
 	/**
@@ -350,7 +350,7 @@ class TribeEventsTicketsPro {
 	 */
 	public function ticket_list_markup( $tickets = array() ) {
 		if ( ! empty( $tickets ) )
-			include $this->path . 'admin-views/tickets-list.php';
+			include $this->path . 'admin-views/tickets/list.php';
 	}
 
 	/**
