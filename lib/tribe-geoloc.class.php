@@ -410,7 +410,11 @@ class TribeEventsGeoLoc {
 		$query->set( 'start_date', '' );
 		$query->set( 'eventDate', '' );
 		$query->set( 'order', 'DESC' );
-		$query->set( 'end_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
+		if (isset($_POST["tribe-bar-date"]) && $_POST["tribe-bar-date"]) {
+			$query->set( 'end_date', $_POST["tribe-bar-date"] );
+		} else {
+			$query->set( 'end_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
+		}
 		return $query;
 	}
 
