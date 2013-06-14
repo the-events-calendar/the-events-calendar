@@ -2061,17 +2061,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function setDate($query) {
-			if ( $query->get('eventDisplay') == 'month' ) {
-				$this->date = $query->get('eventDate') . "-01";
-			} else if ( $query->get('eventDate') ) {
-				$this->date = $query->get('eventDate');
-			} else if ( $query->get('eventDisplay') == 'month' ) {
-				$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
-				$this->date = substr_replace( $date, '01', -2 );
-			} else if (is_singular() && $query->get('eventDate') ) {
-				$this->date = $query->get('eventDate');
-			} else if (!is_singular()) { // don't set date for single event unless recurring
-				$this->date = date(TribeDateUtils::DBDATETIMEFORMAT);
+			if ($query->tribe_is_event_query) {
+				if ( $query->get('eventDisplay') == 'month' ) {
+					$this->date = $query->get('eventDate') . "-01";
+				} else if ( $query->get('eventDate') ) {
+					$this->date = $query->get('eventDate');
+				} else if ( $query->get('eventDisplay') == 'month' ) {
+					$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
+					$this->date = substr_replace( $date, '01', -2 );
+				} else if (is_singular() && $query->get('eventDate') ) {
+					$this->date = $query->get('eventDate');
+				} else if (!is_singular()) { // don't set date for single event unless recurring
+					$this->date = date(TribeDateUtils::DBDATETIMEFORMAT);
+				}
 			}
 		}
 
