@@ -60,7 +60,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$this->daySlug = sanitize_title(__('day', 'tribe-events-calendar-pro'));
 			$this->todaySlug = sanitize_title(__('today', 'tribe-events-calendar-pro'));
 
-
 			require_once( 'lib/tribe-pro-template-factory.class.php' );
 			require_once( 'lib/tribe-date-series-rules.class.php' );
 			require_once( 'lib/tribe-ecp-custom-meta.class.php' );
@@ -183,6 +182,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			add_filter( 'tribe_events_register_venue_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
 			add_filter( 'tribe_events_register_organizer_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
+
 		}
 
 		function single_event_the_meta_addon( $html, $event_id){
@@ -1287,6 +1287,17 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		$to_run_or_not_to_run = ( class_exists( 'TribeEvents' ) && defined( 'TribeEvents::VERSION' ) && version_compare( TribeEvents::VERSION, TribeEventsPro::REQUIRED_TEC_VERSION, '>=' ) );
 		if ( apply_filters( 'tribe_ecp_to_run_or_not_to_run', $to_run_or_not_to_run ) ) {
 			TribeEventsPro::instance();
+		} else {
+			/**
+			 * Dummy function to avoid fatal error in edge upgrade case
+			 *
+			 * @todo remove in 3.1
+			 * @return void
+			 * @author Jessica Yazbek
+			 **/
+			function tribe_is_recurring_event() {
+
+			}
 		}
 		if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'admin_notices', 'tribe_show_fail_message' );
