@@ -150,6 +150,7 @@
 				if (ts.ajax_running)
 					return;
 				ts.paged = 1;
+				ts.view = 'photo';
 				ts.popping = false;
 				tf.pre_ajax(function () {
 					tribe_events_list_ajax_post();
