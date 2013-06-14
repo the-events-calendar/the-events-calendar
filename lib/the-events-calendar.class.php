@@ -3880,7 +3880,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			// add filter that executes after TribeEventsQuery::pre_get_posts, 
 			// that sets the tribe bar date
-			add_action( 'pre_get_posts', array( $this, 'list_ajax_call_set_date' ), 11 );
+			add_action( 'tribe_events_pre_get_posts', array( $this, 'list_ajax_call_set_date' ) );
 
 			$query = TribeEventsQuery::getEvents( $args, true );
 
@@ -3906,7 +3906,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 							   'view'            => 'list',
 			);
 
-			remove_action( 'pre_get_posts', array( $this, 'list_ajax_call_set_date' ), 11 );
+			remove_action( 'tribe_events_pre_get_posts', array( $this, 'list_ajax_call_set_date' ) );
 
 			global $wp_query, $post, $paged;
 			$wp_query = $query;
