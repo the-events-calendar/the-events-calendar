@@ -1,3 +1,17 @@
+<?php
+/**
+* Attendees Email Template
+* The template for the email with the attendee list when using ticketing plugins (Like WooTickets)
+*
+* Override this template in your own theme by creating a file at [your-theme]/tribe-events/tickets/attendees-email.php
+*
+* @package TribeEventsCalendar
+* @since  3.0
+* @author Modern Tribe Inc.
+*
+*/
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>

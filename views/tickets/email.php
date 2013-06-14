@@ -1,4 +1,27 @@
 <?php
+/**
+ * Tickets Email Template
+ * The template for the email with the purchased tickets when using ticketing plugins (Like WooTickets)
+ *
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/tickets/email.php
+ *
+ * This file is being included in events/lib/tickets/tribe-tickets.php
+ *  in the function generate_tickets_email_content. That function has a $tickets
+ *  array with elements that have this fields:
+ * 		$tickets[] = array( 'event_id',
+ * 							  'ticket_name'
+ * 							  'holder_name'
+ * 							  'order_id'
+ * 							  'ticket_id'
+ * 							  'security_code')
+ *
+ * @package TribeEventsCalendar
+ * @since  3.0
+ * @author Modern Tribe Inc.
+ *
+ */
+?>
+<?php
 // This file is being included in events/lib/tickets/tribe-tickets.php
 // in the function generate_tickets_email_content. That function has a $tickets
 // array with elements that have this fields:
