@@ -135,7 +135,6 @@ if( class_exists( 'TribeEvents' ) ) {
 		$title = __('Upcoming Events', 'tribe-events-calendar');
 
 		if ( tribe_is_upcoming() || isset( $_REQUEST['tribe-bar-date'] ) ) {
-			$title = __('Upcoming Events', 'tribe-events-calendar');
 
 			// Use the displayed dates for the title
 			$start_date = date('Y-m-d', strtotime($tribe_ecp->date));
