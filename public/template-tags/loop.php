@@ -134,7 +134,7 @@ if( class_exists( 'TribeEvents' ) ) {
 
 		$title = __('Upcoming Events', 'tribe-events-calendar');
 
-		if ( tribe_is_upcoming() ) {
+		if ( tribe_is_upcoming() || isset( $_REQUEST['tribe-bar-date'] ) ) {
 			$title = __('Upcoming Events', 'tribe-events-calendar');
 
 			// Use the displayed dates for the title
@@ -145,7 +145,6 @@ if( class_exists( 'TribeEvents' ) ) {
 					// get the date of the first post
 					$first_post = reset($wp_query->posts);
 					$start_date = date('Y-m-d', strtotime($first_post->EventStartDate));
-
 				}
 				$format = __('Events for %1$s', 'tribe-events-calendar');
 				$args = array(date_i18n( get_option( 'date_format', 'Y-m-d' ), strtotime($start_date) ));
@@ -161,17 +160,16 @@ if( class_exists( 'TribeEvents' ) ) {
 				}
 				$title = vsprintf($format, $args);
 			}
+		} else if ( tribe_is_past() ) {
+			$title = __( 'Past Events', 'tribe-events-calendar' );
 		}
+
 
 		if( tribe_is_month() ){
 			$title = sprintf( '%s%s',
 				__( 'Events for ', 'tribe-events-calendar' ),
 				date_i18n( 'F Y', strtotime(tribe_get_month_view_date()) )
 				);
-		}
-
-		if ( tribe_is_past() ) {
-			$title = __( 'Past Events', 'tribe-events-calendar' );
 		}
 
 		if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
