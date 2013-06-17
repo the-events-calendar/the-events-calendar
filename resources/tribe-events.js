@@ -206,7 +206,7 @@ try {
 	}
 })(jQuery);
 
-(function (window, $, dbug, undefined) {
+(function (window, document, $, dbug, undefined) {
     /**
      * @namespace tribe_ev
      * @since 3.0
@@ -694,9 +694,9 @@ try {
         view_target: ''
     };
 
-})(window, jQuery, tribe_debug);
+})(window, document, jQuery, tribe_debug);
 
-(function (window, $, td, te, tf, ts, tt, dbug) {
+(function (window, document, $, td, te, tf, ts, tt, dbug) {
 
 	$(document).ready(function () {
 
@@ -708,6 +708,7 @@ try {
 		$tribe_events.removeClass('tribe-no-js');
 		ts.category = tf.get_category();
 		td.base_url = tf.get_base_url();
+		ts.page_title = document.title;
 
 		var tribe_display = tf.get_url_param('tribe_event_display');
 
@@ -749,4 +750,4 @@ try {
 			debug.info('TEC Debug: tribe-events.js successfully loaded');
 		}
 	});
-})(window, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);
+})(window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);

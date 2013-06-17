@@ -1,4 +1,4 @@
-(function (window, $, td, te, tf, ts, tt, dbug) {
+(function (window, document, $, td, te, tf, ts, tt, dbug) {
 
 	/*
 	 * $    = jQuery
@@ -28,7 +28,7 @@
 			history.replaceState({
 				"tribe_params": params,
 				"tribe_url_params": td.params
-			}, '', location.href);
+			}, document.title, location.href);
 
 			$(window).on('popstate', function (event) {
 
@@ -200,18 +200,21 @@
 								$('#tribe-events-header .tribe-events-sub-nav').empty();
 							}
 
+							ts.page_title = $('#tribe-events-header').data('title');
+							document.title = ts.page_title;
+
 							if (ts.do_string) {
 								history.pushState({
 									"tribe_params": ts.params,
 									"tribe_url_params": ts.url_params
-								}, '', td.cur_url + '?' + ts.url_params);
+								}, ts.page_title, td.cur_url + '?' + ts.url_params);
 							}
 
 							if (ts.pushstate) {
 								history.pushState({
 									"tribe_params": ts.params,
 									"tribe_url_params": ts.url_params
-								}, '', td.cur_url);
+								}, ts.page_title, td.cur_url);
 							}
 
 							$(te).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev_listView_AjaxSuccess');
@@ -228,8 +231,8 @@
 					window.location = td.cur_url;
 			}
 		}
-		dbug && debug.info('tribe-events-ajax-list.js successfully loaded');
+		dbug && debug.info('TEC Debug: tribe-events-ajax-list.js successfully loaded');
 		ts.view && dbug && debug.timeEnd('Tribe JS Init Timer');
 	});
 
-})(window, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);
+})(window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);
